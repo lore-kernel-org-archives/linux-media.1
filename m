@@ -1,213 +1,145 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from flow-b6-smtp.messagingengine.com (flow-b6-smtp.messagingengine.com [202.12.124.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9874120E702
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 00:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784766302; cv=pass; b=g2fcGIULHh3DnuIkhJ/+nVtygR9uDTEVi1FURLieD9akqnTQ/oWOGdmtW1qpdmXrA3UF0E75rqocOpP2kftgRvTObacp/BbbRRIAds/U+Snt8WIdMKOkqtoF7CEROoUeuKOIatgfHRfhex79sneTIK2Gbgu4qT9n3Vdw6b4KgI4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784766302; c=relaxed/simple;
-	bh=kWEc23GO5qIxiQrzPxnHHaclfVo15f3n3UsjCeW8qhI=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BLAwmyxDWD4FVboC5gPHDxUfm34qyHfs5uYSE5fOhf96nOLbTL2Ie8m6JkhFap+2aIDkY4KEz3GDEMZ8VaqgxAFsLJhU5I7NYj3Tn7JLzkNJ+LuqlWJqAz4LIDbpFUVCq9FqwXR0g/RbORvO1DJSjESCRFRnxBIr/yTEPN5jN2A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=oun6Zcv5; arc=pass smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA3F17A31E;
+	Thu, 23 Jul 2026 00:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784767618; cv=none; b=Lkx+nawOz1LvztSUwx+iJjSzLogV4SssUNHGu+VTWHhOpCGVtvmntvOurXFLBGtjLIHb/dNhCd4OWzxvsxuffd/S6VcBwSgJ+n/8Gw4op8HTqFF5Un31z7XrZ9UYM/R6+inmOBlETJsHwRklxvG6uNSJRGSpWeU94N687RAsWVM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784767618; c=relaxed/simple;
+	bh=OJHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SnD0QJiRasIdFtxfg9ahnsAk0M4ZUhAyTxUof8/L0YK9FiyI+Y06B4rBAPOY0a/OjIGahdKZH3yE+V8505L+mwOTZE6lORgcuaqlHtwqEA0m6QFKTfN9pqVAWUI5dPJlJo9QJUmfbnsETetQjYnkitE+jagSLQa7AI+tEn45Q1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com; spf=pass smtp.mailfrom=gahingwoo.com; dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b=lqS8Zdsv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=E+QVGlWg; arc=none smtp.client-ip=202.12.124.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gahingwoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gahingwoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="oun6Zcv5"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-384930ca5e2so48860a91.3
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 17:25:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784766300; cv=none;
-        d=google.com; s=arc-20260327;
-        b=pbiINWIT8QIrILvrjF7YXu5hJAlUnpId3jrhIH7amlgIGS9DkLQ9553sABym6e1kwJ
-         ADuxzgRE++YR/Si222gNXAG0++2mFlh2Zate6ef2+YBiXlCnqTs+7sr1a2jULtrYoLFZ
-         9bMTt/4Jzqyk4qd4Rr/bu7c5acsaxOlDXwWV4JU9CdUA8BLH8jb+1+Op/oX7D8sKyWT9
-         xC2GMa5XqJg9yzDNNb+NbileEGHd7rD2tKet/mFvcuH7o5wXgDGSyY6cPoTds0oUjSjO
-         ucqt58XG/YYrQE9kyKUaJCS8Tx/tYRhJ01YFNmo4xdXy/nctSGGUz7xb+kh16U/RkIyU
-         T4jQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=QK6NTIZ7U7u2uxukmeUbpT6BYUSoQRmwBsUnN+HFDzo=;
-        fh=m6smH6m329WLV29CjwJWhqQSd+rnnb7henpfG0S78TA=;
-        b=OUSqS0lt8VPYKD5SB+9c1Dj51t7ht6/bP0JJ48+0SekVWTxbJ9HrbFYNJVr0B/Rrpv
-         dXqUWbdMXbb1IFMQea0VWaLb3RU0X1fuemUELYdcGsC9Imeb0PC4wjHeQO2viIiMC1NP
-         hfX7J/1R9rToBGYBP+XizaysalKblRzs4yl3/BmON5ghDyxfbr3K3U4MJXyuDBZKhHAm
-         CPpaEYsyYe6NgB0e2mHrLj4aZYz76umn5pivJ2wiOYbP4HFqahsY1jk+nMQc5T/1r1Lt
-         ni8nLA87kBtEHD26PRQMG7s49x7hAtEgCeKq5ch4yaaEULuEwNtvM8ahz1sYK4uEuddJ
-         CYYw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784766300; x=1785371100; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=QK6NTIZ7U7u2uxukmeUbpT6BYUSoQRmwBsUnN+HFDzo=;
-        b=oun6Zcv5grp7EeniF7UUhMaLICNreZo8CbbWa0CsCUwKl8jahpOtGKIgiV7SzXWrHj
-         OzMH0pckHuVqYSWq+ZTWV7nKkLUWQ/Gve+KmJYzR6tN3vJ2R6vqsL8slfTjqNANjNeUl
-         hZzVlqN6I3nAlA6X/FMj+EYZL4GxAbqtPTiaUNcUYz32FaL7b18c8axc/iY4erLE80cC
-         1iDhg62fKxdnGrwaQvazPXx10enxBUyBjJYiME4GVSVgcgnx3t7sjwaZHcZ7pe/7Yip+
-         xSi5Br9ABIhH+4fFObiEiLfXP8q8xklfqqpY5zh7Ha+Y2mvdvOs/Lu8Dax6bngiSDYwP
-         qMXw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784766300; x=1785371100;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QK6NTIZ7U7u2uxukmeUbpT6BYUSoQRmwBsUnN+HFDzo=;
-        b=SDK5OnwyuzYWIoQI6VpirNz62a2w+sOj38YpsD89lyXEw1hNNtj8vvtQiZt3QptoAt
-         BS1DTx60AgY8mxaD1iG8R+9YFU3T1hkhIfzBnaLDjofPv4gZz69LffljUduVEjKFqli6
-         t0CphL3n/R8BbN9OYKEitPXQeU15AuHnsQz0/voO7/LmzxcOfknogi6XaxaqCKo4FKJX
-         y0ViRLfEzAJ3hevmk5K5nNIKmp2xVIaX5n5C7lTN6rzcpMC2WIpXG6GSGr7eWzSX00L8
-         mALLzYYHbkEKRYMNKTwk4cyW3XWC32Bg7drITzjXqo8/r390yTH7CrtfZjACHXdcW1jA
-         MLPQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rom62r3hj0qLoylS6ArAq0ehtRQnzfi+CZ3Q7CcU/PojywrKGJDE/y9DK4f70ExPdQEdFIWWQZnFNm09g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDXq1xcewvQheTR9MNTf1gcSCxkYcSR5Zw5bWTuHFgJAqdXABo
-	/1TAnco3KU0Sbj1OrX4I0aoMc4x+5yiLGem2AJNjaOlpXEvB2g3a15zogkG3qsF9GGn159C+3zO
-	bxis8ESOgd+sbAT/Rf0lzy7ExgSxgufiDQpJA7W+4
-X-Gm-Gg: AR+sD13t6V+2ioEA/ZPxpK4Izzuxde2rXPzaMCzh8pA7hHep/WQPPs94iYCNK3g4nh5
-	/an3cfd4szIHZ0bLaUNfI6M3o/fNC89/Y9+FYTJhRK5jJyoyqsAFOe2Y0QbteEmQO0oH36ZD7p6
-	aiylU5N7VSLD5voxGCnHkgBE5cfmnh3TBSaH8572X/JUD8Xj/tNCODzmq4JxolEQMsLYcGC08Ws
-	rVqlvGzKrg0eSNwp4FsHouUq5p+k6Az4Gq15qeB5Fz7OuGOX77F2CPkPHgJZrQA0u7N4poJcgvP
-	ZUdhHt3JYPZDaLgBmyDUiRZ96XabjLHkibytBeYpcM5A8k8I
-X-Received: by 2002:a17:90b:4c10:b0:381:5bd6:eb19 with SMTP id
- 98e67ed59e1d1-38ec652509dmr815476a91.18.1784766299151; Wed, 22 Jul 2026
- 17:24:59 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 22 Jul 2026 17:24:58 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 22 Jul 2026 17:24:58 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <20260720111259.122911-1-dwmw2@infradead.org>
-References: <20260720111259.122911-1-dwmw2@infradead.org>
+	dkim=pass (2048-bit key) header.d=gahingwoo.com header.i=@gahingwoo.com header.b="lqS8Zdsv";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="E+QVGlWg"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailflow.stl.internal (Postfix) with ESMTP id B17A2130030A;
+	Wed, 22 Jul 2026 20:46:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Wed, 22 Jul 2026 20:46:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gahingwoo.com;
+	 h=cc:cc:content-transfer-encoding:content-type:date:date:from
+	:from:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=fm1; t=1784767615; x=
+	1784771215; bh=OJHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=; b=l
+	qS8ZdsvHfjDg2wvyG+Ep/sVaJebLS7C5PlXP+Q2i0DKw1qJxmgkJ8UuPSlnMir3g
+	hhUGiLVEgw+AsQHDDi9U28Gf0W5tqySHP3AqfBB0Bn1dSOr0aCn30SLRA+eUqGyM
+	8dP3Afb7v/v93wfQ0SkJXUKQtRbMGaAJ101MZu9pwMq5nLlaA3pinTgShBYPiYzz
+	RU7Ws/bnGklaBPmrQHs8/lr5TXLmJudGbD4Um1mHjLtbeIobXgDEqOgmmtfoj+lp
+	ujCUaZWuJS06D4ht2ZuAm5h938Z22pUpC92vBE1WAEe1kPBak28qH9oF4Giomul4
+	RLkhDZvuo+qp/kThAQhzQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:date:date:feedback-id:feedback-id:from:from
+	:in-reply-to:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to:x-me-proxy:x-me-sender
+	:x-me-sender:x-sasl-enc; s=fm2; t=1784767615; x=1784771215; bh=O
+	JHKUYMFKaoMIxRVzHh5k7kdywBvMNCAGk+h8PoY7yc=; b=E+QVGlWgS2Vm5PeOE
+	wcpyw+ILTgsCfRB8LdWIEq2yFlMBhiC+B0LwVDRqxhrAbPmDuaODB5eHNx7yVx85
+	O0cDAXDxf9U7G/MpUb6NMjqOCFAKiINRI3LVmeqUf2qRjTadKsfryRTKQQE5AcPZ
+	lTUVI6ZFph7LGLY+C4qRDN44LTHBRKy0cAEZ6nl8T1CocL1BcwaHpM6WrjTqdRi4
+	PTm7286LwQgRtrfNjr+NBOyz+qNghUUf4tqqgMAxChV0pAbRyVU337YbAIPIQfpB
+	bI5L95PuH1ymptQ24vYrpfPFP9fneUCv7IwYvJQ7IA8BDva5VzYoS9EXkx0qVTjH
+	pKPjw==
+X-ME-Sender: <xms:f2RhavNAZu00QFN0kLfWDtBOwMLBnbNn7cyezesFnBglAxpNFNf6kQ>
+    <xme:f2RhapYdT6i9aWuR_LOUOz7QZPHj5ZrYEIFhdiDKNh0T0cJ3yXhAVUnh4exkWMkSp
+    nmuZQ7oxyZb4aigP7iNXXG-FObr7Vq4fBxJPQrCHeJe1rvRvJ3r_gg>
+X-ME-Received: <xmr:f2RhavVht6xTFW_3UB3sDP1NcG7ZWF3IUvuCVcvgxL-L0NIydy-eRnm0SirmmzkBAfbo2XDaEklIk5gscvmFKck4NfAYVzN0Hdq9Z0rlYbGc>
+X-ME-Proxy-Cause: dmFkZTEokqfq+D3jpgPBuTiBa0dJJRdul8tMci1cvXMe3NbvnPtDgyeMlSfDNY2VQZCYm2
+    LXht2BNYdL8iUtCGHSZhcwG7q/Kwl3zIUaoC3BGOdInsGrs3nFYGV0l20ZTGRKX33xkdxH
+    NrkbmddZ2CiaNePh2o3WZ/+U94U7XFDTfdNEN9WbkyGOyRxMeS4dRBw6ne/XhrYOCTO3Jl
+    ClCrSi9gz0eIQPQAjjkl3Sb4QSzuiMuP32yq/tuzWd8kGBQfEHsoAml+J1LR2BOOYVtNmX
+    Rs6na04Rv82XA/POUiW/BzcYn+UppGRk2cBhE7PHgbgeUCkSX0KVVP3s4tZcULINdIF0tY
+    +eQ/XxpkNyngyjE20TnzMlQSgfnmZAsk4QO4SUKbHdtLgwmnDzvZMr89cLT+YAQlPLD8kS
+    HQVwsOjoN6yIJS5W304CtQIY7BaKdW4qVsOlS4nAt5IX7bCfaAn7WAXpCd6ffY4G9D65v3
+    nwnIDTNwlUMBM6CuBv4cKSpF2ZQZafXm/Nx2oGwLZnZKlULKUf7/XJ2NjHpaL9F2Jo66Ih
+    QdREgIHQ6LOsNQLAZgFnecJztYOxUo7sX1tIRFtjMJpPsu1YU5mr7/dWYU4HyRF1xfU0Jo
+    sNImIILq/J0mefNqxkxyFzL5JQ4O2a9ibKnqCiOKT330qChgE6JzmSPn5kmg
+X-ME-Proxy: <xmx:f2RhaoBGnUNe0OzkAL9F4YZcdVP-gTXibNIx88zoEyfctr8ues4L-g>
+    <xmx:f2RharJ0MXZglop8uPFkV2YEPJF0suvzDuDi6YoOM_1kWdke7YS2cA>
+    <xmx:f2RhamtrkAiEubMyvmFs98MHBE-H_gQacrbRlRpkGmNSHuWCmNRVqQ>
+    <xmx:f2RhajXpTlEUBhTfzZXCDc0fO5IKWCqRXGeOqRy2ZSj3j5ZRCpJTKw>
+    <xmx:f2RhatQrWXI1KlMxZrJ5bfuWMOaSqZuupZls3oGhvNT5ZuGxRb7rj-w4>
+Feedback-ID: i7a5e4b5f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 22 Jul 2026 20:46:49 -0400 (EDT)
+From: Jiaxing Hu <gahing@gahingwoo.com>
+To: nicolas.dufresne@collabora.com,
+	detlev.casanova@collabora.com
+Cc: mchehab@kernel.org,
+	heiko@sntech.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	ezequiel@vanguardiasur.com.ar,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Jiaxing Hu <gahing@gahingwoo.com>
+Subject: Re: [RFC PATCH 0/3] media: rockchip: VEPU510 H.264 encoder for RK3576
+Date: Thu, 23 Jul 2026 12:46:42 +1200
+Message-ID: <20260723004642.2075233-1-gahing@gahingwoo.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
+References: <20260722073417.2064667-1-gahing@gahingwoo.com> <082e1141c38205222a91abf13b1a97d9a00e117a.camel@collabora.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 22 Jul 2026 17:24:58 -0700
-X-Gm-Features: AUfX_mwUpcRZcR396JGdaH8WFVBtAEhVFxsR1fJihR2mu_ygz-fygFCraN7fXhg
-Message-ID: <CAEvNRgG-K2HOJoMmdMSH0gEuLNhgX2tqUAakoRqEx6noNyU3vg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 00/11] KVM: Allow alternative providers of
- guest_memfd backed by PFNMAP memory
-To: David Woodhouse <dwmw2@infradead.org>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Connor Williamson <connordw@amazon.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zhou Yuhang <zhouyuhang@kylinos.cn>, 
-	Zi Li <zi.li@linux.dev>, Dan Williams <djbw@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
-	Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk, graf@amazon.de, 
-	fgriffo@amazon.co.uk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-David Woodhouse <dwmw2@infradead.org> writes:
+On Tue, 22 Jul 2026 20:29:53 +0200, Nicolas Dufresne wrote:
+> This is really nice to see interest in enabling encoder for this chips
+> set. I'm adding Detlev in CC here, as he's actively working on RK3588
+> encoder, which is quite a similar chip.
 
-> For dedicated hosting environments, there are a few reasons to prefer
-> using external PFNMAP memory for guests, rather than kernel-managed
-> memory:
->
->  =E2=80=A2 No struct page overheads
->
->  =E2=80=A2 Easily managed in 1GiB pages (or larger chunks); no fragmentat=
-ion/THP
->
->  =E2=80=A2 Faster kexec/KHO live update (every millisecond spent faffing =
-around
->    with memory management is an extra millisecond of steal time taken
->    from guests)
->
+Thanks, and thanks for looping Detlev in.
 
-Also, no need to split/merge pages when converting from private to
-shared if the host mappings can't depend on the refcounts in struct
-pages :).
+> So Detlev driver, which finally got P-Frames support few days ago
+> (he'll explain why this didn't work initially for him) [...]
 
-> Today, there is only one implementation of guest_memfd: the internal
-> shmem-based page cache in virt/kvm/guest_memfd.c. This series allows
-> for other code to provide "a guest_memfd". This is an early path-
-> finding proof of concept tested with AMD SEV-SNP as well as non-CoCo
-> guests on x86 and arm64. I'm planning to build a memory-based file
-> system which gives files for both guest_memfd as well as memory-based
-> storage to allow things like userspace VM and orchestrator state
-> to be passed over KHO/kexec.
->
+This is the most useful sentence in the thread for me. RK3576's VEPU510
+and RK3588's VEPU580 are the same VEPU5xx family -- same vendor HAL flow,
+identical reconstruction/reference-read (recn_refr) path -- and that
+reference read is exactly where every P-frame stalls for me: the first
+inter frame of a session hangs the encoder watchdog fetching the previous
+frame's reconstruction, even though the reconstruction is valid and my
+register writes match the vendor byte for byte. So whatever Detlev hit is
+very likely the same bug.
 
-Thanks for raising this, good to know that there is more interest!
+Detlev -- whatever you can share about why P-frames didn't work at first
+would help me enormously.
 
-Vishal and I have been working on guest_memfd with HugeTLB for a while
-now. I'll be restarting upstream work on HugeTLB after the conversions
-series merges.
+> While this isn't invalid [...] the community agreed direction was to
+> introduce V4L2 Stateless Encoder specification [...]
+> [...] we decided to look into making drivers similar to how we do GPU
+> drivers today. This is possible today thanks to the Vulkan Video
+> standard.
 
-Vishal, Frank and I brought up having guest_memfd with HugeTLB with
-VM_PFNMAP mappings at a guest_memfd biweekly meeting a while ago. The
-consensus was that guest_memfd HugeTLB must support GUP and so VM_PFNMAP
-can't be the only way that guest_memfd supports HugeTLB.
+I'm not attached to the stateful interface -- I used it to get something
+running on real silicon, not out of conviction. Before I commit to
+reworking, I'd like to be sure I understand what "converge" means here,
+because I see two fairly different directions in the thread: Paul's V4L2
+stateless H.264 encoder (kernel-side reflist/rbsp/RC core), and the
+Vulkan-Video split you describe for Detlev (thin kernel module + Mesa
+userspace). Those differ a lot in kind and in effort. Which is the
+intended target for the Rockchip encoders, or is that still open? Is
+there a branch, early code or spec draft I should read beyond Paul's
+series?
 
-Your proposal is true non-page-struct memory, which has been on the
-discussion guest_memfd biweekly discussion backlog for a while
-now. Google is definitely also interested in this.
+Either way the RK3576 hardware enablement and the reference-read fix are
+shared with RK3588, so I'd much rather contribute the VEPU510 side to a
+common base than maintain a parallel one -- I'd just like to know which
+base that is before rebuilding on it.
 
-Frank also described some use cases [1] other than HugeTLB and the
-regular PAGE_SIZE pages from the buddy that is currently supported.
-
-I submitted a proposal for LPC 2026 to discuss the interface. What I had
-in mind was to have the KVM_GUEST_MEMFD_CREATE ioctl take a "template"
-fd. guest_memfd will then read off what it needs from the "template" fd
-(ops, like you have here), and the "template" fd could be VFIO [2] or
-HugeTLB.
-
-You have a provider_fd =3D open("/dev/gmem_provider"), how about passing
-that provider_fd to guest_memfd, where /dev/gmem_provider could
-represent the page-less memory, like:
-
-  ioctl(kvm_fd, KVM_GUEST_MEMFD_CREATE, provider_fd);
-
-It would be cool if the fallback could be set up flexibly, like:
-
-  ioctl(kvm_fd, KVM_GUEST_MEMFD_CREATE,
-        [provider_fd, fallback_provider_fd, ...]);
-
-I think guest_memfd should be the wrapper around other memory providers
-because then the CoCo shared/private logic and special page table
-handling for both host and stage 2 page tables is centralized in
-guest_memfd, and also, KVM doesn't have to understand other, different
-kinds of fds other than guest_memfd.
-
-[1] https://lore.kernel.org/all/CAPTztWajm_JLpp9BjRcX=3Dh72r25ELrXeGkOXVach=
-ybBxLJGS=3Dg@mail.gmail.com/
-[2] https://lore.kernel.org/all/CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=3D=
-D8ky94SCsw@mail.gmail.com/
-
-> This series lifts guest_memfd's operations into a small ops struct and
-> converts KVM's own gmem to use it, so it becomes one implementation
-> among peers rather than the only game in town.  It also adapts the
-> SEV-SNP fast paths to page-less operation, plumbs iommufd to map a
-> guest_memfd-backing dma-buf as CPU RAM (not MMIO), and adds the
-> provider->KVM revocation primitive that makes overcommit-style reclaim
-> possible.
->
-> It's largely AI-built at the moment. My main design concerns are around
-> how we tell that a given file is "a guest_memfd", and how we plug into
-> IOMMUFD. Presenting a dma-buf was the less intrusive choice because that
-> path already has support for taking pages away, but I'm less convinced
-> that it's the cleaner choice in the long term.
->
-
-IIUC from this series, you're creating a dmabuf fd out of a guest_memfd,
-what does "taking pages away" mean, in this case, from where/who?
-
->
-> [...snip...]
->
+Thanks,
+Jiaxing
