@@ -1,343 +1,193 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38CA3345EC7
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 16:01:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDF7937F334;
+	Thu, 23 Jul 2026 16:05:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784822516; cv=pass; b=YT+dCglkCdgE5n/OPIO1bksRZo2cN6ch4YjLKCtNF+O+wb9lHdvFeDYJBPm3Y1qIc7RawZpNchrVSJ3Zq3/hZWqHWnWsqfvNngOMDyK1BlwKD7DtUOqQnx2/kmGXgUJ92A2+tK6/BG/sQcsD+XFk89tU9lD6oVNutN+NukEmtRc=
+	t=1784822736; cv=pass; b=pNocRV0MtncQrEHZZuO+6Vv/txxjqDJfcTQxLXhieJ2ByRSysNEta3XOYVrD/dwAvnvj0bk6od47IuJS8eCcSt/wUMfOXYmN/hn+d84fcwjh9x687HfwEDzS0pQn2+5Si5YKg8h879bOklP0JMWWDZpdROVsR0MG3h2JM7sj3pk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784822516; c=relaxed/simple;
-	bh=SzUUVckqYsDvAqBaHY0hD3E/5RcsItKvUC4bmUYmzx0=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fBQNvDMBV/ZtoJH9apjWsu01FLCH5hBrrkQWsLhJz/1//mdX91rvat7AFQzLfrWfXDToIiTIVP8k33P8PP4iYubGmhIPs9ch5E11FtiBMdVris3GXHRsHGs4pkEGc/GlQstlx54f4tGDxFWRrdR/Hy40jz0Y91BGpBPB3QR6mQ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q02RNlhZ; arc=pass smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1784822736; c=relaxed/simple;
+	bh=skLBzy+/vuF2Wqr1DEtLmyZrUGnFRZ3Dc/xMGl47KD0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=u8R7nUAB+R0HKufhkVxAwuVZb6opatev8zOggM/RogtpsYbtmWcaPfQymTJkU0esTsnG31S3PpVb03s5wBFbQ7GjwrDg35KqmuxsJeAV4xiqxtJOpj/10Bky/bctjTh7rh2EcL2dx5JMfm7MWKr7f+TvMadQmumYV/6/KhE3NzA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b=eJpZoht0; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q02RNlhZ"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38e69bdb0fcso676094a91.1
-        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 09:01:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784822514; cv=none;
-        d=google.com; s=arc-20260327;
-        b=M64k1K+bWrl8+Dj5vZYD56HQBpEYj6T679+466Wm1DGByQyvl+Pu7t1zJRGSJoUB3B
-         4JwvwIyz3RQAfFYjagDJNqhwT/eFQvF/BjrNNVt6ipTt885S0H9uQhW8eRJlQFKkxtF3
-         JCtQPxNEEjz3aYWFVXSl/w8bI5tqOyl9hdETqtFGyDE6hQdEmaKQmqqeSxEP+yeBKh6X
-         BfnweItA48s39jx7ygBNoUQapNVVeKTcAJoNYCkhaZzffCufgzbYobuBCuZvPkxl/pZ/
-         3iSD+nzhcIn0I93g7PKr18GJx++ph2yNV7XHP8nszw+4gm01+NG8ETCl6lvNfZ6F0FKa
-         xtFw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date
-         :mime-version:references:in-reply-to:from:dkim-signature;
-        bh=SzUUVckqYsDvAqBaHY0hD3E/5RcsItKvUC4bmUYmzx0=;
-        fh=dyM39ouluZveTTXg1m/Sp8OIJ8dGJ6lYNQA0MiPYQZw=;
-        b=eetMbNiol4R7lgNihJTOUgcBJomEVjfbrraOoBeuCZzYbtTNBwF4BZVST+JjbviE4s
-         NQSnEbZVABDMlSQof0CQxuelPLHN2vEkG+vE2mPnj7RloXjxTSU6x/I1vmOrnl76w06U
-         mnLTShYnfv67aQ4dNzR8L+vCYmrufLXJpQ96qox2Qf5T+cpltbp6BBrAHNI1yRqXi9Hc
-         wch+JFQIyzDkTZY4nMIWgZ/YtsnqdCIWTGbCQqNmwlMlP1dcG2d8PyA1Ip/1rsHU2be7
-         sf/SulNPlQIZXT1v7yhDVgBG+yEVijT9Awn7KuBSGEd9IBKrTyKTsQEvv0TLHl2BXOdG
-         RiAg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1784822514; x=1785427314; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SzUUVckqYsDvAqBaHY0hD3E/5RcsItKvUC4bmUYmzx0=;
-        b=Q02RNlhZlAki0f+Qxs6Qob1Srk+bm3tIaaPqqH42PuK7wQB/ud0CM5nxN3/L0ClDKX
-         tuIfR/jOR4EwYeVW782lAhLKg+GC5qAp/nBDYzNWBhAPoRKfc+bUeiQldKyTfILsn7Z9
-         Thxb10VPzOwseAR9Do2O09cM0g9DLs64iJKmnZOsITVnSnOVbJyI7rkNUM3vkjs4X4qa
-         KEhOWlY/ZMMJ5gCXqKbzgTf7fx/5+mdEr8a/kTujzfaaA7FL+hn9erz25V8EOMaXrUPd
-         kyqQAEuxMbmoVIBRVY+KnxfmQ4v8t/9nz+AKPTnUaYDRIz5l1BV20C6E45ocvwMvuEEu
-         oOJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784822514; x=1785427314;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:mime-version:references:in-reply-to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SzUUVckqYsDvAqBaHY0hD3E/5RcsItKvUC4bmUYmzx0=;
-        b=LLdMVzWHPeKehpPEUl0FMtlWN93JMuwBdUemQOCUFAuZA2ssRINLtreVFACWBsmRjz
-         XintzQycKPM1Tr/SV/l80uv36eV+c+0BVvR9QXWYobfaANX1hUHEYTdBtOoJz+oJyvmQ
-         YQs1NdsGcTPuzf8/wSHn8xJkmq+CfuLn24NVGH37WjzZSvzZP1uBWBLx3Crb2x6LC5wh
-         Nt289w629wWsQe1l2Foao7NToCXMAEIZaDqa/Vms6G+vHhkp1wnM22d1v+eoHP+Z7op1
-         EE0FtVjJCRDm4EKpQ9Y/Y8DSqvB1RuGkStyQArtX8bCqSU/dXBimJJgMvfYVFwqnC5TG
-         sqJw==
-X-Forwarded-Encrypted: i=1; AHgh+Rraf5xmh4bXgNlaJvDKgCIfEK509Z2SuJ2azk0NXAobNv+0rRlQFrKv/p6eykDsaQqCjEt6VBhqDyTdIQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YySrhBUUAU+U+m/f5HqtrFX2v7gWR0EM8fgx6c9e/u0/L6I/MNR
-	CBkBxjrdlPD6ZhTXqH+PlO3hzSsMk6o7cM1kLfX7AIPKHzt6U6Wuvrx1HE7YOmUp9I5CtndA0Kd
-	1Mr1nCUaBlfUcg8IpziOCjDfl0SnVfa4XagZfSIB2
-X-Gm-Gg: AR+sD12wGc0GVtNszoT6m50nYUo1GCGq0ri7FEu+Hdjt8/eNk+TEH3JQzkXAmU3usSz
-	BbnJIeG4/pAbI2hZA8lNoWYX6vo+BmcaQtVgLmc/sjd8+gTshomF67Vu6qlL1k+11LWzq0U8v/H
-	fUdjOU6AkXcz3r96kS9sEUT/0AR3QxLqCYXq4/CWwuBQwNqnriNtV10RTkxVvLn0X7qDwsxnxPS
-	YRymSoWTDG4Rx9ij+8BQhYL7qa08C/UY/3sXlsbK0JfGiahEt8GXP7KQgIuC6SCF5sSNC+IvKaG
-	H7iFGzfKesRy+NoirrSmJ7QcNptrZiWbcP/6Mpywz9/9csCO
-X-Received: by 2002:a17:90b:4b49:b0:38e:4482:ab14 with SMTP id
- 98e67ed59e1d1-38ec6a83858mr3735973a91.32.1784822512910; Thu, 23 Jul 2026
- 09:01:52 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 09:01:51 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 23 Jul 2026 09:01:51 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org>
-References: <20260720111259.122911-1-dwmw2@infradead.org> <CAEvNRgG-K2HOJoMmdMSH0gEuLNhgX2tqUAakoRqEx6noNyU3vg@mail.gmail.com>
- <1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=benjamin.gaignard@collabora.com header.b="eJpZoht0"
+ARC-Seal: i=1; a=rsa-sha256; t=1784822708; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=bHIn2xAiyt58HkFzp8U/ErAnHctniV0Mph1/awebdm1RH/oFCdM/TK10IcA3T5ZMvCqj0wzVHZfFjjzLMn0fcKB0AjisnyyEvpSLh6HThV5IZuS6HcR14dN4hkGzDAGeECVdpKIIT/aSCSHAAEDayYH9jewG3o6lCv38TWRlb0M=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1784822708; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jWaDF4Uendc6ROAfttQ+OOquYaHx6ZKga5wEFtSlfs8=; 
+	b=jxZJ8I11B2gyDFF4mvu6V+iDhjEB3haISOrA+2aq1GLIhWyFkyEklOWXoe9tk3bhuxlWwivUKSdUadMUTgLaIRPdyWd5Cl5q0pOB776ILNFn7fh4cc8E7hKV5Z8UMQYpTj0pjSJlYpSsaUjxfW9CARw1qr87iLAB8qruX0sS4Mk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=benjamin.gaignard@collabora.com;
+	dmarc=pass header.from=<benjamin.gaignard@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784822708;
+	s=zohomail; d=collabora.com; i=benjamin.gaignard@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=jWaDF4Uendc6ROAfttQ+OOquYaHx6ZKga5wEFtSlfs8=;
+	b=eJpZoht0fbVBi7sGRWtb7OXyoAw6dusENukbaco7c5lA9xLpINlI8LimibApz6ya
+	9TTyyFEtWEWrG1rWQUUkhgGEjcu3tPG/WkqQ/zftCZv9DE3RLX1I80LCSFgGSqwjSOl
+	Z7/rakAMLCSJBMk+MFScVT2ywVyiy9D9zB3cwJAs=
+Received: by mx.zohomail.com with SMTPS id 1784822706512651.4039423768537;
+	Thu, 23 Jul 2026 09:05:06 -0700 (PDT)
+Message-ID: <62e3c0b4-831b-45bb-a7b0-b97be2cb3722@collabora.com>
+Date: Thu, 23 Jul 2026 18:05:03 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 23 Jul 2026 09:01:51 -0700
-X-Gm-Features: AUfX_myTsSnhFM4SYFjmYfmScbccXbA1Oof3z74v9KJmENsO0cIiQ5ipcuK-Wcg
-Message-ID: <CAEvNRgEWOnZqiXMijZqggEi1hm14HxZ++9GpDRXUHqoE4UD6Bg@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 00/11] KVM: Allow alternative providers of
- guest_memfd backed by PFNMAP memory
-To: David Woodhouse <dwmw2@infradead.org>, Sean Christopherson <seanjc@google.com>, 
-	Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org, 
-	Xu Yilun <yilun.xu@linux.intel.com>
-Cc: linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
-	linux-kselftest@vger.kernel.org, linux-media@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
-	Dave Hansen <dave.hansen@linux.intel.com>, "H . Peter Anvin" <hpa@zytor.com>, x86@kernel.org, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Kevin Tian <kevin.tian@intel.com>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Shuah Khan <shuah@kernel.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Tom Lendacky <thomas.lendacky@amd.com>, Tycho Andersen <tycho@kernel.org>, Kees Cook <kees@kernel.org>, 
-	Ashish Kalra <ashish.kalra@amd.com>, Connor Williamson <connordw@amazon.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, Zhou Yuhang <zhouyuhang@kylinos.cn>, 
-	Zi Li <zi.li@linux.dev>, Dan Williams <djbw@kernel.org>, Eric Biggers <ebiggers@kernel.org>, 
-	Colin Ian King <colin.i.king@gmail.com>, connordw@amazon.co.uk, graf@amazon.de, 
-	fgriffo@amazon.co.uk
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: verisilicon: vp9: do not arm watchdog on
+ preparation failure
+To: Tharit Tangkijwanichakul <tharitt97@gmail.com>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Cc: linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org,
+ me@brighamcamplbell.com, jkoolstra@xs4all.nl
+References: <20260723153656.2167-1-tharitt97@gmail.com>
+Content-Language: en-US
+From: Benjamin Gaignard <benjamin.gaignard@collabora.com>
+In-Reply-To: <20260723153656.2167-1-tharitt97@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-David Woodhouse <dwmw2@infradead.org> writes:
 
-> On Wed, 2026-07-22 at 17:24 -0700, Ackerley Tng wrote:
->> David Woodhouse <dwmw2@infradead.org> writes:
->>
->> > For dedicated hosting environments, there are a few reasons to prefer
->> > using external PFNMAP memory for guests, rather than kernel-managed
->> > memory:
->> >
->> > =C2=A0=E2=80=A2 No struct page overheads
->> >
->> > =C2=A0=E2=80=A2 Easily managed in 1GiB pages (or larger chunks); no fr=
-agmentation/THP
->> >
->> > =C2=A0=E2=80=A2 Faster kexec/KHO live update (every millisecond spent =
-faffing around
->> > =C2=A0=C2=A0 with memory management is an extra millisecond of steal t=
-ime taken
->> > =C2=A0=C2=A0 from guests)
->> >
->>
->> Also, no need to split/merge pages when converting from private to
->> shared if the host mappings can't depend on the refcounts in struct
->> pages :).
->>
->> > Today, there is only one implementation of guest_memfd: the internal
->> > shmem-based page cache in virt/kvm/guest_memfd.c. This series allows
->> > for other code to provide "a guest_memfd". This is an early path-
->> > finding proof of concept tested with AMD SEV-SNP as well as non-CoCo
->> > guests on x86 and arm64. I'm planning to build a memory-based file
->> > system which gives files for both guest_memfd as well as memory-based
->> > storage to allow things like userspace VM and orchestrator state
->> > to be passed over KHO/kexec.
->> >
->>
->> Thanks for raising this, good to know that there is more interest!
->>
->> Vishal and I have been working on guest_memfd with HugeTLB for a while
->> now. I'll be restarting upstream work on HugeTLB after the conversions
->> series merges.
->>
->> Vishal, Frank and I brought up having guest_memfd with HugeTLB with
->> VM_PFNMAP mappings at a guest_memfd biweekly meeting a while ago. The
->> consensus was that guest_memfd HugeTLB must support GUP and so VM_PFNMAP
->> can't be the only way that guest_memfd supports HugeTLB.
->>
->> Your proposal is true non-page-struct memory, which has been on the
->> discussion guest_memfd biweekly discussion backlog for a while
->> now. Google is definitely also interested in this.
->>
->> Frank also described some use cases [1] other than HugeTLB and the
->> regular PAGE_SIZE pages from the buddy that is currently supported.
->>
->> I submitted a proposal for LPC 2026 to discuss the interface. What I had
->> in mind was to have the KVM_GUEST_MEMFD_CREATE ioctl take a "template"
->> fd. guest_memfd will then read off what it needs from the "template" fd
->> (ops, like you have here), and the "template" fd could be VFIO [2] or
->> HugeTLB.
->>
->> You have a provider_fd =3D open("/dev/gmem_provider"), how about passing
->> that provider_fd to guest_memfd, where /dev/gmem_provider could
->> represent the page-less memory, like:
->>
->> =C2=A0 ioctl(kvm_fd, KVM_GUEST_MEMFD_CREATE, provider_fd);
->>
->> It would be cool if the fallback could be set up flexibly, like:
->>
->> =C2=A0 ioctl(kvm_fd, KVM_GUEST_MEMFD_CREATE,
->> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 [provider_fd, fallback_provid=
-er_fd, ...]);
->>
->> I think guest_memfd should be the wrapper around other memory providers
->> because then the CoCo shared/private logic and special page table
->> handling for both host and stage 2 page tables is centralized in
->> guest_memfd, and also, KVM doesn't have to understand other, different
->> kinds of fds other than guest_memfd.
+Le 23/07/2026 à 17:36, Tharit Tangkijwanichakul a écrit :
+> hantro_g2_vp9_dec_run() calls hantro_end_prepare_run() when
+> start_prepare_run() fails to find one of the required VP9 controls.
 >
-> Yeah. My approach was to make those "other kinds of fds" essentially
-> the same =E2=80=94 they are "a guest_memfd", and KVM didn't have to under=
-stand
-> anything else (after a little bit of rework to have the generic ops so
-> that other code can create its own guest_memfds). As opposed to the
-> approach in Xu Yilun's TDISP series, which did teach KVM about a new
-> kind of memslot.
+> hantro_end_prepare_run() completes the control request, but also schedules
+> the hardware watchdog. Since the decode operation has not been started on
+> this error path, the watchdog should not be scheduled.
 >
-> Likewise, I used dma-buf so that IOMMUFD didn't have to understand
-> anything new either.
+> Factor the control-request completion out of hantro_end_prepare_run() and
+> call it directly from the VP9 preparation error path. This preserves the
+> pairing with hantro_start_prepare_run() without scheduling the watchdog.
+
+Nack.
+First it schedules a software timer not an hardware timer, which led after
+timeout to call hantro_job_finish_no_pm() with VB2_BUF_STATE_ERROR parameter.
+We need this call to complete v4l2_m2m job.
+
+If you want to stop the task before the timeout you need to add something like
+hantro_end_prepare_run_with_error() where you do the correct sequence.
+
+Regards,
+Benjamin
+
 >
-> I like your approach, inverting the wrapping of guest_memfd/dma-buf.
-> The provider then gives a plain dma-buf (not associated with any KVM as
-> it is in my current code). Userspace can use that *directly* with the
-> IOMMU,
-
-A wrinkle we will have to iron out is kind of the opposite problem, to
-make sure that while guest_memfd thinks a range of offsets (PAGE_SIZE or
-larger) is CoCo-private, the PFNs in that range must not be mapped
-anywhere else in the host, or IOMMU.
-
-One of the options I was thinking of was to seal off the template fd,
-perhaps with an inode flag like S_IMMUTABLE, but not even allow reads,
-and unlike S_IMMUTABLE, the (new) flag must not be changeable by
-userspace.
-
-Another option would be to just close the template fd so it'll not be
-used, and the PFNs behind that template fd would just be completely in
-guest_memfd ownership.
-
-All non-guest_memfd paths to access the PFNs must be closed off, or
-perhaps more precisely, any path that is not checked for
-CoCo-shared/private status before building page table entries must be
-closed off.
-
-For CoCo-shared memory as tracked by guest_memfd (or non-CoCo, which
-would use SHARED), the PFNs can still be mmap()-ed and actually set up
-in userspace page tables.
-
-Then, to use CoCo-shared memory for IO, IOMMUFD would also have to take
-the guest_memfd (which IOMMUFD probably has to do, for CoCo-private
-memory for Confidential IO, since CoCo-private memory can't be mapped to
-userspace). Perhaps through IOMMU_IOAS_MAP_FILE?
-
-In the process of mapping, IOMMUFD would tell guest_memfd "I have some
-of your PFNs mapped.", and when guest_memfd gets a private->shared
-conversion request, guest_memfd would get IOMMUFD to drop the
-mappings. (perhaps some kind of MMU notifier setup)
-
-Do you plan to use this for non-CoCo?
-
-> and passes it to your KVM_GUEST_MEMFD_CREATE in order to get a
-> guest_memfd for use with a given KVM. I think a lot of the warts in my
-> series fall away if we do it that way round.
+> Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+> ---
+> Testing:
 >
-> I'll have a go at reworking it that way round... and see what different
-> warts it ends up with. The interesting part will be getting actual PFNs
-> out of the dma-buf (which is already under active discussion).
+> - Built with the Verisilicon Hantro driver enabled.
+> - Not runtime-tested: the available RK3588 board does not expose a Hantro
+>    G2 VP9 decoder.
 >
-
-If we go with the above, IOMMUFD would get PFNs from guest_memfd instead
-of dma-buf.
-
-> I'm not sure I understand the 'fallback provider' part. If one provider
-> doesn't have a page for a given address, KVM would iterate over them
-> all until it finds one that does?
-
-If each provider provides a .get_pfn() op, guest_memfd's
-kvm_gmem_get_pfn() would try the first provider's .get_pfn() and if that
-errors out, try the next one.
-
-guest_memfd today uses a standard struct address_space to track the
-pages that it owns. guest_memfd will have to use something else that can
-track both pages and PFNs, and probably which provider it came from.
-
-The more you probe me, the more complicated it's sounding. :) Still
-worth pursuing if it's good to have though.
-
-> Is that about falling back from one
-> THP pool to another? Is this something that the generic KVM code needs
-> to know about, or could it be handled *within* a provider, which can
-> chain to the next pool if it can't find a page?
-
-Handling that within a provider could be nice too, so instead of
-guest_memfd trying .get_pfn()s in series, the provider will try a
-hard-coded pair/list of PFN sources and then deal with the complexity
-on behalf guest_memfd?
-
-The flipside is for every combination of providers, the owner of the
-virtualization service would have to maintain a custom kernel module for
-the managing pages?
-
-Maybe the flipside isn't too bad, actually, to provide more flexibility.
-
-> Wouldn't we want that
-> done transparently for both KVM and IOMMU consumers?
+>   drivers/media/platform/verisilicon/hantro_drv.c    | 13 +++++++++----
+>   .../media/platform/verisilicon/hantro_g2_vp9_dec.c | 14 +++++++++-----
+>   drivers/media/platform/verisilicon/hantro_hw.h     |  1 +
+>   3 files changed, 19 insertions(+), 9 deletions(-)
 >
->>
->> [1] https://lore.kernel.org/all/CAPTztWajm_JLpp9BjRcX=3Dh72r25ELrXeGkOXV=
-achybBxLJGS=3Dg@mail.gmail.com/
->> [2] https://lore.kernel.org/all/CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=
-=3DD8ky94SCsw@mail.gmail.com/
->>
->> > This series lifts guest_memfd's operations into a small ops struct and
->> > converts KVM's own gmem to use it, so it becomes one implementation
->> > among peers rather than the only game in town.=C2=A0 It also adapts th=
-e
->> > SEV-SNP fast paths to page-less operation, plumbs iommufd to map a
->> > guest_memfd-backing dma-buf as CPU RAM (not MMIO), and adds the
->> > provider->KVM revocation primitive that makes overcommit-style reclaim
->> > possible.
->> >
->> > It's largely AI-built at the moment. My main design concerns are aroun=
-d
->> > how we tell that a given file is "a guest_memfd", and how we plug into
->> > IOMMUFD. Presenting a dma-buf was the less intrusive choice because th=
-at
->> > path already has support for taking pages away, but I'm less convinced
->> > that it's the cleaner choice in the long term.
->> >
->>
->> IIUC from this series, you're creating a dmabuf fd out of a guest_memfd,
->> what does "taking pages away" mean, in this case, from where/who?
+> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
+> index 2e81877f640f..04167e4be003 100644
+> --- a/drivers/media/platform/verisilicon/hantro_drv.c
+> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
+> @@ -147,10 +147,17 @@ void hantro_start_prepare_run(struct hantro_ctx *ctx)
+>   	}
+>   }
+>   
+> -void hantro_end_prepare_run(struct hantro_ctx *ctx)
+> +void hantro_complete_ctrl_request(struct hantro_ctx *ctx)
+>   {
+>   	struct vb2_v4l2_buffer *src_buf;
+>   
+> +	src_buf = hantro_get_src_buf(ctx);
+> +	v4l2_ctrl_request_complete(src_buf->vb2_buf.req_obj.req,
+> +				   &ctx->ctrl_handler);
+> +}
+> +
+> +void hantro_end_prepare_run(struct hantro_ctx *ctx)
+> +{
+>   	if (!ctx->is_encoder && ctx->dev->variant->late_postproc) {
+>   		if (hantro_needs_postproc(ctx, ctx->vpu_dst_fmt))
+>   			hantro_postproc_enable(ctx);
+> @@ -158,9 +165,7 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
+>   			hantro_postproc_disable(ctx);
+>   	}
+>   
+> -	src_buf = hantro_get_src_buf(ctx);
+> -	v4l2_ctrl_request_complete(src_buf->vb2_buf.req_obj.req,
+> -				   &ctx->ctrl_handler);
+> +	hantro_complete_ctrl_request(ctx);
+>   
+>   	/* Kick the watchdog. */
+>   	schedule_delayed_work(&ctx->dev->watchdog_work,
+> diff --git a/drivers/media/platform/verisilicon/hantro_g2_vp9_dec.c b/drivers/media/platform/verisilicon/hantro_g2_vp9_dec.c
+> index 56c79e339030..e08db6e3f6f9 100644
+> --- a/drivers/media/platform/verisilicon/hantro_g2_vp9_dec.c
+> +++ b/drivers/media/platform/verisilicon/hantro_g2_vp9_dec.c
+> @@ -36,12 +36,14 @@ static int start_prepare_run(struct hantro_ctx *ctx, const struct v4l2_ctrl_vp9_
+>   
+>   	ctrl = v4l2_ctrl_find(&ctx->ctrl_handler, V4L2_CID_STATELESS_VP9_FRAME);
+>   	if (WARN_ON(!ctrl))
+> -		return -EINVAL;
+> +		goto err_complete_request;
+> +
+>   	*dec_params = ctrl->p_cur.p;
+>   
+>   	ctrl = v4l2_ctrl_find(&ctx->ctrl_handler, V4L2_CID_STATELESS_VP9_COMPRESSED_HDR);
+>   	if (WARN_ON(!ctrl))
+> -		return -EINVAL;
+> +		goto err_complete_request;
+> +
+>   	prob_updates = ctrl->p_cur.p;
+>   	vp9_ctx->cur.tx_mode = prob_updates->tx_mode;
+>   
+> @@ -86,6 +88,10 @@ static int start_prepare_run(struct hantro_ctx *ctx, const struct v4l2_ctrl_vp9_
+>   	v4l2_vp9_fw_update_probs(&vp9_ctx->probability_tables, prob_updates, *dec_params);
+>   
+>   	return 0;
+> +
+> +err_complete_request:
+> +	hantro_complete_ctrl_request(ctx);
+> +	return -EINVAL;
+>   }
+>   
+>   static struct hantro_decoded_buffer *
+> @@ -894,10 +900,8 @@ int hantro_g2_vp9_dec_run(struct hantro_ctx *ctx)
+>   	int ret;
+>   
+>   	ret = start_prepare_run(ctx, &decode_params);
+> -	if (ret) {
+> -		hantro_end_prepare_run(ctx);
+> +	if (ret)
+>   		return ret;
+> -	}
+>   
+>   	src = hantro_get_src_buf(ctx);
+>   	dst = hantro_get_dst_buf(ctx);
+> diff --git a/drivers/media/platform/verisilicon/hantro_hw.h b/drivers/media/platform/verisilicon/hantro_hw.h
+> index 13e573f1f19d..9d4e858f17c7 100644
+> --- a/drivers/media/platform/verisilicon/hantro_hw.h
+> +++ b/drivers/media/platform/verisilicon/hantro_hw.h
+> @@ -430,6 +430,7 @@ void hantro_watchdog(struct work_struct *work);
+>   void hantro_irq_done(struct hantro_dev *vpu,
+>   		     enum vb2_buffer_state result);
+>   void hantro_start_prepare_run(struct hantro_ctx *ctx);
+> +void hantro_complete_ctrl_request(struct hantro_ctx *ctx);
+>   void hantro_end_prepare_run(struct hantro_ctx *ctx);
+>   
+>   irqreturn_t hantro_g1_irq(int irq, void *dev_id);
 >
-> Taken away from the guest. Ballooning pages out, either for traditional
-> memory overcommit, or for the models where a guest donates some of its
-> pages to the system to run a "child" which is properly isolated from
-> the guest.
->
-> The physical page is reclaimed and needs to be taken out of the KVM and
-> IOMMU stage2 mappings.
-
-Will the VMM be doing a PUNCH_HOLE on the dma-buf fd or guest_memfd to
-actually reclaim the page, or do you have something else in mind?
-
-> If KVM wants to touch it again it must call the
-> provider to get a new PFN for that range. This is roughly equivalent to
-> the MMU notifier path on userspace VMAs in the normal memslot case.
-> IOMMUFD has no equivalent of that for userspace addresses =E2=80=94
-> IOMMU_IOAS_MAP pins the pages so they *can't* go away, which is why I
-> used dma-buf for the IOMMUFD interface.
->
-> I've actually been fleshing out the overcommit path a bit more,
-> experimenting with adding async-pf support to guest_memfd in
-> https://git.infradead.org/?p=3Dusers/dwmw2/linux.git;a=3Dcommitdiff;h=3D8=
-94dd0fcb34
-> (the sample provider just pretends its pages are slow to populate, so
-> the guest gets to run something else while a "reclaimed" page comes
-> back).
+> base-commit: dc59e4fea9d83f03bad6bddf3fa2e52491777482
