@@ -1,62 +1,62 @@
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com [209.85.128.169])
+Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE3B9256C61
-	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 00:02:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEE691F3BA4
+	for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 00:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784764944; cv=none; b=bybxLm+wCnWsrLZMF6Ie/wOGas/VIuaG47Ei+iYVRPtFHfe5V4WJAnhCFgRCzIkxRcldYrUpqitxWqG5X4TpDfr6Y/qcf0RZrdUfmBg1WMXbE9xU+ByuSJKo6Ydrs5X6L7hQGI6eYfgRslpA3og3nwr/BbTMGZU2Lxp+SZ2AG7k=
+	t=1784765712; cv=none; b=ESjKUgsP1O/5P5hLHUasFEJOmSx/eXLMLMO1Kkrz+aWjo4WZAPPVvzQuRRwjhvZMl19y/G62Hhu09iRgFUue3c+ds8+g9UcYn1sxWP3ct2zqrPxQTle6NnfEQCGMONHHGLJXfgplSHUmsXBjt7oOBWxkJQJEheYWnuUrbSUGR/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784764944; c=relaxed/simple;
-	bh=nDHwGQaXGMuuaGG6qOmiW0lE5wNxDly8GUn5XWwT0oY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=d/1U5ORXsE1ce7/QBD122x6ZvPRv4exlfou0HaxUF4OlB8XcQaA4r0SM78KDr4zrsCQ9jVQs0PC2A5vcrfsBpx350R3vq/MxDKQvt/ZqIl657wUnYYwmA7B20/OJqCesFwXJjdhWZ9N6N37MmDl+26/2XwPulLnazH8M2crmPYQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXqeDFA8; arc=none smtp.client-ip=209.85.128.169
+	s=arc-20240116; t=1784765712; c=relaxed/simple;
+	bh=TLQfSVdlMTqTPTmDzRSTa3i03iriBuDGFkfWKfK6fyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NKAmm7GUT2qnOSi30nFdRJif0HYu2Sp6XiVLzeO6inR5Num0yzALqBmlNBrBW/PMQtnYBi9K403q8cNgeJorTLTAUsz19Vk9WBwJVs9JDWpWSIpjEI6yrqe0AypOn84bUg7TIhy0mEu61kwx5m0WCOOZ9I/6dUmu4f8uhuIFTO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rJpItQGi; arc=none smtp.client-ip=74.125.224.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXqeDFA8"
-Received: by mail-yw1-f169.google.com with SMTP id 00721157ae682-81dfdbd86d1so776927b3.1
-        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 17:02:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rJpItQGi"
+Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-668296d0ff3so34220d50.0
+        for <linux-media@vger.kernel.org>; Wed, 22 Jul 2026 17:15:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784764938; x=1785369738; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1784765710; x=1785370510; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aJUm3MLQsqh/2fKr3xOSeTiTlhgXutJ78HCkgaFr/+0=;
-        b=BXqeDFA8Pzfq6Ao6Gg5pMiQByUb0LAsjpUj3YZ5tLmbisgz1Xvv+juvbFtUFbwhfs1
-         TKvhdFdf/Qgybq/h+7IVWWWtmUJwok9uLuZQn4V46xQWL4t8xlXkTMEIIkHJNUknaxJD
-         nbkov+8JY2bGM99lcoMA3SHjiFwmgZH+XpSMrGTrT9Mz2ueDQqRoCtPtlD2dEfjQCnFL
-         gRYi0Rg7G53c1MtvIlkos8d7Y5rjqR6oUcNbcfpxJNPdv21z2ANjfk+HUvBCKSv0Ex+Z
-         9xwaDNGTflJvjEoS2vJUfyOAmGV0OJLeKmAD4dQ0cGfHVL2P303kNduHYavY1pfsAMkg
-         SMhg==
+        bh=qp9RLqBI1+mbcSRTjHjiXFbp1lu8yHG6RRkL9RL0Njc=;
+        b=rJpItQGifPt0Iw0d1A2ErjLDdK7kFYV/xRigglNk+yuXLotftw/i17UiEHk3xnm5oc
+         /1eTNum7M+etTKjv2mObifD7mB7h3q5siTPmLpdnR79X5YEUa5xbuYAnzc4zwCsPm9eK
+         YW5nOgJgCvP/MM5F/pcOOcmo108vuDzICFzgHVFiOWcMvLTR7cQ0QRqN/EZ5MeTA18Qr
+         AJHBd0oYuYOfpTshECOcssZxWH8IvQr2JXSSaBcxYntjpilun0Pq+17nrE2YYNUyAQBh
+         W3rE6WfRuEWoR2/vFpmd8SrC7RLjWoJmfmVyxH88oPvJoUWKsayIVUA9IFA6UNq5Qmcl
+         E4LQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784764938; x=1785369738;
+        d=1e100.net; s=20251104; t=1784765710; x=1785370510;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=aJUm3MLQsqh/2fKr3xOSeTiTlhgXutJ78HCkgaFr/+0=;
-        b=kFeSHNaK5FbrWVSgJN2d1KyoSd08o5F2YX3nw73uYDzn23D5LHJF4P0YTsbuMhbj5W
-         opXxm1jqHNiX202Pv9xHPLbxAN0L3puM5wrMF6j0mPcY8Yt6USjuVYJI9/PJRNR2pjdc
-         yqpchI8tBn1H2XxwSlTGPVmBzmQfzGvKJWt/dmVhGD54a/jov8rxiD9WMR7QSLu2wbNk
-         lrGeZIc9eLI0lQnxqbVfjP9yoRRAwu//Pbduq3moVbV0EpGRZt//dnSSsX1Pb3ml/FO0
-         r1JvE0UA5wkC7gaCeDNhZ/rJDRKG+V1+EYCcx8f+lJ++Po+/h39L5jhP5dO7n0TMCvry
-         3iQg==
-X-Forwarded-Encrypted: i=1; AHgh+RqUys1j/02tkr4X67q1kDkS9e47GrshBCf3I7lr+/z15GOjslpFgLJnCoHwweUipn1FW5PJKa8s4LSf4A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxVfbhMTpQDzkN2NKquiW9h2qP8Tt171G0lYTs7S6AAi3+K2KYP
-	A3QQ+I4ruVg4TZf+3FoVVHft7/DHzF/ywuCA1QFC9QSmxYGb9INnCEHh
-X-Gm-Gg: AR+sD135CRpDclncvEL8q8uFWWT3c1NL7ol/egAMbQ2CZr1XvTzs/KFh2s72LmufueL
-	74yoReOv/f/cZpA0QejjIOG4/9YW0lZJ3G1VtWpmgHQXtFkE1NJGDM4a/JOWSjY0H1lj44H5Tt0
-	7PrMfRq4dcNmLdv9Dp+0BcplmVTkarb9+EFaadn5IJgQ2gnAw5Kog6afogWO8hJaLKjTFYE0/Nk
-	yoTbPl9IEFt6/XozgxIlcAXag1Ezic4gVVwaq2FhFJtyqSNSsEbRzMbjszwag+WfAEVTvr3jRYR
-	bCaTT5ljp3vkHEXzZJxRz1x+ig474ODWAUjZh0IR2/Z7I2lE80J85rz3eQm67ZUePvLsMtHltiZ
-	ltJSCdt59ODe/ad/TZdmapVK1hKshp3vGjNKRqoh3VmenBZ9e9JJFo76uTaeuQZ8vmG5pl8e31p
-	ZfMFv0r87ETh0xIQX4a4eQJW86dauFn3wZdyU0O8MEit9ZRvXXpMzJVWm4jQhtK01JOAZ5FMEFl
-	WQtxvgjPAtWKcH+Xs6eICH8eme9H7Yw/lMeXUpqd2cSWLePvD/gtTsey/OJe7Jct8U=
-X-Received: by 2002:a05:690c:6f0c:b0:80d:21d3:a399 with SMTP id 00721157ae682-81f4c307df2mr2454957b3.48.1784764938252;
-        Wed, 22 Jul 2026 17:02:18 -0700 (PDT)
+        bh=qp9RLqBI1+mbcSRTjHjiXFbp1lu8yHG6RRkL9RL0Njc=;
+        b=a6mmqBpnP/JJH6ywkKupQTz05i1brLD+2tsm3PpEnCEuKZbBpprD9mSn83WFFBiU8V
+         ukPZ7FeLR4fqy9PKNxdIqn9khNPBxsSnX+DPYmZbGxrzjkotDkVPYkZUYrQebRIiY8dD
+         kFt+ocfD+LYK2iL0JvhWUqrafnOKXSb+yLKAQBd1h7ZOT+Idt8i98lyjyhL2C3aIIYgn
+         UyLp832N2Wy0R0nGVcBowLtnKFbZxT2rxj/qbdMtuZnkJZSBTZFPr+6A2gDijnacYaFx
+         IAfSmkQiBg6ebS0RUP0l128MW8rPYAN1KUhnCwx2/MmY9dfybFpoIINNxhJSlR53wDyi
+         kJrQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoY5ZfhcNdY80AjlxJhJ8rqjZ4rJypCbfw8fD+YvAb6g8bTNLPA7YvjSwVX/U6FirGKUpDumv72nKIt5A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyAEbib8qVTRoQldi5ZeWaNayt4moxhDqUe7qwvt5WVeEM4364O
+	KUPNoHOAdeR3VDj9sN47UPnY/P/DF2tWNwm1dmNBzBfRrI+uSxZTjIJ4
+X-Gm-Gg: AR+sD1122AlkhbZ889sHUHuZFKRUdmbsYg3CdqEF0loYKX03bnoN7rfpPaB4/G4yMFd
+	tDLg725z45dUEOU39ZWM95O8Hw/t44hUyIttNkGgjcbaz7XYMLn5C7KQfa8LTLmGhX87FQ4nRps
+	vXgrPngrBAWIQMx8yG7Wcx1HwsavxSAEPNe1FOATYIbCftXzVXKHj7zcgJq3fXmU5jtgRB+VPJA
+	nhNgQm5TOIuTJ4OX62yAuSYvCUZQxCYzCgHxSMpe/L/FrmkeYUPRlaxH2y/5LTdeauLBGxfSI5D
+	+Ky70vohFnCgrTKlS783zkiPVFZOenvCnOacT2Rsop1koQ0nqBfWhemHFSdZw56X1ERKV8SpZoJ
+	RfzSRv/yGJJAdH1gylYpAWJiDYx0B/+nX2+wYvPyNjrXaBAcjYrxtFjS0dsuyfZtuqciwWznPqi
+	5IRUv18j4oJV2sU0s3iwfmOhHypGdukozJ62yEPqIbBMeAMLGskHz9Rh7f9QBiTU7QFqIO1i1I8
+	kJqqZ8zs7sreaTg+w3XvPRHZqhMNujEYFclzuh7uT5O/xVT2pz6oGm3my+pOas5P4o=
+X-Received: by 2002:a05:690c:4b86:b0:81e:8985:e0e with SMTP id 00721157ae682-81f4c30bdbfmr2886347b3.37.1784765709572;
+        Wed, 22 Jul 2026 17:15:09 -0700 (PDT)
 Received: from LAPTOP-83ECOPAB.f7a5e5c3-cab1-4810-bdbb-207cdd06de9e.globalsecureaccess.local (76-204-101-112.lightspeed.tukrga.sbcglobal.net. [76.204.101.112])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c2df04sm21047067b3.12.2026.07.22.17.02.17
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81f33c397c9sm21446967b3.14.2026.07.22.17.15.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 22 Jul 2026 17:02:17 -0700 (PDT)
+        Wed, 22 Jul 2026 17:15:08 -0700 (PDT)
 From: "Cen Zhang (Microsoft)" <blbllhy@gmail.com>
 To: mchehab@kernel.org,
 	hverkuil@kernel.org
@@ -70,9 +70,9 @@ Cc: kees@kernel.org,
 	kys@microsoft.com,
 	blbllhy@gmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: fix race between dvb_dvr_read() and  dvb_dvr_set_buffer_size()
-Date: Wed, 22 Jul 2026 20:00:16 -0400
-Message-ID: <20260723000016.84091-1-blbllhy@gmail.com>
+Subject: [PATCH v2] media: dvb-core: add upper bound check in DMX_SET_BUFFER_SIZE  ioctl
+Date: Wed, 22 Jul 2026 20:13:06 -0400
+Message-ID: <20260723001306.84709-1-blbllhy@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -82,65 +82,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dvb_dvr_read() accesses the DVR ring buffer without holding
-dmxdev->mutex, while ioctl(DMX_SET_BUFFER_SIZE) replaces the backing
-memory of the buffer under that mutex. A concurrent resize can free
-the vmalloc region while the reader is still copying from it,
-resulting in a use-after-free read.
+dvb_dvr_set_buffer_size() and dvb_dmxdev_set_buffer_size() pass the
+user-supplied size argument directly to vmalloc() without any upper
+bound check. This allows excessive kernel memory allocation via the
+DMX_SET_BUFFER_SIZE ioctl, which can lead to system-wide OOM conditions.
 
-  BUG: KASAN: vmalloc-out-of-bounds in _copy_to_user+0x4e/0x80
+  Kernel panic - not syncing: System is deadlocked on memory
 
-    _copy_to_user+0x4e/0x80
-    dvb_ringbuffer_read_user+0x141/0x390 (dvb_ringbuffer.c:151)
-    dvb_dmxdev_buffer_read.isra.0+0x310/0x3e0
-    dvb_dvr_read+0xc6/0x110
-    vfs_read+0x1ac/0x940
+  Call Trace:
+   out_of_memory+0x12fd/0x1370
+   __alloc_frozen_pages_noprof+0x2620/0x2fa0
+   __vmalloc_node_range_noprof+0x7fa/0x1490
+   dvb_dvr_do_ioctl+0x11e/0x260 (drivers/media/dvb-core/dmxdev.c:296)
+   dvb_usercopy+0x15b/0x360
 
-This is a re-discovery of an issue noted by the original author:
-https://lore.kernel.org/all/47E45138.1030107@googlemail.com/.
+Fix by cap both functions at 64 MB and return -EINVAL for oversized
+requests.
 
-Fix by protecting dvb_dvr_read() with dmxdev->mutex.
-
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Fixes: a095be4b030c ("V4L/DVB (7659): dvb-core: Implement DMX_SET_BUFFER_SIZE for dvr")
 Cc: stable@vger.kernel.org
 Reported-by: AutonomousCodeSecurity@microsoft.com
+Link: https://lore.kernel.org/all/20260722193719.81157-1-blbllhy@gmail.com/
 Signed-off-by: Cen Zhang (Microsoft) <blbllhy@gmail.com>
 ---
- drivers/media/dvb-core/dmxdev.c | 18 ++++++++++++++----
- 1 file changed, 14 insertions(+), 4 deletions(-)
+V2:
+ - Add Cc: stable and Link: tag
+
+ drivers/media/dvb-core/dmxdev.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 3c8bc75e4d6c..b4aa8d37ff03 100644
+index 3c8bc75e4d6c..b4dc87945be1 100644
 --- a/drivers/media/dvb-core/dmxdev.c
 +++ b/drivers/media/dvb-core/dmxdev.c
-@@ -270,13 +270,23 @@ static ssize_t dvb_dvr_read(struct file *file, char __user *buf, size_t count,
- {
- 	struct dvb_device *dvbdev = file->private_data;
- 	struct dmxdev *dmxdev = dvbdev->priv;
-+	ssize_t ret;
+@@ -20,6 +20,9 @@
+ #include <media/dmxdev.h>
+ #include <media/dvb_vb2.h>
  
--	if (dmxdev->exit)
-+	if (mutex_lock_interruptible(&dmxdev->mutex))
-+		return -ERESTARTSYS;
++/* 64 MB upper bound for DVB ring buffer allocations */
++#define DVB_BUFFER_SIZE_MAX (64 * 1024 * 1024)
 +
-+	if (dmxdev->exit) {
-+		mutex_unlock(&dmxdev->mutex);
- 		return -ENODEV;
-+	}
-+
-+	ret = dvb_dmxdev_buffer_read(&dmxdev->dvr_buffer,
-+				     file->f_flags & O_NONBLOCK,
-+				     buf, count, ppos);
+ static int debug;
  
--	return dvb_dmxdev_buffer_read(&dmxdev->dvr_buffer,
--				      file->f_flags & O_NONBLOCK,
--				      buf, count, ppos);
-+	mutex_unlock(&dmxdev->mutex);
-+
-+	return ret;
- }
+ module_param(debug, int, 0644);
+@@ -292,6 +295,8 @@ static int dvb_dvr_set_buffer_size(struct dmxdev *dmxdev,
+ 		return 0;
+ 	if (!size)
+ 		return -EINVAL;
++	if (size > DVB_BUFFER_SIZE_MAX)
++		return -EINVAL;
  
- static int dvb_dvr_set_buffer_size(struct dmxdev *dmxdev,
+ 	newmem = vmalloc(size);
+ 	if (!newmem)
+@@ -333,6 +338,8 @@ static int dvb_dmxdev_set_buffer_size(struct dmxdev_filter *dmxdevfilter,
+ 		return -EINVAL;
+ 	if (dmxdevfilter->state >= DMXDEV_STATE_GO)
+ 		return -EBUSY;
++	if (size > DVB_BUFFER_SIZE_MAX)
++		return -EINVAL;
+ 
+ 	newmem = vmalloc(size);
+ 	if (!newmem)
 -- 
 2.53.0
 
