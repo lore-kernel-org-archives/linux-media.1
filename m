@@ -1,43 +1,43 @@
 Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785433E00A3;
-	Thu, 23 Jul 2026 21:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B1573F23BB;
+	Thu, 23 Jul 2026 21:08:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784840868; cv=pass; b=cMWJnMBuyvVI9kJ0GWu+f27GIZRhuEQk9uFV7iGmlYB4yJevEiwe6eQbjxMIfMWH+22p9ZMG/aNLjVzmPwbBdTc+MnpLL0JOkXBxRUherd6MMmWOfVY4gsqdihgvl4SedZWWRGHNVv7C5HQ4uqxVy7mCDlIiORg1Qu02omyCc6w=
+	t=1784840931; cv=pass; b=F1QQxsNoQYtfsM1yu6N/xrrrKW2rLVSQj26pbAdRv6H582lqx2dTAG52WewM0a3uKWa/ojl+bAzuHzHV+M5RdWycHI8nbI77Yw8CpRQhDOapuCKskTR/Ego9l3kM2TxRvRtXc79JPwJZfw6Dh2eenazjXV22o45/9gN/bpB8KjA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784840868; c=relaxed/simple;
-	bh=onML3DLVMKuPRl+V+Az/a14wN5ZS4jTlJNcdrRmQV9w=;
+	s=arc-20240116; t=1784840931; c=relaxed/simple;
+	bh=DcuUVtGFSX1UCuJOo1sFlG6POeSFmsKPMo46iGfE+CE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PGYH6+TPgaZ7hVKyVSljU2ZC29lPE1lRgR07sRlNHKoIjpKOdtqmtPRpif9BS8OxyrPO4Tuqz95ble5IwTjM7aRQ7izDnHQmjUw+1b1ghBorHgawEUdMlP+Ht15a0ANs3NobxZPmJYlVHqrb0829ykS/Ac7cRVIHnQkjVPd6kFQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=amPpSWRD; arc=pass smtp.client-ip=136.143.188.11
+	 In-Reply-To:Content-Type; b=ORcMbThEbI52HI2CQ4AjVaAo/u9KiyIxdVNZyNILT3usUOBP9BKFa2KDzyLyYdkh4m4XNcwiLBPXMM/GEudDN5HRWQVJCqFV/J4nYi8Wa+mnoCchPTyfebE6i5z2C1wytz1pKgSJ8sK81zIR8XR4+iFE9h9awnTqbUu8O999E9w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b=hcA++BWE; arc=pass smtp.client-ip=136.143.188.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="amPpSWRD"
-ARC-Seal: i=1; a=rsa-sha256; t=1784840846; cv=none; 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=dmitry.osipenko@collabora.com header.b="hcA++BWE"
+ARC-Seal: i=1; a=rsa-sha256; t=1784840903; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=UbSRRyiq4UBWkWjCiZwEN5+D5j44j59m4V+dy12Vq9SuquHzklkgkkxFvxLZBXsdaCDQpnDXK1fEYeodd091n2o8AwdnjNt3NrTpe+JqWPN9YUvoMx/Uy85zfX0ptIVfFUZmssPlP240CtutyjL1kxzynL/cWVuq/qqpmTgREgI=
+	b=ZofzkxPKEd7lf4sDW9ciklCThBWOnDQ2GEu7rPIcNaZveH9q1nkb8kM48CYwN8GMvpuJnjxPky3on0RqbGebq8g3fVMumPEvh1gd1mpW3+ZFUDxm60Cf8a91YM086VgWBTS+gZvD/RJYzE1VwLFNiBHsbcA6a+IidzjsoqP8wwc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784840846; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Ylh7Y4NM96Y1K3UYEmAplxHb/OJOQpXgOdrp8UvyGms=; 
-	b=T7FkKlw3eCyXnnBBwJ510N7uYE9YT6eJzc0E70BMSZXgM+avST8NeXC18IgLhQb/rnjTqjFh8EloKV9x+S+rdiTcvaXkpmPSM5hRt37TQd7zp0jdqU+utA62MP9onAHbhDSpBCbQANuGdfmfps6i1HnIo5NIus7aFtztKE/SCXg=
+	t=1784840903; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=jPX8Qo4WfHXuWtgG3KrlsoZlJSWwTSu8oW28laBWyKA=; 
+	b=MUo8/zrAo8wr/AzKX4gpdUEUQCPaHTcqH4dLsSk+G0+4FPxWbet1ZIYyRJz5kc7HbT6i1zyrQsfSDypga842FuSbIdNWAiMvbi5bkAuoHTtjZy5hlx/oaKAyBf7ND+R+HcxVFFzvUe3rNZu6TuzneKEiCvpgpg38yqto651n3Ic=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=collabora.com;
 	spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
 	dmarc=pass header.from=<dmitry.osipenko@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784840846;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784840903;
 	s=zohomail; d=collabora.com; i=dmitry.osipenko@collabora.com;
 	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=Ylh7Y4NM96Y1K3UYEmAplxHb/OJOQpXgOdrp8UvyGms=;
-	b=amPpSWRDaVPD67O0JPV3NK3XDV1KW3LPZtW2RUJOwZgfoaXxsopf0pftnEIckLTa
-	muUl8zZqtJK2bS2vCy1sYdDkxx44QS2HCSrhSJbX6NWnLgolqxe0bzkUe4kqk3O8/kw
-	p2fmwLgqyI55EuxiMlruQDA2O7nd9B/GtShEqMug=
-Received: by mx.zohomail.com with SMTPS id 178484084539279.68028284519187;
-	Thu, 23 Jul 2026 14:07:25 -0700 (PDT)
-Message-ID: <6ec14924-7e29-43cb-963d-cf9703f03ebe@collabora.com>
-Date: Fri, 24 Jul 2026 00:07:21 +0300
+	bh=jPX8Qo4WfHXuWtgG3KrlsoZlJSWwTSu8oW28laBWyKA=;
+	b=hcA++BWE7+onuKGfOK8O7BxIQ+Jb2Es4UNStWGXOCVpgMqc5KzTXngemk9NMCmFf
+	Z/5eEncvx3EMoJeG5bGDCH5D8NW+Z/8z330px0NWVDnptX7H+UjRkrPqVT88yzY3mKy
+	eOIGz1lJusekYanCOTU5MKzSEySqKiWs/JaMmVGI=
+Received: by mx.zohomail.com with SMTPS id 1784840899618134.47086648505854;
+	Thu, 23 Jul 2026 14:08:19 -0700 (PDT)
+Message-ID: <6f38788b-c577-4c79-8a27-3c0942ba1400@collabora.com>
+Date: Fri, 24 Jul 2026 00:08:14 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -45,8 +45,7 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] dt-bindings: media: snps,dw-hdmi-rx: add
- #sound-dai-cells
+Subject: Re: [PATCH v4 3/4] arm64: dts: rockchip: add HDMI RX audio on RK3588
 To: Igor Paunovic <royalnet026@gmail.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
@@ -56,73 +55,76 @@ Cc: Sebastian Reichel <sebastian.reichel@collabora.com>,
  linux-arm-kernel@lists.infradead.org, kernel@collabora.com,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 References: <20260721064115.64809-1-royalnet026@gmail.com>
- <20260721064115.64809-2-royalnet026@gmail.com>
+ <20260721064115.64809-4-royalnet026@gmail.com>
 Content-Language: en-US
 From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
-In-Reply-To: <20260721064115.64809-2-royalnet026@gmail.com>
+In-Reply-To: <20260721064115.64809-4-royalnet026@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-ZohoMailClient: External
 
 On 7/21/26 09:41, Igor Paunovic wrote:
-> The HDMI RX controller can expose the audio embedded in the incoming
-> HDMI stream as an ALSA capture device. Document the #sound-dai-cells
-> property so that a sound card can reference the HDMI RX audio DAI.
+> The Synopsys HDMI RX controller exposes two digital audio interfaces,
+> one for I2S (0) and one for S/PDIF (1). Add the #sound-dai-cells
+> property so audio cards can reference them as a codec, as documented
+> by the snps,dw-hdmi-rx binding.
+> 
+> Add a shared simple-audio-card routing the receiver I2S DAI to
+> i2s7_8ch, the receive-only I2S interface dedicated to HDMI RX, with
+> the receiver as bitclock and frame master. The card is named
+> "RK3588 HDMI-IN", which is what users see in alsamixer and what ALSA
+> UCM matches on. It mirrors the existing HDMI TX sound cards in this
+> file and is disabled by default, since not every RK3588 board routes
+> HDMI RX audio; boards that do only need to flip its status.
 > 
 > Signed-off-by: Igor Paunovic <royalnet026@gmail.com>
 > ---
-> Changes in v4 (both suggested by Krzysztof Kozlowski):
-> - reference dai-common.yaml and switch additionalProperties to
->   unevaluatedProperties: false
-> - drop the consumer comment from the binding example
+> Changes in v4 (both suggested by Sebastian Reichel):
+> - define the whole sound card here as a shared, disabled-by-default
+>   node mirroring the HDMI TX cards, instead of per board
+> - name the card "RK3588 HDMI-IN": the name is user-visible in
+>   alsamixer and matched by ALSA UCM
 > 
-> Changes in v3:
-> - no changes
+> New in v3 (as "add #sound-dai-cells to the RK3588 HDMI receiver").
+>  arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
 > 
-> Changes in v2 (all suggested by Sebastian Reichel):
-> - reworded the commit message to describe the hardware
-> - property description now documents the DAI indexes (0 = I2S,
->   1 = S/PDIF)
-> - moved the consumer reference into the binding example
->  .../devicetree/bindings/media/snps,dw-hdmi-rx.yaml  | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> index b7f6c87..b80660d 100644
-> --- a/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> +++ b/Documentation/devicetree/bindings/media/snps,dw-hdmi-rx.yaml
-> @@ -78,6 +78,13 @@ properties:
->        The phandle of the syscon node for the Video Output GRF register
->        to enable EDID transfer through SDAIN and SCLIN.
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> index a264001..e0dce15 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-extra.dtsi
+> @@ -23,6 +23,23 @@
+>  		};
+>  	};
 >  
-> +  "#sound-dai-cells":
-> +    const: 1
-> +    description:
-> +      The HDMI RX controller has two digital audio interfaces, one for
-> +      I2S and one for S/PDIF. The DAI cell selects the interface, 0 for
-> +      I2S and 1 for S/PDIF.
+> +	hdmi_receiver_sound: hdmi-receiver-sound {
+> +		compatible = "simple-audio-card";
+> +		simple-audio-card,format = "i2s";
+> +		simple-audio-card,name = "RK3588 HDMI-IN";
+> +		simple-audio-card,bitclock-master = <&hdmiin_codec>;
+> +		simple-audio-card,frame-master = <&hdmiin_codec>;
+> +		status = "disabled";
 > +
->  required:
->    - compatible
->    - reg
-> @@ -90,7 +97,10 @@ required:
->    - pinctrl-0
->    - hpd-gpios
->  
-> -additionalProperties: false
-> +allOf:
-> +  - $ref: /schemas/sound/dai-common.yaml#
+> +		hdmiin_codec: simple-audio-card,codec {
+> +			sound-dai = <&hdmi_receiver 0>;
+> +		};
 > +
-> +unevaluatedProperties: false
+> +		simple-audio-card,cpu {
+> +			sound-dai = <&i2s7_8ch>;
+> +		};
+> +	};
+> +
+>  	reserved-memory {
+>  		#address-cells = <2>;
+>  		#size-cells = <2>;
+> @@ -338,6 +355,7 @@
+>  		reset-names = "axi", "apb", "ref", "biu";
+>  		rockchip,grf = <&sys_grf>;
+>  		rockchip,vo1-grf = <&vo1_grf>;
+> +		#sound-dai-cells = <1>;
+>  		status = "disabled";
+>  	};
 >  
->  examples:
->    - |
-> @@ -129,4 +139,5 @@ examples:
->        pinctrl-0 = <&hdmim1_rx_cec &hdmim1_rx_hpdin &hdmim1_rx_scl &hdmim1_rx_sda &hdmirx_5v_detection>;
->        pinctrl-names = "default";
->        hpd-gpios = <&gpio1 22 GPIO_ACTIVE_LOW>;
-> +      #sound-dai-cells = <1>;
->      };
 
 Reviewed-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
 
