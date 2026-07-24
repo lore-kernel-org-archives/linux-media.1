@@ -1,563 +1,277 @@
-Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+Received: from forward201d.mail.yandex.net (forward201d.mail.yandex.net [178.154.239.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C3014156C5;
-	Fri, 24 Jul 2026 12:10:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784895045; cv=pass; b=RkOnOAJbCvrYe6nFIu+WwB9zC+ndwrsE+EXDC+GUgzV5XNFzIjC+W82l5mt2btUOyY2jUNh/73FI9w0P5cKo2nAELD6qXZtCNulFLzuB2bu1nXISagLRM6nBMq/q+0VTxHzBNWtRwunQWUE8rIcP6GldGmI93Mxy0NfRh8uoI+c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784895045; c=relaxed/simple;
-	bh=3PVL60uLcRI4yvDQx1IrwymmB1TFYT1vk37fGhTxmlE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=iug1u3ZYfgGb7v8t0GfuTxFmAzvZhesRAarLJ5C6AilpyWrzLX9dbjokQPvpba4A8eIou+hxiDPnSY82HTqqMTSepuyyWEbTRLzjVUpyM2AmILIvqk2Eu0U6phPI9M3vyFnNHOnI4GWcRiIlThuNJzedAAZa6azLcb7IadN0G6k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b=DM9IjqJU; arc=pass smtp.client-ip=136.143.188.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09E939021A;
+	Fri, 24 Jul 2026 12:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.220
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784896044; cv=none; b=dy8oSU+kcN+texgkPwamrxNb1Fh7piZT5pc+/yQfq4DSoAgDLb7BgwtnTRgjMVwR9xyZcNfaoI/BCd3F73EbahWsOQyQn9p9Fq/G1GwxdKWQ/tTzKrVcalDF6q2qdm18MONiVWFEUSh+x6USM2ogx5IlrEkAx/s4nVHEj0YN+Fs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784896044; c=relaxed/simple;
+	bh=LDBbmwekKmmXHpQfdg+ZZQfu8q+P0aouaQmGttMVW0U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqlQjLya0+w3uRs71mGROsv3jkKSEYkrsC++hWPgjd/4VdipT+caHj5DXVHFfXZ7D8oqDqWLYBR86aPD9eV08PzmDiPtCpSQ+UFPKHMB//NNNY8PSbFkBf8jXHf1Kir+vC/x0nD9RI/xB0l7+OT5QuLeSeLsaHrmCeSDf+AzGaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru; spf=pass smtp.mailfrom=rosa.ru; dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b=KV1PgOB7; arc=none smtp.client-ip=178.154.239.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rosa.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=adrian.larumbe@collabora.com header.b="DM9IjqJU"
-ARC-Seal: i=1; a=rsa-sha256; t=1784894957; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=XytxdjCGX9EVUPtKHF9e+bqP8A0cCXkZpjpzzRG0dGjvUYRYcAh6Y28Aq0zdwe+8AdS0x2LLhgchFvco13lZXmzHRS1P311dnA5e7UXs7dXA0MgXm1/tA6glovCBav/JXtd1SH6LVt1sIIOsu4z+/L++ZRAMXpwvZ6Y9a5hq7Og=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784894957; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=DeEZcBVEsWInovxiw4dTOa5TRdK+0FTpKBalsMipvug=; 
-	b=JnD439G1G5v2NpSXVTamKPt4m956jX/SiSkVFQJyR8L+/Tzfcz085c8FPQDIm1O9UU0rkWqmeYYp/9INnwOJJg9koEjGsYp+o3hKrvNRRHQQP9jIuiTFBONMiQ50KaKCTWw3+QtroSfWuKweTO9haNeRIBLOFveMfJT9agHj8Xs=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=adrian.larumbe@collabora.com;
-	dmarc=pass header.from=<adrian.larumbe@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784894957;
-	s=zohomail; d=collabora.com; i=adrian.larumbe@collabora.com;
-	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:To:To:Cc:Cc:Reply-To;
-	bh=DeEZcBVEsWInovxiw4dTOa5TRdK+0FTpKBalsMipvug=;
-	b=DM9IjqJUPkdiUu8sGP59ecg8r/tMoNO5Ucrjlfp4CnQV0i6E7tPp3MHZHIK06Xf+
-	EyXUTV8YPyUEvAZ8TTPMKZdAi/yeV5ewIIepEP577y2UoMRbsytnA4WAQYtOppnR8oO
-	8MACe4aWiJ5XesjgWMqpy/fAHasX7/jXdqs3/ukY=
-Received: by mx.zohomail.com with SMTPS id 1784894955910533.5313550215117;
-	Fri, 24 Jul 2026 05:09:15 -0700 (PDT)
-From: =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-Date: Fri, 24 Jul 2026 13:08:58 +0100
-Subject: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
+	dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b="KV1PgOB7"
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [IPv6:2a02:6b8:c41:1300:1:45:d181:d102])
+	by forward201d.mail.yandex.net (postfix) with ESMTPS id 56C8F83902;
+	Fri, 24 Jul 2026 15:27:06 +0300 (MSK)
+Received: from mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:83a9:0:640:50fd:0])
+	by forward102d.mail.yandex.net (postfix) with ESMTPS id 432C8C01A2;
+	Fri, 24 Jul 2026 15:26:58 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net (smtp) with ESMTPSA id mQYIjHPfFiE0-7t6nTZPk;
+	Fri, 24 Jul 2026 15:26:56 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosa.ru; s=mail;
+	t=1784896016; bh=24sziNSOej9hW9ShsUcU0gGgB5716Fg83pEtrPNeQrs=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=KV1PgOB7miJXsIz3Af2ESKl6u4pm5slpGdWysgwCsX+Wg+hoiSWXrbXp7mKearWAC
+	 cYYCYeAgWt2LhWXyuVO3GswBgZezXZ1eCuy+mM1EfUls2O/KhjDdJwUs5GyyhXzN17
+	 0nQINXebu+tOvqprBwjG4W32Fo2phrZMnY8MvedA=
+Authentication-Results: mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net; dkim=pass header.i=@rosa.ru
+From: Mikhail Novosyolov <m.novosyolov@rosa.ru>
+To: dri-devel@lists.freedesktop.org
+Cc: airlied@redhat.com,
+	kraxel@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	simona@ffwll.ch,
+	christian.koenig@amd.com,
+	sumit.semwal@linaro.org,
+	dreaming.about.electric.sheep@gmail.com,
+	linux-kernel@vger.kernel.org,
+	virtualization@lists.linux.dev,
+	spice-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	m.novosyolov@rosa.ru,
+	a.sudakov@rosa.ru,
+	ghadi.rahme@canonical.com,
+	timo.lindfors@iki.fi
+Subject: [PATCH] drm/qxl: avoid hangs on an unresponsive SPICE host
+Date: Fri, 24 Jul 2026 15:26:36 +0300
+Message-ID: <20260724122636.213906-1-m.novosyolov@rosa.ru>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDcyMT3fTUkviCxPTUYt1Uo1RLw2RT49TERGMloPqCotS0zAqwWdGxEH5
- xaVJWanIJyACl2loAZ6PVx20AAAA=
-X-Change-ID: 20260724-get_pages-e2e91c53eaa3
-To: Alex Deucher <alexander.deucher@amd.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Lucas Stach <l.stach@pengutronix.de>, 
- Russell King <linux+etnaviv@armlinux.org.uk>, 
- Christian Gmeiner <christian.gmeiner@gmail.com>, 
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>, 
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>, 
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>, 
- Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>, 
- Boris Brezillon <boris.brezillon@collabora.com>, 
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>, 
- Sandy Huang <hjc@rock-chips.com>, 
- =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
- Andy Yan <andy.yan@rock-chips.com>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Zack Rusin <zack.rusin@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, 
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org, 
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org, 
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org, 
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org, 
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
- =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=17563;
- i=adrian.larumbe@collabora.com; h=from:subject:message-id;
- bh=3PVL60uLcRI4yvDQx1IrwymmB1TFYT1vk37fGhTxmlE=;
- b=owEB7QES/pANAwAKAQ4mfkzuU0M9AcsmYgBqY1XgrrsDazA78XCqv4Hkn/ujXzt2KDrdKQQnM
- HDXI/outcGJAbMEAAEKAB0WIQQyQDDowAUXXfk3B6QOJn5M7lNDPQUCamNV4AAKCRAOJn5M7lND
- PRlEC/4otGAiqlGdJW1PM79TRx/wgUCZsSgcgrihNvGOYUqY7R9iKNivSpxEvj7LI/vuWtkk1Sc
- zz5Fl15Hx81JDA5QrDvVIaw6+h2UxR/395AaKIu6dxEVD/nUAljE+CGzvKXvbg1ef5mcl5xwkEU
- NG8Zife//57e2Cxx3jlm8K05OHWpAxmvpgK/+TnbbjGN0S2sU0mKLKkOI/IjpKDtXbRawqmkP8f
- ig5FFku9ryqj7iISJIc0IHOFkwlK6amszLd0X/XZqc5HCl3rWVGWNYBC0brOGcyxZ6Cz+vBACkw
- Fxxqt5KEzITsrBK+ame24r5yCJ36qiVAuHoy1Yrw9GO3H4xt/8zM7lCwOdCUkFmyErXSPHmjSQr
- 4uEDJziN3dnZkl+tTIHkGxbVzjQZgTaLF8XDZFaFpMCUz+aIyb3LpPY7hirfcwSnFl7UoaiynXg
- nXS0x8DIJ3+QDNXhi7eYtwSDPtiuv6RTaJlr8oBkoACoTgxRbv8Q+ZCgyvm91ZdVCDtDk=
-X-Developer-Key: i=adrian.larumbe@collabora.com; a=openpgp;
- fpr=324030E8C005175DF93707A40E267E4CEE53433D
 
-None of the semantics of the function tell of it being a PRIME-exclusive
-entry point. In fact, most drivers seem to be using it to translate a list
-of pages into an sg table that can be used for GPU mapping later on, rather
-than just for sharing an object's pages with another driver.
+Symptoms:
+  - text/fbcon console (and TTY) of a QEMU VM hangs (does not work)
+  - SSH works OK
+  - system cannot be rebooted or powered off via systemd
 
-Move it across files and rename accordingly.
+QXL is a paravirtual display device: the guest submits drawing commands
+and the host (QEMU's SPICE server) executes them.  Each
+submitted batch carries a "release" -- a completion record the host
+marks done when the work is finished -- which the guest uses as a
+dma_fence.  Before the guest can reuse or evict a piece of video memory
+it must wait for the release covering it to be marked done: a to-do
+entry that needs its checkbox ticked before the page can be recycled.
 
-Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+The host drains the command ring only while a display client is
+attached (someone is watching the screen).  With no client -- the
+normal state of an unattended server VM -- the host stops processing,
+the checkboxes are never ticked, and the guest's wait never completes.
+Heavy console output (fbcon redraw) fills video memory and keeps the
+guest waiting on these releases, which surfaces as "[TTM] Buffer
+eviction failed" / "failed to allocate VRAM BO"; and during shutdown,
+where teardown waits on the same releases with no timeout, as an
+uninterruptible hang that leaves systemd and the console callback stuck
+in D state and makes the VM impossible to reboot cleanly.
+
+This change makes the guest drive the host forward again while it
+waits: periodically notify the host to process and free completed work,
+and run the cleanup that ticks the checkboxes -- restoring the
+behaviour removed by commit 5a838e5d5825 ("drm/qxl: simplify
+qxl_fence_wait").  Two deliberate choices keep the two known upstream
+failure modes from coming back:
+
+  - the cleanup is queued asynchronously, never flushed inline (flushing
+    here would deadlock -- CVE-2024-36944; details below);
+  - the total wait is bounded (30 s by default), so a completely
+    unresponsive host can no longer hold the console/modeset locks
+    forever; on give-up a ratelimited warning is logged and the caller
+    proceeds or retries.
+
+The periodic nudge resolves the eviction failures; the bound resolves
+the reboot hang.
+
+Background -- known discussions of this regression:
+
+  * Ubuntu/Launchpad bug and reproducer (test.sh):
+      https://bugs.launchpad.net/bugs/2065153
+  * Regression report and analysis:
+      https://lore.kernel.org/regressions/ZTgydqRlK6WX_b29@eldamar.lan/
+  * Debian #1054514 (the report behind the upstream revert):
+      https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1054514
+  * Ubuntu kernel-team reproducer thread:
+      https://lists.ubuntu.com/archives/kernel-team/2025-July/161304.html
+
+Commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") reduced the
+wait to a single wait_event_timeout() whose condition calls
+qxl_io_notify_oom() exactly once, when first tested.  The condition is
+never re-evaluated unless release_event fires, and with the host not
+draining no such wakeup arrives; releases never complete and the fence
+is never signalled.
+
+qxl_queue_garbage_collect() is called with flush=false on purpose:
+flush_work() in this context deadlocks against the console owner and the
+worker pool -- the CVE-2024-36944 regression -- which is why the upstream
+revert of commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") did
+not stick and was reapplied as commit 3628e0383dd3 ("Reapply "drm/qxl:
+simplify qxl_fence_wait"").  flush=false matches what the IRQ handler
+already does and cannot deadlock.
+
+Bounding the wait deliberately relaxes the assumption documented in
+dma_fence_wait() (include/linux/dma-fence.h) that a MAX_SCHEDULE_TIMEOUT
+wait can never time out: a give-up is reported to the caller as a
+timeout (0), so the few MAX_SCHEDULE_TIMEOUT callers reachable from qxl
+through TTM (the page-fault idle wait, delayed delete, the OOM ghost
+swapout and evict_all) continue with an unsignaled fence.  This is not a
+new failure class: it only fires after fence_giveup_ms on a host that is
+entirely unresponsive -- on a merely slow host the fence signals long
+before the bound, thanks to the periodic nudge -- and the pre-regression
+implementation, commit 07ed11afb68d ("Revert "drm/qxl: simplify
+qxl_fence_wait""), already returned with an unsignaled fence via its
+'goto signaled' path once its spin-count limit was reached.
+
+The reboot/shutdown hang is a lock-contagion effect.  An atomic commit
+holds a DRM modeset ww-mutex and blocks on a release fence that never
+signals, so every later console update then blocks on that same mutex.
+Systemd's own console writes are such an update: they trigger fbcon
+panning (drm_fb_helper_pan_display() -> drm_atomic_get_plane_state() ->
+drm_modeset_lock()), which takes the ww-mutex non-interruptibly
+(TASK_UNINTERRUPTIBLE) and therefore lands in D state.  With pid 1
+stuck in D state the VM can neither be shut down nor rebooted, and only
+a host-side reset clears it.
+
+Example of this lock:
+  INFO: task systemd:1 blocked for more than 245 seconds.
+  Not tainted 6.12.47-generic-5rosa2021.1-x86_64 #1
+  "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
+  task:systemd
+  state:D stack:0 pid:1 tgid:1 ppid:0
+  flags:0x00000000
+Call Trace:
+  <TASK>
+  __schedule+0x408/0x1360
+  schedule+0x27/0xf0
+  schedule_preempt_disabled+0x15/0x30
+  __ww_mutex_lock.constprop.0+0x526/0x980
+  ? __kmalloc_noprof+0x177/0x420
+  drm_modeset_lock+0x37/0xc0
+  drm_atomic_get_plane_state+0x7e/0x180
+  drm_client_modeset_commit_atomic+0xaa/0x230
+  drm_client_modeset_commit_locked+0x5a/0x160
+  drm_fb_helper_pan_display+0xfd/0x240
+
+30 seconds seems to be a reasonable default value:
+  - it should not be triggered on a slow, but responsive host,
+    realistic worst-case release completion on a slow host is < 10 sec
+  - it must be less than hung_task_timeout_secs=120s
+  - it should be less than DefaultTimeoutStopSec=90s in systemd
+
+Fixes: 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait")
+Assisted-by: Kimi:K3
+Assisted-by: Z.AI:GLM-5.2
+Signed-off-by: Mikhail Novosyolov <m.novosyolov@rosa.ru>
 ---
-drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
-It is a generic helper that converts a page array into a scatter/gather
-table via dma_map_sg_attrs. Nothing in its implementation touches struct
-dma_buf or import/export logic.
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
- drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
- drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
- drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
- drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
- drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
- drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
- drivers/gpu/drm/msm/msm_gem.c               |  2 +-
- drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
- drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
- drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
- drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
- drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
- drivers/gpu/drm/tegra/gem.c                 |  4 +--
- drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
- drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
- drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
- include/drm/drm_gem.h                       |  5 +++-
- include/drm/drm_prime.h                     |  2 --
- 19 files changed, 68 insertions(+), 70 deletions(-)
+ drivers/gpu/drm/qxl/qxl_release.c | 59 ++++++++++++++++++++++++++++---
+ 1 file changed, 54 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-index b33c300e26e2..c9a98aec7eb6 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-@@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
+index 06979d0e8a9f..75286e6d5ec5 100644
+--- a/drivers/gpu/drm/qxl/qxl_release.c
++++ b/drivers/gpu/drm/qxl/qxl_release.c
+@@ -21,6 +21,8 @@
+  */
  
- 	switch (bo->tbo.resource->mem_type) {
- 	case TTM_PL_TT:
--		sgt = drm_prime_pages_to_sg(obj->dev,
--					    bo->tbo.ttm->pages,
--					    bo->tbo.ttm->num_pages);
-+		sgt = drm_pages_to_sg(obj->dev,
-+				      bo->tbo.ttm->pages,
-+				      bo->tbo.ttm->num_pages);
- 		if (IS_ERR(sgt))
- 			return sgt;
+ #include <linux/delay.h>
++#include <linux/jiffies.h>
++#include <linux/moduleparam.h>
  
-diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-index 018df97d590d..22c8a3b5f667 100644
---- a/drivers/gpu/drm/drm_gem.c
-+++ b/drivers/gpu/drm/drm_gem.c
-@@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+ #include <drm/drm_print.h>
+ 
+@@ -56,20 +58,67 @@ static const char *qxl_get_timeline_name(struct dma_fence *fence)
+ 	return "release";
  }
- EXPORT_SYMBOL(drm_gem_put_pages);
  
-+/**
-+ * drm_pages_to_sg - converts a page array into an sg list
-+ * @dev: DRM device
-+ * @pages: pointer to the array of page pointers to convert
-+ * @nr_pages: length of the page vector
-+ *
-+ * This helper creates an sg table object from a set of pages.
-+ * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
++/*
++ * Upper bound for a single release fence wait when the host does not
++ * respond at all, in milliseconds.  Prevents uninterruptible sleeps
++ * without a bound when a SPICE host stops draining the QXL rings.
 + */
-+struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-+				 struct page **pages, unsigned int nr_pages)
-+{
-+	struct sg_table *sg;
-+	size_t max_segment = 0;
-+	int err;
++static unsigned int fence_giveup_ms = 30000;
++module_param(fence_giveup_ms, uint, 0644);
++MODULE_PARM_DESC(fence_giveup_ms,
++		 "upper bound in ms for a qxl release fence wait with unresponsive host (default 30000)");
 +
-+	sg = kmalloc_obj(struct sg_table);
-+	if (!sg)
-+		return ERR_PTR(-ENOMEM);
+ static long qxl_fence_wait(struct dma_fence *fence, bool intr,
+ 			   signed long timeout)
+ {
+ 	struct qxl_device *qdev;
+ 	unsigned long cur, end = jiffies + timeout;
++	unsigned long giveup = jiffies + msecs_to_jiffies(fence_giveup_ms);
++	signed long left = timeout, slice;
+ 
+ 	qdev = container_of(fence->extern_lock, struct qxl_device,
+ 			    release_lock);
+ 
+-	if (!wait_event_timeout(qdev->release_event,
+-				(dma_fence_is_signaled(fence) ||
+-				 (qxl_io_notify_oom(qdev), 0)),
+-				timeout))
+-		return 0;
++	/*
++	 * A SPICE host may stop draining the QXL rings, e.g. when no
++	 * display client is attached to the VM.  In that state releases
++	 * complete only if the device is kicked through the OOM notifier
++	 * and garbage collection gets a chance to run, so poke both
++	 * periodically while waiting.
++	 *
++	 * Garbage collection is queued without flushing on purpose:
++	 * flush_work() here can deadlock against the console owner and
++	 * the worker pool (see CVE-2024-36944).
++	 *
++	 * The wait is bounded by fence_giveup_ms even when the caller
++	 * passed an infinite timeout: a completely unresponsive host
++	 * must not hang tasks holding the console lock forever.  The
++	 * bound is reported to the caller as an ordinary timeout,
++	 * letting TTM retry eviction later.
++	 */
++	for (;;) {
++		qxl_io_notify_oom(qdev);
++		qxl_queue_garbage_collect(qdev, false);
 +
-+	if (dev)
-+		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
-+	if (max_segment == 0)
-+		max_segment = UINT_MAX;
-+	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
-+						(unsigned long)nr_pages << PAGE_SHIFT,
-+						max_segment, GFP_KERNEL);
-+	if (err) {
-+		kfree(sg);
-+		sg = ERR_PTR(err);
++		slice = min_t(signed long, left, msecs_to_jiffies(100));
++		if (wait_event_timeout(qdev->release_event,
++				       dma_fence_is_signaled(fence),
++				       slice))
++			break;
++
++		left -= slice;
++		if (left <= 0)
++			return 0;
++
++		if (time_after(jiffies, giveup)) {
++			dev_warn_ratelimited(qdev->ddev.dev,
++					     "fence %llu#%llu not signaled after %u ms, giving up\n",
++					     (unsigned long long)fence->context,
++					     (unsigned long long)fence->seqno,
++					     fence_giveup_ms);
++			return 0;
++		}
 +	}
-+	return sg;
-+}
-+EXPORT_SYMBOL(drm_pages_to_sg);
-+
- static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
- 			  struct drm_gem_object **objs)
- {
-diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-index 22ec52e2ffb8..144d088a477f 100644
---- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-+++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-@@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
  
- 	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
- 
--	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
-+	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
- }
- EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
- 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 9b44c78cd77f..54539a8929c1 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
- 	.vunmap = drm_gem_dmabuf_vunmap,
- };
- 
--/**
-- * drm_prime_pages_to_sg - converts a page array into an sg list
-- * @dev: DRM device
-- * @pages: pointer to the array of page pointers to convert
-- * @nr_pages: length of the page vector
-- *
-- * This helper creates an sg table object from a set of pages
-- * the driver is responsible for mapping the pages into the
-- * importers address space for use with dma_buf itself.
-- *
-- * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
-- */
--struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
--				       struct page **pages, unsigned int nr_pages)
--{
--	struct sg_table *sg;
--	size_t max_segment = 0;
--	int err;
--
--	sg = kmalloc_obj(struct sg_table);
--	if (!sg)
--		return ERR_PTR(-ENOMEM);
--
--	if (dev)
--		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
--	if (max_segment == 0)
--		max_segment = UINT_MAX;
--	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
--						(unsigned long)nr_pages << PAGE_SHIFT,
--						max_segment, GFP_KERNEL);
--	if (err) {
--		kfree(sg);
--		sg = ERR_PTR(err);
--	}
--	return sg;
--}
--EXPORT_SYMBOL(drm_prime_pages_to_sg);
--
- /**
-  * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
-  * @sgt: sg_table describing the buffer to check
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-index b0436a1e103f..a8e8614f8210 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-@@ -3,7 +3,6 @@
-  * Copyright (C) 2015-2018 Etnaviv Project
-  */
- 
--#include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- #include <linux/dma-mapping.h>
- #include <linux/shmem_fs.h>
-@@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
- 		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
- 		struct sg_table *sgt;
- 
--		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
-+		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
- 		if (IS_ERR(sgt)) {
- 			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
- 				PTR_ERR(sgt));
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-index 6757ae6ec304..f44484325ddb 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-@@ -3,6 +3,7 @@
-  * Copyright (C) 2014-2018 Etnaviv Project
-  */
- 
-+#include <drm/drm_gem.h>
- #include <drm/drm_prime.h>
- #include <linux/dma-buf.h>
- #include <linux/module.h>
-@@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
- 	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
- 		return ERR_PTR(-EINVAL);
- 
--	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
-+	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
- }
- 
- int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-index 2fb03487c983..37160228244c 100644
---- a/drivers/gpu/drm/loongson/lsdc_gem.c
-+++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-@@ -9,7 +9,6 @@
- #include <drm/drm_dumb_buffers.h>
- #include <drm/drm_file.h>
- #include <drm/drm_gem.h>
--#include <drm/drm_prime.h>
- #include <drm/drm_print.h>
- 
- #include "lsdc_drv.h"
-@@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
--	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
-+	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
- }
- 
- static void lsdc_gem_object_free(struct drm_gem_object *obj)
-diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-index efd3d3c9a449..7e3418290c22 100644
---- a/drivers/gpu/drm/msm/msm_gem.c
-+++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
- 
- 		msm_obj->pages = p;
- 
--		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
-+		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
- 		if (IS_ERR(msm_obj->sgt)) {
- 			void *ptr = ERR_CAST(msm_obj->sgt);
- 
-diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-index 036d34c674d9..d25393a9e549 100644
---- a/drivers/gpu/drm/msm/msm_gem_prime.c
-+++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-@@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
- 	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
- 		return ERR_PTR(-ENOMEM);
- 
--	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
-+	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
- }
- 
- int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-index caab60fc62f6..b95f2f07df74 100644
---- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-@@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
- {
- 	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
- 
--	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
--				     nvbo->bo.ttm->num_pages);
-+	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
-+			       nvbo->bo.ttm->num_pages);
- }
- 
- struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
-diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-index 9855df738194..ec530d254fa4 100644
---- a/drivers/gpu/drm/panthor/panthor_gem.c
-+++ b/drivers/gpu/drm/panthor/panthor_gem.c
-@@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
--	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
--				    bo->base.size >> PAGE_SHIFT);
-+	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
-+			      bo->base.size >> PAGE_SHIFT);
- 	if (IS_ERR(sgt))
- 		return sgt;
- 
-@@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
- 	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
- 	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
- 
--	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
-+	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
- }
- 
- static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
-diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-index a77881f035e7..4cfc4282a59c 100644
---- a/drivers/gpu/drm/radeon/radeon_prime.c
-+++ b/drivers/gpu/drm/radeon/radeon_prime.c
-@@ -26,6 +26,7 @@
- 
- #include <linux/dma-buf.h>
- 
-+#include <drm/drm_gem.h>
- #include <drm/drm_prime.h>
- #include <drm/radeon_drm.h>
- 
-@@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
- {
- 	struct radeon_bo *bo = gem_to_radeon_bo(obj);
- 
--	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
--				     bo->tbo.ttm->num_pages);
-+	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
-+			       bo->tbo.ttm->num_pages);
- }
- 
- struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
-diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-index b188539dca0b..7897da0becf4 100644
---- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-+++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-@@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
- 
- 	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
- 
--	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
--					    rk_obj->pages, rk_obj->num_pages);
-+	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
-+				      rk_obj->pages, rk_obj->num_pages);
- 	if (IS_ERR(rk_obj->sgt)) {
- 		ret = PTR_ERR(rk_obj->sgt);
- 		goto err_put_pages;
-@@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
- 	int ret;
- 
- 	if (rk_obj->pages)
--		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
-+		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
- 
- 	sgt = kzalloc_obj(*sgt);
- 	if (!sgt)
-diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-index 436394e04812..701af672b4e5 100644
---- a/drivers/gpu/drm/tegra/gem.c
-+++ b/drivers/gpu/drm/tegra/gem.c
-@@ -17,7 +17,7 @@
- 
- #include <drm/drm_drv.h>
- #include <drm/drm_dumb_buffers.h>
--#include <drm/drm_prime.h>
-+#include <drm/drm_gem.h>
- 
- #include "drm.h"
- #include "gem.h"
-@@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
- 
- 	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
- 
--	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
-+	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
- 	if (IS_ERR(bo->sgt)) {
- 		err = PTR_ERR(bo->sgt);
- 		goto put_pages;
-diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-index 39f8c46550c2..c9e7f2e3668c 100644
---- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-+++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-@@ -28,7 +28,7 @@
- #include "vmwgfx_bo.h"
- #include "vmwgfx_drv.h"
- 
--#include "drm/drm_prime.h"
-+#include "drm/drm_gem.h"
- #include "drm/drm_gem_ttm_helper.h"
- 
- #include <linux/debugfs.h>
-@@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
- 	if (vmw_tt->vsgt.sgt)
- 		return vmw_tt->vsgt.sgt;
- 
--	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
-+	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
- }
- 
- static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-index 8a920e58245c..f0fe80706b79 100644
---- a/drivers/gpu/drm/xe/xe_dma_buf.c
-+++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-@@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
- 
- 	switch (bo->ttm.resource->mem_type) {
- 	case XE_PL_TT:
--		sgt = drm_prime_pages_to_sg(obj->dev,
--					    bo->ttm.ttm->pages,
--					    obj->size >> PAGE_SHIFT);
-+		sgt = drm_pages_to_sg(obj->dev,
-+				      bo->ttm.ttm->pages,
-+				      obj->size >> PAGE_SHIFT);
- 		if (IS_ERR(sgt))
- 			return sgt;
- 
-diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-index eec4c1da3f9e..a4a7c7f2c91c 100644
---- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-+++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-@@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
- 	if (!xen_obj->pages)
- 		return ERR_PTR(-ENOMEM);
- 
--	return drm_prime_pages_to_sg(gem_obj->dev,
-+	return drm_pages_to_sg(gem_obj->dev,
- 				     xen_obj->pages, xen_obj->num_pages);
- }
- 
-diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-index 885244e375d3..7b9cc6335689 100644
---- a/include/drm/drm_gem.h
-+++ b/include/drm/drm_gem.h
-@@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
- 	 * here cannot be used for sg tables pointing at driver private memory
- 	 * ranges.
- 	 *
--	 * See also drm_prime_pages_to_sg().
-+	 * See also drm_pages_to_sg().
- 	 */
- 	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
- 
-@@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
- void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
- 		bool dirty, bool accessed);
- 
-+struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-+				 struct page **pages, unsigned int nr_pages);
-+
- void drm_gem_lock(struct drm_gem_object *obj);
- void drm_gem_unlock(struct drm_gem_object *obj);
- 
-diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-index f50f862f0d8b..603e16a40ae7 100644
---- a/include/drm/drm_prime.h
-+++ b/include/drm/drm_prime.h
-@@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
- int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
- int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
- 
--struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
--				       struct page **pages, unsigned int nr_pages);
- struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
- 				     int flags);
- 
-
----
-base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
-change-id: 20260724-get_pages-e2e91c53eaa3
-
-Best regards,
---  
-Adrián Larumbe <adrian.larumbe@collabora.com>
+ 	cur = jiffies;
+ 	if (time_after(cur, end))
+-- 
+2.51.0
 
