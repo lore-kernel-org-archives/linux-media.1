@@ -1,277 +1,304 @@
-Received: from forward201d.mail.yandex.net (forward201d.mail.yandex.net [178.154.239.220])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B09E939021A;
-	Fri, 24 Jul 2026 12:27:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA675416840
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 12:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784896044; cv=none; b=dy8oSU+kcN+texgkPwamrxNb1Fh7piZT5pc+/yQfq4DSoAgDLb7BgwtnTRgjMVwR9xyZcNfaoI/BCd3F73EbahWsOQyQn9p9Fq/G1GwxdKWQ/tTzKrVcalDF6q2qdm18MONiVWFEUSh+x6USM2ogx5IlrEkAx/s4nVHEj0YN+Fs=
+	t=1784896940; cv=none; b=H1rsqbfY3U5127hYh8QudJyPUJbVj+hdPeMQ6VzDq281RIMu+FylNrHzZYywNrsBulFfAusk89CqChO379FVUfZMwJMRxhauYEn/1VVohnwpaPc6YN9y+3GfKr0oKzi3MCU+u+iuNmdxpBSNNK4QEICiLESMwWvBdQTT2sCabnw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784896044; c=relaxed/simple;
-	bh=LDBbmwekKmmXHpQfdg+ZZQfu8q+P0aouaQmGttMVW0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gqlQjLya0+w3uRs71mGROsv3jkKSEYkrsC++hWPgjd/4VdipT+caHj5DXVHFfXZ7D8oqDqWLYBR86aPD9eV08PzmDiPtCpSQ+UFPKHMB//NNNY8PSbFkBf8jXHf1Kir+vC/x0nD9RI/xB0l7+OT5QuLeSeLsaHrmCeSDf+AzGaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru; spf=pass smtp.mailfrom=rosa.ru; dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b=KV1PgOB7; arc=none smtp.client-ip=178.154.239.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rosa.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rosa.ru
+	s=arc-20240116; t=1784896940; c=relaxed/simple;
+	bh=P6LNU8zKsK52EexDG9sr03EG75GRsVNOKcLPifAvHfg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Pa8+f8Lutf3YR02nlWmiRVSca+A+PANqy0Nc770EVicxTK5qREL4vFrtiXXyIfvj108HDLtmfdqRlNhAxRkn6qIsobi7acTG9tefxzrrx+znXralsf0/a8gSjTz28sPOGIk7Oct3G7HAmRvPMoKWreOEhn27qaTrzMRI4xAFe/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M6wO3a7Z; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QZOamfDs; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rosa.ru header.i=@rosa.ru header.b="KV1PgOB7"
-Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [IPv6:2a02:6b8:c41:1300:1:45:d181:d102])
-	by forward201d.mail.yandex.net (postfix) with ESMTPS id 56C8F83902;
-	Fri, 24 Jul 2026 15:27:06 +0300 (MSK)
-Received: from mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net [IPv6:2a02:6b8:c42:83a9:0:640:50fd:0])
-	by forward102d.mail.yandex.net (postfix) with ESMTPS id 432C8C01A2;
-	Fri, 24 Jul 2026 15:26:58 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net (smtp) with ESMTPSA id mQYIjHPfFiE0-7t6nTZPk;
-	Fri, 24 Jul 2026 15:26:56 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rosa.ru; s=mail;
-	t=1784896016; bh=24sziNSOej9hW9ShsUcU0gGgB5716Fg83pEtrPNeQrs=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=KV1PgOB7miJXsIz3Af2ESKl6u4pm5slpGdWysgwCsX+Wg+hoiSWXrbXp7mKearWAC
-	 cYYCYeAgWt2LhWXyuVO3GswBgZezXZ1eCuy+mM1EfUls2O/KhjDdJwUs5GyyhXzN17
-	 0nQINXebu+tOvqprBwjG4W32Fo2phrZMnY8MvedA=
-Authentication-Results: mail-nwsmtp-smtp-production-main-78.klg.yp-c.yandex.net; dkim=pass header.i=@rosa.ru
-From: Mikhail Novosyolov <m.novosyolov@rosa.ru>
-To: dri-devel@lists.freedesktop.org
-Cc: airlied@redhat.com,
-	kraxel@redhat.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	simona@ffwll.ch,
-	christian.koenig@amd.com,
-	sumit.semwal@linaro.org,
-	dreaming.about.electric.sheep@gmail.com,
-	linux-kernel@vger.kernel.org,
-	virtualization@lists.linux.dev,
-	spice-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org,
-	m.novosyolov@rosa.ru,
-	a.sudakov@rosa.ru,
-	ghadi.rahme@canonical.com,
-	timo.lindfors@iki.fi
-Subject: [PATCH] drm/qxl: avoid hangs on an unresponsive SPICE host
-Date: Fri, 24 Jul 2026 15:26:36 +0300
-Message-ID: <20260724122636.213906-1-m.novosyolov@rosa.ru>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M6wO3a7Z";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QZOamfDs"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66OADVB22875682
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 12:42:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=BasHnkJh1AZ7ZcpL5l3uRm
+	qruJWcA/bEo+NpmjJe46s=; b=M6wO3a7ZuvIwMd1Z2VmXDAvZ8D4E6GGLeCksJK
+	ic0LoICZaklUv/Fu+ra3/e5prLmo3P7k3+A85V7piLq+oDpS4JMID7/WaqNew/SO
+	9BQfwv3YVBDB/8krz9SgAXu1DoJMqA70kONekACTfm+tYw/5gXDqtdklmXf0ymMv
+	VfMI/mivaWlnvINrSPyOCjkw9wIp3ahd3jTXT9er352xDJmmJN7Ln74zijXhEy4B
+	QUyoDLd92GALFaH2+dyPAkXHG9JmaRrl7BPA7oHwUYtXQlFRgnTT9btgkq2b2jFC
+	eImBDjw6YPvxD0yjKHOuu6ESGPQjEFqST41LppS733qrtu+Q==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fm5byrqh1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 12:42:17 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51a8b0a08d2so5144511cf.0
+        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 05:42:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1784896937; x=1785501737; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BasHnkJh1AZ7ZcpL5l3uRmqruJWcA/bEo+NpmjJe46s=;
+        b=QZOamfDslNagJfKKQ6zf3ICFaPlrnkheSSuWqBFgR6N3ziHW4Gy/SOH6ISsDU1VLZx
+         ZPfgpxFAkrMCgt/9b4JKT9i29AnILZ10EE7bV7WsgrpNjFzf8IwhLtibS8t//69u/fEy
+         pTKV0ns30/1q605hKEvbC4VudHslhwo4KeIRmf9wc7DIOxOmLfktPeCyr75kiFepQJfe
+         zTbPn3GzOYH+jBQqhNDUxcYDlPFt6sHWcKF9d1Nc0vBSTdrBPzDNUxo5+vYJBHsTEYQd
+         cwIvbLpFhxfX5s53aCprJUSsKe6fYBhG/SBEHJ13OvlAIM5qo8JxgixwI1RPhzW75Saa
+         y9tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784896937; x=1785501737;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=BasHnkJh1AZ7ZcpL5l3uRmqruJWcA/bEo+NpmjJe46s=;
+        b=IKXs9KUO6jcVM5xOsAlQyUNYKPqPdv+iZwXpY2GD0e1UdREqKFRpHJqA1cs1wCfV9N
+         FACntB4Z0ilM5xY+XIS/CfwkzCfldwTPPe6yZVgYjSnj8BUsog9vOdbYhCeBGp4Ff8I+
+         68p128SfP7+tzf/M66nspgAulxw74p9PrqU7GCM0tsy0+1YZTeuCaUtG1zuvkSLkWHAO
+         oJLREyXpQt2rGaKFu1lEjBrcBVNDwVKjaupWoid6Qi2ypqOTQJODmxNM8P8HzXSl1DBt
+         mRlv+Oh8mKWSB0H8xRAK2v0xNUZebaUPNlDQlUk3UYYu4uWSsVpezBaEjMqex3x8BC06
+         e2rg==
+X-Forwarded-Encrypted: i=1; AHgh+Roa9wTlkWozrS0YDyEOcRNbR2CfrF+SdUW4KgNLKxwLRFKOKtA+nXU+z7A7Ln5VcqjlCoxFAWOdWTSTTg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwGrOIg/VqGyktt/BNqDJp6ZuNZmhMYtYGGNtX4+HwgAw1YndFm
+	2haEzdP9bAIIPQ2AHOWHfMJUvRa61PZ9k5EotgLWf0a7DrdsPi96k8KQdlAL2vFjmhkU1ZjurG2
+	SkW5x/ZvvgtSmjA5m1BXNK31VFjs5RyN0B01Ee1Q4JFCHXdEpDK5mpEeJsdJ5dO6EaQ==
+X-Gm-Gg: AR+sD11ejCyp8J1jMZap+FI7+P+p+F1O354sSnz/4/HGLxpEW++JsYvARuXops2ZXSW
+	Wzn0ieFNWLc1lMmEiyqW2Bb7ZsDh9U3F06dkDjPM+Q8XYsyn/0XPFK+zy/5jj0f8Q8ATbBXhTFM
+	uHkAgsd3Pd59sHEoaeohlNj4OJiRdf8oslFWeoZEeWU2vvh+q8gTMes4DRhiCPeUjLrLoq0v8PH
+	km+iMWiGNIgdbi4ehnelUs+eAvQcNofQ1Lar5keQhFXVcXfoqVTxwAzUgIC2bXRDFEjrh8rJwxE
+	jmQWyC1u9UHcD8+Xgh2TydsApedqmL8zX2BrJ9wby6A5iEgB4It7i3ALGQ21FPJO0pyubL4N4Ss
+	64uj4wjhiJhpqdlPB1uQmlzucw/sJ+x1W1SCX4tuDPPDyM2jubJkbQZIhF2a0O+fO5D2kzKL8pQ
+	a+cFJjqYSfn+Qkq0Rw7q56YnZ0eK/nQGQLmpaAde7lLC3/N3TTkw==
+X-Received: by 2002:a05:622a:1802:b0:528:325c:2905 with SMTP id d75a77b69052e-5283df7974dmr69250491cf.63.1784896936913;
+        Fri, 24 Jul 2026 05:42:16 -0700 (PDT)
+X-Received: by 2002:a05:622a:1802:b0:528:325c:2905 with SMTP id d75a77b69052e-5283df7974dmr69250021cf.63.1784896936299;
+        Fri, 24 Jul 2026 05:42:16 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:48e:a2cc:6c4:c92a])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ebc828sm352591166b.43.2026.07.24.05.42.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 05:42:15 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v5 0/5] media: qcom: camss: CAMSS Offline Processing Engine
+ support
+Date: Fri, 24 Jul 2026 14:42:08 +0200
+Message-Id: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKBdY2oC/23OQW7CMBAF0Ksgr5nIHntw6Kr3qFg4jtNYSuLUA
+ xEVyt3rwAIJuhnpL+b9fxMccgwsPnY3kcMSOaapBNrvhO/d9B0gtiULlHiQBi14NzJD5BnSHMA
+ 0ZKnrgsfQivIz59DF6937OpXc5TTCuc/BPRWNWiHVaCpU6qAIFAwp+mpOl8HF6TMxVz8XN/g0j
+ lU5m9tHPqf8e5+56E1/WCTrl0WLBglNoyQRWlPa3r1t2GKeiFXyFTEFIYXSOqnVsa3/QdZ1/QO
+ TDRLHPgEAAA==
+X-Change-ID: 20260427-camss-isp-ope-4b575ffec2ed
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-ORIG-GUID: dyDVe2gyH8FQdmldbS8GdKzlQBdZC2s-
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDExNCBTYWx0ZWRfX+JuQHSrcRpXQ
+ BGoaqDgDAf6BJE6WP+al6AzXXoawbQbL0axEU9vfhBEAd8hN/h/8m6LP95jivrZ/9EGMjBBVVXn
+ 3fDALbmGEyELGTNfAdr/ijUtVOlyD3c=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDExNCBTYWx0ZWRfX5x1LWltgDtnN
+ U3/ziQfEdrxVcIPC4e2cIilNp5H6odbJm2dzynjDyl0ERSKH/8iAeKrnq/7gj5wMD+mZgJNIqeE
+ BohbZ8b0cwmfB3iOCTIoThZFnf2QWJBXcI/6PH5JZqWM3j/xARcdQRvBEV/+B8EfEDK2tkY6uAM
+ RGJknwOrYIkrFoeJvU8YFbDAoSbuHeIEb6xr6kd7776upTcLePeWk28d9hzNxtHMszGG1BwdUd0
+ dLAeCaqXAnmX7e0lv9ux39JhWk6Zk0kESUv2vpkunZBAPfTr+FKW/MrN/hEhCLQ3ZHIirL7+m2J
+ raQ9qOz3lMg9eXqg3rZ98riyYfkz/MNofRmgoQMG+XwG8SqdFxoOTJvEkm2zQbfxkiK914ZavUC
+ Di2bW03to0hXtyJim89nERjTVzvdEoqeYUSekRt4TAyz9U9Dzid9Mb/9yHduXXNDYixLcPRnw6Q
+ rs4ABuuJnlvurJSucUA==
+X-Proofpoint-GUID: dyDVe2gyH8FQdmldbS8GdKzlQBdZC2s-
+X-Authority-Analysis: v=2.4 cv=GMA41ONK c=1 sm=1 tr=0 ts=6a635da9 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=rgSWqCNzigiIzMNiINIA:9
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_02,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 phishscore=0 lowpriorityscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607240114
 
-Symptoms:
-  - text/fbcon console (and TTY) of a QEMU VM hangs (does not work)
-  - SSH works OK
-  - system cannot be rebooted or powered off via systemd
+This series introduces support for the Qualcomm CAMSS Offline Processing
+Engine (OPE), as found on Agatti-based platforms. Boards such as Arduino
+UNO-Q use this SoC family and will benefit from hardware-assisted image
+processing enabled by this work.
 
-QXL is a paravirtual display device: the guest submits drawing commands
-and the host (QEMU's SPICE server) executes them.  Each
-submitted batch carries a "release" -- a completion record the host
-marks done when the work is finished -- which the guest uses as a
-dma_fence.  Before the guest can reuse or evict a piece of video memory
-it must wait for the release covering it to be marked done: a to-do
-entry that needs its checkbox ticked before the page can be recycled.
+This represents the first step toward enabling image processing beyond
+raw capture on Qualcomm platforms by using hardware blocks for
+operations such as debayering, color correction, and scaling.
 
-The host drains the command ring only while a display client is
-attached (someone is watching the screen).  With no client -- the
-normal state of an unattended server VM -- the host stops processing,
-the checkboxes are never ticked, and the guest's wait never completes.
-Heavy console output (fbcon redraw) fills video memory and keeps the
-guest waiting on these releases, which surfaces as "[TTM] Buffer
-eviction failed" / "failed to allocate VRAM BO"; and during shutdown,
-where teardown waits on the same releases with no timeout, as an
-uninterruptible hang that leaves systemd and the console callback stuck
-in D state and makes the VM impossible to reboot cleanly.
+The OPE sits outside the live capture pipeline. It operates on frames
+fetched from system memory and writes processed results back to memory.
+Because of this design, the OPE is not tied to any specific capture
+interface: frames may come from CAMSS RDI or PIX paths, or from any
+other producer capable of providing memory-backed buffers.
 
-This change makes the guest drive the host forward again while it
-waits: periodically notify the host to process and free completed work,
-and run the cleanup that ticks the checkboxes -- restoring the
-behaviour removed by commit 5a838e5d5825 ("drm/qxl: simplify
-qxl_fence_wait").  Two deliberate choices keep the two known upstream
-failure modes from coming back:
+The hardware can sustain up to 580 megapixels per second, which is
+sufficient to process a 9MPix (4K) stream at 60 fps or to handle
+four parallel 2MPix (HD) streams at 60 fps.
 
-  - the cleanup is queued asynchronously, never flushed inline (flushing
-    here would deadlock -- CVE-2024-36944; details below);
-  - the total wait is bounded (30 s by default), so a completely
-    unresponsive host can no longer hold the console/modeset locks
-    forever; on give-up a ratelimited warning is logged and the caller
-    proceeds or retries.
+The driver is designed to support multiple processing contexts. At
+present, however, only a single context is instantiated, which is
+created on the first media-pipeline open. This keeps the implementation
+simple while ensuring the design is ready for forthcoming multi-context
+support at the V4L2/media framework level.
 
-The periodic nudge resolves the eviction failures; the bound resolves
-the reboot hang.
+The OPE is a standalone device, independent from the CAMSS device. It
+manages its own clocks and power domains (CAMSS GDSC and CX), and does
+not require any change to the core CAMSS driver.
 
-Background -- known discussions of this regression:
+Graph:
+ope_input ----+
+              +--> ope_proc --> ope_disp --> ope_disp_output
+ope_params ---+
 
-  * Ubuntu/Launchpad bug and reproducer (test.sh):
-      https://bugs.launchpad.net/bugs/2065153
-  * Regression report and analysis:
-      https://lore.kernel.org/regressions/ZTgydqRlK6WX_b29@eldamar.lan/
-  * Debian #1054514 (the report behind the upstream revert):
-      https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1054514
-  * Ubuntu kernel-team reproducer thread:
-      https://lists.ubuntu.com/archives/kernel-team/2025-July/161304.html
+Compliance: v4l2-compliance has been executed without any error on
+the media and video devices.
 
-Commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") reduced the
-wait to a single wait_event_timeout() whose condition calls
-qxl_io_notify_oom() exactly once, when first tested.  The condition is
-never re-evaluated unless release_event fires, and with the host not
-draining no such wakeup arrives; releases never complete and the fence
-is never signalled.
+Testing: A camss-isp-m2m tool is available at
+https://github.com/loicpoulain/camss-isp-m2m-test
+The tool can be used to exercise and stress-test the OPE engine,
+as well as to observe performance and latency behavior under
+various operating conditions (resolution, format, buf count, etc).
 
-qxl_queue_garbage_collect() is called with flush=false on purpose:
-flush_work() in this context deadlocks against the console owner and the
-worker pool -- the CVE-2024-36944 regression -- which is why the upstream
-revert of commit 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait") did
-not stick and was reapplied as commit 3628e0383dd3 ("Reapply "drm/qxl:
-simplify qxl_fence_wait"").  flush=false matches what the IRQ handler
-already does and cannot deadlock.
+./camss-isp-m2m -s 3840x2160 -n 5
 
-Bounding the wait deliberately relaxes the assumption documented in
-dma_fence_wait() (include/linux/dma-fence.h) that a MAX_SCHEDULE_TIMEOUT
-wait can never time out: a give-up is reported to the caller as a
-timeout (0), so the few MAX_SCHEDULE_TIMEOUT callers reachable from qxl
-through TTM (the page-fault idle wait, delayed delete, the OOM ghost
-swapout and evict_all) continue with an unsignaled fence.  This is not a
-new failure class: it only fires after fence_giveup_ms on a host that is
-entirely unresponsive -- on a merely slow host the fence signals long
-before the bound, thanks to the periodic nudge -- and the pre-regression
-implementation, commit 07ed11afb68d ("Revert "drm/qxl: simplify
-qxl_fence_wait""), already returned with an unsignaled fence via its
-'goto signaled' path once its spin-count limit was reached.
+  Name                            Device            Dir       Type
+  --------------------------------------------------------------
+  ope_input                       /dev/video10      output    video
+  ope_params                      /dev/video11      output    meta
+  ope_disp_output                 /dev/video12      capture   video
+  ope_proc                        /dev/v4l-subdev13  -        subdev
+  ope_disp                        /dev/v4l-subdev14  -        subdev
 
-The reboot/shutdown hang is a lock-contagion effect.  An atomic commit
-holds a DRM modeset ww-mutex and blocks on a release fence that never
-signals, so every later console update then blocks on that same mutex.
-Systemd's own console writes are such an update: they trigger fbcon
-panning (drm_fb_helper_pan_display() -> drm_atomic_get_plane_state() ->
-drm_modeset_lock()), which takes the ww-mutex non-interruptibly
-(TASK_UNINTERRUPTIBLE) and therefore lands in D state.  With pid 1
-stuck in D state the VM can neither be shut down nor rebooted, and only
-a host-side reset clears it.
+Test: 3840x2160 RGGB -> 3840x2160 NV12  [5 frames]
+  Input   /dev/video10  3840x2160 RGGB  bpl=3840  size=8294400
+  Output  /dev/video12  3840x2160 NV12  bpl=5760  size=12441600
 
-Example of this lock:
-  INFO: task systemd:1 blocked for more than 245 seconds.
-  Not tainted 6.12.47-generic-5rosa2021.1-x86_64 #1
-  "echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-  task:systemd
-  state:D stack:0 pid:1 tgid:1 ppid:0
-  flags:0x00000000
-Call Trace:
-  <TASK>
-  __schedule+0x408/0x1360
-  schedule+0x27/0xf0
-  schedule_preempt_disabled+0x15/0x30
-  __ww_mutex_lock.constprop.0+0x526/0x980
-  ? __kmalloc_noprof+0x177/0x420
-  drm_modeset_lock+0x37/0xc0
-  drm_atomic_get_plane_state+0x7e/0x180
-  drm_client_modeset_commit_atomic+0xaa/0x230
-  drm_client_modeset_commit_locked+0x5a/0x160
-  drm_fb_helper_pan_display+0xfd/0x240
+Buffers:
+  /dev/video10    buf[0]  offset=0x00000000  length=8294400   VA=0xffffbcb87000
+  /dev/video11    buf[0]  offset=0x00000000  length=12441600  VA=0xffffbbfa9000
 
-30 seconds seems to be a reasonable default value:
-  - it should not be triggered on a slow, but responsive host,
-    realistic worst-case release completion on a slow host is < 10 sec
-  - it must be less than hung_task_timeout_secs=120s
-  - it should be less than DefaultTimeoutStopSec=90s in systemd
+Streaming  5 frames...
+  seq=0      buf: in=0 out=0   14.833 ms  (67.4 fps)
+  seq=1      buf: in=0 out=0   14.874 ms  (67.2 fps)
+  seq=2      buf: in=0 out=0   14.902 ms  (67.1 fps)
+  seq=3      buf: in=0 out=0   14.960 ms  (66.8 fps)
+  seq=4      buf: in=0 out=0   14.896 ms  (67.1 fps)
 
-Fixes: 5a838e5d5825 ("drm/qxl: simplify qxl_fence_wait")
-Assisted-by: Kimi:K3
-Assisted-by: Z.AI:GLM-5.2
-Signed-off-by: Mikhail Novosyolov <m.novosyolov@rosa.ru>
 ---
- drivers/gpu/drm/qxl/qxl_release.c | 59 ++++++++++++++++++++++++++++---
- 1 file changed, 54 insertions(+), 5 deletions(-)
+Changes in v5:
+- Make params definition ope specific (Bryan)
+- Add pipeline/params helpers to ope driver/subdir.
+- driver: fix COLOR_CORRECT base (0xa00, was 0x400) (Bryan).
+- driver: fix DEMO INTERP_COEFF lambda masks (G [7:0], RB [23:16]).
+- driver: map pipeline blocks individually, dump per-block HW_VERSION (Bryan).
+- driver: disp subdev is pass-through, mirror sink format to source
+  and make source read-only.
+- dt-bindings/dts: map the CDM register block and rename node to isp@5c42000 (Bryan).
+- Link to v4: https://lore.kernel.org/r/20260710-camss-isp-ope-v4-0-51207a0319d8@oss.qualcomm.com
 
-diff --git a/drivers/gpu/drm/qxl/qxl_release.c b/drivers/gpu/drm/qxl/qxl_release.c
-index 06979d0e8a9f..75286e6d5ec5 100644
---- a/drivers/gpu/drm/qxl/qxl_release.c
-+++ b/drivers/gpu/drm/qxl/qxl_release.c
-@@ -21,6 +21,8 @@
-  */
- 
- #include <linux/delay.h>
-+#include <linux/jiffies.h>
-+#include <linux/moduleparam.h>
- 
- #include <drm/drm_print.h>
- 
-@@ -56,20 +58,67 @@ static const char *qxl_get_timeline_name(struct dma_fence *fence)
- 	return "release";
- }
- 
-+/*
-+ * Upper bound for a single release fence wait when the host does not
-+ * respond at all, in milliseconds.  Prevents uninterruptible sleeps
-+ * without a bound when a SPICE host stops draining the QXL rings.
-+ */
-+static unsigned int fence_giveup_ms = 30000;
-+module_param(fence_giveup_ms, uint, 0644);
-+MODULE_PARM_DESC(fence_giveup_ms,
-+		 "upper bound in ms for a qxl release fence wait with unresponsive host (default 30000)");
-+
- static long qxl_fence_wait(struct dma_fence *fence, bool intr,
- 			   signed long timeout)
- {
- 	struct qxl_device *qdev;
- 	unsigned long cur, end = jiffies + timeout;
-+	unsigned long giveup = jiffies + msecs_to_jiffies(fence_giveup_ms);
-+	signed long left = timeout, slice;
- 
- 	qdev = container_of(fence->extern_lock, struct qxl_device,
- 			    release_lock);
- 
--	if (!wait_event_timeout(qdev->release_event,
--				(dma_fence_is_signaled(fence) ||
--				 (qxl_io_notify_oom(qdev), 0)),
--				timeout))
--		return 0;
-+	/*
-+	 * A SPICE host may stop draining the QXL rings, e.g. when no
-+	 * display client is attached to the VM.  In that state releases
-+	 * complete only if the device is kicked through the OOM notifier
-+	 * and garbage collection gets a chance to run, so poke both
-+	 * periodically while waiting.
-+	 *
-+	 * Garbage collection is queued without flushing on purpose:
-+	 * flush_work() here can deadlock against the console owner and
-+	 * the worker pool (see CVE-2024-36944).
-+	 *
-+	 * The wait is bounded by fence_giveup_ms even when the caller
-+	 * passed an infinite timeout: a completely unresponsive host
-+	 * must not hang tasks holding the console lock forever.  The
-+	 * bound is reported to the caller as an ordinary timeout,
-+	 * letting TTM retry eviction later.
-+	 */
-+	for (;;) {
-+		qxl_io_notify_oom(qdev);
-+		qxl_queue_garbage_collect(qdev, false);
-+
-+		slice = min_t(signed long, left, msecs_to_jiffies(100));
-+		if (wait_event_timeout(qdev->release_event,
-+				       dma_fence_is_signaled(fence),
-+				       slice))
-+			break;
-+
-+		left -= slice;
-+		if (left <= 0)
-+			return 0;
-+
-+		if (time_after(jiffies, giveup)) {
-+			dev_warn_ratelimited(qdev->ddev.dev,
-+					     "fence %llu#%llu not signaled after %u ms, giving up\n",
-+					     (unsigned long long)fence->context,
-+					     (unsigned long long)fence->seqno,
-+					     fence_giveup_ms);
-+			return 0;
-+		}
-+	}
- 
- 	cur = jiffies;
- 	if (time_after(cur, end))
+Changes in v4:
+- Made OPE a standalone device again, sibling of CAMSS rather than
+  a child node, following maintainer feedback (Bryan)
+- Aligned params with ones suggested by Bryan (when possible) (Bryan)
+- Correct usage of subdevice states for configuration (Hans)
+- Removed the bufq and scheduling helpers (now in ope driver) (Bryan)
+- Moved generic pipeline and params helpers to camms 'core'
+- Fixed Green hue with some downscaling factors (reported by Hans)
+- Fixed ope_enum_fmt_vid_cap (Hans)
+- don't hardcode DT assigned-clock-rates for AXI (Konrad)
+- Link to v3: https://lore.kernel.org/all/20260508-camss-isp-ope-v3-0-bb1055274603@oss.qualcomm.com
+
+Changes in v3:
+- Simplified camss_init_pm_clks()- no clk_get, no rate setting;
+- Added Assigned clock rate in devicetree for CAMSS AXI clock
+- Add Kernel Doc for camss-isp-bufq exported functions
+- Added description explaining the 2-cell for CAMSS bus
+- Reworked OPE media topology with intermediate ope_disp subdev
+- Support for crop and compose in ope_proc sink/source
+- Fixed Write Engine violation with some scaling config
+- Fixed input/output custom-stride issue (Hans)
+- Split uapi header (camss-config.h) into its own dedicated commit
+- Patch reordering to respect dependency in regards to ABI/dt-bindings introduction
+- Link to v2: https://lore.kernel.org/r/20260427-camss-isp-ope-v2-0-f430e7485009@oss.qualcomm.com
+
+Changes in v2:
+- Not an RFC anymore
+- Move from v4l2-m2m to multi-devices design
+- Support for parameters
+- Helpers for pipeline, job scheduling, buf-queues
+- OPE as a child node of CAMSS
+
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Kees Cook <kees@kernel.org>
+To: Gustavo A. R. Silva <gustavoars@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-media@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-hardening@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+
+---
+Loic Poulain (5):
+      media: qcom: camss: Add V4L2 meta format for CAMSS ISP parameters
+      dt-bindings: media: qcom: Add CAMSS Offline Processing Engine (OPE)
+      media: uapi: Add CAMSS OPE ISP configuration definition
+      media: qcom: camss: Add CAMSS Offline Processing Engine driver
+      arm64: dts: qcom: agatti: Add OPE node
+
+ .../bindings/media/qcom,qcm2290-camss-ope.yaml     |  151 +
+ arch/arm64/boot/dts/qcom/agatti.dtsi               |   79 +
+ drivers/media/platform/qcom/camss/Kconfig          |    2 +
+ drivers/media/platform/qcom/camss/Makefile         |    2 +
+ drivers/media/platform/qcom/camss/ope/Kconfig      |   16 +
+ drivers/media/platform/qcom/camss/ope/Makefile     |    9 +
+ drivers/media/platform/qcom/camss/ope/core.c       | 3353 ++++++++++++++++++++
+ drivers/media/platform/qcom/camss/ope/params.c     |   75 +
+ drivers/media/platform/qcom/camss/ope/params.h     |   62 +
+ drivers/media/platform/qcom/camss/ope/pipeline.c   |  399 +++
+ drivers/media/platform/qcom/camss/ope/pipeline.h   |  237 ++
+ drivers/media/v4l2-core/v4l2-ioctl.c               |    1 +
+ include/uapi/linux/camss-ope-config.h              |  160 +
+ include/uapi/linux/videodev2.h                     |    3 +
+ 14 files changed, 4549 insertions(+)
+---
+base-commit: 6b0fbf4352615cc5e542347120f1724ce31837f8
+change-id: 20260427-camss-isp-ope-4b575ffec2ed
+
+Best regards,
 -- 
-2.51.0
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
