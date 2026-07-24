@@ -1,49 +1,73 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2518123EAAD;
-	Fri, 24 Jul 2026 02:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D574036308E
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 04:14:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784861639; cv=none; b=QT9qxaHwIrfJYb9kAVhvf60/BEAkv2r9oGuACVGiMayGybseNwLt1144skNn7RL+pP4jWeqIvtEpy63vms/kC7Q3xUzrS8m8LzZpoiTYPhrlQY6af8yj30ygMTMP1Z+EVVMdwG6lb5qvR0CICG8AU90DLq3FGTP5H4MfFE1DtXU=
+	t=1784866466; cv=none; b=Tmdm2u5iSHEYU2VvTdFmaJ27FbbugTVIFgZt4amP6IuUe6H1FpU0iYuAPbGkkbMUYLcXOwmnc1stiy/Sf1MGuc/Yf3ElPpSfeisIZdvxiBaM7YUUFEqEXZWspI+kKNf+v7+S33URjKlic5bDvZOyIWAWIofdQ7gJXzf5gv6k0ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784861639; c=relaxed/simple;
-	bh=dZ2lXiFvyaDXnWA6TOBlKgbIh+FfJbgWAxCgK6MWMAA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HmKcOl4evBU0VjtvEHIuKDZ6pLhh3MVcnj1tc20/nAhXduzH8Hp34BOURac41/k6VpIb98IVmiTfUK5o7cdgZzZqriHY0Qw0LQUniwuQA4tpXhUsxfB2l/8DVbsMaQu48xnXvXMu2zuKJtKJf37sKuR8REXlRI7NsueA7Yzy8IM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e5149ad2870a11f1aa26b74ffac11d73-20260724
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:d2c51983-416a-419f-addd-0ca603d44db1,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e7bac3a,CLOUDID:bb1fcfce4c656625eb123ca09925a1b6,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
-	50,EDM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0
-	,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e5149ad2870a11f1aa26b74ffac11d73-20260724
-X-User: chenchangcheng@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <chenchangcheng@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 738090921; Fri, 24 Jul 2026 10:53:48 +0800
-From: Chen Changcheng <chenchangcheng@kylinos.cn>
-To: dan.scally@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
+	s=arc-20240116; t=1784866466; c=relaxed/simple;
+	bh=tb7LJRwhFKQIMZEc6WXlcZXKcn0QsC3CujOv4fzGNQk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IZJeKgzWVXngcrA4iWx88pkkJCYzg7DD6336Xatx4bR8QKOQLgwE9X512FN5QVenevrnCIZGSA/VWJPC7bWazf1BJAeA4viyFvgfUrf2RZP2+4rIlv1aikGEM7btAboL6/tndiFszpWAe+hES78oQ/nF+TN7MdJR+CSUQpnp25c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a7YHoCGx; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a7YHoCGx"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4956869750eso5255e9.2
+        for <linux-media@vger.kernel.org>; Thu, 23 Jul 2026 21:14:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784866460; x=1785471260; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+CMdfBeyqiMFs/ZMRXbCFt3Qfbb+CwGIeVxKI3ayU34=;
+        b=a7YHoCGxJF0wYTNZJiSn2sjehSZGWDD4/FPPIrn5RjO2IsER/GTZ9CJPwCaOPas0+A
+         jHO3i/jE/nSEkqTrarLLLDXvD/7otZxZ0B+XT4vPpoCp6sHpkqOa+0gFP2twk/sf/Fxz
+         YyXG4UFCoEw6MM1m7exg+QQS6386jmeZ+Eu24fYxTcLtviprbMFgQW9kAsEr02KX0KuB
+         edVQwCHwA8NcrkEQwd7E6cZ7JPokfWciibcT5JeCHrXjCwoYlzNw9luBr6/OISAqJdg7
+         QhbyRPyHleQHGjGc/2zQ7Emvf9P6+n5tHgtdIYghXAOi7ddXH4L6hAA2uz8YVdT/PRDZ
+         cTyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784866460; x=1785471260;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+CMdfBeyqiMFs/ZMRXbCFt3Qfbb+CwGIeVxKI3ayU34=;
+        b=TEEUxvGZUWU9b5fH5jTKtyI1tee/vrlgCUKr/iqZu/Mnd5tbF2zpzqVou5Y/9Hlyss
+         Ux3ACzcvTnzgZmRkK+2AgwZ+AIp21MbQwPE+ijgMIhjzO/X4qMZp7XvxoY4UkPHhHw8P
+         VKjFGMPbBB4Bgit5sUl9uB0SOLvrvOsLfKAlL/DtCQN6/0/dlB66faQtWURVIAMKifSo
+         DnFO331sV231M/kyhqU2O5WBYplcHJR9cAnOJt0lxnNbmtAVYNtFU3+f4ha8ilpzZkja
+         WAPTd44QfgAl4kcK6SaT0mJKDd648hU8EsLuvgrAoEj15FCGF7Yo5olvdeKnBvB7pgYu
+         bXAw==
+X-Forwarded-Encrypted: i=1; AHgh+Rp4IrSZdPF6jiZHGm946SHCn51LorS0r6uC40xMEfv5NbP7I8iJCiVCEshJLszGPH4JcFrRniKFVHdvlA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwCUT3+ML+S6cxGG+6ysvE9382GzEejZyg439Yd6MafOCZfm5J8
+	14nbY4LJe8mz0fEWNPHAedSnpmjumhQZ7UUdzpwH7qj/VTXLvaLgBJY5
+X-Gm-Gg: AR+sD11dOnPCJBalstoHuSpwudq2Vwam3GtBBJpQrCfPq++7FzmwY4feim2P6cs5Dii
+	EfRUK8FktKoLy8n8DWCkOjxJKzTBfE+n+eKprtMRXWT8+xewTO7Rt27CieusTZxRsTBmr/GfSG8
+	eTXrAbgw1KHXlJyLB7TtMKfF9ckzUAWTIBp17SemcmDG3jqqeTTSzToNUeBXF1YgTX+1PgkILSg
+	+e9G9gtolcvO9tkworklABTBItnca9k5CXsMFEJ2erZv94CDWXs0vCZs8eUvemFss9MgTMO/KRL
+	O15nI6MHKvobqYAqs4v3tW/xm0z1G9uemwJSBQh8g2Lf7ptk3h9U8ZoHB2KX6L2Xh9YQw5AXHZ7
+	GGF06q2OaqeoYAOa3oY49639r5og0KdclW6zKlU7EkKpF6EOfEhzowovvSxP2WAkL3YK6waZh1x
+	EF+nPuQlKz3YLOznNUtEO5hDyss1Gxdb+2ATqr06RnFqXVnJtkjAZoG3g7aAWb4/G2WmGgeEqH
+X-Received: by 2002:a05:600c:4687:b0:495:5dcc:52ae with SMTP id 5b1f17b1804b1-49573cc2eb8mr66808285e9.3.1784866459843;
+        Thu, 23 Jul 2026 21:14:19 -0700 (PDT)
+Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957af6adbbsm38761435e9.6.2026.07.23.21.14.18
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 23 Jul 2026 21:14:19 -0700 (PDT)
+From: David Carlier <devnexen@gmail.com>
+To: hpa@redhat.com
+Cc: sakari.ailus@linux.intel.com,
 	mchehab@kernel.org,
-	p.zabel@pengutronix.de
-Cc: linux-media@vger.kernel.org,
+	tarang.raval@siliconsignals.io,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Chen Changcheng <chenchangcheng@kylinos.cn>
-Subject: [PATCH] media: mali-c55: fix clock leak when reset deassert fails
-Date: Fri, 24 Jul 2026 10:53:45 +0800
-Message-Id: <20260724025345.32644-1-chenchangcheng@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	David Carlier <devnexen@gmail.com>
+Subject: [PATCH] media: i2c: imx471: Fix uninitialized error value in imx471_set_ctrl()
+Date: Fri, 24 Jul 2026 05:14:16 +0100
+Message-ID: <20260724041417.9921-1-devnexen@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -52,33 +76,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In __mali_c55_power_on(), if clk_bulk_prepare_enable() succeeds but
-reset_control_bulk_deassert() fails, the function returns the error
-directly without disabling the clocks. This leaves the clocks enabled
-permanently in the runtime resume path, or leaks them in the probe
-path.
+The exposure control write passes the address of the local ret variable
+to cci_write() as its error pointer while ret is still uninitialized.
+cci_write() returns early without touching the hardware when the error
+value it is handed is already non-zero, so a non-zero garbage value on
+the stack silently skips programming the exposure register and makes the
+control write return a bogus, possibly positive, status.
 
-Fix this by calling clk_bulk_disable_unprepare() before returning the
-error.
+This path runs on every stream start and on every exposure update from
+userspace. Initialize ret to zero so the exposure register is always
+written and a correct status is returned.
 
-Signed-off-by: Chen Changcheng <chenchangcheng@kylinos.cn>
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
+Signed-off-by: David Carlier <devnexen@gmail.com>
 ---
- drivers/media/platform/arm/mali-c55/mali-c55-core.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/i2c/imx471.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index 94a389b3f833..f28e9f4354ac 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -698,6 +698,8 @@ static int __mali_c55_power_on(struct mali_c55 *mali_c55)
- 					  mali_c55->resets);
- 	if (ret) {
- 		dev_err(mali_c55->dev, "failed to deassert resets\n");
-+		clk_bulk_disable_unprepare(ARRAY_SIZE(mali_c55->clks),
-+					   mali_c55->clks);
- 		return ret;
- 	}
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 6d358b11e96d..5aca5f2355d6 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -306,7 +306,7 @@ static int imx471_set_ctrl(struct v4l2_ctrl *ctrl)
+ 			v4l2_subdev_get_locked_active_state(&sensor->sd);
+ 	const struct v4l2_mbus_framefmt *format =
+ 			v4l2_subdev_state_get_format(state, 0);
+-	int ret;
++	int ret = 0;
  
+ 	if (ctrl->id == V4L2_CID_VBLANK) {
+ 		s64 exposure_max = format->height + ctrl->val -
 -- 
-2.25.1
+2.53.0
 
