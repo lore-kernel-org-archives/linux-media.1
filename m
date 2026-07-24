@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 633AC35E930;
-	Fri, 24 Jul 2026 05:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666B335028D;
+	Fri, 24 Jul 2026 06:03:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784872755; cv=none; b=C4+93cR9Ah4fDCYHBPmbAoS5vOK3wMI7Luwz7ODkYLCgECXjLh+URRtal4shj6a/+RXk9ZCeeHGLQEn7+hsRloDah18BOISLxG4G/4f7SxC26leZzqruYD35g9MVcSwXIKVeP3nAoTC9032VphVRIckGsR0i3k00YdAtLlm+nW0=
+	t=1784872993; cv=none; b=hyBneE+cCJnIzhou8gz4eqh+ChmJoIc0owIo2kV/6USCHbKtB8kceJ4Mm1GgnyGPr5ZCjde7FviXAkVzVvZ24f5TtBoeK71xDLBtscpjl8lmD1S6mDGUDbu62pfwDhCmiIJ9cX9GL/CUHEqEBrLAASCD0AXN7gnmSTe1mpEw6CQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784872755; c=relaxed/simple;
-	bh=FGQhwCamz7+tMX2WnlSloMAu2AXeILBxzHXyKiKi6QM=;
+	s=arc-20240116; t=1784872993; c=relaxed/simple;
+	bh=D9+rPKVNLi9NmY6t6moQrGCK8006FEcDDo21jBQivTk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TZP0x4z/b7ZzR1ay4HGau6/eK66c5pKOxrACmJUMHX++xjepoaLZN+bXekQpD07hDaDotc8915N44rRan3C+8k4LFk/nWaufu4p3YwSUst3tF1qd/d5DqSjX2aQMs7uaQmHTPyu9DryFi4Z9bQuHWNaWuLK+/4SNwiEEnHyZnvs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EHqi7fzH; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=BasTOpzrQsmydRL4netRWYEhuaRx/LQTeGg1zz6W+YozNdJEUSxgPRAg9SfWJU63sTvQY0Qw2gQ3K7uDZh+VkRq93MOIdJxYNzDtOJtxSoq0PlOUqG1I1kTagfUUx+UbuVJ5/a2BBksPArx+iZmcOUfSHu4V8fhOKt2XRq27kG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMYT+fMu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EHqi7fzH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B68831F000E9;
-	Fri, 24 Jul 2026 05:59:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMYT+fMu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BC21F000E9;
+	Fri, 24 Jul 2026 06:03:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784872753;
-	bh=gzddltF0kuUkrq0AQK3tAMc+nJLo8VryHgKm1pqudd0=;
+	s=k20260515; t=1784872991;
+	bh=ToY38GunLrVrU4L06WSjkDSSBvjcYriSfILOcuFLMRU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EHqi7fzHZn+ogqXb0FkLSqkjEASBXQMFTZUuZM8K/ufvK/WUSh4L0xtOqvE7voeEZ
-	 /FSoqtxS5smMNasqwNzYKGCdnFO/x9ds63V6B9kNNR9hdxjfs4DziOIX5urY8yZkpm
-	 fN2//c6wjegDRamfVVZ05ULRmyih7qGcuQgbt/nR0DenW3q1zYFvKld7v+yMy598fM
-	 zu4sqq00H9gPHnVn6p2QiUnDFqF5C4OQX7bt9o1gwE++wNo/o1G8+svkn3blKFCJ3W
-	 50bigEnM8JegltRmWxLUqs6PSmO2Qny/CI80GFLGgVZk077rbrzfYf0BFb30U8Ssaa
-	 xT1/nUx0LOQCA==
-Date: Fri, 24 Jul 2026 07:59:09 +0200
+	b=WMYT+fMu7Kkp13HsAf3nyZLAJFTDiTdYd0nXVuXzBbIGNQatkn7fUw55aDSg8uWuO
+	 VGKyNSD/zmcbzN7ALrppQZ7urJTRpUJ2IXEnOLj6Wwo2W8sxuiMiCNe1+aaSC1lBEX
+	 B2d1l14lsux4wySqXaZl/n9TTCB1LV5qpFZC5UZtZsm8zECc6D1LXCNdDwnXhIF69V
+	 k+dPTXlEjGtPetBr5wMiugFQWaH2gFSLuIDc9o9rXa8oQV2bzyQwcOsjhNs49FYIiB
+	 eeXrdMrsB4Ic93oeLg6TJjdHD7C5tbnYxj0ro3it4n3TCKUl/CvgZFp6x5HjBZOkLL
+	 5ZOkE/PeDnEQw==
+Date: Fri, 24 Jul 2026 08:03:07 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
@@ -35,12 +35,13 @@ Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
 	Conor Dooley <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
 	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
 	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: media: qcom,venus-common: Add IOMMU
- IOVA reservation region
-Message-ID: <20260724-laughing-dragon-of-poetry-8ef7a9@quoll>
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Subject: Re: [PATCH v5 2/4] dt-bindings: media: qcom,qcm2290-venus: document
+ shikra venus compatible
+Message-ID: <20260724-elastic-amigurumi-skink-a8714e@quoll>
 References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
- <20260722-shikra_vpu-v5-1-3d80babd4672@oss.qualcomm.com>
+ <20260722-shikra_vpu-v5-2-3d80babd4672@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,25 +50,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260722-shikra_vpu-v5-1-3d80babd4672@oss.qualcomm.com>
+In-Reply-To: <20260722-shikra_vpu-v5-2-3d80babd4672@oss.qualcomm.com>
 
-On Wed, Jul 22, 2026 at 07:11:18PM +0530, Vikash Garodia wrote:
-> Update the memory-region property to support two regions:
-> 1. Firmware-loaded codec carveout (existing)
-> 2. IOMMU IOVA reservation region (new)
+On Wed, Jul 22, 2026 at 07:11:19PM +0530, Vikash Garodia wrote:
+> Document the venus video accelerator used on shikra platforms by adding
+> the qcom,shikra-venus compatible.
 > 
-> The IOMMU IOVA reservation region is required to restrict usage of
-> specific IOVA memory range. For example, VPU restricts usage of 600MB
-> for specific streams, which could otherwise lead to device crash. This
-> change allows platforms to define separate memory regions for codec
-> carveout and IOVA restrictions.
-> This schema update supports existing DTS having single memory-region,
-> thereby allowing gradual migration of DTS to support two memory region.
+> Although QCM2290 and shikra share the same video hardware and overall
+> integration, their SMMU programming differs. QCM2290 exposes separate
+> stream IDs for the video hardware and the Xtensa path, requiring two
+> explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
+> equivalent stream IDs into a single mapping. Due to QCM2290's SID layout
+> and Xtensa isolation requirements, such SMR masking is not applicable on
+> QCM2290 platforms.
+> Since shikra uses the same video hardware as QCM2290 and shares the same
+> programming model and capabilities, it is added as a fallback compatible
+> to qcom,qcm2290-venus, with conditional handling to allow either one or
+> two IOMMU entries.
 > 
+> Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/media/qcom,venus-common.yaml | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  .../bindings/media/qcom,qcm2290-venus.yaml         | 26 ++++++++++++++++------
+>  1 file changed, 19 insertions(+), 7 deletions(-)
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
