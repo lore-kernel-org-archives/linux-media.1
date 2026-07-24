@@ -1,47 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666B335028D;
-	Fri, 24 Jul 2026 06:03:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6BAD1624D5;
+	Fri, 24 Jul 2026 06:19:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784872993; cv=none; b=hyBneE+cCJnIzhou8gz4eqh+ChmJoIc0owIo2kV/6USCHbKtB8kceJ4Mm1GgnyGPr5ZCjde7FviXAkVzVvZ24f5TtBoeK71xDLBtscpjl8lmD1S6mDGUDbu62pfwDhCmiIJ9cX9GL/CUHEqEBrLAASCD0AXN7gnmSTe1mpEw6CQ=
+	t=1784874000; cv=none; b=YS+kWMD2TkDKEzukfs+CpT3WyuF2I5DHQrONj1Na3SmSLvHGbWeCtthdgoWS1Kl6WEq21rVQE4UsoY/AcgSZZgY9P3M+JeEA6GLEhwTNH9C6TKcr1ogQ7LVJSeS2XD+dKmB6yqlC0u4Cg+mQAfo5z9PA0Hr7FUOi6yqIO9cQUAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784872993; c=relaxed/simple;
-	bh=D9+rPKVNLi9NmY6t6moQrGCK8006FEcDDo21jBQivTk=;
+	s=arc-20240116; t=1784874000; c=relaxed/simple;
+	bh=YeZuo0au8HvrszcLo1X08d/qdYTpesbp9JqEE5Rd15c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BasTOpzrQsmydRL4netRWYEhuaRx/LQTeGg1zz6W+YozNdJEUSxgPRAg9SfWJU63sTvQY0Qw2gQ3K7uDZh+VkRq93MOIdJxYNzDtOJtxSoq0PlOUqG1I1kTagfUUx+UbuVJ5/a2BBksPArx+iZmcOUfSHu4V8fhOKt2XRq27kG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WMYT+fMu; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eOmkXnuAtYKF6XgdeFq+2qQJNQaFeQYns1jpCfpNP6TC2ar1e8aft44XaJTSmtC0xyvXkWf6bO+91CkBqtO8JHfrmJZeOO87nhCK7bzATPQagd9lQlDXLE+buTCeso1Lgg8/Qo25qmkrON8kKC2wiB/RpzQlrJg1xp86lMIlbC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0gN0J2l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WMYT+fMu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50BC21F000E9;
-	Fri, 24 Jul 2026 06:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0gN0J2l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1F01F000E9;
+	Fri, 24 Jul 2026 06:19:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784872991;
-	bh=ToY38GunLrVrU4L06WSjkDSSBvjcYriSfILOcuFLMRU=;
+	s=k20260515; t=1784873999;
+	bh=Exa1hT4lyAMl6ElDEjoYoBI3w7ORVJ8MGtlHgXfsTh8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WMYT+fMu7Kkp13HsAf3nyZLAJFTDiTdYd0nXVuXzBbIGNQatkn7fUw55aDSg8uWuO
-	 VGKyNSD/zmcbzN7ALrppQZ7urJTRpUJ2IXEnOLj6Wwo2W8sxuiMiCNe1+aaSC1lBEX
-	 B2d1l14lsux4wySqXaZl/n9TTCB1LV5qpFZC5UZtZsm8zECc6D1LXCNdDwnXhIF69V
-	 k+dPTXlEjGtPetBr5wMiugFQWaH2gFSLuIDc9o9rXa8oQV2bzyQwcOsjhNs49FYIiB
-	 eeXrdMrsB4Ic93oeLg6TJjdHD7C5tbnYxj0ro3it4n3TCKUl/CvgZFp6x5HjBZOkLL
-	 5ZOkE/PeDnEQw==
-Date: Fri, 24 Jul 2026 08:03:07 +0200
+	b=g0gN0J2lXQv02MW8OwaaXQwLi/uFxKjKnuqyfDUWq29a5aaHrCSiJbOpgjTMVHf1d
+	 smacrWic7PP2sT6cxGTCX9Cno4b7k3asKQDRhV6C+00+KEDP4OA27iUXrJipsgl4VP
+	 UZDOy7qR0DfdFRDsHy4mY0bYDcUQ4l+wV1+Jn5Fv0Afdca/Jkv/gHdZPvDaOGUcoEI
+	 HAvyCBESBvDwX2l4VNlb6E7ZI3OsjgUPIl4/oDh3n3hxFjVu2F1WWjaAM0UJ38mH8M
+	 sgYcZ6lOdPVdrOMa0QRM6ypM5HDd5kLI52FVIQONTtbrUsKElBKZ4pPGhm13rMIfoE
+	 03wK//TrHEBBw==
+Date: Fri, 24 Jul 2026 08:19:55 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>, 
-	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v5 2/4] dt-bindings: media: qcom,qcm2290-venus: document
- shikra venus compatible
-Message-ID: <20260724-elastic-amigurumi-skink-a8714e@quoll>
-References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
- <20260722-shikra_vpu-v5-2-3d80babd4672@oss.qualcomm.com>
+To: Justin Suess <utilityemal77@gmail.com>
+Cc: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, Sashiko <sashiko-bot@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add
+ A523 compatible
+Message-ID: <20260724-outrageous-leopard-of-diversity-fe365c@quoll>
+References: <20260722233604.3001063-1-utilityemal77@gmail.com>
+ <20260722233604.3001063-2-utilityemal77@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -50,31 +49,41 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260722-shikra_vpu-v5-2-3d80babd4672@oss.qualcomm.com>
+In-Reply-To: <20260722233604.3001063-2-utilityemal77@gmail.com>
 
-On Wed, Jul 22, 2026 at 07:11:19PM +0530, Vikash Garodia wrote:
-> Document the venus video accelerator used on shikra platforms by adding
-> the qcom,shikra-venus compatible.
+On Wed, Jul 22, 2026 at 07:36:01PM -0400, Justin Suess wrote:
+> The A523 (sun55i) contains a newer revision of the sunxi CIR receiver.
+> The reset defaults match the fixed behaviour of the older IP, so the
+> device works fine when driven as an A31 CIR receiver.
 > 
-> Although QCM2290 and shikra share the same video hardware and overall
-> integration, their SMMU programming differs. QCM2290 exposes separate
-> stream IDs for the video hardware and the Xtensa path, requiring two
-> explicit IOMMU entries, whereas shikra uses a masked SMR to collapse
-> equivalent stream IDs into a single mapping. Due to QCM2290's SID layout
-> and Xtensa isolation requirements, such SMR masking is not applicable on
-> QCM2290 platforms.
-> Since shikra uses the same video hardware as QCM2290 and shares the same
-> programming model and capabilities, it is added as a fallback compatible
-> to qcom,qcm2290-venus, with conditional handling to allow either one or
-> two IOMMU entries.
+> Add the A523 compatible, with allwinner,sun6i-a31-ir as the fallback.
 > 
-> Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> While at it, merge the standalone compatible entries into a single
+> enum.
+> 
+> Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Justin Suess <utilityemal77@gmail.com>
 > ---
->  .../bindings/media/qcom,qcm2290-venus.yaml         | 26 ++++++++++++++++------
->  1 file changed, 19 insertions(+), 7 deletions(-)
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Your changelog must mention that you dropped tag and explain WHY.
+
+
+
+Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+versions of patchset, under or above your Signed-off-by tag, unless
+patch changed significantly (e.g. new properties added to the DT
+bindings). Tag is "received", when provided in a message replied to you
+on the mailing list. Tools like b4 can help here. However, there's no
+need to repost patches *only* to add the tags. The upstream maintainer
+will do that for tags received on the version they apply.
+
+Please read:
+https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+
+If a tag was not added on purpose, please state in the patch changelog
+or cover letter why and what changed.
+
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
