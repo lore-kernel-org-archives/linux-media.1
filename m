@@ -1,96 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f205.google.com (mail-oi1-f205.google.com [209.85.167.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0753F4457AD;
-	Fri, 24 Jul 2026 19:58:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5682356BE
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 20:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.205
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784923100; cv=none; b=QWHXm1SockNfMdRl69ku7ooUqc9WpBwFg6U4QOvWq5yIn0i/i+Yyqfo2P+REz4Hu9AIxiHp1oqJQRQP/8uCHSY09+e5ao0uvctw962p9OYcus2ieUDJcQvbvMCYe/Cjq+Ym6GNyVY2eLAKOrbBcHYAXZKon7A003yAP22zo7Uck=
+	t=1784923840; cv=none; b=aap1yH2+BTOT0aKWCv0fBDl4YSwDFlSoLSkPl8kO3Tt8t/woxKVHiA7JsG8SbYOo3hlPGR9TeRLhdut5Wp0ejTj24bGBXh+qgO8LFDslTPNR7fsb4L6g1EELi1UOftnU3Dv2iXj6KLuxjSLZRzWI6Nnu8J71fGaxYU/FU/uvlEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784923100; c=relaxed/simple;
-	bh=lb21E7z9s0CHmANg7LWCROj6X8cgow1MQGD44nrgy64=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OGJN5w7rjUdyZWbegM/vARGi+q0hKuO6lI+9OxgQ6rh0/ysNapMPD4thuhQERR1Vh+RhJld0uc8J7/7Gkjmb1NXP/m3iPKhiNTnF8la9GqCFlTcVhzAnBuh1kkBWJuqkWldONxLtk4EiSC8uIpzyVaDEanua3LQmIqN/Xqk9sgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQ14tj3O; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQ14tj3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3E671F000E9;
-	Fri, 24 Jul 2026 19:58:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1784923098;
-	bh=RKU7Aj5piD/+ksrcUPiv1/0J4gp+hns8k/kGpaKUr30=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=oQ14tj3OKxjOc/ecSsc+YLkOyNWgDivVDYGKl0G4yZbWiG7oHEMtMY1IQZK4WTt1c
-	 HxJpvFqaR8vDeWMEmQLvpR2WUS4TdqviUs5f5v/qUpNC6L8nz46IwFYaeCk4m14b1N
-	 8NQYfr1+BhXkLsIwJJzKf5NE0LFgNUSgZSraasar2HlKMEIcmxyv3rgKMW+hGJVN0/
-	 4t4qKQKg2V2Lht7K7yvaA40+f8D3E5EALXMcBJ40N63IaEWgHY8KVR64sRHHGzFTP6
-	 vt/DEe9VZYm/0v9sWWDf+QsKZAjOzMi/NA+wPXuujA/EP7/QkXjlyf+xviQD5vkisb
-	 SUzmJqqHUcuKQ==
-Date: Fri, 24 Jul 2026 12:58:17 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
- <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v5 1/3] net: devmem: allow rx-buf-size >
- PAGE_SIZE per dmabuf binding
-Message-ID: <20260724125817.4495a7d4@kernel.org>
-In-Reply-To: <amOVWgJ3BAJ8I/4+@devvm29614.prn0.facebook.com>
-References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
-	<20260708-tcpdm-large-niovs-v5-1-34bf6fac941b@meta.com>
-	<20260721110713.325d36ba@kernel.org>
-	<amKqlqgfZipKjrii@devvm29614.prn0.facebook.com>
-	<20260724072419.62778bbe@kernel.org>
-	<amOVWgJ3BAJ8I/4+@devvm29614.prn0.facebook.com>
+	s=arc-20240116; t=1784923840; c=relaxed/simple;
+	bh=SdvW6zb2m0j165dVkhiU0MFdqA7uMn6Jt9IquwKsKnI=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lLSy8UCh7qUd5bBqibjMWZmT4FIt0cBSlFCVITnFgZVm0fK4IYAunL25LXnkCm+Uk9PJUiL9vEvucPSpzIt2+DHVTl3NLzFvZrHyojQve7+/3yVd2AS3f91sMHcZzuvyt5Mb9w2QfXa/ol8AdcmNjbULt6/zlCSJHztHQMILeFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f205.google.com with SMTP id 5614622812f47-497e582f42fso821903b6e.3
+        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 13:10:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784923837; x=1785528637;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WFTPxAt1GEEhc/zfClnJ1YXcRiKawNFyGhEPqsDd3h8=;
+        b=iZISOQ6ihRCRcKcViMo8HEZvW5vDwAy7ShjRClwM/u49mutp9YorOrt9JEhalKPyki
+         97N4sHTH2YqdZVF+J7miEXJVNbL4XQKc6eABQvxscsqSVXQ6MerfhG1HF93jcUj9ySLp
+         s/buRmXtV6z2RXUulKAaFlc4jSCdlqFntJ6npReWQIopBbHe/u6FUJMBPmJtog0ni3DQ
+         jMBqRmnMZCcraSCE2OZcxpGX2K0NZ2DbsWIiHOwZllhls8kaIXJnwsbFstBCB/QnCfaS
+         fbBsv8GH6Qw6jYqwhwHR4/LdiAY/UygO0tIJ3MdLdw0Au3EDn+xtvuPnhj9zBfNBOtDY
+         PDGg==
+X-Forwarded-Encrypted: i=1; AHgh+RoMTvKIBXElUryw0AQ02VnCmRNWte8vW+Cs8AhuIPnN4zpXhZRlrF3wW71yfwykrWtnei/8dHPHLHFwRg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6CIEwEYpVo/DwSgOerTV0efCX4L/ojY/vy9Nx88FyT46ML5nZ
+	lgAz+GNIXvSDl7KrH6N6KCXtq6CURX25fVJd8FWMbJJoKNj3K+CZHwBqoyMYCuj22od+bAamL8a
+	bfz7FOxNevC5KikwkRMayu3q+y2B3jY9HIxPSIAENjeLRsKWF7amdNEHgZcQ=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Received: by 2002:a05:6808:3501:b0:4a3:d66b:240b with SMTP id
+ 5614622812f47-4ab353dca4cmr7373615b6e.18.1784923837729; Fri, 24 Jul 2026
+ 13:10:37 -0700 (PDT)
+Date: Fri, 24 Jul 2026 13:10:37 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a63c6bd.a2ea2cc8.fbad6.0008.GAE@google.com>
+Subject: [syzbot] [media?] KASAN: vmalloc-out-of-bounds Write in
+ tpg_fill_plane_buffer (5)
+From: syzbot <syzbot+cb43e758a4dc84dd467f@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, 24 Jul 2026 09:39:54 -0700 Bobby Eshleman wrote:
-> > BTW did you add both min and max checks? Cause the only risk with using
-> > a dummy value would be that the policy will be rendered inline, and
-> > inline policy is u16 so 64k wouldn't fit. But your sample above has a
-> > max of u32_max which forces the out-of-line policy, which is what we
-> > want.  
-> 
-> Yep, u32_max:
-> 
-> +	 name: rx-page-size
-> ...
-> +        checks:
-> +          min: page-size
-> +          max: u32-max
-> 
-> Sorry, probably should have just sent the whole patch instead of
-> replying hunk-by-hunk.
+Hello,
 
-Ack, LG, just double checking.
+syzbot found the following issue on:
 
-> BTW, how expressive do we want these policies? For example, would
-> absorbing the power_of_2 check into a policy be valid in the future? or
-> is that too bespoke?
+HEAD commit:    48a5a7ab8d6a Merge tag 'v7.2-rc4-smb3-client-fixes' of git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11a21ab9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
+dashboard link: https://syzkaller.appspot.com/bug?extid=cb43e758a4dc84dd467f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Power-of-2 could be useful (it's implicitly one bit set, which is also
-potentially useful for validating one-hot flags). The trickiness is
-combining power-of-2 and the min check :S We have one validation per
-field. I was wondering if we would be better off defining the field
-as a shift instead, then we only have to check min. But I thought
-that it'd be a little unusual for uAPI and possibly maybe one day
-we will want the non-power of 2? So I figured checking min using
-the existing facilities and open coding power of two check is good
-enough for now.
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-48a5a7ab.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/8ed725bee82f/vmlinux-48a5a7ab.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/110c09c210d5/bzImage-48a5a7ab.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+cb43e758a4dc84dd467f@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: vmalloc-out-of-bounds in tpg_fill_plane_extras drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2439 [inline]
+BUG: KASAN: vmalloc-out-of-bounds in tpg_fill_plane_buffer+0x34d9/0x4160 drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2707
+Write of size 1 at addr ffffc9000579a000 by task vivid-000-vid-c/20070
+
+CPU: 0 UID: 0 PID: 20070 Comm: vivid-000-vid-c Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ tpg_fill_plane_extras drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2439 [inline]
+ tpg_fill_plane_buffer+0x34d9/0x4160 drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2707
+ vivid_fillbuff+0x963/0x3ff0 drivers/media/test-drivers/vivid/vivid-kthread-cap.c:470
+ vivid_thread_vid_cap_tick+0x81b/0x1470 drivers/media/test-drivers/vivid/vivid-kthread-cap.c:629
+ vivid_thread_vid_cap+0x454/0xd70 drivers/media/test-drivers/vivid/vivid-kthread-cap.c:767
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+The buggy address belongs to a vmalloc virtual mapping
+Memory state around the buggy address:
+ ffffc90005799f00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ ffffc90005799f80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+>ffffc9000579a000: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+                   ^
+ ffffc9000579a080: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+ ffffc9000579a100: f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8 f8
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
