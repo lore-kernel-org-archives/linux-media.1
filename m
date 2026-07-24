@@ -1,241 +1,113 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E4EF3B103B;
-	Fri, 24 Jul 2026 21:48:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929706; cv=pass; b=XO/gA9huN5WfCXjgHoQylFnuts/ddxDsX/rcADu5XhT9EaeJdqxSijiCbC8CpvTY8MWPQGM4gLwOeyhQAB76vGFO/ZM5qnG7z7IKtS3z5vbZILkongrCRM7rwKuyqLmS7lRdRo+5ZtzfyNsV+kkg6Mp3Ye2Zzlh3h6+KL+ZvdiM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784929706; c=relaxed/simple;
-	bh=LgtWaoRiWiQVhSJtFx0qo8EkdwX8mVbBn4lYjx1Q9Bs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LjqGByHdSjZGcHwdctUi5ntJ0Zp1VQ6d/DuSomIxPMXsFoJFARFcGxqVeYTZ3/mWkQ18ucofsH7zYL21I61u7WabwqPcdw2/ay5EA+GGkdvSSvdlVKOTghCJxyjXm9ckjefqkNeaG6mn+8W2R02RJ2MPsCDIaY091rvhB4plOKk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com; spf=pass smtp.mailfrom=ritovision.com; dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b=QYoRev53; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ritovision.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCBC392803;
+	Fri, 24 Jul 2026 21:48:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784929717; cv=none; b=lmE59OT/cc2rq/lI2LdfzBtVYT4hzbls+hc/puzRBhJuGm5j3xEmP2kIvVItV5pC2Rbi4lxgGHbhKrDYEeTMrCN1eC8XOcA3xGjJrP+l+yZU9CCMN/DkacPClBgHbF7NqUdmEDbAb+4Nfiq1T1e5DIcnUFOO5ofjo7aK41epYhc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784929717; c=relaxed/simple;
+	bh=GTdZSgSwBlfAlIxva5M6ZU/kD9VYoe26BBxVBJ5WdPE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=f0dWPJXuJkkHlQ5NLOuD9Ax5Gho1OuqyiVb7t0nd5oWleu8UvKWZ0I9ZwliB4KZE49TmmB6QFpuZUZCvhsdQzWUJFHk39L78Jrb5jzWdYLl7N97uSjvi3jiv7Dfm4rIqq0HGBt3VlUk4FDbtEfdYIBkLNyeZ2WbbL7Xj7V2F1Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bhpTuvSZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b="QYoRev53"
-ARC-Seal: i=1; a=rsa-sha256; t=1784929375; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BbACxmNHmYG+3eniH20cIDHafB+UUyq0LZwISIfCOP8QyL71AicizjbYOzCOXPR5dx0yJD643UknpnB+bho3ZLUz0+7m4VHstoS9yM4+nQ5Mp4BvtowvSCk7rHEW5wfyTa+jon1rhNkxTdRFtQVTu71Ean7G0EqFLr64z0PerQU=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784929375; h=Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hEcYdcncYX+/NUQ21cjtPTLPIKJTl/t/DKtHxa77tVk=; 
-	b=KazNhCthVnstcAvVnGlhXXS6bz1w74PuG3Lz31jz1+HPnEE5SrVOdxxdzExUCd0M0H6LqAG59a9fJ+qNBdVdQjDrg7KeOukFMP07v1u3UJ/41wN9CoH/BmztEtIEf8/d2kbMsPRbqrvQlicRwdJnIEk9273xn+6Sc3+IwPXYYQQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ritovision.com;
-	spf=pass  smtp.mailfrom=rito@ritovision.com;
-	dmarc=pass header.from=<rito@ritovision.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784929375;
-	s=zmail; d=ritovision.com; i=rito@ritovision.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=hEcYdcncYX+/NUQ21cjtPTLPIKJTl/t/DKtHxa77tVk=;
-	b=QYoRev535b/MDB8jzZen/PSfMZEnVczaNi2Vr2B6JXtSNmWCoDQa5Brq3j4eHyhu
-	7IrkJEVEUOQwhJnRbDfoTYZaGwc2oXgytdZJppxg350n6SdbSo5MJm1QwrTozBEA5Bm
-	t92gYup6in64RvABe7l16PBJaTw6B6mUNbNTvqHA=
-Received: by mx.zohomail.com with SMTPS id 1784929372879835.290956592263;
-	Fri, 24 Jul 2026 14:42:52 -0700 (PDT)
-From: Rito Rhymes <rito@ritovision.com>
-To: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>,
-	Daniel Lundberg Pedersen <dlp@qtec.com>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	linux-doc@vger.kernel.org,
-	linux-media@vger.kernel.org
-Subject: [PATCH 1/2] docs: apply contained horizontal scroll overflow to tables
-Date: Fri, 24 Jul 2026 17:42:47 -0400
-Message-ID: <20260724214249.23830-2-rito@ritovision.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260724214249.23830-1-rito@ritovision.com>
-References: <20260724214249.23830-1-rito@ritovision.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bhpTuvSZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A6FC1F000E9;
+	Fri, 24 Jul 2026 21:48:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784929705;
+	bh=GTdZSgSwBlfAlIxva5M6ZU/kD9VYoe26BBxVBJ5WdPE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=bhpTuvSZWBV7iq9keKc8+pixk18qLEuyMz3ZTlqKcB81KF/CnyeLGI6JSyvHGt9tA
+	 E+SxQVBXcXsXsZgtn3HAr+6nPULrU5HRAYu13tTfnL5ffRJr3w0sXxS3y6FSy3SRlS
+	 Qe3XQkADPgbjY9nioQHCBPR4pvKP4dL5d3HxM/ORX/63JYStNE+wqJy61XHcdbEpWF
+	 xaZAuoqTpynwYjXBJP4BY73AhLP471MMWjcWFGi91teQEabAfmboMZJJ2AI9mVl919
+	 5Vj52Ap+SYxCLa6sCvz56w/tCisRBng0kD6I+yiTKpyHAoJV1VexiywmsHK9mBuUsB
+	 8QLvkwcrgPftA==
+Date: Fri, 24 Jul 2026 14:48:22 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
+ Alexander Shishkin <alexander.shishkin@linux.intel.com>, Alexandre Belloni
+ <alexandre.belloni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, Andrew
+ Morton <akpm@linux-foundation.org>, Arkadiusz Kubalewski
+ <arkadiusz.kubalewski@intel.com>, Borislav Petkov <bp@alien8.de>, Christian
+ =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Daniel Lezcano
+ <daniel.lezcano@kernel.org>, David Airlie <airlied@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+ Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede
+ <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Heikki Krogerus
+ <heikki.krogerus@linux.intel.com>, Herbert Xu
+ <herbert@gondor.apana.org.au>, Ilpo =?UTF-8?B?SsOkcnZpbmVu?=
+ <ilpo.jarvinen@linux.intel.com>, "James E.J. Bottomley"
+ <James.Bottomley@HansenPartnership.com>, Jani Nikula
+ <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, Jason
+ Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel
+ (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, Jonathan Cameron
+ <jic23@kernel.org>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
+ Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, Liam
+ Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, Maarten
+ Lankhorst <maarten.lankhorst@linux.intel.com>, Mark Brown
+ <broonie@kernel.org>, "Martin K. Petersen" <martin.petersen@oracle.com>,
+ Matthew Sakai <msakai@redhat.com>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, Michael Turquette
+ <mturquette@baylibre.com>, Mike Rapoport <rppt@kernel.org>, Miri Korenblit
+ <miriam.rachel.korenblit@intel.com>, Nicolas Palix <nicolas.palix@imag.fr>,
+ Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>,
+ Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>,
+ Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, Simon
+ Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, Steve French
+ <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, Thomas Renninger
+ <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, Tony Luck
+ <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, Vadim
+ Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>, Will
+ Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>,
+ cocci@inria.fr, amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
+ dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
+ intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
+ iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
+ linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-rdma@vger.kernel.org,
+ linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
+ linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
+ lvs-devel@vger.kernel.org, netdev@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 00/36] treewide: remove conditional returns with no
+ effect
+Message-ID: <20260724144822.6af8213f@kernel.org>
+In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Documentation tables can currently fail in two opposite ways on
-constrained layouts: columns may collapse until their contents wrap into
-nearly vertical text, or a wide table may expand the document and break
-the page margins.
+On Fri, 24 Jul 2026 03:45:02 +0900 Sang-Heon Jeon wrote:
+> Patch 1 adds a Coccinelle script that matches the pattern, including
+> negation and constant-comparison variants. Where a local variable is
+> assigned right before the check, the assignment and the two returns
+> turn into a single return of the assigned expression.
 
-Add a foundational containment layer for Sphinx-rendered tables. Wrap
-each table in an outer container that owns horizontal overflow while
-leaving the table itself in its native layout mode. This allows wide
-table content to remain readable through contained scrolling without
-expanding the page width and breaking the layout.
+Huh, I thought we already had such script. Various script children have
+been sending such "cleanups" in the past.
 
-Applying overflow directly to the table changes its display behavior and
-causes rendering defects. It can add an outer border that overlaps the
-table's existing border, making the perimeter appear thicker, and can
-leave an awkward gap between that outer border and the rightmost column.
-Keeping overflow on a wrapper avoids those border and caption-layout
-problems.
+> Patches 2-36 are generated by the script, with hand fixes to restore
+> unexpectedly removed comments and to fix the formatting checkpatch.pl
+> complained about.
 
-The wrapper also provides a useful affordance on narrow viewports. When
-a table overflows, its right border remains outside the visible area
-until the user scrolls to reveal it, helping indicate that additional
-content is available horizontally. Otherwise, showing complete borders
-on both sides while content is hidden may leave users unaware that the
-table is scrollable.
-
-Give the wrapper the full width available from the document body. With
-the 120em body maximum retained, tables can use that space before local
-scrolling becomes necessary. Tables whose readable width still exceeds
-the body remain contained and horizontally scrollable rather than
-widening the page.
-
-This patch establishes the overflow boundary but does not attempt to
-assign stable widths to table content across all table shapes. Content-
-derived column minimums are added separately.
-
-Signed-off-by: Rito Rhymes <rito@ritovision.com>
-Assisted-by: ChatGPT SOL 5.6
----
-The following pages demonstrate the two opposite table-layout failures
-this patch is intended to support.
-
-At a viewport width of 500px or less, a table expands the page width and
-breaks the layout:
-
-https://docs.kernel.org/7.0/userspace-api/media/v4l/vidioc-enuminput.html
-
-In the 7.1 documentation, the table instead attempts to fit within the
-viewport by collapsing its columns until some content wraps into nearly
-vertical text (500px or less):
-
-https://docs.kernel.org/7.1/userspace-api/media/v4l/vidioc-enuminput.html
-
-With both this patch and its follow-up applied, wider tables remain
-contained within the page and scroll horizontally, including at a
-viewport width of 500px or less:
-
-https://linux-tables.ritovision.com/userspace-api/media/v4l/vidioc-enuminput.html
-
-The wrapper introduced here provides the horizontal overflow boundary.
-The follow-up patch adds content-derived column minimums to prevent the
-vertical text collapse.
-
-
-The following test cases highlight problems with alternative approaches
-and explain the implementation choices made by this patch.
-
-Applying the horizontal overflow CSS directly to a table without a
-wrapper causes a doubled outer border and an empty gap beside the
-rightmost column.
-
-Test page:
-
-https://docs.kernel.org/7.1/process/debugging/kgdb.html#run-time-parameter-kgdbreboot
-
-Apply the horizontal overflow rules directly to the table instead of an
-outer wrapper to reproduce the rendering defects.
-
-A body maximum that is too narrow causes contained tables to become
-locally scrollable at ordinary desktop viewport widths even when unused
-viewport space remains. The retained 120em body maximum avoids that
-premature constraint for ordinary layouts, while tables that genuinely
-exceed the available body width continue to scroll as intended.
-
-Test page:
-
-https://docs.kernel.org/7.1/userspace-api/media/v4l/vidioc-enuminput.html
-
-To reproduce the premature scrolling, reduce the body maximum to 800px
-while applying contained horizontal overflow.
-
-If a narrower maximum width is later desired for prose, it should be
-applied selectively to prose or another inner content container rather
-than globally reducing the width available to table wrappers.
-
- Documentation/conf.py                  |  1 +
- Documentation/sphinx-static/custom.css | 11 ++++++++
- Documentation/sphinx/table_layout.py   | 38 ++++++++++++++++++++++++++
- 3 files changed, 50 insertions(+)
- create mode 100644 Documentation/sphinx/table_layout.py
-
-diff --git a/Documentation/conf.py b/Documentation/conf.py
-index 9b822ab47..53b9eee2e 100644
---- a/Documentation/conf.py
-+++ b/Documentation/conf.py
-@@ -153,6 +153,7 @@ extensions = [
-     "kernel_feat",
-     "kernel_include",
-     "kfigure",
-+    "table_layout",
-     "maintainers_include",
-     "parser_yaml",
-     "rstFlatTable",
-diff --git a/Documentation/sphinx-static/custom.css b/Documentation/sphinx-static/custom.css
-index aa2a3cf11..e9fc17f5b 100644
---- a/Documentation/sphinx-static/custom.css
-+++ b/Documentation/sphinx-static/custom.css
-@@ -27,6 +27,17 @@ div.document {
-     width: auto;
- }
- 
-+/*
-+ * Put overflow on an outer container rather than changing the table's display
-+ * type, preserving native table, caption, and collapsed-border rendering.
-+ */
-+div.body div.table-overflow {
-+    display: block;
-+    max-width: 100%;
-+    overflow-x: auto;
-+    overflow-y: hidden;
-+}
-+
- /* Size the logo appropriately */
- img.logo {
-     width: 104px;
-diff --git a/Documentation/sphinx/table_layout.py b/Documentation/sphinx/table_layout.py
-new file mode 100644
-index 000000000..029b31ee6
---- /dev/null
-+++ b/Documentation/sphinx/table_layout.py
-@@ -0,0 +1,38 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+"""Provide responsive table layout hooks for HTML documentation.
-+
-+Wrap rendered tables in an outer container that enables contained horizontal
-+scrolling on narrow viewports as needed. Allowing the table to remain wider
-+than the viewport helps prevent columns from collapsing into unreadable
-+vertical text, while containing page-wide overflow that would increase the
-+total page width and break the page margins. Applying overflow directly to the
-+table instead of the wrapper creates a double-border rendering defect.
-+"""
-+
-+from sphinx.writers.html5 import HTML5Translator
-+
-+__version__ = "1.0"
-+
-+
-+class LayoutInjectionHTMLTranslator(HTML5Translator):
-+    """Add HTML containers needed for responsive layout behavior."""
-+
-+    def visit_table(self, node):
-+        self.body.append('<div class="table-overflow">\n')
-+        super().visit_table(node)
-+
-+    def depart_table(self, node):
-+        super().depart_table(node)
-+        self.body.append("</div>\n")
-+
-+
-+def setup(app):
-+    for builder in ("html", "dirhtml", "singlehtml"):
-+        app.set_translator(builder, LayoutInjectionHTMLTranslator, override=True)
-+
-+    return dict(
-+        version=__version__,
-+        parallel_read_safe=True,
-+        parallel_write_safe=True,
-+    )
--- 
-2.51.0
+Please post patches 4,7,8,9 as a separate series. Since you only CCed
+netdev on subset of the series patchwork thinks there are patches
+missing and doesn't kick off any CI.
