@@ -1,139 +1,231 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013022.outbound.protection.outlook.com [52.101.83.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E5A35E1A1
-	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 07:17:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784877443; cv=none; b=OsvMh9T/m2cupksJVHJA7JQ7auaouSefJO4JyX8zYvgil4yEbBVZsyHIHnMyZ6hglSwABkduefc2jglf1Zd39mba+3vEYu3IeXR7WI5Xpyf49QhMhIkR1M8fQspIg9S37QNk5nieT0MMBV6w05DSQSoqdJijF5gFLZoK8mouW+I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784877443; c=relaxed/simple;
-	bh=IBMyPp/OVr6LRhTSjsBptTMdLdXzAKqoUCqDoJVRn6U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LV3QksKodikqy4mAcWlwD89XcHgFRBD9AkKzVGviQc3JHeYCqzq1h/RKaIWDlrDkCfikQroP0CdhWR7jlGAUzeSwGVm0PzQSXmBEuPuFk/7DcasOJSc9LTZiZJBUNfmEV35jVMrvyxE4pV/P/zF9gE0Xa7SALA8SYQsTGZ+iA+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=R+ZyIrqW; arc=none smtp.client-ip=209.85.208.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE6338C2B8;
+	Fri, 24 Jul 2026 07:49:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.22
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784879364; cv=fail; b=ln4zjqhW3ZXb81jEc9qoM+I2YlUEk1rz8jkNZMxoM23iAZ8siosNKMhhknmRpHjXkmVM0j2ILCMCOMS9IlXSsbyLR+b2S2eFuSmsHoPc9ihnFH3Wimc7uivRr19Eewa8doXizy4N6pR5bQqVBpoHjPz/LJWi9qJCgQO4X7RSZx4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784879364; c=relaxed/simple;
+	bh=iA4HzD8aJ2uZ+2ojy6MEJ7BzbkYIbw278Od85VM8cQQ=;
+	h=From:Subject:Date:Message-Id:Content-Type:To:Cc:MIME-Version; b=e1oxwAByZh5pgYz2DlR/EnNmCtEaPrtEgpeGcbRgmg5ISjRSEfXF9LEOJgdbV/PoIzZK5GU718knu4tkFD77UyxM198+vHgvSQ7AeLpVURSCZyvs3SK+hE1KAVxk/ypeRSNHZxbApICq0gDW/qk2k9O4k3Ww6VU3AJMVZ+9C+iA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=xM1MJYoe; arc=fail smtp.client-ip=52.101.83.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="R+ZyIrqW"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-69e8ea2783aso121840a12.3
-        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 00:17:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1784877440; x=1785482240; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=IBMyPp/OVr6LRhTSjsBptTMdLdXzAKqoUCqDoJVRn6U=;
-        b=R+ZyIrqWdM7r839VwcboPP0uMYsHKUbUA8Q1juvBlatOQrcSJWl/qBgyA4xpQOHMxg
-         VJ3hwhj41RT7oi7ZmUP3rCMlRDmslwp6RrKHBZi87YHmKEMJvWUD0QcAnh22vw/o5eIW
-         IvNBtlgFB8oFNrk16CE48gtIThQmNXAuXHN3I=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784877440; x=1785482240;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IBMyPp/OVr6LRhTSjsBptTMdLdXzAKqoUCqDoJVRn6U=;
-        b=I/NTfJoLQDZoW/2IBGbF0Jk6xzmuiPJEgeDUKIPrxrskQC91lOtJJwaDB739Tqyaei
-         GTLRuvJlgI85jtNdtMgTukyXvVf1Y+vC9SwaY3rOKnA1JcjfkgCSIu7CnBki1LpbG8PE
-         9vZK1UTdWp9QDV6T0dr9F1V3AM71o3pRXmkUTwE8rxuANbkDGoNR29DbN16fN807ip9m
-         Hvhva/ABRuKePnekoYOkUQfK65jfdq9h+EVlO5qIme91nuJNoByyPtdToHciYndekXDo
-         eMJRIoqAq4WL7yOs3u0L2UT5XyDyrZAU2G0C82Ve9G5RfutOzq3gj79ChoMfYxzwNbQD
-         jpSw==
-X-Gm-Message-State: AOJu0YzEhkm+moabb/Eab9TE/FH9irkArPspt1YocdtQS2yibHJsG09A
-	GLEgfjHP4XAl+vz7IJ+xGOkMlYDIHbvW72ug+Cb8TbpuV+tyd7fVOVMbksOi3DHVFoZNKpZdB4s
-	j7MA=
-X-Gm-Gg: AR+sD121SeaX8iTvGiISRVgzOL3NV5tqQlNFed0rZg83jdUhxL45mck6/LfdiBpPhq2
-	s5hHckbzmmMGCMXeWPhB/xS1qovnJwnS7fR6PZaS6nJFiPU12TOWzmyyRZ2fFRD0HHdOqF76Y1p
-	jUfVEnujymyuQAxRvYpy0Q88GJIIpSkyyqTAtbIg1i7u3/7ft/blnQgQyOuB0dt330BkStExCDL
-	MXWgEjNTzeIv08mcYQUCMJ0jLW/6Yl9OxpXJrbiLve2L0boBtOKqAE/yZLYl7UYOevcyp2ylTgX
-	nKZS0FRTOYZ3imy3uw48I02n1od0DU6da5jtbim9FpUZEvrHGp3ECaop6UcJQZCpm8CgEG3n6a6
-	92mOQjsirmYrkjoXD5PGmwoh/1f6ymHxHO5JuhNoTddYZ6goPAFJTYYLQlgF3jNR/IeL7n/u+EI
-	3MDMQUx6KRsd+I9eYsnRDfS3LxrIO8xDIUQJsXUMY=
-X-Received: by 2002:a05:6402:3245:b0:69a:9c00:45 with SMTP id 4fb4d7f45d1cf-69f69c6a2b1mr2166444a12.16.1784877439799;
-        Fri, 24 Jul 2026 00:17:19 -0700 (PDT)
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com. [209.85.218.47])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69f345b1b9dsm2838941a12.6.2026.07.24.00.17.16
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 24 Jul 2026 00:17:18 -0700 (PDT)
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c160420289bso17839966b.0
-        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 00:17:16 -0700 (PDT)
-X-Received: by 2002:a17:907:3f09:b0:c15:dd3d:c6e1 with SMTP id
- a640c23a62f3a-c1c50d1c28bmr256936266b.37.1784877435542; Fri, 24 Jul 2026
- 00:17:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="xM1MJYoe"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YgFKEY2kF4Omf9go8wsiWnRCM/1yonF9vwG2BB1OtDFPdP8MAzSE/ZR9hC9VCKG21P1gvRhfUe9+xMsrRoigkRnqbmLEuQ5T/jYjHUuM7wLngQlOWmF4bqAQ4kHqZwV/y43RDJ0OFCCgF7jFXMwqIpUnN8ypFEUzIbMmpUkLZkAF2Lh+WhOcMlQo2IBdlxmeSFynOkTuI6cOfjBR8C7iCY2Bg+wOMCvugCevWSBl4YZbNhZZxQJcMbRyYqdM3gkTb8Z9Y4SJq3XH4yLu1t6OUWIIXmhgNvqp4csxPvtgzfxnfVIjp3HveQZXu8oHrDWbbqryyrSeJp1ldt4lTGKU/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Kn968V8ETbRSSq7l0WbBN7aTS/babjszBFIteJQnRes=;
+ b=iSmvUABiv1TjJ0XF3s/mRS2U8mBdRF/gqUwjP/v0areCWRODLoDvMwJwlEhqB7zyi/SOVGLf87A+wRgCcyAKNHHjAXi4ZrvIqXtSLn3ez0IS9c2DTnVuSVsiMiO/GyYK2AKQF8mtLAk92UE/N63IC5yUQOzetB3LJu5N6rY9xlV8xKf26f5CtwpIKrisDGJ3gFlAuVj7rxCzBMi9PVZmjT7p+82xN5FDPLcbeE1rs/4S/sBpQ5X7aKRadxdoM76q9tUxOP4ZFdUntHL3jAKFhiJRbFx2qAmyTAe6MvEJORUmrfMnaa4pPmK+Jt6gStITi49QnmxRSgrJtOapc0RpcQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Kn968V8ETbRSSq7l0WbBN7aTS/babjszBFIteJQnRes=;
+ b=xM1MJYoer3l5yFXimozC5k0dlnWajiUU0npndnbMqZ0Mk0HbNdu6rVlFBHVLn4Kv2pvcfXhTwW5cSu6LJol0TUfuU3Vj2PoZB6J8/fPj+u4h7MuSkKgsUw5PTjw2zAcBGXBanAPoxYbFu7DtH0M/o4U/A+jU+rCvSO07ingvZMeMjmbO8jSUMuTMQWR2mXuaIo/gf0ljayaJ7ZCw9acx2YkZSippWlzDt0kyVX/U33WFU+aQEY/2AVlkU/stt835PmhDtMZ1x/unIyWhp47VI/NAyvh3/q+DH5wACOFHwQzzgfi5lU5ZGJuJHTfxniJuvGXKdiz0hDpMElYvrQBB3A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV1PR04MB11513.eurprd04.prod.outlook.com (2603:10a6:150:284::9)
+ by VI1PR04MB7023.eurprd04.prod.outlook.com (2603:10a6:800:12f::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
+ 2026 07:49:18 +0000
+Received: from GV1PR04MB11513.eurprd04.prod.outlook.com
+ ([fe80::29e0:98a1:4577:2cc7]) by GV1PR04MB11513.eurprd04.prod.outlook.com
+ ([fe80::29e0:98a1:4577:2cc7%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
+ 07:49:17 +0000
+From: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Subject: [PATCH v4 0/3] imx8-isi: Format support enhancements
+Date: Fri, 24 Jul 2026 15:52:55 +0800
+Message-Id: <20260724-isi-v4-0-27df7b5f6060@oss.nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANcZY2oC/2XM0Q6CIBgF4FdpXIf7QVDpqvdoXYD8JBeJk8Zsz
+ ncPda1al+fsfGcmEUePkZwOMxkx+ehDn4M4Hkjb6f6G1NucCQdeQcUrmhcUwIE0IIRuFcnLYUT
+ np+3lcs258/ERxud2mtjavr3afGIUqEU0zhpmoDbnEGPRT0PRhjtZHxL/qJrDrnhWQjZCmlZa4
+ fS/Kr9VuasyK6mEYgo1NqL+VcuyvACaciHwBAEAAA==
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Christian Hemp <c.hemp@phytec.de>, 
+ Stefan Riedmueller <s.riedmueller@phytec.de>, 
+ Jacopo Mondi <jacopo@jmondi.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Bryan O'Donoghue <bod@kernel.org>
+Cc: Dong Aisheng <aisheng.dong@nxp.com>, Guoniu Zhou <guoniu.zhou@nxp.com>, 
+ linux-media@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Guoniu Zhou <guoniu.zhou@oss.nxp.com>, 
+ Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+ Robert Chiras <robert.chiras@nxp.com>
+X-Mailer: b4 0.14.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1784879577; l=3901;
+ i=guoniu.zhou@oss.nxp.com; s=20250815; h=from:subject:message-id;
+ bh=iA4HzD8aJ2uZ+2ojy6MEJ7BzbkYIbw278Od85VM8cQQ=;
+ b=8o82gcd/i/+0xD7+rOotmXxvk/Opoza70pbCBv3H8xz6SOfyG7Pj5Q5Oe4XSwNAEv9Iwp33pc
+ yvPGkq9HLStCUJYNjspk9CTgpNYW5719zO52H5ntlePOVtreHo0/7vM
+X-Developer-Key: i=guoniu.zhou@oss.nxp.com; a=ed25519;
+ pk=MM+/XICg5S78/gs+f9wtGP6yIvkyjTdZwfaxXeu5rlo=
+X-ClientProxiedBy: MA5P287CA0360.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:219::11) To GV1PR04MB11513.eurprd04.prod.outlook.com
+ (2603:10a6:150:284::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CABGBkYsZckKwJqcjaQrRvhsmRQ2faST9h0zbPEk9xaCVyXPJ7g@mail.gmail.com>
-In-Reply-To: <CABGBkYsZckKwJqcjaQrRvhsmRQ2faST9h0zbPEk9xaCVyXPJ7g@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 24 Jul 2026 09:17:01 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvVJ7tTA91rV5S502sL-Ao+KH5x5SvUCn401PYj+PqwyQ@mail.gmail.com>
-X-Gm-Features: AUfX_mxyEU6V-pOXocqXeiP6NeeQ9cOU-2gkbUKfeyxDJlmL44_n_rFaMm_F3c4
-Message-ID: <CANiDSCvVJ7tTA91rV5S502sL-Ao+KH5x5SvUCn401PYj+PqwyQ@mail.gmail.com>
-Subject: Re: usb webcam: infinite reset/resume bug
-To: Flynn <flynnwilson772@gmail.com>
-Cc: linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV1PR04MB11513:EE_|VI1PR04MB7023:EE_
+X-MS-Office365-Filtering-Correlation-Id: 1ccc031a-bc30-4acd-ed60-08dee9581085
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|7416014|1800799024|376014|19092799006|23010399003|366016|921020|13003099007|6133799003|18002099003|11063799006|56012099006|10067099003;
+X-Microsoft-Antispam-Message-Info:
+ 1h84FiL9Z+po/n5IyxkpmQ3cGVPIzAJMIhpxNUe64JhAWgq2XuTy37RoMoEP1Oc1+rbucK3nuNj4lIEUSPev89U0yVLS+eYpiOfQLmn1PnH1qjmkaBcoS4EXyyrbdG2OeZKz28NnKAIqP9BkfMEpKDedrF6Xnw+Q6C+M0uGapwqLNYlT8MdSebbwNq64QsrmJwpM8pnHBPcMmkLyYJWdLFpZwWZ9oEEGCMMbgp1/48bX7+byS74JtgLLaKImXNK9pjSRXs09WkuIZSF2my/QbcACCZUXs1/7nW6VlKXUzvHI1HDvyqdQj3lLYhTaO1q44N+1DAM1n/+V9A8oRLdIc8ajQLjHGIzkG4GuZ/EP+a+vzyJxiqn6FR2BWm+TJNFyYtC1e2uIzSFP/zm29+96P5QD0flPwLFDR5yFuYLCj35XAIpfSo9+a8ngERnLDM48971zQs3O2Jt87VU/3fU6fiUvIzn9LkPvq350i8F4FIXdZ18HImZW0DAcJUdjMw9Z7VNiCV9kPf1ZQ/wvYpjmMpUb3YSL70ENCW0/yHl+Asg0WqXEyEPAzjIYRFDxosXG+ueaLJcTqAkeGcCEo9TW+1WThh7Lg0iYjPbgvFyI+J8pjcZ6bKiEOAT8SSJL6WuG7vRf+EV74+h3BcY0iOifhKetQMtLB7XgiHKbes4UnVpWHRFtghVwqUARXE0pIGMRDMDk9AnPRsq+4KmkShxcog==
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV1PR04MB11513.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(376014)(19092799006)(23010399003)(366016)(921020)(13003099007)(6133799003)(18002099003)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?TSttU2xyd2l4N0F6K2RIWWwrL2tLS2tQVDc3ZytwT2lvY3c2RURLdGpCeTdQ?=
+ =?utf-8?B?S0cwZjQxdzFndzR5ZlBNN3Y1SWhTVkg3U0xYUWZMN0Z5dTBhZlpVR0x0U0Zy?=
+ =?utf-8?B?OTZ2dHRwMy9wS1FuQkxjSzByQmR3aEJPVldiOEZFL2c2Z2tHWkpzODRNSExW?=
+ =?utf-8?B?UkZzY1VGNDluVGR5Z3l5T3k3ZHB1dmNHbWU3SWoraVNiVDAyUSs3K3ltUUlu?=
+ =?utf-8?B?MlBKU0MxcDV1dTk1dlBiMmlFYlkzWU96RWtoQStlc2cwZVlGTE9XdDk3cDFi?=
+ =?utf-8?B?a2lKdWhUbG45cmVObGZBRC9obm0vZnNqa3JKd25wVFU4R05NTk05MmRJTmlz?=
+ =?utf-8?B?MnpUV0dJUHRkTFlTQmhiczl2VGwyNTl3MVFUZENZOGx6RWY5VGRvd0Q1VDdG?=
+ =?utf-8?B?c0ZOYU5iWUQxMWp1V2tFVktmU2RaRUFtZ3RMSjhrUW5VbTNZdGhQbjdJbG9J?=
+ =?utf-8?B?RUIvYkYrNHhCVi9DRHF4ek40ZEJXN0VZU3VPQTdFUFR2Ymp0a2p3R1RLYUIr?=
+ =?utf-8?B?RTZFdElWYUFYbk5WL000MmEwUzRyc2t1bVVvTWtNdlFUU25iaWh6VUF3QmNM?=
+ =?utf-8?B?cGZ5MzA3YWh3Z0VGYmwra210QmRDVldLWE5TTnVJUTVrcWk2eTRBaVpxd3U3?=
+ =?utf-8?B?OURxNG9rTEIwZE1iQnB2N1phR2orbUNUV2dNeG56dmFNeklSSDAzZzNKVEtF?=
+ =?utf-8?B?SXE2aDI2bHYzMnhuZWcrOUlLSVMzMmVDUWRYcWhPeitUWmY1R1kwRWxJdmlV?=
+ =?utf-8?B?eVNBUnFLa25qR2VrUU83c2tCdlduaFBEMEpMK0xKMTg3ek9yaXBiWXlPUlJD?=
+ =?utf-8?B?ekJLZEpIcWdoWnBlRis2ZEFTejJNRVcxZXNmZDBVMGJYbnZlcEEzZTNYdng2?=
+ =?utf-8?B?WDBHUW1wYk9Idmdya0I1dUkyeHM5MlkxR2ZpZ3pwYXB6czZjY3BBcEV0R3B5?=
+ =?utf-8?B?TTFOd2NHMG5Ydy9qNDl1bDVjb0VYOWxKckNPamFkVnJkRnBjU21iSVpGNGtq?=
+ =?utf-8?B?dXQwcmZPTnZWdGI4MEN2dU0zZ0ZwUEhCWDlaK0xhQm5JbkErMTl3blY0RUJn?=
+ =?utf-8?B?SnV6enFPcEtOVlJLSVdHYjN5UXNiL2s0ZzhSWTVNamdmRzM0alM5Uzl3VE9j?=
+ =?utf-8?B?andod1RhamhBalhiWmMzSWNTdFd3WlpjSld2RXAvVHBmTnRPbzVxdFgxV01k?=
+ =?utf-8?B?YUdDVWV3SDVTSERpN05zTGdOVXFWOTRKVVlacWUyWThVTWhmaDZsL29mREZG?=
+ =?utf-8?B?M1FJaGVIbE1oU1A1NXBTU1FMNm82MjlocmJxM3YxcHFnSXhYcnFtUngxT29s?=
+ =?utf-8?B?OERURmFwZ2lDSndDOVlEY094eWgrUnEvZE9nRHNkSXF5Z2xMbTByNlNFVUds?=
+ =?utf-8?B?NlBiT0FBMWMySVd0YjZOQmJGZ3R2TXJoOU5KWXZhRVdKZHp0Qk00TVkvUG5h?=
+ =?utf-8?B?S0JFSVVmWHp2TDd2ckFkOTlTTTVzeEdzK2VkSlhpb0JHcWFUdFRkeWphekMy?=
+ =?utf-8?B?aURaY00xU0dHMkNqRGV4SHlPNHZFcGhZK3c4QWM4bXlTWTFFclZzWENoMkZ5?=
+ =?utf-8?B?Mi9Rc3dYU01jdVQrOWNEaU80T0hHQ1E1UU90SU5tOEdmUnJ6NmpnQlRGR25i?=
+ =?utf-8?B?c3h5WVo2S1FWUkVrZGNjdjd5SWNUNjM2UGZ5K3cvSnR5RDRiMTJnUitpcjBN?=
+ =?utf-8?B?a1BtbzR0Qnoxd2tXK0daL3Z3LzAxSEN5YmkyU2t0cmRYb21pNTcyRlo4TU5y?=
+ =?utf-8?B?Zk5EN01vUTZFcldQZ2lZYXBZK0x6MnVadEEvZGZVWEpBcGJVRVBFdGZ6cmpl?=
+ =?utf-8?B?Y1EwWXMvQTVTQlNyRXhYeVRFSkxJUlVHUGxaaEhJdnJnem9HeGRQWlJUd0Jv?=
+ =?utf-8?B?ZGtuZ1QyeC83RnBxOGtlYTlzQTYxVmtSZy9aMnRNN3h1a0ViN0FmQmI1eHE5?=
+ =?utf-8?B?WVc5UHc4SFQ2VW0rb05MODZjbTVLdzdXNk03eWVGUlhMQ0l5WU55RGN0K3Jo?=
+ =?utf-8?B?czF3WXRIdFM2d2hSUDc0bDlmV3hKVUZDMUdIY3JXUDM2ajFDQk53SEpHQXdZ?=
+ =?utf-8?B?RXlpeDRHVDNGbk9pYmppWlBxenpJL25DZkhDaEpsWDRibmdTSHpUOG5lakVp?=
+ =?utf-8?B?ckJJY3k2WGRzMXhiV1piTkV2eWFmek5RTmdJYXZLTkpzOHBTcHVaNXB4Q05S?=
+ =?utf-8?B?RTZEWFpEYU5xdFp6MFlYb3F3OWJlTmJKdlhrVm1xUlJFMUNDZlo1UTBGOFhi?=
+ =?utf-8?B?QmY3R2dVeFBwMG9uVE8wcGpZWUNOVVNFRkhBQWpxOE4xYkc4NkpuSVFQSTcx?=
+ =?utf-8?B?dTZwc0l6ajZYcnAzQWtmdkpSTXNCTmFnRm5ld1R3K1pISHJJOURLZHhqOEpF?=
+ =?utf-8?Q?fejAJFQJ7Hvv+vhGdp1yqWRLJMN3VZJSq0yuq?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1ccc031a-bc30-4acd-ed60-08dee9581085
+X-MS-Exchange-CrossTenant-AuthSource: GV1PR04MB11513.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 07:49:17.8914
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hmE2ktleE8TFNLGvqBfafySNcw5FAVe8DIsclI3NP6pfrVR+HRoRZoHmXdpe3j7mTy/jAadKTphrsuHVQD+X1bApXwxRJVLrmjqKNCJz2ARIaV5q4xXWs1120NRO+V07
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7023
 
-Hi Flynn
+This is a follow-up series to the imx8-isi bug fixes and format support
+patches [1]. Patches 1/6, 2/6, and 5/6 from v2 have been merged into the
+maintainer's branch (pinchart/for-next/media/nxp). This series contains
+the remaining 3 patches rebased on top of the merged changes.
 
-Is the error reproducible? If so, could you share the output of dmesg
-after the camera freezes?
+Patch 1 implements per-stream reference counting in the crossbar to properly
+enable multiple streams from different virtual channels on the same input pad.
 
-Also, try this:
+Patch 2 adds support for 16-bit raw Bayer formats (SBGGR16, SGBRG16,
+SGRBG16, SRGGB16) and Y16 (16-bit monochrome).
 
-dmesg -c
-rmmod uvcvideo
-modprobe uvcvideo trace=3D0xffffffff
-CRASH YOUR CAMERA
-dmesg > dmesg.log
+Patch 3 extends RGB format support by adding BGRA32, RGBA32, BGRX32, RGBX32,
+and ARGB2101010 formats.
 
-And then share the dmesg, hopefully it has enough information for us
-to figure out what is going on
+[1] https://lore.kernel.org/r/20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com
 
+Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+---
+Changes in v4:
+- [1/3] Make enable/disable symmetric by checking stream_in_use
+- [1/3] Add mxc_isi_crossbar_stream_in_use() helper for both paths
+- Link to v3: https://lore.kernel.org/r/20260723-isi-v3-0-594919eae847@oss.nxp.com
 
-On Fri, 24 Jul 2026 at 02:18, Flynn <flynnwilson772@gmail.com> wrote:
->
-> Hello mailing list, please go easy on me as I've never reported a bug thi=
-s way before.
->
-> So I have a Logitech USB webcam using uvcvideo and v4l2, and I'm trying t=
-o use it with OBS Studio (the Flatpak if it matters). However, upon changin=
-g the device's video settings (possibly to an impossible/unsupported combin=
-ation? i did try to increase the exposure AND set the framerate to max?), t=
-he video stream froze fully and as far as I can tell didn't recover until I=
- manually replugged it. (Frankly I don't have the patience today to check w=
-hat makes it start working again, lol)
->
-> Expected behavior is that the device should either not fail in the first =
-place, or should recover the first time it tries to.
->
-> Kernel: Linux pop-os 7.0.9-76070009-generic #202605191504~1780431819~24.0=
-4~94774ef SMP PREEMPT_DYNAMIC Wed J x86_64 x86_64 x86_64 GNU/Linux
-> Distro: Pop OS 24.04 LTS
->
-> UVCVideo quirks: 4294967295
-> modinfo uvcvideo | head -20 attached as uvcvideo.txt
-> lsusb -v -d 046d:0825 attached as webcam_info.txt
-> v4l2-ctl --device=3D/dev/video3 --all attached as capabilities.txt
-> v4l2-ctl --device=3D/dev/video3 --list-formats-ext attached as formats.tx=
-t
-> the full OBS run log is attached as obs_log.txt
->
-> I'm ready and willing to provide further info, do more diagnostics or run=
- test patches if it would help. Thank you
->
-> Regards,
-> Flynn
->
->
+Changes in v3:
+- Rebased on maintainer's branch which already includes v2 patches 1/6,
+  2/6, and 5/6 (stream ID validation fixes and color map correction)
+- Series reduced from 6 patches to 3 patches (remaining unmerged patches)
+- Patch numbering updated: v2 3/6 -> v3 1/3, v2 4/6 -> v3 2/3, v2 6/6 -> v3 3/3
+- [1/3] Change from "Fix" to "Implement" as multi-stream support is for newer
+  SoCs not present when the driver was merged (Laurent)
+- [1/3] Remove Fixes and Cc: stable tags (Laurent)
+- [1/3] Store input/input_stream in mxc_isi_pipe instead of using per-stream
+  counters array, avoiding arbitrary 64-entry limit (Laurent)
+- [1/3] Use UINT_MAX to mark pipe as inactive to distinguish from valid pad 0
+- [2/3] Remove "high-end" from description as RAW16 is common now (Laurent)
+- [2/3] Add Y16 (16-bit monochrome) format support (Laurent)
+- [2/3] Add Reviewed-by tag from Laurent
+- [3/3] Drop M2M_OUT for ABGR32/BGRA32/RGBA32 as ISI ignores alpha bits (Laurent)
+- [3/3] Remove Android requirements from commit message as alpha formats
+  cannot be used as M2M input (Laurent)
+- [3/3] Add Tested-by tag from Laurent Pinchart
+- Link to v2: https://lore.kernel.org/r/20260720-isi-v2-0-45845bc5d4fa@oss.nxp.com
 
+Changes in v2:
+- [1/6] Split v1 patch 1/5 into two patches: this patch fixes the core
+  for_each_active_route() bug, next patch adds additional stream
+  validation (Frank Li)
+- [2/6] New patch split from v1 1/5: adds stream ID validation on top of
+  for_each_active_route() fix (Frank Li)
+- [2/6] Remove incorrect sink_stream validation
+- [3/6] Use fixed-size array for enabled_count instead of dynamic allocation
+- [3/6] Use BIT_ULL() macro for u64 bitmask operations
+- [3/6] Use MXC_ISI_MAX_STREAMS (64) as loop boundary instead of num_sources
+- [3/6] Remove mxc_isi_stream_counters_alloc/free functions
+- [4/6] Add Reviewed-by tag from Frank Li
+- [5/6] Reword commit description for clarity (Frank Li)
+- [6/6] Add Reviewed-by tag from Frank Li
+- Link to v1: https://lore.kernel.org/r/20260629-isi-v1-0-deebfdb1b07b@oss.nxp.com
 
---=20
-Ricardo Ribalda
+---
+Guoniu Zhou (2):
+      media: nxp: imx8-isi: Implement per-stream reference counting for multiplexed streams
+      media: nxp: imx8-isi: Add additional 32-bit RGB format support
+
+Laurentiu Palcu (1):
+      media: nxp: imx8-isi: Add 16-bit raw Bayer format support
+
+ .../media/platform/nxp/imx8-isi/imx8-isi-core.h    |  5 +-
+ .../platform/nxp/imx8-isi/imx8-isi-crossbar.c      | 84 ++++++++++++++-----
+ .../media/platform/nxp/imx8-isi/imx8-isi-pipe.c    | 31 +++++++
+ .../media/platform/nxp/imx8-isi/imx8-isi-video.c   | 96 ++++++++++++++++++++++
+ 4 files changed, 193 insertions(+), 23 deletions(-)
+---
+base-commit: 4d32fbba9d23f50d157ed4a37c9e8fbce61c904a
+change-id: 20260626-isi-00f05b044ac9
+
+Best regards,
+-- 
+Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+
