@@ -1,75 +1,109 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from out-183.mta1.migadu.com (out-183.mta1.migadu.com [95.215.58.183])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7AB36195F;
-	Fri, 24 Jul 2026 09:58:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD4042047D
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 10:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.183
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784887105; cv=none; b=FrQJm/ccE9p6dnFb0kjp+xCw8FHtLCZHLwmZW3KsKfL/i2O+k8Vg4lJnF/kL3iYkokRWWZW3yC0kWmPXOD1FMbvcQKgnVaABeEZItdGOkcvBNRVmMg7lxphlR5FoAtPM1Ulg6oXssOq2nRfreKME5822zZCM8+3JF7iCR1mHj4A=
+	t=1784888411; cv=none; b=KKRS7IarMp3z+RuTU5p3QOzpGjhBiC5VFC7bsLiMOyk+Venx/dqLLwL2Dw5p4d364EMIdoIsGUmbrXMwXW4CA1NGhRynrI9KvryNY0vpF/1Ve6xq8O4dcXZJBrOh1NcO1gFq5P28IbPEdNEB7xie82W0E7hqEd4LjRhzKZnEOA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784887105; c=relaxed/simple;
-	bh=jz8LodwR32jdFnOApqEDMEVieSMCREy++cT+5YqMV8I=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=heC+BYBF2w/Y/UvxidNQxyge5r9M1ULMJBBOA79tGLkFnhXVDoEFxm9JaUtxfNayKb2ScgatSUhocSi4/js5m7DQYJ83KhFOubQMNGd5fl4QLg3fa0XZbX6S9M6VwZU5yRDYgSuDDQIFIwcEaUU+q+5Q68pZHvijvWPnwfLNIO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=wMNQG5k2; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1784888411; c=relaxed/simple;
+	bh=43loBfQY/YMXr6zeV9pXCVAF0ZfELGRn5ItUjZRXuLQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:Message-ID:
+	 MIME-Version:Content-Type; b=oxPEk9YuMZl1TelWKU8kyoBh75ybjawOJgE9b6e4f1k+mlYQ/fKc6mBwVXTakjK7TqUATFwtN0aZYApjDKHhwROhxHlSXWgL0C3BCnPixBsO/y9w2fHr07kGmLPoePhOlCzRJXgvu3HkNUjzzsFF3TCDmkURyFUEPg8f/c0kPuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=cKwoBgnE; arc=none smtp.client-ip=95.215.58.183
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="wMNQG5k2"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9ED65524;
-	Fri, 24 Jul 2026 11:57:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1784887040;
-	bh=jz8LodwR32jdFnOApqEDMEVieSMCREy++cT+5YqMV8I=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=wMNQG5k2IIUxSmeIfWocLS4Yb7bzbs06RhNDJ+NkOvcHJWwvXg0sA1Ilxxxetn5Rm
-	 8NK4S2Ltau/p3rjK8uvlgqyUEoEV2X6lalVJfuIwYYtdbIplJprQjoJKi2B0lLchAp
-	 BGmPj4HAvBc0Nu18HDQsxSPIP21m6XaFdpKPgVEQ=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="cKwoBgnE"
+Date: Fri, 24 Jul 2026 10:13:49 +0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=postmarketos.org;
+	s=key1; t=1784888396;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=k4jA95NvxlnIR1Hi2g9Z6FkmE9n79P+Ej5d6GEWovXQ=;
+	b=cKwoBgnE+DhdTJU33w9R9euhKma7trvL516xwdFrdSR280gx3pYzmYPoL2PzO6zKg4lL2r
+	dXR5nwK2R6UctttWiJOJDOtg2Sm/nRqZo1Tt5c2TZB04ZfQJ/K90Z7XDJXjzFzrsHxK+3a
+	Z3TnFQWnO6jfg05+Gc4FrGCA8hgPGJzaYI2QSvfYRUZhKHnvUAqVMGggj7RhoTdFS9r/WS
+	VyzzYyLKEYOy8x78w4xTGLIiq6P2Pp+aaPkDjXuZmnwxw1J8AOJDZGnW4nxsBUoDN+ns5K
+	zI9qoPXU6n5j8jAKW20dD9+fsMcLSEuvTnFrnW7G3Lne3gCPK8cQUukJvHlCRw==
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Ferass El Hafidi <funderscore@postmarketos.org>
+To: linux-amlogic@lists.infradead.org, zhentao.guo@amlogic.com, Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+Subject: Re: [PATCH v6 0/6] Add Amlogic stateless H.264 video decoder for S4
+References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
+In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
+Message-ID: <tiocog.2cefvi325on5y@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <PN3P287MB18292491E9351D55A79BDCEE8BCF2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io> <20260718200912.16001-17-tarang.raval@siliconsignals.io> <178470050057.3005206.9371104705812276156@freya> <PN3P287MB18292491E9351D55A79BDCEE8BCF2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-Subject: Re: [PATCH v3 16/17] media: i2c: os05b10: Enable runtime PM autosuspend
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Mauro Carvalho Chehab <mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-To: "mehdi.djait@linux.intel.com" <mehdi.djait@linux.intel.com>, "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>, Tarang Raval <tarang.raval@siliconsignals.io>
-Date: Fri, 24 Jul 2026 15:28:16 +0530
-Message-ID: <178488709608.3335539.13886895288530172941@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8; format=flowed
+X-Migadu-Flow: FLOW_OUT
 
-Hi Tarang,
+Hi Zhentao,
 
-Quoting Tarang Raval (2026-07-24 12:32:15)
-> Hi Jai,
->=20
-> Thanks for the review.
->=20
-[...]
-> By the way, I'm not sure why, but sashiko isn't reviewing my patches.
-> I'm not getting any mail from sashiko on any of my patches from this
-> series. Even though I recently sent one patch on int3472, on that
-> patch also sashiko had no comments. That's strange :)
+On Fri, 24 Jul 2026 07:04, Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org> wrote:
+>Introduce initial driver support for Amlogic's new video acceleration
+>hardware architecture, designed for video stream decoding.
+>
+>Compared to the current Amlogic video decoder hardware architecture,
+>this new implementation eliminates the Esparser hardware component,
+>enabling direct vb2 buffer input. The driver is designed to support
+>the V4L2 M2M stateless decoder API. The initial phase includes support
+>for H.264 decoding on Amlogic S805X2 platform.
+>
+>The driver needs to work alongside with a signed firmware. The loading process of
+>the signed fw is as follow.
 
-Sashiko was enabled on the main list only for a short period of time, now
-the reviews are opt-in by joining the media-ci@ list (see Mauro's latest
-                                                      announcement [1])
+Is the firmware still signed on devices that do not have secure boot
+enabled? (which means none of their boot chain is signed)
+Do the signing checks take place in BL32 or elsewhere?
 
-Or you can access it on sashiko.dev:
-https://sashiko.dev/#/patchset/20260718200912.16001-1-tarang.raval%40silico=
-nsignals.io
+>Stage1: Decypt and decompose the full firmware package when the driver is probed.
+>  +---------------------+                        +---------------------+
+>  |  Decoder Driver     |                        |  TEE Shared Memory  |
+>  |  (Kernel Space)     |                        |                     |
+>  |  +---------------+  |                        |  +---------------+  |
+>  |  | video_ucode   |  |                        |  | firmware      |  |
+>  |  |    .bin       |  |  Copy payload to SHM   |  |   payload     |  |
+>  |  | (from fs)     |  | ---------------------> |  | (Secure RAM)  |  |
+>  |  +---------------+  |                        |  +---------------+  |
+>  +---------------------+                        +----------+----------+
+>                                                            |
+>                                                            | PTA Invocation
+>                                                            v
+>                                       +-------------------------------+
+>                                       |             BL32              |
+>                                       |  +-------------------------+  |
+>                                       |  | Decrypt Firmware        |  |
+>                                       |  +-----------+-------------+  |
+>                                       |              |                |
+>                                       |              v                |
+>                                       |  +-------------------------+  |
+>                                       |  | Decompose the full      |  |
+>				       |  | firmware pacakge        |  |
+>                                       |  +-----------+-------------+  |
+>                                       |              |                |
+>                                       |              v                |
+>                                       |  +-------------------------+  |
+>                                       |  | Store decomposed .bin   |  |
+>                                       |  | in Secure Memory        |  |
+>                                       |  +-------------------------+  |
+>                                       +-------------------------------+
+>
 
-[1]: https://lore.kernel.org/linux-media/20260722142757.020b70e1@foz.lan/
+Is BL32 strictly needed to load that firmware? I know on at least older SoCs
+(sm1 and older) BL32 is not required for booting and amlogic-based SBCs are
+often used without BL32. So once this gets ported to older SoCs, would
+it have a hard-dependency on BL32? And if yes, can upstream Arm Trusted
+Firmware-A BL32 be used instead of the Amlogic blob?
 
->=20
-> Best Regards,
-> Tarang
-
-Thanks,
-    Jai
+Best regards,
+Ferass
