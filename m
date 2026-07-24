@@ -1,204 +1,348 @@
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021078.outbound.protection.outlook.com [40.107.57.78])
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95F9A3CB555;
-	Fri, 24 Jul 2026 08:14:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C31D33DB32D;
+	Fri, 24 Jul 2026 08:30:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784880863; cv=fail; b=rTSC1V8j8iZtwfF8sqF69IyFqMEo24iTRqlxPWHdCSREiU0qvpljEvYmH8MCEJHwBoti2KlUAF9XjXlddDUOMOfz7uwTEbPV3nn7uPHHPqWyriDhWCZW9YirIDHhGbMre45Bmab4MZ/Qu8KsxOh5smaHZM6jonMf+/rPYtIfmUY=
+	t=1784881806; cv=fail; b=ItivjSJk3/bESqLlUmBRLc4UjNleykDaF4gcVRvvEyl5xHyCeiUzQpSeoosLYTQkufLRL9tKzE5Bmj4vDZF4HqEkUXa5LswS6cuczOqKf4c+q1sG8QkyI3TYWDE5MOiuD106Q2Vk4VUPxrHfZyzH0iTpDxB5lo42CW1llPNrAQ0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784880863; c=relaxed/simple;
-	bh=ZpyrfJVpI+4wvidoxJinuf5L2oEuDqbedt4epmSDiYU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=uv3M4s8x7FqoJYKKnT5a0FdwaRRm27jem7NLU/1mNjozs3boX8Fi7rPznULEXKdFWyKlaE0KnCUh1nppsgN5tvpjswbCFpv02+bMnDMYhLoPzLvkUKkS/E/f7gsKOG5AxvYSl3Q0hsXRgzk5X9PgBpOxvZkzBRGEYIUZvBQ7GIM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=Afkd30yc reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1784881806; c=relaxed/simple;
+	bh=yPVq6aDzDv5kVPRDuK/aibmKigEl+rM9/tyCx3whcuM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=NLuwh4EclS1y8LBqA3Pa1SEssVnddVjmnXJCApSGEQDTdDKuuGEf8Mp+Tv9vQuPcZvPCddDVDd9YwgYWKL8ZrbFeL5YIAoEr+Ta/z2EljrDuGmsRbXMX9hU0AAtHVyy5JDa06ECB0uZIHQkZLcw2UNESzFRK/4QvDbnSo+4NuG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=We2PoItw; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=BesxNFRm; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="Afkd30yc"
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="We2PoItw";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="BesxNFRm"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 66O4l1TX140245;
+	Fri, 24 Jul 2026 03:29:53 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiu
+	jE=; b=We2PoItwWXK52SeeFyDpULuTomXNXXisCYI+BHTmR+IrdMeCs6Wh85vXd
+	QgGBWPlbvYxDEi7W4EHfWc/573omRCJ0y7jZOxkTMdTpQkSAFN5rmsjikmWuYXzB
+	BQJ8+5H7PIsP3kArFHJkFt4Cp6ArsDphghJZfZKZtTKAhN8J7VFEILTmezX0bJOc
+	2F0gII7A9t2dqWNgMDgKSBy8LgUSlSEkqpsVt8Y38K9zTrrntNIt+qfFK5c/bNAZ
+	vFDJK9S5JvYlj8nrWIWWzkqRT7XAqSbQgqU9knh6ve/wDvy4iyPZ3fLFtjOqyKOa
+	mTy7+1yEFdbOT5ws82ViMJZCjqVcQ==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010022.outbound.protection.outlook.com [52.101.56.22])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4fkjawe9u6-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Fri, 24 Jul 2026 03:29:53 -0500 (CDT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ln67Htm1RHSf1+o6iyUHLKpwGfpQlNzICMLc0dvhi+yjV5EG7Gmd8BzlsCQfDCzQCxMx8ernzbRlD59VJyUD+4K7eCaD44W0yNVpBlzGvBnF+Zy6M2aoh7SpL5MbyOXR/s6raQnNz1+PRkuoTwAXzL/WRZAwQ1CR6Bx2LVK7gDUt8OgtF8SSgwZkAIMJtZzDSgpaZDuBzHXHM8KtLzjtCV1+hlOHHWGgdw1t5+KSpnPcupxFS52CMm0b3J9Kgj8ZWVDoRZhKDIz4BII2AJz6gFDvalJxP4FBtqGudnRcvbxAZ4jY24L8Sso3jNj34+4Loww4TdON+R+d0hXOwScV1A==
+ b=V1yfE9y49HSHWqThkqrdxFlaf9eBM873TbjF0itOBympXcrMDYz3weJ0TRaMi+/+oGNQ2Gy07zT5XvBzyLDGuY0UaNO5D2ukyRYT9AzmrwTagyKfUrTEd+cdklBd1P4ZQEt4XePjZs2hwszQxuQKhWeCK5tu8vjVEdmLfv6OfE0jw15ALkcCPTmpu0qtfcGktWXv/Lozrx5NygVs5/0HcNnu8fO5jl3RDp4tft602fad3LrNipZO1KOTfz4oIFE39QfYDGAoZJHf3Qg23GzKE5noJpFZsXOQ6gwN2QTkbE2vrH+ESwQSHNWx/6UhLFb3ZV+7HOLM7QT4EwYyQJGISw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6GY1+F3Qg7Hg6CcKSLFRzwSd84vIjm8H+qHuEadtkpQ=;
- b=IfABbfPtqrwAV0p/+V7/GlHPqK4GcnCyuUV8pD/7tfUCg1rd/5o5CEVwkkiONX30u8jAO3EDhYZPPzf348vXkPN3OE9TQDsGYEDaWB+cE/3L7puZGRZUKhkef65VYcTcH6YccZOAGtfqcdOfDFB87P2sEUb9XFU0KrTIfmOQ8JeuGLj3chudJnAxi2QIU+ghjIofsI2YK/eN3gP7XfGvJrFAiNhvc4he5QJAOjVyenFSOIY6j71KC/cxDrOm7wbirvf+ZQqgnpiBAtjxmBV1h5Kf+DgBysI+v1Z/bP1EUps7knD5F1Tfx1oZZw2pwQFxXy0miv7AY0fKXsNfvRDcHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
+ bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiujE=;
+ b=eUH/647Cnm+pm5UxC8mmbMlYzCKtkO39wABipEy5073KzMOK6RuQQDvsSkONZIcoZZl0i/X70JwPLjE3VSnGCVOb4HUTM67bkcE8Uo82sLp5h9plbgaCPT8ewVWnkcpI/pErbBxrsI95mKzyFciJtBPIt6eHtESmGi9HEw74JdLrrr1S0hAKaaSCp/ZcN1eGZXCjkoHLlI6E7kHplugxROivA2vCIfqsfQtXzpAiiVeAJ++kBdNOWS5p5m6DhOU/zoiD7LFsuclxv7pYal3xuQ3b00y7U9eqYXfKDh+mr+kSUyYfHDw5B23C8seLYCF37ohMPo8mHEkKg9MJtZlWGw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6GY1+F3Qg7Hg6CcKSLFRzwSd84vIjm8H+qHuEadtkpQ=;
- b=Afkd30ycjyaRKCrC8XGlD2XMvHfwNf0ZIQOQ6PkNVnsvE4sf4Jpzoxc38s8XWzjzQj4XCJaWA6K0RzSCwnPjaUcWLKhX25pcPKq0WL5I6T4UtmUv5LIaAlr5uMY6B3qCyAtvQLfguzJHkVE43CmnG4IqomPBz15mlR+Mt0X36pjbopYHpCKw8yjePweGCXUIycpDnx6ybWEdEqYsB5KASeRaxwzn/jiD/VlmVj32qZx/7Ay6/UMBTsM8vXsHQzNS0t6bXW9QV/10ONI0T9DhC3aILlNhlYWjwGpYKeH9qn0s1iCUinth8bBP+5z4IzAHvAYUCkkY/x1XvaYu93GIoQ==
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
- by MA5P287MB4800.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:181::6) with
+ bh=MtFlfdrg+zlwtezojI54Fb1RobNIfmGu7iQEqYDiujE=;
+ b=BesxNFRmIgF8nOWrmXcV8s8OAvZjHrvvukc2oXEfyaIhC6HcwcsJveJBJCqSZ3MjbBsMzylOPmh4612NurkWgN1Pu9RyRE5Giq14HqbNe8zPtiI3oMkQljxkrvuguu1iYtbLKXhV1fNxuQJqvw/H24l1UrjqATq3hhfWIygWieg=
+Received: from CH5PR04CA0006.namprd04.prod.outlook.com (2603:10b6:610:1f4::11)
+ by PH8PR10MB6289.namprd10.prod.outlook.com (2603:10b6:510:1bd::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Fri, 24 Jul
- 2026 08:14:16 +0000
-Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
- ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0245.010; Fri, 24 Jul 2026
- 08:14:15 +0000
-From: Tarang Raval <tarang.raval@siliconsignals.io>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-CC: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	"mehdi.djait@linux.intel.com" <mehdi.djait@linux.intel.com>, Himanshu Bhavani
-	<himanshu.bhavani@siliconsignals.io>, Elgin Perumbilly
-	<elgin.perumbilly@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 15/17] media: i2c: os05b10: fix negative hblank
- calculation
-Thread-Topic: [PATCH v3 15/17] media: i2c: os05b10: fix negative hblank
- calculation
-Thread-Index: AQHdFvGjuU8HH43GR02FGep0S5H0ebZ5FMIAgAMyaeU=
-Date: Fri, 24 Jul 2026 08:14:15 +0000
-Message-ID:
- <PN3P287MB182958D3F8AF1B3980B863CF8BCF2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
- <20260718200912.16001-16-tarang.raval@siliconsignals.io>
- <178470085696.3005206.11254594678743972885@freya>
-In-Reply-To: <178470085696.3005206.11254594678743972885@freya>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MA5P287MB4800:EE_
-x-ms-office365-filtering-correlation-id: ba020cf5-c185-4ff6-fc3b-08dee95b8d8a
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|10070799003|376014|366016|23010399003|1800799024|38070700021|22082099003|18002099003|3023799007|6133799003|4143699003|56012099006|10067099003;
-x-microsoft-antispam-message-info:
- NB7Zei+7dJfOYblZgdjK7D/eHoQgZUYPgrqUCES1TdIKD6EnPv4zRHfAeMQd0ig7OjgnV3Bvgn4t3HAHWrPXb4lqFPG7fUdxGJtmk1LiOwUVqz/oO5dMMdfvIVrTP3mzv9m7ooTUjEPEvBrMSft1xELNDRR8v4zY+nOfDkzHPF6a8q3qRARoE8EA5DCHDWbDFA9DKw6oXqB5o+WJ9XUdt5i5vEaB8JtOwPat2b2dahX9OuNipuMjrfFD7sv1g01WfH0IVoOgnjfHI5vTWr/IvaBhxeUiTXXf+FygPy04qXYRSSaKNi9tfTF1wYJOrj8J4l25QZZkJIDfvixGDXokG2F2xwuczmrDEthn++aH7Ze1J8eLX/UaBfQbRVYDwfiWR7PKLC7qZGfhISGzBdOqBEydBdA/01mE+CUF0LIp8GctPUrVjCLKXppCRmd9BueNGp70cbSeYtxiD+35gwu9DNnQSYXZIzJk7MBhHAW34o3fBNf4GXYIH0Seb4yWbNEETZMIgVq5b1Hx5qNqH9j+FcO0d/Y9b/jK849gr1jHZ0B9wsGef0DmNFO1MEmt6vweN63IKI5L6ACi0DXPKdk4/Qn1u2Up802LuOKn/u2GGrm6PJE9v0DX30ZwbBStnExPGz9Xm4gY85e/0/JGiol3DciQWYRJj/kwRO8rD+aS5bcOrn/oF6It7s59kt/l8INIFvhZUXq1FipBqfV2pYQdaEC/MVUeVdCQWDGqgo1IpdI=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(366016)(23010399003)(1800799024)(38070700021)(22082099003)(18002099003)(3023799007)(6133799003)(4143699003)(56012099006)(10067099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 2
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?NM737wfYW3hQ+tqyveYl7fMcGSw6ipXlNAwWCUH0GJRjvt9QdUoVc55x9e?=
- =?iso-8859-1?Q?3JeEKwzplXPAvvfak4bb9x2EDeqv1dNJrurHmF7QYYNzHxAKiF5l0TEgd+?=
- =?iso-8859-1?Q?HbzalkgnEeRgz0hE6nFQAicO7eiAcktIa9sHegCR3lBwbN5QSSWNLMhRDa?=
- =?iso-8859-1?Q?iwIu7/dx+vCCeEeacvnZgmdH3d6Xv9wt68LRzSpfPjJvLtwNz8gfb53/k/?=
- =?iso-8859-1?Q?v7sVgJTe098L3TgotI+Ul1XpaewHwKaENth3Vad222fXOLxlQFvhxl7JDk?=
- =?iso-8859-1?Q?2yZxLlizar7JTWCh1b7e/ZkjYELKb4FZ52vZ2iOcUtXC4EIndbiCE05D4J?=
- =?iso-8859-1?Q?4sVtDgsKc5KaR8PUCetloZ0plre6t5wR84SdbskG0WO3YvaLwRnCAusGxd?=
- =?iso-8859-1?Q?M/E1x5yjAjKEHwP0Dc2QrMN07RtQ498iYYIKv/c7AUynKhGrcpwLm06Igz?=
- =?iso-8859-1?Q?jDqOUC7W8QkY4NY4XxY2O507OTI/7DvQuqWkVBWc+n5FG9IAK71GCP+77k?=
- =?iso-8859-1?Q?HWGOtmu1Qi6vYDdSceTTKV8jDjy+KQLtPdtuqshWcbqUrm9qbgLYZGoGn6?=
- =?iso-8859-1?Q?2apVwWaV7lAWmtX3dLfbRQW+OsBUJFLhXwo8EHH4F/hzCrsm8FrG8gPZq9?=
- =?iso-8859-1?Q?216zBt7RJBovS90HY1KS4KgyVcF5jb99YiBJvdBkpBsNvXYKeL4oOwjyw4?=
- =?iso-8859-1?Q?LEgwejYWT1+UjrLJ+NFhB90fT6TxtD1xVkjPbMl4IZLrlJMIybHEEnRdfz?=
- =?iso-8859-1?Q?jtXKZLiCqnKmMjIo4Q7a4uuSANytu8saKV+N2jN69U+NkfGU+I4FVNE8Uu?=
- =?iso-8859-1?Q?lhcwto/VaROer39UtUgwgdU9D8A4MudYW47GzCNPGrOXrv1Lwev6I48TDD?=
- =?iso-8859-1?Q?Dd5LtlZwGIyjnn3KSFBnDrsV2+7ELoIMe8KchroY16Y4GrEJ/9FTOgkslq?=
- =?iso-8859-1?Q?+eQGQr6tVCf7HuiSwP6qcn3RSuM3krC7d5O4MhuSM+9/STGrWBds3IEVid?=
- =?iso-8859-1?Q?Q+af0lwiUw/Zyacs4XjUKApVZiJABQxX2C7Zg+PsXyLA8TcweqQdqcURwT?=
- =?iso-8859-1?Q?vYwIDrxQ6jOfARZgorGxVuHB7xTVWwtcEioSRBSMLKoN3d8+FH7ec6FLmj?=
- =?iso-8859-1?Q?YxH4o4kMqbfcpp1mxM0DvBxoFa782PQdTPRR3D4Aq+0mx/JX8Hd9+IK1ds?=
- =?iso-8859-1?Q?s33Vj4vQRq+23S5DL9HG+IMR1peR8PZmJN2h6XEb02xFAuM+vFg4cu42i3?=
- =?iso-8859-1?Q?wEUdz8IXBs/QeKEUqqEixr1QM/2j6lTGCyXhnV0N/lxHMaoPpEhtXglDsn?=
- =?iso-8859-1?Q?l3ylRK0rGSuJIs957XUEsJipId8RrjH2gsvn1ZCX/2pz1ypmYp6DJ4arG5?=
- =?iso-8859-1?Q?vvfie+BdJtsGJbSgWoWE9XHfeuWBb8n86ebaLYUTP4fjAabrTx1jgNc0Bo?=
- =?iso-8859-1?Q?o2wg/GM4TjiGGlYKBcq/LVs2qgDR4JS51JVzsUbrrlt1DF6+0v4r5I/Fqx?=
- =?iso-8859-1?Q?4WeuFnfZdp3AUgsDEZJteJ+6KS8P1+y6ndc2rlZFMvH/0duNxdWfJ9FgMH?=
- =?iso-8859-1?Q?ME6p6hlMHxzfebWFotip/UHSNn82OkfjfYrRknqRKLEsMnoqJ9WqCkUaEA?=
- =?iso-8859-1?Q?539pUz5D4HPdriXkmkky1tb3/uCpUO1MzaMX2lCkUfivI+IU0v52adjZDS?=
- =?iso-8859-1?Q?B7kPhZa8FBg3AKldxkznsKiledlFSE5wzF04YzLrexVUlLxWt5aM2/DQlN?=
- =?iso-8859-1?Q?er6GTxS0b6iF4Vlz8e70W0cAyV19MZuT0EsfM2VeoClR/HAE5yDAV2Busd?=
- =?iso-8859-1?Q?sFQBlHwdmVeUZeR1TEh7WjxVClhCc9UpSKm0nQmkv/Ji/KOep04o2a/jMw?=
- =?iso-8859-1?Q?3q?=
-x-ms-exchange-antispam-messagedata-1: dBFiI73EfClbDkeyfflqVptK2cDFNcg0cq0=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.223.18; Fri, 24 Jul
+ 2026 08:29:47 +0000
+Received: from CH1PEPF0000A34A.namprd04.prod.outlook.com
+ (2603:10b6:610:1f4:cafe::6b) by CH5PR04CA0006.outlook.office365.com
+ (2603:10b6:610:1f4::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.245.12 via Frontend Transport; Fri,
+ 24 Jul 2026 08:29:47 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ CH1PEPF0000A34A.mail.protection.outlook.com (10.167.244.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.270.5 via Frontend Transport; Fri, 24 Jul 2026 08:29:47 +0000
+Received: from DLEE202.ent.ti.com (157.170.170.77) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 24 Jul
+ 2026 03:29:46 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE202.ent.ti.com
+ (157.170.170.77) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 24 Jul
+ 2026 03:29:46 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 24 Jul 2026 03:29:46 -0500
+Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 66O8TgPZ2852774;
+	Fri, 24 Jul 2026 03:29:43 -0500
+Message-ID: <4adc8ad4-e2c2-424b-951b-f83a41684d0a@ti.com>
+Date: Fri, 24 Jul 2026 13:59:41 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba020cf5-c185-4ff6-fc3b-08dee95b8d8a
-X-MS-Exchange-CrossTenant-originalarrivaltime: 24 Jul 2026 08:14:15.9047
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4] media: ti: vpe: quiesce overflow recovery before
+ freeing streams
+To: Fan Wu <fanwu01@zju.edu.cn>, <mchehab@kernel.org>,
+        <hverkuil+cisco@kernel.org>
+CC: <bparrot@ti.com>, <dale@farnsworth.org>, <dagriego@biglakesoftware.com>,
+        <sbellary@baylibre.com>, <linux-media@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+References: <801025b7-a3b8-4655-af49-f9bb65254170@kernel.org>
+ <20260716113230.3131086-1-fanwu01@zju.edu.cn>
+Content-Language: en-US
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+In-Reply-To: <20260716113230.3131086-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A34A:EE_|PH8PR10MB6289:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f3a6927-28b7-4092-9b9a-08dee95db89b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|82310400026|36860700016|376014|1800799024|56012099006|4143699003|10067099003|13003099007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	87TPGrUmTml/VSULQUqSuv+2ltTtH649UgYO2g6FLAYQPw4pL+q+NahprXdsMHoeIBxeQjwFMNzv2tXsu2mfB+siK74rCgzXqfpschPV+Tbp1vmifg+tQrOsd85koAWhzeB70t7zFAM67Cj1M7n/FBe+T9Rea+J32kWAGFygwQJn4ZPsDHP/52t40mZ5orrg+Pbk+R4bvfGdIooPqxpDFBGGG+mrPeYCVqkVX83lQ9T0uz4C49CVum4UvWEzWTFCGXe85g5BWKE3MhCYB6f5zyn+y3yTzu3xrFi04qD+71wFvZgotr69kkv2jk/CcNhB6fCCf4zrR7923G0jzlwzWBMozy35uguQ1ZIXl+IRu+Im9tWqYruEWKEK2XAPz+XDPsBzIvbV9Cg3Del6uqHJlUmZXtucB6/qd1CjQX+UC4ZBvfnBfeq72xBn77/ODgOySG5QJ330y/MAKgyRf8rPAx5AiFd7kEa6RyTlBhw6O+s3nfuAspH2rmcwA2lJ2GAkKIT5N/kJs0qlf7+1TOviucqVNuq2zqU4fJc1CeXuMXeSXmU7APquNdjjVsICdbD0DkQjSQXhiYFyaPmxrpSurz2FGJLo3vz2fRbq1YC4B86N2kzSrcPdNvtKMuyCh0IQKx97urUwuKl67N0BwzKAbw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(4143699003)(10067099003)(13003099007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	r2jJk/BJpWhwcUDyyFrYf7SI0CIaTtKDQDBkq2bUmd7B6jB2nsQKdgDFBfNtwQFTRVgw7NVSKkX/KHHj63rvpKeXt/OUIMAMWwKpZlQ7SD24CVNSns4P6ElwiZZE2VxQGH6+DYRgZzi8Ggd0YDic2MKqLtx+L2suXWHIO1A3HGk4ikITJkqinRim4duhsns5k86T7OTGhK4gvfdZ9+CQhZ+S8EKmjw30L5W/8LMoXqOrMUQBtyeK0riLLnQgM/RkcYari91qmOPYezDY8Y+yV3L530nS53DuZeVzy5Xt1xtjs4XVvwYPgx8EjevO1uV7ZnJt5HLmJakh2oRitRevMzfYbJHbhFx6vQzcMgYeQHKnXd67us8r2Tm2dHJHhARruIrxJ8kVPWjt4mP4wre9Oel0mA+hLep29N2Q96dwO27N4VcVyIIIRaOD3T6L0yxm
+X-Exchange-RoutingPolicyChecked:
+	c/qdrClEyDRYDBv1liNuumcTVkTPCc7cDLvqcHUTpqG5xwKHQynLbR96927frged3ff7zqoSopy2jByiBns+oTzhxWV11BdwxRsuUjqPBwnEFfCSBu1fza4PVxm/hJOG14LdTcDZxCDmc7Pe/9JLVi8OWem92TciAELWDqvp+K7lHE2QxmlivMXkhyVoVcd5rmR72vKvAjxCC6ShRjcsXgeYZaoeXkT2iu5rWBIceip+wdIJfQLJVDpJVseu1bIsJ3LQPCMOjUw4P0unz+R0pEYAJtxNTlJEVsDWLqvr4r5k0jNceD/i4Q2IlU8EVClT4x5nEVYDqKXzR99k48+kxg==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Jul 2026 08:29:47.0666
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: OmsVt46wGHopbNp8bj2uuGQF/vCOtsWgsORXkfBeHxciDkmRcJEUU5+nVjHoQMqRm62QLlsL/A0caRJ91kipTMnyMOO5gjc+hzQmdpAes+U=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB4800
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f3a6927-28b7-4092-9b9a-08dee95db89b
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A34A.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB6289
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI0MDA3NiBTYWx0ZWRfX43M9/tlwL/S9
+ OZsffiOVyqUjdDpF0B79hv/1UqfxR1/69uh5+fLfEd7kyceM30V70/cmOgQYD7Rbbij7kyyYip1
+ EcN3Mm+SWfgTA/JsxLDHYQcZbpTprKQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI0MDA3NiBTYWx0ZWRfXwVG2ZBUy2rtP
+ mGlq/B9S0zdxx8LN2cg+u++Gv0S5mabgDBw5yp2G4s58Xk8oQpy/cabeMf9Mj4K8ryEBtZ5B0L/
+ IeqIbyjR0dZS3EPuXGKFlZusngrtUdygZZIbXht8ZQYC6xRzfcDc0CqyORWh1RPdiM26vCyTF1x
+ ZuKTXvFA8BVfCQrMk91qJ1DjS0fkxGhGbOhoTnXEmfR7FXCKQYu6m0WIsly6+ojn0pD8WV6Igd8
+ zzWJkdIVj/JH6pnobDE9qoHd/QSlLVs4QweYBBcpCWseGv/v3iVin+Vk7vqIgvVoPG58eY/ATJc
+ Y8d3WzIMNMaHvMzJhlR184ti6MIiG2NI+PdSU8jxgda8YavKyRQ+6HXRhY7/qBwzAL8fy442CCI
+ /JM6iYtEyzGQ1iXb7YH6pjCY5h3EwQHGtM3ihoi2HrimBV2THN0cvdxNyip9s9KDvHTiDWkRA5a
+ aKJ7OULiyLFOS3w9Qmw==
+X-Authority-Analysis: v=2.4 cv=GPE41ONK c=1 sm=1 tr=0 ts=6a632281 cx=c_pps
+ a=wVrytDogCwW2gNy9sPioUw==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22 a=NEAV23lmAAAA:8
+ a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=0qC2fOzHzQn5ViRwkBAA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-GUID: AkqSgpGq3WLMdkrBzZvJg44_hbwgdfAm
+X-Proofpoint-ORIG-GUID: AkqSgpGq3WLMdkrBzZvJg44_hbwgdfAm
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-24_01,2026-07-22_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607240076
 
-Hi Jai,=0A=
-=0A=
-Thanks for the review.=0A=
-=0A=
-> Quoting Tarang Raval (2026-07-19 01:39:06)=0A=
-> > hblank is computed as "mode->hts - mode->width", but both are u32.=0A=
-> > For every mode hts < width (e.g. 1744 vs 2592 for 2592x1944), so the=0A=
-> > subtraction wraps in unsigned 32-bit arithmetic instead of going=0A=
-> > negative. That wrapped value ends up in the control's s64 min/max,=0A=
-> > which v4l2-compliance flags as out of range:=0A=
-> >=0A=
-> >     fail: v4l2-test-controls.cpp(413): returned control value out of ra=
-nge=0A=
-> >     fail: v4l2-test-controls.cpp(476): invalid control 009e0902=0A=
-> >=0A=
-> > and v4l2-ctl shows:=0A=
-> >=0A=
-> >     horizontal_blanking 0x009e0902 (int): min=3D4294966448 max=3D429496=
-6448=0A=
-> >     step=3D1 default=3D4294966448 value=3D-848 flags=3Dread-only, has-m=
-in-max=0A=
-> >=0A=
-> > The same bug exists in os05b10_init_controls(), which sets the=0A=
-> > control's default before os05b10_set_framing_limits() runs.=0A=
-> >=0A=
-> > Fix both sites by casting to a signed type before subtracting, so the=
-=0A=
-> > real (possibly negative) value is computed directly.=0A=
-> >=0A=
->=0A=
-> While the framework accepts negative blankings, IMHO they physically don'=
-t=0A=
-> make much sense.=0A=
->=0A=
-> Many sensors scale their HTS register by some constant factor, so increme=
-nt=0A=
-> of 1 in HTS does not mean 1 pixel on a line, but 4 or 8 or n pixels.=0A=
-> This also affects the internal "pixel rate" for framerate calculation.=0A=
->=0A=
-> Please look at imx283, imx678 etc.=0A=
-=0A=
-Sure, I'll look into this properly.=0A=
-=0A=
-Before that, I want to flag something, I went through the OS05B10 datasheet=
-=0A=
-carefully, and it doesn't explicitly state what clock domain HTS is=0A=
-counted in, or what its actual unit is relative to the output pixel clock.=
-=0A=
-The register description just says "Total horizontal timing size" with no=
-=0A=
-further detail.=0A=
-=0A=
-That said, looking at the clock scheme section (PLL1 driving separate SCLK=
-=0A=
-and PCLK dividers) and the register defaults themselves (default output=0A=
-width is larger than the default HTS value), it does look like HTS isn't=0A=
-counted in output-pixel units directly, so there's likely a scale factor=0A=
-between the two, similar to imx283 or imx678's HMAX.=0A=
-=0A=
-I don't have vendor support to get the exact PLL divider table to confirm=
-=0A=
-this precisely, so I'll try to derive the real value empirically on=0A=
-hardware and cross-check it across the supported resolutions before=0A=
-sending a proper fix.=0A=
-=0A=
-Best Regards,=0A=
-Tarang=
+Hi,
+
+Fan, Thanks for the v4.
+
+Hans, Apologies for the delay in testing this.
+
+On 16/07/26 17:02, Fan Wu wrote:
+> The VIP overflow recovery worker is armed from the hardirq handler when a
+> FIFO overflow is detected, and the list-complete path looks the stream up
+> through the VPDMA list private pointer. Both keep touching stream, port
+> and device state; the recovery worker also resets the parser and VPDMA,
+> repopulates the descriptor list, and re-enables the per-list IRQs.
+> 
+> vip_stop_streaming() masks and clears the per-list IRQs, but it neither
+> synchronizes the hardirq handler nor disables recovery_work. An overflow
+> IRQ that has already queued recovery_work, or a list-complete IRQ in
+> flight when the stream is torn down, can therefore still dereference the
+> stream after its resources are released: the descriptor list is freed by
+> vip_release_stream() on file release, and the stream itself by
+> free_stream() on unbind/remove.
+> 
+> Drain the recovery worker and the IRQ handler at both teardown points
+> through a shared vip_quiesce_stream() helper, before any stream-owned
+> resource is released. disable_work_sync() cancels pending recovery_work,
+> drains a running instance, and raises its disable depth, so a subsequent
+> schedule_work() issued by a racing IRQ handler is rejected at the
+> workqueue scheduler: recovery_work cannot be requeued after
+> disable_work_sync() takes effect. The worker may still re-enable the
+> per-list IRQs before disable_work_sync() returns; disable_irqs() then
+> masks those sources and synchronize_irq() waits for any in-flight handler
+> that still dereferences stream state. In vip_stop_streaming() the helper
+> runs before the parser is stopped, since a worker drained by
+> disable_work_sync() may re-enable the parser before exiting and would
+> otherwise undo the stop. recovery_work is created disabled and enabled in
+> vip_start_streaming() before IRQs, pairing the enable with the teardown
+> disable across the streaming lifecycle.
+> 
+> This issue was found by an in-house static analysis tool and confirmed
+> by manual code review.
+> 
+> Fixes: fc2873aa4a21 ("media: ti: vpe: Add the VIP driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+
+The changes looks good to me. Hence
+
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+Tested-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com> (on 
+AM572X-EVM)
+
+Test logs: 
+https://gist.github.com/Yemike-Abhilash-Chandra/76ff7b621001187283f28fcba15a23e4
+Branch: 
+https://github.com/Yemike-Abhilash-Chandra/linux/commits/VIP_testing/
+
+Thanks and Regards,
+Yemike Abhilash Chandra
+
+> ---
+> Changes in v4:
+> - Drop the unrelated vpdma_hwlist_release() cleanup from this fix (Hans
+>    Verkuil).
+> - In free_stream(), call vip_quiesce_stream() before clearing
+>    cap_streams[], so the stream remains published while in-flight IRQ
+>    handling is drained (Hans Verkuil).
+> 
+> Changes in v3:
+> - Replace the per-stream irq_rearm_allowed flag and the repeated IRQ
+>    disable/synchronize_irq() in vip_quiesce_stream() with the workqueue
+>    disable-depth API (disable_work_sync/enable_work/disable_work), as
+>    suggested by Yemike Abhilash Chandra. This also closes a window the v2
+>    double-drain left open, where its second synchronize_irq() waited for
+>    the in-flight handler but did not cancel the recovery_work it had
+>    requeued, so that work could run after free.
+> - Create recovery_work disabled and enable it in vip_start_streaming()
+>    before IRQs.
+> - In vip_stop_streaming(), quiesce before stopping the parser: a worker
+>    drained by disable_work_sync() may re-enable the parser before exiting,
+>    so stopping the parser first would be undone.
+> 
+> Changes in v2:
+> - Drain the overflow recovery worker at both teardown points through a
+>    shared vip_quiesce_stream() helper: vip_stop_streaming() (file release
+>    path) and free_stream() (unbind/remove). v1 drained only in
+>    free_stream().
+> - Document how the issue was found and that the patch was prepared with
+>    LLM assistance (Assisted-by trailer and body note).
+> 
+> Link: https://lore.kernel.org/r/20260708013738.110752-1-fanwu01@zju.edu.cn/
+> ---
+>   drivers/media/platform/ti/vpe/vip.c | 37 +++++++++++++++++++++++++----
+>   1 file changed, 33 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
+> index cb0a5a07a3d4..673f9addfade 100644
+> --- a/drivers/media/platform/ti/vpe/vip.c
+> +++ b/drivers/media/platform/ti/vpe/vip.c
+> @@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
+>   	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
+>   }
+>   
+> +/*
+> + * Quiesce recovery work and per-list IRQs before releasing stream resources.
+> + * disable_work_sync() prevents the overflow handler from requeueing recovery
+> + * work. Mask and synchronize IRQs afterwards because a running worker may
+> + * have re-enabled them before exiting.
+> + */
+> +static void vip_quiesce_stream(struct vip_stream *stream)
+> +{
+> +	struct vip_dev *dev = stream->port->dev;
+> +
+> +	disable_work_sync(&stream->recovery_work);
+> +	disable_irqs(dev, dev->slice_id, stream->list_num);
+> +	clear_irqs(dev, dev->slice_id, stream->list_num);
+> +	synchronize_irq(dev->irq);
+> +}
+> +
+>   static void populate_desc_list(struct vip_stream *stream)
+>   {
+>   	struct vip_port *port = stream->port;
+> @@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
+>   		goto err;
+>   
+>   	stream->num_recovery = 0;
+> +	enable_work(&stream->recovery_work);
+>   
+>   	clear_irqs(dev, dev->slice_id, stream->list_num);
+>   	enable_irqs(dev, dev->slice_id, stream->list_num);
+> @@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
+>   	struct vip_dev *dev = port->dev;
+>   	int ret;
+>   
+> +	/*
+> +	 * A running recovery worker may re-enable the parser, so quiesce it
+> +	 * and its IRQ handler before stopping the parser or releasing the
+> +	 * descriptor list.
+> +	 */
+> +	vip_quiesce_stream(stream);
+> +
+>   	vip_parser_stop_imm(port, true);
+>   	vip_enable_parser(port, false);
+>   	unset_fmt_params(stream);
+>   
+> -	disable_irqs(dev, dev->slice_id, stream->list_num);
+> -	clear_irqs(dev, dev->slice_id, stream->list_num);
+> -
+>   	if (port->subdev) {
+>   		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
+>   		if (ret)
+> @@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
+>   		goto do_free_hwlist;
+>   
+>   	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
+> +	/* Start disabled; vip_start_streaming() enables it before IRQs. */
+> +	disable_work(&stream->recovery_work);
+>   
+>   	INIT_LIST_HEAD(&stream->vidq);
+>   
+> @@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
+>   		return;
+>   
+>   	dev = stream->port->dev;
+> +	/*
+> +	 * Quiesce the IRQ handler and recovery worker, then drop the stream
+> +	 * from cap_streams[], before releasing stream-owned resources.
+> +	 */
+> +	vip_quiesce_stream(stream);
+> +	stream->port->cap_streams[stream->stream_id] = NULL;
+> +
+>   	/* Free up the Drop queue */
+>   	list_for_each_safe(pos, q, &stream->dropq) {
+>   		buf = list_entry(pos,
+> @@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
+>   
+>   	video_unregister_device(stream->vfd);
+>   	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
+> -	stream->port->cap_streams[stream->stream_id] = NULL;
+>   	kfree(stream);
+>   }
+>   
+
