@@ -1,34 +1,34 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 935C23546FD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 936A635C1B7;
 	Fri, 24 Jul 2026 15:37:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784907435; cv=none; b=eD9sIJTe6bNxGw7fKLMUnYkI3B0TR/2K5aEka69fayyGcAa0lddp90X1mEM9odicr9affDjDJcc4uz5giIEEapYUAL1iYZpy4lcRNI8YlzZyLac2KHxqx+JtCyQDrUMOYz9YWSHORBpM4tX9NNtv5cMl8WWWzcVGjRtfc6xUgJk=
+	t=1784907436; cv=none; b=FkPO2Qaw7/jbGx3KqLJ2L3INeOQlO5s0wsj3JrZVdiyHiJtpaAFRvooGMlRMpat3OC10dm2kg9F64TJ3qGvU6s5x3VY1vfTu42BE16Gm7aOg6KzXoAnk1XW0vpZfND3rajqrD3GWqDuoS303Z+xkbOAalDeHayQtbOCn0VwUWJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784907435; c=relaxed/simple;
-	bh=JOL6+MUTtIG/TQyeu1UTGqTL8FXxVfQQYy8mRlBHY6s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jiGl9Pdc86m3M7hf8uAIXT8eQI4+N+OAuKOaHPYLrRhXspUVnhhNMnr5FxB08NIntZ8HoIvOAUjOWvKUip7yB2Ed1LepZslasJ3LEsWPpOKRJ0W3Wq6z86/+mt4dHNq74HbKjMa9Tbugrr7Y6+ZfxmuOKV+935aiXbNmoh4Hb8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dUg0fW+j; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1784907436; c=relaxed/simple;
+	bh=w4cr1fbPCuxTg1R+EVNpitH1KepShXGke6XYdP0BPNk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qnMHGaG2x+7u7hWe9A6Yb21/9fVpKewjRkjGhAFY2g5Alf7qDhAZpzphF0Tnm2or0pmLroeunZbU/RJlA5mcH3nLYPiPDfI4X6hMUP1ZL+yJpbbn2566i5GgjliVv1GHmGUvUfMIhsJwFeO8ks3rfsaAuMiNk33RcB5KE2TTDlY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YhvOA+rw; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dUg0fW+j"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YhvOA+rw"
 Received: from [192.168.1.182] (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 414FA73B;
-	Fri, 24 Jul 2026 17:36:09 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A54CC524;
+	Fri, 24 Jul 2026 17:36:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
 	s=mail; t=1784907369;
-	bh=JOL6+MUTtIG/TQyeu1UTGqTL8FXxVfQQYy8mRlBHY6s=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=dUg0fW+jmlCMIeafMxRNeIwa607RV/7MJkj2rq1QTqrLZaDePuC9ot9yYpCCrGHkM
-	 za4mIJK+HvbB1GQRU3eB/Alfb2wFzc09FCfGbdSX+p5i1aKKzqzgJqYFHTXXSnya/8
-	 LUAajLfKhmH2KiXe745VXVGpVyaQUbIYfg/JXfcU=
+	bh=w4cr1fbPCuxTg1R+EVNpitH1KepShXGke6XYdP0BPNk=;
+	h=From:Subject:Date:To:Cc:From;
+	b=YhvOA+rwIAHHrju/kgAEUF1SpTYwlhNc4epsDMNvGtfZND5lRrHQ0J70WOpxoNPVY
+	 aX5kByIzLkPknQwq/uLk5ksNI0jHU3by71d+xC0y7l5UbSLKjr0+5pPpzJxfVobitk
+	 RMDVhy6kooFS61dezNdE+EyHvoEoLqZTkhenMctc=
 From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Date: Fri, 24 Jul 2026 17:37:00 +0200
-Subject: [PATCH v8 1/2] dt-bindings: media: i2c: Add mira220 image sensor
+Subject: [PATCH v8 0/2] media: i2c: Add driver for Mira220
+Date: Fri, 24 Jul 2026 17:36:59 +0200
+Message-Id: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,9 +37,11 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260724-mira220-v8-1-d1899ab64709@ideasonboard.com>
-References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
-In-Reply-To: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
+X-B4-Tracking: v=1; b=H4sIAJyGY2oC/3XMQQ7CIBCF4as0rMVMQaC68h7GBWWmlkWLAUM0T
+ e8u7UYT7fJN5vsnlih6SuxUTSxS9smHsYxmVzHX2/FG3GPZTIDQYETNBx+tEMBBggFbG9kZx8r
+ 3PVLnn2vpci279+kR4msNZ7VcfxtZceBKyhYs1qAVnT2STWFsg424d2FgSyrrby4+XBcuQJIUT
+ h01bnGzwU3hiKqrkY6Nw8MfPs/zG5v8slojAQAA
+X-Change-ID: 20260721-mira220-03070a173f7c
 To: Philippe Baetens <philippebaetens@gmail.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
  Sakari Ailus <sakari.ailus@linux.intel.com>, 
@@ -51,179 +53,223 @@ Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
  Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
  Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4297;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8282;
  i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
- bh=7qVkN51rHFIciMJvA1Z8D53Z8lggwDO8fAruqf/OdbQ=;
- b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqY4alrUK3EAyCEjjFFaYqEQYZqYXU92h/z/ocw
- 7FY7Zpj6PGJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamOGpQAKCRByNAaPFqFW
- PCfYEACIC3ds+XLoKfEvol6LG8hNDfCHxlF+cvdBAROERwMCsdoIXs5+q9hvBKH0N4EvKBwZJcU
- Vb5XNDBVcXZPBwmx/yaJNmvdH2fjR8sk/sWGY2H4e3q9u6DWjDACz1Jn+J/k8j8gLoQTCYHmKkt
- DnYc+sEkgj4cJiegxRMyYX3D75KsxXYnnSZ6t7DrGiVkf27T+iCwoPa68wplvI7Q2u/gXfikpEN
- iNMeCJTQhD+1rw41ioxoioQXrr8XUxFCx+DY9ks2q3++vdtni7dh4FL+/U9LmMi6YtiU8yjo4x8
- 8ebSKC4jyZcM4gfWt9xp5XJNTNf/0PWWAq1YHjenOZHMmFGdfpWenzEC7FeO02gi8pUpGd7gkHW
- I2PeMyGXVWkYUSP/cXjKVLK84LDzSu/uh/xfnWd3+Kbv8PWyVN2xY1jkBCc++miI9ElcUYDIEK4
- pqiDSjyQBX9ZaTxUIQDknKFx+aeDs3ka31uojqrfbZH58kQFDmZg+bJY2aGoIu+2xUa7sv6GmnP
- YZu+HBsI63NHamEKBqhobztclBKWVAUb3YGqBLXYuBFmzj2pHSFG3zkvN8/5gzXUczS/1SShTHU
- MQWt3MNZnK6zm7QwEygsjeq91SauPnAqj3OFdxMGDTvPuCUq3EcqZ4xv2LkB2xW+UVh/KdSOiYB
- XRUDB1TEkfI/RNw==
+ bh=w4cr1fbPCuxTg1R+EVNpitH1KepShXGke6XYdP0BPNk=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqY4albcazFv5K9dnL29xuRMMRek3RAugWVbZ6h
+ PYyUTN67eaJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamOGpQAKCRByNAaPFqFW
+ PCD6EAC3YKPVmanwKEvXT6bBJmiMd9IIpec5vMMtqyh4XTf7j7CEJEzB0r9rZ9lVpHCFHfMjGPy
+ dGFW9LLNlWb3TS5AZsEU+KqykXHMDHylFc/UaPmNkIDXot86fP4NkeakNThl1cQfXEqpcEB+XNr
+ 3cedpwdc7VmxzrFtCyVzW0rORI0BMg4rg5TUjkMyO85XOAWNCW//FaSmNUfLltz87J+ENN8dReV
+ kcr3ECdUSNP+2/P32o0uHEoF0+dXIRJnl/w4Re7K8a/uNzcnxoTo5uUR/9u5TG9FvRBj+3m9R3w
+ vJUaBzeDzI+LbdIYt/jSqBkmPxtqTQ2WPh5ZitiuT8f4fsQsXXrqicEePJ8msxNjuVyE1rEB/hB
+ om27dr6f0/5Hhi6iSq6YHFj2yUjpuvI9Q/0rQV9ykkc0vAfqnTee3Xf9D7UhEsmI8dS8cfDB/XN
+ 1/0Bp/iBAS5TPUu9O8knnFyliSHIr4LushSIezg+kr/4HL+bzYj9yaudNXObU/hcR7mkYNnlt2s
+ A2zTcca4vhKaXIZfk4xvlfNj3YZBEFpTKNTmcBHQzqaxtmRNNpA21/Qlf+kzCN9zNS+HAsZ60we
+ /faTRGm2v36jx5Q+iRXQO8ADiymmtVzc86b25ltiaFtaS0MgUBCvnXOzkKhXFuuDOpfarlU+Fip
+ tJcZRNLxTGTWniQ==
 X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
  fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-From: Philippe Baetens <philippebaetens@gmail.com>
+Resume the work done by Philippe on Mira 220, available at
+https://patchwork.linuxtv.org/project/linux-media/list/?series=18460
 
-Add bindings for the AMSOSRAM Mira220 image sensor.
+The detailed changelog is available on the single patches.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+On the current set of supported features: mira220 doesn't support
+binning/skipping but only cropping the full sensor array. It also
+supports embedded data. It would be an ideal candidate for the new
+RAW sensor model.
+
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
+
+These features will be implemented on top of the new RAW sensor model
+once available.
+
+Thanks
+   j
+
+Changes in v8:
+- Address Jai's review comments; changelog is per-patch
+- Link to v7: https://lore.kernel.org/r/20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com
+
+Changes in v7:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v6: https://lore.kernel.org/r/20260722-mira220-v6-0-203e32c596de@ideasonboard.com
+
+Changes in v6:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v5: https://lore.kernel.org/r/20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com
+
+Just a note on hblank: prompted by sashiko review I reworked the hblank
+calculation procedure to use the full line length (which will make it
+easier to use the new Raw Sensor Model) and I've scaled the line lenght
+according tot the number of data lanes, to match the row_length
+settings, and I tested frame rate for 1 and 2 data lane operations.
+
+I'll report the results here
+
+1 data lane: hblank = 4480
+
+    10fps -> vblank = 4915
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=4915
+    2633.788743 (10.00 fps) cam0-stream0 seq: 000210 bytesused: 1920000
+    2633.888732 (10.00 fps) cam0-stream0 seq: 000211 bytesused: 1920000
+    2633.988712 (10.00 fps) cam0-stream0 seq: 000212 bytesused: 1920000
+    2634.088696 (10.00 fps) cam0-stream0 seq: 000213 bytesused: 1920000
+
+    15fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    2690.081596 (15.00 fps) cam0-stream0 seq: 000833 bytesused: 1920000
+    2690.148251 (15.00 fps) cam0-stream0 seq: 000834 bytesused: 1920000
+
+    30fps -> blank = 705
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=705
+    2732.142696 (29.98 fps) cam0-stream0 seq: 001736 bytesused: 1920000
+    2732.176004 (30.02 fps) cam0-stream0 seq: 001737 bytesused: 1920000
+    2732.209315 (30.02 fps) cam0-stream0 seq: 001738 bytesused: 1920000
+
+    min_vblank = 14
+    2823.028261 (46.07 fps) cam0-stream0 seq: 005180 bytesused: 1920000
+    2823.051318 (43.37 fps) cam0-stream0 seq: 005181 bytesused: 1920000
+    2823.073032 (46.05 fps) cam0-stream0 seq: 005182 bytesused: 1920000
+    2823.096081 (43.39 fps) cam0-stream0 seq: 005183 bytesused: 1920000
+
+2 data lanes: hblank = 1440
+
+    10fps -> vblank = 11231
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=11231
+    163.127449 (10.00 fps) cam0-stream0 seq: 000106 bytesused: 1920000
+    163.227446 (10.00 fps) cam0-stream0 seq: 000107 bytesused: 1920000
+    163.327425 (10.00 fps) cam0-stream0 seq: 000108 bytesused: 1920000
+
+    15fps -> vblank = 7021
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=7021
+    206.325595 (15.00 fps) cam0-stream0 seq: 000551 bytesused: 1920000
+    206.392256 (15.00 fps) cam0-stream0 seq: 000552 bytesused: 1920000
+    206.458943 (15.00 fps) cam0-stream0 seq: 000553 bytesused: 192000
+
+    30fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    244.891759 (30.00 fps) cam0-stream0 seq: 001153 bytesused: 1920000
+    244.925094 (30.00 fps) cam0-stream0 seq: 001154 bytesused: 1920000
+    244.958439 (29.99 fps) cam0-stream0 seq: 001155 bytesused: 1920000
+    244.991746 (30.02 fps) cam0-stream0 seq: 001156 bytesused: 1920000
+
+    60fps -> vblank = 733
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=733
+    67.273857 (57.04 fps) cam0-stream0 seq: 007285 bytesused: 1920000
+    367.290091 (61.60 fps) cam0-stream0 seq: 007286 bytesused: 1920000
+    367.307637 (56.99 fps) cam0-stream0 seq: 007287 bytesused: 1920000
+    367.323866 (61.62 fps) cam0-stream0 seq: 007288 bytesused: 1920000
+
+    90 fps -> vblank = 22
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=22
+    326.909808 (83.83 fps) cam0-stream0 seq: 003739 bytesused: 1920000
+    326.920403 (94.38 fps) cam0-stream0 seq: 003740 bytesused: 1920000
+    326.931644 (88.96 fps) cam0-stream0 seq: 003741 bytesused: 1920000
+
+-------------------------------------------------------------------------------
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev6:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev6 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 14 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev6: 46, Succeeded: 46, Failed: 0, Warnings: 0
+-------------------------------------------------------------------------------
+
 Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-
 ---
-v7->v8:
-- Add Conor's tag
+Philippe Baetens (2):
+      dt-bindings: media: i2c: Add mira220 image sensor
+      media: i2c: Add driver for AMS-OSRAM Mira220
 
-v5->v6:
-- sashiko: use 'unevaluatedProperties: false' at the top level to allow
-  properties from video-interface-devices.yaml
-
-v4->v5:
-- reflow description to 80 cols and drop |-
-- remove 'reg' description
-- remove 'anyOf' from data-lanes
-- remove 'link-frequencies' from required properties
-- remove 'clock-continuous: true' as we already allow all properties
-  from 'video-interfaces.yaml'
-- remove tabs from the example
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml |  101 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira220.c                        | 2080 ++++++++++++++++++++
+ 5 files changed, 2202 insertions(+)
 ---
- .../devicetree/bindings/media/i2c/ams,mira220.yaml | 101 +++++++++++++++++++++
- MAINTAINERS                                        |   7 ++
- 2 files changed, 108 insertions(+)
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260721-mira220-03070a173f7c
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-new file mode 100644
-index 000000000000..d113f7f81ffb
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-@@ -0,0 +1,101 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: AMS 2.2 MP NIR enhanced global shutter image sensor
-+
-+maintainers:
-+  - Philippe Baetens <philippebaetens@gmail.com>
-+
-+description:
-+  2.2 MP NIR enhanced global shutter image sensor designed for 2D and 3D
-+  consumer and industrial machine vision applications. Due to its small size,
-+  configurability and high sensitivity both in visual as well as NIR, the
-+  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
-+  Vision, Structured Light Vision for Robotics and AR/VR.
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: ams,mira220
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdig-supply:
-+    description:
-+      Digital I/O voltage supply, 1.35 volts
-+
-+  vana-supply:
-+    description:
-+      Analog1 voltage supply, 2.8 volts
-+
-+  vddl-supply:
-+    description:
-+      Digital core voltage supply, 1.8 volts
-+
-+  reset-gpios:
-+    description: Sensor reset (XCLR) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+    description:
-+      Video output port
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+
-+        required:
-+          - data-lanes
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdig-supply
-+  - vana-supply
-+  - vddl-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        mira220: camera-sensor@54 {
-+            compatible = "ams,mira220";
-+            reg = <0x54>;
-+            clocks = <&cam1_clk>;
-+            vana-supply = <&cam1_reg>;
-+            vdig-supply = <&cam_dummy_reg>;
-+            vddl-supply = <&cam_dummy_reg>;
-+            port {
-+                mira220_ep: endpoint {
-+                    clock-lanes = <0>;
-+                    data-lanes = <1 2>;
-+                    link-frequencies = /bits/ 64 <750000000>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index febe918d6316..55ac4ec433a6 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -1430,6 +1430,13 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/iio/light/ams,as73211.yaml
- F:	drivers/iio/light/as73211.c
- 
-+AMS MIRA220 DRIVER
-+M:	Philippe Baetens <philippebaetens@gmail.com>
-+M:	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
-+
- AMT (Automatic Multicast Tunneling)
- M:	Taehee Yoo <ap420073@gmail.com>
- L:	netdev@vger.kernel.org
-
+Best regards,
 -- 
-2.54.0
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 
