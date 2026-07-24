@@ -1,81 +1,66 @@
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
+Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BB964908C3
-	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 14:53:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADFE31E83D
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 15:03:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784904826; cv=none; b=Yhbh8/1ckrVHKcCsh4Lnks8iYNYtXaj2bHqqFG5yxU+8z9Olxc5YF+1FEiRcwqKTLsOWNdduL1FvzOhAWU6yQ/sUA0dlEjR9lUfUTToo9VYE3Sbxvg9WAVL2EUfpi4SsuM04SNLlMid/r9N84fKQ4e+dAFW2SPMYA0MyCQuQ5kI=
+	t=1784905419; cv=none; b=krAwjVGjCbktwu1fwYqAlRGG6xaLHoXSNA90Hh2ALrSxmnwircClLd1bYp5y3VY2GNBaBKRcxnrT1WkWC8b7qQ9RM5iWResattedI4j4Kw9effWlWgMchFjatzYz4XH+itKbBXStl1pneuvlW2V4eVp2/eRvVnixcdtXIR3e7Nc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784904826; c=relaxed/simple;
-	bh=DwLKG4GZ3vUZ1DBtUM8FVzCSUkkcslkk0ALJwHS19vc=;
+	s=arc-20240116; t=1784905419; c=relaxed/simple;
+	bh=AR8ld8XD/38w5MrYURYat7EqnABuYvI8nC43ZIxDCiA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TzlqQHbF3UGwFqJz/snBaytVf8hd/EJi+u9noat6lw16iAGeitAhJUERVkDl8DNvPsaj7P2uzjyRslOucftCzsxVWNAg88VQg3U5nuF/Vir97YVWShTc+5g14I3kY1Jctm46JRle/GthKPz0NWT3YAW0EQWWUr5ZBG2prAZwD4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ylaX/+Ba; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Km3dRFOZ; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=ylaX/+Ba; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=Km3dRFOZ; arc=none smtp.client-ip=195.135.223.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+	 In-Reply-To:Content-Type; b=QVJyQQnMSR2EyCHxK2Zwnwce6qtyswsRszRE/ZTOQo+U9ErxE9HIpT3xRkMtjgrGZa2UgLZdih2ffSsogjE8joDxZlEkO0dA5IY8pmmqm4J1ABX8V5oHQ6Pv9UCtJvlLCwMVvVdBNNNStcoCrkOHMzYIA9HhDvW+rsdVV/WNdFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LTqPCJIc; arc=none smtp.client-ip=209.85.167.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ylaX/+Ba";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Km3dRFOZ";
-	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="ylaX/+Ba";
-	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="Km3dRFOZ"
-Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 751E47B8B0;
-	Fri, 24 Jul 2026 14:53:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784904822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RAbRRkvRTxVUP4oDtav7AZ4U19XpJLvmf4PtWK1XFlc=;
-	b=ylaX/+BapsrlcuO8oMXXB8HAmdfGXLP31Z7ebwxeLkCKt+Krk8GPyM0hZbTYqttmSL8sg8
-	cypfXhTbZkRJjuUmk7szOFTmhTnP8bbq7YYDi+ouTuwDRJLZq6JHionSJQKLPQCePPC4+j
-	hChJglEHOmOwGNU+oD1BtYhZts04SV0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784904822;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RAbRRkvRTxVUP4oDtav7AZ4U19XpJLvmf4PtWK1XFlc=;
-	b=Km3dRFOZEaV+XY97uNOiebcEHLXx1u848dxvahZF68g7AdbD8azVpnCXYRJir/l+Z50bK9
-	Z5rfzC4JJusLQrAA==
-Authentication-Results: smtp-out1.suse.de;
-	dkim=pass header.d=suse.de header.s=susede2_rsa header.b="ylaX/+Ba";
-	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=Km3dRFOZ
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
-	t=1784904822; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RAbRRkvRTxVUP4oDtav7AZ4U19XpJLvmf4PtWK1XFlc=;
-	b=ylaX/+BapsrlcuO8oMXXB8HAmdfGXLP31Z7ebwxeLkCKt+Krk8GPyM0hZbTYqttmSL8sg8
-	cypfXhTbZkRJjuUmk7szOFTmhTnP8bbq7YYDi+ouTuwDRJLZq6JHionSJQKLPQCePPC4+j
-	hChJglEHOmOwGNU+oD1BtYhZts04SV0=
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
-	s=susede2_ed25519; t=1784904822;
-	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
-	 mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=RAbRRkvRTxVUP4oDtav7AZ4U19XpJLvmf4PtWK1XFlc=;
-	b=Km3dRFOZEaV+XY97uNOiebcEHLXx1u848dxvahZF68g7AdbD8azVpnCXYRJir/l+Z50bK9
-	Z5rfzC4JJusLQrAA==
-Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 2AB5E779BA;
-	Fri, 24 Jul 2026 14:53:41 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
-	by imap1.dmz-prg2.suse.org with ESMTPSA
-	id DDOzCHV8Y2ppcgAAD6G6ig
-	(envelope-from <tzimmermann@suse.de>); Fri, 24 Jul 2026 14:53:41 +0000
-Message-ID: <85fef48b-6e6a-40ff-9b71-5048828220fe@suse.de>
-Date: Fri, 24 Jul 2026 16:53:40 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LTqPCJIc"
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aeb7ccb9f0so56010e87.0
+        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 08:03:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1784905414; x=1785510214; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=08Xcvy5ZHNOma1gRzeCr8NdculbpMQV6NvuXqJhWjx8=;
+        b=LTqPCJIc7MF2vyh57RAZvMUxWtFTlEuMQEUNnTBAaV3gtd3kS/gfifdRFGR40JmJPB
+         wAfdThJ0EYNZ8DP+7SNR3ipzR/Vqf9SI4zdJJh6WDwMdmtRc433rQ+OG0lx3vCVhPG8P
+         iA0ensh3vvDTzz+r7epLZv3UlBoNS868i7E2jV71tRcC9+O3/jzJ0lx2Xm52vrfjtarT
+         1KlqwkmGi5z99XTJKCCF0PXDhCd4YZsdQg85PobHQIoq0EaxvXxjStvdE3sBuLL/iw5x
+         CD7OvmUTC7S08pTzSDuaCM12y9mhDl0eAjcsKujkCoDbSxfCr0otdnaWeKMt6RG/ebaG
+         jBrQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784905414; x=1785510214;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=08Xcvy5ZHNOma1gRzeCr8NdculbpMQV6NvuXqJhWjx8=;
+        b=m4gvOxSPXP2bCLI6ERElYYdSPyL3e6WV+F/opRIDUWTC1K8HUm2PDW36pWm/JlE5El
+         xqsodqdrXfI5N/xn4ZnQhTMW2rCvsu2XjAPZbdGbssXt+jW9LILRZoqsLNUYELiJDEzE
+         yOqB7zyDqU9FAiR9AJ/SIEGVpIkM0R+YpVv3JFwmm7AZu5kylPPZ3c2CQzbAu96UtCPz
+         kQr8E1543sb/aQgazv53rZ2AcGXcqvYoYWjDdQSKe0xRkDCARZhE111vCyvVE5nbPV2E
+         gkRT6wBZZx3910uI6QhtIy0o5TqYUNASUrBXMKmFX1EO7TvfxrednPRVmgOIAHc7wzvb
+         S8kQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3V/7nuUa/lPFK8CbiJrAK1Z8Dsj+7EvOCyiRLn3xPWklAIfIFNEdg+O+BHdxwlzq7Tjk+vt8Tt8iIzg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIsMTbW+TL84hqWr6CuDq3LgrJQgHIYmMw1tWAGmkr0ivEzh/8
+	xFN8A2KHLJYROanMJOOrArOi3GS7z3sLQ02HX8cW01lUsDi6jiratxyDvjjJcpZvauo=
+X-Gm-Gg: AR+sD13Tq+8GmHnagLLomxmTLyCdz8RngmSWyTOUtQWXfofUuUoNgXfm/FPSCHilVEA
+	1QSNquu6K1tKSIFh8U43R6yvpT5J3qb7qJJ3H1aqf0oCt4fBDdN5uV0cFmtzN4mfdXL6N39W4qd
+	o4yKSWW21cd7N/1BPPpfwqqV9CYVk+ReRI78V+86ueWq+MSnZiWcxUNpvHRohxt0FKT/usRWEsz
+	qyjPe41bcZFMSsflJtg8sYBA5Xt42UywU3sXDXSW+ZS/79B25+Ud9eUiqpqROozY8WElKlBhZHy
+	kKcgSCrx8hXx5+cTJdi1frwbGy9B4N0oHKNuw69uexlgIO6Ilr/8CUKIQ7rjC+SycG3R6u0KgvN
+	DJ5LUdQYS8YOMf1Gmn6tnSjiSmuf08uJpnXm0YxfwAHJXNEvLF+CoALG7E6JqsaEPFJOjiJq7HM
+	yJ62tSWyrI3hAbxoAw7MUMquLcaVcKgnyVaqv6qX5BD7FvwgMO/+GlWSoX
+X-Received: by 2002:a05:6512:15a1:b0:5ae:c5b2:9cbd with SMTP id 2adb3069b0e04-5b2b7b17ca7mr532480e87.4.1784905413426;
+        Fri, 24 Jul 2026 08:03:33 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f221739c1sm756201fa.6.2026.07.24.08.03.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 24 Jul 2026 08:03:32 -0700 (PDT)
+Message-ID: <39fcfa46-79a3-4ea8-b314-d59ed768e553@linaro.org>
+Date: Fri, 24 Jul 2026 18:03:32 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -83,587 +68,194 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
-To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
- Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
- Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
- Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul
- <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
- Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
- <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
- Thierry Reding <thierry.reding@kernel.org>,
- Mikko Perttunen <mperttunen@nvidia.com>,
- Jonathan Hunter <jonathanh@nvidia.com>, Zack Rusin
- <zack.rusin@broadcom.com>,
- Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>,
- Matthew Brost <matthew.brost@intel.com>,
- =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
- Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
- Sumit Semwal <sumit.semwal@linaro.org>
-Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
- linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
- nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
- intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
-Content-Language: en-US
-From: Thomas Zimmermann <tzimmermann@suse.de>
-Autocrypt: addr=tzimmermann@suse.de; keydata=
- xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
- XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
- BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
- hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
- 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
- AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
- AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
- AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
- lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
- U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
- vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
- 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
- j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
- T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
- 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
- GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
- hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
- EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
- C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
- yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
- SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
- Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
- 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
-In-Reply-To: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
+Subject: Re: [PATCH v3 08/17] media: i2c: os05b10: add 12-bit RAW mode support
+Content-Language: ru-RU
+To: Tarang Raval <tarang.raval@siliconsignals.io>,
+ "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
+ "mehdi.djait@linux.intel.com" <mehdi.djait@linux.intel.com>
+Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+ Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
+ <20260718200912.16001-9-tarang.raval@siliconsignals.io>
+ <f9ba3d84-2bda-40ec-8715-fa8d7ca2880b@linaro.org>
+ <PN3P287MB18293F9ECF5CB92DEBB6C9E08BCF2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <PN3P287MB18293F9ECF5CB92DEBB6C9E08BCF2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Spamd-Result: default: False [-3.01 / 50.00];
-	BAYES_HAM(-3.00)[100.00%];
-	SUSPICIOUS_RECIPS(1.50)[];
-	NEURAL_HAM_LONG(-1.00)[-1.000];
-	NEURAL_HAM_SHORT(-0.20)[-1.000];
-	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	MIME_GOOD(-0.10)[text/plain];
-	MX_GOOD(-0.01)[];
-	TO_DN_SOME(0.00)[];
-	ARC_NA(0.00)[];
-	FUZZY_RATELIMITED(0.00)[rspamd.com];
-	MIME_TRACE(0.00)[0:+];
-	FREEMAIL_TO(0.00)[collabora.com,amd.com,gmail.com,ffwll.ch,linux.intel.com,kernel.org,pengutronix.de,armlinux.org.uk,loongson.cn,aosc.io,xry111.site,iscas.ac.cn,oss.qualcomm.com,linux.dev,poorly.run,somainline.org,redhat.com,arm.com,rock-chips.com,sntech.de,nvidia.com,broadcom.com,intel.com,epam.com,linaro.org];
-	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
-	FROM_HAS_DN(0.00)[];
-	RCVD_TLS_ALL(0.00)[];
-	DKIM_TRACE(0.00)[suse.de:+];
-	TO_MATCH_ENVRCPT_SOME(0.00)[];
-	RCVD_COUNT_TWO(0.00)[2];
-	FROM_EQ_ENVFROM(0.00)[];
-	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
-	RCPT_COUNT_GT_50(0.00)[54];
-	TAGGED_RCPT(0.00)[etnaviv];
-	MID_RHS_MATCH_FROM(0.00)[];
-	RCVD_VIA_SMTP_AUTH(0.00)[];
-	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.com:url,suse.de:email,suse.de:mid,suse.de:dkim,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,collabora.com:email]
-X-Spam-Flag: NO
-X-Spam-Score: -3.01
-X-Spam-Level: 
-X-Rspamd-Queue-Id: 751E47B8B0
-X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
-X-Rspamd-Action: no action
+Content-Transfer-Encoding: 7bit
 
-Hi
+On 7/24/26 17:30, Tarang Raval wrote:
+> Hi Vladimir,
+> 
+> Thanks for the review.
+> 
+>> On 7/18/26 23:08, Tarang Raval wrote:
+>>> Expose a 12-bit Bayer output option in the OS05B10 V4L2 sub-device driver.
+>>>
+>>> Add a 12-bit mode table alongside the existing 10-bit mode, extend the
+>>> enumerated mbus codes to include RAW12, and select the correct mode table
+>>> based on the requested mbus format in enum_frame_size and stream enable.
+>>>
+>>> Also move OS05B10_REG_MIPI_SC_CTRL_1 programming out of the common register
+>>> list and program it at stream-on depending on the selected mode bpp (10/12).
+>>>
+>>> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+>>> ---
+>>>    drivers/media/i2c/os05b10.c | 112 ++++++++++++++++++++++++++++++------
+>>>    1 file changed, 96 insertions(+), 16 deletions(-)
+>>>
+>>> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
+>>> index 4e177eacc815..e11a3c308299 100644
+>>> --- a/drivers/media/i2c/os05b10.c
+>>> +++ b/drivers/media/i2c/os05b10.c
+>>> @@ -146,7 +146,6 @@ static const struct cci_reg_sequence os05b10_common_regs[] = {
+>>>        { CCI_REG8(0x301e), 0xb4 },
+>>>        { CCI_REG8(0x301f), 0xd0 },
+>>>        { CCI_REG8(0x3021), 0x03 },
+>>> -     { OS05B10_REG_MIPI_SC_CTRL_1, 0x01 },
+>>>        { CCI_REG8(0x3107), 0xa1 },
+>>>        { CCI_REG8(0x3108), 0x7d },
+>>>        { CCI_REG8(0x3109), 0xfc },
+>>> @@ -500,6 +499,21 @@ struct os05b10_mode {
+>>>        struct os05b10_reg_list reg_list;
+>>>    };
+>>>
+>>> +static const struct os05b10_mode supported_modes_12bit[] = {
+>>> +     {
+>>> +             .width = 2592,
+>>> +             .height = 1944,
+>>> +             .vts = 2007,
+>>> +             .hts = 1744,
+>>
+>> It's unusual to see .hts < .width and .vts < .height. Will is cause
+>> errors in hblank/vblank computations in os05b10_set_framing_limits()?
+> 
+> Negative hblank is accepted by the framework, so no, I'm not seeing any
+> errors from it.
+> 
 
-Am 24.07.26 um 14:08 schrieb Adrián Larumbe:
-> None of the semantics of the function tell of it being a PRIME-exclusive
-> entry point. In fact, most drivers seem to be using it to translate a list
-> of pages into an sg table that can be used for GPU mapping later on, rather
-> than just for sharing an object's pages with another driver.
->
-> Move it across files and rename accordingly.
+It could be so, but in os05b10_set_framing_limits() hblank/vblank types
+are unsigned (and that's correct), so there is a likely unwanted
+assigment of a negative value to an unsigned variable. It's better
+to correct it.
 
-Makes sense to me. But the helper has no hard dependency on anything in 
-DRM. I wonder if it shouldn't be a helper in the dma or 
-memory-management subsystem.
+> But you're right that it doesn't make logical/physical sense. I got a
+> similar comment from Jai on patch 15/17 about this.
+> 
+> I'll update it accordingly, the datasheet doesn't have any information
+> about the HTS register's unit/clock domain, so I'm doing some testing on
+> hardware first and will update this once I have concrete numbers.
+> 
+>>> +             .exp = 1900,
+>>> +             .bpp = 12,
+>>> +             .reg_list = {
+>>> +                     .num_of_regs = ARRAY_SIZE(mode_2592_1944_regs),
+>>> +                     .regs = mode_2592_1944_regs,
+>>> +             },
+>>> +     },
+>>> +};
+>>> +
+>>>    static const struct os05b10_mode supported_modes_10bit[] = {
+>>>        {
+>>>                .width = 2592,
+>>> @@ -521,6 +535,7 @@ static const s64 link_frequencies[] = {
+>>>
+>>>    static const u32 os05b10_mbus_codes[] = {
+>>>        MEDIA_BUS_FMT_SBGGR10_1X10,
+>>> +     MEDIA_BUS_FMT_SBGGR12_1X12,
+>>>    };
+>>>
+>>>    static const char * const os05b10_test_pattern_menu[] = {
+>>> @@ -552,14 +567,20 @@ static inline struct os05b10 *to_os05b10(struct v4l2_subdev *sd)
+>>>        return container_of_const(sd, struct os05b10, sd);
+>>>    };
+>>>
+>>> -static u32 os05b10_get_format_code(struct os05b10 *os05b10)
+>>> +static u32 os05b10_get_format_code(struct os05b10 *os05b10, u8 bpp)
+>>>    {
+>>> -     static const u32 codes[2][2] = {
+>>> -             { MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10, },
+>>> -             { MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10, },
+>>> +     static const u32 codes[2][2][2] = {
+>>> +             {       /* 10 bpp */
+>>> +                     { MEDIA_BUS_FMT_SBGGR10_1X10, MEDIA_BUS_FMT_SGBRG10_1X10 },
+>>> +                     { MEDIA_BUS_FMT_SGRBG10_1X10, MEDIA_BUS_FMT_SRGGB10_1X10 },
+>>> +             },
+>>> +             {       /* 12 bpp */
+>>> +                     { MEDIA_BUS_FMT_SBGGR12_1X12, MEDIA_BUS_FMT_SGBRG12_1X12 },
+>>> +                     { MEDIA_BUS_FMT_SGRBG12_1X12, MEDIA_BUS_FMT_SRGGB12_1X12 },
+>>> +             },
+>>>        };
+>>>
+>>> -     return codes[os05b10->vflip->val][os05b10->hflip->val];
+>>> +     return codes[bpp == 12][os05b10->vflip->val][os05b10->hflip->val];
+>>>    }
+>>>
+>>>    static int os05b10_update_test_pattern(struct os05b10 *os05b10, u32 pattern)
+>>> @@ -571,6 +592,34 @@ static int os05b10_update_test_pattern(struct os05b10 *os05b10, u32 pattern)
+>>>                            os05b10_tp_val[pattern], NULL);
+>>>    }
+>>>
+>>> +static int get_mode_table(struct os05b10 *os05b10, unsigned int code,
+>>> +                       const struct os05b10_mode **mode_list,
+>>> +                       unsigned int *num_modes)
+>>> +{
+>>> +     switch (code) {
+>>> +     case MEDIA_BUS_FMT_SBGGR12_1X12:
+>>> +     case MEDIA_BUS_FMT_SGBRG12_1X12:
+>>> +     case MEDIA_BUS_FMT_SGRBG12_1X12:
+>>> +     case MEDIA_BUS_FMT_SRGGB12_1X12:
+>>> +             *mode_list = supported_modes_12bit;
+>>> +             *num_modes = ARRAY_SIZE(supported_modes_12bit);
+>>> +             return 0;
+>>> +
+>>> +     case MEDIA_BUS_FMT_SBGGR10_1X10:
+>>> +     case MEDIA_BUS_FMT_SGBRG10_1X10:
+>>> +     case MEDIA_BUS_FMT_SGRBG10_1X10:
+>>> +     case MEDIA_BUS_FMT_SRGGB10_1X10:
+>>> +             *mode_list = supported_modes_10bit;
+>>> +             *num_modes = ARRAY_SIZE(supported_modes_10bit);
+>>> +             return 0;
+>>> +
+>>> +     default:
+>>> +             dev_err(os05b10->dev,
+>>> +                     "Unsupported media bus format: %#x\n", code);
+>>> +             return -EINVAL;
+>>> +     }
+>>> +}
+>>> +
+>>>    static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
+>>>    {
+>>>        struct os05b10 *os05b10 = container_of_const(ctrl->handler,
+>>> @@ -650,8 +699,8 @@ static int os05b10_enum_mbus_code(struct v4l2_subdev *sd,
+>>>        if (code->index >= ARRAY_SIZE(os05b10_mbus_codes))
+>>>                return -EINVAL;
+>>>
+>>> -     code->code = os05b10_get_format_code(os05b10);
+>>> -
+>>> +     code->code = os05b10_get_format_code(os05b10,
+>>> +                                          (code->index == 1) ? 12 : 10);
+>>
+>> os05b10_mbus_codes[code->index] == MEDIA_BUS_FMT_SBGGR12_1X12 is more
+>> verbose, but seems to be a better and more reliable check.
+>>
+>> Probably a simple inline function to get bpp from code->index can be added.
+>>
+>> Another option is to change the second argument of os05b10_get_format_code()
+>> from bpp to just media bus format, so you can write
+>>
+>>       os05b10_get_format_code(os05b10, os05b10_mbus_codes[code->index]);
+> 
+> Okay, I will update the os05b10_get_format_code 2nd argument.
+> 
 
->
-> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
-
-In any case:
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-
-
-Best regards
-Thomas
-
-
-> ---
-> drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
-> It is a generic helper that converts a page array into a scatter/gather
-> table via dma_map_sg_attrs. Nothing in its implementation touches struct
-> dma_buf or import/export logic.
-> ---
->   drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
->   drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
->   drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
->   drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
->   drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
->   drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
->   drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
->   drivers/gpu/drm/msm/msm_gem.c               |  2 +-
->   drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
->   drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
->   drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
->   drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
->   drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
->   drivers/gpu/drm/tegra/gem.c                 |  4 +--
->   drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
->   drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
->   drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
->   include/drm/drm_gem.h                       |  5 +++-
->   include/drm/drm_prime.h                     |  2 --
->   19 files changed, 68 insertions(+), 70 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> index b33c300e26e2..c9a98aec7eb6 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
-> @@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
->   
->   	switch (bo->tbo.resource->mem_type) {
->   	case TTM_PL_TT:
-> -		sgt = drm_prime_pages_to_sg(obj->dev,
-> -					    bo->tbo.ttm->pages,
-> -					    bo->tbo.ttm->num_pages);
-> +		sgt = drm_pages_to_sg(obj->dev,
-> +				      bo->tbo.ttm->pages,
-> +				      bo->tbo.ttm->num_pages);
->   		if (IS_ERR(sgt))
->   			return sgt;
->   
-> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
-> index 018df97d590d..22c8a3b5f667 100644
-> --- a/drivers/gpu/drm/drm_gem.c
-> +++ b/drivers/gpu/drm/drm_gem.c
-> @@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
->   }
->   EXPORT_SYMBOL(drm_gem_put_pages);
->   
-> +/**
-> + * drm_pages_to_sg - converts a page array into an sg list
-> + * @dev: DRM device
-> + * @pages: pointer to the array of page pointers to convert
-> + * @nr_pages: length of the page vector
-> + *
-> + * This helper creates an sg table object from a set of pages.
-> + * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
-> + */
-> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-> +				 struct page **pages, unsigned int nr_pages)
-> +{
-> +	struct sg_table *sg;
-> +	size_t max_segment = 0;
-> +	int err;
-> +
-> +	sg = kmalloc_obj(struct sg_table);
-> +	if (!sg)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	if (dev)
-> +		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
-> +	if (max_segment == 0)
-> +		max_segment = UINT_MAX;
-> +	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
-> +						(unsigned long)nr_pages << PAGE_SHIFT,
-> +						max_segment, GFP_KERNEL);
-> +	if (err) {
-> +		kfree(sg);
-> +		sg = ERR_PTR(err);
-> +	}
-> +	return sg;
-> +}
-> +EXPORT_SYMBOL(drm_pages_to_sg);
-> +
->   static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
->   			  struct drm_gem_object **objs)
->   {
-> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> index 22ec52e2ffb8..144d088a477f 100644
-> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
-> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
-> @@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
->   
->   	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
->   
-> -	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
-> +	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
->   }
->   EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
->   
-> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-> index 9b44c78cd77f..54539a8929c1 100644
-> --- a/drivers/gpu/drm/drm_prime.c
-> +++ b/drivers/gpu/drm/drm_prime.c
-> @@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
->   	.vunmap = drm_gem_dmabuf_vunmap,
->   };
->   
-> -/**
-> - * drm_prime_pages_to_sg - converts a page array into an sg list
-> - * @dev: DRM device
-> - * @pages: pointer to the array of page pointers to convert
-> - * @nr_pages: length of the page vector
-> - *
-> - * This helper creates an sg table object from a set of pages
-> - * the driver is responsible for mapping the pages into the
-> - * importers address space for use with dma_buf itself.
-> - *
-> - * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
-> - */
-> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
-> -				       struct page **pages, unsigned int nr_pages)
-> -{
-> -	struct sg_table *sg;
-> -	size_t max_segment = 0;
-> -	int err;
-> -
-> -	sg = kmalloc_obj(struct sg_table);
-> -	if (!sg)
-> -		return ERR_PTR(-ENOMEM);
-> -
-> -	if (dev)
-> -		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
-> -	if (max_segment == 0)
-> -		max_segment = UINT_MAX;
-> -	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
-> -						(unsigned long)nr_pages << PAGE_SHIFT,
-> -						max_segment, GFP_KERNEL);
-> -	if (err) {
-> -		kfree(sg);
-> -		sg = ERR_PTR(err);
-> -	}
-> -	return sg;
-> -}
-> -EXPORT_SYMBOL(drm_prime_pages_to_sg);
-> -
->   /**
->    * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
->    * @sgt: sg_table describing the buffer to check
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> index b0436a1e103f..a8e8614f8210 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
-> @@ -3,7 +3,6 @@
->    * Copyright (C) 2015-2018 Etnaviv Project
->    */
->   
-> -#include <drm/drm_prime.h>
->   #include <drm/drm_print.h>
->   #include <linux/dma-mapping.h>
->   #include <linux/shmem_fs.h>
-> @@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
->   		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
->   		struct sg_table *sgt;
->   
-> -		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
-> +		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
->   		if (IS_ERR(sgt)) {
->   			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
->   				PTR_ERR(sgt));
-> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> index 6757ae6ec304..f44484325ddb 100644
-> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
-> @@ -3,6 +3,7 @@
->    * Copyright (C) 2014-2018 Etnaviv Project
->    */
->   
-> +#include <drm/drm_gem.h>
->   #include <drm/drm_prime.h>
->   #include <linux/dma-buf.h>
->   #include <linux/module.h>
-> @@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
->   		return ERR_PTR(-EINVAL);
->   
-> -	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
-> +	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
->   }
->   
->   int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
-> index 2fb03487c983..37160228244c 100644
-> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
-> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
-> @@ -9,7 +9,6 @@
->   #include <drm/drm_dumb_buffers.h>
->   #include <drm/drm_file.h>
->   #include <drm/drm_gem.h>
-> -#include <drm/drm_prime.h>
->   #include <drm/drm_print.h>
->   
->   #include "lsdc_drv.h"
-> @@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   		return ERR_PTR(-ENOMEM);
->   	}
->   
-> -	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
-> +	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
->   }
->   
->   static void lsdc_gem_object_free(struct drm_gem_object *obj)
-> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
-> index efd3d3c9a449..7e3418290c22 100644
-> --- a/drivers/gpu/drm/msm/msm_gem.c
-> +++ b/drivers/gpu/drm/msm/msm_gem.c
-> @@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
->   
->   		msm_obj->pages = p;
->   
-> -		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
-> +		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
->   		if (IS_ERR(msm_obj->sgt)) {
->   			void *ptr = ERR_CAST(msm_obj->sgt);
->   
-> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
-> index 036d34c674d9..d25393a9e549 100644
-> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
-> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
-> @@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
->   		return ERR_PTR(-ENOMEM);
->   
-> -	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
-> +	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
->   }
->   
->   int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> index caab60fc62f6..b95f2f07df74 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
-> @@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   {
->   	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
->   
-> -	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
-> -				     nvbo->bo.ttm->num_pages);
-> +	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
-> +			       nvbo->bo.ttm->num_pages);
->   }
->   
->   struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
-> index 9855df738194..ec530d254fa4 100644
-> --- a/drivers/gpu/drm/panthor/panthor_gem.c
-> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
-> @@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
->   	if (ret)
->   		return ERR_PTR(ret);
->   
-> -	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
-> -				    bo->base.size >> PAGE_SHIFT);
-> +	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
-> +			      bo->base.size >> PAGE_SHIFT);
->   	if (IS_ERR(sgt))
->   		return sgt;
->   
-> @@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
->   	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
->   	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
->   
-> -	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
-> +	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
->   }
->   
->   static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
-> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
-> index a77881f035e7..4cfc4282a59c 100644
-> --- a/drivers/gpu/drm/radeon/radeon_prime.c
-> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
-> @@ -26,6 +26,7 @@
->   
->   #include <linux/dma-buf.h>
->   
-> +#include <drm/drm_gem.h>
->   #include <drm/drm_prime.h>
->   #include <drm/radeon_drm.h>
->   
-> @@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   {
->   	struct radeon_bo *bo = gem_to_radeon_bo(obj);
->   
-> -	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
-> -				     bo->tbo.ttm->num_pages);
-> +	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
-> +			       bo->tbo.ttm->num_pages);
->   }
->   
->   struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> index b188539dca0b..7897da0becf4 100644
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
-> @@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
->   
->   	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
->   
-> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
-> -					    rk_obj->pages, rk_obj->num_pages);
-> +	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
-> +				      rk_obj->pages, rk_obj->num_pages);
->   	if (IS_ERR(rk_obj->sgt)) {
->   		ret = PTR_ERR(rk_obj->sgt);
->   		goto err_put_pages;
-> @@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
->   	int ret;
->   
->   	if (rk_obj->pages)
-> -		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
-> +		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
->   
->   	sgt = kzalloc_obj(*sgt);
->   	if (!sgt)
-> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
-> index 436394e04812..701af672b4e5 100644
-> --- a/drivers/gpu/drm/tegra/gem.c
-> +++ b/drivers/gpu/drm/tegra/gem.c
-> @@ -17,7 +17,7 @@
->   
->   #include <drm/drm_drv.h>
->   #include <drm/drm_dumb_buffers.h>
-> -#include <drm/drm_prime.h>
-> +#include <drm/drm_gem.h>
->   
->   #include "drm.h"
->   #include "gem.h"
-> @@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
->   
->   	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
->   
-> -	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
-> +	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
->   	if (IS_ERR(bo->sgt)) {
->   		err = PTR_ERR(bo->sgt);
->   		goto put_pages;
-> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> index 39f8c46550c2..c9e7f2e3668c 100644
-> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
-> @@ -28,7 +28,7 @@
->   #include "vmwgfx_bo.h"
->   #include "vmwgfx_drv.h"
->   
-> -#include "drm/drm_prime.h"
-> +#include "drm/drm_gem.h"
->   #include "drm/drm_gem_ttm_helper.h"
->   
->   #include <linux/debugfs.h>
-> @@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
->   	if (vmw_tt->vsgt.sgt)
->   		return vmw_tt->vsgt.sgt;
->   
-> -	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
-> +	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
->   }
->   
->   static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
-> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
-> index 8a920e58245c..f0fe80706b79 100644
-> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
-> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
-> @@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
->   
->   	switch (bo->ttm.resource->mem_type) {
->   	case XE_PL_TT:
-> -		sgt = drm_prime_pages_to_sg(obj->dev,
-> -					    bo->ttm.ttm->pages,
-> -					    obj->size >> PAGE_SHIFT);
-> +		sgt = drm_pages_to_sg(obj->dev,
-> +				      bo->ttm.ttm->pages,
-> +				      obj->size >> PAGE_SHIFT);
->   		if (IS_ERR(sgt))
->   			return sgt;
->   
-> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> index eec4c1da3f9e..a4a7c7f2c91c 100644
-> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
-> @@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
->   	if (!xen_obj->pages)
->   		return ERR_PTR(-ENOMEM);
->   
-> -	return drm_prime_pages_to_sg(gem_obj->dev,
-> +	return drm_pages_to_sg(gem_obj->dev,
->   				     xen_obj->pages, xen_obj->num_pages);
->   }
->   
-> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
-> index 885244e375d3..7b9cc6335689 100644
-> --- a/include/drm/drm_gem.h
-> +++ b/include/drm/drm_gem.h
-> @@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
->   	 * here cannot be used for sg tables pointing at driver private memory
->   	 * ranges.
->   	 *
-> -	 * See also drm_prime_pages_to_sg().
-> +	 * See also drm_pages_to_sg().
->   	 */
->   	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
->   
-> @@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
->   void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
->   		bool dirty, bool accessed);
->   
-> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
-> +				 struct page **pages, unsigned int nr_pages);
-> +
->   void drm_gem_lock(struct drm_gem_object *obj);
->   void drm_gem_unlock(struct drm_gem_object *obj);
->   
-> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
-> index f50f862f0d8b..603e16a40ae7 100644
-> --- a/include/drm/drm_prime.h
-> +++ b/include/drm/drm_prime.h
-> @@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
->   int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
->   int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
->   
-> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
-> -				       struct page **pages, unsigned int nr_pages);
->   struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
->   				     int flags);
->   
->
-> ---
-> base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
-> change-id: 20260724-get_pages-e2e91c53eaa3
->
-> Best regards,
-> --
-> Adrián Larumbe <adrian.larumbe@collabora.com>
->
+Hopefully it's not a big disadvantage, a bit of complexity will be moved
+to function body from the caller's side. Thank you!
 
 -- 
---
-Thomas Zimmermann
-Graphics Driver Developer
-SUSE Software Solutions Germany GmbH
-Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
-GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG Nürnberg)
-
-
+Best wishes,
+Vladimir
