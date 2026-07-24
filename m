@@ -1,128 +1,85 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6895537DEBE
-	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 21:38:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A7BF3B19BC
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 21:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784929130; cv=none; b=XrrL3TiDr3Z58b/A6tKJX36sC2WimdC21cdnW3gY7aRESqolGPk/5X7bmGWYVKDbKdvcWyJYqjC2MabF45AIjiNVdZulOMlPNNNd5QH0yWN+aqnqixSZja9PerJZQCQ4j7iGdBxxC8wqPfsPcyKGUILQ3ci3zSlAM1oPEPUhE3g=
+	t=1784929275; cv=none; b=t36uzDOqASDceVqmmtw5+ImHBhYUbqfEqMN6nbTIE7B1PpLVerYP0zsdiMC7xwkB5RHCbQWoGF6D7fiRbkB6mOrzj75xsSDqhDrC3xAmYIhnTYDc9vBUqMUaSkzXqY98ke7Ut7iKlAMPSCVLDR0hUHIxgJ0512kKnAUji+ySDD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784929130; c=relaxed/simple;
-	bh=reffKocQBTkitR5sH3HXeyiSkGKFe33s9Gp2+pOr7MI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pH23Bl703sNlCvpbrrLTbHqV2eBafVC3c/YqSvIbGVv4TL9B+F4SOsHmtB6QHQpCL9LBujDhdg1hjfz2mqoH0THvdCMwD5UgYWjzasF64s29BHBUi+u+HSR9lRJ9RdtkIiuDR1pzRa9TrZXURRr+5ZX4aCru9QWZWdYvxU8N8Y4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cHhlBdyb; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1784929275; c=relaxed/simple;
+	bh=eLmtuzNiJN/NtKa2kUTnWgeyP7l+US/ugXSovTsy5mc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cfpXqQUHAV7MeStyAUbGkcPixatQTJQ2GId6OETpqTfKJmaDxY2vmdMu8YCEryohaO8GJsPg2sv5ISWVJpoOr4xqGb0OzcJqqrsL7EEYMD9e60dTAUH0VUI9aggTuc1UxmQR6pN8ou34lB3xxmZ5po9I6PrCFJAlP9xqHDqhZWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=knpEx5vt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cHhlBdyb"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3811f512167so851660a91.3
-        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 14:38:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784929129; x=1785533929; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=qq6JMFh0gDJiS/8lUoBGQxGZpE4+LKphNkGVGqdhJ2o=;
-        b=cHhlBdyb8u9uML7p9GdcbuNl0Hd5d7hkhlI0/K6m+CrpbVxEBw4bxEyeJY348ih0s8
-         SpxjXMTc+UMnFffISf3fxkx5stI3R0DN3rrDyWrqwjRQ/H5+d+6gfs0wXlezI+xSIaIY
-         klGQLjcQcjxAd9DOPHpsxvKlvfUxdNw1tR2ATVyYtD3WCXqz+oSgbRyFZ4/P8Rmx11+B
-         OjxdKDgnGffVEoVrcGkwmGLRI9fng17P74GtgA4vM6Ik1xBIfwHRc//7UITxsxRQ3ns4
-         /GmSK4897kBMTuCf5/YMaHP94XwfZV22GApERO9ekjoEx4ZYt38zzcofbXAZdczCdzdC
-         GZNg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784929129; x=1785533929;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qq6JMFh0gDJiS/8lUoBGQxGZpE4+LKphNkGVGqdhJ2o=;
-        b=Hc135oybiclF9VgYq35lMxobvnoLJ2Cbi7NZPCJutDCUh5QNDerT1Q4gSaaNa1jFuG
-         9rtnnpTvB5ZEI5f1HIm2rGwBQ2XU4qQwEoMQNZPKv2+2qLofDPvN8yrH47D4AoaC3j6U
-         lP0gyacFqIaNmF/Y9JfAWRRByqSjTlcu5L9Kig757qpjOTrWelY2Tm/8NpZO1HJ5hXuA
-         oZtOk4X+nNNM5emRRUjW91CBnk+MtQbpkYolZuX95vUIA0/JPZcquF7HFr1fOOYucQWD
-         l8bxg5yBh9R/W9OU+9G/3CgBVg/lwVlcau02NaV9njL26+9q5Jm29p0u7jbOxdbbmdVI
-         NXYg==
-X-Forwarded-Encrypted: i=1; AHgh+Rrpb+02AZbAck0LnxU0zpOha4azof3vmTE72UV7ccKrYM8yQ+y8o8+xOtEKZ9UhuxfUuPgqcRUwhH3tBQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzWMHTzVk/w24AnjBwbzrI35XLhtNUvJT9VRmJEyRvc+W0B1kvv
-	OQRsOZoFS+F1tcC+GRJQTl6y5rATQh3bZ5k8s6xPYxOR+vho+OrrIho7
-X-Gm-Gg: AR+sD10/wJDolv0tuZImSWpJVOy6etOTjgjKF4+/D9UBSYU6k9fCe/1WFT864FUWdUG
-	XcwUVCo8Ys9/1nPYaYpQSrQajvGcp/HDPxPTG1+x+fSTG9RzBMHl/WNah4ouNVP/zDzSxKx7y15
-	g/Q+3j0jsHrFWyHvu/s86xgjjZdjk2hgLsL+ntNhVuw7B4dod/nvX5ptx3IBVx5E/OJW/G4f3KG
-	0f3oTURx/u7WLWGbrwSNXkejkHW9Y3mCqhmv+FyfsHaII0zQUUU9rSiXBkGh+Pqtoum4tAlGZnJ
-	U73o034fNQYIA7iXXLivDzdoxEqDg8M8SIxRJbHQpZLumIaXv38GSbYYu63ilpxAcyG78ayjzuH
-	lrRRf8Dj6+5GnunqdYaUOyNjDUuiPNIlaRqVOwMIv9LqNPga949R6DAPeR2BE3HtNRCyxmxbqUE
-	8X0FXBqLhDGpZmtkPrARyb0g==
-X-Received: by 2002:a17:90b:3bce:b0:38e:e0b:320d with SMTP id 98e67ed59e1d1-38f297812c8mr143723a91.41.1784929128727;
-        Fri, 24 Jul 2026 14:38:48 -0700 (PDT)
-Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:2::])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f04175831sm2086519a91.11.2026.07.24.14.38.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 14:38:47 -0700 (PDT)
-Date: Fri, 24 Jul 2026 14:38:45 -0700
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Donald Hunter <donald.hunter@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Gerd Hoffmann <kraxel@redhat.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
-	linux-kselftest@vger.kernel.org, sdf@fomichev.me,
-	razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
-	matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
-	Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v5 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <amPbZbpQ0jwBshsa@devvm29614.prn0.facebook.com>
-References: <20260708-tcpdm-large-niovs-v5-0-34bf6fac941b@meta.com>
- <20260708-tcpdm-large-niovs-v5-3-34bf6fac941b@meta.com>
- <20260721110903.34840531@kernel.org>
- <amPTWGX/3LHepYR3@devvm29614.prn0.facebook.com>
- <20260724143001.5afa8631@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="knpEx5vt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 334021F00ADF
+	for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 21:41:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1784929274;
+	bh=eLmtuzNiJN/NtKa2kUTnWgeyP7l+US/ugXSovTsy5mc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=knpEx5vtRJ3MDi4n/T0WX5+WX2WN+Zwj6kXGPxVh5wOH3ZeVCovQskbtzoSjQdsK8
+	 7hhjtf6Ba4GV9lCE63dlFDsHLvZkU++GIpTULvKQsFlnPDhJAxsVrCnTkOjE/F+jRv
+	 Pn/qUFD1g8I/Qen/F1yNcnzkk7XuE0G8FWlCEfZB4D7BzdGK4kkknBhDwU1VSmKoHb
+	 AGaFRHvSgLBHwOThscZ2bgFO7pgcmfse3HNfyjZw0reTkVRT9nGwRRzDBaUdUhOYjx
+	 g1CV0/EI43bUSDBPWxHlTkSTcU1ZObZ8YYClertTrg9oLWAOwkkJhgrpvCwuc26NcG
+	 HAPrQsKqE539A==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b0117d49dcso773412e87.3
+        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 14:41:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrgyLMIXOwrP/yvJJ7l7oT/FErsMTJSZcdcbchk4l2XJR9bn2H4UhsrmdgMbud7ndVQp+TdMr9+OMtciQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywrr4MPQcd1iVsfdF/qlRcoUMVjmGgaQ/NmLXLjqKjgYhDQvl2H
+	BD5vF1PrfZd1PNR2pC9KsoQLxsMTbObmbfgb5+njI74bRxyzWL9ce+rA9TpcCqw3zh/+Wrazry2
+	LLuWCVE64VqCvFWToFRSyKsPGiSaqxgA=
+X-Received: by 2002:a05:6512:2310:b0:5ae:bf46:2acc with SMTP id
+ 2adb3069b0e04-5b2b2f86804mr1934146e87.63.1784929272904; Fri, 24 Jul 2026
+ 14:41:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260724143001.5afa8631@kernel.org>
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+In-Reply-To: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 24 Jul 2026 23:40:59 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=prd1KDZQawqsRmW3qp1-cJ=18-yhp861CQirOOjE5Ag@mail.gmail.com>
+X-Gm-Features: AUfX_mz6ZxVMzIVDlYKzRcjHd5uCb1mkXfd8xMBGPfxdB1J27bvJ-Aw2H_fn9Og
+Message-ID: <CAD++jL=prd1KDZQawqsRmW3qp1-cJ=18-yhp861CQirOOjE5Ag@mail.gmail.com>
+Subject: Re: [PATCH v1 0/7] gpiolib: kill gpio_request_one()
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org, 
+	linux-media@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>, 
+	Robert Jarzmik <robert.jarzmik@free.fr>, Russell King <linux@armlinux.org.uk>, 
+	Hauke Mehrtens <hauke@hauke-m.de>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
+	Thomas Bogendoerfer <tsbogend@alpha.franken.de>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Jul 24, 2026 at 02:30:01PM -0700, Jakub Kicinski wrote:
-> On Fri, 24 Jul 2026 14:04:24 -0700 Bobby Eshleman wrote:
-> > On Tue, Jul 21, 2026 at 11:09:03AM -0700, Jakub Kicinski wrote:
-> > > On Wed, 08 Jul 2026 15:55:06 -0700 Bobby Eshleman wrote:  
-> > > > +@ksft_disruptive
-> > > > +def check_rx_large_niov(cfg) -> None:
-> > > > +    """Run the devmem RX test with rx-buf-size = 16 KiB."""
-> > > > +    run_rx_large_niov(cfg)  
-> > > 
-> > > Any idea why the devmem tests sprinkle disruptive everywhere?
-> > > Disruptive means we take the link down, I don't think this test 
-> > > does that.  
-> > 
-> > Talked to Stan and he mentioned the original idea was not necessarily
-> > just for link down, but any test that could be considered disruptive to
-> > other tests, with the idea to eventually introduce some scheduling
-> > (postpone disruptive until the end).
-> 
-> Perhaps have such conversations on the list? IDK what Stan has in mind.
+On Wed, Jul 15, 2026 at 8:51=E2=80=AFPM Andy Shevchenko
+<andriy.shevchenko@linux.intel.com> wrote:
 
-For sure.
+> This is the finilazation of the work announced in the commit 61e1fd2abca4
+> ("gpiolib: legacy: Make sure we kill gpio_request_one() first"). With thi=
+s
+> small series we kill gpio_request_one() and leave only two legacy calls
+> devm_gpio_request_one() and gpio_request(), where the managed one has onl=
+y
+> a few users and high chances to be killed soon as well.
+>
+> The series is supposed to go via GPIO tree (due to nature of the last pat=
+ch)
+> with possible immutable branch for others. Please, ack.
 
-@Stan, can you elaborate on the intent of @ksft_disruptive?
+The kernel is clearly a better place after these patches than before it, so=
+:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-> 
-> > If we can get common agreement on its meaning, maybe I could submit
-> > something into the documentation and update where its misused?
-> > 
-> > I'll drop it from this patch since it doesn't bring down the link (and
-> > seemingly no worries about check_rx_hds() tests not having it).
+Yours,
+Linus Walleij
