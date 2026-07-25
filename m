@@ -1,109 +1,108 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09C303655C4
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 22:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA4A4908D5;
+	Sat, 25 Jul 2026 22:20:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785017852; cv=none; b=sA3dawrkMl9zQVDZV8zb6RmdTarB/GKRuC6eyMs3IVGJvRIBqGOs5U9/6f3pAjloY2wrXtL+ZDHygDQjGoFtzBQZOD641QwJJjAYEecHu2hDFeU+2QHMm2wKVIhXdtC8ttlFXoHl8v+kqO/ZRanm0bTjGOwn3QhpFh+kZtKlDUI=
+	t=1785018050; cv=none; b=VXEyWHpAQAbN0h85kiuy+3QAs5e2aGUDLCSpjGQDKqbZSLAd08mF8bZYGlt6w8oQcYWbPiSY7M8OAnUXU18CkP3UeK3Gy/QMR/5J2kKt8IeUIKQLShkJAYdbGJidMYnqs02SUso6GkRqTvh/X7D6ZHSIZSfZsTQJoDnAQtQ6TyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785017852; c=relaxed/simple;
-	bh=A746bdNcUJkfA/tJvXGw7GsSsywrS1dVwUX2pIcB8Ms=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NfPkTVBMIhFDr9vu338nlxcJoSk5WEJYiK86tSZ7aKBBrvIk84nLTW8bh3CqUHServQIYABKDK6/OpR/bTg2Ovh8QQwXLk8gAia3aUbNmZrdPLfQf88CdW2+NWfkMTU0n+rx38A6igdumnG2AkdCHj0B1gZYSYLZobEETCZx9OQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=S0tKFkWk; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785018050; c=relaxed/simple;
+	bh=oxvL0zIpEhw1lD6/RiE8jLZySOEMN+IxQ35FNtKHaQM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tJ4LUO2e5zG4YGj3PXCw/kYqbHVC3eM8Mt5cObuGOIYgWylTbnDJb9EEupJBQD8+vQ6laLqUiqUhdzLncg/T/tzFe6Qsw1Fvc2fOtoVB6/IIah3FrjksC9lMnrpu6aAj54cuco15VQS9F1/gPY5m/RPNebmf+ueUqLKrzRfDc+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QXKbeZDT; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="S0tKFkWk"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47362928f65so1403173f8f.2
-        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 15:17:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785017848; x=1785622648; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=SkfPWhGxyd5bYr7NDTgv1M/DacfMUW8wNSZdGPCFOtM=;
-        b=S0tKFkWkcUdgGyd3j7agqK6qU0PjsxvD8cB3W5wS5siTfjtO98Mq6LzHB69SslTfOM
-         oO8q0YXWhGhJnr1OHOQT1JtcOHi9Br0dLli07EzrExgknHqDOkGzbEpUoCzzLTQcfxaE
-         +lkSSBuZaF0TyOlUXw/Z0TgBoFbc4T9YVMKRTE8LyMNCVnmD6/KXHnSQNsAy4aiIHDWu
-         z8XlmHkWOvXm7s4CMf2Wpqx9JWxX1DQG4G/DfZD6ye39fkB2Mnv6Gvz6XzT8Kp1mD4gg
-         lYt3uO4BuDItyZ6p+lhhipj3Hgb7JbmMnHS2BQFhdf+8AbRePKvhP8554vKeScHmfqVn
-         d0hw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785017848; x=1785622648;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SkfPWhGxyd5bYr7NDTgv1M/DacfMUW8wNSZdGPCFOtM=;
-        b=NHA6QSVjsP/1Mdh8d1bytVj+bZAacrQ/3UIg8PXYWpiBhqOADtOCVSLkTX+mofi1gu
-         0nuQq7Rj9Q8YcDmHDVtHZ/B44G67PuxbiaJg+u0tEJb55Mvy8QQ539Gmr5SQRjHkWvCT
-         gclRW1FQUHqUORy/S419eVGekeLXlW04UvRoQO+iMLsjCI43ad3xm0p+SBnqQZTF6Rie
-         TqL19SOae1VEYXQ3mocEcLzaCTPpmnM3qcHLGHZzaIAhh9c96nQiW9UqDmBi8ef6brqA
-         eYcXknEuCP1W6wW/ZWL6+VMP75EJtsWIXVoN7YKGduUwfsCwo4R+SnUSxB0cx2e/JUN3
-         Ykig==
-X-Forwarded-Encrypted: i=1; AHgh+RrMgKTgHf8Bzz8nXOi4QUem5CiJHmHBk18d6UkQ/XhvkTATOaYuhCl2fFJjpR9UQYWH/U4TxLJrncCjRw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx06NyQoshFYNnpAOKcRnOhYwNfp7GR/kjrs71S5/LmX/ompVc7
-	6FEo+98MZYT0QzCoPMgn3kU9TWeZ6nT+XmiySj/LQIDETGaBqNStSfWsZJzUdnzTBek=
-X-Gm-Gg: AR+sD12BCOCihaNEgLw534Po+vBu6or7inEkhD4OqKUK5b139D9c1vcbJychxZW19W6
-	ZrFDQsM5UyRGCkoMZtGy6M2uF03GMF6ttdZ/D/ZobSzjE1iCiuFZpzryLru+9zpiKM2LUNzvOwt
-	0Hfhh0LK5VgWYRJ6RCqYhzu42f0FDlxD9yGMpCvOGSdNFTaqHq6fWn3Wn/oxKUhlbKYIHH4NcB6
-	SUCxBS4ihK+oK8JHb7Q+HEKnUHFHqmtPcc372VllGNkL/Ut9k4qtejBmuxGe+Sad1SkNr3WL2MX
-	+84LKxguTsC9dwNZtm/7JOqeJyNH6Swkmq/VkNvMG4PoD/1PlwcLAbSINyThu7wfEkR/Yx6EMg5
-	VbTGcB6tB0GPXx1atr6MMfS3AnmD52LhB1PNnuS16pf1UGblBwTY/V8g2LNBDIj5AjI7Qf4cUw7
-	DgEtaYfgY7T4uyyR4=
-X-Received: by 2002:a05:600c:8b08:b0:495:5045:39e6 with SMTP id 5b1f17b1804b1-496b56da86dmr39749995e9.17.1785017848221;
-        Sat, 25 Jul 2026 15:17:28 -0700 (PDT)
-Received: from [192.168.0.101] ([78.152.215.228])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4957bfd1a60sm133988905e9.2.2026.07.25.15.17.27
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Jul 2026 15:17:27 -0700 (PDT)
-Message-ID: <08bb8736-3a10-4038-b4ae-b188fb655601@linaro.org>
-Date: Sat, 25 Jul 2026 23:17:26 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QXKbeZDT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785018047; x=1816554047;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oxvL0zIpEhw1lD6/RiE8jLZySOEMN+IxQ35FNtKHaQM=;
+  b=QXKbeZDTBCcb6/OkrK49G2EprsJTgiQcgMB5hiUj4G1lVIelm65+q/xy
+   mj8LLtlQI7Pl8ShVc3lQDswun64R5UPbSTrDQu2DyoP9OHX2Qqkeff0J9
+   tdzm9qBLAWfqeUIgQaDe5dUdeuxgnBsZh4n7TCVtW+g+H0UQa8ElOEIzX
+   AiDEWud0LlhdF6HJajB/k+5GXIQo2WZHEu8m2K1cOzdD9DsNDZF+pBMQT
+   tpZ1CJ/Kqm3c/wbVitv7mvY6vBRpsQyEAKw54RgppBMaxhAKt4S35+/Ii
+   HL3V0UWx269E/Heioh10WqwtaxmXQIyh3pNRN+cy2kHN7bbC+H7G3DV7L
+   Q==;
+X-CSE-ConnectionGUID: VnKH4ksMRPWbhNlHbkCB8g==
+X-CSE-MsgGUID: k+w2n+LxRU6a5uQgSJMiWg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11856"; a="103051971"
+X-IronPort-AV: E=Sophos;i="6.25,185,1779174000"; 
+   d="scan'208";a="103051971"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jul 2026 15:20:47 -0700
+X-CSE-ConnectionGUID: blAusxlYRRqkTvLz0mL6Mg==
+X-CSE-MsgGUID: NrnvRwWiTOCwO49g5bZjTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,185,1779174000"; 
+   d="scan'208";a="255672969"
+Received: from ijarvine-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.127])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Jul 2026 15:20:45 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 220A611FB4A;
+	Sun, 26 Jul 2026 01:20:43 +0300 (EEST)
+Date: Sun, 26 Jul 2026 01:20:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: Re: [PATCH] media: ov5648: Fix order of a call to
+ pm_runtime_set_suspended
+Message-ID: <amU2uzRmHEGcaoTZ@kekkonen.localdomain>
+References: <20260725120556.2262456-1-megi@xff.cz>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v12 6/6] media: qcom: camss: Drop legacy PHY descriptions
- from x1e
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org
-References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
- <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-6-f8588da41f16@linaro.org>
- <c52fc21e-ea58-43a8-a5f6-937ea108fc2a@kernel.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <c52fc21e-ea58-43a8-a5f6-937ea108fc2a@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260725120556.2262456-1-megi@xff.cz>
 
-On 25/07/2026 15:46, Krzysztof Kozlowski wrote:
-> On 08/07/2026 02:07, Bryan O'Donoghue wrote:
->> x1e is the first CAMSS SoC to use the new PHY interface. Drop the redundant
->> legacy CSIPHY descriptions.
-> This looks like breaking existing ABI / users.
+Hi Ondřej,
+
+Thanks for the patch.
+
+On Sat, Jul 25, 2026 at 02:05:52PM +0200, Ondřej Jirman wrote:
+> From: Ondrej Jirman <megi@xff.cz>
 > 
-> Best regards,
-> Krzysztof
+> It should be done when RPM is disabled.
+> 
+> Signed-off-by: Ondrej Jirman <megi@xff.cz>
+> ---
+>  drivers/media/i2c/ov5648.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov5648.c b/drivers/media/i2c/ov5648.c
+> index f0b839cd65f1..0643440a6f5d 100644
+> --- a/drivers/media/i2c/ov5648.c
+> +++ b/drivers/media/i2c/ov5648.c
+> @@ -2566,8 +2566,8 @@ static int ov5648_probe(struct i2c_client *client)
+>  
+>  	/* Runtime PM */
+>  
+> -	pm_runtime_enable(sensor->dev);
+>  	pm_runtime_set_suspended(sensor->dev);
+> +	pm_runtime_enable(sensor->dev);
 
-Yeah - I need to detect if the CSIPHY nodes is available at runtime 
-instead, true.
+Runtime PM API usage in this driver appears to be very broken. :-( I guess
+it got merged just before we started paying more attention to Runtime PM as
+a whole. Either way, feel free to fix this all, I could provide a patch as
+well (but can't test it).
 
----
-bod
+>  
+>  	/* V4L2 subdev register */
+>  
+
+-- 
+Kind regards,
+
+Sakari Ailus
