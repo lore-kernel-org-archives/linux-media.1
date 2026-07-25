@@ -1,271 +1,96 @@
-Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635833126B9
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867D729ACCD
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784965136; cv=none; b=sLN+WQ4a8cdygic7V9ntOqZabhNTrPpHnWlho0eAvHPlWW6jlsuKAf1vPNZFdCnan5EqemWCEIGj4LoTWEPcVGyF7cuPOFGuKVaMDaZuQ54YTVsbRX6KomUmj3g1vAXtDGPsEUPW8jVivtj0xYjEYEGZDZxspIaxuhhWODkJBu4=
+	t=1784965527; cv=none; b=Q/K9mCiQZYg9QTh2muj+nVF2f3PC8bXNKwZKT9ih0Spqbh1p+57zekd2iOnjqzjRMJDPh8IZ3FHGzE6ojQybdnY/ngK9/PwQRsg2BE2ZheU4N899q/G5O+ww6XE8onY7UCAzlg8eQr9A5SWR7mJ/jPJMPglAWJPKejS+UDhUZO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784965136; c=relaxed/simple;
-	bh=VWMIk17SrSyGo5oTHUwCe4GU7j1K13mrWReRp5pKOUQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dbpsKWg9jkbziTGXsWcKYispYdDpL55AQg1z45clDQVtvyPuw4ozL/U9U/J3CWfgon6X57guWVGS1//aP51SbO3PWLyNSa4xAwgZEwk+VQ6/DkP01grxafL3X/OP2dlP5vVnDGx5WSxXGHUHb/IW0UCI4dfCap6t96cbwls7xL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zIlpzSb3; arc=none smtp.client-ip=209.85.167.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1784965527; c=relaxed/simple;
+	bh=6lBhACCZj2P79lv00t3v60jKDAEwX85X8jBJwD+dqL4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Z8giaAUPtvenzIBpC22XBUacDn5s+qHZxkEQ1OXm51ZaFjJ/JgXGmcN8on48RDW9rEdmkeR2SMgZONL/963ysoV59aRvfG+MptAtBt5w8gmhwmz+9IYAZqANGnJaF2cnEcI0xqypFptj3i13Ve9BLu0b2Hm/Q0ZlCkzBDJMKWXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFFyeU83; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zIlpzSb3"
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5aebe49b227so273417e87.2
-        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:38:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFFyeU83"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc7a269ca1so2460415ad.3
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:45:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784965132; x=1785569932; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ATBMhXRdEW5TVTDYWajPFd+d4nyZcOHYkx9p8czNgDQ=;
-        b=zIlpzSb3Wq75cYELT0cBFgIa/r3/2mY5/kaJM8klDxLmndcdvfhqtqlmhLLdMXBwX9
-         TeTIhy/w6dXPPA10828CtWi4WkdQ3o4T5HEWJokfPsc2Lh9FIa/bmtOTlxHEQKEY6oIW
-         gwJZxEhyLtKwoAemHTO5tIk9gMNc/trR+5n85pkRJXCKifJ04VaQ/1BpSssgdL9oYSq+
-         AkMuHDstiLoRUY7GW/N+YduR1ynKRNxItNOo2HE79MC2xGas5sh6xgfn0A57l2fJtc+g
-         oMVjg8VihFRDubKRpJc9gANnBa4nSVwFmSz0tU13dM+yf61FS/xc2dXHtvMLFmYTpa7I
-         6I0w==
+        d=gmail.com; s=20251104; t=1784965526; x=1785570326; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=54njo+35o5CM08BxMiGfJLDeg/totzOP865IKX9TOyQ=;
+        b=DFFyeU831TgL7uTv4q11QYgYn22u4vRM10ZT7zu5w4ElzQ6QYy1HiY9wDfoHY0mDtE
+         8ip8q4Z+u/obGqQwQ73upPeC2Ydg/EaN1P6m11pKIRdttSbO3yYiAgG2NSiEunX+0C5p
+         FYnKJQr1NAqRlA2SouxavLT3EA7RI283g2xzQilj25eWCEhKdb3dhD624mpC3dsHGVKa
+         AwCcHNSoiNJJHCAeib+yx4h5DIPlvdvdD1ejvuYuZ6/OPJBaWBY0TWMUB5Nbu4X2zZ9/
+         iBo4w8dRTqLPrto9bS4rD1xGgPEwkBH84MWRbzo3nCCs9FylIZYHCWhHQD2BMXp+1CBJ
+         kTjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784965132; x=1785569932;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1784965526; x=1785570326;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ATBMhXRdEW5TVTDYWajPFd+d4nyZcOHYkx9p8czNgDQ=;
-        b=FxxTG0bNi+qtcUQymMFq9NLIIG6ljh8pPjH4lg5sJ9qhXVXpRyY2upjNZNbcF7kxma
-         lvtduCvHTX/bQF3sD3aSlY+nC+2r/CdXsaQrW0atF4z20QkXeqSmNbFvQV2Zy0XPR7it
-         EUcsnVSTrEJfpStM4JTTkhD6LfTXMY2wyGaBr+4AKVUImP5w7090pxCgQWCa10XZQezG
-         kc6Z8WIMOK2cGASV7Xug4bcmUYiid2BXbLVLckR41mqLG0Nc3BHEekSpjIx+fTUJz0TV
-         AaC5rpSxx7sF78KpLzo/ackZ0kcL+DAaasvT6EvojP5qefrRTCNjBHJzp+vhEd5uNK6e
-         hhcg==
-X-Forwarded-Encrypted: i=1; AHgh+RpGd60vsWww7sPIzkC1985zNYsO8i0FmO4HVeT9p5AkHsGM47rHVUg5uWCp1268Sne4UtCmHNJHcwtGmQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyBYZiIwNUUt3oG0/f7mcJ7VOoKEKKu6jMUWQ1Vuk0u0TRSRaeF
-	3NLEgIqlDBL2CfGFspy6q2N1lbAUG2+GXnlKgb7aH4RW4g8jG5xYFpIdF5TY4dKO1CQ=
-X-Gm-Gg: AR+sD10N3KmCLxbVjiZcohjhKT/FdRZnD0EIvGLZ84a/hOHVp9qNOSvw2YeU+RAUSgX
-	WEWZU+NxB6EvEx/mHEskkqwkJjE1Gc/2Q0Vgn8Reil0ck3ZKyqkRGvfBfQKdTyrVGJYqrgdJp1w
-	hdwSNzvkwcJmgGMln7k+NyvIw6V+Yyj58obp9ZFBeyasqGqq8fjM/V0VSQpi4eJ6V0e4EP4gQqu
-	zLOX/glm9dggv7cQ+mfLe/lE4YMbiA+HAeoIkfGuKVghzmY2w8UmwL93VcjAjsheTiaE46ItWTI
-	tCRITnyXZt24Mduc0X5lERD7m4/BdTTUYG+KrelaKimGkKZjL7qBFsQVVgsNgWdwzZ8eYKANzFX
-	t12+uJ1BMZFgCyX0ykSvoiyPl0JhtVbHGSUnS5t+W2lvSMN6x2MGNfItxGwbSM0RP/swEEjCrIo
-	KWBSVxxQyz5cqf7a1r+wHkwHu/plQegh67uVI+Ce84ETMA8VvzN5xdVLAg
-X-Received: by 2002:a05:6512:a8a:b0:5ae:c8d9:f977 with SMTP id 2adb3069b0e04-5b2c1b3f4b2mr149566e87.8.1784965132239;
-        Sat, 25 Jul 2026 00:38:52 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be0777e2sm330157e87.4.2026.07.25.00.38.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Jul 2026 00:38:51 -0700 (PDT)
-Message-ID: <a0deed4a-bcee-467c-8160-e71d8775df8d@linaro.org>
-Date: Sat, 25 Jul 2026 10:38:49 +0300
+        bh=54njo+35o5CM08BxMiGfJLDeg/totzOP865IKX9TOyQ=;
+        b=MnP0nsevqI/4ybrlblmm0JllIacgQ3uiYl3gMDSQfAgp0RwQbd0MNOVCX2EgzItZZ5
+         ugaxK4GjpKfeD6BjhF2JEaE2BGjgx4R6m5jyNpzbqlKemWGlx9Yda75YfAfr2ZFt4cZQ
+         pK6wUmBPUGXqOkjUUYRdQ7wVHJvD5qpJJgEOG4wIVqEXJG/z2uz+ujkQVFmM2gfdnJRi
+         9gJ4lTVkR7FThRokWgdbaIBoxfB1YjHzZFD/qNAeinh/GlEWD4ESvZFVo6sRGNj9cbfg
+         sMiABi+Lpzt98DVXZyg3z3n2udftai+/HbEkahmnI4Jtf0URQV/3TgSiL40ijhEjLaaA
+         AXJg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq+FF5hPs3I1G0kEOXWZRTQvC1C4sMBy0blanVKCKe4hcNWAXXJWdXGwTN/enfYqffIsTfSYrrpO7nc+g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzBhr7ZzDW0q+9NT3GM4fjDwEgQk1/g4xYu0+YpXBl4GDeyPZit
+	6xP9ucbkOgRFOa1E9PSUlYMqCYz5BBfJ/UipI2z+84eqAGBx2lm3nuvF2DPHl1v2hP8=
+X-Gm-Gg: AR+sD125YdXmwQoXC21G6enPLJPgbWDRRfEuSMps2FXQcFBHp1dVS6U2b/pqHnP47dV
+	6LHEOQMt29IOrINRaQsC+wTdADoaGn8I0NbF6nvsL40JXnUjicK6jhSJ81oVnaNg1GRVxLR1sZT
+	Z8zVgCIbNJ9cTC5iQS1Izx27oS6+u4RBtKZ8gm8okEC0MPC+O3LJRH6EHHsehnH/i7RalxYo89p
+	02TeQms9cuFRbZSEdvz65qmaJz8SLJEYYb8h+o8mn+KgKKtKLjVVcfuAAC+fbuxcQqqt7Gk5NgG
+	r5R3nonBbJ0lgQwQAICTO5F60k0QI4CuW4aXEy3JcWN3hKdkgYGEmDVjuHqLzTlW7Uc0AUhL/FX
+	/Hpy2sv+I59m6k1QVQ1M8hXjCtM5eG7qgfhFKXBancGG7mvc1bbYMDsaxqAD28vnHkN0TFYMQaE
+	UKpki5o26F4qSYrweJ3fPdKSWWoIJU/U/T
+X-Received: by 2002:a17:903:4b2d:b0:2cb:2b50:d9da with SMTP id d9443c01a7336-2cfde84d398mr11434055ad.3.1784965525844;
+        Sat, 25 Jul 2026 00:45:25 -0700 (PDT)
+Received: from FAIZEL-KB ([2001:569:5b64:e100:ac26:5a81:1f39:799e])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde59b768sm6600975ad.4.2026.07.25.00.45.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 25 Jul 2026 00:45:25 -0700 (PDT)
+Date: Sat, 25 Jul 2026 00:45:23 -0700
+From: Faizel K B <faizel.kb@gmail.com>
+To: Chen Changcheng <chenchangcheng@kylinos.cn>
+Cc: skhan@linuxfoundation.org, kieran.bingham@ideasonboard.com, 
+	mchehab@kernel.org, hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: vimc: Replace do_div() with div64_u64()
+Message-ID: <7h44zvktv5up4cxv7wweqio3r4abhgl4mhz2pu5h2267da7qss@mstbqjlx6uqo>
+References: <20260716093017.175254-1-chenchangcheng@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 14/17] media: i2c: os05b10: add 2-lane support
-To: Tarang Raval <tarang.raval@siliconsignals.io>,
- sakari.ailus@linux.intel.com, mehdi.djait@linux.intel.com
-Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
- Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
- <20260718200912.16001-15-tarang.raval@siliconsignals.io>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260718200912.16001-15-tarang.raval@siliconsignals.io>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260716093017.175254-1-chenchangcheng@kylinos.cn>
 
-On 7/18/26 23:09, Tarang Raval wrote:
-> Add support for 2-lane.
-> 
-> Update link-frequency handling to select 750 MHz for 2-lane and 600 MHz for
-> 4-lane, and adjust pixel rate computation accordingly. Extend endpoint
-> parsing to accept 2 or 4 data lanes.
-> 
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> ---
->   drivers/media/i2c/os05b10.c | 94 ++++++++++++++++++++++++++++---------
->   1 file changed, 71 insertions(+), 23 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-> index 876186b22f5f..6d91a9660660 100644
-> --- a/drivers/media/i2c/os05b10.c
-> +++ b/drivers/media/i2c/os05b10.c
-> @@ -113,7 +113,8 @@
->   #define OS05B10_TRANSPARENT_EFFECT     0xa0
->   #define OS05B10_ROLLING_BAR_EFFECT     0xc0
->   
-> -#define OS05B10_LINK_FREQ_600MHZ	(600 * HZ_PER_MHZ)
-> +#define OS05B10_LINK_FREQ_4LANE                (600 * HZ_PER_MHZ)
-> +#define OS05B10_LINK_FREQ_2LANE                (750 * HZ_PER_MHZ)
+On Thu, Jul 16, 2026 at 05:30:17PM +0800, Chen Changcheng wrote:
+>do_div() expects a 32-bit divisor, but pixel_rate is u64.
+>This can lead to truncation on 64-bit platforms where
+>pixel_rate exceeds 32 bits. Use div64_u64() which handles
+>64-by-64 division safely.
+>
+>This fixes the Coccinelle warning:
+>drivers/media/test-drivers/vimc/vimc-sensor.c:107:1-7:
+>	WARNING: do_div() does a 64-by-32 division,
+>	please consider using div64_u64 instead.
+>
+>Fixes: ec1e620b2454 ("media: vimc: sensor: Add pixel_rate,vblank and hblank configuration")
 
-I believe the macro name shall be kept as is, frequency is not specific
-to the number of lanes, it's driver implementation/limitation specifics.
+See the previous changeset
+https://lore.kernel.org/lkml/20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org/
 
->   
->   static const struct v4l2_rect os05b10_native_area = {
->   	.top = 0,
-> @@ -136,13 +137,7 @@ static const char * const os05b10_supply_name[] = {
->   };
->   
->   static const struct cci_reg_sequence os05b10_common_regs[] = {
-> -	{ OS05B10_REG_PLL_CTRL_01, 0x44 },
-> -	{ OS05B10_REG_PLL_CTRL_03, 0x02 },
-> -	{ OS05B10_REG_PLL_CTRL_05, 0x32 },
-> -	{ OS05B10_REG_PLL_CTRL_06, 0x00 },
-> -	{ OS05B10_REG_PLL_CTRL_25, 0x3b },
->   	{ CCI_REG8(0x3002), 0x21 },
-> -	{ OS05B10_REG_MIPI_SC_CTRL, 0x72 },
->   	{ CCI_REG8(0x301e), 0xb4 },
->   	{ CCI_REG8(0x301f), 0xd0 },
->   	{ CCI_REG8(0x3021), 0x03 },
-> @@ -532,6 +527,24 @@ static const struct cci_reg_sequence mode_1280_720_regs[] = {
->   	{ CCI_REG8(0x4837), 0x0d },
->   };
->   
-> +static const struct cci_reg_sequence os05b10_2lane_regs[] = {
-> +	{ OS05B10_REG_PLL_CTRL_01,	0x44 },
-> +	{ OS05B10_REG_PLL_CTRL_03,	0x02 },
-> +	{ OS05B10_REG_PLL_CTRL_05,	0x64 },
-> +	{ OS05B10_REG_PLL_CTRL_06,	0x00 },
-> +	{ OS05B10_REG_PLL_CTRL_25,	0x3b },
-> +	{ OS05B10_REG_MIPI_SC_CTRL,	OS05B10_2_LANE_MODE },
-> +};
-> +
-> +static const struct cci_reg_sequence os05b10_4lane_regs[] = {
-> +	{ OS05B10_REG_PLL_CTRL_01,	0x44 },
-> +	{ OS05B10_REG_PLL_CTRL_03,	0x02 },
-> +	{ OS05B10_REG_PLL_CTRL_05,	0x32 },
-> +	{ OS05B10_REG_PLL_CTRL_06,	0x00 },
-> +	{ OS05B10_REG_PLL_CTRL_25,	0x3b },
-> +	{ OS05B10_REG_MIPI_SC_CTRL,	OS05B10_4_LANE_MODE },
-> +};
-> +
->   struct os05b10 {
->   	struct device *dev;
->   	struct regmap *cci;
-> @@ -650,8 +663,12 @@ static const struct os05b10_mode supported_modes_10bit[] = {
->   	},
->   };
->   
-> -static const s64 link_frequencies[] = {
-> -	OS05B10_LINK_FREQ_600MHZ,
-> +static const s64 link_frequencies_4lane[] = {
-> +	OS05B10_LINK_FREQ_4LANE,
-> +};
-> +
-> +static const s64 link_frequencies_2lane[] = {
-> +	OS05B10_LINK_FREQ_2LANE,
->   };
-
-Please just use macro with frequency in its name, or plainly use the intended
-frequencies here.
-
->   
->   static const u32 os05b10_mbus_codes[] = {
-> @@ -838,7 +855,9 @@ static int os05b10_enum_mbus_code(struct v4l2_subdev *sd,
->   static u64 os05b10_pixel_rate(struct os05b10 *os05b10,
->   			      const struct os05b10_mode *mode)
->   {
-> -	u64 link_freq = link_frequencies[os05b10->link_freq_index];
-> +	u64 link_freq = (os05b10->data_lanes == 2) ?
-> +			link_frequencies_2lane[os05b10->link_freq_index] :
-> +			link_frequencies_4lane[os05b10->link_freq_index];
->   	u64 pixel_rate = div_u64(link_freq * 2 * os05b10->data_lanes, mode->bpp);
->   
->   	dev_dbg(os05b10->dev,
-> @@ -983,6 +1002,17 @@ static int os05b10_enable_streams(struct v4l2_subdev *sd,
->   	ret = pm_runtime_resume_and_get(os05b10->dev);
->   	if (ret < 0)
->   		return ret;
-> +	/* Set pll & mipi lane configuration */
-> +	if (os05b10->data_lanes == 2)
-> +		cci_multi_reg_write(os05b10->cci, os05b10_2lane_regs,
-> +				    ARRAY_SIZE(os05b10_2lane_regs), &ret);
-> +	else
-> +		cci_multi_reg_write(os05b10->cci, os05b10_4lane_regs,
-> +				    ARRAY_SIZE(os05b10_4lane_regs), &ret);
-> +	if (ret) {
-> +		dev_err(os05b10->dev, "failed to write pll & mipi lane registers\n");
-> +		goto err_rpm_put;
-> +	}
->   
->   	/* Write common registers */
->   	ret = cci_multi_reg_write(os05b10->cci, os05b10_common_regs,
-> @@ -1195,22 +1225,39 @@ static int os05b10_parse_endpoint(struct os05b10 *os05b10)
->   	if (ret)
->   		return ret;
->   
-> -	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4) {
-> +	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 4 &&
-> +	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
->   		ret = dev_err_probe(os05b10->dev, -EINVAL,
-> -				    "only 4 data lanes are supported\n");
-> +				    "4 and 2 data lanes are supported\n");
->   		goto error_out;
->   	}
->   
->   	os05b10->data_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
->   
-> -	ret = v4l2_link_freq_to_bitmap(os05b10->dev, bus_cfg.link_frequencies,
-> -				       bus_cfg.nr_of_link_frequencies,
-> -				       link_frequencies,
-> -				       ARRAY_SIZE(link_frequencies),
-> -				       &link_freq_bitmap);
-> -	if (ret) {
-> -		dev_err(os05b10->dev, "only 600MHz frequency is available\n");
-> -		goto error_out;
-> +	if (os05b10->data_lanes == 2) {
-> +		ret = v4l2_link_freq_to_bitmap(os05b10->dev,
-> +					       bus_cfg.link_frequencies,
-> +					       bus_cfg.nr_of_link_frequencies,
-> +					       link_frequencies_2lane,
-> +					       ARRAY_SIZE(link_frequencies_2lane),
-> +					       &link_freq_bitmap);
-> +		if (ret) {
-> +			dev_err(os05b10->dev,
-> +				"For 2 lane 750MHz frequency is available\n");
-> +			goto error_out;
-> +		}
-> +	} else {
-> +		ret = v4l2_link_freq_to_bitmap(os05b10->dev,
-> +					       bus_cfg.link_frequencies,
-> +					       bus_cfg.nr_of_link_frequencies,
-> +					       link_frequencies_4lane,
-> +					       ARRAY_SIZE(link_frequencies_4lane),
-> +					       &link_freq_bitmap);
-> +		if (ret) {
-> +			dev_err(os05b10->dev,
-> +				"For 4 lane 600MHz frequency is available\n");
-> +			goto error_out;
-> +		}
->   	}
->   
->   	os05b10->link_freq_index = __ffs(link_freq_bitmap);
-> @@ -1240,10 +1287,11 @@ static int os05b10_init_controls(struct os05b10 *os05b10)
->   
->   	os05b10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, &os05b10_ctrl_ops,
->   						    V4L2_CID_LINK_FREQ,
-> -						    ARRAY_SIZE(link_frequencies) - 1,
-> +						    ARRAY_SIZE(link_frequencies_4lane) - 1,
->   						    os05b10->link_freq_index,
-> -						    link_frequencies);
-> -
-> +						    (os05b10->data_lanes == 2) ?
-> +						    link_frequencies_2lane :
-> +						    link_frequencies_4lane);
->   	if (os05b10->link_freq)
->   		os05b10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
->   
-
--- 
-Best wishes,
-Vladimir
