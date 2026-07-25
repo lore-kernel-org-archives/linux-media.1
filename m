@@ -1,66 +1,104 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3B95282F03;
-	Sat, 25 Jul 2026 12:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E217F1E492D
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 12:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784981162; cv=none; b=JFivAe2SPQo2cPfIVeehOYvyu/E0ugAWwV+Pt2jrJn9x/7ypPt+VD90woo+yhgy4iyb96zScwZJCWTCW7xGHs/Cu/fn4andpGQznuSJFXgh/YHbHsGdWXtHN34B6oCxAG9Vnq7Tr47lswKU4c4HIqwBfpPEYXXso0vijJPqQRHQ=
+	t=1784983380; cv=none; b=TIScecB7ZW5n7/XMbAeXtk1tGrvFUhjc15N0dGnIJV9uDMCQEbXy7oJZzFaimpZGO5/hBRtUrZ6mlZYdlNlIWbRAQMZAALXnaEZjVAojAnK3CnxReWql0DIcNVQmuvdV3xR3InSKS0j3qq4dXgbO8XL4pzzBfTNN0JQQOemVoFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784981162; c=relaxed/simple;
-	bh=1wQq1JuNEPD2ZBIgnBZLg+dAsJhDbpcrZtHJnhO4584=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nVax+tPNTj2XRXkSKtJ7Hfi74PlXvSp1O/LNAukfbi6NNJ+8BbvyBzq35myYO7uM98G3lDJM4FkiNvkU3WeV9rGT44m6znEH2aay4Fie986rZ/zf4Jy5Ci7hVfUj0aneKzq5HWGXue0e4KNM3nLQdcn1pRx7S4eL/UE30jYmIbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=i3DhQW+w; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="i3DhQW+w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1784981158; bh=1wQq1JuNEPD2ZBIgnBZLg+dAsJhDbpcrZtHJnhO4584=;
-	h=From:To:Cc:Subject:Date:From;
-	b=i3DhQW+wo3HarinXQwJDY1Yg35b4MzU1USGa8JjLuI5t5ApEmv5ouJrD3VteTSKRl
-	 P0WX5np/BQTN5LRBMnu6KGtYUh7i9Ae0oN/4MN6sIVenZLU3Y7ii8C9B31/BY1lA0X
-	 KBYu94Jm8K/N5+ZnWYTm6daBAtTW+G9DbsJAbSaU=
-From: =?UTF-8?q?Ond=C5=99ej=20Jirman?= <megi@xff.cz>
-To: linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	Ondrej Jirman <megi@xff.cz>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [PATCH] media: ov5648: Fix order of a call to pm_runtime_set_suspended
-Date: Sat, 25 Jul 2026 14:05:52 +0200
-Message-ID: <20260725120556.2262456-1-megi@xff.cz>
+	s=arc-20240116; t=1784983380; c=relaxed/simple;
+	bh=V0TtdmlyWvo6vy7mtHEXUMFxO7pV1oWLnMLzgh1fVFw=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=umzLePP4jOnpYOjudyg9dcw7vhggc7qVE7MCn1I/Rc1GZQMJNqHXrAr1EeauG3bfSoiCGtNaCXX+5frf5DnCZqhJ7YHWmv17YUHpENr3nqAWTLrtVDVKUA9OoG/5aw7BvGc7TDnCoKekxsChJwnSCBuZgl4uDHr6elUnxa3MrNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
+Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 66PCgmTb038448;
+	Sat, 25 Jul 2026 21:42:48 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
+	(authenticated bits=0)
+	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 66PCglOw038445
+	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
+	Sat, 25 Jul 2026 21:42:48 +0900 (JST)
+	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
+Message-ID: <2dc83358-2d36-4a2e-81cc-6b28f6831545@I-love.SAKURA.ne.jp>
+Date: Sat, 25 Jul 2026 21:42:46 +0900
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 (repost * 2)] media: usb: siano: don't set
+ URB_FREE_BUFFER flag
+From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
+References: <bf19e526-3327-46a5-8ecd-4baaadef5bcf@I-love.SAKURA.ne.jp>
+ <59031ef8-6c50-475b-9285-ba659fb392f9@I-love.SAKURA.ne.jp>
+Content-Language: en-US
+In-Reply-To: <59031ef8-6c50-475b-9285-ba659fb392f9@I-love.SAKURA.ne.jp>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Virus-Status: clean
+X-Anti-Virus-Server: fsav404.rs.sakura.ne.jp
 
-From: Ondrej Jirman <megi@xff.cz>
+Are you there?
 
-It should be done when RPM is disabled.
-
-Signed-off-by: Ondrej Jirman <megi@xff.cz>
----
- drivers/media/i2c/ov5648.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/media/i2c/ov5648.c b/drivers/media/i2c/ov5648.c
-index f0b839cd65f1..0643440a6f5d 100644
---- a/drivers/media/i2c/ov5648.c
-+++ b/drivers/media/i2c/ov5648.c
-@@ -2566,8 +2566,8 @@ static int ov5648_probe(struct i2c_client *client)
- 
- 	/* Runtime PM */
- 
--	pm_runtime_enable(sensor->dev);
- 	pm_runtime_set_suspended(sensor->dev);
-+	pm_runtime_enable(sensor->dev);
- 
- 	/* V4L2 subdev register */
- 
--- 
-2.54.0
+On 2026/07/02 19:14, Tetsuo Handa wrote:
+> Ping?
+> 
+> A sashiko's comment is at
+> https://sashiko.dev/#/patchset/bf19e526-3327-46a5-8ecd-4baaadef5bcf%40I-love.SAKURA.ne.jp .
+> How do we want to handle this pre-existing issue?
+> 
+> On 2026/05/29 10:20, Tetsuo Handa wrote:
+>> syzbot is reporting invalid free at usb_free_urb(), for
+>>
+>>   smscore_register_device() allocates all buffers at once as an array
+>>
+>>   smscore_createbuffer() maps each element in the array to cb->p
+>>
+>>   usb_fill_bulk_urb() assigns urb->transfer_buffer using cb->p
+>>   which may point to a non-head element in the array
+>>
+>>   URB_FREE_BUFFER causes usb_free_urb() to free urb->transfer_buffer
+>>   which may point to a non-head element in the array
+>>
+>> The urb->transfer_buffer must point to an address returned by kmalloc()
+>> family if URB_FREE_BUFFER flag is set. But since the urb->transfer_buffer
+>> allocation strategy for this module is to allocate buffers upon device
+>> registration and free buffers upon device unregistration, we should
+>> avoid setting URB_FREE_BUFFER flag. Otherwise, double free or invalid
+>> free will happen.
+>>
+>> Reported-by: syzbot+b466336413a1fba398a5@syzkaller.appspotmail.com
+>> Closes: https://syzkaller.appspot.com/bug?extid=b466336413a1fba398a5
+>> Fixes: 564246fd3ff4 ("media: siano: Fix coherent memory allocation failure on arm64")
+>> Tested-by: Tomoki Sekiyama <tomoki.sekiyama@gmail.com>
+>> Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+>> ---
+>> Changes in v2:
+>>   Added Tested-by: line.
+>>
+>>  drivers/media/usb/siano/smsusb.c | 1 -
+>>  1 file changed, 1 deletion(-)
+>>
+>> diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
+>> index 0fdc2e0950b7..8140dc0c8b7d 100644
+>> --- a/drivers/media/usb/siano/smsusb.c
+>> +++ b/drivers/media/usb/siano/smsusb.c
+>> @@ -168,7 +168,6 @@ static int smsusb_submit_urb(struct smsusb_device_t *dev,
+>>  		smsusb_onresponse,
+>>  		surb
+>>  	);
+>> -	surb->urb->transfer_flags |= URB_FREE_BUFFER;
+>>  
+>>  	return usb_submit_urb(surb->urb, GFP_ATOMIC);
+>>  }
+> 
 
