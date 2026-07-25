@@ -1,135 +1,134 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ED553B1B3;
-	Sat, 25 Jul 2026 00:47:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784940447; cv=pass; b=Dfnv8TpeHLKSF7d7AEfq62P8bfFZW67f9uXp4b3q05CVtZ4UsgcvegKuDGZ45+9eFRqRiWDhXV4ENs+xOMVFKMGtUw3oVRRHf8YIy9ZYOEV6RQmA8gMBZC77mpSZ2BUKGduFvIEj1yB8CxniuV1hjbevkIwLM9m9Er6z9YDa4a0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784940447; c=relaxed/simple;
-	bh=5sLkJRzx/MNCSYtg/L1SWbLAtSUzvWTjTCGqTGYH8YI=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=VUb4jGnNODkJ7+Ay06j5FUGOiWt+W9KGDj9jUJcHtbtBc9TrhHKVXXvU/bVVSBwie+t3jpoCgz0UrufyC2Xwra9t6X/DSYxXLZZs62VCbmo8FMRzg21To10lNZAddqYaQSb+PBlxKTSRHiMy/Y3rR6sE1R2rwOFwh25g+jJk1yI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com; spf=pass smtp.mailfrom=ritovision.com; dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b=fPCKQs5l; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ritovision.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2FC286D5E
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 04:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784953389; cv=none; b=SKPzAOWaiDEQTZ1o/ZnUVwvNlO1FIFRYRutUTc3MgdiSxx1FxOn5eKife2T77o4gSkZPxlt+bGM979eUu1qTmWXDsEA1+1NrrxfDan5uaZnJwtcJDGyn2v7wntF8DKPBpyDMu55i/9/8uuCJbb7b8wXF3G0/z3F2xYN9mVjECwg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784953389; c=relaxed/simple;
+	bh=OVXDHfQ/4VBABQ98lCGxl1R9LPtBxkFgDjMSiEn8Gr4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VEZIpV2dHlZtb+fewwP5Nvh+efW1HBqE49FJMZnMUYADUxKNpoK+Ulus/G+Ezc4JncTBG0nm30WeQwZMPQHjfxa7I9OJJqtfsrmZBi57FT69PmSLbwZC3f2tXhRvz5seBnMdPLB5mFie5E7J4LvTre2FYiyBtWGf0aJ2oiWiEhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=om4jGK3e; arc=none smtp.client-ip=209.85.216.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b="fPCKQs5l"
-ARC-Seal: i=1; a=rsa-sha256; t=1784940423; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=fjRQ7pTb94Q9NU6sjGmboAazex4JJerHLAGHPuuXFNm3kTPUHMjb4oY3a9+RiEgUunrHvJPaHzyzhGVijEw/HzaClT5vA2Ul/WVuF5Y73tfzaoty8afit3gGvwVTsiXsNR+40SdYnjCJmtt+rZI4BHG4QwQyt5FaD3nVS0+Y5Lg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1784940423; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=5sLkJRzx/MNCSYtg/L1SWbLAtSUzvWTjTCGqTGYH8YI=; 
-	b=UY3R9wWaa8893wEeqIdJStSySV5ICQlAmTZBAhpJAt8vHaMnfPL3rEPKC6pbfnRD2VrwJEsxk10cYeMQqMzQ56LyKoqhEU7v2IzK0NWHEE6yTDcFSlSipkpWOeOyq/wz/42Cb2TfCmeCPH/rueZJRP48FrjNndBx2a1pXFYtTYM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ritovision.com;
-	spf=pass  smtp.mailfrom=rito@ritovision.com;
-	dmarc=pass header.from=<rito@ritovision.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1784940423;
-	s=zmail; d=ritovision.com; i=rito@ritovision.com;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Subject:Subject:Cc:Cc:From:From:To:To:In-Reply-To:Reply-To;
-	bh=5sLkJRzx/MNCSYtg/L1SWbLAtSUzvWTjTCGqTGYH8YI=;
-	b=fPCKQs5lUdZLr0tdleiMAnzb1gvM/bgmnuZDXD2rwBBrUQu/Wgruh5bTDf4VY0NV
-	PETsDvDAQ5ADmuDvWZiTmypbMfTpokMWCqVlVdq/flIa/5txTJf/YoFwtIRF1d6ZLbL
-	koDw+5eyNPx2it8CHHY62BQRu2jiDvMlQ4T2Mo1I=
-Received: by mx.zohomail.com with SMTPS id 1784940420926600.2210516222842;
-	Fri, 24 Jul 2026 17:47:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="om4jGK3e"
+Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38dd1cc8dc8so184884a91.0
+        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 21:23:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1784953387; x=1785558187; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OpCxABskcZ+2n1Dm/bQqYdz86Nf+UnLePo8ZywgOT8Q=;
+        b=om4jGK3eh2xMdub7q0+m5pWvyDVqjld4gmUIRdwxxshflAhHZYxfo84mH6k0CdeYkf
+         S3LsOYHPu4gtriBmU9Dxeyk/ZKPxu/2MpJoiTl23uQ76MSy2i6XAMzd/K5Q53L6eMu6m
+         U1kvhOmhrVkYYqUV4cQSJlrMmFh12kgpr2s5VofpvxMtVyQUbUPEIGcECxI81Ke2uSms
+         r4MTBbISwdKaVrXr0Q+qhkV2kLZKg306ld07MJXFaBX2/kfy0VfQTtZDzwHWCoginjoS
+         DfgNDAazy8O2y7PVZkrT3+4ipI4tCaI+XTu3xD8LBJjBeEdvWJrMOtKprF9zS5sE/Jcy
+         3r/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784953387; x=1785558187;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OpCxABskcZ+2n1Dm/bQqYdz86Nf+UnLePo8ZywgOT8Q=;
+        b=Ne863GffLsMTh36mIEpeygGRdvgaKrezPHWsb2lgXs9X+mezBmK6DOAAG6iNUDSUHJ
+         SxIoWymrECh9sefZouLknneBQn0Q+y5qBmCDMz3JaDSt4zFJXDBARhS91c+lr707I/v1
+         LjvkNnOEiXfG6KEtgZ2VwOygolmPGFcqgu56Uy+gxU1hdu62QWRPy4gR29mW5G/hhLjT
+         tn9YQrthbLmmD04Ea7kxB7aEUq7uchswlU8MHi9XGJXteZejJKzHQn9p/D0tLtxrauFp
+         jw2xxU1YXXsRsZAs/FQ2dZRmgSwjvfQvrlyPgpK39obgcgLPHm845E/uBCC9/G9dqEkw
+         VeqA==
+X-Forwarded-Encrypted: i=1; AHgh+RprQPx6DDBilwwJK/JDtBDdJtNf2KVo3hgQj9AOHzkaINF1i6S0KzHpbb94B+MO2xhlpGfUeq3rDqh+JQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwDqxIBfi5NS9QJ1f+prOFcLRytlXlIWZZCD4H2kvumhKln4KCa
+	gH703R/1PNkKXqcTviaOg7tJTDiO2K8lV4V7pRlOb0wPqSYp+Jful03e
+X-Gm-Gg: AR+sD11sfkRfjfxwJRaulzx6rtkBogU8zRh9LCYav9dyUjOmTsGjVQeQ5GdemQeVhhb
+	ZiqndYEjiu4/FXBDcvtPAvp2fshqgf2+Et08njyA581/TSjIblFNy16lf+s/jtU2jNUnqEC6pyG
+	2u6m+IbdtIyEAZ7piWSUqw8VuYf/nfkZfncIMGtxLEHFUIUN1XMQCet+fUbUhy2MelinVxu+MOP
+	jK8jA5NMio5+nqdbdhoCv2x4qcHfXrMLnSwvjG0x3vlVgdBfExia+TDvAkO7xFzmPH66L4X5N4L
+	DtMN2W/Pvh2ChUfQ+FImHXWqnfhbzp5ZZdBbGDh6pgkJEq+3fwSd27Tjop6qWFEcaXzwyT0HIXi
+	T/Jf76Y1eGTpBX3RnnPVtdFVv0y1jsByRYmKNh1rDPhrV7C2R+1fcojiaD99WMBfxTQqKeMklgD
+	nAJFVo/g9Sr6FBXRz+F/9zpPdeME3ncZxV
+X-Received: by 2002:a17:90b:4c81:b0:383:5a16:bd67 with SMTP id 98e67ed59e1d1-38f29625678mr1016105a91.4.1784953386975;
+        Fri, 24 Jul 2026 21:23:06 -0700 (PDT)
+Received: from FAIZEL-KB ([2001:569:5b64:e100:ac26:5a81:1f39:799e])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f2951eca6sm370859a91.15.2026.07.24.21.23.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 24 Jul 2026 21:23:06 -0700 (PDT)
+Date: Fri, 24 Jul 2026 21:23:04 -0700
+From: Faizel K B <faizel.kb@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>, 
+	Sultan Alsawaf <sultan@kerneltoast.com>, Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Abylay Ospan <aospan@amazon.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 4/9] media: vimc: Ensure that pixel_rate fits in 32 bits
+Message-ID: <qrcq3ntszxswpk2wbeb7uq4gq3mncegwtoncyplkhdhrslzghs@dhkvpb6n5jsf>
+References: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
+ <20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 24 Jul 2026 20:46:56 -0400
-Message-Id: <DK78KJA4LEAN.2H4O5BZN6H8LK@ritovision.com>
-Subject: Re: [PATCH 0/2] docs: make tables responsive with content-aware
- column widths
-Cc: "Daniel Lundberg Pedersen" <dlp@qtec.com>, "Randy Dunlap"
- <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
- <linux-media@vger.kernel.org>
-From: "Rito Rhymes" <rito@ritovision.com>
-To: "Jonathan Corbet" <corbet@lwn.net>, "Rito Rhymes" <rito@ritovision.com>,
- "Mauro Carvalho Chehab" <mchehab+huawei@kernel.org>, "Hans Verkuil"
- <hverkuil+cisco@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260724214249.23830-1-rito@ritovision.com>
- <87ik646lfc.fsf@trenco.lwn.net>
-In-Reply-To: <87ik646lfc.fsf@trenco.lwn.net>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org>
 
-> So I will look at this in more detail in the coming days.
-
-Thank you, I look forward to the review.
-
-> this is the injection of a bunch of complexity to solve a problem that
-> nobody has complained about.
-
-I don't believe that aligns with the reality, Jon.
-
-In the "bad wrapping in some tables" thread, after I characterized the
-responsive tables as foundationally pathological throughout the docs
-site, Hans came in, not to rebut that, but to acknowledge the problems
-he's seen:
-
-> We're well aware that the tables in the media subsystem do not work
-> well on small screens. The only workable solution would be to move
-> away from tables and format it differently. And that's not going to
-> happen as that would be a massive job.
-
-That is not an absence of a problem. It is a maintainer living with a
-known pain point because he believed nothing feasible could be done
-without a massive overhaul.
-
-I believe this series resolves that class of problem without requiring
-such an overhaul.
-
-My table characterization was also followed immediately by Mauro taking
-action to foundationally improve how tables render across different
-viewport sizes (which you then approved).
-
-> On media, I guess the more complex tables with long widths are the
-> pixfmt ones like those:
+On Mon, Jun 29, 2026 at 11:30:45AM +0000, Ricardo Ribalda wrote:
+>pixel_rate is set to VIMC_PIXEL_RATE_FIXED, which the code expects to
+>fit in 32 bits. Make that constraint into a WARN_ON, so if we ever break
+>that constraint a kernel warning will be triggered.
 >
-> https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt-rgb=
-.html
-> https://www.kernel.org/doc/html/latest/userspace-api/media/v4l/pixfmt-pac=
-ked-yuv.html
+>It also fixes the following cocci warning:
+>./test-drivers/vimc/vimc-sensor.c:107:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
 >
-> It is a good place to check for issues like that.
+>Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+>---
+> drivers/media/test-drivers/vimc/vimc-sensor.c | 6 +++++-
+> 1 file changed, 5 insertions(+), 1 deletion(-)
 >
-> Please see the patch I submitted:
+>diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c b/drivers/media/test-drivers/vimc/vimc-sensor.c
+>index d125a79fec8c..83dcc9d61ee0 100644
+>--- a/drivers/media/test-drivers/vimc/vimc-sensor.c
+>+++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
+>@@ -103,8 +103,12 @@ static void vimc_sensor_update_frame_timing(struct v4l2_subdev *sd,
+> 	u64 total_pixels = (u64)hts * vts;
+> 	u64 frame_interval_ns;
 >
-> https://lore.kernel.org/linux-doc/1950557405f1150acb1de50de1801f2413223b8=
-7.1783673996.git.mchehab+huawei@kernel.org/
->
-> It moves width support at the html output from previous millennium
-> SVGA-resolutions era to modern age.
+>+	/* Sanity check, pixel rate is fixed and fits in 32 bits. */
+>+	if (WARN_ON(pixel_rate >= 0x100000000))
+>+		return;
+>+
+> 	frame_interval_ns = total_pixels * NSEC_PER_SEC;
+>-	do_div(frame_interval_ns, pixel_rate);
+>+	do_div(frame_interval_ns, (u32)pixel_rate);
 
-Mauro's fix actually opened the gate for my solution here to work
-properly, allowing contained horizontal scrolling without causing
-a desktop clipping regression under the previous 800px body constraint.
+There was an error in the data type of pixel_rate. Actually it is u32 instead
+of u64. There are two changes suggested by Geert in reply to the original
+report. v4l2_ctrl.val is s32, not u64 and using mul_u32_u32() for total_pixels
+calculation. We can avoid the sanity check also. Would you be able to consider
+these two changes which avoid the warning?
 
-> Your last attempt here led to regressions that took a while to turn up
+-       u64 pixel_rate = vsensor->pixel_rate->val;
++       u32 pixel_rate = vsensor->pixel_rate->val;
+         u32 hts = width + vsensor->hblank->val;
+         u32 vts = height + vsensor->vblank->val;
+-       u64 total_pixels = (u64)hts * vts;
++       u64 total_pixels = mul_u32_u32(hts, vts);
+         u64 frame_interval_ns;
 
-I own that oversight.
+Link for the suggested changes
+https://lore.kernel.org/lkml/CAMuHMdVx80Eh8w5-OioH-Uyahea0ZRQHUVg9MBfQ4uEjaxM5Lg@mail.gmail.com/
 
-The original fix was targeted at body-text overflow. I did review tables
-containing inline literals, but I missed the specific case where a
-column consists only of inline literals, with no other content to
-preserve a readable width, while surrounding columns compete for space
-and collapse it. That is a narrow structural edge case, but apparently
-one with a broad enough surface area here to matter.
 
-I understand this docs system better, and the problem has more eyes on
-it now.
 
-I'm here to finish the job.
-
-This series addresses that missed case as part of a systemic solution
-rather than another isolated patch.
-
-Rito
