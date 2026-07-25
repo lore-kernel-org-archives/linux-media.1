@@ -1,104 +1,125 @@
-Received: from www262.sakura.ne.jp (www262.sakura.ne.jp [202.181.97.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E217F1E492D
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 12:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.181.97.72
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784983380; cv=none; b=TIScecB7ZW5n7/XMbAeXtk1tGrvFUhjc15N0dGnIJV9uDMCQEbXy7oJZzFaimpZGO5/hBRtUrZ6mlZYdlNlIWbRAQMZAALXnaEZjVAojAnK3CnxReWql0DIcNVQmuvdV3xR3InSKS0j3qq4dXgbO8XL4pzzBfTNN0JQQOemVoFU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784983380; c=relaxed/simple;
-	bh=V0TtdmlyWvo6vy7mtHEXUMFxO7pV1oWLnMLzgh1fVFw=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=umzLePP4jOnpYOjudyg9dcw7vhggc7qVE7MCn1I/Rc1GZQMJNqHXrAr1EeauG3bfSoiCGtNaCXX+5frf5DnCZqhJ7YHWmv17YUHpENr3nqAWTLrtVDVKUA9OoG/5aw7BvGc7TDnCoKekxsChJwnSCBuZgl4uDHr6elUnxa3MrNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp; arc=none smtp.client-ip=202.181.97.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=I-love.SAKURA.ne.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=I-love.SAKURA.ne.jp
-Received: from www262.sakura.ne.jp (localhost [127.0.0.1])
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTP id 66PCgmTb038448;
-	Sat, 25 Jul 2026 21:42:48 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Received: from [192.168.1.6] (M106072072000.v4.enabler.ne.jp [106.72.72.0])
-	(authenticated bits=0)
-	by www262.sakura.ne.jp (8.15.2/8.15.2) with ESMTPSA id 66PCglOw038445
-	(version=TLSv1.2 cipher=AES256-GCM-SHA384 bits=256 verify=NO);
-	Sat, 25 Jul 2026 21:42:48 +0900 (JST)
-	(envelope-from penguin-kernel@I-love.SAKURA.ne.jp)
-Message-ID: <2dc83358-2d36-4a2e-81cc-6b28f6831545@I-love.SAKURA.ne.jp>
-Date: Sat, 25 Jul 2026 21:42:46 +0900
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26C0026738B
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 12:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784983634; cv=pass; b=Sy0ld5S7BI8KVrY/HAAHxsPyb1y0m6Tp6Sj4vMv1qc34Wlnhf1y+gPweQY5G3XynO8ErIgnOO2v/Hzg8r72YzLDKDTnk94iReabmcTZQ7/fuCsEyVYGm2IbQFHjSw7JIvypQH+ThBJbjrkhSRXHiD9SfSaxOD3fnpDKvwhZJ1QM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784983634; c=relaxed/simple;
+	bh=nbfEHiFg3ujAMDl8T5Sowr96/ZasmMbVmzrGHikYY2U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A+6kLtOk8oAW+bqbrAghTcv4X3hsGW3Ir93DidnDE81SX/e+UYvfCH4saRfz9VSuTbr2H9QUEktPcerbzsVmBsCbU4M09PNFkC2+Q5J/oiNTMHtbQRaMOGsejQXmlomHZ3yfVuTojTH8PJONpcCPOaR3K5CmtVbNUNhgzBCWxG8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=hzTnJ1kZ; arc=pass smtp.client-ip=209.85.214.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="hzTnJ1kZ"
+Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2cacf197759so19023715ad.2
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 05:47:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784983632; cv=none;
+        d=google.com; s=arc-20260327;
+        b=LzRi5gPs0s+QLk2ORifvW4FVAogNRUm+eSnNS6s6RHKvnD5tbQW1T1QaBrcuCoiDYI
+         PIhK97iTq38poPNyW0mAm+RqSDvsqsKFryvXAZMUwCPf77N4bCW3hmtkRmDTGTADFQ9a
+         TM8aCwYIu/2B2MUn4z/KFA5YqU69G/pgQIlzGhd1L++P5h3whAOuWvy/zhVLRayz2FfX
+         4PHe+WQ1sEVFq8OfRV4LqQ2RFbinveUOv5zX/5ATXtKu8kfjmWTGTPSsV7/fIw4UtUYd
+         ACnjhLY2YxUyDexlJqR8pBuekLJNLCISX+Xcc99JQb7P/58HgvWiJR/ojZgG0UqCxFtG
+         v5kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=NFb3xFmMVZz4nbO4NmTzoVtr612rRjtqaPgKgbVu0P4=;
+        fh=N9Aucmr3tWOletxa+XSOTnCAIErDWu+WAKxe00zQbKw=;
+        b=GutzenAjTCWXlgDfTgAWePSSB/faoZ7UexfGrF5i7BcwOXNwXykffYJIdzugwrpJjH
+         ukT+sycFqrG55O9BM4aSW7u9OipEYWHolL1JiJui7nNJfGAfSmvwcDf8ZA46F3obN2Ki
+         V5VjKo8jXyZW85umcWxuKqhMav1c1hoI7ZiaYVGRtkaaRDqVADTvAX6UaXHhBKUOgQw/
+         hyRmUscEukxfEfZ8qnu8Ju+R1nUygr/JWftMcYauWQES9IKgZ+8Sx9OoNGymUB7KpiFZ
+         VIFFC1fADdyLOjs5M3hjOODDn+Lriwg+S/re85N6EOwXnSh2bJB5KTUdlqLjlG7gjP4J
+         qKfw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=quora.org; s=google; t=1784983632; x=1785588432; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NFb3xFmMVZz4nbO4NmTzoVtr612rRjtqaPgKgbVu0P4=;
+        b=hzTnJ1kZ8VTPX2spDgxKSesmfIj1g9m2IqHc8k+xpgUndOW6+Jz0Knq6axDOrDSES0
+         QyWZtsKv1WXuOS5NsC/qsqVOud+XECSiynAMq8yDBGnwOG364hXikPmLhcIVxbMuU+b9
+         cksvPr90Bwm2pExw1Xbz2yowaCUyCF/tOS80s=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784983632; x=1785588432;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NFb3xFmMVZz4nbO4NmTzoVtr612rRjtqaPgKgbVu0P4=;
+        b=a/ox0d7/j/QzSJ6UXXXZANgtkeuqnkmaaNGBi1V3MJD5SPGp88PB7bZdCALiicMRQ1
+         rJLhXy79HzS+ENYFD6LT2YEZV+GbeAaWcYfdCxKM47svmgqlDld6FnzgnjPdt+H3mFaA
+         q5Uh1uqYIqDRJk4odZ4ul43i5ozF+FtXkKPT35w+PobrpzscfTyW5USmBP6zuq20+/Cb
+         sl0ZCGkrMocGwukLOGABo0X7zKW5wrATXxsZ8GH4H9xvUNd8i27jLcgUm05FZZ1+PNDq
+         1ChS3RW3ZpTdmipszMxnAofq7J5SDtanZgnQPHSqd7TDgR0K/YlljAsOg9kSCC154+ww
+         ErIw==
+X-Forwarded-Encrypted: i=1; AHgh+RojMWKgJXmEQISxOk8e7QY+8ircxbSqRjb/lqnwIrPBg2FVnctAdS+dLx0GMdN52VnZFDyXD3+oyc8wWw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxrddfwjx30keMAcY53AKRrqBmzLU5By7nVWfGusxSOutmZNLX+
+	YoszGP6ZNr6kUHFMiIdKDiLtBt7K/yi918P5irLvVolL1ey9TwD7nsNalyoXM0kw8CwK0IiaiEg
+	xFJHY4BjA71RDbRFmL4mV94lMewcEHKwSBr8NyURRDg==
+X-Gm-Gg: AR+sD12udzPtee5gICC6e3emdtsvIDHWYK0eLP23mfL0qXmcWMy212lWEAtsoyNNG5Q
+	Sl2RPw/+f2n2vXoGIMSllKL8Zw7Zmlsx+FImOgur05HQf5eBBKK8ik+wp+SQmk9PUE8DcF2ttWz
+	JpWEHG/wHr57QXmq296Qe+DbDKYwwX797yt3wVdQ8mar5njQWe87HZTYDJxMpxSH+hPIJNndG9d
+	H6YwsZMF5DGf2P852optTlEVU/WP6W6GkMgHQLvkKbc1pnu+t71HxyoqrW23JMtcljCGF7m4vTw
+	7NCWAnGJSRpU/ivZhzCqmb3CtVYmpYljDiSg94fI33IKdBa3SlERikuWonO9yRI7+GnGuuDEOhd
+	94Xz5U7MMvudLGtfawGSZGlPVXll0CkLViQtjGkel1mJ7aWKLEaJZst1R9VX73gKKdvH8EXCwna
+	J4Bq4VjqMFTSnWiyqNl0JFIZzixXVZEDm3Rh5RViDTof3uKX8svyWW5DGpwc/3wC9CeUPsCA==
+X-Received: by 2002:a17:903:26cf:b0:2c9:97a9:2098 with SMTP id
+ d9443c01a7336-2cfde895b4bmr22242195ad.44.1784983632412; Sat, 25 Jul 2026
+ 05:47:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 (repost * 2)] media: usb: siano: don't set
- URB_FREE_BUFFER flag
-From: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org
-References: <bf19e526-3327-46a5-8ecd-4baaadef5bcf@I-love.SAKURA.ne.jp>
- <59031ef8-6c50-475b-9285-ba659fb392f9@I-love.SAKURA.ne.jp>
-Content-Language: en-US
-In-Reply-To: <59031ef8-6c50-475b-9285-ba659fb392f9@I-love.SAKURA.ne.jp>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Virus-Status: clean
-X-Anti-Virus-Server: fsav404.rs.sakura.ne.jp
+References: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+In-Reply-To: <20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org>
+From: Daniel J Blueman <daniel@quora.org>
+Date: Sat, 25 Jul 2026 20:47:00 +0800
+X-Gm-Features: AUfX_mwTJNR7-hRaq1ZTUYAiX7Ud5gZGyBy8PdA42w9wDa17cNUs0zXUmHoUAFI
+Message-ID: <CAMVG2stKmNxe-mdqbqO4MDLDrJCiNXw9kt8SA8egYAmByf9fKw@mail.gmail.com>
+Subject: Re: [PATCH v12 0/6] Add dt-bindings and PHY updates for CAMSS on
+ x1e80100 silicon
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+	Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Are you there?
+On Wed, 8 Jul 2026 at 08:06, Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
+> Changes in v12:
+> - Updates camss sensor find method to find the sensor in the CSIPHY port. -
+>   Neil, Vlad, Bryan
+> - Drops dependency on passing polarities and positions. Moved into CSIPHY
+>   port as agreed. Neil, Vlad, Bryan
+> - Omitted mux to CSID as discussed this will be done when splitting CSID
+>   out as its own individual node. Neil, Bryan
+> - Updated Reviewed-by: - Loic
+> - Link to v11: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
+[...]
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-On 2026/07/02 19:14, Tetsuo Handa wrote:
-> Ping?
-> 
-> A sashiko's comment is at
-> https://sashiko.dev/#/patchset/bf19e526-3327-46a5-8ecd-4baaadef5bcf%40I-love.SAKURA.ne.jp .
-> How do we want to handle this pre-existing issue?
-> 
-> On 2026/05/29 10:20, Tetsuo Handa wrote:
->> syzbot is reporting invalid free at usb_free_urb(), for
->>
->>   smscore_register_device() allocates all buffers at once as an array
->>
->>   smscore_createbuffer() maps each element in the array to cb->p
->>
->>   usb_fill_bulk_urb() assigns urb->transfer_buffer using cb->p
->>   which may point to a non-head element in the array
->>
->>   URB_FREE_BUFFER causes usb_free_urb() to free urb->transfer_buffer
->>   which may point to a non-head element in the array
->>
->> The urb->transfer_buffer must point to an address returned by kmalloc()
->> family if URB_FREE_BUFFER flag is set. But since the urb->transfer_buffer
->> allocation strategy for this module is to allocate buffers upon device
->> registration and free buffers upon device unregistration, we should
->> avoid setting URB_FREE_BUFFER flag. Otherwise, double free or invalid
->> free will happen.
->>
->> Reported-by: syzbot+b466336413a1fba398a5@syzkaller.appspotmail.com
->> Closes: https://syzkaller.appspot.com/bug?extid=b466336413a1fba398a5
->> Fixes: 564246fd3ff4 ("media: siano: Fix coherent memory allocation failure on arm64")
->> Tested-by: Tomoki Sekiyama <tomoki.sekiyama@gmail.com>
->> Signed-off-by: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
->> ---
->> Changes in v2:
->>   Added Tested-by: line.
->>
->>  drivers/media/usb/siano/smsusb.c | 1 -
->>  1 file changed, 1 deletion(-)
->>
->> diff --git a/drivers/media/usb/siano/smsusb.c b/drivers/media/usb/siano/smsusb.c
->> index 0fdc2e0950b7..8140dc0c8b7d 100644
->> --- a/drivers/media/usb/siano/smsusb.c
->> +++ b/drivers/media/usb/siano/smsusb.c
->> @@ -168,7 +168,6 @@ static int smsusb_submit_urb(struct smsusb_device_t *dev,
->>  		smsusb_onresponse,
->>  		surb
->>  	);
->> -	surb->urb->transfer_flags |= URB_FREE_BUFFER;
->>  
->>  	return usb_submit_urb(surb->urb, GFP_ATOMIC);
->>  }
-> 
+Works for me on 7.2.0-rc4 with 'qcam'.
 
+Tested-by: Daniel J Blueman <daniel@quora.org> # Lenovo Slim 7x X1E80100
+
+Thanks and fine work!
+  Dan
+-- 
+Daniel J Blueman
