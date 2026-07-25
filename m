@@ -1,134 +1,141 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE2FC286D5E
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 04:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386CF3515CD
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:14:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784953389; cv=none; b=SKPzAOWaiDEQTZ1o/ZnUVwvNlO1FIFRYRutUTc3MgdiSxx1FxOn5eKife2T77o4gSkZPxlt+bGM979eUu1qTmWXDsEA1+1NrrxfDan5uaZnJwtcJDGyn2v7wntF8DKPBpyDMu55i/9/8uuCJbb7b8wXF3G0/z3F2xYN9mVjECwg=
+	t=1784963651; cv=none; b=NXSSGxLJ7WQxuNwNmCbNU5CvCa7i53SeGVw+8s1ROi4IVOaZiWD+d7Qg096aRY0oba4g3cKCKgBTJTEvYu4LX23sY4eD/1rRe+XPEu8OGkwKSOYnu0V8tPKXlea8Je+ZSS7Gc552dxxMl5nDr55Sw/tMTDFc7CpF3wqNOeOLPvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784953389; c=relaxed/simple;
-	bh=OVXDHfQ/4VBABQ98lCGxl1R9LPtBxkFgDjMSiEn8Gr4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VEZIpV2dHlZtb+fewwP5Nvh+efW1HBqE49FJMZnMUYADUxKNpoK+Ulus/G+Ezc4JncTBG0nm30WeQwZMPQHjfxa7I9OJJqtfsrmZBi57FT69PmSLbwZC3f2tXhRvz5seBnMdPLB5mFie5E7J4LvTre2FYiyBtWGf0aJ2oiWiEhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=om4jGK3e; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1784963651; c=relaxed/simple;
+	bh=JP/wbNLQSrW5qwWjE+qQUBSSCP+5d3b6gjSj9x/s0bc=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=CijYoT2a60kSCbZ37iff70qTnmC55SAI/Xd2Q7KZLfcJ6Yu+sHllh+0gC4l7XeL5VOY7ams7VH1AeuRak4WRxjryg9aoyVVAHJdehydcg6PRPNEYZSx7KFYw6CAjOBjEx7d81zDyjA+EwHG4yR2ElEDDkonwXiOlK1j57pE/Ic8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k0fsCUCU; arc=none smtp.client-ip=209.85.208.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="om4jGK3e"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38dd1cc8dc8so184884a91.0
-        for <linux-media@vger.kernel.org>; Fri, 24 Jul 2026 21:23:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k0fsCUCU"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698a9f11776so1663113a12.1
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:14:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784953387; x=1785558187; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OpCxABskcZ+2n1Dm/bQqYdz86Nf+UnLePo8ZywgOT8Q=;
-        b=om4jGK3eh2xMdub7q0+m5pWvyDVqjld4gmUIRdwxxshflAhHZYxfo84mH6k0CdeYkf
-         S3LsOYHPu4gtriBmU9Dxeyk/ZKPxu/2MpJoiTl23uQ76MSy2i6XAMzd/K5Q53L6eMu6m
-         U1kvhOmhrVkYYqUV4cQSJlrMmFh12kgpr2s5VofpvxMtVyQUbUPEIGcECxI81Ke2uSms
-         r4MTBbISwdKaVrXr0Q+qhkV2kLZKg306ld07MJXFaBX2/kfy0VfQTtZDzwHWCoginjoS
-         DfgNDAazy8O2y7PVZkrT3+4ipI4tCaI+XTu3xD8LBJjBeEdvWJrMOtKprF9zS5sE/Jcy
-         3r/A==
+        d=gmail.com; s=20251104; t=1784963647; x=1785568447; darn=vger.kernel.org;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=JP/wbNLQSrW5qwWjE+qQUBSSCP+5d3b6gjSj9x/s0bc=;
+        b=k0fsCUCUrtm0oqtvdTfrPuknPONX4Cd+Y33LiHKz15gow13/teiu2cP1eGurXKX7FH
+         cV0WKRdmk34oK/whcNayIQR7dN47XxAjB1fDioEWUM3g1jcUNdD3m4A/QTIB6VWc6chx
+         VLdZddgUhsH/E9iCTh6AJTAbw5o4q+EZQkxUUWuCUbpdvUIr4C+LmRgTMPepYxOuezRm
+         eOnK8lYFTfIz52R7W0qWQS+LBmOz+bToef7/wyNYu9JaZ4OGur5IOtqFx0gs7oqpk+Xm
+         TnE9rRjhoFvJMtnvHxv4dHWWrg7hJvt9mj93AcZDAwrcxswPA/Q/OHHpJE9YPdfyEgRU
+         fTtw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784953387; x=1785558187;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1784963647; x=1785568447;
+        h=to:references:message-id:content-transfer-encoding:cc:date
+         :in-reply-to:from:subject:mime-version:content-type:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OpCxABskcZ+2n1Dm/bQqYdz86Nf+UnLePo8ZywgOT8Q=;
-        b=Ne863GffLsMTh36mIEpeygGRdvgaKrezPHWsb2lgXs9X+mezBmK6DOAAG6iNUDSUHJ
-         SxIoWymrECh9sefZouLknneBQn0Q+y5qBmCDMz3JaDSt4zFJXDBARhS91c+lr707I/v1
-         LjvkNnOEiXfG6KEtgZ2VwOygolmPGFcqgu56Uy+gxU1hdu62QWRPy4gR29mW5G/hhLjT
-         tn9YQrthbLmmD04Ea7kxB7aEUq7uchswlU8MHi9XGJXteZejJKzHQn9p/D0tLtxrauFp
-         jw2xxU1YXXsRsZAs/FQ2dZRmgSwjvfQvrlyPgpK39obgcgLPHm845E/uBCC9/G9dqEkw
-         VeqA==
-X-Forwarded-Encrypted: i=1; AHgh+RprQPx6DDBilwwJK/JDtBDdJtNf2KVo3hgQj9AOHzkaINF1i6S0KzHpbb94B+MO2xhlpGfUeq3rDqh+JQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDqxIBfi5NS9QJ1f+prOFcLRytlXlIWZZCD4H2kvumhKln4KCa
-	gH703R/1PNkKXqcTviaOg7tJTDiO2K8lV4V7pRlOb0wPqSYp+Jful03e
-X-Gm-Gg: AR+sD11sfkRfjfxwJRaulzx6rtkBogU8zRh9LCYav9dyUjOmTsGjVQeQ5GdemQeVhhb
-	ZiqndYEjiu4/FXBDcvtPAvp2fshqgf2+Et08njyA581/TSjIblFNy16lf+s/jtU2jNUnqEC6pyG
-	2u6m+IbdtIyEAZ7piWSUqw8VuYf/nfkZfncIMGtxLEHFUIUN1XMQCet+fUbUhy2MelinVxu+MOP
-	jK8jA5NMio5+nqdbdhoCv2x4qcHfXrMLnSwvjG0x3vlVgdBfExia+TDvAkO7xFzmPH66L4X5N4L
-	DtMN2W/Pvh2ChUfQ+FImHXWqnfhbzp5ZZdBbGDh6pgkJEq+3fwSd27Tjop6qWFEcaXzwyT0HIXi
-	T/Jf76Y1eGTpBX3RnnPVtdFVv0y1jsByRYmKNh1rDPhrV7C2R+1fcojiaD99WMBfxTQqKeMklgD
-	nAJFVo/g9Sr6FBXRz+F/9zpPdeME3ncZxV
-X-Received: by 2002:a17:90b:4c81:b0:383:5a16:bd67 with SMTP id 98e67ed59e1d1-38f29625678mr1016105a91.4.1784953386975;
-        Fri, 24 Jul 2026 21:23:06 -0700 (PDT)
-Received: from FAIZEL-KB ([2001:569:5b64:e100:ac26:5a81:1f39:799e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f2951eca6sm370859a91.15.2026.07.24.21.23.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 24 Jul 2026 21:23:06 -0700 (PDT)
-Date: Fri, 24 Jul 2026 21:23:04 -0700
-From: Faizel K B <faizel.kb@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>, Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>, 
-	Sultan Alsawaf <sultan@kerneltoast.com>, Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Abylay Ospan <aospan@amazon.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH 4/9] media: vimc: Ensure that pixel_rate fits in 32 bits
-Message-ID: <qrcq3ntszxswpk2wbeb7uq4gq3mncegwtoncyplkhdhrslzghs@dhkvpb6n5jsf>
-References: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
- <20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org>
+        bh=JP/wbNLQSrW5qwWjE+qQUBSSCP+5d3b6gjSj9x/s0bc=;
+        b=huatj5eiU82XgRfu0KF6CTev8YJZsF1MgJDwTH4fY+2Hamn657RKWVZlz4bCnC0zu9
+         8O5wrT8a85d/Io88nefb00Dm5Uedv2HJk571ULUrhylBI3JrI+MKUlZ/2xi9GQCu5Nje
+         0LdjKpFAIbtlHNmipf0Sep2naO4TYh9NhxocJzOGGbw6hdCExlfnGwxMWD9Qqq17P1rI
+         jmBbaSDoIJXCvOg5AJFxYTVOUqMritC9UtlVWEM/eJTzvWqTLjlh5QHl1qleTZVSYoc7
+         Z2t/3OYZ94D9ATurbRrFicJJIFWrhBdxQ08Vj/34VAg6ObK2eOA4up3qWw3R+q5Rxdcd
+         ZBMQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoeODHukcKL/YactQ47I3z+2Lp3cdBhE5+lsXH6wBHwg9V6l5p16ITL96+Eh5lGaigfGz585o+dsmBmuA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyKYjQWUiV67s1hU67GC0MBZFl1M2Wqtzg8gqa8yf06JiyHUsXG
+	mvnv92GRH+rLpTgDSfp5jq5Hp295IKRgZbblsU7bmRYfFnK/eVgpT1jk
+X-Gm-Gg: AR+sD11Ga0HTRrtxUM7bKradFQD1MMxLunnbfhRQHnDvl8Lg4wHiix9lfseEDvvVlBw
+	WCg4kRoUK9UJ3zB1msYQpqbp1xj+y8NVfWwsPOG3rdbeXT+/dlMJKOzLdg90wVOD9Asg0eBaynP
+	rcvbF7QGqAax1A5LPGpskAMUnvpmCYsxof+gx00E+qtvCCmf3wueg9ZgwxNDJvR3eRg/xzTilkD
+	KWhBBNRyVoRMkoTl3b4PqjCg3/oDgWv5tj68L2pbKL2ZdNU6zzkOZq/7shWieoQLwXtWqTNliJN
+	ajGm2YKRWN0hQf8zqRXaYpEUCrsv2ae6E+nXJhJN/5lfWXiUSmBeBa1MNnRREOo7HRG0OR3vovq
+	MBWKY/lx0XNe66DUFhHK/+hyhjzUUfvymFulK8ULnXuG3gEFl7W0lNvuqw+RWeGF8qMmAn/Ayug
+	70RajIJSDHrqHNbeyc3xAv0kQyG+e110eA+YFt9lCPqArY85W2jF2AAcJhgryHiwyCUeeTaUM=
+X-Received: by 2002:a05:6402:2692:b0:698:f7d:4e11 with SMTP id 4fb4d7f45d1cf-69fc0fed1bfmr434261a12.1.1784963647447;
+        Sat, 25 Jul 2026 00:14:07 -0700 (PDT)
+Received: from smtpclient.apple (89-66-237-154.dynamic.play.pl. [89.66.237.154])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb4e11519sm658390a12.0.2026.07.25.00.14.04
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Sat, 25 Jul 2026 00:14:05 -0700 (PDT)
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
+Subject: Re: [PATCH v6 1/6] firmware: meson: sm: Add video firmware loading
+ SMC call
+From: Piotr Oniszczuk <piotr.oniszczuk@gmail.com>
+In-Reply-To: <20260724-b4-s4-vdec-upstream-v6-1-6072a7ee7428@amlogic.com>
+Date: Sat, 25 Jul 2026 09:13:53 +0200
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <49F34481-918C-42ED-92E9-DFC336526BAD@gmail.com>
+References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
+ <20260724-b4-s4-vdec-upstream-v6-1-6072a7ee7428@amlogic.com>
+To: zhentao.guo@amlogic.com
+X-Mailer: Apple Mail (2.3864.600.51.1.1)
 
-On Mon, Jun 29, 2026 at 11:30:45AM +0000, Ricardo Ribalda wrote:
->pixel_rate is set to VIMC_PIXEL_RATE_FIXED, which the code expects to
->fit in 32 bits. Make that constraint into a WARN_ON, so if we ever break
->that constraint a kernel warning will be triggered.
->
->It also fixes the following cocci warning:
->./test-drivers/vimc/vimc-sensor.c:107:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
->
->Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
->---
-> drivers/media/test-drivers/vimc/vimc-sensor.c | 6 +++++-
-> 1 file changed, 5 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c b/drivers/media/test-drivers/vimc/vimc-sensor.c
->index d125a79fec8c..83dcc9d61ee0 100644
->--- a/drivers/media/test-drivers/vimc/vimc-sensor.c
->+++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
->@@ -103,8 +103,12 @@ static void vimc_sensor_update_frame_timing(struct v4l2_subdev *sd,
-> 	u64 total_pixels = (u64)hts * vts;
-> 	u64 frame_interval_ns;
->
->+	/* Sanity check, pixel rate is fixed and fits in 32 bits. */
->+	if (WARN_ON(pixel_rate >= 0x100000000))
->+		return;
->+
-> 	frame_interval_ns = total_pixels * NSEC_PER_SEC;
->-	do_div(frame_interval_ns, pixel_rate);
->+	do_div(frame_interval_ns, (u32)pixel_rate);
 
-There was an error in the data type of pixel_rate. Actually it is u32 instead
-of u64. There are two changes suggested by Geert in reply to the original
-report. v4l2_ctrl.val is s32, not u64 and using mul_u32_u32() for total_pixels
-calculation. We can avoid the sanity check also. Would you be able to consider
-these two changes which avoid the warning?
 
--       u64 pixel_rate = vsensor->pixel_rate->val;
-+       u32 pixel_rate = vsensor->pixel_rate->val;
-         u32 hts = width + vsensor->hblank->val;
-         u32 vts = height + vsensor->vblank->val;
--       u64 total_pixels = (u64)hts * vts;
-+       u64 total_pixels = mul_u32_u32(hts, vts);
-         u64 frame_interval_ns;
+> Wiadomo=C5=9B=C4=87 napisana przez Zhentao Guo via B4 Relay =
+<devnull+zhentao.guo.amlogic.com@kernel.org> w dniu 24 lip 2026, o godz. =
+09:04:
+>=20
+> From: Zhentao Guo <zhentao.guo@amlogic.com>
+>=20
+> Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
+> table to load video firmware.
+>=20
+> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+> ---
+> drivers/firmware/meson/meson_sm.c | 1 +
+> 1 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/firmware/meson/meson_sm.c =
+b/drivers/firmware/meson/meson_sm.c
+> index ab9751a59b55..887caa5c625d 100644
+> --- a/drivers/firmware/meson/meson_sm.c
+> +++ b/drivers/firmware/meson/meson_sm.c
+> @@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip =3D {
+> CMD(SM_THERMAL_CALIB_READ, 0x82000047),
+> CMD(SM_A1_PWRC_SET, 0x82000093),
+> CMD(SM_A1_PWRC_GET, 0x82000095),
+> + CMD(SM_LOAD_VIDEO_FW, 0xb200000f),
+> { /* sentinel */ },
+> },
+> };
+>=20
+> --=20
+> 2.42.0
+>=20
 
-Link for the suggested changes
-https://lore.kernel.org/lkml/CAMuHMdVx80Eh8w5-OioH-Uyahea0ZRQHUVg9MBfQ4uEjaxM5Lg@mail.gmail.com/
+Zhentao,
 
+What is req. baseline for this patch?
+(or what extra patches are needed to test it on 7.1 mainline)
+
+Asking as applying on mainline 7.1.5 I=E2=80=99m getting:
+
+patching file drivers/firmware/meson/meson_sm.c
+Hunk #1 FAILED at 48.
+1 out of 1 hunk FAILED -- saving rejects to file =
+drivers/firmware/meson/meson_sm.c.rej =20
 
 
