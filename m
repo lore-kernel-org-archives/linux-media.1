@@ -1,115 +1,120 @@
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE25F30C152
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 08:00:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.180
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784966451; cv=pass; b=vBd09uoP6tW1nETzDzWZxY3NIEAxEw1Q90qm1efgdP1taOlmgy0P1V7cTZ+l7j4wCMd0zxxQ6xyO/N6NmT/5GFUxS8aKEGT40zFSCtADMihp4NLMAtY7Py23yBrGETMlkvyA1+3g9o0sLlxKreoKO9h61Aj8+vLzvntf9Fa1dL0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784966451; c=relaxed/simple;
-	bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=t1pDhwg5aWLqBmZJkatWF+9BxLytEXIKJogUozrDx3npSlfVNY14ts5fOlyXGzo2G0K868qLYEjjbf0apah0CyHYWvsL1TnjKz/4/AzOnBgSRjIiyJ1SKZVn9lfmKL6MuEoR0LYZ6O0mpzfCRrZA6a4ckL3j0paTauqlAi78kU0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOWROuB5; arc=pass smtp.client-ip=209.85.222.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F7B3321BD
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 10:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784974447; cv=none; b=N+M26brNUNXIv+zvW9bb8N8+i18ik1IegOie5DI79yOtmOq/4aCSH1KPMPWkYcAVZIV/9MTVXynt28utw06AmZhZlin6PKEzycS5sh7uiY/9nM0e5HEozbYkFq/+tk5nL62wFojEt5hKYr8TB/AWBUZZ1z7yG33by8T/SkrlCj4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784974447; c=relaxed/simple;
+	bh=CdTDJUcqSLsVPWjQw81bCST4cL8xQYNSY97v4bQRwj0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F6qHHKvwrXP7DFDs/uMWwL4UtPSBduEp3l38yD8uS+8oMTdY8QfLoAD3IWPtWExnUbX9dHBq5p2R+WV832nx6xzcsMzHifHXmhKRsOj2tzUBKbAdOniMRMWkmKGIaK7lGzQRk7CB2YLoH79qAz65ATf77hpmtRW0weE0GfLsyKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Q5pq4MhO; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOWROuB5"
-Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e50979c71so132681285a.3
-        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 01:00:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1784966449; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FdA52rsqaMCs0TEaxtRR5+a9Ki/XU4Nh2f0FkO30opMmOcnATMNIdZTIVBJSt7sYJ9
-         xSbYmpboQa7ZKZETH4wF4HCuZhszj/k6QdGGc/uuduMCGuYh1D0m6t+22QaeKkfpH0Ah
-         gI01Pah02Tkpl8VgJEa/EYtQdqGo7xu6RIU6zuC2fJZzXnd+GsaQl39KlnDq+Ff6GhYk
-         JlGF6YhhkP+5SiC0poMWbx0QidddLdfBHL3FDob+Qdw8v17MDf7LwAjE4YABd9EhJP2Z
-         TMYjxL1bosU5W0tiVZDZ+YNDQHtd+9LqQtpM/nqT0WVHWxiZYDfsgb68vmqKppdM9XSP
-         SeYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
-        fh=M08x/fCxsaklCw/blcJBFrL+CVcUFQ+DpjaJt0NGmMA=;
-        b=U9yedBskTUbzWue2p2jKrsurqOGY9r3pJ9G3stQVYzwASKELXBy+i0X5plXcJSNhK+
-         uN1shUTAzw0NLjRPnRNEQ/X/M2dqghGXivOzsgsRh/YLgSWDAE62V87u0r04oyTlYkhp
-         67FDRUSG5RasGAvSQYMsALVs43AUPpocqgPyg27gtlDMEjsEZ55VwjRuyOyucAFNY9qF
-         TNTz8hQUeSJKr/lncA7jVJmGNo0sdiUL2F4AeDQYHxdRFmyd3uibwjZ+vhSMDPG6Yyai
-         qFDZI9vvH/yLNkpDO2Yt4pPbvYP+7mfSj5p06l4RhgHAMvzf5R67Z2+ekd7x/aUPL5qG
-         XiBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Q5pq4MhO"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aeb7ccb9f0so122435e87.0
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 03:14:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784966449; x=1785571249; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
-        b=bOWROuB52xU9VSLychp/1xC7v8t1dhzlM4GtnIrxxn/Yhvhcj4F958piISlGoZGHjV
-         jBPwsa+gHgd5ZLGXxC09rGHnJZ7YeTR1Hu7AJ8Iz2sK++MdzkKuVbjj0CNt9f/ynDlDJ
-         6iojrOthXmRljvELZYD5hK4i/KsZ444aKKuwJYr2NNyDTMbmIcIwDw3ncp2zcWrWGGNr
-         +T+CF2DQitlMjSj60MxEfSe3ahq51pOaArAPHK24hgfNac9nvtMHBYiKImFCk0xLHw5C
-         CvL3LMMHXXDf70fNuamDG9WIFmuhhwo/1zPiNKeQSmyYW7kiNXQAYnZ4xEi7HtM5hZs/
-         kihQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784966449; x=1785571249;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=linaro.org; s=google; t=1784974444; x=1785579244; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
-        b=MHeoSBYKNWRgTfn2qJbKVuDzE6h421zIwb9OFDodsioDK4ueukQjyGIpztI5IzAI+5
-         gjf5D+3mdJopwV779E9Oe1WRpm1hbGVWPj0qyYsNq8se5zDIdyaAT3I81anMEhnx+vGA
-         Fx79wB1UNGZnNYDQMy6J9cIPDS5P3r2iMegPMi+HwXXCw6E+NBermRdEwfoi6NinHxgC
-         S2J+anEGQ+yG44zwwCSVu17ZYWyh5xDDvIIKsq7DuJ2il/rEE6x33xC7QbhBIyuBBOMe
-         7Rk6PUPRp1KmKbHwvchXkR+ng9BsRXNarXqpM4AYvY10b9IS0oqjDh8D3nzo1w4JFwzP
-         w/1g==
-X-Forwarded-Encrypted: i=1; AHgh+Roo8DMNtbJnx8HoI1xRKZchiicB010zMag4QIyvWBo7vq+Yow220G06bH1s1OielRMbKGTY0JOuT7qz9g==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw9kmfL+SuZKv+OiF647WWzudgWR65ttrWA5xXNw0XZHAd1DUQz
-	FBw4E3gca1dMYMioRP6qYwxyDuuI+hWWbwOPdaIbGgjkV/Yoy9Bb0rp7TylOECFDROdzbvwQ6jA
-	c0/o0dFwePg7U2uH2DysTRWws8ot94A4=
-X-Gm-Gg: AR+sD12b4KufJ0CBO5q3CDQSX7SNuszVssZsxUQ8W2uGAuj10CXpqDJDZeQzK0ysw9U
-	9lF8/MRVzpo6JZOOU5Nf9DuPBw28p5MK7nBfPnGZwJInr1vyCVJMbp58ywIrmao4EUYm0F2wVCA
-	5CBcZj1PKaJwg1PuiSJENK0/rYZWO0URDFKPZfFnexwPsoXcoUBlhVr8DS9ANsan1zSL0AKvHpz
-	2Hb9OuLzqiTw0PNbmqviz/8akGh6i5tSoMsbJ5EXj84Aj86g2VJhM4POlpac52+vatNDTE/c5bA
-	utczkelHt+G5A4ceGTnhbyp77GpJtWMVj0e+2WKPZiuw8dJCC9yBgFzkYhUXZvc=
-X-Received: by 2002:a05:620a:2681:b0:930:dd19:11ba with SMTP id
- af79cd13be357-932df6f0f30mr100360085a.92.1784966449572; Sat, 25 Jul 2026
- 01:00:49 -0700 (PDT)
+        bh=egMHTHxWFQyh6fekGfV4FZbVfp3OyPJ8sTvFYBVlJAE=;
+        b=Q5pq4MhO8e1qstW4RVyOcVVr5LY0Eq4aPPA9O7I3SUM/JoIRqd5wxzSqcRmDZsjWTr
+         oB5mU0BKdLmILNz/n2Cl/Km3dX2fhKpQh4Y7RaUhJL1t20E7p4PxBMjTzoEJAFcYhUuV
+         1QEcERXJyegjSrgA1EmS54Lo9VzOcFGzzHX6H3He1hwoA3cMrXl+OPVMWMqaPZSFK+WE
+         C6g8SR2JbMRL0vtEowuKuYr6yriHNKfMvctgC5e9meRafTnP0RojDLpPg5678puQvFDi
+         xjc2COCCfGf7uZMIkXR38DgLRUlgC1ifxP5UQCeqfxKz7uueNUprB8QZNtSI33jIbfcR
+         CiCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784974444; x=1785579244;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=egMHTHxWFQyh6fekGfV4FZbVfp3OyPJ8sTvFYBVlJAE=;
+        b=piP1Hj/je1bwwU1DSyNVNAy1ZSTPYGbNybrrCYu1v91Hzw+/SXf/0PzJSWrID0KgkM
+         tHryqoYH9QnJbtWBQF83JwX6Wqz+eHQysMCDDLq1cqb1nOr0pNutvSS5IuzD3SqIVclH
+         iNSkR/b1i1oRr/NNwk5pewU1DQA6thDxuwofccjjDKsl7ngsxdagOe0isPZZwbDwejqc
+         oZuNJpShLnN5WMlBbe43oJbYpE7tnB25lDcB0gPzRIBpjK2I4eqpmt/Uq1Dochu/gvoz
+         fC89Tlj0tTiPvHcVjPzDSzwkQnCIJs/vqaKhxjZfp8761Ju0ArgAxUnWjdSFTQZiMJcx
+         htgg==
+X-Gm-Message-State: AOJu0YxC4K1lQ84qp3qfvmG5qg7vhDKbiouoIBv3veChvamvl4HyzSj2
+	iNa2vFG6QJu+QTADQKolRqZ2W45ymlrvIhG02Lf/eUI/ZUencWsfTl3ratv5TAzursR2ic+K8iK
+	zzi1b8K8=
+X-Gm-Gg: AR+sD13mBzhoyTGh/90kKG0by+GH7H/3y9e58FTvH23ZzghutCqTiR9R+r5LvZbOXwW
+	bl2ldNnDaSa2MoOx2K1R4UanGGxQXILPtPGouLpXQFZyah/VUhbyvtaAc5dJflSTYnuwK4Y6TK8
+	cVrHLI1pd9G7u45nrewVGrMdnuNvP7hPmT5AUgRRLYHrvvVEvrEp2TYKTkU4O37IgOUFQOp8Qu+
+	b3ko04mTnwrxu00fOmdKCmEXu1EXHmVSab70bEtUhK0/utUobfazDe3sI1nhm9yrxPb5qW4GGjN
+	AXA0hOM+swJwbe4RDsRq/6iB+yZLXTUJJx6+t9OOchpKpNbniNaIFiP9SxLY7GJNLQtd/0vk9uH
+	3MdH37p30uTKdUdkmCodaJuP8wjwgl9WlAouZGdzQjyOpBnhJeRTauAibxOt+SdLHxJIf0BINXY
+	QOCGL/5hhDjjCzB34AN4vYMZYsZeKSZX+gz3oUUDSDnRXq14a8qzydKE50bEHLqRatrVI=
+X-Received: by 2002:a05:6512:31d2:b0:5ae:b7c0:f231 with SMTP id 2adb3069b0e04-5b2c1b35f0amr212631e87.7.1784974444095;
+        Sat, 25 Jul 2026 03:14:04 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1d863bsm368823e87.53.2026.07.25.03.14.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 25 Jul 2026 03:14:03 -0700 (PDT)
+Message-ID: <940d7267-cdfb-4dbd-9b4a-6fcd26c4fd58@linaro.org>
+Date: Sat, 25 Jul 2026 13:14:02 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260724111548.2109-1-tharitt97@gmail.com> <amOO86K_3wuTd_92@lizhi-Precision-Tower-5810>
-In-Reply-To: <amOO86K_3wuTd_92@lizhi-Precision-Tower-5810>
-From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Date: Sat, 25 Jul 2026 15:00:37 +0700
-X-Gm-Features: AUfX_mzCV0IN9fI_10kkKdi3HsilTau4VYjXeApWLMbv2AYQ88l9nYF0tHwG8Pk
-Message-ID: <CACak8wNJsmVKm3m+JwYPSxqfa26MVFRo3jE3YrppJPi5SBBAUg@mail.gmail.com>
-Subject: Re: [PATCH] media: hantro: release runtime resources when device_run fails
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Hans Verkuil <hverkuil@kernel.org>, 
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org, 
-	me@brighamcampbell.com, jkoolstra@xs4all.nl
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] media: i2c: Add Samsung S5KJN5 image sensor driver
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com>
+ <20260724-sk5jn5-v2-2-871d3b9a2e47@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260724-sk5jn5-v2-2-871d3b9a2e47@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-> Mix use runtime pm and clock is not good.
->
-> You can put clk_bulk_enable() into runtime pm resume call back
-> and clk_bulk_disable() into runtime pm suspend call back.
->
-> Frank
+On 7/24/26 12:50, Wenmeng Liu wrote:
+> Add a V4L2 sub-device driver for the Samsung S5KJN5, a 50 MP GBRG 10-bit
+> RAW MIPI CSI-2 image sensor. The driver supports the 4096x3072 mode and
+> exposes the standard controls (exposure, gain, vblank/hblank, test
+> pattern).
+> 
+> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
-Hi Frank,
+<snip>
 
-Thanks for the suggestion. I will inspect the hantro pm_runtime call
-sites and let me implement your suggestion into v3.
+> +
+> +static const struct s5kjn5_init_op s5kjn5_init_ops[] = {
+> +	{ .reg = CCI_REG16(0xfcfc), .val = 0x4000 },
+> +	{ .reg = CCI_REG16(0x0000), .val = 0x000e },
+> +	{ .reg = CCI_REG16(0x0000), .val = 0x38e5 },
 
-Best,
-Tharit
+One more comment:
+
+.val = S5KJN5_CHIP_ID
+
+> +	{ .reg = CCI_REG16(0x6018), .val = 0x0001 },
+> +	{ .reg = CCI_REG16(0x7002), .val = 0x0408 },
+> +	{ .reg = CCI_REG16(0x6014), .val = 0x0001 },
+> +	{ .reg = CCI_REG16(0xfcfc), .val = 0x2002 },
+> +	{ .reg = CCI_REG16(0x1e92), .val = 0x8000 },
+> +	{ .reg = CCI_REG8(0x1e84), .val = 0x28 },
+> +	{ .reg = CCI_REG8(0x1e85), .val = 0x2b },
+> +	{ .reg = CCI_REG8(0x1e86), .val = 0x03 },
+> +	{ .reg = CCI_REG8(0x1e87), .val = 0x20 },
+> +	{ .reg = CCI_REG16(0xfcfc), .val = 0x4000 },
+> +	{ .reg = CCI_REG16(0x7002), .val = 0x0008 },
+> +	{ .delay_us = 5000 },
+
+-- 
+Best wishes,
+Vladimir
