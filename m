@@ -1,96 +1,115 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com [209.85.222.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867D729ACCD
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:45:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784965527; cv=none; b=Q/K9mCiQZYg9QTh2muj+nVF2f3PC8bXNKwZKT9ih0Spqbh1p+57zekd2iOnjqzjRMJDPh8IZ3FHGzE6ojQybdnY/ngK9/PwQRsg2BE2ZheU4N899q/G5O+ww6XE8onY7UCAzlg8eQr9A5SWR7mJ/jPJMPglAWJPKejS+UDhUZO4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784965527; c=relaxed/simple;
-	bh=6lBhACCZj2P79lv00t3v60jKDAEwX85X8jBJwD+dqL4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z8giaAUPtvenzIBpC22XBUacDn5s+qHZxkEQ1OXm51ZaFjJ/JgXGmcN8on48RDW9rEdmkeR2SMgZONL/963ysoV59aRvfG+MptAtBt5w8gmhwmz+9IYAZqANGnJaF2cnEcI0xqypFptj3i13Ve9BLu0b2Hm/Q0ZlCkzBDJMKWXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DFFyeU83; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE25F30C152
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 08:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1784966451; cv=pass; b=vBd09uoP6tW1nETzDzWZxY3NIEAxEw1Q90qm1efgdP1taOlmgy0P1V7cTZ+l7j4wCMd0zxxQ6xyO/N6NmT/5GFUxS8aKEGT40zFSCtADMihp4NLMAtY7Py23yBrGETMlkvyA1+3g9o0sLlxKreoKO9h61Aj8+vLzvntf9Fa1dL0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1784966451; c=relaxed/simple;
+	bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=t1pDhwg5aWLqBmZJkatWF+9BxLytEXIKJogUozrDx3npSlfVNY14ts5fOlyXGzo2G0K868qLYEjjbf0apah0CyHYWvsL1TnjKz/4/AzOnBgSRjIiyJ1SKZVn9lfmKL6MuEoR0LYZ6O0mpzfCRrZA6a4ckL3j0paTauqlAi78kU0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bOWROuB5; arc=pass smtp.client-ip=209.85.222.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DFFyeU83"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cc7a269ca1so2460415ad.3
-        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:45:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bOWROuB5"
+Received: by mail-qk1-f180.google.com with SMTP id af79cd13be357-92e50979c71so132681285a.3
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 01:00:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1784966449; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FdA52rsqaMCs0TEaxtRR5+a9Ki/XU4Nh2f0FkO30opMmOcnATMNIdZTIVBJSt7sYJ9
+         xSbYmpboQa7ZKZETH4wF4HCuZhszj/k6QdGGc/uuduMCGuYh1D0m6t+22QaeKkfpH0Ah
+         gI01Pah02Tkpl8VgJEa/EYtQdqGo7xu6RIU6zuC2fJZzXnd+GsaQl39KlnDq+Ff6GhYk
+         JlGF6YhhkP+5SiC0poMWbx0QidddLdfBHL3FDob+Qdw8v17MDf7LwAjE4YABd9EhJP2Z
+         TMYjxL1bosU5W0tiVZDZ+YNDQHtd+9LqQtpM/nqT0WVHWxiZYDfsgb68vmqKppdM9XSP
+         SeYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
+        fh=M08x/fCxsaklCw/blcJBFrL+CVcUFQ+DpjaJt0NGmMA=;
+        b=U9yedBskTUbzWue2p2jKrsurqOGY9r3pJ9G3stQVYzwASKELXBy+i0X5plXcJSNhK+
+         uN1shUTAzw0NLjRPnRNEQ/X/M2dqghGXivOzsgsRh/YLgSWDAE62V87u0r04oyTlYkhp
+         67FDRUSG5RasGAvSQYMsALVs43AUPpocqgPyg27gtlDMEjsEZ55VwjRuyOyucAFNY9qF
+         TNTz8hQUeSJKr/lncA7jVJmGNo0sdiUL2F4AeDQYHxdRFmyd3uibwjZ+vhSMDPG6Yyai
+         qFDZI9vvH/yLNkpDO2Yt4pPbvYP+7mfSj5p06l4RhgHAMvzf5R67Z2+ekd7x/aUPL5qG
+         XiBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1784965526; x=1785570326; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=54njo+35o5CM08BxMiGfJLDeg/totzOP865IKX9TOyQ=;
-        b=DFFyeU831TgL7uTv4q11QYgYn22u4vRM10ZT7zu5w4ElzQ6QYy1HiY9wDfoHY0mDtE
-         8ip8q4Z+u/obGqQwQ73upPeC2Ydg/EaN1P6m11pKIRdttSbO3yYiAgG2NSiEunX+0C5p
-         FYnKJQr1NAqRlA2SouxavLT3EA7RI283g2xzQilj25eWCEhKdb3dhD624mpC3dsHGVKa
-         AwCcHNSoiNJJHCAeib+yx4h5DIPlvdvdD1ejvuYuZ6/OPJBaWBY0TWMUB5Nbu4X2zZ9/
-         iBo4w8dRTqLPrto9bS4rD1xGgPEwkBH84MWRbzo3nCCs9FylIZYHCWhHQD2BMXp+1CBJ
-         kTjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784965526; x=1785570326;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1784966449; x=1785571249; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=54njo+35o5CM08BxMiGfJLDeg/totzOP865IKX9TOyQ=;
-        b=MnP0nsevqI/4ybrlblmm0JllIacgQ3uiYl3gMDSQfAgp0RwQbd0MNOVCX2EgzItZZ5
-         ugaxK4GjpKfeD6BjhF2JEaE2BGjgx4R6m5jyNpzbqlKemWGlx9Yda75YfAfr2ZFt4cZQ
-         pK6wUmBPUGXqOkjUUYRdQ7wVHJvD5qpJJgEOG4wIVqEXJG/z2uz+ujkQVFmM2gfdnJRi
-         9gJ4lTVkR7FThRokWgdbaIBoxfB1YjHzZFD/qNAeinh/GlEWD4ESvZFVo6sRGNj9cbfg
-         sMiABi+Lpzt98DVXZyg3z3n2udftai+/HbEkahmnI4Jtf0URQV/3TgSiL40ijhEjLaaA
-         AXJg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq+FF5hPs3I1G0kEOXWZRTQvC1C4sMBy0blanVKCKe4hcNWAXXJWdXGwTN/enfYqffIsTfSYrrpO7nc+g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzBhr7ZzDW0q+9NT3GM4fjDwEgQk1/g4xYu0+YpXBl4GDeyPZit
-	6xP9ucbkOgRFOa1E9PSUlYMqCYz5BBfJ/UipI2z+84eqAGBx2lm3nuvF2DPHl1v2hP8=
-X-Gm-Gg: AR+sD125YdXmwQoXC21G6enPLJPgbWDRRfEuSMps2FXQcFBHp1dVS6U2b/pqHnP47dV
-	6LHEOQMt29IOrINRaQsC+wTdADoaGn8I0NbF6nvsL40JXnUjicK6jhSJ81oVnaNg1GRVxLR1sZT
-	Z8zVgCIbNJ9cTC5iQS1Izx27oS6+u4RBtKZ8gm8okEC0MPC+O3LJRH6EHHsehnH/i7RalxYo89p
-	02TeQms9cuFRbZSEdvz65qmaJz8SLJEYYb8h+o8mn+KgKKtKLjVVcfuAAC+fbuxcQqqt7Gk5NgG
-	r5R3nonBbJ0lgQwQAICTO5F60k0QI4CuW4aXEy3JcWN3hKdkgYGEmDVjuHqLzTlW7Uc0AUhL/FX
-	/Hpy2sv+I59m6k1QVQ1M8hXjCtM5eG7qgfhFKXBancGG7mvc1bbYMDsaxqAD28vnHkN0TFYMQaE
-	UKpki5o26F4qSYrweJ3fPdKSWWoIJU/U/T
-X-Received: by 2002:a17:903:4b2d:b0:2cb:2b50:d9da with SMTP id d9443c01a7336-2cfde84d398mr11434055ad.3.1784965525844;
-        Sat, 25 Jul 2026 00:45:25 -0700 (PDT)
-Received: from FAIZEL-KB ([2001:569:5b64:e100:ac26:5a81:1f39:799e])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde59b768sm6600975ad.4.2026.07.25.00.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 25 Jul 2026 00:45:25 -0700 (PDT)
-Date: Sat, 25 Jul 2026 00:45:23 -0700
-From: Faizel K B <faizel.kb@gmail.com>
-To: Chen Changcheng <chenchangcheng@kylinos.cn>
-Cc: skhan@linuxfoundation.org, kieran.bingham@ideasonboard.com, 
-	mchehab@kernel.org, hverkuil+cisco@kernel.org, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: vimc: Replace do_div() with div64_u64()
-Message-ID: <7h44zvktv5up4cxv7wweqio3r4abhgl4mhz2pu5h2267da7qss@mstbqjlx6uqo>
-References: <20260716093017.175254-1-chenchangcheng@kylinos.cn>
+        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
+        b=bOWROuB52xU9VSLychp/1xC7v8t1dhzlM4GtnIrxxn/Yhvhcj4F958piISlGoZGHjV
+         jBPwsa+gHgd5ZLGXxC09rGHnJZ7YeTR1Hu7AJ8Iz2sK++MdzkKuVbjj0CNt9f/ynDlDJ
+         6iojrOthXmRljvELZYD5hK4i/KsZ444aKKuwJYr2NNyDTMbmIcIwDw3ncp2zcWrWGGNr
+         +T+CF2DQitlMjSj60MxEfSe3ahq51pOaArAPHK24hgfNac9nvtMHBYiKImFCk0xLHw5C
+         CvL3LMMHXXDf70fNuamDG9WIFmuhhwo/1zPiNKeQSmyYW7kiNXQAYnZ4xEi7HtM5hZs/
+         kihQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1784966449; x=1785571249;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=13z8xjIigSLm4fcji9bQpCPHK39sYQC+iiIlSwrcSfw=;
+        b=MHeoSBYKNWRgTfn2qJbKVuDzE6h421zIwb9OFDodsioDK4ueukQjyGIpztI5IzAI+5
+         gjf5D+3mdJopwV779E9Oe1WRpm1hbGVWPj0qyYsNq8se5zDIdyaAT3I81anMEhnx+vGA
+         Fx79wB1UNGZnNYDQMy6J9cIPDS5P3r2iMegPMi+HwXXCw6E+NBermRdEwfoi6NinHxgC
+         S2J+anEGQ+yG44zwwCSVu17ZYWyh5xDDvIIKsq7DuJ2il/rEE6x33xC7QbhBIyuBBOMe
+         7Rk6PUPRp1KmKbHwvchXkR+ng9BsRXNarXqpM4AYvY10b9IS0oqjDh8D3nzo1w4JFwzP
+         w/1g==
+X-Forwarded-Encrypted: i=1; AHgh+Roo8DMNtbJnx8HoI1xRKZchiicB010zMag4QIyvWBo7vq+Yow220G06bH1s1OielRMbKGTY0JOuT7qz9g==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9kmfL+SuZKv+OiF647WWzudgWR65ttrWA5xXNw0XZHAd1DUQz
+	FBw4E3gca1dMYMioRP6qYwxyDuuI+hWWbwOPdaIbGgjkV/Yoy9Bb0rp7TylOECFDROdzbvwQ6jA
+	c0/o0dFwePg7U2uH2DysTRWws8ot94A4=
+X-Gm-Gg: AR+sD12b4KufJ0CBO5q3CDQSX7SNuszVssZsxUQ8W2uGAuj10CXpqDJDZeQzK0ysw9U
+	9lF8/MRVzpo6JZOOU5Nf9DuPBw28p5MK7nBfPnGZwJInr1vyCVJMbp58ywIrmao4EUYm0F2wVCA
+	5CBcZj1PKaJwg1PuiSJENK0/rYZWO0URDFKPZfFnexwPsoXcoUBlhVr8DS9ANsan1zSL0AKvHpz
+	2Hb9OuLzqiTw0PNbmqviz/8akGh6i5tSoMsbJ5EXj84Aj86g2VJhM4POlpac52+vatNDTE/c5bA
+	utczkelHt+G5A4ceGTnhbyp77GpJtWMVj0e+2WKPZiuw8dJCC9yBgFzkYhUXZvc=
+X-Received: by 2002:a05:620a:2681:b0:930:dd19:11ba with SMTP id
+ af79cd13be357-932df6f0f30mr100360085a.92.1784966449572; Sat, 25 Jul 2026
+ 01:00:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii; format=flowed
-Content-Disposition: inline
-In-Reply-To: <20260716093017.175254-1-chenchangcheng@kylinos.cn>
+References: <20260724111548.2109-1-tharitt97@gmail.com> <amOO86K_3wuTd_92@lizhi-Precision-Tower-5810>
+In-Reply-To: <amOO86K_3wuTd_92@lizhi-Precision-Tower-5810>
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Date: Sat, 25 Jul 2026 15:00:37 +0700
+X-Gm-Features: AUfX_mzCV0IN9fI_10kkKdi3HsilTau4VYjXeApWLMbv2AYQ88l9nYF0tHwG8Pk
+Message-ID: <CACak8wNJsmVKm3m+JwYPSxqfa26MVFRo3jE3YrppJPi5SBBAUg@mail.gmail.com>
+Subject: Re: [PATCH] media: hantro: release runtime resources when device_run fails
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Hans Verkuil <hverkuil@kernel.org>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org, 
+	me@brighamcampbell.com, jkoolstra@xs4all.nl
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Jul 16, 2026 at 05:30:17PM +0800, Chen Changcheng wrote:
->do_div() expects a 32-bit divisor, but pixel_rate is u64.
->This can lead to truncation on 64-bit platforms where
->pixel_rate exceeds 32 bits. Use div64_u64() which handles
->64-by-64 division safely.
+> Mix use runtime pm and clock is not good.
 >
->This fixes the Coccinelle warning:
->drivers/media/test-drivers/vimc/vimc-sensor.c:107:1-7:
->	WARNING: do_div() does a 64-by-32 division,
->	please consider using div64_u64 instead.
+> You can put clk_bulk_enable() into runtime pm resume call back
+> and clk_bulk_disable() into runtime pm suspend call back.
 >
->Fixes: ec1e620b2454 ("media: vimc: sensor: Add pixel_rate,vblank and hblank configuration")
+> Frank
 
-See the previous changeset
-https://lore.kernel.org/lkml/20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org/
+Hi Frank,
 
+Thanks for the suggestion. I will inspect the hantro pm_runtime call
+sites and let me implement your suggestion into v3.
+
+Best,
+Tharit
