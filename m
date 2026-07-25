@@ -1,66 +1,66 @@
-Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com [209.85.167.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9071F0991
-	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2B9F31E821
+	for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 07:32:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1784964607; cv=none; b=NPWJmLYID5iBszvcxk3N0PeVRZnViDUKscMuM4zu0UIV5T/GE0n9kDNI7WOwUVeeLpLzHBq8n3Gc6w9riJAQK7aM4TbImWISQ1MQ2CTJxYzhS8SxptY5DQdrSb1lDzDart95tJR2LYf7GGNLArXYIjGxK0TqtLmlysM9EafeJAI=
+	t=1784964767; cv=none; b=rkkrIonKbVBEkCzRRE/T9kx8AHyZcxSa3DfA9BZyDhTBjOODvnaKtWaL1zO5teKkGKuUspOY2R/5oTC/L0KtTUhZzfc+6mQltg2pUcC6Ta/q5cDxTxHoGBGRRH0Vkrt5UXziN3I968+PmRes7OeTYjR863bs8V2mQzJy7mhGCrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1784964607; c=relaxed/simple;
-	bh=QJ0pw6kT+7ttJEjN5QtiAww89rTFm26gWIo1rCvMZDc=;
+	s=arc-20240116; t=1784964767; c=relaxed/simple;
+	bh=ISNiLlzbBIN1cNfO53+tFyj2q5vGd9wWiUFlb/jKmRM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=V0Gs08u+TxrlwptPqDC+uqE9+jFXaDohAi052TImsNzjj8zRXOZaCJGdM7hjyo71DNr1lhj5cZxlvr5zjkbyCrb+s9tzkhurYF+/YQQzqaNPJdrpB3MCZgtz5TSqawn2bqXBtRA4KomjxADsT6klkvJVeQ4ob12sPLlUbDU2ih0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wt9TTikE; arc=none smtp.client-ip=209.85.167.51
+	 In-Reply-To:Content-Type; b=ZsaQratop9cap6jz1t0yx0FtSl7Y36376C9WqCFzlj/RNMrMBLqUBqECCE3VwawtKzuyF2VxYESZWj8H5/IohSsmtWMYn9kgcf5G92KOGfDX0tp6hRaMYqOkwcEUGcX+dskwwieWRCRvRKsQirQYfazgUZ4zq6YenfeXLRZCzkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=fc6yUYsp; arc=none smtp.client-ip=209.85.167.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wt9TTikE"
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b2a73d5fc3so88132e87.1
-        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:30:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="fc6yUYsp"
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aec090da14so87451e87.2
+        for <linux-media@vger.kernel.org>; Sat, 25 Jul 2026 00:32:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1784964604; x=1785569404; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1784964764; x=1785569564; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=XduFr5bfGfiijp0kkCnpSMKS9c+QPdxDM+BNYvNsJf4=;
-        b=wt9TTikE/BucEJ7aMHK7FM0w96ixomWfHCDjYS5jdHvAcGHdwYRicTCJrRZwcnmU4t
-         AICOTOuYosMBhWqNJzFDvf5a+/66H7n18YOVdMWcWbvhBUyotewcFYFUqJ4irB4to1pR
-         7vjVdIf0T8e3gcGOFGGScL+WGiB3cyJRQ9OkUxVlpsozchckGrfPNH/y98teWRWZbyzl
-         CdZe5vLze0ma+cj8nv9wtva6A5ZRpKRL8nI1AlNkpUYMPPojOAhbQlGfKJDslLLSrDKr
-         1OSltQ7mQ4aJTO0oxzZXQWkMQSYMn3MDpdNH6ymjdxnxi7DZGRpGKRCdAVirL88ZYa6w
-         ZxLA==
+        bh=SlGbODmTnTj5crUJcYH6Lgn3M5IBqL6iL2YhZzeM6GM=;
+        b=fc6yUYspRSNyWFzJLMEibOCf1BrjE5PebqqMslxgMS0bICZ1vtemRQfps0JoSm9jPX
+         DKoIcAu2wOayPbLA/0iFIYBF/nnh9VZpFp1iTna8vyr3TbBhDjtkvzu6MYxbS0GP3idS
+         2IKlF1aLqmzOBV2zD1parsXbHt7QkApft4ms6HdlRgRSi3PyEVRjpLGwtiTDWcxPDdTQ
+         moXolm2K5G3BlZZgBJltx2ZARmxX3OKhAgE9a61iZnVW3rIR/Od+tv4chQjOOERw/BPy
+         iy8n0wEsVH1m1Sfnyt/OSG7zmki/zQJHLdCFwpDGrRILcp+/VeYemfEZjxiIcA3jw6XS
+         x5UQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1784964604; x=1785569404;
+        d=1e100.net; s=20251104; t=1784964764; x=1785569564;
         h=content-transfer-encoding:content-type:in-reply-to:from:references
          :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XduFr5bfGfiijp0kkCnpSMKS9c+QPdxDM+BNYvNsJf4=;
-        b=dT4ONXgoCcLCzYw5+c07NdtrxgZbQxCjSxv2DEuEmH7fTTT3sFanZ3jNdD0GVngHcF
-         KgbhvGJdbzAhkAMFiLF2azw11+dY1FrQa1SZYAYYeBZq0xNM7RIfMWLd5kPxdAtjUHE2
-         Duwyv0UsZz/XHy1TR2fkx29YSKI05KmKWtcVDYnyNfsErGKHPkpuMngkTtGstgcRYe7O
-         Z+JFNI9qIRHvQ8zNJSQJQClDr90m7LqdPxzsES0xZsI1YuxViyAra9ZDGhr/Dk7femGa
-         BakpvNsdbvv2BgBJwgSrcKL9+4WC6TljBv2VjW6pHJ8jEQ7pe0qW5r+dZJmELsEicLPJ
-         qEbQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrbuYHNxq/G0soY+AJ8tmkdVXqJeEZJciZyAoJUhZ3ViOa5GSxHtQTYU8ZGX9GftQ2PaLP7/vhCSd7J9g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzjajeNzdry8q9pvZfFyrqGfRVWIb/A/yZiTNmMwWc8UtNEFpnT
-	mnLLSmLMAibbKLnOwIazuCmufMKReFeNw5RrWwLhiRCEzXebEueCLgQ7F6kq7EEcdWE=
-X-Gm-Gg: AR+sD122JD318d+p9lwhcElwyKimXtvDZT/1P6NCQoI/bTE/Or7gUMHNduUyvLR6zKc
-	niTU3HE1PAgaSziqbU+IRGSnATTbYlnXTPkaO0c77kLiBtV8Qp3yHUuaW47nbI06FlGLsYWwhRA
-	wDlyf+efdz9rbQ08Csk+0FTTBS8ltwjkKVgXfg9pD50Mo7dEJjGHDQZT76KtVDCynldum9MwFiO
-	68HCewombi291ZeRJ9CpSa/0qvPOAlpjbfnhk07Q7cqt/qnJiLIWoBTY22DGdsMPUcLLU3wHD9D
-	I6O/eVTsbWARA///rayxM5Emrc3WWyCh8rJRGCGDJnETmMKcS/jGTcgGkYBfKHEJ8n/weW6bAK6
-	nYI/XOAlXaiQ3ldAesIviOlAUpgWl/8C1NE/Oa8lu2F/DJ5wtadaS9z8qP9Mwoa5OVnRdC1+NL/
-	4xS95lZ26NqtClznNYAs9kd8fDjBMKm5GTJ8vFE/qZzjkSaYe8cMz1zvrb
-X-Received: by 2002:a05:6512:3b1f:b0:5b1:4fde:61a with SMTP id 2adb3069b0e04-5b2c1b027b8mr134327e87.2.1784964603913;
-        Sat, 25 Jul 2026 00:30:03 -0700 (PDT)
+        bh=SlGbODmTnTj5crUJcYH6Lgn3M5IBqL6iL2YhZzeM6GM=;
+        b=m49fmWdtN1X8mA5d4YVl9qjGTQ3R1tgu9PrR7s9ojgH7jgY72Smnp2m2eaJTS+9+GL
+         JXoCliixxtGQ7OP7131F6pNe9NnX2E0NTjUm8ajD1d/sOM76Nagg3Dti1oYFs7+lwJee
+         mk1Daz564MaKr/67wVjuvcGOq1kl9dglADHyTiSCc56IrbYmr+tVJ88SPX8JZdXwOwDS
+         lhIwwmhsaN0+Ku5Uq9OP+14dMig/NgYuSQow+/5lZ8IUaOxR2vLSNJ9Vwe0vP+/HaONu
+         MaJeZVqofxU9/e/F0JtKiXXUNZJF1dfb0VeW04oMjDxfNcqmdd+nPHQZrcofAh6WRRJs
+         7HBg==
+X-Forwarded-Encrypted: i=1; AHgh+RrbYVc6bU1E4kqIZkgM9ovZ6H0LmJ4rO12Mt7CBEyd5Haooa+Rx+K8fGiQEJWlYPfeWzeP9N8jzMm314A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVAihd7BcCQqCQqONBYj8C6hULLxocRyuB6RUUYob4+r5m48Vi
+	vOJvaXECVsi79B0ByZg6gJ0t8Dh18ar6t0JxqVR+rr78JsMyEnuBlVPhI3UJ7DKS4rU=
+X-Gm-Gg: AR+sD13AuOtHH57EFXBvro7g/sdPmP4YHJRhQr+n/O353m2XF5T/7iloH+3rtm7XDvh
+	ITJnWZxGoj2baRtWXDsRtxYzK+aTeOZItLGynN+Ru8Fg3haPKpYG2SUOuTGl58mHytDUBXtV31o
+	QdLumPySpc92EqQFHb0zBkpVi0XwivPei+0JBCDh0eFgQiXndPszArQE5cNbFQ7x5jThLuDk6e7
+	qKKg0bLB9qBC+lAsEGajEa0nUR2oEE2HOZy4u9fNaw8+iNOSM/962RHcRvplbHXqesYsAEM4HmL
+	LplT4WceV+dB7LFVtzcPhkp2vLcQDVGcPZou8GaBmFqMv8HuCebUc0Gq9oXBQZ5Kd9kqmAAVu0l
+	+Vrgz4Qg1ZRMhNCo7w5nSBOZ7IYHrabXKlhXUjiCZpKu+ajq9jVAKMVzfj0VVC/nVaRrRi0tNxm
+	nW4RqTIcacGcJZRtShorSLCb8Ks15WcN9mk1jM3uxgf0YRzSkdZedYqbE0VesAEPhLiuU=
+X-Received: by 2002:a05:6512:3c99:b0:5ae:cf48:bd37 with SMTP id 2adb3069b0e04-5b2c1b0201emr130838e87.1.1784964763762;
+        Sat, 25 Jul 2026 00:32:43 -0700 (PDT)
 Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1d88b2sm307970e87.46.2026.07.25.00.30.02
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1d84fesm297418e87.47.2026.07.25.00.32.42
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 25 Jul 2026 00:30:03 -0700 (PDT)
-Message-ID: <b97ae9a9-6473-4004-8368-fd5ebef63897@linaro.org>
-Date: Sat, 25 Jul 2026 10:30:02 +0300
+        Sat, 25 Jul 2026 00:32:42 -0700 (PDT)
+Message-ID: <0769346d-b49a-4043-a2fb-60c9e5f6b6cf@linaro.org>
+Date: Sat, 25 Jul 2026 10:32:41 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 11/17] media: i2c: os05b10: keep vblank and exposure
- range in sync on mode switch
+Subject: Re: [PATCH v3 12/17] media: i2c: os05b10: Update active format before
+ adjusting framing controls
 To: Tarang Raval <tarang.raval@siliconsignals.io>,
  sakari.ailus@linux.intel.com, mehdi.djait@linux.intel.com
 Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
@@ -78,80 +78,47 @@ Cc: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
  Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
  linux-kernel@vger.kernel.org
 References: <20260718200912.16001-1-tarang.raval@siliconsignals.io>
- <20260718200912.16001-12-tarang.raval@siliconsignals.io>
+ <20260718200912.16001-13-tarang.raval@siliconsignals.io>
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260718200912.16001-12-tarang.raval@siliconsignals.io>
+In-Reply-To: <20260718200912.16001-13-tarang.raval@siliconsignals.io>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 7/18/26 23:09, Tarang Raval wrote:
-> Update vblank through the control path on mode changes so exposure
-> limits and default values are recalculated consistently from the
-> active mode.
+> os05b10_set_pad_format() calls os05b10_set_framing_limits() before updating
+> the ACTIVE format. As a result, the VBLANK control handler uses the old
+> height when recalculating exposure limits, causing -ERANGE when switching
+> to a larger resolution.
+> 
+> Update the ACTIVE format before adjusting framing controls so control
+> callbacks use the correct dimensions.
 > 
 > Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
 > ---
->   drivers/media/i2c/os05b10.c | 19 +++++++++++++------
->   1 file changed, 13 insertions(+), 6 deletions(-)
+>   drivers/media/i2c/os05b10.c | 4 ++--
+>   1 file changed, 2 insertions(+), 2 deletions(-)
 > 
 > diff --git a/drivers/media/i2c/os05b10.c b/drivers/media/i2c/os05b10.c
-> index c54b466656aa..d124db74766c 100644
+> index d124db74766c..82a96081fe21 100644
 > --- a/drivers/media/i2c/os05b10.c
 > +++ b/drivers/media/i2c/os05b10.c
-> @@ -745,13 +745,23 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
->   {
->   	struct os05b10 *os05b10 = container_of_const(ctrl->handler,
->   						     struct os05b10, handler);
-> +	const struct os05b10_mode *mode_list;
->   	struct v4l2_subdev_state *state;
-> +	const struct os05b10_mode *mode;
->   	struct v4l2_mbus_framefmt *fmt;
-> +	unsigned int num_modes;
->   	int vmax, ret;
+> @@ -907,14 +907,14 @@ static int os05b10_set_pad_format(struct v4l2_subdev *sd,
 >   
->   	state = v4l2_subdev_get_locked_active_state(&os05b10->sd);
->   	fmt = v4l2_subdev_state_get_format(state, 0);
+>   	format = v4l2_subdev_state_get_format(sd_state, 0);
 >   
-> +	ret = get_mode_table(os05b10, fmt->code, &mode_list, &num_modes);
-> +	if (ret)
-> +		return ret;
+> +	*format = fmt->format;
 > +
-> +	mode = v4l2_find_nearest_size(mode_list, num_modes, width, height,
-> +				      fmt->width, fmt->height);
-> +
->   	if (ctrl->id == V4L2_CID_VBLANK) {
->   		/* Honour the VBLANK limits when setting exposure. */
->   		s64 max = fmt->height + ctrl->val - OS05B10_EXPOSURE_MARGIN;
-> @@ -759,7 +769,7 @@ static int os05b10_set_ctrl(struct v4l2_ctrl *ctrl)
->   		ret = __v4l2_ctrl_modify_range(os05b10->exposure,
->   					       os05b10->exposure->minimum, max,
->   					       os05b10->exposure->step,
-> -					       os05b10->exposure->default_value);
-> +					       mode->exp);
+>   	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
+>   		ret = os05b10_set_framing_limits(os05b10, mode);
 >   		if (ret)
 >   			return ret;
 >   	}
-> @@ -842,7 +852,7 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
->   				      const struct os05b10_mode *mode)
->   {
->   	u64 pixel_rate = os05b10_pixel_rate(os05b10, mode);
-> -	u32 hblank, vblank, vblank_max, max_exp;
-> +	u32 hblank, vblank, vblank_max;
->   	int ret;
 >   
->   	ret = __v4l2_ctrl_modify_range(os05b10->pixel_rate, pixel_rate,
-> @@ -867,10 +877,7 @@ static int os05b10_set_framing_limits(struct os05b10 *os05b10,
->   	if (ret)
->   		return ret;
->   
-> -	max_exp = mode->vts - OS05B10_EXPOSURE_MARGIN;
-> -	return __v4l2_ctrl_modify_range(os05b10->exposure,
-> -					OS05B10_EXPOSURE_MIN, max_exp,
-> -					OS05B10_EXPOSURE_STEP, mode->exp);
-> +	return __v4l2_ctrl_s_ctrl(os05b10->vblank, vblank);
+> -	*format = fmt->format;
+> -
+>   	return 0;
 >   }
 >   
->   static int os05b10_set_pad_format(struct v4l2_subdev *sd,
 
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
