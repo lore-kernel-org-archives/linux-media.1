@@ -1,30 +1,70 @@
-Received: from luna.linkmauve.fr (82-65-109-163.subs.proxad.net [82.65.109.163])
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7F081DE4F1;
-	Sun, 26 Jul 2026 12:53:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882D0221FD4
+	for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 12:54:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785070431; cv=none; b=bLyoNdH8gfRounBT6l+d79tVo59IydcfgQNCJdz1U28FFBZjJtsDx82KDvjTWcJFw7BX9rWvNt0yMuXLZFFph8Vqw9Dz4TJsLvdIgL7/jAKajIUcJpmsRlCYEMLL8h3YzaMVnj9iyLC7l6nPSPHDbShEIWuyDZNpVUbZ3zX5G2U=
+	t=1785070496; cv=none; b=k5BSXOHI6xs88HmpSwXkZPbro8NtzbNJ7s3t0FsFqeg4qjnHyQZJ1Jl4Tj8jeglqezJ+AdlfxioyOwvFNO5AjItQA0iOrOvp3O3hsPq0jtPV7l5s69ImxNqiLo4M3HzaINznT8maDKFdMgEL0KrpTE1mvbuIIAKhKoQjxBgtNzo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785070431; c=relaxed/simple;
-	bh=awXQYLArLbDGYn9jXGuF/NUzWdg7WrGvuKU6atXZCO0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fOxeP8ldGvVoe9PG5UBqth08Nhcwjp3WBqYPifhzUmfkcoIbZwz0+6fKXRteaqftyyfALa7qi8VRgBFtCQU42zmT4R/a3m4ktWa7zfgJ+M13UB9h+kol7pYDfVT4sGBsDoPvRd9YxguTbKRzldu+XZB37clWM32V5EBtqETFAFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
-Received: by luna.linkmauve.fr (Postfix, from userid 1000)
-	id B3870F40DC6; Sun, 26 Jul 2026 14:45:39 +0200 (CEST)
-From: Link Mauve <linkmauve@linkmauve.fr>
+	s=arc-20240116; t=1785070496; c=relaxed/simple;
+	bh=taU9jya5z1CYVaSZqATUxNhPmhV/VodTSEjVYsdJ4ao=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tGxrT5w6AhbWtLfLXy0T/NuMG054Yrej8IMtemn5kI5o+4zkXoV4sSHJGlQEQSwgMDg+Lgt+8DJmm7Wewe9N9EErmnFdf3P1SOmE/8sjJC1LjqzOSqOFePjvSR6o/ouDLjYlb7MREGtLCUbQhhnLyjjFiTk7lT6jTC0JLXYyu14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dzt7hBlX; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dzt7hBlX"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-39c83acb86eso15990031fa.1
+        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 05:54:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785070492; x=1785675292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QfnUxGMQYoQ7V1Nu1lZplk3MivTLe57QIBbIfYAMKxE=;
+        b=dzt7hBlXBGti2ZEmrevu9IbQw4bMRJU557qnF7AJfVsWCj3rP6f7G8YaZ981NnoWMD
+         lCuyxMZdUOKU/iNPfeOnAutXg8t67vL6lt/HJpg/hPq68m91GmfIIDHSkgEGVW0K+t24
+         fQppe0y484kAGN267bZ9XwnLjNZy0qCyb4NdX6PfEEV8DlSnc6RVe5eJhkb2mdmvFIg1
+         53wy+91I9DqHmWAep7g9nptyqRykD0UC1EF/GzN25EmKve1iom9sdOST9UbPw+7m+gEG
+         s2vbPDnaG+9J6xuePHVoRrDxHioXXHocmTXRqtXyuTPMjDQlqWm+CDOPxbgYOGaS8pq8
+         QBCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785070492; x=1785675292;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QfnUxGMQYoQ7V1Nu1lZplk3MivTLe57QIBbIfYAMKxE=;
+        b=dhFoOwXC01Ai1AXfJKg/eBqiwy8LidC/haz2JUT/bJvBG7riagPZRGZgeCQFpz2ZYn
+         tuhEujPT3ty5Anb/a5Ig6L2JToqz/+KK5qR8KhC0zR0wXyy48uu0NHwZj668rRwSZKXq
+         6/sXPJKxV/ddjnpclg73+ewbKLH1gnm85dmOgWRj6Rq+5czftjomVGiYft8f94lh0hUs
+         boS9/fWaQnO552WN3EQ7S3EUnoyeZVL5jzUDe1N7jWOdVN7sqy4pZmZycQ+X6OlTGzm0
+         qOWvJ4N9HKIv0LGH1ySVBr9CGTCtmNNW0CKPvYjbturDMhAeao0NL0RTK0eeB8J48SBH
+         zfrg==
+X-Forwarded-Encrypted: i=1; AHgh+RrSD95mgllLUVfDPmxFKluoqwo6q0u7yUhf/Jt6oC/tbHhsqnagjqI11WzmRnZ7n2H+CZ26vYzr8B+oMA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxC7PPfr1mwLi2BdOj6m6OYT0R8/zouK70AHtnCJLz2a2WoLAyg
+	yNFdBbd5LWUilK3t/lgYTPbXgowCt4/RfYWILGX2gBhgww+YQaQOISgF
+X-Gm-Gg: AR+sD13+/kussQO84SNGzohf9Qkbj9b5Zrr1jfmr73I35jg8xVGjigg2bJagbMcYG6b
+	JLUphsMFYE8It89/qUKLiQCvgnLuAHsNUGTtayr+/agoHTZ3WPZKfbQRyrOHAyuZUQQDcud9A75
+	DVbFvi4ZBIa82NXFN70Fii0LNkj0c5M1ijk44YBwFH7OWhQCO5r6eShhoXihqbPvUV+I47CCWiP
+	COkeJONNmIacDdDMLmHh8axrZIHLJXA81eG6Ko0xmaiY3jGrhkktStFceIy6XBsRpagZANkF9cK
+	QrC0jufQs+i1McUGbFXoog+wbWzecJGNt3SAeg01vAOEc29FGJAZxMRmCiE3xxnFFmlVtdMfZGB
+	AI7fgBZabogUPimRggwmPu5vccToL45LAJ5Vu7EzNNcbY+FyioBf8g7CJHeBQ4TVao+WoLQ1Hxg
+	NZA00TIXotYx+c8ENlg8bbWo1zETPItZU=
+X-Received: by 2002:a05:651c:b0d:b0:39a:eb5a:d78f with SMTP id 38308e7fff4ca-39f288e992dmr9534841fa.35.1785070491907;
+        Sun, 26 Jul 2026 05:54:51 -0700 (PDT)
+Received: from archlinux ([85.93.1.25])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f2224c825sm8104441fa.35.2026.07.26.05.54.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 26 Jul 2026 05:54:50 -0700 (PDT)
+From: Mihail Antsev <mihail.antcev@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Link Mauve <linkmauve@linkmauve.fr>,
-	Bingbu Cao <bingbu.cao@amd.com>,
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 1/2] media: ov2740: define most fields on variable declaration
-Date: Sun, 26 Jul 2026 14:45:30 +0200
-Message-ID: <20260726124535.15081-1-linkmauve@linkmauve.fr>
+	Mihail Antsev <mihail.antcev@gmail.com>
+Subject: [PATCH] media: ipu-bridge: Add upside-down sensor DMI quirk for Samsung Galaxy Book5 Pro 360
+Date: Sun, 26 Jul 2026 14:54:48 +0200
+Message-ID: <20260726125448.11723-1-mihail.antcev@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -34,70 +74,45 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This also removes initializing reg_write to NULL, which will help with
-changing its signature in nvmem-provider[1].
+The Samsung Galaxy Book5 Pro 360 (960QHA) has an upside-down mounted
+OV02E10 sensor. The 180 degree rotation is reported in neither the SSDB
+nor the _PLD for the sensor (both report a rotation of 0 degrees), so
+the image is rendered upside-down in userspace.
 
-Thanks to Sakari Ailus for their suggestion[2]!
+Add a DMI quirk entry for this laptop so that the sensor fwnode gets a
+"rotation" property of 180 and userspace (e.g. libcamera) can
+compensate.
 
-[1] https://lore.kernel.org/rust-for-linux/20260716142415.28718-1-linkmauve@linkmauve.fr/
-[2] https://lore.kernel.org/rust-for-linux/al3sxMUgeK49dwNs@kekkonen.localdomain/
+Tested on the Galaxy Book5 Pro 360: with the sensor reporting
+V4L2_CID_CAMERA_SENSOR_ROTATION = 180 (verified with an equivalent
+local sensor-driver quirk), libcamera renders the image upright.
 
-Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Mihail Antsev <mihail.antcev@gmail.com>
 ---
- drivers/media/i2c/ov2740.c | 27 +++++++++++++--------------
- 1 file changed, 13 insertions(+), 14 deletions(-)
+ drivers/media/pci/intel/ipu-bridge.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index fb590dfadda1..fbcbadcecebe 100644
---- a/drivers/media/i2c/ov2740.c
-+++ b/drivers/media/i2c/ov2740.c
-@@ -1246,9 +1246,21 @@ static int ov2740_register_nvmem(struct i2c_client *client,
- {
- 	struct nvm_data *nvm;
- 	struct regmap_config regmap_config = { };
--	struct nvmem_config nvmem_config = { };
- 	struct regmap *regmap;
- 	struct device *dev = ov2740->dev;
-+	struct nvmem_config nvmem_config = {
-+		.name = dev_name(dev),
-+		.dev = dev,
-+		.read_only = true,
-+		.root_only = true,
-+		.owner = THIS_MODULE,
-+		.compat = true,
-+		.base_dev = dev,
-+		.reg_read = ov2740_nvmem_read,
-+		.stride = 1,
-+		.word_size = 1,
-+		.size = CUSTOMER_USE_OTP_SIZE,
-+	};
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 42a309e72..20cb133de 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -182,6 +182,14 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
+ 		},
+ 		.driver_data = "SONY471A",
+ 	},
++	{
++		/* Samsung Galaxy Book5 Pro 360 */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "SAMSUNG ELECTRONICS CO., LTD."),
++			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "960QHA"),
++		},
++		.driver_data = "OVTI02E1",
++	},
+ 	{} /* Terminating entry */
+ };
  
- 	nvm = devm_kzalloc(dev, sizeof(*nvm), GFP_KERNEL);
- 	if (!nvm)
-@@ -1262,20 +1274,7 @@ static int ov2740_register_nvmem(struct i2c_client *client,
- 		return PTR_ERR(regmap);
- 
- 	nvm->regmap = regmap;
--
--	nvmem_config.name = dev_name(dev);
--	nvmem_config.dev = dev;
--	nvmem_config.read_only = true;
--	nvmem_config.root_only = true;
--	nvmem_config.owner = THIS_MODULE;
--	nvmem_config.compat = true;
--	nvmem_config.base_dev = dev;
--	nvmem_config.reg_read = ov2740_nvmem_read;
--	nvmem_config.reg_write = NULL;
- 	nvmem_config.priv = nvm;
--	nvmem_config.stride = 1;
--	nvmem_config.word_size = 1;
--	nvmem_config.size = CUSTOMER_USE_OTP_SIZE;
- 
- 	nvm->nvmem = devm_nvmem_register(dev, &nvmem_config);
- 	if (IS_ERR(nvm->nvmem))
 
-base-commit: 9eebf259d5352b87080d67758f483583d9e763d7
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
 -- 
 2.55.0
 
