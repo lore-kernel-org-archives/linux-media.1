@@ -1,114 +1,189 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFA53C98BA
-	for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 21:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17DDF246770
+	for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 22:15:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785102282; cv=none; b=pm596swQos7uTxcfXSXgvP4hCY1XbhhRJU8RGjXhcuYXu1zD1BCdZFANI39TJtUK8KmXJCxA/b/QGhgn8UT56IO5Q7Tf+ASPBRNIyXiSDJclpXHUL0F5xdTFJMfJQxvG4y+B6sN8KcU7IRzjPf4Comnz29fkHFr6M/t0t+BxJmQ=
+	t=1785104155; cv=none; b=gzn7Lx1i0thstAiKT+DUvorUFq8UVObQWbSTKipRkhBxheDNpWeFsMV8Cq1iehNfzLfQqSjBPyubftAeTGV4q+qNs9YAY7JA7FVKJPi0V8iftvpEVclOyofOAzQZLlUBVr3tGmmWlxG9kHE65DSxL5kLc1qkB2hHkVPAQg9WVXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785102282; c=relaxed/simple;
-	bh=ygRoN7b3dgu4lAhoJksF8fNETvwsHkA61bUd2JkCIIo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lkiNGAO9hPCLY2/ucWABow74zEE3YtGAQsfC9Mb+so3ZiI1TiUrYKhmWuzhRJbJwZuaoEKSjtpDt6qkpTm73q5Zwaml9ZzsGmZ2TzFhV4okLTnbcktr2w9yGdgdqHHLVPbZGCC1CyUr/JOGbo9UI6aVZJZNx8ihnPkzjG7n0Ywc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=qOzrUEfV; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1785104155; c=relaxed/simple;
+	bh=R8j6eBV+UdD1g7eXVCfMDbakYZoNCDVSJKVtPfAu39c=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HXqe0AftQoH3pAmuwLlyQOWzvhuOxStkvRWXqgfDL4pi93WirDB1AC0r4OZJq8om8gxmZMuBJQmScbP5NlRgh+69npM0/jPs/3r0RBWuzWvyIl+R1pIyNu7oXmgfaYGWLbOK49IVCQ5QRtAkrsZ4sNf64d/Ah6RI9P460sbO2m8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YPaLTA/a; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="qOzrUEfV"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-51c15bf5000so12290271cf.3
-        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 14:44:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YPaLTA/a"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c1600d040e4so292168966b.1
+        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 15:15:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1785102278; x=1785707078; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Jto/MrdGaItM/ShBKHC/4oOFN7WiMbrQtyy4H38GKYY=;
-        b=qOzrUEfVZmaTWgDVzoYHCCwEmg+B7zb67YHkjkqFf2EeUaK+QmAYvf1CQ/THw8zz5/
-         +ySbuX6oc/bMcXWbFqgjOIlYyf+JvIW357Fz+B1tGPJD4r9lcx0eQugzhsRHb7+cJWmb
-         E+xD8BOZi7fojPq7zOsWRrL8okIuzuAN8CiVeo4odJ2n1R7mPwF20IwyxkjyCS9n5pjL
-         U9mCQiLJEqJ93uenkIxUhS8D8m+mAJH0Nm76CkduQk4xwZC1bNxIe4FAC83dLBbhU0m3
-         WDXpTOy0A0jRDZxxAZVhRfEMs+THvFQejYlr3Rg47AxOLrj1LVXcDeVzKsabkVWYlAgR
-         +j+A==
+        d=chromium.org; s=google; t=1785104152; x=1785708952; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Havq3+W8NHvvrT9IGeQuks/YcxvMGuQejowI96vAV+8=;
+        b=YPaLTA/aSWzm7QzV9edA/KlqcxYFxiWCnrbyMnr9LFLtdkukHxQXtahdDHu6hUE4Is
+         6e32d6jg03ibcdPxuJBPqKTPTVHxHqyQ1p6T5rqop0jhzJqUZLpDhCARrqSUaW9+T5t6
+         NUa6h71EFpBM2ztWd/yWcsov9QlHFGW8HUB6Y=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785102278; x=1785707078;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Jto/MrdGaItM/ShBKHC/4oOFN7WiMbrQtyy4H38GKYY=;
-        b=Dst6m1yZRCuWIaD1N/d6C1u5iWRWZ7sr4RFYMVUHzDcn+hpb1mhDZlEcNnwp5U5VGw
-         1LOr+X/IkFekT0Y1bEbCbChqqAA4BA1v7oo4sofuAQ63xVKSu4Y4xf8AFFkSkYzok7Pm
-         8oEPZvyerkHpXMeR8/XQUz0T7bUtjLECa7kxo0zEJR/Eas+xSbjciuy/LvMXbPNXhnXw
-         R9kwTT31O8FDy/yKK1dqiHnxbjuZhyJEOoEngVtBTYRMyHyBTsQ1HLn0XMpyRvJkh0b+
-         S4kZPOOSxJcF0LOE6Nnl+VDf4gCOPN5/g+gf8qnzDKX8y2rYo2Zr/8ueKia71idgmp7l
-         NGpg==
-X-Gm-Message-State: AOJu0YyCNd+M30SDVcR/9w6qOZrAIEdpAPwgE7BcRyvn6WYK61cD6EoN
-	G+Y/f+GEOn9DfdP5NUZYzJoL23XOxjPgXiBdyVvj9mMmB7TTNIPb/eYoEEOgnVhglMyamRZ3CL4
-	Qj2B84kh/wjeVquD7ucQbEF66n5Ce5/DgQibiwwLA0d8MdKPMlSs71q0GVCPMc6GPvH1B5mnaKt
-	3rzSUVx9xvgdV5eaKQ7fU/kkRfzUFwmSWGVNape5Jo5UVojiZuGg==
-X-Gm-Gg: AR+sD10uQlsSCdVzFUK6IB+qjGM8n0SUPR+CsKZk0uAnKJfS2ivGyQFrwPPfs0IcZJw
-	Zs9obgOwwA9rcz0z56x+SuoXC8rwYWiBuG8T4MLhmkiZCNrpVUSyCBcAmNFnvrLFOClp/R151wM
-	hWjNad8IqlKmTHgQ5xllGUgMuBzc60waojcXNP5umTacQQCZt9nbvGR6H+MQDdufKtvRhkqtxW9
-	ObkTEe0ndyI5Y+oOE88Ant5LF5TSI0ySrY2LNErWcSBwHwii4jOpehqRbaOT3ANyISdYzmF9iD/
-	99F+tdTTdvTvlq7wfOaK58r+tirYcOX56K59yjJY3X4UPIcKKNjVlCRhheFZAyn7VsxWW6dlSHu
-	R4myWX9ooLpqdHgxA8ktoHz2Aw76sA+rMdDCfwgMf95cGW+yw9SJpRSJARRnQMxWlpyT7sAa1p2
-	1u12dF0ju+rqpzK2WoV1u9/hx2VcQfpCavsiNOaIKdCCiPbXG6CQpBciXqGKo9RVz2CUTHpIO4V
-	V5b0Frlj+P09axl/dNpqnh2FZNk5g==
-X-Received: by 2002:a05:622a:1dc5:b0:516:ea30:8756 with SMTP id d75a77b69052e-529a839f57emr61929401cf.36.1785102277619;
-        Sun, 26 Jul 2026 14:44:37 -0700 (PDT)
-Received: from jake-laptop ([153.67.53.72])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a27cedccsm41487031cf.4.2026.07.26.14.44.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 14:44:36 -0700 (PDT)
-From: Jake Steinman <j@metarealtyinc.ca>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	hansg@kernel.org,
-	bingbu.cao@intel.com,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/2] media: ipu-bridge: add Himax HM1092 IR sensor
-Date: Sun, 26 Jul 2026 17:44:01 -0400
-Message-ID: <20260726214401.19042-3-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260726214401.19042-1-j@metarealtyinc.ca>
-References: <20260726214401.19042-1-j@metarealtyinc.ca>
+        d=1e100.net; s=20251104; t=1785104152; x=1785708952;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Havq3+W8NHvvrT9IGeQuks/YcxvMGuQejowI96vAV+8=;
+        b=R0PqGAHQLgc7LhEwfzXN/j5uqTRKr+a36QOSCUS1rUKNMjxg3sG/rieilns5SthBZJ
+         9KVmvmzkPHW7PCHqIeGpK+/wF1qejmxQK43HjwlJsFwJwG8vfcS0tvcUffC/N9csnWJM
+         HQKHxRrqHymvecyyANDyw8poyOBuHXUIx9/Fpn+NlyHolHfYIWRybsLa9Sq7+Q9x0IsX
+         MsXkEIRY8izOZut+akCcup5qbNa4+kH9+xKIsvRMC72FlrwSBg/2ZjQQJamp4PwF4R47
+         oWrHefi7SCnXffRc+/3cWd0VtZOjnPqXn9w2zD8nfQ8jIxbgwNdtqj9akGmUYq0WvCxE
+         Uz9g==
+X-Forwarded-Encrypted: i=1; AHgh+RqulxtU+IH2+yHKYOwb7Kdj4iVP1wCXfXPBjWcXb5R7igFkvWogHNiTyg7Cuy9VeCFI0f+rp2XNUDVxbg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzSa1vsCvuRZZ/nsoW5He11pGfsXUCPYJR81JvRh6ui6kZsZHhP
+	oa84KKNVuMytsCfvkkQ8cJNpS5HVNMabbpT4eviY0TbpTlBC86/ItP11pCSpj2EHsPB+Ckgfvqu
+	eiWo=
+X-Gm-Gg: AR+sD11Nx5nW/P2AbfuDL8dK8RSyNJLAVNYif2uDqJcl/mgkeBMrshis6dNhmF1hWAP
+	ZTr8QS2VP9N8jxyW1Jn8/fZOCxfWwAlkbZ2E1fK3ip00AyMsJB1z2b3cLpYCZ68rIAFeDdnLHj2
+	V0W6dP/4A6yEjIc8OsMumIdj5bsKiLwGgu4nB3Hyz6Ra30yb3kv85sl05HtUZLcVF0BuWgt5CAA
+	j78yn0Y8SuT4zLv9XM5KdFHzNaLSHkIh7798aqLXixgFO9xxhXRuaJBOfNpl8NSVxfeeJp6dunE
+	Z/61Pr7zggOXPD8eBHAE86MiGsekFOKH0QdaOOaIi4lDanonNmhlaQsOiD9NWNUw4e1p3Ot+6Fn
+	As+959XFCqz/Jt6pUyCxMr1WhWJD8fSBrsfvT9q8hHfQM+bsbWeuGegT4k+3gLhsHIc1AdmhHAv
+	PHicDpGI0Tr1YFJ5Mydh8PruNU4OlqqBw91aY9xGo=
+X-Received: by 2002:a17:907:72c5:b0:c16:6be0:77d4 with SMTP id a640c23a62f3a-c1f1fcaf96amr306106666b.14.1785104152251;
+        Sun, 26 Jul 2026 15:15:52 -0700 (PDT)
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com. [209.85.208.52])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32a76fecsm561402966b.8.2026.07.26.15.15.48
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 26 Jul 2026 15:15:50 -0700 (PDT)
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-6983d3dae7aso4447713a12.0
+        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 15:15:48 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqY0KDMCQiU2K+Z1ZD4901MFM/FiSa86MoXJwLnNtuoOVvpP/7OvpIuXYTSJ7/2le2dJvsNiUtGRFbkhw==@vger.kernel.org
+X-Received: by 2002:a17:907:6d02:b0:c12:6280:33c9 with SMTP id
+ a640c23a62f3a-c1f1fe12aadmr259561466b.28.1785104147414; Sun, 26 Jul 2026
+ 15:15:47 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260629-cocci-7-2-v1-0-5884c80ee3b6@chromium.org>
+ <20260629-cocci-7-2-v1-4-5884c80ee3b6@chromium.org> <qrcq3ntszxswpk2wbeb7uq4gq3mncegwtoncyplkhdhrslzghs@dhkvpb6n5jsf>
+In-Reply-To: <qrcq3ntszxswpk2wbeb7uq4gq3mncegwtoncyplkhdhrslzghs@dhkvpb6n5jsf>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 27 Jul 2026 00:15:35 +0200
+X-Gmail-Original-Message-ID: <CANiDSCs9s03DUjKwcPgDtZt2QJ4i0FGwab4zpEP+wCawagSC2Q@mail.gmail.com>
+X-Gm-Features: AUfX_myD67rv6_r1pKzI_bPb2NSRPK4fvnxMW17kw_fG6idlmXoKI8O_nXVfpxA
+Message-ID: <CANiDSCs9s03DUjKwcPgDtZt2QJ4i0FGwab4zpEP+wCawagSC2Q@mail.gmail.com>
+Subject: Re: [PATCH 4/9] media: vimc: Ensure that pixel_rate fits in 32 bits
+To: Faizel K B <faizel.kb@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	"Bryan O'Donoghue" <bod@kernel.org>, Shuah Khan <skhan@linuxfoundation.org>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, Bin Du <bin.du@amd.com>, 
+	Nirujogi Pratap <pratap.nirujogi@amd.com>, Sultan Alsawaf <sultan@kerneltoast.com>, 
+	Svetoslav Stoilov <Svetoslav.Stoilov@amd.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Abylay Ospan <aospan@amazon.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Add the Himax HM1092 monochrome infrared sensor to the supported
-sensor list so that ipu-bridge builds the software fwnode graph
-connecting it to the IPU CSI-2 receiver.
+Hi Faizel
 
-The sensor uses one CSI-2 data lane. The link frequency is 180480000,
-which is the DDR clock; the vendor-stated 360960000 is the per-lane
-bit rate and using it here leaves the receiver expecting twice the
-line rate the sensor transmits, so no start-of-frame is ever
-generated. See the sensor driver for the full explanation.
+I was not on cc on
+https://lore.kernel.org/lkml/CAMuHMdVx80Eh8w5-OioH-Uyahea0ZRQHUVg9MBfQ4uEjaxM5Lg@mail.gmail.com/
+so I was unaware of that proposal
 
-The list is kept sorted by ACPI HID, and HIMX1092 sorts before
-HIMX11B1.
+I agree, something like this looks cleaner and removes the sanity check.
 
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+My patch has already landed in media-committers/next so you need to
+send a patch on top of it.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 88581a4..481cfb5 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -49,6 +49,8 @@
-  * Please keep the list sorted by ACPI HID.
-  */
- static const struct ipu_sensor_config ipu_supported_sensors[] = {
-+	/* Himax HM1092 */
-+	IPU_SENSOR_CONFIG("HIMX1092", 1, 180480000),
- 	/* Himax HM11B1 */
- 	IPU_SENSOR_CONFIG("HIMX11B1", 1, 384000000),
- 	/* Himax HM2170 */
+Regards!
+
+
+
+
+ diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c
+b/drivers/media/test-drivers/vimc/vimc-sensor.c
+index 83dcc9d61ee0..7cb544fdfddb 100644
+--- a/drivers/media/test-drivers/vimc/vimc-sensor.c
++++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
+@@ -97,18 +97,14 @@ static void vimc_sensor_update_frame_timing(struct
+v4l2_subdev *sd,
+ {
+        struct vimc_sensor_device *vsensor =
+                container_of(sd, struct vimc_sensor_device, sd);
+-       u64 pixel_rate = vsensor->pixel_rate->val;
++       u32 pixel_rate = vsensor->pixel_rate->val;
+        u32 hts = width + vsensor->hblank->val;
+        u32 vts = height + vsensor->vblank->val;
+        u64 total_pixels = (u64)hts * vts;
+        u64 frame_interval_ns;
+
+-       /* Sanity check, pixel rate is fixed and fits in 32 bits. */
+-       if (WARN_ON(pixel_rate >= 0x100000000))
+-               return;
+-
+        frame_interval_ns = total_pixels * NSEC_PER_SEC;
+-       do_div(frame_interval_ns, (u32)pixel_rate);
++       do_div(frame_interval_ns, pixel_rate);
+        vsensor->hw.fps_jiffies = nsecs_to_jiffies(frame_interval_ns);
+        if (vsensor->hw.fps_jiffies == 0)
+                vsensor->hw.fps_jiffies = 1;
+
+On Sat, 25 Jul 2026 at 06:23, Faizel K B <faizel.kb@gmail.com> wrote:
+>
+> On Mon, Jun 29, 2026 at 11:30:45AM +0000, Ricardo Ribalda wrote:
+> >pixel_rate is set to VIMC_PIXEL_RATE_FIXED, which the code expects to
+> >fit in 32 bits. Make that constraint into a WARN_ON, so if we ever break
+> >that constraint a kernel warning will be triggered.
+> >
+> >It also fixes the following cocci warning:
+> >./test-drivers/vimc/vimc-sensor.c:107:1-7: WARNING: do_div() does a 64-by-32 division, please consider using div64_u64 instead.
+> >
+> >Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+> >---
+> > drivers/media/test-drivers/vimc/vimc-sensor.c | 6 +++++-
+> > 1 file changed, 5 insertions(+), 1 deletion(-)
+> >
+> >diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c b/drivers/media/test-drivers/vimc/vimc-sensor.c
+> >index d125a79fec8c..83dcc9d61ee0 100644
+> >--- a/drivers/media/test-drivers/vimc/vimc-sensor.c
+> >+++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
+> >@@ -103,8 +103,12 @@ static void vimc_sensor_update_frame_timing(struct v4l2_subdev *sd,
+> >       u64 total_pixels = (u64)hts * vts;
+> >       u64 frame_interval_ns;
+> >
+> >+      /* Sanity check, pixel rate is fixed and fits in 32 bits. */
+> >+      if (WARN_ON(pixel_rate >= 0x100000000))
+> >+              return;
+> >+
+> >       frame_interval_ns = total_pixels * NSEC_PER_SEC;
+> >-      do_div(frame_interval_ns, pixel_rate);
+> >+      do_div(frame_interval_ns, (u32)pixel_rate);
+>
+> There was an error in the data type of pixel_rate. Actually it is u32 instead
+> of u64. There are two changes suggested by Geert in reply to the original
+> report. v4l2_ctrl.val is s32, not u64 and using mul_u32_u32() for total_pixels
+> calculation. We can avoid the sanity check also. Would you be able to consider
+> these two changes which avoid the warning?
+>
+> -       u64 pixel_rate = vsensor->pixel_rate->val;
+> +       u32 pixel_rate = vsensor->pixel_rate->val;
+>          u32 hts = width + vsensor->hblank->val;
+>          u32 vts = height + vsensor->vblank->val;
+> -       u64 total_pixels = (u64)hts * vts;
+> +       u64 total_pixels = mul_u32_u32(hts, vts);
+>          u64 frame_interval_ns;
+>
+> Link for the suggested changes
+> https://lore.kernel.org/lkml/CAMuHMdVx80Eh8w5-OioH-Uyahea0ZRQHUVg9MBfQ4uEjaxM5Lg@mail.gmail.com/
+>
+>
+>
+
+
+-- 
+Ricardo Ribalda
