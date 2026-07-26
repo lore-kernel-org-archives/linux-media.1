@@ -1,67 +1,66 @@
 Received: from mail-pj2-f1.google.com (mail-pj2-f1.google.com [74.125.227.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A2A379982
-	for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 20:28:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B6F43BB68B
+	for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 20:28:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.129
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785097726; cv=none; b=NOsIxkBqzvomR4/G/Td74W1FhikfS8DtW4Iv2OFPD2X6/ZXOhFzFPBYaUj4UpOysw25RSlVVdtg8zB7MSwlBFgOJrZMEHC6oZyBSY1mc7m713Gal635ai4hy8oQsjfz4HrD5c4C9omNKIMZkxOrt9p8vecB1+NBftsQ0sfuExHw=
+	t=1785097728; cv=none; b=k4Fgz8Dzxos+8wXG/W2Ar393N1SCKSzqGqwaZeD96JcYdXPm+jauLeSy1aRyGAcb1IVFUJg4hel/LqcIf6Aw3Ifkun/4aUEO+FF+KPW/kB583kY+mu82CxL+hvu0U3CHmVqV0RtH/lCPF+ehphbWXSmeJe8XPsCsIFVEvGuu/eE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785097726; c=relaxed/simple;
-	bh=xrJYApi44R5M36YnVIY4FrAMyGAWfJOvOoTQw5LWppg=;
+	s=arc-20240116; t=1785097728; c=relaxed/simple;
+	bh=Fz/skoI/gVJASQcO8sSdrmflRnzeMkH7p6tK7YaIY+4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hb5PgjRRefaBXphOvX647M2sOTxZP4k5My/iZ/0zTxZXasMp5qyeC/E6LfAEL9CdOV+KkdevyW8E6ikXrsFmZv+puB+LTt78PJR2b19prZcnsi02MTHalgws7cHDPHjiZzV6hMYlmWlyv51uxrLZr+yUOOQmAQfRCdwjeXnFQwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WowJsNEU; arc=none smtp.client-ip=74.125.227.129
+	 In-Reply-To:To:Cc; b=Le5b+hudHCiNJhyCIwVHNDd5SICSFVsAKO9tRSgLSDB1UPgrlwafqTh5jSmNeynVhCpQxaqF8oryPYB1+xsxN7Z7BbQRDARtDdvrJCI2eRP8PZYcBNKNIznFSXwf5ifBKYk0Eqr0iswZnSMGJQlqsjj3n3kc97JWb1JvKGtPEw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DjbLxzQh; arc=none smtp.client-ip=74.125.227.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WowJsNEU"
-Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-381072761d4so1424693a91.0
-        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 13:28:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DjbLxzQh"
+Received: by mail-pj2-f1.google.com with SMTP id 98e67ed59e1d1-381072761d4so1424704a91.0
+        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 13:28:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785097725; x=1785702525; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785097726; x=1785702526; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=e73x8QdchDSqnuT6U4OkhZ4rgK0OXUwrGO2cGkRXz7o=;
-        b=WowJsNEUPdHyBpwdLK5hVYDwFfZovdCCBTq7eGg6vo9500YTMfbI8yt5oNRaque8BQ
-         6TMiYhLAsKLYFvtL6cHvcwuXJUJqI+YpSmd8/rd05K1ZL+uQH8A6MqRLri8vuB0yyIHo
-         ZDVUhynRs3cgAWL8p8tlKcOrWS03mYx4pAlBWD/NZbJaBO+egiq2U/Q+dFnrip+u2mxt
-         Nun0Om5i0dv16J18bTnq0nwMng42QHApLV5Dh00zBIp4YXkGNVAKSuauz1+Tb0ur28om
-         osSdV/ZkoM7nS010Dh0ikPQdQHz1ULMYKaTGgabntlrjXa0j+NhnNqUjWBc/VlFDDZGv
-         Dnrw==
+        bh=M8DfFzu+jiw0YwnLPKzMF9rwItgemt8RX14X3+mRhAY=;
+        b=DjbLxzQhWwOnaE+Pa3+TNttsWvEXEqAsZ+x0XW4JMy42MbRC0Y2f4cofJP4Z/X+RaH
+         NcsqFZVuGrqaPJZIFV9/WeFmyO8+7mTBHg0N27HFiHOuhXBj/sSkTvPdpV+r0Remp/qd
+         tCI2nYJkAgL+bvcKtB5NKGtYsfQydu+Vm5xNP3gSSRecsGuuiZah0GkfXbysavet4xLh
+         V7Oz9sIG9Rf/JUTI0A43J25mqkgv1DFPfHwRh0CKa5Rc0Dr6GTh4ARbj2VTWJWIVF5yU
+         svp1OP+QXYN8U8/RhveLOk8ZFECVCiLJDUkr0VkxW33we1u4sYvw+0KNTlroRMRLrf44
+         17xA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785097725; x=1785702525;
+        d=1e100.net; s=20251104; t=1785097726; x=1785702526;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e73x8QdchDSqnuT6U4OkhZ4rgK0OXUwrGO2cGkRXz7o=;
-        b=WE8S+vzLRh6SLAm/otmTJ2aIYwlCXy+FRS2ANLVKv/SKa/HQeapKVUAImKze2ENAYL
-         2zUebDVdk3BWnPQgpB/OVhvEbu5ZL4TG7Rzd4DFy0LNPV/1Ur36xFAA+zIyF203mbe1Y
-         rBTKVnnr+lQj/ecrDIBDU2kb9ewIuheqzZH06zcmJm0Xg/eSaiJMzdDKgbej0jWZEp3h
-         jVBSG+cp5rCuaNcqVV8c5eYAfgKkw7BcUx5zsFpJ14kksy1A6bKDoqU3JFKfFNyAWk2W
-         WsqJJXiNNFq9HmmXAb/bz0z5Bet7KVah5j7KpXJ9l9aKXO86AA23bh22av5RjmEigJF7
-         a/tw==
-X-Gm-Message-State: AOJu0YyzTVwhU39On+9fsVOcnxjGoQaEUatBWugTHLF8PJXYqJ+Agyne
-	bbPuiSolE29tDaaFTKip5sq00yS+NQ9MB7XXSkLAYcXjjNKuYo3e3MiC
-X-Gm-Gg: AR+sD125wt7YZkjwvgXc2SwfK00AY1w1EE3mMp51Dn8UjhpV84pzvVm6W6OGkXVyW29
-	MsrC/55SEX9ZbjnblFK3CeKuSHrNPo1iLb6VErw0ZO8uRW9bU8SiE6qzfGUJnTtQZOzVyC+brbG
-	M64gLaPx3/5nVU4jFihqCtgBjrCn/LKhmIk5S1AEOMj8doUWoO0JT2o5StKCV3f2NkwBMOWuWpN
-	94q+b04k9VEQQRFbGtouHpBOi/hZBYpwk+FmAYosfkh1eLEXYz7u8EpM0ueaCW2mBXJGO5B+CR2
-	OQ8YVnj0IN+Re7cHWzJFyHojQrL9Efm7yz4JRVr+4YS0WlJVpZZa22SOBjFPdNYp7vNWOLm/0xO
-	ukGkZJH9vB0kZrl+AU1EdbLH9J47IZ4m55XWc+eZCInCAcEo8p72qLjQz8C2CmfzWEB03FhfACj
-	RW3BZWSel4/dH62cxnt4H1VPBT3qWiHNRKA407NDWpUyvMYorq
-X-Received: by 2002:a17:90a:ec85:b0:38d:dfd1:7a8 with SMTP id 98e67ed59e1d1-38f293d3c03mr5635996a91.2.1785097724483;
-        Sun, 26 Jul 2026 13:28:44 -0700 (PDT)
+        bh=M8DfFzu+jiw0YwnLPKzMF9rwItgemt8RX14X3+mRhAY=;
+        b=o2twlLIh583ZDMuJ+vsdakkA4ncJt+QO4CcV5yehL8zCEBZ4vDYc3LF1sgVL6tgacr
+         LFBaj5hBUsJ2X4sYmwvDXY6pXqbCGYhGRZprkmkX0QhOljaAGKbTC33sdIyf1IQUWe8I
+         cxC+d9vNoupJgiXhG0ZZxrmf3yK1jdPD90XLbaHQgCuYoE/Vw4Cjj5TKPGZ91pvaFRxr
+         fMAftidbCLXcFHIawTHKoGm4OmsNZNbHCR2mjZ631kNZEG0QEZEp+oEm+85h2qvkX9BH
+         RMP168+gcxaKB9QsbsXdfIJem/g0J3R9+rYK9Kna6ltTbkPNTC5ixxxUxXggLS6LB8cx
+         nVaA==
+X-Gm-Message-State: AOJu0Yy5qYQ8akLlWXqdHBCGKWBYe4ToIYDktPQNQv0UnkfT6QVuBnbI
+	c5gRU0L/AXhfSJ5u/6bnjIR7K6Th/xOUTASvjuexseOVxS37zTqKizCj
+X-Gm-Gg: AR+sD100o7EhApFa8A0i1GRENzIzTogpd6d3cNJetKeP/iOFEm2Q9GEi4X94tdpIeLN
+	d3WDPhTfmlulAo47YNGqjQXP5ocfzJ+/rCFzRojcDohSUax+R7W49+Iw/xSkYmHz7RGxLvlxg+5
+	KCsqY39+9I9zaAoOpOxTrE5ZEXGfILCKJvBHNrYgRx1W6lCogGYlsE/kwl+FrFtQ5o2TJkaaMDw
+	pnQtLnbZP7EcaUwjGpFxwKsP6TYrsPfAUApdseysmMFzWkroobztyY13EiX/Mo7X5w8Ult9ZytP
+	VqKM3SiRsb254tDy8SQiSsm3nZmxXwTvDzjgCscmnKLDRBvQ3l4fRWPK1pJBLqRrWarIFsLVJvE
+	QbldWimTE03znNDkZqOLbfeKlk6rrJwspbJJSEq+C6lP7Ym8vwihR+CtXOJIytPe9oAZiKJ4GXW
+	BzSk2yWX/QhpsBWRJcBcov3wKkXmNADDXZcMARwq1kCCaMJHDS
+X-Received: by 2002:a17:90b:390a:b0:38e:7d40:faea with SMTP id 98e67ed59e1d1-38f296189e3mr6139243a91.21.1785097725761;
+        Sun, 26 Jul 2026 13:28:45 -0700 (PDT)
 Received: from [127.0.1.1] ([2601:647:4d7d:1e60:c46f:4bb9:6cdd:73bd])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e6461ef84sm132697c88.14.2026.07.26.13.28.43
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e6461ef84sm132697c88.14.2026.07.26.13.28.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 26 Jul 2026 13:28:44 -0700 (PDT)
+        Sun, 26 Jul 2026 13:28:45 -0700 (PDT)
 From: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
-Date: Sun, 26 Jul 2026 15:25:34 -0500
-Subject: [PATCH 1/4] media: rkvdec: vp9: Changing get_ref_buf function name
- to get_ref_buf_vp9
+Date: Sun, 26 Jul 2026 15:25:35 -0500
+Subject: [PATCH 2/4] media: rkvdec: Move vp9 functions to common file
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,7 +69,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-1-180fb2d1f10c@gmail.com>
+Message-Id: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-2-180fb2d1f10c@gmail.com>
 References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
 In-Reply-To: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
 To: Detlev Casanova <detlev.casanova@collabora.com>, 
@@ -83,45 +82,353 @@ Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
 X-Mailer: b4 0.15.2
 
-This change is in preparation for the upcoming commits and to denote
-that this function is not to be confused with the similar function
-found in rkvdec's hevc.
+Refactor common VP9 functions in preparation for adding the VDPU381
+variant
 
 Signed-off-by: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
 ---
- drivers/media/platform/rockchip/rkvdec/rkvdec-vp9.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/media/platform/rockchip/rkvdec/Makefile    |   1 +
+ .../platform/rockchip/rkvdec/rkvdec-vp9-common.c   |  65 ++++++++++++
+ .../platform/rockchip/rkvdec/rkvdec-vp9-common.h   |  92 +++++++++++++++++
+ .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    | 113 +--------------------
+ 4 files changed, 159 insertions(+), 112 deletions(-)
 
+diff --git a/drivers/media/platform/rockchip/rkvdec/Makefile b/drivers/media/platform/rockchip/rkvdec/Makefile
+index e629d571e4d8..2bbd67b2db11 100644
+--- a/drivers/media/platform/rockchip/rkvdec/Makefile
++++ b/drivers/media/platform/rockchip/rkvdec/Makefile
+@@ -12,4 +12,5 @@ rockchip-vdec-y += \
+ 		   rkvdec-vdpu381-hevc.o \
+ 		   rkvdec-vdpu383-h264.o \
+ 		   rkvdec-vdpu383-hevc.o \
++		   rkvdec-vp9-common.o \
+ 		   rkvdec-vp9.o
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.c
+new file mode 100644
+index 000000000000..a802f0acd27b
+--- /dev/null
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.c
+@@ -0,0 +1,65 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Rockchip video decoder VP9 common functions
++ *
++ * Copyright (C) 2019 Collabora, Ltd.
++ *	Boris Brezillon <boris.brezillon@collabora.com>
++ * Copyright (C) 2021 Collabora, Ltd.
++ *	Andrzej Pietrasiewicz <andrzej.p@collabora.com>
++ *
++ * Copyright (C) 2016 Rockchip Electronics Co., Ltd.
++ *	Alpha Lin <Alpha.Lin@rock-chips.com>
++ */
++#include <linux/v4l2-common.h>
++#include <media/v4l2-h264.h>
++#include <media/v4l2-mem2mem.h>
++
++#include "rkvdec.h"
++#include "rkvdec-vp9-common.h"
++
++void write_coeff_plane(const u8 coef[6][6][3], u8 *coeff_plane)
++{
++	unsigned int idx = 0, byte_count = 0;
++	int k, m, n;
++	u8 p;
++
++	for (k = 0; k < 6; k++) {
++		for (m = 0; m < 6; m++) {
++			for (n = 0; n < 3; n++) {
++				p = coef[k][m][n];
++				coeff_plane[idx++] = p;
++				byte_count++;
++				if (byte_count == 27) {
++					idx += 5;
++					byte_count = 0;
++				}
++			}
++		}
++	}
++}
++
++struct rkvdec_decoded_buffer *
++get_ref_buf_vp9(struct rkvdec_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp)
++{
++	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
++	struct vb2_queue *cap_q = &m2m_ctx->cap_q_ctx.q;
++	struct vb2_buffer *buf;
++
++	/*
++	 * If a ref is unused or invalid, address of current destination
++	 * buffer is returned.
++	 */
++	buf = vb2_find_buffer(cap_q, timestamp);
++	if (!buf)
++		buf = &dst->vb2_buf;
++
++	return vb2_to_rkvdec_decoded_buf(buf);
++}
++
++void update_dec_buf_info(struct rkvdec_decoded_buffer *buf,
++			 const struct v4l2_ctrl_vp9_frame *dec_params)
++{
++	buf->vp9.width = dec_params->frame_width_minus_1 + 1;
++	buf->vp9.height = dec_params->frame_height_minus_1 + 1;
++	buf->vp9.bit_depth = dec_params->bit_depth;
++}
+diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.h b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.h
+new file mode 100644
+index 000000000000..0d042215fad2
+--- /dev/null
++++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9-common.h
+@@ -0,0 +1,92 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Rockchip video decoder VP9 common functions
++ *
++ * Copyright (C) 2019 Collabora, Ltd.
++ *	Boris Brezillon <boris.brezillon@collabora.com>
++ * Copyright (C) 2021 Collabora, Ltd.
++ *	Andrzej Pietrasiewicz <andrzej.p@collabora.com>
++ *
++ * Copyright (C) 2016 Rockchip Electronics Co., Ltd.
++ *	Alpha Lin <Alpha.Lin@rock-chips.com>
++ */
++
++#include <media/v4l2-h264.h>
++#include <media/v4l2-mem2mem.h>
++#include <media/v4l2-vp9.h>
++
++#include "rkvdec.h"
++
++struct rkvdec_vp9_run {
++	struct rkvdec_run base;
++	const struct v4l2_ctrl_vp9_frame *decode_params;
++};
++
++struct rkvdec_vp9_intra_mode_probs {
++	u8 y_mode[105];
++	u8 uv_mode[23];
++};
++
++struct rkvdec_vp9_intra_only_frame_probs {
++	u8 coef_intra[4][2][128];
++	struct rkvdec_vp9_intra_mode_probs intra_mode[10];
++};
++
++struct rkvdec_vp9_inter_frame_probs {
++	u8 y_mode[4][9];
++	u8 comp_mode[5];
++	u8 comp_ref[5];
++	u8 single_ref[5][2];
++	u8 inter_mode[7][3];
++	u8 interp_filter[4][2];
++	u8 padding0[11];
++	u8 coef[2][4][2][128];
++	u8 uv_mode_0_2[3][9];
++	u8 padding1[5];
++	u8 uv_mode_3_5[3][9];
++	u8 padding2[5];
++	u8 uv_mode_6_8[3][9];
++	u8 padding3[5];
++	u8 uv_mode_9[9];
++	u8 padding4[7];
++	u8 padding5[16];
++	struct {
++		u8 joint[3];
++		u8 sign[2];
++		u8 classes[2][10];
++		u8 class0_bit[2];
++		u8 bits[2][10];
++		u8 class0_fr[2][2][3];
++		u8 fr[2][3];
++		u8 class0_hp[2];
++		u8 hp[2];
++		u8 padding6[3];
++	} mv;
++};
++
++struct rkvdec_vp9_probs {
++	u8 partition[16][3];
++	u8 pred[3];
++	u8 tree[7];
++	u8 skip[3];
++	u8 tx32[2][3];
++	u8 tx16[2][2];
++	u8 tx8[2][1];
++	u8 is_inter[4];
++	/* 128 bit alignment */
++	u8 padding0[3];
++	union {
++		struct rkvdec_vp9_inter_frame_probs inter;
++		struct rkvdec_vp9_intra_only_frame_probs intra_only;
++	};
++	/* 128 bit alignment */
++	u8 padding1[8];
++};
++
++void write_coeff_plane(const u8 coef[6][6][3], u8 *coeff_plane);
++
++struct rkvdec_decoded_buffer *
++get_ref_buf_vp9(struct rkvdec_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp);
++
++void update_dec_buf_info(struct rkvdec_decoded_buffer *buf,
++			 const struct v4l2_ctrl_vp9_frame *dec_params);
 diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9.c b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9.c
-index 2751f5396ee8..d4243ce230c7 100644
+index d4243ce230c7..495738762713 100644
 --- a/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9.c
 +++ b/drivers/media/platform/rockchip/rkvdec/rkvdec-vp9.c
-@@ -349,7 +349,7 @@ static void init_probs(struct rkvdec_ctx *ctx,
+@@ -23,71 +23,12 @@
+ 
+ #include "rkvdec.h"
+ #include "rkvdec-regs.h"
++#include "rkvdec-vp9-common.h"
+ 
+ #define RKVDEC_VP9_PROBE_SIZE		4864
+ #define RKVDEC_VP9_COUNT_SIZE		13232
+ #define RKVDEC_VP9_MAX_SEGMAP_SIZE	73728
+ 
+-struct rkvdec_vp9_intra_mode_probs {
+-	u8 y_mode[105];
+-	u8 uv_mode[23];
+-};
+-
+-struct rkvdec_vp9_intra_only_frame_probs {
+-	u8 coef_intra[4][2][128];
+-	struct rkvdec_vp9_intra_mode_probs intra_mode[10];
+-};
+-
+-struct rkvdec_vp9_inter_frame_probs {
+-	u8 y_mode[4][9];
+-	u8 comp_mode[5];
+-	u8 comp_ref[5];
+-	u8 single_ref[5][2];
+-	u8 inter_mode[7][3];
+-	u8 interp_filter[4][2];
+-	u8 padding0[11];
+-	u8 coef[2][4][2][128];
+-	u8 uv_mode_0_2[3][9];
+-	u8 padding1[5];
+-	u8 uv_mode_3_5[3][9];
+-	u8 padding2[5];
+-	u8 uv_mode_6_8[3][9];
+-	u8 padding3[5];
+-	u8 uv_mode_9[9];
+-	u8 padding4[7];
+-	u8 padding5[16];
+-	struct {
+-		u8 joint[3];
+-		u8 sign[2];
+-		u8 classes[2][10];
+-		u8 class0_bit[2];
+-		u8 bits[2][10];
+-		u8 class0_fr[2][2][3];
+-		u8 fr[2][3];
+-		u8 class0_hp[2];
+-		u8 hp[2];
+-	} mv;
+-};
+-
+-struct rkvdec_vp9_probs {
+-	u8 partition[16][3];
+-	u8 pred[3];
+-	u8 tree[7];
+-	u8 skip[3];
+-	u8 tx32[2][3];
+-	u8 tx16[2][2];
+-	u8 tx8[2][1];
+-	u8 is_inter[4];
+-	/* 128 bit alignment */
+-	u8 padding0[3];
+-	union {
+-		struct rkvdec_vp9_inter_frame_probs inter;
+-		struct rkvdec_vp9_intra_only_frame_probs intra_only;
+-	};
+-	/* 128 bit alignment */
+-	u8 padding1[11];
+-};
+-
+ /* Data structure describing auxiliary buffer format. */
+ struct rkvdec_vp9_priv_tbl {
+ 	struct rkvdec_vp9_probs probs;
+@@ -136,11 +77,6 @@ struct rkvdec_vp9_intra_frame_symbol_counts {
+ 	struct rkvdec_vp9_refs_counts ref_cnt[2][4][2][6][6];
+ };
+ 
+-struct rkvdec_vp9_run {
+-	struct rkvdec_run base;
+-	const struct v4l2_ctrl_vp9_frame *decode_params;
+-};
+-
+ struct rkvdec_vp9_frame_info {
+ 	u32 valid : 1;
+ 	u32 segmapid : 1;
+@@ -166,27 +102,6 @@ struct rkvdec_vp9_ctx {
+ 	struct rkvdec_regs regs;
+ };
+ 
+-static void write_coeff_plane(const u8 coef[6][6][3], u8 *coeff_plane)
+-{
+-	unsigned int idx = 0, byte_count = 0;
+-	int k, m, n;
+-	u8 p;
+-
+-	for (k = 0; k < 6; k++) {
+-		for (m = 0; m < 6; m++) {
+-			for (n = 0; n < 3; n++) {
+-				p = coef[k][m][n];
+-				coeff_plane[idx++] = p;
+-				byte_count++;
+-				if (byte_count == 27) {
+-					idx += 5;
+-					byte_count = 0;
+-				}
+-			}
+-		}
+-	}
+-}
+-
+ static void init_intra_only_probs(struct rkvdec_ctx *ctx,
+ 				  const struct rkvdec_vp9_run *run)
+ {
+@@ -348,24 +263,6 @@ static void init_probs(struct rkvdec_ctx *ctx,
+ 		init_inter_probs(ctx, run);
  }
  
- static struct rkvdec_decoded_buffer *
--get_ref_buf(struct rkvdec_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp)
-+get_ref_buf_vp9(struct rkvdec_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp)
+-static struct rkvdec_decoded_buffer *
+-get_ref_buf_vp9(struct rkvdec_ctx *ctx, struct vb2_v4l2_buffer *dst, u64 timestamp)
+-{
+-	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
+-	struct vb2_queue *cap_q = &m2m_ctx->cap_q_ctx.q;
+-	struct vb2_buffer *buf;
+-
+-	/*
+-	 * If a ref is unused or invalid, address of current destination
+-	 * buffer is returned.
+-	 */
+-	buf = vb2_find_buffer(cap_q, timestamp);
+-	if (!buf)
+-		buf = &dst->vb2_buf;
+-
+-	return vb2_to_rkvdec_decoded_buf(buf);
+-}
+-
+ static dma_addr_t get_mv_base_addr(struct rkvdec_decoded_buffer *buf)
  {
- 	struct v4l2_m2m_ctx *m2m_ctx = ctx->fh.m2m_ctx;
- 	struct vb2_queue *cap_q = &m2m_ctx->cap_q_ctx.q;
-@@ -489,12 +489,12 @@ static void config_registers(struct rkvdec_ctx *ctx,
+ 	unsigned int aligned_pitch, aligned_height, yuv_len;
+@@ -446,14 +343,6 @@ static void config_seg_registers(struct rkvdec_ctx *ctx, unsigned int segid)
+ 		(seg->flags & V4L2_VP9_SEGMENTATION_FLAG_ABS_OR_DELTA_UPDATE);
+ }
  
- 	dec_params = run->decode_params;
- 	dst = vb2_to_rkvdec_decoded_buf(&run->base.bufs.dst->vb2_buf);
--	ref_bufs[0] = get_ref_buf(ctx, &dst->base.vb, dec_params->last_frame_ts);
--	ref_bufs[1] = get_ref_buf(ctx, &dst->base.vb, dec_params->golden_frame_ts);
--	ref_bufs[2] = get_ref_buf(ctx, &dst->base.vb, dec_params->alt_frame_ts);
-+	ref_bufs[0] = get_ref_buf_vp9(ctx, &dst->base.vb, dec_params->last_frame_ts);
-+	ref_bufs[1] = get_ref_buf_vp9(ctx, &dst->base.vb, dec_params->golden_frame_ts);
-+	ref_bufs[2] = get_ref_buf_vp9(ctx, &dst->base.vb, dec_params->alt_frame_ts);
- 
- 	if (vp9_ctx->last.valid)
--		last = get_ref_buf(ctx, &dst->base.vb, vp9_ctx->last.timestamp);
-+		last = get_ref_buf_vp9(ctx, &dst->base.vb, vp9_ctx->last.timestamp);
- 	else
- 		last = dst;
- 
+-static void update_dec_buf_info(struct rkvdec_decoded_buffer *buf,
+-				const struct v4l2_ctrl_vp9_frame *dec_params)
+-{
+-	buf->vp9.width = dec_params->frame_width_minus_1 + 1;
+-	buf->vp9.height = dec_params->frame_height_minus_1 + 1;
+-	buf->vp9.bit_depth = dec_params->bit_depth;
+-}
+-
+ static void update_ctx_cur_info(struct rkvdec_vp9_ctx *vp9_ctx,
+ 				struct rkvdec_decoded_buffer *buf,
+ 				const struct v4l2_ctrl_vp9_frame *dec_params)
 
 -- 
 2.43.0
