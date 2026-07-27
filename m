@@ -1,130 +1,244 @@
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com [209.85.210.177])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 304483BED33
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 08:10:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D456379C3F
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 08:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.44
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785139832; cv=pass; b=EzCy0No1PeG2ardu+KwrtQH6nBaPLhPTeFhDzHsIqjO8Cau656xtCaxco+9u+Qwazr4MfF3uzqBKboaCKQd8BTmXzyLPpkwgLVI1ewS7IJDQWyGiEE4g8IEw+uaOzNe5cQJ2byju8Dz7ascDVcKzzLyP3vKl3/jUVzhf7KawN2Y=
+	t=1785140719; cv=pass; b=ujDDfbsvoihJtVypaBRtIL8Q3UFw8TghUqLe33GlnGglmG54W0Fcjm9v1hdnEFI1OiEM15bJmCGNXUgdkr/pddw1T7ssIBXep0vyXLOHkZllK93Yx6QFOc6DyhtUDPZU+eWUUc7oR8gJN2iNoepi6x8cBsekP5lsPB/2BWb3ygw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785139832; c=relaxed/simple;
-	bh=u1SOk4ZoDfRov22oP6IGlVlZUwuxcDk3g0Ri71MIV/U=;
+	s=arc-20240116; t=1785140719; c=relaxed/simple;
+	bh=kfFHddLq7JV5DXyC1YIB5QjrnGvYaMpx2KZGptXwKn0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D4dUA2ebzxTUGuPE5fk9IIz/sxBmJaSln+9ihORDRNfZFLmKntkCgMitX1k8AZiVOFed4wW8oZk6K1tCdyIFsSGqRlFPzTJczKvJSXEaRVBCOdgKwNcLL7M7a+MSmAMoBLJTxQW3npo5jPKJBWgyNUNKTtbc70EaEnKj+Vgd/YY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ftg7j8yE; arc=pass smtp.client-ip=209.85.210.177
+	 To:Cc:Content-Type; b=PINEKMKtkcf911fOewglmA9IIfqIY+ieYNqeFy07zoqZhicCehAw5Bfkb+3FfOtgRmhdC7dWAHZfsSJh02vBBCyihGTi9/+EWjaLl55ivSYW+8bYzbt3l3dD1LDuWkkdmzNE73GSwCBj6uHzVFMAdFk5uEWE39j8j6G0xsFyRjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VOojWHN5; arc=pass smtp.client-ip=74.125.224.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ftg7j8yE"
-Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8423f236418so1677277b3a.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 01:10:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785139830; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VOojWHN5"
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-660a40aac63so312563d50.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 01:25:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785140715; cv=none;
         d=google.com; s=arc-20260327;
-        b=a9YSUXwakAwVt+tUJPI1J7e9AJuhxdIG0TapyZzw8emGEcuQg9IZKDw0zL6lwskGC4
-         4Vy3d6gOLWSebeqts6ZgYKbjVcgT46kwYicBDIlRK4puwP6/b6XGHfON+MvbJVb+Y0yO
-         gpGWR1eyvQ0gP6tZR5WylTrwWQ2SgiFhj1PmDoVHyOWMP6SUe6qg7/QZBF89kpFLhSKi
-         /qJzmO1o3P1swxPYu9OwtAMQtyc1nws2yiJ/xQbsTEOSQ2hmq9c58BK3gaJPTUV8G2hn
-         kUoD0qNeQjwscDH6qfcZa9bmdYzkkRe79NuXqUX+YOlRfisWd9AIb4SXsSj4B6YTiX4L
-         VUkw==
+        b=UPb+B6LtlHExdGQjXd3RFvRIs9HptLn3baEJm23Wg/S3Nw20s0M2u6YZqR5XbLuaLt
+         CQazsEprCpePUNJamPkH/smELFGYanGtT4btimUI5YcY0OwXweGVdvja3Bq5XFao/SDu
+         aQIvAEny1rZeUExweSR3lGJgW644JIAqAy0ZYpnCIHFqvIh7YX5x4eyCfSuQfHQ+Sokz
+         ifYLNh7sfgr2MNfAgLNYqWD9yVoV2Z5gErtEDreSYz13Nh6c3JFK7eWNLGK9F84HJlxK
+         v7jnK8p8u581DW8mstfiEpXkMJxEw+cmpSaK0hC+WFJmKxeAjjx1scPyNVlT0YUqcuhb
+         VJmg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=VS9Sv2uRCMr+rPQQXbQu6E9yLaoGt+Tbq2NKp6TSeZc=;
-        fh=t5gd9+Ygz2RbmJ+ngcBNrnm3BsQZl4Uq1IvoVhXuSrw=;
-        b=bl0O0DwVdE7fEK68yXlR9OWsg2e6FHpV+i9SAFTt4IyQBEmULOYEsEew5IvVzOPF6L
-         cGhkvnm3q52l2us01DLz+Jj+hb4EzoHME5G+17pBWwsbxRE/Y7CwJlOj4RwCliB3vD/T
-         6O5M5tTbnivFbKJ4YTARqEqwIJGsPSc29a/4SulDWIyrR1amgBMBJbATV28+tqqIbfvh
-         oyGzQ4iYNOzyVHcdEKAnyc3TUS4rQfaFjl7+3Oso4CCckYr6H9Ba3UeDmuZFnFs0D+DK
-         oM6vMZyLZR+7PfkrAc83yNCasc1fdG5EixfIqHQFJMnRtx03sqUr2pgcUPAFPCzY7vaV
-         fHBQ==;
+        bh=KnuH9JNzZqkRfD81Q4WhVtoZdJkHzYHH48enGdGSTvg=;
+        fh=109QbDg0QF7br7v2JnVAwOLYhOw+L3tCgSegCgc+4Q0=;
+        b=B29DhR2ReYciCXfd2UqAcZW9M2lymnGH7iek87VhueCFE7GPEWFlXA1TFihry39jG0
+         CAYEh5wBJKsdKOywpGgng5t5G4zWv5M21xjxEO+CRbMlFb/os0WYp1hFjrR3QfaFR2nm
+         mqqms1T8N/x3cEwS6RhfF6cHrtGx7ln8IHvsTF/Q9sm/hvkuLEh/LME2c/7XNS/YHFMc
+         PEYsdZCwnK3L8kvXgYmfV4usFeWW63h9xM8jINg51bOhcO0TYS1Ptd15dkqyKBR+8OZB
+         SVrZTM4fh86uRBBy9GEqWtWxb5y0Qbfmx8+QvKzf20UPr/ydcGCKjeiX17kI/h2ae+O3
+         o/AA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785139830; x=1785744630; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785140715; x=1785745515; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VS9Sv2uRCMr+rPQQXbQu6E9yLaoGt+Tbq2NKp6TSeZc=;
-        b=Ftg7j8yE5443E0+1kOkxdGJ0Dwk+/h3CbggpNCxjE/GViSPtj2JRVuVJZDDfoxSmpW
-         1Ksv7V3ZgJSkWRXCOtlmSTd0h1/+DFJz0tXn3nhaRi2/7QkhnuICTmWT/nGaQ+HRIs4Y
-         eavz0w2LeQ5tnIxbuJ8pfId4KB77n20aFyd9lelBJjmYYsKscl678vpVU/hg+M98WNfI
-         alBcsbPiAXmu5ghuZ765zaXwhtVXw5oRlo7D9BXFu1Kos17zn2GQw9ie5BQD/X0UXINV
-         RRwSLDAyeaqBVmk2iA/2G1VsiquNDEaCUoHfM/+i5NDcsEwX1jrIoE5BlLRlCv/f6q0I
-         al9w==
+        bh=KnuH9JNzZqkRfD81Q4WhVtoZdJkHzYHH48enGdGSTvg=;
+        b=VOojWHN5cC0SaS/utqsELUgdOUyxwiyX7DdFjJNhtRW8VzjvMhUNWwsKsuwXQ4GdM9
+         b0YUeVubVGpdUPPMxzIVRkGI2wxM3bbiV7jyRQzk0A2W4Foqn5YP+6oX+zNYTW4dAQmi
+         bacYVqc/Rfh6zKwO/1qV1Uhb2INTkd7gYJpicNvVsnqGc/wklXJ5UckAwtkZ5QIDco8H
+         Id2fiF4mcT4Pwu2of1kpUXy2u7FPzNw9o8DdwmrbWwamuS9ZBnECyKAdA4twcmr3r7IP
+         gIkwrd4woRAvan5hLW41esTCvsxxEIoeyJqcRhEGOmyyiP+fZiTy85iyS9pMOp5fqd/Q
+         jCeg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785139830; x=1785744630;
+        d=1e100.net; s=20251104; t=1785140715; x=1785745515;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VS9Sv2uRCMr+rPQQXbQu6E9yLaoGt+Tbq2NKp6TSeZc=;
-        b=Xn3EliIDl3Ek4XjM8QcOoQ3C2zzQ/hy9RUjbpgB3gUUGFQ402B+U10hDjZexpgU6sx
-         UDgcBZ69mwIVGvFU+UFqQHi092L5RQR0ppTz10Bk8AXd1qbOJCT+y/dPuMHdQfVbMNny
-         tzak9uRkjVP95YOUCBIaiKYkbPVnpisafOSFmpQ89Ipemt+eziX1+l4SY3O9EM4emEh9
-         e1oYwU5WthDb9eSnK2vyJTr/Vlm5eSaFNfARoruq7v35ObTKewWXd3SiYmTaStMuArUA
-         4KpoxrBDuMDScr02rGS2KcK/dCzsq05UrRXH/RVdYFoXABJl9jSBWGeQokeX43aweCEG
-         8QJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqzncMzbKVs9jsZFPP9BhxrvcjSC12bVbb54FBhBbGyE1aU+swicRTMbGvPvHcjDLQDO+8I0hMV3PWw8A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyA5L+YSVRUzTtb3Hm0Y/gG5PnfgP9BKemcgCQ6up3qWBkvl2Hu
-	OFdrt21jnzTFeDKjbbN0P8ifxKYJhih5E0JvsHBEjw5WDkir4/Vi6zfUMHwW5lX6sgNpgFB12gp
-	BE+B2jFI3hPfwRZv2iBaIoRBW+01g4WM=
-X-Gm-Gg: AR+sD11ItQWKnrNoQAPJQqsEB+EfbS528yrS8GjsvJUYWc/ogQLGY7hwwMCeA3b+Qbp
-	aoikU6btLiKmq3UzYsJ/ZMWsNNGo8AUx9gY0nRFkzKlI2UWJUDCztLZmQnhRBtF8qODrND2iT6d
-	0Fjmt4r7PNZzLdSA5ppTi97oP+Z9Xq2hs++jtzj+UmN3s1ktu0D8hkYl+8p0Zm0vdLO7Spy6vfm
-	4VzhB0vLV/O5CfNtIuDDUjv2ekAMTBNPkvsPq3wNBL0oVMON3Qo9HwIOJP2xDFRWUlbrC1Bl/0h
-	Ep9PdqGnYytZ2t/0loM=
-X-Received: by 2002:a05:6a21:110:b0:3c0:9c19:b274 with SMTP id
- adf61e73a8af0-3c67dffb181mr6607471637.66.1785139830433; Mon, 27 Jul 2026
- 01:10:30 -0700 (PDT)
+        bh=KnuH9JNzZqkRfD81Q4WhVtoZdJkHzYHH48enGdGSTvg=;
+        b=VmwSVEZQFtEZtR5YQjSLy5oVg649LiFIl4bbIk6rbk1YYnpPVak8GFxaUXeC7MEYKy
+         hEiBXtVU/+HnYJkRvptk0aSuVK1YDOTYHGIESgvampUIkJcbnZKC3GW9NXIBekiPG+Cz
+         f0ClU4M/p4ScNA3ze2agc1MzvtHrX0Bn7Kb9OQzxfY/MSTo6P5cQkLu2WQBHcer65rLj
+         976yWJMD6jdMZrum3yuV8X4TW+9lLUQywz9ybfySzpsi9iFtpjHBQ40fTjQV/Lhr4Sis
+         jzBAjbjDOFkTaxkX1fKi1fkI+RE59mcLJZgUg4xgQNGLYtsv8qWPEZQbPa8GuLWxFdrV
+         IAFQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqJm0spX02niFrAfWm2FkbPUgtROp474fHT8Bl92DMGT1CUh7t2GJZkuviORdXGsRSf3/wSwYLouP+E3A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw3fCfWzMvSB59BNRXm6ty0t6eVpAYV4/gmpEyGGj/oSCEDqW1t
+	TP6AudSQj0iVaEBiebhtjcOIBml9RWz34R9C+wbVMKy8P/VgikUeYTwjpcbNypy8He43bbuBQy+
+	3GdBd6dp6ajQlep7OlR6YeYRFdW8Qkd8=
+X-Gm-Gg: AR+sD11CH3aU8Vte/dPkMZHKPQTrx/YGsCgwrKaN19OJc8MJr5qic3d+w/q7fJktwbJ
+	ceuNZglnTlpEcAXPHe9/e69KiAsgXC/RcsoE2qmVi97nDO7Wlk9WdNoeByxPItYGQXp2WhvYtx+
+	hobmIKWvilfo9zeurCEQLwkpSe3zGrsJjvcrJu0kH83t+yzzuhnOp0+keMiRv4VYLkigzMlQ/tP
+	tyF3fC/4oAj6KHIAyW6cNw5nCW6e01bcs9vCyZdQtbDt7+z7w6aKl1BpbhP51UVBggkObxFrdB1
+	TRlP8pFamcpMJqEu5gSQ
+X-Received: by 2002:a05:690c:660c:b0:80c:80a2:9761 with SMTP id
+ 00721157ae682-81f69e5ced9mr23345447b3.6.1785140715181; Mon, 27 Jul 2026
+ 01:25:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260726100408.3262831-1-congnt264@gmail.com>
-In-Reply-To: <20260726100408.3262831-1-congnt264@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 27 Jul 2026 11:10:17 +0300
-X-Gm-Features: AUfX_mxifE27HgmqQfF8z8SxvpEZvclmuq7ha6af2z_fycdCEGZFG-xRFnzkrOA
-Message-ID: <CAPVz0n1V1YJsEJ3+SbkMnTzCbhyx3vJP2OuCPe1Ft1+ukynxHg@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: tegra-video: fix syncpoint leak in
- tegra20 channel init
-To: Cong Nguyen <congnt264@gmail.com>
-Cc: Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Sowjanya Komatineni <skomatineni@nvidia.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com> <CAMhzubo-NJMro7+XbxD=MhSXiRp14chatDcn-=1Hsiak786uQw@mail.gmail.com>
+In-Reply-To: <CAMhzubo-NJMro7+XbxD=MhSXiRp14chatDcn-=1Hsiak786uQw@mail.gmail.com>
+From: Igor Paunovic <royalnet026@gmail.com>
+Date: Mon, 27 Jul 2026 10:25:02 +0200
+X-Gm-Features: AUfX_my4MA58ugAK6hzdfyussxxhX0Ow06GltjruBbp1b6Mur8Y-LGUFlM4WYQo
+Message-ID: <CAEWPSH754+Wq7W4CVKNqjuMZ22q_S79K-Tin9SXYw1RCYQwLwg@mail.gmail.com>
+Subject: Re: [PATCH 0/4] media: rkvdec: Add VP9 support for VDPU381 variant
+To: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+Cc: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>, Detlev Casanova <detlev.casanova@collabora.com>, 
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-=D0=BD=D0=B4, 26 =D0=BB=D0=B8=D0=BF. 2026=E2=80=AF=D1=80. =D0=BE 13:04 Cong=
- Nguyen <congnt264@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> tegra20_channel_host1x_syncpt_init() requests two host1x syncpoints. It
-> stored the first one (mw ack) into chan->mw_ack_sp[0] and only then
-> requested the second one (frame start). If the second request failed the
-> function returned without releasing the first syncpoint, leaking it: the
-> caller tegra_channel_init() bails out with a bare "return ret" on a
-> syncpt init failure and does not run its free_syncpts error path (that
-> path only covers failures after syncpoint init has fully succeeded), and
-> the channel is subsequently torn down via the kfree()-only path, so
-> nothing ever releases the orphaned syncpoint.
->
-> Release the already-acquired syncpoint on the error path, and only
-> publish the syncpoints into the channel once both have been successfully
-> requested, so chan->mw_ack_sp[0] never holds a released handle. This
-> matches the handling in tegra210_channel_host1x_syncpt_init().
->
-> Fixes: 0e2c4117c351 ("staging: media: tegra-video: add CSI support for Te=
-gra20 and Tegra30")
-> Signed-off-by: Cong Nguyen <congnt264@gmail.com>
-> ---
->  drivers/staging/media/tegra-video/tegra20.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
+Orange Pi 5 Plus leg of the three-board run in the cover letter, as a
+tag you can pick up. 7.0 base carrying this code, not a build of the
+series as posted.
 
-Very nice, thank you!
+Tested-by: Igor Paunovic royalnet026@gmail.com
 
-Reviewed-by: Svyatoslav Ryhel <clamor95@gmail.com>
+
+On Mon, Jul 27, 2026 at 8:44=E2=80=AFAM Francesco Saverio Pavone
+<pavone.lawyer@gmail.com> wrote:
+>
+> Rock 5B+ leg of the three-board run in the cover letter, as a tag you can
+> pick up. 7.1 base carrying this code, not a build of the series as posted=
+.
+>
+> Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+>
+>
+> Il giorno dom 26 lug 2026 alle ore 22:28 Venkata Atchuta Bheemeswara
+> Sarma Darbha <vdarbha0473@gmail.com> ha scritto:
+> >
+> > Hi All,
+> > This patch series adds the initial VP9 support for VDPU381 present in r=
+k3588.
+> >
+> > VDPU381 supports VP9 Profile 0 and Profile 2 up to 7680x4320@30fps.
+> >
+> > Tested with fluster (suite : VP9-TEST-VECTORS, decoder: GStreamer-VP9-V=
+4L2SL-Gst1.0).
+> > The 224/305 score has been reproduced independently on three RK3588 boa=
+rds
+> > across three kernel bases: Orange Pi 5 Pro (RK3588S, 7.2.0-rc3),
+> > Orange Pi 5 Plus (RK3588, 7.0) and Radxa Rock 5B+ (RK3588, 7.1).
+> >
+> > Most of the remaining failures fall into a few known categories:
+> >
+> > - All vp90-2-02-size-*.webm variants where either dimension is
+> >   smaller than 64 pixels fail because the hardware does not support
+> >   frames smaller than 64x64:
+> >   vp90-2-02-size-08x08.webm, vp90-2-02-size-08x10.webm,
+> >   vp90-2-02-size-08x16.webm, vp90-2-02-size-08x18.webm,
+> >   vp90-2-02-size-08x32.webm, vp90-2-02-size-08x34.webm,
+> >   vp90-2-02-size-08x64.webm, vp90-2-02-size-08x66.webm,
+> >   vp90-2-02-size-10x08.webm, vp90-2-02-size-10x10.webm,
+> >   vp90-2-02-size-10x16.webm, vp90-2-02-size-10x18.webm,
+> >   vp90-2-02-size-10x32.webm, vp90-2-02-size-10x34.webm,
+> >   vp90-2-02-size-10x64.webm, vp90-2-02-size-10x66.webm,
+> >   vp90-2-02-size-16x08.webm, vp90-2-02-size-16x10.webm,
+> >   vp90-2-02-size-16x16.webm, vp90-2-02-size-16x18.webm,
+> >   vp90-2-02-size-16x32.webm, vp90-2-02-size-16x34.webm,
+> >   vp90-2-02-size-16x64.webm, vp90-2-02-size-16x66.webm,
+> >   vp90-2-02-size-18x08.webm, vp90-2-02-size-18x10.webm,
+> >   vp90-2-02-size-18x18.webm, vp90-2-02-size-18x32.webm,
+> >   vp90-2-02-size-18x34.webm, vp90-2-02-size-18x64.webm,
+> >   vp90-2-02-size-18x66.webm, vp90-2-02-size-32x08.webm,
+> >   vp90-2-02-size-32x10.webm, vp90-2-02-size-32x18.webm,
+> >   vp90-2-02-size-32x34.webm, vp90-2-02-size-32x66.webm,
+> >   vp90-2-02-size-34x08.webm, vp90-2-02-size-34x10.webm,
+> >   vp90-2-02-size-34x16.webm, vp90-2-02-size-34x34.webm,
+> >   vp90-2-02-size-34x64.webm, vp90-2-02-size-34x66.webm,
+> >   vp90-2-02-size-64x08.webm, vp90-2-02-size-64x10.webm,
+> >   vp90-2-02-size-66x08.webm, vp90-2-02-size-66x10.webm.
+> >
+> > - vp90-2-05-resize.ivf, vp90-2-18-resize.ivf and all
+> >   vp90-2-21-resize_inter_*.webm variants fail. These streams change
+> >   resolution mid-stream on a non-keyframe, and a reference frame
+> >   from before the resize ends up unavailable by the time it's
+> >   needed again. This is being actively looked into:
+> >   vp90-2-05-resize.ivf, vp90-2-18-resize.ivf,
+> >   vp90-2-21-resize_inter_1280x720_5_1-2.webm,
+> >   vp90-2-21-resize_inter_1280x720_5_3-4.webm,
+> >   vp90-2-21-resize_inter_1280x720_7_1-2.webm,
+> >   vp90-2-21-resize_inter_1280x720_7_3-4.webm,
+> >   vp90-2-21-resize_inter_1920x1080_5_1-2.webm,
+> >   vp90-2-21-resize_inter_1920x1080_5_3-4.webm,
+> >   vp90-2-21-resize_inter_1920x1080_7_1-2.webm,
+> >   vp90-2-21-resize_inter_1920x1080_7_3-4.webm,
+> >   vp90-2-21-resize_inter_320x180_5_1-2.webm,
+> >   vp90-2-21-resize_inter_320x180_5_3-4.webm,
+> >   vp90-2-21-resize_inter_320x180_7_1-2.webm,
+> >   vp90-2-21-resize_inter_320x180_7_3-4.webm,
+> >   vp90-2-21-resize_inter_320x240_5_1-2.webm,
+> >   vp90-2-21-resize_inter_320x240_5_3-4.webm,
+> >   vp90-2-21-resize_inter_320x240_7_1-2.webm,
+> >   vp90-2-21-resize_inter_320x240_7_3-4.webm,
+> >   vp90-2-21-resize_inter_640x360_5_1-2.webm,
+> >   vp90-2-21-resize_inter_640x360_5_3-4.webm,
+> >   vp90-2-21-resize_inter_640x360_7_1-2.webm,
+> >   vp90-2-21-resize_inter_640x360_7_3-4.webm,
+> >   vp90-2-21-resize_inter_640x480_5_1-2.webm,
+> >   vp90-2-21-resize_inter_640x480_5_3-4.webm,
+> >   vp90-2-21-resize_inter_640x480_7_1-2.webm,
+> >   vp90-2-21-resize_inter_640x480_7_3-4.webm.
+> >
+> > - vp90-2-09-aq2.webm,
+> >   vp90-2-09-lf_deltas.webm,
+> >   vp90-2-15-segkey_adpq.webm,
+> >   vp90-2-19-skip-01.webm,
+> >   vp90-2-19-skip-02.webm,
+> >   vp90-2-19-skip.webm,  vp90-2-22-svc_1280x720_3.ivf,
+> >   are still failing and not yet root-caused.
+> >
+> > - vp91-2-04-yuv422.webm
+> >   vp91-2-04-yuv444.webm
+> >   fail because the hardware does not support the format these
+> >   streams use (4:2:2/4:4:4), only 4:2:0.
+> >
+> > The base vdpu381 VP9 driver support was introduced by me. Profile 2 sup=
+port
+> > was added by Igor Paunovic. Francesco Saverio Pavone fixed bugs in
+> > the segmentation map size calculation and in the altref vertical
+> > scale factor. Igor Paunovic also fixed a decoded-frame stride bug, alig=
+ning
+> > bytesperline to 64 bytes in rkvdec_fill_decoded_pixfmt().
+> >
+> > ---
+> > Igor Paunovic (1):
+> >       media: rkvdec: align bytesperline to 64 bytes in rkvdec_fill_deco=
+ded_pixfmt()
+> >
+> > Venkata Atchuta Bheemeswara Sarma Darbha (3):
+> >       media: rkvdec: vp9: Changing get_ref_buf function name to get_ref=
+_buf_vp9
+> >       media: rkvdec: Move vp9 functions to common file
+> >       media: rkvdec: Add VP9 support for VDPU381 variant
+> >
+> >  drivers/media/platform/rockchip/rkvdec/Makefile    |    2 +
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  234 +++++
+> >  .../platform/rockchip/rkvdec/rkvdec-vdpu381-vp9.c  | 1067 ++++++++++++=
+++++++++
+> >  .../platform/rockchip/rkvdec/rkvdec-vp9-common.c   |   65 ++
+> >  .../platform/rockchip/rkvdec/rkvdec-vp9-common.h   |   92 ++
+> >  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  121 +--
+> >  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   73 +-
+> >  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |    1 +
+> >  8 files changed, 1537 insertions(+), 118 deletions(-)
+> > ---
+> > base-commit: 1229e2e57a5c2980ccd457b9b53ea0eed5a22ab3
+> > change-id: 20260726-b4-add-rkvdec2-vp9-vdpu381-3d1bd8fca4f5
+> >
+> > Best regards,
+> > --
+> > Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
+> >
