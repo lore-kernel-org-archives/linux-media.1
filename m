@@ -1,342 +1,251 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4970C3EAC8D
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:25:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C23A33EC687
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:38:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785144307; cv=none; b=uMXv/79vWQ81qDoZD6uxfVgJqHvbiMObknaUl6c5oldGKwbo7gH7WZmEq8yDe9Lff+FV4W7Ri13ilGaUhn7o5mlR8OB11kH3L7lLTYU2sBMXP6Sy/d79Z5PowQLBBKC+SUYELu2A+xfeyPlD2VvNoxDagIp8/dbOfXA7JqAz+Rg=
+	t=1785145111; cv=none; b=E635hw7J2Fx7pTKZ71n9RlsKxae9gTLjdnCzvttaozGlaw51da64dexQEV0NBOinbz8J1+ONo1BADbTbHrSE+kEUxl39XiqL8Zfofx7N7A9KLF2K37R/uww6CTXJWWT2bks+nTLwN6Kqei/sqO4eYmtad0R8zwdM0crC5UpvE48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785144307; c=relaxed/simple;
-	bh=KGGXByqAct727YELO9+LMLusE8CCPOyq0E5LFYrQetM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=O78oaZCwLzkw8anfBE0A9SeCC9DdaZmtgtorXqgyyFEs1T4PowybS8uweILf4vsBROewcM83c5t33O1MbxzolDTtqBKUiLLpm4jF5w+pbtkBPiD9Eghi9yry8PUytKAdo36zdjGwF+P5PZH9fGI/GTX/rs5lBsAQHRaiVO2P+iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TgS0JFL9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Iu3Tre3W; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1785145111; c=relaxed/simple;
+	bh=ZjzwfYD7v3Zv+ORt60PImRwuUBdtjnqym3PkgPpfNyU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PHwUh+feIUBhcuYEAeVtFcUd5GcN86cq99Siid1b04C12WXnIeYjeOo+cBGdYMdhsuAwp+Tk47pe2x7s/J6VoROZSlW9hlSU+wGPNbM26ZBGwTCfgS8J7vKRwjJzYyM/cLqNteY1+M1Jw/79W7gYrZudKoHw7KrNjgAEfjknAL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bNCxm7Q/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZIHLlSga; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TgS0JFL9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Iu3Tre3W"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66R8gACt2965854
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:25:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bNCxm7Q/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZIHLlSga"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66R9bWRn2846472
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:38:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=BXNIjjE8d2VbhCtEzyZftO
-	Rf3rk1HhEtHYt3oWL5j/8=; b=TgS0JFL9/ZiSVLj1b2/j3GnUbaHIya4eBavJML
-	4mL+XoVCYWEy5cKH3Jw1ESK0BQ1gE+IxUV2bFgd3TXk87n4DlkBgLGtOxZtKXNJD
-	NWpSnbwrs0cFkbVGXQdBb+GPSaatK8rFSFE7soNU80GX6UBfsR4vtJRIb8BbX0Xi
-	ztuyeFQfQvcPneG35kyvEaRtM2n6Ha5obHXE4C/EiS1AE5OSzVR9u73Oie9B/hFX
-	9mALBZAgP8Mr2QSxqYnzBD1rndOpLrh9E7t6SwoVP6i/XtGjCUoNasxcDvafdcLu
-	bcT4M1r+MUvIfSl0/1LxiVRBew4t8ToOhEMckcbIAJ2ZVdgg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp2asgq6c-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	66Lv+JMSZRhU0BEu1c+uBx7OI1+xccVsyO/jhr7+41E=; b=bNCxm7Q/ID0paMIl
+	WaAC0ZBn2mHvrTCFZXzJrrF7yAF0kGjzdLu+O8XBrJ406NSkRQ/YNx3Ikocf2e/H
+	YVdUILAeCuJrHRV+4VNTaeoKerkoIUo6xwLlyPh4lMFnFPPwZ2bCN4ExTvnoW5YX
+	ba8ndCS+2oeaBuRrGZic9O70hYu9DE0/8BXFmNCiICo3QXvxDyaPpxIVmTornrUt
+	lNMyaMBigc+Gzvs9cs+UbjCyNMTTOKvZXMrkAUDbRmCJp+l239hV/PZrjY+Fzcml
+	OeQDTOXWucyxMv4qe4bKhXa/309EFQaPHRf5BjZ0M/njDp3Dr7Id16njvavfb3Pb
+	6AmKFA==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fp4v68053-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:25:05 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c20762d21so27058431cf.0
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 02:25:05 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:38:28 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-8f0ed4fe79aso58248816d6.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 02:38:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785144305; x=1785749105; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BXNIjjE8d2VbhCtEzyZftORf3rk1HhEtHYt3oWL5j/8=;
-        b=Iu3Tre3WLIQDeu9TUJs9mc8h8U7hM7J+70NUiaB94Qyq3rVez59zdUuOwlRbTQk4CR
-         7XsMo6ehRCaNAATE+8aTd+f13yITXNy6sQm00IyS5RO7Q/DIeLxooOhub21qim6Y7L3B
-         6kzKwzfyVkH0U2Zd9NHS2J8Q9xs8aGKaOceIEFDJ12XbYR5VUE3xxdrIEepU6P7oprNs
-         p+z+4iH3fxnvl45qROetkk6e8+UtCqWu7hGnvMhMmCoS1DPXmVgbwtlqiFJFX5T4VbE1
-         8X0DtsOI1d860Bv3trh3lOlxfuF4mK364PnCFmBgZCCPjARc4lsBTqe7BJR0JljZ/PuW
-         /tlg==
+        d=oss.qualcomm.com; s=google; t=1785145108; x=1785749908; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=66Lv+JMSZRhU0BEu1c+uBx7OI1+xccVsyO/jhr7+41E=;
+        b=ZIHLlSgaDRZmYmI/Ja0L0hl1uCjyDx5Izcqapd1lJTr7rOW9NJgaDvNqTEiFG2UR+D
+         nGF832FF0jMA3pU/+0dCU6Iu47QgCVxczjDuArWGZmC0euYRBeNCNmNRnBU7sUI/Rerw
+         omgA3DRglWBV5fVDyHO1xCsA7Arsjtd78wyIOnwQG9lD9brdhl1Cd6C7MXQtvQtV4BFs
+         tu880mNQZk6HTVsprVlxEMKXdZWBfmep2+mqLEzVeF5YYUVkWBFL9ADaAWvocp/8tkGC
+         H0CxLvAjk3uB1UTX0NKenqrzESnozMjel1yaoXtrHHf4Uu6nfeWlpV/ePeBvJeTBCx8w
+         /lyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785144305; x=1785749105;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=BXNIjjE8d2VbhCtEzyZftORf3rk1HhEtHYt3oWL5j/8=;
-        b=IzT+9JIU71yeaIW6S2GsI5FZH450wj0lpyFuCTyFkQJUHZNuhi1Bm3uZGDsn/lihRE
-         HnLVYZqHiL7GgFLMuSiA6gnlD7yYHsqm++TZRenRTvRo2TIUn+PfcuipGY6qbSEu22jK
-         q0ZwiKKvPVBlBGn2a2uUAqKp+GslLXjyZTodQt8IvAqejWoayKLBjvHNrTZgh0qxbpHi
-         wBmgAEdhfTaKgndGNSehYk2YXis7xdixlchISU+ITXYN7VIQV52p5SamII7N9KyslKda
-         /d9IgHcNYA0Cq5T5LkUnQsfK+hLXFOZ8zE63lXYBSqfkiOf+9KtU/jJS9dbCoC2Zv7GE
-         vSyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpEXAL2PIEFmo79pd/ZRfjxC5hTciTibTCnfMMS9Or+IB5pui/l6z/ldOPp6RQiGNqHBRTCKuTnyTuYxg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1gt9C8vlwb9Yg6l9Nb2oLzLLi/BmiwAhEBSVv1DCQLtn+vXnH
-	pSz/JZGwmBQ2KegXV0Csr6VxIsO0S5Zl8ythJs7zS2xz6XGcXFtc/BwePHBh2jVDS35G4OaD3xC
-	D9iDWVd+Em9AlONGMsAFQGZuSibxLXKLd+hFHCAovpOjDoW1bQpA2nHefRDIflOUhFA==
-X-Gm-Gg: AR+sD10+9A+o6k4UafS0HLR5CTyXMiSQqcjoCvOVPmk6ghYio3Yfai1Oo9sTJv+o8yz
-	eJB4wSBlQBGPPGmYnkQGtxj3MsClqhiDrOVw09XCkPqS7CGh77jXiVO2BFKwVBCA1iVtO9OkcOF
-	6cjzI3USEjLbjTnW/LivO/UDHuzUHjPJyMYCAcLWkefvA0X5CSMHp//+D1KMSSxmYFsocKENvI5
-	+M5ArKT/IRYFoCeTCjX5qm7rCru8RPHgzSxT5U93ict+a4uL8jjEeqrl6fsKa8Pik3UUkTBPDDL
-	XieTYcODKLjQQJ1Kg9ONusCeygEWg45xymPmeQF0UzLOUO15c65A2bdsi7KtstIYMIJw1ADGAt1
-	YELjrudIahD8KhSFX
-X-Received: by 2002:a05:622a:15c2:b0:51b:f340:d2be with SMTP id d75a77b69052e-529a86c8ff8mr79521451cf.53.1785144304588;
-        Mon, 27 Jul 2026 02:25:04 -0700 (PDT)
-X-Received: by 2002:a05:622a:15c2:b0:51b:f340:d2be with SMTP id d75a77b69052e-529a86c8ff8mr79521241cf.53.1785144304129;
-        Mon, 27 Jul 2026 02:25:04 -0700 (PDT)
-Received: from quoll ([178.197.223.174])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-69fb51c9691sm2357592a12.7.2026.07.27.02.25.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 02:25:03 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Peter Griffin <peter.griffin@linaro.org>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        linux-arm-kernel@lists.infradead.org,
-        linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-        linux-media@vger.kernel.org
-Subject: [PATCH] MAINTAINERS: Drop redundant lists from various Samsung entries
-Date: Mon, 27 Jul 2026 11:24:49 +0200
-Message-ID: <20260727092451.43570-2-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1785145108; x=1785749908;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=66Lv+JMSZRhU0BEu1c+uBx7OI1+xccVsyO/jhr7+41E=;
+        b=M+T31QOpdH1zOhO+3UKDny6vI0zBHtMKtUnJiT8hWxk6Q0B/ejzwPu1GPCTtwWHsIG
+         ZCHNeGkajhmVn7MEgaimnCaR2dhZd/GMkr1Qvg0W0dz1JJFZE9WT/y5Y/y3Vw+wzfChi
+         rIGmVMvPiXudxMeo2Xmm5kpkX58pTgdzpIg70+paLPJmB6JokFNnA6Mvge2KAi9nMpR2
+         Cpy6Aqq7WQZtCegxyiWAE64n6/oiymIUD+rlbScXF0c+wKBtRyRK2D0TvuD8wRdiaFhf
+         aF/Tsu1eh7Sqcf87QDYFnicR5pfwSRVsWZ0nxgdJNx1EJamSnD4LljPXcCVzP7OdLgqh
+         CeVw==
+X-Gm-Message-State: AOJu0Yw/T0IGRVm9h+BeoMvy9dYgizQjhrIf38Qhf3Zi9saZwgIluIGS
+	hcuMS+DlwiGGvaADFcP8EkcS2eJhFDCDHhdvkXTT4D7MZBO6T7hxEwfjgSvd9PfYbKtOqNIpk14
+	Mte6ZDIZzetpz6u+2a3cerFqXeN0Ic2jXoOf8LR/JwRHNNjIAwdHjF2seBXpccE859wBwBmY4BA
+	==
+X-Gm-Gg: AR+sD11PCoLymD+2bCoi2sg9waZrJ1IGctuaB07HmEojxPRz/gfaYpf8W6Gdr2wmx3i
+	1VVTdUoVNUEqxhyzt5bpx+BLk2W3QM4DQdnh7xl1O+zn1wDABGTYVyl67yZRh+44AjP4TxTS5HW
+	R6vvVoRyM6PCTPcMP7N8oynDsBZPf3x0K5m+e/PV2ik9+5YH/B4BoLTCbRrhKJsbHrWb7ZYUaT6
+	MbhKYEMtV2m/teE8PQKuxSRuHqpeiTmRR6X0g2hxCXJNN1rNtpuf0JMG9aTzD4J0QupXg7q5Sz1
+	khQw9oi4yyKfGOVaFGj0ezvR//YUVOIYlMWhQdNLlyafk0m8LlLeFo6F2OxIT4cxLoaY/W98xIb
+	LSJ1z2u8eRehxNnI2UWntnVl7CUwAAfD01NGimKIuPQs4hnYOPFa9WSONEq3M9qPz
+X-Received: by 2002:a05:6214:2a83:b0:8e9:a3be:5ef9 with SMTP id 6a1803df08f44-907ec75887bmr95745476d6.23.1785145108020;
+        Mon, 27 Jul 2026 02:38:28 -0700 (PDT)
+X-Received: by 2002:a05:6214:2a83:b0:8e9:a3be:5ef9 with SMTP id 6a1803df08f44-907ec75887bmr95745256d6.23.1785145107618;
+        Mon, 27 Jul 2026 02:38:27 -0700 (PDT)
+Received: from [10.111.161.209] (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907e871c5a7sm60742796d6.44.2026.07.27.02.38.24
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 02:38:26 -0700 (PDT)
+Message-ID: <c8a74324-3a1e-43bc-8124-2e5886038b6a@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 17:38:22 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7712; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=KGGXByqAct727YELO9+LMLusE8CCPOyq0E5LFYrQetM=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqZyPjA9yT9eGEDRhvFAGE7uhiZW2bvNIcf6f8e
- O1XxR3eutaJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCamcj4wAKCRDBN2bmhouD
- 10oAD/4yLRNM7s3tOckBrgt5Pg7P2Tib75a89Po47kqTT/2LhKNvjgqQmnVTaBt3YSWJWPFjXyg
- cfFS7znMfWRlnFGFinKAcKFQWneELRjFiyhQwUb/JaT6uupHrk2k6kM55TdZm3z/vnPGziCXE+G
- oDkzEt5+xINPzRWapw8XdYoxlMR/A1wpaj7aEq/ePnCcJwKDnVoW73cCSNWHbfdOH1CqHlxWXHv
- gKHbEzhflwbdX4JawPpHRGODGVR5+18fRiUKedwvv8MI9P13aqZ7c3iVCk52pJL8e/74FAuw2ES
- mPl+KZ2c0hetj3+mHKJ+68adE1wUhqPNp3EanfaKWZZVdqpmNQqU9wwePmIdnfh0KokxAwi4i1D
- +R71AavhU02UD0AY/B5DlB7pvvaYOcyCkTHFnLCIwqGmXp5dqX8UiR3eaLyrr7znGrPaRQFXrhU
- m+j6I/38QkfqpYIfG2/er40v3hCjopvZZ2yaZJ2QPTZZ98fQng8v0nSR+jJhle5YzGfZlw359Mp
- xnEjw1EO5M/sCCo0v+24EXbpbfR+9icuMS1Obn5SJBB1hRjqpEG2NWf+G1KN9UXSQKYevQ91Tom
- A9Ayaihfad617aK39Krc2dX8ICCQ6FrqTZEIb5OSxxPhSM89zy1jzdDha2gIx+FgTXeQBmGl+w2 06LYqfTlCR7wNgw==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
+ <20260708-og0va1b-v3-3-de8e44455a42@oss.qualcomm.com>
+ <dca44ea4-60af-4a9b-a6cb-7ba5f2014016@linaro.org>
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+In-Reply-To: <dca44ea4-60af-4a9b-a6cb-7ba5f2014016@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA5MSBTYWx0ZWRfXz9fOmOiwEJdx
- 1MCApxGDckEaHYLxYA3l+W+E8JCiGhUwbTWsu11YWgdyrvoNblCG6LxiyxoYoEpWJrut5ybjE0u
- hsO0r4SankXaPJYlnIE1HVXEjpwLwCqXf78h8qR+K/qIuu5UkusvujgpAgUTA4O+wIG8PiApQxB
- 88EWt62u2AWlTzUEV37RIqJaqyEOE3VP3eMA32Xl4zOp+JdzWXVW9YO4r/rp4tPN/nlAv1EF5mw
- 7020Fpw5Ogy1Fxxg0Zz3cDeySVrqVSODWmebrlDiHYMb7V/Uo/RLFm113vLmbCPbKMaRQssMOSu
- 13teM9sSVsca9mMeiGHwmpQfKyb0dRHv6dA/fl8VI4Ioi+AAJoB6gjfKWjovd94C6W+EUqZegZu
- 0DFpgHJUTnKxMmyXoUyJJPRsyyXFdSLijR1hEScsCEhpq273DmXvZL5h95Ewxr+oefeV/hJhEl5
- F71BgE+bExMKvoMxU1w==
-X-Authority-Analysis: v=2.4 cv=UPbt2ify c=1 sm=1 tr=0 ts=6a6723f1 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=N6niishs+lR9UBL1FN3Qrw==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA5NCBTYWx0ZWRfX0zXoTyZxjKFr
+ HUPDkFgt3+xTnuJQE/KRIWZQtUYzJQ2wZCw9PHvjPI/WfN7Esd43rXuI4djibTxOsIeGTPPpJSe
+ 7hkIP5+t/DqU14qoMFKMVKyW23ZvAuI=
+X-Proofpoint-GUID: MnWo0O-x_TaxCN_cgXXe_3oMcp7fPQ2X
+X-Authority-Analysis: v=2.4 cv=ev3vCIpX c=1 sm=1 tr=0 ts=6a672714 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
  a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=VwQbUJbxAAAA:8 a=xq3W2uTSAAAA:8 a=KKAkSRfTAAAA:8 a=hD80L64hAAAA:8
- a=EUspDBNiAAAA:8 a=JfrnYn6hAAAA:8 a=pGLkceISAAAA:8 a=QyXUC8HyAAAA:8
- a=6J6j7_AOAAAA:8 a=sLuR29lIkFDoGf37nhcA:9 a=lqcHg5cX4UMA:10 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=a_PwQJl-kcHnX1M80qC6:22 a=P5L7wpMTXyg1GfFA3Gwx:22
- a=cvBusfyB2V15izCimMoJ:22 a=1CNFftbPRP8L7MoqJWF3:22 a=DoBsnWhqfNmTxX1QClym:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDA5MSBTYWx0ZWRfXyCLZdoiiFt15
- An24ijB+ydh2X/qeKMXHkv4hH8FuETnEPBJ2sXDAhRYmujynBGdRdes9NITYP8m+gfMwpxUhrQB
- phK3vQro9SrvhDU7XIdM/LKlnN70Lug=
-X-Proofpoint-ORIG-GUID: faNX4_ED7eJWZwIZHv_j7HgAv1qAE3uv
-X-Proofpoint-GUID: faNX4_ED7eJWZwIZHv_j7HgAv1qAE3uv
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=SsLdSGCFkERFs0EcKqkA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-ORIG-GUID: MnWo0O-x_TaxCN_cgXXe_3oMcp7fPQ2X
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDA5NCBTYWx0ZWRfX6uQOxTVdHet+
+ V32vgInB2YNu/Wf2SYnMzO2t9YgxObh2NgbHIVFhiAzAOsQxT3BYbGxVYhoCZjyUS/Qd9I1HvoF
+ JjgTuTiUke5PovcwMP2Se0XWU52lO2Qszpk+IVUoORmp7sCd8G4WKigb5q+DHmmFuoZtx/R2ztE
+ /2fxLzbRudOkUpzddsC8P8RKOQ/Ha0AoTf20LwJ9Lo8NH49cCX8ekjecJfLnWPytFLnvycZ78I6
+ lgfBWOeSnkWBp8mnQQGiM9IJ5TmNIFdz6l9p0W/Rf328iOK9AI06VatgaJ8JP2ceYFSfGVSER5K
+ ctZnexCUVawXyCrArp9bMzMz0JKknbsB9JAu+nrrTeKPj2HU5Zad34aMO02XGdo/AYa3PubFbdB
+ 2wbKjaCGCpkcWT167W8k/SN9/soudMjHfq6PlPPfWAVLMEr4bofn2x1153XttyLRpxiwuXaaUy2
+ 6zFipcVnwnJ//eOCcWQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-27_02,2026-07-24_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015 spamscore=0
- adultscore=0 lowpriorityscore=0 impostorscore=0 malwarescore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607270091
+ adultscore=0 phishscore=0 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 clxscore=1015 impostorscore=0 bulkscore=0 malwarescore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607270094
 
-Individual driver maintainer entries (not subsystem) do not need to
-repeat the generic subsystem mailing lists in "L:", because
-get_maintainers.pl will get them from the subsystem entry.  They only
-need to mention additional lists specific to Samsung stuff, like
-linux-samsung-soc@vger.kernel.org.
+Hi Vladimir,
 
-Drop generic lists from almost all of the Samsung entries where all the
-files are already covered by the subsystem entry.
+On 7/24/2026 9:35 PM, Vladimir Zapolskiy wrote:
+> Hi Wenmeng.
+> 
+> On 7/8/26 17:33, Wenmeng Liu wrote:
+>> The OmniVision OG0VA1B is a monochrome image sensor closely related to
+>> the OG0VE1B. It shares the SCCB control interface, power supplies and
+>> the single-lane MIPI D-PHY description, and differs in its chip id, the
+>> test pattern register, the register programming and the output format
+>> (10-bit RAW instead of 8-bit).
+>>
+>> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+>> its 640x480 60fps register sequence.
+>>
+>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>> ---
+>>   drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++ 
+>> ++++++++--
+>>   1 file changed, 266 insertions(+), 12 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+>> index 
+>> 041342fbe3c822400388f58a03e6057e186f060f..c558cdd43314931db35e463641dd28e10b94ec8a 100644
+>> --- a/drivers/media/i2c/og0ve1b.c
+>> +++ b/drivers/media/i2c/og0ve1b.c
+>> @@ -14,10 +14,14 @@
+>>   #include <media/v4l2-device.h>
+>>   #include <media/v4l2-fwnode.h>
+>> +#define OG0VA1B_LINK_FREQ_480MHZ    (480 * HZ_PER_MHZ)
+>> +#define OG0VA1B_MCLK_FREQ_19_2MHZ    (19200 * HZ_PER_KHZ)
+>> +
+>>   #define OG0VE1B_LINK_FREQ_500MHZ    (500 * HZ_PER_MHZ)
+>>   #define OG0VE1B_MCLK_FREQ_24MHZ        (24 * HZ_PER_MHZ)
+>> -#define OG0VE1B_REG_CHIP_ID        CCI_REG24(0x300a)
+>> +#define OG0V_REG_CHIP_ID        CCI_REG24(0x300a)
+>> +#define OG0VA1B_CHIP_ID            0xc75641
+>>   #define OG0VE1B_CHIP_ID            0xc75645
+>>   #define OG0VE1B_REG_MODE_SELECT        CCI_REG8(0x0100)
+>> @@ -45,12 +49,18 @@
+>>   #define OG0VE1B_REG_VTS            CCI_REG16(0x380e)
+>>   #define OG0VE1B_VTS_MAX            0xffff
+>> -/* Test pattern */
+>> +/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
+>> +#define OG0VA1B_REG_TEST_PATTERN    CCI_REG8(0x5100)
+>> +#define OG0VA1B_TEST_PATTERN_BAR_SHIFT    2
+>>   #define OG0VE1B_REG_PRE_ISP        CCI_REG8(0x5e00)
+>>   #define OG0VE1B_TEST_PATTERN_ENABLE    BIT(7)
+>>   #define to_og0ve1b(_sd)            container_of(_sd, struct og0ve1b, 
+>> sd)
+>> +static const s64 og0va1b_link_freq_menu[] = {
+>> +    OG0VA1B_LINK_FREQ_480MHZ,
+>> +};
+>> +
+>>   static const s64 og0ve1b_link_freq_menu[] = {
+>>       OG0VE1B_LINK_FREQ_500MHZ,
+>>   };
+>> @@ -73,15 +83,31 @@ struct og0ve1b_mode {
+>>   struct og0ve1b;
+>>   struct og0ve1b_sensor_data {
+>> +    const char *name;
+>>       u64 chip_id;
+>>       unsigned long mclk_freq;
+>>       int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
+>> +    const char * const *test_pattern_menu;
+>> +    int num_test_patterns;
+>> +    bool cache_test_pattern_reg;
+>> +    /* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole 
+>> lines (0). */
+>> +    unsigned int exposure_shift;
+>> +    /* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B 
+>> keeps 1. */
+>> +    unsigned int pixel_rate_mul;
+>>       const s64 *link_freq_menu;
+>>       int num_link_freqs;
+>>       const struct og0ve1b_mode *modes;
+>>       int num_modes;
+>>   };
+>> +static const char * const og0va1b_test_pattern_menu[] = {
+>> +    "Disabled",
+>> +    "Standard Color Bar",
+>> +    "Top-Bottom Darker Color Bar",
+>> +    "Right-Left Darker Color Bar",
+>> +    "Bottom-Top Darker Color Bar",
+>> +};
+>> +
+> 
+> In the original og0ve1b_test_pattern_menu[] I copied a pretty regular
+> test pattern name "Vertical Colour Bars" inapproptiately, and here
+> the references to "Colour Bars" are also present... Due to quite
+> an obvious reason of sensor specifics would you consider to change
+> the test pattern names to something else?.. Sorry for late comment.
+> 
 
-Cc: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-samsung-soc@vger.kernel.org
-Cc: Peter Griffin <peter.griffin@linaro.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Thanks for the review, and no worries about the timing.
 
----
+You're right that "Color Bar" is misleading for a monochrome sensor.
+The OG0VA1B datasheet names these as "Test Bar", so I've aligned with it:
 
-Cc: linux-iio@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-media@vger.kernel.org
+"Disabled",
+"Standard Test Bar",
+"Top-Bottom Darker Test Bar",
+"Right-Left Darker Test Bar",
+"Bottom-Top Darker Test Bar",
 
-I will take the patch through Samsung SoC tree.
----
- MAINTAINERS | 21 ---------------------
- 1 file changed, 21 deletions(-)
+For OG0VE1B, "Vertical Colour Bars" has the same issue, Would you like 
+me to update it with "Vertical Darker Test Bars"?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 2c8aadac544d..761cdf667471 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3591,14 +3591,12 @@ N:	s5pv210
- ARM/SAMSUNG S5P SERIES 2D GRAPHICS ACCELERATION (G2D) SUPPORT
- M:	Łukasz Stelmach <l.stelmach@samsung.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	drivers/media/platform/samsung/s5p-g2d/
- 
- ARM/SAMSUNG S5P SERIES HDMI CEC SUBSYSTEM SUPPORT
- M:	Marek Szyprowski <m.szyprowski@samsung.com>
- L:	linux-samsung-soc@vger.kernel.org
--L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/cec/samsung,s5p-cec.yaml
- F:	drivers/media/cec/platform/s5p/
-@@ -3608,7 +3606,6 @@ M:	Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>
- M:	Jacek Anaszewski <jacek.anaszewski@gmail.com>
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/samsung,s5pv210-jpeg.yaml
- F:	drivers/media/platform/samsung/s5p-jpeg/
-@@ -3617,7 +3614,6 @@ ARM/SAMSUNG S5P SERIES Multi Format Codec (MFC) SUPPORT
- M:	Marek Szyprowski <m.szyprowski@samsung.com>
- M:	Andrzej Hajda <andrzej.hajda@intel.com>
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
--L:	linux-media@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/samsung,s5p-mfc.yaml
- F:	drivers/media/platform/samsung/s5p-mfc/
-@@ -5696,7 +5692,6 @@ F:	drivers/media/pci/bt8xx/bttv*
- 
- BUS FREQUENCY DRIVER FOR SAMSUNG EXYNOS
- M:	Chanwoo Choi <cw00.choi@samsung.com>
--L:	linux-pm@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- T:	git git://git.kernel.org/pub/scm/linux/kernel/git/chanwoo/linux.git
-@@ -16125,7 +16120,6 @@ F:	drivers/power/supply/max77976_charger.c
- 
- MAXIM MUIC CHARGER DRIVERS FOR EXYNOS BASED BOARDS
- M:	Krzysztof Kozlowski <krzk@kernel.org>
--L:	linux-pm@vger.kernel.org
- S:	Maintained
- B:	mailto:linux-samsung-soc@vger.kernel.org
- F:	Documentation/devicetree/bindings/power/supply/maxim,max14577.yaml
-@@ -20859,7 +20853,6 @@ F:	drivers/pci/controller/dwc/*rcar*
- 
- PCI DRIVER FOR SAMSUNG EXYNOS
- M:	Jingoo Han <jingoohan1@gmail.com>
--L:	linux-pci@vger.kernel.org
- L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
-@@ -24152,7 +24145,6 @@ F:	arch/arm64/boot/dts/exynos/exynos8855*
- 
- SAMSUNG EXYNOS ACPM MAILBOX PROTOCOL
- M:	Tudor Ambarus <tudor.ambarus@linaro.org>
--L:	linux-kernel@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.yaml
-@@ -24162,7 +24154,6 @@ F:	include/linux/firmware/samsung/exynos-acpm-protocol.h
- 
- SAMSUNG EXYNOS MAILBOX DRIVER
- M:	Tudor Ambarus <tudor.ambarus@linaro.org>
--L:	linux-kernel@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/mailbox/google,gs101-mbox.yaml
-@@ -24192,7 +24183,6 @@ F:	drivers/platform/x86/samsung-galaxybook.c
- SAMSUNG INTERCONNECT DRIVERS
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
- M:	Artur Świgoń <a.swigon@samsung.com>
--L:	linux-pm@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Supported
- F:	drivers/interconnect/samsung/
-@@ -24205,7 +24195,6 @@ F:	drivers/platform/x86/samsung-laptop.c
- 
- SAMSUNG MULTIFUNCTION PMIC DEVICE DRIVERS
- M:	André Draszik <andre.draszik@linaro.org>
--L:	linux-kernel@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- B:	mailto:linux-samsung-soc@vger.kernel.org
-@@ -24224,7 +24213,6 @@ F:	include/linux/mfd/samsung/
- 
- SAMSUNG S3C24XX/S3C64XX SOC SERIES CAMIF DRIVER
- M:	Sylwester Nawrocki <sylvester.nawrocki@gmail.com>
--L:	linux-media@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	drivers/media/platform/samsung/s3c-camif/
-@@ -24239,14 +24227,12 @@ F:	drivers/nfc/s3fwrn5
- SAMSUNG S5C73M3 CAMERA DRIVER
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
- M:	Andrzej Hajda <andrzej.hajda@intel.com>
--L:	linux-media@vger.kernel.org
- S:	Supported
- F:	Documentation/devicetree/bindings/media/samsung,s5c73m3.yaml
- F:	drivers/media/i2c/s5c73m3/*
- 
- SAMSUNG S5K3M5 CAMERA DRIVER
- M:	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
--L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media_tree.git
- F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m5.yaml
-@@ -24255,13 +24241,11 @@ F:	drivers/media/i2c/s5k3m5.c
- SAMSUNG S5K5BAF CAMERA DRIVER
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
- M:	Andrzej Hajda <andrzej.hajda@intel.com>
--L:	linux-media@vger.kernel.org
- S:	Supported
- F:	drivers/media/i2c/s5k5baf.c
- 
- SAMSUNG S5KJN1 CAMERA DRIVER
- M:	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
--L:	linux-media@vger.kernel.org
- S:	Maintained
- T:	git git://linuxtv.org/media_tree.git
- F:	Documentation/devicetree/bindings/media/i2c/samsung,s5kjn1.yaml
-@@ -24270,7 +24254,6 @@ F:	drivers/media/i2c/s5kjn1.c
- SAMSUNG S5P Security SubSystem (SSS) DRIVER
- M:	Krzysztof Kozlowski <krzk@kernel.org>
- M:	Vladimir Zapolskiy <vz@mleia.com>
--L:	linux-crypto@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/crypto/samsung-slimsss.yaml
-@@ -24279,7 +24262,6 @@ F:	drivers/crypto/s5p-sss.c
- 
- SAMSUNG S5P/EXYNOS4 SOC SERIES CAMERA SUBSYSTEM DRIVERS
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
--L:	linux-media@vger.kernel.org
- S:	Supported
- Q:	https://patchwork.linuxtv.org/project/linux-media/list/
- F:	Documentation/devicetree/bindings/media/samsung,exynos4210-csis.yaml
-@@ -24309,7 +24291,6 @@ F:	include/linux/clk/samsung.h
- SAMSUNG SPI DRIVERS
- M:	Andi Shyti <andi.shyti@kernel.org>
- R:	Tudor Ambarus <tudor.ambarus@linaro.org>
--L:	linux-spi@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/spi/samsung,spi*.yaml
-@@ -24325,7 +24306,6 @@ F:	drivers/net/ethernet/samsung/sxgbe/
- SAMSUNG THERMAL DRIVER
- M:	Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>
- M:	Krzysztof Kozlowski <krzk@kernel.org>
--L:	linux-pm@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/thermal/samsung,exynos-thermal.yaml
-@@ -27924,7 +27904,6 @@ F:	drivers/ufs/host/*dwc*
- UNIVERSAL FLASH STORAGE HOST CONTROLLER DRIVER EXYNOS HOOKS
- M:	Alim Akhtar <alim.akhtar@samsung.com>
- R:	Peter Griffin <peter.griffin@linaro.org>
--L:	linux-scsi@vger.kernel.org
- L:	linux-samsung-soc@vger.kernel.org
- S:	Maintained
- F:	drivers/ufs/host/ufs-exynos*
--- 
-2.53.0
+
+Best regards,
+Wenmeng
+
+
 
