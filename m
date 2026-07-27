@@ -1,120 +1,187 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B993EFD3D
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 10:49:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785149380; cv=none; b=X25lFI/S/Fgx8ZbM6zEt72Ad6nj8yu/4CCjatYPr3kKLz3C7KJJEHjlbn4N//6mNzYNrOAazz8g4Xx4k5Jn0wCkETZEQs2gFC6urp33MbL/eJBHOs5tgRj6raBTfPI4pFWsFqzH9eu0YJJfCOv+KiOZipNApMSjv/1qoWI5rtXc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785149380; c=relaxed/simple;
-	bh=jStPYMXmFPqwTl0vq7UVe0m+/5Eqz8DD2z/KI52ZQo0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=TFdKr2Uy62GQpAhJJBZ6jqSNuReMvkIF05+tpS5UJsvAJCQPWm+bxFUau2YBL0jfzULjlFVyeWInuOUww9jHFPybUFaIwndyUN32Jy0R+d/oQZK3AmxtIWg8BGA0IoaX3qLq02tIFZ0H1MEkmjCzPoHnU3eM+1x9EnuLfWU39lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ngHNFA3D; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AD83F9F55
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:08:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785150531; cv=pass; b=mk6Rats8pqC6cNecXeQkH3HC3PnujKCaN14zFRwcD81ehllsG+08qaQL+5zTXqcWDkhUngDOXW9k1FLhHj8zijdebZX/OIzvlPbaeTNIrLFENExMI2UHl2qXt7kfPPreqGxj8ufEEw4Q928kI18vDkpc79Ph+F2aJkTZGvQ6EdM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785150531; c=relaxed/simple;
+	bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=FborLY8Cw5H9vEg5FDxY0K5eWltd4Yq0nGCwmkPMv1jT4DnOBmLCNBo387tn/ozCwfUThrlLpKZbiOfUHLTIiyBPw6P8r/5RiRGVVPQv3Tk/0+gTVt5HVXxlQ+XBs176vTqZ9N+Inb4ZbjXYfm069xEQI+GHtVi2Shd5zzXsydw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3mRoCn4; arc=pass smtp.client-ip=209.85.128.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ngHNFA3D"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38125cebfdaso3599485a91.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 03:49:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3mRoCn4"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8114a4542b2so34405517b3.1
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 04:08:46 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785150525; cv=none;
+        d=google.com; s=arc-20260327;
+        b=jozIaZOtgFuxX2qKietL+E369wweNfcSb0RuHmHDlY20R/bmZAVRd1XJI2AWfRaEa/
+         a+hJ228R+hFqyLHiP+FR7DVzJC0GRq3yaZbOqpznD2+fvFOyk5y6owk5Tx6vlQtmCPFV
+         mMYbwf1w1GGHSXuHEMIzi5jfZvwu2IJQt0bW/rSJRMuloqlLxDRx2QUglJ2Yrui2uLLD
+         PInpbHs2aIXBMw6xUH+bdywE6zmQqjZhzjuAOfJx+BVeAZqYTpt5LnaQFAe2AG8dST97
+         FGsxvu67QE9mi1K1DhUmQUA0+PHMSb3WT0zR42ZiMiIjf/aSKWdDKlmO/VtMg0Aw+Yt1
+         gTyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
+        fh=hJme0qKBlyxd8h+YSmFlwrVmby1UZV9n3Dbl41AisIQ=;
+        b=FBSYXtKcrdp4jhFJCG3eilMrcmlZ2NzcqkkZUxeUOgayngiNmgW/F9/dI7gQdn81/t
+         Wv1Ip6PRfwQ181l2a9rTwh3vjOcp5lFlLHJBtGusNIJaLvTfTvhxzUbVEZkI3g0SynEW
+         aILTTJyPIe5ATlFK8z6mxulk6J1Dpcv1jREcvbaaDe6CWnoSNc7LBpooI8cVAI8GkJSR
+         E4MJFrS9zMEVxTogBuYv807puhDm4MXyi4jMYr0tcpn1se5w0IKu7rBvIHnmgGkd58Za
+         G5rg9/bc/DZJ2gmmrTL2dnIU07XjGmLWSjZJ9ieeoBBRts1p6EtPValPjZEYJ9hWzltc
+         7z0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785149378; x=1785754178; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=duRNht6et+Fl8R8XCxDZOkDs1DxWvcJnqfifU+vvHvo=;
-        b=ngHNFA3Dlde19NpT3KzwyCeQgkM79XEj2IjLfnbeKdmjwWDB/TNfXbt7kHQISoIrU0
-         6MCRoUTtwu+6m8zUb4GU55+K3BnOwGH+6OHTqjvaqAKtgN5d/xySaWe63Ctb5iR6cqGh
-         4OLDHVPrwKMPx6B0aZFw9LRQ2MS8dIII159t2zpJlkKhdtUAAndWQhbtfaH2jOTsytl2
-         K5EAsJPKgoA02FWJ7hnqyzC22NYk5vozNiDGHLzS7DPHEzUWZAWknO3jq9bIzzl//VFr
-         LwYzJUcxGgNkDV+7jMx6TSxnJhP1hZtliKMttIKEKGnIOezS5NDgXCD4sC3nckyDsudI
-         5qBA==
+        d=gmail.com; s=20251104; t=1785150525; x=1785755325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
+        b=M3mRoCn4tl8RPjfQixKwIWWGSOwAsLGhmh+pOW5tV4opu6k/FIUqHgtBSUi/lYWXNo
+         K98eF+P/A41j+K8iwFXw6liU49SqTYrvvms0nmGWFjNMcapwdxy/m16HBI26xKOSiPvw
+         bHpYUNToOx9zQJmLUksPduoTCqqE2dSxgHeSldgGIbLqv2CWqoDhAou0N3efVhSwmwfM
+         VQbpCmhybFLItirVtnzw4TnneJchaVYJVzYdQrFlaDO4vxp9qnK66elczaAbAPUjs+C1
+         1bvSmITqLw2KhR3gNZaWHhZGr+7ZSQD962od3gweFtTkzKTtbvFjOOIGdEoRbtgOHS17
+         oVMA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785149378; x=1785754178;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=duRNht6et+Fl8R8XCxDZOkDs1DxWvcJnqfifU+vvHvo=;
-        b=qsF0D+v/JSM6vKaoXJM/JsnIvhID6ZSJciBhINR7idyA2E1M78Pc7wj1TxYkOci6mK
-         9cuD4y8olF5YHFbr52HuEhRxx84zdi2+jV1Eqw1hAdH9b9TwjtQ6okwRhexbUCzgadRl
-         HDjPZ8ZOat8V4NPnhjeGawb5p2TRF3zwgW1JbZDu5QaT8K91al7VFT65NadmAa9bHJ8E
-         Z1E5ITLMI1KtWSEJMSvWllZIZq42VlVsVmMfiLVSCgvrFgX9CkmZNFsjeCGFtjEcWikq
-         qjueJcfxLVm0GGwUcRhRQXZGrSOEbe9ggIZO18tabEUQSgowegPtiedHd72nTSXiwhfi
-         gu7Q==
-X-Forwarded-Encrypted: i=1; AHgh+Rqt8HVEx4avsq/uRmz2AcfqC1k+mchnhH7g1MAN7ND9H3WfPg+eMp7klhpxsTNlYykE5Po3IFH+F/vfxw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxD/HIxmWbyqn/YFDWc8ec7eYljpeHK+8EeTCFU01sgBjJbo6Bm
-	1ZDf9wxnv9CCsQk4ECZye71pHm62rGISEZ9c2l96SpstygCaaqFMqWxJ
-X-Gm-Gg: AR+sD13+wo0M8DkB+I1D+O2tuQhBacoaYOPZl4XeuG6EkKUilr3fhJnQAYPcJpoxZzi
-	90PvbAWvKOternsvj6Z1QgUkB/UTPYkUljfdwjMD7jbHtC4O19PNSakKLIu3Tr/tiWbOMTX9Cmb
-	yToaPLiSliED5VbZNCOu8xcnQp1dlbdsCQzogb1SgrnNjX0DMrKYnYF3WOBWOFteSSD1qP2PHdk
-	ECOJWJzkqoCLdh/24kLC8y8jvmkOV+kHpV4GnK6sz/ltNrbLPIsJ+xqhSa4K56AKZ/aucpdmCe5
-	lag4LR0AuheXbb6+Jb3fw79cUFLCZjeZof7/3AgHJccVUO9FhHDmVNEmQ1/Nhb+mEgAx3m9joIv
-	FEhLWer4hmPKl0T9rMkRoW8ma0jzAQfILtRR43j8gxCU6Ebv7It+uKDhEcq1ojFAUn3WNwsxwu3
-	i11V6fxKe8rPpGkoX3wek=
-X-Received: by 2002:a17:90b:554d:b0:38e:4f41:83df with SMTP id 98e67ed59e1d1-38f294ea1e4mr7649628a91.15.1785149378420;
-        Mon, 27 Jul 2026 03:49:38 -0700 (PDT)
-Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-314bc548e63sm31716481eec.19.2026.07.27.03.49.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 03:49:38 -0700 (PDT)
-From: Cong Nguyen <congnt264@gmail.com>
-To: Steve Longerbeam <slongerbeam@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Cong Nguyen <congnt264@gmail.com>
-Subject: [PATCH] staging: media: imx: csc-scaler: fix ipu_image_convert_run leak on queue error
-Date: Mon, 27 Jul 2026 17:49:27 +0700
-Message-Id: <20260727104927.520546-1-congnt264@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        d=1e100.net; s=20251104; t=1785150525; x=1785755325;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
+        b=HEjuHMbK98/EflSgDJcP0Y+FvVR1Kknz8kLINxAVL+tQ5CzZCJqpO96ismKLBh18F/
+         IJmKDVhjob5UAHkTqkgZt9OfJf3tgGTtnDWZHW8kseBwAEsX5s/UK+T6gnlDKgTHkdXA
+         PQH9vp0sCjFzHsB79jADM1M2i2QvpUDnJU+yZkmrTeMUJwigmWAaceVPgrihp/4dRaHI
+         Fs3RqVj4TNyr0nw5o1/JRmstAFAlj+eGSpTBfXoNyHfgcUUZ2xZoaVoKhZw+WffJV4eM
+         s8+7cCn5vp8lSIbrJfGD35nZcmSTkZ50+WTiAPWwUniFjlpt2USZbsZIuN7y9xoGl2Za
+         bv7A==
+X-Forwarded-Encrypted: i=1; AHgh+RpYUIv6nDwdXY+tirVA65CK+FDYWwvJSOo4NJL3WKhrDIxmpKBWx0uzkqTnNOPkVZb5XTezBasbxWvE1Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxixfi6QByJ+f89GZPmL/7V690C3Iwy2zOXnY1fDqyDlccq2F45
+	eRjpNp2te+W+DMRGkk+dwigHCtlkzPZqJt8k2MraIzLwyAqWnAOIfWU9T83UioeAYywRyNjJkTj
+	9Qa5MQfs39MvMI00axbHrh86xFQc6cMQ=
+X-Gm-Gg: AR+sD12ijItzQ25X7Wb+F3SUttAbD7m0fW4HkWR4sN/bPzTAb+RE5/s1ZP2uAFLHFHv
+	dNUifBUAFImK53ezZfrX6RitWec06yiEEjhog5u25L6zO+zgftOH7gPgyJuf3xGm5ZUj6q+WnTZ
+	3BVkY9k3052GNgm3p4cEYGYelB9BmKJYGiuq5zQzPm1mdc2DLH3RE8Bi5VR5jDn9lazn0yqTdGZ
+	hh8NCiseXymyzpyq1V7EhopAVcenrdzcjZnVObhJVgzydFhYJUyS/YdoZs=
+X-Received: by 2002:a05:690c:3747:b0:809:86c6:ee18 with SMTP id
+ 00721157ae682-81f69e3978bmr27868337b3.37.1785150525277; Mon, 27 Jul 2026
+ 04:08:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260723184538.3888637-1-ekffu200098@gmail.com>
+ <20260724144822.6af8213f@kernel.org> <0ee1ef4aa7daa908bf28397ccc639c89b6aabd9c@intel.com>
+In-Reply-To: <0ee1ef4aa7daa908bf28397ccc639c89b6aabd9c@intel.com>
+From: Sang-Heon Jeon <ekffu200098@gmail.com>
+Date: Mon, 27 Jul 2026 20:08:33 +0900
+X-Gm-Features: AUfX_mzhfgKW48GB4CRuyNKliFu1x1EH8aDGDqYePXeE0rGOBX3Wid5IOU1hKpc
+Message-ID: <CABFDxMFMOAZ_3kYxEGCutnGt1OSSmgvmwx-=M1RxGc3VGKORYQ@mail.gmail.com>
+Subject: Re: [PATCH 00/36] treewide: remove conditional returns with no effect
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: Jakub Kicinski <kuba@kernel.org>, Julia.Lawall@inria.fr, 
+	Alex Deucher <alexander.deucher@amd.com>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Andrew Morton <akpm@linux-foundation.org>, 
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Borislav Petkov <bp@alien8.de>, 
+	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Daniel Lezcano <daniel.lezcano@kernel.org>, David Airlie <airlied@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede <hansg@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
+	Herbert Xu <herbert@gondor.apana.org.au>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jaroslav Kysela <perex@perex.cz>, 
+	Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+	Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
+	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Julian Anastasov <ja@ssi.bg>, 
+	Leon Romanovsky <leon@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Mark Brown <broonie@kernel.org>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Matthew Sakai <msakai@redhat.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Mike Rapoport <rppt@kernel.org>, 
+	Miri Korenblit <miriam.rachel.korenblit@intel.com>, Nicolas Palix <nicolas.palix@imag.fr>, 
+	Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>, 
+	Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
+	Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Tony Luck <tony.luck@intel.com>, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
+	Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>, 
+	Yazen Ghannam <Yazen.Ghannam@amd.com>, cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
+	dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
+	intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
+	linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
+	linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
+	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
+	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
+	nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-device_run() allocates an ipu_image_convert_run object and, on the
-success path, hands it to the IPU image conversion core via
-ipu_image_convert_queue(); the run object is then freed asynchronously
-by the completion callback ipu_ic_pp_complete().
+Hello,
 
-However, if ipu_image_convert_queue() fails, the core never takes
-ownership of the run object and the completion callback is never
-invoked. The "err" label finishes the mem2mem job and reports the
-buffers as errored, but never frees the run object that was just
-allocated, leaking it on every queue failure.
+On Mon, Jul 27, 2026 at 5:30=E2=80=AFPM Jani Nikula <jani.nikula@linux.inte=
+l.com> wrote:
+>
+> On Fri, 24 Jul 2026, Jakub Kicinski <kuba@kernel.org> wrote:
+> > On Fri, 24 Jul 2026 03:45:02 +0900 Sang-Heon Jeon wrote:
+> >> Patch 1 adds a Coccinelle script that matches the pattern, including
+> >> negation and constant-comparison variants. Where a local variable is
+> >> assigned right before the check, the assignment and the two returns
+> >> turn into a single return of the assigned expression.
+> >
+> > Huh, I thought we already had such script. Various script children have
+> > been sending such "cleanups" in the past.
+>
+> We did, and it was removed, I believe in 1a617a8475e8 ("coccinelle:
+> misc: remove "complex return code" warnings"), because people just don't
+> want this constant churn.
+>
+> It's perfectly fine to have the error case and happy day scenario
+> separated.
 
-Free the run object in the error path. There is no risk of a double
-free: the completion callback only runs after the object was
-successfully queued, which is mutually exclusive with reaching the
-error path. It is also safe for the earlier "goto err" on allocation
-failure, since run is NULL there and kfree(NULL) is a no-op.
+Thanks for sharing the history.
 
-Fixes: a8ef0488cc59 ("media: imx: add csc/scaler mem2mem device")
-Signed-off-by: Cong Nguyen <congnt264@gmail.com>
----
- drivers/staging/media/imx/imx-media-csc-scaler.c | 1 +
- 1 file changed, 1 insertion(+)
+I checked the mailing list. The removed script looks similar to the
+new one, but it is different. The removed script reported a
+conditional return followed by an explicit return 0, where the error
+case and happy day scenario are separated as you mentioned, and Johan
+also complained about this 10 years ago.
 
-diff --git a/drivers/staging/media/imx/imx-media-csc-scaler.c b/drivers/staging/media/imx/imx-media-csc-scaler.c
-index 00fcdd4d0487..359d973d297f 100644
---- a/drivers/staging/media/imx/imx-media-csc-scaler.c
-+++ b/drivers/staging/media/imx/imx-media-csc-scaler.c
-@@ -147,6 +147,7 @@ static void device_run(void *_ctx)
- 	v4l2_m2m_buf_done(src_buf, VB2_BUF_STATE_ERROR);
- 	v4l2_m2m_buf_done(dst_buf, VB2_BUF_STATE_ERROR);
- 	v4l2_m2m_job_finish(priv->m2m_dev, ctx->fh.m2m_ctx);
-+	kfree(run);
- }
- 
- /*
--- 
-2.25.1
+But the new script only reports when both branches return the same
+variable, not the explicit 0. So, I think the new script is close to
+the restricted version that Julia mentioned 10 years ago, and it
+should be acceptable.
 
+>
+> BR,
+> Jani.
+>
+>
+> --
+> Jani Nikula, Intel
+
+Best Regards,
+Sang-Heon Jeon
