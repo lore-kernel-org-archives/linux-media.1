@@ -1,223 +1,179 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278793DB321
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 06:44:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785134671; cv=pass; b=NRY7F0M626vxzn7cPxHk34bRXsQTEwpJTXPv84RRBXV0PDONRhdTnPC2CnsdlLF7PTEFm2tx5KJ0YVtxoIOI4Aar0tDIPNfEM0NDxOnck3d47fyfuFz/h4NaeMgx6wkCnX34BhX6JAvPfYbGNf3/zbQPwCRZnG9Yher/TfWjWJc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785134671; c=relaxed/simple;
-	bh=acvLY2MBWWiB4xKOz9R+iQo1cRxy8YD5tSb5zDn/VXA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GMxn1ms1nv1KT9dj7GPN0QpeUa/2oXqwfOZRTwI6TyzqkRVZKFtlzDgQ5xE1gxoFhlaTLpB2wDveDf/8NViKGmUcM8QO+EbqNF3WzCqfSNPxA29aiPULeCTKXBm3I6Bitmz6yCg3Qa3YO4BhWgkCy0eQNCN7Jv0CakKH6Qby2qg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YnWLpgDJ; arc=pass smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50F023A7D9E;
+	Mon, 27 Jul 2026 06:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785134828; cv=none; b=E93MAOsHhA2S1hID2JRXpRO++Ay2YuUZns1Dv0iRz1+0C1tS3y3REb0ivaBFPyYe25CzZxeU6glU8K8YbiJ4CRRvW8Sdyp0LpbNuFkuO6J1SMjUw+/eVR6gyNaOSCU1SeNTVw8i5jX4N478l7MplCJZ6Tox2Ft9jiVE8N9gLkxQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785134828; c=relaxed/simple;
+	bh=egrSHVv2XT0Y3bP773mgGT1ZLPKQAaidLxR+6y+JTqI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VwNfw3uTEg4FAjNIgsq1VL1cThMaeGrTy8LCH4IJVEfhQwjgDsdG497j6xkrlZIFOQK0E6ogCSANMvdpKHVobDwheHmKpWALofcGhEOb7mdmu1gkLSY/abG8XZ52/4k+oJmQbS0YHL36zx+g5jDUttXUnMwOR9T6cdXnjIYxYl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=K4cSDxQL; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YnWLpgDJ"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so1743612a91.0
-        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 23:44:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785134669; cv=none;
-        d=google.com; s=arc-20260327;
-        b=UfJJFz/Qe7LmI2zSAXM1uSg10bQYiYmivpp/9sGfEVq1y6FGRAYaskOTz2wZsG38az
-         TyDe6AMs4vnm1Jn5CIBQA8fRRnPOgyutuDVhmVY6LaxL04wtE447TAdKkUs0xU8CNwby
-         ShxiAn9lAv1dggnyFtOZx9U6gYruAh1w0aB0+3BAl8/JBHZqwvRYl45WTIXRJUrJ9GZq
-         OgDN4vYt5i3uEwM1zUjzJF9ha6lkQD8Kwhtv7L/PfHJ1tRzbBlVNLtLLTIWRi+KSq8r5
-         wJPwi/6/qESzTkaOi2WWFQ7oWAQsc6JQoPMXmoAE35lwlFs56xic3UDS0vbRnrIuBXlR
-         fCnw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
-        fh=zLoRCCTUy9xkAiabf8TkexQgesAPdNKyXrjZzkfXRTQ=;
-        b=HW1umB68bNZVIk87OSJt/JOKxYQJj/9VxO5XiPMThMfbn6oofaDQVtt4l7O6RCuW/0
-         LMKUNgHRMqmIXEeuz9WDishlbOetydg7tLKoZAgqcnYbtmt5YpQO7nBl3IX5dHxAipnp
-         XxajFy/GTErcVbCIpUE1bqYKxiAtnbjtk1/UP5d/slLTCGGk/CVyCGeP/ENN8oPgjPEg
-         NQK47IeOYVI8+B47BnrA/cq5KDXFUXPLYBNBJfCthiIIgc99xG6Aw3ytdyltM1G2GTB0
-         GyqyR+c3ou0zYeDhoVSoCDVh7RBRbiYWg0uxR+jazkSc82KQGxrYLMWDLFP52PrtWBNW
-         WHIA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785134669; x=1785739469; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
-        b=YnWLpgDJkONdnVHExyaWTzE2sehPXttqJIa0IaTzdKRZQf49YYkdNEu8AGhGwx0jBg
-         dQGQiSIP1Z7Gc6RlVjg75LR04HDIGN4wCI2yYwsDI/SitV12kHFkKcSy1MAWORHyTBLa
-         Is5ls7AHTjUxegX1nCsdjJ05HWLvWvp8G/yGOpdlmCsq8skTIYYc2lp8TKgLjhOynfZO
-         H2eB7Vme3izU8EWFCoe7e24hb/giTRPV9KtzN3n8OGLtOZ0rQHgJo4EumdosZ3K2F3ZW
-         5EXcNWTjchMSNOS9NtQqNm3+8swPXrU6ixTS3ad25Bsrf8mHpnhFwE3pXmdP+A2OxEfk
-         Cdeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785134669; x=1785739469;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
-        b=BUs6C1ADXjC91tuCAq03MvNJij6T+3I/HW5JzfjuUrZWiU6gkXHBSqQvkLT8sM9xmR
-         mXDHHCVj09nHM7MO0iwNXAkTWMguqJCllhBoXLiJbh43zaL/PxZ40JwrH6oBwNew83AB
-         cONj48eBEZ5ggclt5+Fe4PXVOUQrGcVjqjtJkIta3b1+dswIRO0MDuIWMY34HtlmFNKt
-         U1pO9aE1hNXRJMtmiLUF3ExgBLi9XibGIPQmGYT03IcmrVgL0DkjCnQiO0QKZrLfuwSC
-         2J0/sS5rewp/weY2UIGQRxIZu8T8NXS5+S1rsavx8eUzm0C41EshY1ds81PFGh+8yXHb
-         6ARg==
-X-Forwarded-Encrypted: i=1; AHgh+Rr1D3GB4lH3bsr7vHb84kb9LI0p4EFLrKp+IyzJzOicr1KzkH8NPZlwGRuzkpm1LjzXlUFLfQyoK2zMcg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwqPbFMOtFZFu5i5xSTZ39DaJxELLpl70iU+pWgNJJ3zJ5bwaj0
-	bFpMjeYIuevIZSuv/V6dLoTxXjwJ2RJVCjfRbiebGRFuPI457+/rTme+cuSkI4cJ6KTEZ62ykG6
-	AtxgNPh23FshgploKwtf9ObH4aeeADA==
-X-Gm-Gg: AR+sD10d0zLIB9JBRy110dBkYnOFgyuAjXv9LvbIxuzHHt4aV1/Kme6g+Cjd6ZZgs45
-	0ijdcpyZNs1kNWWe1z25xhWMqI35egifNB2GqkbuJFvU+DqfbNrlqq/Qj+PFn+bmVtkAAAJxiLo
-	VmzV/z6ZQke/T+yO9dS1FINNB/iHxPlR23F9xE6f2+aWApFos8lEH91ElAXm2OiuECfRShgDysc
-	uC7crkM6AJoVaaNcrqFlRAiMceaCI1UIaXs7+IZzL16Rzkgz4V3cUKtisRgikB8MPrTFYZxUXR2
-	MFtu3yprUBqvk9B5K9KUCc6iG8g7
-X-Received: by 2002:a17:90b:3e47:b0:38e:4011:465f with SMTP id
- 98e67ed59e1d1-38f2960cd53mr6833918a91.23.1785134669331; Sun, 26 Jul 2026
- 23:44:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="K4cSDxQL"
+Received: from ideasonboard.com (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 58F7F19C;
+	Mon, 27 Jul 2026 08:45:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785134753;
+	bh=egrSHVv2XT0Y3bP773mgGT1ZLPKQAaidLxR+6y+JTqI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=K4cSDxQLNkF2DmRZskgOq+Bnlv618kkgoyxQQw3k98c7sk2KxXWF/d9Xj1lT3FWba
+	 90oGR8geq//UrDF6AnBNC7PM42LQL4B8Bl2gF3FaV0RjkyzwP6b0LxQpbesBn3KWDl
+	 Y3esKB6mTsvdd2DL05+OKHNwpl0nTogB+ue18BbQ=
+Date: Mon, 27 Jul 2026 08:46:53 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Philippe Baetens <philippebaetens@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Message-ID: <amb9dOkox3zqr85t@zed>
+References: <20260724-mira220-v8-0-d1899ab64709@ideasonboard.com>
+ <20260724-mira220-v8-2-d1899ab64709@ideasonboard.com>
+ <178491944579.3026322.17711300671190246368@freya>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
-In-Reply-To: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
-From: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
-Date: Mon, 27 Jul 2026 08:44:17 +0200
-X-Gm-Features: AUfX_mwqcqnNQMcZqt04xa55VFBtNE5LGKsPbm1cl7GlNjH5cXHOSWUWokyx1_s
-Message-ID: <CAMhzubo-NJMro7+XbxD=MhSXiRp14chatDcn-=1Hsiak786uQw@mail.gmail.com>
-Subject: Re: [PATCH 0/4] media: rkvdec: Add VP9 support for VDPU381 variant
-To: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
-Cc: Detlev Casanova <detlev.casanova@collabora.com>, 
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Igor Paunovic <royalnet026@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <178491944579.3026322.17711300671190246368@freya>
 
-Rock 5B+ leg of the three-board run in the cover letter, as a tag you can
-pick up. 7.1 base carrying this code, not a build of the series as posted.
+Hi Jai
 
-Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+On Sat, Jul 25, 2026 at 12:27:25AM +0530, Jai Luthra wrote:
+> Hi Jacopo,
+>
+> Thank you for the fixes!
+>
+> Quoting Jacopo Mondi (2026-07-24 21:07:01)
+> > From: Philippe Baetens <philippebaetens@gmail.com>
+> >
+> > Add a V4L2 subdev driver for driver for the AMS-OSRAM Mira220 image
+> > sensor.
+> >
+> > Mira220 is a global shutter image sensor with a resolution of 1600x1400
+> > pixels.
+> >
+> > The driver implements support for mono and RGB 12, 10 and 8 bits
+> > formats. The output data-rate per lane is 1500Mbit/s, with a maximum
+> > frame rate up to 90 fps.
+> >
+> > Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+> > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> >
+>
+> [...]
+>
+> > +static int mira220_parse_endpoint(struct device *dev, struct mira220 *mira220)
+> > +{
+> > +       struct fwnode_handle *endpoint;
+> > +       struct v4l2_fwnode_endpoint ep_cfg = {
+> > +               .bus_type = V4L2_MBUS_CSI2_DPHY
+> > +       };
+> > +       int ret = 0;
+> > +
+> > +       endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > +       if (!endpoint) {
+> > +               dev_err(dev, "Endpoint node not found\n");
+> > +               return -EINVAL;
+> > +       }
+> > +
+> > +       if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg)) {
+> > +               ret = -EINVAL;
+> > +               dev_err(dev, "Failed to parse endpoint\n");
+> > +               goto error_out;
+> > +       }
+> > +
+> > +       /* Non-continuous mode not implemented. */
+> > +       if (ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) {
+> > +               dev_warn(dev, "clock non-continuous mode not supported\n");
+> > +               ret = -EINVAL;
+> > +               goto error_out;
+> > +       }
+> > +
+> > +       if (ep_cfg.nr_of_link_frequencies > ARRAY_SIZE(mira220_link_freqs)) {
+> > +               ret = -EINVAL;
+> > +               dev_err(dev, "Unsupported number of link_frequencies: %u\n",
+> > +                       ep_cfg.nr_of_link_frequencies);
+> > +               goto error_out;
+> > +       }
+> > +
+> > +       if (ep_cfg.link_frequencies[0] != MIRA220_LINK_FREQ_750M) {
+>
+> The LLM-bot says link_frequencies[0] might be invalid if DT omitted the
+> link-frequencies property, and I think that's a valid concern.
 
+Yeah the bot is right, my bad
 
-Il giorno dom 26 lug 2026 alle ore 22:28 Venkata Atchuta Bheemeswara
-Sarma Darbha <vdarbha0473@gmail.com> ha scritto:
+I thought the property was required by fw, but it's not.
+
 >
-> Hi All,
-> This patch series adds the initial VP9 support for VDPU381 present in rk3588.
+> Any particular reason for not using the v4l2_link_freq_to_bitmap() helper I
+
+I think I missed it from your previous comment, sorry :)
+
+Now that I look at it, the function wants link_frequencies from fw
+
+drivers/media/v4l2-core/v4l2-common.c-  if (!num_of_fw_link_freqs) {
+drivers/media/v4l2-core/v4l2-common.c-          dev_err(dev, "no link frequencies in firmware\n");
+drivers/media/v4l2-core/v4l2-common.c-          return -ENODATA;
+drivers/media/v4l2-core/v4l2-common.c-  }
+
+Should I:
+
+- make link_frequencies required in bindings (something that doesn't
+  seem that useful considering a single freq is supported)
+
+- only call v4l2_link_freq_to_bitmap() if the property is specified ?
+
+?
+
+> had suggested? It can handles all of these cases and error msgs too.
 >
-> VDPU381 supports VP9 Profile 0 and Profile 2 up to 7680x4320@30fps.
+> With the edge case fixed (with or without the helper):
 >
-> Tested with fluster (suite : VP9-TEST-VECTORS, decoder: GStreamer-VP9-V4L2SL-Gst1.0).
-> The 224/305 score has been reproduced independently on three RK3588 boards
-> across three kernel bases: Orange Pi 5 Pro (RK3588S, 7.2.0-rc3),
-> Orange Pi 5 Plus (RK3588, 7.0) and Radxa Rock 5B+ (RK3588, 7.1).
+> Reviewed-by: Jai Luthra <jai.luthra@ideasonboard.com>
+
+Thanks
+  j
+
 >
-> Most of the remaining failures fall into a few known categories:
->
-> - All vp90-2-02-size-*.webm variants where either dimension is
->   smaller than 64 pixels fail because the hardware does not support
->   frames smaller than 64x64:
->   vp90-2-02-size-08x08.webm, vp90-2-02-size-08x10.webm,
->   vp90-2-02-size-08x16.webm, vp90-2-02-size-08x18.webm,
->   vp90-2-02-size-08x32.webm, vp90-2-02-size-08x34.webm,
->   vp90-2-02-size-08x64.webm, vp90-2-02-size-08x66.webm,
->   vp90-2-02-size-10x08.webm, vp90-2-02-size-10x10.webm,
->   vp90-2-02-size-10x16.webm, vp90-2-02-size-10x18.webm,
->   vp90-2-02-size-10x32.webm, vp90-2-02-size-10x34.webm,
->   vp90-2-02-size-10x64.webm, vp90-2-02-size-10x66.webm,
->   vp90-2-02-size-16x08.webm, vp90-2-02-size-16x10.webm,
->   vp90-2-02-size-16x16.webm, vp90-2-02-size-16x18.webm,
->   vp90-2-02-size-16x32.webm, vp90-2-02-size-16x34.webm,
->   vp90-2-02-size-16x64.webm, vp90-2-02-size-16x66.webm,
->   vp90-2-02-size-18x08.webm, vp90-2-02-size-18x10.webm,
->   vp90-2-02-size-18x18.webm, vp90-2-02-size-18x32.webm,
->   vp90-2-02-size-18x34.webm, vp90-2-02-size-18x64.webm,
->   vp90-2-02-size-18x66.webm, vp90-2-02-size-32x08.webm,
->   vp90-2-02-size-32x10.webm, vp90-2-02-size-32x18.webm,
->   vp90-2-02-size-32x34.webm, vp90-2-02-size-32x66.webm,
->   vp90-2-02-size-34x08.webm, vp90-2-02-size-34x10.webm,
->   vp90-2-02-size-34x16.webm, vp90-2-02-size-34x34.webm,
->   vp90-2-02-size-34x64.webm, vp90-2-02-size-34x66.webm,
->   vp90-2-02-size-64x08.webm, vp90-2-02-size-64x10.webm,
->   vp90-2-02-size-66x08.webm, vp90-2-02-size-66x10.webm.
->
-> - vp90-2-05-resize.ivf, vp90-2-18-resize.ivf and all
->   vp90-2-21-resize_inter_*.webm variants fail. These streams change
->   resolution mid-stream on a non-keyframe, and a reference frame
->   from before the resize ends up unavailable by the time it's
->   needed again. This is being actively looked into:
->   vp90-2-05-resize.ivf, vp90-2-18-resize.ivf,
->   vp90-2-21-resize_inter_1280x720_5_1-2.webm,
->   vp90-2-21-resize_inter_1280x720_5_3-4.webm,
->   vp90-2-21-resize_inter_1280x720_7_1-2.webm,
->   vp90-2-21-resize_inter_1280x720_7_3-4.webm,
->   vp90-2-21-resize_inter_1920x1080_5_1-2.webm,
->   vp90-2-21-resize_inter_1920x1080_5_3-4.webm,
->   vp90-2-21-resize_inter_1920x1080_7_1-2.webm,
->   vp90-2-21-resize_inter_1920x1080_7_3-4.webm,
->   vp90-2-21-resize_inter_320x180_5_1-2.webm,
->   vp90-2-21-resize_inter_320x180_5_3-4.webm,
->   vp90-2-21-resize_inter_320x180_7_1-2.webm,
->   vp90-2-21-resize_inter_320x180_7_3-4.webm,
->   vp90-2-21-resize_inter_320x240_5_1-2.webm,
->   vp90-2-21-resize_inter_320x240_5_3-4.webm,
->   vp90-2-21-resize_inter_320x240_7_1-2.webm,
->   vp90-2-21-resize_inter_320x240_7_3-4.webm,
->   vp90-2-21-resize_inter_640x360_5_1-2.webm,
->   vp90-2-21-resize_inter_640x360_5_3-4.webm,
->   vp90-2-21-resize_inter_640x360_7_1-2.webm,
->   vp90-2-21-resize_inter_640x360_7_3-4.webm,
->   vp90-2-21-resize_inter_640x480_5_1-2.webm,
->   vp90-2-21-resize_inter_640x480_5_3-4.webm,
->   vp90-2-21-resize_inter_640x480_7_1-2.webm,
->   vp90-2-21-resize_inter_640x480_7_3-4.webm.
->
-> - vp90-2-09-aq2.webm,
->   vp90-2-09-lf_deltas.webm,
->   vp90-2-15-segkey_adpq.webm,
->   vp90-2-19-skip-01.webm,
->   vp90-2-19-skip-02.webm,
->   vp90-2-19-skip.webm,  vp90-2-22-svc_1280x720_3.ivf,
->   are still failing and not yet root-caused.
->
-> - vp91-2-04-yuv422.webm
->   vp91-2-04-yuv444.webm
->   fail because the hardware does not support the format these
->   streams use (4:2:2/4:4:4), only 4:2:0.
->
-> The base vdpu381 VP9 driver support was introduced by me. Profile 2 support
-> was added by Igor Paunovic. Francesco Saverio Pavone fixed bugs in
-> the segmentation map size calculation and in the altref vertical
-> scale factor. Igor Paunovic also fixed a decoded-frame stride bug, aligning
-> bytesperline to 64 bytes in rkvdec_fill_decoded_pixfmt().
->
-> ---
-> Igor Paunovic (1):
->       media: rkvdec: align bytesperline to 64 bytes in rkvdec_fill_decoded_pixfmt()
->
-> Venkata Atchuta Bheemeswara Sarma Darbha (3):
->       media: rkvdec: vp9: Changing get_ref_buf function name to get_ref_buf_vp9
->       media: rkvdec: Move vp9 functions to common file
->       media: rkvdec: Add VP9 support for VDPU381 variant
->
->  drivers/media/platform/rockchip/rkvdec/Makefile    |    2 +
->  .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  234 +++++
->  .../platform/rockchip/rkvdec/rkvdec-vdpu381-vp9.c  | 1067 ++++++++++++++++++++
->  .../platform/rockchip/rkvdec/rkvdec-vp9-common.c   |   65 ++
->  .../platform/rockchip/rkvdec/rkvdec-vp9-common.h   |   92 ++
->  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  121 +--
->  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   73 +-
->  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |    1 +
->  8 files changed, 1537 insertions(+), 118 deletions(-)
-> ---
-> base-commit: 1229e2e57a5c2980ccd457b9b53ea0eed5a22ab3
-> change-id: 20260726-b4-add-rkvdec2-vp9-vdpu381-3d1bd8fca4f5
->
-> Best regards,
-> --
-> Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
->
+> Thanks,
+>     Jai
+> > +               ret = -EINVAL;
+> > +               dev_err(dev, "Unsupported link_frequency: %llu\n",
+> > +                       ep_cfg.link_frequencies[0]);
+> > +               goto error_out;
+> > +       }
+> > +
+> > +       /* Check the number of MIPI CSI2 data lanes */
+> > +       if (ep_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
+> > +           ep_cfg.bus.mipi_csi2.num_data_lanes != 2) {
+> > +               ret = -EINVAL;
+> > +               dev_err(dev, "%u data lanes are not supported\n",
+> > +                       ep_cfg.bus.mipi_csi2.num_data_lanes);
+> > +               goto error_out;
+> > +       }
+> > +
+> > +       mira220->lanes = ep_cfg.bus.mipi_csi2.num_data_lanes;
+> > +       mira220->row_length = MIRA220_ROW_LENGTH_MIN * (2 / mira220->lanes);
+> > +
+> > +error_out:
+> > +       v4l2_fwnode_endpoint_free(&ep_cfg);
+> > +       fwnode_handle_put(endpoint);
+> > +
+> > +       return ret;
+> > +}
+> > +
