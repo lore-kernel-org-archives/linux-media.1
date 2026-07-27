@@ -1,193 +1,176 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B8084252BC
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 18:35:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785177311; cv=none; b=vGDShSPh/DzP6ypMeZIf4kZ7tFBceoKGgPjmGWsN94olt7kE/Wap+ECqCbsAI25CX6d+Q6qGXRqW0GClAyM7yZEg0hdy9oCtwZ5XLkEIBVxeRVjGIlkA5T7OsqYlSrsJVpJ8OwYS7UulcPAU9vnYJuxN8RSTBitnfgsEoKt3FPU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785177311; c=relaxed/simple;
-	bh=0p3hT4N/VlqQQj+WQX0FWwulHHc2Gt38/2TsWEJXjUg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BVC5pxvSVDq/a1K4yC8NmuL6aogJ59av0+hH4/WEcUU0sLtj3dCeJ2aNiZTbjw/HbQPrJ3ubvtCvJQp4280lq7fVetAd8C7cdKw5kaK44n6Txom3ICHbr9x8ACXNPEdD4ULyNrutvgwLEQM4upwg+5/oVOSSQmgEXVg9IkUwQGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fQe0BI8N; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B707F3C140F
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 18:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785178439; cv=pass; b=PKH8RsoikR74kBTtMThbkbmG6pv/k12liaIIjtxtvOiUx9ikkVr5LcyUSwrDHvoAhheoUQY/R1a/UZQtsZ6MBQkwK8Q9lXplSjqFMOqVSFw/m+I3zYbGlRekgkGfwTtGXFZ/Lq9eZr0Ro6pGorwvDd1m178n7jOCvh0YfVynAH4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785178439; c=relaxed/simple;
+	bh=jBGj3vq73TpQNUHtZ8hP8T9s3Rn/i9PzV5LYqBYc5Jk=;
+	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=N/OmDLyreEyUpjvxQ883sqoZbQl3mHm4kxZa6dbLG3tLOT7Lppuc7eHyJ5f1t2CuYf7g7adnwiBmlgH+kof2nSd9JdkXKLn7a19qXGmkrkJxEfdj3yDk/hW3v4piMxqRmnmygTVTwIg/PD3Tt6+C3kQZXvmMrxU4/EbAWx+I8wA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UJFxwML0; arc=pass smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fQe0BI8N"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92ed3993c1eso172038185a.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:35:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UJFxwML0"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca957432c7fso2202463a12.1
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:53:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785178437; cv=none;
+        d=google.com; s=arc-20260327;
+        b=W9DNm23Hn5FABXQVMduAK1tAkUNV5+Lw9nExSu9cBYVcPrgCUXlsIVgGhXVgg5pGEh
+         zViTyBfjUKjCiDkIqSfZwhZpmIZYI9An7S9xFgiHHJ4KGvmEQ7+lZ5O6we4iKD/Vvly8
+         oKQMa56rsMWU39BnApdSN2O0i6e5LkQ07jbIfZD4xNfw3xt7U4E4UBdJaU5ddRqLr/k9
+         17bWh2k3+F1gGy0Yvs79ZoQ5rQHQJb68eOC148J1gRSZwOtWVeAKb72dhnAqvH0OjlA1
+         u039rnG6BHXbty4OYKiP/4DceV7qWKBJ8DRnoip+CMLc16d15dJFe/p9+c50h1nzLukm
+         wSsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
+         :from:dkim-signature;
+        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+        fh=x0wCzXu/IzPOxtiFQwvzJp6xItmUNhV8f2yjftAqsqc=;
+        b=hEx65b2WCEkubACtqHnLo0v/gTN4vwXMK+WwATNbRPjT8vNDJxsmhE2JcQsHH0V7rQ
+         kr4ma19HHmc0sERlFCcwPPPqbXQPy+SGXilf/13Bs7+YuTw9zzPE+WUiBEMsEQoHQYFb
+         zZJOYim7y/8p0tWO0OkLgJ/1lKQNmvMs9pUzZ6KtIqsTtWbwDiR460j3Sw+juioF2xGM
+         8xcSgF+N+N3WfIGVHUWEuDo5ic5WkGfw5qrpzsHCIXgPWg7D5DSO2qmkMpeygk7/6uha
+         FGWDTJO56iRMuMS3TF8/VULKHerYPlM7sMyXcZ9RE/MVEiEDYDhWjEBYGTsiRk9ZWatS
+         2PFA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785177308; x=1785782108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WG1MrVZv1CLm058WLMPZV+j3enBqJCTO3g9sfArNrrs=;
-        b=fQe0BI8NhGS3f62KDs0Y6zUteWk2hanwfu+QiUwrb4ISnUMkUfBjQgJ6Dsspgxzw2R
-         5ZH0oSoBqOCBYIDPSrl4NmhvUoF1gqQUcNBs3Baddq4NV6faRZ5foH4UHWxPUebbpXni
-         3Y4yOveT34u8f6J574rhx+4cuh1LZQ5IbXdlKBI53tylnxFWXikMPKfzdphOL8wvtolP
-         AvIXcp7A+a14AncAqusuzRiqhpbxXeR8QRFAJcwGdBlOFKS+rS4OGXVRiYHTZJ0+7cRD
-         c7gPNxaCt+wjcjnU0U9kXjOSpReEq920QC6BGXmp0VOYsYOdtXTbPe0c7ZDDtRES9ToG
-         ub0g==
+        d=google.com; s=20251104; t=1785178437; x=1785783237; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+        b=UJFxwML01OyWDhhGzt5oP/vgee+QKm+snjmmmpDfkX2aopwCujH8dPQQ97ZHKh3mPo
+         wSIyJgJm8M004RUsHokQRSTdo6NznNTwTkLQLxPtuxukI7+oeEQ1IAwr4QcBf/thLFNs
+         QPn3NSWX2WGIX3Vh/6+MxlWfe+NPvmmR9Gu/mF6iRZwy6vKhYiQezuXx6LAcPikzD+AS
+         5tstckADxD/CnHSEThTvm0xQoz7Yk9C//l/boH0tSu4gvLVQMJxSZuJHUllpT42ehOYD
+         Lt6qqmz5ilUxbPtbFCIFH8dUHm0pytWZ+sHqFPF5Zvy9Mc7C2ow1sDgxaXWLYsnV5ApX
+         SSVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785177308; x=1785782108;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WG1MrVZv1CLm058WLMPZV+j3enBqJCTO3g9sfArNrrs=;
-        b=noqIvV70y0evu1A2eztNzoPJARyUQL9rZF3ZzylH/yJHyGJsjypKXbRcqKPeKb7SNK
-         u+7cy7iTsr4hpxT9WbgGYlrs/eUVPRLCOF4/keJix5+BwA64dLpI/tqpjdp+7A/XEx9Z
-         tElku/IrPMHW6zVkTX6C6isn8EGdphaFGTr5hSx3A3Aw9Zl0Hrjhaa2sEMeQgZ1sJ3Qs
-         R5BYmBToxypDsGy/UTg5xVChHPNYktVS+3vNhgQXeM5vlddymYojKGOBga67mht+t5O3
-         W0BcLY2HQ6BgjQlHuqXchvD7SAnfzrd0g551okPlGJ8/0LdgtCm4kSDfIE/8krteQ+Db
-         McNA==
-X-Forwarded-Encrypted: i=1; AHgh+Roy44TA9hzAaXMwUzdTOPZWgXqE08he688uiU/tbMF/MK3ksQBOACNGUt3FYPV5ZJJdb+jHTb/58kzvTQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxH9xiVzU9TWI0DMxVZwRNG5kHoJPWnS7IetfTmA7JVQ1KpQ/wY
-	sWeyydCp3pC7TK0zKWOEk1pZRpttpULqddZfFChQXT+6lNQFBSlK1lnC
-X-Gm-Gg: AR+sD13ZjUhW90EU1QbJUGpRyGygAWlJdBnOIzv8LFpQL4wicRNvIJl3RMz64SEwWPT
-	vQCfESnnEMmVLnBMKQ0Hq8fFjggDP1kIe438r6E0C+qINyTCtptxCQeco/ugtxHVG102i2P1vla
-	RObrHyKWhI/NN65/EaP7piSmT8JbZa8v9DQyMzx+CHtBfki+sN8M74V+Hxrf/mKGj3EM0v2OVdf
-	+AggZVputle8rsEMrICiM+4faLa64MdJ3nLizCRWSLlbclMiwINcZIgLpjYz/gmsK+560Z/8zON
-	9ueGzlamNttZDbQwssbiT++nnzrbjv73VxJ77Vp+N+l4lY1tUhCuNR5q1AVinY9MTrxCrsplApv
-	JCo9Nlj5aYVv61HjjQY2XdnG6pbxCeoriDWfsDG7Zhqx8nAVJBK76QN58qDe3FGba8VZTiqlHA/
-	TAbgK/5t+crKlSvdZ9feSAbfuSbUzsCGdkhvkpArP5gkjkW+0Cz4GyBer0EktbTboNFD+m0Z7De
-	C5OJ29PEBKm/hIUAsrKoE9fON4ZksH0PS2Vrr6E8eg=
-X-Received: by 2002:a05:620a:a410:20b0:92f:bed:e252 with SMTP id af79cd13be357-932df6e9fdfmr774871085a.48.1785177308271;
-        Mon, 27 Jul 2026 11:35:08 -0700 (PDT)
-Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-932de635f12sm677589085a.25.2026.07.27.11.35.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 11:35:07 -0700 (PDT)
-From: Yifei Gao <gyf161023@gmail.com>
-To: Bin Du <bin.du@amd.com>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Sultan Alsawaf <sultan@kerneltoast.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yifei Gao <gyf161023@gmail.com>
-Subject: [PATCH v2] media: amd: isp4: fix self-deadlock in isp4sd_pwron_and_init() error path
-Date: Mon, 27 Jul 2026 18:34:19 +0000
-Message-ID: <20260727183500.298036-1-gyf161023@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260725203640.915626-1-gyf161023@gmail.com>
-References: <20260725203640.915626-1-gyf161023@gmail.com>
+        d=1e100.net; s=20251104; t=1785178437; x=1785783237;
+        h=content-type:cc:to:subject:message-id:date:mime-version:references
+         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
+        b=EFoVMa3iyCtf2D/vOdAjzY8kKwx/K0UqECDG9Ek7Zhlj2GOMM9DAtppHe2j3DgWiH/
+         LXuHunSDOlPJgf4zFZq4S91serFBg6GyWSHGoR37SMZHcW6HbDw3CXtDmYSkvv5pwkHH
+         1+ZU7zGZBhnSwYXTSr3HLI6drKkeVNK4SFSP1sY1CFbmtKxm+vzOFrrECYr1qcOZ3P10
+         nORuoaqRK0LsVEJ2Yt7QmwSyYSd+l/2lJhUWdZd2IguOOvyVaSAHaZtnKGnQoOWK4d1J
+         TLhNwTpWcb388DxcsTRv150V1FurWEXo0u+8o9b85ThJGIBF8VTMUS6Bl84lCz82w0gL
+         VO/w==
+X-Forwarded-Encrypted: i=1; AHgh+RosPEA/A6ANMKrTPUTRjVRDshEcxGusJV6RBB63beUkz2QqLbcQyHPyYpHyAumQwDMpd9i4dPEo401SjA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yws/yuEyicuEw2tegornX5s5jKkAw11G0lr81WtzpS1i2vE+381
+	RmzhtmCcGJnIsIQYDExUogZbEJJx0ujynKIS16JBTDestI29NvHUZ3QFR1ud9z+5KDjMbuI0hS9
+	+putR0UgXnyeghyYFiO9b+UOCeKiDtX2UD4WUmvKb
+X-Gm-Gg: AR+sD119og2fPRXdgu5GMmmBMxlVMel+j5J457uK1H+WE3LiAyCrHzuyb9zNYLLBGzl
+	7px09iSf0UMvI1HqCISpN0zMykpbGFMU4UnsbQETXv1rH/cMbrBIEz3Aj+4K5kdXq5iYWGWyLOI
+	v8Vv2QYyJ+30sAVLeOz7hUFyP6hoK/QMGdp7ooNGkjrpUX4DNdPZdbEqx9K/Xi4Yojg4eP1Xmqc
+	a3+CQ8XKzXnnwkfNaVmihcQ8YMHydtsIbZT0gxSYsuzwZ2S/TlTdoU+kF9S+kw1fWTOYKE38izK
+	PLhUQ51yDjwy/fRID+Cx5u9mXhquP99Ro3nMZxCBV7gLyxWX
+X-Received: by 2002:a05:6a20:6a05:b0:3c3:7a0a:18a7 with SMTP id
+ adf61e73a8af0-3c6c7fb20d4mr796670637.55.1785178436210; Mon, 27 Jul 2026
+ 11:53:56 -0700 (PDT)
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
+Received: from 176938342045 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
+From: Ackerley Tng <ackerleytng@google.com>
+In-Reply-To: <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
+ <20250529053513.1592088-11-yilun.xu@linux.intel.com> <20250602133009.GC233377@nvidia.com>
+ <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
+ <20260712221934.GF674038@nvidia.com> <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
+ <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Mon, 27 Jul 2026 11:53:55 -0700
+X-Gm-Features: AUfX_mylYj_x8eQp0BvgfyW8gHfhB_jFskLbUbWzV0Fgf00qZT4Qn9h3hPlqeKo
+Message-ID: <CAEvNRgGYc0B1YyhDhS0Khfm3N85hbkYGMTfDLiXYn+WHTLF2EQ@mail.gmail.com>
+Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for importers
+To: Xu Yilun <yilun.xu@linux.intel.com>
+Cc: Jason Gunthorpe <jgg@nvidia.com>, kvm@vger.kernel.org, sumit.semwal@linaro.org, 
+	christian.koenig@amd.com, pbonzini@redhat.com, seanjc@google.com, 
+	alex.williamson@redhat.com, dan.j.williams@intel.com, aik@amd.com, 
+	linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+	vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
+	lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
+	leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
+	tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
+	simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
+	aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-isp4sd_pwron_and_init() holds ops_mutex through guard(mutex) for the
-whole function. On any initialization failure it jumps to the err_deinit
-label and calls isp4sd_pwroff_and_deinit(), which takes the same
-ops_mutex through its own guard(mutex). Because the guard in
-isp4sd_pwron_and_init() still holds the lock at err_deinit, the call
-re-acquires a non-recursive mutex held by the same thread and deadlocks
-on any initialization failure.
+Xu Yilun <yilun.xu@linux.intel.com> writes:
 
-The error path cannot simply drop the lock and keep calling the full
-teardown, because that teardown is not valid at the earlier failure
-points. In particular, pm_runtime_resume_and_get() drops the usage
-counter again on failure (via pm_runtime_put_noidle()), so no PM
-reference is held when it returns an error; calling pm_runtime_put_sync()
-unconditionally would underflow the usage count, and the teardown would
-also touch ISP MMIO while the device is not powered. This was previously
-masked by the deadlock, since the thread never reached the teardown body.
+>> > If VFIO can create one
+>
+> It is an interesting idea to let VFIO create a guest_memfd instance, if
+> DMABUF doesn't work. But to achieve this goal, I think we still need to
+> refactor guest_memfd to allow for different memory/MMIO resource
+> exporters/creators, and different resource importers/users like KVM MMU
+> & IOMMUFD.
+>
 
-Replace the single teardown call with staged labels that unwind only the
-resources actually acquired at each failure point. The error path no
-longer calls the locked isp4sd_pwroff_and_deinit(), which removes the
-deadlock, and each failure now skips the steps it never reached, keeping
-the runtime-PM count balanced and not accessing MMIO while unpowered.
-isp4if_start() and isp4sd_start_resp_proc_threads() already clean up
-after themselves on failure, so their resources are not unwound again.
+Yup I think both ways we'd need some level of integration from both
+sides :)
 
-Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-Assisted-by: Claude:claude-opus-4-8 smatch
-Signed-off-by: Yifei Gao <gyf161023@gmail.com>
----
-v2:
-- Reworked the fix from splitting the lock into staged error-path
-  cleanup, so that each failure unwinds only the resources it acquired.
-  This addresses the runtime-PM imbalance and the MMIO-while-unpowered
-  access that Bin Du pointed out on v1, while still removing the
-  self-deadlock (the error path no longer calls the locked
-  isp4sd_pwroff_and_deinit()).
+>>
+>> At guest_memfd creation time, guest_memfd is always created for a
+>> KVM. This is the first place where it is bound to a kvm instance. This
+>> is one place where it helps Yilun with Confidential VMs, so KVM can be
+>> sure that the memory was meant for a specific CoCo kvm and not any VM.
+>>
+>> I think it might be weird to have VFIO take a kvm fd to create a
+>> guest_memfd?
+>
+> I think having VFIO create a guest_memfd is better than having KVM
+> create a guest_memfd on behalf of VFIO.
+>
+> The lifecycle of the MMIO resources should be managed by VFIO, cause
+> the availability of these MMIO resouces are impacted by device
+> operations, e.g., device reset, PCI Memory Space Enable (MSE) ...
+> You can't export MMIO resources to KVM MMU without VFIO's awareness.
+>
 
-Link to v1: https://lore.kernel.org/all/20260725203640.915626-1-gyf161023@gmail.com/
+Thanks for explaining the above!
 
- drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
- 1 file changed, 22 insertions(+), 6 deletions(-)
+Do you mean that as long as VFIO knows that some addresses are not
+usable, those addressses have to be removed from the stage 2 page tables
+that KVM manages?
 
-diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-index 48deea79ce6c..868d1c74d35e 100644
---- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-+++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-@@ -687,7 +687,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
- 		if (ret) {
- 			dev_err(dev, "fail to power on isp_subdev ret %d\n",
- 				ret);
--			goto err_deinit;
-+			goto err_module_disable;
- 		}
- 
- 		/* ISPPG ISP Power Status */
-@@ -697,7 +697,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
- 			dev_err(dev,
- 				"fail to set performance state %u, ret %d\n",
- 				perf_state, ret);
--			goto err_deinit;
-+			goto err_power_off;
- 		}
- 
- 		ispif->status = ISP4IF_STATUS_PWR_ON;
-@@ -709,12 +709,12 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
- 	ret = isp4if_start(ispif);
- 	if (ret) {
- 		dev_err(dev, "fail to start isp_subdev interface\n");
--		goto err_deinit;
-+		goto err_perf_restore;
- 	}
- 
- 	if (isp4sd_start_resp_proc_threads(isp_subdev)) {
- 		dev_err(dev, "isp_start_resp_proc_threads fail\n");
--		goto err_deinit;
-+		goto err_stop_interface;
- 	}
- 
- 	dev_dbg(dev, "create resp threads ok\n");
-@@ -724,8 +724,24 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
- 	isp_subdev->irq_enabled = true;
- 
- 	return 0;
--err_deinit:
--	isp4sd_pwroff_and_deinit(sd);
-+
-+err_stop_interface:
-+	isp4if_stop(ispif);
-+err_perf_restore:
-+	ret = dev_pm_genpd_set_performance_state(dev, ISP4SD_PERFORMANCE_STATE_LOW);
-+	if (ret)
-+		dev_err(dev, "fail to set performance state %u, ret %d\n",
-+			ISP4SD_PERFORMANCE_STATE_LOW, ret);
-+err_power_off:
-+	isp4hw_wreg(isp_subdev->mmio, ISP_SOFT_RESET, 0);
-+	isp4hw_wreg(isp_subdev->mmio, ISP_POWER_STATUS, 0);
-+	ret = pm_runtime_put_sync(dev);
-+	if (ret)
-+		dev_err(dev, "power off isp_subdev fail %d\n", ret);
-+	ispif->status = ISP4IF_STATUS_PWR_OFF;
-+err_module_disable:
-+	isp4sd_module_enable(isp_subdev, false);
-+	msleep(20);
- 	return -EINVAL;
- }
- 
--- 
-2.43.0
+> And VFIO doesn't have to take a kvm fd paramter to create a guest_memfd,
+> VFIO has got the kvm instance via KVM_DEV_VFIO_FILE_ADD.
+>
 
+I'm new to this - looks to me KVM_DEV_VFIO_FILE_ADD is for linking VFIO
+to KVM but some mmap-ing is also required (pre-CoCo) to set up memslots?
+
+With CoCo, setting up memslots would use some fd (guest_memfd wrapping
+VFIO or the VFIO-created guest_memfd like you were suggesting) and I'd
+think there will still be some notifiers between KVM and VFIO for the
+mapping.
+
+Btw is it right to say that KVM_DEV_VFIO_FILE_ADD is only in the case of
+setting up irqchip? Is irqchip a requirement for Confidential IO?
+
+
+Hope you also had a chance to look at [1] that David Woodhouse is
+working on :)
+
+[1] https://lore.kernel.org/all/1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org/
+
+>>
+>> I was thinking that the userspace VMM could do something like:
+>>
+>>   int vfio_fd = open("/dev/vfio/devices/vfio0");
+>>   int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
