@@ -1,69 +1,72 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023101.outbound.protection.outlook.com [40.107.44.101])
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023074.outbound.protection.outlook.com [40.107.44.74])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C9EB3BCD23;
-	Mon, 27 Jul 2026 07:12:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0676B3DD51E;
+	Mon, 27 Jul 2026 07:19:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.74
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785136358; cv=fail; b=Hn0Am+4+MH6pPb99XbgsbvwEmy9NDDHXP2dEKxthc2YQoZQUZUecOZmJFbUpEy/zD8mFFqwTL0wSWvSB349fBCB2O3dapv0slWD/HmPgFMO615hsMg7lOKNndPuJZpnTbf+CKSybhuK+ilkeuhh2YshwnKBa53XRtOxk//JGDpk=
+	t=1785136790; cv=fail; b=VX2otYoAgpv4Fqhdxwwgmkr32xH8zY8eqM3PwnAWNeWU2WarEFAlOWMStZ3lP4sOdUi1uF1HFJbziWhQOSBTjMiZy0u7FBgkaPS3aLhIwypfeM9/3ioFF4XXFTKbOq766HeNbq2lPIJ94OKNdGGbVLM3Pn344N8Wxkc05kOtdSs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785136358; c=relaxed/simple;
-	bh=ia6RSV/gNiKJKXFa7JrRPfsv4GVLghGkGYkpEio+ZTE=;
+	s=arc-20240116; t=1785136790; c=relaxed/simple;
+	bh=JSdLksvE8GeDVdqg5cs1ekFEY4MgP8h5lhp+5shEMgs=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=QExNoM6HLMn+nNPrjkg9MZlNT/ilVK2F1wA3QjKMiJYe6tdgaAwhgBjqE1feOOv1UIGJla5oEKtkVe70cg5Ikw894JEjCqqI9x3WI2MrxhB7WxAtUXuiLR/vjMtBQ5CLina1cYdAO1ZgzwFbW2sn6i9+1LsgmIfugl04GWkYJdg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=OSYLJDz3; arc=fail smtp.client-ip=40.107.44.101
+	 Content-Type:MIME-Version; b=sH8fUKhBRbazEHQDPJzjP4BfEjrMLNqaf9vn0tIOrWuqI5lNYet3PWQE15Ch703xOKZ8TAVvrv81pTMT75uimOcpJQextnKFFYpwJWopea3FYMzuiTJJsxEdr+fvGQsUXpLKYeqTwBSf6vnq9fBvLR1RFGWYp6QMLR3UU4lz54k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=yRCmIlMr; arc=fail smtp.client-ip=40.107.44.74
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="OSYLJDz3"
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="yRCmIlMr"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Z6DC7PPp9cK0jYkb3TSXwLJ8OoTECnmUAvuEMzK6HEmhJzTuSFYjVZnmAvUIhq8JmKaSMNjkcrN+SL+8UkhBe6Mx+Q7t7e7UasofMsUlc3KMnyITGNZtwZvshoeSR+irzPZPsdPKgfXl9B4dDBWiCBRf9eZ3+N4k3pAuAg9Kq+MV8x20CgPNMEctC0VStkoh5bCL0/ugVGPq9j1ri+BSWw1HQx4eTKaZojKv/0+ZwuSn9tx730h9LqDZ+b6FK4QJHoBhN+QNrzfa86vCaXL+rXH90gZrZVE9+5eB+cIbMICjtnO3aDoSBMuzzoA06TxSZ5Q0jWvjuyniCYUs8Ced1w==
+ b=C1nMktM68Sc8gdPLBKgLntMzYNs0K5OWM+zHyxYaUvCIXUc73Ps7FTHsZZe3o3c0bc3w78DPU5Un8m5ieYWHwZH+1XAOk33hyPqpaLlmFmpP5ULmntrGkASpR4yR/I7E+OFGyPK6DBlE/4xh7pN77skR58vkbOAey1acxrWSKF3S5wpu17Oqt8dAj9tpHHN8KUnecSHCS05qrp9gbUx3zhlKL13kuZ3iikR3GKun0z4MdYhZTlWFaYa6p8+qyW0e+TkT7d8mWYdqmVmq2kF4eJYhN//yJE2MIzkIElkLVd+MXNB19QIshafYikIHSDelSalsNZrHTEqON4JXDAuR+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=a/vKa2JeZkI/5C9TSf3Hz5OA1iXYFDFM1Y8yctsC1Sk=;
- b=R83VLbKOWXe7YfvzR/mBnz+SzrGjGklA1s7G8QCv/5gviWkjO2Kbp+RM8I24l47/V01NKdXAyt1b0OUHXI2gdm2chId7RLwyRnh+OH70iqX0rylmkAG7Ea6a3D6QOICa5FkBD9s03zpeYdnoKctSsTu3UmoZ6MR2SpFgxK/jl3nttDxG6pnI++xRBMbtktlul4urY8giK88daH8fWsTbdh7qxsMGAoEDzNWL/Sm6YbFPjPnAGz8B7xHOwzaGDmY5ugtSx3OWwDYYLsMii7I+5WRH4eAAQkKD8KnxP9qsXJpJxi5KTTE7c6F3XxF4eedkvEsgm0HSq9Pl1YDlfhOTfw==
+ bh=HfWv0lxaAee8KCqyj0nJQ4bQlq3yEz9NJTnkD/yvvII=;
+ b=YseE21iEkFYw6mx4uBkMmy3PN8pjuTDUeKb3TOmLTDV1T+CzrbhAJ8ZiHEk3sG1/yrADpzFaDxkpfIiFsnQ/KpsszvrI9dWqrQFVI3OTs7dDhvOkXvlogYPaWW+rAkrBUmq1KCgdRfPP98/RDy1w4DYTMmD6UQyIcSZ3gX7EpFBCXAXCjGhlNq37OUUA5ub/xT+88vuwYuTW7R/ecKwFuQ4/3GzWbUgGw1RchULAXUaUHiwpbnDrUiM6JvImDjzww8FoPpteIh8WpOiFICQv4x4SLqpooT38Er/zxUAvLUQn6vUlNIY3lOQOCNGVNEBSMPtCq9/Ox78kXEvCi8/vYg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
  dkim=pass header.d=amlogic.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=a/vKa2JeZkI/5C9TSf3Hz5OA1iXYFDFM1Y8yctsC1Sk=;
- b=OSYLJDz3UbErVYyaeP+6BzCerU79qOqs6LIbka13KZiLV2JWzgh8s7IOK52Gmdrcsl+LbifoeWZJHxYo0yRaoaJgpa6hBmhBzfNkB37J0GdAvQQ9HQwStYpH5HC4aCyk4wdIH26DZdOrEUj5cICV+mKFuSO8v0xWISt4E24lpN1mNww5hfkl9HncIK6C2YDXfUMx2bkA8Swj+9ZYzH26sr46A8lJw0k/PWztMRJ30tPJK9SHPXrew59Ci1PXiLcOB5qH6r+9ryx8kshiQCVXpLJQTNV9AQMG1L4+pTaCIJI4+e/BotYmhth5pvfg4V3H98g6IjXXDOHliJUtvcjqjQ==
+ bh=HfWv0lxaAee8KCqyj0nJQ4bQlq3yEz9NJTnkD/yvvII=;
+ b=yRCmIlMrL0xVes4IQxAneMPjwmQoYxLekeXM5/ygM9DmtfK8abAy7Nzec9wEZM60tZXQDQLkpBXvSPit8H0H4cp/gA1yyo4Mvhd4tY8538UV8HtU7lvqmKgVEBQsxg+cfVVmoNlPleAErGT9ykAupkIz7Qksl0nFNidtKgAB1lKU6hYZqkTf/3Ik1SUWZk1vnrhkZG8xT+dNCm2DKGKBjXFWviuBLoEAVXzDvaTU0YEMnWPeT34xa0IjxCjZiX6wtSoArqMlM2fnb6sj5h5mMG2hIIsV6iCoaYTHg6uNjzUBvRK8w4nVOonIC7RzS9Yhdw0kLJjTp9QdnurMtwzpaw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amlogic.com;
 Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by SEYPR03MB7891.apcprd03.prod.outlook.com (2603:1096:101:173::14) with
+ by JH0PR03MB8620.apcprd03.prod.outlook.com (2603:1096:990:9d::11) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 07:12:33 +0000
+ 2026 07:19:45 +0000
 Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
  ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
  ([fe80::f12b:85e:f95c:191e%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 07:12:32 +0000
-Message-ID: <3ecfe659-1f8f-46b2-9f1d-6a3b06734093@amlogic.com>
-Date: Mon, 27 Jul 2026 15:12:30 +0800
+ 07:19:44 +0000
+Message-ID: <983d5ac5-e489-4d28-a1d3-ba736b3cdc28@amlogic.com>
+Date: Mon, 27 Jul 2026 15:19:42 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 4/6] decoder: Add V4L2 stateless H.264 decoder driver
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
+Subject: Re: [PATCH v6 6/6] arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
  Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
  Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
 References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
- <20260724-b4-s4-vdec-upstream-v6-4-6072a7ee7428@amlogic.com>
- <0ce72645-aec6-478d-afad-b5c9f838d7ea@kernel.org>
+ <20260724-b4-s4-vdec-upstream-v6-6-6072a7ee7428@amlogic.com>
+ <20260727-vivid-native-bloodhound-4c7ff6@quoll>
+ <16ede5f1-dcd4-4b43-98a9-02754796de81@kernel.org>
+ <b7d083b4-fe1e-4788-b027-fa803d067521@amlogic.com>
+ <e9c42d55-905c-4bab-8e63-e859a8f4fd46@kernel.org>
 From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <0ce72645-aec6-478d-afad-b5c9f838d7ea@kernel.org>
+In-Reply-To: <e9c42d55-905c-4bab-8e63-e859a8f4fd46@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI3PR01CA0014.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::10) To KL1PR03MB5521.apcprd03.prod.outlook.com
+X-ClientProxiedBy: SI3PR01CA0007.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:296::8) To KL1PR03MB5521.apcprd03.prod.outlook.com
  (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -72,235 +75,96 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|SEYPR03MB7891:EE_
-X-MS-Office365-Filtering-Correlation-Id: ebb084c3-0479-40f0-465d-08deebae6d55
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|JH0PR03MB8620:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0fe3c1a-107c-4f28-09f9-08deebaf6f07
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|376014|7416014|4143699003|11063799006|56012099006|10067099003|6133799003|18002099003|22082099003;
+	BCL:0;ARA:13230040|7416014|366016|1800799024|376014|23010399003|11063799006|56012099006|4143699003|10067099003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	EzjrWutk1X9jBQ3466IZA+e1702G+WDClGmFn+vma+U3Jo9ERvh05g6VQRMky8e/0g0ZEvCYYV69VasBHAywGBOCXA0rCpbmPxPKIL2A03bnRiimLBQ/P9/PxXncCV5vzzefWtjKQiIJrUxEL/H0qHznWee2Z4+wIn2fUgpl8qbKxPjujA58liAP3YH4tn+xq88SRIK4UBDywJeCwCXLozdYeup6qSv42G0m3QpcTH7RKy/gO3lASIoZtQMcao04mhR2mBqLsj1mmGA4P+913V46wkkVbvOU3MRTHU9az1CNNq7Us2X17RJnMm5hvgqY2T5Z034pWTS1zl/Oa9D536BgY8PGTKt8TL27CqovJaFYyrFHQFhHZO3PMvIOELEgWUMhQjCLlGj8K3I7aee99A3918bMMLHqOVYd2+dc1a7QMQx/nujEY7dpAYMUzfXzsF/doDlCh4RaJ2rDSlub4TYSRbZeNqvYUKo6p61BBqduqSCX8m7oMCjJ3Z1fCYy4ai2nMzmUxaf7fNSO3XgXkwDGbJ6WLUI+XdVilyiLYrbfFkwxT7Tr9EdPBH80f832tnJ4P6S0mwZhFgmBSkbPT6WmkecSNUvkBlOM/Av8ychtWN/NCZrhdT94UUUtxaaQhpN7EsB1dU11DXiuIsuKkGrYVgHZj5Vf2A48MNfu0NA=
+	phapUrMGGh560x0SWoRCnU2wKHnYRNSY90J19M+11n7StgBuvLPVmS7UKLlL5fsu5F4EV8OqvPS14XnQHDNYnTKRx8fWuvQfcjgSNHoIJ5D9JIv+CPj6nSKv6x3ttcAZzpq1no6wehRUo/DIQkdr3hOsXSlJcZvuUDVp3EjDqC8Y3Di6Cwu6TEiAfZWvxsH9wCfn43jjFquTVh8ARDuzfg92xEed22y23ahYPgGerw1LDMuyrmK89lkcIhtHjYrgKTL56P/0E5GC31aE7O4mavCU0VX9GwbCEEDnMz2wQM8pL4eXTbsC74tt6jxsflHHZZqVZ2xuCKmQLk6jtrkTJ0wdoxBIAATgWdP98RiMhlrPmjKtAAqsFExnfgMwTKWGFUNpp/SBvw+A8r+lBQOivMCmw37fZ4xu+ZvH5X1Hq29Swi38rv8g14t006/Fsu9qWKXBZtJ7SD5SK91oh2EbszETGM9iteu4HkamWYx17EgdHR2q8uncO8JuOaYVkWxZcC+wd3BbquV81eHhWUC0kLYtG9vU+O19aReLm0siWpxnbX2eeblbjkSB0Ea9V1RNq4q+Hz0BQ3J9C+1uZYMs7pm+YW+SuVQedvr9tdDDZsbWQxZge80Ur1ogrSk78pDtiIlyj3+gPmBWN1FS3M5Dx81v+qs+k6M+1+02bnjuEeY=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(7416014)(4143699003)(11063799006)(56012099006)(10067099003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(376014)(23010399003)(11063799006)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bEJlTG10OU9VMTBMRnpNckEzMnNGVVRlYnYzWmV5V2xnN0VyQmxuMUZNOXhO?=
- =?utf-8?B?NHJ2dGFReHptbWdVQWF2Y0IzQVowS0g5VWFSdTJrSEY4U1ZJam5pWnBpbUZI?=
- =?utf-8?B?VWU3eG5ab2dwd2l5NVJpNEhGeHJWUkNPZlBKTCswemJBbWUvckw2ayt1M3pK?=
- =?utf-8?B?NGw3ZG1qKzlVUk50TXdsM2JmczA3TyttcEhuODR5ZVY5ajJkMlRYd0NTc0U4?=
- =?utf-8?B?MzhJQ2tiNUFqRm9YMW5TM0hFY1hzRGIxdC9zUmdMSWtJRUUzd2dwRkYyN3Mx?=
- =?utf-8?B?cy9EM2pVSHh1QW5nMy8zdXZrQys1V0Yya2hMWDBMV2RVTFU1Z2JpcU1qMXdX?=
- =?utf-8?B?R0dJd29CNlRuNmlPaW1ydnQ4K29mSWlWSEtFYUZyTmZFdHFHaGRsbjk0TTZC?=
- =?utf-8?B?ZXB1SHlJQUNiNlYyaWRPNlVuRjJ4Wm1IZDlQaDQ1OS9PaTlveG5DVWNsbkY1?=
- =?utf-8?B?SEx4SnUrcUdGdlVMeWlUcDE5cVVNSTZSNDBIWmR0c0NUanVrc2tqb0VVdVJH?=
- =?utf-8?B?N3BCekF4Ymg1N1FIWEZ1c0hlL0NRQk9kdHF5OHNNM2VLd1NFUWEzMGlqMlpx?=
- =?utf-8?B?R0VFS001VFE2STBoSWhkbGhYcUJTL0lwTFAwWTZnTk44UVJWbDFnc25Qay9J?=
- =?utf-8?B?UXJ1SkZFU0Zaa1d0TTFrTXVQQldEV3pFUlk4RlY3bjRXM05QUlJTV2lzcllk?=
- =?utf-8?B?ck9PZzNyV3hRT2pmS3dTTjh2eWtaaUFaazZZZTRoc1pVMjNXVVlnV3FPbUkw?=
- =?utf-8?B?alNTTlEzVnZFZEk5L01lbGM5V2VmanRYaDBSK21GWW9HczBGOUgrd2xLOTFo?=
- =?utf-8?B?WnRFUEpIZTVnRU05QmF2ZDlDTVhEV09ic2pWNkI2dmRGVVJBQjVrVWtJclpM?=
- =?utf-8?B?aXM4eXlTa1RiaWRmUUhjUkNQSEdicG91UU9CcUpudDFvZEJ5N2J3ZlZWeEd3?=
- =?utf-8?B?NnFtMUd6UjUwdGZNeE45bTNPMGF2TzFHZkhZd0l3SmhtRGJBR2ZMamNHc0dU?=
- =?utf-8?B?Zkd5dm9BcXJQcDhZYWVvWXZnRUNXY0paMlhPbmgwazdmU2s0VGptNjQrM2VQ?=
- =?utf-8?B?VlBuNlhGQ3ZFcFpYaHh0bDNKUjhubkxZeWVRbDhUOFBnNEpma0FSRmppT1pk?=
- =?utf-8?B?WUdybDBTNllDQ0dCK0xkOERKTlJmZHVLbzh1NmlmMWhoRDVhYlZjZXRwYWdu?=
- =?utf-8?B?eEkxSzVQVFc2QklQZDBiWlJrOFQrZHg1Tkp2a2trekQxanJua05uMjdGWkZy?=
- =?utf-8?B?VTl6NUUyaXJ0OGwzL3M3ZE5HL05HQndtcEtiYnFpaDFGc0lrbnUveTlETDBo?=
- =?utf-8?B?eERCZUNWYmJ2RmlrNEl0S3N1b0JRWGhkdGh1RjBrYmpTRXpDaE1POFo5aE5U?=
- =?utf-8?B?QTdOaGhZNUZHOEY0S3pjRjV3cjNSc3pFclFFZ0RjVnpnaHN2QW9rSWtzbUs2?=
- =?utf-8?B?dWNwNWdaTGlvMW1NRWRDbTNvdmVsOWZSQ3UyQ3FTZGFORFR2ME1rbWl0dy9H?=
- =?utf-8?B?WGVMT3EwVjJKUVpzMkNuNklwOHBXVjVxWE95L0Z5U1RVNjAwM0ZoT1laNDVT?=
- =?utf-8?B?UXgzUVIrOFNxbjlZTWNHUnFMK2d5aWducHJkQ3hVNEYrNGtYNGdtR2RIS3J0?=
- =?utf-8?B?V1FlTVRnNGxpVHljcGJFM05Lc05KNCtob2dYN2haeGl2N2hFbE1RY2ovTVZB?=
- =?utf-8?B?OUl2eDR1WmZjai9DNjRpQ1VPRVl1bjRKeC85a29adlA1RmJySU9lMVl1WkVz?=
- =?utf-8?B?L2hqdUtrSHQ1K0d4eUlOYkxUYktWYzdYc2V0S0ZOclMzUTg0U2IzWUNkMEhw?=
- =?utf-8?B?UDNybXUyaTJrYWs3SDgvbmVFaVFhdll4RVdkVXkrbjQ1Z0k1RE45SlhHUzZu?=
- =?utf-8?B?TTE1eUFUbnZ4dWtnQ09PZkdMWW5xbUVmNDZWR2NKWU5JbUdCemNHMXNUUW5Q?=
- =?utf-8?B?dTgzczlkOXc4ZmF5ZG1JSWgwYXlROVFTTStPWGJVLzRjUWNvdFZUbFhhWVdr?=
- =?utf-8?B?YVJ0REVpeEY1d2xHMVloeVllbmdOajE5MFBSUWE1cXg4QWgxMW1ZL2hLZXpa?=
- =?utf-8?B?a1MzdlYxM3Fra3NjZmZ6SGpwV3lnYXdFdjR0d3hXb3dnMy9ZV3l2YUhNM0Zo?=
- =?utf-8?B?YUFDSnJ1MTgwbDlEbWpZR2lnMHN5cmVvRGtvNGpzRkg1MnlzbjN2Z0Y3WHB6?=
- =?utf-8?B?MmczUFNvSXVrQm03UkhxeXVUTlV5cC8rcDMwYklOb0l4YXNtNngxdlVkTzd3?=
- =?utf-8?B?aVhEMjY2Z2ozSkpZTDFVeFEvZXhLNC9GRDNrWU1Sd3ozY2pHU2JTMElnNGg0?=
- =?utf-8?B?Qm9OdXZvanlZODV1UWwrRGlrRWRXVHdWcGlPN3JuajBzbndsYlVTUT09?=
+	=?utf-8?B?dnJvQldKZVh4QXRyZnpnUEtuS21IQjYwYm95b2d2TnZVelBiMzAvc0ZVeldG?=
+ =?utf-8?B?eGQxanowVlRsbkJkNjBEZ3VDWXkrQXplWHpXaFpjNFh6WTJQWFBKV1RoODNZ?=
+ =?utf-8?B?MlRvMG5rcTFLazNhRThpT3VadE1ZYmF4aWlSeWgyZWR1b2JndVVLRzYwaU11?=
+ =?utf-8?B?SXZJR1k1RUozNERQeE9EdW5PcXF0NStUbnRCOU9JeDNBdDhSdkZLY0o1WnNI?=
+ =?utf-8?B?SldDdVh4SXVyZE4vMnlFUldwWllhOUZvNjNVZ252NDlqN1FtM1dVRjl4QmJI?=
+ =?utf-8?B?aC9XUmwrcGVyZEZsaHU5WXQ5SlVvU0s1K2FuWDc2R09TOXRzMVJpM2FhTDlu?=
+ =?utf-8?B?b0JTUjlMNGJHYURORG5Bdm9ONHNTUmJmazZxaFRIbUZNaFpXczF0V0d4ZEsv?=
+ =?utf-8?B?S09iTnc1dWwvdGo1RlhiL09NQWlzLytZOEhkK1Z2d0FoU3FTTHJ3Zk5jUyt3?=
+ =?utf-8?B?ZVFISlFaSTVLNGRza2czdHpTbjZrZGtCYy9aTVBzRGNtMEZtUVU3R3Q5Yk52?=
+ =?utf-8?B?d1ZqeVBMWjYycGViSXFiNW9nekdIN1VBSllESk5PS3JHcTR6TXd2UTNLZVBw?=
+ =?utf-8?B?K21yOFhpSmhlUlF1UEtRSUlhYy9iZVZWUW5CZmtKTmxMTVNzajVYaFhsZnhP?=
+ =?utf-8?B?Q3liVGE0djBGWVl0V3N1azJEbWFZb1pUVmVJdHcxYk1Oa0owenZXRThMTEUr?=
+ =?utf-8?B?djlXYUIwUXJtZW5ZWjdFL0VKNTZBVnpaZE5RdVpsMnByL0w4SitWazVZZ0o0?=
+ =?utf-8?B?VzRKYWk2ZjE0bEZ2U2x2czVPNnozVHd4bFB1S3RmYW5KZk9LKzJCS055Y2Yz?=
+ =?utf-8?B?L3hRYzUxNzFLSDEzeVdBTnZHT3pkaGNUc3VJWmI1VnVjL1ErdlpaRS9UMVJo?=
+ =?utf-8?B?TDZRWG9MM3BSaXlRNC8yWkVZcUxrN3JNY3ZtUUlYSUNIMmgwZEtwbEZyZXND?=
+ =?utf-8?B?cHNBSlZ5UC8ra095bTh6emxkOVNoaW9lcXErUTd5RG5lREQwYnh4dHNReHd6?=
+ =?utf-8?B?ZlRBTStQVkZXNW1FdWRLbHMwUVE2MUxBZFBmL0NBbjRsSHg5Zm9odmhjQzBu?=
+ =?utf-8?B?UVlsQm5sblpydG42NEg5dmpsWTZkOHFmMnliZDllL2VpZmRQRzFPWjYyQnZP?=
+ =?utf-8?B?UFZ4dzFiRU9ZRzBBT01GR2tHNlp4ZTJzSStLd294NUE0dXBUYmVDVmtqRkU0?=
+ =?utf-8?B?OXJrbjc1VC80ZnNXVVQrS2NOc1ZXcTcrM2VNRkhsRW4xeldzSFMrVUpZSjhp?=
+ =?utf-8?B?QnMxaWtYU1VnTGNJQUdDMWRqOW85eElHQ0EvT1VMRW5JVVVOa3gya3NoQzA5?=
+ =?utf-8?B?dmxwNlU5aFdoMEIzdHZScXVCdUVPT3cxV281L2Vpa0JLR0F1b1paWmloMzZ1?=
+ =?utf-8?B?SGhOVUdKZHlPYnNWZEtOVDNLeE0wUFNLdGV1ZTY3alF4VExQcVlzUXZBeTR1?=
+ =?utf-8?B?ak5CT2VjbENGd1Y4cTNZcmJ1SXRMTEwxc0Z3WGxIc0VvVW1KbnR2U0t4bkxU?=
+ =?utf-8?B?ZmhnN3QrRGQ5a0RMZGpuQmx0Y1JmU1djbzVOWmcxcm9uY3BVbUhXeGcreFpy?=
+ =?utf-8?B?QXhNYkxxbUpsMzdrQ0pGNi9WOFlaSHBIZk9QT2ExSndXci94M2JVc2h3bjQ4?=
+ =?utf-8?B?QTZCWWtRc0t5YVN1bFFreFY3ekZlQXdkRk5iNURUdExXdUl6OFFMZ244Rkhi?=
+ =?utf-8?B?Z09FS1hmZDFqZXZtQ0FBbVZRUUc2citOSUpiSGRwTHBuZmFyWHp4Z1BKZ2Nq?=
+ =?utf-8?B?TTQxUXhDS3RiWXNBYXNKbUhMazZTbWhhNnNwQ2c1QS9zZkdNSXNYYlgwZVJs?=
+ =?utf-8?B?MjNVUTErOWc3RE1IREQ3dkxZaXh0Tk1zczFvbDRnYng4TEF5ZjV2VkZwRGNu?=
+ =?utf-8?B?Rlk1aFIrZDZSQWlHZ2ZPTUVuL1hLZE1HVjNVRHdmcmFqa1FoZE1MYm9tejZM?=
+ =?utf-8?B?S1l4dHl4cjMrdkFFbHZEejBVNzJJMndiWmpueCtoc1FGR2Z3Z0NoVlkxTmFM?=
+ =?utf-8?B?V2tvMzhVRVlLUEdQVVk2emFPOUJBQnkxcThyTE1adTRXYWFBYlQzSlBlVFcr?=
+ =?utf-8?B?ajhVc0xWWWlUY2pldGlWczFyeEpHODJpRkQrckw4azRjcW5XZGlOdkpRMElD?=
+ =?utf-8?B?MlU3eFhjYW1QVzZYK2I5VC9ITEp1dFNiNExNbnJxMnJtRnltWE9DMkZqampP?=
+ =?utf-8?B?aW85NzNaYWcyRU5sY3R1WFh5K2JNQ0FUMllQN1VULzJXQVAvcGtlbHVoQXBj?=
+ =?utf-8?B?VFBxMGRPVDdKN3duamxUYVg5UE9heWpvLzR0bnNGMnZFeDNWZjR3b3VSQi9L?=
+ =?utf-8?B?RUhCOGxsSjlLSXdaa2UyL1hscVNlVWRCdFA0TENoU0RWaVFpaXpkUT09?=
 X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ebb084c3-0479-40f0-465d-08deebae6d55
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0fe3c1a-107c-4f28-09f9-08deebaf6f07
 X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 07:12:32.5441
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 07:19:44.9084
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: khznn/iYZkm01IWGfLFZzlz4Ex/z4ambjS52RCVQI6bpnzYxOcIckPIB4kIsWsehsKq7rMvIWCY3lqH+V3X3YA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR03MB7891
+X-MS-Exchange-CrossTenant-UserPrincipalName: DxgiZeW+wFSmfG+aUbSUJmPu2mTAL2Mt44/nceGAcKOJ7wSs90thq2KsKai+dMrgwcdfsCvCd6h3hJ5AJzVDeA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: JH0PR03MB8620
 
-Hi Krzysztof,
 
-> On 24/07/2026 09:04, Zhentao Guo via B4 Relay wrote:
->> From: Zhentao Guo <zhentao.guo@amlogic.com>
+> On 27/07/2026 08:36, Zhentao Guo wrote:
+>> Hi Krzysztof
 >>
->> Add initial support for V4L2 stateless video decoder
->> driver on Amlogic S4(S805X2) platform. In phase 1,
->> it supports 8bit H.264 bitstreams decoding. Currently
->> only progressive streams are supported.
->>
->> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
->> ---
->>   MAINTAINERS                                        |    7 +
->>   drivers/media/platform/amlogic/Kconfig             |    1 +
->>   drivers/media/platform/amlogic/Makefile            |    1 +
->>   drivers/media/platform/amlogic/vdec/Kconfig        |   18 +
->>   drivers/media/platform/amlogic/vdec/Makefile       |    4 +
->>   drivers/media/platform/amlogic/vdec/TODO           |    7 +
->>   drivers/media/platform/amlogic/vdec/aml_vdec.c     |  736 +++++++
->>   drivers/media/platform/amlogic/vdec/aml_vdec.h     |   33 +
->>   drivers/media/platform/amlogic/vdec/aml_vdec_drv.c |  239 +++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_drv.h |  172 ++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_hw.c  |  538 +++++
->>   drivers/media/platform/amlogic/vdec/aml_vdec_hw.h  |  157 ++
->>   .../platform/amlogic/vdec/aml_vdec_platform.c      |   81 +
->>   .../platform/amlogic/vdec/aml_vdec_platform.h      |   46 +
->>   .../media/platform/amlogic/vdec/aml_vdec_tee_fw.c  |  240 +++
->>   .../media/platform/amlogic/vdec/aml_vdec_tee_fw.h  |   27 +
->>   drivers/media/platform/amlogic/vdec/h264.c         | 2067 ++++++++++++++++++++
->>   drivers/media/platform/amlogic/vdec/h264.h         |  299 +++
->>   drivers/media/platform/amlogic/vdec/reg_defines.h  |  177 ++
->>   19 files changed, 4850 insertions(+)
->>
->> diff --git a/MAINTAINERS b/MAINTAINERS
->> index a112ce9f0fa0..a27ea19907f9 100644
->> --- a/MAINTAINERS
->> +++ b/MAINTAINERS
->> @@ -1423,6 +1423,13 @@ S:     Maintained
->>   F:   Documentation/devicetree/bindings/spi/amlogic,a4-spisg.yaml
->>   F:   drivers/spi/spi-amlogic-spisg.c
->>
->> +AMLOGIC VDEC DRIVER
->> +M:   Zhentao Guo <zhentao.guo@amlogic.com>
->> +L:   linux-media@vger.kernel.org
-> You can drop the L:. Subsystem defines it.
-OK, got it. I'll drop this.
->
->> +S:   Maintained
->> +F:   Documentation/devicetree/bindings/media/amlogic,s4-vcodec-dec.yaml
->> +F:   drivers/media/platform/amlogic/vdec/
->> +
->>   AMPHENOL CHIPCAP 2 DRIVER
->>   M:   Javier Carrasco <javier.carrasco.cruz@gmail.com>
->>   L:   linux-hwmon@vger.kernel.org
->> diff --git a/drivers/media/platform/amlogic/Kconfig b/drivers/media/platform/amlogic/Kconfig
->> index 458acf3d5fa8..7c541ac0d0c3 100644
->> --- a/drivers/media/platform/amlogic/Kconfig
->> +++ b/drivers/media/platform/amlogic/Kconfig
->> @@ -4,3 +4,4 @@ comment "Amlogic media platform drivers"
->>
->>   source "drivers/media/platform/amlogic/c3/Kconfig"
->>   source "drivers/media/platform/amlogic/meson-ge2d/Kconfig"
->> +source "drivers/media/platform/amlogic/vdec/Kconfig"
->> diff --git a/drivers/media/platform/amlogic/Makefile b/drivers/media/platform/amlogic/Makefile
->> index c744afcd1b9e..7409de674c0b 100644
->> --- a/drivers/media/platform/amlogic/Makefile
->> +++ b/drivers/media/platform/amlogic/Makefile
->> @@ -2,3 +2,4 @@
->>
->>   obj-y += c3/
->>   obj-y += meson-ge2d/
->> +obj-y += vdec/
->> diff --git a/drivers/media/platform/amlogic/vdec/Kconfig b/drivers/media/platform/amlogic/vdec/Kconfig
->> new file mode 100644
->> index 000000000000..d392967c7743
->> --- /dev/null
->> +++ b/drivers/media/platform/amlogic/vdec/Kconfig
->> @@ -0,0 +1,18 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR MIT)
->> +
->> +config VIDEO_AMLOGIC_VDEC
->> +    tristate "Amlogic Video Decoder Driver"
->> +    depends on ARCH_MESON || COMPILE_TEST
->> +    depends on VIDEO_DEV
->> +    depends on V4L_MEM2MEM_DRIVERS
->> +    depends on TEE
->> +    select VIDEOBUF2_DMA_CONTIG
->> +    select V4L2_H264
->> +    select V4L2_MEM2MEM_DEV
->> +    select MESON_CANVAS
->> +    select MESON_SM
->> +    help
->> +      This is a v4l2 driver for Amlogic video decoder driver.
->> +       This driver is designed to support V4L2 M2M STATELESS
->> +       interface.
-> Somehow messed indentation.
-I'll fix the indentation problem in the next revision.
-> ...
->
->> +err_media_dev_register:
->> +     v4l2_m2m_unregister_media_controller(dev->m2m_dev_dec);
->> +error_m2m_mc_register:
->> +     media_device_cleanup(&dev->mdev);
->> +err_vid_dev_register:
->> +     v4l2_m2m_release(dev->m2m_dev_dec);
->> +err_hw_init:
->> +     dev->dec_hw = NULL;
->> +err_dec_mem_init:
->> +     video_device_release(vfd_dec);
->> +err_device_alloc:
->> +     v4l2_device_unregister(&dev->v4l2_dev);
->> +     return ret;
->> +}
->> +
->> +static void aml_vdec_drv_remove(struct platform_device *pdev)
->> +{
->> +     struct aml_vdec_dev *dev = platform_get_drvdata(pdev);
->> +
->> +     vdec_disable(dev->dec_hw);
->> +
->> +     if (media_devnode_is_registered(dev->mdev.devnode)) {
->> +             media_device_unregister(&dev->mdev);
->> +             media_device_cleanup(&dev->mdev);
->> +     }
->> +
->> +     if (dev->m2m_dev_dec)
->> +             v4l2_m2m_release(dev->m2m_dev_dec);
->> +     if (dev->vfd)
->> +             video_unregister_device(dev->vfd);
->> +     if (dev->dec_hw) {
-> I do not understand why do you release resources conditionally. Where
-> they allocated conditionally? Why probe is not releasing them the same
-> way in error paths?
-
-These resources are allocated unconditionally in probe, so they should 
-be released unconditionally as well.
-
-I was being overly cautious here to avoid potential double-free 
-scenarios. But in fact these resources are only released in remove(), so 
-the conditional is redundant. I'll drop it in the next revision.
-
->
->> +             dev->pvdec_data->destroy_hw_resource(dev);
->> +             dev->dec_hw = NULL;
-> What's the purpose of this? If this is needed, then your driver has
-> serious concurrency issues which are not solved with it.
->
-Do you mean the statement 'dev->dec_hw = NULL;'? Actuallyin the remove 
-callback, all resources are at the end of their lifecycle and no other 
-path will access this pointer. This was just my coding habit, nulling 
-out pointers after freeing them. I'll drop it if you think this is 
-unnecessary.
->> +     }
->> +     v4l2_device_unregister(&dev->v4l2_dev);
->> +}
->> +
->> +static const struct of_device_id aml_vdec_match[] = {
->> +     {.compatible = "amlogic,s4-vdec", .data = &aml_vdec_s4_pdata},
-> Fix the style, so you will not re-introduce issue Uwe is fixing.
-Thanks for the reminder. I will refer to Uwe's patch and improve this.
->
+>>> On 27/07/2026 08:24, Krzysztof Kozlowski wrote:
+>>>> On Fri, Jul 24, 2026 at 03:04:56PM +0800, Zhentao Guo wrote:
+>>>>> Enable the Amlogic V4L2 stateless video decoder driver as a module
+>>>>> in the arm64 defconfig. This driver is needed for stateless video
+>>>>> decoding support on Amlogic SoCs.
+>>>> Which boards use it? Look at `git log` to learn how this commit should
+>>>> be written.
+>>> I already ASKED YOU this at v4 and pointing you to git log history. Not
+>>> much improved.
+>>>
+>>> Did you even check any commits?
+>> I did check some of the commits. I'll refer to more git logs of other
+>> commits, and describe this patch as clearly as possible.
+> No, you need to provide reason WHY do we want it in mainline. You do not
+> need to write more sentences. The reason is some mainline board using it.
+Yes, I read the other feedback from you and see what you mean. Actually 
+I missed the point when I was reading other git logs before. Thanks for 
+the reminder, it's clear to me now.
 >
 > Best regards,
 > Krzysztof
 
-BRs
+BRs,
 
 Zhentao
 
