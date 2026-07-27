@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD9C9412264
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 13:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3B4412279
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 13:15:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158131; cv=none; b=sXW7UhL0inszq2BSmzBQQHcfPKTjjvqMssVCB9ces5vGAytDoYvtQIc+eXyYZfQ9bos5RS/Ciag987LMDFZyfkGhuXieiLWMX9xqgbaoAojXNU0t19w6Onjfmyh05QMU4GwscR46b/k13hWdQVqdmA+fTNE2yyOb6kscrAZI4DQ=
+	t=1785158132; cv=none; b=JZwJvrP3/XgUSkXBUIvcxeLKDepB6z7aAYlpSmI/YsYNEem8AIeN297Inh15MG2vxqhGVoxTGMUv+gNU8iYSRV2dmIdongln3c7aD7KuvrgtWQaXnIEhMzqcwEn11btlMqGmsOtW6QG58GZrVSZx6yWIKkUuB5v4bKDUgOypsP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158131; c=relaxed/simple;
-	bh=tx4T+F5WVSjirNSuddMSPe72dK4KIWWmAxVNMYvhBVc=;
+	s=arc-20240116; t=1785158132; c=relaxed/simple;
+	bh=+jL1FSO89Bhbj+i60eM5fWkog5TIK7G3W/futS0v9vY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=f/lMxxmLFUXFr12sYYQJGCmRHE069wED8mlDgmyr2PsLtp6ujzoQcsJkPdikrLdFBXrh4QKeSrkDIA93K3au+0/eWqAyWrtFcbrg31+FYBUZJXtD6mEsS0pa+VypmrXsttNEHQOLgAwZOwtEQcGnI2nH/eoLb+9ne7cO46L/tFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OY0t9DXR; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=b86vDdqJLfvgjW4XZ1+2OyorMPv/pTTTBLA9HRX6qetAcKleB9+8G3ZDtGTb9//vbWIBjYw5/D5HzT5wS3EWC/C7QZOFXSn8qOVOGNFQdg/HJDcPup4ac5SQ3jPLIPydRCEeNJA9JL2H0U/AO6WsBptXCItd0SKfc80BOwiJ9A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RE6YIWja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OY0t9DXR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 47B631F00A3A;
-	Mon, 27 Jul 2026 13:15:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RE6YIWja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC9BD1F000E9;
+	Mon, 27 Jul 2026 13:15:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785158129;
-	bh=qchMYHsR2kuiYlT9E8Dd4VqewMQOldJifKbW2znWJvg=;
+	s=k20260515; t=1785158131;
+	bh=h653pPrDJZSvlDrmYzvG4/1Lg29aI1ike3cJms3NL3U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OY0t9DXRURV7wonjbj42vAEM68PaDSlvTOSp/rcqvAaLMoO9gWgyB8opLq/cjFErw
-	 WCfylLV38vkXBP+Q5Iz5SJVdds1dh5zQgw3Q3kvQid+bVu6wP3sLO8DA5kPqiIJGY6
-	 TCtkX+Xgohv7ReGBdFf7OaIqTBGn95ZnxiishYO+Z4sbrWRIGAuzMfckl/PzyAGnHM
-	 cUFZ8iTltvJXVrhIMOOnLl6s5E8XbLo+T9bovgzu4eGaJBoylSiUIDQ73L0LPzUppP
-	 07h7k1+rYNkCVS7CgbAxc7Jbw9oZazBxDx3gicTSmVcmyB2pLA/r3o9taKNwVqN3Oh
-	 V8yvxECqEi1XQ==
+	b=RE6YIWjaE8vG7f5z4oUdhOprnOPp89odTHXPR7gphvNSykVuCLJTFEU+eO2lxByVQ
+	 rgQ7w+ZriJcmlPHatm6h4gNtLRm8UFLFpumkztueG1WG7Y4yQ08KNcidM63THVNAeZ
+	 mMBUXnpBaNH0YdSjHSg0BnJ0HSJ3lLNLAc5UHHnEAOgZBUm7OaFpMPVooqRlHlVlek
+	 XEyB0xmtJq9EdtlST4Lg94HGcIhnoZPjcIwknYoeDku3k7bZ2SQP7RHYTY5tL6v4jf
+	 2CVyAqcsbggU/IhrjcDUTBk2CU14ibxH1NTyc/Z7YDVrnhLCFAXqnEdeWWcrN7SF4d
+	 6npIa17r3EEqg==
 From: Hans Verkuil <hverkuil+cisco@kernel.org>
 To: linux-media@vger.kernel.org
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Frank Li <Frank.Li@nxp.com>
-Subject: [PATCHv2 11/19] media: nxp: imx7-media-csi: use _vb2_fop_release/vb2_video_unregister_device
-Date: Mon, 27 Jul 2026 15:12:58 +0200
-Message-ID: <e6523ce61991b99869301ab78c2f055343e28014.1785157986.git.hverkuil+cisco@kernel.org>
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+Subject: [PATCHv2 12/19] media: raspberrypi: pisp_be: use vb2_video_unregister_device
+Date: Mon, 27 Jul 2026 15:12:59 +0200
+Message-ID: <133ab8a07ed325dd7d7240100a4d895a2e2b17b1.1785157986.git.hverkuil+cisco@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1785157986.git.hverkuil+cisco@kernel.org>
 References: <cover.1785157986.git.hverkuil+cisco@kernel.org>
@@ -48,72 +48,71 @@ Content-Transfer-Encoding: 8bit
 The vb2_queue_release() function should not be called directly from a
 driver. Leave that to the helper functions.
 
-Use _vb2_fop_release instead of manually calling vb2_queue_release
-and v4l2_fh_release.
+Use vb2_video_unregister_device instead of the
+video_unregister_device/vb2_queue_release pair.
 
-Note that with this change the v4l2_fh is released before
-v4l2_pipeline_pm_put is called, but v4l2_pipeline_pm_put does not
-use the v4l2_fh information.
-
-Use vb2_video_unregister_device instead of video_unregister_device
-to ensure vb2_queue_release is called inside vb2_video_unregister_device
-when streaming. That way streaming is guaranteed to be stopped when
-the device is unregistered.
-
-Call media_entity_cleanup after unregistering the device instead of
-before to ensure that the queue release code can still access the
-media entity if needed.
+This simplifies the code.
 
 Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Frank Li <Frank.Li@nxp.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
 ---
- drivers/media/platform/nxp/imx7-media-csi.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ .../media/platform/raspberrypi/pisp_be/pisp_be.c   | 14 +++++---------
+ 1 file changed, 5 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/platform/nxp/imx7-media-csi.c b/drivers/media/platform/nxp/imx7-media-csi.c
-index 7ddc7ba06e3d..cb7a198a2ccf 100644
---- a/drivers/media/platform/nxp/imx7-media-csi.c
-+++ b/drivers/media/platform/nxp/imx7-media-csi.c
-@@ -1541,18 +1541,13 @@ static int imx7_csi_video_open(struct file *file)
- static int imx7_csi_video_release(struct file *file)
- {
- 	struct imx7_csi *csi = video_drvdata(file);
--	struct vb2_queue *vq = &csi->q;
- 
- 	mutex_lock(&csi->vdev_mutex);
- 
--	if (file->private_data == vq->owner) {
--		vb2_queue_release(vq);
--		vq->owner = NULL;
--	}
-+	_vb2_fop_release(file, NULL);
- 
- 	v4l2_pipeline_pm_put(&csi->vdev->entity);
- 
--	v4l2_fh_release(file);
- 	mutex_unlock(&csi->vdev_mutex);
- 	return 0;
- }
-@@ -1627,7 +1622,7 @@ static int imx7_csi_video_register(struct imx7_csi *csi)
- 				    MEDIA_LNK_FL_ENABLED);
- 	if (ret) {
- 		dev_err(csi->dev, "failed to create link to device node\n");
--		video_unregister_device(vdev);
-+		vb2_video_unregister_device(vdev);
- 		return ret;
+diff --git a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
+index d60d92d2ffa1..4689e961bb19 100644
+--- a/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
++++ b/drivers/media/platform/raspberrypi/pisp_be/pisp_be.c
+@@ -1443,7 +1443,7 @@ static int pispbe_init_node(struct pispbe_dev *pispbe, unsigned int id)
+ 		dev_err(pispbe->dev,
+ 			"Failed to register media pads for %s device node\n",
+ 			NODE_NAME(node));
+-		goto err_unregister_queue;
++		goto err_mutex_destroy;
  	}
  
-@@ -1636,8 +1631,8 @@ static int imx7_csi_video_register(struct imx7_csi *csi)
+ 	ret = video_register_device(vdev, VFL_TYPE_VIDEO, -1);
+@@ -1451,7 +1451,7 @@ static int pispbe_init_node(struct pispbe_dev *pispbe, unsigned int id)
+ 		dev_err(pispbe->dev,
+ 			"Failed to register video %s device node\n",
+ 			NODE_NAME(node));
+-		goto err_unregister_queue;
++		goto err_mutex_destroy;
+ 	}
+ 	video_set_drvdata(vdev, node);
  
- static void imx7_csi_video_unregister(struct imx7_csi *csi)
- {
-+	vb2_video_unregister_device(csi->vdev);
- 	media_entity_cleanup(&csi->vdev->entity);
--	video_unregister_device(csi->vdev);
- }
+@@ -1472,9 +1472,7 @@ static int pispbe_init_node(struct pispbe_dev *pispbe, unsigned int id)
+ 	return 0;
  
- static int imx7_csi_video_init(struct imx7_csi *csi)
+ err_unregister_video_dev:
+-	video_unregister_device(&node->vfd);
+-err_unregister_queue:
+-	vb2_queue_release(&node->queue);
++	vb2_video_unregister_device(&node->vfd);
+ err_mutex_destroy:
+ 	mutex_destroy(&node->node_lock);
+ 	mutex_destroy(&node->queue_lock);
+@@ -1576,8 +1574,7 @@ static int pispbe_init_devices(struct pispbe_dev *pispbe)
+ 	media_device_unregister(mdev);
+ err_unregister_nodes:
+ 	while (num_regist-- > 0) {
+-		video_unregister_device(&pispbe->node[num_regist].vfd);
+-		vb2_queue_release(&pispbe->node[num_regist].queue);
++		vb2_video_unregister_device(&pispbe->node[num_regist].vfd);
+ 	}
+ 	v4l2_device_unregister_subdev(&pispbe->sd);
+ 	media_entity_cleanup(&pispbe->sd.entity);
+@@ -1605,8 +1602,7 @@ static void pispbe_destroy_devices(struct pispbe_dev *pispbe)
+ 	media_device_unregister(&pispbe->mdev);
+ 
+ 	for (int i = PISPBE_NUM_NODES - 1; i >= 0; i--) {
+-		video_unregister_device(&pispbe->node[i].vfd);
+-		vb2_queue_release(&pispbe->node[i].queue);
++		vb2_video_unregister_device(&pispbe->node[i].vfd);
+ 		mutex_destroy(&pispbe->node[i].node_lock);
+ 		mutex_destroy(&pispbe->node[i].queue_lock);
+ 	}
 -- 
 2.53.0
 
