@@ -1,176 +1,206 @@
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B707F3C140F
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 18:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785178439; cv=pass; b=PKH8RsoikR74kBTtMThbkbmG6pv/k12liaIIjtxtvOiUx9ikkVr5LcyUSwrDHvoAhheoUQY/R1a/UZQtsZ6MBQkwK8Q9lXplSjqFMOqVSFw/m+I3zYbGlRekgkGfwTtGXFZ/Lq9eZr0Ro6pGorwvDd1m178n7jOCvh0YfVynAH4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785178439; c=relaxed/simple;
-	bh=jBGj3vq73TpQNUHtZ8hP8T9s3Rn/i9PzV5LYqBYc5Jk=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=N/OmDLyreEyUpjvxQ883sqoZbQl3mHm4kxZa6dbLG3tLOT7Lppuc7eHyJ5f1t2CuYf7g7adnwiBmlgH+kof2nSd9JdkXKLn7a19qXGmkrkJxEfdj3yDk/hW3v4piMxqRmnmygTVTwIg/PD3Tt6+C3kQZXvmMrxU4/EbAWx+I8wA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UJFxwML0; arc=pass smtp.client-ip=209.85.215.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 722C83CB555
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 19:05:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785179158; cv=none; b=QERTwXrfFtSmrcvoOS2NAauEqg5MOzxbvCeduofhguRt5NvI7GlkU82vIKlfxaW0PPgFLnzyNW+a5HIfpg0b1Aw1YutV0e8zg7jB/4QtTSBUpeh8XmEqUDJVOJaqRabp4N65CuyXierHke6lySEg1YIcvZ7YT6buiNV3i+b0Tjs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785179158; c=relaxed/simple;
+	bh=u8VR/B5OGeU8nep2inH5bSls2jI2dTsy5UiQx+vbs9U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UFr5C5MQaWgyeB/7hCN+H7Yeul3UD7EYgFTY6k3U/456sMLXCG2MWis/wLYDV6iVOB4qmfJma8eXGTG1Yg1TfhinSc1+sw2zYwxCCv52m2eOVP62n45d3nR1B5v3sdF8thgebIITV+k+gOoUjl9sp/xOh1jbbkOQd0ky/rTB3ws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=v2bnAGiO; arc=none smtp.client-ip=209.85.167.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UJFxwML0"
-Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-ca957432c7fso2202463a12.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:53:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785178437; cv=none;
-        d=google.com; s=arc-20260327;
-        b=W9DNm23Hn5FABXQVMduAK1tAkUNV5+Lw9nExSu9cBYVcPrgCUXlsIVgGhXVgg5pGEh
-         zViTyBfjUKjCiDkIqSfZwhZpmIZYI9An7S9xFgiHHJ4KGvmEQ7+lZ5O6we4iKD/Vvly8
-         oKQMa56rsMWU39BnApdSN2O0i6e5LkQ07jbIfZD4xNfw3xt7U4E4UBdJaU5ddRqLr/k9
-         17bWh2k3+F1gGy0Yvs79ZoQ5rQHQJb68eOC148J1gRSZwOtWVeAKb72dhnAqvH0OjlA1
-         u039rnG6BHXbty4OYKiP/4DceV7qWKBJ8DRnoip+CMLc16d15dJFe/p9+c50h1nzLukm
-         wSsw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
-        fh=x0wCzXu/IzPOxtiFQwvzJp6xItmUNhV8f2yjftAqsqc=;
-        b=hEx65b2WCEkubACtqHnLo0v/gTN4vwXMK+WwATNbRPjT8vNDJxsmhE2JcQsHH0V7rQ
-         kr4ma19HHmc0sERlFCcwPPPqbXQPy+SGXilf/13Bs7+YuTw9zzPE+WUiBEMsEQoHQYFb
-         zZJOYim7y/8p0tWO0OkLgJ/1lKQNmvMs9pUzZ6KtIqsTtWbwDiR460j3Sw+juioF2xGM
-         8xcSgF+N+N3WfIGVHUWEuDo5ic5WkGfw5qrpzsHCIXgPWg7D5DSO2qmkMpeygk7/6uha
-         FGWDTJO56iRMuMS3TF8/VULKHerYPlM7sMyXcZ9RE/MVEiEDYDhWjEBYGTsiRk9ZWatS
-         2PFA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="v2bnAGiO"
+Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5aeb72b0af1so275788e87.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 12:05:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785178437; x=1785783237; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
-        b=UJFxwML01OyWDhhGzt5oP/vgee+QKm+snjmmmpDfkX2aopwCujH8dPQQ97ZHKh3mPo
-         wSIyJgJm8M004RUsHokQRSTdo6NznNTwTkLQLxPtuxukI7+oeEQ1IAwr4QcBf/thLFNs
-         QPn3NSWX2WGIX3Vh/6+MxlWfe+NPvmmR9Gu/mF6iRZwy6vKhYiQezuXx6LAcPikzD+AS
-         5tstckADxD/CnHSEThTvm0xQoz7Yk9C//l/boH0tSu4gvLVQMJxSZuJHUllpT42ehOYD
-         Lt6qqmz5ilUxbPtbFCIFH8dUHm0pytWZ+sHqFPF5Zvy9Mc7C2ow1sDgxaXWLYsnV5ApX
-         SSVw==
+        d=linaro.org; s=google; t=1785179154; x=1785783954; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=taJnkRDpkdBsrHjQfPQCC/m+0KrBzxVTxFR+bD6NBPA=;
+        b=v2bnAGiO91OURB9dnJw/GnELwz1/ZiDHQZKumMdWLi5HYpFhVui/g+yqqM8//EQpRk
+         UbV7QIiclkMj821EGp0QXP8Mo3Yao/Z0QZRC6tJt5TYPg6R+9lYYlkL/+nQASl/eEqmy
+         E85wS7vZ1b6VMYwmHdWSpsczQgNft1yVSNcr5WD4WvCEeAg231udpLL7+7m0RnbSeNxM
+         XpZccQtHwKTZl0IFSVzR2VPW1dCTRtke43b7KzWznPMLPalFGFe6pMRNmEUQ3oemQ1/p
+         P9wdR3FS5eh6VN8+HUY+7H/I51CNqHqjkVAqHWbO2cDQ6cqPf2hY11/qoAQTcgwCTi8Y
+         epxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785178437; x=1785783237;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ezc2drTNkvx/EGjvXJcxB1ItRYJScaQpIm5JRHoUsx4=;
-        b=EFoVMa3iyCtf2D/vOdAjzY8kKwx/K0UqECDG9Ek7Zhlj2GOMM9DAtppHe2j3DgWiH/
-         LXuHunSDOlPJgf4zFZq4S91serFBg6GyWSHGoR37SMZHcW6HbDw3CXtDmYSkvv5pwkHH
-         1+ZU7zGZBhnSwYXTSr3HLI6drKkeVNK4SFSP1sY1CFbmtKxm+vzOFrrECYr1qcOZ3P10
-         nORuoaqRK0LsVEJ2Yt7QmwSyYSd+l/2lJhUWdZd2IguOOvyVaSAHaZtnKGnQoOWK4d1J
-         TLhNwTpWcb388DxcsTRv150V1FurWEXo0u+8o9b85ThJGIBF8VTMUS6Bl84lCz82w0gL
-         VO/w==
-X-Forwarded-Encrypted: i=1; AHgh+RosPEA/A6ANMKrTPUTRjVRDshEcxGusJV6RBB63beUkz2QqLbcQyHPyYpHyAumQwDMpd9i4dPEo401SjA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yws/yuEyicuEw2tegornX5s5jKkAw11G0lr81WtzpS1i2vE+381
-	RmzhtmCcGJnIsIQYDExUogZbEJJx0ujynKIS16JBTDestI29NvHUZ3QFR1ud9z+5KDjMbuI0hS9
-	+putR0UgXnyeghyYFiO9b+UOCeKiDtX2UD4WUmvKb
-X-Gm-Gg: AR+sD119og2fPRXdgu5GMmmBMxlVMel+j5J457uK1H+WE3LiAyCrHzuyb9zNYLLBGzl
-	7px09iSf0UMvI1HqCISpN0zMykpbGFMU4UnsbQETXv1rH/cMbrBIEz3Aj+4K5kdXq5iYWGWyLOI
-	v8Vv2QYyJ+30sAVLeOz7hUFyP6hoK/QMGdp7ooNGkjrpUX4DNdPZdbEqx9K/Xi4Yojg4eP1Xmqc
-	a3+CQ8XKzXnnwkfNaVmihcQ8YMHydtsIbZT0gxSYsuzwZ2S/TlTdoU+kF9S+kw1fWTOYKE38izK
-	PLhUQ51yDjwy/fRID+Cx5u9mXhquP99Ro3nMZxCBV7gLyxWX
-X-Received: by 2002:a05:6a20:6a05:b0:3c3:7a0a:18a7 with SMTP id
- adf61e73a8af0-3c6c7fb20d4mr796670637.55.1785178436210; Mon, 27 Jul 2026
- 11:53:56 -0700 (PDT)
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
-Received: from 176938342045 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 27 Jul 2026 11:53:55 -0700
-From: Ackerley Tng <ackerleytng@google.com>
-In-Reply-To: <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
-References: <20250529053513.1592088-1-yilun.xu@linux.intel.com>
- <20250529053513.1592088-11-yilun.xu@linux.intel.com> <20250602133009.GC233377@nvidia.com>
- <CAEvNRgFpJWQ5M5sQhGpQUV3GbBq9N+MQhhaxdxa=D8ky94SCsw@mail.gmail.com>
- <20260712221934.GF674038@nvidia.com> <CAEvNRgEo2kLUmaGU-Vsgx2sTQvU_NNUJ4bRp5Z4Ygs_xvVLOYA@mail.gmail.com>
- <amcdueQI1voXWPQb@yilunxu-OptiPlex-7050>
+        d=1e100.net; s=20251104; t=1785179154; x=1785783954;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=taJnkRDpkdBsrHjQfPQCC/m+0KrBzxVTxFR+bD6NBPA=;
+        b=MLwooSj67yOvVzhUKs7eFE/b8xqWfpRfmQjhS7g2CNVKKoZlaNFbFW7J+aFrUpomWD
+         3v7U9IkbNSM+4P0Dj5OzaRVzpT0h8PWVKN1A/7Ma2vQcCfAjQgwrRqmfztBmob661zCc
+         YY7ke+5wCJNiNjS08DMDUVhN/Nsimxa8LjNHVzQ/6z5fsjKXwt4/c5gbztE6F9sPEU0Z
+         Bd8T6MsK9BCaFqjQZCJssrhT57l+dFrsghkKLrVJhY5qAgWcvJyHX+/EZLm0d7SStca1
+         YoaYIqmql/MUSlxn35gzmdLzUFHf1jVBfH4lqXrXvBOzfry3e+88oGqXtbYy3p5ot+OY
+         UXrw==
+X-Gm-Message-State: AOJu0YzsWJ2khLW4Yj67XC1JGyn/gqJWmhsVqVV5CUFY3E/at9Z5L1l5
+	JRfkZX8MU8C1RVTGhSkltTpOTFUHrZMd5nHmSl1WdB759+aaHBKyS/Yhhn0O+/Io2L0=
+X-Gm-Gg: AR+sD10YonAwIGlxXLxeWppmD0vMwsH5PdKfbnVbbu3ckziXkdi88ittShT+JK9Dh6M
+	G9V2yh8aehvJ4uJCF00L1SkIBdgbTgupxE1cqmv9WOwqJJbOc5trMT77MtCCIghtlYXGm4mMbCk
+	4GSq4mBrm7XR7Yb8ruZJz5jQNuYu34qA1Z8eNN7eUtcAM7YvQyCZ0h8eiwL/WhDs8QPWQ8uyat0
+	U3yf0VuP/mfVSydGMrn1+IY0XNS/mIIGckLJjAKhl+kSd0cJujkXNG8Lo5FIrnK5CvNnu+9tEX+
+	r03eKTkMHMOXaXGHhXoMbyz/bsvv2cLVfjwCTaTqAgyRHV60ZPMrKViNZtM06blz+VdK3H5id68
+	lEc6CVaZTGd4vo7l2eFVqIb/CGooEdS02alUe9UIlMzscuw5MXpVYRH2hkJAa8UJ6tpd031PHE3
+	UOJf96VEhi0lWOZv06EC67sA1t0vuOaetYqT5Pdqqrst7+o42DZY3WlttnT3ead9Fq5iA=
+X-Received: by 2002:a05:6512:b10:b0:5ae:c063:638c with SMTP id 2adb3069b0e04-5b2cd87480cmr130153e87.7.1785179154404;
+        Mon, 27 Jul 2026 12:05:54 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1d8646sm1634053e87.49.2026.07.27.12.05.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 12:05:53 -0700 (PDT)
+Message-ID: <28ebf939-2307-40ea-a8d2-e2105990e21c@linaro.org>
+Date: Mon, 27 Jul 2026 22:05:52 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 27 Jul 2026 11:53:55 -0700
-X-Gm-Features: AUfX_mylYj_x8eQp0BvgfyW8gHfhB_jFskLbUbWzV0Fgf00qZT4Qn9h3hPlqeKo
-Message-ID: <CAEvNRgGYc0B1YyhDhS0Khfm3N85hbkYGMTfDLiXYn+WHTLF2EQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 10/30] vfio/pci: Export vfio dma-buf specific info for importers
-To: Xu Yilun <yilun.xu@linux.intel.com>
-Cc: Jason Gunthorpe <jgg@nvidia.com>, kvm@vger.kernel.org, sumit.semwal@linaro.org, 
-	christian.koenig@amd.com, pbonzini@redhat.com, seanjc@google.com, 
-	alex.williamson@redhat.com, dan.j.williams@intel.com, aik@amd.com, 
-	linux-coco@lists.linux.dev, dri-devel@lists.freedesktop.org, 
-	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
-	vivek.kasireddy@intel.com, yilun.xu@intel.com, linux-kernel@vger.kernel.org, 
-	lukas@wunner.de, yan.y.zhao@intel.com, daniel.vetter@ffwll.ch, 
-	leon@kernel.org, baolu.lu@linux.intel.com, zhenzhong.duan@intel.com, 
-	tao1.su@intel.com, linux-pci@vger.kernel.org, zhiw@nvidia.com, 
-	simona.vetter@ffwll.ch, shameerali.kolothum.thodi@huawei.com, 
-	aneesh.kumar@kernel.org, iommu@lists.linux.dev, kevin.tian@intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] media: i2c: og0ve1b: Add support for OmniVision
+ OG0VA1B
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260708-og0va1b-v3-0-de8e44455a42@oss.qualcomm.com>
+ <20260708-og0va1b-v3-3-de8e44455a42@oss.qualcomm.com>
+ <dca44ea4-60af-4a9b-a6cb-7ba5f2014016@linaro.org>
+ <c8a74324-3a1e-43bc-8124-2e5886038b6a@oss.qualcomm.com>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <c8a74324-3a1e-43bc-8124-2e5886038b6a@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Xu Yilun <yilun.xu@linux.intel.com> writes:
+Hi Wenmeng,
 
->> > If VFIO can create one
->
-> It is an interesting idea to let VFIO create a guest_memfd instance, if
-> DMABUF doesn't work. But to achieve this goal, I think we still need to
-> refactor guest_memfd to allow for different memory/MMIO resource
-> exporters/creators, and different resource importers/users like KVM MMU
-> & IOMMUFD.
->
-
-Yup I think both ways we'd need some level of integration from both
-sides :)
-
+On 7/27/26 12:38, Wenmeng Liu wrote:
+> Hi Vladimir,
+> 
+> On 7/24/2026 9:35 PM, Vladimir Zapolskiy wrote:
+>> Hi Wenmeng.
 >>
->> At guest_memfd creation time, guest_memfd is always created for a
->> KVM. This is the first place where it is bound to a kvm instance. This
->> is one place where it helps Yilun with Confidential VMs, so KVM can be
->> sure that the memory was meant for a specific CoCo kvm and not any VM.
+>> On 7/8/26 17:33, Wenmeng Liu wrote:
+>>> The OmniVision OG0VA1B is a monochrome image sensor closely related to
+>>> the OG0VE1B. It shares the SCCB control interface, power supplies and
+>>> the single-lane MIPI D-PHY description, and differs in its chip id, the
+>>> test pattern register, the register programming and the output format
+>>> (10-bit RAW instead of 8-bit).
+>>>
+>>> Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
+>>> its 640x480 60fps register sequence.
+>>>
+>>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+>>> ---
+>>>    drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++
+>>> ++++++++--
+>>>    1 file changed, 266 insertions(+), 12 deletions(-)
+>>>
+>>> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
+>>> index
+>>> 041342fbe3c822400388f58a03e6057e186f060f..c558cdd43314931db35e463641dd28e10b94ec8a 100644
+>>> --- a/drivers/media/i2c/og0ve1b.c
+>>> +++ b/drivers/media/i2c/og0ve1b.c
+>>> @@ -14,10 +14,14 @@
+>>>    #include <media/v4l2-device.h>
+>>>    #include <media/v4l2-fwnode.h>
+>>> +#define OG0VA1B_LINK_FREQ_480MHZ    (480 * HZ_PER_MHZ)
+>>> +#define OG0VA1B_MCLK_FREQ_19_2MHZ    (19200 * HZ_PER_KHZ)
+>>> +
+>>>    #define OG0VE1B_LINK_FREQ_500MHZ    (500 * HZ_PER_MHZ)
+>>>    #define OG0VE1B_MCLK_FREQ_24MHZ        (24 * HZ_PER_MHZ)
+>>> -#define OG0VE1B_REG_CHIP_ID        CCI_REG24(0x300a)
+>>> +#define OG0V_REG_CHIP_ID        CCI_REG24(0x300a)
+>>> +#define OG0VA1B_CHIP_ID            0xc75641
+>>>    #define OG0VE1B_CHIP_ID            0xc75645
+>>>    #define OG0VE1B_REG_MODE_SELECT        CCI_REG8(0x0100)
+>>> @@ -45,12 +49,18 @@
+>>>    #define OG0VE1B_REG_VTS            CCI_REG16(0x380e)
+>>>    #define OG0VE1B_VTS_MAX            0xffff
+>>> -/* Test pattern */
+>>> +/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
+>>> +#define OG0VA1B_REG_TEST_PATTERN    CCI_REG8(0x5100)
+>>> +#define OG0VA1B_TEST_PATTERN_BAR_SHIFT    2
+>>>    #define OG0VE1B_REG_PRE_ISP        CCI_REG8(0x5e00)
+>>>    #define OG0VE1B_TEST_PATTERN_ENABLE    BIT(7)
+>>>    #define to_og0ve1b(_sd)            container_of(_sd, struct og0ve1b,
+>>> sd)
+>>> +static const s64 og0va1b_link_freq_menu[] = {
+>>> +    OG0VA1B_LINK_FREQ_480MHZ,
+>>> +};
+>>> +
+>>>    static const s64 og0ve1b_link_freq_menu[] = {
+>>>        OG0VE1B_LINK_FREQ_500MHZ,
+>>>    };
+>>> @@ -73,15 +83,31 @@ struct og0ve1b_mode {
+>>>    struct og0ve1b;
+>>>    struct og0ve1b_sensor_data {
+>>> +    const char *name;
+>>>        u64 chip_id;
+>>>        unsigned long mclk_freq;
+>>>        int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
+>>> +    const char * const *test_pattern_menu;
+>>> +    int num_test_patterns;
+>>> +    bool cache_test_pattern_reg;
+>>> +    /* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole
+>>> lines (0). */
+>>> +    unsigned int exposure_shift;
+>>> +    /* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B
+>>> keeps 1. */
+>>> +    unsigned int pixel_rate_mul;
+>>>        const s64 *link_freq_menu;
+>>>        int num_link_freqs;
+>>>        const struct og0ve1b_mode *modes;
+>>>        int num_modes;
+>>>    };
+>>> +static const char * const og0va1b_test_pattern_menu[] = {
+>>> +    "Disabled",
+>>> +    "Standard Color Bar",
+>>> +    "Top-Bottom Darker Color Bar",
+>>> +    "Right-Left Darker Color Bar",
+>>> +    "Bottom-Top Darker Color Bar",
+>>> +};
+>>> +
 >>
->> I think it might be weird to have VFIO take a kvm fd to create a
->> guest_memfd?
->
-> I think having VFIO create a guest_memfd is better than having KVM
-> create a guest_memfd on behalf of VFIO.
->
-> The lifecycle of the MMIO resources should be managed by VFIO, cause
-> the availability of these MMIO resouces are impacted by device
-> operations, e.g., device reset, PCI Memory Space Enable (MSE) ...
-> You can't export MMIO resources to KVM MMU without VFIO's awareness.
->
-
-Thanks for explaining the above!
-
-Do you mean that as long as VFIO knows that some addresses are not
-usable, those addressses have to be removed from the stage 2 page tables
-that KVM manages?
-
-> And VFIO doesn't have to take a kvm fd paramter to create a guest_memfd,
-> VFIO has got the kvm instance via KVM_DEV_VFIO_FILE_ADD.
->
-
-I'm new to this - looks to me KVM_DEV_VFIO_FILE_ADD is for linking VFIO
-to KVM but some mmap-ing is also required (pre-CoCo) to set up memslots?
-
-With CoCo, setting up memslots would use some fd (guest_memfd wrapping
-VFIO or the VFIO-created guest_memfd like you were suggesting) and I'd
-think there will still be some notifiers between KVM and VFIO for the
-mapping.
-
-Btw is it right to say that KVM_DEV_VFIO_FILE_ADD is only in the case of
-setting up irqchip? Is irqchip a requirement for Confidential IO?
-
-
-Hope you also had a chance to look at [1] that David Woodhouse is
-working on :)
-
-[1] https://lore.kernel.org/all/1dc299af6b795a40c8887b3d84f915024f6446a9.camel@infradead.org/
-
+>> In the original og0ve1b_test_pattern_menu[] I copied a pretty regular
+>> test pattern name "Vertical Colour Bars" inapproptiately, and here
+>> the references to "Colour Bars" are also present... Due to quite
+>> an obvious reason of sensor specifics would you consider to change
+>> the test pattern names to something else?.. Sorry for late comment.
 >>
->> I was thinking that the userspace VMM could do something like:
->>
->>   int vfio_fd = open("/dev/vfio/devices/vfio0");
->>   int gmem_fd = ioctl(KVM_CREATE_GUEST_MEMFD, { .fd = vfio_fd });
+> 
+> Thanks for the review, and no worries about the timing.
+> 
+> You're right that "Color Bar" is misleading for a monochrome sensor.
+> The OG0VA1B datasheet names these as "Test Bar", so I've aligned with it:
+> 
+> "Disabled",
+> "Standard Test Bar",
+> "Top-Bottom Darker Test Bar",
+> "Right-Left Darker Test Bar",
+> "Bottom-Top Darker Test Bar",
+> 
+> For OG0VE1B, "Vertical Colour Bars" has the same issue, Would you like
+> me to update it with "Vertical Darker Test Bars"?
+
+Sure, and it will be very much appreciated to get it fixed! Likely
+the same "Standard Test Bar" name will be good for its description.
+
+ From my POV the driver is mature, feel free to send v4 with the gained
+tags, but someone else may provide more review comments.
+
+-- 
+Best wishes,
+Vladimir
