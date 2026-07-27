@@ -1,58 +1,59 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D3FE40F75F;
-	Mon, 27 Jul 2026 13:19:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3250412280;
+	Mon, 27 Jul 2026 13:19:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785158363; cv=none; b=Dzslf1zjf9GrNIBxISQLLADGP0G94yTIO3lkIhmyGpC2EzyLoh4zT4NZWNS4M2qn+Gh9N9yLyYkniBc2sWLCoEInZVLzbnyHTWT8QM4aYWT+aMgOkOUFMu9eE/7qLix7mBx0MbEMfx3TYfIye5ceHXgQMuaIto/Rk0R65G00zB8=
+	t=1785158364; cv=none; b=brjW1vcv8b/MntBI2Eq88UNusPHogWU/lVy81bnGJQG+jhM3Ksjwrb9wBOSSeTHUX8RUCowjUAEznoPfyHJ8TEJrCZvqwCDNDr43fGbdrhX7y4raL/5qz2Zjk8kyW3l9OXXrKrpMxL9P6jSP3viy1Nfi7Q259IN9lY/yt96ChmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785158363; c=relaxed/simple;
-	bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
+	s=arc-20240116; t=1785158364; c=relaxed/simple;
+	bh=a/IWBX5/KSTomr9EEUQNAH8GIN43cL9GoYjV+aAE3XQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jRP52CHJJAQZfiWK2k92Ew4WECls/qIb3bO7xB+RRP+LpoQozgAm7UPL3ir6IC5Kebh2RNb93Aw4TxYApVPCL5beKknePks7P/R7s8+CR5otxy5TXS9SdtnAhAAV5Hws6GDfaP0seIEcetJM6VWMe1Ct+whxwWp2eMOEdmVx1iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=s7RNka83; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=YbHK2+Cf; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=Kw7cJptZqcATrTiIsKjiNguL6bkEGCj9DEQjM9dgc3XU9xHy4ImOnJkGXZH0GVXyvYxkqRJpLW5iEBCNG7ZZ8qvXkCnB4ebqDxGuhsUSOIyT6jbmObLKqSxdPvIAep3tCxD1l75mfs7BNSKGJBPbhxw+QxJfdmaPQC5o2zH6ykE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=NkucxRId; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=NkucxRId; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="s7RNka83";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="YbHK2+Cf"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="NkucxRId";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="NkucxRId"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158354; bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
+	t=1785158354; bh=a/IWBX5/KSTomr9EEUQNAH8GIN43cL9GoYjV+aAE3XQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=s7RNka83HYJQpenFCHP/n65+dJf4pYnesKC2eTme/hhld5qpMJpVc0DihN53N6nbt
-	 7cwEZPNzjczaBW1Y17uAqRD4P8OGXUeYWis4CxkIfjkJUkuHrLHnydMN7nO+DLFiTa
-	 SJVfouGvLes8Fp8R6l4H3XUAiGqnn2DLjfQadjxp0kGlt6vsbuu+NYmlMzN1e9nrFX
-	 oBR8U3oK/bgxt8EsXbMRFb7gz37ja6KekAlrjvXjkuTay8AedJaaVJtwYH/H/qKIiX
-	 Sjygf45LGfSkaKeQxFtpWMCY04FdzDK2IE1M/5RexN9lnt4sRgMN4iIMTFjhSss+Ig
-	 wu8IC+q5N8HAg==
+	b=NkucxRIdZAHCFVmoqL+u6ip0xymEwbNB7FwGY7o/TTJ1tIibJ4iTOZsO5bKWZP1ci
+	 vABD67mDew+gPfxQ42nZ9bziWWTlwRj63ngxYW7roVpnt2fYKmzPr/e9CjchnEOcRv
+	 Or4cRLnpMzNU/zbBazDiohM+k6eBXbVvxVdtvV37cf0Of23LuLBOgGllsENG4hkHVZ
+	 jva0xwfYgM9nGvgFmYyh5yKpNn6BN3zBzADOpSCgYpHJxX0fiZkFvmY0ywaBTvWz5w
+	 fBgPqDHuPy5b5uIC5NI4ubQWLf78U7Ih4redAAfOkOumoSY01rPj/PMaf3oI4+1M4C
+	 4QQV5yWnLnkOg==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 71E7D42532; Mon, 27 Jul 2026 14:19:14 +0100 (BST)
+	id D11004253C; Mon, 27 Jul 2026 14:19:14 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785158353; bh=csD4C9aGmo8ROb3Tk3cNJUGCpn5XKsdKsR71UwnyuvY=;
+	t=1785158354; bh=a/IWBX5/KSTomr9EEUQNAH8GIN43cL9GoYjV+aAE3XQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=YbHK2+Cfi9Z7miLpzUB6T+UBL5QsurCX5ilQk3Izgd7SYrAlGgRwvxSWujO5l+3B4
-	 BSOM87ui4IJe83APGGSIUk6flo1NGQfT08TLa1KeIxj01Qor0RBtsNGqtK905798Ue
-	 JOnvh9ttOMErzPiAnTPwVfwYpFieO1caAaeANEv9NuVd7EmqXkFWx863j8G2hdEMBS
-	 X7gHvDxEJvVIvvxqgF6N05UnxXjsPske1Pgo9/x+PZAXO0WDImf+vl5mggCa2PLO0P
-	 QTXfz+msU1XOXmm8XZM0SAhxHfJoDYWEnYAvUWMLNKshiFsZn6qB6lAW7SDb23YlYN
-	 H5GKRJ/Pngk1A==
+	b=NkucxRIdZAHCFVmoqL+u6ip0xymEwbNB7FwGY7o/TTJ1tIibJ4iTOZsO5bKWZP1ci
+	 vABD67mDew+gPfxQ42nZ9bziWWTlwRj63ngxYW7roVpnt2fYKmzPr/e9CjchnEOcRv
+	 Or4cRLnpMzNU/zbBazDiohM+k6eBXbVvxVdtvV37cf0Of23LuLBOgGllsENG4hkHVZ
+	 jva0xwfYgM9nGvgFmYyh5yKpNn6BN3zBzADOpSCgYpHJxX0fiZkFvmY0ywaBTvWz5w
+	 fBgPqDHuPy5b5uIC5NI4ubQWLf78U7Ih4redAAfOkOumoSY01rPj/PMaf3oI4+1M4C
+	 4QQV5yWnLnkOg==
 Received: from maru.local (unknown [62.232.99.130])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 9C03342532;
-	Mon, 27 Jul 2026 14:19:13 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 3319C4017A;
+	Mon, 27 Jul 2026 14:19:14 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Markus Elfring <elfring@users.sourceforge.net>
 Cc: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 04/15] media: redrat3: Ensure all urbs are suspended
-Date: Mon, 27 Jul 2026 14:18:47 +0100
-Message-ID: <e599d9b8f7f52c0de46f7c8a543439dc03a5b78d.1785158244.git.sean@mess.org>
+Subject: [PATCH v4 05/15] media: redrat3: Error path leaves device in transmitting state
+Date: Mon, 27 Jul 2026 14:18:48 +0100
+Message-ID: <d22b8dac679cc4b4713dd03875576d71305e3912.1785158244.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1785158244.git.sean@mess.org>
 References: <cover.1785158244.git.sean@mess.org>
@@ -64,27 +65,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Ensure that the learn urb is stopped before suspend.
+If the allocation fails, transmitting is left as true and the transmitter
+cannot be used any more.
 
-Fixes: c49fcdde38cb ("[media] redrat3: enable carrier reports using wideband receiver")
+Fixes: fac59136bc22 ("[media] RedRat3: Return directly after a failed kcalloc() in redrat3_transmit_ir()")"
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/redrat3.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/rc/redrat3.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-index f86efcb74e6e..994d4864520c 100644
+index 994d4864520c..bc75f68ca535 100644
 --- a/drivers/media/rc/redrat3.c
 +++ b/drivers/media/rc/redrat3.c
-@@ -1170,6 +1170,7 @@ static int redrat3_dev_suspend(struct usb_interface *intf, pm_message_t message)
- 	usb_kill_urb(rr3->narrow_urb);
- 	usb_kill_urb(rr3->wide_urb);
- 	usb_kill_urb(rr3->flash_urb);
-+	usb_kill_urb(rr3->learn_urb);
- 	return 0;
- }
+@@ -781,9 +781,6 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
+ 	if (count > RR3_MAX_SIG_SIZE - RR3_TX_TRAILER_LEN)
+ 		return -EINVAL;
  
+-	/* rr3 will disable rc detector on transmit */
+-	rr3->transmitting = true;
+-
+ 	sample_lens = kzalloc_objs(*sample_lens, RR3_DRIVER_MAXLENS);
+ 	if (!sample_lens)
+ 		return -ENOMEM;
+@@ -794,6 +791,9 @@ static int redrat3_transmit_ir(struct rc_dev *rcdev, unsigned *txbuf,
+ 		goto out;
+ 	}
+ 
++	/* rr3 will disable rc detector on transmit */
++	rr3->transmitting = true;
++
+ 	for (i = 0; i < count; i++) {
+ 		cur_sample_len = redrat3_us_to_len(txbuf[i]);
+ 		if (cur_sample_len > 0xffff) {
 -- 
 2.55.0
 
