@@ -1,102 +1,145 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2779C3F4108;
-	Mon, 27 Jul 2026 09:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF553EEAD3;
+	Mon, 27 Jul 2026 09:52:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785145843; cv=none; b=uCa/nwkxzEu0fpK3+5zv7/4OlU1yVpf2bJXOuC02OZecef0Z3Mo15YwVMmOitlXF0pNLRjDUcZTrMq+wqAb4Qlkudlqino2xHjIpzJpt5nDlfegFcCTB+EhQ28YbUG2cLj4C0H2/UddRQSQrBKLMXbmOefK8eccLRAW6THRN6X4=
+	t=1785145980; cv=none; b=LHuc/54Vb+hZ36Tkem5wthXPguvubilwqIWUAVaoD4jukpISTUbyosoiW9REKSuiyMx+mZPh/QKdHVRxk5MvtdI6yxI9YTk1LSFy53diME83X5EsW7NvQaqVTa1IH5aoDYMlEYvI+eRMM/6eaezVK+homlSdsEl4G09lepB442c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785145843; c=relaxed/simple;
-	bh=1WyrhrgV3xwvejZXPISR/E+XOfLV/V8A0jvsI6uQXh8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZR2XBc1s5w8y/O4WB5R33muo1fOoSCCZZMjiquurWrVudpF6SBtkKGyj6esobZWFtmGpNfeTH0nzxp96p40OWOIM5iSvyNeq1VHYkCaOTC2rS+c7zgKyXAoSi400OdQ1I2bRT4ySREmhNPuawJLjq7nPM5gooUp8hBOAnVeJstk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=qXWlaTgL; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785145980; c=relaxed/simple;
+	bh=9GHMDxwEFngJyi8lduix2B1OoVXUWsnVcUO9+wVAW1E=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=CiopsNZhuc0E5L3D0GaVdDPlOXUPaH3TJEYu8HjYLmhysoTP6cMaMtyIKWgx8UmjOmlREe7ni+6DnBccapYe2lSiviU9t2ExC2AtHeJ9Or2G35cu4fjZc9DVd6ubWBSxrYaaAfyK4qQ6Z0cdA74eAVQlyvpZIFtM6EGDXc9T4ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7LQDNND; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qXWlaTgL"
-Received: from ideasonboard.com (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 095293A4;
-	Mon, 27 Jul 2026 11:49:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785145772;
-	bh=1WyrhrgV3xwvejZXPISR/E+XOfLV/V8A0jvsI6uQXh8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qXWlaTgLzQmvh6tdLegMzKGG5M7VXtCbCywmMIpUeN7Dnh1u96LeztKpCtWn5X/Rj
-	 3q4OHIu2sc6runFw6aL0hgtIoUznq3T+8lfrJWuzXzWCcP/V5OtW+kCq7PNOT1dQmk
-	 7bBpomhO/ur2ur23NZQtAQipAag6v80fOROzKoW8=
-Date: Mon, 27 Jul 2026 11:50:32 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
-	biju.das.jz@bp.renesas.com, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/9] media: rzg2l-cru: Add device_link from CRU to CSI-2
-Message-ID: <amcplAwJQbx2Tjuy@zed>
-References: <20260616170542.447804-1-tommaso.merciai.xr@bp.renesas.com>
- <20260616170542.447804-2-tommaso.merciai.xr@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7LQDNND"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC4A1F00A3A;
+	Mon, 27 Jul 2026 09:52:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785145966;
+	bh=St9QVpMeJZt7kBp7YQlB/8fQhV3xxyBiullWLJdrNxQ=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=D7LQDNNDA7yxSPg3t7gWSrmlFcqdt2c4J7KYSntBViU2wjlSdLb0+Q27vZVQzJpOT
+	 PdCgS/AZVotWK/j93cN4YMEKNnPQ9sG2rSPVFMYjFBq6gKITUvWYJNgJR+7YpdMKm6
+	 1eDDNXfmoxcrDjdAgYcDLw/VeqfyCNUB+a+VXsoGMdChXLJBsaNfhiPvuZRHkRZpRR
+	 0ww54bMCUf7GYR6CC66yuQp0GYo+VnQs07X4x2EwT8EpzTWaSCDrNtVABHaTNRO8QU
+	 z89fHxTAj1S3a5To+QFDn+UhhhB9aAfwXCxlHCaL2+NgtAQT0w9xln6SEBdDc0I/q0
+	 OYcomXxi4de8A==
+Message-ID: <1666c7f9-4d32-495f-a737-3fc06872690b@kernel.org>
+Date: Mon, 27 Jul 2026 11:52:40 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260616170542.447804-2-tommaso.merciai.xr@bp.renesas.com>
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v1 2/7] media: em28xx: Split
+ em28xx_pctv_290e_set_lna_gpio() helper
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+ Bradford Love <brad@nextdimension.cc>, linux-gpio@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mips@vger.kernel.org,
+ linux-media@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ Daniel Mack <daniel@zonque.org>, Haojian Zhuang <haojian.zhuang@gmail.com>,
+ Robert Jarzmik <robert.jarzmik@free.fr>, Russell King
+ <linux@armlinux.org.uk>, Hauke Mehrtens <hauke@hauke-m.de>,
+ =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+ Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+References: <20260715185112.1323510-1-andriy.shevchenko@linux.intel.com>
+ <20260715185112.1323510-3-andriy.shevchenko@linux.intel.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260715185112.1323510-3-andriy.shevchenko@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Tommaso
- one more thing
+On 15/07/2026 20:46, Andy Shevchenko wrote:
+> Split em28xx_pctv_290e_set_lna_gpio() helper in order to deduplicate
+> the GPIO request and setting.
+> 
+> Signed-off-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-On Tue, Jun 16, 2026 at 07:05:31PM +0200, Tommaso Merciai wrote:
-> The CRU device depends on CSI-2 to operate. Without an explicit
-> device_link the PM core has no knowledge of this dependency and may
-> suspend CSI-2 while CRU is still active, or resume CRU before CSI-2
-> is ready.
->
-> Add a DL_FLAG_STATELESS device_link from the CRU to CSI-2 when the
-> CSI-2 subdev binds. This instructs the PM core to suspend CRU before
-> CSI-2 and to resume CSI-2 before CRU. The link is deleted on unbind.
->
-> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Acked-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+
+Regards,
+
+	Hans
+
 > ---
->  drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c | 7 +++++++
->  1 file changed, 7 insertions(+)
->
-> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> index 3c5fbd857371..1b12d91eaec9 100644
-> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> @@ -101,6 +101,7 @@ static void rzg2l_cru_group_notify_unbind(struct v4l2_async_notifier *notifier,
->  	mutex_lock(&cru->mdev_lock);
+>  drivers/media/usb/em28xx/em28xx-dvb.c | 31 ++++++++++++---------------
+>  1 file changed, 14 insertions(+), 17 deletions(-)
+> 
+> diff --git a/drivers/media/usb/em28xx/em28xx-dvb.c b/drivers/media/usb/em28xx/em28xx-dvb.c
+> index 8482fc4045ea..ef148a27c94d 100644
+> --- a/drivers/media/usb/em28xx/em28xx-dvb.c
+> +++ b/drivers/media/usb/em28xx/em28xx-dvb.c
+> @@ -737,17 +737,14 @@ static void pctv_520e_init(struct em28xx *dev)
+>  				regs[i].r, regs[i].len);
+>  };
+>  
+> -static int em28xx_pctv_290e_set_lna(struct dvb_frontend *fe)
+> +static int em28xx_pctv_290e_set_lna_gpio(struct em28xx *dev, u32 lna)
+>  {
+> -	struct dtv_frontend_properties *c = &fe->dtv_property_cache;
+> -	struct em28xx_i2c_bus *i2c_bus = fe->dvb->priv;
+> -	struct em28xx *dev = i2c_bus->dev;
+>  #ifdef CONFIG_GPIOLIB_LEGACY
+>  	struct em28xx_dvb *dvb = dev->dvb;
+>  	int ret;
+>  	unsigned long flags;
+>  
+> -	if (c->lna == 1)
+> +	if (lna == 1)
+>  		flags = GPIOF_OUT_INIT_HIGH; /* enable LNA */
+>  	else
+>  		flags = GPIOF_OUT_INIT_LOW; /* disable LNA */
+> @@ -761,11 +758,20 @@ static int em28xx_pctv_290e_set_lna(struct dvb_frontend *fe)
+>  	return ret;
+>  #else
+>  	dev_warn(&dev->intf->dev, "%s: LNA control is disabled (lna=%u)\n",
+> -		 KBUILD_MODNAME, c->lna);
+> +		 KBUILD_MODNAME, lna);
+>  	return 0;
+>  #endif
+>  }
+>  
+> +static int em28xx_pctv_290e_set_lna(struct dvb_frontend *fe)
+> +{
+> +	struct dtv_frontend_properties *c = &fe->dtv_property_cache;
+> +	struct em28xx_i2c_bus *i2c_bus = fe->dvb->priv;
+> +	struct em28xx *dev = i2c_bus->dev;
+> +
+> +	return em28xx_pctv_290e_set_lna_gpio(dev, c->lna);
+> +}
+> +
+>  static int em28xx_pctv_292e_set_lna(struct dvb_frontend *fe)
+>  {
+>  	struct dtv_frontend_properties *c = &fe->dtv_property_cache;
+> @@ -1920,19 +1926,10 @@ static int em28xx_dvb_init(struct em28xx *dev)
+>  				goto out_free;
+>  			}
+>  
+> -#ifdef CONFIG_GPIOLIB_LEGACY
+>  			/* enable LNA for DVB-T, DVB-T2 and DVB-C */
+> -			result = gpio_request_one(dvb->lna_gpio,
+> -						  GPIOF_OUT_INIT_LOW, NULL);
+> -			if (result)
+> -				dev_err(&dev->intf->dev,
+> -					"gpio request failed %d\n",
+> -					result);
+> -			else
+> -				gpio_free(dvb->lna_gpio);
+> +			em28xx_pctv_290e_set_lna_gpio(dev, 0);
+>  
+> -			result = 0; /* continue even set LNA fails */
+> -#endif
+> +			/* continue even set LNA fails */
+>  			dvb->fe[0]->ops.set_lna = em28xx_pctv_290e_set_lna;
+>  		}
+>  
 
-What is the mutex protecting here ?
-
-(yes, unrelated to this patch, I know, just wondering if you should
-take the occasion to remove the guards from bind/unbind)
-
->
->  	if (cru->csi.asd == asd) {
-> +		device_link_remove(cru->dev, subdev->dev);
->  		cru->csi.subdev = NULL;
->  		dev_dbg(cru->dev, "Unbind CSI-2 %s\n", subdev->name);
->  	}
-> @@ -118,6 +119,12 @@ static int rzg2l_cru_group_notify_bound(struct v4l2_async_notifier *notifier,
->
->  	if (cru->csi.asd == asd) {
->  		cru->csi.subdev = subdev;
-> +		if (!device_link_add(cru->dev, subdev->dev, DL_FLAG_STATELESS)) {
-> +			dev_err(cru->dev, "Failed to create device link to CSI-2 %s\n",
-> +				subdev->name);
-> +			mutex_unlock(&cru->mdev_lock);
-> +			return -EINVAL;
-> +		}
->  		dev_dbg(cru->dev, "Bound CSI-2 %s\n", subdev->name);
->  	}
->
-> --
-> 2.54.0
->
