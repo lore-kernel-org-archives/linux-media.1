@@ -1,100 +1,117 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA203F6600;
-	Mon, 27 Jul 2026 11:10:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7552B3F8ECA
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:22:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785150620; cv=none; b=QIQ+QHwRTfA/hklLXRcFervIxuWnbnbaO3SIYU1NYiF/ahUQ8ssT7q+kLrLfgUKTJPJpEHKsO2IimX+ES1ZQfSyZ9QjG+/sd2D4519nbFQ2WtMWDmtBzeUJ3cGiLE8YuB+Zv640OU1cFgWa5SffFjNLjzVg92icZd7I6wGoOdho=
+	t=1785151371; cv=none; b=RMA3zj/cqEzwXFKzvDtIS5ubFNtFmHRtCTehIA3t8Ca6yjXpyKlFYr12Z1J4rDCtlIX0T+CidfGGZ9rPzxfXR3+rARumAGCE/LLWsOwx6u4GbjjaOJS8x70HFPzRoW1TZGJAV/m6a4cXitfvTjrMDCsQ6Lp9kotBdajJyVpdP9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785150620; c=relaxed/simple;
-	bh=pj/kO5vSLCP64HfMG7K8Tgy4NwexuNapehAFw3xZ6o4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=luNsPHaHZHv0DZ7Aht6BvAR13j6b6HXkbBgmYFFWrbRn0kZj2GRgxp+pDcGaFlInyW5+y0zU5Mj/nBJltZk5R6qu1O8TGpKnItVdYzL0CZOe+aUnm2zHVX72Jpx4sXN6xnvzPl8yYh+FLlXlLQ6XQiEi3Ayfcl8B8i/eohzM0TE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ps2ERVp/; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1785151371; c=relaxed/simple;
+	bh=GvGPNpCEnQDfHxHOcxa+Ci3ycUkDkZuGgKa+12rrbsA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VaP40UbV2mKuf1n2jAIQ8/tNeey9Y0JYz/dCHTQJ/AThVoRtkIzWgfU+ckxnuGM5Jb3GRnZxQqJ7lZAPB7yPdA1GaQvCNqXQXY+ppq7JxZD0uvvGnT/YoDd2X1mdRKoakXJ7lbInCaqyxTjpeQiGuGNpmiy24ceNyMDLIznfHq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eC5g6P14; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ps2ERVp/"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 8FDB51A1288;
-	Mon, 27 Jul 2026 11:10:15 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 5B5A9601BE;
-	Mon, 27 Jul 2026 11:10:15 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90FC711C13260;
-	Mon, 27 Jul 2026 13:10:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1785150610; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=pj/kO5vSLCP64HfMG7K8Tgy4NwexuNapehAFw3xZ6o4=;
-	b=Ps2ERVp/CGSsVQDpNh4IktVr6nJ/Har02F1fp56jWbu4VNb72JVEhcLKI5wWjbZNpSkUyL
-	Wqr2j77Uhuacp7GE6emIqowZBRUguLirP8vsR0XvzuFtShGSBgFjQHVUTY7fap/LOq6qZh
-	C+wPBMwzmmpK3gLKXERKLKsJqpsDuQtonJUvcmDeOpGo0CkXLlqI+D9h6VaqsPzkkrwjZY
-	uvkoOav4sMMAeWfBUwMpMK76jnNBVS5rWzQFrre1gS6/i5oqNKHiPuKxSnOD23DFBesptr
-	Ym3AQeuf7NFChQGUErdvO7I6zQCRi4VOr9IeoFBcwYhgqyaEKYhrlvMXXD/ryg==
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eC5g6P14"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2cca0c5799eso23158985ad.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 04:22:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785151370; x=1785756170; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k5E1s8oCcP+GEyqdmRlB9Q75yjWLw8arRgBTU8DpxFM=;
+        b=eC5g6P14I9t053eUr/GN5Lt+Nxbeo/u0iI+sdxSewr+leP2TxyjPYEIrvWZq91G8c8
+         Sml6qnrP18jamPW00yOd/YbU3jOpg8b2NTrCOqpo3FN0F0PVeEGjVip0TL0MPPAY6mBY
+         cFr7dfi7YI4NFynXvXafXt0Hzm3AcQPU67Mgu+WXDKRF6LVswJm4YKiw8HHUg4o3PBgN
+         XbY4/jKcZDbmZOzTs7q8LbMUbKlQvV+66FWq2XL3k1Jw0dY2MML/NQ/gTcL79Ohk4MqK
+         G74+8FR+kM6DVvMukNNcfRoEg6gM8CMe4hKp11NIA2jW9zYQNuZTnJ1pWEdNuCc+l1tn
+         8XAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785151370; x=1785756170;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=k5E1s8oCcP+GEyqdmRlB9Q75yjWLw8arRgBTU8DpxFM=;
+        b=p3hG1s4Q+RERqzDi0xfT8RDjWDS2JEbx+sxTx3dwsTpmNmHMqDwhsuXbXKbId/BgU/
+         mco4R6HJt9gydt5vGFN0m2i3Ufk2uP5lXrRP4PXYJF5xjzYa0vayRJ9z87ugw/LZj6eN
+         gH/11zpKD9dlOKV5vU+w9B4qjppbjxnVswAOoaAB7CB4JnEKRj1+Y2HckSZHaPxrVWtl
+         1pvoEOcZehKneQ0qBxjU/ZDDBBZ+oNR6U/DB4BwTuKXNjhByik18wK9njk9uObLakMPg
+         Wx/AD7o8rfPmDWaxR3mwPWyg7nN+tRFMNqs8g9NC9ajZ3Ne9DHYEhFuBsqx1ogAcnrbt
+         KizA==
+X-Forwarded-Encrypted: i=1; AHgh+RpJD6BLeQfM0WX1SsHL+2P1Oec9jb4ivZUeOb151WP4hdX5wE4l3OfxIBVCia3vhnq6s81/juyFBSTQyw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwMnLxw0S16JwZjWFET3jnt/R3hACS4KqI8w6VEHh67oCqnyylk
+	h9VJ5mHWVUftUdcxwB/C5JdSgzkPX5YhVuhV/27dX84/OA5LbUvenpCd
+X-Gm-Gg: AR+sD113P0W8TKNddx6l2q5VeWg3TZlPZ7PQl+T6aIrxnOOVisyvrLIW9Ll4k/NS+nC
+	CAKuSCB6E11875UY4swCRVYu73xcz3yQ9QaZoMj7lv/peZRuFOKLngjmSXc6wbcBIa2kTQSWLvT
+	wZF/SwI6TrcmVSz3bX0FySeufIAhm/0m0PfkeYYmNS3/uchrzGQ3Hj0EfAuxoHLgJ9rSsIjyGiV
+	LcMfSt6cyBbLkIdWg7vvl0yAecfIbdBu1QqAc5MA6pxJc7NNjpVDSreU2z1ip3alCda1s076MPo
+	6D4rSgMxKtFOTFsH9S4UjKtVwFjg1kLxDGSso7evo4vvhfrVYzPxd94uq394XJ8jc8MpzuEGSz/
+	rS0yG0vh0a5V5nT5MdanuKTF18CF1HzvHBYsPq2AEdV/+Yd/nBSn9aGCIsOx5VMjMGsGXdp9+cg
+	Tjgj4jMEyC53Z+K5sru2U=
+X-Received: by 2002:a17:902:ea0e:b0:2cf:ca89:499d with SMTP id d9443c01a7336-2cfde6880fdmr74010545ad.7.1785151369490;
+        Mon, 27 Jul 2026 04:22:49 -0700 (PDT)
+Received: from SGN-LDSENG.tasernet.com ([2405:4800:5cc3:11a:1ac0:4dff:fe8b:4a69])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2cfde5e3e0asm32938925ad.29.2026.07.27.04.22.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 04:22:48 -0700 (PDT)
+From: Cong Nguyen <congnt264@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Cong Nguyen <congnt264@gmail.com>
+Subject: [PATCH] media: staging/ipu7: fix async notifier leak on init error
+Date: Mon, 27 Jul 2026 18:22:39 +0700
+Message-Id: <20260727112239.812159-1-congnt264@gmail.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 27 Jul 2026 13:10:07 +0200
-Message-Id: <DK9B2RGTKZE4.BHXZNRMJ4PWK@bootlin.com>
-Subject: Re: [PATCH] staging: media: tegra-video: vi: fix probe failure on
- skipped last port
-Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil"
- <hverkuil@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
- <linux-media@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-kernel@vger.kernel.org>
-To: "Hao-Qun Huang" <alvinhuang0603@gmail.com>, "Sowjanya Komatineni"
- <skomatineni@nvidia.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
- "Thierry Reding" <thierry.reding@kernel.org>, "Jonathan Hunter"
- <jonathanh@nvidia.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.21.0
-References: <20260707152425.571254-1-alvinhuang0603@gmail.com>
-In-Reply-To: <20260707152425.571254-1-alvinhuang0603@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hello,
+isys_notifier_init() initialises a v4l2 async notifier and then, for
+each CSI-2 port, adds a remote sensor subdev to the notifier's
+waiting_list via v4l2_async_nf_add_fwnode_remote(), which allocates a
+sensor_async_sd descriptor and takes a fwnode reference.
 
-On Tue Jul 7, 2026 at 5:24 PM CEST, Hao-Qun Huang wrote:
-> tegra_vi_channels_alloc() iterates over port nodes and skips those
-> whose reg property cannot be read or whose remote endpoint fails
-> v4l2_fwnode_endpoint_parse(), leaving the negative result of the
-> failed call in ret. If that happens on the last port node, the loop
-> ends with ret still negative and tegra_vi_init() fails the whole VI
-> probe.
->
-> The same defective port earlier in the ports node is skipped silently,
-> so probing succeeds or fails depending on the order of the port nodes.
-> The CSI equivalent, tegra_csi_channels_alloc(), returns 0
-> unconditionally after its loop and does not have this problem.
->
-> Use a separate variable for the per-port checks so that only fatal
-> errors end up in ret.
->
-> Fixes: 1ebaeb09830f ("media: tegra-video: Add support for external sensor=
- capture")
-> Fixes: 2ac4035a78c9 ("media: tegra-video: Add support for x8 captures wit=
-h gang ports")
-> Assisted-by: Claude:claude-fable-5
-> Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
+If parsing or adding a later port fails, the code jumps to the
+"err_parse" label, which only drops the current endpoint fwnode
+reference and returns, without calling v4l2_async_nf_cleanup(). Any
+descriptors already added to the notifier for earlier ports are
+therefore leaked, and the caller's error path does not clean up the
+notifier either.
 
-Do you have a real use case where ths failure happens?
+Call v4l2_async_nf_cleanup() on the error path, matching the cleanup
+already performed when v4l2_async_nf_register() fails. This is safe as
+the notifier is always initialised before the loop is entered.
 
-Also, mixing two different return values may solve a bug but makes for more
-intricated. I'd rather second a fix based on moving the whole foreach loop
-body into a subfunction, and make the foreach loop body as simple as
-calling the subfunction and handling returned errors. This would fix the
-code making it more readbale.
+Fixes: a516d36bdc3d ("media: staging/ipu7: add IPU7 input system device driver")
+Signed-off-by: Cong Nguyen <congnt264@gmail.com>
+---
+ drivers/staging/media/ipu7/ipu7-isys.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Luca
+diff --git a/drivers/staging/media/ipu7/ipu7-isys.c b/drivers/staging/media/ipu7/ipu7-isys.c
+index cb2f49f3e0fa..c626de051898 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys.c
++++ b/drivers/staging/media/ipu7/ipu7-isys.c
+@@ -233,6 +233,7 @@ static int isys_notifier_init(struct ipu7_isys *isys)
+ 
+ err_parse:
+ 		fwnode_handle_put(ep);
++		v4l2_async_nf_cleanup(&isys->notifier);
+ 		return ret;
+ 	}
+ 
+-- 
+2.25.1
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
