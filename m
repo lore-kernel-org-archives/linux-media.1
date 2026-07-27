@@ -1,217 +1,190 @@
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414D9376A1F
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:21:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961DD37D10A
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162065; cv=none; b=pWp99Wm5GQz+rzB8QwvOavfMN7ZFQNQKVmPOmnfUNqP/fDoygbuQKcltwd+ZHv85wHuDi4JV0SVTckl3T3oZmbpYiCD0BT1fCIEJ4U/EwL+dwNhPeKYajb2OCB1TUJ6Y0ad3W1SYeXuNv2JI/FCNbBUIsD0qvzxKCd54HGtphy8=
+	t=1785162530; cv=none; b=itOKajuEuHqqoPf9p8F2CNcSjsTHzNFp3qyg6j3bKarof8x1jqofVNxdoy+cN3VISgiInlxU4THamKFBiiE7+Ujs8yarfjJEW74AhtU4cFk4ILjMsXxGWPzQzkvO85tRmaMQwJtSEHbDaB3TKZdkPLoA/r2HYl1AxlJkDX8hwiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162065; c=relaxed/simple;
-	bh=c9kamtxeZK7dkuST6nX73rNFYrjOycKlzsHqFyFlQxo=;
-	h=Message-ID:Date:To:Cc:MIME-Version:Content-Type:From:Subject; b=NeoIpWZN4ADZURFVFlZvrnSUIdL90gy106Wd5eQvV3qxDKXhndkr8azlbh8eHYp5AR9+OVw4p7604L7muOsE83Z4K95Hv9jxzWMFvxp5MPRc2jXjsoj6OKLgYgT74aHPPnzUp0+W9UvZvLYYZm9/92ijkS3kN3mLFqOUT5gN3A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j8r9RJgy; arc=none smtp.client-ip=209.85.216.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785162530; c=relaxed/simple;
+	bh=dtaCPwCxPBZsQU9e3ksDAJu5ustHqHFuIA9inl4S3Ng=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YQR2eMdIgSAJrWzAFlnJ+kxSQHcJKwJsJ/GzXoH6Bd8VO1leOzwCQ7JfBXpNT/7p+bJMOQoDsoAPMBvFJ90aLcgoajogKEq4QgEbTAG40WCSkVK6AzBXB1+i7qLDGvIOF+lUUdSmbHOSgP4GmWyi6FwwshapcGtZz5IYW8O2Go8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M+o0hSNH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d3GwjbCN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j8r9RJgy"
-Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3811f512167so2581942a91.3
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 07:21:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M+o0hSNH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d3GwjbCN"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlhvd3895728
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=; b=M+o0hSNHcjNeILVg
+	B/EOF/hkawhWP5TCNt00nOp98TyC0DZqa9hDaev4t3y6xAok2AjW2mVCndmNWEN2
+	AA5T+cAXEwEAgZJag4yFxZaZsN60WSCKcIkOeU7RqiugTcqGoTck5isPSyCUwInw
+	vKwenjqiv6Nqjvmz1/nZFrT/VYTPLc5mUIFVJF0R4fh0GzUaakGO6MWWnAOe+hmX
+	eDl2zEMLD6b6Q76NBFivsWvuB6X2wgwTFPb4ui+DbZF42f2guEmF3hC0kJhj8Wnv
+	nwgswkcMI+YUD7KWqsWtdcCEHHOAXmcDj0Yr/W51wULTiKqZRIYnusUPab0YIzNT
+	T9Pydg==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fnsxs30yf-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:45 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51cab6f7517so4623151cf.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 07:28:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785162062; x=1785766862; darn=vger.kernel.org;
-        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
-         :to:date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785162525; x=1785767325; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=nVpghhcuxKhGyEPXRijDOdAxQjgTj39oRcqWienm+DY=;
-        b=j8r9RJgyYPc53lIQHRGNhHIlscugAeRoS2vZ0CVtoViTX8bn+zQazm9XDiRxxXn9QE
-         R2u43e5q32WnQLI89FQzKYjd9v1DTk/IBPtBasHW10MtwuHPpMjJaRK1F/suMRfCPo8I
-         HVwY+B+tNs9iOexHd01aO7gN4DsYyiSe/hGy3Iz04GufYs5uMzt8kPd8IRka/hrkCq8S
-         PVkxtx/O6lXxZ0tkCN5pkIQU9iCzuZ9XHaIttA16IMM8lKuPvaaStwQ2hKbmMhmJFRA0
-         hfSeZQjPvHeDUK0T82GSJHsFwd1pruUYkHP9k59yGuagDjrx59TDaP047z9Wx7/WnDBt
-         tpMA==
+        bh=XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=;
+        b=d3GwjbCN1TxWcAA7GWlafjLDqGGbioxLqKS2d7t4aU+JFC4dIj48+ApPsJFg1lETtH
+         PGLbzg0jBuA2abNS6dvFnNwmd1Zd1Cdy3MOMeWaHXuCdUv1id7AnpvcsZJ32s8eXymi2
+         XUQKch6nR14yqivJue3zCuS65b6ywRa7YaJp1aUX9pmTV0iusUrQRGn/hFzW39EFKPZL
+         tgSiQBCFtzsqXixhUrvt2c6R/jAYNs/o3d2e8Q0XvDozKHwtAh1OT1/qUFruQtbqg86a
+         R4jl/ArHqcnTzOPQ2N8x0O7n3Y+D8+gkvx/IutXYJElVcXg0ZO83Tp8duO6fF3ejmC1o
+         W+oA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785162062; x=1785766862;
-        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
-         :to:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=nVpghhcuxKhGyEPXRijDOdAxQjgTj39oRcqWienm+DY=;
-        b=OCMAnMYzoxGH9sHeYWFXVExuth961VLH+44A+Azk8OH3w+SzC1MogA2I8vqI8gHf2d
-         BKqJCq371wzpZQvtj88mhmGy7iByXhAPDHdXxNBt8B/IRX9afKpch5BKORHURoPoaIkm
-         Tkcz8lQ3CLYCNbc7GkKanTEikdh5CAlMR53DCYPetTaAlHHtvEQ/FGSTZydSSVXwNAt8
-         0VciY5etexCAx95yzPRPnDElSXgg9wLFUhdg9yVu8DsBZP/FyH2NV++slPUjrs0fYJcc
-         RsIw7MRQ9kGkoOM+D97lBRKKb9/9uf4EJvBH01ENDQtPdsBQJQ34itPciWPM/o4jti7k
-         FzRw==
-X-Forwarded-Encrypted: i=1; AHgh+RqEN6Iv3d580joYPrv7grVa9WGh+rSIo340vpq+YHQqvkZuuWvP24kin2piYNWxqXphFlFAOUTaeIjg2w==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzwfEtNOuXz03YGmI4d4F+kO74Fl4pC6+4GI7e6LPutrGGD4D7u
-	gdP7xWcvn9zEV0uSEsMNqDFii9N98rKM55B8WKnfNoIg+FPUFqXWt46k
-X-Gm-Gg: AR+sD11ipYvy0ctN4eXeCkMLzDDOTTS6tHGK1H3Hu96jEosntugVpxGtI0tKh5RM2tX
-	93upKZQrv9HobpD4qpDNS2sbq0yjAjmcPNc4v1miQzsL7wd8tgehLgtxjAZP965oXXo0OwxElGJ
-	yGbnduEYEne7lDy7EDc9SchwZPOtbgBkPe3NjIOGuE5AmDNc0L/LN4yTq+4XE9CzFsxgAJWBeVS
-	TLdVJCMvt0GqFHcCVWGl1lT4rQK3724dNUQsK9xvHJ58/E7JfTpHqmjtZbiAtVUBcaTbiOwjwMG
-	8CVStX4TEogrjEzRgZ69IoiJ4oi9doHz5xleLvanBIGnJlwbrpMUSyTlgFmAZtkfWM13+7k26u9
-	hTwaTlOP5BMYervbydcF3XMQPu7LEVTHiulzjS49uyqio4QavbBaoeJ1KJ+U0umT2XqsGjsOFGT
-	a9xqtKKIXYDX1TDP+04w==
-X-Received: by 2002:a17:90b:37c6:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-38f293cd077mr7722235a91.1.1785162062437;
-        Mon, 27 Jul 2026 07:21:02 -0700 (PDT)
-Received: from tv2_send.eml ([101.9.192.104])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f041d5f78sm5117163a91.17.2026.07.27.07.20.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 07:21:02 -0700 (PDT)
-Message-ID: <20260727222056.26262.alvinhuang0603@gmail.com>
-Date: Mon, 27 Jul 2026 22:20:56 +0800
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Sowjanya Komatineni <skomatineni@nvidia.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+        d=1e100.net; s=20251104; t=1785162525; x=1785767325;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=;
+        b=kzkRdHghHWcrk9A+eYoebnx4zHdl1OIOECQafEgdiNOh30KXORMPoSNUoSAbiCQa1G
+         +PmkwCFSA4c11SzmAhxEf06lLg7N1tsUgWftig7zfmZQvgBjmyVA9AM5diWDqi9TF1nJ
+         gUbtRABLzIYX3a7VouQf+8Ht8Z+FGMgiQWZvFUKKiinVSK+2/E4abbquXzZlBizX8iBO
+         oFPQX55C87XCj3A82ZFVtZ7dTYBl9ytU8uGdDj0qxkDnnp3XfXB4JjJFEeYa3anD5Nkw
+         nbhey9KrdhmFrk8StCheT0vupQK7GNjRmnTl9UB0wc2eW9J2TgyyTl/m7LnUxlqdtOQq
+         pz+A==
+X-Forwarded-Encrypted: i=1; AHgh+RoxE1MRxkkXLaFz3U53OMXt8xRcuAACZQzQa2NPNAZTEHCBqUEeP2ckepPsi8LeB1zbPOTdk1LrmiZngQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCxXREo7xHo6r1JKQ7rglQOleHfGjUNol4TyYCnOMC9FtXJTt4
+	Ew7xzF8r3vAeSphR6JsdFp3WBrJierjzq6cWw+0jdwPSJwC7qRYW/zvzsZu63//zIp286/Ks6my
+	tPsWKPOjEoJW57MTnkyyHwXBvbIVPpXK58NB+OuLlOVBKopL8TSo+Grz3dzKkTmFQ9Q==
+X-Gm-Gg: AR+sD11pvBGvfnVf7wWveVK/MHcyy/GAgmfuGivZlsP6WoqFegReqNt/uxJzmb7j8VH
+	FOD14/7djbBH0ANb9AHo5yeqk0BY4+IP5XFw9A2atxMdMO/rthZRwyVhIMKazdduQZAOzy0pGiC
+	ZLlP9AfzglE7AtX31sflXMHJC6JWHbQp3Yh0S6uWTyUDrN2mw+Q0HNx3CIUTKc1rx/icLa/rmTc
+	jwNdawk67ecsETwrwCDtTw5gimpMXBbL6vwFju2b1lAPM0cmmKEsKHUdyFY/UXf7NunOULdQZ+f
+	cHS816xtO0Rf1YTSkXutnTW7HnWsiA7WOikXU8qtnPbs1dS0/Ufp3G+7pmVJhuPooo1jcMxhimZ
+	mwbBFy8GH4FkOjMsaiB2g5G2c
+X-Received: by 2002:a05:622a:1191:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-529cfcfb62bmr3497561cf.2.1785162524686;
+        Mon, 27 Jul 2026 07:28:44 -0700 (PDT)
+X-Received: by 2002:a05:622a:1191:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-529cfcfb62bmr3497151cf.2.1785162523970;
+        Mon, 27 Jul 2026 07:28:43 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ebcc4dsm670043366b.49.2026.07.27.07.28.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 27 Jul 2026 07:28:43 -0700 (PDT)
+Message-ID: <be2fb404-061d-4e69-b430-9cecea21f60f@oss.qualcomm.com>
+Date: Mon, 27 Jul 2026 16:28:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/2] media: iris: add support for purwa platform
+To: David Sheffield <producer456@gmail.com>, wangao.wang@oss.qualcomm.com
+Cc: bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com
+References: <CAOAE-oNM-AS35-k=ntkLX8H35UF6_6AhMTP_10C=RroA2_AvsQ@mail.gmail.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <CAOAE-oNM-AS35-k=ntkLX8H35UF6_6AhMTP_10C=RroA2_AvsQ@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-From: Hao-Qun Huang <alvinhuang0603@gmail.com>
-Subject: [PATCH] staging: media: tegra-video: vi: move port parsing into a
- subfunction
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzNyBTYWx0ZWRfX05hcPfkxyzeO
+ 1EZH51/VDxOy9GLwyU6Hi5xOYo34ZeQWduAw7NqvkxfwoHfSi7xdR+G1qh9zc5fVErBAYEFrP2n
+ GUpcfkMZpocEeYbx70HRyi4zkbOupTuChYtcoXTSxqGIUqDN1c5zo05Cs2y4PWHQhdO3gkJ+xfr
+ hKYhxzyv32UQ2G416A89oVIoMpeSRb1ZYrsnMyn8+tBXUaIO6oI5CmfFMrKnXQPdX2b0z13zdl4
+ Zde8oipyrWYEtIMUY0TEe7wrIMLs/ftbX/22ERFEnkvjV/9xU+RXijZvNxdPP1cP4p9iSBvHyN9
+ Xgo6fOS3ZK0tfTGT99JsUfxMAv6dqCoXR3ui+C1n0n5YFB8RCM0858p2+dM1h897Q1huS8+Rv2g
+ INWXjIT2E59Vedx0YzDVrhHi260oBESlMMlRicB/onS/Qkzsn3Lt3KFFXS3a6DPpZQ1JMLJp82l
+ hcQR5qBw7RGZQhd+Ung==
+X-Authority-Analysis: v=2.4 cv=EYr4hvmC c=1 sm=1 tr=0 ts=6a676b1d cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=_YIi2MdEoqMPYrfQuocA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-ORIG-GUID: 2iYSGei4-SaijqJgQ5kjaBFmS3T2X9VJ
+X-Proofpoint-GUID: 2iYSGei4-SaijqJgQ5kjaBFmS3T2X9VJ
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzNyBTYWx0ZWRfX3xdT8PCdNOFI
+ 9zjqH/wnf1Df/uTOFpwZKXP/PVhlH1G4QAz/ZHdXB2PjxVIaaAAuLeyCQZWvmyGYHZVQwrKP2Hq
+ 8Bwq3MqDfDdaGzH+fxjFNIQd/iJBs7A=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
+ bulkscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270137
 
-tegra_vi_channels_alloc() needs two error variables because its loop body
-mixes two things: ports that are skipped because they cannot be used, and
-errors that have to stop the whole allocation.
+On 7/25/26 9:43 PM, David Sheffield wrote:
+> (Data point from a production purwa device, in case it is useful for this
+> series — and one question at the end.)
+> 
+> I tried to bring up iris on a Microsoft Surface Pro 12-inch 1st Edition
+> (X1P-42-100, production-fused) on 7.2.0-rc3, using a device tree node with
+> compatible "qcom,x1p42100-iris" and firmware-name pointing at the video
+> firmware extracted from this device's own Windows driver package.
+> 
+> Every firmware candidate fails identically at PAS image init:
+> 
+> qcom-iris aa00000.video-codec: error -22 initializing firmware
+> qcom/x1p42100/Microsoft/Surface12/qcvss8380_pa.mbn
+> qcom-iris aa00000.video-codec: firmware download failed
+> qcom-iris aa00000.video-codec: core init failed
+> 
+> i.e. qcom_scm_pas_init_image() itself returns EINVAL (the dev_err comes from
+> mdt_loader), before auth-and-reset.
+> 
+> What I tested and ruled out:
+> 
+> - Four genuine blobs: qcvss8380_pa.mbn and qcvss8380.mbn from both the
+> device's official recovery image (April 2026 build) and the current
+> Surface drivers MSI (July 2026 build). All four -22.
+> - Signing: the video blobs Microsoft ships are Qualcomm-production-signed
+> (cert chain strings show "Qualcomm Cryptographic Operations"), unlike the
+> adsp/cdsp blobs for this device which are Microsoft-OEM-signed — and those
+> adsp/cdsp images PAS-authenticate and boot fine on every boot, so the SCM
+> PAS path itself is healthy on this machine.
 
-Move the loop body into tegra_vi_port_channel_alloc(), which returns 0
-both when the port is skipped and when a channel was allocated, and a
-negative error only when allocation must stop. The loop is then a call
-and an error check, and the second error variable is no longer needed.
+So it's clear the issue is that for some reason the loader rejects the
+firmware. The fw has to be:
 
-No functional change intended.
+* accessible (do you have some odd file permissions on it?)
+* valid (does it have a similar header compared to other MBNs?)
+* correctly signed for the device (may it be that the recovery image you
+  mentioned may not be exercising the video accelerator and it unknowingly
+  ships a not-quite-right blob?)
+* loaded to the expected memory region - some older FWs (as in, on ancient
+  SoCs mostly) used to be grumpy about relocations. This shouldn't be a
+  problem nowadays, but it's worth keeping in mind
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Assisted-by: Claude:claude-fable-5
-Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
----
-This is the cleanup on top of "staging: media: tegra-video: vi: fix probe
-failure on skipped last port", already in media.git/next, so it needs
-that one applied first.
- drivers/staging/media/tegra-video/vi.c | 92 ++++++++++++++------------
- 1 file changed, 49 insertions(+), 43 deletions(-)
+> - Metadata format: the failing qcvss images and the working qcadsp image are
+> both MBN v7 with identical hash-segment header layout.
+> - Version/anti-rollback: April and July builds fail the same way.
+> 
+> Since Windows runs video decode on this same TZ with these same
+> Qualcomm-signed images, plain signature rejection doesn't seem to explain
+> it. Which prompts the question: has this series been tested on
+> production-fused retail hardware (e.g. the x1p42100 laptops), or on
+> CRD/development devices? And is PAS ID 9 with the OEM-shipped qcvss8380
+> image expected to work on retail purwa devices, or is there a known
+> TZ/XBL-side requirement (different image, different pas_id, secure-boot
+> chain state) that would explain init_image EINVAL on an OEM machine?
 
-diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
-index f461e117305e..09eac34a7813 100644
---- a/drivers/staging/media/tegra-video/vi.c
-+++ b/drivers/staging/media/tegra-video/vi.c
-@@ -1247,17 +1247,54 @@ static int tegra_vi_tpg_channels_alloc(struct tegra_vi *vi)
- 	return 0;
- }
- 
-+static int tegra_vi_port_channel_alloc(struct tegra_vi *vi,
-+				       struct device_node *port)
-+{
-+	struct v4l2_fwnode_endpoint v4l2_ep = { .bus_type = 0 };
-+	struct device_node *parent;
-+	struct device_node *ep;
-+	unsigned int port_num;
-+	unsigned int lanes;
-+	int ret;
-+
-+	if (!of_node_name_eq(port, "port"))
-+		return 0;
-+
-+	if (of_property_read_u32(port, "reg", &port_num) < 0)
-+		return 0;
-+
-+	if (port_num > vi->soc->vi_max_channels) {
-+		dev_err(vi->dev, "invalid port num %d for %pOF\n",
-+			port_num, port);
-+		return -EINVAL;
-+	}
-+
-+	ep = of_get_child_by_name(port, "endpoint");
-+	if (!ep)
-+		return 0;
-+
-+	parent = of_graph_get_remote_port_parent(ep);
-+	of_node_put(ep);
-+	if (!parent)
-+		return 0;
-+
-+	ep = of_graph_get_endpoint_by_regs(parent, 0, 0);
-+	of_node_put(parent);
-+	ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep), &v4l2_ep);
-+	of_node_put(ep);
-+	if (ret)
-+		return 0;
-+
-+	lanes = v4l2_ep.bus.mipi_csi2.num_data_lanes;
-+
-+	return tegra_vi_channel_alloc(vi, port_num, port, lanes);
-+}
-+
- static int tegra_vi_channels_alloc(struct tegra_vi *vi)
- {
- 	struct device_node *node = vi->dev->of_node;
--	struct device_node *ep = NULL;
- 	struct device_node *ports;
--	struct device_node *port = NULL;
--	unsigned int port_num;
--	struct device_node *parent;
--	struct v4l2_fwnode_endpoint v4l2_ep = { .bus_type = 0 };
--	unsigned int lanes;
--	int err;
-+	struct device_node *port;
- 	int ret = 0;
- 
- 	ports = of_get_child_by_name(node, "ports");
-@@ -1265,46 +1302,15 @@ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
- 		return dev_err_probe(vi->dev, -ENODEV, "%pOF: missing 'ports' node\n", node);
- 
- 	for_each_child_of_node(ports, port) {
--		if (!of_node_name_eq(port, "port"))
--			continue;
--
--		err = of_property_read_u32(port, "reg", &port_num);
--		if (err < 0)
--			continue;
--
--		if (port_num > vi->soc->vi_max_channels) {
--			dev_err(vi->dev, "invalid port num %d for %pOF\n",
--				port_num, port);
--			ret = -EINVAL;
--			goto cleanup;
-+		ret = tegra_vi_port_channel_alloc(vi, port);
-+		if (ret) {
-+			of_node_put(port);
-+			break;
- 		}
--
--		ep = of_get_child_by_name(port, "endpoint");
--		if (!ep)
--			continue;
--
--		parent = of_graph_get_remote_port_parent(ep);
--		of_node_put(ep);
--		if (!parent)
--			continue;
--
--		ep = of_graph_get_endpoint_by_regs(parent, 0, 0);
--		of_node_put(parent);
--		err = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep),
--						 &v4l2_ep);
--		of_node_put(ep);
--		if (err)
--			continue;
--
--		lanes = v4l2_ep.bus.mipi_csi2.num_data_lanes;
--		ret = tegra_vi_channel_alloc(vi, port_num, port, lanes);
--		if (ret < 0)
--			goto cleanup;
- 	}
- 
--cleanup:
--	of_node_put(port);
- 	of_node_put(ports);
-+
- 	return ret;
- }
- 
--- 
-2.43.0
+PAS_IDs are common across all Qualcomm SoCs and have been for some 15
+years now
+
+Konrad
+
 
