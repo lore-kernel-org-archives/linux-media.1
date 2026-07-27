@@ -1,65 +1,65 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 136983C0A1B
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F583E9589
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 09:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785142996; cv=none; b=ev8hVzpZMiFExnulcvbxbu4lbApyv1uwds7tdP+kPUNFhBEkX7KKYTERzqqoJu4uuV+skC+ORig+zBMzc8UorkljsvFB5GKW/bN8EbAw8LMv4JehGls1ZiRN9V/0T0ld1w30bjBmREwgB1OUxlwmBiwstz2U5yzol24XIAVgGbw=
+	t=1785143659; cv=none; b=sMJlsz1jWI4wEFJrJ/E8FuVJgdUwRtxD0qa4bQMfSEdsf35jkMK6OH6i75az0EoeOUIIkcxH+lfK1WGRaye4++BDhOBQff2Hk3C8rB4qVZ/4JpTtaSFqzaAMkH3/IIdgB8up881IvCJV7OdhrCvX3EmhtexjWyZVBEG6Cv+OM0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785142996; c=relaxed/simple;
-	bh=kTDH5S4ysmo2sFaieTu2UjAmwNg8TwOXckYezAXHhh0=;
+	s=arc-20240116; t=1785143659; c=relaxed/simple;
+	bh=Ub71spstyLFlI/ed3S4Sftw243+6LpfdBp9EJLWPF9w=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jZHaVoUkR5HeGxl3G+Hp5YsrgG3D9NUNA2QkPfXnjV/cK6kDWdvAxHp+iKaykHeZHk6QcH+sSRnfzxicB/1lxi8e5zxpabZoG9xiitp9Y59fYkgru7BqGn4Es+BcR2tkLGUWv5nvnyjDMHbCViJR2Hibxn0bDq4ZIq61HUkHniw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=b3GviCnP; arc=none smtp.client-ip=209.85.128.41
+	 Content-Type:Content-Disposition:In-Reply-To; b=i4xpHwzwNwoBjEV3ntKsBbzZRg7KvMRpoHszwaLE/RNdcy8T5rIuGJDEKg9A4ub9BazzgLaF7xAsQdGJBBsqnMM1ZKYko7jGs4lkljObRHrWUifTQ/u42qWMXDAeEL65lbXet06T5E/qcc/ESIsvK05FE07ntD1bC1zqSYmy1NQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org; spf=none smtp.mailfrom=blackwall.org; dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b=YRDbYB6n; arc=none smtp.client-ip=209.85.221.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=blackwall.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="b3GviCnP"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4921eed3fa2so16878105e9.0
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 02:03:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=blackwall.org header.i=@blackwall.org header.b="YRDbYB6n"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f6609c657so1076125f8f.2
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 02:14:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=blackwall.org; s=google; t=1785142993; x=1785747793; darn=vger.kernel.org;
+        d=blackwall.org; s=google; t=1785143657; x=1785748457; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=edzEg2J/oLqzfs9TMR6atfH/lM7LkpfPbZs2uM8pJC4=;
-        b=b3GviCnPq9i1aD7Y5y7bzKgg6il0W8m9XaPJQ4I12+i4aM5U6hRMuNxR65SpN7uUHQ
-         PWnxjTKHglMT3cV+qGust9WX/AL2ARb8BKzITWhH8Vh121IvbLyE3dAKYnDNm9GGZ1pe
-         6hJ5U102tnuCTKYGutx5K+IuXtT/NE+AL8XrT0tWppE8Z0LndTSrSPMSw3QrO5E3CDOH
-         Ypzn5IVWR0x3oRtAyqN2N2ESOCYQH0oi8Ggm1mTvLI7vtBxBg0w2FqiCifuHZni5/e57
-         BT227eFMxD0Uq4pu2DXaipPgvWnq23gJCyk2ERmhKXNtOcpYOSKuQyH6cK2zDOMIDjI+
-         n0zQ==
+        bh=CvoOIR4zXM8kcVSn7TlgTFMfrKFyI+wlUlCuS+RENlM=;
+        b=YRDbYB6nd3GF9A6c92I+ZA1RGAxzjxH5PnE6PzY/cZwiWSqsSwuDAEk6wuxNOzsCQd
+         e2mjT2PA1BRxWK3MvZsN91bPJ67LkjLuyIlf93mTzZ0HxZyOWUGoepTeACnoTVoyAwPL
+         B2Tz/TKk5GkLwkXPs1bpo2KLfC8VWLpZdAwJk3s9qDwIAVqNOa3u8USDT5BQVjYsddos
+         9y9MwPyCs/K/VXHq5kMHPIEtJfeCWuLvJooiT8CAbpmUAnBQmZbG7Ow1s7v8NkJFM4vl
+         bmAX7FiqajsyPnVTlElNuGIPl8fh3DbwQ9uYOiAXpjs+/0g1pH8siKLCeSlLBsctQd63
+         1EJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785142993; x=1785747793;
+        d=1e100.net; s=20251104; t=1785143657; x=1785748457;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=edzEg2J/oLqzfs9TMR6atfH/lM7LkpfPbZs2uM8pJC4=;
-        b=KhpL+nzQZ8yPF1f/PqH5VE5XI4+L+dfCou4yOakZ9nttLHYLLnlr8D/IqIvKPBzgFn
-         eC+9fVeFdDdMVFpO94TksxTJ9AzK7L3UOUdE57MZA8aiH0p8MzcaKB25j1F9eC5L6+tA
-         7nHtfaz3pZUigRVC9kScH/EEVMN/DeiK5L500Wu0+WTPpICosEbonPWxsynUNO3SnKz8
-         Kz8hfHK83Z91D/na/ilx6q6Mg6m7BL58/H+kMALCIpv0Kjlzk5krvUCkSgMKYA9n8nIJ
-         4tKsfjXY/6eyzzKn9RgiIWsBep1IcXhRd9aHoQ2uanoWJUnwH+lokD9mLqU0sXDIj8Tz
-         gekw==
-X-Forwarded-Encrypted: i=1; AHgh+RobL+SPJu4TMXwo8lCSM3u6EIYnkb58/ugeCrigVnKLrv82zRN9/SuG7TV8fJb/wor7Ky/nQlHbwNJbSg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzel9zE6JB4Qq2A6Ld51cs6y3D3IAeDrPhORtArUkZ21Q5nX+d4
-	Y+tqh1uywyaGBy1zX7ZidrZVf6FifinwkMIj2hze/GcclulpPgVJwBXQpDfl1IyXPls=
-X-Gm-Gg: AR+sD13tGzD2O68smndS9Xx40ReDimupmz+mX8E8+n/zZrF1v8BmCBitSM/w/OrPh3y
-	+8XDrL27fkvjA5eD+kxCJCZcDpP7aAT4z3r8CTNmOH23qy6PPp/iVJGGqloZAtSFH8FrS8U/4Ss
-	UHEabEk8+Km64TQ2P/a/wG96rFBz5M5NSaPyYpgUQ8Or0Rwqe8Csz8XvhyKqMUzB6aalXGqHFgK
-	zVqkcSGKkQ0dm5IWndSRbtVfsblhkaWulxx9012ixvfhwbcgwefWUCRV4/du7cZ0lP0OlD4fRAz
-	OJQjMyth+uBRUNMBC9v5xbrHB8QSpHTAP16doJSeW1UPKRSvX882+nqa5Vrl/z+qTNRjTK8gzSR
-	+zXwi1q2cU/qxs3u2yXriDybYlP3FGTlagHKk3mdhanG49Cil0SCMzjQQyKzRE9cv2uvFlAF24w
+        bh=CvoOIR4zXM8kcVSn7TlgTFMfrKFyI+wlUlCuS+RENlM=;
+        b=coJyePrEuQWk1w/6Oy5m0ZvhNKT8cRpxdEsycqqJQRRlaq53I6ovMBKsr1l2GPLhtv
+         4R5IvG6t/c6ryDiOxkZfwCZYXDHpdLWNngFyJUU9z5oGlzm+3uMmAhJsmj+NsgMiCPW1
+         VSZohx9tLrg7SxliPsZ6QdPXKKaA8BZSPHc0WGODaE93k7/e0yPJ+1976701Q0cSdRHJ
+         p+oTs+5wGuLB+wTFUoDBSe9ZO65/2TX5/Wo/kBSZdd+AFTo0/BNedNxk6L7tXyKU04xQ
+         118xK9bp55Wb5cbPOUqH18Ybj5JTixP14uloIiqhmm0UGMkinlALna5ZikGYn+SynPar
+         gAIA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3yq16ov+SqNu0RXBuIjYbHksqxaWaWlwxSqxEqJCQRy+bdB874C+WNgR2MywJqv7Ls2RX1W+5JmtAuw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9L08IIF6i1IkngBoig5zMGh3ZdxePQNE98tuJUS4xNufL5S6A
+	YDxnIBm8Vxx1mrCx6qyYeAOi+3UCe9BZsCap1k/NO4plH5Z5eMHQHn1/3x6mRTUtrh8=
+X-Gm-Gg: AR+sD13PXRhhhXPkmxlmd1FawaMKV2b91WXctfihIWLsNOWcL2wMuAbWjHF2rmVd8IH
+	eyue0QP4iB40AyVlqQYcpV67osBI3B8HKTuA9XDdb3zGmQTkDejxPT6hBHBrVeyWEQBEGrwySZj
+	rql+gVp3HqF3NWRciEz50O4u3guoXAT8tBqByUxjEpuo90QOogIKyeb64WyHTBySvLHAsfM2594
+	p02LjZ2G87ADKP5X0dCZ7fr5f0J4lbEF0dqyhdeIAQTa96Vs84+kchdo3tHVYlNeOj/Yy0dgBb2
+	ZtXVo1GuTzL+GJdqValfAJXtdhpQ98Y3JWmjQVbvnN9GqqPuqAJo6F37iCOxGaCXRJ74rvUgs/9
+	MKcNEeoe3r3FWqEWmoTFYM4DEGVySTjN21HMfGJ5xhmg1OaBqlyExuoqpiM2NyEJWbWaOx6leAQ
 	==
-X-Received: by 2002:a05:600c:3113:b0:493:c8f7:3631 with SMTP id 5b1f17b1804b1-496b570dacdmr90046155e9.22.1785142992910;
-        Mon, 27 Jul 2026 02:03:12 -0700 (PDT)
+X-Received: by 2002:a05:6000:200e:b0:47f:9441:51b5 with SMTP id ffacd0b85a97d-47f9fc8c064mr9641263f8f.5.1785143656513;
+        Mon, 27 Jul 2026 02:14:16 -0700 (PDT)
 Received: from localhost ([109.160.73.171])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b4ed5f93sm333309535e9.1.2026.07.27.02.03.10
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47f939c1465sm32843149f8f.26.2026.07.27.02.14.15
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 27 Jul 2026 02:03:11 -0700 (PDT)
-Date: Mon, 27 Jul 2026 12:03:06 +0300
+        Mon, 27 Jul 2026 02:14:16 -0700 (PDT)
+Date: Mon, 27 Jul 2026 12:14:08 +0300
 From: Nikolay Aleksandrov <razor@blackwall.org>
 To: Bobby Eshleman <bobbyeshleman@gmail.com>
 Cc: Donald Hunter <donald.hunter@gmail.com>,
@@ -79,11 +79,11 @@ Cc: Donald Hunter <donald.hunter@gmail.com>,
 	daniel@iogearbox.net, almasrymina@google.com, matttbe@kernel.org,
 	skhawaja@google.com, dw@davidwei.uk, Joe Damato <joe@dama.to>,
 	Bobby Eshleman <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v6 2/3] selftests/net: ncdevmem: add -b option
- to set rx-page-size on bind
-Message-ID: <amceyvCsHb_B1-Of@penguin>
+Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
+Message-ID: <amchUJlyq7ahQIco@penguin>
 References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
- <20260724-tcpdm-large-niovs-v6-2-7975f62cdfbb@meta.com>
+ <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -92,21 +92,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260724-tcpdm-large-niovs-v6-2-7975f62cdfbb@meta.com>
+In-Reply-To: <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
 
-On Fri, Jul 24, 2026 at 02:21:16PM -0700, Bobby Eshleman wrote:
+On Fri, Jul 24, 2026 at 02:21:17PM -0700, Bobby Eshleman wrote:
 > From: Bobby Eshleman <bobbyeshleman@meta.com>
 > 
-> Add -b <bytes> to request a non-default niov size via
-> NETDEV_A_DMABUF_RX_PAGE_SIZE. When the value exceeds PAGE_SIZE,
-> udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
-> hugepage produces one naturally-aligned sg entry.
+> Add a new devmem test case for binding the dmabuf with rx-page-size=16K.
+> The test sweeps RX payload sizes straddling the niov boundary to cover
+> the sub-niov, exact-niov, and multi-niov RX paths.
+> 
+> Silence pylint invalid-name (`with open() as f`) and too-many-arguments
+> (ncdevmem_rx grew to 6 args) at file scope.
 > 
 > Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
 > Acked-by: Stanislav Fomichev <sdf@fomichev.me>
 > ---
->  tools/testing/selftests/drivers/net/hw/ncdevmem.c | 36 +++++++++++++++++++++--
->  1 file changed, 33 insertions(+), 3 deletions(-)
+>  tools/testing/selftests/drivers/net/hw/devmem.py   | 11 +++-
+>  .../testing/selftests/drivers/net/hw/devmem_lib.py | 59 +++++++++++++++++++++-
+>  .../testing/selftests/drivers/net/hw/nk_devmem.py  | 10 +++-
+>  3 files changed, 74 insertions(+), 6 deletions(-)
 > 
  
 Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
