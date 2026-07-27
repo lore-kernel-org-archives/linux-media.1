@@ -1,161 +1,281 @@
-Received: from mail-yw1-f170.google.com (mail-yw1-f170.google.com [209.85.128.170])
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD9C40A933
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 12:59:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785157187; cv=pass; b=HblRwqSPhYABgE+b4apsJMOSrDE64laimqK9aRIyQC4LFsm15WsD9qt3g+eNSPsZBDpxxeov7SXn02AEDb0q5tye4CJxp45FQP+ldWKULPnuuu8xLjJCCTg5HGKifjgBroLKW6p7f4Y1z1lgj+2y+nFp1j374SuUs0wYc+BBulI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785157187; c=relaxed/simple;
-	bh=luUc9ZQFmCjynsr/029wplBmFfuONlqLQlNMir6ffmc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qJGhdhjnzBT4jotwlYa6iRYeP0FXFmD+YbGTBdkEzMszfzFWDpgOzp9GkROctnVWbhNGA7PIuRKcTIn8V4HRMm0MjsMMRRcq4yGb5B23mzSRsiF1tVimKc8Sn1HHnSxYR5qjkpQNcPERFiGgfM6rg0b0ulIpMkca64729tuuj+8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jq+uwgTQ; arc=pass smtp.client-ip=209.85.128.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3617D3E44EC
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 13:13:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785157987; cv=none; b=AUOdg6bVXtVsNi8g39vYaVCWLvKkxjZrYjQje7mXNtMarixLiSPLcKZa5YmiRQBQxztWtnIH6aiRFfXwxx/4lpjBDgQm4xyx2SH5bpUsmIs490ZUXgZUDplUvxpEU3JGZvwzgLmbj0tOjkKGSpl3My5HnI7PrCsmw2qc4QbblU8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785157987; c=relaxed/simple;
+	bh=aV5WdreVR6I26UKWRBgBaMffrMExdILN68TCpQ60VhA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qfnZ0aAo6EBpwjgrvM6DWyn/7oipF6tPk55iuf9HoH41hb34Bwm62aF0UmSOnk4MgigxCyWDb4HRR2GqQLUAFAuUsY02tiaBgfVyrJjytfdKHMAk59axHZCzOxGtJIuqjdYIjI+/GkJDJu5gT5l7UVZbephnSCD3b16Wa2JlXoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=M9l8edg8; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jq+uwgTQ"
-Received: by mail-yw1-f170.google.com with SMTP id 00721157ae682-81e9d8f3289so31449057b3.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 05:59:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785157182; cv=none;
-        d=google.com; s=arc-20260327;
-        b=kv8F5XPRPmr9/3R5b87MSU2w2RpxhjArwwXp/lnpryaRs8mfh3Ic1pbanZhYNw8XGD
-         0ZsNqh785PNCYhzO8KiWPksm/3M79liNy85bhGyAv0Z6yC1jpKgt2dNqE9p84SDThrir
-         NxyAEPB8gSfPU+e4N0Wz6Mwj8Kkho/rTLDHRDu9id1r32Cp3pCAP79i6rdJteEABPGNF
-         1iqksFpE954YnJFln5uuSEpe50TJG01vMR39BzO/gv2WWM7SQXTzSyvQc9/z/UVzLIQX
-         OywzNm4pvWlU8wCnNVwiKL9Y8VGL+fA/paoUkQRoKXi7wRFfg0S27FvSe15L3o56qsHv
-         mPwA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ix29oOBbLOf7nlyiJN1FbRfyq7KaaHwmDtcPHELsDuI=;
-        fh=Txjc4J4Iip3GkV8kBU8wf7FF6GSxlL7waWt6soWXBPw=;
-        b=gK5DZWaGQXupnepxVdUymzjjb8jqYdCsPh1ix7x+5qXe1paMMlIFJ0pptr79yeE+PY
-         a/8cMx3JmvtzCuNj4hemIrcwQPKVqlC3IEKebwqVnNTPHarqLWP93ksXeAfMQxg0+QtP
-         C3It3/cXqt7NxSYrQgwrR2kj3/Qzt2eX/E9RkcLx2LzFN8t3kTkE5Azt8SFnsUlti9qq
-         K2B6VBgucQ2AV6sPjb5SzEXC2ozWqVLp79MrgxvZ0G3qsCzVbUnP7VDlPYkdYDV3P9Rj
-         qKbAlMhP+V8iPhfr99BrqeQpSMqjY3Cc5xHA1DWnAQRLNxy/tzdPjsS8M4ol2F71EKYU
-         CtjA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="M9l8edg8"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-51c16ac21acso16936351cf.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 06:13:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785157182; x=1785761982; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1785157984; x=1785762784; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ix29oOBbLOf7nlyiJN1FbRfyq7KaaHwmDtcPHELsDuI=;
-        b=Jq+uwgTQ0O1mmHxnBGxWcL+kdE/a9RtHdIP1tjT7Ei9n+xl4gDgXDSpklqMXUWUDZJ
-         ac+GrumYYzSuNYK88A3/T4fkN6MG4wQqkhyc+crip1OV9Ijk+VP1IqgTH+CDfXD7MNfK
-         izYR0QrNtnZH5422kCYtXpZUgaLbeTRubkLzot33FEHtm/0zOCL+zY/SYXVb/YZMHfi9
-         1UT3syyMpKMiD5iEheioIjGtc40Mtnrnje0QPSkcU+JF6Fi7cbHX042hz4Kxs0mUOVq5
-         ese1af/Z/IOALMSRWCj+UGhUzDc90HKs6jlW61M0+1P4+BJjqXHXw0K6Q6tEdTQomu6E
-         hxMw==
+        bh=wFrETDbrvRN9Wa8LJ1OZcbYqKFyzqoz5Xhq7OzIvr0c=;
+        b=M9l8edg8cvLEvAiHSRP1aPM5axbYs++I0Yzgr2HVdghZ7Wkwqxulp+v+5P2f3cIyaJ
+         aF2Y+n+B+S7SamR20fLMvLaDYJRvT3hFHhlg5HjBOgn9JCoIqHj5mbfgD3dCpuJSpF+D
+         TUzUQD1PKQGhtWE9JeC0xTmLyxXzjMQ3UXdqDCl6YLHUgJ1Lp4BQs27fw/NaOhAlbtgc
+         Z+Zckn4RVyrTatfPrdWCSiyGmfGxx2gFx/cW9HfQ6GlA1gzG2vr//44GhjY88geVq6GU
+         +AINcgV968R2s3MMpSLFgmty6K2PSdJkVfIkhz1hJ9WdKG2JAqxWSH/a/xjCQZlXPZIH
+         qdsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785157182; x=1785761982;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785157984; x=1785762784;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ix29oOBbLOf7nlyiJN1FbRfyq7KaaHwmDtcPHELsDuI=;
-        b=MnJ4bJXIfly0g4+Gcg9KVMhESk8ARaZ8KqnXz/bBnvBua+lOEToAbR2Y8o4or12R9Q
-         9E1FOO+1u8Bf9RgDaeQ1o+Q0xLkdPgIiJoR46XSucnTzj1SuOqGtB+ekNLZPZa1ZO0Vx
-         O/aqO8TviR7lZFjxVmjy2lyQXI/NZO2j2bCqiBvNJGDWN3KePqKgsG4+EAT3ADJwGaID
-         8Gmg65JBPFpOL2GyHwMaWjw2UoD+OxPi1Qyfd4yAtJYolG0UYVEKgx2+bQfYAZ9NX13z
-         R9J7Y8GqtpsSvMu49RYdJrlZvUgTWCycQoEhgC5rG5AJA5jY2rwpyTcn1OsHr4ItPR/G
-         97tQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7S7UoQAuWK8pNgKIVj20mjzUOO6O0L5p5920UHexy2zaZsvEGqh6pzzXGbLAEUvSiiWWQ5BTdXd5CFw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw//TKjbivjQ6bYCaqI3gmBWwnSShWNtpD8ir2xF26rETNe8fig
-	5F9wvttdjxICI3YJ/xEEgOINJHmXEWoyvBDOFvscrJghIczwuDlIkiiZYnYo3irAebVjHtYzQ/c
-	I6PQ8xwENZh+c4FJG3EABneC3DsbDYrE=
-X-Gm-Gg: AR+sD128WgT9155hFgpyePZhG58E9uT1cHPzb7F1e3mVg72yigR5IOXR6A4HBbaCugG
-	50elrRK543GSwJ80MbDFj0JHvmYIDJXF9oZD8UO/19q/PHbB2DV03279/77Lay7b33hnvEHtXH9
-	Eywv8AA+H+E/GrMyJwOlCngBvoE3iptR6SyOTHwxZ99AAcsKg4Um7lIPVEZh12oeBNfTnB33Ojf
-	37QvyK+Y+TEAD4tmkMWI8z8mvbO4ZtqXdDcbLQF1ZhfX8Ibx6yQ8F8jEcIYIWy0bTBoqw==
-X-Received: by 2002:a05:690c:6f02:b0:81e:97e2:2210 with SMTP id
- 00721157ae682-81f69ebac17mr31274727b3.69.1785157182142; Mon, 27 Jul 2026
- 05:59:42 -0700 (PDT)
+        bh=wFrETDbrvRN9Wa8LJ1OZcbYqKFyzqoz5Xhq7OzIvr0c=;
+        b=CTGcIXrm7rxV/l22KZZQwxuxbE3J1jT5M7J/EgOSbRVSHr+SK+lwso8AmVGqNKqnwm
+         PvSMrJ2Xyhj079REIIl7Pt8m08GrZG/uWekptOid5ajqB2FS7b9fyXYBWnyNF5lzrqrK
+         95YfJJYxhz06PMNNSFEySOqcbE0H9scL8zdFGxcimaWuAKXpb4dszhfBA7HE67vurw8w
+         9D2GVgedY/isxH9mIgoz2sM06Zh/cNgxrzL7V1l9nAwGrj8bpT0dUKrmUay8uzvN/R0r
+         G64BPi02hJNHU08Su8r69b3UuVFCzmMwfzD5xkaiPJhzfLmAeEMKKzCTIovR4zsCoyFU
+         k+/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RpYluXIfE6Ga6TfYMpUIDUKs4Fru27vOb9jcMdxIxae1aDiKhav24zqIeCpCd19HqPpmmxCjj9df2J9dw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwXfDSIdBC/uhZwer6NSU2QrzBOuzJXMFB8C4eh2Bi2xNX3eQ5i
+	WGW1rWqZ9X1DRO6MDnkAVhoNonWJBIGgnQi1J9H0hy2ycZh8hsnq5TVU7x5B97pYZp12hwn7/uH
+	5i5K32yM=
+X-Gm-Gg: AR+sD138Iba5MFmdz82eI6C54OWSwCpRDTqH7UPRYFfw2dM0sIjw0ECxws6PWLhssaZ
+	u4wrTmI7e/uTd00eC6q+uYMi8f2r6qKcnz3ZA83cjGn3tGw9VFgClnuN8PgZwdgLgpZKkTEQlMe
+	kd2F179LLEdnrtvrwrRMTzyJqeWd7gYVwXlLD86rKhMBnWCLZi0dR/w9aSCAqiJZB9iVLDIEBev
+	sfMrW/sf3Iy7fuxv8MLDJqbBaSeMxaRNfvwUeDN8DLYbibFWiJHDUC+m5eA/dHSE+52XCY6oQw9
+	rjoEmcYhId1pUKdquOntYGr3/uXDEdeQF/RS6zSqiOQ6xbWyVvpNV8NCNMWy/AaDJcM6+JiJufT
+	5Q6CErxirjHODpR9EykPXMgPZfrVBASF7rQ0lYbtFC2iXe7qQJ6nxxYYRQRIrN3H/AM6fu7GSwn
+	m4JYBdCR8JocWZ6sJgznkRJBVyp213XgKd200TRTJPgxqFVjdwg4zApFrpXVMubKnjfdzu7ZmoS
+	co=
+X-Received: by 2002:ac8:5dc8:0:b0:51c:844f:28df with SMTP id d75a77b69052e-529a88773bfmr84708111cf.75.1785157983889;
+        Mon, 27 Jul 2026 06:13:03 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500::f163])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529a27f6c28sm54640991cf.10.2026.07.27.06.13.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 06:13:03 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: rshouriesh@gmail.com,
+	linux-media@vger.kernel.org
+Cc: elgin.perumbilly@siliconsignals.io,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	bingbu.cao@intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/2] media: Add Himax HM1092 mono NIR sensor driver
+Date: Mon, 27 Jul 2026 09:12:52 -0400
+Message-ID: <20260727131252.1580332-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
+References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260723184538.3888637-1-ekffu200098@gmail.com> <adcfc6f2-3309-4496-8331-1ae31e85d363@sirena.org.uk>
-In-Reply-To: <adcfc6f2-3309-4496-8331-1ae31e85d363@sirena.org.uk>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Mon, 27 Jul 2026 21:59:30 +0900
-X-Gm-Features: AUfX_mxOitBR08KsPWHGWKTOhvBmlqBsOevQYdsbBN1kI3uyZROYcZJFQfRk1pk
-Message-ID: <CABFDxMEmB=5UZx6RZgFNZyB5sg-+e2hgx_T1QjV0JzqP+auTFQ@mail.gmail.com>
-Subject: Re: [PATCH 00/36] treewide: remove conditional returns with no effect
-To: Mark Brown <broonie@kernel.org>
-Cc: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Borislav Petkov <bp@alien8.de>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, David Airlie <airlied@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Jakub Kicinski <kuba@kernel.org>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
-	Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Julian Anastasov <ja@ssi.bg>, 
-	Leon Romanovsky <leon@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Matthew Sakai <msakai@redhat.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Mike Rapoport <rppt@kernel.org>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, Nicolas Palix <nicolas.palix@imag.fr>, 
-	Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
-	Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Tony Luck <tony.luck@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
-	Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>, 
-	Yazen Ghannam <Yazen.Ghannam@amd.com>, cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
-	linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Mon, Jul 27, 2026 at 9:12=E2=80=AFPM Mark Brown <broonie@kernel.org> wro=
-te:
->
-> On Fri, Jul 24, 2026 at 03:45:02AM +0900, Sang-Heon Jeon wrote:
->
-> > All patches are independent and can be applied separately, but for
-> > everyone's convenience, it would be nice if they were merged through
-> > a single tree.
->
-> Please don't do this, it does not make anything more convenient - it
-> results in huge CC lists and makes it more difficult to work out who
-> will actually apply things.  If there's no dependencies just send to
-> each subsystem independently.
+Elgin, thank you for the pointer — I had not found this series and I am glad to
+have it before anyone spent review time on mine.
 
-Thanks for letting me know. I'll keep that in mind. In v2, I will send
-the cleanup patches to each subsystem independently.
+Ramshouriesh, your series is further through review than mine — v5, a binding
+with a Reviewed-by, and a driver already shaped the way the subsystem wants. I
+have no interest in a turf fight over which of us writes drivers/media/i2c
+support for this part, and I am not going to keep pushing mine in parallel.
 
-Best Regards,
-Sang-Heon Jeon
+I do want to be direct about the technical picture before anything is applied,
+because I think my series is ahead of yours on the hardware itself and some of
+the difference is load-bearing:
+
+  * The active pixel array your driver reports to userspace does not match the
+    vendor's published figure, and cannot be right.
+  * Your LINK_FREQ does not reconcile with your own hts/vts at either frame
+    rate Himax specifies for this part.
+  * The exposure and gain register layout you describe as unknown, I have.
+
+I have also validated differently, and I think the difference matters. Your
+cover letter reports the on-chip test patterns arriving through the CSI-2
+pipeline. What I have is the complete function this part exists for:
+
+  * Live imaging, not test patterns: 8 captured frames with an 87.9 % byte
+    difference between consecutive frames, i.e. scene content rather than a
+    static or repeated buffer.
+
+  * Working infrared face authentication — the Windows Hello equivalent — via
+    Howdy, unlocking a real lock screen against an enrolled model. That is the
+    whole application: it exercises the sensor, the illuminator, exposure, and
+    the capture path together, under an unprivileged process, in the dark.
+
+  * s2idle suspend and resume with the sensor bound; it survives and still
+    streams afterwards.
+
+  * A second machine, someone else's, confirmed independently this week: a
+    different Dell laptop where the same sensor binds and streams at
+    link_frequency 180480000 on CSI-2 port 1, I2C bus 15, capture node
+    /dev/video8 — every one of those different from mine. Nine SOF events and
+    frames out. That is two distinct boards and two distinct wiring
+    configurations.
+
+  * The register table cross-checked two independent ways — extracted from the
+    vendor Windows binary, and decoded from USB/I2C captures of that driver
+    programming the part. The two agree.
+
+None of that makes my driver the one that should land. It does mean these three
+items are worth resolving before yours does, and I would rather hand you the
+answers than have the tree carry them.
+
+## 1. LINK_FREQ does not match your own timing at either supported frame rate
+
+Your driver declares:
+
+  #define HM1092_LINK_FREQ_400MHZ   400000000ULL
+
+and your mode declares .hts = 0x0650 (1616) and .vts = 0x02ee (750), which your
+own register writes confirm (0x0342/0x0343 = 0x06,0x50 and 0x0340/0x0341 =
+0x02,0xee). V4L2_CID_LINK_FREQ is the DDR clock, i.e. half the per-lane bit
+rate, so for one lane at 10 bpp:
+
+  30 fps:  1616 x 750 x 30 x 10 / 2 = 181,800,000
+  60 fps:  1616 x 750 x 60 x 10 / 2 = 363,600,000
+
+400,000,000 is 2.2x the first and 1.10x the second. Himax gives only those two
+rates for this part — 30 FPS at full HD, 60 FPS in the 640x360 binned mode —
+and I could not find a frame rate stated anywhere in your driver to say which
+one you are in.
+
+If you are running the binned mode at 60 fps then you are close, and 400 MHz
+looks like a rounded or maximum figure rather than the actual link rate; the
+derived pixel_rate would then be about 10 % high, which shows up in userspace as
+frame durations and exposure times that are consistently off by that much. If
+you are at 30 fps, it is out by 2.2x.
+
+I ask because I lost three months to exactly this control. My driver published
+360,960,000 — which is what the vendor's Windows mode descriptor states, and
+which is the per-lane BIT rate, not the DDR clock. The IPU7 receiver programmed
+its D-PHY for ~721 Mbps against a sensor transmitting ~361, the clock lane came
+up, no data packet ever framed, and there was no error anywhere. It presents
+exactly like dead silicon. Halving it to 180,480,000 made it stream.
+
+One data point that may or may not apply to you: your init sequence programs the
+PLL identically to mine — 0x0307 = 0x00, 0x0309 = 0x01, 0x0310 = 0x00 are
+byte-for-byte what my table writes. On my board that PLL gives 19.2 MHz x 94 /
+5 = 360.96 MHz bit rate, i.e. 180.48 MHz DDR. If your MCLK is also 19.2 MHz then
+the part is putting the same rate on the wire regardless of which mode is
+selected, and 400,000,000 does not correspond to it. Himax specify EXTCLK
+anywhere from 6 to 27 MHz, so your board may well clock it differently — that
+is the part I cannot check from here.
+
+You report that the sensor streams and the on-chip test patterns arrive through
+the full CSI-2 pipeline, and I do not doubt it. If your receiver takes its PHY
+configuration from DT or from a separate PHY driver rather than from this
+control, a wrong value here would stream fine on your board and still be wrong
+for a receiver that honours it. Mine honours it, and the failure is silent and
+total.
+
+## 2. Exposure and gain — you say the register map is unknown, and I have it
+
+From your cover letter:
+
+  "this driver does not implement the V4L2_CID_ANALOGUE_GAIN and
+   V4L2_CID_EXPOSURE controls that libcamera lists as mandatory for RAW
+   sensors: the same lack of documentation means the gain and exposure
+   register layout is not known"
+
+I recovered it:
+
+  0x0202 / 0x0203   exposure, 16-bit, high byte first
+  0x0205            analogue gain, 8-bit
+  0x020e / 0x020f   digital gain, 16-bit, high byte first
+  0x0104            group hold: write 1, program the group, write 0
+
+You already have 0x0104 and 0x0202/0x0203 in your init table — your sequence
+sets 0x0203 to 0xbe (190) where mine sets 0xb4 (180), which is consistent with
+these being the same exposure register at slightly different defaults.
+
+I have exercised these on my hardware but not against your 560x360 mode, so
+they need testing on your board before you take them. But the gap they close is
+not cosmetic: your own cover letter identifies these as controls libcamera lists
+as mandatory for RAW sensors, and a sensor driven at whatever fixed exposure the
+init sequence happens to bake in cannot do face authentication in varying light,
+which is the entire application for this part. I would rather that not be a
+known hole in the merged driver.
+
+Happy to send them as a patch on top of your series.
+
+## 3. Geometry — the vendor's public page disagrees with your pixel array
+
+Himax publish the part's parameters here:
+
+  https://www.himax.com.tw/products/cmos-image-sensor/image-sensors/hm1092/
+
+  Active Pixel Array   1280 x 720
+  Readout Modes        Full (HD), Sub / Bin
+  Frame Rate           30 FPS HD, 60 FPS 640 x 360
+  Reference Clock      6 - 27 MHz
+                       1-lane MIPI CSI-2, RAW8/10, monochrome
+
+Your get_selection reports NATIVE 1198x726 and ACTIVE 1150x718. I do not think
+either can be right: the active array is 1280x720, and the tables I extracted
+from the Windows driver contain a 1296x736 mode, which is larger than the native
+size your driver reports. A native size smaller than a mode the part can output
+would confuse anything that uses these targets to reason about scaling or crop.
+
+For what it is worth, my own 648x368 falls out of the same page: the binned mode
+is 640x360, and 648x368 is that plus 8 columns and 8 rows of overscan. Your
+560x360 is a narrower crop of the same binned window, which is entirely
+plausible as a different vendor configuration — I am not suggesting your output
+size is wrong, only the pixel-array geometry you report alongside it.
+
+## What I would still like to send
+
+My remaining patch adds a HIMX1092 entry to ipu-bridge so the software fwnode
+graph can be built on ACPI x86 platforms. It touches
+drivers/media/pci/intel/ipu-bridge.c only, does not depend on which sensor
+driver is used, and is orthogonal to your series. I will rebase it on top of
+yours.
+
+I can also offer testing on two platforms very different from yours, both x86
+with the sensor ACPI-enumerated as HIMX1092 behind a Synaptics SVP7500 bridge
+feeding an Intel IPU7 — one lane, but on different CSI-2 ports, different I2C
+buses and different bridge ACPI ids on the two machines. Once your driver runs
+on them I will send a Tested-by from each, and report honestly if it does not.
+The second machine is another user who has been debugging this with me in the
+open and who is willing to test.
+
+That is worth something specific to your series: it is currently validated on
+one board, and your cover letter says as much. A driver that has been shown to
+work on an ARM device-tree platform and two x86 ACPI ones, with the sensor
+wired differently on each, is a much easier thing for a maintainer to take.
+
+One note on provenance, since you describe your programming as recovered from
+the Windows driver too: my register table was extracted from hm1092.sys
+(version 81.26100.0.13, offset 0x26B34 in .rdata) and cross-checked against
+USB/I2C bus captures of that driver programming the sensor. I state it plainly
+because a maintainer should know that before taking a table.
+
+To be plain about what I am proposing: take the three corrections, and I will
+drop my sensor driver, send a Tested-by from a second architecture, and keep
+only the ipu-bridge patch. That is a better outcome than two drivers, and a much
+better one than a merged driver carrying a pixel array that does not exist and
+no exposure control.
+
+If you would rather not take them, say so and I will send my findings as
+standalone patches against your driver once it lands, so the information is in
+the tree either way. What I am not willing to do is stay quiet about them and
+let someone else rediscover the link frequency the hard way — that one cost me
+three months.
+
+Thanks for doing this work. I would much rather help finish your driver than
+land my own.
+
+Jake Steinman
