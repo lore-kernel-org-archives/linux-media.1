@@ -1,247 +1,199 @@
-Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA21363C6F
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 15:19:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785165585; cv=pass; b=Wx2Y4+gl5li+6WpOqAKuZ2wSy3VDeQFX7IxAVJakRkTF2CSOTeUBFHDzyf1NAWgBaGfZjrnW3RQ6tXSPUvaSdeREMVsZh6IJ6hXcIzxHarFRxP8vkrYNXhAnlpUqgs9YCvzZb8+zBLdr+LInZ3SnfgWKPa0NwORSx68tSB+KbCE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785165585; c=relaxed/simple;
-	bh=LI85LD7A9COJsrqGkmpvSUzsAWPWwbS1AvF0DpY5KEk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bxNqAgIWkKXzKiWipV96DxzBbmYP2lKitS/gpw9Y044ihQmdiH9vYHCPbx1WoANe+0d6B1QTrD5yt6CB3d0UxHSHBJ8GQ/oTdk/yyetsD/TzFnGASN4SLKecZ2dsUIq0StTrTWfGIvIX5GR35ITjiFN63RLi21EQDVaNFwX75bM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuTjb5o+; arc=pass smtp.client-ip=209.85.208.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1933736EAB0
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 15:41:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785166876; cv=none; b=NdxVS9NLN9q+rasCVCyX0OOUd0xv2oT2PbVawU6X+Z/1W4dBC1JXBGoRt/dyfFoWiacCuROV0C64K3W6EmexvHaK9H+6W1M7HdFuxK3a/9o3ujw+6YM4mVbwuihNuK31txFfZrcVA8iOVnOTAgs5rjaBFd9DSe5s8p4JxGXyyVk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785166876; c=relaxed/simple;
+	bh=0c0vwt7oBVUW4ZEJeqMi96BPC5MO6khiQDS/klqpJhg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CweGPnly5O4q+AUx5T+6ByRvtoVSPH02WY6/XBfWoKL47nLbpTm+SejyhaDmQ+PojuUQwsgmjxmmgcEwagEfycT02ZHRF2xmhx+PRojZ1hRgoF0cs814NN5Ycps3LJX200e5CTr79nIbPfEKmOe6ZlFwoDI9hjv2bqQJut0ILRs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=0nwdzFGY; arc=none smtp.client-ip=209.85.219.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuTjb5o+"
-Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39c8e65e3f5so23130271fa.0
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 08:19:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785165582; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DQAxTGfFtLWzFg1CnkrqNmHvwi4ObIXiU9c0IHrtxAYgriFJsLLXcktps2RruVTeFa
-         16xIFKKe/KHj88FVmNQV21hxMvG2RuDfMs8YecYnq4D5/Aj/gBM2g8eZqoW1BBZ+inDg
-         ZkrQH9wpivYTAoq+eYAcoZMaVOXwu5WBfg15Tn2XGFCowpIVhA2foriKeMU6z8D2qi+M
-         EzL6piKlO4BDVZH9os6DgCVaCSP5E74dzDFzdGY6hEQW/SC1yZiimIgTKndZO3tjzEXO
-         Eq2VQ/8VRcAYDVKmmNd3d2oUwesWEDpxzA+n7K34uNAl6ebPYxYteZjT0elGcY3HNFfZ
-         JfgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
-        fh=+RhY4TDYeFaN8QrqHsu2z7tFgasqzOYN0pM9nbfzu6c=;
-        b=d7DQdizFXY7Z5TLJI50tRanr4a6EwjZeUJ0AcElDkOBX3iLD/05+r7GSCC5yx0Ir4x
-         GV9O68rHzYe6qVwhzaFhUiQmxXpVp0DSbnFb8hrwUXHYwZfHAPhJB6BYB+Ackkforwcz
-         sNUyTS1VElydBF3lhdPpo0kOSRabXrNgxEuKjSMF+EcrTZbpPE7wCO9CW6QCs6/ooMxB
-         HKmEidpcH0eHk8scbuT2bLmvE7WElEXoJlmN7qGeeAqdFx8iM3S4/cS4suSxMdUQmVcJ
-         8u7y55Zvf9Ba+EXwHvBbecDA+hz6z4di4+AuzoLrOG7Q6g/kdZtlsVSRweqB/f5jblrF
-         Cs8Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="0nwdzFGY"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-9061a795d76so29682106d6.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 08:41:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785165582; x=1785770382; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1785166874; x=1785771674; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
-        b=YuTjb5o+uFg+vII3GQnNd3QS0l63cjuwhJTUt7dGipNgrfo+q4bzb/yC5zqdF589uh
-         oc9EA2aK4Pfby5xAmJD/n39+yFSv82SBTjwp9RSuhG2eerYfmhFNjBZGuwxkbjZ57XgG
-         5tbCki2O1tzIiU7I0sypd2R/4iGkMYZAAwRoASxbkzzt8AVbR/lhuQEHbO/eqZYfJk8N
-         WiczKkdgufRm+xQKpVSoLaMzU7stLQ2DSsCX/5q3GLuKubUEfqd3KjlLyBiVvruBagEr
-         H+eiy4iHVB1bLocM7LICEJvFIB8p4NB0ui5lRnE2XOtsZHrtbozT0onV5ewAG8/00Ajf
-         ubDA==
+        bh=ObFczNpW1oyaTyO0itofeppMoEYsiSFjLPiupcK+hfk=;
+        b=0nwdzFGYVUdJFChKVVxcH17hic3gnA/lgRBRRwr7e2r7c4NZfwH1C7/IZWJvcNAhc7
+         x8PxwNNsTryIiuVPdz+uZWTO7fFmWz2rh7Xk1p5LVhEIDSTv5FdGBV18G4tw2z1axHaR
+         nXG4b7VI61ZhRx7hcdURVY5WNyGHflr+T3R/345MVdh5koFJRim91i15VOJN8uwwGLbx
+         7Gd59+1F9iZ5hojqKtgpU5H1BQdgyVCFfUgujQOXJcXfvLtEItxYeP816mERLOaHlWE+
+         rfqdncdxNTjOZpiZSGwam2fEbsQ/Bvkwpnt3rw8Nrh52oulDKhtNI5AnscfAjKFbXLxV
+         M5ow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785165582; x=1785770382;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1785166874; x=1785771674;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
-        b=GaPTKya5MI29GK4auGLI4VHqNWEyQK4DqNeqchilcJw3GVr4+D+/4Y9ZdJI/CJpLog
-         g0xP6mvnpwkoPOQVmzZcGuamVt8TpacMtrYnaWspX26bZAsOI2C16b5d+ioTVPETPMbs
-         F6+pshESQ+5kRMPXWoyIL5ylwXb/kCidz76A4CaLtDGqKrsA0P3rhVew8vFd6Soepzz5
-         kqqsXjtEe8Wi0a+fY/Tc/FBgxZICV/KXwYjEXLjrD7mL6bDcJ4MH128fUY4heiaZdEB8
-         gzFQ7SGqu/uA0VLAH6Mz+k6NgdNgDxTMo9e1hgfUnS4udspPz/iWHCpPoUhJK6KtAoU1
-         /wsg==
-X-Gm-Message-State: AOJu0YxRc5iPgycnTJGhOsmH6i1nVvUTGLXE/vPA6RinLbsrCvi+5Sm5
-	rB5Y3oMRTGLyTq4RuK4x5IbGS3FnsjoLEICMYscLYuT5TLXfhHHGmI1pa3RSg7AImm875fdxoD9
-	HJ8ZSr1y6sJ5bXU86ymEbKRjvkerX57uEWg==
-X-Gm-Gg: AR+sD135YqdjtgCGITIQQpNKYmW0OmKh8TBUi+NKX3xL+3jDBfuuAx2zi/gYBCBxpHl
-	fYeL6CZGMeapG8iH3eWpKPUvcgHm/5PO/VAh1OPZnzoZ6eftmb8vTKarprXUiqrEk6COO10Lz7c
-	H1jzAML/3egJVTKndnSLiqQV9YmZ1f8d9ikpPZvyG8cV1+xN9x1TJvCkPhjD0qPswUEid6yrxJ9
-	Qls+IE3wrzryB0FPAM/5dUUN2VkiWTRJhlKG4T3rvwohG8geQ1SgYR2m3tGD1oO9UKifw4=
-X-Received: by 2002:a2e:bcc7:0:b0:39c:71f9:26c1 with SMTP id
- 38308e7fff4ca-39f4ca93786mr20131fa.37.1785165581462; Mon, 27 Jul 2026
- 08:19:41 -0700 (PDT)
+        bh=ObFczNpW1oyaTyO0itofeppMoEYsiSFjLPiupcK+hfk=;
+        b=dqZCSVV8vgZ0BDXHKCOMLc9+hM2sSnTatXemstgd+N80vkisSrcNmWSYRl974Ad38q
+         36YKseKjKhjggpqKDWQC3xMxr/11iNL3eKyJM0hsgOv3mcJoS+xZYs8PzeYMkI7FvQS2
+         K8N9ZqrMYSkHGmQ9Lr2qRLbobvtxqGPEN0ITs/ajhs3PMRsHvYIDP7mXjG3x2bqLTtWn
+         kFJhYHF9gH5ukfVfHlgLhNHUdOYsRnZLdI+Yrw+pSwWxHM596QFxN3Z80Ys6UWEumHp/
+         ZJ8qNeXBBgqtvY7G4WLzV56MGJAo5WSAvXrQySTspChcx53b1lq3UUk3QAqgu/q1Z4IM
+         td/A==
+X-Forwarded-Encrypted: i=1; AHgh+Rrf930YufKTYKikp80ZIITUVhpP1FGGiSqm9ngecfgwecja/ON8S9a9/hskVtPkZj6ltENZl4xTMX4puw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtVj+Jn+fRJlNkHTViqvhmQ7BKA1XaHRF3PfeI0A4kdUBtDHog
+	bFp4xfHz8v9j6dJrtFfb3oYofgMrbMn4YRL43iDGLvuPYX52f+GYPJmuogVqk8r8QXA=
+X-Gm-Gg: AR+sD12XsA7sFnRDjCf8QQeIC8c3rGA9N2zFtRXChr4MNxO7NWX47SHhdnmceqc5Dsb
+	Iy8kVDLGrn+Ki7XMkaca3/1MvROLvemQIUcOCe9UL75Cx5ualGDp5TOO2NS6XEpQsZjmC/xu742
+	ooJa/oUj1/WktUgWES5ANX2z8YdbhpYSZbkE576MwQOytslOIrwYtMVHgJNQIeRbd7NZRgeL2d/
+	q7ohgKQrB+c9g1s23KT0TxO69W/4YkZuPRxzGcVECHJYW2mgERcoSyh4dEzUZSVcE61b8mxzReh
+	lEO5RXk+WKVt9gAYjL2/0a45otWs5jJkpOBa9Ag9GQpA7q16pJscWQ42OHz+KpYDaDBC+K3yxlf
+	62Ao5eTmdj/aa+1MEgdrI2nrjuv0v/U+R47HmOzoDSvcNSV6qsibSEIF0RGP03eJekME/fhcwBh
+	s4IdpHdW78sRcs79dBdh5KNccoK3tl3CC0lfXXFxIfN1irT0cw7RT08N9FOGLs8Xson5VjJ/aQd
+	8kpvcbpHyXydg==
+X-Received: by 2002:a05:6214:c21:b0:8ef:c64a:ffed with SMTP id 6a1803df08f44-907ec8046a0mr107570706d6.42.1785166873858;
+        Mon, 27 Jul 2026 08:41:13 -0700 (PDT)
+Received: from jake-laptop ([2607:fea8:e5:500::f163])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-907e86d7367sm67144266d6.33.2026.07.27.08.41.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 08:41:13 -0700 (PDT)
+From: Jake Steinman <j@metarealtyinc.ca>
+To: rshouriesh@gmail.com,
+	linux-media@vger.kernel.org
+Cc: elgin.perumbilly@siliconsignals.io,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	hansg@kernel.org,
+	bingbu.cao@intel.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 0/2] media: Add Himax HM1092 mono NIR sensor driver
+Date: Mon, 27 Jul 2026 11:40:58 -0400
+Message-ID: <20260727154058.2350497-1-j@metarealtyinc.ca>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CAJTcUFQxyVWJ7s3WnZHV+wob3nnkXH2_iFJL8ixh_Y8j33ah6A@mail.gmail.com>
+References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com> <20260727131252.1580332-1-j@metarealtyinc.ca> <CAJTcUFQxyVWJ7s3WnZHV+wob3nnkXH2_iFJL8ixh_Y8j33ah6A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CAB-99LvD2cCmPt91Kh-1Zj69=_xczV6oUA7soAfFXQBcZxA+pQ@mail.gmail.com>
- <CAO3ALPx9FK=ayO8WWt7zguTfaA=e5q2wxUPc1ojpPFqFvstxBA@mail.gmail.com>
- <CAB-99Lu1+OB0OyKQLh9Y89+BdLc23j6nJAn59VbS9qVwAb-4vw@mail.gmail.com>
- <CAO3ALPxbYGG5fxO1Dd989bjg=a4xRLBSDwtDL41Bd9ym7pt6KQ@mail.gmail.com>
- <CAB-99Lt=XkfAa6aOvug9101qWOaLsQN7a0ss7bZ1OmPvvTETsg@mail.gmail.com> <CAB-99LvB7kigD5Z2StaDmBLwQJPmKytihN9APUzyz7J=WRw67Q@mail.gmail.com>
-In-Reply-To: <CAB-99LvB7kigD5Z2StaDmBLwQJPmKytihN9APUzyz7J=WRw67Q@mail.gmail.com>
-From: Michael Goffioul <michael.goffioul@gmail.com>
-Date: Mon, 27 Jul 2026 11:19:30 -0400
-X-Gm-Features: AUfX_my866FYZolWY5YKcYONtPxV073yhZ1VAIaQxA4xppbEQpHD4iIrH8El9nU
-Message-ID: <CAB-99Lti_T60j08tRdd4o=ZGfJQORLk0GJUdd9pZsV9vLTLRAQ@mail.gmail.com>
-Subject: Re: Support for Mygica A681B (ATSC/QAM USB tuner)
-To: Forest Crossman <cyrozap@gmail.com>
-Cc: linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jun 25, 2026 at 5:39=E2=80=AFPM Michael Goffioul
-<michael.goffioul@gmail.com> wrote:
->
-> On Tue, Jun 23, 2026 at 10:30=E2=80=AFPM Michael Goffioul
-> <michael.goffioul@gmail.com> wrote:
-> >
-> > On Tue, Oct 14, 2025 at 1:42=E2=80=AFPM Forest Crossman <cyrozap@gmail.=
-com> wrote:
-> >>
-> >> On Tue, Oct 14, 2025 at 9:13=E2=80=AFAM Michael Goffioul
-> >> <michael.goffioul@gmail.com> wrote:
-> >> >
-> >> > On Fri, Oct 10, 2025 at 11:22=E2=80=AFAM Forest Crossman <cyrozap@gm=
-ail.com> wrote:
-> >> >>
-> >> >> On Sun, Jun 22, 2025 at 8:46=E2=80=AFPM Michael Goffioul
-> >> >> <michael.goffioul@gmail.com> wrote:
-> >> >> >
-> >> >> > Hi,
-> >> >> >
-> >> >> > I have a Mygica A681B USB tuner and I'm wondering whether there's=
- any
-> >> >> > hope to have it supported by the Linux kernel. I've attached the =
-lsusb
-> >> >> > output for the device at the end of this email.
-> >> >> >
-> >> >> > So far, I've downloaded the Linux driver from Geniatech web site.=
- This
-> >> >> > is made for Ubuntu 20 and kernel 5.4. From what I can tell from t=
-he
-> >> >> > driver sources, the device 1f4d:692f seems to use a mxl692 fronte=
-nd
-> >> >> > driver, but it uses a binary-only mxl692_fe.o module, without
-> >> >> > providing the source code for it. Kernel 6 includes its own mxl69=
-2
-> >> >> > driver, however it appears to use a different interface/API (and
-> >> >> > apparently also a firmware blob that does not look to be easy to
-> >> >> > find...).
-> >> >> >
-> >> >> > Any help or hint would be greatly appreciated.
-> >> >> >
-> >> >> > Michael.
-> >> >>
-> >> >> Hi, Michael,
-> >> >>
-> >> >> I've recently submitted some patches [1] to enable support for the
-> >> >> A681B and its more-compact USB-C sibling, the PT682C. The patches a=
-re
-> >> >> not yet ready for mainline (hence why I marked them "RFC"), but
-> >> >> they're good enough to get the hardware working and streaming TV fr=
-om
-> >> >> over the air. If you're willing to patch your kernel, the patches
-> >> >> should get you up and running while you wait for support in mainlin=
-e
-> >> >> or your distro's kernel.
-> >> >>
-> >> >> Also, while the cover letter for the patch series contains a link t=
-o a
-> >> >> script I wrote to download and extract the firmware image from the
-> >> >> Windows driver, I recently learned that the firmware can simply be
-> >> >> downloaded directly from here [2].
-> >> >>
-> >> >> I hope this helps!
-> >> >>
-> >> >> Forest
-> >> >>
-> >> >> [1]: https://lore.kernel.org/linux-media/20251001051534.925714-1-cy=
-rozap@gmail.com/T/
-> >> >> [2]: https://github.com/LibreELEC/dvb-firmware/blob/90261ae2934329f=
-6ca84dd6c72d10d0777bf4b0e/firmware/dvb-demod-mxl692.fw
-> >> >
-> >> >
-> >> > Hi Forest,
-> >> >
-> >> > Thanks for the info. I will give it a try when I get a chance.
-> >> >
-> >> > Do you know whether this would support Clear QAM too? While I had so=
-me
-> >> > success with ATSC with some reverse engineering, I was not able to g=
-et
-> >> > the device to work with QAM (with the device directly connected to a
-> >> > VeCOAX modulator).
-> >> >
-> >> > Thanks,
-> >> > Michael.
-> >> >
-> >>
-> >> Michael,
-> >>
-> >> No, I don't think QAM works yet. The message for the commit that added
-> >> the mxl692 driver to the kernel mentions that "Only ATSC is currently
-> >> advertised via DVB properties. QAM still has issues." And the patch
-> >> series cover letter[1] mentions "The ATSC portion works fully, the QAM
-> >> portion needs some TLC and is therefore not listed in the DVB
-> >> capabilities." Since no commits have been added since then to get QAM
-> >> demod working, I think it probably still doesn't work. Not that I've
-> >> tried, though--my first objective was to just get the driver for the
-> >> A681B and PT682C working, then maybe later if I could get a Clear QAM
-> >> source up and running (I have some SDRs that can do this, but I
-> >> haven't used them in years) I'd try getting QAM demod working.
-> >>
-> >> All the best,
-> >> Forest
-> >>
-> >> [1]: https://lore.kernel.org/all/20210126015416.5622-1-brad@nextdimens=
-ion.cc/
-> >
-> >
-> > Forrest,
-> >
-> > I finally found the time to try your driver and I was able to use the M=
-yGica A681B device on my desktop with ATSC. Additionally, using the attache=
-d patch, I was also able to use Clear QAM (both 64-QAM and 256-QAM, using a=
- DekTec modulator as source). So, thanks for the driver.
-> >
-> > That being said, it didn't work well when using the device connected to=
- an Android device (which is my target platform). Although the streaming wo=
-rked, there were regular streaming errors (video pixelation and buffering e=
-vents) making the device unsuitable for normal usage. A Hauppauge WindTV du=
-al-HD device, used in the exact same test conditions (just swapped with the=
- MyGica one), worked flawlessly. I didn't observe the same issues  either, =
-when using the MyGica device on my normal desktop. I'm not sure whether it =
-might be due to the limited resources of the Android box, but if you have a=
-ny suggestions, please let me know.
-> >
-> > Michael.
->
-> It turned out the problem was due to a combination of factors:
-> - high rate of IRQs generated for USB/xhci (~ 1250 IRQ/s)
-> - Android handles most IRQ on the first core (there's no irqbalance in AO=
-SP)
-> - busy core due to video playback (among other tasks)
-> This introduced latency in IRQ handling and eventually packet loss.
-> The WinTV device was not affected, because the IRQ rate was 10x
-> smaller (~ 130 IRQ/s). So I changed the buffer size defined in dvbsky
-> driver for mxl692, from 4096 to 32768, and that solved the issue for
-> me.
+Ramshouriesh,
 
-I got my hands on another instance of MyGica A631B device. However
-that device has a different product ID: 0xa681, instead of expected
-0x692f. From what I could find on the web, that product ID is used for
-A681 device. I suspect this is some sort of rebranded A681. The driver
-stack that I've used with the first device does not work with this new
-one: it goes up to the fw upload, then the I2C status check performed
-by mxl692 driver times out and the device is non-functional. Anybody
-had any luck with the A681 device?
+Good — and measuring your own link rate rather than pasting mine is the right
+call. 24 MHz EXTCLK is exactly the sort of thing that would have made a
+copied constant wrong in a new way, and my derivation only holds for a 19.2 MHz
+part. I would rather your v6 carry a number you can defend than one of mine.
 
-Thanks,
-Michael.
+Your provenance is genuinely useful, by the way. Mine came out of Dell's
+hm1092.sys, yours out of Qualcomm's com.qti.sensormodule.hm1092.bin in the ASUS
+stack — two different vendors' Windows artifacts, extracted independently, and
+the register sequences agree. That is much better evidence for whoever reviews
+this than either of us had separately, and I think it belongs in the cover
+letter.
+
+If it would help, I can make that concrete rather than assertive: send me your
+table as (addr, value) pairs in order and I will diff it against my 238 entries
+and post the result — how many entries match exactly, which differ, and whether
+the differences are all board-level defaults like the 0xb4/0xbe exposure you
+already spotted. "Two independent extractions from two vendors' Windows stacks
+agree on N of 238 entries, differing only in <list>" is a much stronger sentence
+for a cover letter than either of us saying we trust our own dump. It also has a
+real chance of catching a transcription error in one of them, which is worth
+knowing before this lands rather than after.
+
+## Exposure and gain
+
+Here is what I have. Rather than send a patch against v5 that your respin will
+immediately invalidate, take this as the implementation plus the notes that
+matter, and I will send a proper patch against v6 once your geometry and
+link-frequency changes have landed. Say the word if you would rather have it the
+other way round.
+
+Registers:
+
+  0x0202 / 0x0203   exposure, 16-bit, high byte first
+  0x0205            analogue gain, 8-bit
+  0x020e / 0x020f   digital gain, 16-bit, high byte first
+  0x0104            group hold: write 1, program the group, write 0
+
+Ranges I use, on a 648x368 mode with VTS 741:
+
+  exposure          min 2, max 720, step 1
+  analogue gain     min 0, max 0xff, step 1
+  digital gain      min 0x0100, max 0x0fff, step 1   (0x0100 = 1.0x)
+
+The writes themselves, in CCI terms since you are already there:
+
+  case V4L2_CID_EXPOSURE:
+          cci_write(regmap, CCI_REG8(0x0202), ctrl->val >> 8, &ret);
+          cci_write(regmap, CCI_REG8(0x0203), ctrl->val & 0xff, &ret);
+          break;
+  case V4L2_CID_ANALOGUE_GAIN:
+          cci_write(regmap, CCI_REG8(0x0205), ctrl->val, &ret);
+          break;
+  case V4L2_CID_DIGITAL_GAIN:
+          cci_write(regmap, CCI_REG8(0x020e), ctrl->val >> 8, &ret);
+          cci_write(regmap, CCI_REG8(0x020f), ctrl->val & 0xff, &ret);
+          break;
+
+Four things worth knowing before you wire it up, because three of them cost me
+time:
+
+**1. Your control defaults must match what your init table leaves behind, not
+mine.** This is the one I would most like you to check. The control handler
+setup that runs at stream-on writes the defaults to the sensor, so if a default
+differs from the value the init sequence already programmed, you silently stream
+a configuration the part has never been shown to work in. My table ends with
+0x0203 = 0xb4, so my exposure default is 180. **Yours ends with 0xbe, so your
+default should be 190, not 180.** Same for gain: my table leaves 0x0205 = 0x00
+so my default is 0. Check what yours leaves.
+
+I hit this exactly: a refactor made the stream-on control setup a real hardware
+write for the first time, and it started programming exposure 256 and gain 0x10
+over a sequence that had only ever been validated at 180 and 0.
+
+**2. Do not fold the 8-bit halves into CCI_REG16.** It is tempting — 0x0202/0x0203
+and 0x020e/0x020f are adjacent — but a CCI_REG16 write becomes one
+auto-incrementing burst rather than two transactions, and that no longer matches
+the sequence the sensor is known to accept. I kept them as pairs deliberately.
+Same reasoning applies to the 0x0340/0x0341 and 0x0342/0x0343 pairs in the init
+table.
+
+**3. Derive exposure max from VTS rather than hardcoding it.** Mine is 720
+against VTS 741. Yours is VTS 750, so the equivalent is not the same number, and
+a max above the frame length will just clip or misbehave. Whatever you choose,
+worth confirming the sensor actually accepts it at the top of the range rather
+than assuming.
+
+**4. Group hold.** Bracket each group of exposure/gain writes with 0x0104 = 1
+then 0x0104 = 0. You already have 0x0104 in your init table, so it is the same
+mechanism; the vendor sequence uses it around every AE group.
+
+I have exercised all of this on 648x368. It has never run against your 560x360
+mode, and since that is a different crop of the binned window I would not assume
+the exposure range transfers unchanged.
+
+## The ipu-bridge patch, and testing
+
+I will rebase the ipu-bridge HIMX1092 entry onto your v6 and send it as part of
+your series rather than separately, unless you would rather I kept it standalone.
+
+Once v6 is out I will build it on both x86/IPU7 machines — mine is a Dell XPS 16
+DA16260, one lane on CSI-2 port 2 behind a Synaptics SVP7500; the other user is
+on a different Dell, CSI-2 port 1, I2C bus 15, different bridge ACPI id — and
+report back either way. If your driver does not come up on ACPI x86 I would
+rather find that now than after it lands, and honestly it is the more likely
+outcome for a first attempt: the fwnode graph on these machines is built by
+ipu-bridge from ACPI SSDB data rather than described in DT, so the endpoint your
+driver parses arrives by a different route than on your board.
+
+Thanks for taking this the way you did.
+
+Jake
