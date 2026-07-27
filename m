@@ -1,190 +1,170 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961DD37D10A
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162530; cv=none; b=itOKajuEuHqqoPf9p8F2CNcSjsTHzNFp3qyg6j3bKarof8x1jqofVNxdoy+cN3VISgiInlxU4THamKFBiiE7+Ujs8yarfjJEW74AhtU4cFk4ILjMsXxGWPzQzkvO85tRmaMQwJtSEHbDaB3TKZdkPLoA/r2HYl1AxlJkDX8hwiY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162530; c=relaxed/simple;
-	bh=dtaCPwCxPBZsQU9e3ksDAJu5ustHqHFuIA9inl4S3Ng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YQR2eMdIgSAJrWzAFlnJ+kxSQHcJKwJsJ/GzXoH6Bd8VO1leOzwCQ7JfBXpNT/7p+bJMOQoDsoAPMBvFJ90aLcgoajogKEq4QgEbTAG40WCSkVK6AzBXB1+i7qLDGvIOF+lUUdSmbHOSgP4GmWyi6FwwshapcGtZz5IYW8O2Go8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M+o0hSNH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d3GwjbCN; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A672388386
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:56:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785164220; cv=pass; b=PhLrURDtPkrgXuYwTxAwn3M15f/pmBIT2ZMaOdWPpavP2kOlByOZUv4nGLLJV/oIioWDKjNoWSk/hUDPnt3UseurZLpImzJ2IsDMDg3wlMf7O18bvHK42/zGqPpy16G4vR14ffSxKWbc85bulYte7nopYmZX8tAt9W8iCSfspgs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785164220; c=relaxed/simple;
+	bh=TSwoKTe1l3CYsCvzzqA0JaWPQVc2pbDgVbQt6WGgt7A=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cnCjwNyPSUkQgw76A5HjxQ30lbNzKUxj+x+/5HacNSkqq4z8AuOmG3E5r7gvETwAPyhQ4xf6vgyvtWib0BFGFEjxZzunJd69pQ9+R6wVucUqHGdW50yWOavWfNnBO+dQOJ8MgzBOKtORI9SdEMHFpgUOlMC1n7XtE08QdBfmN6E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZpeHRXw; arc=pass smtp.client-ip=209.85.208.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M+o0hSNH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d3GwjbCN"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66RDlhvd3895728
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=; b=M+o0hSNHcjNeILVg
-	B/EOF/hkawhWP5TCNt00nOp98TyC0DZqa9hDaev4t3y6xAok2AjW2mVCndmNWEN2
-	AA5T+cAXEwEAgZJag4yFxZaZsN60WSCKcIkOeU7RqiugTcqGoTck5isPSyCUwInw
-	vKwenjqiv6Nqjvmz1/nZFrT/VYTPLc5mUIFVJF0R4fh0GzUaakGO6MWWnAOe+hmX
-	eDl2zEMLD6b6Q76NBFivsWvuB6X2wgwTFPb4ui+DbZF42f2guEmF3hC0kJhj8Wnv
-	nwgswkcMI+YUD7KWqsWtdcCEHHOAXmcDj0Yr/W51wULTiKqZRIYnusUPab0YIzNT
-	T9Pydg==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fnsxs30yf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:28:45 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51cab6f7517so4623151cf.0
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 07:28:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZpeHRXw"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-69c108fee7fso3867988a12.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 07:56:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785164216; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ZmFuYFXj2JI9dBp4cR12Wa12KCEm1eHLdSEPVUVHogHhWjfJa8k8np5SX7JdbN3K5O
+         NgjopiBfz7ViYgBggd7D1t0df2JWhAYlKDyyHrD7AtiSy8Vq2+WHt0pyWnbPwlN49X0z
+         9ZbnITaTIGnUZXZBKbYWv3id/fG085SKpkpWG7pSLEq2GInAPsYUZ1i1ynsYT7zRWV1U
+         zR6J00SPLQrqcPQn1DfBxsLQFALquLKGA1gUdk994FRmVdj6jbSHcFU+hCyGYs04o6Ze
+         5pno09ZIt7tr38nCtSj+HAvaDKryKRni/c4WZbigwAH0RlmC+i21vpMoy+gsbwQ6/lgA
+         /MWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=TSwoKTe1l3CYsCvzzqA0JaWPQVc2pbDgVbQt6WGgt7A=;
+        fh=hhccoTf9yPx/euZ/q77BABVEFI7GCRZPP6LMiSVK3iw=;
+        b=mgEHwLdk9qudkaavL9biYDpxYVcwsprVgAPSZVkwrXQ+SHVO6j/LlvYCk7yyH+Ea50
+         sPoBWROiWyU/MEJ9za9wglWFEDEqCJ88V6YTQD4HrWy27Szsl2e7m/BRmWZekfyyQGQH
+         otRnGW9Un5wwd5eW/5isjumTs/WTbVZ9GmjOtUmginA2nPoWEbydr76suI0R7LY7BrAb
+         i1ujdmhUDtwD+C1w3sGzkfIYMAyGoX27zQa4eqPbNzOEZcNtR9hRlz8pTmYijJs1hRQX
+         0gJw3p5cyYaCRkKX4m+nduAprA8IPjn27zw5TR6YUi2ZZWuq1059J7Oz+yMFCLL67PCm
+         oCHg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785162525; x=1785767325; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785164216; x=1785769016; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=;
-        b=d3GwjbCN1TxWcAA7GWlafjLDqGGbioxLqKS2d7t4aU+JFC4dIj48+ApPsJFg1lETtH
-         PGLbzg0jBuA2abNS6dvFnNwmd1Zd1Cdy3MOMeWaHXuCdUv1id7AnpvcsZJ32s8eXymi2
-         XUQKch6nR14yqivJue3zCuS65b6ywRa7YaJp1aUX9pmTV0iusUrQRGn/hFzW39EFKPZL
-         tgSiQBCFtzsqXixhUrvt2c6R/jAYNs/o3d2e8Q0XvDozKHwtAh1OT1/qUFruQtbqg86a
-         R4jl/ArHqcnTzOPQ2N8x0O7n3Y+D8+gkvx/IutXYJElVcXg0ZO83Tp8duO6fF3ejmC1o
-         W+oA==
+        bh=TSwoKTe1l3CYsCvzzqA0JaWPQVc2pbDgVbQt6WGgt7A=;
+        b=MZpeHRXw0bLGbfqT4R7/JG6j2sCpMyGXiY0qVbinsvvKqNcwrCmTxuYX9+G419cT/I
+         QwVVPL/j2TpmT64B74ikmNsbHNXGLDBuJ3SBGjrnpfnTPmIOXBaedK350xDiL4w6Hj+b
+         dHS0X46de//h7FSv17qk0MTn1p4E4oTDXLADrak4N29ug9u721XxzW+C4WnTObCZOnlt
+         sRKsOw83mut3QQe06mPCXnLRInY1gjrY82F7gUPBzF0kPRGAW7Y52xwnwLbcBA+PbjH4
+         TUuPeLxmeXf7SLCV18DtrwCJA2u+NW6pqEgciPBcDzMFDJIVp74t0S6nkCKz/crQruts
+         BdeA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785162525; x=1785767325;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XwYeDvLJf9xoDaVgSmjefyJPwZ0kaUEFJBnHboR0txw=;
-        b=kzkRdHghHWcrk9A+eYoebnx4zHdl1OIOECQafEgdiNOh30KXORMPoSNUoSAbiCQa1G
-         +PmkwCFSA4c11SzmAhxEf06lLg7N1tsUgWftig7zfmZQvgBjmyVA9AM5diWDqi9TF1nJ
-         gUbtRABLzIYX3a7VouQf+8Ht8Z+FGMgiQWZvFUKKiinVSK+2/E4abbquXzZlBizX8iBO
-         oFPQX55C87XCj3A82ZFVtZ7dTYBl9ytU8uGdDj0qxkDnnp3XfXB4JjJFEeYa3anD5Nkw
-         nbhey9KrdhmFrk8StCheT0vupQK7GNjRmnTl9UB0wc2eW9J2TgyyTl/m7LnUxlqdtOQq
-         pz+A==
-X-Forwarded-Encrypted: i=1; AHgh+RoxE1MRxkkXLaFz3U53OMXt8xRcuAACZQzQa2NPNAZTEHCBqUEeP2ckepPsi8LeB1zbPOTdk1LrmiZngQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCxXREo7xHo6r1JKQ7rglQOleHfGjUNol4TyYCnOMC9FtXJTt4
-	Ew7xzF8r3vAeSphR6JsdFp3WBrJierjzq6cWw+0jdwPSJwC7qRYW/zvzsZu63//zIp286/Ks6my
-	tPsWKPOjEoJW57MTnkyyHwXBvbIVPpXK58NB+OuLlOVBKopL8TSo+Grz3dzKkTmFQ9Q==
-X-Gm-Gg: AR+sD11pvBGvfnVf7wWveVK/MHcyy/GAgmfuGivZlsP6WoqFegReqNt/uxJzmb7j8VH
-	FOD14/7djbBH0ANb9AHo5yeqk0BY4+IP5XFw9A2atxMdMO/rthZRwyVhIMKazdduQZAOzy0pGiC
-	ZLlP9AfzglE7AtX31sflXMHJC6JWHbQp3Yh0S6uWTyUDrN2mw+Q0HNx3CIUTKc1rx/icLa/rmTc
-	jwNdawk67ecsETwrwCDtTw5gimpMXBbL6vwFju2b1lAPM0cmmKEsKHUdyFY/UXf7NunOULdQZ+f
-	cHS816xtO0Rf1YTSkXutnTW7HnWsiA7WOikXU8qtnPbs1dS0/Ufp3G+7pmVJhuPooo1jcMxhimZ
-	mwbBFy8GH4FkOjMsaiB2g5G2c
-X-Received: by 2002:a05:622a:1191:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-529cfcfb62bmr3497561cf.2.1785162524686;
-        Mon, 27 Jul 2026 07:28:44 -0700 (PDT)
-X-Received: by 2002:a05:622a:1191:b0:51b:f9e0:87b0 with SMTP id d75a77b69052e-529cfcfb62bmr3497151cf.2.1785162523970;
-        Mon, 27 Jul 2026 07:28:43 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32ebcc4dsm670043366b.49.2026.07.27.07.28.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 27 Jul 2026 07:28:43 -0700 (PDT)
-Message-ID: <be2fb404-061d-4e69-b430-9cecea21f60f@oss.qualcomm.com>
-Date: Mon, 27 Jul 2026 16:28:41 +0200
+        d=1e100.net; s=20251104; t=1785164216; x=1785769016;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=TSwoKTe1l3CYsCvzzqA0JaWPQVc2pbDgVbQt6WGgt7A=;
+        b=B7rLHzTG/fNAsOcqe/HJm/mAmXMczss4kBEAscMq4qqcWfiSdujdWXCYuKL1XfIPSk
+         H0ALrCLEUuDQtj92BBlmcYZosR7NaEbdm1sw3GkDSzhKDcsksqFeD0Nz/COA9pd7x1Bw
+         rwfqjR3JX41Bjjm5arWV/02vVqSBpIP4C85yzyExM3aQWm2eF55LeouRwZ14oCBeu2wH
+         OIYPEH3WJF8qM0+uZNzLvio9WsNbntUwn0eHDLxON9R5Tbker5KzA+dV079DBXvUMMxv
+         SIHClWHD0bjQAd9sjK04FXMqrIDYfq4zdHUv6ebAacUheyxLwN6RkVxuk+IMaPkvIx1Z
+         R5aA==
+X-Gm-Message-State: AOJu0YzHxbiUWWPQydfHtqzKltbGBj/NcJgDKuUb/Y8HW+FKHtPgEelT
+	G6dWSdqNbhKe27aBtAcCImT+m5z6Th6Li2bFU6OHotC90sT+4v2bVYVdqG6usqlE5xhzvFLtL9z
+	Jvur+/DfjE4Bq0Up7j3gfdSrJF1QfWt4=
+X-Gm-Gg: AR+sD13nABQkYaFRWSvVxCuqvqE8MUZrM1R3qX78VtAfpO4Sz22F4vh1fRA9kFB8Q3g
+	jb1DR7wGpRa2coI0AEN9W8QupEfNd0KZKLg0lbjy4DQnfBgbfTDhx/zrqdpnaO7m9NHKCLpXRe+
+	6DtIf8QLTY7GWElvChFmEPcNkKFGrEeuoaEbL3YinRt2dml36U+SU+HhUkuHlyDEm9TUFVzq5du
+	CSKHnQwY+5wMZt5FCGQkQcCNQOqU31SmERyrAhZtVanKN7Odr5wQ3s2ekifxrAfWQTbjdjisHt/
+	t8MF9BO0DzuQU4K80jC4gMrAF1s97UJ5KJr0eKFaaJdmIvg77hPE
+X-Received: by 2002:a05:6402:13c7:b0:698:5f89:9a51 with SMTP id
+ 4fb4d7f45d1cf-69fc1005352mr3887420a12.5.1785164216274; Mon, 27 Jul 2026
+ 07:56:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v9 0/2] media: iris: add support for purwa platform
-To: David Sheffield <producer456@gmail.com>, wangao.wang@oss.qualcomm.com
-Cc: bryan.odonoghue@linaro.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, dmitry.baryshkov@oss.qualcomm.com
-References: <CAOAE-oNM-AS35-k=ntkLX8H35UF6_6AhMTP_10C=RroA2_AvsQ@mail.gmail.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <CAOAE-oNM-AS35-k=ntkLX8H35UF6_6AhMTP_10C=RroA2_AvsQ@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI3MDEzNyBTYWx0ZWRfX05hcPfkxyzeO
- 1EZH51/VDxOy9GLwyU6Hi5xOYo34ZeQWduAw7NqvkxfwoHfSi7xdR+G1qh9zc5fVErBAYEFrP2n
- GUpcfkMZpocEeYbx70HRyi4zkbOupTuChYtcoXTSxqGIUqDN1c5zo05Cs2y4PWHQhdO3gkJ+xfr
- hKYhxzyv32UQ2G416A89oVIoMpeSRb1ZYrsnMyn8+tBXUaIO6oI5CmfFMrKnXQPdX2b0z13zdl4
- Zde8oipyrWYEtIMUY0TEe7wrIMLs/ftbX/22ERFEnkvjV/9xU+RXijZvNxdPP1cP4p9iSBvHyN9
- Xgo6fOS3ZK0tfTGT99JsUfxMAv6dqCoXR3ui+C1n0n5YFB8RCM0858p2+dM1h897Q1huS8+Rv2g
- INWXjIT2E59Vedx0YzDVrhHi260oBESlMMlRicB/onS/Qkzsn3Lt3KFFXS3a6DPpZQ1JMLJp82l
- hcQR5qBw7RGZQhd+Ung==
-X-Authority-Analysis: v=2.4 cv=EYr4hvmC c=1 sm=1 tr=0 ts=6a676b1d cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=_YIi2MdEoqMPYrfQuocA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-ORIG-GUID: 2iYSGei4-SaijqJgQ5kjaBFmS3T2X9VJ
-X-Proofpoint-GUID: 2iYSGei4-SaijqJgQ5kjaBFmS3T2X9VJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI3MDEzNyBTYWx0ZWRfX3xdT8PCdNOFI
- 9zjqH/wnf1Df/uTOFpwZKXP/PVhlH1G4QAz/ZHdXB2PjxVIaaAAuLeyCQZWvmyGYHZVQwrKP2Hq
- 8Bwq3MqDfDdaGzH+fxjFNIQd/iJBs7A=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-27_04,2026-07-24_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 suspectscore=0 clxscore=1015 priorityscore=1501
- bulkscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607270137
+References: <20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com> <20260727131252.1580332-1-j@metarealtyinc.ca>
+In-Reply-To: <20260727131252.1580332-1-j@metarealtyinc.ca>
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Date: Mon, 27 Jul 2026 20:26:44 +0530
+X-Gm-Features: AUfX_mwubI9gE4liERuXHBaxiFJiyy5riHKW_799DoBOuDt8YQgLhKfQWk0HDhQ
+Message-ID: <CAJTcUFQxyVWJ7s3WnZHV+wob3nnkXH2_iFJL8ixh_Y8j33ah6A@mail.gmail.com>
+Subject: Re: [PATCH v5 0/2] media: Add Himax HM1092 mono NIR sensor driver
+To: Jake Steinman <j@metarealtyinc.ca>
+Cc: linux-media@vger.kernel.org, elgin.perumbilly@siliconsignals.io, 
+	sakari.ailus@linux.intel.com, mchehab@kernel.org, hansg@kernel.org, 
+	bingbu.cao@intel.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 7/25/26 9:43 PM, David Sheffield wrote:
-> (Data point from a production purwa device, in case it is useful for this
-> series — and one question at the end.)
-> 
-> I tried to bring up iris on a Microsoft Surface Pro 12-inch 1st Edition
-> (X1P-42-100, production-fused) on 7.2.0-rc3, using a device tree node with
-> compatible "qcom,x1p42100-iris" and firmware-name pointing at the video
-> firmware extracted from this device's own Windows driver package.
-> 
-> Every firmware candidate fails identically at PAS image init:
-> 
-> qcom-iris aa00000.video-codec: error -22 initializing firmware
-> qcom/x1p42100/Microsoft/Surface12/qcvss8380_pa.mbn
-> qcom-iris aa00000.video-codec: firmware download failed
-> qcom-iris aa00000.video-codec: core init failed
-> 
-> i.e. qcom_scm_pas_init_image() itself returns EINVAL (the dev_err comes from
-> mdt_loader), before auth-and-reset.
-> 
-> What I tested and ruled out:
-> 
-> - Four genuine blobs: qcvss8380_pa.mbn and qcvss8380.mbn from both the
-> device's official recovery image (April 2026 build) and the current
-> Surface drivers MSI (July 2026 build). All four -22.
-> - Signing: the video blobs Microsoft ships are Qualcomm-production-signed
-> (cert chain strings show "Qualcomm Cryptographic Operations"), unlike the
-> adsp/cdsp blobs for this device which are Microsoft-OEM-signed — and those
-> adsp/cdsp images PAS-authenticate and boot fine on every boot, so the SCM
-> PAS path itself is healthy on this machine.
+Hi Jake,
 
-So it's clear the issue is that for some reason the loader rejects the
-firmware. The fw has to be:
+Honestly, thank you for this. I'd much rather end up with one good driver than
+have the two of us shipping HM1092 support in parallel. I went through all three
+of your points against my own numbers and you're right on every one of them.
 
-* accessible (do you have some odd file permissions on it?)
-* valid (does it have a similar header compared to other MBNs?)
-* correctly signed for the device (may it be that the recovery image you
-  mentioned may not be exercising the video accelerator and it unknowingly
-  ships a not-quite-right blob?)
-* loaded to the expected memory region - some older FWs (as in, on ancient
-  SoCs mostly) used to be grumpy about relocations. This shouldn't be a
-  problem nowadays, but it's worth keeping in mind
+On the link frequency: yeah, it doesn't add up, and I don't even need your board
+to see it. My own registers contradict it. 1616 x 750 x 10 / 2 is 181.8 MHz at
+30 fps and 363.6 at 60, and 400 MHz is neither. The pixel_rate I derive from it
+works out to about 66 fps, which isn't a mode this part even has. So it's just
+wrong.
 
-> - Metadata format: the failing qcvss images and the working qcadsp image are
-> both MBN v7 with identical hash-segment header layout.
-> - Version/anti-rollback: April and July builds fail the same way.
-> 
-> Since Windows runs video decode on this same TZ with these same
-> Qualcomm-signed images, plain signature rejection doesn't seem to explain
-> it. Which prompts the question: has this series been tested on
-> production-fused retail hardware (e.g. the x1p42100 laptops), or on
-> CRD/development devices? And is PAS ID 9 with the OEM-shipped qcvss8380
-> image expected to work on retail purwa devices, or is there a known
-> TZ/XBL-side requirement (different image, different pas_id, secure-boot
-> chain state) that would explain init_image EINVAL on an OEM machine?
+The one thing I don't want to do is blindly paste your number in, because my
+EXTCLK is 24 MHz, not 19.2, so your 19.2 x 94 / 5 = 360.96 doesn't land on my
+board the same way. What I'll do instead is actually pin down the link rate here
+(measured fps against hts x vts, plus the PLL dividers for a 24 MHz input) and
+put whatever falls out of that in the cover letter (or commit message), with the
+working shown. My guess is it ends up a lot closer to your 180.48 than to 400,
+but I'd rather measure it than assert it. You already ate the three months on
+this one, so I can at least not guess.
 
-PAS_IDs are common across all Qualcomm SoCs and have been for some 15
-years now
+And you nailed why it streams fine for me anyway. My CSIPHY gets its config from
+the PHY driver and DT, not from this control, so a bad LINK_FREQ is completely
+invisible on my setup and totally fatal on a receiver that actually reads it.
+That's exactly the kind of thing that shouldn't reach the tree, so I'm glad you
+flagged it.
 
-Konrad
+On exposure and gain: fair hit, I'll fix the cover. Saying the map is "unknown"
+is just wrong now that you've posted it, and it lines up with what I already
+have anyway. I write 0x0202/0x0203 and 0x0104 in my init table (0x0203 is 0xbe
+for me vs your 0xb4, same register, different default), which matches your
+exposure and group-hold registers. I'd really like that patch on top of my
+series. Like you said they need testing against my 560x360 mode first, so let's
+just do it in the open: send them over, I'll run them here and tell you straight
+whether they work. A driver that can't do AE/AGC can't do the actual job this
+sensor exists for, so that gap matters a lot more to me than any of the cosmetic
+stuff.
 
+Geometry: you're right, and I can see where I went wrong. Those get_selectio
+numbers came off the binned readout-window registers, so I was describing the
+crop window, not the pixel array. Reporting a native size (1198x726) that's
+narrower than both the 1280x720 active array and the 1296x736 mode in the
+Windows tables makes no sense, exactly like you said. I'll redo them against
+real array geometry so the selection targets actually describe the sensor
+instead of my one crop.
 
+On the bigger picture, your offer is clearly the better outcome, so I'll tak
+it. Keep your ipu-bridge HIMX1092 patch, it's orthogonal and I've got nothing
+like it, and I'll fold the three fixes in. Getting this onto two x86/IPU7 bo
+with the sensor wired differently on each is worth a lot for a series
+that's only
+been proven on one ARM DT board so far, and I'd be glad to carry a Tested-by
+each once it runs there. And if it doesn't run, tell me, that's just as useful.
+
+On provenance, since you were upfront about yours: mine came out of
+com.qti.sensormodule.hm1092.bin, the Qualcomm sensor-module blob in the ASUS
+Windows camera stack (QualcommBSP/qccamauxsensor_extension8380),
+regSetting block
+at offset 0x9e8f. That's a different vendor artifact from your hm1092.sys, s
+between the two of us the table's now been pulled from two independent Windows
+sources and they agree, which is about as good as this kind of thing gets. A
+maintainer taking either should know where it came from.
+
+So from my end: I'll respin with the link-freq derivation, fixed geometry, and
+the cover corrected on exposure/gain, then sort out the gain/exposure patch
+getting it onto your boards with you. If you'd sooner send your findings as
+standalone patches instead, that's fine too. I just think folding them in is
+cleaner.
+
+Anyway, thanks for doing this out in the open instead of just landing
+a competing
+driver. Better result for the part, and for whoever has to debug it next.
+
+Cheers,
+Ramshouriesh
