@@ -1,163 +1,217 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013030.outbound.protection.outlook.com [52.101.72.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com [209.85.216.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 049662EDD6B;
-	Mon, 27 Jul 2026 14:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785162022; cv=fail; b=L7EDmDHmsgeXDyxAVOkG92RTdJcUMaFoDlxzmFF7EWuICA6v/vgncY4FfkNiqxv7eoBcZbVh4I61SQTmI8fWj1pdujmxh1uyrN5iuvwfkF2bJkekgP4g3yti6uG8PrUOHCljnj+UJS2QvE7n3vDB0spn5EiF4VVjHER+tZPKskE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785162022; c=relaxed/simple;
-	bh=rI+m1DpY5NtLQvxM5vdLbPCkaS3oMAXZ60iymoIOzro=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=l/q8TwjZB+lGj7rUpCuucZPObpw2reEHypgPujhPPOpXsCPAg7CLl2kbjMAdgxwE/FCMEYVKgE2zizg4WiBchCd2QyELZYxa2dhZZfk7GwlzqcCiHnqrFVPY9C6jXXOaVrSw/Z+kPYWSn1HhXxVIzoWhBzI5Eeu6vsco2Tw8bZQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QgW8t/rc; arc=fail smtp.client-ip=52.101.72.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414D9376A1F
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 14:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785162065; cv=none; b=pWp99Wm5GQz+rzB8QwvOavfMN7ZFQNQKVmPOmnfUNqP/fDoygbuQKcltwd+ZHv85wHuDi4JV0SVTckl3T3oZmbpYiCD0BT1fCIEJ4U/EwL+dwNhPeKYajb2OCB1TUJ6Y0ad3W1SYeXuNv2JI/FCNbBUIsD0qvzxKCd54HGtphy8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785162065; c=relaxed/simple;
+	bh=c9kamtxeZK7dkuST6nX73rNFYrjOycKlzsHqFyFlQxo=;
+	h=Message-ID:Date:To:Cc:MIME-Version:Content-Type:From:Subject; b=NeoIpWZN4ADZURFVFlZvrnSUIdL90gy106Wd5eQvV3qxDKXhndkr8azlbh8eHYp5AR9+OVw4p7604L7muOsE83Z4K95Hv9jxzWMFvxp5MPRc2jXjsoj6OKLgYgT74aHPPnzUp0+W9UvZvLYYZm9/92ijkS3kN3mLFqOUT5gN3A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j8r9RJgy; arc=none smtp.client-ip=209.85.216.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QgW8t/rc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S4qDxmRCDyOp4odGvZutM+V50U9fYBg/rXXJct+PiBC/OAZXEZ3H2sLXKVdbTXpMEL0QzVFqhyunLGeAvw0jPOd8FrPFGkLB1VcLVBWtXG16TDAC6hVcAhivyjqk0ZStTtDWJodZb3vfupqnDywSYZ363poEjG4hjT7SpBJRHas9/SyMj7KIZHODt1wkYOy17lVZq7WgM5+A0PK0ulGdLSXMrZ18fan/II0ewvoEBBhMhTvNPnSCxAP7v0b8zZkUF9scosQ0LR3/tMJ5guRSR5n3Dd4VDVYcA5JNpmvJGQvw8TSOqU0PmPfgW2jD+DXvswgfRvTgAkgAXf9H3938dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zPszo4t5s5hvBz8+kvxdko8yfSKLDumvMRmMl6QmYes=;
- b=EeTPyxVEpNE6Mus/24nceG8sEaA0DAqnL23pWcnQWZJwNgE12dXuAw+q7rnDT3V+v4Hj1R6hKIqxhxjuqiayPPu2e4g2lOsb+8FLB/OL8ZSWnmmjQYWQVBXcDE4ZTgwaZnHO/IKv57IlltP8joJVHAOo6H00wC1N9kjdT0dxGiAHJvClG5YHg7g9Ck5YTtx1D0Rowa+HG8KSvhJbCqPSjIt/SJKaE79XDo3tG7B4zNZbRgjUH7iEwIu2HtK7V3e25kke0nhGwaKYiOITqcElBVhBqT1pMYlPsyg1Jfrd8s0F1XR2k8II0Ff3vV3yKDW7U3mp9ml3/j0aaphQG57gkQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zPszo4t5s5hvBz8+kvxdko8yfSKLDumvMRmMl6QmYes=;
- b=QgW8t/rc/nweT3gbM5f0RDAuU/CJtt5cPKrURkWZucXj/T+LlDGygt9vCWZVqE7fvRI5ZHp+u+px96nqHY64D3HRMmfUTOBmdrl3NeUXEL+Wa8qE2I+x8ArPXGfObWgHZ9lwmLnozX21tmUaaTFcFyriLI4RX65xruPSOBWztiJQjWbEl8acPGQSDBnpvWLWkmQnW/RfjNXCsULHEZCc0sQ6l8w5ZTTWLKNfZ8toRnO3Tw494D2iw4tEY9Dsiblu6euEms2RuUePzB8okjNuA2oi7SWYyCm7aqRk0s8iyehG3R0n71ILD/HPWv43Lg3kpAJ4GUzoIWes7DVE1YXWEQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI0PR04MB11538.eurprd04.prod.outlook.com (2603:10a6:800:2ca::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 14:20:18 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 14:20:17 +0000
-From: Frank.Li@oss.nxp.com
-To: mirela.rabulea@nxp.com,
-	mchehab@kernel.org,
-	Fan Wu <fanwu01@zju.edu.cn>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	shawnguo@kernel.org,
-	s.hauer@pengutronix.de,
-	kernel@pengutronix.de,
-	festevam@gmail.com,
-	imx@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: imx-jpeg: finish the job on device_run() error paths
-Date: Mon, 27 Jul 2026 10:20:10 -0400
-Message-ID: <178516199439.2421069.16061546765189005821.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260624003208.12400-1-fanwu01@zju.edu.cn>
-References: <20260624003208.12400-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0090.namprd04.prod.outlook.com
- (2603:10b6:806:121::35) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j8r9RJgy"
+Received: by mail-pj1-f48.google.com with SMTP id 98e67ed59e1d1-3811f512167so2581942a91.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 07:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785162062; x=1785766862; darn=vger.kernel.org;
+        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
+         :to:date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nVpghhcuxKhGyEPXRijDOdAxQjgTj39oRcqWienm+DY=;
+        b=j8r9RJgyYPc53lIQHRGNhHIlscugAeRoS2vZ0CVtoViTX8bn+zQazm9XDiRxxXn9QE
+         R2u43e5q32WnQLI89FQzKYjd9v1DTk/IBPtBasHW10MtwuHPpMjJaRK1F/suMRfCPo8I
+         HVwY+B+tNs9iOexHd01aO7gN4DsYyiSe/hGy3Iz04GufYs5uMzt8kPd8IRka/hrkCq8S
+         PVkxtx/O6lXxZ0tkCN5pkIQU9iCzuZ9XHaIttA16IMM8lKuPvaaStwQ2hKbmMhmJFRA0
+         hfSeZQjPvHeDUK0T82GSJHsFwd1pruUYkHP9k59yGuagDjrx59TDaP047z9Wx7/WnDBt
+         tpMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785162062; x=1785766862;
+        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
+         :to:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nVpghhcuxKhGyEPXRijDOdAxQjgTj39oRcqWienm+DY=;
+        b=OCMAnMYzoxGH9sHeYWFXVExuth961VLH+44A+Azk8OH3w+SzC1MogA2I8vqI8gHf2d
+         BKqJCq371wzpZQvtj88mhmGy7iByXhAPDHdXxNBt8B/IRX9afKpch5BKORHURoPoaIkm
+         Tkcz8lQ3CLYCNbc7GkKanTEikdh5CAlMR53DCYPetTaAlHHtvEQ/FGSTZydSSVXwNAt8
+         0VciY5etexCAx95yzPRPnDElSXgg9wLFUhdg9yVu8DsBZP/FyH2NV++slPUjrs0fYJcc
+         RsIw7MRQ9kGkoOM+D97lBRKKb9/9uf4EJvBH01ENDQtPdsBQJQ34itPciWPM/o4jti7k
+         FzRw==
+X-Forwarded-Encrypted: i=1; AHgh+RqEN6Iv3d580joYPrv7grVa9WGh+rSIo340vpq+YHQqvkZuuWvP24kin2piYNWxqXphFlFAOUTaeIjg2w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzwfEtNOuXz03YGmI4d4F+kO74Fl4pC6+4GI7e6LPutrGGD4D7u
+	gdP7xWcvn9zEV0uSEsMNqDFii9N98rKM55B8WKnfNoIg+FPUFqXWt46k
+X-Gm-Gg: AR+sD11ipYvy0ctN4eXeCkMLzDDOTTS6tHGK1H3Hu96jEosntugVpxGtI0tKh5RM2tX
+	93upKZQrv9HobpD4qpDNS2sbq0yjAjmcPNc4v1miQzsL7wd8tgehLgtxjAZP965oXXo0OwxElGJ
+	yGbnduEYEne7lDy7EDc9SchwZPOtbgBkPe3NjIOGuE5AmDNc0L/LN4yTq+4XE9CzFsxgAJWBeVS
+	TLdVJCMvt0GqFHcCVWGl1lT4rQK3724dNUQsK9xvHJ58/E7JfTpHqmjtZbiAtVUBcaTbiOwjwMG
+	8CVStX4TEogrjEzRgZ69IoiJ4oi9doHz5xleLvanBIGnJlwbrpMUSyTlgFmAZtkfWM13+7k26u9
+	hTwaTlOP5BMYervbydcF3XMQPu7LEVTHiulzjS49uyqio4QavbBaoeJ1KJ+U0umT2XqsGjsOFGT
+	a9xqtKKIXYDX1TDP+04w==
+X-Received: by 2002:a17:90b:37c6:b0:38e:1497:af5b with SMTP id 98e67ed59e1d1-38f293cd077mr7722235a91.1.1785162062437;
+        Mon, 27 Jul 2026 07:21:02 -0700 (PDT)
+Received: from tv2_send.eml ([101.9.192.104])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f041d5f78sm5117163a91.17.2026.07.27.07.20.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 07:21:02 -0700 (PDT)
+Message-ID: <20260727222056.26262.alvinhuang0603@gmail.com>
+Date: Mon, 27 Jul 2026 22:20:56 +0800
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>, Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Sowjanya Komatineni <skomatineni@nvidia.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB11538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 891b4273-6e23-42b7-0e14-08deebea2edd
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|19092799006|1800799024|23010399003|366016|18002099003|22082099003|10067099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	Ko/HYBYWVgVpCxQZ8gNG3uv2VQqaLIWEPqfrloPZZWgx0pa3vvAy2tfr3khHQnML/kSaamVByXaF8RfdwCxr4qyIN23jfp725SrWnbtpgUiceuFg62yP/38Z4QkY72zCV3Aac/aiqxFhu9sL1zPOcaCz0gKG42u511sYTjW0sjEyRIiQlnik7y4wd9Y6dVPODY7VnLnZl3Y7c0HBG5b9MojEdCXriP5BsuJNCGFQsvpMzlBP6jRbbpr65PI9I88hnKA4CKygfyY5cpzHHoNiJvIW5NiYTZPbFE4PQarhdi5oosf0EmvAgfXEwo9uTCC4dpGDOcYr2xBc5f8lUfMUxroXE75pVEx2icFg1NES07FvYlUSUqo4bJIoAgI6ltibll63hZDZ1yygEsG/EwS1TTSgm1mGo2jxidbgW+6p0i1tKTx+wnMyG9SmBz10lpCzgx/h1G9lpochR6G6VDYx44C/MNhnRtiwTIKSMr9EK8uc8ZNUIIARDHSCGnFkdvPvUw0pSswWckryBvDAEb7E7+7viI7jY1cKcGqoRG0jT8i4/JSwI3l1L4Xprs4qUvAw2O4g9WLemCZhmgrHsuSLuQk/SvzFmBTu4oHkgkYZt5EzZbNRgvJr8Q6xNA/TQpNw9g5+iojSkKczU6MV2cdhCh4DXd6M/iXQMPKKEQaMg04=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?K1JTMFhqdEdST3Y2dW5UWjEwdEpvdlZNc1k5OWxJcFkvREgzdUN1OXcrL3px?=
- =?utf-8?B?amVrb0pQY1dtRGpBT1A3NVNzZ1NQT1ZKb2hFQmZ0d1JMaExxakthQ0I5bG9n?=
- =?utf-8?B?Qm1jODMvZnNxMGJyaGovVGMyN0toQU5pSyszYXpLalJzVmhOMjZUTE1KOStz?=
- =?utf-8?B?dUFzcXpINDRKUVJ4akg4ZS9mZ0FMSk00Q2w4K2tsVnJFaGZBYTVaT01CbUtK?=
- =?utf-8?B?ZkJubTkwc0FaRWdlNmJmNFc2MDR3SkZkKzBTN2p6TlZ1Ti9NUWQrTjdsUG5Z?=
- =?utf-8?B?eEVlZU5jYXVaMXAwOHJrRHhmNHE0UTlXSlJOaHNGdUd1N2Q2L1hKb25lMXlI?=
- =?utf-8?B?VC9ZQnBadXplQlFUY0RNdEhHRmNndzNDL1FtQnVYTjlxdnhzZUgxeEJwd3dw?=
- =?utf-8?B?RVNjWnU4cWx6QzRWYnFrUkVZZmxYMkxkQW4wOGxVR1E1cWx1ckhjQ3RrTUx2?=
- =?utf-8?B?Tnd6ckNCMlZwS09hTTRkZEZGaE0yWVQydDlwdVVrZEwrVWhoZ3RLWTIzSExt?=
- =?utf-8?B?MFF2NTc3eWFnTys4Si9yWWZCZDJyWkZsY012dEZOWWE2Y2dhb3UxNjkzRWIr?=
- =?utf-8?B?WjVBR253WlZQdDhFUWpxTlBLckxxOWVQRFhWN3BHVlAxR0pla2dtSTltc1Fw?=
- =?utf-8?B?dlRaYXZXY1hXYjBod0d2VUc1cFJXWEZqZWRWbkpESWZKV3JrM3YrSUNkSjI2?=
- =?utf-8?B?MXdUV2k2V2FDd0dVQUZ2ME1nUTFQeHEvQjZpU1pEQ21IUTEwQmJwQk9GZTAv?=
- =?utf-8?B?U0VleEc0VWkyb2k2bXZkQU9CazZmVXNnR2dsY1BlZ3VaYTl3UDZDb3ZOVTJu?=
- =?utf-8?B?UWdTZXR3ZFA0TG95b09lSjdXQmhKUEFGOGttVVVqRUdGY3cxT3QxRmhvZGRD?=
- =?utf-8?B?Z1hHaG1MU243S2JheDg3VVB3RElxRkxaMDJVMkwyYkhNd2NweXQxV1Bianls?=
- =?utf-8?B?K3ZqVWRtZ3NFSkJSNi9pdHRpczd2cGVJaHZ5MzZOb2JtTGQwTEl0M3hBQnFr?=
- =?utf-8?B?Y0VnUSt0aDg2STlGendhbmlkTlFTQS9Pd0trSGpxTEFVbmltbjN2TXJhalhh?=
- =?utf-8?B?ZXVzeWtCclBCaHhyMVBoaGIvWEVjTCt3aTllK0RBYnNXc3NHNnRxcG1wYjdj?=
- =?utf-8?B?dlNWZWZaNmNkK01kZFZkL2J4YjQrU3hYRExBcVNkY1VqanUwOVBpOEY4K29r?=
- =?utf-8?B?eDNMbXZGenRDclZoSlh0bVhwM1MzaG0vazFnR1J1TFRHZGU3Vk9CeUxBbzVh?=
- =?utf-8?B?Q0NtWk8vUVNySXpLbG9LdWVDdEh5aXI4cE5CMHNqTi9wZnZnckp3NEF5NkZr?=
- =?utf-8?B?dHVNT1RzSkhGMm1oMElyakdCVjV1WlZjelhMa3BraVRseGNBSFRGTzdRK0xq?=
- =?utf-8?B?c2xJQ29pT0NxRVBNVmlXV2pEOVRDcUd3SHRRc3N1VFhxQjd6b3JCOWNuQ05r?=
- =?utf-8?B?ZklFU0VpSzVLajFzajdFdys2R0IxL1cvblFwOVlMYmlYRW16akI3UC9WMXN0?=
- =?utf-8?B?YzVHQUdHYVdMQVA3MmxTbWtLQ1N3d01HMndrcE9PdUhKN1FmYWhScDdKVlpE?=
- =?utf-8?B?cmRRYUJSQjJ0RjFBdWZ5KzE4QjBHWUtkaEJZOVlPVzIydlB0SWZRMi9peEN6?=
- =?utf-8?B?MVFrSlV0TkFyZllVUHRpaUQ0TkZqa3JsUEJweDdxdFVPYnNYL0QrSUZaeWhv?=
- =?utf-8?B?K0hKVldtYk0zVnh3UmhIK2ZKSGdnc3EzMDRqTDB3UGpoS2luU283R3JlNkhz?=
- =?utf-8?B?TnpIQ01ETkwwb2RPZ0wwZjNUazFUQXdwc2VnaDdsa2Jrd0tGdWRaQ3lLNjNE?=
- =?utf-8?B?eGhzM0RRUjB4bC9XMzZRRUtuSWNKTm9CWlJWQzZxODRmK2dIYXFsa3Q0UHl6?=
- =?utf-8?B?RG9xcjRNR09ZSGFTMEszaFVWN21hbm0wcmgxS1NiYjNMZXI1ejBuVnYvTk5n?=
- =?utf-8?B?OHZveS9tWEJJVG5Oajd6K2hMNjNaWlNzaUdmc09TZkllekVvSWc1S2s4aUVV?=
- =?utf-8?B?dC8xNldPUy85VHd4aTcvbE9ZejlMQnQrQlRQK1VjYlRaQzZtWVBKNGI1SU1M?=
- =?utf-8?B?QThmb0RVVUVsWHVtV2FnMFp0bXZZK3Z6TExkbE9KZjdMVFdvQWg1VlprS29h?=
- =?utf-8?B?aGsxMnVENUZvbjAxaTJuMFdzU1diK2Zva1dwVVI0YW4wSWZ6TGNjR2xpUjBz?=
- =?utf-8?B?NW9FSmtweUtRNGU1UWYwM1VXKzY5c21vTSs4Q2dna2kwa2VxeUFzb0xKQWNt?=
- =?utf-8?B?c3BUd0xSaDhpdkp3VWE1bnQ2Uk02dGY2YVVWOEMzTjYvRzNkRlo0RWNjN21z?=
- =?utf-8?B?S3kwWlhWQWtUSHh4NUk2YWsrM0FBdmNYRnppZEhCRHd5RHlhQnJpdUh1aDNX?=
- =?utf-8?Q?Q7rmYcW4Q21vzMt4=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 891b4273-6e23-42b7-0e14-08deebea2edd
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 14:20:17.6506
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 1FnBthADLkJRyXR8wbQdcq7LnHafik7cfQ8VsP/DN9HT+kE2TJS18u2awjO1sr8nqx/gjbZC81lx7jdPWOSTop2c/4aqOjCQWHPnFjRB3T9NYy5VjH57AK115rYmQHyq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB11538
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+From: Hao-Qun Huang <alvinhuang0603@gmail.com>
+Subject: [PATCH] staging: media: tegra-video: vi: move port parsing into a
+ subfunction
 
-From: Frank Li <Frank.Li@nxp.com>
+tegra_vi_channels_alloc() needs two error variables because its loop body
+mixes two things: ports that are skipped because they cannot be used, and
+errors that have to stop the whole allocation.
 
+Move the loop body into tegra_vi_port_channel_alloc(), which returns 0
+both when the port is skipped and when a channel was allocated, and a
+negative error only when allocation must stop. The loop is then a call
+and an error check, and the second error variable is no longer needed.
 
-On Wed, 24 Jun 2026 00:32:08 +0000, Fan Wu wrote:
-> mxc_jpeg_device_run() returns early through a shared "end" label on several
-> error paths (no free slot, mxc_jpeg_alloc_slot_data() failure, or missing
-> buffers or queue data), and none of them calls v4l2_m2m_job_finish().
-> Since the delayed work is queued only after the hardware is started, those
-> paths neither finish the job directly nor queue timeout work that could
-> finish it later. The job is left with TRANS_RUNNING set, so the
-> wait_event() in v4l2_m2m_cancel_job() (reached from v4l2_m2m_ctx_release()
-> at close) waits indefinitely and the close hangs.
-> 
-> [...]
+No functional change intended.
 
-Applied, thanks!
+Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Assisted-by: Claude:claude-fable-5
+Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
+---
+This is the cleanup on top of "staging: media: tegra-video: vi: fix probe
+failure on skipped last port", already in media.git/next, so it needs
+that one applied first.
+ drivers/staging/media/tegra-video/vi.c | 92 ++++++++++++++------------
+ 1 file changed, 49 insertions(+), 43 deletions(-)
 
-[1/1] media: imx-jpeg: finish the job on device_run() error paths
-      commit: 84cf16d021a20ff35ec50833af531deabea71992
-
-Best regards,
+diff --git a/drivers/staging/media/tegra-video/vi.c b/drivers/staging/media/tegra-video/vi.c
+index f461e117305e..09eac34a7813 100644
+--- a/drivers/staging/media/tegra-video/vi.c
++++ b/drivers/staging/media/tegra-video/vi.c
+@@ -1247,17 +1247,54 @@ static int tegra_vi_tpg_channels_alloc(struct tegra_vi *vi)
+ 	return 0;
+ }
+ 
++static int tegra_vi_port_channel_alloc(struct tegra_vi *vi,
++				       struct device_node *port)
++{
++	struct v4l2_fwnode_endpoint v4l2_ep = { .bus_type = 0 };
++	struct device_node *parent;
++	struct device_node *ep;
++	unsigned int port_num;
++	unsigned int lanes;
++	int ret;
++
++	if (!of_node_name_eq(port, "port"))
++		return 0;
++
++	if (of_property_read_u32(port, "reg", &port_num) < 0)
++		return 0;
++
++	if (port_num > vi->soc->vi_max_channels) {
++		dev_err(vi->dev, "invalid port num %d for %pOF\n",
++			port_num, port);
++		return -EINVAL;
++	}
++
++	ep = of_get_child_by_name(port, "endpoint");
++	if (!ep)
++		return 0;
++
++	parent = of_graph_get_remote_port_parent(ep);
++	of_node_put(ep);
++	if (!parent)
++		return 0;
++
++	ep = of_graph_get_endpoint_by_regs(parent, 0, 0);
++	of_node_put(parent);
++	ret = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep), &v4l2_ep);
++	of_node_put(ep);
++	if (ret)
++		return 0;
++
++	lanes = v4l2_ep.bus.mipi_csi2.num_data_lanes;
++
++	return tegra_vi_channel_alloc(vi, port_num, port, lanes);
++}
++
+ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
+ {
+ 	struct device_node *node = vi->dev->of_node;
+-	struct device_node *ep = NULL;
+ 	struct device_node *ports;
+-	struct device_node *port = NULL;
+-	unsigned int port_num;
+-	struct device_node *parent;
+-	struct v4l2_fwnode_endpoint v4l2_ep = { .bus_type = 0 };
+-	unsigned int lanes;
+-	int err;
++	struct device_node *port;
+ 	int ret = 0;
+ 
+ 	ports = of_get_child_by_name(node, "ports");
+@@ -1265,46 +1302,15 @@ static int tegra_vi_channels_alloc(struct tegra_vi *vi)
+ 		return dev_err_probe(vi->dev, -ENODEV, "%pOF: missing 'ports' node\n", node);
+ 
+ 	for_each_child_of_node(ports, port) {
+-		if (!of_node_name_eq(port, "port"))
+-			continue;
+-
+-		err = of_property_read_u32(port, "reg", &port_num);
+-		if (err < 0)
+-			continue;
+-
+-		if (port_num > vi->soc->vi_max_channels) {
+-			dev_err(vi->dev, "invalid port num %d for %pOF\n",
+-				port_num, port);
+-			ret = -EINVAL;
+-			goto cleanup;
++		ret = tegra_vi_port_channel_alloc(vi, port);
++		if (ret) {
++			of_node_put(port);
++			break;
+ 		}
+-
+-		ep = of_get_child_by_name(port, "endpoint");
+-		if (!ep)
+-			continue;
+-
+-		parent = of_graph_get_remote_port_parent(ep);
+-		of_node_put(ep);
+-		if (!parent)
+-			continue;
+-
+-		ep = of_graph_get_endpoint_by_regs(parent, 0, 0);
+-		of_node_put(parent);
+-		err = v4l2_fwnode_endpoint_parse(of_fwnode_handle(ep),
+-						 &v4l2_ep);
+-		of_node_put(ep);
+-		if (err)
+-			continue;
+-
+-		lanes = v4l2_ep.bus.mipi_csi2.num_data_lanes;
+-		ret = tegra_vi_channel_alloc(vi, port_num, port, lanes);
+-		if (ret < 0)
+-			goto cleanup;
+ 	}
+ 
+-cleanup:
+-	of_node_put(port);
+ 	of_node_put(ports);
++
+ 	return ret;
+ }
+ 
 -- 
-Frank Li <Frank.Li@nxp.com>
+2.43.0
+
