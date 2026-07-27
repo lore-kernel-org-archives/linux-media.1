@@ -1,163 +1,223 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023106.outbound.protection.outlook.com [52.101.127.106])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9934C26F2B9;
-	Mon, 27 Jul 2026 06:36:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.106
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 278793DB321
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 06:44:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785134197; cv=fail; b=FG8PXV83cHg04XApg4aTA/3vtYlENkn/f5aXOQxWq2ZE0LJOH8PIhzDf63fKGmf/c6c0ORD9scAARG1lnK8ZFXI62IkcLL8qSW966zuYU/lPg5nDF6rHQ7B+gVnwyeTEQnbwDdI3syEyHvJGFY3/L+CVPXKFO0qTjzOWSZbPbRQ=
+	t=1785134671; cv=pass; b=NRY7F0M626vxzn7cPxHk34bRXsQTEwpJTXPv84RRBXV0PDONRhdTnPC2CnsdlLF7PTEFm2tx5KJ0YVtxoIOI4Aar0tDIPNfEM0NDxOnck3d47fyfuFz/h4NaeMgx6wkCnX34BhX6JAvPfYbGNf3/zbQPwCRZnG9Yher/TfWjWJc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785134197; c=relaxed/simple;
-	bh=o3eQ3qHX8BhY0jeEw6ZjBP1EQ3O1qD3iwEzmuly3wJ8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=KEqkZA0131UrccaqpA0qIHuaofCvrSJwFMEAW/+DMYV8l38jTQTQvP0TKzC8Y14yug2aNEaaAqy9SslgM96lykIBd8kxZTEnvuemAMAwmGvyNdutLX9OKmF1ciuGZqardpVUPR9iHRltXqwm62NZgC/Ygir3zzXYKByQb38wwtM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=Bxzr5tcC; arc=fail smtp.client-ip=52.101.127.106
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
+	s=arc-20240116; t=1785134671; c=relaxed/simple;
+	bh=acvLY2MBWWiB4xKOz9R+iQo1cRxy8YD5tSb5zDn/VXA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GMxn1ms1nv1KT9dj7GPN0QpeUa/2oXqwfOZRTwI6TyzqkRVZKFtlzDgQ5xE1gxoFhlaTLpB2wDveDf/8NViKGmUcM8QO+EbqNF3WzCqfSNPxA29aiPULeCTKXBm3I6Bitmz6yCg3Qa3YO4BhWgkCy0eQNCN7Jv0CakKH6Qby2qg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YnWLpgDJ; arc=pass smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="Bxzr5tcC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RAItL6aqVeiK9KxY5hcDjtBSDpd2juo79SZC9oX7oyfcuPyy+hVjZRwuDMw2egNkrczxyWB/k8VMmPrBCvjz06pnSPLRaXlG7/aShvwCu/nMpJlWAN49cIerezcLBusmQ9OpupUJN61znzciySWMdosl9MwkFSvUiiLj11/G5CN+TM/Eu7w0z2nATBjKVkYvIge/mMzajsczfuiBPL6GWun2Kl7Ga5dSVl//T+Qpm9cBn+mt5fZSNS1L6baomkqX/McDb0IZa8YHNMwFYpF67WO07OhMEowsCqxJNXDIOZ7e+N6rLP0QrHv/Llo8jTSpeQmhFfD0CiqQzamPV+WWRg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=oTwixURNmk4hSR9fXeUGxPGPBLwxcdFVk1C8QqzsGHM=;
- b=GiTzj6CUDmkOkEKDkTYdjYOxxcStN2bFm0mZ8i9XWBNVisQrhUekRyMZ2NBjCNuv1RYeFcAm7BIQK2YkydBw3ymy7BtyaU0qnTTvdmYWfv7Y8zA4Ghe7Ljvw6Nw5TJtKEZzcxBH3Z4tJB+Nr7XlZtPYIl+1cSG+U4YY944hHzverB/aV09dSBJ/19INUsknTJIEcOYqCG2BA1EuMGtAB4uU+rk5ICPVQN3S6Y8iLOeywcFqkhY3g/ijxCLqZcpoR75pCFMlRs3mMLtYHjT+LxQjFq+HqA8zz+N28yZ7zIhYsnh5sLzgneod5JZXHR0bU/17JXb3DY+An4CKSb6a6HQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
- dkim=pass header.d=amlogic.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=oTwixURNmk4hSR9fXeUGxPGPBLwxcdFVk1C8QqzsGHM=;
- b=Bxzr5tcC0RwoZH6tMp+vin2zf8irlDjWaGhVHEOn1LHJuh9q0uaux1/uBP0kYFe8X/BjiDP3/eJXgu7dnwC8EmHNP5OFRv3BqL9wf5B6wsRuDLgKnWW22A2Ew+hJEYMWGOyA4NgOrlUpl3DZzkQAk+lZOkKmvnML3tKugmPG/E1yZq6NJjMZZ1wtxSTqO4cWTu9XTtA0NpQQjy5mIrLE8+eEOmVXF0g8Uqt1slwoaJ22Q/TlDKp0PNkZkdI2Ykz9HfPSvsE0eNxcigi0kAeBnnRUO9zAof5UASJwt3uH//WWB5O9U29hJJyUU82hefl+Z7sOKRIOegM7XbumAm/j+Q==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amlogic.com;
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
- by TYZPR03MB6977.apcprd03.prod.outlook.com (2603:1096:400:28f::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 06:36:30 +0000
-Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
- ([fe80::f12b:85e:f95c:191e%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 06:36:30 +0000
-Message-ID: <b7d083b4-fe1e-4788-b027-fa803d067521@amlogic.com>
-Date: Mon, 27 Jul 2026 14:36:27 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 6/6] arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org
-References: <20260724-b4-s4-vdec-upstream-v6-0-6072a7ee7428@amlogic.com>
- <20260724-b4-s4-vdec-upstream-v6-6-6072a7ee7428@amlogic.com>
- <20260727-vivid-native-bloodhound-4c7ff6@quoll>
- <16ede5f1-dcd4-4b43-98a9-02754796de81@kernel.org>
-From: Zhentao Guo <zhentao.guo@amlogic.com>
-In-Reply-To: <16ede5f1-dcd4-4b43-98a9-02754796de81@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SEWP216CA0108.KORP216.PROD.OUTLOOK.COM
- (2603:1096:101:2bb::13) To KL1PR03MB5521.apcprd03.prod.outlook.com
- (2603:1096:820:51::12)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YnWLpgDJ"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38de840f2f0so1743612a91.0
+        for <linux-media@vger.kernel.org>; Sun, 26 Jul 2026 23:44:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785134669; cv=none;
+        d=google.com; s=arc-20260327;
+        b=UfJJFz/Qe7LmI2zSAXM1uSg10bQYiYmivpp/9sGfEVq1y6FGRAYaskOTz2wZsG38az
+         TyDe6AMs4vnm1Jn5CIBQA8fRRnPOgyutuDVhmVY6LaxL04wtE447TAdKkUs0xU8CNwby
+         ShxiAn9lAv1dggnyFtOZx9U6gYruAh1w0aB0+3BAl8/JBHZqwvRYl45WTIXRJUrJ9GZq
+         OgDN4vYt5i3uEwM1zUjzJF9ha6lkQD8Kwhtv7L/PfHJ1tRzbBlVNLtLLTIWRi+KSq8r5
+         wJPwi/6/qESzTkaOi2WWFQ7oWAQsc6JQoPMXmoAE35lwlFs56xic3UDS0vbRnrIuBXlR
+         fCnw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
+        fh=zLoRCCTUy9xkAiabf8TkexQgesAPdNKyXrjZzkfXRTQ=;
+        b=HW1umB68bNZVIk87OSJt/JOKxYQJj/9VxO5XiPMThMfbn6oofaDQVtt4l7O6RCuW/0
+         LMKUNgHRMqmIXEeuz9WDishlbOetydg7tLKoZAgqcnYbtmt5YpQO7nBl3IX5dHxAipnp
+         XxajFy/GTErcVbCIpUE1bqYKxiAtnbjtk1/UP5d/slLTCGGk/CVyCGeP/ENN8oPgjPEg
+         NQK47IeOYVI8+B47BnrA/cq5KDXFUXPLYBNBJfCthiIIgc99xG6Aw3ytdyltM1G2GTB0
+         GyqyR+c3ou0zYeDhoVSoCDVh7RBRbiYWg0uxR+jazkSc82KQGxrYLMWDLFP52PrtWBNW
+         WHIA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785134669; x=1785739469; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
+        b=YnWLpgDJkONdnVHExyaWTzE2sehPXttqJIa0IaTzdKRZQf49YYkdNEu8AGhGwx0jBg
+         dQGQiSIP1Z7Gc6RlVjg75LR04HDIGN4wCI2yYwsDI/SitV12kHFkKcSy1MAWORHyTBLa
+         Is5ls7AHTjUxegX1nCsdjJ05HWLvWvp8G/yGOpdlmCsq8skTIYYc2lp8TKgLjhOynfZO
+         H2eB7Vme3izU8EWFCoe7e24hb/giTRPV9KtzN3n8OGLtOZ0rQHgJo4EumdosZ3K2F3ZW
+         5EXcNWTjchMSNOS9NtQqNm3+8swPXrU6ixTS3ad25Bsrf8mHpnhFwE3pXmdP+A2OxEfk
+         Cdeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785134669; x=1785739469;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VVhy2zBHRxUQesgFWLmDsfBmAyKMFgT84KyKy5f5YfE=;
+        b=BUs6C1ADXjC91tuCAq03MvNJij6T+3I/HW5JzfjuUrZWiU6gkXHBSqQvkLT8sM9xmR
+         mXDHHCVj09nHM7MO0iwNXAkTWMguqJCllhBoXLiJbh43zaL/PxZ40JwrH6oBwNew83AB
+         cONj48eBEZ5ggclt5+Fe4PXVOUQrGcVjqjtJkIta3b1+dswIRO0MDuIWMY34HtlmFNKt
+         U1pO9aE1hNXRJMtmiLUF3ExgBLi9XibGIPQmGYT03IcmrVgL0DkjCnQiO0QKZrLfuwSC
+         2J0/sS5rewp/weY2UIGQRxIZu8T8NXS5+S1rsavx8eUzm0C41EshY1ds81PFGh+8yXHb
+         6ARg==
+X-Forwarded-Encrypted: i=1; AHgh+Rr1D3GB4lH3bsr7vHb84kb9LI0p4EFLrKp+IyzJzOicr1KzkH8NPZlwGRuzkpm1LjzXlUFLfQyoK2zMcg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwqPbFMOtFZFu5i5xSTZ39DaJxELLpl70iU+pWgNJJ3zJ5bwaj0
+	bFpMjeYIuevIZSuv/V6dLoTxXjwJ2RJVCjfRbiebGRFuPI457+/rTme+cuSkI4cJ6KTEZ62ykG6
+	AtxgNPh23FshgploKwtf9ObH4aeeADA==
+X-Gm-Gg: AR+sD10d0zLIB9JBRy110dBkYnOFgyuAjXv9LvbIxuzHHt4aV1/Kme6g+Cjd6ZZgs45
+	0ijdcpyZNs1kNWWe1z25xhWMqI35egifNB2GqkbuJFvU+DqfbNrlqq/Qj+PFn+bmVtkAAAJxiLo
+	VmzV/z6ZQke/T+yO9dS1FINNB/iHxPlR23F9xE6f2+aWApFos8lEH91ElAXm2OiuECfRShgDysc
+	uC7crkM6AJoVaaNcrqFlRAiMceaCI1UIaXs7+IZzL16Rzkgz4V3cUKtisRgikB8MPrTFYZxUXR2
+	MFtu3yprUBqvk9B5K9KUCc6iG8g7
+X-Received: by 2002:a17:90b:3e47:b0:38e:4011:465f with SMTP id
+ 98e67ed59e1d1-38f2960cd53mr6833918a91.23.1785134669331; Sun, 26 Jul 2026
+ 23:44:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|TYZPR03MB6977:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8315df10-ab23-4700-90a4-08deeba964af
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|1800799024|23010399003|7416014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	urCB7x3Us4FWf34AXAydFQnn24r40Pd8p3Xwli29ZPVXT7VvFq5NOYeQ0gf0Iv+KErbnV7e9Bo9cdEU2bLz5PmUlcW29LCTgOeAoOgVvpetmmZwhiOzh2FifouWXrt41SNI6HCxA0QT4DjQ7z6xOizG5wPMZ/Hy37xWySqtUFM6ZzOQDs5yg/G+Kk1g8PJYYa0H2BsvoN4uVDX3hetVTG3ran8OyXzp9cxD7b/oVGSI4E9bahYuW4krrNma6RGAKo4xA9E4TTQFGPMlCvBTiqYeIiIdAGlkns8/V4h8js1Hw0DDbctSjmG/mjPqY+NKe+HHhCJP34DZhv8fEC/EcKnUN7iBrVkhNvzJA8K3chJzAGyyWOakp14uNmjjOVwPlEdXcZ5Q3Fh/axj1jbtONEePdbx2CaYuARkbU96NV4Yoc6GUXfEeqCnWzZLU1nezAJ3RAopss+rpCGq8+qL86CI50MT+cZg6TLdn3DpyYvJyQs4rgBwDLnolDGqK2I4S0lIo4PZtu344sUp8Y6QvkgBmXYuMJ1IHH7n3Lw4nnLlumPgzA99W91ljrwQMDS90ti4ZxATU9ugXZq1LxUatOilD2FSNKjjk1CPvMzyhLDYVAS3IR8Z08m3Z2I6OQBUfYSzg1ofXjd3e1kYfESN7ZOgBZoWxy/zzjCImAav+4rDo=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(23010399003)(7416014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?R296ZkNGL0cyeTFVTzV1enE4emUydVRYdEM0Vi8yclczRUZIMjV6YUcwblNx?=
- =?utf-8?B?WlRyKzB1ZDQ1OTcxNjFOLzZWU2VMWXdxS0t3bmJjTFJCeXVzNU1MVWJXVTc3?=
- =?utf-8?B?c05peEcyK0VsRC93QUlrNVB0a09uYTdPWXY5RnNDaklCNENUa3VaNXh6NVV3?=
- =?utf-8?B?cmtOZEp2YTRCMEkrY2I1cWJNdnNoWFZPYTVQdE0reEtDZTc0WnliV2ZlUGJZ?=
- =?utf-8?B?dUh6T3lvU1ozVzlMSnpNT2VaUi9WU1VDUmFrVWNxOEtoQXdHVEhvb2ZxelRy?=
- =?utf-8?B?WmJtMkhzeGpqcmN4TG1rZkxWT3BjOStlK2Y1KzViY3dkZ3hIdFBzTzB1OXVp?=
- =?utf-8?B?RDNZTXBJaXcxYzRuaTIyUEJ6RnlWK29XYm83TEtQOUJZb09LMWhhUDBzV2pE?=
- =?utf-8?B?L2dzcENVTlg1aTJxRzJjcThtMnJ3S2lidENSWTN6UnN2aDMxR3Noa09lL09O?=
- =?utf-8?B?cWZESndLOXRZSkhsYzIvTDFJUDhhWHYvdm1oTFZvd21JYlJmWUx2L2FMOWZu?=
- =?utf-8?B?NlNjY3dXYWJ5dlZMUEI3ZUlObW5aNk5oem5hZDZkOHhhZEZid1VnSm9RK1l6?=
- =?utf-8?B?dWRqMTJpUUVTa1MxOTRDU1ZRb1JLaUErcCtFWWkyTGVVbExiTlNiNHBQRndo?=
- =?utf-8?B?QXVaWEUvTm04TUtRWHhvQ3hyblhDYXFldXVHTkJmYTZhVGpXVVM3Q25hVGVL?=
- =?utf-8?B?Rk1UOFgyWWk2eXl2bTlVVWdiRFdTa0FxS0FMYno2TjJzb2xiVnFTWlRJQXBy?=
- =?utf-8?B?aWVuODNnVEUxNkdKWTRQZzhLZDBNdTVXemxPajZRbUtaeTRuZDlndUovamJy?=
- =?utf-8?B?MjNVNVF3TkVQa0JkdlhxMEx2WGJJeWhZOHNrOEIxbkVDbmtna1Zub0J1eUY5?=
- =?utf-8?B?OVVrdUVXUDdCaEVXYVFMV3VYcy9kNURPSTJhNDVCcTBXQ2luR3JVdm8zUjJz?=
- =?utf-8?B?OEQyK0gxbTkwYm1ROGJyTnU0dDd6cDBDejh2Y3BvNzVpdE1lUWpjNEFncmJE?=
- =?utf-8?B?d2piNk9Zb1FRd0NJdEVWYUQ3RTNaRDkyT2pCSFVSWWxTajJldVFSVitGaVZi?=
- =?utf-8?B?c3R1VVVxdG1kK3lvZHpUQlUzYjhXbGlyMW5xYlFyZ3BuNTZZMnRTMWhNVm1h?=
- =?utf-8?B?bFVBaXRhZ09qY1pldVBjWWVWNTBTVVN3WU9rME5UUnl4SC9mTUtTZnlJaitr?=
- =?utf-8?B?M2gyL1BiY3dFcGZRQ0RITXNERWt2L01SNEI1eG5mYkpQb1FIaWZIcVVYOTda?=
- =?utf-8?B?K0w5b2NFZlZXTk1FdVRIWnJ3YXR1eExuUGJ6MDJ3RC9jVmVpK2loQ3M5akxD?=
- =?utf-8?B?Z2l6QWdROHdLVzBFRnl0YVVFeGFReFR6eHhqZUV5Vk9LWEVZYW5jTDh3SCta?=
- =?utf-8?B?aFZ0ak41bkdyTUxwdXhTUUJZNXY2Zi9kdlF4NXJiK1plU3pjbk5icjNXMTl1?=
- =?utf-8?B?TEtLVTFOL05kTkluamNDcUFZbm5oSDU5Rmc3Zld6SzlLR3BIVnlSeFNDSTJI?=
- =?utf-8?B?RkJaL1ByOUREMVRQcjNUSDc1R0V5VVhuWXJYRkF0TDlheXp1S3NrNTlkTGdo?=
- =?utf-8?B?djFqdWdLUjN0M2FwZUY3a2l2SzNMS0tCc29zMFlkdW53cDlTNzEweUFHdFUv?=
- =?utf-8?B?WEp4MnRMcDZwOFREYmlnc1djRStWbytUaE4zb25qVHRnVzgrVzJIaXJ1MVp1?=
- =?utf-8?B?TXQ5MEltZ2dGZktDa3RUQ09oQjBzN3dYbFJHUlpqdTlMY1FudnFUM3F2L0Nr?=
- =?utf-8?B?dnhVZENPR3lmZXYrU2pOeVlydy9JbUlnVU9CSU41NzB4bzN2TC9pVkEvNmxN?=
- =?utf-8?B?aDVmS0Y3RnBwR3hVclhXV1BHUTRMT1BwUlBKUDl2eXpOTDhxSVBVSytZZDlI?=
- =?utf-8?B?SXNiZlRkN2U1ZlBjNWlhd3E3QjExQkl2Mm9DQTQwVlU0RTJxNStMZ25FVmsz?=
- =?utf-8?B?Q0NoTWViQzBxVTVENHdNZVZjU0RvaVRFWnZmNWk5U3dqaUpFb2oxYXhxREtk?=
- =?utf-8?B?c2ZEQjlYN0J2VU9Od3VPcnFkZWRmNk45Skd1b3BjNDNVWktESko1OCt2Um9R?=
- =?utf-8?B?djJyWUx4N2FINVRObGZtWURpZGFSTVJaeGlaT21zSnpDMjVCNXJxKzg0VVJQ?=
- =?utf-8?B?SkNmY1ZwNjlFV2Jxa3pyZERIRmdTZTZLN0ZZRWVhZGJkUUE1T0liL0FiQVRP?=
- =?utf-8?B?aEoyZzh2ZXBreFFLVWxjTHl0MW94VEd4WmEyQ3NlTk9lV0FIbThRMFBFWXhE?=
- =?utf-8?B?ZDhsZTJZcWw2NW44Y2RiOEdnZW5Zc2VZL210OWpVdVpxbWhxV2ZEUVZiMUVq?=
- =?utf-8?B?NW5VVlNwNEVDMTVuZEY1c0t1Q1Byb0MrT0o3czd0RGk5NllLV2RSdz09?=
-X-OriginatorOrg: amlogic.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8315df10-ab23-4700-90a4-08deeba964af
-X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 06:36:30.6010
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: KbPxvwSs2SuYRFqngaY/PlE8Je6OqAp4uxBsSu00cPPxzOBslrFLFbf+/Gzp/4D3Pj04N4XC3apCIBXl8vS9eA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB6977
+References: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
+In-Reply-To: <20260726-b4-add-rkvdec2-vp9-vdpu381-v1-0-180fb2d1f10c@gmail.com>
+From: Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+Date: Mon, 27 Jul 2026 08:44:17 +0200
+X-Gm-Features: AUfX_mwqcqnNQMcZqt04xa55VFBtNE5LGKsPbm1cl7GlNjH5cXHOSWUWokyx1_s
+Message-ID: <CAMhzubo-NJMro7+XbxD=MhSXiRp14chatDcn-=1Hsiak786uQw@mail.gmail.com>
+Subject: Re: [PATCH 0/4] media: rkvdec: Add VP9 support for VDPU381 variant
+To: Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
+Cc: Detlev Casanova <detlev.casanova@collabora.com>, 
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-media@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, 
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Igor Paunovic <royalnet026@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof
+Rock 5B+ leg of the three-board run in the cover letter, as a tag you can
+pick up. 7.1 base carrying this code, not a build of the series as posted.
 
-> On 27/07/2026 08:24, Krzysztof Kozlowski wrote:
->> On Fri, Jul 24, 2026 at 03:04:56PM +0800, Zhentao Guo wrote:
->>> Enable the Amlogic V4L2 stateless video decoder driver as a module
->>> in the arm64 defconfig. This driver is needed for stateless video
->>> decoding support on Amlogic SoCs.
->> Which boards use it? Look at `git log` to learn how this commit should
->> be written.
-> I already ASKED YOU this at v4 and pointing you to git log history. Not
-> much improved.
+Francesco Saverio Pavone <pavone.lawyer@gmail.com>
+
+
+Il giorno dom 26 lug 2026 alle ore 22:28 Venkata Atchuta Bheemeswara
+Sarma Darbha <vdarbha0473@gmail.com> ha scritto:
 >
-> Did you even check any commits?
-I did check some of the commits. I'll refer to more git logs of other 
-commits, and describe this patch as clearly as possible.
+> Hi All,
+> This patch series adds the initial VP9 support for VDPU381 present in rk3588.
 >
-> NAK
+> VDPU381 supports VP9 Profile 0 and Profile 2 up to 7680x4320@30fps.
+>
+> Tested with fluster (suite : VP9-TEST-VECTORS, decoder: GStreamer-VP9-V4L2SL-Gst1.0).
+> The 224/305 score has been reproduced independently on three RK3588 boards
+> across three kernel bases: Orange Pi 5 Pro (RK3588S, 7.2.0-rc3),
+> Orange Pi 5 Plus (RK3588, 7.0) and Radxa Rock 5B+ (RK3588, 7.1).
+>
+> Most of the remaining failures fall into a few known categories:
+>
+> - All vp90-2-02-size-*.webm variants where either dimension is
+>   smaller than 64 pixels fail because the hardware does not support
+>   frames smaller than 64x64:
+>   vp90-2-02-size-08x08.webm, vp90-2-02-size-08x10.webm,
+>   vp90-2-02-size-08x16.webm, vp90-2-02-size-08x18.webm,
+>   vp90-2-02-size-08x32.webm, vp90-2-02-size-08x34.webm,
+>   vp90-2-02-size-08x64.webm, vp90-2-02-size-08x66.webm,
+>   vp90-2-02-size-10x08.webm, vp90-2-02-size-10x10.webm,
+>   vp90-2-02-size-10x16.webm, vp90-2-02-size-10x18.webm,
+>   vp90-2-02-size-10x32.webm, vp90-2-02-size-10x34.webm,
+>   vp90-2-02-size-10x64.webm, vp90-2-02-size-10x66.webm,
+>   vp90-2-02-size-16x08.webm, vp90-2-02-size-16x10.webm,
+>   vp90-2-02-size-16x16.webm, vp90-2-02-size-16x18.webm,
+>   vp90-2-02-size-16x32.webm, vp90-2-02-size-16x34.webm,
+>   vp90-2-02-size-16x64.webm, vp90-2-02-size-16x66.webm,
+>   vp90-2-02-size-18x08.webm, vp90-2-02-size-18x10.webm,
+>   vp90-2-02-size-18x18.webm, vp90-2-02-size-18x32.webm,
+>   vp90-2-02-size-18x34.webm, vp90-2-02-size-18x64.webm,
+>   vp90-2-02-size-18x66.webm, vp90-2-02-size-32x08.webm,
+>   vp90-2-02-size-32x10.webm, vp90-2-02-size-32x18.webm,
+>   vp90-2-02-size-32x34.webm, vp90-2-02-size-32x66.webm,
+>   vp90-2-02-size-34x08.webm, vp90-2-02-size-34x10.webm,
+>   vp90-2-02-size-34x16.webm, vp90-2-02-size-34x34.webm,
+>   vp90-2-02-size-34x64.webm, vp90-2-02-size-34x66.webm,
+>   vp90-2-02-size-64x08.webm, vp90-2-02-size-64x10.webm,
+>   vp90-2-02-size-66x08.webm, vp90-2-02-size-66x10.webm.
+>
+> - vp90-2-05-resize.ivf, vp90-2-18-resize.ivf and all
+>   vp90-2-21-resize_inter_*.webm variants fail. These streams change
+>   resolution mid-stream on a non-keyframe, and a reference frame
+>   from before the resize ends up unavailable by the time it's
+>   needed again. This is being actively looked into:
+>   vp90-2-05-resize.ivf, vp90-2-18-resize.ivf,
+>   vp90-2-21-resize_inter_1280x720_5_1-2.webm,
+>   vp90-2-21-resize_inter_1280x720_5_3-4.webm,
+>   vp90-2-21-resize_inter_1280x720_7_1-2.webm,
+>   vp90-2-21-resize_inter_1280x720_7_3-4.webm,
+>   vp90-2-21-resize_inter_1920x1080_5_1-2.webm,
+>   vp90-2-21-resize_inter_1920x1080_5_3-4.webm,
+>   vp90-2-21-resize_inter_1920x1080_7_1-2.webm,
+>   vp90-2-21-resize_inter_1920x1080_7_3-4.webm,
+>   vp90-2-21-resize_inter_320x180_5_1-2.webm,
+>   vp90-2-21-resize_inter_320x180_5_3-4.webm,
+>   vp90-2-21-resize_inter_320x180_7_1-2.webm,
+>   vp90-2-21-resize_inter_320x180_7_3-4.webm,
+>   vp90-2-21-resize_inter_320x240_5_1-2.webm,
+>   vp90-2-21-resize_inter_320x240_5_3-4.webm,
+>   vp90-2-21-resize_inter_320x240_7_1-2.webm,
+>   vp90-2-21-resize_inter_320x240_7_3-4.webm,
+>   vp90-2-21-resize_inter_640x360_5_1-2.webm,
+>   vp90-2-21-resize_inter_640x360_5_3-4.webm,
+>   vp90-2-21-resize_inter_640x360_7_1-2.webm,
+>   vp90-2-21-resize_inter_640x360_7_3-4.webm,
+>   vp90-2-21-resize_inter_640x480_5_1-2.webm,
+>   vp90-2-21-resize_inter_640x480_5_3-4.webm,
+>   vp90-2-21-resize_inter_640x480_7_1-2.webm,
+>   vp90-2-21-resize_inter_640x480_7_3-4.webm.
+>
+> - vp90-2-09-aq2.webm,
+>   vp90-2-09-lf_deltas.webm,
+>   vp90-2-15-segkey_adpq.webm,
+>   vp90-2-19-skip-01.webm,
+>   vp90-2-19-skip-02.webm,
+>   vp90-2-19-skip.webm,  vp90-2-22-svc_1280x720_3.ivf,
+>   are still failing and not yet root-caused.
+>
+> - vp91-2-04-yuv422.webm
+>   vp91-2-04-yuv444.webm
+>   fail because the hardware does not support the format these
+>   streams use (4:2:2/4:4:4), only 4:2:0.
+>
+> The base vdpu381 VP9 driver support was introduced by me. Profile 2 support
+> was added by Igor Paunovic. Francesco Saverio Pavone fixed bugs in
+> the segmentation map size calculation and in the altref vertical
+> scale factor. Igor Paunovic also fixed a decoded-frame stride bug, aligning
+> bytesperline to 64 bytes in rkvdec_fill_decoded_pixfmt().
+>
+> ---
+> Igor Paunovic (1):
+>       media: rkvdec: align bytesperline to 64 bytes in rkvdec_fill_decoded_pixfmt()
+>
+> Venkata Atchuta Bheemeswara Sarma Darbha (3):
+>       media: rkvdec: vp9: Changing get_ref_buf function name to get_ref_buf_vp9
+>       media: rkvdec: Move vp9 functions to common file
+>       media: rkvdec: Add VP9 support for VDPU381 variant
+>
+>  drivers/media/platform/rockchip/rkvdec/Makefile    |    2 +
+>  .../platform/rockchip/rkvdec/rkvdec-vdpu381-regs.h |  234 +++++
+>  .../platform/rockchip/rkvdec/rkvdec-vdpu381-vp9.c  | 1067 ++++++++++++++++++++
+>  .../platform/rockchip/rkvdec/rkvdec-vp9-common.c   |   65 ++
+>  .../platform/rockchip/rkvdec/rkvdec-vp9-common.h   |   92 ++
+>  .../media/platform/rockchip/rkvdec/rkvdec-vp9.c    |  121 +--
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.c    |   73 +-
+>  drivers/media/platform/rockchip/rkvdec/rkvdec.h    |    1 +
+>  8 files changed, 1537 insertions(+), 118 deletions(-)
+> ---
+> base-commit: 1229e2e57a5c2980ccd457b9b53ea0eed5a22ab3
+> change-id: 20260726-b4-add-rkvdec2-vp9-vdpu381-3d1bd8fca4f5
 >
 > Best regards,
-> Krzysztof
-
-BRs
-
-Zhentao
-
+> --
+> Venkata Atchuta Bheemeswara Sarma Darbha <vdarbha0473@gmail.com>
+>
