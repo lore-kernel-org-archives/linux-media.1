@@ -1,84 +1,104 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D380F9C0
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 12:40:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33BFC40312F
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 12:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785156025; cv=none; b=JyiI0+5nGfx1rTn43gFw7t09bvhNozhSjCNJ7eIOVRbaWsLJwHwRZw/Uq5pYhlckfeh64kx9+kojF347TgSTO7JBe5kdWyDJ4kcGxhGhN0VIIUeDmA8bnJnSXIeD7iTEdn6bLeggKX8HTSNSEKoqHnf+sM9asxi60LNkFw3upxg=
+	t=1785156194; cv=none; b=m1b95Adz13gZMmXmWZEh8JPJpmQrfS5bnkNHWULmjwm/OhMOOuHqbzO2eWPzaHU5AFZFAWW1rb+0BigKltaSklqaA8lAEqHR4MdZ3gooTHx+CwUADP6aoaGWkyR95Yvp7dSIQpGlHX73LpJfJiOfBI/lGHW3QOcvMvl1FUldX9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785156025; c=relaxed/simple;
-	bh=SyXw3P7kg3/KlTfgqDk+HTxBYtuQAAnyuPSFkEN4VS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oZ5lUJoTXGMbpw4B7B0yLMOBkn6TbMZbNRuxuHX3n6eLr2wSlTuU956iz3mnqW07Kc3UZ/Hzj/N9telKJzpk+SMpwRoJ/l57Uo/IaKulchifyt1MHXjBBnVigRpVuro/+v6pL0PSKHyS6XEO62TRxPoQtIC+visCq9ClJamLiMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IP4awEy6; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785156194; c=relaxed/simple;
+	bh=VrO0yBQQdwabPAskQcTlcwcJS7C62is/NjAMMY/StHU=;
+	h=Message-ID:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=HnpwMxnz+zhVa1F7WTmfuF1MagzNYR/aM/P1rm+fhJvTrdSNf4aN++wpwaoCM29nXHxkk4Ze4XiM6mKAnc8HrBoX8MqPhHV5j5F5TTpuu5WPGcSTBqMXaP4P8IOrw2rTTQKjqrPK+N6tFNf5JOJJyYTk6G6B7ETpI6ohdCG5EEE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cJiFroVO; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IP4awEy6"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1BC3B19C;
-	Mon, 27 Jul 2026 14:39:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785155958;
-	bh=SyXw3P7kg3/KlTfgqDk+HTxBYtuQAAnyuPSFkEN4VS0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=IP4awEy6GSirSptUGJjmDfrMLO4N9uGKcvK4E/qSSv9+uAzjtgpld2JfTGSFqDjxV
-	 ycmHlJnVrH8fvffk4hBDLrdwQvfOc6WjVATjCsnNM4IC57yl8iMI33uv5AttW6MwKz
-	 9VNoMzSDGIJgzqyH0CT88KT7uGXIOf0ZfMOhjwos=
-Date: Mon, 27 Jul 2026 15:40:20 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, Guangshuo Li <lgs201920130244@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Ma Ke <make24@iscas.ac.cn>, Kees Cook <kees@kernel.org>
-Subject: Re: [PATCH 0/2] media: Revert 2a934fdb01db ("media: v4l2-dev: fix
- error handling in __video_register_device()")
-Message-ID: <20260727124020.GE1348372@killaraus.ideasonboard.com>
-References: <cover.1784295766.git.hverkuil+cisco@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cJiFroVO"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84e27035206so2579718b3a.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 05:43:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785156192; x=1785760992; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:date:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OKrnHJ/zkmSszgdE5PzXsaOxi77PgVXbDJ7BJN7kTtE=;
+        b=cJiFroVO/qms9CGHFXfjxPhwe+o+3KnUyhGQnNHNO8yjoLf1eMvpAoEQfPnUuL+ltr
+         NHnJ0eEuLVXeBl0Msk6FIQJCfKdNQyrn++rNkMbc4BpY46hgwRvlWL6IZKY+6mjEXqKY
+         LdYQLzelTDVA3b5UkUQmfs9bgGb2FI2LwqhvGeRgzeY7k3Z97QB5ZcZFhc76MbYCYDpI
+         dLgM3ggmQ/bu/3AGMoM2FyI+MkSGVhdbTK0Q4j1nO64zkMLX4IMkJiEJLfvMT9DXl5Cc
+         fUSweHe08PHVl3De012c1cieJG6DWeA/eeGLPxLR5VO7c8wpxn3R/ssluGvEvlMVvkg0
+         Trlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785156192; x=1785760992;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:subject:cc:to:from:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OKrnHJ/zkmSszgdE5PzXsaOxi77PgVXbDJ7BJN7kTtE=;
+        b=LjcXUT+8Iu80v/murZERHGPNMotD4zE5Zy6B7E6H9M5/axespwjhCNDmWMNw/zGKfg
+         KXSCCpjPsmADyOtAgJGHvQhFY86TzySrruKtJQfPQwqIATsGMy0mQOUlMZJnRaYetEq5
+         HODm3wjGuFKDYXNznKWBvYOnuGeMIYao487/mbGvMiW6nJSIOXZ1qyItAmeOI7LILX49
+         IIfmkjyGjC943mXIezj5DgmZvq93NK1KGJqjL3cvbLXPDTFr8y8rP+1kHPCA8G0ZWazg
+         cm9BPfhmSToVoUW8xPh1PskPytXptgj1CrNcagSSSCIQHczvF2kvJhgZ0GZPZ0XOFlZO
+         2y2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoSCcZU6MatgV2pp3wwz2FhL3B8RnZYqle/vDq+rcSS4h5zJKXR2kqvoa1yUAyluoHUER6FApvgtk4v7w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgD0QfwHRewACl+lHj3PX6YOHO8OD+Fj1dj3+aSYzKdjfnlBLx
+	8uBCY4ciCm9qHITKbjCALVHoFUdtL3s2M64N0Lval+pR1uY8PLnkKWDLSr9Q1YhEnOY=
+X-Gm-Gg: AR+sD11mkL6Qhg+x6crcOPIt1IqCu2eHJzaP/V7W858WuS4dhm8ljBlGwO1XLvtJN3x
+	CSAGD3p4HL0KkGFKGsUdrtK3A1ROYQHqrK3IdEc9qBwHfW3j4LN/JLsJSYKy8Pso+RHuDEuv2+Q
+	UtaIIzKUG2Ud1vzKB7NIe9rNBwNi27TlfvF0xUtq5S8e2BfkSH9dAa8z2uWjD1NW/VeBMd8CJqr
+	aCzjJan4pYl3PCILjhAPT5lC4PZX7rYs1RrzGIbOsvf/eIirI2c3P8dPRtt0TbYjKEsxP5EcXUP
+	rFDZCobSQchpT3IV4qEdoFGTTYdB66T9QkZZf2dpZ4U/cXXNfai33CE+WbFcc55wGBW1cQRZy/q
+	o4iITV7MD3q7vRq/r48+stY65JRR6pC4Q/SIoZGf4Rk6ACjsCDoDx6eiHG2GjjG7Y23NVMoC/Qy
+	FeVI9Z7ra7
+X-Received: by 2002:a05:6a00:1f12:b0:848:2d1d:836f with SMTP id d2e1a72fcca58-84e59449d00mr6615290b3a.28.1785156192339;
+        Mon, 27 Jul 2026 05:43:12 -0700 (PDT)
+Received: from luca_send.eml ([101.9.192.104])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e5341d68asm2992595b3a.46.2026.07.27.05.43.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 05:43:12 -0700 (PDT)
+Message-ID: <20260727204307.24353.alvinhuang0603@gmail.com>
+Date: Mon, 27 Jul 2026 20:43:07 +0800
+From: Hao-Qun Huang <alvinhuang0603@gmail.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Sowjanya Komatineni <skomatineni@nvidia.com>, Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, linux-tegra@vger.kernel.org, linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: media: tegra-video: vi: fix probe failure on skipped last port
+In-Reply-To: <20260707152425.571254-1-alvinhuang0603@gmail.com>
+References: <20260707152425.571254-1-alvinhuang0603@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <cover.1784295766.git.hverkuil+cisco@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Fri, Jul 17, 2026 at 03:42:44PM +0200, Hans Verkuil wrote:
-> That commit exchanged a memory leak with a double-free scenario,
-> and it is not something that is easily fixable. Revert it, since it
-> is still better to leak memory than get into a double-free.
-> 
-> See this email discussion for more info:
-> 
-> https://lore.kernel.org/linux-media/20260520090624.1071139-1-lgs201920130244@gmail.com/
-> 
-> I tried to come up with a reliable method to handle this cleanly in the
-> v4l2 core, but the only way to do this properly would be to split
-> video_register_device into two parts: an init and a registration part.
-> And then convert all drivers to use the new functions.
+On Mon Jul 27, 2026 at 1:10 PM CEST, Luca Ceresoli wrote:
+> Do you have a real use case where ths failure happens?
 
-We should do that.
+No, I found it by reading the code.  I went back and checked the in-tree
+tegra DTs that have vi ports: lg-x3 (p880), nexus7-grouper and
+asus-transformer all link the port through to a CSI channel endpoint with
+data-lanes, which parses fine, and asus-tf600t has no remote-endpoint so
+it skips on the !parent path, which leaves ret alone.  So no in-tree board
+hits this.
 
-> That's a very big job, and so for now just revert the patch and add comments
-> explaining why it is reverted.
+> Also, mixing two different return values may solve a bug but makes for more
+> intricated. I'd rather second a fix based on moving the whole foreach loop
+> body into a subfunction, and make the foreach loop body as simple as
+> calling the subfunction and handling returned errors. This would fix the
+> code making it more readbale.
 
-Agreed. For the series,
+Agreed.  This one was already committed to media.git/next on Jul 18
+though, so I would rather send the subfunction split as a cleanup on top
+than respin it, which also keeps the stable backport small.  I have that
+version building here and can post it.
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+If you would rather have the committed patch dropped and replaced by a v2
+with the refactor, say so and I will send that instead.
 
-> Hans Verkuil (2):
->   Revert "media: v4l2-dev: fix error handling in
->     __video_register_device()"
->   media: v4l2-core: v4l2-dev: add comments on device_register fail.
-> 
->  drivers/media/v4l2-core/v4l2-dev.c | 28 +++++++++++++++++++++-------
->  1 file changed, 21 insertions(+), 7 deletions(-)
-
--- 
-Regards,
-
-Laurent Pinchart
+Thanks,
+Hao-Qun
