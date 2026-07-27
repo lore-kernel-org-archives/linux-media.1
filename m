@@ -1,192 +1,231 @@
-Received: from fhigh-a3-smtp.messagingengine.com (fhigh-a3-smtp.messagingengine.com [103.168.172.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9F7238C0A;
-	Mon, 27 Jul 2026 01:09:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CB0B3515CD;
+	Mon, 27 Jul 2026 02:28:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785114577; cv=none; b=MwYucrxxg5niPkoTSqOigws/YUtRzF++fqRX1pTwEhOHvuUjjrmSMB7gK39Y8Roeh8KMrV1IS6VuSCY3yjfLkwPg3xbt3p2uLLBGbGyg6sRgfIO8V4IdqceJoGJOAB4bs2s6qA4zV/k2ZEymLeN5gUYRCGZKh2SAitr5Kv5L8ck=
+	t=1785119324; cv=none; b=aeJSSLzA3Z4Uiqgidc1mdiP6QBNoHYtnpduP9L9f1KtV8Qq/V0OZLvi8SzYXbGQAZom3tEBnIoKpd+LtXewkR9inxQT3pPW5aelZs3YaCCdeNJ65VHHvjJqNcJVDJjV4JxfxB9gp1Z+m2jQisy1KLEMNrtKg7l0oRzgMrO5eGD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785114577; c=relaxed/simple;
-	bh=4Skbq9YOlNzNneKExSNK0BKhCih2K90idKnQTUeJyAs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N23g2NhmEWfID1c+NTSXEm0OAeuDDggoxYrIH2QUqX4ZMAswU4lckemqjhSGMe77kqL6Ti1um+7DeGKYS2/gqOwINisU/NphLdUFjjOxt86qnoDnAWehNwOTIRn8LMq1/gHIyd4AUNYQQi40hNckFR5984CcCsr8IMoosGKhZ1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com; spf=pass smtp.mailfrom=fastmail.com; dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b=HJq7XS2e; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=DYcW7NsO; arc=none smtp.client-ip=103.168.172.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fastmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fastmail.com
+	s=arc-20240116; t=1785119324; c=relaxed/simple;
+	bh=A1QjJE6cgK9+bx6r4xAOU9G39BjvN9OfrHt4/fcpOxw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=c47iYoLb8QiC1mrDasKhvjRiKbncgpGng0IgC6WEvtRCMcH0CnzasEuMzi3f5YpizRj3L0jxfVJA/PkZYMzuLhGpK8smUIe9/EBbmZ1IltWA2TJ3fU5vKrnk3fys180C4GRgZEJlmkdyI8Rq85y7iW5yqoczaDTVUQsfJS+C9Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7qyUfw7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fastmail.com header.i=@fastmail.com header.b="HJq7XS2e";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="DYcW7NsO"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 6F3E41400336;
-	Sun, 26 Jul 2026 21:09:34 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Sun, 26 Jul 2026 21:09:34 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
-	cc:cc:content-transfer-encoding:content-type:date:date:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to; s=fm2; t=1785114574; x=1785200974; bh=koEaFn8/vGz5J9MQYjZWG
-	nGOHXBzGq/g7bp1GKu75qs=; b=HJq7XS2ehO4D0waA3VRPYCAKO+NWFlKzxVb/L
-	rCsrRf1CHhr2JSbVYLnmRnDGTHuor9DGuTVN8ECSzTcooCHoBPi37HfFZaJUBqYU
-	wwzRqsj5pbsWGmfYvjpocNhRPxrSVucG6N5stes+J2ZEsmBf1GrUZ+T7KER3ZKt8
-	vJweN0cJSkt/OjVJWtVifGV+GQyH0E4n6bHhMakh3HZJ6B3eZ0npSVgv/Xo0d1NY
-	QywDdDoQdsg/vK5kWxYGKeiz+fpkslJY6hH5btghNAKWz1xNX1wyLimnrDWsDYn5
-	M9bttdZgokeZ93Thn0hVc48FoxzXSF2sWLrKEfcpNaYzJ0s7g==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:date:date:feedback-id:feedback-id:from:from
-	:in-reply-to:message-id:mime-version:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=
-	1785114574; x=1785200974; bh=koEaFn8/vGz5J9MQYjZWGnGOHXBzGq/g7bp
-	1GKu75qs=; b=DYcW7NsOFElfREb5pDiSYgg0fsG9jSNTAtP16MTRjo04LWvI89a
-	23XD43+phqQqGO9jWqbg85h2+UxA78rDEXoJPFLt/vzXXID/jnJhpejGSyLLSrcD
-	T7GdMcN41TmiBHxRQiywUiOcCpEl7tddeypD5pBEBPSXx+nUzRpeGvR2GUY8EPSQ
-	oE44bi1QeaqrpkmMR9lyciBHrZ7RM3jcq40Wrd/n2BBRI3fuMdXNM2f73PFNUdFs
-	9Hwd2PQ5uNUViQ2La23qpwpOjSBptJjSlBcn5+latg0L8N+ac297VQ8PKNMIWxIT
-	sGCf3bdkcvKruRoz4deCbMmVMqqJsbdet3A==
-X-ME-Sender: <xms:za9mavdBwRdzq1avE0Tds9Y5kpwC4BGthKATLi3FiRnsL0vVPWJwrg>
-    <xme:za9marufriWK4NfVQM95yokm_jcw7ICVIXmX17IdhesQ3ZdnP-WFetsHxoN93r0aC
-    q--S4ofF1isHBe86EpOthJK6qBpZGWK0jpob8zB0tlMWtbEwV4qcT0>
-X-ME-Received: <xmr:za9mamgPKvKNL9pZYc1oYW5smvnnT_wEsd5793wF8U39xNAek2SBWq9rPWyBRFgC>
-X-ME-Proxy-Cause: dmFkZTFw09+8cA4s5S8iuDhSPfdq1LDs7d2+/fwxQaTb8huAScvaiu9VHnCs3K+Sf0N2cy
-    4ASfKAKMP5Sd54RmM8hV5oDDxGf9t3u+PId+u3Nred23EBYsYSBUN3/mwxnV3kUYGyorGm
-    m6qreTDlv6j1Oi/xfVhKFlZfns29XHFYw2ULptQMSBzjmwNt5xn6N5Q4i9THmEMNkOiLsJ
-    9eHO20c76Jjafrorj0xZf986Dc0Zgnur5bh9ZCUQLpTraf07j+YyVf0nLMdI1FF2nDOJ19
-    D4Cccw5ZA4JfnfpkUpBFYWUrD6XWoMGMA5iXBtVTrMro+ezT9K7jIrFWAOBD0qNEhyqLJZ
-    5POmIdwzire+TN6ay8B8V6dnmNx6WyUyh6x9A/1J2+kgyiaT7chqvMYFfVE+nQ2C10gCTl
-    Ipnj2pU7bsFX8LqFDJ397GzwO7xOzIMgKzgkqc2bV2Tf/Bb2ZkOiIUoafQuviAQXYg276o
-    2nwmLNCqVNuZer5fGRQpV/n1DKiznc6ErAIEJYN7IYr/tzZJR/O0IJzDVokNnejuVTy7DD
-    PVp476p/MGPX1ClD16Pvrsm8dj45QOZwcmqBMK99oRfRn0IZR7xyWt5QmlRwElE4fVsFLe
-    VZUepgIeagaw87HtfxKA51FO+wXjPNykqzuicuIzJ+AdF0PKMj6xRpvlZljw
-X-ME-Proxy: <xmx:za9majtLSldQDBnskrGddZcEYKJTRQP7-GJ4wLhOJKr5wm6DgWJ0tw>
-    <xmx:za9mah_tiugqK8xUYurw1IBMbwq8v2Q36hMMavZB1DNjc_2AdUIXJg>
-    <xmx:za9mapbDiuz-Qw_rlbP75fYXQLIDe7Tb5vS3Wz8N4fH-Z7PbiDhb4A>
-    <xmx:za9manpYjYz2A3gwC0YfE-kblXoO0w5pIQhlqRr8L-zy5bthHhH83g>
-    <xmx:zq9maoqDiIv4kiRCiMkyFPG0rsK9eXROG_T1r9fSknbL0CR_Ir4TJury>
-Feedback-ID: ice294775:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 26 Jul 2026 21:09:13 -0400 (EDT)
-From: Diego Schild Smiths <diegossmiths@fastmail.com>
-To: hansg@kernel.org,
-	mchehab@kernel.org,
-	sakari.ailus@linux.intel.com,
-	andy@kernel.org,
-	gregkh@linuxfoundation.org,
-	matt@mattwardle.net,
-	diegossmiths@fastmail.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Cc: ~lkcamp/patches@lists.sr.ht,
-	koike@igalia.com
-Subject: [PATCH]     staging: media: atomisp: Remove spaces at the start of a line
-Date: Sun, 26 Jul 2026 22:08:10 -0300
-Message-ID: <20260727010826.91459-1-diegossmiths@fastmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7qyUfw7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D05C3C2BCB3;
+	Mon, 27 Jul 2026 02:28:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785119323;
+	bh=A1QjJE6cgK9+bx6r4xAOU9G39BjvN9OfrHt4/fcpOxw=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=M7qyUfw7qIPedg3WxWamF1/7IiTn3XxsRQIby+QYayTTD7BTuLZPpELNpymdqFaze
+	 iCvvLw3lIqX37v7d2imSNTupNTZY17Swnt1TtTHajqk7q2bF3jLaeGEVjIsw1N3RxN
+	 prt4GVokSjc4RgJdpNTHieBLMFjnF+pqs+X0VLv/qV55AbGWscQAPBB29c6UjribkQ
+	 FwzoHQbafIgE9QiOF4he5vipzEnmdR5lDNA+Tw3cKYeVXESRkM5/+GsXHF1AvhHhvC
+	 HD+AIXZZmk6UixdnZRQnfJnLJrhP3UejU0ITmqDnQjUjfqEd1bcC6daWvoZStX/9mP
+	 7IudFsOIfF1BQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ACE80C531C9;
+	Mon, 27 Jul 2026 02:28:43 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v8 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Mon, 27 Jul 2026 10:28:40 +0800
+Message-Id: <20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAFjCZmoC/43QS07DMBAG4KtUXuPKj3k4rLgHYuE4NvWiTeWEA
+ Kpyd9zCIiiKlNXoH2m+0cxNDLHkOIjnw02UOOUh95ca3NNBhJO/vEeZu5qFUYYUa5If12Es0Z9
+ lHokM/haS5Bh86zxahaIOX0tM+esBv77VfMrD2Jfvx55J37t/pFFb5KSlksDYaJMYAJuXPMZj6
+ M/H8VPczcksHb3pmOpwgGSRIHjrVo5dOmbTsdVpgCOqpDQTrBzY50B1grKWTGwRg185uM/B6lj
+ HkdFBMmH9H9rnUHVIa+6gawh5fRcvHbvpcHWS04xtq6LX5p8zz/MPbAoE3m0CAAA=
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785119322; l=9031;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=A1QjJE6cgK9+bx6r4xAOU9G39BjvN9OfrHt4/fcpOxw=;
+ b=DLDqIClVyS95wh2VjIhCWYe6yCN4VIBNzadz33WSbq9A7riztEs1rWnAHyjzBIJHHkYTIT31T
+ B50YwsiKEZOA9Roc+Bdy1Q5HwI6l/4VvoAqTrriUcT9dr78RaSxzDow
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-    Fix checkpatch.pl warnings:
-    WARNING: please, no spaces at the start of a line
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
 
-Signed-off-by: Diego Schild Smiths <diegossmiths@fastmail.com>
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
+
+Patch 2 adds the V4L2 subdevice driver itself.
+
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v8:
+- Patch 1 (dt-bindings): fix several nits from Krzysztof Kozlowski's
+  on-list review (subject, description style, two redundant bare
+  properties, a missing blank line), drop the it6625 bus-type
+  constraint he questioned as redundant with compatible, and document
+  interrupts and the three power-supply properties -- also answering
+  his "how does this device work without any power supplied?" and
+  closing the same undocumented-ABI gap he flagged for interrupts on
+  patch 2. See the patch's own changelog for the full list.
+- Patch 2 (driver): drop of_match_ptr() (Krzysztof's review), and fix
+  an interlaced-signal pixel clock bug found by the sashiko.dev
+  automated review of v7 and confirmed against the IT6625 spec: the
+  chip already reports the correct pixel clock for interlaced sources,
+  so halving it on top of that was wrong. One other v7 review finding
+  (get_fmt leaking active state into TRY width/height/field) was
+  checked and is not being acted on -- it matches an established
+  pattern in tc358743.c. See the patch's own changelog for both.
+- Replying on-list (not a patch change) to Krzysztof's question about
+  whether the it6625/it6626 compatible strings encode any real
+  difference -- they do (C-PHY is gated on chip_type in
+  it6625_parse_endpoint()).
+- Link to v7: https://lore.kernel.org/r/20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw
+
+Changes in v7:
+- Patch 1 (dt-bindings): add back port@2 for the HDMI input port,
+  reversing the v4 decision to drop it -- the v6 automated review
+  re-raised the concern, and adi,adv7604.yaml (an actively-maintained
+  binding for a comparable HDMI-receiver chip) confirms documenting an
+  input port unused by the driver is the established convention, not
+  a defect.
+- Patch 2 (driver): fix three correctness issues found by automated
+  review of v6 -- it6625_parse_endpoint() could read the mipi_csi2
+  union under a bus_type the parser had silently fallen back to
+  parallel/BT656 on; it6625_set_fmt()'s active-format path left
+  format->format.colorspace stale for VIDIOC_SUBDEV_S_FMT callers; and
+  it6625_s_edid() never rejected a non-zero start_block as the
+  VIDIOC_S_EDID spec requires. See the patch's own changelog for the
+  full list.
+- Link to v6: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw
+
+Changes in v6:
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
+
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
+
+Changes in v4:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
+
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
+
+Changes in v2:
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
 
 ---
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+      media: i2c: add driver for ITE IT6625/IT6626
 
-Hey, this is my first patch. I learned this at DebConf 26.
-I appreciate any feedback. Thanks.
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  175 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2230 ++++++++++++++++++++
+ 5 files changed, 2431 insertions(+)
 ---
- .../isp/kernels/eed1_8/ia_css_eed1_8.host.c   | 32 ++++++++-----------
- 1 file changed, 14 insertions(+), 18 deletions(-)
+base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
 
-diff --git a/drivers/staging/media/atomisp/pci/isp/kernels/eed1_8/ia_css_eed1_8.host.c b/drivers/staging/media/atomisp/pci/isp/kernels/eed1_8/ia_css_eed1_8.host.c
-index 76d76ca4401a..3d8e473275e0 100644
---- a/drivers/staging/media/atomisp/pci/isp/kernels/eed1_8/ia_css_eed1_8.host.c
-+++ b/drivers/staging/media/atomisp/pci/isp/kernels/eed1_8/ia_css_eed1_8.host.c
-@@ -31,8 +31,8 @@ static const s16 chgrinv_x[NUMBER_OF_CHGRINV_POINTS] = {
- 
- static const s16 chgrinv_a[NUMBER_OF_CHGRINV_POINTS] = {
- 	-7171, -256, -29, -3456, -1071, -475, -189, -102,
--	    -48, -38, -10, -9, -7, -6, 0
--    };
-+	-48, -38, -10, -9, -7, -6, 0
-+};
- 
- static const s16 chgrinv_b[NUMBER_OF_CHGRINV_POINTS] = {
- 	8191, 1021, 256, 114, 60, 37, 24, 17,
-@@ -50,7 +50,7 @@ static const s16 tcinv_x[NUMBER_OF_TCINV_POINTS] = {
- 
- static const s16 tcinv_a[NUMBER_OF_TCINV_POINTS] = {
- 	-6364, -631, -126, -34, -13, -6, -4452, -2156, 0
--    };
-+};
- 
- static const s16 tcinv_b[NUMBER_OF_TCINV_POINTS] = {
- 	8191, 1828, 726, 352, 197, 121, 80, 55, 40
-@@ -66,7 +66,7 @@ static const s16 fcinv_x[NUMBER_OF_FCINV_POINTS] = {
- 
- static const s16 fcinv_a[NUMBER_OF_FCINV_POINTS] = {
- 	-5244, -486, -86, -2849, -961, -400, -180, -86, 0
--    };
-+};
- 
- static const s16 fcinv_b[NUMBER_OF_FCINV_POINTS] = {
- 	8191, 1637, 607, 287, 159, 98, 64, 44, 32
-@@ -77,10 +77,9 @@ static const s16 fcinv_c[NUMBER_OF_FCINV_POINTS] = {
- };
- 
- void
--ia_css_eed1_8_vmem_encode(
--    struct eed1_8_vmem_params *to,
--    const struct ia_css_eed1_8_config *from,
--    size_t size)
-+ia_css_eed1_8_vmem_encode(struct eed1_8_vmem_params *to,
-+			  const struct ia_css_eed1_8_config *from,
-+			  size_t size)
- {
- 	unsigned int i, j, base;
- 	const unsigned int total_blocks = 4;
-@@ -208,10 +207,9 @@ ia_css_eed1_8_vmem_encode(
- }
- 
- void
--ia_css_eed1_8_encode(
--    struct eed1_8_dmem_params *to,
--    const struct ia_css_eed1_8_config *from,
--    size_t size)
-+ia_css_eed1_8_encode(struct eed1_8_dmem_params *to,
-+		     const struct ia_css_eed1_8_config *from,
-+		     size_t size)
- {
- 	int i;
- 	int min_exp = 0;
-@@ -266,18 +264,16 @@ ia_css_eed1_8_encode(
- }
- 
- void
--ia_css_init_eed1_8_state(
--    void *state,
--    size_t size)
-+ia_css_init_eed1_8_state(void *state,
-+			 size_t size)
- {
- 	memset(state, 0, size);
- }
- 
- #ifndef IA_CSS_NO_DEBUG
- void
--ia_css_eed1_8_debug_dtrace(
--    const struct ia_css_eed1_8_config *eed,
--    unsigned int level)
-+ia_css_eed1_8_debug_dtrace(const struct ia_css_eed1_8_config *eed,
-+			   unsigned int level)
- {
- 	if (!eed)
- 		return;
+Best regards,
 -- 
-2.55.0
+Hermes Wu <Hermes.wu@ite.com.tw>
+
 
