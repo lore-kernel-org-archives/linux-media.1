@@ -1,140 +1,285 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DC137B00E;
-	Mon, 27 Jul 2026 08:30:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3773988FA;
+	Mon, 27 Jul 2026 08:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785141041; cv=none; b=VKI5bW6DwjrdrPlLz+R1G58m3Jg+vjdxNOOKhEQ5z1ySQ+rhzzgh+DCSrN7sihfFjvfkO1DqECWSvcKw7oMJCCygguMXpTS8SNkAy/d/w9orowKIjpZqqHtdqo6dr9QbBSuToy2nyjc7rtB3y+PtStaEGaH7OwOPSLfIoPS/8jo=
+	t=1785142634; cv=none; b=MYX/G6RQL1pqenmB2aXzgk9g0JGLgbcWIOceyehL77umm+LvN+c4kpbZuerNV9gljWEFeeQ9AnzFT56gdiECw1WnEawHSDQGo4tOVTn9taAOm1aLPC06K8OmpTKrlrLm3/8epASnh+IU9PCQ1ymjZp/21bHOnbPcWmYekG1ULrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785141041; c=relaxed/simple;
-	bh=qWnqu6VCUiwZWG189ixa/W9uGeC6PMG4tY9t7kvdnXI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=h8LKZ8EVsai8wMrYj/fT0xVSgPTrl6DOh04/nUgZtFoRkGUPmdEqBdwE+VdRVHNKYYPYr8u+qMLJeJGWgH7glJdNWS6Amw1ytL7A1XMPHxgDaVTsiau46edgGKidGiYhptvON8UGHYeJRIfP1yJhpgmVpJCTvFCOacKBXdHd9K4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bn7dLIip; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785142634; c=relaxed/simple;
+	bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=UnP4CVfLf5C8sWu3aXT2NO2MG4ZiUJTkPpJLl5VKj5ddtBzw5qEtHymZVuAhwJ/+iKCIJFA9CX3HIuV/sEMixfAgx+Ehz3eQF8ZKngCLgRlzF+eO4KI5gzZuxskjS10neTHcFu5ocApV0+n302t6hEERyi9Q1dmyFjwlA8KeH+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IDHIm5hI; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bn7dLIip"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785141039; x=1816677039;
-  h=from:to:cc:subject:in-reply-to:references:date:
-   message-id:mime-version;
-  bh=qWnqu6VCUiwZWG189ixa/W9uGeC6PMG4tY9t7kvdnXI=;
-  b=bn7dLIipZCNqvW289b61vT4b6u+LiCajh52WIL+tFfRrmJloKWtUXBG+
-   ZVDoonEWBjxGTWB+TpaP1dMgq905yih2+PZN8ueg2IgP/evaSIknEaQAL
-   sOKMLvBHqFYLDjGevHnwVch9P4Ys6B6dOm9LdKPySPt8mEYMMGnH2QoJC
-   aF5JBvyQDaYcJ0j4N4y7zOns8t8E4CNEzASqkc1P8xkX3THpp4bsMdc1r
-   4+3C/8LmINhYo2vRvUxZOSY6tooBcFJdahJfewgCAoBHpOnR3ol8IO/Kg
-   t6VRYs0MkffinszzXhu5i2/2b1QBE07PokaNo3Am7W/dJ1Y/8SCMhSsNn
-   Q==;
-X-CSE-ConnectionGUID: mgZgOQ5BQgGfhlx+0PVe4w==
-X-CSE-MsgGUID: I0V/57TmQ1qX9+TI9szaWA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11857"; a="85573917"
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="85573917"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 01:30:34 -0700
-X-CSE-ConnectionGUID: zuBRshsISau4U4oJl9pq1g==
-X-CSE-MsgGUID: S6JnVra9Qs26laDkF7yO1A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,188,1779174000"; 
-   d="scan'208";a="259417611"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO localhost) ([10.245.245.197])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Jul 2026 01:30:04 -0700
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Jakub Kicinski <kuba@kernel.org>, Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>,
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, Alexandre Belloni
- <alexandre.belloni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, Andrew
- Morton <akpm@linux-foundation.org>, Arkadiusz Kubalewski
- <arkadiusz.kubalewski@intel.com>, Borislav Petkov <bp@alien8.de>,
- Christian =?utf-8?Q?K=C3=B6nig?= <christian.koenig@amd.com>, Daniel Lezcano
- <daniel.lezcano@kernel.org>, David Airlie <airlied@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Dmitry Torokhov
- <dmitry.torokhov@gmail.com>, Eric Dumazet <edumazet@google.com>, Florian
- Westphal <fw@strlen.de>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, Herbert Xu
- <herbert@gondor.apana.org.au>, Ilpo =?utf-8?Q?J=C3=A4rvinen?=
- <ilpo.jarvinen@linux.intel.com>, "James E.J. Bottomley"
- <James.Bottomley@HansenPartnership.com>, Jaroslav Kysela <perex@perex.cz>,
- Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, "Joerg
- Roedel
- (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, Jonathan Cameron
- <jic23@kernel.org>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, Liam
- Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, Maarten
- Lankhorst <maarten.lankhorst@linux.intel.com>, Mark Brown
- <broonie@kernel.org>, "Martin K. Petersen" <martin.petersen@oracle.com>,
- Matthew Sakai <msakai@redhat.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, Michael
- Turquette <mturquette@baylibre.com>, Mike Rapoport <rppt@kernel.org>, Miri
- Korenblit <miriam.rachel.korenblit@intel.com>, Nicolas Palix
- <nicolas.palix@imag.fr>, Pablo Neira Ayuso <pablo@netfilter.org>, Paolo
- Abeni <pabeni@redhat.com>, Ping-Ke Shih <pkshih@realtek.com>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
- Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>, Simona
- Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>, Stephen Boyd
- <sboyd@kernel.org>, Steve French <sfrench@samba.org>, Takashi Iwai
- <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>, Thomas Zimmermann
- <tzimmermann@suse.de>, Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin
- <tursulin@ursulin.net>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod
- Koul <vkoul@kernel.org>, Will
- Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>,
- cocci@inria.fr, amd-gfx@lists.freedesktop.org, dmaengine@vger.kernel.org,
- dm-devel@lists.linux.dev, dri-devel@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, intel-wired-lan@lists.osuosl.org,
- iommu@lists.linux.dev, linux-cifs@vger.kernel.org,
- linux-clk@vger.kernel.org, linux-crypto@vger.kernel.org,
- linux-edac@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, linux-pm@vger.kernel.org, linux-rdma@vger.kernel.org,
- linux-rtc@vger.kernel.org, linux-s390@vger.kernel.org,
- linux-scsi@vger.kernel.org, linux-sound@vger.kernel.org,
- linux-usb@vger.kernel.org, linux-wireless@vger.kernel.org,
- lvs-devel@vger.kernel.org, netdev@vger.kernel.org,
- netfilter-devel@vger.kernel.org, nouveau@lists.freedesktop.org,
- platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 00/36] treewide: remove conditional returns with no effect
-In-Reply-To: <20260724144822.6af8213f@kernel.org>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
- <20260724144822.6af8213f@kernel.org>
-Date: Mon, 27 Jul 2026 11:30:01 +0300
-Message-ID: <0ee1ef4aa7daa908bf28397ccc639c89b6aabd9c@intel.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IDHIm5hI"
+Received: from [192.168.1.102] (mob-5-90-50-102.net.vodafone.it [5.90.50.102])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 66303492;
+	Mon, 27 Jul 2026 10:56:06 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785142567;
+	bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+	h=From:Subject:Date:To:Cc:From;
+	b=IDHIm5hICn26Lt9D4ALoN/MF1S7iPIavpI6fMZsKCjs78i75U5CqDELy1P7J7SnCV
+	 vEqCOHtwy6gGEXDKUaU9PjTN4X9/vjZujMzce0KZ90gAYjEYMlGlyFMjKXnPmDD8t3
+	 +XOPi2jjHH4+1mXKCoX9OIybEsbboesK2JjZVOG8=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v10 0/2] media: i2c: Add driver for Mira220
+Date: Mon, 27 Jul 2026 10:56:29 +0200
+Message-Id: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAD0dZ2oC/3XMTU7EMAyG4auMsibIcZo/VtwDsUhjl8liGpSgC
+ jTq3Uln00rQpT/5ee+icc3cxMvlLiovueUy90PB00Wka5w/WGbqg0BACw6VvOUaEUGCBgdROT2
+ 5JPr3Z+Upfz9Sb+/9vub2VerPo7yYbf3bWIwEabQeIZICa/g1E8dW5rHESs+p3MSWWuyR485t5
+ wiaNSYTLJ1xd8Jd50RmUsTBJxpOuD/yYed+48qHEEc7OAgnPBy523nonL0N7DghDPAPX9f1F9p
+ WKzeiAQAA
+X-Change-ID: 20260721-mira220-03070a173f7c
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8633;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=lDmA404RfjQb0/IZZjvmmVifbaHm++AfUG5oqP9jlR8=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqZx1l+cB9SQMiiFy2ahsOaxabIOgSWKOSBegdE
+ k+GIxwY7QqJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamcdZQAKCRByNAaPFqFW
+ PP2wD/9hnn+ooIrfJ9LCOkSngZebqEqUMmdqtUlkQBs16KGtbzufZTK7Dvsaz4oDuLex209xYxF
+ /8sC9V88nJrKS+8OyEv949cYfbvxzYgrZjFFbmBcPCV9v+gMqfqsxwwhx6OcvL0ZUMjVFMV9Ja4
+ wVDHCmIxQkctM0GxRsCO6FK81qKhllgwVG90hTm+k7OIwlerGfsLHhfA5oKVw3yFz8d4vLDYEcO
+ sCkDgRurMPSCT/S6d7iJNjBXol92ZHH4/MveIZQGkbAJVnaorkD9hEwurMg3Uu7dI3YrCKr1azp
+ T4bOhlI78nJUq635QpyCcWpUX88/V6wPb7wmua1MXGrdkMcKfnQ+dRcfSsD6KZWioMmpeHsQdkz
+ RS71BfsMW7oXl86mBzr+z8Ewr8UUEu8Tn5VXZVziX/tHpQodZq1advSE+yYM2M4Ae/3Ilemx/Lb
+ 4h9vvLcSyhaSako09PEm5zfEkNYDSi/+6fRl/HaRQjoloj9pgsDBTF0XAFnv4nt9Xmbra7nHqPV
+ BF7KqJEg9AJwk0Q76BERA9dcE6EPrYgDy4nKDhXxpiWXQ0jeCxJ95/Qsj3CB3Iqvfu7QXVvsjHr
+ N9LR8uCNVn55ST6VSM8ONrgdiTyBGowL2Qme0D04yDUg9CcZiJnRjBS+j2XsKp/c3lKfttfMfgy
+ kz+NbUO32/zT4AQ==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-On Fri, 24 Jul 2026, Jakub Kicinski <kuba@kernel.org> wrote:
-> On Fri, 24 Jul 2026 03:45:02 +0900 Sang-Heon Jeon wrote:
->> Patch 1 adds a Coccinelle script that matches the pattern, including
->> negation and constant-comparison variants. Where a local variable is
->> assigned right before the check, the assignment and the two returns
->> turn into a single return of the assigned expression.
->
-> Huh, I thought we already had such script. Various script children have
-> been sending such "cleanups" in the past.
+Resume the work done by Philippe on Mira 220, available at
+https://patchwork.linuxtv.org/project/linux-media/list/?series=18460
 
-We did, and it was removed, I believe in 1a617a8475e8 ("coccinelle:
-misc: remove "complex return code" warnings"), because people just don't
-want this constant churn.
+The detailed changelog is available on the single patches.
 
-It's perfectly fine to have the error case and happy day scenario
-separated.
+On the current set of supported features: mira220 doesn't support
+binning/skipping but only cropping the full sensor array. It also
+supports embedded data. It would be an ideal candidate for the new
+RAW sensor model.
 
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
-BR,
-Jani.
+These features will be implemented on top of the new RAW sensor model
+once available.
 
+Thanks
+   j
 
+Changes in v10:
+- Remove 'fmt' leftover in driver structure
+- Link to v9: https://lore.kernel.org/r/20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com
+
+Changes in v9:
+- Make 'link-frequencies' mandatory in bindings
+- Use v4l2_link_freq_to_bitmap()
+- Link to v8: https://lore.kernel.org/r/20260724-mira220-v8-0-d1899ab64709@ideasonboard.com
+
+Changes in v8:
+- Address Jai's review comments; changelog is per-patch
+- Link to v7: https://lore.kernel.org/r/20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com
+
+Changes in v7:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v6: https://lore.kernel.org/r/20260722-mira220-v6-0-203e32c596de@ideasonboard.com
+
+Changes in v6:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v5: https://lore.kernel.org/r/20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com
+
+Just a note on hblank: prompted by sashiko review I reworked the hblank
+calculation procedure to use the full line length (which will make it
+easier to use the new Raw Sensor Model) and I've scaled the line lenght
+according tot the number of data lanes, to match the row_length
+settings, and I tested frame rate for 1 and 2 data lane operations.
+
+I'll report the results here
+
+1 data lane: hblank = 4480
+
+    10fps -> vblank = 4915
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=4915
+    2633.788743 (10.00 fps) cam0-stream0 seq: 000210 bytesused: 1920000
+    2633.888732 (10.00 fps) cam0-stream0 seq: 000211 bytesused: 1920000
+    2633.988712 (10.00 fps) cam0-stream0 seq: 000212 bytesused: 1920000
+    2634.088696 (10.00 fps) cam0-stream0 seq: 000213 bytesused: 1920000
+
+    15fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    2690.081596 (15.00 fps) cam0-stream0 seq: 000833 bytesused: 1920000
+    2690.148251 (15.00 fps) cam0-stream0 seq: 000834 bytesused: 1920000
+
+    30fps -> blank = 705
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=705
+    2732.142696 (29.98 fps) cam0-stream0 seq: 001736 bytesused: 1920000
+    2732.176004 (30.02 fps) cam0-stream0 seq: 001737 bytesused: 1920000
+    2732.209315 (30.02 fps) cam0-stream0 seq: 001738 bytesused: 1920000
+
+    min_vblank = 14
+    2823.028261 (46.07 fps) cam0-stream0 seq: 005180 bytesused: 1920000
+    2823.051318 (43.37 fps) cam0-stream0 seq: 005181 bytesused: 1920000
+    2823.073032 (46.05 fps) cam0-stream0 seq: 005182 bytesused: 1920000
+    2823.096081 (43.39 fps) cam0-stream0 seq: 005183 bytesused: 1920000
+
+2 data lanes: hblank = 1440
+
+    10fps -> vblank = 11231
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=11231
+    163.127449 (10.00 fps) cam0-stream0 seq: 000106 bytesused: 1920000
+    163.227446 (10.00 fps) cam0-stream0 seq: 000107 bytesused: 1920000
+    163.327425 (10.00 fps) cam0-stream0 seq: 000108 bytesused: 1920000
+
+    15fps -> vblank = 7021
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=7021
+    206.325595 (15.00 fps) cam0-stream0 seq: 000551 bytesused: 1920000
+    206.392256 (15.00 fps) cam0-stream0 seq: 000552 bytesused: 1920000
+    206.458943 (15.00 fps) cam0-stream0 seq: 000553 bytesused: 192000
+
+    30fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    244.891759 (30.00 fps) cam0-stream0 seq: 001153 bytesused: 1920000
+    244.925094 (30.00 fps) cam0-stream0 seq: 001154 bytesused: 1920000
+    244.958439 (29.99 fps) cam0-stream0 seq: 001155 bytesused: 1920000
+    244.991746 (30.02 fps) cam0-stream0 seq: 001156 bytesused: 1920000
+
+    60fps -> vblank = 733
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=733
+    67.273857 (57.04 fps) cam0-stream0 seq: 007285 bytesused: 1920000
+    367.290091 (61.60 fps) cam0-stream0 seq: 007286 bytesused: 1920000
+    367.307637 (56.99 fps) cam0-stream0 seq: 007287 bytesused: 1920000
+    367.323866 (61.62 fps) cam0-stream0 seq: 007288 bytesused: 1920000
+
+    90 fps -> vblank = 22
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=22
+    326.909808 (83.83 fps) cam0-stream0 seq: 003739 bytesused: 1920000
+    326.920403 (94.38 fps) cam0-stream0 seq: 003740 bytesused: 1920000
+    326.931644 (88.96 fps) cam0-stream0 seq: 003741 bytesused: 1920000
+
+-------------------------------------------------------------------------------
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
+
+Compliance test for device /dev/v4l-subdev6:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev6 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 14 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev6: 46, Succeeded: 46, Failed: 0, Warnings: 0
+-------------------------------------------------------------------------------
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Philippe Baetens (2):
+      dt-bindings: media: i2c: Add mira220 image sensor
+      media: i2c: Add driver for AMS-OSRAM Mira220
+
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml |  102 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira220.c                        | 2077 ++++++++++++++++++++
+ 5 files changed, 2200 insertions(+)
+---
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+change-id: 20260721-mira220-03070a173f7c
+
+Best regards,
 -- 
-Jani Nikula, Intel
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
