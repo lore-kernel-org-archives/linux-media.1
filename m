@@ -1,321 +1,247 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013060.outbound.protection.outlook.com [40.107.162.60])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46F9F34750A;
-	Mon, 27 Jul 2026 15:18:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA21363C6F
+	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 15:19:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785165525; cv=fail; b=jaD1/RnIJ+1Vr5fmgQdpb5AqcIQ2qUpH6NGgQ0t2pDOPDipk46BDAPP83ezQnIerhJIBKtBRidI6U0lI3jRa5vIBwtHIwlXNyoTB9N+P9g+4wYHwLR1kOS1BTIJAuRc1dir9EeqSSoP45xgioUS1A9XDBe2N1lClfBfoBs+ZFuI=
+	t=1785165585; cv=pass; b=Wx2Y4+gl5li+6WpOqAKuZ2wSy3VDeQFX7IxAVJakRkTF2CSOTeUBFHDzyf1NAWgBaGfZjrnW3RQ6tXSPUvaSdeREMVsZh6IJ6hXcIzxHarFRxP8vkrYNXhAnlpUqgs9YCvzZb8+zBLdr+LInZ3SnfgWKPa0NwORSx68tSB+KbCE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785165525; c=relaxed/simple;
-	bh=YLFOR33WIzh/sTaX/jgdJexBo9g3h2G6zB5Ent+nsF0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uXXPOGZ32KRQBEIwSgCf3l1vWbpUl0VkXlRBimlb9MQklern3vlDEgObZYcHlmctlpuO9h/auHMgvFOENc5xQk12sdXcol3V3VCkFu2PQZs97oVDF1HTNVdLCYiAi6Im0IJ9y9yTEj+wf1/CtNZPc+AZnFmjo39qTj18RnKEHUs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=M1QH2q+S; arc=fail smtp.client-ip=40.107.162.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1785165585; c=relaxed/simple;
+	bh=LI85LD7A9COJsrqGkmpvSUzsAWPWwbS1AvF0DpY5KEk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bxNqAgIWkKXzKiWipV96DxzBbmYP2lKitS/gpw9Y044ihQmdiH9vYHCPbx1WoANe+0d6B1QTrD5yt6CB3d0UxHSHBJ8GQ/oTdk/yyetsD/TzFnGASN4SLKecZ2dsUIq0StTrTWfGIvIX5GR35ITjiFN63RLi21EQDVaNFwX75bM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuTjb5o+; arc=pass smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="M1QH2q+S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jpTofPwefvlhVpq+pZ8YzQO+D6vtkwYukBpu+OLN+C4dDw1pzNBA43itiN0TsndZVPVC6cB38K9MTJ2zqA+KIfff/wOVmkoSWGE9arEZZHU9b6lm7yAGb7skJDXdK9X3/btgT3YcxyKK95Qeh/JZA5vCBhtRPBg3dpKjD203AmkTelrF9iul02+COSd+toXkMiXE8kKD5wXHQrjw/FDXXSGojKIF+o5RyMjquRmD09qR59bH+S7r6Ie61Cse6CIfkGHV2QI6MXMNmd3StfYkk0P3niudrmHky6COcM/cG/I6aoj1O9FURQJdbsEZrID7144fxUencvJp8dZ5xuXXPg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=I9pt0b+TDbm7q//eLZdpRXXQp6kWgA1UWd1e5dvCL8M=;
- b=iP9ozPSG22j3gnQjmRLLMMcr9U5cn3CSbpG6CorqOoXCAqdmZyczS6jGohPqFphkY6Huw2z7bK1Qt5c2klmZw4LF5Ujn+vqFG8Y1O66Qj4Z6JhQYZDQD0CSVYk9mWwXKiRmpvsumLjSVoEphubGenLxfZrvxfPOArzbILtgHVQtmpHsjpYwGCElw/8Mou9Ip41dggtxhK+1N/OwyPvWiJZmkSpNiIZRf3yUVzElMUqlKhLcbQNMP3acD+UKdY80VHI4vH7AnQkhdKjydsPuUp6mmQQc46LrmDwTWC0Kxw+EJMoqEg1iyYeJ+rN5/r6FJEIBKyOtgiEaDtCLm0RDEgw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=I9pt0b+TDbm7q//eLZdpRXXQp6kWgA1UWd1e5dvCL8M=;
- b=M1QH2q+SPSm4Zvyc+QwWJRchbOHHdThEcQtJi5zTV64muTN3Qgx/rQ/VcTbNosWlHwfVTtlWTHp/Z5WGonELymXC6ncNWIEqYYbskQDrAA98+E9wwxhxxFGSccv5qlXulQMt44ruT/2sodWPgwItnKXsoUO2DXsDR0hPIEm8X5ciBZuA0zzTCa5Bih1t5diL6f2NvRkWH5hXpyT2ChrNi+pLaLzY7b60/W6pYPBSQg2gH6Pl4Ndpe2kNkO5ErSdkQTk9sWlqBQylQ5FY3Tt2gpcN3tUHEXhMG21gpTFbRJVc4V4a2zKvxx4/PF+Bc64XdNBxWMAdCX1jADF5lhHDdA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DUZPR04MB10016.eurprd04.prod.outlook.com (2603:10a6:10:4dd::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Mon, 27 Jul
- 2026 15:18:39 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0245.012; Mon, 27 Jul 2026
- 15:18:39 +0000
-Date: Mon, 27 Jul 2026 10:18:30 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-Cc: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org,
-	me@brighamcampbell.com, jkoolstra@xs4all.nl
-Subject: Re: [PATCH v3] media: hantro: release runtime resources when
- device_run fails
-Message-ID: <amd2xoJdT5VffcoO@SMW015318>
-References: <20260724131208.2315-1-tharitt97@gmail.com>
- <20260726024243.730-1-tharitt97@gmail.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260726024243.730-1-tharitt97@gmail.com>
-X-ClientProxiedBy: SA0PR11CA0146.namprd11.prod.outlook.com
- (2603:10b6:806:131::31) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuTjb5o+"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39c8e65e3f5so23130271fa.0
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 08:19:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785165582; cv=none;
+        d=google.com; s=arc-20260327;
+        b=DQAxTGfFtLWzFg1CnkrqNmHvwi4ObIXiU9c0IHrtxAYgriFJsLLXcktps2RruVTeFa
+         16xIFKKe/KHj88FVmNQV21hxMvG2RuDfMs8YecYnq4D5/Aj/gBM2g8eZqoW1BBZ+inDg
+         ZkrQH9wpivYTAoq+eYAcoZMaVOXwu5WBfg15Tn2XGFCowpIVhA2foriKeMU6z8D2qi+M
+         EzL6piKlO4BDVZH9os6DgCVaCSP5E74dzDFzdGY6hEQW/SC1yZiimIgTKndZO3tjzEXO
+         Eq2VQ/8VRcAYDVKmmNd3d2oUwesWEDpxzA+n7K34uNAl6ebPYxYteZjT0elGcY3HNFfZ
+         JfgA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
+        fh=+RhY4TDYeFaN8QrqHsu2z7tFgasqzOYN0pM9nbfzu6c=;
+        b=d7DQdizFXY7Z5TLJI50tRanr4a6EwjZeUJ0AcElDkOBX3iLD/05+r7GSCC5yx0Ir4x
+         GV9O68rHzYe6qVwhzaFhUiQmxXpVp0DSbnFb8hrwUXHYwZfHAPhJB6BYB+Ackkforwcz
+         sNUyTS1VElydBF3lhdPpo0kOSRabXrNgxEuKjSMF+EcrTZbpPE7wCO9CW6QCs6/ooMxB
+         HKmEidpcH0eHk8scbuT2bLmvE7WElEXoJlmN7qGeeAqdFx8iM3S4/cS4suSxMdUQmVcJ
+         8u7y55Zvf9Ba+EXwHvBbecDA+hz6z4di4+AuzoLrOG7Q6g/kdZtlsVSRweqB/f5jblrF
+         Cs8Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785165582; x=1785770382; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
+        b=YuTjb5o+uFg+vII3GQnNd3QS0l63cjuwhJTUt7dGipNgrfo+q4bzb/yC5zqdF589uh
+         oc9EA2aK4Pfby5xAmJD/n39+yFSv82SBTjwp9RSuhG2eerYfmhFNjBZGuwxkbjZ57XgG
+         5tbCki2O1tzIiU7I0sypd2R/4iGkMYZAAwRoASxbkzzt8AVbR/lhuQEHbO/eqZYfJk8N
+         WiczKkdgufRm+xQKpVSoLaMzU7stLQ2DSsCX/5q3GLuKubUEfqd3KjlLyBiVvruBagEr
+         H+eiy4iHVB1bLocM7LICEJvFIB8p4NB0ui5lRnE2XOtsZHrtbozT0onV5ewAG8/00Ajf
+         ubDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785165582; x=1785770382;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=MjqRBBcAoS4HsK51rTcy+DxJKBcKr3CODvGz8HMyOok=;
+        b=GaPTKya5MI29GK4auGLI4VHqNWEyQK4DqNeqchilcJw3GVr4+D+/4Y9ZdJI/CJpLog
+         g0xP6mvnpwkoPOQVmzZcGuamVt8TpacMtrYnaWspX26bZAsOI2C16b5d+ioTVPETPMbs
+         F6+pshESQ+5kRMPXWoyIL5ylwXb/kCidz76A4CaLtDGqKrsA0P3rhVew8vFd6Soepzz5
+         kqqsXjtEe8Wi0a+fY/Tc/FBgxZICV/KXwYjEXLjrD7mL6bDcJ4MH128fUY4heiaZdEB8
+         gzFQ7SGqu/uA0VLAH6Mz+k6NgdNgDxTMo9e1hgfUnS4udspPz/iWHCpPoUhJK6KtAoU1
+         /wsg==
+X-Gm-Message-State: AOJu0YxRc5iPgycnTJGhOsmH6i1nVvUTGLXE/vPA6RinLbsrCvi+5Sm5
+	rB5Y3oMRTGLyTq4RuK4x5IbGS3FnsjoLEICMYscLYuT5TLXfhHHGmI1pa3RSg7AImm875fdxoD9
+	HJ8ZSr1y6sJ5bXU86ymEbKRjvkerX57uEWg==
+X-Gm-Gg: AR+sD135YqdjtgCGITIQQpNKYmW0OmKh8TBUi+NKX3xL+3jDBfuuAx2zi/gYBCBxpHl
+	fYeL6CZGMeapG8iH3eWpKPUvcgHm/5PO/VAh1OPZnzoZ6eftmb8vTKarprXUiqrEk6COO10Lz7c
+	H1jzAML/3egJVTKndnSLiqQV9YmZ1f8d9ikpPZvyG8cV1+xN9x1TJvCkPhjD0qPswUEid6yrxJ9
+	Qls+IE3wrzryB0FPAM/5dUUN2VkiWTRJhlKG4T3rvwohG8geQ1SgYR2m3tGD1oO9UKifw4=
+X-Received: by 2002:a2e:bcc7:0:b0:39c:71f9:26c1 with SMTP id
+ 38308e7fff4ca-39f4ca93786mr20131fa.37.1785165581462; Mon, 27 Jul 2026
+ 08:19:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DUZPR04MB10016:EE_
-X-MS-Office365-Filtering-Correlation-Id: f8ebd7d5-8cf1-4467-fba7-08deebf255f3
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|1800799024|19092799006|7416014|376014|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	L+6sKWchwY/bVB5z/7K9Ze6zhjwxFutu5BoPrSDIW/9uEN7hDqHIwPUfEdRMqn1oL1b1xQLNQwn+g0C7TCKSp8udeqpjN7Ht8TRI0N/EdTJ/WaeCieV7KQlLK1Pwlq15tW5a9kl5m7H5ivFLKIYMSLXQ3RVfA8GaQgNw3pLlPpW/uLK5GFxJgy8i+2wV0yo+Bgb1UF18LTUtiEYUbBeyQIlKdMjLZYfPkIqEquWF2bIbZ1/IpE2nBAHJ5r5yi+gudcy/7+Zwheq3QIX23ITzPrr3GtZSdGb1biTKBYVfB6G5upuJUpGbHvfnhnOCymIFfk9yw/XYn6/Wf6aeLY5+LqY396jV/b7eIC3Hisp6V+U91jc9OZAqikCtGoB3cTY7h7lbXPtpSYf3Lu2fVayzt6xZhKuMmM26nc9NU1Dr86tvNWidZFRa8/hmpmpSJShRbGxha2Nocaz9322g0ss0BZ1GWPspfXYgo8Akv/roVgo6DeRyUR/0yo3lXZqM9Unx5NejjOn4cJWYm1EEJ3smoXgK8ShanykBdDGlYE8/exUuZ7cFMPTrvIiygW3uLBUGgt9ll2fl8lYwgARoYfS2tB1rcrrNrjxeyfPZoyl36x3fjGGOG5RQ6BK8c8q1XUWJOwbybL9NSej46bBqyr7Ve7HNWxt4Xust8x6k4vpYzsE=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(19092799006)(7416014)(376014)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G8111dwA09rq1RJ2BFf4Rp5Ka824jXKzj41NcT8U8SasHgUHlcLXBZ+cB8se?=
- =?us-ascii?Q?jzVJPGsFp07cF+OrZ62+vxwm0Gp2MS9UqWaQiCn50Drig9RJ5QrD7stiZ9B8?=
- =?us-ascii?Q?TVHOIhl+09ljVvpQejiMHkCqL4ksXaBk9pjAaaK5BWmylQuH2+5abRKbOmNa?=
- =?us-ascii?Q?ntdyXVjPVP2pn7KO9O2s+fiXRcBfV+h+0FLFrpMKVhQgT0wnRruH4HLzhD2Z?=
- =?us-ascii?Q?c/tuHsEgmhWa++gWb/3fNrQIdNib0c4XL+y3VDWcdztSy528730WJyGuxgJv?=
- =?us-ascii?Q?5NN5XeavA5zirawro7t+JIrUtJlLnTR3wrwbcz7I7M5TqjZCedU/SY36FxY5?=
- =?us-ascii?Q?x6tWWLHMc4OAzLM+1+K8eVFk32/r2xSSu1CFHZQZxjXzxEu36NvRiGG4smHx?=
- =?us-ascii?Q?FPaihEcMYkywrvA/1vhDnhgl6wfbwSaiyYaG7KJf7AVDCouWw+DOPK6Ux1X4?=
- =?us-ascii?Q?GRjSQ6Xqb/lCNOoBCyk2Oe6SnfYycflD6BMfGu1zsOodaV6H5pfAba0T1M2K?=
- =?us-ascii?Q?t2KxfghQyk0+9Jx6jrGCmx2RqNy0s7S0Wat0/H6LKJvWHRU/a8EniIwPm27m?=
- =?us-ascii?Q?TsQgW2vuNG34uvoTr2WQFD7GxnsmLOM6zZpW0rUoVGmHdgs5MIuxh5pU84vJ?=
- =?us-ascii?Q?zsIccvvg54PLZo33CAJNASBNYRvYe8B6XEyuHAeuG7MF4GkNsw/pfEqy75kT?=
- =?us-ascii?Q?SkjS2/hGwOO+1jlQJRTG+L9kPpQWG6uG/psJuz9ki+MAqWQo6GC7k9Rw0Mzv?=
- =?us-ascii?Q?U3szdH1PM0d4vCtnZ7dKLSTWcWcKsj64k1pu/UvXGz5/ErDV88EqC+Kj/fj1?=
- =?us-ascii?Q?4ynra+WAWe3M5+IfMULuHl8bJodJRJBuc+1YCDPhq3nkjh15boB/3brZrYaw?=
- =?us-ascii?Q?3E/gACEvIo8yCI9dOmeX1vDruQgiKtqKYnKcFzzUNvzagdt5gq5bS+GkXumj?=
- =?us-ascii?Q?N1DH+0IeSzi6RzPbdmrmw0FVXUszTDvfpfdobg032S+/fC7zzyaBd1LGfG41?=
- =?us-ascii?Q?myRbkmpqfb2mlHapjAOKyiYS2L++ZncJ0aDQus9Y2djMEKp/bZ3ISDL8wrpJ?=
- =?us-ascii?Q?pe3ZgvEpO1/OzekeBseBz0x9Swf/nCvhTGvYfnKq6oCNNwoGgtbUH1Ki9jqe?=
- =?us-ascii?Q?UF5Dft8hI1XdJNXqLpqD9QtK6vVTWGTE2hB3F4KdXg4ZEH8NqFzSYRhPFH8D?=
- =?us-ascii?Q?cnLp4UyYqgsyO3PqxDYWRKAVb0ch7V1Krg+g9uYV5+hXlMEGpNQU3IPB/2UB?=
- =?us-ascii?Q?NgAldq8mbfj1VFUgzL05X7Z9Ma1eRqwTKHVB8oNteNAph3pS7+bHou4PO7VO?=
- =?us-ascii?Q?Mjwjv4cw14gkMwVz/27+mPxvW+YzUQW+qmjUu+u/8ocYu/eVC34ej3SP7a/g?=
- =?us-ascii?Q?jtUDur0SdTpW5lQPoXiW5RJE71Pzdf+mIBzB0/9neRbnsI0IoEe0ABtAbL4Y?=
- =?us-ascii?Q?FZkuGGtbAq2eq5fTNO35fAM/WdJY7QKl4eed+kaFxKWD6e5xDZrvfy3N57ic?=
- =?us-ascii?Q?5RDzkvyrrXAxn+PGHCCK8lIvEKgAIo9+cgKFFKoAOU+f3EnYr5gS8VY1XAex?=
- =?us-ascii?Q?VlazJx99XGOF0bP73wcQJpYv1shqt18Hh8PJOZxZJVPWmzwTrqU5uBhVkIr3?=
- =?us-ascii?Q?kwsaht+MZpF1JfQt4QF1TrUdA98oJ4RokXWdq/4spjfOfK7bZ0TjkqVdSlne?=
- =?us-ascii?Q?97kLoFDmXO0qYkT+H/XwB8xCwgmC0aivD6nyPrQjYeCke55xh0M8+54eIkfs?=
- =?us-ascii?Q?L00kq5bh9hXMa8pRaIBaTzviU5ABhkXxa5PBSPJDnwK0MO6bFCW3?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f8ebd7d5-8cf1-4467-fba7-08deebf255f3
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Jul 2026 15:18:39.3113
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 99Eb4XlzFYn88bJgTRayPzW3qlmJhYtbWPoJ5dqqJcBbiNwFUdXjVY5gnewk2fH7xB+A744GtaCojqUG0KeLomgmhc0cIFXvWUP8Eb/qjn7qJdIcWVCAv+DtM0KXI3cU
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DUZPR04MB10016
+References: <CAB-99LvD2cCmPt91Kh-1Zj69=_xczV6oUA7soAfFXQBcZxA+pQ@mail.gmail.com>
+ <CAO3ALPx9FK=ayO8WWt7zguTfaA=e5q2wxUPc1ojpPFqFvstxBA@mail.gmail.com>
+ <CAB-99Lu1+OB0OyKQLh9Y89+BdLc23j6nJAn59VbS9qVwAb-4vw@mail.gmail.com>
+ <CAO3ALPxbYGG5fxO1Dd989bjg=a4xRLBSDwtDL41Bd9ym7pt6KQ@mail.gmail.com>
+ <CAB-99Lt=XkfAa6aOvug9101qWOaLsQN7a0ss7bZ1OmPvvTETsg@mail.gmail.com> <CAB-99LvB7kigD5Z2StaDmBLwQJPmKytihN9APUzyz7J=WRw67Q@mail.gmail.com>
+In-Reply-To: <CAB-99LvB7kigD5Z2StaDmBLwQJPmKytihN9APUzyz7J=WRw67Q@mail.gmail.com>
+From: Michael Goffioul <michael.goffioul@gmail.com>
+Date: Mon, 27 Jul 2026 11:19:30 -0400
+X-Gm-Features: AUfX_my866FYZolWY5YKcYONtPxV073yhZ1VAIaQxA4xppbEQpHD4iIrH8El9nU
+Message-ID: <CAB-99Lti_T60j08tRdd4o=ZGfJQORLk0GJUdd9pZsV9vLTLRAQ@mail.gmail.com>
+Subject: Re: Support for Mygica A681B (ATSC/QAM USB tuner)
+To: Forest Crossman <cyrozap@gmail.com>
+Cc: linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 26, 2026 at 02:42:43AM +0000, Tharit Tangkijwanichakul wrote:
-> [You don't often get email from tharitt97@gmail.com. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
+On Thu, Jun 25, 2026 at 5:39=E2=80=AFPM Michael Goffioul
+<michael.goffioul@gmail.com> wrote:
 >
-> device_run() acquires a runtime PM reference and enables the VPU clocks
-> before invoking the codec-specific run callback.
+> On Tue, Jun 23, 2026 at 10:30=E2=80=AFPM Michael Goffioul
+> <michael.goffioul@gmail.com> wrote:
+> >
+> > On Tue, Oct 14, 2025 at 1:42=E2=80=AFPM Forest Crossman <cyrozap@gmail.=
+com> wrote:
+> >>
+> >> On Tue, Oct 14, 2025 at 9:13=E2=80=AFAM Michael Goffioul
+> >> <michael.goffioul@gmail.com> wrote:
+> >> >
+> >> > On Fri, Oct 10, 2025 at 11:22=E2=80=AFAM Forest Crossman <cyrozap@gm=
+ail.com> wrote:
+> >> >>
+> >> >> On Sun, Jun 22, 2025 at 8:46=E2=80=AFPM Michael Goffioul
+> >> >> <michael.goffioul@gmail.com> wrote:
+> >> >> >
+> >> >> > Hi,
+> >> >> >
+> >> >> > I have a Mygica A681B USB tuner and I'm wondering whether there's=
+ any
+> >> >> > hope to have it supported by the Linux kernel. I've attached the =
+lsusb
+> >> >> > output for the device at the end of this email.
+> >> >> >
+> >> >> > So far, I've downloaded the Linux driver from Geniatech web site.=
+ This
+> >> >> > is made for Ubuntu 20 and kernel 5.4. From what I can tell from t=
+he
+> >> >> > driver sources, the device 1f4d:692f seems to use a mxl692 fronte=
+nd
+> >> >> > driver, but it uses a binary-only mxl692_fe.o module, without
+> >> >> > providing the source code for it. Kernel 6 includes its own mxl69=
+2
+> >> >> > driver, however it appears to use a different interface/API (and
+> >> >> > apparently also a firmware blob that does not look to be easy to
+> >> >> > find...).
+> >> >> >
+> >> >> > Any help or hint would be greatly appreciated.
+> >> >> >
+> >> >> > Michael.
+> >> >>
+> >> >> Hi, Michael,
+> >> >>
+> >> >> I've recently submitted some patches [1] to enable support for the
+> >> >> A681B and its more-compact USB-C sibling, the PT682C. The patches a=
+re
+> >> >> not yet ready for mainline (hence why I marked them "RFC"), but
+> >> >> they're good enough to get the hardware working and streaming TV fr=
+om
+> >> >> over the air. If you're willing to patch your kernel, the patches
+> >> >> should get you up and running while you wait for support in mainlin=
+e
+> >> >> or your distro's kernel.
+> >> >>
+> >> >> Also, while the cover letter for the patch series contains a link t=
+o a
+> >> >> script I wrote to download and extract the firmware image from the
+> >> >> Windows driver, I recently learned that the firmware can simply be
+> >> >> downloaded directly from here [2].
+> >> >>
+> >> >> I hope this helps!
+> >> >>
+> >> >> Forest
+> >> >>
+> >> >> [1]: https://lore.kernel.org/linux-media/20251001051534.925714-1-cy=
+rozap@gmail.com/T/
+> >> >> [2]: https://github.com/LibreELEC/dvb-firmware/blob/90261ae2934329f=
+6ca84dd6c72d10d0777bf4b0e/firmware/dvb-demod-mxl692.fw
+> >> >
+> >> >
+> >> > Hi Forest,
+> >> >
+> >> > Thanks for the info. I will give it a try when I get a chance.
+> >> >
+> >> > Do you know whether this would support Clear QAM too? While I had so=
+me
+> >> > success with ATSC with some reverse engineering, I was not able to g=
+et
+> >> > the device to work with QAM (with the device directly connected to a
+> >> > VeCOAX modulator).
+> >> >
+> >> > Thanks,
+> >> > Michael.
+> >> >
+> >>
+> >> Michael,
+> >>
+> >> No, I don't think QAM works yet. The message for the commit that added
+> >> the mxl692 driver to the kernel mentions that "Only ATSC is currently
+> >> advertised via DVB properties. QAM still has issues." And the patch
+> >> series cover letter[1] mentions "The ATSC portion works fully, the QAM
+> >> portion needs some TLC and is therefore not listed in the DVB
+> >> capabilities." Since no commits have been added since then to get QAM
+> >> demod working, I think it probably still doesn't work. Not that I've
+> >> tried, though--my first objective was to just get the driver for the
+> >> A681B and PT682C working, then maybe later if I could get a Clear QAM
+> >> source up and running (I have some SDRs that can do this, but I
+> >> haven't used them in years) I'd try getting QAM demod working.
+> >>
+> >> All the best,
+> >> Forest
+> >>
+> >> [1]: https://lore.kernel.org/all/20210126015416.5622-1-brad@nextdimens=
+ion.cc/
+> >
+> >
+> > Forrest,
+> >
+> > I finally found the time to try your driver and I was able to use the M=
+yGica A681B device on my desktop with ATSC. Additionally, using the attache=
+d patch, I was also able to use Clear QAM (both 64-QAM and 256-QAM, using a=
+ DekTec modulator as source). So, thanks for the driver.
+> >
+> > That being said, it didn't work well when using the device connected to=
+ an Android device (which is my target platform). Although the streaming wo=
+rked, there were regular streaming errors (video pixelation and buffering e=
+vents) making the device unsuitable for normal usage. A Hauppauge WindTV du=
+al-HD device, used in the exact same test conditions (just swapped with the=
+ MyGica one), worked flawlessly. I didn't observe the same issues  either, =
+when using the MyGica device on my normal desktop. I'm not sure whether it =
+might be due to the limited resources of the Android box, but if you have a=
+ny suggestions, please let me know.
+> >
+> > Michael.
 >
-> If clk_bulk_enable() fails, the runtime PM reference is left held. If
-> the codec-specific run callback fails, both the enabled clocks and the
-> runtime PM reference are left held.
->
-> Make the clocks part of the device's runtime PM state by enabling them
-> from the runtime-resume callback and disabling them from the
-> runtime-suspend callback.
->
-> Fixes: 775fec69008d ("media: add Rockchip VPU JPEG encoder driver")
-> Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-> ---
-> Changes in v3:
-> - Move clock enable and disable operations into the runtime PM
->   callbacks, as suggested by Frank Li.
-> - Remove vpu from argument in hantro_job_finish() and
->   hantro_job_finish_no_pm(). It is accessible by ctx.
->
-> Changes in v2:
-> - Fix the codec run failure path to disable the clocks before dropping
->   the runtime PM reference.
-> - Use a local vpu variable in device_run().
->
-> Tested on a ROCK 5B (RK3588) using the Hantro G1 decoder and Fluster:
->
->   H.264 (JVT-AVC_V1):          129/135, unchanged
->   MPEG-2 (MPEG2_VIDEO-MAIN):    23/43, unchanged
->   VP8 (VP8-TEST-VECTORS):       61/61, unchanged
->
->  .../media/platform/verisilicon/hantro_drv.c   | 68 +++++++++++--------
->  1 file changed, 39 insertions(+), 29 deletions(-)
->
-> diff --git a/drivers/media/platform/verisilicon/hantro_drv.c b/drivers/media/platform/verisilicon/hantro_drv.c
-> index 2e81877f640f..7978bb72569e 100644
-> --- a/drivers/media/platform/verisilicon/hantro_drv.c
-> +++ b/drivers/media/platform/verisilicon/hantro_drv.c
-> @@ -59,8 +59,7 @@ static const struct v4l2_event hantro_eos_event = {
->         .type = V4L2_EVENT_EOS
->  };
->
-> -static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
-> -                                   struct hantro_ctx *ctx,
-> +static void hantro_job_finish_no_pm(struct hantro_ctx *ctx,
->                                     enum vb2_buffer_state result)
->  {
->         struct vb2_v4l2_buffer *src, *dst;
-> @@ -86,15 +85,13 @@ static void hantro_job_finish_no_pm(struct hantro_dev *vpu,
->                                          result);
->  }
->
-> -static void hantro_job_finish(struct hantro_dev *vpu,
-> -                             struct hantro_ctx *ctx,
-> +static void hantro_job_finish(struct hantro_ctx *ctx,
->                               enum vb2_buffer_state result)
->  {
-> -       pm_runtime_put_autosuspend(vpu->dev);
-> -
-> -       clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +       struct hantro_dev *vpu = ctx->dev;
->
-> -       hantro_job_finish_no_pm(vpu, ctx, result);
-> +       pm_runtime_put_autosuspend(vpu->dev);
-> +       hantro_job_finish_no_pm(ctx, result);
->  }
->
->  void hantro_irq_done(struct hantro_dev *vpu,
-> @@ -111,7 +108,7 @@ void hantro_irq_done(struct hantro_dev *vpu,
->         if (cancel_delayed_work(&vpu->watchdog_work)) {
->                 if (result == VB2_BUF_STATE_DONE && ctx->codec_ops->done)
->                         ctx->codec_ops->done(ctx);
-> -               hantro_job_finish(vpu, ctx, result);
-> +               hantro_job_finish(ctx, result);
->         }
->  }
->
-> @@ -127,7 +124,7 @@ void hantro_watchdog(struct work_struct *work)
->                 vpu_err("frame processing timed out!\n");
->                 if (ctx->codec_ops->reset)
->                         ctx->codec_ops->reset(ctx);
-> -               hantro_job_finish(vpu, ctx, VB2_BUF_STATE_ERROR);
-> +               hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
->         }
->  }
->
-> @@ -170,29 +167,24 @@ void hantro_end_prepare_run(struct hantro_ctx *ctx)
->  static void device_run(void *priv)
->  {
->         struct hantro_ctx *ctx = priv;
-> +       struct hantro_dev *vpu = ctx->dev;
->         struct vb2_v4l2_buffer *src, *dst;
->         int ret;
->
->         src = hantro_get_src_buf(ctx);
->         dst = hantro_get_dst_buf(ctx);
->
-> -       ret = pm_runtime_resume_and_get(ctx->dev->dev);
-> -       if (ret < 0)
-> -               goto err_cancel_job;
-> -
-> -       ret = clk_bulk_enable(ctx->dev->variant->num_clocks, ctx->dev->clocks);
-> -       if (ret)
-> -               goto err_cancel_job;
-> +       ret = pm_runtime_resume_and_get(vpu->dev);
-> +       if (ret < 0) {
-> +               hantro_job_finish_no_pm(ctx, VB2_BUF_STATE_ERROR);
-> +               return;
-> +       }
->
->         v4l2_m2m_buf_copy_metadata(src, dst);
->
-> -       if (ctx->codec_ops->run(ctx))
-> -               goto err_cancel_job;
-> -
-> -       return;
-> -
-> -err_cancel_job:
-> -       hantro_job_finish_no_pm(ctx->dev, ctx, VB2_BUF_STATE_ERROR);
-> +       ret = ctx->codec_ops->run(ctx);
-> +       if (ret)
-> +               hantro_job_finish(ctx, VB2_BUF_STATE_ERROR);
->  }
->
->  static const struct v4l2_m2m_ops vpu_m2m_ops = {
-> @@ -1292,22 +1284,40 @@ static void hantro_remove(struct platform_device *pdev)
->         pm_runtime_disable(vpu->dev);
->  }
->
-> -#ifdef CONFIG_PM
->  static int hantro_runtime_resume(struct device *dev)
->  {
->         struct hantro_dev *vpu = dev_get_drvdata(dev);
-> +       int ret;
->
-> -       if (vpu->variant->runtime_resume)
-> -               return vpu->variant->runtime_resume(vpu);
-> +       ret = clk_bulk_enable(vpu->variant->num_clocks, vpu->clocks);
-> +       if (ret)
-> +               return ret;
-> +
-> +       if (vpu->variant->runtime_resume) {
-> +               ret = vpu->variant->runtime_resume(vpu);
-> +               if (ret)
-> +                       goto err_disable_clocks;
-> +       }
->
->         return 0;
-> +
-> +err_disable_clocks:
-> +       clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +       return ret;
-> +}
-> +
-> +static int hantro_runtime_suspend(struct device *dev)
-> +{
-> +       struct hantro_dev *vpu = dev_get_drvdata(dev);
-> +
-> +       clk_bulk_disable(vpu->variant->num_clocks, vpu->clocks);
-> +       return 0;
->  }
-> -#endif
->
->  static const struct dev_pm_ops hantro_pm_ops = {
->         SET_SYSTEM_SLEEP_PM_OPS(pm_runtime_force_suspend,
->                                 pm_runtime_force_resume)
-> -       SET_RUNTIME_PM_OPS(NULL, hantro_runtime_resume, NULL)
-> +       SET_RUNTIME_PM_OPS(hantro_runtime_suspend, hantro_runtime_resume, NULL)
+> It turned out the problem was due to a combination of factors:
+> - high rate of IRQs generated for USB/xhci (~ 1250 IRQ/s)
+> - Android handles most IRQ on the first core (there's no irqbalance in AO=
+SP)
+> - busy core due to video playback (among other tasks)
+> This introduced latency in IRQ handling and eventually packet loss.
+> The WinTV device was not affected, because the IRQ rate was 10x
+> smaller (~ 130 IRQ/s). So I changed the buffer size defined in dvbsky
+> driver for mxl692, from 4096 to 32768, and that solved the issue for
+> me.
 
-You need convert to model RUMTIME_PM_OPS and SYSTEM_SLEEP_PM_OPS
+I got my hands on another instance of MyGica A631B device. However
+that device has a different product ID: 0xa681, instead of expected
+0x692f. From what I could find on the web, that product ID is used for
+A681 device. I suspect this is some sort of rebranded A681. The driver
+stack that I've used with the first device does not work with this new
+one: it goes up to the fw upload, then the I2C status check performed
+by mxl692 driver times out and the device is non-functional. Anybody
+had any luck with the A681 device?
 
-pm_ptr(hantro_pm_ops) at below hantro_driver
-
-and remove CONFIG_PM first,
-
-then add move clock manage into runtime pm management
-
-If you remove "CONFIG_PM" here, cause build error at some special config.
-
-Or keep CONFIG_PM at this patch, then convert to RUMTIME_PM_OPS() in
-following patch.
-
-Frank
-
->  };
->
->  static struct platform_driver hantro_driver = {
-> --
-> 2.47.3
->
+Thanks,
+Michael.
