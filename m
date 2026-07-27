@@ -1,187 +1,100 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0AD83F9F55
-	for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 11:08:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785150531; cv=pass; b=mk6Rats8pqC6cNecXeQkH3HC3PnujKCaN14zFRwcD81ehllsG+08qaQL+5zTXqcWDkhUngDOXW9k1FLhHj8zijdebZX/OIzvlPbaeTNIrLFENExMI2UHl2qXt7kfPPreqGxj8ufEEw4Q928kI18vDkpc79Ph+F2aJkTZGvQ6EdM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785150531; c=relaxed/simple;
-	bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FborLY8Cw5H9vEg5FDxY0K5eWltd4Yq0nGCwmkPMv1jT4DnOBmLCNBo387tn/ozCwfUThrlLpKZbiOfUHLTIiyBPw6P8r/5RiRGVVPQv3Tk/0+gTVt5HVXxlQ+XBs176vTqZ9N+Inb4ZbjXYfm069xEQI+GHtVi2Shd5zzXsydw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M3mRoCn4; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA203F6600;
+	Mon, 27 Jul 2026 11:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785150620; cv=none; b=QIQ+QHwRTfA/hklLXRcFervIxuWnbnbaO3SIYU1NYiF/ahUQ8ssT7q+kLrLfgUKTJPJpEHKsO2IimX+ES1ZQfSyZ9QjG+/sd2D4519nbFQ2WtMWDmtBzeUJ3cGiLE8YuB+Zv640OU1cFgWa5SffFjNLjzVg92icZd7I6wGoOdho=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785150620; c=relaxed/simple;
+	bh=pj/kO5vSLCP64HfMG7K8Tgy4NwexuNapehAFw3xZ6o4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=luNsPHaHZHv0DZ7Aht6BvAR13j6b6HXkbBgmYFFWrbRn0kZj2GRgxp+pDcGaFlInyW5+y0zU5Mj/nBJltZk5R6qu1O8TGpKnItVdYzL0CZOe+aUnm2zHVX72Jpx4sXN6xnvzPl8yYh+FLlXlLQ6XQiEi3Ayfcl8B8i/eohzM0TE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Ps2ERVp/; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M3mRoCn4"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8114a4542b2so34405517b3.1
-        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 04:08:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785150525; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jozIaZOtgFuxX2qKietL+E369wweNfcSb0RuHmHDlY20R/bmZAVRd1XJI2AWfRaEa/
-         a+hJ228R+hFqyLHiP+FR7DVzJC0GRq3yaZbOqpznD2+fvFOyk5y6owk5Tx6vlQtmCPFV
-         mMYbwf1w1GGHSXuHEMIzi5jfZvwu2IJQt0bW/rSJRMuloqlLxDRx2QUglJ2Yrui2uLLD
-         PInpbHs2aIXBMw6xUH+bdywE6zmQqjZhzjuAOfJx+BVeAZqYTpt5LnaQFAe2AG8dST97
-         FGsxvu67QE9mi1K1DhUmQUA0+PHMSb3WT0zR42ZiMiIjf/aSKWdDKlmO/VtMg0Aw+Yt1
-         gTyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
-        fh=hJme0qKBlyxd8h+YSmFlwrVmby1UZV9n3Dbl41AisIQ=;
-        b=FBSYXtKcrdp4jhFJCG3eilMrcmlZ2NzcqkkZUxeUOgayngiNmgW/F9/dI7gQdn81/t
-         Wv1Ip6PRfwQ181l2a9rTwh3vjOcp5lFlLHJBtGusNIJaLvTfTvhxzUbVEZkI3g0SynEW
-         aILTTJyPIe5ATlFK8z6mxulk6J1Dpcv1jREcvbaaDe6CWnoSNc7LBpooI8cVAI8GkJSR
-         E4MJFrS9zMEVxTogBuYv807puhDm4MXyi4jMYr0tcpn1se5w0IKu7rBvIHnmgGkd58Za
-         G5rg9/bc/DZJ2gmmrTL2dnIU07XjGmLWSjZJ9ieeoBBRts1p6EtPValPjZEYJ9hWzltc
-         7z0A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785150525; x=1785755325; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
-        b=M3mRoCn4tl8RPjfQixKwIWWGSOwAsLGhmh+pOW5tV4opu6k/FIUqHgtBSUi/lYWXNo
-         K98eF+P/A41j+K8iwFXw6liU49SqTYrvvms0nmGWFjNMcapwdxy/m16HBI26xKOSiPvw
-         bHpYUNToOx9zQJmLUksPduoTCqqE2dSxgHeSldgGIbLqv2CWqoDhAou0N3efVhSwmwfM
-         VQbpCmhybFLItirVtnzw4TnneJchaVYJVzYdQrFlaDO4vxp9qnK66elczaAbAPUjs+C1
-         1bvSmITqLw2KhR3gNZaWHhZGr+7ZSQD962od3gweFtTkzKTtbvFjOOIGdEoRbtgOHS17
-         oVMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785150525; x=1785755325;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pV1TDUaa2YAV2kxJY3x35Y0FQXGiZRc6WWYevwzWDGg=;
-        b=HEjuHMbK98/EflSgDJcP0Y+FvVR1Kknz8kLINxAVL+tQ5CzZCJqpO96ismKLBh18F/
-         IJmKDVhjob5UAHkTqkgZt9OfJf3tgGTtnDWZHW8kseBwAEsX5s/UK+T6gnlDKgTHkdXA
-         PQH9vp0sCjFzHsB79jADM1M2i2QvpUDnJU+yZkmrTeMUJwigmWAaceVPgrihp/4dRaHI
-         Fs3RqVj4TNyr0nw5o1/JRmstAFAlj+eGSpTBfXoNyHfgcUUZ2xZoaVoKhZw+WffJV4eM
-         s8+7cCn5vp8lSIbrJfGD35nZcmSTkZ50+WTiAPWwUniFjlpt2USZbsZIuN7y9xoGl2Za
-         bv7A==
-X-Forwarded-Encrypted: i=1; AHgh+RpYUIv6nDwdXY+tirVA65CK+FDYWwvJSOo4NJL3WKhrDIxmpKBWx0uzkqTnNOPkVZb5XTezBasbxWvE1Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxixfi6QByJ+f89GZPmL/7V690C3Iwy2zOXnY1fDqyDlccq2F45
-	eRjpNp2te+W+DMRGkk+dwigHCtlkzPZqJt8k2MraIzLwyAqWnAOIfWU9T83UioeAYywRyNjJkTj
-	9Qa5MQfs39MvMI00axbHrh86xFQc6cMQ=
-X-Gm-Gg: AR+sD12ijItzQ25X7Wb+F3SUttAbD7m0fW4HkWR4sN/bPzTAb+RE5/s1ZP2uAFLHFHv
-	dNUifBUAFImK53ezZfrX6RitWec06yiEEjhog5u25L6zO+zgftOH7gPgyJuf3xGm5ZUj6q+WnTZ
-	3BVkY9k3052GNgm3p4cEYGYelB9BmKJYGiuq5zQzPm1mdc2DLH3RE8Bi5VR5jDn9lazn0yqTdGZ
-	hh8NCiseXymyzpyq1V7EhopAVcenrdzcjZnVObhJVgzydFhYJUyS/YdoZs=
-X-Received: by 2002:a05:690c:3747:b0:809:86c6:ee18 with SMTP id
- 00721157ae682-81f69e3978bmr27868337b3.37.1785150525277; Mon, 27 Jul 2026
- 04:08:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Ps2ERVp/"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 8FDB51A1288;
+	Mon, 27 Jul 2026 11:10:15 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 5B5A9601BE;
+	Mon, 27 Jul 2026 11:10:15 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 90FC711C13260;
+	Mon, 27 Jul 2026 13:10:08 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1785150610; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=pj/kO5vSLCP64HfMG7K8Tgy4NwexuNapehAFw3xZ6o4=;
+	b=Ps2ERVp/CGSsVQDpNh4IktVr6nJ/Har02F1fp56jWbu4VNb72JVEhcLKI5wWjbZNpSkUyL
+	Wqr2j77Uhuacp7GE6emIqowZBRUguLirP8vsR0XvzuFtShGSBgFjQHVUTY7fap/LOq6qZh
+	C+wPBMwzmmpK3gLKXERKLKsJqpsDuQtonJUvcmDeOpGo0CkXLlqI+D9h6VaqsPzkkrwjZY
+	uvkoOav4sMMAeWfBUwMpMK76jnNBVS5rWzQFrre1gS6/i5oqNKHiPuKxSnOD23DFBesptr
+	Ym3AQeuf7NFChQGUErdvO7I6zQCRi4VOr9IeoFBcwYhgqyaEKYhrlvMXXD/ryg==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
- <20260724144822.6af8213f@kernel.org> <0ee1ef4aa7daa908bf28397ccc639c89b6aabd9c@intel.com>
-In-Reply-To: <0ee1ef4aa7daa908bf28397ccc639c89b6aabd9c@intel.com>
-From: Sang-Heon Jeon <ekffu200098@gmail.com>
-Date: Mon, 27 Jul 2026 20:08:33 +0900
-X-Gm-Features: AUfX_mzhfgKW48GB4CRuyNKliFu1x1EH8aDGDqYePXeE0rGOBX3Wid5IOU1hKpc
-Message-ID: <CABFDxMFMOAZ_3kYxEGCutnGt1OSSmgvmwx-=M1RxGc3VGKORYQ@mail.gmail.com>
-Subject: Re: [PATCH 00/36] treewide: remove conditional returns with no effect
-To: Jani Nikula <jani.nikula@linux.intel.com>
-Cc: Jakub Kicinski <kuba@kernel.org>, Julia.Lawall@inria.fr, 
-	Alex Deucher <alexander.deucher@amd.com>, 
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
-	Andrew Morton <akpm@linux-foundation.org>, 
-	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, Borislav Petkov <bp@alien8.de>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, David Airlie <airlied@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans de Goede <hansg@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, Jaroslav Kysela <perex@perex.cz>, 
-	Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
-	Johan Hovold <johan@kernel.org>, Jonathan Cameron <jic23@kernel.org>, 
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Julian Anastasov <ja@ssi.bg>, 
-	Leon Romanovsky <leon@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Mark Brown <broonie@kernel.org>, 
-	"Martin K. Petersen" <martin.petersen@oracle.com>, Matthew Sakai <msakai@redhat.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Mike Rapoport <rppt@kernel.org>, 
-	Miri Korenblit <miriam.rachel.korenblit@intel.com>, Nicolas Palix <nicolas.palix@imag.fr>, 
-	Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, Shuah Khan <shuah@kernel.org>, 
-	Simona Vetter <simona@ffwll.ch>, Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
-	Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, Thomas Renninger <trenn@suse.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Tony Luck <tony.luck@intel.com>, 
-	Tvrtko Ursulin <tursulin@ursulin.net>, Vadim Fedorenko <vadim.fedorenko@linux.dev>, 
-	Vinod Koul <vkoul@kernel.org>, Will Deacon <will@kernel.org>, 
-	Yazen Ghannam <Yazen.Ghannam@amd.com>, cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
-	intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
-	linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
-	linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
-	linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
-	linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
-	netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
-	nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 27 Jul 2026 13:10:07 +0200
+Message-Id: <DK9B2RGTKZE4.BHXZNRMJ4PWK@bootlin.com>
+Subject: Re: [PATCH] staging: media: tegra-video: vi: fix probe failure on
+ skipped last port
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, "Hans Verkuil"
+ <hverkuil@kernel.org>, "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+ <linux-media@vger.kernel.org>, <linux-tegra@vger.kernel.org>,
+ <linux-staging@lists.linux.dev>, <linux-kernel@vger.kernel.org>
+To: "Hao-Qun Huang" <alvinhuang0603@gmail.com>, "Sowjanya Komatineni"
+ <skomatineni@nvidia.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Thierry Reding" <thierry.reding@kernel.org>, "Jonathan Hunter"
+ <jonathanh@nvidia.com>
+From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+X-Mailer: aerc 0.21.0
+References: <20260707152425.571254-1-alvinhuang0603@gmail.com>
+In-Reply-To: <20260707152425.571254-1-alvinhuang0603@gmail.com>
+X-Last-TLS-Session-Version: TLSv1.3
 
 Hello,
 
-On Mon, Jul 27, 2026 at 5:30=E2=80=AFPM Jani Nikula <jani.nikula@linux.inte=
-l.com> wrote:
+On Tue Jul 7, 2026 at 5:24 PM CEST, Hao-Qun Huang wrote:
+> tegra_vi_channels_alloc() iterates over port nodes and skips those
+> whose reg property cannot be read or whose remote endpoint fails
+> v4l2_fwnode_endpoint_parse(), leaving the negative result of the
+> failed call in ret. If that happens on the last port node, the loop
+> ends with ret still negative and tegra_vi_init() fails the whole VI
+> probe.
 >
-> On Fri, 24 Jul 2026, Jakub Kicinski <kuba@kernel.org> wrote:
-> > On Fri, 24 Jul 2026 03:45:02 +0900 Sang-Heon Jeon wrote:
-> >> Patch 1 adds a Coccinelle script that matches the pattern, including
-> >> negation and constant-comparison variants. Where a local variable is
-> >> assigned right before the check, the assignment and the two returns
-> >> turn into a single return of the assigned expression.
-> >
-> > Huh, I thought we already had such script. Various script children have
-> > been sending such "cleanups" in the past.
+> The same defective port earlier in the ports node is skipped silently,
+> so probing succeeds or fails depending on the order of the port nodes.
+> The CSI equivalent, tegra_csi_channels_alloc(), returns 0
+> unconditionally after its loop and does not have this problem.
 >
-> We did, and it was removed, I believe in 1a617a8475e8 ("coccinelle:
-> misc: remove "complex return code" warnings"), because people just don't
-> want this constant churn.
+> Use a separate variable for the per-port checks so that only fatal
+> errors end up in ret.
 >
-> It's perfectly fine to have the error case and happy day scenario
-> separated.
+> Fixes: 1ebaeb09830f ("media: tegra-video: Add support for external sensor=
+ capture")
+> Fixes: 2ac4035a78c9 ("media: tegra-video: Add support for x8 captures wit=
+h gang ports")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
 
-Thanks for sharing the history.
+Do you have a real use case where ths failure happens?
 
-I checked the mailing list. The removed script looks similar to the
-new one, but it is different. The removed script reported a
-conditional return followed by an explicit return 0, where the error
-case and happy day scenario are separated as you mentioned, and Johan
-also complained about this 10 years ago.
+Also, mixing two different return values may solve a bug but makes for more
+intricated. I'd rather second a fix based on moving the whole foreach loop
+body into a subfunction, and make the foreach loop body as simple as
+calling the subfunction and handling returned errors. This would fix the
+code making it more readbale.
 
-But the new script only reports when both branches return the same
-variable, not the explicit 0. So, I think the new script is close to
-the restricted version that Julia mentioned 10 years ago, and it
-should be acceptable.
+Luca
 
->
-> BR,
-> Jani.
->
->
-> --
-> Jani Nikula, Intel
-
-Best Regards,
-Sang-Heon Jeon
+--
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
