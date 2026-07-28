@@ -1,63 +1,64 @@
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com [209.85.219.50])
+Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FBEF3D45E7
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 19:08:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398F847127D
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 19:08:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785265699; cv=none; b=WIUWb9mLlZM2SEjKYqN9UBUsBVqHXCkb8GEbcHTyp7M38eA98ZRI+UDKlFGi2UsyXiwK4IgDKUHg98QosToaqCu7c+MMB8uBflFvgJ7zoFX/1Aa1pHPB3Pmjvf4Dr8LMsjYn61fHEn0MXMHMs3+ubCNxGRPnrWYE2rLDrYGzu2Q=
+	t=1785265702; cv=none; b=tA4B3rVAUyQ4Mj2L1jWtmqaISsnytvwHb3i20Ro21h03Wslcve+e6/vk77j1RMQADLfMN4CLsKon0i7B6fN7oYuktT1RRlSJFTN4a8aJbWPhv6EChHlgQ7ixkEPBkX/plsbOLViZxm2hnJQacxrue8QWuZcFvOZo5hNhDLmKVP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785265699; c=relaxed/simple;
-	bh=C0aNUaRR1UlcZgfZTjoxt18esB+0rm7CJBlEEQYVGvo=;
+	s=arc-20240116; t=1785265702; c=relaxed/simple;
+	bh=smzarBw8hIXsOkcyD63/FxPZ8x4SkIwRndC9J2JSFsg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FWWywcp9R3KMUWVDtOgCLWMIyH0jE3ucBNygIk+R/HprsDzgyfB4TRkTtYvEGfZSiklhg8HOT4cGSO/5AI8Zvt5NUwnCMjnKiXkHpbA6nA1mFTCJ9kszBfLWF1fAQAsm4aMC0Ub8dA/KtPtFKbYzYqt4k7Sv3KlUnID+ZdQ5rtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwPIzy9h; arc=none smtp.client-ip=209.85.219.50
+	 MIME-Version; b=rQ8xuN8gizt5ckLHyZAzWSPcH/MyUxVulsKQrEkTweaccwOMJpjP4Fl2/taYVfmjjbkVtIigZbW30qnPMgaLMRUQpWmHoSpuDgP0eASecWO7S8GdqPKPksZQcY196rCc67K+M5e8P+NC3peuyWLzNC8i8qRbaI4eZoaBgiCD1lU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NdndjI9/; arc=none smtp.client-ip=209.85.219.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwPIzy9h"
-Received: by mail-qv1-f50.google.com with SMTP id 6a1803df08f44-9063b380982so1583846d6.0
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 12:08:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NdndjI9/"
+Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8f1a8e914a9so1408556d6.1
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 12:08:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785265696; x=1785870496; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785265700; x=1785870500; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xVZ6pIwSayMA0MEYw9sT7Q03EoLYjNgoRfp9OrMyddY=;
-        b=rwPIzy9hRg5BttFXRT1HdjeFuBGZ02CWNHQcYb1P+1QJpcyF5zPoJD6GO59ydzw1vs
-         aHqpnd7Gz/zo5XscDsgweEY6M3NOpJXkTGjrY3GqGqEyJKz+B+s8M2gDWpZXsLO6ZVnt
-         pdFHwK5tElnaCRQ7agQr9H//Jnvl9uvxKozf1xxGWY2UQvQfef+vXw6tBBLNUQJZGOYD
-         YACnYUgilFAWc2h7u52z9obDzPk9tk3hDOKLQsWDA92emTQfk0ivq7gwbXIKUKAJqVZw
-         WTAzNlryYhFYELxntxZNiRj2f1WykUE2SFgetnq3Yx/7G1/4I9fkKTLhFCfWS9BcIK+g
-         ibKA==
+        bh=RDLZZq1JNAih3SrfuWlz8fYPYEmLTTGnMNftSwGkOyk=;
+        b=NdndjI9/sF4KueZhuSoMbPVcA9n6pTn3cRgG96Mha+08BX/XZxYmUVFt09MPZlAI2f
+         UjNySYXdwtZKRjMGodSgt4nyXTgJIjAVPkoFs2z4F1s+iqNFZynHcEHCpRB09mvW8qdS
+         0Y4Wyeu4vS5ZZxS0pElWf+7Y/WliIkjKT2m+H81eTH3uRJKPI21a/W23s4ZS313cvj6k
+         fZUPQhlKM/fSCEUb/qg+M+fxANuU6j/kM1g0NUk/qUAKP4W6kIor5SKe9k3Kb1XEyimS
+         W2FTqyPAeOGuE3js5qjRNNQZS78McMchkdbIWKo7e8rPLzj/YXNGz7RXDTI2xaPqrJS8
+         Lvwg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785265696; x=1785870496;
+        d=1e100.net; s=20251104; t=1785265700; x=1785870500;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xVZ6pIwSayMA0MEYw9sT7Q03EoLYjNgoRfp9OrMyddY=;
-        b=jHgDcugy2Fm393S2ztXU5ZhmtFeaIqCIjlwgKF8U7blnPhnZTB3IlsGXzSygIV/Kzr
-         8wf8QsU0jhciKkMzLYdXTOjDSbambXX60mY2CS5jpdsXLG2YxwSAIswO8xFHSA3RNkJC
-         irXhZ/niYfdZ0XaU2BNwAHldkq4yOEq1OLeNG/BGTy7JFg53ZC70/+Pcslaivp6OX7vO
-         KkOUkvMQ3sBapou08NpZZN6oqvZDMtN/PIxK6Tfq2sMofPvAxocfIQ9IZJ30IA6TFVLS
-         ALP0tGkNXtYqTbpEvCaqCQs3fhMg17EkEyoVAjTOBw0b4XEBN9TDe0GvMyB2rZZ0kAMC
-         PikA==
-X-Forwarded-Encrypted: i=1; AHgh+RoQNGCRv1fq7dsg1d8L3fy6Fl8fVBi1Xa5pL7Le1XYdLjN12aXw06Rj15aM4suzhv7w/nTUgbgIN1pAZg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMC/e2AaRE8KXE3MxzJ6Wr0FK5coft0mNSKU/Gxxju3+wol4Kz
-	YQygmx/2O1tZAqIZ1ynXiUG5mkwA8vXIjXEB0A/XrBxXWADgxsQ2xyQS
-X-Gm-Gg: AR+sD11f7PFWFeJmLXUgrke+V3Mm7mmKRFkyQRrjZKKoH7m5/xMxQcH92Ba2iPrzD75
-	Hwnam/BiBugZqaZ/rID87RjfnEMyBaGtnbmuibE6NfykpmQJFS+17j8fvcemet9B4wu4h8UD0hI
-	HBByylPa4otmxr4U5c5wDqVGKjZ1//Jx5rn+J7H44SCSTpL5D/hdoRrYqpc55jChGT8I9mslnXS
-	qirIP463BOvU9FjM6DAgABNsyfaEl/iH98b+I77IHxEDazKuEW5iDxDAmGsYwGh2csneLBw4WyY
-	//MmcqSfPasW+aAEKaSoAwHl8LIQIvk3rUkzK9DECyGH3y0tK4qrUDk9iGBSL3QnzhPeghwp7XC
-	KKAC0wyse/cCzgGyOKGEsL8zUzGCkq7qkfGZU1qUJrs3G1jxg9wlFOyK94Y38XW6PCj6bH6uVVk
-	863y63ttByqJVkXl9AfddHCp2vr9MAWnSFk3FBkW0Jp0Os0knhq7bLc9v4QuvhBMeJFa4=
-X-Received: by 2002:a05:6214:54c3:b0:907:88cb:2ac7 with SMTP id 6a1803df08f44-90816fd59b3mr46466606d6.24.1785265696133;
-        Tue, 28 Jul 2026 12:08:16 -0700 (PDT)
+        bh=RDLZZq1JNAih3SrfuWlz8fYPYEmLTTGnMNftSwGkOyk=;
+        b=aGCrXsW13RpIZyuyvgkOxjrZTttDaMQxenLEGFGKH9fRTRtfBrk8k2sC57jKtXsMWG
+         wcmIM9pjZxSKsON+HMTvVqS9f/tu0ELQcPLD1Jwucn++AERZnbrEGXwkEdT6hrYdBMnA
+         3uLfXbxQUUmD7ocN+ja0x122WhIYMCMdBY2JdQvVFV6MdXaTrZYKM9jPEkYL9wf0ue0o
+         zN5iv616Rqjnc2PXPy1e8U8Xk8SNz/4jT1Sb0ph8q9wUaVJ6tl5f3pauJcAORUI05Mot
+         CByoQtqhaXtcHwcI3myBOt6UlIQov0LbwqRoDIC9YFGrKWDbSAwmvbIiLQOPatyJ/ml3
+         /t3g==
+X-Forwarded-Encrypted: i=1; AHgh+RqP7Fkep8g5alnqZzImaDIIVXY1sJzH/W7/hhCRO37ZPDYCDMAvhWFZLPARPWlappiMXbtCUE/a2ZlaOg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywgu6zabSa8bXbOKB/MWWvDhs/fnJLQAz1esT8YUHM7cDyGt/0b
+	N5jwY20dkNm25q4BzMDXM2DudGgpABNZg2GqmkRpyD9NX8IlIhGtIHjA
+X-Gm-Gg: AR+sD10aFPnKoy4ZE5bYx5MB8DzZ1N83wNc0zLLuXc8tWgPEJluGpCUMQTitTTH0D/5
+	4bw+sBN/7HgBF1JUGFgyeBS32G/3gJVoHOh6HtqCXguhGYrdnGUioX9Mv3Db/2q9VNg5l0BumcS
+	HIA3t57mSki235YNqDsvjWB/a7egBMNNdPSST4Oe4PFH74ObxiYYWKbbKnBWupg7F8nJkpCUkAK
+	y/KijsG0n5S4XDSNRc35eyNPHXW5+qUl8U5SJf6YFQJn6/0VEIzcgwcxwdq6bXa+gI/mQkIa0r7
+	JjiHvlu6pPhrCwSiB3NQUWONfmjzJvZETl7Z1kJ6sjNLTWo5/QgXsMwuGyfVrZFQB3JFMdL+HH6
+	qoDu+KEH/A5HoDpoYS+W9INx0+9JPmoRjp46zw4nme/5KOOIePJLwSK1XiFX9320AoL4MGxYNhM
+	U0oMnFmNJ6YkKr2HN1gycREVRHLF5jycp/ZlQYo+t5vj2mVOocjJjIISgYs6dHHR7QdlgG7v6xN
+	TFwnTkMWwNmMqeC4SQPV6LUVGw6RWbCYD0nBxJqKQs=
+X-Received: by 2002:ad4:5c47:0:b0:8ef:1fc9:9361 with SMTP id 6a1803df08f44-908173eff7fmr42591076d6.48.1785265699853;
+        Tue, 28 Jul 2026 12:08:19 -0700 (PDT)
 Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dd68434sm5556936d6.38.2026.07.28.12.08.15
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9081dd68434sm5556936d6.38.2026.07.28.12.08.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 12:08:15 -0700 (PDT)
+        Tue, 28 Jul 2026 12:08:19 -0700 (PDT)
 From: Yifei Gao <gyf161023@gmail.com>
 To: Bin Du <bin.du@amd.com>,
 	Nirujogi Pratap <pratap.nirujogi@amd.com>,
@@ -67,12 +68,13 @@ Cc: Sultan Alsawaf <sultan@kerneltoast.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Yifei Gao <gyf161023@gmail.com>
-Subject: [PATCH v4 0/2] media: amd: isp4: fix error handling in isp4sd_pwron_and_init()
-Date: Tue, 28 Jul 2026 19:07:38 +0000
-Message-ID: <20260728190754.363464-1-gyf161023@gmail.com>
+Subject: [PATCH v4 1/2] media: amd: isp4: release partial allocations in isp4if_alloc_fw_gpumem()
+Date: Tue, 28 Jul 2026 19:07:39 +0000
+Message-ID: <20260728190754.363464-2-gyf161023@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260728141659.62310-1-gyf161023@gmail.com>
+In-Reply-To: <20260728190754.363464-1-gyf161023@gmail.com>
 References: <20260728141659.62310-1-gyf161023@gmail.com>
+ <20260728190754.363464-1-gyf161023@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -81,40 +83,33 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes the error handling in isp4sd_pwron_and_init().
+isp4if_alloc_fw_gpumem() allocates several GPU memory pools in sequence.
+If one of them fails, it jumps to error_no_memory and returns -ENOMEM
+without releasing the pools that were already allocated, leaking them.
 
-Patch 1 makes isp4if_alloc_fw_gpumem() release partial allocations on
-failure, an independent leak that was previously masked by the deadlock
-fixed in patch 2.
+Release the already-allocated pools before returning. isp4if_gpu_mem_free()
+is a no-op on pools that were not allocated, so calling
+isp4if_dealloc_fw_gpumem() here safely frees exactly the pools that
+succeeded.
 
-Patch 2 reworks the power-on error path into staged cleanup, fixing the
-self-deadlock and, once it is gone, the runtime-PM imbalance and
-unpowered MMIO access. The staged path relies on isp4if_start() cleaning
-up fully on failure, which patch 1 completes, so patch 1 comes first.
+Fixes: 4c5feef6a62c ("media: platform: amd: Add isp4 fw and hw interface")
+Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+---
+ drivers/media/platform/amd/isp4/isp4_interface.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Changes since v3:
-- Trimmed the commit message of patch 2 per Sakari's review; no
-  functional change.
-
-Changes since v2:
-- Added patch 1 to release partial allocations in
-  isp4if_alloc_fw_gpumem(), as pointed out by Bin Du.
-- Patch 2 is otherwise unchanged from v2.
-
-v3: https://lore.kernel.org/linux-media/20260728141659.62310-1-gyf161023@gmail.com/
-v2: https://lore.kernel.org/linux-media/20260727183500.298036-1-gyf161023@gmail.com/
-v1: https://lore.kernel.org/linux-media/20260725203640.915626-1-gyf161023@gmail.com/
-
-Yifei Gao (2):
-  media: amd: isp4: release partial allocations in
-    isp4if_alloc_fw_gpumem()
-  media: amd: isp4: fix self-deadlock in isp4sd_pwron_and_init() error
-    path
-
- .../media/platform/amd/isp4/isp4_interface.c  |  1 +
- drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
- 2 files changed, 23 insertions(+), 6 deletions(-)
-
+diff --git a/drivers/media/platform/amd/isp4/isp4_interface.c b/drivers/media/platform/amd/isp4/isp4_interface.c
+index 8d73f66bb42c..8e3616cce479 100644
+--- a/drivers/media/platform/amd/isp4/isp4_interface.c
++++ b/drivers/media/platform/amd/isp4/isp4_interface.c
+@@ -201,6 +201,7 @@ static int isp4if_alloc_fw_gpumem(struct isp4_interface *ispif)
+ 
+ error_no_memory:
+ 	dev_err(dev, "failed to allocate gpu memory\n");
++	isp4if_dealloc_fw_gpumem(ispif);
+ 	return -ENOMEM;
+ }
+ 
 -- 
 2.43.0
 
