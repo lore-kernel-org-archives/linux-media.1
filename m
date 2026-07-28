@@ -1,91 +1,231 @@
-Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73E7A3FCB10;
-	Tue, 28 Jul 2026 21:21:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A0047254B
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 21:29:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785273682; cv=none; b=tbkbKTu2Er5QBowJRqQKjd4o0ogMRUX5xYJOIqIxlgk6xBOqYbM+zdPaLNMvCaqKLuBrwuV+Nkw6m/1TwxclbiqK5yfSUh5rweIRkThOtGGqqi20E5+zPjwC4VIBjF5lFW056ufq+v5OIEWuSsPHSF3YTOVPSwzeGzIT7BD4RPk=
+	t=1785274186; cv=none; b=Zt2qbmYDZ9mHXO7yqA3rA6waih6+/QyvMb6RXG4ldw2S3oVD+GFpGvnaegdTuPPXpv1iOcUhNcOHbZRXqsPlLR4z/XdDZhulz1no5t55Ia29zKvCXGjRx8LHTUnaAT6dYZNU4Ls1iCNrA9TvvfsjPavf+SHy9k5pg7DtjtHJv8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785273682; c=relaxed/simple;
-	bh=Srrl7wk8ZS7C7yj5dgZkLHAtIulRQn1GxUyv1FqS938=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=UM1M7YWIuY3v/W2KDTpJnHT9RxutKglkV10E9KV5vHxXqHkPGFDU3PbKqP26yKl2v8uY1TezuYHeccCFCTkU04EBAXPalZwrbhpMdGTeBEUeFh1mrVs7ZIrgiZYYH1W+HGEVQUmx+zen1yhNsy9A3btVKGvKfl1dZKfCKNqas74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=NN02Vwij; arc=none smtp.client-ip=45.79.88.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
+	s=arc-20240116; t=1785274186; c=relaxed/simple;
+	bh=CET6fIyhDXB4SsmbGeWcS1QmjhZ3rtH8D7IEFfWbgAo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bpAGRXFslWX572LhFRpxi7N6P+gvUwroQoN6PcDVXKgkTXPnfvRxErAeHvJWv2nK2e3eUT5c6APkQqVZmyM44s+P9FIPLZELHidHFXxi0RdpmFbsutV0TtvtxFEHO08tP3zQJtmg3cO0miSFZiLIzHBllXVCwLzZwfSe4d+H93U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qMBb5V31; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="NN02Vwij"
-DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 6916240430
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
-	t=1785273679; bh=N+tREFikhTzGP5Sp5+shjkryH62wM0kw8ouIHCWG3Xs=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
-	b=NN02VwijLLCY4EH1MPABKgZg2ecJKfh9FpPSb9G7NGbFlbZ0gMfAbOXt9a2YPDOhW
-	 gwE8072rJF+WNQgqNvymGNbDf1jGU78zA1sGrSmRY9e8gYuHKhwPq6uYfgH2K3kTwl
-	 hp/aOIsPtrZ0yE+bLJ8pHqnQQ57Av5p7dPY0xL3AGWlILevJvM3lZM7Vv7994dnHKs
-	 h5v2dwCX1jud78b5BFx70umM0ZDuKe3mZR+xf+Bz3GriRZd0xttmw5k9ISSvSVpFqP
-	 n/RwAcfcPJ5qceCMYnAXHSN5Brb8zb+YCDf1LOYnw6v30zZeyu2innoPYYEBn8yyNK
-	 co8rchO5OJRhg==
-Received: from localhost (unknown [IPv6:2601:280:4600:27b::1fe])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by ms.lwn.net (Postfix) with ESMTPSA id 6916240430;
-	Tue, 28 Jul 2026 21:21:19 +0000 (UTC)
-From: Jonathan Corbet <corbet@lwn.net>
-To: Rito Rhymes <rito@ritovision.com>, Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Daniel Lundberg Pedersen <dlp@qtec.com>, Randy Dunlap
- <rdunlap@infradead.org>, linux-doc@vger.kernel.org,
- linux-media@vger.kernel.org
-Subject: Re: [PATCH 0/2] docs: make tables responsive with content-aware
- column widths
-In-Reply-To: <DK78KJA4LEAN.2H4O5BZN6H8LK@ritovision.com>
-References: <20260724214249.23830-1-rito@ritovision.com>
- <87ik646lfc.fsf@trenco.lwn.net>
- <DK78KJA4LEAN.2H4O5BZN6H8LK@ritovision.com>
-Date: Tue, 28 Jul 2026 15:21:18 -0600
-Message-ID: <87wluedd4h.fsf@trenco.lwn.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qMBb5V31"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-47f9ab7ee38so232572f8f.2
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 14:29:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785274182; x=1785878982; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=d4R1Ta7J5o9QlsZRJQtTe6q81OAsfZ4+yoYoEv/KCR0=;
+        b=qMBb5V31No+VVrXWa6/YoPtOEUqEb6mfu9gzVFH13R3w0NCz8Y6PV6QmkOHJpe764g
+         hchhqSRfvkhbk6pSPUGlPVC2LpIBO2VaYlUfDK+QHU96iu885tGO23s+xWZWXpXoMELp
+         wA+nM+vA6YDwOdxh2pgGCPvddaefN4hvdE84xjkFMYflf9trOkUHNAGJmOkT5SgGrbgZ
+         ZydIo4Y9S4IDMViyOb3prFzKvdrs/VCaulxX2xR1Qjiof8ugJKZN6v+qO//m0tp/ioGZ
+         uREA0LWPvM5bEWSrnxyxCcdspwrsTymQan+BEw8oLtiDd3RGI8+UiXnjRB/0KCI/+iJN
+         N1nQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785274182; x=1785878982;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=d4R1Ta7J5o9QlsZRJQtTe6q81OAsfZ4+yoYoEv/KCR0=;
+        b=qxoeRaXqPwLyWuAbopibRqfiTmVvmjB/Pvgd8RRTN19tjMVrv8S9PmNfiiPopOIBjo
+         ZJx6Fubrbvvqsaie7HPCLsPfGCMR2vFZb8rw/BdwHik+w9sisrRz8x+4etZkj1RGDOhk
+         XsxrWR232HgX6+FOmzByNZ+wjk2Zg/eE7zuaTga2TNSwOFCJ9TmD3bmbYf7aYg8Roz9v
+         M9OXyRlcX/qOLo42OF+c1H68WyQQqZfKSDwNCrZWsRgrPSq4uaJbur8Si7jsN/rbNbj4
+         3g3IsyC3ZPo2qlDn4pT6el/+4zT6wozIZ9Vp7sifFukdzynGAVkXPkA+j/e61Jenwtyd
+         zW0A==
+X-Forwarded-Encrypted: i=1; AHgh+Rr+0ansTWsmnxqmoTlcCOxRFFz6Q5yrI+Kw7f/sf3RscbK4mr2W4Qi4ra2ZDhRhdjsDjPA89Ji1SrO+VQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyucDa4zQZQIx0fxFWJ0xgkbv7bCgFL3K1V1oAWm6XNhgENlPJY
+	oZC+lN9UkzsM/Wwnl1f1yPzSCzwbCOyLATnh2Gasp4Xv87nRZY0Ji4Uj7LQ1iXLfBSs=
+X-Gm-Gg: AR+sD11uVvNrC3uQzetmu1KjaAYR109e3dd5sa6phGhDrSvQ3tVeKhHaRb3/JdQW0N0
+	KhJ4DFg4nrm+yoqvwjbx+Gnx1yYnIgTt1/FihFfDhLsLALLFKZhClkr/hOV6ht660pA7j8rIyJz
+	8aDSFkuVEUmbsjUhgEhcQkmPOWTZDBAX2esCztr8SF+7LkUVOmIZ4S4Vz4gOGB0P29xJ+tjKtI9
+	1UZGfEzOwS1cbDOFx6Q0ao8Tyu5EmlH8s4JVMeZ9Xys24OXd8YyWMsH9vbPqVNlPtYbfW1grBI2
+	zHqa+SL0xAljTi8QSPIOlLjRfaQtJ8k3ccPkZP6Kthg2z1vWeZEURb/02tHroWiG2rWYosAKAY8
+	iyNvSvRBwJOn0tG+G9MFwEh469rigwvdygmidjhHOeLjEGr5xhks4XKDiumEq3U6OuMJmVjrIyg
+	JcA7+DrNxErkF86xUFzFWW/1SNMGqdzLTS6IW+QxCsQxj16WtV8XBQiZYwyqq2qVYFeEbjBJKhV
+	Wu9SlJZGT+EltORIgU=
+X-Received: by 2002:a5d:64e9:0:b0:47f:93be:dabd with SMTP id ffacd0b85a97d-47fb1f1013bmr4399028f8f.28.1785274181752;
+        Tue, 28 Jul 2026 14:29:41 -0700 (PDT)
+Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6ac44bcsm2245329f8f.11.2026.07.28.14.29.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 14:29:40 -0700 (PDT)
+From: Pavel Begunkov <asml.silence@gmail.com>
+To: Jens Axboe <axboe@kernel.dk>,
+	Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org,
+	linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Cc: asml.silence@gmail.com,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Tushar Gohad <tushar.gohad@intel.com>,
+	William Power <william.power@intel.com>,
+	Phil Cayton <phil.cayton@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	David Sterba <dsterba@suse.com>,
+	Ilya Dryomov <idryomov@gmail.com>,
+	dm-devel@lists.linux.dev,
+	nvdimm@lists.linux.dev,
+	linux-btrfs@vger.kernel.org,
+	ceph-devel@vger.kernel.org
+Subject: [PATCH v4 00/14] Add dmabuf read/write via io_uring
+Date: Tue, 28 Jul 2026 22:29:12 +0100
+Message-ID: <cover.1785274111.git.asml.silence@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-"Rito Rhymes" <rito@ritovision.com> writes:
+The patch set allows to register a dmabuf to an io_uring instance for
+a specified file and use it with io_uring read / write requests. The
+infrastructure is not tied to io_uring and there could be more users
+in the future. A similar idea was attempted some years ago by Keith [1],
+from where I borrowed a good number of changes, and later was brough up
+by Tushar and Vishal.
 
->> So I will look at this in more detail in the coming days.
->
-> Thank you, I look forward to the review.
->
->> this is the injection of a bunch of complexity to solve a problem that
->> nobody has complained about.
->
-> I don't believe that aligns with the reality, Jon.
+It's an opt-in feature for files, and they need to implement a new
+file operation to use it. Only NVMe block devices are supported in this
+series. The user API is built on top of io_uring's "registered buffers",
+where a dmabuf is registered in a special way, but after it can be used
+as any other "registered buffer" with IORING_OP_{READ,WRITE}_FIXED
+requests. It's created via a new file operation and the resulted map is
+then passed through the I/O stack in a new iterator type. There is some
+additional infrastructure to glue it together, count requests, manage
+lifetime and implement invalidation.
 
-So I have spent a while looking at this change and playing with it.  It
-hasn't really changed my feeling about the whole thing.
+Tushar, William, Phil as well as Kanchan, Anuj and Nitesh did a lot of
+testing and experimentation with different devices. Some earlier
+benchmarks by Anuj for IOMMU optimisations with udmabuf showed: 
 
-You speak repeatedly about rendering on browser windows of widths less
-than 500px.  Who uses such a window?  The last Nexus 1 holdout I knew
-gave up years ago.  I would want some sort of indication that this is an
-actual use case - one with unusually silent users it seems - before
-trying to address it.
+STRICT: before = 570 KIOPS, after = 5.01 MIOPS
+LAZY: before = 1.93 MIOPS, after = 5.01 MIOPS
+PASSTHROUGH: before = 5.01 MIOPS, after = 5.01 MIOPS
 
-I really don't like the 40-classes hack.  CSS makes us do some painful
-things sometimes, but still ... again, I would have to see that there is
-a real use case before even considering it.
+# Patch set structure:
+- Patches 1-2 introduce internal API and infrastructure mediating
+  io_uring and target subsystem / devices
+- Patches 3-7: block layer support + prep patches
+- Patches 8-9 implement NVMe support
+- Patches 10-14 add io_uring support and uapi. Patch 14 specifically
+  enables dma-buf support, the rest are preparation patches.
 
-Just setting max-width doesn't do what you want?
+There are some liburing tests that can serve as an example:
+git: https://github.com/isilence/liburing.git rw-dmabuf-tests-v4
+url: https://github.com/isilence/liburing/tree/rw-dmabuf-tests-v4
 
-I will listen to what others have to say and, if there is a clamor for
-the inclusion of this work, I'll consider it further.  But, as it
-stands, my impression still is that it adds a lot of machine-generated
-complexity that humans will have to maintain going forward for a problem
-that nobody has complained about.
+[1] https://lore.kernel.org/io-uring/20220805162444.3985535-1-kbusch@fb.com/
 
-Thanks,
+v4: - Add sgl support from Anuj
+    - Move it under drivers/dma-buf/ and rename
+    - Fix mis-sized allocations
+    - Fix io_uring re-import mishandling
+    - Drop map before io_uring "task work"
+    - Move blk-mq callback to block_device_operations
+    - Convert bio flag to REQ_OP*
+    - Other small changes
 
-jon
+v3: https://lore.kernel.org/io-uring/cover.1777475843.git.asml.silence@gmail.com/
+    - Rework io_uring registration
+    - Move token/map infrastructure code out of blk-mq
+    - Simplify callbacks: remove a separate blk-mq table, which was
+      mostly just forwarding calls (to nvme).
+    - Don't skip dma sync depending on request direction
+    - Fix a couple of hangs
+    - Rename s/dma/dmabuf/
+    - Other small changes
+
+v2: - Don't pass raw dma addresses, wrap it into a driver specific object
+    - Split into two objects: token and map
+    - Implement move_notify
+
+Anuj Gupta (1):
+  nvme-pci: add SGL support for the dmabuf path
+
+Pavel Begunkov (13):
+  dma-buf: introduce initial file I/O infrastructure
+  iov_iter: add iterator type for dmabuf maps
+  block: rename bi_bvec_done
+  block: always adjust bi_offset on bio_advance_iter
+  block: move bvec init into __bio_clone
+  block: introduce dma map backed bio type
+  block: forward init_dma_buf_io_ctx to drivers
+  nvme-pci: implement dma_token backed requests
+  io_uring/rsrc: introduce buf registration structure
+  io_uring/rsrc: extend buffer update
+  io_uring/rsrc: add uncloneable regbuf flag
+  io_uring/rsrc: add regbuf import flags
+  io_uring/rsrc: add dmabuf backed registered buffers
+
+ Documentation/block/biovecs.rst |   8 +-
+ block/bio.c                     |  30 ++-
+ block/blk-merge.c               |  23 +-
+ block/blk-mq-dma.c              |   2 +-
+ block/blk.h                     |   2 +-
+ block/fops.c                    |  16 ++
+ drivers/block/loop.c            |   2 +-
+ drivers/block/zloop.c           |   2 +-
+ drivers/dma-buf/Makefile        |   2 +-
+ drivers/dma-buf/dma-buf-io.c    | 275 ++++++++++++++++++++
+ drivers/md/dm-io-rewind.c       |  16 +-
+ drivers/md/dm-pcache/segment.c  |   4 +-
+ drivers/nvdimm/btt.c            |   2 +-
+ drivers/nvme/host/core.c        |  12 +
+ drivers/nvme/host/nvme.h        |   2 +
+ drivers/nvme/host/pci.c         | 448 +++++++++++++++++++++++++++++++-
+ drivers/nvme/host/tcp.c         |   2 +-
+ fs/btrfs/misc.h                 |   2 +-
+ include/linux/bio.h             |  22 +-
+ include/linux/blk-mq.h          |   7 +
+ include/linux/blk_types.h       |  14 +-
+ include/linux/blkdev.h          |   2 +
+ include/linux/bvec.h            |  17 +-
+ include/linux/dma-buf-io.h      |  91 +++++++
+ include/linux/fs.h              |   2 +
+ include/linux/io_uring_types.h  |   5 +
+ include/linux/uio.h             |  11 +
+ include/uapi/linux/io_uring.h   |  31 ++-
+ io_uring/io_uring.c             |   3 +-
+ io_uring/net.c                  |   4 +-
+ io_uring/rsrc.c                 | 281 +++++++++++++++++---
+ io_uring/rsrc.h                 |  45 +++-
+ io_uring/rw.c                   |   6 +-
+ lib/iov_iter.c                  |  31 ++-
+ net/ceph/messenger.c            |   4 +-
+ 35 files changed, 1315 insertions(+), 111 deletions(-)
+ create mode 100644 drivers/dma-buf/dma-buf-io.c
+ create mode 100644 include/linux/dma-buf-io.h
+
+-- 
+2.54.0
+
