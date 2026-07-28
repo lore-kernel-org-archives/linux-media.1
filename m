@@ -1,82 +1,77 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9B63E9C23;
-	Tue, 28 Jul 2026 08:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7D838424F;
+	Tue, 28 Jul 2026 08:16:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785226426; cv=none; b=uYMFrnS46EU6GeiBxlVDhRvB7Gq5gRVU7+I6GokFUuTPUBWQQz0mR4zN/bAuygWEkrCC8zdvuVGdezJvFmCqk/6PHyQdyshS1OcEzG9Y4Xo4x45WHfxVyAKiSzLQ/3EoFUT1l3Uym6s3chJuu6o4zH3drWTziF1+gf0Zc03594E=
+	t=1785226624; cv=none; b=W7ZOuxipTLBOQ7NWRFn/dOhRn8Ieip99s7cnr7VFrNe9Nnk5kHkmKNb5iOIYCy18Q1hBmn5X6GLUwX1HE4KbNxox9K5uASAino7yZbYBdgu9tdEA+/LLf3PJ8OKjQL8DuCTqB2mejHGYjfsc+QV2lBuRsURgYmlJHTNfK11UyKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785226426; c=relaxed/simple;
-	bh=0JaeJ93QmvKw2USL3k8yw+2joearmSdhFpa7weiYBik=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=u9ZzXqB2ZACOcuHKXJl8f6tgK88nvN3eJnaf86mhbqoKM76S8lvsm+cLo3yeeOYn1P8ZlXpgqxbF4Sf8L3mKX20Wg4gXMeV86FzixPBlgf4EMKizzhwkU4WtpFUHyQ9yMYsW+vXFaSBfZ7qAjZ6jZdHFBlkqZdF9TraBYNEZlW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=gHdAqtbQ; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="gHdAqtbQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1785226422; bh=0JaeJ93QmvKw2USL3k8yw+2joearmSdhFpa7weiYBik=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=gHdAqtbQsWOuu6gwq3Xb6fFoWeIhEanbvUQ3YsUrbISmYJcxi/2X4CuIROaABAlaN
-	 E/MSMkSy5bCB202DoT+0ykDqjtpFE52JObgQTVOEPS6nIdyIBFAANo6Kecp2HkfC0l
-	 5/+W2eIi1flxFOSYBUACcXLMV0q9e3Ix5rp/Anv/fmHXEOwlwWKmLx8TReYVVNPcUL
-	 Eu6jnURcMgTjFNdUGE9DKGTp68LcBKOiCsURCMrlEJDuN1kGlYnFuXKbD0WyBhrRbK
-	 UARr0pUgjUIgMhvOrNB8OfSUKh05Z5BaW9OOue8IP+ceU9Bir/8XJr9JUcvu8uxR3k
-	 ApO6Gg5cud33A==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id 62A2941567; Tue, 28 Jul 2026 09:13:42 +0100 (BST)
-Date: Tue, 28 Jul 2026 09:13:42 +0100
-From: Sean Young <sean@mess.org>
-To: Markus Elfring <Markus.Elfring@web.de>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 05/15] media: redrat3: Error path leaves device in
- transmitting state
-Message-ID: <amhktjcUpSxHZNi4@extorris.mess.org>
-References: <cover.1785158244.git.sean@mess.org>
- <d22b8dac679cc4b4713dd03875576d71305e3912.1785158244.git.sean@mess.org>
- <d59b23fd-0d97-471b-8af4-0379349829ce@web.de>
+	s=arc-20240116; t=1785226624; c=relaxed/simple;
+	bh=pHBsYNB8LFIRezZ1mJUqtqV3XDk17fZLjIPznkP0y7U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ph+W/qJwVsOYLRYnXFOPUTeR0WBCQq9uHwcnIcQ42Ors84BcOppf0feJLjp77jmxfNV6WfohP4CPcJEjtFIcN36HdbPUcwYUsY4h18rE1OmNAhlUDSs0p2Nzwwgln+73pBIRoVJ5KjEdZD4QDJdHGi1Z+BNH9eEwAzzIK75Q3uY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b11acf628a5c11f1aa26b74ffac11d73-20260728
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:5f005551-4425-45be-81e2-f7b98823b1d1,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:e7bac3a,CLOUDID:362ad27872e78062474beee364f3b22e,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|83|102|136|865|898,TC:nil,Content:
+	0|15|51,EDM:-3,IP:nil,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL
+	:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_ULS,TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b11acf628a5c11f1aa26b74ffac11d73-20260728
+X-User: yuebingkun@kylinos.cn
+Received: from [127.0.1.1] [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <yuebingkun@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 2019822044; Tue, 28 Jul 2026 16:16:53 +0800
+From: =?utf-8?b?5bKz56eJ5Z2k?= <yuebingkun@kylinos.cn>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: mchehab@kernel.org, jacopo.mondi@ideasonboard.com,
+ laurent.pinchart@ideasonboard.com, hverkuil+cisco@kernel.org,
+ rdunlap@infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-doc@vger.kernel.org, yuebingkun@kylinos.cn
+Subject: Re: [PATCH] Documentation: fix a few typo and wording issues
+Date: Tue, 28 Jul 2026 16:16:51 +0800
+Message-ID: <1785226611234.97420@kylinos.cn>
+In-Reply-To: <amhgfZ3lLS6NCv2t@kekkonen.localdomain>
+References: <20260728030748.45399-1-yuebingkun@kylinos.cn>
+ <amhgfZ3lLS6NCv2t@kekkonen.localdomain>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <d59b23fd-0d97-471b-8af4-0379349829ce@web.de>
 
-On Mon, Jul 27, 2026 at 05:57:23PM +0200, Markus Elfring wrote:
-> > If the allocation fails, transmitting is left as true and the transmitter
-> > cannot be used any more.
-> 
-> See also once more:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.2-rc5#n94
+Hi Sakari,
 
-I've tried to re-write the message in imperative mood, but doesn't look
-any better. It can be improved though, how about:
+Thanks for the feedback. I've already sent a v2 that splits the patch
+(per your and Randy's feedback) -- the change merged via the media tree
+is now its own patch:
 
-In the allocation failure error path, the transmitting boolean is not
-cleared and the transmitter cannot be used until the device is unplugged
-or the module reloaded.
+  [PATCH v2 3/3] Documentation: fix "thare are" typo in V4L subdev routing doc
+  https://lore.kernel.org/all/20260728041213.52820-4-yuebingkun@kylinos.cn/
 
-Is that better?
+The two Documentation/ABI/ files are split into separate patches in v2:
 
-(I don't think we need a v5 just for a change of the commit message before
-commit.)
+  [PATCH v2 1/3] Documentation: fix "should be use" grammar in ABI README
+  [PATCH v2 2/3] Documentation: fix "readng" typo in EDAC memory-repair ABI d=
+oc
 
-> …
-> > ---
-> >  drivers/media/rc/redrat3.c | 6 +++---…
-> 
-> Some contributors would appreciate patch version descriptions.
-> https://lore.kernel.org/all/?q=%22This+looks+like+a+new+version+of+a+previously+submitted+patch%22
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.2-rc5#n310
+Full v2 series:
+  https://lore.kernel.org/all/20260728041213.52820-1-yuebingkun@kylinos.cn/
 
-This patch has not changed since earlier versions.
+Thanks,
+=E5=B2=B3=E7=A7=89=E5=9D=A4
 
-
-Sean
