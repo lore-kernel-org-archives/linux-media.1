@@ -1,257 +1,234 @@
-Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010022.outbound.protection.outlook.com [52.101.193.22])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B3673ACF17;
-	Tue, 28 Jul 2026 10:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785233843; cv=fail; b=aBjhqTXB0H3CpB7kQJJd6kEKMSg5v3AmCfPEW/8xqyXcUx11rxY7EyN3GI+n5z/OivBEUzq3sxRhgXdUhGcyQrelIkOhvU26VH8rhm2/8325bWNr27bxhEhHlInejNbNHA8rC/17MRsRWRJrYq+QyGn6B0JylWdfiNQZRJyKRqo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785233843; c=relaxed/simple;
-	bh=i5RVWAeARkvamWWZ6JC3vH6fTIX9P1RBMX/MlDWma6Y=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=EWNvj+snowsQlR9iha7XABxBWn8wT5GPrgc7OMYRv8L57pph2at4qbvh7OLIIJaJcFplEFPjCQ1q/WsZ1v2Qy+6eS2srsEsapRx+gs3nzTQHdnR/QveazUVrpj4SpdCBXUGd0bU6BwByQS8Jg6s111d2ITbB2ceZQH6FamE4gmM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=BiReZliz; arc=fail smtp.client-ip=52.101.193.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7023AEF4F
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785235624; cv=none; b=K0GAcJqMFZI6VAJjze24V0XmiHFN5UB9AUHe+nD+wg3x/zBVeLn4OSe5NfyHxIKZpejW8NPPJ63MUXIx92wjR6GJwPLT8sMALS0f0cK5v7LEaW37GvVpcvYq0ZcfTigF+GajMgYb5lke8SmlobtPvpjGFCCPaL6sU9PpHMYtjjA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785235624; c=relaxed/simple;
+	bh=bVFAWs8vvyltGPx1Xeyjge00ezM28ti5OIAUO0++yds=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aIduTp5NvSnBvbApEl4hp1gIRXxbx4gdWGSvKxgDDMgMzR4YSTJxqmceQgLOFTNx6h1E24GPX48F+rJQye19zLtFwr2tWfvRLQgJhf9jCQp8dWB/UqYevfejCAQT/Gs9yXDExgHuehDDPjTGFXW2KK+LBFMclPWB4CAtlCmyXLg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQD/heiF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NJqlfSgR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="BiReZliz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vOm81IFqyFzlXmshxtXtnjZ8flZJ2+obUcv0rBCMLiN/Ikl9RXWCDLlDJVsCgi8mRrCTsXX23+mp5cgp4vaXE2nNH5EJzDiEjN7I5ctchv/bmMpUYdhWAxeNhHjZcbIUHcWyweEb2JvcY0hlnMXDmcqAphtlG87A1bJxvt+l4MpSgg2BU0PcjqFgea5PbYWLls0W9/+hOeeYn7mjw0xcczzoNVG2MFWCGWtl5A5UXAU7qdyZTphWwNCEoTOJFzrX7e0ZpADefD03R5Oe/EDWDy0mbWx9aFT84N8gT+9MZj7/+4KzYhiQol4j+jHHllBpzYCJhPJIy74NUu8b5NKtjA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=U1kezuyv6CxxrbVtvEJ7NTZqMMlifVZwBoLf9O8xgIc=;
- b=SwT9XJ9IOxxOqbKN8jrEzQRimOntwwxZgwg2xL+h0PAw0gIih+g9w91SneSLgwCxHqgVNVpCjtnwM0mTwSEhbSJaM3UfT3ReW44saPU0wI57hRkAsi25JRBEbBvwdCc3o2QCiboqAM8dNk/eOkNgZUv/hyzDzT7gj5MHD5zNiFFTwnNump1kg7Y55JfxX/GcIEaHwKLVR4UH7FQFH+6YWpFuJigB2xOHiW46LOOh9FCFAl0MBspXmIWz1NHvVwE6h6f9ZRRBoX+7OtCsQRzUPWzRe+eIQpgdJ+QHJOVFpwjHXEdr8ymgF6Ct1Q5kNvK5P36d4rFfYUVDhyCynbuFlQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=U1kezuyv6CxxrbVtvEJ7NTZqMMlifVZwBoLf9O8xgIc=;
- b=BiReZliz6HP5s7CtMdrjnkor3TB2K+GLVJvGFf7Nrq3X2iVHmtCY75TOt19FlcW9SfrueaOmywjNDHnUHQWBg3RyomINKUM7MvO2GAnfIFJu8HggwNjCK1P0MdVRDS93Sjd1ztXeYpwIyrU4lVANx/a+mCB6QtvJet1Q3jLdJUo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
- by CH3PR12MB8754.namprd12.prod.outlook.com (2603:10b6:610:170::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
- 2026 10:17:19 +0000
-Received: from DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
- ([fe80::2ef2:e88:4708:b589%6]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
- 10:17:19 +0000
-Message-ID: <33e2af62-7585-44d8-9eb7-b7326d1d3987@amd.com>
-Date: Tue, 28 Jul 2026 18:17:12 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: amd: isp4: fix self-deadlock in
- isp4sd_pwron_and_init() error path
-To: Yifei Gao <gyf161023@gmail.com>, Nirujogi Pratap
- <pratap.nirujogi@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Sultan Alsawaf <sultan@kerneltoast.com>, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- "Chan, Benjamin (Koon Pan)" <Benjamin.Chan@amd.com>,
- "Li, King" <King.Li@amd.com>
-References: <20260725203640.915626-1-gyf161023@gmail.com>
- <20260727183500.298036-1-gyf161023@gmail.com>
-Content-Language: en-US
-From: Bin Du <Bin.Du@amd.com>
-In-Reply-To: <20260727183500.298036-1-gyf161023@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SI3PR01CA0006.apcprd01.prod.exchangelabs.com
- (2603:1096:4:296::19) To DS0PR12MB7747.namprd12.prod.outlook.com
- (2603:10b6:8:138::20)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQD/heiF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NJqlfSgR"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SAgXsK2688020
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZSQCjovMoYS+6pEsxEo7tfKm
+	+dlRh0HJwKOjEk//Kqs=; b=hQD/heiFUcX5vffC6Pm9LAl8II13oaiJ5REbHxXq
+	H5DSEodQspUaY2nJnvOJ8Ih8sWc+a459Bk+Vn7PS4A//DfTk2R7f8+XdHzmLD2kN
+	Kq4Fo4kMUevBcbX9F+0FbUttiCnM/Rf5iJRgrpr1Qtu/RDf3gacrnTnggJqc6e/s
+	xH9eGfOkgiqlDMD5F7qrfwDz4Y3g5SJ+e98Wi38iP8Q1LpZ7hYFLGGX/vSBy1i+8
+	wHCT1fAk3K9l0Ae5miQrb1bKnoY57RlMJNOuNannIOY1n0ZiZSvVePcYURoAEfH0
+	Wni6apLgLSX56/ZXU/i4YzVrFMJMh3L2yRuB6Kos/OOfcA==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fphh7jbam-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:00 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c19493ac2so54204441cf.1
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 03:47:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785235620; x=1785840420; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZSQCjovMoYS+6pEsxEo7tfKm+dlRh0HJwKOjEk//Kqs=;
+        b=NJqlfSgRqnMNIQBgIwJSjpYLFv/Xll6q+0TMgKHiP8MwvkhzOTkw8aerV/DKDjRMiy
+         K3D8RsVsIzPYpJqy15QN8Q6/snGLYN46Fy+KVmv5Ua4Q3KNbEM+yP8vnk2HBphDFuWfv
+         AK8DXhGGQfXLs7M24sgPsDXrTenrEeCYnOLZCxy3fnXyIbeiy8+5H7fcIM+KsoPZTzX5
+         CocHZPuLQiOTl7IfgzW4YfgijQi2yy9eI5ID68ycd0xFq9P4Amlko3RhuFWomSta8Epy
+         cvy8aS0lXe2ijs6IAA3FoqjQw/V03Cjjz83ZsCiTX7gfdTkRS1W8GKyAuJvYNNf45JZ7
+         AMaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785235620; x=1785840420;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZSQCjovMoYS+6pEsxEo7tfKm+dlRh0HJwKOjEk//Kqs=;
+        b=o4QnXg2+eWWmYI2bPD4WE/ZeeHhz9/be2q5nC/c25ICtdjSogd1CHeNYxldWzMKsYG
+         1PMyOvFgOuyWIyUgiE5vGfWcOZPYRM1tPU4yikCkflDSINkhQJo4VrZGEyR6Y3AT5JBe
+         1VpFxO+cREx5PjCTNHWY8wT+wZ+eoYypN5WMJ9cTDaaML66BTDhdCL5okfrPfccoSH9A
+         Bff4hu2H9jYdofNJhoFyIGTIz62rd7A9z6t09uQJ8CWmJw1E3Q1FdUAT3JRbGJDkc8WA
+         euSbkjSZpZxnGFIRwSn1+m4BCsqNMMhbqAu2YVkvrOWdRO+LC7u7N1zJONVZ3dIolDkm
+         C6IQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpIIXiK1pMv8rLYhlmgPMKWhXnwAwR5bUuCZGAH1ZUIumcBIg59Aq4L4Zezb7TBruKQMZUC1265tMi2oA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnJe0CbrRQEo0ba4gts72hwQ7t1ARYH5q9zYdCokdqxk8+7Qz0
+	Yho196WO71dEMP9Yai2kwS/T+Iu+h/7e8PZ/6hIX5Yv0A4svyjS57xB4K/ndU9YzReLbqVMj+wK
+	3S7aOJ6Q70jfiHtt4cYlrtImaEIOMR3Ms9HmazjjmtJKrQkj3397EH7aoQzWQzPe7+Q==
+X-Gm-Gg: AR+sD13cMsJXV/ZFH+4zupURCoXVxRIAJqhhWqPogdLR2JInaiITNhxU6O2swDDcm21
+	TLihE+3wqo0JBbyzsiKNeAC8aT4t/XNvnpJo73jnaUVLdaVVjp04rNUa6maZrsEVjA7Ih9hjZYI
+	mwpPSKHBnkAtsB8tJwsi9mP9RvjVJDW1HMi57pX6b/CcgKZfMQUnaTVdIuircyvk2joa2+M7NPH
+	RMb1mN0Zgo6boPRQXPG1u2FXgoRzCb9V4k1Zv4WGu2RZv4Xk6NRYC9D5AvxPPgVOwvG5X+Mv256
+	MkCrh6Tyg0cnPjtmnTcoQSPoa0k6hhz187kjX8Xz+NghzX/Hw9o47E/8AaIDFg5DN1BaNUJI5Gh
+	aDBeicnN/+DdITk0A9U/dEgGb4ybIorv7xWu3LxktScu49x1XJFeOTZhplHtoY/U2A6SClWJN+B
+	IwY/NUnpk0kDHZ9Q==
+X-Received: by 2002:a05:622a:588e:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-529d70d7486mr14826241cf.41.1785235620171;
+        Tue, 28 Jul 2026 03:47:00 -0700 (PDT)
+X-Received: by 2002:a05:622a:588e:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-529d70d7486mr14825941cf.41.1785235619645;
+        Tue, 28 Jul 2026 03:46:59 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f22187279sm20379291fa.13.2026.07.28.03.46.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 28 Jul 2026 03:46:58 -0700 (PDT)
+Date: Tue, 28 Jul 2026 13:46:55 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Todor Tomov <todor.too@gmail.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v13 2/5] phy: core: Add devm_phy_get_by_of_node()
+Message-ID: <t2c7lvpp3xyoumd2gdzntkwb6xpdjvhzyp2hllukimzfzbwbvm@fkgwdtcqxof5>
+References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
+ <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-2-ae811e2f0799@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|CH3PR12MB8754:EE_
-X-MS-Office365-Filtering-Correlation-Id: e858638d-5d0d-4132-7f09-08deec9167cb
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|366016|23010399003|1800799024|6133799003|56012099006|10067099003|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	PaAQB8D3teejRiNS8YL8O6fpk1HvKotg1+oTgjwfZtzPsrwXjp7eWkEnIRKSTKzCGT7/PiRiZRtInwNmVgdJVyrU2yXntB2PtglL8ChmLTq60IXrelImYasMVi5QR2/uJ4oaDtZorzQ4HuEKUaiqjkIOdbYJUdJl108Vz0hpKhRbgWsfSAqGIia0Kw+R4vyI4/F5zdyNM9S5IgwdKjg+ZWd6xyNCHVx2MF+TvSilGt4rGk/CwPH0h09CIX245+wkx22LZpESIgjJ3WIVu0aJdYHZlDAeWLaaDgdfh5hmgpV8xZJCLpHSWMEyabIs9j+nkx3w30cSmUPJDt4M7NgbKaI46n66sj7iTVH9Xfio37eg+994vH/OXPcSvaiEiLRbf0pbpcOXgbVVI9sRQ2xh+2LZmrFUaB1GUKH8N5k/D+gNKp3dFChtL23bPN5ymuOB1MdV6BxnK6IVjJEVnl+77EmPzZ0C29RjHkj8PM4WvaYW/zj8Bd86e7wCYs6jhpyM/YlRPIet4XSAf7w6v5rDRAfRvQbaNJ07u7ACoqV/KyqavCyUyvS3qAntX4tq694vLad4C+eyo4nBzPcp76jS4WPwGzCMamv3VHKLdIg9wQIPJ/Lw/ikY7O90L+8mylJ3SLZNRYkctHEuRKRPb+Ir7nhVkLhuuqpcv1Yohg+NRfM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(6133799003)(56012099006)(10067099003)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?V3pCOHZlektpb2VqaGtjZlVaVHhLeGt1anRoWm1XbTZZM0dDTUhSaTRmNFM2?=
- =?utf-8?B?aEpwYThtTVNtSWlROXlWajdiRUVBTnRVQmcvSmZxTmRVdTR3aXo1bWoreFhX?=
- =?utf-8?B?eXFTZWhNK3czY2dubVFlMXh1YjVlQmNreTZxaE9zMks1blN1bkNuMkZaSVQz?=
- =?utf-8?B?K2hLY2RYdFplSUd1Nkp1YVhJekE2cy9DUlVZSkIxdGtuNzdiZFhwQVFQOCti?=
- =?utf-8?B?NjBDZERYRGI2dWVLVjVNWnViVk0rZVlrWlhqL0tyWFJ0d0hCWGM1RHdsQ2xR?=
- =?utf-8?B?U1F3ejJSUmt0UHkrdytwSEFDZkN2bEk5bitZV1EvVzJRVExrV3ZQVHNXNW02?=
- =?utf-8?B?V1dNVmNrNEU4TVlWVHpKb3p5Nk1uZS8yb0pVWmxJNjhpTDNVZVhYQ0lwc01z?=
- =?utf-8?B?dXVTNTZRVFhRcEgzY1RabTE2RmNnU3U4VUJFRGJlNURWNXhHTXQxOFYwNnFT?=
- =?utf-8?B?eFd5bmZQSVpVUiszNVIwVVRFRllSUTBseHhNNDBTQThKVHhDeVlTZW82YWNa?=
- =?utf-8?B?NFd1ZEYvVGpNdFZMbWpYUVZKVGxsTzRuRWY5aktZYTB3Vlg1YUZ5Zk05aGh1?=
- =?utf-8?B?Ui9wa2JoTXBYTWxLd2pVNzk5RnVmbHNhMHhDRVFqY2xJSU85NGFXRllmdDVR?=
- =?utf-8?B?YmFzUWpnYlMrbm8xa3FRM1RyS1d0ODBWdmtaeklBZzFsbWhkcURWZVFob3Ev?=
- =?utf-8?B?WkhVY2E1VTZDQWtJcnZBMzB3VS9ZNFNkRDdISnJ0WERFVUZVL2grRStYSEZv?=
- =?utf-8?B?aG5mMCtRYWs2QTZMQkRaWjdMb1BQc3lMMWNza0ZMSGw4U1VIU1NqOStRZi9B?=
- =?utf-8?B?aE9BRDlBV0NnQmdMMTFGZDhScXZMeFNzQ21kcXhnLzZETkNOaTVTNnFuQXE4?=
- =?utf-8?B?RHJLRG8ydjJ1MHJqTVZsakdKRVZHbVNXS283MWtNWE4xNjZ5OWhWd3ppS0lM?=
- =?utf-8?B?Y3ZWTW00Wi9XaE9JNnZ5VFJsVXgxbHcxcjlYaUxlRFY5K25admNrK3JDZjIw?=
- =?utf-8?B?Z3lWN1ZkU2ZuTVg3QTM5bjgyWHFpRWVKY3ZTVSt0RU1lZTdhN3o1MGhWc0pR?=
- =?utf-8?B?cXdlSkpPQ1VuL01BVytQMUFHU1YwNFljUW5mVkR3OHU1SytrWjgxOE1hZzJG?=
- =?utf-8?B?SGxPd09ZNldQWktRUDhTZ2JqWjR1eDNOdEJZd3RRL01wZTNZM0tHN2RmT3c4?=
- =?utf-8?B?b2laREMxRm4vS1RCRVJZay9Od2J3a2VRUkZML3RTSXVTZ0o4MXJkQUtteCtm?=
- =?utf-8?B?cmRFU0JFVzVFWU50Qm5QbU5PaEZ6UDc1bDFaaU1mZEkxdEhwdGU3Nm5LeXR1?=
- =?utf-8?B?NHRucEt2ZzdDVGgwTTR3UFpiN0lwNGFBekFEbTEvNWQxZHdxSktzd2JRMEQz?=
- =?utf-8?B?eUlmSUNJRmlOZTB4VW0rVjN5cHpXOTY1YlJmS09WQjNVemRPYjg4TmRPY01o?=
- =?utf-8?B?Uy9hNnhaSlBoVDRhK0dwTlJrU1dDTTJCWlBzOUJwVWR2eU4xN3QvaWUwaVRt?=
- =?utf-8?B?cUdTa3hla2l4TG1DcmEyZ0hiNVJ2NExZa2V4Q3Y5V3hUZlZLdUhSRGJBZ1VV?=
- =?utf-8?B?cUlmTFd0M0F3S3FJSDJoQ2RkVkJGMDRkaitCK3c0amN0bnoyZm9veTBnb09y?=
- =?utf-8?B?S3NrcVY0Q2hldVBsU3BNNjdnalJ4RE5vWjRtTGUvclloZGowWTNBbjM2UWRx?=
- =?utf-8?B?cWFIeElDQ0kzUFowazdvODlYWit6N3dyMVNRUzMwNyt0dXlobGFVN1NVeVhq?=
- =?utf-8?B?c0NEQi9hVE13RkZ0NzZMejE0M0hyUW45MTB3enlwRm1pM1loWFRYd2ZyaWpx?=
- =?utf-8?B?NTZQaUtwekRNbEFhN3orUTMwQnZVWXU5cG1oQkxBTzFqc1JQc3c0R0pIUFM2?=
- =?utf-8?B?THRzZFgxSzVkNkUrZGQxeXpzckhQekNGUjNlbTdNb3hjL1JHTmhoL2JFMk53?=
- =?utf-8?B?WDhHeHdiNnJlWEd5TUtBUHJ5YTlOM29EdXZjZk1UR2IrR0dENFU0WjRsdEV4?=
- =?utf-8?B?d3hRMVlSckJ5WktBVUkzWXUxUThFNzh4aGpYWTJJMi9kck0vR0hOa0xldTZC?=
- =?utf-8?B?aWs5di9TclNnV0l6L2FsL29QTnpHUXc5enJoWjRzMWRlZ21LUUpqTHZxa0ZU?=
- =?utf-8?B?aFVlRllpRm8yZUlzY0xMRnFQMmZISTFEOC8rMGRBbzc0aUJqSE1kL0VjOEUr?=
- =?utf-8?B?UU1meGg5MXFmY0J1d1oxOVJURVVwNTR6UkY1ZlBKNzV6cTR0b1FEN3RsV2ha?=
- =?utf-8?B?TUk3MjRpSzRkZEZjbjBlNEQwVElmbjZHVnhBMmdVenM5ZmVueDZkYVppVUM5?=
- =?utf-8?Q?oj8ZW2soaVIi+EP1tx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e858638d-5d0d-4132-7f09-08deec9167cb
-X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 10:17:19.2538
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: d18qwlvsJ095qDjUHl1PNOe4EA/d6uFNGpBra6ECUCQDY+57qWrg720iFc1zwNqR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8754
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-2-ae811e2f0799@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfX6COsc4OMgvXv
+ CqcEu7numfKtmrUQgE714T76erM08/KAAReBPvUF8FODY8y+w7rmWHfwmBt1BocuDk44I0FcIdJ
+ wYTAsoSge0XeFZhIr+I0ZpwlSPb6UMekSEJpbQarsjI8XQNnjvNSDRrDJ9D5a4FdNwA5ubGws0E
+ SGantsYxOTFquxGm1+AhymMo/QqR/EtIEixOSfoyBso6ml/n/qAxgPW6U2AGesc/JWZAJ/g8hff
+ BnXeZc5u8AHZRxInXQygraG1lCzM1C7zREMi2ocDIa40ZVM+a7iYyEBtLL6up0cmI7dkmAaC5TU
+ SGnIU776cW+roRrwaWsS5oZv2ESJQ5qRNvFQw9kpVEMeYgNtQZSEsNUu8cirzflXE6cq0yA3wB1
+ 0je0/6cmH38x8VAWL7BiOhaVPaH8gCHvHN1K+oxapvkSwh/OwNjTxgHxgW6t7SMmPsM9cij0qFB
+ 1dW9BWgPZmlQPhw9UTw==
+X-Proofpoint-ORIG-GUID: FqxQyTClLj7PXVjaQzRhc2RSUM7dJ9Je
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfXzPhobBE7TBPG
+ bwvCu1MnJt8/1GF6VhUYFIK4EFLhQf1e/FUpGkU+pRlPkNBavxUkKqMgJJKNk/SIhTUihBmJ6WF
+ F8R4kMndlqvMydCTF6wXntMBPUidEbA=
+X-Proofpoint-GUID: FqxQyTClLj7PXVjaQzRhc2RSUM7dJ9Je
+X-Authority-Analysis: v=2.4 cv=b+6CJNGx c=1 sm=1 tr=0 ts=6a6888a4 cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=KKAkSRfTAAAA:8
+ a=2AomeXgjd0MQctyRrFgA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-28_02,2026-07-28_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280094
 
-Thanks, Yifei. v2 addresses the runtime-PM imbalance and unpowered MMIO
-access from v1.
-
-On 7/28/2026 2:34 AM, Yifei Gao wrote:
-> isp4sd_pwron_and_init() holds ops_mutex through guard(mutex) for the
-> whole function. On any initialization failure it jumps to the err_deinit
-> label and calls isp4sd_pwroff_and_deinit(), which takes the same
-> ops_mutex through its own guard(mutex). Because the guard in
-> isp4sd_pwron_and_init() still holds the lock at err_deinit, the call
-> re-acquires a non-recursive mutex held by the same thread and deadlocks
-> on any initialization failure.
+On Tue, Jul 28, 2026 at 10:35:33AM +0100, Bryan O'Donoghue wrote:
+> Add a devm variant of phy_get_by_of_node() to allow for the familiar
+> pattern of having devres automatically release resources on the driver's
+> exit path.
 > 
-> The error path cannot simply drop the lock and keep calling the full
-> teardown, because that teardown is not valid at the earlier failure
-> points. In particular, pm_runtime_resume_and_get() drops the usage
-> counter again on failure (via pm_runtime_put_noidle()), so no PM
-> reference is held when it returns an error; calling pm_runtime_put_sync()
-> unconditionally would underflow the usage count, and the teardown would
-> also touch ISP MMIO while the device is not powered. This was previously
-> masked by the deadlock, since the thread never reached the teardown body.
-> 
-> Replace the single teardown call with staged labels that unwind only the
-> resources actually acquired at each failure point. The error path no
-> longer calls the locked isp4sd_pwroff_and_deinit(), which removes the
-> deadlock, and each failure now skips the steps it never reached, keeping
-> the runtime-PM count balanced and not accessing MMIO while unpowered.
-> isp4if_start() and isp4sd_start_resp_proc_threads() already clean up
-> after themselves on failure, so their resources are not unwound again.
-> 
-> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
-> Assisted-by: Claude:claude-opus-4-8 smatch
-> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
-> v2:
-> - Reworked the fix from splitting the lock into staged error-path
->   cleanup, so that each failure unwinds only the resources it acquired.
->   This addresses the runtime-PM imbalance and the MMIO-while-unpowered
->   access that Bin Du pointed out on v1, while still removing the
->   self-deadlock (the error path no longer calls the locked
->   isp4sd_pwroff_and_deinit()).
+>  drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
+>  include/linux/phy/phy.h |  7 +++++++
+>  2 files changed, 41 insertions(+)
 > 
-> Link to v1: https://lore.kernel.org/all/20260725203640.915626-1-gyf161023@gmail.com/
-> 
->  drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
->  1 file changed, 22 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> index 48deea79ce6c..868d1c74d35e 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
-> @@ -687,7 +687,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->                 if (ret) {
->                         dev_err(dev, "fail to power on isp_subdev ret %d\n",
->                                 ret);
-> -                       goto err_deinit;
-> +                       goto err_module_disable;
->                 }
-> 
->                 /* ISPPG ISP Power Status */
-> @@ -697,7 +697,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->                         dev_err(dev,
->                                 "fail to set performance state %u, ret %d\n",
->                                 perf_state, ret);
-> -                       goto err_deinit;
-> +                       goto err_power_off;
->                 }
-> 
->                 ispif->status = ISP4IF_STATUS_PWR_ON;
-> @@ -709,12 +709,12 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->         ret = isp4if_start(ispif);
->         if (ret) {
->                 dev_err(dev, "fail to start isp_subdev interface\n");
-> -               goto err_deinit;
-> +               goto err_perf_restore;
-
-One issue remains: isp4if_start() cleans up after an isp4if_fw_boot()
-failure, but not after an isp4if_alloc_fw_gpumem() failure. If
-allocation fails after some buffers have already been allocated,
-error_no_memory returns -ENOMEM without releasing them. Since this new
-error path skips isp4if_stop(), those allocations leak. Could
-error_no_memory call isp4if_dealloc_fw_gpumem() before returning?
-
->         }
-> 
->         if (isp4sd_start_resp_proc_threads(isp_subdev)) {
->                 dev_err(dev, "isp_start_resp_proc_threads fail\n");
-> -               goto err_deinit;
-> +               goto err_stop_interface;
->         }
-> 
->         dev_dbg(dev, "create resp threads ok\n");
-> @@ -724,8 +724,24 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
->         isp_subdev->irq_enabled = true;
-> 
->         return 0;
-> -err_deinit:
-> -       isp4sd_pwroff_and_deinit(sd);
+> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
+> index ebfad5325072e..7af24f2f4120f 100644
+> --- a/drivers/phy/phy-core.c
+> +++ b/drivers/phy/phy-core.c
+> @@ -1029,6 +1029,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
+>  }
+>  EXPORT_SYMBOL_GPL(phy_get_by_of_node);
+>  
+> +/**
+> + * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
+> + * @dev: device requesting the PHY
+> + * @np: device_node of the PHY provider
+> + *
+> + * Returns phy associated with the device_node or ERR_PTR. devres manages
+> + * releasing resources.
+> + */
+> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
+> +{
+> +	struct phy **ptr, *phy;
+> +	struct device_link *link;
 > +
-> +err_stop_interface:
-> +       isp4if_stop(ispif);
-> +err_perf_restore:
-> +       ret = dev_pm_genpd_set_performance_state(dev, ISP4SD_PERFORMANCE_STATE_LOW);
-> +       if (ret)
-> +               dev_err(dev, "fail to set performance state %u, ret %d\n",
-> +                       ISP4SD_PERFORMANCE_STATE_LOW, ret);
-> +err_power_off:
-> +       isp4hw_wreg(isp_subdev->mmio, ISP_SOFT_RESET, 0);
-> +       isp4hw_wreg(isp_subdev->mmio, ISP_POWER_STATUS, 0);
-> +       ret = pm_runtime_put_sync(dev);
-> +       if (ret)
-> +               dev_err(dev, "power off isp_subdev fail %d\n", ret);
-> +       ispif->status = ISP4IF_STATUS_PWR_OFF;
-> +err_module_disable:
-> +       isp4sd_module_enable(isp_subdev, false);
-> +       msleep(20);
->         return -EINVAL;
+> +	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
+> +	if (!ptr)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	phy = phy_get_by_of_node(np);
+> +	if (IS_ERR(phy)) {
+> +		devres_free(ptr);
+> +		return phy;
+> +	}
+> +
+> +	*ptr = phy;
+> +	devres_add(dev, ptr);
+> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
+
+Why are you adding devlink here?
+
+> +	if (!link)
+> +		dev_dbg(dev, "failed to create device link to %s\n",
+> +			dev_name(phy->dev.parent));
+> +
+> +	return phy;
+> +}
+> +EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
+> +
+>  /**
+>   * phy_create() - create a new phy
+>   * @dev: device that is creating the new phy
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index 71c2e16397130..14b924a88411f 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
+>  struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
+>  				     int index);
+>  struct phy *phy_get_by_of_node(struct device_node *np);
+> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
+>  void of_phy_put(struct phy *phy);
+>  void phy_put(struct device *dev, struct phy *phy);
+>  void devm_phy_put(struct device *dev, struct phy *phy);
+> @@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
+>  	return ERR_PTR(-ENOSYS);
+>  }
+>  
+> +static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
+> +						  struct device_node *np)
+> +{
+> +	return ERR_PTR(-ENOSYS);
+> +}
+> +
+>  static inline void of_phy_put(struct phy *phy)
+>  {
 >  }
 > 
-> --
-> 2.43.0
+> -- 
+> 2.54.0
 > 
 
+-- 
+With best wishes
+Dmitry
