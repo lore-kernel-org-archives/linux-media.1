@@ -1,109 +1,138 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2E32F0C74
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 12:52:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71D6439F72;
+	Tue, 28 Jul 2026 13:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785243136; cv=none; b=jfxy8CEeronwcGQWNGvXxCVqFeDaHdLPcEw43o9gtPlxx0B7/pICet1RvECOd9sTs2/HwUlGdhcmAgSuggvZNi68OQaU5Yuhl/0HtCj5TI12708sQoWHrTN1k5Dh7b0hjLKsAprDxJthnzhufejxyyjRGz/78tOHLwBMzJH4bSA=
+	t=1785244120; cv=none; b=SpAvuNUKJld9aMhWemoyqLkKO8krfmqPRzzaMk8cAGGLzfC4Jb6UMQgllwXFYjsNbiTXkQuM51Am4XTR0HjqF0/8PaqeKX/ecrBLkNb3PbvAStGZtPIlFDdMpdctvdKrXNane6UYuARgQjlSGLx+ciVcRz4YTUEg0WZHcdAotS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785243136; c=relaxed/simple;
-	bh=FMdMDb1hsRT2zerT6pupP/XGqPrIeGTpfhSoF7SeLBw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HSULy888tVwokUSFk+e7BZI0H+2MW990nhWzKyj7bi3KA1ty3qQQ0Ir6WVVAYtAv7YZ83TbcEP1u2eWzb/yMI9TVPWiNmXFoposCz5gltjkCEDG6pszTaT5d+diol2v4XNG8xjc9A4XeNWkW1X1hzsS43sDT2gpXSw0FjjEMpRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lVuEeVgv; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785244120; c=relaxed/simple;
+	bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OMhsoTwcj1e6bilNitxZydK88WOcA7apD5rKJJxLUPP/JTBK4VpUiiDV5OWh1p4aHGWihddT9RJ+0K2LuUgvM21g4U1FTw87/6sFZg8JBzjRB2oQY0LTHsUX8nBtU479ZHP1m4eSRj7OTMwXLDCUrJi4SIpHcH8s65hpuM2SeZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=L4Ti8jRV; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lVuEeVgv"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c160420289bso497994166b.0
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 05:52:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785243133; x=1785847933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6CEzrLHR91J0dNl9cxgDm1rKeXDnUWpCXkb68sIs8ng=;
-        b=lVuEeVgvaH6RZ8PTiEAncKufX/MFlrRTYav1+NEPLJwhc/TpTZKzuvPo5avKNuPA8r
-         nA5PeMln1hGBBqiD994YNDE4d7i8AmIzKLlyzwPpjNvvmJA1tGy05T7KYQVs+4JOYZ6G
-         L7S29FQdKfdtS8JK/nex1/ywtCMX+hkqdVVtNaf5HgFOwzB9EgDGdi5H0BH33WnXLZYD
-         Fu/20JOyKV77I8Czubto2j5hlM+ifbhcJ3m0/7Dk4Qglvd1KeNnks7XnVCpkrk6XPQAS
-         ZGiolDVKP7vNv4xsCr2q17oLlPS2v3UVihnLUIwHdOXQYSOVglVXwCq8V8jcTHbAvzYh
-         pwZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785243133; x=1785847933;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6CEzrLHR91J0dNl9cxgDm1rKeXDnUWpCXkb68sIs8ng=;
-        b=sX83BWS/FJ9kNPtZi5JDGt4aIlmcYHTMmNTYOx514ZK7Nwzn8uIp1/VMk9XJzSOgrR
-         khjCZ0i5rYDUOBS6NB6HeHbT8ksqHoxDzXkjZs6aDlvtIlrb7mZW3WL65ltpLeoespjf
-         z+xeX5ljwOZY8/CK9yZZozhIdV3o8ZUY9LjJT3d0JVOj+HYJVg/Kmv1y7v4lGuJQBDKN
-         rnRe4gxBwW+MDS78Kr5XaWdxu71XrhLO5Om19GlbHBGApEep3+v2aSQGQBp6BlSL0LEg
-         OPwjAlMYVpTSMEhz5bfvpzCWoqGFxA2iT6f7DXOAqwpQFZx6SRiVuxoiGFcohlPkS35B
-         HLpA==
-X-Forwarded-Encrypted: i=1; AHgh+RrGkgM3/+mlV1ei4UFqaSlfS0oqeWsnzDvxO+/wV0ikJttpgyno23po6dZqfPAgsAHW6n5WUiiyVn9/kQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2LyW6gdKu0Nq3LOOH6+JDhCEjUDOuv2+EGH+3faAMQ95Yh3Kk
-	6MT8fiA8zMUF/L+0/rUOlm6LdY4pN7gofHq/PLxdJixzDo7sCXKl/SqQlYXaxwjeedk=
-X-Gm-Gg: AR+sD12G+WFO67PPAsb881GTcGMeApq4P05WyNAZGrELOZo8AF3VlGISqaUzQH1y2RV
-	yTXJDH9goUKwRsI8PPQJNr6n5dt7PqgknFID7B0tHOkSinNl9c6TDLH2+M8VcHOa/wFHY+ahN6/
-	5hTTDQNaalg+G6DxJVGpGE6/TiUYf9iqAX2rgntoS6ubLEqAhuVVM6FZXMRQn3KIvC8e1fUnoff
-	9FpSR6Ct6Y+sB4dSmF8AXpX0bU4Jjm1PZ5o5PSkD50dfijxEDuLCFB467I5HORF+IKFJyAEAQCg
-	XwlcyaCUuMnkNK49nsuFy4LlfCy5FlcN+uHLPE/gaOTqNOXL+poLzmapwWSw2VnSpCxLLHZ2yAY
-	mNrFX5DObXDa2L+6kIGaHJYAqXFwt1oSJ8hPP25E7BSHQRELT31zBLs+cWajZiJFUau0YWV1DFq
-	E8QDUZqjr0eUjvWA==
-X-Received: by 2002:a17:906:6a18:b0:c1c:254c:16c1 with SMTP id a640c23a62f3a-c1f719f4dbemr120090466b.0.1785243133082;
-        Tue, 28 Jul 2026 05:52:13 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.204.94])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f151fbsm773063966b.56.2026.07.28.05.52.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 05:52:12 -0700 (PDT)
-Message-ID: <cfd2e58c-e42b-44e3-a901-2048e496fb08@linaro.org>
-Date: Tue, 28 Jul 2026 13:52:11 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="L4Ti8jRV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785244118; x=1816780118;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AwjGNnzLCZhSCvm4aOBqQ6gLdXAxlctsN1mIRiM5CI4=;
+  b=L4Ti8jRVwUKuEZpClMy/hnfGX05563styOK8TTxyUIs5LnaS6STk1nDx
+   d1u3lQJ5Re/NKxo8iw/lklTRfQRVBrZ8bqnjt76uLX65Vqnaue0rFMPNc
+   NiNbPFpAWLSsM5bChsaOVdmLQN8UFtfDK9dtlWwggT082PSeyLTt6ojz8
+   ecflLuGOwAkAshj1VWqKD95WUiCAaSMGJpA81bReItA0mJJLevGrz3WI4
+   ZqI8UU1ed4xx3h+RCYrd9gzjZwKc+LEyrjKyeYWaV07Dpdt4fdsJbifew
+   wyprFO38KrjDQJjjLoMlqrr3xKwJjq+eTf5C6wFv8Jaz5/dLT6F/Em573
+   g==;
+X-CSE-ConnectionGUID: aR+RdYKQQRm2pI+uuwdJ5w==
+X-CSE-MsgGUID: niuY6M6oTSKnBt0KojsUjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85945355"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="85945355"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:37 -0700
+X-CSE-ConnectionGUID: HNvX7BMAQ7CvQsbD8A/4CQ==
+X-CSE-MsgGUID: wOd8lPZlQ1q49rPdFuuXnA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="283038301"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:08:32 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id CE4D9121BFD;
+	Tue, 28 Jul 2026 16:08:31 +0300 (EEST)
+Date: Tue, 28 Jul 2026 16:08:31 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
+	Nas Chung <nas.chung@chipsnmedia.com>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] media: rzg2l-cru: Align bytesperline to hardware
+ DMA stride requirement
+Message-ID: <amipz7WkKUsjxot_@kekkonen.localdomain>
+References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] media: qcom: iris: handle runtime PM resume failure in
- core deinit
-To: Hungyu Lin <dennylin0707@gmail.com>, vikash.garodia@oss.qualcomm.com
-Cc: dikshita.agarwal@oss.qualcomm.com, abhinav.kumar@linux.dev,
- mchehab@kernel.org, stefan.schmidt@linaro.org, hverkuil@kernel.org,
- linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <tR8w2GUkOUcarBSbnLxQsLPJsDQrGHIxWcizc8oRS0vu5wWNbeqYLWN5I8JKOpgJg61rd7q3XoGBl0KeV4V9JQ==@protonmail.internalid>
- <20260604050451.41583-1-dennylin0707@gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260604050451.41583-1-dennylin0707@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
 
-On 04/06/2026 06:04, Hungyu Lin wrote:
-> Check the return value of pm_runtime_resume_and_get() in
-> iris_core_deinit().
+Hi Tommaso,
+
+On Wed, Jul 01, 2026 at 06:50:01PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+> IS field encodes the value in units of 128 bytes. If bytesperline is
+> not a multiple of 128, the division truncates and the hardware uses a
+> wrong stride, causing horizontal banding.
 > 
-> If runtime PM resume fails, skip hardware power-off operations but
-> still perform software teardown and state transition. Also skip the
-> corresponding pm_runtime_put_sync() call to avoid unbalanced runtime
-> PM references.
+> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+> which sets no alignment, reintroducing the issue.
 > 
-> Fixes: bb8a95aa038e ("media: iris: implement power management")
-> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
+> info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
+> v4l2_fill_pixfmt() unchanged.
+> 
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> Cc: stable@vger.kernel.org
+> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 > ---
-> Changes in v2:
-> - Keep software teardown and state transition when runtime PM resume fails
-> - Skip only hardware power-off operations and pm_runtime_put_sync()
+> v1->v2:
+>  - Collected tag
+>  - Add missing Cc stable
+
+The problem with this is that it requires v4l2_fill_pixfmt_aligned() that's
+not Cc'd to stable. Can this be fixed first without introducing the use of
+v4l2_fill_pixfmt_aligned() (cc'd to stable, i.e. in this patch), followed
+by another one switching to v4l2_fill_pixfmt_aligned()?
+
+>  - Fix s/commit/Commit/ into commit body
 > 
->   drivers/media/platform/qcom/iris/iris_core.c | 12 +++++++++---
->   1 file changed, 9 insertions(+), 3 deletions(-)
+>  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
-> index dbaac01eb15a..bf3c7f722490 100644
-> --- a/drivers/media/platform/qcom/iris/iris_core.c
-> +++ b/drivers/media/platform/qcom/iris/iris_core.c
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> index 69346a585f9f..478264f26466 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+>  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
+>  			      &pix->height, 240, info->max_height, 0, 0);
+>  
+> -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+> +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
+> +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
+>  
+>  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+>  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+
+-- 
+Regards,
+
+Sakari Ailus
