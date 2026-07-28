@@ -1,504 +1,602 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-of-o55.zoho.com (sender4-of-o55.zoho.com [136.143.188.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B20474243
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 21:30:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785274218; cv=none; b=fYMn4PMW6vXDIlUZgbgICA7dZayNUe0g06j3vxSvit5MF/jm1tQCSal7ZC2fr1A41KllD/BB6LmrEnRZStnN9LPYH8riedB5X/rV7F58bBRwddT7irUCppvqcOZGzKeDHlBb+RWNcFO/L0QAmGhRUBCiAGwgLjZoaRYO6F/cAow=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785274218; c=relaxed/simple;
-	bh=rd/AmBpbmKqj+156AKnJfNtSMPtgc6wewE914z4k3k0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QMADZ+kyhxS9fG/r9Ki1LFiGvNgHlnRur916aNwNW15KiBFYCM2Fyh8ASsyyRZawzMQ9Hv2fY3z6iQgezBcKIA+3v3/ONTnWgiaaaj4PkiKIqKoSWok2SqsIJNhb1LXtWA7VYzR7AdJPY1uyv3YzkWybgSy8FtkZzaJ90pOX3iI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ihW+4H6P; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C137741A569
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 21:44:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785275090; cv=pass; b=sVE7ffh2H4AKu0yhEtDLe92fr9sNLNMjRfNDfex+oHxn7a4LZkFkxeP/MzgD9h2e5mqFrb8vfs/VY0XERWNgnY2zj7ba8z3dUUdRg70LdbFCKw842emugFS5SlQopMucS4t+iUFdrBBbXKqY+vYCwD+a3y+zGffy+mOOB/xK+jE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785275090; c=relaxed/simple;
+	bh=Bxkk9DFKGs8tcbjNjtf32NGwpG4cXXbGodGdUm2CMJg=;
+	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=tCXKXSfjo2xzwf54ttdFo5PI9MfKSqxRBlc0MAj3L5Q6w9wJEerkCsaSFjLCGZSpSYN2nKnKr2TqL0BjdAEMAxmdQArTm6SWGqvwUGRZcoEGkzOsNnUCWcTW4NZRWC0hs+dJL1XaJVCwN8hqMYaXPOcOyc3uiXV33bAJ5vYn1yo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=drinkybird.net; spf=pass smtp.mailfrom=drinkybird.net; dkim=pass (1024-bit key) header.d=drinkybird.net header.i=me@drinkybird.net header.b=XQDZgPpD; arc=pass smtp.client-ip=136.143.188.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=drinkybird.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=drinkybird.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ihW+4H6P"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-493b966dd74so1666105e9.3
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 14:30:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785274213; x=1785879013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=h4lFfo5ZGoFgQzeJsrKlXRAyOLh0g5mqIoi0J3evNaQ=;
-        b=ihW+4H6PjEvaiPosA07SxOh+O/aEm2AFZna5ob8G9mnyDp1FPZslI4ZONB9/lbEeFt
-         MvaQmXM8aUhqNBrA3r28idAvdi0XmyJsvqsClHq7rHQp2OJM62uojdAWd989xV0orC7K
-         UGSRUHPCjLfzozXves/44nR7jVJjue5776A+lsJ5FoGXD7V5SU7cZ1betkK1MrFgkVaG
-         nayDYakWSpjZCZS5PhFeItN9fYOQgy4tHUCaTP5EhAB5rd0GQYb4PmcC9VNEujVoMQmQ
-         r7Xupnj5Uf9R1EfY4Y83OyR4IigNud5pvEOfeqHyYbU9rO6ru3tc+nvV36FR6uBXbdre
-         8Z9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785274213; x=1785879013;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=h4lFfo5ZGoFgQzeJsrKlXRAyOLh0g5mqIoi0J3evNaQ=;
-        b=kaK/R6XKyPM/WQ+p36iixxkfdRk/9xB2Ri9nFLjqvuhV/4N836isIw/rmYqPV0alsH
-         zjPEzaItXQVGJzQN9iuqIriWGvSEXiqQMro4VFOUsvmPMeGaFCHNn++9p+HlJD6yR6Ru
-         k9M23rGsVGNZmVQeATvKe6gYAEh0aMCHqfHY+ZTnMvLy5VwPDYMoW1iRAcB4LPe+A/aT
-         J/XRRwp0AORNvarD9goUvCtq5aI7bvcS/Vfn4WsW389sakuvb3shftHGIrg1WuFHA4xN
-         YDDiKpS6FJUAquxK/ncIVbBDJQ/wp/QUQkq+6Dq+0XEu9DGrklEMAfzRiM2il2OoxZ77
-         xqng==
-X-Forwarded-Encrypted: i=1; AHgh+RpDecMNxzAkXbi/fAPEtAbHS1nU7IUJvu31XUjd9KhD+6sL5CsT1L4GUPjmpUUHykTscku0SJmKosndZw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywo5I0koj6NOLVfka9SnHaEJWzLvw4MztXcixhK75S3IEQjrjY9
-	ih8ul5R07Ylglz1L/XwSHO6+eoH6Hmp+XGc7XsQQaJw2m5SCYQLOsO53
-X-Gm-Gg: AR+sD11n3wvK/uWxWiDkoxxpU+oJnRWkCiAVWotdtBhRn9ps+N/Cydd7KlhenMSUS6j
-	8t2z9qbcXMoj56uqqQmrAljP+gBD7VvvxNh+gXvwvQK9hJ/L9rDj/MUu2KWg+PGnSpirxku9fJa
-	BY9boC4NjtB15t6J+Xx2UBwqfPIxjQHXddTKvc4KrpKfXQWE+OuQb/VplrywuHzNkag8bVnWyuX
-	IKhtDXB8RUSvsGbQaZsClon5gYxcy9nWZLRMLuqOC2GNRn8cO18Sjy7SvS1jAxXr5bL9kKJGcsG
-	g/muFuwoN71RcUvorxXpCWaz5/NixBje/pPU8xTU1zNDBkLgIeYUFQwfrNbS+3BiVAS79cpNQW8
-	z96wCbvcB9qI4h85ed7ZXeGBgxzyB/FXGCTg2vT9E0M122agPEmyoAgBA/SfsqJkbiVW5nQVYpE
-	SasL6DzPdklpvTqxI6i+fEL0NVD8dakDo4B4uyvYvbALP3kU7U+1eEpsjLGgfwA8i17pAL3dkbO
-	jeDoT36mDqL4COq+KZhtOp7//Wykju4mlGKW/rQ5qSRPFIR9l5ehFkx0jjmcSUJYy4=
-X-Received: by 2002:a05:600c:4755:b0:495:3fe8:880f with SMTP id 5b1f17b1804b1-496c6414fe3mr44424285e9.4.1785274212668;
-        Tue, 28 Jul 2026 14:30:12 -0700 (PDT)
-Received: from 127.mynet ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6ac44bcsm2245329f8f.11.2026.07.28.14.30.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 14:30:11 -0700 (PDT)
-From: Pavel Begunkov <asml.silence@gmail.com>
-To: Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Cc: asml.silence@gmail.com,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	David Sterba <dsterba@suse.com>,
-	Ilya Dryomov <idryomov@gmail.com>,
-	dm-devel@lists.linux.dev,
-	nvdimm@lists.linux.dev,
-	linux-btrfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org
-Subject: [PATCH v4 14/14] io_uring/rsrc: add dmabuf backed registered buffers
-Date: Tue, 28 Jul 2026 22:29:26 +0100
-Message-ID: <26dcd0ae5c87a3ada5710b14b6894ef343cec6fe.1785274111.git.asml.silence@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <cover.1785274111.git.asml.silence@gmail.com>
-References: <cover.1785274111.git.asml.silence@gmail.com>
+	dkim=pass (1024-bit key) header.d=drinkybird.net header.i=me@drinkybird.net header.b="XQDZgPpD"
+ARC-Seal: i=1; a=rsa-sha256; t=1785275085; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FlAQwwtOYwFjDiu8BtN9W6XGLV68OWwl+HyW4osbIm6wnV3j+SE1tgaQ569Mbl5CjQymqEh33rlli+3HxjcAyBnPNjN5ZMYobLuG/+iU1p33uh/nFxx2pZA1gKLnazBqjNormrz2PktqrGelZn6/d+khQx+K4x5ECnG3mvTVY4s=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785275085; h=Content-Type:Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=EYF/WcReZYyMkjkJqyXogTfK7a/2MbQsM3qManzpyy0=; 
+	b=Lk6J8Ka213JMoFu/watAqSpngCHgcW0ZwOHBhQ5cMgbUYQlto8Y37XydybHVObrtKgbQ4tqIK3u+Bqn8KbQNiY1AsuNbUww2sFC9K/relPRkzq2nKXB0ypFDZ4LtLaIu331474GXNdkLWQ6AJG6gvkhpYix1gZThTtU7o7KRSzg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=drinkybird.net;
+	spf=pass  smtp.mailfrom=me@drinkybird.net;
+	dmarc=pass header.from=<me@drinkybird.net>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785275085;
+	s=zoho; d=drinkybird.net; i=me@drinkybird.net;
+	h=Message-ID:Date:Date:MIME-Version:To:To:From:From:Subject:Subject:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+	bh=EYF/WcReZYyMkjkJqyXogTfK7a/2MbQsM3qManzpyy0=;
+	b=XQDZgPpDNZGbrzW4uc57kvFkLn/A+lvqAva+21aIcVLBak5tczyfASg6HdFzoGjh
+	LcDRKC70Om8IwX7Q/K43g+WIQMzXLFD1G3tXI9QzNHBxA1Lo3YyEdwp6Ff4SvH0Tldy
+	eg60ypA/l4BTnv+9C8zEC0wq6VdwojW4+REzW0zc=
+Received: by mx.zohomail.com with SMTPS id 1785275081747846.456487778238;
+	Tue, 28 Jul 2026 14:44:41 -0700 (PDT)
+Message-ID: <5ef59031-0853-41a7-8d11-c345fe535daf@drinkybird.net>
+Date: Tue, 28 Jul 2026 22:44:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-GB
+To: linux-media@vger.kernel.org
+From: Sean Baggaley <me@drinkybird.net>
+Subject: Autosuspend quirk on AVerMedia Live Gamer HD 2 capture card
+Autocrypt: addr=me@drinkybird.net; keydata=
+ xjMEZgcDDxYJKwYBBAHaRw8BAQdAzSGxiP3QHcFnzycLc7AXc/pP8j/MJ6s+WN4PP4Sd+bHN
+ IVNlYW4gQmFnZ2FsZXkgPG1lQGRyaW5reWJpcmQubmV0PsKZBBMWCgBBFiEEQjMlja1vgonM
+ AsnbZV8OxoCsKVcFAmYHAw8CGwMFCQWjNqEFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4AA
+ CgkQZV8OxoCsKVfvagD/bs6rHna5RjvNGbcd+zllzjzqDJqqk4r8SzYBdLWce5kBAN/5I+eI
+ z8GAy/8xVrMfX7aw++uJ/8uXapjlAg0h+jwEzjgEZgcDDxIKKwYBBAGXVQEFAQEHQMCz9RdB
+ A1k62BdxMNr5Yc1Cc+zwIlgzgFzaNSsaXewCAwEIB8J+BBgWCgAmFiEEQjMlja1vgonMAsnb
+ ZV8OxoCsKVcFAmYHAw8CGwwFCQWjNqEACgkQZV8OxoCsKVcTtAEAylVIfoNbto7FiJUeYkTC
+ siNKTWtmoXqGS0QiTsg405UBALkgq8V9sCfeZbPq/GJKkY/K1jOJesvN9JGALFCJQ3EP
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Implement dmabuf backed registered buffers. To register them, the user
-should specify IO_REGBUF_TYPE_DMABUF for the regitration and pass the
-desired dmabuf fd and a file for which it should be registered.
+Hi all,
 
-From there, it can be used with io_uring read/write requests
-IORING_OP_{READ,WRITE}_FIXED) as normal. The requests should be issued
-against the file specified during registration, and otherwise they'll be
-failed. The user should also be prepared to handle spurious -EAGAIN by
-reissuing the request.
+It appears the AVerMedia Live Gamer HD 2 capture card (USB ID 07ca:1570)
+does not deal very well with USB autosuspend; by default, when not being
+captured, it gets stuck in a loop where every few seconds it will turn
+off and turn back on, causing audio devices to disappear and reappear,
+its LED to flash, spamming dmesg, etc. This only happens when not in
+use; everything is fine when the video device is actually being used.
 
-Internally, dmabuf registered buffers is an optin feature for io_uring
-request opcodes and they should pass a special flag on import to use it.
+Previously, I used usbcore.autosuspend=-1 to disable autosuspend
+entirely, but recently learnt quirks exist, and finally ended up doing
+some proper digging... turns out uvcvideo has a
+UVC_QUIRK_DISABLE_AUTOSUSPEND quirk, and using
+'echo 32768 | sudo tee /sys/module/uvcvideo/parameters/quirks' stops
+the issue without totally disabling USB autosuspend for everything.
 
-Suggested-by: David Wei <dw@davidwei.uk>
-Suggested-by: Vishal Verma <vishal1.verma@intel.com>
-Suggested-by: Tushar Gohad <tushar.gohad@intel.com>
-Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+Doing so also suggests to report it here, so I guess here I am. Never
+used these lists before, so I'm not sure how things usually go, but if
+it helps I appended a dmesg excerpt, lsusb info, and just for good
+measure, the lspci info of the PCIe USB controller the device is glued
+to.
+
+Thanks, Sean
+
 ---
- include/linux/io_uring_types.h |   5 +
- include/uapi/linux/io_uring.h  |   6 +-
- io_uring/io_uring.c            |   3 +-
- io_uring/rsrc.c                | 168 ++++++++++++++++++++++++++++++++-
- io_uring/rsrc.h                |  18 ++++
- io_uring/rw.c                  |   6 +-
- 6 files changed, 198 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/io_uring_types.h b/include/linux/io_uring_types.h
-index a2c623a67a25..f90586d353c1 100644
---- a/include/linux/io_uring_types.h
-+++ b/include/linux/io_uring_types.h
-@@ -10,6 +10,7 @@
- 
- struct iou_loop_params;
- struct io_uring_bpf_ops;
-+struct dma_buf_io_map;
- 
- enum {
- 	/*
-@@ -594,6 +595,7 @@ enum {
- 	REQ_F_IMPORT_BUFFER_BIT,
- 	REQ_F_SQE_COPIED_BIT,
- 	REQ_F_IOPOLL_BIT,
-+	REQ_F_DROP_DMABUF_BIT,
- 
- 	/* not a real bit, just to check we're not overflowing the space */
- 	__REQ_F_LAST_BIT,
-@@ -689,6 +691,8 @@ enum {
- 	REQ_F_SQE_COPIED	= IO_REQ_FLAG(REQ_F_SQE_COPIED_BIT),
- 	/* request must be iopolled to completion (set in ->issue()) */
- 	REQ_F_IOPOLL		= IO_REQ_FLAG(REQ_F_IOPOLL_BIT),
-+	/* there is a dma map attached to request that needs to be dropped */
-+	REQ_F_DROP_DMABUF	= IO_REQ_FLAG(REQ_F_DROP_DMABUF_BIT),
- };
- 
- struct io_tw_req {
-@@ -811,6 +815,7 @@ struct io_kiocb {
- 	/* custom credentials, valid IFF REQ_F_CREDS is set */
- 	const struct cred		*creds;
- 	struct io_wq_work		work;
-+	struct dma_buf_io_map		*dmabuf_map;
- 
- 	struct io_big_cqe {
- 		u64			extra1;
-diff --git a/include/uapi/linux/io_uring.h b/include/uapi/linux/io_uring.h
-index 98b259901185..c39297e8beb6 100644
---- a/include/uapi/linux/io_uring.h
-+++ b/include/uapi/linux/io_uring.h
-@@ -810,6 +810,7 @@ enum io_uring_rsrc_reg_flags {
- enum io_uring_regbuf_type {
- 	IO_REGBUF_TYPE_EMPTY,
- 	IO_REGBUF_TYPE_UADDR,
-+	IO_REGBUF_TYPE_DMABUF,
- 
- 	__IO_REGBUF_TYPE_MAX,
- };
-@@ -819,7 +820,10 @@ struct io_uring_regbuf_desc {
- 	__u32 flags;
- 	__u64 size;
- 	__u64 uaddr;
--	__u64 __resv[7];
-+
-+	__s32 dmabuf_fd;
-+	__s32 target_fd;
-+	__u64 __resv[6];
- };
- 
- /* Skip updating fd indexes set to this value in the fd table */
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 1279e27c2c6d..cb88d19c8fb2 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -109,7 +109,7 @@
- 
- #define IO_REQ_CLEAN_SLOW_FLAGS (REQ_F_REFCOUNT | IO_REQ_LINK_FLAGS | \
- 				 REQ_F_REISSUE | REQ_F_POLLED | \
--				 IO_REQ_CLEAN_FLAGS)
-+				 IO_REQ_CLEAN_FLAGS | REQ_F_DROP_DMABUF)
- 
- #define IO_TCTX_REFS_CACHE_NR	(1U << 10)
- 
-@@ -1125,6 +1125,7 @@ static void io_free_batch_list(struct io_ring_ctx *ctx,
- 				io_queue_next(req);
- 			if (unlikely(req->flags & IO_REQ_CLEAN_FLAGS))
- 				io_clean_op(req);
-+			io_req_drop_dmabuf(req);
- 		}
- 		io_put_file(req);
- 		io_req_put_rsrc_nodes(req);
-diff --git a/io_uring/rsrc.c b/io_uring/rsrc.c
-index 05877b4c0ee5..d23dbb0dd6b8 100644
---- a/io_uring/rsrc.c
-+++ b/io_uring/rsrc.c
-@@ -10,6 +10,7 @@
- #include <linux/compat.h>
- #include <linux/io_uring.h>
- #include <linux/io_uring/cmd.h>
-+#include <linux/dma-buf-io.h>
- 
- #include <uapi/linux/io_uring.h>
- 
-@@ -881,6 +882,95 @@ bool io_check_coalesce_buffer(struct page **page_array, int nr_pages,
- 	return true;
- }
- 
-+struct io_regbuf_dma {
-+	struct dma_buf_io_ctx		ctx;
-+	struct file			*target_file;
-+};
-+
-+static void io_release_reg_dmabuf(void *priv)
-+{
-+	struct io_regbuf_dma *db = priv;
-+
-+	fput(db->target_file);
-+	dma_buf_io_ctx_release(&db->ctx);
-+}
-+
-+static struct io_rsrc_node *io_register_dmabuf(struct io_ring_ctx *ctx,
-+						struct io_uring_regbuf_desc *desc)
-+{
-+	struct io_rsrc_node *node = NULL;
-+	struct io_mapped_ubuf *imu = NULL;
-+	struct io_regbuf_dma *regbuf = NULL;
-+	struct file *target_file = NULL;
-+	struct dma_buf *dmabuf = NULL;
-+	int ret;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (ctx->flags & IORING_SETUP_IOPOLL)
-+		return ERR_PTR(-EOPNOTSUPP);
-+	if (desc->uaddr || desc->size)
-+		return ERR_PTR(-EINVAL);
-+
-+	ret = -ENOMEM;
-+	node = io_rsrc_node_alloc(ctx, IORING_RSRC_BUFFER);
-+	if (!node)
-+		return ERR_PTR(-ENOMEM);
-+	imu = io_alloc_imu(ctx, 0);
-+	if (!imu)
-+		goto err;
-+	regbuf = kzalloc(sizeof(*regbuf), GFP_KERNEL);
-+	if (!regbuf)
-+		goto err;
-+
-+	ret = -EBADF;
-+	target_file = fget(desc->target_fd);
-+	if (!target_file)
-+		goto err;
-+
-+	dmabuf = dma_buf_get(desc->dmabuf_fd);
-+	if (IS_ERR(dmabuf)) {
-+		ret = PTR_ERR(dmabuf);
-+		dmabuf = NULL;
-+		goto err;
-+	}
-+	if (dmabuf->size > SZ_1G) {
-+		ret = -EINVAL;
-+		goto err;
-+	}
-+
-+	ret = dma_buf_io_ctx_create(target_file, &regbuf->ctx, dmabuf,
-+				    DMA_BIDIRECTIONAL);
-+	if (ret)
-+		goto err;
-+
-+	regbuf->target_file = target_file;
-+	imu->nr_bvecs = 1;
-+	imu->ubuf = 0;
-+	imu->len = dmabuf->size;
-+	imu->folio_shift = 0;
-+	imu->release = io_release_reg_dmabuf;
-+	imu->priv = regbuf;
-+	imu->flags = IO_REGBUF_F_DMABUF;
-+	imu->dir = IO_IMU_DEST | IO_IMU_SOURCE;
-+	refcount_set(&imu->refs, 1);
-+	node->buf = imu;
-+	dma_buf_put(dmabuf);
-+	return node;
-+err:
-+	kfree(regbuf);
-+	if (imu)
-+		io_free_imu(ctx, imu);
-+	if (node)
-+		io_cache_free(&ctx->node_cache, node);
-+	if (target_file)
-+		fput(target_file);
-+	if (dmabuf)
-+		dma_buf_put(dmabuf);
-+	return ERR_PTR(ret);
-+}
-+
-+
- static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 						   struct io_uring_regbuf_desc *desc)
- {
-@@ -899,6 +989,12 @@ static struct io_rsrc_node *io_sqe_buffer_register(struct io_ring_ctx *ctx,
- 	if (!mem_is_zero(&desc->__resv, sizeof(desc->__resv)))
- 		return ERR_PTR(-EINVAL);
- 
-+	if (desc->type == IO_REGBUF_TYPE_DMABUF)
-+		return io_register_dmabuf(ctx, desc);
-+
-+	if (desc->dmabuf_fd || desc->target_fd)
-+		return ERR_PTR(-EINVAL);
-+
- 	if (desc->type == IO_REGBUF_TYPE_EMPTY) {
- 		if (uaddr || size)
- 			return ERR_PTR(-EFAULT);
-@@ -1170,9 +1266,64 @@ static int io_import_kbuf(int ddir, struct iov_iter *iter,
- 	return 0;
- }
- 
--static int io_import_fixed(int ddir, struct iov_iter *iter,
-+void io_drop_dmabuf_node(struct io_kiocb *req)
-+{
-+	struct io_mapped_ubuf *imu;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (WARN_ON_ONCE(req->buf_node->type != IORING_RSRC_BUFFER))
-+		return;
-+	imu = req->buf_node->buf;
-+	if (WARN_ON_ONCE(!(imu->flags & IO_REGBUF_F_DMABUF)))
-+		return;
-+	dma_buf_io_map_drop(req->dmabuf_map);
-+	req->flags &= ~REQ_F_DROP_DMABUF;
-+}
-+
-+static int io_import_dmabuf(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
-+			   struct io_mapped_ubuf *imu,
-+			   size_t len, size_t offset,
-+			   unsigned issue_flags)
-+{
-+	struct io_regbuf_dma *db = imu->priv;
-+	struct dma_buf_io_map *map;
-+
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return -EOPNOTSUPP;
-+	if (!len)
-+		return -EFAULT;
-+	if (req->file != db->target_file)
-+		return -EBADF;
-+
-+	if (req->flags & REQ_F_DROP_DMABUF) {
-+		map = req->dmabuf_map;
-+		goto init_iter;
-+	}
-+
-+	map = dma_buf_io_get_map(&db->ctx);
-+	if (unlikely(!map)) {
-+		if (!(issue_flags & IO_URING_F_IOWQ))
-+			return -EAGAIN;
-+		map = dma_buf_io_create_map(&db->ctx);
-+		if (IS_ERR(map))
-+			return PTR_ERR(map);
-+	}
-+
-+	req->dmabuf_map = map;
-+	req->flags |= REQ_F_DROP_DMABUF;
-+init_iter:
-+	iov_iter_dmabuf_map(iter, ddir, map, offset, len);
-+	return 0;
-+}
-+
-+static int io_import_fixed(struct io_kiocb *req,
-+			   int ddir, struct iov_iter *iter,
- 			   struct io_mapped_ubuf *imu,
--			   u64 buf_addr, size_t len)
-+			   u64 buf_addr, size_t len,
-+			   unsigned issue_flags,
-+			   unsigned import_flags)
- {
- 	const struct bio_vec *bvec;
- 	size_t folio_mask;
-@@ -1192,6 +1343,12 @@ static int io_import_fixed(int ddir, struct iov_iter *iter,
- 
- 	offset = buf_addr - imu->ubuf;
- 
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		if (!(import_flags & IO_REGBUF_IMPORT_ALLOW_DMABUF))
-+			return -EFAULT;
-+		return io_import_dmabuf(req, ddir, iter, imu, len, offset,
-+					issue_flags);
-+	}
- 	if (imu->flags & IO_REGBUF_F_KBUF)
- 		return io_import_kbuf(ddir, iter, imu, len, offset);
- 
-@@ -1254,7 +1411,8 @@ int __io_import_reg_buf(struct io_kiocb *req, struct iov_iter *iter,
- 	node = io_find_buf_node(req, issue_flags);
- 	if (!node)
- 		return -EFAULT;
--	return io_import_fixed(ddir, iter, node->buf, buf_addr, len);
-+	return io_import_fixed(req, ddir, iter, node->buf, buf_addr, len,
-+				issue_flags, import_flags);
- }
- 
- static int io_buffer_acct_cloned_hpages(struct io_ring_ctx *ctx,
-@@ -1676,7 +1834,9 @@ int __io_import_reg_vec(int ddir, struct iov_iter *iter,
- 	iovec_off = vec->nr - nr_iovs;
- 	iov = vec->iovec + iovec_off;
- 
--	if (imu->flags & IO_REGBUF_F_KBUF) {
-+	if (imu->flags & IO_REGBUF_F_DMABUF) {
-+		return -EOPNOTSUPP;
-+	} else if (imu->flags & IO_REGBUF_F_KBUF) {
- 		int ret = io_kern_bvec_size(iov, nr_iovs, imu, &nr_segs);
- 
- 		if (unlikely(ret))
-diff --git a/io_uring/rsrc.h b/io_uring/rsrc.h
-index f12abaf63270..3cb9b57f159b 100644
---- a/io_uring/rsrc.h
-+++ b/io_uring/rsrc.h
-@@ -31,6 +31,11 @@ enum {
- enum {
- 	IO_REGBUF_F_KBUF		= 1 << 0,
- 	IO_REGBUF_F_UNCLONEABLE		= 1 << 1,
-+	IO_REGBUF_F_DMABUF		= 1 << 3,
-+};
-+
-+enum {
-+	IO_REGBUF_IMPORT_ALLOW_DMABUF		= 1 << 1,
- };
- 
- struct io_mapped_ubuf {
-@@ -173,4 +178,17 @@ static inline void io_alloc_cache_vec_kasan(struct iou_vec *iv)
- 		io_vec_free(iv);
- }
- 
-+void io_drop_dmabuf_node(struct io_kiocb *req);
-+
-+static inline void io_req_drop_dmabuf(struct io_kiocb *req)
-+{
-+	if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
-+		return;
-+	if (!(req->flags & REQ_F_DROP_DMABUF))
-+		return;
-+	if (WARN_ON_ONCE(!(req->flags & REQ_F_BUF_NODE)))
-+		return;
-+	io_drop_dmabuf_node(req);
-+}
-+
- #endif
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index 95038cfda615..11ff7b5a1164 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -380,8 +380,8 @@ static int io_init_rw_fixed(struct io_kiocb *req, unsigned int issue_flags,
- 	if (io->bytes_done)
- 		return 0;
- 
--	ret = io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
--				issue_flags);
-+	ret = __io_import_reg_buf(req, &io->iter, rw->addr, rw->len, ddir,
-+				  issue_flags, IO_REGBUF_IMPORT_ALLOW_DMABUF);
- 	iov_iter_save_state(&io->iter, &io->iter_state);
- 	return ret;
- }
-@@ -591,6 +591,8 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
- 
-+	io_req_drop_dmabuf(req);
-+
- 	__io_complete_rw_common(req, res);
- 	io_req_set_res(req, io_fixup_rw_res(req, res), 0);
- 	req->io_task_work.func = io_req_rw_complete;
--- 
-2.54.0
+dmesg gets spammed with this, over and over, every few seconds, until
+the end of time (or application of workaround):
 
+[ 3545.140800] [    T350] usb 7-1: USB disconnect, device number 22
+[ 3547.132744] [    T350] usb 7-1: new high-speed USB device number 23 using xhci-pci-renesas
+[ 3547.270074] [    T350] usb 7-1: New USB device found, idVendor=07ca, idProduct=1570, bcdDevice= 1.00
+[ 3547.270077] [    T350] usb 7-1: New USB device strings: Mfr=6, Product=7, SerialNumber=3
+[ 3547.270078] [    T350] usb 7-1: Product: AVerMedia USB Device
+[ 3547.270079] [    T350] usb 7-1: Manufacturer: AVerMedia
+[ 3547.270080] [    T350] usb 7-1: SerialNumber: 53106326013650
+[ 3547.271931] [    T350] uvcvideo 7-1:1.0: Found UVC 1.00 device AVerMedia USB Device (07ca:1570)
+[ 3547.297523] [    T350] uvcvideo 7-1:1.0: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+[ 3549.704246] [    T350] usb 7-1: USB disconnect, device number 23
+[ 3550.309662] [    T350] usb 7-1: new high-speed USB device number 24 using xhci-pci-renesas
+[ 3550.446696] [    T350] usb 7-1: New USB device found, idVendor=07ca, idProduct=1570, bcdDevice= 1.00
+[ 3550.446700] [    T350] usb 7-1: New USB device strings: Mfr=6, Product=7, SerialNumber=3
+[ 3550.446701] [    T350] usb 7-1: Product: AVerMedia USB Device
+[ 3550.446702] [    T350] usb 7-1: Manufacturer: AVerMedia
+[ 3550.446703] [    T350] usb 7-1: SerialNumber: 53106326013650
+[ 3550.448460] [    T350] uvcvideo 7-1:1.0: Found UVC 1.00 device AVerMedia USB Device (07ca:1570)
+[ 3550.453302] [    T350] uvcvideo 7-1:1.0: UVC non compliance - GET_DEF(PROBE) not supported. Enabling workaround.
+
+
+lsusb -v -d 07ca:1570 output:
+
+Bus 007 Device 012: ID 07ca:1570 AVerMedia Technologies, Inc. AVerMedia USB Device
+Negotiated speed: High Speed (480Mbps)
+Device Descriptor:
+   bLength                18
+   bDescriptorType         1
+   bcdUSB               2.10
+   bDeviceClass          239 Miscellaneous Device
+   bDeviceSubClass         2 [unknown]
+   bDeviceProtocol         1 Interface Association
+   bMaxPacketSize0        64
+   idVendor           0x07ca AVerMedia Technologies, Inc.
+   idProduct          0x1570 AVerMedia USB Device
+   bcdDevice            1.00
+   iManufacturer           6 AVerMedia
+   iProduct                7 AVerMedia USB Device
+   iSerial                 3 53106326013650
+   bNumConfigurations      1
+   Configuration Descriptor:
+     bLength                 9
+     bDescriptorType         2
+     wTotalLength       0x01d6
+     bNumInterfaces          4
+     bConfigurationValue     1
+     iConfiguration          0
+     bmAttributes         0xa0
+       (Bus Powered)
+       Remote Wakeup
+     MaxPower              150mA
+     Interface Association:
+       bLength                 8
+       bDescriptorType        11
+       bFirstInterface         0
+       bInterfaceCount         2
+       bFunctionClass         14 Video
+       bFunctionSubClass       3 Video Interface Collection
+       bFunctionProtocol       0
+       iFunction               8 AVerMedia Live Gamer HD 2
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        0
+       bAlternateSetting       0
+       bNumEndpoints           0
+       bInterfaceClass        14 Video
+       bInterfaceSubClass      1 Video Control
+       bInterfaceProtocol      0
+       iInterface              8 AVerMedia Live Gamer HD 2
+       VideoControl Interface Descriptor:
+         bLength                13
+         bDescriptorType        36
+         bDescriptorSubtype      1 (HEADER)
+         bcdUVC               1.00
+         wTotalLength       0x004d
+         dwClockFrequency      120.000000MHz
+         bInCollection           1
+         baInterfaceNr( 0)       1
+       VideoControl Interface Descriptor:
+         bLength                18
+         bDescriptorType        36
+         bDescriptorSubtype      2 (INPUT_TERMINAL)
+         bTerminalID             1
+         wTerminalType      0x0201 Camera Sensor
+         bAssocTerminal          0
+         iTerminal               0
+         wObjectiveFocalLengthMin      0
+         wObjectiveFocalLengthMax      0
+         wOcularFocalLength            0
+         bControlSize                  3
+         bmControls           0x00000000
+       VideoControl Interface Descriptor:
+         bLength                11
+         bDescriptorType        36
+         bDescriptorSubtype      5 (PROCESSING_UNIT)
+       Warning: Descriptor too short
+         bUnitID                 3
+         bSourceID               1
+         wMaxMultiplier          0
+         bControlSize            2
+         bmControls     0x0000000f
+           Brightness
+           Contrast
+           Hue
+           Saturation
+         iProcessing             0
+         bmVideoStandards     0x09
+           None
+           SECAM - 625/50
+       VideoControl Interface Descriptor:
+         bLength                 9
+         bDescriptorType        36
+         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+         bTerminalID             2
+         wTerminalType      0x0101 USB Streaming
+         bAssocTerminal          0
+         bSourceID               4
+         iTerminal               0
+       VideoControl Interface Descriptor:
+         bLength                28
+         bDescriptorType        36
+         bDescriptorSubtype      6 (EXTENSION_UNIT)
+         bUnitID                 4
+         guidExtensionCode         {c66d125b-0480-0844-8c26-b8363a84de63}
+         bNumControls           17
+         bNrInPins               1
+         baSourceID( 0)          3
+         bControlSize            3
+         bmControls( 0)       0x07
+         bmControls( 1)       0xfe
+         bmControls( 2)       0x01
+         iExtension              0
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        1
+       bAlternateSetting       0
+       bNumEndpoints           0
+       bInterfaceClass        14 Video
+       bInterfaceSubClass      2 Video Streaming
+       bInterfaceProtocol      0
+       iInterface              8 AVerMedia Live Gamer HD 2
+       VideoStreaming Interface Descriptor:
+         bLength                            14
+         bDescriptorType                    36
+         bDescriptorSubtype                  1 (INPUT_HEADER)
+         bNumFormats                         1
+         wTotalLength                   0x00bd
+         bEndpointAddress                 0x89  EP 9 IN
+         bmInfo                              0
+         bTerminalLink                       2
+         bStillCaptureMethod                 0
+         bTriggerSupport                     0
+         bTriggerUsage                       0
+         bControlSize                        1
+         bmaControls( 0)                     0
+       VideoStreaming Interface Descriptor:
+         bLength                            11
+         bDescriptorType                    36
+         bDescriptorSubtype                  6 (FORMAT_MJPEG)
+         bFormatIndex                        1
+         bNumFrameDescriptors                5
+         bFlags                              0
+           Fixed-size samples: No
+         bDefaultFrameIndex                  1
+         bAspectRatioX                       0
+         bAspectRatioY                       0
+         bmInterlaceFlags                 0x00
+           Interlaced stream or variable: No
+           Fields per frame: 1 fields
+           Field 1 first: No
+           Field pattern: Field 1 only
+         bCopyProtect                        0
+       VideoStreaming Interface Descriptor:
+         bLength                            34
+         bDescriptorType                    36
+         bDescriptorSubtype                  7 (FRAME_MJPEG)
+         bFrameIndex                         1
+         bmCapabilities                   0x00
+           Still image unsupported
+         wWidth                            640
+         wHeight                           480
+         dwMinBitRate                294617088
+         dwMaxBitRate                294912000
+         dwMaxVideoFrameBufferSize      614400
+         dwDefaultFrameInterval         166833
+         bFrameIntervalType                  2
+         dwFrameInterval( 0)            166666
+         dwFrameInterval( 1)            166833
+       VideoStreaming Interface Descriptor:
+         bLength                            34
+         bDescriptorType                    36
+         bDescriptorSubtype                  7 (FRAME_MJPEG)
+         bFrameIndex                         2
+         bmCapabilities                   0x00
+           Still image unsupported
+         wWidth                            720
+         wHeight                           480
+         dwMinBitRate                331444224
+         dwMaxBitRate                331776000
+         dwMaxVideoFrameBufferSize      691200
+         dwDefaultFrameInterval         166833
+         bFrameIntervalType                  2
+         dwFrameInterval( 0)            166666
+         dwFrameInterval( 1)            166833
+       VideoStreaming Interface Descriptor:
+         bLength                            30
+         bDescriptorType                    36
+         bDescriptorSubtype                  7 (FRAME_MJPEG)
+         bFrameIndex                         3
+         bmCapabilities                   0x00
+           Still image unsupported
+         wWidth                            720
+         wHeight                           576
+         dwMinBitRate                331776000
+         dwMaxBitRate                331776000
+         dwMaxVideoFrameBufferSize      829440
+         dwDefaultFrameInterval         200000
+         bFrameIntervalType                  1
+         dwFrameInterval( 0)            200000
+       VideoStreaming Interface Descriptor:
+         bLength                            38
+         bDescriptorType                    36
+         bDescriptorSubtype                  7 (FRAME_MJPEG)
+         bFrameIndex                         4
+         bmCapabilities                   0x00
+           Still image unsupported
+         wWidth                           1280
+         wHeight                           720
+         dwMinBitRate                737280000
+         dwMaxBitRate                884736000
+         dwMaxVideoFrameBufferSize     1843200
+         dwDefaultFrameInterval         166666
+         bFrameIntervalType                  3
+         dwFrameInterval( 0)            166666
+         dwFrameInterval( 1)            166833
+         dwFrameInterval( 2)            200000
+       VideoStreaming Interface Descriptor:
+         bLength                            46
+         bDescriptorType                    36
+         bDescriptorSubtype                  7 (FRAME_MJPEG)
+         bFrameIndex                         5
+         bmCapabilities                   0x00
+           Still image unsupported
+         wWidth                           1920
+         wHeight                          1080
+         dwMinBitRate                994332672
+         dwMaxBitRate                1990656000
+         dwMaxVideoFrameBufferSize     4147200
+         dwDefaultFrameInterval         166666
+         bFrameIntervalType                  5
+         dwFrameInterval( 0)            166666
+         dwFrameInterval( 1)            166833
+         dwFrameInterval( 2)            200000
+         dwFrameInterval( 3)            333333
+         dwFrameInterval( 4)            333667
+       VideoStreaming Interface Descriptor:
+         bLength                             6
+         bDescriptorType                    36
+         bDescriptorSubtype                 13 (COLORFORMAT)
+         bColorPrimaries                     1 (BT.709,sRGB)
+         bTransferCharacteristics            1 (BT.709)
+         bMatrixCoefficients                 4 (SMPTE 170M (BT.601))
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        1
+       bAlternateSetting       1
+       bNumEndpoints           1
+       bInterfaceClass        14 Video
+       bInterfaceSubClass      2 Video Streaming
+       bInterfaceProtocol      0
+       iInterface              8 AVerMedia Live Gamer HD 2
+       Endpoint Descriptor:
+         bLength                 7
+         bDescriptorType         5
+         bEndpointAddress     0x89  EP 9 IN
+         bmAttributes            5
+           Transfer Type            Isochronous
+           Synch Type               Asynchronous
+           Usage Type               Data
+         wMaxPacketSize     0x1400  3x 1024 bytes
+         bInterval               1
+     Interface Association:
+       bLength                 8
+       bDescriptorType        11
+       bFirstInterface         2
+       bInterfaceCount         2
+       bFunctionClass          1 Audio
+       bFunctionSubClass       2 Streaming
+       bFunctionProtocol       0
+       iFunction               9 AVerMedia Live Gamer HD 2
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        2
+       bAlternateSetting       0
+       bNumEndpoints           0
+       bInterfaceClass         1 Audio
+       bInterfaceSubClass      1 Control Device
+       bInterfaceProtocol      0
+       iInterface              9 AVerMedia Live Gamer HD 2
+       AudioControl Interface Descriptor:
+         bLength                 9
+         bDescriptorType        36
+         bDescriptorSubtype      1 (HEADER)
+         bcdADC               1.00
+         wTotalLength       0x003a
+         bInCollection           1
+         baInterfaceNr(0)        3
+       AudioControl Interface Descriptor:
+         bLength                12
+         bDescriptorType        36
+         bDescriptorSubtype      2 (INPUT_TERMINAL)
+         bTerminalID             1
+         wTerminalType      0x0602 Digital Audio Interface
+         bAssocTerminal          0
+         bNrChannels             1
+         wChannelConfig     0x0000
+         iChannelNames           0
+         iTerminal               0
+       AudioControl Interface Descriptor:
+         bLength                12
+         bDescriptorType        36
+         bDescriptorSubtype      2 (INPUT_TERMINAL)
+         bTerminalID             5
+         wTerminalType      0x0603 Line Connector
+         bAssocTerminal          0
+         bNrChannels             1
+         wChannelConfig     0x0000
+         iChannelNames           0
+         iTerminal               0
+       AudioControl Interface Descriptor:
+         bLength                 9
+         bDescriptorType        36
+         bDescriptorSubtype      3 (OUTPUT_TERMINAL)
+         bTerminalID             2
+         wTerminalType      0x0101 USB Streaming
+         bAssocTerminal          0
+         bSourceID               3
+         iTerminal               0
+       AudioControl Interface Descriptor:
+         bLength                 8
+         bDescriptorType        36
+         bDescriptorSubtype      6 (FEATURE_UNIT)
+         bUnitID                 3
+         bSourceID               4
+         bControlSize            1
+         bmaControls(0)       0x01
+           Mute Control
+         iFeature                0
+       AudioControl Interface Descriptor:
+         bLength                 8
+         bDescriptorType        36
+         bDescriptorSubtype      5 (SELECTOR_UNIT)
+         bUnitID                 4
+         bNrInPins               2
+         baSourceID(0)           1
+         baSourceID(1)           5
+         iSelector               0
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        3
+       bAlternateSetting       0
+       bNumEndpoints           0
+       bInterfaceClass         1 Audio
+       bInterfaceSubClass      2 Streaming
+       bInterfaceProtocol      0
+       iInterface              9 AVerMedia Live Gamer HD 2
+     Interface Descriptor:
+       bLength                 9
+       bDescriptorType         4
+       bInterfaceNumber        3
+       bAlternateSetting       1
+       bNumEndpoints           1
+       bInterfaceClass         1 Audio
+       bInterfaceSubClass      2 Streaming
+       bInterfaceProtocol      0
+       iInterface              9 AVerMedia Live Gamer HD 2
+       AudioStreaming Interface Descriptor:
+         bLength                 7
+         bDescriptorType        36
+         bDescriptorSubtype      1 (AS_GENERAL)
+         bTerminalLink           2
+         bDelay                  1 frames
+         wFormatTag         0x0001 PCM
+       AudioStreaming Interface Descriptor:
+         bLength                11
+         bDescriptorType        36
+         bDescriptorSubtype      2 (FORMAT_TYPE)
+         bFormatType             1 (FORMAT_TYPE_I)
+         bNrChannels             2
+         bSubframeSize           2
+         bBitResolution         16
+         bSamFreqType            1 Discrete
+         tSamFreq[ 0]        48000
+       Endpoint Descriptor:
+         bLength                 9
+         bDescriptorType         5
+         bEndpointAddress     0x8a  EP 10 IN
+         bmAttributes            5
+           Transfer Type            Isochronous
+           Synch Type               Asynchronous
+           Usage Type               Data
+         wMaxPacketSize     0x00c0  1x 192 bytes
+         bInterval               4
+         bRefresh                0
+         bSynchAddress           0
+         AudioStreaming Endpoint Descriptor:
+           bLength                 7
+           bDescriptorType        37
+           bDescriptorSubtype      1 (EP_GENERAL)
+           bmAttributes         0x01
+             Sampling Frequency
+           bLockDelayUnits         0 Undefined
+           wLockDelay         0x0000
+Binary Object Store Descriptor:
+   bLength                 5
+   bDescriptorType        15
+   wTotalLength       0x0016
+   bNumDeviceCaps          2
+   USB 2.0 Extension Device Capability:
+     bLength                 7
+     bDescriptorType        16
+     bDevCapabilityType      2
+     bmAttributes   0x00000006
+       BESL Link Power Management (LPM) Supported
+   SuperSpeed USB Device Capability:
+     bLength                10
+     bDescriptorType        16
+     bDevCapabilityType      3
+     bmAttributes         0x00
+     wSpeedsSupported   0x000e
+       Device can operate at Full Speed (12Mbps)
+       Device can operate at High Speed (480Mbps)
+       Device can operate at SuperSpeed (5Gbps)
+     bFunctionalitySupport   1
+       Lowest fully-functional device speed is Full Speed (12Mbps)
+     bU1DevExitLat           4 micro seconds
+     bU2DevExitLat           4 micro seconds
+Device Status:     0x0000
+   (Bus Powered)
+
+
+lspci -s 04:00.0 -vvv -nn output:
+
+04:00.0 USB controller [0c03]: Renesas Electronics Corp. uPD720202 USB 3.0 Host Controller [1912:0015] (rev 02) (prog-if 30 [XHCI])
+         Control: I/O- Mem+ BusMaster+ SpecCycle- MemWINV- VGASnoop- ParErr- Stepping- SERR- FastB2B- DisINTx+
+         Status: Cap+ 66MHz- UDF- FastB2B- ParErr- DEVSEL=fast >TAbort- <TAbort- <MAbort- >SERR- <PERR- INTx-
+         Latency: 0, Cache Line Size: 64 bytes
+         Interrupt: pin A routed to IRQ 41
+         IOMMU group: 23
+         Region 0: Memory at fc700000 (64-bit, non-prefetchable) [size=8K]
+         Capabilities: [50] Power Management version 3
+                 Flags: PMEClk- DSI- D1- D2- AuxCurrent=375mA PME(D0+,D1-,D2-,D3hot+,D3cold+)
+                 Status: D0 NoSoftRst+ PME-Enable- DSel=0 DScale=0 PME-
+         Capabilities: [70] MSI: Enable- Count=1/8 Maskable- 64bit+
+                 Address: 0000000000000000  Data: 0000
+         Capabilities: [90] MSI-X: Enable+ Count=8 Masked-
+                 Vector table: BAR=0 offset=00001000
+                 PBA: BAR=0 offset=00001080
+         Capabilities: [a0] Express (v2) Endpoint, IntMsgNum 0
+                 DevCap: MaxPayload 128 bytes, PhantFunc 0, Latency L0s unlimited, L1 unlimited
+                         ExtTag- AttnBtn- AttnInd- PwrInd- RBE+ FLReset- SlotPowerLimit 0W TEE-IO-
+                 DevCtl: CorrErr+ NonFatalErr+ FatalErr+ UnsupReq+
+                         RlxdOrd- ExtTag- PhantFunc- AuxPwr- NoSnoop+
+                         MaxPayload 128 bytes, MaxReadReq 512 bytes
+                 DevSta: CorrErr- NonFatalErr- FatalErr- UnsupReq- AuxPwr+ TransPend-
+                 LnkCap: Port #0, Speed 5GT/s, Width x1, ASPM L0s L1, Exit Latency L0s <4us, L1 unlimited
+                         ClockPM+ Surprise- LLActRep- BwNot- ASPMOptComp-
+                 LnkCtl: ASPM Disabled; RCB 64 bytes, LnkDisable- CommClk+
+                         ExtSynch- ClockPM- AutWidDis- BWInt- AutBWInt- FltModeDis-
+                 LnkSta: Speed 5GT/s, Width x1
+                         TrErr- Train- SlotClk+ DLActive- BWMgmt- ABWMgmt-
+                 DevCap2: Completion Timeout: Not Supported, TimeoutDis+ NROPrPrP- LTR+
+                          10BitTagComp- 10BitTagReq- OBFF Not Supported, ExtFmt- EETLPPrefix-
+                          EmergencyPowerReduction Not Supported, EmergencyPowerReductionInit-
+                          FRS- TPHComp- ExtTPHComp-
+                          AtomicOpsCap: 32bit- 64bit- 128bitCAS-
+                 DevCtl2: Completion Timeout: 50us to 50ms, TimeoutDis-
+                          AtomicOpsCtl: ReqEn-
+                          IDOReq- IDOCompl- LTR+ EmergencyPowerReductionReq-
+                          10BitTagReq- OBFF Disabled, EETLPPrefixBlk-
+                 LnkCtl2: Target Link Speed: 5GT/s, EnterCompliance- SpeedDis-
+                          Transmit Margin: Normal Operating Range, EnterModifiedCompliance- ComplianceSOS-
+                          Compliance Preset/De-emphasis: -6dB de-emphasis, 0dB preshoot
+                 LnkSta2: Current De-emphasis Level: -3.5dB, EqualizationComplete- EqualizationPhase1-
+                          EqualizationPhase2- EqualizationPhase3- LinkEqualizationRequest-
+                          Retimer- 2Retimers- CrosslinkRes: unsupported, FltMode-
+         Capabilities: [100 v1] Advanced Error Reporting
+                 UESta:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP-
+                         ECRC- UnsupReq- ACSViol- UncorrIntErr- BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
+                         PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
+                 UEMsk:  DLP- SDES- TLP- FCP- CmpltTO- CmpltAbrt- UnxCmplt- RxOF- MalfTLP-
+                         ECRC- UnsupReq- ACSViol- UncorrIntErr- BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
+                         PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
+                 UESvrt: DLP+ SDES+ TLP- FCP+ CmpltTO- CmpltAbrt- UnxCmplt- RxOF+ MalfTLP+
+                         ECRC- UnsupReq- ACSViol- UncorrIntErr- BlockedTLP- AtomicOpBlocked- TLPBlockedErr-
+                         PoisonTLPBlocked- DMWrReqBlocked- IDECheck- MisIDETLP- PCRC_CHECK- TLPXlatBlocked-
+                 CESta:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr- CorrIntErr- HeaderOF-
+                 CEMsk:  RxErr- BadTLP- BadDLLP- Rollover- Timeout- AdvNonFatalErr+ CorrIntErr- HeaderOF-
+                 AERCap: First Error Pointer: 00, ECRCGenCap- ECRCGenEn- ECRCChkCap- ECRCChkEn-
+                         MultHdrRecCap- MultHdrRecEn- TLPPfxPres- HdrLogCap-
+                 HeaderLog: 00000000 00000000 00000000 00000000
+         Capabilities: [150 v1] Latency Tolerance Reporting
+                 Max snoop latency: 1048576ns
+                 Max no snoop latency: 1048576ns
+         Kernel driver in use: xhci-pci-renesas
+         Kernel modules: xhci_pci, xhci_pci_renesas
