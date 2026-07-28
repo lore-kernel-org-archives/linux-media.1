@@ -1,190 +1,182 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 990C33A641C;
-	Tue, 28 Jul 2026 17:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785259554; cv=fail; b=CO4DPOYBxtidaSeNphw2j/A5MLebplf9u22K5btztfodCW5QSLKpXokKU0Q5pOYPLyLmr/xTQGBGVZfzFHvqHDfhX0PWlizv8fX1VTHHEVLz6JOIi0CQwG/TJ8gVUlWw7Q5qY+A0btUyEiWExZyxTr3TvdrSIoRk3kRZRDzVtXQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785259554; c=relaxed/simple;
-	bh=mWoPBqM5M8O3+bbvVSJKVbrWVawP7h/NJwLInWygqxQ=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HQbbXacjUFHss3nZWTgEHZfFIaWWInbEIi2b/X5JOlCuj32hoWWRa8av+gWVkhSDr+P1qIYF/otBvv9xwCpnLfb+bfnk6JFv2u7/DO6QNqreZNYMl5RRDj7+XlphLWVSVfaPKqaHPGnb21QWjdOxqkwA6MGwJ7Ff6sLLdSG21/0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZJQ/lXpt; arc=fail smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893A439FCCC;
+	Tue, 28 Jul 2026 17:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785260158; cv=none; b=O4mZPkXj6rlXfyQMxcxsh3oL7gToZAR5xAC1V+pvt1L4v4bBPJ5D9jTdsNMumA+LKfctjcICWYAsTGC9f6yATKVy9YcrxpXaWs/zdjQFtSejTTM7ZBbHxofkS930wVUU3sGnkJekayffN8v9o+eVgukOYKuF2YfDiSXgwjHPr74=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785260158; c=relaxed/simple;
+	bh=wKSbUJYBsVouSkuQ34d7LY8bCLzU9cyYRqWbp5y1s6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XWFK/ybE2m/q75aB+LhAU0k8aXFytBuq1Q/BO4BF9g3AWKvc2eCm7QNWBlA0gP+rcjVUGCnxlNi54+QLXVwOJCnxYXejhiHHgHVXO38igyQd3jySaSARoVbM/BvaIX/B1PPAV1LiJUbQu63CVnjKwd9YRtssmztLV49ouwICTxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=S7wQwAV3; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZJQ/lXpt"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="S7wQwAV3"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785259552; x=1816795552;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=mWoPBqM5M8O3+bbvVSJKVbrWVawP7h/NJwLInWygqxQ=;
-  b=ZJQ/lXptQ7pfPUHmTu39UQEnb4/u7c/+cl4yd3/yPLrhbUB5029+lWfL
-   6s9NlY35XaLBS+Ud2SkN29Vg+CJGkw6GWP5UaXR9ra4GGpVjJ2MmF/WML
-   7ZOyI6Hwbqje7BPLzkSW5YijmvWA7X17V1wonxFLvPWuPHw/iuKn28wHo
-   se/JxnJlV6Kzul6xqwv1bWB38Hkst9JsdYebsOVJS9zEttYztBv8yZpV+
-   EGru1ZTs4S4x3g8h879h2l1nwEwxpHbsdIpsuwJfL2qC1VA+D44HODuV8
-   BmM/0WLcvDBF/UOnG0l3X0ngYfgAb51RCtM8XzjjI0ubNuy2vK1IO6/EE
-   g==;
-X-CSE-ConnectionGUID: pVh3mNaaR9a0j46D0FYe5w==
-X-CSE-MsgGUID: TSaV9zXKSBKznVZbb8LGDw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="73389967"
+  t=1785260156; x=1816796156;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wKSbUJYBsVouSkuQ34d7LY8bCLzU9cyYRqWbp5y1s6Q=;
+  b=S7wQwAV3lb+VblSONv1FDlbicWdEKDi+TzKjy1a1AGMswe7HnK/9jram
+   DGILbhj/0ek/EHRpNyVj6PoELDoU4Ml4KronCNWqDv/HRnqahqoy6q5/0
+   +qvF0gptbMmIajJmuAQeGbSO9ZGGrGuvGL8oKQhgZTOMqEzx6SLONmugy
+   0j1E/v1ks1LXWvp+FdgL/n+Ct4ozZCWnMMe20TxDthhC6344ducYKgJwU
+   UxyMhlyk2QcRVqOL6g9GFlcK+5HDQkPOKkMe3waE+XKGOXUBbv/qHRF4I
+   xWX4oHVSpqOiO/oRhjeD3WXWPFxfwG34FtXtBxIu6yp9kgFMiPtqHDlNp
+   A==;
+X-CSE-ConnectionGUID: /Mgj+NIaT5eImtBAbLnr+w==
+X-CSE-MsgGUID: wR552PdPTHWUxYyiRfLtMQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="89744021"
 X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="73389967"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 10:25:51 -0700
-X-CSE-ConnectionGUID: 7F/2YPybTByt0W4BoX8oXA==
-X-CSE-MsgGUID: /JlENEIKTiiV1A35oMSrPw==
+   d="scan'208";a="89744021"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 10:35:55 -0700
+X-CSE-ConnectionGUID: WQ4eIaXiQ5eQoJS4qYqcBw==
+X-CSE-MsgGUID: Rbxi6+lWQaWmyQLE5C5lUA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="264056998"
-Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
-  by orviesa005.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 10:25:51 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 28 Jul 2026 10:25:50 -0700
-Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43 via Frontend Transport; Tue, 28 Jul 2026 10:25:50 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.63) by
- edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.43; Tue, 28 Jul 2026 10:25:50 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZU9FkSOkvjpN2oWtkkVwMPyXBI6p2O2nrfieI0kM31RMnqdky7C+gx2E6lTW7th4E+hVCXSw8+gGrlrXSFNqP0DN7kWA4Zk2d/uZkHyWSN9EHv9oyDXVmtbrx9qh7keErjYbwDDBFLV2f4TQPogXAeQtt9mBfn1ZgFgrEIQf4TgZT47kmyEOFdlzXt3cY1lOpUDTrjyWzmg2qxzcOjKzek5AM4KdvBP0yKiA7ALdZByox2wMWx8c1+yanX464GUgOb/Rs/XUUnJ4AH38f3jdhVOAtOtzc8JE7xGDFFqjbvpBaOKAFK8ZZhoXRBNE8GXmwu5wFx66QNtO3/J73Oc1Cw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mWoPBqM5M8O3+bbvVSJKVbrWVawP7h/NJwLInWygqxQ=;
- b=NFegCbCgNZ4eWw3larT5hqBXpFWaLlEVsax4spj2G1KTVStbm+GWith/0YkUjpuxRvDPHJkuF0VakgKtIAC1SKpGOf9V90CCjuoRDWTBIH2fg8NGTij+WWrHZjaP7FGw6jVuhM0sCd/qgHZZfWXZi2YAAQTNK7gvP655lVuM2vjsSPeqs1StVu+aTKgmdpDaOqp+RG3II/0BWouZhnU+7P8JRkMm4qXHgugvXFGvqQYRpaO2GcnGHtd5cNMT2tEdXwtnlo3w36KyrfzTAF1SxyTfBVENLyJX5OF7lfpbyDu0sqb7oXHFMcBp99/HWTS8Ih3piczSYqJ0uKBenFSwfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com (2603:10b6:a03:48a::9)
- by CH3PR11MB8364.namprd11.prod.outlook.com (2603:10b6:610:174::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.11; Tue, 28 Jul
- 2026 17:25:48 +0000
-Received: from SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6]) by SJ1PR11MB6083.namprd11.prod.outlook.com
- ([fe80::3454:2577:75f2:60a6%4]) with mapi id 15.21.0245.009; Tue, 28 Jul 2026
- 17:25:48 +0000
-From: "Luck, Tony" <tony.luck@intel.com>
-To: Weijie Yuan <wy@wyuan.org>, Randy Dunlap <rdunlap@infradead.org>
-CC: =?iso-2022-jp?B?GyRCM1ljPTolGyhC?= <yuebingkun@kylinos.cn>,
-	"mchehab@kernel.org" <mchehab@kernel.org>, "corbet@lwn.net" <corbet@lwn.net>,
-	"shiju.jose@huawei.com" <shiju.jose@huawei.com>,
-	"jacopo.mondi@ideasonboard.com" <jacopo.mondi@ideasonboard.com>,
-	"laurent.pinchart@ideasonboard.com" <laurent.pinchart@ideasonboard.com>,
-	"hverkuil+cisco@kernel.org" <hverkuil+cisco@kernel.org>,
-	"sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v2 1/3] Documentation: fix "should be use" grammar in ABI
- README
-Thread-Topic: [PATCH v2 1/3] Documentation: fix "should be use" grammar in ABI
- README
-Thread-Index: AQHdHkdUfXcNG8R5Ok2OsbJ62nQLFLaCVUqAgAACGYCAABVkgIAAuoMAgAAFmoCAAAIIoA==
-Date: Tue, 28 Jul 2026 17:25:47 +0000
-Message-ID: <SJ1PR11MB6083664AB26C2273CFC1B7E3FCCB2@SJ1PR11MB6083.namprd11.prod.outlook.com>
-References: <20260728041213.52820-1-yuebingkun@kylinos.cn>
- <20260728041213.52820-2-yuebingkun@kylinos.cn> <amgu5cFN_imQgMf-@wyuan.org>
- <f7a7b4d8-d044-491f-827c-ec929ee429ce@infradead.org>
- <amhCmSxLtu4m6fXX@wyuan.org>
- <b7773638-12dd-44a4-b075-2e6994dd9971@infradead.org>
- <amjjwfSimXeZOWbA@wyuan.org>
-In-Reply-To: <amjjwfSimXeZOWbA@wyuan.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SJ1PR11MB6083:EE_|CH3PR11MB8364:EE_
-x-ms-office365-filtering-correlation-id: c04b64f8-1528-4b3f-b537-08deeccd439f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|22082099003|18002099003|11063799006|56012099006|4143699003|38070700021|10067099003;
-x-microsoft-antispam-message-info: Tm+U3o76mNaYS8DH8qN3DJ7y9H5SakL2yvZIjURqRZXjQJRauxFNNC+JthbNoExfQoQKkRVITUyuUexrLXLwPq1iQgaqCblskIky1nLZ7E7ZxwcVkW1HzS+sdK3mFjm9MqED8/BYcCzKX2wN+zDgNRFnhWYki7j7Obbu2sILXLGLpobJdsITKwH8yauWNPdCfVAWaZE5G30shiajiu03x0pOnYHoy3LSnmO3cnI53mj3stqiQtXM1b6wGv8lEuKkHV+kIZpfDFEaFJPNe0mahDnTPowE7uDwoaEuIRUGgpEx5Qb64ylJzDLg0FeLWUL6uTewJwLqRckXr0YQN2ZYgdd/bVJaz3YUeTxEUDYisjcCHiOQgQFcPd7c0w6snVxh5+VVCYgdOHyJx31StArfy9audmBSybaLGn8qOsIOGOt1JLnfYfjbk9NrczAKB48sv4wTFONB7vaBhMH9FXzsWzplLNJKGG9frels1Uqi38bk30PtS+H4jAEbeEP1rthxz3VQqlxSzTZe/3RLmB840pAZ+7Kwx0WyaAUwna0UEY/m7f3AMJReHMDowsCQG9OQcwU9ehaOAVTse/p7LcaTlY1j/SjhBGaWvtIlOzcnMHbMF4USCVJOF7tGgs4t2J6Fy/Wf5I5yLqYYhz9n+Q/VMCaMt1jmK0i4iF4CyXahe14ZJKn1p7PXVANkH/6ObNyCxZr8mVrxWbPXTZxdLeKwru9hTT7JjpRZctRPBwRVELs=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:ja;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ1PR11MB6083.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(22082099003)(18002099003)(11063799006)(56012099006)(4143699003)(38070700021)(10067099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-2022-jp?B?Qngxc0E3QU9oeWdMM2Njb3Q1VFJxRG1mWlFuc3A5LzlOWEpQY0lTZDB2?=
- =?iso-2022-jp?B?ZUlPZENWUkc5R0hQNkNMMS9JRUJxZkEvVm41SDYvd1VCTllsOHF3SExO?=
- =?iso-2022-jp?B?cDBhSDIwRkI5dDk2cXNkbzNhSTEwSWRvdllpcFpGVDI0aGlGR25wbFRx?=
- =?iso-2022-jp?B?ZTlseGw3ZThXQ3hjVU1LRy95ZlZzZXJYRWFHTGNNbGJYZ0J0U20xT2NF?=
- =?iso-2022-jp?B?NGFnZkNJa1lmZWtsSFBMeldWMnc3UDYzMHN1OXEyNHdHYkV1TzdyNHBM?=
- =?iso-2022-jp?B?NSs2Vm5MTmQ3OU4wcUJ2cUpRclhmSmdNMjF1VGZwK0JPeVVCbGRlSUpT?=
- =?iso-2022-jp?B?SEYxbUt1NnliUXU5T0pXcmtONkg1alJmYWpFOXVVbWlXUVpnVUNkWU40?=
- =?iso-2022-jp?B?Q0lUejNlUzhrZUlaUlRwellLRXU2Q3VzR29tTm5lT1p0TXE1QVQzT0sr?=
- =?iso-2022-jp?B?ay93WFUxcDBRMDBFZmVPSDR0WVE5c3p3ZUhrR1FkaGxuYm9XdFU0b1E1?=
- =?iso-2022-jp?B?VExFWW9RaWV2Qm5pUEdmY3JIV3NwV2VraEZXbXBSZnBjY0xUeXZZUVBG?=
- =?iso-2022-jp?B?VzNUNXJtaVEyczlnOVhlZkQ4bEtPTGFyT0p3bzFMVU9CRkFRcHNpcEts?=
- =?iso-2022-jp?B?Mjk1YUltK0hGenBnckw5WFJMSnVVU2RWMEhyZFlMdWFleEltTVBBdlVR?=
- =?iso-2022-jp?B?RHhSYXpMaFFDS201OWZrUEdQN0F5eGdrL0JQdzBBTGFxb1JzOS82TGNy?=
- =?iso-2022-jp?B?U3VWbzZlWlZMdmhoTEQyS1I5ZUlLSHN5UEFnSnVIa3Vldk55b0JjTmRT?=
- =?iso-2022-jp?B?UTBBRHQ4UVpHVTNzbCtob3B1QVdodlc2UmVKQnN6VG1ncURrWTlQaUZ5?=
- =?iso-2022-jp?B?bzZrZzJaL3F3dFhWcU4rMUE4RE1ZVENiOS9aOGZyYUZ4cy91TzhWRkNE?=
- =?iso-2022-jp?B?TldkKzIxbndMSUFybXFzeURQUzJVenNXM0h1Rzc1U3BoL1J6WTlBM2hl?=
- =?iso-2022-jp?B?S20vZkxXOTQ3Q0UxMEZQZnNXNXNuaU5jQ1ROOEhBb0hhSHpMN3NsR0tK?=
- =?iso-2022-jp?B?Ry8zOWE5SXdtYkQ5ZVJ0alRpcXc3Mk9zbmF0RTdwM1J5SHNEMFYya0Ra?=
- =?iso-2022-jp?B?ZjJxaGRMSmF6bnF2bTE4Sy9VK1ZnZlM2Qm04M0NMQUI1ZzhvUGdJaTBY?=
- =?iso-2022-jp?B?L0Q2WVVkb2lVekVXcWV3aDZFUkhwRUZvOW1HdW9pd2xtaHYvUFhsRUtX?=
- =?iso-2022-jp?B?ajJac2RVeWhEdGFzQ3k2QTZxeFZUOHoyeE1NK1lrbUUzNFlkS3JUYVdW?=
- =?iso-2022-jp?B?dStOSVdlWThNRDM2Tk01NTkwTExCY1lnRk9DMjhVYU80bWFNUVhJcVRT?=
- =?iso-2022-jp?B?TmRPMzlPMkVjYW44b3ZkQTVldU9EeXpyZkhwZXFxUUJ5VjY2RFBFWWFj?=
- =?iso-2022-jp?B?eTF6N3VnbFBaWk5Ya29wdVF5VkFqU3ZlQTVQWHhocSsreHh3UVlyeUFX?=
- =?iso-2022-jp?B?TS9JcERVb1c4RnJRV3N6SE5PODdIR01YRFVkV1J0RUEwTlY0QjhURFRa?=
- =?iso-2022-jp?B?aXR0a2pRU2dUYXdHZzhTMElMR2hrUjFRcVZxYXFGaUMvd1lLWkZ5MzRx?=
- =?iso-2022-jp?B?SFFHZ056UFRFQU9mVzY4Y3A0YzJTYzNWU3FNM3lQYXhNUU9KV1EzYTBW?=
- =?iso-2022-jp?B?dXI1VkVWRmhvN0RTYjJFdEJUNDBCVE5QM0FGNFlWcGhJb3pFbE5PL1VC?=
- =?iso-2022-jp?B?c3Q0TlFyUk4wVndkUWZDTTFTSzUybGE1WklzZmdwV0RjRFpmV0taQm1u?=
- =?iso-2022-jp?B?dHFVOGRmeUUwaWZmWVRJV2tUeEdraEVnNGxSTEgrN2krVTJoZHFpK2JT?=
- =?iso-2022-jp?B?bjJaMVVrK0dmRGo1WXB2a0tRVFM5R3F1RHE0djlwUE1DMzdCZ05jbjJV?=
- =?iso-2022-jp?B?d3JLdnQ2TW9NVzlKN3Y5ZUdNQ21IQnpIdXRRQjJTRkt1YlZQUFNiZmU2?=
- =?iso-2022-jp?B?bjZuQjBadnFNNnhRRHhNOXdGNWc2ckFhN2VsM0Q3TkQvUU1XblNqNXh2?=
- =?iso-2022-jp?B?V1QwU0FicGFrOEYzWVpKVW1PTkhLT3dDc0NDMmlMRGhUUEQ1M3duZlRq?=
- =?iso-2022-jp?B?bnBveFZuQW1uUEpQc2RSRmNhYWdjRHRpZmtyanhkczVHbFFBR25yYWNl?=
- =?iso-2022-jp?B?WXk2d2h6SlZGazZVRHl5ck9hNkRLMjJNa2tTbEppMk94VUJwS0pFcGM0?=
- =?iso-2022-jp?B?WE1XTGw3eDcrNHpJZWxUbG1RVmVvQUlnM3pVTVRxeElqc2doQTY2NDNP?=
- =?iso-2022-jp?B?WkRRMmFEY3FJTEIzR3RSTmYzeUtKUE01bU1GSjNlRlRBSHI2NitFMko0?=
- =?iso-2022-jp?B?Q3Z1RWV5NmJZdDM4SHFDamdEVzN5WG5ESGRyZHl5ZXRXTldySXNpcjEv?=
- =?iso-2022-jp?B?SndFNHFZNGRFbXFNOGRpVDRncml0ditHUXdoWXhTc2ZBV0c2WFFXRDJF?=
- =?iso-2022-jp?B?TjU5bzJo?=
-Content-Type: text/plain; charset="iso-2022-jp"
-Content-Transfer-Encoding: quoted-printable
+   d="scan'208";a="257095261"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 10:35:52 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8BD6F121C2B;
+	Tue, 28 Jul 2026 20:35:51 +0300 (EEST)
+Date: Tue, 28 Jul 2026 20:35:51 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Yifei Gao <gyf161023@gmail.com>
+Cc: Bin Du <bin.du@amd.com>, Nirujogi Pratap <pratap.nirujogi@amd.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sultan Alsawaf <sultan@kerneltoast.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/2] media: amd: isp4: fix self-deadlock in
+ isp4sd_pwron_and_init() error path
+Message-ID: <amjod6Yc7-rRAKDw@kekkonen.localdomain>
+References: <20260727183500.298036-1-gyf161023@gmail.com>
+ <20260728141659.62310-1-gyf161023@gmail.com>
+ <20260728141659.62310-3-gyf161023@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: YApTLnOCYnyPvNxHanoxZqlTI2+15BU0hzx3dda39pqvLOQZ0xkzfrfual0epzLHt/t6ACDkJ/QTelrT5lcHeTWmxWSOXS8O9NEKfPDPlB1CowMxKnmK/B5TvJ8WfbyTkH3zZK0KzGsh/GKxH9YCEMyazKrCicTyhO+4ISU7V9Xb/0pKw2A3c9a1/GNoFx3x0NCiPTUoyYvdwGAdVk/eXlpug2gfUK9vesbc86QxYiZA0Jo5DSDDGnQ7I3vHGatQPigHByDI5mowvREvG8puXUmA4y4BCqGaGUY7Y2ng/Siz6czfDX5cBqFedwzNILjyBW4iSYZ52Uy8sWtXpUEyxA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SJ1PR11MB6083.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c04b64f8-1528-4b3f-b537-08deeccd439f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2026 17:25:47.9783
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: zN2eFpQr4xR1BwW+JFMyQn/tL887y39jPhbUwWEUQGuAgN+YLScacqaAqUjeb3ATI/5L1FDMQkmShCYvv7FalQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB8364
-X-OriginatorOrg: intel.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260728141659.62310-3-gyf161023@gmail.com>
 
-> Makes sense. Perhaps different subsystems simply have different
-> preferences, then. My observation may not have been representative.
+Hi Yifei,
 
-Yes. TIP tree for x86 core work provides an explicit order for tags. See
-"Documentation/process/maintainer-tip.rst" in the " Ordering of commit tags=
-"
-section.
+On Tue, Jul 28, 2026 at 02:16:50PM +0000, Yifei Gao wrote:
+> isp4sd_pwron_and_init() holds ops_mutex through guard(mutex) for the
+> whole function. On any initialization failure it jumps to the err_deinit
+> label and calls isp4sd_pwroff_and_deinit(), which takes the same
+> ops_mutex through its own guard(mutex). Because the guard in
+> isp4sd_pwron_and_init() still holds the lock at err_deinit, the call
+> re-acquires a non-recursive mutex held by the same thread and deadlocks
+> on any initialization failure.
+> 
+> The error path cannot simply drop the lock and keep calling the full
+> teardown, because that teardown is not valid at the earlier failure
+> points. In particular, pm_runtime_resume_and_get() drops the usage
+> counter again on failure (via pm_runtime_put_noidle()), so no PM
+> reference is held when it returns an error; calling pm_runtime_put_sync()
+> unconditionally would underflow the usage count, and the teardown would
+> also touch ISP MMIO while the device is not powered. This was previously
+> masked by the deadlock, since the thread never reached the teardown body.
+> 
+> Replace the single teardown call with staged labels that unwind only the
+> resources actually acquired at each failure point. The error path no
+> longer calls the locked isp4sd_pwroff_and_deinit(), which removes the
+> deadlock, and each failure now skips the steps it never reached, keeping
+> the runtime-PM count balanced and not accessing MMIO while unpowered.
+> isp4if_start() and isp4sd_start_resp_proc_threads() already clean up
+> after themselves on failure, so their resources are not unwound again.
 
--Tony
+Please make this more concise; the issue being addressed by the patch below
+is much easier understood by looking at the patch than reading the above
+explanation -- that shouldn't be the case. The aim here is not to describe
+each detail of the change.
+
+> 
+> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
+> Assisted-by: Claude:claude-opus-4-8 smatch
+> Signed-off-by: Yifei Gao <gyf161023@gmail.com>
+> ---
+>  drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
+>  1 file changed, 22 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
+> index 48deea79ce6c..868d1c74d35e 100644
+> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
+> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
+> @@ -687,7 +687,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  		if (ret) {
+>  			dev_err(dev, "fail to power on isp_subdev ret %d\n",
+>  				ret);
+> -			goto err_deinit;
+> +			goto err_module_disable;
+>  		}
+>  
+>  		/* ISPPG ISP Power Status */
+> @@ -697,7 +697,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  			dev_err(dev,
+>  				"fail to set performance state %u, ret %d\n",
+>  				perf_state, ret);
+> -			goto err_deinit;
+> +			goto err_power_off;
+>  		}
+>  
+>  		ispif->status = ISP4IF_STATUS_PWR_ON;
+> @@ -709,12 +709,12 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  	ret = isp4if_start(ispif);
+>  	if (ret) {
+>  		dev_err(dev, "fail to start isp_subdev interface\n");
+> -		goto err_deinit;
+> +		goto err_perf_restore;
+>  	}
+>  
+>  	if (isp4sd_start_resp_proc_threads(isp_subdev)) {
+>  		dev_err(dev, "isp_start_resp_proc_threads fail\n");
+> -		goto err_deinit;
+> +		goto err_stop_interface;
+>  	}
+>  
+>  	dev_dbg(dev, "create resp threads ok\n");
+> @@ -724,8 +724,24 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  	isp_subdev->irq_enabled = true;
+>  
+>  	return 0;
+> -err_deinit:
+> -	isp4sd_pwroff_and_deinit(sd);
+> +
+> +err_stop_interface:
+> +	isp4if_stop(ispif);
+> +err_perf_restore:
+> +	ret = dev_pm_genpd_set_performance_state(dev, ISP4SD_PERFORMANCE_STATE_LOW);
+> +	if (ret)
+> +		dev_err(dev, "fail to set performance state %u, ret %d\n",
+> +			ISP4SD_PERFORMANCE_STATE_LOW, ret);
+> +err_power_off:
+> +	isp4hw_wreg(isp_subdev->mmio, ISP_SOFT_RESET, 0);
+> +	isp4hw_wreg(isp_subdev->mmio, ISP_POWER_STATUS, 0);
+> +	ret = pm_runtime_put_sync(dev);
+> +	if (ret)
+> +		dev_err(dev, "power off isp_subdev fail %d\n", ret);
+> +	ispif->status = ISP4IF_STATUS_PWR_OFF;
+> +err_module_disable:
+> +	isp4sd_module_enable(isp_subdev, false);
+> +	msleep(20);
+>  	return -EINVAL;
+>  }
+>  
+
+-- 
+Regards,
+
+Sakari Ailus
