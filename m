@@ -1,190 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050F5430309;
-	Tue, 28 Jul 2026 13:21:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774F0441021;
+	Tue, 28 Jul 2026 13:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785244867; cv=none; b=c+qvgTLaezLIKgClZ3lOtz/jp+xBDY3AjOvYU0bq2POjTRplZzdbuw4ApITCoZZrsUcdFBjb6o9/bBDIa2zpkVe5ygqRGkmEuTUtfLj1x4qNeqP5Z7eXmmzqiAiWqrjFFdTpadnNxI3i7dmvC7UmC8N4kw9n0zoQDTT96iiizoE=
+	t=1785245651; cv=none; b=nbIfViaSWE0PXQjMyiVTAMrCAikDsuHcRL/XpGPcW6uGkqmtB7pDYR5PnKRVnt70a1I4SkKBDiU4OZjUlCdixqPq9l4t3j55jnNioL1Bp4oSHS0ohTIFAZtPqleqliBLLMtSC/AhLng84PyM2VTeuMM8G0gGsYJku9+7OJSK2vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785244867; c=relaxed/simple;
-	bh=l2OI5XW6b4bUAvMGLAEq7yPgORw8FVO/LHpvIq84IyQ=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fmQeokiNtdor2Ro0fj/ScvqMGdHSpSOytUCdjFXhLrnsFjSfD58tkeEAxOgTIId4j3+qYFUC3V7wJCUilA3v34q3RlexIdfHX20odBd3s8DeFC0rhHU4N/mQYiPGXzTJjODYKLk2Lc8ZswWZI6LsLywScbKHKlrkCjr8c94tHpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/cLRW2o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785245651; c=relaxed/simple;
+	bh=B+agX6fAsy+VUlNfvlUip6Z5eFGk2YU4wRWlNUvl+yM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FlQC7T28uN9Dy0ZU0VOW1FuhVUZQNgO+nNHu8pi4O2spXC63VxJqMZh2QJJUEVgDcFZHZT7PGqSLCv8ML3mWm1qfLn3fg5bZJKuWs9OKtpAUASSW3aE7XU1zAu8g0EgovFrbzFVGNq22e1NoQdUEd7JDqn4k4QikVlPhpw/rMhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iLEENEwt; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/cLRW2o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4D0D1F00A3E;
-	Tue, 28 Jul 2026 13:21:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785244864;
-	bh=tnyJE2XrVEsTWKnnEs8VPH1AQg7SPMsoOS3xHpjDqCA=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=L/cLRW2o1gtKb/NnlXnZoE6A2VCrxnOC3BH2wihMvVfQ468/Uk41hq6P1NVsvvwPC
-	 xLYV7vDavOZaFVnczoeb1iN3VpGS3gCYj5YjEI0rgEgeCWwU25PGloZXEYW10qGh3E
-	 +TzzPLZslDDsQw4td5rONIuknx5RIm63eRsC3xI80bQRxL/Heh+I8lRiHBrRjb7Z63
-	 IRnIt24p0CusRHHnuS/8bxy1KoucsJO2XXoiHRU3eSkuztMDpEGVMC+MhI333E2ZWT
-	 hcCu+fhDZFQNawTgiopZZh+Wwn+gPS73XCFinCLXFMkbIGiqHr3Q9QTzN5FruDL495
-	 1CccTN4uBzwlA==
-Message-ID: <4a5b7df7-265d-4a93-8987-a22568b17149@kernel.org>
-Date: Tue, 28 Jul 2026 15:21:02 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iLEENEwt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785245648; x=1816781648;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=B+agX6fAsy+VUlNfvlUip6Z5eFGk2YU4wRWlNUvl+yM=;
+  b=iLEENEwtpSpu7+FRnycJ5zwDCcUSoA7z8xX728Be2l0sAa/2eo87h3HE
+   b571ZI4yV3KerSr2Vuf8ItJb9Rbp6sWDbhwmIlmW+YtChFZeh6DMF9UAe
+   VlNzmjhsyFlFfHSF/YqeFo8hGdHl5rhadu4pLmdJaQdvHmzCsdGReE+Od
+   EqwMWsGoT6OyRQAuWbKkdFGXB7cE+gr0FZab+NRaaB9E+GPJplaunyZSp
+   heim2v2QdaGhNWbprHpLyFae8+ImWarUQyVGQSJ4rxLGMTSl2HSnsctT+
+   XKj7dLyqgosbiWCxoRyrWL7OubKnPjk7BGfA7JtyHcr3inJ7u8hiXwFTG
+   A==;
+X-CSE-ConnectionGUID: a+BjpeDwSTaFfN7Wp/OmJA==
+X-CSE-MsgGUID: N5uZZj1LSsaIm8OeSbWV+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="84954502"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="84954502"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:34:06 -0700
+X-CSE-ConnectionGUID: /Sxn2VWGRRCWQ+OByghgMQ==
+X-CSE-MsgGUID: XoTqzaAASCqw5smrA7kXLQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="264711936"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 06:34:04 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id A0422121BFD;
+	Tue, 28 Jul 2026 16:34:03 +0300 (EEST)
+Date: Tue, 28 Jul 2026 16:34:03 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: "shaikh.kamal" <shaikhkamal2012@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] docs: media: fix spelling errors
+Message-ID: <amivy2PF7EXVXglr@kekkonen.localdomain>
+References: <20260726065407.20766-1-shaikhkamal2012@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: hverkuil+cisco@kernel.org
-Subject: Re: [PATCH v2] media: cx231xx-audio: drain wq_trigger before audio
- fini
-To: Fan Wu <fanwu01@zju.edu.cn>, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260708141622.3936490-1-fanwu01@zju.edu.cn>
- <20260716134846.3132097-1-fanwu01@zju.edu.cn>
-Content-Language: en-US, nl
-In-Reply-To: <20260716134846.3132097-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260726065407.20766-1-shaikhkamal2012@gmail.com>
 
-On 16/07/2026 15:48, Fan Wu wrote:
-> audio_trigger() is deferred work (dev->wq_trigger) armed from
-> snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
-> dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
-> cx231xx_audio_fini() tore down that state without draining wq_trigger,
-> so work armed before or racing fini ran against freed state.
+Hi,
+
+Please use Documentation: prefix for patches under Documentation/.
+
+On Sun, Jul 26, 2026 at 12:24:07PM +0530, shaikh.kamal wrote:
+> Fix spelling errors reported by codespell:
 > 
-> Use disable_work_sync() in fini to drain the work and prevent further
-> queueing.  Initialize the work, lock and stream_started counter at the
-> top of cx231xx_audio_init(), before any fallible allocation, and clear
-> the partially-built audio state on its error path, so fini is safe even
-> if a later step fails.
+>   thare -> there  (vidioc-subdev-g-routing.rst)
+>   stuct -> struct (legacy_dvb_video.rst)
 > 
-> This issue was found by an in-house static analysis tool.
+> No functional change.
 > 
-> Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
-> Cc: stable@vger.kernel.org # needs adjustments for <= 6.6: use cancel_work_sync()
-> Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
+
+Does this conform to the spelling of your name? Just confirming.
+
+It needs to match From: nonetheless.
+
 > ---
-> Changes in v2: use disable_work_sync() instead of a teardown flag +
-> cancel_work_sync(), as suggested by Hans Verkuil.  The init-ordering
-> fix and error-path cleanup from v1 are retained.
-> ---
->  drivers/media/platform/ti/vpe/vip.c   | 37 ++++++++++++++++++++++++---
->  drivers/media/platform/ti/vpe/vpdma.c |  3 ++-
+>  Documentation/userspace-api/media/dvb/legacy_dvb_video.rst      | 2 +-
+>  .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst         | 2 +-
+>  2 files changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> index b9fd5cadae24..71d044605315 100644
+> --- a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> +++ b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> @@ -344,7 +344,7 @@ Variables
+>  
+>      -  ..
+>  
+> -       -  :rspan:`5` ``stuct play``
+> +       -  :rspan:`5` ``struct play``
+>  
+>         -  :rspan:`4` ``__s32 speed``
+>  
+> diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> index 6f66ca38589e..164cf0ad3593 100644
+> --- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> +++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> @@ -67,7 +67,7 @@ subdevice routing table. This may be smaller or larger than the value of
+>  drivers may adjust the requested routing table.
+>  
+>  The kernel can return a ``num_routes`` value larger than ``len_routes`` from
+> -both ioctls. This indicates thare are more routes in the routing table than fits
+> +both ioctls. This indicates there are more routes in the routing table than fits
+>  the ``routes`` array. In this case, the ``routes`` array is filled by the kernel
+>  with the first ``len_routes`` entries of the subdevice routing table. This is
+>  not considered to be an error, and the ioctl call succeeds. If the applications
 
-These are the ti/vpe patches, not the cx231xx patches!
-
-Please repost.
-
+-- 
 Regards,
 
-	Hans
-
->  2 files changed, 35 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/media/platform/ti/vpe/vip.c b/drivers/media/platform/ti/vpe/vip.c
-> index cb0a5a07a3d4..30e9a85d4cf5 100644
-> --- a/drivers/media/platform/ti/vpe/vip.c
-> +++ b/drivers/media/platform/ti/vpe/vip.c
-> @@ -814,6 +814,22 @@ static void clear_irqs(struct vip_dev *dev, int irq_num, int list_num)
->  	vpdma_clear_list_stat(dev->shared->vpdma, irq_num, dev->slice_id);
->  }
->  
-> +/*
-> + * Quiesce recovery work and per-list IRQs before releasing stream resources.
-> + * disable_work_sync() prevents the overflow handler from requeueing recovery
-> + * work. Mask and synchronize IRQs afterwards because a running worker may
-> + * have re-enabled them before exiting.
-> + */
-> +static void vip_quiesce_stream(struct vip_stream *stream)
-> +{
-> +	struct vip_dev *dev = stream->port->dev;
-> +
-> +	disable_work_sync(&stream->recovery_work);
-> +	disable_irqs(dev, dev->slice_id, stream->list_num);
-> +	clear_irqs(dev, dev->slice_id, stream->list_num);
-> +	synchronize_irq(dev->irq);
-> +}
-> +
->  static void populate_desc_list(struct vip_stream *stream)
->  {
->  	struct vip_port *port = stream->port;
-> @@ -2428,6 +2444,7 @@ static int vip_start_streaming(struct vb2_queue *vq, unsigned int count)
->  		goto err;
->  
->  	stream->num_recovery = 0;
-> +	enable_work(&stream->recovery_work);
->  
->  	clear_irqs(dev, dev->slice_id, stream->list_num);
->  	enable_irqs(dev, dev->slice_id, stream->list_num);
-> @@ -2452,13 +2469,17 @@ static void vip_stop_streaming(struct vb2_queue *vq)
->  	struct vip_dev *dev = port->dev;
->  	int ret;
->  
-> +	/*
-> +	 * A running recovery worker may re-enable the parser, so quiesce it
-> +	 * and its IRQ handler before stopping the parser or releasing the
-> +	 * descriptor list.
-> +	 */
-> +	vip_quiesce_stream(stream);
-> +
->  	vip_parser_stop_imm(port, true);
->  	vip_enable_parser(port, false);
->  	unset_fmt_params(stream);
->  
-> -	disable_irqs(dev, dev->slice_id, stream->list_num);
-> -	clear_irqs(dev, dev->slice_id, stream->list_num);
-> -
->  	if (port->subdev) {
->  		ret = v4l2_subdev_call(port->subdev, video, s_stream, 0);
->  		if (ret)
-> @@ -3074,6 +3095,8 @@ static int alloc_stream(struct vip_port *port, int stream_id, int vfl_type)
->  		goto do_free_hwlist;
->  
->  	INIT_WORK(&stream->recovery_work, vip_overflow_recovery_work);
-> +	/* Start disabled; vip_start_streaming() enables it before IRQs. */
-> +	disable_work(&stream->recovery_work);
->  
->  	INIT_LIST_HEAD(&stream->vidq);
->  
-> @@ -3139,6 +3162,13 @@ static void free_stream(struct vip_stream *stream)
->  		return;
->  
->  	dev = stream->port->dev;
-> +	/*
-> +	 * Unpublish the stream and quiesce its IRQ handler and recovery worker
-> +	 * before releasing stream-owned resources.
-> +	 */
-> +	stream->port->cap_streams[stream->stream_id] = NULL;
-> +	vip_quiesce_stream(stream);
-> +
->  	/* Free up the Drop queue */
->  	list_for_each_safe(pos, q, &stream->dropq) {
->  		buf = list_entry(pos,
-> @@ -3150,7 +3180,6 @@ static void free_stream(struct vip_stream *stream)
->  
->  	video_unregister_device(stream->vfd);
->  	vpdma_hwlist_release(dev->shared->vpdma, stream->list_num);
-> -	stream->port->cap_streams[stream->stream_id] = NULL;
->  	kfree(stream);
->  }
->  
-> diff --git a/drivers/media/platform/ti/vpe/vpdma.c b/drivers/media/platform/ti/vpe/vpdma.c
-> index 573aa83f62eb..f9f5b2f1ee1a 100644
-> --- a/drivers/media/platform/ti/vpe/vpdma.c
-> +++ b/drivers/media/platform/ti/vpe/vpdma.c
-> @@ -988,7 +988,8 @@ void *vpdma_hwlist_release(struct vpdma_data *vpdma, int list_num)
->  
->  	spin_lock_irqsave(&vpdma->lock, flags);
->  	vpdma->hwlist_used[list_num] = false;
-> -	priv = vpdma->hwlist_priv;
-> +	priv = vpdma->hwlist_priv[list_num];
-> +	vpdma->hwlist_priv[list_num] = NULL;
->  	spin_unlock_irqrestore(&vpdma->lock, flags);
->  
->  	return priv;
-
+Sakari Ailus
