@@ -1,134 +1,180 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A8D39099B;
-	Tue, 28 Jul 2026 16:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785257755; cv=none; b=EGC0GbgzbZtte7552gQLzoJ74UkYP+L35cOE6X7YUmbqABirfyprz/21rwV/+Gl1/YWLvoldl98bLj7EfcHTYG30KUzx3yxuJPWvHXgJRVCANqJ3rmY64VtD7A5AEMuveSB4NRq9S0Vl7/RY4p8B2UanXF0qBQfRWzVUWxF6JC8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785257755; c=relaxed/simple;
-	bh=NgbHZpVQ8/kf1iluMJBBDSuzlnizdyCmmijqCjCcOQE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kFu8pj3Tyn2WZIBuhJqyOwG+V9zfwSLYwpEem286ZrG38gfMvw6JDtPlDlc0dTBUr3CQQDXEyrj+gOYmkid4TE71dDss6jF76WJofYx5hXJAMcSvBAldwYf0rSVMXmCwWYOhB6l2e/gdZHsnFW3fdGht0LLM7QFYs0ASJm7ydWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BfPdBi9A; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE88339AD2A
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 17:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785258182; cv=pass; b=D2JwQJKVicPLNB9c26v8VastPCorpzL99nnAeuF9j+G62pays3ZJbGD7gyhllS9o2xteHC3JvBD5Eq7rD1YGMV7BzOX3RkJlZRusxqd+IK/qZ4MnbtkPFgZTC728ZtthVq2fhfafZydOhnmcGJi571gK72g9zA8DAZYpeFJ+ao8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785258182; c=relaxed/simple;
+	bh=groxGWngifTVT5bewG236tGfo/7tcFA7IZ4+tPcJwJ0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D/CtRskV4+hDgIpVOcRepvHma0An09WcwEOwp5QaJGNqCWJfD9SH18UciqmNk1hR6ZGXTPvICR+910pNoDETfnf0NzQRaV1wm03NjYnqCI9xZPfwV3Dh15Vs2Fc8VrLJFKXxOipYG7myI4soIritZF3ZxHIl4ShrpUgSrxJcS2I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=MFTqj+DX; arc=pass smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BfPdBi9A"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=Zs6ggugRdYyXg9jsw/mL1a6CvW1NYKUX7RaqAdEwvak=; b=BfPdBi9AabkfDvxL3mkFSNs+sy
-	vAoHdvmVW6hCJ+0FrBXCu+HCKgRXIFPax1w7b4IfuOR+3cAxECSfsprwqRKvPMfwxnwl8iQl3ZKO+
-	Isfjb22HsfgfEfUkIlYQwabP2qbDlv9Oa8Nx55CxKiZSxSs/bGCO43HKefia8xtD+tGUC+yQUQqFw
-	dPdjcK0ssgEaP+8TiSJGHqqskd7RdvJpvWAj3OyWsCm6oHcqFIPa6KVax9Zn5J6EpAFPxj8o0zkf7
-	LXN6zJ7CWC0MKNW8/1j/uYSsGA1fGPEbMS0sDS8Z+AHh57522Y+AHtAsGL6x4bZH9Hp1EfZIKVIpw
-	7cZH5iEQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wol5l-00000005tBo-28uo;
-	Tue, 28 Jul 2026 16:55:45 +0000
-Message-ID: <b7773638-12dd-44a4-b075-2e6994dd9971@infradead.org>
-Date: Tue, 28 Jul 2026 09:55:42 -0700
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="MFTqj+DX"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-448cf99c133so989432fac.1
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:03:00 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785258179; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eedBn21Y8AUblqx9sQYAWfF8uZUCY/+9s08k2X3T/aXEQ1mIWvxYbYynzO/gdv6FSz
+         2nDKoXJlcAwB/99M6+te1VWVoD4prnjxr1guAktNj1dwh2iosgzOGBW9NEApqanoOe5J
+         cRBY/tBSiTRYO1aseZgNz0hReCn61ldwwYbfBust79oWjw688Gghl0JYagPs+/CFyr9l
+         Tu3AEu+WNY9xb1+7Mwo3KoQuq9lsegk/YzIXW9g0c1AKNMsoN9IOcJBMPo6o5yazpzah
+         ZQshutx9IUZyNQ5ZoBkL3OLCqSeiB3qlfN0PPI6jE1pYRydTcMediNXaXV+YxfBWE/n2
+         btXg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
+        fh=zwnD6A+NrwpH1MhMde1NBroXXoBYn1M0iU+SJcU7jBc=;
+        b=eKJXrHmdEsoUc3bz4bfTEyQY+lfIX9UL7DEw+CVB9x/3cR2qviHqwzcDS0BkGTx1cD
+         1THThgS7VCQHXs6uhnftz56sG2wgRZPyyvBvIouuIGM+trS5Z6y650usyM0Wr51wbV1s
+         ei9JPcL1Qap45uW9sOkzYUhNvE+jCLd5cQusI/OyRzz5+cO8H70A8ZxaJ90q67G3YJkn
+         IYKCwLQao/UI/g9EyyAUI0In8DjXdJh5u+kItXRSjVvVqGj6O1p3ibwQZJL5ZtC5Dqqh
+         J8SXJr9kFkl0cWxe0UetLnTuPwYyk765jC6M9XX3c0EwfQMWBcKuT2PuUoxG3a+HfINN
+         hxkw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1785258179; x=1785862979; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
+        b=MFTqj+DXdMFvdEqxVMRwmtKE9eHxYede7DnE/4YUHRTRz+apb1/BptmGsHiqjbOKjw
+         2J7jDncaIkli/DTTTHeLkhyV8h9MPWXCHGm0mR4MtK04uKdKD3pg0SKBZoj/tj4Bz1qk
+         IyDV4BhnsaItjeQILFWRSP1k3TP2YXTRcexj76zshx933+HwoQ17Bp6gkKn/ezputZ6n
+         gpor2X73lga83XSpg5defbUf7G+vpwSYafs1ggmuz5pf6lOiuy09LQT5Fvp2+sj1SaQb
+         gKTAR+BpTuySRJuhvTiiwfHQtr1FOJxVCbEtVP8jbJCQZBjlt0lZGn3uDsONW/air+A2
+         JPfw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785258179; x=1785862979;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V8GPJp6TxM1kZFOBQxF7EjKvtzF1SyeUI22862FQRDc=;
+        b=qF1eXhIupPVovKU6lKmCheUbh2VRYo6Ir3lZ7iPEWGhX8kfP9xCzFMoJAEDv6OrmCE
+         YfrTiuOeo7EGCnGfkaw3fL9mGncbI7m/sSfT6F6Gv9xe3qzXYjSH+ifkuZev4gPECBhO
+         okYoGq7MH2rKXgyi68F1IpkKIu91uZE43d4PI7RtcSQzUr6BUWOb5qAiazQwXuDKhVpn
+         vOWDNYJtG19AyYeMOYZ+devZXqpDV3IoAsYEVYNaFaOhFE8zcosa4ZpK1Svt79WoH6mw
+         gg0zrFiY2BUlXM0yAy7Duweg9iXWk4WjY2eHM8MCPrWS9VqY2ZGxNpIKwfumSKG8wKtJ
+         fAdg==
+X-Forwarded-Encrypted: i=1; AHgh+RpPy31x+N7QHfLhecMa7TUg2qDKhVefkTZTyKJ/LygN7zhtAS4SQ9W0MTteIKI0mDLzvGyvOMrMvWfIbA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwVHubLQr1lI/MTMcRLNTmBavvcREb72OAklTIC52HvXpjYewfb
+	KK33gohc/0KjoZwkcbRnWU5dFCKYqVYjwj9xTQIlJ+UUdK9VnyN4JkdhGH0WSA0VGNLT0ordTzZ
+	1TxcooVNNZmbjMoojxMTt5fGt+R1AHRBNljM+hvXp1w==
+X-Gm-Gg: AR+sD13OGOsWkwwGcVvBD3gMqAqav7m3piJPRKbU1tT+jgFsA8WNkx873m9EFmHb7k3
+	xblpr9zJD761hD3Cx7uEDdmvr2JuVAu57vqzayFg/1xPosoq+nzP7aIBq+FlzIQ2iod0vYatgoN
+	ItcHf7C+CdurmT22+JVKPnhQNsG0PWfOOXQHThmlwwQtpUZ0C1McLT+vfnV8Ytrlx4GinD12tks
+	NMD6dboCO1bcnEcZBeJhR9YsRSBWqhGWWdoRUtBHvri3RYo3MWhvLYDmaWXUyLwMi5T0TESBlv3
+	0Dp4v6iRISQi5ZMMVSmIM1+B3VazaLsbjv6dmiolDd9tMoqGf2frm+OjqOaGv/9xH2oQ2I8muDg
+	W3g==
+X-Received: by 2002:a05:6820:1611:b0:6aa:da90:8bd1 with SMTP id
+ 006d021491bc7-6ac96a2be31mr1559545eaf.11.1785258179388; Tue, 28 Jul 2026
+ 10:02:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] Documentation: fix "should be use" grammar in ABI
- README
-To: Weijie Yuan <wy@wyuan.org>
-Cc: =?UTF-8?B?5bKz56eJ5Z2k?= <yuebingkun@kylinos.cn>, mchehab@kernel.org,
- tony.luck@intel.com, corbet@lwn.net, shiju.jose@huawei.com,
- jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
- hverkuil+cisco@kernel.org, sakari.ailus@linux.intel.com,
- linux-doc@vger.kernel.org, linux-edac@vger.kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260728041213.52820-1-yuebingkun@kylinos.cn>
- <20260728041213.52820-2-yuebingkun@kylinos.cn> <amgu5cFN_imQgMf-@wyuan.org>
- <f7a7b4d8-d044-491f-827c-ec929ee429ce@infradead.org>
- <amhCmSxLtu4m6fXX@wyuan.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <amhCmSxLtu4m6fXX@wyuan.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com>
+ <20260715-imx708-v1-1-1f36f54e14d4@ideasonboard.com> <178413842630.1426769.14095686086162764899@freya>
+In-Reply-To: <178413842630.1426769.14095686086162764899@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Tue, 28 Jul 2026 18:02:43 +0100
+X-Gm-Features: AUfX_mwSdrWqYhPenfvLyVGSkh4QDNAyWTECB24t2RneV51JiZrWgV36_HGpj3U
+Message-ID: <CAPY8ntBnnFTjKiKL9AooYun7fX8DEdocs3sY_PoAXgT90nGYTA@mail.gmail.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: Add imx708 image sensor
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Naushir Patuck <naush@raspberrypi.com>, David Plowman <david.plowman@raspberrypi.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, 
+	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Jai
 
+Sorry for the delay in replying.
 
-On 7/27/26 10:48 PM, Weijie Yuan wrote:
-> On Mon, Jul 27, 2026 at 09:31:35PM -0700, Randy Dunlap wrote:
->>>> Signed-off-by: 岳秉坤 <yuebingkun@kylinos.cn>
->>>> Acked-by: Randy Dunlap <rdunlap@infradead.org>
->>>
->>> Usually, your "Signed-off-by" should be the last trailer.
->>
->> Hm, I disagree. The -by: lines are somewhat in chronological order, so this
->> looks fine to me.
->>
->> Documentation/process/submitting-patches.rst says:
->> """
->> Standard sign-off
->> procedure applies, i.e. the ordering of Signed-off-by: tags should reflect the
->> chronological history of the patch insofar as possible, regardless of whether
->> the author is attributed via From: or Co-developed-by:.  Notably, the last
->> Signed-off-by: must always be that of the developer submitting the patch.
->> """
->>
->> Yes, this doesn't address Acked-by: or Reviewed-by: lines, but in my experience,
->> chronological order applies to all of them.
-> 
-> Ah, I remember this part. But I tend to believe that this description is
-> only relevant to the issue of the order of Co-authored-by and
-> Signed-off-by, if I were the newcomer reading this for the first time.
-> (In fact, I actually am a newcomer compared with you ;-))
+On Wed, 15 Jul 2026 at 19:00, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
+>
+> Hi Dave,
+>
+> Quoting Jai Luthra (2026-07-15 23:01:28)
+> > Sony IMX708 is an 11.9 Megapixel CMOS sensor, that can output pixels
+> > over MIPI CSI-2 bus. Add bindings for it.
+> >
+> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > ---
+> >  .../devicetree/bindings/media/i2c/sony,imx708.yaml | 120 +++++++++++++++++++++
+> >  MAINTAINERS                                        |   7 ++
+> >  2 files changed, 127 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
+> > new file mode 100644
+> > index 000000000000..bc346730e1f3
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
+> > @@ -0,0 +1,120 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/i2c/sony,imx708.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Sony IMX708 Sensor
+> > +
+> > +maintainers:
+> > +  - Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+> > +  - Jai Luthra <jai.luthra@ideasonboard.com>
+> > +
+>
+> [...]
+>
+> > diff --git a/MAINTAINERS b/MAINTAINERS
+> > index febe918d6316..b0e3abfd88a9 100644
+> > --- a/MAINTAINERS
+> > +++ b/MAINTAINERS
+> > @@ -25269,6 +25269,13 @@ S:     Maintained
+> >  F:     Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+> >  F:     drivers/media/i2c/imx678.c
+> >
+> > +SONY IMX708 SENSOR DRIVER
+> > +M:     Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
+>
+> I've kept "kernel-list@raspberry.com" here from the downstream tree.
+>
+> Given you maintain other sensors used by Raspberry Pi modules, let me know
+> in case you prefer I drop this or replace it with your email in v2.
 
-Yes, that's understandable.
+Including our internal list means it gets the attention of all those
+involved here. Whether that is L:, M:, or R: seems to be open to
+debate.
 
-> That is to say, when dealing with multiple authors, we suggest using
-> trailers to represent the sequence of authors in chronological order.
-> 
-> Then, this will facilitate subsequent readers to understand the
-> development history of the patch through the order of the trailers.(?)
-> 
-> And, aren't these subsequent examples merely confining the discussion to
-> these two trailers?
+If you need an individual name then I guess it may as well be me.
 
-They seem to be but that's just a documentation deficiency IMO.
+  Dave
 
-> ---
-> <changelog>
-> 
-> Co-developed-by: First Co-Author <first@coauthor.example.org>
-> Signed-off-by: First Co-Author <first@coauthor.example.org>
-> Co-developed-by: Second Co-Author <second@coauthor.example.org>
-> Signed-off-by: Second Co-Author <second@coauthor.example.org>
-> Signed-off-by: From Author <from@author.example.org>
-> ---
-> 
-> Besides the submitting-patches file, It seems to me that the probability
-> of "Signed-off-by" appearing on the last line is much higher than in
-> other cases. Is this a usual practice? It seems that everyone tacitly
-> agreed to write "Acked-by" and "Reviewed-by" at the top, even though
-> they occurred after "Sob".
-> 
-
-I chose 2 files and looked at their "git log" history: MAINTAINERS and
-kernel/panic.c. In those files I see corroboration of my "claim," so I'm
-satisfied with it.
-
-> But of course, you have much more experience in this area, so my limited
-> observations may not be very representative.
-> 
-> Thanks!
-> 
-> ps. The Git project explicitly stipulates "Place this `Signed-off-by:`
-> trailer at the end". So at first, I wasn't quite sure about it.
-
--- 
-~Randy
-
+> Thanks,
+>     Jai
+>
+> > +M:     Jai Luthra <jai.luthra@ideasonboard.com>
+> > +L:     linux-media@vger.kernel.org
+> > +S:     Maintained
+> > +F:     Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
+> > +
+> >  SONY MEMORYSTICK SUBSYSTEM
+> >  M:     Maxim Levitsky <maximlevitsky@gmail.com>
+> >  M:     Alex Dubov <oakad@yahoo.com>
+> >
+> > --
+> > 2.54.0
+> >
