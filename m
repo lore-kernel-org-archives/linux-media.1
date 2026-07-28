@@ -1,162 +1,198 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020101.outbound.protection.outlook.com [52.101.225.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB1241B36C
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 09:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785232795; cv=none; b=PAic2oGmNnWjQeOILsMwWwYIaaMfVi6tGqPVppZS+hEE+L9IuFk1UUeBfaum5WHRwnbwgsMWq22xYivedvvkJdaXIABFJ9NVPR6tpq6rJixEYdnhYhq/3H5ryIublJyRW4vA2HbH2ARyCGjgangMZRJztX/eY9el/nQ1zm0GeTw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785232795; c=relaxed/simple;
-	bh=+0Wbn7WCEuDzhQgR47IsKajWKvA2zjxBMfDYi8y6aYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ssjJNxnOuz0dfI/7leDbkjDyOAAp29+XsMuzAMzdnbuWKMW8UiXigmqVcDwl8r9G4DojTR2sBAIWjZV7pEXN05wBVSyLbWgZLnWr7Uug3Fsjiii7ODhWKPXwnQzLO2eRgWEUrJrnuKfiZ6jnpBkzmo2X81wH2KtKPCmzZVX4eJk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=J1ev1n2U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=P1HA23+3; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14A837A486;
+	Tue, 28 Jul 2026 10:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785233417; cv=fail; b=dsZAZEwHURhjj7h+H/2fY+cNu1Fpbl4DMnHBpXU/V7m9Y+xg46EbFOZBnGU6wr0DHzhPXnVFXwYN3LVtaxqcT1lJE4XYR9zynr7WMtml6epHhsxeoSzAJ7mXsg5yPyWATni2KyEI8MtLMx5wehVfHFs8yZ15pyiV6cxkmURrT8k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785233417; c=relaxed/simple;
+	bh=YJEWKlaWLblURjg/LXFg8rriSVcywn1luNm9l4KDEcg=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=cMmijbvdb+FkjT6uf2z4SenJZVzcPsmRasQBAOfW+VWQAlb80ejwwCxRjlhGBoPEvis7HfkPNGFcYtNJC8aPPv58yk6KFS66N/77tpXXbKDsFQaaHaGQbhAJsfNlBKzwJzXO0QechUo+QRlXb8PM3MgGHgsjEepFpdUc20mhu3U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=VwUtCHtI reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="J1ev1n2U";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="P1HA23+3"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66S81xcA1663585
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 09:59:53 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=U5PN1TT1lMw7TFu/s+fchO87
-	W7nUXA/Ck6/FI9wxkQQ=; b=J1ev1n2UjmCEGnDr2A3w20S3xTEdMbyk2o0n2O3b
-	uydHI8Fdeh6KmvEcUuikaqnKHsiZRMxfXorFisVwty213IRNbxOFTqYqI3AhFB04
-	2CglaJ7ckrkNZ0aaVIds/BzE2qKPgBo4kTvMGXmIeTvgDk/7CSrYHgNYcCUKyoXn
-	DU/kSTJ7rAHH/q5jiwTr1yV6Pva1HsPkvCIF11KSqlLbd4hrwQv6zFfK8jXEmxXF
-	RFJthzdSlIov3kNjOQTSIFSrcJaG/I0LMHODKM3hFbk3eAJpVfGRdY15vBqD9RIr
-	YJmaYfwyqdp7xuZOpa/SyTsoQTdvKpddt177lKG98FlhfQ==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fppttryg4-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 09:59:53 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92ac0a54110so477559885a.2
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 02:59:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785232792; x=1785837592; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=U5PN1TT1lMw7TFu/s+fchO87W7nUXA/Ck6/FI9wxkQQ=;
-        b=P1HA23+3BW27APyHGGpq4/JM1Ag1Nv5rsV4bpzRotGNvQQNhgiCQLtMES3EapcuJLB
-         WtsFnaFlAmhWtHXBjoCTmbk4BIzbtXOa3pE29zJ+s0WiGhYa8LzYO+8HVD2LI/rkIItU
-         hST9/FkNGzu2TDgjvGpcPWtxwxDJszx/JIepVqKSKq7hA9QJsbcio6chAbUh3GiFrgd0
-         hajSYexESN9nb1SuC+LgvD1HjHD07UgS/XfqOZtLijQdR0GdCFgadqeZN0rEt/klkRuy
-         KXhH6RAPGR6wL/Z7M4N1w8lcrQw9eeuha3ZgYd2nnwVr8yqBNl2lC+DFa/7a4vAn3mDP
-         ezDg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785232792; x=1785837592;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U5PN1TT1lMw7TFu/s+fchO87W7nUXA/Ck6/FI9wxkQQ=;
-        b=sx/Pd68y0UODrk1Xt1AjqrIsnB661wlXSxfcbYDBGTqa9r7TIAHSDfLTA1zQ8SKEa1
-         mcfCgoWphCBF1XD/EyBoMM905pr4oPbOjRmBwQwYP+eWv9uK3V84yIYX85hxqkTtIoTZ
-         Pav/Q0R+8T57XpD+bSrGYbs2gEk47TQ7czq9dfK8EtlhN70HG0RPiof0Z4nmEOtzdr67
-         YowdrreWENGvWLrOOijcr09/SNXxmDPoTbhtMgbT9o9AJfSZLLEL6ob8W4ZfnKX2C01G
-         iDSNAlD2FggfdK9Wn0fYwqRET1HuXs+dV3g4X4+63yIqvEhJP12p8RmynOT8lDnL8K4U
-         i1Qw==
-X-Forwarded-Encrypted: i=1; AHgh+RrVHF3j31Al/xDwtE7RAeSPH8q12Zcdqekqtvhqc/5YiqeoDx6oOBiL9C+aTYdbwiXK+jKzVw5twCxr+A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRSiz7y6roF7gNZKE80uWN2SCQGfh0uTr4HYb6vDNNPg/qGAnO
-	HKV0qgUDr5vh1a2/1VZVMW3H7WVd2dpwBg+lDy+o/0OeeJxD8WUnhhHRrvLmuK8ez4GVDESH3vV
-	52/5qAxdDjltiNdXClGIczBkKc3Z0YFQQ2ncBwlK4V2ocMpnsKy93c9yx2f9XoRxO5w==
-X-Gm-Gg: AR+sD11wH1YrHhlFshyJ3jrzDTFrh2fwnqmv45xkwVocWZlv5dfdrK6bFCkwnjcgG/u
-	F0opGHVGQ1J3iKjArdJNF39EIYAU9Q+Ox0mvoN4GUrMiVZRJ7pfgHL5I2aVgdrn2oX67Tyo1rup
-	pzxKrGSWrutkTQ18/R00CWWFjRxz1JOjBjHghy5wXWzkc19+pWrflSX34uJtq15COVkzq4NBTfz
-	khaq/zrCoc49W4n769F6/BRW7IUWOBxuv3rO1rHjv+Ib/BKpa4UjD/lRnbmat+I+dkegWIblbLC
-	YYs01OSU725up3fm9jy8hvZ7c8/VRMgbU+rYGGldYmRL385G/aqcz4oslC7Vx7IS5voUdQ/j6W+
-	Lwyc/32upXjZNxIE=
-X-Received: by 2002:ac8:59c7:0:b0:51b:f25c:2896 with SMTP id d75a77b69052e-529d6fa0310mr13120441cf.11.1785232791995;
-        Tue, 28 Jul 2026 02:59:51 -0700 (PDT)
-X-Received: by 2002:ac8:59c7:0:b0:51b:f25c:2896 with SMTP id d75a77b69052e-529d6fa0310mr13120161cf.11.1785232791475;
-        Tue, 28 Jul 2026 02:59:51 -0700 (PDT)
-Received: from oss.qualcomm.com ([86.121.163.114])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496b388d5b4sm212090015e9.3.2026.07.28.02.59.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 02:59:50 -0700 (PDT)
-Date: Tue, 28 Jul 2026 12:59:47 +0300
-From: Abel Vesa <abel.vesa@oss.qualcomm.com>
-To: guoniu.zhou@oss.nxp.com
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>,
-        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-        Frank Li <frank.li@nxp.com>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Peng Fan <peng.fan@nxp.com>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v16 2/3] dt-bindings: clock: imx95-blk-ctl: Define
- formatter child node schema
-Message-ID: <2hmw6cq6e5ba4hps46k2drdutaofcqcrczjreq7hoikmobb7rm@wbconxilsxg3>
-References: <20260728-csi_formatter-v16-0-1065ba47530a@oss.nxp.com>
- <20260728-csi_formatter-v16-2-1065ba47530a@oss.nxp.com>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="VwUtCHtI"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vz8LpBHXwXXV0P8SjR5wDKf7BaEL4tDlHsLxxH4Vxl/HTQqRV9AfywxVeS37DnjjXpqY6/3lQYKcTa9iJLKc3DBz6hrLbHph7UI3EyMmkjE6yp/foGh6JVuk7mPpRDib8fefxcS2WjaML7Rocv18QWkwyf557TzjMzB/F6Kx1SnmXk7XWgEQBN0YPV7Pk3x1CV6J+fdCk8TY4bNVKltJo/CtA0avCyg1QvPBWh3wLzT8va0w4FrPvfZldq8tTu+60+aexCf+IFQK/gw5Qrku+yCFepIiwSIHvfxpGkg67ZaKEWYkrcFAfu7GLVMZwMj34w2NMe990lF6f/SUZLslnA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=/Qdyfq5oFBH4GPdeDZFk7BQdsU9Op4Ndu7SFiC09sFo=;
+ b=qQo/8NaPOVWzRkdgEI0QsF3oFNMvdPtwxx7l06efmeeHsVxc8MxMEiXQRFhszUsMcf+wWtFb/3DBdn+aBtRLJ3t6RvnYGj+Bhmlz2Oj7GAszrY/4wydzRMZ5aj0IWNjeIlAgnqz6lBsZjlDX6JBIWq62nlZw6yjTH1E4X/YjC2WqG6AGSV/zhBdXRn2Ylg1hx6nPOQOP1cP/uTIeKynBXWXfjo7BuxZOILrw4VqZOJV/83k7ssTRjpO+1pKGTNWAxMxEyR7EpIeAdCfbxlhx3I/uk0p8I66Jb/9wv4FIurzSZvtK6NgGbsdoVhQ4Vw30ft8aCmt2d+JvpxV6KTJZtg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=/Qdyfq5oFBH4GPdeDZFk7BQdsU9Op4Ndu7SFiC09sFo=;
+ b=VwUtCHtIxAV6zZZihmdyDX+YF3FqsjGmay8X8EQ/MNOIgIgQ2UX6ssyRjTY+uaAG/yHBijM0MQuOLvQqayGtEzZiiuKEBsLALoaWfJRbNVxYleFfWnVN9hESh+1M0v5kWZpa/poAHnZqHuV2MapWsvHofAU2j5GpK0vlhAAJuGt30wtiH2Mu/ollB75MABfNP6Wv48thQpImrjIKmlx/thrKSg9Ep6FcVCbwWWWtePW1dU3cr5uUyJiUMqPgpWaNDatJuDLl4INHHhLerF/WRVrs+JkSSz49PYYfTQtPnePBM3dgzAsdAf30rGwffnvBK207HCXU8e/UhnbYdIdbQA==
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:199::7)
+ by MAUP287MB4667.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:18c::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 10:10:11 +0000
+Received: from PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b]) by PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ce63:5749:b390:508b%3]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 10:10:10 +0000
+From: Tarang Raval <tarang.raval@siliconsignals.io>
+To: David Carlier <devnexen@gmail.com>, Kate Hsuan <hpa@redhat.com>
+CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2] media: i2c: imx471: Fix uninitialized error value in
+ imx471_set_ctrl()
+Thread-Topic: [PATCH v2] media: i2c: imx471: Fix uninitialized error value in
+ imx471_set_ctrl()
+Thread-Index: AQHdHnLqdEMOLKxkyUqsa9ChwPEg8baCtD5Y
+Date: Tue, 28 Jul 2026 10:10:10 +0000
+Message-ID:
+ <PN3P287MB182971964DB25348A10176E88BCB2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260724041417.9921-1-devnexen@gmail.com>
+ <20260728092430.12491-1-devnexen@gmail.com>
+In-Reply-To: <20260728092430.12491-1-devnexen@gmail.com>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN3P287MB1829:EE_|MAUP287MB4667:EE_
+x-ms-office365-filtering-correlation-id: 4af5dea5-054d-423e-620f-08deec9068a8
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|23010399003|38070700021|56012099006|4143699003|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ rNlQlyvc5zDdfShbIv/GLrbCeQVLy+LGdybJJNuzmHSWx41L+ad+tP9vQ7dCR75olgPKIhn5siyxW1IHqrzSsOwQZU/9SRZjwUz9Fab+owI+X0YWchB1ggBF10JNhwAydQFeFCpYy/B6B/PFPezSNdPxkQ8kxJ2/zuB6V4gYViAwmcR/V7SWQIihmk4SuFu/wrOV3RdwdFlnUp3tTUm7K68BTd4RARASSON2tzVKAjbG8ywTgEigZiCDxtlbKFabf/xKUoxDdCnwd1Hj8T235focQ8eUCGcguaDZ5QbkJlPR3/Bwii35sx2bbJ5OaQ5mkdFormp3U47lVwEFlstprDevDGLLTveT3OhWtBNkKM/+sUbj4E2Gjia9UxeHitmB61J8RxQO4sjp0+pZDdh0YFhINQzMg3C9qPVQCOnyjntGcC4UJEKxCljZ45B0rNXuTu7tFosOUo6nH+/8ChTEvg9AHx62U5+q39eGe7uUNpD4+ZZ+8Nop1AnV0qzyjQr3bfEGuZNpJbzPAGjwLHCoOYQ4TumHouvCuMggOIj4puiOFsklTUi0X1W6Bi5yEEsmBkdP71JOnH+nfdMbkh1RXHRtzzpMJwdxgL5ze/I+wWJur14twbOw+o3LeVESX4KgNQDNR6oKqatDvSfumXJKxIQN9cH0JccNQ5iBJsXTdsE5E4OQXVDSiaPhUdVTHBc4Fm75wm8Bd1OvbCjm9cxhkcc+bcv7qyCR6051uPfFsFI=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN3P287MB1829.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(23010399003)(38070700021)(56012099006)(4143699003)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?KM7j9DSWnZqz1qdvojn582iJekVYXwJJ7IBbcCrCBw/0E3fzgRC0TmDDF4?=
+ =?iso-8859-1?Q?hfpbjPdCWn8089zpvQVwa2WtLMGF5Rs8FuB/SoT1Hw7Ew1l/OzZ0SbFwmV?=
+ =?iso-8859-1?Q?ITYqE2VPVLUgXTpiBjA9ymUmP1rcDZ6eT9ZZvx1+sLcJI8BXfUQlHeZ+mv?=
+ =?iso-8859-1?Q?UnZg9x74tBzcvGx2zEhiIhq4mSq186rPncpYRqAjHL+jRCaoxkple7uy+A?=
+ =?iso-8859-1?Q?kX3ZvnwZy5jO9CnYU0zSxKpUsgG1IkZk14p5UGju9JfxLc9IwLlFLG0y6E?=
+ =?iso-8859-1?Q?RWRgSwToLDgaBUpavJvSpIKjU4fKYYM9d1ZOCNjXOz67EUUNECT9RtiQdN?=
+ =?iso-8859-1?Q?N+5hlhmz4u5PAXsbgokSbTeBox/Zaw5VEALX8Gpj7cU+ifL0i9GqbdgKS1?=
+ =?iso-8859-1?Q?ZV1AbDFVqb+ZOCoh2Bihaz/qyE8y5kOSoO4jDaBO4uVihVZDFQd7beFXuf?=
+ =?iso-8859-1?Q?FivFDGSpSnrf80rHr5gt+k32epxXkPzgMxR/MdHg0iFvYI4xIzQmv3AkV0?=
+ =?iso-8859-1?Q?kzuNnI2E7zlb+hbWvy0DO6CdAxxgamSYjm1oWPHly3p8D7uj2hoRa+rUYW?=
+ =?iso-8859-1?Q?qwn4qKr8YU5ZLBcahixg7OSy/ShvdDmU2joBtlLVNgTAeKBMjpI9/PvQbD?=
+ =?iso-8859-1?Q?tk9xVZ17kk2QPQpnPksnUfH1EWARntpyaTIRpo6XQ+KFvThYf0bFPV+7TG?=
+ =?iso-8859-1?Q?X2Tyyn4/oHhzjF0HEcSyhUvONhKkpZF1pP5ZUienLpV837Sm9USX5PXVa8?=
+ =?iso-8859-1?Q?ap5/ojxhM9CGQdSa2xbbibzADIZADUcXRhCTHIubyPewibPD9YQ5wAj9rH?=
+ =?iso-8859-1?Q?XQR8D5gbMoKHMsViX1ic6NHgh7dMmO9PCXnRpWCSkiG0Tuvv0gqZE7u/JH?=
+ =?iso-8859-1?Q?LZkXMa+VaNVsgyGV/3HOy3090iyPEZNHUks9SJLN1WrZTCvc4gENsJmc2k?=
+ =?iso-8859-1?Q?I4vUww87yRRZk044xf4MWn+E75SIB4hQj6hT0Qf5X9zoUK9RKXCadS7/em?=
+ =?iso-8859-1?Q?/H7lwMxote7l4R2Y1GsjQiRDiD2wbqgmdq3XENOXSza1AmNfNPocOKSL7m?=
+ =?iso-8859-1?Q?smeO9dzuT+ZicahhY1c1XnlCkOpVP6Ib14GQhPwjAX1mU/FFQpxDC2vXlq?=
+ =?iso-8859-1?Q?dbnE+RFZjd4oSQ1YxSWdM+UlogQXBrmcA75vCHdITx57RaXUEORTfELc1s?=
+ =?iso-8859-1?Q?xsFu1MKdqp/VZMHa64WVfYGX0KDj5c+Xlqa8Kj8MbXWgAYKBxHgOta8baW?=
+ =?iso-8859-1?Q?OKsmvwXFqvg595NnnM4pQ9U1BOyOgiwN69TJSk2lCk9NYXKiQzGdNYDSh8?=
+ =?iso-8859-1?Q?BwjWL4gjBQ8uyc1QLhFvjihg8it/6X+uSB4Re22p8w9nI017TOumqV10jU?=
+ =?iso-8859-1?Q?q7RsU4Im+wfD357x79GDELHQb/R4X2xQB4yuB/CyrCFBcgAaEREU89fI+C?=
+ =?iso-8859-1?Q?w+VWwJ+tfbiLLxxyBUHqibbLT02oxleVmd7R6z+J54qtYTt3xWmkB1kBdI?=
+ =?iso-8859-1?Q?SHuWttd6anp7ixhmk+QraR6B0t1pYg2+Uv+IYeFI9dM2QKQf/+MRpHstQp?=
+ =?iso-8859-1?Q?lWGtHXeh82kcw3Y/YzdljqxIQGg03K7/1CH8dxC084k5bMONUb1EzN/3eD?=
+ =?iso-8859-1?Q?V0dZdTGLqC+wHjjxvKMSFEPkti8nYrz4uGLhZB8uTNiS7HpHhmUlA2fjzw?=
+ =?iso-8859-1?Q?PKrVehNks76kFTkAUnN+zefA2j0DlOvM1GHaoh82Yi+kHTyT71+0cgrp5E?=
+ =?iso-8859-1?Q?/Ye4opbSMWiGS2l7diUm+RW0XagjM3TrpJK1sErEcIA/REUKuYpDTqiuRv?=
+ =?iso-8859-1?Q?9Lqa6wrJo3/ubdemGoB4ze+m7BBvLtg=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260728-csi_formatter-v16-2-1065ba47530a@oss.nxp.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA4NiBTYWx0ZWRfXyuhxc3BoUGhf
- AURvfbiqHkZaUO1bPxQtTLXVp78MLVEx7ZDNrWashpck1kWJ2JTx/vctgv4zkfghRD84Hc2+wwF
- jd7PlZTLAEgXCSzwfZW9LScLCc94mZg=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA4NiBTYWx0ZWRfXxHi9YDbjGw8d
- HJRcJOEDLRvaaC6V7pZUk7jc+z1QdRkI4ca6CYJ9Qfl0zsrXkWegkBaxvEo1Xhy7XTEsNOhVvXK
- ch8UmCX8F2ERx4CfcWOs9VCXHRaKXotQi8dzJ82pIWtVq47t/4NFT7IWu46KVPskyPR256kmp+K
- hgCGIYHGlh/VwXIRDd9x+Mb/ODIqsROZ+zP09Q+j/yC0oZdXlhyJeRLE5KxIIM8IeP6eL5/dHAj
- O3Mb+AjcE6h8CmhRTDCV8RV422+W5q9GoN3l9px/dYi4Za7xl6I07d++k+AR5jsvhkOCewYiTCx
- eSbdbFMrfSu2q8AKUWeDHMXLF8m4+gZiicHL7kVw/fd6eRr0H9ZPJKnmsoBHzadMSLTrX8ePZSS
- PtYUKESpQMqDI4PMtxJq5edrXLx2cOvsaff/38OHDLYMBbU9bu4RBoQijFR7Z3ss+C9aOE0HDs5
- 7CMLR2y4XbqVlMMrISQ==
-X-Authority-Analysis: v=2.4 cv=aa1RWxot c=1 sm=1 tr=0 ts=6a687d99 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=6dw9+iwJWV8PcCi9M4lOBg==:17
- a=kj9zAlcOel0A:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=8AirrxEcAAAA:8 a=EUspDBNiAAAA:8 a=P1BnusSwAAAA:8 a=mdcQqFF6s0ROXEWFMbUA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=ST-jHhOKWsTCqRlWije3:22
- a=D0XLA9XvdZm18NrgonBM:22
-X-Proofpoint-GUID: YBGhl8gLoPCn1ZX37UFkHq46y76cfOPG
-X-Proofpoint-ORIG-GUID: YBGhl8gLoPCn1ZX37UFkHq46y76cfOPG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-28_02,2026-07-27_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1011 adultscore=0
- suspectscore=0 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280086
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN3P287MB1829.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4af5dea5-054d-423e-620f-08deec9068a8
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 Jul 2026 10:10:10.8232
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Y2s5Wxu+9IgVOIxL4RA5B54ArJtSNRPb0DmPjIFQvGYJJtzDGX+73kXvOCQRFw9cnrC5hapSE7nEwwpBBaNL2p1u9ZzWXPFUz+5yR52SI+U=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB4667
 
-On 26-07-28 14:14:15, guoniu.zhou@oss.nxp.com wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
-> 
-> The Camera CSR contains control registers for multiple CSI formatter IPs
-> at different register offsets. Each formatter is an independent hardware
-> block with its own clock input and media pipeline connection.
-> 
-> Define schema to allow formatter child nodes under nxp,imx95-camera-csr,
-> with 'reg' property specifying the formatter's register offset within the
-> CSR address space.
-> 
-> Signed-off-by: Guoniu Zhou <guoniu.zhou@nxp.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-
-Acked-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-
-Mauro, please let me know if you want to take this through your tree.
+Hi David,=0A=
+=0A=
+> The exposure and vertical blanking writes pass the address of the local=
+=0A=
+> ret variable to cci_write() as its error pointer, but there is no earlier=
+=0A=
+> error to propagate: each case is a single standalone write, like the othe=
+r=0A=
+> controls in the same switch that already pass NULL. In the exposure case=
+=0A=
+> ret is still uninitialized, so a non-zero stack value makes cci_write()=
+=0A=
+> return early without programming the register, and the control write=0A=
+> reports a bogus status. The vertical blanking case is benign today becaus=
+e=0A=
+> ret is zero there, but the construct is equally wrong.=0A=
+>=0A=
+> Pass NULL as the error pointer in both cases.=0A=
+=0A=
+Nice catch! Thanks for spotting this.=0A=
+=0A=
+Reviewed-by: Tarang Raval <tarang.raval@siliconsignals.io>=0A=
+=0A=
+Best Regards,=0A=
+Tarang=0A=
+=0A=
+>=0A=
+> Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor dr=
+iver")=0A=
+> Suggested-by: Kate Hsuan <hpa@redhat.com>=0A=
+> Signed-off-by: David Carlier <devnexen@gmail.com>=0A=
+> ---=0A=
+> Changes in v2:=0A=
+> - Fix the root cause by passing NULL as the cci_write() error pointer for=
+=0A=
+>   the exposure and vertical blanking writes, instead of initializing ret=
+=0A=
+>   to zero (Kate Hsuan).=0A=
+>=0A=
+> v1: https://lore.kernel.org/linux-media/20260724041417.9921-1-devnexen@gm=
+ail.com/=0A=
+>=0A=
+>  drivers/media/i2c/imx471.c | 4 ++--=0A=
+>  1 file changed, 2 insertions(+), 2 deletions(-)=0A=
+>=0A=
+> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c=0A=
+> index 6d358b11e96d..4053aed84340 100644=0A=
+> --- a/drivers/media/i2c/imx471.c=0A=
+> +++ b/drivers/media/i2c/imx471.c=0A=
+> @@ -334,12 +334,12 @@ static int imx471_set_ctrl(struct v4l2_ctrl *ctrl)=
+=0A=
+>                 break;=0A=
+>         case V4L2_CID_EXPOSURE:=0A=
+>                 ret =3D cci_write(sensor->regmap, IMX471_REG_EXPOSURE,=0A=
+> -                               ctrl->val, &ret);=0A=
+> +                               ctrl->val, NULL);=0A=
+>                 break;=0A=
+>         case V4L2_CID_VBLANK:=0A=
+>                 /* Update FLL that meets expected vertical blanking */=0A=
+>                 ret =3D cci_write(sensor->regmap, IMX471_REG_FLL,=0A=
+> -                               format->height + ctrl->val, &ret);=0A=
+> +                               format->height + ctrl->val, NULL);=0A=
+>                 break;=0A=
+>         case V4L2_CID_TEST_PATTERN:=0A=
+>                 ret =3D cci_write(sensor->regmap, IMX471_REG_TEST_PATTERN=
+,=0A=
+> --=0A=
+> 2.53.0=
