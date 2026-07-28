@@ -1,143 +1,82 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD423D6CC6
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 08:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9B63E9C23;
+	Tue, 28 Jul 2026 08:13:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785225742; cv=none; b=VhVCH/aNnQMEa6SuwV/KayU1duviL6Wt5m4qZO2MEii/W8PcJoKXlOZss1FCnojeIKO/h6biZbV5Y1640d2ugGmAAzBjdvx6gpZPXYnbAduZ0GBq3rT9qTstLC8/EAbrNgdJjGAwO6ywB+uHh5pmN0FpXlTeQuyR1qXlMuTnf7U=
+	t=1785226426; cv=none; b=uYMFrnS46EU6GeiBxlVDhRvB7Gq5gRVU7+I6GokFUuTPUBWQQz0mR4zN/bAuygWEkrCC8zdvuVGdezJvFmCqk/6PHyQdyshS1OcEzG9Y4Xo4x45WHfxVyAKiSzLQ/3EoFUT1l3Uym6s3chJuu6o4zH3drWTziF1+gf0Zc03594E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785225742; c=relaxed/simple;
-	bh=cw4RVDbB+SS17gGDPFBsUyxANiYfj2/mtdfpCjWGIAc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TC0SLTnDVtnakvmpy0ShOUppAh1/tHU8KOe2M948eCi1acZzO2vFq1TB2wrTjRj+f4C6bSVsERrHzKYrX3NNIIX4BdoBm8Fumci3Rac1EBQ32ZXT0Ss3Snj3d9m0tXu/VcY/SPX91ZQu/GFofKPnGe1yBJrrHGClMl9NtgdLk1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HnILnySa; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785226426; c=relaxed/simple;
+	bh=0JaeJ93QmvKw2USL3k8yw+2joearmSdhFpa7weiYBik=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=u9ZzXqB2ZACOcuHKXJl8f6tgK88nvN3eJnaf86mhbqoKM76S8lvsm+cLo3yeeOYn1P8ZlXpgqxbF4Sf8L3mKX20Wg4gXMeV86FzixPBlgf4EMKizzhwkU4WtpFUHyQ9yMYsW+vXFaSBfZ7qAjZ6jZdHFBlkqZdF9TraBYNEZlW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=gHdAqtbQ; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HnILnySa"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso5677860a12.1
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 01:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785225739; x=1785830539; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VADWkygOMgTz3D8oKiFNpo7c0M0MqOIRcwEmZNyVtzI=;
-        b=HnILnySaPqb+NY1LnF2yGT5kWOPt1pOkjbrfzozkosmDEPD/0j4Id0dDFjkw/YKyxQ
-         Y+ixqbvrzHW5J8hogwU9xhywz3dmheHAKurFDKDR2jD2oPdLg43InPWUSkEFRn7pMHwv
-         0mkXvxutwPRgPfNFJUQSu3uH70H/uwa4r1Cpo=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785225739; x=1785830539;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=VADWkygOMgTz3D8oKiFNpo7c0M0MqOIRcwEmZNyVtzI=;
-        b=aQkksYolAWa1XdqEou6MKRXc9nvSFT9+6nEDThnXezZdDhLTPFBBpxsEodilJqV+T8
-         blKkM1hvUYX231i240ubCUOuD9hQsOEohIZjmZXN8m9+Bt8MhYranlwm9pcW2v9a/HBN
-         N+SkQg+NzgsYovTbffPsXfXK66DhpFTqQf5wA9AXfaSDtmRV/CXzutwR40534oXz2qB8
-         +YrtrnfWgRnRwRA7z7k8Bap1UGC4OkF7O/kBQrdHW/pcWyJc0zd1POQDUcILiKXCYnV8
-         K5sV6SZRXTImEWNQqFT44ZTLsb3PA38vb2EKu9t2N2tp/3r6c68R4hJq3XUb0z7YQBDa
-         7rIA==
-X-Forwarded-Encrypted: i=1; AHgh+RroeUMyIOitvf3E1rEX6XEAJ/kwT4lZqBl5ye2XP1UYegzrqYMiMYbIsQCss3rlNkAtAxdfneiqcFaVjw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx/pDSZ5O0wtIKwC6CRzEa6l1k2BNy081wK78zUkvPOmf0WSo6T
-	ZgQSV668QUpmTjeVOSte2kDDZYW4nalcoRTCyCMjotiwYxI3MlV0Um1l6TjQ8PFZa/Dm2qM9cuH
-	7ONl5TQ==
-X-Gm-Gg: AR+sD13UCoFC620FaW36J0Xc+up1w1tmBX0oM+5z9UT0Pw4bpee/czGVgdZE8fLNiDe
-	JiS+ZSlMTywhkGIkWKWkeTH5gUFyBuGsrY3+hrZzvVbbYpPsIfgDqP3nqBalItDW7hH+f0g/F6V
-	pxxHBQK0TbL6EyFXRwq26MJ7zwBFp67Gsv/ROsRW/ZpcdhjgczVJmoPQmXXIH6OUt6Dl1oYWYxd
-	UhKK2BYN9YLEU3aP162R/gqn45GhJK9QHJ+ndT8yGswKGd9JdOPzsRkzJOIGpSrX8WEDeKJUKFN
-	b/GIQtA+j2m3EuFVpaDVvsT9hbiJcqnKDZhvEHWoCh9DZm2Ou93Xjbb93A3qI4/EjQIzVzwNGsF
-	/9QPDowsFyF44z2KRZCevSsFmAxriFEf8rkabe5yOJOVi8ilR72S+DmYvTuLJooaGgsmIrHNI5G
-	dHHjs5JBPfyl8P7yH63sjhTUQObJtUGrQEbKMTb5k=
-X-Received: by 2002:a17:907:fd18:b0:c1c:2c92:fd60 with SMTP id a640c23a62f3a-c1f71e94502mr68529866b.13.1785225738805;
-        Tue, 28 Jul 2026 01:02:18 -0700 (PDT)
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f19c57sm715280866b.58.2026.07.28.01.02.16
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 28 Jul 2026 01:02:17 -0700 (PDT)
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15dd4b9132so520098466b.1
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 01:02:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RqOAr5R1y83k3sELeAihhD+5/6kpMmjF0WnBQ0to1BVmQcn5gnG4F2RFOn5xuCLvIpKKareybxwOzDAug==@vger.kernel.org
-X-Received: by 2002:a17:907:c80e:b0:c12:34ed:da14 with SMTP id
- a640c23a62f3a-c1f72504745mr52313266b.64.1785225735405; Tue, 28 Jul 2026
- 01:02:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="gHdAqtbQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1785226422; bh=0JaeJ93QmvKw2USL3k8yw+2joearmSdhFpa7weiYBik=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=gHdAqtbQsWOuu6gwq3Xb6fFoWeIhEanbvUQ3YsUrbISmYJcxi/2X4CuIROaABAlaN
+	 E/MSMkSy5bCB202DoT+0ykDqjtpFE52JObgQTVOEPS6nIdyIBFAANo6Kecp2HkfC0l
+	 5/+W2eIi1flxFOSYBUACcXLMV0q9e3Ix5rp/Anv/fmHXEOwlwWKmLx8TReYVVNPcUL
+	 Eu6jnURcMgTjFNdUGE9DKGTp68LcBKOiCsURCMrlEJDuN1kGlYnFuXKbD0WyBhrRbK
+	 UARr0pUgjUIgMhvOrNB8OfSUKh05Z5BaW9OOue8IP+ceU9Bir/8XJr9JUcvu8uxR3k
+	 ApO6Gg5cud33A==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 62A2941567; Tue, 28 Jul 2026 09:13:42 +0100 (BST)
+Date: Tue, 28 Jul 2026 09:13:42 +0100
+From: Sean Young <sean@mess.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 05/15] media: redrat3: Error path leaves device in
+ transmitting state
+Message-ID: <amhktjcUpSxHZNi4@extorris.mess.org>
+References: <cover.1785158244.git.sean@mess.org>
+ <d22b8dac679cc4b4713dd03875576d71305e3912.1785158244.git.sean@mess.org>
+ <d59b23fd-0d97-471b-8af4-0379349829ce@web.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728001545.331638-1-faizel.kb@gmail.com>
-In-Reply-To: <20260728001545.331638-1-faizel.kb@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 28 Jul 2026 10:02:03 +0200
-X-Gmail-Original-Message-ID: <CANiDSCs=UXSD92OwTjaK5k-bgJjJr6MN88LYirWiDhhKdo56GA@mail.gmail.com>
-X-Gm-Features: AUfX_mzElulVKQqbbYLWCl1d63kYtJl-7XEMUhAnK5PRxIgpYaBGhkaXW3P0b04
-Message-ID: <CANiDSCs=UXSD92OwTjaK5k-bgJjJr6MN88LYirWiDhhKdo56GA@mail.gmail.com>
-Subject: Re: [PATCH] media: vimc: sensor: fix pixel_rate type to resolve
- do_div() warning
-To: Faizel K B <faizel.kb@gmail.com>
-Cc: Shuah Khan <skhan@linuxfoundation.org>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	kernel test robot <lkp@intel.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <d59b23fd-0d97-471b-8af4-0379349829ce@web.de>
 
-Thanks
+On Mon, Jul 27, 2026 at 05:57:23PM +0200, Markus Elfring wrote:
+> > If the allocation fails, transmitting is left as true and the transmitter
+> > cannot be used any more.
+> 
+> See also once more:
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.2-rc5#n94
 
-On Tue, 28 Jul 2026 at 02:16, Faizel K B <faizel.kb@gmail.com> wrote:
->
-> vsensor->pixel_rate->val is a plain s32 field. Declaring the local
-> "pixel_rate" variable as u64 misrepresented its actual range and made
-> do_div()'s divisor look wider than the 32-bit division it actually
-> performs, which is exactly what the do_div() coccinelle check warns.
-> Revert pixel_rate back to its original s32 type to match
-> vsensor->pixel_rate->val, resolving the warning correctly.
->
-> Fixes: ec1e620b2454 ("media: vimc: sensor: Add pixel_rate,vblank and hblank configuration")
-> Reported-by: kernel test robot <lkp@intel.com>
-> Closes: https://lore.kernel.org/oe-kbuild-all/202604191731.10nxGZ92-lkp@intel.com/
-> Link: https://lore.kernel.org/lkml/CANiDSCs9s03DUjKwcPgDtZt2QJ4i0FGwab4zpEP+wCawagSC2Q@mail.gmail.com/
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Faizel K B <faizel.kb@gmail.com>
-> ---
->  drivers/media/test-drivers/vimc/vimc-sensor.c | 8 ++------
->  1 file changed, 2 insertions(+), 6 deletions(-)
->
-> diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c b/drivers/media/test-drivers/vimc/vimc-sensor.c
-> index 83dcc9d61ee0..7cb544fdfddb 100644
-> --- a/drivers/media/test-drivers/vimc/vimc-sensor.c
-> +++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
-> @@ -97,18 +97,14 @@ static void vimc_sensor_update_frame_timing(struct v4l2_subdev *sd,
->  {
->         struct vimc_sensor_device *vsensor =
->                 container_of(sd, struct vimc_sensor_device, sd);
-> -       u64 pixel_rate = vsensor->pixel_rate->val;
-> +       u32 pixel_rate = vsensor->pixel_rate->val;
->         u32 hts = width + vsensor->hblank->val;
->         u32 vts = height + vsensor->vblank->val;
->         u64 total_pixels = (u64)hts * vts;
->         u64 frame_interval_ns;
->
-> -       /* Sanity check, pixel rate is fixed and fits in 32 bits. */
-> -       if (WARN_ON(pixel_rate >= 0x100000000))
-> -               return;
-> -
->         frame_interval_ns = total_pixels * NSEC_PER_SEC;
-> -       do_div(frame_interval_ns, (u32)pixel_rate);
-> +       do_div(frame_interval_ns, pixel_rate);
->         vsensor->hw.fps_jiffies = nsecs_to_jiffies(frame_interval_ns);
->         if (vsensor->hw.fps_jiffies == 0)
->                 vsensor->hw.fps_jiffies = 1;
->
-> base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
-> --
-> 2.43.0
->
+I've tried to re-write the message in imperative mood, but doesn't look
+any better. It can be improved though, how about:
+
+In the allocation failure error path, the transmitting boolean is not
+cleared and the transmitter cannot be used until the device is unplugged
+or the module reloaded.
+
+Is that better?
+
+(I don't think we need a v5 just for a change of the commit message before
+commit.)
+
+> …
+> > ---
+> >  drivers/media/rc/redrat3.c | 6 +++---…
+> 
+> Some contributors would appreciate patch version descriptions.
+> https://lore.kernel.org/all/?q=%22This+looks+like+a+new+version+of+a+previously+submitted+patch%22
+> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/process/submitting-patches.rst?h=v7.2-rc5#n310
+
+This patch has not changed since earlier versions.
 
 
--- 
-Ricardo Ribalda
+Sean
