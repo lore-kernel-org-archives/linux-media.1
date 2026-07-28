@@ -1,92 +1,109 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C8243786A;
-	Tue, 28 Jul 2026 12:34:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC2E32F0C74
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 12:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785242077; cv=none; b=KEbcMehqSkBM4T21UG0CxdMUkPfXIgYmjWV6kG+4zRxm5ykOLWFm6PWok1cZ1X8iMGV8GZIFzH7VWy15XUqtrDzBduqjgi4vPPAiCzkPkyZmW//DMVYgx0/ZjHmSYKanrezdXhuu7UuO4aW727Stb1JgehifirgaLZsQywWjYiU=
+	t=1785243136; cv=none; b=jfxy8CEeronwcGQWNGvXxCVqFeDaHdLPcEw43o9gtPlxx0B7/pICet1RvECOd9sTs2/HwUlGdhcmAgSuggvZNi68OQaU5Yuhl/0HtCj5TI12708sQoWHrTN1k5Dh7b0hjLKsAprDxJthnzhufejxyyjRGz/78tOHLwBMzJH4bSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785242077; c=relaxed/simple;
-	bh=qS+ACjhQz5lnG+4tvxGsYp9mXLT1MtrxulXQHcyZeTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TzbdkPou0XXFtS4rzR9fWMapa5KZOY6oo4BuAgnBjNdAwIS0qzBiP1WkMFBwUWHLIgwiWlVu13uGaBEQi6BkFwGZlYc0LbPOoDDk1XJKm9iHmVzH0os+2XsVo/VaSfzobtFZDQoVPaORjlXZS8lKNKawb2rAaTdNNObA9Fkcrl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ud8D75BO; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785243136; c=relaxed/simple;
+	bh=FMdMDb1hsRT2zerT6pupP/XGqPrIeGTpfhSoF7SeLBw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HSULy888tVwokUSFk+e7BZI0H+2MW990nhWzKyj7bi3KA1ty3qQQ0Ir6WVVAYtAv7YZ83TbcEP1u2eWzb/yMI9TVPWiNmXFoposCz5gltjkCEDG6pszTaT5d+diol2v4XNG8xjc9A4XeNWkW1X1hzsS43sDT2gpXSw0FjjEMpRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lVuEeVgv; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ud8D75BO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785242075; x=1816778075;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qS+ACjhQz5lnG+4tvxGsYp9mXLT1MtrxulXQHcyZeTk=;
-  b=Ud8D75BOUwaSUd/UpBGJfWVPVgslnZIdSxgzDq1ddPC47s3nA787pREM
-   uOtzZv03qy0atynGtjZ/flBucSjh77K9EnVEILM4tbcfUOhwjlCip2263
-   aI9EdR4TMjh3rTIMZE6vpUr5d/QUD66dfhdI3nu6T2sB6lsqGIy76qLar
-   pbEDhstvpLoWBmpBAEJ6eg4EZtNSBoWvAdwuiq+Md8bTX/Qu3T4VV3xRa
-   8XkVCBIwO92L1/mDQdfjSoUcRoRdZxara4VavHiz+n5qj2IfpddJkc1qy
-   K9Tg1MLQUbOYy6dy2Ghasc4mHNm9g8ilz5/iUjcbXcx3rOh1Je5z+J91T
-   g==;
-X-CSE-ConnectionGUID: bWCMfUpjQTetE+6YCqDUcg==
-X-CSE-MsgGUID: di/EhyI7TxWUyC4l3orgLA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="96410985"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="96410985"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 05:34:34 -0700
-X-CSE-ConnectionGUID: kQgSw5xqSXmlmdy9NgUggw==
-X-CSE-MsgGUID: cTq5CH+1S26MjrH8uhhxZA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="297922174"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 05:34:32 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 9C00E121BFD;
-	Tue, 28 Jul 2026 15:34:30 +0300 (EEST)
-Date: Tue, 28 Jul 2026 15:34:30 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Kate Hsuan <hpa@redhat.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Serin Yeh <serin.yeh@intel.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: imx471: Add line length PCK setting
-Message-ID: <amih1psHfejzUs55@kekkonen.localdomain>
-References: <20260728042013.23707-1-hpa@redhat.com>
- <178521646078.4139729.8353081240992310969@freya>
- <CAEth8oHn7MqqZ1hN5EYazdiVmHPm8TToo07KfR8f0Rikm59ztQ@mail.gmail.com>
- <amhfibBuw6N0usWl@kekkonen.localdomain>
- <CAEth8oEhDR_2UqNiiW2EaUYGGeR9NbkFWidQBXB0Hc+m4sbTbQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lVuEeVgv"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c160420289bso497994166b.0
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 05:52:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785243133; x=1785847933; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6CEzrLHR91J0dNl9cxgDm1rKeXDnUWpCXkb68sIs8ng=;
+        b=lVuEeVgvaH6RZ8PTiEAncKufX/MFlrRTYav1+NEPLJwhc/TpTZKzuvPo5avKNuPA8r
+         nA5PeMln1hGBBqiD994YNDE4d7i8AmIzKLlyzwPpjNvvmJA1tGy05T7KYQVs+4JOYZ6G
+         L7S29FQdKfdtS8JK/nex1/ywtCMX+hkqdVVtNaf5HgFOwzB9EgDGdi5H0BH33WnXLZYD
+         Fu/20JOyKV77I8Czubto2j5hlM+ifbhcJ3m0/7Dk4Qglvd1KeNnks7XnVCpkrk6XPQAS
+         ZGiolDVKP7vNv4xsCr2q17oLlPS2v3UVihnLUIwHdOXQYSOVglVXwCq8V8jcTHbAvzYh
+         pwZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785243133; x=1785847933;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6CEzrLHR91J0dNl9cxgDm1rKeXDnUWpCXkb68sIs8ng=;
+        b=sX83BWS/FJ9kNPtZi5JDGt4aIlmcYHTMmNTYOx514ZK7Nwzn8uIp1/VMk9XJzSOgrR
+         khjCZ0i5rYDUOBS6NB6HeHbT8ksqHoxDzXkjZs6aDlvtIlrb7mZW3WL65ltpLeoespjf
+         z+xeX5ljwOZY8/CK9yZZozhIdV3o8ZUY9LjJT3d0JVOj+HYJVg/Kmv1y7v4lGuJQBDKN
+         rnRe4gxBwW+MDS78Kr5XaWdxu71XrhLO5Om19GlbHBGApEep3+v2aSQGQBp6BlSL0LEg
+         OPwjAlMYVpTSMEhz5bfvpzCWoqGFxA2iT6f7DXOAqwpQFZx6SRiVuxoiGFcohlPkS35B
+         HLpA==
+X-Forwarded-Encrypted: i=1; AHgh+RrGkgM3/+mlV1ei4UFqaSlfS0oqeWsnzDvxO+/wV0ikJttpgyno23po6dZqfPAgsAHW6n5WUiiyVn9/kQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2LyW6gdKu0Nq3LOOH6+JDhCEjUDOuv2+EGH+3faAMQ95Yh3Kk
+	6MT8fiA8zMUF/L+0/rUOlm6LdY4pN7gofHq/PLxdJixzDo7sCXKl/SqQlYXaxwjeedk=
+X-Gm-Gg: AR+sD12G+WFO67PPAsb881GTcGMeApq4P05WyNAZGrELOZo8AF3VlGISqaUzQH1y2RV
+	yTXJDH9goUKwRsI8PPQJNr6n5dt7PqgknFID7B0tHOkSinNl9c6TDLH2+M8VcHOa/wFHY+ahN6/
+	5hTTDQNaalg+G6DxJVGpGE6/TiUYf9iqAX2rgntoS6ubLEqAhuVVM6FZXMRQn3KIvC8e1fUnoff
+	9FpSR6Ct6Y+sB4dSmF8AXpX0bU4Jjm1PZ5o5PSkD50dfijxEDuLCFB467I5HORF+IKFJyAEAQCg
+	XwlcyaCUuMnkNK49nsuFy4LlfCy5FlcN+uHLPE/gaOTqNOXL+poLzmapwWSw2VnSpCxLLHZ2yAY
+	mNrFX5DObXDa2L+6kIGaHJYAqXFwt1oSJ8hPP25E7BSHQRELT31zBLs+cWajZiJFUau0YWV1DFq
+	E8QDUZqjr0eUjvWA==
+X-Received: by 2002:a17:906:6a18:b0:c1c:254c:16c1 with SMTP id a640c23a62f3a-c1f719f4dbemr120090466b.0.1785243133082;
+        Tue, 28 Jul 2026 05:52:13 -0700 (PDT)
+Received: from [192.168.0.101] ([109.77.204.94])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1c32f151fbsm773063966b.56.2026.07.28.05.52.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 05:52:12 -0700 (PDT)
+Message-ID: <cfd2e58c-e42b-44e3-a901-2048e496fb08@linaro.org>
+Date: Tue, 28 Jul 2026 13:52:11 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAEth8oEhDR_2UqNiiW2EaUYGGeR9NbkFWidQBXB0Hc+m4sbTbQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] media: qcom: iris: handle runtime PM resume failure in
+ core deinit
+To: Hungyu Lin <dennylin0707@gmail.com>, vikash.garodia@oss.qualcomm.com
+Cc: dikshita.agarwal@oss.qualcomm.com, abhinav.kumar@linux.dev,
+ mchehab@kernel.org, stefan.schmidt@linaro.org, hverkuil@kernel.org,
+ linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <tR8w2GUkOUcarBSbnLxQsLPJsDQrGHIxWcizc8oRS0vu5wWNbeqYLWN5I8JKOpgJg61rd7q3XoGBl0KeV4V9JQ==@protonmail.internalid>
+ <20260604050451.41583-1-dennylin0707@gmail.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20260604050451.41583-1-dennylin0707@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Kate,
-
-On Tue, Jul 28, 2026 at 04:33:38PM +0800, Kate Hsuan wrote:
-> Good suggestion. I'll try to tune vblank and possible configs and hope it works.
-> I scratched my head trying to find the solutions and now I can focus
-> on tuning the parameter to fix the issue.
-
-Horizontal blanking is likely to affect image defects whereas vertical
-blanking can be used to adjust the frame rate. If changing the horizontal
-blanking does have that effect, we should probably think of using a fixed
-value for it. Then the question is what is that value and what does it
-depend on (likely PLL configuration and external clock frequency, possibly
-binning etc.).
-
--- 
-Regards,
-
-Sakari Ailus
+On 04/06/2026 06:04, Hungyu Lin wrote:
+> Check the return value of pm_runtime_resume_and_get() in
+> iris_core_deinit().
+> 
+> If runtime PM resume fails, skip hardware power-off operations but
+> still perform software teardown and state transition. Also skip the
+> corresponding pm_runtime_put_sync() call to avoid unbalanced runtime
+> PM references.
+> 
+> Fixes: bb8a95aa038e ("media: iris: implement power management")
+> Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
+> ---
+> Changes in v2:
+> - Keep software teardown and state transition when runtime PM resume fails
+> - Skip only hardware power-off operations and pm_runtime_put_sync()
+> 
+>   drivers/media/platform/qcom/iris/iris_core.c | 12 +++++++++---
+>   1 file changed, 9 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.c b/drivers/media/platform/qcom/iris/iris_core.c
+> index dbaac01eb15a..bf3c7f722490 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.c
+> +++ b/drivers/media/platform/qcom/iris/iris_core.c
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
