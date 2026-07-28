@@ -1,236 +1,195 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mout.web.de (mout.web.de [212.227.15.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8214040A95A
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 08:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785227638; cv=pass; b=WbrSS+MCc4XxO4o8EjC+9WRTMzdKYMQDvj/efAx+t5JSY9BI3HJIv7vIsFQ1aBUA+UI+AJaPpIvNPvU3xPW76pMtIPvUWCQDzk7enjXeeVBx4VtVQ8U4Y+7xwF//6D1GZoQItkNBsu5VGdSh+wF5mRml/tvdb56dAuhhunDhr/Q=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785227638; c=relaxed/simple;
-	bh=YtmrCKtADQ4fHPN75XgParICAfAmcm0oRnfwN1pFzE8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LGgZ1wtxNvLx7QEGFJ5zjCaCDCctpiBwaC8m31q8TMXsa2uA4OFuTlzjo0naTyZznpIECUc+crfRI+aeOJ6yrT+CgDTO9Uq4VzWV6g+ymj0dNo/WeqJjAv8R1aOz5dv2TgtaaAB8MFrxybowjbolxaL+a+o64OrfwF3lHA5oiXs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FOJv2Liz; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=n5CCvscr; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7196E40DB3F;
+	Tue, 28 Jul 2026 09:08:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.15.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785229740; cv=none; b=fc1ic/ps+mnpjYoVAhzxm02lH9fLRSNk+jkHnnnCuuFzPYPYmeZwl0Sw6mejKaP/A/vrQBAFJB5O3NH3NEylxyYO112dgfGZmNubQifSBcEa4EHRFz6M6rdp9zKyujFoj0PrnqLWydsMbg/8koiTt1bApq7ZDWQqXxlQ5DDIQIs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785229740; c=relaxed/simple;
+	bh=5FUXQQkvikKIyazralBdsCQmFN55BAlSFjsu7d5xeEM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=myifqHlIyb1LE8Jp1Dmwf1REBsXCX2Drua7/RFv20c0On85u6T9C3jXvS6iLmoONSdqD295JHsz+4lptAWsVbWd1vteThIExocOOtu+gqCjLzRCUCdIsPqpr39NCtKm41QBsGYZdVcDNyEbsZGiffMDyEaBgmH65CGf09vFg1Ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=IKD7o6I4; arc=none smtp.client-ip=212.227.15.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FOJv2Liz";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="n5CCvscr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785227632;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=HSX5wJ5Fq1JuTaJWcXA1vtvSdOWhTP9fZPdZwT2lanw=;
-	b=FOJv2LizUDbRbJ3X1DvxNqh3gpzMf9lFvlFBI3xwPD0muwnnf1oehlUgR/D7mkRGR8cDFq
-	OXBtYFix2OIaAtZvtfOIVoJALAHUHO5VFR+t8j7IWbbPrc+b+AtInTEhwQIs6wsjkCmpsf
-	zIuElfW+jOWTVBDpv2ztPP5nS5/9rz0=
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com
- [209.85.161.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-659-3kuP8ETfOhmg5a-3SlaW9g-1; Tue, 28 Jul 2026 04:33:51 -0400
-X-MC-Unique: 3kuP8ETfOhmg5a-3SlaW9g-1
-X-Mimecast-MFC-AGG-ID: 3kuP8ETfOhmg5a-3SlaW9g_1785227630
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6a516afd714so3735519eaf.3
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 01:33:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785227630; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Qq+Ba+0Tazn6TUtiiX0D1N5oHE0yiVpew/0znDrfJMfFHvJTxrdFs10/DUqMoQCG7n
-         GEPFMe1wNYcWPpd2yRA8bpg9dprPSID4NCeNOvhCchu4cnisXb/i6DwaznxZ4JKOZT12
-         yK8ZGYbhvkh+nje/C7u8JOlnMS++g1xif0naa332mvh/x3fcyApt8gDbfM5ZXpzG2CZM
-         AgqSAKwo9pEG/ct4Goja8gPJtmcbXsEEC76RWN1l3kfrvXyTRx4VN8CH1nvSlgYB5jqf
-         MonLeuOMRTvIyM+sG+4BLexzhQ4LOCTMQlkIxuHurNIAKqCgPMGGPXrDIjwriZ9xI+pt
-         esqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=HSX5wJ5Fq1JuTaJWcXA1vtvSdOWhTP9fZPdZwT2lanw=;
-        fh=ZgXQu5H0/8n5TpcdUzb1MQjMFO4AFcJmmvXXkABARQQ=;
-        b=MNBBBsBvGVSCWG+0dZo3hVJgbNBOUm3lnT9DcTm9uhmHFzG0XJAvxLkS2gF9svjQm0
-         Lnu/qUZXEOj6R9UhpehI31F2YmNKML8iUH2OA4/wkXUzRRnBNLjfUh9jgPuMNZiLoEE3
-         pT6oFmY7GWoQwl48Ip29AgvDb6LU64Eb71bOpaSeMmpbtp3cewydrKrDbXOQ5/ve8zcR
-         MDAUIKqs2sopGj+Ir6OFWCfMwMCirMqqrMpg160zoioJu8Gj7lPu2SmOyikSG2M5vOoz
-         ldfvvKoaQC4CFuHSWLb83Ji509Vj3IT4fFK1b5Hmyi/xup+ASb2GjxSAJnQLTKAp5pHg
-         Mviw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785227630; x=1785832430; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HSX5wJ5Fq1JuTaJWcXA1vtvSdOWhTP9fZPdZwT2lanw=;
-        b=n5CCvscrqik2H4W0mFVhd+bZquNMpKRBtm7THSLWIFQmjd3uMLt297fbN//ZCHjJrZ
-         5Ps1lnhLOuyHrFXhEkvWLgjS9VvLlzjC0/IlnSiTCy2r8mOtsF2KHgPfXDHT2T6ZdcWX
-         SOUMcG/zUz2hb8PddRHbOyBxNePfi62GXST9h6tXapBm+1L00K7m3BSXIfZA/SYNovo3
-         gBZe5ZHKp3ChUOjH2+7OGMu1kRohV65Ad4xqiRXxrifJfptCZ1tiIy5/fU6zUT/0uqYx
-         s6R8130JDCODEG1XqTVm/11mC3psDbToUEsLhioPSsFguAIx+RtZWQ7icVubw/dK927Z
-         DGSg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785227630; x=1785832430;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HSX5wJ5Fq1JuTaJWcXA1vtvSdOWhTP9fZPdZwT2lanw=;
-        b=JlCUDX/5zKWIcBMDXo7zhAi/RzkB/0Gb2EPXnl6du/Bh/Up2PqlqXJolQm8yagPo4I
-         4eYFhUfMX0Q+CUKjueDflfVVQVMOaoRh/qZ9/JamremajpHsH9Mj07dkFyPMbsfgfPVu
-         c8nevu5thdP5ye3uDkKyEY5dBJghIOXuw5OiBNRx3TXA+XqAgvzpiylUx9UbO3UejaAN
-         6JTdyXOY/3dIkDvJSzDpUcTVoYycyDMzEk4ufr0jIxLaP9XGdsPv3iYWU5KBFl4fu/yW
-         tuuXMIX95jC4L2OwqTY2JzxpHDxOyNn60eCWrrygmnvyWU3671NR7d8unGdjvyLnTayI
-         rvMw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpv2ZHDho6yXHrPZbdX4leY/YJR42nwuoqxVJCt533vbDLRjcdGToAORmYWaWpFzjjwHig+SUO4NrDjJg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyyo9YNmsgQGy1nrKZx8qbwniiy+sJpx7ibKNvCle/cYVyW7umh
-	as0cGjgbtDheX1TwILKnT4AMkzWthOUeh0ZhZqU2CpPcMT5kbkGBlczj1DMD3D1SLrwchKxjvyo
-	l00JikeTCKtTCoHYybZrg3Om+BcW1v49Y8CIDlh+SHcGtPrvM9jtlgmGPLCIMU59OkSExgjdetl
-	0s9JfrABnwtPIOByIk7V3+fy0NCui+TN+b2YotsQI=
-X-Gm-Gg: AR+sD11VWnyTyinKbPLwcPjo24v5rRYHO9FObGfu6X16OjKEYqDJg4Jp6PxrjxKBVEv
-	wX82Zv+m0NSAysN2PR765NG6mSrD22WN6op8GcmdQykBtfBExY0LOz9aG4XZHLifty+E9aOYbkg
-	Izd3Qtc8x/RfDp2i4hsQy2GIRhe4mopN+HbJg8xBwv+ClpuFsKpdggCABR
-X-Received: by 2002:a05:6820:80c2:b0:6a3:77b8:7115 with SMTP id 006d021491bc7-6ac96cacae6mr810205eaf.53.1785227630109;
-        Tue, 28 Jul 2026 01:33:50 -0700 (PDT)
-X-Received: by 2002:a05:6820:80c2:b0:6a3:77b8:7115 with SMTP id
- 006d021491bc7-6ac96cacae6mr810191eaf.53.1785227629684; Tue, 28 Jul 2026
- 01:33:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="IKD7o6I4"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1785229735; x=1785834535; i=markus.elfring@web.de;
+	bh=xtAupt7qMM1jiscpEnvzRmDa98tHFGMy6OcpC3h1RwY=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=IKD7o6I4LjrlVR5dFLFlXs8KdHwtedL/Kehf/fZVrQXLALE0YwrfBGdNxKLeUykE
+	 bQA7nXnQtaNurzSTKeBfD1TgEUYLfQ/CGaQhdUXtMZwg9qhkgZeqhlsLGkdnOml8Q
+	 sJiZHFA3w0u0ruOkisg4ykMUeUgIlsy0VPSXTLbkG69BX3ly4eS0QGlGgrLVIygOD
+	 uZwrbPA2H2XQdRwhISfV999QGEMrSU2yQWTr6+B7Q2yDeYfnRb0or1BOBxJDOyhaD
+	 MdAJHRsBy6vQerCFL1f3V2zE4iGnW/694jJOCw8ONem3NwhM3lF60lm4jtmGdWSEW
+	 fFyZgDSQhuIj8xtWAA==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb005
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1MiuOW-1xTSjr2Mom-00apGe; Tue, 28
+ Jul 2026 11:08:55 +0200
+Message-ID: <29ddfd49-58d3-459a-9bad-2466b754595c@web.de>
+Date: Tue, 28 Jul 2026 11:08:39 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260728042013.23707-1-hpa@redhat.com> <178521646078.4139729.8353081240992310969@freya>
- <CAEth8oHn7MqqZ1hN5EYazdiVmHPm8TToo07KfR8f0Rikm59ztQ@mail.gmail.com> <amhfibBuw6N0usWl@kekkonen.localdomain>
-In-Reply-To: <amhfibBuw6N0usWl@kekkonen.localdomain>
-From: Kate Hsuan <hpa@redhat.com>
-Date: Tue, 28 Jul 2026 16:33:38 +0800
-X-Gm-Features: AUfX_myu-AYIMw21L3VkZ7uMVH1M9DZ5Rrzj-yI623_Nx0qoxnLc0ZiboQNdr8U
-Message-ID: <CAEth8oEhDR_2UqNiiW2EaUYGGeR9NbkFWidQBXB0Hc+m4sbTbQ@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: imx471: Add line length PCK setting
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Serin Yeh <serin.yeh@intel.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 05/15] media: redrat3: Error path leaves device in
+ transmitting state
+To: Sean Young <sean@mess.org>, linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, stable@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <cover.1785158244.git.sean@mess.org>
+ <d22b8dac679cc4b4713dd03875576d71305e3912.1785158244.git.sean@mess.org>
+ <d59b23fd-0d97-471b-8af4-0379349829ce@web.de>
+ <amhktjcUpSxHZNi4@extorris.mess.org>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <amhktjcUpSxHZNi4@extorris.mess.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:SE8B+a3AvxfHJalOe4wMcoiN40CFh8/LKFJpyW4XvXUcbwJVSFk
+ 9/dSndaK6mLyRqzQA0x4rKlvtW6PDmwrFWLoWul1LpzLcHEi+TI7LFy40rsGoRjl3eWepwg
+ KyreSWAntNy4S7VuqZjgC7FV/K5Gn/rPHGA+b/XTF6rptsgJr1O6zMpfS16ZWe0Oog+0RIv
+ VQzZRauITrQMhx8g4Dcqg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:NQN8E0KCyxQ=;R1qQSbcrmS/riuPNiHJsOkhVmHo
+ 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
 
-Hi Sakari,
+>>> If the allocation fails, transmitting is left as true and the transmit=
+ter
+>>> cannot be used any more.
+>>
+>> See also once more:
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/process/submitting-patches.rst?h=3Dv7.2-rc5#n94
+>=20
+> I've tried to re-write the message in imperative mood, but doesn't look
+> any better. It can be improved though, how about:
+>=20
+> In the allocation failure error path, the transmitting boolean is not
+> cleared and the transmitter cannot be used until the device is unplugged
+> or the module reloaded.
+>=20
+> Is that better?
 
-On Tue, Jul 28, 2026 at 3:51=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
->
-> Hi Kate,
->
-> On Tue, Jul 28, 2026 at 02:54:49PM +0800, Kate Hsuan wrote:
-> > Hi Jai,
-> >
-> > Thank you for the review.
-> >
-> > On Tue, Jul 28, 2026 at 1:27=E2=80=AFPM Jai Luthra <jai.luthra@ideasonb=
-oard.com> wrote:
-> > >
-> > > Hi Kate,
-> > >
-> > > Thank you for the patch.
-> > >
-> > > Quoting Kate Hsuan (2026-07-28 09:50:13)
-> > > > Add the line length PCK setting to the IMX471 driver. This paramete=
-r
-> > > > determines the horizontal line scan duration and is used for
-> > > > controlling the frame rate.
-> > > >
-> > > > Signed-off-by: Kate Hsuan <hpa@redhat.com>
-> > > > ---
-> > > >  drivers/media/i2c/imx471.c | 2 ++
-> > > >  1 file changed, 2 insertions(+)
-> > > >
-> > > > diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.=
-c
-> > > > index 6d358b11e96d..e661f5b78dcc 100644
-> > > > --- a/drivers/media/i2c/imx471.c
-> > > > +++ b/drivers/media/i2c/imx471.c
-> > > > @@ -91,6 +91,7 @@
-> > > >  #define IMX471_CSI_2_LANE_MODE                 1
-> > > >  #define IMX471_CSI_4_LANE_MODE                 3
-> > > >
-> > > > +#define IMX471_REG_LINE_LENGTH_PCK             CCI_REG16(0x0342)
-> > > >  #define IMX471_REG_X_ADD_STA                   CCI_REG16(0x0344)
-> > > >  #define IMX471_REG_Y_ADD_STA                   CCI_REG16(0x0346)
-> > > >  #define IMX471_REG_X_ADD_END                   CCI_REG16(0x0348)
-> > > > @@ -240,6 +241,7 @@ static const struct cci_reg_sequence mode_1928x=
-1088_regs[] =3D {
-> > > >         { CCI_REG8(0x030d), 0x02 },
-> > > >         { CCI_REG8(0x030e), 0x00 },
-> > > >         { CCI_REG8(0x030f), 0x53 },
-> > > > +       { IMX471_REG_LINE_LENGTH_PCK, 5008 },
-> > >
-> > > This does not match the mode->llp value (2328) used for 1928x1088, an=
-y idea
-> > > why?
-> >
-> > I tried to resolve the horizontal line pattern on the moving objects
-> > when the sensor runs with libcamera. (The image is better for 0.7.2
-> > and more horizontal noise for 0.7.1)
-> > https://bugzilla.redhat.com/show_bug.cgi?id=3D2502786
-> > I guess the horizontal line pattern can be mitigated by reducing the
-> > frame rate. (image is better but the issue still happens.) I'm trying
-> > to figure out if the root cause is in the driver or SoftISP.
-> > If this is not the right direction for the solution, this patch can be
-> > drop. I'll try another way to resolve it.
->
-> My guess is that there's something wrong with the sensor configuration if
-> there are obvious systematic image defects that don't exist on other
-> sensor, given the same SoftISP. Something to check indeed is the horizont=
-al
-> blanking as you've already found out. Very likely the other parameters su=
-ch
-> as vertical blanking could still be changed without affecting the issue.
+Not really according to known wording requirements.
 
-Good suggestion. I'll try to tune vblank and possible configs and hope it w=
-orks.
-I scratched my head trying to find the solutions and now I can focus
-on tuning the parameter to fix the issue.
+* Which allocation would have failed here?
 
->
-> >
-> > >
-> > > Aside from the patch, I also see that the value for the PIXEL_RATE co=
-ntrol
-> > > is derived using the link-frequency and output bit-depth.
-> > >
-> > > It is likely that the sensor's frame rate depends solely on the LLP a=
-nd FLL
-> > > timing registers, so it should be possible to derive a constant pixel=
- rate
-> > > value (for a given PLL configuration) that is independent of link-fre=
-q and
-> > > bit-depth.
-> > The datasheet mentioned the the link frequency determines the pixel
-> > rate so that is why pixel rate is based on link frequency.
->
-> The PIXEL_RATE control refers to the pixel read rate in the pixel array a=
-nd
-> configurations where pixel rate on the CSI-2 bus differs from that are
-> possible on all but the most trivial sensors (typically VGA).
->
-> In this case the PLL configuration could be used to find the actual
-> PIXEL_RATE (on the pixel array) as Jai mentioned.
+* How do you think about to add a wording like the following to the introd=
+uction paragraph?
 
-Got it. I'll try to find a pixel rate based on the PLL settings.
-Perhaps that can resolve the issue.
-
-Thank you :)
-
->
-> --
-> Regards,
->
-> Sakari Ailus
->
+  Thus move an assignment statement.
 
 
---=20
-BR,
-Kate
+> (I don't think we need a v5 just for a change of the commit message befo=
+re
+> commit.)
+>=20
+>> =E2=80=A6
+>>> ---
+>>>  drivers/media/rc/redrat3.c | 6 +++---=E2=80=A6
+>>
+>> Some contributors would appreciate patch version descriptions.
+>> https://lore.kernel.org/all/?q=3D%22This+looks+like+a+new+version+of+a+=
+previously+submitted+patch%22
+>> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree=
+/Documentation/process/submitting-patches.rst?h=3Dv7.2-rc5#n310
+>=20
+> This patch has not changed since earlier versions.
+Can the running patch review trigger further extensions for the changelog =
+(in the cover letter)?
+https://lore.kernel.org/linux-media/cover.1785158244.git.sean@mess.org/
 
+Regards,
+Markus
