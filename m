@@ -1,77 +1,81 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 656EB17BED0;
-	Tue, 28 Jul 2026 14:38:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785249495; cv=pass; b=FcJxaMXEdHNcx2JfIRkKkNVOGv5FLGaQaX93x7Ove2Shg8TEN5+3QYyLRPpMxiZkj6CGpegmAZdcG7aEUt71cDQbCPtS63lBqPRJij7cn3qPErdJnO0xbmcLwoZpVfyHtSe2pKzuwzL0JdYU3YIV6qr7cbhMacK53lOd70XhZB0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785249495; c=relaxed/simple;
-	bh=HY5OlHTZRrlFVFf9HWbLM+NcpQG3NfA3/cmCCUquAxs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:From:To:
-	 References:In-Reply-To; b=k/Cq+g21cjkhl/o6eQv/+1fVKhTcoMpSR79YatOlJQw1jIc1xybtL4/1oMORuEuChcRnVE43HW6rO/kRd1BJZgKItxPkjVu8P+g3gT8Y5JxKBgflIxVBkKzLBi7QZkS/Ofa6q4lYAWz4vnXP5vIkPrtJUUd7TllbjgvbDYZGjJw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com; spf=pass smtp.mailfrom=ritovision.com; dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b=V4y7GGlS; arc=pass smtp.client-ip=136.143.188.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=ritovision.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ritovision.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D3F3A425B;
+	Tue, 28 Jul 2026 14:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785249656; cv=none; b=GLBuE4s6zWNoMzISWXY/cTHIAne1b2dtLVgukeU71UsketEd/mHZ8hheskTXXzgWL10rmsIIfDkibNo5JAYeegwrEvyh1Bl6ppd0JPTODCwhzg8JLAc/8V1B/3t3ANUSoCyY+YdhHKtQ9lDsKwGN0DEKcTzkzJPh3vGW4hAtI8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785249656; c=relaxed/simple;
+	bh=Hilz4x8U/G9ZNRZ18/kOn3nRS7xSxQ0G35VENiHioBQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=m4XxaMqECjaHozYJY//fP5zTsAaMHhCZ6XYwJnBHckswYAtNehmFurIQ3rGspAJiMboZW491QFhQLcNRbj85sbKnDK1GTnPKWhcA4T2LEdrb223yWIugXcNNTqgNToE6YuBJEl0nC6ETs0e3HyJj/Ox1pTjwNVWrBs60tUETP8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a44jh5qG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ritovision.com header.i=rito@ritovision.com header.b="V4y7GGlS"
-ARC-Seal: i=1; a=rsa-sha256; t=1785249476; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=HIqlBVqAKuigRfEuFMxlYLA+FRA9I4Xn2bF1DEtwtvIymTfLskz97bw6R3vALJqdrzfFJdopjw6bnhsF26ei2Odj93BUh7wMe0XDyyKpAy8I4Dc+836cxez9TNi0VmUIphB6eXPGfT1RT8/tvLa0Vs6XIR7vRCf4xJeKoe3RBao=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1785249476; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=HY5OlHTZRrlFVFf9HWbLM+NcpQG3NfA3/cmCCUquAxs=; 
-	b=eBT3DW/YaG9u1/REDkZ/doEDZDkAzKYgriDsb2BCk4Yl/QgzvNcDEfA1OVKMbPJcSDDtOmNoJJBcOENQOWsNYFBMtdENoKI9yFrDT2Xo12uJxFNVMxNAT6jHUD/7GfXF+R4XnaOOUBDrlQMaLmbmbZMqj6fN/KP/E3yIHvs4hEI=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ritovision.com;
-	spf=pass  smtp.mailfrom=rito@ritovision.com;
-	dmarc=pass header.from=<rito@ritovision.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785249475;
-	s=zmail; d=ritovision.com; i=rito@ritovision.com;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Subject:Subject:Cc:Cc:From:From:To:To:In-Reply-To:Reply-To;
-	bh=HY5OlHTZRrlFVFf9HWbLM+NcpQG3NfA3/cmCCUquAxs=;
-	b=V4y7GGlSNJBYnQ4zXDk7798YN6YynHLFwPmGrxuVVse3sdUz//vKlyFOzhByCnmn
-	3DKchZaa9l/yp/Q7EtRdAOvu/29Unn2LZHy5Vfy4uITKRquMuOuRdPHmyMm1djGSRni
-	vEvlqgcHlZAwn773gJwj2fQJ+3T58tqLTs3ORzVA=
-Received: by mx.zohomail.com with SMTPS id 1785249474153443.3786739722666;
-	Tue, 28 Jul 2026 07:37:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a44jh5qG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043191F000E9;
+	Tue, 28 Jul 2026 14:40:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785249654;
+	bh=8nFE7ElBXlbOdVWwIBeNyvfZnpknUDTM2BKLJqBrg7I=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=a44jh5qGUNbtPBrRqLZO+VWxAP2oSzSeTOPvkV8txbI1j6DcctbYvcI6/G7cNycfj
+	 O7y7tw9nPqzcoX+oqg6jGJb7Vw2iV9pDheiICAtH1f/sWTtet/7p181F+iDHe8a71D
+	 er2yAswnU3X3VoVMHJdgS/6xC0XvS4S8edIV6l/bWOR2oEQVM1HqE5qTBhszJlMgDC
+	 eIzK+oC0bZNR1WdTa99wxbZlitYWsIqetl/tcjE348gx3kKtjD4b4oVf34ctOPyxLI
+	 pvnrRuhwphGSUHVwYEga/kjDT+YmS29+qtbk3NEE7w63rTeQTZg0XR9nT7cL9R9vo2
+	 KxUs1y6JzH7tQ==
+From: Chen-Yu Tsai <wens@kernel.org>
+To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+ Justin Suess <utilityemal77@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+ Sashiko <sashiko-bot@kernel.org>
+In-Reply-To: <20260728024916.993224-1-utilityemal77@gmail.com>
+References: <20260728024916.993224-1-utilityemal77@gmail.com>
+Subject: Re: [PATCH v4 0/4] media: rc: sunxi-cir: support the
+ A523/H728/T527 IR receiver
+Message-Id: <178524965176.668575.6519599473909041005.b4-ty@kernel.org>
+Date: Tue, 28 Jul 2026 22:40:51 +0800
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 28 Jul 2026 10:37:50 -0400
-Message-Id: <DKAA4CVEV2FR.3KF7ANV4VCYP8@ritovision.com>
-Subject: Re: [PATCH 0/2] docs: make tables responsive with content-aware
- column widths
-Cc: "Daniel Lundberg Pedersen" <dlp@qtec.com>, "Randy Dunlap"
- <rdunlap@infradead.org>, <linux-doc@vger.kernel.org>,
- <linux-media@vger.kernel.org>
-From: "Rito Rhymes" <rito@ritovision.com>
-To: "Rito Rhymes" <rito@ritovision.com>, "Jonathan Corbet" <corbet@lwn.net>,
- "Mauro Carvalho Chehab" <mchehab+huawei@kernel.org>, "Hans Verkuil"
- <hverkuil+cisco@kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260724214249.23830-1-rito@ritovision.com>
- <87ik646lfc.fsf@trenco.lwn.net> <DK78KJA4LEAN.2H4O5BZN6H8LK@ritovision.com>
-In-Reply-To: <DK78KJA4LEAN.2H4O5BZN6H8LK@ritovision.com>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.2
 
-Daniel,
+On Mon, 27 Jul 2026 22:49:12 -0400, Justin Suess wrote:
+> This series adds support for the CIR receiver on the Allwinner
+> A523/T527/H728 family (sun55i).
+> 
+> Apologies for the hasty v3 respin.
+> 
+> Tested again on my X96Q Pro+ (H728) TV box with the Google TV remote that
+> came in the box (using NEC keymap). Was able to press buttons and
+> get readings from lirc / ir-keytable again.
+> 
+> [...]
 
-> I don't mind testing some stuff if you want me to
+Applied to sunxi/dt-for-7.3 in sunxi, thanks!
 
-Thanks again for offering to do some testing. The series is now posted,
-and I would appreciate it if you could try it against the tables that
-prompted the original discussion, along with any other problematic pages
-you know of.
+[1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
+      https://git.kernel.org/sunxi/linux/c/96cd41eac1f5
+[2/4] arm64: dts: allwinner: a523: add IR receiver nodes
+      https://git.kernel.org/sunxi/linux/c/2b24f5386528
+[3/4] arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
+      https://git.kernel.org/sunxi/linux/c/a3bd47e62cb2
+[4/4] arm64: dts: allwinner: a523: enable IR on the Avaota A1
+      https://git.kernel.org/sunxi/linux/c/75dc83d420aa
 
-Would you be able to take a look sometime this week? Testing feedback
-before Jon reviews the series would be especially useful, if your
-schedule allows.
+Best regards,
+-- 
+Chen-Yu Tsai <wens@kernel.org>
 
-Rito
