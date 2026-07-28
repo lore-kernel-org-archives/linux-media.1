@@ -1,156 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0E431ED80;
-	Mon, 27 Jul 2026 22:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD543175A8A
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 00:16:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785192965; cv=none; b=U47DxFXbM4HSYkKH1TZ2axzuplxkbkf8KKI8o1YJlm97sd6Vkubuxi8O654JlElW0yvVMZzBYkSuCr/NebeLhb2YdPtHCZrDD7LLM/ubRugmef+vTmzSCKxUYUwXXIsPXodYrFJ6Y+1EMO6jKxWheLj50mPo595YuRGvLB71gDE=
+	t=1785197776; cv=none; b=itxoeInOm5vswlGlh+XBJI6HysAR28WTLNlAxSKCYhISzsS3Nncqh+yJfcNZagbyaQSzO8IJ4LqmohytyxfJpfLrIaTRHhRDwC+8orVG+X0TmJbBAPbU2SOeUosghC7IVEX3bE8YLbqDMAiFZGXkrc1Yw0+9rR/KI5tjzGLYd+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785192965; c=relaxed/simple;
-	bh=oEgoEtojyQ9PC8g7uhG7viM9B7fGAJubrsCe9lk5/YY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=DIUMCMU2SIQHdp3QhJBxNx+FOc7dtpZh/E2wUrQZvOXlkSOCbHcf1/2BOUUe0jVtPq7Su0hSdgrWmxjKIeQQu1q/E/Tl6qozvJU2kZidb6zjqZGsFuVg61zAcbaZzOtFBM5Or0IMMa3V9lkaygGaDwUriiaKa2QrMZIm+0LQ1gY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwaG5uRX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785197776; c=relaxed/simple;
+	bh=9yo7oQrKPLRlMrthYw+pO7x0jHae0Vj5AYr8R8OfkZg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rBthw1T6IxUtSLi2drHbimMcxw5ES6kx8MbqQ437529IiqObH//x2BOZZYnchxhjTvFjmLMbiZP07C1V8PsFHkv7DX12EVZjmeQgv4PLVNpMn9Xo5ToA8dFENiKKOMsHSupeByqSDjVRr6NUsvFWDOzF+1YJ//+f0xUzbkb52HM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7Sydo/q; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwaG5uRX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CDB1F000E9;
-	Mon, 27 Jul 2026 22:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785192964;
-	bh=QggSvxtNQ67iS+XUwqrDlrH2xraHrxGb+vgcG7y0WsY=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=iwaG5uRX32rTgcSQn1oI8cDhvVdBgF7xNVMcmwA5nB2roQEpjWkBM9/elDUKMWR+e
-	 A0p9zb+3tSs36tELwjTyibEs5znVgnOoeBgaUwvlk+h9jnbCN1e+v9elShDExZRawl
-	 S9FIBGMRZSowIq2RtsqIUQJ/GKy2epEJEkS13zWkXc/uH+dFvxm4jWJtqykilYp8FZ
-	 n/dZuVVGnI4Oh8Jv/TOV8zbNHWDjAXhVQbUPhHErbAZOrGNAAwjAULYVaj3h2kBbW9
-	 ED2feS2pNPbAGb5xCgo1ctL4J3aD2Ir+AJmF+Wa3lGIyvJ/mNC9waIoSbc3rE33Rm4
-	 vgzkKLQuteGUQ==
-From: Mark Brown <broonie@kernel.org>
-To: Julia.Lawall@inria.fr, Alex Deucher <alexander.deucher@amd.com>, 
- Alexander Shishkin <alexander.shishkin@linux.intel.com>, 
- Alexandre Belloni <alexandre.belloni@bootlin.com>, 
- Andrew Lunn <andrew@lunn.ch>, Andrew Morton <akpm@linux-foundation.org>, 
- Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>, 
- Borislav Petkov <bp@alien8.de>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- David Airlie <airlied@gmail.com>, "David S. Miller" <davem@davemloft.net>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
- Eric Dumazet <edumazet@google.com>, Florian Westphal <fw@strlen.de>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Hans de Goede <hansg@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
- Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Herbert Xu <herbert@gondor.apana.org.au>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Jakub Kicinski <kuba@kernel.org>, 
- "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, 
- Jani Nikula <jani.nikula@linux.intel.com>, Jaroslav Kysela <perex@perex.cz>, 
- Jason Gunthorpe <jgg@ziepe.ca>, Jiri Pirko <jiri@resnulli.us>, 
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Johan Hovold <johan@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, 
- Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
- Julian Anastasov <ja@ssi.bg>, Leon Romanovsky <leon@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Linus Walleij <linusw@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- "Martin K. Petersen" <martin.petersen@oracle.com>, 
- Matthew Sakai <msakai@redhat.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Maxime Ripard <mripard@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Mike Rapoport <rppt@kernel.org>, 
- Miri Korenblit <miriam.rachel.korenblit@intel.com>, 
- Nicolas Palix <nicolas.palix@imag.fr>, 
- Pablo Neira Ayuso <pablo@netfilter.org>, Paolo Abeni <pabeni@redhat.com>, 
- Ping-Ke Shih <pkshih@realtek.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, Sebastian Reichel <sre@kernel.org>, 
- Shuah Khan <shuah@kernel.org>, Simona Vetter <simona@ffwll.ch>, 
- Simon Horman <horms@verge.net.au>, Stephen Boyd <sboyd@kernel.org>, 
- Steve French <sfrench@samba.org>, Takashi Iwai <tiwai@suse.com>, 
- Thomas Renninger <trenn@suse.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Tony Luck <tony.luck@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>, 
- Vadim Fedorenko <vadim.fedorenko@linux.dev>, Vinod Koul <vkoul@kernel.org>, 
- Will Deacon <will@kernel.org>, Yazen Ghannam <Yazen.Ghannam@amd.com>, 
- Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: cocci@inria.fr, amd-gfx@lists.freedesktop.org, 
- dmaengine@vger.kernel.org, dm-devel@lists.linux.dev, 
- dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, 
- intel-wired-lan@lists.osuosl.org, iommu@lists.linux.dev, 
- linux-cifs@vger.kernel.org, linux-clk@vger.kernel.org, 
- linux-crypto@vger.kernel.org, linux-edac@vger.kernel.org, 
- linux-gpio@vger.kernel.org, linux-iio@vger.kernel.org, 
- linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-mm@kvack.org, linux-pm@vger.kernel.org, 
- linux-rdma@vger.kernel.org, linux-rtc@vger.kernel.org, 
- linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org, 
- linux-sound@vger.kernel.org, linux-usb@vger.kernel.org, 
- linux-wireless@vger.kernel.org, lvs-devel@vger.kernel.org, 
- netdev@vger.kernel.org, netfilter-devel@vger.kernel.org, 
- nouveau@lists.freedesktop.org, platform-driver-x86@vger.kernel.org
-In-Reply-To: <20260723184538.3888637-1-ekffu200098@gmail.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
-Subject: Re: (subset) [PATCH 00/36] treewide: remove conditional returns
- with no effect
-Message-Id: <178515520105.50339.6347304746485042237.b4-ty@b4>
-Date: Mon, 27 Jul 2026 13:26:41 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7Sydo/q"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2ccae46de39so4924545ad.3
+        for <linux-media@vger.kernel.org>; Mon, 27 Jul 2026 17:16:14 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785197774; x=1785802574; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Rf2C74uNnPKCuHC6/DlLKvpy+zpKmy0yi6JZQYXqMV4=;
+        b=e7Sydo/qOo+P6VnfB1xAmMio3wKs017k9PDoKqA1FtvexwoeDrlbYy3iqTmELHcwzZ
+         7QCRCOAvWjJsykwYos7X6d3mvx9Skb3pUJvUBMGojgnX+JyRNZeTHa6JaXiUS9x+9L3y
+         gcIsioQ0oTqCrMBwHhiI1xQExDsqWzPWNZQF7WRticuf7C4M3XAFp2X3HLgqo337FR9K
+         OhmbejQfNDdu78AKzfAuJMDS4itkzlX+uZKDOq4XuRqwhapRr/7Xb+6fnrEt32YCTojo
+         47Df/xfyOd40HFJsK6jGlh2lHu5m/qgd/1PTbG9gyK2/R0YoghSHr1OqMv++Y/9Xnr/b
+         6SvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785197774; x=1785802574;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Rf2C74uNnPKCuHC6/DlLKvpy+zpKmy0yi6JZQYXqMV4=;
+        b=CrEen2K5BkHvsBIifDe8l9Qa2gpnZHhHLYAvYOvIHqF2K46nWw7iL9oqQ6EuP8TOb/
+         K/bA00F+HIqxiwlhDJ5br781IqoK7J1NIx5qWexZz8//EXadFQib67bw3dG30agZAZAy
+         3pcybDg0VS4UpI2pYkS9NCl/SIq1Rqz6Ha4Hg52yi7GVZhce79QC8k0L0ud384FKxe/0
+         7CG036YjwDE84XYUVBk6RIU5yEuVuYxbfTg8IDjojc7quOm+sQViyUogv6MTZs3ZrkIS
+         T3WmA8XI0N1UzE+EP3D467dDQmtTm0hTzL2rkcMookBlSWtrutrBPOnM7+9KzYgcUI++
+         9wYw==
+X-Forwarded-Encrypted: i=1; AHgh+RriferK+u3oCljDYxYquPziEZ4winmrJt0LzFCK5bxFUGa+GCV7YUacKj0phnANmEcjrwagGrJ1BmKWyg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl4a6gA5ivxxzewVe+glb5ZYyn/QkxN4Mczvt115Iz9Dw+fI0O
+	jAVspD6+mxQEqNjRDqAi/Dbo8YDwVfdgq1oh+FTR3F5Ycuon8u8COSXy
+X-Gm-Gg: AR+sD13Tb33WRdsXKM8GoLwETESrJe8hyJCZKRLQLJTaKkWwC8xn8tBcyu1aZI7ITaI
+	hAIkiGiHo3gXbtjCn1BN29VqWoSCln1xHYetPgGNjBnnSR9++j0X9UdxnTeXFBgwau+nZgL80UG
+	TBsKKu7y5trLl2n0PXd2FzlYzYRNi+XpKMeQfISHugxeLsSu5xlo7aEO74GjUyG2lhA0/E65Ynj
+	zlsKTd4KppOgyEh28tUoK62ow5OCRM0RmgvM14r2rOyw69WAx4HGFzhz/GSZaJnOUY0M1JsrJaD
+	TXD39ItSB20gYTdHoy1/jOPJMoHLnqKDm6jsFvh1RdbRXnJLDSw0Wfn6eAHm4bA9JWrDftJ5YHk
+	sH8TWpHcMv/UlOsdKqunzjeDnMW6ogTd3GaDfZmHoFdTE/dXA+8PYr9rlVFNKU4d7okD8zf4pYK
+	StYwjWHFJviajlOeR0VSGeSp+U1y5pU9bzAvc=
+X-Received: by 2002:a17:903:4587:b0:2ca:ecf6:9105 with SMTP id d9443c01a7336-2d015aded11mr952495ad.1.1785197774210;
+        Mon, 27 Jul 2026 17:16:14 -0700 (PDT)
+Received: from FAIZEL-KB.. ([2001:569:5b64:e100:37da:2f8a:5b33:6b68])
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2cfde5e2a78sm43408555ad.26.2026.07.27.17.16.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 27 Jul 2026 17:16:13 -0700 (PDT)
+From: Faizel K B <faizel.kb@gmail.com>
+To: Shuah Khan <skhan@linuxfoundation.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Faizel K B <faizel.kb@gmail.com>,
+	kernel test robot <lkp@intel.com>
+Subject: [PATCH] media: vimc: sensor: fix pixel_rate type to resolve do_div() warning
+Date: Mon, 27 Jul 2026 17:15:45 -0700
+Message-ID: <20260728001545.331638-1-faizel.kb@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1395; i=broonie@kernel.org;
- h=from:subject:message-id; bh=oEgoEtojyQ9PC8g7uhG7viM9B7fGAJubrsCe9lk5/YY=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqZ+HxlIWhtS7M/+/D/kSsIotZNE7ycdvTNKMa6
- lyMcsUy1YGJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCamfh8QAKCRAk1otyXVSH
- 0NGoB/9aZSWKSSxB+DoiO9o+r0R7LvQ0b9P0b+u/ow+7Ti4Va043c7UzGI2RzCGdUpf18XgLn6f
- SgEv95GzlB+upqVsxmPG9VHhXWw4Ho9J4p/hSGXTDgAS8ErF8GjIkiAzWtWwlF1NwqBzKdr1HBU
- 4bzLooMHmkm+sRhw0K+K8vYxKzoIVIF4rw3OtvuVpbcnMjoni4zgFcLTc5cd+g7gZ+ms/PpNPge
- 1bCGwvXOdpSE1Sx0RqUVVFnzDZUByQ/Qgq4t95aAwkznICTyGzRGtCagn7hNdby/Adb/VqLQiGG
- EXfGwi5kgCay4GMGfP+CcNTcNXARRSisUOfJQUCdGh8to0xz
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
 
-On Fri, 24 Jul 2026 03:45:02 +0900, Sang-Heon Jeon wrote:
-> treewide: remove conditional returns with no effect
-> 
-> Hello,
-> 
-> While reading mm/memblock, I found a conditional return where both
-> branches return the same value:
-> 
-> [...]
+vsensor->pixel_rate->val is a plain s32 field. Declaring the local
+"pixel_rate" variable as u64 misrepresented its actual range and made
+do_div()'s divisor look wider than the 32-bit division it actually
+performs, which is exactly what the do_div() coccinelle check warns.
+Revert pixel_rate back to its original s32 type to match
+vsensor->pixel_rate->val, resolving the warning correctly.
 
-Applied to
+Fixes: ec1e620b2454 ("media: vimc: sensor: Add pixel_rate,vblank and hblank configuration")
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202604191731.10nxGZ92-lkp@intel.com/
+Link: https://lore.kernel.org/lkml/CANiDSCs9s03DUjKwcPgDtZt2QJ4i0FGwab4zpEP+wCawagSC2Q@mail.gmail.com/
+Signed-off-by: Faizel K B <faizel.kb@gmail.com>
+---
+ drivers/media/test-drivers/vimc/vimc-sensor.c | 8 ++------
+ 1 file changed, 2 insertions(+), 6 deletions(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator.git for-7.3
+diff --git a/drivers/media/test-drivers/vimc/vimc-sensor.c b/drivers/media/test-drivers/vimc/vimc-sensor.c
+index 83dcc9d61ee0..7cb544fdfddb 100644
+--- a/drivers/media/test-drivers/vimc/vimc-sensor.c
++++ b/drivers/media/test-drivers/vimc/vimc-sensor.c
+@@ -97,18 +97,14 @@ static void vimc_sensor_update_frame_timing(struct v4l2_subdev *sd,
+ {
+ 	struct vimc_sensor_device *vsensor =
+ 		container_of(sd, struct vimc_sensor_device, sd);
+-	u64 pixel_rate = vsensor->pixel_rate->val;
++	u32 pixel_rate = vsensor->pixel_rate->val;
+ 	u32 hts = width + vsensor->hblank->val;
+ 	u32 vts = height + vsensor->vblank->val;
+ 	u64 total_pixels = (u64)hts * vts;
+ 	u64 frame_interval_ns;
+ 
+-	/* Sanity check, pixel rate is fixed and fits in 32 bits. */
+-	if (WARN_ON(pixel_rate >= 0x100000000))
+-		return;
+-
+ 	frame_interval_ns = total_pixels * NSEC_PER_SEC;
+-	do_div(frame_interval_ns, (u32)pixel_rate);
++	do_div(frame_interval_ns, pixel_rate);
+ 	vsensor->hw.fps_jiffies = nsecs_to_jiffies(frame_interval_ns);
+ 	if (vsensor->hw.fps_jiffies == 0)
+ 		vsensor->hw.fps_jiffies = 1;
 
-Thanks!
-
-[14/36] ASoC: remove conditional return with no effect
-        https://git.kernel.org/broonie/misc/c/ca9b51f41c9d
-[28/36] regulator: wm831x-isink: remove conditional return with no effect
-        https://git.kernel.org/broonie/misc/c/9396a1d9e142
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
+-- 
+2.43.0
 
