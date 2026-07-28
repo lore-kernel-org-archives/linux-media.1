@@ -1,85 +1,85 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF7023AEF4F
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1F642379E
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785235624; cv=none; b=K0GAcJqMFZI6VAJjze24V0XmiHFN5UB9AUHe+nD+wg3x/zBVeLn4OSe5NfyHxIKZpejW8NPPJ63MUXIx92wjR6GJwPLT8sMALS0f0cK5v7LEaW37GvVpcvYq0ZcfTigF+GajMgYb5lke8SmlobtPvpjGFCCPaL6sU9PpHMYtjjA=
+	t=1785235724; cv=none; b=i/beyH2FfynEDwrsnQgzLWKZ/wCixLLpwWMUWdLAl+IH2p/i28lp0Bl4ngo1AlMGCg3EEDb5d0y6fXAe2EpFUUm47m0eiMjRuOuypDZDX+U1+QKmHxfL8Tt8EHUJuLBirV7JYMypPCoYXss/h+TyPcs8N/FMTHlHny3p2EUTIl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785235624; c=relaxed/simple;
-	bh=bVFAWs8vvyltGPx1Xeyjge00ezM28ti5OIAUO0++yds=;
+	s=arc-20240116; t=1785235724; c=relaxed/simple;
+	bh=+2VXiGMIOCH2pmyuRHa2hoo5DBgV4E80jSEKqltfTVU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aIduTp5NvSnBvbApEl4hp1gIRXxbx4gdWGSvKxgDDMgMzR4YSTJxqmceQgLOFTNx6h1E24GPX48F+rJQye19zLtFwr2tWfvRLQgJhf9jCQp8dWB/UqYevfejCAQT/Gs9yXDExgHuehDDPjTGFXW2KK+LBFMclPWB4CAtlCmyXLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQD/heiF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NJqlfSgR; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=rMBWOZSRtN+vqFmn20ilt7nsNIbE1XiVKDEwslRjjLRLlSmIJQEsr+14OnS7YwzfTrURK6xuCTZfNI2XjP25ZcL/1zTsjOryVs2pRDzUj3HwxPsD4U8+xMbA0IAhjyAg5jfwiWtbq6pjYSNBW9mrvVih16etO0fPOK6SrBK3Nr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Rb3RRpvN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GGcYkXDA; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQD/heiF";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NJqlfSgR"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SAgXsK2688020
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:01 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Rb3RRpvN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GGcYkXDA"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66SAgce92043747
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:48:43 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ZSQCjovMoYS+6pEsxEo7tfKm
-	+dlRh0HJwKOjEk//Kqs=; b=hQD/heiFUcX5vffC6Pm9LAl8II13oaiJ5REbHxXq
-	H5DSEodQspUaY2nJnvOJ8Ih8sWc+a459Bk+Vn7PS4A//DfTk2R7f8+XdHzmLD2kN
-	Kq4Fo4kMUevBcbX9F+0FbUttiCnM/Rf5iJRgrpr1Qtu/RDf3gacrnTnggJqc6e/s
-	xH9eGfOkgiqlDMD5F7qrfwDz4Y3g5SJ+e98Wi38iP8Q1LpZ7hYFLGGX/vSBy1i+8
-	wHCT1fAk3K9l0Ae5miQrb1bKnoY57RlMJNOuNannIOY1n0ZiZSvVePcYURoAEfH0
-	Wni6apLgLSX56/ZXU/i4YzVrFMJMh3L2yRuB6Kos/OOfcA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fphh7jbam-1
+	:references:subject:to; s=qcppdkim1; bh=mYrJRtpE/M58oknn6w6g6s4C
+	5iZ5GXjvqTFr0fKnh8g=; b=Rb3RRpvNDCVmZgKAWDSILLWRAEltX43yQo8Ftzdh
+	F4DPobVjgY/XhDNK9SmMEpx2id0sctqiUSNakZV8T0ptJO5SrHGhg4LJn5mJLxM0
+	GvhQVSo6EOoIiHzB0cV9zf7M098wGYb2w/l6b6ZAMWT2zsgyxyYmUi+NtZOQ9T9E
+	tSADJ9gP0qALRepBxvRL5unRcZcv7aVSZvtwHdp1j/E8J3GWWqONVqgUBsmyuAZN
+	92ftSV6Uvl7WwSoXx5nibWv0/H/32z38G+tQjCwwA7H400BAA21UZ8Qr8w0ToNxr
+	WyheF9UfznuzcRxnrsFFhEzTzJ2xIcawzreNt11gf/dH5w==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fpptts5m4-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:47:00 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c19493ac2so54204441cf.1
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 03:47:00 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 10:48:42 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5276aa86d00so45073711cf.2
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 03:48:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785235620; x=1785840420; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785235722; x=1785840522; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=ZSQCjovMoYS+6pEsxEo7tfKm+dlRh0HJwKOjEk//Kqs=;
-        b=NJqlfSgRqnMNIQBgIwJSjpYLFv/Xll6q+0TMgKHiP8MwvkhzOTkw8aerV/DKDjRMiy
-         K3D8RsVsIzPYpJqy15QN8Q6/snGLYN46Fy+KVmv5Ua4Q3KNbEM+yP8vnk2HBphDFuWfv
-         AK8DXhGGQfXLs7M24sgPsDXrTenrEeCYnOLZCxy3fnXyIbeiy8+5H7fcIM+KsoPZTzX5
-         CocHZPuLQiOTl7IfgzW4YfgijQi2yy9eI5ID68ycd0xFq9P4Amlko3RhuFWomSta8Epy
-         cvy8aS0lXe2ijs6IAA3FoqjQw/V03Cjjz83ZsCiTX7gfdTkRS1W8GKyAuJvYNNf45JZ7
-         AMaA==
+        bh=mYrJRtpE/M58oknn6w6g6s4C5iZ5GXjvqTFr0fKnh8g=;
+        b=GGcYkXDAjR2TFp0HV8t82BmaikYoh8w3kKbixL2HpVoyuLx9jp20hEmhj0v6AnbOa9
+         /PRLGKJNUIbfWLyiqClwo/DfUiyxvl0zb6jsuB9yH5UwfOv4rlda/WThSgVlUl7XUeDs
+         FUxDrO+hFrIh1BR1xZs7ACPUdC+esulpXNQYjNpbsq3FLnZa/pb02TnYCfWshzblBIoD
+         xPCtn5urtO14T+K6wXbDuQgW2SvKXGNsAAuRRrESA0c9Zzbwkjhht2/SbivISFKcH8+/
+         d0i2BaCMlVT/b3VwJRM53Uw/ZzKhLXiSBIxNmdf/0uCVPpFkHtkkaOM4Lcnd9fUCTFn2
+         Ubxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785235620; x=1785840420;
+        d=1e100.net; s=20251104; t=1785235722; x=1785840522;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=ZSQCjovMoYS+6pEsxEo7tfKm+dlRh0HJwKOjEk//Kqs=;
-        b=o4QnXg2+eWWmYI2bPD4WE/ZeeHhz9/be2q5nC/c25ICtdjSogd1CHeNYxldWzMKsYG
-         1PMyOvFgOuyWIyUgiE5vGfWcOZPYRM1tPU4yikCkflDSINkhQJo4VrZGEyR6Y3AT5JBe
-         1VpFxO+cREx5PjCTNHWY8wT+wZ+eoYypN5WMJ9cTDaaML66BTDhdCL5okfrPfccoSH9A
-         Bff4hu2H9jYdofNJhoFyIGTIz62rd7A9z6t09uQJ8CWmJw1E3Q1FdUAT3JRbGJDkc8WA
-         euSbkjSZpZxnGFIRwSn1+m4BCsqNMMhbqAu2YVkvrOWdRO+LC7u7N1zJONVZ3dIolDkm
-         C6IQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpIIXiK1pMv8rLYhlmgPMKWhXnwAwR5bUuCZGAH1ZUIumcBIg59Aq4L4Zezb7TBruKQMZUC1265tMi2oA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxnJe0CbrRQEo0ba4gts72hwQ7t1ARYH5q9zYdCokdqxk8+7Qz0
-	Yho196WO71dEMP9Yai2kwS/T+Iu+h/7e8PZ/6hIX5Yv0A4svyjS57xB4K/ndU9YzReLbqVMj+wK
-	3S7aOJ6Q70jfiHtt4cYlrtImaEIOMR3Ms9HmazjjmtJKrQkj3397EH7aoQzWQzPe7+Q==
-X-Gm-Gg: AR+sD13cMsJXV/ZFH+4zupURCoXVxRIAJqhhWqPogdLR2JInaiITNhxU6O2swDDcm21
-	TLihE+3wqo0JBbyzsiKNeAC8aT4t/XNvnpJo73jnaUVLdaVVjp04rNUa6maZrsEVjA7Ih9hjZYI
-	mwpPSKHBnkAtsB8tJwsi9mP9RvjVJDW1HMi57pX6b/CcgKZfMQUnaTVdIuircyvk2joa2+M7NPH
-	RMb1mN0Zgo6boPRQXPG1u2FXgoRzCb9V4k1Zv4WGu2RZv4Xk6NRYC9D5AvxPPgVOwvG5X+Mv256
-	MkCrh6Tyg0cnPjtmnTcoQSPoa0k6hhz187kjX8Xz+NghzX/Hw9o47E/8AaIDFg5DN1BaNUJI5Gh
-	aDBeicnN/+DdITk0A9U/dEgGb4ybIorv7xWu3LxktScu49x1XJFeOTZhplHtoY/U2A6SClWJN+B
-	IwY/NUnpk0kDHZ9Q==
-X-Received: by 2002:a05:622a:588e:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-529d70d7486mr14826241cf.41.1785235620171;
-        Tue, 28 Jul 2026 03:47:00 -0700 (PDT)
-X-Received: by 2002:a05:622a:588e:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-529d70d7486mr14825941cf.41.1785235619645;
-        Tue, 28 Jul 2026 03:46:59 -0700 (PDT)
+        bh=mYrJRtpE/M58oknn6w6g6s4C5iZ5GXjvqTFr0fKnh8g=;
+        b=MPuSzvcbIAwLXRa189kzvlCuYMsgXW7zKuRL2Jh9RbZb2O9cFvak1xrTGnnsJn4V1M
+         NBD+iLRaaYoZC9twYQpP3rn3nLwDHK8DqucOcnVVa3gH+5qkgR0fSwkvFFU6D+3WRDEV
+         ppe/8Bn58FW4H5rLU8A5XxL5MAJ3P0nhLhO3GqnjHPk0QtOjHHyY/vOFkx9D0RUz13se
+         0D8/diAnXvMmyxqM5LoCY/ms65SXsNlJk5UgE+F8w9/tgz580BCCPixBF2fbBf2UIZvn
+         jWNZVlozakbV+as7VeA23YuSTjk+nrv2/ToRCwytpkhGpd9xpgVxRRZMT73FK+u6VLZB
+         //bQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpRXSPA8Neu/ryJdDM1AHO7mopEcFnQkBi6WvpbFnh5RzECe4bjfspvSU8OG4yH/D/BThwr00kZEvQNAA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2HnMKUakk4eVl/a8MthEgYc4RxO0eMRmictIAYsaij7hE77a8
+	qunxDy3ISDGY9Os3xjYcwHh4MWYzZKhSgBdZ6kpATOcqBTi2vN/gJ7xXIvXMGfkftXwSQZkmiD0
+	TGoOovcltkRhL/cgwSyeKsLDv/Ro4NNFaQ++hKzIUTDzqy6QvknDYOB41Nn0+ukgP2g==
+X-Gm-Gg: AR+sD10ZEJ4EUU7dX5eR5d0gx5M1FNJFMuuMzgPibjQTwEeE/OT7X55NSlA56n0Xw/O
+	15TMGcLw9PGpB1Tr7X8vlHROwvduFDkIMBuTlfrqbs/RrYZQSYKLkYUlE1YleC0VJcrxjzE1hU7
+	FCCOB1iy1pdhsoKVkhutJQrX3EsrgHJbijFHWVE4t0P35Lx1kcp26ttaPQnrnGZE2l0ArfsA00S
+	fCcpX+Kr8NtWtX72GYEBOdeg0KjgcuebcsQUZn2Mk4mvISefEJicNJJk3+08Ga5whVdJmY1+fHB
+	0WHY/ZTqbwKQ4E07AdVeWlY46anGJleHl1JCVUn16heECXGxFKQ1OGrwqG4IQBx56Uhi1stsZ0J
+	Sjomj2FGW60VhvSyAQFxC5uDeRb2B6/oHwv4CcbLq9k2XHJynjQQBdYlOTb3lQzB2U+9Ond/I0U
+	ZSSVdil95XYFvxXA==
+X-Received: by 2002:a05:622a:412:b0:51a:8c9b:64a1 with SMTP id d75a77b69052e-529d7169f3amr14419961cf.69.1785235721534;
+        Tue, 28 Jul 2026 03:48:41 -0700 (PDT)
+X-Received: by 2002:a05:622a:412:b0:51a:8c9b:64a1 with SMTP id d75a77b69052e-529d7169f3amr14419721cf.69.1785235721070;
+        Tue, 28 Jul 2026 03:48:41 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f22187279sm20379291fa.13.2026.07.28.03.46.56
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2be1f9721sm1917162e87.76.2026.07.28.03.48.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 03:46:58 -0700 (PDT)
-Date: Tue, 28 Jul 2026 13:46:55 +0300
+        Tue, 28 Jul 2026 03:48:40 -0700 (PDT)
+Date: Tue, 28 Jul 2026 13:48:38 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Cc: Bjorn Andersson <andersson@kernel.org>,
@@ -99,10 +99,11 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
         Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH v13 2/5] phy: core: Add devm_phy_get_by_of_node()
-Message-ID: <t2c7lvpp3xyoumd2gdzntkwb6xpdjvhzyp2hllukimzfzbwbvm@fkgwdtcqxof5>
+Subject: Re: [PATCH v13 3/5] media: qcom: camss: Add support for PHY API
+ devices
+Message-ID: <jy2gc6ojh3sh2araz67vdk4jo6wsmx4xamgl6hjfuqpdphxxjr@aykdzj6ewhm6>
 References: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org>
- <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-2-ae811e2f0799@linaro.org>
+ <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -111,123 +112,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-2-ae811e2f0799@linaro.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfX6COsc4OMgvXv
- CqcEu7numfKtmrUQgE714T76erM08/KAAReBPvUF8FODY8y+w7rmWHfwmBt1BocuDk44I0FcIdJ
- wYTAsoSge0XeFZhIr+I0ZpwlSPb6UMekSEJpbQarsjI8XQNnjvNSDRrDJ9D5a4FdNwA5ubGws0E
- SGantsYxOTFquxGm1+AhymMo/QqR/EtIEixOSfoyBso6ml/n/qAxgPW6U2AGesc/JWZAJ/g8hff
- BnXeZc5u8AHZRxInXQygraG1lCzM1C7zREMi2ocDIa40ZVM+a7iYyEBtLL6up0cmI7dkmAaC5TU
- SGnIU776cW+roRrwaWsS5oZv2ESJQ5qRNvFQw9kpVEMeYgNtQZSEsNUu8cirzflXE6cq0yA3wB1
- 0je0/6cmH38x8VAWL7BiOhaVPaH8gCHvHN1K+oxapvkSwh/OwNjTxgHxgW6t7SMmPsM9cij0qFB
- 1dW9BWgPZmlQPhw9UTw==
-X-Proofpoint-ORIG-GUID: FqxQyTClLj7PXVjaQzRhc2RSUM7dJ9Je
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfXzPhobBE7TBPG
- bwvCu1MnJt8/1GF6VhUYFIK4EFLhQf1e/FUpGkU+pRlPkNBavxUkKqMgJJKNk/SIhTUihBmJ6WF
- F8R4kMndlqvMydCTF6wXntMBPUidEbA=
-X-Proofpoint-GUID: FqxQyTClLj7PXVjaQzRhc2RSUM7dJ9Je
-X-Authority-Analysis: v=2.4 cv=b+6CJNGx c=1 sm=1 tr=0 ts=6a6888a4 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+In-Reply-To: <20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-3-ae811e2f0799@linaro.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfX5V7MwWbPzE72
+ rspEgT58Z7kgHcUpa1ytPfIUE8/st24CnPsT4Uu4END5rvwBKlCmVo4KOg7HbWyOVrH5zftmHrn
+ 16B1m7FsLtgGbDQetwogeBz/pwjx2lA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI4MDA5NCBTYWx0ZWRfX30YLRvM6fBVL
+ NGUGAL3ozXiAv6Luio2NrM2pauhkL1QG0oqqzNIVk0ux7qllOYVU9YDPVrEOl0TyzztDIJi5sVa
+ gnBeaTSIQJVrPrCWRdi3SSm5oz7biCzM16Nv568eVb2EGwe5wb1LN0suZtKKKXY2pqQmOAN2TBe
+ KcewfNJYnW1tvIu9g60bViXrbX8TMWYSFcc2E0PD2XclYX8uVPnxFI+cP2TGImHPS/TA0B3OMp5
+ Zz2n/lRHA7LRw/SAB/DHrj4Rq7UAugu2lelS5hpZ0u/QE8JKVlUyhM8JOAByVR8OjIvU6Bn66F9
+ kUGRP3+Nl4wWwGrU0hbGA6LAPgmJWCtw6SOvxp5oQVBtaSukM9K2kcB2HybrlpzPUIYk1Vub5Z1
+ xzlAnRqvJf/wL18JVRofharDAv0gzlXg3/3nN2arDJcKxHXy/RxTjVwgv9sQAc2fAvAlr5jGoVQ
+ A+qrOH5vcJuUtioUBew==
+X-Authority-Analysis: v=2.4 cv=aa1RWxot c=1 sm=1 tr=0 ts=6a68890a cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
  a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=KKAkSRfTAAAA:8
- a=2AomeXgjd0MQctyRrFgA:9 a=CjuIK1q_8ugA:10 a=a_PwQJl-kcHnX1M80qC6:22
- a=cvBusfyB2V15izCimMoJ:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=KKAkSRfTAAAA:8
+ a=EUspDBNiAAAA:8 a=SmOWCKbkXSXCNfC1NdcA:9 a=CjuIK1q_8ugA:10
+ a=kacYvNCVWA4VmyqE58fU:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: ST-qCUD7nGA5TwD-go0wotnUmvdmEj5g
+X-Proofpoint-ORIG-GUID: ST-qCUD7nGA5TwD-go0wotnUmvdmEj5g
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-28_02,2026-07-28_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 lowpriorityscore=0 suspectscore=0 adultscore=0
- priorityscore=1501 impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015
+ spamscore=0 lowpriorityscore=0 bulkscore=0 clxscore=1015 adultscore=0
+ suspectscore=0 impostorscore=0 malwarescore=0 phishscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607280094
 
-On Tue, Jul 28, 2026 at 10:35:33AM +0100, Bryan O'Donoghue wrote:
-> Add a devm variant of phy_get_by_of_node() to allow for the familiar
-> pattern of having devres automatically release resources on the driver's
-> exit path.
+On Tue, Jul 28, 2026 at 10:35:34AM +0100, Bryan O'Donoghue wrote:
+> Add the ability to use a PHY pointer which interacts with the standard PHY
+> API.
+> 
+> In the first instance the code will try to use the new PHY interface. If no
+> PHYs are present in the DT then the legacy method will be attempted.
 > 
 > Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > ---
->  drivers/phy/phy-core.c  | 34 ++++++++++++++++++++++++++++++++++
->  include/linux/phy/phy.h |  7 +++++++
->  2 files changed, 41 insertions(+)
+>  drivers/media/platform/qcom/camss/Kconfig        |   1 +
+>  drivers/media/platform/qcom/camss/camss-csiphy.c | 177 +++++++++++++++++++++--
+>  drivers/media/platform/qcom/camss/camss-csiphy.h |  11 +-
+>  drivers/media/platform/qcom/camss/camss.c        | 104 +++++++++++--
+>  drivers/media/platform/qcom/camss/camss.h        |   1 +
+>  5 files changed, 263 insertions(+), 31 deletions(-)
 > 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index ebfad5325072e..7af24f2f4120f 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -1029,6 +1029,40 @@ struct phy *phy_get_by_of_node(struct device_node *np)
->  }
->  EXPORT_SYMBOL_GPL(phy_get_by_of_node);
->  
-> +/**
-> + * devm_phy_get_by_of_node() - devm managed lookup and obtain phy reference by device node
-> + * @dev: device requesting the PHY
-> + * @np: device_node of the PHY provider
-> + *
-> + * Returns phy associated with the device_node or ERR_PTR. devres manages
-> + * releasing resources.
-> + */
-> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np)
-> +{
-> +	struct phy **ptr, *phy;
-> +	struct device_link *link;
-> +
-> +	ptr = devres_alloc(devm_phy_release, sizeof(*ptr), GFP_KERNEL);
-> +	if (!ptr)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	phy = phy_get_by_of_node(np);
-> +	if (IS_ERR(phy)) {
-> +		devres_free(ptr);
-> +		return phy;
-> +	}
-> +
-> +	*ptr = phy;
-> +	devres_add(dev, ptr);
-> +	link = device_link_add(dev, &phy->dev, DL_FLAG_STATELESS);
 
-Why are you adding devlink here?
+This is nice
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-> +	if (!link)
-> +		dev_dbg(dev, "failed to create device link to %s\n",
-> +			dev_name(phy->dev.parent));
-> +
-> +	return phy;
-> +}
-> +EXPORT_SYMBOL_GPL(devm_phy_get_by_of_node);
-> +
->  /**
->   * phy_create() - create a new phy
->   * @dev: device that is creating the new phy
-> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> index 71c2e16397130..14b924a88411f 100644
-> --- a/include/linux/phy/phy.h
-> +++ b/include/linux/phy/phy.h
-> @@ -285,6 +285,7 @@ struct phy *devm_of_phy_optional_get(struct device *dev, struct device_node *np,
->  struct phy *devm_of_phy_get_by_index(struct device *dev, struct device_node *np,
->  				     int index);
->  struct phy *phy_get_by_of_node(struct device_node *np);
-> +struct phy *devm_phy_get_by_of_node(struct device *dev, struct device_node *np);
->  void of_phy_put(struct phy *phy);
->  void phy_put(struct device *dev, struct phy *phy);
->  void devm_phy_put(struct device *dev, struct phy *phy);
-> @@ -499,6 +500,12 @@ static inline struct phy *phy_get_by_of_node(struct device_node *np)
->  	return ERR_PTR(-ENOSYS);
->  }
->  
-> +static inline struct phy *devm_phy_get_by_of_node(struct device *dev,
-> +						  struct device_node *np)
-> +{
-> +	return ERR_PTR(-ENOSYS);
-> +}
-> +
->  static inline void of_phy_put(struct phy *phy)
->  {
->  }
-> 
-> -- 
-> 2.54.0
-> 
+.
 
 -- 
 With best wishes
