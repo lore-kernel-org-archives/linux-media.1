@@ -1,145 +1,134 @@
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12EE3390228
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 16:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A8D39099B;
+	Tue, 28 Jul 2026 16:55:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785257593; cv=none; b=FXS4qw4SNlrDwZnh+LeQQlXvBvDw7AE+Rw1/nimu/pji1YK9l8/eSukK/eu4GJDt/5Z17X8+YY7zABNArtPWEb/4i0Zj5YrybL7vFRljd14M7U9e6p6RBr0tM95pn3JX88v4yVhf/RExusUqrUxQzl7Nmu4h3h/+qjF+0R8cmk8=
+	t=1785257755; cv=none; b=EGC0GbgzbZtte7552gQLzoJ74UkYP+L35cOE6X7YUmbqABirfyprz/21rwV/+Gl1/YWLvoldl98bLj7EfcHTYG30KUzx3yxuJPWvHXgJRVCANqJ3rmY64VtD7A5AEMuveSB4NRq9S0Vl7/RY4p8B2UanXF0qBQfRWzVUWxF6JC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785257593; c=relaxed/simple;
-	bh=7R2WhbE5ZPA5Tz1lCp2qkd0MoEbs+Rw5eQCpJ9fBNuQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y3YrrQ5VhSjr0ucxn3tUpiAtibPPr7gaT/4VN3gDBiFgh6kSC2MFtQPUZfYV5lq4gyKRdN4wi6kPNWfQat2tL6Qyc36IMfjE/dJQB6n0oqbPI2jSGIYSzfSoUKoDZ7yQmsx50YrOKVC309sAPB3AOVKlmcgBfiLG2h4+XnT3YBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwoULGwU; arc=none smtp.client-ip=209.85.210.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785257755; c=relaxed/simple;
+	bh=NgbHZpVQ8/kf1iluMJBBDSuzlnizdyCmmijqCjCcOQE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kFu8pj3Tyn2WZIBuhJqyOwG+V9zfwSLYwpEem286ZrG38gfMvw6JDtPlDlc0dTBUr3CQQDXEyrj+gOYmkid4TE71dDss6jF76WJofYx5hXJAMcSvBAldwYf0rSVMXmCwWYOhB6l2e/gdZHsnFW3fdGht0LLM7QFYs0ASJm7ydWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=BfPdBi9A; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwoULGwU"
-Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso61392b3a.1
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 09:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785257590; x=1785862390; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GcI5M5aVct51iF3mXu2zx6X2XeT1EVhCg461eA+j5Qs=;
-        b=RwoULGwU+DAm0Ag1H54NenLL2iSW2YaPftvqkS7UaDAb9JTnymimZKlVhi8yDzoVQG
-         nzpy89J59WHN7kNlMHmqDK6wTVpA+CIbt+niCfu1A+cZ+y4lTd8ZoM98CnoyyP3DeQ92
-         FK3j+3Knse+7g9evO/ul+0Bi9c12ZorcIVN7icykAhWxfi5aA53IPFrTm5hFTy6fHSqL
-         SgR3SSS67Mnmi8kx6L4jlMjzsrcG9iXuQnrwnX5KAi6aqzidUj6IDi+VZ1rAhS/v4z83
-         grLr+J7wH1bT83q1pINLRiFG10fapbFJsBYYbUvd8hQzOdxw03aAFKboZdnorYaLKzLA
-         yvzg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785257590; x=1785862390;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GcI5M5aVct51iF3mXu2zx6X2XeT1EVhCg461eA+j5Qs=;
-        b=MMqNszFBaXTX06Y2llRWT4z1kNCggObOyyTrPfNJkVeR+CuqDBiiuCyDPIvc+J94xm
-         vF5uIKTojouEDeOP141wGrOmqq4UkLup5+ChHaihLpvnbpXB3sqTCCRWvIXpb9covlT6
-         XBqXYsDv2x/+ZvYE7w7TJVP6i4TOIcP/93Si0/PHlLNOplQ3GcDOGiUgkdb6DLDhteSQ
-         aC3urK1vF4g0XiB655uzfLXoIr4UxOQSJtmw8B0pVLY/xhThPX0OmRO4jkzgebqSdNur
-         KHYplDpr4BDsaZJs/5TD9Zkw4KRIHLx0YKGTPxu3B3hWKnk9knpuJmulOWk3qeB+oQjb
-         DcNA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr916vZFV0MuVKVkN3xECkOTLqQijA4FVTv1hv7kl0BqGYtW6QtdH595SCQmmcZTzXZnM6KkJQ9QCqMnw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YywoTVdEUAqlSh9rbpBqldfldlS2ztW5mmdUcda8yui27KxroEv
-	OphTZWWIIRyG1+Zk/D2Mc0LedtLH7jPWsnVYXQQqPv7YCI+U7XLEl+FB
-X-Gm-Gg: AR+sD10bqtZ4/pLg81TC3b27Qw2HfsKTDhLtPau3unYZGvZ6Za/XSNgMzXWMlDwEGk+
-	v0iJpstAULbu5dBZu+LhUA0p5nCN3TRJpuJdafa1XygO4yYgn/oX6xO2daatOP1wLLzvHTtPBFW
-	KFk9wjR2K1FbTEhSuwVGJdBcWtiTy9KpZ7DBpvXt2sbNUF2jOIlOeGpe+KQrQQbhHioXwFV/5ms
-	z9o8UmbqDc3N6DasxGmzuXvaQMGawgpNrictMD8qQ3wIfodlucBNwWx7l9lcjuiL/wGGzlWEmTC
-	RIy5Gd9kUuHiYOdfxTe5Kciw4liX89SjI5xemQszTedLXEc3GCRMxfBFYbSINNDqK+rm1V0wFKS
-	DV6heQ72c9OFujcgw3Czhy19gO1XunDNbRMT4ouJEFsM4UgvQQ+h2ugams0e/Xxh+tjw0/BSPlJ
-	9kVzZ6
-X-Received: by 2002:a05:6a00:c8e:b0:84e:89a:b8ed with SMTP id d2e1a72fcca58-84e93345dfemr3425490b3a.70.1785257590271;
-        Tue, 28 Jul 2026 09:53:10 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea03d3182sm197408b3a.54.2026.07.28.09.53.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 09:53:09 -0700 (PDT)
-Date: Tue, 28 Jul 2026 22:23:08 +0530
-From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] docs: media: fix spelling errors
-Message-ID: <amjedHeBeC-eNINK@acer-nitro-anv15-41>
-References: <20260726065407.20766-1-shaikhkamal2012@gmail.com>
- <amivy2PF7EXVXglr@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="BfPdBi9A"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
+	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
+	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
+	bh=Zs6ggugRdYyXg9jsw/mL1a6CvW1NYKUX7RaqAdEwvak=; b=BfPdBi9AabkfDvxL3mkFSNs+sy
+	vAoHdvmVW6hCJ+0FrBXCu+HCKgRXIFPax1w7b4IfuOR+3cAxECSfsprwqRKvPMfwxnwl8iQl3ZKO+
+	Isfjb22HsfgfEfUkIlYQwabP2qbDlv9Oa8Nx55CxKiZSxSs/bGCO43HKefia8xtD+tGUC+yQUQqFw
+	dPdjcK0ssgEaP+8TiSJGHqqskd7RdvJpvWAj3OyWsCm6oHcqFIPa6KVax9Zn5J6EpAFPxj8o0zkf7
+	LXN6zJ7CWC0MKNW8/1j/uYSsGA1fGPEbMS0sDS8Z+AHh57522Y+AHtAsGL6x4bZH9Hp1EfZIKVIpw
+	7cZH5iEQ==;
+Received: from [50.53.43.113] (helo=[192.168.254.34])
+	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wol5l-00000005tBo-28uo;
+	Tue, 28 Jul 2026 16:55:45 +0000
+Message-ID: <b7773638-12dd-44a4-b075-2e6994dd9971@infradead.org>
+Date: Tue, 28 Jul 2026 09:55:42 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] Documentation: fix "should be use" grammar in ABI
+ README
+To: Weijie Yuan <wy@wyuan.org>
+Cc: =?UTF-8?B?5bKz56eJ5Z2k?= <yuebingkun@kylinos.cn>, mchehab@kernel.org,
+ tony.luck@intel.com, corbet@lwn.net, shiju.jose@huawei.com,
+ jacopo.mondi@ideasonboard.com, laurent.pinchart@ideasonboard.com,
+ hverkuil+cisco@kernel.org, sakari.ailus@linux.intel.com,
+ linux-doc@vger.kernel.org, linux-edac@vger.kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260728041213.52820-1-yuebingkun@kylinos.cn>
+ <20260728041213.52820-2-yuebingkun@kylinos.cn> <amgu5cFN_imQgMf-@wyuan.org>
+ <f7a7b4d8-d044-491f-827c-ec929ee429ce@infradead.org>
+ <amhCmSxLtu4m6fXX@wyuan.org>
+Content-Language: en-US
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <amhCmSxLtu4m6fXX@wyuan.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <amivy2PF7EXVXglr@kekkonen.localdomain>
 
-On Tue, Jul 28, 2026 at 04:34:03PM +0300, Sakari Ailus wrote:
-> Hi,
-> 
-> Please use Documentation: prefix for patches under Documentation/.
-> 
-> On Sun, Jul 26, 2026 at 12:24:07PM +0530, shaikh.kamal wrote:
-> > Fix spelling errors reported by codespell:
-> > 
-> >   thare -> there  (vidioc-subdev-g-routing.rst)
-> >   stuct -> struct (legacy_dvb_video.rst)
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: shaikh.kamal <shaikhkamal2012@gmail.com>
-> 
-> Does this conform to the spelling of your name? Just confirming.
-> 
-> It needs to match From: nonetheless.
-> 
-> > ---
-> >  Documentation/userspace-api/media/dvb/legacy_dvb_video.rst      | 2 +-
-> >  .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst         | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > index b9fd5cadae24..71d044605315 100644
-> > --- a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > +++ b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > @@ -344,7 +344,7 @@ Variables
-> >  
-> >      -  ..
-> >  
-> > -       -  :rspan:`5` ``stuct play``
-> > +       -  :rspan:`5` ``struct play``
-> >  
-> >         -  :rspan:`4` ``__s32 speed``
-> >  
-> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > index 6f66ca38589e..164cf0ad3593 100644
-> > --- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > +++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > @@ -67,7 +67,7 @@ subdevice routing table. This may be smaller or larger than the value of
-> >  drivers may adjust the requested routing table.
-> >  
-> >  The kernel can return a ``num_routes`` value larger than ``len_routes`` from
-> > -both ioctls. This indicates thare are more routes in the routing table than fits
-> > +both ioctls. This indicates there are more routes in the routing table than fits
-> >  the ``routes`` array. In this case, the ``routes`` array is filled by the kernel
-> >  with the first ``len_routes`` entries of the subdevice routing table. This is
-> >  not considered to be an error, and the ioctl call succeeds. If the applications
-> 
-> -- 
-> Regards,
-> 
-> Sakari Ailus
 
-Thanks for the review — sent v2 [1] with the Documentation: prefix and my
-full name in From/Signed-off-by:
-[1] https://lore.kernel.org/all/20260728145252.9326-1-shaikhkamal2012@gmail.com/
 
-Shaikh Kamaluddin
+On 7/27/26 10:48 PM, Weijie Yuan wrote:
+> On Mon, Jul 27, 2026 at 09:31:35PM -0700, Randy Dunlap wrote:
+>>>> Signed-off-by: 岳秉坤 <yuebingkun@kylinos.cn>
+>>>> Acked-by: Randy Dunlap <rdunlap@infradead.org>
+>>>
+>>> Usually, your "Signed-off-by" should be the last trailer.
+>>
+>> Hm, I disagree. The -by: lines are somewhat in chronological order, so this
+>> looks fine to me.
+>>
+>> Documentation/process/submitting-patches.rst says:
+>> """
+>> Standard sign-off
+>> procedure applies, i.e. the ordering of Signed-off-by: tags should reflect the
+>> chronological history of the patch insofar as possible, regardless of whether
+>> the author is attributed via From: or Co-developed-by:.  Notably, the last
+>> Signed-off-by: must always be that of the developer submitting the patch.
+>> """
+>>
+>> Yes, this doesn't address Acked-by: or Reviewed-by: lines, but in my experience,
+>> chronological order applies to all of them.
+> 
+> Ah, I remember this part. But I tend to believe that this description is
+> only relevant to the issue of the order of Co-authored-by and
+> Signed-off-by, if I were the newcomer reading this for the first time.
+> (In fact, I actually am a newcomer compared with you ;-))
+
+Yes, that's understandable.
+
+> That is to say, when dealing with multiple authors, we suggest using
+> trailers to represent the sequence of authors in chronological order.
+> 
+> Then, this will facilitate subsequent readers to understand the
+> development history of the patch through the order of the trailers.(?)
+> 
+> And, aren't these subsequent examples merely confining the discussion to
+> these two trailers?
+
+They seem to be but that's just a documentation deficiency IMO.
+
+> ---
+> <changelog>
+> 
+> Co-developed-by: First Co-Author <first@coauthor.example.org>
+> Signed-off-by: First Co-Author <first@coauthor.example.org>
+> Co-developed-by: Second Co-Author <second@coauthor.example.org>
+> Signed-off-by: Second Co-Author <second@coauthor.example.org>
+> Signed-off-by: From Author <from@author.example.org>
+> ---
+> 
+> Besides the submitting-patches file, It seems to me that the probability
+> of "Signed-off-by" appearing on the last line is much higher than in
+> other cases. Is this a usual practice? It seems that everyone tacitly
+> agreed to write "Acked-by" and "Reviewed-by" at the top, even though
+> they occurred after "Sob".
+> 
+
+I chose 2 files and looked at their "git log" history: MAINTAINERS and
+kernel/panic.c. In those files I see corroboration of my "claim," so I'm
+satisfied with it.
+
+> But of course, you have much more experience in this area, so my limited
+> observations may not be very representative.
+> 
+> Thanks!
+> 
+> ps. The Git project explicitly stipulates "Place this `Signed-off-by:`
+> trailer at the end". So at first, I wasn't quite sure about it.
+
+-- 
+~Randy
+
