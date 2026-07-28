@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BAA7435520;
-	Tue, 28 Jul 2026 12:27:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EDF021ABB1;
+	Tue, 28 Jul 2026 12:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785241662; cv=none; b=MNb2C7BZnZRXCa0G+wRXQJM2LUwAVY6ZQNDq+DJuNDx8nY0TXKInLnO9WsGH0rpGBtRTrmuQxhWvY+0ooKuRbcBnRgGGQMQuKq5SASiEn2HduEzdrBylqLZMsx6KOn1i5d+zSqe0EsUPz8oaXiZOsTHcvBOtUyGpW9tjqnQ/Bwk=
+	t=1785241988; cv=none; b=G+oINw5WASW//Tm92VMGYzP802LPeunq4tl7R18XDqJNvE5PmciV/TO/n+lRfTah43qWa51uqhe7EQ6ES9VQ8YlWttImdvwmjENgf3YM8Z6FfWwq9OA8CRRwO3aBmVWfbHeEZfWz4cHQL2iz3jM+jDlymc7ySwhY2Eg5X/XgfbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785241662; c=relaxed/simple;
-	bh=skNwBeM0xhdzodG09om1zJMxkK9//R0aOwypLLXtBLw=;
+	s=arc-20240116; t=1785241988; c=relaxed/simple;
+	bh=R1x0gbHSEF649dDBsLTEEovn86RgGiNcWj6ZQqmH5lk=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=IMcGFUlHAPljfcSMTZ937JbhUEPIW4oSf9sonH2FiWPG6Tsn6umUrTPy4b664dPLbZlnczUP1oux4puYJ2hGaEcg7fa1UYewYH8GKfiE7/RyHscCQ2w42QZ3dse/NCrnFlYXfaM9H+Ins6L3aQh2Flh8sQOZ51/x7CcM559VUhU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VKbDqTqh; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=bFl0EqPQGVCbvFO50e+jRcFQCBScc4CTUEG73Fr92DXzvNx7h6Vol9kYbp69jtAi6jIzVQz1LqrR+Z9z+AEV/5ksvgv6zdLG0qTCe/FTKMa0w7as6yoFtzrcEnZ38KcMkrwOVUuIrYfvJuVWaVl4QvI1TjcTda4Y1LMpGdDnRRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBj0Jzo9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VKbDqTqh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54F5C1F000E9;
-	Tue, 28 Jul 2026 12:27:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBj0Jzo9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160C71F00A3A;
+	Tue, 28 Jul 2026 12:33:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785241658;
-	bh=5YG3ruB6nyVV77DSV8ACxVj8DWtTrgBc+2lCxM0N0ZY=;
+	s=k20260515; t=1785241987;
+	bh=utV4vKMlqT8Z9yiEQPdu4Tu2oACykHmjT/Dng8uAAZI=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=VKbDqTqh7AP/jCw/GBMmwWeJMu3g4ZBe0qeWhfIEr8IrvAHJVPQ4oD0baLuUHTxE5
-	 QPICmJO1RMG4uFg5Oh2EsUDJvPK7vDMVBtjcvD5JTBqYKSOsek0l8dagzLqsl77zwU
-	 c+/kZfIu2VjD62HBs4ULkjeMW6XnWwH5dDqgB/PSa+XVHvYP+6YtqV0B3gGupedJ+I
-	 k/WzYJBpKE4snr64/QGuLrtnrZM4xRV+OCkJOs2IxZ540L7XgfSVy427yeX63yCWd6
-	 BS1Gs8R90ux8MPgwtIicuuS5d6Eupl4dRnp2CDDq+l07Oq99At/82eoHJM782r7Gta
-	 kk2ybKuqQQ/Tw==
-Message-ID: <ae9de4f1-5803-4ab8-9d68-939cc049fa2f@kernel.org>
-Date: Tue, 28 Jul 2026 14:27:35 +0200
+	b=EBj0Jzo9sRM+7F9WAamOmzMyYlUjghd2VbHD/w2WM4nlVznU1WEzkP9guj7Gk6nXF
+	 97iiYvQhzIFKb8vFtgILccMRg3J+aCS+edK6I6wEeeOrpi5onSJpvn8W4OzHJKx5Ld
+	 FKMrj70J8J+o6vme3OhrsAuCz/MT7J0oX/J1jB55JdoGZMFx+6fkgd/0NkN24nfHz8
+	 ELEeZ16J0rpj7Z/e4xhwZG7rj6240QO/sYwKtxhZCmU0+3q7ogCGguh5cZObvnpIiP
+	 ykDp1cDZcp14gvCeg/AlNx8ahhY690/RTIklf/RvuNNBsrl5hFxMcP06wmuSCxejs6
+	 PjQPpJdEy5KAw==
+Message-ID: <15b0899f-ce90-4f60-80bd-a0f8432ce811@kernel.org>
+Date: Tue, 28 Jul 2026 14:33:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,102 +35,77 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: hverkuil+cisco@kernel.org
-Subject: Re: [PATCH v2] media: v4l2-dev: fix media controller registration
- error handling
-To: Shih-Sheng Yang <yshihsheng@gmail.com>, mchehab@kernel.org
-Cc: kees@kernel.org, laurent.pinchart+renesas@ideasonboard.com,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260630095840.1749448-1-yshihsheng@gmail.com>
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH] media: gspca: hold a usb_device reference while
+ registered
+To: Shuangpeng Bai <shuangpeng.kernel@gmail.com>, hverkuil@kernel.org,
+ mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
 Content-Language: en-US, nl
-In-Reply-To: <20260630095840.1749448-1-yshihsheng@gmail.com>
+In-Reply-To: <20260718025434.2259756-1-shuangpeng.kernel@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 30/06/2026 11:58, Shih-Sheng Yang wrote:
-> __video_register_device() ignores failures from
-> video_register_media_controller(). If media_devnode_create() fails,
-> vdev->intf_devnode remains NULL but the video device is still marked as
-> registered. A later video_unregister_device() reaches
-> v4l2_device_release(), which calls media_devnode_remove() and
-> dereferences the NULL pointer.
+On 18/07/2026 04:54, Shuangpeng Bai wrote:
+> gspca keeps a pointer to the probed struct usb_device in
+> gspca_dev->dev, but it does not hold a reference to it. The
+> V4L2/video-device reference can keep the outer gspca_dev alive after USB
+> disconnect, and the streaming queue can then be canceled from the last
+> file release path.
 > 
-> If media_create_intf_link() fails, video_register_media_controller()
-> removes vdev->intf_devnode but leaves the stale pointer behind.
+> That late release path still calls into gspca_stream_off(), which may
+> call sub-driver stop callbacks or usb_set_interface() and dereference
+> gspca_dev->dev after the USB core has freed the device.
 > 
-> Fix this by propagating video_register_media_controller() failures from
-> __video_register_device(). Since device_register() has already
-> succeeded, unwind the device with device_unregister(). Also make
-> media_devnode_remove() tolerate NULL devnodes and clear
-> vdev->intf_devnode after removing it in the link failure path.
+> Take a reference to the usb_device when storing it in gspca_dev and drop
+> it from the final gspca_release() path. Balance the reference in the
+> probe error path as well.
 > 
-> Suggested-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Shih-Sheng Yang <yshihsheng@gmail.com>
+> Fixes: 63eb9546dcb5 ("V4L/DVB (8152): Initial release of gspca with only one driver.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
 > ---
-> v1: https://lore.kernel.org/r/20260625193916.3562596-1-yshihsheng@gmail.com
+>  drivers/media/usb/gspca/gspca.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> Changes in v2:
-> - Move the NULL check to media_devnode_remove().
-> - Use device_unregister() after device_register() has succeeded.
-> - Keep clearing vdev->intf_devnode in the link failure path.
-> 
->  drivers/media/mc/mc-entity.c       | 3 +++
->  drivers/media/v4l2-core/v4l2-dev.c | 6 ++++++
->  2 files changed, 9 insertions(+)
-> 
-> diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-> index 3fa0bc687851..79f55375e9d6 100644
-> --- a/drivers/media/mc/mc-entity.c
-> +++ b/drivers/media/mc/mc-entity.c
-> @@ -1563,6 +1563,9 @@ EXPORT_SYMBOL_GPL(media_devnode_create);
+> diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
+> index 594d73e50b9f..59eb4cec1aed 100644
+> --- a/drivers/media/usb/gspca/gspca.c
+> +++ b/drivers/media/usb/gspca/gspca.c
+> @@ -1178,6 +1178,7 @@ static void gspca_release(struct v4l2_device *v4l2_device)
+>  	v4l2_ctrl_handler_free(gspca_dev->vdev.ctrl_handler);
+>  	v4l2_device_unregister(&gspca_dev->v4l2_dev);
+>  	kfree(gspca_dev->usb_buf);
+> +	usb_put_dev(gspca_dev->dev);
+>  	kfree(gspca_dev);
+>  }
 >  
->  void media_devnode_remove(struct media_intf_devnode *devnode)
->  {
-> +	if (!devnode)
-> +		return;
-> +
->  	media_remove_intf_links(&devnode->intf);
->  	media_gobj_destroy(&devnode->intf.graph_obj);
->  	kfree(devnode);
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index 5516b2bbb08f..56b51d5d49ae 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -896,6 +896,7 @@ static int video_register_media_controller(struct video_device *vdev)
->  					      MEDIA_LNK_FL_IMMUTABLE);
->  		if (!link) {
->  			media_devnode_remove(vdev->intf_devnode);
-> +			vdev->intf_devnode = NULL;
->  			media_device_unregister_entity(&vdev->entity);
->  			return -ENOMEM;
->  		}
-> @@ -1092,6 +1093,11 @@ int __video_register_device(struct video_device *vdev,
+> @@ -1462,7 +1463,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+>  		ret = -ENOMEM;
+>  		goto out;
+>  	}
+> -	gspca_dev->dev = dev;
+> +	gspca_dev->dev = usb_get_dev(dev);
+>  	gspca_dev->iface = intf->cur_altsetting->desc.bInterfaceNumber;
+>  	gspca_dev->xfer_ep = -1;
 >  
->  	/* Part 5: Register the entity. */
->  	ret = video_register_media_controller(vdev);
-> +	if (ret < 0) {
-> +		mutex_unlock(&videodev_lock);
-> +		device_unregister(&vdev->dev);
+> @@ -1574,6 +1575,7 @@ int gspca_dev_probe2(struct usb_interface *intf,
+>  	if (sd_desc->probe_error)
+>  		sd_desc->probe_error(gspca_dev);
+>  	kfree(gspca_dev->usb_buf);
+> +	usb_put_dev(gspca_dev->dev);
+>  	kfree(gspca_dev);
+>  	return ret;
+>  }
 
-This causes problems. See this series for more information:
-
-https://patchwork.linuxtv.org/project/linux-media/list/?series=27907
-
-I think it is better to limit yourself to just setting vdev->intf_devnode
-to NULL and checking for a NULL pointer in media_devnode_remove().
-
-As mentioned in that series, this function really needs to be split into
-two parts. But that's a much larger effort.
-
-There is just a lot of history here, and no easy fix.
+Actually, the better solution is to replace v4l2_device_unregister()
+by vb2_v4l2_device_unregister() in gspca_disconnect. That ensures that the
+queue is canceled at disconnect time.
 
 Regards,
 
 	Hans
 
-> +		return ret;
-> +	}
->  
->  	/* Part 6: Activate this minor. The char device can now be used. */
->  	set_bit(V4L2_FL_REGISTERED, &vdev->flags);
 
