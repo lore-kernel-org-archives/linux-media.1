@@ -1,116 +1,156 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 113533C4B6A;
-	Tue, 28 Jul 2026 08:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C95406834
+	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 08:30:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785227293; cv=none; b=GQx1pgjvI6aXeoPE0l3SdEhCqv59K8H0YBSPnKU50I7uHAYqS3VM+WRs7xI4CyckkyoRpb+g+EJyvsqfK3TcnkNcTLt/n5QmZLAReRBy3E77dGv76jhHwidDKHU3UHhkLC8DtouiB8anCRAYZ14sLjlTkwObkpMsh3pKepgz9B0=
+	t=1785227451; cv=none; b=haEW4nyupS4Tnw1OMM6p7vtzWTAuWojYovtusa2ztc8SpcfWOi9CGtyXYiHuzdK5NZwjXSx6Y2zuPMgWGdq9Oj2+X8nVZBgCcY6T85y4qp2vj/eRAaIhUo74vizkMzkOPX+FBKtqXd+Ux3byAJCMetDucxy8cd95N9O/cdVLbJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785227293; c=relaxed/simple;
-	bh=uQl+dyAnTPFkwFvd/f0LstXlbQvleBYcNxbg3BMp9as=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Atc6tSBuER1+o44fiYO35ZPLq6Mquo0pvc9ay1fcZd+Ca2iGiKaq9yuV2YLmGWeCb6CvG2ozmFxNBe9JDTgfsP/dayjztXiEqnjYya41PAqcYpCt6cPx+ucx3rvLox0P7Y9f3nnRf6H488k+JV0ZMlyjRCorjUAstvFvbYAqI+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZnipS6JE; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785227451; c=relaxed/simple;
+	bh=zD+Tt+tlF3sKHvM99SHQfbP3s8lZ/MekZMRh/GzEnb4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=kJ0ljG5zGomEn4/Jp2hJwJLk2ES6yirc+W4EEmCXyJACtHPxvkn6b+Ki9aYAgIiReJsG1ny2Y7X5WygvErKE7mNnWb3OXYVMXMzr5q+EHWluW++LPkuWSVpCD0ViKXWoFEzWjl/pPGWwdqVuPTbpGPHwQ/Xsp55k3yDLnGDt1zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XEKOxF6h; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZnipS6JE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785227291; x=1816763291;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=uQl+dyAnTPFkwFvd/f0LstXlbQvleBYcNxbg3BMp9as=;
-  b=ZnipS6JEzuB9eo5LRpT8g5tNEG95BUy2+4yP1jA2Zh5C8sDzE/HPYYY5
-   hertT9ljLW8xfZsCihxC462detjrjdeHBBdjNHrR1yGaqAE4uW1bKkd/Q
-   hdVvfSm1E53bym7ljkZYXFuZ3q4UaYAr/4X+PC3bfcdeUuctLdbePBV+m
-   8hSmg8LipGw2eFTFy2za8FYPX1Glej6vReIMIDweOflw2LImC9jHeS4yH
-   agCLfo56TzlHeMyZjoqmVzoS7D7NyQHURkTNg9bYukyPMjzctzGEqxmMd
-   KZ+SDbAvFh1GfxQcPngtaUQ10Usr5TeFUPFbQnexaLwIh0TTbrvV3fZsC
-   g==;
-X-CSE-ConnectionGUID: bY7/ilVbSb6hzDQ6bvMy6A==
-X-CSE-MsgGUID: UOf7GdKMSJKZF18MlIXRdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11858"; a="85571248"
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="85571248"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 01:28:10 -0700
-X-CSE-ConnectionGUID: ELAWDZ+pTNGmN0ppkeFROw==
-X-CSE-MsgGUID: iRffNf1XRMmCdgfnhTd9Rw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
-   d="scan'208";a="297872683"
-Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 01:28:09 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 918D5121BFD;
-	Tue, 28 Jul 2026 11:28:08 +0300 (EEST)
-Date: Tue, 28 Jul 2026 11:28:08 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Shivesh <chanelshivesh@gmail.com>
-Cc: gregkh@linuxfoundation.org, bingbu.cao@intel.com,
-	tian.shu.qiu@intel.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu3: fix line ending with '(' in
- atomic_inc_return call
-Message-ID: <amhoGB8oJIcNB8dp@kekkonen.localdomain>
-References: <6a64b80c.4987c784.13f2de.011a@mx.google.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XEKOxF6h"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49553515a8bso43471005e9.1
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 01:30:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1785227448; x=1785832248; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qXOP4XN0PqhQT+v4jXW4sP+aBgVsrUPoLsPqH/lHN1Y=;
+        b=XEKOxF6hNf8sV3h2KDrCsCQAogkpdgAKT+2voA1nmy8RNvwVfQZU0SJyeXRyj5BqbZ
+         yLjEgkqyOWHX2/lQI4qFNNA4f0tOhay9PeLwuu5Mx87f2G7SHScaQjkt/DB9CiYJqR+t
+         aFfJKM7V2iRuZwMI2xE9WpEfnqvqj9X4q8DUhZkln5DO3v+5ZMYspIRFcMiLf4xm3ssq
+         jFblB46UXiYac8DgWiOx2M1FOG2+Oc50J25r0JdBcCcRiJ1VArTzWs7JzP6aerjguo9B
+         ke0fMj1R7m1abtG7MWDPPbyHt58uIIZiayfBADoatQcKv58qcJoTyYMCIbM7mNkf2BMx
+         44oA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785227448; x=1785832248;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qXOP4XN0PqhQT+v4jXW4sP+aBgVsrUPoLsPqH/lHN1Y=;
+        b=fGbO3Rah7bmMwWd0/DvTVNrDuYVHsih+hKNnlppSljKm24IRgR1eXo14YKzkikOncT
+         O0Vs4sQ/PxMGok0q4rohU3eaNHARzKJtNF34fl55x8NmRcYwrgWDywTexu+QzwziQ5IZ
+         eM6J+MeLm6YI2mKmpSouhyeXU4iEnrDoJ4XTbCdzaubDzbB8Y5Wbftnt5Pc5YF4/i+2I
+         KDrfwi/SXSzTOddMivwwI8dZLFRYLw32BtTqCbVSBu5poT3geuwHEBr8B20z5RGoo6Al
+         6IK4iVWOlWV0fACwxGJuHELZd4dEKs+m0LKPFOSRQ7b8YAkc48dlhzCrKzNqBKFjEAFQ
+         BN6w==
+X-Forwarded-Encrypted: i=1; AHgh+RoBj4TtpwE8ZveHOUESLjKuVbmHWEy/wZnSwKrzhniGd5tt/7q0OeDifyf3UFkxxkwZn2PElAZZhUAHQQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7X2pQrxEBfrqfx5oAKv6dDyurE5cP3sMvcb3J8fDgIB35XEVC
+	MqpASLo9L0TWOyI44YPO+ditm/lt+ixz6wAM7dn033iBJvCer0AKUYE2pvUzQkscrb0=
+X-Gm-Gg: AR+sD10sm8ev2aixvPgo/8P1QxUjT2L1ynWwX38e6D2oKmmrqnAGMLfdqAg3gnbpUE4
+	dWs3xDAYLXXbpAIWDXBiBiUBBMpIE/kqMYC/AgdmIEUCBg5zTmIi+Dhw7noKHsJguHSNpDYouzy
+	JiEgFdcZJQygGBT6vc4RVxhbjuqd0+aVZt0DbWmdG/Ga7KnCT1RJa6iCUujaEQO2nJvyXJMQp1k
+	CbLVRvAjW7ZBEdgQC5VDhuku6rKnm1PUTz0tQDiettoQDk7AA6Js2gzDL1PJ2hLy0Gdf6CINiXO
+	l0blYajhr+A8BPSuycU8IxSVrLz39qVe2aUVRCgLEphgmujcok/V/WKbrSHODfydLPnY/3vM3fb
+	plDeijoELpQk68p5TCw1Jjz+z5Edc/I0lmKuDz5BlBR2vY+pqC9z4zifiSHHzI2yr7ljQeiOl4v
+	Q8gJL/mki64XSkcmOtCGGsnb7qt4TJxOnDgpi82o7s59yorCXVT+EYVQMDNg==
+X-Received: by 2002:a05:600c:3b13:b0:495:3c6d:f294 with SMTP id 5b1f17b1804b1-496c6571db3mr16805925e9.23.1785227448036;
+        Tue, 28 Jul 2026 01:30:48 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:5788:c4e1:cf35:7211? ([2a01:e0a:106d:1080:5788:c4e1:cf35:7211])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c44afaecsm68281745e9.2.2026.07.28.01.30.47
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 28 Jul 2026 01:30:47 -0700 (PDT)
+Message-ID: <e73bf1bc-aab5-4786-b97b-803c3e118a46@linaro.org>
+Date: Tue, 28 Jul 2026 10:30:46 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a64b80c.4987c784.13f2de.011a@mx.google.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v4 08/15] media: meson-ir-tx: Ensure rc_free_device() is
+ called on unbind
+To: Sean Young <sean@mess.org>, linux-media@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>
+Cc: stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <cover.1785158244.git.sean@mess.org>
+ <4674de80dfb7ab8c4a66282be26260ce4e7c9055.1785158244.git.sean@mess.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <4674de80dfb7ab8c4a66282be26260ce4e7c9055.1785158244.git.sean@mess.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Shivesh,
-
-Please fix your patch submission process (no attachments). The easy way is
-to use git send-email.
-
-On Sat, Jul 25, 2026 at 06:20:12AM -0700, Shivesh wrote:
-> From c753198ad726500786ba04d66d531db4c11e2b03 Mon Sep 17 00:00:00 2001
-> From: Shivesh <shivesh@example.com>
-> Date: Sat, 25 Jul 2026 13:18:59 +0000
-> Subject: [PATCH] media: ipu3: fix line ending with '(' in atomic_inc_return
->  call
+On 7/27/26 15:18, Sean Young wrote:
+> Make rc_dev devm managed.
 > 
-> Move the atomic_inc_return() argument to the same line as the
-> function call to fix checkpatch 'Lines should not end with a ('
-> warning.
-> 
-> Signed-off-by: Shivesh <chanelshivesh@gmail.com>
-> Signed-off-by: Shivesh <shivesh@example.com>
-
-Why two e-mail addresses? The latter isn't valid either.
-
-The change itself seems fine.
-
+> Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+> Signed-off-by: Sean Young <sean@mess.org>
+> Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+> Cc: stable@vger.kernel.org
 > ---
->  drivers/staging/media/ipu3/ipu3.c | 3 +--
->  1 file changed, 1 insertion(+), 2 deletions(-)
+>   drivers/media/rc/meson-ir-tx.c | 6 ++----
+>   1 file changed, 2 insertions(+), 4 deletions(-)
 > 
-> diff --git a/drivers/staging/media/ipu3/ipu3.c b/drivers/staging/media/ipu3/ipu3.c
-> index 84c4d0bf027d..14e30cf913b8 100644
-> --- a/drivers/staging/media/ipu3/ipu3.c
-> +++ b/drivers/staging/media/ipu3/ipu3.c
-> @@ -556,8 +556,7 @@ static irqreturn_t imgu_isr_threaded(int irq, void *imgu_ptr)
->  			buf->vid_buf.vbb.vb2_buf.timestamp = ns;
->  			buf->vid_buf.vbb.field = V4L2_FIELD_NONE;
->  			buf->vid_buf.vbb.sequence =
-> -				atomic_inc_return(
-> -				&imgu_pipe->nodes[node].sequence);
-> +				atomic_inc_return(&imgu_pipe->nodes[node].sequence);
->  			dev_dbg(&imgu->pci_dev->dev, "vb2 buffer sequence %d",
->  				buf->vid_buf.vbb.sequence);
->  		}
+> diff --git a/drivers/media/rc/meson-ir-tx.c b/drivers/media/rc/meson-ir-tx.c
+> index e7bb107e6a84..abb107d19e8c 100644
+> --- a/drivers/media/rc/meson-ir-tx.c
+> +++ b/drivers/media/rc/meson-ir-tx.c
+> @@ -345,7 +345,7 @@ static int meson_irtx_probe(struct platform_device *pdev)
+>   	if (ret)
+>   		return dev_err_probe(dev, ret, "irq request failed\n");
+>   
+> -	rc = rc_allocate_device(RC_DRIVER_IR_RAW_TX);
+> +	rc = devm_rc_allocate_device(dev, RC_DRIVER_IR_RAW_TX);
+>   	if (!rc)
+>   		return -ENOMEM;
+>   
+> @@ -358,10 +358,8 @@ static int meson_irtx_probe(struct platform_device *pdev)
+>   	rc->s_tx_duty_cycle = meson_irtx_set_duty_cycle;
+>   
+>   	ret = devm_rc_register_device(dev, rc);
+> -	if (ret < 0) {
+> -		rc_free_device(rc);
+> +	if (ret < 0)
+>   		return dev_err_probe(dev, ret, "rc_dev registration failed\n");
+> -	}
+>   
+>   	return 0;
+>   }
 
--- 
-Regards,
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Sakari Ailus
+Thanks,
+Neil
