@@ -1,138 +1,224 @@
-Received: from mail-pj1-f44.google.com (mail-pj1-f44.google.com [209.85.216.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011035.outbound.protection.outlook.com [40.107.74.35])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35BCB3B19DE
-	for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 14:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785250384; cv=none; b=P51Befokg04afWxg/1qd5BsLcT64FddhFyEiiTrrlAXttESOxtNv3kxx+54nCgnJvB1ok4SXJzqZl0fmgEpmYNwW3WsWJeRSQHdos67SiiQHX1b6JjY0zi8VyKDrqr/UbSysH78yTSdQfCb5dsbn4cScTdh+kq38TISWoOXK+V4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785250384; c=relaxed/simple;
-	bh=A03iBjjsrmd7P23VLLld2IqB7k/iKwPpQglupny1yDI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AAEoH9t8lRpUyzjGtQd0G7SjSkm1iv9YxjsiLS98vx3+Mxmel/du0lcTHwgP2uGeCtGwaEys0PcTAT02zXjVP2IQqDRW+EC8qq+uMIuko/Joj5bKD4wqnaUDvSW7ot/x7UxKTf3kN+kun6VYGhwJahCtTPDvsjpfMbPjuL77E/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LJmH7qST; arc=none smtp.client-ip=209.85.216.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA7847A860;
+	Tue, 28 Jul 2026 14:53:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785250393; cv=fail; b=g5beoM0GIxgAG54A7F8SmxiMSRxbIRWmrHCYTHScYbUAlv28x7bIez2AirxLVXxNvI7CTyYF/zWPxzA4ZLlcjCUNXZEwlOkbpbUx2gjpWnpRET2VBfwB1BopofwinxU0V+PpV43m3gJU/5BF9pTT1xUkbCB7Ftuje5HX4RUyPjc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785250393; c=relaxed/simple;
+	bh=kvlBth2gqrCGfftC8+EDgdLErNmXtK/giiOxAJNQ45k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=M+uVE/X3dbq7RJqO2RWncrR3hc/ybtWgtUnFPltMhBO5M9IgF3ByEaxrxPpg8bHEUIalw0xBNqrhCmwIy2Lw2YDSqIi/f0IBWUXxopoKT9Jd70zmqhARMJmrMnAKZpX+nF+vtI6mLRnBGZz+OsuHXwTAkM7Q9bwlObi4YcHIP/k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=L9rL3Oqz; arc=fail smtp.client-ip=40.107.74.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LJmH7qST"
-Received: by mail-pj1-f44.google.com with SMTP id 98e67ed59e1d1-38a0c7e841fso4478286a91.2
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 07:53:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785250382; x=1785855182; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fb3zEYy7ohdbXLHiAFwUrnVAHlOI76SPN4KCq0oGPkQ=;
-        b=LJmH7qSTWKm5hIGcZi8fmloOHir07nQiDe5w888v8kZNOltnbAY0C1aUV2g6mgpX8O
-         UxCGziCrKHeNXGXa9PKrxA5VtddDUJKq2snOswRVyFmg2Dj7SGgMzyqrcpXsSaia+hiz
-         dw4EzDQQjJ/aLmz0Yc6wSl4tQKr5q1pmQ2DSIE75oUlOvmzdv8iKWTrdDYsvN4sP5XJW
-         sDBS0equAvEVOtobHM6aWASeBeu9odBSPPdMPfZzD7WlguFcq9y0T09CAPu0TI4fYpwf
-         j2Ym7ZvxSk+dK1iMNkHLEMiTjPkm6zQPi0Eg8HMOThC+k6n2kG1BoLuB8oZ0FSfluQ0n
-         +2ow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785250382; x=1785855182;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fb3zEYy7ohdbXLHiAFwUrnVAHlOI76SPN4KCq0oGPkQ=;
-        b=HOD48PNTdiXGEMYfP4tckjoA8P8yxP0Y45toP4SoeXFv/jKnexs+9HLmUn6JdShwFp
-         r67HQjLNHGEymOXV9cL6K+MWhyuz6hGZqUTx67WAX+dhizuGQW4KX4eofsNbhQqqzkoi
-         FLfkiWM06kApAuLINvXGzOj9XGb2eeuiU9EAwd4MPUXx/yutjptAYdn2IdIDdysQZ10d
-         i9AvajBlm4++ryv4XNwmlZ0cNcnzLV3CeUoxZYTJVVE//Y82rwabMGnfuRvX86ubu+6T
-         mMdnjHr+F2+L3xy3KKPnmKyuC7AgMOpB7NcIXvJZKSHG05b8Fxpllt1jasrXqYouqiqz
-         cPmg==
-X-Gm-Message-State: AOJu0YzSaAfMi8lIt0piH6e5XuCeybNUt3UVQWUi2PgDA3xMIsD++Lrd
-	bliAL11H5BZWaQ/DvRRB8/oX0qncs9eNOK3FVap13YXwVm3q0jaVRf7J
-X-Gm-Gg: AR+sD11grHlNkPnUODxdsKF6qqLDUVBq/WVmcKaxlA0KX0N88DOxBwcUWDZse/aTFZl
-	Usbq81MbCOlbuCVWjbBrd/C80k+cRX1Z0HWnjyrmG0WXvQDaSh28CvN1Hitlx0tbIAggu59J1AV
-	6ZtsrKatUi8JGVYFWm51PB8VphpSjAhoI51SZnQJTz/gKLrU457URgychFBH0sG+O3JNBs5M7zV
-	s2b5Jk7BSQ0Y8Uqn700PBLbW8TFafOn5irv8wlcUUPKdA1i+EPDiYPLdtM86AsHJlc0YSXUAVgO
-	TYjN0XrFDLfwIOIO5UCF3Km1UPBw1sTfx7ElKt1TXTM6qjtcstcuBZaxIjwIfT28t40DQfaauNY
-	8JsRREF9j3oYAk/sNCjB93us1u8T/ZrMZY1uaQRCa2x1qL5aqQmTjL90UyhaM7DeJ3rlqU0Iq4u
-	9WBJCZIu88xobdsogdWZ7vqADMQLSrXbw=
-X-Received: by 2002:a17:90b:46:b0:38e:49c0:75a7 with SMTP id 98e67ed59e1d1-38f6a3d4d42mr3273038a91.8.1785250382299;
-        Tue, 28 Jul 2026 07:53:02 -0700 (PDT)
-Received: from acer-nitro-anv15-41.entro.com ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-38f6412acd7sm1447320a91.6.2026.07.28.07.53.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 07:53:01 -0700 (PDT)
-From: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Shaikh Kamaluddin <shaikhkamal2012@gmail.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="L9rL3Oqz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vOTXuT8HppmAQNAQNhE6tDrrcvpKsoaGs/2caRptvmrLF47exH7EAUNMZqA1CYOih0G4SanycBjNjY1YETFSwLtC8onvu1EnAwO7Qbs+dFmzs8sBzmvjjwlnAm+FtMHLnkwrLhXbmd8n4u2ma0d8PzWXTeYpZrwkhDnhQKl5lgiX3nQ2CYqbaCKx6ng1GdpdSOxgUZsvIYPKKgxaV/xXdHd6KQaYlv4mYEP84UqdQiRkMEJYMPIclF4W8WzwVbuRL1+HcMt0aSs3nuhBFq8r2AuP1YxHRVv8r97uhbtqzRTR31jBpJWdbWID+rkBR/8mGxBu+ne9pVjGTfyrNaGLFg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h+HJ9rjItoX+OFKhjknSpYmfQWB8Xj+7gWqgfiNHt6Q=;
+ b=SEOp851f2nsvcXEJjKjpSw0AuiMCWjFRhN87nRBaUug+pSNm0HYb/lBha0CXc3md0eHriTo/lexlXaRCri6OOV023tq5VxuhXV8/wMZQF4qpwKbFVmb6BIV3m8q8rUF2Ie3UnUGBwQ0Hhg2y+z9ToCa78a9nkgF7Ds5vXjqJPmA/rwfM+7JUJ/tstTrv8wZOAQ6Z/ZtEshqwBZCPx0zf8cdYWQAwEDdG8XzDPEb0GcXc/eg/boFX79NGJdqT80dPD1Rt/BIhbiBAFoH2K+WyWYlMmdPMtC7j2mrxIE00fWwLCcbYqoHpLI/vETaOAqamYSemIbmKbvPmSzV08jKA5A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=h+HJ9rjItoX+OFKhjknSpYmfQWB8Xj+7gWqgfiNHt6Q=;
+ b=L9rL3OqzBRiqB652kphO4DGM40usGh2Oz2t7FJzwMvNzDOAabCtsWOcQxYOx+uPfDm9RLF7P/ogPGNyUb1kZz784mtiMrJRcREVeC3VV1WdozKVqyHctJggTd7tpZ03OJWa6VC2ZXIeUuaEtqmaqqmJL/2S+xUUob1iKHrX7hhQ=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com (2603:1096:405:18d::7)
+ by OS9PR01MB16187.jpnprd01.prod.outlook.com (2603:1096:604:3df::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.245.13; Tue, 28 Jul
+ 2026 14:53:07 +0000
+Received: from TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828]) by TYRPR01MB13588.jpnprd01.prod.outlook.com
+ ([fe80::2f5b:8560:48ed:3828%4]) with mapi id 15.21.0245.012; Tue, 28 Jul 2026
+ 14:53:07 +0000
+Date: Tue, 28 Jul 2026 16:52:49 +0200
+From: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org,
+	biju.das.jz@bp.renesas.com,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] Documentation: media: fix spelling errors
-Date: Tue, 28 Jul 2026 20:22:52 +0530
-Message-ID: <20260728145252.9326-1-shaikhkamal2012@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Sven =?iso-8859-1?Q?P=FCschel?= <s.pueschel@pengutronix.de>,
+	Nas Chung <nas.chung@chipsnmedia.com>,
+	Isaac Scott <isaac.scott@ideasonboard.com>,
+	Paul Cercueil <paul@crapouillou.net>,
+	Daniel Scally <dan.scally+renesas@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 4/4] media: rzg2l-cru: Align bytesperline to hardware
+ DMA stride requirement
+Message-ID: <amjCQbuolBw9M_U3@tom-desktop>
+References: <20260701165003.1495035-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260701165003.1495035-5-tommaso.merciai.xr@bp.renesas.com>
+ <amipz7WkKUsjxot_@kekkonen.localdomain>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <amipz7WkKUsjxot_@kekkonen.localdomain>
+X-ClientProxiedBy: FR3P281CA0065.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:4b::20) To TYRPR01MB13588.jpnprd01.prod.outlook.com
+ (2603:1096:405:18d::7)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYRPR01MB13588:EE_|OS9PR01MB16187:EE_
+X-MS-Office365-Filtering-Correlation-Id: a202c84b-166c-40ee-172a-08deecb7ef6f
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|376014|7416014|52116014|366016|23010399003|1800799024|38350700014|4143699003|56012099006|10067099003|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+ 43yBQqdwiGp8nLyRdHK5o/qTBw06VPhR789aUxtmmwrzEH3ueP8wm6F9OHYM77VWgReh6JK/IP8g8cA1oQKk7x88UfjEKj5cwhm8tAtCw/sPhag4G+9Lm/YqH714H742if6ky3Trsy5jizhH8n6GwF+LZ3cQJaAclqrd8PpGqgVQ4k9AQuqFkYl1iN6JNk7qtvRcGppBbKH5CIOQQb1Zn5nyqs0cuFDFpmZAxY7x13XD2up0wQBrQmIyUqZTA/MZ5bM6QoLsTmvZ7QVnn7BYpAlMGrw2Hjvx5qpF9681lbtbe9HKa9wUPR+PS971WtGAza34gdoUXTVGpSEhwFnwMKLC5tq3laZBKuHbQ9eBrajXa8hypIhofxNe7SsZM0WqJRiTjwA45YTI8tgUC/9s13jCHPvMXr9Fm7m4BXi0nFhYPuFOP6Cjn01eigJV1R143mS6qSugXgQPccpVjdufP3A+xzmGimD7qliRPU2x6vr/U28cpAePs0gb4/JZ3keILJtrHUMfmm2+bkDsRPSeu0zxnc8NoDXF/Kxxm3AhjTAZ3n83NGxsOmV5nF/KYtJYVNVJR1SlwNsVO8m2ET7ySBm6E0Ty8IjFA5WlBCP/YXKhP6EIcoqofiNzhCWlrmVlA/oTdaZzPWfoN++xTcjAsPlwav6LIfEDJi5qalsvUfUzeAgUcgk3cUBpM62QRDPGfLXReK0NVEL/cnf/ojR3BflY/9DBqYwmqreknuY8cKM=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYRPR01MB13588.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(23010399003)(1800799024)(38350700014)(4143699003)(56012099006)(10067099003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?421XapKkDDDBSDROeqQSlxpRwhh+HStNuorXIvWKFxjfGjTRZQdSRIiGymha?=
+ =?us-ascii?Q?bnG+PElVu0EV+X9uppkbL7HofeqDwX88kR5uIJJkL9nqJyrtO0nD3+mc2VEU?=
+ =?us-ascii?Q?K7/2K7pAXu2hSgynZFQqkPh9NL7cLyKSMBjDe3B4o2lO0FBhYmVPUQJ55wIg?=
+ =?us-ascii?Q?aFtiIXZqbPSFzG3+j60our3gHMC6pBURFXiTIJJiwc8ezQtZQWC0E954ptl8?=
+ =?us-ascii?Q?gszrjbOrwA4j2AavdXzd6BTnWUcRt2N8/41V2NRsnJu+p97XycIO+2Tj4vPu?=
+ =?us-ascii?Q?eA+Q0X5Zh9h4ieVvDClbCgRv63ItzDiBBfERegW+TwM88QIEotCi4wJt1UHZ?=
+ =?us-ascii?Q?A1bjTdSgV+cvcBl7kODvcIxursV9aSd8fIA+AmSGK5KXcD+uPO672PMThf4H?=
+ =?us-ascii?Q?J2fi8ExgokTV42/G0kBv2qzveiXGXRGW3R+7ciKEdykdJLJJYljNfcWYUbor?=
+ =?us-ascii?Q?mu0gixlYdB1jUcsM8DOzN6nn3vrfSJCFI4doP8Vdl92LGJj1Jnk6hKEjYj8+?=
+ =?us-ascii?Q?+UQwB3WvUJjaLg5YTzx2K1MWq3DxrFzYjKSc2S01RLzy3tUBVOZqbXY80nqs?=
+ =?us-ascii?Q?P0JDfnYTh680CaStXgiXnvTere2ybt11rGxfDhJHQuhKcXxWUy/c0UuG9nKZ?=
+ =?us-ascii?Q?mj+V1ZkgphOmig/B5ljW/Rch+AM5yo8ED3cQiV/Virb5wcTQWlyFWFbPp0o0?=
+ =?us-ascii?Q?86jgr2LCatZohZ8UfzlBDS9NMTJsUH/RjiNvxbk+yrRCZgcN96Ka9t6N9P78?=
+ =?us-ascii?Q?8jmIOOQR2L8UKEx8UgBymgbNAhJDpOfjBK0duEeLhTXMmYo8Y9wnSigPDXAU?=
+ =?us-ascii?Q?fmV00cNPM+H4+0UCoVluHOUbgGUSczdgtdUiF+BRZHufM1rK1ChdR+7qw9qo?=
+ =?us-ascii?Q?HD8W8iFDwxW4uePQ1E5B4gJEMqFy8+8zMVgo+DJpuyYQRK9h+M2M08qkBIS9?=
+ =?us-ascii?Q?6oaJuy20ioK6o3348cqVeMzToVKjb6xgj3wowpfWli4/2KTTh79zQJU9rn6j?=
+ =?us-ascii?Q?byO8nAI+2z1dEPsYWmCLLBHfWLh+qZ7G44/Fgggk+V+ziQYejJp+1GBl/s+Y?=
+ =?us-ascii?Q?KfOWA3hpXd7AKbudBfLX32Kyvtoc7+WIIiAYP6IpkyNhsN1iuW8lD8ZlZ+DP?=
+ =?us-ascii?Q?yjWUPYVkeV1hQdJfNFJWuaQrTTss12h6zQb6mj09tsUNjUpR+WamwtpB8DsE?=
+ =?us-ascii?Q?csf/mkKoNsIwd/alUgIX1fVnVGhHnzWhwLdQnfcwXhullGsT+59Pf485TfuT?=
+ =?us-ascii?Q?ewQp5jUp1g6VJQK5Kkf9LvL9twzKEfAQfLeDmxy1/Dq84zj7V66WVubXa9gQ?=
+ =?us-ascii?Q?CfiMLbszC2H6m8LcU9N5UuocyGGuxmZ92TtdF0xFNiuho8IYn3CYC5KNlq35?=
+ =?us-ascii?Q?w9oXokxJRlIMa97h8pdIO9DOUFTtE83QCvITHXowLEnSIGuP7pvRhYlXPBFt?=
+ =?us-ascii?Q?KINmruPh0CtKuVplfAPXrr5xWaFylvROPf1D/HA9s4SI6KRQ9XtgiB0wNPg5?=
+ =?us-ascii?Q?5MyJsxqk10Sz5sqxoDbdp5woYLrwUnyAKHa944e8/r1YeHsRkvrKvB77vdNI?=
+ =?us-ascii?Q?YNaPXPoMGyl6waB+sX84R8+uAnu/N6KvwSnVxcNZ51/nPW715JVIhzIXjX/T?=
+ =?us-ascii?Q?XwzUMEpblxdH55kbcbf/jVaMtqUgSKqt9MFM6stxiwGEuP1YkmG+Fb9Jas6A?=
+ =?us-ascii?Q?1ppO16TuBo4FtxPyJPDaeKYk/mMPpfKhEhH0HNDesh1u4WfBAUv4Z5yvMpyb?=
+ =?us-ascii?Q?zWDE8cmJ8yZC3ODwwXNTXkA5aVmm8la/PXQAXgH7EKPtu/djHQvA?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a202c84b-166c-40ee-172a-08deecb7ef6f
+X-MS-Exchange-CrossTenant-AuthSource: TYRPR01MB13588.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Jul 2026 14:53:07.7390
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6b+A2KohPnKL+bq7dlChlxNabzKiCIxmDG7TffFmaxs9R1PK7D+mFzGcv8uhlDt5MzGsMC9Voae+phm08R8IMqqI2r5EM+SEG4ddrxQuZ5dH2mCxKkn5beENCaK5ShJv
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB16187
 
-Fix two spelling errors reported by codespell: a misspelling of
-"there" in vidioc-subdev-g-routing.rst and a misspelling of
-"struct" in legacy_dvb_video.rst.
+Hi Sakari,
+Thanks for your review.
 
-No functional change.
+On Tue, Jul 28, 2026 at 04:08:31PM +0300, Sakari Ailus wrote:
+> Hi Tommaso,
+> 
+> On Wed, Jul 01, 2026 at 06:50:01PM +0200, Tommaso Merciai wrote:
+> > The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+> > IS field encodes the value in units of 128 bytes. If bytesperline is
+> > not a multiple of 128, the division truncates and the hardware uses a
+> > wrong stride, causing horizontal banding.
+> > 
+> > Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> > replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+> > which sets no alignment, reintroducing the issue.
+> > 
+> > Switch to v4l2_fill_pixfmt_aligned() with RZG2L_CRU_STRIDE_ALIGN when
+> > info->has_stride is set. RZ/G2L has no AMnIS register and keeps using
+> > v4l2_fill_pixfmt() unchanged.
+> > 
+> > Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+> > Cc: stable@vger.kernel.org
+> > Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> > ---
+> > v1->v2:
+> >  - Collected tag
+> >  - Add missing Cc stable
+> 
+> The problem with this is that it requires v4l2_fill_pixfmt_aligned() that's
+> not Cc'd to stable. Can this be fixed first without introducing the use of
+> v4l2_fill_pixfmt_aligned() (cc'd to stable, i.e. in this patch), followed
+> by another one switching to v4l2_fill_pixfmt_aligned()?
 
-Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
----
-v2: - use Documentation: subject prefix (Sakari)
-    - use full name in From/Signed-off-by (Sakari)
-    - reword commit message so the media CI spell check doesn't
-      trip on the typo being described
+Ok.
 
- Documentation/userspace-api/media/dvb/legacy_dvb_video.rst      | 2 +-
- .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst         | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+I will send add to v5 series before [1] a patch that fixes this
+without introducing the use of v4l2_fill_pixfmt_aligned() this I think
+can be done using:
 
-diff --git a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-index b9fd5cadae24..71d044605315 100644
---- a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-+++ b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-@@ -344,7 +344,7 @@ Variables
- 
-     -  ..
- 
--       -  :rspan:`5` ``stuct play``
-+       -  :rspan:`5` ``struct play``
- 
-        -  :rspan:`4` ``__s32 speed``
- 
-diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-index 6f66ca38589e..164cf0ad3593 100644
---- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-+++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-@@ -67,7 +67,7 @@ subdevice routing table. This may be smaller or larger than the value of
- drivers may adjust the requested routing table.
- 
- The kernel can return a ``num_routes`` value larger than ``len_routes`` from
--both ioctls. This indicates thare are more routes in the routing table than fits
-+both ioctls. This indicates there are more routes in the routing table than fits
- the ``routes`` array. In this case, the ``routes`` array is filled by the kernel
- with the first ``len_routes`` entries of the subdevice routing table. This is
- not considered to be an error, and the ioctl call succeeds. If the applications
+        v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
 
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-prerequisite-patch-id: 912014811782d33538ddb17f00b64c15b364425e
-prerequisite-patch-id: ccd9499245f9528a029f13653f6a670c70796caa
-prerequisite-patch-id: dd62b9e9a5a590acea801e33ebcf110932d52a12
-prerequisite-patch-id: 604c7b67fbc5678938599f8dfc11621e9d6e7bad
-prerequisite-patch-id: 76849a9365b2ef77eae25f4ee42c11f124b1ea0d
-prerequisite-patch-id: a0d7b90a4a5e251a58aa682ce414c7048eb47bc7
-prerequisite-patch-id: 0208e7fa539736cc848ac91c09d7ca825b11d8f9
-prerequisite-patch-id: 7b1377967ede9d22f77df0171f54207067158e71
-prerequisite-patch-id: e39888d68322e429ea71d6ed6d49f4295fbbe14e
-prerequisite-patch-id: 7f0dcaca727eb421484eabd62e791b96b3721874
-prerequisite-patch-id: ff5dc6989d168666264e0eae2853f348a95d99b6
-prerequisite-patch-id: 301b88e47a5d4cdc17e2152ebaf134b3f6685902
--- 
-2.43.0
++       if (info->has_stride) {
++               pix->bytesperline = ALIGN(pix->bytesperline, RZG2L_CRU_STRIDE_ALIGN);
++               pix->sizeimage = pix->bytesperline * pix->height;
++       }
++
 
+Then I rework this patch into:
+
+media: rzg2l-cru: Use v4l2_fill_pixfmt_aligned() for stride alignment
+
+That just use the newly added v4l2_fill_pixfmt_aligned() as you suggest.
+
+
+[1] https://patchwork.kernel.org/project/linux-renesas-soc/patch/20260713080259.21835-5-tommaso.merciai.xr@bp.renesas.com/
+
+
+Kind Regards,
+Tommaso
+
+> 
+> >  - Fix s/commit/Commit/ into commit body
+> > 
+> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 3 ++-
+> >  1 file changed, 2 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > index 69346a585f9f..478264f26466 100644
+> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> > @@ -860,7 +860,8 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+> >  	v4l_bound_align_image(&pix->width, 320, info->max_width, 1,
+> >  			      &pix->height, 240, info->max_height, 0, 0);
+> >  
+> > -	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+> > +	v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->height,
+> > +				 info->has_stride ? RZG2L_CRU_STRIDE_ALIGN : 1);
+> >  
+> >  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+> >  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+> 
+> -- 
+> Regards,
+> 
+> Sakari Ailus
