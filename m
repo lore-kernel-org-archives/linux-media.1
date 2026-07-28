@@ -1,81 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04D3F3A425B;
-	Tue, 28 Jul 2026 14:40:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35A0645348A;
+	Tue, 28 Jul 2026 14:43:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785249656; cv=none; b=GLBuE4s6zWNoMzISWXY/cTHIAne1b2dtLVgukeU71UsketEd/mHZ8hheskTXXzgWL10rmsIIfDkibNo5JAYeegwrEvyh1Bl6ppd0JPTODCwhzg8JLAc/8V1B/3t3ANUSoCyY+YdhHKtQ9lDsKwGN0DEKcTzkzJPh3vGW4hAtI8M=
+	t=1785249841; cv=none; b=HsPY3aMZAdIxMcEskCIfTVWm27EXaMNmc/NABoMviCeI1cqabVBXk5YvoncPAOcxyvaekrM4gDtLEiAEFHtUfd9v7IxsCu4e5h7z6xgfyX2gpaKj91QJKWDXtK6QNYdhmj5wHvbJJGNkKUnYQIfES9OyGg6WaKd7UpXSKYYbnIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785249656; c=relaxed/simple;
-	bh=Hilz4x8U/G9ZNRZ18/kOn3nRS7xSxQ0G35VENiHioBQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=m4XxaMqECjaHozYJY//fP5zTsAaMHhCZ6XYwJnBHckswYAtNehmFurIQ3rGspAJiMboZW491QFhQLcNRbj85sbKnDK1GTnPKWhcA4T2LEdrb223yWIugXcNNTqgNToE6YuBJEl0nC6ETs0e3HyJj/Ox1pTjwNVWrBs60tUETP8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a44jh5qG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785249841; c=relaxed/simple;
+	bh=YWQNWevA4HX4T4faPfwmY/KTdxQZTQLcbyHno4CQs2o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J01Psbo7kf3NVincbNeVFmWv0DSpsc0WCidb+GLYM+CX9yLgsIH5bF9YgKeNTYmqN3izTxu+q0UfXCiV42uCvenDnfL37khFABnl9X3d36bhU5ByPgkdKh0HDxiR9uAOrApxpFoFJQUe15qrSCx6fls0BcJooIP8hicecxpdWDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hINOR36T; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a44jh5qG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 043191F000E9;
-	Tue, 28 Jul 2026 14:40:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785249654;
-	bh=8nFE7ElBXlbOdVWwIBeNyvfZnpknUDTM2BKLJqBrg7I=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=a44jh5qGUNbtPBrRqLZO+VWxAP2oSzSeTOPvkV8txbI1j6DcctbYvcI6/G7cNycfj
-	 O7y7tw9nPqzcoX+oqg6jGJb7Vw2iV9pDheiICAtH1f/sWTtet/7p181F+iDHe8a71D
-	 er2yAswnU3X3VoVMHJdgS/6xC0XvS4S8edIV6l/bWOR2oEQVM1HqE5qTBhszJlMgDC
-	 eIzK+oC0bZNR1WdTa99wxbZlitYWsIqetl/tcjE348gx3kKtjD4b4oVf34ctOPyxLI
-	 pvnrRuhwphGSUHVwYEga/kjDT+YmS29+qtbk3NEE7w63rTeQTZg0XR9nT7cL9R9vo2
-	 KxUs1y6JzH7tQ==
-From: Chen-Yu Tsai <wens@kernel.org>
-To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
- Justin Suess <utilityemal77@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
- Sashiko <sashiko-bot@kernel.org>
-In-Reply-To: <20260728024916.993224-1-utilityemal77@gmail.com>
-References: <20260728024916.993224-1-utilityemal77@gmail.com>
-Subject: Re: [PATCH v4 0/4] media: rc: sunxi-cir: support the
- A523/H728/T527 IR receiver
-Message-Id: <178524965176.668575.6519599473909041005.b4-ty@kernel.org>
-Date: Tue, 28 Jul 2026 22:40:51 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hINOR36T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785249839; x=1816785839;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=YWQNWevA4HX4T4faPfwmY/KTdxQZTQLcbyHno4CQs2o=;
+  b=hINOR36TIiadQ7GkEPNXY7pi6QfyB5ey0xYgMoCni4+en4hhLS2+tJf/
+   n/pu5eIlzFC2qbgxfUlewKzvpLBRuSxabxEQ4mW5zyEAKy0jsUQx+76KW
+   z6duPphFTJjKFQIeVruhsaBwAa3BLpUjPaPrrYPgzL52NO2DQjw6FpAJj
+   6m675jTjz1DdVYSf9R7bdaN2hYznlPZ/WI+HQfVbV9yrf1/y5dvUae32J
+   LhpaAAXqXNQMB23ucIxHSDv2TzJ0oypy/IzszXrtvf33oDrc6iMRDjPYl
+   GhoMpwd1A5SnXujGXIEXqU9XMZExCvnYj3M2udhXM+9pyPXuH14NfMNJ2
+   g==;
+X-CSE-ConnectionGUID: 1gXOZlrpQAa9WSbkw7mP8Q==
+X-CSE-MsgGUID: C8uqWJm6STGrJ7mm2nTpxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85954316"
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="85954316"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 07:43:58 -0700
+X-CSE-ConnectionGUID: +DuOp/ZmSgCZ2nNjj6og9Q==
+X-CSE-MsgGUID: C21xIU8dQWeIG0HuTFLrdA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,190,1779174000"; 
+   d="scan'208";a="289676016"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.69])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 07:43:55 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 807A5121BF9;
+	Tue, 28 Jul 2026 17:43:54 +0300 (EEST)
+Date: Tue, 28 Jul 2026 17:43:54 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v10 1/2] dt-bindings: media: i2c: Add mira220 image sensor
+Message-ID: <amjAKhNIt0_UIZqt@kekkonen.localdomain>
+References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
+ <20260727-mira220-v10-1-8825794e6095@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260727-mira220-v10-1-8825794e6095@ideasonboard.com>
 
-On Mon, 27 Jul 2026 22:49:12 -0400, Justin Suess wrote:
-> This series adds support for the CIR receiver on the Allwinner
-> A523/T527/H728 family (sun55i).
+Hi Jacopo,
+
+On Mon, Jul 27, 2026 at 10:56:30AM +0200, Jacopo Mondi wrote:
+> From: Philippe Baetens <philippebaetens@gmail.com>
 > 
-> Apologies for the hasty v3 respin.
+> Add bindings for the AMSOSRAM Mira220 image sensor.
 > 
-> Tested again on my X96Q Pro+ (H728) TV box with the Google TV remote that
-> came in the box (using NEC keymap). Was able to press buttons and
-> get readings from lirc / ir-keytable again.
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Philippe Baetens <philippebaetens@gmail.com>
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > 
-> [...]
+> ---
+> v8->v9:
+> - Make link-frequencies required
+> 
+> v7->v8:
+> - Add Conor's tag
+> 
+> v5->v6:
+> - sashiko: use 'unevaluatedProperties: false' at the top level to allow
+>   properties from video-interface-devices.yaml
+> 
+> v4->v5:
+> - reflow description to 80 cols and drop |-
+> - remove 'reg' description
+> - remove 'anyOf' from data-lanes
+> - remove 'link-frequencies' from required properties
+> - remove 'clock-continuous: true' as we already allow all properties
+>   from 'video-interfaces.yaml'
+> - remove tabs from the example
+> ---
+>  .../devicetree/bindings/media/i2c/ams,mira220.yaml | 102 +++++++++++++++++++++
+>  MAINTAINERS                                        |   7 ++
+>  2 files changed, 109 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> new file mode 100644
+> index 000000000000..fa6fec0072ef
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/ams,mira220.yaml
+> @@ -0,0 +1,102 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/ams,mira220.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: AMS 2.2 MP NIR enhanced global shutter image sensor
+> +
+> +maintainers:
+> +  - Philippe Baetens <philippebaetens@gmail.com>
+> +
+> +description:
+> +  2.2 MP NIR enhanced global shutter image sensor designed for 2D and 3D
+> +  consumer and industrial machine vision applications. Due to its small size,
+> +  configurability and high sensitivity both in visual as well as NIR, the
+> +  Mira220 is well suited for 2D and 3D applications, which include Active Stereo
+> +  Vision, Structured Light Vision for Robotics and AR/VR.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: ams,mira220
 
-Applied to sunxi/dt-for-7.3 in sunxi, thanks!
+I haven't read the discussion on all versions of the set, but this way
+you'll have to power on the device to fully recognise it, further meaning
+the possible hardwired privacy LED will be lit at that time. Maybe it's not
+an issue. You'd likely have it with a CCS sensor, too...
 
-[1/4] media: dt-bindings: allwinner,sun4i-a10-ir: add A523 compatible
-      https://git.kernel.org/sunxi/linux/c/96cd41eac1f5
-[2/4] arm64: dts: allwinner: a523: add IR receiver nodes
-      https://git.kernel.org/sunxi/linux/c/2b24f5386528
-[3/4] arm64: dts: allwinner: a523: enable IR receiver on the X96Q Pro+
-      https://git.kernel.org/sunxi/linux/c/a3bd47e62cb2
-[4/4] arm64: dts: allwinner: a523: enable IR on the Avaota A1
-      https://git.kernel.org/sunxi/linux/c/75dc83d420aa
-
-Best regards,
 -- 
-Chen-Yu Tsai <wens@kernel.org>
+Regards,
 
+Sakari Ailus
