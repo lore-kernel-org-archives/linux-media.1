@@ -1,195 +1,109 @@
-Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C6F263F44
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 01:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE152F1FF4
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 01:41:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785287413; cv=none; b=aux1bP2dHaIyE7oyUk9DkfFoLNJkMblbCexxqAqZ08OHt6/cHOvNNwIV4xajysXSL5cL/2kCMN1DHw/flFIrpko33eLB60bbSZQZCzsOieY0Nv5kYRt5FJKfjOuadyR/tkRuZ74gl/DwoMxXHS64kDq+8ELp156yrkQXYGmqtSE=
+	t=1785289277; cv=none; b=XDz2tKu625jNjbjDk7qKLqT1UcRc8qF6Iw5OxaZTjF2lCxFrRcOhwkXuPpHVUmuTHvzBgRgvDJ9uUHO++oPveZtdmOSPhruF4tfjjyInnMVKks6tn+cxIro86SKp5c0rMRoCGozs0GtC/tqEyKX6F9xKuRqmIHd4VzJZxn23q0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785287413; c=relaxed/simple;
-	bh=x81cnYi5xOey78pJKPMlaZD41CNHN+/vxuJqqkYhFFU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qGml8nn6Nob6GvjHJj+ZTIeqIfKIiT5/exbXftdBg7aaijT5X2HE82j++bbDbfQQ8jX/q4S+OGajObXz/WrahHvPFT1ynlVacd1TbuWuplt4YL0l40TLlATzuyUrv4Q4j6/544UXX3T2P1sleMjixYMRuCxD9Lt077UzR/36j7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m2Az2hJS; arc=none smtp.client-ip=74.125.227.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785289277; c=relaxed/simple;
+	bh=6T2ASwXHvQQLV66wqCeDhuzE/qEo+ODOvNR/i+g45gY=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VivRuQ8mVF7dXoJ40fNAU75gbp9xswKWzQMay8yV6BmGGn7bz6amxjm+9IXgODdb4qI73bQi9gjp/YVxgZjnBt8aRf4+tG72D3uD+EWX0K/Z/nBOQenawS2N/0/RKUvNg9LdcD0jMBn+sRU+4M1Jo+HFjBlebWAFFyhQ90v6hco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fus1k0w3; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m2Az2hJS"
-Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-38de693676dso271350a91.0
-        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 18:10:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785287412; x=1785892212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RrRHwamG/gB0Gq5CSny5NYLFwDvRskbs4e08DWoZ9Jc=;
-        b=m2Az2hJSnMYvjSIocaf/+NAQGNuy9z3iUZHf1UiqKKwUAlBSzbKxBU7f4Cpwg6Vy2T
-         i8x9hN5o5ISyXVVtAwkTiqTCqSvWL9O06HKa16bffRVq6V8Glj9NM3WM42WPGovOZxzr
-         55fckwpKIZ71ZHthQIupwABxDTMFRTSKlb1b6BJ5T2kPP+RbGxYiQdjCh53RYD0pX+Ky
-         LMyn/zwZRSg7GnHcxDJvIZgWTg9tUSoN2JjOb/akerSt15ZQpYv9GqqQj2p1lx4UcrNl
-         MdlV35hxlFzC0kjMnh1uSpnKbpv/WXYHtKFUOXx6KCoBrRcFwc+2q5drXvT6fmss/qBq
-         vr8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785287412; x=1785892212;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RrRHwamG/gB0Gq5CSny5NYLFwDvRskbs4e08DWoZ9Jc=;
-        b=M385Xy0AcT57qA+OiwEe5XWdQ3VD42CATvIf+uRh+J/bTbgp42G+UovTUpAgXCDppd
-         glosUdbynVFoYP9heXT7CtpR4As3+hAXFb5KqP5LN6slhFdhLHu9+pVSCCbijP83rIpD
-         yi+bucDek5pM26Y02cKJWdZMrzGQ92i3FMyLrO3d0m6ZpL6+CdJ+79iRF7Q+P5iiitsX
-         ugFPih0LpTDTNvCViNWlnuAf2xTQqkLCdm50AGPq5Dn6tRDSCS7elwLhy4BlsRtlxklx
-         PMTU/3bqHgdPI5BnZ3YvS9nm3t5hf9Qkv38/TW4YiLi7C+oTQBwR2h6JM1+GKFrDlIXd
-         bgXg==
-X-Forwarded-Encrypted: i=1; AHgh+RrkGqX896sAVHfMC355csMnKpMmKto5dLKJ4oA9rwhvNQPcA6r1R8Bk+qEGenNXZ5UoPvueGoaAsJObtg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyK0r5Xt1ffrjmgTTqtWG4hh1wuvutiWXizSjFLaGl+EAzcfTc/
-	JBgJB+zivKSA2Avgf3VmvuBHX5mLL3l4BiCLTqwYdfIC0i7YrUFhUR77
-X-Gm-Gg: AR+sD10HIq1rn5WLYW/BmKmBxlalRpfpsmuY1rSKpETGbxSBi5kyhQCCdsDUndXHe6l
-	c1WSN0yxdCjiX9BCa/yFdZ6DPZcCYhmOOWecVJIpJ8OfTgrRF8kJybCLk+DDEF8YtF02FU3Llj/
-	SrZqIjU0Xyz1lsbDYPJyHoXsfCQM3T7K8J/M7aSDpeCnR+lvMlLqNip22v7uhhEGPksn1QOpiWm
-	G/x5Joc0tc5qTn31BcSXqGiUez7UbYCyXhTVu9pcWTb1t+dkIvxLGn80FK5+EBKnNtkRAW/7wji
-	opZrkNkiHTu0xI6Wd5ffupamkSX2D6mgLF9Nn0IbXrduVO1wUYxyYmt1vHrf1thc+TMAyREvH0B
-	jnEbmUD7eX43WS5BaPS9GEmytgpQBxPiQpUpAjrMd2lzJTzP+ykK7G70o5g24Q5eDy8AVYJYsUn
-	YgTKgTqK7tP5pu1G8Y2CWsaZbyf+FRqB02UPBuTGQW/vBhAlAhSCMNFtMlRFgxO02BAr+z3c6v0
-	g8TPg8vLJgdlspfLt27
-X-Received: by 2002:a05:6300:6698:b0:3c4:3ada:384d with SMTP id adf61e73a8af0-3c8aafda266mr5682923637.30.1785287411686;
-        Tue, 28 Jul 2026 18:10:11 -0700 (PDT)
-Received: from localhost.localdomain ([76.86.179.124])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504927a7bsm3843783eec.0.2026.07.28.18.10.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 28 Jul 2026 18:10:11 -0700 (PDT)
-From: Hungyu Lin <dennylin0707@gmail.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hungyu Lin <dennylin0707@gmail.com>
-Subject: [PATCH v6] media: qcom: iris: move OPP handling to VPU power transaction
-Date: Wed, 29 Jul 2026 01:10:01 +0000
-Message-ID: <20260729011001.16999-1-dennylin0707@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fus1k0w3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785289276; x=1816825276;
+  h=date:from:to:cc:subject:message-id:mime-version;
+  bh=6T2ASwXHvQQLV66wqCeDhuzE/qEo+ODOvNR/i+g45gY=;
+  b=fus1k0w3wtnLN7F50vS46KKL2bQ5NljGRtFYtImVpfM+Wf0qm4oLRefY
+   h3PHWvgLWvCnG6DR1SkcBFOtmGnnF+zY6F7W6+ohPYAV9ZAhmXimj1llu
+   10+bUTRpX/tAQAGdNlczHRkx1LRQ6aiAI5Lbc9U+GJMTFUZU9+H83eTOG
+   keS5FlNa7uAjw2YKDRXcI9n10oNzxBHbtRV+5FEvubiIU99XZugHzrHz0
+   FobYSDIvpAjXN+TuS88zWGvt5a80KQDAQiWDji7JtIHwAwKGWQwLuPLFA
+   DX4Cj7r6x7tiioA769sD4DrZR44bl2eqdG8HSG0Cnjk4y29VRxvm9JtWi
+   Q==;
+X-CSE-ConnectionGUID: 0FPaMbHMRIm/PJcUGKlouQ==
+X-CSE-MsgGUID: N9zj8E+xTsijhqa3xIRP6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85968694"
+X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
+   d="scan'208";a="85968694"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 18:41:15 -0700
+X-CSE-ConnectionGUID: UMQpXZwGT0Cj8Pqr1MIfwA==
+X-CSE-MsgGUID: iEwTKfR0QCadt5R15qWQww==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
+   d="scan'208";a="289815018"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3cba2a188a06) ([10.211.93.152])
+  by orviesa002.jf.intel.com with ESMTP; 28 Jul 2026 18:41:13 -0700
+Received: from kbuild by 3cba2a188a06 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wotIF-00000000246-16KZ;
+	Wed, 29 Jul 2026 01:41:11 +0000
+Date: Wed, 29 Jul 2026 03:40:16 +0200
+From: kernel test robot <lkp@intel.com>
+To: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ "Niklas =?utf-8?Q?S=C3=B6derlund"?= <niklas.soderlund+renesas@ragnatech.se>
+Subject: [sailus-media-tree:v4l2-isp 13/25] htmldocs:
+ include/uapi/linux/videodev2.h:893: WARNING: Invalid xref:
+ std:ref:`v4l2-meta-fmt-rpp-x1-params`. Possible alternatives:
+Message-ID: <202607290311.BFAuSpjd-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
 
-The power-domain helpers currently update the OPP for core->dev while
-enabling or disabling one functional power domain. This makes a
-transaction-wide performance state depend on a low-level helper and can
-leave the maximum OPP selected when a later power-domain resume fails.
+tree:   git://linuxtv.org/sailus/media_tree.git v4l2-isp
+head:   7abfe3e3b2e2ecba8132ae60033d4ea1238c1f1e
+commit: 1a426ed271eb152cfed4f942a0caaa37e00ea707 [13/25] media: Add RPP_X1_PARAMS and RPP_X1_STATS meta formats
+compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
+docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
+reproduce: (https://download.01.org/0day-ci/archive/20260729/202607290311.BFAuSpjd-lkp@intel.com/reproduce)
 
-Move the maximum OPP request to iris_vpu_power_on(), after the ICC vote
-and before powering on the controller and hardware. Unwind the OPP vote
-together with the ICC vote on failures.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202607290311.BFAuSpjd-lkp@intel.com/
 
-Keep the power-domain helpers limited to runtime PM and use
-pm_runtime_resume_and_get() so a failed resume does not leave the usage
-counter incremented.
+All warnings (new ones prefixed by >>):
 
-Fixes: bb8a95aa038e ("media: iris: implement power management")
-Signed-off-by: Hungyu Lin <dennylin0707@gmail.com>
----
-Changes in v6:
-- Move OPP handling from the power-domain helpers to
-  iris_vpu_power_on().
-- Request the maximum OPP before powering on the controller and
-  hardware.
-- Add OPP cleanup to the VPU power-on error path.
-- Keep the power-domain helpers limited to runtime PM operations.
-- Replace pm_runtime_get_sync() with pm_runtime_resume_and_get().
-- Rename the patch to reflect the new approach.
+   Documentation/userspace-api/landlock:596: ./include/uapi/linux/landlock.h:63: ERROR: Unknown target name: "scope flags". [docutils]
+   Documentation/userspace-api/landlock:596: ./include/uapi/linux/landlock.h:24: ERROR: Unknown target name: "filesystem flags". [docutils]
+   Documentation/userspace-api/landlock:605: ./include/uapi/linux/landlock.h:228: ERROR: Unknown target name: "filesystem flags". [docutils]
+   Documentation/userspace-api/landlock:605: ./include/uapi/linux/landlock.h:251: ERROR: Unknown target name: "network flags". [docutils]
+   Documentation/networking/checksum-offloads:157: ./include/linux/skbuff.h:181: WARNING: Failed to create a cross reference. A title or caption not found: 'crc' [ref.ref]
+>> include/uapi/linux/videodev2.h:893: WARNING: Invalid xref: std:ref:`v4l2-meta-fmt-rpp-x1-params`. Possible alternatives:
+   std:label:`v4l2-meta-fmt-rk-isp1-params` (from userspace-api/media/v4l/metafmt-rkisp1)
+   std:label:`v4l2-meta-fmt-params` (from userspace-api/media/v4l/metafmt-intel-ipu3)
+   std:label:`v4l2-meta-fmt-c3isp-params` (from userspace-api/media/v4l/metafmt-c3-isp) [ref.missing]
+>> include/uapi/linux/videodev2.h:893: WARNING: undefined label: 'v4l2-meta-fmt-rpp-x1-params' [ref.ref]
+>> include/uapi/linux/videodev2.h:894: WARNING: Invalid xref: std:ref:`v4l2-meta-fmt-rpp-x1-stats`. Possible alternatives:
+   std:label:`v4l2-meta-fmt-rpi-fe-stats` (from userspace-api/media/v4l/metafmt-pisp-fe)
+   std:label:`v4l2-meta-fmt-c3isp-stats` (from userspace-api/media/v4l/metafmt-c3-isp)
+   std:label:`v4l2-meta-fmt-rk-isp1-stat-3a` (from userspace-api/media/v4l/metafmt-rkisp1) [ref.missing]
+>> include/uapi/linux/videodev2.h:894: WARNING: undefined label: 'v4l2-meta-fmt-rpp-x1-stats' [ref.ref]
 
-Changes in v5:
-- Add an error path to roll back the OPP vote when
-  pm_runtime_resume_and_get() fails.
 
- .../media/platform/qcom/iris/iris_resources.c    | 16 +---------------
- .../media/platform/qcom/iris/iris_vpu_common.c   |  8 +++++++-
- 2 files changed, 8 insertions(+), 16 deletions(-)
+vim +893 include/uapi/linux/videodev2.h
 
-diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-index df9b7badf0c6..5cccbf0636b0 100644
---- a/drivers/media/platform/qcom/iris/iris_resources.c
-+++ b/drivers/media/platform/qcom/iris/iris_resources.c
-@@ -104,39 +104,25 @@ int iris_enable_power_domains(struct iris_core *core, enum platform_pm_domain_ty
- {
- 	int pd_index = iris_get_pd_index_by_type(core, pd_type);
- 	struct device *pd_dev;
--	int ret;
- 
- 	if (pd_index < 0)
- 		return pd_index;
- 
- 	pd_dev = core->pmdomain_tbl->pd_devs[pd_index];
- 
--	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
--	if (ret)
--		return ret;
--
--	ret = pm_runtime_get_sync(pd_dev);
--	if (ret < 0)
--		return ret;
--
--	return ret;
-+	return pm_runtime_resume_and_get(pd_dev);
- }
- 
- int iris_disable_power_domains(struct iris_core *core, enum platform_pm_domain_type pd_type)
- {
- 	int pd_index = iris_get_pd_index_by_type(core, pd_type);
- 	struct device *pd_dev;
--	int ret;
- 
- 	if (pd_index < 0)
- 		return pd_index;
- 
- 	pd_dev = core->pmdomain_tbl->pd_devs[pd_index];
- 
--	ret = iris_opp_set_rate(core->dev, 0);
--	if (ret)
--		return ret;
--
- 	pm_runtime_put_sync(pd_dev);
- 
- 	return 0;
-diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-index ac9881e2cdc2..5209c32933db 100644
---- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-+++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-@@ -472,10 +472,14 @@ int iris_vpu_power_on(struct iris_core *core)
- 	if (ret)
- 		goto err;
- 
--	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
-+	ret = iris_opp_set_rate(core->dev, ULONG_MAX);
- 	if (ret)
- 		goto err_unvote_icc;
- 
-+	ret = core->iris_platform_data->vpu_ops->power_on_controller(core);
-+	if (ret)
-+		goto err_opp;
-+
- 	ret = core->iris_platform_data->vpu_ops->power_on_hw(core);
- 	if (ret)
- 		goto err_power_off_ctrl;
-@@ -495,6 +499,8 @@ int iris_vpu_power_on(struct iris_core *core)
- 
- err_power_off_ctrl:
- 	core->iris_platform_data->vpu_ops->power_off_controller(core);
-+err_opp:
-+	iris_opp_set_rate(core->dev, 0);
- err_unvote_icc:
- 	iris_unset_icc_bw(core);
- err:
--- 
-2.43.0
+   891	
+   892	/* Vendor specific - used for Dreamchip RPP-X1 ISP */
+ > 893	#define V4L2_META_FMT_RPP_X1_PARAMS	v4l2_fourcc('D', 'R', '1', 'P') /* Dreamchip RPP-X1 Parameters */
+ > 894	#define V4L2_META_FMT_RPP_X1_STATS	v4l2_fourcc('D', 'R', '1', 'S') /* Dreamchip RPP-X1 Statistics */
+   895	
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
