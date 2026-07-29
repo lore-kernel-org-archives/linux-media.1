@@ -1,173 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797BA47D92F
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 12:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7051D476CC0
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 13:09:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785328527; cv=none; b=aWeg8KGYO7dvUV/4wZQvCxufUNlPHat8r31LbeWwwjRw7FcL5NaONa5Lxb8o6HVfaiMKK5xOx9FrVVem5oAwK114n1CXBYwcM3ycfU/Zio/65r1TXaKTGDP8SlqmzbDXh8BmRMutSPQ28Dt3meWVGRmsOuoM4trlGf/gZNkipb0=
+	t=1785330555; cv=none; b=sHnSSOf4p33O1QPRKE21kiBWD7K2Aa2AkC4diBz1gKLMMGwdAuLP/YVvAvwNC28+LAdxpz6uMUu9kkGwI3YJYz3vFnOSH60Dj8TVKAiypBTefQfkL8k7389GudjkeVkyxOyuVFaI/vP/p2qQZfeWEnkYuSQHwcGds7/qUUo9/g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785328527; c=relaxed/simple;
-	bh=g+vas7cIL2w8awnuF64mhKthexTRY2TYxxS6jf7/6Gg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZNq/l6HPeBfkn/8M5km60n2ta3bFU+0IwwB4qBO4rPc7kY3xlZ0TXHjgVM6ewuEtT7/a96Nzixc04+FuquWNmTmq5NHNXijXOCdz3fNL9RyuNcALowDveJBd6I0R1Beu4PIfR8U5oEowoKst2P2xurptPJPEmkHOrf7Td0YSCsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YRL/ucr/; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785330555; c=relaxed/simple;
+	bh=RMWSxEPwnyLa/061OQ95QqTIugHWJGG2wh5+43JQ5dE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hQTLfmTesE9YLDU0Vr7HTiK9c8eD2Zhzz777yrUE85QI6PyrZrthO2GHEgTYKJ7UdDHIl3bdUfeOH9XKWq6ik1QOa5vkj3OI44zR+hatiCrNdLFbSuZc0nLVPUJCNQ1OfiFyBhsUtv99BnfAhqVirKuXxNYahC/TGr/qy2VbPNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ti/WRjzu; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YRL/ucr/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785328523; x=1816864523;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=g+vas7cIL2w8awnuF64mhKthexTRY2TYxxS6jf7/6Gg=;
-  b=YRL/ucr/gtdofrTQf3mGqSoVYDnlZ0ouqofN8h8ZBhD8qiVhA/0h7F4U
-   qDYN/KMDal8bERl9JUrucjHhXgKJz5gvTzDXwLgmwe4aFe60SLuPn6HdP
-   bVPNwFej+yQe/41YX7B7u7LwY8ZhtepkaxVFDv7tRAwPfCZS+bgLUsnxQ
-   TbFOl71S1+3GamVli1GuiWIQJfju/EMx7E3FhXwPn8e/J/gIJyw1lqqcV
-   aBVarBlj5ZYDeIwF4UArXtSJ9hXiLvvTVM5WKv7rmDa4ZLmNOtwlNDEIl
-   g0iXGHg/1O4GVGDHu1X73pROQY/5blqJv2UOPrFAShhEwu3MeYteX1SdR
-   A==;
-X-CSE-ConnectionGUID: MxsTszIKQ+KmFUiK2hPTag==
-X-CSE-MsgGUID: qNbppLeNT+WY54sK9NQsQw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85058611"
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
-   d="scan'208";a="85058611"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 05:35:22 -0700
-X-CSE-ConnectionGUID: e3fbCansTButAvEtWnT2fw==
-X-CSE-MsgGUID: bbLOY6X0SeOl8BB16MyXdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,192,1779174000"; 
-   d="scan'208";a="284561088"
-Received: from mwiniars-mobl.ger.corp.intel.com (HELO alaakso-desk) ([10.245.246.35])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 05:35:20 -0700
-Date: Wed, 29 Jul 2026 15:35:15 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, Miguel Vadillo <miguel.vadillo@intel.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>
-Subject: Re: [PATCH] media: i2c: cvs: Pass link frequency explicitly to
- csi_set_link_cfg()
-Message-ID: <amnzg92_g1ZwBRdW@alaakso-desk>
-References: <20260720073642.2290315-1-laurent.pinchart@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ti/WRjzu"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-495757ccbc1so8146775e9.2
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 06:09:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785330547; x=1785935347; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YUW97RbS/cuxZAvn9F7FgEb6B/w45ofSr5IJCTvWkgY=;
+        b=Ti/WRjzufwHIizTPl3Yx5oIV0FpU0h3lA8EgQ6GBhVBPYMW2zDrVieQ4twNuhHAe59
+         gcwvB1WzdH6eL6+CBuhgtYNcIPzjY9ZuYT5gflPOsDGyoSgi3782oNSwLl0o5hi7Le2M
+         8D5TY2a7YgIdbVU4XjTaZci2MLeGQ/5adHRzm6dcunCqj4Lbw0YI4Ro2dzNPol8qObg5
+         Ay4ZDbYD78zsZqiZ3ppoPb5Ww8ajctBCqM3Pm1DfCRkBHzMAPORWapS6GElp2k+w3EE4
+         NPyoNcJOzpYISXFyeYgfQdUHPhpimOkhWUI1R7qytwlwsolABWCZOeutcrfzaNijWbSS
+         9qjQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785330547; x=1785935347;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YUW97RbS/cuxZAvn9F7FgEb6B/w45ofSr5IJCTvWkgY=;
+        b=QK46KlHv67TjlorKcmJ9lTFRWb0mEtxxdEvJWiIU1Omd3i9jj3+G7tAm6KlpLP5eLk
+         Kzzvr3v3w5QCMGv/cEs6h8B8JI3TpBMzWDB+8M5yfPBGmDFJf7pINkoYbkWdulUeqXhN
+         nV4Yl0mMn5XZJ0zm9XG9ssFt1IHfQAshEt9LQV9MddpjhDObgxHgPgBh5JyDry2izmws
+         Yq/OosjFurcEN9KFGevrx/QibJ5kjU0y4jUWAL6ouD1ez5jgRYy49bPvZqe8Jd2Gx935
+         dtHCYiaHbHECUymwmFqsAGWgBPw+ql9vUEhE8fjzuwgbxn+j11UnMuQ7DJsW7PhhlNj4
+         qvxA==
+X-Forwarded-Encrypted: i=1; AHgh+Rrln4QZeOuAeTk3qZdHpF/jZNRyS4lV29DTopEGpe0wi4p8NoS3G4hLHkFi/fbaG4uxQCI8q1FCCgm2iA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy/H6X5pdooD80Tpn/9ud2+O+g4BVrq61Re5L/hXlTJczAxCTry
+	IZ4wmtyflHJxHCgXWs2wmG68wKCwilbBm/Qt61eDtWl1my0pZZkMMF2j
+X-Gm-Gg: AR+sD10mv6qVgD8xfQ2sg2CdMwHKPFA3VjndSpNtV/8IiMZ4AJC6BXNnM3ZEHVR6KSh
+	yldh8a31vESPF4rczOVN6RqpuYWaARtGyJl++Ywrra5fOSyMT8PoQCqLq+pdaYOcQC1Lz/KA0Ng
+	0MC3GH/Hgj+aapiy4odXeuQF0zQJtWn0NHItIb9Ag9HnGPILPvzdOmpxf9OBxeNBxPEvpJda2Z6
+	vxVMGCiQeEMLWR3J2piPsdftedomBsuyd0yx+Dx7g/RF2wiXj5IgNYmKXcli63bQl93YvsUT7cP
+	UD1mpOi+VjYywL1z61m5z8nXq5EutgQvoi16ZILbGeIqr+FXg0O9l3uNgUgYDj+3LLe6Ri7E54J
+	zbOpuJO/ZtBTu7f1isKUYv7ILt9SEz71En1PejLVU8G58t/KjQUr8zoiQ9HHjN0QYNl1+8FvAep
+	EnXoY7dph+PIhZgh4FEq5NTOAEkrFs13mTQTXdD+0v5Bl4z6i5u1NoUtfiL4+L0Vx+bnF8BwtU0
+	+FYvySSuSGJZdRGtq+22mI7gw9FO3CKUko0aCOxtfq+Z1xb7SsRB+0IEH2PlHL1iLhvhk960tq6
+	3YrKs8G5PWYBSKDFrEY=
+X-Received: by 2002:a05:600c:348c:b0:495:4fd4:f7b6 with SMTP id 5b1f17b1804b1-496c659f7e1mr79358045e9.37.1785330546620;
+        Wed, 29 Jul 2026 06:09:06 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49764d70014sm93438595e9.3.2026.07.29.06.08.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 06:09:05 -0700 (PDT)
+Message-ID: <8160ce17-6f14-4946-9146-3d261e8398d3@gmail.com>
+Date: Wed, 29 Jul 2026 14:08:50 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260720073642.2290315-1-laurent.pinchart@ideasonboard.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
+To: Christoph Hellwig <hch@lst.de>
+Cc: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe
+ <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, cpgs@samsung.com
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+ <CGME20260729072126epcas5p3ad4422a45f1274b71f15dec8bf487fcc@epcas5p3.samsung.com>
+ <20260729072117.GI9534@lst.de>
+ <81412691.21785320403945.JavaMail.epsvc@epcpadp1new>
+ <20260729113108.GA31120@lst.de>
+ <b03bba6f-0a8f-41fc-af59-2a69d271f28b@gmail.com>
+ <20260729115540.GA32573@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729115540.GA32573@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Laurent,
+On 7/29/26 12:55, Christoph Hellwig wrote:
+> On Wed, Jul 29, 2026 at 12:45:47PM +0100, Pavel Begunkov wrote:
+>> It was exposed in early version as I was passing a [{dma,len}, ...]
+>> array, but we moved from that. Maybe I should put the minimum
+>> segment size in the map structure, and (possibly over) split using
+>> that for now? Keith had this chunk in his patches:
+>>
+>> +		int offset = offset_in_page(bio->bi_iter.bi_bvec_done);
+>> +
+>> +		nsegs = ALIGN(bio->bi_iter.bi_size + offset, PAGE_SIZE) >>
+>> +								PAGE_SHIFT;
+>> +		if (bio->bi_iter.bi_size > max_bytes) {
+>> +			bytes = max_bytes;
+>> +			nsegs = (bytes + offset) >> PAGE_SHIFT;
+>> +		} else if (nsegs > lim->max_segments) {
+>> +			nsegs = lim->max_segments;
+>> +			bytes = PAGE_SIZE * nsegs - offset;
+>> +		} else {
+>> +			*segs = nsegs;
+>> +			return NULL;
+>> +		}
+> 
+> This seems very pessimistic, especially for the case of the registration
+> only having a single segment, which I'd expect to be fairly common due
+> to P2P bar mappings, huge pages or IOMMU coalescing.  So at very least
 
-On Mon, Jul 20, 2026 at 10:36:42AM +0300, Laurent Pinchart wrote:
-> The link frequency, retrieved in cvs_csi_enable_streams(), is stored in
-> the icvs structure to then be used right after in csi_set_link_cfg(),
-> called only from the same function. Pass it as a function parameter
-> instead to improve readability.
-> 
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> ---
-> This is a drive-by improvement, compile-tested only.
-> ---
->  drivers/media/i2c/cvs/icvs.h |  2 --
->  drivers/media/i2c/cvs/v4l2.c | 17 ++++++++---------
->  2 files changed, 8 insertions(+), 11 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/cvs/icvs.h b/drivers/media/i2c/cvs/icvs.h
-> index cfa8ef5d975c..17beb0920dd2 100644
-> --- a/drivers/media/i2c/cvs/icvs.h
-> +++ b/drivers/media/i2c/cvs/icvs.h
-> @@ -432,7 +432,6 @@ enum icvs_state {
->   * @freq_ctrl: (future) frequency control pointer
->   * @pads: Local media pads (sink/source)
->   * @nr_of_lanes: Active CSI-2 lane count
-> - * @link_freq: Current link frequency (Hz)
->   * @ipu_link: PM runtime device link (IPU consumer, CVS supplier)
->   * @res: Resource capability (light/full)
->   * @caps: Reported device protocol capabilities
-> @@ -458,7 +457,6 @@ struct icvs {
->  	struct v4l2_ctrl *freq_ctrl;
->  	struct media_pad pads[ICVS_CSI_NUM_PADS];
->  	u32 nr_of_lanes;
-> -	u64 link_freq;
->  	struct device_link *ipu_link;
->  	enum icvs_resources res;
->  	struct icvs_dev_capabilities caps;
-> diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
-> index 3a1ec0059ef7..9fadca7a3bee 100644
-> --- a/drivers/media/i2c/cvs/v4l2.c
-> +++ b/drivers/media/i2c/cvs/v4l2.c
-> @@ -46,6 +46,7 @@ static const struct v4l2_mbus_framefmt cvs_csi_format_mbus_default = {
->  /**
->   * csi_set_link_cfg - Program default CSI-2 link parameters
->   * @ctx: CVS device context
-> + * @link_freq: Link frequency (Hz)
->   *
->   * Populates a HOST_SET_MIPI_CONFIG command using current lane count and
->   * link frequency, then submits it to the device.
-> @@ -53,12 +54,12 @@ static const struct v4l2_mbus_framefmt cvs_csi_format_mbus_default = {
->   *
->   * Return: 0 on success or negative errno.
->   */
-> -static int csi_set_link_cfg(struct icvs *ctx)
-> +static int csi_set_link_cfg(struct icvs *ctx, u64 link_freq)
->  {
->  	struct icvs_cmd cmd = {
->  		.cmd_id = cpu_to_be16(ICVS_HOST_SET_MIPI_CONFIG),
->  		.param.conf.nr_of_lanes = ctx->nr_of_lanes,
-> -		.param.conf.link_freq = ctx->link_freq,
-> +		.param.conf.link_freq = link_freq,
->  	};
->  	size_t cmd_size = sizeof(cmd.cmd_id) + sizeof(cmd.param.conf);
->  
-> @@ -91,7 +92,7 @@ static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
->  	struct v4l2_subdev *remote_sd =
->  			    media_entity_to_v4l2_subdev(ctx->remote->entity);
->  	struct device *dev = cvs_dev(ctx);
-> -	s64 freq;
-> +	s64 link_freq;
->  	int ret;
->  
->  	/* cvs_set_link_owner(ICVS_CSI_LINK_HOST) */
-> @@ -99,15 +100,14 @@ static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
->  	if (ret < 0)
->  		return ret;
->  
-> -	freq = v4l2_get_link_freq(ctx->remote, 0, 0);
-> -	if (freq < 0) {
-> -		ret = freq;
-> +	link_freq = v4l2_get_link_freq(ctx->remote, 0, 0);
-> +	if (link_freq < 0) {
-> +		ret = link_freq;
->  		goto err_rpm_put;
->  	}
-> -	ctx->link_freq = freq;
->  
->  	if (ctx->i2c_client) {
-> -		ret = csi_set_link_cfg(ctx);
-> +		ret = csi_set_link_cfg(ctx, link_freq);
->  		if (ret < 0)
->  			goto err_rpm_put_sync;
->  	}
-> @@ -345,7 +345,6 @@ static int cvs_csi_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
->  	if (freq < 0)
->  		return -EINVAL;
->  
-> -	ctx->link_freq = freq;
->  	cfg->link_freq = freq;
->  
->  	return 0;
-> 
-> base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
-> 
->
-Tested-by: Antti Laakso <antti.laakso@linux.intel.com> 
+Agree that PAGE_SIZE is too pessimistic, but I'd calculate it from
+the sg table on registration and use here. Not ideal but should cover
+most common cases like huge pages.
+
+> we'd want to special case that, but in an idea world the caller would
+> be required to provide a useful nr_segments for the I/O.
+
+Not sure we can do it in the straightforward way from the abstraction
+perspective, mapping are hidden from io_uring, and there could be
+multi-device files with differently shaped IOMMU mappings at some
+point. We'll surely need readv/writev support later, so maybe we can
+improve while doing that as it'd mean passing a {off,len} of some
+sort from io_uring.
+
+-- 
+Pavel Begunkov
+
