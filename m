@@ -1,208 +1,151 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF9E8304BB3
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 17:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175FC370AE6
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 17:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785345927; cv=none; b=tTNfaIRYOQ+TfPqeszw3qaymKkLOZepCEdiZjp3EEyE9tINWomF1WQXHMZvsdjhheYzRQ2JXWmnumVqCu00qyjV65pxRx5IAX0RSmBeAmLl7Ta43eU7m2fxzYO2HYbtME3RJlKESFLwZ3hhS6dOEmUJPUIhpo3Ogw9au8+9a1Do=
+	t=1785347179; cv=none; b=GKWE+yaJs65VvJ3JRq8dfiRoCD0odWLVu8qepn7F/be7HlZYO7kt5W3sSn9vmIWY8PxKAPZWDaL8sGoOgMV3DVdQYaWf/h15r23gqOTrn4iUKV3Mia37sCIDjD+P07bcjJvMCc9AsXhZaOYsA+Vn0Ln/vcPLeYjVLL3d+0e3/QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785345927; c=relaxed/simple;
-	bh=JvnrDIlH3YvcaZO2u9GL9D42hpM8RWYDtOLL0xUlXfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=q2X6Ud0CvXKqCD9M15uCJICsu0BvW0WT3oqIIdYhy0mlsM54Tc2nCQcD8t8GPh7D6XKbVQISc/B7Ej5Oh6ljz8Ed4994FCoMShAQPx8PiDryG/m+P6iMfhsOg0p15vYDHTnKIx4H9NVVau+zsfxKlMjw2ov0XcGOG92T7YAnySg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=GiN6Vzj5; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1785347179; c=relaxed/simple;
+	bh=UidFeDXv81Ur5iK25hdw53vt+RFWGx9NnnGs3apTKJM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d3lBrc+7apyLCjRR+BEcJNhCgapue1OFgsA2JC1AUPljT2tC06eveOJGaDCisdcG03IGF44vXK6+IBsvqcVGoAV/EQTDWbKJV7hn18ZpMKaHTZDrPhrkb9R1zbLsGjs+B+i24rxhex0fntOjx2XQSYc8dW46ht7kY9noqD5IIt4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LhtNhxku; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="GiN6Vzj5"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-51c2a449c57so7727011cf.1
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 10:25:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LhtNhxku"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4956242332dso10966495e9.2
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 10:46:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1785345924; x=1785950724; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785347168; x=1785951968; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=j1ThhqHWLasqXsNNivgLf6E7ELPcjV9s9p2Gn8/XL6w=;
-        b=GiN6Vzj5Il9zGPb89keaEymPnxAv1ic4ih9z4MEAhWYE9S/nuRmK3T7DhQZgvJ9l2q
-         vXU80rZ0n8nsxzYhD97lLf82TJFv/bd0v7W65Laka6EetVKlCkC1L2xsaOFJbcXQCUJL
-         lbk62T7FzmkgXpLtAK+6FseipqqocWBrwhkfRsqaifOb211Ljr9xBF0qXBREgg35vkIP
-         Gr2u6fuhhO7dfkYLeI70LrjSDrRYB/4EEUpaBer0IdVn2GnNgOMGaEtappuDQ+Clwjqe
-         2ZGqXmtPH8MXCtRg4G8YjAib6haCLlWbNVuEeYN4hOj/H+d8cK7Tn7wHnDOYKxwcdtaF
-         y36g==
+        bh=WKE9xNdjsRTW2zyuw6/ikQhgmzmnupdLH1iSl4caYw4=;
+        b=LhtNhxkutVb/rQ1a9tAjPqKS+PDo91gQzXUzhrAppUhes7wCBEtJlmBszRWptzX92P
+         wX9M7VrN5dJQBY9YL+kcNbAKxHdLKpFnosAfFsgl71SDaYzQYZfc398fOvi1JKDaqoHI
+         Mtay1Qdc/JnUL59ypsHrWWoZb85CA3sIiyipMb2U7BFRXgz+zPg1YJx/YTGbShyP7S6H
+         F4QnP9aOsxZ91Y88DL1EIBcYtcWXvXS2O/rFN2M4KOtit3fPOLDgPEiCGFks1udshJqY
+         XMtXDO9ISMyh7B6RHX4Hw+OYY+VXibFRwRhYEtyrZMJBpjC29yLUNVys6GuWV+pYjIDE
+         FRdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785345924; x=1785950724;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j1ThhqHWLasqXsNNivgLf6E7ELPcjV9s9p2Gn8/XL6w=;
-        b=EvHOzfHrG8F6+VBOcYIVfxipF0Xwn3jxH7SJcOCFhe9FodvnMxukl4ZC7nCrC6hD8n
-         tdIuqKNdv+9f8yg+WupFUwIgp7DgNH2gi8bjLnVBLZaZNHC9Sae0t1vtmRAerG8T+A7d
-         3H6TE86KEkHeIBZYj9ekX5YZw9TfwGkJrON+YFeZvkqhCczMhpsQAgKHvfE6EnBV3Wm9
-         fRWziJ+AdiL4sq7SGxciHE644YvhjPAhi3kT5oU1jKbZr0q6XykGquYGsUAKj9olb1mf
-         VDzs6+sUagIZoGZNMtYLp65i+apvnKHqk5mo4oagHvVxoSYk8naKtxARmV699i/01wiz
-         Fd1w==
-X-Gm-Message-State: AOJu0YztmnwaPvEyjK/KznVzlFtD9qdzrLrsvGbU72SzrfYXKBEzGRD+
-	p7Lt9Qnu7M/t6h/8vfOFca5pmif4A5eamT2IlombNVEv/X9hZ2F/Xc9hftHy0VMHG0M=
-X-Gm-Gg: AR+sD12rgHwAoNnCOi/jYY6ZExZtjdBVGoKZ5OcfscjGp5Au/PWCXMMh09rVUvDLknm
-	67QO4IzRTMQoh9CPcOVV1wXRyg369PUrt+01/Vmrv0Dj9SpHj/3iGLHAlsUtsZV95tbHQ7vWnW3
-	TlQ6Dc7F2s3bNEngOY7imvEGJlkx9G3mjq8drnJWij1uA8YRtvXGSwSfhEjNnp4peP6GOo2gWa5
-	DuwNFim4qriRdpdAzj1NatU0bk0O+gqnzXCWzpt1w4PlTQuvZWBbYQD13urGHxHsX5FtQef/xpt
-	7H/kPyM2aWJn/MlydYtntEmsY7LqxshawrhixfkcOVazjWXw6AHYHJmXdfKDJQcS2b0qnpXTL2W
-	fJY/2WCzHE0K/PjAh/tuUZwbFzGnof0temDh8pzAieIFR+Xn77i/L6atXviVFZXWhwVuPCKeAK5
-	xcjQ8LUT6DMuDQjN4NZIzTa5ChmaxKXlBOaOADjjG7Cs2G+x3wtYw++QyH1VmL6sBqpAaj9ep4n
-	V1wVG0DhFC4eQIV322ke2erIRM/YbiC8r93FbXOOwGC4smljRLOKDR+HK5LNLPgLtc0mp4s3fJ3
-	WTHp1yE7dgjdQLDd3g8xNQv3hoVvPkMqihg2zO2rBjg=
-X-Received: by 2002:a05:622a:590d:b0:517:5b2c:6aae with SMTP id d75a77b69052e-529d6faf050mr67805121cf.13.1785345924466;
-        Wed, 29 Jul 2026 10:25:24 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::f163])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e2b67050sm22994301cf.12.2026.07.29.10.25.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 10:25:22 -0700 (PDT)
-From: Jake S <j@metarealtyinc.ca>
-To: ramshouriesh@gmail.com
-Cc: linux-media@vger.kernel.org,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Subject: Re: [PATCH v6] media: i2c: Add HM1092 camera sensor driver
-Date: Wed, 29 Jul 2026 13:25:19 -0400
-Message-ID: <20260729172519.1079858-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1785347168; x=1785951968;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WKE9xNdjsRTW2zyuw6/ikQhgmzmnupdLH1iSl4caYw4=;
+        b=XcEDU0FmRx7auh5EO9d7P0+A0Z8pyNEtHvfYPCje1mz5c1/laBJrZ/7/eoORWu6Oh0
+         EKsvQ4H/dd6UWKnnDIxxlI7DQtqXebAacmxv/I6meen68C+O/68Iurrs2IGV0R3Msk5H
+         gWoI692JjjMyQRqSf00h0c9iyh+GmhwCSJFLDqkj9aFZuxsM8/gnGH/cvqIvOM5kGvja
+         WyQuwHsgtpgcTAyNwvzbeNW6WXRxyOgQUSedeOKjoQ4rskg7SavrbTM3pBH0As1wt68S
+         2xGUALJddM1IudiHebKVK1lL6Zi70qoBPTZ/L7NzCJ1Q6HiV8O3JAa1L8pg+LCYJt7Pk
+         0gwA==
+X-Forwarded-Encrypted: i=1; AHgh+RpvgDkjgEhzTp4I2TNT4A/El530pB/fwqVX2Rq7wyYi1rAc1K/16St+gYsONAuFJ0DWcz5dNHkPGfjJfA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzAlNehdSyrw2rtXF6G0t2Wokuhcd0VxWi3plnKtbWi1b1tcGYJ
+	uqO4cG2Hi7uRLjATF8PnbR3NjfDkvqzmBY8qr+he/sO6WN+uMOUF+42b
+X-Gm-Gg: AR+sD12ucQIbAr0mozC56vBMn9AfFbXW+POROIU4VDMvWrqSzGF9zPrVsuKd+Vtvai1
+	3Ay0FfVcpbAHSVPr7ftTV3GUYP32/Ea6fVd25vwCJMQU6fcLvysjzbrO/rxhf5dJT9FN0cpUUfI
+	lCyVE3KidNqHAEze709KH72rjM84vPyj/bqygv/h1Ou1nyFKtzlsD5eY1Y3dBHIHbiZXOVOIFee
+	nqFyKA03DcpInGvs1y4dO/CihA1iiDMQ9aRg/zshneuv5/1n3AS7EiG6Iiv9uBN5PSVtW4Yo0FF
+	Jhyy5eNkx7yxc9suFUH7gYHKOsqxvliyT/b7+fP+5zrlh/POi7NblWsWejob0MneF7aoV5hihZv
+	C+Y3RjWBfl+G5XDV7jbuNcPlZuTbwsrhL0qcQplkbs47Q6OcPifD55981cmgjWGpCrSjp7JXKtL
+	NQdYNDGTQiYoWF7Z3/P6e33cDSJetXVoFp47QD4P73cowsBUPjAeDkhlR8sdfXakOm2w1aYPAt2
+	bDCy1p+5mXWC9Re9qUHMe6l1h7gYVByti+AYVyrbhLHCgbrVHxy2q1/FZo/yPWsAn+wN/I672LR
+	/2o6Dz871aOiUypMO4fopXeGm2Csm2DvnUeKXLI=
+X-Received: by 2002:a05:600c:4fd2:b0:493:e79e:da6b with SMTP id 5b1f17b1804b1-496c6590660mr98300165e9.21.1785347168019;
+        Wed, 29 Jul 2026 10:46:08 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c45b1c2asm171605965e9.5.2026.07.29.10.46.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 10:46:07 -0700 (PDT)
+Message-ID: <5afa3726-6c15-41c8-af19-766eb76b4b46@gmail.com>
+Date: Wed, 29 Jul 2026 18:45:58 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 14/14] io_uring/rsrc: add dmabuf backed registered
+ buffers
+To: Anuj gupta <anuj1072538@gmail.com>
+Cc: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe
+ <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+ io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Jason Gunthorpe <jgg@nvidia.com>, Damien Le Moal <dlemoal@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <CGME20260728213020epcas5p1721e72ba5544abf0b61482da005120d9@epcas5p1.samsung.com>
+ <26dcd0ae5c87a3ada5710b14b6894ef343cec6fe.1785274111.git.asml.silence@gmail.com>
+ <583fdfb2-5368-467f-a388-6d388859c995@samsung.com>
+ <0df2f832-e8a8-4fdd-a5b6-e08657c2891f@gmail.com>
+ <CACzX3Atj+hJmF+Au1Yw5KMk--EHy_J=7Yof1aQNkUV0hCrdVEA@mail.gmail.com>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <CACzX3Atj+hJmF+Au1Yw5KMk--EHy_J=7Yof1aQNkUV0hCrdVEA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Jake Steinman <j@metarealtyinc.ca>
+On 7/29/26 17:52, Anuj gupta wrote:
+> On Wed, Jul 29, 2026 at 7:37 PM Pavel Begunkov <asml.silence@gmail.com> wrote:
+>>>> +static int io_import_dmabuf(struct io_kiocb *req,
+>>>> +                       int ddir, struct iov_iter *iter,
+>>>> +                       struct io_mapped_ubuf *imu,
+>>>> +                       size_t len, size_t offset,
+>>>> +                       unsigned issue_flags)
+>>>> +{
+>>>> +    struct io_regbuf_dma *db = imu->priv;
+>>>> +    struct dma_buf_io_map *map;
+>>>> +
+>>>> +    if (!IS_ENABLED(CONFIG_DMA_SHARED_BUFFER))
+>>>> +            return -EOPNOTSUPP;
+>>>> +    if (!len)
+>>>> +            return -EFAULT;
+>>>> +    if (req->file != db->target_file)
+>>>> +            return -EBADF;
+>>>> +
+>>>> +    if (req->flags & REQ_F_DROP_DMABUF) {
+>>>> +            map = req->dmabuf_map;
+>>>> +            goto init_iter;
+>>>> +    }
+>>>
+>>> O_DIRECT is checked only during registration; we should recheck
+>>> (file->f_flags & O_DIRECT) per request.
+>>
+>> Nobody should be able to clear O_DIRECT, unless I missed something?
+>> And fwiw, io_uring wouldn't be the right place to do it.
+>>
+> 
+> fcntl(fd, F_SETFL, flags & ~O_DIRECT) on an already registered, already
+> open fd succeeds. The consequence is that subsequent I/Os switch to
 
-Hi Ramshouriesh,
+Very exciting.
 
-The comparison you asked for is below. Short version: your 180 MHz
-derivation is independently confirmed by the Dell platform, which reaches
-the same place by a different route.
+> buffered I/O and cause silent data loss. Something on this path needs
+> to reject this combination.
 
-I regenerated 238 (address, value) pairs from the Dell hm1092.sys mode
-descriptor and diffed them against your 185 Qualcomm entries.
+Yeah, I'll fix it, thanks
 
-  registers present in both      178
-    identical value              162
-    different value               16
-  Qualcomm only                    4
-  Dell only                        5
+-- 
+Pavel Begunkov
 
-162 of 178 identical across two unrelated vendors is, I think, the strongest
-evidence either of us has that we are reading the sensor correctly and not
-transcribing someone's platform quirks.
-
-
-THE PLL, AND WHY OUR NUMBERS DIFFER SLIGHTLY
-
-The clock block is where the two diverge, and it resolves cleanly:
-
-  0x030d (pre-divider)   Qualcomm 0x0c = 12     Dell 0x0a = 10
-  0x030f (multiplier)    Qualcomm 0x5a = 90     Dell 0x5e = 94
-
-  Qualcomm: 24.0 MHz * 90 / 12 = 180,000,000 Hz
-  Dell:     19.2 MHz * 94 / 10 = 180,480,000 Hz
-
-Both land on ~180 MHz DDR from different EXTCLKs. Your ASUS power sequence
-requests 24 MHz; Dell's INT3472 supplies 19.2 MHz, which is why the driver I
-have been running publishes 180,480,000 rather than your 180,000,000. Neither
-is wrong; they are different boards.
-
-The implication for v6 is that EXTCLK is not a property of the sensor. A
-driver that hardcodes 24 MHz will compute the wrong link frequency on Dell
-hardware, and one that hardcodes 19.2 MHz will be wrong on yours. Reading
-clock-frequency from firmware and deriving link_freq from the PLL registers
-is the only form that is correct on both. If v6 already does that, ignore me.
-
-The same applies to the init table: because the PLL registers differ, the two
-platforms' tables are not interchangeable verbatim even though 162 of the
-other registers agree.
-
-
-TIMING
-
-  0x0340/41 VTS    Qualcomm 0x02ee =  750    Dell 0x02e5 =  741
-  0x0342/43 HTS    Qualcomm 0x0650 = 1616    Dell 0x0654 = 1620
-  0x034c/4d out W  Qualcomm 0x0230 =  560    Dell 0x0288 =  648
-  0x034e/4f out H  Qualcomm 0x0168 =  360    Dell 0x0170 =  368
-
-  Dell: 36,096,000 / (1620 * 741) = 30.069 fps
-
-which agrees with what I measure on the hardware. Your 29.703 fps for
-560x360 and my 30.069 for 648x368 are the same sensor behaving consistently.
-
-The remaining differences are all windowing  --  0x0344-0x034b crop, which is
-what you would expect from two platforms choosing different output sizes.
-
-
-EXPOSURE AND GAIN
-
-Your register choices match what the Dell table does:
-
-  0x0104 group hold        both present
-  0x0202/0x0203 exposure   both present, 16-bit split across two writes
-  0x0205 analogue gain     Dell only in my capture
-  0x020e/0x020f dig gain   Dell only in my capture
-
-The four your table lacks are the ones Windows only writes during the runtime
-AE loop rather than at init, so their absence from a static init dump is
-expected rather than a discrepancy.
-
-One caution from experience: my Dell capture is a whole Windows Hello session
- --  init, stream-on, the AE loop and the teardown, including a final
-0x0100 = 0x00. Replaying it verbatim and then calling stream-on made the
-sensor arm, disarm and re-arm, which no real session does. If your Qualcomm
-dump came from a similar capture rather than from the static table, it is
-worth checking for a mid-table 0x0100 write before trusting the ordering.
-
-
-IPU-BRIDGE
-
-Agreed, follow-up patch on top of v6. I can write and test that one  --  the
-IPU7 path is what I have hardware for. For reference the entry that works
-here is:
-
-  IPU_SENSOR_CONFIG("HIMX1092", 1, 180480000)
-
-which will need to become two entries, or a firmware-derived value, once both
-platforms are supported.
-
-
-ATTRIBUTION
-
-Co-developed-by, please, with my Signed-off-by. The register map, the control
-register assignments and the link-frequency analysis are my work, and you have
-said v6 folds them in directly  --  that is co-development rather than a report.
-
-  Co-developed-by: Jake Steinman <j@metarealtyinc.ca>
-  Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
-
-Keep Reported-by as well if you like; the two are not exclusive and the
-original finding was a separate contribution from the control work.
-
-Worth stating for the list, since it is relevant to how much weight to give
-these numbers: the link-frequency root cause here was not a guess. V4L2 defines
-LINK_FREQ as the DDR clock, while the vendor mode descriptors publish the
-per-lane BIT rate  --  twice the value. Every published figure for this sensor was
-2x too high, isys ran the D-PHY at 721 Mbps against a sensor sending ~361, and
-nothing framed. Correcting it to 180,480,000 produced the first frames anyone
-has captured from an HM1092 on Linux, and that driver has been running here
-since. Your independent derivation from the Qualcomm blob landing on the same
-number by a different EXTCLK is what makes me confident it generalises.
-
-The comparison data is here rather than inline:
-
-  https://gist.github.com/jibsta210/db457ed67e24454e834b9638f6d38037
-
-  hm1092-dell-vs-qualcomm.txt   the full diff, all 16 differing registers
-  hm1092-dell-table.txt         238 (address, value) pairs regenerated from
-                                the Dell hm1092.sys mode descriptor, in order
-
-Regards,
-Jake
