@@ -1,525 +1,258 @@
-Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com [209.85.167.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BAD3D6CB4
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.174
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785354253; cv=pass; b=tJW8xhO9ZNbemCw/uj1vRxCP36WaaH13aWeo8m/gqJjryPbVHdAOw+eKLP8khmLSFjalCcLQj5qV9i+uJUELQkDrqF8TM5L8BvEoaPGx/NmSHI0x1RB5nqkFB4QeshVjhfSifeTVwGIVYvnCpOIvLFUxkAXo6FGTb/PaHl3yA1c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785354253; c=relaxed/simple;
-	bh=z5prSsmGreU+ARDbc2TiWvp5IrCc0YZDiE0i+rJkl44=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=EfdRG+11+98twgVGNaTKn66jz76CFQoz7Ea2yvrjTqQ6julVP4iZ0FPWW1tVLU6UEtAnBykT9uMlTC8c0M4NF3jWzFT3e2rJ4KHR8F1gEoyHcLUwwMSaPGI7dudyEW+Lvm+o36fx5Jjt3qfPHty84ecnRhXEVoNE99I79776GTg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com; spf=pass smtp.mailfrom=purestorage.com; dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b=N7PaQBIn; arc=pass smtp.client-ip=209.85.167.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=purestorage.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=purestorage.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764243BFAE7
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785354816; cv=none; b=Ovuca6j/9WyfIFcdsOTYjP5MxoS1KybOiIWOlEAJjYbHYHNG5+kZZevB8QV7Lm8brlz8b6QPvoly5xz036IISW3kwQM4sOT3269rfV9aUiv8+nn7zQH22j51bo0tjRxhI6TtZYJFuRz1JJ3HB1q8igiC+w/v7FVUkZCsQnT0D4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785354816; c=relaxed/simple;
+	bh=XwCqQYzPO6KrgWsbPSkf7QsVyNBDZ2WApQ1+GZGiDgE=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=pkcz6zifIKw6bfnwlb3rGzhd/rPXw7FTdkTVxRiQfUtN7RFSLQ8xb66CzXKNuAbyQj19bblfYWBIc6gdLpOtNU+VeZcpdjq3NfdtGMmxhsQPw/b6l1EhDW662b/Sij3XR4gv1VF95r4MTvw2qKxljsmmv4RuvnqHu38761ZSGiI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OLvYPWmz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bLAuiEgp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=purestorage.com header.i=@purestorage.com header.b="N7PaQBIn"
-Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4ab3c6f7f44so67310b6e.3
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 12:44:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785354242; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fyN/cO6TPZIHNFCqAHmMyF2SsDgtSf1eWgvyOu+Wvm1Sl0cLIUhAbgP8YHvWaSzPI2
-         R9p3O5sUcsFea3F2JVI9vH1JKpgctRnrqaT7TReVfFKGrmjpU4iAdrMJ8v9knycChVYT
-         lD9LUVa/od41UmL5ARdsajZe2llAcpte5Y4MMoRfsSKyCiiI9s2CQCw+ztvd4FE/QtJq
-         7shOTaahVAMdOy03zRchcexGXoCQ9xfnwKPB+P4ZJb60JigXA/GJ+yTc9Je0w+VusYG7
-         u9VAH0W2Jv9Po5x7Du1le5Z353O1rnQK+HhSiye0Y6fqzDzT1FyDBTDO73GDYIXg1NVr
-         lgyw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LnSKdBsI5P4yNxKlVDAgX6ZRyHfaTBwJq6vRswotV/I=;
-        fh=HzHaMwuR8zauZNejMgViSS+JQQteif3eNd5zKiEybUI=;
-        b=MgBjdPifvw2kvahsaVSAVj0js0VM1ADMS3reIVq7rrk7r+8Wb9ycUIDNviCXg3wfjj
-         kgvrIb3brTr4ZlRIDtEPDZ+eBTk1oqEdT4TPOURiYUiZGiBo6kaU2IXe9+GjWFXoowIj
-         YwqzgBJA1ANDgOrSPA4hfg9dHXGyuyEHfCZRhrOEYa27cGMK4RmQZEuw+aO0EU5iPddu
-         z8m41K3QjP7R5ONWq+q8YHqadwVNGHe70ccR48DiGLLP7Hek3MceUz5mPvPUSD07B16/
-         BIvbOeeaiERGyzuYXWi5xEeb39M0rz/m9lZ9JQ9VDJOMG6XOnj/NTlZFL4llR8mIhZu+
-         aIrw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OLvYPWmz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bLAuiEgp"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TJoiqo3062385
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=; b=OLvYPWmzEYluUP+u
+	23W8iCkhB9zxefi1Is7teD1I0dJhXfuwy48rAr19I5gnGZLwsoAwF7NN7uulqs1p
+	9+nShoNt9pP8JvuLJuL77gLxS3c61CXca8s83/HmG1HkJfpbsyhmY1x4EI2ASUDd
+	nL3iyIkliTQJ4Ee1+Q+lHKqfprFeytqAx1WgY6IkNMEOAKt2mCtnmtdsdDXr3H2B
+	P7aSjEHWs4+shKIDRBO4OSoPgdlfQxp+dAbXrBFq20g9WWpPZIG+3hMP/4kgK4DF
+	tLQmyAhaOcjSe2kusarP3cxJcnnGR/UrMhxEerCoWep7zs0qnee6iW2NMo7e4Mkk
+	6kNHcg==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqr1jg0cn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:29 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d30035dso11863411cf.2
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 12:53:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=purestorage.com; s=google2022; t=1785354242; x=1785959042; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LnSKdBsI5P4yNxKlVDAgX6ZRyHfaTBwJq6vRswotV/I=;
-        b=N7PaQBInFGNB6UppKXJWrZJYLsRH3a/Cpq75oe27/kpPNUCChU4Hy7yTJzuBVHF40w
-         ncK0atTVaYKz69fuheLOkYPYdB/isIPD28XhQpr3ISnRPDGf4gEC4/Zw6xNcnP4JsBeQ
-         BWf7VUQZQXWq0U5fbDt6+eEaB0/nikkD8evi5kzeaNx1y2orsRmHTNeYsObh3COc6drG
-         ew3NnyQA9AjfH1Z4DcJ2y7Tf7ypY1zHDnMkCv1Eu20rT3we30Jk7APNQ10CJeXS+p6CZ
-         xy0ah6hGEw1C/D/vWMSbKtc9AGLS4GNsqFVddhwdYTSQT7hlBnaWZozfxvlxZ7JQxT8D
-         Q2Mw==
+        d=oss.qualcomm.com; s=google; t=1785354808; x=1785959608; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=;
+        b=bLAuiEgpNmrCTKX37rUxqftBqTv6xjscPDMQD2f1Zeocv8mDyABeerUnADHchmMI2V
+         gz778bd/OGDWaAP7fu8ZSUUjrcBngVc/c5L3fXxaILJX8N7uFqWcU8SoNqUWozqpSwOo
+         1yZA0jKf9vfnzDCC8VKAVZ9yTA3nOCRXdftTcnIvV0mHHWczghxqE2oTFtO5P5kiwZ3Z
+         yYRrxblhRdTPayESq3jDFUKjP2ZF6EGigoa9YDU0wu4BdzknyB02LliCMd+0c9Jjm0ul
+         jD51R3l+mawU9/VBnzWZLU3tnDCuLg5HhtIFeynE8/ruqDQd7M1nDd+sXql1lXdf1Wl4
+         JHvw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785354242; x=1785959042;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LnSKdBsI5P4yNxKlVDAgX6ZRyHfaTBwJq6vRswotV/I=;
-        b=ZAGHKTkPFcoTdeK4Dsj8dprdALpDl2Rp8WNmiUHmEiyYAK4DmImFjOj+OxxHf1XqS1
-         gWovJEQON09hgjROVCW97IMB/Kk8k8Zg2llE/43lgZQm1lRP8982ibjNdzEwHr+jUHxl
-         qSSpORotQiYsJ9rQSszsgmU9Xm03S7b1XMuHzryZOz/CQTym0VhsGIggY5q30YbmFNEI
-         AdDxSwFNAmONO3IiAz2jo2HfFxGjcCeYpwGNqXgV4tPXVA62+FLmUHzkxgE6JwLfCLqi
-         xyzjute7dp3Mu8NYEY1hMGsyooQhPWIuMCMRG56AaHYvAj7WRFyVyDO2KyKBvC+0e2P4
-         IKUw==
-X-Forwarded-Encrypted: i=1; AHgh+RqW2McXQGccfZsz8rBRhkn58LUcH0ea4+A39QsKNic4FATEtvjkvcYhFvHwbDaw/iTKWQ76n6VVRWXpoA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxE+75B9pzvWOFjZcL/+0kAgGeTKLlmBVAtoN0N1nQj1KzRY307
-	j+7SzuOvUfiqMTwWjYxOcautaFDm2HMD2W5GQ8Z31q9NbTwnIHIEpr2ha2RApPfow4GoAVwjZ35
-	DeIHhq0LpjK7QDGXty3RLHNZsDvUHEJ1tJiomW/Ca7w==
-X-Gm-Gg: AR+sD12yPr8BYBGUahNOGop/8prwQ0Fg7uLSGnmOBf/qLNxnr617d+KcFfgDsoldOFr
-	t4E6TyRcpDeJJr6boZ9eIvs1vcMuHOZX8dawjCX+l6ULY/UCVImQ+S7Q8feMWmxYjtuxUHWCCJw
-	lQ4DMqWDlm7lcVvoyMixgGruAzT0fJvLvEFAvj40oFg40Y9ru98Ea3/8XhVuNJH6yWJ7WWWtRzu
-	t3xJuQhr5gHuYs4IfvdhtSJbTLWYgTMOMc3s8wORZRXl26MRcfmXvAPeb3tpRdvBRtOizRTURvT
-	9cH7R/s5POLkwcq7A2nKYG9wgb4kkOTjRRCeivmi/HnU
-X-Received: by 2002:a05:6871:441:b0:457:9007:a35f with SMTP id
- 586e51a60fabf-458bc1eaa28mr97408fac.1.1785354241430; Wed, 29 Jul 2026
- 12:44:01 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785354808; x=1785959608;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=;
+        b=OTPioCwUaWzqeRFkuo/5paTUu6SCLTGEz6hTodXDlqyiULatilMUxHMgVEQ/hHV01y
+         jKKMrTYGAg7ABhwgdjY0RHiu97dbDlAkH1wgx7FGBghDei7Jy31FK1ftZUWd7wOdBpxa
+         r8JqY9w+6KFuAJfV/ebfKGFXvjUYpae5JBEum9yexun7+h1cdMnM6XU62BsK7qs61j+Y
+         p2Xq0bYGTaLw/Qc4fDS1AOaWRMsmiqfNqPjALwwhK8kl3w/I9du3/UGQ4LT5aMFM3i+3
+         dvtO1GeNcGRB8yKmyO1qzYZWz/FNHiSBvkxGcfj8oTSGR4SONwcjkbxOg9Waaw4RArH9
+         iFxw==
+X-Forwarded-Encrypted: i=1; AHgh+RpTVYGwAiVaQDX9WK0yDpspcRCbiO7EUP427Loqvhjd6CDFyzAfAf/wrU/4o9NqvDFHybYXA/pcQGKepQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6r23RdAj9X7aLWEs70t0/XKMv+bsYCIN/trU3a63XHlRm248P
+	SU1vNnn3YAiEhWEw6JwzhYidhKUjBx0FqKXbarLnnPUnRH00gnT4YsC7eJajUhrHSb0v4N1VaES
+	7z9oZGZtxp4gKMVwOHzGSnvRFgt8I52CnTS3Edh0dc4otujV45kbymBLYS/OdOdKtsA==
+X-Gm-Gg: AR+sD13P/TbO4MmvNftsUy+1MPVoKpNfxD2rWI+QtArRzpUJydxqhFl0C04XOYU+u1b
+	MEFCDnZRe5abhpAkzFZJWBu+bUkkTbeLuyK32mriJmfOKA9XrtlzE8W0u7oDX+NuiYkB1qANLAk
+	ZhKuxZW5IA3IyK4Qr7lwXuQ4UjgQ2oxZ6ecXWHC+5E3V4odX0nEmvfCeWTMEqz43vw6NWUUy/QJ
+	ADAcpT+gNeUwFFG/gwmB6b171PNyetYJb/KDb71ZVsWq5RDES83jLiV7ZPJ1o/JKLxa+JGq59Oo
+	67LrM/RIgNBUyQSK+PE4t8ZJM9iH1YniYFGm9IImTTooiOWNUiudklMKKiTBZNJPhjhKjT19jga
+	EnJ1rJUaQKKgTG0cPHyZ513IbSwLnylV1qkqfCGpve5p3w3Yf53uEWZ6lJ2ZKwZ2sHmtYmDTW
+X-Received: by 2002:a05:622a:2c3:b0:51f:636c:8eae with SMTP id d75a77b69052e-52b37f50591mr104231cf.14.1785354807900;
+        Wed, 29 Jul 2026 12:53:27 -0700 (PDT)
+X-Received: by 2002:a05:622a:2c3:b0:51f:636c:8eae with SMTP id d75a77b69052e-52b37f50591mr103381cf.14.1785354806190;
+        Wed, 29 Jul 2026 12:53:26 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83cea5f8sm149219666b.24.2026.07.29.12.53.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 12:53:25 -0700 (PDT)
+Message-ID: <2c81c1b3-59fb-4ae0-bc2e-457b585e0732@oss.qualcomm.com>
+Date: Wed, 29 Jul 2026 22:53:21 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1785274111.git.asml.silence@gmail.com> <19e5c945ea8114320c10f7951d19197d48b59249.1785274111.git.asml.silence@gmail.com>
-In-Reply-To: <19e5c945ea8114320c10f7951d19197d48b59249.1785274111.git.asml.silence@gmail.com>
-From: Caleb Sander Mateos <csander@purestorage.com>
-Date: Wed, 29 Jul 2026 12:43:50 -0700
-X-Gm-Features: AUfX_mzj7jaY2dlfE4GHJvNcQHfDZNxuFZTdOCDHOZZK5KuWQBBj743IB8eIF1Q
-Message-ID: <CADUfDZpwF0jp2e=+c3w_NjWPbnQ858bkSD731M6+x27jzgcJiw@mail.gmail.com>
-Subject: Re: [PATCH v4 08/14] nvme-pci: implement dma_token backed requests
-To: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
-	Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
-	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>, 
-	Christian Brauner <brauner@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
-	Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
-	William Power <william.power@intel.com>, Phil Cayton <phil.cayton@intel.com>, 
-	Jason Gunthorpe <jgg@nvidia.com>, Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>, 
-	Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, 
-	Benjamin Marzinski <bmarzins@redhat.com>, Vishal Verma <vishal.l.verma@intel.com>, 
-	David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev, 
-	nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org, 
-	ceph-devel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: Re: [PATCH v5 4/5] media: qcom: camss: Add CAMSS Offline Processing
+ Engine driver
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Rob Herring
+ <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>
+References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
+ <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDE1MiBTYWx0ZWRfX/wqcYXekgeyx
+ XZwCkUQ6bchmqlVOuo7jqyD76I79UplicUkVjz7n8w9HLwKRCee0sHMzvjE1D09yaSLrbx1JDRj
+ uft+cI3w+rGGuYHjeTf1Bfe4tzWWZXA=
+X-Proofpoint-GUID: 3n9tidwjjSbku4zxju0bkajf7VNDKagr
+X-Proofpoint-ORIG-GUID: 3n9tidwjjSbku4zxju0bkajf7VNDKagr
+X-Authority-Analysis: v=2.4 cv=H8brBeYi c=1 sm=1 tr=0 ts=6a6a5a39 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=GmEpBn3bsQWiDvAV-tYA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDE1MiBTYWx0ZWRfXwuOUzWDy2oPo
+ QAQjAtzwYow5gHG1uW7BGoiUXAbQfT8btWZ9dLCnd055UWwlmoNQCifvVqBwnREreQV3JiDuMx1
+ l9Tj6V6wX2zhsgJaSkvS2SoaOLSeRo09gD3JCDvO2UWJU6nZXK6cTHzYb6pqyrBlvCkXvzd5YYx
+ UzageNeYAU4AKMTW9l2UJkfyTe2aOAK05oQerlFmX6vmqPn6uN/VoLNEGTEG8ibZtoqGlhTATki
+ Qj6qFsnh1wQZmgr3b8swBYpp5vSInV3RBnz6yPD8wA269uMBMMDas3y1pvNXJSeYoH4Vvy8rvqn
+ wZtgZDwM2rVLLLdy3qJebwF6I2vcoxlZ7CxU70mG8El5Nm7N/OA98Xlx3etxrUzA2IaHFYfEqA0
+ 7xjT1HRcnlsZpmtqPA0KXFzu5BlwL7T0bkMLCKzyqq0bzbAmj7d3Lf8e9oLQ7WUX+3sSNey/kv1
+ q6XFctjYA+RRSxVg5hg==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-29_07,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607290152
 
-On Tue, Jul 28, 2026 at 2:35=E2=80=AFPM Pavel Begunkov <asml.silence@gmail.=
-com> wrote:
->
-> Enable BIO_DMABUF_MAP backed requests. It creates a prp list for the
-> dmabuf when it's mapped, which is then used to initialise requests.
->
-> Suggested-by: Keith Busch <kbusch@kernel.org>
-> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+Hi Loic,
+
+On 7/24/2026 3:42 PM, Loic Poulain wrote:
+> Add an image processing driver for the Qualcomm Offline Processing Engine
+> (OPE). OPE is a memory-to-memory ISP block that converts raw Bayer
+> frames to YUV, performing white balance, demosaic, chroma enhancement,
+> color correction and downscaling.
+> 
+> The hardware architecture consists of Fetch Engines and Write Engines,
+> connected through intermediate pipeline modules for pix processing.
+> 
+> The driver exposes three video nodes per pipeline instance:
+>   - ope_input: Bayer RAW input (V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
+>   - ope_disp_output: YUV output     (V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
+>   - ope_params: ISP parameters (V4L2_BUF_TYPE_META_OUTPUT)
+> 
+> Hardware features:
+>   - Stripe-based processing (up to 336 pixels wide per stripe)
+>   - White balance (CLC_WB)
+>   - Demosaic / Bayer-to-RGB (CLC_DEMO)
+>   - RGB-to-YUV conversion (CLC_CHROMA_ENHAN)
+>   - Color correction matrix (CLC_CC)
+>   - MN downscaler for chroma and luma planes
+> 
+> Default configuration values are based on public standards such as BT.601.
+> 
+> Processing Model:
+> OPE processes frames in stripes of up to 336 pixels. Therefore, frames
+> must be split into stripes for processing. Each stripe is configured after
+> the previous one has been acquired (double buffered registers). To minimize
+> inter-stripe latency, stripe configurations are generated ahead of time.
+> 
+> The driver is split into three source files under the ope/ directory:
+> 
+>   - core.c: the OPE m2m driver itself: probe, power management, V4L2/media
+>     device setup, format handling, stripe generation and hardware
+>     programming.
+> 
+>   - pipeline.c/.h: a small declarative media-controller topology builder.
+>     Drivers describe their entire media graph, entities (video devices,
+>     subdevs, or base entities), their pads, and the links between them, in
+>     a static descriptor table. The builder validates the table, allocates
+>     and registers all entities, and creates all MC pad links. It is kept
+>     generic but currently only used by OPE.
+> 
+>   - params.c/.h: V4L2 ISP parameter buffer validation and dispatch. It
+>     wraps the extensible V4L2 ISP parameters buffer format, validating
+>     the buffer size and each per-block header before forwarding every
+>     block to its driver-supplied handler.
+> 
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 > ---
->  drivers/nvme/host/core.c |  12 ++
->  drivers/nvme/host/nvme.h |   2 +
->  drivers/nvme/host/pci.c  | 259 +++++++++++++++++++++++++++++++++++++++
->  3 files changed, 273 insertions(+)
->
-> diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-> index 453c1f0b2dd0..ce66a1843bec 100644
-> --- a/drivers/nvme/host/core.c
-> +++ b/drivers/nvme/host/core.c
-> @@ -2676,6 +2676,17 @@ static int nvme_report_zones(struct gendisk *disk,=
- sector_t sector,
->  #define nvme_report_zones      NULL
->  #endif /* CONFIG_BLK_DEV_ZONED */
->
-> +static int nvme_init_dma_buf_io_ctx(struct block_device *bdev,
-> +                                   struct dma_buf_io_ctx *ctx)
-> +{
-> +       struct nvme_ns *ns =3D bdev->bd_disk->private_data;
-> +       struct nvme_ctrl *ctrl =3D ns->ctrl;
-> +
-> +       if (!ctrl->ops->init_dma_buf_io_ctx)
-> +               return -EINVAL;
-> +       return ctrl->ops->init_dma_buf_io_ctx(ctrl, ctx);
-> +}
-> +
->  const struct block_device_operations nvme_bdev_ops =3D {
->         .owner          =3D THIS_MODULE,
->         .ioctl          =3D nvme_ioctl,
-> @@ -2686,6 +2697,7 @@ const struct block_device_operations nvme_bdev_ops =
-=3D {
->         .get_unique_id  =3D nvme_get_unique_id,
->         .report_zones   =3D nvme_report_zones,
->         .pr_ops         =3D &nvme_pr_ops,
-> +       .init_dma_buf_io_ctx =3D nvme_init_dma_buf_io_ctx,
->  };
->
->  static int nvme_wait_ready(struct nvme_ctrl *ctrl, u32 mask, u32 val,
-> diff --git a/drivers/nvme/host/nvme.h b/drivers/nvme/host/nvme.h
-> index 824651cc898d..034c31af8fec 100644
-> --- a/drivers/nvme/host/nvme.h
-> +++ b/drivers/nvme/host/nvme.h
-> @@ -652,6 +652,8 @@ struct nvme_ctrl_ops {
->         int (*get_address)(struct nvme_ctrl *ctrl, char *buf, int size);
->         void (*print_device_info)(struct nvme_ctrl *ctrl);
->         bool (*supports_pci_p2pdma)(struct nvme_ctrl *ctrl);
-> +       int (*init_dma_buf_io_ctx)(struct nvme_ctrl *ctrl,
-> +                                  struct dma_buf_io_ctx *ctx);
->         unsigned long (*get_virt_boundary)(struct nvme_ctrl *ctrl, bool i=
-s_admin);
->  };
->
-> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-> index 69932d640b53..f1b67c191892 100644
-> --- a/drivers/nvme/host/pci.c
-> +++ b/drivers/nvme/host/pci.c
-> @@ -27,6 +27,8 @@
->  #include <linux/io-64-nonatomic-lo-hi.h>
->  #include <linux/io-64-nonatomic-hi-lo.h>
->  #include <linux/sed-opal.h>
-> +#include <linux/dma-buf-io.h>
-> +#include <linux/dma-resv.h>
->
->  #include "trace.h"
->  #include "nvme.h"
-> @@ -393,6 +395,13 @@ struct nvme_queue {
->         struct completion delete_done;
->  };
->
-> +struct nvme_dmabuf_map {
-> +       struct dma_buf_io_map base;
-> +       struct sg_table *sgt;
-> +       unsigned nr_entries;
-> +       dma_addr_t dma_list[];
-> +};
-> +
->  /* bits for iod->flags */
->  enum nvme_iod_flags {
->         /* this command has been aborted by the timeout handler */
-> @@ -859,6 +868,138 @@ static void nvme_free_descriptors(struct request *r=
-eq)
->         }
->  }
->
-> +static inline struct nvme_dmabuf_map *
-> +to_nvme_dmabuf_map(struct dma_buf_io_map *map)
-> +{
-> +       return container_of(map, struct nvme_dmabuf_map, base);
-> +}
-> +
-> +static void nvme_dmabuf_map_sync_for_cpu(struct nvme_dev *nvme_dev,
-> +                                        struct request *req)
-> +{
-> +       struct device *dev =3D nvme_dev->dev;
-> +       enum dma_data_direction dma_dir;
-> +       struct bio *bio =3D req->bio;
-> +       struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(bio->bi_dmabuf=
-_map);
-> +       dma_addr_t *dma_list =3D map->dma_list;
-> +       unsigned offset =3D bio->bi_iter.bi_offset;
-> +       unsigned map_idx =3D offset / NVME_CTRL_PAGE_SIZE;
-> +       int length =3D blk_rq_payload_bytes(req) +
-> +                    (offset & (NVME_CTRL_PAGE_SIZE - 1));
-> +
-> +       dma_dir =3D rq_data_dir(req) =3D=3D READ ? DMA_FROM_DEVICE : DMA_=
-TO_DEVICE;
-> +
-> +       while (length > 0) {
-> +               dma_sync_single_for_cpu(dev, dma_list[map_idx++],
-> +                                       NVME_CTRL_PAGE_SIZE, dma_dir);
-> +               length -=3D NVME_CTRL_PAGE_SIZE;
-> +       }
-> +}
-> +
-> +static void nvme_dmabuf_map_sync_for_device(struct nvme_dev *nvme_dev,
-> +                                           struct request *req)
-> +{
-> +       struct device *dev =3D nvme_dev->dev;
-> +       enum dma_data_direction dma_dir;
-> +       struct bio *bio =3D req->bio;
-> +       struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(bio->bi_dmabuf=
-_map);
-> +       dma_addr_t *dma_list =3D map->dma_list;
-> +       unsigned offset =3D bio->bi_iter.bi_offset;
-> +       unsigned map_idx =3D offset / NVME_CTRL_PAGE_SIZE;
-> +       int length =3D blk_rq_payload_bytes(req) +
-> +                    (offset & (NVME_CTRL_PAGE_SIZE - 1));
-> +
-> +       dma_dir =3D rq_data_dir(req) =3D=3D READ ? DMA_FROM_DEVICE : DMA_=
-TO_DEVICE;
-> +
-> +       while (length > 0) {
-> +               dma_sync_single_for_device(dev, dma_list[map_idx++],
-> +                                          NVME_CTRL_PAGE_SIZE, dma_dir);
-> +               length -=3D NVME_CTRL_PAGE_SIZE;
-> +       }
-> +}
-> +
-> +static void nvme_rq_clean_dmabuf_map(struct nvme_dev *dev,
-> +                                     struct request *req)
-> +{
-> +       struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> +
-> +       nvme_dmabuf_map_sync_for_cpu(dev, req);
-> +
-> +       if (!(iod->flags & IOD_SINGLE_SEGMENT))
-> +               nvme_free_descriptors(req);
-> +}
-> +
-> +static blk_status_t nvme_rq_setup_dmabuf_map(struct request *req,
-> +                                            struct nvme_queue *nvmeq)
-> +{
-> +       struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> +       struct bio *bio =3D req->bio;
-> +       struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(bio->bi_dmabuf=
-_map);
-> +       unsigned bvec_done =3D bio->bi_iter.bi_offset;
-> +       unsigned map_idx =3D bvec_done / NVME_CTRL_PAGE_SIZE;
-> +       unsigned offset =3D bvec_done & (NVME_CTRL_PAGE_SIZE - 1);
-> +       int length =3D blk_rq_payload_bytes(req) - (NVME_CTRL_PAGE_SIZE -=
- offset);
-> +       dma_addr_t *dma_list =3D map->dma_list;
-> +       u64 prp1_dma =3D dma_list[map_idx++] + offset;
-> +       u64 dma_addr, prp2_dma;
-> +       dma_addr_t prp_dma;
-> +       __le64 *prp_list;
-> +       unsigned i;
-> +
-> +       nvme_dmabuf_map_sync_for_device(nvmeq->dev, req);
-> +
-> +       if (length <=3D 0) {
-> +               prp2_dma =3D 0;
-> +               goto done;
-> +       }
-> +
-> +       if (length <=3D NVME_CTRL_PAGE_SIZE) {
-> +               prp2_dma =3D dma_list[map_idx];
-> +               goto done;
-> +       }
-> +
-> +       if (DIV_ROUND_UP(length, NVME_CTRL_PAGE_SIZE) <=3D
-> +           NVME_SMALL_POOL_SIZE / sizeof(__le64))
-> +               iod->flags |=3D IOD_SMALL_DESCRIPTOR;
-> +
-> +       prp_list =3D dma_pool_alloc(nvme_dma_pool(nvmeq, iod), GFP_ATOMIC=
-,
-> +                       &prp_dma);
+>  drivers/media/platform/qcom/camss/Kconfig        |    2 +
+>  drivers/media/platform/qcom/camss/Makefile       |    2 +
+>  drivers/media/platform/qcom/camss/ope/Kconfig    |   16 +
+>  drivers/media/platform/qcom/camss/ope/Makefile   |    9 +
+>  drivers/media/platform/qcom/camss/ope/core.c     | 3353 ++++++++++++++++++++++
+>  drivers/media/platform/qcom/camss/ope/params.c   |   75 +
+>  drivers/media/platform/qcom/camss/ope/params.h   |   62 +
+>  drivers/media/platform/qcom/camss/ope/pipeline.c |  399 +++
+>  drivers/media/platform/qcom/camss/ope/pipeline.h |  237 ++
+>  9 files changed, 4155 insertions(+)
+> 
 
-I wonder if it's possible to perform the PRP list page allocations and
-initialization in nvme_dma_buf_io_map() instead of the I/O path. The
-NVMe dma_pools are per-NUMA-node linked lists protected by spinlocks,
-making them significant CPU hotspots. If the dmabuf registration set
-up a contiguous DMA-coherent list of PRP entries for the pages of the
-registered buffer, any command using the dmabuf and requiring at most
-1 PRP list page (i.e. length <=3D 2 MB) could just set its PRP list
-pointer to an offset into the dmabuf's PRP list.
+<snip>
 
-Best,
-Caleb
+> +static int ope_open(struct file *file)
+> +{
+> +	struct video_device *vdev = video_devdata(file);
+> +	struct ope_dev *ope = container_of(vdev->v4l2_dev, struct ope_dev, v4l2_dev);
+> +	struct ope_ctx *ctx;
+> +	struct v4l2_fh *fh;
+> +	int ret = 0;
+> +
+> +	fh = kzalloc(sizeof(*fh), GFP_KERNEL);
+> +	if (!fh)
+> +		return -ENOMEM;
+> +
+> +	if (mutex_lock_interruptible(&ope->mutex)) {
+> +		kfree(fh);
+> +		return -ERESTARTSYS;
+> +	}
+> +
+> +	/*
+> +	 * For now, only a single shared context is supported,
+> +	 * until media multi-context support is available.
+> +	 */
+> +	if (!ope->shared_ctx) {
+> +		ctx = ope_ctx_create(ope);
+> +		if (IS_ERR(ctx)) {
+> +			ret = PTR_ERR(ctx);
+> +			goto unlock;
+> +		}
+> +	} else {
+> +		ctx = ope->shared_ctx;
+> +	}
+
+I am sure there were multiple discussions on how to implement multi-context. But this exact implementation somehow confuses me (maybe just me).
+
+This allows opening the same video node twice (e.g. the output node). vb2_is_busy protection is present everywhere to prevent races,
+but if two applications open the same video node the driver may end up in a situation where the format set by the first application is overridden
+by the second, but streaming somehow gets started on the first with the wrong format. The danger is not at the format-set call itself but at start_streaming, 
+when the hardware gets programmed with whatever format is current in the shared context.
+
+Maybe it makes sense to have a tiny wrapper on each OPE V4L2 video device that holds an open count and prevents opening the same video node twice,
+returning -EBUSY on a second open(), until multi-context support is available as mentioned here.
+
+Regards,
+~Gjorgji
 
 
-> +       if (!prp_list)
-> +               return BLK_STS_RESOURCE;
-> +
-> +       iod->descriptors[iod->nr_descriptors++] =3D prp_list;
-> +       prp2_dma =3D prp_dma;
-> +       i =3D 0;
-> +       for (;;) {
-> +               if (i =3D=3D NVME_CTRL_PAGE_SIZE >> 3) {
-> +                       __le64 *old_prp_list =3D prp_list;
-> +
-> +                       prp_list =3D dma_pool_alloc(nvmeq->descriptor_poo=
-ls.large,
-> +                                       GFP_ATOMIC, &prp_dma);
-> +                       if (!prp_list)
-> +                               goto free_prps;
-> +                       iod->descriptors[iod->nr_descriptors++] =3D prp_l=
-ist;
-> +                       prp_list[0] =3D old_prp_list[i - 1];
-> +                       old_prp_list[i - 1] =3D cpu_to_le64(prp_dma);
-> +                       i =3D 1;
-> +               }
-> +
-> +               dma_addr =3D dma_list[map_idx++];
-> +               prp_list[i++] =3D cpu_to_le64(dma_addr);
-> +
-> +               length -=3D NVME_CTRL_PAGE_SIZE;
-> +               if (length <=3D 0)
-> +                       break;
-> +       }
-> +done:
-> +       iod->cmd.common.dptr.prp1 =3D cpu_to_le64(prp1_dma);
-> +       iod->cmd.common.dptr.prp2 =3D cpu_to_le64(prp2_dma);
-> +       return BLK_STS_OK;
-> +free_prps:
-> +       nvme_free_descriptors(req);
-> +       return BLK_STS_RESOURCE;
-> +}
-> +
->  static void nvme_free_prps(struct request *req, unsigned int attrs)
->  {
->         struct nvme_iod *iod =3D blk_mq_rq_to_pdu(req);
-> @@ -937,6 +1078,11 @@ static void nvme_unmap_data(struct request *req)
->         struct device *dma_dev =3D nvmeq->dev->dev;
->         unsigned int attrs =3D 0;
->
-> +       if (blk_mq_rq_is_dmabuf(req)) {
-> +               nvme_rq_clean_dmabuf_map(nvmeq->dev, req);
-> +               return;
-> +       }
-> +
->         if (iod->flags & IOD_SINGLE_SEGMENT) {
->                 static_assert(offsetof(union nvme_data_ptr, prp1) =3D=3D
->                                 offsetof(union nvme_data_ptr, sgl.addr));
-> @@ -1251,6 +1397,9 @@ static blk_status_t nvme_map_data(struct request *r=
-eq)
->         struct blk_dma_iter iter;
->         blk_status_t ret;
->
-> +       if (blk_mq_rq_is_dmabuf(req))
-> +               return nvme_rq_setup_dmabuf_map(req, nvmeq);
-> +
->         /*
->          * Try to skip the DMA iterator for single segment requests, as t=
-hat
->          * significantly improves performances for small I/O sizes.
-> @@ -2269,6 +2418,112 @@ static int nvme_create_queue(struct nvme_queue *n=
-vmeq, int qid, bool polled)
->         return result;
->  }
->
-> +#if defined(CONFIG_DMA_SHARED_BUFFER)
-> +static void nvme_dmabuf_invalidate_mappings(struct dma_buf_attachment *a=
-ttach)
-> +{
-> +       struct dma_buf_io_ctx *ctx =3D attach->importer_priv;
-> +
-> +       dma_buf_io_invalidate_mappings(ctx);
-> +}
-> +
-> +const struct dma_buf_attach_ops nvme_dmabuf_importer_ops =3D {
-> +       .invalidate_mappings    =3D nvme_dmabuf_invalidate_mappings,
-> +       .allow_peer2peer        =3D true,
-> +};
-> +
-> +static struct dma_buf_io_map *nvme_dma_buf_io_map(struct dma_buf_io_ctx =
-*ctx)
-> +{
-> +       unsigned nr_entries =3D ctx->dmabuf->size / NVME_CTRL_PAGE_SIZE;
-> +       struct dma_buf_attachment *attach =3D ctx->dev_priv;
-> +       unsigned long tmp, i =3D 0;
-> +       struct nvme_dmabuf_map *map;
-> +       struct scatterlist *sg;
-> +       struct sg_table *sgt;
-> +       int ret;
-> +
-> +       dma_resv_assert_held(ctx->dmabuf->resv);
-> +
-> +       map =3D kmalloc_flex(*map, dma_list, nr_entries);
-> +       if (!map)
-> +               return ERR_PTR(-ENOMEM);
-> +
-> +       sgt =3D dma_buf_map_attachment(attach, ctx->dir);
-> +       if (IS_ERR(sgt)) {
-> +               ret =3D PTR_ERR(sgt);
-> +               sgt =3D NULL;
-> +               goto err;
-> +       }
-> +
-> +       for_each_sgtable_dma_sg(sgt, sg, tmp) {
-> +               dma_addr_t dma_addr =3D sg_dma_address(sg);
-> +               unsigned long sg_len =3D sg_dma_len(sg);
-> +
-> +               if (sg_len % NVME_CTRL_PAGE_SIZE) {
-> +                       ret =3D -EINVAL;
-> +                       goto err;
-> +               }
-> +
-> +               while (sg_len) {
-> +                       map->dma_list[i++] =3D dma_addr;
-> +                       dma_addr +=3D NVME_CTRL_PAGE_SIZE;
-> +                       sg_len -=3D NVME_CTRL_PAGE_SIZE;
-> +               }
-> +       }
-> +
-> +       ret =3D dma_buf_io_init_map(ctx, &map->base);
-> +       if (ret)
-> +               goto err;
-> +       map->nr_entries =3D nr_entries;
-> +       map->sgt =3D sgt;
-> +       return &map->base;
-> +err:
-> +       if (sgt)
-> +               dma_buf_unmap_attachment(attach, sgt, ctx->dir);
-> +       kfree(map);
-> +       return ERR_PTR(ret);
-> +}
-> +
-> +static void nvme_dma_buf_io_unmap(struct dma_buf_io_ctx *ctx,
-> +                                 struct dma_buf_io_map *map_base)
-> +{
-> +       struct dma_buf_attachment *attach =3D ctx->dev_priv;
-> +       struct nvme_dmabuf_map *map =3D to_nvme_dmabuf_map(map_base);
-> +
-> +       dma_resv_assert_held(ctx->dmabuf->resv);
-> +
-> +       dma_buf_unmap_attachment(attach, map->sgt, ctx->dir);
-> +}
-> +
-> +static void nvme_dma_buf_io_release(struct dma_buf_io_ctx *ctx)
-> +{
-> +       struct dma_buf_attachment *attach =3D ctx->dev_priv;
-> +
-> +       dma_buf_detach(ctx->dmabuf, attach);
-> +}
-> +
-> +const struct dma_buf_io_ops nvme_dma_buf_io_ops =3D {
-> +       .map            =3D nvme_dma_buf_io_map,
-> +       .unmap          =3D nvme_dma_buf_io_unmap,
-> +       .release        =3D nvme_dma_buf_io_release,
-> +};
-> +
-> +static int nvme_pci_init_dma_buf_io_ctx(struct nvme_ctrl *ctrl,
-> +                                       struct dma_buf_io_ctx *ctx)
-> +{
-> +       struct dma_buf_attachment *attach;
-> +       struct nvme_dev *dev =3D to_nvme_dev(ctrl);
-> +
-> +       attach =3D dma_buf_dynamic_attach(ctx->dmabuf, dev->dev,
-> +                                       &nvme_dmabuf_importer_ops, ctx);
-> +       if (IS_ERR(attach))
-> +               return PTR_ERR(attach);
-> +
-> +       ctx->dev_priv =3D attach;
-> +       ctx->dev_ops =3D &nvme_dma_buf_io_ops;
-> +       return 0;
-> +}
-> +#endif
-> +
->  static const struct blk_mq_ops nvme_mq_admin_ops =3D {
->         .queue_rq       =3D nvme_queue_rq,
->         .complete       =3D nvme_pci_complete_rq,
-> @@ -3563,6 +3818,9 @@ static const struct nvme_ctrl_ops nvme_pci_ctrl_ops=
- =3D {
->         .print_device_info      =3D nvme_pci_print_device_info,
->         .supports_pci_p2pdma    =3D nvme_pci_supports_pci_p2pdma,
->         .get_virt_boundary      =3D nvme_pci_get_virt_boundary,
-> +#if defined(CONFIG_DMA_SHARED_BUFFER)
-> +       .init_dma_buf_io_ctx    =3D nvme_pci_init_dma_buf_io_ctx,
-> +#endif
->  };
->
->  static int nvme_dev_map(struct nvme_dev *dev)
-> @@ -4327,5 +4585,6 @@ MODULE_AUTHOR("Matthew Wilcox <willy@linux.intel.co=
-m>");
->  MODULE_LICENSE("GPL");
->  MODULE_VERSION("1.0");
->  MODULE_DESCRIPTION("NVMe host PCIe transport driver");
-> +MODULE_IMPORT_NS("DMA_BUF");
->  module_init(nvme_init);
->  module_exit(nvme_exit);
-> --
-> 2.54.0
->
->
