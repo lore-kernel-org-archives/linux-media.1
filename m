@@ -1,128 +1,198 @@
-Received: from smtpbgau2.qq.com (smtpbgau2.qq.com [54.206.34.216])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B5C3BBA0E;
-	Wed, 29 Jul 2026 07:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.34.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7325F3FF1C4;
+	Wed, 29 Jul 2026 07:21:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785309127; cv=none; b=YnM1ZKxWwRVXrxc08LH2clndwM2vamg04Dm1KS2dwG+uGBuRjla/i4MiFXXiIcgiR0RxIg+P2DmpUY9CLkT/dq0qzEHHiT7w96BiYAW3mcOYQ1+OmHWgip1OdtJMaEPiRAPEqE5mw6rggCqN2EcbGQkXfZkvqeb0NiBcxrSQ0us=
+	t=1785309702; cv=none; b=qXDCpTnGNCMpbXrLmMxgEGNet531nh1JefQiMm/gjiK6hsixsgptlSrKknb9U7rZHCNfjXH9TUPAIayfwXvJ84RiG3e0Zuksn4T0uB//oXA5CCalLsvt8GVSC56tTxEKeENZ/WgyjHYzZCxGhO/fkHYghvxOf+r1M2szpK2sjTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785309127; c=relaxed/simple;
-	bh=0jBSwWWxAPh2XhzKlKX3Ha/G7MTAa4fmccZf+ivZit8=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=eE+x5/kyJ9Zi50Bx+atpzCDDvO8ULu2RfiT8Q/kTCZ3yp5wCZWacixKFrEjdLQv52oj4cL+vI/q62zy1Dxn1tnrz36UoEkEr5vSiDssQaOtVniOZKyJK7nI1jZChmDhxdhQtOe16u156p5v554QwAKCyXHJl8dD9/1Y8b8rl5Ok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=OFHIbaRs; arc=none smtp.client-ip=54.206.34.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="OFHIbaRs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1785309115;
-	bh=ItAzDrGXYP8b6c97M26jIDQMPp6eaBvh2rEKaBw/1IQ=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=OFHIbaRsOTjWdRnwsUZ3WL8hir8N4KeeRsgLOEoWr9vW5pR8v6QK5Kh+9J7ztvmtl
-	 XVYsDRgS2WZPuveMlwU+V03KqlDILSQyUV1yIitGkaaMhDj/bRXGkIY2k1hyMZtfpO
-	 IlqKEyp6JauQkC7c4nS/HNLmimjyXyed+8lbTKHE=
-X-QQ-mid: zesmtpgz6t1785309103ta048b11d
-X-QQ-Originating-IP: 2KaEe4OPHTK3VuFLrCf1V0uN+XzuixMQmanUNhrWej0=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Wed, 29 Jul 2026 15:11:41 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 15843917138568715823
-EX-QQ-RecipientCnt: 15
-From: Haowen Tu <tuhaowen@uniontech.com>
-To: laurent.pinchart@ideasonboard.com,
-	rafael@kernel.org
-Cc: gregkh@linuxfoundation.org,
-	hansg@kernel.org,
-	kernel@uniontech.com,
-	lenb@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mchehab@kernel.org,
-	oneukum@suse.com,
-	pavel@kernel.org,
-	stern@rowland.harvard.edu,
-	tuhaowen@uniontech.com
-Subject: [PATCH v4 3/4] PM: hibernate: notify on image write failure
-Date: Wed, 29 Jul 2026 15:11:22 +0800
-Message-Id: <e2b88a0b33797b36ce4b1c8340a9f33d844fb79d.1785226280.git.tuhaowen@uniontech.com>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <cover.1785226280.git.tuhaowen@uniontech.com>
-References: <20260723084633.GE648629@killaraus.ideasonboard.com> <cover.1785226280.git.tuhaowen@uniontech.com>
+	s=arc-20240116; t=1785309702; c=relaxed/simple;
+	bh=jm63ujggDGcJk+nobtNkRB8tEtWZgchyj+8aoHeZa7c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JeFJf+FqGrOlXgiSnNbGZ/CWrOQymnlFbQsIuTjBdgynFi5iZTlYvn0WYhtFgKwpNvuHgSTv5m7uqvVHQ/Fgs8i2fql1A3Rk7HS8zUAURmFTTAXQ2sfCrPJWUPsljXGzzJco7w9q/QsbMLpWtMe6WEDXQKEW4rdcNTp9FWt7kaQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id DC54468AFE; Wed, 29 Jul 2026 09:21:17 +0200 (CEST)
+Date: Wed, 29 Jul 2026 09:21:17 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
+	io-uring@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	Anuj Gupta <anuj20.g@samsung.com>,
+	Tushar Gohad <tushar.gohad@intel.com>,
+	William Power <william.power@intel.com>,
+	Phil Cayton <phil.cayton@intel.com>,
+	Jason Gunthorpe <jgg@nvidia.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>,
+	Vishal Verma <vishal.l.verma@intel.com>,
+	David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
+	dm-devel@lists.linux.dev, nvdimm@lists.linux.dev,
+	linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org
+Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
+Message-ID: <20260729072117.GI9534@lst.de>
+References: <cover.1785274111.git.asml.silence@gmail.com> <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpgz:uniontech.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: Mfy7wfw2LMQ4F9Vpyw4N3tk1S5MfL5MK6bnS4EsOq2FSKhM0oVocn0a9
-	V/8ERSOCv1xLQ4PBrmjwoZLVEPLerrNTHCW6f7/Y8I6aHWLtFnX9J3opA+kaT9U7DW89FtL
-	yPqUx9xz0CIqWVF1i/pgs6SbAC7BUJwYEQKREQB0sImeDz9IwhRbbCco8ThhXAbWqWo/Vmv
-	3CjvyNGgBALd72GUdnHZyXcWeQRNYtQxWz/xC6Ksi6kSwxtjumMNLRq+5xRDAOHyyivEgNt
-	hsiREn17PCDFFwjMGEfIXZIOfyNoXegmMzEMlToouIu6hKV63nJcM6kFDgrGxpfP+1NGEBY
-	M8j5MP7Urx6UvoLVx7J3Cpd7+vFZzHKhnOfIQ7QsZTZcMPwoQU5n0QuEaaKTwvRnntz2A/0
-	4mJdxEu9qE8LXzi9BCJjoDk0OS2fzWxc6xGx+CtCJtcbkZ/cTz7di+Vsk32uv8jHxTvj12Q
-	M4T1MeDOmMbmdLu/EU3rbRqhasYinVNYp/qtIWFE+Uqv7F1aStELLusfTMstjwc1IHOLLov
-	X59JxNffsC8FPiFQ5kJ1IZt1RsiMR4Ocsa4BqGsXYFOalVdHq1IRuwfiLakkjdiMLVrdswF
-	YEYpDUmRcP5gx/Wlr3iosnG6spTCOQztUi4sF8H63RVqlqFYOgZSu0VxY5geVCRRqBasdJh
-	WSq/+pad+ji52xCYj8nKvOinnY62C+pLdmsMWsihA7RmlrOoyKu7Q/joaiw1h8SVvdHRRrE
-	9OKqGo5QZS0arfLBWu4lGx5cUJW4c5Tm6FCseyyMyy8B0UNqmGG59VXJPYMW146KtT37HU+
-	ZwcaMxggAsV11wR1/rhDfTdsgyFZJ/DQLbzQ6dOI8a7LP0nTMNG/RWZyxaLR7SI9KwpPJWX
-	4CKIosLH744mOI3xajsBK2nLn2lhl4HduEKYhStxU4M8C9fWgnupttpGNuSmRRn6xo65hj8
-	c0+k0GWBHv36lcVQp5W+loonUhgdRVwmOO7Zm4DWg6DqY7/9sRtmyPxmt9/CBEYbpOjOwlR
-	WzRjsDbrtmEkdhPuOqIPWbsvcdBHUan+ARlr/whrTeKF5+NVNWQfZkYXCXDKk=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-Some drivers may defer device-specific resume work after the hibernation
-snapshot has been created, because the system is expected to either write
-the image and power off, or enter the test-resume path.
+On Tue, Jul 28, 2026 at 10:29:21PM +0100, Pavel Begunkov wrote:
+> From: Anuj Gupta <anuj20.g@samsung.com>
+> 
+> Add SGL support in addition to PRP for dmabuf-backed requests,
+> coalescing the mapping's sg_table into NVMe SGL data descriptors.
+> 
+> Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
+> [pavel: rebased]
+> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+> ---
+>  drivers/nvme/host/pci.c | 191 +++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 187 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
+> index f1b67c191892..cbb321fb7c50 100644
+> --- a/drivers/nvme/host/pci.c
+> +++ b/drivers/nvme/host/pci.c
+> @@ -1287,12 +1287,18 @@ static blk_status_t nvme_pci_setup_data_prp(struct request *req,
+>  	return BLK_STS_IOERR;
+>  }
+>  
+> +static void nvme_pci_sgl_set_data_addr(struct nvme_sgl_desc *sge,
+> +				       dma_addr_t addr, u32 len)
+> +{
+> +	sge->addr = cpu_to_le64(addr);
+> +	sge->length = cpu_to_le32(len);
+> +	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
+> +}
+> +
+>  static void nvme_pci_sgl_set_data(struct nvme_sgl_desc *sge,
+>  		struct blk_dma_iter *iter)
+>  {
+> -	sge->addr = cpu_to_le64(iter->addr);
+> -	sge->length = cpu_to_le32(iter->len);
+> -	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
+> +	nvme_pci_sgl_set_data_addr(sge, iter->addr, iter->len);
+>  }
 
-If writing the image fails, however, the original kernel continues
-running. Add a PM_HIBERNATION_IMAGE_WRITE_FAILED notification after
-swsusp_write() fails and before userspace is thawed, so drivers that
-deferred resume work can recover their device state before userspace
-observes it.
+The naming is a bit confusing (and me passing the iter to
+nvme_pci_sgl_set_data is probably at faul for that).  So maybe
+spin out a prep patch to rename the old nvme_pci_sgl_set_data
+to nvme_pci_dma_iter_set_sgl or so, and then add the new one
+as nvme_pci_sgl_set_data (as before the dma_iter conversion).
 
-Signed-off-by: Haowen Tu <tuhaowen@uniontech.com>
----
- include/linux/suspend.h  | 1 +
- kernel/power/hibernate.c | 3 +++
- 2 files changed, 4 insertions(+)
+>
+> +static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req,
+> +					      dma_addr_t *first_dma,
+> +					      u32 *first_len)
 
-diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index 2cebbec3e2f7..36a5b3a8cb38 100644
---- a/include/linux/suspend.h
-+++ b/include/linux/suspend.h
-@@ -441,6 +441,7 @@ static inline int is_hibernate_resume_dev(dev_t dev) { return 0; }
- #define PM_POST_SUSPEND		0x0004 /* Suspend finished */
- #define PM_RESTORE_PREPARE	0x0005 /* Going to restore a saved image */
- #define PM_POST_RESTORE		0x0006 /* Restore failed */
-+#define PM_HIBERNATION_IMAGE_WRITE_FAILED	0x0007 /* Image write failed */
- 
- extern struct mutex system_transition_mutex;
- 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index 045d29f55011..592862fd45d4 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -890,6 +890,9 @@ int hibernate(void)
- 				power_down();
- 		}
- 		pm_restore_gfp_mask();
-+
-+		if (error)
-+			pm_notifier_call_chain(PM_HIBERNATION_IMAGE_WRITE_FAILED);
- 	} else {
- 		pm_pr_dbg("Hibernation image restored successfully.\n");
- 	}
--- 
-2.20.1
+This is a really good example why the aligning to the opening braces
+produces totally unreadble code..
+
+But I also don't understand what the use case for this function
+is to start with.  struct sg_table tells us how many segments
+exist on the DMA side in the nents member, which should be just
+fine for the SGL threshold calculation.
+
+> +{
+> +	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
+> +	struct bio *bio = req->bio;
+> +	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
+> +	size_t length = blk_rq_payload_bytes(req);
+> +	struct nvme_sgl_desc *sg_list = NULL;
+> +	dma_addr_t sgl_dma = 0, last_end = 0;
+> +	unsigned int mapped = 0;
+> +	unsigned long tmp;
+> +	struct scatterlist *sg;
+> +	size_t offset, remaining;
+> +	bool have = false;
+> +
+> +	if (!entries)
+> +		return BLK_STS_IOERR;
+> +	if (entries > NVME_MAX_SEGS)
+> +		return BLK_STS_AGAIN;
+
+Given that the block layer enforced data in rw/command and the
+max_segments limit, why do we need the extra check here?
+
+> +			continue;
+> +		}
+> +
+> +		addr += offset;
+> +		sg_len -= offset;
+> +		offset = 0;
+> +
+> +		while (sg_len && remaining) {
+
+These can't be false on the first iteration, so maybe turn this into
+a do {} while loop?
+
+> +			u32 chunk = min_t(size_t, remaining, sg_len);
+> +
+> +			if (have && last_end == addr) {
+> +				u32 old = le32_to_cpu(sg_list[mapped - 1].length);
+> +
+> +				sg_list[mapped - 1].length = cpu_to_le32(old + chunk);
+
+Overly long line.
+
+> +			} else {
+> +				if (WARN_ON_ONCE(mapped == entries))
+> +					goto err_free;
+> +				nvme_pci_sgl_set_data_addr(&sg_list[mapped++],
+> +							   addr, chunk);
+> +			}
+
+Why do we need this merging?  dma_map_sg should have already done
+any interesting merging, or am I missing something?
+
+> +		if (use_sgl != SGL_UNSUPPORTED) {
+> +			dma_addr_t first_dma;
+> +			u32 first_len;
+> +			unsigned int entries;
+> +
+> +			entries = nvme_pci_dmabuf_sgl_nents(req, &first_dma,
+> +							    &first_len);
+> +
+> +			if (use_sgl == SGL_FORCED) {
+> +				ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq,
+> +								entries, first_dma, first_len);
+> +				return ret == BLK_STS_AGAIN ? BLK_STS_IOERR : ret;
+> +			}
+> +
+> +			if (sgl_threshold && entries &&
+> +			    DIV_ROUND_UP(blk_rq_payload_bytes(req), entries) >=
+> +			    sgl_threshold) {
+> +				ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq,
+> +								entries, first_dma, first_len);
+> +				if (ret != BLK_STS_AGAIN)
+> +					return ret;
+> +			}
+> +		}
+
+Various overly long lines.  Please factor out a helper for the
+decisions to use sgl vs not instead of open coding it here.
+
+
