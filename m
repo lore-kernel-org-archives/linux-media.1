@@ -1,198 +1,152 @@
-Received: from verein.lst.de (verein.lst.de [213.95.11.211])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7325F3FF1C4;
-	Wed, 29 Jul 2026 07:21:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.237.72.81])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 65AEC3D9678;
+	Wed, 29 Jul 2026 07:27:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.237.72.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785309702; cv=none; b=qXDCpTnGNCMpbXrLmMxgEGNet531nh1JefQiMm/gjiK6hsixsgptlSrKknb9U7rZHCNfjXH9TUPAIayfwXvJ84RiG3e0Zuksn4T0uB//oXA5CCalLsvt8GVSC56tTxEKeENZ/WgyjHYzZCxGhO/fkHYghvxOf+r1M2szpK2sjTU=
+	t=1785310062; cv=none; b=kLMsbpMNBJG1Mx4SgB0f2cSs4P7QvtRmdOXz4iu/+XzEQoqsIkYOCz6S6Eq+Z1fJq/r8EjmVaTUPAdWeLUS/wQG60cdWbWy5JMs130tTPTsQSAmAr3rzMaXCmB39gzwSalsjRf0snEJkqRCuTAz1GKJ2uGjVDfSUnI89Gmt+OGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785309702; c=relaxed/simple;
-	bh=jm63ujggDGcJk+nobtNkRB8tEtWZgchyj+8aoHeZa7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JeFJf+FqGrOlXgiSnNbGZ/CWrOQymnlFbQsIuTjBdgynFi5iZTlYvn0WYhtFgKwpNvuHgSTv5m7uqvVHQ/Fgs8i2fql1A3Rk7HS8zUAURmFTTAXQ2sfCrPJWUPsljXGzzJco7w9q/QsbMLpWtMe6WEDXQKEW4rdcNTp9FWt7kaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id DC54468AFE; Wed, 29 Jul 2026 09:21:17 +0200 (CEST)
-Date: Wed, 29 Jul 2026 09:21:17 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Pavel Begunkov <asml.silence@gmail.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
-	Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Christian Brauner <brauner@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Nitesh Shetty <nj.shetty@samsung.com>,
-	Kanchan Joshi <joshi.k@samsung.com>,
-	Anuj Gupta <anuj20.g@samsung.com>,
-	Tushar Gohad <tushar.gohad@intel.com>,
-	William Power <william.power@intel.com>,
-	Phil Cayton <phil.cayton@intel.com>,
-	Jason Gunthorpe <jgg@nvidia.com>,
-	Damien Le Moal <dlemoal@kernel.org>,
-	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>,
-	Vishal Verma <vishal.l.verma@intel.com>,
-	David Sterba <dsterba@suse.com>, Ilya Dryomov <idryomov@gmail.com>,
-	dm-devel@lists.linux.dev, nvdimm@lists.linux.dev,
-	linux-btrfs@vger.kernel.org, ceph-devel@vger.kernel.org
-Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
-Message-ID: <20260729072117.GI9534@lst.de>
-References: <cover.1785274111.git.asml.silence@gmail.com> <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+	s=arc-20240116; t=1785310062; c=relaxed/simple;
+	bh=u/a4KPmBlaEia+AmwHWXXSHDQQ5/I+Va9QoEwAHlZgw=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=LUYvXyr0pZP1xMqHiwbIwrhS06GenM9oA+tkglpsqfFwDYu+XxFNtDMn8exQOyQVVpN4e8wpLDF6Usb7BbnmaMFGfnrkmIu078MJwwoJjt6QVKOiqZv9F9AynEYic0ObbTPQYVJKDpgrQA/W/iW8qcsmwfjmrUOTGhFy9goe3Uo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=52.237.72.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wDnAH1Oq2lqafZKAA--.5394S3;
+	Wed, 29 Jul 2026 15:27:11 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgBn2c5Mq2lqEM5QAw--.8290S2;
+	Wed, 29 Jul 2026 15:27:09 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mchehab@kernel.org
+Cc: hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v3] media: cx231xx-audio: drain wq_trigger before audio fini
+Date: Wed, 29 Jul 2026 07:26:13 +0000
+Message-Id: <20260729072613.264429-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260716134846.3132097-1-fanwu01@zju.edu.cn>
+References: <20260716134846.3132097-1-fanwu01@zju.edu.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgBn2c5Mq2lqEM5QAw--.8290S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?CJwYeQXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI2j3awJT+p0AFtkS3Kpp4g60yA1qECR0+kQ94zHYPgTFEpb
+	z7h18OmAJ2ABOuvlOmo=
+X-Coremail-Antispam: 1Uk129KBj93XoWxuFy8tFyDJFyrtF4rKrWUJrc_yoW5uw18p3
+	4v9FZ8KFW7J3y2yF4DXw1xX3W5Cws7ta18CrW3XF1UJwn0yr18C3W5trWxurn5uFWxAay2
+	yr1UXrWqy3yqvagCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUU9lb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxMxAIw28IcxkI7VAKI48JMxC20s02
+	6xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_Jr
+	I_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v2
+	6r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj4
+	0_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8
+	JbIYCTnIWIevJa73UjIFyTuYvjxU2LIDUUUUU
 
-On Tue, Jul 28, 2026 at 10:29:21PM +0100, Pavel Begunkov wrote:
-> From: Anuj Gupta <anuj20.g@samsung.com>
-> 
-> Add SGL support in addition to PRP for dmabuf-backed requests,
-> coalescing the mapping's sg_table into NVMe SGL data descriptors.
-> 
-> Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
-> [pavel: rebased]
-> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
-> ---
->  drivers/nvme/host/pci.c | 191 +++++++++++++++++++++++++++++++++++++++-
->  1 file changed, 187 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/nvme/host/pci.c b/drivers/nvme/host/pci.c
-> index f1b67c191892..cbb321fb7c50 100644
-> --- a/drivers/nvme/host/pci.c
-> +++ b/drivers/nvme/host/pci.c
-> @@ -1287,12 +1287,18 @@ static blk_status_t nvme_pci_setup_data_prp(struct request *req,
->  	return BLK_STS_IOERR;
->  }
->  
-> +static void nvme_pci_sgl_set_data_addr(struct nvme_sgl_desc *sge,
-> +				       dma_addr_t addr, u32 len)
-> +{
-> +	sge->addr = cpu_to_le64(addr);
-> +	sge->length = cpu_to_le32(len);
-> +	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
-> +}
-> +
->  static void nvme_pci_sgl_set_data(struct nvme_sgl_desc *sge,
->  		struct blk_dma_iter *iter)
->  {
-> -	sge->addr = cpu_to_le64(iter->addr);
-> -	sge->length = cpu_to_le32(iter->len);
-> -	sge->type = NVME_SGL_FMT_DATA_DESC << 4;
-> +	nvme_pci_sgl_set_data_addr(sge, iter->addr, iter->len);
->  }
+audio_trigger() is deferred work (dev->wq_trigger) armed from
+snd_cx231xx_capture_trigger() on every PCM START/STOP; it dereferences
+dev->adev state and may free the URBs via cx231xx_isoc_audio_deinit().
+cx231xx_audio_fini() tore down that state without draining wq_trigger,
+so work armed before or racing fini ran against freed state.
 
-The naming is a bit confusing (and me passing the iter to
-nvme_pci_sgl_set_data is probably at faul for that).  So maybe
-spin out a prep patch to rename the old nvme_pci_sgl_set_data
-to nvme_pci_dma_iter_set_sgl or so, and then add the new one
-as nvme_pci_sgl_set_data (as before the dma_iter conversion).
+Use disable_work_sync() in fini to drain the work and prevent further
+queueing.  Initialize the work, lock and stream_started counter at the
+top of cx231xx_audio_init(), before any fallible allocation, and clear
+the partially-built audio state on its error path, so fini is safe even
+if a later step fails.
 
->
-> +static unsigned int nvme_pci_dmabuf_sgl_nents(struct request *req,
-> +					      dma_addr_t *first_dma,
-> +					      u32 *first_len)
+This issue was found by an in-house static analysis tool.
 
-This is a really good example why the aligning to the opening braces
-produces totally unreadble code..
+Fixes: 61b04cb24a12 ("[media] cx231xx-audio: fix some locking issues")
+Cc: stable@vger.kernel.org # v6.10+
+Link: https://lore.kernel.org/r/8c7e1294-b906-4636-890c-b64d03b0e1d0@kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+---
+Changes in v2: use disable_work_sync() instead of a teardown flag +
+cancel_work_sync(), as suggested by Hans Verkuil.  The init-ordering
+fix and error-path cleanup from v1 are retained.
 
-But I also don't understand what the use case for this function
-is to start with.  struct sg_table tells us how many segments
-exist on the DMA side in the nents member, which should be just
-fine for the SGL threshold calculation.
+Changes in v3: v2 was mailed with an unrelated ti/vpe diff in its body
+(an internal packaging error); this version restores the intended
+cx231xx-audio.c change.  The commit message and trailers are unchanged
+from v2.
+---
+ drivers/media/usb/cx231xx/cx231xx-audio.c | 15 ++++++++++++---
+ 1 file changed, 12 insertions(+), 3 deletions(-)
 
-> +{
-> +	struct nvme_iod *iod = blk_mq_rq_to_pdu(req);
-> +	struct bio *bio = req->bio;
-> +	struct nvme_dmabuf_map *map = to_nvme_dmabuf_map(bio->bi_dmabuf_map);
-> +	size_t length = blk_rq_payload_bytes(req);
-> +	struct nvme_sgl_desc *sg_list = NULL;
-> +	dma_addr_t sgl_dma = 0, last_end = 0;
-> +	unsigned int mapped = 0;
-> +	unsigned long tmp;
-> +	struct scatterlist *sg;
-> +	size_t offset, remaining;
-> +	bool have = false;
-> +
-> +	if (!entries)
-> +		return BLK_STS_IOERR;
-> +	if (entries > NVME_MAX_SEGS)
-> +		return BLK_STS_AGAIN;
-
-Given that the block layer enforced data in rw/command and the
-max_segments limit, why do we need the extra check here?
-
-> +			continue;
-> +		}
-> +
-> +		addr += offset;
-> +		sg_len -= offset;
-> +		offset = 0;
-> +
-> +		while (sg_len && remaining) {
-
-These can't be false on the first iteration, so maybe turn this into
-a do {} while loop?
-
-> +			u32 chunk = min_t(size_t, remaining, sg_len);
-> +
-> +			if (have && last_end == addr) {
-> +				u32 old = le32_to_cpu(sg_list[mapped - 1].length);
-> +
-> +				sg_list[mapped - 1].length = cpu_to_le32(old + chunk);
-
-Overly long line.
-
-> +			} else {
-> +				if (WARN_ON_ONCE(mapped == entries))
-> +					goto err_free;
-> +				nvme_pci_sgl_set_data_addr(&sg_list[mapped++],
-> +							   addr, chunk);
-> +			}
-
-Why do we need this merging?  dma_map_sg should have already done
-any interesting merging, or am I missing something?
-
-> +		if (use_sgl != SGL_UNSUPPORTED) {
-> +			dma_addr_t first_dma;
-> +			u32 first_len;
-> +			unsigned int entries;
-> +
-> +			entries = nvme_pci_dmabuf_sgl_nents(req, &first_dma,
-> +							    &first_len);
-> +
-> +			if (use_sgl == SGL_FORCED) {
-> +				ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq,
-> +								entries, first_dma, first_len);
-> +				return ret == BLK_STS_AGAIN ? BLK_STS_IOERR : ret;
-> +			}
-> +
-> +			if (sgl_threshold && entries &&
-> +			    DIV_ROUND_UP(blk_rq_payload_bytes(req), entries) >=
-> +			    sgl_threshold) {
-> +				ret = nvme_rq_setup_dmabuf_sgl(req, nvmeq,
-> +								entries, first_dma, first_len);
-> +				if (ret != BLK_STS_AGAIN)
-> +					return ret;
-> +			}
-> +		}
-
-Various overly long lines.  Please factor out a helper for the
-decisions to use sgl vs not instead of open coding it here.
-
+diff --git a/drivers/media/usb/cx231xx/cx231xx-audio.c b/drivers/media/usb/cx231xx/cx231xx-audio.c
+index 9c71b32552df..1179cb0334f4 100644
+--- a/drivers/media/usb/cx231xx/cx231xx-audio.c
++++ b/drivers/media/usb/cx231xx/cx231xx-audio.c
+@@ -576,12 +576,19 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 	dev_dbg(dev->dev,
+ 		"probing for cx231xx non standard usbaudio\n");
+ 
++	/*
++	 * Extension init errors are ignored by the cx231xx core, so fini()
++	 * must be safe even if initialization fails part way through.
++	 */
++	spin_lock_init(&adev->slock);
++	INIT_WORK(&dev->wq_trigger, audio_trigger);
++	atomic_set(&dev->stream_started, 0);
++
+ 	err = snd_card_new(dev->dev, index[devnr], "Cx231xx Audio",
+ 			   THIS_MODULE, 0, &card);
+ 	if (err < 0)
+ 		return err;
+ 
+-	spin_lock_init(&adev->slock);
+ 	err = snd_pcm_new(card, "Cx231xx Audio", 0, 0, 1, &pcm);
+ 	if (err < 0)
+ 		goto err_free_card;
+@@ -596,8 +603,6 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 	strscpy(card->shortname, "Cx231xx Audio", sizeof(card->shortname));
+ 	strscpy(card->longname, "Conexant cx231xx Audio", sizeof(card->longname));
+ 
+-	INIT_WORK(&dev->wq_trigger, audio_trigger);
+-
+ 	err = snd_card_register(card);
+ 	if (err < 0)
+ 		goto err_free_card;
+@@ -651,8 +656,10 @@ static int cx231xx_audio_init(struct cx231xx *dev)
+ 
+ err_free_pkt_size:
+ 	kfree(adev->alt_max_pkt_size);
++	adev->alt_max_pkt_size = NULL;
+ err_free_card:
+ 	snd_card_free(card);
++	adev->sndcard = NULL;
+ 
+ 	return err;
+ }
+@@ -669,6 +676,8 @@ static int cx231xx_audio_fini(struct cx231xx *dev)
+ 		return 0;
+ 	}
+ 
++	disable_work_sync(&dev->wq_trigger);
++
+ 	if (dev->adev.sndcard) {
+ 		snd_card_free_when_closed(dev->adev.sndcard);
+ 		kfree(dev->adev.alt_max_pkt_size);
+-- 
+2.34.1
 
