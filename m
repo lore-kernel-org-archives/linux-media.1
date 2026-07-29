@@ -1,86 +1,67 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 764243BFAE7
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B31703CB56B
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785354816; cv=none; b=Ovuca6j/9WyfIFcdsOTYjP5MxoS1KybOiIWOlEAJjYbHYHNG5+kZZevB8QV7Lm8brlz8b6QPvoly5xz036IISW3kwQM4sOT3269rfV9aUiv8+nn7zQH22j51bo0tjRxhI6TtZYJFuRz1JJ3HB1q8igiC+w/v7FVUkZCsQnT0D4w=
+	t=1785355073; cv=none; b=Ol9fnoz3BcUzVHzw/gbgCMepeubAB/ILy60D7CCNj9LUKF184GbmN6wb289BQlUH9FWTdPnsjb8MuCC9uqt7pVPitQ2oSUd3Eifl35NXLt6jiWHHRgUpIYbGuRbsXblfJ+u5KFsbHYQIh97bEJEt8PVvFVeDl7xf/V7lwcffgaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785354816; c=relaxed/simple;
-	bh=XwCqQYzPO6KrgWsbPSkf7QsVyNBDZ2WApQ1+GZGiDgE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=pkcz6zifIKw6bfnwlb3rGzhd/rPXw7FTdkTVxRiQfUtN7RFSLQ8xb66CzXKNuAbyQj19bblfYWBIc6gdLpOtNU+VeZcpdjq3NfdtGMmxhsQPw/b6l1EhDW662b/Sij3XR4gv1VF95r4MTvw2qKxljsmmv4RuvnqHu38761ZSGiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OLvYPWmz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bLAuiEgp; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785355073; c=relaxed/simple;
+	bh=jbGSyWqJyLohTYmCLKvB730dHsQBMDNbc5XkanPK7/I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=X2+WWicic/AiNhiPSUptGCsmJ073C8YT9HGAsu9wL61bWsfa8sGgwh9F8G4xHVJ6OOR/LksTAARIykSq2kSL30/7en72ufTdvPrLBjT8yGwUeR1y6TwpTnhamY0hFHK5i59HHT2qn8qNsO6ymb8OE7LoWiReUpoQkLZNV05Iqqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a8zbIz3e; arc=none smtp.client-ip=209.85.167.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OLvYPWmz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bLAuiEgp"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TJoiqo3062385
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=; b=OLvYPWmzEYluUP+u
-	23W8iCkhB9zxefi1Is7teD1I0dJhXfuwy48rAr19I5gnGZLwsoAwF7NN7uulqs1p
-	9+nShoNt9pP8JvuLJuL77gLxS3c61CXca8s83/HmG1HkJfpbsyhmY1x4EI2ASUDd
-	nL3iyIkliTQJ4Ee1+Q+lHKqfprFeytqAx1WgY6IkNMEOAKt2mCtnmtdsdDXr3H2B
-	P7aSjEHWs4+shKIDRBO4OSoPgdlfQxp+dAbXrBFq20g9WWpPZIG+3hMP/4kgK4DF
-	tLQmyAhaOcjSe2kusarP3cxJcnnGR/UrMhxEerCoWep7zs0qnee6iW2NMo7e4Mkk
-	6kNHcg==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqr1jg0cn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 19:53:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51c1d30035dso11863411cf.2
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 12:53:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a8zbIz3e"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b014810feeso170711e87.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 12:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785354808; x=1785959608; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=;
-        b=bLAuiEgpNmrCTKX37rUxqftBqTv6xjscPDMQD2f1Zeocv8mDyABeerUnADHchmMI2V
-         gz778bd/OGDWaAP7fu8ZSUUjrcBngVc/c5L3fXxaILJX8N7uFqWcU8SoNqUWozqpSwOo
-         1yZA0jKf9vfnzDCC8VKAVZ9yTA3nOCRXdftTcnIvV0mHHWczghxqE2oTFtO5P5kiwZ3Z
-         yYRrxblhRdTPayESq3jDFUKjP2ZF6EGigoa9YDU0wu4BdzknyB02LliCMd+0c9Jjm0ul
-         jD51R3l+mawU9/VBnzWZLU3tnDCuLg5HhtIFeynE8/ruqDQd7M1nDd+sXql1lXdf1Wl4
-         JHvw==
+        d=linaro.org; s=google; t=1785355068; x=1785959868; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=LE8yxChc+WSkATkEhDd8gBfNPkNIzWWJVjtjI5ufJCo=;
+        b=a8zbIz3e5YssqPIFskmSJFHAlHwnDJILzX0FZOsqLNOgP4KKGys/2ZuOLm7uFyfuyl
+         8lHJgWtilFvmU/VltwU82KxyX8+yOFeOs0HOJubkGKRU02UduNgfK/xtY6fLXvjJbPtN
+         lkxRIpVJuh5hbm3+WeQt3up/zZ87pcsdjg649ieYkU/0AXdeGSjjwMkSOFPplLm18VqC
+         r3gxuwi/s8Swme5HMcc97NVjy8PJiVoNJQlPFkz+YVMx6KCiQMNtYgaZMkYcoZSodvgo
+         FLcYyo4f1CBIaRruD23D/wp5UAKSv+0wmaJIiGba8T1AcTtZjNV5BReCkkrW0l5ZWN0r
+         CKfg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785354808; x=1785959608;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2tRAYmLteH+nt03LQJDdoe0tABkEsYJ81pf4iLuC0y0=;
-        b=OTPioCwUaWzqeRFkuo/5paTUu6SCLTGEz6hTodXDlqyiULatilMUxHMgVEQ/hHV01y
-         jKKMrTYGAg7ABhwgdjY0RHiu97dbDlAkH1wgx7FGBghDei7Jy31FK1ftZUWd7wOdBpxa
-         r8JqY9w+6KFuAJfV/ebfKGFXvjUYpae5JBEum9yexun7+h1cdMnM6XU62BsK7qs61j+Y
-         p2Xq0bYGTaLw/Qc4fDS1AOaWRMsmiqfNqPjALwwhK8kl3w/I9du3/UGQ4LT5aMFM3i+3
-         dvtO1GeNcGRB8yKmyO1qzYZWz/FNHiSBvkxGcfj8oTSGR4SONwcjkbxOg9Waaw4RArH9
-         iFxw==
-X-Forwarded-Encrypted: i=1; AHgh+RpTVYGwAiVaQDX9WK0yDpspcRCbiO7EUP427Loqvhjd6CDFyzAfAf/wrU/4o9NqvDFHybYXA/pcQGKepQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6r23RdAj9X7aLWEs70t0/XKMv+bsYCIN/trU3a63XHlRm248P
-	SU1vNnn3YAiEhWEw6JwzhYidhKUjBx0FqKXbarLnnPUnRH00gnT4YsC7eJajUhrHSb0v4N1VaES
-	7z9oZGZtxp4gKMVwOHzGSnvRFgt8I52CnTS3Edh0dc4otujV45kbymBLYS/OdOdKtsA==
-X-Gm-Gg: AR+sD13P/TbO4MmvNftsUy+1MPVoKpNfxD2rWI+QtArRzpUJydxqhFl0C04XOYU+u1b
-	MEFCDnZRe5abhpAkzFZJWBu+bUkkTbeLuyK32mriJmfOKA9XrtlzE8W0u7oDX+NuiYkB1qANLAk
-	ZhKuxZW5IA3IyK4Qr7lwXuQ4UjgQ2oxZ6ecXWHC+5E3V4odX0nEmvfCeWTMEqz43vw6NWUUy/QJ
-	ADAcpT+gNeUwFFG/gwmB6b171PNyetYJb/KDb71ZVsWq5RDES83jLiV7ZPJ1o/JKLxa+JGq59Oo
-	67LrM/RIgNBUyQSK+PE4t8ZJM9iH1YniYFGm9IImTTooiOWNUiudklMKKiTBZNJPhjhKjT19jga
-	EnJ1rJUaQKKgTG0cPHyZ513IbSwLnylV1qkqfCGpve5p3w3Yf53uEWZ6lJ2ZKwZ2sHmtYmDTW
-X-Received: by 2002:a05:622a:2c3:b0:51f:636c:8eae with SMTP id d75a77b69052e-52b37f50591mr104231cf.14.1785354807900;
-        Wed, 29 Jul 2026 12:53:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:2c3:b0:51f:636c:8eae with SMTP id d75a77b69052e-52b37f50591mr103381cf.14.1785354806190;
-        Wed, 29 Jul 2026 12:53:26 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83cea5f8sm149219666b.24.2026.07.29.12.53.23
+        d=1e100.net; s=20251104; t=1785355068; x=1785959868;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LE8yxChc+WSkATkEhDd8gBfNPkNIzWWJVjtjI5ufJCo=;
+        b=L3n5SlKOj7LnTlQaVMHkEjgUgpkPK6BbPZwVnG1Xrvu5IxvWHALi575uWpK+lTSmlp
+         H1kBLVONr3Jmgw1wmux/A27LIa3S5D3AXjq0YsZeucRTTu6i/3LMSxbZSNZbBUlGpvok
+         4nzKmM0kxFh6UxQIFWaT7S0hHGLXzRiQa6EdnNvppwDGpH8jeEC5b8x/NXmPKbqAn1XS
+         AaFSOuuQQQN7h2Kn3O+rc+hUmePVtED6WpLtAJ2f/eTJj/i5dUTf908UoOg9BI2KZbK3
+         btW2b4H/ytVlhK6cJxhObtGAdU9h3j5fGEqvGNSJGBxnt+BRB6AF5sOwzHzhSeUB9l/n
+         8Zdg==
+X-Forwarded-Encrypted: i=1; AHgh+RqY3XZxYfMxaUbg5kMxCqCABaFy+wGIuZ+fMCq2BaekJu3uFvqLEww+GyxlO99LqESv02mh3ZIdTEUjMA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxsy6XPAt+dlKlGh68uQWpX6Uz0gfWguNhl7Wi5BGWgpkX1+qox
+	7xaWgBfi3APS3iUIF88CWVDJrmJfBnUDXQ1skhWc/V1b9LDnlq7A3dY94Ie+zjo4kYc=
+X-Gm-Gg: AR+sD11jE09Z5EPjIgggDj//TtO32N/yDByORKzgGcoSB0cMUI8L2pn7ZquINOedU2c
+	GYKp7kAGp0tfVFdcgTEGLvaw2Q9ZpWrfP8Casqb8weMugy1mw4HBqYoJCNUPW0OwGJBzbfY6ybJ
+	U8idzXJJg20JzsDVkQ2sdm9TYndDU1IwARD5PnISRasyUh3LjeO1cIL6fd07MM0bSalMgzpIKk4
+	jp2z1uYGlt5vvJG0dGS9FBkZTt2qLItU7aFmdyBzy98677tf5nSMj4Np/ALo37iiqfah0srJwhH
+	nngCTniuIrss/TCem8N+JKVDhZdZD0YKTy54Hp80L9ygu2SGXIjmzbPgKT6cEsU0zpD1mKwDxFp
+	xyH5/qEDekstR9iXUe3JuarQPx4VrcdnWdBCIznLP44dfm5ntw2DlVk4tKXN64H5XgLBxV98DIr
+	y+1a9ItEpYTv0tCWhP04gQYMbFTpj+AWLjj1lWxLegC9l9kEWHAgRRJz3WB7Z/xPhnVs07NLnXH
+	K07BcExkUnIJ/m67N5xKVhM4Lo+NlJBvN9l8QkN76GjhXj3VEa+EA==
+X-Received: by 2002:a05:6512:2250:b0:5b1:5e89:30f6 with SMTP id 2adb3069b0e04-5b2da4cfa64mr16335e87.3.1785355068442;
+        Wed, 29 Jul 2026 12:57:48 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2d78ea812sm572610e87.43.2026.07.29.12.57.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 12:53:25 -0700 (PDT)
-Message-ID: <2c81c1b3-59fb-4ae0-bc2e-457b585e0732@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 22:53:21 +0300
+        Wed, 29 Jul 2026 12:57:47 -0700 (PDT)
+Message-ID: <99ffd9e6-f47b-45cc-a039-d8cd5dacc28c@linaro.org>
+Date: Wed, 29 Jul 2026 22:57:47 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,171 +69,59 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-Subject: Re: [PATCH v5 4/5] media: qcom: camss: Add CAMSS Offline Processing
- Engine driver
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org,
-        Hans de Goede <johannes.goede@oss.qualcomm.com>
-References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
- <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260724-camss-isp-ope-v5-4-e70ad4fa39ce@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDE1MiBTYWx0ZWRfX/wqcYXekgeyx
- XZwCkUQ6bchmqlVOuo7jqyD76I79UplicUkVjz7n8w9HLwKRCee0sHMzvjE1D09yaSLrbx1JDRj
- uft+cI3w+rGGuYHjeTf1Bfe4tzWWZXA=
-X-Proofpoint-GUID: 3n9tidwjjSbku4zxju0bkajf7VNDKagr
-X-Proofpoint-ORIG-GUID: 3n9tidwjjSbku4zxju0bkajf7VNDKagr
-X-Authority-Analysis: v=2.4 cv=H8brBeYi c=1 sm=1 tr=0 ts=6a6a5a39 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=EUspDBNiAAAA:8 a=GmEpBn3bsQWiDvAV-tYA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDE1MiBTYWx0ZWRfXwuOUzWDy2oPo
- QAQjAtzwYow5gHG1uW7BGoiUXAbQfT8btWZ9dLCnd055UWwlmoNQCifvVqBwnREreQV3JiDuMx1
- l9Tj6V6wX2zhsgJaSkvS2SoaOLSeRo09gD3JCDvO2UWJU6nZXK6cTHzYb6pqyrBlvCkXvzd5YYx
- UzageNeYAU4AKMTW9l2UJkfyTe2aOAK05oQerlFmX6vmqPn6uN/VoLNEGTEG8ibZtoqGlhTATki
- Qj6qFsnh1wQZmgr3b8swBYpp5vSInV3RBnz6yPD8wA269uMBMMDas3y1pvNXJSeYoH4Vvy8rvqn
- wZtgZDwM2rVLLLdy3qJebwF6I2vcoxlZ7CxU70mG8El5Nm7N/OA98Xlx3etxrUzA2IaHFYfEqA0
- 7xjT1HRcnlsZpmtqPA0KXFzu5BlwL7T0bkMLCKzyqq0bzbAmj7d3Lf8e9oLQ7WUX+3sSNey/kv1
- q6XFctjYA+RRSxVg5hg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_07,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 clxscore=1015 spamscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
- bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607290152
+Subject: Re: [PATCH v14 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260727-x1e-csi2-phy-v14-0-27d1bf477593@linaro.org>
+ <20260727-x1e-csi2-phy-v14-1-27d1bf477593@linaro.org>
+ <1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org>
+ <e9cbff02-fd47-453d-8743-8816560f0f6b@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <e9cbff02-fd47-453d-8743-8816560f0f6b@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Hi Loic,
-
-On 7/24/2026 3:42 PM, Loic Poulain wrote:
-> Add an image processing driver for the Qualcomm Offline Processing Engine
-> (OPE). OPE is a memory-to-memory ISP block that converts raw Bayer
-> frames to YUV, performing white balance, demosaic, chroma enhancement,
-> color correction and downscaling.
+On 7/27/26 23:06, Bryan O'Donoghue wrote:
+> On 27/07/2026 21:03, Vladimir Zapolskiy wrote:
+>>> +                description:
+>>> +                  Logical lane indices 0-3, not physical pad positions.
+>>
+>> In hardware description it's physical data lane indexes, the same is
+>> said in
+>> video-interfaces.yaml documentation, the numeration starting from zero is
+>> selected to follow even bits in CSI_COMMON_CTRL5 register (D-PHY mode):
+>>
+>> * https://lore.kernel.org/
+>> all/59331aa7-8430-4754-861c-4ba6a4810ccd@oss.qualcomm.com/
 > 
-> The hardware architecture consists of Fetch Engines and Write Engines,
-> connected through intermediate pipeline modules for pix processing.
-> 
-> The driver exposes three video nodes per pipeline instance:
->   - ope_input: Bayer RAW input (V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE)
->   - ope_disp_output: YUV output     (V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE)
->   - ope_params: ISP parameters (V4L2_BUF_TYPE_META_OUTPUT)
-> 
-> Hardware features:
->   - Stripe-based processing (up to 336 pixels wide per stripe)
->   - White balance (CLC_WB)
->   - Demosaic / Bayer-to-RGB (CLC_DEMO)
->   - RGB-to-YUV conversion (CLC_CHROMA_ENHAN)
->   - Color correction matrix (CLC_CC)
->   - MN downscaler for chroma and luma planes
-> 
-> Default configuration values are based on public standards such as BT.601.
-> 
-> Processing Model:
-> OPE processes frames in stripes of up to 336 pixels. Therefore, frames
-> must be split into stripes for processing. Each stripe is configured after
-> the previous one has been acquired (double buffered registers). To minimize
-> inter-stripe latency, stripe configurations are generated ahead of time.
-> 
-> The driver is split into three source files under the ope/ directory:
-> 
->   - core.c: the OPE m2m driver itself: probe, power management, V4L2/media
->     device setup, format handling, stripe generation and hardware
->     programming.
-> 
->   - pipeline.c/.h: a small declarative media-controller topology builder.
->     Drivers describe their entire media graph, entities (video devices,
->     subdevs, or base entities), their pads, and the links between them, in
->     a static descriptor table. The builder validates the table, allocates
->     and registers all entities, and creates all MC pad links. It is kept
->     generic but currently only used by OPE.
-> 
->   - params.c/.h: V4L2 ISP parameter buffer validation and dispatch. It
->     wraps the extensible V4L2 ISP parameters buffer format, validating
->     the buffer size and each per-block header before forwarding every
->     block to its driver-supplied handler.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Co-developed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/Kconfig        |    2 +
->  drivers/media/platform/qcom/camss/Makefile       |    2 +
->  drivers/media/platform/qcom/camss/ope/Kconfig    |   16 +
->  drivers/media/platform/qcom/camss/ope/Makefile   |    9 +
->  drivers/media/platform/qcom/camss/ope/core.c     | 3353 ++++++++++++++++++++++
->  drivers/media/platform/qcom/camss/ope/params.c   |   75 +
->  drivers/media/platform/qcom/camss/ope/params.h   |   62 +
->  drivers/media/platform/qcom/camss/ope/pipeline.c |  399 +++
->  drivers/media/platform/qcom/camss/ope/pipeline.h |  237 ++
->  9 files changed, 4155 insertions(+)
+> I'm not sure what you're asking for here - this exact text ?
 > 
 
-<snip>
+Returning to the description of 'data-lanes' property:
 
-> +static int ope_open(struct file *file)
-> +{
-> +	struct video_device *vdev = video_devdata(file);
-> +	struct ope_dev *ope = container_of(vdev->v4l2_dev, struct ope_dev, v4l2_dev);
-> +	struct ope_ctx *ctx;
-> +	struct v4l2_fh *fh;
-> +	int ret = 0;
-> +
-> +	fh = kzalloc(sizeof(*fh), GFP_KERNEL);
-> +	if (!fh)
-> +		return -ENOMEM;
-> +
-> +	if (mutex_lock_interruptible(&ope->mutex)) {
-> +		kfree(fh);
-> +		return -ERESTARTSYS;
-> +	}
-> +
-> +	/*
-> +	 * For now, only a single shared context is supported,
-> +	 * until media multi-context support is available.
-> +	 */
-> +	if (!ope->shared_ctx) {
-> +		ctx = ope_ctx_create(ope);
-> +		if (IS_ERR(ctx)) {
-> +			ret = PTR_ERR(ctx);
-> +			goto unlock;
-> +		}
-> +	} else {
-> +		ctx = ope->shared_ctx;
-> +	}
+> Logical lane indices 0-3, not physical pad positions.
 
-I am sure there were multiple discussions on how to implement multi-context. But this exact implementation somehow confuses me (maybe just me).
+Logical lane index is the same as a position of a physical lane index in
+the 'data-lanes' array, this array data cannot be "logical lane indices".
 
-This allows opening the same video node twice (e.g. the output node). vb2_is_busy protection is present everywhere to prevent races,
-but if two applications open the same video node the driver may end up in a situation where the format set by the first application is overridden
-by the second, but streaming somehow gets started on the first with the wrong format. The danger is not at the format-set call itself but at start_streaming, 
-when the hardware gets programmed with whatever format is current in the shared context.
+A valid description is found in video-interfaces.yaml: "An array of
+physical  data lane indexes". So, it should be an array, and specifically
+an array of physical data lane indices, this contradicts to the given
+description for CSIPHY.
 
-Maybe it makes sense to have a tiny wrapper on each OPE V4L2 video device that holds an open count and prevents opening the same video node twice,
-returning -EBUSY on a second open(), until multi-context support is available as mentioned here.
+Here the open question is how physical lanes of CSIPHY are numerated, this
+requires a verbose comment. For instance Qualcomm CSIPHY configured in D-PHY
+combo mode (two sensors attached) has 2 or 3 data lanes and 2 clock lanes,
+for such and other cases a 'data-lanes' property description should be clear
+and unambiguous to allow a valid configuration to be provided.
 
-Regards,
-~Gjorgji
-
-
+-- 
+Best wishes,
+Vladimir
