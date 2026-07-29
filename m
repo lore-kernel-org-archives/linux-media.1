@@ -1,69 +1,33 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8015A471438
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 13:11:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C637F485CD0;
+	Wed, 29 Jul 2026 13:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785330693; cv=none; b=jgXOcxAB8SzUvzJffVMwXz1oiaw0gwcxqXDu2knigp9ily0ftAgvrQNHYNpD3Wc2mH7cRnKpSpHx/gZODEEX+yfIcOO5bj4mQMC5W5NqzGQ833moGruAXUyQq8hUy+lY07VIPn7Zq4jbCIB/ikAYGF9VZdQB7gnkiZ5X6U3ibwA=
+	t=1785330820; cv=none; b=jwsMBZLco9qBgq9DfZ5JKsDOMMkPnfYbSxULq1O34hRs71OFna1YByiPidIH1GeqjOSDwULk7SUZUUwAmQtarVJvEseEWTOI8JASv4X6As0jGKroMXPM3yY3kCnDrnJqpYKwb4nD5j8Brz/6gW6AlP4zqGpd2QbissLUEnJMUmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785330693; c=relaxed/simple;
-	bh=iCKby9e1qhvE8ns2sICVS+CCbRWmXfOjz3bB7l8ahOg=;
+	s=arc-20240116; t=1785330820; c=relaxed/simple;
+	bh=KlG4UfBNwQEy0fSI0H4q5k2/hpesAGjE+qS+xeX7UgE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SHH13oW/JYlPRPwIp2gZ1ZJK48JRYN45pWc6O1l6c+Brk4zyuil8C2USDWYqrlS6Bl4vER4LXX0k8kR+37CJxqIgbdaQHXw+v88fUkZAiuaQV6cnDugQ8a9EJ3O5HnpvLb/bjYww7CayVRLYDO8rDKPqSt7igK16lH3DTsVHuhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jti4ijP6; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 In-Reply-To:Content-Type; b=DrKV4KzGzaU6y2qDLkTYDS8HYI5J4l43ezc2w1E4CbmoCnPZtKixABblFJkticmluwap8WI++TJjtkiXIhgx5f0HcpYBDIIcR3mIZo6zALG9mIXpHzBp/oVjHCSNF5P1mPIgsh7wNulltXwohbzzP3X5FwJpCxrTBWnZkMvR95Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D6efidrb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jti4ijP6"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so9691105e9.2
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 06:11:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785330690; x=1785935490; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QlPatibx3g8XfK6S5eprVRseiFbSJCNNQ3hXCye36cc=;
-        b=Jti4ijP6nIE18iAiAjCvzk7mtWD9uz6VNgJit+2+WuC97b8pScL9tVa28/B7KhF1e6
-         6qBRiH4ncAICQI6XhK5XOV/2qsaxwo/f/oJmnCgNx2vo09a6sQtcBSS7pRXnSqxFDJGY
-         INpBceOL/EqOodFVGAxNBVghwit1FrKOGVvhaUoDsKfB2I0x5a5hNYhSotMKW3frkoQI
-         Un8BtM07xXis4VfUBUjrapU6CSGh2KhiceUEN6HRqsuTPC4pRlQEN7UnWjKm8NIESBvv
-         YUAAYlsGBXioHmaXaAYAQZe4TvPo8pV8I6t24ZujjdUL+tNRxbyyQRntMzULHkrAclbQ
-         8QRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785330690; x=1785935490;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=QlPatibx3g8XfK6S5eprVRseiFbSJCNNQ3hXCye36cc=;
-        b=dmJXQBA5ltECIsG7fC5DbOOSwZusk4nj+SVD+GUwiaT/LzQuuPOgL9yg9VEShW4TZE
-         I76HMCXjapQnDpqMJ8Zr178YkIrPmWvVfb3gFsbDDTvEVXodG7T4qaOh7fGJDTqu9lPn
-         fcz1S3j1z3c2GH1SMHP0i6EVn1eRODmAgva8FpETMGOPExYrFKZwyoS7XcepVzLeW/JC
-         2gmbby/UGaURwJII7x5OZKlGs0Qm025U5Fmxx67bP6SjU4OSMpqZHKvE+BZdsNuvrwai
-         O/h7JfyHqKbJggpE2RJ47Q5b6VlzT4dwdT0yStPxyN23aqcLxuQc6i/L9SOwJIlnxxQc
-         4CSg==
-X-Forwarded-Encrypted: i=1; AHgh+RpgJLc39bOjUip6pNSqmlwz6gqDz41vr6wMOFu1rNcrBQsKmvfWPrQ1k8aFjdY23Rcqe6uR61sOZ5toYQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIJzpoLuRVXoANhivKo0D5XnF3wPbUQXFe1LvzN4AzN/m7gOJy
-	GaG8+KRU1yU41YVtIjfAqfOpyFCPFJZzC3QjiPClZUUByqhb3M8MbfIv
-X-Gm-Gg: AR+sD11D3pKye+7Rfa6HG2et17wA2iBO6f0WXBeHjGD4ry+eUx3kt2/UTqfTsCCqCEZ
-	IOQ4YLq92A9KShzrUD9q0Z4XMtZPjK4kOoul/RfasVDEtuR3Z7/1sb0z/N/ujTVwChJBeeRuMt3
-	dg7lv9NmGfSmXTVZ8hO+G95HPO2xQl4975RPA8+zV9Pj1vCF6PcE4z2bv2vK7JMtaccvhKMk81f
-	sJQEgKDAW1SbO2D/PYeOmJ9yvm9Bs4hyTded4difV4CNTjo3qrVFdV/jng+WvuWuF6vb53i44yj
-	uM85e4Bo9srpsMIILp80RRcmCBLRnwdG4WwAomFfaWiOHfS0E6rTVCvsYnd+eO3YHew4bSVI1tD
-	24Fcx1tH/7TzsK8pvi4c86f/eiSMpPPyF6bkqdEfZoPuMtEagWjgieeKivdrShL23kUSKVLHnfK
-	q/alpOIBXx7llfVuDTNxmUzNgmZZkIMXxLptckDo8SsjxhgSRgKTGW5FU1OS9CYNswl+j3GTGPD
-	0GX4ki1Qb7u0YM82We7E6N4XXM974qdtpVcvkyoesiTJ6S0Nr7dkK+1YYSwV6fSpqmwX69c425j
-	zbDNzoLmvex/w1Y/In0=
-X-Received: by 2002:a05:600c:3485:b0:493:b243:8ffc with SMTP id 5b1f17b1804b1-496c6586bbcmr69846215e9.35.1785330689440;
-        Wed, 29 Jul 2026 06:11:29 -0700 (PDT)
-Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:640])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-496c45c338fsm157280305e9.8.2026.07.29.06.11.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 06:11:28 -0700 (PDT)
-Message-ID: <60df6af0-3bf0-4954-8181-a0acca7c21c4@gmail.com>
-Date: Wed, 29 Jul 2026 14:11:16 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D6efidrb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E15421F00A3A;
+	Wed, 29 Jul 2026 13:13:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785330819;
+	bh=Wth232qSj1DscjpOL8qKzdNtiPb5OkwfVMaSPuFZA+U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=D6efidrbC6FD/T7F/sEAw+vu3pP8u5GlPUthfEho/1LKAGGJ/DfZOt8//4RZcxX6r
+	 GUEoZT+SYMeE3cF9jWaej3w/L33Z/g0PoIyiQH+Eopjd9hrFwxXy8GEOL/UEyQszAq
+	 tOmjDD4pV6GbokWRIY4xMjr5qoz7ZVb3OGiGAhUNljcUFptd//x0xf34JnLG7rDiXy
+	 NNitN8A87I+LzHEfWLQIVtvMpQX3qHux77uU07jruWHkwqFCLf6ip9W7b2AyGTB7dC
+	 gkFQAiMTDuXxBzUydsslrNIHFC6v2OzlIhJrtcxVOAPio/wtw0waOsseYAZyP3E3bu
+	 gteRM1Oxwvr5w==
+Message-ID: <ee5dc08e-0ce3-4ef4-aea4-57d9db4909aa@kernel.org>
+Date: Wed, 29 Jul 2026 15:13:35 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,66 +35,94 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
- infrastructure
-To: Christoph Hellwig <hch@lst.de>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
- William Power <william.power@intel.com>, Phil Cayton
- <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
- Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
- ceph-devel@vger.kernel.org
-References: <cover.1785274111.git.asml.silence@gmail.com>
- <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
- <20260729065927.GA9534@lst.de>
- <340dd033-2a45-49e7-afd6-95dbbbf624da@gmail.com>
- <20260729112808.GA30851@lst.de>
-Content-Language: en-US
-From: Pavel Begunkov <asml.silence@gmail.com>
-In-Reply-To: <20260729112808.GA30851@lst.de>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH RFC 1/2] media: i2c: ov8865: fix horizontal flip control
+ polarity
+To: Jakob Berg Jespersen <dev@berg.pm>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Fernando Rimoli <fernandorimoli11@gmail.com>,
+ Tooraj Taraz <tooraj.taraz@yahoo.com>, "Joseph V. Lavigne"
+ <jlavig88@gmail.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260720-sp7plus-ov-flips-v1-0-5f345b0673de@berg.pm>
+ <20260720-sp7plus-ov-flips-v1-1-5f345b0673de@berg.pm>
+From: Hans de Goede <hansg@kernel.org>
+Content-Language: en-US, nl
+In-Reply-To: <20260720-sp7plus-ov-flips-v1-1-5f345b0673de@berg.pm>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 7/29/26 12:28, Christoph Hellwig wrote:
-> On Wed, Jul 29, 2026 at 11:37:19AM +0100, Pavel Begunkov wrote:
->> On 7/29/26 07:59, Christoph Hellwig wrote:
->>> The method name feels a bit convoluted, but given all the
->>> previous discussions I don't care too strongly.  I'll leave
->>> the dma-buf side review to those who understand it.
->>
->> I assume you mean this:
-> 
-> Yes.
-> 
->>
->> +	int (*init_dma_buf_io_ctx)(struct file *, struct dma_buf_io_ctx *);
->>
->> I agree, and all dma_buf_io_[ctx,map] look clunky, but I don't
->> see what I can drop out of the name. Suggestions? Maybe I at least
->> should make the fs op sth like "register_dma_buf".
-> 
-> I just remember scares from the last discussion :)
-> 
-> register_dma_buf sounds fine to be, but unless I misremember there
-> were objections to that before.
-I'm going to respin the set in a couple of days, just going to
-leave it as is unless we find better options.
+Hi,
 
--- 
-Pavel Begunkov
+On 20-Jul-26 16:28, Jakob Berg Jespersen wrote:
+> The ov8865's native readout is horizontally mirrored and the
+> FORMAT2 FLIP_HORZ bits (reg 0x3821) un-mirror it: with the bits
+> cleared the image is mirrored, with them set it is not. The driver
+> maps V4L2_CID_HFLIP=1 to setting the bits, so requesting a flip
+> produces an unflipped image and vice versa.
+> 
+> This is user-visible on the Surface Pro 7+ rear camera (mounted with a
+> 180 degree rotation, SSDB degree=180): libcamera requests HFLIP=1+VFLIP=1
+> to undo the mount rotation and gets a horizontally flipped image.
+> 
+> Verified by a live 4-state flip/image matrix on the streaming sensor:
+> 
+>   hflip=0 vflip=0 -> 180 degree rotation (both flips)
+>   hflip=1 vflip=0 -> vertical flip only
+>   hflip=0 vflip=1 -> correct image
+>   hflip=1 vflip=1 -> horizontal flip only
+> 
+> (vertical flip = reflection over a horizontal mirror line, as on water;
+> horizontal flip = reflection over a vertical mirror line, as in a mirror)
+> 
+> which is only consistent with an inverted HFLIP and a correct VFLIP.
+> 
+> Invert the polarity so HFLIP=0 yields the unflipped image.
+> 
+> Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
+
+Thank you for your patch. At first I was a bit worried about this
+patch because sometimes people get confused that a camera is not
+a mirror and they enabling mirroring because of this.
+
+But testing on a Microsoft Surface Go with an older kernel shows
+that indeed the image currently is mirrored, so this is another
+OV sensor where the mirror bit in the format register is inverted:
+
+Thanks, patch looks good to me:
+
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+
+Regards,
+
+Hans
+
+
+
+> ---
+>  drivers/media/i2c/ov8865.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/media/i2c/ov8865.c b/drivers/media/i2c/ov8865.c
+> index c6d53c3d55ca..901ea7c16395 100644
+> --- a/drivers/media/i2c/ov8865.c
+> +++ b/drivers/media/i2c/ov8865.c
+> @@ -2204,8 +2204,14 @@ static int ov8865_flip_horz_configure(struct ov8865_sensor *sensor, bool enable)
+>  	u8 bits = OV8865_FORMAT2_FLIP_HORZ_ISP_EN |
+>  		  OV8865_FORMAT2_FLIP_HORZ_SENSOR_EN;
+>  
+> +	/*
+> +	 * The sensor's native readout is horizontally mirrored; the
+> +	 * FLIP_HORZ bits un-mirror it. Map the control so that HFLIP=0
+> +	 * yields an unmirrored image (verified on Surface Pro 7+ rear
+> +	 * camera by a live flip-control/image matrix test).
+> +	 */
+>  	return ov8865_update_bits(sensor, OV8865_FORMAT2_REG, bits,
+> -				  enable ? bits : 0);
+> +				  enable ? 0 : bits);
+>  }
+>  
+>  /* Test Pattern */
+> 
 
