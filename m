@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A66473DCDA4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6A0B3DCDAD;
 	Wed, 29 Jul 2026 20:20:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785356409; cv=none; b=OC5Yi3ekh0Js5KRb9MfQL05+asgDxJYfHEgc1oOAKYsMBLx6mJwRDTotN4uOpe1QPNl/MoEafclCvaqMq7D9YsylllhguEe2XOboCSD2fkmkQku47MdjWCrNYpFfHH9vZspE+vABktcFzuqudydbu/ZquFdXpcyz6YwU7/Q4IoU=
+	t=1785356409; cv=none; b=jEPRLOfCEYrjDR1jdYCEQ3cOu46nGcu/zQDXIQqXfBQLfkU5q4amiwGfBH3JuFucqKJ6tWFZteGln6K0zm+wtnwzXS3SydmXKR8oqXLU+A3TC7qlhWv8hgpyjtW8SeBsIa389HWNROsX9wrSrHQBAkvlevUg1qbwV+Fh3ExMB14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785356409; c=relaxed/simple;
-	bh=Hmb4bUwpZRDfkAIAKiklux/fxZdU9O/GSSXBmJriI4A=;
+	bh=VhZv2kSpvcCOIx43ZVUdlzppnSnwY6aJLztdMc3WHoE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ODrtU7W45f1ULFHaJ0C7X8koMAricm16HkNJn7ZDam/iZqHeE23vl1YB9Fy6iOVLJEFozEFjSwaeFn0L5mO+vrmEgYmz/dTwOk59NMUTAU0JVYH1r7WsGRyjqCBWe8uIy4fV/TGq35vhEstK+ZrZsWtUTqFraJ42vd1dMLEXuKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A47CIVG2; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=kRzDp67Pw3iBjlkf1bnDBFDZwd14ves1PBuJZhSrWzabEOSlueArkszknQZYfrxB0yCBENMGH5flOljlv4FeJK70YkiAu8ccqAtQQuzIvYNaqn7rUTA4o2w9bpxgd2Jw68DtdhYShGDl6DpH27eBciDiMq0uoTlGyM/59de77mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PY/P45B/; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A47CIVG2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 129E5C2BCFF;
-	Wed, 29 Jul 2026 20:20:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PY/P45B/"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CCA60C4AF0F;
+	Wed, 29 Jul 2026 20:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785356408;
-	bh=Hmb4bUwpZRDfkAIAKiklux/fxZdU9O/GSSXBmJriI4A=;
+	s=k20201202; t=1785356407;
+	bh=VhZv2kSpvcCOIx43ZVUdlzppnSnwY6aJLztdMc3WHoE=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=A47CIVG2HIzIrqW7RlN5sc3RVHMkiP+XXIpzPsNzpsWZyWE73F20KDFef1fSQT/QX
-	 Nryi2w8TSmMYBYsgWpbBsnaATyFZV7bI3pw5zi9QMMWoXzKMdug7zX9eOq156aFbGE
-	 XiSnxGOD8wzGEG2ikPPeSciABnCXW5Ju/wz9/BvjCKoqckBKXNa/E5pQJYc1Bk1bL0
-	 n1E2HjWXd//QPGQ6dHq5aw+TTkogNHbplzAFWTkpHr13m3WPMfCIuu1Ax1pUuLuCy3
-	 tmAcQxErm4X4S0GCWt5b5wjgoMbREH3/qGyMe+Ogc3VRP20nuE7vMhs1GLERWbp6Aj
-	 mVELeOLmrurOw==
+	b=PY/P45B/vF4Gf1CVLCnEUWlJkGAKgiu2UNAqBTWng0BsajojfcJjTQxHp8JTxq6Te
+	 5covE94oIro7kd+rhp7pNvadC2xmkKRiV6B1NN3Nx1t37rMisTJ1Cg6rkHB3qudFiu
+	 w+bchICuWcZMIor24XO4CnJfCxK7D8FidJVmQYsuV0c39haxuDK0vWfS3HFa7RKf2R
+	 sQ29bcDMcY0gBxZGb4uP9ZEHyEAXrxMhrVB3NFaQDRN5yV0Sv4wIBCKvbxA1gE4o16
+	 STrDefCAbuP67PaXWmPfcZn4hNAygrLu6Bs0Gq7Z7nKKVAaXbmXgH1tf1S0h3F5Bw6
+	 ccNK2uIeA/dGQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E938FC53200;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B577AC53200;
 	Wed, 29 Jul 2026 20:20:07 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 29 Jul 2026 22:20:02 +0200
-Subject: [PATCH RESEND v9 7/9] media: qcom: camss: csiphy-3ph: Update Gen2
- v1.1 MIPI CSI-2 C-PHY init
+Date: Wed, 29 Jul 2026 22:20:00 +0200
+Subject: [PATCH RESEND v9 5/9] media: qcom: camss: Initialize lanes after
+ lane configuration is available
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260729-qcom-cphy-v9-7-1f8d9fdab037@ixit.cz>
+Message-Id: <20260729-qcom-cphy-v9-5-1f8d9fdab037@ixit.cz>
 References: <20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz>
 In-Reply-To: <20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz>
 To: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
@@ -61,21 +61,21 @@ Cc: Frank Li <Frank.Li@nxp.com>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6215; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6446; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=bHMX4//aWDpheSP2KzZh84W22nyuHR1zfC/sMVCosog=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqamB176ElwPuo7PUbvrIL+2Dzn/PcxQnw6MIaK
- XPBV+uNsqyJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCampgdQAKCRBgAj/E00kg
- cgWuEACv6nhUu7x63+oXJFH1J7TSMnfSM9VPmagIThM/ev4Js76N5q2uLVYnLDcK5FbaYtxpIlt
- lgWc/Hy+NXD+akNUbfqkLChS+dtY2z2pbOhLbbv0GfPGciCbhci8eWt8RYI8EwcC4E0SQBD8YsM
- ffAGWNF199MKO0c0hOEti3mcFmNycg4oVD+OkFf5TruIqYg+RxnOvbxOomTdmWkuYRgPrl/FNJb
- foKrZuIk/I2u+GUxldNF12pFRQQYOq/BoGV9TsyOSE6jfEBmdaZ9xbmmrdaCn3N1hpLjCsw9dR5
- 3fh2Sda6qSWZfmRytHPvzIdLt7gEGXCakWq1JgQB07/4AkX65uRgypBmTR2qsDcR12DjeBrVzyf
- BxjExABrzf6G23dH4EC9HHR5D8r0Y+M+n51h0SGBG10rJ0LQa7ORQ9Ka5fqpl21GqKu9ywrp7DI
- BKIdd1Tmqbxxmf1rmHOpNGSQlxjzXFC7yzjVycnk7aYN1u/SIuZVpwr9vSC4UfD0dDtFexmSc+x
- 1E+m7ISUymth66rGdOuba6SPTO23bRt3kLvxTy0wkIJDWTkmIbpnGN+anw0z3p6HUdi1VJ9HPmd
- 2iZ80OJtuY/JdG3ALWPBuU2iiILJ3a/+C86PFnVgHkCJIFsTuVU1jGa/33q8ojT9LqZXEjhkHOq
- nAeuBk9xiHHK4Aw==
+ bh=g/o3rVD1r6gJeV04eBIyOcKsTC0b/LLqeKtjGiZ/dKQ=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqamB0c09pDeKDwQM9ll774MwJmEKuiRvxoQzV2
+ VZ3WGJT85yJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCampgdAAKCRBgAj/E00kg
+ cupID/sGF1EfLKTu/MnEvkK9bQCDVOXXAQUXMst79Usz4DiEAFihNJn0TgRIuNT3nxSllKRR3Iq
+ uhj0CdD6wCOPiPbsfOA0sKQddkM9ygxrbyiMf/zM4sSvd4JJUxMm0qGumSl0LOJf8BIsCp26A92
+ 5AXLk1vMZPA3u01HKmucZcNVjGs/MzfqUBaaAwRiKLaHQCX9QIaH45dmYSB06og9eBrqGjXOvGu
+ +rnYecR/nOkknkfqvKsVDY+GcpRlHD7B8URshSpteUjLwy5T4OtOLnA/WqcHschweMhPbI1+RvZ
+ 1ghTjHMvN6z0MJn9geKNSo9WsVVFvLfGSY8sQ9evNgRBPpioBFhsaow3ENIZIQ8DHgDC14FCsN+
+ /gJQXhxYYq90keiWln2kLvJ5UVqbbfXvNnldmH/6oq/KuDKlpUCq0FXlwpNnNGbyNwrvpSB8wip
+ rSlC2d1XbIpKU+NCh0Msy/NqWR9Gz3ofh+viQke9yhojVHD6T+j9kpawjCK+hw0WAzrBjyM8TbE
+ rGdqASsNIKnoSqk+DiDx2Deh1z8GK+yh85+IXlUX1YVo+O6RfTO7YbpKhEt65byCkF/33w68ujV
+ 6UtNGRm/ebL4KIt6Sa5uWcQPY3KmTESDgej3IGSB5k1np+vJYbGX3D1pF86FZ7/ahvrSABuO1mW
+ o21tJr2WjNUgrcw==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -84,106 +84,199 @@ Reply-To: david@ixit.cz
 
 From: David Heidelberg <david@ixit.cz>
 
-These values should improve C-PHY behaviour. Should match most recent
-Qualcomm code.
+The lanes must not be initialized before the driver has access to
+the lane configuration, as it depends on whether D-PHY or C-PHY mode
+is in use. Move the lane initialization to csiphy_lanes_enable which is
+called when the configuration structures are available.
 
+Co-developed-by: Petr Hodina <phodina@protonmail.com>
+Signed-off-by: Petr Hodina <phodina@protonmail.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Acked-by: Cory Keitz <ckeitz@amazon.com>
-Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- .../media/platform/qcom/camss/camss-csiphy-3ph-1-0.c  | 19 +++++++++----------
- 1 file changed, 9 insertions(+), 10 deletions(-)
+ .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 131 +++++++++++++++------
+ 1 file changed, 93 insertions(+), 38 deletions(-)
 
 diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-index 83de89a88dbb1..25a3554ef2016 100644
+index dfcd9ed2eb7a3..5c07aa9d19c51 100644
 --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
 +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
-@@ -227,19 +227,19 @@ csiphy_lane_regs lane_regs_sdm845[] = {
- 	{0x0660, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
- };
+@@ -1163,16 +1163,108 @@ static void csiphy_lanes_enable(struct csiphy_device *csiphy,
+ 				s64 link_freq, u8 lane_mask)
+ {
+ 	struct csiphy_lanes_cfg *c = &cfg->csi2->lane_cfg;
+ 	struct csiphy_device_regs *regs = csiphy->regs;
+ 	u8 settle_cnt;
+ 	u8 val;
+ 	int i;
  
- /* GEN2 1.0 3PH */
- /* 3 entries: 3 lanes (C-PHY) */
- static const struct
- csiphy_lane_regs lane_regs_sdm845_3ph[] = {
--	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-@@ -247,19 +247,19 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
++	switch (csiphy->camss->res->version) {
++	case CAMSS_845:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sdm845[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_2290:
++	case CAMSS_6150:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_qcm2290[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_6350:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sm6350[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm6350);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_7280:
++	case CAMSS_8250:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sm8250[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_8280XP:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sc8280xp[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_X1E80100:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_x1e80100[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_x1e80100);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_8550:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sm8550[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8550);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_8650:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sm8650[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8650);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	case CAMSS_8300:
++	case CAMSS_8775P:
++		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
++			regs->lane_regs = &lane_regs_sa8775p[0];
++			regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
++		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
++			regs->lane_regs = NULL;
++			regs->lane_array_size = 0;
++		}
++		break;
++	default:
++		break;
++	}
++
++	if (!regs->lane_regs)
++		WARN_ONCE(1, "Missing lane_regs definition!\n");
++
+ 	settle_cnt = csiphy_settle_cnt_calc(link_freq, csiphy->timer_clk_rate);
  
--	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
-@@ -267,36 +267,35 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	val = csiphy_get_lane_mask(c);
+ 	writel_relaxed(val, csiphy->base +
+ 		       CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(regs->offset, 5));
  
--	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
--	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
-+	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(9),  0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
--
- };
+ 	val = CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B;
+ 	writel_relaxed(val, csiphy->base +
+@@ -1215,63 +1307,26 @@ static int csiphy_init(struct csiphy_device *csiphy)
+ 	struct device *dev = csiphy->camss->dev;
+ 	struct csiphy_device_regs *regs;
  
- /* GEN2 1.1 2PH */
- static const struct
- csiphy_lane_regs lane_regs_sc8280xp[] = {
- 	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
- 	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
+ 	regs = devm_kmalloc(dev, sizeof(*regs), GFP_KERNEL);
+ 	if (!regs)
+ 		return -ENOMEM;
+ 
+ 	csiphy->regs = regs;
+-	regs->offset = 0x800;
+ 	regs->common_status_offset = 0xb0;
+ 
+ 	switch (csiphy->camss->res->version) {
+-	case CAMSS_845:
+-		regs->lane_regs = &lane_regs_sdm845[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
+-		break;
+-	case CAMSS_2290:
+-	case CAMSS_6150:
+-		regs->lane_regs = &lane_regs_qcm2290[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
+-		break;
+-	case CAMSS_6350:
+-		regs->lane_regs = &lane_regs_sm6350[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm6350);
+-		break;
+-	case CAMSS_7280:
+-	case CAMSS_8250:
+-		regs->lane_regs = &lane_regs_sm8250[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8250);
+-		break;
+-	case CAMSS_8280XP:
+-		regs->lane_regs = &lane_regs_sc8280xp[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sc8280xp);
+-		break;
+ 	case CAMSS_X1E80100:
+-		regs->lane_regs = &lane_regs_x1e80100[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_x1e80100);
+-		regs->offset = 0x1000;
+-		break;
+ 	case CAMSS_8550:
+-		regs->lane_regs = &lane_regs_sm8550[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8550);
+-		regs->offset = 0x1000;
+-		break;
+ 	case CAMSS_8650:
+-		regs->lane_regs = &lane_regs_sm8650[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sm8650);
+ 		regs->offset = 0x1000;
+ 		break;
+-	case CAMSS_8300:
+-	case CAMSS_8775P:
+-		regs->lane_regs = &lane_regs_sa8775p[0];
+-		regs->lane_array_size = ARRAY_SIZE(lane_regs_sa8775p);
+-		break;
+ 	default:
++		regs->offset = 0x800;
+ 		break;
+ 	}
+ 
+ 	return 0;
+ }
+ 
+ const struct csiphy_hw_ops csiphy_ops_3ph_1_0 = {
+ 	.get_lane_mask = csiphy_get_lane_mask,
 
 -- 
 2.53.0
