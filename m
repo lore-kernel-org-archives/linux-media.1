@@ -1,116 +1,119 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8854471CF9
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 14:43:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E13D397929
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 14:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336229; cv=none; b=TV91XZ628RD/U/a3rUaOu7M1mKx98V7qhKNzWjfgsjin5LaE7nrHMFEXDebR11raoniM6dnlEHmOcQtK2bFX3QL7nqBD8vpC777Olat3K6l3CgBhp+Z+VRe6CKGcPksw3KsOXqLcSKy2Rqb7DHSruYwcaXSwAnQeBeIdC88PQmA=
+	t=1785336873; cv=none; b=fNVfsEiIv3RMZYylXqioFF/evozi8p1KA1xyT8dh7q+uej13DlDfB89E5dolOQjeovfAPwe0hj7Bm54bn1yDyx8i8k5hQLxBSfGIMGxzhlp5/DPtjzMk1yg4qSt7mnvexEYDpX+oPwukWxgQsN+o9xC0Vg+Ak2W0I3t9D7+AhLU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336229; c=relaxed/simple;
-	bh=oLfEIwylLehkQEMAvc2D+SQKRav1vzUm+1RG6j/CQXc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IPbxXP2mTZFqyqJMupO97Bq2wqqLLCmZVs3OmQHspqeCIxC4AvHcCV37yT2rCqKKFfrxO99F2vVj0/7mzhvaRzoVLbOHj3AvDbnum4McrXxGHS/Xr/UjIu2QZCenVEYUET8vP9AHqsNfhYsOY4lykQxqWZ6o4VyhSWuE8WjtNlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=eNkSppop; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1785336873; c=relaxed/simple;
+	bh=eEfGUNYm069B8YRJw7nG+CpVl1p+N0InV7LL9ThjIe8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OezI3XUpKBQzDHnHc6f87iAIJwjaPVL5AbCu/viGkDeM65qVb928/qbvfYYzosFkEzxpmXyYRIMrqXGQFDp9jhK++DJFe7WwtQ8bP4JtlMRkX7me92iLHzqVvrs8xaAlynJm7uCNEL8T8brW5ApFJFbH70RU9ngBijJGtrdT+qI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=O3BmsLQw; arc=none smtp.client-ip=209.85.160.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="eNkSppop"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49556f97a9dso7423655e9.1
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 07:43:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="O3BmsLQw"
+Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51bfe810293so5772701cf.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 07:54:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1785336226; x=1785941026; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=50edlJllfkH6a8WONFuoYrMx0sLpIgYxe7t4UMo4JmI=;
-        b=eNkSppop1FgH77FyDoSriO2/kUiGpbuM20+Ih/X8BatynvUiOAP+swd22Rd3QDlTMD
-         nv9uod0DXgVx3eg886y6TtuK/aVjiGgVcShWjYWDfIchscp8/PXInthYMvKCYXxpAh9A
-         /VeNNa70UbKkop7hm/Z/OM5JwTrRPuVtXRMXd03qNKv8O5SDI5ii0Ocj2jPde/eXsOQy
-         yvSXkg8Ja2n2fb1nUEgjGyrtWON24TVYQlCMUxxC5YOVBcqgrAdiC3AL8Kmr1grV/qmP
-         rEL0o4dl5uQXwBBHLmcwUArg7Y3xQuFdgSi0BpF19fTseY/roI5bnJB7d20oyFeS5fZ0
-         QxmQ==
+        d=rowland.harvard.edu; s=google; t=1785336867; x=1785941667; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=diG76WQps7jL2eyBJvu35E+/CEytgTNbNERpdeDHsjg=;
+        b=O3BmsLQw3McVjTiDGfKastaWa5ZTDhWha9yR+c9sNTwfCVWSxFPZQh59Bwxkp+HpXf
+         hJ8lT8mUOuv6Qn0cxeIv8zPndGtRZiXfqnKjepB8wLbn8Z0dtX+PJajGlVWO8HsEHQ18
+         focSSNttHZLcFRhehL4jqDC4a/HpRGM9qQSInQa+gKoRQH4hhhbpQkG3D4BXnFeOlb0S
+         8WehKu9o7DYabQ7Wt3arignFNdJ7FdVEO3kfLTxt3+iNiGrNysxJAbtCAAHYYRHImaFu
+         6yD+SoIZ6g4I592C1JX5T35MTcmEPrdeIx+UK5g2hmOZERGp5tC81OEGFg2lhTmJ4sDN
+         et0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785336226; x=1785941026;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=50edlJllfkH6a8WONFuoYrMx0sLpIgYxe7t4UMo4JmI=;
-        b=OSGbgke37JeydHpi5N1ojT9HA/01lB8A3GZDCatFi2wjXAtR1XkfV97cYPNYgWrLCM
-         ybIvaXjI9qduRLvPXSNLR1RQPMRdX35zAzHfGe55+oEbY8wIUcQO/Y5z0HDp0Py0ilmI
-         Tb6lESOSNBDb7LHPTesprri+Hc37qy7deB3c65hYNiJ/w6ApjiH4KUt355Ynk1MCgopm
-         U+oyxUR85YS/0WXNlIfj3hFhPt0/LeIUwGCkIFZ5YYtaRn+weN0xlZYpYBdCDuSZMCgl
-         XSsDOVIdF3ELbb/8/PbuCXbS3xEoI6+ajMz3VNCXPLNjEaz63HutvspeWzBN7ybOrbKE
-         8QWA==
-X-Forwarded-Encrypted: i=1; AHgh+RouuRvyA+YeNYPPWvAI8NC+Ka8FT2zz8UOBFQYK12WgFHGJmSk0zZIiBucBCpYGnQplKeN3+04PiT8k9A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZNLDmQ9xpAoYy3qXSta0CrKI8+iFkaEKxtbWx11Z5Wlwq23Sx
-	C0QbuAy0ZwVqDKc9nYIeMXtGnedsBjSLMQOCnpzt9fJT3Y0F8jYdEpEK9u7RSR9y9bc=
-X-Gm-Gg: AR+sD12pYYMd4Pnb8YEglFxIfN+SIVarZeEWVsbl5IgUJjifw+yU0OsKB+CJ4zCds8V
-	Sx7XeeZZnquK7onS7bcA9oA4iBPQyAvCsBK6PYDDb7Bh5jVvBNmQJQTyWj4ePATauxbktgVZ34O
-	uBfqMA5nNqGzJt9UcUw3dNeGhP1XXnNOhVELyA6RQa6BciQqpMcd2aowyGBtW0GJCqz3LP//5Km
-	yVUrj/7ZTi8i/aMpT0Qz2VHmbY+BtpMoKAb7+rmzOjXpoyktQUSSDnvssW+JwuB6K9k6Rg8ROSw
-	PzLX8r4+NF7l748ZdGeXz71kBpEZ0QVfT3+2OowE8Y+LW9phh3zC/aTk6o/sJefA0dBOqZEhMA+
-	CE5mJPsTNDnriKvknG0MDZ2F918i327pg2kHJz+sZQ3nS3FnH2m+ccNBvOssXZG/A3RfZL91npe
-	0Y00U63dV7ts0NjXX/aLmvVZUqvMC0w9wlNClc6epFswa7uH46X1ChjGUebQJqEuI08usTYarZU
-	nau4W30+JjPYT2Lzznnd0eqTp1lOBpi
-X-Received: by 2002:a05:600c:8b2f:b0:493:b56b:c45c with SMTP id 5b1f17b1804b1-496c6581371mr69751225e9.30.1785336225979;
-        Wed, 29 Jul 2026 07:43:45 -0700 (PDT)
-Received: from ?IPV6:2001:a61:135e:f101:ca2c:3cad:536e:8acf? ([2001:a61:135e:f101:ca2c:3cad:536e:8acf])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4976bd45fc5sm40613485e9.1.2026.07.29.07.43.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 07:43:45 -0700 (PDT)
-Message-ID: <5d36c6a8-bbc9-4d5f-8670-2993bdeb857f@suse.com>
-Date: Wed, 29 Jul 2026 16:43:44 +0200
+        d=1e100.net; s=20251104; t=1785336867; x=1785941667;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=diG76WQps7jL2eyBJvu35E+/CEytgTNbNERpdeDHsjg=;
+        b=Z1MmsXo8odGBzTeKkoVA4GRifjRCUQoh0O4cKGVFXCkwxO9/74X8xPkdhFhoaRGhF/
+         ynu42umxmHEyKK28H8B4AaNsO2Y//8squRtnPWQ5jCiaWrar1Dx59XnWNyQ25oJ3DgUT
+         vhx3kdEzvjv2r6w8pzrlJtBCGwbbPbplqzz6gIgIcCCRWn/qCVO4Irm73QXSLHPTBCka
+         cLCQEKFigbtgHBE3ivf/F5XE6R2vQ+Yyd/SQMQU1iNuFfATvVuybCk5sxDSw2hWWLnx9
+         RlCGbCyqjef3VLO1NmeLz8C2n2MTTNL2r0BQLW8lPreRcXtod+g/UvsqCI96O+v21L+C
+         EzDQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrL8fSSR0yqIjiWwTrJYBwmeBOJ7ZJgWPjEgDQ+0nQwCUv5cpdT9gVu+ml448WD3Me2wgqUeSRIfoeh8w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJ2wfTAWMkDoGQXyb6lU/cK0Cvle9xW0p9ZTTq0irbFTnL6qpU
+	Tb7S98VDC6usKaBfPdj8L5T3gcXEWLDSS4j3gVuTCKc4ykDelGCXbZRe7qQR2C+6sw==
+X-Gm-Gg: AR+sD12OWOTvq7u1p0TY20uvd2CSkSK4MgSvbSVojDdSi2wv6/vhPe76S6fXEu4AlFo
+	AjiXFcgJF6mCYsYJDDGmyOih/86h/b+uh/Py354oExpuO7c8JEo9E+Yviu5/Ivl+qtN19cSlPPK
+	zqSvEgUajwffxk4vpWY8VPmngoVgeoz+QHayBEzVr6U2nKxSkjv8CEqR9t9CuqbMFJfsj8cLuDp
+	0mcVPiVZcQ3RpHDFm0V3J/wox/PG+DpXslHacf0PAmHc+/otCD6uz14dERBbPg6OlrjBoqzYIv9
+	sYh24SsgLujvNWAaXujE3BlciKIojmV44Y3FCIgSozbhrJPealO/nW+IF6kg5t7QelX616iDqVT
+	fCiZX2Uu0RAk4qfD8yJp6BgHyx0rRN0H4Tb+0y6USQJnKvFL20OwcKBV0aYTMoUHi008RRKlvl6
+	bB8qYqdWgNQhiue2hKHVw7XtMOX8/3kALSKtVRNfkAbjwbPFIBW3zr1gmYU21XbgEUxrDYyfPlh
+	fIwJ90GER/ZfoYhGqrdK2B2sx1pE47O
+X-Received: by 2002:a05:622a:608f:b0:519:89b6:78b4 with SMTP id d75a77b69052e-529d7103196mr64381481cf.40.1785336867388;
+        Wed, 29 Jul 2026 07:54:27 -0700 (PDT)
+Received: from rowland.harvard.edu ([2607:fb60:1011:2006:a008:aeb7:73d7:d8ff])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e2dd45ffsm19696401cf.22.2026.07.29.07.54.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 29 Jul 2026 07:54:26 -0700 (PDT)
+Date: Wed, 29 Jul 2026 10:54:24 -0400
+From: Alan Stern <stern@rowland.harvard.edu>
+To: Oliver Neukum <oneukum@suse.com>
+Cc: Haowen Tu <tuhaowen@uniontech.com>, hansg@kernel.org,
+	gregkh@linuxfoundation.org, kernel@uniontech.com,
+	laurent.pinchart@ideasonboard.com, lenb@kernel.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
+	mchehab@kernel.org, pavel@kernel.org, rafael@kernel.org
+Subject: Re: [PATCH v4 4/4] media: uvcvideo: defer streaming restart after
+ hibernation snapshot
+Message-ID: <af0d5a2b-373a-4a0f-9e0f-8502217a6a1a@rowland.harvard.edu>
+References: <cbac4803-cf65-4b8b-a662-073189df478b@kernel.org>
+ <20260729075655.1187692-1-tuhaowen@uniontech.com>
+ <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
+ <5d36c6a8-bbc9-4d5f-8670-2993bdeb857f@suse.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 4/4] media: uvcvideo: defer streaming restart after
- hibernation snapshot
-To: Alan Stern <stern@rowland.harvard.edu>, Haowen Tu <tuhaowen@uniontech.com>
-Cc: hansg@kernel.org, gregkh@linuxfoundation.org, kernel@uniontech.com,
- laurent.pinchart@ideasonboard.com, lenb@kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-pm@vger.kernel.org, linux-usb@vger.kernel.org, mchehab@kernel.org,
- pavel@kernel.org, rafael@kernel.org
-References: <cbac4803-cf65-4b8b-a662-073189df478b@kernel.org>
- <20260729075655.1187692-1-tuhaowen@uniontech.com>
- <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
-Content-Language: en-US
-From: Oliver Neukum <oneukum@suse.com>
-In-Reply-To: <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5d36c6a8-bbc9-4d5f-8670-2993bdeb857f@suse.com>
 
-On 29.07.26 16:08, Alan Stern wrote:
+On Wed, Jul 29, 2026 at 04:43:44PM +0200, Oliver Neukum wrote:
+> On 29.07.26 16:08, Alan Stern wrote:
+> 
+> > You're missing an important fact: If something goes wrong during the
+> > hibernation transition (for example, if the kernel's memory image can't
+> > be stored to disk) then there will be no RESTORE phase.  Following the
+> > THAW phase, the system will return to normal operation.
+> 
+> Right, but that does not need to mean that the driver has to be operational
+> at the THAW phase. It has to be operational before userland is unfrozen
+> again at the latest. The difficulty how the driver learns that the system
+> will not power down remains to be solved.
+> > For this reason, during THAW drivers must not assume that the system is
+> > about to power down.
+> 
+> True. For this reason the patch introduces a notifier queue.
+> 
+> Now, that you make me think about that it seems to be inelegant, as this throws
+> away the proper order of the device tree. It seems to me that we should
+> bite the bullet and go for the big solution:
+> 
+> Split the THAW phase in two, like a THAW_WRITEOUT and an optional
+> THAW_BAILOUT that is called only when the system does not power down.
 
-> You're missing an important fact: If something goes wrong during the
-> hibernation transition (for example, if the kernel's memory image can't
-> be stored to disk) then there will be no RESTORE phase.  Following the
-> THAW phase, the system will return to normal operation.
+I could think up some better names for it.  Also, it doesn't fit into 
+the existing scheme of callbacks, whereby each "suspend"-type callback 
+has a corresponding "resume"-type callback.  The new one you're 
+proposing would be something different -- a "stay-alive" callback, 
+neither suspend nor resume.
 
-Right, but that does not need to mean that the driver has to be operational
-at the THAW phase. It has to be operational before userland is unfrozen
-again at the latest. The difficulty how the driver learns that the system
-will not power down remains to be solved.
-  
-> For this reason, during THAW drivers must not assume that the system is
-> about to power down.
-
-True. For this reason the patch introduces a notifier queue.
-
-Now, that you make me think about that it seems to be inelegant, as this throws
-away the proper order of the device tree. It seems to me that we should
-bite the bullet and go for the big solution:
-
-Split the THAW phase in two, like a THAW_WRITEOUT and an optional
-THAW_BAILOUT that is called only when the system does not power down.
-
-	Regards
-		Oliver
-
+Alan Stern
