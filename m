@@ -1,109 +1,102 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460D63B05A5
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:56:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 905AF4779BE
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:57:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785340613; cv=none; b=Iy8s2c7JvD68okcmhKznY+2Qa784AoRKIwpsT41URjXd2NrfB3R1rDo6PIeis62uMpxxCu054pss8bBwOPIYHGLuenzq1QDv13yexAOCddDNI8IN/Yh60beIVL0Wmsl3tcNwcXdQ6p5UwMP+iIKKHZlg4N/LHGUCXGb4RkfBwlc=
+	t=1785340630; cv=none; b=saS1TdRmfw15Rl31Iy/GciTecgT1JRpNK5ROYrHPhVYxus/t8MMpFQ9HIQKGEqhln2TkgQHZmfFsdYwcj3OeZprcLwd3BOA+IDc+Ad982IsmUo8eINp5VO4TrHiTgdX85TH+bUZ+6m0nKZ3lfIcRagivhJlue5Up1IOdyc8dh9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785340613; c=relaxed/simple;
-	bh=XPiHzgaXxAnyUIRIHjYGmAY2Ced7CR0KAgupaKtx+8c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G4ywTKQQDL4CCQrx7n7756Xcl+ycGZki0+C+9t+jbsT7Mz0eEIcYJYh5ZuSw4jxgjnpGS4jJ2gKJwjIQmYqBeVimNMzR2Yxo0hzMumNWwwtAacFHnPcdvP4SVfgXuHx1yphnA8CZya0mf8YZkD3K2ZK2DY8+ttoL5Bae4SQ5B+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q33vLtqg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C/2j/xbV; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1785340630; c=relaxed/simple;
+	bh=XuWvQmNP712Kb9HIW++bTX5xsDuLuiqi8rGpIAdzbO0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=NyuAE5XFn3P0xEY3vmqcpJkCJ4OtwQsaMbXjkLecMZ65jMvlvwpQ749hZt2xf2Xt+gApEUi+QZMlGGvN7f2Zwu44au0ySTfTSBVnPw6mgBt+SDmhpYpMBEhrwYp/Hg7VS4+AT+k2S0+1ki2B83EHiyeSv3VoPBHYxQzAt16Q2V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i4NB1F1U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Om5VqDwj; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q33vLtqg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C/2j/xbV"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TF3MOC2108399
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:56:51 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i4NB1F1U";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Om5VqDwj"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TF3Qn42593356
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:57:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=9d9AqXXZx92sskE8A2y6Kf2T/twB3A5A+kR
-	XspgQuiA=; b=Q33vLtqgW62ye58kCFqHgchOpUOydmYOk9Y8asMMQOSzMYblMx2
-	v1ENwO/kBr8YCHIU2WA3qFIYpzJCDCp1NE3nr/k2UX0CH5j6G0uLiZ+jX//IgHxG
-	sJqcAx+6G60Wt0qepkvUuFcObydVrJVZ9Foi6oMMBJE4zdCEq5OYfqtNAblFxFgP
-	XdiYJbAeOz8X1/vCIAr51M/mxNuRBniDto69BY8HW002sTsGeIQPlL3HF3G3KlX0
-	1anqVVQ4wIaMDkv9OxRyJQGnTCJ80iLgupFhfPuQzBAbNXQ+cIOieI8CrIVZUwJs
-	CweAhKUOz8FR67jfQ96BXL1Pt5lIFWSItDA==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqkds8fvn-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Ci5a3i1KHTi
+	GYmRN5tAXD+AHcmxzUAUAXBR1lwdlYe4=; b=i4NB1F1UfAVUYHKl03lQVOqD1Rk
+	oLB+opu7ZPiRCAPzai8aAZxHWeQajb8cTccGO935ykfNar6X+vamagMjGmPJ4AsF
+	e7N1BzvQYSsp89d61+jszhkU86MW2aNhGHIo18YPT7lPvs1Aup2GVAQ7UEaamVPs
+	sQ4HWya5DD7KE4fSNZo+GoUyQ6gXDvHR5sGbmOKhqZsfHhBlgUF3Wi0ooNeRBlxt
+	1+Rg8wmuq5H7evgNhcwiOUJxbGSM1QuV9kC+t5KW/1PDx61o2kcLJANqBzJgRawg
+	j6wrrzZVpIKOMdsEYkS3hCt9p7VzXk6Xe7gXA0A3XvhwGX1cHbovNohQsBg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqke08h01-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:56:51 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-ca8aee88725so1521309a12.3
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 08:56:51 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 15:57:06 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc5faecf01so22814955ad.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 08:57:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785340611; x=1785945411; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9d9AqXXZx92sskE8A2y6Kf2T/twB3A5A+kRXspgQuiA=;
-        b=C/2j/xbVhlb2kfdK0xfqQuLY8OU/WEH04ACPB0BopsOZ3iZoMATJKVW6TtZL7NvJXi
-         y8WsCs3dACZumDFy+dTBT3MPFcNx+VqaUnFYI39/AdrGKSS+VucKusoiorosQRIcyWFN
-         i4d+TdUmRij5J9q2OcDGwIEFHy5So+3ceQxL+uHD+lkQknhJvYRwO3Kb1xyP95Rhwg9e
-         kSa4EVCXXEpVnR45mVXe03DgzD2uT++4IJfvdjWSkvh0pRCUPuLbb1rlKz4KQurLFv7d
-         E04bI7vzEOvgdFdejYbqFvZbiuqR43pWZaF6fKTSqOhPhqxXEzjQ8SYJ3YQCzTT4CtyO
-         OpMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785340611; x=1785945411;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1785340626; x=1785945426; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9d9AqXXZx92sskE8A2y6Kf2T/twB3A5A+kRXspgQuiA=;
-        b=g8sC4/Tu56FBZPx98uWM2G/HnrL5fmASiEV8LYYH/R6Dje/BLx7CANOpCBLfqYySjd
-         bjENCDWSoVy5ve+JKDmLUoSEsngnKCkx9N9BLYL8FK/4L+MovbIhc8XApSyU6pZoMNdg
-         08hgeSCeUkDNr32YQjvia+Tv6UwAeSlNqtg2ajzobl3di1Y3a9cNZznW4y/oDNVNi1ud
-         I3ojgcnkLYdUUxkRPwE4cegblJdI4lKfOvM+QnJDQ0y5dMBJdttKgrLvVm7Uo/zPSN7J
-         sCFMm8aIyDgrrs11ZFQtYSJfUzYdqQxKmaqWpDos48gSku4mnX9RHJR95Kwdy7vjWKn8
-         HEgA==
-X-Forwarded-Encrypted: i=1; AHgh+RqUDs/iXpSHPpanjXXLXxc7qX8DazakstYqtnz5DiN/vosnzovUTDeRj9SXIlGRGrSaEYZyPXWn75k+Wg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzoqu5vuOQLGxeb71FxIWmKnNu9wDmb9DKsm0FDJVJ8B3VF6glu
-	y+2qWf+Ksj8HLjIeqk6sxm31ne+kit5A5pGVC71ellc2lFjH4Sg57GbZjHsHb8JjytREmwUA0wD
-	jLhm5QTnGdAb/qCleRGZSkgfoDgQTFiG+9TCI/ugbKLzLUFr+UvNVY64bDu5DxvhxsQ==
-X-Gm-Gg: AR+sD11n3lXjZt4VfqGgoOIiplCs+vQ1AzbgMRsx0c3/Jh7TKsO+kuC4Tp88V5vLq0x
-	yrvdJKYqTJbHCc5yCQDmKEUMMc62Okdu2fMvJjJoEJUbsU0alYG9UN6Gg3DGRMmXDFTW1uoY4H2
-	l2JFTTdi+SAOmYxApB8INxf+ckH3Tkub1Bdk5z2fDEs6gswKAENcGRqs6Wg7COVV99Zr0+KO1hy
-	sObrkF3AAIjsb7awlgfmu6v1q/tWqKjKC16sR8l5ixOTtk2no6y8P/S+wwVKZhmeFaPz6Dy3fhf
-	NSHj+rwF2M6PosviFEaplfFfuuL3rPbwBraPLi9gt0ZvndmUIp31bzPlnv/IrRpw+i2zItRPowk
-	NRUl7JP3T3wogV5dTqn8oKwOfISGX2l2P9Gqv+bkPySIJpMM=
-X-Received: by 2002:a05:6a21:339f:b0:3c3:6b6e:8ba0 with SMTP id adf61e73a8af0-3c8aaf815b1mr8876581637.11.1785340610961;
-        Wed, 29 Jul 2026 08:56:50 -0700 (PDT)
-X-Received: by 2002:a05:6a21:339f:b0:3c3:6b6e:8ba0 with SMTP id adf61e73a8af0-3c8aaf815b1mr8876539637.11.1785340610566;
-        Wed, 29 Jul 2026 08:56:50 -0700 (PDT)
+        bh=Ci5a3i1KHTiGYmRN5tAXD+AHcmxzUAUAXBR1lwdlYe4=;
+        b=Om5VqDwjJPXX4/4abuinzosUkC6nYrUhqDNIO3M24Vr0zrOGwiNjEZOZTNgb2JU13L
+         6T7nxoyWZAaMmtuoO+bkxEiWEP38fKwrd1thbTKL61RD8I0HY7euM2tAbcAZ4cb/JY51
+         idIHYIuJfaszoSIzzIbRLSvMGo8lz+V7zrlgbDqR+uPtstptwFJlVUIfcGaw3zwA9txl
+         zcm+4kK27LD9X1oSb56jsYJw8gOkc7rF+eZMN+4P3O4wYOmWIEdUL45pSszTDWDhI//3
+         xzIKFeNvzpsqzpY/zyhmHK7rsddrDGc076uphP6pGjJrHzMKw/5cMqaMP+/PG88lzvPO
+         gYsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785340626; x=1785945426;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ci5a3i1KHTiGYmRN5tAXD+AHcmxzUAUAXBR1lwdlYe4=;
+        b=rXUZexjyQEa3Is4WvxpW2NzfMsUXdeeijy6KwyOGjBf84MH8ieA0WTno7Cu6STOk0p
+         sFKtfvd6nw4M73xxpC9QL5+CGIOYcvnZY1GzcFcCEaNJr0F5KPNaS78/Aoqvbg+8CxmJ
+         27Jd/R35N4LFrzk/2kKGbini09NgsBntsQ7bTgGGe6ve5tAlDTx3RmLkZYAg68+yDW4i
+         5QrMRApz6F78F7WX8/t+VpicscCK1aDiVo+RYqyzPTPdqQBT5StKQS9cbbJcIZQp/rg/
+         Satex2Kyh7jin8iDZH2ghwjGKHQqXjjScB0KIoR1+whB5nUVLo3xWmL8qF9vrdA4mLHD
+         SHkg==
+X-Forwarded-Encrypted: i=1; AHgh+Ro+76gazUuzTLjeZof1VWksrU3ta0PZ63CRNiyNm0PCXPHuo3xeF2YOkP0t2GriG43jN5F/zTU4nK18ug==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxEpcjfv8yqMJ0sBJYeh7kxD8Yp2gMoIYf7EZtGO3N61iV2JGG/
+	lHnnSqYJgBbHgOWjigoBdevoqjhpDfdsEww8X0pCqvfVMheuPbIksGDRzj0Yueb8UfxaqnI9Gxl
+	RQWM+V5Bx9DvmXGnes9ad68UAoeAzPSp6iMBmK1zVzilQ7aanNCsiETyLpC0uz87t5Q==
+X-Gm-Gg: AR+sD13rn6IMRgnq1Z3mcu4Fg+DteyuBmHMNqr1gAlyw30Lrp82iDrDqws4Cjv3yHkL
+	lc4Rut/flMY+zBcvlmxLBsn7OSkGcZZMrI6IUteu7JgdLpE9RN1lLyrjpBI+aVgxWyqPyxIC6Wy
+	xPc9Jmwwwuhj+Dbuc8xPvOXnDhyG6rOnreRpVqdQCJc1A4Zch+VS0V3B4M7gFMUKFjaTigncuYq
+	m93W969Jsgmpxxz+aW9uQn/3eeqXUsnGCxXccWAMWv/yxf8+sv8q5JzbKWH4kkcNZdtDI6lCxk7
+	YRyiZ5ejOX1CfKnyhxeBGXbHZYT32CzKU9sjgrDT0oIJaVa1MueeoE1ZYOM5+XM1NjoZTKytYi2
+	Bq/M+Lh+aSeLu7CN4Vgtw0kA1PuUAGu3PyDtsn9MlTHbwHkg=
+X-Received: by 2002:a17:903:1b08:b0:2c6:d710:3e58 with SMTP id d9443c01a7336-2d015d5b940mr84315985ad.36.1785340625633;
+        Wed, 29 Jul 2026 08:57:05 -0700 (PDT)
+X-Received: by 2002:a17:903:1b08:b0:2c6:d710:3e58 with SMTP id d9443c01a7336-2d015d5b940mr84315725ad.36.1785340625211;
+        Wed, 29 Jul 2026 08:57:05 -0700 (PDT)
 Received: from localhost (c-73-37-105-206.hsd1.or.comcast.net. [73.37.105.206])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cbdba35196esm1174015a12.17.2026.07.29.08.56.49
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf39b5sm13502115ad.57.2026.07.29.08.57.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 08:56:50 -0700 (PDT)
+        Wed, 29 Jul 2026 08:57:04 -0700 (PDT)
 From: Rob Clark <robin.clark@oss.qualcomm.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
         Rob Clark <robin.clark@oss.qualcomm.com>,
-        Abel Vesa <abelvesa@kernel.org>,
+        Sashiko <sashiko-bot@kernel.org>, Dmitry Baryshkov <lumag@kernel.org>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
         =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-        David Airlie <airlied@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-        Hsin-Te Yuan <yuanhsinte@chromium.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Johan Hovold <johan@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
         linux-kernel@vger.kernel.org (open list),
         linux-media@vger.kernel.org (open list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b),
-        linux-usb@vger.kernel.org (open list:USB TYPEC CLASS),
-        Luca Ceresoli <luca.ceresoli@bootlin.com>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Pooja Katiyar <pooja.katiyar@intel.com>, Sean Paul <sean@poorly.run>,
-        Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>
-Subject: [PATCH v7 00/17] drm/msm: A couple lazy-vm fixes
-Date: Wed, 29 Jul 2026 08:55:37 -0700
-Message-ID: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
+        linaro-mm-sig@lists.linaro.org (moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:\bdma_(?:buf|fence|resv)\b)
+Subject: [PATCH v7 09/17] drm/msm/gem: Fix dma_buf import error paths
+Date: Wed, 29 Jul 2026 08:55:46 -0700
+Message-ID: <20260729155609.20190-10-robin.clark@oss.qualcomm.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
+References: <20260729155609.20190-1-robin.clark@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -111,73 +104,136 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEyNyBTYWx0ZWRfX0jKoD1l6/B/e
- Hsj1sRmE5d2DSKkxOu11dJX7eE4Ur4E4NlUWtL/CuaEbbtZOVkSdV/ch48sx+eqPSEAi5XqqBqf
- W+QOhFDb2MToRjuUoCh1lXeV7534K4M=
-X-Proofpoint-ORIG-GUID: KBiqbBlalEoNzQ6qe5giGpRb3_nBvszP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEyNyBTYWx0ZWRfXxf8XDIi/mFJ+
- cxDnGrdWTScPPZbKqCFRXpGmoB612yOEY7UhSs90KS1GC7pGf5devry+UM3p/0Xc+M0//Z4c1wN
- UemHg9DSjaVUXUpM6w2I3JFeZszgfYIcK7bpW06e4iWTL0OhCQmkB8eiZFt9Vnfgw5AmmPhkYNl
- DLeT8uKownZYjlBONUBy4/AMvyUAMkC3n1+XyiKK8gOdd+KXg0znsUyXizcUHBROjkKuO6DTvnv
- nti8Z+zDyNolPPdLhFXHaBh/PSTTbPgXAL+Dfa5Ns+O2E6hpJMahLzUz1JXF/4SIFfKfeOh7R9O
- 28eAobUPBkC+9zyp/Rw62bva8MVDG5meFO/KKztJnU2T4QM9ZqG73jHmaACOL6nZAMrVSzGYemw
- qZ0YKkK3pyudAI0jOI7LO1eusZ5Ze695H7QMTasTlpmlBAc7jsIV34XHg5w2e9XmmrxWP6wjPi5
- rycX7jCQn0CkbqlwQlw==
-X-Authority-Analysis: v=2.4 cv=VJTtWdPX c=1 sm=1 tr=0 ts=6a6a22c3 cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=bzYy7Z1X7KArDtV8Qg8A:9
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: KBiqbBlalEoNzQ6qe5giGpRb3_nBvszP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDEyNyBTYWx0ZWRfX60SZtwherb+G
+ 0NPa3fzB1euEM1vJ3ddc+IBgm5Ktq4kg3dmrplhTui3ESweCCIWv5OccyTJWsIN2Ko//bsX4fiQ
+ u1lmbOfPlztCnaj/EbaFSAO5Yn3D4dg5C3eYcI1W98bRtCPHMOzlsz7YshdnHeTEfQWm/SxTOzR
+ IHZgyvChkEFtwpmbf1Yzy1hAzt/MXPgJ+xZ9OCCOq8vz8B0ymPVM9OAdsKg+83X/Fy3Ij39tszL
+ /R3b11zhbzFUPFveADkm/pn5y7VrGmVzzQj98aDlReFt3vh2axMITfUbUp34N4gqOqqj5wLGHUx
+ 8XFlHFb0eOjWMVfVf7XWus3blPWVhdgoKGJyI6Z3pV0HRYHV22+/cZ+OdFTKIWiD9gnC0BD8r4D
+ MtwMKG5ECc8mnhjmec1yeH/t++TD/bni0C5nuFDqW/Gp1LNGSGazdi1FCh7oxBzZp19JfPEP8M8
+ 8QmNfe+AGFCaELRsX1w==
+X-Proofpoint-GUID: cm41QyOtz-LuhcP8nWpzsuAINCQ_C3cW
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDEyNyBTYWx0ZWRfX4Kn9oK7UW6Qs
+ 0d+LfEcAA46r1NVnUhMiDu/GOggucd6GwSIcET9dExLXZBC+dUmzeEWeEZBdiYMXdvKHobpY919
+ b7G6P2fbDxiEFP49i3dWu4L+GLl5ckc=
+X-Authority-Analysis: v=2.4 cv=ONYXGyaB c=1 sm=1 tr=0 ts=6a6a22d2 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=19Wyn7e3V/0aNffMjNCMQw==:17
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=sWKEhP36mHoA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CL2m_loAqK5Y4tUKEbYA:9
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-ORIG-GUID: cm41QyOtz-LuhcP8nWpzsuAINCQ_C3cW
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-29_06,2026-07-29_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1011 suspectscore=0 malwarescore=0 spamscore=0 phishscore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 adultscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 clxscore=1011 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
  definitions=main-2607290127
 
-The VM is created lazily to give userspace a chance to opt-in to
-VM_BIND.  But Sashiko noticed a couple paths that were not handling
-this properly.  Or at least that is how this series started out.
+Set import_attach early, so that if we hit an error path
+msm_gem_free_object() goes down the drm_gem_is_imported()
+path.
 
-Rob Clark (17):
-  drm/msm: Fix barriers accessing ctx vm
-  drm/msm: Rework queuelock
-  drm/msm: Synchronize VM creation on ctxlock
-  drm/msm: Synchronize set_sysprof on ctxlock
-  drm/msm: Move nr_cmds initialization
-  drm/msm: Remove redundant SIZE_MAX check
-  drm/msm/a6xx: Access VM directly in submit path
-  drm/msm: Add helper to check for per-process pgtables VM
-  drm/msm/gem: Fix dma_buf import error paths
-  drm/msm/gem: Remove useless locking in GEM import
-  drm/msm/gem: Extract bookkeeping init helper
-  drm/msm/gem: Set resv before exposing obj
-  drm/msm/gem: Validate lazy VM in GEM_NEW
-  drm/msm: Allow lazy VM creation to fail
-  drm/msm: Don't fallback to shared VM for VM_BIND
-  drm/msm: Fix per-process-pgtables check
-  drm/msm: Fixup invalid overflow check
+Set sgt late so _free_object() skips drm_prime_gem_destroy()
+as this is done by drm_gem_prime_import_dev().
 
- drivers/gpu/drm/msm/adreno/a6xx_gmu.c    |  2 +-
- drivers/gpu/drm/msm/adreno/a6xx_gpu.c    |  2 +-
- drivers/gpu/drm/msm/adreno/adreno_gpu.c  | 17 ++++-
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c |  2 +-
- drivers/gpu/drm/msm/msm_drv.c            | 26 ++++---
- drivers/gpu/drm/msm/msm_fb.c             |  4 +-
- drivers/gpu/drm/msm/msm_gem.c            | 94 ++++++++++++++----------
- drivers/gpu/drm/msm/msm_gem.h            |  5 +-
- drivers/gpu/drm/msm/msm_gem_prime.c      |  2 +-
- drivers/gpu/drm/msm/msm_gem_submit.c     | 31 ++++----
- drivers/gpu/drm/msm/msm_gem_vma.c        | 12 ++-
- drivers/gpu/drm/msm/msm_gpu.c            |  2 +-
- drivers/gpu/drm/msm/msm_gpu.h            |  4 +-
- drivers/gpu/drm/msm/msm_submitqueue.c    | 24 +++---
- 14 files changed, 131 insertions(+), 96 deletions(-)
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Signed-off-by: Rob Clark <robin.clark@oss.qualcomm.com>
+---
+ drivers/gpu/drm/msm/msm_gem.c       | 17 ++++++++++++++---
+ drivers/gpu/drm/msm/msm_gem.h       |  3 ++-
+ drivers/gpu/drm/msm/msm_gem_prime.c |  2 +-
+ 3 files changed, 17 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index efd3d3c9a449..74c3728f45bd 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -1093,7 +1093,9 @@ static void msm_gem_free_object(struct drm_gem_object *obj)
+ 		 */
+ 		kvfree(msm_obj->pages);
+ 
+-		drm_prime_gem_destroy(obj, msm_obj->sgt);
++		/* In msm_gem_import() error path, sgt won't be set yet: */
++		if (msm_obj->sgt)
++			drm_prime_gem_destroy(obj, msm_obj->sgt);
+ 	} else {
+ 		msm_gem_vunmap(obj);
+ 		put_pages(obj);
+@@ -1282,11 +1284,13 @@ struct drm_gem_object *msm_gem_new(struct drm_device *dev, size_t size, uint32_t
+ }
+ 
+ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+-		struct dma_buf *dmabuf, struct sg_table *sgt)
++				      struct dma_buf_attachment *attach,
++				      struct sg_table *sgt)
+ {
+ 	struct msm_drm_private *priv = dev->dev_private;
+ 	struct msm_gem_object *msm_obj;
+ 	struct drm_gem_object *obj;
++	struct dma_buf *dmabuf = attach->dmabuf;
+ 	size_t size, npages;
+ 	int ret;
+ 
+@@ -1296,13 +1300,17 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+ 	if (ret)
+ 		return ERR_PTR(ret);
+ 
++	/*
++	 * Set import_attach here in case we hit an error path that ends
++	 * up in drm_gem_object_put() -> msm_gem_free_object()
++	 */
++	obj->import_attach = attach;
+ 	drm_gem_private_object_init(dev, obj, size);
+ 
+ 	npages = size / PAGE_SIZE;
+ 
+ 	msm_obj = to_msm_bo(obj);
+ 	msm_gem_lock(obj);
+-	msm_obj->sgt = sgt;
+ 	msm_obj->pages = kvmalloc_objs(struct page *, npages);
+ 	if (!msm_obj->pages) {
+ 		msm_gem_unlock(obj);
+@@ -1328,6 +1336,9 @@ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+ 	if (ret)
+ 		goto fail;
+ 
++	/* Now that we are past potential failure points, set sgt: */
++	msm_obj->sgt = sgt;
++
+ 	return obj;
+ 
+ fail:
+diff --git a/drivers/gpu/drm/msm/msm_gem.h b/drivers/gpu/drm/msm/msm_gem.h
+index 762e546d25ef..86dc93cc1804 100644
+--- a/drivers/gpu/drm/msm/msm_gem.h
++++ b/drivers/gpu/drm/msm/msm_gem.h
+@@ -302,7 +302,8 @@ void *msm_gem_kernel_new(struct drm_device *dev, size_t size, uint32_t flags,
+ 			 uint64_t *iova);
+ void msm_gem_kernel_put(struct drm_gem_object *bo, struct drm_gpuvm *vm);
+ struct drm_gem_object *msm_gem_import(struct drm_device *dev,
+-		struct dma_buf *dmabuf, struct sg_table *sgt);
++				      struct dma_buf_attachment *attach,
++				      struct sg_table *sgt);
+ __printf(2, 3)
+ void msm_gem_object_set_name(struct drm_gem_object *bo, const char *fmt, ...);
+ 
+diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+index 036d34c674d9..beb7f22fd694 100644
+--- a/drivers/gpu/drm/msm/msm_gem_prime.c
++++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+@@ -83,7 +83,7 @@ struct drm_gem_object *msm_gem_prime_import(struct drm_device *dev,
+ struct drm_gem_object *msm_gem_prime_import_sg_table(struct drm_device *dev,
+ 		struct dma_buf_attachment *attach, struct sg_table *sg)
+ {
+-	return msm_gem_import(dev, attach->dmabuf, sg);
++	return msm_gem_import(dev, attach, sg);
+ }
+ 
+ struct dma_buf *msm_gem_prime_export(struct drm_gem_object *obj, int flags)
 -- 
 2.55.0
 
