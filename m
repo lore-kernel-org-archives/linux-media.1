@@ -1,222 +1,179 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CWXP265CU009.outbound.protection.outlook.com (mail-ukwestazon11021121.outbound.protection.outlook.com [52.101.100.121])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA994949ED
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 18:31:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785349883; cv=none; b=K1T9wOPJCDvo1r7fj2rNgLuygmbreqIId6aFVRurbgwB+X9B3B12VtuXf+gBgBhBpm1zUUhuO+q8GdDlzUOLuYgVI3XpDRCG2zC+2QEn/2asGa+Z33LTZp+dSIwBguiusNc2VILoTGhJJgd0iyQ7hbzcYbcMClIO4HaLXc9efs4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785349883; c=relaxed/simple;
-	bh=6Jmw8fadTclbG2T2Z68Rl3Wmmn5n2IP4R+z9w4+C6/8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Z8RSLO3LxfQvsSB7pFz+8c3FCclnsSRMEsN9QGeffwGrD+/nfE2SqIuwMT5sfXSAa4GaT+l7IiaDO9B7UWD6N5qUnkGgSXgZ2A+Ti/kkAKfNG9QdlioxEC5AXYu88Zx/NtNrBU7KIGrB7J4ZhPtcPc3bB6QLWDoTZyxk7PKqdoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OpOTluwo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SAbI5V10; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB723A1A2D;
+	Wed, 29 Jul 2026 18:47:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.100.121
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785350873; cv=fail; b=jo2y6/JeHI5tqXumUDLfzdtstyEpZu7fetEb6MeWJE9QbVSruMcCx/avqF916BTmLOj6y/0KZNgf8F/9zkk2YpHUDl9ZbnZpjjnttsATu+WApihm4y8ULRACjGnCugTaXHAs0QSigS8GsjyYRLSzbHFcLfbDoFX3MH/34qiuebY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785350873; c=relaxed/simple;
+	bh=Je4wbDErXhBwDsRww+kjS1FI1LeDLIguBPb0RUfSmV0=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=lSwmxFjeBvFOTa8FD6dQn2AA9SbUFyDWg+VK5muG373Vuj1/8psuMdOhyrKQDjvQkTvvis0924xtohCfGYbzddifhsaIPwxrf3gSCH7t5Z24Sm/3GG8aSi//tpRaN29Wiv/bpguN+HWqKN38QTFXEs9c4MJPUpmHf+NBXLnaBI0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=iWjgQq5W; arc=fail smtp.client-ip=52.101.100.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OpOTluwo";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SAbI5V10"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66TIR0KF2540804
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 18:31:17 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6e9PyztcWTGin2D498CISl8xSLMp4ILlbC/KGKMteYg=; b=OpOTluwofiGYgtjD
-	lgoZRmTSWWinkWDadOgTD4hNi1AI3YjQb1xWwxVxzZDsEWAg4mkXHxZ9XgKN9ZLU
-	gjWu7jPHsUMpj/d+r+QT04q+KCeFGQkeF15rWU8b10UwVDLJUdaLAo2+9zM3+ew3
-	bqWcqK9Pe87PkosNZ6fv5mJVAgwm/VCDJA7a3XMR+ioA53Da6mDpeDdh1Jg+edZn
-	EQliwjFqUaPdsSSQUxcn6g2BNE8HdCsZTmIpRW5j6hsqn8bjGyE+OPFLUe6z/aOH
-	Jv92sgn9y+WvOzk9tx2Bz/I1ZzmtJ1WtBk/HRHKnn8Px10/SkE10W7O2jXpFCNwh
-	oD/MnA==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fqm0fh5jq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 18:31:17 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c12e43b98so13812721cf.1
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:31:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785349877; x=1785954677; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6e9PyztcWTGin2D498CISl8xSLMp4ILlbC/KGKMteYg=;
-        b=SAbI5V10WveV1v9cvqlR7gQUl5Q6mI1RIhmuOv8+FtHfJvV/M/9MLXTHH2hXQjVuWq
-         PZiXhDL93iKAxz8bNOuyboW80GapZoxqSgWLdnB5ys6DwKoiwqUC1JNS0lekG9Ur5F+k
-         VwHYpVXtmM4iliUkHygPxzjzI+39vNDcguN2/CRMwQab71uK6NsWfN4TKmijyJAAmp4D
-         n1e0KEtMpLF5p44JC6lGpcia9uAAdfuc8pbCkoSS45pAA/XGg5CJ0qWHXhhRd76P3Zum
-         qZayvIDOhzrdLQx9/YW4109IsEnzdgnbdNtMFJc7fkVEtF0N/7wc1eReDzC3UYGYVNe2
-         EBPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785349877; x=1785954677;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6e9PyztcWTGin2D498CISl8xSLMp4ILlbC/KGKMteYg=;
-        b=jpmwbJCKshhZIJlcnMiP6rgDtNjtn5+s7zrUG7leaN6WvW/G5Y0nO50FXeQg5v43SM
-         8HyW81AVdW8oonE4BNjpGFzmDxzkg8mhKg0sGy49u4tHOdrWwul5V+E7m6loSendiIp7
-         dy7M7MsSHyKpxNABMjhEuiEVrh159q46LujGoAouJL4MUZkT3I/ucefB7fLFtdkMGPmW
-         WN+XVF7uo2heeAqn41Wbzdctd0H7ByNqKivh3O1ONO3WmzvB+864c1LxZaxJap9Vo+vN
-         x/i9AmuAjn/WG89KmTtsz14/y9wF5fABV60YdtpvtX3eLJZN1MpIbr4F4IISgLoeLa8w
-         GVug==
-X-Forwarded-Encrypted: i=1; AHgh+RqSKiEJ8eg0awJAyH5EyxP/whUU0DDCOb5z7RAeXCoZutDYQV0gLvliADQae+AowHS8BSKysm0B4vCxFA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YygoLgRRKHEyq0O1YHlmIs0wpIX7Z0B/kRR3TZGfZPOS1BZnfeM
-	IFC0+W+VFEdZH4VZrjmGLqtunq31C5v9C/cF6XPnqatR8dGp9tii50kXucc9VMYsWAXEwWwnlXX
-	6iQCsHjKL27nzO72pGQUwK4rcvaZwha67sqFvsaqDeKOmt99q2EMaUn+5WNyhM/NbBw==
-X-Gm-Gg: AR+sD10IV3NuEIcD+SoP62LJ/wjGWAcxyU0hBp+/91EGezGSWZds4O72r9bpiYTKxOd
-	5+H4tvwKhQ3SCgM5a/B6Kmb9t3/LQqdK4/YQ4SWf12qXr3NfVg49BcagTsvNhQK8w0QbFSI5oZh
-	Y/Dx18JpUAjXQjkP5PAObszthOTsKi0wAvbQTkNuS7AScJy885cEoFEMU64gK378pjEMbvWlcZA
-	fzcDJ8+fH0y0TO+JL4cZzhMNvlw4d5HTsx9dhrKnBMBGJKDL8jwkKuZz8o7fd7jHGzY1P6Ax6l2
-	60HBbW3ytJCLg3oLmaX3dFdBxD8r0JT5reSKpXHSuKe8mFolidbGIgtB/DEJwwnUhHAcA548+kC
-	q7ceDJRKmaKVjAcX6kYVPBJKRPloJZY62driQgX5/CtE9izigkuFe8KN6BJUgwhOCLWPcsLXn
-X-Received: by 2002:ac8:7d4e:0:b0:51c:1cbd:5fdc with SMTP id d75a77b69052e-529d6faf8eemr75038201cf.10.1785349876894;
-        Wed, 29 Jul 2026 11:31:16 -0700 (PDT)
-X-Received: by 2002:ac8:7d4e:0:b0:51c:1cbd:5fdc with SMTP id d75a77b69052e-529d6faf8eemr75037651cf.10.1785349876366;
-        Wed, 29 Jul 2026 11:31:16 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6acb6c9sm11104361f8f.13.2026.07.29.11.31.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 11:31:15 -0700 (PDT)
-Message-ID: <50662ecf-22a6-43dc-baca-9cd58001b51e@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 21:31:13 +0300
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="iWjgQq5W"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=npq9uT1rb1Vgs+ghsXamHrTILt81PhjxtoSkmeo7ymOSWOtTLYBbtZ9IdCH2SeYTNqIoSEVVPxrE/bG0SAw/KF/ynDRyRVsVOFUsawE/QS8EOWEbnk0sXyCynKuo1z8xCaIhG+oEnl7GnvT1cc1oWFkdf+GC3Qs9hzBTQozZTFlFGm0qOYHEJXm+4XQBOAuAYRoeaftr0mmtisV5Tjjui9HesVgitTKmUn4I0b2IHyGsanKFXVNhED1khz2+lPDdcZr+5f2T3EkL59bmdRXU/AyCoTCyYoswQgS6kpCZ+170cWNuQPUYJ1JeeByrnKJ4KHWr/C/lI+NAXU2m/GUKtQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Iu+uHmUP7kZo/sRlTsh4r5GE3nXPmGh5eVcgXyZ0ZmI=;
+ b=DgyLP/sb3kPCECvZDlrSRK9xGTAIBIi8nnPxbFMxdyOohY7OMwUuAD5XUp9CDefMLcWjpeClmDiZUBwC412VUz9ObPg6jVKAQP/YNutfdoQmxqUR9C5Clhly5zxzBfSiP9kmIs/TOPTuQXWjrzm9J9c/1TfdYJI0re4pfkTXJ/pJzgQg6Tzv2Ty8lcKROKVUYwfaqXrdcz3HQ91vjHLtqqyW0SQOCISpS0cewNnOJqH57YUuqtdh943OS3yZvc6LAjLp5C/yLzwmErzV2l6R9e3WNIrQbd15udmu7lZQ22qFUvJG+c092N9eoIiY/J8lPqP5jkWLhtF/A/gEQfJP3w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Iu+uHmUP7kZo/sRlTsh4r5GE3nXPmGh5eVcgXyZ0ZmI=;
+ b=iWjgQq5WX3E8NCPzqXpe0eZSi+Xr7wshanvojwMCsDEm7i+KzBVwExQepgpYiNMAyYuT4uh5nh9luZm1RDUyuJDb+kTIldJKx347tFr4HrSms8+wb3JgxSZB2RpWLaCoLvU9OvzsPcSVvGEufigURI+q5d/oZmPOgyJu5Q5Tmow=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:488::16)
+ by LO8P265MB7766.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:3ae::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Wed, 29 Jul
+ 2026 18:47:48 +0000
+Received: from LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986]) by LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::1c3:ceba:21b4:9986%2]) with mapi id 15.21.0270.009; Wed, 29 Jul 2026
+ 18:47:47 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 29 Jul 2026 19:47:46 +0100
+Message-Id: <DKBA29HOEUIX.H4CDPOQQXRD0@garyguo.net>
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Frederic
+ Weisbecker" <frederic@kernel.org>, "Neeraj Upadhyay"
+ <neeraj.upadhyay@kernel.org>, "Joel Fernandes" <joelagnelf@nvidia.com>,
+ "Josh Triplett" <josh@joshtriplett.org>, "Uladzislau Rezki"
+ <urezki@gmail.com>, "Steven Rostedt" <rostedt@goodmis.org>, "Mathieu
+ Desnoyers" <mathieu.desnoyers@efficios.com>, "Lai Jiangshan"
+ <jiangshanlai@gmail.com>, "Zqiang" <qiang.zhang@linux.dev>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Asahi Lina"
+ <lina+kernel@asahilina.net>, "Burak Emir" <bqe@google.com>, "Lorenzo
+ Stoakes" <ljs@kernel.org>, "FUJITA Tomonori" <fujita.tomonori@gmail.com>,
+ "Eliot Courtney" <ecourtney@nvidia.com>, "Mirko Adzic"
+ <adzicmirko97@gmail.com>, "Timur Tabi" <ttabi@nvidia.com>, "Daniel del
+ Castillo" <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>,
+ <rcu@vger.kernel.org>
+Subject: Re: [PATCH v7 3/5] rust: sync: Add abstraction for rcu_barrier()
+From: "Gary Guo" <gary@garyguo.net>
+To: <paulmck@kernel.org>, "Philipp Stanner" <phasta@kernel.org>
+X-Mailer: aerc 0.21.0
+References: <20260729094542.302965-2-phasta@kernel.org>
+ <20260729094542.302965-5-phasta@kernel.org>
+ <296c71c4-4d2f-416d-bfbe-40fd911b44db@paulmck-laptop>
+In-Reply-To: <296c71c4-4d2f-416d-bfbe-40fd911b44db@paulmck-laptop>
+X-ClientProxiedBy: LO2P123CA0082.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:138::15) To LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:488::16)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/5] media: uapi: Add CAMSS OPE ISP configuration
- definition
-To: johannes.goede@oss.qualcomm.com,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Kees Cook <kees@kernel.org>,
-        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
-        Rob Herring
- <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
- <20260724-camss-isp-ope-v5-3-e70ad4fa39ce@oss.qualcomm.com>
- <77f79a27-6a19-4879-b302-e7b42faaaced@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <77f79a27-6a19-4879-b302-e7b42faaaced@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: JmXaat5oYF5YtGcW3ZBHz1PKLLPpZjWz
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDE0MiBTYWx0ZWRfX3w/OSl7u5rAb
- jLsPZNpeP8XLNu3wHFQ3MJ6vLi8klRt2lCaNwSKcTyUPz1omW9mwbXQeeSyezs2roESdRzewEDM
- TP2vxYounpLptLpP/3qhzcd9SSCBa5iumPJu8ExMruqOTN0kmfmHzYYJJVHwjC7dXX7DM5Nm841
- 60zJDS3Db7rP/2pYtIp+GjsDuAMACasiTgYwPLT8dATBmLhOMUpV/1HOGK2VKedDw4EUDyZptMN
- k59Gr/3h1OUycbXoWLxVYd7J4ZH6Ixo0D45lXvkqgeIKNuVW7FiqBpjjQ+IifGeR55j/DEJRuxg
- bUlO/wsvurkKQLeC6vXHFqTt2l/nyZJn9lon6/MymV3OxHd6jTCX7LDz7UhlYeSoKj4/ST1X7r1
- 5b1wsyh10FuxKut4OyR6o9K1zSnUS64S6m+04WFDafBZ9UnlPTPyaBLZj5LMJO55oRUFB68nh97
- N0R4Y+f2Kh45A8SRjGQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDE0MiBTYWx0ZWRfX2CUi1+C8RU73
- IH3icdfFMgBaMbbktTIU3o72GYeId2rMhcenz3ANedgcIkTmuoZDDTs0gANsp5NCmFYKhnaFgFa
- x3oB8J9iKNPDgQiGR6yzCgNZXB/qyRY=
-X-Authority-Analysis: v=2.4 cv=LvuiDHdc c=1 sm=1 tr=0 ts=6a6a46f5 cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=YAyIRdgMAAAA:8 a=EUspDBNiAAAA:8 a=Yqt9_RdanuqypNOcg2YA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22 a=o1rO4XtwZBNj6n05oSJ_:22
-X-Proofpoint-ORIG-GUID: JmXaat5oYF5YtGcW3ZBHz1PKLLPpZjWz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_07,2026-07-29_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 priorityscore=1501 lowpriorityscore=0 suspectscore=0
- adultscore=0 clxscore=1015 impostorscore=0 spamscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607290142
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOVP265MB8871:EE_|LO8P265MB7766:EE_
+X-MS-Office365-Filtering-Correlation-Id: c2637ef5-b49a-4c33-35e0-08deeda1e268
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|7416014|376014|1800799024|23010399003|366016|18002099003|22082099003|6133799003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	j/asv5XhjFCAWXDbG80BzrUU+SeuuFlL7+0fapyflFLvnAmHiHD1M9/QYNKv7BfKtERRlN/UaUJSyLMhyyOVpxFs5iIySOgUtWombBr5ShB8u8/o4lqMJQBqui+eDelbnwak+DMwT/wjf0To6nEWQ2e35ssvijQXj7hK1QAd+L0u+r9khB3tQhUCpyMm4TSggJU2nf5xQZ3wSPyq3BAgW1BAO7aOvaDrq/oJ/aEa8DmTh4u7PWRlQbekfbiRMl78mfDkMTPZZshdyLxbGcJFQsGN2314ZAreI2ZxtAyayfBatsFBFdN/THMQRj/QkQUQfWLhKygLnqhm7NHFH9fA+H7VyXIhKvWiN83m43tvpCj7EfzIcZ9rezu+a0sFGhjDlJv0LBDwydXqQIBom3J1xx3OwJmnLWB9qOU7hzjGTtsKXeBg6X8nXoNN0xdVW61mNENNU6IOiYch8h8/EHJgrjJ9KrdUFosPCUL9Swi6DXkN4tJYdzltHlMSndegI0DNkLT5YU7Ek7cIqV4w26H3Spdypc8J4mcTX0VhGLjf2He/YKYDsrWHrjuZFAcizMwDy1b/tj9SgGKzi0DkToR2MfKF4c1yao8bUBEtczso9f7fGyGE2N99rxJH7gw/u/C/ly68tjCHmrr4DEcgcTpAU97HItq0DAOlIPog3CVfQHg=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(7416014)(376014)(1800799024)(23010399003)(366016)(18002099003)(22082099003)(6133799003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TitwMlZmZzlMS3hkVDM1OURjVENkbk55Q0EzdCtUdVJqT09UK0FMbTJHMWp1?=
+ =?utf-8?B?dXB6bmFxZjRQcjRPanJoQjV2ci9FZ2wyMTZ4bHZPQUxXS0o3SDM2TnZrcFFZ?=
+ =?utf-8?B?OGE3cDQrVGlRSFcrRVlubU1VQlYvQm0xRFRLMUJDV0xBRElScVc2aFBlU2Zi?=
+ =?utf-8?B?MXJGdHluck42NmhQaTVPUCtxK2pkMU83OHJZcEMyWi9kNUpiU2tiSHI2blJn?=
+ =?utf-8?B?RW1rWDAxQ00yZURXR1U5L0owY3B6dkEwTis1elI0bUROcUNYbDFZckU3c0FD?=
+ =?utf-8?B?SjFyODJPSFB4WksvdSs5cWg1UGpINTZCY282Y2U2TUNRbDRWWC9NblhETXpp?=
+ =?utf-8?B?cE9xYUI0azRDTmVxNWdPdEkvL0ozdHNIMFhtY1dvNzVRU0M5blZSNGhpZUR1?=
+ =?utf-8?B?dmdBdFErWGlmQnptdkgxeHJZWjNCZnozYnVIQ0ZrUDZ5WW4zeTdlKzkxc1FB?=
+ =?utf-8?B?RmFoOEpVUVREWUZXV2lER3BPWDVCUFAvR0VTejhJS2JCOXpBZ3o4K2FqcDA5?=
+ =?utf-8?B?UEEvT0tlald2Z1BNMmpZS2tPVGY0RlJrSndGaEl0R2RJRmE4OXZ0dHNOMGF3?=
+ =?utf-8?B?cS9NL0ZaaURkRHFWd3hid292R0ovUlIwRGNtSTZKaWprWEZKSGVHWUtMQ043?=
+ =?utf-8?B?RmNlUEhFRUxPT3RSTldHTlhHYUNCY3J3MzNCU0g4WXFBa05pOTdFTGlmOUN2?=
+ =?utf-8?B?Skc0enNCVWtzbXR0WWtNU0ZZOFJzRGlLSW1TUS9TekZ4NGF0Z28yRC83bUVG?=
+ =?utf-8?B?ZWhFOUF3cW5YbTVJbDJ1S0M5bFMzRnJUYWxZbkxFSVRkUXVuVHcrdHU4YmJh?=
+ =?utf-8?B?czA5U2cweXZXOWpndGZaZXBZUkk5cG9uRmJlWk5YcU5sWEprZ1BBQnFzcVRj?=
+ =?utf-8?B?Y3FuUUlmUkZGa1B5OFNwQnNRZW8wNW5IcjJ2QWRIdklDZkF6bGMxTGhrdU81?=
+ =?utf-8?B?RG5rUUZFVGw0Wkc1WHMvUUlYMmVabFV2cmlNWnMwRE1oQW1EQjJjSUM0eXVB?=
+ =?utf-8?B?NjJ6S0lMYXFUQllyQjJSQWYvZEN1bnJRK3hmVkVFci9tWHpsaERXemdiVURE?=
+ =?utf-8?B?ckhTa1NNbnd3cFZvUDNDQ1BVcUdLZnhTTXpFb2VaUTlsczRXK2gxNzE5bkdu?=
+ =?utf-8?B?MkV6V0FheWhCZVVwYUJwUjFJR3VkcmRIc0xodUxSOFNUL2dwR0hhRWRwUHQ4?=
+ =?utf-8?B?bHBmUFVYaFBYTHNnOVFCNWtVYzk2QXVyc3M1TUJmcndoL1h4dGkrR1hhMlFP?=
+ =?utf-8?B?QXBQOFcwcWNYaFJKalZzMWwzdHE5eXVYYzQ1VVZzMmdhN3BPcllwZzJxK1RZ?=
+ =?utf-8?B?ejBpeUFldWF5NmdjK05hb0JIblhvTjlSY08rZElpWUowb3IyZ3JHWVFQbWlJ?=
+ =?utf-8?B?TTBscll5clhsb0RMNzJVZHNqQkdCUFc5UUszd0xXUitKZXJYSUdldnZWM1Zo?=
+ =?utf-8?B?emh6RGFGZnNwVGZSZk9rdjZabHJNK2hKSitXWlBWbE5HN2MrcGVxdWV4azY2?=
+ =?utf-8?B?bkE2cGszRk1TeEx0UUhFRWpPaDVwQWRINTh6d2tvUFFqTk05TXh5MXNZVGVI?=
+ =?utf-8?B?Rms5Q3hkbXJ3Unh4azNvTm1HaG5kRU0vM0R6cTNyM2tHV2krckNmUnN2U2I2?=
+ =?utf-8?B?bjFNemwrNitCVGxQaGszV24wQ2p0elQ5VFdRckxMTE1ESFIySWxUR1cyZE5z?=
+ =?utf-8?B?OENNbUczVGJPSEhLRlU3MDlCVUFHdFNCOW1SK09BMGMwZWxLenJ3VW1DNVdi?=
+ =?utf-8?B?c0V1RldsVGw5czlUcVp3dVluZTFnalpVMncxaFN0OEVtSmY0T1FMUUFDdDhN?=
+ =?utf-8?B?OVU0ekczL3FyVkxqQmQyczFOYUlKUW5XZGNHOHRwa1RiOHFsMUIwYmNxbWN0?=
+ =?utf-8?B?dEUzVmxXSFpDNmpaaGNIRHhrVUUySDNlWFd0eDltSjRCZWhMd3YvMUhYUjNC?=
+ =?utf-8?B?THprYkFkR3dXNDRzcmVMajJseEJxbDI4Kys2aHNlYUxrVkdzQnBzZ1BaRDV3?=
+ =?utf-8?B?RWtBVmhtVmZIaEZJanMrendlcC9XakNuZHBlc2h4N0NPbWo1S1N3V2JpeUJu?=
+ =?utf-8?B?Uk95cmh2dS9OK3hoU0c4K0J4Y0dpMHFmYzVTbTRZbmk3RnNIWTZpUFF5TnhN?=
+ =?utf-8?B?YTMrQVNqVW9tSWgyTlZhc1ZBVzBydUYwU0swcDZMWndhd2ZLRHFsSXB6WjFo?=
+ =?utf-8?B?dGc3Q2dlQ1FZdnRwZHdJeTBIdkliazRjR2Y4N01INlFlaTdBVGdsSjIxVUZi?=
+ =?utf-8?B?YzVrUkNrd2RkL3duY0ZXYmJNalA4Zy9sUkF4N2NRQ2JqRmpIY25qMGEzZ28v?=
+ =?utf-8?B?Zmp5RSs2Sm5WWDJYM1RGTEZ2Vzd0ckdobm93OFdzbnArT01RQUZTQT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: c2637ef5-b49a-4c33-35e0-08deeda1e268
+X-MS-Exchange-CrossTenant-AuthSource: LOVP265MB8871.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Jul 2026 18:47:47.8058
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 33re0y3Jb8hqd8iXfq7GUzs5A+i2JACQ7qCVMlCNxP1UNAlSfucXNZtiRXpm2Y6YS0IDxUysqSOqLyI3V1OKig==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO8P265MB7766
 
-Hi Loic, Hans,
+On Wed Jul 29, 2026 at 6:18 PM BST, Paul E. McKenney wrote:
+> On Wed, Jul 29, 2026 at 11:45:40AM +0200, Philipp Stanner wrote:
+>> rcu_barrier() is a frequently used C function which is always safe to be
+>> called.
+>
+> Just checking...  Here "always safe" means only from task level, with BH,
+> preemption, and interrupts all enabled, correct?
+>
+> In contrast, if you do this:
+>
+> 	preempt_disable();
+> 	rcu_barrier();
+> 	preempt_enable();
+>
+> the results won't be safe.
 
-On 7/29/2026 4:27 PM, johannes.goede@oss.qualcomm.com wrote:
-> Hi Loic, et.al,
-> 
-> On 24-Jul-26 14:42, Loic Poulain wrote:
->> Add the uapi header camss-ope-config.h defining the ISP parameter
->> structures used by the CAMSS Offline Processing Engine (OPE) driver.
->> This includes structures for white balance, chroma enhancement and
->> color correction configuration.
->>
->> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
->> ---
->>  include/uapi/linux/camss-ope-config.h | 160 ++++++++++++++++++++++++++++++++++
->>  1 file changed, 160 insertions(+)
->>
->> diff --git a/include/uapi/linux/camss-ope-config.h b/include/uapi/linux/camss-ope-config.h
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..800e6ef1dba218ca33b565e1e51d6647f02f8753
->> --- /dev/null
->> +++ b/include/uapi/linux/camss-ope-config.h
->> @@ -0,0 +1,160 @@
->> +/* SPDX-License-Identifier: GPL-2.0-only WITH Linux-syscall-note */
->> +/*
->> + * Qualcomm CAMSS Offline Processing Engine (OPE) ISP parameters UAPI
->> + *
->> + * Uses the generic V4L2 extensible ISP parameters buffer format defined in
->> + * <uapi/linux/media/v4l2-isp.h>.
->> + *
->> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
->> + */
->> +
->> +#ifndef _UAPI_LINUX_CAMSS_OPE_CONFIG_H
->> +#define _UAPI_LINUX_CAMSS_OPE_CONFIG_H
->> +
->> +#include <linux/types.h>
->> +#include <linux/media/v4l2-isp.h>
->> +
->> +/**
->> + * enum camss_ope_params_block_type - CAMSS ISP parameter block identifiers
->> + *
->> + * Each value identifies one ISP processing block.  The value is placed in
->> + * the @type field of &struct v4l2_isp_params_block_header.
->> + */
->> +enum camss_ope_params_block_type {
->> +	CAMSS_OPE_PARAMS_WB_GAIN = 1,
->> +	CAMSS_OPE_PARAMS_CHROMA_ENHAN = 2,
->> +	CAMSS_OPE_PARAMS_COLOR_CORRECT = 3,
->> +};
-> 
-> I don't think we want this enum to be OPE specific. The whole idea behind
-> the extensible ISP parameters is that there is a single set of parameter
-> definitions spanning multiple ISP generations.
-> 
-> There is going to be a mirroring patch for libcamera defining some C++
-> magic around this header:
-> 
-> https://patchwork.libcamera.org/patch/27430/
-> 
-> and this will be used in the camss libcamera IPA and we don't want to
-> have one version of the libcamera wrapper per ISP "generation".
-> 
-> So I think this should all be moved back to a generic camss-config.h
-> (or maybe camss-parameters.h ?) and then if for the planned Hamoa /
-> Monoca inline ISP work of we need say a new version of CAMSS_PARAMS_WB_GAIN
-> just add a CAMSS_OPE_PARAMS_WB_GAIN_V2 for that.
-> 
-> That is the whole idea behind the extensible params, otherwise libcamera
-> will effectively need to have 1 IPA per ISP generation / type which is
-> not what we want.
+This is same for all sleepable functions. In order to avoid having to mark =
+all
+sleeping function unsafe, we've decided that sleeping from non-preemptable
+context is "safe", but is a bug regardless.
 
-Can we change the name of the header to not be OPE specific. An proposal will be camss-config.h,
-i believe most of the parameters will be the same for other ISP versions.
+Best,
+Gary
 
-~Gjorgji
