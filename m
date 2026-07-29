@@ -1,312 +1,161 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6609448B87
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:45:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785325508; cv=pass; b=BLkp2ezQQxn/XzJKXrjjAIfUtJegbkhcfwCRiofGdeZ4OLv+gJiPshRrK2n0C5xkTYPTFsSsKmcSUOABrAH5Rp3oP6SJlJDdEiNnS2D2T14vA/qHrTU1JP38LzhsRqIAzgDC7dFGA2eSGxJP0evpapIdcOM8D46FSk6z8KIAmFM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785325508; c=relaxed/simple;
-	bh=FLPHNvRQdoBt+d9amRqUb2qeOLirKfRBz6I3QbkaJjA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IYEd1SD5FcJao+aGspZ60knQs6pHZ6uZp0ss2K11Q+CxfvRM7vT9HI8HqpkLYvaBsp27qHGF8MDC45ZZZ+I+zOuQujTedqgmYVumhbfGpIhg0O72jkyScme2YbNCnzJSycyOX58ohkukR6oiOlodhH8tYVVLg94DXzwU/Jz8NnQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iCPTi0jp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U39WddTJ; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB58C474279
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785325572; cv=none; b=gHNeyhrpMgQcGH6eWT5aPpCAIeV3bMWdP2JZkKF1AU3fZwD36fjnzHrhA2savmFQqVFqAry+phoh2qHgalQUMzdUQFTs12brSv/zizpXOx/cJyzcQKhrYBLbm4Abpp+6s/o26fcStDOusCJBQAF1Gj1Y/Fos0A9lihHzDjpZ4S0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785325572; c=relaxed/simple;
+	bh=wYq/i9KhASJIbtNcdRJPIPtUhLDMmjpqz3feaFDSSx4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lmhTa/Z3V5oC+4BExlbfnImaKjgJaKBC1O1BlZARI8dAg4sUXl37R7AmkGU7JQREj2jJPWYaDDO/jMCDVJZsrolug3AKBGqgTPfapaUXCa+k+C0I1b4qNP/hKxSQHpGJ/KgulC+8m0rk0+0JN4OVCj8O/IH78MOPFXjaEEP8PCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q4tOmr3N; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iCPTi0jp";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U39WddTJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1785325505;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
-	b=iCPTi0jpVInk299K9T8iRg0haNHzcCNnba6gcGbk/Wp6UizN+5Zd6m0+n8Jrf1OtRLkcpz
-	pRH3dt5ZT32/AGXBX4yxMuKCArq2+odv864+BUlQ7kQmPyNQ3xpJFfpRp0KhRelAI9MQEz
-	lCiyB6bnvyTzKOU1L11nW7t0SHHFzzE=
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
- [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-650-qH-XegkEPOySTk-yK6anyw-1; Wed, 29 Jul 2026 07:45:02 -0400
-X-MC-Unique: qH-XegkEPOySTk-yK6anyw-1
-X-Mimecast-MFC-AGG-ID: qH-XegkEPOySTk-yK6anyw_1785325502
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-455cf15f8b5so1065018fac.0
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:45:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1785325502; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r/zjAjBtOK/2v3PYBRZDs9dXUwjYalKU3iKCLBVxgSy5U7VSDmjE6RSozBNTDDYKOG
-         ySJzJ/ycZpmu2IJ03KvjVAhbRJEBFEr9nsdswYHif/z3Br9r8oRbAONCWoTS0q/WS/Xu
-         4FF5Xk+aq2lIhagR27QF/8cmRvRuZfxpEWi8X7+nT34s/2ZE5uQBMju6JANzLcX6DbH5
-         6d2YLscNahhvTjITRWgEIqBl6W0dLN1AiIpsViLZDy6d/xGZcYkc5CwzhstKA9enXljW
-         P1ceySA6lxbDVHiTiwkgDkElU+QMxXCAHKC0cRw1ymuPL7K6vBQyVS8ijYbtNLVpZIcy
-         dkiw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
-        fh=vgwrrUiXj+9XnjF23dz4mTLT7FnpR+Xo/6ZmbT5B1Wk=;
-        b=cYAQV0KdmJWn29jVIrBouXtMszT69I9r/Gp9pdbkSXIYcKCj8tyFIE17QUbMOfNVCO
-         86B/kQG1jxUsJTy18MiklZROJ/QPm04faU3gYC4PpaVDhiRLmWnd5iBknPn3i0ZJ38YG
-         FL7XK3mIZ064s4fCKHumpF5sctR0ThU/LQ68ZjjNckTlmbImTZwCdNgpVxr0g+bkijrE
-         Ged5zN29WecMymQvfdghfmcrD15vnBDzDyeHwt5DYubWhCAjYbl8HDqtj1l0LHfkWLj3
-         4nE2fn1DnsOTbZxr+4pr04cOWe+GTKrhs0heN39jHZ7GaNWvKjpk4iPyNa/efvmVHZ7M
-         Ao+w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q4tOmr3N"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4954d29264cso3825785e9.2
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:46:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1785325502; x=1785930302; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
-        b=U39WddTJTAhO2kMCD6Z15ZIO8qnaJrKzA1GSs1sQu0AcIXQFoBMKi7C2cv6d0KASS8
-         NBO8eE+00FH29cxGwmXJia8tbtd0F2c8cqi5CzfjHlut6TvsxWSeB1ztPaOgZffguS22
-         xThFx0D0STHuKNz8O54sEeCDRHOp6sNalLA0FFBsascmaFScqvGwGL0HbOUMGxPANx+3
-         dhqC6IeGYEn2PM6aF8ZCGyiKMJhN5w9gHMdu5ksOYTJ2QyrWWumao6Z2FAFJdhvwNfJg
-         9n9oMMjCxnRy8cy5dh0ZBfnUxBHWAWoqZVt/pS/s5DrVDw1/x8sofC9AP0gcPoBXOk7H
-         qfXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785325502; x=1785930302;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1785325568; x=1785930368; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
-        b=ZQboSuSinppMmc0rc5dy1x8U918y5I0Jhrz/uBe8u5s5/hTdObtuN0FS/7D5on9FVC
-         a3FiwBf4x2bkSyHudDtStHNtKOO7V/gDvHJp7i+J7bIBFFLqLWxkmBLKrbKbbDLU68ic
-         f64FjkOTWPyFc8nBstCa2jVYCTYyjLrGeaW0u6PeXCBVk+tEA91d5z/qAR6fnx34LvhE
-         BSZMm2Otiy/Wb8DnTB+AWKOWTZxCwFTdTxYHUFai+avpNEQOekqKjrRraYKbb6aCW/Zr
-         SRvO/PVQ1PNeJLyypU/pZsXDX8GM8+PRUp5dEZQndSRHqMgUjCoCj1jM4chJGUGRDaI4
-         xGTg==
-X-Forwarded-Encrypted: i=1; AHgh+RqKmraEO3tjt/nRDrE9Fmd0fKKbOA+g3kxL36aHf3wJBuE8j9mJvYrpaKCroVcKdsvrNMU7iM0px9lZoA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+2ft0Qbs1VUreaASriV13A6/cJWZ5mh1C3gtoG+1/LzlLUo2v
-	Xo5Rj83q72wEV+R9/Bi9WM/mi9UA5lYuAcBX0I0B+O0/YxNjEXvNrnowUlBMc5qORKvm4Mh5iD0
-	LWIVwhT8MqeAueMX6lN2ZJ6y2tjuatgwBFN0zCKn0XbXOBD9FnpYMcf7zo811rsrCXsH5/Qkh+z
-	PEb8TxklWcxPueZ0PeL2pdENAIGLaxIBTQCLVsbuhWiCqtciyWWA==
-X-Gm-Gg: AR+sD13pHFgcWRbDX0zcuKQT/F2KDPWNPdB76piatPbfH2RvvdHJ3bnzTP3ur9JgJxf
-	95L3COyzi1+4JEQzruDZk1lihIr8xHIpFStHcy8huNljniLZxCTwfnfMZgbpRtBzDxv3AyHUoca
-	9y6ydU4kK7xuV8OqFLoo9/BuILasaaZqery1uOLq7gns5PoAcR7l9BN3s=
-X-Received: by 2002:a05:6870:d10c:b0:456:c0b0:fa81 with SMTP id 586e51a60fabf-458961d8416mr941086fac.15.1785325501899;
-        Wed, 29 Jul 2026 04:45:01 -0700 (PDT)
-X-Received: by 2002:a05:6870:d10c:b0:456:c0b0:fa81 with SMTP id
- 586e51a60fabf-458961d8416mr941066fac.15.1785325501434; Wed, 29 Jul 2026
- 04:45:01 -0700 (PDT)
+        bh=57DEPZ87ucJ5C9uIRumsuvToNlPqHFcS1ybRBzt41xg=;
+        b=Q4tOmr3NPrKlHbunO+WGW5tksNDRut0JzIrMssPFekJ8X9lIPuMDhroEwWKfBheT7l
+         ir7lZheWSAUWya+TtSg+psDb7MIsaCY1h77JNK2glnfIFQ5TYjZBnquo8eKZffr4JMHa
+         icbuyAij8m20iYdhp9VGYpvGCDeBAvxHi2WeoP4uO+eWfnSY7qFtJJZj6L3489hntzZ6
+         sp7FREGcuncaPPnHQUO0X3hEr6RZ+RCUM9zoUVsgp0EBbJwgwnSfhmCP7E/H6VpYpo/A
+         RcPuT7Ci+D0HiR2WH8sQOqDGg2PE0TTd5p/dfGykxHv0Yy66c6L0QoTm3VFjU/nf58kQ
+         QKBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785325568; x=1785930368;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=57DEPZ87ucJ5C9uIRumsuvToNlPqHFcS1ybRBzt41xg=;
+        b=HFnr5sRJ0yTcyoI8j23CTozqfPa3W8VmLxIlkEYiOi5a/kFb6M8niCWUs8+UFOKd2I
+         Su+iaw2gbUTYvUJxiU5nfN5Ye46IqCQRKNMQUhNN1xefuxziViFk2Q/tXZ4Fj/RIvlHc
+         mv8wrq2wEBV/W5StzCYlorzey8GHbmQ/l40rp21J/hRrOOUZOs9l3X3pnYnCA76IOS76
+         T512JwAMt345Nw5pekeCVU5EBFLGWHeJ/i3Lm3N8BicAxUL24KHf/h1u8z6ucfcrvN/5
+         VkHqKMYFEILcZPHXFFCSfBT/TGomUb3gAOqK8O5zkUqfhkZ7lNpFW2AhXAZIFdB4gUrc
+         ikFw==
+X-Forwarded-Encrypted: i=1; AHgh+Rrq1v9nBrtLTDazYP6lVkQ1eAZgyU1z3uh0Guayuu4leeaVZSsSKBVkRGi6M1RgOhbJMFBb5uV1+93U/w==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw4NKu03/cYuCifs8iGe+47QhHsfh5KKFld4IoKLcylz80xuc28
+	vFnOxr/kKrNIThZ3gYK3+GGlFo2lOvMj2nCW4jWETkfH4HX0VF0y71aP
+X-Gm-Gg: AR+sD13zkAoH/RVqHMRtaliJJZKSUpz3N8Hv/PYzfT2VtKEDaB3XbCLhfjAjKQjfKgT
+	lEcZBDs5gqkpO9/pVLgIoSm39uczF7JuQmS7GFiIEVbdJQ+p18l78aK/1AvTiK/gjN337z34/AA
+	JfbPJYpOJNOApnClzwMjxMju9wgvp5Xp5WxkddwPyjuV8b282GHS/koiM7R0UjE1ex+Vz08Tu76
+	QHmlrJKA8vplU/IzqddYrOChMF3LzVqqMD7/MBEs6L8GuxT6boSFTDfl9MW17PQgO9O0tmpohG3
+	75/Bi8tzAh7z1OrV1Hg1k2x+6KmQK1T2gw8y7llEIIKInZ5rPcl7Dq+YVUImvH/DsINYn431Hrs
+	6E67vkosFEHiNdObyJ3zWcosMP7Me+L4uT7gVraBmuu8L2cIIijh4qQmzk2js0GSBli4DzFGeja
+	5ivdjeWFipyr1vRFN5+qLG15JMJkdnwNe2pR2SXrXpzJimsUzn7QC8wNsY/6SmQuJXZIszTcj9A
+	2O7hF44NSZJ8iH9nWztZhiMLg9XRsJXfDF04SIOrTbrWtaLnFofKk1dxRnQpIaxN89O+4jfX7iF
+	CZebmofs97Nul2rSW+tQodgv5hg94w==
+X-Received: by 2002:a05:600c:470d:b0:493:e365:7630 with SMTP id 5b1f17b1804b1-496c6431d1fmr69913135e9.14.1785325567969;
+        Wed, 29 Jul 2026 04:46:07 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:640])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-497fecfccc7sm26554895e9.12.2026.07.29.04.46.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 29 Jul 2026 04:46:07 -0700 (PDT)
+Message-ID: <b03bba6f-0a8f-41fc-af59-2a69d271f28b@gmail.com>
+Date: Wed, 29 Jul 2026 12:45:47 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260729055801.751945-1-tarang.raval@siliconsignals.io>
-In-Reply-To: <20260729055801.751945-1-tarang.raval@siliconsignals.io>
-From: Kate Hsuan <hpa@redhat.com>
-Date: Wed, 29 Jul 2026 19:44:49 +0800
-X-Gm-Features: AUfX_myXi3r4mFBAWY7Kh1aMk6sh7LJFih7OsIzW7gGkgMauQPQs3oOrfLT51Ew
-Message-ID: <CAEth8oFjCMXGRMkuq_FUcXk-QgQ3BZ010C+We0BC_TZXDYZgEg@mail.gmail.com>
-Subject: Re: [RESEND PATCH v3] platform: int3472: discrete: Support multiple
- HIDs per GPIO map entry
-To: Tarang Raval <tarang.raval@siliconsignals.io>
-Cc: sakari.ailus@linux.intel.com, linux-media@vger.kernel.org, 
-	Hans de Goede <johannes.goede@oss.qualcomm.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 09/14] nvme-pci: add SGL support for the dmabuf path
+To: Christoph Hellwig <hch@lst.de>,
+ Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org, cpgs@samsung.com
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <5c2e9c3bdd3e87c0c9a6e4395ea199002b83fd36.1785274111.git.asml.silence@gmail.com>
+ <CGME20260729072126epcas5p3ad4422a45f1274b71f15dec8bf487fcc@epcas5p3.samsung.com>
+ <20260729072117.GI9534@lst.de>
+ <81412691.21785320403945.JavaMail.epsvc@epcpadp1new>
+ <20260729113108.GA31120@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729113108.GA31120@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Tarang,
+On 7/29/26 12:31, Christoph Hellwig wrote:
+> On Wed, Jul 29, 2026 at 03:47:23PM +0530, Anuj Gupta/Anuj Gupta wrote:
+>>> But I also don't understand what the use case for this function
+>>> is to start with.  struct sg_table tells us how many segments
+>>> exist on the DMA side in the nents member, which should be just
+>>> fine for the SGL threshold calculation.
+>>
+>> sg_table->nents covers the entire exported buffer (<=1GiB), while a
+>> request only covers a subrange[bi_offset, bi_offset+payload). Using
+>> nents would overcount the request's segments.
+> 
+> Urgg, yes.
+> 
+>>>> +	if (!entries)
+>>>> +		return BLK_STS_IOERR;
+>>>> +	if (entries > NVME_MAX_SEGS)
+>>>> +		return BLK_STS_AGAIN;
+>>>
+>>> Given that the block layer enforced data in rw/command and the
+>>> max_segments limit, why do we need the extra check here?
+>>
+>> A dmabuf bio reports nsegs=1 (bio_split_io_at) to the block layer, so
+>> max_segments isn't enforced against the SG entries actually spanned by
+>> the request. Hence the explicit check.
+> 
+> We'll need to expose the actual nsegs to the block layer and split
+> based on that.  Otherwise I/O might work or fail based on the device
+> capabilities.
 
-Thank you for your work.
+It was exposed in early version as I was passing a [{dma,len}, ...]
+array, but we moved from that. Maybe I should put the minimum
+segment size in the map structure, and (possibly over) split using
+that for now? Keith had this chunk in his patches:
 
-On Wed, Jul 29, 2026 at 1:58=E2=80=AFPM Tarang Raval
-<tarang.raval@siliconsignals.io> wrote:
->
-> Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
-> GPIO quirk. As more sensors needing the same quirk are identified, this
-> means adding a full duplicate table entry per HID, differing only in
-> the HID string, which does not scale.
->
-> Change int3472_gpio_map::hid to a NULL-terminated hids array so a
-> single entry can match any number of ACPI HIDs, letting new HIDs be
-> added to the relevant array instead of duplicating quirk entries.
->
-> Cc: linux-media@vger.kernel.org
-> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> Tested-by: Kate Hsuan <hpa@redhat.com>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-> ---
-> Change-log:
->
-> v2 -> v3:
->
-> - Move the comments after the HID strings and include the sensor name,
->   as suggested by Hans.
-> - Add the Reviewed-by tags from Hans and Daniel.
->
-> v1 -> v2:
->
-> - Add per-HID comments to power_enable_hids_vana[] (Lenovo X9-14/X9-15
->   for SONY471A, Lenovo X1 Carbon G14 for TBE20A0)
-> - Convert INT33F0 (mt9m114), INT347E (ov7251) entries to use named
->   power_enable_hids_*[] arrays instead of anonymous compound literals,
->   for style consistency
-> - Did not convert OVTI08F4 (ov08x40) to a named array, and did not add
->   a NULL guard in int3472_gpio_map_hids_match(): not fully convinced
->   these changes are needed yet, but open to further discussion on both
->
-> ---
->  drivers/platform/x86/intel/int3472/discrete.c | 59 +++++++++++++------
->  1 file changed, 40 insertions(+), 19 deletions(-)
->
-> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/plat=
-form/x86/intel/int3472/discrete.c
-> index adff564bf3fd..6c729fcfce5d 100644
-> --- a/drivers/platform/x86/intel/int3472/discrete.c
-> +++ b/drivers/platform/x86/intel/int3472/discrete.c
-> @@ -123,10 +123,31 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int34=
-72_discrete_device *int3472,
->         return desc;
->  }
->
-> +/*
-> + * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added=
- to
-> + * this array instead of adding new quirk table entries.
-> + */
-> +static const char * const power_enable_hids_vana[] =3D {
-> +       "SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
-> +       "TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
-> +       NULL
-> +};
-> +
-> +static const char * const power_enable_hids_vdd[] =3D {
-> +       "INT33F0", /* mt9m114 */
-> +       NULL
-> +};
-> +
-> +static const char * const power_enable_hids_enable[] =3D {
-> +       "INT347E", /* ov7251 */
-> +       NULL
-> +};
-> +
->  /**
->   * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
->   * sensor driver (as in DT bindings)
-> - * @hid: The ACPI HID of the device without the instance number e.g. INT=
-347E
-> + * @hids: NULL-terminated array of ACPI HIDs of the devices without the
-> + * instance number e.g. INT347E
->   * @type_from: The GPIO type from ACPI ?SDT
->   * @type_to: The assigned GPIO type, typically same as @type_from
->   * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
-> @@ -135,7 +156,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472=
-_discrete_device *int3472,
->   * GPIO_ACTIVE_HIGH otherwise
->   */
->  struct int3472_gpio_map {
-> -       const char *hid;
-> +       const char * const *hids;
->         u8 type_from;
->         u8 type_to;
->         bool polarity_low;
-> @@ -145,38 +166,27 @@ struct int3472_gpio_map {
->
->  static const struct int3472_gpio_map int3472_gpio_map[] =3D {
->         {       /* mt9m114 designs declare a powerdown pin which controls=
- the regulators */
-> -               .hid =3D "INT33F0",
-> +               .hids =3D power_enable_hids_vdd,
->                 .type_from =3D INT3472_GPIO_TYPE_POWERDOWN,
->                 .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
->                 .con_id =3D "vdd",
->                 .enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
->         },
->         {       /* ov7251 driver / DT-bindings expect "enable" as con_id =
-for reset */
-> -               .hid =3D "INT347E",
-> +               .hids =3D power_enable_hids_enable,
->                 .type_from =3D INT3472_GPIO_TYPE_RESET,
->                 .type_to =3D INT3472_GPIO_TYPE_RESET,
->                 .con_id =3D "enable",
->         },
->         {       /* ov08x40's handshake pin needs a 45 ms delay on some HP=
- laptops */
-> -               .hid =3D "OVTI08F4",
-> +               .hids =3D (const char * const[]) { "OVTI08F4", NULL },
->                 .type_from =3D INT3472_GPIO_TYPE_HANDSHAKE,
->                 .type_to =3D INT3472_GPIO_TYPE_HANDSHAKE,
->                 .con_id =3D "dvdd",
->                 .enable_time_us =3D 45 * USEC_PER_MSEC,
->         },
-> -       {       /* imx471 expects "vana" as con_id for power enable */
-> -               .hid =3D "SONY471A",
-> -               .type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
-> -               .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
-> -               .con_id =3D "vana",
-> -               .enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
-> -       },
-> -       {
-> -               /*
-> -                * imx471 (on Lenovo ThinkPads X1 G14) expects "vana" as =
-con_id
-> -                * for power enable
-> -                */
-> -               .hid =3D "TBE20A0",
-> +       {       /* Sensors which expect "vana" as con_id for power enable=
- */
-> +               .hids =3D power_enable_hids_vana,
->                 .type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
->                 .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
->                 .con_id =3D "vana",
-> @@ -184,6 +194,17 @@ static const struct int3472_gpio_map int3472_gpio_ma=
-p[] =3D {
->         },
->  };
->
-> +static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
-> +                                       const char * const *hids)
-> +{
-> +       for (unsigned int i =3D 0; hids[i]; i++) {
-> +               if (acpi_dev_hid_uid_match(adev, hids[i], NULL))
-> +                       return true;
-> +       }
-> +
-> +       return false;
-> +}
-> +
->  static void int3472_get_con_id_and_polarity(struct int3472_discrete_devi=
-ce *int3472, u8 *type,
->                                             const char **con_id, unsigned=
- long *gpio_flags,
->                                             unsigned int *enable_time_us)
-> @@ -200,7 +221,7 @@ static void int3472_get_con_id_and_polarity(struct in=
-t3472_discrete_device *int3
->                 if (*type !=3D int3472_gpio_map[i].type_from)
->                         continue;
->
-> -               if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid=
-, NULL))
-> +               if (!int3472_gpio_map_hids_match(adev, int3472_gpio_map[i=
-].hids))
->                         continue;
->
->                 dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x =
-%s\n",
-> --
-> 2.34.1
->
++		int offset = offset_in_page(bio->bi_iter.bi_bvec_done);
++
++		nsegs = ALIGN(bio->bi_iter.bi_size + offset, PAGE_SIZE) >>
++								PAGE_SHIFT;
++		if (bio->bi_iter.bi_size > max_bytes) {
++			bytes = max_bytes;
++			nsegs = (bytes + offset) >> PAGE_SHIFT;
++		} else if (nsegs > lim->max_segments) {
++			nsegs = lim->max_segments;
++			bytes = PAGE_SIZE * nsegs - offset;
++		} else {
++			*segs = nsegs;
++			return NULL;
++		}
 
-It is good for me.
-
-Reviewed-by: Kate Hsuan <hpa@redhat.com>
-
-
---=20
-BR,
-Kate
+-- 
+Pavel Begunkov
 
