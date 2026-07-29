@@ -1,161 +1,312 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16965476CE0
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:38:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785325137; cv=none; b=i56u8zvW7aFk3zo0S7quYM77OhfrAx2iFcAUTmjuwGfflgZBcYkp1hXwcER2KKuW0w85H/cGI6e5fxPmagVTVTisXTCacu052zqlFkHmeFEo4Zz+HgQNeSEtgWEboxAAlZoylVDVj+yxC+RXAyvJHGMo7hwlj7wd97TSl6cbn2Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785325137; c=relaxed/simple;
-	bh=+bl7W/DghJ2lNo8ihHQByUSlt3smL+/7HO/f5BD68Hc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lu3QIEHzYAVVX02H5EgrfC3aQBe380rBWg54JQ2Yd+8AI7HQIRkBwxpyI7ds4EoLfbXP+GSPrLIXibm7PApDgXmA1Rz+y4UQr+64cEpvuyHO9dNSSseE4gcyyePBiAX3o8hRBTHvenPBR5Fd3io1+dH/HCMvpI9ZDRZvN2OrjNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nejlkA2+; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6609448B87
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785325508; cv=pass; b=BLkp2ezQQxn/XzJKXrjjAIfUtJegbkhcfwCRiofGdeZ4OLv+gJiPshRrK2n0C5xkTYPTFsSsKmcSUOABrAH5Rp3oP6SJlJDdEiNnS2D2T14vA/qHrTU1JP38LzhsRqIAzgDC7dFGA2eSGxJP0evpapIdcOM8D46FSk6z8KIAmFM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785325508; c=relaxed/simple;
+	bh=FLPHNvRQdoBt+d9amRqUb2qeOLirKfRBz6I3QbkaJjA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IYEd1SD5FcJao+aGspZ60knQs6pHZ6uZp0ss2K11Q+CxfvRM7vT9HI8HqpkLYvaBsp27qHGF8MDC45ZZZ+I+zOuQujTedqgmYVumhbfGpIhg0O72jkyScme2YbNCnzJSycyOX58ohkukR6oiOlodhH8tYVVLg94DXzwU/Jz8NnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=iCPTi0jp; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=U39WddTJ; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nejlkA2+"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-4720f3bf164so1309467f8f.1
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:38:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="iCPTi0jp";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="U39WddTJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1785325505;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
+	b=iCPTi0jpVInk299K9T8iRg0haNHzcCNnba6gcGbk/Wp6UizN+5Zd6m0+n8Jrf1OtRLkcpz
+	pRH3dt5ZT32/AGXBX4yxMuKCArq2+odv864+BUlQ7kQmPyNQ3xpJFfpRp0KhRelAI9MQEz
+	lCiyB6bnvyTzKOU1L11nW7t0SHHFzzE=
+Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com
+ [209.85.160.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-650-qH-XegkEPOySTk-yK6anyw-1; Wed, 29 Jul 2026 07:45:02 -0400
+X-MC-Unique: qH-XegkEPOySTk-yK6anyw-1
+X-Mimecast-MFC-AGG-ID: qH-XegkEPOySTk-yK6anyw_1785325502
+Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-455cf15f8b5so1065018fac.0
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:45:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785325502; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r/zjAjBtOK/2v3PYBRZDs9dXUwjYalKU3iKCLBVxgSy5U7VSDmjE6RSozBNTDDYKOG
+         ySJzJ/ycZpmu2IJ03KvjVAhbRJEBFEr9nsdswYHif/z3Br9r8oRbAONCWoTS0q/WS/Xu
+         4FF5Xk+aq2lIhagR27QF/8cmRvRuZfxpEWi8X7+nT34s/2ZE5uQBMju6JANzLcX6DbH5
+         6d2YLscNahhvTjITRWgEIqBl6W0dLN1AiIpsViLZDy6d/xGZcYkc5CwzhstKA9enXljW
+         P1ceySA6lxbDVHiTiwkgDkElU+QMxXCAHKC0cRw1ymuPL7K6vBQyVS8ijYbtNLVpZIcy
+         dkiw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
+        fh=vgwrrUiXj+9XnjF23dz4mTLT7FnpR+Xo/6ZmbT5B1Wk=;
+        b=cYAQV0KdmJWn29jVIrBouXtMszT69I9r/Gp9pdbkSXIYcKCj8tyFIE17QUbMOfNVCO
+         86B/kQG1jxUsJTy18MiklZROJ/QPm04faU3gYC4PpaVDhiRLmWnd5iBknPn3i0ZJ38YG
+         FL7XK3mIZ064s4fCKHumpF5sctR0ThU/LQ68ZjjNckTlmbImTZwCdNgpVxr0g+bkijrE
+         Ged5zN29WecMymQvfdghfmcrD15vnBDzDyeHwt5DYubWhCAjYbl8HDqtj1l0LHfkWLj3
+         4nE2fn1DnsOTbZxr+4pr04cOWe+GTKrhs0heN39jHZ7GaNWvKjpk4iPyNa/efvmVHZ7M
+         Ao+w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785325133; x=1785929933; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5iX3sEVovVYi3DpvUrl6PGylYfhOnizJPhWXlTW0MXY=;
-        b=nejlkA2+NzyvGg8tmcTtdNPOQ6J5qEh5WK1TNnNPzsC59uemIEyg3wx/1Gt6LQqKkA
-         XbDmwtSrZCz/ASbPdQVAGpH3nJS5kN6K201Vfuh7w1xBbjOOrtGLa1siIui6KVneDaRx
-         GWzy4tZobZ8wg47hoEu7QXdAinREusNW1rNZI6oj6Sg4Pz3W9ZelMjdSOXU9pATnJHqP
-         Yoml7SIRAX/y5jPEyxytHNrvxfCODisa1A1DARKRBDNlcJ4/SYhNsaooM7E/23Chbta2
-         rj47ZtnFpDUUfZ4N5Yw3GtpQ5hUmYj9QhC5CoXEZU7nx2rvn3JiEEjOY5rfWOKWLf5ol
-         UJXA==
+        d=redhat.com; s=google; t=1785325502; x=1785930302; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
+        b=U39WddTJTAhO2kMCD6Z15ZIO8qnaJrKzA1GSs1sQu0AcIXQFoBMKi7C2cv6d0KASS8
+         NBO8eE+00FH29cxGwmXJia8tbtd0F2c8cqi5CzfjHlut6TvsxWSeB1ztPaOgZffguS22
+         xThFx0D0STHuKNz8O54sEeCDRHOp6sNalLA0FFBsascmaFScqvGwGL0HbOUMGxPANx+3
+         dhqC6IeGYEn2PM6aF8ZCGyiKMJhN5w9gHMdu5ksOYTJ2QyrWWumao6Z2FAFJdhvwNfJg
+         9n9oMMjCxnRy8cy5dh0ZBfnUxBHWAWoqZVt/pS/s5DrVDw1/x8sofC9AP0gcPoBXOk7H
+         qfXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785325133; x=1785929933;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5iX3sEVovVYi3DpvUrl6PGylYfhOnizJPhWXlTW0MXY=;
-        b=CjRPenma8VQefPiwv5RivXokDFf0pt/4lAXxCNrX5oXlsolCJAfe2duX1e1dog+T7e
-         yj8Pszuz/8zZS/+28i1oQbxEq2R7Zz89Q+0RYcjbMW4Z2Nuy23CQIOcsBcRBqKUEgj3p
-         netZ3HEfqob6SVaziDiBOCKR9NWOOskELdr1Q40/JeRq9m2xgdLonh4czDPd+hwVT3za
-         FOD8IUKhKj5GUNYLtxaYk8a8ADa2X2ImM8adXnXY5mlQXyJ2bLS6jHKAUSDlhRwm1exN
-         +u9U8K9X4UKdS0yTFs6nNbw4yB4vr3yj5k8fgLNExpWgAQSPzloJjXJ0nPruYS6loNyb
-         EDog==
-X-Forwarded-Encrypted: i=1; AHgh+RoI0/8mmSLpfFxg7x5t5oJ8Yq+FZKK2lnYNrIif+XBhTgHsMvGFzk4DvGqULUgUfsSfaaARBFMZYRGOeg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOjqdCgWZBSZeuJ26lEe4qczdXGDWB07VyE1di36hzgu1IYEQs
-	j7psMqMBK56DyKAyUqMX29ZwWFJrGi9DiLtazUBa80YuUxtlQ4f7JiIli4TKjLKLVsM=
-X-Gm-Gg: AR+sD13ZjX6ACaeUa2Q6avkRb/b49jHgColCT121Bewu4E1KOMcpxiJ+wE9e9v7rnnh
-	IAZXBdokVGm+0PLW5XH3A6ZhKnMo9dHIWl6Lpx4QpwLNyquQ8s1oNWaqc4varsOJ1pDpji23hTS
-	XqKjFhJa+4WM7eBWPT1ipOFnnuwzB1e2C2kmY7G4oF7vL7PcZ23q4Htw1FgWkcE1rqRDNxAXtgt
-	NEay0unprMpI6dl1KqBZzhjfcPbd1UFySDfYEH9nHnTGRc1jwrXsdPjTwvnpgpgSg0afgZoc0Wa
-	B5IAxCmN2nsbgICxrHLTSZjjyjZrtWoQ7sgNkIrzSaYKmIDeic0b5CGct+PFXwsWJJBoIAwYbZC
-	aSNdiHYkHFH3SYERqVvX9WDhy2Koh8VramG3bcHTd600RNRHs7sqsxWxW4FiPuJJE1fFOJXpztH
-	z77Rbcgx8dDatsZKqOm18rt8SqFL3t4h82GOxytpHSJrVZiUBrsmPKNVg862xk762n2KOF3jU=
-X-Received: by 2002:a05:6000:2c05:b0:47f:9763:9864 with SMTP id ffacd0b85a97d-47fbabee850mr2432854f8f.19.1785325133163;
-        Wed, 29 Jul 2026 04:38:53 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.24.32])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fb6b0f039sm7702125f8f.18.2026.07.29.04.38.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:38:52 -0700 (PDT)
-Message-ID: <f77aab11-0e1b-4962-9d53-0bb2fcd6486a@linaro.org>
-Date: Wed, 29 Jul 2026 12:38:50 +0100
+        d=1e100.net; s=20251104; t=1785325502; x=1785930302;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PQJT115HU92JWPYUPpOUK44QRUO6MpxVdnzSebyVM+c=;
+        b=ZQboSuSinppMmc0rc5dy1x8U918y5I0Jhrz/uBe8u5s5/hTdObtuN0FS/7D5on9FVC
+         a3FiwBf4x2bkSyHudDtStHNtKOO7V/gDvHJp7i+J7bIBFFLqLWxkmBLKrbKbbDLU68ic
+         f64FjkOTWPyFc8nBstCa2jVYCTYyjLrGeaW0u6PeXCBVk+tEA91d5z/qAR6fnx34LvhE
+         BSZMm2Otiy/Wb8DnTB+AWKOWTZxCwFTdTxYHUFai+avpNEQOekqKjrRraYKbb6aCW/Zr
+         SRvO/PVQ1PNeJLyypU/pZsXDX8GM8+PRUp5dEZQndSRHqMgUjCoCj1jM4chJGUGRDaI4
+         xGTg==
+X-Forwarded-Encrypted: i=1; AHgh+RqKmraEO3tjt/nRDrE9Fmd0fKKbOA+g3kxL36aHf3wJBuE8j9mJvYrpaKCroVcKdsvrNMU7iM0px9lZoA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy+2ft0Qbs1VUreaASriV13A6/cJWZ5mh1C3gtoG+1/LzlLUo2v
+	Xo5Rj83q72wEV+R9/Bi9WM/mi9UA5lYuAcBX0I0B+O0/YxNjEXvNrnowUlBMc5qORKvm4Mh5iD0
+	LWIVwhT8MqeAueMX6lN2ZJ6y2tjuatgwBFN0zCKn0XbXOBD9FnpYMcf7zo811rsrCXsH5/Qkh+z
+	PEb8TxklWcxPueZ0PeL2pdENAIGLaxIBTQCLVsbuhWiCqtciyWWA==
+X-Gm-Gg: AR+sD13pHFgcWRbDX0zcuKQT/F2KDPWNPdB76piatPbfH2RvvdHJ3bnzTP3ur9JgJxf
+	95L3COyzi1+4JEQzruDZk1lihIr8xHIpFStHcy8huNljniLZxCTwfnfMZgbpRtBzDxv3AyHUoca
+	9y6ydU4kK7xuV8OqFLoo9/BuILasaaZqery1uOLq7gns5PoAcR7l9BN3s=
+X-Received: by 2002:a05:6870:d10c:b0:456:c0b0:fa81 with SMTP id 586e51a60fabf-458961d8416mr941086fac.15.1785325501899;
+        Wed, 29 Jul 2026 04:45:01 -0700 (PDT)
+X-Received: by 2002:a05:6870:d10c:b0:456:c0b0:fa81 with SMTP id
+ 586e51a60fabf-458961d8416mr941066fac.15.1785325501434; Wed, 29 Jul 2026
+ 04:45:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/4] media: qcom: camss: use
- fwnode_graph_for_each_endpoint_scoped() to simplify code
-To: Frank.Li@oss.nxp.com, Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Daniel Scally <djrscally@gmail.com>,
- Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich <dakr@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Dafna Hirschfeld <dafna@fastmail.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Heiko Stuebner <heiko@sntech.de>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: driver-core@lists.linux.dev, linux-acpi@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, imx@lists.linux.dev,
- Guoniu Zhou <guoniu.zhou@nxp.com>, Frank Li <Frank.Li@nxp.com>,
- Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
- Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-References: <20260625-fw_scoped-v3-0-ffd0868e498d@nxp.com>
- <20260625-fw_scoped-v3-4-ffd0868e498d@nxp.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260625-fw_scoped-v3-4-ffd0868e498d@nxp.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260729055801.751945-1-tarang.raval@siliconsignals.io>
+In-Reply-To: <20260729055801.751945-1-tarang.raval@siliconsignals.io>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Wed, 29 Jul 2026 19:44:49 +0800
+X-Gm-Features: AUfX_myXi3r4mFBAWY7Kh1aMk6sh7LJFih7OsIzW7gGkgMauQPQs3oOrfLT51Ew
+Message-ID: <CAEth8oFjCMXGRMkuq_FUcXk-QgQ3BZ010C+We0BC_TZXDYZgEg@mail.gmail.com>
+Subject: Re: [RESEND PATCH v3] platform: int3472: discrete: Support multiple
+ HIDs per GPIO map entry
+To: Tarang Raval <tarang.raval@siliconsignals.io>
+Cc: sakari.ailus@linux.intel.com, linux-media@vger.kernel.org, 
+	Hans de Goede <johannes.goede@oss.qualcomm.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 25/06/2026 15:17, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Use fwnode_graph_for_each_endpoint_scoped() to simplify code.
-> 
-> No functional changes.
-> 
-> Reviewed-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
+Hi Tarang,
+
+Thank you for your work.
+
+On Wed, Jul 29, 2026 at 1:58=E2=80=AFPM Tarang Raval
+<tarang.raval@siliconsignals.io> wrote:
+>
+> Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
+> GPIO quirk. As more sensors needing the same quirk are identified, this
+> means adding a full duplicate table entry per HID, differing only in
+> the HID string, which does not scale.
+>
+> Change int3472_gpio_map::hid to a NULL-terminated hids array so a
+> single entry can match any number of ACPI HIDs, letting new HIDs be
+> added to the relevant array instead of duplicating quirk entries.
+>
+> Cc: linux-media@vger.kernel.org
+> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
+> Tested-by: Kate Hsuan <hpa@redhat.com>
+> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+> Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
 > ---
-> change in v2
-> - fix typo simplify
-> - collect andy, gouniou and loic's review tags
+> Change-log:
+>
+> v2 -> v3:
+>
+> - Move the comments after the HID strings and include the sensor name,
+>   as suggested by Hans.
+> - Add the Reviewed-by tags from Hans and Daniel.
+>
+> v1 -> v2:
+>
+> - Add per-HID comments to power_enable_hids_vana[] (Lenovo X9-14/X9-15
+>   for SONY471A, Lenovo X1 Carbon G14 for TBE20A0)
+> - Convert INT33F0 (mt9m114), INT347E (ov7251) entries to use named
+>   power_enable_hids_*[] arrays instead of anonymous compound literals,
+>   for style consistency
+> - Did not convert OVTI08F4 (ov08x40) to a named array, and did not add
+>   a NULL guard in int3472_gpio_map_hids_match(): not fully convinced
+>   these changes are needed yet, but open to further discussion on both
+>
 > ---
->   drivers/media/platform/qcom/camss/camss.c | 17 +++++------------
->   1 file changed, 5 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 2123f6388e3d7..23f3cc30a15a5 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -4793,30 +4793,23 @@ static int camss_parse_endpoint_node(struct device *dev,
->   static int camss_parse_ports(struct camss *camss)
->   {
->   	struct device *dev = camss->dev;
-> -	struct fwnode_handle *fwnode = dev_fwnode(dev), *ep;
-> +	struct fwnode_handle *fwnode = dev_fwnode(dev);
->   	int ret;
->   
-> -	fwnode_graph_for_each_endpoint(fwnode, ep) {
-> +	fwnode_graph_for_each_endpoint_scoped(fwnode, ep) {
->   		struct camss_async_subdev *csd;
->   
->   		csd = v4l2_async_nf_add_fwnode_remote(&camss->notifier, ep,
->   						      typeof(*csd));
-> -		if (IS_ERR(csd)) {
-> -			ret = PTR_ERR(csd);
-> -			goto err_cleanup;
-> -		}
-> +		if (IS_ERR(csd))
-> +			return PTR_ERR(csd);
->   
->   		ret = camss_parse_endpoint_node(dev, ep, csd);
->   		if (ret < 0)
-> -			goto err_cleanup;
-> +			return ret;
->   	}
->   
->   	return 0;
-> -
-> -err_cleanup:
-> -	fwnode_handle_put(ep);
-> -
-> -	return ret;
->   }
->   
->   /*
-> 
-Acked-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>  drivers/platform/x86/intel/int3472/discrete.c | 59 +++++++++++++------
+>  1 file changed, 40 insertions(+), 19 deletions(-)
+>
+> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/plat=
+form/x86/intel/int3472/discrete.c
+> index adff564bf3fd..6c729fcfce5d 100644
+> --- a/drivers/platform/x86/intel/int3472/discrete.c
+> +++ b/drivers/platform/x86/intel/int3472/discrete.c
+> @@ -123,10 +123,31 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int34=
+72_discrete_device *int3472,
+>         return desc;
+>  }
+>
+> +/*
+> + * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added=
+ to
+> + * this array instead of adding new quirk table entries.
+> + */
+> +static const char * const power_enable_hids_vana[] =3D {
+> +       "SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
+> +       "TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
+> +       NULL
+> +};
+> +
+> +static const char * const power_enable_hids_vdd[] =3D {
+> +       "INT33F0", /* mt9m114 */
+> +       NULL
+> +};
+> +
+> +static const char * const power_enable_hids_enable[] =3D {
+> +       "INT347E", /* ov7251 */
+> +       NULL
+> +};
+> +
+>  /**
+>   * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
+>   * sensor driver (as in DT bindings)
+> - * @hid: The ACPI HID of the device without the instance number e.g. INT=
+347E
+> + * @hids: NULL-terminated array of ACPI HIDs of the devices without the
+> + * instance number e.g. INT347E
+>   * @type_from: The GPIO type from ACPI ?SDT
+>   * @type_to: The assigned GPIO type, typically same as @type_from
+>   * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
+> @@ -135,7 +156,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472=
+_discrete_device *int3472,
+>   * GPIO_ACTIVE_HIGH otherwise
+>   */
+>  struct int3472_gpio_map {
+> -       const char *hid;
+> +       const char * const *hids;
+>         u8 type_from;
+>         u8 type_to;
+>         bool polarity_low;
+> @@ -145,38 +166,27 @@ struct int3472_gpio_map {
+>
+>  static const struct int3472_gpio_map int3472_gpio_map[] =3D {
+>         {       /* mt9m114 designs declare a powerdown pin which controls=
+ the regulators */
+> -               .hid =3D "INT33F0",
+> +               .hids =3D power_enable_hids_vdd,
+>                 .type_from =3D INT3472_GPIO_TYPE_POWERDOWN,
+>                 .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+>                 .con_id =3D "vdd",
+>                 .enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
+>         },
+>         {       /* ov7251 driver / DT-bindings expect "enable" as con_id =
+for reset */
+> -               .hid =3D "INT347E",
+> +               .hids =3D power_enable_hids_enable,
+>                 .type_from =3D INT3472_GPIO_TYPE_RESET,
+>                 .type_to =3D INT3472_GPIO_TYPE_RESET,
+>                 .con_id =3D "enable",
+>         },
+>         {       /* ov08x40's handshake pin needs a 45 ms delay on some HP=
+ laptops */
+> -               .hid =3D "OVTI08F4",
+> +               .hids =3D (const char * const[]) { "OVTI08F4", NULL },
+>                 .type_from =3D INT3472_GPIO_TYPE_HANDSHAKE,
+>                 .type_to =3D INT3472_GPIO_TYPE_HANDSHAKE,
+>                 .con_id =3D "dvdd",
+>                 .enable_time_us =3D 45 * USEC_PER_MSEC,
+>         },
+> -       {       /* imx471 expects "vana" as con_id for power enable */
+> -               .hid =3D "SONY471A",
+> -               .type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+> -               .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+> -               .con_id =3D "vana",
+> -               .enable_time_us =3D GPIO_REGULATOR_ENABLE_TIME,
+> -       },
+> -       {
+> -               /*
+> -                * imx471 (on Lenovo ThinkPads X1 G14) expects "vana" as =
+con_id
+> -                * for power enable
+> -                */
+> -               .hid =3D "TBE20A0",
+> +       {       /* Sensors which expect "vana" as con_id for power enable=
+ */
+> +               .hids =3D power_enable_hids_vana,
+>                 .type_from =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+>                 .type_to =3D INT3472_GPIO_TYPE_POWER_ENABLE,
+>                 .con_id =3D "vana",
+> @@ -184,6 +194,17 @@ static const struct int3472_gpio_map int3472_gpio_ma=
+p[] =3D {
+>         },
+>  };
+>
+> +static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
+> +                                       const char * const *hids)
+> +{
+> +       for (unsigned int i =3D 0; hids[i]; i++) {
+> +               if (acpi_dev_hid_uid_match(adev, hids[i], NULL))
+> +                       return true;
+> +       }
+> +
+> +       return false;
+> +}
+> +
+>  static void int3472_get_con_id_and_polarity(struct int3472_discrete_devi=
+ce *int3472, u8 *type,
+>                                             const char **con_id, unsigned=
+ long *gpio_flags,
+>                                             unsigned int *enable_time_us)
+> @@ -200,7 +221,7 @@ static void int3472_get_con_id_and_polarity(struct in=
+t3472_discrete_device *int3
+>                 if (*type !=3D int3472_gpio_map[i].type_from)
+>                         continue;
+>
+> -               if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid=
+, NULL))
+> +               if (!int3472_gpio_map_hids_match(adev, int3472_gpio_map[i=
+].hids))
+>                         continue;
+>
+>                 dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x =
+%s\n",
+> --
+> 2.34.1
+>
+
+It is good for me.
+
+Reviewed-by: Kate Hsuan <hpa@redhat.com>
+
+
+--=20
+BR,
+Kate
+
