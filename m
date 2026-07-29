@@ -1,232 +1,322 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A64AD3B71B1;
-	Wed, 29 Jul 2026 22:09:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD272512C8;
+	Wed, 29 Jul 2026 22:15:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785363003; cv=none; b=oz6QJp14CkQv0YyInfrF9OtnQXbF1uGj4Yk2Z1DoCkoNqPxDTr/D3fLZNFHm6LHY/avi0GHGidlR/OwXJ/T6p3sz+JMsLS3+pggx5YFqSI2HBeT9PaSwY0TPjyVXpG63Xjm3dTAxkDog4oGy98gpEJiExEGNQL4nOmyjLfDVkQc=
+	t=1785363350; cv=none; b=IZbQjsxsII48XMcUOwUzsXbVrhyRvhJXNSKk/b+wY6tbP7SxjbEMeGDRB6YMijU0XgBe0G5af1bq8JxdBOadGL/V5UcGzL6l4WVO3UWCcnoYMR69/QEfzXxxxsN/I5VbbQ1SyEFiN7KO9ppz7lB+5p8RmzRrnZXxpGP1YOh0m80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785363003; c=relaxed/simple;
-	bh=/buyPZnZOiWpIQF7P8Xs7XkbcMQhGjSU+JmPpvEiBbA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QEFqTygCty+qu+JjQYwLwst6z1ALAHUP2klJ+Qb9YdbA42ul2T3u/zofBR3LrV7P51u4Cr0aKq3brvoQ/6eprJYcKT23N837UUxD2drnlAYONO/kaDcvkndOCODVjMhcS4YZQzlSZKOg3Ntkk42wYgTHsnKMRMExw6FszQDZzVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=jkjY3SQG; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1785363350; c=relaxed/simple;
+	bh=VjHddQDIccFSwblzXHbsrmu1s/HADKDCrimEbpCX99M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sxGq/XuSLUiPzSMa7RCVDIS94JG0JAmfcncy5KXI/2cjYBl1okw2gZ7yvnKDAWEeSXB29HmCV9i8Ml6N7Kz8WXe8aJmfC7kzRlmq0uUHNFAH8q3kb+QnQE3y00Xzg+TOO4JYIWZw3GCwQwzKicBcsPWf6z+JD3wenbl8OCz7hT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cBCvQLOE; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="jkjY3SQG"
-Received: from [192.168.1.182] (ip-62-24-73-79.bb.vodafone.cz [62.24.73.79])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 036E253401CC;
-	Thu, 30 Jul 2026 00:09:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785362991;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=gb3d5/756exEB/0ssVc1+gXlAo9h8ZGWCq8pj/qLkcM=;
-	b=jkjY3SQGp3otguGoQt/IGa0VlPMM7QGuzxBPfoJcl9jixIP4VK3v9eckn/cLxQdSxRqSnJ
-	kGCUtVPqN+4GiUe9FtEiVqVqoPLOWGtxTSTtk6gtCJZyH3sQi9uVjnAGMXKEOEOpGgWQ35
-	S4UJvS+wY8eoRS2z6/jZJTTfVgsruLw=
-Message-ID: <f378a69d-64dc-45b9-bc16-b33d1041e421@ixit.cz>
-Date: Thu, 30 Jul 2026 00:09:49 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cBCvQLOE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785363348; x=1816899348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VjHddQDIccFSwblzXHbsrmu1s/HADKDCrimEbpCX99M=;
+  b=cBCvQLOEXi2fwUPyd+OhLF/jSrCIrowXvj7EdG7SxLEnB3FiPtav1CaH
+   OxTS8VtOwaHLLr/16JBoF3eInaAqIuIWBN8oUJeIN2GpRd5AmNUgkYyXp
+   X3V7BedMTItgydYO1Eiul3CTi701qpNxyz5kPp3PiFtsUHE/Y1ZO+n+Ok
+   1BOIfhdfHNIDeUXcALa4ZvK2yRGvmOjqiQIF7ENflAg6qOGNeEfTJpY8I
+   Z6EDg5ViwQ74b7ctZkPR3MHyqMD+mt63sbHk40heehIByf6/nYIG3ICoI
+   CkN1DUpXz6KcCZbkMlWFyw6feBC7QaIOzB4HtVm4YNWUKgsyoGAcema7y
+   Q==;
+X-CSE-ConnectionGUID: aClfJQnRSeGhomm8iM4+cQ==
+X-CSE-MsgGUID: 8gxDYHHWSTa3qx8AvzR4aA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97135546"
+X-IronPort-AV: E=Sophos;i="6.25,193,1779174000"; 
+   d="scan'208";a="97135546"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 15:15:47 -0700
+X-CSE-ConnectionGUID: mSYcTqNbRCaK/gC1H9Dv4g==
+X-CSE-MsgGUID: TXknkLWsQk6blPlHfGb0wA==
+X-ExtLoop1: 1
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.90])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 29 Jul 2026 15:15:44 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id ED97511F8BD;
+	Thu, 30 Jul 2026 01:15:43 +0300 (EEST)
+Date: Thu, 30 Jul 2026 01:15:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Martin Kepplinger-Novakovic <martink@posteo.de>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org
+Subject: Re: [PATCH v5 2/5] media: hi846: Fix link frequency handling
+Message-ID: <amp7jz-GXMqIRTeo@kekkonen.localdomain>
+References: <20260712115012.91600-1-mitltlatltl@gmail.com>
+ <20260712115012.91600-3-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v9 7/9] media: qcom: camss: csiphy-3ph: Update Gen2
- v1.1 MIPI CSI-2 C-PHY init
-To: Frank Li <Frank.li@oss.nxp.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>,
- "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, Frank Li
- <Frank.Li@nxp.com>, Kieran Bingham <kbingham@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz>
- <20260729-qcom-cphy-v9-7-1f8d9fdab037@ixit.cz>
- <ampyfquk7cH3oq1L@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ampyfquk7cH3oq1L@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260712115012.91600-3-mitltlatltl@gmail.com>
 
-On 29/07/2026 23:37, Frank Li wrote:
-> On Wed, Jul 29, 2026 at 10:20:02PM +0200, David Heidelberg wrote:
->> These values should improve C-PHY behaviour. Should match most recent
->> Qualcomm code.
+Hi Pengyu,
+
+On Sun, Jul 12, 2026 at 07:50:09PM +0800, Pengyu Luo wrote:
+> Link frequency is tied to PLL configuration, lane count, and external
+> clock rate, so use runtime here instead of hardcoding for specific
+> configuration. To implement this, we do
 > 
-> Any reference? where recent Qualcomm code? do you know the real reason?
+> 1. Drop exposed link_freq as a v4l2_ctrl, it is inconvenient to expose
+> it as an int_menu when freq_links are varies between mclk rates, this
+> will not break v4l2_get_link_freq() since it can be calculated back
+> from pixel rate which is previously from the dynamic link frequency.
 
-That's a question for Konrad. This improvement was introduced in the upstreaming 
-process, update taken from more recent sequence.
+The pixel rate can't substitute link frequency -- these are different
+things. Please keep the LINK_FREQ control. Its values should nonetheless
+reflect the actual frequency used.
 
-David>
-> Frank
 > 
->>
->> Acked-by: Cory Keitz <ckeitz@amazon.com>
->> Suggested-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   .../media/platform/qcom/camss/camss-csiphy-3ph-1-0.c  | 19 +++++++++----------
->>   1 file changed, 9 insertions(+), 10 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> index 83de89a88dbb1..25a3554ef2016 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> @@ -227,19 +227,19 @@ csiphy_lane_regs lane_regs_sdm845[] = {
->>   	{0x0660, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   };
->>
->>   /* GEN2 1.0 3PH */
->>   /* 3 entries: 3 lanes (C-PHY) */
->>   static const struct
->>   csiphy_lane_regs lane_regs_sdm845_3ph[] = {
->> -	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> @@ -247,19 +247,19 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->>
->> -	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> @@ -267,36 +267,35 @@ csiphy_lane_regs lane_regs_sdm845_3ph[] = {
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->>
->> -	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(23), 0x63, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(26), 0xac, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(27), 0xa5, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(9),  0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->> -
->>   };
->>
->>   /* GEN2 1.1 2PH */
->>   static const struct
->>   csiphy_lane_regs lane_regs_sc8280xp[] = {
->>   	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>
->> --
->> 2.53.0
->>
+> 2. Attach mipi_clk_div_{2,4}lane to current mode, and use the div with
+> mclk clock, lane count to calculate link frequency.
+> 
+> 3. Drop mclk clock rate check.
+> 
+> Fixes: e8c0882685f9 ("media: i2c: add driver for the SK Hynix Hi-846 8M pixel camera")
+> Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+> ---
+> v5:
+> - Use separated fields instead of raw register values for PLL cfg (Sakari)
+> - Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
+> - Drop line break (Sakari)
+> ---
+> Hi, Sakari. I did not follow to use v4l2_link_freq_to_bitmap(), which
+> you mentioned in v4, since we have no fixed int_menu for link_freq.
+> ---
+>  drivers/media/i2c/hi846.c | 82 ++++++++++++++++++---------------------
+>  1 file changed, 37 insertions(+), 45 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
+> index 7f069aca0fce..6bcd862aee30 100644
+> --- a/drivers/media/i2c/hi846.c
+> +++ b/drivers/media/i2c/hi846.c
+> @@ -1,7 +1,7 @@
+>  // SPDX-License-Identifier: GPL-2.0
+>  // Copyright (c) 2021 Purism SPC
+>  
+> -#include <linux/unaligned.h>
+> +#include <linux/bitfield.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/gpio/consumer.h>
+> @@ -11,6 +11,7 @@
+>  #include <linux/pm.h>
+>  #include <linux/property.h>
+>  #include <linux/regulator/consumer.h>
+> +#include <linux/unaligned.h>
+>  #include <media/v4l2-ctrls.h>
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-fwnode.h>
+> @@ -219,8 +220,8 @@ struct hi846_mode {
+>  	/* Horizontal timing size */
+>  	u32 llp;
+>  
+> -	/* Link frequency needed for this resolution */
+> -	u8 link_freq_index;
+> +	u8 mipi_clk_div_2lane;
+> +	u8 mipi_clk_div_4lane;
+>  
+>  	u16 fps;
+>  
+> @@ -1040,13 +1041,6 @@ static const char * const hi846_test_pattern_menu[] = {
+>  	"Resolution Pattern",
+>  };
+>  
+> -#define FREQ_INDEX_640	0
+> -#define FREQ_INDEX_1280	1
+> -static const s64 hi846_link_freqs[] = {
+> -	[FREQ_INDEX_640] = 80000000,
+> -	[FREQ_INDEX_1280] = 200000000,
+> -};
+> -
+>  static const struct hi846_reg_list hi846_init_regs_list_2lane = {
+>  	.num_of_regs = ARRAY_SIZE(hi846_init_2lane),
+>  	.regs = hi846_init_2lane,
+> @@ -1061,7 +1055,13 @@ static const struct hi846_mode supported_modes[] = {
+>  	{
+>  		.width = 640,
+>  		.height = 480,
+> -		.link_freq_index = FREQ_INDEX_640,
+> +		.mipi_clk_div_2lane = 4,
+> +		/*
+> +		 * Dummy but necessary if we set this mode default, otherwise
+> +		 * hi846_calc_pixel_rate() will be broken in
+> +		 * hi846_init_controls()
+> +		 */
+> +		.mipi_clk_div_4lane = 8,
+>  		.fps = 120,
+>  		.frame_len = 631,
+>  		.llp = HI846_LINE_LENGTH,
+> @@ -1086,7 +1086,8 @@ static const struct hi846_mode supported_modes[] = {
+>  	{
+>  		.width = 1280,
+>  		.height = 720,
+> -		.link_freq_index = FREQ_INDEX_1280,
+> +		.mipi_clk_div_2lane = 2,
+> +		.mipi_clk_div_4lane = 4,
+>  		.fps = 90,
+>  		.frame_len = 842,
+>  		.llp = HI846_LINE_LENGTH,
+> @@ -1112,7 +1113,8 @@ static const struct hi846_mode supported_modes[] = {
+>  	{
+>  		.width = 1632,
+>  		.height = 1224,
+> -		.link_freq_index = FREQ_INDEX_1280,
+> +		.mipi_clk_div_2lane = 2,
+> +		.mipi_clk_div_4lane = 4,
+>  		.fps = 30,
+>  		.frame_len = 2526,
+>  		.llp = HI846_LINE_LENGTH,
+> @@ -1161,7 +1163,6 @@ struct hi846 {
+>  	struct v4l2_ctrl_handler ctrl_handler;
+>  	u8 nr_lanes;
+>  
+> -	struct v4l2_ctrl *link_freq;
+>  	struct v4l2_ctrl *pixel_rate;
+>  	struct v4l2_ctrl *vblank;
+>  	struct v4l2_ctrl *hblank;
+> @@ -1192,21 +1193,28 @@ static const struct hi846_datafmt *hi846_find_datafmt(u32 code)
+>  	return NULL;
+>  }
+>  
+> -static inline u8 hi846_get_link_freq_index(struct hi846 *hi846)
+> +static u64
+> +hi846_get_link_freq(struct hi846 *hi846, const struct hi846_mode *mode)
+>  {
+> -	return hi846->cur_mode->link_freq_index;
+> -}
+> +	u64 mclk = clk_get_rate(hi846->clock);
+> +	u8 mipi_clk_div;
+>  
+> -static u64 hi846_get_link_freq(struct hi846 *hi846)
+> -{
+> -	u8 index = hi846_get_link_freq_index(hi846);
+> +	if (hi846->nr_lanes == 2)
+> +		mipi_clk_div = mode->mipi_clk_div_2lane;
+> +	else
+> +		mipi_clk_div = mode->mipi_clk_div_4lane;
+>  
+> -	return hi846_link_freqs[index];
+> +	/*
+> +	 * HI846_REG_PLL_CFG_MIPI1_H = 0x025a, it is fixed in listed modes
+> +	 * [11:8]: 0x02 => pre_div = 3
+> +	 * [7:0]: 0x5a => multiplier = 90
+> +	 */
+> +	return mul_u64_u32_div(mclk, 90, 3 * mipi_clk_div);
+>  }
+>  
+>  static u64 hi846_calc_pixel_rate(struct hi846 *hi846)
+>  {
+> -	u64 link_freq = hi846_get_link_freq(hi846);
+> +	u64 link_freq = hi846_get_link_freq(hi846, hi846->cur_mode);
+>  	u64 pixel_rate = link_freq * 2 * hi846->nr_lanes;
+>  
+>  	do_div(pixel_rate, HI846_RGB_DEPTH);
+> @@ -1426,14 +1434,6 @@ static int hi846_init_controls(struct hi846 *hi846)
+>  
+>  	ctrl_hdlr->lock = &hi846->mutex;
+>  
+> -	hi846->link_freq =
+> -		v4l2_ctrl_new_int_menu(ctrl_hdlr, &hi846_ctrl_ops,
+> -				       V4L2_CID_LINK_FREQ,
+> -				       ARRAY_SIZE(hi846_link_freqs) - 1,
+> -				       0, hi846_link_freqs);
+> -	if (hi846->link_freq)
+> -		hi846->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+> -
+>  	hi846->pixel_rate =
+>  		v4l2_ctrl_new_std(ctrl_hdlr, &hi846_ctrl_ops,
+>  				  V4L2_CID_PIXEL_RATE, 0,
+> @@ -1503,10 +1503,9 @@ static int hi846_set_video_mode(struct hi846 *hi846, int fps)
+>  	u64 frame_length;
+>  	int ret = 0;
+>  	int dummy_lines;
+> -	u64 link_freq = hi846_get_link_freq(hi846);
+> +	u64 link_freq = hi846_get_link_freq(hi846, hi846->cur_mode);
+>  
+> -	dev_dbg(&client->dev, "%s: link freq: %llu\n", __func__,
+> -		hi846_get_link_freq(hi846));
+> +	dev_dbg(&client->dev, "%s: link freq: %llu\n", __func__, link_freq);
+>  
+>  	do_div(link_freq, fps);
+>  	frame_length = link_freq;
+> @@ -1749,7 +1748,6 @@ static int hi846_set_format(struct v4l2_subdev *sd,
+>  	mf->code = HI846_MEDIA_BUS_FORMAT;
+>  	mf->field = V4L2_FIELD_NONE;
+>  
+> -	__v4l2_ctrl_s_ctrl(hi846->link_freq, hi846_get_link_freq_index(hi846));
+>  	__v4l2_ctrl_s_ctrl_int64(hi846->pixel_rate,
+>  				 hi846_calc_pixel_rate(hi846));
+>  
+> @@ -1950,16 +1948,17 @@ static int hi846_identify_module(struct hi846 *hi846)
+>  static s64 hi846_check_link_freqs(struct hi846 *hi846,
+>  				  struct v4l2_fwnode_endpoint *ep)
+>  {
+> -	const s64 *freqs = hi846_link_freqs;
+> -	int freqs_count = ARRAY_SIZE(hi846_link_freqs);
+> +	int freqs_count = ARRAY_SIZE(supported_modes);
+> +	u64 link_freq;
+>  	int i, j;
+>  
+>  	for (i = 0; i < freqs_count; i++) {
+> +		link_freq = hi846_get_link_freq(hi846, &supported_modes[i]);
+>  		for (j = 0; j < ep->nr_of_link_frequencies; j++)
+> -			if (freqs[i] == ep->link_frequencies[j])
+> +			if (link_freq == ep->link_frequencies[j])
+>  				break;
+>  		if (j == ep->nr_of_link_frequencies)
+> -			return freqs[i];
+> +			return link_freq;
+>  	}
+>  
+>  	return 0;
+> @@ -2041,7 +2040,6 @@ static int hi846_probe(struct i2c_client *client)
+>  	struct hi846 *hi846;
+>  	int ret;
+>  	int i;
+> -	u32 mclk_freq;
+>  
+>  	hi846 = devm_kzalloc(&client->dev, sizeof(*hi846), GFP_KERNEL);
+>  	if (!hi846)
+> @@ -2060,12 +2058,6 @@ static int hi846_probe(struct i2c_client *client)
+>  				     "failed to get clock: %pe\n",
+>  				     hi846->clock);
+>  
+> -	mclk_freq = clk_get_rate(hi846->clock);
+> -	if (mclk_freq != 25000000)
+> -		dev_warn(&client->dev,
+> -			 "External clock freq should be 25000000, not %u.\n",
+> -			 mclk_freq);
+> -
+>  	for (i = 0; i < HI846_NUM_SUPPLIES; i++)
+>  		hi846->supplies[i].supply = hi846_supply_names[i];
+>  
 
 -- 
-David Heidelberg
+Kind regards,
 
+Sakari Ailus
