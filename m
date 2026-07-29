@@ -1,132 +1,119 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b1-smtp.messagingengine.com (fhigh-b1-smtp.messagingengine.com [202.12.124.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1B52394EB0
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 17:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C83EF37F8DA;
+	Wed, 29 Jul 2026 17:52:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785347216; cv=none; b=UVdnPUYICKfLFLB3wYHeF6my+20FkPonn/ioQa5sXOf4efFxPjumK1d6c4TbxEJxkpvGPQZirCp3ExVdWTrbb12PyDfklytGdky+PcmDKSzxb91h8XKfp/cVWPpcbdCfTOeNsbJAYZ6WzwpQJmw62S5KbALE/+uEPNT1dq89Rqo=
+	t=1785347562; cv=none; b=EtDRDigsmKQvO7Y4Z85Eo/OmmLEx8HkiIZZKrqgG3QMGEEo3sQloDyfFgEEuiJb9LSlzXdZyNDwBKO/x+A2Hde1eDyLrchQaT2MI3Ixcx/KfoTo7SykGzn3l1wXPiketSNlOmmBushhcvqx8z9LEoFxjMqcWt7Nvxty6U0K44vU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785347216; c=relaxed/simple;
-	bh=EYTnu1KceFW5Cb5+/i8S3DiSv0ujcqX+YsFPbHqji3g=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=rGkWVDG6Ia7vZ8C6u+e93A9XIBZgZEEpOfIkUnleUEp+ud7Up1bAtd5hJu5IgytflW/Ti7r3itk64eC7AZQs4O1nffgE8cisZTu36+S8vA5ZiYKXJD7v4NwSiyYjYuNo68wHf1e4PzAGZqVodWxWRSEdj+bw9p1Jho0CJeIgTvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca; spf=pass smtp.mailfrom=metarealtyinc.ca; dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b=zVY9N08z; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=metarealtyinc.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=metarealtyinc.ca
+	s=arc-20240116; t=1785347562; c=relaxed/simple;
+	bh=e3MKdxo+n4j6m2NfIUHP5tXzjQ/YUAlIZwv4KZmDz+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZOk7BqpjlnsJID67Kvo3IQKB4P7wckhxQOoFQzhbXCTYhqWQE57sAN7GOHDMCkfwWKhrSn1rSUiwTe3/8EQU0oRSYDIpdMVRVSTnJRvojR6ZsKvVM023A0haTFeUsS9abRWE8JWl6uoDiTXtmdhslqSdAUvaUJkVxOhTDQF8tDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=YMXaaqaS; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=GYA1SkGa; arc=none smtp.client-ip=202.12.124.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=metarealtyinc-ca.20251104.gappssmtp.com header.i=@metarealtyinc-ca.20251104.gappssmtp.com header.b="zVY9N08z"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-92e99ef0902so83127885a.2
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 10:46:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=metarealtyinc-ca.20251104.gappssmtp.com; s=20251104; t=1785347209; x=1785952009; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hTJiwpTSlr5NWnPhcmhf965WkiPsRg8Mo8GP5pJqiS8=;
-        b=zVY9N08zweCYrYuiRErV+ZZodjYiG9UlfIvqpq2uj60S3pkYxMXA74u5RaMvhFAtTN
-         S1ErcVbsRmUY5HbfCm9N5q/r0oYWp5rM5bEu/XHz8sp05OhN2OQWl0BkoqCFtP5XJSSs
-         O8whMd2P97Aa5TIiVAzZ1qaO3ol/3/9sKxkZFb1MVIe+1zgQWKiUjsRg9sTt3MDlDqHh
-         9L34bX2nd/q7mbow9dKwTKqMqSyLfIC/mtdJ6ccW5lNnMxXQ7NPXWg8tggGZys07kMI9
-         LbrYqEjlfA2J6QjE0Y/KMfAGvxA8rutQyOZyhWGFZW/q2BMjRrhZ1AGOzcz0vcB/i5US
-         wagA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785347209; x=1785952009;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hTJiwpTSlr5NWnPhcmhf965WkiPsRg8Mo8GP5pJqiS8=;
-        b=GCyzbYAMrFGpx6crmhIMXXU/+6hyJEdu+B4XmzIecDS5aStNnqw4NbQQJ3B0nN/KBA
-         Iy9TUWFqiNe3z5h5fucwmnzUQhmJOHF3wo+tpkifOk5BlFHLCPXtW7LAILdGbXwh7B7a
-         je+84nitUQzQUyGoNLer1K4/CKxP9c5n6x4uMLEpE6A8SFjAkJ44sLpW6rHab1ewOi14
-         QKQHrezrOC8bCQ33kt3z2NZWDO8KdHKVzEm/RtdSanEFuVv13shi41kXnRuyjIhNRVfK
-         f5c8CIy0xQnWEweNQCOzYTxMge3hDNCLxL6UB7XtoakKgA2COg7bZ63FWzorKmpmrvGB
-         +gxw==
-X-Gm-Message-State: AOJu0YwQBofy4veRhmC5ED2DdHaAOLwnvgFX+do5f9tFoWETPNWUJyvx
-	WukbeZDO7m0LMyZCOXgewLpi5xVDv8s1v6sofkMncFcRgSPM3FGcea6WiEEQq+blsZmpf4YSukH
-	LFSn9fmKO1Yn0lmsn39VHMaXX34cigsSKuOmqR+R5E2pUrjrsPJTav/CYgBqCzR9+NLu5kPKWhu
-	eBfl2LgzhCJK/Kn9K520t2GcCiuUjSU4Zn0azCSqmYawzMweEI/w==
-X-Gm-Gg: AR+sD10OFuIWiGnA1tQMKHlNWgCq0KT9QO/gZI1/YbGkg4SzJsjj3pXfShelTD755Qb
-	rBSeAAXXC6ATSMhRK+4umsy31aemEtlpKHORHf9fGhDu5hmQHJXBmF6/fRti/2s1PBix6yEcAFO
-	EHDGPeN7Kfq6TsG/CWr0Wza4cEA7WQB6J3GbaEV/NfGZXu1Ig/IZd+UJs+zDAXlyxNpq+bij1y0
-	SG2zWPz0ci4QEmwsiUfGauCnY3z/NGA8dAt1FCEkgmJsqxOPaVt8J3xDzcZTvllZcBmHUNqiovV
-	zvGGs9CiecsWHyU0xY4WAd9fROhKeGQl6L1f7flTDLPLIITIOmK1/4JgyUaPhGfMfxkfqm7gp66
-	ge8s6tiVz381vqHmOLXSjRxirGRPCDsmZQATZYOsE1gIviuyQrJiUMO7GD4XZlcYJxQL7NFEmwC
-	WeHzA3Xs1gomDIvJ+4xnL1e2NsBuYRggW2jTGH6MuoDLi0VGkGiPXX3KygGzYAsBKcNk+coNfgu
-	Pk3hMTwGAfQym4gijMFLz8QSL/snepSm1S3QjeJ1C1o2OKNoTxWkYtkLyATq2DcLNslRdYTfPcB
-	c5ZKBswr9FqQdiatGsZZe4tKSd576Dk6ldRjFjCG1p8=
-X-Received: by 2002:a05:620a:bd4:b0:92e:c117:5ee4 with SMTP id af79cd13be357-933026991a7mr802296585a.80.1785347208883;
-        Wed, 29 Jul 2026 10:46:48 -0700 (PDT)
-Received: from jake-laptop ([2607:fea8:e5:500::f163])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-933e73181e1sm216452885a.25.2026.07.29.10.46.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 10:46:48 -0700 (PDT)
-From: Jake S <j@metarealtyinc.ca>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	mchehab@kernel.org,
-	ramshouriesh@gmail.com
-Subject: [PATCH] media: ipu-bridge: Add Himax HM1092 IR sensor
-Date: Wed, 29 Jul 2026 13:46:41 -0400
-Message-ID: <20260729174641.1090498-1-j@metarealtyinc.ca>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="YMXaaqaS";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="GYA1SkGa"
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 6E1EF7A0101;
+	Wed, 29 Jul 2026 13:52:38 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-09.internal (MEProxy); Wed, 29 Jul 2026 13:52:39 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1785347558;
+	 x=1785433958; bh=D5KLqWCTQA2QDpEdxZuXTTNt/FdG3ghMWYTA5+524n8=; b=
+	YMXaaqaS0aQ/zPMUBhOq/ctrW26MTILBE8iUncYt56mdqlvSr4VMhlHiVyBZPzMD
+	/xEKORv2KHTpCQqG/y+lsmqnWgfHP/NF1wCulpRUUdGtjT2DHLr5HBSg222j0H0A
+	eFdfzylf4SQqBfRb/OYyit+zSfV4vRQWa262ygp87kw4Yg5Qo0v3pHt5EWI71TWq
+	2IiJ2nJDWvfGUroACOiMmKuz7WWmqCygttVz6YifZQUS1YWzA/VqGmDPZtxu52NT
+	7tNoJcKNxU9yMcW9NNfEE408f3JOGnpTYD1oAlfqMUIpSMOuO8ixdyc780r+VWBj
+	YjbjkLJnbMqHS4Uce1YhKg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785347558; x=
+	1785433958; bh=D5KLqWCTQA2QDpEdxZuXTTNt/FdG3ghMWYTA5+524n8=; b=G
+	YA1SkGaZCWjAwMlhAdsQdznHaJNSzaGJY+m0HRWFcSsaMjegcVNJ38TFmZ+/gRfi
+	TeZ5RJmdKgFjeD5pNOQ8nraNoiu6s6CxC5BB9Xo+282ZPuVGk+rLDOQHTmNSJqIi
+	2y66oG4bgN0Di5Ezv0re5PJLUsEWOOiOfhS4YWPDIDkAQdKXglOSbtNkzCVeMJZU
+	l2hnOB+54fjwe4c5Av99e0duKYF0gLwzZPsFLkCzgeVLwa50IIJi9i/1WgjosZOU
+	SWHsHxCIFnsUh1InFz56JdoswZ7eqibVS/ZW/ot4EJbh9pnwD00XeXGVnhzj5QJS
+	bMt7O5SwTxGlB5wQby8ow==
+X-ME-Sender: <xms:5D1qagWYaIIbptzkbmpvs6Y2TiDJqhOcHtPKfwD7BIWvmSe6BDEc6A>
+    <xme:5D1qagBKAvkTTrvIhx1mV4Qqhg07O_6eq_9I8YapsFUoARP44LL1f3WLMdQtRkALi
+    QubY9Th8VPxkr9FPdPtI9BPmDcCq381g1tj4FFMi_5stS5NAY0sGg>
+X-ME-Received: <xmr:5D1qajGoZpya9SQvSSSq2aRIy8lJz3IWwP1920feVBXoNdSiGBJelCXG7kULkw>
+X-ME-Proxy-Cause: dmFkZTGl05Q9wRGUWHkduWO3wZl/xrZz4kajZ8zaPjiF9sDpbasCsIvWKG0Kx7MA/yQKDI
+    yypxVnOugzA8KvSYDGOF5LXICBeDbAIJ4cWd5Z/vJ0+46K3Ll9oGFrVkBIGhuqTNs8pUei
+    eaPGTwi+QY0Q+EYeFhNnXAy/iYAqBfyzTdKhFVZmoaYWH1pLSjKpELRhjRki+hhUPVnXpT
+    lWR7CJgsRUir1V3meZuOeSXzV/MghUC0Sqt/s4HkpQCtmYiWr5caV//gMexYRpgKuv7DKv
+    Ec9zyKUlMm41GeT/Rmb9aSsA9bh7vDpWwxM8v5VFi+UwyrITdyzWTvJcPLhn85QmG2QEO7
+    gpoEhIgmn5R2uhB2eukSpphuksTHZvkADJfJqnb9HmWLyfy7j8FFhT14d72vNTAGWadVme
+    Mj9UPDnESUm9IKK8R9JvOIZ/mnK8amdk8E8UsM/pFtnOBl2LQSN5wLzLrBe1i1OI1H0RgG
+    TrEtjCaUBGJrecfNb03S4uWUhl++Zdl7tU1p9TXXzPc+KYW0boggANFgmvPNj9+2I5vpD4
+    Fv2dD0lZ22pjAPuFar4laEfG6SZLJCKFZI3oqdmQn0N724QI/RVKPy24wvpDOB+2N/sknH
+    7w8YAlByGWU/44zrNmYotNTWXQh4y5yQ8xgvyGpVlKZwJdwn5ymgfXg6dAJQ
+X-ME-Proxy: <xmx:5D1qasfRn7aCRyKJJAz2PIokAJ5nCuBnSdmv0ND5zghRLsRT9A6LeA>
+    <xmx:5T1qag9oQ3Y9LDNx_lBPbN4uImhmdY0Izuqjfdzp6x_VvNsXX8IJgQ>
+    <xmx:5T1qaqZjYW2MjbImQjKqqkejcpoU2mOMCrNT3SBeRdinVI_Evl6FDg>
+    <xmx:5T1qapdCBeApI_xwR6xzCAqJKOMNVQGbnDTfOqAWiLR9TXTueSCRFw>
+    <xmx:5j1qajG_TpQxnxWKc8ezzVQiRV90W1SPZ57tG3676nimiT5N6WSnAWT7>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 29 Jul 2026 13:52:35 -0400 (EDT)
+Date: Wed, 29 Jul 2026 11:52:04 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
+ Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260729115204.2a9a50b2@shazbot.org>
+In-Reply-To: <20260715174737.15287-8-matt@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+	<20260715174737.15287-8-matt@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Jake Steinman <j@metarealtyinc.ca>
+On Wed, 15 Jul 2026 18:47:30 +0100
+Matt Evans <matt@ozlabs.org> wrote:
+> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> index 9a1674c152aa..e2b4252e7c3f 100644
+> --- a/include/linux/vfio_pci_core.h
+> +++ b/include/linux/vfio_pci_core.h
+> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+>  	bool			pm_intx_masked;
+>  	bool			pm_runtime_engaged;
+>  	bool			sriov_active;
+> +	bool			zap_bars_on_revoke;
+>  	struct pci_saved_state	*pci_saved_state;
+>  	struct pci_saved_state	*pm_save;
+>  	int			ioeventfds_nr;
 
-The HM1092 is a 648x368 mono IR sensor used for face unlock on recent
-Intel IPU6/IPU7 laptops, sitting behind a Synaptics or Intel vision
-bridge. Without an entry here ipu-bridge builds the sensor endpoint with
-no link-frequencies property, the driver's frequency validation rejects
-every mode, and the sensor never binds.
+This should be in the bitfield usage group since it's only modified at
+init time.  Thanks,
 
-Two frequencies are listed because the sensor is driven from different
-external clocks depending on the platform, and the PLL registers are
-programmed to match:
-
-  0x030d (pre-divider), 0x030f (multiplier), link_freq = EXTCLK * m / p
-
-  Dell, IPU7      EXTCLK 19.2 MHz, p=10, m=94  ->  180,480,000 Hz
-  ASUS, Qualcomm  EXTCLK 24.0 MHz, p=12, m=90  ->  180,000,000 Hz
-
-Both are the CSI-2 DDR clock, so the per-lane bit rate is twice the
-value, 360.96 and 360 Mbit/s respectively, over one data lane.
-
-Worth stating explicitly because published figures for this part have
-been wrong: V4L2_CID_LINK_FREQ is the DDR clock, while the vendor mode
-descriptors publish the per-lane BIT rate. Taking the descriptor value
-verbatim gives 360,960,000, isys then configures the D-PHY for 721 Mbit/s
-against a sensor transmitting 361, the clock lane toggles, and no frame
-is ever framed. Halving it to the DDR clock is what produced the first
-captured frames from this sensor on Linux.
-
-The two platform values differ by 0.27%, which is within what the
-sensor's PLL tolerates, but they are listed separately rather than
-merged so each platform matches exactly what its firmware programs.
-
-Depends on the HM1092 sensor driver, currently in review.
-
-Signed-off-by: Jake Steinman <j@metarealtyinc.ca>
----
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -50,6 +50,8 @@
-  * Please keep the list sorted by ACPI HID.
-  */
- static const struct ipu_sensor_config ipu_supported_sensors[] = {
-+	/* Himax HM1092 */
-+	IPU_SENSOR_CONFIG("HIMX1092", 2, 180000000, 180480000),
- 	/* Himax HM11B1 */
- 	IPU_SENSOR_CONFIG("HIMX11B1", 1, 384000000),
- 	/* Himax HM2170 */
+Alex
