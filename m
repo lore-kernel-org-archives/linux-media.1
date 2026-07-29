@@ -1,179 +1,278 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 299883803C8
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E6E442B2F
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785322877; cv=none; b=IEp7obvaYYDG4EPKYdlg9Qxd2K1VtU4iQeUKGp5uAz0kd4JvoTkZk5iY3DMWE2kPrCizIaRCmYkFH2JH06OHwha+Gw1lahJbZ0Ck5zWdsMrFtbDAn/dAO+FfDWsd9Y9i2h/R72lMcPgWfVXF2/ZPQhdYDnm8nfph1ZFgo0Dn30M=
+	t=1785323042; cv=none; b=DFbV2eymLrZIhvBztIUOdhftOyDPXnvM28jEXIHDOQgxTm01+XLD5vjxNCHUpmiEb5PD7ui51Hwu1vQOOavyqNh+nuMFnJ0rTLcCEPrhhz6wCcw+LG5QK5kNvKCsx7H7c9GJ8sIZKdAuoVWOEI5VJ/LGN8L0aQXDad33xWq3avk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785322877; c=relaxed/simple;
-	bh=0LkBYfAZsJhifD4zPW/pw4O1lnq0kFjI4F2kXScG2Ww=;
+	s=arc-20240116; t=1785323042; c=relaxed/simple;
+	bh=udEcdzuH9IWqf5RctvY9uv48hr6A/o6aMv5KW839on8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FXoyB/RYYmi5dfcpIbyDP29MEKt0bJRxBzE+73tERWI67GaNVEnatLv5/Z+BlW8woPTVLxdptnZZ9ozc+uiWw8b5sMQEAVcgEx5YvhClqi5T3ZBJrky4+h27RkmIaoEAnGTdUbIiMnYeUFCSo8YSc8IDP3L4IN8d0o9oa++EaZc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NeYLVEjh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NGOjVwqs; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=dnKUlqgzxAwcPQf6oXO4bc/SyaA8gvy4NTIbFYS95UyCfKOVu/PNnGghUBbFkzTyi6O3tERiMqlON+US1iBDwbqNcfdD1Kq6YW5o6mg+57IIjUC92ARAxi3O35pEWMFF8sGv2fzDglLDJ8s7N1/qb7bInqH/K3W/t6rFclbBXuw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V/dNijQj; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NeYLVEjh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NGOjVwqs"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66T7f6Ff1088967
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:01:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0LkBYfAZsJhifD4zPW/pw4O1lnq0kFjI4F2kXScG2Ww=; b=NeYLVEjhcVvjgyC8
-	Qw0yx1EgRkr5w7rXfko95cuXAe5ephuRwZkCDm5CZNbpDCgNbpLYU8ac1ayi/emu
-	crLVhW3JkVFYOVH1xuRb8EL/3SkMeqtdRp5RZLrBrbKZdL6Lm0V/ocxWZY5sLiaE
-	/HcZKarqMwB8i0tbvsh18Q4mXYYlD9JwMFnfosu5akSln6SeQ2TdHS87hOSbzSbN
-	nZISupus4n3KpSnTCh6/Y1V728gPEamNNWfsR7rjJt88oW3UBGxGCkQ/B+c5X/yR
-	is2p14iTAlVDjGRj0gC1mHqLeyAitRQNcyqj1HAKTZMseXDDDk5HtlqGZpEPuLYu
-	7OE9jA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fq5sajfx5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 11:01:15 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb74d5db64eso868640a12.2
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:01:15 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V/dNijQj"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15dd4b9132so123794466b.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 04:03:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785322874; x=1785927674; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785323038; x=1785927838; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=0LkBYfAZsJhifD4zPW/pw4O1lnq0kFjI4F2kXScG2Ww=;
-        b=NGOjVwqsWOdjofBYDeCYBJrsBdBoPJ5+3WXNYqQxIh7vfjgvwR0YdiAurShAxBMh0c
-         GSt8fj82xhS722nPBCerCo/lrCaaAWmnaczJ0nIrrpweCEZdnVW+JYwyK8fhW07lmgz8
-         V3YL9LgfWxIwy4otYTodHB08H+LzEEp6WVK1tZ70ivnqdt1kw2pDT1qQkgvoopypXvS0
-         YH2sEw8vGwbJfckQ2LFs99T+Z1NpuNRzRZQUXyKZDsIY19rhZnyro/8vcy/nuEGiW+vY
-         UtcA/lbMaIjqP87xBu4yN3waECEzZPNMFDu3F5l1tI/IAWhu0Ib02JeCspu/yNrbp2li
-         DQWg==
+        bh=vraWe+r+JAvmwr9JBnRk+mSRMk+dBSFMePa2l4q/GaQ=;
+        b=V/dNijQju9uACt1iZViHkvpeE0F0EuqD4v40OCTWY/GBU3QbCRQbKk5qHYvd+Eoj2q
+         qJAZoT6rd//l5hzy54OL10iE5sYHxFuFsu8qzJfOCnJWYERVwclsMCMkbI9AlSH0MnXC
+         ld8FuWAZ3mqGM9hNWTWJ8rWoILOs/Kfopqk/VySnZFFgaj7s84LugmZBGxM+22I/QJxb
+         qfzUrKNuvIZ5nbBL/GKgc+pNCZ2H0PKWI9jnYdsI7GacdaORHrcJbzyT/ACVeVtrlZmD
+         MDPpcIcz/dE7NzPYKti9Mc3G45HDj/yVSx/5QzlprRj+FTSWmCcc90dMZ7mxIxSiJQPD
+         EdXw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785322874; x=1785927674;
+        d=1e100.net; s=20251104; t=1785323038; x=1785927838;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=0LkBYfAZsJhifD4zPW/pw4O1lnq0kFjI4F2kXScG2Ww=;
-        b=D2G/dJNFOrCUYxAqp4jcqWZ/8XrSyowrbzRAGYCHLo4hcnR256hRt47e2prD9FDnrB
-         P1SI1kPCUpetgr+io6smxq50c8WGHtCDRrYw/O/B0NKGK1tkBbx9kauxa6qqi+MhCBVO
-         FqSP38zJUf5HrAclFUJNJ1DOL5VJH+vxDh8soX9pkMdMpSleJaowVto7NPqVpc/5yCKS
-         QbuObYCOxQZJN8Rs9x3Y84LeRfhr8oymuVPwurclk7Nm9sfL3NjZIsFs7bUQ81Dd6LSE
-         419QyVYs5y+49MEDB0cfkEu1L0gnJfd2gaQYcmvYyd2QotFDUV8Fe8DY6cTO5P/QcI89
-         QQyQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpZkTaOPv0Kz78t1e0TweShtkRO44+lbfbZDSGKSrY3bxCU2wGmL/w22bTrD38ZJ3BYF6RfRCceZ0Dp+A==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8SqvXUUsa76EcmDSaQw5ZDraGr5S0nGUskPYBB6+2tHXau+9e
-	hDGD7htGKGepX1H5YMoE691r8afNE/xjWoNVqCZbrAIt4ijHAy7VNjkPM6x/z13uF3j63WKG6Xo
-	b5mAQIPgum4eLowqpVWSwpSMcJ/KdNYU0Im5c2g70UCQezUhpeYZhGau4VQroBNKVKQ==
-X-Gm-Gg: AR+sD12WzUvOwHAXn3RGeJ/pGqY9qMVDuF80CaXEOYPipVaE0tyYgZ4L8awawQrc7xm
-	B4R5sRSnKDeoXjtibSCdhSGp7Xxxv/nxibFvl5jWI4ehvvUl5Va51TeVD6uicz5MvLdVfYw5se9
-	jq/zdNAROR0VLHIfg2i6WaE1gqe23e9MzyOfs4BGkRBnf8Qd0A4kYYAK0t8AA/t2zFos/rX9S2I
-	/SPIL+g/OSptPV9Jo/y9C//7ukoqHfWzI1vFbYf6hJrXKiwuw340sRBz2mv+P9tgiRbsiiUtQqu
-	fQJUR/JUppf8ixRKK0Ux4nW2uUm5ikdq73A8IVIe9s2y+bSCL2WN5E+qGMPVvIa2j2FfrmV1xHq
-	yNZ3qlsEFBRv9mLI8hmATC3ItG28Ee2Va
-X-Received: by 2002:a05:6a20:9143:b0:3c4:2fe1:fa28 with SMTP id adf61e73a8af0-3c8ba63c421mr7492072637.71.1785322874335;
-        Wed, 29 Jul 2026 04:01:14 -0700 (PDT)
-X-Received: by 2002:a05:6a20:9143:b0:3c4:2fe1:fa28 with SMTP id adf61e73a8af0-3c8ba63c421mr7492019637.71.1785322873871;
-        Wed, 29 Jul 2026 04:01:13 -0700 (PDT)
-Received: from [10.206.101.140] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504dca6a8sm8990545eec.29.2026.07.29.04.01.06
+        bh=vraWe+r+JAvmwr9JBnRk+mSRMk+dBSFMePa2l4q/GaQ=;
+        b=XtxsXAvxN1X+k4qpHmcVksiSqLUIdBH6/vcHk6nXylTRgGkgTeX3Y/DVZ7rhEvryVI
+         sgwkJMo8dzD7ecpp8Qi1LShemiKJjRLAAA0A13LK6weUuifb1dYtgNnk9FAKlUp2qCi/
+         u8dmwcIr6hFnSoWEj6RhJuOSerajYoj88odKmyZB4YHXv+8COVwrLtUYn5PGDBVblo5O
+         M7Zi7U5K5LBJf1Lsapbh5vSSOhyipSeJkVAW4KKM4h/QRzNGjmwYeYSuwSRnQSJSXVYZ
+         YeUxMW7A5OxkmxR5f4DqOiefdpK1NA/JXwjf21/l0fPR8/6icNPGSMYe+Bme7Z4fVA8z
+         VMgw==
+X-Forwarded-Encrypted: i=1; AHgh+Rr3oc6Jgg1d5dzhx1UNHL3QMclog6/vNIOHZ6hH0DVobNaFzKDKUvCvlIpT8JN8VaR+YjiCZVkN2z5Wsw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz21Fpo4ErSUl9ifRRUCGDUTEXzU5oavHEluWHfF9wARoVp0t6X
+	AzoXHRw5MSwiz5KQNaF4phr4yP0xRbaZjMNUCEwZXqXcxwI1GDXb2E20
+X-Gm-Gg: AR+sD13HQaQRw0Yq5hfk3bm107XJBc9eNY4yB7r1EbE+oYUcIfpdXNax+aU/NqySobp
+	gBvYclOET8Jzr8C6/6jn4XP0GM7gcioVRZ6ScONGjgbO6LRBt+s6eKdrwl7P5g1Jn/uJvsTWDVD
+	eT936jX/5039/okmqdQ1QAoDdfO6Rir4IpVKZD+ro5arGI/9m6amtiSO1a7Quck7w0HksECTBgC
+	DYW9hReJzSBV2800wjWk0ON6aB6vY7Myxmcx19yzGD5rj72Ma0vAMCFsDrOfX6fIEkpijWGSHUI
+	sHei4l0ncCNHovQrR5l8OI6x3lLDpxPjLI3A8UjF8xolikh7IF0CdNxD952Wvd2QvmNO5fDAFWV
+	XZQrRh19DpyRZF3RAyeHIvO37ldrK4QQykaa8CPAgz81EhaoY+tj44qhNLTx23XOVManKDnawtL
+	aGGXN5WYO24kB36RJEsIn6aqQz+nGzbU/N1stIYwFVWdiEHJqCBMq44AWVU32zj4CmhDArTdWfj
+	Y2P1CKTFtBlN8I1rFVidHfXtqwrc3vBLOtNOG17ea3QJKmW+QWUBkKKVKZ0/WfbDNyd5fN7XHcF
+	/juSUwMzFBWhmkDHWcU=
+X-Received: by 2002:a17:907:5c5:b0:c12:8cbe:b897 with SMTP id a640c23a62f3a-c1f7209f906mr333725866b.15.1785323037380;
+        Wed, 29 Jul 2026 04:03:57 -0700 (PDT)
+Received: from ?IPV6:2620:10d:c096:325:77fd:1068:74c8:af87? ([2620:10d:c092:600::1:640])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1f83c6858asm99322666b.10.2026.07.29.04.03.55
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 29 Jul 2026 04:01:13 -0700 (PDT)
-Message-ID: <cb344e15-28c1-16de-b871-a39c01d52345@oss.qualcomm.com>
-Date: Wed, 29 Jul 2026 16:31:04 +0530
+        Wed, 29 Jul 2026 04:03:56 -0700 (PDT)
+Message-ID: <e3dff1e5-8b66-49d7-9a47-88a9d26c5c10@gmail.com>
+Date: Wed, 29 Jul 2026 12:03:46 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v10 01/14] dt-bindings: media: qcom,glymur-iris: Add
- glymur video codec
-To: Bryan O'Donoghue <bod.linux@nxsw.ie>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        iommu@lists.linux.dev, devicetree@vger.kernel.org
-References: <20260726-glymur-v10-0-de451559e88b@oss.qualcomm.com>
- <20260726-glymur-v10-1-de451559e88b@oss.qualcomm.com>
- <cTyvVlG4njDAALGERZCnJMS54r5ZomPQ6aLejsdTWw3ifNJ3yuz38KU4j9_PrlabOH4e0Oo4XsuftZkODeXPg1ecfCRdlKHTLkw_JWXWnRY=@nxsw.ie>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 06/14] block: introduce dma map backed bio type
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <f97985ac5cfff3d9f7777b93f11456af57e253e2.1785274111.git.asml.silence@gmail.com>
+ <20260729070727.GF9534@lst.de>
 Content-Language: en-US
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <cTyvVlG4njDAALGERZCnJMS54r5ZomPQ6aLejsdTWw3ifNJ3yuz38KU4j9_PrlabOH4e0Oo4XsuftZkODeXPg1ecfCRdlKHTLkw_JWXWnRY=@nxsw.ie>
-Content-Type: text/plain; charset=UTF-8
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260729070727.GF9534@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: FI8map-XXSbJatwSHxxQHjJxFXuizSOv
-X-Authority-Analysis: v=2.4 cv=C5fZDwP+ c=1 sm=1 tr=0 ts=6a69dd7b cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=Mf6ET5Z485SzACLcFDwA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: FI8map-XXSbJatwSHxxQHjJxFXuizSOv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzI5MDA5MCBTYWx0ZWRfX0znQ7Z9tOFX/
- UQrvWGvzqWfjGtHqzZyIDc/S3TCZ8NIh2YpbgJ2UFHpJaBz7es3My4G88D1iG4z7MT+ghBZshGX
- aYe+gk9/e8g2WiucBqQ49BKw2ePeYbw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzI5MDA5MCBTYWx0ZWRfX4WpGjuF1R0XU
- C5YeBCBoHEUSSSpIkoD3eGs7ZdaQz0nRwl1vocfCvu+ET8fFQzAuJHZfxqrTBLlkPpg/6O/KmH7
- xgra5eCf6LjZZ94XiPJTLRFK9zfPXIspSLfpa3vl7uX6RXg6t2/oQP8aQ0FkJ0g/ME0jXzoOf01
- +2ksffyeb5OhtDPj4dp+9MsaSck4iu8ebxLFb8isl2M+4fH+0FO2ZaUlg3hKLsI6r9f3xo/8AFl
- TbfetlgmQlVLfSJdQXUm8MJc2ysu4XHIO6fk4W5w1qk5CZ84eKOZvLsKzGnyVhHvA1HDyA/Rc2j
- Ia+KzUf3uAjerYi/rFu3mPsg3NST60x7WTtS/ANsx4EVA1Ps8+0/izwPNi9i7jEc+4IrTOABOS1
- 5Zy2XgicuW7dVNoNgDq6Q3uukEZ525DwqTZH+afLVE5uzq80A/ieqzMKfDeKmoFa9VFnDzQXa2N
- FniU3e32vmmAp2b8+rw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-29_03,2026-07-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 impostorscore=0 malwarescore=0 adultscore=0
- clxscore=1015 priorityscore=1501 bulkscore=0 lowpriorityscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2607290090
+
+On 7/29/26 08:07, Christoph Hellwig wrote:
+>> -	bio->bi_io_vec = bio_src->bi_io_vec;
+>> +
+>> +	if (op_is_dmabuf(bio->bi_opf)) {
+>> +		bio->bi_dmabuf_map = bio_src->bi_dmabuf_map;
+>> +	} else {
+>> +		bio->bi_io_vec = bio_src->bi_io_vec;
+>> +	}
+> 
+> No need for the braces.  
+
+Got it,
+
+But given that these are the fields why
+> even bother doing both sides and not rely on the union?
+
+Compiles into the same, but comparing to a comment makes
+the compiler to check it for us if anything happens.
+
+Noticed static_assert() below, that works as well, though I
+think the current version is nicer b/c it preserves assignment
+types for the compiler. Strict aliasing is obviously not a
+thing, so don't have a strong opinion.
+
+>> +void bio_dmabuf_map_set(struct bio *bio, struct iov_iter *iter)
+>> +{
+>> +	WARN_ON_ONCE(bio->bi_max_vecs);
+>> +
+>> +	bio->bi_dmabuf_map = iter->dmabuf_map;
+>> +	bio->bi_vcnt = 0;
+>> +	bio->bi_iter.bi_offset = iter->iov_offset;
+>> +	bio->bi_iter.bi_size = iov_iter_count(iter);
+>> +	bio->bi_opf |= REQ_NOMERGE | REQ_DMABUF;
+> 
+> This seems to be largely copied from bio_iov_bvec_set, but misses
+> the REQ_CLONE there that we should probably set as well to indicate
+> that the data descriptor is not owned (although not setting it is
+> not really a bug).
+> 
+> What about merging these two into a single and easier to use interface
+> like this:
+
+No opinion on this, I can add it, probably as another prep patch.
 
 
-On 7/29/2026 3:38 PM, Bryan O'Donoghue wrote:
-> On Sunday, 26 July 2026 at 06:50, Vishnu Reddy <busanna.reddy@oss.qualcomm.com> wrote:
->
->> Add device tree binding for the Qualcomm Glymur Iris video codec. Glymur
->> is a new generation of video IP that introduces a dual-core architecture.
->> The second core brings its own power domain, clocks, and reset lines,
->> requiring additional power domains and clocks in the power sequence.
->> The current maxItems constraints for clocks and power-domains in the
->> common venus schema were sized for platforms available at the time of
->> authoring. The glymur platform introduces a dual core architecture
->> that requires more clocks and power domains, exceeding these limits.
->> Raise maxItems for clocks, clock-names, power-domains and
->> power-domain-names to accommodate the glymur platform.
->> The glymur platform-specific schema have fixed constraints for these
->> properties, so the common schema only acts as an upper bound.
->>
->> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Krzysztof's RB has been dropped from v9 to v10 here.
->
-> Is that purposeful - all of the other patches in this series have the relevant RB's retained.
->
-> Using proton mail web thingy so my email may appear weird idk.
->
-> Anyway please indicate what is going on with the yaml RB's here.
+> diff --git a/block/bio.c b/block/bio.c
+> index cc2bb9183c1a..25393bdd119d 100644
+> --- a/block/bio.c
+> +++ b/block/bio.c
+> @@ -860,12 +860,9 @@ static int __bio_clone(struct bio *bio, struct bio *bio_src, gfp_t gfp)
+>   	bio->bi_write_hint = bio_src->bi_write_hint;
+>   	bio->bi_write_stream = bio_src->bi_write_stream;
+>   	bio->bi_iter = bio_src->bi_iter;
+> -
+> -	if (op_is_dmabuf(bio->bi_opf)) {
+> -		bio->bi_dmabuf_map = bio_src->bi_dmabuf_map;
+> -	} else {
+> -		bio->bi_io_vec = bio_src->bi_io_vec;
+> -	}
+> +	static_assert(offsetof(struct bio, bi_io_vec) ==
+> +		      offsetof(struct bio, bi_dmabuf_map));
+> +	bio->bi_io_vec = bio_src->bi_io_vec;
+>   
+>   	if (bio->bi_bdev) {
+>   		if (bio->bi_bdev == bio_src->bi_bdev &&
+> @@ -1186,26 +1183,21 @@ void __bio_release_pages(struct bio *bio, bool mark_dirty)
+>   }
+>   EXPORT_SYMBOL_GPL(__bio_release_pages);
+>   
+> -void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter)
+> +bool bio_iov_iter_set(struct bio *bio, const struct iov_iter *iter)
+>   {
+>   	WARN_ON_ONCE(bio->bi_max_vecs);
+>   
+> +	if (!iov_iter_is_bvec(iter) && !iov_iter_is_dmabuf_map(iter))
+> +		return false;
+> +
+>   	bio->bi_io_vec = (struct bio_vec *)iter->bvec;
+>   	bio->bi_iter.bi_idx = 0;
+>   	bio->bi_iter.bi_offset = iter->iov_offset;
+>   	bio->bi_iter.bi_size = iov_iter_count(iter);
+>   	bio_set_flag(bio, BIO_CLONED);
+> -}
+> -
+> -void bio_dmabuf_map_set(struct bio *bio, struct iov_iter *iter)
+> -{
+> -	WARN_ON_ONCE(bio->bi_max_vecs);
+> -
+> -	bio->bi_dmabuf_map = iter->dmabuf_map;
+> -	bio->bi_vcnt = 0;
+> -	bio->bi_iter.bi_offset = iter->iov_offset;
+> -	bio->bi_iter.bi_size = iov_iter_count(iter);
+> -	bio->bi_opf |= REQ_NOMERGE | REQ_DMABUF;
+> +	if (iov_iter_is_dmabuf_map(iter))
+> +		bio->bi_opf |= REQ_NOMERGE | REQ_DMABUF;
+> +	return true;
+>   }
+>   
+>   /*
+> @@ -1265,13 +1257,7 @@ int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   	if (WARN_ON_ONCE(bio_flagged(bio, BIO_CLONED)))
+>   		return -EIO;
+>   
+> -	if (iov_iter_is_bvec(iter)) {
+> -		bio_iov_bvec_set(bio, iter);
+> -		iov_iter_advance(iter, bio->bi_iter.bi_size);
+> -		return 0;
+> -	}
+> -	if (iov_iter_is_dmabuf_map(iter)) {
+> -		bio_dmabuf_map_set(bio, iter);
+> +	if (bio_iov_iter_set(bio, iter)) {
+>   		iov_iter_advance(iter, bio->bi_iter.bi_size);
+>   		return 0;
+>   	}
+> diff --git a/block/blk-map.c b/block/blk-map.c
+> index d1d6bbe0ecf1..34816e6e64de 100644
+> --- a/block/blk-map.c
+> +++ b/block/blk-map.c
+> @@ -473,7 +473,7 @@ static int blk_rq_map_user_bvec(struct request *rq, const struct iov_iter *iter)
+>   	bio = blk_rq_map_bio_alloc(rq, 0, GFP_KERNEL);
+>   	if (!bio)
+>   		return -ENOMEM;
+> -	bio_iov_bvec_set(bio, iter);
+> +	bio_iov_iter_set(bio, iter);
+>   
+>   	ret = blk_rq_append_bio(rq, bio);
+>   	if (ret)
+> diff --git a/block/fops.c b/block/fops.c
+> index d83cdbab65a6..97fb124a19b2 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -340,17 +340,12 @@ static ssize_t __blkdev_direct_IO_async(struct kiocb *iocb,
+>   	bio->bi_end_io = blkdev_bio_end_io_async;
+>   	bio->bi_ioprio = iocb->ki_ioprio;
+>   
+> -	if (iov_iter_is_bvec(iter)) {
+> -		/*
+> -		 * Users don't rely on the iterator being in any particular
+> -		 * state for async I/O returning -EIOCBQUEUED, hence we can
+> -		 * avoid expensive iov_iter_advance(). Bypass
+> -		 * bio_iov_iter_get_pages() and set the bvec directly.
+> -		 */
+> -		bio_iov_bvec_set(bio, iter);
+> -	} else if (iov_iter_is_dmabuf_map(iter)) {
+> -		bio_dmabuf_map_set(bio, iter);
+> -	} else {
+> +	/*
+> +	 * Users don't rely on the iterator being in any particular state for
+> +	 * async I/O returning -EIOCBQUEUED, hence we can avoid the expensive
+> +	 * iov_iter_advance() if we could set the bvec/dmabuf directly.
+> +	 */
+> +	if (!bio_iov_iter_set(bio, iter)) {
+>   		ret = blkdev_iov_iter_get_pages(bio, iter, bdev);
+>   		if (unlikely(ret))
+>   			goto out_bio_put;
+> diff --git a/include/linux/bio.h b/include/linux/bio.h
+> index c053e9444514..1eff02a843ef 100644
+> --- a/include/linux/bio.h
+> +++ b/include/linux/bio.h
+> @@ -484,8 +484,7 @@ int bdev_rw_virt(struct block_device *bdev, sector_t sector, void *data,
+>   int bio_iov_iter_get_pages(struct bio *bio, struct iov_iter *iter,
+>   		unsigned len_align_mask);
+>   
+> -void bio_iov_bvec_set(struct bio *bio, const struct iov_iter *iter);
+> -void bio_dmabuf_map_set(struct bio *bio, struct iov_iter *iter);
+> +bool bio_iov_iter_set(struct bio *bio, const struct iov_iter *iter);
+>   void __bio_release_pages(struct bio *bio, bool mark_dirty);
+>   extern void bio_set_pages_dirty(struct bio *bio);
+>   extern void bio_check_pages_dirty(struct bio *bio);
 
-Krzysztof commented to drop it on v9 as the binding was updated significantly,
-so it was removed in v10.
+-- 
+Pavel Begunkov
 
-> ---
-> bod
