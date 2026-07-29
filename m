@@ -1,109 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAE152F1FF4
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 01:41:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262E52264C0
+	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 02:18:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785289277; cv=none; b=XDz2tKu625jNjbjDk7qKLqT1UcRc8qF6Iw5OxaZTjF2lCxFrRcOhwkXuPpHVUmuTHvzBgRgvDJ9uUHO++oPveZtdmOSPhruF4tfjjyInnMVKks6tn+cxIro86SKp5c0rMRoCGozs0GtC/tqEyKX6F9xKuRqmIHd4VzJZxn23q0g=
+	t=1785291529; cv=none; b=EwEGjF7PI1ZPScdA0RL1ibPMFeyWp3u5NwdMIgBb431dv71wwFnp68H9jR6BuTw74Az8bOiK+FuPpsfUCkPpNFrTH/lT7FzCJ3IFp3FLoNJOKD16QUXIZv21yAIFZLtqc1JLBjSTvEA4OKA0oRTaHTF2x8V8pQRRYfFW9CHD654=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785289277; c=relaxed/simple;
-	bh=6T2ASwXHvQQLV66wqCeDhuzE/qEo+ODOvNR/i+g45gY=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VivRuQ8mVF7dXoJ40fNAU75gbp9xswKWzQMay8yV6BmGGn7bz6amxjm+9IXgODdb4qI73bQi9gjp/YVxgZjnBt8aRf4+tG72D3uD+EWX0K/Z/nBOQenawS2N/0/RKUvNg9LdcD0jMBn+sRU+4M1Jo+HFjBlebWAFFyhQ90v6hco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fus1k0w3; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1785291529; c=relaxed/simple;
+	bh=dmriazfhWcf5wW8lxOVtQBUgCYLeSYhcaY4KgrG7ctA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Dn8n4fCtp81JMzpLZFM/Oj9HDOZUvgQUfATd0+OtMr8tLPYkbH3sGKHMLAEVLbd7Zmf8TE73ylmFA5gqSRGL89opAaABkzOoJnRpS6nOKRZN0bRbqTnekzxjvikx2TwTkh5FzvGMrGnU2CFOPlohaHNFhhfxH5VigSzRz5EEjBg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cxcpqN8r; arc=none smtp.client-ip=209.85.214.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fus1k0w3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785289276; x=1816825276;
-  h=date:from:to:cc:subject:message-id:mime-version;
-  bh=6T2ASwXHvQQLV66wqCeDhuzE/qEo+ODOvNR/i+g45gY=;
-  b=fus1k0w3wtnLN7F50vS46KKL2bQ5NljGRtFYtImVpfM+Wf0qm4oLRefY
-   h3PHWvgLWvCnG6DR1SkcBFOtmGnnF+zY6F7W6+ohPYAV9ZAhmXimj1llu
-   10+bUTRpX/tAQAGdNlczHRkx1LRQ6aiAI5Lbc9U+GJMTFUZU9+H83eTOG
-   keS5FlNa7uAjw2YKDRXcI9n10oNzxBHbtRV+5FEvubiIU99XZugHzrHz0
-   FobYSDIvpAjXN+TuS88zWGvt5a80KQDAQiWDji7JtIHwAwKGWQwLuPLFA
-   DX4Cj7r6x7tiioA769sD4DrZR44bl2eqdG8HSG0Cnjk4y29VRxvm9JtWi
-   Q==;
-X-CSE-ConnectionGUID: 0FPaMbHMRIm/PJcUGKlouQ==
-X-CSE-MsgGUID: N9zj8E+xTsijhqa3xIRP6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="85968694"
-X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
-   d="scan'208";a="85968694"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Jul 2026 18:41:15 -0700
-X-CSE-ConnectionGUID: UMQpXZwGT0Cj8Pqr1MIfwA==
-X-CSE-MsgGUID: iEwTKfR0QCadt5R15qWQww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,191,1779174000"; 
-   d="scan'208";a="289815018"
-Received: from igk-lkp-server01.igk.intel.com (HELO 3cba2a188a06) ([10.211.93.152])
-  by orviesa002.jf.intel.com with ESMTP; 28 Jul 2026 18:41:13 -0700
-Received: from kbuild by 3cba2a188a06 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wotIF-00000000246-16KZ;
-	Wed, 29 Jul 2026 01:41:11 +0000
-Date: Wed, 29 Jul 2026 03:40:16 +0200
-From: kernel test robot <lkp@intel.com>
-To: Jai Luthra <jai.luthra+renesas@ideasonboard.com>
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- "Niklas =?utf-8?Q?S=C3=B6derlund"?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [sailus-media-tree:v4l2-isp 13/25] htmldocs:
- include/uapi/linux/videodev2.h:893: WARNING: Invalid xref:
- std:ref:`v4l2-meta-fmt-rpp-x1-params`. Possible alternatives:
-Message-ID: <202607290311.BFAuSpjd-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cxcpqN8r"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2ceaf8a1265so5678255ad.2
+        for <linux-media@vger.kernel.org>; Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785291527; x=1785896327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
+        b=cxcpqN8rq7HglPHwR2IbvxtN3GRe4NGzynmTkyK5gm0qBOA+Aoz+G+e9xEZZjKgB6P
+         3Q/limCrCp0xbEw3GNbLkuj5QLRHJTRt6eORffvT3s+BMDQDUJeAGZbTg3wHS+m/UPij
+         ngZ3i1pVCHG/6wDjRDKQ5BU62/lfhPfTq3duGviYVBcd2Oe8KQM6Xcm2sqAI9+7O0pSI
+         lluM3cOhYR/sIi8ZXxX1DuHyxd5gO2E/FZEPjnRBZmIkOq7LGkhLaqqnZKKTvwOxDqt0
+         LB+a5BjnJZzHdtUivq1OnMYyrc5XvRRlg+EJRY7wnHHcDz5D6znhpAQtkKUXRb0gAfLw
+         Whrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785291527; x=1785896327;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A3vGTZ+9cBJHUjmSn73Xe4evmb/1PkSIQ94tual6z3w=;
+        b=bDfCi0yjFt56ycNs56pjKsH737r6qTaQOjj/OSz+vxASnW9Jriz/xi2Q2CbOmr/cNs
+         IZXsIsfVC1lTCLP0ELEa999GdiJYlikEQr+e25vPO8cjDFPDiQvPqQihFjmHmafIgRhm
+         TpL/WV2vmidi1PopA4kmqaTpuukdsS/ldkUMf+PUH8W1ylu1B4Ak8E3a/ZX7EAbjQQpz
+         lN2P1tOGH1dtEN08+n/pDF+ZJnWOdMsOlShg0IAe1Vl68s6dGSGWaTOvTmMRPtk+gFaR
+         uNZpYyG4xcDT/1KxpBOF9zQQnKZ2ibL0VxtYUIhmSfmYyOWt2034P8MjKERkL8717R4x
+         PbDQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rod3AFrnF/ZzSRlbLITCgs77KWZ0Bg02ZOISnwJTY7iYU3mKF6EImGMGZN+whndYrsIHGfl949/iSnUVA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxrXsuvmtO0X1yWeivBtgKLpPbQniVrkjtAPmIhGOFx+BjCYt8r
+	0wEnaQwjZI5LbxZCW8EfFM77+F/ov2Tg/jKY/2k6QiBgrsZh7Gb+Jgo=
+X-Gm-Gg: AR+sD11XukCAzGA3eqHlx7Mn7oYrmfApb3PdoDe6I//5FtVT3ZPj8HvVgtQeUbgXqap
+	vMQMp7C3AFKeju+g/IHpKGtOGFi6N/oKKBYRTbr87NVkgbCj23XKrtRLoeeO16KexvN72e7+3Ew
+	Uf+PVZgH0/W6IMpG7ecKn91L7i5begFCn0e8EnqSYdgXR4ozrk8bHOIFlF+h7k9FMGS6SWEiF65
+	/YfcbN4YGe3hWDQQury5ezNRGuwm92iDiezij7hWcEstDXB/G00VTZ9J2xSNgEHvoxImIId48oH
+	bWsEiHMI+nKpEsvU4UeYNXi/n0Pkt94AZZT6Mjj9gQhQ0pX1xYbdiwyIroP/WsT+nipeua4MHpg
+	88Ip63AMr06yOU8+xbFrESVHd2+mqCqnpQKoFo+Cy4EyLdqO/pX7Bd8VVGOcsl4s/W86StXaW6D
+	C8tq2Rr50+2/SgFSCgGvhv+p+yePwKPYV8gpX+rJr3H8oJvZBRy/8NDh3SMg/5XOxpMey0BYIHH
+	D8EZKrKRE/AM1QJabua4SB+WvxuNIl+bxuBPEohC3xKPnUjx6fBq15bbjC9+JNhopMaAiip/tb9
+	wiCIhnyed34Aj22lZbp1ELSbvKEJUqOefg==
+X-Received: by 2002:a17:903:1905:b0:2ca:ca48:c36a with SMTP id d9443c01a7336-2d015c0fcacmr52704555ad.18.1785291527425;
+        Tue, 28 Jul 2026 19:18:47 -0700 (PDT)
+Received: from localhost.localdomain ([1.226.165.54])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022a46774sm3848685ad.27.2026.07.28.19.18.43
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Tue, 28 Jul 2026 19:18:45 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Alain Volmat <alain.volmat@foss.st.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-media@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Biren Pandya <birenpandya@gmail.com>,
+	Ijae Kim <ae878000@gmail.com>,
+	stable@vger.kernel.org,
+	Myeonghun Pak <mhun512@gmail.com>
+Subject: [PATCH] media: stm32: csi: unregister async notifier on cleanup
+Date: Wed, 29 Jul 2026 11:18:34 +0900
+Message-ID: <20260729021834.50550-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 8bit
 
-tree:   git://linuxtv.org/sailus/media_tree.git v4l2-isp
-head:   7abfe3e3b2e2ecba8132ae60033d4ea1238c1f1e
-commit: 1a426ed271eb152cfed4f942a0caaa37e00ea707 [13/25] media: Add RPP_X1_PARAMS and RPP_X1_STATS meta formats
-compiler: clang version 22.1.8 (https://github.com/llvm/llvm-project ca7933e47d3a3451d81e72ac174dcb5aa28b59d1)
-docutils: docutils (Docutils 0.21.2, Python 3.13.5, on linux)
-reproduce: (https://download.01.org/0day-ci/archive/20260729/202607290311.BFAuSpjd-lkp@intel.com/reproduce)
+stm32_csi_parse_dt() registers the async notifier before probe finishes.
+If a later operation fails, the error path only cleans up the notifier's
+connections.  It does not unregister the notifier, leaving its entry on
+the global notifier list after the devm-allocated csidev is freed.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202607290311.BFAuSpjd-lkp@intel.com/
+The remove path has the same problem.  A later async operation can then
+walk the stale notifier entry and access freed memory.
 
-All warnings (new ones prefixed by >>):
+Unregister the notifier before cleaning up its resources on both paths.
 
-   Documentation/userspace-api/landlock:596: ./include/uapi/linux/landlock.h:63: ERROR: Unknown target name: "scope flags". [docutils]
-   Documentation/userspace-api/landlock:596: ./include/uapi/linux/landlock.h:24: ERROR: Unknown target name: "filesystem flags". [docutils]
-   Documentation/userspace-api/landlock:605: ./include/uapi/linux/landlock.h:228: ERROR: Unknown target name: "filesystem flags". [docutils]
-   Documentation/userspace-api/landlock:605: ./include/uapi/linux/landlock.h:251: ERROR: Unknown target name: "network flags". [docutils]
-   Documentation/networking/checksum-offloads:157: ./include/linux/skbuff.h:181: WARNING: Failed to create a cross reference. A title or caption not found: 'crc' [ref.ref]
->> include/uapi/linux/videodev2.h:893: WARNING: Invalid xref: std:ref:`v4l2-meta-fmt-rpp-x1-params`. Possible alternatives:
-   std:label:`v4l2-meta-fmt-rk-isp1-params` (from userspace-api/media/v4l/metafmt-rkisp1)
-   std:label:`v4l2-meta-fmt-params` (from userspace-api/media/v4l/metafmt-intel-ipu3)
-   std:label:`v4l2-meta-fmt-c3isp-params` (from userspace-api/media/v4l/metafmt-c3-isp) [ref.missing]
->> include/uapi/linux/videodev2.h:893: WARNING: undefined label: 'v4l2-meta-fmt-rpp-x1-params' [ref.ref]
->> include/uapi/linux/videodev2.h:894: WARNING: Invalid xref: std:ref:`v4l2-meta-fmt-rpp-x1-stats`. Possible alternatives:
-   std:label:`v4l2-meta-fmt-rpi-fe-stats` (from userspace-api/media/v4l/metafmt-pisp-fe)
-   std:label:`v4l2-meta-fmt-c3isp-stats` (from userspace-api/media/v4l/metafmt-c3-isp)
-   std:label:`v4l2-meta-fmt-rk-isp1-stat-3a` (from userspace-api/media/v4l/metafmt-rkisp1) [ref.missing]
->> include/uapi/linux/videodev2.h:894: WARNING: undefined label: 'v4l2-meta-fmt-rpp-x1-stats' [ref.ref]
+Fixes: dcb0f4c16be5 ("media: stm32: csi: addition of the STM32 CSI driver")
+Cc: stable@vger.kernel.org
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+ drivers/media/platform/st/stm32/stm32-csi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-
-vim +893 include/uapi/linux/videodev2.h
-
-   891	
-   892	/* Vendor specific - used for Dreamchip RPP-X1 ISP */
- > 893	#define V4L2_META_FMT_RPP_X1_PARAMS	v4l2_fourcc('D', 'R', '1', 'P') /* Dreamchip RPP-X1 Parameters */
- > 894	#define V4L2_META_FMT_RPP_X1_STATS	v4l2_fourcc('D', 'R', '1', 'S') /* Dreamchip RPP-X1 Statistics */
-   895	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+diff --git a/drivers/media/platform/st/stm32/stm32-csi.c b/drivers/media/platform/st/stm32/stm32-csi.c
+--- a/drivers/media/platform/st/stm32/stm32-csi.c
++++ b/drivers/media/platform/st/stm32/stm32-csi.c
+@@ -1059,6 +1059,7 @@ static int stm32_csi_probe(struct platform_device *pdev)
+ 	return 0;
+ 
+ err_cleanup:
++	v4l2_async_nf_unregister(&csidev->notifier);
+ 	v4l2_async_nf_cleanup(&csidev->notifier);
+ 	return ret;
+ }
+@@ -1068,6 +1069,8 @@ static void stm32_csi_remove(struct platform_device *pdev)
+ 	struct stm32_csi_dev *csidev = platform_get_drvdata(pdev);
+ 
++	v4l2_async_nf_unregister(&csidev->notifier);
++	v4l2_async_nf_cleanup(&csidev->notifier);
+ 	v4l2_async_unregister_subdev(&csidev->sd);
+ 
+ 	pm_runtime_disable(&pdev->dev);
+ }
+-- 
+2.50.1
