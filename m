@@ -1,119 +1,65 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E13D397929
-	for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 14:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B516C4D2EF6;
+	Wed, 29 Jul 2026 14:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785336873; cv=none; b=fNVfsEiIv3RMZYylXqioFF/evozi8p1KA1xyT8dh7q+uej13DlDfB89E5dolOQjeovfAPwe0hj7Bm54bn1yDyx8i8k5hQLxBSfGIMGxzhlp5/DPtjzMk1yg4qSt7mnvexEYDpX+oPwukWxgQsN+o9xC0Vg+Ak2W0I3t9D7+AhLU=
+	t=1785336891; cv=none; b=D/56KNzWhrLiXVtA3uUrfXp+Xv/J5QqizlzeR4L6lAe14HFElbSiUTDZp6c48c95T2Y6Odzj990lN/iUyyRx0LcFmn2L5iLLiyYjPMAghKumTDri1WgW/8eREE+YrXQpLLndqDqy5VxfeBj4m1HvEEMt/PVHuxZylgWGmAv/nvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785336873; c=relaxed/simple;
-	bh=eEfGUNYm069B8YRJw7nG+CpVl1p+N0InV7LL9ThjIe8=;
+	s=arc-20240116; t=1785336891; c=relaxed/simple;
+	bh=0Ceak2M82FucVlHM9Zau0MlNA0nFVtDu+8nn7FI1Pm8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OezI3XUpKBQzDHnHc6f87iAIJwjaPVL5AbCu/viGkDeM65qVb928/qbvfYYzosFkEzxpmXyYRIMrqXGQFDp9jhK++DJFe7WwtQ8bP4JtlMRkX7me92iLHzqVvrs8xaAlynJm7uCNEL8T8brW5ApFJFbH70RU9ngBijJGtrdT+qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=O3BmsLQw; arc=none smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=rWOW68kY5KO17qZTQjr2Hk3YMJGwUYVH8gZGCh5CTFD0dAx2/luNXMWdrI/gsVCrNFfMbKGiIvo4LV27QcIPVt31FoZ91QZRRNr4j0Xe+mUvs6JJ4bXGjjt7hU1pRuA9tjbZjBHRPMKu+ncXzG7EAeQGz/x2BvHB7hhzbMAwodM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=UXDvj4TD; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="O3BmsLQw"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-51bfe810293so5772701cf.1
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 07:54:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1785336867; x=1785941667; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=diG76WQps7jL2eyBJvu35E+/CEytgTNbNERpdeDHsjg=;
-        b=O3BmsLQw3McVjTiDGfKastaWa5ZTDhWha9yR+c9sNTwfCVWSxFPZQh59Bwxkp+HpXf
-         hJ8lT8mUOuv6Qn0cxeIv8zPndGtRZiXfqnKjepB8wLbn8Z0dtX+PJajGlVWO8HsEHQ18
-         focSSNttHZLcFRhehL4jqDC4a/HpRGM9qQSInQa+gKoRQH4hhhbpQkG3D4BXnFeOlb0S
-         8WehKu9o7DYabQ7Wt3arignFNdJ7FdVEO3kfLTxt3+iNiGrNysxJAbtCAAHYYRHImaFu
-         6yD+SoIZ6g4I592C1JX5T35MTcmEPrdeIx+UK5g2hmOZERGp5tC81OEGFg2lhTmJ4sDN
-         et0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785336867; x=1785941667;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=diG76WQps7jL2eyBJvu35E+/CEytgTNbNERpdeDHsjg=;
-        b=Z1MmsXo8odGBzTeKkoVA4GRifjRCUQoh0O4cKGVFXCkwxO9/74X8xPkdhFhoaRGhF/
-         ynu42umxmHEyKK28H8B4AaNsO2Y//8squRtnPWQ5jCiaWrar1Dx59XnWNyQ25oJ3DgUT
-         vhx3kdEzvjv2r6w8pzrlJtBCGwbbPbplqzz6gIgIcCCRWn/qCVO4Irm73QXSLHPTBCka
-         cLCQEKFigbtgHBE3ivf/F5XE6R2vQ+Yyd/SQMQU1iNuFfATvVuybCk5sxDSw2hWWLnx9
-         RlCGbCyqjef3VLO1NmeLz8C2n2MTTNL2r0BQLW8lPreRcXtod+g/UvsqCI96O+v21L+C
-         EzDQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrL8fSSR0yqIjiWwTrJYBwmeBOJ7ZJgWPjEgDQ+0nQwCUv5cpdT9gVu+ml448WD3Me2wgqUeSRIfoeh8w==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxJ2wfTAWMkDoGQXyb6lU/cK0Cvle9xW0p9ZTTq0irbFTnL6qpU
-	Tb7S98VDC6usKaBfPdj8L5T3gcXEWLDSS4j3gVuTCKc4ykDelGCXbZRe7qQR2C+6sw==
-X-Gm-Gg: AR+sD12OWOTvq7u1p0TY20uvd2CSkSK4MgSvbSVojDdSi2wv6/vhPe76S6fXEu4AlFo
-	AjiXFcgJF6mCYsYJDDGmyOih/86h/b+uh/Py354oExpuO7c8JEo9E+Yviu5/Ivl+qtN19cSlPPK
-	zqSvEgUajwffxk4vpWY8VPmngoVgeoz+QHayBEzVr6U2nKxSkjv8CEqR9t9CuqbMFJfsj8cLuDp
-	0mcVPiVZcQ3RpHDFm0V3J/wox/PG+DpXslHacf0PAmHc+/otCD6uz14dERBbPg6OlrjBoqzYIv9
-	sYh24SsgLujvNWAaXujE3BlciKIojmV44Y3FCIgSozbhrJPealO/nW+IF6kg5t7QelX616iDqVT
-	fCiZX2Uu0RAk4qfD8yJp6BgHyx0rRN0H4Tb+0y6USQJnKvFL20OwcKBV0aYTMoUHi008RRKlvl6
-	bB8qYqdWgNQhiue2hKHVw7XtMOX8/3kALSKtVRNfkAbjwbPFIBW3zr1gmYU21XbgEUxrDYyfPlh
-	fIwJ90GER/ZfoYhGqrdK2B2sx1pE47O
-X-Received: by 2002:a05:622a:608f:b0:519:89b6:78b4 with SMTP id d75a77b69052e-529d7103196mr64381481cf.40.1785336867388;
-        Wed, 29 Jul 2026 07:54:27 -0700 (PDT)
-Received: from rowland.harvard.edu ([2607:fb60:1011:2006:a008:aeb7:73d7:d8ff])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e2dd45ffsm19696401cf.22.2026.07.29.07.54.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 07:54:26 -0700 (PDT)
-Date: Wed, 29 Jul 2026 10:54:24 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Oliver Neukum <oneukum@suse.com>
-Cc: Haowen Tu <tuhaowen@uniontech.com>, hansg@kernel.org,
-	gregkh@linuxfoundation.org, kernel@uniontech.com,
-	laurent.pinchart@ideasonboard.com, lenb@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	mchehab@kernel.org, pavel@kernel.org, rafael@kernel.org
-Subject: Re: [PATCH v4 4/4] media: uvcvideo: defer streaming restart after
- hibernation snapshot
-Message-ID: <af0d5a2b-373a-4a0f-9e0f-8502217a6a1a@rowland.harvard.edu>
-References: <cbac4803-cf65-4b8b-a662-073189df478b@kernel.org>
- <20260729075655.1187692-1-tuhaowen@uniontech.com>
- <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
- <5d36c6a8-bbc9-4d5f-8670-2993bdeb857f@suse.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="UXDvj4TD"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1785336886; bh=0Ceak2M82FucVlHM9Zau0MlNA0nFVtDu+8nn7FI1Pm8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UXDvj4TDkCn1l7vovDPDWecG1XB4GAe1LDu3VH/5ObTIjRTGHSVSXq3CRDvr4fVws
+	 bVrjLCVnlcLZq2lBd7T2PVacP0s1aizdZDuPcVLCjj9959n4jdFTa6uc0dS1HV7HUH
+	 90rdJKUWAFvVDqilNNKsBI1f4Si1VlF9TPLHWl3itX3BWL41fPz2nfK3+5DNtp0jgL
+	 H1cQkkNKEfUySn1yh2tk2c9DVA075NguTcQ25g9j+3iFnMxGgk9qeNH5NTu2x2lzXc
+	 d0k7r6+zc5OuqmuF1U6ZmmrR+Cx2j9jcdinzQ2MsUu0J/HixH4k4h5/dDK7cF1h5vp
+	 EXt3bPCjOWahw==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 3922341CD1; Wed, 29 Jul 2026 15:54:46 +0100 (BST)
+Date: Wed, 29 Jul 2026 15:54:46 +0100
+From: Sean Young <sean@mess.org>
+To: Markus Elfring <Markus.Elfring@web.de>
+Cc: linux-media@vger.kernel.org, bpf@vger.kernel.org,
+	LKML <linux-kernel@vger.kernel.org>,
+	kernel-janitors@vger.kernel.org
+Subject: Re: [PATCH v4 00/15] media: Fix leaks in rc core
+Message-ID: <amoUNjKOyFMudlDJ@extorris.mess.org>
+References: <cover.1785158244.git.sean@mess.org>
+ <aa8628c4-0106-4dcf-afea-b350daef0f96@web.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <5d36c6a8-bbc9-4d5f-8670-2993bdeb857f@suse.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aa8628c4-0106-4dcf-afea-b350daef0f96@web.de>
 
-On Wed, Jul 29, 2026 at 04:43:44PM +0200, Oliver Neukum wrote:
-> On 29.07.26 16:08, Alan Stern wrote:
+On Wed, Jul 29, 2026 at 08:18:40AM +0200, Markus Elfring wrote:
+> …
+> >   media: rc: Fix use after free in bpf progs
+> >   media: cx88: Specify rc type at rc_allocate_type()
+> >   media: saa7134: Specify rc type at rc_allocate_type()
+> >   media: rc: Fix race condition during rc_register_device()
+> …
 > 
-> > You're missing an important fact: If something goes wrong during the
-> > hibernation transition (for example, if the kernel's memory image can't
-> > be stored to disk) then there will be no RESTORE phase.  Following the
-> > THAW phase, the system will return to normal operation.
-> 
-> Right, but that does not need to mean that the driver has to be operational
-> at the THAW phase. It has to be operational before userland is unfrozen
-> again at the latest. The difficulty how the driver learns that the system
-> will not power down remains to be solved.
-> > For this reason, during THAW drivers must not assume that the system is
-> > about to power down.
-> 
-> True. For this reason the patch introduces a notifier queue.
-> 
-> Now, that you make me think about that it seems to be inelegant, as this throws
-> away the proper order of the device tree. It seems to me that we should
-> bite the bullet and go for the big solution:
-> 
-> Split the THAW phase in two, like a THAW_WRITEOUT and an optional
-> THAW_BAILOUT that is called only when the system does not power down.
+> How do you think about to reorder desirable adjustments for affected modules?
 
-I could think up some better names for it.  Also, it doesn't fit into 
-the existing scheme of callbacks, whereby each "suspend"-type callback 
-has a corresponding "resume"-type callback.  The new one you're 
-proposing would be something different -- a "stay-alive" callback, 
-neither suspend nor resume.
+I'm not entirely sure what you mean. Do you mean just sort the
+commits so that media: rc: .. sits next to each other?
 
-Alan Stern
+
+Sean
