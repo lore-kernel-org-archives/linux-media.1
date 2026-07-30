@@ -1,42 +1,39 @@
-Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917103A1A3C
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 17:18:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.231.106.230
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A993B05B3;
+	Thu, 30 Jul 2026 17:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785431905; cv=none; b=LaKHjioEoLbwuayaK8UYJlSYcv1UQ28XP76zDSwMleC7GGOoZZyKEAI13rGika8nN3aipdHkwwCe6OmKm9GxXpJXJE4nAp6aasdTJLoE/IQfsgVH3Qs77lcuogB2cFJSDEiXXtuxT/muv1GG5a6ofiC/ICVgKxac7K3oXCGhhSA=
+	t=1785432899; cv=none; b=HbCqQ8wLrSiPW0Qc5SRNwJ8BjeIa5u2s1cpU9UHqtA0QlR6/p5WO/IDk5hJy26gqPsZvtQWxDAmB7LPpMIOlqWxusxvLfqrWejblpDzduAbpmTEPNFToLqys0UZtVUVLXau27/eSJhNWZ4t+rqDPgHqhvKS3LT/HEG45WmSxoaY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785431905; c=relaxed/simple;
-	bh=N2HKQgsP35OwKA7PrkWw3c7pZmh+BdhLMKnVuB3dzSQ=;
-	h=Content-Type:Message-ID:Date:MIME-Version:From:Subject:To:Cc; b=M0FGdoqKAcNAxra7Z9e9n3id/PDK0T85aV8N0TWxYlaRPcPvjLBh7SvQxnjSf6VuuI7TDfjJXs6cm/V8eYbHdXCBOqzVh+CWm7bmUwXsBDcX0ZX7EPkUbJSD/eKWKAAG+tP5kfjVCLeoNTDlcdBM7krREjaR0o0d8iKNXtRpDHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=matholka.se; spf=pass smtp.mailfrom=matholka.se; dkim=pass (2048-bit key) header.d=matholka.se header.i=@matholka.se header.b=nsC1WqRd; arc=none smtp.client-ip=94.231.106.230
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=matholka.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matholka.se
+	s=arc-20240116; t=1785432899; c=relaxed/simple;
+	bh=Isx+B6xdzbsq3rz/C9gLO7gegxsd0kKUkaAbPzMUbAA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tDqm0TP0CYlBMjsE0my4+AGqvUCVQEVu0ZkjbkxAyQjHwZuIIyRRvWWW2xNd9thjiu0PwLog+vVho72GZuk9VbTVsccggxh3ddE8QRzjdtwjsm7r3skWQYABpHdczlxCanfTCuCWy4QR6nONMY5MRmydG7RUewT/aIqa5KN6lnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=A+CtcZRX; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=matholka.se header.i=@matholka.se header.b="nsC1WqRd"
-Received: from localhost (localhost [127.0.0.1])
-	by smtp.simply.com (Simply.com) with ESMTP id 4h9wdw4nvRz1DZ08;
-	Thu, 30 Jul 2026 19:08:52 +0200 (CEST)
-Received: from [192.168.1.107] (h-46-59-69-142.A785.priv.bahnhof.se [46.59.69.142])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="A+CtcZRX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1785432893;
+	bh=QuojUk9v7bC1Xv2fnJFdC2FZ+oPAmVVikvQPXiMuyX0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=A+CtcZRXj15w88sYYwj5P5aW9X4Jme11b6QIJq37Cwwi5WZLv8jEQTDyvzoa2a0gm
+	 rpgr9DGsGweYmGJHHOaTvDvKBW/UoNhufSQzed6ooAm/0kJpmzPSl9XEQ0KLtICj3A
+	 QNN06HoPhrlQLdgg3ePQQ0KQ1DZ9AK2n00fiLMy4CIcAVh4L25KhDzJ8jbV4tJVAg0
+	 V4Zi/xVDU0K+Yl/4e/vgCM9wGaWyLf8C1M9patNB12im2RC7hNbPsTp2yloOzuFNRb
+	 In++Bhp9oWojy+LBpSKxIxyaM/6y/B7p6WeSB8eQ4ZWMDDY4zYIOhdk+JuPaWRFVIb
+	 YYzQwAybK7UPA==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(Client did not present a certificate)
-	by smtp.simply.com (Simply.com) with ESMTPSA id 4h9wdw2v6rz1DZ0F;
-	Thu, 30 Jul 2026 19:08:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matholka.se;
-	s=simplycom2; t=1785431332;
-	bh=JQacNP5p/3qrf2KXuhdiygaiqcRkOLCEHX1JJcbQn/o=;
-	h=Date:From:Subject:To:Cc;
-	b=nsC1WqRdtMc5hFlRwp8HstsN6v295OuwBirtXlkOcBNL0hmHO5Y/R2nuzCF57a9Fk
-	 1W0exf1Fum2xZG67y0338IoZA1p4kN7ZHwPrTbkESNxyD/HsBjCrPh7uhPpYG7yLug
-	 RvOBBFpvVnpOTW0dbdO5kcQqKFzt0gAEwAjOeDiQyv+KHnSSx4hpEXpPoqdi3FlvRX
-	 zuz+hXLznTtM57qg+64+RSbN4ig6SMYQKpuBWK3T6OoXZhLT/bdnESjoF4C9HABVcy
-	 KB11BbM+MZGNCB12Zj9tzGLfOciOshRkjAXgzgap7sj0TufNRMI8UsYhQNgpv8Yiam
-	 AmfLDoNi0Deyw==
-Content-Type: multipart/mixed; boundary="------------rY2vIF5wCqT00D7wacZlD9Bm"
-Message-ID: <8ede91cc-b505-458a-94ef-fb02270f9701@matholka.se>
-Date: Thu, 30 Jul 2026 19:08:51 +0200
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4h9xCm4PBJz4wL9;
+	Fri, 31 Jul 2026 03:34:44 +1000 (AEST)
+Message-ID: <623a6fca-7b88-4508-8088-3882d6e54330@ozlabs.org>
+Date: Thu, 30 Jul 2026 18:34:40 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -44,249 +41,312 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-From: Lars Ljung <lars@matholka.se>
-Subject: em28xx causes NULL pointer warning in videobuf2-core.c
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org
-
-This is a multi-part message in MIME format.
---------------rY2vIF5wCqT00D7wacZlD9Bm
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-4-matt@ozlabs.org>
+ <20260729115210.753ab8ce@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260729115210.753ab8ce@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Hi Alex,
 
-While trying to get an old Pinnacle PCTV USB 2 to work I got a warning 
-message in the log. See the attached file. This is on Ubuntu, kernel 
-version 7.0.0-28.
+On 29/07/2026 18:52, Alex Williamson wrote:
+> On Wed, 15 Jul 2026 18:47:26 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+>> find a PFN.
+>>
+>> This supports multi-range DMABUFs, which typically would be used to
+>> represent scattered spans but might even represent overlapping or
+>> aliasing spans of PFNs.
+>>
+>> Because this is intended to be used in vfio_pci_core.c, we also need
+>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> 
+> Nit, it would be useful to mention the addition of vma_pgoff_adjust
+> here and justification for it added here as a static zero versus later
+> in the series where its value is updated.
 
-The problem seems to be the second call to vb2_queue_init() in 
-em28xx_vb2_setup(). This call should only be made if VBI is supported, 
-right?
+Sure, good point.
 
-I modified em28xx_vb2_setup() to use em28xx_vbi_supported() to check if 
-VBI is supported. That did silence the warning message.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+>>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>>  2 files changed, 160 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index c16f460c01d6..7c047400dfd1 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -9,19 +9,6 @@
+>>  
+>>  MODULE_IMPORT_NS("DMA_BUF");
+>>  
+>> -struct vfio_pci_dma_buf {
+>> -	struct dma_buf *dmabuf;
+>> -	struct vfio_pci_core_device *vdev;
+>> -	struct list_head dmabufs_elm;
+>> -	size_t size;
+>> -	struct phys_vec *phys_vec;
+>> -	struct p2pdma_provider *provider;
+>> -	u32 nr_ranges;
+>> -	struct kref kref;
+>> -	struct completion comp;
+>> -	u8 revoked : 1;
+>> -};
+>> -
+>>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>  				   struct dma_buf_attachment *attachment)
+>>  {
+>> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>  	.release = vfio_pci_dma_buf_release,
+>>  };
+>>  
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long fault_addr,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn)
+>> +{
+>> +	/*
+>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+>> +	 * range representing the address's offset into the VMA, and
+>> +	 * its PFN.
+>> +	 *
+>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+>> +	 * the desired page given VMA start/pgoff and address, then
+>> +	 * search upwards from 0 to find which span contains it.
+>> +	 *
+>> +	 * On success, a valid PFN for a page sized by 'order' is
+>> +	 * returned into out_pfn.
+>> +	 *
+>> +	 * Failure occurs if:
+>> +	 * - A hugepage would cross the edge of the VMA,
+>> +	 * - A hugepage isn't entirely contained within a range
+>> +	 *   (including where it straddles the boundary between
+>> +	 *   ranges),
+>> +	 * - We find a range, but the final PFN isn't aligned to the
+>> +	 *   requested order.
+>> +	 *
+>> +	 * Upon failure, -EAGAIN is returned and the caller is
+>> +	 * expected to try again with a smaller order, which will
+>> +	 * eventually succeed (order=0 will always work).
+> 
+> We typically use -EAGAIN to indicate a transient error where the caller
+> should try again with the same args.  We're documenting here that
+> -EAGAIN means to try again with different args.  Why wouldn't we use
+> something like -ERANGE to indicate that?
 
-My hardware still does not work, so that must be caused by something else.
+-EAGAIN didn't seem all that inappropriate, but you're correct that it
+isn't being used as a transient error here.  I'll change it to -ERANGE
+as suggested.
 
-Kind regards,
-Lars Ljung
---------------rY2vIF5wCqT00D7wacZlD9Bm
-Content-Type: text/x-log; charset=UTF-8; name="em28xx.log"
-Content-Disposition: attachment; filename="em28xx.log"
-Content-Transfer-Encoding: base64
+>> +	 *
+>> +	 * It's suboptimal if DMABUFs are created with neighbouring
+>> +	 * ranges that are physically contiguous, since hugepages
+>> +	 * can't straddle range boundaries.  (The construction of the
+>> +	 * ranges should merge them in this case.)
+>> +	 *
+>> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+>> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+>> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+>> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+>> +	 * To avoid double-offsetting in this scenario, subtracting
+>> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+>> +	 * the effective offset.
+>> +	 */
+>> +
+>> +	const unsigned long pagesize = PAGE_SIZE << order;
+>> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+>> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
+>> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
+>> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+>> +	unsigned long fault_offset;
+>> +	unsigned long fault_offset_end;
+>> +	unsigned long range_start_offset = 0;
+>> +	unsigned int i;
+>> +	int ret;
+>> +
+> 
+> AIUI, find_pfn should only act on a live dmabuf, but we're relying on
+> the caller to guarantee that it's live and not racing a revoke.  The
+> dmabuf is live if !revoked under memory_lock.  Should this annotate and
+> validate that requirement by adding a vdev arg so we can do:
+> 
+> 	lockdep_assert_held(&vdev->memory_lock);
+> 	if (priv->revoked) // later updated to status
+> 		return -ENODEV;
 
-anVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMtMTogbmV3IGhpZ2gtc3BlZWQgVVNCIGRl
-dmljZSBudW1iZXIgMTAgdXNpbmcgeGhjaV9oY2QKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDog
-dXNiIDMtMTogTmV3IFVTQiBkZXZpY2UgZm91bmQsIGlkVmVuZG9yPTIzMDQsIGlkUHJvZHVj
-dD0wMjA4LCBiY2REZXZpY2U9IDEuMDAKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMt
-MTogTmV3IFVTQiBkZXZpY2Ugc3RyaW5nczogTWZyPTIsIFByb2R1Y3Q9MSwgU2VyaWFsTnVt
-YmVyPTAKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMtMTogUHJvZHVjdDogUENUViBV
-U0IyIFBBTC9TRUNBTQpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiB1c2IgMy0xOiBNYW51ZmFj
-dHVyZXI6IFBpbm5hY2xlIFN5c3RlbXMgR21iSApqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBl
-bTI4eHggMy0xOjEuMDogTmV3IGRldmljZSBQaW5uYWNsZSBTeXN0ZW1zIEdtYkggUENUViBV
-U0IyIFBBTC9TRUNBTSBAIDQ4MCBNYnBzICgyMzA0OjAyMDgsIGludGVyZmFjZSAwLCBjbGFz
-cyAwKQpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4eHggMy0xOjEuMDogVmlkZW8gaW50
-ZXJmYWNlIDAgZm91bmQ6IGJ1bGsgaXNvYwpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4
-eHggMy0xOjEuMDogY2hpcCBJRCBpcyBlbTI3MTAvMjgyMApqdWwgMjkgMTg6MzA6NDIga2Vy
-bmVsOiBlbTI4eHggMy0xOjEuMDogRUVQUk9NIElEID0gMWEgZWIgNjcgOTUsIEVFUFJPTSBo
-YXNoID0gMHg4MzJiMWI2NwpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4eHggMy0xOjEu
-MDogRUVQUk9NIGluZm86Cmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IGVtMjh4eCAzLTE6MS4w
-OiAgICAgICAgIEFDOTcgYXVkaW8gKDUgc2FtcGxlIHJhdGVzKQpqdWwgMjkgMTg6MzA6NDIg
-a2VybmVsOiBlbTI4eHggMy0xOjEuMDogICAgICAgICA1MDBtQSBtYXggcG93ZXIKanVsIDI5
-IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6ICAgICAgICAgVGFibGUgYXQgb2Zm
-c2V0IDB4MDYsIHN0cmluZ3M9MHgyYTk4LCAweDJlNmEsIDB4MDAwMApqdWwgMjkgMTg6MzA6
-NDIga2VybmVsOiBlbTI4eHggMy0xOjEuMDogSWRlbnRpZmllZCBhcyBQaW5uYWNsZSBQQ1RW
-IFVTQiAyIChjYXJkPTMpCmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IGVtMjh4eCAzLTE6MS4w
-OiBhbmFsb2cgc2V0IHRvIGlzb2MgbW9kZS4KanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0y
-OHh4IDMtMToxLjE6IGF1ZGlvIGRldmljZSAoMjMwNDowMjA4KTogaW50ZXJmYWNlIDEsIGNs
-YXNzIDEKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjI6IGF1ZGlvIGRl
-dmljZSAoMjMwNDowMjA4KTogaW50ZXJmYWNlIDIsIGNsYXNzIDEKanVsIDI5IDE4OjMwOjQy
-IGtlcm5lbDogdXNiY29yZTogcmVnaXN0ZXJlZCBuZXcgaW50ZXJmYWNlIGRyaXZlciBlbTI4
-eHgKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IFJlZ2lzdGVyaW5n
-IFY0TDIgZXh0ZW5zaW9uCmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IHVzYmNvcmU6IHJlZ2lz
-dGVyZWQgbmV3IGludGVyZmFjZSBkcml2ZXIgc25kLXVzYi1hdWRpbwpqdWwgMjkgMTg6MzA6
-NDIga2VybmVsOiBzYWE3MTE1IDE2LTAwMjU6IHNhYTcxMTMgZm91bmQgQCAweDRhICgzLTE6
-MS4wKQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0ZGE5ODg3IDE2LTAwNDM6IGNyZWF0aW5n
-IG5ldyBpbnN0YW5jZQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0ZGE5ODg3IDE2LTAwNDM6
-IHRkYTk4OFs1LzYvN10gZm91bmQKanVsIDI5IDE4OjMwOjQzIGtlcm5lbDogdHVuZXI6IDE2
-LTAwNDM6IFR1bmVyIDc0IGZvdW5kIHdpdGggdHlwZShzKSBSYWRpbyBUVi4KanVsIDI5IDE4
-OjMwOjQzIGtlcm5lbDogdHVuZXI6IDE2LTAwNjM6IFR1bmVyIC0xIGZvdW5kIHdpdGggdHlw
-ZShzKSBSYWRpbyBUVi4KanVsIDI5IDE4OjMwOjQzIGtlcm5lbDogdHVuZXItc2ltcGxlIDE2
-LTAwNjM6IGNyZWF0aW5nIG5ldyBpbnN0YW5jZQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0
-dW5lci1zaW1wbGUgMTYtMDA2MzogdHlwZSBzZXQgdG8gMzcgKExHIFBBTCAobmV3ZXIgVEFQ
-QyBzZXJpZXMpKQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiBlbTI4eHggMy0xOjEuMDogQ29u
-ZmlnIHJlZ2lzdGVyIHJhdyBkYXRhOiAweDEwCmp1bCAyOSAxODozMDo0MyBrZXJuZWw6IGVt
-Mjh4eCAzLTE6MS4wOiBBQzk3IHZlbmRvciBJRCA9IDB4ZmZmZmZmZmYKanVsIDI5IDE4OjMw
-OjQzIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IEFDOTcgZmVhdHVyZXMgPSAweDZhOTAKanVs
-IDI5IDE4OjMwOjQzIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IEVtcGlhIDIwMiBBQzk3IGF1
-ZGlvIHByb2Nlc3NvciBkZXRlY3RlZApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBlbTI4eHgg
-My0xOjEuMDogVjRMMiB2aWRlbyBkZXZpY2UgcmVnaXN0ZXJlZCBhcyB2aWRlbzQKanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0t
-Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFdBUk5JTkc6IGRyaXZlcnMvbWVkaWEvY29tbW9u
-L3ZpZGVvYnVmMi92aWRlb2J1ZjItY29yZS5jOjI2NDUgYXQgdmIyX2NvcmVfcXVldWVfaW5p
-dCsweDI0Ny8weDI2MCBbdmlkZW9idWYyX2NvbW1vbl0sIENQVSMzOiBtb2Rwcm9iZS8xOTAy
-MzIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogTW9kdWxlcyBsaW5rZWQgaW46IHR1bmVyX3Np
-bXBsZSB0dW5lcl90eXBlcyB0ZGE5ODg3IHRkYTgyOTAgdHVuZXIgc25kX3VzYl9hdWRpbyBz
-YWE3MTE1IHNuZF91c2JtaWRpX2xpYiBlbTI4eHhfdjRsKCspIHNuZF91bXAgZW0yOHh4IHR2
-ZWVwcm9tIHVzYmhpZCBjY20gcmZjb21tIHNuZF9zZXFfZHVtbXkgc25kX2hydGltZXIgY21h
-YyBhbGdpZl9oYXNoIGFsZ2lmX3NrY2lwaGVyIGFmX2FsZyBxcnRyIHNuZF9jdGxfbGVkIHNu
-ZF9zb2Nfc2tsX2hkYV9kc3Agc25kX3NvY19pbnRlbF9zb2ZfYm9hcmRfaGVscGVycyBzbmRf
-c29mX3Byb2JlcyBzbmRfc29jX2ludGVsX2hkYV9kc3BfY29tbW9uIGJuZXAgc25kX2hkYV9j
-b2RlY19pbnRlbGhkbWkgc25kX2hkYV9jb2RlY19oZG1pIHNuZF9oZGFfY29kZWNfYWxjMjY5
-IHNuZF9oZGFfY29kZWNfcmVhbHRla19saWIgc25kX2hkYV9zY29kZWNfY29tcG9uZW50IHNu
-ZF9oZGFfY29kZWNfZ2VuZXJpYyBzbmRfc29jX2RtaWMgc25kX2hkYV9pbnRlbCBzbmRfc29m
-X3BjaV9pbnRlbF90Z2wgaXA2dF9SRUpFQ1Qgc25kX3NvZl9wY2lfaW50ZWxfY25sIG5mX3Jl
-amVjdF9pcHY2IHNuZF9zb2ZfaW50ZWxfaGRhX2dlbmVyaWMgeHRfaGwgc291bmR3aXJlX2lu
-dGVsIGlwNnRfcnQgc25kX3NvZl9pbnRlbF9oZGFfc2R3X2JwdCBzbmRfc29mX2ludGVsX2hk
-YV9jb21tb24gc25kX3NvY19oZGFjX2hkYSBpcHRfUkVKRUNUIHNuZF9zb2ZfaW50ZWxfaGRh
-X21saW5rIG5mX3JlamVjdF9pcHY0IHNuZF9zb2ZfaW50ZWxfaGRhIHh0X0xPRyBzb3VuZHdp
-cmVfY2FkZW5jZSBuZl9sb2dfc3lzbG9nIHNuZF9zb2ZfcGNpIG5mdF9saW1pdCBzbmRfc29m
-X3h0ZW5zYV9kc3Agc25kX3NvZiB4dF9saW1pdCBzbmRfc29mX3V0aWxzIHh0X2FkZHJ0eXBl
-IHNuZF9zb2NfYWNwaV9pbnRlbF9tYXRjaCB4dF90Y3B1ZHAgc25kX3NvY19hY3BpX2ludGVs
-X3NkY2FfcXVpcmtzIHNvdW5kd2lyZV9nZW5lcmljX2FsbG9jYXRpb24geHRfY29ubnRyYWNr
-IHNuZF9zb2Nfc2R3X3V0aWxzCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICBuZl9jb25udHJh
-Y2sgc25kX3NvY19hY3BpIG5mX2RlZnJhZ19pcHY2IHNvdW5kd2lyZV9idXMgbmZfZGVmcmFn
-X2lwdjQgc25kX3NvY19zZGNhIG5mdF9jb21wYXQgY3JjOCB4X3RhYmxlcyBzbmRfc29jX2F2
-cyBiaW5mbXRfbWlzYyBuZl90YWJsZXMgc25kX3NvY19oZGFfY29kZWMgc25kX2hkYV9leHRf
-Y29yZSBpbnRlbF91bmNvcmVfZnJlcXVlbmN5IHNuZF9oZGFfY29kZWMgaW50ZWxfdW5jb3Jl
-X2ZyZXF1ZW5jeV9jb21tb24gc25kX2hkYV9jb3JlIHhlIHNuZF9pbnRlbF9kc3BjZmcgc25k
-X2ludGVsX3Nkd19hY3BpIHNuZF9od2RlcCBzbmRfc29jX2NvcmUgeDg2X3BrZ190ZW1wX3Ro
-ZXJtYWwgc25kX2NvbXByZXNzIGludGVsX3Bvd2VyY2xhbXAgZHJtX2dwdXN2bV9oZWxwZXIg
-YWM5N19idXMgY29yZXRlbXAgc25kX3BjbV9kbWFlbmdpbmUgZ3B1X3NjaGVkIGRybV9ncHV2
-bSBzbmRfcGNtIGRybV90dG1faGVscGVyIGt2bV9pbnRlbCBkcm1fZXhlYyBkcm1fc3ViYWxs
-b2NfaGVscGVyIHNuZF9zZXFfbWlkaSBrdm0gc25kX3NlcV9taWRpX2V2ZW50IHV2Y3ZpZGVv
-IGl3bG12bSBpcnFieXBhc3MgYnR1c2Igc25kX3Jhd21pZGkgYnRtdGsgdmlkZW9idWYyX3Zt
-YWxsb2MgZ2hhc2hfY2xtdWxuaV9pbnRlbCBwcm9jZXNzb3JfdGhlcm1hbF9kZXZpY2VfcGNp
-X2xlZ2FjeSBtYWM4MDIxMSBubHNfaXNvODg1OV8xIGhpZF9zZW5zb3JfYWxzIHNuZF9zZXEg
-YnRydGwgY21kbGluZXBhcnQgdXZjIHNwaV9ub3IgYWVzbmlfaW50ZWwgcHJvY2Vzc29yX3Ro
-ZXJtYWxfZGV2aWNlIGhpZF9zZW5zb3JfdHJpZ2dlciBidGJjbSB2aWRlb2J1ZjJfbWVtb3Bz
-IGVlMTAwNCBtZWlfaGRjcCBtZWlfcHhwIG10ZCBocF9iaW9zY2ZnIHJhcGwgc25kX3NlcV9k
-ZXZpY2UgdmlkZW9idWYyX3Y0bDIgbGliYXJjNCBwcm9jZXNzb3JfdGhlcm1hbF93dF9oaW50
-IGlvc20gYnRpbnRlbCBrZmlmb19idWYgaW50ZWxfcmFwbF9tc3IgaTJjX2k4MDEgZmlybXdh
-cmVfYXR0cmlidXRlc19jbGFzcyBzbmRfdGltZXIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
-IHZpZGVvYnVmMl9jb21tb24gaW50ZWxfY3N0YXRlIG1laV9tZSBpOTE1IHd3YW4gcGxhdGZv
-cm1fdGVtcGVyYXR1cmVfY29udHJvbCBpd2x3aWZpIGkyY19zbWJ1cyBoaWRfc2Vuc29yX2lp
-b19jb21tb24gc3BpX2ludGVsX3BjaSBzbmQgYmx1ZXRvb3RoIGhwX3dtaSB2aWRlb2RldiB3
-bWlfYm1vZiBtYyBnbnNzIHByb2Nlc3Nvcl90aGVybWFsX3NvY19zbGlkZXIgaW5kdXN0cmlh
-bGlvIG1laSBpMmNfbXV4IHNwaV9pbnRlbCBjZmc4MDIxMSBkcm1fYnVkZHkgc291bmRjb3Jl
-IHByb2Nlc3Nvcl90aGVybWFsX3JmaW0gcHJvY2Vzc29yX3RoZXJtYWxfcmFwbCB0dG0gaW50
-ZWxfcmFwbF9jb21tb24gaW50ZWxfcG1jX2NvcmUgcHJvY2Vzc29yX3RoZXJtYWxfd3RfcmVx
-IHByb2Nlc3Nvcl90aGVybWFsX3Bvd2VyX2Zsb29yIHBtdF90ZWxlbWV0cnkgZHJtX2Rpc3Bs
-YXlfaGVscGVyIHByb2Nlc3Nvcl90aGVybWFsX21ib3ggaW50MzQwM190aGVybWFsIGNlYyBw
-bXRfZGlzY292ZXJ5IGludDM0MHhfdGhlcm1hbF96b25lIHBtdF9jbGFzcyByY19jb3JlIGlu
-dGVsX3NvY19kdHNfaW9zZiBpbnQzNDAwX3RoZXJtYWwgaW50ZWxfaGlkIGludGVsX3BtY19z
-c3JhbV90ZWxlbWV0cnkgc3BhcnNlX2tleW1hcCB3aXJlbGVzc19ob3RrZXkgaTJjX2FsZ29f
-Yml0IHBsYXRmb3JtX3Byb2ZpbGUgYWNwaV90aGVybWFsX3JlbCBhY3BpX3BhZCBpbnRlbF92
-c2VjIGlnZW42X2VkYWMgam95ZGV2IGlucHV0X2xlZHMgbWFjX2hpZCBzY2hfZnFfY29kZWwg
-bHAgcHBkZXYgbXNyIHBhcnBvcnQgZWZpX3BzdG9yZSBuZm5ldGxpbmsgZG1pX3N5c2ZzIGF1
-dG9mczQgcjgxNTNfZWNtIGNkY19ldGhlciB1c2JuZXQgcjgxNTIgbWlpIGhpZF9zZW5zb3Jf
-aHViIGludGVsX2lzaHRwX2hpZCB1Y3NpX2FjcGkgdHlwZWNfdWNzaSB0eXBlYyBudm1lIGhp
-ZF9tdWx0aXRvdWNoIG52bWVfY29yZSBoaWRfZ2VuZXJpYyBudm1lX2tleXJpbmcgaTJjX2hp
-ZF9hY3BpIG52bWVfYXV0aCBzZXJpb19yYXcgaTJjX2hpZCBoa2RmIHZpZGVvCmp1bCAyOSAx
-ODozMDo0NCBrZXJuZWw6ICBpbnRlbF9scHNzX3BjaSBoaWQgaW50ZWxfbHBzcyBwaW5jdHJs
-X3RpZ2VybGFrZSB3bWkgdGh1bmRlcmJvbHQgaW50ZWxfaXNoX2lwYyBpZG1hNjQgaW50ZWxf
-aXNodHAgdm1kCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IENQVTogMyBVSUQ6IDAgUElEOiAx
-OTAyMzIgQ29tbTogbW9kcHJvYmUgVGFpbnRlZDogRyAgICAgVSAgICAgICAgICAgICAgNy4w
-LjAtMjgtZ2VuZXJpYyAjMjgtVWJ1bnR1IFBSRUVNUFQobGF6eSkgCmp1bCAyOSAxODozMDo0
-NCBrZXJuZWw6IFRhaW50ZWQ6IFtVXT1VU0VSCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IEhh
-cmR3YXJlIG5hbWU6IEhQIEhQIEVsaXRlQm9vayA4NTAgRzggTm90ZWJvb2sgUEMvODg0Niwg
-QklPUyBUNzYgVmVyLiAwMS4yNC4wMiAwNS8wNC8yMDI2Cmp1bCAyOSAxODozMDo0NCBrZXJu
-ZWw6IFJJUDogMDAxMDp2YjJfY29yZV9xdWV1ZV9pbml0KzB4MjQ3LzB4MjYwIFt2aWRlb2J1
-ZjJfY29tbW9uXQpqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBDb2RlOiAzMSBmZiA0NSAzMSBj
-MCBjMyBjYyBjYyBjYyBjYyAwZiAwYiBlYiBlNyAwZiAwYiBlYiBlMyAwZiAwYiBlYiBkZiAw
-ZiAwYiBlYiBkYiAwZiAwYiBlYiBkNyAwZiAwYiBlYiBkMyAwZiAwYiBlYiBjZiAwZiAwYiBl
-YiBjYiA8MGY+IDBiIGViIGM3IDBmIDBiIGViIGMzIDBmIDBiIGViIGJmIDY2IDkwIDY2IDY2
-IDJlIDBmIDFmIDg0IDAwIDAwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJTUDogMDAxODpm
-ZmZmY2YzNWU1ODFiODUwIEVGTEFHUzogMDAwMTAyNDYKanVsIDI5IDE4OjMwOjQ0IGtlcm5l
-bDogUkFYOiAwMDAwMDAwMDAwMDAwMDIwIFJCWDogZmZmZjhjYTU3YjgzMzEwMCBSQ1g6IDAw
-MDAwMDAwMDAwMDAwMDEKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUkRYOiAwMDAwMDAwMDAw
-MDAwMDAxIFJTSTogMDAwMDAwMDAwMDAwMDAwNyBSREk6IDAwMDAwMDAwMDAwMDAwMDQKanVs
-IDI5IDE4OjMwOjQ0IGtlcm5lbDogUkJQOiBmZmZmY2YzNWU1ODFiODY4IFIwODogZmZmZjhj
-YTU3YjgzMzEwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5l
-bDogUjEwOiBmZmZmOGNhMzI0ODAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGZm
-ZmY4Y2E1N2I4MzIwMTAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUjEzOiBmZmZmOGNhMzI0
-ODAxMjYwIFIxNDogZmZmZjhjYTU3YjgzMjAwMCBSMTU6IGZmZmY4Y2E1N2I4MzIwODgKanVs
-IDI5IDE4OjMwOjQ0IGtlcm5lbDogRlM6ICAwMDAwNzJlMzY5ODIwM2MwKDAwMDApIEdTOmZm
-ZmY4Y2FhZTIzN2YwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMApqdWwgMjkgMTg6
-MzA6NDQga2VybmVsOiBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAw
-MDgwMDUwMDMzCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IENSMjogMDAwMDA5NTQwMDA2M2Zl
-MCBDUjM6IDAwMDAwMDA0MzlkOTEwMDMgQ1I0OiAwMDAwMDAwMDAwZjcyZWYwCmp1bCAyOSAx
-ODozMDo0NCBrZXJuZWw6IFBLUlU6IDU1NTU1NTU0Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6
-IENhbGwgVHJhY2U6Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA8VEFTSz4KanVsIDI5IDE4
-OjMwOjQ0IGtlcm5lbDogID8gdmIyX3F1ZXVlX2luaXRfbmFtZSsweDEyZC8weDE3MCBbdmlk
-ZW9idWYyX3Y0bDJdCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGZlX3N0YW5kYnkrMHgx
-YS8weDMwIFt0dW5lcl0KanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIHZiMl9xdWV1ZV9pbml0
-KzB4MTAvMHgyMCBbdmlkZW9idWYyX3Y0bDJdCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICBl
-bTI4eHhfdjRsMl9pbml0LmNvbGQrMHgxMWM4LzB4MTFmZCBbZW0yOHh4X3Y0bF0KanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogID8gX19wZnhfZW0yOHh4X3ZpZGVvX3JlZ2lzdGVyKzB4MTAv
-MHgxMCBbZW0yOHh4X3Y0bF0KanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIGVtMjh4eF9yZWdp
-c3Rlcl9leHRlbnNpb24rMHg4NC8weGUwIFtlbTI4eHhdCmp1bCAyOSAxODozMDo0NCBrZXJu
-ZWw6ICBlbTI4eHhfdmlkZW9fcmVnaXN0ZXIrMHgxNS8weGZmMCBbZW0yOHh4X3Y0bF0KanVs
-IDI5IDE4OjMwOjQ0IGtlcm5lbDogIGRvX29uZV9pbml0Y2FsbCsweDU5LzB4MzUwCmp1bCAy
-OSAxODozMDo0NCBrZXJuZWw6ICBkb19pbml0X21vZHVsZSsweDhiLzB4MjkwCmp1bCAyOSAx
-ODozMDo0NCBrZXJuZWw6ICBsb2FkX21vZHVsZSsweDg1NS8weDk2MApqdWwgMjkgMTg6MzA6
-NDQga2VybmVsOiAgaW5pdF9tb2R1bGVfZnJvbV9maWxlKzB4ZmIvMHgxODAKanVsIDI5IDE4
-OjMwOjQ0IGtlcm5lbDogIGlkZW1wb3RlbnRfaW5pdF9tb2R1bGUrMHgxMGUvMHgzMDAKanVs
-IDI5IDE4OjMwOjQ0IGtlcm5lbDogIF9feDY0X3N5c19maW5pdF9tb2R1bGUrMHg3My8weGYw
-Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICB4NjRfc3lzX2NhbGwrMHhlMmUvMHgyMzkwCmp1
-bCAyOSAxODozMDo0NCBrZXJuZWw6ICBkb19zeXNjYWxsXzY0KzB4MTA1LzB4NWEwCmp1bCAy
-OSAxODozMDo0NCBrZXJuZWw6ICA/IHZmc19yZWFkKzB4MTc5LzB4M2EwCmp1bCAyOSAxODoz
-MDo0NCBrZXJuZWw6ICA/IHZmc19yZWFkKzB4MTc5LzB4M2EwCmp1bCAyOSAxODozMDo0NCBr
-ZXJuZWw6ICA/IHJlc3RvcmVfZnByZWdzX2Zyb21fZnBzdGF0ZSsweDQ2LzB4ZTAKanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogID8gc3dpdGNoX2ZwdV9yZXR1cm4rMHg2NC8weDExMApqdWwg
-MjkgMTg6MzA6NDQga2VybmVsOiAgPyBhcmNoX2V4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUu
-aXNyYS4wKzB4YzMvMHhlMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBkb19zeXNjYWxs
-XzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IF9fZnB1dCsweDFh
-Mi8weDJkMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBmcHV0X2Nsb3NlX3N5bmMrMHg0
-MC8weGMwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IF9feDY0X3N5c19jbG9zZSsweDNl
-LzB4OTAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gYXJjaF9leGl0X3RvX3VzZXJfbW9k
-ZV9wcmVwYXJlLmlzcmEuMCsweGQvMHhlMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBk
-b19zeXNjYWxsXzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGtz
-eXNfcmVhZCsweDcxLzB4ZjAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gYXJjaF9leGl0
-X3RvX3VzZXJfbW9kZV9wcmVwYXJlLmlzcmEuMCsweGQvMHhlMApqdWwgMjkgMTg6MzA6NDQg
-a2VybmVsOiAgPyBkb19zeXNjYWxsXzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBr
-ZXJuZWw6ICA/IGZwdXRfY2xvc2Vfc3luYysweDQwLzB4YzAKanVsIDI5IDE4OjMwOjQ0IGtl
-cm5lbDogID8gX194NjRfc3lzX2Nsb3NlKzB4M2UvMHg5MApqdWwgMjkgMTg6MzA6NDQga2Vy
-bmVsOiAgPyBhcmNoX2V4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUuaXNyYS4wKzB4ZC8weGUw
-Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGRvX3N5c2NhbGxfNjQrMHgxNDAvMHg1YTAK
-anVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gY2xlYXJfYmhiX2xvb3ArMHg1MC8weGEwCmp1
-bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGNsZWFyX2JoYl9sb29wKzB4NTAvMHhhMApqdWwg
-MjkgMTg6MzA6NDQga2VybmVsOiAgPyBjbGVhcl9iaGJfbG9vcCsweDUwLzB4YTAKanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogID8gY2xlYXJfYmhiX2xvb3ArMHg1MC8weGEwCmp1bCAyOSAx
-ODozMDo0NCBrZXJuZWw6ICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg3Ni8w
-eDdlCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJJUDogMDAzMzoweDcyZTM2OGYzY2JhZApq
-dWwgMjkgMTg6MzA6NDQga2VybmVsOiBDb2RlOiBmZiBjMyA2NiAyZSAwZiAxZiA4NCAwMCAw
-MCAwMCAwMCAwMCA5MCBmMyAwZiAxZSBmYSA0OCA4OSBmOCA0OCA4OSBmNyA0OCA4OSBkNiA0
-OCA4OSBjYSA0ZCA4OSBjMiA0ZCA4OSBjOCA0YyA4YiA0YyAyNCAwOCAwZiAwNSA8NDg+IDNk
-IDAxIGYwIGZmIGZmIDczIDAxIGMzIDQ4IDhiIDBkIDIzIGEyIDBkIDAwIGY3IGQ4IDY0IDg5
-IDAxIDQ4Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJTUDogMDAyYjowMDAwN2ZmZTE0MzYw
-MTQ4IEVGTEFHUzogMDAwMDAyNDYgT1JJR19SQVg6IDAwMDAwMDAwMDAwMDAxMzkKanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogUkFYOiBmZmZmZmZmZmZmZmZmZmRhIFJCWDogMDAwMDU4N2Jh
-MGZiNDk2MCBSQ1g6IDAwMDA3MmUzNjhmM2NiYWQKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
-UkRYOiAwMDAwMDAwMDAwMDAwMDA0IFJTSTogMDAwMDU4N2I2MTY0NTk4YiBSREk6IDAwMDAw
-MDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUkJQOiAwMDAwN2ZmZTE0MzYw
-MWUwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKanVsIDI5
-IDE4OjMwOjQ0IGtlcm5lbDogUjEwOiAwMDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAw
-MDAwMDI0NiBSMTI6IDAwMDA1ODdiNjE2NDU5OGIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
-UjEzOiAwMDAwNTg3YmEwZmI0YTkwIFIxNDogMDAwMDAwMDAwMDA0MDAwMCBSMTU6IDAwMDAw
-MDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIDwvVEFTSz4KanVsIDI5IDE4
-OjMwOjQ0IGtlcm5lbDogLS0tWyBlbmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBdLS0tCmp1
-bCAyOSAxODozMDo0NCBrZXJuZWw6IGVtMjh4eCAzLTE6MS4wOiBWNEwyIGV4dGVuc2lvbiBz
-dWNjZXNzZnVsbHkgaW5pdGlhbGl6ZWQKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogZW0yOHh4
-OiBSZWdpc3RlcmVkIChFbTI4eHggdjRsMiBFeHRlbnNpb24pIGV4dGVuc2lvbgpqdWwgMjkg
-MTg6MzA6NDQga2VybmVsOiBlbTI4eHggMy0xOjEuMDogUmVnaXN0ZXJpbmcgaW5wdXQgZXh0
-ZW5zaW9uCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJlZ2lzdGVyZWQgSVIga2V5bWFwIHJj
-LXBpbm5hY2xlLWdyZXkKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogcmMgcmMwOiBQaW5uYWNs
-ZSBQQ1RWIFVTQiAyIGFzIC9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDoxNC4wL3VzYjMv
-My0xLzMtMToxLjAvcmMvcmMwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IHJjIHJjMDogbGly
-Y19kZXY6IGRyaXZlciBlbTI4eHggcmVnaXN0ZXJlZCBhdCBtaW5vciA9IDAsIHNjYW5jb2Rl
-IHJlY2VpdmVyLCBubyB0cmFuc21pdHRlcgpqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBpbnB1
-dDogUGlubmFjbGUgUENUViBVU0IgMiBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6
-MTQuMC91c2IzLzMtMS8zLTE6MS4wL3JjL3JjMC9pbnB1dDI3Cmp1bCAyOSAxODozMDo0NCBr
-ZXJuZWw6IGVtMjh4eCAzLTE6MS4wOiBJbnB1dCBleHRlbnNpb24gc3VjY2Vzc2Z1bGx5IGlu
-aXRpYWxpemVkCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IGVtMjh4eDogUmVnaXN0ZXJlZCAo
-RW0yOHh4IElucHV0IEV4dGVuc2lvbikgZXh0ZW5zaW9uCg==
+Yes, it makes no sense to call this when the buffer's revoked, and it's
+a good idea to both explicitly document/assert this.
 
---------------rY2vIF5wCqT00D7wacZlD9Bm--
+I think your point regarding the extra vdev parameter -- as opposed to a
+local 'vdev = priv->vdev' dereference -- is that it should also assert
+that vdev is non-NULL, but one can't just read priv->vdev.  Dealing with
+the races having only priv takes some careful steps (see
+vfio_pci_mmap_huge_fault), so make it the caller's responsibility to
+provide a vdev.  This function can both check it's non-NULL, and verify
+it relates to priv, and then annotate vdev->memory_lock etc.
+
+> This also removes one level of dereferencing in the below dev_warns,
+> which is otherwise a bit suspect without the validation.  I realize the
+> mmap path does the validation, but this is an exposed internal API, not
+> a static function there.  Thanks,
+
+[s/mmap path/the fault path/]  Yep, checks here make sense, thanks for
+the suggestions.
+
+
+Matt
+
+> 
+> Alex
+> 
+>> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
+>> +		if (order > 0)
+>> +			return -EAGAIN;
+>> +
+>> +		/* A fault address outside of the VMA is absurd. */
+>> +		dev_warn_ratelimited(
+>> +			&priv->vdev->pdev->dev,
+>> +			"Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
+>> +			fault_addr, vma->vm_start, vma->vm_end);
+>> +		return -EFAULT;
+>> +	}
+>> +
+>> +	/*
+>> +	 * fault_offset[_end] is the span within the DMABUF
+>> +	 * corresponding to the faulting page:
+>> +	 */
+>> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
+>> +					vma_off, &fault_offset) ||
+>> +		     check_add_overflow(fault_offset, pagesize,
+>> +					&fault_offset_end)))
+>> +		return -EFAULT;
+>> +
+>> +	/*
+>> +	 * Iterate over ranges in the buffer, summing their lengths:
+>> +	 * range_start_offset represents the current range's starting
+>> +	 * offset in the buffer (from 0 upwards).
+>> +	 *
+>> +	 * A failure for order == 0 is unexpected, and triggers a
+>> +	 * fault/warn.
+>> +	 */
+>> +	ret = (order == 0) ? -EFAULT : -EAGAIN;
+>> +
+>> +	for (i = 0; i < priv->nr_ranges; i++) {
+>> +		size_t range_len = priv->phys_vec[i].len;
+>> +
+>> +		/* Early exit if range starts after the page end */
+>> +		if (fault_offset_end <= range_start_offset)
+>> +			break;
+>> +
+>> +		if (fault_offset >= range_start_offset &&
+>> +		    fault_offset_end <= range_start_offset + range_len) {
+>> +			/*
+>> +			 * The faulting page is wholly contained
+>> +			 * within the span represented by this range,
+>> +			 * so validate PFN alignment for the order.
+>> +			 * The if() condition ensures the pfn
+>> +			 * arithmetic won't overflow.
+>> +			 */
+>> +			unsigned long pfn =
+>> +				((fault_offset - range_start_offset) +
+>> +				 priv->phys_vec[i].paddr) >> PAGE_SHIFT;
+>> +
+>> +			if (IS_ALIGNED(pfn, 1 << order)) {
+>> +				*out_pfn = pfn;
+>> +				ret = 0;
+>> +			}
+>> +			/*
+>> +			 * Else order > 0; EAGAIN retries with smaller
+>> +			 * order
+>> +			 */
+>> +			break;
+>> +		}
+>> +		range_start_offset += range_len;
+>> +	}
+>> +
+>> +	if (order == 0 && ret != 0)
+>> +		/*
+>> +		 * The address fell outside of the span represented by
+>> +		 * the (concatenated) ranges.  As setup of a mapping
+>> +		 * ensures that the VMA is <= the total size of the
+>> +		 * ranges this should never happen.  If it does, warn
+>> +		 * and SIGBUS.
+>> +		 */
+>> +		dev_warn_ratelimited(
+>> +			&priv->vdev->pdev->dev,
+>> +			"No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
+>> +			fault_addr, order, vma->vm_start, vma->vm_end,
+>> +			vma->vm_pgoff, priv->nr_ranges, priv->size);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>>  /*
+>>   * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
+>>   * It allows the two co-operating drivers to exchange the physical address of
+>> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
+>> index fca9d0dfac90..c8f6f959056a 100644
+>> --- a/drivers/vfio/pci/vfio_pci_priv.h
+>> +++ b/drivers/vfio/pci/vfio_pci_priv.h
+>> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
+>>  	bool			test_mem;
+>>  };
+>>  
+>> +struct vfio_pci_dma_buf {
+>> +	struct dma_buf *dmabuf;
+>> +	struct vfio_pci_core_device *vdev;
+>> +	struct list_head dmabufs_elm;
+>> +	size_t size;
+>> +	struct phys_vec *phys_vec;
+>> +	struct p2pdma_provider *provider;
+>> +	u32 nr_ranges;
+>> +	struct kref kref;
+>> +	struct completion comp;
+>> +	unsigned long vma_pgoff_adjust;
+>> +	u8 revoked : 1;
+>> +};
+>> +
+>>  bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
+>>  void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
+>>  
+>> @@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
+>>  	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
+>>  }
+>>  
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long address,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn);
+>> +
+>>  #ifdef CONFIG_VFIO_PCI_DMABUF
+>>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
+>>  				  struct vfio_device_feature_dma_buf __user *arg,
+> 
+
