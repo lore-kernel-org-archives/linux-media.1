@@ -1,65 +1,63 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 165843AE6FA
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 06:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C71F3B83FE
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 06:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785392862; cv=none; b=aHbx/sJvEaQyfU3mzCcnEl4EcZSAW3IdSs7swLtf7iLFx1tfkTyb92rIaMHURi4KxSDT1+XmumKso5vf4XMwwt9Vmo604ZjkrysiKrfrwyjFIj631N0XZbORiTv7DRA3B83C4wmb2EY9UsN3eriIjfGCp2k9QgnWCOWjITBCgmI=
+	t=1785392878; cv=none; b=MDOg26D/5opalf2MiS3cbQiDVHrduPdF7gGfzmCMdTKCec/qFGzppv5dNoWZ+K0Onet2DNdxwd95PpGJdDoiD+RZ12jRtR4FDUG0PDAdRjXm+G727BV+60kVHhNWGjC5NxM3eVhLQs7t8jecySDRo1lDwERYdgj+xJ524NXdmbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785392862; c=relaxed/simple;
-	bh=kYA5RbCeLTsX+J20uD1xRq8xVWSem8VdkEpw2oXKluk=;
+	s=arc-20240116; t=1785392878; c=relaxed/simple;
+	bh=4aOFiUN49DqRnWzStOzqLHjicLdnGVpCcmtd6aNH6+Q=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iQu0u+Cp1WCdtYNa7XMS+X9IMfuWtWb5/d4cgE3Jw1YXeWeWlIG01JIQMWARtlz11TEKe7ZNEysVRUS8a5bmTS40+Jir9koO17pRmXxR/+HxnY68nhpwUmJ+yczSbER8aZH9j8tuFQseJ8eEaWK1qATgGwD1pZbwLskHJDqsBFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=reNNwZYe; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=L7a2fdr2kGaEPYfrWCPGrJVd+opLUQSRXMyDg3C6MwaYEwDVACR1+a96tIPCS730144bFX9TBNLE2qrz1mtQNIOf+iaSHjYJ/xi/jZGxcWZyj+tbWSJ5j/hnPQyWtiKsdWYhMmFRXlkGYSJPz3sbIGWDZLsciiKTRj+25hBUnGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G+hoALua; arc=none smtp.client-ip=209.85.210.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="reNNwZYe"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84e3007a2b7so1415286b3a.0
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 23:27:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G+hoALua"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84e0688b7e8so1550564b3a.1
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 23:27:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785392857; x=1785997657; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
-        b=reNNwZYesjpvC76UCfU2zuL8yfRblMERL6AuVqksGFpoxqKKu+KMedwE7eyEJ8UGVn
-         Ipr3fA4Tm8vcmkl0kvgHjErufyZoxYs/kkM2D043fEjcrAa9wnpJ0xPqUCB49bS8SnFT
-         Q7s+xr5VLLoZgy8pQhEXrGgf2/TPqTGpKJqMwGxR+mEN1xtysfvuca0WBDfKjSeL8xnM
-         M6epSfnif3J/mtLKBR6SOPjMpqvHFkQMUKQhJui3QeJykR7smz4tMJ0A/cjDH7k0QCPV
-         FnB2itZui4LNaOHoO6D/6B5dWjc0odCUauPfYrmzPcqKM6p28VfNUJMoAGPe7l5C2qqI
-         D0Qg==
+        d=gmail.com; s=20251104; t=1785392870; x=1785997670; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
+        b=G+hoALuaqKHiO+0xgsvctlaWlLe3Hxv4LmHQFaYDH1ut1IKKXhHbpcPfv4mfVv+jkX
+         MFyIwurm5yb2qYWdiDR4HX1zj0qm4N7pw773mihNdr2GAX6VZTwRLxk0EdGhIXVyBr6y
+         OGrpxGrJgqk3zOd9FNCHYxJm3cQsNGfWaoxnRClE7975JM5pH9FoHsaetkapANMl3rf5
+         OiUdmHFs4NubL1BWvmC4pQy8N0Yp732Rnu7wHlhqtw2QvN50z702fXjDo4DRHTLrp/51
+         xGzwEl6z/mBnrl0AH6Co/56fFv+RKnQqTyXoT1ywnr7qZR+IFi70xicTY6l+6KhZkMy1
+         1wuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785392857; x=1785997657;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8LdAoJKwXyAPy2Oxe1p5of7f27uz/x1w5QiaYqvn624=;
-        b=VO1CU4h9W9+Fm8PPjmKIGgvVHOIC4w3785QhfO/Hewy2uVjoJ9T5MK2tNBuHeHQ0+z
-         nQI/LajSf8xgTZT1P357YI1ezpa0y+Ay7Jl0dKM2L7Ybtlq12oHwig0u4YGKTzykx91/
-         X1She4VYj+Qi5af3AjfcFUu2xe/8Lk6EEkwPpia1Dmptw1Bzcv6PSaXCiIMKPeH12gV7
-         oHIeyy7mzsjGNJL4/tl67jIs4lxGBOwgAQrHz9R9KvDYj4hXjCaExB0mv7DnXqLSPHKp
-         +F22TFqzf9IakqkpR8j/uGq/9pXp+gxYsMyqJjE0fJe4oVcZaKbz8IkUIDry2qF1xL51
-         nFxQ==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4PyVCEzRU8+PL0lZi8ScwxIhQTL7IryQwtr6s4NdXTfX6iZbsOeneUcDvC8Ler2LJeKRaAYAmG0ovTg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywjz9h78fWkmqtpCr4PqenzrSlLG8pWpHMz/oPB2K+ErkCvqs/X
-	jAceSWT8aooz48SHPt08MoEEqLURM9QIZkHMEy37Ce/NjuK36uZG+Cjz
-X-Gm-Gg: AR+sD138i7gAVtxcdOvi2jqyJrZ22gx5izhq1XgaBUpbtiR4HKoD9YgMkXiy7DwZHUS
-	k359FXBk5uvGgzCownINCKdo9+oooXjypCQN1PvHPG0cJ8YkeBvEz4+TSkydTgGDwwC6yESULTR
-	yHY/4raPV9qsI3q80ojeMNCdejxhJRySU5SFYCiMBi0OGqoWHRSCfxmpVXt6TKrwuUACq42BEv/
-	dCVvl9UQLecCj+eeZ/fRwm9nG85UoqXFHmjCCLY7GxhXf7RLNfG8Hg0gj7nE6csiuK3xPTZEt06
-	iWy78T/5s7M8IQuc537Maws5igtPn7hxofgYbB2BSZmq5F1+YhjKcFSHxYlWxcYiuer00qhr1GR
-	9yrkocPmxxnGNdBXT5UdxY3dkKkY4rOTGIjyFHRGeznKNAes5fL0gEFhREkqrZYOLsvG+klCzLJ
-	poXU7MSdFdA+v3uqQXSbMcf9Z8yjCkc4EJ/GUktkI+c9heT4jj8Wf6ts9Fr9U4uY9DV2gjSLDhF
-	J8=
-X-Received: by 2002:a05:6a00:2e87:b0:842:5da3:9b89 with SMTP id d2e1a72fcca58-84ebc3e1d64mr1491102b3a.38.1785392856941;
-        Wed, 29 Jul 2026 23:27:36 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785392870; x=1785997670;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ax7tbNUValSVYnoO1zdiSGKC5h5YwguB1K37baEZiC0=;
+        b=F3MzyREIbQQ06JIKt/HVuNWDp4T50EqybQcq0DDmY6XTkf9+/12dkA9DFeDY+Yr6Us
+         p5SIurr0fuDS7SIzbnQgPSsA7rddDyvvVuZvll+S/bNpkJ7qdGKB+urRUpF4pz4X0C5e
+         NA4+GzW3NpXZXpVs/SuSmKtax0I6lxp+gq0JroKk2gwilOc6vvN7C0EY96VsJBOukDoK
+         0R1n0P2Pf2DV9oEeuqLPl9khHz8hbd2ooif8QpPSw0/g+TfGnqOF/SjCPTV9e8ZDnNxN
+         sssZEJuvkK2nO2c1A1Nb7ECqkpQ9ekh+DBhD4oqZQDRqR+vJKPo/cEaoQNptFwEQij4b
+         SLvw==
+X-Forwarded-Encrypted: i=1; AHgh+RqrKh9qi+rfSPpnELArumtrMVNEkDtwWrTXScA9vNnbOUxrzhZU4h4St6vyue4n7jy3lBlvIEpdHILhPA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzPUPt8SqapgAACG1hoSjo6l6jT2StqAmaXaLQ9UE95JB+MVTtw
+	zQZHvUW4m7IS/nFNw85awFmqz5aRLTBcgXUDkayRtFeXvpEdI49xLDyw
+X-Gm-Gg: AR+sD1173D0u2le4btys0So3XdC/5BDuHRWUSWXMts/qGiuQgr1VowVmiJgPqzdRPmo
+	YBu3jK7xJL7+36k8o03Jv09PuR/wlVOFt5VEUb9NxxAz7DaOxLtOBIktE1Kk6aWpChWJVXZ7LWg
+	yIqckVgSP4gDjua1NchIn/1lohr8jzn7G7Fmrv1liI74iE9gaKTLAtyd5Bsg2kmHEw0WNrcN3wG
+	iS6HX/uN9EKQW9miL3jXbpqQEypDcFmr1fYLp9/ECltm1h0uOQZinKpuZGK0DvNAIH5H8Wcov6I
+	1mYDbhxkGsAqb8EZZFk+gdvee38lkY6lGZ+rCPdfM5xTbgyPuVn436m+yi5NbLVSyAPt8W7qfkY
+	/AJP0s4Lj9scREu/lwmIW04VjjNHRw55XGSKCkag5u2r94IEcYLahmiP1a0mLor+8UWpMXHsMNe
+	7oeOuZosmyT4RcK2VUnJyx5xPehlCKgIuDzk0zuyQPoRToSFAwnFH3BTqF9Hc406Z5
+X-Received: by 2002:a05:6a00:2d04:b0:848:2f7a:2e57 with SMTP id d2e1a72fcca58-84ebc4475aamr1325657b3a.70.1785392869924;
+        Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
 Received: from baineng-pc.. ([117.133.183.252])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.31
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84ea00507b0sm2503229b3a.14.2026.07.29.23.27.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 23:27:36 -0700 (PDT)
+        Wed, 29 Jul 2026 23:27:49 -0700 (PDT)
 From: Baineng Shou <shoubaineng@gmail.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -79,9 +77,9 @@ Cc: stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	Baineng Shou <shoubaineng@gmail.com>
-Subject: [PATCH v5 3/4] drm/prime: use dma_buf_fd_install() to preserve export tracing
-Date: Thu, 30 Jul 2026 14:26:44 +0800
-Message-Id: <20260730062645.233148-4-shoubaineng@gmail.com>
+Subject: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
+Date: Thu, 30 Jul 2026 14:26:45 +0800
+Message-Id: <20260730062645.233148-5-shoubaineng@gmail.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260730062645.233148-1-shoubaineng@gmail.com>
 References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
@@ -92,45 +90,168 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-drm_gem_prime_handle_to_fd() open-codes fd reservation and install
-using get_unused_fd_flags() + fd_install() directly.  This bypasses
-the DMA_BUF_TRACE() call that dma_buf_fd() emits, so observability
-tools relying on the trace_dma_buf_fd tracepoint silently miss all
-DRM PRIME exports.
+Add a test case that verifies no file descriptor is leaked when
+DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
+to deliver the fd number back to userspace.
 
-Replace the bare fd_install() with dma_buf_fd_install(), which wraps
-fd_install() together with DMA_BUF_TRACE(), restoring full tracepoint
-coverage.  No functional change; the fd lifecycle (get_unused_fd_flags
-→ work → install) is already correct.
+The failure is triggered by placing the ioctl argument in a private
+anonymous page and flipping it to PROT_READ (via mprotect) between
+the kernel's copy_from_user() and copy_to_user() calls.  With the
+buggy kernel the ioctl returns -EFAULT but leaves an extra open fd
+in the process's fd table; with the fixed kernel the fd count is
+unchanged.
 
-Note: this patch depends on dma_buf_fd_install() introduced in
-"dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
-[1].
+This serves as a regression test for:
+  "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
 
-[1] https://lore.kernel.org/dri-devel/20260714114654.3885457-2-shoubaineng@gmail.com/
-
-Suggested-by: Christian König <christian.koenig@amd.com>
+Suggested-by: Sumit Semwal <sumit.semwal@linaro.org>
 Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/gpu/drm/drm_prime.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../selftests/dmabuf-heaps/dmabuf-heap.c      | 115 +++++++++++++++++-
+ 1 file changed, 114 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
-index 9b44c78cd77f..fe3436d1235d 100644
---- a/drivers/gpu/drm/drm_prime.c
-+++ b/drivers/gpu/drm/drm_prime.c
-@@ -524,7 +524,7 @@ int drm_gem_prime_handle_to_fd(struct drm_device *dev,
- 		return PTR_ERR(dmabuf);
+diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+index fc9694fc4e89..bd58e5b06c8b 100644
+--- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
++++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+@@ -390,6 +390,118 @@ static void test_alloc_errors(char *heap_name)
+ 	close(heap_fd);
+ }
+ 
++/*
++ * test_alloc_no_fd_leak_on_efault - verify no fd is leaked when
++ * copy_to_user() fails during DMA_HEAP_IOCTL_ALLOC.
++ *
++ * The bug: dma_buf_fd() called fd_install() before copy_to_user().
++ * If copy_to_user() then failed (e.g. via mprotect), the fd was
++ * silently installed in the fd table but never returned to userspace.
++ *
++ * The fix: reserve the fd with get_unused_fd_flags() first, attempt
++ * copy_to_user(), and only call fd_install() on success.
++ *
++ * We trigger the failure by placing the ioctl argument in a page,
++ * flipping it to PROT_READ between copy_from_user and copy_to_user,
++ * and counting open file descriptors before and after.
++ */
++static void test_alloc_no_fd_leak_on_efault(char *heap_name)
++{
++	int heap_fd = -1;
++	int fd_before, fd_after;
++	int ret;
++	long page_size;
++	struct dma_heap_allocation_data *req;
++
++	ksft_print_msg("Testing no fd leak when copy_to_user() fails:\n");
++
++	heap_fd = dmabuf_heap_open(heap_name);
++
++	page_size = sysconf(_SC_PAGESIZE);
++
++	/*
++	 * Place the ioctl argument in its own private anonymous page so
++	 * we can flip its protection independently.
++	 */
++	req = mmap(NULL, page_size, PROT_READ | PROT_WRITE,
++		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
++	if (req == MAP_FAILED) {
++		ksft_test_result_fail("mmap failed: %s\n", strerror(errno));
++		goto out;
++	}
++
++	memset(req, 0, sizeof(*req));
++	req->len      = page_size;
++	req->fd_flags = O_RDWR | O_CLOEXEC;
++
++	/* Count open fds before the ioctl */
++	fd_before = 0;
++	{
++		DIR *d = opendir("/proc/self/fd");
++		struct dirent *de;
++
++		if (!d) {
++			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
++					      strerror(errno));
++			munmap(req, page_size);
++			goto out;
++		}
++		while ((de = readdir(d)))
++			if (de->d_name[0] != '.')
++				fd_before++;
++		closedir(d);
++		/* subtract the fd opened by opendir itself */
++	}
++
++	/*
++	 * Make the page read-only: copy_from_user() in the kernel will
++	 * still succeed (it already ran), but copy_to_user() that writes
++	 * the fd number back will fault.
++	 */
++	mprotect(req, page_size, PROT_READ);
++
++	ret = ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
++
++	/* Re-allow writes so munmap can clean up */
++	mprotect(req, page_size, PROT_READ | PROT_WRITE);
++	munmap(req, page_size);
++
++	if (ret != -1 || errno != EFAULT) {
++		/*
++		 * If the ioctl didn't fail with EFAULT, either the kernel
++		 * handled it differently or mprotect raced.  Skip rather
++		 * than giving a false pass/fail.
++		 */
++		ksft_test_result_skip(
++			"ioctl did not return EFAULT (ret=%d errno=%d), skipping\n",
++			ret, errno);
++		goto out;
++	}
++
++	/* Count open fds after the failed ioctl */
++	fd_after = 0;
++	{
++		DIR *d = opendir("/proc/self/fd");
++		struct dirent *de;
++
++		if (!d) {
++			ksft_test_result_fail("opendir /proc/self/fd: %s\n",
++					      strerror(errno));
++			goto out;
++		}
++		while ((de = readdir(d)))
++			if (de->d_name[0] != '.')
++				fd_after++;
++		closedir(d);
++	}
++
++	ksft_test_result(fd_before == fd_after,
++			 "no fd leak on EFAULT: before=%d after=%d\n",
++			 fd_before, fd_after);
++out:
++	close(heap_fd);
++}
++
+ static int numer_of_heaps(void)
+ {
+ 	DIR *d = opendir(DEVPATH);
+@@ -420,7 +532,7 @@ int main(void)
+ 		return KSFT_SKIP;
  	}
  
--	fd_install(fd, dmabuf->file);
-+	dma_buf_fd_install(dmabuf, fd);
- 	*prime_fd = fd;
- 	return 0;
- }
+-	ksft_set_plan(11 * numer_of_heaps());
++	ksft_set_plan(12 * numer_of_heaps());
+ 
+ 	while ((dir = readdir(d))) {
+ 		if (!strncmp(dir->d_name, ".", 2))
+@@ -435,6 +547,7 @@ int main(void)
+ 		test_alloc_zeroed(dir->d_name, ONE_MEG);
+ 		test_alloc_compat(dir->d_name);
+ 		test_alloc_errors(dir->d_name);
++		test_alloc_no_fd_leak_on_efault(dir->d_name);
+ 	}
+ 	closedir(d);
+ 
 -- 
 2.34.1
 
