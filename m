@@ -1,128 +1,148 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F60F40681D
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 19:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8C837F8DD;
+	Thu, 30 Jul 2026 19:50:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785440247; cv=none; b=I0ekHRNeM7tr9FVLT17JUHmNbKoouT3w9Z46nBfcSjqKNePhnnQ8iLlEJuSd+1RzbmoMVfNGEITKgIyLmQwKxXOr69rzi07XM4UwysZyU7h6nzKxmaUB0lAm9p9HXPNdvMZKOGeQnFrwtm8oNau+pg4u6cV9iCVJruyBqbqt33E=
+	t=1785441042; cv=none; b=QzcfH+HNGfnQHvh7uKNtgofv/+2atzmia7G+PVbP910PB/3s1637HvYQ/XROe0CBKV8yqBzWd1do6QKTkHvCB2I6vjG80xbNUeAVBwZTqmRO1cmjA6BKYuUYEHV0tIl6mZi37utOaKBigfOLqllCjpQbfgG1QxHnCFSXZ8yPaLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785440247; c=relaxed/simple;
-	bh=Jt98IkSBBfyqxJyzZRRW8T5e08wvwzrqIvwXYwH0ieg=;
+	s=arc-20240116; t=1785441042; c=relaxed/simple;
+	bh=CDQzi7qK+MGW0I1FpfLD8J+mu4Mp6f9WgIwDKn4MXI4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E78ZXcEKtIChVij1JnAGBQNyrM1tLCmbCT7g8WNaxocbIJ2xlqD/zB68BzL1AETbHQnbOdRrWbsfdnDH7hkYZCgwh3bD6gJ4sHw9dMMdf5t93Ur9JLmMY1ikU3NGQYmxkNrmXgxQ0A2WqImLejdwzIIy36WJMnx8pwioYUOVMdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=smsyi8Ah; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=nzQ6LH9mBhaD48sYvm8sit8boYnXHAZ3Ts+Ziz36haKZA0Y3rvKMnOTjtY7BnmMwexfg7gLQjvO3jwUCAUfkyV7qPvIJKN5d3Otqb0ZkY8kIjKwR45EBc3ZReS1RTliDoBIpn+7jtVhyMa0gTUQij3MQieqJs5y5BHalPTKW6qo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=XQbaMcYg; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="smsyi8Ah"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cab97c86bdso2785ad.1
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 12:37:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785440246; x=1786045046; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WsNFudBG08sj5R9fNK8ZstEhl3SLgUPJa9Y8Tw68yBE=;
-        b=smsyi8AhwpTJKTXN0Yt40sWh6xjK5fBu08XF/WnHqS/jTp1cVOoIp+OivodKt9eObT
-         WuQg9t/BfxLzG4U/eGAxdBY0AXgAUzqgqH0D2fShIxS0/r9iHs/rriyWCPB229EcLjPn
-         Pc2Oto3x8G/NVo0epM1/r8cBC8YnhpuNQtvX17Febf/Jo9fsXBAnIZQOeEKLxBf8jECe
-         PhuoKWzVc5vzY7ld5BLeXXZ3md/hdOR6NddIGZgNIg3nxds35ELfW74/SoAY//AHjEjA
-         bRyKhdE+qdK5qDJnqnCWrfY1v7CAHfcPwspRNgyHt7QCEA3opx36Q/4MwersLFphh13n
-         TLWg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785440246; x=1786045046;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WsNFudBG08sj5R9fNK8ZstEhl3SLgUPJa9Y8Tw68yBE=;
-        b=dFnydIsciLbqs07Y0NxnYO3C+TKUoyT6zAkJ+sz6KJNT74FyT2NOPvpXjI2VBJWZ48
-         lELmYzEO71VKiWVE08lOYkb/IYTsFLd7aVnPFg/2J6gIK1o0ZDG68zi7X1ScZ4VczBAz
-         CxnYn42DslqnKIg/EMEJlquvhaWas0y25UwDcEFsH4PJnjDjHvKfE3ptwlCcCy095i57
-         WMUIwr82XyZQX+Kk6XTt2emvG7uwzDOO72vI4VtjDy9raUlJDO7d32hXjR6SL9QbutLS
-         TXju/J4/yKHmWnse221401uidyReVUY4H2hQZUr7+v88HRpdSfC/7OPFQXkyA3GtCwci
-         Kphw==
-X-Forwarded-Encrypted: i=1; AHgh+Rrf0sTlh5H/AQAQTuhXzehsVS9zSozxXpzCbNLHsgw7mAGVJo/62+jUNv17aMH9b1eX9aWbxFjuXWmt9Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxzK5TiJTmu/wwuOAGDHvNii/Vo4gX28bRdq1MNbLiU798cBh4V
-	tMBHtkwuFwVOPfwjNTwfIR1B/CX4hvqF7/t6iGlOl5PfsZfUa2M0Gnh1qR04pQHfow==
-X-Gm-Gg: AR+sD119SBxZ8G1mmUuCGH/0dfHuKLYabixy1EaSRUwo6y/HK+APFycG9Cq6PBvjW/V
-	JT6CB30kxyIZEKYRs4aBfsTRpDZz021m043PQ3xJoYNE8Yw1fixHfTOnSGcSLIUrYXzjKxUCvZN
-	5x43Vxa+cRI6+m4b/jF3+q/DsevU6VYe5eqSIGCR0CvMInAVyZZrJ1ayOYFWLOWGWsB5hLHLiQ3
-	wFnGFw7X3jLB+Y9oCXBZ/3tkmwOJlGiQ3xsMnEE3rimqazCT+qvfeDYpwxWahOMd7i7Mhvm9pAN
-	w4iN2knHeONq7LG5IqC0Xe71U9rhXTUH2SWOR3uIfwJeNep3tumBk+ajzbJ+vMboqqjuV1TIc6C
-	FnBvLlxGDc3T5qVctVcFxo0pyZSEUoxAo88QiVfiWhDQvz37RPuQpnCjKF8/G94bNHZmR/uLbRK
-	dWbyyR/+Tc2DDYUk7i/uNNlEfv+sZjZXuVolIBCzy9SotV/EaTj0X6Lc5Z6thZ/UJ+xRZS2edRg
-	O8UQ/z6wOGklHfKYyGKLwE=
-X-Received: by 2002:a17:902:c40d:b0:2c7:f688:f22f with SMTP id d9443c01a7336-2d041586156mr1531825ad.13.1785440245065;
-        Thu, 30 Jul 2026 12:37:25 -0700 (PDT)
-Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e72745b1bsm22459117c88.14.2026.07.30.12.37.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 12:37:24 -0700 (PDT)
-Date: Thu, 30 Jul 2026 19:37:16 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Longfang Liu <liulongfang@huawei.com>,
-	Mahmoud Adam <mngyadam@amazon.de>,
-	David Matlack <dmatlack@google.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Message-ID: <amun7H3esu-1OA49@google.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-3-matt@ozlabs.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="XQbaMcYg"
+Received: from ideasonboard.com (mob-109-113-25-35.net.vodafone.it [109.113.25.35])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 340718F;
+	Thu, 30 Jul 2026 21:49:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785440972;
+	bh=CDQzi7qK+MGW0I1FpfLD8J+mu4Mp6f9WgIwDKn4MXI4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=XQbaMcYgJfwU6YiaA0kY6vAJfqx6LfP2QtHQbz2wCnQcDuocIvKN2003ZTORXl7ZO
+	 NWJakq+2vEK4LJ0h/jSkFJ1Ngwp1nLOutsRVwFYFlaFJwpZwOwAaeNRh8GBftqdgwj
+	 uU//gBpJi/N2O0yzEMxlDu2UmnzhlaEJVKfzBciM=
+Date: Thu, 30 Jul 2026 21:50:35 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Cc: tomm.merciai@gmail.com, linux-renesas-soc@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Sven =?utf-8?Q?P=C3=BCschel?= <s.pueschel@pengutronix.de>, Nas Chung <nas.chung@chipsnmedia.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Isaac Scott <isaac.scott@ideasonboard.com>, 
+	Paul Cercueil <paul@crapouillou.net>, Daniel Scally <dan.scally+renesas@ideasonboard.com>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] media: rzg2l-cru: Align bytesperline to hardware
+ DMA stride requirement
+Message-ID: <amun-AzHShKFnA7W@zed>
+References: <20260729105603.1160966-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260729105603.1160966-2-tommaso.merciai.xr@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260715174737.15287-3-matt@ozlabs.org>
+In-Reply-To: <20260729105603.1160966-2-tommaso.merciai.xr@bp.renesas.com>
 
-On Wed, Jul 15, 2026 at 06:47:25PM +0100, Matt Evans wrote:
-> The P2PDMA code currently provides two features under the same
-> CONFIG_PCI_P2PDMA option:
-> 
->  1.  Locate providers via pcim_p2pdma_provider()
->  2.  Manage actual P2P DMA
-> 
-> Some drivers (such as vfio-pci) depend on (1), without having a hard
-> dependency on (2).
-> 
-> A future vfio-pci commit will rely on pcim_p2pdma_provider() always
-> being present.  If that depended on CONFIG_PCI_P2PDMA, it would make
-> vfio-pci only available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit
-> systems), even when P2P is not needed.
-> 
-> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
-> basic provider functionality into a new p2pdma_core.c file.  This is
-> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
-> unavailable due to !CONFIG_ZONE_DEVICE), satisfying (1).
-> 
-> Then, when the original CONFIG_PCI_P2PDMA is set, drivers have access
-> to the additional P2P features of (2).  This still depends on
-> CONFIG_ZONE_DEVICE.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
+Hi Tommaso
 
-Reviewed-by: Pranjal Shrivastava <praan@google.com>
+On Wed, Jul 29, 2026 at 12:55:46PM +0200, Tommaso Merciai wrote:
+> The RZ/G3E CRU programs the line stride via the AMnIS register, whose
+> IS field encodes the value in units of 128 bytes. If bytesperline is
+> not a multiple of 128, the division truncates and the hardware uses a
+> wrong stride, causing horizontal banding.
+>
+> Commit ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> replaced the open-coded aligned calculation with v4l2_fill_pixfmt(),
+> which sets no alignment, reintroducing the issue.
+>
+> Round bytesperline up to RZG2L_CRU_STRIDE_ALIGN and recompute
+> sizeimage when info->has_stride is set. RZ/G2L has no AMnIS register
+> and keeps the values from v4l2_fill_pixfmt() unchanged.
+>
+> Fixes: ace92ccef0c9 ("media: platform: rzg2l-cru: Use v4l2_fill_pixfmt()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v4->v5:
+>  - New patch.
+>
+>  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> index 5185a547461d..91eda5034248 100644
+> --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+> @@ -851,6 +851,11 @@ static void rzg2l_cru_format_align(struct rzg2l_cru_dev *cru,
+>
+>  	v4l2_fill_pixfmt(pix, pix->pixelformat, pix->width, pix->height);
+>
+> +	if (info->has_stride) {
+> +		pix->bytesperline = ALIGN(pix->bytesperline, RZG2L_CRU_STRIDE_ALIGN);
+> +		pix->sizeimage = pix->bytesperline * pix->height;
+> +	}
+> +
 
-Thanks,
-Praan
+Ack! I think this does what is expected for the single planar formats
+the CRU supports!
+
+I think after this cycle you could send a patch to replace the above
+back-portable change with the usage of v4l2_fill_pixfmt_aligned().
+
+When you do so, could you consider, replacing "has_stride" with a per
+struct rzg2l_cru_info .stride field ?
+
+I think it would look nicer as you could here unconditionally align
+(assuming the new .stride will be set to 1 for G2L which currently has
+.has_stride = 0).
+
+Also, RZG2L_CRU_STRIDE_ALIGN is a bit of a mis-nomer, as only G3E and
+V2H has a AMnIS register and alignments constraints as far as I see.
+
+The only other user of 'has_stride' I see is:
+
+ rzg2l_cru_initialize_axi()
+
+	if (info->has_stride) {
+		u32 stride = cru->format.bytesperline;
+		u32 amnis;
+
+		stride /= RZG2L_CRU_STRIDE_ALIGN;
+		amnis = rzg2l_cru_read(cru, AMnIS) & ~AMnIS_IS_MASK;
+		rzg2l_cru_write(cru, AMnIS, amnis | AMnIS_IS(stride));
+	}
+
+the G2L has no register AMnIS, so we can't write it unconditionally
+but rather replace the check with:
+
+        if (info->stride > 1)
+
+As a bonus, if any other variant will get a different stride, it will
+be automatically supported.
+
+What do you think ?
+
+In the meantime for this patch
+Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
+Thanks
+  j
+
+
+>  	dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
+>  		pix->width, pix->height, pix->bytesperline, pix->sizeimage);
+>  }
+> --
+> 2.54.0
+>
+>
