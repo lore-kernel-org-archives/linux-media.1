@@ -1,115 +1,215 @@
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83CA23D3305;
-	Thu, 30 Jul 2026 11:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.24
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785411387; cv=none; b=nKRa0LR8pIVYIlZZPI4iCMqpqb/gsL1RsqoGSTsQAM/FWvza5ukSo82IjY4RxDSAJPcb7BguuCymvUN9QLBERdlDGCNZTRiKWFcaZKATWS1dzOggVEEayCSkeYKLYEVkR7SuRLLXQLLqDwfFFyuRG+kDShFoz192pFS4yVTdK1U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785411387; c=relaxed/simple;
-	bh=zLysCEEqoEuWyM6opQgluK5L0ojRhH4UN4NK8AHNaik=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=MllZcHfvKioAX+u6vs9Lpgr61IP0sotV0y2UaC1N6kmPH/T6fu54VRnFkYyui3lp0SwlpcP3bN809a4eLzpg2wervCr3MokZril8s5mmN7/jaLNtsv/L3YgznaOMnX5BMVhSkpAN7qjKwOhbhtSYB/IxrEIuM1AADbnQYJHa/hw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=G1m0nOj5; arc=none smtp.client-ip=203.254.224.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7410A391836
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 11:44:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785411854; cv=pass; b=loN0dppTbTR9Kwv0KnIVGQBPe821aeLv3W+DqSU09HFkQkL9P6LD1MGJExl6UmZ9x/wbu4DPn3j44fWVCh1iHYTdox9vgC67Ocv63xDE2WykDc0GTXqOpzYF++1iOawAtEUO0XEnhml6pwYnS3X6hMB6E2ah5BlV82L20u29iac=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785411854; c=relaxed/simple;
+	bh=ev2/weVx6xMlQgDmYd5TevoZcOHWWng3/NPgGYBbmDU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XjVArh3IUHWxXpMuqfdvLk/ytxtYyeO+e76kmDeYoXC1P+/prDatOYPCJ67iyfVPEhn20ijNpg8Skm9VJDrBjenLoKGGGl+FIgNIXH7o7Idj33I3+MGuF3eOTKJuZd3+GMe50XhsH2PPvMjDZA9QT38lrmVuuIKo2SpAmSV1iLo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XITbllBC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LXKs+WF0; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="G1m0nOj5"
-Received: from epcas5p4.samsung.com (unknown [182.195.41.42])
-	by mailout1.samsung.com (KnoxPortal) with ESMTP id 20260730113622epoutp01cd551f2ca3195d893edf957daba54315~HDjFDmUL01609216092epoutp01Y;
-	Thu, 30 Jul 2026 11:36:22 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com 20260730113622epoutp01cd551f2ca3195d893edf957daba54315~HDjFDmUL01609216092epoutp01Y
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1785411382;
-	bh=mERFm4283SSrRFHo9/1ATS072a+0UIQwbggX9r32jfU=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=G1m0nOj55iDA9Dd+o78RP1b6wsb5owePEsyB2HLZpWZ6TNjoaPNBKS3Bl9iVZZRQV
-	 leVdqeIcsnTbKQnqgOQLWCGR3KeuMAqMAHOvOQ5XtXOayIBD6utXS6XH8KTkELKZgr
-	 zEcrc4MUK5bcbMdqpy2eFgv3VLAU+aJAnTZlwZ/4=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260730113620epcas5p2cd2dd6e62a21b0504d36dfba298dab5e~HDjD3F8l_1787417874epcas5p2O;
-	Thu, 30 Jul 2026 11:36:20 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.88]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4h9nGC3jq9z6B9m4; Thu, 30 Jul
-	2026 11:36:19 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260730113618epcas5p2fa034480e41d3e4e7b6c61c98a1ee498~HDjB8riTb1788217882epcas5p2K;
-	Thu, 30 Jul 2026 11:36:18 +0000 (GMT)
-Received: from [107.122.10.194] (unknown [107.122.10.194]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260730113614epsmtip13123c94af622f6e0e15c09cb30ff8023~HDi9_RAYA0540705407epsmtip1s;
-	Thu, 30 Jul 2026 11:36:14 +0000 (GMT)
-Message-ID: <09134617-6d9e-4963-9319-1855e88a4df9@samsung.com>
-Date: Thu, 30 Jul 2026 17:06:13 +0530
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XITbllBC";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LXKs+WF0"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UA2dPo4191524
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 11:44:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	ZFdmZs+lWs/CU3aJZjtaSyzVJfvoHSuYdAqR75AXrhg=; b=XITbllBC/1NxFjvl
+	Ty+GQ0YtrzxeN1b2qsd7RLaaJeycUAbGDH4NeE2R6P1ncbHsOonDM5G/5ntIkDC5
+	0R5N2HHwYnV0hoq7A869wY5u/btDckkZhVyq2PmelyyVEmi6iJKAn6tpiEAD0GfA
+	dP5CVHIE+010lrQ0G6cmq0oPC44pNn0O5bHLk8tjM856SvIUSP3gaKh0AGyYT3lB
+	5MM1NAs9g/ZnaIu7bE4uniHazCkYKpup1qESvr0TJPqs0sVO48nm9YJ50q+nhAmH
+	EG7VyMELyQRuIdx/qKR2kuLauCVswlPk4douxRuTai3BT4XUb+Fda1+pKJJsRTIF
+	iERbLQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3tygkfh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 11:44:12 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9077b4c35c5so38504346d6.2
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 04:44:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785411852; cv=none;
+        d=google.com; s=arc-20260327;
+        b=dWkGx2twICzq+CkN3IiSQ19g1jUMaCFBZUptFw49rA3WJOGkQxMaCGMpY3F3DxmBfY
+         M1nGL3ibIYt2wwE5a1WISwYpj9ufF1DDkY3mBQtsQ13d4sbXj2fLyYMCd2fY3BQ4IW/A
+         0aYf4lQdom8rUFMXLG97o5R9wMMtfvfK6RzqN2ni04c3a9opUMz9xU1tNfTH7NnHihTH
+         aYpz095hOJ5UtgqpEvOW3lD1L/VJZ3/PiuksZBjfFCqDhRug8eOkObYWQrSfzhV9NGyy
+         R1lc6KMxyjMq4XBhRdyl+qpT9UNgX1r/TF41rQDtFzrro4A0NsD1L6VRJEdOTsEZ7MvV
+         FKxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ZFdmZs+lWs/CU3aJZjtaSyzVJfvoHSuYdAqR75AXrhg=;
+        fh=LTIz3I6GBa0sictYyNnbjys3tolYynGG+/8u/Hhun58=;
+        b=OhnZ/nZtrM6w9WYHDn/xR5OsOlvE9eVQ22KVwKHggTUSo0ezhBm+T9awvgXqb/gDUw
+         OFKGPMJOKIKvW2sY0mjL2IquugoQrvoP+0did4WxQbIjWR/lAQ7n10kY2XWKKSUaQi37
+         6QkaCtTE5A0qySg0ugZ7d6XLYIrHai0uWob/SIqwpbnNWcB3fQZET526/z7DNzjxm4Kl
+         q/U9te2av3ftfXZRRE6Rw2qb1Vd9QogtdVu/jJw0cuf9/+COTDJ+P54ZQYFpojiR954C
+         rpl8dS2mm5bu/CBbU9NqSj3SyxIGFXQFia1K113yJmzoSP55a1PHG0exHOYRYrXLh093
+         oaZA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785411852; x=1786016652; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ZFdmZs+lWs/CU3aJZjtaSyzVJfvoHSuYdAqR75AXrhg=;
+        b=LXKs+WF0BAfH8Ok1l7lwvjE5bYWxTqfGh5TPwVhNlRj0msq6hWKjER1ot3XN0TIq+0
+         gbX5ZnTR271EeDeL3cmFYKGwGBVftKGXt4aZKbRaP1X2Ncy0yCBAm5qX3xdPnAIrkc0t
+         x5RMnUdD4GakG5llXLt0N8d+2PzMPHaMWo/GT+nav9Lpwl/tJwUTsF1FmA9p6oHmpHUI
+         tjWmkoWHC+a3iV2eZoCuwPuyxdLedmTt+ABNUxlD45S62IYvHcnA+p71BMxXOwBeoqf1
+         rIkfTvJ1DwwsqrpMq47fo0Fqam4mMWoTnxy65MvqJ4VBm2/ETYHFXkQr3einiT1YTQO/
+         1zJQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785411852; x=1786016652;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ZFdmZs+lWs/CU3aJZjtaSyzVJfvoHSuYdAqR75AXrhg=;
+        b=GSPBWZ7pLKzRkQOA8TSmYM8fOu5V9bPH5ef1QHd4oXtZJrgQnm8cVM7XY7TCW9ikSt
+         uicYipFhGYIMbz4AYK+3pypBmv9bidgyk5IvXHP8tbbm8P+N9Lj+8YuHNcHVHFIlkB1z
+         WQsl8bgTwrKHroj6GGYxzByStPFuxPSqOLPbZYCzWFQLz9k1HIAml6Nm3XXoU0xVfMMQ
+         3V42/X9NmNLayJvZOaH2ZTdej/AKL1dCcSZDTgohx4fmmwHgJ1xdqjz9no4LUvkabJZ5
+         vj4g0sizrTD1+rz//fL2mBDQbR3CdKLPEAIOuYKWMVRY9YWiNGtUW848zMiHcnMxlsTt
+         HT7g==
+X-Forwarded-Encrypted: i=1; AHgh+RrzkHPdEuBX3mPLu3W7kVoNSmKEJ/dxuGLgBDmioXbyUTDVfCnCkoI19wcy16zMgeX0VtKfsbMWoEVaNw==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzef2Nq0nF405Wb/Fp0o90oZ1sxoJOZmaK3QZeEKXlqVBXnOF0P
+	OT41YqwreouqD7djbX2vo2rTAJqzMgafwFTWiQzIimnnY8U2YYbrYAswV3svvbX7Q4BnGQFs0yR
+	9hJbdWTvbkG6xfljl+o7vPgfoUYu/GnxHy7GAaslQhk4Uiog/WwppqqgV6m5MPoF+A4faBI5Nbt
+	R7p3ezJ1/m+coDnXC9Ya2EIpeUI+RMuwKz2zBTwxjh
+X-Gm-Gg: AR+sD11JytiaMtLR1aDsHyzxu9Zi3PpjUVALG3AmGT04prw0cbbunR8e2/cJtHLT7Lr
+	U2ENDi1Ls6eLmO0BHQhIuTUQCnLPYAjkkiycWLu0KqJEeT4iVbSWuCktLZYcZrdrbF8wCl9r9ps
+	b3Q2Vmccaov82E52bd3X5omH4wAlh8gtdJ+mhjK4eyd7jq3UKGMR5KWyxE9HXB07HxXZwaMfzbe
+	WkZfFceI24ECBZZWsE+I/dmMJlajXDn2KcpMEK/b7vw1D0rW5ABorwcWdPMT9pJbOpk33fU5Qc=
+X-Received: by 2002:ad4:5d6a:0:b0:8ea:184f:c15b with SMTP id 6a1803df08f44-908346f08b9mr18112976d6.14.1785411851745;
+        Thu, 30 Jul 2026 04:44:11 -0700 (PDT)
+X-Received: by 2002:ad4:5d6a:0:b0:8ea:184f:c15b with SMTP id
+ 6a1803df08f44-908346f08b9mr18112746d6.14.1785411851237; Thu, 30 Jul 2026
+ 04:44:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 08/14] nvme-pci: implement dma_token backed requests
-To: Pavel Begunkov <asml.silence@gmail.com>, Caleb Sander Mateos
-	<csander@purestorage.com>
-Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Christoph
-	Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
-	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org, linux-fsdevel@vger.kernel.org,
-	io-uring@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, Alexander
-	Viro <viro@zeniv.linux.org.uk>, Christian Brauner <brauner@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>, Sumit Semwal
-	<sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Nitesh Shetty <nj.shetty@samsung.com>, Kanchan
-	Joshi <joshi.k@samsung.com>, Jason Gunthorpe <jgg@nvidia.com>, Damien Le
-	Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer
-	<snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
-	Marzinski <bmarzins@redhat.com>, David Sterba <dsterba@suse.com>, Ilya
-	Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
-	nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org
-Content-Language: en-US
-From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
-In-Reply-To: <de4ec386-42ba-41c3-bcbe-1fe8b2f71ba9@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260730113618epcas5p2fa034480e41d3e4e7b6c61c98a1ee498
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260730104131epcas5p4b52720519486f7ac774c317923a79c81
-References: <cover.1785274111.git.asml.silence@gmail.com>
-	<19e5c945ea8114320c10f7951d19197d48b59249.1785274111.git.asml.silence@gmail.com>
-	<CADUfDZpwF0jp2e=+c3w_NjWPbnQ858bkSD731M6+x27jzgcJiw@mail.gmail.com>
-	<CGME20260730104131epcas5p4b52720519486f7ac774c317923a79c81@epcas5p4.samsung.com>
-	<de4ec386-42ba-41c3-bcbe-1fe8b2f71ba9@gmail.com>
+References: <20260724-camss-isp-ope-v5-0-e70ad4fa39ce@oss.qualcomm.com>
+ <20260724-camss-isp-ope-v5-1-e70ad4fa39ce@oss.qualcomm.com> <e50e3859-0343-4795-a564-757ac58f6cbe@oss.qualcomm.com>
+In-Reply-To: <e50e3859-0343-4795-a564-757ac58f6cbe@oss.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 13:44:00 +0200
+X-Gm-Features: AUfX_mwxQD17-_pwcBQOZzIjdUKawWJPVhjgc8TmItAVXQo-3ebnuMZ032ZLb6Q
+Message-ID: <CAFEp6-157JZogPG6vHLUjYiAJ-fwWcVX_xSMTUY=1R6+kat25w@mail.gmail.com>
+Subject: Re: [PATCH v5 1/5] media: qcom: camss: Add V4L2 meta format for CAMSS
+ ISP parameters
+To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-hardening@vger.kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: 0mAa32UfP4rrAtOmQxvK7blrV2mABy5Y
+X-Authority-Analysis: v=2.4 cv=JZOMa0KV c=1 sm=1 tr=0 ts=6a6b390c cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8 a=vIisSAodvos0t_4omlkA:9
+ a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA4OCBTYWx0ZWRfX/bXc2OdrFHss
+ KhPjB6YFhu8UxBqxaQc9RHu8fjy46j6BHe+Xg14FntrRYt1XlFxZN3DbEk14PARXMJRpkHmBPkT
+ 7ha1Lfi22U9jeGT4WU/5lqWA8tiW6JJRb3agjeYAnGRSD8r8udos4vZpy+NYpvQYsqMhUjO0hy5
+ bi+v5JT7ZF4wzwwnDLrEIQtrHboN54P1XzJiKquMjxxMWDOxknBPl9QwWcB6wLWu4x6CKqRj05p
+ www2ecPq4AK4azgwcafER86pMsSOZCcdiprCc6orWqEAA5r28rRSJm1IYWXSjSkm84lB+mhRVGZ
+ QabVqJl/F9JU4KcD1jLhPFsCgMtRd+2+i46GI84pYWz3aMEWP4fjyPQxitlunE/h9oxqoZ3i2Pn
+ PSddlzKymbT/ub7t/JqDegH/YgPl/oEG6ikkKCMNkAjrrTCJzLE3817Q++NpGXR0JvNylfjgE8w
+ 64SrL307OjJiADP4oEQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA4OCBTYWx0ZWRfX7PPNYbx0HzeD
+ WunZFMIcZ1cXq046AwsRWYs0fUkYowx6yalgjxsScTbhpZ51ow7um3f4ogKzIibsBoO2hde4dK4
+ PYmaBU3kCkEodA+EqiA0GBRSNdrUwi4=
+X-Proofpoint-ORIG-GUID: 0mAa32UfP4rrAtOmQxvK7blrV2mABy5Y
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_03,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 impostorscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300088
 
-On 7/30/2026 4:11 PM, Pavel Begunkov wrote:
->>
->> I wonder if it's possible to perform the PRP list page allocations and
->> initialization in nvme_dma_buf_io_map() instead of the I/O path. The
->> NVMe dma_pools are per-NUMA-node linked lists protected by spinlocks,
->> making them significant CPU hotspots. If the dmabuf registration set
->> up a contiguous DMA-coherent list of PRP entries for the pages of the
->> registered buffer, any command using the dmabuf and requiring at most
->> 1 PRP list page (i.e. length <= 2 MB) could just set its PRP list
->> pointer to an offset into the dmabuf's PRP list.
-> 
-> Possible to an extent, predecessor patches tried that, I left it for
-> later to keep the series simpler. I guess chaining won't work in
-> general case.
-> I mentioned this to Kanchan, Anuj and Nitesh before, they were up to
-> playing with nvme optimisations in general, and since sgl from Anuj
-> is ready, maybe they already have a prototype somewhere for that.
-> 
+On Wed, Jul 29, 2026 at 8:28=E2=80=AFPM Gjorgji Rosikopulos (Consultant)
+<gjorgji.rosikopulos@oss.qualcomm.com> wrote:
+>
+> Hi Loic,
+>
+> On 7/24/2026 3:42 PM, Loic Poulain wrote:
+> > Add a V4L2 meta format code (V4L2_META_FMT_QCOM_ISP_PARAMS) for the
+> > Qualcomm CAMSS ISP parameter buffer. This format is used by the params
+> > video node exposed by CAMSS offline ISP drivers (e.g. OPE) to carry
+> > ISP tuning data such as white balance, color correction and chroma
+> > enhancement settings.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >  drivers/media/v4l2-core/v4l2-ioctl.c | 1 +
+> >  include/uapi/linux/videodev2.h       | 3 +++
+> >  2 files changed, 4 insertions(+)
+> >
+> > diff --git a/drivers/media/v4l2-core/v4l2-ioctl.c b/drivers/media/v4l2-=
+core/v4l2-ioctl.c
+> > index 98512ea4cc5b9d725e1851af2ed38df85bb4fa8c..7b6e9a9a514f037190d55d5=
+9409dd6cc97522943 100644
+> > --- a/drivers/media/v4l2-core/v4l2-ioctl.c
+> > +++ b/drivers/media/v4l2-core/v4l2-ioctl.c
+> > @@ -1471,6 +1471,7 @@ static void v4l_fill_fmtdesc(struct v4l2_fmtdesc =
+*fmt)
+> >       case V4L2_META_FMT_C3ISP_STATS:         descr =3D "Amlogic C3 ISP=
+ Statistics"; break;
+> >       case V4L2_META_FMT_MALI_C55_PARAMS:     descr =3D "ARM Mali-C55 I=
+SP Parameters"; break;
+> >       case V4L2_META_FMT_MALI_C55_STATS:      descr =3D "ARM Mali-C55 I=
+SP 3A Statistics"; break;
+> > +     case V4L2_META_FMT_QCOM_ISP_PARAMS:     descr =3D "Qualcomm CAMSS=
+ ISP Parameters"; break;
+> >       case V4L2_PIX_FMT_NV12_8L128:   descr =3D "NV12 (8x128 Linear)"; =
+break;
+> >       case V4L2_PIX_FMT_NV12M_8L128:  descr =3D "NV12M (8x128 Linear)";=
+ break;
+> >       case V4L2_PIX_FMT_NV12_10BE_8L128:      descr =3D "10-bit NV12 (8=
+x128 Linear, BE)"; break;
+> > diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videod=
+ev2.h
+> > index add08188f06890182a5c399a223c1ab0a546cae1..011026194a20cde22a374e6=
+fb2570cbc6bced230 100644
+> > --- a/include/uapi/linux/videodev2.h
+> > +++ b/include/uapi/linux/videodev2.h
+> > @@ -888,6 +888,9 @@ struct v4l2_pix_format {
+> >  #define V4L2_META_FMT_MALI_C55_PARAMS        v4l2_fourcc('C', '5', '5'=
+, 'P') /* ARM Mali-C55 Parameters */
+> >  #define V4L2_META_FMT_MALI_C55_STATS v4l2_fourcc('C', '5', '5', 'S') /=
+* ARM Mali-C55 3A Statistics */
+> >
+> > +/* Vendor specific - used for Qualcomm CAMSS offline ISP */
+>
+> It seems that this is generic format for ISP parameters, can we update th=
+e comment and remove offline. The proposal:
+> /* Vendor specific - used for Qualcomm CAMSS ISP */
 
-Right, I have prototyped the PRP list optimisation before. I will send 
-it once the initial version of this series lands, to avoid adding new 
-review churn while the rest of the series is pretty settled.
-> -- 
-> Pavel Begunkov
-
+Sure.
+Loic
