@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 497DF3EF666;
-	Thu, 30 Jul 2026 09:06:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB196348C4A;
+	Thu, 30 Jul 2026 09:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785402375; cv=none; b=RPWj2ahCaCThTx+j2TYBQDkaHiyQk2g7cMx3Wspdo+mRFaJrAhV+rJ7aPI6Bs4XgRmwdfNNouYVd4o2nT6HhmRiqQXFzVCgjMZkyg78T+gJI5WD0nmfnLtAUnHuzuCKgkkeaGcT257W1gkVlHIjarNQDPASEc2mqyWPdOvGAzKs=
+	t=1785402561; cv=none; b=l8/s6IcK62aff6x7GGItpOrzDPzjW58XG2t0trtdnE1mEa4evgMun8GJMmV637k86vqQs5WSnf6Z2d/CG0L8EVBXhwweAXZzLZHYV0HCIch02Dxnk9PJEZALwpjAV305ruCjYUlBhpSBdTBVOJYGkQ0uKMzBsSzhGaV5YbC1eqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785402375; c=relaxed/simple;
-	bh=3rYZVxLyIl9Jk+BTo4ADPHy48HE2HGPV7aWCn0MLigs=;
+	s=arc-20240116; t=1785402561; c=relaxed/simple;
+	bh=8aI96xTt1FQlltGppSKP7p1b+xTt/C81QT+pshUKJfE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mq+S6exa6Zj6QT0ex6BnlcA0DoDe6ZJ4OKvmAW5ACLm4XAIqTRQ4JAYRqiE3z15WpS+ftxL5LdyE9zI1baqPcPOvCy49mIabJpCCglIATuWfPXX7OHo3qudA7E59lq1PifRSJR01C6/DNcN0qXXgivRI1USb8/lEffaF4gzfMw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UnYRoNIM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=CiYE4iNFni0Jn28Ecq1zLL4vDJTGDDkFjJQIN3xGSV7UzgAzTWm65+0DLv9K4hlxGH4TeXGanK8BOPxJGLpS67yJ7fpoBcnoZjui/W/lw16VAQgyLqf3DOvk5hIIEQjciV3KQqKDd1ymDY1UGBRqdcYO8f2G9HKpSAkyH6fUsgM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMpnSSzR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UnYRoNIM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F19EB1F00A3A;
-	Thu, 30 Jul 2026 09:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMpnSSzR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 999561F000E9;
+	Thu, 30 Jul 2026 09:09:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785402373;
-	bh=ecEHhhqOtsUS0lCDY9ZjdKEicoNpZutH/c2m27xLEBI=;
+	s=k20260515; t=1785402560;
+	bh=5JB5xncxO/PaAUBUbRddlHPk/+gwtswZ1zFbQ3Aty4g=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UnYRoNIMoV7x83iqE9DVSeUUZQd7Cqs8cL4GDbb4IOfxJk8sd/RWIGMiD5R+3GkO0
-	 n7JpEKdFZe8Fsk3UgwNhwz060GR50nq73yYuAqQ0lHUb0V/cwf4tXt/B43uvNqABSu
-	 KTfEZmnPcFLms+Uuw5NjzClfOZ3hcK8n0EzIof1Ez5u+fuIxmJy/CXntPAXBfuNR+K
-	 n+B2xLyIitrNukAKBpQvi29WrnECuyxJgCGqUUTJEMVPZ2VfQ3mlvRZS8Mmpou/ypY
-	 S1JT4iT2kGFIImjNTNfMkqqQI2T/uU+ZvM5Pq+y5R3eHzLjbhQLSOyibGe93qw0bPH
-	 Nvji8A982m76A==
-Date: Thu, 30 Jul 2026 11:06:09 +0200
+	b=MMpnSSzRGJR8UaoMkNvFaybhg0040nwK47TWpjW3KGL6SU6YgE+p1UBZ85Gj75De7
+	 xADR2OLvsWObN8lq8G2GxiJQjfn3W5FX3fdOr/epkrRNaaklOYKWiR4fpO+5ObjvdW
+	 EB7+17emtW72RMn0FkkEowV/8kw9hGWpjcb6J4DAA4wyuOKAYRr0X8oM7sAgbMrSoU
+	 EcHgtrSxduhIW3WBWkw5XCuXUh+PhW7DiwSllwQ3ezBxxww0PJ49eVyvaIoauiZRpb
+	 ytdzCUChUnf9G46NvW7coLPn31baAQyVlO28nqLQLbh6crTyQ0HrhmzCvCjTXGQf8f
+	 TZkv5TAQfhR2Q==
+Date: Thu, 30 Jul 2026 11:09:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Lachlan Michael <lachlan.michael@sony.com>
 Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com, 
@@ -35,11 +35,10 @@ Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com,
 	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com, 
 	Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
- bindings
-Message-ID: <20260730-elastic-amaranth-urchin-4b8bbf@quoll>
+Subject: Re: [PATCH 2/2] media: i2c: Add Sony IMX908 image sensor driver
+Message-ID: <20260730-ruddy-tricky-wildebeest-ec9e46@quoll>
 References: <20260730021525.166811-1-lachlan.michael@sony.com>
- <20260730021525.166811-2-lachlan.michael@sony.com>
+ <20260730021525.166811-3-lachlan.michael@sony.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -48,55 +47,117 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260730021525.166811-2-lachlan.michael@sony.com>
+In-Reply-To: <20260730021525.166811-3-lachlan.michael@sony.com>
 
-On Thu, Jul 30, 2026 at 11:15:24AM +0900, Lachlan Michael wrote:
-> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-> with a MIPI CSI-2 output interface.
-> 
-> Add device tree bindings for the sensor.
-> 
-> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
+On Thu, Jul 30, 2026 at 11:15:25AM +0900, Lachlan Michael wrote:
+> +	msleep(24); /* Regulator stabilization after standby cancel. */
+> +
+> +	ret = cci_read(imx->cci, IMX908_REG_TYPE_ID, &val, &err);
+> +	if (ret || err)
+> +		return ret ? ret : err;
+> +
+> +	chip_id = val;
+> +	dev_info(imx->dev, "IMX908 chip ID: 0x%04x\n", chip_id);
 
-You need to test code before you send it, not with our infra.
-
-To spare you one sending cycle:
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
-> ---
->  .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
->  MAINTAINERS                                   |   7 ++
->  2 files changed, 114 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-
-...
-
-> +++ b/MAINTAINERS
-> @@ -25264,6 +25264,13 @@ T:	git git://linuxtv.org/media.git
->  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
->  F:	drivers/media/i2c/imx415.c
->  
-> +SONY IMX908 SENSOR DRIVER
-> +M:	Lachlan Michael <lachlan.michael@sony.com>
-
-> +L:	linux-media@vger.kernel.org
-
-Drop
-
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-> +F:	drivers/media/i2c/imx908.c
-
-No such file.
+Drivers should be silent on success. Drop or dev_dbg.
 
 > +
->  SONY MEMORYSTICK SUBSYSTEM
->  M:	Maxim Levitsky <maximlevitsky@gmail.com>
->  M:	Alex Dubov <oakad@yahoo.com>
-> -- 
-> 2.47.3
-> 
+> +	if (chip_id != IMX908_CHIP_ID) {
+> +		dev_err(imx->dev, "Unexpected chip ID 0x%04x (expected 0x%04x)\n",
+> +			chip_id, IMX908_CHIP_ID);
+> +		return -ENXIO;
+> +	}
+> +
+> +	/* Set to standby mode */
+> +	ret = cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, NULL);
+> +	if (ret)
+> +		dev_err(imx->dev, "failed to enter standby state: %d\n", ret);
+> +
+> +	return 0;
+> +}
+> +
+> +static int imx908_probe(struct i2c_client *client)
+> +{
+> +	struct imx908 *imx;
+> +	int ret;
+> +
+> +	/* Allocate Memory */
+
+Really?
+
+> +	imx = devm_kzalloc(&client->dev, sizeof(*imx), GFP_KERNEL);
+> +	if (!imx)
+> +		return dev_err_probe(&client->dev, -ENOMEM,
+> +				     "failed to allocate IMX908 device structure\n");
+> +	imx->dev = &client->dev;
+> +
+> +	/* Initialize V4L2 subdevice */
+
+Obvious.
+
+> +	v4l2_i2c_subdev_init(&imx->sd, client, &imx908_subdev_ops);
+> +	imx->sd.internal_ops = &imx908_internal_ops;
+> +
+> +	/* Register access initialization. Set 2-byte (16-bit) addresses */
+> +	imx->cci = devm_cci_regmap_init_i2c(client, 16);
+> +	if (IS_ERR(imx->cci))
+> +		return dev_err_probe(&client->dev, PTR_ERR(imx->cci),
+> +				     "CCI regmap init failed\n");
+> +
+> +	/* Get mandatory input clock from DT (INCK) */
+
+Obvious.
+
+> +	imx->xclk = devm_clk_get(imx->dev, "xclk");
+> +	if (IS_ERR(imx->xclk))
+> +		return dev_err_probe(imx->dev, PTR_ERR(imx->xclk), "xclk\n");
+> +
+> +	/* Get clock frequency and check against acceptable HW values */
+> +	imx->xclk_freq = clk_get_rate(imx->xclk);
+> +	ret = imx908_get_inck_sel(imx);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* GPIO reset acquisition */
+
+Please drop obvious comments. Can devm_gpiod_get_optional() be anything
+else than GPIO reset acquisition? No.
+
+Redundant comments bloat the code and make it more difficult to actually
+spot important things.
+
+> +	imx->reset_gpio = devm_gpiod_get_optional(imx->dev, "reset",
+> +						  GPIOD_OUT_HIGH);
+> +
+> +	if (IS_ERR(imx->reset_gpio))
+> +		return dev_err_probe(imx->dev, PTR_ERR(imx->reset_gpio),
+> +				     "reset gpio\n");
+> +
+> +	/* Link to power supplies */
+> +	ret = imx908_get_regulators(imx);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "regulator get failed\n");
+> +
+> +	/* Parse Device Tree endpoint */
+
+Obvious
+
+> +	ret = imx908_parse_fwnode(imx);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "device tree parse failed\n");
+> +
+> +	/* Power on IMX908 image sensor */
+
+What if imx908_power_on() does power off of the sensor?
+
+> +	ret = imx908_power_on(imx);
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "power-on failed\n");
+> +
+> +	/* Read IMX908 device ID */
+
+Best regards,
+Krzysztof
+
