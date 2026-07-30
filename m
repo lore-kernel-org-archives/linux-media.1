@@ -1,39 +1,39 @@
 Received: from ixit.cz (ixit.cz [185.100.197.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E9B3C1F46;
-	Thu, 30 Jul 2026 09:15:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E403FFABF;
+	Thu, 30 Jul 2026 09:22:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785402928; cv=none; b=FcLxyT9aOiNxKH93JP7ZpepbJnKy2AciQyyj1F1bah1h4/fjThetVIlAXfYNTTpkGOKdtOlgZXXu4a/k/wS+iFfspNXPy1KviEkRPWIuwDrckryL7dGQZLf4pKYnfBCc85F7blKxXP0AQ4D04ybTRHUWStq7gNAOVNP8pRHfcpM=
+	t=1785403341; cv=none; b=cytPQJ9VPlKe/rND10/oaE7YeXejuetpQdVpWZ/DDu0mEznXyhc7qCuubaZ4WUZ1puiomYsDJNEBCluLSvgwD2j123mw9fDAu3TR5ek0PYsZWwchR4eHQmwPqffHjEr15HnZ/LLhlwz5oBj+VxTxTqk9vRfl5hBbk4PkePynciQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785402928; c=relaxed/simple;
-	bh=UmwN+WTJEJE7oKulH1Yg0C5zd6Y9t88c1da4+WxIRLU=;
+	s=arc-20240116; t=1785403341; c=relaxed/simple;
+	bh=cs2czJ6L3Hm3J0RCGZuds1IMtFRnYH6ybz0tK2i6rig=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sXLU0OGV+6H7aBPHBRQyRPCQpE97jHkqQ9I3WttXTC/WW6I8dMK6LEQycFd9pCXShlgGn9SQ8yHKt+i8HsHrl+JE0dl0x0Penb2HbP+ou/G8Ss7EpGRovhSAy5QAKuvSrs0Wq/5B38e9iJmgTycehxSpqU2ffWfSV4c7mO1moy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=bFrob3te; arc=none smtp.client-ip=185.100.197.86
+	 In-Reply-To:Content-Type; b=ZDw5xewgFdWbTohnZLeKGniC2QiCBK35+KAI+GC3g4XQnt4hvii7WfHjZ7THZLqxc+JlzE/tx1sK+1T+AB6+4CaLXZlCa+Lu77lHPNUHCA+2di59LHhecqTfTH43iypCm3lRxFxWIM7FMvjdFns8nf7ZHN/zJ84XEbHH3yImHXI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=g3yZbcYl; arc=none smtp.client-ip=185.100.197.86
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="bFrob3te"
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="g3yZbcYl"
 Received: from [172.20.10.2] (78-80-17-116.customers.tmcz.cz [78.80.17.116])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 4E01153401D8;
-	Thu, 30 Jul 2026 11:15:18 +0200 (CEST)
+	by ixit.cz (Postfix) with ESMTPSA id 9603C5340200;
+	Thu, 30 Jul 2026 11:22:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785402919;
+	t=1785403332;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=N+hma7a5kVC2Y5gdV6R4vjgQiSTBA8PLN2bcB14p5/0=;
-	b=bFrob3te3onucFY7WzPjAAeVNTL2d1dTRXkuHXKFHilSYM41Y5PmdYb5vKqosSy13EaJtt
-	RBtYQdRiIm9/GD+C5qhYw39Ue1fls2dvMoyVeq4Zm5diK4BFyYFNOJP6qMZcDQt6sG6AKC
-	aNUHnBzBFpr71qyNPnXYaKomQAlQfeI=
-Message-ID: <3648ba47-fa2a-4e2d-a3f2-040cd9568ace@ixit.cz>
-Date: Thu, 30 Jul 2026 11:15:17 +0200
+	bh=JEyzl6lt8ai9G4Oxiag+VTZHxXQe60Ayevig6+mQcHo=;
+	b=g3yZbcYlvEx7FMl0DBUQuwj7R5/DZbqRocjRh4b0xPE8Cjxnwak2vG4DyI2haUGejY/ric
+	aHmxb2dAijRYkSCrazPSeCz+vCVY3VNKEYHiwPJgf5tpy80Hu1+wD1LrKt297FHtBsBLZu
+	P3upRNryF2M80JGnVRsDB6DkRN4jhJY=
+Message-ID: <0afc1927-e8bf-4976-8744-50089e81b331@ixit.cz>
+Date: Thu, 30 Jul 2026 11:22:11 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,8 +41,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v9 6/9] media: qcom: camss: csiphy-3ph: Add Gen2
- v1.1 MIPI CSI-2 C-PHY init
+Subject: Re: [PATCH RESEND v9 8/9] media: qcom: camss: Account for C-PHY when
+ calculating link frequency
 To: Frank Li <Frank.li@oss.nxp.com>
 Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
  Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
@@ -60,8 +60,8 @@ Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
  phone-devel@vger.kernel.org
 References: <20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz>
- <20260729-qcom-cphy-v9-6-1f8d9fdab037@ixit.cz>
- <ampyJ9FmwKmpE0YW@lizhi-Precision-Tower-5810>
+ <20260729-qcom-cphy-v9-8-1f8d9fdab037@ixit.cz>
+ <ampzggsXYEZ34ieJ@lizhi-Precision-Tower-5810>
 Content-Language: en-US
 From: David Heidelberg <david@ixit.cz>
 Autocrypt: addr=david@ixit.cz; keydata=
@@ -107,186 +107,218 @@ Autocrypt: addr=david@ixit.cz; keydata=
  zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
  fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
  ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <ampyJ9FmwKmpE0YW@lizhi-Precision-Tower-5810>
+In-Reply-To: <ampzggsXYEZ34ieJ@lizhi-Precision-Tower-5810>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 29/07/2026 23:35, Frank Li wrote:
-> On Wed, Jul 29, 2026 at 10:20:01PM +0200, David Heidelberg wrote:
->> Add a PHY configuration sequence for the sdm845 which uses a Qualcomm
->> Gen 2 version 1.1 CSI-2 PHY.
+On 29/07/2026 23:41, Frank Li wrote:
+> On Wed, Jul 29, 2026 at 10:20:03PM +0200, David Heidelberg wrote:
+>> Ensure that the link frequency divider correctly accounts for C-PHY
+>> operation. The divider differs between D-PHY and C-PHY, as described
+>> in the MIPI CSI-2 specification.
 >>
->> The PHY can be configured as two phase or three phase in C-PHY or D-PHY
->> mode.
+>> For more details, see:
+>> https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
+>>
+>> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+>> Link: https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   drivers/media/platform/qcom/camss/camss-csid.c   |  6 ++++--
+>>   drivers/media/platform/qcom/camss/camss-csiphy.c |  6 ++++--
+>>   drivers/media/platform/qcom/camss/camss.c        | 15 +++++++++++++--
+>>   drivers/media/platform/qcom/camss/camss.h        |  2 +-
+>>   4 files changed, 22 insertions(+), 7 deletions(-)
+>>
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
+>> index bcc34ac9dd212..c8cb6f1a3d3bc 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csid.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
+>> @@ -535,24 +535,26 @@ const struct csid_format_info *csid_get_fmt_entry(const struct csid_format_info
+>>   /*
+>>    * csid_set_clock_rates - Calculate and set clock rates on CSID module
+>>    * @csiphy: CSID device
+>>    */
+>>   static int csid_set_clock_rates(struct csid_device *csid)
+>>   {
+>>   	struct device *dev = csid->camss->dev;
+>>   	const struct csid_format_info *fmt;
+>> +	const bool cphy = (csid->phy.phy_sel == CSID_PHY_SEL_CPHY);
+>> +
+>>   	s64 link_freq;
+>>   	int i, j;
+>>   	int ret;
+>>
+>>   	fmt = csid_get_fmt_entry(csid->res->formats->formats, csid->res->formats->nformats,
+>>   				 csid->fmt[MSM_CSIPHY_PAD_SINK].code);
+>> -	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp,
+>> -					csid->phy.lane_cnt);
+>> +
+>> +	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp, csid->phy.lane_cnt, cphy);
+>>   	if (link_freq < 0)
+>>   		link_freq = 0;
+>>
+>>   	for (i = 0; i < csid->nclocks; i++) {
+>>   		struct camss_clock *clock = &csid->clock[i];
+>>
+>>   		if (!strcmp(clock->name, "csi0") ||
+>>   		    !strcmp(clock->name, "csi1") ||
+>> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> index 539ac4888b608..a136cd27880a6 100644
+>> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
+>> @@ -139,18 +139,19 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
+>>   	struct device *dev = csiphy->camss->dev;
+>>   	s64 link_freq;
+>>   	int i, j;
+>>   	int ret;
+>>
+>>   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
+>>   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
+>>   	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
+>> +	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
+>>
+>> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
+>> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
+>>   	if (link_freq < 0)
+>>   		link_freq  = 0;
+>>
+>>   	for (i = 0; i < csiphy->nclocks; i++) {
+>>   		struct camss_clock *clock = &csiphy->clock[i];
+>>
+>>   		if (csiphy->rate_set[i]) {
+>>   			u64 min_rate = link_freq / 4;
+>> @@ -265,19 +266,20 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
+>>   static int csiphy_stream_on(struct csiphy_device *csiphy)
+>>   {
+>>   	struct csiphy_config *cfg = &csiphy->cfg;
+>>   	s64 link_freq;
+>>   	u8 lane_mask = csiphy->res->hw_ops->get_lane_mask(&cfg->csi2->lane_cfg);
+>>   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
+>>   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
+>>   	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
+>> +	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
+>>   	u8 val;
+>>
+>> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
+>> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
+>>
+>>   	if (link_freq < 0) {
+>>   		dev_err(csiphy->camss->dev,
+>>   			"Cannot get CSI2 transmitter's link frequency\n");
+>>   		return -EINVAL;
+>>   	}
+>>
+>>   	if (csiphy->base_clk_mux) {
+>> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
+>> index 072c428e25166..66171069057f8 100644
+>> --- a/drivers/media/platform/qcom/camss/camss.c
+>> +++ b/drivers/media/platform/qcom/camss/camss.c
+>> @@ -27,16 +27,24 @@
+>>   #include <media/v4l2-mc.h>
+>>   #include <media/v4l2-fwnode.h>
+>>
+>>   #include "camss.h"
+>>
+>>   #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
+>>   #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
+>>
+>> +/*
+>> + * C-PHY encodes data by 16/7 ~ 2.28 bits/symbol
+>> + * D-PHY doesn't encode data, thus 16/16 = 1 b/s
+>> + */
+>> +#define CAMSS_COMMON_PHY_DIVIDENT 16
+>> +#define CAMSS_CPHY_DIVISOR 7
+>> +#define CAMSS_DPHY_DIVISOR 16
+>> +
+>>   static const struct parent_dev_ops vfe_parent_dev_ops;
+>>
+>>   static const struct camss_subdev_resources csiphy_res_8x16[] = {
+>>   	/* CSIPHY0 */
+>>   	{
+>>   		.regulators = {},
+>>   		.clock = { "top_ahb", "ispif_ahb", "ahb", "csiphy0_timer" },
+>>   		.clock_rate = { { 0 },
+>> @@ -4619,29 +4627,32 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
+>>   	}
+>>   }
+>>
+>>   /**
+>>    * camss_get_link_freq - Get link frequency from sensor
+>>    * @entity: Media entity in the current pipeline
+>>    * @bpp: Number of bits per pixel for the current format
+>>    * @lanes: Number of lanes in the link to the sensor
+>> + * @cphy: If C-PHY encoding is used.
+>>    *
+>>    * Return link frequency on success or a negative error code otherwise
+>>    */
+>>   s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
+>> -			unsigned int lanes)
+>> +			unsigned int lanes, const bool cphy)
 > 
-> too much or, according to my understand D-PHY use 2 phase,  C-PHY use 3
-> phase?
+> you change this function argument, can you direct pass down csiphy instead
+> entity
 > 
-> The PHY can be configured as two phase (D-PHY) or three phase (C-PHY) ?
+> so move
+> const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
+> 
+> into this help function,
+> 
+> to avoid dupicate such logic everywhere.
 
-Yes, I'll address the wrong wording in the next version then :)
+I tried similar approach in previous revisions [1], but it ended poorly due to 
+this structure not being initialized at the time when I need it what I recall, 
+thus I ended up with the cphy param again :(
+
+David
+
+
+[1] https://lore.kernel.org/all/20260605-qcom-cphy-v7-7-426c37e9008f@ixit.cz/
 
 > 
 > Frank
-> 
->> This configuration supports three-phase C-PHY mode.
+>>   {
+>>   	struct media_pad *sensor_pad;
+>> +	unsigned int div = lanes * 2 * (cphy ? CAMSS_CPHY_DIVISOR :
+>> +					       CAMSS_DPHY_DIVISOR);
 >>
->> Acked-by: Cory Keitz <ckeitz@amazon.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   .../platform/qcom/camss/camss-csiphy-3ph-1-0.c     | 78 +++++++++++++++++++++-
->>   1 file changed, 76 insertions(+), 2 deletions(-)
+>>   	sensor_pad = camss_find_sensor_pad(entity);
+>>   	if (!sensor_pad)
+>>   		return -ENODEV;
 >>
->> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> index 5c07aa9d19c51..83de89a88dbb1 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
->> @@ -45,16 +45,23 @@
+>> -	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
+>> +	return v4l2_get_link_freq(sensor_pad, CAMSS_COMMON_PHY_DIVIDENT * bpp, div);
+>>   }
 >>
->>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRLn(offset, n)	((offset) + 0x4 * (n))
->>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL5_CLK_ENABLE	BIT(7)
->>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_COMMON_PWRDN_B	BIT(0)
->>   #define CSIPHY_3PH_CMN_CSI_COMMON_CTRL6_SHOW_REV_ID	BIT(1)
->>   #define CSIPHY_3PH_CMN_CSI_COMMON_STATUSn(offset, common_status_offset, n) \
->>   	((offset) + (common_status_offset) + 0x4 * (n))
->>
->> +#define CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(n) \
->> +	(0x0100 + ((n) * 0x4))
->> +#define CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(n) \
->> +	(0x0300 + ((n) * 0x4))
->> +#define CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(n) \
->> +	(0x0500 + ((n) * 0x4))
->> +
->>   #define CSIPHY_DEFAULT_PARAMS		0
->>   #define CSIPHY_LANE_ENABLE		1
->>   #define CSIPHY_SETTLE_CNT_LOWER_BYTE	2
->>   #define CSIPHY_SETTLE_CNT_HIGHER_BYTE	3
->>   #define CSIPHY_DNP_PARAMS		4
->>   #define CSIPHY_2PH_REGS			5
->>   #define CSIPHY_3PH_REGS			6
->>   #define CSIPHY_SKEW_CAL			7
->> @@ -141,16 +148,17 @@ csiphy_lane_regs lane_regs_sa8775p[] = {
->>   	{0x0460, 0xFD, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0464, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x065C, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0660, 0xFD, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
+>>   /*
+>>    * camss_get_pixel_clock - Get pixel clock rate from sensor
+>>    * @entity: Media entity in the current pipeline
+>>    * @pixel_clock: Received pixel clock value
+>>    *
+>>    * Return 0 on success or a negative error code otherwise
+>> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+>> index 93d691c8ac63b..12b14ba8fcec3 100644
+>> --- a/drivers/media/platform/qcom/camss/camss.h
+>> +++ b/drivers/media/platform/qcom/camss/camss.h
+>> @@ -164,17 +164,17 @@ struct parent_dev_ops {
 >>   };
 >>
->>   /* GEN2 1.0 2PH */
->> +/* 5 entries: clock + 4 lanes */
->>   static const struct
->>   csiphy_lane_regs lane_regs_sdm845[] = {
->>   	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0028, 0x00, 0x00, CSIPHY_DNP_PARAMS},
->> @@ -215,16 +223,82 @@ csiphy_lane_regs lane_regs_sdm845[] = {
->>   	{0x0608, 0x00, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->>   	{0x060C, 0x00, 0x00, CSIPHY_DNP_PARAMS},
->>   	{0x0610, 0x52, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0638, 0xFE, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0660, 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0664, 0x7F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   };
->>
->> +/* GEN2 1.0 3PH */
->> +/* 3 entries: 3 lanes (C-PHY) */
->> +static const struct
->> +csiphy_lane_regs lane_regs_sdm845_3ph[] = {
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(9),  0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN1_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(9),  0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN3_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(23), 0x43, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(26), 0xa0, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(27), 0x25, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(1),  0x06, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(3),  0x12, 0x00, CSIPHY_SETTLE_CNT_LOWER_BYTE},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(2),  0x00, 0x00, CSIPHY_SETTLE_CNT_HIGHER_BYTE},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(5),  0x20, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(20), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(6),  0x3e, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(7),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(8),  0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(9),  0x7f, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(10), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(11), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(17), 0x12, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(24), 0x02, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(51), 0x41, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(25), 0x00, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +	{CSIPHY_LN5_CSI_3PH_CTRLn_ADDR(55), 0x51, 0x00, CSIPHY_DEFAULT_PARAMS},
->> +
->> +};
->> +
->>   /* GEN2 1.1 2PH */
->>   static const struct
->>   csiphy_lane_regs lane_regs_sc8280xp[] = {
->>   	{0x0004, 0x0C, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x002C, 0x01, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0034, 0x0F, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x001C, 0x0A, 0x00, CSIPHY_DEFAULT_PARAMS},
->>   	{0x0014, 0x60, 0x00, CSIPHY_DEFAULT_PARAMS},
->> @@ -1169,18 +1243,18 @@ static void csiphy_lanes_enable(struct csiphy_device *csiphy,
->>   	int i;
->>
->>   	switch (csiphy->camss->res->version) {
->>   	case CAMSS_845:
->>   		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
->>   			regs->lane_regs = &lane_regs_sdm845[0];
->>   			regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845);
->>   		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
->> -			regs->lane_regs = NULL;
->> -			regs->lane_array_size = 0;
->> +			regs->lane_regs = &lane_regs_sdm845_3ph[0];
->> +			regs->lane_array_size = ARRAY_SIZE(lane_regs_sdm845_3ph);
->>   		}
->>   		break;
->>   	case CAMSS_2290:
->>   	case CAMSS_6150:
->>   		if (c->phy_cfg == V4L2_MBUS_CSI2_DPHY) {
->>   			regs->lane_regs = &lane_regs_qcm2290[0];
->>   			regs->lane_array_size = ARRAY_SIZE(lane_regs_qcm2290);
->>   		} else if (c->phy_cfg == V4L2_MBUS_CSI2_CPHY) {
+>>   void camss_add_clock_margin(u64 *rate);
+>>   int camss_enable_clocks(int nclocks, struct camss_clock *clock,
+>>   			struct device *dev);
+>>   void camss_disable_clocks(int nclocks, struct camss_clock *clock);
+>>   struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
+>>   s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
+>> -			unsigned int lanes);
+>> +			unsigned int lanes, const bool cphy);
+>>   int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
+>>   int camss_pm_domain_on(struct camss *camss, int id);
+>>   void camss_pm_domain_off(struct camss *camss, int id);
+>>   int camss_vfe_get(struct camss *camss, int id);
+>>   void camss_vfe_put(struct camss *camss, int id);
+>>   void camss_delete(struct camss *camss);
+>>   void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+>>   void camss_reg_update(struct camss *camss, int hw_id,
 >>
 >> --
 >> 2.53.0
