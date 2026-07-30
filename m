@@ -1,66 +1,87 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A52C13D413C
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 08:39:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9663E1225
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 08:50:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785400744; cv=none; b=c2qMbfwz3s9XmCFtvWxaLbNz05ZshO6IUSa6dAXNwy7uSSYbBi8duTSIbR4UKe1eBomgSFKkZmdNIJtB6/347MUv160TVUndZ6lRlPY6HWc9JEeU7lfJQkDxOtakByTi0iYm+WAlFzrR3wHTGc0Okkiz7jWYLsLjQTAwAtV52Qw=
+	t=1785401443; cv=none; b=RISOuHNolx9BNbl3xAYHbihpm8blxYqzdua71eWHKEQ8IDFAiyvwAmkWUWnYHQ1CzvDclgH7jS5Lch28fJn/nuoqjmCvLP6OqjUetzdQ4KnNhcONq/uGtegES2C845gg2PK8X7ks7D1Hvwl/lCLEF9dWEVhZ5p5WWXr2GDt9qhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785400744; c=relaxed/simple;
-	bh=bnoklQTVbTeNGwqtd87yLfBvVJfKM3Ux5RhP73hG3Dg=;
+	s=arc-20240116; t=1785401443; c=relaxed/simple;
+	bh=KZKdLIYWIv8tdGoWpFWS4PuNKTV0IFluv0JT6hkKHDo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jDDqVUDHSVnUNRSYRo0B7K5fGQ3+RD7HcZ0bWfvHYV7tls65sta9GTTZTYlqr6XFn1a9WolskH6CEsvANZ13k3m/ONN1m1eapgzVC6lF1+IuhEx2XDrx1OKvNucWMrrx+cTMG5AkN7pxJJ/BuDddfat3zGhKBxUirYNzcQjxetg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=x0CHts/7; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=AC3fbSC9YXWBS/kScuVux3Eme6lScnlx3vuJ2QMhHVehw4EzY1UPdyAemBsngd2QUYemClO8Qjk+CdMbRl1MCD9eGa895fGsCTSyxEzQXmIVX2MlPm6Ws+NKMTObOh9WRCcPYbnrtufGClyAP4iQCmiLNCBt1ua6eRzirzHxs5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=edmY86q5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YaX2mCNq; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="x0CHts/7"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c1c24ec9525so318531266b.1
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 01:39:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="edmY86q5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YaX2mCNq"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U8fcLK1475718
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 08:50:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=; b=edmY86q5QQeIvazu
+	UjATeEWrkaPoVuItFLnqi8ukeZe/RsH5yy6ozKux94y1hl4z+rfCM7h8ZGzxRYCg
+	uQOUnYrGIDzhSXY83Ov6NGdw78Ba42s0D7O9MLjPS1t0F83NMpxWnsF7fy9H6oDG
+	1kPbReqs0kD3uVWJSkra3Qx99+1HN5r86f4BqlrT8nP0iL6rgFhO+Qn+QL4qskvy
+	OMYX9tgCJ015m2V0P/Bys2gvumz+OF/9E3oxfisp1fzN7aNiluk+WrJK6FpmuNlG
+	3UoExxKIpn36LsCIyVza3ncVWOJgIEUz3bYoMXRRHl7sxi1bJd9qI1bZtJzbq88h
+	BUMKFg==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3ax816p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 08:50:38 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb4bd11ddf8so2114210a12.3
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 01:50:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785400740; x=1786005540; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7FkYK6dd5edwcDAVNaFfBC6T7A7KyI3+YEgz2sgH0OM=;
-        b=x0CHts/7Waqq+8s+MChmXEifypKYd+RlaKjKb9wnD9jfMg8aR0Tjz3RecFwF8YoTL8
-         8lmG0MZ2n/37XckqGFu300vJ6WfsEjA299wMeLOLxZdD5t5N1MlvwpN8CiCZYIPR2NPt
-         zaoN6HqClQV8U3q125HhEQGTAPmQRGAw4OKj4Di9sq7R0fe+2LClafKAmY1n0a+TLfXa
-         7e1dtu3EKj2yxULXF7Lw97HEASt+zbMOf0gwif0ofmTS4o3bqU1b04aFXa83aOG2X9KN
-         jTtD12DGKFt1Lyu/cyHFpE9PdNA7wVwwIb+vdWq8aHxSZDh4i0j2pu9k84qjWGKFb3Rt
-         svZw==
+        d=oss.qualcomm.com; s=google; t=1785401438; x=1786006238; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=;
+        b=YaX2mCNqAmBm8klEQXsxbaAu0QBD/CeVsn4QxejeewF5GzQcMdK7w/AxDMzZNHqboT
+         vlJyIt7EikrRVNDc1FOvHRdOdkwaTccOxHooP6wuwKQ3HDzxknd0N0IFHpk3M0j8dCPa
+         R6NoZ2p1q1ldOapt8pXZPf/9LFzb6MThWv5PUt5F77u07LYfZAJJP5QAqGnocgHwNCv9
+         YUoZPcdY0O8AC47EzUoRB28PE2klVpcVxLj38IuKIHRMY4tvWT/NkGM3NfhbQ8AEXfZi
+         NRaWacleAtrMTqo4yEXhbfoZuffXyyWcMCXmuJqT62HrYFc3hNmNUt9P7YjsEiDQdOMQ
+         d3+g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785400740; x=1786005540;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1785401438; x=1786006238;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7FkYK6dd5edwcDAVNaFfBC6T7A7KyI3+YEgz2sgH0OM=;
-        b=r9mOK9YileYzBUIT8RaBAbm3VzsmRNMN6wFJfshkTuJ5vr+NjQ7FkcJLMtZ+rE+10q
-         seV0wXe5b07O15Oow9j5bTbGfXvtlNeydv3zMV+1T2n6/C0j+3XcZl/jevU1fhi4Y2R8
-         oHkPgyQbkmFjCVVt/JL71pPNERpWCUEw0RTVniYMLuQ3/0fkRR3D5kY/6iaN8jb+cgXu
-         3/weE6MJnLTGnWrZbfw8VpnMe8NbChOOx8iMOl7SvWz+/cTaWeaBJB1eS5pT84J/pMLe
-         dBBgSTJA0TfeeQRl7tl3ZYElhbHtUFyh4lCnEeJi1eywc6YCFoTQ2Nis+/w8amrlTDVT
-         ylRQ==
-X-Gm-Message-State: AOJu0Yy0TSM40yNlHgp9qwRYge1cRPWsesVbE4Sv4NfkgF4DA8ES964B
-	f/ApAUDYWA5BqbGlsm06iyT7iftxn/upBySxsW4bGpG67OG2vj8NAPuCLnvzBgPYwBLMhgxQioE
-	mojSWacA=
-X-Gm-Gg: AR+sD12qnljpNAm8GJP3LxP2+tPT72A0T6OODUt3EMgVLiJJHM7q5I/RFT7MqMlAmov
-	etlRoIDxhkrFBmJXsiwp3nkO8N7Pb63MygEhZuZL+UzPUK4gh6ylz7e0Met5mv+tjcgARqBACaL
-	CQEt+RWzU+P2Ke1oJSru9gjuboTSpUdsI7VjqgiLWaw/aaGTq7Km6U2h29F7phXLq2J1250nFsH
-	3flWg/yTAPCSG8LI3INDLVA+QOELZieSmQ65yi6oiytBL+PJzWHSwpWMwt54FMW0F0dCRL4+JHv
-	j9oW3Gd7yznR0zV39zY5d7sBrI8kQ6xaT2T4PuxfjHVwPqRdFA7HbKG6a3a21gl7ip2nahsMupd
-	7pIUA20qmDM80LTVmFJcKqLl1/09Yl26KoQklifhH6G0pPzWZAtT0693TA/D52vbvD7oY/QtRCP
-	77+ZCrO8J10aDpNfUAOIdjwvmoiqIHuHr35HaqIrqEhqK+xTLNHBshWuZfmwKOA/iiafAH+mI6
-X-Received: by 2002:a17:907:d10:b0:c12:959a:1477 with SMTP id a640c23a62f3a-c1fa57076cemr85304566b.40.1785400739622;
-        Thu, 30 Jul 2026 01:38:59 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.38.123])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a07c7682bfsm337996a12.1.2026.07.30.01.38.58
+        bh=xOvJCQ+5VvVgswjumANrE9rhfvumkQxKMERIvOtcGjk=;
+        b=KkINEhPcuKdVa5V2n7QPSKDda/BpyYXp/Uopy12HFmOVOCD3PE2Sc9GT4Rb8k2u6j0
+         GEf51m+G5ltnhJADZMZvMhLlrSxt0lNmPRL3LYfQhdswJy6TYGs57Yte42PghXRcic+r
+         WZhWlZZEVMKdSAxfxaOz9c8gtpJxZ3ZpqRW+xI78Zs7XSx8vAwslacrtCRHbqHpXzR07
+         H4zqhoSYWup5tA70azeIrA3tWvq2D+cUd+tTNjTIClNKBXI5TBujaPM/kKFVf9NIj0La
+         RHdq9MpLuEgyfxBfozjn7pW8N3JI13deSiws095AI8UjxjTdfkuxAxBvVPdTkBFQYiWi
+         i/Kg==
+X-Forwarded-Encrypted: i=1; AHgh+Rqkx8/9pqU3oeew70jkX02ZCqI9+aAZpZAT9hY2y9FgXwyyHSlnOljaEvilHndWpoPQrZzvB/WvdV8tLQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxL6JkYHMt6Vd8gJvEvbTSvFW/PiBUy8EpRuT4VsiRSYnu7Xeyf
+	+YTPA51pVG9u9nkc+sXdemWJEwEtusZ3O5YziP3NNbaRxxItX8y/hPtV2b7KrX9PL5W4/xXPD4n
+	ADUivPjuTTYVparIcLJc+KwDhO6FkL/IcvyPPf/Xdg9jC8z5O4UazHmTX7+qU/t4g6w==
+X-Gm-Gg: AR+sD12aQ9ABl6Y/G/ayRU3pkmwWkIn92iWsg62EAdJ0/tedzBN2P7g1G/OjAF64s5e
+	ZAZ9xiS5HHsI+z1E+C/iO5sdW1IBD4Ck4E0BIXoN7GS/vs7x7zm6B9qP0IS3QwS42lJhgtnziWs
+	ck5ECyBYQ4EtbWwoZpwdp/SH9ecfr7IeWsScWJpB9Ss8AmrjtDsQ6XLaekTyhL7/HtcD4jUj2dm
+	4/6trowkLJrC/5QpnR3IcwIrX2sfKM0zxs5igYTRNAMFrScj6PN22zE74Y9MMoqR6J7Dr7mv2q8
+	xcL7kRUrP0exovoTQ6o02PLvXHLmLf/VYS15bz7ZpenoNZjm/v0oTw7IWSR7VfMzJa7PS8KqejU
+	7QhkSj0L+rn09/TbzEN29KLbO3ijwjXJmbtg=
+X-Received: by 2002:a05:6a21:600b:b0:3c0:b766:74f4 with SMTP id adf61e73a8af0-3c9007b4c82mr1766094637.31.1785401437699;
+        Thu, 30 Jul 2026 01:50:37 -0700 (PDT)
+X-Received: by 2002:a05:6a21:600b:b0:3c0:b766:74f4 with SMTP id adf61e73a8af0-3c9007b4c82mr1766066637.31.1785401437294;
+        Thu, 30 Jul 2026 01:50:37 -0700 (PDT)
+Received: from [192.168.0.172] ([49.205.250.102])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504b12cdasm21115475eec.1.2026.07.30.01.50.31
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 30 Jul 2026 01:38:59 -0700 (PDT)
-Message-ID: <a4a1dc46-ff07-4ecb-b41f-341b6aacb3ab@linaro.org>
-Date: Thu, 30 Jul 2026 09:38:58 +0100
+        Thu, 30 Jul 2026 01:50:36 -0700 (PDT)
+Message-ID: <854914dd-0872-497d-94f6-81a36a405cf2@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 14:20:29 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,159 +89,107 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] media: qcom: camss: Add PM clock support and
- integrate with runtime PM
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260717-camss-version-v1-0-7ed71fea95e8@oss.qualcomm.com>
- <20260717-camss-version-v1-1-7ed71fea95e8@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20260717-camss-version-v1-1-7ed71fea95e8@oss.qualcomm.com>
+Subject: Re: [PATCH v5 1/4] dt-bindings: media: qcom,venus-common: Add IOMMU
+ IOVA reservation region
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260722-shikra_vpu-v5-0-3d80babd4672@oss.qualcomm.com>
+ <5nIoqMekE2B3CTU4TIlUJxoI3Exckc2sUM9RmZBqboEOvgmkdrhKlRX3-FiMOiYFCWXwzO5pii52NJ6epuy1Fw==@protonmail.internalid>
+ <20260722-shikra_vpu-v5-1-3d80babd4672@oss.qualcomm.com>
+ <557377b0-7a21-45b6-b62c-d3b34a6a29f4@linaro.org>
+ <67c78d88-92b8-44b9-bbcc-6f53f6c60ef9@oss.qualcomm.com>
+ <048506d0-7dac-43f1-a50b-f9f4c1d125a1@oss.qualcomm.com>
+ <c3131fcd-c2ff-47e2-a8eb-858456b88ed9@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <c3131fcd-c2ff-47e2-a8eb-858456b88ed9@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: Acyt8umI0hioQ-iu5L6XceErPZrNH8gg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2MyBTYWx0ZWRfX2IGk08mqX0g8
+ PyH15XAWUab2oAI/oMaQvnkGII4mhalUYvBfb/m9ruKYPYGTcx4+d/1h/+Wz8jmz51XUOEWmCeD
+ oI79fVuiSQp7b88p7qc+TLsszkms6p1460mQ8ddBI/zlc7xycNSiZ9KZyzvk8fLRjNGjdDC8tHt
+ pN/96Xi+DZfZGWTTJfvL2oASgyfFxgiwq0ACFp61Ee+PJiSgozbq1gn2cdzJh9AVGYMdv/R+YLZ
+ 9Cx2Afcl7bmke/TppfowIN56pi/WeKS2QlSBUb4PJ1x/UOpG/mNUIQEam0ZJETV+42rHz79Nkeu
+ q9CFkFuoCMXGcdBq7gJ7n6KPJfSoS7hwT7OYbEbEKXEb8HDDeJqvj38Bh7c8HrVJrNMc7zle/kg
+ YZDS+7B/9LfA3a1/KH4MK3DOO0I2W0/xow7HUarMXO1GG94Vhw6XXpBcdpusfvspVj9q1+INecE
+ 9MRfDnE8HOWdHzt0kaA==
+X-Authority-Analysis: v=2.4 cv=Frg1OWrq c=1 sm=1 tr=0 ts=6a6b105e cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=M2acBXnaP4sAQTlOGKtplg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=Z3p5NtGldf99kMNzltkA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: Acyt8umI0hioQ-iu5L6XceErPZrNH8gg
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2MyBTYWx0ZWRfX/+LKEo7kCzs7
+ 2Ikut+F7UMs5FCV0vnMzIjumLr7zQejwBAswjkzcKDT0ARq20iI4n7XXfC4d11NaX1QOJ4piv/4
+ AYVrT6XLoRRFMDxQuaFGZBrhOvb8BgM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 impostorscore=0 suspectscore=0 clxscore=1015
+ malwarescore=0 spamscore=0 bulkscore=0 priorityscore=1501 phishscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607300063
 
-On 17/07/2026 15:20, Loic Poulain wrote:
-> Add optional PM clock support to the CAMSS driver using the PM clock
-> framework. This allows CAMSS clocks to be registered once and
-> automatically managed during runtime suspend and resume.
-> 
-> This is especially useful for global CAMSS clocks that are shared across
-> multiple CAMSS subblocks.
-> 
-> This avoids the need for each subblock to reference and manage the
-> shared clocks individually. A typical example is the set of clocks in
-> the top_group, which may be used by CSID, PHY, CCI, and other CAMSS
-> blocks.
-> 
-> Introduce a small PM clock descriptor table in the CAMSS resources
-> structure to describe clocks and their optional rates. Initialize
-> these clocks at probe time and delegate clock ownership to the PM
-> core.
-> 
-> Hook PM clock handling into the runtime PM callbacks to ensure clocks
-> are properly suspended and resumed alongside power domains and ICC
-> paths.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 40 ++++++++++++++++++++++++++++++-
->   drivers/media/platform/qcom/camss/camss.h |  1 +
->   2 files changed, 40 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 2123f6388e3d7eafe669efd6b033e22d8eb5cf79..6a2bf3373e8755805c8cd0f8fe5037b788d68fa2 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -18,6 +18,7 @@
->   #include <linux/of_graph.h>
->   #include <linux/pm_runtime.h>
->   #include <linux/pm_domain.h>
-> +#include <linux/pm_clock.h>
->   #include <linux/slab.h>
->   #include <linux/videodev2.h>
->   
-> @@ -5346,6 +5347,35 @@ static void camss_genpd_cleanup(struct camss *camss)
->   	dev_pm_domain_detach(camss->genpd, true);
->   }
->   
-> +/*
-> + * camss_init_pm_clks - register shared CAMSS clocks with the PM clock framework
-> + *
-> + * Clocks listed in res->pm_clks are shared across all CAMSS sub-devices (e.g.
-> + * top_ahb, axi). They are managed automatically by the PM framework.
-> + */
-> +static int camss_init_pm_clks(struct camss *camss)
-> +{
-> +	struct device *dev = camss->dev;
-> +	unsigned int i;
-> +	int ret;
-> +
-> +	if (!camss->res->pm_clks[0])
-> +		return 0;
-> +
-> +	ret = devm_pm_clk_create(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	for (i = 0; i < CAMSS_RES_MAX && camss->res->pm_clks[i]; i++) {
-> +		ret = pm_clk_add(dev, camss->res->pm_clks[i]);
-> +		if (ret)
-> +			dev_warn(dev, "failed to add pm_clk %s: %d\n",
-> +				 camss->res->pm_clks[i], ret);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
->   /*
->    * camss_probe - Probe CAMSS platform device
->    * @pdev: Pointer to CAMSS platform device
-> @@ -5434,6 +5464,10 @@ static int camss_probe(struct platform_device *pdev)
->   
->   	pm_runtime_enable(dev);
->   
-> +	ret = camss_init_pm_clks(camss);
-> +	if (ret)
-> +		goto err_v4l2_device_unregister;
-> +
->   	ret = camss_parse_ports(camss);
->   	if (ret < 0)
->   		goto err_v4l2_device_unregister;
-> @@ -5775,7 +5809,7 @@ static int __maybe_unused camss_runtime_suspend(struct device *dev)
->   			return ret;
->   	}
->   
-> -	return 0;
-> +	return pm_clk_suspend(dev);
-   CC      drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs.o
-   CC      drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.o
-   AR      drivers/staging/media/ipu7/built-in.a
-In file included from ./include/uapi/linux/posix_types.h:5,
-                  from ./include/uapi/linux/types.h:14,
-                  from ./include/linux/types.h:5,
-                  from ./include/linux/kasan-checks.h:5,
-                  from ./include/asm-generic/rwonce.h:26,
-                  from ./arch/x86/include/generated/asm/rwonce.h:1,
-                  from ./include/linux/compiler.h:369,
-                  from ./include/linux/err.h:5,
-                  from ./include/linux/clk.h:12,
-                  from drivers/media/platform/qcom/camss/camss.c:10:
-drivers/media/platform/qcom/camss/camss.c: In function 
-‘camss_runtime_suspend’:
-./include/linux/stddef.h:8:14: error: called object is not a function or 
-function pointer
-     8 | #define NULL ((void *)0)
-       |              ^
-./include/linux/pm_clock.h:77:25: note: in expansion of macro ‘NULL’
-    77 | #define pm_clk_suspend  NULL
-       |                         ^~~~
-drivers/media/platform/qcom/camss/camss.c:5841:16: note: in expansion of 
-macro ‘pm_clk_suspend’
-  5841 |         return pm_clk_suspend(dev);
-       |                ^~~~~~~~~~~~~~
-drivers/media/platform/qcom/camss/camss.c: In function 
-‘camss_runtime_resume’:
-./include/linux/stddef.h:8:14: error: called object is not a function or 
-function pointer
-     8 | #define NULL ((void *)0)
-       |              ^
-./include/linux/pm_clock.h:78:25: note: in expansion of macro ‘NULL’
-    78 | #define pm_clk_resume   NULL
-       |                         ^~~~
-drivers/media/platform/qcom/camss/camss.c:5851:15: note: in expansion of 
-macro ‘pm_clk_resume’
-  5851 |         ret = pm_clk_resume(dev);
-       |               ^~~~~~~~~~~~~
-make[7]: *** [scripts/Makefile.build:289: 
-drivers/media/platform/qcom/camss/camss.o] Error 1
-make[7]: *** Waiting for unfinished jobs....
-   CC      drivers/media/usb/pwc/pwc-misc.o
 
-Please fix.
+On 7/29/2026 5:51 PM, Konrad Dybcio wrote:
+> On 7/23/26 12:44 PM, Vikash Garodia wrote:
+>>
+>> On 7/23/2026 2:36 PM, Konrad Dybcio wrote:
+>>> On 7/23/26 12:03 AM, Bryan O'Donoghue wrote:
+>>>> On 22/07/2026 14:41, Vikash Garodia wrote:
+>>>>> Update the memory-region property to support two regions:
+>>>>> 1. Firmware-loaded codec carveout (existing)
+>>>>> 2. IOMMU IOVA reservation region (new)
+>>>>>
+>>>>> The IOMMU IOVA reservation region is required to restrict usage of
+>>>>> specific IOVA memory range. For example, VPU restricts usage of 600MB
+>>>>> for specific streams, which could otherwise lead to device crash. This
+>>>>> change allows platforms to define separate memory regions for codec
+>>>>> carveout and IOVA restrictions.
+>>>>> This schema update supports existing DTS having single memory-region,
+>>>>> thereby allowing gradual migration of DTS to support two memory region.
+>>>>>
+>>>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+>>>>> ---
+>>>>
+>>>> I'm not mega-happy with this pattern being used - I prefer the pixel pixel_cb sub-node model you've proposed yourself.
+>>>>
+>>>> OTOH you're the maintainer so its really up to you how you want to arbitrate this - the 600MB constraint will work even if its not pretty or the best thing (tm).
+>>>>
+>>>> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+>>>
+>>> Doesn't this cause the same limitation that the initial patch
+>>> by Daniel (all HW contexts can't access 0-600MiB anymore)?
+>>
+>> Yes, it does, but for cases, like Shikra, which have single streams (with SMRs), there is no additional benefit in going with sub nodes in such case.
+> 
+> Please note that somewhere, I was under the impression all venus
+> impls suffer from that
 
----
-bod
+Yes, all of venus/iris, including Shikra, have this limitation. I was 
+trying to convey that for single stream case, like that of Shikra, we 
+can specify the restrictive IOVA range in the parent iris node itself 
+instead of introducing a sub node and put the same restriction there.
+
+Regards,
+Vikash
+
+> 
+> Konrad
+
