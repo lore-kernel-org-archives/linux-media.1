@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB2FC3AB292;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECA663B583B;
 	Thu, 30 Jul 2026 06:55:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785394555; cv=none; b=NT1IS1PeamSA65zGJXqhmrIeXBj8HOxsAmijGmJZX9RDedv0HFySJHbbXBPmDXRanC2dqmKWLhKEkb/3Yu/qH3WHcaQMoyBthD3u3e2WOKfmyio1W4VIQCuR7AcD9Y3/M0+4DqzgFQP56PEkZYkoy3so1tzvIvDzAskPpkqRzvk=
+	t=1785394556; cv=none; b=QwbsxCGRsjkvcO9/XYVuKHRD63mdt+wBuBq5NQVKZnot5A2IfKg2d7MLsU0P0+x3h5HHD7F2tqoSzTeZ2vRcydldqK4TAolXueqxIce/MYCnK9bPjK1AVHXz0GkG4N6V/OkKNwxxQSmkB5byMxz4ncgW0BYMBZGmdM1gEJoSuHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785394555; c=relaxed/simple;
-	bh=UFUl4N3XhdI0DQ/0q2S9M1Qj7vKWFijQ3dTOh8TDIkA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=in/sfdMIHKCwBxlwqKeC89d9/nYCZ2/9zSzfGPNANXkO1Tdq8lCXo5B1tkZ33sj18emJxMMhu1SExTaLUbgn6o3cBQzvVDtag4VKzNaBkDTjlddgDUCisccyV6LK60e7UGZnADNWJ5q/L8BCXodYNxf7pQxNWq+N8X+nMZIs6MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ml7ov/SG; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785394556; c=relaxed/simple;
+	bh=xpjKSsxFaiyFqDYADXsNYRBx+ogdmSGr0N/oPOVaHTA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=iCSUH2XskCdsshzhNuIOjvVC/14jBmFtcpFmpXJ9jUI1A1QHCqhtmbUhRemDbVV+SVYo9VuRJTCfn7h6i/7CE1rzAox/LOeLvQQSJKEE2RuTAmmfEA05xMHmKCRJuMKrIXB7AeKdNjT7CTN/e4AjsEgzjYfPk1MwkBYwWZTn59s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I12lCvxk; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ml7ov/SG"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 89216C2BCB9;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I12lCvxk"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A8AEC19425;
 	Thu, 30 Jul 2026 06:55:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1785394555;
-	bh=UFUl4N3XhdI0DQ/0q2S9M1Qj7vKWFijQ3dTOh8TDIkA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ml7ov/SGUNsNv7DCXwH7SVyGACZyCfO5pUtWo/gU81tspR0A+1AfLDbkvG4UenWyD
-	 95vjEP/niZjXSxFcTHjk3NfgSbd00X+EcLqVUG7kzWR4wt8rhEQQm3zLjtGLAah8+o
-	 GP8KgevDGvGkNcyX3TgGMzAJJ83iBvhfYQvxnLVyTRoxpVwQDgZJHdgV+VkV2lauVm
-	 klb6F5SE9yXirSPdfNbyI7mL7qjN+Rv8tEZuzQWltdzy70BJLaB/In2bw9yoMiq2DN
-	 TBwhqyyVKSmbWx4N/gJ3/U4SEGYwHL3QRcX1dxU5d0ideX/WAsDDYz8ni6DhAAm2wx
-	 lC3dwe3H4Ka4w==
+	bh=xpjKSsxFaiyFqDYADXsNYRBx+ogdmSGr0N/oPOVaHTA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=I12lCvxk9WbfOZiU5MSo752psMq715nsxGzkoO9WHidl2GH06VYnwKSIggCugBQfE
+	 hNW3EQCWax9vDLHK4gaucbMt7AH742UzX1+DYZetN0PHD8xRjoxX/2vhoMWvOqjR3H
+	 mKhN0/zoqRPlj1kwgJMI/EDrGRwRnfMr8gnoFHmrB+mzPv23pBj+yZdHa9wVBHONbv
+	 DcnfvA/K/UY4k/eoYbc5Uhj/LvNVL+hs+QKvvjtC07baQ6b2HJ0/x+Gz+fMKax0oMi
+	 IgvpapuJr0nSD8Frtklgq7eZcmpLQuE86SQnjpraE1bGckUjyjoAquLXc6LJVxPzyq
+	 vwweeKhhpta+Q==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5FA03C531D0;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 370EEC54FDF;
 	Thu, 30 Jul 2026 06:55:55 +0000 (UTC)
 From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
-Date: Thu, 30 Jul 2026 14:55:52 +0800
-Subject: [PATCH v9 1/2] dt-bindings: media: add ITE IT6625/IT6626 HDMI
- bridge
+Subject: [PATCH v9 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Thu, 30 Jul 2026 14:55:51 +0800
+Message-Id: <20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,9 +41,13 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-upstream-it6625-it6626-v9-1-e7725db2b92f@ite.com.tw>
-References: <20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw>
-In-Reply-To: <20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw>
+X-B4-Tracking: v=1; b=H4sIAHf1amoC/43QzU7DMAwH8FeZcqZT4vgj5cR7IA5pmrActk5tK
+ aCp7042OBRVlXqy/pb8s+ybGmKf46CeDzfVxykPubuUUD8dVDj5y3uscluyAg2sxXD1cR3GPvp
+ zlUdmoN/CFTtB3zhPVpMqw9c+pvz1gF/fSj7lYez678eeydy7fyToLXIyla5QqDaQBJHqlzzGY
+ +jOx/FT3c0Jlo7ZdKA4EjBZYgzeupVjlw5sOrY4NUoknbQRxpWD+xwsTtDWMsSGKPiVQ/scKo5
+ 1EoUcJgjr//A+h4vDxkiLbc0k67tk6dhNR4qTnBFqGh29gZXjlo5sOq44EGyjU02AKfxz5nn+A
+ YpLD3C1AgAA
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
 To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -52,11 +56,11 @@ Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785394553; l=10167;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785394553; l=10098;
  i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
- bh=+xgOYb+lt2GDE+rvatG/zMQAC2IttuEgR7noGOBzF5c=;
- b=+pslEBLRSS8e0BQk9zMsmxlqJ6zk3JXw7rV7RmQLvIG5Rt1ePotJGNQbOzPN9feJgTfwieR44
- EHLXoyeSTUKBybjBlz/DOH5fQ9NiG5I68rgBnigK6To681YN1ETq+90
+ bh=xpjKSsxFaiyFqDYADXsNYRBx+ogdmSGr0N/oPOVaHTA=;
+ b=1/IZszzTcyEHWTYm83NpnZQ9FP0VG0+LGyLQrSKvg2aSkmfB+upGd5kUCV+YRoRlECBzn+Nph
+ xzM4s/QqxAYApeGXiR1eUFi7n5ksYmIdWRx/PKujdfgbbYRs2g//eHU
 X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
  pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
 X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
@@ -64,292 +68,184 @@ X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
 X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
 Reply-To: Hermes.wu@ite.com.tw
 
-From: Hermes Wu <Hermes.wu@ite.com.tw>
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
 
-Document the devicetree binding for the ITE IT6625/IT6626 HDMI to
-MIPI CSI-2 bridge. The device exposes two graph ports: port@0
-(MIPI0) and port@1 (MIPI1), the two selectable CSI-2 D-PHY/C-PHY
-outputs. Only port@0 is required, since a board only needs to wire up
-as many of the bridge's outputs as it actually uses.
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
+
+Patch 2 adds the V4L2 subdevice driver itself.
 
 Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
 Changes in v9:
-- No code change. The sashiko.dev automated review of v8 re-raised
-  restricting port@0/port@1 endpoint bus-type to D-PHY (4) only for
-  "ite,it6625" -- the exact constraint dropped in the v7->v8 fold at
-  Krzysztof Kozlowski's explicit on-list request ("If the bus-type is
-  fixed, why is it in the DT in the first place? Compatible defines it
-  already."). Re-adding it would directly contradict that real
-  maintainer feedback from the same series, so it's dismissed again,
-  not fixed.
+- Patch 1 (dt-bindings): no code change -- the sashiko.dev automated
+  review of v8 re-raised the it6625 bus-type constraint dropped in v8
+  at Krzysztof Kozlowski's explicit request; checked and dismissed
+  again for the same reason. Also carrying forward his Reviewed-by
+  from v8's on-list review, since the patch content is unchanged.
+- Patch 2 (driver): fix two correctness issues found by the sashiko.dev
+  automated review of v8 -- the IRQ handler always returned
+  IRQ_HANDLED even when no interrupt source was observed, defeating
+  the kernel's spurious-IRQ storm protection, and
+  it6625_initial_setup() touched REG_HOST_CTRL_INT without holding
+  it6625_lock despite running after cec_register_adapter() already
+  exposed /dev/cecX to userspace. One other v8 review finding
+  (fps_from_bt_timings() 32-bit overflow) was checked and is not being
+  acted on -- see the patch's own changelog for the arithmetic
+  reasoning.
+- Link to v8: https://lore.kernel.org/r/20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw
 
 Changes in v8:
-- Drop the redundant trailing "binding" from the subject -- the
-  "dt-bindings:" prefix already says so.
-- Use a bare "description:" (no block-scalar indicator) instead of
-  "description: |-", matching the dominant in-tree style and
-  adi,adv748x.yaml's own multi-line description.
-- Drop the bare "clock-noncontinuous: true" / "link-frequencies: true"
-  entries under port@0/port@1 endpoints: they add no constraint beyond
-  what video-interfaces.yaml already allows via $ref.
-- Add the missing blank line between the ports.required block and the
-  top-level required list.
-- Drop the allOf branch forcing port@0/port@1 endpoint
-  bus-type = const 4 for "ite,it6625": that value is already implied
-  by compatible, so asserting it again in the schema added nothing.
-  The "ite,it6626" branch requiring bus-type is unaffected.
-- Document interrupts (optional) and the vcc10-supply/vdd33-supply/
-  ovdd-supply power rails (required), and extend the example with
-  all three plus the previously-missing port@2 node.
-All found by Krzysztof Kozlowski's on-list review of v7.
+- Patch 1 (dt-bindings): fix several nits from Krzysztof Kozlowski's
+  on-list review (subject, description style, two redundant bare
+  properties, a missing blank line), drop the it6625 bus-type
+  constraint he questioned as redundant with compatible, and document
+  interrupts and the three power-supply properties -- also answering
+  his "how does this device work without any power supplied?" and
+  closing the same undocumented-ABI gap he flagged for interrupts on
+  patch 2. See the patch's own changelog for the full list.
+- Patch 2 (driver): drop of_match_ptr() (Krzysztof's review), and fix
+  an interlaced-signal pixel clock bug found by the sashiko.dev
+  automated review of v7 and confirmed against the IT6625 spec: the
+  chip already reports the correct pixel clock for interlaced sources,
+  so halving it on top of that was wrong. One other v7 review finding
+  (get_fmt leaking active state into TRY width/height/field) was
+  checked and is not being acted on -- it matches an established
+  pattern in tc358743.c. See the patch's own changelog for both.
+- Replying on-list (not a patch change) to Krzysztof's question about
+  whether the it6625/it6626 compatible strings encode any real
+  difference -- they do (C-PHY is gated on chip_type in
+  it6625_parse_endpoint()).
+- Link to v7: https://lore.kernel.org/r/20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw
 
 Changes in v7:
-- Add back port@2 for the HDMI input port, reversing the v4 decision
-  to drop it. The v6 automated review re-raised the same concern with
-  stronger footing than v3's: devicetree describes the physical
-  hardware independent of what a given driver consumes, and the chip
-  has a physical HDMI input regardless of whether it6625.c wires
-  anything to it. Checked against adi,adv7604.yaml, an
-  actively-maintained upstream binding for a comparable HDMI-receiver
-  chip, which documents its input port(s) the same way via
-  graph.yaml's generic port pattern -- concrete precedent that an
-  input port unused by the driver still belongs in the schema.
-  Verified port@2 stays optional and the schema still validates with
-  dt-doc-validate/dt-validate both with and without it present.
+- Patch 1 (dt-bindings): add back port@2 for the HDMI input port,
+  reversing the v4 decision to drop it -- the v6 automated review
+  re-raised the concern, and adi,adv7604.yaml (an actively-maintained
+  binding for a comparable HDMI-receiver chip) confirms documenting an
+  input port unused by the driver is the established convention, not
+  a defect.
+- Patch 2 (driver): fix three correctness issues found by automated
+  review of v6 -- it6625_parse_endpoint() could read the mipi_csi2
+  union under a bus_type the parser had silently fallen back to
+  parallel/BT656 on; it6625_set_fmt()'s active-format path left
+  format->format.colorspace stale for VIDIOC_SUBDEV_S_FMT callers; and
+  it6625_s_edid() never rejected a non-zero start_block as the
+  VIDIOC_S_EDID spec requires. See the patch's own changelog for the
+  full list.
+- Link to v6: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw
 
 Changes in v6:
-- Unchanged. The v5 automated review flagged that the it6626
-  conditional's `required: [bus-type]` constraint, expressed under
-  `properties: { endpoint: {...} }`, doesn't match an `endpoint@N`
-  unit-addressed node and could in principle be bypassed. Checked
-  against mipi-ccs.yaml, an actively-maintained upstream binding that
-  requires bus-type (among other properties) via the exact same
-  `properties.endpoint.required` idiom with no patternProperties --
-  direct evidence this is accepted convention, not a defect, so no
-  fix was made.
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
+
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
 
 Changes in v4:
-- Drop port@2 (the HDMI connector input graph port) entirely: it
-  added no constraints beyond graph.yaml's generic endpoint-base, and
-  the driver doesn't use this graph port for anything schema-relevant,
-  so there was nothing for a consumer devicetree to usefully validate
-  against it. Found by the automated review of v3, which suggested
-  adding it to `required` instead -- dropping it entirely was judged
-  the better fix since the port carried no real constraints to begin
-  with.
-- Require bus-type on port@0/port@1 endpoints when compatible contains
-  "ite,it6626": the driver defaults to D-PHY when bus-type is omitted,
-  which is always correct for it6625 (D-PHY only) but would silently
-  misconfigure an it6626 board actually wired for C-PHY. Also found by
-  the automated review of v3.
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
 
-One other v3 review finding was checked and is not being acted on:
-- The plain `properties: { endpoint: {...} }` override used for each
-  port technically doesn't reach graph.yaml's separate
-  `patternProperties` matcher, so an `endpoint@0`-style node could in
-  principle bypass the local data-lanes/bus-type constraints. This is
-  the same convention already used by other single-endpoint-per-port
-  bindings in-tree (e.g. thine,thp7312.yaml), not a defect unique to
-  this binding.
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
 
 Changes in v2:
-- Restrict port@0/port@1 endpoint bus-type to D-PHY (4) only when
-  compatible is "ite,it6625", via an allOf/if/then constraint. IT6625
-  only supports MIPI CSI-2 D-PHY output; the schema previously allowed
-  both C-PHY (1) and D-PHY (4) unconditionally, so a devicetree
-  claiming "ite,it6625" with bus-type = C-PHY passed schema validation
-  despite being invalid on that hardware. IT6626, which supports both
-  PHY types, is unaffected. Found by the sashiko.dev automated review
-  of v1.
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
+
 ---
- .../devicetree/bindings/media/i2c/ite,it6625.yaml  | 175 +++++++++++++++++++++
- 1 file changed, 175 insertions(+)
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+      media: i2c: add driver for ITE IT6625/IT6626
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-new file mode 100644
-index 0000000000000000000000000000000000000000..756fe655f534f85b23b7741d06710c956f9694d8
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/ite,it6625.yaml
-@@ -0,0 +1,175 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/ite,it6625.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: ITE IT6625/IT6626 HDMI to dual MIPI CSI-2 bridge
-+
-+maintainers:
-+  - Hermes Wu <Hermes.wu@ite.com.tw>
-+
-+description:
-+  The ITE IT6625 and IT6626 are HDMI to MIPI CSI-2 bridge devices.
-+  IT6625 supports an HDMI 2.0 input and converts it to one or two D-PHY CSI
-+  outputs, while IT6626 supports an HDMI 2.1 input and converts it to one or
-+  two C/D-PHY CSI outputs. The bridges are programmable through I2C and
-+  expose two selectable CSI-2 output ports and an HDMI input port. The
-+  bridge can operate in split mode or clone mode.
-+
-+properties:
-+  compatible:
-+    enum:
-+      - ite,it6625
-+      - ite,it6626
-+
-+  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description:
-+      GPIO connected to the active-low reset line.
-+    maxItems: 1
-+
-+  vcc10-supply:
-+    description: 1.0V core supply
-+
-+  vdd33-supply:
-+    description: 3.3V supply
-+
-+  ovdd-supply:
-+    description: I/O supply voltage
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: CSI-2 output port MIPI0
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+            required:
-+              - data-lanes
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: CSI-2 output port MIPI1
-+
-+        properties:
-+          endpoint:
-+            $ref: /schemas/media/video-interfaces.yaml#
-+            unevaluatedProperties: false
-+
-+            properties:
-+              data-lanes:
-+                minItems: 1
-+                maxItems: 4
-+
-+              bus-type:
-+                enum:
-+                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-+                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-+
-+            required:
-+              - data-lanes
-+
-+      port@2:
-+        $ref: /schemas/graph.yaml#/$defs/port-base
-+        unevaluatedProperties: false
-+        description: HDMI input port
-+
-+    required:
-+      - port@0
-+
-+required:
-+  - compatible
-+  - reg
-+  - ports
-+  - vcc10-supply
-+  - vdd33-supply
-+  - ovdd-supply
-+
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ite,it6626
-+    then:
-+      properties:
-+        ports:
-+          properties:
-+            port@0:
-+              properties:
-+                endpoint:
-+                  required:
-+                    - bus-type
-+            port@1:
-+              properties:
-+                endpoint:
-+                  required:
-+                    - bus-type
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      hdmi-bridge@4c {
-+        compatible = "ite,it6625";
-+        reg = <0x4c>;
-+        interrupts = <3 IRQ_TYPE_LEVEL_LOW>;
-+
-+        reset-gpios = <&gpio 2 GPIO_ACTIVE_LOW>;
-+
-+        vcc10-supply = <&vcc10_reg>;
-+        vdd33-supply = <&vdd33_reg>;
-+        ovdd-supply = <&ovdd_reg>;
-+
-+        ports {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          port@0 {
-+            reg = <0>;
-+            csi_out0: endpoint {
-+              remote-endpoint = <&csi2_rx0>;
-+              bus-type = <4>; /* MEDIA_BUS_TYPE_CSI2_DPHY */
-+              data-lanes = <1 2 3 4>;
-+            };
-+          };
-+
-+          port@2 {
-+            reg = <2>;
-+            endpoint {
-+              remote-endpoint = <&hdmi_con>;
-+            };
-+          };
-+        };
-+      };
-+    };
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  175 ++
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2231 ++++++++++++++++++++
+ 5 files changed, 2432 insertions(+)
+---
+base-commit: 8dac27bfa2f994ecb11f01a63641527d17d48fc1
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
 
+Best regards,
 -- 
-2.34.1
+Hermes Wu <Hermes.wu@ite.com.tw>
 
 
