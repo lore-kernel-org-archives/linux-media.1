@@ -1,62 +1,64 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F707231A3B
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 00:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8711517BEBF
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 00:50:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785371520; cv=none; b=MFJX9EMsutmEFi6/lgBiNA+jriZJC8WHL+C3tWrN00EFw7jRk/nhtVgFrRH8d9NSezbYQ6tgGLK64cgj93fBtiuvjnXvrJkZgIvKGhjGzL5taW0y+XynCFvlqTCaJ/dbLfvuBooc9O28B5EXz9ymXJN/cPPd7B8NHivjE0lyXTA=
+	t=1785372628; cv=none; b=e3EsdmSMUkdpvb1joUoYcKSyFubsmiox8xN9pql3HyEGQIsgQkMYeeMOzXWm/k2dRJQSG4QZa1u4Niv04ILDuP067zw8gTwiiO/lFnEu7m6r5n+t5qZ4k3OxDQhzkTITR5gamknvrUSr1Wa/QG+FfSAB6/Gt+nj2Y8HoaM/6bXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785371520; c=relaxed/simple;
-	bh=bO6bqb6KUrCPgryacquWh0ulqfVmsf3tpawDe42V13E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hPewJwOdz0EN14m0OyKthioiEDOdA5LKWMVbVvHg53KldqMVvQfnBKa8ueWo36v7U69QjTeFlis3Ce4SekDlrloTvwNCuwJKvIYVtEOgSgBsyZvwaCnDckGpHh8Ayy+j/EWbttT3bMPTiNApVgCb+aPNgYkdezgg49UuKDM0aMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfD1ORkl; arc=none smtp.client-ip=209.85.214.175
+	s=arc-20240116; t=1785372628; c=relaxed/simple;
+	bh=lz/ENHeg7lc/pGSfCrb2mdLNbLhHT47k+38RQe4MdVo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OI+OuQ879Ar8W+Eq5KjnZnt+e+HUeHhEXJGdSK3c06NPfW3S0FzygVUCeYzjEHgJdCw47SGIQ64vIMG4M9CAKdBvPk5PjHD91Logx0JaMv1n1ykc96Nx9VoC7vUZ323jkL5+vc936vPTpBWXs4WYPmBfDfyqH9AXGGtYNbYmriU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYLg+bk7; arc=none smtp.client-ip=209.85.215.178
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfD1ORkl"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ceab75934dso19009995ad.2
-        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 17:31:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYLg+bk7"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-ca766c1c9ccso919254a12.0
+        for <linux-media@vger.kernel.org>; Wed, 29 Jul 2026 17:50:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785371518; x=1785976318; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fI6aSyOYXjF/tGTQD0BJTcmduvJ9bMsRenmuTJgMGVU=;
-        b=AfD1ORklujtuKaH3cyNLvDs0arByPKK2lmFYa8Xx+OCP7BKd0uY5hooWs9ndXJ5iX5
-         31yxYRtb0yJKJMMxUgc1nhrJOXSUppiOHz5MVJip/NtEHgjY3Jvvkp6u+G4E3N9TRe9Y
-         MDP7bqli2pJfjNROVN4PBo/uF8M1EQL8+N73hN7arh3bZFe9JHchYlgN3U1JWwQpKwnQ
-         puqvT15bLPiPB3DDpHUZOaXFt0nRlSbXd0IRFfezo8ktdyP+ErKUJ5gv/YiH8YMsixfY
-         cu5hxWIm7Ysy7n5p+XYY2aZfJDEHmtw5k8JoposYmbc8L9qvd9BqjYo629yGY8JKSGps
-         qxWQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785371518; x=1785976318;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1785372627; x=1785977427; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fI6aSyOYXjF/tGTQD0BJTcmduvJ9bMsRenmuTJgMGVU=;
-        b=QS5j88HC8X9zIJXbYJ1YP394SUPVPbozc4GM/K+sdBs4Fh6f8aAwLUh7/+0xrn7goE
-         EOq6eP1tXD5T15FlUESAtZuoIOE8Wxhss7Z6F2CPdWKzH5F5SAjuZakn0VtV/hvETxaU
-         Wr+qfmEoMuva9BmM+gS7/y5jLTm3UTnOvo2jRdx7ymZ8zXq9KewHgms6zEB4vox3Uy/E
-         fvENIfmjuDsMajND1hJIUcTlVL2zmiyucsf2eGcXkPmBJNbuvwNF9jqybpx/dr/lbWvL
-         3Pb2+d5Q7HEiaFCOMkKPS5rdJzHr64hBfNMhPGWygiAqFOgnhAR83rQ64fUa09K0mCA5
-         jjxg==
-X-Gm-Message-State: AOJu0YwicPCXKs1aOWWJmO3oQnsxdV+ZjashJILMz3ycCS/iWT1/bCV3
-	S+77GQWwPL19iWv1cV8Izn9Pjcw+5MbuzqHTnEZwFQkkt6Ii+a0jHNLNunBtu7OkrtY=
-X-Gm-Gg: AR+sD10rAU9G73wJeBwwMY5uhJGd+yaO7bWPKVn3AdHyyu9JMdNNom5d/TeoIIBAdXF
-	onF7Rl6VY120qLw4WkvtKyGmxfElyNGQFkK+b85bqqOVHulAP9cc7hIuyiUEpD7whTHFbYuz+sx
-	JGwU2nnKPUe2aGjNF0JQpsNyfzMsJhWjiMseR3L5uy/fxhgTPuPFMwGksXnavvtf2fIsChx6GoG
-	zABLCo3ZRSeG/ro1vPN95aZ3CxVIJH8duwaK3QhGm1/QhRDSH8gcUU2nrYwXNrGtw8fuucWTGyP
-	SmsYCSTgdryZBOW/vNlB5fcbVk0Ge3bf2PH9rPnHO98yoWJi+7fjVwuGdl+4RxARs3X+MBo6bY1
-	ZxESIYPCK9rBRX9eFdTCyHbm/A6rGKYx6KbjDDnZaNnd0PscjyQVEZVsKt2W8FD0XsRBALlyQaB
-	7QmJGRBIpJI/qYz0ezS08MFydqtx2bvtZb4SRJq+46BL8DKTN2NnLIbrmOxBQ/QO9/Yx7pBWAbf
-	kwosoea2oFx6XQfD2dSQD/MqGFqb3c1rWjsh01e6SGpx70cLCnQP72XjLDtaEhKFQYId7BFUprQ
-	QNijLplp
-X-Received: by 2002:a17:903:120e:b0:2c2:bd0d:3cf0 with SMTP id d9443c01a7336-2d035ccd3cemr5576695ad.25.1785371518417;
-        Wed, 29 Jul 2026 17:31:58 -0700 (PDT)
+        bh=tTcejbfPpIi7RoF28k6VKpbyOUJ6ogQJG6qo6DRmZEc=;
+        b=VYLg+bk78vD/1D3Zy39oHs5dYPkJupqkPoj++7nPJPCBRsLbJqCbubOriwJE1405fy
+         FLBEJDfeXj1t4g+kNkIFAMQUr4DC8NT+2TDqHck3xNylSHLCyEou/oz7klqc0h4+H1HZ
+         jw24HNM/EMy4UGiMQIbJ6RaXKkvqSAeTj/c0PLFp6C2bk3YcTL1N5WRaUquoJ5o+X7Ye
+         Qd6ho4siaUwov18MusAz40GSrcs6KELQAijNqeM/3b7OUjldmUEigt7TeoptvQ29UwR2
+         arH26R7Jh4Hd7joDCVL5ydSB7Z/cHfgsoAWji10ZQy4peu7RQfvNY1JQ9vofU05QAvrC
+         yg6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785372627; x=1785977427;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=tTcejbfPpIi7RoF28k6VKpbyOUJ6ogQJG6qo6DRmZEc=;
+        b=O2AXBfaVcYmngLOrJNUFAadbyqwbNob+wjE+3c9u3oVC6PY6HQrLXqwP7YL0w1I+Sd
+         m+dQmFtjC9c5UGIZQC8QNLP8ruy2ul6Ik2RTKE295KFi+GVs+M1tultZc6B/2poRI7so
+         IaReWR0rKD46PUpbxUmlQC1ojPZ5HyCU02K2RfXwf/qeVWvOpltpKwCF8BDYLcQZf6+C
+         wi+SUZbhChZWNl9nSyzWFNGKUMjz4fsuT+KBVEqeH9JAW+UOXKV0c8qc5gMZL89IGINH
+         xS2+e6Bncm34staRDqHYFOP53LNU6FMiRInmBbdBDRKymjkRYX8PFX8U8j7o+zblMamk
+         51Ww==
+X-Gm-Message-State: AOJu0YxYaPKBCeqGSslmGZxVccbST0WJd3fDI6WtPAfouwJ7+q9mn1fW
+	kkhWTLSEhyPzWgOXhQJFhVnQItPzx5pr0fIMPjSkuLBzCb5XT8oboinH
+X-Gm-Gg: AR+sD11igBmKEcNP2dmofndjjVy1YbEf4Zv+zB2vlkE5GA/tfeUVd8rsa6kZlvrTgyZ
+	Z0PbWG5GXPWnx2xy3JD4xNqd5+rr0E0TMhsW2IvIR+btrVeJHDJIgDArACeUyoRjcAuf+P5Cp2L
+	jdnVfOcRcKxjhx00sh/HVXYt8dRleXHttEfF3ktZ/19g/ZFIktnY9RSuf8Sny1KpVZwADYCrybI
+	mUOcblE7NAuoP/Qt3T6WQFgEirLeO6bHTwmlNJVrZhHZ0ZdhOE4w+AerbfwmZNbV+6KUM9bE422
+	9upuI0VJY7ehNlv9h9eYTuWI40nEVnWllDnuHcGGTYmjWwxYaisoK9yeZXBdP3VGLWG1NVqEA0z
+	PGQ1inm8tF86/ORaHoBvX+yxzcg1XHyh/BLszEGHq9IfLxjznRIWk2XaaeGUzGFKK9eZwbF8KB2
+	I83tyt/aZTFzsnicHQtoeUkzsJ2nxveuM+I8DPfYsv/jmHVtySuNYk7Z4FPliZUTZKF+mHkj83b
+	F6fXe4y8MBL19PCA8T3d4eGUuEGk/aMTiv5YzPPlACLUjuq0KZqEx0XteirWVqM7KbVOnqK2b4w
+	SUzQho0M
+X-Received: by 2002:a05:6a00:2e1e:b0:846:a26:8e0b with SMTP id d2e1a72fcca58-84ebc20ff60mr599833b3a.18.1785372626776;
+        Wed, 29 Jul 2026 17:50:26 -0700 (PDT)
 Received: from alanhc-ROG-Strix-G16-G614PR-G614PR.tailb22ec2.ts.net (1-161-137-250.dynamic-ip.hinet.net. [1.161.137.250])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bf4c0bsm17606485ad.59.2026.07.29.17.31.56
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84e9fe240acsm2088390b3a.7.2026.07.29.17.50.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 29 Jul 2026 17:31:57 -0700 (PDT)
+        Wed, 29 Jul 2026 17:50:26 -0700 (PDT)
 From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 To: sumit.semwal@linaro.org,
 	christian.koenig@amd.com
@@ -65,10 +67,12 @@ Cc: linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-kernel@vger.kernel.org,
 	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Subject: [PATCH] dma-buf: fix stale return value documentation for dma_buf_set_name()
-Date: Thu, 30 Jul 2026 08:31:53 +0800
-Message-ID: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
+Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
+Date: Thu, 30 Jul 2026 08:50:21 +0800
+Message-ID: <20260730005021.4032907-1-alan.tseng.cs@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
+References: <20260730003153.4030818-1-alan.tseng.cs@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,15 +81,24 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kernel-doc for dma_buf_set_name() documents an -EBUSY return for the
-case where the dma-buf is already attached to devices. The function has no
-such path: it returns 0 on success, or the error from strndup_user().
+Commit e73c317efbf9 ("dma-buf: remove restriction of
+IOCTL:DMA_BUF_SET_NAME") removed the dma_resv_lock() and the check on
+dmabuf->attachments that returned -EBUSY. It updated the description above
+the function accordingly, but left the return value description untouched.
+
+dma_buf_set_name() now returns 0 on success, or the error from
+strndup_user(); there is no -EBUSY path left. Update the description to
+match the code.
 
 kernel-doc does not validate prose, so scripts/kernel-doc does not report
 this.
 
+Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
 Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
 ---
+v2: Add a Fixes: tag identifying the commit that left the return value
+    description stale. No change to the diff.
+
  drivers/dma-buf/dma-buf.c | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
