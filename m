@@ -1,380 +1,165 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012060.outbound.protection.outlook.com [40.107.200.60])
+Received: from mout.web.de (mout.web.de [212.227.17.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7CC43A874D;
-	Thu, 30 Jul 2026 04:46:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.60
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785386785; cv=fail; b=Q+8gjKKWlmB7jEXtLddM0e7wkgFrOlCQpXhYEQeDDmo88DWMu0A0KnkBq26KUxmI0eKWcDwK/ISlqeO9G0AIpFKwdP2WwzlwwTo7ypwJDcUegk+Qs6S/S+Jq0fsuPaIItuJGa0+6Yo2IWdiDrLuIVIkLS7t9OA4nsPMhu25N8Ow=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785386785; c=relaxed/simple;
-	bh=iRIjap8cbZO/gBnHuYu4DPHDEmkP2z5obgA2qDGxp9k=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=VJOIGjMtH44362AYAMdKsrtDwAHwiLzHjFaGCGxWQuRGaztIW5crEulLM5wTnPL/gXqZHvqCrGkbi7Y/JEqKE+h6ETbO9cyV10dQFdR7QM6p/hJJsNodm60zhBjL4u4DcbXIdLQgUNRz47vpY3hm76NSVde4+9pkNG3SOljOvMw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=PZkPqPr6; arc=fail smtp.client-ip=40.107.200.60
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19BE936212D;
+	Thu, 30 Jul 2026 05:17:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785388670; cv=none; b=m/olnGTbiD8h1AB3zgMtZlpZFnAfav0xoD8wt6aMSECJsE4aA45KFRXEqONjQph7/wchr2vT/22+//s+YCGUZKF3GXLN+cKdNB16E3yTbky+nKxFATbzyB98ljdruM+7cvVMWwoS5HNtGXwquH1iBmgGwZooCU84Mqwl1gaITsU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785388670; c=relaxed/simple;
+	bh=NMeOn2iscgsid/jdNEVVnFPjiKY8OR1+448qjI5W5qM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lpQUny+kY2uf9yDAHEipZHHftgKiQF3Mtk0pCquMFBNqzK6hNR3k6eE9oRMKCf9RPuVvdvosTwLPWQbulg4PUOoHJdKKXtzGK+I4gtwB+YxIpjW6egyzNpuYhdhQJuAtQpKSlAiJX2IpShqeTtVXBJc89ipuJ0kzJ/+ZsWvygg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de; spf=pass smtp.mailfrom=web.de; dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b=rKnuW7ac; arc=none smtp.client-ip=212.227.17.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=web.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=web.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="PZkPqPr6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lQwzpDeI7eY5B02sVvQiUgK7/xdmUt4R0ojZ2uCOLvGa3B2H7i72yFuGPXH88q69XbIzqs71ZxhlzVHrCCLV5o1vdvXUosPI1+SMMijGfbYZ3c6Aaml2sW2aPxjY4+yXc+d3PTjQOS9S1mBn9KyM5HSjgM6PpIpdDNoalotGVVXJhUrH9CYNcU67YShWMUvbOjlxb4fOa5xY75tr3PbxJHI7VHthtt1pc+akHkQ/WTdV231UPZ5jnHSl9EzlCye7qOqlEX1kpAcGRhua8aZtwnWE/5nGqKtM/8koRbo567PExISAEa4NaEei7BHfyLR2bAsiWpFG7nC2+g4KhsaWQw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=slOOfmYyq+14GAjkjONNmmCVCBqyBDuKc7+VOdIpXXw=;
- b=j+ZWRdNvW0TMxUQMqgFysg7d8X5PQM6HmlyM7C4nQ/cm1gWZW21TYNF/OPdmhplupOk8UHH6KhIL4gUmhoO7DgFSUzZNcfzpaADvrntAAJ0aBoeiYngUJb1bfwezvxnJ5n25HejHfGy3IieMMtR7ax1GFY2wEazrWGvJmdWSdrb4nDWGEiEf9c+FCa96i6M+8vT7BoUcgx9/mfc0TEdT1MMZI5holBX1/cgfDK8aLH8yS4G6U6OUr8fnUaKbo3HPaTUck2YGSZX+vWtuzRJ+1Y2l4sj8q3UNufrBX7CY9y7j4SMcavnjHwq2MC91M6oF191ZN6tmEbxzRJ8SpE4ijQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=slOOfmYyq+14GAjkjONNmmCVCBqyBDuKc7+VOdIpXXw=;
- b=PZkPqPr6LlPEQ2b2hdsxjdQr15bs1VKjgu3Hzx6Xuh6XysaarVKoAcCaV7HJtkDX3Abl7gFoEn5ZsVDUq7jm2orehV1JB6rSHy56ar1QqWBy0FSvvq7kinKaYJ+E+RcwZ7wePFyAdS1FnW9TmO5mqvuE/D0kqH6jXQNZFcBSvpihYVSUM3nT235cNXPdhRfpgXa+fX2MGltOIdkcluh3AI2e7AW1cQp8OeyAsj4vGxBUtzMwwv6oXod3OfEQ46PKNCNcm0BO1bi7oFbRyKFgUOIPNjLogphxOz8U5RnzUSzy4/0Now3GmrzjrzGRKqLmFs/TBWrejIJBnzpVegZvJw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by MN2PR12MB4406.namprd12.prod.outlook.com (2603:10b6:208:268::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.13; Thu, 30 Jul
- 2026 04:46:20 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0270.012; Thu, 30 Jul 2026
- 04:46:19 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Thu, 30 Jul 2026 13:44:46 +0900
-Subject: [PATCH 6/6] drm/tegra: Wait for syncpoint syncobj_in fences in
- hardware
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-b4-host1x-syncobj-wait-v1-6-afa730410392@nvidia.com>
-References: <20260730-b4-host1x-syncobj-wait-v1-0-afa730410392@nvidia.com>
-In-Reply-To: <20260730-b4-host1x-syncobj-wait-v1-0-afa730410392@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- "open list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb" <linux-media@vger.kernel.org>, 
- "moderated list:DMA BUFFER SHARING FRAMEWORK:Keyword:bdma_?:buf|fence|resvb" <linaro-mm-sig@lists.linaro.org>, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY6P301CA0009.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3be::6) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (2048-bit key) header.d=web.de header.i=markus.elfring@web.de header.b="rKnuW7ac"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=web.de;
+	s=s29768273; t=1785388643; x=1785993443; i=markus.elfring@web.de;
+	bh=NMeOn2iscgsid/jdNEVVnFPjiKY8OR1+448qjI5W5qM=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=rKnuW7acc+WkJebAaYLGCHSaRWLARjDyAYqgSn60Cwq5Ae78mZx8TfPYtQRa+Hbm
+	 wkJZTjw2yjneHnCd7Q15Q1CpASC3ekRm8h8UGbL29fceEf52p+ZJ4Fa8koDObvjuv
+	 DIp8YiU7SEhocS8yEFDc817RVqEZZ/3mbVbsVy42PD4BvDye6tAbhS7Ilz7ukzhkk
+	 xvkAFeeT7plLew3UgIwPizqq7XTKzgmRc9eb6+1X7n0S9Su+iVJS5Hx1ziWPeYFJ4
+	 bXLjJuxi+Oz2n5y3HAT8C64Ia3pegp8yT1oQgMXspsZzIkJLz6cPyruHqXZqLy8YK
+	 AapS96gVyb7uARiyxQ==
+X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
+Received: from client.hidden.invalid by smtp.web.de (mrweb105
+ [213.165.67.124]) with ESMTPSA (Nemesis) id 1Mf3qK-1xPzTt1PY2-00lEur; Thu, 30
+ Jul 2026 07:17:23 +0200
+Message-ID: <a7b3b9c3-8568-4acf-8ccc-e92eff73a3bd@web.de>
+Date: Thu, 30 Jul 2026 07:17:20 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|MN2PR12MB4406:EE_
-X-MS-Office365-Filtering-Correlation-Id: fd2a3e5c-0fe1-41e2-eed4-08deedf57f96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|10070799003|1800799024|366016|23010399003|22082099003|18002099003|6133799003|5023799004|11063799006|56012099006|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	WP/dmgjilj7k+gx4v8xu8C6O3Y49Zen71poCHDhfpyZjsqVW5k9kAWbsEtJE1KdrDQHyIUXoIpXMv/wJwDnijYpVi6HUXJYHitnOgUckfwmfCy2AaPz92ssyCI7b7nE/7y78Qet+/cAL97iq33iy8TGHbVKro31z3mevgIxQOkSetHAjUdvRDXWYdgP4H2V9xH2SlM89i2Vu1W6uwbgsJr4YzsLdxstfOVcnk0roVwnCqK49d1Bp2Rsv04vkmaujmdoN9gfo23hxpz4EWpmX8e9HXfTIv8EMtubGKLM2gu8JTH58wGDz4x4HmlQDATDn2fXD41ub3sYWmIm3C9IdWrqNAkcDLdnueHTgQAYlhPedkAjOcaevG5c2WQVDJTBZYokkviF+U3rs7PB/WGF7OrVs+CvNcloNZP71sPF9/kDTlt0ic89FGSFNFyjC7CcmxyFUWhbbRorRbs1wybCewwyTE3MoP6EFYtuifsv224lVtLYbbzclz7fxdnzXngqEDhoeVdXKM2oGYllSrAu9fcDgNnPzIhYKpRat8PsvobSmSFAaS8vswqM5s4wrvejYwZVZMuGapyL//kX1CQvCe+4KX939nhdoHWdO+3142C3E9S2FJJNanIWTdv8HUuFn4IiiMVHLWeoGtnZypA7IyTu46eX88cFmmfVyMbCFJY0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(10070799003)(1800799024)(366016)(23010399003)(22082099003)(18002099003)(6133799003)(5023799004)(11063799006)(56012099006)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?d0FSVTNjK3BkK3hISnlxZFJTbWdpUGl2Y042cjJHdWxiMzVRUFU3VFg2aXcx?=
- =?utf-8?B?RzZ0VnBKemduNmRYSHJXRmF1L3BSZjdVMDNTTXBCWGV0N1FOOFdhamhzak50?=
- =?utf-8?B?VzJwRm5OQzdrZlNUbGcxUHR4d1Q1RWVKb2tqZWdnbmlxb3J1VjkzVzN5N2pU?=
- =?utf-8?B?V0tsdzk0b1k0bG5xVVFFc0ZoTkNWcDdwQURxV1BTWU1zeWRXL0RnSFlDc1J0?=
- =?utf-8?B?ZVByYnVJcjRqWFV6dDZ5TG5xN0pxYzRaNEhuUnlrS1hnUGlQTU9Uc2lYRHgx?=
- =?utf-8?B?WkJKTnp1b0xGSEo4S3NwTC9lUkxmNys2anFzSHBVNWdsL2d2M3ljdlFkd2Nw?=
- =?utf-8?B?aXc5cXJ4bHBXWk9ueENWSnNVYWlSQnZzVFlqMU5reCtLRkxlSlJQRDU3RVBL?=
- =?utf-8?B?aFIrMVJqYVJtdFc3Zzkzc1gvblA3WVRVUTBhQU5USG56VTFhSHhBTXV2MFgv?=
- =?utf-8?B?RG9DWUMvY0l0eWVIMHZvQlJ1VlVFT2JqdGhMc1pTZlJyNHU2c21DUG80d2x4?=
- =?utf-8?B?THQvKzFWOHhVUks0V1p0RjM2SWtyNzFOaFkyWGJnbDQ5OHdOb2wwakdhNTVs?=
- =?utf-8?B?Tnc3MzhaQ0V1WlRJeWFkMENGQTdxVXExNXlLUmhhMXp2MHVwVDU0Z3M2eEEw?=
- =?utf-8?B?QXQ4aTdzQ1RndC9nOFZMLzllRHJnN2Jrdk04R09peFBmZHVLcDFOcXUzZCs1?=
- =?utf-8?B?Qng3QStVKzAzOHphVUlDWHJzbVpjVFRzMUZrenFyL1UvTUN0V2JPVTNYWkpK?=
- =?utf-8?B?TG9OclpIc3oycGgybjZzS3A0ZEpWcjI3N1AzM1Nld1hxUmtaUm9uKzRRdTVp?=
- =?utf-8?B?bU5jK0kwREpmNkNjQWJGMTBvMTN5VUl3UDJjTzEzNCtuTk9nQnI1SXQ1YnUv?=
- =?utf-8?B?aGNvZWJOcmtjdVY1aU5zZmJCUElVZ3ZKUjUreUMrMy9vR3JYdEl3U00xVzlC?=
- =?utf-8?B?b3BsemlyTWl0c0xGMzVuRkc3Z2pBSjFPMW50TkxqQURlRjdZU3R3NlBUa3BE?=
- =?utf-8?B?dGxSUktOL2M4bFBkUlBaeTB3citqd1Y1bkdmYVFIQWZiUVJHalZNNUhXTHJv?=
- =?utf-8?B?aE9ER1pPcmRRcFY2MlhYS3Y2bnMxOEpSWWlzL0UxaWdXUi9lMVpJU0xNUEJR?=
- =?utf-8?B?Yk03VDAwdWFDSEZzdGJIVVNoR3VKd3J3TkwrbHczZUk0dGF4UDJLUEpDeEhL?=
- =?utf-8?B?VHdBaUZRRWVzUnhaM0dHSC9qU1dDYXFaQy9tOUlqT09IR1I3WDJXc0FmVm9L?=
- =?utf-8?B?ZGIwcDJsejNiNUJtcXNoK2FWWlFZbWxtYVFkUmgrM0pWcGFIZEV3clAyeFVw?=
- =?utf-8?B?S2lFZmVjcWx4eDhSWDdNYXlvUXVVeU85MU9jcCtIdkJkSDg4L2xmZURzRUdx?=
- =?utf-8?B?VXVucUVvbWg5WmFTU2RvK29uR0gwZklNYnJLcEtmRjZtZU5vZWR5aGxPQzVX?=
- =?utf-8?B?WDZINnFwUDVYL043NVl5RnJ1K1RLL3orbmpSRlB3bzd1QWg4aFpPbzZ0UVJD?=
- =?utf-8?B?WWJha1dheXFFQ1VHeFp1M0pFY2JHRTRXRmQ0SHBBZUdPS0ZHSGpoZFFranFF?=
- =?utf-8?B?QURmOXdnaTY0ampiaVJpYXJ2Zm1DMWRucnRWOHRGMitNYVo0M1owcVlnSmZ4?=
- =?utf-8?B?b3hFejhXcnAvL0hKbWp2UXhSd2l0V0hiUkFaU2N6V09SazdWam04Y1c3aXVS?=
- =?utf-8?B?NjBndzJYTzltelV6STU0SS90c0hxMmowMksvaENYcVdMUXpObUNacVlQdzhJ?=
- =?utf-8?B?dzZxb2lrUmN6RUxkUWhQQnJuOGRVSTdkOWRoVjdjemdYeFhHNVYwMmJ4eWtU?=
- =?utf-8?B?Q3NjNHRKeHhZTGNGakNLZmU5SWVESjdPVTlneGlpRUdySlZ3Z0NvNUIzMU0y?=
- =?utf-8?B?YVdEN0FEa29JQnlDZ1JrdVNnMytHV3VjalkyTUVVZVp1OWI1bGtKNjNJa0Jo?=
- =?utf-8?B?UUxEKzhDYzNHQWtnS3R4N3pzZUY1c2VvNlViczF1Vm9rRnk4UzkxTHN6Z0Fx?=
- =?utf-8?B?MTdRVUhXc3QrZFM1SnpPQ0lEOWlNc29VMnp6UGJ2WTNFNWZWM1pNblFnbG85?=
- =?utf-8?B?UDVmeDNGRkxGV3VOL2paMFY3Wm9tNVQxVzZSZ2xYdEttOHFJU3NCVm9TWGRt?=
- =?utf-8?B?Rm9mekhDQ21Za1E2aUkrekdqbm5PU0xTeG15dU5JRi9qZDZyU0J2SS9KdnpR?=
- =?utf-8?B?RUdYOUxuNm9teFhvd2hxdVEzVEt6T3dFUkg2MUt5a3BIWEFVelE4YUtNODJo?=
- =?utf-8?B?YXBQam5TUlo4a2MvZzJsaUxsSWZtMHpPY3FXOWdGWDhRMXNsNVhNczFZaFE0?=
- =?utf-8?B?U0NnOVJxK3BDaVpEWGEyZlV2M3paajRqL1RHbWd0anBkRDhKVnUvdW5aZFhK?=
- =?utf-8?Q?Hph5ih8X1cGMpV79jcp3ckfzM12fULssJXTwuzGKlb3Id?=
-X-MS-Exchange-AntiSpam-MessageData-1: m98IWnIvrw4peQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: fd2a3e5c-0fe1-41e2-eed4-08deedf57f96
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 30 Jul 2026 04:46:19.8508
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: z5luIw5EYlCTiXM1IW67yqINFIQBTDF+BX8f6rgWDnbWmyhhlLJATmSbo8+C2E6i9t7nxKrbZJOoO0I88+GX6g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR12MB4406
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 05/15] media: redrat3: Error path leaves device in
+ transmitting state
+To: Sean Young <sean@mess.org>, linux-media@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: stable@vger.kernel.org, linux-kernel@vger.kernel.org,
+ kernel-janitors@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>,
+ Julia Lawall <julia.lawall@inria.fr>,
+ Wolfram Sang <wsa-dev@sang-engineering.com>
+References: <cover.1785338381.git.sean@mess.org>
+ <92bf1bf1bbdcac248de159a1670bb8bc1c7fab14.1785338381.git.sean@mess.org>
+Content-Language: en-GB, de-DE
+From: Markus Elfring <Markus.Elfring@web.de>
+In-Reply-To: <92bf1bf1bbdcac248de159a1670bb8bc1c7fab14.1785338381.git.sean@mess.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:QVBuoFUyl+UCI2dN0iSHuNeg9Ls/LZCBwYFczlkCTk3W3xi9mMo
+ erX+3Znv5n6exgKCifx87tVMZGnkS9EinburfHFGJu4ipadenSfp2c6v7af5bJ8WdI3QkeE
+ 52hFGaW9EcxpKHk0Ejz3EyHfu5aRoRfmzCjTyUwHgESPzQ29IA1xGDLRA7hSj6nqNfyrTJ9
+ uY0nPsxvfgifyGIQeSZ6A==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:kKQVWC5wqXs=;Y66ANT8aOvCqi9+j63jeoAUOqiE
+ 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
 
-Currently all syncobj_in fences are waited synchronously on the CPU.
-However, since Host1x channels are capable of waiting for syncpoint
-fences on the hardware, let's use that capability.
+=E2=80=A6
+> Fix the error path by moving the assignment statement.
 
-This filters the any non-syncpoint (or different host1x instance) fences
-in syncobj_in, waits only those on the CPU, and adds the rest as waits
-to the channel before the actual job contents.
+How do you think about to increase the application of scope-based resource=
+ management
+also for such a function implementation?
 
-Also make minor clarifications to the doc comments in the UAPI header.
 
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- drivers/gpu/drm/tegra/submit.c | 111 +++++++++++++++++++++++++++++++++--------
- include/uapi/drm/tegra_drm.h   |   4 +-
- 2 files changed, 93 insertions(+), 22 deletions(-)
+=E2=80=A6
+> Fixes: fac59136bc22 ("[media] RedRat3: Return directly after a failed kc=
+alloc() in redrat3_transmit_ir()")"=E2=80=A6
 
-diff --git a/drivers/gpu/drm/tegra/submit.c b/drivers/gpu/drm/tegra/submit.c
-index 1e5332eb6e26..54312922f7b2 100644
---- a/drivers/gpu/drm/tegra/submit.c
-+++ b/drivers/gpu/drm/tegra/submit.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0-only
- /* Copyright (c) 2020 NVIDIA Corporation */
- 
-+#include <linux/dma-fence-unwrap.h>
- #include <linux/dma-mapping.h>
- #include <linux/file.h>
- #include <linux/host1x.h>
-@@ -344,6 +345,71 @@ static int submit_get_syncpt(struct tegra_drm_context *context, struct host1x_jo
- 	return 0;
- }
- 
-+static int submit_handle_in_fence(struct tegra_drm_context *context, struct host1x *host1x,
-+				  struct dma_fence *fence, u32 *num_waits)
-+{
-+	struct dma_fence_unwrap iter;
-+	struct host1x *fence_host1x;
-+	struct dma_fence *f;
-+	int err = 0;
-+
-+	*num_waits = 0;
-+
-+	dma_fence_unwrap_for_each(f, &iter, fence) {
-+		long wait_err;
-+
-+		if (err)
-+			continue;
-+
-+		if (dma_fence_is_signaled(f))
-+			continue;
-+
-+		err = host1x_fence_extract(f, &fence_host1x, NULL, NULL);
-+		if (!err && fence_host1x == host1x) {
-+			(*num_waits)++;
-+			continue;
-+		}
-+
-+		wait_err = dma_fence_wait_timeout(f, true, msecs_to_jiffies(10000));
-+		if (wait_err == 0) {
-+			SUBMIT_ERR(context, "wait for syncobj_in timed out");
-+			err = -ETIMEDOUT;
-+			continue;
-+		} else if (wait_err < 0) {
-+			/* In practice, -ERESTARTSYS */
-+			err = wait_err;
-+			continue;
-+		} else {
-+			err = 0;
-+		}
-+	}
-+
-+	return err;
-+}
-+
-+static void submit_job_add_prefence(struct host1x_job *job, struct dma_fence *fence, u32 class)
-+{
-+	struct dma_fence_unwrap iter;
-+	struct dma_fence *f;
-+
-+	dma_fence_unwrap_for_each(f, &iter, fence) {
-+		u32 id, threshold;
-+
-+		if (dma_fence_is_signaled(f))
-+			continue;
-+
-+		if (host1x_fence_extract(f, NULL, &id, &threshold)) {
-+			/*
-+			 * The fence may have signalled since the check above, and
-+			 * the dma_fence framework then detached its ops.
-+			 */
-+			continue;
-+		}
-+
-+		host1x_job_add_wait(job, id, threshold, false, class);
-+	}
-+}
-+
- static int submit_job_add_gather(struct host1x_job *job, struct tegra_drm_context *context,
- 				 struct drm_tegra_submit_cmd_gather_uptr *cmd,
- 				 struct gather_bo *bo, u32 *offset,
-@@ -389,7 +455,7 @@ static int submit_job_add_gather(struct host1x_job *job, struct tegra_drm_contex
- static struct host1x_job *
- submit_create_job(struct tegra_drm_context *context, struct gather_bo *bo,
- 		  struct drm_tegra_channel_submit *args, struct tegra_drm_submit_data *job_data,
--		  struct xarray *syncpoints)
-+		  struct xarray *syncpoints, struct dma_fence *in_fence, u32 num_prefence_waits)
- {
- 	struct drm_tegra_submit_cmd *cmds;
- 	u32 i, gather_offset = 0, class;
-@@ -406,7 +472,7 @@ submit_create_job(struct tegra_drm_context *context, struct gather_bo *bo,
- 		return ERR_CAST(cmds);
- 	}
- 
--	job = host1x_job_alloc(context->channel, args->num_cmds, 0, true);
-+	job = host1x_job_alloc(context->channel, args->num_cmds + num_prefence_waits, 0, true);
- 	if (!job) {
- 		SUBMIT_ERR(context, "failed to allocate memory for job");
- 		job = ERR_PTR(-ENOMEM);
-@@ -421,6 +487,9 @@ submit_create_job(struct tegra_drm_context *context, struct gather_bo *bo,
- 	job->class = context->client->base.class;
- 	job->serialize = true;
- 
-+	if (in_fence)
-+		submit_job_add_prefence(job, in_fence, class);
-+
- 	for (i = 0; i < args->num_cmds; i++) {
- 		struct drm_tegra_submit_cmd *cmd = &cmds[i];
- 
-@@ -506,11 +575,14 @@ static void release_job(struct host1x_job *job)
- int tegra_drm_ioctl_channel_submit(struct drm_device *drm, void *data,
- 				   struct drm_file *file)
- {
-+	struct host1x *host1x = dev_get_drvdata(drm->dev->parent);
- 	struct tegra_drm_file *fpriv = file->driver_priv;
- 	struct drm_tegra_channel_submit *args = data;
- 	struct tegra_drm_submit_data *job_data;
- 	struct drm_syncobj *syncobj = NULL;
-+	struct dma_fence *in_fence = NULL;
- 	struct tegra_drm_context *context;
-+	u32 num_prefence_waits = 0;
- 	struct host1x_job *job;
- 	struct gather_bo *bo;
- 	u32 i;
-@@ -527,26 +599,15 @@ int tegra_drm_ioctl_channel_submit(struct drm_device *drm, void *data,
- 	}
- 
- 	if (args->syncobj_in) {
--		struct dma_fence *fence;
--		long wait_err;
--
--		err = drm_syncobj_find_fence(file, args->syncobj_in, 0, 0, &fence);
-+		err = drm_syncobj_find_fence(file, args->syncobj_in, 0, 0, &in_fence);
- 		if (err) {
- 			SUBMIT_ERR(context, "invalid syncobj_in '%#x'", args->syncobj_in);
- 			goto unlock;
- 		}
- 
--		wait_err = dma_fence_wait_timeout(fence, true, msecs_to_jiffies(10000));
--		dma_fence_put(fence);
--		if (wait_err == 0) {
--			SUBMIT_ERR(context, "wait for syncobj_in timed out");
--			err = -ETIMEDOUT;
--			goto unlock;
--		} else if (wait_err < 0) {
--			/* In practice, -ERESTARTSYS */
--			err = wait_err;
--			goto unlock;
--		}
-+		err = submit_handle_in_fence(context, host1x, in_fence, &num_prefence_waits);
-+		if (err)
-+			goto put_in_fence;
- 	}
- 
- 	if (args->syncobj_out) {
-@@ -554,14 +615,14 @@ int tegra_drm_ioctl_channel_submit(struct drm_device *drm, void *data,
- 		if (!syncobj) {
- 			SUBMIT_ERR(context, "invalid syncobj_out '%#x'", args->syncobj_out);
- 			err = -ENOENT;
--			goto unlock;
-+			goto put_in_fence;
- 		}
- 	}
- 
- 	/* Allocate gather BO and copy gather words in. */
- 	err = submit_copy_gather_data(&bo, drm->dev, context, args);
- 	if (err)
--		goto unlock;
-+		goto put_in_fence;
- 
- 	job_data = kzalloc_obj(*job_data);
- 	if (!job_data) {
-@@ -576,12 +637,20 @@ int tegra_drm_ioctl_channel_submit(struct drm_device *drm, void *data,
- 		goto free_job_data;
- 
- 	/* Allocate host1x_job and add gathers and waits to it. */
--	job = submit_create_job(context, bo, args, job_data, &fpriv->syncpoints);
-+	job = submit_create_job(context, bo, args, job_data, &fpriv->syncpoints, in_fence,
-+				num_prefence_waits);
- 	if (IS_ERR(job)) {
- 		err = PTR_ERR(job);
- 		goto free_job_data;
- 	}
- 
-+	/*
-+	 * The prefence has been recorded as plain syncpoint waits, so the fence
-+	 * itself is not needed anymore.
-+	 */
-+	dma_fence_put(in_fence);
-+	in_fence = NULL;
-+
- 	/* Map gather data for Host1x. */
- 	err = host1x_job_pin(job, context->client->base.dev);
- 	if (err) {
-@@ -680,6 +749,8 @@ int tegra_drm_ioctl_channel_submit(struct drm_device *drm, void *data,
- 	kfree(job_data);
- put_bo:
- 	gather_bo_put(&bo->base);
-+put_in_fence:
-+	dma_fence_put(in_fence);
- unlock:
- 	if (syncobj)
- 		drm_syncobj_put(syncobj);
-diff --git a/include/uapi/drm/tegra_drm.h b/include/uapi/drm/tegra_drm.h
-index 8f21f3a44832..b17472103e91 100644
---- a/include/uapi/drm/tegra_drm.h
-+++ b/include/uapi/drm/tegra_drm.h
-@@ -986,8 +986,8 @@ struct drm_tegra_channel_submit {
- 	/**
- 	 * @syncobj_in: [in]
- 	 *
--	 * Handle for DRM syncobj that will be waited before submission.
--	 * Ignored if zero.
-+	 * Handle for DRM syncobj that will be waited for before the job
-+	 * executes. Ignored if zero.
- 	 */
- 	__u32 syncobj_in;
- 
+Would a revert be needed for this commit before further adjustments will b=
+e considered?
 
--- 
-2.53.0
-
+Regards,
+Markus
