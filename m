@@ -1,316 +1,292 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from smtp-out2.simply.com (smtp-out2.simply.com [94.231.106.230])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3625244C657;
-	Thu, 30 Jul 2026 17:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917103A1A3C
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 17:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=94.231.106.230
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785431639; cv=none; b=j7hQ5P/JgrOwIDrATzvn5CWVlll08A8cUva2RyaLchP/RoNQKshNaWkO2PJwMhTwzGb2JuFQQuQgZIiNYe919ugV1kpT/vPgtw8UQZyWs2zyxTcapf+GH+z8UtO5xprXye+68OZn6xupbyw2PR8KRJBP9+w2rTxzNNrCBYyKsCY=
+	t=1785431905; cv=none; b=LaKHjioEoLbwuayaK8UYJlSYcv1UQ28XP76zDSwMleC7GGOoZZyKEAI13rGika8nN3aipdHkwwCe6OmKm9GxXpJXJE4nAp6aasdTJLoE/IQfsgVH3Qs77lcuogB2cFJSDEiXXtuxT/muv1GG5a6ofiC/ICVgKxac7K3oXCGhhSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785431639; c=relaxed/simple;
-	bh=oGB8b1i8NBS5/44J2LLVU/jxjvYVCoQUDeFy9qMl6WI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=XU7b3D0RnxFbJd8dXgnwF4oEvgXGBugyRH9KvHSprJ17a6+Uyy3BDuLnHoOj/HMwPngKMLcTBz27Wq78N2QNpC3HMI/DCKBSCTael5lC+tW/8hv4adurp+z1a75YzYR1V6a4eYrs00lh0AC6FovoZCQs9xYWBh2gYIyFwaoqbwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=gG0Ogy3l; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=I+OiQZow; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1785431905; c=relaxed/simple;
+	bh=N2HKQgsP35OwKA7PrkWw3c7pZmh+BdhLMKnVuB3dzSQ=;
+	h=Content-Type:Message-ID:Date:MIME-Version:From:Subject:To:Cc; b=M0FGdoqKAcNAxra7Z9e9n3id/PDK0T85aV8N0TWxYlaRPcPvjLBh7SvQxnjSf6VuuI7TDfjJXs6cm/V8eYbHdXCBOqzVh+CWm7bmUwXsBDcX0ZX7EPkUbJSD/eKWKAAG+tP5kfjVCLeoNTDlcdBM7krREjaR0o0d8iKNXtRpDHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=matholka.se; spf=pass smtp.mailfrom=matholka.se; dkim=pass (2048-bit key) header.d=matholka.se header.i=@matholka.se header.b=nsC1WqRd; arc=none smtp.client-ip=94.231.106.230
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=matholka.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=matholka.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="gG0Ogy3l";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="I+OiQZow"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 384AE140011C;
-	Thu, 30 Jul 2026 13:13:56 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 30 Jul 2026 13:13:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1785431636;
-	 x=1785518036; bh=tNgFtR5qWLdk7y3Dcmn/acWHsekLuFUGqT4VFN1EwRc=; b=
-	gG0Ogy3lhKfHPE8FbcinDekyVeusUItMT0a9QL/jIRBHw/LCZkhW+G2AZWDgNHnv
-	BmTQWjCTRrYur9evXjw+gBMx0Hig6V/9QcvLOe0EA18VkSt8wLPEZBBofTkLc5PB
-	3P6jn11gzU14UsIVV/hg4pqeGQs8UNi0DR5FcgsIxUe2N5cFX0mjvFFCVgqFdvhK
-	tuJ87XhAyxLAkhgIpZ3hgyfuHEY8EzOgbXq00Y/MDsqbqVTf+iMXXxZNsRD+FbZ6
-	OtpfPIw4UrPp2STSsoavZQlH+QxrEx9gByDELbCqm1EsZGSRhv4WAhu4A6pmya1H
-	ut06+sIIZGIun8SrxdIJAw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1785431636; x=
-	1785518036; bh=tNgFtR5qWLdk7y3Dcmn/acWHsekLuFUGqT4VFN1EwRc=; b=I
-	+OiQZown2gjb8CDMarjoCfyTxQcVWWrTe0MNpeHexKugQfdsSpdqgAWoeCWw2/UF
-	9/WSXpQdz4wCM0gZTi1fm3nZ4y7BbVeHEdjSS3iyaYlox+eekXBQWUfQcCYWxoz6
-	MwNBouEzvLqClvtZyLTG+rLTUoxiQPTtqY/eZoCZb49UkBTzqTI5Q+IyCzsjDQLA
-	tn7iVCdRF69bt0SWe5AmiLlH99OGmycjAL7/ktfa8MRHTCsud6MxG0h3zgiSGQTD
-	1RwA1efvX6wS9n6y6fB5Zs/T8IMGSNp6fmajvsn406jF9FO5bbmJsalwp7yuUfZV
-	SZjf/6tlldKbzYnbyCebQ==
-X-ME-Sender: <xms:VIZrahKLNqLV4ooIMbSAK7YgamOhInry3OVh_OLM-NK-R5yZfK40nQ>
-    <xme:VIZrapA1qNl9Pki-xGhcg3MjrduJLhgYffdz7_aV-hrdcHPZ_OOrIMVoodsBds1yc
-    ke8poCbO31J5hdAbl0MWyqwhP-y2ZmjZ6b4M0CjSNOGIHHnIs2vBVMm>
-X-ME-Received: <xmr:VIZramtJSd0Z1Lf7lQJkWPqni99TDFGK-0D8NdDYg2_2H3feXeBnEvEsWMbyaRFtbzsFSB2MqrR-fP8n1XC0vTHpxghFdzU>
-X-ME-Proxy-Cause: dmFkZTF07znR1cOvOBQn+EZER5ns3tmiMy5NUHQvdd5Z0fNrdMM9h7MbP7+GksfPtS7/1U
-    pbvEAtzOYwe/VUfXgLXiTlfU5t/R1iCU6ZJEOsty3ubB5ehJqcum9OE7oGRRQDL9xfDRIK
-    IJPzjqxA4ZdkREQiPshBlbxzbL60DrO4L2/LXxHcX43hG02n/xFutuZwyrFoUVQAOk2lSb
-    UbuqpyeNpEtK89wcsLj4NzSX6CKqzD/RVhTRJVxLQiHW/zEDjblEQ73f+/OqAP/iQrvQhs
-    4FsCqFhhBY6AH14Nv6+K2625maneF7QxlMpmX5gX9dknU7Q7/gZ7JLfYbad0TmjRWiCjhL
-    YDIu6FIJCdeT52WjoZoxYEj/sVEVBgIU1Kh/Wm299xQrqC99ksyh8VtioI50DCOWPguvte
-    pw0bdOSGqcdIE3208+I7TuSbClrKGWvJpnxv2PMkNAGZwK2VQJZpjI9Ux745YPwYzSv0ZH
-    jnNqk3awdatCLbZkLruwgK2AVXOcD/XDMX6zQQpUL715n7cW6aNj8DQ1cbbGlBYJdPB1PJ
-    /iQ+Jia7S2GCd6Pj8SYCXfq+CddvwEOzjAj9cI7Peh9wumUIQKI8o4KMnW4Dz3uoH4trvb
-    ON+vKrjZ7b8g1j2/p+Sbz1/Dyu8ql1o9iHMFWMjjAmKPgO+SZ9YyKWs8jNAQ
-X-ME-Proxy: <xmx:VIZranTP_0XwJLsJO2UJoTNQht6jZmJM6DOsZcmC9AdjMjRn4sDiDw>
-    <xmx:VIZratLFjkERjtoFga7MtHMna1vy7JVJCxU5h9AESvVPoxINE4D-kA>
-    <xmx:VIZraqsjy9vKt5tSwpGOaoH8o7pC1W3FZV8C5WA8mC_4kbJQf9L8ww>
-    <xmx:VIZrak9ouIlE5vFUoCY889hDgDfT8xglsSfgAXuDE4UDzNkYq63iAw>
-    <xmx:VIZrakkEW7PfrA0NEIdeVml9vfRrZy4BImB9SfQi5naGFk0KWfcKzwad>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 30 Jul 2026 13:13:55 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>,
-	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Jai Luthra <jai.luthra@ideasonboard.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH v11 13/13] media: rppx1: lin: Add support for gamma sensor linearization
-Date: Thu, 30 Jul 2026 19:12:41 +0200
-Message-ID: <20260730171241.483870-14-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260730171241.483870-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20260730171241.483870-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=matholka.se header.i=@matholka.se header.b="nsC1WqRd"
+Received: from localhost (localhost [127.0.0.1])
+	by smtp.simply.com (Simply.com) with ESMTP id 4h9wdw4nvRz1DZ08;
+	Thu, 30 Jul 2026 19:08:52 +0200 (CEST)
+Received: from [192.168.1.107] (h-46-59-69-142.A785.priv.bahnhof.se [46.59.69.142])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by smtp.simply.com (Simply.com) with ESMTPSA id 4h9wdw2v6rz1DZ0F;
+	Thu, 30 Jul 2026 19:08:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=matholka.se;
+	s=simplycom2; t=1785431332;
+	bh=JQacNP5p/3qrf2KXuhdiygaiqcRkOLCEHX1JJcbQn/o=;
+	h=Date:From:Subject:To:Cc;
+	b=nsC1WqRdtMc5hFlRwp8HstsN6v295OuwBirtXlkOcBNL0hmHO5Y/R2nuzCF57a9Fk
+	 1W0exf1Fum2xZG67y0338IoZA1p4kN7ZHwPrTbkESNxyD/HsBjCrPh7uhPpYG7yLug
+	 RvOBBFpvVnpOTW0dbdO5kcQqKFzt0gAEwAjOeDiQyv+KHnSSx4hpEXpPoqdi3FlvRX
+	 zuz+hXLznTtM57qg+64+RSbN4ig6SMYQKpuBWK3T6OoXZhLT/bdnESjoF4C9HABVcy
+	 KB11BbM+MZGNCB12Zj9tzGLfOciOshRkjAXgzgap7sj0TufNRMI8UsYhQNgpv8Yiam
+	 AmfLDoNi0Deyw==
+Content-Type: multipart/mixed; boundary="------------rY2vIF5wCqT00D7wacZlD9Bm"
+Message-ID: <8ede91cc-b505-458a-94ef-fb02270f9701@matholka.se>
+Date: Thu, 30 Jul 2026 19:08:51 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+From: Lars Ljung <lars@matholka.se>
+Subject: em28xx causes NULL pointer warning in videobuf2-core.c
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org
 
-From: Jai Luthra <jai.luthra@ideasonboard.com>
+This is a multi-part message in MIME format.
+--------------rY2vIF5wCqT00D7wacZlD9Bm
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Extend the RPPX1 driver to allow setting the gamma sensor linearization
-configuration parameters. It uses the RPPX1 framework for parameters and
-its writer abstraction to allow the user to control how, and when,
-configuration is applied to the RPPX1.
+Hi,
 
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
----
-* Changes since v10
-- No holes and no implicit padding in UAPI structures. Work by Jacopo,
-  big thanks!
+While trying to get an old Pinnacle PCTV USB 2 to work I got a warning 
+message in the log. See the attached file. This is on Ubuntu, kernel 
+version 7.0.0-28.
 
-* Changes since v8
-- Drop unneeded check of V4L2_ISP_PARAMS_FL_BLOCK_ENABLE
+The problem seems to be the second call to vb2_queue_init() in 
+em28xx_vb2_setup(). This call should only be made if VBI is supported, 
+right?
 
-* Changes since v8
-- Move declaration of dx_lo and dx_hi to top of function.
----
- .../platform/dreamchip/rppx1/rpp_module.h     |  1 +
- .../platform/dreamchip/rppx1/rpp_params.c     |  5 ++
- .../platform/dreamchip/rppx1/rppx1_lin.c      | 53 +++++++++++++++++++
- .../uapi/linux/media/dreamchip/rppx1-config.h | 50 ++++++++++++++++-
- 4 files changed, 108 insertions(+), 1 deletion(-)
+I modified em28xx_vb2_setup() to use em28xx_vbi_supported() to check if 
+VBI is supported. That did silence the warning message.
 
-diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_module.h b/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-index 948e26d7361d..072309d8662d 100644
---- a/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-+++ b/drivers/media/platform/dreamchip/rppx1/rpp_module.h
-@@ -48,6 +48,7 @@ void rpp_module_clrset(struct rpp_module *mod, u32 offset, u32 mask, u32 value);
- union rppx1_params_block {
- 	struct v4l2_isp_block_header header;
- 	struct rppx1_bls_params bls;
-+	struct rppx1_lin_params lin;
- 	struct rppx1_lsc_params lsc;
- 	struct rppx1_awbg_params awbg;
- 	struct rppx1_ccor_params ccor;
-diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-index 86d445b52504..a75a27a8afd0 100644
---- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-+++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-@@ -19,6 +19,8 @@ static const struct v4l2_isp_params_block_type_info
- rppx1_ext_params_blocks_info[] = {
- 	RPPX1_PARAMS_BLOCK_INFO(BLS_PRE1, bls),
- 	RPPX1_PARAMS_BLOCK_INFO(BLS_PRE2, bls),
-+	RPPX1_PARAMS_BLOCK_INFO(LIN_PRE1, lin),
-+	RPPX1_PARAMS_BLOCK_INFO(LIN_PRE2, lin),
- 	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE1, lsc),
- 	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
- 	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
-@@ -68,6 +70,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
- 		case RPPX1_PARAMS_BLOCK_TYPE_BLS_PRE1:
- 			module = &rpp->pre1.bls;
- 			break;
-+		case RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1:
-+			module = &rpp->pre1.lin;
-+			break;
- 		case RPPX1_PARAMS_BLOCK_TYPE_LSC_PRE1:
- 			module = &rpp->pre1.lsc;
- 			break;
-diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_lin.c b/drivers/media/platform/dreamchip/rppx1/rppx1_lin.c
-index 0a0e7ab2d1d6..b389778f9383 100644
---- a/drivers/media/platform/dreamchip/rppx1/rppx1_lin.c
-+++ b/drivers/media/platform/dreamchip/rppx1/rppx1_lin.c
-@@ -25,6 +25,11 @@
- #define LIN_B_Y_REG_NUM				17
- #define LIN_B_Y_REG(n)				(0x0098 + (4 * (n)))
- 
-+#define LIN_PRE1_DEGAMMA_CURVE_MASK		GENMASK(23, 0)
-+#define LIN_PRE1_SAMPLE_POINTS_MASK		GENMASK(3, 0)
-+#define LIN_PRE2_DEGAMMA_CURVE_MASK		GENMASK(11, 0)
-+#define LIN_PRE2_SAMPLE_POINTS_MASK		GENMASK(2, 0)
-+
- static int rppx1_lin_probe(struct rpp_module *mod)
- {
- 	/* Version check. */
-@@ -53,7 +58,55 @@ static int rppx1_lin_start(struct rpp_module *mod,
- 	return 0;
- }
- 
-+static int rppx1_lin_fill_params(struct rpp_module *mod,
-+				 const union rppx1_params_block *block,
-+				 rppx1_reg_write write, void *priv)
-+{
-+	const struct rppx1_lin_params *cfg = &block->lin;
-+	u8 sample_mask;
-+	u32 dx_lo = 0;
-+	u32 dx_hi = 0;
-+	u32 mask;
-+
-+	if (cfg->header.flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) {
-+		write(priv, mod->base + LIN_ENABLE_REG, 0);
-+		return 0;
-+	}
-+
-+	switch (cfg->header.type) {
-+	case RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1:
-+		mask = LIN_PRE1_DEGAMMA_CURVE_MASK;
-+		sample_mask = LIN_PRE1_SAMPLE_POINTS_MASK;
-+		break;
-+	case RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE2:
-+		mask = LIN_PRE2_DEGAMMA_CURVE_MASK;
-+		sample_mask = LIN_PRE2_SAMPLE_POINTS_MASK;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	for (unsigned int i = 0; i < 8; ++i) {
-+		dx_lo |= (cfg->dx[i] & sample_mask) << 4 * i;
-+		dx_hi |= (cfg->dx[i + 8] & sample_mask) << 4 * i;
-+	}
-+
-+	write(priv, mod->base + LIN_DX_LO_REG, dx_lo);
-+	write(priv, mod->base + LIN_DX_HI_REG, dx_hi);
-+
-+	for (unsigned int i = 0; i < RPPX1_LIN_DEGAMMA_CURVE_NUM; i++) {
-+		write(priv, mod->base + LIN_R_Y_REG(i), cfg->curve_r[i] & mask);
-+		write(priv, mod->base + LIN_G_Y_REG(i), cfg->curve_g[i] & mask);
-+		write(priv, mod->base + LIN_B_Y_REG(i), cfg->curve_b[i] & mask);
-+	}
-+
-+	write(priv, mod->base + LIN_ENABLE_REG, LIN_ENABLE_GAMMA_IN_EN);
-+
-+	return 0;
-+}
-+
- const struct rpp_module_ops rppx1_lin_ops = {
- 	.probe = rppx1_lin_probe,
- 	.start = rppx1_lin_start,
-+	.fill_params = rppx1_lin_fill_params,
- };
-diff --git a/include/uapi/linux/media/dreamchip/rppx1-config.h b/include/uapi/linux/media/dreamchip/rppx1-config.h
-index aa8a078493af..3507a9ab03df 100644
---- a/include/uapi/linux/media/dreamchip/rppx1-config.h
-+++ b/include/uapi/linux/media/dreamchip/rppx1-config.h
-@@ -92,6 +92,8 @@ enum rppx1_meas_chan {
-  * @RPPX1_PARAMS_BLOCK_TYPE_LSC_PRE2: PRE2 pipe Lens Shading Correction
-  * @RPPX1_PARAMS_BLOCK_TYPE_GA_HV: Human Vision Pipe Gamma Out Correction
-  * @RPPX1_PARAMS_BLOCK_TYPE_GA_MV: Machine Vision Gamma Out Correction
-+ * @RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1: PRE1 pipe Linearization (Sensor De-gamma)
-+ * @RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE2: PRE2 pipe Linearization (Sensor De-gamma)
-  */
- enum rppx1_params_block_type {
- 	RPPX1_PARAMS_BLOCK_TYPE_WBMEAS_POST,
-@@ -110,6 +112,8 @@ enum rppx1_params_block_type {
- 	RPPX1_PARAMS_BLOCK_TYPE_LSC_PRE2,
- 	RPPX1_PARAMS_BLOCK_TYPE_GA_HV,
- 	RPPX1_PARAMS_BLOCK_TYPE_GA_MV,
-+	RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1,
-+	RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE2,
- };
- 
- /**
-@@ -561,6 +565,48 @@ struct rppx1_ga_params {
- 	__u8 reserved[3];
- };
- 
-+/* Linearization (Sensor De-gamma) */
-+#define RPPX1_LIN_SAMPLE_POINTS_NUM 16
-+#define RPPX1_LIN_DEGAMMA_CURVE_NUM 17
-+
-+/**
-+ * struct rppx1_lin_params - Linearization (Sensor De-gamma) configuration
-+ *
-+ * The RPP-X1 linearization module is available on the PRE1 and PRE2 pre-fusion
-+ * pipes. Userspace selects which pipe to operate by setting the @header.type
-+ * field to RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1 or
-+ * RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE2.
-+ *
-+ * The LIN module applies the per-color channel de-gamma linearization curves
-+ * @curve_r, @curve_g and @curve_b defined on the input sampling points @dx.
-+ *
-+ * For the PRE1 pipe the de-gamma curves values are 24-bits, for the PRE2 pipe
-+ * the de-gamma curve values are 12-bits.
-+ *
-+ * For the PRE1 pipe de-gamma module sampling points @dx values are in the range
-+ * [0, 15] (4 bits). For the PRE2 pipe de-gamma module sampling points values
-+ * are in the range [0, 7] (3 bits).
-+ *
-+ * Userspace is expected to provide the curve values and sampling points with a
-+ * bit-depth matching the one of pipe in use.
-+ *
-+ * @header: block header (type = RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE1 or
-+ *	    RPPX1_PARAMS_BLOCK_TYPE_LIN_PRE2)
-+ * @curve_r: de-gamma linearization curve for red channel
-+ * @curve_g: de-gamma linearization curve for green channel
-+ * @curve_b: de-gamma linearization curve for blue channel
-+ * @dx: input sampling points
-+ * @reserved: padding
-+ */
-+struct rppx1_lin_params {
-+	struct v4l2_isp_params_block_header header;
-+	__u32 curve_r[RPPX1_LIN_DEGAMMA_CURVE_NUM];
-+	__u32 curve_g[RPPX1_LIN_DEGAMMA_CURVE_NUM];
-+	__u32 curve_b[RPPX1_LIN_DEGAMMA_CURVE_NUM];
-+	__u8 dx[RPPX1_LIN_SAMPLE_POINTS_NUM];
-+	__u32 reserved;
-+};
-+
- /**
-  * RPPX1_PARAMS_MAX_SIZE - Maximum size of all RPP-X1 parameter blocks
-  *
-@@ -583,7 +629,9 @@ struct rppx1_ga_params {
- 	sizeof(struct rppx1_lsc_params)				+	\
- 	sizeof(struct rppx1_lsc_params)				+	\
- 	sizeof(struct rppx1_ga_params)				+	\
--	sizeof(struct rppx1_ga_params))
-+	sizeof(struct rppx1_ga_params)				+	\
-+	sizeof(struct rppx1_lin_params)				+	\
-+	sizeof(struct rppx1_lin_params))
- 
- /* ---------------------------------------------------------------------------
-  * Statistics Structures
--- 
-2.55.0
+My hardware still does not work, so that must be caused by something else.
 
+Kind regards,
+Lars Ljung
+--------------rY2vIF5wCqT00D7wacZlD9Bm
+Content-Type: text/x-log; charset=UTF-8; name="em28xx.log"
+Content-Disposition: attachment; filename="em28xx.log"
+Content-Transfer-Encoding: base64
+
+anVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMtMTogbmV3IGhpZ2gtc3BlZWQgVVNCIGRl
+dmljZSBudW1iZXIgMTAgdXNpbmcgeGhjaV9oY2QKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDog
+dXNiIDMtMTogTmV3IFVTQiBkZXZpY2UgZm91bmQsIGlkVmVuZG9yPTIzMDQsIGlkUHJvZHVj
+dD0wMjA4LCBiY2REZXZpY2U9IDEuMDAKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMt
+MTogTmV3IFVTQiBkZXZpY2Ugc3RyaW5nczogTWZyPTIsIFByb2R1Y3Q9MSwgU2VyaWFsTnVt
+YmVyPTAKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogdXNiIDMtMTogUHJvZHVjdDogUENUViBV
+U0IyIFBBTC9TRUNBTQpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiB1c2IgMy0xOiBNYW51ZmFj
+dHVyZXI6IFBpbm5hY2xlIFN5c3RlbXMgR21iSApqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBl
+bTI4eHggMy0xOjEuMDogTmV3IGRldmljZSBQaW5uYWNsZSBTeXN0ZW1zIEdtYkggUENUViBV
+U0IyIFBBTC9TRUNBTSBAIDQ4MCBNYnBzICgyMzA0OjAyMDgsIGludGVyZmFjZSAwLCBjbGFz
+cyAwKQpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4eHggMy0xOjEuMDogVmlkZW8gaW50
+ZXJmYWNlIDAgZm91bmQ6IGJ1bGsgaXNvYwpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4
+eHggMy0xOjEuMDogY2hpcCBJRCBpcyBlbTI3MTAvMjgyMApqdWwgMjkgMTg6MzA6NDIga2Vy
+bmVsOiBlbTI4eHggMy0xOjEuMDogRUVQUk9NIElEID0gMWEgZWIgNjcgOTUsIEVFUFJPTSBo
+YXNoID0gMHg4MzJiMWI2NwpqdWwgMjkgMTg6MzA6NDIga2VybmVsOiBlbTI4eHggMy0xOjEu
+MDogRUVQUk9NIGluZm86Cmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IGVtMjh4eCAzLTE6MS4w
+OiAgICAgICAgIEFDOTcgYXVkaW8gKDUgc2FtcGxlIHJhdGVzKQpqdWwgMjkgMTg6MzA6NDIg
+a2VybmVsOiBlbTI4eHggMy0xOjEuMDogICAgICAgICA1MDBtQSBtYXggcG93ZXIKanVsIDI5
+IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6ICAgICAgICAgVGFibGUgYXQgb2Zm
+c2V0IDB4MDYsIHN0cmluZ3M9MHgyYTk4LCAweDJlNmEsIDB4MDAwMApqdWwgMjkgMTg6MzA6
+NDIga2VybmVsOiBlbTI4eHggMy0xOjEuMDogSWRlbnRpZmllZCBhcyBQaW5uYWNsZSBQQ1RW
+IFVTQiAyIChjYXJkPTMpCmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IGVtMjh4eCAzLTE6MS4w
+OiBhbmFsb2cgc2V0IHRvIGlzb2MgbW9kZS4KanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0y
+OHh4IDMtMToxLjE6IGF1ZGlvIGRldmljZSAoMjMwNDowMjA4KTogaW50ZXJmYWNlIDEsIGNs
+YXNzIDEKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjI6IGF1ZGlvIGRl
+dmljZSAoMjMwNDowMjA4KTogaW50ZXJmYWNlIDIsIGNsYXNzIDEKanVsIDI5IDE4OjMwOjQy
+IGtlcm5lbDogdXNiY29yZTogcmVnaXN0ZXJlZCBuZXcgaW50ZXJmYWNlIGRyaXZlciBlbTI4
+eHgKanVsIDI5IDE4OjMwOjQyIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IFJlZ2lzdGVyaW5n
+IFY0TDIgZXh0ZW5zaW9uCmp1bCAyOSAxODozMDo0MiBrZXJuZWw6IHVzYmNvcmU6IHJlZ2lz
+dGVyZWQgbmV3IGludGVyZmFjZSBkcml2ZXIgc25kLXVzYi1hdWRpbwpqdWwgMjkgMTg6MzA6
+NDIga2VybmVsOiBzYWE3MTE1IDE2LTAwMjU6IHNhYTcxMTMgZm91bmQgQCAweDRhICgzLTE6
+MS4wKQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0ZGE5ODg3IDE2LTAwNDM6IGNyZWF0aW5n
+IG5ldyBpbnN0YW5jZQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0ZGE5ODg3IDE2LTAwNDM6
+IHRkYTk4OFs1LzYvN10gZm91bmQKanVsIDI5IDE4OjMwOjQzIGtlcm5lbDogdHVuZXI6IDE2
+LTAwNDM6IFR1bmVyIDc0IGZvdW5kIHdpdGggdHlwZShzKSBSYWRpbyBUVi4KanVsIDI5IDE4
+OjMwOjQzIGtlcm5lbDogdHVuZXI6IDE2LTAwNjM6IFR1bmVyIC0xIGZvdW5kIHdpdGggdHlw
+ZShzKSBSYWRpbyBUVi4KanVsIDI5IDE4OjMwOjQzIGtlcm5lbDogdHVuZXItc2ltcGxlIDE2
+LTAwNjM6IGNyZWF0aW5nIG5ldyBpbnN0YW5jZQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiB0
+dW5lci1zaW1wbGUgMTYtMDA2MzogdHlwZSBzZXQgdG8gMzcgKExHIFBBTCAobmV3ZXIgVEFQ
+QyBzZXJpZXMpKQpqdWwgMjkgMTg6MzA6NDMga2VybmVsOiBlbTI4eHggMy0xOjEuMDogQ29u
+ZmlnIHJlZ2lzdGVyIHJhdyBkYXRhOiAweDEwCmp1bCAyOSAxODozMDo0MyBrZXJuZWw6IGVt
+Mjh4eCAzLTE6MS4wOiBBQzk3IHZlbmRvciBJRCA9IDB4ZmZmZmZmZmYKanVsIDI5IDE4OjMw
+OjQzIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IEFDOTcgZmVhdHVyZXMgPSAweDZhOTAKanVs
+IDI5IDE4OjMwOjQzIGtlcm5lbDogZW0yOHh4IDMtMToxLjA6IEVtcGlhIDIwMiBBQzk3IGF1
+ZGlvIHByb2Nlc3NvciBkZXRlY3RlZApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBlbTI4eHgg
+My0xOjEuMDogVjRMMiB2aWRlbyBkZXZpY2UgcmVnaXN0ZXJlZCBhcyB2aWRlbzQKanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogLS0tLS0tLS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0t
+Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFdBUk5JTkc6IGRyaXZlcnMvbWVkaWEvY29tbW9u
+L3ZpZGVvYnVmMi92aWRlb2J1ZjItY29yZS5jOjI2NDUgYXQgdmIyX2NvcmVfcXVldWVfaW5p
+dCsweDI0Ny8weDI2MCBbdmlkZW9idWYyX2NvbW1vbl0sIENQVSMzOiBtb2Rwcm9iZS8xOTAy
+MzIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogTW9kdWxlcyBsaW5rZWQgaW46IHR1bmVyX3Np
+bXBsZSB0dW5lcl90eXBlcyB0ZGE5ODg3IHRkYTgyOTAgdHVuZXIgc25kX3VzYl9hdWRpbyBz
+YWE3MTE1IHNuZF91c2JtaWRpX2xpYiBlbTI4eHhfdjRsKCspIHNuZF91bXAgZW0yOHh4IHR2
+ZWVwcm9tIHVzYmhpZCBjY20gcmZjb21tIHNuZF9zZXFfZHVtbXkgc25kX2hydGltZXIgY21h
+YyBhbGdpZl9oYXNoIGFsZ2lmX3NrY2lwaGVyIGFmX2FsZyBxcnRyIHNuZF9jdGxfbGVkIHNu
+ZF9zb2Nfc2tsX2hkYV9kc3Agc25kX3NvY19pbnRlbF9zb2ZfYm9hcmRfaGVscGVycyBzbmRf
+c29mX3Byb2JlcyBzbmRfc29jX2ludGVsX2hkYV9kc3BfY29tbW9uIGJuZXAgc25kX2hkYV9j
+b2RlY19pbnRlbGhkbWkgc25kX2hkYV9jb2RlY19oZG1pIHNuZF9oZGFfY29kZWNfYWxjMjY5
+IHNuZF9oZGFfY29kZWNfcmVhbHRla19saWIgc25kX2hkYV9zY29kZWNfY29tcG9uZW50IHNu
+ZF9oZGFfY29kZWNfZ2VuZXJpYyBzbmRfc29jX2RtaWMgc25kX2hkYV9pbnRlbCBzbmRfc29m
+X3BjaV9pbnRlbF90Z2wgaXA2dF9SRUpFQ1Qgc25kX3NvZl9wY2lfaW50ZWxfY25sIG5mX3Jl
+amVjdF9pcHY2IHNuZF9zb2ZfaW50ZWxfaGRhX2dlbmVyaWMgeHRfaGwgc291bmR3aXJlX2lu
+dGVsIGlwNnRfcnQgc25kX3NvZl9pbnRlbF9oZGFfc2R3X2JwdCBzbmRfc29mX2ludGVsX2hk
+YV9jb21tb24gc25kX3NvY19oZGFjX2hkYSBpcHRfUkVKRUNUIHNuZF9zb2ZfaW50ZWxfaGRh
+X21saW5rIG5mX3JlamVjdF9pcHY0IHNuZF9zb2ZfaW50ZWxfaGRhIHh0X0xPRyBzb3VuZHdp
+cmVfY2FkZW5jZSBuZl9sb2dfc3lzbG9nIHNuZF9zb2ZfcGNpIG5mdF9saW1pdCBzbmRfc29m
+X3h0ZW5zYV9kc3Agc25kX3NvZiB4dF9saW1pdCBzbmRfc29mX3V0aWxzIHh0X2FkZHJ0eXBl
+IHNuZF9zb2NfYWNwaV9pbnRlbF9tYXRjaCB4dF90Y3B1ZHAgc25kX3NvY19hY3BpX2ludGVs
+X3NkY2FfcXVpcmtzIHNvdW5kd2lyZV9nZW5lcmljX2FsbG9jYXRpb24geHRfY29ubnRyYWNr
+IHNuZF9zb2Nfc2R3X3V0aWxzCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICBuZl9jb25udHJh
+Y2sgc25kX3NvY19hY3BpIG5mX2RlZnJhZ19pcHY2IHNvdW5kd2lyZV9idXMgbmZfZGVmcmFn
+X2lwdjQgc25kX3NvY19zZGNhIG5mdF9jb21wYXQgY3JjOCB4X3RhYmxlcyBzbmRfc29jX2F2
+cyBiaW5mbXRfbWlzYyBuZl90YWJsZXMgc25kX3NvY19oZGFfY29kZWMgc25kX2hkYV9leHRf
+Y29yZSBpbnRlbF91bmNvcmVfZnJlcXVlbmN5IHNuZF9oZGFfY29kZWMgaW50ZWxfdW5jb3Jl
+X2ZyZXF1ZW5jeV9jb21tb24gc25kX2hkYV9jb3JlIHhlIHNuZF9pbnRlbF9kc3BjZmcgc25k
+X2ludGVsX3Nkd19hY3BpIHNuZF9od2RlcCBzbmRfc29jX2NvcmUgeDg2X3BrZ190ZW1wX3Ro
+ZXJtYWwgc25kX2NvbXByZXNzIGludGVsX3Bvd2VyY2xhbXAgZHJtX2dwdXN2bV9oZWxwZXIg
+YWM5N19idXMgY29yZXRlbXAgc25kX3BjbV9kbWFlbmdpbmUgZ3B1X3NjaGVkIGRybV9ncHV2
+bSBzbmRfcGNtIGRybV90dG1faGVscGVyIGt2bV9pbnRlbCBkcm1fZXhlYyBkcm1fc3ViYWxs
+b2NfaGVscGVyIHNuZF9zZXFfbWlkaSBrdm0gc25kX3NlcV9taWRpX2V2ZW50IHV2Y3ZpZGVv
+IGl3bG12bSBpcnFieXBhc3MgYnR1c2Igc25kX3Jhd21pZGkgYnRtdGsgdmlkZW9idWYyX3Zt
+YWxsb2MgZ2hhc2hfY2xtdWxuaV9pbnRlbCBwcm9jZXNzb3JfdGhlcm1hbF9kZXZpY2VfcGNp
+X2xlZ2FjeSBtYWM4MDIxMSBubHNfaXNvODg1OV8xIGhpZF9zZW5zb3JfYWxzIHNuZF9zZXEg
+YnRydGwgY21kbGluZXBhcnQgdXZjIHNwaV9ub3IgYWVzbmlfaW50ZWwgcHJvY2Vzc29yX3Ro
+ZXJtYWxfZGV2aWNlIGhpZF9zZW5zb3JfdHJpZ2dlciBidGJjbSB2aWRlb2J1ZjJfbWVtb3Bz
+IGVlMTAwNCBtZWlfaGRjcCBtZWlfcHhwIG10ZCBocF9iaW9zY2ZnIHJhcGwgc25kX3NlcV9k
+ZXZpY2UgdmlkZW9idWYyX3Y0bDIgbGliYXJjNCBwcm9jZXNzb3JfdGhlcm1hbF93dF9oaW50
+IGlvc20gYnRpbnRlbCBrZmlmb19idWYgaW50ZWxfcmFwbF9tc3IgaTJjX2k4MDEgZmlybXdh
+cmVfYXR0cmlidXRlc19jbGFzcyBzbmRfdGltZXIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
+IHZpZGVvYnVmMl9jb21tb24gaW50ZWxfY3N0YXRlIG1laV9tZSBpOTE1IHd3YW4gcGxhdGZv
+cm1fdGVtcGVyYXR1cmVfY29udHJvbCBpd2x3aWZpIGkyY19zbWJ1cyBoaWRfc2Vuc29yX2lp
+b19jb21tb24gc3BpX2ludGVsX3BjaSBzbmQgYmx1ZXRvb3RoIGhwX3dtaSB2aWRlb2RldiB3
+bWlfYm1vZiBtYyBnbnNzIHByb2Nlc3Nvcl90aGVybWFsX3NvY19zbGlkZXIgaW5kdXN0cmlh
+bGlvIG1laSBpMmNfbXV4IHNwaV9pbnRlbCBjZmc4MDIxMSBkcm1fYnVkZHkgc291bmRjb3Jl
+IHByb2Nlc3Nvcl90aGVybWFsX3JmaW0gcHJvY2Vzc29yX3RoZXJtYWxfcmFwbCB0dG0gaW50
+ZWxfcmFwbF9jb21tb24gaW50ZWxfcG1jX2NvcmUgcHJvY2Vzc29yX3RoZXJtYWxfd3RfcmVx
+IHByb2Nlc3Nvcl90aGVybWFsX3Bvd2VyX2Zsb29yIHBtdF90ZWxlbWV0cnkgZHJtX2Rpc3Bs
+YXlfaGVscGVyIHByb2Nlc3Nvcl90aGVybWFsX21ib3ggaW50MzQwM190aGVybWFsIGNlYyBw
+bXRfZGlzY292ZXJ5IGludDM0MHhfdGhlcm1hbF96b25lIHBtdF9jbGFzcyByY19jb3JlIGlu
+dGVsX3NvY19kdHNfaW9zZiBpbnQzNDAwX3RoZXJtYWwgaW50ZWxfaGlkIGludGVsX3BtY19z
+c3JhbV90ZWxlbWV0cnkgc3BhcnNlX2tleW1hcCB3aXJlbGVzc19ob3RrZXkgaTJjX2FsZ29f
+Yml0IHBsYXRmb3JtX3Byb2ZpbGUgYWNwaV90aGVybWFsX3JlbCBhY3BpX3BhZCBpbnRlbF92
+c2VjIGlnZW42X2VkYWMgam95ZGV2IGlucHV0X2xlZHMgbWFjX2hpZCBzY2hfZnFfY29kZWwg
+bHAgcHBkZXYgbXNyIHBhcnBvcnQgZWZpX3BzdG9yZSBuZm5ldGxpbmsgZG1pX3N5c2ZzIGF1
+dG9mczQgcjgxNTNfZWNtIGNkY19ldGhlciB1c2JuZXQgcjgxNTIgbWlpIGhpZF9zZW5zb3Jf
+aHViIGludGVsX2lzaHRwX2hpZCB1Y3NpX2FjcGkgdHlwZWNfdWNzaSB0eXBlYyBudm1lIGhp
+ZF9tdWx0aXRvdWNoIG52bWVfY29yZSBoaWRfZ2VuZXJpYyBudm1lX2tleXJpbmcgaTJjX2hp
+ZF9hY3BpIG52bWVfYXV0aCBzZXJpb19yYXcgaTJjX2hpZCBoa2RmIHZpZGVvCmp1bCAyOSAx
+ODozMDo0NCBrZXJuZWw6ICBpbnRlbF9scHNzX3BjaSBoaWQgaW50ZWxfbHBzcyBwaW5jdHJs
+X3RpZ2VybGFrZSB3bWkgdGh1bmRlcmJvbHQgaW50ZWxfaXNoX2lwYyBpZG1hNjQgaW50ZWxf
+aXNodHAgdm1kCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IENQVTogMyBVSUQ6IDAgUElEOiAx
+OTAyMzIgQ29tbTogbW9kcHJvYmUgVGFpbnRlZDogRyAgICAgVSAgICAgICAgICAgICAgNy4w
+LjAtMjgtZ2VuZXJpYyAjMjgtVWJ1bnR1IFBSRUVNUFQobGF6eSkgCmp1bCAyOSAxODozMDo0
+NCBrZXJuZWw6IFRhaW50ZWQ6IFtVXT1VU0VSCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IEhh
+cmR3YXJlIG5hbWU6IEhQIEhQIEVsaXRlQm9vayA4NTAgRzggTm90ZWJvb2sgUEMvODg0Niwg
+QklPUyBUNzYgVmVyLiAwMS4yNC4wMiAwNS8wNC8yMDI2Cmp1bCAyOSAxODozMDo0NCBrZXJu
+ZWw6IFJJUDogMDAxMDp2YjJfY29yZV9xdWV1ZV9pbml0KzB4MjQ3LzB4MjYwIFt2aWRlb2J1
+ZjJfY29tbW9uXQpqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBDb2RlOiAzMSBmZiA0NSAzMSBj
+MCBjMyBjYyBjYyBjYyBjYyAwZiAwYiBlYiBlNyAwZiAwYiBlYiBlMyAwZiAwYiBlYiBkZiAw
+ZiAwYiBlYiBkYiAwZiAwYiBlYiBkNyAwZiAwYiBlYiBkMyAwZiAwYiBlYiBjZiAwZiAwYiBl
+YiBjYiA8MGY+IDBiIGViIGM3IDBmIDBiIGViIGMzIDBmIDBiIGViIGJmIDY2IDkwIDY2IDY2
+IDJlIDBmIDFmIDg0IDAwIDAwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJTUDogMDAxODpm
+ZmZmY2YzNWU1ODFiODUwIEVGTEFHUzogMDAwMTAyNDYKanVsIDI5IDE4OjMwOjQ0IGtlcm5l
+bDogUkFYOiAwMDAwMDAwMDAwMDAwMDIwIFJCWDogZmZmZjhjYTU3YjgzMzEwMCBSQ1g6IDAw
+MDAwMDAwMDAwMDAwMDEKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUkRYOiAwMDAwMDAwMDAw
+MDAwMDAxIFJTSTogMDAwMDAwMDAwMDAwMDAwNyBSREk6IDAwMDAwMDAwMDAwMDAwMDQKanVs
+IDI5IDE4OjMwOjQ0IGtlcm5lbDogUkJQOiBmZmZmY2YzNWU1ODFiODY4IFIwODogZmZmZjhj
+YTU3YjgzMzEwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5l
+bDogUjEwOiBmZmZmOGNhMzI0ODAwMDAwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGZm
+ZmY4Y2E1N2I4MzIwMTAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUjEzOiBmZmZmOGNhMzI0
+ODAxMjYwIFIxNDogZmZmZjhjYTU3YjgzMjAwMCBSMTU6IGZmZmY4Y2E1N2I4MzIwODgKanVs
+IDI5IDE4OjMwOjQ0IGtlcm5lbDogRlM6ICAwMDAwNzJlMzY5ODIwM2MwKDAwMDApIEdTOmZm
+ZmY4Y2FhZTIzN2YwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMApqdWwgMjkgMTg6
+MzA6NDQga2VybmVsOiBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAw
+MDgwMDUwMDMzCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IENSMjogMDAwMDA5NTQwMDA2M2Zl
+MCBDUjM6IDAwMDAwMDA0MzlkOTEwMDMgQ1I0OiAwMDAwMDAwMDAwZjcyZWYwCmp1bCAyOSAx
+ODozMDo0NCBrZXJuZWw6IFBLUlU6IDU1NTU1NTU0Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6
+IENhbGwgVHJhY2U6Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA8VEFTSz4KanVsIDI5IDE4
+OjMwOjQ0IGtlcm5lbDogID8gdmIyX3F1ZXVlX2luaXRfbmFtZSsweDEyZC8weDE3MCBbdmlk
+ZW9idWYyX3Y0bDJdCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGZlX3N0YW5kYnkrMHgx
+YS8weDMwIFt0dW5lcl0KanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIHZiMl9xdWV1ZV9pbml0
+KzB4MTAvMHgyMCBbdmlkZW9idWYyX3Y0bDJdCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICBl
+bTI4eHhfdjRsMl9pbml0LmNvbGQrMHgxMWM4LzB4MTFmZCBbZW0yOHh4X3Y0bF0KanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogID8gX19wZnhfZW0yOHh4X3ZpZGVvX3JlZ2lzdGVyKzB4MTAv
+MHgxMCBbZW0yOHh4X3Y0bF0KanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIGVtMjh4eF9yZWdp
+c3Rlcl9leHRlbnNpb24rMHg4NC8weGUwIFtlbTI4eHhdCmp1bCAyOSAxODozMDo0NCBrZXJu
+ZWw6ICBlbTI4eHhfdmlkZW9fcmVnaXN0ZXIrMHgxNS8weGZmMCBbZW0yOHh4X3Y0bF0KanVs
+IDI5IDE4OjMwOjQ0IGtlcm5lbDogIGRvX29uZV9pbml0Y2FsbCsweDU5LzB4MzUwCmp1bCAy
+OSAxODozMDo0NCBrZXJuZWw6ICBkb19pbml0X21vZHVsZSsweDhiLzB4MjkwCmp1bCAyOSAx
+ODozMDo0NCBrZXJuZWw6ICBsb2FkX21vZHVsZSsweDg1NS8weDk2MApqdWwgMjkgMTg6MzA6
+NDQga2VybmVsOiAgaW5pdF9tb2R1bGVfZnJvbV9maWxlKzB4ZmIvMHgxODAKanVsIDI5IDE4
+OjMwOjQ0IGtlcm5lbDogIGlkZW1wb3RlbnRfaW5pdF9tb2R1bGUrMHgxMGUvMHgzMDAKanVs
+IDI5IDE4OjMwOjQ0IGtlcm5lbDogIF9feDY0X3N5c19maW5pdF9tb2R1bGUrMHg3My8weGYw
+Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICB4NjRfc3lzX2NhbGwrMHhlMmUvMHgyMzkwCmp1
+bCAyOSAxODozMDo0NCBrZXJuZWw6ICBkb19zeXNjYWxsXzY0KzB4MTA1LzB4NWEwCmp1bCAy
+OSAxODozMDo0NCBrZXJuZWw6ICA/IHZmc19yZWFkKzB4MTc5LzB4M2EwCmp1bCAyOSAxODoz
+MDo0NCBrZXJuZWw6ICA/IHZmc19yZWFkKzB4MTc5LzB4M2EwCmp1bCAyOSAxODozMDo0NCBr
+ZXJuZWw6ICA/IHJlc3RvcmVfZnByZWdzX2Zyb21fZnBzdGF0ZSsweDQ2LzB4ZTAKanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogID8gc3dpdGNoX2ZwdV9yZXR1cm4rMHg2NC8weDExMApqdWwg
+MjkgMTg6MzA6NDQga2VybmVsOiAgPyBhcmNoX2V4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUu
+aXNyYS4wKzB4YzMvMHhlMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBkb19zeXNjYWxs
+XzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IF9fZnB1dCsweDFh
+Mi8weDJkMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBmcHV0X2Nsb3NlX3N5bmMrMHg0
+MC8weGMwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IF9feDY0X3N5c19jbG9zZSsweDNl
+LzB4OTAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gYXJjaF9leGl0X3RvX3VzZXJfbW9k
+ZV9wcmVwYXJlLmlzcmEuMCsweGQvMHhlMApqdWwgMjkgMTg6MzA6NDQga2VybmVsOiAgPyBk
+b19zeXNjYWxsXzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGtz
+eXNfcmVhZCsweDcxLzB4ZjAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gYXJjaF9leGl0
+X3RvX3VzZXJfbW9kZV9wcmVwYXJlLmlzcmEuMCsweGQvMHhlMApqdWwgMjkgMTg6MzA6NDQg
+a2VybmVsOiAgPyBkb19zeXNjYWxsXzY0KzB4MTQwLzB4NWEwCmp1bCAyOSAxODozMDo0NCBr
+ZXJuZWw6ICA/IGZwdXRfY2xvc2Vfc3luYysweDQwLzB4YzAKanVsIDI5IDE4OjMwOjQ0IGtl
+cm5lbDogID8gX194NjRfc3lzX2Nsb3NlKzB4M2UvMHg5MApqdWwgMjkgMTg6MzA6NDQga2Vy
+bmVsOiAgPyBhcmNoX2V4aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUuaXNyYS4wKzB4ZC8weGUw
+Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGRvX3N5c2NhbGxfNjQrMHgxNDAvMHg1YTAK
+anVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogID8gY2xlYXJfYmhiX2xvb3ArMHg1MC8weGEwCmp1
+bCAyOSAxODozMDo0NCBrZXJuZWw6ICA/IGNsZWFyX2JoYl9sb29wKzB4NTAvMHhhMApqdWwg
+MjkgMTg6MzA6NDQga2VybmVsOiAgPyBjbGVhcl9iaGJfbG9vcCsweDUwLzB4YTAKanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogID8gY2xlYXJfYmhiX2xvb3ArMHg1MC8weGEwCmp1bCAyOSAx
+ODozMDo0NCBrZXJuZWw6ICBlbnRyeV9TWVNDQUxMXzY0X2FmdGVyX2h3ZnJhbWUrMHg3Ni8w
+eDdlCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJJUDogMDAzMzoweDcyZTM2OGYzY2JhZApq
+dWwgMjkgMTg6MzA6NDQga2VybmVsOiBDb2RlOiBmZiBjMyA2NiAyZSAwZiAxZiA4NCAwMCAw
+MCAwMCAwMCAwMCA5MCBmMyAwZiAxZSBmYSA0OCA4OSBmOCA0OCA4OSBmNyA0OCA4OSBkNiA0
+OCA4OSBjYSA0ZCA4OSBjMiA0ZCA4OSBjOCA0YyA4YiA0YyAyNCAwOCAwZiAwNSA8NDg+IDNk
+IDAxIGYwIGZmIGZmIDczIDAxIGMzIDQ4IDhiIDBkIDIzIGEyIDBkIDAwIGY3IGQ4IDY0IDg5
+IDAxIDQ4Cmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJTUDogMDAyYjowMDAwN2ZmZTE0MzYw
+MTQ4IEVGTEFHUzogMDAwMDAyNDYgT1JJR19SQVg6IDAwMDAwMDAwMDAwMDAxMzkKanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogUkFYOiBmZmZmZmZmZmZmZmZmZmRhIFJCWDogMDAwMDU4N2Jh
+MGZiNDk2MCBSQ1g6IDAwMDA3MmUzNjhmM2NiYWQKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
+UkRYOiAwMDAwMDAwMDAwMDAwMDA0IFJTSTogMDAwMDU4N2I2MTY0NTk4YiBSREk6IDAwMDAw
+MDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogUkJQOiAwMDAwN2ZmZTE0MzYw
+MWUwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKanVsIDI5
+IDE4OjMwOjQ0IGtlcm5lbDogUjEwOiAwMDAwMDAwMDAwMDAwMDAwIFIxMTogMDAwMDAwMDAw
+MDAwMDI0NiBSMTI6IDAwMDA1ODdiNjE2NDU5OGIKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDog
+UjEzOiAwMDAwNTg3YmEwZmI0YTkwIFIxNDogMDAwMDAwMDAwMDA0MDAwMCBSMTU6IDAwMDAw
+MDAwMDAwMDAwMDAKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogIDwvVEFTSz4KanVsIDI5IDE4
+OjMwOjQ0IGtlcm5lbDogLS0tWyBlbmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBdLS0tCmp1
+bCAyOSAxODozMDo0NCBrZXJuZWw6IGVtMjh4eCAzLTE6MS4wOiBWNEwyIGV4dGVuc2lvbiBz
+dWNjZXNzZnVsbHkgaW5pdGlhbGl6ZWQKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogZW0yOHh4
+OiBSZWdpc3RlcmVkIChFbTI4eHggdjRsMiBFeHRlbnNpb24pIGV4dGVuc2lvbgpqdWwgMjkg
+MTg6MzA6NDQga2VybmVsOiBlbTI4eHggMy0xOjEuMDogUmVnaXN0ZXJpbmcgaW5wdXQgZXh0
+ZW5zaW9uCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IFJlZ2lzdGVyZWQgSVIga2V5bWFwIHJj
+LXBpbm5hY2xlLWdyZXkKanVsIDI5IDE4OjMwOjQ0IGtlcm5lbDogcmMgcmMwOiBQaW5uYWNs
+ZSBQQ1RWIFVTQiAyIGFzIC9kZXZpY2VzL3BjaTAwMDA6MDAvMDAwMDowMDoxNC4wL3VzYjMv
+My0xLzMtMToxLjAvcmMvcmMwCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IHJjIHJjMDogbGly
+Y19kZXY6IGRyaXZlciBlbTI4eHggcmVnaXN0ZXJlZCBhdCBtaW5vciA9IDAsIHNjYW5jb2Rl
+IHJlY2VpdmVyLCBubyB0cmFuc21pdHRlcgpqdWwgMjkgMTg6MzA6NDQga2VybmVsOiBpbnB1
+dDogUGlubmFjbGUgUENUViBVU0IgMiBhcyAvZGV2aWNlcy9wY2kwMDAwOjAwLzAwMDA6MDA6
+MTQuMC91c2IzLzMtMS8zLTE6MS4wL3JjL3JjMC9pbnB1dDI3Cmp1bCAyOSAxODozMDo0NCBr
+ZXJuZWw6IGVtMjh4eCAzLTE6MS4wOiBJbnB1dCBleHRlbnNpb24gc3VjY2Vzc2Z1bGx5IGlu
+aXRpYWxpemVkCmp1bCAyOSAxODozMDo0NCBrZXJuZWw6IGVtMjh4eDogUmVnaXN0ZXJlZCAo
+RW0yOHh4IElucHV0IEV4dGVuc2lvbikgZXh0ZW5zaW9uCg==
+
+--------------rY2vIF5wCqT00D7wacZlD9Bm--
