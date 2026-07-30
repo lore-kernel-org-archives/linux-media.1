@@ -1,97 +1,89 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 823523E49DF
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 22:52:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F063B6C1E
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 22:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785451953; cv=none; b=PS0qU4St5q+C/25O1xCqUf1kIc6AZM93HRUF8iI/0oaJ9lecl3/ABDoOgJufK9CO/S6z3x4o/qVQlFjANlGu2phnxhtYbq6mh0xkl1/8AowbgT178VDjRk8D3iAeExEQgTscdEdBVsnpXFAiqC+PfxPTSuMvZVreqkyhYcFlGao=
+	t=1785452136; cv=none; b=LcHaB8nnX7bE2bYMG9Nx5zGsoum2CsZn5DO6Ne8jlsX/CKF1xfofFEXuKTHRSW/HUMkkE3Llr8e+kVZ65HMJBEcEHfZdREATA20S2FraKXkyLZp4eL0Z7t/OI86evJpWG/LMCrXpbS7pTk0eFhwE0V/dVexq+20ljxKWMayEjj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785451953; c=relaxed/simple;
-	bh=I5ZTbXMJEZX03AE0LMGrAgs4VtCI7CwWKvjpCMzHrqI=;
+	s=arc-20240116; t=1785452136; c=relaxed/simple;
+	bh=6yC+aYDaiVvucEeJuv9ttiHtFPowCOdaom4mtrRN5FA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GtLgeeQOuKTUTvhT+RxyCUWqrbyGqfvC6p8IctxLVR6AdgGha9Zgha0U1DjRKf2HXGYhUCfKknvoa45IsaZOa8nszjOwzfXIDt8tiw/VniWZPwM64lcsdWCjyBUJWNfh1XT6dVO0/X++iDtRLFB6EyyiKTD5Na/e8z/QKou0OME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YwQrTCIj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YfLdNBu6; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=B2+an8JNj6zpFfdG/1hfCQmqtPM0RhJ7WlHm6GDELPns6l5UNhGyO+A/cNvHZp2rpjutQ223Lvgxo57hDcE8drOgDnjwN12kn8hZJOlG9dcAN68ySIagUEYtnZsGjxivcj6FHTRYaoLSQSLG4LQWy/jMD+s0vZKhKGmNLPc37ao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jKx/lxX1; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YwQrTCIj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YfLdNBu6"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UMfZBp1985889
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 22:52:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Kg9DNXzwkXj0XeF7quiXUIFo
-	Jd9S2boCsqefrVecq70=; b=YwQrTCIjguPGS3kvwmKsaphZwWASLNmVOOupAJ8H
-	ShUkWTH/95G6lz+JBg2Uq1NVpzMqSz4+wfDjVp/q3BzCVTv3eL8ffoCW6fZZkWhb
-	4fligHw4vY8qr5s/G4WG2PzAcTOOCmvHweri9ER/NVRrF2n4/vbJWb0gpWK+c3Xc
-	YfVy+s0PyBST5+xHU3SLmoRhfKE5q5xE5GhXer48RV65vmo8Xxfri0PSDkNoTlaK
-	sMgfMh/8nH1W/d7KLNIFphSTEyyFopJCxxkcylJWxr5JuFMGpBlF2LWI8CThgZOP
-	YgjAVDnJTNwwwOVJNSxZCk/wCyIH4cVq9/BVGz3jCTxjcA==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frfmh00vx-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 22:52:31 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c0199faafso3105571cf.3
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 15:52:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jKx/lxX1"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cacef7d299so22865ad.1
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 15:55:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785451951; x=1786056751; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1785452133; x=1786056933; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Kg9DNXzwkXj0XeF7quiXUIFoJd9S2boCsqefrVecq70=;
-        b=YfLdNBu6auy4mzoi7fCF/Mf4UA6acfDLhOFlYmnXLTPHTG0zOvooPz2xrWRyRwqOrK
-         U6eFH7e9L62rN99SdpxIlqdcnZmrmT2nVzJmnTEsbOMPo5DcU5qUq5IdCjYGsqJ1/SeU
-         zqewoSafL8OnImujlURrDCxfpbwIQNz7KBYezDM7tVgQ6AILPOsPGhXMjWIlowRD9GVH
-         1XR31oSpoZwWtPao0/ff/Q8SLHaeLUP8xgEGhdSnzRVM1gCEEPBFKm4hNPWbMkkwKoNV
-         qPprpY/uXzOg1Uf3GCjZggNyTfx7wL7qTaJB/B9FgRV0GX+ZHOyPYbPQozUJEh6Fx8Dp
-         SayA==
+        bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
+        b=jKx/lxX1tyKmvVhcYERq6+KdCUIDs6/X8kTSsYMlRRHvU8lsciTbyt1EaXmd8uJr/c
+         OzikpzrXgkq03NwXlmMnr8gNVav0KpmCEko+S3IlmzA1P3UifsnYi+lvnSmvpgQrNd+p
+         4sTJT4jP444Jjgc3Vpj/x44JwnAIvPFFCR55TxTxr2o2GTiUoKYS7GygNPFGYzhZorNh
+         S9WEaznPnVLsxmaDNBNRr54aj5QVmAEDV9FVjtGjdqkYTp4WcKyAcOxNBvqL7qD0Iogu
+         UasrdnAsn7xSm4NkbvzR0WyTzZGRxZIq5EgpuxSiSP1fUOXIOWjyEZofMRhwU7Pv3Yk/
+         58RQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785451951; x=1786056751;
+        d=1e100.net; s=20251104; t=1785452133; x=1786056933;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Kg9DNXzwkXj0XeF7quiXUIFoJd9S2boCsqefrVecq70=;
-        b=DG8wOyS4BxVVn0QqrpcCnENDDIQrhRPSZyj+QKE0R9C/gzWFDj5ltUREboj2pqyhYr
-         kZ6LJQDGrxjGoH5MBWctZJUaU6+ONdN9PDxBBe1AiredD2K++Tzuf6w5k0uGsbXilBV7
-         cYaVrero6oU1YuWENVDIuNAJ7WMzV7dTO4DoE0flhZAuuYYUmcSLMam/WZipRq5dUSIV
-         +V3gQFNpT2+gRSZsl+SYpSiRi4eaOFFfI2nVkrdd6TmQcmwkRdGCQZm6Shm4xkcBHFm8
-         cFJrnlHQ0ccAG3Wet3xmdQ1gI6PZkcrPIVR3Fx318s/PjxNNGY9Xr3bGY+8OHb7AfGXD
-         t/zQ==
-X-Gm-Message-State: AOJu0YwpEndA7ul689m7cMXp8g6T9My7JamYM9WRE/upixJf/2Eguzmy
-	/1Nc2S6p2e0lEAnQdW9WYJGR+Gl6OASV8N8QY85YIMFwfsFkI2tq8i878WigpKw3UXPABksDxBU
-	+2wq2ec+gvjwX655qjrbfKm/RkVk+T6jtsnmv4JzQzfXMz7yVDu6pvo07ZG5q/09kzw==
-X-Gm-Gg: AR+sD10cKEyYC65wlJALnXNCKq6PLYJj7SwnXRC13GRdC/PHn1prpZR9DIjlNi/BlGm
-	6rY7ENniTvTt4OpgBgUPPaSlpEXekcNYWvSeLfpX7lweWY/3P8P4bhlnHvXdTB2eyCglIJiszyA
-	U3bU+2RtlLMHhBvmc5o+fl9ecH6rxLT4bVRbBS0Q8JsMgSZ8Edbjezu9vvsCJJrdZ4GEoEJtcAg
-	bnOHRPaVx151Y/O46GjptUo+L9XiU2pixi/3Li0yaFlPaerFrnI5t23uRmTb+clA8Dzv5ovFrKj
-	uz/CG22/SFgOG7YesXFkmmaP2Q2iNpxQ5mW3lrOGojJQpwqQ4++zzvXNcuCv6fndrd4nLavWnJ6
-	Lp+3jSsrWXlkNdnNdMAtxwfk21EU/b7UhAcGRGD+yLZ5XkOgESVtvfNXWD9MKuDvR/PyfRXrt84
-	v9KsM4PkrbohR68w==
-X-Received: by 2002:a05:622a:303:b0:51a:8c97:9378 with SMTP id d75a77b69052e-52b386b300amr45739111cf.64.1785451950619;
-        Thu, 30 Jul 2026 15:52:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:303:b0:51a:8c97:9378 with SMTP id d75a77b69052e-52b386b300amr45738761cf.64.1785451950001;
-        Thu, 30 Jul 2026 15:52:30 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39f6ac9b9f4sm5447661fa.32.2026.07.30.15.52.26
+        bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
+        b=oIVljZbhFBljBD0y3wvrbcZnAAmori+qjEK9sO/0PiLVBfgWo2KftfPc/A2cGHk1UC
+         pmCpDHJQMC8Jbf57krg7VMomcohzH6WE/lFm/SyqTe0Be9UQUCKJ4+d7Oatj3U+l6W4N
+         dnM8zuezHjTdv+Sz5fOOfEqNAF9cQ9K/JRdEwXzN01ujYI8W6cOSUQHMSz26P5/5nroP
+         2uKhEfu7D+XGvxFr4pqe4yVXsnR8qXFS/kHiU1GKTCnilrI7QqtKq1ZRdap68zFbkMRH
+         ryONkhvR+0NiTsWuJjCWB3IvpNJ0FYYQkBGSv8kSJ6ptNN1BpnXzg36yVMshtORfeyo4
+         nAdg==
+X-Forwarded-Encrypted: i=1; AHgh+RopkfrbR6Fakcveyc640V0tel7njYXhnBrm6BR33irBI+pJFilLsbADQvRLXeUoACV8hN97GPjkDvsHyQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywl/rQGsHQbbXhzI2yi+Yom/IihKslApUGBQTWqrGWuiIbMFA08
+	8VOROahYbYvzMf9MWfG5DPFwTTEp8cJEKBI4Q9RXFdF82zEG5yRI7CXvmisfNO9DnQ==
+X-Gm-Gg: AR+sD13++eF0CgIJzKWU1P9NtyqPrNZs+t/UbM5axDxV369DI1MqUp+aWeATuzpqlzC
+	TI8V2xiZhEmms6bbZLM9dr/4e9JiuN7bQ5fDj5BtZbRs3GmDPjiDGDg36HbDvCcHjhBdY7u0lcU
+	ydTqGERTUfhHxcyTg4eL66cU5gyaHt2N9TaPcJbJghD/Ura9VfZNrCjT0qSsw089bBNTXISgAKR
+	sXmnpYdj7iXcL6K8C0iB9apIM5cyX4sechOEEuuKuBKzkc8ll+isqyEw9EJmlWCGz9ixL7f+l7R
+	sM3alg1XZKNkCUPm80vY8Q7Gog/u/FX53EtMHDu6Zprf5TonY4Ax78L2pBuzVnyVTR4IQRKFYbr
+	ND8GVQNzKMHEbMicaecOeZdAGgLMV21fw0o5bbW07BgcQp2BPbi7yYY1M372/16GDo2GQXTHlTH
+	OUWT3s7lFFvdoayXnvUXBm5L5fN6yPvkGIGnc2YVk7eNbyOFna6DE99dZ4ft/6+jSOJHacEb5Y+
+	9j7uJerCm9SKGSLQBN6w4aXQc/aAwZYo6WkQd2BaTSWRQ==
+X-Received: by 2002:a17:902:f541:b0:2b9:e831:5e5c with SMTP id d9443c01a7336-2d04113beb1mr4399455ad.4.1785452132956;
+        Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
+Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d2ec2asm29148088eec.21.2026.07.30.15.55.28
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 15:52:28 -0700 (PDT)
-Date: Fri, 31 Jul 2026 01:52:24 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/9] media: iris: enable VP8, MPEG2 and interlaced video
- support
-Message-ID: <xbvyccur5htwxzxpqywtnh7orm6gwjxqmfh7qkzb4egqxhfv46@ilvrnxrztdbv>
-References: <20260709-iris-vp8-v1-0-6af3ab578a7c@oss.qualcomm.com>
+        Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
+Date: Thu, 30 Jul 2026 22:55:24 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Message-ID: <amvWXNRtviKEuUoV@google.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-4-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -100,44 +92,140 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260709-iris-vp8-v1-0-6af3ab578a7c@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDE2MiBTYWx0ZWRfX1uzx8Q1d1Drw
- zoYv+qaMW2gubW7mM+tRP4gNc7h+u8ReWxhpjvSYEtlLo4Nm36r20qy+IIzpMv90SEiK1xT31qf
- uNn3jmI74yv6WOwM+KNlYp5JoPa2CEs=
-X-Authority-Analysis: v=2.4 cv=evjvCIpX c=1 sm=1 tr=0 ts=6a6bd5af cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=lxEG8TWL_LL3OZABwnwA:9
- a=CjuIK1q_8ugA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: QT5UhOThpiimJ-1ICAv8Jh6DrUq1qqBj
-X-Proofpoint-ORIG-GUID: QT5UhOThpiimJ-1ICAv8Jh6DrUq1qqBj
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDE2MiBTYWx0ZWRfX06rGIHeqU/tp
- Ztk+USUD6hweX2m2glCosT7FxplD68JyWuW+rR3ZiPZLsIZZQYVbPWNIjyu8ScMOM/1MeZlVKzj
- VlyGgoho9Tf1fJAcsNPjyAjrfbsUFzEbM9LsBbQWqQgnFTD2QznLF10y40mZpUvefd/i58CmECu
- iR32zChSUtG/LiHsk5aw7CHMhkjFk7D0IuthxhnZvuaZAZyQgOe7EMavLbMaLIMEHn7t8ZKlKLQ
- vADsaKCav9NLInhyWbv0bU95qiqA+Fs2NbCSUqKZkcBM+8BUTGpESJUutEcPwwyVbzt9SIHfi4x
- /s/3456PtuWO4Zh8gevaADFqXn3XSQdZa/gmKCxiKGriny2AcbRvAOQsJe/8v++GQiqQDz2wG+/
- nRY1TS3TS6UWFNrgUPAukMmHcGQIjWV63dOj+pzhL+RI8TuefdVV9tlRGxRaddjs9x1j4lqL/yO
- ot3TvVQr4yBDIHKQo+A==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-30_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 clxscore=1015 adultscore=0
- suspectscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300162
+In-Reply-To: <20260715174737.15287-4-matt@ozlabs.org>
 
-On Thu, Jul 09, 2026 at 10:36:57PM +0300, Dmitry Baryshkov wrote:
-> Bring back features supported by the Venus driver, but not supported by
-> the Iris driver: VP8 (encoding, decoding), MPEG2 (decoding only) video
-> support and also support for interlaced video streams.
+On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
+> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+> find a PFN.
+> 
+> This supports multi-range DMABUFs, which typically would be used to
+> represent scattered spans but might even represent overlapping or
+> aliasing spans of PFNs.
+> 
+> Because this is intended to be used in vfio_pci_core.c, we also need
+> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> 
+> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> ---
+>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>  2 files changed, 160 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> index c16f460c01d6..7c047400dfd1 100644
+> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> @@ -9,19 +9,6 @@
+>  
+>  MODULE_IMPORT_NS("DMA_BUF");
+>  
+> -struct vfio_pci_dma_buf {
+> -	struct dma_buf *dmabuf;
+> -	struct vfio_pci_core_device *vdev;
+> -	struct list_head dmabufs_elm;
+> -	size_t size;
+> -	struct phys_vec *phys_vec;
+> -	struct p2pdma_provider *provider;
+> -	u32 nr_ranges;
+> -	struct kref kref;
+> -	struct completion comp;
+> -	u8 revoked : 1;
+> -};
+> -
+>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>  				   struct dma_buf_attachment *attachment)
+>  {
+> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>  	.release = vfio_pci_dma_buf_release,
+>  };
+>  
+> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
+> +			      struct vm_area_struct *vma,
+> +			      unsigned long fault_addr,
+> +			      unsigned int order,
+> +			      unsigned long *out_pfn)
+> +{
+> +	/*
+> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+> +	 * search the corresponding DMABUF's phys_vec[] to find the
+> +	 * range representing the address's offset into the VMA, and
+> +	 * its PFN.
+> +	 *
+> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+> +	 * upwards from the buffer offset 0; the actual PFNs might be
+> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+> +	 * the desired page given VMA start/pgoff and address, then
+> +	 * search upwards from 0 to find which span contains it.
+> +	 *
+> +	 * On success, a valid PFN for a page sized by 'order' is
+> +	 * returned into out_pfn.
+> +	 *
+> +	 * Failure occurs if:
+> +	 * - A hugepage would cross the edge of the VMA,
+> +	 * - A hugepage isn't entirely contained within a range
+> +	 *   (including where it straddles the boundary between
+> +	 *   ranges),
+> +	 * - We find a range, but the final PFN isn't aligned to the
+> +	 *   requested order.
+> +	 *
+> +	 * Upon failure, -EAGAIN is returned and the caller is
+> +	 * expected to try again with a smaller order, which will
+> +	 * eventually succeed (order=0 will always work).
+> +	 *
+> +	 * It's suboptimal if DMABUFs are created with neighbouring
+> +	 * ranges that are physically contiguous, since hugepages
+> +	 * can't straddle range boundaries.  (The construction of the
+> +	 * ranges should merge them in this case.)
+> +	 *
+> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+> +	 * To avoid double-offsetting in this scenario, subtracting
+> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+> +	 * the effective offset.
+> +	 */
+> +
+> +	const unsigned long pagesize = PAGE_SIZE << order;
+> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
 
-Dear maintainers,
+Maybe I'm getting ahead of myself here.. but it seems like this
+restricts us to only mapping DMABUFs at offsets < 1TB due to the 
+VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
+may not be a very distant future).
 
-This has been sent three weeks ago. Zero reviews. This is hard to name
-as an acceptable response rate.
+While I understand this mask is needed to drop the BAR encoding in the
+high bits. 
 
--- 
-With best wishes
-Dmitry
+My worry is, if in the future a user were to export a massive
+contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
+into it (passing an offset >= 1TB), this bitwise AND would silently drop
+the high bits, leading to silent data corruption.
+
+I think we should explicitly reject such an mmap with -EINVAL like:
+
++const unsigned long pagesize = PAGE_SIZE << order;
++unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
+
++/*
++ * Prevent silent wrap-around if the user mmaps a DMABUF at an
++ * offset greater than the VFIO index mask allows.
++ */
++if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
++    return -EINVAL;
+
++vma_off &= VFIO_PCI_OFFSET_MASK;
+
+> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
+> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+> +	unsigned long fault_offset;
+> +	unsigned long fault_offset_end;
+> +	unsigned long range_start_offset = 0;
+> +	unsigned int i;
+> +	int ret;
+> +
+
+
+Thanks,
+Praan
