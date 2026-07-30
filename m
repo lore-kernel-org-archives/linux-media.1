@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9A7384233;
-	Thu, 30 Jul 2026 20:02:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80B513998A6;
+	Thu, 30 Jul 2026 20:09:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785441737; cv=none; b=izUrtxJnUJrtEO1yy6MHcVI8pDHxQW77j+6jsxMQLiviBHhBT480xrpQdmlTf8Zb0Y0b/TVj5YK9x19GuEldbmW8orKM9ru/xUvwYZfILs/8fnMYqK0COYdO6y2J4vqN3GTE2TUXTi1y2ySx0cObyYlbHAqbyIOHzCPD6mAnyCs=
+	t=1785442189; cv=none; b=TaRt7XgxdWKnvxi2VT7vv2KucGqtPHt5epZEBmu9p9muZVgU5xxV8ohYSk6wdwuXugGIRyC8YSvWHD2uF0N5jXmdvo93/hgniCoLUx1ZheYInQ1uS+F1Sg+/FbG6zjEVe3IaofrPw3Z+rwxSMeYsEgQmi2g6tvQjUOXtBEHExsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785441737; c=relaxed/simple;
-	bh=I51RoSRfeXhodzhyviCxLakDKoPcWPa9FFUlmYygh3M=;
+	s=arc-20240116; t=1785442189; c=relaxed/simple;
+	bh=drFysgT5lqo57UVqTvndRvRXMwHvyFaCDZPmGvBEqjM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JDHyJyS7cq4OUzweefUeWCFkl9PzJJQMKjr+85+z+9S4r1kxCnvVYFC4SsYGUI6pqToE5ctCsprBSfWG1J4jKdZEn9eIfm/BIZXkH9q16PTXP/l7ontGvpH57Y9jUq1fUky7x06+vMMfCs2h4zvC92aAZOPHm1wIv/DiDXiHmvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ENpU42UX; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=KkrzJqivHXCPgWsTPSa4BgZR8Vcrf1GhvefPydT3pSPz7JID5NE2f7jc8bEgtPRTSRc/+MSEZxUAD5A44X1OA0wrYFHPg8M91BH2opjWsg09iXL2dPxYYM2fGut9WjKNJvtGl55tPDN7u+YRDafAjXQlQEMUHiET18LuDdQemPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZN2fCi/x; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ENpU42UX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC0A1F00A3A;
-	Thu, 30 Jul 2026 20:02:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZN2fCi/x"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 811D51F000E9;
+	Thu, 30 Jul 2026 20:09:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785441735;
-	bh=81ixOIIxQDz8Y1YeZwzSahmddmhY7vX/kxMbcDdS2JA=;
+	s=k20260515; t=1785442176;
+	bh=C5E3y+FPRJicOU+cDWH+RWopaJiiybcrtpnvc8kuspk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ENpU42UX/QrHwxkd6mwSnu8qWCjuwEcDTYM68/aC3cM+m1BFOn4gDNf0aIE9USj+n
-	 6GZp+HK+9ijicRGqFXMKnwH5w3hdtHmVfMu5fxXBsuGbrwiR7EmSJIwmWpWUPrHadu
-	 F5iXEFIXlzMA/SP09gsqFseJENjMpsfweRqLkK13RRCRDvxQxlD+zO1/TUH8XbSb1o
-	 VKKNnn8nwrKH+3uOK4oBz70LlBXjT5GmAm4kernsvDl5woH60mdHxje9qe0ognGWMT
-	 A9h81x70TiRrcCcajy4CLnUpXlR3aW3gQmF7Zyw37lkuRK06paT/QYGNWU4PAzye5i
-	 FLwXQMNad7wjA==
-Message-ID: <d8137a89-5fe5-4a06-b3e8-be55e59327ca@kernel.org>
-Date: Thu, 30 Jul 2026 21:02:11 +0100
+	b=ZN2fCi/xSscnqSbP9YS7zKH70nnL0GVfLptmUd2UuYSk7DDfH+jIKlLtkOgBEHVMw
+	 aW5OYC8D3nR5PxLQtQTBM+FHtH58XfXsxAjXPwYoglbqFgbYMwlF1jcKUtVwKRhUJz
+	 HC8VbPdcSOc9XMbZqKkpsSUCY3Mx1CBQyQqn6slQXTYmX2sP7hr1ihbukj9HiGcIPJ
+	 2cpGUZxQw4KJ2uDHBpfb3ROnbl53YGesVd/6HVK2LhegmjLvneOsI7L6/fzxgWr+44
+	 g+fvPvh57BQdsNn9jDqASOKYn9eZaSgKl1qA1DZd69DdI1SysP5fR3RGHc50BXwKFz
+	 IPdvgpCzKbw1Q==
+Message-ID: <97a82a07-be5e-4667-8b85-50eb31136a65@kernel.org>
+Date: Thu, 30 Jul 2026 21:09:32 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 01/18] media: iris: Add Gen2 firmware autodetect and
- fallback
+Subject: Re: [PATCH v8 00/18] media: iris: Add AR50LT core support and enable
+ Agatti platform
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -47,10 +47,10 @@ To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
  <conor+dt@kernel.org>, Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
  linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-References: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
- <9bYftv7DVgZ5cXat1TpH-BGbGGNNRGxKT_mLPEzuMzdy73ZM4aqjhRoTTCXkfT13oEiH4T2RepfvnMA11hWBGw==@protonmail.internalid>
- <20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com>
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <J0r-fdDYeS3FyqabzR_0wiwxC-2onZeePkUSfv0NavGV8KB3Anc-j8yKHqfY2I3X4VAiZpRkYSIZLaTwuyhKMA==@protonmail.internalid>
+ <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -96,53 +96,95 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com>
+In-Reply-To: <20260730-iris-ar50lt-v8-0-6597c08cea6f@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
 On 30/07/2026 16:20, Dmitry Baryshkov wrote:
-> From: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
+> This series adds support for the AR50Lt VPU core to the iris driver and
+> enables the Agatti SoC to use Gen2 firmware and HFI.
 > 
-> Some Iris platforms support both Gen1 and Gen2 HFI firmware images.
-> Update the firmware loading logic to handle this generically by
-> preferring Gen2 when available, while safely falling back to Gen1
-> when required.
+> AR50Lt introduces a few platform-specific requirements that need to be
+> handled in the iris core and VPU abstraction layer. To accommodate
+> this, the series adds minimal hooks and updates needed to allow the
+> firmware to operate correctly on AR50Lt without impacting existing
+> supported platforms.
 > 
-> The firmware loading logic is updated with the following priority:
-> 1. Device Tree (`firmware-name`): If specified, load unconditionally.
-> 2. Gen2 default : If no DT override exists, select the Gen2 firmware
->     descriptor when present and attempt to load the corresponding
->     firmware image.
-> 3. Gen1 Fallback: If loading the Gen2 firmware fails and a Gen1
->     descriptor is available, retry with the Gen1 firmware image.
-> 
-> Loading and generation detection are split into two steps.
-> iris_load_firmware() applies the priority above and returns the loaded
-> image together with a candidate descriptor. iris_detect_firmware() then
-> runs only after qcom_mdt_load() has succeeded and publishes the chosen
-> descriptor, so the driver commits to a HFI generation only for an image
-> that has actually been loaded.
-> 
-> When a platform provides both Gen1 and Gen2 firmware descriptors and the
-> firmware is loaded via a DT override, the candidate descriptor is only a
-> default: iris_detect_firmware() inspects the loaded image to pick the
-> generation, before authentication. It scans the memory populated by
-> qcom_mdt_load() rather than the request_firmware() blob, so that a split
-> .mdt image, whose version string lives in the .bNN data segments and not
-> in the ELF headers, is classified correctly. The firmware is classified
-> as Gen2 if the QC_IMAGE_VERSION_STRING starts with "vfw" or matches the
-> "video-firmware.N.M" format with N >= 2.
-> 
-> If a Gen1 firmware image is detected in this case, the driver switches
-> to the Gen1 firmware descriptor and associated platform data so that
-> the correct HFI implementation is used.
-> 
-> This change makes firmware generation detection platform‑agnostic,
-> preserves DT overrides, prefers newer Gen2 firmware when available,
-> and maintains compatibility with platforms that only support Gen1.
-> 
-> Signed-off-by: Dikshita Agarwal<dikshita.agarwal@oss.qualcomm.com>
-> Co-developed-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Dmitry Baryshkov<dmitry.baryshkov@oss.qualcomm.com>
+> Additionally, the series wires up Agatti to use the Gen2 firmware and
+> HFI path, aligning it with newer generations of supported Qualcomm
+> video hardware.
+can't apply
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+b4 shazam 20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com
+Looking up 
+https://lore.kernel.org/all/20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com/
+Grabbing thread from 
+lore.kernel.org/all/20260730-iris-ar50lt-v8-1-6597c08cea6f@oss.qualcomm.com/t.mbox.gz
+Checking for newer revisions
+Grabbing search results from lore.kernel.org
+Analyzing 31 messages in the thread
+Analyzing 225 code-review messages
+Checking attestation on all messages, may take a moment...
+---
+   ✓ [PATCH v8 1/18] media: iris: Add Gen2 firmware autodetect and fallback
+     + Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org> (✓ 
+DKIM/kernel.org)
+   ✓ [PATCH v8 2/18] media: iris: Skip UBWC configuration when not supported
+   ✓ [PATCH v8 3/18] media: iris: drop IRIS_FMT_foo enumeration
+   ✓ [PATCH v8 4/18] media: iris: Filter UBWC raw formats based on 
+hardware capabilities
+   ✓ [PATCH v8 5/18] media: iris: Introduce set_preset_register as a vpu_op
+   ✓ [PATCH v8 6/18] media: iris: Introduce interrupt_init as a vpu_op
+   ✓ [PATCH v8 7/18] media: iris: add vpu op hook to disable ARP buffer
+   ✓ [PATCH v8 8/18] media: iris: Add platform data field for watchdog 
+interrupt mask
+   ✓ [PATCH v8 9/18] media: iris: Add platform flag for instantaneous 
+bandwidth voting
+   ✓ [PATCH v8 10/18] media: iris: skip PIPE if it is not supported by 
+the platform
+   ✓ [PATCH v8 11/18] media: iris: Add framework support for AR50_LITE 
+video core
+   ✓ [PATCH v8 12/18] media: iris: add minimal GET_PROPERTY implementation
+   ✓ [PATCH v8 13/18] media: iris: update buffer requirements based on 
+received info
+   ✓ [PATCH v8 14/18] media: iris: implement support for the Agatti platform
+   ✓ [PATCH v8 15/18] media: iris: Introduce buffer size calculations 
+for AR50LT
+   ✓ [PATCH v8 16/18] media: iris: add Gen2 firmware support on the 
+Agatti platform
+   ✓ [PATCH v8 17/18] media: venus: skip QCM2290 if Iris driver is enabled
+   ✓ [PATCH v8 18/18] media: iris: constify inst_fw_cap_sm8250_dec
+   ---
+   ✓ Signed: openpgp/dbaryshkov@gmail.com (From: 
+dmitry.baryshkov@oss.qualcomm.com)
+   ✓ Signed: DKIM/oss.qualcomm.com
+---
+Total patches: 18
+---
+Applying: media: iris: Add Gen2 firmware autodetect and fallback
+Patch failed at 0001 media: iris: Add Gen2 firmware autodetect and fallback
+error: patch failed: drivers/media/platform/qcom/iris/iris_firmware.c:14
+error: drivers/media/platform/qcom/iris/iris_firmware.c: patch does not 
+apply
+error: patch failed: 
+drivers/media/platform/qcom/iris/iris_platform_common.h:289
+error: drivers/media/platform/qcom/iris/iris_platform_common.h: patch 
+does not apply
+error: patch failed: 
+drivers/media/platform/qcom/iris/iris_platform_vpu2.c:22
+error: drivers/media/platform/qcom/iris/iris_platform_vpu2.c: patch does 
+not apply
+error: patch failed: 
+drivers/media/platform/qcom/iris/iris_platform_vpu3x.c:90
+error: drivers/media/platform/qcom/iris/iris_platform_vpu3x.c: patch 
+does not apply
+error: patch failed: drivers/media/platform/qcom/iris/iris_probe.c:251
+error: drivers/media/platform/qcom/iris/iris_probe.c: patch does not apply
+error: patch failed: drivers/media/platform/qcom/iris/iris_vidc.c:9
+error: drivers/media/platform/qcom/iris/iris_vidc.c: patch does not apply
+hint: Use 'git am --show-current-patch=diff' to see the failed patch
+hint: When you have resolved this problem, run "git am --continue".
+hint: If you prefer to skip this patch, run "git am --skip" instead.
+hint: To restore the original branch and stop patching, run "git am 
+--abort".
+hint: Disable this message with "git config set advice.mergeConflict false"
