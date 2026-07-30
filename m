@@ -1,39 +1,86 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19A993B05B3;
-	Thu, 30 Jul 2026 17:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8FA3AAF5D
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 18:02:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785432899; cv=none; b=HbCqQ8wLrSiPW0Qc5SRNwJ8BjeIa5u2s1cpU9UHqtA0QlR6/p5WO/IDk5hJy26gqPsZvtQWxDAmB7LPpMIOlqWxusxvLfqrWejblpDzduAbpmTEPNFToLqys0UZtVUVLXau27/eSJhNWZ4t+rqDPgHqhvKS3LT/HEG45WmSxoaY=
+	t=1785434554; cv=none; b=Ars9GQhEoqG84y4Xw/WVuEfUo7kRP2+3zZ4LZZp34XWGAjoLlJ/cCKvqANBKnTDxd98415T2wW+gtXI1FCnj3s4QGNXXShNf9Wsfq85TluxdJrXL8ZFSvacddRs+e4la4YEX7CEFNmLQFBzGnCBlNrjuCHPGDTVP1gwMyzsd8yk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785432899; c=relaxed/simple;
-	bh=Isx+B6xdzbsq3rz/C9gLO7gegxsd0kKUkaAbPzMUbAA=;
+	s=arc-20240116; t=1785434554; c=relaxed/simple;
+	bh=BJ/4rtxLJ3OUT8j1IeHIi1+42TYtIAWMAyf8v5atvH4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tDqm0TP0CYlBMjsE0my4+AGqvUCVQEVu0ZkjbkxAyQjHwZuIIyRRvWWW2xNd9thjiu0PwLog+vVho72GZuk9VbTVsccggxh3ddE8QRzjdtwjsm7r3skWQYABpHdczlxCanfTCuCWy4QR6nONMY5MRmydG7RUewT/aIqa5KN6lnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=A+CtcZRX; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	 In-Reply-To:Content-Type; b=qAh1tTjOUkPTCMF2IWvXr/yAKRaVw/4Qi9M5QhFNX/g7LWwpivtcWs/ZPu6xX5fg4XgNQabnVjKE/5DWBH3FC3aNbqH5P1GodJLZVPSuuD5TRwbV9ufoKy6GOQ7ABaiCMILDu5qeYNAhRyzJ3SqoZY02LQblz/RSXIsoLHaQPr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hPW+HIhA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dKLmiJiw; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="A+CtcZRX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1785432893;
-	bh=QuojUk9v7bC1Xv2fnJFdC2FZ+oPAmVVikvQPXiMuyX0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=A+CtcZRXj15w88sYYwj5P5aW9X4Jme11b6QIJq37Cwwi5WZLv8jEQTDyvzoa2a0gm
-	 rpgr9DGsGweYmGJHHOaTvDvKBW/UoNhufSQzed6ooAm/0kJpmzPSl9XEQ0KLtICj3A
-	 QNN06HoPhrlQLdgg3ePQQ0KQ1DZ9AK2n00fiLMy4CIcAVh4L25KhDzJ8jbV4tJVAg0
-	 V4Zi/xVDU0K+Yl/4e/vgCM9wGaWyLf8C1M9patNB12im2RC7hNbPsTp2yloOzuFNRb
-	 In++Bhp9oWojy+LBpSKxIxyaM/6y/B7p6WeSB8eQ4ZWMDDY4zYIOhdk+JuPaWRFVIb
-	 YYzQwAybK7UPA==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4h9xCm4PBJz4wL9;
-	Fri, 31 Jul 2026 03:34:44 +1000 (AEST)
-Message-ID: <623a6fca-7b88-4508-8088-3882d6e54330@ozlabs.org>
-Date: Thu, 30 Jul 2026 18:34:40 +0100
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hPW+HIhA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dKLmiJiw"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66UHfEL71458191
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 18:02:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=; b=hPW+HIhAFVnfK6kc
+	CvMOuB14DfgJNPj2spVU74+ZUZuo0QrBSTskJUVN1KMHMamhP/Pyq1fyCkdlh35/
+	g0cGMZzvMDTShb1KlpVPnW9Ys5PMgUWHoOY/R0Lv7XZtomPjwgcMJah6/k8gb8/a
+	KV+FOb4iJLb/bde7RIXB96PbIS2nCM4EmRzaAhJ779hpnFc3UzfPcZHigXmNmhE2
+	PV1J7JS9JPZUuf1OgU06wk788toSZToaVlcy3BMSjZCo9ZRITbktterZpBSOLdfj
+	RxRvNelnH7zkTXTU/+7sZpZ67xd/IOlWsjI2p8I0Dl0beOv/ZygRxPfLs9g1ZxTq
+	dWKNAQ==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frb7wg3ad-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 18:02:31 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7382fc429f6so112608137.2
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 11:02:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785434551; x=1786039351; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=;
+        b=dKLmiJiwnJab6MkllE/qLIe7ZCabO2XJllk2fFhL2WASHuH0eP0Yvt6zUPai+/C+Yu
+         gMBx6WaXDGEMYVgD7Mow65Ix8nNtSfZQ7v0/U1oqni7mVZPIE9GQybLj/O2QxJ5gvfNy
+         t+ZOjvN3aIHFaRMuOlGbUVSFiE5TarA0cBmwSRKPMqpomym2OnEWx1SHtgvmCoATAFT0
+         QEuXdDblsPmgTcgou2b0Skbc6f1jAWyv17Pk3AQqcl7TajNhSN1p3dX3DtYotrWOFuHZ
+         jHgVbZwXgwKuVLR3FDKG6jrcZWGvMuQjmMMANUxhaw1Ts5YoldF8UNGSpjFmF/U6W/yd
+         QiiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785434551; x=1786039351;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FmpZDlvYo4bIIHmIKcULNpFvjwTYQhKuozzyEdxOXis=;
+        b=WYahV7JnvUqlaDIihFNF2GitmVaEZWt3tf0439+8/D/s5Kl2YoSxNuiLwvjk+4esi3
+         jF3b0PMXUI3YVCq5OtMEHJCEsmO7yeTpWP54/oMfob5RPA5nX8CJoazQrpWPwVdjSiTO
+         jmIk6nNCJNN3vwaiLJ5jNnlpGIp1d+vT/0KhbhdH43Gi4RwJkufEqwNrc8+CXfeQkFIc
+         Y9gMEic9gqHcxc/JEdLLCpaKIceWUytbrFVzyMz0BMoC3EzT1bztYzfIcJowz02U4pgM
+         SGzFLkLnVaqrKDrnUEhfN4Mf/hO9kbY3K7UBI32SUvgoBFZxZRb63glxNoaRcE8HvG6C
+         U28g==
+X-Gm-Message-State: AOJu0YyQuFab6MhK3aQRzfelGBsOMSB1yGnhXFQOJzGS31t4pTJwGvxB
+	e51hWhEVTVsytgCo3ACpxXSmS4caIRWwxUJO+ZECQ4ToS9nV1CmVQmbMGCfTB39p/qkHlRt+MUQ
+	hlgMfLVrIO8xYYFv0wVdOGc85wMTiu1Hoy8jjRnJ3MEWso6kLnbqeVq2xX3MnkNFvsQ==
+X-Gm-Gg: AR+sD13X9yPjrLpf7pR7vVxyfwAkVue3N5gVy3JWAgntJgkhq/147j56wJfdKgNzd0Z
+	gjZQmDAyrt5bZBKa/DIwn1e8nfIgX2bd2pGwiuMKnWZ9LcsdL3FpqjG01a4gUGt8l0HIhYzep3r
+	/+HYNqFBIhrnLCTqv/dfRSj/9D0me6nLckzHSVKDrekbYa7wmTNMKQJvBL/kscEvhOvbNgRQuIU
+	b3Tt7S0Dk59/3fQx+ooeU1YpFX1SAjQDxL3j1LTLCt2HdfDzh+J0U7bMdkk7CWsQSXZLzgFOHDF
+	EWMhrZCu/pr8ZKU5A3DXWk9aqDveVXrHoj2ULge8SrUHiNWnTtWqQHUKum6M8qvHzzbZ4S9xwsj
+	Y4ioY3E1J5AcQ2Ek4zIFJpJV6Iki1M5Tz
+X-Received: by 2002:a05:6102:4415:b0:740:2d40:a234 with SMTP id ada2fe7eead31-7574e4dcc08mr1462807137.9.1785434550551;
+        Thu, 30 Jul 2026 11:02:30 -0700 (PDT)
+X-Received: by 2002:a05:6102:4415:b0:740:2d40:a234 with SMTP id ada2fe7eead31-7574e4dcc08mr1462740137.9.1785434550047;
+        Thu, 30 Jul 2026 11:02:30 -0700 (PDT)
+Received: from [192.168.1.73] ([92.247.57.178])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fa8577e83sm98649166b.17.2026.07.30.11.02.27
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 30 Jul 2026 11:02:29 -0700 (PDT)
+Message-ID: <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 21:02:26 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,312 +88,168 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-4-matt@ozlabs.org>
- <20260729115210.753ab8ce@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260729115210.753ab8ce@shazbot.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
+ <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
+Content-Language: en-US
+From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+In-Reply-To: <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: TUUtlK9dxVRYW9VVNf4TKMwQ4mMJV3oo
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDEzNCBTYWx0ZWRfX1CjxVi9xEbMo
+ uSf/1M72843dcQ1lx9wu7T7pLXkAsu27e8naeFP4FXpTSaJ2It0Kkb1UnMXIk0xj5yi9Dmz45LM
+ qNx9adRlS/Rs5LIcCG6+efby5XNrm/k=
+X-Proofpoint-ORIG-GUID: TUUtlK9dxVRYW9VVNf4TKMwQ4mMJV3oo
+X-Authority-Analysis: v=2.4 cv=EojiaycA c=1 sm=1 tr=0 ts=6a6b91b7 cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=ybD9qRDIDfZaXNPQ7Ca20A==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=O0DfClCy2XHIW_CjMjMA:9 a=QEXdDO2ut3YA:10
+ a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDEzNCBTYWx0ZWRfX4gFRF1Y9udaD
+ RNJqY2kBIiAHPBpFqo0cpdKs8k9zJFOdFfYMbgJkjs8yteJU9rjPRfCg5qeLg87JrLy0Hh74d7S
+ ykewjbXDmyzmuSAi8GPXolhVB/s5Om6gsxjuLo0I4KkcWj5iGsuIlIljeucqgQM3krARZ7o7E2I
+ yIzGxMLKawncVlrwSKBwHKTApVM1A4WsopP8vjWk/weFp6bhfLS4VmtIHxhkG60sgBdNRbCzrW9
+ WWCSfPYoyf1cyfDWmpxWK4e/kRlVztIYBUpuKL/rG/hWg0HPNNeDMDdTNmSj3BFgO0nCLQoAkDE
+ +2S97FS1srceaA777JziFCRGxpOuBcVM8rP6mV485ti3rZZqbBrU+tWDvZWhn3nAOMQuPAuekdq
+ HA35dZHFP1qKo27jIwwXW2B2daw1RthNC8nFVcEu9p1JGJPOrNbUyAi8fM1I4SzpBUMtMyZy7Nb
+ SSFSVeofl2wELfFob/g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015
+ phishscore=0 malwarescore=0 suspectscore=0 priorityscore=1501 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300134
 
-Hi Alex,
-
-On 29/07/2026 18:52, Alex Williamson wrote:
-> On Wed, 15 Jul 2026 18:47:26 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
-> 
->> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
->> find a PFN.
+On 7/30/2026 7:01 PM, Dmitry Baryshkov wrote:
+> On Thu, Jul 30, 2026 at 06:05:24PM +0300, Atanas Filipov wrote:
+>> Add the JPEG encoder hardware node to the SM8250 device tree so the
+>> qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
 >>
->> This supports multi-range DMABUFs, which typically would be used to
->> represent scattered spans but might even represent overlapping or
->> aliasing spans of PFNs.
->>
->> Because this is intended to be used in vfio_pci_core.c, we also need
->> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
-> 
-> Nit, it would be useful to mention the addition of vma_pgoff_adjust
-> here and justification for it added here as a static zero versus later
-> in the series where its value is updated.
-
-Sure, good point.
-
->>
->> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 >> ---
->>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
->>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
->>  2 files changed, 160 insertions(+), 13 deletions(-)
+>>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 72 ++++++++++++++++++++++++++++
+>>   1 file changed, 72 insertions(+)
 >>
->> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> index c16f460c01d6..7c047400dfd1 100644
->> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
->> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
->> @@ -9,19 +9,6 @@
->>  
->>  MODULE_IMPORT_NS("DMA_BUF");
->>  
->> -struct vfio_pci_dma_buf {
->> -	struct dma_buf *dmabuf;
->> -	struct vfio_pci_core_device *vdev;
->> -	struct list_head dmabufs_elm;
->> -	size_t size;
->> -	struct phys_vec *phys_vec;
->> -	struct p2pdma_provider *provider;
->> -	u32 nr_ranges;
->> -	struct kref kref;
->> -	struct completion comp;
->> -	u8 revoked : 1;
->> -};
->> -
->>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
->>  				   struct dma_buf_attachment *attachment)
->>  {
->> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
->>  	.release = vfio_pci_dma_buf_release,
->>  };
->>  
->> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
->> +			      struct vm_area_struct *vma,
->> +			      unsigned long fault_addr,
->> +			      unsigned int order,
->> +			      unsigned long *out_pfn)
->> +{
->> +	/*
->> +	 * Given a VMA (start, end, pgoffs) and a fault address,
->> +	 * search the corresponding DMABUF's phys_vec[] to find the
->> +	 * range representing the address's offset into the VMA, and
->> +	 * its PFN.
->> +	 *
->> +	 * The phys_vec[] ranges represent contiguous spans of VAs
->> +	 * upwards from the buffer offset 0; the actual PFNs might be
->> +	 * in any order, overlap/alias, etc.  Calculate an offset of
->> +	 * the desired page given VMA start/pgoff and address, then
->> +	 * search upwards from 0 to find which span contains it.
->> +	 *
->> +	 * On success, a valid PFN for a page sized by 'order' is
->> +	 * returned into out_pfn.
->> +	 *
->> +	 * Failure occurs if:
->> +	 * - A hugepage would cross the edge of the VMA,
->> +	 * - A hugepage isn't entirely contained within a range
->> +	 *   (including where it straddles the boundary between
->> +	 *   ranges),
->> +	 * - We find a range, but the final PFN isn't aligned to the
->> +	 *   requested order.
->> +	 *
->> +	 * Upon failure, -EAGAIN is returned and the caller is
->> +	 * expected to try again with a smaller order, which will
->> +	 * eventually succeed (order=0 will always work).
+>> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> index f11da2ca4181..d42b29419320 100644
+>> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+>> @@ -13,6 +13,7 @@
+>>   #include <dt-bindings/firmware/qcom,scm.h>
+>>   #include <dt-bindings/gpio/gpio.h>
+>>   #include <dt-bindings/interconnect/qcom,osm-l3.h>
+>> +#include <dt-bindings/interconnect/qcom,icc.h>
+>>   #include <dt-bindings/interconnect/qcom,sm8250.h>
+>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
+>>   #include <dt-bindings/phy/phy-qcom-qmp.h>
+>> @@ -4486,6 +4487,77 @@ cci1_i2c1: i2c-bus@1 {
+>>   			};
+>>   		};
+>>   
+>> +		jpeg-encoder@ac53000 {
+>> +			compatible = "qcom,sm8250-jpeg-enc";
+>> +			status = "disabled";
+>> +
+>> +			reg = <0x0 0x0ac53000 0x0 0x1000>;
+>> +
+>> +			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
+>> +
+>> +			power-domains = <&camcc TITAN_TOP_GDSC>,
+>> +					<&rpmhpd RPMHPD_MMCX>,
 > 
-> We typically use -EAGAIN to indicate a transient error where the caller
-> should try again with the same args.  We're documenting here that
-> -EAGAIN means to try again with different args.  Why wouldn't we use
-> something like -ERANGE to indicate that?
-
--EAGAIN didn't seem all that inappropriate, but you're correct that it
-isn't being used as a transient error here.  I'll change it to -ERANGE
-as suggested.
-
->> +	 *
->> +	 * It's suboptimal if DMABUFs are created with neighbouring
->> +	 * ranges that are physically contiguous, since hugepages
->> +	 * can't straddle range boundaries.  (The construction of the
->> +	 * ranges should merge them in this case.)
->> +	 *
->> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
->> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
->> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
->> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
->> +	 * To avoid double-offsetting in this scenario, subtracting
->> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
->> +	 * the effective offset.
->> +	 */
->> +
->> +	const unsigned long pagesize = PAGE_SIZE << order;
->> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
->> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
->> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
->> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
->> +	unsigned long fault_offset;
->> +	unsigned long fault_offset_end;
->> +	unsigned long range_start_offset = 0;
->> +	unsigned int i;
->> +	int ret;
->> +
+> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
+> please drop separate mmcx vote here and let it come through the
+> titan_top (it might require camcc driver and node modifications).
 > 
-> AIUI, find_pfn should only act on a live dmabuf, but we're relying on
-> the caller to guarantee that it's live and not racing a revoke.  The
-> dmabuf is live if !revoked under memory_lock.  Should this annotate and
-> validate that requirement by adding a vdev arg so we can do:
+
+The change was requested by Brian, most likely in connection with 
+upcoming migrations. I think he would be able to explain the exact 
+reasons. As far as the facts are concerned, this is not currently 
+necessary for the driver to be functional.
+
+Regards,
+Atanas
+>> +					<&rpmhpd RPMHPD_MX>;
+>> +			power-domain-names = "titan_top", "mmcx", "mx";
+>> +
+>> +			clocks = <&gcc GCC_CAMERA_SF_AXI_CLK>,
+>> +				 <&camcc CAM_CC_CORE_AHB_CLK>,
+>> +				 <&camcc CAM_CC_CPAS_AHB_CLK>,
+>> +				 <&camcc CAM_CC_CAMNOC_AXI_CLK>,
+>> +				 <&camcc CAM_CC_JPEG_CLK>;
+>> +
+>> +			clock-names = "sf_axi",
+>> +				      "core_ahb",
+>> +				      "cpas_ahb",
+>> +				      "cnoc_axi",
+>> +				      "jpeg";
+>> +
+>> +			interconnects = <&gem_noc MASTER_AMPSS_M0 QCOM_ICC_TAG_ACTIVE_ONLY
+>> +					 &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>> +					<&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
+>> +					 &mc_virt SLAVE_EBI_CH0 QCOM_ICC_TAG_ALWAYS>;
+>> +			interconnect-names = "cpu-cfg",
+>> +					     "sf-mnoc";
+>> +
+>> +			iommus = <&apps_smmu 0x2040 0x400>;
+>> +
+>> +			operating-points-v2 = <&jpeg_opp_table>;
+>> +
+>> +			jpeg_opp_table: opp-table {
+>> +				compatible = "operating-points-v2";
+>> +
+>> +				opp-100000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <100000000>;
+>> +					required-opps = <&rpmhpd_opp_min_svs>;
 > 
-> 	lockdep_assert_held(&vdev->memory_lock);
-> 	if (priv->revoked) // later updated to status
-> 		return -ENODEV;
-
-Yes, it makes no sense to call this when the buffer's revoked, and it's
-a good idea to both explicitly document/assert this.
-
-I think your point regarding the extra vdev parameter -- as opposed to a
-local 'vdev = priv->vdev' dereference -- is that it should also assert
-that vdev is non-NULL, but one can't just read priv->vdev.  Dealing with
-the races having only priv takes some careful steps (see
-vfio_pci_mmap_huge_fault), so make it the caller's responsibility to
-provide a vdev.  This function can both check it's non-NULL, and verify
-it relates to priv, and then annotate vdev->memory_lock etc.
-
-> This also removes one level of dereferencing in the below dev_warns,
-> which is otherwise a bit suspect without the validation.  I realize the
-> mmap path does the validation, but this is an exposed internal API, not
-> a static function there.  Thanks,
-
-[s/mmap path/the fault path/]  Yep, checks here make sense, thanks for
-the suggestions.
-
-
-Matt
-
+> This looks a bit strange. Are you sure that PLL levels match the MMCX /
+> internal clock levels? I think you need to vote on both domains.
 > 
-> Alex
-> 
->> +	if (rounded_page_addr < vma->vm_start || rounded_page_end > vma->vm_end) {
->> +		if (order > 0)
->> +			return -EAGAIN;
+>> +				};
 >> +
->> +		/* A fault address outside of the VMA is absurd. */
->> +		dev_warn_ratelimited(
->> +			&priv->vdev->pdev->dev,
->> +			"Fault addr 0x%lx outside VMA 0x%lx-0x%lx\n",
->> +			fault_addr, vma->vm_start, vma->vm_end);
->> +		return -EFAULT;
->> +	}
+>> +				opp-200000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <200000000>;
+>> +					required-opps = <&rpmhpd_opp_low_svs>;
+>> +				};
 >> +
->> +	/*
->> +	 * fault_offset[_end] is the span within the DMABUF
->> +	 * corresponding to the faulting page:
->> +	 */
->> +	if (unlikely(check_add_overflow(rounded_page_addr - vma->vm_start,
->> +					vma_off, &fault_offset) ||
->> +		     check_add_overflow(fault_offset, pagesize,
->> +					&fault_offset_end)))
->> +		return -EFAULT;
+>> +				opp-400000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <400000000>;
+>> +					required-opps = <&rpmhpd_opp_svs>;
+>> +				};
 >> +
->> +	/*
->> +	 * Iterate over ranges in the buffer, summing their lengths:
->> +	 * range_start_offset represents the current range's starting
->> +	 * offset in the buffer (from 0 upwards).
->> +	 *
->> +	 * A failure for order == 0 is unexpected, and triggers a
->> +	 * fault/warn.
->> +	 */
->> +	ret = (order == 0) ? -EFAULT : -EAGAIN;
+>> +				opp-480000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <480000000>;
+>> +					required-opps = <&rpmhpd_opp_svs_l1>;
+>> +				};
 >> +
->> +	for (i = 0; i < priv->nr_ranges; i++) {
->> +		size_t range_len = priv->phys_vec[i].len;
+>> +				opp-600000000 {
+>> +					opp-hz = /bits/ 64 <400000000>,
+>> +						 /bits/ 64 <600000000>;
+>> +					required-opps = <&rpmhpd_opp_nom>;
+>> +				};
+>> +			};
+>> +		};
 >> +
->> +		/* Early exit if range starts after the page end */
->> +		if (fault_offset_end <= range_start_offset)
->> +			break;
->> +
->> +		if (fault_offset >= range_start_offset &&
->> +		    fault_offset_end <= range_start_offset + range_len) {
->> +			/*
->> +			 * The faulting page is wholly contained
->> +			 * within the span represented by this range,
->> +			 * so validate PFN alignment for the order.
->> +			 * The if() condition ensures the pfn
->> +			 * arithmetic won't overflow.
->> +			 */
->> +			unsigned long pfn =
->> +				((fault_offset - range_start_offset) +
->> +				 priv->phys_vec[i].paddr) >> PAGE_SHIFT;
->> +
->> +			if (IS_ALIGNED(pfn, 1 << order)) {
->> +				*out_pfn = pfn;
->> +				ret = 0;
->> +			}
->> +			/*
->> +			 * Else order > 0; EAGAIN retries with smaller
->> +			 * order
->> +			 */
->> +			break;
->> +		}
->> +		range_start_offset += range_len;
->> +	}
->> +
->> +	if (order == 0 && ret != 0)
->> +		/*
->> +		 * The address fell outside of the span represented by
->> +		 * the (concatenated) ranges.  As setup of a mapping
->> +		 * ensures that the VMA is <= the total size of the
->> +		 * ranges this should never happen.  If it does, warn
->> +		 * and SIGBUS.
->> +		 */
->> +		dev_warn_ratelimited(
->> +			&priv->vdev->pdev->dev,
->> +			"No range for addr 0x%lx, order %d: VMA 0x%lx-0x%lx pgoff 0x%lx, %u ranges, size 0x%zx\n",
->> +			fault_addr, order, vma->vm_start, vma->vm_end,
->> +			vma->vm_pgoff, priv->nr_ranges, priv->size);
->> +
->> +	return ret;
->> +}
->> +
->>  /*
->>   * This is a temporary "private interconnect" between VFIO DMABUF and iommufd.
->>   * It allows the two co-operating drivers to exchange the physical address of
->> diff --git a/drivers/vfio/pci/vfio_pci_priv.h b/drivers/vfio/pci/vfio_pci_priv.h
->> index fca9d0dfac90..c8f6f959056a 100644
->> --- a/drivers/vfio/pci/vfio_pci_priv.h
->> +++ b/drivers/vfio/pci/vfio_pci_priv.h
->> @@ -23,6 +23,20 @@ struct vfio_pci_ioeventfd {
->>  	bool			test_mem;
->>  };
->>  
->> +struct vfio_pci_dma_buf {
->> +	struct dma_buf *dmabuf;
->> +	struct vfio_pci_core_device *vdev;
->> +	struct list_head dmabufs_elm;
->> +	size_t size;
->> +	struct phys_vec *phys_vec;
->> +	struct p2pdma_provider *provider;
->> +	u32 nr_ranges;
->> +	struct kref kref;
->> +	struct completion comp;
->> +	unsigned long vma_pgoff_adjust;
->> +	u8 revoked : 1;
->> +};
->> +
->>  bool vfio_pci_intx_mask(struct vfio_pci_core_device *vdev);
->>  void vfio_pci_intx_unmask(struct vfio_pci_core_device *vdev);
->>  
->> @@ -114,6 +128,12 @@ static inline bool vfio_pci_is_vga(struct pci_dev *pdev)
->>  	return (pdev->class >> 8) == PCI_CLASS_DISPLAY_VGA;
->>  }
->>  
->> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *vpdmabuf,
->> +			      struct vm_area_struct *vma,
->> +			      unsigned long address,
->> +			      unsigned int order,
->> +			      unsigned long *out_pfn);
->> +
->>  #ifdef CONFIG_VFIO_PCI_DMABUF
->>  int vfio_pci_core_feature_dma_buf(struct vfio_pci_core_device *vdev, u32 flags,
->>  				  struct vfio_device_feature_dma_buf __user *arg,
+>>   		camss: camss@ac6a000 {
+>>   			compatible = "qcom,sm8250-camss";
+>>   			status = "disabled";
+>> -- 
+>> 2.34.1
+>>
 > 
 
