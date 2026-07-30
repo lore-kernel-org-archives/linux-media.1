@@ -1,127 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5460932B130;
-	Thu, 30 Jul 2026 08:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD53223A9BD;
+	Thu, 30 Jul 2026 08:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785398854; cv=none; b=KcKhAJLIjWCBh7sit6Lpd+GU+tsPzCoNgSYfMwbSBCpv2jP8Ivy3IxQPhnGA7eQo2e+EK1Ppx0NcjeMyMUKUtfUIQpGHcFT+VaiiC2nEcNslAnjND/EW8jIjQQW1FP/IJb1CpUbJlnybx6IZo5oWdWBgvl64dUrBsI8qOqkV08w=
+	t=1785399145; cv=none; b=beOLIPY11RX59XmcKIGhtFqIoA/CyOzlB4kTPGMFV1XtlzeWh+ioXNOX4ti/2POpg25JxcNJcmakHTHunLhlcsixTvCaUlRltdVAsXlNyWJhl28eZ2kL2aOd9+ivV8OIs3TbLMXCOYvCsOrFXGbIo3LknbXiZRJd98PHaM32NQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785398854; c=relaxed/simple;
-	bh=XDXRMGOIFnQs1ciSRt7xHH9nY+uTkw1+eXjeWiVf6tg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RMjTnQDtp5M6a0OTlCPCBHRMo3X0/N+L5VTSfMBhHMYNVR2jtGWYYbIyEHtkuLorv+zvQ3Sb3gzZRT0FCMYeNogtRjxfF8QXy17dJo0g6GFMlSP7C6E7g95ZJHF6gf65I98gob+1cHnf9/seRU19PkPtvgfdgZRaG73RsmSGT3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ABVAxXZl; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785399145; c=relaxed/simple;
+	bh=k7upgUxennw4QqhkN1DOX+wDo0QW3jHrpEu0VaFowYs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=b+2lEQ7/6ZBDcDk1BrCoULrPx4gEeiD852bVF4DUwgxBtyz2NWdxwxDdWDwJ1gQjcu7ZxBIFC8bOjDbAughQfLAwqM6dx0lWp23PR6wHGvRAvfJSIbuTxDPjs0jc7pUV1wZ5DMUBVlT76YOS0r3oRgO6xBYu541h7KV0UKYbYfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bf22bg1W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ABVAxXZl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785398850; x=1816934850;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XDXRMGOIFnQs1ciSRt7xHH9nY+uTkw1+eXjeWiVf6tg=;
-  b=ABVAxXZlIYUFr/6tg5w6eJgVN04o2ax5F14jIkoBtr2u9MpfasauILfQ
-   ax6jxPPNbymWggoy/MixzP9uCJnt4E+fFSc5m68viB012MtX71WY5Kzgk
-   paXvgFam9GG8zBfmNpmdqdwGp+wss7AmakAnzbdYqGeQM45zo0S52Uv1d
-   rH3YjK8LMVD6GA0RvbH6dbIsJ+1u5gOyPv+4bcTO3oU61qc7CLuX5qyXB
-   ZrOBwXKo48pBZC3HkDN5C6xPHWdxFXmINovxiqd3eG9oyNcdnV/t48HgH
-   J/+W/L2ayYhhjBsyRKf1/yIscvyBnEzPDoilre5ggdboKs9R/VDZHp8Z6
-   A==;
-X-CSE-ConnectionGUID: ndJhrU5JRDCBTnW67Xg6QQ==
-X-CSE-MsgGUID: vufU7MynQyexpyqh1qw7LQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11859"; a="97387484"
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="97387484"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 01:07:27 -0700
-X-CSE-ConnectionGUID: BA6DsUApQfO2GQIy2Gf7BA==
-X-CSE-MsgGUID: kDQ7+mqeQYid1Qg+VgzOzg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,194,1779174000"; 
-   d="scan'208";a="256900446"
-Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.137])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Jul 2026 01:07:26 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 11738121C09;
-	Thu, 30 Jul 2026 11:07:27 +0300 (EEST)
-Date: Thu, 30 Jul 2026 11:07:26 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Biren Pandya <birenpandya@gmail.com>
-Cc: laurent.pinchart@ideasonboard.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: i2c: mt9p031: Fix Use-After-Free in
- mt9p031_parse_properties()
-Message-ID: <amsGPtIz30neKeYr@kekkonen.localdomain>
-References: <20260619081926.18855-2-birenpandya@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bf22bg1W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBA0A1F000E9;
+	Thu, 30 Jul 2026 08:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785399144;
+	bh=Ge1PBz0wXpq4aPLUUpnd6MnL97CGxs/2RXf5mdX8sik=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Bf22bg1WxcNv74or8Qqu2EsIqc6NWP2BzKojekkPFJmBq9H6D5eu/vkOywoBlTthA
+	 ycqE6SwvumTx9t5Y4/2QsaX4i2DwVy2H5xxXsdYquPO/Q+XJgdI8YhHzYNOcz+MaPs
+	 jMPnpGrYEWMTy/IE3DZiqTDvqWwLqtwoaOHQEE6o3iyx7pPBEepc0eaf6MNedxYMbO
+	 hX2T8TanvUN2Unlu+Bp5C9RAKKL0LYnoSHzrBeqGl/lIOxC7c7WNRlXrYiH6S0UcHg
+	 jbUm3jlCnp0/C2quaqNsklp7pEMvOABsjyqcKW3efwORCI6PTlijq6TiDsO2EgEW3e
+	 Rv1AyXw2QmrOQ==
+Message-ID: <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
+Date: Thu, 30 Jul 2026 10:12:17 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260619081926.18855-2-birenpandya@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
+To: Tzu-Hao Wei <twei@axiado.com>, Shubhangini G <shubhangini@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
+ <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Biren,
-
-On Fri, Jun 19, 2026 at 01:49:27PM +0530, Biren Pandya wrote:
-> The mt9p031_parse_properties() function calls fwnode_handle_put(np) to
-> release the fwnode handle. However, immediately after this call, np is
-> used in fwnode_property_read_u32(), leading to a Use-After-Free bug.
+On 30/07/2026 09:26, Tzu-Hao Wei wrote:
+> Add a Device Tree binding for the Axiado AX3000 and AX3005 video
+> capture path. There is no local register interface to describe: frames
+> arrive asynchronously into a reserved memory region written by the
+> host's display engine over PCIe, and this node only identifies that
+> region.
 > 
-> Use the __free(fwnode_handle) attribute for the np pointer to automate
-> cleanup. This allows us to remove the manual fwnode_handle_put(np) call,
-> ensuring the handle is only dropped when the function returns, thus
-> preventing the Use-After-Free.
+> memory-region accepts an optional second entry for a host-written
+> control mailbox, letting the driver detect the mode the host is
+> actually driving instead of only echoing back the configured capture
+> format.
 > 
-> Fixes: 8d4da37c3006 ("[media] media: i2c: mt9p031: add OF support")
-> Signed-off-by: Biren Pandya <birenpandya@gmail.com>
-
-This should be cc'd to stable.
-
+> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
 > ---
-> Changes in v3:
-> - Fixed the incorrect commit hash in the Fixes tag that caused checkpatch to fail.
+>  .../bindings/media/axiado,ax3000-video.yaml        | 44 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 ++++
+>  2 files changed, 52 insertions(+)
 > 
-> Changes in v2:
-> - Utilized __free(fwnode_handle) to automate cleanup and safely fix the UAF
->   as suggested by reviewers.
-> ---
->  drivers/media/i2c/mt9p031.c | 5 ++---
->  1 file changed, 2 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
-> index ea5d43d925ffa..3b3714b0ef8f3 100644
-> --- a/drivers/media/i2c/mt9p031.c
-> +++ b/drivers/media/i2c/mt9p031.c
-> @@ -1067,15 +1067,14 @@ static int mt9p031_parse_properties(struct mt9p031 *mt9p031, struct device *dev)
->  	struct v4l2_fwnode_endpoint endpoint = {
->  		.bus_type = V4L2_MBUS_PARALLEL
->  	};
-> -	struct fwnode_handle *np;
-> +	struct fwnode_handle *np __free(fwnode_handle) =
-> +		fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
+> diff --git a/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..c6d8d1843aac9f42869ff90a550b92d0bed7c16f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+> @@ -0,0 +1,44 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/axiado,ax3000-video.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Axiado AX3000 Video Controller
+> +
+> +maintainers:
+> +  - Shubhangini G <shubhangini@axiado.com>
+> +  - Tzu-Hao Wei <twei@axiado.com>
+> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+> +
+> +description:
+> +  Axiado AX3000 video capture controller. Reads frames written by the
+> +  display engine into a shared reserved memory region and exposes them
+> +  as a V4L2 capture device.
 
-Can you call fwnode_graph_get_next_endpoint() where it used to be called,
-also declaring np there?
+This is really incomplete. You need at least way to power things on,
+reset them, provide clocks, sensors, data paths. Or at the very minimal:
+START capturing the frames after configuring the resolution.
 
->  	int ret;
->  
-> -	np = fwnode_graph_get_next_endpoint(dev_fwnode(dev), NULL);
->  	if (!np)
->  		return dev_err_probe(dev, -EINVAL, "endpoint node not found\n");
->  
->  	ret = v4l2_fwnode_endpoint_parse(np, &endpoint);
-> -	fwnode_handle_put(np);
->  	if (ret)
->  		return dev_err_probe(dev, -EINVAL, "could not parse endpoint\n");
->  
+It seems you described driver or just a piece of entire video pipeline.
 
--- 
-Regards,
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: axiado,ax3000-video
+> +      - items:
+> +          - const: axiado,ax3005-video
+> +          - const: axiado,ax3000-video
+> +
+> +  memory-region:
+> +    minItems: 1
+> +    items:
+> +      - description: video frame buffer, shared with the display engine
+> +      - description: optional control mailbox, shared with the host
 
-Sakari Ailus
+Why is it optional?
+
+Best regards,
+Krzysztof
