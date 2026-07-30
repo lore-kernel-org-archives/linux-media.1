@@ -1,159 +1,183 @@
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB61835C68A
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 14:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CF6543A7FF;
+	Thu, 30 Jul 2026 14:38:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785421842; cv=none; b=lg55xztOh/fhEzf+N0lIxTVfXOkmrNndTHFCOQMy8Qv2JRZrEoIyy54F2Ed9xGx8zQj65+wTdW1TEhsZ2kJ1rLk5k93H1fVmhJ6xiRKDWYLpr+4N8u9EQsOb6MS0ixRplYaaNXNZxhKA6HlbljQBW4Mxsxnl1s0oQVyAB+/x6rM=
+	t=1785422293; cv=none; b=mApTcmPC977XDI1e5adeeuPC4CIH6k55NKwPl5zyLhfIALL6S4dzZ4No0TloseDagbL8sDfJjnr6zoUsIRcHKI/9LDPbIMyF+W4wVAA4lVMfd1n6bnYAEOOjFyHJrx0SgBqOC6RD3IRnfICWsi2NWeUXEVDcnqEyRho3BUL9rzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785421842; c=relaxed/simple;
-	bh=dwFEAVcMuNbjpUaKwtHEGOUzopXQgA/Z+K4OSsyB1zA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=s4K6YZGf43tB/pzMXoDChL6m3da3L7zsHrA13CXBOUyKty61AqkcPfcR2Vv38PXtXFWhLuxh13gRNsE4oa2BKYR4afj0oy6vkJD6M++a+SYlcF3ue/pivzoxOv/HbX3/hzVLgdDI5sMQx/mafpUsUQRxEtn2KzO57zbwnEwet2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXRGKv2m; arc=none smtp.client-ip=209.85.214.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785422293; c=relaxed/simple;
+	bh=nA82i2GVeUC9mMUAzm+S3h9CjKK0eP9OVCkyoeZwHz4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YQlc8xk/nwJfHVJgCFth2qTcmlmtEXf429hCvlahYbL8uTCaL3Li2oQG5WNjCxpTo7apstoYQiX86rJm4Plq1lN8xrjiff/ONRCOD/hohhVGC6uFb2D7F/RhvzY/YHdPTXpWo7xt0N3i4rJDs5js5cu+UveceZDQL5HSfm3LbqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=K+6kWfbg; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXRGKv2m"
-Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cf50c6f235so24686575ad.0
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 07:30:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785421840; x=1786026640; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cnNEMWbzX+zx+wUadpPafeWf3mkrABzNMdn+bvnocmI=;
-        b=iXRGKv2m2zCYH28x84CcoiZE5rNFFFwtF4bgtJgRVDFM3Rs1OjY9iBNpMnoXYdSpyf
-         8MLEKsJLLYSDnYEvcAgaef9jgk1mOiw7JZ4b5NbyKCxs1shzWG12HYTo9MvcwDE/TjNU
-         z7nSwsHpGrz8GMgp6KuFUw4p6kzT/vyhYmsGaRBDSZ/gc5dxNiB9Ri7zOR+IIpLkjavl
-         fnxMgRqQyVbd9uxCOEZAwfIiExyFFpdiRldPzr11qM1HGSi91WUNJlog4HH8kn6h/2P0
-         Hi/A53RN7SyJ6fhG/61J0A8OmpLben+ey7BScXf1e5Jx37k1MVavedBwjQG8kgWnfYAY
-         cJ3A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785421840; x=1786026640;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cnNEMWbzX+zx+wUadpPafeWf3mkrABzNMdn+bvnocmI=;
-        b=TRZVYUWh9u40yDz0+DMF9G0UuLNGnZtlWF5xWdQG7XGuu51V45T55R1pCXHXSJzNEL
-         CKcsASCUa6serfoLBRLjp84jqxUTKdJ3uU+7DLsiBGxevz4k9LXCLJG53chy+NVdON97
-         L+FWu8adQ7nOp7ZE5toi324Rj5v9NA4MPFdVLpHwhoZR57caEZ3fq/E1ZmDNcrLA1b80
-         eft8m2nTHDjayh8KItdJD5E6ly5nDba8brfPoam9/x1v4m7mzkMZ5BxYiMqAkpD/txRw
-         ppn26oyBbBTWNr2jtmgVw/wuFuC5ngrku9tsVDaT3UUuUc5m8YHylircz/gR6TpsGSzs
-         YCYw==
-X-Forwarded-Encrypted: i=1; AHgh+RqtXDi93QZnYXURJ3L195r/vS25b2T+EshG7Nis1R1KxerYcXycssGxGIxVu7GSkrp8Nwu/LGgUa7y/dA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwoSVPqAGkdfLPPJAUIXnK9uYA55SgbDUNdaYAW2SyjyuhMvCJp
-	q/8lsqqfQvfs7z0DdXXFDMkW5JjeWacQp7FOTY7lNqNr83p1vxkrsJW1
-X-Gm-Gg: AR+sD11VIY/ve/dWw5moLsWVed5kMNUDfXWTWJIizwWW84LFLGKnTi1Tptiqs3N29R8
-	w5RGTRM1HiYngbyNR/rlWOqorp9iN5BC+kqd/tQoC3JsHtuHtsIsI8pmkgssJ9xDwXaGzTjM4e5
-	UwmZWt99tlKH+h7vhlzb0Dwmr7beezl/pUOWo3UJD6GZjRkcvVwO8fRIp4rOQF3Ub8GpfNpv8t2
-	COClaHero5vmJIPC2o9iiLwS/Sr0WCNZW61cHD2WQb8O2/1eL/3+cP/Md7tflq4rH7IGtYYjOjv
-	IFXW7FPZ3Xr/ZokV8it5yhwE8Tmdr1RAQevlDZG6fd3Ljpj2UXDl+qE6YRBcms4SOcpcRq6vvwJ
-	nt+34AzxmqyWaZQDOBcH9IhU0+dXP7YKI50wQKz4bHucGXYOnzEcYnQ7QCJjnJL+Yo/elRZD1FR
-	Xhipij+BF6HhqGUrfkm2KwHHG9EYSKCB4oeSUIfXEFRngslj2inv/GO7tZTjMnkJbqacugGLMcY
-	A==
-X-Received: by 2002:a17:903:1aa3:b0:2ca:7131:cace with SMTP id d9443c01a7336-2d03ddc34fbmr6616765ad.31.1785421840153;
-        Thu, 30 Jul 2026 07:30:40 -0700 (PDT)
-Received: from localhost ([118.34.230.2])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc6d70sm28210225ad.39.2026.07.30.07.30.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 07:30:39 -0700 (PDT)
-Date: Thu, 30 Jul 2026 20:00:38 +0530
-From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] Documentation: media: fix spelling errors
-Message-ID: <amtgDnLKMaRQg-Nb@acer-nitro-anv15-41>
-References: <20260728145252.9326-1-shaikhkamal2012@gmail.com>
- <amjk-tq0xFMQSKog@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="K+6kWfbg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1785422288;
+	bh=fqTNWLR/d4veAAEFMUn2oRRZ4bmdwkTJqL3WSF90f08=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=K+6kWfbg+RV5riYpu8WAFkO2J3ZnuYjyAPxZ+5Kx6sxFDtAk+wJSbEH+aZiK4E1Ai
+	 Ut71/O6g0OUeunrTyC67Ky8LhBHNZO2CraFSp9FrzEK/b2sOAxKvSiTCyMuHQafc1z
+	 fYi+PpDmrjPsbU5uYZcyidSE3CaQU/dQSMospNauiZFUDMgpH+UN/MypmoSzrcfjHV
+	 952oEJFMIpoF3W1kFZORtAX7q/XbZ9Ve0rT9Ho0gA1ZWE5W4INcAQptn7jrnlOmw1Y
+	 SPnvXTuYL2PzYsTsZYXXTBtgSmDfAz/s5erQgPEDTx/qVC61Wf6QSRATFWEK1wi1/m
+	 0Ln7AWFoLIdkQ==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4h9sHp3gLYz4wSW;
+	Fri, 31 Jul 2026 00:37:56 +1000 (AEST)
+Message-ID: <19020474-0856-4684-b2a3-b60d67c5903e@ozlabs.org>
+Date: Thu, 30 Jul 2026 15:37:35 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <amjk-tq0xFMQSKog@kekkonen.localdomain>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 6/9] vfio/pci: Provide a user-facing name for BAR
+ mappings
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-7-matt@ozlabs.org>
+ <20260729115202.15ac87c5@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260729115202.15ac87c5@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 28, 2026 at 08:20:58PM +0300, Sakari Ailus wrote:
-> Hi Shaikh,
-> 
-> On Tue, Jul 28, 2026 at 08:22:52PM +0530, Shaikh Kamaluddin wrote:
-> > Fix two spelling errors reported by codespell: a misspelling of
-> > "there" in vidioc-subdev-g-routing.rst and a misspelling of
-> > "struct" in legacy_dvb_video.rst.
-> > 
-> > No functional change.
-> > 
-> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
-> > ---
-> > v2: - use Documentation: subject prefix (Sakari)
-> >     - use full name in From/Signed-off-by (Sakari)
-> >     - reword commit message so the media CI spell check doesn't
-> >       trip on the typo being described
-> > 
-> >  Documentation/userspace-api/media/dvb/legacy_dvb_video.rst      | 2 +-
-> >  .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst         | 2 +-
-> >  2 files changed, 2 insertions(+), 2 deletions(-)
-> > 
-> > diff --git a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > index b9fd5cadae24..71d044605315 100644
-> > --- a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > +++ b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
-> > @@ -344,7 +344,7 @@ Variables
-> >  
-> >      -  ..
-> >  
-> > -       -  :rspan:`5` ``stuct play``
-> > +       -  :rspan:`5` ``struct play``
-> >  
-> >         -  :rspan:`4` ``__s32 speed``
-> >  
-> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > index 6f66ca38589e..164cf0ad3593 100644
-> > --- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > +++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
-> > @@ -67,7 +67,7 @@ subdevice routing table. This may be smaller or larger than the value of
-> >  drivers may adjust the requested routing table.
-> >  
-> >  The kernel can return a ``num_routes`` value larger than ``len_routes`` from
-> > -both ioctls. This indicates thare are more routes in the routing table than fits
-> > +both ioctls. This indicates there are more routes in the routing table than fits
-> >  the ``routes`` array. In this case, the ``routes`` array is filled by the kernel
-> >  with the first ``len_routes`` entries of the subdevice routing table. This is
-> >  not considered to be an error, and the ioctl call succeeds. If the applications
-> > 
-> > base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-> > prerequisite-patch-id: 912014811782d33538ddb17f00b64c15b364425e
-> > prerequisite-patch-id: ccd9499245f9528a029f13653f6a670c70796caa
-> > prerequisite-patch-id: dd62b9e9a5a590acea801e33ebcf110932d52a12
-> > prerequisite-patch-id: 604c7b67fbc5678938599f8dfc11621e9d6e7bad
-> > prerequisite-patch-id: 76849a9365b2ef77eae25f4ee42c11f124b1ea0d
-> > prerequisite-patch-id: a0d7b90a4a5e251a58aa682ce414c7048eb47bc7
-> > prerequisite-patch-id: 0208e7fa539736cc848ac91c09d7ca825b11d8f9
-> > prerequisite-patch-id: 7b1377967ede9d22f77df0171f54207067158e71
-> > prerequisite-patch-id: e39888d68322e429ea71d6ed6d49f4295fbbe14e
-> > prerequisite-patch-id: 7f0dcaca727eb421484eabd62e791b96b3721874
-> > prerequisite-patch-id: ff5dc6989d168666264e0eae2853f348a95d99b6
-> > prerequisite-patch-id: 301b88e47a5d4cdc17e2152ebaf134b3f6685902
-> 
-> These dependencies appear to be unrelated to the patch. Can you send v3
-> without these?
-Hi Sakari,
-Sorry for delay response.
-I have removed these dependencies which are unrelated to the patch and
-have sent the v3 [1]
-[1] https://lore.kernel.org/all/20260730142126.11714-1-shaikhkamal2012@gmail.com/
+Hi Alex,
 
-Thanks,
-Shaikh 
+On 29/07/2026 18:52, Alex Williamson wrote:
+> On Wed, 15 Jul 2026 18:47:29 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
 > 
-> -- 
-> Sakari Ailus
+>> Since converting BAR mmap()s to using DMABUFs, we lose the original
+>> device path in /proc/<pid>/maps, lsof, etc.  Generate a debug-oriented
+>> synthetic 'filename' based on the cdev, plus BDF, plus resource index.
+>>
+>> This applies only to BAR mappings via the VFIO device fd, as
+>> explicitly-exported DMABUFs are named by userspace via the
+>> DMA_BUF_SET_NAME ioctl.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> Reviewed-by: Pranjal Shrivastava <praan@google.com>
+>> ---
+>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 22 ++++++++++++++++++++--
+>>  1 file changed, 20 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index 46b3cf5dc94b..51606ff3cdc6 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -4,6 +4,7 @@
+>>  #include <linux/dma-buf-mapping.h>
+>>  #include <linux/pci-p2pdma.h>
+>>  #include <linux/dma-resv.h>
+>> +#include <uapi/linux/dma-buf.h>
+> 
+> Is this required?  It seems unused.
+
+No, good catch.  That originally pulled in DMA_BUF_NAME_LEN in the
+previous version snprintf'ing here.  Removed.
+
+>>  
+>>  #include "vfio_pci_priv.h"
+>>  
+>> @@ -486,6 +487,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+>>  {
+>>  	struct vfio_pci_dma_buf *priv;
+>>  	unsigned long vma_pgoff = vma->vm_pgoff & (VFIO_PCI_OFFSET_MASK >> PAGE_SHIFT);
+>> +	char *bufname;
+>>  	int ret;
+>>  
+>>  	priv = kzalloc_obj(*priv);
+>> @@ -498,6 +500,15 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+>>  		goto err_free_priv;
+>>  	}
+>>  
+>> +	bufname = kasprintf(GFP_KERNEL, "%s:%s/%x",
+>> +			    dev_name(&vdev->vdev.device), pci_name(vdev->pdev),
+>> +			    res_index);
+>> +
+>> +	if (!bufname) {
+>> +		ret = -ENOMEM;
+>> +		goto err_free_phys;
+>> +	}
+>> +
+>>  	/*
+>>  	 * The DMABUF begins from the mmap()'s BAR offset, i.e. the
+>>  	 * start of the VMA corresponds to byte 0 of the DMABUF and
+>> @@ -516,7 +527,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+>>  	priv->provider = pcim_p2pdma_provider(vdev->pdev, res_index);
+>>  	if (!priv->provider) {
+>>  		ret = -EINVAL;
+>> -		goto err_free_phys;
+>> +		goto err_free_name;
+>>  	}
+>>  
+>>  	priv->phys_vec[0].paddr = phys_start + ((u64)vma_pgoff << PAGE_SHIFT);
+>> @@ -524,7 +535,7 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+>>  
+>>  	ret = vfio_pci_dmabuf_export(vdev, priv, O_CLOEXEC | O_RDWR);
+>>  	if (ret)
+>> -		goto err_free_phys;
+>> +		goto err_free_name;
+>>  
+>>  	/*
+>>  	 * Ownership of the DMABUF file transfers to the VMA so that
+>> @@ -539,8 +550,15 @@ int vfio_pci_core_mmap_prep_dmabuf(struct vfio_pci_core_device *vdev,
+>>  	vma->vm_file = priv->dmabuf->file;
+>>  	vma->vm_private_data = priv;
+>>  
+>> +	spin_lock(&priv->dmabuf->name_lock);
+>> +	kfree(priv->dmabuf->name);
+>> +	priv->dmabuf->name = bufname;
+>> +	spin_unlock(&priv->dmabuf->name_lock);
+> 
+> This is simple, but shouldn't it really have a sanctioned, exported
+> dmabuf helper rather than open coding this handling?  Thanks,
+
+Hm, okay that's reasonable.  I've refactored dma_buf_set_name() and used
+it from here (separating out a userspace-string-copying version for the
+original ioctl usage).
+
+Thanks for looking at the rest of v5 also.
+
+
+Matt
+
+
+> 
+> Alex
+> 
+>> +
+>>  	return 0;
+>>  
+>> +err_free_name:
+>> +	kfree(bufname);
+>>  err_free_phys:
+>>  	kfree(priv->phys_vec);
+>>  err_free_priv:
+> 
+
