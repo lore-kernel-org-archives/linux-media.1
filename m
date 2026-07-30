@@ -1,152 +1,126 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7FE0432E99;
-	Thu, 30 Jul 2026 13:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4D8A3FA5D0
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 14:14:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785417396; cv=none; b=ptKrP6YqNrlKjW42BWNFYNJluW75Dp73kqoSafz1mGJkAUbXOYYKpJwbaMdDGNi4KkG8O7JOiqyvUdu9aQHx8S76M7SjL+syw0EQxEsR/taYIeMcDj5cEix6xMeQZQ1AcYWH9otA1XrqVpE3TAjKf+SQdXTTXYJpFbAgwHZTQKY=
+	t=1785420871; cv=none; b=n/r9SDrwW8r8+TF93fAuTQbmKT8tetvDl3dZdWWTMMDR3hQTPlbHaqWj4dc5SaiyvucKIhiael2YDj39fzotPSvLr1zUOB2o+J/7P9dYCLGqymvxnjAFyel9NKsa1YU2BCsBctHxyafpvZh2B+VAzuOcyO04xy6T1EzQHI83vDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785417396; c=relaxed/simple;
-	bh=jMg+iqDg1vHUkvxN5L9rxcFOWZfcy7JBoxtmU+M9+Do=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ePXrF/tqViNrtl3g3W6BTAu4flGIj2c/p2g+0kWRck3IOpL635FIg194rnFHkjMN0tTq5jkuLaNwLIdGfJQoMYiZx06FlzqgCFOvrkKFJadRyovFt8ij3s6+hKyNoVk11PcAtqHnF8cbf31OIcpv8aeklY6gh7ZcL/nT4B+EGQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=qN9a/EZJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785420871; c=relaxed/simple;
+	bh=LspIGlkC3utLj9KX4g8wOTce1r8t63CuDZOUtaDFN7M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=u7j59Tyxf4oQTwut/8Cs8kuV0UX90kKEfQmIxaCprZdu1PPugWyR89qCVAqoeX7c+xrHd8OeVmJGqzL5vuUcfoa2KTBPVeb0/mBWhAo3FciLJFTZdLnRvMIpqcn13yViOgqwo0PZbIsWiFIxA7PASGR08VxMIm2+pR5jfaSqFxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XFkT3+O8; arc=none smtp.client-ip=209.85.160.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qN9a/EZJ"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 041181E4;
-	Thu, 30 Jul 2026 15:15:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785417324;
-	bh=jMg+iqDg1vHUkvxN5L9rxcFOWZfcy7JBoxtmU+M9+Do=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=qN9a/EZJ7pduCKubGbMIy0zM2SPcxCQtQIur9ejS4DnkM90L+LuipgC986K7rlYB3
-	 JYWHjydDXxRPGLMOGKm6px+DgcKTJzsWj7N/Po76h/hJv8s1xhDkhmIlensAmBmFgF
-	 TBglQwBVF6oIhksxoDfQCI9NHNNAsWpA+kkSW9+c=
-Date: Thu, 30 Jul 2026 16:16:28 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Alan Stern <stern@rowland.harvard.edu>
-Cc: Haowen Tu <tuhaowen@uniontech.com>, hansg@kernel.org,
-	gregkh@linuxfoundation.org, kernel@uniontech.com, lenb@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	mchehab@kernel.org, oneukum@suse.com, pavel@kernel.org,
-	rafael@kernel.org
-Subject: Re: [PATCH v4 4/4] media: uvcvideo: defer streaming restart after
- hibernation snapshot
-Message-ID: <20260730131628.GA1555789@killaraus.ideasonboard.com>
-References: <cbac4803-cf65-4b8b-a662-073189df478b@kernel.org>
- <20260729075655.1187692-1-tuhaowen@uniontech.com>
- <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XFkT3+O8"
+Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-526f963372aso15765831cf.1
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 07:14:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785420869; x=1786025669; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vvl0B22iyf4JoKX6Wbp5Bnx4itJ6Qb6rU8IYcuIBjYI=;
+        b=XFkT3+O8DJAfOnwWLNQltMjqba7yUUsDckoKdAPWCsNyml+LJPNTDJWNBdHbA2sc9Q
+         aT7xseeBw6bb9byBhf4MhRH26YW7fm+yqW0S6AdsSB556a72izxpMfG5Ce81rJcN38QL
+         5A2Xdp5ehzrBYhJ6jblNkHPxV7hG3ShWoI3t/eMhK2P3F8Ho8NO/modT3fxMYtmk8w4K
+         z8HRI8UdxMulOrFylz5vPtx6C1C+9paqk30KPG1ORhS6deqIBH+iI4tiyQmpDw1VcLpi
+         vmJ8Nc0Lg31Tr2N7BDWBLsF/a4IxJfLfCaJii97fGv9IDCkchkyD2fvle4DEa4PkvN1x
+         2XsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785420869; x=1786025669;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vvl0B22iyf4JoKX6Wbp5Bnx4itJ6Qb6rU8IYcuIBjYI=;
+        b=mliFXX146KhEa3nhu/G+ntiZq2PFyJoNtYWsSJpMYMKj75Kv5MWPVcB0Wv8W3xvgdO
+         2axVrFHfO0dU0QvmqHJHpdBsuGs0+04CfzEMhIRLHRMP7Hbux5B6EGY/PprXwVKNUloP
+         Wea7eBdfF2l4HGzlvDQHB27CP8UT3xZk7+vc3eHX0At5n/REBA7Icaz8VqBtRCUSEPAk
+         WBOzCeOXiAiPfzovjPwDhHSOherXth4FY5gnBKcxyQGrdANSsj3bx3r4EaS7oJMrr5FP
+         xPqDdZk+oBW/5ARmaw2CY1ZI0GV41qwSLz+ikbZFvyH3l710oSG/Z4zAN7scHcO5QdpT
+         Sc/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrD/9lY3eMaOVnWQdFCcPfqUHWK97mK6lugyxc08ezSIKYhhR1jhVJbVYogss5ef695O/Ft3792Cppmbg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzu3n1VGttfqWrtccuEzwbxXOKi2T5l//GYl3zhnmRZoUNC1wo+
+	vhTmjxnnidquv7gwrJazDocHVbHxShDDCkxl1GCVlhHC9va7sl3uXSdZ
+X-Gm-Gg: AR+sD12UKMpYfcyRPZ4aQOgKGk/lMw0wzCvNrc19/XYjvswCiR1qM0x4MF64JKmxxHV
+	zfja7Ko0mBeViaHP3EBQPy9yR7IQThvlGSonba7yIku+cbm4pWk4NrvJZwFDXh7ruHz43fkw4vM
+	ZEpZUdum1MbIJkEDHgwPmi2qhf0xv1IDIASoS42SNHh54nIOPCr87p+lvdFYxISFQPS6JkzE3sf
+	S6zEt0fv2+TJ//dR6Q4LVeoLXYKZciBwa0kuhBh5433YSmfUkwot/94AixZ5KWNUtIILbbhwgz/
+	5Z8jQE/dpJSLwpXuyFhZZRDu9bhRs3tAghGSVicEmETRtLTjaOaR2nUft89INkVvdnmDbE5eiVR
+	Sd43962gKLP/kijWzAS2DuggeL/Ws9/yLiCWh5xVPj2pB4gD8ufGS6NcUkq2GzP7N8Q5qONJY9J
+	bVbTarBFsNz28JY5Ig0LV8paAKrCnfltdcJUebt3sDohBEArgopES36lOWseFVYgVc4WDSVr7GL
+	pqZHcOmVhDSKrPzyohbpRC4eNAqpCDuRbk5z7q6S3pAY2mDu7b/uio=
+X-Received: by 2002:a05:622a:1315:b0:51c:8432:1753 with SMTP id d75a77b69052e-52b384b2072mr29687141cf.30.1785420868526;
+        Thu, 30 Jul 2026 07:14:28 -0700 (PDT)
+Received: from LAPTOP-DPAKMOI4.it.purdue.edu (pal-210-106-74.itap.purdue.edu. [128.210.106.74])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-529e2ff6f31sm41998101cf.27.2026.07.30.07.14.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 07:14:28 -0700 (PDT)
+From: Yifei Gao <gyf161023@gmail.com>
+To: Bin Du <bin.du@amd.com>,
+	Nirujogi Pratap <pratap.nirujogi@amd.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Sultan Alsawaf <sultan@kerneltoast.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yifei Gao <gyf161023@gmail.com>
+Subject: [PATCH v5 0/2] media: amd: isp4: fix error handling in isp4sd_pwron_and_init()
+Date: Thu, 30 Jul 2026 14:14:02 +0000
+Message-ID: <20260730141413.4136502-1-gyf161023@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260728190754.363464-1-gyf161023@gmail.com>
+References: <20260728190754.363464-1-gyf161023@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Jul 29, 2026 at 10:08:51AM -0400, Alan Stern wrote:
-> On Wed, Jul 29, 2026 at 03:56:55PM +0800, Haowen Tu wrote:
-> > On Wed, Jul 29, 2026 at 09:29:03AM +0200, Hans de Goede wrote:
-> > > Right, so the purpose here is to avoid the LED turning back on and
-> > > to speedup the hibernate?
-> > >
-> > > IOW except for the LED turning back on and things taking slightly
-> > > longer everything works correctly with the current code, right ?
-> > 
-> > Yes, the current code is functionally correct in the sense that the
-> > hibernation flow can complete and the camera can be restored afterwards.
-> > 
-> > The issue was reported as a user-visible privacy concern.  When an active
-> > UVC camera enters hibernation, the camera LED turns off during the freeze
-> > phase but turns back on after the snapshot has been created, while the
-> > system is writing the hibernation image.  From the user's point of view,
-> > this looks like the camera has been activated again during the
-> > hibernation transition.
-> > 
-> > I am not claiming that this causes image data to be exposed.  The problem
-> > is the unnecessary hardware reactivation and the resulting unexpected
-> > privacy-indicator behavior during a system power transition.
-> > 
-> > Avoiding the restart also avoids unnecessary device work in this window,
-> > but I do not intend to make performance the main argument here.  The
-> > primary goal is to avoid the unexpected camera reactivation.
-> > 
-> > > I'm wondering if it would not be better to solve this in userspace
-> > > and have userspace stop the streaming before hibernation ?
-> > 
-> > That would help when all userspace camera users cooperate, but I don't
-> > think it is equivalent to handling this in the driver.
-> > 
-> > UVC is a generic driver and the kernel PM transition can happen while an
-> > application is actively streaming.  Relying on every userspace camera
-> > consumer to stop streaming before hibernation would make the behavior
-> > depend on userspace policy and application support.  The driver already
-> > knows whether streaming was active at freeze time, and it is also the
-> > component that restarts the hardware during resume, so it can avoid this
-> > specific unnecessary hardware restart more reliably.
-> > 
-> > > Hmm, the way you word this sound like this is a problem at the USB
-> > > layer. But I think this is more of a short-coming in the generic
-> > > device model.
-> > >
-> > > To clarify AFAIK the actual USB device to which the interfaces belong
-> > > also does not get a specific PM message here, right ?
-> > >
-> > > The reason I'm asking is because the way this is worded in the commit
-> > > message makes it sounds like this might be something which could
-> > > be solved in the USB subsystem which I do not think is the case ?
-> > 
-> > Yes, that is my understanding as well.  The USB device resume path does
-> > not expose the specific PM transition type to the UVC interface driver's
-> > resume callback.
-> > 
-> > The problem was observed in UVC, and the immediate reason there is that
-> > the UVC resume path is reached through usb_driver.resume(), which does
-> > not receive the PM event.  But I agree that this should not be worded as
-> > a USB subsystem bug.
-> > 
-> > My earlier thought was to expose the THAW/RESTORE distinction through
-> > USB, but that would still need coordination with the PM core, and it
-> > would only cover USB drivers.  If other non-USB drivers have similar
-> > device-specific reasons to avoid work during the post-snapshot THAW
-> > phase, they would need their own handling too.
-> > 
-> > So I can reword the commit message to avoid implying that this is a USB
-> > core issue.  Something like:
-> > 
-> >   Some resume callback paths, including the UVC path through
-> >   usb_driver.resume(), do not receive the PM event and therefore cannot
-> >   distinguish the transient post-snapshot THAW phase from the later
-> >   RESTORE phase using their local callback arguments.
-> > 
-> > The helper is intended to expose only the hibernation snapshot state.
-> > Whether it is safe or useful to defer any work remains a driver-specific
-> > decision.
-> 
-> You're missing an important fact: If something goes wrong during the 
-> hibernation transition (for example, if the kernel's memory image can't 
-> be stored to disk) then there will be no RESTORE phase.  Following the 
-> THAW phase, the system will return to normal operation.
-> 
-> For this reason, during THAW drivers must not assume that the system is 
-> about to power down.
+This series fixes the error handling in isp4sd_pwron_and_init().
 
-All of this seems fairly complicated to me for devices that have no role
-to play whatsoever in the hibernation image write, and that's probably
-the majority of devices.
+Patch 1 makes isp4if_alloc_fw_gpumem() release partial allocations on
+failure, an independent leak that was previously masked by the deadlock
+fixed in patch 2.
 
-Is there a reason a driver couldn't set a flag at probe time to tell the
-device doesn't care about hibernation, and have the PM core skip the
-resume in the THAW phase, instead resuming only when THAW fails ?
+Patch 2 reworks the power-on error path into staged cleanup, fixing the
+self-deadlock and, once it is gone, the runtime-PM imbalance and
+unpowered MMIO access. The staged path relies on isp4if_start() cleaning
+up fully on failure, which patch 1 completes, so patch 1 comes first.
+
+Changes since v4:
+- Made isp4if_gpu_mem_free() silent on NULL entries, which are expected
+  during partial-allocation cleanup, per Bin Du's review.
+
+Changes since v3:
+- Trimmed the commit message of patch 2 per Sakari's review; no
+  functional change.
+
+Changes since v2:
+- Added patch 1 to release partial allocations in
+  isp4if_alloc_fw_gpumem(), as pointed out by Bin Du.
+- Patch 2 is otherwise unchanged from v2.
+
+v4: https://lore.kernel.org/linux-media/20260728190754.363464-1-gyf161023@gmail.com/
+v3: https://lore.kernel.org/linux-media/20260728141659.62310-1-gyf161023@gmail.com/
+v2: https://lore.kernel.org/linux-media/20260727183500.298036-1-gyf161023@gmail.com/
+v1: https://lore.kernel.org/linux-media/20260725203640.915626-1-gyf161023@gmail.com/
+
+Yifei Gao (2):
+  media: amd: isp4: release partial allocations in
+    isp4if_alloc_fw_gpumem()
+  media: amd: isp4: fix self-deadlock in isp4sd_pwron_and_init() error
+    path
+
+ .../media/platform/amd/isp4/isp4_interface.c  |  6 ++--
+ drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
+ 2 files changed, 24 insertions(+), 10 deletions(-)
 
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
