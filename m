@@ -1,126 +1,142 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE398411A1F
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785403462; cv=none; b=fhwI3tJmWInLxwNxb5Z6MaKHcSHHzmGyNuWAmptUyrLZph/KKExRhCH8EKs4PKCOUCCyGVA9AXbiMmKfS+0wM3Iv7SvKF8iTYwOsVtDutufO2cOnI8uWM7x50R8q3YMRvhzBT/XKkeKq8LQWU62Z/YDNsdn/W+EC5z+SxKVM3oI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785403462; c=relaxed/simple;
-	bh=hp/REi4FqxR/nwjoJRUOf5abpgvQZrK2pY5WetCj/K8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CaatuD6DYljAkrrDNtjqmTmuB4QgjioD/AYuyX2NSZ5TnIhRls134n2yImUUefFPSS54XlqD72CFYZCALdw7tHSGian/IpXaubudK9m3ydEwayGixEBkJrS/fjyCzqB75SUEp26oR4CGv+JKck2zt0D3GclsF4/6rKbAi5QnN74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kgMpDR05; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Sklt6ooA; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42A7E3D300D
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:26:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785403568; cv=pass; b=gOeLCkHpswx52qjPEfKaa5UJykVmvQvby1di1//oGxymg4i18S4bYHitgWqV/bdLXp27FAXW5xwcbk5cWAVEQvhY8ZmZtRbDyH4ZndBV8lX2VpN993gsWWOLKMABOubsoEMdvMCi589xJud5LcEe7KfgGVZHEv+VGA/YnLZ64Eo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785403568; c=relaxed/simple;
+	bh=d6jBdyE9RvlKKjJldB/+re0AqKKURAyopW6Wd6wovmM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ANZuRwDRSkse1YBmWbbu0sWSsdsu0rgVbqGZRDKqcgwZ8FD+j1qmZmbnqk8tkYjRB31xi897p3YhdbennNttGLtQi6gcy/W4GF+6o3E5rdg1s9A2G7wKbJpoQrgiofz79lePz6HvLA11cU41HcIBaZpJgECSGyViN5/GBgO9Xgo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FDP2u/ft; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cuOk13eN; arc=pass smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kgMpDR05";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Sklt6ooA"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FDP2u/ft";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cuOk13eN"
 Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U9FlD54082096
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:19 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U9FlR84082089
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:26:06 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	y8BF4lrVeXlgYtDt4LrDXBcHUybrsinovt0agb6/XhE=; b=kgMpDR05LNKv1KNe
-	d0PHQRVuPz5HK3pTlW/yvKorvRf/nAQkzW2tG3D3MEjygkQ9MkkDKL0cZuJTdmnX
-	6Y1xc9Tqzp0lXWTEwa8V7MpaTvToJv79WlRkMFFKfMnWPI3IQVXPSFS+OwYrt2c6
-	popH6XX9bHKHfpmmr6bJk4gdek8r0B60ytOGC75H4sWk9Q9mjH/94QUC+Ljqsf/B
-	XnUizTiEVHZlrEuYFGYAGs3PhJM7bg4WM8bQqIGO0DAeVxvjU6PtroJmbvQhwsks
-	qeO1UBMY85wPrTztJVr45TDwVrgVY435ZdnqwbcZToXQD1plJvqA3Z41Cv/BOkA9
-	RVR6GA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3tyg16c-1
+	qk9h6nzsDMo5dT+RocG4O8A/lOdfDKX3bHop1qBAp+c=; b=FDP2u/ftT3BNPClS
+	pHrm3gZy9cvUA4WRh4VSmAjAn8keKOeY2M+hndXYumQvmD+epXd+Qybd3LYj2iYD
+	FO0JxrePbPEKMOYfPbvv08aT7TDNCGRSKzm1zl4iXTdc82lmLA1hjf7BmfZpYGb0
+	BVh/ydCnlydc0Cv6vhRCi+shywvSI/JiF2+rTs+5bPX7g0akiQNrz+CTdV4gnsvh
+	HNRpQOunKhAj4mTrEXpVxzriOe7A/BQTv9Lpagni0UlYa+OXQstb6vmwvQiBaTTz
+	s4kDRKmeAOfce082GQdk1jjNaIy7AWeNqvpB5QGEJEGDJcx+qsjK0PjkXcDVWxWE
+	kWh1Nw==
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com [209.85.219.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3tyg1ed-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:19 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-526da7e3c9dso19209121cf.1
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 02:24:19 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:26:06 +0000 (GMT)
+Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-90410c668adso22357626d6.1
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 02:26:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785403565; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qTGPy4buLvRTuc8PIoqQH3VroQH0IJYnypn4VqE+lQ5k77nZcV20kUOH6I6E6iFs1U
+         a9kRVOv71mDaR2rAhTnX4gHTFw5Y6rRE2sKB7mJ0LTV0AgYwKnSEBuTrzP8VGheBZ9Nv
+         ef8XLaF3sJzHCfxLPKbMRmZTAEQgunxQPph+XsXKSgHF4eHrzy/9nEUrQK7RblmvoqOh
+         f1ze8vOG0rK1l61jDObD6rqflGNtommYBm/hWYB/x4dYtoMfpIHxphEw36uZfFCsvBNm
+         PqJ3E7LDgv0pZ5p1bWwbaxmqWFSKwuWoK3Sy2QOCJeCj/P3h15EMhbhJM5Ocs8BcxECU
+         IqjQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qk9h6nzsDMo5dT+RocG4O8A/lOdfDKX3bHop1qBAp+c=;
+        fh=iioYPX7U5foAV/q1PfBB80i8Sx81wov4tZhir6AA5WI=;
+        b=ae66gtAWUsZ3Px6D8HyX3Pioi8/qwMxZgYkncMSum7TsueDSofza4WaeyyLuZQ3DV+
+         +WKQjQgNcIIPlliPYdc9YGlnlE766cW0wyhQ1qzEZ0fBLPVfK0lz4vtYfximqSeh/v6Q
+         6I+hZirIQzMpMVD5wjaHiR1OCnI1U/8KTwHFC+YF7hNTz6ItMQXcN9N+wtS2nGVTfc59
+         MxynW3wgMg6GGrCmA9Ygp/KUizNWVHkLYnTE+B3hiUe8Usiu85wDAb5csp1hkvneOIS6
+         e84ED4KU27jVnbCWF9uXXxaLWAVYvQMyEQWQx7IP6EKAjFSVEe0fPn6dKbaJZUrQVR+p
+         3yLA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785403458; x=1786008258; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=y8BF4lrVeXlgYtDt4LrDXBcHUybrsinovt0agb6/XhE=;
-        b=Sklt6ooASmQCIfP7z/E/JJuoAJ3Lv7xH411tlbV+YdxWVPPiggD+Q5WG2ILdo8MOq0
-         6u8w8T7ZJTkyUIvvpy8FDDOQpkVL4zq8gYjIiq2pABuo6sGZzXnP9Qz1wZS//Ul0Gby+
-         KRB9+JOAcQXu2Ze4EFRrXjrc0W9xCxFFPIN5F0Tol6CNvMmObIKCGmTa2PE7U0iUnJkG
-         DukmeUzlDg8y2U9vr4hpoamIqpI+a7H7+SVLT7IAbp8sm6Z9EqBXzR817a4L9pnQMUMn
-         yNahWuR0bdCRidP672jplwzTmkK3LCjByE9LGSZ7ZNoQ+IHJRpXVwsX2ayWSrH39kD77
-         EfZQ==
+        d=oss.qualcomm.com; s=google; t=1785403565; x=1786008365; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qk9h6nzsDMo5dT+RocG4O8A/lOdfDKX3bHop1qBAp+c=;
+        b=cuOk13eNWtReVDWgYASJpDsia4O77VPmTutmCPAhbJjCkpPViVTNsh419bGmm/lbBI
+         YsuQMizzPnMD3Uc4nWuDcb3GOHGZqsn6uVaMIMVa8N+1U6i9qD8towa/ztJqTdSoI6jW
+         feMn2nBF6lfwsDAqystmfkqWpOruABVb8maEEUiKdUW9JcWGrGXTblII4oihTVHH/Onm
+         u9MAVI3HNNkiTVh3HobScKcI1Lai6Wrs/5+lgjrDUd0MV/ZHssKtgI32oJEyykKIh3AN
+         juVNPcyG6gHuQr40YiLN+cRfVrORxXyk0kfCoIPVSNW76ijvY06yDU1NRBV0V7EsusSf
+         EAsg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785403458; x=1786008258;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1785403565; x=1786008365;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=y8BF4lrVeXlgYtDt4LrDXBcHUybrsinovt0agb6/XhE=;
-        b=K40Efss4Vrr9yAvScJ/v7GEyLKd10uolYheDPAWjqdSHU++bgErennMmskfu70qIHz
-         da4TmdvL+XENbwqEU7PEaeDOlkQym34DUyAIe/k/JI+Vglu8zD4sPdFkLVrls8GJ2evO
-         cFRDQ1YxGV5GTmD8eG1DJ0h/L7IUDigFyjrsYCaDvcrvXK8Zkl0wkqDhbFFi1isZBuPR
-         dZYfPkDOpJFpYkk1YS9dukgRZdcqpF4tcBYk1OlemzWuuU8RBAwU3oS7u/QVUD19UHf1
-         VYwIxEexE6aghAhjF20uWzN3DSdfMTIXk9QyB/c8farHbw9+yCYLsQUUwigUB7e0BboR
-         GIhQ==
-X-Gm-Message-State: AOJu0YzAlafantQkmkVWTFqReMSGTxfewoFcClTeO8t8kCymU7Zu+roX
-	+ipfTXllSTwxkI4zDgY68DTmF6kssd/R8iQxP2bWNr+cD44X5/E4rxnPfv0N7GmSj80PSbJXJOt
-	vQ1+UWqUfJqJBug1CiPJoFVWNqboTBtpoYPWFX1GTr+WKdEWLJY0dilTgEBxkIXTvvA==
-X-Gm-Gg: AR+sD131tGYchhC+kTiV3ccQ1EnG1PsGQsFxmE/coUsFKRG6ztIXfiYZ1r0EcwhuHg6
-	n4OciB0JhsAL8N4QehQPdv8eORzrNnAEUHT0UrgGjw1ZwnfmJ04+5kYGjpJBEk7+D+Zv7ECNHJx
-	ByVUn1f0wVfc15Z32FBrI422/l2GZPI6/BYbDyfMQrY8Dku7OcNTtGZ6BXHh+hsNs7HeRxi9hPU
-	9jxbvcHOT8Z7B6odfYxeDKvS3KEX3KA6dSV925H0gJ1G3YJkjQyQXARiDwZu0+z439iJWs8brOC
-	qKgjHU9aGlxD7El8m8WJzBr9fxFXbsrKh0OS7ox5F8QW3dxokn2BRxo2Pf6FC3Zs7GNm+ILYtuZ
-	/mtmF+uYi1GyIUjDX9usm7Hyzlv9zBNYDJ/wjbxZtYVtPUryN3Xh1son464TwD9WC/8rJN0q6Vp
-	aMnTriHS/LGxxpnhvKdzyMLWkMvLpTDyCrJS14A3I2p/5MVQM4W4P8
-X-Received: by 2002:a05:622a:2d5:b0:51c:7b12:5ffe with SMTP id d75a77b69052e-52b386dc213mr19153661cf.74.1785403458539;
-        Thu, 30 Jul 2026 02:24:18 -0700 (PDT)
-X-Received: by 2002:a05:622a:2d5:b0:51c:7b12:5ffe with SMTP id d75a77b69052e-52b386dc213mr19153461cf.74.1785403458086;
-        Thu, 30 Jul 2026 02:24:18 -0700 (PDT)
-Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:61cd:dcd3:c61a:ac3c])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a07d3831basm411483a12.15.2026.07.30.02.24.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 02:24:17 -0700 (PDT)
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Thu, 30 Jul 2026 11:24:12 +0200
-Subject: [PATCH v3 4/4] media: qcom: camss: Report hardware version via
- media controller
+        bh=qk9h6nzsDMo5dT+RocG4O8A/lOdfDKX3bHop1qBAp+c=;
+        b=BbJAIzMe4N95rP+nPM3SE8LT7hC6+GPNiOPNlnXPqZ/ziOpevoaVH1PHCzsEabq9AS
+         AovMGvNTitSJoxvglydknL5/Jn4z0UFbnPBVa3sXp8p31xXje2i8AsHwoze3aSNFJKR+
+         aFNHK1oMMUJMaFeEGJjCTBIAA6xLmaSAz2DIIFbC0+2MDfTxI22e9MWlFYD/nzBlA3IS
+         1wDaG/n3oJcaf0MCSo2k6mXE9FWDQayXLkwy5FDFaY0qJeic1oaqQR08Nwi1QkDR2U+e
+         g6lEKC+5KhV2S2HvYP0BKPGUT9An9cFyUPKjdbzFAJfdps31egBILzJqr+SZ7AkvG9/p
+         4daA==
+X-Forwarded-Encrypted: i=1; AHgh+Rog52ihpSoMGuTbO+xoJ9bAtQUGwwfqmh8+RVM/mFKAPwa5IyHvISNg3KKcq+B4KVm97TyeZJmQpukJxA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXVub5Bwn7vqf/TdGx8S+K3S3lNbA6EXB1lPeWSGgAA2ixS+87
+	1QUz+0AiJW9vL0pv+RCxOMy5rO3KQaUZTU+m/xEFDD2/PaaIXCTqNc/SYKrhAsvHuRywxLHgUZ7
+	wfAdYFfO200BV0Iy5mefY3FDIiT3fhK55z+sKc5TfovlBX8NOFBl8USRCClxbrqi7A9HejLgWmW
+	5zOlQnpwC4Gxidl8gGAYSTcpyGwwk5g8I1zRcO+gxJ
+X-Gm-Gg: AR+sD10385pGxq1avfH92yAecwStXCHHwhUuSbi1iWE100WqtmtsnUZ2ecSt2NdXMtz
+	PY61umq/hJMnuTvJK6yDnRZOJCn0C39bGyXAfuqYfm5JgTedfkGxq8t076AueGZW3DsWhtGzh8S
+	nYXMesREsKQ9fTY1redwascETjIbrzrR/BS3h0qO1sN4wvdKDsKKkuxXf9i0Mw2jisUNwqpYypP
+	w7H4U4hXSfXXElKoYXb5u+KkV7EYf/sZNqBzVMUjWJ6gBIwWGlxQPOsJ9vCWhClk0z4UzIYImE=
+X-Received: by 2002:a05:6214:5702:b0:904:2a2a:d3 with SMTP id 6a1803df08f44-908347eb8ffmr17145876d6.47.1785403565329;
+        Thu, 30 Jul 2026 02:26:05 -0700 (PDT)
+X-Received: by 2002:a05:6214:5702:b0:904:2a2a:d3 with SMTP id
+ 6a1803df08f44-908347eb8ffmr17145746d6.47.1785403564947; Thu, 30 Jul 2026
+ 02:26:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-camss-version-v3-4-74a87302dd9f@oss.qualcomm.com>
-References: <20260730-camss-version-v3-0-74a87302dd9f@oss.qualcomm.com>
-In-Reply-To: <20260730-camss-version-v3-0-74a87302dd9f@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Proofpoint-GUID: C9DoWllMt_NkQ2SZuRNwGsWIGLbW1PdF
-X-Authority-Analysis: v=2.4 cv=JZOMa0KV c=1 sm=1 tr=0 ts=6a6b1843 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=_VBxEyf9HguAcaXgWQEA:9 a=QEXdDO2ut3YA:10
- a=dawVfQjAaf238kedN5IG:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfX0xYf3ByR3wcv
- +jjVBKkOyGobIvs5LIaAh6GEz2cb5vH8vZTAxnUtdZguQHjPRto5ONJpdFWwL30gBnwTX1HRctn
- N0Oz7OxCYc8JwoDvAdp3a7roa4Fd4NuF7W5c1KyeVjVMAVcbMcwfqFp0ATcIpp4E0oLitTJNGSu
- 8h53Y1mPI/WXbFEox9PAKU4fdzHQ8v70Mil7sQoqJYNJT8A8o3pzSP4ouHI/ZYtR3GIFlpCRtUn
- hFCI2EYX1fVjVtYedWFg16u/I/5pm1z0JSSjnwS7Xi/xNDHMw+9Sck/OK7UbLsPINjCKAtJIlpF
- vEWkYP0FMvXYHdTJKrdcElVprBZKHsc/GY7EKXeAIQRscfGsQk5OmFFFZR/PRp+yri+KVUOHA6Z
- GUoEoVzcIbH0jlDBAgaqorh8CHFb16Uq68xh1y94IntmHl+wzWl27zjhnu55dpRtfipgoRIC7xt
- UrTyqFo1omXRnGdFdNQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfX62us5tq0O1H7
- pni3uv4fq3/Tie5Ra+cCL49XBO2g8GCK9Luap9g8E7tkx25Is/RVXHS/WtN28UdZCUpiyOAFpQK
- DP/7gry3U15/TjfgtR0gTpjXVtEVGoU=
-X-Proofpoint-ORIG-GUID: C9DoWllMt_NkQ2SZuRNwGsWIGLbW1PdF
+References: <20260717-camss-version-v1-0-7ed71fea95e8@oss.qualcomm.com>
+ <20260717-camss-version-v1-1-7ed71fea95e8@oss.qualcomm.com> <a4a1dc46-ff07-4ecb-b41f-341b6aacb3ab@linaro.org>
+In-Reply-To: <a4a1dc46-ff07-4ecb-b41f-341b6aacb3ab@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 30 Jul 2026 11:25:52 +0200
+X-Gm-Features: AUfX_my2K2kAR81YYtKMh29QHm6PVDAYVdCeK_BkR_HVuUNHZjZo17pEJloalkM
+Message-ID: <CAFEp6-0ZBEb6x52dabGjF1XLgq4j6Ty3dKtMDJ1qNUTPGS+kHw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] media: qcom: camss: Add PM clock support and
+ integrate with runtime PM
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: pddID_FlefUSfhg6LekQG_w_AIaE8fdU
+X-Authority-Analysis: v=2.4 cv=JZOMa0KV c=1 sm=1 tr=0 ts=6a6b18ae cx=c_pps
+ a=oc9J++0uMp73DTRD5QyR2A==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=RhRaUx0EnXGA07yME0YA:9 a=QEXdDO2ut3YA:10 a=iYH6xdkBrDN1Jqds4HTS:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfX9SWebJKMiA5A
+ bRiy5GshkxYRliqXqnl/KKdMw43epKEre56MWj9cl3+0hlGYy6OoqMwSEBihk0QfvkMt7+VDpLI
+ WwZZBK24/13XIRh1Y+9WYQQ/YGyyO+g5FzDOGd6ernDmucfm41SC48bq9PLYQrjEnQsb53qA6yx
+ xS8umWc4v2wYlecwJSZNtVkRMbrCUMhHBSuTk5cRzbFNV02YgQZHCvcu+/mzwbLa8IkreaGsq1f
+ e001pOQfew3jw/nfMx+943FUXqaa13oYKYn8Mxu4IHH19c2ZGcECgbnxLpqtB9LzQT4JEIPZM/X
+ Z8ywFXUKmtBCVYlUcM1yrnascIUWWNbCcOfnBjyFxj02Mkcs70JXQwMUvUi/RObCGPOFIpQED4c
+ ntnDD3SaPm1EYx8wFnclUOrxeZL95OERq/3t1uvSRbYWTF2cdCxo+PE7GiVkET+PJ3gTxXLolxU
+ 6JaWSj+7Zw40I5xz0kw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfXzotvLLbb5PWa
+ G7szHrzP+hhxR7AJZnagiLmusCy8epA0qPlB+5IBVeV+rmjPEwSA+aPHgIVw+wbDSMCb1xVdr0D
+ WWsNg20uCxNAmoUiZBfourKTgy5ro5M=
+X-Proofpoint-ORIG-GUID: pddID_FlefUSfhg6LekQG_w_AIaE8fdU
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
@@ -130,117 +146,163 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300069
 
-Populate media_dev.hw_revision with the top-level CAMSS hardware version
-so that user space can query the exact hardware variant through the media
-controller (e.g. via media-ctl or MEDIA_IOC_DEVICE_INFO). This can help
-identify the platform variant and adapt behaviour accordingly, for example
-allowing libcamera to apply quirks or enable features that cannot be
-discovered through standard V4L2 or media-controller APIs.
+Hi Bryan,
 
-The version register is exposed by some platforms through the top-level
-"top" reg region (offset 0). When present, map it and read the version
-once at probe. This is a no-op on platforms not mapping the region (yet).
+On Thu, Jul 30, 2026 at 10:39=E2=80=AFAM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
+>
+> On 17/07/2026 15:20, Loic Poulain wrote:
+> > Add optional PM clock support to the CAMSS driver using the PM clock
+> > framework. This allows CAMSS clocks to be registered once and
+> > automatically managed during runtime suspend and resume.
+> >
+> > This is especially useful for global CAMSS clocks that are shared acros=
+s
+> > multiple CAMSS subblocks.
+> >
+> > This avoids the need for each subblock to reference and manage the
+> > shared clocks individually. A typical example is the set of clocks in
+> > the top_group, which may be used by CSID, PHY, CCI, and other CAMSS
+> > blocks.
+> >
+> > Introduce a small PM clock descriptor table in the CAMSS resources
+> > structure to describe clocks and their optional rates. Initialize
+> > these clocks at probe time and delegate clock ownership to the PM
+> > core.
+> >
+> > Hook PM clock handling into the runtime PM callbacks to ensure clocks
+> > are properly suspended and resumed alongside power domains and ICC
+> > paths.
+> >
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >   drivers/media/platform/qcom/camss/camss.c | 40 ++++++++++++++++++++++=
+++++++++-
+> >   drivers/media/platform/qcom/camss/camss.h |  1 +
+> >   2 files changed, 40 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/=
+platform/qcom/camss/camss.c
+> > index 2123f6388e3d7eafe669efd6b033e22d8eb5cf79..6a2bf3373e8755805c8cd0f=
+8fe5037b788d68fa2 100644
+> > --- a/drivers/media/platform/qcom/camss/camss.c
+> > +++ b/drivers/media/platform/qcom/camss/camss.c
+> > @@ -18,6 +18,7 @@
+> >   #include <linux/of_graph.h>
+> >   #include <linux/pm_runtime.h>
+> >   #include <linux/pm_domain.h>
+> > +#include <linux/pm_clock.h>
+> >   #include <linux/slab.h>
+> >   #include <linux/videodev2.h>
+> >
+> > @@ -5346,6 +5347,35 @@ static void camss_genpd_cleanup(struct camss *ca=
+mss)
+> >       dev_pm_domain_detach(camss->genpd, true);
+> >   }
+> >
+> > +/*
+> > + * camss_init_pm_clks - register shared CAMSS clocks with the PM clock=
+ framework
+> > + *
+> > + * Clocks listed in res->pm_clks are shared across all CAMSS sub-devic=
+es (e.g.
+> > + * top_ahb, axi). They are managed automatically by the PM framework.
+> > + */
+> > +static int camss_init_pm_clks(struct camss *camss)
+> > +{
+> > +     struct device *dev =3D camss->dev;
+> > +     unsigned int i;
+> > +     int ret;
+> > +
+> > +     if (!camss->res->pm_clks[0])
+> > +             return 0;
+> > +
+> > +     ret =3D devm_pm_clk_create(dev);
+> > +     if (ret)
+> > +             return ret;
+> > +
+> > +     for (i =3D 0; i < CAMSS_RES_MAX && camss->res->pm_clks[i]; i++) {
+> > +             ret =3D pm_clk_add(dev, camss->res->pm_clks[i]);
+> > +             if (ret)
+> > +                     dev_warn(dev, "failed to add pm_clk %s: %d\n",
+> > +                              camss->res->pm_clks[i], ret);
+> > +     }
+> > +
+> > +     return 0;
+> > +}
+> > +
+> >   /*
+> >    * camss_probe - Probe CAMSS platform device
+> >    * @pdev: Pointer to CAMSS platform device
+> > @@ -5434,6 +5464,10 @@ static int camss_probe(struct platform_device *p=
+dev)
+> >
+> >       pm_runtime_enable(dev);
+> >
+> > +     ret =3D camss_init_pm_clks(camss);
+> > +     if (ret)
+> > +             goto err_v4l2_device_unregister;
+> > +
+> >       ret =3D camss_parse_ports(camss);
+> >       if (ret < 0)
+> >               goto err_v4l2_device_unregister;
+> > @@ -5775,7 +5809,7 @@ static int __maybe_unused camss_runtime_suspend(s=
+truct device *dev)
+> >                       return ret;
+> >       }
+> >
+> > -     return 0;
+> > +     return pm_clk_suspend(dev);
+>    CC      drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_dbgfs=
+.o
+>    CC      drivers/media/platform/mediatek/mdp3/mtk-mdp3-vpu.o
+>    AR      drivers/staging/media/ipu7/built-in.a
+> In file included from ./include/uapi/linux/posix_types.h:5,
+>                   from ./include/uapi/linux/types.h:14,
+>                   from ./include/linux/types.h:5,
+>                   from ./include/linux/kasan-checks.h:5,
+>                   from ./include/asm-generic/rwonce.h:26,
+>                   from ./arch/x86/include/generated/asm/rwonce.h:1,
+>                   from ./include/linux/compiler.h:369,
+>                   from ./include/linux/err.h:5,
+>                   from ./include/linux/clk.h:12,
+>                   from drivers/media/platform/qcom/camss/camss.c:10:
+> drivers/media/platform/qcom/camss/camss.c: In function
+> =E2=80=98camss_runtime_suspend=E2=80=99:
+> ./include/linux/stddef.h:8:14: error: called object is not a function or
+> function pointer
+>      8 | #define NULL ((void *)0)
+>        |              ^
+> ./include/linux/pm_clock.h:77:25: note: in expansion of macro =E2=80=98NU=
+LL=E2=80=99
+>     77 | #define pm_clk_suspend  NULL
+>        |                         ^~~~
+> drivers/media/platform/qcom/camss/camss.c:5841:16: note: in expansion of
+> macro =E2=80=98pm_clk_suspend=E2=80=99
+>   5841 |         return pm_clk_suspend(dev);
+>        |                ^~~~~~~~~~~~~~
+> drivers/media/platform/qcom/camss/camss.c: In function
+> =E2=80=98camss_runtime_resume=E2=80=99:
+> ./include/linux/stddef.h:8:14: error: called object is not a function or
+> function pointer
+>      8 | #define NULL ((void *)0)
+>        |              ^
+> ./include/linux/pm_clock.h:78:25: note: in expansion of macro =E2=80=98NU=
+LL=E2=80=99
+>     78 | #define pm_clk_resume   NULL
+>        |                         ^~~~
+> drivers/media/platform/qcom/camss/camss.c:5851:15: note: in expansion of
+> macro =E2=80=98pm_clk_resume=E2=80=99
+>   5851 |         ret =3D pm_clk_resume(dev);
+>        |               ^~~~~~~~~~~~~
+> make[7]: *** [scripts/Makefile.build:289:
+> drivers/media/platform/qcom/camss/camss.o] Error 1
+> make[7]: *** Waiting for unfinished jobs....
+>    CC      drivers/media/usb/pwc/pwc-misc.o
+>
+> Please fix.
 
-Reported media info on Agatti/CM2290 (Spectra 520):
-Media Driver Info:
-        Driver name      : qcom-camss
-        Model            : Qualcomm Camera Subsystem
-        Bus info         : platform:5c11000.camss
-        Hardware revision: 0x00050200 (328192)
+Thanks, I submitted a v3 with this fixed.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
----
- drivers/media/platform/qcom/camss/camss.c | 40 +++++++++++++++++++++++++++++++
- drivers/media/platform/qcom/camss/camss.h |  1 +
- 2 files changed, 41 insertions(+)
-
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 2301aa3868d26692c0c67034ebccac2a4f9abc4a..c5f3d4f405ed02e7fd6b397c6ff18c15c92ca824 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -33,6 +33,9 @@
- #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
- #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
- 
-+/* Top-level CAMSS version register */
-+#define CAMSS_HW_VERSION		0x0
-+
- static const struct parent_dev_ops vfe_parent_dev_ops;
- 
- static const struct camss_subdev_resources csiphy_res_8x16[] = {
-@@ -4677,6 +4680,29 @@ void camss_pm_domain_off(struct camss *camss, int id)
- 	}
- }
- 
-+static int camss_read_version(struct camss *camss)
-+{
-+	u32 hw_version;
-+	int ret;
-+
-+	if (!camss->top_base || !camss->res->pm_clks[0])
-+		return 0;
-+
-+	ret = pm_runtime_resume_and_get(camss->dev);
-+	if (ret < 0)
-+		return ret;
-+
-+	hw_version = readl_relaxed(camss->top_base + CAMSS_HW_VERSION);
-+
-+	pm_runtime_put_sync(camss->dev);
-+
-+	dev_dbg(camss->dev, "CAMSS HW Version = 0x%08x\n", hw_version);
-+
-+	camss->media_dev.hw_revision = hw_version;
-+
-+	return 0;
-+}
-+
- static int vfe_parent_dev_ops_get(struct camss *camss, int id)
- {
- 	int ret = -EINVAL;
-@@ -4866,6 +4892,16 @@ static int camss_init_subdevices(struct camss *camss)
- 		camss->csid_wrapper_base = base;
- 	}
- 
-+	/* Optional top register for hardware version info */
-+	if (platform_get_resource_byname(pdev, IORESOURCE_MEM, "top")) {
-+		void __iomem *base;
-+
-+		base = devm_platform_ioremap_resource_byname(pdev, "top");
-+		if (IS_ERR(base))
-+			return PTR_ERR(base);
-+		camss->top_base = base;
-+	}
-+
- 	for (i = 0; i < camss->res->csid_num; i++) {
- 		ret = msm_csid_subdev_init(camss, &camss->csid[i],
- 					   &res->csid_res[i], i);
-@@ -5456,6 +5492,10 @@ static int camss_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_v4l2_device_unregister;
- 
-+	ret = camss_read_version(camss);
-+	if (ret)
-+		goto err_v4l2_device_unregister;
-+
- 	ret = camss_parse_ports(camss);
- 	if (ret < 0)
- 		goto err_v4l2_device_unregister;
-diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-index fe5fe25d5f18d8a3ce35b48077a975f1453c341f..cce79e56f58c8bdc0097f4a1702df22c4248f2fa 100644
---- a/drivers/media/platform/qcom/camss/camss.h
-+++ b/drivers/media/platform/qcom/camss/camss.h
-@@ -133,6 +133,7 @@ struct camss {
- 	struct ispif_device *ispif;
- 	struct vfe_device *vfe;
- 	void __iomem *csid_wrapper_base;
-+	void __iomem *top_base;
- 	atomic_t ref_count;
- 	int genpd_num;
- 	struct device *genpd;
-
--- 
-2.34.1
-
+Regards,
+Loic
