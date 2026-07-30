@@ -1,66 +1,66 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F063B6C1E
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 22:55:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30FE047669A
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 23:20:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785452136; cv=none; b=LcHaB8nnX7bE2bYMG9Nx5zGsoum2CsZn5DO6Ne8jlsX/CKF1xfofFEXuKTHRSW/HUMkkE3Llr8e+kVZ65HMJBEcEHfZdREATA20S2FraKXkyLZp4eL0Z7t/OI86evJpWG/LMCrXpbS7pTk0eFhwE0V/dVexq+20ljxKWMayEjj8=
+	t=1785453619; cv=none; b=nFFrl1lF81V+DDjC15qOusB9JxoPBq1ITL1NVvjw/ItY3KXbxiKHNZ+bSBWfiuL9GGUeBlHJuu1/dDnLlUzy3z4Cii6ne4NN+AAZXts1mGo0cIkd+hJvF+PMFaQ75HK8x0WGKRKIDMRmm00lr5F8pqKT9qruYm8Ppv7HwtkAL6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785452136; c=relaxed/simple;
-	bh=6yC+aYDaiVvucEeJuv9ttiHtFPowCOdaom4mtrRN5FA=;
+	s=arc-20240116; t=1785453619; c=relaxed/simple;
+	bh=D1HG6b77iifw3DUMszzZ7R8qVj01yGi3PV2UPXRdquM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=B2+an8JNj6zpFfdG/1hfCQmqtPM0RhJ7WlHm6GDELPns6l5UNhGyO+A/cNvHZp2rpjutQ223Lvgxo57hDcE8drOgDnjwN12kn8hZJOlG9dcAN68ySIagUEYtnZsGjxivcj6FHTRYaoLSQSLG4LQWy/jMD+s0vZKhKGmNLPc37ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=jKx/lxX1; arc=none smtp.client-ip=209.85.214.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=PThJue8vHYyGtnjANlbQ5cNFjhjTVtlbaBk9KW+51C/5JRRL8Ba9jkugCTTj8wq/N9+ZGSSiPJnEtvziZLT0aHw3NBLYsPcZCX0/NQSzTOolr1TpGOFvvndNEDXjy6tRfuUp0o0n6DM368y8I0vgbYe00Q0duVXkq4iH3Fh9Q40=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=EJmG/Hjr; arc=none smtp.client-ip=209.85.214.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="jKx/lxX1"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2cacef7d299so22865ad.1
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 15:55:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="EJmG/Hjr"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2ccdf36f63dso57075ad.0
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 16:20:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785452133; x=1786056933; darn=vger.kernel.org;
+        d=google.com; s=20251104; t=1785453617; x=1786058417; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
-        b=jKx/lxX1tyKmvVhcYERq6+KdCUIDs6/X8kTSsYMlRRHvU8lsciTbyt1EaXmd8uJr/c
-         OzikpzrXgkq03NwXlmMnr8gNVav0KpmCEko+S3IlmzA1P3UifsnYi+lvnSmvpgQrNd+p
-         4sTJT4jP444Jjgc3Vpj/x44JwnAIvPFFCR55TxTxr2o2GTiUoKYS7GygNPFGYzhZorNh
-         S9WEaznPnVLsxmaDNBNRr54aj5QVmAEDV9FVjtGjdqkYTp4WcKyAcOxNBvqL7qD0Iogu
-         UasrdnAsn7xSm4NkbvzR0WyTzZGRxZIq5EgpuxSiSP1fUOXIOWjyEZofMRhwU7Pv3Yk/
-         58RQ==
+        bh=i8nq0/Hmm93fF2JW2THyDFZojbW5xmKXoinFZToOHmQ=;
+        b=EJmG/Hjr+YdbZnwRfiRY1eYlZTOV2eeL3RN70Cfe37RhydlKsY4jDKXOu5lN2oG6IU
+         bQ4k8Q6L9PNwpwpMlbXVd0lOkfgBCvkxJWGUy79dQDNRks8IqS2hnBPVpESe4wqDsU9E
+         ovBfcHDSazjA/FoAfbUialeirbvZmMyKt/LE9TxLXX5FcrawobnODpL7zKyB3fOujiwf
+         yCX5+KuwiDvjW0F2ZliHFDvPh0j8Zd4UZBFtw/wHztJzjMcDI59mvAZNTyWLcNBUq8R7
+         dSF8qCRCKU4kvHQaew/7BUzKZ6bL6i5ZtMRahhx+M795j0pHgn4q330wbzJaJ8ewFNut
+         R56Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785452133; x=1786056933;
+        d=1e100.net; s=20251104; t=1785453617; x=1786058417;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JGa8csySGObADLk+2HBSpvepwrbFTkNknaylr539um4=;
-        b=oIVljZbhFBljBD0y3wvrbcZnAAmori+qjEK9sO/0PiLVBfgWo2KftfPc/A2cGHk1UC
-         pmCpDHJQMC8Jbf57krg7VMomcohzH6WE/lFm/SyqTe0Be9UQUCKJ4+d7Oatj3U+l6W4N
-         dnM8zuezHjTdv+Sz5fOOfEqNAF9cQ9K/JRdEwXzN01ujYI8W6cOSUQHMSz26P5/5nroP
-         2uKhEfu7D+XGvxFr4pqe4yVXsnR8qXFS/kHiU1GKTCnilrI7QqtKq1ZRdap68zFbkMRH
-         ryONkhvR+0NiTsWuJjCWB3IvpNJ0FYYQkBGSv8kSJ6ptNN1BpnXzg36yVMshtORfeyo4
-         nAdg==
-X-Forwarded-Encrypted: i=1; AHgh+RopkfrbR6Fakcveyc640V0tel7njYXhnBrm6BR33irBI+pJFilLsbADQvRLXeUoACV8hN97GPjkDvsHyQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywl/rQGsHQbbXhzI2yi+Yom/IihKslApUGBQTWqrGWuiIbMFA08
-	8VOROahYbYvzMf9MWfG5DPFwTTEp8cJEKBI4Q9RXFdF82zEG5yRI7CXvmisfNO9DnQ==
-X-Gm-Gg: AR+sD13++eF0CgIJzKWU1P9NtyqPrNZs+t/UbM5axDxV369DI1MqUp+aWeATuzpqlzC
-	TI8V2xiZhEmms6bbZLM9dr/4e9JiuN7bQ5fDj5BtZbRs3GmDPjiDGDg36HbDvCcHjhBdY7u0lcU
-	ydTqGERTUfhHxcyTg4eL66cU5gyaHt2N9TaPcJbJghD/Ura9VfZNrCjT0qSsw089bBNTXISgAKR
-	sXmnpYdj7iXcL6K8C0iB9apIM5cyX4sechOEEuuKuBKzkc8ll+isqyEw9EJmlWCGz9ixL7f+l7R
-	sM3alg1XZKNkCUPm80vY8Q7Gog/u/FX53EtMHDu6Zprf5TonY4Ax78L2pBuzVnyVTR4IQRKFYbr
-	ND8GVQNzKMHEbMicaecOeZdAGgLMV21fw0o5bbW07BgcQp2BPbi7yYY1M372/16GDo2GQXTHlTH
-	OUWT3s7lFFvdoayXnvUXBm5L5fN6yPvkGIGnc2YVk7eNbyOFna6DE99dZ4ft/6+jSOJHacEb5Y+
-	9j7uJerCm9SKGSLQBN6w4aXQc/aAwZYo6WkQd2BaTSWRQ==
-X-Received: by 2002:a17:902:f541:b0:2b9:e831:5e5c with SMTP id d9443c01a7336-2d04113beb1mr4399455ad.4.1785452132956;
-        Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
+        bh=i8nq0/Hmm93fF2JW2THyDFZojbW5xmKXoinFZToOHmQ=;
+        b=AUOfiwNOyzTItPldmHfS9Oeuvj/bn0+MDbeIt6ATlJxA+w8m796PoWeH2Y5NWruLN/
+         o7MWzLg9tHqHx9BDO5bqi1Zs1DwwSmOSN81+lokfNd2F0Ubs5Cu6gMs9QEwPxMPXpGmG
+         9XOIWyzdQpUjWx9Ty3r8t7CzZvsQwJOM/7hblUOPUqHORLCkYQnnebxPh7BROsDl+dq+
+         hcwW2jx1rEXOdN32JmgUjmUrNiAFr+nikSXEwnSppA8WaZ3QhzZG75AHpPyIhAAbCprz
+         kY8+2RcngsBldcBcgk7BDbSEdJMcgcEWWwJP/LHW0ZyZXD3hKa+4cyXAdVOAeQJWtYzp
+         01PQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoHVXKtYfXSa6wGGTF77BrtG8Y0qaPhuNvJ6dPZ1ysftgJKNwBF64Z90aarOqJIFZy9Trh3XqK5ZDYUSg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyfdb/8Rjtuac+B0Pf/WgGz4Hu32TpO9A8xi9SXPJfrumdUXATr
+	qIXtSvFeHcSwQ2wm2+cotqfrEtxFYWJy4NKP0pI+OhgZtZdjwptfjekCARqS9dsIDQ==
+X-Gm-Gg: AR+sD12VqPM3YjKRjezqiIT38biKCBD7mHYB+GBjl6PCCq9ZsukDXlqmHcHZhKNjKqr
+	A/pTJsTK3Pq/enTfPY95vJfWSDFgusf+u5U1LFfR9nxY2ouJmca1NJEyYr/RmJbgLK+cjvZnG1Y
+	G8/LnCoay6E+kQSKaE0eTc4/sc/yydYGeIho6irDaiwqKuJoUhsEliyUoIUNIynJgUI10KWkiNV
+	pHNuf6cJoKNGtk/efs8Cv5DQqck+bYSX1Vu6TvLcr8rnTRNFVfYpl59nB2u54gmNQ25mWAACx2M
+	E1fwTZ7Qfbc1V8VQS94cXHKSUs6zALbw/nfPTzT8yiyeGSz+Tjewq9+p6R+kJyMQhI5NqODX0sV
+	NMiKpxNLWloUJc/YLZIT0Vi5GFfU6ZfEleaP91ypJjU7Zfo8RdX7Usc/X5zLR6yzfr6Lt5XbC9J
+	7S9dbEqohGjWySz4nIRRnIfxZhY7z1ATFMJNg6RJAIyNmbE5T6DDLwgtLmqcfjQjfbB/zHSX++/
+	Hq5rrcIq7JfyLodZ1vorWI=
+X-Received: by 2002:a17:903:2a88:b0:2c9:d89f:fd98 with SMTP id d9443c01a7336-2d043c66fc3mr2363495ad.1.1785453616883;
+        Thu, 30 Jul 2026 16:20:16 -0700 (PDT)
 Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31504d2ec2asm29148088eec.21.2026.07.30.15.55.28
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13e7265be48sm24706277c88.8.2026.07.30.16.20.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 15:55:32 -0700 (PDT)
-Date: Thu, 30 Jul 2026 22:55:24 +0000
+        Thu, 30 Jul 2026 16:20:16 -0700 (PDT)
+Date: Thu, 30 Jul 2026 23:20:08 +0000
 From: Pranjal Shrivastava <praan@google.com>
 To: Matt Evans <matt@ozlabs.org>
 Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
@@ -80,10 +80,10 @@ Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
 	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
 	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
-Message-ID: <amvWXNRtviKEuUoV@google.com>
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <amvcKL8FR60OoTDW@google.com>
 References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-4-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -92,140 +92,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260715174737.15287-4-matt@ozlabs.org>
+In-Reply-To: <20260715174737.15287-8-matt@ozlabs.org>
 
-On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
-> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
-> find a PFN.
+On Wed, Jul 15, 2026 at 06:47:30PM +0100, Matt Evans wrote:
+> Previously, vfio_pci_zap_bars() (and the wrapper
+> vfio_pci_zap_and_down_write_memory_lock()) calls were paired with
+> calls to vfio_pci_dma_buf_move().
 > 
-> This supports multi-range DMABUFs, which typically would be used to
-> represent scattered spans but might even represent overlapping or
-> aliasing spans of PFNs.
+> This commit replaces them with a unified new function,
+> vfio_pci_revoke_bars() containing both the vfio_pci_dma_buf_move() and
+> the unmap_mapping_range(), making it harder for callers to omit one.
+> It adds a wrapper, vfio_pci_lock_revoke_bars(), which takes the write
+> memory_lock before zapping, and adds a new vfio_pci_unrevoke_bars()
+> for the re-enable path.
 > 
-> Because this is intended to be used in vfio_pci_core.c, we also need
-> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> As of "vfio/pci: Convert BAR mmap() to use a DMABUF", the zap via
+> unmap_mapping_range() is no longer performed for vfio-pci since the
+> DMABUFs used for BAR mappings already zap PTEs when the
+> vfio_pci_dma_buf_move() occurs.
+> 
+> However, it must be assumed that VFIO drivers which override the .mmap
+> op could create mappings _not_ backed by DMABUFs.  So, the zap is
+> still performed on revoke if .mmap is overridden, using a new
+> zap_bars_on_revoke flag.  A driver can explicitly opt out; the flag is
+> cleared by the hisi_acc_vfio_pci driver, since its .mmap just wraps
+> vfio_pci_core_mmap() and so still uses DMABUFs.
 > 
 > Signed-off-by: Matt Evans <matt@ozlabs.org>
-> ---
->  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
->  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
->  2 files changed, 160 insertions(+), 13 deletions(-)
-> 
-> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> index c16f460c01d6..7c047400dfd1 100644
-> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> @@ -9,19 +9,6 @@
->  
->  MODULE_IMPORT_NS("DMA_BUF");
->  
-> -struct vfio_pci_dma_buf {
-> -	struct dma_buf *dmabuf;
-> -	struct vfio_pci_core_device *vdev;
-> -	struct list_head dmabufs_elm;
-> -	size_t size;
-> -	struct phys_vec *phys_vec;
-> -	struct p2pdma_provider *provider;
-> -	u32 nr_ranges;
-> -	struct kref kref;
-> -	struct completion comp;
-> -	u8 revoked : 1;
-> -};
-> -
->  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
->  				   struct dma_buf_attachment *attachment)
->  {
-> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
->  	.release = vfio_pci_dma_buf_release,
->  };
->  
-> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
-> +			      struct vm_area_struct *vma,
-> +			      unsigned long fault_addr,
-> +			      unsigned int order,
-> +			      unsigned long *out_pfn)
-> +{
-> +	/*
-> +	 * Given a VMA (start, end, pgoffs) and a fault address,
-> +	 * search the corresponding DMABUF's phys_vec[] to find the
-> +	 * range representing the address's offset into the VMA, and
-> +	 * its PFN.
-> +	 *
-> +	 * The phys_vec[] ranges represent contiguous spans of VAs
-> +	 * upwards from the buffer offset 0; the actual PFNs might be
-> +	 * in any order, overlap/alias, etc.  Calculate an offset of
-> +	 * the desired page given VMA start/pgoff and address, then
-> +	 * search upwards from 0 to find which span contains it.
-> +	 *
-> +	 * On success, a valid PFN for a page sized by 'order' is
-> +	 * returned into out_pfn.
-> +	 *
-> +	 * Failure occurs if:
-> +	 * - A hugepage would cross the edge of the VMA,
-> +	 * - A hugepage isn't entirely contained within a range
-> +	 *   (including where it straddles the boundary between
-> +	 *   ranges),
-> +	 * - We find a range, but the final PFN isn't aligned to the
-> +	 *   requested order.
-> +	 *
-> +	 * Upon failure, -EAGAIN is returned and the caller is
-> +	 * expected to try again with a smaller order, which will
-> +	 * eventually succeed (order=0 will always work).
-> +	 *
-> +	 * It's suboptimal if DMABUFs are created with neighbouring
-> +	 * ranges that are physically contiguous, since hugepages
-> +	 * can't straddle range boundaries.  (The construction of the
-> +	 * ranges should merge them in this case.)
-> +	 *
-> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
-> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
-> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
-> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
-> +	 * To avoid double-offsetting in this scenario, subtracting
-> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
-> +	 * the effective offset.
-> +	 */
-> +
-> +	const unsigned long pagesize = PAGE_SIZE << order;
-> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
-> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
 
-Maybe I'm getting ahead of myself here.. but it seems like this
-restricts us to only mapping DMABUFs at offsets < 1TB due to the 
-VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
-may not be a very distant future).
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
 
-While I understand this mask is needed to drop the BAR encoding in the
-high bits. 
-
-My worry is, if in the future a user were to export a massive
-contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
-into it (passing an offset >= 1TB), this bitwise AND would silently drop
-the high bits, leading to silent data corruption.
-
-I think we should explicitly reject such an mmap with -EINVAL like:
-
-+const unsigned long pagesize = PAGE_SIZE << order;
-+unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
-
-+/*
-+ * Prevent silent wrap-around if the user mmaps a DMABUF at an
-+ * offset greater than the VFIO index mask allows.
-+ */
-+if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
-+    return -EINVAL;
-
-+vma_off &= VFIO_PCI_OFFSET_MASK;
-
-> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
-> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
-> +	unsigned long fault_offset;
-> +	unsigned long fault_offset_end;
-> +	unsigned long range_start_offset = 0;
-> +	unsigned int i;
-> +	int ret;
-> +
-
-
-Thanks,
+Thanks
 Praan
