@@ -1,329 +1,189 @@
-Received: from ixit.cz (ixit.cz [185.100.197.86])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97E403FFABF;
-	Thu, 30 Jul 2026 09:22:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.100.197.86
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EFA2410D32
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785403341; cv=none; b=cytPQJ9VPlKe/rND10/oaE7YeXejuetpQdVpWZ/DDu0mEznXyhc7qCuubaZ4WUZ1puiomYsDJNEBCluLSvgwD2j123mw9fDAu3TR5ek0PYsZWwchR4eHQmwPqffHjEr15HnZ/LLhlwz5oBj+VxTxTqk9vRfl5hBbk4PkePynciQ=
+	t=1785403457; cv=none; b=uWxwsKuqX5Q6T5ipd6/en+lNiZD69puWOpOZBxcEWjhE1khkcTQRn6oSaGWF5d8LyUPDa2JLdlQIUfCoqUcC7R6usl4CpbN6DJ9p3ms6ey97LlzHHzbNMsBckx+P4R/c/ADpRMijpCH3UpStzXhZLS7qrj1JgzNKhReOJ9JBJ+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785403341; c=relaxed/simple;
-	bh=cs2czJ6L3Hm3J0RCGZuds1IMtFRnYH6ybz0tK2i6rig=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZDw5xewgFdWbTohnZLeKGniC2QiCBK35+KAI+GC3g4XQnt4hvii7WfHjZ7THZLqxc+JlzE/tx1sK+1T+AB6+4CaLXZlCa+Lu77lHPNUHCA+2di59LHhecqTfTH43iypCm3lRxFxWIM7FMvjdFns8nf7ZHN/zJ84XEbHH3yImHXI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=g3yZbcYl; arc=none smtp.client-ip=185.100.197.86
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1785403457; c=relaxed/simple;
+	bh=2uqy+Jlf+js15yH0Rm76q5J6YIskFQZHP5GZoqWMWkw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Hqw2Rf6tUscNmQN/xniEUfs8kEa9DuZDwowpu5gUrzHe1d10PN0nX/0GiUTT2H0NhkOo5r/TYYilp2XQo9qxZV+4GFUCTTlDjDIKANkVmCeZR4ux4/ZnNQwwdfMGBOkvAzzWjBaXMZT/utnUXiIkHTIK+kHYn+/V0Mp8ypyKeLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Q4Swvh2J; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=R4PBQ3eg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="g3yZbcYl"
-Received: from [172.20.10.2] (78-80-17-116.customers.tmcz.cz [78.80.17.116])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 9603C5340200;
-	Thu, 30 Jul 2026 11:22:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785403332;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=JEyzl6lt8ai9G4Oxiag+VTZHxXQe60Ayevig6+mQcHo=;
-	b=g3yZbcYlvEx7FMl0DBUQuwj7R5/DZbqRocjRh4b0xPE8Cjxnwak2vG4DyI2haUGejY/ric
-	aHmxb2dAijRYkSCrazPSeCz+vCVY3VNKEYHiwPJgf5tpy80Hu1+wD1LrKt297FHtBsBLZu
-	P3upRNryF2M80JGnVRsDB6DkRN4jhJY=
-Message-ID: <0afc1927-e8bf-4976-8744-50089e81b331@ixit.cz>
-Date: Thu, 30 Jul 2026 11:22:11 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Q4Swvh2J";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="R4PBQ3eg"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66U8sl01338407
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=+JrRRzxWhfNkjeBZAz6GbF
+	2Bsf4ds/N9+PS6qR+boNw=; b=Q4Swvh2JkMwtFjxa11okDnvsNheKidyj96A2Qs
+	tFl0Mz0IqIq8FK5M2Cd2utB2KO7p5/Bxg/rNbb+0Q7AXMp76KFIpbmsFO2ynqToB
+	YZ0sg19UFQ5OR7cZ77ncwc432CUsyuBy1ZnsdvxrNuHtxrLCiJTzj9ROp782f4Yi
+	Tl6nuTyYqOLXTF54A1BGIffcwLnNckH8Dg3ZUJwEaVXCz6WmO7bvDdcOsGzCJ+CS
+	46Z6tPzF4RAK0MEKmVsbHPOzr3XXQDeFcrqDe4FzPuTo/JViyYf+NIlLQMeFbNcg
+	sRTCk4rQbA9TOREZp7hStbzvBq/jIwQmAVO4LEG2bO6rQaFA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fr3h4r4s8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 09:24:13 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-529ae8e96e8so20613661cf.3
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 02:24:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785403453; x=1786008253; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=+JrRRzxWhfNkjeBZAz6GbF2Bsf4ds/N9+PS6qR+boNw=;
+        b=R4PBQ3eg0rq+d2eBAh2vo6fvDWygSVq8qXJle46/65m1B3Op2KbCaLMD3cm2zyPlpZ
+         GOESPpjlm/LI39dkP2osFT3SnXMvkLOgN2QJTzSsSy2lndZcwCqdr3q6cbqoNFgj8ryG
+         t3n/r69JA1VFODFWUAdNtobJyDChcYr12HdWKyK1H4pX4cBwMMYn9T8WcO3iBOI3aJry
+         jVq7Dk74wM8XBfc81xexsCHNTjpuBRS4oVU+qrIhEUbSG9qQjrhHjUlgGYHPmP1gjc9U
+         f2ld40h8chYcd70YstlK+M1bv5iRmtmzpw1brLHhG00dfQMi64Tr8tlMHGuSOYNiXiDP
+         1TYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785403453; x=1786008253;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=+JrRRzxWhfNkjeBZAz6GbF2Bsf4ds/N9+PS6qR+boNw=;
+        b=U5fkUAuWIauYoyiVWj+hzC9W+GEWQNpIdf5S45jq67QN8bryzzqbWMhFJ+tLB3XkSD
+         mOWQ/w0JdQZds50IUIIWsrK0G4ryJ2l4AALkjhItnMmcKNkpkAeWe3lkjW2hHh3j16QQ
+         C/TtqfGcuAumMOfGy2mymUFgkDAdSBz5tYgDfITsgKiKxgdhkZEMtGUtDGhfrkdgDP6W
+         BvQ4DDTNhb3ZUnWIBeARRCltoLQYSc/Fz3qFCvFMejbjD6Qr6oxdca8HwB3mGr6UXD4X
+         V3y6OkvmoBPx0StCaQbxrk7150MlezytD7w8q3Qmc5vh7AxZs59KLCyGM0EGId0Z+TYz
+         VG1w==
+X-Gm-Message-State: AOJu0Yzw6qwgxTT5tSKSfzPzifDRUUdXjPvpsP6xxzpjfmfxJxFIjagP
+	jV63xOeA+Y0A1WyoQO1n9ra1B4rpVWifvT0jQYj2m37zIUx4b8+Z29qjt/89bBYjmTHapGAy43Q
+	NwgX2n2wi1ZJ1S133/RIXN1SrJoTRk4soyEnxid5BrXC0pyMcW4wEhA8ith1mQ5m9C3FU0wBLUw
+	==
+X-Gm-Gg: AR+sD12COLN4F2xxps/rpkeD6SBmzbGjZuNjOS66A9SZvUZuV/1VfRj6EZ5GZZg9qb5
+	WRB04rP/TVlvSt1FjJPCpRSqJ1etBmNT7iXwARRJVFERX/mfygT2A7pipo8l0tZK5x4LZAcgClz
+	YuXbxSQjURbF0nxWQ3+gwwJW9yxwvWPmappxfCRat2U5q2uwUD5kt/WK9Qzo32QLkRsxhuSQHgQ
+	UP38IcP5oOJOzpKwU/r85dER7u2RMEfRqcAKcIrc8vmQLy5ILnPb1b8sC/XJ/c+Y+hJ9W8TstmP
+	Omq18D2ejykHqHOzZn+Y/znMo2jAs46Csyh1x0qoCqkYQTWZHKR8pfVT81Iix65AFmWx18hElIb
+	AuGtzh2InlfNAoQsyxlDecK3wtfxHwB/YJj24N+7V96vhou/6m9FnjcRqghmhBUBIf5nj/Ekpb0
+	jJGzTHJpCaycdUmOPQleEL04h8NQztKV1TesUT/E5SXDxaj6qseg62
+X-Received: by 2002:a05:622a:15ce:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-52b38671964mr19924831cf.41.1785403452627;
+        Thu, 30 Jul 2026 02:24:12 -0700 (PDT)
+X-Received: by 2002:a05:622a:15ce:b0:51c:17cd:1fd4 with SMTP id d75a77b69052e-52b38671964mr19924601cf.41.1785403452170;
+        Thu, 30 Jul 2026 02:24:12 -0700 (PDT)
+Received: from QCOM-eG0v1AUPpu.na.qualcomm.com ([2a01:e0a:830:450:61cd:dcd3:c61a:ac3c])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a07d3831basm411483a12.15.2026.07.30.02.24.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 30 Jul 2026 02:24:10 -0700 (PDT)
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Subject: [PATCH v3 0/4] media: qcom: camss: Report CAMSS hardware version
+ via media controller
+Date: Thu, 30 Jul 2026 11:24:08 +0200
+Message-Id: <20260730-camss-version-v3-0-74a87302dd9f@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RESEND v9 8/9] media: qcom: camss: Account for C-PHY when
- calculating link frequency
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Luca Weiss <luca.weiss@fairphone.com>, Petr Hodina <phodina@protonmail.com>,
- "Dr. Git" <drgitx@gmail.com>, Cory Keitz <ckeitz@amazon.com>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Hans Verkuil <hverkuil@kernel.org>,
- Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, Frank Li
- <Frank.Li@nxp.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Kieran Bingham <kbingham@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org
-References: <20260729-qcom-cphy-v9-0-1f8d9fdab037@ixit.cz>
- <20260729-qcom-cphy-v9-8-1f8d9fdab037@ixit.cz>
- <ampzggsXYEZ34ieJ@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <ampzggsXYEZ34ieJ@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADgYa2oC/3XMwQ6CMAyA4VchPTuyTWDgyfcwHiorskSYrrpoC
+ O/u4GSMXpr8TftNwBQcMeyyCQJFx86PKbabDNoexzMJZ1ODlrqSRhnR4sAsIoXlUmBNWCnbIZU
+ W0s81UOeeq3c4pu4d3314rXxUy/afFJWQwpA1qiNsSqr3njm/PfDS+mHI04AFjPoD0eob0Qk56
+ aKQtmlkXeIPZJ7nN86CVBb2AAAA
+X-Change-ID: 20260717-camss-version-a8ea61dfae5d
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Frank Li <Frank.Li@nxp.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Proofpoint-GUID: 109-NRbP5nxVL31DI0Yckak0WPOpZqYE
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfX38wu8H+KGl7L
+ lFNDDC/IVp5tD+GJ+uaeUXeItx3/5rcDfAFfmk0V54RGIkMVQuhkzG7qSGRUFDa+RH5fXpNp5Ll
+ im/4Vxv//2VNE3uGYrdCnK2HfLc25B7v8Z3wQ88IABzlBxT8ZSHntZqi9A/4qhi9FmoCqmqvE5z
+ eG/4HtES+dQynVbDRABrgTeK940aleI9KgGMczLcEMHFZMiuMvROgKhWVKehUpZIBu/j22e5Asi
+ UqPg8/5Xduvw6Bmp4TI7uMP6/J/HAMT0zbQy18DuW6eDdAs5ehP0MNWPCEF24zmnBKJ3VgczzmF
+ kLSSCyxWcYDcteO/46r3lDsXDtitAWFX7Uftp0wr4xq9MZp81tvdRDyGlIhTtoXQ33MMuCknvkG
+ 6k3CYyGmgJFezD+wYPruRtJnTimsurUWvVwGlT1DHBkkONqzeapXKqRWZ2FuC3UysWWUT4x58T6
+ UWGECw8awaTS+eO1+2g==
+X-Authority-Analysis: v=2.4 cv=bq18wkai c=1 sm=1 tr=0 ts=6a6b183d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=MrhWIHkXN22OVaadGZ4A:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMwMDA2OSBTYWx0ZWRfXxcIxnZt3JeMF
+ GUvk7v1fC6Qk3MJBkS+1fcdwaJau/MY3k0/oOJDVEBfu1G+eexuDtJE9uoDgACEiYjJXzsHcvcJ
+ wemWldS56ySMN08K1XaT9fkjYMMgwbA=
+X-Proofpoint-ORIG-GUID: 109-NRbP5nxVL31DI0Yckak0WPOpZqYE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-30_02,2026-07-29_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 priorityscore=1501 spamscore=0 clxscore=1015 phishscore=0
+ adultscore=0 lowpriorityscore=0 bulkscore=0 suspectscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607300069
 
-On 29/07/2026 23:41, Frank Li wrote:
-> On Wed, Jul 29, 2026 at 10:20:03PM +0200, David Heidelberg wrote:
->> Ensure that the link frequency divider correctly accounts for C-PHY
->> operation. The divider differs between D-PHY and C-PHY, as described
->> in the MIPI CSI-2 specification.
->>
->> For more details, see:
->> https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
->>
->> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
->> Link: https://docs.kernel.org/driver-api/media/tx-rx.html#pixel-rate
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   drivers/media/platform/qcom/camss/camss-csid.c   |  6 ++++--
->>   drivers/media/platform/qcom/camss/camss-csiphy.c |  6 ++++--
->>   drivers/media/platform/qcom/camss/camss.c        | 15 +++++++++++++--
->>   drivers/media/platform/qcom/camss/camss.h        |  2 +-
->>   4 files changed, 22 insertions(+), 7 deletions(-)
->>
->> diff --git a/drivers/media/platform/qcom/camss/camss-csid.c b/drivers/media/platform/qcom/camss/camss-csid.c
->> index bcc34ac9dd212..c8cb6f1a3d3bc 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csid.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csid.c
->> @@ -535,24 +535,26 @@ const struct csid_format_info *csid_get_fmt_entry(const struct csid_format_info
->>   /*
->>    * csid_set_clock_rates - Calculate and set clock rates on CSID module
->>    * @csiphy: CSID device
->>    */
->>   static int csid_set_clock_rates(struct csid_device *csid)
->>   {
->>   	struct device *dev = csid->camss->dev;
->>   	const struct csid_format_info *fmt;
->> +	const bool cphy = (csid->phy.phy_sel == CSID_PHY_SEL_CPHY);
->> +
->>   	s64 link_freq;
->>   	int i, j;
->>   	int ret;
->>
->>   	fmt = csid_get_fmt_entry(csid->res->formats->formats, csid->res->formats->nformats,
->>   				 csid->fmt[MSM_CSIPHY_PAD_SINK].code);
->> -	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp,
->> -					csid->phy.lane_cnt);
->> +
->> +	link_freq = camss_get_link_freq(&csid->subdev.entity, fmt->bpp, csid->phy.lane_cnt, cphy);
->>   	if (link_freq < 0)
->>   		link_freq = 0;
->>
->>   	for (i = 0; i < csid->nclocks; i++) {
->>   		struct camss_clock *clock = &csid->clock[i];
->>
->>   		if (!strcmp(clock->name, "csi0") ||
->>   		    !strcmp(clock->name, "csi1") ||
->> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy.c b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> index 539ac4888b608..a136cd27880a6 100644
->> --- a/drivers/media/platform/qcom/camss/camss-csiphy.c
->> +++ b/drivers/media/platform/qcom/camss/camss-csiphy.c
->> @@ -139,18 +139,19 @@ static int csiphy_set_clock_rates(struct csiphy_device *csiphy)
->>   	struct device *dev = csiphy->camss->dev;
->>   	s64 link_freq;
->>   	int i, j;
->>   	int ret;
->>
->>   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
->>   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
->>   	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
->> +	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
->>
->> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
->> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
->>   	if (link_freq < 0)
->>   		link_freq  = 0;
->>
->>   	for (i = 0; i < csiphy->nclocks; i++) {
->>   		struct camss_clock *clock = &csiphy->clock[i];
->>
->>   		if (csiphy->rate_set[i]) {
->>   			u64 min_rate = link_freq / 4;
->> @@ -265,19 +266,20 @@ static int csiphy_set_power(struct v4l2_subdev *sd, int on)
->>   static int csiphy_stream_on(struct csiphy_device *csiphy)
->>   {
->>   	struct csiphy_config *cfg = &csiphy->cfg;
->>   	s64 link_freq;
->>   	u8 lane_mask = csiphy->res->hw_ops->get_lane_mask(&cfg->csi2->lane_cfg);
->>   	u8 bpp = csiphy_get_bpp(csiphy->res->formats->formats, csiphy->res->formats->nformats,
->>   				csiphy->fmt[MSM_CSIPHY_PAD_SINK].code);
->>   	u8 num_lanes = csiphy->cfg.csi2->lane_cfg.num_data;
->> +	const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
->>   	u8 val;
->>
->> -	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes);
->> +	link_freq = camss_get_link_freq(&csiphy->subdev.entity, bpp, num_lanes, cphy);
->>
->>   	if (link_freq < 0) {
->>   		dev_err(csiphy->camss->dev,
->>   			"Cannot get CSI2 transmitter's link frequency\n");
->>   		return -EINVAL;
->>   	}
->>
->>   	if (csiphy->base_clk_mux) {
->> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
->> index 072c428e25166..66171069057f8 100644
->> --- a/drivers/media/platform/qcom/camss/camss.c
->> +++ b/drivers/media/platform/qcom/camss/camss.c
->> @@ -27,16 +27,24 @@
->>   #include <media/v4l2-mc.h>
->>   #include <media/v4l2-fwnode.h>
->>
->>   #include "camss.h"
->>
->>   #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
->>   #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
->>
->> +/*
->> + * C-PHY encodes data by 16/7 ~ 2.28 bits/symbol
->> + * D-PHY doesn't encode data, thus 16/16 = 1 b/s
->> + */
->> +#define CAMSS_COMMON_PHY_DIVIDENT 16
->> +#define CAMSS_CPHY_DIVISOR 7
->> +#define CAMSS_DPHY_DIVISOR 16
->> +
->>   static const struct parent_dev_ops vfe_parent_dev_ops;
->>
->>   static const struct camss_subdev_resources csiphy_res_8x16[] = {
->>   	/* CSIPHY0 */
->>   	{
->>   		.regulators = {},
->>   		.clock = { "top_ahb", "ispif_ahb", "ahb", "csiphy0_timer" },
->>   		.clock_rate = { { 0 },
->> @@ -4619,29 +4627,32 @@ struct media_pad *camss_find_sensor_pad(struct media_entity *entity)
->>   	}
->>   }
->>
->>   /**
->>    * camss_get_link_freq - Get link frequency from sensor
->>    * @entity: Media entity in the current pipeline
->>    * @bpp: Number of bits per pixel for the current format
->>    * @lanes: Number of lanes in the link to the sensor
->> + * @cphy: If C-PHY encoding is used.
->>    *
->>    * Return link frequency on success or a negative error code otherwise
->>    */
->>   s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
->> -			unsigned int lanes)
->> +			unsigned int lanes, const bool cphy)
-> 
-> you change this function argument, can you direct pass down csiphy instead
-> entity
-> 
-> so move
-> const bool cphy = (csiphy->cfg.csi2->lane_cfg.phy_cfg == V4L2_MBUS_CSI2_CPHY);
-> 
-> into this help function,
-> 
-> to avoid dupicate such logic everywhere.
+This series lets user space discover the exact CAMSS hardware variant by
+reporting the top-level CAMSS hardware version register through the media
+controller (media_dev.hw_revision), queryable via media-ctl -p or
+MEDIA_IOC_DEVICE_INFO. This helps identify the platform variant and adapt
+behaviour accordingly, for example allowing libcamera to apply quirks or
+enable features that cannot be discovered through standard V4L2 or
+media-controller APIs.
 
-I tried similar approach in previous revisions [1], but it ended poorly due to 
-this structure not being initialized at the time when I need it what I recall, 
-thus I ended up with the cphy param again :(
+The version register is exposed by some platforms through the top-level
+"top" (or "cpas-top") reg region at offset 0. Accessing it requires the
+AHB bus to be clocked. To make this possible at probe time, the series
+first moves the shared CAMSS clocks (top_ahb, ahb, axi on QCM2290) into
+the PM clock framework, so they are managed by runtime PM at the CAMSS
+instance level rather than by each individual sub-block (VFE, CSID, ...).
 
-David
+For now, only Agatti is supported. But support for other platforms like
+TITAN-based ones will be introduced in a follow-up series.
 
+Reported media info on Agatti/CM2290 (Spectra 520):
+Media Driver Info:
+        Driver name      : qcom-camss
+        Model            : Qualcomm Camera Subsystem
+        Bus info         : platform:5c11000.camss
+        Hardware revision: 0x00050200 (328192)
 
-[1] https://lore.kernel.org/all/20260605-qcom-cphy-v7-7-426c37e9008f@ixit.cz/
+Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+---
+Changes in v3:
+- Guard the pm_clk_suspend()/pm_clk_resume() calls with CONFIG_PM_CLK
+- Link to v2: https://lore.kernel.org/r/20260721-camss-version-v2-0-b2440d99085a@oss.qualcomm.com
 
-> 
-> Frank
->>   {
->>   	struct media_pad *sensor_pad;
->> +	unsigned int div = lanes * 2 * (cphy ? CAMSS_CPHY_DIVISOR :
->> +					       CAMSS_DPHY_DIVISOR);
->>
->>   	sensor_pad = camss_find_sensor_pad(entity);
->>   	if (!sensor_pad)
->>   		return -ENODEV;
->>
->> -	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
->> +	return v4l2_get_link_freq(sensor_pad, CAMSS_COMMON_PHY_DIVIDENT * bpp, div);
->>   }
->>
->>   /*
->>    * camss_get_pixel_clock - Get pixel clock rate from sensor
->>    * @entity: Media entity in the current pipeline
->>    * @pixel_clock: Received pixel clock value
->>    *
->>    * Return 0 on success or a negative error code otherwise
->> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
->> index 93d691c8ac63b..12b14ba8fcec3 100644
->> --- a/drivers/media/platform/qcom/camss/camss.h
->> +++ b/drivers/media/platform/qcom/camss/camss.h
->> @@ -164,17 +164,17 @@ struct parent_dev_ops {
->>   };
->>
->>   void camss_add_clock_margin(u64 *rate);
->>   int camss_enable_clocks(int nclocks, struct camss_clock *clock,
->>   			struct device *dev);
->>   void camss_disable_clocks(int nclocks, struct camss_clock *clock);
->>   struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
->>   s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
->> -			unsigned int lanes);
->> +			unsigned int lanes, const bool cphy);
->>   int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
->>   int camss_pm_domain_on(struct camss *camss, int id);
->>   void camss_pm_domain_off(struct camss *camss, int id);
->>   int camss_vfe_get(struct camss *camss, int id);
->>   void camss_vfe_put(struct camss *camss, int id);
->>   void camss_delete(struct camss *camss);
->>   void camss_buf_done(struct camss *camss, int hw_id, int port_id);
->>   void camss_reg_update(struct camss *camss, int hw_id,
->>
->> --
->> 2.53.0
->>
+Changes in v2:
+- PM clock support: propagate pm_clk_add() failures (Bryan)
+- make camss_read_version() return an int and propagate (Bryan)
+- use pm_runtime_put() instead of pm_runtime_put_sync() (Konrad)
+- Link to v1: https://lore.kernel.org/r/20260717-camss-version-v1-0-7ed71fea95e8@oss.qualcomm.com
 
+---
+Loic Poulain (4):
+      media: qcom: camss: Add PM clock support and integrate with runtime PM
+      media: qcom: camss: Add PM clock definitions for QCM2290
+      media: qcom: camss: Drop top_ahb/ahb/axi from QCM2290 subdevice clocks
+      media: qcom: camss: Report hardware version via media controller
+
+ drivers/media/platform/qcom/camss/camss.c | 125 +++++++++++++++++++++++-------
+ drivers/media/platform/qcom/camss/camss.h |   2 +
+ 2 files changed, 101 insertions(+), 26 deletions(-)
+---
+base-commit: 8c7fc7de3b6cc89e68f115ee5ffe28cb93d99e5b
+change-id: 20260717-camss-version-a8ea61dfae5d
+
+Best regards,
 -- 
-David Heidelberg
+Loic Poulain <loic.poulain@oss.qualcomm.com>
 
