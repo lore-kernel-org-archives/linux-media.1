@@ -1,202 +1,159 @@
-Received: from mail-qk1-f179.google.com (mail-qk1-f179.google.com [209.85.222.179])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177F6432E6E
-	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 14:29:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB61835C68A
+	for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 14:30:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785421779; cv=none; b=Y8Dc4BqYMmA70HmZU4Gb6gNSzDm8+G7SLw+etMA1ZwsJTO7QXFr1hS+VyRIWdv9ionkEcbn5IL0+u3d3FSoB01OL1GdnPszakyO7AVeJ47sc2RFFJeh3zZ+x0qhS6g7viTlpkRvyLmfhIdOtZrYz//536uA8QZowEQQTgaFC038=
+	t=1785421842; cv=none; b=lg55xztOh/fhEzf+N0lIxTVfXOkmrNndTHFCOQMy8Qv2JRZrEoIyy54F2Ed9xGx8zQj65+wTdW1TEhsZ2kJ1rLk5k93H1fVmhJ6xiRKDWYLpr+4N8u9EQsOb6MS0ixRplYaaNXNZxhKA6HlbljQBW4Mxsxnl1s0oQVyAB+/x6rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785421779; c=relaxed/simple;
-	bh=oOigzFE8cSW7NvAoyH8QKBhs6vx8ClT3wg+PSk1vvfU=;
+	s=arc-20240116; t=1785421842; c=relaxed/simple;
+	bh=dwFEAVcMuNbjpUaKwtHEGOUzopXQgA/Z+K4OSsyB1zA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HhSkPBq0/3z7NVhFyG5MqHkrNlVaP7O3B8XtQ8s1Yz9XXuLGMlz6trpd20pFtVdidhmjxMRHY7JBb6wVjkReawAlcyPohRdj5R3r+/9pz8va9FVTOTVhKNPepX1e61L77ozvkOBzSbAMEKdzYGSLBAI5nSl7KV4heET9XUCe0xQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=bjZ2LupO; arc=none smtp.client-ip=209.85.222.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
+	 Content-Type:Content-Disposition:In-Reply-To; b=s4K6YZGf43tB/pzMXoDChL6m3da3L7zsHrA13CXBOUyKty61AqkcPfcR2Vv38PXtXFWhLuxh13gRNsE4oa2BKYR4afj0oy6vkJD6M++a+SYlcF3ue/pivzoxOv/HbX3/hzVLgdDI5sMQx/mafpUsUQRxEtn2KzO57zbwnEwet2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iXRGKv2m; arc=none smtp.client-ip=209.85.214.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="bjZ2LupO"
-Received: by mail-qk1-f179.google.com with SMTP id af79cd13be357-92e512a9a6bso119712585a.2
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 07:29:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iXRGKv2m"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2cf50c6f235so24686575ad.0
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 07:30:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1785421777; x=1786026577; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1785421840; x=1786026640; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fLuDWzkdFzjpqoqsjchrCSg06GWM4x3fBl0egSKnDDQ=;
-        b=bjZ2LupOOWnKcQJQI+uFcT5eTm1Xsgq4UJUz5owFXKlPhmNa1co6NFRTbXGVd3TvQE
-         KFBtdyqJsDYfPD9GYNN5M68BpxgPG4bqFfvquTJ4GUKFqvntlp/yjzrtifVLe2R3lMX4
-         BAZcaj6ebbSlByCK20xEFp9SlWZh4E1nkCX9XyGSGAtMTZ+/W4aIGSHdLXEZsf0g8p7s
-         ioCRFK8H8ZrwZYVtp5dTt/+lmM+ZaNCDHsQCdkjW/LTdEqiGkkAWzeHlcr6xGzW0bmUK
-         VEwR7M4CXLNw2Ouko1/5RcyBAmWPRxNGoaJrDTnsVKcrXCIeuzQ1XoC0OIcahjCX32Te
-         9GYg==
+        bh=cnNEMWbzX+zx+wUadpPafeWf3mkrABzNMdn+bvnocmI=;
+        b=iXRGKv2m2zCYH28x84CcoiZE5rNFFFwtF4bgtJgRVDFM3Rs1OjY9iBNpMnoXYdSpyf
+         8MLEKsJLLYSDnYEvcAgaef9jgk1mOiw7JZ4b5NbyKCxs1shzWG12HYTo9MvcwDE/TjNU
+         z7nSwsHpGrz8GMgp6KuFUw4p6kzT/vyhYmsGaRBDSZ/gc5dxNiB9Ri7zOR+IIpLkjavl
+         fnxMgRqQyVbd9uxCOEZAwfIiExyFFpdiRldPzr11qM1HGSi91WUNJlog4HH8kn6h/2P0
+         Hi/A53RN7SyJ6fhG/61J0A8OmpLben+ey7BScXf1e5Jx37k1MVavedBwjQG8kgWnfYAY
+         cJ3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785421777; x=1786026577;
+        d=1e100.net; s=20251104; t=1785421840; x=1786026640;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fLuDWzkdFzjpqoqsjchrCSg06GWM4x3fBl0egSKnDDQ=;
-        b=Y0SrUCoaZ0rH19AFytAa9TqQ3B2DXrk6yqCyDsKgoMeC45rJ4GidLiw96s4QRl3Jzn
-         Janhioy2c4jQbl/8IrtgBkVxqvXdd8wfsw0m/bwMtfutbtVouY/ci4CzSGTjg7Cg1fZI
-         oyegAI4D12wbLcM31IAZePcZdSPDFkB0NNN1bjcMGR/vH3xvMpkIxGE4vjlHL5kURe7D
-         S5MUVAqBhbQnGAq9PD4FVOwtzD/21X+6WILRAu/BlcegMkzRm532QuA6Pz/jZmuTv4XJ
-         PR9I4KTb5tksp7LBmZtQoeVBg+1a17+Her//yMryNlHhIBRcozMyq87d7JhFJmaMWp6N
-         g9/w==
-X-Forwarded-Encrypted: i=1; AHgh+RoDTixvpzsb9A2HBGM2G9oyonG0XMgtQzH0rq4/s6ZzAgZm9YgSonsnk2/ez4pvlcVqrcK+/p62Y7uiRA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/5tccFKc3bvAIRcWXu3ofgdB2RzyuHNt3BcHF8dJCale/BLAe
-	RiMKTV53ix2+JUSdjY5hh8KJ2QeV6x+ef7PgVl/fxQxfBnPZlGDDwCcF+eQNlI7e4g==
-X-Gm-Gg: AR+sD13A31+JBztCSd8OCQA0HWVshRnJK6WoxfIKMA8Q/I5A8vyQfYr9rs5rtDHDFAd
-	Uu23j82yTAyIVkfoZdPlgGvXe7euBQWnGJPDS51Z++0VO90nLAw7xcANxMq2Vj8KVFm7pfFHj9j
-	Ms4FW3+ZtWGdFkWa6ZKBOI3Zy+fPIghF96lownYGZ7HN4HBg6ClP68PcREMU05X43Zd9+FJbr1R
-	XPm0wBaNSuQ/0UF5ZatJigyqJXSjYRtINEeioT2TIjcftCUE5kA3SFN0BcEHWWj4iNjm/lSeFsh
-	zwvNNrPx1riGL5O4apC/WvujmPGq2wDhINkvkj3y3LRv6OTfULimJs/BxfizOac3e6hr+k/sS6K
-	T6U7g6CSovpIZlvMtBEoBnIVXUZoPB++95f2WejqAY6YR5RFRrEPW2fEaIPpT/f4v/u+6WipKr/
-	u++Mao8IghhoR4J9v2siC9hRBbJxLvyAum/W4W9h1y5H9fX/cOaD0xyAAOO2ekr7KyeP11AKLIc
-	UJ6mJ9K6yXUZUvpblw=
-X-Received: by 2002:a05:620a:7112:b0:92e:c117:5ed6 with SMTP id af79cd13be357-9348722049emr283801085a.86.1785421776676;
-        Thu, 30 Jul 2026 07:29:36 -0700 (PDT)
-Received: from rowland.harvard.edu ([140.247.181.15])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-933c757bafdsm425028285a.0.2026.07.30.07.29.35
+        bh=cnNEMWbzX+zx+wUadpPafeWf3mkrABzNMdn+bvnocmI=;
+        b=TRZVYUWh9u40yDz0+DMF9G0UuLNGnZtlWF5xWdQG7XGuu51V45T55R1pCXHXSJzNEL
+         CKcsASCUa6serfoLBRLjp84jqxUTKdJ3uU+7DLsiBGxevz4k9LXCLJG53chy+NVdON97
+         L+FWu8adQ7nOp7ZE5toi324Rj5v9NA4MPFdVLpHwhoZR57caEZ3fq/E1ZmDNcrLA1b80
+         eft8m2nTHDjayh8KItdJD5E6ly5nDba8brfPoam9/x1v4m7mzkMZ5BxYiMqAkpD/txRw
+         ppn26oyBbBTWNr2jtmgVw/wuFuC5ngrku9tsVDaT3UUuUc5m8YHylircz/gR6TpsGSzs
+         YCYw==
+X-Forwarded-Encrypted: i=1; AHgh+RqtXDi93QZnYXURJ3L195r/vS25b2T+EshG7Nis1R1KxerYcXycssGxGIxVu7GSkrp8Nwu/LGgUa7y/dA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwoSVPqAGkdfLPPJAUIXnK9uYA55SgbDUNdaYAW2SyjyuhMvCJp
+	q/8lsqqfQvfs7z0DdXXFDMkW5JjeWacQp7FOTY7lNqNr83p1vxkrsJW1
+X-Gm-Gg: AR+sD11VIY/ve/dWw5moLsWVed5kMNUDfXWTWJIizwWW84LFLGKnTi1Tptiqs3N29R8
+	w5RGTRM1HiYngbyNR/rlWOqorp9iN5BC+kqd/tQoC3JsHtuHtsIsI8pmkgssJ9xDwXaGzTjM4e5
+	UwmZWt99tlKH+h7vhlzb0Dwmr7beezl/pUOWo3UJD6GZjRkcvVwO8fRIp4rOQF3Ub8GpfNpv8t2
+	COClaHero5vmJIPC2o9iiLwS/Sr0WCNZW61cHD2WQb8O2/1eL/3+cP/Md7tflq4rH7IGtYYjOjv
+	IFXW7FPZ3Xr/ZokV8it5yhwE8Tmdr1RAQevlDZG6fd3Ljpj2UXDl+qE6YRBcms4SOcpcRq6vvwJ
+	nt+34AzxmqyWaZQDOBcH9IhU0+dXP7YKI50wQKz4bHucGXYOnzEcYnQ7QCJjnJL+Yo/elRZD1FR
+	Xhipij+BF6HhqGUrfkm2KwHHG9EYSKCB4oeSUIfXEFRngslj2inv/GO7tZTjMnkJbqacugGLMcY
+	A==
+X-Received: by 2002:a17:903:1aa3:b0:2ca:7131:cace with SMTP id d9443c01a7336-2d03ddc34fbmr6616765ad.31.1785421840153;
+        Thu, 30 Jul 2026 07:30:40 -0700 (PDT)
+Received: from localhost ([118.34.230.2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc6d70sm28210225ad.39.2026.07.30.07.30.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 07:29:36 -0700 (PDT)
-Date: Thu, 30 Jul 2026 10:29:34 -0400
-From: Alan Stern <stern@rowland.harvard.edu>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Haowen Tu <tuhaowen@uniontech.com>, hansg@kernel.org,
-	gregkh@linuxfoundation.org, kernel@uniontech.com, lenb@kernel.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-pm@vger.kernel.org, linux-usb@vger.kernel.org,
-	mchehab@kernel.org, oneukum@suse.com, pavel@kernel.org,
-	rafael@kernel.org
-Subject: Re: [PATCH v4 4/4] media: uvcvideo: defer streaming restart after
- hibernation snapshot
-Message-ID: <a1f8d865-531c-4f30-85c1-735254940763@rowland.harvard.edu>
-References: <cbac4803-cf65-4b8b-a662-073189df478b@kernel.org>
- <20260729075655.1187692-1-tuhaowen@uniontech.com>
- <0e22e9d4-da39-4d3f-9492-5c74295be312@rowland.harvard.edu>
- <20260730131628.GA1555789@killaraus.ideasonboard.com>
+        Thu, 30 Jul 2026 07:30:39 -0700 (PDT)
+Date: Thu, 30 Jul 2026 20:00:38 +0530
+From: shaikh kamaluddin <shaikhkamal2012@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] Documentation: media: fix spelling errors
+Message-ID: <amtgDnLKMaRQg-Nb@acer-nitro-anv15-41>
+References: <20260728145252.9326-1-shaikhkamal2012@gmail.com>
+ <amjk-tq0xFMQSKog@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260730131628.GA1555789@killaraus.ideasonboard.com>
+In-Reply-To: <amjk-tq0xFMQSKog@kekkonen.localdomain>
 
-On Thu, Jul 30, 2026 at 04:16:28PM +0300, Laurent Pinchart wrote:
-> On Wed, Jul 29, 2026 at 10:08:51AM -0400, Alan Stern wrote:
-> > On Wed, Jul 29, 2026 at 03:56:55PM +0800, Haowen Tu wrote:
-> > > On Wed, Jul 29, 2026 at 09:29:03AM +0200, Hans de Goede wrote:
-> > > > Right, so the purpose here is to avoid the LED turning back on and
-> > > > to speedup the hibernate?
-> > > >
-> > > > IOW except for the LED turning back on and things taking slightly
-> > > > longer everything works correctly with the current code, right ?
-> > > 
-> > > Yes, the current code is functionally correct in the sense that the
-> > > hibernation flow can complete and the camera can be restored afterwards.
-> > > 
-> > > The issue was reported as a user-visible privacy concern.  When an active
-> > > UVC camera enters hibernation, the camera LED turns off during the freeze
-> > > phase but turns back on after the snapshot has been created, while the
-> > > system is writing the hibernation image.  From the user's point of view,
-> > > this looks like the camera has been activated again during the
-> > > hibernation transition.
-> > > 
-> > > I am not claiming that this causes image data to be exposed.  The problem
-> > > is the unnecessary hardware reactivation and the resulting unexpected
-> > > privacy-indicator behavior during a system power transition.
-> > > 
-> > > Avoiding the restart also avoids unnecessary device work in this window,
-> > > but I do not intend to make performance the main argument here.  The
-> > > primary goal is to avoid the unexpected camera reactivation.
-> > > 
-> > > > I'm wondering if it would not be better to solve this in userspace
-> > > > and have userspace stop the streaming before hibernation ?
-> > > 
-> > > That would help when all userspace camera users cooperate, but I don't
-> > > think it is equivalent to handling this in the driver.
-> > > 
-> > > UVC is a generic driver and the kernel PM transition can happen while an
-> > > application is actively streaming.  Relying on every userspace camera
-> > > consumer to stop streaming before hibernation would make the behavior
-> > > depend on userspace policy and application support.  The driver already
-> > > knows whether streaming was active at freeze time, and it is also the
-> > > component that restarts the hardware during resume, so it can avoid this
-> > > specific unnecessary hardware restart more reliably.
-> > > 
-> > > > Hmm, the way you word this sound like this is a problem at the USB
-> > > > layer. But I think this is more of a short-coming in the generic
-> > > > device model.
-> > > >
-> > > > To clarify AFAIK the actual USB device to which the interfaces belong
-> > > > also does not get a specific PM message here, right ?
-> > > >
-> > > > The reason I'm asking is because the way this is worded in the commit
-> > > > message makes it sounds like this might be something which could
-> > > > be solved in the USB subsystem which I do not think is the case ?
-> > > 
-> > > Yes, that is my understanding as well.  The USB device resume path does
-> > > not expose the specific PM transition type to the UVC interface driver's
-> > > resume callback.
-> > > 
-> > > The problem was observed in UVC, and the immediate reason there is that
-> > > the UVC resume path is reached through usb_driver.resume(), which does
-> > > not receive the PM event.  But I agree that this should not be worded as
-> > > a USB subsystem bug.
-> > > 
-> > > My earlier thought was to expose the THAW/RESTORE distinction through
-> > > USB, but that would still need coordination with the PM core, and it
-> > > would only cover USB drivers.  If other non-USB drivers have similar
-> > > device-specific reasons to avoid work during the post-snapshot THAW
-> > > phase, they would need their own handling too.
-> > > 
-> > > So I can reword the commit message to avoid implying that this is a USB
-> > > core issue.  Something like:
-> > > 
-> > >   Some resume callback paths, including the UVC path through
-> > >   usb_driver.resume(), do not receive the PM event and therefore cannot
-> > >   distinguish the transient post-snapshot THAW phase from the later
-> > >   RESTORE phase using their local callback arguments.
-> > > 
-> > > The helper is intended to expose only the hibernation snapshot state.
-> > > Whether it is safe or useful to defer any work remains a driver-specific
-> > > decision.
-> > 
-> > You're missing an important fact: If something goes wrong during the 
-> > hibernation transition (for example, if the kernel's memory image can't 
-> > be stored to disk) then there will be no RESTORE phase.  Following the 
-> > THAW phase, the system will return to normal operation.
-> > 
-> > For this reason, during THAW drivers must not assume that the system is 
-> > about to power down.
+On Tue, Jul 28, 2026 at 08:20:58PM +0300, Sakari Ailus wrote:
+> Hi Shaikh,
 > 
-> All of this seems fairly complicated to me for devices that have no role
-> to play whatsoever in the hibernation image write, and that's probably
-> the majority of devices.
+> On Tue, Jul 28, 2026 at 08:22:52PM +0530, Shaikh Kamaluddin wrote:
+> > Fix two spelling errors reported by codespell: a misspelling of
+> > "there" in vidioc-subdev-g-routing.rst and a misspelling of
+> > "struct" in legacy_dvb_video.rst.
+> > 
+> > No functional change.
+> > 
+> > Signed-off-by: Shaikh Kamaluddin <shaikhkamal2012@gmail.com>
+> > ---
+> > v2: - use Documentation: subject prefix (Sakari)
+> >     - use full name in From/Signed-off-by (Sakari)
+> >     - reword commit message so the media CI spell check doesn't
+> >       trip on the typo being described
+> > 
+> >  Documentation/userspace-api/media/dvb/legacy_dvb_video.rst      | 2 +-
+> >  .../userspace-api/media/v4l/vidioc-subdev-g-routing.rst         | 2 +-
+> >  2 files changed, 2 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> > index b9fd5cadae24..71d044605315 100644
+> > --- a/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> > +++ b/Documentation/userspace-api/media/dvb/legacy_dvb_video.rst
+> > @@ -344,7 +344,7 @@ Variables
+> >  
+> >      -  ..
+> >  
+> > -       -  :rspan:`5` ``stuct play``
+> > +       -  :rspan:`5` ``struct play``
+> >  
+> >         -  :rspan:`4` ``__s32 speed``
+> >  
+> > diff --git a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> > index 6f66ca38589e..164cf0ad3593 100644
+> > --- a/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> > +++ b/Documentation/userspace-api/media/v4l/vidioc-subdev-g-routing.rst
+> > @@ -67,7 +67,7 @@ subdevice routing table. This may be smaller or larger than the value of
+> >  drivers may adjust the requested routing table.
+> >  
+> >  The kernel can return a ``num_routes`` value larger than ``len_routes`` from
+> > -both ioctls. This indicates thare are more routes in the routing table than fits
+> > +both ioctls. This indicates there are more routes in the routing table than fits
+> >  the ``routes`` array. In this case, the ``routes`` array is filled by the kernel
+> >  with the first ``len_routes`` entries of the subdevice routing table. This is
+> >  not considered to be an error, and the ioctl call succeeds. If the applications
+> > 
+> > base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+> > prerequisite-patch-id: 912014811782d33538ddb17f00b64c15b364425e
+> > prerequisite-patch-id: ccd9499245f9528a029f13653f6a670c70796caa
+> > prerequisite-patch-id: dd62b9e9a5a590acea801e33ebcf110932d52a12
+> > prerequisite-patch-id: 604c7b67fbc5678938599f8dfc11621e9d6e7bad
+> > prerequisite-patch-id: 76849a9365b2ef77eae25f4ee42c11f124b1ea0d
+> > prerequisite-patch-id: a0d7b90a4a5e251a58aa682ce414c7048eb47bc7
+> > prerequisite-patch-id: 0208e7fa539736cc848ac91c09d7ca825b11d8f9
+> > prerequisite-patch-id: 7b1377967ede9d22f77df0171f54207067158e71
+> > prerequisite-patch-id: e39888d68322e429ea71d6ed6d49f4295fbbe14e
+> > prerequisite-patch-id: 7f0dcaca727eb421484eabd62e791b96b3721874
+> > prerequisite-patch-id: ff5dc6989d168666264e0eae2853f348a95d99b6
+> > prerequisite-patch-id: 301b88e47a5d4cdc17e2152ebaf134b3f6685902
 > 
-> Is there a reason a driver couldn't set a flag at probe time to tell the
-> device doesn't care about hibernation, and have the PM core skip the
-> resume in the THAW phase, instead resuming only when THAW fails ?
+> These dependencies appear to be unrelated to the patch. Can you send v3
+> without these?
+Hi Sakari,
+Sorry for delay response.
+I have removed these dependencies which are unrelated to the patch and
+have sent the v3 [1]
+[1] https://lore.kernel.org/all/20260730142126.11714-1-shaikhkamal2012@gmail.com/
 
-You mean adding an extra THAW phase to the hibernation transition, which 
-gets triggered only when writing the memory image fails, and which 
-affects only drivers having this new flag set?  And as a result, when 
-hibernation succeeds these drivers would see a FREEZE callback followed 
-directly by a POWEROFF callback (unless the flag causes POWEROFF to be 
-skipped as well)?
-
-Another thing to be aware of is what happens while waking up from 
-hibernation, if the memory image can't be restored.  In that case the 
-restore kernel would send THAW callbacks to all drivers before 
-continuing, and presumably you wouldn't want this callback to be 
-skipped.
-
-That seems like it could be feasible, but the decision is up to Rafael.
-
-Alan Stern
-
-
+Thanks,
+Shaikh 
+> 
+> -- 
+> Sakari Ailus
