@@ -1,192 +1,184 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7700F30C610
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 19:30:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785526225; cv=none; b=rQOZCLms8Vrr1p5fRQlm0YiEYtAa48it1+vtCZ1EKo/2ZAA1qEMeBfl7P7q6TmngDCE6rAJweNId364+VCz4ncw6mlL4iEpgi0VnLAGw6FcwmVcumAr0oZWsJkJCtImPnv7vtdMOAX8kpohkgLAEhW4pQVcXLcPQIAjrMEJWWcs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785526225; c=relaxed/simple;
-	bh=hSvvyu0gM3TmzR4JhcHeKrwwx5sqsSKJ+YsHl5FTcVA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=b0A7cGvyofK3eEMInXPiRCNSkXZaMD5xsK/PaBXX12USGvmg8umlynVT+5NaN/CfEcDYsrPCPdxJlv8XlKfI95kLmuJ571LlrQ0E3lP31WKgHyGecneUGwwD4ZvXyQyCfs1DYl4BI3nkeGBVzydoi26krwMaZuxMcxFML4j5FaM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HfK6PKHE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AnyeCn6/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1764033C518
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 19:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.52
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785526819; cv=pass; b=VXUbV3SpwA/AM8FqfC/3FKIizPIj7WeJAFlfZfFTipx/839kLi8XFaSgMldnBCQa4YFvxAJu/kC3K1WXHQBQJDglph6KB/k5YKi0pP4HW0W3rcLXVqYmZf9qlVZ5E1WXmXnfiaS+v++LI6Bu9yzE/QcWc7KS2EfusTVW+UU5RjA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785526819; c=relaxed/simple;
+	bh=/n57laegPuf+pyKQLmo7vlmjIHv3USyKheecsvrc0eg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=VZ9o8YBQ2zS7fzNtd0lpepkhzPXAXXFMa2MZn5ln3c3kZ/AawOYEFcgS3wfydOm8KgQPYmYcGVP7Z5t74x0LoUm8XGhvhNy3F08xUd7o3zyXvaujKj+CprHNRcddFDXnQBFyaVsZBpZDTzqMR3NsS7iZm5eV084/tDa75NWmQH8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Y3RRNi2f; arc=pass smtp.client-ip=209.85.208.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HfK6PKHE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AnyeCn6/"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VIcsAF555796
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 19:30:24 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qqnTleWc4aOs+18EOqxz46M/aGgFpQKcUHE35qkLIDU=; b=HfK6PKHEZIEU+uF0
-	PaTjHqwe9JSenWEy1nGb2ynFGDPMegBM811IsHD5OT4wVPMzYisKjBD9SFDllHLK
-	ggNMTVddxUvAkKGqTDobe6Lp4w+E5nLKOJVYhWt5HPAY5eKdBF1Fz75GcbaKl9RW
-	uDmgZcaORQlJ8jTXUDQbdIu6bbiGPY5M9Tg0NHbAy7bZkkU8MEBL6iM7nygizgE3
-	Qbm3nUE6asMyiLQFIWq6DQTAcuWFKFhh1swU2331bSJGy+f7xMYO7++E0ml9V4Bw
-	zlyTaeI6wYQh151v/58KlFcINlelSzTaOrpdCMEulQwnyvgRFC5BkLBesRZADXhA
-	v3AnEw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru2u23y0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 19:30:23 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c1e6f602cso20157701cf.3
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 12:30:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Y3RRNi2f"
+Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-69e2266b07fso2344468a12.2
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 12:40:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785526816; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MKddapxaXhWHVkIcPoDZEfrvtMXPUBc+V8SOqCj563rS+i3ZepPj/6rdEUkmJgZ0kS
+         IrEKaRlr6HQlxbcjuTi1NMoSRrMbLm9NH6VdHjCbpZdELexwv5SgftiEJfvvt5zB5eyg
+         UFztWPyNmz1aICafKA/758D+Y53EnFWjcxsP17CAKO8LDTOOdn1wexxsMAm7j+rhocFI
+         zbYeWldut1VGBMMrwKwK+815105iZi6C8LX3SQ938LHwHbPq1pvbWGsf9jWsgFkwxUry
+         7Tcq4+/CpWDb8K2UEbj86gJn+av74+k0k3lX/ZJsA00b9JiDgdOT1/w7dDWmIeXMS1Wp
+         Fetw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=QkJjkCQSyqivCcminYOaaWWM3IpBWlOV2cq92pBOV3A=;
+        fh=BNO3l2zsNN6T5TPDg4FPYQmohMjkSoBEhzvfXPofbD8=;
+        b=aH8LJeRGKMhP8qRwN2FlmcDBVGSJcN2UWRsOkTKGs/NUdBiapviEEL/nw64ASnaC6N
+         cKXd12ugARDrlTn/W0G+yRCxgT9myX/qVBZVdCrEXYy3pA6yGS1XZReiscRo246jrc7l
+         KU1qMJysv6GMmPTUt8fYfdzpUqwOVZKLsIde7C4OqMgv8TzDfjXkEQrT7wFvUU0oxuha
+         kjjeHjAJaAaRT77UZnAI5I2EVZcXDVgJ5guLZFiTMT2bV+8JI484yCTcrf00Xf/uP+of
+         wqZ6e94LYkNFxTyiZ/wzZdeB0I2a8sesI4ywYYIdbGzgBIuiW+xkkywO3Cb26W11YxQz
+         xtXQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785526219; x=1786131019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qqnTleWc4aOs+18EOqxz46M/aGgFpQKcUHE35qkLIDU=;
-        b=AnyeCn6/IuzFQR5eHJlwvnIHuNhs5PWo7HuzlEp28gp1L+SDnUZs9pTK7rephCXLgd
-         x7DlDCoDLy9l8EYo9vYDRx+t1aD8h+kddPwn4HBBqISVtgzGwS4IkN7vJGtVkvznsPAz
-         /0nV/U9urlSCKu1gXg6oHNEKb9w0BMmZiH9IEP3vFafdn+9pCa3U27ZHxEzVHV7ju7Y7
-         oR7oUUphp5Bn8K9gy6q0mRAZgPsoJYEakACHF/t0LPzoOdCL0XZjBl+6lPQCZK+eE3Er
-         LvqCYHFJ5SYhc18wZ+iyTI97zLllBDqykG4/KAaHZQHByQlKb95rKsTDt8TaHflvek4m
-         sx8w==
+        d=google.com; s=20251104; t=1785526816; x=1786131616; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QkJjkCQSyqivCcminYOaaWWM3IpBWlOV2cq92pBOV3A=;
+        b=Y3RRNi2fevAlRveQjMy4McAQYjHXlLdhcBsCBfJuJQF495PJhFz6WpFtoyfbalF1pQ
+         myAOQdaSeMI18whjasJbj52OpfKYcAozwoMrqmV05Jqj44NlOhtbKbVQffD7GQLU1fY+
+         xtMKe+TIBo5A6FUyVLfUUr4lwX43tSY4CbYS3Ywd1n/7AU70RymOUUtSkWrY6T8UyHKs
+         xdS9FrGotmeleKMyzvGTsSFkdL/In83TItEsSUlFBkFXCbapFuFzBd1VljVmMDhj1nui
+         SCeh9DQwgle/5WM1Bm0pwZVSarHdsoFkJM91hy+BAg7lkU4O8v4p7KIAVKsVR+kk8UXo
+         K6aQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785526219; x=1786131019;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qqnTleWc4aOs+18EOqxz46M/aGgFpQKcUHE35qkLIDU=;
-        b=ZJgfdrrdQur8UUhW6GVjhOcIx3moMyLxqbgQO2+GSJHDwUWB7EFdvZ0xZrGKfZxGYw
-         BnO7woYgVvhQSP8Uy5TGDSfhwfAL2aIqGgdoVZ35wCM7jQMsSwftMFBpO1nw4PrVAEW1
-         WhjGZOgFeuO5KZtzozYkYwd9NllwwkdWNqXvHa92Zx3002pEGp5h2fQk0Hxh2dETFkpk
-         Y8BFnnfvKjj02mLTDuXFE0Dg1vcwQkGEbSN1LqUHIWHsS5D87gqsIsyZGM9bzR4N8zO0
-         oL5DsN42VHEfMleELydfJCK4AsdLFFITFTB6RZio0H4ykkdGX/uN1/NNhm77oCZnSMVN
-         jfWQ==
-X-Gm-Message-State: AOJu0Yxs2mzkvjqAU+AAn177jalhiFWzWijTXtXP59NT9qHQFV7k/mIB
-	KkpWSDyhrhvOErJu2xR6I6IHs01u7+4TT3xr9pUX9EDx4sN9Jas5gMqWiEviDlRYma3dZ8iVNJK
-	uqCjH1L3tltqluPkAJIfOxmwTXdCdRkrZXndsTlgB0k1xM1qwUmmGSxRy7o7TppHKlQ==
-X-Gm-Gg: AR+sD13OJ5xaAXtqIwLP3nj1UesvXkXfayNMBneH9D8jp0nFJTfHXHL207/vI8+f8o2
-	oKRRZscSTYL/SC9rxtcBRQHzx6BtEifC/ubkbxleR09eJgbH1NDo9OKU4sUlzBD6cRunvNA87L1
-	AAvvH89ZI5rj25F2rJ6qud+qmG15kC8O321D7FfSZOa8HR8wkGVxMmZdOAzjj7dXEb71ui28w6f
-	Y4T7FsEstKw17cAGdi13mBc1AyUwRDY1PnaODmqOjCjUU2vaUq+Pdvqatt+0IYqS1VrOiBQV62O
-	MBG9YW69+3bRJzUaAnCnthdppECf7YrandgVNf+fvpJNIVVGFTCa4QQQATmBBtuZYCZFhXETBsr
-	4R63JlFTlYWIV2T7y73+8DcaXYtAQ9M/gPwCsHLfexRLBDFX+GSkf+aSfIv20ZWyYassZBEpv
-X-Received: by 2002:ac8:5955:0:b0:51a:8b64:69e2 with SMTP id d75a77b69052e-52b5666c85cmr26788851cf.7.1785526218795;
-        Fri, 31 Jul 2026 12:30:18 -0700 (PDT)
-X-Received: by 2002:ac8:5955:0:b0:51a:8b64:69e2 with SMTP id d75a77b69052e-52b5666c85cmr26787471cf.7.1785526218119;
-        Fri, 31 Jul 2026 12:30:18 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c5a054asm2615293a12.2.2026.07.31.12.30.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 12:30:17 -0700 (PDT)
-Message-ID: <476aee61-015f-4793-9be7-a102c1c3e811@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 22:30:14 +0300
+        d=1e100.net; s=20251104; t=1785526816; x=1786131616;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QkJjkCQSyqivCcminYOaaWWM3IpBWlOV2cq92pBOV3A=;
+        b=BABNRAR/YUbg063TBShJZYGcjtWvgR+1fAysDvp4+JFIzQB9KnS6J07F+1OL/8hMsX
+         +fon4t5oPFQ9AtmJtUppuztCXWEstv3BI3ej6pko7ki3nh04kdXiN3CBTG182dlCadsZ
+         o4jRVvA31xZeMO/PGAIETHNWRhLlwnRWjkxwq8mZMJ/fzQVx/AfCw4YCLrGb9xhMpBmF
+         2PbgQVxlbN4zS6Wzk+BcgybMQyWetfmEugq+RzXmwRBYmdc4wl5bA5PQ0Hhn+ztSXYzy
+         sCxH6FMmY+VA6AkWD0wBXDiIqEniWj9zRQMoIANn7mCsDGtJ3U8clhrj21S+czPHaESw
+         u/gQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpjH4av8ivPNue5vyuUTeesC6/Ah0W1QOD6DzUUzwu8q3XNuYzBWW2yqu7G9UaR9nisthnw/b+jh1iaYA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzdbP3qNVj+oXKXzcnp8srYwtKW7YEZslmEmGfT3QLGILxrt8hU
+	RC2eDalFu/no7ogPAND7VtsMGPyITM3qyQUm8mZfPizMXxaHaV0k3Rt2LWGAedG1CbEhSSjt64g
+	ztFunIZfGH2RKr4AjsEOExpyf2cg+79ahEZ9bULZ7TBJo/AI15b06VAo87Oo=
+X-Gm-Gg: AR+sD10u/DNrWUAl+m68tdNbawP5btXnh4U6ur0qxC6KOJfAZ/LqK95MVKnvTO7Xguo
+	iESosIyeEiQjl2IWcdG22pb/35WqzAwnlrWf/Ty9S5flize2+3XC0ydnKvyCFs+XbgdyfY2F1JA
+	CdYsD16GOdCPeZA0QMKU3GIwD659p81OZF/PJHGGFOvcWgc5HW1c+WHvbZRQ2PhUuZmBs4WwMTA
+	RK9YAulc22Qh84s3jhYmGspqQC46/zOVb5jTe6SwnO//bkKfDc0ygmPLgOhU/b5uU8zLQRnfORg
+	TkcVNRY+V4YaPI9ifQ7Iqowq2PoSsPSOdqJafQMsyHD6jpu0D26Qmp34n7nrBeKx8nLhW64e2vR
+	aUf/YUKj/RxWx1+slhjRl43vBt/lDbdtdrP0FjirEUFaBzCU2gkjy8KoeNlw=
+X-Received: by 2002:a17:906:3e56:b0:c16:61d9:1679 with SMTP id
+ a640c23a62f3a-c1fe82a5a65mr41337566b.52.1785526815640; Fri, 31 Jul 2026
+ 12:40:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
-To: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
- <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
- <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
- <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: pU4bsLhsiMdQDh0s6wxx5y-NTjS8ha9A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDE0NyBTYWx0ZWRfXxfIyNwBmGSqz
- P5UlncywggU6ZvChi1F0MhDJ41Q0rvEn+MrrRHwKTXS7dawBsaB7zB1j0brBFs1ybh56DMlZYHF
- IFBz2e9UJR1WyjTZDfh4kUvduC4dUu26ZI9JrWtg0j3Oy2ZoI0gxxI8Zdr+XeqY7HxVkVJsFdve
- 5wBO+awfCfePMIw5bnhZp0uT1oXyS4WgxEAaJ+XGQyg6R2WpIsQbsC+rnFAwHowE0oGzy8eer3G
- udORqDZFgEogE3QOmxXJOPLLPAtU+0URRIPvg1dDq0of1sNBXVio20cfQ3j1dbUYxNSDWeYqkH+
- OHjtsGrzv3cQgHcROQdIsDVLSGBr3fTu9vXeOuKzZx9bwgyK3aXs7S10O2Fxv1NFDke6Sx7/Mfg
- r/h1Dp0GI7wosCsUUWD5AmRw03MgCQP4nOw+5yPdXpvHCI/JlbkQe39zwrlGVDVwxjhssAdJsra
- SEBj4TxfeFHa1WM941A==
-X-Proofpoint-GUID: pU4bsLhsiMdQDh0s6wxx5y-NTjS8ha9A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDE0NyBTYWx0ZWRfX379V7RITBF15
- 7fcTOUn4lmRetVMIqbTIL2UEMFC5nQcNK3UQKJaaKEl7bVQnXasUu9WdwD/FjH4SxP0pO6xEQwb
- I3K0PQlGvbCoMIGqlYP7JLutrC4fp3I=
-X-Authority-Analysis: v=2.4 cv=b+uCJNGx c=1 sm=1 tr=0 ts=6a6cf7cf cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=mwlGEVAn24TgBEnf5_UA:9 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 malwarescore=0 phishscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310147
+References: <20260724-libcpp_transitive-v2-1-87a2d11905b6@google.com>
+In-Reply-To: <20260724-libcpp_transitive-v2-1-87a2d11905b6@google.com>
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Fri, 31 Jul 2026 12:40:03 -0700
+X-Gm-Features: AUfX_mwW5Pc8aImYjprJ2I5qnbYHqAozGW-tepfhosbSLXYNC7laK1WUu6mWkUU
+Message-ID: <CAKwvOd=t6Hi5gdFPjoXBkC1c9DWFzDR3qp+Nw1xFmg8=G+5W0g@mail.gmail.com>
+Subject: Re: [PATCH v4l-utils v2] v4l-utils: include cstdlib for std::exit
+To: hverkuil+cisco@kernel.org, 
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>
+Cc: Yi Kong <yikong@google.com>, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Atanas, Dmitry,
+Hi Hans and Mauro, can one of you pick this up, please? I probably
+should have cc'ed you explicitly.  First time sending a patch to
+linux-media; don't recall now if `b4 prep --auto-to-cc` worked or not
+when I sent this.
 
-On 7/30/2026 9:02 PM, Atanas Filipov wrote:
-> On 7/30/2026 7:01 PM, Dmitry Baryshkov wrote:
->> On Thu, Jul 30, 2026 at 06:05:24PM +0300, Atanas Filipov wrote:
->>> Add the JPEG encoder hardware node to the SM8250 device tree so the
->>> qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
->>>
->>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
->>> ---
->>>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 72 ++++++++++++++++++++++++++++
->>>   1 file changed, 72 insertions(+)
->>>
->>> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
->>> index f11da2ca4181..d42b29419320 100644
->>> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
->>> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
->>> @@ -13,6 +13,7 @@
->>>   #include <dt-bindings/firmware/qcom,scm.h>
->>>   #include <dt-bindings/gpio/gpio.h>
->>>   #include <dt-bindings/interconnect/qcom,osm-l3.h>
->>> +#include <dt-bindings/interconnect/qcom,icc.h>
->>>   #include <dt-bindings/interconnect/qcom,sm8250.h>
->>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
->>>   #include <dt-bindings/phy/phy-qcom-qmp.h>
->>> @@ -4486,6 +4487,77 @@ cci1_i2c1: i2c-bus@1 {
->>>   			};
->>>   		};
->>>   
->>> +		jpeg-encoder@ac53000 {
->>> +			compatible = "qcom,sm8250-jpeg-enc";
->>> +			status = "disabled";
->>> +
->>> +			reg = <0x0 0x0ac53000 0x0 0x1000>;
->>> +
->>> +			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
->>> +
->>> +			power-domains = <&camcc TITAN_TOP_GDSC>,
->>> +					<&rpmhpd RPMHPD_MMCX>,
->>
->> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
->> please drop separate mmcx vote here and let it come through the
->> titan_top (it might require camcc driver and node modifications).
->>
-> 
-> The change was requested by Brian, most likely in connection with 
-> upcoming migrations. I think he would be able to explain the exact 
-> reasons. As far as the facts are concerned, this is not currently 
-> necessary for the driver to be functional.
+https://patchwork.linuxtv.org/project/linux-media/patch/20260724-libcpp_tra=
+nsitive-v2-1-87a2d11905b6@google.com/
 
-In the documentation we have this jpeg block need only TITAN_TOP_GDSC power domain.
-However Bryan request to ad MMCX and MX.
-As i can see same is for csiphy. Maybe is better to sync with Bryan.
+On Fri, Jul 24, 2026 at 3:35=E2=80=AFPM Nick Desaulniers
+<ndesaulniers@google.com> wrote:
+>
+> libc++ recently trimmed their list of transitive includes. Include
+> <cstdlib> for the declaration of std::exit to avoid compile time errors
+> against newer versions of libc++.
+>
+> Fixes:
+>
+>     v4l-utils/utils/v4l2-compliance/v4l2-test-input-output.cpp:53:11:
+>     error: no member named 'exit' in namespace 'std'; did you mean simply
+>     'exit'?
+>        53 |                         return fail("couldn't get freq band\n=
+");
+>           |                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=
+~~
+>     v4l-utils/utils/v4l2-compliance/v4l2-compliance.h:286:3: note:
+>     expanded from macro 'fail'
+>       286 |                 std::exit(EXIT_FAILURE);
+>           |                 ^    ~~~~
+>     bionic/libc/include/stdlib.h:55:17: note: 'exit' declared here
+>        55 | __noreturn void exit(int __status);
+>           |                 ^
+>
+> Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+> ---
+> Changes in v2:
+> - Also fixup v4l2-ctl.h; many .cpp files including it refer to
+>   std::exit, not exit.
+> - Link to v1: https://lore.kernel.org/r/20260717-libcpp_transitive-v1-1-3=
+af91860affe@google.com
+> ---
+>  utils/v4l2-compliance/v4l2-compliance.h | 1 +
+>  utils/v4l2-ctl/v4l2-ctl.h               | 2 +-
+>  2 files changed, 2 insertions(+), 1 deletion(-)
+>
+> diff --git a/utils/v4l2-compliance/v4l2-compliance.h b/utils/v4l2-complia=
+nce/v4l2-compliance.h
+> index b43c5817..7ca4744e 100644
+> --- a/utils/v4l2-compliance/v4l2-compliance.h
+> +++ b/utils/v4l2-compliance/v4l2-compliance.h
+> @@ -25,6 +25,7 @@
+>  #include <set>
+>  #include <string>
+>  #include <cstdint>
+> +#include <cstdlib>
+>
+>  #include <linux/videodev2.h>
+>  #include <linux/v4l2-subdev.h>
+> diff --git a/utils/v4l2-ctl/v4l2-ctl.h b/utils/v4l2-ctl/v4l2-ctl.h
+> index ae6f43f3..483b2c36 100644
+> --- a/utils/v4l2-ctl/v4l2-ctl.h
+> +++ b/utils/v4l2-ctl/v4l2-ctl.h
+> @@ -2,9 +2,9 @@
+>  #define _V4L2_CTL_H
+>
+>  #include <cstdint>
+> +#include <cstdlib>
+>  #include <linux/videodev2.h>
+>  #include <linux/v4l2-subdev.h>
+> -#include <stdlib.h>
+>  #include <v4l-getsubopt.h>
+>
+>  #include <v4l2-info.h>
+>
+> ---
+> base-commit: b32589c514810daacc05a2015d205b997cd11970
+> change-id: 20260717-libcpp_transitive-0c6a9e39e5f9
+>
+> Best regards,
+> --
+> Nick Desaulniers <ndesaulniers@google.com>
+>
 
-Regards,
-~Gjorgji
+
+--=20
+Thanks,
+~Nick Desaulniers
