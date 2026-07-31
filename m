@@ -1,174 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EAF3A168C;
-	Fri, 31 Jul 2026 14:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84ACA3B05AB
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 14:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785506492; cv=none; b=Htdr0cOkZ+0bE7wnCbqY3CkAFcEQJ5fTSUuXta7cpWlra2M9rIGKdqnGP4WjhlF/HfVIGYEtFtOAQ4AF2BpjXFm6BUYksDPkiUfBLc3mGig21dUvGs79erDZ4BFeKVSQadOLEnUN/JQydKDz3d0k3kpNq80gLDPzpSZvAEAjlPs=
+	t=1785507002; cv=none; b=t7jpwH4s8DjgiIN1Bgqs/oETm+4oV/bAW10Yvw55wS7SKtBNpRuIAcRW1yDqCw4DaKI1duve4HJkTtL7vKQsrzzY2yUS0NJ+8LLZQsJsI8yU68+4LNQ8r41vYZ5ep0B3L2iVddN6KF2xuaMiMoub4iwG+/Ouz9VhC5GF+HnXBsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785506492; c=relaxed/simple;
-	bh=Vn48FDpUIgwcXBdLWNEYJHU1lPBsWdJyjygHLQq3KUE=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=s4xRp6DUODEtJzULJiE8iSeSif3BtnBKe885qUonwul+5j7ZFt7CESvVMVdalFMg4vvdO9r5E+UPLZgaAtnNLsFq6dmT5qLGuh7Y2h1DK4pgEP9t6/usA4jS5iCJ829tO4oIUVsN8L3IBOw3M8AqUKkaIfWTgccN2I51W3BDkMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E64Fex+S; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785507002; c=relaxed/simple;
+	bh=5qY/6592ZN6hUTDDrFmtMOeCukxo2QrAHDQySYUCnho=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QhUbiWp/rlIgALhZcPeHRsiX9pe5ORGmVe94BZDgg5gIY6u7kKKSdeAFoP9SmR2JBXi7TyjN66YODhJg0oqczg/F/YwwdMp6ZBkEljbG5BLotyguNdKWTMP7hgqkrx9nkdOtXbz1DcyimIhJJyW08AI6jmPsVOukur40iwXngSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FezMA13M; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E64Fex+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4440C1F000E9;
-	Fri, 31 Jul 2026 14:01:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785506490;
-	bh=R7Jr5VQjLr7EGeIVOrImuJiS3Zl7uoC74z7poslGHw4=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=E64Fex+Srrrwf9NrWgGi/1yDwr4gGT/wxsutGFH9NV2uiRq6cHVi29nd0eUGc17Fm
-	 k50ItJ9k9i600fz2mQ9rQim/ftqbnq05jwS4hw80Q3+/J8NQ1DdHT4d4QMuoYqgAW4
-	 lfBRNwLkqSWCLz/fmSvuY44jpjhCqBIF0G4JzA2cEFPcrzed81omeNg/Pbg1q9y6x7
-	 HEEi/QLGwJ2Z3DEa31D+cVQEFHIhxNWjAK3kNdRI5sCL/CP+4O9hyTh7EF2chq4aeR
-	 09H36+cj5G2J5krqlqSSUbSQEkO5+ieRE8GOjoMm7YpLaBBR6T/cvluvaICo4qFny8
-	 QV6sHRPZQYeUQ==
-Message-ID: <5987b024-9595-4632-9cb0-6d696520e949@kernel.org>
-Date: Fri, 31 Jul 2026 15:01:26 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FezMA13M"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84862b0d5f8so927604b3a.3
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 07:10:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785507001; x=1786111801; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DMmR98zYdJ3/hNNg4PWjtIFCt0ZaQpb0CEXhOAdim3c=;
+        b=FezMA13MgDg58lUSdzbbMSuGVsz5I9e1zDUYPKcwTc5kn1YcC+c2znGK/NS0U5n0/M
+         vsCMiMLZdMbeSU9WljbTtrgL5Eu3zSfXJ5w5As4JaCJa3SzxWCAseYxyc9/VAfgKnYlb
+         ItTdf0sufhv4jzl8MbSryPGwAv9ASBgb9eoWzYnMnTzSYVLPC/0ld8eOo4Z5EtrWt+jO
+         ImYuq9dNax90/kUS/ePwh0avXsFuGjIJTBw7TdhyeNNewC8LLLeg+kSme8Puw0aLiwBl
+         0p1g2y2Ph11CTc5cctgoD4SUgVwp6hUikVKRGg8eWeuCtIPt7OxjlP10vzYTSsW1AqQr
+         56yw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785507001; x=1786111801;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DMmR98zYdJ3/hNNg4PWjtIFCt0ZaQpb0CEXhOAdim3c=;
+        b=lw+4xv3inU3BaOHQjYxQab6yEX5HtaS/B2K458w1VWkC3VCvQM0rM25jPuW4b0M+3q
+         fxGGtzxAXzuiXlVyw8SbbNkI+UDqqJsNiVoubXClKquCLTvYTjwlAJImw+RbwvWn84Dd
+         d1wi0gXg3xflnQ4NdJI+Ov4vSy14s+iH90huCSA4ui64I6mrw6FYei2q0OyBnc817E01
+         sXnVXPLYSsaa8klqlOP68m0gdE9jmbV1+r0Eb1DpxcR4bP/TXQ+dLYnmiisqBiQM7J26
+         R31b1bLDlYtdFeSvLk8m1dy+np6JcJrY+heWZZCE3F1pBUxH5zm4iQmENM+hbNuBHTUX
+         xVqw==
+X-Forwarded-Encrypted: i=1; AHgh+RpKswZpd5HOQdiVhdibqyY3Ip8q8uOCVgjLtr3MNOueirbFqZLpnM2NqSkfdB4/htOGEK6pXaRehVdwgg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyvABPLVvu2SjXexfEQb/JzUbuMYVHq98QF545F3IqdHhA2quiv
+	jAaGeHGvo25qTWJQu57I0sz2HRxHdIGEwmvUjdrPmLiBcqEldWTGLy15
+X-Gm-Gg: AR+sD11lJfxugDRaTG572rR7HkeJh/suH1W2wKcD0HODqCy0iK3W42QBkhGVUSA7EED
+	RyiuCJYyWfCLeHClXOfftViat4lmv22c91UY843g4Pi5/cndt6myHf3UnkLWz8ceRl772Ct89oQ
+	CqXZfDNF8BaBSD7reVWbfDIHOrMSdBjoRONDuvf8TPe8oPEgWuE1jua8jlfw282KXZwPa3u7Wa1
+	pwUZQblQxK0j9RxDX8I2WlHL4PCdvXcc7AcVlOkqPMSqGJb3BwxN2y3pFtutmo279DikrlPfccL
+	gD8obnCblb1CO7uUbRLVSdXxcbgaqhJV1Ht7vsyW3krBspCWyQ1Mz3t7GSnZ7uVsfaCGgL3J7Yv
+	Hv89SY5izexVL9yPn7c2ba4ItavhPyg8wosUUHVFzIyOxYJrB2wKwmWNGFk2pTHTVGc/MFdYAIf
+	d3Z1d8FIBEyun1vZwmBSjG9enu2gI5cFcgDM/j9A8OjWlNJhOOZ2XrXXUaWQ8H9iwv08Hx7Y3cE
+	LNZr8bCrFBC3iXebGz19fHwRnlhhTtlyg5HSEfwx7Ayeb6pJdAi9pbDoXaXs8c=
+X-Received: by 2002:a05:6a00:8997:b0:847:8b11:596d with SMTP id d2e1a72fcca58-84ed726695amr1276807b3a.41.1785507000538;
+        Fri, 31 Jul 2026 07:10:00 -0700 (PDT)
+Received: from debian-rockchip-rock5b-rk3588.. ([2405:9800:b670:b64b:1c6e:95da:41c0:e7b6])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84edc29ebbcsm506071b3a.34.2026.07.31.07.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 07:10:00 -0700 (PDT)
+From: Tharit Tangkijwanichakul <tharitt97@gmail.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	Tharit Tangkijwanichakul <tharitt97@gmail.com>
+Subject: [PATCH] media: hantro: Harden MPEG-2 control access against NULL
+Date: Fri, 31 Jul 2026 14:07:51 +0000
+Message-ID: <20260731140751.1183-1-tharitt97@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: qcom,qcm2290-venus: document
- shikra Iris compatible
-From: Bryan O'Donoghue <bod@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-References: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
- <mFvFwhQszGFrmshFXIYuZ91Cp8BgbKaIBxeQtsJD1IOsPNjLaXD8DwNsshTiIbtUFQo_rCFFyu497tLirPBJvQ==@protonmail.internalid>
- <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
- <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-On 31/07/2026 14:39, Bryan O'Donoghue wrote:
-> On 21/07/2026 18:32, Vikash Garodia wrote:
->> diff --git a/Documentation/devicetree/bindings/media/qcom,venus- 
->> common.yaml b/Documentation/devicetree/bindings/media/qcom,venus- 
->> common.yaml
->> index 
->> 59a3fde846d2196ab1e4588eb396012ba6860712..0be2f9119e78233928d23af86836ac294aa769ee 100644
->> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
->> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
->> @@ -37,7 +37,10 @@ properties:
->>       maxItems: 20
->>
->>     memory-region:
->> -    maxItems: 1
->> +    minItems: 1
->> +    items:
->> +      - description: Firmware-loaded codec carveout
->> +      - description: IOMMU IOVA reservation region
-> 
-> So we discussed separately the pixel and non-pixel sub-nodes as well as 
-> this basically alternate means of memory delination.
-> 
-> What I'd like is a clear statement
-> 
-> - Committing to this scheme for existing platforms
-> - Adding the pixel and sub-pixel to the shared
-> - Backporting at least one method to -stable
-> 
-> For that reason this extension should at a minimum be its own commit 
-> with a well articulated commit log.
-> 
-> Since this is minItems: 1 it is conceviable to land both this and the 
-> sub-node into the same file.
-> 
-> But my continued feedback and objection is not being clear about what's 
-> being done and having two separate methods without a clear roadmap.
-> 
-> You have your sub-node RFC and this change - I won't say sneaking in 
-> here but, its a surreptitious change as given as-is.
-> 
-> - Which method
-> - Both ? Then what goes to -stable
-> 
-> We also discussed offline the fact that right-now the lack of a means of 
-> addressing this in upstream means we are in effect leaving a known 
-> critical bug open to the vagaries of IOVA allocation @ runtime across 
-> every single venus and iris there is.
-> 
-> So to me minItems: 1 for -stable _in_this_kernel_cycle_ is warranted.
-> 
-> ---
-> bod
+The MPEG-2 sequence and picture controls are validated
+before a job is queued, so hantro_get_ctrl() is not expected to return
+NULL in hantro_g1_mpeg2_dec_run(). The controls are nonetheless
+dereferenced unconditionally.
 
-Just thinking about our conversation on this topic..
+Harden the invariant by checking the sequence and picture controls with
+WARN_ON().
 
-Truth be told, I don't think any new features should be merged to venus 
-or iris until this gets a resolution applicable to -stable. Its just not 
-kosher to pretend everything is fine and keep merging new features with 
-a known critical error festering unaddressed. Fixes: yes, other stuff no.
+Found by code inspection.
 
-Bug fixes > New features many times over.
-
-This absolutely has to go to the top of the queue, its going on for 
-months unresolved - what use is a new video codec to a user on a system 
-where we can mess up the IOVA/SID mappings and trigger a hard reset ? 
-Its not just that its a bug, its that its a system resetting bug.
-
-I'm going to have to insist.
-
+Fixes: f329e21e9dad ("media: uapi: mpeg2: Split sequence and picture parameters")
+Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
 ---
-bod
+Tested on a Rockchip RK3588 (Rock 5B) board with Fluster:
+  MPEG-2 (MPEG2_VIDEO-MAIN): 23/43, unchanged
+
+ drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
+index e0d6bd0a6e44..6a942f4b8a2d 100644
+--- a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
++++ b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
+@@ -161,8 +161,13 @@ int hantro_g1_mpeg2_dec_run(struct hantro_ctx *ctx)
+ 
+ 	seq = hantro_get_ctrl(ctx,
+ 			      V4L2_CID_STATELESS_MPEG2_SEQUENCE);
++	if (WARN_ON(!seq))
++		return -EINVAL;
++
+ 	pic = hantro_get_ctrl(ctx,
+ 			      V4L2_CID_STATELESS_MPEG2_PICTURE);
++	if (WARN_ON(!pic))
++		return -EINVAL;
+ 
+ 	reg = G1_REG_DEC_AXI_RD_ID(0) |
+ 	      G1_REG_DEC_TIMEOUT_E(1) |
+-- 
+2.47.3
+
