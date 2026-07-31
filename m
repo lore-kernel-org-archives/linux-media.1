@@ -1,176 +1,278 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9395F3A544A;
-	Fri, 31 Jul 2026 07:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B32F1E1E16;
+	Fri, 31 Jul 2026 08:04:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785483694; cv=none; b=OUzx1Li6Cs7quWllUGCrs59Zk7Q2RF++K6PNm/l2nPRHkJcwP/Y/NYFp/njbvydJFEz0dmUwfN4lFS4LCAcbXuN1CkAx3f9dJgVq9pA9zaNwueEfAK6jSFzzeohnNx8XZAZVtQDmxwBXdy+X/jEXdponFYzQZrONOSBQJ6Uo07Y=
+	t=1785485076; cv=none; b=nDdbVytNp8+2Yfy8P6xHRq2SxDcvvyrO1zw1gbuVBrLWZDAOUP4p83tB7YT5Gas34YoP8j6qvYfNYcaUJy0hwEkrG+172yntS0JEqd75aDC1e8voIyT8fReW1WuTvInh8BWr/DQxcM6h2a651q2qpD/slgsMK5E5EPus8q7P4d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785483694; c=relaxed/simple;
-	bh=e/KEnYsTrBzAJNNbZhOo/Qd9wxWOBzeuoEg0nKCRR7g=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:To:
-	 Cc:Date:Message-ID; b=EkmsTG/jQC7qOa1Ep2hMfkoKMBZ7pAZtYI9LJjGrFyCOQgVGnFVHrfi8EMNqn9Pp/6mu8RprjrMfhgT6A/jS/MtvgVjBJJ8sq91kUEZoaTAbRm+aDoKFUY/tdmE4SSx67pFzB5efiLZewfLHL88zfZpoJRlSteMDOdcDYC+/+mA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=AqkGHoK2; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1785485076; c=relaxed/simple;
+	bh=BZ4twpBYsqgr+QnhmwMxNbH0etFYcp33jC+5Im+9hAM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uG6YIkxG9TiWS8Je+P3vx4UHRKNSVZx2hm7lHXT9xzkjD882AvF5ZG6ynzkmzOR1qnulQwft+Nb0eynAWtxN8lyS65EqpKKkcw8hH6z2OjQnT9LB7RXFPZzEiCHG+YCxxL9pX4YSg8A0GTYB3s4jsXppBpP8Fa3JKFgwwaCel60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L/MnDO0d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="AqkGHoK2"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:25d4:fa24:78d1:31:7a56])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9493F2E9;
-	Fri, 31 Jul 2026 09:40:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1785483624;
-	bh=e/KEnYsTrBzAJNNbZhOo/Qd9wxWOBzeuoEg0nKCRR7g=;
-	h=In-Reply-To:References:Subject:From:To:Cc:Date:From;
-	b=AqkGHoK2c0hySUdPZ/4+Sjd8i/vdjKcn9iALQ1UHQ2bOHVGDoLRRuo2mojwEd6r+R
-	 9o7d15ZQjXjDxmgp5wiDUlCOxRh/A0pToLpOEBSJHA8tO2GbA5yna+zqaOcxLuYldX
-	 KxBp3KT5E/49rCO8lbjKO7YUnCLy5oP7LOD7pdEM=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L/MnDO0d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C2BF1F000E9;
+	Fri, 31 Jul 2026 08:04:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785485074;
+	bh=+ihA+jCjxFFFcushqgnFz5EpHjgmUlz7qY0YpA0rFtU=;
+	h=From:To:Cc:Subject:Date;
+	b=L/MnDO0dwcG9fHiU7Mw3fjfPJwMgFgN9XP3nllaHVyAkL53j06j+gA4kR2KralFNS
+	 f+Z4Q+DNB89GjHslgC8EJKpE/dz6GvS0Q5xkEiOSj/Kmh5OKVJ2tCpYsJ1N51e+Ar9
+	 yWjc+MgT2b2pN2WOm3d2uXOwoqV0Xig/arguvNZ4Km/p2A9RQ3P6mH3PuVIpSfrKle
+	 COqL5u1o4qzqbmABZl7Ny1DAhg9YXPhRJwKsMfe0oWa6ci6VfqF4c0HDtokEMjllIA
+	 OXt1u5ey69U5ytlX/5OxWuc//kV0VOOxXL7aihuEt0H6YVRCIK0OeX/spZ68U9DT89
+	 Yo2bqMoylasLw==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Lyude Paul <lyude@redhat.com>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	Frederic Weisbecker <frederic@kernel.org>,
+	Neeraj Upadhyay <neeraj.upadhyay@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	Josh Triplett <josh@joshtriplett.org>,
+	Uladzislau Rezki <urezki@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Lai Jiangshan <jiangshanlai@gmail.com>,
+	Zqiang <qiang.zhang@linux.dev>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Burak Emir <bqe@google.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	Eliot Courtney <ecourtney@nvidia.com>,
+	Mirko Adzic <adzicmirko97@gmail.com>,
+	Timur Tabi <ttabi@nvidia.com>,
+	Daniel del Castillo <delcastillodelarosadaniel@gmail.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	rcu@vger.kernel.org
+Subject: [PATCH v8 0/5] rust / dma_buf: Add abstractions for dma_fence
+Date: Fri, 31 Jul 2026 10:04:05 +0200
+Message-ID: <20260731080411.848772-2-phasta@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com> <20260312150437.1091195-3-eagle.alexander923@gmail.com> <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com> <178455866124.1426769.18237320419273419942@freya> <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com> <178461038136.1426769.8068222330738680407@freya> <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, Hans de Goede <hansg@kernel.org>, Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-Date: Fri, 31 Jul 2026 13:11:25 +0530
-Message-ID: <178548368547.4139729.2328103728639267380@freya>
-User-Agent: alot/0.13.dev35+g4a69c46ca
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Dave,
+(Timur's patch is just included so that the series builds)
 
-+ Sakari, Laurent
+Changes since v7:
+  - Remove the forgotten-fences-tracking from FenceContext. Merely warn
+    in this unlikely case, using an atomic integer.
+  - Be more verbose in warnings about what exactly the problem is.
 
-Quoting Dave Stevenson (2026-07-30 16:42:01)
-> Hi Jai
->=20
-> On Tue, 21 Jul 2026 at 06:06, Jai Luthra <jai.luthra@ideasonboard.com> wr=
-ote:
-> >
-> > Hi Dave,
->=20
-> <snip>
->=20
-> > > > and implement
-> > > > it using the common raw sensor model directly?
-> > > >
-> > > > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors=
- are
-> > > > quite similar, so I'm happy to help in whatever way I can on gettin=
-g this
-> > > > working with the new model too :-)
->=20
-> I'd also noticed that all the Starvis 2 sensors are very similar, to
-> the extent that it seemed worth a very quick test to see how much
-> needed to change for the imx678 driver to work with imx662.
->=20
-> The answer turned out to be really not much:
-> - PIXEL_RATE
-> - PIX_PER_CLK
-> - ID
-> - native and active areas
-> - min_hmax
-> - common_regs (culled nearly all of them, although I do have the
-> spreadsheet from Sony which needs to be added to my next version)
-> - VMAX_DEFAULT setup if you want the full frame rate.
->=20
+Changes since v6:
+  - Add Timur's error code patch (just so that the series builds. Merge
+    however you prefer). (Timur)
+  - Replace XArray with list, remove XArray patch.
+  - Detail the issue with core::mem::forget() in the commit message.
+  - Some code formatting etc.
 
-Great! I was hoping for similarities too, but if you got IMX662 streaming
-already with the IMX678 driver that's quite good news.
+Changes since v5:
+  - Because Rust can "forget" DriverFences, it could bypass the lifetime
+    ensuring that DriverFences don't outlive a FenceContext. Mitigate
+    this by having the FenceContext keep track of unsignaled fences.
+    (Danilo)
+  - To support the point above, add support for memory reservations to
+    XArray.
+  - To support the point above, have FenceContext::alloc_fence()
+    increment the sequence number. This is necessary for the xarray
+    index. It might become critical with fence seqno holes.. please
+    review.
+  - Remove acronyms in declarations. (Daniel)
+  - Allow for providing initial seqno in FenceContext::new(). (Daniel)
+  - Flesh out documentation about DriverFence <-> Fence. (Daniel)
+  - Flesh out documentation about weirdness in C backend. (Daniel)
+  - Add new, purely internal locking helper / guard for dma_fence.
+  - Use the kernel atomics (Gary).
+  - Curse angrily at my computer.
 
-> Those would all parameterise quite easily.
->=20
-> I also have an IMX675 module from Soho Enterprises which is a 5MPix
-> Starvis 2 sensor. I don't have a datasheet for it at present.
-> That streams OK at the requested rates by just updating the active
-> area to 2608x1960 and ignoring the ID. However I can only receive test
-> patterns as all the active images I get are pure black :( I'm hoping
-> it's a faulty module, but will keep poking.
->=20
-> There is also IMX585 as an 8MPix Starvis2 sensor. I'd hoped Naush had
-> one to test, but it seems not. In the meantime I've compared against
-> the driver Will Whang sent to linux-media a while back [1] and that
-> also looks largely the same.
->=20
+Changes since v4:
+  - Fix an uninitialized memory bug for FenceCbRegistration with
+    ManuallyDrop.
+  - Return FenceCtx as impl PinInit
+  - Make FenceCtx return an impl PinInit<T, Error> (Danilo)
+  - Reformat some comments
 
-Indeed looking at the documentation for IMX676, IMX678 and IMX662, I see
-the features are mostly same, except minor differences:
+Changes since v3:
+  - Add a FIXME for an encountered Rust compiler bug. (Gary)
+  - Add new Rust files also to DRM drivers & common infrastructure
+    MAINTAINERS file. (Danilo)
+  - Reposition ECANCELED error code. (Miguel)
+  - Replace refcounted FenceCtx in DriverFenceData with a reference plus
+    life time. (Boris)
+  - Re-add rcu_barrier() patch, since we now can use it for dropping the
+    fence context. (Danilo)
+  - Add forgotten R-b from Alice, and Acks for MAINTAINERS from
+    Christian and Sumit.
 
-IMX676 and IMX678 support 8 and 4x2-lane (with XSIZE overlap) features, but
-IMX662 does not (probably because it's only ~2MP).
+Changes since v2:
+  - Don't drop DriverFenceData as a whole, but only the members we
+    really want to drop. Gives more robustness. (Gary).
+  - Break apart large pin_init_from_closure(). (Danilo, Onur)
+  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
+    FenceCtx might drop in atomic context, where you must not perform
+    those operations. With the current way C dma_fence is designed, the
+    driver must wait for a grace period manually until it unloads.
+  - Repair the DriverFenceBorrow implementation, properly injecting a
+    life time into it. (Danilo)
+  - Fix memory layout bug for rcu_head. (Onur)
+  - Drop RCU patches, since this series doesn't need them anymore.
 
-IMX676 supports dual-speed streaming (DSS) using MIPI VC1 for sending
-2x/4x/.. FPS data for a smaller region-of-interest.
+Changes since v1:
+  - Remove unnecessary mutable references (Alice)
+  - Split up unsafe comments where possible (Danilo)
+  - Remove PhantomData + implement FenceCtx ops trait (Boris)
+  - Consistently call FenceCtx generic data `T`. FenceDataType is
+    derived from that. (Boris)
+  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
+  - Add ECANCELED error code in Rust (Alice)
+  - Remove the rcu_barrier() from FenceCtx::drop() – because we now use
+    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
+    any case, it is illegal to use either call_rcu() or
+    synchronize_rcu() in FenceCtx::drop(), because our new
+    drop_driver_fence_data() can run in atomic context and might put the
+    last fence_ctx reference.
+    So we now only have to guard against module unload, which it seems
+    either the driver or Rust driver-core / module unload infrastructure
+    must solve.
+  - Minor formatting etc. changes
+  - Add C helpers to MAINTAINERS. (Danilo)
+  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
+    callbacks really have run. See [1] and [2]. (Myself, Christian
+    König)
 
-The registers otherwise look identical, so a shared driver would make
-sense.
+Changes since the RFCs:
+  - Include support for ForeignOwnable for ARef, so that a Fence can be
+    stuffed into an XArray et al. (Code by Danilo)
+  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
+    that it can be stuffed into an XArray.
+  - Include the rcu::RcuBox data type to defer dropping data with RCU
+    (Cody by Alice)
+  - Port DmaFence to RcuBox to make UAF bugs through later, new dma_fence
+    callbacks (backend_ops) impossible.
+  - Force users to pass their fence data in an RcuBox (or have it not
+    need drop()) through a Sealed trait.
+  - Document the rules for the user's DriverFence::data's drop
+    implementation very clearly (deadlock danger).
+  - rustfmt, Clippy.
+  - Various style suggestions, safety comments, etc. (Önur)
+  - Add __rust_helper prefix to helper functions. (Önur)
 
-> And the imx908 Starvis 3 driver that has just been posted [2] is also
-> looking incredibly similar.
->=20
+Changes in RFC v3:
+  - Omit JobQueue patches for now
+  - Completely redesign the memory layout: Instead of a Fence
+    refcounting a DriverFence, both now live in the same allocation to
+    allow for future support the dma_fence backend_ops callbacks which
+    need to do container_of. (mostly Boris's feedback)
+  - Allow for pre-allocating fences to avoid deadlocks when submitting
+    jobs to a GPU. (Boris)
+  - Simultaneously, allow for pre-preparing fence callback objects, so
+    the driver can allocate them when it sees fit. (code largely stolen
+    and inspired by Daniel).
+  - Signal fences on drop, ensure synchronization.
+  - Force users to set an error code when signalling.
+  - Write more documentation
+  - A ton of minor other changes.
 
-The flyer for IMX908 mentions some extra HDR modes. If there are some other
-big architectural differences in Starvis 3 I couldn't immediately make them
-out from the posted driver.
 
-> So the big question is whether it is better to have separate drivers
-> for all these sensors, or one combined Starvis2/3 driver? Do we shoot
-> ourselves in the foot when we come to add functionality and find that
-> it only applies to some models?
-> The awkward part would be testing all variants when patches are
-> submitted, as I suspect there won't be one person that has access to
-> all of them.
->=20
+[1] https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.org/
+[2] https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
 
-Honestly, I have the same question. I would love to share as much code as
-possible so we only do the painful things like moving to new APIs once,
-which I've already done for IMX678, and it was not a quick exercise.
 
-I haven't deep-dived enough on the different HDR modes (DOL, ClearHDR,
-and Starvis 3 hybrid HDR) or the DSS feature to know how easy it would be
-to test and maintain all of those in a single driver. The HDR modes support
-using MIPI VC 0,1,2 or line-data to distinguish between short/long
-exposure/gain frames, and DSS also uses VC 0 and 1, so the book-keeping
-around the combinatorial possibilities of what is allowed or not allowed
-across different sensors may make a single driver a bit messy.
+Alright, so since the last RFCs did not reveal significant design
+issues, I decided to transition this series to a v1 and hope that we can
+get it upstream.
 
-An alternative could be to create a common starvis2.c module with helpers
-for shared boilerplate that separate sensor drivers can use. Even if we go
-the helper route, we would still need multiple people testing or acking
-patches that touch the shared code. But I see that in the same way as other
-common parts of the framework that effect multiple drivers.
+This now includes code for more common infrastructure that dma_fence
+needs, contributed by Danilo and Alice.
 
-> Thoughts appreciated.
->=20
+---
 
-Given we don't support HDR modes or the DSS feature today, and probably
-lack proper APIs in the framework for both, I feel like having a shared
-module of helpers will be quite an effort and a bit of premature
-optimization for uncertain gains.
+Old cover letter for RFC:
 
-So, I am leaning towards having a common driver for all the Starvis 2
-drivers with multiple maintainers. I lack enough information on IMX908
-(Starvis 3) to be sure if that can also be squeezed in.
+So, this is the spiritual successor of the first / second RFC [1]. v2
+also contained code for drm::JobQueue, but mostly to show how the fence
+code would be used. JobQueue is under heavy rework right now, so I don't
+want to bother your eyes with it. The docstring examples should show how
+Rust fences are supposed to be used, though.
 
-If it does get hard to maintain in a single driver in future, we could
-split out common parts at that point without losing the effort we put
-today.
+This v3 contains a huge amount of highly valuable feedback from a
+variety of people, notably Boris, but also from Alice, Gary and Danilo.
 
-But let's see what Laurent and Sakari think as well.
+There are some TODOs open (a better trait for fence backend_ops and RCU
+support), but my hope is that this effort is now finally approaching its
+end.
 
-Thanks,
-    Jai
+I would greatly appreciate feedback and especially more information
+about what might be missing to make this usable, which is obviously
+where Daniel's and Boris's feedback will be valuable once more.
 
->   Dave
->=20
-> [1] https://lore.kernel.org/linux-media/20250816055432.131912-1-will@will=
-whang.com/
-> [2] https://lore.kernel.org/linux-media/20260730021525.166811-1-lachlan.m=
-ichael@sony.com/T/#t
+Please regard this patch just as what it's titled: an RFC, to discuss a
+bit more and to inform a broader community about what the current state
+is and where this is heading at.
+
+Many regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kernel.org/
+
+Danilo Krummrich (1):
+  rust: types: implement ForeignOwnable for ARef<T>
+
+Philipp Stanner (3):
+  rust: sync: Add abstraction for rcu_barrier()
+  rust: Add dma_fence abstractions
+  MAINTAINERS: Add entry for Rust dma-buf
+
+Timur Tabi (1):
+  rust: error: add remaining error codes
+
+ MAINTAINERS                      |   5 +
+ rust/bindings/bindings_helper.h  |   1 +
+ rust/helpers/dma_fence.c         |  48 ++
+ rust/helpers/helpers.c           |   1 +
+ rust/kernel/dma_buf/dma_fence.rs | 995 +++++++++++++++++++++++++++++++
+ rust/kernel/dma_buf/mod.rs       |  14 +
+ rust/kernel/error.rs             | 105 ++++
+ rust/kernel/lib.rs               |   1 +
+ rust/kernel/sync/aref.rs         |  40 ++
+ rust/kernel/sync/rcu.rs          |  20 +
+ 10 files changed, 1230 insertions(+)
+ create mode 100644 rust/helpers/dma_fence.c
+ create mode 100644 rust/kernel/dma_buf/dma_fence.rs
+ create mode 100644 rust/kernel/dma_buf/mod.rs
+
+
+base-commit: 849044a381323b141d81f6bcba628cbeb0bcff31
+-- 
+2.55.0
+
