@@ -1,39 +1,87 @@
-Received: from ixit.cz (static-84-42-129-46.bb.vodafone.cz [84.42.129.46])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D264A449B1C;
-	Fri, 31 Jul 2026 16:46:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E23A352015
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785516386; cv=none; b=lNW1vQ9vcfCj6bH9JrevHCsnANOwmEvnp0udIwB755J7UWMB+LkKV8ZhI/9S4H1uowvzBHU3EpKM4Zp2qJzOjJCgNKHtQP/dltEg0LXLNg5h4/qHo7OIAocdluBpZ126Leczr1+SYMfxZdR6P1m795NQ/bHI0oeuwE9221Y7brA=
+	t=1785516956; cv=none; b=P9sVkKOgWTS4YDf8ku1lL5dWN+u0i2xIDCQV0PvuiwsBHsZRSPbdzywMeS1iI4pRWaF70iWS2PoGHLKXFYWYyrQ11+Y8iqzWKpFfD02dJ4bpPMdgTkfX7tQlOCwdmHVLRILTS07AMI3piCmzvDDCRh3C1KeQ1xVOXrKmnx9tiOs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785516386; c=relaxed/simple;
-	bh=EgHKssWS2IHEXnxUIZmtbiWHpOQgMwWncHCs0HiDZD4=;
+	s=arc-20240116; t=1785516956; c=relaxed/simple;
+	bh=vNQcuHZwnfBcaqBRKp24fl+ic099dWBRsaw7Ei0waQg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PeZ5ixec0jhKgmytkUupg5XTrDTRmYCw8gWCHiwBJPZntZdypLujSjVkBoWMUo0QUYxncVQt6k6Bhh5T6r6aAxdPW5irvQAMJTlqejiNafjb7KBTwcxpvOT3JWsbsb6KUmDM2yQgEKsHuQGg2cYqAs/BWfT9llCXSQeUNYPC3lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=js9CfTCX; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	 In-Reply-To:Content-Type; b=uINtsa8xT+P+9e3HByexfD/lLiQkuXbNJombkPaMYnXrw53pyu0m0qD2Uy+PFME6/fc8Z1lx3iPbrcL+hG7NF8xXdSr9LPVRhTjz/UQwlbBkQaU1YX227EEiqKBORxtD+Wimuf2DLYEQWMJPuvqzoo8G1vg37wWwkL0aF3bAqGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YFdMV4tT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XrAYa2nR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="js9CfTCX"
-Received: from [10.0.0.182] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id D2BD45340464;
-	Fri, 31 Jul 2026 18:46:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1785516378;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=yTnhZR+RH3H49Tzpp/p53oE4c6zUUfnXbDUgm/T7+84=;
-	b=js9CfTCXnQ845E+2EUMHYeYyInsISOG10dFJzpDoAiwg22i2ehcrvQoxRkzaIqjc8TpBPF
-	nbljwfQUx2wAbyOgRzn5pd/OG4SlTt1AKc857c8H/utLfECJoP2zn2+b4RzyUSeb3kPgL0
-	dI7LxaNc/w5pO5sNJ8Zhdr/oeeBA0gk=
-Message-ID: <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
-Date: Fri, 31 Jul 2026 18:46:18 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YFdMV4tT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XrAYa2nR"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFONcG205498
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=; b=YFdMV4tTcXF5RLtW
+	wD79XefII6C0bWPZAykN4hpNtvSajCMxrMvzT9OpnB4ruQq/crUuTE4dxpwLNen6
+	FdIjlkNK1Ma8yjAiQ4D/o0PW8JX8b86+Pio1EWa9sD8GNEGjjOjBtuSNxDJlpxU7
+	KEotBtT3ESzEYvPlwRm5c3Ity0MaqOrQFLS6zh0ZOu2wErn0snB+Dik2lGAT4ZWc
+	HzTNojJbi/kquXZ6tiWcLs8J2FaxYFDrL/7MgGoV61rmpFJYMLHavdpLrGmtXcZU
+	vg8I+X3K4JWBXaPOPhegdCq6F1Xl+uEtEAHoPeZGkniLuPBRYn/QC67vZapQmnx1
+	TmaZJw==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru5dhdn5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:54 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c07313be5so1818681cf.2
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 09:55:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1785516954; x=1786121754; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=;
+        b=XrAYa2nRZRBX4Iuzc6ZqvJyq/Hne1V0FKcfncJzFIfcu2syAl7Sixxda/1VMF31WE/
+         h+B5GvzkPRjXhn6Xpl9Qhb50oHe49UnQJ8+s4DS7aixdusm2m92rEtAKFXoHWQCHir7z
+         /qDs3X08/eSa3YjFohtKFuVd8exgvGtprsTPrwWbVBGp0rkfUS+bdvi1H4s8HJhY/aI7
+         WxvbZ1JNjbNzzKz3uMNKe2eeUrepPJzHctdHR5RW+04r6H7E9UgQn1DCPTo5dj2uZAFA
+         8r5gprq2ObexvOcJs7S8KhcCnX09XL1lJVov+S0oc4Bd4eg51cQ273qBvxUIx/hJg6p9
+         hR7A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785516954; x=1786121754;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=;
+        b=CsUoLOa6xRmiO6o5wvIfy/D5kPpWB/vJsYFNfR2E3Ow5skPqSbKvqryRi5cuitrYBD
+         gsZAVH33LUCDAn+v6heBvsY3UwRzEMFBOE2nRVdudrZU96ebHEFmqF68YjQcfDv1cc3y
+         XfrLbhhH/ZnOtalmBBHJN6TTr1yzAAcxtn8vEQSJeVpfhNJgWUn0m5Yh8N+4c7+6dc6L
+         i2LZ4eDPVroxO0CqNIYaTqR1iw4J7vGMu00mWgw7m2a+uYmVMVyP3Dnb5zb3hZ96PA+A
+         HDq5IpIGJ9PAdT7OeHBdXz1CkunfxiAfEjBxgoYc8OADGOiwFUfHjaYOSnenu/Qfhclv
+         7p7A==
+X-Forwarded-Encrypted: i=1; AHgh+RqU9FR0xvs26yuhm4BpKOdmxLiAOcMlPbHvP/yL5jAMVeph4EngiLSCbGHMx6E60NU0pH1WA5Uh572+qg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOIwnN2wfE6zUESbpufBswUOJgTIgHoK1b315ET4HiLumQcrbD
+	zuJnTkrNEVYcLdCOpM4p4T0h9+8v8dQHYrCd8VSK1D4CaW7eJ6koU34ve3Gb4CXluAcD1/y4JvG
+	KdLFhF+PUBaIAGckbverEfXPHM3qKU1UnPAWDyr3631gz0eLYqv4u9wwyBifDZtoT3g==
+X-Gm-Gg: AR+sD13Okpv2olvzVyxuhcoH8y2tPkH1oy1pzDuyriDWC41PvU27mH3GV+HEAF82m0m
+	saGXam43+Q45eaGBCqc2Rb9jk8I3x90G1YtCFlh45NYY6eDvyKq6kqBVOUoEOlm8SU9Lgv+Myi8
+	iViezKKkp4OEv30/dSgGJYcBGrqPaVjp09N3YkyU/ywCd/SKtLLgUaAIDmmqAvuFHU1M19XtfDm
+	I7KV1S34XwyELBQD2BcoS10CW+hT8s3b+d1LwWyWWGgjjBNXuE8/grsR3YktP9txz55JlMTGbAO
+	nH65IkSS7Gp4ibKsGQNspcwxDf9HU5vJYZpkjgLl4Rj0R/hHBbop4nmv9huF+sT4+GhA/3X3HSg
+	uDOXqRS2P/e7rFh3tkE/kkmG1
+X-Received: by 2002:a05:622a:791a:20b0:51c:2101:f0 with SMTP id d75a77b69052e-52b566f6530mr10087031cf.2.1785516953766;
+        Fri, 31 Jul 2026 09:55:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:791a:20b0:51c:2101:f0 with SMTP id d75a77b69052e-52b566f6530mr10086751cf.2.1785516953414;
+        Fri, 31 Jul 2026 09:55:53 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c655626sm2944226a12.22.2026.07.31.09.55.51
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 31 Jul 2026 09:55:52 -0700 (PDT)
+Message-ID: <4f02329f-1c0e-4684-96bf-e71eb5b73cc4@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 18:55:50 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -43,145 +91,74 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
  actuator for main rear camera
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Alexander Martinz <amartinz@shiftphones.com>
+To: David Heidelberg <david@ixit.cz>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Alexander Martinz <amartinz@shiftphones.com>
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
 References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
  <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
  <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
+ <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: tdoan3xCcL6Gy2aPaZmNRIIj2AJHunDk
+X-Proofpoint-GUID: tdoan3xCcL6Gy2aPaZmNRIIj2AJHunDk
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEyOSBTYWx0ZWRfX0gGCRhYOvcGD
+ GK/337kiSSdNHTxjQLscU16xHTfrYPdrzvbugMRDx1SaQ45FujFWoAKiN7y1FQO9xnhQUw56iYa
+ 2hRElhanplok/czTuRy9/GcINRWa7Riapln7fj+nDlVcmmJc7LGBETNbl9aemk2oH97Ka/4kBKd
+ 4m9FMOOoZd7lDSZwdvUV0Bhb2FyVQxT3X4CeXWGIkgs1pbO/+PruUD5nzyAORj2wjwNXqcylSsX
+ 9//SgUin/CQ71ipGYwAeNqDhyI9blK0HIQRwgjrF/DJZPBawPI+CQ7aXepRqnKw6ZJg/tOL9XNL
+ 0Ndn+D78wGK0vXlVQ99I4mGT0/X8RIa2AHJ8KsFA694tirnkCu7IM3zHHEXOfa0cOxEQnTt6Ja+
+ D09KYmasFVtiNhioGCqrGiaM+VD3wx6ibQeDFLpivj5icaMFf+xa1utj4m9kt33vjdACcmQDZao
+ rsCQaU9a3H8us+CV7Hg==
+X-Authority-Analysis: v=2.4 cv=SKZykuvH c=1 sm=1 tr=0 ts=6a6cd39a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=6WajdqW1cDUHmqu6UyEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEyOSBTYWx0ZWRfX+wxic4hFXXkW
+ 5WgD+PAb/DrevEWzqdvOE3ci6p5oZb6o9BxpxZlhm08TXSrWvdUMBPLwnUfo9q34+Xj/Yhdrau/
+ BB3XXKQxq2Hq58EEgw/MrmBVz7+eCJM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
+ adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310129
 
+On 7/31/26 6:46 PM, David Heidelberg wrote:
+> 
+> On 31/07/2026 17:41, Konrad Dybcio wrote:
+>> On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
+>>> From: David Heidelberg <david@ixit.cz>
 
-On 31/07/2026 17:41, Konrad Dybcio wrote:
-> On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
+[...]
+
+>>> +        /*
+>>> +         * TODO: This node represent bus supply to the cam i2c module.
+>>> +         * Others DT do in similar fashion, but should be addressed
+>>> +         * by the bus-supply in the future
+>>> +         */
 >>
->> Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
->> actuator node.
->>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
+>> I can't quite parse the second sentence..
 > 
-> [...]
-> 
->> +	/* SGM2036-2.8YUDH4G/TR */
->> +	cam_bus_2p8: regulator-cam-bus-2p8 {
->> +		compatible = "regulator-fixed";
->> +
->> +		regulator-name = "cam_bus_2p8";
->> +		regulator-min-microvolt = <2800000>;
->> +		regulator-max-microvolt = <2800000>;
->> +		regulator-enable-ramp-delay = <100>;
->> +
->> +		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
->> +		enable-active-high;
->> +
->> +		pinctrl-0 = <&cam_bus_avdd_default_state>;
->> +		pinctrl-1 = <&cam_bus_avdd_sleep_state>;
->> +		pinctrl-names = "default", "sleep";
->> +
->> +		vin-supply = <&vreg_bob>;
->> +
->> +		/*
->> +		 * TODO: This node represent bus supply to the cam i2c module.
->> +		 * Others DT do in similar fashion, but should be addressed
->> +		 * by the bus-supply in the future
->> +		 */
-> 
-> I can't quite parse the second sentence..
+> I'll rephrase, I noticed that other device-trees where there is also i2c level-shifter also introduce always-on regulator. I let clanker check impact on power consumption, it's likely irrelevant, but in the future would be nice to have proper bus-supply property in use instead of always-on.
 
-I'll rephrase, I noticed that other device-trees where there is also i2c 
-level-shifter also introduce always-on regulator. I let clanker check impact on 
-power consumption, it's likely irrelevant, but in the future would be nice to 
-have proper bus-supply property in use instead of always-on.
+Aaah level shifters.. got it
 
-> 
-> [...]
-> 
->> +&cci_i2c0 {
->> +	rear_camera_actuator: actuator@c {
->> +		compatible = "dongwoon,dw9714v", "dongwoon,dw9714a", "dongwoon,dw9714";
-> 
-> 1 a line would be neater
-> 
-> [...]
-> 
->> +	cam_bus_avdd_default_state: cam-bus-avdd-default-state {
->> +		pins = "gpio8";
->> +		function = "gpio";
->> +		bias-disable;
->> +		drive-strength = <2>;
-> 
-> Other nodes have drive-strength first, then bias
-> 
->> +	};
->> +
->> +	cam_bus_avdd_sleep_state: cam-bus-avdd-sleep-state {
->> +		pins = "gpio8";
->> +		function = "gpio";
->> +		bias-disable;
->> +		drive-strength = <2>;
->> +		output-low;
-> 
-> Drop output-low, the regulator driver will set that
-
-Sure, all noted and next version will include these changes.>
-> Konrad
-
--- 
-David Heidelberg
-
+Konrad
