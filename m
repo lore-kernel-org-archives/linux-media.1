@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D92DC32C;
-	Fri, 31 Jul 2026 13:39:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EAF3A168C;
+	Fri, 31 Jul 2026 14:01:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785505201; cv=none; b=ON05Zc44+fXt+BoL//vjR+BcQdv+pNSZlsJy+ZTTqPHgKpzGh/QYi52t/GxJEoJMY6LEKlyWqUD9cE07Gfu2YsPcPN4Teb3AU66MlCStQvoACz4GF+cwVURBQZgXdSMz0Nn1ij/oUC84Eydsf0I/I1lwtwa0hqM+2J1LtUQ9We0=
+	t=1785506492; cv=none; b=Htdr0cOkZ+0bE7wnCbqY3CkAFcEQJ5fTSUuXta7cpWlra2M9rIGKdqnGP4WjhlF/HfVIGYEtFtOAQ4AF2BpjXFm6BUYksDPkiUfBLc3mGig21dUvGs79erDZ4BFeKVSQadOLEnUN/JQydKDz3d0k3kpNq80gLDPzpSZvAEAjlPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785505201; c=relaxed/simple;
-	bh=kF5eobvMMIr1uQGSeGooDYUoyGsCtaEwZYm5hxXfR7s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QPompDr4zdcrwFKdY72cStD25Mny245mUreaxw0k1X5xBKGV2leJBo47TbWk/LPcqZv/8Apuy+YCOs+8QsZa9rsRjlKpunqLbmWK1YH+e3dxTW7sc1SYcZJfSTyqLZNMfaBGZsoJWRNSaNZgKzsrkfu9btyRM+aRZfopLj4WMBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2VkTPIg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785506492; c=relaxed/simple;
+	bh=Vn48FDpUIgwcXBdLWNEYJHU1lPBsWdJyjygHLQq3KUE=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=s4xRp6DUODEtJzULJiE8iSeSif3BtnBKe885qUonwul+5j7ZFt7CESvVMVdalFMg4vvdO9r5E+UPLZgaAtnNLsFq6dmT5qLGuh7Y2h1DK4pgEP9t6/usA4jS5iCJ829tO4oIUVsN8L3IBOw3M8AqUKkaIfWTgccN2I51W3BDkMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E64Fex+S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2VkTPIg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23521F000E9;
-	Fri, 31 Jul 2026 13:39:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E64Fex+S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4440C1F000E9;
+	Fri, 31 Jul 2026 14:01:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785505199;
-	bh=71GsCQtibyr0EC95XRW46BEuwQ9xc1aBpYh6h+8L0K4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M2VkTPIgDxUI/vUy9WfjSmZXfoCjVwscvX7fXo3ceVAe3ffW/C41n+gKmM1kTpVEL
-	 KfCRvhTEz7fJ/Y7Mnk1v6IRAupqpWJntqyxCKMdXaMfncCDCi7sIH2TRwFHgJTZHTh
-	 EinV2XWLYUQLCfZ1SPLeeYEbJw9P/UHYiLKqcmp8MA4f8ugy8FFlWA6X/rD8fyEKX2
-	 wxG93Gq1Xr1S1TLIV0H9s/AlOsHLSAEh/j+8OuY38jxZ76rZrRaGqxeBh+H+szAyEi
-	 y0EsdnRcr5dFkeTpQxyqGVsfJFs+r5pUe9SrsxFr7qXEe7FDv4/ke21YT0TUw5YkzT
-	 63BvEfqmK6pCA==
-Message-ID: <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
-Date: Fri, 31 Jul 2026 14:39:54 +0100
+	s=k20260515; t=1785506490;
+	bh=R7Jr5VQjLr7EGeIVOrImuJiS3Zl7uoC74z7poslGHw4=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=E64Fex+Srrrwf9NrWgGi/1yDwr4gGT/wxsutGFH9NV2uiRq6cHVi29nd0eUGc17Fm
+	 k50ItJ9k9i600fz2mQ9rQim/ftqbnq05jwS4hw80Q3+/J8NQ1DdHT4d4QMuoYqgAW4
+	 lfBRNwLkqSWCLz/fmSvuY44jpjhCqBIF0G4JzA2cEFPcrzed81omeNg/Pbg1q9y6x7
+	 HEEi/QLGwJ2Z3DEa31D+cVQEFHIhxNWjAK3kNdRI5sCL/CP+4O9hyTh7EF2chq4aeR
+	 09H36+cj5G2J5krqlqSSUbSQEkO5+ieRE8GOjoMm7YpLaBBR6T/cvluvaICo4qFny8
+	 QV6sHRPZQYeUQ==
+Message-ID: <5987b024-9595-4632-9cb0-6d696520e949@kernel.org>
+Date: Fri, 31 Jul 2026 15:01:26 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,6 +37,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 1/3] dt-bindings: media: qcom,qcm2290-venus: document
  shikra Iris compatible
+From: Bryan O'Donoghue <bod@kernel.org>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -51,7 +52,7 @@ Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
 References: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
  <mFvFwhQszGFrmshFXIYuZ91Cp8BgbKaIBxeQtsJD1IOsPNjLaXD8DwNsshTiIbtUFQo_rCFFyu497tLirPBJvQ==@protonmail.internalid>
  <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
+ <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
  xsFNBGRJNSgBEADD7Vm2ZFa+v+JGJ2QYTJqQAkqis/uOHkhdFNXqpBarVBd47QU/DMNU5Rxg
@@ -96,55 +97,78 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
+In-Reply-To: <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 21/07/2026 18:32, Vikash Garodia wrote:
-> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> index 59a3fde846d2196ab1e4588eb396012ba6860712..0be2f9119e78233928d23af86836ac294aa769ee 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
-> @@ -37,7 +37,10 @@ properties:
->       maxItems: 20
+On 31/07/2026 14:39, Bryan O'Donoghue wrote:
+> On 21/07/2026 18:32, Vikash Garodia wrote:
+>> diff --git a/Documentation/devicetree/bindings/media/qcom,venus- 
+>> common.yaml b/Documentation/devicetree/bindings/media/qcom,venus- 
+>> common.yaml
+>> index 
+>> 59a3fde846d2196ab1e4588eb396012ba6860712..0be2f9119e78233928d23af86836ac294aa769ee 100644
+>> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+>> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+>> @@ -37,7 +37,10 @@ properties:
+>>       maxItems: 20
+>>
+>>     memory-region:
+>> -    maxItems: 1
+>> +    minItems: 1
+>> +    items:
+>> +      - description: Firmware-loaded codec carveout
+>> +      - description: IOMMU IOVA reservation region
 > 
->     memory-region:
-> -    maxItems: 1
-> +    minItems: 1
-> +    items:
-> +      - description: Firmware-loaded codec carveout
-> +      - description: IOMMU IOVA reservation region
+> So we discussed separately the pixel and non-pixel sub-nodes as well as 
+> this basically alternate means of memory delination.
+> 
+> What I'd like is a clear statement
+> 
+> - Committing to this scheme for existing platforms
+> - Adding the pixel and sub-pixel to the shared
+> - Backporting at least one method to -stable
+> 
+> For that reason this extension should at a minimum be its own commit 
+> with a well articulated commit log.
+> 
+> Since this is minItems: 1 it is conceviable to land both this and the 
+> sub-node into the same file.
+> 
+> But my continued feedback and objection is not being clear about what's 
+> being done and having two separate methods without a clear roadmap.
+> 
+> You have your sub-node RFC and this change - I won't say sneaking in 
+> here but, its a surreptitious change as given as-is.
+> 
+> - Which method
+> - Both ? Then what goes to -stable
+> 
+> We also discussed offline the fact that right-now the lack of a means of 
+> addressing this in upstream means we are in effect leaving a known 
+> critical bug open to the vagaries of IOVA allocation @ runtime across 
+> every single venus and iris there is.
+> 
+> So to me minItems: 1 for -stable _in_this_kernel_cycle_ is warranted.
+> 
+> ---
+> bod
 
-So we discussed separately the pixel and non-pixel sub-nodes as well as 
-this basically alternate means of memory delination.
+Just thinking about our conversation on this topic..
 
-What I'd like is a clear statement
+Truth be told, I don't think any new features should be merged to venus 
+or iris until this gets a resolution applicable to -stable. Its just not 
+kosher to pretend everything is fine and keep merging new features with 
+a known critical error festering unaddressed. Fixes: yes, other stuff no.
 
-- Committing to this scheme for existing platforms
-- Adding the pixel and sub-pixel to the shared
-- Backporting at least one method to -stable
+Bug fixes > New features many times over.
 
-For that reason this extension should at a minimum be its own commit 
-with a well articulated commit log.
+This absolutely has to go to the top of the queue, its going on for 
+months unresolved - what use is a new video codec to a user on a system 
+where we can mess up the IOVA/SID mappings and trigger a hard reset ? 
+Its not just that its a bug, its that its a system resetting bug.
 
-Since this is minItems: 1 it is conceviable to land both this and the 
-sub-node into the same file.
-
-But my continued feedback and objection is not being clear about what's 
-being done and having two separate methods without a clear roadmap.
-
-You have your sub-node RFC and this change - I won't say sneaking in 
-here but, its a surreptitious change as given as-is.
-
-- Which method
-- Both ? Then what goes to -stable
-
-We also discussed offline the fact that right-now the lack of a means of 
-addressing this in upstream means we are in effect leaving a known 
-critical bug open to the vagaries of IOVA allocation @ runtime across 
-every single venus and iris there is.
-
-So to me minItems: 1 for -stable _in_this_kernel_cycle_ is warranted.
+I'm going to have to insist.
 
 ---
 bod
