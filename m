@@ -1,431 +1,221 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DDC35C698
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 08:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785486802; cv=none; b=sSiembJCS94a91RdnsH2CxR6Ji2um2aZteOy6aMQXV3puz/AHqEaModq2DTmsXCBOIpQbCZrxS8iLkfJRG8BWxPomFXSVqInuJpCpw2jMS5QW6c/DkOfOjYJFrCscBHd6ZiorkJtXJl+P45xBG7hBdFD0sWv3ZkFNkk1PSxeTKU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785486802; c=relaxed/simple;
-	bh=/tYA+QrS46UfEIrHiWES/hvPt/EwbOUD39aSY8YCipE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AC693E2AA1
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 08:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785487174; cv=pass; b=Sj1u6CwtmBC4vwcaKJxDFW0VIGG5DW7ZLQ30ZAUX+ktpqAk6mOQMRz+zFvpUSsx7PM0qERWVUwNc2l05tvk3fUIZwVR77aPW8HP1Ob4SE9523B9UjrokP3VKkBPnSHE13elI4Y3aodPbL8rvSTMg+wkyusJrjdbKqk1z2yOVZ8Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785487174; c=relaxed/simple;
+	bh=0nzV3Au5hKldE1LyXy81nTzzO98zLS+bllEvCWCXyh0=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KgElBRUCpjHcDEXKDz9uDwB/VBpaGiW+h0wdDRqdZM60dyKNaUtXThY4mFvO3UhoxWIZHwRBnxF8LtlDgEdc+UL8+LDN9TahrrIP6JCST6UMojvkiyEKf2ycZAJzlXBmV33XPRwv1l8rp532EMjg5w4dIHGbCB7rXK2CU3HJpV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=iwrQXToi; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=FFwuWt+G3UKZDsisDQvCcalIDCgu++OC87O7+gIAr1p2b4heQBW0MpzHFkb1dufegVitfR0X7wFHdwZcxkeRiPvZ/b5XaWSlzRBCeB3QSzBCq8+k46YVhWBnYMUTiqd9o8W56fkTJC4nJT+xIDyO7x7i2xxYZ9MabmH/hKxg98w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y0426o5D; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zm+5p/AY; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="iwrQXToi"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c160420289bso97867266b.0
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 01:33:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y0426o5D";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zm+5p/AY"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V8ZifK3675540
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 08:39:28 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0aS3a1IldF5Hbms4X/oaN6dyR7C27AUylN470557Iek=; b=Y0426o5DtAmpV+CI
+	pa9mC3woijvQAOSlCbxssCTGjzH/9SyPVjH1jOdc4ONy7HX2LtjtlCQZV+pBSORq
+	BMyq/waKEb9hCO9u1nC+yzqk5caF6dVBfg39rEORc4E3d2GR1iJnWThRE1Ynue09
+	5ebW5LPfCkp+baXesyO7CTvBAVuI4r+HRlj7S+l8tX42yRy3/qGBaS4hm4xnJapX
+	zj+ZUOXWxFNFl6VWRYa89+uKWtPxfiYch5T65AY3hoQSRou9jxqZBw2oLajdiXPX
+	nSwn4106VfDFAUzryNFM3GOgDiJR12oimHPrSoryWJ3NgQCOkmKERuam0pOUatkh
+	GEvotA==
+Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com [209.85.128.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frrb780e0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 08:39:28 +0000 (GMT)
+Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-81f8ba7885eso23219297b3.2
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 01:39:28 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785487167; cv=none;
+        d=google.com; s=arc-20260327;
+        b=eHbbjAgb9ka9aS9ki7/lWFoveGrM+vl1EUgAQdGbkRwmzdrWcyaXjGIIWrw/hgXfus
+         HweWzNcDtI96EMcYEeHZRenKkgZjy98Spjf1rxigm61hwH6aoPgTP/oWLK+T3iPcuAO1
+         WYVlI/IOhm5RU3F+5SULaB2jBIpiBnDtL7r+lXYJwdGoW2lWRu5n9CZmRdKvtz/Q3cha
+         C5HTR1UU7WDFVwqtUAG62Y20t/qK1B06NI9oaBTAQpxBEVj4ahRW3VRtmVdD3FWTuwvb
+         QODEs3JO49cR2eLsS/vDht+nY0vRL13fUvtDhChXtLahGuAvXyumWELfQ38B3t7ihLNJ
+         ZOqA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=0aS3a1IldF5Hbms4X/oaN6dyR7C27AUylN470557Iek=;
+        fh=WvinkYcfpQ4UKC6jH3A5dxq/rETVQor9Dmbc5JaDvyw=;
+        b=I1yUnimDfcLWV2Wre08/isqIIZmzEdVNy5A2wo6P6UjmZ3OrB8yVakq9NAkj9uZcjG
+         LpznlQNT/wGGohkLzjg7UvjqiXkVIEkf/5yjxRIaIQ0Ykcn6c7KIppaaUViha2WDgVwn
+         gX05UrTv7Y/DMfCcLyYw7QuDk3qD/vKHOv2Ny4l2ro3r4xQCC/bvGVFacdZyYqfsDYBB
+         GX+5vW7F4PP5NJ7zdRxDuRr9x5c0BJz6qRNVYI2rjrdQCkKk15DVW/hsiVb+DH1UecN7
+         iKKORGfSTe3PE1vPOhV/O9CNqCQsie5gpyw8lvfGrjI4BkRprQb+aE6eeR9v4B9CF7Gm
+         1/3A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785486799; x=1786091599; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tkH6MVQpJyvxphiMlxxxWKOg1I8GNIpS9pkd/5hpEqw=;
-        b=iwrQXToivJvEjqaaEtb0yNClNbK4FxvHMvEX607ZzJRKSbltSX//fQ14SIrcEEDOGP
-         zTCE0XXbT40jcBAOmsKGmLMLQTBC9TauHqn8DPrrTlrkzD0GaYIifr6z2bdz7tK8PXz6
-         /PE3Z2U19VfWgED/SPHUI9pY4FpUq2MaEvfVo=
+        d=oss.qualcomm.com; s=google; t=1785487167; x=1786091967; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=0aS3a1IldF5Hbms4X/oaN6dyR7C27AUylN470557Iek=;
+        b=Zm+5p/AY5vlVLVCNQAxGyRVCMoZhwl5WGrfKcHgMxSVizAIeQvdTw0SdY+sT1BX3DW
+         TtiVSC65bwNbUOhY5pFU5acHiH59SZFjnktppBihXP4ok4vH2zcguIJQmqhZO13zgCRl
+         aiAhh/E+Y728/pwAQRloKZKtb44xH7CUw069iNQqGBGtNCK125F6NbVMseKDorteVwd2
+         WpVm7AyhHP29gyLvmbx8rvMuoZlGr4tw56jqW4zLE08uj13f7n5nC16DXZxYhf7AKHd5
+         6SKpueDWvgKzRfP3tAx71AAGS3MqRDOCdXNGapwmIHBKcy8iTifzefRwC4wK9KSZHYoN
+         HigA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785486799; x=1786091599;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=tkH6MVQpJyvxphiMlxxxWKOg1I8GNIpS9pkd/5hpEqw=;
-        b=iSCzrBV7K59B94jHmIlTCsxf7Npt2AG1S2/9hwBb8aAZsCyS0tNYSQUxkf2QzuuojZ
-         CpR117rZYpzAjU3Q7aAJEDiwFWkmwndu41UjnAHpqna5evbhua6NiXjm84r4/jVLrQRT
-         1yUI+wRNELSBESs2wZVWBa03RCME5DUBAKnhIyMa1YzjW2BGOwQZQ98Ah6wm1EUkH4yi
-         Xw24PLoVeHyfFGJoV2jSAZmcfYi17/kiWiUZcrnxUm8VNeZrH5TPHPXnEPXTkuojWWLO
-         xzwbJRZBQAcOld67iynDoO+4DdHv2rPx7eSxjv8mp+3GddB0XFeSVNKzHDqc/6mLj8hN
-         iGFQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoOSNJXkIQ0nXmp45xy8yBujCw8Huy7/+nkVAHCzLQYHJEkH648LNlBQQvWZniTzm+UuaJHZ2E+wGAGCQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIYb5vC3fCIQbJMnI51gwnux1asH0OUyivdZQU5IcIBUTAN9F2
-	dwQ5n55QBwv+10A2SSITb1H3Xj9GMLqBoy8yJXa9qdlfvyWwIFsGVZuTjf4rHZVSrz/5bI6BNjV
-	8NrgPEA==
-X-Gm-Gg: AR+sD12LRaYldevYu7e5E6XIpJUyzNiG/OsEaU1d42FkSRIUaesJX7IG62tvFDSgI6t
-	yxR3EfXekSB7B2D6N0BRxhbHFHmuFwWQlbhyVjmIMPH7k2J+sPgowM4+5lxJ414F8/6IQafggix
-	mHfCXMA6h9JmOZrR0WZP1dWx2vKAdE3Z+WKb9/3PsjasVFqR9jl7MYWJozHqtBWAN81qx5IKTq1
-	IvhBZ5+tfL/4PxtHHe2bQmrAbgfhHSn8rl7fhiau91dWTbJcaoGesdA5YQCyP7bGqcNEl0AxiVy
-	tH9TxMX7iBvgZtcFPfCllKUyFpvVvwJvsTGfyexOu/VMIj+ZEe5dkSL9m5awjp1EIo4iCaZOFoU
-	pDtY8NPtHbQwNsHLprqEeKRw/467j1hZ+nR+SNRyjpg7Gha+ddML9VTYPISpscKiXkKJW21gAqU
-	SDbndkE/Ds6gYoIVagSqDl4w/UEcqu0ItAdLIKIeh4LXvvNa86l1KMa+P/Q0+gLsYUdK42HFwal
-	cO9Z3IgEVo1KIsfUBbyu0O1Ow==
-X-Received: by 2002:a17:907:808:b0:c16:5baa:8059 with SMTP id a640c23a62f3a-c1fd21c3486mr53524566b.39.1785486798766;
-        Fri, 31 Jul 2026 01:33:18 -0700 (PDT)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com. [209.85.218.41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd4534fc4sm60653266b.51.2026.07.31.01.33.17
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 01:33:17 -0700 (PDT)
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c160420289bso97858166b.0
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 01:33:17 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrlZHIAzkLATOPhOvCVz4BH04jRfrLVVhhNWsmEXldJgaLEIePfNQzmNPCbc3X947ZjqSXG/FfG0zOygQ==@vger.kernel.org
-X-Received: by 2002:a17:907:6d2a:b0:c1c:24c9:997a with SMTP id
- a640c23a62f3a-c1fd1eccbccmr53101766b.17.1785486795882; Fri, 31 Jul 2026
- 01:33:15 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1785487167; x=1786091967;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0aS3a1IldF5Hbms4X/oaN6dyR7C27AUylN470557Iek=;
+        b=mXN2/pz8kJEFn+5OV2QsVo/C0SteHlr20nWoIgmsEYCHP4Rs8IwGejeLFEW1Yr8XtE
+         JMEo5b5IFexwySX7pyYdv1TrOlgNi8c4ABAeAgs5R5fcf4uDgv8mcWmKj3YmfhvRx4ab
+         UiNg0IwuU04QXzSlWldR51dFqkImZzG3Ue35lfKbCYCESt43ALpZ/lv3/oKnIFAIXXBE
+         EZ8LAJDvwch+8DZpi5NJiEs9eHg85uflQgwtOfjQ06ObVIKneQ+tr4ZRfLhe5sH7CJCF
+         gzhIOWJ2OJVP5LalgtXg9qUbsn0XxZV7Xflmp2wJ4/XfFlkzkmIW8rHG3SPgeQKtlWAf
+         BGzw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro90Qixs9C3FVKM6gTfEOtdbRtFpmYa36tIioUG2X807ymJhD9chNN68IB/hSwA1NjRn/OEuUR+v8wv6g==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0J2dkYV4KvtxLeRBk7/wxakyYwoGtyNCDtGsPE34vW4dEgLXi
+	Dd/STb2AplYmi9S5VwuYAI7VfsuZU/u9GgghLvj2fTdNc4ttLCFnurr35/JXro8SfsuWz849pPb
+	c0lRIC9mM0ufynRyc5RsRHcTcnZMKiKE9a3x8qDXbe3Z+rD9kNJwufHRmZ3LM+T7vSXjLkMgDUo
+	+dMMiJIovweSieR5oywdMf1/N4upjWKAsJgLCw1w8N
+X-Gm-Gg: AR+sD13nqYKJXfhUxAVof6TUiiSACM3EEKcMdCHRKE29BFFBLl/nYx4bNphUVR64gnG
+	QpnPV/j+TYezmW57krvpdNSGiAZtBrQbteKCE8f7BKqlXz/z8b5+eztHkkqLcMzM+pCQaIhXApF
+	pAflv145qatk0OEuMStVwQIrBGiiMQio3Tc9F3l0NbpbDSufbMYmGkGzaQ
+X-Received: by 2002:a05:690c:7305:b0:81f:650c:98ce with SMTP id 00721157ae682-81fcba86c09mr6967867b3.31.1785487167434;
+        Fri, 31 Jul 2026 01:39:27 -0700 (PDT)
+X-Received: by 2002:a05:690c:7305:b0:81f:650c:98ce with SMTP id
+ 00721157ae682-81fcba86c09mr6967197b3.31.1785487167009; Fri, 31 Jul 2026
+ 01:39:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260725212332.64927-1-jordan.mymail@gmail.com>
-In-Reply-To: <20260725212332.64927-1-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 31 Jul 2026 10:33:02 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com>
-X-Gm-Features: AUfX_myXY1w0fN4-A6e0amZdwzUhdesrR5T_O_PPcKsWH1gC59NVg_8lcl4DAu8
-Message-ID: <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: query pan/tilt position from the device
- on every read
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
+References: <20260702115835.167602-1-sumit.garg@kernel.org>
+ <20260702115835.167602-10-sumit.garg@kernel.org> <alJpc3nFX9D7_8i1@baldur> <CAGptzHP8EQyvx3tn-ZVWZPN6TwFec-ADvAuxEQhwQBE00Sg=Kw@mail.gmail.com>
+In-Reply-To: <CAGptzHP8EQyvx3tn-ZVWZPN6TwFec-ADvAuxEQhwQBE00Sg=Kw@mail.gmail.com>
+From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+Date: Fri, 31 Jul 2026 14:09:16 +0530
+X-Gm-Features: AUfX_myayjkpJROHbmEgd6_YM-8VOlEVu55qy_zXpmBuYnmJ9VMnESXGGquBttM
+Message-ID: <CAGptzHORxaftDtf9K5pCLORK0kpdfP4RGRSE9iNkm0Bf+ZqmGA@mail.gmail.com>
+Subject: Re: [PATCH v9 09/14] media: qcom: Switch to generic PAS TZ APIs
+To: bod@kernel.org, mchehab@kernel.org
+Cc: Bjorn Andersson <andersson@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        konradybcio@kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+        netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        robin.clark@oss.qualcomm.com, sean@poorly.run,
+        akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+        jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+        airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+        elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+        edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+        jjohnson@kernel.org, mathieu.poirier@linaro.org,
+        trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+        pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+        tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+        srinivas.kandagatla@oss.qualcomm.com,
+        amirreza.zarrabi@oss.qualcomm.com, jenswi@kernel.org,
+        op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+        skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=I7hVgtgg c=1 sm=1 tr=0 ts=6a6c5f40 cx=c_pps
+ a=NMvoxGxYzVyQPkMeJjVPKg==:117 a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=SwCItUvQPH3YegUC7JoA:9 a=QEXdDO2ut3YA:10 a=kLokIza1BN8a-hAJ3hfR:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA2MSBTYWx0ZWRfX2ReAhhRStk3j
+ TJ+4w4Y4rfppyWqDw1LmocEcbMWC7bsAPo/BeFTj0ZSC5KYac2XgY6C0C2RTZYBZLymQT/tYBBJ
+ 1YwmSn90Q0OaEpPtrYDV6bF20Hc5X4zzguMCkjnpL8UcM3SBNQWtErWZbSO1t5+kHGtJf4o+H2U
+ OtpMMv9a8eBladygV9UGJTontIqjNPZgYzYe4Hch6wGH96MRRo0+cUwZ2+wmdTZCfmU9axSLwUi
+ I3k917AGERbsqHLhCqo5NFepXcUMkTuYQFKlHZldI6UeqslOOIoabiL/d30WkQhpo2fyo0C9kgv
+ CmgSywTFV2Hr1u1LgCMJmn6wzNlrDbnLtcGxc7gXPfUJk/kiXG0BT8SG/m9AIyPYREsP2nC8EME
+ VxKjbyoPtlNFGmNLRI2l70EFpi8Klh6IX+pkS6v4eXpOSgyu2CSbZD92xD0ZQNde7gUoU/UXr5a
+ iTK9OE99wNyLoUYSQ6Q==
+X-Proofpoint-GUID: vqdW_20KoL1ZfKEEN5MC8HZ11-QUij8r
+X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA2MSBTYWx0ZWRfX/VuX5MHB4mTw
+ ZYrQLPCnSxwXxgsTCmKAqpbDoT+qire6ydCDLgR9Fo1LGediO+NeDrecdlH/1JMf0GP0voSJPcm
+ FNujwb+qcCEIVjoteHfiBpiGJnDB8hw=
+X-Proofpoint-ORIG-GUID: vqdW_20KoL1ZfKEEN5MC8HZ11-QUij8r
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-07-31_03,2026-07-30_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 spamscore=0 impostorscore=0 phishscore=0
+ malwarescore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2607310061
 
-Dear Michael Jordan
-
-(I always wanted to start an email like that :P)
-
-Thanks for your patch
-
-On Sat, 25 Jul 2026 at 23:23, Michael Jordan <jordan.mymail@gmail.com> wrote:
+On Tue, Jul 21, 2026 at 3:53=E2=80=AFPM Sumit Garg <sumit.garg@oss.qualcomm=
+.com> wrote:
 >
-> CT_PANTILT_ABSOLUTE_CONTROL reports the position of a mechanical actuator.
-> On a motorised PTZ camera that position keeps changing for as long as the
-> movement takes -- seconds -- and it can change with no host involvement at
-> all when the camera repositions itself. The driver caches the value and
-> serves VIDIOC_G_CTRL from that cache, so userspace cannot observe the
-> movement.
-
-I am not against the idea proposed by this patch, but I would like to
-understand your use case a bit better. Do you want to know where the
-camera is because:
-- You want to do something continuously with that info (e.g., tagging
-frames with the live position)?
-- Or because you just want to know when the camera has actually finished moving?
-
-If it is the latter, you could use V4L2 control events. That should
-work perfectly for signalling the end of a move:
-https://www.kernel.org/doc/html/v4.9/media/kapi/v4l2-event.html
-
-You also mentioned that the camera can reposition itself. Do you mean
-that the camera could be tracking something and decide to move on its
-own?
-We do not currently support that well, but we should. The problem is
-that autonomous movement actually breaks the separate-buffer logic
-proposed in your patch.
-
-Let's think of a camera with PAN and TILT:
-- We set PAN and TILT to (100, 100). (And UVC_CTRL_DATA_CURRENT is set
-to those values).
-- The camera arrives at (100, 100).
-- The camera moves on its own to (200, 200) to track a subject.
-- You want to change the TILT and only the TILT, so you send a command
-to set it to 300.
-- Because your patch uses UVC_CTRL_DATA_CURRENT for the
-read-modify-write path, the control will send (100, 300). That will
-unintentionally move both axes, yanking the PAN back to 100 and
-fighting the camera's autonomous tracking.
-
-What I think we should do instead is manage the cache validity based
-on who "owns" the control. For ASYNCHRONOUS controls that have an
-active handle (i.e., a user-commanded move that has not completed), we
-mark them as "loaded". But when they are owned/updated by the device
-autonomously, we never mark them as loaded.
-
-This specific logic still doesn't support polling the live mid-flight
-position of a user-commanded move, but maybe V4L2 events can cover
-your actual use case?
-
-Let me know what you think.
-
-Here is some horrible pseudo-code for inspiration, which has not been
-tested and does not even compile, just to hopefully explain better
-what I meant in the text.
-
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 3ca108b83f1d..9ba16fc506ef 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -1494,7 +1494,8 @@ static int __uvc_ctrl_load_cur(struct
-uvc_video_chain *chain,
-        if (ret < 0)
-                return ret;
-
--       ctrl->loaded = 1;
-+       if (!FLAG_AUTO_UPDATE)
-+               ctrl->loaded = 1;
-
-        return ret;
- }
-@@ -2427,7 +2428,8 @@ static int uvc_ctrl_commit_entity(struct uvc_device *dev,
-                 * explicitly set by the user.
-                 */
-                if (ctrl->info.flags & UVC_CTRL_FLAG_AUTO_UPDATE ||
--                   !(ctrl->info.flags & UVC_CTRL_FLAG_GET_CUR))
-+                   !(ctrl->info.flags & UVC_CTRL_FLAG_GET_CUR) &&
-+                   phandle_not_set) // data is_not_flying
-                        ctrl->loaded = 0;
-
-                if (!ctrl->dirty)
-
-
+> Hi Bryan, Mauro,
 >
-> The cache is invalidated in only two places: uvc_ctrl_commit_entity(),
-> which clears it for auto-update controls when the driver commits a
-> SET_CUR, and uvc_ctrl_status_event(), on receipt of a Control Change
-> interrupt. Neither covers a move that is under way. The first G_CTRL after
-> a write does reach the device, but it then sets ctrl->loaded and every
-> subsequent read returns that one sample unchanged until the move ends.
-> An application polling the position sees a single value frozen for the
-> duration of the movement.
+> On Sat, Jul 11, 2026 at 9:36=E2=80=AFPM Bjorn Andersson <andersson@kernel=
+.org> wrote:
+> >
+> > On Thu, Jul 02, 2026 at 05:28:25PM +0530, Sumit Garg wrote:
+> > > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > >
+> > > Switch qcom media client drivers over to generic PAS TZ APIs. Generic=
+ PAS
+> > > TZ service allows to support multiple TZ implementation backends like=
+ QTEE
+> > > based SCM PAS service, OP-TEE based PAS service and any further futur=
+e TZ
+> > > backend service.
+> > >
+> >
+> > Please find an immutable branch with the dependencies for this patch at=
+:
+> >   https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git 202607=
+02115835.167602-2-sumit.garg@kernel.org
+> >
+> > Alternatively, if you think there will be no conflicting patches in the
+> > time leading up to next merge window provide an Ack and I can pick this
+> > through the qcom tree.
 >
-> The Control Change interrupt does not fill the gap, because the mechanism
-> is event-shaped and the quantity is continuous. UVC 1.5 section 4.2.2.1.15
-> states that a SET_CUR to the Relative control "shall result in a Control
-> Change interrupt for the Absolute Control at the end of the movement".
-> Nothing is defined for the interval in between, and no reasonable firmware
-> would emit interrupts at frame rate for the length of a pan sweep. A fully
-> compliant device therefore leaves the cached value stale for the whole of
-> every move; this is a property of the control, not of any one vendor.
+> Just a gentle reminder for this patch to be picked up as only the Qcom
+> media client is left in the next branch for migration to the generic
+> PAS layer.
 >
-> Add UVC_CTRL_FLAG_VOLATILE for controls whose value varies on its own, set
-> it on CT_PANTILT_ABSOLUTE_CONTROL, and query the device on every read of
-> such a control.
->
-> The live value is kept in a buffer of its own rather than in
-> UVC_CTRL_DATA_CURRENT, which continues to hold the value last commanded by
-> the host. That distinction matters because a single UVC control carries
-> both axes: the pan and tilt V4L2 controls map to 32-bit fields of one
-> 8-byte control, so uvc_ctrl_set() performs a read-modify-write to preserve
-> the axis the caller is not writing. Were that path given a live reading, a
-> tilt write issued a few milliseconds after a pan command would rewrite pan
-> with the position the actuator had not yet left, cancelling the move in
-> progress. Keeping the buffers separate leaves the write path untouched.
->
-> Values staged by uvc_ctrl_set() but not yet committed take precedence over
-> a live read, so that reading a control back inside an uncommitted
-> transaction returns what the caller wrote.
->
-> Report V4L2_CTRL_FLAG_VOLATILE for such controls, so applications know the
-> value must not be cached and that the value read back need not match the
-> value last written. Since writes to a volatile control are documented to be
-> ignored unless V4L2_CTRL_FLAG_EXECUTE_ON_WRITE is also reported, and the
-> driver propagates every write of a writable control to the device, report
-> that flag alongside it when the control supports SET_CUR. This is the same
-> pairing the control framework uses for a manual gain control while autogain
-> is active.
->
-> Measured on an OBSBOT Tiny 2 (3564:fef8) with this patch applied, polling
-> VIDIOC_G_CTRL on V4L2_CID_PAN_ABSOLUTE while a 0 to 90 degree pan was in
-> flight (values in arc seconds, as reported):
->
->   t+109ms    pan=0
->   t+284ms    pan=18000
->   t+459ms    pan=61200
->   t+811ms    pan=129600
->   t+1161ms   pan=198000
->   t+1513ms   pan=280800
->   t+1690ms   pan=324000   (physical arrival, steady thereafter)
->
-> Without the patch the same loop returns one unchanging value for the whole
-> sweep. A raw libusb GET_CUR trace taken with the driver detached shows the
-> same progression, confirming the driver now reports what the device was
-> always able to tell it.
->
-> The read-modify-write hazard described above was tested explicitly:
-> S_CTRL(pan=90 degrees) and S_CTRL(tilt=20 degrees) issued as separate
-> ioctls 18ms apart, with pan still reading 0 when the tilt write was
-> submitted, leaves both axes at their commanded targets (pan=324000,
-> tilt=72000). The pan movement is not cancelled.
->
-> The cost is one control transfer per read of an affected control. Polling
-> the control at 5 Hz concurrently with an active 30 fps capture on this
-> device showed no frame loss and no change in frame rate. On a device that
-> merely echoes back the last setpoint the extra transfer buys nothing, which
-> is why the flag is set on pan/tilt alone. Zoom, focus, roll and iris
-> absolute share the same character and may warrant the same treatment, but
-> are left alone here as they have not been tested.
->
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
-> ---
->
-> Notes:
->     Notes for reviewers; not intended for the commit log.
->
->     - UVC_CTRL_FLAG_VOLATILE is defined in include/uapi/linux/uvcvideo.h beside
->       the other UVC_CTRL_FLAG_* values, even though struct
->       uvc_xu_control_mapping has no flags member and userspace therefore cannot
->       set it. Keeping the whole flag namespace in one header seemed safer than
->       splitting it, since a later addition of bit 9 on the uapi side would
->       otherwise collide silently with a driver-private definition. I am happy
->       to move it to drivers/media/usb/uvc/uvcvideo.h if you would rather uapi
->       did not grow for a bit userspace cannot use.
->
->     - uvc_mapping_get_xctrl_compound() still reads UVC_CTRL_DATA_CURRENT and is
->       deliberately left alone. No compound control is flagged volatile, so
->       there is no bug today, but that is the second place this would need
->       wiring if the flag is ever applied to one.
->
->     - Only CT_PANTILT_ABSOLUTE_CONTROL is flagged here. Zoom, focus, roll and
->       iris absolute share the same character, a mechanical actuator whose
->       position lags its setpoint, and focus absolute under continuous autofocus
->       is arguably the more widespread case. I have not flagged them because
->       pan/tilt is what I can exercise on the hardware I have, and widening this
->       adds a control transfer per read across a great many devices. Glad to
->       extend it if you think the argument carries.
->
->     - Reading pan and tilt in one G_EXT_CTRLS call now issues one GET_CUR per
->       mapping, so the two values can come from instants roughly a millisecond
->       apart, where previously both decoded from a single cached sample. The
->       skew seemed inherent to polling a moving actuator and not worth a
->       per-ioctl generation scheme to share the transfer; flagging it in case
->       you weigh that differently.
->
->     - Testing: built and run on v7.2-rc4 (mainline); the posted patch is
->       rebased onto media.git next and compile-tested there. Hardware is an
->       OBSBOT Tiny 2 (3564:fef8). Verified that a live read tracks a physical
->       slew; that two single-axis writes issued ~20ms apart both reach their
->       targets, which is the read-modify-write regression the separate buffer
->       exists to avoid; that pan/tilt report V4L2_CTRL_FLAG_VOLATILE and
->       V4L2_CTRL_FLAG_EXECUTE_ON_WRITE while zoom reports neither; and that
->       polling position at 5 Hz during an active 30 fps capture costs no
->       frames. v4l2-compliance results are identical with and without the patch
->       on this device (45/47, the two failures being the camera reporting a
->       Power Line Frequency default outside its own min/max, present in both
->       runs). Also checked an integrated UVC 1.00 webcam (1bcf:28cc) with no
->       pan/tilt, to confirm ordinary devices are unaffected.
->
->  drivers/media/usb/uvc/uvc_ctrl.c | 57 +++++++++++++++++++++++++++++---
->  include/uapi/linux/uvcvideo.h    |  2 ++
->  2 files changed, 55 insertions(+), 4 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83..c6e0c9958 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -30,7 +30,8 @@
->  #define UVC_CTRL_DATA_MAX      3
->  #define UVC_CTRL_DATA_RES      4
->  #define UVC_CTRL_DATA_DEF      5
-> -#define UVC_CTRL_DATA_LAST     6
-> +#define UVC_CTRL_DATA_LIVE     6
-> +#define UVC_CTRL_DATA_LAST     7
->
->  /* ------------------------------------------------------------------------
->   * Controls
-> @@ -302,7 +303,8 @@ static const struct uvc_control_info uvc_ctrls[] = {
->                 .flags          = UVC_CTRL_FLAG_SET_CUR
->                                 | UVC_CTRL_FLAG_GET_RANGE
->                                 | UVC_CTRL_FLAG_RESTORE
-> -                               | UVC_CTRL_FLAG_AUTO_UPDATE,
-> +                               | UVC_CTRL_FLAG_AUTO_UPDATE
-> +                               | UVC_CTRL_FLAG_VOLATILE,
->         },
->         {
->                 .entity         = UVC_GUID_UVC_CAMERA,
-> @@ -1499,22 +1501,58 @@ static int __uvc_ctrl_load_cur(struct uvc_video_chain *chain,
->         return ret;
->  }
->
-> +/*
-> + * Query the device for the current value of a volatile control, storing it in
-> + * a buffer of its own. UVC_CTRL_DATA_CURRENT is deliberately left alone: it
-> + * holds the value last commanded by the host, which is what the
-> + * read-modify-write path in uvc_ctrl_set() must use to preserve the fields of
-> + * a multi-field control that the caller is not writing.
-> + */
-> +static int __uvc_ctrl_load_live(struct uvc_video_chain *chain,
-> +                               struct uvc_control *ctrl)
-> +{
-> +       u8 *data = uvc_ctrl_data(ctrl, UVC_CTRL_DATA_LIVE);
-> +
-> +       if (ctrl->entity->get_cur)
-> +               return ctrl->entity->get_cur(chain->dev, ctrl->entity,
-> +                                            ctrl->info.selector, data,
-> +                                            ctrl->info.size);
-> +
-> +       return uvc_query_ctrl(chain->dev, UVC_GET_CUR, ctrl->entity->id,
-> +                             chain->dev->intfnum, ctrl->info.selector, data,
-> +                             ctrl->info.size);
-> +}
-> +
->  static int __uvc_ctrl_get(struct uvc_video_chain *chain,
->                           struct uvc_control *ctrl,
->                           struct uvc_control_mapping *mapping,
->                           s32 *value)
->  {
-> +       int id = UVC_CTRL_DATA_CURRENT;
->         int ret;
->
->         if ((ctrl->info.flags & UVC_CTRL_FLAG_GET_CUR) == 0)
->                 return -EACCES;
->
-> -       ret = __uvc_ctrl_load_cur(chain, ctrl);
-> +       /*
-> +        * A volatile control tracks a quantity that varies without host
-> +        * intervention, so the cache cannot be trusted and the device is
-> +        * queried on every read. Values staged by uvc_ctrl_set() but not yet
-> +        * committed take precedence, so that reading back a control inside an
-> +        * uncommitted transaction returns what the caller just wrote.
-> +        */
-> +       if ((ctrl->info.flags & UVC_CTRL_FLAG_VOLATILE) && !ctrl->dirty) {
-> +               ret = __uvc_ctrl_load_live(chain, ctrl);
-> +               id = UVC_CTRL_DATA_LIVE;
-> +       } else {
-> +               ret = __uvc_ctrl_load_cur(chain, ctrl);
-> +       }
-> +
->         if (ret < 0)
->                 return ret;
->
->         *value = uvc_mapping_get_s32(mapping, UVC_GET_CUR,
-> -                                    uvc_ctrl_data(ctrl, UVC_CTRL_DATA_CURRENT));
-> +                                    uvc_ctrl_data(ctrl, id));
->
->         return 0;
->  }
-> @@ -1840,6 +1878,17 @@ static int __uvc_query_v4l2_ctrl(struct uvc_video_chain *chain,
->         if ((ctrl->info.flags & UVC_CTRL_FLAG_GET_MAX) &&
->             (ctrl->info.flags & UVC_CTRL_FLAG_GET_MIN))
->                 v4l2_ctrl->flags |= V4L2_CTRL_FLAG_HAS_WHICH_MIN_MAX;
-> +       if (ctrl->info.flags & UVC_CTRL_FLAG_VOLATILE) {
-> +               v4l2_ctrl->flags |= V4L2_CTRL_FLAG_VOLATILE;
-> +               /*
-> +                * Writes to a volatile control are documented to be ignored
-> +                * unless EXECUTE_ON_WRITE is also reported. The driver
-> +                * propagates every write of a writable control to the device,
-> +                * so report the flag accordingly.
-> +                */
-> +               if (ctrl->info.flags & UVC_CTRL_FLAG_SET_CUR)
-> +                       v4l2_ctrl->flags |= V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
-> +       }
->
->         if (mapping->master_id)
->                 __uvc_find_control(ctrl->entity, mapping->master_id,
-> diff --git a/include/uapi/linux/uvcvideo.h b/include/uapi/linux/uvcvideo.h
-> index cbe15bca9..b22fee8af 100644
-> --- a/include/uapi/linux/uvcvideo.h
-> +++ b/include/uapi/linux/uvcvideo.h
-> @@ -31,6 +31,8 @@
->  #define UVC_CTRL_FLAG_AUTO_UPDATE      (1 << 7)
->  /* Control supports asynchronous reporting */
->  #define UVC_CTRL_FLAG_ASYNCHRONOUS     (1 << 8)
-> +/* Control tracks a value that varies on its own; never serve it from cache. */
-> +#define UVC_CTRL_FLAG_VOLATILE         (1 << 9)
->
->  #define UVC_CTRL_FLAG_GET_RANGE \
->         (UVC_CTRL_FLAG_GET_CUR | UVC_CTRL_FLAG_GET_MIN | \
->
-> base-commit: a52e6f7923c17a672135b485ffd96fbd72f46267
-> --
-> 2.43.0
->
+> If there aren't any conflicts then please allow Bjorn to pick this
+> patch since the cleanup patch dropping the old SCM APIs is blocked on
+> this.
 >
 
+Gentle reminder again for ack on this patch. We don't want to keep the
+legacy SCM APIs just for the media subsystem in v7.3 release.
 
--- 
-Ricardo Ribalda
+Can we consider it as a silent ack for Bjorn to pick this patch? This
+patch doesn't make any functional changes but it's just about renaming
+APIs.
+
+-Sumit
+
+>
+> >
+> > Thanks,
+> > Bjorn
+> >
+> > > Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> > > Tested-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com> # Lemans
+> > > Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> > > Signed-off-by: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > > ---
