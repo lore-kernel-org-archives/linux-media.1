@@ -1,117 +1,150 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD4AF246762
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 12:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11D92DC32C;
+	Fri, 31 Jul 2026 13:39:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785502553; cv=none; b=Z7usgYk24xWhmEYRIEpttWEaye7pfC/IS/fcOa2HtH1dUPgnHjXxY66dgir7BJNdYNAUMqxQgtey8W6w6syzQNFp6GREJJTc8NlzRp2buI8Bdthc6FkAGvO7hgkbRlCQ4WiPP19JMG9iT3cF3SwppDQ7e7nPn0wpKD2IStuPE0w=
+	t=1785505201; cv=none; b=ON05Zc44+fXt+BoL//vjR+BcQdv+pNSZlsJy+ZTTqPHgKpzGh/QYi52t/GxJEoJMY6LEKlyWqUD9cE07Gfu2YsPcPN4Teb3AU66MlCStQvoACz4GF+cwVURBQZgXdSMz0Nn1ij/oUC84Eydsf0I/I1lwtwa0hqM+2J1LtUQ9We0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785502553; c=relaxed/simple;
-	bh=Vy/xxsu07a+RzvXUAFm5BKVjHO8gES2Oy+eDy1kDoQg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xcs9STT0mguuMkBbZ5buVVelYwiLvFPeFuU8vUL5rGH2fyLFkogLilbonD3IOr68jbNhfX4DAoUJ8+lgE+HhFrvhWtqeTuxJwXJbI5QNji9HvLTq//RsHhyaa0Uq5p94xOPiumiWWmPIuc9DU5JJgPdRJrv+IkoB8m/eCucxiMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ITfMsx4N; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785505201; c=relaxed/simple;
+	bh=kF5eobvMMIr1uQGSeGooDYUoyGsCtaEwZYm5hxXfR7s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QPompDr4zdcrwFKdY72cStD25Mny245mUreaxw0k1X5xBKGV2leJBo47TbWk/LPcqZv/8Apuy+YCOs+8QsZa9rsRjlKpunqLbmWK1YH+e3dxTW7sc1SYcZJfSTyqLZNMfaBGZsoJWRNSaNZgKzsrkfu9btyRM+aRZfopLj4WMBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M2VkTPIg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ITfMsx4N"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2d004f135b1so9485455ad.3
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 05:55:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785502552; x=1786107352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sj6Ckv5iD9HLK/c7N60xodU3sNZOHZjF0NQQRaKqqos=;
-        b=ITfMsx4Nsdro8HhnleTIALSPViKHIIhRQrPWyHBDznraN3eGf7zIBNoFUy5xlb0STH
-         mn8jnxTnX6yhfqmQaNLfmbxCdbU2dbGyXp0PpBqbmYREKNLVTNO4Tkwrpu8rMm0oobV+
-         FkU7PEPHda7R+J8Ge2S00yYOZAFhiuy7flWWYTcPLFl4FmOMOfse31ZNUJBKZZp8hCoD
-         m+VGzwoHZfeMBpHTXERkHqfTf5MMj4KbrYX0fq7Rmrfbja6RP2jn/h3t9dFCq4yoXQxz
-         ym/bkNMf1MAmCpU1qbJnaNjKBRc7ELGaBbzExJedXmDQITqV+AvVxolvnOnLQvPfPNvO
-         rbNw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785502552; x=1786107352;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=sj6Ckv5iD9HLK/c7N60xodU3sNZOHZjF0NQQRaKqqos=;
-        b=XwTx/3xXNXzEwEmcQ7VVjHrryq/5d0v5bLqlb9w/nUx5LeHiCWlUyGtWdJmWo6HXsM
-         un/LodFWt70UoSD/j0LXkI3+QDcVOElHGuoMP7F7VHYhRinL/2vOfECinkfpa3eHzYXC
-         DmsexU/ONdAFpTmqZrDtDzI47nOoQGPIPgihlvloodU72GXj4fSp+vYKJS8ALmQnIJBI
-         hpiC/tk05YYdvXmqfQRruKNs+I1QSv4O2+0h4sMcKT/9UlAcoVWRhwmb0UV2sMgInZTV
-         dSqv5lp8N8TfCzS8ZJr1r6AjfAXTOBWtZzATjrAJD1dvP7DspQ42FMAQN1Ajg3qmk3BU
-         BSGg==
-X-Gm-Message-State: AOJu0YzQialxQdvDcR0w2n4WouueQyT2Y9v5cEMqu9DEEo/Vy1Yw0Rcg
-	J8ckstSz1fmate1e5ci7Eyz0bGNc66hphED1mQQnWss+znp+RgeBDCKe
-X-Gm-Gg: AR+sD11bZ2f6+tNxcCCF2ULH2Vz6Nm2AgRn7oeAjPNkEkrBrwmf9XQW/wV09S+3yZx+
-	eNnwNEJazfHGKwJGFbBHxTpw37d9pqoQtR/+eabNIeb2nBazcoMVUFWn0qVOjcKkgIp78A/d1Vc
-	GelIofCBgs67MhF8DQivJVPMcIfvtb2qtATtwdpIEZsmbEPpfJJPmSPGoPkUE6H90b4Wr8dU0fy
-	48FFO7k2i9CLt4ye5mpI+sCNwpUFGAmTYBDyBp3TndnqEzY1WPHoqyw72c+LuppeOepMc8xnf2K
-	RWqjrbLG5niS4/DmVxVvJreNNqlkywAh5WDZ+tj5dCwBXnqsCfYA14pVp7up1OfrI/3lgXXgHIb
-	fEG72USx25tL9WzjDMaTvQSI9nNR0bACA5UiTb2BBooDWwzrdae/0lHL0GqJnOu44oIGSoCe+dd
-	pifcEMshFYefF5EhS6g5q/g2qgipaB4+FBcXJAUeZfcZJeye8YdjZnJL+qu3HveL7HBEpQkmqrO
-	lTu
-X-Received: by 2002:a17:903:4b4c:b0:2c9:d88e:f996 with SMTP id d9443c01a7336-2d046d6d47fmr19650765ad.9.1785502551976;
-        Fri, 31 Jul 2026 05:55:51 -0700 (PDT)
-Received: from ahmi-PC.. ([2401:4900:88f4:3366:cce1:8fb:2c26:b414])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153dd4f0f0sm5720699eec.2.2026.07.31.05.55.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 05:55:50 -0700 (PDT)
-From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-To: michael.riesch@collabora.com,
-	sakari.ailus@linux.intel.com,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-Subject: [PATCH] media: i2c: imx415: Fix control error handling
-Date: Fri, 31 Jul 2026 18:25:42 +0530
-Message-ID: <20260731125542.293895-1-ahmisaranrao@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M2VkTPIg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E23521F000E9;
+	Fri, 31 Jul 2026 13:39:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1785505199;
+	bh=71GsCQtibyr0EC95XRW46BEuwQ9xc1aBpYh6h+8L0K4=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=M2VkTPIgDxUI/vUy9WfjSmZXfoCjVwscvX7fXo3ceVAe3ffW/C41n+gKmM1kTpVEL
+	 KfCRvhTEz7fJ/Y7Mnk1v6IRAupqpWJntqyxCKMdXaMfncCDCi7sIH2TRwFHgJTZHTh
+	 EinV2XWLYUQLCfZ1SPLeeYEbJw9P/UHYiLKqcmp8MA4f8ugy8FFlWA6X/rD8fyEKX2
+	 wxG93Gq1Xr1S1TLIV0H9s/AlOsHLSAEh/j+8OuY38jxZ76rZrRaGqxeBh+H+szAyEi
+	 y0EsdnRcr5dFkeTpQxyqGVsfJFs+r5pUe9SrsxFr7qXEe7FDv4/ke21YT0TUw5YkzT
+	 63BvEfqmK6pCA==
+Message-ID: <543f447c-bd6a-41ae-a413-fa2eb74be9a0@kernel.org>
+Date: Fri, 31 Jul 2026 14:39:54 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: media: qcom,qcm2290-venus: document
+ shikra Iris compatible
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+ Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+References: <20260721-shikra_vpu-v4-0-6dc5a8999b73@oss.qualcomm.com>
+ <mFvFwhQszGFrmshFXIYuZ91Cp8BgbKaIBxeQtsJD1IOsPNjLaXD8DwNsshTiIbtUFQo_rCFFyu497tLirPBJvQ==@protonmail.internalid>
+ <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260721-shikra_vpu-v4-1-6dc5a8999b73@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-imx415_set_testpattern() accumulates failures from cci_write(), but drops
-the value and always returns success. Return the accumulated error so V4L2
-reports failures to userspace.
+On 21/07/2026 18:32, Vikash Garodia wrote:
+> diff --git a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> index 59a3fde846d2196ab1e4588eb396012ba6860712..0be2f9119e78233928d23af86836ac294aa769ee 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,venus-common.yaml
+> @@ -37,7 +37,10 @@ properties:
+>       maxItems: 20
+> 
+>     memory-region:
+> -    maxItems: 1
+> +    minItems: 1
+> +    items:
+> +      - description: Firmware-loaded codec carveout
+> +      - description: IOMMU IOVA reservation region
 
-The VBLANK path also returned immediately when programming VMAX failed
-after pm_runtime_get_if_in_use() had taken a runtime PM reference. Break
-out of the switch instead so the common pm_runtime_put() path is used.
+So we discussed separately the pixel and non-pixel sub-nodes as well as 
+this basically alternate means of memory delination.
 
-Fixes: d5df1c7f3f83 ("media: i2c: imx415: Convert to new CCI register access helpers")
-Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
+What I'd like is a clear statement
+
+- Committing to this scheme for existing platforms
+- Adding the pixel and sub-pixel to the shared
+- Backporting at least one method to -stable
+
+For that reason this extension should at a minimum be its own commit 
+with a well articulated commit log.
+
+Since this is minItems: 1 it is conceviable to land both this and the 
+sub-node into the same file.
+
+But my continued feedback and objection is not being clear about what's 
+being done and having two separate methods without a clear roadmap.
+
+You have your sub-node RFC and this change - I won't say sneaking in 
+here but, its a surreptitious change as given as-is.
+
+- Which method
+- Both ? Then what goes to -stable
+
+We also discussed offline the fact that right-now the lack of a means of 
+addressing this in upstream means we are in effect leaving a known 
+critical bug open to the vagaries of IOVA allocation @ runtime across 
+every single venus and iris there is.
+
+So to me minItems: 1 for -stable _in_this_kernel_cycle_ is warranted.
+
 ---
- drivers/media/i2c/imx415.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-index 0b424c17e880..c3b22b238ea0 100644
---- a/drivers/media/i2c/imx415.c
-+++ b/drivers/media/i2c/imx415.c
-@@ -686,7 +686,7 @@ static int imx415_set_testpattern(struct imx415 *sensor, int val)
- 		cci_write(sensor->regmap, IMX415_DIG_CLP_MODE, 0x01, &ret);
- 		cci_write(sensor->regmap, IMX415_WRJ_OPEN, 0x01, &ret);
- 	}
--	return 0;
-+	return ret;
- }
- 
- static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
-@@ -720,7 +720,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = cci_write(sensor->regmap, IMX415_VMAX,
- 				format->height + ctrl->val, NULL);
- 		if (ret)
--			return ret;
-+			break;
- 		/*
- 		 * Exposure is set based on VMAX which has just changed, so
- 		 * program exposure register as well
--- 
-2.43.0
-
+bod
