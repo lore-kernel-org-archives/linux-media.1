@@ -1,164 +1,299 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E23A352015
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785516956; cv=none; b=P9sVkKOgWTS4YDf8ku1lL5dWN+u0i2xIDCQV0PvuiwsBHsZRSPbdzywMeS1iI4pRWaF70iWS2PoGHLKXFYWYyrQ11+Y8iqzWKpFfD02dJ4bpPMdgTkfX7tQlOCwdmHVLRILTS07AMI3piCmzvDDCRh3C1KeQ1xVOXrKmnx9tiOs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785516956; c=relaxed/simple;
-	bh=vNQcuHZwnfBcaqBRKp24fl+ic099dWBRsaw7Ei0waQg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uINtsa8xT+P+9e3HByexfD/lLiQkuXbNJombkPaMYnXrw53pyu0m0qD2Uy+PFME6/fc8Z1lx3iPbrcL+hG7NF8xXdSr9LPVRhTjz/UQwlbBkQaU1YX227EEiqKBORxtD+Wimuf2DLYEQWMJPuvqzoo8G1vg37wWwkL0aF3bAqGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YFdMV4tT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XrAYa2nR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 783573A1D02
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 17:09:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785517786; cv=pass; b=d71OJcn0MdByszfSVTquFneUwRvRl9xun8XglvzYFOT37C0Ah+NbCyNVkpbDWXrpXR7Gxj9ru53NnXYQUKn6wECs7vIIozQHZimoMs2PJjCnKxkNPyeQggPBhTT3V1IdYcTAX3nPU+MgAksEWzDIy/kx/K80qFYj2SnByQXMl5Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785517786; c=relaxed/simple;
+	bh=SGnU8ndmqc2cOQNVQijYcEoZB/mRA29TzSUInrx/7fQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=I9DmU5pQtVBIhWlIXzZ6o/RZGBHgMjh43KM+YWz/HHzTMqLn7JkIPw4Vl6uXAgcRjEosDM9PfylYhDZvOROv5OQq4mkFJuMrjH2rH7OiiW3yP+WoFaxjo/TqfNj0a0+ilhKTvfQGUcxcd6zR9+Loe8Z5LdPNGtAPXdJN/86hvjM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=soKMoDtn; arc=pass smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YFdMV4tT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XrAYa2nR"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66VFONcG205498
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=; b=YFdMV4tTcXF5RLtW
-	wD79XefII6C0bWPZAykN4hpNtvSajCMxrMvzT9OpnB4ruQq/crUuTE4dxpwLNen6
-	FdIjlkNK1Ma8yjAiQ4D/o0PW8JX8b86+Pio1EWa9sD8GNEGjjOjBtuSNxDJlpxU7
-	KEotBtT3ESzEYvPlwRm5c3Ity0MaqOrQFLS6zh0ZOu2wErn0snB+Dik2lGAT4ZWc
-	HzTNojJbi/kquXZ6tiWcLs8J2FaxYFDrL/7MgGoV61rmpFJYMLHavdpLrGmtXcZU
-	vg8I+X3K4JWBXaPOPhegdCq6F1Xl+uEtEAHoPeZGkniLuPBRYn/QC67vZapQmnx1
-	TmaZJw==
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fru5dhdn5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 16:55:54 +0000 (GMT)
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-51c07313be5so1818681cf.2
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 09:55:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="soKMoDtn"
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-698411099d6so377a12.0
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 10:09:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785517782; cv=none;
+        d=google.com; s=arc-20260327;
+        b=l80fJtvSVAgeVbaIORz7+7Txl9Ie+fQetsZyl4+ncQHJB/CXjiPvR2uTfofkxbhoaG
+         vKqH8DVjrvqLiCRSlIdyAa9Ph6HQBQV3sFvy0msn2fNt0YiP54STY5xBp+/zGxTTww7/
+         a33q1WGAy2WYVh+FXv6xOuCgkAtjp53aWQegAnxosPNHT+yuXwTvwkvtOLKMCTQ8Vd8C
+         I3RdPm6uMnxxhd1M+++famrcQFs04Ezw6Hd8B7kX6Zp7+ZdqQl2L0SHEJW+1XQolnfgP
+         WjXWbylrJdGmtkyDirrkQjRRmPVvqvoYoDUlCJYEXY+yYg8tuNve4L6Ao6+lLVTTn6ZB
+         25TA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dAd7HPjjkQI/SIGWOZj/gTVuJd8LLOcZPRtgUcY8yWU=;
+        fh=0/WPFyOjsoDSzfUq1B/WfA38xDqRVFuf2Krvr8REoa0=;
+        b=Dll9MxW5FUI7LnqX3J/Wp6Ry+x2+aB4VdDpFky6XzvGhdCYpWGdIbwTSqI1vmlFq9I
+         6y3QwY+yQMepwoR/XwYo1CVF7Ku4zPRPwjxeoztshN1dhDSjBcqTHtEp1NDWwVqO0blT
+         G/UrKw5dWtBYy+CghEOXgQLrtyP+66SV3j6K7MTr0wM43YoTGYbDPtYCGQ5FaA6+x7d+
+         yNi4KpJYRpa/5bDRyKAd1+GoU4wSbRk4OfNrqV/9txEA7rVqo83jlmgmFMq8ACiTNuKI
+         Fvvhbw4t8nA5wMn1k9pmb9c8fJkNVH2/8reDqEqZkehSHK4suJ1ttJln0Q2Ohtdr36Rt
+         UzzA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785516954; x=1786121754; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=;
-        b=XrAYa2nRZRBX4Iuzc6ZqvJyq/Hne1V0FKcfncJzFIfcu2syAl7Sixxda/1VMF31WE/
-         h+B5GvzkPRjXhn6Xpl9Qhb50oHe49UnQJ8+s4DS7aixdusm2m92rEtAKFXoHWQCHir7z
-         /qDs3X08/eSa3YjFohtKFuVd8exgvGtprsTPrwWbVBGp0rkfUS+bdvi1H4s8HJhY/aI7
-         WxvbZ1JNjbNzzKz3uMNKe2eeUrepPJzHctdHR5RW+04r6H7E9UgQn1DCPTo5dj2uZAFA
-         8r5gprq2ObexvOcJs7S8KhcCnX09XL1lJVov+S0oc4Bd4eg51cQ273qBvxUIx/hJg6p9
-         hR7A==
+        d=google.com; s=20251104; t=1785517782; x=1786122582; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dAd7HPjjkQI/SIGWOZj/gTVuJd8LLOcZPRtgUcY8yWU=;
+        b=soKMoDtnCFJrGNUZq/nMDvyucFeYoEFOYXsYj/g9MEm1aAUuctMKzsDrpxiLwjGRSS
+         OXnxGLASfVuTKYefqPmd1CQxcm4GfehlAnU5yJbeM+Y8SGroHcSWpM2CRYxYVLgMJqWo
+         d/rnTtOLOf3u2BUc4zCpMdd/8avZM78XMrOpt9L8WXKp9Zj8uGHrHthd4K5tA0TAhoGn
+         5dmT/gFvfbzKt9SKOOeIXOPktAEHgQmb67vfXLoB1gJgLX6dit/zucKrVDsxOZFQTapV
+         Sj5ijXoB2ZJCb9VwCP1/iRaRrEAbNL+W866kIgbmVM6bm8tp/BVNP+DtkvGzU2nFr8k9
+         jO/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785516954; x=1786121754;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8/wy2Wv/9rNwpuSJ2n6D4naMTb2qPF9MQec2tA1cdJA=;
-        b=CsUoLOa6xRmiO6o5wvIfy/D5kPpWB/vJsYFNfR2E3Ow5skPqSbKvqryRi5cuitrYBD
-         gsZAVH33LUCDAn+v6heBvsY3UwRzEMFBOE2nRVdudrZU96ebHEFmqF68YjQcfDv1cc3y
-         XfrLbhhH/ZnOtalmBBHJN6TTr1yzAAcxtn8vEQSJeVpfhNJgWUn0m5Yh8N+4c7+6dc6L
-         i2LZ4eDPVroxO0CqNIYaTqR1iw4J7vGMu00mWgw7m2a+uYmVMVyP3Dnb5zb3hZ96PA+A
-         HDq5IpIGJ9PAdT7OeHBdXz1CkunfxiAfEjBxgoYc8OADGOiwFUfHjaYOSnenu/Qfhclv
-         7p7A==
-X-Forwarded-Encrypted: i=1; AHgh+RqU9FR0xvs26yuhm4BpKOdmxLiAOcMlPbHvP/yL5jAMVeph4EngiLSCbGHMx6E60NU0pH1WA5Uh572+qg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwOIwnN2wfE6zUESbpufBswUOJgTIgHoK1b315ET4HiLumQcrbD
-	zuJnTkrNEVYcLdCOpM4p4T0h9+8v8dQHYrCd8VSK1D4CaW7eJ6koU34ve3Gb4CXluAcD1/y4JvG
-	KdLFhF+PUBaIAGckbverEfXPHM3qKU1UnPAWDyr3631gz0eLYqv4u9wwyBifDZtoT3g==
-X-Gm-Gg: AR+sD13Okpv2olvzVyxuhcoH8y2tPkH1oy1pzDuyriDWC41PvU27mH3GV+HEAF82m0m
-	saGXam43+Q45eaGBCqc2Rb9jk8I3x90G1YtCFlh45NYY6eDvyKq6kqBVOUoEOlm8SU9Lgv+Myi8
-	iViezKKkp4OEv30/dSgGJYcBGrqPaVjp09N3YkyU/ywCd/SKtLLgUaAIDmmqAvuFHU1M19XtfDm
-	I7KV1S34XwyELBQD2BcoS10CW+hT8s3b+d1LwWyWWGgjjBNXuE8/grsR3YktP9txz55JlMTGbAO
-	nH65IkSS7Gp4ibKsGQNspcwxDf9HU5vJYZpkjgLl4Rj0R/hHBbop4nmv9huF+sT4+GhA/3X3HSg
-	uDOXqRS2P/e7rFh3tkE/kkmG1
-X-Received: by 2002:a05:622a:791a:20b0:51c:2101:f0 with SMTP id d75a77b69052e-52b566f6530mr10087031cf.2.1785516953766;
-        Fri, 31 Jul 2026 09:55:53 -0700 (PDT)
-X-Received: by 2002:a05:622a:791a:20b0:51c:2101:f0 with SMTP id d75a77b69052e-52b566f6530mr10086751cf.2.1785516953414;
-        Fri, 31 Jul 2026 09:55:53 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c655626sm2944226a12.22.2026.07.31.09.55.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 09:55:52 -0700 (PDT)
-Message-ID: <4f02329f-1c0e-4684-96bf-e71eb5b73cc4@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 18:55:50 +0200
+        d=1e100.net; s=20251104; t=1785517782; x=1786122582;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dAd7HPjjkQI/SIGWOZj/gTVuJd8LLOcZPRtgUcY8yWU=;
+        b=aWOYCx6BGQXjLBOBPHuiTEhgmEtsqw1DQHekCpvQ4g/aqdoSnVNBc9WO4o/foWeRed
+         Fanlejs0kl6n5tz3c8elQlv7tm9oZsXQnFRznTiZfZLAmekSyA24U/mY6Qokog/6hvEM
+         fsCbxnKOBMKBA8+adg8cl1wnsQsucRzWgJ6WBtJzcxvpZDkwr3Sd/RFy+CwhgBsZ/lRj
+         MDzpB4aNXueyKliBl02RwoMbATO27holve7hhWcc59OOfSCogcIhy6GTG07TulgxQVgp
+         gXhaizyqe6w/RYmKms5NS6bom7/tHq47xAjWyce0XdU/Pe0bXXJ6wo8wUTYbkLN2Ns3X
+         ODYQ==
+X-Forwarded-Encrypted: i=1; AHgh+RowQzeS63eFPxI3zCXvBYbcgylkiMA67prbRRds/vQu6u6uSI56XRbqhm5EIXhN0cmxA+cH1xncnxeKOg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YycopS8a+2prL1sf2BczV/QMiu5/C81xojweBgH7trrBsD4pT1G
+	ryNyiJ3A1n5pEwwYor59HSt0TxPlflNYlSNl8XFiu+MATV17eMmetHrsgotqgWLMQLVRwIHs1t3
+	ff+cOGr+25g6jWnO0/OHqnpLp1cY5BrDJ1TGlHiuA8UXheonqC3JUjcvW
+X-Gm-Gg: AR+sD12bMEsTuTquEmUI/se9MEcBh5WV/vHdYxJNGFF+VuQlQlXBTxhBEg+r2C1nfvs
+	OL1DaFtrk52QVTeH4Obbl8NlaEbs/p3plk+IQwfcXhvP8W3ZJ53Ux1zZ+H91Ac1opPpxawwto4w
+	AdgEXZeoMv+WQwBmqlRGjdrTA1/5da5Z5Y3YBwxfNk3lXbdZrFszLvwj6I8I6iqqSSGQwQ1ySzY
+	3MKu7YSvIWDPCCQeJWKkqWjM7/kMCs4M0jLXkDZfX85EgEXjfvUbUNEFUZynsj+b/MGjk45NyT0
+	FQpOAGwNA5O0Bo7M746h4eyI5R0oTF+fMyQJUqGy63eDiSiXy15pXvR9mXtowrimCVVYG3m1+7A
+	=
+X-Received: by 2002:a05:6402:2026:b0:698:59af:fb08 with SMTP id
+ 4fb4d7f45d1cf-6a0a84739a5mr1867a12.4.1785517781953; Fri, 31 Jul 2026 10:09:41
+ -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
- actuator for main rear camera
-To: David Heidelberg <david@ixit.cz>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Alexander Martinz <amartinz@shiftphones.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
- <20260730-dw9714v-v2-2-d5da19e6c60b@ixit.cz>
- <3ac4eb1b-348b-444a-bba0-e4c64d5b57bb@oss.qualcomm.com>
- <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b9afe038-dfa3-4927-adf3-5b99885fb911@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: tdoan3xCcL6Gy2aPaZmNRIIj2AJHunDk
-X-Proofpoint-GUID: tdoan3xCcL6Gy2aPaZmNRIIj2AJHunDk
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDEyOSBTYWx0ZWRfX0gGCRhYOvcGD
- GK/337kiSSdNHTxjQLscU16xHTfrYPdrzvbugMRDx1SaQ45FujFWoAKiN7y1FQO9xnhQUw56iYa
- 2hRElhanplok/czTuRy9/GcINRWa7Riapln7fj+nDlVcmmJc7LGBETNbl9aemk2oH97Ka/4kBKd
- 4m9FMOOoZd7lDSZwdvUV0Bhb2FyVQxT3X4CeXWGIkgs1pbO/+PruUD5nzyAORj2wjwNXqcylSsX
- 9//SgUin/CQ71ipGYwAeNqDhyI9blK0HIQRwgjrF/DJZPBawPI+CQ7aXepRqnKw6ZJg/tOL9XNL
- 0Ndn+D78wGK0vXlVQ99I4mGT0/X8RIa2AHJ8KsFA694tirnkCu7IM3zHHEXOfa0cOxEQnTt6Ja+
- D09KYmasFVtiNhioGCqrGiaM+VD3wx6ibQeDFLpivj5icaMFf+xa1utj4m9kt33vjdACcmQDZao
- rsCQaU9a3H8us+CV7Hg==
-X-Authority-Analysis: v=2.4 cv=SKZykuvH c=1 sm=1 tr=0 ts=6a6cd39a cx=c_pps
- a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=6WajdqW1cDUHmqu6UyEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=a_PwQJl-kcHnX1M80qC6:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDEyOSBTYWx0ZWRfX+wxic4hFXXkW
- 5WgD+PAb/DrevEWzqdvOE3ci6p5oZb6o9BxpxZlhm08TXSrWvdUMBPLwnUfo9q34+Xj/Yhdrau/
- BB3XXKQxq2Hq58EEgw/MrmBVz7+eCJM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_05,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0 malwarescore=0
- adultscore=0 impostorscore=0 spamscore=0 suspectscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310129
+References: <CAO_48GGxJj6AU6vsu-Y18WKtL_9RT=zsXWp3L+ifZdLM7CgGtw@mail.gmail.com>
+ <20260730062645.233148-1-shoubaineng@gmail.com> <20260730062645.233148-5-shoubaineng@gmail.com>
+In-Reply-To: <20260730062645.233148-5-shoubaineng@gmail.com>
+From: "T.J. Mercier" <tjmercier@google.com>
+Date: Fri, 31 Jul 2026 10:09:29 -0700
+X-Gm-Features: AUfX_mx3Qaq7BDuII8fTCRVTL26nO0JrgnBnCyuW4BamF3HcDjaGYhRibygRVek
+Message-ID: <CABdmKX1bd4qsTqM5C+a83TmtgBKJ=nOefuhNr-SnyqAZMsh99w@mail.gmail.com>
+Subject: Re: [PATCH v5 4/4] selftests: dmabuf-heaps: add fd-leak-on-EFAULT
+ regression test
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>, 
+	John Stultz <jstultz@google.com>, Sandeep Patil <sspatil@android.com>, 
+	"Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>, David Airlie <airlied@gmail.com>, 
+	Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 7/31/26 6:46 PM, David Heidelberg wrote:
-> 
-> On 31/07/2026 17:41, Konrad Dybcio wrote:
->> On 7/30/26 12:20 AM, David Heidelberg via B4 Relay wrote:
->>> From: David Heidelberg <david@ixit.cz>
+On Wed, Jul 29, 2026 at 11:27=E2=80=AFPM Baineng Shou <shoubaineng@gmail.co=
+m> wrote:
+>
+> Add a test case that verifies no file descriptor is leaked when
+> DMA_HEAP_IOCTL_ALLOC succeeds internally but copy_to_user() fails
+> to deliver the fd number back to userspace.
+>
+> The failure is triggered by placing the ioctl argument in a private
+> anonymous page and flipping it to PROT_READ (via mprotect) between
+> the kernel's copy_from_user() and copy_to_user() calls.  With the
+> buggy kernel the ioctl returns -EFAULT but leaves an extra open fd
+> in the process's fd table; with the fixed kernel the fd count is
+> unchanged.
+>
+> This serves as a regression test for:
+>   "dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds"
+>
+> Suggested-by: Sumit Semwal <sumit.semwal@linaro.org>
+> Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
+> ---
+>  .../selftests/dmabuf-heaps/dmabuf-heap.c      | 115 +++++++++++++++++-
+>  1 file changed, 114 insertions(+), 1 deletion(-)
+>
+> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/t=
+esting/selftests/dmabuf-heaps/dmabuf-heap.c
+> index fc9694fc4e89..bd58e5b06c8b 100644
+> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
+> @@ -390,6 +390,118 @@ static void test_alloc_errors(char *heap_name)
+>         close(heap_fd);
+>  }
+>
+> +/*
+> + * test_alloc_no_fd_leak_on_efault - verify no fd is leaked when
+> + * copy_to_user() fails during DMA_HEAP_IOCTL_ALLOC.
+> + *
+> + * The bug: dma_buf_fd() called fd_install() before copy_to_user().
+> + * If copy_to_user() then failed (e.g. via mprotect), the fd was
+> + * silently installed in the fd table but never returned to userspace.
+> + *
+> + * The fix: reserve the fd with get_unused_fd_flags() first, attempt
+> + * copy_to_user(), and only call fd_install() on success.
+> + *
+> + * We trigger the failure by placing the ioctl argument in a page,
+> + * flipping it to PROT_READ between copy_from_user and copy_to_user,
+> + * and counting open file descriptors before and after.
+> + */
+> +static void test_alloc_no_fd_leak_on_efault(char *heap_name)
+> +{
+> +       int heap_fd =3D -1;
+> +       int fd_before, fd_after;
+> +       int ret;
+> +       long page_size;
+> +       struct dma_heap_allocation_data *req;
+> +
+> +       ksft_print_msg("Testing no fd leak when copy_to_user() fails:\n")=
+;
+> +
+> +       heap_fd =3D dmabuf_heap_open(heap_name);
+> +
+> +       page_size =3D sysconf(_SC_PAGESIZE);
+> +
+> +       /*
+> +        * Place the ioctl argument in its own private anonymous page so
+> +        * we can flip its protection independently.
+> +        */
+> +       req =3D mmap(NULL, page_size, PROT_READ | PROT_WRITE,
+> +                  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+> +       if (req =3D=3D MAP_FAILED) {
+> +               ksft_test_result_fail("mmap failed: %s\n", strerror(errno=
+));
+> +               goto out;
+> +       }
+> +
+> +       memset(req, 0, sizeof(*req));
+> +       req->len      =3D page_size;
+> +       req->fd_flags =3D O_RDWR | O_CLOEXEC;
+> +
+> +       /* Count open fds before the ioctl */
+> +       fd_before =3D 0;
+> +       {
+> +               DIR *d =3D opendir("/proc/self/fd");
+> +               struct dirent *de;
+> +
+> +               if (!d) {
+> +                       ksft_test_result_fail("opendir /proc/self/fd: %s\=
+n",
+> +                                             strerror(errno));
+> +                       munmap(req, page_size);
+> +                       goto out;
+> +               }
+> +               while ((de =3D readdir(d)))
+> +                       if (de->d_name[0] !=3D '.')
+> +                               fd_before++;
+> +               closedir(d);
+> +               /* subtract the fd opened by opendir itself */
 
-[...]
+But no actual subtraction?
 
->>> +        /*
->>> +         * TODO: This node represent bus supply to the cam i2c module.
->>> +         * Others DT do in similar fashion, but should be addressed
->>> +         * by the bus-supply in the future
->>> +         */
->>
->> I can't quite parse the second sentence..
-> 
-> I'll rephrase, I noticed that other device-trees where there is also i2c level-shifter also introduce always-on regulator. I let clanker check impact on power consumption, it's likely irrelevant, but in the future would be nice to have proper bus-supply property in use instead of always-on.
+> +       }
+> +
+> +       /*
+> +        * Make the page read-only: copy_from_user() in the kernel will
+> +        * still succeed (it already ran),
 
-Aaah level shifters.. got it
+Huh? copy_from_user hasn't run yet. That happens inside the ioctl().
 
-Konrad
+>            but copy_to_user() that writes
+> +        * the fd number back will fault.
+> +        */
+> +       mprotect(req, page_size, PROT_READ);
+> +
+> +       ret =3D ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, req);
+> +
+> +       /* Re-allow writes so munmap can clean up */
+> +       mprotect(req, page_size, PROT_READ | PROT_WRITE);
+> +       munmap(req, page_size);
+> +
+> +       if (ret !=3D -1 || errno !=3D EFAULT) {
+
+This looks like you meant &&, but I think we should just fail if ret
+!=3D -1. Either the mprotect is broken, or dma-heap didn't actually try
+to copy_to_user.
+
+> +               /*
+> +                * If the ioctl didn't fail with EFAULT, either the kerne=
+l
+> +                * handled it differently or mprotect raced.
+
+mprotect is synchronous, how could it race with anything here?
+
+>                   Skip rather
+> +                * than giving a false pass/fail.
+> +                */
+> +               ksft_test_result_skip(
+> +                       "ioctl did not return EFAULT (ret=3D%d errno=3D%d=
+), skipping\n",
+> +                       ret, errno);
+> +               goto out;
+> +       }
+> +
+> +       /* Count open fds after the failed ioctl */
+> +       fd_after =3D 0;
+> +       {
+> +               DIR *d =3D opendir("/proc/self/fd");
+> +               struct dirent *de;
+> +
+> +               if (!d) {
+> +                       ksft_test_result_fail("opendir /proc/self/fd: %s\=
+n",
+> +                                             strerror(errno));
+> +                       goto out;
+> +               }
+> +               while ((de =3D readdir(d)))
+> +                       if (de->d_name[0] !=3D '.')
+> +                               fd_after++;
+> +               closedir(d);
+> +       }
+> +
+> +       ksft_test_result(fd_before =3D=3D fd_after,
+> +                        "no fd leak on EFAULT: before=3D%d after=3D%d\n"=
+,
+
+This is for the failure case, so I don't think the "no" should be in the st=
+ring.
+
+> +                        fd_before, fd_after);
+> +out:
+> +       close(heap_fd);
+> +}
+> +
+>  static int numer_of_heaps(void)
+>  {
+>         DIR *d =3D opendir(DEVPATH);
+> @@ -420,7 +532,7 @@ int main(void)
+>                 return KSFT_SKIP;
+>         }
+>
+> -       ksft_set_plan(11 * numer_of_heaps());
+> +       ksft_set_plan(12 * numer_of_heaps());
+>
+>         while ((dir =3D readdir(d))) {
+>                 if (!strncmp(dir->d_name, ".", 2))
+> @@ -435,6 +547,7 @@ int main(void)
+>                 test_alloc_zeroed(dir->d_name, ONE_MEG);
+>                 test_alloc_compat(dir->d_name);
+>                 test_alloc_errors(dir->d_name);
+> +               test_alloc_no_fd_leak_on_efault(dir->d_name);
+>         }
+>         closedir(d);
+>
+> --
+> 2.34.1
+>
