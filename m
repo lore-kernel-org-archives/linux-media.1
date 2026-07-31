@@ -1,223 +1,94 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1873C282F01
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 00:32:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5549929D281
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 00:52:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785457979; cv=none; b=aV3sMDULiLvYEV6ci2ZDofx6PEUvxK3mkOB01EpqqBP27uK9vPW7y5bFvMwW9ag+w215/eAjF/xUYdqelG0aziJvakRvURhb6FvPEW7NBk3k32BPR8kk9fzTKruTQ54WRzPbH9Lwmr1UK48gUDe+U2P9Xfdddhhms+82VN9yNa0=
+	t=1785459128; cv=none; b=ieCYQ6U3IxvRZrKR1aaE+yR8XjGM2zOxMwKIdNld7geE1+87kvf4x/tI8FaUSfROk/Lcqfo1I2aesK8jpLjsZoyK0WY+wjkFrH8JpL9SyYcfaHNQfxjzN6SrBOy2FMsa4psgH4x9BlWisx1QzUab8dyGBRji8f1U6BNXw8+fwW4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785457979; c=relaxed/simple;
-	bh=tz3MX6RgSvTY4qZxc5WPPga+j7i90nNZ8gjHJTr0Cok=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A1ETTnhKEz/SSKTbdOw2M4Ob0MeWh4FgdeBzSNC8c0j3kWPopTwEU3dH+mVQKZPPcQ5ML9qh95HucElwHUDsouYjm6q0DFhqhdKidJGJV5ZeABr5g4o8NM8L38+9wznHtzXgYqiXe8IsGRE4VqJxKXp4UuPhf7AtAcbpYxCq3k0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qyqwx3sD; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785459128; c=relaxed/simple;
+	bh=uIKkUD0jm/hH7p26Pj85NPfH1S9TwRpyJz1pTudeTg4=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Nfe4jL9vXsiz8eItT7h1OosiutUAoWvIQisACO7spjm1Hri35fL+LzIq0Tr9WqzGCh5jvKZplcRnrapaFMjr5yLnNlcGU505Kaf0OKQUGgfa+YNKBIP+2y+JLymY7lxY11mkcrMppUcFcV2vBaEGoMmpvo3BGelr5kQXTDJolfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vaeCIe7W; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qyqwx3sD"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2caced6038eso2856075ad.0
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 17:32:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785457972; x=1786062772; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oQn73DnaYnP2eIm20VaPqmI6rB049cGwP1GfXwnXLN0=;
-        b=Qyqwx3sDUcas8hPDOeViEqNCsqPYW+m5UpXqwCEsCxz2bLj8r1145iVmNS5PWZmrxN
-         F4DTlyE/3E5l/QyzcBgyMYPweG1Z7nnp7TlMFkEmgP0q8jNmEclWAM1KvfBec3XauyZd
-         DjISJN4YszCBVmB9pGl36RFb+kkZjHeG2dEtpP3t5EMiAxEOAbKt8RwKFuiAa02Xf/3l
-         CFG6Lm4a8mziBzP1umPb8og5jJuls2mX/oLmdMn2yM5STVwTkRQ8XXLyu4eh00rTDHS7
-         9xyk10KWjaK2lAZnQly9fzrbRvlM2LvuCVAe71LDhZ5hUDnEprIQO7CeMtWKAdIG6+sU
-         yQHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785457972; x=1786062772;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oQn73DnaYnP2eIm20VaPqmI6rB049cGwP1GfXwnXLN0=;
-        b=laGCxr/Vp9MiLlek9ZqgGI77OdGLtzWp8KAWc85O7GKcrIVd+zpvx/nQqNRNXT7j2N
-         DanimNgGRudTvWfSWBwQt+cijAXqvkQc18vxT68t0csrrTT6DpQe40+Sta1apq4vnQXE
-         CzbpO1xvXRrPEor/tfO28IOHvMU5dnTa6JI0bpsY3tSVY3vYQrbdcEbfT40QOzWVSXVC
-         EjCJeJOLTjAcmgvMOm1q3sztlfM2Mj1+Pj0JxpwaT1m+tgn55/PozL6tyBE5x24E2dCI
-         tEl+vDumOx2mabNgjpIs4wNEEZVFhKn+1GNPDyF3Tu3WINV08vp5XcVe8BZ1ohhZkVq9
-         Nmyg==
-X-Forwarded-Encrypted: i=1; AHgh+RqAGBYPkP6IExn7wG0yD5Q9aSeCjWhgJpW8x03ocAm0zWS4oasiVlocth7o8+mwgTusbT73Sdu0IAyISg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyZEFWBk2IFvl4mHhGn0ZsqEL5xXLUQjTgi2aDCvaNTmXk4eZeQ
-	LYzInbRSdEuEyltF3SHEfritwQiKgKBVs43btk8p4hHID3JVwxuw7x5B
-X-Gm-Gg: AR+sD11NwRiFLN+IxWxFNd4cdG7feH/CTL2OOftfDZ1zag8WNJA5oDlZnsDw7WWRNVV
-	K2vu8EJTeeTqYCLIPuj8XKDDAxKOk+EW3lfDEqPOPjhvofRzHB0vO2lwk7AUw55sxlMUb/jYEsG
-	HHrbcL7gU5WuCGC1fvl29NutOeDJAAQgS151/vQV8zbpC1lTwG3QBMFHkIPg2aiLRFfaCrPxR/e
-	0hJvInzbHKK1V79sQCjjJ+CRuLREhKtmuybw1RQ55QK9gd6Fm3P7tzto2l5lEJn8iqL/T3XQL6X
-	VwE9tBvXf8zw5uU50nK0Iv7kVyijcRaC3KbhwoSifcpLLI06LCRqApsIDYJ3r6RnPxYc1qxmT/C
-	FXgSLjkf4qFUpCF0uxnxOy4hJrkbtxg2+3qE/bj/pp1DFkJdjr/0bXudityItLvLxUf3qEC/Nk8
-	Ml+dcXo0lZF6gIreba+DhZrLFImdHfwcW6JKCwB6u+eKKvZXbKcW9hjzya/g==
-X-Received: by 2002:a17:903:2406:b0:2cc:db7a:251 with SMTP id d9443c01a7336-2d03e040e56mr19629885ad.2.1785457972277;
-        Thu, 30 Jul 2026 17:32:52 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:54::])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d022bc6d87sm32755215ad.38.2026.07.30.17.32.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 17:32:50 -0700 (PDT)
-From: Bobby Eshleman <bobbyeshleman@gmail.com>
-Date: Thu, 30 Jul 2026 17:32:11 -0700
-Subject: [PATCH net-next v7 2/3] selftests/net: ncdevmem: add -b option to
- set rx-page-size on bind
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vaeCIe7W"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BB5992E9;
+	Fri, 31 Jul 2026 02:50:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785459057;
+	bh=uIKkUD0jm/hH7p26Pj85NPfH1S9TwRpyJz1pTudeTg4=;
+	h=Date:From:To:Cc:Subject:From;
+	b=vaeCIe7WEWZ3g4lkfi4e5abqY/iHjRrAyHYX+2QZzaYAhrygLenZBaitcKJ3T/5wm
+	 iekMNakLVNT2FfDmQa8XvMgj0ISPXdxbnctTwY0sD5xrvfsbam3+JBkCcOPoYrtDaJ
+	 gsmTgNrEduqkLjBR1/fYjH/plwdBl1OQOqNDrZ38=
+Date: Fri, 31 Jul 2026 03:52:02 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Hans Verkuil <hans@jjverkuil.nl>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	=?utf-8?B?8J+Qpy1tZWRpYQ==?= <linux-media@vger.kernel.org>
+Subject: [GIT PULL FOR v7.3] vsp1 driver changes
+Message-ID: <20260731005202.GA1783774@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260730-tcpdm-large-niovs-v7-2-033d580a619d@meta.com>
-References: <20260730-tcpdm-large-niovs-v7-0-033d580a619d@meta.com>
-In-Reply-To: <20260730-tcpdm-large-niovs-v7-0-033d580a619d@meta.com>
-To: Donald Hunter <donald.hunter@gmail.com>, 
- Jakub Kicinski <kuba@kernel.org>, "David S. Miller" <davem@davemloft.net>, 
- Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- Gerd Hoffmann <kraxel@redhat.com>, 
- Vivek Kasireddy <vivek.kasireddy@intel.com>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Shuah Khan <shuah@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org, 
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net, 
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com, 
- dw@davidwei.uk, Joe Damato <joe@dama.to>, 
- Bobby Eshleman <bobbyeshleman@meta.com>
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 
-From: Bobby Eshleman <bobbyeshleman@meta.com>
+Hi Hans, Mauro,
 
-Add -b <bytes> to request a non-default niov size via
-NETDEV_A_DMABUF_RX_PAGE_SIZE. When the value exceeds PAGE_SIZE,
-udmabuf_alloc() switches to an MFD_HUGETLB-backed memfd so each 2 MB
-hugepage produces one naturally-aligned sg entry.
+The following changes since commit 465425926ff36b9f5fb1f069e4277918e6109f5a:
 
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Nikolay Aleksandrov <razor@blackwall.org>
-Signed-off-by: Bobby Eshleman <bobbyeshleman@meta.com>
----
- tools/testing/selftests/drivers/net/hw/ncdevmem.c | 36 +++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 3 deletions(-)
+  media: rppx1: lin: Add support for gamma sensor linearization (2026-07-30 20:51:35 +0300)
 
-diff --git a/tools/testing/selftests/drivers/net/hw/ncdevmem.c b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-index ffe1d5c1fa4e..918e3b51f3b8 100644
---- a/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-+++ b/tools/testing/selftests/drivers/net/hw/ncdevmem.c
-@@ -40,6 +40,7 @@
- 
- #include <linux/uio.h>
- #include <stdarg.h>
-+#include <stdint.h>
- #include <stdio.h>
- #include <stdlib.h>
- #include <unistd.h>
-@@ -61,6 +62,7 @@
- #include <sys/time.h>
- 
- #include <linux/memfd.h>
-+#include <sys/param.h>
- #include <linux/dma-buf.h>
- #include <linux/errqueue.h>
- #include <linux/udmabuf.h>
-@@ -79,6 +81,7 @@
- #define PAGE_SHIFT 12
- #define TEST_PREFIX "ncdevmem"
- #define NUM_PAGES 16000
-+#define MB(x) ((x) << 20)
- 
- #ifndef MSG_SOCK_DEVMEM
- #define MSG_SOCK_DEVMEM 0x2000000
-@@ -100,6 +103,7 @@ static unsigned int dmabuf_id;
- static uint32_t tx_dmabuf_id;
- static int waittime_ms = 500;
- static bool fail_on_linear;
-+static uint32_t rx_page_size;
- 
- /* System state loaded by current_config_load() */
- #define MAX_FLOWS	8
-@@ -142,6 +146,7 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- {
- 	struct udmabuf_create create;
- 	struct memory_buffer *ctx;
-+	unsigned int memfd_flags;
- 	int ret;
- 
- 	ctx = malloc(sizeof(*ctx));
-@@ -156,9 +161,14 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- 		goto err_free_ctx;
- 	}
- 
--	ctx->memfd = memfd_create("udmabuf-test", MFD_ALLOW_SEALING);
-+	memfd_flags = MFD_ALLOW_SEALING;
-+	if (rx_page_size > getpagesize())
-+		memfd_flags |= MFD_HUGETLB | MFD_HUGE_2MB;
-+
-+	ctx->memfd = memfd_create("udmabuf-test", memfd_flags);
- 	if (ctx->memfd < 0) {
--		pr_err("[skip,no-memfd]");
-+		pr_err("[skip,no-memfd%s]",
-+		       (memfd_flags & MFD_HUGETLB) ? " (need hugepages)" : "");
- 		goto err_close_dev;
- 	}
- 
-@@ -168,6 +178,11 @@ static struct memory_buffer *udmabuf_alloc(size_t size)
- 		goto err_close_memfd;
- 	}
- 
-+	if (memfd_flags & MFD_HUGETLB) {
-+		size = roundup(size, MB(2));
-+		ctx->size = size;
-+	}
-+
- 	ret = ftruncate(ctx->memfd, size);
- 	if (ret == -1) {
- 		pr_err("[FAIL,memfd-truncate]");
-@@ -699,6 +714,8 @@ static int bind_rx_queue(unsigned int ifindex, unsigned int dmabuf_fd,
- 	netdev_bind_rx_req_set_ifindex(req, ifindex);
- 	netdev_bind_rx_req_set_fd(req, dmabuf_fd);
- 	__netdev_bind_rx_req_set_queues(req, queues, n_queue_index);
-+	if (rx_page_size)
-+		netdev_bind_rx_req_set_rx_page_size(req, rx_page_size);
- 
- 	rsp = netdev_bind_rx(*ys, req);
- 	if (!rsp) {
-@@ -1411,7 +1428,7 @@ int main(int argc, char *argv[])
- 	int is_server = 0, opt;
- 	int ret, err = 1;
- 
--	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:n")) != -1) {
-+	while ((opt = getopt(argc, argv, "Lls:c:p:v:q:t:f:z:nb:")) != -1) {
- 		switch (opt) {
- 		case 'L':
- 			fail_on_linear = true;
-@@ -1446,6 +1463,19 @@ int main(int argc, char *argv[])
- 		case 'n':
- 			skip_config = 1;
- 			break;
-+		case 'b': {
-+			unsigned long val;
-+
-+			errno = 0;
-+			val = strtoul(optarg, NULL, 0);
-+			if ((val == ULONG_MAX && errno == ERANGE) ||
-+			    val > UINT32_MAX) {
-+				pr_err("invalid rx_page_size: %s", optarg);
-+				return 1;
-+			}
-+			rx_page_size = val;
-+			break;
-+		}
- 		case '?':
- 			fprintf(stderr, "unknown option: %c\n", optopt);
- 			break;
+are available in the Git repository at:
+
+  https://gitlab.freedesktop.org/linux-media/users/pinchartl.git tags/next-media-renesas-20260731
+
+for you to fetch changes up to bcd5448bca74c9295dfe7df8bcc63e6c099b6972:
+
+  media: renesas: vsp1: Declare index variables in for loop statement (2026-07-31 03:14:15 +0300)
+
+----------------------------------------------------------------
+vsp1 driver changes:
+
+- RZ/T2H and RZ/N2H support
+- Misc modernization
+
+----------------------------------------------------------------
+Lad Prabhakar (3):
+      media: dt-bindings: media: renesas,fcp: Document RZ/T2H and RZ/N2H SoCs
+      media: dt-bindings: media: renesas,vsp1: Document RZ/T2H and RZ/N2H SoCs
+      media: renesas: vsp1: Make reset control optional to support platforms without a reset line
+
+Laurent Pinchart (1):
+      media: renesas: vsp1: Declare index variables in for loop statement
+
+ .../devicetree/bindings/media/renesas,fcp.yaml     | 18 ++++++++-
+ .../devicetree/bindings/media/renesas,vsp1.yaml    | 17 ++++++++-
+ drivers/media/platform/renesas/vsp1/vsp1_brx.c     |  7 +---
+ drivers/media/platform/renesas/vsp1/vsp1_clu.c     |  3 +-
+ drivers/media/platform/renesas/vsp1/vsp1_dl.c      | 12 ++----
+ drivers/media/platform/renesas/vsp1/vsp1_drm.c     | 14 +++----
+ drivers/media/platform/renesas/vsp1/vsp1_drv.c     | 44 +++++++++-------------
+ drivers/media/platform/renesas/vsp1/vsp1_entity.c  |  4 +-
+ drivers/media/platform/renesas/vsp1/vsp1_hgo.c     |  7 ++--
+ drivers/media/platform/renesas/vsp1/vsp1_hgt.c     | 13 +++----
+ drivers/media/platform/renesas/vsp1/vsp1_lut.c     |  3 +-
+ drivers/media/platform/renesas/vsp1/vsp1_pipe.c    |  5 +--
+ drivers/media/platform/renesas/vsp1/vsp1_video.c   | 34 ++++++-----------
+ drivers/media/platform/renesas/vsp1/vsp1_wpf.c     |  8 ++--
+ 14 files changed, 90 insertions(+), 99 deletions(-)
 
 -- 
-2.53.0-Meta
+Regards,
 
+Laurent Pinchart
