@@ -1,118 +1,191 @@
-Received: from mail-lf1-f45.google.com (mail-lf1-f45.google.com [209.85.167.45])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0180033F36D
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 07:06:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FC613314A1
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 07:35:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785481587; cv=none; b=K1AhUf7m4FVbwEt/p6N7LJAcTVfoa95I8hjRjMKDtBUDLqhDCzIowjhAYWRA7P79ZVOKyLh0NQU55xWHZL5/OoaDk93nme0DLOAcNCKq7JWv451oS0ZJalwXsysYwv91stdzs5mGmTCYfURHM7Vpw5xTuOMlmDwHzT5hp2Py7ZE=
+	t=1785483326; cv=none; b=vCzAcygFCc984fS6hM02QjGWMjD4Z4ovP1P37iLxSBa6HTGL8R0Y1I/IHvSciJOz2SvQoxAitOxyHGU9KWHlPCH9kClxYPeEngVZ9j4w+HVWNh60m63zAsxdar9IpgaXf/D0d950kVBu/VQozteJFZYjPP6sKyJTT0m3a2Vp3Gc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785481587; c=relaxed/simple;
-	bh=DqPJsez3oDMKsZIBRVeZjgbhuCl9u3Ut9LncqS3hcgs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m2ewzLnMPsGPbJalsaHhuLaBCghcbKR7x37qydY57BGc9Q4J5kX5r3/EKM3/JV7S2HiOVL95h649zEfA7+VDp0D8sy9lgNGxYWmVbuzs1yKnB8O5x5zB3p/yQdlFwLf79O0y3amyEw0NAlxguK/T46g6Dsg1fFaijNtGPFTRZlk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=qIy2U4l0; arc=none smtp.client-ip=209.85.167.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1785483326; c=relaxed/simple;
+	bh=PAxsVrS1U1pzwO2AkaMj93cMOBDbU1QslMc309ubI7E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sJjuOaFIEWdJ7VgeSTbZpE/dObBaUmaTSkZUGCLSaDGvQ7qRVl6FEirmoDNeryeMD0wRlI0uWpaYcX5pTdFqB6RsL3kFS8AlfvWTU8YPw3haykdWIDf0Mav/57gos8/8Jabd/KS2heB2rnL34OiI57bF/uV0RvHNYZqTf/YTyMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CdoWbW8V; arc=none smtp.client-ip=209.85.167.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="qIy2U4l0"
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b2a73d5fc3so77283e87.1
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 00:06:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CdoWbW8V"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aebd52488cso700446e87.2
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 00:35:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785481584; x=1786086384; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DuK52cb3iUr/KtXlMS7D6VCrJzWBxUsmvWGSducPbHE=;
-        b=qIy2U4l0838hp/fXQyVv0Od68dqQUKbW1rr/+HFl8yVSZggsHerHzSk2Z0Vmb6DxHa
-         OhlG9GRGpdDOBhdRb0t6HrS7EZAE7TY4MT+U5lvFYyqWJtUqH/eJAa7wQxdnigh6fhhe
-         dMKSi+8YUwCsC+kI0vxUxzeuQNWd9zEtAQaYz+CgkhhNhYby3VrA/TI7p4yA7t5e8K4L
-         x7MW9/q2/ie3A6apv2YL3UcZTNei/KKSvAj4l3d4Fks02dB1zx3VMoJkrIeadIXS3Sdq
-         ZB7XYkvm1j3WDPcHei0rw24GKvRzFDfG9xI0riPn096sAwfsnznT7JG7wOOHk9pOOW93
-         ZqsA==
+        d=gmail.com; s=20251104; t=1785483323; x=1786088123; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZuZR99NGerWZTb+AnZM24uaAIuNkIxHXPHc6dFsDDnA=;
+        b=CdoWbW8VhBv+ezUm6qAeDgQqMGgdzK0j9Hl7CWfxBi5mShnkpeHZr1fzA/TmGTTlHe
+         AOxRIX/Sm+68MQkLQiCj9Gio5vi22IHrlxhDKd2St9euz75s2tumIfj9Ttv9TtQC1ZeO
+         e39RQnxvj29wfQ3lpaGMv7nYDV4WGlIKM96giXe8PrigUeFBQUREsYwKY9asK5FT+Gdq
+         Co022lYz3OpJ0U3ovem0xGUV8n7dD5GE2FDvaDXIGkbPgvkKAEMfP7NbZC02/yBiCO3k
+         9wOA5phVLTBGvKBH1k1vd685LlPTKiSnuirbJMJCK9qf/dM2KuJ0F6cHbg6fuVAd+c5e
+         okbw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785481584; x=1786086384;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DuK52cb3iUr/KtXlMS7D6VCrJzWBxUsmvWGSducPbHE=;
-        b=eQH7k3LfTupd1q6+PiZRchF9cRt5upKSC/sm+v2ktSFNW16izBrSf15HenD4w73gP7
-         0wEEkhe0p5JxSUah404KSNI4R4hpkRpBpl04z/yGE3H6mxkiRnPmoOnlpeWUq+kfqsrn
-         rfPrfcuPCwhwSAeoRQ4DOxQe4Usx34Ej6C+6bG+Z8Kwgsl9o7j1gk9hfk86ExQG6BYEZ
-         Iyca/R+VujVa3WBKvpwQUIEZKV1ETwkLRS/SMWYrRmKmWmxukvTma1DXgtFpJJhtO83N
-         MSbxb5OKZzp9NDWrGknPkcktjU5yJA9SmXCymMAXb0WgOUBMkLaK8StLpw4zH0nwgjTJ
-         vVrw==
-X-Gm-Message-State: AOJu0YzxsN21y8bICcYVrS2ort6W3yp0j1awcnco2UjUip0sXv9YJYtg
-	hIW3g3pR+7BFKgixnVEP6SXzd5tJcWoqUvYmXEeX7wow4YNiAMUzhzPagroH/I1T43zpSb8hL50
-	fY2Unopy9ug==
-X-Gm-Gg: AR+sD12QS+ZWW2lgZL7G8eaTc1rAj0LXelZJEbSWFEQMkF0mMZWY1QNPdpJSAu4xX/x
-	D9+QtEQQqnCFKYpfTs2C6tAvS2tJMfhdweYF15yCmu1ECkLlbu/ppwrprkBHXf13eSRDf0XUOYs
-	2K43nFLrbUq8J86yzBcA2HGSjPwQoGndnWClPHIWm+cQeR3kg6AVeI2+W6KqHeqJvOD8Y8uYHiv
-	rHSMIkkyh+ZGSQfGaJs6br4CrMCNdEPufm0mXbF/0vMsPs5iTqMrEiplcwFs+eORlBVgm4UV2ZP
-	1Aj2ieHPQ9LnQMZM/cxFmxzsuxub2K+jadfdnCSuXyv/HluG6BjchAuzpSf1X//cENZHmeWh4PP
-	Z8VT5r0soA6NniyzTd1efX5CZjhsLnnLH7BJxngMZ12CJvXK6gTHHI3EIcP7qpw7Rx+zLl0XVZY
-	v3KmGKtKDznotPH40ef4T1RqeVlGImB/bmLtzLoBI6Ov6UjlzwmvP3oVcWhZ24ZPSJo89GnAeGR
-	kwscpxCHD3RsrfEkTwnfXVmcqVGRRJJraDY0FB3zqQQKNkXW8miYg==
-X-Received: by 2002:a05:6512:234e:b0:5ae:cf48:bd37 with SMTP id 2adb3069b0e04-5b2e1fc0847mr243683e87.1.1785481583928;
-        Fri, 31 Jul 2026 00:06:23 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e245c091sm120554e87.79.2026.07.31.00.06.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 00:06:22 -0700 (PDT)
-Message-ID: <fd168d45-fec8-468f-a9ae-39d17f020e41@linaro.org>
-Date: Fri, 31 Jul 2026 10:06:22 +0300
+        d=1e100.net; s=20251104; t=1785483323; x=1786088123;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZuZR99NGerWZTb+AnZM24uaAIuNkIxHXPHc6dFsDDnA=;
+        b=YSTRrh+KAOQlv8R1QprGDuLaADmb5cMzivfhdnGLCWFlfqjvfV5Z6VMeOEC2C/2n/8
+         LRBjuY3ZrFqzUAjYHhxQOSvahd24PMKkgX01vsMDg4i1AM2IczoQxyfRRhOvo/KOYUnl
+         BdLFbFScD11VPgNQ0R+Qm/pMQySSrtrcOkdvOyE/CbSsxh8c6mUZmeSZEy3QRY84s0j6
+         WwFPm8h3IiQ5kb3zqG2iJr0OKjKXU89rE55EfoIiPPpM+o7MTKEkTr+SsAME8PdBLxUH
+         hvb6TDcOO1arYqfA9rdZYMx1mzfjhsDRRj1DdX5yHkHnRx6KPx+l7m27KXY8RkQQMJtY
+         k2lw==
+X-Gm-Message-State: AOJu0YxnwzCGxvzMrYP9JV6On+zZke2hSwOv2NiVPl9XBQLble8UEusV
+	tNqO1jtF5sv0iGBNraf78BGMUx6xUdNahe2dsgD0LRqkPQm2kdtyo/4+aDAiLdMO
+X-Gm-Gg: AR+sD111KZqjnYCnevxt1ijsFmQHBXw3mVIlR9IXLD+tXipFyA9eFxd3+ZzYKGi0Iy+
+	3s8tT/molHpXVkKAPd8YTQqYBwDobf5m9m51C1Ilu/aqcztSEePukY4EPiIL+efXYRU3ZB7fxnG
+	L+oY+UhX+u83d27YROQscu0GJYFR9sVzkjGhHgpKwquL6ziuEyLdntu0CYLvdGsH4omD44SexBe
+	v42Rpj6h74xSBKe+fS+BwzYHAlwiXnWNgIIF62CceHHoN3KskP5EoX9aZI9rJVbjIs0mPumDoaR
+	rjSjV5Al7vQ65hEaKt7HRbZ2QnDlp5rxOEaq2LGZHzraKShCHlUegfQDBSXXxUIzP78d03m3Oqb
+	Apq8utm5g462qCZYs6rVNXBFa54rKSXc93DIOxc7CWs3CoyebQ37lgElhfmtjvWtDqKj9Cd+Jrc
+	VPVhPxtVyT2wwAdbbs3nPPaJ5uNQ6ABQ1qi3Se5lXiRRnXFzB2NH8msviovjQZ645T+h6HWffTP
+	Kj8
+X-Received: by 2002:a05:6512:3e09:b0:5b1:5451:d969 with SMTP id 2adb3069b0e04-5b2e1fc802bmr243809e87.25.1785483323048;
+        Fri, 31 Jul 2026 00:35:23 -0700 (PDT)
+Received: from gentoo.sknt.ru ([95.161.221.172])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e23cbeedsm143653e87.30.2026.07.31.00.35.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 00:35:21 -0700 (PDT)
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>
+Subject: [PATCH 0/2] media: i2c: Add onsemi AR0234 camera sensor driver
+Date: Fri, 31 Jul 2026 10:35:03 +0300
+Message-ID: <20260731073505.2278769-1-eagle.alexander923@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/4] media: i2c: og0ve1b: Use monochrome-appropriate
- test pattern name
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260731-og0va1b-v5-0-c2b90b601241@oss.qualcomm.com>
- <20260731-og0va1b-v5-2-c2b90b601241@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260731-og0va1b-v5-2-c2b90b601241@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 7/31/26 09:44, Wenmeng Liu wrote:
-> OG0VE1B is a monochrome sensor and cannot produce coloured test
-> patterns, so the "Vertical Colour Bars" test pattern name is misleading.
-> Rename it to "Standard Test Bar" to match the OG0VA1B naming.
-> 
-> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-> ---
->   drivers/media/i2c/og0ve1b.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-> index 84a28cdcade10f8fbcf945999e88f84641b9bc0d..da5c8e49d4a811f55736bd89c6922856f2e7391c 100644
-> --- a/drivers/media/i2c/og0ve1b.c
-> +++ b/drivers/media/i2c/og0ve1b.c
-> @@ -72,7 +72,7 @@ struct og0ve1b_mode {
->   
->   static const char * const og0ve1b_test_pattern_menu[] = {
->   	"Disabled",
-> -	"Vertical Colour Bars",
-> +	"Standard Test Bar",
->   };
->   
->   static const char * const og0ve1b_supply_names[] = {
-> 
+This series adds a driver for the onsemi AR0234 CMOS image sensor.
+The AR0234 is a 1/2.6-inch global-shutter sensor with a 1940x1220
+pixel array, capable of 1920x1200 resolution at up to 120 fps.
+It supports MIPI CSI-2 output with 1 to 4 data lanes, raw Bayer
+(8/10-bit) and monochrome formats, as well as DPCM 10->8 compression.
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+The driver has been tested with 2 and 4 lanes on an ARM64 Rockchip
+RK3568 platform with a 27 MHz external clock. Both 8-bit and 10-bit
+raw Bayer modes are functional.
 
-Thank you for the change!
+Notes:
+- 1-lane mode is currently disabled; attempts to use it produced no
+  valid image.
+
+[root@diasom-evb ~]# v4l2-compliance -u 2
+v4l2-compliance 1.28.1, 64 bits, 64-bit time_t
+
+Compliance test for device /dev/v4l-subdev2:
+
+Driver Info:
+ar0234 9-0018: =================  START STATUS  =================
+ar0234 9-0018: ==================  END STATUS  ==================
+        Driver version   : 7.1.0
+        Capabilities     : 0x00000000
+        Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev2 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 20 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 45, Succeeded: 45, Failed: 0, Warnings: 0
+
+Alexander Shiyan (2):
+  dt-bindings: media: i2c: Add onsemi AR0234 image sensor binding
+  media: i2c: Add onsemi AR0234 image sensor driver
+
+ .../bindings/media/i2c/onnn,ar0234.yaml       |  123 ++
+ drivers/media/i2c/Kconfig                     |   12 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/ar0234.c                    | 1265 +++++++++++++++++
+ 4 files changed, 1401 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+ create mode 100644 drivers/media/i2c/ar0234.c
 
 -- 
-Best wishes,
-Vladimir
+2.52.0
+
