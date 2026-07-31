@@ -1,558 +1,266 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com [209.85.167.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FFC5359A8B
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 06:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8D7357D12
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 06:58:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785480352; cv=none; b=iWXDMn8DK8DJ57zSxYnmj6VfsbBQOrBHsbNDicNRuH+kq6va84NK40BA/LTGs2IZPGX5KL/gn6VJPyEA47gvdFH9J6HpJ/7DHBPU6Kk8xZ3jaawn5rZgJTt7TmR6K8Lz2EpP/1e2Z3z+s6vfmh2UQWVe7jnO3O7BQkwMRbisn1I=
+	t=1785481104; cv=none; b=ITIsqHisEG2eq61FNe7wgOLPoexOfTFbq1yXtJlcGzi5Mlo+8uG/oKyefqutXJd9WagvAXiOCZGfzxPMp7o/ZTVo7492ucXwOI/EY8m+aSAwmpdFwRiJSu4KgaF2steNRl+UBU+05OMKAva4ebqEkrBwD7bIPeH3fncVQCs7aCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785480352; c=relaxed/simple;
-	bh=ykUUSv77OEo5PaKCMO9ysrO1o42/MAKasnMbnUkbxUk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=EmYmnyvRcFATW6YgDxgeirbw7RNX9Kns05A8k0OUavvPBF5hchiLhb5Lxs2VDsylExkkRRlMvJn4oqmL9FsxjryTiDlc5iCPDYZr4+XuOmEwszF0Wt1ghQTTogjNNmWlTfcbXoZALTwFjp1m2bmpzwFgP3NFTBwGgz4JENAyzTM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=px1jlHMd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SqeY3lNW; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="px1jlHMd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SqeY3lNW"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 66V69KuL3161857
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 06:45:48 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=; b=px1jlHMdVZDuliie
-	dXpF1/OsilbIY5O8rmm6Q4pYrziZn/vOf29icBuQSnwNRxJdkfW6NNqv1JAZcozi
-	I1SHyZMFOUkRJ/ZoK6gT3CgY4SHw6S/VT9RJmfZyLP35w2JuypXGTud5jSUjX2pG
-	Kg54PWppeQ73Jv0SX/l5PknAjbS2NbT2Y24lxmR0kxxOYEcTAYaUR54ntuF1kKfD
-	UTrc/QDW494bFPxhtNXOmw3kdjHPDaUFtGwghjKequQkqdIbJAyrwQgCWamfyHUH
-	Y4bjiCdP+YLGJolD/9MVVVLJeVIeecu9bos40wg8NDe/PTpsK+Pe5dx0V0FeI01s
-	tBIW5Q==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4frp6k84s1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 06:45:48 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so122159685a.2
-        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 23:45:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785480348; x=1786085148; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=;
-        b=SqeY3lNWtizh6elpNYwP66wjtEG/umh+dBhsz0N4B15Ghm9tcdL7tn84BnQ5uKiBBu
-         3owazD4rNU1WXD46FTaRri5Ym3TYO4vUZAQ/Q4coto0MQGVetbiHaK2aHETm2Wc4a6tJ
-         /pBXpYWY9HYjdCudmMIXY4DwR2kP+RkbKci5Ym1MQlvzOWIHOtRNmAE8lZFPgFcbzWSX
-         3jrl6dVmczbbjXlF4eWad4Afcrfs4U2P29L/izG6A9ynL3B/KzYLcHYFkfyb/+x3a96g
-         fLamYiPOwgcDyKObEVyVRtYnl63qdwdKbW6bBdbGkEUBB1SEmeZVjemb9p+CxqS//FFT
-         4tlQ==
+	s=arc-20240116; t=1785481104; c=relaxed/simple;
+	bh=0qzl5WqaARYeHzY2pKQPU1b+VL8lo8r/B7vpkeuud8c=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=R2Swa4KOR/mK4JKhNE0YcWksYygz3CiMu2Xr9B7qqDxY2vAuHE32wy92819fT3/s3uOEahf0QJ8smINEzW1HJW2cLOSvo5bFIazsM7OshyPUCxMFbJ6BfeFWFWUUUYrZqf2f8yRbSPqdM+/9IMF4B++NhQoDWoNmrFgBRVq/M9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f206.google.com with SMTP id 5614622812f47-4a43d32fa9fso911612b6e.2
+        for <linux-media@vger.kernel.org>; Thu, 30 Jul 2026 23:58:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785480348; x=1786085148;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20251104; t=1785481102; x=1786085902;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SZDO19ey1PFMEeLfuEOzBYiZLgBVDFsoMKyTR2K1raU=;
-        b=sZv8EpSWFASkWRqEIQvRY0CXl4GIHV7v53/vEttklZFtU2BVnmbwKTSVT3NHurie1Y
-         aw22JdlVXJe5IB+3W+Cc6R69FEDaXCk5z0ecVC5O2RYq+9veZ4J5bJnWBsHVeEGWo8v1
-         vbbHqQGzGtvIwN6VUlKSXppLW3dcGub+j9otZ7Yb37Zu/UKoMdGRhT5XRj2PFmjIImao
-         JIRw05Gu5ofaaRXI/EKQJAog4NCyQJ5TSsq0oKhUoKiPqom0MFkuvPHHo6vrrDYASqzo
-         e8HBHoSmQ7oEx/dOCkKzXZFRcWa16XdenNlBeDPXMi5dhSsrALyKzYufxS4hMn44xh3e
-         a3sw==
-X-Gm-Message-State: AOJu0YwEJ/6KetgYGM8LusKVwoHLLXgBhx27BLwy7/gDKIoaETC3mJ76
-	5bxar0dzI00dyS18e4ga2d4ig9o+FJ/dcTbxjv9IMiMir7SQ6CCcE+OmsodXiADG6j2AUiNRpnE
-	d2hGQ3Khte6cUPKBvgS1I/GH9Od/gWHImb2QVyI1ewpCqU1FuumQ3b2QCxl16Xphpww==
-X-Gm-Gg: AR+sD11kE0oyKD8dBtf1AJARIW3Po57Yk/eJsoiR/yY+RFA+qIxsAJPHrE4uNpQ2SjL
-	dyPpny6tnkaRs0kqHgnkTVL4vJDgFSwHcuvXO+/nbKzViDeteyblthujGiUrE18X7opjOSKwZ+G
-	41wadm8Zq1jP+4sElb+c4MnPKpaaGOpllMXR9D9CYQg1Lcoqpzgv7PJTrq0xRII8mNgVbF6MQS+
-	pUgFBVyEoHGQmb4W7lF3KS9YzcqVkbTgIIjrMiZC4NYdNKYkpv/QvqQyY3NdASw5pPRIoClhCqn
-	Zolkfq05JkVOf8d9XZcn3lZ65sGgYDr4UU3WBReAmyiZG4hyZV7nfTVLNYUN2CTqS0VOVcy6yR7
-	GP1saGIXXtrNJSHCmfZvON/Ea2H1sNMuKq7ZOK0HiCiaLmEhkX2tAaqlQNID2vZwNJwNW
-X-Received: by 2002:a05:620a:a403:20b0:932:e9c2:f4fc with SMTP id af79cd13be357-934965b4656mr71254985a.16.1785480347983;
-        Thu, 30 Jul 2026 23:45:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:a403:20b0:932:e9c2:f4fc with SMTP id af79cd13be357-934965b4656mr71252785a.16.1785480347505;
-        Thu, 30 Jul 2026 23:45:47 -0700 (PDT)
-Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-934971773ffsm46107685a.29.2026.07.30.23.45.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 30 Jul 2026 23:45:47 -0700 (PDT)
-From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-Date: Fri, 31 Jul 2026 14:44:57 +0800
-Subject: [PATCH v5 4/4] media: i2c: og0ve1b: Add support for OmniVision
- OG0VA1B
+        bh=ME6HdcasMeQeNctS5ajmm4mc1j6iuYgqg2fe6HqqnFI=;
+        b=LR92YJi3+01sGvVBvXwX3GgVknlske8sOwH4RlJ6wgDYKGRqNk3UxXPeyt+eneTR78
+         CwiH/IfM5LvT1AUFg6C8WtxrA31ll54VMXII4DBA0H/mz8Ahr8PTOSH0m6z00esktn42
+         XDYGAq6cJ39FmZkiM+YwLRyEB/mltEx8MYykIeb39A0lRR3RDrudqLs7lauw4HS4v+WG
+         gfSvd6toVlPju/lgS8Yo69ORS3NrsQ+kM2JO+oQZnjei13artgvwEIG3eF2X+e1ceL/C
+         Ky0Kejll0+01UaIsC98pQWLAo+uepWHFptupvBzeJCO7mQJyNmM3pdR/F5ZmPG/TgexP
+         KFvg==
+X-Forwarded-Encrypted: i=1; AHgh+RrH6ZZ2N8u1Yh69QRzKLhEcNmWx14deNh7m1H9j5xocW/JoO5euWEytb1v7QZdRUjChywHiLhwdGIEhUQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzA9psaysA8/egmPydhqluAVg9nPYHiOFvqba+Ad/KQhKF99KB/
+	yqhcjvt0zLid0EHAuKQWg1736TqXtKQ2MKXk/Wa3Lvg8Tqzb6Dy2EwG0FXNWOsIS0q4cCp/SoK8
+	BqiFjXPzwom1F75AFy/Ev0e0HZfgrDk156XYuXA+ozCN9GOqEBKwWSYsDeBU=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260731-og0va1b-v5-4-c2b90b601241@oss.qualcomm.com>
-References: <20260731-og0va1b-v5-0-c2b90b601241@oss.qualcomm.com>
-In-Reply-To: <20260731-og0va1b-v5-0-c2b90b601241@oss.qualcomm.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785480319; l=13942;
- i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
- bh=ykUUSv77OEo5PaKCMO9ysrO1o42/MAKasnMbnUkbxUk=;
- b=B1V3NJArnR4mnjHwY0iBWukZUgMZyPVNRXssQjO0IY45cLsQAVxMd3RaEzh54PUCvWZr/vHju
- c7hawDQikSSDLq4M+uuLqZIR9p8H5zSw5HFMa+s0ZjYLOiDCb1bZeqP
-X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
- pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
-X-Authority-Analysis: v=2.4 cv=H/nrBeYi c=1 sm=1 tr=0 ts=6a6c449c cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
- a=IkcTkHD0fZMA:10 a=RAioF0-LDSMA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8 a=kvSDJSb0XTZWr82cfuIA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-GUID: n4uDaliXHThcmZX8vVZprDyUSFoLZS7b
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNzMxMDA0NSBTYWx0ZWRfX0Xj+Bc5+5zs1
- 5GEIEOpzV/N1kaoPjdMHwySjawDMMeAR1++jAoRlaNCfYJBiE5IK660GSExhelVyGYkTpxgWg/U
- SQIPq14Z5xDjByXPHqLieEgr6y3qXBcoxyiL2CzMG9NCXtHCCK9rkiw8W7H0WmBP65SB83j2MGS
- 2EQI7yDpgXbDX0wrP5MbvU4O0vYUOCEQuSsGoDJn3leV/NPxfDLOT3sxlT7U5mbsKeqINIG1aFJ
- 6Ynj37yDepWJjlAT2shm9YhchVzyCV0iteZI+U7UljwcpYncPIgvjZ2A/oa88/hjnCNM6ksjLZx
- uDwa7YOQ2BX8IHBQL8lKOvfmK9k93pr5nkoZRKZFB5FZdnhSMzy6PhY2wBaemEySKXfjCksxLme
- HRAk5qW2zKq9WbFajKnUzSk/7C7mfSu/0ZP9ySgm/w9baQt7FYWZasDCKM7yAdbbwonRjaWLlTQ
- vPjF4HKLSxJKrY8OrNg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwNzMxMDA0NSBTYWx0ZWRfX7hbomQRu+iGy
- zVK60SeUiRgL6fC7f6zr1yz2muYNTBMNIg4axFXnJV+eBsVhlYIEgburqO5UJIsD8OQyf1qSg2R
- 8K25Gys0qq/HxEv5aNe0sfppsi/Bupc=
-X-Proofpoint-ORIG-GUID: n4uDaliXHThcmZX8vVZprDyUSFoLZS7b
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-07-31_02,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 malwarescore=0 impostorscore=0 clxscore=1015
- phishscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2607310045
+X-Received: by 2002:a05:6809:2c5:20b0:4ae:f5be:fe30 with SMTP id
+ 5614622812f47-4aef5bf1d23mr263183b6e.18.1785481102215; Thu, 30 Jul 2026
+ 23:58:22 -0700 (PDT)
+Date: Thu, 30 Jul 2026 23:58:22 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a6c478e.b5e7dbf9.21bf3.0008.GAE@google.com>
+Subject: [syzbot] [media?] memory leak in vidtv_psi_sdt_service_init
+From: syzbot <syzbot+070afba8f438130eca76@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-The OmniVision OG0VA1B is a monochrome image sensor closely related to
-the OG0VE1B. It shares the SCCB control interface, power supplies and
-the single-lane MIPI D-PHY description, and differs in its chip id, the
-test pattern register, the register programming and the output format
-(10-bit RAW instead of 8-bit).
+Hello,
 
-Add an og0ve1b_sensor_data entry describing the OG0VA1B together with
-its 640x480 60fps register sequence.
+syzbot found the following issue on:
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-Tested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org> # og0ve1b
-Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+HEAD commit:    4235cb24ec1e Merge tag 'vfs-7.2-rc5.fixes' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1199e6b9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ba7c2d1679fb08a2
+dashboard link: https://syzkaller.appspot.com/bug?extid=070afba8f438130eca76
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=1048c49e580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1505c6b9580000
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/d2b93a579379/disk-4235cb24.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/907f0d615dfc/vmlinux-4235cb24.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/f787f85b05b9/bzImage-4235cb24.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+070afba8f438130eca76@syzkaller.appspotmail.com
+
+BUG: memory leak
+unreferenced object 0xffff888114fee2c0 (size 32):
+  comm "syz.0.17", pid 5955, jiffies 4294942049
+  hex dump (first 32 bytes):
+    08 80 fd 80 1b c0 ef fe 14 81 88 ff ff 00 00 00  ................
+    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc a633fa69):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
+    _kmalloc_noprof include/linux/slab.h:988 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    vidtv_psi_sdt_service_init+0x32/0xa0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1386
+    vidtv_channel_sdt_serv_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:229 [inline]
+    vidtv_channel_si_init+0x22f/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:439
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888114feefc0 (size 32):
+  comm "syz.0.17", pid 5955, jiffies 4294942049
+  hex dump (first 32 bytes):
+    00 00 00 00 00 00 00 00 48 19 02 0c 40 42 f8 11  ........H...@B..
+    81 88 ff ff 0a 60 42 f8 11 81 88 ff ff 00 00 00  .....`B.........
+  backtrace (crc 9f5e821f):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
+    _kmalloc_noprof include/linux/slab.h:988 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    vidtv_psi_service_desc_init+0x74/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:233
+    vidtv_psi_desc_clone+0x137/0x160 drivers/media/test-drivers/vidtv/vidtv_psi.c:451
+    vidtv_channel_sdt_serv_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:236 [inline]
+    vidtv_channel_si_init+0x1d7/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:439
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888114feefe0 (size 32):
+  comm "syz.0.17", pid 5955, jiffies 4294942049
+  hex dump (first 32 bytes):
+    00 01 ef 40 06 00 00 23 59 59 80 8d 80 b5 b5 12  ...@...#YY......
+    81 88 ff ff 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 8ccd5b03):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
+    _kmalloc_noprof include/linux/slab.h:988 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    vidtv_psi_eit_event_init+0x6d/0x1b0 drivers/media/test-drivers/vidtv/vidtv_psi.c:1928
+    vidtv_channel_eit_event_cat_into_new drivers/media/test-drivers/vidtv/vidtv_channel.c:182 [inline]
+    vidtv_channel_si_init+0x31d/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:443
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888111f842a0 (size 16):
+  comm "syz.0.17", pid 5955, jiffies 4294942049
+  hex dump (first 16 bytes):
+    4c 69 6e 75 78 54 56 2e 6f 72 67 00 00 00 00 00  LinuxTV.org.....
+  backtrace (crc 2e58d8e5):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __do_kmalloc_node mm/slub.c:5333 [inline]
+    __kmalloc_node_track_caller_noprof+0x3d3/0x570 mm/slub.c:5471
+    __kmemdup_nul mm/util.c:64 [inline]
+    kstrdup+0x3c/0x80 mm/util.c:84
+    vidtv_psi_network_name_desc_init+0xbe/0x110 drivers/media/test-drivers/vidtv/vidtv_psi.c:317
+    vidtv_psi_nit_table_init+0xa1/0x130 drivers/media/test-drivers/vidtv/vidtv_psi.c:1593
+    vidtv_channel_si_init+0x4bf/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:453
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+BUG: memory leak
+unreferenced object 0xffff888111f84220 (size 16):
+  comm "syz.0.17", pid 5955, jiffies 4294942049
+  hex dump (first 16 bytes):
+    08 80 02 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  backtrace (crc dcfaab59):
+    kmemleak_alloc_recursive include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook mm/slub.c:4597 [inline]
+    slab_alloc_node mm/slub.c:4917 [inline]
+    __kmalloc_cache_noprof+0x356/0x440 mm/slub.c:5485
+    _kmalloc_noprof include/linux/slab.h:988 [inline]
+    _kzalloc_noprof include/linux/slab.h:1309 [inline]
+    vidtv_psi_service_list_desc_init+0x7b/0x160 drivers/media/test-drivers/vidtv/vidtv_psi.c:345
+    vidtv_psi_nit_table_init+0xd1/0x130 drivers/media/test-drivers/vidtv/vidtv_psi.c:1601
+    vidtv_channel_si_init+0x4bf/0x770 drivers/media/test-drivers/vidtv/vidtv_channel.c:453
+    vidtv_mux_init+0x115/0x390 drivers/media/test-drivers/vidtv/vidtv_mux.c:525
+    vidtv_start_streaming drivers/media/test-drivers/vidtv/vidtv_bridge.c:194 [inline]
+    vidtv_start_feed+0x1d4/0x260 drivers/media/test-drivers/vidtv/vidtv_bridge.c:239
+    dmx_ts_feed_start_filtering+0x8e/0x130 drivers/media/dvb-core/dvb_demux.c:747
+    dvb_dmxdev_start_feed+0x11c/0x170 drivers/media/dvb-core/dmxdev.c:658
+    dvb_dmxdev_filter_start+0xd8/0x440 drivers/media/dvb-core/dmxdev.c:769
+    dvb_demux_do_ioctl+0x297/0x7d0 drivers/media/dvb-core/dmxdev.c:1065
+    dvb_usercopy+0x116/0x2d0 drivers/media/dvb-core/dvbdev.c:996
+    dvb_demux_ioctl+0x29/0x40 drivers/media/dvb-core/dmxdev.c:1201
+    vfs_ioctl fs/ioctl.c:51 [inline]
+    __do_sys_ioctl fs/ioctl.c:597 [inline]
+    __se_sys_ioctl fs/ioctl.c:583 [inline]
+    __x64_sys_ioctl+0xf4/0x140 fs/ioctl.c:583
+    do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+    do_syscall_64+0xf8/0x610 arch/x86/entry/syscall_64.c:94
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+connection error: failed to recv *flatrpc.ExecutorMessageRawT: EOF
+
+
 ---
- drivers/media/i2c/og0ve1b.c | 278 ++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 266 insertions(+), 12 deletions(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/media/i2c/og0ve1b.c b/drivers/media/i2c/og0ve1b.c
-index f560d5d90fda94abf4bc622c5e4f861b078b811f..7b8555a833c255652204d5f4c87c8d701c3008e6 100644
---- a/drivers/media/i2c/og0ve1b.c
-+++ b/drivers/media/i2c/og0ve1b.c
-@@ -15,10 +15,14 @@
- #include <media/v4l2-device.h>
- #include <media/v4l2-fwnode.h>
- 
-+#define OG0VA1B_LINK_FREQ_480MHZ	(480 * HZ_PER_MHZ)
-+#define OG0VA1B_MCLK_FREQ_19_2MHZ	(19200 * HZ_PER_KHZ)
-+
- #define OG0VE1B_LINK_FREQ_500MHZ	(500 * HZ_PER_MHZ)
- #define OG0VE1B_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
- 
--#define OG0VE1B_REG_CHIP_ID		CCI_REG24(0x300a)
-+#define OG0V_REG_CHIP_ID		CCI_REG24(0x300a)
-+#define OG0VA1B_CHIP_ID			0xc75641
- #define OG0VE1B_CHIP_ID			0xc75645
- 
- #define OG0VE1B_REG_MODE_SELECT		CCI_REG8(0x0100)
-@@ -46,12 +50,18 @@
- #define OG0VE1B_REG_VTS			CCI_REG16(0x380e)
- #define OG0VE1B_VTS_MAX			0xffff
- 
--/* Test pattern */
-+/* Test pattern - OG0VA1B uses 0x5100, OG0VE1B uses 0x5e00 */
-+#define OG0VA1B_REG_TEST_PATTERN	CCI_REG8(0x5100)
-+#define OG0VA1B_TEST_PATTERN_BAR_SHIFT	2
- #define OG0VE1B_REG_PRE_ISP		CCI_REG8(0x5e00)
- #define OG0VE1B_TEST_PATTERN_ENABLE	BIT(7)
- 
- #define to_og0ve1b(_sd)			container_of(_sd, struct og0ve1b, sd)
- 
-+static const s64 og0va1b_link_freq_menu[] = {
-+	OG0VA1B_LINK_FREQ_480MHZ,
-+};
-+
- static const s64 og0ve1b_link_freq_menu[] = {
- 	OG0VE1B_LINK_FREQ_500MHZ,
- };
-@@ -74,15 +84,31 @@ struct og0ve1b_mode {
- struct og0ve1b;
- 
- struct og0ve1b_sensor_data {
-+	const char *name;
- 	u64 chip_id;
- 	unsigned long mclk_freq;
- 	int (*enable_test_pattern)(struct og0ve1b *og0ve1b, u32 pattern);
-+	const char * const *test_pattern_menu;
-+	int num_test_patterns;
-+	bool cache_test_pattern_reg;
-+	/* Exposure register unit: OG0VE1B 1/16 line (4), OG0VA1B whole lines (0). */
-+	unsigned int exposure_shift;
-+	/* Pixel rate multiplier: OG0VA1B uses CSI-2 DDR (2), OG0VE1B keeps 1. */
-+	unsigned int pixel_rate_mul;
- 	const s64 *link_freq_menu;
- 	int num_link_freqs;
- 	const struct og0ve1b_mode *modes;
- 	int num_modes;
- };
- 
-+static const char * const og0va1b_test_pattern_menu[] = {
-+	"Disabled",
-+	"Standard Test Bar",
-+	"Top-Bottom Darker Test Bar",
-+	"Right-Left Darker Test Bar",
-+	"Bottom-Top Darker Test Bar",
-+};
-+
- static const char * const og0ve1b_test_pattern_menu[] = {
- 	"Disabled",
- 	"Standard Test Bar",
-@@ -116,6 +142,196 @@ struct og0ve1b {
- 	const struct og0ve1b_sensor_data *data;
- };
- 
-+static const struct cci_reg_sequence og0va1b_640x480_60fps_mode[] = {
-+	{ CCI_REG8(0x0302), 0x31 },
-+	{ CCI_REG8(0x0303), 0x02 },
-+	{ CCI_REG8(0x0304), 0x01 },
-+	{ CCI_REG8(0x0305), 0x90 },
-+	{ CCI_REG8(0x0306), 0x00 },
-+	{ CCI_REG8(0x0323), 0x02 },
-+	{ CCI_REG8(0x0325), 0x68 },
-+	{ CCI_REG8(0x0326), 0xd8 },
-+	{ CCI_REG8(0x3006), 0x0e },
-+	{ CCI_REG8(0x300d), 0x08 },
-+	{ CCI_REG8(0x3018), 0xf0 },
-+	{ CCI_REG8(0x301c), 0xf0 },
-+	{ CCI_REG8(0x3020), 0x20 },
-+	{ CCI_REG8(0x3040), 0x0f },
-+	{ CCI_REG8(0x3022), 0x01 },
-+	{ CCI_REG8(0x3107), 0x40 },
-+	{ CCI_REG8(0x3216), 0x01 },
-+	{ CCI_REG8(0x3217), 0x00 },
-+	{ CCI_REG8(0x3218), 0xc0 },
-+	{ CCI_REG8(0x3219), 0x55 },
-+	{ CCI_REG8(0x3506), 0x01 },
-+	{ CCI_REG8(0x3507), 0x50 },
-+	{ CCI_REG8(0x3508), 0x01 },
-+	{ CCI_REG8(0x3509), 0x00 },
-+	{ CCI_REG8(0x350a), 0x01 },
-+	{ CCI_REG8(0x350b), 0x00 },
-+	{ CCI_REG8(0x350c), 0x00 },
-+	{ CCI_REG8(0x3541), 0x00 },
-+	{ CCI_REG8(0x3542), 0x40 },
-+	{ CCI_REG8(0x3605), 0x90 },
-+	{ CCI_REG8(0x3606), 0x41 },
-+	{ CCI_REG8(0x3612), 0x00 },
-+	{ CCI_REG8(0x3620), 0x08 },
-+	{ CCI_REG8(0x3630), 0x17 },
-+	{ CCI_REG8(0x3631), 0x99 },
-+	{ CCI_REG8(0x3639), 0x88 },
-+	{ CCI_REG8(0x3668), 0x00 },
-+	{ CCI_REG8(0x3674), 0x00 },
-+	{ CCI_REG8(0x3677), 0x3f },
-+	{ CCI_REG8(0x368f), 0x06 },
-+	{ CCI_REG8(0x36a2), 0x19 },
-+	{ CCI_REG8(0x36a4), 0xf1 },
-+	{ CCI_REG8(0x36a5), 0x2d },
-+	{ CCI_REG8(0x3706), 0x30 },
-+	{ CCI_REG8(0x370d), 0x72 },
-+	{ CCI_REG8(0x3713), 0x86 },
-+	{ CCI_REG8(0x3715), 0x03 },
-+	{ CCI_REG8(0x3716), 0x00 },
-+	{ CCI_REG8(0x376d), 0x24 },
-+	{ CCI_REG8(0x3770), 0x3a },
-+	{ CCI_REG8(0x3778), 0x00 },
-+	{ CCI_REG8(0x37a8), 0x03 },
-+	{ CCI_REG8(0x37a9), 0x00 },
-+	{ CCI_REG8(0x37df), 0x7d },
-+	{ CCI_REG8(0x3800), 0x00 },
-+	{ CCI_REG8(0x3801), 0x00 },
-+	{ CCI_REG8(0x3802), 0x00 },
-+	{ CCI_REG8(0x3803), 0x00 },
-+	{ CCI_REG8(0x3804), 0x02 },
-+	{ CCI_REG8(0x3805), 0x8f },
-+	{ CCI_REG8(0x3806), 0x01 },
-+	{ CCI_REG8(0x3807), 0xef },
-+	{ CCI_REG8(0x3808), 0x02 },
-+	{ CCI_REG8(0x3809), 0x80 },
-+	{ CCI_REG8(0x380a), 0x01 },
-+	{ CCI_REG8(0x380b), 0xe0 },
-+	{ CCI_REG8(0x380c), 0x01 },
-+	{ CCI_REG8(0x380d), 0x78 },
-+	{ CCI_REG8(0x380e), 0x08 },
-+	{ CCI_REG8(0x380f), 0x30 },
-+	{ CCI_REG8(0x3810), 0x00 },
-+	{ CCI_REG8(0x3811), 0x08 },
-+	{ CCI_REG8(0x3812), 0x00 },
-+	{ CCI_REG8(0x3813), 0x08 },
-+	{ CCI_REG8(0x3814), 0x11 },
-+	{ CCI_REG8(0x3815), 0x11 },
-+	{ CCI_REG8(0x3816), 0x00 },
-+	{ CCI_REG8(0x3817), 0x01 },
-+	{ CCI_REG8(0x3818), 0x00 },
-+	{ CCI_REG8(0x3819), 0x05 },
-+	{ CCI_REG8(0x3820), 0x40 },
-+	{ CCI_REG8(0x3821), 0x04 },
-+	{ CCI_REG8(0x3823), 0x00 },
-+	{ CCI_REG8(0x3826), 0x00 },
-+	{ CCI_REG8(0x3827), 0x00 },
-+	{ CCI_REG8(0x382b), 0x52 },
-+	{ CCI_REG8(0x384a), 0xa2 },
-+	{ CCI_REG8(0x3858), 0x00 },
-+	{ CCI_REG8(0x3859), 0x00 },
-+	{ CCI_REG8(0x3860), 0x00 },
-+	{ CCI_REG8(0x3861), 0x00 },
-+	{ CCI_REG8(0x3866), 0x0c },
-+	{ CCI_REG8(0x3867), 0x07 },
-+	{ CCI_REG8(0x3884), 0x00 },
-+	{ CCI_REG8(0x3885), 0x08 },
-+	{ CCI_REG8(0x3888), 0x50 },
-+	{ CCI_REG8(0x3893), 0x6c },
-+	{ CCI_REG8(0x3898), 0x00 },
-+	{ CCI_REG8(0x389a), 0x04 },
-+	{ CCI_REG8(0x389b), 0x01 },
-+	{ CCI_REG8(0x389c), 0x0b },
-+	{ CCI_REG8(0x389d), 0xdc },
-+	{ CCI_REG8(0x38b1), 0x04 },
-+	{ CCI_REG8(0x38b2), 0x00 },
-+	{ CCI_REG8(0x38b3), 0x08 },
-+	{ CCI_REG8(0x38c1), 0x46 },
-+	{ CCI_REG8(0x38c9), 0x02 },
-+	{ CCI_REG8(0x38d4), 0x06 },
-+	{ CCI_REG8(0x38d5), 0x5a },
-+	{ CCI_REG8(0x38d6), 0x08 },
-+	{ CCI_REG8(0x38d7), 0x3a },
-+	{ CCI_REG8(0x391f), 0x00 },
-+	{ CCI_REG8(0x3920), 0xaa },
-+	{ CCI_REG8(0x3921), 0x00 },
-+	{ CCI_REG8(0x3922), 0x00 },
-+	{ CCI_REG8(0x3923), 0x00 },
-+	{ CCI_REG8(0x3924), 0x00 },
-+	{ CCI_REG8(0x3925), 0x00 },
-+	{ CCI_REG8(0x3926), 0x00 },
-+	{ CCI_REG8(0x3927), 0x00 },
-+	{ CCI_REG8(0x3928), 0x10 },
-+	{ CCI_REG8(0x3929), 0x01 },
-+	{ CCI_REG8(0x392a), 0xb4 },
-+	{ CCI_REG8(0x392b), 0x00 },
-+	{ CCI_REG8(0x392c), 0x10 },
-+	{ CCI_REG8(0x392d), 0x01 },
-+	{ CCI_REG8(0x392e), 0x78 },
-+	{ CCI_REG8(0x392f), 0x4a },
-+	{ CCI_REG8(0x391e), 0x01 },
-+	{ CCI_REG8(0x389f), 0x08 },
-+	{ CCI_REG8(0x38a0), 0x00 },
-+	{ CCI_REG8(0x38a1), 0x00 },
-+	{ CCI_REG8(0x3a06), 0x06 },
-+	{ CCI_REG8(0x3a07), 0x78 },
-+	{ CCI_REG8(0x3a08), 0x08 },
-+	{ CCI_REG8(0x3a09), 0x80 },
-+	{ CCI_REG8(0x3a52), 0x00 },
-+	{ CCI_REG8(0x3a53), 0x01 },
-+	{ CCI_REG8(0x3a54), 0x0c },
-+	{ CCI_REG8(0x3a55), 0x04 },
-+	{ CCI_REG8(0x3a58), 0x0c },
-+	{ CCI_REG8(0x3a59), 0x04 },
-+	{ CCI_REG8(0x4000), 0xcf },
-+	{ CCI_REG8(0x4003), 0x40 },
-+	{ CCI_REG8(0x4008), 0x04 },
-+	{ CCI_REG8(0x4009), 0x13 },
-+	{ CCI_REG8(0x400a), 0x02 },
-+	{ CCI_REG8(0x400b), 0x34 },
-+	{ CCI_REG8(0x4010), 0x71 },
-+	{ CCI_REG8(0x4042), 0xc3 },
-+	{ CCI_REG8(0x4306), 0x04 },
-+	{ CCI_REG8(0x4307), 0x12 },
-+	{ CCI_REG8(0x4500), 0x70 },
-+	{ CCI_REG8(0x4509), 0x00 },
-+	{ CCI_REG8(0x450b), 0x83 },
-+	{ CCI_REG8(0x4604), 0x68 },
-+	{ CCI_REG8(0x481b), 0x44 },
-+	{ CCI_REG8(0x481f), 0x30 },
-+	{ CCI_REG8(0x4823), 0x44 },
-+	{ CCI_REG8(0x4825), 0x35 },
-+	{ CCI_REG8(0x4837), 0x11 },
-+	{ CCI_REG8(0x4f00), 0x04 },
-+	{ CCI_REG8(0x4f10), 0x04 },
-+	{ CCI_REG8(0x4f21), 0x01 },
-+	{ CCI_REG8(0x4f22), 0x00 },
-+	{ CCI_REG8(0x4f23), 0x54 },
-+	{ CCI_REG8(0x4f24), 0x51 },
-+	{ CCI_REG8(0x4f25), 0x41 },
-+	{ CCI_REG8(0x5000), 0x3f },
-+	{ CCI_REG8(0x5001), 0x80 },
-+	{ CCI_REG8(0x500a), 0x00 },
-+	{ CCI_REG8(0x5100), 0x00 },
-+	{ CCI_REG8(0x5111), 0x20 },
-+};
-+
-+static const struct og0ve1b_mode og0va1b_supported_modes[] = {
-+	{
-+		.width = 640,
-+		.height = 480,
-+		.hts = 752,
-+		.vts = 2096,
-+		.code = MEDIA_BUS_FMT_Y10_1X10,
-+		.reg_list = {
-+			.regs = og0va1b_640x480_60fps_mode,
-+			.num_regs = ARRAY_SIZE(og0va1b_640x480_60fps_mode),
-+		},
-+	},
-+};
-+
- static const struct cci_reg_sequence og0ve1b_640x480_120fps_mode[] = {
- 	{ CCI_REG8(0x30a0), 0x02 },
- 	{ CCI_REG8(0x30a1), 0x00 },
-@@ -276,6 +492,17 @@ static const struct og0ve1b_mode og0ve1b_supported_modes[] = {
- 	},
- };
- 
-+static int og0va1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
-+{
-+	u64 val = 0;
-+
-+	if (pattern)
-+		val = ((pattern - 1) << OG0VA1B_TEST_PATTERN_BAR_SHIFT) |
-+		      OG0VE1B_TEST_PATTERN_ENABLE;
-+
-+	return cci_write(og0ve1b->regmap, OG0VA1B_REG_TEST_PATTERN, val, NULL);
-+}
-+
- static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
- {
- 	u64 val = og0ve1b->pre_isp;
-@@ -288,10 +515,31 @@ static int og0ve1b_enable_test_pattern(struct og0ve1b *og0ve1b, u32 pattern)
- 	return cci_write(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP, val, NULL);
- }
- 
-+static const struct og0ve1b_sensor_data og0va1b_data = {
-+	.name = "og0va1b",
-+	.chip_id = OG0VA1B_CHIP_ID,
-+	.mclk_freq = OG0VA1B_MCLK_FREQ_19_2MHZ,
-+	.enable_test_pattern = og0va1b_enable_test_pattern,
-+	.test_pattern_menu = og0va1b_test_pattern_menu,
-+	.num_test_patterns = ARRAY_SIZE(og0va1b_test_pattern_menu),
-+	.exposure_shift = 0,
-+	.pixel_rate_mul = 2,
-+	.link_freq_menu = og0va1b_link_freq_menu,
-+	.num_link_freqs = ARRAY_SIZE(og0va1b_link_freq_menu),
-+	.modes = og0va1b_supported_modes,
-+	.num_modes = ARRAY_SIZE(og0va1b_supported_modes),
-+};
-+
- static const struct og0ve1b_sensor_data og0ve1b_data = {
-+	.name = "og0ve1b",
- 	.chip_id = OG0VE1B_CHIP_ID,
- 	.mclk_freq = OG0VE1B_MCLK_FREQ_24MHZ,
- 	.enable_test_pattern = og0ve1b_enable_test_pattern,
-+	.test_pattern_menu = og0ve1b_test_pattern_menu,
-+	.num_test_patterns = ARRAY_SIZE(og0ve1b_test_pattern_menu),
-+	.cache_test_pattern_reg = true,
-+	.exposure_shift = 4,
-+	.pixel_rate_mul = 1,
- 	.link_freq_menu = og0ve1b_link_freq_menu,
- 	.num_link_freqs = ARRAY_SIZE(og0ve1b_link_freq_menu),
- 	.modes = og0ve1b_supported_modes,
-@@ -332,7 +580,8 @@ static int og0ve1b_set_ctrl(struct v4l2_ctrl *ctrl)
- 		break;
- 	case V4L2_CID_EXPOSURE:
- 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_EXPOSURE,
--				ctrl->val << 4, NULL);
-+				ctrl->val << og0ve1b->data->exposure_shift,
-+				NULL);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		ret = cci_write(og0ve1b->regmap, OG0VE1B_REG_VTS,
-@@ -360,7 +609,7 @@ static s64 og0ve1b_pixel_rate(const struct og0ve1b_sensor_data *data)
- 	const struct og0ve1b_mode *mode = &data->modes[0];
- 	unsigned int bpp = mode->code == MEDIA_BUS_FMT_Y8_1X8 ? 8 : 10;
- 
--	return div_u64(data->link_freq_menu[0], bpp);
-+	return div_u64(data->link_freq_menu[0] * data->pixel_rate_mul, bpp);
- }
- 
- static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
-@@ -413,8 +662,8 @@ static int og0ve1b_init_controls(struct og0ve1b *og0ve1b)
- 
- 	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &og0ve1b_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
--				     ARRAY_SIZE(og0ve1b_test_pattern_menu) - 1,
--				     0, 0, og0ve1b_test_pattern_menu);
-+				     data->num_test_patterns - 1,
-+				     0, 0, data->test_pattern_menu);
- 
- 	if (ctrl_hdlr->error)
- 		return ctrl_hdlr->error;
-@@ -621,7 +870,7 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
- 	u64 val;
- 	int ret;
- 
--	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_CHIP_ID, &val, NULL);
-+	ret = cci_read(og0ve1b->regmap, OG0V_REG_CHIP_ID, &val, NULL);
- 	if (ret) {
- 		dev_err(og0ve1b->dev, "failed to read chip id: %d\n", ret);
- 		return ret;
-@@ -633,10 +882,12 @@ static int og0ve1b_identify_sensor(struct og0ve1b *og0ve1b)
- 		return -ENODEV;
- 	}
- 
--	ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
--		       &og0ve1b->pre_isp, NULL);
--	if (ret)
--		dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
-+	if (og0ve1b->data->cache_test_pattern_reg) {
-+		ret = cci_read(og0ve1b->regmap, OG0VE1B_REG_PRE_ISP,
-+			       &og0ve1b->pre_isp, NULL);
-+		if (ret)
-+			dev_err(og0ve1b->dev, "failed to read pre_isp: %d\n", ret);
-+	}
- 
- 	return ret;
- }
-@@ -732,6 +983,8 @@ static int og0ve1b_probe(struct i2c_client *client)
- 		return -ENODEV;
- 
- 	v4l2_i2c_subdev_init(&og0ve1b->sd, client, &og0ve1b_subdev_ops);
-+	v4l2_i2c_subdev_set_name(&og0ve1b->sd, client,
-+				 og0ve1b->data->name, NULL);
- 
- 	og0ve1b->regmap = devm_cci_regmap_init_i2c(client, 16);
- 	if (IS_ERR(og0ve1b->regmap))
-@@ -863,6 +1116,7 @@ static const struct dev_pm_ops og0ve1b_pm_ops = {
- };
- 
- static const struct of_device_id og0ve1b_of_match[] = {
-+	{ .compatible = "ovti,og0va1b", .data = &og0va1b_data },
- 	{ .compatible = "ovti,og0ve1b", .data = &og0ve1b_data },
- 	{ /* sentinel */ }
- };
-@@ -881,5 +1135,5 @@ static struct i2c_driver og0ve1b_i2c_driver = {
- module_i2c_driver(og0ve1b_i2c_driver);
- 
- MODULE_AUTHOR("Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>");
--MODULE_DESCRIPTION("OmniVision OG0VE1B sensor driver");
-+MODULE_DESCRIPTION("OmniVision OG0VE1B/OG0VA1B sensor driver");
- MODULE_LICENSE("GPL");
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-2.34.1
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
