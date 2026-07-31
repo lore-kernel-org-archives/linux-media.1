@@ -1,129 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249173750BC;
-	Fri, 31 Jul 2026 20:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0051832FA1B
+	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 22:01:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785530213; cv=none; b=qPVuhs+1NbAEDP9JPqWZK5f98IBawE9qGm5vKfXrq78TXPyr/pLKgnC9S59om6pEaWy6ml/e/ajeSDONgQUOPH++UsMgR1CWbcglBoQmmv2PM4+Fsf9zvMlevZ+rc6/qpLQkFuKNXK0wpAGZaaTZyw+7EelGf5L4F8YUGdF5oSo=
+	t=1785535267; cv=none; b=K8WnYBd23U3EobMshJJkwJB7l+l7WgNzN6ax4QQCqFyWHtJBNM7RsqTgCAyk/OWi7aZyVS6Zdipioi5SIbSRfiDVUVXtn4XxndFOJkQDcsy4pwocwD8PsJHPVDZLXt8rF4ilFs8NkL1+OUbijEkuoZjBDSE+vvx2G4hMdkv7Q18=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785530213; c=relaxed/simple;
-	bh=UqKWb+idgz8CdHbksmqSbsNQm+yn31XekBmBRUKS3FM=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=W2TMEar8SEwzSgC0WQ3M+aA94iFyGOYOUAAhIwSayhYUshXkbamhOAxEIf2bqLsuphh7pCHrrsLCkA+iiemGOb559fEvSI2b/zqXW4Ty+0zZ1R53/uw2NqqQeY+HT4fswyRtodTdvNSS3jk9E6LUJg3dtkhrVILMT+6w6Vbf9w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kkRuSP/Q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785535267; c=relaxed/simple;
+	bh=RJZ1rlFHf6Wtd52ZhwYrZmFucK2tPKKMxzDlcmG6gLU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cC32RKhao7i6zNrt+K1s/+9cmqe97uYy6TJx0WuIV/upMqujnxLt7hheqSKCl55tqrSmn3Ixjp71iFUtbRLwFag5MRJVqJBqXOuML5/Uj9UZwIctDuLZjSIe+MP+O9pB+84VogzP4qvWJv/PqOOKRRbyv3rM0Ge7Tohl9ASSd5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=inAXsZpg; arc=none smtp.client-ip=209.85.214.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kkRuSP/Q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0A8B1F00AC4;
-	Fri, 31 Jul 2026 20:36:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785530212;
-	bh=DNG9QK/E1bVjVyZQG6BbnWYDur9kDPWeCKs1nMVxImc=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=kkRuSP/QIxNNsb6GJtIAIkUxBkUbXJLcPRg/uNAUvw9Ztk7cTIUiY7zBZqrQK+WkT
-	 q0589ywOpgECE+CVZ//4Cu7bsx2q9iFHB8DYoVMNi5Ypj/5T7ccVO3ITKWNBmeZS0w
-	 +33zUb+mUf6QFAVk3uF2dMpHLVlTVpubGjy2P1IZPgkC9X9Izoj/UFNVc5lX4gSRkD
-	 U5sz5IzoGtSbpa1nP28lRMy6CXbX+6kPwlnwd5tuU0+3hEywg1S32tAE52bpzJY29B
-	 +mLh64wQh3oMhzbvLhL0x2pYRoD5N9DUpXg4gdjjx9d57m5zcIUBFhcI6fAqwVg5/T
-	 EJGO2oal3hXMA==
-Date: Fri, 31 Jul 2026 15:36:51 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="inAXsZpg"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2cea3004256so17345575ad.0
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 15:01:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785535265; x=1786140065; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=bvrQ6elHBjzw1ZZIATnQHAMJ2uvLdDDK2nT5pKMJu90=;
+        b=inAXsZpg7rSfH1DiRJO38JoMFw/MwRLgTogOJ0Vq0cdhFyUSs4Ga00KeNNzCdUCT7C
+         Q/SeZ6JPOg1LlbcxyvJvtA8lmL+lo0IaDRi8XC2dJk2tuSSlNp8fi8hyTInHKEbj9FKl
+         FGLb/VJFfKsPp3MNzwL7JrgL2EhYIhcAGT9yGi02JcHhr3xS2dS7cp6P7T/tqLIxbDvK
+         /95VQ48aSLJEU0YiMeI8OcIvzOup7pQNHluB/EwX/4foNwQ4PIzS59L/koa9SRLt7VUu
+         GLPHsEnfwoshcrlSaV3PV8kdItALA29eEn9LIM5zUwiB5EkZFfjLKm6mliJ2N9Vgl1wu
+         3CRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785535265; x=1786140065;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bvrQ6elHBjzw1ZZIATnQHAMJ2uvLdDDK2nT5pKMJu90=;
+        b=bGnlmxMuL3ihJeyMLsI8ql64n/4Sc2WT7J7q959RpBdnok7OnT1X1SrbD3mgw5YBYZ
+         tbNKikKjXTkKQlz1180nuZr6zIpiMIEx59uusOT6NQLldQvacagYJWkW88OoKMxPDBZC
+         2id+crdWsFTwsvwcs917o/Rm25Kt6vM4zkeEdunl5dImovGLHP53OPLQG7FK16Tdz0+7
+         1qcNUqGY9XCRr7UBlWCUKbKRT0BWS7ohNty/syJIcbcYmxMBDkrl+SRmZlU408trKZzH
+         4BLMUJWAd/XgqSgxWjXWlKn4IuWgAnFywaDD5qjy1WFjb5lkoCw/U+jJCUAqP4O48+lW
+         yl6Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rrop9/blDjln+5yVH4dg12af7M3cE5BQk8FmzxzhXNw1EwtfDkHvPxH0G4+VFrrFhV8s3nLX4Kh+/nrhg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyWzZC57miL7fioUubnkcVUEYjgxbusZpfP6OMEK0Rw8A89YSZM
+	g6zQ9tycEtVALfZrSMGxzu55m5LvWJBC9hTiLYEbaWXAi8CNKW6iQ9rl
+X-Gm-Gg: AR+sD10BOYoW9yQW45PycxMX4pu5tdVZohJ/U4dhp6RrSepm/8+/Y1eOyCPSPgO+hSX
+	+iERYXJk5d1PaiTd/Ni2YU6F03/vzUV1j7WMKBWRyTTgRbOtyahREN1VPca0/5rziFzoZs1bHwb
+	xr6kbJ/WKtXwKfGnUtLzxsK71qYIoX3pzV6TJEXdiQAAuMrY3W+W4SU7oqU994dLNSxQyhqQeNi
+	X8ZpoHD/mw+frlQ+zFBHVwv32yoyrKT36tzF/JaIZwOI/WChiQe3awwUZsKyKcTCvLD4Yi2cnKy
+	R3YKGw5Pgi191dqeGBYpdhKOyByItatvNcvjpHKjygjlroBvdAtiJmWNrnBTC9IDufi7j39eaJg
+	IJhrSLofvx+uSWajzmhjc05ZwzRwNI94K577J6CPaTMexWGWY4mzbNwiVm4MRJeUFKBMmjiDJmb
+	XIo3xiUMBNsdLsfo7SrBjQLnHtLsScWLyxV8Bwx3noyhFjPCsD7L1LKdWswoKfIPRd9vtjfHmZr
+	dU1NCkI
+X-Received: by 2002:a17:903:1110:b0:2ca:c01e:8837 with SMTP id d9443c01a7336-2d052428e6dmr13323565ad.24.1785535265148;
+        Fri, 31 Jul 2026 15:01:05 -0700 (PDT)
+Received: from devvm29614.prn0.facebook.com ([2a03:2880:ff:7::])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d04b121751sm10403345ad.65.2026.07.31.15.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 15:01:03 -0700 (PDT)
+Date: Fri, 31 Jul 2026 15:01:01 -0700
+From: Bobby Eshleman <bobbyeshleman@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: Donald Hunter <donald.hunter@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Gerd Hoffmann <kraxel@redhat.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Shuah Khan <shuah@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+	linux-kselftest@vger.kernel.org, sdf@fomichev.me,
+	razor@blackwall.org, daniel@iogearbox.net, almasrymina@google.com,
+	matttbe@kernel.org, skhawaja@google.com, dw@davidwei.uk,
+	Joe Damato <joe@dama.to>, Bobby Eshleman <bobbyeshleman@meta.com>
+Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
+ check_rx_large_niov
+Message-ID: <am0bHSeJqcgdm3vn@devvm29614.prn0.facebook.com>
+References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
+ <20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
+ <20260729191649.55ab7942@kernel.org>
+ <amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
+ <20260730151433.6f71258e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
- Daniel J Blueman <daniel@quora.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Bryan O'Donoghue <bod@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
-Message-Id: <178553021128.1745605.17032924779293673178.robh@kernel.org>
-Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730151433.6f71258e@kernel.org>
 
-
-On Fri, 31 Jul 2026 23:52:17 +0530, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> is restricted to use 0-600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream in
-> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-> non-pixel buffer above 600 MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+On Thu, Jul 30, 2026 at 03:14:33PM -0700, Jakub Kicinski wrote:
+> On Thu, 30 Jul 2026 14:39:37 -0700 Bobby Eshleman wrote:
+> > Poking around, it looks like 231.1.167.0 and above should support
+> > everything, so fw should be okay AFAICT.
+> > 
+> > Looks like the config is missing CONFIG_NET_DEVMEM and CONFIG_UDMABUF?
 > 
-> Reference qcom,venus-common.yaml, which describes the per-stream context
-> bank subnodes, and drop "iommus" from the required list. The common
-> schema accepts either the flat "iommus" or the "non-pixel" and "pixel"
-> subnode pair, so device trees that have not been converted still
-> validate.
+> Ah, damn, you're right. I grepped for DEVMEM and didn't look closely on
+> a hit. Turns out there's a non-NET DEVMEM, too.
 > 
-> Update the example to the subnode form, which also picks up the two
-> supporting properties the subnodes need on the parent video-codec node,
-> '#address-cells' and '#size-cells' of 2 and an empty "dma-ranges". Both
-> are described in the common schema change.
+> Could you send a patch to add the missing config options to 
+> tools/testing/selftests/drivers/net/hw/config ?
 > 
-> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Tested-by: Daniel J Blueman <daniel@quora.org>
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,sm8550-iris.yaml    | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
-> 
+> Can be separate or part of this series, doesn't matter.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+So NET_DEVMEM and UDMABUF both depend on DMA_SHARED_BUFFER, which is not
+user-settable (selected by DMABUF_HEAPS and SYNC_FILE, for example).
 
-yamllint warnings/errors:
+Pretty sure UDMABUF is supposed to select it, not depend on.
+Documentation/driver-api/dma-buf.rst says any "exporter" should select
+it, so I'm going to send that patch over there.
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dts:67.13-24: Warning (dma_ranges_format): /example-0/video-codec@aa00000:dma-ranges: empty "dma-ranges" property but its #address-cells (2) differs from /example-0 (1)
-Documentation/devicetree/bindings/media/qcom,sm8550-iris.example.dts:67.13-24: Warning (dma_ranges_format): /example-0/video-codec@aa00000:dma-ranges: empty "dma-ranges" property but its #size-cells (2) differs from /example-0 (1)
+Meanwhile, do we want drivers/net/hw/config to workaround by carrying
+something like SYNC_FILE or DMABUF_HEAPS, or wait and see about the
+udmabuf kconfig change?
 
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Best,
+Bobby
