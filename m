@@ -1,66 +1,39 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFA7E3BFAD4
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 17:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368552D0C94;
+	Fri, 31 Jul 2026 17:43:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785519574; cv=none; b=G2XXbU0gN9wSLbDE8OYVuKp+R8Mf4WYcu+ROCtH1lxnPPqXFHzF6LX7MRfdmV+odn45oOOkO30CC9u9934TxRIU8ghS357uD8Wk4cfjB5cCp/8kCyl9BYVfQKXU3k3UO/NvBkeWQlc4U/N9q3KnpjX/z/Zl/JJ8ETitKnUXE66k=
+	t=1785519810; cv=none; b=dpWGbC0giDcqICiRSMSA3Oi/2sEad2MIX+jrEyGHdrtolRSNVT7b+F3mtB/Hrr1TUuexH3JEHLVa70Ekx8sa+gpG9VyAbOoI5JX1DETZIpw9r25rtPAAD72+Pg8pFAuqKRvfRhamVYfrbdDgsZfAnDbLRyQ8YWaxFXtQzlU6KxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785519574; c=relaxed/simple;
-	bh=xBnjbcfEInuD7wKHlSXA5W30KWw7QfpToPZZ3oihvOU=;
+	s=arc-20240116; t=1785519810; c=relaxed/simple;
+	bh=nt+JavIIFLnH8JyxSp83U564O2YycMEPgiE9jZxNgso=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pRDgnrm2YJ5uKxOuLnaloEbcoFOugGS4zoWd4/R24hwRdq+dfjX+NLlDOTahBHZRdrWlt4ba1VK6sz7bHoNYKeLtq/lGhqwttY2IfwvNV7tlODPr2aW/65Zln4osMa660Ms9H+Jlza1BQ/EogVh3LfLOpUCnQ5R7Hu8hSQ8LFNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=JpFkRk7F; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	 In-Reply-To:Content-Type; b=jRzTZbnQzulUhFfiC/+cNxgLJVZwWs8+z/w/MX+gRtDAlhKSsOl4pmaR0H3V48JdvT8xkbW7sl/u/JwOZSqdaSfPI4QiYV6XC75aBvDp8oQdgRrlaXj712vQVkCmFPWJy6bafolz3zjdJaIcDYf+YqiYC9FNz+Gr7wsXhn1aqMw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=L7Wsy1yU; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="JpFkRk7F"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b2a73d5fc3so139453e87.1
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 10:39:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1785519569; x=1786124369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vN26vxm6o8zanEQNz46PhpMvu2bmYdDVwJynhP9O2Ag=;
-        b=JpFkRk7FsV9Wvui6IFJqREAw1pqV/kXqEAosytqe2gRJ4Gj6qtzDfCHNlJb4xMkGwR
-         2+fMpPEJrnclbKwyNMe99YXAYHk+266+pEHp1JbfUYzkZwDO0lOOxVPc5b2jquFGOtE2
-         FYSY1xijEQpdsRVNUg/fldlAQWbj8bjmKHGwEyTJylcd9G21f653AyhI/BQRqEJdMo81
-         tUgN6/blKoIBr7FmrHgt87IiJVkV2/AmvMuKV1opc+071HCBUtASXwaVzRSFXkQTX9Oa
-         mKwr3JWGSIGcRgUV7ZRBPdFsiaLq8K39s1XuDmj2GYqlEd+5oCDOiCaLWOSxKtnnl+XM
-         I30Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785519569; x=1786124369;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vN26vxm6o8zanEQNz46PhpMvu2bmYdDVwJynhP9O2Ag=;
-        b=sTX/nm7aDGE+YtHvecHZwn09bi61BhtkxT4qetaAZLeuppV6KTcFxgcTRzjh/gb+Zy
-         4lbVZrR6Wgr6IdmewZTLMFUMefftYF7IhW4BtdIokp1SezeAXqhoiyMLl11oy4DxURdJ
-         MTz1gO+X7y3jHm1CuCLSBN6a9Va6INGlHS8aCTiOPeFzqZPeZBdZC7izrYhpBfwKRyWh
-         +Qx5fy2qf+eOFAzowKMWvjdqvgRw8wCqFo/DaQlcLBHLnp39eRcZRE7BYr7WQg/R+E2K
-         K5x+S8mdvDuAJwIJVxn4+SCq77UcWOv0xLorN/yqST4pGWtwECCSFufcZJrdI/rjkIZN
-         zhHA==
-X-Gm-Message-State: AOJu0YzHQ0ceo3Mvc+Z6mkn+UZDF8ydGmWt+dN09/TjNXKC+ira3/Wju
-	PmhYehxQBaAdkh+gS2WfXFHx/z/0pV2Lwb69jTUvTovfj4z1zN/yUVHkIjpnXTnOPo0=
-X-Gm-Gg: AR+sD11xepq5yRnlPf5ezD9QoTJ6STZon66Jdyh8OH0857EEbNDtf+2DWMqPqmlkZRl
-	52gNqjXwmPE89aEgkgT6viL0hAqhZHVoCD+VlT44fLfcDVCg4Qus9Jht24SqsnDFy/9gfo80IJ6
-	zbPRCN+uxMkdf043ZEatAqHU8ehiLBN1Dz85lGkv+pw+VbjAFQyPQ1nTQb+ab5QE2sNVqe+7oAk
-	FjcYFOPnF8lqq30k3leyLDV0nX1AWAk8UP87060xqQU5kAml15UIrx6+miE2MbDAuYUCIdV5tcE
-	UIsBS3Pwrju+qJT4KkzYfFf4sv5OdUs5mNgjQGClrtPa9Ixzge7xIoSk7VRk36pnN2KvU2oTUBt
-	AgSpAj3GMUbkYwkoiSp8Q/Cei6wlYfXGH8022t6nVt6g4jhPCDWZvVYlfefRqwiATT71RDfdlDf
-	Bf+pGjfW4waD9uTAuSnLht2L7dDhcgep18vAsA+V6+jtkBwfUAEiJ3mK6Gj3D+OnvT4pbjILPl1
-	KrfbJMxP+a4XVJ/uhzbKzrlb+ZJ5EiFaOl3N2ifGmJWuUtyeWXnZg==
-X-Received: by 2002:a05:6512:39cf:b0:5b1:4fde:61a with SMTP id 2adb3069b0e04-5b2e4f50524mr160505e87.2.1785519568497;
-        Fri, 31 Jul 2026 10:39:28 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2e23cf68esm466117e87.34.2026.07.31.10.39.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 31 Jul 2026 10:39:26 -0700 (PDT)
-Message-ID: <2fcdea3f-8588-40b6-9686-52756dd19d26@linaro.org>
-Date: Fri, 31 Jul 2026 20:39:25 +0300
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="L7Wsy1yU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1785519798;
+	bh=O4v5ey+6wf12sRtrZezV9kbrFwYe7LywDcg1AiBLCVg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=L7Wsy1yU5DXduQebNWrVNE1tBweZF/wEjphURDtOUxgMW6BsT0JGVOrp/C9WHLyjk
+	 a/rD234abPKpfA+A4ZY7UBaRzMqn3T3pi6MnxB57825OOl8e4ZaQiN+fJsu29O/UDl
+	 nZ2bMftlLHMJE15jRICqFGYnEWTvBmewTjZaJ9S3recD8WzgqlOW0pJaRm2E8OQhjq
+	 7kw3uJ9LmW3q/woiNPxhe/MafTifSITl7it8G33J/Pq9xbgBrSDR4e0HprRzc2PWUg
+	 0nzM2PU4m9/Iyb3NeWqHrF+tL3+HHdRaZ5aG73483ZCT+Ri+uRt4BxanWYXNoqwiqg
+	 DZ94PCawJvVzw==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hBYM02tCBz4wL7;
+	Sat, 01 Aug 2026 03:43:08 +1000 (AEST)
+Message-ID: <ecf9b355-9fe1-440b-9281-08671a995139@ozlabs.org>
+Date: Fri, 31 Jul 2026 18:43:04 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,149 +41,191 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] media: i2c: Add Samsung S5KJN5 image sensor driver
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com>
- <20260724-sk5jn5-v2-2-871d3b9a2e47@oss.qualcomm.com>
- <2b5753f2-d5f4-4957-b865-f06b842af3de@linaro.org>
- <d5f579a7-b04b-4feb-8d6f-ae6e76e51f60@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <d5f579a7-b04b-4feb-8d6f-ae6e76e51f60@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Content-Language: en-GB
+To: Pranjal Shrivastava <praan@google.com>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe <logang@deltatee.com>,
+ Kevin Tian <kevin.tian@intel.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-4-matt@ozlabs.org> <amvWXNRtviKEuUoV@google.com>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <amvWXNRtviKEuUoV@google.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Wenmeng,
+Hi Praan,
 
-On 7/31/26 11:24, Wenmeng Liu wrote:
+On 30/07/2026 23:55, Pranjal Shrivastava wrote:
+> On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
+>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+>> find a PFN.
+>>
+>> This supports multi-range DMABUFs, which typically would be used to
+>> represent scattered spans but might even represent overlapping or
+>> aliasing spans of PFNs.
+>>
+>> Because this is intended to be used in vfio_pci_core.c, we also need
+>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+>>
+>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+>> ---
+>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+>>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+>>  2 files changed, 160 insertions(+), 13 deletions(-)
+>>
+>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> index c16f460c01d6..7c047400dfd1 100644
+>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+>> @@ -9,19 +9,6 @@
+>>  
+>>  MODULE_IMPORT_NS("DMA_BUF");
+>>  
+>> -struct vfio_pci_dma_buf {
+>> -	struct dma_buf *dmabuf;
+>> -	struct vfio_pci_core_device *vdev;
+>> -	struct list_head dmabufs_elm;
+>> -	size_t size;
+>> -	struct phys_vec *phys_vec;
+>> -	struct p2pdma_provider *provider;
+>> -	u32 nr_ranges;
+>> -	struct kref kref;
+>> -	struct completion comp;
+>> -	u8 revoked : 1;
+>> -};
+>> -
+>>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+>>  				   struct dma_buf_attachment *attachment)
+>>  {
+>> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+>>  	.release = vfio_pci_dma_buf_release,
+>>  };
+>>  
+>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
+>> +			      struct vm_area_struct *vma,
+>> +			      unsigned long fault_addr,
+>> +			      unsigned int order,
+>> +			      unsigned long *out_pfn)
+>> +{
+>> +	/*
+>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+>> +	 * range representing the address's offset into the VMA, and
+>> +	 * its PFN.
+>> +	 *
+>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+>> +	 * the desired page given VMA start/pgoff and address, then
+>> +	 * search upwards from 0 to find which span contains it.
+>> +	 *
+>> +	 * On success, a valid PFN for a page sized by 'order' is
+>> +	 * returned into out_pfn.
+>> +	 *
+>> +	 * Failure occurs if:
+>> +	 * - A hugepage would cross the edge of the VMA,
+>> +	 * - A hugepage isn't entirely contained within a range
+>> +	 *   (including where it straddles the boundary between
+>> +	 *   ranges),
+>> +	 * - We find a range, but the final PFN isn't aligned to the
+>> +	 *   requested order.
+>> +	 *
+>> +	 * Upon failure, -EAGAIN is returned and the caller is
+>> +	 * expected to try again with a smaller order, which will
+>> +	 * eventually succeed (order=0 will always work).
+>> +	 *
+>> +	 * It's suboptimal if DMABUFs are created with neighbouring
+>> +	 * ranges that are physically contiguous, since hugepages
+>> +	 * can't straddle range boundaries.  (The construction of the
+>> +	 * ranges should merge them in this case.)
+>> +	 *
+>> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+>> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+>> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+>> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+>> +	 * To avoid double-offsetting in this scenario, subtracting
+>> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+>> +	 * the effective offset.
+>> +	 */
+>> +
+>> +	const unsigned long pagesize = PAGE_SIZE << order;
+>> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+>> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
 > 
-> Hi Vladimir,
-> On 7/25/2026 3:22 PM, Vladimir Zapolskiy wrote:
->> Hi Wenmeng.
->>
->> On 7/24/26 12:50, Wenmeng Liu wrote:
->>> Add a V4L2 sub-device driver for the Samsung S5KJN5, a 50 MP GBRG 10-bit
->>
->> I believe "GBRG" detalization here will be incorrect, if you consider image
->> flips or odd crops.
->>
->>> RAW MIPI CSI-2 image sensor. The driver supports the 4096x3072 mode and
->>> exposes the standard controls (exposure, gain, vblank/hblank, test
->>> pattern).
->>>
->>> Signed-off-by: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->>> ---
->>>    MAINTAINERS                |    1 +
->>>    drivers/media/i2c/Kconfig  |   11 +
->>>    drivers/media/i2c/Makefile |    1 +
->>>    drivers/media/i2c/s5kjn5.c | 2835 ++++++++++++++++++++++++++++++++++
->>> ++++++++++
->>>    4 files changed, 2848 insertions(+)
->>>
->>> diff --git a/MAINTAINERS b/MAINTAINERS
->>> index
->>> 244c7ed5872aa0972a7b055d7e0b19d530820a08..6f6edae5de13efc0cda6c91ab8c9a40bfe2cbff9 100644
->>> --- a/MAINTAINERS
->>> +++ b/MAINTAINERS
->>> @@ -24195,6 +24195,7 @@ M:    Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
->>>    L:    linux-media@vger.kernel.org
->>>    S:    Supported
->>>    F:    Documentation/devicetree/bindings/media/i2c/samsung,s5kjn5.yaml
->>> +F:    drivers/media/i2c/s5kjn5.c
->>>    SAMSUNG S5P Security SubSystem (SSS) DRIVER
->>>    M:    Krzysztof Kozlowski <krzk@kernel.org>
->>> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
->>> index
->>> 7ffccba897ae5637bd0cb913e1e04f9c7d0c89f5..06b5dbc32cab328df8d10da04d91a708bff6fdda 100644
->>> --- a/drivers/media/i2c/Kconfig
->>> +++ b/drivers/media/i2c/Kconfig
->>> @@ -824,6 +824,17 @@ config VIDEO_S5KJN1
->>>          To compile this driver as a module, choose M here: the
->>>          module will be called s5kjn1.
->>> +config VIDEO_S5KJN5
->>> +    tristate "Samsung S5KJN5 sensor support"
->>> +    depends on GPIOLIB
->>> +    select V4L2_CCI_I2C
->>> +    help
->>> +      This is a V4L2 sensor driver for Samsung S5KJN5 50MP GBRG
->>
->> Same comment as above, I believe "GBRG" should be either removed or
->> generalized to "Bayer" or "raw".
->>
->>> +      10-bit RAW MIPI CSI-2 camera sensor.
->>> +
->>> +      To compile this driver as a module, choose M here: the
->>> +      module will be called s5kjn5.
->>> +
->>>    config VIDEO_T4KA3
->>>        tristate "Toshiba T4KA3 sensor support"
->>>        depends on ACPI || COMPILE_TEST
->>> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
->>> index
->>> d04bd5724552e88fc2ad39f9bbaf9b4ce1763939..45019ce20a6c34c8139b8247b6904c3abb1a8fe7 100644
->>> --- a/drivers/media/i2c/Makefile
->>> +++ b/drivers/media/i2c/Makefile
->>> @@ -133,6 +133,7 @@ obj-$(CONFIG_VIDEO_S5K3M5) += s5k3m5.o
->>>    obj-$(CONFIG_VIDEO_S5K5BAF) += s5k5baf.o
->>>    obj-$(CONFIG_VIDEO_S5K6A3) += s5k6a3.o
->>>    obj-$(CONFIG_VIDEO_S5KJN1) += s5kjn1.o
->>> +obj-$(CONFIG_VIDEO_S5KJN5) += s5kjn5.o
->>>    obj-$(CONFIG_VIDEO_SAA6588) += saa6588.o
->>>    obj-$(CONFIG_VIDEO_SAA6752HS) += saa6752hs.o
->>>    obj-$(CONFIG_VIDEO_SAA7110) += saa7110.o
->>> diff --git a/drivers/media/i2c/s5kjn5.c b/drivers/media/i2c/s5kjn5.c
->>> new file mode 100644
->>> index
->>> 0000000000000000000000000000000000000000..865db808aabcf7d910acbdab8126b9fa308ef875
->>> --- /dev/null
->>> +++ b/drivers/media/i2c/s5kjn5.c
->>> @@ -0,0 +1,2835 @@
->>> +// SPDX-License-Identifier: GPL-2.0
->>> +/*
->>> + * Samsung S5KJN5 50 MP GBRG 10-bit RAW MIPI CSI-2 sensor driver
->>
->> Same comment as above.
->>
->>> + *
->>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries
->>> + */
->>> +
->>> +#include <linux/clk.h>
->>> +#include <linux/delay.h>
->>> +#include <linux/gpio/consumer.h>
->>> +#include <linux/i2c.h>
->>> +#include <linux/module.h>
->>> +#include <linux/pm_runtime.h>
->>> +#include <linux/regmap.h>
->>> +#include <linux/regulator/consumer.h>
->>> +#include <media/v4l2-cci.h>
->>> +#include <media/v4l2-ctrls.h>
->>> +#include <media/v4l2-device.h>
->>
->> Let me ask, which interface or declaration from media/v4l2-ctrls.h
->> is used in the driver? I have a feeling that it's unused.
->>
+> Maybe I'm getting ahead of myself here.. but it seems like this
+> restricts us to only mapping DMABUFs at offsets < 1TB due to the 
+> VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
+> may not be a very distant future).
+
+This is a really good question, thanks for raisiing it.  It is not too
+forward-thinking at all.
+
+> While I understand this mask is needed to drop the BAR encoding in the
+> high bits. 
+>
+> My worry is, if in the future a user were to export a massive
+> contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
+> into it (passing an offset >= 1TB), this bitwise AND would silently drop
+> the high bits, leading to silent data corruption.
+
+One of the big advantages of DMABUF export was that the range could be
+huge and unencumbered by the VFIO_PCI_OFFSET_SHIFT of the traditional
+mmap() interface.  It's a way to mmap huge BARs without having to change
+the user-visible shift).  So definitely this is a relevant concern.
+
+> I think we should explicitly reject such an mmap with -EINVAL like:
 > 
-> It is required. The driver call many interfaces form it, like
-> v4l2_ctrl_new_int_menu/__v4l2_ctrl_handler_setup...
-
-my bad, I stopped at media/v4l2-device.h above, and my question is about
-this media/v4l2-device.h header actually, can you please double check,
-if the driver uses anything from that header or not?
-
-I wrongly copied a definitely used media/v4l2-ctrls.h to my question,
-it was not my intention, sorry.
-
-> And thanks a lot for the review. ACK for the rest, and I'll address them
-> in the next revision.
+> +const unsigned long pagesize = PAGE_SIZE << order;
+> +unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
 > 
+> +/*
+> + * Prevent silent wrap-around if the user mmaps a DMABUF at an
+> + * offset greater than the VFIO index mask allows.
+> + */
+> +if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
+> +    return -EINVAL;
+> 
+> +vma_off &= VFIO_PCI_OFFSET_MASK;
 
-Thank you! I will try my best to review the driver without a great delay.
+Agreed, for now this absolutely should not silently wrap if the offset
+is > 1TB, and we live with the restriction that a DMABUF sized >1TB
+can't be mapped with such an offset.  (We can still, say, map all of a
+16TB DMABUF with offset=0, which is good.).  I'll add a check, thanks
+for pointing this out.
 
--- 
-Best wishes,
-Vladimir
+I suggest as something to revisit later, we flag for a DMABUF (maybe an
+evolution of vma_pgoff_adjust) to differentiate whether this masking
+needs to be applied (traditional mmap() path) or not (DMABUF mmap()),
+and then offsets can be arbitrarily large.
+
+
+Cheers,
+
+
+Matt
+
+
+>> +	unsigned long rounded_page_addr = ALIGN_DOWN(fault_addr, pagesize);
+>> +	unsigned long rounded_page_end = rounded_page_addr + pagesize;
+>> +	unsigned long fault_offset;
+>> +	unsigned long fault_offset_end;
+>> +	unsigned long range_start_offset = 0;
+>> +	unsigned int i;
+>> +	int ret;
+>> +
+> 
+> 
+> Thanks,
+> Praan
+
