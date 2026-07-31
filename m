@@ -1,226 +1,294 @@
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com [209.85.128.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C5D437454
-	for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 15:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD408432303;
+	Fri, 31 Jul 2026 15:28:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785510914; cv=none; b=JPidc4Ad9to7vNi3teS1uZSv10frGMbI70SJV2YuWKOnWUjnaT1Ur1Tc0jSzRahd8wzzywZ1pFw70c22QXMedmp99RAynfRH9voa3n20BKvsYsc4Lvhxm5OSEMHs7r14w3RcBrPe6FEqmSdGNQnTzq1RowXG/VZoS+DeShDZ+EY=
+	t=1785511718; cv=none; b=JBmCcGTxOAMPZ3U3V1yT0wSWvjX7Z92KOyTZanov5GwrH5i+J0/Xny0uct0Hv5kfOnrXRlV3RgSepzXmOm9WjK28gCP8q5oWmNziU4ZvTqirakWe7EnMGbe3X+2K2Uek+eYzzaGV5WpuMGYXTbj1qAZMbYQxdYK/+RvQeTBil14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785510914; c=relaxed/simple;
-	bh=A3noVpkk4le+S0U8Rri7M6Js4eWHNKTb7JBke706bxk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=T1fMhhX6bVF6k7a2qrS8MC3JVLrhtv85wPVYs2/2QvounnzUncN7Rdtgt2lRx+nDk00yNDRIyR1gGhpxd30qAP86e6Uiac2R90zLMhpqW1nmlhUrdTk3n/ItnX/JDBCS/vuAiBuG1iRqeAfV9ykovz5qLVVxGWjmQylTLJj0saY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Obhhb9DT; arc=none smtp.client-ip=209.85.128.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785511718; c=relaxed/simple;
+	bh=1Q/J9x1zui0LUDSaar22GbzucU33Rv701Pcg1BGQ2Cs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=IJlCxERctR+30x+tNbi3eKWL5bxuWJoqHOQrklYR1dPlzspnIjcXyBz9bOYxuWeQ/1oTQUFZ5f3LzHl0BEXGXqy9iuh5iKtXCLfDWdj2DwGvDQ4xaRWucmrMfZM9U0XJM/P78ibR1ml2+cGZCdqK7t+jz5knxuKo4s0eAF355Mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=qeyUolH+; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Obhhb9DT"
-Received: by mail-yw1-f175.google.com with SMTP id 00721157ae682-81f3b227a4aso16788807b3.1
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 08:15:12 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785510911; x=1786115711; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YQqtFdxzNfQ2GMY5lHTyx8q45qE8mZiIcTjEqgZzs3I=;
-        b=Obhhb9DTolFf+HwKG9lO9v75jQdPEHKnTqS8OZfzcQ1kiY3mVEbPBtDsd+wd+02WgY
-         dNFpylfQ14nf1lnCHidoAVDFIOpLqTFK2Smo/ISb9C6CsiftLo1PokyqaDa1+4yf3VK0
-         vzBe2kz2p/HhOlgAeAsqWvdZumXJwrXB/MYODOHpcsGehRXEeGpuEsyJjbR8p1x9qd6k
-         wZ0YC6C+jyUSiQyNmop3RKNzVq8qggOJIuPqxsfWy1YI8cJWR3awIFbsN2374YYNTXIo
-         uHeem0/1A9shRf4K+/zuK62YQCTXPaFCuc7rck9ieSnf44TulqJLZed8Rkb2ZgSOQnUs
-         iSZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785510911; x=1786115711;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=YQqtFdxzNfQ2GMY5lHTyx8q45qE8mZiIcTjEqgZzs3I=;
-        b=ntlVxT9e0gnV7PVIXz9zVt7CrI+bsBSiocp1O7Y6ZqaNg+s77xsyukIRImtHa2/xno
-         4kRV+VfCeR/wJ9aPBC6bQCamnPx92V0h3nk1qoZxWqz5vj6S70gbA5IIkboOh86AonXO
-         j7ozPNiUxOJb/hiRUWm7hxTtjB7N772eZ4PNGp49ToBnCjl3kn2WMAi2g5y4m9/9UVWd
-         OpBj+p0Vj08vc2t2S8QnX3VaCDYwbNzoWwklJ9oXVrlik/2VM0zqcp9V/RSQ7Q5nEOIS
-         6QowRj8cXzsPjf4zYyEQ57eM1RWaDS/WDrz6WMELdXkqiNyxalTa3Q5dMBcrswxk/39M
-         lq8Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpkJ3wleKhBNa5d7AQWTwPiI0KVR+HqpN0LxwT5lzJiPSkxf0BNvXnPdWZpKfK5hlH4I2zpuqEG5PrYPQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmXJQW20hAPIZ7t+JlkQp8epnT0uEwccGdBXd3cGAgDkUFv3wr
-	npVNF/N4rcNkHo1Iaa3+PSYMdFwmAgFSc0u63d+S/nxvnQ6ZjHifrZA8
-X-Gm-Gg: AR+sD12ZM7F03qzmX8dXxAW6uVBXCf92SLkmc0KNtoM0LTpfpzI6Nd2VgAVw7xNtkcf
-	yvs5k1s8rzBdcsb0w5VJtGP6kz5o0Ly7lp6nHoy2dNMMtVYqIdr6yZ+y8E1JJ5ui5GyqMPdh+8U
-	z4IWaYYdZUuUUzm372Ibrg2Jny/M0zMEdqQqxAM/HAj8WHhhjvlaDPc14RKKbX4kBCnZFWy3JXW
-	K7Q857y8jj74egl5ddM0MZsZ3EoAxao75+21WWyAhXaJ8paskFLPO0x+upiAQrmBV/UQKfgdSs8
-	ud0QtZPhC1NYkZ4ao24SC2RlcrY38UdsQlswwq7ccWQZRxrU0wXf6zr40KqOPcCzZVKOeioX//X
-	1V8Y4M81IOYO91mthrRoOnNfYwZWpVmw3n11UC+h8mIiY2GpiuzBsXq0m1M5lamBmm6YVUOOseS
-	HYk1vQivI9x2eQWAcnjjsiD3b9PjaSD+EVIXMDvbo3WnbfF45h8KpDYbwCGA==
-X-Received: by 2002:a05:690c:4442:b0:81e:c972:e8c3 with SMTP id 00721157ae682-81fd4ba85d1mr2580787b3.29.1785510911223;
-        Fri, 31 Jul 2026 08:15:11 -0700 (PDT)
-Received: from llmbox.. ([38.81.85.65])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fcd0d6995sm8212147b3.32.2026.07.31.08.15.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 08:15:10 -0700 (PDT)
-From: Michael Jordan <jordan.mymail@gmail.com>
-To: Ricardo Ribalda <ribalda@chromium.org>
-Cc: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: query pan/tilt position from the device on every read
-Date: Fri, 31 Jul 2026 11:15:09 -0400
-Message-ID: <20260731151509.577383-1-jordan.mymail@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com>
-References: <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="qeyUolH+"
+Received: from [192.168.125.177] (mob-109-113-25-35.net.vodafone.it [109.113.25.35])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1486DBE;
+	Fri, 31 Jul 2026 17:27:27 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785511648;
+	bh=1Q/J9x1zui0LUDSaar22GbzucU33Rv701Pcg1BGQ2Cs=;
+	h=From:Subject:Date:To:Cc:From;
+	b=qeyUolH+/9LjTdFPx3L79bNhyFM5YiHUQFhv8f3JmsTN4ne4EcSsQrUv34L5nZEPq
+	 IA0bDNV8GxRm+61bEgXsIo+qE4tCCbEkjMI1kTnN1vWnoRiDxzcMfjaOwVvu982564
+	 Y59Wnj/gMMVLm4r1yJKlDAFjFW4YEA4/Iqw1OAEw=
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: [PATCH v11 0/2] media: i2c: Add driver for Mira220
+Date: Fri, 31 Jul 2026 17:28:18 +0200
+Message-Id: <20260731-mira220-v11-0-1295fe17021d@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABK/bGoC/3XRvU7EMAzA8Vc5ZSbI+Y6ZeA/EkCYul+EalKAKd
+ Oq7k97SSpDRln//xXfWqGZq7OVyZ5XW3HJZ+iDE04XFa1g+iOfUF0yCtOCk4Ldcg5TAQYGDIJy
+ aXWT9+rPSnL8fqbf3Pl9z+yr151Fezb7921gNB26UmiAkAdbQa04UWlmmEmp6juXG9tRqz1we3
+ HYuQZGS0aBNI+4G3HWekplFIvQx6QH3Z64P7ncuPGKYrHaAA45n7g6OnZO3SI6iBA0DLmDgRf8
+ B914ah5osoPknsG3bL1gXAizjAQAA
+X-Change-ID: 20260721-mira220-03070a173f7c
+To: Philippe Baetens <philippebaetens@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=8982;
+ i=jacopo.mondi@ideasonboard.com; h=from:subject:message-id;
+ bh=1Q/J9x1zui0LUDSaar22GbzucU33Rv701Pcg1BGQ2Cs=;
+ b=owEBbQKS/ZANAwAKAXI0Bo8WoVY8AcsmYgBqbL8hR3gkkSyP7DiV3jpP+DlhTXbR13J9CNFM3
+ SiSnDy3ijOJAjMEAAEKAB0WIQS1xD1IgJogio9YOMByNAaPFqFWPAUCamy/IQAKCRByNAaPFqFW
+ PEcRD/wJEDmGpB4Zkcy0+RnVsQZUmpeokqrKBASPCemvfm7CIPH0/aOGO31A4L8G31KxcZISme1
+ 00jtzdD4cfyeCNe3XgxcTg0MhQvM+fjZRoZe71xrVKQJzY/dmitWx3EeCGd+Wj/df/Sxh3qrp+A
+ kCc79i0JW/aV1S+TtME4h1g0CH679g6byUvjZkYMz95wG8gixcPZPLu5iznnbA2oZCiVyjmzGdo
+ ysZttExwHhgaSw92tEK+JL4HKO10pK1skAX4yLujPrAjGBCe8yQzX5a0kb2tiy0jGj91b2xvcd7
+ BSRsIkRBB4xWJlmutMXlh3SVZGKkHsEPR6DqFHl+B6xptZZhvL1rqBstvCkp/O94vjn4LZ/ki+D
+ FEaPy297e3mgvFDl1jMzs+qeofsn1rh3L8lN5b+RXAYj1bTHA2OghZepL/adPZ7bSYSsCGRCCE3
+ DIkhi43ddSW9s46X06iTL6MktJzZRV3NqXbSI88D+osnjDmX0XIAvzqWY9ewNbMdgLic6s/VT17
+ uzzwAdgAEz/FV5WWhRcBcvlK9tIYVyUl0n7Ti1BzpNqIkvEQeRzuP9TF51QpBx44//pLrHPxViW
+ 8PPj0Oab4KLh60x50mkHb5y7l7+2CCGqv6GgXhuF4vvzFFvQ3FKss6VgsSQ3fdU/4ELtGjdjLUU
+ js0Z7edp5xgZnnw==
+X-Developer-Key: i=jacopo.mondi@ideasonboard.com; a=openpgp;
+ fpr=72392EDC88144A65C701EA9BA5826A2587AD026B
 
-Hi Ricardo,
+Resume the work done by Philippe on Mira 220, available at
+https://patchwork.linuxtv.org/project/linux-media/list/?series=18460
 
-On Fri, 31 Jul 2026 10:33:02 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
-> Dear Michael Jordan
->
-> (I always wanted to start an email like that :P)
+The detailed changelog is available on the single patches.
 
-Happy to have been able to help with that.
+On the current set of supported features: mira220 doesn't support
+binning/skipping but only cropping the full sensor array. It also
+supports embedded data. It would be an ideal candidate for the new
+RAW sensor model.
 
-> I am not against the idea proposed by this patch, but I would like to
-> understand your use case a bit better. Do you want to know where the
-> camera is because:
-> - You want to do something continuously with that info (e.g., tagging
-> frames with the live position)?
-> - Or because you just want to know when the camera has actually
-> finished moving?
+As the model is not available yet in mainline, this first version
+doesn't support set_selection() and doesn't support embedded data.
 
-The former. The application computes framing adjustments from the
-current pose -- "move 10 degrees left of wherever you are now" needs
-to know where "now" is -- and shows live position while the gimbal
-moves. A single end-of-move notification would not be enough even for
-the commanded-move case, and it does not exist at all for the
-autonomous one, which brings me to:
+These features will be implemented on top of the new RAW sensor model
+once available.
 
-> You also mentioned that the camera can reposition itself. Do you mean
-> that the camera could be tracking something and decide to move on its
-> own?
+Thanks
+   j
 
-Yes, exactly that. This camera (and similar PTZ conference cameras)
-has on-device AI tracking: once enabled, the gimbal follows a person
-continuously, for minutes at a time, with no host involvement at all.
-While tracking is active the position is a continuously varying
-quantity with no SET_CUR in flight and no "end of movement" to
-report. That is the case that made me give up on every event-shaped
-mechanism:
+Changes in v11:
+- Address Sakari's comments:
+  - Simplify endpoint parsing
+  - Simplify controls initialization (and pre-allocate 12 controls)
+  - Calculate row_length on request
+  - Enable autosuspend before idle
+  - Simplify enable_streams()
+- Link to v10: https://lore.kernel.org/r/20260727-mira220-v10-0-8825794e6095@ideasonboard.com
 
-> If it is the latter, you could use V4L2 control events. That should
-> work perfectly for signalling the end of a move:
+Changes in v10:
+- Remove 'fmt' leftover in driver structure
+- Link to v9: https://lore.kernel.org/r/20260727-mira220-v9-0-e869e7ec2040@ideasonboard.com
 
-Three separate things go wrong, in increasing order of stubbornness:
+Changes in v9:
+- Make 'link-frequencies' mandatory in bindings
+- Use v4l2_link_freq_to_bitmap()
+- Link to v8: https://lore.kernel.org/r/20260724-mira220-v8-0-d1899ab64709@ideasonboard.com
 
-- uvcvideo's device-originated control events come from exactly one
-  place, uvc_ctrl_status_event(), fed by the Control Change
-  interrupt, and the spec only promises that interrupt "at the end of
-  the movement" (4.2.2.1.15). So even a perfect device yields one
-  event per move, not a trajectory.
+Changes in v8:
+- Address Jai's review comments; changelog is per-patch
+- Link to v7: https://lore.kernel.org/r/20260722-mira220-v7-0-dd5f1de98cd4@ideasonboard.com
 
-- This device never emits the interrupt at all. GET_INFO on
-  CT_PANTILT_ABSOLUTE_CONTROL returns 0x03 -- neither D3 (Autoupdate)
-  nor D4 (Asynchronous) -- so the event path has nothing to deliver.
-  (Arguably a firmware defect per 2.4.4, but it looks systemic: the
-  value is identical across every CT control on this device, so the
-  firmware is not computing it per control.)
+Changes in v7:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v6: https://lore.kernel.org/r/20260722-mira220-v6-0-203e32c596de@ideasonboard.com
 
-- Under autonomous tracking there is no end of movement, so even
-  compliant firmware would have nothing to hook the event to.
+Changes in v6:
+- Address Sashiko review comments; changelog is per-patch
+- Link to v5: https://lore.kernel.org/r/20260721-mira220-v5-0-533b0ad1065e@ideasonboard.com
 
-> - Because your patch uses UVC_CTRL_DATA_CURRENT for the
-> read-modify-write path, the control will send (100, 300). That will
-> unintentionally move both axes, yanking the PAN back to 100 and
-> fighting the camera's autonomous tracking.
+Just a note on hblank: prompted by sashiko review I reworked the hblank
+calculation procedure to use the full line length (which will make it
+easier to use the new Raw Sensor Model) and I've scaled the line lenght
+according tot the number of data lanes, to match the row_length
+settings, and I tested frame rate for 1 and 2 data lane operations.
 
-The behaviour is real, but the patch does not introduce it: the write
-path is byte-identical before and after. What the RMW merges against
-today is decided by the device's GET_INFO bits, and both outcomes you
-are weighing already ship:
+I'll report the results here
 
-- On a device whose GET_INFO clears AUTO_UPDATE (this one),
-  ctrl->loaded stays set after the commit, so the tilt write merges
-  against the cached setpoint and sends (100, 300) -- your scenario,
-  reproduced exactly, on an unpatched kernel.
+1 data lane: hblank = 4480
 
-- On a device that reports Autoupdate, uvc_ctrl_commit_entity()
-  clears ctrl->loaded, so the tilt write does a fresh GET_CUR and
-  merges against live data, sending (200, 300) -- kind to the
-  tracker, but this is the variant that cancels a move the *user*
-  commanded: issue two single-axis writes a few tens of milliseconds
-  apart, and the second merges against a live reading in which the
-  first axis has barely left its old position, and commits it right
-  back.
+    10fps -> vblank = 4915
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=4915
+    2633.788743 (10.00 fps) cam0-stream0 seq: 000210 bytesused: 1920000
+    2633.888732 (10.00 fps) cam0-stream0 seq: 000211 bytesused: 1920000
+    2633.988712 (10.00 fps) cam0-stream0 seq: 000212 bytesused: 1920000
+    2634.088696 (10.00 fps) cam0-stream0 seq: 000213 bytesused: 1920000
 
-I have measured that second failure on real hardware (this camera
-keeps AUTO_UPDATE when probed while asleep, since it does not answer
-GET_INFO in that state -- its own small horror story): S_CTRL(pan),
-then S_CTRL(tilt) ~20ms later, and pan is yanked back to where it
-started. Same hardware with AUTO_UPDATE cleared, both axes reach
-their targets. Both merge sources are in the tree today; the patch
-adds neither and removes neither.
+    15fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    2690.081596 (15.00 fps) cam0-stream0 seq: 000833 bytesused: 1920000
+    2690.148251 (15.00 fps) cam0-stream0 seq: 000834 bytesused: 1920000
 
-If anything the patch improves your scenario slightly on Autoupdate
-devices: reads no longer set ctrl->loaded, so the write path can no
-longer merge against a stale sample frozen in the cache by an
-earlier G_CTRL.
+    30fps -> blank = 705
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=705
+    2732.142696 (29.98 fps) cam0-stream0 seq: 001736 bytesused: 1920000
+    2732.176004 (30.02 fps) cam0-stream0 seq: 001737 bytesused: 1920000
+    2732.209315 (30.02 fps) cam0-stream0 seq: 001738 bytesused: 1920000
 
-> What I think we should do instead is manage the cache validity based
-> on who "owns" the control. For ASYNCHRONOUS controls that have an
-> active handle (i.e., a user-commanded move that has not completed), we
-> mark them as "loaded". But when they are owned/updated by the device
-> autonomously, we never mark them as loaded.
+    min_vblank = 14
+    2823.028261 (46.07 fps) cam0-stream0 seq: 005180 bytesused: 1920000
+    2823.051318 (43.37 fps) cam0-stream0 seq: 005181 bytesused: 1920000
+    2823.073032 (46.05 fps) cam0-stream0 seq: 005182 bytesused: 1920000
+    2823.096081 (43.39 fps) cam0-stream0 seq: 005183 bytesused: 1920000
 
-I think ownership is the right frame -- for the write path. Which
-merge source is correct genuinely depends on who owns the control:
-while a user move is in flight, the setpoint (live data cancels the
-move); while the device owns it, live data (the setpoint fights the
-tracker). That is a real pre-existing problem, your scenario is a
-good demonstration of one horn of it, and I would be glad to help fix
-it. But I do not think it can replace this patch, for the reason you
-already identified:
+2 data lanes: hblank = 1440
 
-> This specific logic still doesn't support polling the live mid-flight
-> position of a user-commanded move, but maybe V4L2 events can cover
-> your actual use case?
+    10fps -> vblank = 11231
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=11231
+    163.127449 (10.00 fps) cam0-stream0 seq: 000106 bytesused: 1920000
+    163.227446 (10.00 fps) cam0-stream0 seq: 000107 bytesused: 1920000
+    163.327425 (10.00 fps) cam0-stream0 seq: 000108 bytesused: 1920000
 
-Right -- and the mid-flight (or mid-tracking) position is the entire
-use case. However the write path picks its merge source, G_CTRL still
-has to report the actual position, which is what this patch does
-without touching the merge at all. The two compose: an ownership-
-based write path plus a live read path leaves nothing stale anywhere.
+    15fps -> vblank = 7021
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=7021
+    206.325595 (15.00 fps) cam0-stream0 seq: 000551 bytesused: 1920000
+    206.392256 (15.00 fps) cam0-stream0 seq: 000552 bytesused: 1920000
+    206.458943 (15.00 fps) cam0-stream0 seq: 000553 bytesused: 192000
 
-Two practical notes on the pseudo-code:
+    30fps -> vblank = 2810
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=2810
+    244.891759 (30.00 fps) cam0-stream0 seq: 001153 bytesused: 1920000
+    244.925094 (30.00 fps) cam0-stream0 seq: 001154 bytesused: 1920000
+    244.958439 (29.99 fps) cam0-stream0 seq: 001155 bytesused: 1920000
+    244.991746 (30.02 fps) cam0-stream0 seq: 001156 bytesused: 1920000
 
-> - ctrl->loaded = 1;
-> + if (!FLAG_AUTO_UPDATE)
-> + ctrl->loaded = 1;
+    60fps -> vblank = 733
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=733
+    67.273857 (57.04 fps) cam0-stream0 seq: 007285 bytesused: 1920000
+    367.290091 (61.60 fps) cam0-stream0 seq: 007286 bytesused: 1920000
+    367.307637 (56.99 fps) cam0-stream0 seq: 007287 bytesused: 1920000
+    367.323866 (61.62 fps) cam0-stream0 seq: 007288 bytesused: 1920000
 
-__uvc_ctrl_load_cur() fills UVC_CTRL_DATA_CURRENT, which is the RMW
-source, so with this hunk every load puts live data where the write
-path merges -- the user-move cancellation above, now unconditional on
-every Autoupdate device. Keeping the live value in a buffer of its
-own is precisely how the patch avoids creating that. Separately,
-anything keyed on AUTO_UPDATE or ASYNCHRONOUS will not trigger on
-this device, since GET_INFO reports neither -- one reason the patch
-uses a static table flag that uvc_ctrl_get_flags() does not rewrite.
-The ownership logic would also need a completion signal for "the move
-has finished", and the only candidate is the Control Change interrupt
-this firmware never sends.
+    90 fps -> vblank = 22
+    pi@raspberrypi:~$ v4l2-ctl -d /dev/v4l-subdev6 -c vertical_blanking=22
+    326.909808 (83.83 fps) cam0-stream0 seq: 003739 bytesused: 1920000
+    326.920403 (94.38 fps) cam0-stream0 seq: 003740 bytesused: 1920000
+    326.931644 (88.96 fps) cam0-stream0 seq: 003741 bytesused: 1920000
 
-Happy to respin if you would like any of this argued in the commit
-message itself -- the autonomous-tracking use case in particular is
-probably worth stating there rather than in a reply.
+-------------------------------------------------------------------------------
+v4l2-compliance 1.33.0-5491, 64 bits, 64-bit time_t
+v4l2-compliance SHA: b32589c51481 2026-07-16 08:51:38
 
-Thanks again for the review.
+Compliance test for device /dev/v4l-subdev6:
+
+Driver Info:
+	Driver version   : 6.18.37
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/v4l-subdev6 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 14 Private Controls: 0
+
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
+
+Total for device /dev/v4l-subdev6: 46, Succeeded: 46, Failed: 0, Warnings: 0
+-------------------------------------------------------------------------------
+
+Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+---
+Philippe Baetens (2):
+      dt-bindings: media: i2c: Add mira220 image sensor
+      media: i2c: Add driver for AMS-OSRAM Mira220
+
+ .../devicetree/bindings/media/i2c/ams,mira220.yaml |  102 +
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/mira220.c                        | 2052 ++++++++++++++++++++
+ 5 files changed, 2175 insertions(+)
+---
+base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
+change-id: 20260721-mira220-03070a173f7c
 
 Best regards,
-Michael Jordan
+--  
+Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+
