@@ -1,128 +1,151 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f207.google.com (mail-oi1-f207.google.com [209.85.167.207])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1983036308A;
-	Sat,  1 Aug 2026 00:35:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CDBD364E98
+	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 00:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.207
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785544532; cv=none; b=FH+8NlpZm2PYajOFgx2pjqvz69ADUZLZFYRjhVjR1dKEg2B4XVLFBa9FzDoJKiRMDCJWUtRrdK4j2LaJqUg43zgY2qJo740vHzt3Q0MxjTbxhs6/+PmtXk9wVeuque4bLzt7dMdVpyMgEK+OdF+UaHbUuLAQhtojIvyU8lTQUcY=
+	t=1785544544; cv=none; b=Lt0MPd6q9irzrgOFsiq9ce+nY5EVl98YkUfJRVYGhUJ0O47xWztpMLagtwtVgWns34AjKxf5lRPFqDQqGiIK+B3pOVbdxGAiObnxqH61cc/9z/kNFk4HIVkhNu77MHEYlABLlA2ecS1RgFMkpVMge4hiRPZYXxyXwbSJoKYyRZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785544532; c=relaxed/simple;
-	bh=1aOmVYCg03e1PY/bmjnJWyzp3iYiKyxizNXP+wV+hl4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lImRlE4A7wHLc4oQWfp/dvekELD4T+o5ajOPcC8XuuHyUksAfqpqfBW5LHxMO+LYPosZ6d4KoWKRDJeuNxSfgBZSqXo3K+c6oyzoGX7KuIEixkT8+iAtV8cfFAmn6d/2hfA08X0KypxA2J9KH1k7iiGSG6M1JGjP7N8G+ZIBMqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZNPxc5p; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZNPxc5p"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id B74AEC2BD05;
-	Sat,  1 Aug 2026 00:35:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785544531;
-	bh=1aOmVYCg03e1PY/bmjnJWyzp3iYiKyxizNXP+wV+hl4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=OZNPxc5pZsccMGx2kIB+RPauKTJW2m4OOc3J3TL0t901o4HgeU7CdLZg4IMcKu9Li
-	 GaTk9WCObzU4zgatm4q4BxM5GVFRr3HlPgMyT8w9ZxFUka92bDZ9GVhna2tK/OIQKq
-	 5begqC31jeK1BO2Bb+jOiaFAw3JZh+UCQC7ZtgrD0mIhKviPKxDwhaNBh72zV4EFH7
-	 AZVqi3ugSgRF0dhIgBbPi9hxNXTYTozf0nRvnYTvuzz55y1EaBiHPcRGZqz5i6eVcX
-	 CVJGvstXpK9Gfn8Xb8xdFfSfHSCjl77jIe6nIWf2XxliqVoYumjvgPcZO0Mj+9VnmO
-	 PPdLtx2E29bgg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 9B316C55178;
-	Sat,  1 Aug 2026 00:35:31 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Sat, 01 Aug 2026 02:35:23 +0200
-Subject: [PATCH 4/4] arm64: dts: imx8mq-librem5: Dongwoon DW9714 coil
- requires higher voltage
+	s=arc-20240116; t=1785544544; c=relaxed/simple;
+	bh=ZVGfKI4H3XCL8ydeJRQ39GWmpkde3YSixj6K6/tdzW8=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=oQHeox9KPmTHrS719bjUFTGUrXugx5qxqrdJb5eeFkxY18VkeFOFBLxDH0pScTidWbX77aXiaYHz9KrqeGvuoJpNHTFntX+9L3baBzyJjorN1s3jOAjOniCq17g7JH+e2W27Nl5dNMI4Lv5Uhteiwp+/1IqT4CiM2ToF6eEffYU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.207
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f207.google.com with SMTP id 5614622812f47-495b8120909so1957957b6e.1
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 17:35:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785544535; x=1786149335;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=r9It3xva2KhBe6zFFezGSXCphvrH/zJ2hqA7UvLZL6U=;
+        b=lfQDJDmnz6/5K4QiuIZPv3oDTpb84za2fz0t3uSoGjJ/H2Qfw/oLmuoTJAioWZrLd3
+         lp2YxW82ITWOPge00apyNJ+r9e5j8n1Y7beWmNqz8s75dX6NfE35zzlNufEgtjVmAhys
+         immMP698Nw/xIvofGqIIxykxrzXBZ2cjIVeiZgHSxFgVptglEwZLb2/CmlBdc4af9ECW
+         4WmyFsrutnbuz6Oa2gUDpgtgeP2c4044JIgWjFO8TLEy4wHeSggxwEVaP6gsOaxQaxUK
+         8WrOB4pOVIMakKpRpL7US/pXDR/50oAKsh+rwb/ITirK1i6jmzEjW2zz/LtiULY2YOfs
+         Ik4Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rr80wYq1OfftR3sawBJvVwc/PK0gfKNhBNhr9zcs6jVKgvM0q4QiEfT62vgTfadEupaWqec+IbDQZ9cKw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTHDXwj+hTklMiyLDfhqIjRggXgWZNzrJIHWNJv0EbHSeIUnXm
+	76JGCKrssuQu38gvu+DuOopwTlb69P4thzxPtbaKltzIVfCDoxMc3RcrDZtI07c5bPDgmM5HnWw
+	V62iTT02lcNj9aZ/amCHXWJn+2jh2GWgLgF101oAAkVljn1VvFS6ejMOC4YU=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260801-pp-pro-camera-v1-4-7b4d90788f9f@ixit.cz>
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
-In-Reply-To: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
- Ondrej Jirman <megi@xff.cz>, 
- Olivier Benjamin <olivier.benjamin@bootlin.com>, 
- Manuel Traut <manut@mecka.net>, 
- Alexander Warnecke <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- Martin Kepplinger <martin.kepplinger@puri.sm>, 
- Shawn Guo <shawnguo@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- phone-devel@vger.kernel.org, imx@lists.linux.dev, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1318; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=ESuNmKUilcBmwkhuW9k8KZuVDiNGOXfVNdzvY5NO83c=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqbT9SUDUWs1RjnpAKhNFn6KNoQcgRVwd2qcbcu
- CY9ZsnEs/SJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCam0/UgAKCRBgAj/E00kg
- crR1EAC31s20oGV+f/ztpNaROw1wIlei9thofJ3Isn/pL2saX+KwwalKn7SezGY9tzifXXjBFPA
- mEito6c2HHrmp45mKDMRJWT8NO9E+IKnu7gO5kXj6fg/AmP2onSNeFRZtInpNDvQCRTs2u1EfK7
- fKlNCy0dAcaPOc021zYB71n5WKK+mtc8ge9ttymu6pEtLGno2lSTfUgrwCcowWCX/UZqfLZWs2Q
- 5ljMvkeVrJ3Nx4m8oR5qBo1JETFHfz1hMVmqA9a5BX0hs15rbhjTVrE0BBWfwf5UBx0O7pQ3Zor
- qyRNfrnIhOP2j2wYhscXxtEwhYC8YgJTR9QlAlEcOJT+khdamQz9JPpLGtdt8F9KBD4wbYbfro1
- ePLcDfRQG236Cju7wENdMZkzsIN9ObKSiBhfn7M3Y2wu9qczYsd2oU5ywl94N1CyjQAHZ4B3Mr3
- ZRp+rROZTKLr2bapQFeXPD/7fZzvr0U8Ss2KHDdv6PM0b38TrjgDy2bQTBhx9DxwS9KoERi8anX
- ZrFUORtSQPUNWRd04z/3wu3KwePhUOl2Ea77nTZuY/hp2a1Sxf76VOLbrfU2eluzVaEhihZop9z
- fbR2dPlUKAh80T0EvdWyuhCSIe9idmAkhCrq0TSz4PS6TfAucHZizmIpoamUCnBCoVbzBIsAxgt
- mSYT1tlax9RnfdQ==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-Received: by 2002:a05:6808:244f:b0:4a4:9e18:607a with SMTP id
+ 5614622812f47-4af5e3d7eeemr3761912b6e.21.1785544535599; Fri, 31 Jul 2026
+ 17:35:35 -0700 (PDT)
+Date: Fri, 31 Jul 2026 17:35:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a6d3f57.6ce73036.24301b.0011.GAE@google.com>
+Subject: [syzbot] [media?] general protection fault in vidtv_s302m_encode
+From: syzbot <syzbot+e9ce4d4ff55ba65e3980@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: David Heidelberg <david@ixit.cz>
+Hello,
 
-By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
-Usually it's around 2.8 V. Here it matches the reg_vcam_2v8.
+syzbot found the following issue on:
 
-1.8 V here is likely used for i2c level shifter.
+HEAD commit:    3b5f4b83c4ab Merge tag 'for-7.2-rc5-tag' of git://git.kern..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11068aea580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
+dashboard link: https://syzkaller.appspot.com/bug?extid=e9ce4d4ff55ba65e3980
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Fixes: f00df2bdb512 ("arm64: dts: imx8mq-librem5: describe the voice coil motor for focus control")
-Cc: stable@vger.kernel.org
-Signed-off-by: David Heidelberg <david@ixit.cz>
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/f99ca00b02a2/disk-3b5f4b83.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/5caff5208bfc/vmlinux-3b5f4b83.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/c0e941f5f816/bzImage-3b5f4b83.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+e9ce4d4ff55ba65e3980@syzkaller.appspotmail.com
+
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 0 UID: 0 PID: 5713 Comm: kworker/0:5 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Workqueue: events vidtv_mux_tick
+RIP: 0010:vidtv_s302m_encode+0x269/0x1860 drivers/media/test-drivers/vidtv/vidtv_s302m.c:414
+Code: 31 aa f9 31 ff 89 de e8 95 2b aa f9 84 db 0f 85 37 0d 00 00 e8 78 31 aa f9 4c 89 e2 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e e7 14 00 00 48 8b 44 24 08 41
+RSP: 0018:ffffc9000454f830 EFLAGS: 00010246
+RAX: dffffc0000000000 RBX: 0000000000000000 RCX: 0000000000000400
+RDX: 0000000000000000 RSI: ffffffff88602ec8 RDI: ffff88813fe238c0
+RBP: 0000000000000000 R08: 0000000000000dc0 R09: 00000000ffffffff
+R10: ffffffff8edee673 R11: 0000000000000001 R12: 0000000000000000
+R13: dffffc0000000000 R14: ffff888076157200 R15: ffff88802e6f2000
+FS:  0000000000000000(0000) GS:ffff888123ddc000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f89c38f7ff8 CR3: 0000000038e49000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ vidtv_mux_poll_encoders drivers/media/test-drivers/vidtv/vidtv_mux.c:339 [inline]
+ vidtv_mux_tick+0x4e4/0x1460 drivers/media/test-drivers/vidtv/vidtv_mux.c:416
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:vidtv_s302m_encode+0x269/0x1860 drivers/media/test-drivers/vidtv/vidtv_s302m.c:414
+Code: 31 aa f9 31 ff 89 de e8 95 2b aa f9 84 db 0f 85 37 0d 00 00 e8 78 31 aa f9 4c 89 e2 48 b8 00 00 00 00 00 fc ff df 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e e7 14 00 00 48 8b 44 24 08 41
+----------------
+Code disassembly (best guess):
+   0:	31 aa f9 31 ff 89    	xor    %ebp,-0x7600ce07(%rdx)
+   6:	de e8                	fsubrp %st,%st(0)
+   8:	95                   	xchg   %eax,%ebp
+   9:	2b aa f9 84 db 0f    	sub    0xfdb84f9(%rdx),%ebp
+   f:	85 37                	test   %esi,(%rdi)
+  11:	0d 00 00 e8 78       	or     $0x78e80000,%eax
+  16:	31 aa f9 4c 89 e2    	xor    %ebp,-0x1d76b307(%rdx)
+  1c:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
+  23:	fc ff df
+  26:	48 c1 ea 03          	shr    $0x3,%rdx
+* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
+  2e:	84 c0                	test   %al,%al
+  30:	74 08                	je     0x3a
+  32:	3c 03                	cmp    $0x3,%al
+  34:	0f 8e e7 14 00 00    	jle    0x1521
+  3a:	48 8b 44 24 08       	mov    0x8(%rsp),%rax
+  3f:	41                   	rex.B
+
+
 ---
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index f5d529c5baf3e..583cba2d3bebf 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -1167,17 +1167,17 @@ &i2c4 {
- 	pinctrl-1 = <&pinctrl_i2c4_gpio>;
- 	scl-gpios = <&gpio5 20 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
- 	sda-gpios = <&gpio5 21 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
- 	status = "okay";
- 
- 	vcm@c {
- 		compatible = "dongwoon,dw9714";
- 		reg = <0x0c>;
--		vcc-supply = <&reg_csi_1v8>;
-+		vcc-supply = <&reg_vcam_2v8>;
- 	};
- 
- 	bat: fuel-gauge@36 {
- 		compatible = "maxim,max17055";
- 		reg = <0x36>;
- 		interrupt-parent = <&gpio3>;
- 		interrupts = <20 IRQ_TYPE_LEVEL_LOW>;
- 		pinctrl-names = "default";
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
--- 
-2.53.0
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
 
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
 
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
