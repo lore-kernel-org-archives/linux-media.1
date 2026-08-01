@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E212F3B3C05;
-	Sat,  1 Aug 2026 10:04:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5930675F;
+	Sat,  1 Aug 2026 10:07:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785578656; cv=none; b=aYPADxvd/EchpExzzwyBfx2so0bJdp/8dPrVRqtC1r/3OqfIKNIY9xcNbNmrpcYZMD2RnOSY5K4w79dy+FXnVKBK0PDW+EzJjDbbQ2msoMZ0sO6wJmbZ6Hxb0BsLtYkGqRB6YiqPygC8dvV8TwXUfCPiSqBsHOVvV5UsoQ/crMQ=
+	t=1785578824; cv=none; b=VKfVo+8NeV6fRAVmEyb0zsWF75QkUJix5kP5zSXfGDlptl92Phe8ZSP6ZD+axYbNMlqVuZQDFdrXJnPp2AknDe+JrftFL2toTfWWtXxvsrq5Jhv1Y6Dg+lATqkultxHOJNhVHrW0CHLJAX8q1jcUs1qM54UHiE3t12Q425hKKDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785578656; c=relaxed/simple;
-	bh=ruSnAzHuxAECLxjbncZcb2Lai3K8QBZgjXTEJ2JxDbY=;
+	s=arc-20240116; t=1785578824; c=relaxed/simple;
+	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lf4YzzZmmSurTcLESEQe1oqOBGT/7VBoWKvSfZgpLhzTWZmdlvfp0Bspv2kPjPvJLWn/KE3plrIhyLOzIm5gH8bKN3HRm1E7Aa2MmSVuum6FJerFFpl5QAKk5u6AxwjT63uzh3bdMU5/N6lA2ppSM9egxYBgaqx36d4QG9sROUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLJKjaIT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=DYIQTVbuFUa4JqKe2cdbFzi4NN9RQSMtnj9+XHJmmMzySSJXGP+NmvKrnFGi4l3kDHxV1kZc/UMLpU5+Ce1S1eFd9wrgsdEQSPJzYzSPKLKwvhqpjiJPU4MyXpOR+yyhS8G9BnyBnZpfpB7UwvR2YV3+LIRzt3osoL/OnCPQtaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myMPUAHs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLJKjaIT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB2011F00AC4;
-	Sat,  1 Aug 2026 10:04:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myMPUAHs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C411F00AC4;
+	Sat,  1 Aug 2026 10:06:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785578654;
-	bh=XHVyxyVVmAE5siJ2rZ3qBlVGfLev5aM2v9V4V+Xg1WQ=;
+	s=k20260515; t=1785578822;
+	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=FLJKjaITFIYUcp1ehNppRJ9bOoT73f2a1BE2oSnaTnKj7C8gazjxQuTuZIV/nq1IA
-	 9w4/7ffFHnmyzS/ZpymdtwkFxB7cq2uzNAoMyW+G6nejXO9TGW8G1v/ISjcsHIwyJo
-	 4AqU8wb5b93jXc7sFZ3Rt9mMR91H/hokzkwCmumwMMAVAwqxT53kpzGdiQ0d/T3lel
-	 Vmb/aqzUL37I8BjdeSUmqqlvLXaABLbaAmN3nTMF/EujV2XQtuEYRSgqxg1gm9F8D9
-	 6LMw4Af29lST6T6KqH3J+ESqmEL9TSUUuDXn5c1AxMUuSnecfNFokAHD57dQD9V/jU
-	 3wJqsOlPgsXjQ==
-Message-ID: <3e8b2574-eab5-4c34-b400-c75312b9a772@kernel.org>
-Date: Sat, 1 Aug 2026 11:04:10 +0100
+	b=myMPUAHsTBwWfhjoE1uoC4G1XnRXrJGknfgt+TPIXS7zco6f4r1niN6MJ5q3hOLSp
+	 y4Ji2phGKRIJwwfLKwl1y12WeUZ6nNjdo9r/amGPPHjsXwwifq5i9oA2DnJhr7MhDs
+	 NSpAKXljXIpq4W+KFIkUyd6VtyYB3QVzDFgzE9r5fZj8BNDjRvnDOtPPXAF/V50CAE
+	 kC8ZwAYY2RVzu+tdyMX1ndP/izxNb7Zl8qKTU+QheHqwu0UXyatAUdBCAp84emPlgC
+	 60eyYPdtuO9mJwrr4sOVsuJSaufDqR87ga+KStQoBadBcjKChPCLFmkHYEIIsd2jKI
+	 MHgzX3bqWD+zQ==
+Message-ID: <689580d1-8169-41cf-a954-927e10135700@kernel.org>
+Date: Sat, 1 Aug 2026 11:06:57 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,22 +35,27 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
-To: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>,
- Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
- konradybcio@kernel.org, loic.poulain@linaro.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
- <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
- <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
- <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
- <qje2bZKWSzkQQGDw0traOE7SqoXhCBLeDrilCooH6Vh6cYeFWAh_VyhqspJuzVs3iA4ye2U75aZHsVGorNPjPQ==@protonmail.internalid>
- <476aee61-015f-4793-9be7-a102c1c3e811@oss.qualcomm.com>
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -96,41 +101,17 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <476aee61-015f-4793-9be7-a102c1c3e811@oss.qualcomm.com>
+In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 31/07/2026 20:30, Gjorgji Rosikopulos (Consultant) wrote:
->>> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
->>> please drop separate mmcx vote here and let it come through the
->>> titan_top (it might require camcc driver and node modifications).
->>>
->> The change was requested by Brian, most likely in connection with
->> upcoming migrations. I think he would be able to explain the exact
->> reasons. As far as the facts are concerned, this is not currently
->> necessary for the driver to be functional.
-> In the documentation we have this jpeg block need only TITAN_TOP_GDSC power domain.
-> However Bryan request to ad MMCX and MX.
-> As i can see same is for csiphy. Maybe is better to sync with Bryan.
+On 31/07/2026 19:22, Vikash Garodia wrote:
+> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+> Cc:stable@vger.kernel.org
+> Tested-by: Daniel J Blueman<daniel@quora.org>
+> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
 
-Check hamoa - I believe it is the case there's a separate vote required 
-for MMCX/MXA.
-
-I'm prefectly fine if all that is required on kona is titan_top_gdsc 
-but, basically I'm asking _you_ to go verify the difference and come 
-back with an answer.
-
-"Not required for Kona we checked" - its not about being asked its about 
-checking what's actually required, I'm highlighting this because sm8550 
-perhaps and hamoa definitely are different.
-
-All of this is in the power-tree documentation. Please find the place 
-where the power-rails are stipulated for venus/iris and then check to 
-see what's required for the titan block and represent all of the 
-necessary rails in the jpeg@{} such that jpeg@{} can run standalone 
-without any of the rest of the block switched on.
-
-I'll trust your diligence in that.
+What about venus ?
 
 ---
 bod
