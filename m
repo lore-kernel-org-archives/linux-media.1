@@ -1,151 +1,252 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EA071EFFA1
-	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 20:53:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E16D3DA5B3
+	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 23:52:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785617598; cv=none; b=aNisDe6gzL22r3udhjKoH+I5C0BnBS0sbJ4s/M9utGhNK9PamT6D7Tfk6XDGnap+vdr0nqOBgMGZZXO0C4wwmg8iAuT9n6gxWsUE5moISx8DacGBHBu4nbCNXDsfpAidgjl5h/IDVGXCiMCzG/YLcx6vQTvRnyZDDZ7RGSeRNJM=
+	t=1785628340; cv=none; b=Hm12eyCww3r90Z+dmwOVdyhidivkct0JYojsbT2a+eLICOp9Z19covWHWTTzAWXTzjZZm7R05Mm+29ofy1J+5Xt4pyJLKmVmVma1+6o9L6Gm+bgY3vUdoBRdvGhqMYCFZSLUHgkiW2K+2X0I/xraUmRhdkhgpoRatHNFWIrfY2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785617598; c=relaxed/simple;
-	bh=dK6o0Q/obrwoWi9xABYcRVb/E/bhl6I7IPIxG8HEFfU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PMLRUblZfdcQoiM1U/uqRofBBkE9ItvELkcFu80RaqYBkOie9GPj18E6o6g+NZJ0i8wyEzo3ZbbgIEwzBKH1DW+d2rncQWezg6mpQWd0bbH5+im3fw9LBg5XV8FK1d7WC7Ln7snAqnXWTQbLjDQym6Dljwrr86SI/HDiGGwE43A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iD44l97y; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785628340; c=relaxed/simple;
+	bh=3nUA9DzJD/mwAuI5dhoRR1gyc7Yj8u0oQfDDqjoIRTc=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=Z1IBgZ6rXko7sHIGiIOJN7ZaGpdomoamYWEQvNcZhNZRNmmzFEVMqeEvlOMEGdeWDtQQJ9t6wZxYC7nZtZkfuEJi14xyeBov0kY3WsNr2R4Jfa1iGMeUE8fHK2kydMaA/rHPYuAkI8tda4OWBtGxb+KM++Ny5K5ttn+w0ZtPK/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lUUDZGf5; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iD44l97y"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-47f84023916so2199046f8f.3
-        for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 13:53:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785617594; x=1786222394; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OJKqmH8LLrrmklRKr4uQ8cBGv4eP4F7/njSPphfYAjU=;
-        b=iD44l97yncgV+SYwSILMnmb+Xufhi12wfIcalER9leHYSYIMU0V4G8N/mKQ++cv52f
-         WGtZWO/TEEJxyCF+wqw4ivf/WPATwUQgvBraJ+JucZ/wcc/GrqH9qmCSA9Wkwfvliyhi
-         6j5ba1q8w7OmtYHUFX/vRz1kU7bnClENBMcdKpFMgtuabCaQubpEyIq1tFxwHOIuJCpj
-         zSRhO6Bkm3+DuCBYew8uZS1H9aHCQGpqqGFmnq5cyN0aS48htY9ZoE4nDYfCm6fch+rR
-         2dSgHtIpwAZUYEtePjKSLocM+bQ4M0V0HQAB4T8VUuhpv6tY6V7FzKocD76Jd8Axmdyk
-         Lnvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785617594; x=1786222394;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=OJKqmH8LLrrmklRKr4uQ8cBGv4eP4F7/njSPphfYAjU=;
-        b=c8QiS4j7AOuLulWGgq2Z04mlzwZasFzIyUzDll4z0WHvQDk0hFcaAF3yOklQyWAv4n
-         +YUURkFocsYeahZIYRv8lEXVIEdS5LmVFJE851zp2w6Pqh0QYLbfsewPCoZgoKnf0L88
-         M4/tjAXsKqhLrOXlc6XLeSzuyBFpPc/IN7AeooQdJ73YhD/TS+mBcNDXyVk+HrEDZpX5
-         7JnRTrvFvB+0vbQmRO3HnQOIstdpNrUkb6fImPUwofv6GVTOu1KRsiso+lWUO5BqQC7r
-         UINtI4bXQkfR0n5m+Yl8C2pUUrKS5v8xs1OqBglufQTABpcOvcfrc9kWmLGB23cow6X/
-         9JHQ==
-X-Gm-Message-State: AOJu0YyvyEywaot6Tfyjr406XIXj0sj4sDgO3vh8M1QEk56yKDSUJDNo
-	1yjEWwumtudOgwpkM0VBYpe/HxNsHQgGzIpKz+Su7D4+j3Jjq7nNXxik
-X-Gm-Gg: AR+sD10VZJWzm7z8a9s1gV4otF+hN8ZpEH0gOkqvF0xSL34cNlwytw/2ueEU0+mWA/V
-	R2Y+kmzH1Uf8rqCX7doTqZ+G8oFdowdHKIHjh8RIHJH6CZ7IaoIHOyp6YS967s8CLAYhLIQ0AUX
-	rHlmf7U/2sRcWyjPzkxjfNZdLgEgXEE5tocXwSzwjtCEnXyjJ27Wx3iFIbux8HiJyr60iSfRIdx
-	9nAlzwDFIOEFPP2F3ZG71+otdU24RgGKZRnZeTwu76TKjlWyLrMNmHyuSgFf/ksCBwWiPXF5Kek
-	eQwlVQGF8QQdjCcKPe4qxFCSTsFid35OmcVC0ZXBciGrGOr8bX6PTe+e7yWDIkRlpKkIVW5b8Sh
-	PPsLIdn9ktAYkOeEnTzMl+LlUBONkFJnqbS7+8Q8QfVel9m4v0v5vEndvQ7TiaiEHV1WQcQpvH8
-	nb/er+KmGMBhBnp05hnZYvBa4DIJAFTE3qpSuWy7ldFeo+DBD//akwfBKd2JQlQOYgGZonhr9Vl
-	RQ3KP74VCp0c/7EJ9GMrp9Klrxfg1jeSHylKcPCv36fissm
-X-Received: by 2002:a5d:6246:0:b0:47e:81aa:3832 with SMTP id ffacd0b85a97d-47fd72c76d1mr8250736f8f.16.1785617594067;
-        Sat, 01 Aug 2026 13:53:14 -0700 (PDT)
-Received: from dohko.chello.ie (188-141-5-72.dynamic.upc.ie. [188.141.5.72])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd41cfdc6sm17900061f8f.8.2026.08.01.13.53.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 13:53:13 -0700 (PDT)
-From: David Carlier <devnexen@gmail.com>
-To: dan.scally@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
-	mchehab@kernel.org,
-	nayden.kanchev@arm.com,
-	hverkuil+cisco@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	David Carlier <devnexen@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mali-c55: Fix frame sequence numbers on dual-pipe hardware
-Date: Sat,  1 Aug 2026 21:53:11 +0100
-Message-ID: <20260801205311.386692-1-devnexen@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lUUDZGf5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785628337; x=1817164337;
+  h=date:from:to:cc:subject:message-id;
+  bh=3nUA9DzJD/mwAuI5dhoRR1gyc7Yj8u0oQfDDqjoIRTc=;
+  b=lUUDZGf5+pW/P/pW10dUqlyOzqFdeJq9tFyCQH8m0uu7vbuHfEQavHeP
+   ezGv2B/FtQny1YBkkWT6Kbvb5kT8GIZFH8Hzfi06wvgOOEOsaAe0e/IhT
+   f3lMJMHwYDg1Nc9k9p+mu5tKpzHpIOAp5Pt6+wcBADGGwG+Zgg5hzy4kF
+   McSeMi57QXiKU2BoMtSg9hTM2xNLpoy5Ba4kx+HHY8uNQiRfVTd4QBz/e
+   YJncvFlpUpSc7pUzfYvHQIxfOAQr/midNQDKhTeHFsCx/FQCOTujw6Q+Y
+   RNhwDpE04x19n27KQjNAp5EmuQ16zLql5/RmGoWo29slgCN2rpOYYD3EW
+   g==;
+X-CSE-ConnectionGUID: d1wrymb5RNabfSBCeMaC3g==
+X-CSE-MsgGUID: 7iAQ8rNSSPKb7zgkRRmPXw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11862"; a="97728421"
+X-IronPort-AV: E=Sophos;i="6.25,199,1779174000"; 
+   d="scan'208";a="97728421"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Aug 2026 16:52:14 -0700
+X-CSE-ConnectionGUID: W++stkSDRS+6QK9L4M6BGw==
+X-CSE-MsgGUID: X1w1Eo+lT3uhd/rQVV6bQA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,199,1779174000"; 
+   d="scan'208";a="256976131"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa010.fm.intel.com with ESMTP; 01 Aug 2026 16:52:13 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wqJUw-00000000443-3NFF;
+	Sat, 01 Aug 2026 23:52:10 +0000
+Date: Sun, 02 Aug 2026 07:51:48 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org
+Subject: [linuxtv-media-pending:next] BUILD SUCCESS
+ 31152f5b0f8719f92063b8c6196cd5e34106c73d
+Message-ID: <202608020736.15zlmP6l-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The single frame_sequence counter in struct mali_c55_isp is incremented
-in mali_c55_set_plane_done(), which runs once per completed buffer per
-capture device rather than once per frame. Hardware fitted with the
-downscale pipe always hits this: mali_c55_pipeline_ready() refuses to
-start the ISP unless both the full-resolution and the downscale queues
-are streaming, so the counter advances twice per frame.
+tree/branch: https://git.linuxtv.org/media-ci/media-pending.git next
+branch HEAD: 31152f5b0f8719f92063b8c6196cd5e34106c73d  media: renesas: vsp1: Declare index variables in for loop statement
 
-Each video node then reports sequence numbers 0, 2, 4, ..., which
-userspace reads as a dropped frame between every pair of frames, and the
-two pipes never number the same frame alike, contrary to
-Documentation/admin-guide/media/mali-c55.rst. The V4L2_EVENT_FRAME_SYNC
-event and the statistics and parameters buffers only read the counter,
-so their sequence numbers stop identifying a frame too.
+elapsed time: 789m
 
-Increment the counter once per frame, when the ISP start interrupt is
-handled, and let mali_c55_set_plane_done() only read it. Initialise it
-to UINT_MAX so the first increment yields sequence zero. Hardware
-without the downscale pipe keeps the numbering it had before.
+configs tested: 175
+configs skipped: 1
 
-Fixes: d5f281f3dd29 ("media: mali-c55: Add Mali-C55 ISP driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: David Carlier <devnexen@gmail.com>
----
- drivers/media/platform/arm/mali-c55/mali-c55-capture.c | 2 +-
- drivers/media/platform/arm/mali-c55/mali-c55-core.c    | 1 +
- drivers/media/platform/arm/mali-c55/mali-c55-isp.c     | 3 ++-
- 3 files changed, 4 insertions(+), 2 deletions(-)
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-index ff01553026fb..7e1190d7fffc 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-capture.c
-@@ -476,7 +476,7 @@ void mali_c55_set_plane_done(struct mali_c55_cap_dev *cap_dev,
- 
- 	/* If the other plane is also done... */
- 	buf->vb.vb2_buf.timestamp = ktime_get_boottime_ns();
--	buf->vb.sequence = isp->frame_sequence++;
-+	buf->vb.sequence = isp->frame_sequence;
- 	vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
- }
- 
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-core.c b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-index fb81141d1653..be562156b295 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-core.c
-@@ -573,6 +573,7 @@ static irqreturn_t mali_c55_isr(int irq, void *context)
- 	for_each_set_bit(i, &interrupt_status, MALI_C55_NUM_IRQ_BITS) {
- 		switch (i) {
- 		case MALI_C55_IRQ_ISP_START:
-+			mali_c55->isp.frame_sequence++;
- 			mali_c55_isp_queue_event_sof(mali_c55);
- 
- 			mali_c55_set_next_buffer(&mali_c55->cap_devs[MALI_C55_CAP_DEV_FR]);
-diff --git a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-index e128adf6ee37..39178f6a1bd6 100644
---- a/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-+++ b/drivers/media/platform/arm/mali-c55/mali-c55-isp.c
-@@ -342,7 +342,8 @@ static int mali_c55_isp_enable_streams(struct v4l2_subdev *sd,
- 
- 	src_sd = media_entity_to_v4l2_subdev(isp->remote_src->entity);
- 
--	isp->frame_sequence = 0;
-+	/* first pre-increment at SOF yields sequence 0 */
-+	isp->frame_sequence = UINT_MAX;
- 	ret = mali_c55_isp_start(mali_c55, state);
- 	if (ret) {
- 		dev_err(mali_c55->dev, "Failed to start ISP\n");
--- 
-2.53.0
+tested configs:
+alpha                            allnoconfig    gcc-16.1.0
+alpha                           allyesconfig    gcc-16.1.0
+alpha                              defconfig    gcc-16.1.0
+arc                             allmodconfig    gcc-16.1.0
+arc                             allyesconfig    gcc-16.1.0
+arc                  randconfig-001-20260801    gcc-12.5.0
+arc                  randconfig-001-20260802    gcc-15.2.0
+arc                  randconfig-002-20260801    gcc-12.5.0
+arc                  randconfig-002-20260802    gcc-15.2.0
+arm                  randconfig-001-20260801    gcc-12.5.0
+arm                  randconfig-001-20260802    gcc-15.2.0
+arm                  randconfig-002-20260801    gcc-12.5.0
+arm                  randconfig-002-20260802    gcc-15.2.0
+arm                  randconfig-003-20260801    gcc-12.5.0
+arm                  randconfig-003-20260802    gcc-15.2.0
+arm                  randconfig-004-20260801    gcc-12.5.0
+arm                  randconfig-004-20260802    gcc-15.2.0
+arm64                randconfig-001-20260801    gcc-10.5.0
+arm64                randconfig-001-20260802    gcc-9.5.0
+arm64                randconfig-002-20260801    gcc-10.5.0
+arm64                randconfig-002-20260802    gcc-9.5.0
+arm64                randconfig-003-20260801    gcc-10.5.0
+arm64                randconfig-003-20260802    gcc-9.5.0
+arm64                randconfig-004-20260801    gcc-10.5.0
+arm64                randconfig-004-20260802    gcc-9.5.0
+csky                            allmodconfig    gcc-16.1.0
+csky                 randconfig-001-20260801    gcc-10.5.0
+csky                 randconfig-001-20260802    gcc-9.5.0
+csky                 randconfig-002-20260801    gcc-10.5.0
+csky                 randconfig-002-20260802    gcc-9.5.0
+hexagon              randconfig-001-20260801    gcc-16.1.0
+hexagon              randconfig-001-20260802    clang-24
+hexagon              randconfig-002-20260801    gcc-16.1.0
+hexagon              randconfig-002-20260802    clang-24
+i386                            allmodconfig    gcc-14
+i386       buildonly-randconfig-001-20260802    gcc-14
+i386       buildonly-randconfig-002-20260802    gcc-14
+i386       buildonly-randconfig-003-20260802    gcc-14
+i386       buildonly-randconfig-004-20260802    gcc-14
+i386       buildonly-randconfig-005-20260802    gcc-14
+i386       buildonly-randconfig-006-20260802    gcc-14
+i386                 randconfig-001-20260801    clang-22
+i386                 randconfig-001-20260802    gcc-14
+i386                 randconfig-002-20260801    clang-22
+i386                 randconfig-002-20260802    gcc-14
+i386                 randconfig-003-20260801    clang-22
+i386                 randconfig-003-20260802    gcc-14
+i386                 randconfig-004-20260801    clang-22
+i386                 randconfig-004-20260802    gcc-14
+i386                 randconfig-005-20260801    clang-22
+i386                 randconfig-005-20260802    gcc-14
+i386                 randconfig-006-20260801    clang-22
+i386                 randconfig-006-20260802    gcc-14
+i386                 randconfig-007-20260801    clang-22
+i386                 randconfig-007-20260802    gcc-14
+i386                 randconfig-011-20260801    gcc-14
+i386                 randconfig-012-20260801    gcc-14
+i386                 randconfig-013-20260801    gcc-14
+i386                 randconfig-014-20260801    gcc-14
+i386                 randconfig-015-20260801    gcc-14
+i386                 randconfig-016-20260801    gcc-14
+i386                 randconfig-017-20260801    gcc-14
+loongarch                          defconfig    clang-24
+loongarch            randconfig-001-20260801    gcc-16.1.0
+loongarch            randconfig-001-20260802    clang-24
+loongarch            randconfig-002-20260801    gcc-16.1.0
+loongarch            randconfig-002-20260802    clang-24
+nios2                           allmodconfig    gcc-11.5.0
+nios2                            allnoconfig    gcc-11.5.0
+nios2                randconfig-001-20260801    gcc-16.1.0
+nios2                randconfig-001-20260802    clang-24
+nios2                randconfig-002-20260801    gcc-16.1.0
+nios2                randconfig-002-20260802    clang-24
+parisc                          allmodconfig    gcc-16.1.0
+parisc                          allyesconfig    gcc-16.1.0
+parisc                             defconfig    gcc-16.1.0
+parisc                        randconfig-001    gcc-9.5.0
+parisc               randconfig-001-20260801    gcc-9.5.0
+parisc               randconfig-001-20260802    gcc-14.3.0
+parisc               randconfig-002-20260801    gcc-9.5.0
+parisc               randconfig-002-20260802    gcc-14.3.0
+powerpc                  bluestone_defconfig    clang-24
+powerpc                  lite5200b_defconfig    clang-24
+powerpc              randconfig-001-20260801    gcc-9.5.0
+powerpc              randconfig-001-20260802    gcc-14.3.0
+powerpc              randconfig-002-20260801    gcc-9.5.0
+powerpc              randconfig-002-20260802    gcc-14.3.0
+powerpc                    tqm8560_defconfig    gcc-16.1.0
+powerpc64            randconfig-001-20260801    gcc-9.5.0
+powerpc64            randconfig-001-20260802    gcc-14.3.0
+powerpc64            randconfig-002-20260801    gcc-9.5.0
+powerpc64            randconfig-002-20260802    gcc-14.3.0
+riscv                         randconfig-001    gcc-14.3.0
+riscv                randconfig-001-20260801    gcc-14.3.0
+riscv                randconfig-001-20260802    gcc-13.4.0
+riscv                randconfig-002-20260801    gcc-14.3.0
+riscv                randconfig-002-20260802    gcc-13.4.0
+s390                 randconfig-001-20260801    gcc-14.3.0
+s390                 randconfig-001-20260802    gcc-13.4.0
+s390                 randconfig-002-20260801    gcc-14.3.0
+s390                 randconfig-002-20260802    gcc-13.4.0
+sh                                 defconfig    gcc-16.1.0
+sh                   randconfig-001-20260801    gcc-14.3.0
+sh                   randconfig-001-20260802    gcc-13.4.0
+sh                   randconfig-002-20260801    gcc-14.3.0
+sh                   randconfig-002-20260802    gcc-13.4.0
+sparc                randconfig-001-20260801    gcc-11.5.0
+sparc                randconfig-001-20260802    gcc-12.5.0
+sparc                randconfig-002-20260801    gcc-11.5.0
+sparc                randconfig-002-20260802    gcc-12.5.0
+sparc64              randconfig-001-20260801    gcc-11.5.0
+sparc64              randconfig-001-20260802    gcc-12.5.0
+sparc64              randconfig-002-20260801    gcc-11.5.0
+sparc64              randconfig-002-20260802    gcc-12.5.0
+um                   randconfig-001-20260801    gcc-11.5.0
+um                   randconfig-001-20260802    gcc-12.5.0
+um                   randconfig-002-20260801    gcc-11.5.0
+um                   randconfig-002-20260802    gcc-12.5.0
+x86_64              buildonly-randconfig-001    clang-22
+x86_64     buildonly-randconfig-001-20260801    clang-22
+x86_64     buildonly-randconfig-001-20260802    gcc-12
+x86_64     buildonly-randconfig-002-20260801    clang-22
+x86_64     buildonly-randconfig-002-20260802    gcc-12
+x86_64     buildonly-randconfig-003-20260801    clang-22
+x86_64     buildonly-randconfig-003-20260802    gcc-12
+x86_64     buildonly-randconfig-004-20260801    clang-22
+x86_64     buildonly-randconfig-004-20260802    gcc-12
+x86_64     buildonly-randconfig-005-20260801    clang-22
+x86_64     buildonly-randconfig-005-20260802    gcc-12
+x86_64     buildonly-randconfig-006-20260801    clang-22
+x86_64     buildonly-randconfig-006-20260802    gcc-12
+x86_64                                 kexec    clang-22
+x86_64               randconfig-001-20260801    gcc-14
+x86_64               randconfig-001-20260802    clang-22
+x86_64               randconfig-002-20260801    gcc-14
+x86_64               randconfig-002-20260802    clang-22
+x86_64               randconfig-003-20260801    gcc-14
+x86_64               randconfig-003-20260802    clang-22
+x86_64               randconfig-004-20260801    gcc-14
+x86_64               randconfig-004-20260802    clang-22
+x86_64               randconfig-005-20260801    gcc-14
+x86_64               randconfig-005-20260802    clang-22
+x86_64               randconfig-006-20260801    gcc-14
+x86_64               randconfig-006-20260802    clang-22
+x86_64                        randconfig-011    clang-22
+x86_64               randconfig-011-20260801    clang-22
+x86_64               randconfig-011-20260802    clang-22
+x86_64               randconfig-012-20260801    clang-22
+x86_64               randconfig-012-20260802    clang-22
+x86_64               randconfig-013-20260801    clang-22
+x86_64               randconfig-013-20260802    clang-22
+x86_64               randconfig-014-20260801    clang-22
+x86_64               randconfig-014-20260802    clang-22
+x86_64               randconfig-015-20260801    clang-22
+x86_64               randconfig-015-20260802    clang-22
+x86_64               randconfig-016-20260801    clang-22
+x86_64               randconfig-016-20260802    clang-22
+x86_64                        randconfig-071    clang-22
+x86_64               randconfig-071-20260801    clang-22
+x86_64               randconfig-071-20260802    gcc-12
+x86_64               randconfig-072-20260801    clang-22
+x86_64               randconfig-072-20260802    gcc-12
+x86_64               randconfig-073-20260801    clang-22
+x86_64               randconfig-073-20260802    gcc-12
+x86_64               randconfig-074-20260801    clang-22
+x86_64               randconfig-074-20260802    gcc-12
+x86_64               randconfig-075-20260801    clang-22
+x86_64               randconfig-075-20260802    gcc-12
+x86_64               randconfig-076-20260801    clang-22
+x86_64               randconfig-076-20260802    gcc-12
+x86_64                          rhel-9.4-bpf    gcc-14
+xtensa               randconfig-001-20260801    gcc-11.5.0
+xtensa               randconfig-001-20260802    gcc-12.5.0
+xtensa               randconfig-002-20260801    gcc-11.5.0
+xtensa               randconfig-002-20260802    gcc-12.5.0
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
