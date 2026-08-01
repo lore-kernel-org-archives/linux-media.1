@@ -1,117 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66D5930675F;
-	Sat,  1 Aug 2026 10:07:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66BE32ED141
+	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 12:56:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785578824; cv=none; b=VKfVo+8NeV6fRAVmEyb0zsWF75QkUJix5kP5zSXfGDlptl92Phe8ZSP6ZD+axYbNMlqVuZQDFdrXJnPp2AknDe+JrftFL2toTfWWtXxvsrq5Jhv1Y6Dg+lATqkultxHOJNhVHrW0CHLJAX8q1jcUs1qM54UHiE3t12Q425hKKDk=
+	t=1785588999; cv=none; b=lNe1eyBcG9lzN8EnHQ9PsSZdg41lCatLUzQX8ZAtn8AthFH7pLKPbzpYysopQGer38h0AiBwgflf/qa5GDgUT5BxNy6UpFulsFEOuwHmqu69qwwbtQCdYtu74mqPWtd1LDupSLmmWNtU98F9yhz39zNVCx5XftE9mqSjOKKpKws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785578824; c=relaxed/simple;
-	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DYIQTVbuFUa4JqKe2cdbFzi4NN9RQSMtnj9+XHJmmMzySSJXGP+NmvKrnFGi4l3kDHxV1kZc/UMLpU5+Ce1S1eFd9wrgsdEQSPJzYzSPKLKwvhqpjiJPU4MyXpOR+yyhS8G9BnyBnZpfpB7UwvR2YV3+LIRzt3osoL/OnCPQtaA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=myMPUAHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785588999; c=relaxed/simple;
+	bh=GWYh6PfHzXJ24Lv+kO86aOYZFR2Qz0K98fLbexCOYIA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D6nmbneiYCRKR4ZO9ehSQyI4rwfcGkT1cutICKFj0ecLP6V0vRBNu1A0ucKYk2Hwot4kTenyc07sS3aX0VukXo04dtr0eO2qFbFq2sU/4EdPkz4mdEpoK8NwaaeH9763n8g4oi8/q7ubH+bgjyS+uGHS/h3SlfKkDypBX+0JLKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f9FXDQS+; arc=none smtp.client-ip=209.85.215.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="myMPUAHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05C411F00AC4;
-	Sat,  1 Aug 2026 10:06:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785578822;
-	bh=7A8+JOXSDtHw7Vfv0zZPsibOd+WytXlQ4BMxgjCALZk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=myMPUAHsTBwWfhjoE1uoC4G1XnRXrJGknfgt+TPIXS7zco6f4r1niN6MJ5q3hOLSp
-	 y4Ji2phGKRIJwwfLKwl1y12WeUZ6nNjdo9r/amGPPHjsXwwifq5i9oA2DnJhr7MhDs
-	 NSpAKXljXIpq4W+KFIkUyd6VtyYB3QVzDFgzE9r5fZj8BNDjRvnDOtPPXAF/V50CAE
-	 kC8ZwAYY2RVzu+tdyMX1ndP/izxNb7Zl8qKTU+QheHqwu0UXyatAUdBCAp84emPlgC
-	 60eyYPdtuO9mJwrr4sOVsuJSaufDqR87ga+KStQoBadBcjKChPCLFmkHYEIIsd2jKI
-	 MHgzX3bqWD+zQ==
-Message-ID: <689580d1-8169-41cf-a954-927e10135700@kernel.org>
-Date: Sat, 1 Aug 2026 11:06:57 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f9FXDQS+"
+Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-cbb973e6749so2138979a12.1
+        for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 05:56:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785588998; x=1786193798; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DXt5AeyHYEk7MNJZLXJJ8wYyYWmg+frDkMSxnOOnAFk=;
+        b=f9FXDQS+ST8HA7JMD+fstAhOhZ5CACz+7Q+SpPQcV0fnDPIaJQw35fmJ8/JCs1T/99
+         06ZGp91QSOYA2LKVlc/atsXK8a1WLP9d3McIU7WC/wJtNYnRHA0EZRLGAh/PY6UzfCqP
+         8Y0PNHf1jzu/klyfPdBT/XsMO9o5DnoLWz8X4ITGjVm9uskKU/4NmT8NbbzafOABRL8O
+         fiOcn0CPblwb/2D9poBrLDbRGZppCCmW3EvzuXeO5vf5UdazxLz0gekBa8zqO6cHtYM7
+         GwwYcb4B6H/kDgyNGlFgitClUt7HNomDzkT60H/LYvsGjDVBjMjViYSpoADcquVYgxtJ
+         A8LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785588998; x=1786193798;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DXt5AeyHYEk7MNJZLXJJ8wYyYWmg+frDkMSxnOOnAFk=;
+        b=II4pKrkI6mNuSuqRF9dhKWiJAUawYTGtw6Yhh7TczDAVtf/wbVATbNjAKx+4wz+dXJ
+         /t4y3k7DaUm1YB+zT/ct49w1hjm5sPIA4GO4HeQzMmIuaNabi04qo7hWIC6OTu02KVL8
+         4NwyyFBIXNicgq8HDKVHhmZyxEVEM6Gj4rupHAZssbKqGQid6SJYmla3zKhRlKNbBcsl
+         /YZiLN8gO+6AdJh+GD4PGjNo7hjO2CbVxUTrlGUikBacSGzuaK7uEiF2KcruPbgXS0aK
+         Wi35rrpzwJpMAiu/RD+egacuEoNfQYWcbT4S63nuMzMNaYK+blX/mUC9VLxR/gYg+JJ3
+         bP1Q==
+X-Forwarded-Encrypted: i=1; AHgh+RoJdQ6rebTKTB8xoH5De4idyMWWkvJ3KD3BVBAuHTMPeLCASBPpDc1ql59dy37h7aSaqLeE0jWlfOJXWA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/xLCdNlNR3GJpBhNpnTym4Wu3e1mZdJLmkD0I+4kDGQ6cbpbV
+	ZkSACBRiO6tljWShqmY1mcUQYI4YHOJwR8r99CQSGGGDAh3ptLzRyxL0
+X-Gm-Gg: AR+sD12NLAQfEjG5G5FEEisxUrPcEpWdlUpBiAqxTU6rZV80LNLmt3qkdZ4VIHkGl4u
+	TeV7TqsVMWVtlIAr3LcaM0xzTsohzXF2GhZUI6BV5vFro/irnMvSz7tK19u7ntmbg2NpwpKe9n1
+	1zPwXzzaONbut9G7Pn5YAs82LxqsmbB50cvv8gCxLPHl9rWIOVOozUstLsqu6DioguNO4G9GneD
+	OTDlhH2yHbgtZEfmPQWMsCD/8yYQOQoQMYTp31TfXhLDAMNBVyKt85Xf9aTzWeiRW+HME6PmCjM
+	KOeiUtQSO6WD/gSBgavWebCjBdXNqjR30OY1vNDVGEbMBdjpUIRnHCOlSrh2eFwd72sxGlH0jo9
+	lAgfs/WhUdM8fM0r0QIuUu1W3YutcRdNc/LqEy2lSNOPlIke5Dfcb2tdygm19kDnnfp5mW9dlNu
+	6S9R8C4iB2nWy9nSiYVDzyjhK4qh2FWZRGkvZCTB4UMKd7/dBRhKVT0v0aBbhG2BJ+
+X-Received: by 2002:a05:6a21:510:b0:3c3:724d:ae7a with SMTP id adf61e73a8af0-3c92a518b52mr3598772637.9.1785588997645;
+        Sat, 01 Aug 2026 05:56:37 -0700 (PDT)
+Received: from [127.0.1.1] ([2401:4900:8900:d10c:80ab:6bbb:b91:2804])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e06f88fsm16131724eec.20.2026.08.01.05.56.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 01 Aug 2026 05:56:37 -0700 (PDT)
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Subject: [PATCH v6 0/2] media: Add Himax HM1092 mono NIR sensor driver
+Date: Sat, 01 Aug 2026 18:24:41 +0530
+Message-Id: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33QTW7DIBAF4KtErEvFvyGr3iPqYgxDTFXHFSSoV
+ eS7Fycbl0WXT5rvzWjupGBOWMjxcCcZayppubRgXg7ET3A5I02hZSKYMMxwS6eZMydoyKlipmC
+ iAAghCsZJM18ZY/p+9J3en7ncxg/0161km5hSuS7557Gw8m3u2T0w3nVXThkNfAyWo5By1G/nG
+ dLnq19msnVXsdei16JpFV2UxgUDyvZa/qtl01ZHgCFGFdH3Wu217rVqmgGX6MWggnW91nvteq2
+ bBh71CO29yP5cvq7rL6TsWE+0AQAA
+X-Change-ID: 20260618-hm1092-driver-a6f2aaddf201
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Jake Steinman <j@metarealtyinc.ca>, 
+ Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=6182; i=rshouriesh@gmail.com;
+ h=from:subject:message-id; bh=GWYh6PfHzXJ24Lv+kO86aOYZFR2Qz0K98fLbexCOYIA=;
+ b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqbez+2Nixjwzl4g1m0eFotN0odKIoh0WyI4rIM
+ TrGviz00pmJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCam3s/gAKCRAVlYpeERwF
+ 3hT+D/4iBq4BCQkRhtHI7x+Ye9zzmgnS9UqbhoCD6KzKdmwLBwwwPyT7acHNqVZlt8E+qVghJDi
+ HlPyrdMhgwOdY4Zef11/dDgS3d8OlCJFjrGo3Bows96L8HHMRpDxkL2QlAnrFeueeX+XZR3p2Sh
+ M2lY7fhJBhtqETGJOgFTH76z9VuyYQXk5He56uBPuMBfe3x7ZKybDZQ4sKDrXYX6QMYigmiT7g7
+ LogcxPQeKcI5yKoM7JOEjsYIXOf0n+irqYYFOplKXGKSYtXGiddJYcrwRpmoWyJ/3NSFUUFN6oW
+ gzM875e+cagUoVyPtWpL8Z5e1SfPmhp65AG6+I2MNVuy9zMZfbqUfUa0BkKy3RQg16e+r/AoFDB
+ m1e2IFywfnOwE9JEj4ms+NKi6/ElWLPr0f7mvCBjpuusOme8VkyMWvJ09bL840xLHKjBOgnp6Tn
+ KRkqTgpHQIqpTeasrTgqb+hlYz/1UT1VrfK1ye25huQSW5Er6rZuSTpIjCHEpDPrv98J/4LTQg5
+ TpcS/wc3HVsoop0m2dXmVThByWjNFcXwsKCHBteJkmL9YbLaHlOOMVPFkBSbeo9TsGnlm68YzEg
+ NG9NaihKyfeLENT1M3VmGpFtodv4ZosNCa3tJz2MGscgM3qdYAqLDiL/febxCkNxY61BDWkoCnq
+ ZwJ+O2H2Fnwr7NQ==
+X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
+ fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
 
-On 31/07/2026 19:22, Vikash Garodia wrote:
-> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
-> Cc:stable@vger.kernel.org
-> Tested-by: Daniel J Blueman<daniel@quora.org>
-> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
+This adds a V4L2 subdev driver and DT binding for the Himax HM1092, a
+1 megapixel monochrome near-infrared image sensor. On laptops it sits
+behind the IR camera used for face unlock. It speaks a single MIPI CSI-2
+data lane and outputs 10-bit RAW at 560x360.
 
-What about venus ?
+The driver exposes that one fixed mode, test patterns, exposure, analogue
+gain and digital gain controls, pixel-array selection targets and the
+standard fwnode properties. It has been tested on an ASUS Zenbook A14:
+the sensor probes, streams, changes brightness across the full exposure
+and analogue gain ranges, accepts digital gain endpoint updates while
+streaming, and returns to runtime suspend after capture.
+
+The exposure default is 500 lines, selected from unstretched illuminated
+captures on the ASUS system. The init sequence programs the same value so
+the sensor state and V4L2 control default remain consistent.
+
+The register programming was extracted from
+com.qti.sensormodule.hm1092.bin in the Qualcomm camera stack shipped for
+the ASUS system. Jake Steinman independently identified the exposure,
+analogue gain, digital gain and group-hold registers from Dell's
+hm1092.sys. The available documentation does not identify the
+test-pattern modes, so their menu names are based on output observed
+during hardware testing.
+
+The ASUS Windows configuration supplies a 24 MHz external clock. The
+programmed PLL divide-by-12 pre-divider and multiply-by-90 multiplier
+give a 180 MHz CSI-2 DDR link frequency, a 360 Mbit/s lane rate and a
+36 MHz pixel rate. With HTS 1616 and VTS 750, the resulting frame rate is
+approximately 29.7 frames per second. The driver reports the 1296x736
+native pixel array, the 1280x720 active array and the mode's 1150x718
+crop.
+
+The sensor driver and its binding are SoC-neutral, so they are sent on
+their own through the media tree. The board-level device tree and PHY
+work that wires this camera up on the ASUS Zenbook A14 will be sent as
+its own series.
+
+Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+---
+Changes in v6:
+- dt-bindings: update the example to the PLL-derived 180 MHz link
+  frequency.
+- hm1092: replace the inconsistent 400 MHz link frequency and derived
+  80 MHz pixel rate with 180 MHz and 36 MHz. The new values are derived
+  from the ASUS Windows configuration's 24 MHz external clock and the
+  sensor PLL dividers.
+- hm1092: report the 1296x736 native array, 1280x720 active array and
+  1150x718 mode crop as distinct selection targets.
+- hm1092: add exposure, analogue gain and digital gain controls using the
+  register map supplied by Jake Steinman. Keep multi-byte controls as
+  separate writes, use group hold, derive the exposure maximum from VTS,
+  and program the hardware-tested 500-line exposure default in both the
+  init table and control. Hardware-test the controls on the 560x360 mode.
+- hm1092: do not power the sensor on in probe(). There is no I2C access
+  during probe, so leave it suspended and let runtime PM power it for
+  streaming.
+- Link to v5: https://patch.msgid.link/20260709-hm1092-driver-v5-0-a1f5baa6fe08@gmail.com
+
+Changes in v5:
+- dt-bindings: drop the data-lanes property entirely; the fixed
+  single-lane wiring is not configurable, so it does not belong in DT.
+- hm1092: implement the get_selection pad op (CROP, CROP_DEFAULT,
+  CROP_BOUNDS and NATIVE_SIZE) reporting the sensor's pixel-array
+  geometry, as required by libcamera.
+- Link to v4: https://patch.msgid.link/20260705-hm1092-driver-v4-0-0a13ec274d89@gmail.com
+
+Changes in v4:
+- dt-bindings: make data-lanes optional for the fixed single-lane sensor,
+  constrain explicit values to <1>, and omit it from the example.
+- hm1092: add the copyright notice.
+- hm1092: replace the private register representation and write helper
+  with CCI register sequences and direct CCI writes.
+- hm1092: use descriptive test-pattern names based on hardware captures;
+  the available documentation does not identify these modes.
+- hm1092: parse fwnode properties before creating controls and set
+  read-only flags after validating control creation.
+- hm1092: use the generic get_fmt callback for the fixed sensor mode.
+- hm1092: initialize endpoint parsing with the fixed one-lane default,
+  reject other lane configurations, and remove the redundant endpoint
+  presence check.
+- hm1092: use fsleep() and null-safe GPIO calls, and apply the requested
+  declaration, brace, return-value and error-path formatting cleanups.
+- Link to v3: https://patch.msgid.link/20260702-hm1092-driver-v3-0-85faa7ff4fec@gmail.com
+
+Changes in v3:
+- dt-bindings: add the Reviewed-by tag from Conor Dooley.
+- hm1092: initialize RAW colorimetry fields in the pad format helper so
+  userspace values cannot leak into subdevice state.
+- hm1092: return -ENXIO when the required firmware graph endpoint is
+  absent instead of deferring probe indefinitely.
+- Link to v2: https://patch.msgid.link/20260702-hm1092-driver-v2-0-4f9f369d6a48@gmail.com
+
+Changes in v2:
+- hm1092: use pm_ptr() instead of pm_sleep_ptr() for the dev_pm_ops
+  pointer. The ops come from DEFINE_RUNTIME_DEV_PM_OPS(), so gating them
+  on CONFIG_PM_SLEEP dropped runtime PM on a CONFIG_PM=y, PM_SLEEP=n
+  build.
+- hm1092: free the control handler on the error paths in
+  hm1092_init_controls(); the fwnode-parse and ctrl_hdlr->error returns
+  leaked the handler.
+- Link to v1: https://patch.msgid.link/20260701-hm1092-driver-v1-0-d1bd81e233b5@gmail.com
 
 ---
-bod
+Ramshouriesh R (2):
+      media: dt-bindings: Add Himax HM1092 NIR sensor
+      media: i2c: hm1092: add Himax HM1092 mono NIR sensor driver
+
+ .../bindings/media/i2c/himax,hm1092.yaml           | 101 +++
+ MAINTAINERS                                        |   7 +
+ drivers/media/i2c/Kconfig                          |  11 +
+ drivers/media/i2c/Makefile                         |   1 +
+ drivers/media/i2c/hm1092.c                         | 863 +++++++++++++++++++++
+ 5 files changed, 983 insertions(+)
+---
+base-commit: be5c93fa674f0fc3c8f359c2143abce6bbb422e6
+change-id: 20260618-hm1092-driver-a6f2aaddf201
+
+Best regards,
+--  
+Ramshouriesh R <rshouriesh@gmail.com>
+
