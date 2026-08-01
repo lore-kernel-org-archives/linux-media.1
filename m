@@ -1,1064 +1,400 @@
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCF0284880
-	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 12:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFAE7175A86;
+	Sat,  1 Aug 2026 14:31:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785589011; cv=none; b=gcBxsgYOiWk8yHNaiR/dHOpQ84xkHWAb1oVSWyDhWzP67agpUeSOJcqbjV4azqf1A4VZh6+o2SwNOR3OJLAka0TvxYRMyHq9y+Lg1AVMTxZwlJ/pbfMI9kLm2todOSqsswlLPvufAYEYE5zB2neFjmTvICw5g85l7SB4TsOeojY=
+	t=1785594711; cv=none; b=ljU9UCaZ/+UhmyBh76ZRO4g7MOJ7VSwpXKOyZ45i2taMF9ToT/lTaVAb60x+RpV8g176g1MJDJkYrWTfzaCpyvYd6fnG6CALkDiPx5h67BpcWgOF5qUeyfMZZzt6nk6EagXK6Q/XF3cp8TiwzaJ8nGbaLvRvUn4dNI+h59iLJrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785589011; c=relaxed/simple;
-	bh=92fPJuLFIJ3kiie0mZDVuaCOw/dd+4rbkCaxlG4hh6c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=TfJLeDVrePOAsMdfIwu5wQSP16Fo5w8I3awHapzpAdXJT1YYQ2VkcPWGAv5uMo+vMh5WBOmSJUPCGyZ8KIUviRFyS/NedpRx1q10D579iduOtDBzl+3UDgnbrT2Q3GeI5yim3ww9EoJA5+ky4BzqlT/NeSbulTk1jIMYJbOaPQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K5v0MEf4; arc=none smtp.client-ip=209.85.214.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785594711; c=relaxed/simple;
+	bh=XJbxeE4P5CdrOG0V6r29IkFeA/RV47HiUzfl5xpQdwU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N+MTrz+ltx1N2V+K9WqQpG3JBlgizR+Bsj5fyoFPshUfTuq9fiXhlsLWF7YofCxDJLPdiL39W9+bjxtFCiw6+NhIV2N2HyuT8N/Kj9xDhaSyWQoOmz+OpAUJbEXOjIjOzny7BtgIt5KmEj+OMvGQHDPJTD+HfVdefrULgzNQhsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=KMr9lFY4; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=Oq29EeBo; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K5v0MEf4"
-Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2caea3f742bso20487265ad.0
-        for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785589008; x=1786193808; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cZR3exjYNsJMkfWMlHEU84/zW2TU6M2spydfCvDaR5I=;
-        b=K5v0MEf4Mq8gV+0R8BS1HW80eGsB40DodTS185ivg/ppGQefViBng2HTqWf5yz3apB
-         WTPaiC/uVXkclwrPPvuNgQIsUz5EboeYZjOBs6wZAUGadNFShI/cIXtstRvnogxHeGK3
-         FwXaJt4SVwBrFYP1su8zkeUIZtMpGqUwAoShiuxXzxaTU7dWoXkBdkkRo45hegqCXoEO
-         MfzuDf84zykbh1lrIgkdHVnZSP3W8dnkzD5P2JWXxy97JlpazQ2znfye+V/oH5Ejil+m
-         h9CWDu2x2ENiyfAIyTKYAwzZbbLOkdc8Lkt3RKch0AjxqZq5nw7c27Ct0y/boMFCqm1q
-         sYXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785589008; x=1786193808;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cZR3exjYNsJMkfWMlHEU84/zW2TU6M2spydfCvDaR5I=;
-        b=Mxx0vHYN9c8yWX6LymZd5xedj0kZpNUI3mzNeGlplSMoWucAhw5LLoJz+CtqPxwqBF
-         b75axwrj/XTfkYpPDlQK42JDqVZHATmBh1eq5mZbLLBtryBxZrlnRJKAcJpZlRTCwm9K
-         zTsDpa858me8AohxS/jMsMS0fnIfhyTGypd8LadMpRQEYNen9DeO2T1x1SFS4zrTz+Mn
-         r4RFT4YH+a3pPPaxLT05up9JoNfATqDJM3igoKpqu51AZGA3Y9MTM1KyFw60kF/fW3BA
-         H8d6FquDlXYke+v/hjyo+TaTLu6fVG50GyJmwdL5x4wwh2X/C0O/Fr7A35VzYmjoz41a
-         DZWQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rpe7Y0z8cJmTTZQEKY2M8eO+eqp1rv5tYVhwSUl8kF/MYCq0cCmO4KL/AziCv1fK1HRwaoFfOECA98pjg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywat5iGbd+SUGwhTr1dPNfKDktveh9xjhh1Zkq9tVOVABfk9Bed
-	FbW7HQWrmSKhOpTKEfOQBwetq/R9QLdL10plz179Tk71R1YjsFVVqDr9
-X-Gm-Gg: AR+sD12r/dWh5zfnGkI5tSuhErIKz+4EVS0xHpVlfFq8loNsMlMiSk/95AiILRGni5I
-	zpH2qFNoX3YDGbhQrZwofPd3AGNW5SEFSiQBCxhJp2LEQt6Nu818g8rmxdxKv+/9oEPI+f0nP47
-	k56J/EFjOmG66Cxlr9b10aKowPkzmJm7a8Avmem5z+jyZCEJSxoySvUVTJvMKDva6qOqR4++CFP
-	mtkamh2BiICJ/s9gdsdXm7W1gfbYQnevzcrUhet3Fwcu01Ki3lSn7U6FfA3WBf+urjDMgnnOmMo
-	/sJENiQFlFmzUBZKUZhlPwsqwVI8qALOYxL7dP3VpS7HE35/dEpRibjmwpXCdDmRev03MrvDZUC
-	VUevzTlgvajaxM3186w3pGq3kB4PIpk2XXMXv/07pvV0ec0u+2ASYopffFA316Yi8jA2B3M79el
-	Hgbj3HygX9ukVrMCM4LTBKt6jFgNqYgq+qbczs7LQl9Oj+VxVwGwTv2cYoBrJU053Z
-X-Received: by 2002:a17:903:46cf:b0:2ca:f40a:be76 with SMTP id d9443c01a7336-2d0524290a3mr33536575ad.36.1785589008026;
-        Sat, 01 Aug 2026 05:56:48 -0700 (PDT)
-Received: from [127.0.1.1] ([2401:4900:8900:d10c:80ab:6bbb:b91:2804])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153e06f88fsm16131724eec.20.2026.08.01.05.56.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 05:56:47 -0700 (PDT)
-From: Ramshouriesh R <rshouriesh@gmail.com>
-Date: Sat, 01 Aug 2026 18:24:43 +0530
-Subject: [PATCH v6 2/2] media: i2c: hm1092: add Himax HM1092 mono NIR
- sensor driver
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="KMr9lFY4";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="Oq29EeBo"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1785594694; bh=kT7FjJPCpQu6X2rYwUg3eaV
+	cRYGLEPMtjJ7ctYM05ps=; b=KMr9lFY4UKyFYZQ2vuegh8OBSDBSfuMuxYDRfkNiD6G2zY/D1/
+	mswE8qzhTVIlubbTfWj3EUtQB0SI5HHrVy7N+XyKEisjC8XydPGG4nLoGmreFP/3Z7Ipb6Ye0VP
+	OnS5h7BfF3oUFBgHlk05pWKEzsmQXGV91NrVRlqcQZ6W9Ep4EBA7NFDvrbGQJrX9VcYmQDnxt4Q
+	yoW80yrSSLo7EmxXE6uaojWD2CkAQL1UR/iUmJD/VYPKn7YpDXUNtRR8UdZ2r4WQ16DCthkCfmr
+	1iQ0UkevETWCNjh2OSLuyFOu1u3vP4iNBBtKpzFRPUUP4hPHFhJV5k2oxub6Z0gL+ng==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1785594694; bh=kT7FjJPCpQu6X2rYwUg3eaV
+	cRYGLEPMtjJ7ctYM05ps=; b=Oq29EeBoAhVwGI3q3UxC408N/goaZ5Zv4WJodBLHd+gnY3kR/9
+	/LQCkcGgAFTbQHwfOi5NioqSRENMnieGx5Dg==;
+From: Danila Tikhonov <danila@mainlining.org>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Eugene Lepshy <fekz115@gmail.com>,
+	Vasiliy Doylov <neko@altlinux.org>,
+	Achill Gilgenast <achill@achill.org>,
+	Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	~postmarketos/upstreaming@lists.sr.ht,
+	Danila Tikhonov <danila@mainlining.org>
+Subject: [PATCH 1/2] drivers: media: i2c: s5kjn1: Add support for 19.2MHz MCLK
+Date: Sat,  1 Aug 2026 17:31:24 +0300
+Message-ID: <20260801143125.267054-2-danila@mainlining.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260801143125.267054-1-danila@mainlining.org>
+References: <20260801143125.267054-1-danila@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260801-hm1092-driver-v6-2-5979f223748a@gmail.com>
-References: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
-In-Reply-To: <20260801-hm1092-driver-v6-0-5979f223748a@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Jake Steinman <j@metarealtyinc.ca>, 
- Hans Verkuil <hverkuil+cisco@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Ramshouriesh R <rshouriesh@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=29133; i=rshouriesh@gmail.com;
- h=from:subject:message-id; bh=92fPJuLFIJ3kiie0mZDVuaCOw/dd+4rbkCaxlG4hh6c=;
- b=owEBbQKS/ZANAwAKARWVil4RHAXeAcsmYgBqbez/QLjIfdChJqQBWHWlTi5oqfScqVh9VRxne
- XUPsHr0WQaJAjMEAAEKAB0WIQS/0QuzNKVfvUNlNAkVlYpeERwF3gUCam3s/wAKCRAVlYpeERwF
- 3qn5D/9veQB882qh78nhLTGMpFRrHSVtcktyllOwwKe6Wuj8kdhLochsFZ2l7YOQvpffU5PAlmB
- +cLHjJCoCd2ecoF04nQo4YLLjBFRDKIPul+2YI7SbGBrEUed8dRZIB4sO5a7t3xR1barHMkdeb2
- GDGR15sh6hk/ZEAiT43djqm81wT9zu9Nz5cfwiFXcDNlKdM0c5IgnwugLCP8leZxF3HNFnrE3Ed
- 1gd/iO4Rh/hAC41du1Bu85e/NG5XXIEikv78RyxTSsQOOP/0KAu5L9mFCd5s0eyk90mlZTuChK5
- fscv/AyITrrsRL3EMcXJgzJDYWsevFxEnI8CLLbGWdCkXoAoIatfarQO8uUFLG8pJnpPkLikS9H
- 8ZTyBgzGWCgeEhLqDGrYS7S40ZRcCwlV9CCUo3T1LbzUcODQUMAaplwTtGNXOraxct69l7lsUlQ
- TwoTNElEwO47urlwQqDPloEdnOpdmrZkAoL0bJ2HTvIXHwtVaOUtAb/VB3zpyGgvYvPC27B1Hrn
- LLwR2JIUr2+GXWHvai02HlOu5UkWj37YHqg5XCkDz9VkSHpwIkFdAdDDwNg11cogAYuDGyMwB2C
- n7uw4pxN0w7ZnG5KPA57WFw+82/hwdf0kfmj/pNoFAmmzkN078vNHkNNZgWuB5IHsCVyyvQp5y9
- Alo+dpTdD0e12iA==
-X-Developer-Key: i=rshouriesh@gmail.com; a=openpgp;
- fpr=BFD10BB334A55FBD4365340915958A5E111C05DE
+Content-Transfer-Encoding: 8bit
 
-Add a V4L2 subdev driver for the Himax HM1092, a 1 megapixel monochrome
-near-infrared image sensor with a single-lane MIPI CSI-2 interface,
-typically used as the face-authentication IR camera on laptops.
+The S5KJN1 sensor supports a range of external clock frequencies (MCLK),
+while the driver currently only supports a 24MHz MCLK.
 
-The driver supports the sensor's 560x360 10-bit mono mode, test patterns,
-exposure, analogue gain and digital gain controls, and the standard
-fwnode properties (orientation and rotation). It also reports the
-1296x736 native pixel array, the 1280x720 active array and the mode's
-1150x718 crop.
+The 19.2MHz clock is used by the S5KJN1 camera sensor on the
+Nothing Phone (1) aka sm7325-nothing-spacewar.
 
-The vendor Windows configuration supplies a 24 MHz external clock and
-programs the MIPI PLL with a divide-by-12 pre-divider and a multiply-by-90
-multiplier. This gives a 180 MHz CSI-2 DDR link frequency, a 360 Mbit/s
-single-lane bit rate and a 36 MHz pixel rate. With HTS 1616 and VTS 750,
-the resulting frame rate is approximately 29.7 frames per second.
+Add support for this frequency.
 
-The exposure, analogue gain and digital gain register layout was
-independently identified by Jake Steinman. Program multi-byte controls as
-separate high- and low-byte writes, and bracket exposure and gain updates
-with the sensor's group hold. The exposure default is 500 lines, selected
-from illuminated captures on an ASUS Zenbook A14 and programmed by the
-init sequence so the hardware and control states agree. The controls were
-exercised on that system, including full-range exposure and analogue gain
-tests and digital gain endpoint updates while streaming.
+While splitting the clock settings into separate register sequences,
+add definitions for the known clock-related registers and values instead
+of using raw register addresses and magic values.
 
-Reported-by: Jake Steinman <j@metarealtyinc.ca>
-Link: https://lore.kernel.org/r/20260727131252.1580332-1-j@metarealtyinc.ca
-Link: https://lore.kernel.org/r/20260727154058.2350497-1-j@metarealtyinc.ca
-Signed-off-by: Ramshouriesh R <rshouriesh@gmail.com>
+Signed-off-by: Danila Tikhonov <danila@mainlining.org>
 ---
- MAINTAINERS                |   7 +
- drivers/media/i2c/Kconfig  |  11 +
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/hm1092.c | 863 +++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 882 insertions(+)
+ drivers/media/i2c/s5kjn1.c | 183 ++++++++++++++++++++++++++++++-------
+ 1 file changed, 151 insertions(+), 32 deletions(-)
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 5e11dd741d9f..4d9a4991ca2b 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11652,6 +11652,13 @@ L:	linux-kernel@vger.kernel.org
- S:	Maintained
- F:	drivers/misc/hisi_hikey_usb.c
+diff --git a/drivers/media/i2c/s5kjn1.c b/drivers/media/i2c/s5kjn1.c
+index a707cb740556..1036e629758f 100644
+--- a/drivers/media/i2c/s5kjn1.c
++++ b/drivers/media/i2c/s5kjn1.c
+@@ -15,6 +15,7 @@
+ #include <media/v4l2-fwnode.h>
  
-+HIMAX HM1092 SENSOR DRIVER
-+M:	Ramshouriesh R <rshouriesh@gmail.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/himax,hm1092.yaml
-+F:	drivers/media/i2c/hm1092.c
-+
- HIMAX HX83112B TOUCHSCREEN SUPPORT
- M:	Job Noorman <job@noorman.info>
- L:	linux-input@vger.kernel.org
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5d173e0ecf42..f94621edbe1a 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -137,6 +137,17 @@ config VIDEO_HI847
-           To compile this driver as a module, choose M here: the
-           module will be called hi847.
+ #define S5KJN1_LINK_FREQ_700MHZ		(700ULL * HZ_PER_MHZ)
++#define S5KJN1_MCLK_FREQ_19P2MHZ	(19200 * HZ_PER_KHZ)
+ #define S5KJN1_MCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
+ #define S5KJN1_DATA_LANES		4
  
-+config VIDEO_HM1092
-+	tristate "Himax HM1092 sensor support"
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the Himax HM1092
-+	  monochrome near-infrared CMOS image sensor, used as the
-+	  face-authentication IR camera on laptops.
+@@ -25,6 +26,24 @@
+ #define S5KJN1_REG_CTRL_MODE		CCI_REG8(0x0100)
+ #define S5KJN1_MODE_STREAMING		BIT(0)
+ 
++#define S5KJN1_REG_EXTCLK_INTEGER	CCI_REG16(0x0136)
++#define S5KJN1_REG_EXTCLK_FRACTION	CCI_REG16(0x013e)
++#define S5KJN1_REG_VT_PIX_CLK_DIV	CCI_REG16(0x0300)
++#define S5KJN1_REG_VT_SYS_CLK_DIV	CCI_REG16(0x0302)
++#define S5KJN1_REG_VT_PRE_PLL_CLK_DIV	CCI_REG16(0x0304)
++#define S5KJN1_REG_VT_PLL_MULTIPLIER	CCI_REG16(0x0306)
 +
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called hm1092.
++#define S5KJN1_EXTCLK_19P2MHZ_INTEGER	0x1300
++#define S5KJN1_EXTCLK_19P2MHZ_FRACTION	0x00c8
++#define S5KJN1_EXTCLK_24MHZ_INTEGER	0x1800
++#define S5KJN1_EXTCLK_24MHZ_FRACTION	0x0000
++#define S5KJN1_VT_PIX_CLK_DIV		0x0006
++#define S5KJN1_VT_SYS_CLK_DIV		0x0001
++#define S5KJN1_VT_PRE_PLL_DIV_19P2MHZ	0x0003
++#define S5KJN1_VT_PRE_PLL_DIV_24MHZ	0x0004
++#define S5KJN1_VT_PLL_MUL_19P2MHZ	0x0083
++#define S5KJN1_VT_PLL_MUL_24MHZ		0x008c
 +
- config VIDEO_IMX111
- 	tristate "Sony IMX111 sensor support"
- 	select V4L2_CCI_I2C
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index e45359efe0e4..6507c173d0fa 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -45,6 +45,7 @@ obj-$(CONFIG_VIDEO_GC2145) += gc2145.o
- obj-$(CONFIG_VIDEO_HI556) += hi556.o
- obj-$(CONFIG_VIDEO_HI846) += hi846.o
- obj-$(CONFIG_VIDEO_HI847) += hi847.o
-+obj-$(CONFIG_VIDEO_HM1092) += hm1092.o
- obj-$(CONFIG_VIDEO_I2C) += video-i2c.o
- obj-$(CONFIG_VIDEO_IMX111) += imx111.o
- obj-$(CONFIG_VIDEO_IMX208) += imx208.o
-diff --git a/drivers/media/i2c/hm1092.c b/drivers/media/i2c/hm1092.c
-new file mode 100644
-index 000000000000..eb3607a7e1f3
---- /dev/null
-+++ b/drivers/media/i2c/hm1092.c
-@@ -0,0 +1,863 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Himax HM1092 monochrome near-infrared image sensor driver.
-+ *
-+ * Copyright (c) 2026 Ramshouriesh R <rshouriesh@gmail.com>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+#include <media/v4l2-fwnode.h>
-+
-+/*
-+ * CSI-2 D-PHY link frequency (DDR, i.e. half the per-lane bit rate).
-+ *
-+ * The vendor Windows configuration supplies a 24 MHz EXTCLK and programs the
-+ * MIPI PLL pre-divider to 12 (0x030d = 0x0c) and multiplier to 90
-+ * (0x030f = 0x5a):
-+ *   link freq  = 24000000 * 90 / 12          = 180000000
-+ *   bit rate   = link freq * 2               = 360000000 bps
-+ *   pixel_rate = bit rate * 1 lane / 10 bpp  = 36000000 pixels/s
-+ */
-+#define HM1092_LINK_FREQ		180000000ULL
-+#define HM1092_MCLK			24000000
-+#define HM1092_BITS_PER_SAMPLE		10
-+
-+#define HM1092_REG_STREAM		CCI_REG8(0x0100)
-+#define HM1092_STREAM_STANDBY		0x00
-+#define HM1092_STREAM_ON		0x01
-+
-+#define HM1092_REG_TEST_PATTERN		CCI_REG8(0x0601)
-+#define HM1092_TEST_PATTERN_MAX		4
-+
-+/*
-+ * Exposure is a 16-bit value in lines and analogue gain an 8-bit register.
-+ * The register layout is not documented publicly; it was recovered from the
-+ * vendor Windows driver. The exposure default (500) was selected from
-+ * illuminated hardware tests and is also programmed by the init sequence at
-+ * 0x0202/0x0203.
-+ */
-+#define HM1092_REG_EXPOSURE_H		CCI_REG8(0x0202)
-+#define HM1092_REG_EXPOSURE_L		CCI_REG8(0x0203)
-+#define HM1092_EXPOSURE_MIN		2
-+#define HM1092_EXPOSURE_MARGIN		21
-+#define HM1092_EXPOSURE_STEP		1
-+#define HM1092_EXPOSURE_DEFAULT		500
-+
-+#define HM1092_REG_ANALOGUE_GAIN	CCI_REG8(0x0205)
-+#define HM1092_ANALOGUE_GAIN_MIN	0
-+#define HM1092_ANALOGUE_GAIN_MAX	0xff
-+#define HM1092_ANALOGUE_GAIN_STEP	1
-+#define HM1092_ANALOGUE_GAIN_DEFAULT	0
-+
-+#define HM1092_REG_DIGITAL_GAIN_H	CCI_REG8(0x020e)
-+#define HM1092_REG_DIGITAL_GAIN_L	CCI_REG8(0x020f)
-+#define HM1092_DIGITAL_GAIN_MIN		0x0100
-+#define HM1092_DIGITAL_GAIN_MAX		0x0fff
-+#define HM1092_DIGITAL_GAIN_STEP	1
-+#define HM1092_DIGITAL_GAIN_DEFAULT	0x0100
-+
-+#define HM1092_REG_GROUP_HOLD		CCI_REG8(0x0104)
-+#define HM1092_GROUP_HOLD_START		0x01
-+#define HM1092_GROUP_HOLD_END		0x00
-+
-+/*
-+ * Pixel array geometry. The vendor specifies a 1280x720 active array; the
-+ * full array including the surrounding dummy/optical-black pixels is 1296x736
-+ * (8 pixels of margin on each side). The single fixed mode reads a window out
-+ * of the active array (X_ADDR [0x0030..0x04ad], Y_ADDR [0x0008..0x02d5]);
-+ * subsequent internal processing produces the 560x360 output.
-+ */
-+#define HM1092_NATIVE_WIDTH		1296U
-+#define HM1092_NATIVE_HEIGHT		736U
-+#define HM1092_ACTIVE_LEFT		8U
-+#define HM1092_ACTIVE_TOP		8U
-+#define HM1092_ACTIVE_WIDTH		1280U
-+#define HM1092_ACTIVE_HEIGHT		720U
-+#define HM1092_CROP_LEFT		48U
-+#define HM1092_CROP_TOP			8U
-+#define HM1092_CROP_WIDTH		1150U
-+#define HM1092_CROP_HEIGHT		718U
-+
-+static const struct cci_reg_sequence hm1092_init_regs[] = {
-+	{ CCI_REG8(0x0103), 0x00 },
-+	{ CCI_REG8(0x030a), 0x05 },
-+	{ CCI_REG8(0x030d), 0x0c },
-+	{ CCI_REG8(0x030f), 0x5a },
-+	{ CCI_REG8(0x0307), 0x00 },
-+	{ CCI_REG8(0x0309), 0x01 },
-+	{ CCI_REG8(0x0387), 0x01 },
-+	{ CCI_REG8(0x0100), 0x02 },
-+	{ CCI_REG8(0x4265), 0x02 },
-+	{ CCI_REG8(0x4002), 0x2b },
-+	{ CCI_REG8(0x4001), 0x00 },
-+	{ CCI_REG8(0x0101), 0x03 },
-+	{ CCI_REG8(0x4024), 0x40 },
-+	{ CCI_REG8(0x0203), 0xf4 },
-+	{ CCI_REG8(0x0202), 0x01 },
-+	{ CCI_REG8(0x0341), 0xee },
-+	{ CCI_REG8(0x0340), 0x02 },
-+	{ CCI_REG8(0x0343), 0x50 },
-+	{ CCI_REG8(0x0342), 0x06 },
-+	{ CCI_REG8(0x0345), 0x30 },
-+	{ CCI_REG8(0x0344), 0x00 },
-+	{ CCI_REG8(0x0349), 0xad },
-+	{ CCI_REG8(0x0348), 0x04 },
-+	{ CCI_REG8(0x0347), 0x08 },
-+	{ CCI_REG8(0x0346), 0x00 },
-+	{ CCI_REG8(0x034b), 0xd5 },
-+	{ CCI_REG8(0x034a), 0x02 },
-+	{ CCI_REG8(0x5015), 0xb3 },
-+	{ CCI_REG8(0x0350), 0x53 },
-+	{ CCI_REG8(0x0361), 0x30 },
-+	{ CCI_REG8(0x0360), 0x00 },
-+	{ CCI_REG8(0x034d), 0x30 },
-+	{ CCI_REG8(0x034c), 0x02 },
-+	{ CCI_REG8(0x034f), 0x68 },
-+	{ CCI_REG8(0x034e), 0x01 },
-+	{ CCI_REG8(0x0390), 0x03 },
-+	{ CCI_REG8(0x0383), 0x00 },
-+	{ CCI_REG8(0x0387), 0x10 },
-+	{ CCI_REG8(0x50dd), 0x01 },
-+	{ CCI_REG8(0x50cb), 0x21 },
-+	{ CCI_REG8(0x5005), 0x28 },
-+	{ CCI_REG8(0x5004), 0x40 },
-+	{ CCI_REG8(0x5007), 0x28 },
-+	{ CCI_REG8(0x5006), 0x40 },
-+	{ CCI_REG8(0x5011), 0x00 },
-+	{ CCI_REG8(0x501d), 0x4c },
-+	{ CCI_REG8(0x5013), 0x03 },
-+	{ CCI_REG8(0x4131), 0x01 },
-+	{ CCI_REG8(0x5283), 0x03 },
-+	{ CCI_REG8(0x5282), 0xff },
-+	{ CCI_REG8(0x5010), 0x20 },
-+	{ CCI_REG8(0x4132), 0x20 },
-+	{ CCI_REG8(0x50d5), 0xe0 },
-+	{ CCI_REG8(0x50d7), 0x12 },
-+	{ CCI_REG8(0x50bb), 0x14 },
-+	{ CCI_REG8(0x50b7), 0x00 },
-+	{ CCI_REG8(0x50b9), 0xff },
-+	{ CCI_REG8(0x50b8), 0x70 },
-+	{ CCI_REG8(0x50ba), 0xff },
-+	{ CCI_REG8(0x50fa), 0x02 },
-+	{ CCI_REG8(0x50b4), 0x00 },
-+	{ CCI_REG8(0x50a2), 0x0b },
-+	{ CCI_REG8(0x50ad), 0x07 },
-+	{ CCI_REG8(0x50ac), 0x24 },
-+	{ CCI_REG8(0x50af), 0x40 },
-+	{ CCI_REG8(0x50ae), 0x20 },
-+	{ CCI_REG8(0x50ab), 0x07 },
-+	{ CCI_REG8(0x50aa), 0x22 },
-+	{ CCI_REG8(0x50a7), 0x00 },
-+	{ CCI_REG8(0x50a6), 0x00 },
-+	{ CCI_REG8(0x5099), 0x11 },
-+	{ CCI_REG8(0x509b), 0x03 },
-+	{ CCI_REG8(0x50b3), 0x04 },
-+	{ CCI_REG8(0x50a0), 0x30 },
-+	{ CCI_REG8(0x5098), 0x00 },
-+	{ CCI_REG8(0x52f2), 0x53 },
-+	{ CCI_REG8(0x5209), 0x0c },
-+	{ CCI_REG8(0x5216), 0x02 },
-+	{ CCI_REG8(0x521e), 0x01 },
-+	{ CCI_REG8(0x50e8), 0x00 },
-+	{ CCI_REG8(0x5200), 0x60 },
-+	{ CCI_REG8(0x5202), 0x00 },
-+	{ CCI_REG8(0x5201), 0x80 },
-+	{ CCI_REG8(0x5203), 0x01 },
-+	{ CCI_REG8(0x5208), 0x0b },
-+	{ CCI_REG8(0x520d), 0x40 },
-+	{ CCI_REG8(0x520c), 0x15 },
-+	{ CCI_REG8(0x5215), 0x04 },
-+	{ CCI_REG8(0x50ea), 0x74 },
-+	{ CCI_REG8(0x5214), 0x28 },
-+	{ CCI_REG8(0x5218), 0x07 },
-+	{ CCI_REG8(0x5217), 0x01 },
-+	{ CCI_REG8(0x0310), 0x00 },
-+	{ CCI_REG8(0x4b31), 0x06 },
-+	{ CCI_REG8(0x4b3b), 0x02 },
-+	{ CCI_REG8(0x4b45), 0x01 },
-+	{ CCI_REG8(0x4b44), 0x0c },
-+	{ CCI_REG8(0x4b47), 0x00 },
-+	{ CCI_REG8(0x5101), 0x13 },
-+	{ CCI_REG8(0x5100), 0x03 },
-+	{ CCI_REG8(0x5103), 0x33 },
-+	{ CCI_REG8(0x5102), 0x23 },
-+	{ CCI_REG8(0x5105), 0x42 },
-+	{ CCI_REG8(0x5104), 0x43 },
-+	{ CCI_REG8(0x5106), 0x40 },
-+	{ CCI_REG8(0x5119), 0x00 },
-+	{ CCI_REG8(0x5118), 0x00 },
-+	{ CCI_REG8(0x511b), 0x00 },
-+	{ CCI_REG8(0x511a), 0x00 },
-+	{ CCI_REG8(0x511d), 0x00 },
-+	{ CCI_REG8(0x511c), 0x00 },
-+	{ CCI_REG8(0x511e), 0x00 },
-+	{ CCI_REG8(0x5131), 0x23 },
-+	{ CCI_REG8(0x5130), 0x13 },
-+	{ CCI_REG8(0x5133), 0x43 },
-+	{ CCI_REG8(0x5132), 0x33 },
-+	{ CCI_REG8(0x5135), 0x40 },
-+	{ CCI_REG8(0x5134), 0x42 },
-+	{ CCI_REG8(0x5136), 0x40 },
-+	{ CCI_REG8(0x5149), 0x01 },
-+	{ CCI_REG8(0x5148), 0x01 },
-+	{ CCI_REG8(0x514b), 0x01 },
-+	{ CCI_REG8(0x514a), 0x01 },
-+	{ CCI_REG8(0x514d), 0x01 },
-+	{ CCI_REG8(0x514c), 0x01 },
-+	{ CCI_REG8(0x514e), 0x01 },
-+	{ CCI_REG8(0x51c0), 0x00 },
-+	{ CCI_REG8(0x51c6), 0x00 },
-+	{ CCI_REG8(0x51cc), 0x00 },
-+	{ CCI_REG8(0x51d2), 0x00 },
-+	{ CCI_REG8(0x51d8), 0x00 },
-+	{ CCI_REG8(0x51c1), 0x81 },
-+	{ CCI_REG8(0x51c7), 0x81 },
-+	{ CCI_REG8(0x51cd), 0x81 },
-+	{ CCI_REG8(0x51d3), 0x81 },
-+	{ CCI_REG8(0x51d9), 0x81 },
-+	{ CCI_REG8(0x51c2), 0xec },
-+	{ CCI_REG8(0x51c8), 0xec },
-+	{ CCI_REG8(0x51ce), 0xec },
-+	{ CCI_REG8(0x51d4), 0xec },
-+	{ CCI_REG8(0x51da), 0xec },
-+	{ CCI_REG8(0x51c3), 0x00 },
-+	{ CCI_REG8(0x51c9), 0x00 },
-+	{ CCI_REG8(0x51cf), 0x00 },
-+	{ CCI_REG8(0x51d5), 0x00 },
-+	{ CCI_REG8(0x51db), 0x00 },
-+	{ CCI_REG8(0x51c4), 0x55 },
-+	{ CCI_REG8(0x51ca), 0x55 },
-+	{ CCI_REG8(0x51d0), 0x54 },
-+	{ CCI_REG8(0x51d6), 0x53 },
-+	{ CCI_REG8(0x51dc), 0x53 },
-+	{ CCI_REG8(0x51c5), 0x44 },
-+	{ CCI_REG8(0x51cb), 0x24 },
-+	{ CCI_REG8(0x51d1), 0x24 },
-+	{ CCI_REG8(0x51d7), 0x14 },
-+	{ CCI_REG8(0x51dd), 0x14 },
-+	{ CCI_REG8(0x51e0), 0x09 },
-+	{ CCI_REG8(0x51e2), 0x04 },
-+	{ CCI_REG8(0x51e4), 0x08 },
-+	{ CCI_REG8(0x51e6), 0x08 },
-+	{ CCI_REG8(0x51e1), 0x03 },
-+	{ CCI_REG8(0x51e3), 0x03 },
-+	{ CCI_REG8(0x51e5), 0x07 },
-+	{ CCI_REG8(0x51e8), 0x04 },
-+	{ CCI_REG8(0x51e7), 0x07 },
-+	{ CCI_REG8(0x51e9), 0x46 },
-+	{ CCI_REG8(0x51eb), 0x62 },
-+	{ CCI_REG8(0x51ea), 0x43 },
-+	{ CCI_REG8(0x51ed), 0x00 },
-+	{ CCI_REG8(0x51ec), 0x61 },
-+	{ CCI_REG8(0x51ee), 0x00 },
-+	{ CCI_REG8(0x5206), 0x80 },
-+	{ CCI_REG8(0x3110), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x3704), 0x02 },
-+	{ CCI_REG8(0x4b20), 0x9e },
-+	{ CCI_REG8(0x4b18), 0x00 },
-+	{ CCI_REG8(0x4b3e), 0x00 },
-+	{ CCI_REG8(0x4b0e), 0x0e },
-+	{ CCI_REG8(0x4800), 0xac },
-+	{ CCI_REG8(0x0104), 0x01 },
-+	{ CCI_REG8(0x0104), 0x00 },
-+	{ CCI_REG8(0x4801), 0xae },
-+	{ CCI_REG8(0x0000), 0x00 },
-+	{ CCI_REG8(0x0037), 0x30 },
+ #define S5KJN1_REG_ORIENTATION		CCI_REG8(0x0101)
+ #define S5KJN1_VFLIP			BIT(1)
+ #define S5KJN1_HFLIP			BIT(0)
+@@ -70,6 +89,17 @@ struct s5kjn1_reg_list {
+ 	unsigned int num_regs;
+ };
+ 
++enum s5kjn1_mclk {
++	S5KJN1_MCLK_19P2MHZ,
++	S5KJN1_MCLK_24MHZ,
++	S5KJN1_NUM_MCLKS,
 +};
 +
-+struct hm1092_mode {
-+	u32 width;
-+	u32 height;
-+	u32 hts;
-+	u32 vts;
++static const unsigned long s5kjn1_mclk_freqs[S5KJN1_NUM_MCLKS] = {
++	[S5KJN1_MCLK_19P2MHZ] = S5KJN1_MCLK_FREQ_19P2MHZ,
++	[S5KJN1_MCLK_24MHZ] = S5KJN1_MCLK_FREQ_24MHZ,
 +};
 +
-+static const struct hm1092_mode hm1092_mode_560x360 = {
-+	.width = 560,
-+	.height = 360,
-+	.hts = 0x0650,
-+	.vts = 0x02ee,
+ struct s5kjn1_mode {
+ 	u32 width;			/* Frame width in pixels */
+ 	u32 height;			/* Frame height in pixels */
+@@ -78,7 +108,10 @@ struct s5kjn1_mode {
+ 	u32 exposure;			/* Default exposure value */
+ 	u32 exposure_margin;		/* Exposure margin */
+ 
+-	const struct s5kjn1_reg_list reg_list;	/* Sensor register setting */
++	/* Sensor register setting */
++	const struct s5kjn1_reg_list mode_setup_reg_list;
++	const struct s5kjn1_reg_list clk_reg_list[S5KJN1_NUM_MCLKS];
++	const struct s5kjn1_reg_list frame_timing_reg_list;
+ };
+ 
+ static const char * const s5kjn1_test_pattern_menu[] = {
+@@ -93,6 +126,7 @@ struct s5kjn1 {
+ 	struct device *dev;
+ 	struct regmap *regmap;
+ 	struct clk *mclk;
++	unsigned int mclk_index;
+ 	struct gpio_desc *reset_gpio;
+ 	struct regulator *afvdd;	/* Autofocus actuator power */
+ 	struct regulator *vdda;		/* Analog power */
+@@ -147,7 +181,7 @@ static const struct cci_reg_sequence init_array_setting[] = {
+ 	{ CCI_REG16(0x011a), 0x0001 },
+ };
+ 
+-static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode_setup[] = {
+ 	{ CCI_REG16(0x6028), 0x2400 },
+ 	{ CCI_REG16(0x602a), 0x1a28 },
+ 	{ CCI_REG16(0x6f12), 0x4c00 },
+@@ -403,21 +437,39 @@ static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
+ 	{ CCI_REG16(0x0110), 0x1002 },
+ 	{ CCI_REG16(0x0114), 0x0301 },
+ 	{ CCI_REG16(0x0116), 0x3000 },
++};
+ 
+-	/* Clock settings */
+-	{ CCI_REG16(0x0136), 0x1800 },
+-	{ CCI_REG16(0x013e), 0x0000 },
+-	{ CCI_REG16(0x0300), 0x0006 },
+-	{ CCI_REG16(0x0302), 0x0001 },
+-	{ CCI_REG16(0x0304), 0x0004 },
+-	{ CCI_REG16(0x0306), 0x008c },
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_19p2mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_19P2MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_19P2MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_19P2MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_19P2MHZ },
++	{ CCI_REG16(0x0308), 0x0008 },
++	{ CCI_REG16(0x030a), 0x0001 },
++	{ CCI_REG16(0x030c), 0x0000 },
++	{ CCI_REG16(0x030e), 0x0003 },
++	{ CCI_REG16(0x0310), 0x0089 },
++	{ CCI_REG16(0x0312), 0x0000 },
 +};
 +
-+static const char * const hm1092_supply_names[] = {
-+	"dovdd",
-+	"avdd",
-+	"dvdd",
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_24mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_24MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_24MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_24MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_24MHZ },
+ 	{ CCI_REG16(0x0308), 0x0008 },
+ 	{ CCI_REG16(0x030a), 0x0001 },
+ 	{ CCI_REG16(0x030c), 0x0000 },
+ 	{ CCI_REG16(0x030e), 0x0004 },
+ 	{ CCI_REG16(0x0310), 0x0092 },
+ 	{ CCI_REG16(0x0312), 0x0000 },
++};
+ 
++static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_frame_timing[] = {
+ 	{ CCI_REG16(0x080e), 0x0000 },
+ 	{ S5KJN1_REG_VTS,    0x10c0 },
+ 	{ S5KJN1_REG_HTS,    0x1100 },
+@@ -431,7 +483,7 @@ static const struct cci_reg_sequence s5kjn1_4080x3072_30fps_mode[] = {
+ 	{ CCI_REG16(0x0816), 0x1c00 },
+ };
+ 
+-static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode[] = {
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode_setup[] = {
+ 	{ CCI_REG16(0x6028), 0x2400 },
+ 	{ CCI_REG16(0x602a), 0x1a28 },
+ 	{ CCI_REG16(0x6f12), 0x4c00 },
+@@ -687,21 +739,39 @@ static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_mode[] = {
+ 	{ CCI_REG16(0x0110), 0x1002 },
+ 	{ CCI_REG16(0x0114), 0x0300 },
+ 	{ CCI_REG16(0x0116), 0x3000 },
 +};
 +
-+/*
-+ * The available HM1092 documentation does not describe the test patterns.
-+ * Their names are based on observed output from hardware testing; the
-+ * register and mode values were reverse-engineered from the Windows driver.
-+ */
-+static const char * const hm1092_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color Fill",
-+	"Standard Color Bars",
-+	"Fade To Grey Color Bars",
-+	"Pseudorandom data",
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_19p2mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_19P2MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_19P2MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_19P2MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_19P2MHZ },
++	{ CCI_REG16(0x0308), 0x0008 },
++	{ CCI_REG16(0x030a), 0x0001 },
++	{ CCI_REG16(0x030c), 0x0000 },
++	{ CCI_REG16(0x030e), 0x0003 },
++	{ CCI_REG16(0x0310), 0x006d },
++	{ CCI_REG16(0x0312), 0x0000 },
 +};
-+
-+static const s64 hm1092_link_freq_menu[] = {
-+	HM1092_LINK_FREQ,
+ 
+-	/* Clock settings */
+-	{ CCI_REG16(0x0136), 0x1800 },
+-	{ CCI_REG16(0x013e), 0x0000 },
+-	{ CCI_REG16(0x0300), 0x0006 },
+-	{ CCI_REG16(0x0302), 0x0001 },
+-	{ CCI_REG16(0x0304), 0x0004 },
+-	{ CCI_REG16(0x0306), 0x008c },
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_24mhz_clk[] = {
++	{ S5KJN1_REG_EXTCLK_INTEGER, S5KJN1_EXTCLK_24MHZ_INTEGER },
++	{ S5KJN1_REG_EXTCLK_FRACTION, S5KJN1_EXTCLK_24MHZ_FRACTION },
++	{ S5KJN1_REG_VT_PIX_CLK_DIV, S5KJN1_VT_PIX_CLK_DIV },
++	{ S5KJN1_REG_VT_SYS_CLK_DIV, S5KJN1_VT_SYS_CLK_DIV },
++	{ S5KJN1_REG_VT_PRE_PLL_CLK_DIV, S5KJN1_VT_PRE_PLL_DIV_24MHZ },
++	{ S5KJN1_REG_VT_PLL_MULTIPLIER, S5KJN1_VT_PLL_MUL_24MHZ },
+ 	{ CCI_REG16(0x0308), 0x0008 },
+ 	{ CCI_REG16(0x030a), 0x0001 },
+ 	{ CCI_REG16(0x030c), 0x0000 },
+ 	{ CCI_REG16(0x030e), 0x0004 },
+ 	{ CCI_REG16(0x0310), 0x0074 },
+ 	{ CCI_REG16(0x0312), 0x0000 },
 +};
-+
-+struct hm1092 {
-+	struct device *dev;
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct regmap *regmap;
-+	struct clk *img_clk;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(hm1092_supply_names)];
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *hblank;
-+	struct v4l2_ctrl *vblank;
-+	struct v4l2_ctrl *exposure;
-+	u8 mipi_lanes;
-+};
-+
-+static inline struct hm1092 *to_hm1092(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct hm1092, sd);
-+}
-+
-+static int hm1092_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct hm1092 *hm1092 = container_of(ctrl->handler, struct hm1092,
-+					     ctrl_handler);
-+	int release_ret;
-+	int ret = 0;
-+
-+	/*
-+	 * The control value is cached by the framework and (re)applied from
-+	 * hm1092_enable_streams() once the device is powered up for streaming.
-+	 */
-+	if (pm_runtime_get_if_in_use(hm1092->dev) == 0)
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_EXPOSURE:
-+	case V4L2_CID_ANALOGUE_GAIN:
-+	case V4L2_CID_DIGITAL_GAIN:
-+		ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
-+				HM1092_GROUP_HOLD_START, NULL);
-+		if (ret)
-+			break;
-+
-+		if (ctrl->id == V4L2_CID_EXPOSURE) {
-+			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_H,
-+				  ctrl->val >> 8, &ret);
-+			cci_write(hm1092->regmap, HM1092_REG_EXPOSURE_L,
-+				  ctrl->val & 0xff, &ret);
-+		} else if (ctrl->id == V4L2_CID_ANALOGUE_GAIN) {
-+			cci_write(hm1092->regmap, HM1092_REG_ANALOGUE_GAIN,
-+				  ctrl->val, &ret);
-+		} else {
-+			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_H,
-+				  ctrl->val >> 8, &ret);
-+			cci_write(hm1092->regmap, HM1092_REG_DIGITAL_GAIN_L,
-+				  ctrl->val & 0xff, &ret);
-+		}
-+
-+		release_ret = cci_write(hm1092->regmap, HM1092_REG_GROUP_HOLD,
-+					HM1092_GROUP_HOLD_END, NULL);
-+		if (!ret)
-+			ret = release_ret;
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = cci_write(hm1092->regmap, HM1092_REG_TEST_PATTERN,
-+				ctrl->val, NULL);
-+		break;
-+	default:
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops hm1092_ctrl_ops = {
-+	.s_ctrl = hm1092_set_ctrl,
-+};
-+
-+static int hm1092_init_controls(struct hm1092 *hm1092)
-+{
-+	struct v4l2_ctrl_handler *ctrl_hdlr = &hm1092->ctrl_handler;
-+	const struct hm1092_mode *mode = &hm1092_mode_560x360;
-+	struct v4l2_fwnode_device_properties props;
-+	s64 hblank, pixel_rate;
-+	int ret;
-+
-+	ret = v4l2_fwnode_device_parse(hm1092->dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	v4l2_ctrl_handler_init(ctrl_hdlr, 9);
-+
-+	hm1092->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
-+						   &hm1092_ctrl_ops,
-+						   V4L2_CID_LINK_FREQ,
-+						   0, 0,
-+						   hm1092_link_freq_menu);
-+
-+	pixel_rate = div_u64(HM1092_LINK_FREQ * 2 * hm1092->mipi_lanes,
-+			     HM1092_BITS_PER_SAMPLE);
-+	hm1092->pixel_rate = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					       V4L2_CID_PIXEL_RATE, 0,
-+					       pixel_rate, 1, pixel_rate);
-+
-+	hblank = mode->hts - mode->width;
-+	hm1092->hblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_HBLANK, hblank, hblank, 1,
-+					   hblank);
-+
-+	hm1092->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					   V4L2_CID_VBLANK,
-+					   mode->vts - mode->height,
-+					   0xffff - mode->height, 1,
-+					   mode->vts - mode->height);
-+
-+	hm1092->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+					     V4L2_CID_EXPOSURE,
-+					     HM1092_EXPOSURE_MIN,
-+					     mode->vts -
-+					     HM1092_EXPOSURE_MARGIN,
-+					     HM1092_EXPOSURE_STEP,
-+					     HM1092_EXPOSURE_DEFAULT);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+			  V4L2_CID_ANALOGUE_GAIN,
-+			  HM1092_ANALOGUE_GAIN_MIN,
-+			  HM1092_ANALOGUE_GAIN_MAX,
-+			  HM1092_ANALOGUE_GAIN_STEP,
-+			  HM1092_ANALOGUE_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std(ctrl_hdlr, &hm1092_ctrl_ops,
-+			  V4L2_CID_DIGITAL_GAIN,
-+			  HM1092_DIGITAL_GAIN_MIN,
-+			  HM1092_DIGITAL_GAIN_MAX,
-+			  HM1092_DIGITAL_GAIN_STEP,
-+			  HM1092_DIGITAL_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std_menu_items(ctrl_hdlr, &hm1092_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(hm1092_test_pattern_menu) - 1,
-+				     0, 0, hm1092_test_pattern_menu);
-+
-+	v4l2_ctrl_new_fwnode_properties(ctrl_hdlr, &hm1092_ctrl_ops, &props);
-+
-+	if (ctrl_hdlr->error) {
-+		ret = ctrl_hdlr->error;
-+		goto err_free;
-+	}
-+
-+	hm1092->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->hblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+	hm1092->vblank->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	hm1092->sd.ctrl_handler = ctrl_hdlr;
-+
-+	return 0;
-+
-+err_free:
-+	v4l2_ctrl_handler_free(ctrl_hdlr);
-+
-+	return ret;
-+}
-+
-+static void hm1092_update_pad_format(struct v4l2_mbus_framefmt *fmt)
-+{
-+	fmt->width = hm1092_mode_560x360.width;
-+	fmt->height = hm1092_mode_560x360.height;
-+	fmt->code = MEDIA_BUS_FMT_Y10_1X10;
-+	fmt->field = V4L2_FIELD_NONE;
-+	fmt->colorspace = V4L2_COLORSPACE_RAW;
-+	fmt->ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	fmt->quantization = V4L2_QUANTIZATION_DEFAULT;
-+	fmt->xfer_func = V4L2_XFER_FUNC_NONE;
-+}
-+
-+static int hm1092_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(hm1092->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = cci_multi_reg_write(hm1092->regmap, hm1092_init_regs,
-+				  ARRAY_SIZE(hm1092_init_regs), NULL);
-+	if (ret) {
-+		dev_err(hm1092->dev, "failed to write init registers\n");
-+		goto out;
-+	}
-+
-+	ret = __v4l2_ctrl_handler_setup(hm1092->sd.ctrl_handler);
-+	if (ret)
-+		goto out;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_ON, NULL);
-+	if (ret)
-+		dev_err(hm1092->dev, "failed to start streaming\n");
-+
-+out:
-+	if (ret)
-+		pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  u32 pad, u64 streams_mask)
-+{
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	ret = cci_write(hm1092->regmap, HM1092_REG_STREAM,
-+			HM1092_STREAM_STANDBY, NULL);
-+	pm_runtime_put(hm1092->dev);
-+
-+	return ret;
-+}
-+
-+static int hm1092_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index)
-+		return -EINVAL;
-+
-+	code->code = MEDIA_BUS_FMT_Y10_1X10;
-+
-+	return 0;
-+}
-+
-+static int hm1092_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	if (fse->index)
-+		return -EINVAL;
-+
-+	if (fse->code != MEDIA_BUS_FMT_Y10_1X10)
-+		return -EINVAL;
-+
-+	fse->min_width = hm1092_mode_560x360.width;
-+	fse->max_width = hm1092_mode_560x360.width;
-+	fse->min_height = hm1092_mode_560x360.height;
-+	fse->max_height = hm1092_mode_560x360.height;
-+
-+	return 0;
-+}
-+
-+static int hm1092_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r.left = HM1092_CROP_LEFT;
-+		sel->r.top = HM1092_CROP_TOP;
-+		sel->r.width = HM1092_CROP_WIDTH;
-+		sel->r.height = HM1092_CROP_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = HM1092_ACTIVE_LEFT;
-+		sel->r.top = HM1092_ACTIVE_TOP;
-+		sel->r.width = HM1092_ACTIVE_WIDTH;
-+		sel->r.height = HM1092_ACTIVE_HEIGHT;
-+		return 0;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.left = 0;
-+		sel->r.top = 0;
-+		sel->r.width = HM1092_NATIVE_WIDTH;
-+		sel->r.height = HM1092_NATIVE_HEIGHT;
-+		return 0;
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int hm1092_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	hm1092_update_pad_format(v4l2_subdev_state_get_format(state, 0));
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops hm1092_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops hm1092_pad_ops = {
-+	.set_fmt = v4l2_subdev_get_fmt,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.enum_mbus_code = hm1092_enum_mbus_code,
-+	.enum_frame_size = hm1092_enum_frame_size,
-+	.get_selection = hm1092_get_selection,
-+	.enable_streams = hm1092_enable_streams,
-+	.disable_streams = hm1092_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_ops hm1092_subdev_ops = {
-+	.video = &hm1092_video_ops,
-+	.pad = &hm1092_pad_ops,
-+};
-+
-+static const struct media_entity_operations hm1092_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+
-+static const struct v4l2_subdev_internal_ops hm1092_internal_ops = {
-+	.init_state = hm1092_init_state,
-+};
-+
-+static int hm1092_check_hwcfg(struct hm1092 *hm1092)
-+{
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus = {
-+			.mipi_csi2 = {
-+				.num_data_lanes = 1,
+ 
++static const struct cci_reg_sequence s5kjn1_8160x6144_10fps_frame_timing[] = {
+ 	{ CCI_REG16(0x080e), 0x0000 },
+ 	{ S5KJN1_REG_VTS,    0x1900 },
+ 	{ S5KJN1_REG_HTS,    0x21f0 },
+@@ -722,9 +792,23 @@ static const struct s5kjn1_mode s5kjn1_supported_modes[] = {
+ 		.vts = 4288,
+ 		.exposure = 3840,
+ 		.exposure_margin = 22,
+-		.reg_list = {
+-			.regs = s5kjn1_4080x3072_30fps_mode,
+-			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_mode),
++		.mode_setup_reg_list = {
++			.regs = s5kjn1_4080x3072_30fps_mode_setup,
++			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_mode_setup),
++		},
++		.clk_reg_list = {
++			[S5KJN1_MCLK_19P2MHZ] = {
++				.regs = s5kjn1_4080x3072_30fps_19p2mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_19p2mhz_clk),
++			},
++			[S5KJN1_MCLK_24MHZ] = {
++				.regs = s5kjn1_4080x3072_30fps_24mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_24mhz_clk),
 +			},
 +		},
-+		.bus_type = V4L2_MBUS_CSI2_DPHY,
-+	};
-+	struct device *dev = hm1092->dev;
-+	struct fwnode_handle *ep, *fwnode = dev_fwnode(dev);
-+	unsigned long link_freq_bitmap;
-+	int ret;
++		.frame_timing_reg_list = {
++			.regs = s5kjn1_4080x3072_30fps_frame_timing,
++			.num_regs = ARRAY_SIZE(s5kjn1_4080x3072_30fps_frame_timing),
+ 		},
+ 	},
+ 	{
+@@ -734,9 +818,23 @@ static const struct s5kjn1_mode s5kjn1_supported_modes[] = {
+ 		.vts = 6400,
+ 		.exposure = 6144,
+ 		.exposure_margin = 44,
+-		.reg_list = {
+-			.regs = s5kjn1_8160x6144_10fps_mode,
+-			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_mode),
++		.mode_setup_reg_list = {
++			.regs = s5kjn1_8160x6144_10fps_mode_setup,
++			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_mode_setup),
++		},
++		.clk_reg_list = {
++			[S5KJN1_MCLK_19P2MHZ] = {
++				.regs = s5kjn1_8160x6144_10fps_19p2mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_19p2mhz_clk),
++			},
++			[S5KJN1_MCLK_24MHZ] = {
++				.regs = s5kjn1_8160x6144_10fps_24mhz_clk,
++				.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_24mhz_clk),
++			},
++		},
++		.frame_timing_reg_list = {
++			.regs = s5kjn1_8160x6144_10fps_frame_timing,
++			.num_regs = ARRAY_SIZE(s5kjn1_8160x6144_10fps_frame_timing),
+ 		},
+ 	},
+ };
+@@ -894,9 +992,12 @@ static int s5kjn1_enable_streams(struct v4l2_subdev *sd,
+ 				 u64 streams_mask)
+ {
+ 	struct s5kjn1 *s5kjn1 = to_s5kjn1(sd);
+-	const struct s5kjn1_reg_list *reg_list = &s5kjn1->mode->reg_list;
++	const struct s5kjn1_mode *mode = s5kjn1->mode;
++	const struct s5kjn1_reg_list *clk_reg_list;
+ 	int ret;
+ 
++	clk_reg_list = &mode->clk_reg_list[s5kjn1->mclk_index];
 +
-+	ep = fwnode_graph_get_endpoint_by_id(fwnode, 0, 0, 0);
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "parsing endpoint failed\n");
+ 	ret = pm_runtime_resume_and_get(s5kjn1->dev);
+ 	if (ret)
+ 		return ret;
+@@ -924,8 +1025,12 @@ static int s5kjn1_enable_streams(struct v4l2_subdev *sd,
+ 	/* Sensor init settings */
+ 	cci_multi_reg_write(s5kjn1->regmap, init_array_setting,
+ 			    ARRAY_SIZE(init_array_setting), &ret);
+-	cci_multi_reg_write(s5kjn1->regmap, reg_list->regs,
+-			    reg_list->num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, mode->mode_setup_reg_list.regs,
++			    mode->mode_setup_reg_list.num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, clk_reg_list->regs,
++			    clk_reg_list->num_regs, &ret);
++	cci_multi_reg_write(s5kjn1->regmap, mode->frame_timing_reg_list.regs,
++			    mode->frame_timing_reg_list.num_regs, &ret);
+ 	if (ret)
+ 		goto error;
+ 
+@@ -1199,6 +1304,23 @@ static int s5kjn1_check_hwcfg(struct s5kjn1 *s5kjn1)
+ 	return ret;
+ }
+ 
++static int s5kjn1_get_mclk_index(struct s5kjn1 *s5kjn1)
++{
++	unsigned long freq = clk_get_rate(s5kjn1->mclk);
++	unsigned int i;
 +
-+	ret = v4l2_link_freq_to_bitmap(dev, bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       hm1092_link_freq_menu,
-+				       ARRAY_SIZE(hm1092_link_freq_menu),
-+				       &link_freq_bitmap);
-+	if (ret)
-+		goto out;
-+
-+	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1) {
-+		ret = dev_err_probe(dev, -EINVAL,
-+				    "only 1 data lane is supported, got %u\n",
-+				    bus_cfg.bus.mipi_csi2.num_data_lanes);
-+		goto out;
++	for (i = 0; i < ARRAY_SIZE(s5kjn1_mclk_freqs); i++) {
++		if (freq == s5kjn1_mclk_freqs[i]) {
++			s5kjn1->mclk_index = i;
++			return 0;
++		}
 +	}
 +
-+	hm1092->mipi_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-+
-+out:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+	return ret;
++	return dev_err_probe(s5kjn1->dev, -EINVAL,
++			     "MCLK clock frequency %lu is not supported\n",
++			     freq);
 +}
 +
-+static int hm1092_get_pm_resources(struct hm1092 *hm1092)
-+{
-+	hm1092->reset = devm_gpiod_get_optional(hm1092->dev, "reset",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(hm1092->reset))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->reset),
-+				     "failed to get reset gpio\n");
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(hm1092_supply_names); i++)
-+		hm1092->supplies[i].supply = hm1092_supply_names[i];
-+
-+	return devm_regulator_bulk_get(hm1092->dev,
-+				       ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+}
-+
-+static int hm1092_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+	clk_disable_unprepare(hm1092->img_clk);
-+	regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+			       hm1092->supplies);
-+
-+	return 0;
-+}
-+
-+static int hm1092_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+	int ret;
-+
-+	/*
-+	 * Power-up sequence:
-+	 *   1. enable all rails (~3 ms ramp)
-+	 *   2. hold reset asserted
-+	 *   3. start MCLK and let the sensor clock for ~1 ms
-+	 *   4. release reset and wait 18 ms for the sensor to come up
-+	 */
-+	ret = regulator_bulk_enable(ARRAY_SIZE(hm1092_supply_names),
-+				    hm1092->supplies);
+ static int s5kjn1_power_on(struct device *dev)
+ {
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+@@ -1290,7 +1412,6 @@ static int s5kjn1_power_off(struct device *dev)
+ static int s5kjn1_probe(struct i2c_client *client)
+ {
+ 	struct s5kjn1 *s5kjn1;
+-	unsigned long freq;
+ 	int ret;
+ 
+ 	s5kjn1 = devm_kzalloc(&client->dev, sizeof(*s5kjn1), GFP_KERNEL);
+@@ -1310,11 +1431,9 @@ static int s5kjn1_probe(struct i2c_client *client)
+ 		return dev_err_probe(s5kjn1->dev, PTR_ERR(s5kjn1->mclk),
+ 				     "failed to get MCLK clock\n");
+ 
+-	freq = clk_get_rate(s5kjn1->mclk);
+-	if (freq != S5KJN1_MCLK_FREQ_24MHZ)
+-		return dev_err_probe(s5kjn1->dev, -EINVAL,
+-				     "MCLK clock frequency %lu is not supported\n",
+-				     freq);
++	ret = s5kjn1_get_mclk_index(s5kjn1);
 +	if (ret)
 +		return ret;
-+	fsleep(3000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 1);
-+
-+	ret = clk_prepare_enable(hm1092->img_clk);
-+	if (ret) {
-+		regulator_bulk_disable(ARRAY_SIZE(hm1092_supply_names),
-+				       hm1092->supplies);
-+		return ret;
-+	}
-+	fsleep(1000);
-+
-+	gpiod_set_value_cansleep(hm1092->reset, 0);
-+	fsleep(18000);
-+
-+	return 0;
-+}
-+
-+static void hm1092_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct hm1092 *hm1092 = to_hm1092(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+	pm_runtime_disable(hm1092->dev);
-+	if (!pm_runtime_status_suspended(hm1092->dev)) {
-+		hm1092_power_off(hm1092->dev);
-+		pm_runtime_set_suspended(hm1092->dev);
-+	}
-+}
-+
-+static int hm1092_probe(struct i2c_client *client)
-+{
-+	struct hm1092 *hm1092;
-+	unsigned long freq;
-+	int ret;
-+
-+	hm1092 = devm_kzalloc(&client->dev, sizeof(*hm1092), GFP_KERNEL);
-+	if (!hm1092)
-+		return -ENOMEM;
-+
-+	hm1092->dev = &client->dev;
-+
-+	hm1092->img_clk = devm_v4l2_sensor_clk_get(hm1092->dev, NULL);
-+	if (IS_ERR(hm1092->img_clk))
-+		return dev_err_probe(hm1092->dev, PTR_ERR(hm1092->img_clk),
-+				     "failed to get imaging clock\n");
-+
-+	freq = clk_get_rate(hm1092->img_clk);
-+	if (freq != HM1092_MCLK)
-+		return dev_err_probe(hm1092->dev, -EINVAL,
-+				     "external clock %lu is not supported\n",
-+				     freq);
-+
-+	v4l2_i2c_subdev_init(&hm1092->sd, client, &hm1092_subdev_ops);
-+
-+	ret = hm1092_check_hwcfg(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	ret = hm1092_get_pm_resources(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	hm1092->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(hm1092->regmap))
-+		return PTR_ERR(hm1092->regmap);
-+
-+	ret = hm1092_init_controls(hm1092);
-+	if (ret)
-+		return ret;
-+
-+	hm1092->sd.internal_ops = &hm1092_internal_ops;
-+	hm1092->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	hm1092->sd.entity.ops = &hm1092_entity_ops;
-+	hm1092->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	hm1092->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&hm1092->sd.entity, 1, &hm1092->pad);
-+	if (ret)
-+		goto err_ctrls;
-+
-+	hm1092->sd.state_lock = hm1092->ctrl_handler.lock;
-+	ret = v4l2_subdev_init_finalize(&hm1092->sd);
-+	if (ret)
-+		goto err_entity;
-+
-+	/*
-+	 * The sensor is left powered off; runtime PM brings it up on demand
-+	 * from hm1092_enable_streams(). There is no I2C access during probe
-+	 * (e.g. a chip-ID read) that would require it to be powered here.
-+	 */
-+	pm_runtime_enable(hm1092->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&hm1092->sd);
-+	if (ret)
-+		goto err_subdev;
-+
-+	return 0;
-+
-+err_subdev:
-+	pm_runtime_disable(hm1092->dev);
-+	v4l2_subdev_cleanup(&hm1092->sd);
-+
-+err_entity:
-+	media_entity_cleanup(&hm1092->sd.entity);
-+
-+err_ctrls:
-+	v4l2_ctrl_handler_free(hm1092->sd.ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(hm1092_pm_ops, hm1092_power_off,
-+				 hm1092_power_on, NULL);
-+
-+static const struct of_device_id hm1092_of_match[] = {
-+	{ .compatible = "himax,hm1092" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, hm1092_of_match);
-+
-+static struct i2c_driver hm1092_i2c_driver = {
-+	.driver = {
-+		.name = "hm1092",
-+		.pm = pm_ptr(&hm1092_pm_ops),
-+		.of_match_table = hm1092_of_match,
-+	},
-+	.probe = hm1092_probe,
-+	.remove = hm1092_remove,
-+};
-+
-+module_i2c_driver(hm1092_i2c_driver);
-+
-+MODULE_DESCRIPTION("Himax HM1092 monochrome NIR image sensor driver");
-+MODULE_LICENSE("GPL");
-
+ 
+ 	ret = s5kjn1_check_hwcfg(s5kjn1);
+ 	if (ret)
 -- 
-2.53.0
+2.55.0
 
