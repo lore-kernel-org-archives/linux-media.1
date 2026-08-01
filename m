@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A0330B502
-	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 06:45:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580E337F756
+	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 06:45:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785566706; cv=none; b=kZxsLe19dWFsGy6ICX8Z8Mz5ieaYxhEfvEast7HWqU5G6m8JH8DfAa4+qjZ9KXFSvyqeOkgHIJogtlVgVb+pSAOB2mp0YoaL5aENDBHUMszIwrfUiGw+GHLif8Cki18MnM2zKg6zcKeZV1A9+nmhRZpit3vMNmafeuZf29wEeGU=
+	t=1785566712; cv=none; b=fjQ50F6akE7N8OBXS3bDKNqki921aRt6Gek73lE0+ZlmkzQ7WhUcaJBLXCePmRg4CB/fytxow7nCzKrDA9m9SMXuIYGXEEjI9eClQRRC0dj93X5pEJWoWZwi6est7FnC+tfOojH/FSj+iGYZTIbRLLzuL7FmawoEIvmO/JJRRcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785566706; c=relaxed/simple;
-	bh=Talog+0/N6j8EQ1PakpJ6H88zNB0v5H7GMdas4bX7vU=;
+	s=arc-20240116; t=1785566712; c=relaxed/simple;
+	bh=5R672ctTLi0NWBH6yAj+cXftStpSo8OXH9+eytbTDk8=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=txcgIIhgMEz/e+PeRBbb+VGbgOJdV/A0W5hlmRe/QJmVT9V5DQZQIjSMP6pKi3wGczzNWzS9VeqS/OqlBv7ipIZ/5p/LSShff8TJLkgMnHF7v2gJrQaJVFHLC74Cy17pwNXXHMS2IM+vqcUPEdjbKBrhy8W4tgLPmBiDjGQmdOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FuSHQqp0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NTIoERBQ; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=UR/4p5x8FUKRLHwk1kwu10XRVZUm0BczNX4eGBt/RwB0+auwGMkAZPcjXl5UpDICEnpnrwiIS1yKnik/RVIyg/6Zj3myUZszz+kXgODlfI94eriII9iyx1IfdabUwIAMbjLGnT2cxospJFHZIdZfsvVwi/dL/30Z+aFgsmUhGqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=DXrmoLrt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=B2NxeWEo; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FuSHQqp0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NTIoERBQ"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6713ZeFP2004597
-	for <linux-media@vger.kernel.org>; Sat, 1 Aug 2026 06:45:05 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="DXrmoLrt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="B2NxeWEo"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6713MfPS1792737
+	for <linux-media@vger.kernel.org>; Sat, 1 Aug 2026 06:45:10 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Gy//CsWuz2yFFMSMOowYorOjj1Lc1O2Hpen8MYG/G6w=; b=FuSHQqp0K8t1xWMM
-	UdLd1dDN4uSn9FjKY7Y3blIoeNXY+W98GamApn1MIFeXBaXWTp9fhOCsRClKJo+6
-	oJzvEoXv58v35yUjoPhRtAji3i7istuf38dS3jzzbZ/Pi/pFNN8U6niX9FeMZCMC
-	A7QDVFP5Z/yD+xqairo6gZDlw/Z6pLUvEgsFezXgh4fD1XXpRBC1CdJSwjdbrtz+
-	5IVFS0e1Otn7JeCGoYBLijshCC27P9BJ+Eid2EC39RwDSt6q6/Yfwtg31Y9/XULX
-	kjrDADMxrLnBfBJV8ocToQg53GdEtTWflUq8WZSZswprTdUL7zhOT1V7mKWbq1E+
-	kZlQ3w==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs9118b7f-1
+	duuG/03PEgKADX4APmae8WpIZFwWA8avpU+lWI9oZTw=; b=DXrmoLrtNBLmjxY6
+	e3aMVvRdrZpIaJy5NYrjbKGLOf1AV9eUFKcAnFREfsCMKB0mVvpOdmVqNTaUJmPw
+	+COAVIqWaO/Pn09UO0Wl10rRePaILGV8TOHSj8hdyeeSG1JynC2fab3bA1KakVJG
+	jIyCb9YXpwsY2WVf8xPERb/lsYKGXjSj5w5fh7CNKeFoUSRSXU/DSJgilnd/Br3t
+	uSDx+r2Bj6Z5Sj5aksuYUNq6Wx8WAJ5hCKnMQBLe/9s1atCYD0sHu8A6pwVtqsGO
+	fHOJkeF9YcRbuudO1i/4vpb0DTYZOK1TmKHahlQgjtQfDI5TccWrsJ0o+LsgR4/9
+	PdoBHw==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fs8u98c4b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 06:45:04 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cb7d6ba548eso2076076a12.1
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 23:45:04 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 06:45:10 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso1783422a91.2
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 23:45:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785566704; x=1786171504; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1785566709; x=1786171509; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Gy//CsWuz2yFFMSMOowYorOjj1Lc1O2Hpen8MYG/G6w=;
-        b=NTIoERBQ3nOTRLljzIAvhhsKiHq8BXrSachG96waxR6XpMWWwbBJ8PaSdfSNwxJkwM
-         G7dlIDAzl55B3ft1IhgcUQ7BV1ddNMgt2Ydp/ps2GxzriQTsCYpLoa8MrV3YLIuw11kr
-         vuu9CxPcKC8zxPY2lyPUR4DU0zeZNA3h0ozOyf0t3T3PaEfKXLfGCFHbRLl1Pj/IR/gI
-         WwPTra1DA90sFYbdLnaLrwkNkbk2fvrtE6WwvTzX/POJVfVUta3Frshcn0SDmSunrsl6
-         eZ46JIqVZMbyNBUtY+t0gURLKQS7b//EQZREamHyYpPo/+HRi7wOAM7xRKUCybPssxjV
-         4kRQ==
+        bh=duuG/03PEgKADX4APmae8WpIZFwWA8avpU+lWI9oZTw=;
+        b=B2NxeWEo3TOzuKuHy9bonoTC1ox+cyt2thzT4czLFc0Qcq85PBZlaKV9EVRQE71xht
+         S49owTDnPOok7mdgAybfUyDDOw0ZGJRSM5kHRrPZTKht55ZKnt/FxOg0THPvZm6bcHVp
+         9MBixuwKeqrMAN+BlV45eJXc3JphPg25ir9dwKbuAUrndPs08BXsyRABNtO/kKfZrGRb
+         QcofEIKXlvy/XssKvWDfuStczd5ipIKp4HS49qfJPvtZy9xHbW0bEMNOnYXPWpD+V+rG
+         M8zciqtYHdNyH6T9zbFmXi/irqev9XzOs3M0eYEpeZpJMptTR2T0cuR9KHo60B1jujov
+         EZ4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785566704; x=1786171504;
+        d=1e100.net; s=20251104; t=1785566709; x=1786171509;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Gy//CsWuz2yFFMSMOowYorOjj1Lc1O2Hpen8MYG/G6w=;
-        b=HBLJ14EjDc4cXvGjX7tXXwDOezkdwYLjqPN+m/r72/ftJIIBtWhD5zSTNta28fepoL
-         3GFMydY14VH5vhxDb544/qtOhbb0htg7bFrIKaM23e/KQkEIJkLO7gElo0yvEp3kS1/+
-         CM1njAFs/3bG/fOyqPz2Sa/AE62Og4LhxYuer9j8LgEuhWn8o7e48eHfAW64kAzAZZzT
-         +GsLaPzgh9GsYD5VERzSgav3nYnkTq4Z3Ykt3ziQOo5xdEhoTNU18susWiFTSzRTyBx+
-         +MxIilpnJ5/i/0XK571E6iYvRX824yP3h5G2lHai85m1FyQrLlrHSt8kC2kegBASPA1w
-         2mFw==
-X-Gm-Message-State: AOJu0Ywrkd0qBV1CW5qwwNmBppEdxtdHHWOZr89sOo/p8r7hB9dUkSEw
-	MUsTDb/ZiX3ZnJrtlynkF/HkMyNb3LaF+B4jcI+411WS+JhFvZ5WDVO/aW2m+AW5IwO6I2OjJzS
-	hK1mazzcwxHr0PJ7YTU6Vlma8icIsofFnJvvV3xliSL7PVat7a63vEaiJWmWRH92Qdw==
-X-Gm-Gg: AR+sD116VmAtI+jO25L6JhcwXZd/8Aip/llX5+eOaaAws2PC4Ten9qL2Rx6bQ95jmCn
-	qmGlhnsrRuWm5gcgGe2yGMX5cpfRXM02NQX36Myb/dn85V8Pl6NDTbELJKgpokRb3XJsPOmwYQP
-	BDIDs7P57X2rAoZzuh2VYvoh25o7e+tunMp+yamWctMCt++tNLgF9iwkZci+rMOZvbq6yuigXEw
-	fDG5Pwh2yn4H685qc1YUUNCGge+T2wfAGnl7piTGAtakHJbLX+rD1ThNDPk2AiWX2Gs2tqhZm5z
-	4z80OFNXYxrpMhN5Qe2skqpi2rgnkcXd2493IQ0DOqq3ZdgapzAFdndjlInfK8GCLakOyuI2dvw
-	onnN6km5chkjyxH0Jvvqpd1haa2i6xPU=
-X-Received: by 2002:a05:6a20:2d26:b0:3c3:a024:1360 with SMTP id adf61e73a8af0-3c92a793ad0mr2620682637.28.1785566704212;
-        Fri, 31 Jul 2026 23:45:04 -0700 (PDT)
-X-Received: by 2002:a05:6a20:2d26:b0:3c3:a024:1360 with SMTP id adf61e73a8af0-3c92a793ad0mr2620658637.28.1785566703776;
-        Fri, 31 Jul 2026 23:45:03 -0700 (PDT)
+        bh=duuG/03PEgKADX4APmae8WpIZFwWA8avpU+lWI9oZTw=;
+        b=ZG+M/KUb6KO2ElRUNWVGZqH7nGUvyDn9tORHAL6ARArBnZENfXl9S7nYVMJ4RWsS9c
+         AdrCORNBkXvhqUxpNpt964/i2I3C4Od70KuS+c9JAeRKqGu1WVm2i2etPyNAZfu8XDZt
+         T+Rm99CFrP8KW5uWIQewpzIolIhkE6r9awk944VCkUQjLCgtJxtvwR70JXiRfPuLmYQI
+         Wg2DqPaZiHn2SNNF9kiNL7GfpHaY3BNFEtNcWzAEcgPGUg0pSyc+1mug2h40c0KBxhN5
+         JdoOozDi4Y2nvgXp3L1WoYytJL5jDE/SYcT5BlAX0rOqWgDn5k2/w+AfewRJtu7mnQDn
+         7rig==
+X-Gm-Message-State: AOJu0YwJ5GiMHH8zqBGJIGBmBX5JwX+C9UeLF0OtkVwQuUdTyoW3oDFK
+	PYiG0GFMcsJZVlXFP2fJnD9TPYYPqW19WPpltfx0DLrhpnoApDz36LroaM7fmEHsrFdU6CB/zd+
+	h7CB5EGiSMiv8D8t/T8f+RKq7Xn4tcIeHx4X5shTrh/yzIjJ/fAf2JNFtWto7S26krQ==
+X-Gm-Gg: AR+sD12ap+OYmUMmVz7xjA/8mbk7o0lAyKOxKoagIZx6+h/5xHozI2PPzdIbqKveZF/
+	Ei5Zmf4UNbedkSIhph7a2CkFjnT0v9OuG3aTjh2zMScg9kggpi4p1wcU0yBcLqlb8Vi1TIUkUgr
+	6YfFZzdHHKvlqhrgjynKm3CgWGeN2txW6n3smiv2Aht2kQMQIG+RfMQ34EMBVZWfu/umILYSrC6
+	peBrJ5I6woiFMV9numJikQRrH3ElGxGn8pYkOC8hbin9YTaMZjXggPepp1xaEux1xgDX0OFjquv
+	2Hh0SO3xjvGp46B+A5DPYJCRN46AVP/bZSdlzHppg+AExFPFDULw5lVoJMf2jzj27bxTW0NNf7G
+	wqWGE6GR7vdIl38+LXTQb9B/TddxQik0=
+X-Received: by 2002:a17:90b:4c51:b0:38e:75f3:ad4d with SMTP id 98e67ed59e1d1-38fbc3f9ab6mr2432203a91.7.1785566709195;
+        Fri, 31 Jul 2026 23:45:09 -0700 (PDT)
+X-Received: by 2002:a17:90b:4c51:b0:38e:75f3:ad4d with SMTP id 98e67ed59e1d1-38fbc3f9ab6mr2432183a91.7.1785566708744;
+        Fri, 31 Jul 2026 23:45:08 -0700 (PDT)
 Received: from hu-sachinku-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153ddda5d9sm16863759eec.13.2026.07.31.23.44.59
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3153ddda5d9sm16863759eec.13.2026.07.31.23.45.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 31 Jul 2026 23:45:03 -0700 (PDT)
+        Fri, 31 Jul 2026 23:45:08 -0700 (PDT)
 From: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
-Date: Sat, 01 Aug 2026 12:14:48 +0530
-Subject: [PATCH v9 1/3] media: iris: cache work mode after computing it in
- iris_set_stage
+Date: Sat, 01 Aug 2026 12:14:49 +0530
+Subject: [PATCH v9 2/3] media: iris: force stage 1 work mode for CBR RC on
+ encoder
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260801-iris_multi_slice-v9-1-bddf1449c280@oss.qualcomm.com>
+Message-Id: <20260801-iris_multi_slice-v9-2-bddf1449c280@oss.qualcomm.com>
 References: <20260801-iris_multi_slice-v9-0-bddf1449c280@oss.qualcomm.com>
 In-Reply-To: <20260801-iris_multi_slice-v9-0-bddf1449c280@oss.qualcomm.com>
 To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
@@ -104,76 +104,74 @@ To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
 Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-kernel@vger.kernel.org,
         20260731-iris-ar50lt-v9-0-d71a782001c0@oss.qualcomm.com,
-        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
+        Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>,
+        Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785566693; l=1459;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785566693; l=1399;
  i=sachin.garg@oss.qualcomm.com; s=20260211; h=from:subject:message-id;
- bh=Talog+0/N6j8EQ1PakpJ6H88zNB0v5H7GMdas4bX7vU=;
- b=PW1aiaMjR+2fLFDCo2MWppwlTXu0vjtTDyfNmmOBdiCEgYBs4yBBmCX7qmQmEJ4cL7SMbPn4h
- 267nikmztr1DRkNWcT9QVcvnann++9YMEVLk8XwA2XrJF2JmWW2tyf+
+ bh=5R672ctTLi0NWBH6yAj+cXftStpSo8OXH9+eytbTDk8=;
+ b=XnnXyf/mpEZVW2+yivfodHQPKztiGqfaC9a0RSuiqezxDncgfNCD8u2z1KmYMwE2KtMfoXN6/
+ 7EiiEuEFZMhDPfj6wOuWBnvkflELLnwHPbL+vd9IMHYLwQGz45lvYdG
 X-Developer-Key: i=sachin.garg@oss.qualcomm.com; a=ed25519;
  pk=KcRhp4CP9cR1V2tg6xSNRnB2STYaU0vVigdUF4Actu0=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDA0NSBTYWx0ZWRfX8Neq++8iGq2I
- /TyG/pi5ve2LGKgAgxxiq0g/FiXrP4ptgOkDX4RhiZOeDoDr8CamugZCiYFjBezkfyYKg8Xrjjl
- RHsYiFZRkl3g0WzZ20jQ6w/Q6TaEuQo=
-X-Authority-Analysis: v=2.4 cv=PvGjqQM3 c=1 sm=1 tr=0 ts=6a6d95f0 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: zyEMhiC3mVcSOoRWYujmHpG3AwpVkxu2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDA0NSBTYWx0ZWRfXwjVK39ymeUQc
+ pETeaR2Ar91Gt3mCDB7H7Ilwz2xComakH8OOiIrIF7bCGbDbnqhG2mwhuhc60GTzPPHe/u27nPc
+ mVpUs8S0NSL37IewE80reOZsCZPE51EZ4cH0SGze5SUp1LFI+kyJJrt9WAcUzTZ8gZC0q0MzJc5
+ dDq0qUmL48pokob9Oj7RW/ZHU88PD0PryH+a8PcadHxjjFjtbx286KrG/eb4GGScvOMyhoqXtBE
+ qPy37/ZQv3mRj/JaehVvIPe7Ait9fyPCJt+jZby9xEXBgJzKcY1nBJm50gYr0ZsZFj5AGkH8Mog
+ OfksGqvkPtjDCvCYcKKKCq9sYowNnkzgLBo+kjG/F9OvoGPNIcpHzd8Sf2GEHKkL4tg4Ti15wAA
+ fnV6h/An/ebPFb5yEESAQ+NPW3+LVeCRmObS83/67YU/0JbZ342Ag6SSt96KLgal5OqEV/QxaIM
+ RimsopBO1MdjObkYLXA==
+X-Authority-Analysis: v=2.4 cv=LsCiDHdc c=1 sm=1 tr=0 ts=6a6d95f6 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=DQE9uWRhMQBL0dtU3VIA:9 a=QEXdDO2ut3YA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-GUID: Eub_RRPb41ISuTYtumDvj6BhXEtxR4RP
-X-Proofpoint-ORIG-GUID: Eub_RRPb41ISuTYtumDvj6BhXEtxR4RP
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAxMDA0NSBTYWx0ZWRfX2X0YyJ+l99Bw
- VP983/HTTopPo/9O3r+ySweEkT+DqXffWVnZuY9z6D8yVxaR7c4kK+Pwb4D250NXc6cWTRx4GPR
- 7n2h8q9eysN/AEGcpdKoTDbQEJFP4uTvv2ziHoHr9GDG02VSBEpodc3XW7Fbqj2W8U5vBR5Utk6
- a6E4R9kFO86gzzcv5GAHPXqSCAf4A+z/mIomKy6GVmbsE/MN2fU8kpCd/PjMaxA5QFo7WYy2hxn
- ZyHaeu4pdLDst0bvLVPI7fIU/3b/rd31ZZdtU732FcGMhgSZcWo0Kiha7NTyOqYIeJGFmcXYQiH
- W6gvlGB8BpCiTCzoKl9+RIVcNS2V0Kp1X7SSOvrAF15BpYG5u65aaoYz3RElVyq3nrGS7NjOtDT
- CSEnO9ISVsHwMhWcYLtOq7JqZ5801wAO3RLw8Uxf9mIxhKvaTIITQftJ/VHeiJ9Vk/oABk59sSG
- u6fLA+UGHlNM7j6A6cg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=LMK2Ni0dcLaqO0rVonUA:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODAxMDA0NSBTYWx0ZWRfX58s1GmIHotNN
+ 1pCv7k1xkA/XVVbXduR4kP+VCoirDWGO7WUydROvyykHDA4xp3pGkYwyKGREzbn2NGk25N07P9L
+ 1OSe+OIAu51inH1rNjkuAN/Rr3wuX1Y=
+X-Proofpoint-ORIG-GUID: zyEMhiC3mVcSOoRWYujmHpG3AwpVkxu2
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-07-31_07,2026-07-30_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- priorityscore=1501 adultscore=0 impostorscore=0 phishscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608010045
+ lowpriorityscore=0 impostorscore=0 phishscore=0 spamscore=0 adultscore=0
+ clxscore=1015 malwarescore=0 priorityscore=1501 bulkscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608010045
 
-iris_set_stage() computes work_mode and sends it to firmware but
-never updates inst->fw_caps[STAGE].value, leaving the cached STAGE
-value stale. iris_vpu_enc_bin_size() and
-iris_vpu3x_vpu4x_calculate_frequency() read this cached value, so a
-stale default causes them to miscalculate buffer size and clock
-frequency for sessions actually running in a different stage than
-the cached one.
+iris_set_stage() currently always picks STAGE_2 for encoder sessions.
+CBR rate control requires stage 1 operation, so force STAGE_1 when
+BITRATE_MODE is set to CBR.
 
-Update inst->fw_caps[cap_id].value with the computed work_mode
-before sending it to firmware, keeping the cache consistent with
-what is actually configured.
+The BITRATE_MODE fw_cap value is used instead of inst->hfi_rc_type
+since STAGE precedes BITRATE_MODE in enum platform_inst_fw_cap_type,
+so iris_set_properties() would still see the previous hfi_rc_type
+when iris_set_stage() runs during initial config
 
-Fixes: 3a19d7b9e08b ("media: iris: implement set properties to firmware during streamon")
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 Signed-off-by: Sachin Kumar Garg <sachin.garg@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/iris/iris_ctrls.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/platform/qcom/iris/iris_ctrls.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/drivers/media/platform/qcom/iris/iris_ctrls.c b/drivers/media/platform/qcom/iris/iris_ctrls.c
-index cdd02328cb71..14e0bc06e1ad 100644
+index 14e0bc06e1ad..98d4ec122da9 100644
 --- a/drivers/media/platform/qcom/iris/iris_ctrls.c
 +++ b/drivers/media/platform/qcom/iris/iris_ctrls.c
-@@ -525,6 +525,8 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
+@@ -523,6 +523,9 @@ int iris_set_stage(struct iris_inst *inst, enum platform_inst_fw_cap_type cap_id
+ 	if (inst->domain == DECODER) {
+ 		if (iris_res_is_less_than(width, height, 1280, 720))
  			work_mode = STAGE_1;
++	} else if (inst->domain == ENCODER) {
++		if (inst->fw_caps[BITRATE_MODE].value == V4L2_MPEG_VIDEO_BITRATE_MODE_CBR)
++			work_mode = STAGE_1;
  	}
  
-+	inst->fw_caps[cap_id].value = work_mode;
-+
- 	return hfi_ops->session_set_property(inst, hfi_id,
- 					     HFI_HOST_FLAGS_NONE,
- 					     iris_get_port_info(inst, cap_id),
+ 	inst->fw_caps[cap_id].value = work_mode;
 
 -- 
 2.34.1
