@@ -1,71 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221243D3CF2;
-	Fri, 31 Jul 2026 23:15:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E16F92AE68;
+	Sat,  1 Aug 2026 00:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785539746; cv=none; b=QCzCjhGUQUOvkS9rjRewp25lBfhr6z+DApLfSqk32/vBdzWQXrbSY2nOsYjRKB02TPc/hd+K/1yqsgMUe1HFkjeV/DIyEOIwsU+mqxzJrhJGkJq51+aIOvXeeQNoexNijXkE3mu+KdmsrScMTqOhpwcmJQtn8Z9gd1fnEmdIj6c=
+	t=1785544532; cv=none; b=GV+omTGbmQJ77alqo7t4GecDtOq1vos8l+tCkwE1GCGqzZV76bcKp+68HqAc9S3oWUa03KZa4HNtsVwKGFLBFRwBcST5RBoW6n/FIwq49uM3eNimvN3I9p+z6vhzZNV/nq5DjnfFlA8E0upMRqVGsJPw8w42Yhd22U9t+An0cA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785539746; c=relaxed/simple;
-	bh=So6Ub7VcEdURIC9Cw1Po+tU+Mmci/s0GtxtldO16gnA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fvvz5a9Tl5CMWtuXSS4Qicxel8u4cLtwA/TCU2UCnfHgm4E9GFvDveibPFb3MpEkxfqba7MKNGuEKoiLzTOd1g3iOLyoOmDcpnVQyAHaSTL19k+Up9E2UXMLxOe5zpJ4xgL55lXxGiT/o4d1VCxYqmmwebnSw5XkeKifkt4ZkyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X7NKCP8e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785544532; c=relaxed/simple;
+	bh=itseQ9eyo+U13RMe2NfFN2wECX9AEXEE6b3i4uVupw8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bIA+XZMm3bx7Q/QDkqY3gqkVqVlImLBOoJ9K3SsXBeoWk02xB7glPNkSOfUNwJkj/Cn0WZ+NQDFyplSM5SeDTKYlP37LJovvw4gyexsnodmpSYReuTnbISPknM8+va709Oe8XUrNd/WdQFPHAWG4I5pnDc4ruXaiJLXl7NG5/BA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FBOALeTJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X7NKCP8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAE91F00AC4;
-	Fri, 31 Jul 2026 23:15:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785539744;
-	bh=So6Ub7VcEdURIC9Cw1Po+tU+Mmci/s0GtxtldO16gnA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X7NKCP8eGnSgR29+BXGYD2BtwXHJ/0jdqD+vQXsyaMkPow6unBAkKM/UiPhFBf1ty
-	 I8FlbywNJ+hbsORmA8bnJRnkyNQZ9SkSO02v6Sy0lYgt+8DT2AkJcqPe4C1sHD2OYS
-	 sLpi/u+vdPVRomEr+M8XJG8lNp/yKsCed1LfDIFlNcbLcoiHDc+MR9PvvBXOvIY7C0
-	 6ntSW39bny4CgjaA1JFRHekq9zfDTj0wDeibcsr2dl/7Z0Kk87lQrGmEtmAAAYwmhZ
-	 mPXfD426+b+brRL+JN7wJDlYcQrX3LSz61xMGkFkGZ8uoiJA42oIzWUaahLOTDbkP6
-	 IPbM/iikIOelg==
-Date: Fri, 31 Jul 2026 16:15:43 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Bobby Eshleman <bobbyeshleman@gmail.com>
-Cc: Donald Hunter <donald.hunter@gmail.com>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Andrew Lunn
- <andrew+netdev@lunn.ch>, Gerd Hoffmann <kraxel@redhat.com>, Vivek Kasireddy
- <vivek.kasireddy@intel.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Christian =?UTF-8?B?S8O2bmln?= <christian.koenig@amd.com>, Shuah Khan
- <shuah@kernel.org>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org, linux-kselftest@vger.kernel.org,
- sdf@fomichev.me, razor@blackwall.org, daniel@iogearbox.net,
- almasrymina@google.com, matttbe@kernel.org, skhawaja@google.com,
- dw@davidwei.uk, Joe Damato <joe@dama.to>, Bobby Eshleman
- <bobbyeshleman@meta.com>
-Subject: Re: [PATCH net-next v6 3/3] selftests/net: devmem.py: add
- check_rx_large_niov
-Message-ID: <20260731161543.1021caed@kernel.org>
-In-Reply-To: <am0bHSeJqcgdm3vn@devvm29614.prn0.facebook.com>
-References: <20260724-tcpdm-large-niovs-v6-0-7975f62cdfbb@meta.com>
-	<20260724-tcpdm-large-niovs-v6-3-7975f62cdfbb@meta.com>
-	<20260729191649.55ab7942@kernel.org>
-	<amvEJVio9XtCn+YT@devvm29614.prn0.facebook.com>
-	<20260730151433.6f71258e@kernel.org>
-	<am0bHSeJqcgdm3vn@devvm29614.prn0.facebook.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FBOALeTJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9015BC2BCF4;
+	Sat,  1 Aug 2026 00:35:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785544531;
+	bh=itseQ9eyo+U13RMe2NfFN2wECX9AEXEE6b3i4uVupw8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=FBOALeTJfhu6TbfaoawSiV44BzRVKc23y6wFn8jbPG9pYTXwNR7ibRvzi1X6cl8vU
+	 hLzwHbFLG2jdOqdUvh7tKrf9wjsGej9wp+ppcWubrPLdUnB4IFjwmVrwP7zSuOJsiZ
+	 TfcWjgwfJac3D0zdfcy6Pp/BfGegPT5INuZbOGrstGKEJEPyIQNNsZ+RZkzwSbpV4F
+	 WVvmeN2xFod8ds5GaXm2O8SNONn5qITIZkOXyGasiOKKllRQj0yHlYIKo+3nSqysFN
+	 b5JM+Wwa9hX55BeV7QaBkPhH6m3GMLdCWrPWkwMv7V+zbmmClgRqMfB+QO6TUGg2Nx
+	 R6fq0WNonLqgg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6F630C55171;
+	Sat,  1 Aug 2026 00:35:31 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Sat, 01 Aug 2026 02:35:20 +0200
+Subject: [PATCH 1/4] media: dt-bindings: dongwoon,dw9714: Example shouldn't
+ imply 1.8 V
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260801-pp-pro-camera-v1-1-7b4d90788f9f@ixit.cz>
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+In-Reply-To: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
+ Ondrej Jirman <megi@xff.cz>, 
+ Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+ Manuel Traut <manut@mecka.net>, 
+ Alexander Warnecke <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, 
+ Martin Kepplinger <martin.kepplinger@puri.sm>, 
+ Shawn Guo <shawnguo@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ phone-devel@vger.kernel.org, imx@lists.linux.dev, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1376; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=sfBlyUIhGugdsRnaSHNhShuFZ0DGsHeOeRXQgKfVu9M=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqbT9RqSJZNqhResdsqnz0RhYvhHWQ77DYnIRl/
+ Ps/2ru4VpSJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCam0/UQAKCRBgAj/E00kg
+ ckZpD/9/AsNbDL0qEmqEHmCublG5Nru0i0jH1IltGtLg1JiBS9qXYwT7VJsp1bHvCfebRKXTBMs
+ Yz6hsPICqGmpcKwVqisMWQLLFvtc9oKJuPqHCfP0IsPB2TErPXDME7fR/uSu4V5wLvoclp9lJ/0
+ leDx5sEc/BY4/RCCbR/gA/7fWXzrwstH1JAGz0jFRMpmLEfue5IW0SPSZE9TjtG670UxPQw4zXV
+ FWlwR+rB6YjMBa2Mqv0jh/rogANRjSma258zkZ0M4AMMHxxp4kAeJcPqUIU9iadNiK+diiTIutd
+ Ctul8mqc22FokHc4nUDpSSU6j0DMRFZmlFXdp/oki06idrCCofiYc+iHmKknX3o7ZLGZGidwome
+ 9lkjst6xJb5s90IUb7JzcB+gJ5t9G2+pUeCBh5l14626KLEEwm5SpGQFuEDunj5p1m97D2M1i6O
+ Lvoeha998AcBR9o7pzOm93bwJrBFfDMY/o3H6nA9jZpDRHrd47+EjHBNVm5/1DHdkzEABELKVKo
+ 3WnHDWivnImwpnKqD6ZO7U/krf1/ak7C2/fu/My9wOJUVrt2MwU2aHhQ5FLyEVOiqYhVLJqSCQR
+ kIG+KJ3flbfU97rmGk/iSqpg5Tm6shakMS9JR2SbHdnIDx+cVW8k76Inyr2p3h+w1jkl9c0cOXF
+ 0VAbWtXBsOQ7C0A==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Fri, 31 Jul 2026 15:01:01 -0700 Bobby Eshleman wrote:
-> Meanwhile, do we want drivers/net/hw/config to workaround by carrying
-> something like SYNC_FILE or DMABUF_HEAPS, or wait and see about the
-> udmabuf kconfig change?
+From: David Heidelberg <david@ixit.cz>
 
-Let's enable SYNC_FILE for now and pursue the UDMABUF change in
-parallel. It will land in another tree if at all, so we'll have
-to wait a while before it propagates to us.
+The datasheet says VDD should be between 2.3 to 4.3V, usually around
+2.8V. Correct to prevent confusion and extend description.
+
+Fixes: 2a96b40f366a ("media: dt-bindings: dongwoon,dw9714: convert to dtschema")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+index 66229a3dc05d6..7f5aa098351dc 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+@@ -20,28 +20,28 @@ properties:
+   reg:
+     maxItems: 1
+ 
+   powerdown-gpios:
+     description:
+       XSD pin for shutdown (active low)
+ 
+   vcc-supply:
+-    description: VDD power supply
++    description: VDD power supply (2.3 to 4.3V)
+ 
+ required:
+   - compatible
+   - reg
+ 
+ additionalProperties: false
+ 
+ examples:
+   - |
+     i2c {
+         #address-cells = <1>;
+         #size-cells = <0>;
+ 
+         camera-lens@c {
+             compatible = "dongwoon,dw9714";
+             reg = <0x0c>;
+-            vcc-supply = <&reg_csi_1v8>;
++            vcc-supply = <&reg_vcm_2v8>;
+         };
+     };
+
+-- 
+2.53.0
+
+
