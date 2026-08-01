@@ -1,109 +1,105 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1553B42ED
-	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 17:54:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C2B35DA63;
+	Sat,  1 Aug 2026 18:04:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785606851; cv=none; b=nzOFdD9lb33kUk7KZFiW/1i3dbJ6texjCe93/zGABOe/7nrQceYpA4TC5ihWDy3k8SoekxsiQ2OnBYrVhDpFC8XlFppmROWEnBetQ+LX983liiP9TKuXGJCf5212/JjusEkgY1SXluT0IL08MgU8Y1wsSF1/T7wA91q018G77NQ=
+	t=1785607471; cv=none; b=VyTwjYw7E4V9StzDcX15hKnxCc5pAGKg6GptsKWlg0RWItPNoDOXdAdW5/fIYxBfLRBwiQ68Q8FgVccoxlEMWSM2pgm4GfSQocb8C1SRhzfYlk81syVLMhcYY2SPsb0qhbb5OZ4mVvtvw34cTj87ozWD4pgC9pgSYYv2vrp6nZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785606851; c=relaxed/simple;
-	bh=C2ChlK0EmTYSCO+NYifbBcaAazROaRqifiRGaty8iSA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LKl6cSflgBtVAyhOaCECTVsSTDsht1IZAI1/YtONuYQJSOJeNLsQu/Vua3akEnaIYi6UAMtFyNSJ7SYSPrwlZ43Ywk9MDy8F4lHXznCQJxWCqTo/4EkIr33GmBIPfEU7FSihbEbUyBtIItKGUSc2ZnxTxjlMqep8jS5nV3dc5W4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KL3pgWDt; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785607471; c=relaxed/simple;
+	bh=HnKFPDMyB8nLZ/uPo2znFL4Fagp/nrrgpXktbXoOZEo=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=MfTosp4xCkaWsV/9sgF4+eo2L+dLBenSGZyWjIVkLfoA+RBZtgG2SpvYZpCOmX3vjlN3YTCfRp5l25GUNlARMtPImKYZDTVyPyqiFSx79x7s21O/NYBqn7AswhlcaT5r34dgSTYP1X9DEtdaCSBJIcDei748PCCQL5K8YAkDIvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=TvOFE5IM; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=9QTjGvRW; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KL3pgWDt"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-47640541585so1503708f8f.1
-        for <linux-media@vger.kernel.org>; Sat, 01 Aug 2026 10:54:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785606848; x=1786211648; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JejQQUr6GBKitgZNYyepmZDoDmnt3C1c4jf1CfArh1o=;
-        b=KL3pgWDtcjH3zUGED4cvGUHWJ4E+nA3EPgjmzam+4ZNvWGUJwLq9D1efC0iXvy3i+b
-         +/K6l8OUSj8ftDpdR2yqCvERhP99J9mP1FArp9kIYDkFMzDEE3KPEmd2kdOE6Xb6OdcY
-         wpyxTVuoUmxJfF2Ce3OPjJbOhb4FoaeN5OWxR2eDKjHbMABykWIlHeUyWbtQK71Ia+y+
-         rCdQ4tLCKLVzRYpG2mQAJOZUx7nbaSKYCHnc5I2dlNf8fweiAhm3KUBGKkvYuwi+7zJs
-         YXUrwG307YZBA70eWWj7QfEzgOyQgyO7cZKwI6gRbWR1ZAN+Kqfjw7XZbA0myBLWwf17
-         h9ug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785606848; x=1786211648;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JejQQUr6GBKitgZNYyepmZDoDmnt3C1c4jf1CfArh1o=;
-        b=WviWEp4DDHBWjcrlbMsJUJD+aVXScBI3HByvoerCKn2KAPoJLAHLNBE2cygQNSqSpj
-         1pPGHvsafzT+noYPOQw3C7q/Cb88w51KQ/x2d+gn67HzfmB3OY6dlKGmNVKOwoFY2ZXb
-         gVOu9my4smclPHvhCT2VPX2B6Nz2pzOVdj6IsONTheGRuBfIe1fcBLlOVzyaYZOn0jR/
-         iOwnV0ckQfAvtYCMLPbxSRX2TRGzGlGAxE1INXr//s5kxZwt++zmWdQI4umBv0q+SjZv
-         TIjFxtNzEA9d2JD/CjbD/qoHqbJx13+zbfLZ8kB91YC+sBrFMKuOjXSOu6qksvtzMvNy
-         3LQQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqldOSKujsxVnLWOSGrG0dMekaMhtyKwuXwBzPgAdX4Zvn2EVK4Zdw+Rr84DgsvP0awCMPKVwp9dUAPIg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwO0UthknSMf0dE3xojA0u6uuV7+jJt+KZPC/46B7JxZGGDBsS4
-	uaGdqNEr6ljRjnFB+rlFhkwg6QtNYPig4SfZZDIf4jzCMIri0nzbjVe6
-X-Gm-Gg: AR+sD10BiuxEAVhCOW38bhAWGYU0IZoUSqscHUYX+rs3rXSDK1wsZjSR9c/q2g82BxR
-	WPfuCk1KHg5btmGLxQ873vvv2V6Ovz2UjXycW8LCIsJOVogllEPpdNdOfT+x9E/7UEZv1yY8GyI
-	y2Z4x+URSSU9FRUUm83ezn95DNLajSNtvK6ZpBcnmUhRwE7aZ2sotRacJFWaRTCoWHAHl2gTXXR
-	QRPiyXWM6/L2ycfuTqs5NjAkw4T8FieqN8MIB8c5oIHZV4PbOc8Hshij36r2wxCPt0VSG7REREz
-	raVLVlJsOf5TMOhrUqCI+0x0smh2pAyvhSfsN1a7I0Kl2N7BjDeWinlbm40n5dLfOVkNl8Jz8Qy
-	Zf3GCriAlhL7lbkW+03eMAZYuljZhz/Wro6xtcYnANajTLHxRGYCiCbfwBtN2sXhN4LfFmK3/uB
-	fcLnLlpTJAW4YkDMHihQLCgSLhTgiBalZ4CwbTYSfquS50yjLV5kDvDCSuQwGdFDrHp3i5G0d4N
-	RvQBXztfcXNEaOgcOToSqfa5dkp/YDc/pqgKL/vA73iuXwtHFct
-X-Received: by 2002:a05:6000:4613:b0:47f:97a4:f121 with SMTP id ffacd0b85a97d-47fd72f1a66mr9297171f8f.30.1785606847642;
-        Sat, 01 Aug 2026 10:54:07 -0700 (PDT)
-Received: from nixos-office (195-23-151-163.net.novis.pt. [195.23.151.163])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47fd45a1240sm16699838f8f.36.2026.08.01.10.54.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 01 Aug 2026 10:54:07 -0700 (PDT)
-Sender: Julian Braha <julian.braha@gmail.com>
-From: Julian Braha <julianbraha@gmail.com>
-To: mchehab@kernel.org
-Cc: corbet@lwn.net,
-	arnd@arndb.de,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Julian Braha <julianbraha@gmail.com>
-Subject: [PATCH] [media] marvell-cam: fix unmet dependency for VIDEO_MMP_CAMERA
-Date: Sat,  1 Aug 2026 18:53:54 +0100
-Message-ID: <20260801175354.2501615-1-julianbraha@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="TvOFE5IM";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="9QTjGvRW"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Date:Subject:From; t=1785607457; bh=yIYgG0IHJZOlOes+zMNAogJ
+	Ixxt9aAsAUZo1zJFi8gw=; b=TvOFE5IMxtBLM5sVme2U1EmiGOo4lDFluiHBiRXNdqbDIcUQAs
+	UMNMw7x9QqyPOgBJzWwIPeBPuxiLZ6OLOcWpeKuoWqtwFaJ3EG+l/6XiMKL37FgPQwYvNa0M7Bu
+	sn3VrV0wfjjZyzSalC4kxeQZurssmgsQoh7Vs4DlUfJOR9XoWgN8/63C5+CFnydZqlOb4zdF0GQ
+	20rXAH8fezaDlr9DsGUKPH3uhqHMypgetN0NoS/zDel58V7yIpz8dbwe8XxfT6VLx6/9P47XCxc
+	6EGxUM4y8t/soGEh5oYMQYFd8yGMe3/Im3aqgqs0HBy75xgM3doWh9vFtNR6qLtVI8g==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Date:Subject:From; t=1785607457; bh=yIYgG0IHJZOlOes+zMNAogJ
+	Ixxt9aAsAUZo1zJFi8gw=; b=9QTjGvRW0yiMh7x9GHZk39wjTB3ECggvA9wNJQiJJeRZiK43oA
+	G8nm3CMl206jtgD1mt0dwtpIglm9KwHEseAg==;
+From: Danila Tikhonov <danila@mainlining.org>
+Subject: [PATCH RFT 0/3] Add UW Camera Actuator support for Nothing Phone
+ (1)
+Date: Sat, 01 Aug 2026 21:04:13 +0300
+Message-Id: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWOy2rDMBBFf8XMugqS9bBsSumqH1CyK1lI1tiZY
+ sut5CSFkH+P8ujyDnfOPWfImAgzdNUZEh4p0xJLEC8V9HsXR2QUSoaa14ZbLlg4tZbzE+sndJF
+ 56QaFgxpso6H8/CQc6O/O+4LPjy3sHsd88N/YrzfSs5bw91DW1mfXu4ysX+aZ1q5SQhtuXOOxl
+ a2VOvjW82B8I4QtQ9YYZaQy4YaaMWd31+yq139LoaSo9aY2DdeKFWkXaXLvs6M4UaQ4bpY0vsH
+ ucrkCxDFawAEBAAA=
+X-Change-ID: 20260801-dw9800w-clean-b3af4ef4f875
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>, 
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>, 
+ Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Danila Tikhonov <danila@mainlining.org>
+X-Mailer: b4 0.15.2
 
-VIDEO_MMP_CAMERA selects I2C_GPIO without ensuring
-'GPIOLIB || COMPILE_TEST' is enabled, despite I2C_GPIO depending on it.
+This series is marked as RFT because, in addition to adding DW9800W
+support, it introduces chip ID validation for DW9800K. I do not have the
+DW9800K datasheet or hardware, so I cannot confirm its chip ID value.
+DW9800W support, however, has been fully tested.
 
-Let's add the same dependency to VIDEO_MMP_CAMERA.
+A separate compatible is added for DW9800W because its datasheet
+specifies a different default VCM frequency than DW9800K. The register
+layout is identical, but it is unclear whether DW9800K uses the same
+chip ID as DW9800W.
 
-This unmet dependency bug was found by kconfirm, a static analysis tool for
-Kconfig.
+- Patch 1 documents the new DW9800W compatible.
+- Patch 2 adds DW9800W support and moves DW9800K into the chip ID
+validation switch.
+- Patch 3 adds the DW9800W actuator node to the sm7325-nothing-spacewar
+device-tree with the vendor-provided vcm-prescale value. The vendor-
+provided sac-mode value matches the driver's default and is therefore
+omitted.
 
-Fixes: 67a8dbbc4e04 ("[media] marvell-cam: Basic working MMP camera driver")
-Signed-off-by: Julian Braha <julianbraha@gmail.com>
+Signed-off-by: Danila Tikhonov <danila@mainlining.org>
 ---
- drivers/media/platform/marvell/Kconfig | 1 +
- 1 file changed, 1 insertion(+)
+Danila Tikhonov (3):
+      dt-bindings: media: i2c: dw9719: Document DW9800W
+      media: i2c: dw9719: Add DW9800W support
+      arm64: dts: qcom: sm7325-nothing-spacewar: Add UW camera actuator
 
-diff --git a/drivers/media/platform/marvell/Kconfig b/drivers/media/platform/marvell/Kconfig
-index d31f4730f2a3..ab58175e433c 100644
---- a/drivers/media/platform/marvell/Kconfig
-+++ b/drivers/media/platform/marvell/Kconfig
-@@ -22,6 +22,7 @@ config VIDEO_MMP_CAMERA
- 	depends on V4L_PLATFORM_DRIVERS
- 	depends on I2C && VIDEO_DEV
- 	depends on ARCH_MMP || COMPILE_TEST
-+	depends on GPIOLIB || COMPILE_TEST
- 	depends on COMMON_CLK
- 	select VIDEO_OV7670 if MEDIA_SUBDRV_AUTOSELECT && VIDEO_CAMERA_SENSOR
- 	select I2C_GPIO
--- 
-2.55.0
+ .../bindings/media/i2c/dongwoon,dw9719.yaml        |  1 +
+ .../boot/dts/qcom/sm7325-nothing-spacewar.dts      | 10 ++++++++-
+ drivers/media/i2c/dw9719.c                         | 25 ++++++++++++++++++----
+ 3 files changed, 31 insertions(+), 5 deletions(-)
+---
+base-commit: 415606a7be939835db9b0d6b711887586646346d
+change-id: 20260801-dw9800w-clean-b3af4ef4f875
+prerequisite-message-id: <20260801143125.267054-1-danila@mainlining.org>
+prerequisite-patch-id: bc2fbe0b102239e80d8effbd6db5bac152d9dbbc
+prerequisite-patch-id: 29a239772d265935e75c326a5e1cb448028756b0
+
+Best regards,
+--  
+Danila Tikhonov <danila@mainlining.org>
 
