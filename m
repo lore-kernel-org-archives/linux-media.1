@@ -1,189 +1,146 @@
-Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com [209.85.167.206])
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com [209.85.128.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6523815E1
-	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 00:45:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA0CC2F8E98
+	for <linux-media@vger.kernel.org>; Sat,  1 Aug 2026 05:00:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785545132; cv=none; b=rD+Ti0PGsEmYVswJiz2zTvzQTbGxaaeWmvY2PBUpahms97PLmWMlxtGnv31e55rHA5Dxlw2ANABz4DnUrIe856ybYNvxmZTUyfjWtx3FJmwpqufmHclbAAElOOWpLWa5705JtPnJHYrrqbUvwKkR90Ko1phYgTDgciCDtgEw/gw=
+	t=1785560453; cv=none; b=dzj4cENHRMTUPxtUnylDtbd0JqfO1eZ3UvHK6i7F2u3SM72R88fPni/roJpB3eRQX7SBGyBSd8m+ujMrDcTFONzucz0h7X5dEObNTTqok+tZm9h/xpIJ3v5qJ5p4O12uIJY+69T6beY3KlzbssBWpHFqLhb9i1RcHbdgkuYq03E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785545132; c=relaxed/simple;
-	bh=LNfq9aoJgtwPj36TAg+ZRPDUWnkFHdi8z1vkuUHoFbE=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=UeE5DBEvaxlni3ogWp8h6ZfXJsxwQUmPrBSPer1KgDr+KIbcUEDgAGuuZUQg0h8/qEpHG9l7lZ18wujCj3/qbR62ViEbek7W7Vlv4YERZQL+jaJBGbB1Bo7snAFl89zBcnOWdUNnIi7KL0vEtwCh3Mdu7G51aeyz8Bhg81e/M4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f206.google.com with SMTP id 5614622812f47-4ab4dd46ddeso968391b6e.3
-        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 17:45:24 -0700 (PDT)
+	s=arc-20240116; t=1785560453; c=relaxed/simple;
+	bh=4wyrLp/SrEeQ+/4YAQyVLPaL85K+AMmql5OMwhyIIRQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jGu8s+geJD5Mjtj55UAi+VqCG9IPIBa0CyxauuZ9cPYHlb6KWEfG07uxVNJCUm3mdt/ri1RNQS9+kWDoNjAXFs967pPiBi/sdzUNlArTZ/Myvc7Qlfv0tmty+5HeVudC1pQRpwBG93P2qqSfV1neCLlLnRV1cQ6sMiYVZ9Ifw/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=plqe/DDr; arc=none smtp.client-ip=209.85.128.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="plqe/DDr"
+Received: by mail-yw1-f173.google.com with SMTP id 00721157ae682-80cebd41372so25396227b3.3
+        for <linux-media@vger.kernel.org>; Fri, 31 Jul 2026 22:00:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785560451; x=1786165251; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TY54OJ8xDORFwsmnTbHRbxsXiQngAEL2gchs9oCincE=;
+        b=plqe/DDrNS7dAg0vrsbnMVQZjqPrR+PTKNCNLBEA6wf7lyOpPRiJIkbirS/XE8npn8
+         43j4d/9p+s2bSEp1EA0ycSqORZQIPzoIA71bur/rvGzlniuUt1cbjl7BJoM5lm/xPyTu
+         FWuMJbwV6SD4QdVDwNHDwls8dzvTg/3g4kYiIo6bJg+4TLTh5AbaiJkH4WnmmdcuQVwz
+         pAGcPqyWA33JBXaQYUhCTkoOPdyr6nRvUoHC2areI7fWiRs25HuvoNA6xIGqdeUzsuC6
+         YoQZY1tsf2tO2cThNP6NOdYQaPApGcVDfvHIJp7YCgrB7Mk+s7L5VGC7v7WpOPqeVtfO
+         Ce6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785545123; x=1786149923;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q8vmeMP/RpI8sx/Cn/QAEYbKX3MZkH0hFRUyB+kPLME=;
-        b=LKmUv9VlmCnp9BNmcRZCNuyuA18PerKP4emEEUWPyNtNjSkKcg8POOp0EPq14MFxoz
-         rk+J+FcwLEhh+UCwi5PEggPLuGBZxeuQhLhk+KNgt19/43NkHrttWlGw5RPECJf/d2er
-         JFHcs8q8fO8iLfQcnkMyfrbGBfTyXfREQsgqJBxZbTNmYbxuTLz9zcuXzQ3GgrO1yGcJ
-         tvVrgrd5A+O0/xBQ+BHw4wArPmnwmUXjQ9O2446ZlQLoNUI0vXXhZ/BKo6HK6meVidIv
-         JD5aT0X7/fJ1mQPBJM1FULuP3H1c/ysuRWl2yC23gSjEO02hE1RohQ0VxOC+qtvgQ0yr
-         RK8Q==
-X-Forwarded-Encrypted: i=1; AHgh+RqQq6OC4SDviSWet2emPfuKqbfugKxWD5G69Z/91uDzY3KsGMw1UeYH9LAHwuTvA9z1Bfr1hzPDSJp95Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlrTuOm26QQlZKCq15awQR89QYUpq+N8tYuMYMLzIc9PNZc2SQ
-	yWOpVpwAUAlourZO2Kt9rQ9c9TMhhyZ8xvPxCgd2e4oG+csJpMo5wwFKYOujIjXvaLXOYYTn4Id
-	lwHrGJJP2qg73fQ+8jLldKxqqw0Nv8Sno6Cur37ChX/cxcYXlpbWgFl9JZnQ=
+        d=1e100.net; s=20251104; t=1785560451; x=1786165251;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TY54OJ8xDORFwsmnTbHRbxsXiQngAEL2gchs9oCincE=;
+        b=NwgkRnM0975ZO8mIUzszv2Wh3t+EKaGbFpl2uGxmE75/PZqOpTSj2NNrnLIPZUGdR6
+         NTNnyj1eElBgzbX9KtvbGJSOUKvVaQhBWgxAb9qn2bKATfCaUeUMdv1mqFVvQA/TEX11
+         PJ3+ZKFOLoU9s6kuxPinQV213ML8hLU/VZ1Q8oFHOHDnHT6eqzTzM736joCKGM+Nhs0l
+         yMJj3VvzBLVYZcLVcw3EYLmBZOAA68/yF2VntJNXAt6Phso5ztQVTDs6FUfpmTSYImT8
+         8HyNKXUbKf/IlP+HUoluXBWX0ue4LatkyC24lUTztLjwZlp2s0rgrdhKPdPwV2AKeATK
+         t2Hw==
+X-Forwarded-Encrypted: i=1; AHgh+RqzgSoPJg55mB0BJqTiWRIOxQ1X0XCrZOfpKxt9B0t2JZ5pE9dC0IVmQEaKzPe7QeUGIujC3Ha6a8gFpQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFcevBmdp8jyR1bWu54MC49G3IP54qekvW+Ucg+wiV51FaACfz
+	jPUJZ18Box/RKVSff5usRlOpY4vDj2tKpgPaWpu/k0X+FHvODaWd1h1B
+X-Gm-Gg: AR+sD13Ghr0Z5BxesiQkfVU+tBfSNY9MC+mo1p0rTrGYOQCcoKBNArZ6pBRj3eWe5Od
+	Eo76ydREFyOrwoTh6i80ey4TcOkjLqfFeFwmiXpootfLOTJkAu8w7Ajxq/uBc+flsOX6n+9p8Df
+	bjxkOOkjUxmAmr7Kmfskyk2avXlgocvUh8peg77yVizzuSw+U1AoegarwbtD1h24IBxYKaxptQK
+	CMmmcvm41JqELohyvv1FpADFVauqAhB3A6Yv9Q5fMwUcsV68GuO7XyzKzwrT8oUBzn6lcCi5Jgx
+	Ah81Cz4QCBHRpzzkp5atgSLIVHXiBbidpoOSVUE+YQxTSMH35tsfPiza4BNJAX191YWF+JU8Zym
+	LNJTiCbiwtArQP4n+FYKTVXwN8xdNMe7bXooh4JdREQZ0E2fuoOVCepQC3Lze/ondRQyHo957bJ
+	qr3WAyeZIcZoT8byU2PDfMuX/CLLwK8Y/2OQUilfk9ANbA/UnjGQAHzceVZQ==
+X-Received: by 2002:a05:690c:9b0a:b0:81e:eebb:8e4a with SMTP id 00721157ae682-81fd4ad1c05mr36507957b3.12.1785560450801;
+        Fri, 31 Jul 2026 22:00:50 -0700 (PDT)
+Received: from llmbox.. ([38.81.85.65])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-81fcd0d6301sm19005487b3.26.2026.07.31.22.00.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 31 Jul 2026 22:00:49 -0700 (PDT)
+From: Michael Jordan <jordan.mymail@gmail.com>
+To: Ricardo Ribalda <ribalda@chromium.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: query pan/tilt position from the device on every read
+Date: Sat,  1 Aug 2026 01:00:48 -0400
+Message-ID: <20260801050049.984234-1-jordan.mymail@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <CANiDSCsS-JJrGMaoBqR-XX54dtp_uQEVVSct-BWL0gQNL4OfRQ@mail.gmail.com>
+References: <20260725212332.64927-1-jordan.mymail@gmail.com> <CANiDSCsyVYanm5MowQv5-rGy1EYs080WRsZYJCT=J=SesPFnjQ@mail.gmail.com> <20260731151509.577383-1-jordan.mymail@gmail.com> <CANiDSCsS-JJrGMaoBqR-XX54dtp_uQEVVSct-BWL0gQNL4OfRQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:c1e8:b0:497:d371:21c8 with SMTP id
- 5614622812f47-4af5e2cd936mr3876312b6e.19.1785545123221; Fri, 31 Jul 2026
- 17:45:23 -0700 (PDT)
-Date: Fri, 31 Jul 2026 17:45:23 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a6d41a3.f794c993.27aeb.000e.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] WARNING in ttusb_dec_send_command
-From: syzbot <syzbot+ac9880be0b0b1a5f54d6@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Hello,
+Hi Ricardo,
 
-syzbot found the following issue on:
+On Fri, 31 Jul 2026 19:14:51 +0200, Ricardo Ribalda <ribalda@chromium.org> wrote:
+> How accurate does the mapping frame/position need to be?
+>
+> You do not know how big the camera pipeline is. Maybe you are
+> processing frame NOW-4 when you read position NOW
 
-HEAD commit:    5d5fd841c346 Merge 7.2-rc5 into usb-next
-git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
-console output: https://syzkaller.appspot.com/x/log.txt?x=14114e32580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=6ec4d592e55f7960
-dashboard link: https://syzkaller.appspot.com/bug?extid=ac9880be0b0b1a5f54d6
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=127da5b9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=16c6f8c6580000
+Not accurate at all, and I should have been clearer earlier: I picked
+"the former" for the continuous part of your question, not for the
+frame-tagging example. Nothing in my use case correlates a position
+with a particular frame. The position is an input to a control loop
+("where am I, so I can ask for ten degrees left of here") and a number
+on a UI, and the gimbal's own time constants are hundreds of
+milliseconds per move, so a few frames of pipeline skew is far below
+anything that matters.
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/2ed536ae4daf/disk-5d5fd841.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/ab40098ccbf1/vmlinux-5d5fd841.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/66d5c395f47c/bzImage-5d5fd841.xz
+If someone did want frame-accurate pose, I agree a G_CTRL read would be
+the wrong instrument entirely -- that is a per-frame metadata problem,
+and this patch would not be the right vehicle for it.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+ac9880be0b0b1a5f54d6@syzkaller.appspotmail.com
+> unrelated note: if you need to set the two axis at the set time, you
+> can use  V4L.VIDIOC_S_EXT_CTRLS
+> [...]
+> In fact you could use that today to avoid part of the kernel issue.
+> Always send pan and tilt when you are tracking the movement.
 
-usb 4-1: config 1 interface 0 altsetting 0 has 2 endpoint descriptors, different from the interface descriptor's value: 5
-usb 4-1: New USB device found, idVendor=0b48, idProduct=1008, bcdDevice= 1.00
-usb 4-1: New USB device strings: Mfr=0, Product=0, SerialNumber=0
-------------[ cut here ]------------
-memcpy: detected buffer overflow: 75 byte read of buffer size 60
-WARNING: lib/string_helpers.c:1036 at __fortify_report+0x8d/0xd0 lib/string_helpers.c:1036, CPU#0: kworker/0:1/11
-Modules linked in:
-CPU: 0 UID: 0 PID: 11 Comm: kworker/0:1 Not tainted syzkaller #0 PREEMPT(lazy) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:__fortify_report+0x99/0xd0 lib/string_helpers.c:1036
-Code: ad 31 dc fe 45 84 f6 48 c7 c0 20 ec b0 87 48 0f 44 e8 e8 8a 37 dc fe 48 8d 3d 93 b9 20 08 4d 89 e8 48 89 e9 4c 89 e2 48 89 de <67> 48 0f b9 3a 5b 5d 41 5c 41 5d 41 5e e9 85 3a a7 04 48 89 de 48
-RSP: 0018:ffffc900000bece8 EFLAGS: 00010293
-RAX: 0000000000000000 RBX: ffffffff87b0f7c0 RCX: ffffffff87b0ec20
-RDX: 000000000000004b RSI: ffffffff87b0f7c0 RDI: ffffffff8af88650
-RBP: ffffffff87b0ec20 R08: 000000000000003c R09: 0000000000000000
-R10: 0000000000000000 R11: ffffffff81595b4a R12: 000000000000004b
-R13: 000000000000003c R14: 0000000000000000 R15: 1ffff92000017dac
-FS:  0000000000000000(0000) GS:ffff888268636000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055d73a1cbc10 CR3: 0000000118014000 CR4: 00000000003506f0
-Call Trace:
- <TASK>
- __fortify_panic+0x23/0x26 lib/string_helpers.c:1043
- fortify_memcpy_chk include/linux/fortify-string.h:549 [inline]
- ttusb_dec_send_command.cold+0x75/0xf8 drivers/media/usb/ttusb-dec/ttusb_dec.c:372
- ttusb_dec_get_stb_state drivers/media/usb/ttusb-dec/ttusb_dec.c:392 [inline]
- ttusb_dec_init_stb drivers/media/usb/ttusb-dec/ttusb_dec.c:1413 [inline]
- ttusb_dec_probe+0x8b4/0x2110 drivers/media/usb/ttusb-dec/ttusb_dec.c:1671
- usb_probe_interface+0x386/0x9b0 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3772
- usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
- usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
- bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
- __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
- device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x64/0x160 drivers/base/bus.c:620
- device_add+0x121d/0x1970 drivers/base/core.c:3772
- usb_new_device.cold+0x685/0x115c drivers/usb/core/hub.c:2700
- hub_port_connect drivers/usb/core/hub.c:5572 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5712 [inline]
- port_event drivers/usb/core/hub.c:5876 [inline]
- hub_event+0x314d/0x4af0 drivers/usb/core/hub.c:5958
- process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
- process_scheduled_works kernel/workqueue.c:3405 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
- kthread+0x370/0x450 kernel/kthread.c:436
- ret_from_fork+0x69a/0xc80 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-----------------
-Code disassembly (best guess):
-   0:	ad                   	lods   %ds:(%rsi),%eax
-   1:	31 dc                	xor    %ebx,%esp
-   3:	fe 45 84             	incb   -0x7c(%rbp)
-   6:	f6 48 c7 c0          	testb  $0xc0,-0x39(%rax)
-   a:	20 ec                	and    %ch,%ah
-   c:	b0 87                	mov    $0x87,%al
-   e:	48 0f 44 e8          	cmove  %rax,%rbp
-  12:	e8 8a 37 dc fe       	call   0xfedc37a1
-  17:	48 8d 3d 93 b9 20 08 	lea    0x820b993(%rip),%rdi        # 0x820b9b1
-  1e:	4d 89 e8             	mov    %r13,%r8
-  21:	48 89 e9             	mov    %rbp,%rcx
-  24:	4c 89 e2             	mov    %r12,%rdx
-  27:	48 89 de             	mov    %rbx,%rsi
-* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
-  2f:	5b                   	pop    %rbx
-  30:	5d                   	pop    %rbp
-  31:	41 5c                	pop    %r12
-  33:	41 5d                	pop    %r13
-  35:	41 5e                	pop    %r14
-  37:	e9 85 3a a7 04       	jmp    0x4a73ac1
-  3c:	48 89 de             	mov    %rbx,%rsi
-  3f:	48                   	rex.W
+Thanks -- and you are right that this sidesteps the merge problem
+completely, which I had not appreciated. Both mappings land in
+UVC_CTRL_DATA_CURRENT before the single commit, so whatever
+__uvc_ctrl_load_cur() put there is fully overwritten and it no longer
+matters which source the RMW pulled from. I will switch my userspace to
+always send both axes. It does not touch the read side, but it makes
+the write side a non-issue for me in the meantime.
 
+> If AUTO_UPDATE is present you would get fresh data when you poll the
+> control.
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+One clarification for the record, since it bears on what you are asking
+HansV to weigh: that holds via the interrupt rather than via the poll.
+uvc_ctrl_status_event() clears ctrl->loaded, so a poll after a
+notification does re-read the device -- but polls between notifications
+still return the cache, because __uvc_ctrl_load_cur() returns early on
+ctrl->loaded and nothing else clears it outside a commit. So on a
+compliant autoupdate device the update rate is the device's signalling
+rate, and for pan/tilt 4.2.2.1.15 only promises that signal at the end
+of the movement. Good enough for "it stopped, here is where"; not for
+sampling a trajectory. I mention it only so the comparison is accurate,
+not to relitigate -- your framing of the two problems matches how I see
+them.
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+> You definitely have to ping the vendor to make sure they fix their
+> firmware.
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Agreed, and I will. I am not counting on a timeline.
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+> Let's wait a bit for Laurent or HansG (or even Hans Verkuil) to
+> comment.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+Sounds good -- no rush at all from my side, and I am happy to respin
+against whatever shape you all land on. Enjoy the time off.
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
+Best regards,
+Michael Jordan
