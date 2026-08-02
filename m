@@ -1,193 +1,117 @@
-Received: from linuxtv.org (140-211-166-241-openstack.osuosl.org [140.211.166.241])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C88333F5B3
-	for <linux-media@vger.kernel.org>; Sun,  2 Aug 2026 20:59:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=140.211.166.241
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8763B33B6D6;
+	Sun,  2 Aug 2026 23:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785704360; cv=none; b=Unl0WzxPmR5brRrGqFWvKTd7oiqfK98h+HHnHkfKYopU2QdPa98g7cz6NXRKWf6JfZak2tQ7WmMXkOVCgYflE8q7rIKPWk3JoGDw3J+vquW6tNHJkjSoIBBG274CgMP3eTuRTTxa6941QqnDSjDBMk04xiwRBlBjg7Bbpk8CU8s=
+	t=1785711837; cv=none; b=VKkuNF3DN2BLY6WvEInVDAmVHiua09z95cA/1YwcR4QCC6IhYS1gVhwjba+yKj6f+kuSvNwl29eVcd96gJIxeerUzTLdN795/uzfclfWYITl11X6KgfydF+PAzfAKYV9yFXObT9ImqHk6BV8s1AwEWYTP6xjtU5M698cNQORRas=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785704360; c=relaxed/simple;
-	bh=h7SVIjYHGVfGV8PFjeXqyhICXUHvpJQxQJjkc5FaQE8=;
-	h=Subject:From:To:Message-Id:Date; b=DVJ7uUP1A4CFUy8618OBgb1uq9spMNQOddqsdF1qJNvPwluHqn4Zj+4jb9MRWCL8KV3TK6GDLzvLEWbzqwVfW5elWy6qEypZI2btemXOKghz/wT+fqN9KK7jpZ2zKtusBRaGuHcvD2PrxISZjdURLy1K9ceNMxGe7fDL8+LQ0LA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org; spf=pass smtp.mailfrom=linuxtv.org; dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b=A8McwoAT; arc=none smtp.client-ip=140.211.166.241
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linuxtv.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linuxtv.org
+	s=arc-20240116; t=1785711837; c=relaxed/simple;
+	bh=3PKTW17d3xHdFJLpj2sMmDHQUUD6O1H+5bikwfmRrH8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NpsKBmQ/G3wQdceDSCZOau2bcC5UjplC5Dv+AhSly/AMt38Rq1vus5T8IFLTO4j72SjX7JZqIiWWSoQViO+K7CNxWyXfSwsVzFj3mXJ4bu4lbWhW9W410auDKX8A7pFqwmVl/VELZgx1us1ZRcAJEglu7R1cmmKW5fHnMnBbMig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=d3CJbjdW; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linuxtv.org header.i=@linuxtv.org header.b="A8McwoAT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=linuxtv.org
-	; s=s1; h=Date:Message-Id:Reply-to:To:From:Subject:Sender:Cc:MIME-Version:
-	Content-Type:Content-Transfer-Encoding:Content-ID:Content-Description:
-	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
-	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
-	List-Post:List-Owner:List-Archive;
-	bh=RRfqXt7VRhmmwQfG8v0XbVlwBhACZ+3qwMo0ycah89E=; b=A8McwoATcyOS1CW9J/en3MfNz5
-	+F2v4L1NW+iqki64IljVBgDgkrsW9JjeJZdnMHg/SQYBFws3a6HnWUTpKLQxtow37cUqiiGezNMXV
-	JZLmdSbQNv/UVJbZB4c+SyXQ8xMbs3XaP56Ltx/wJq63OQ10kkF9uLsIvPw1Cz95r9tKxxf887zaO
-	QmXMqtnQsZmilTksbztMCNfUQ+QrSUDaqgzocwzhuFUKIXS1H/HNynF2xVjZ2VzzWP5AU8ClFhMfe
-	qmeAFl/cCmND2n2IUOJclfwVIw8t9RxdTpP5By5+qNAYRZnPnHjsZYqKEvbl3fD+oLw1mz8caWW4h
-	3jnMMKaw==;
-Received: from mchehab by linuxtv.org with local (Exim 4.96)
-	(envelope-from <mchehab@linuxtv.org>)
-	id 1wqdDW-0004NH-2H;
-	Sun, 02 Aug 2026 20:55:30 +0000
-Subject: [media.git/next] platform: int3472: discrete: Support multiple HIDs per GPIO map entry
-From: media-ci@linuxtv.org
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>, Tarang Raval <tarang.raval@siliconsignals.io>, linux-media@vger.kernel.org, Daniel Scally <dan.scally@ideasonboard.com>, linuxtv-commits@linuxtv.org, Kate Hsuan <hpa@redhat.com>
-Mail-followup-to: linux-media@vger.kernel.org
-Forward-to: linux-media@vger.kernel.org
-Reply-to: linux-media@vger.kernel.org
-Message-Id: <E1wqdDW-0004NH-2H@linuxtv.org>
-Date: Sun, 02 Aug 2026 20:55:30 +0000
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="d3CJbjdW"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 8193312F;
+	Mon,  3 Aug 2026 01:02:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785711757;
+	bh=3PKTW17d3xHdFJLpj2sMmDHQUUD6O1H+5bikwfmRrH8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=d3CJbjdW2kRPn7dq2YCqL6FVFLbHQfafh307OrInpl92cPihptqpxuNT1AMqzV4X0
+	 +sKxQA/3o69et6SrU/tyDhY6PG8gWLOeU331e3xyMZJXWoM5EQy5tZa2JfuSv2uqop
+	 0A0W36PaBSqvR8U51PH7nv34nsCqykzvABm2g9cc=
+Date: Mon, 3 Aug 2026 02:03:44 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
+	Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
+	Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
+ bindings
+Message-ID: <20260802230344.GD1927055@killaraus.ideasonboard.com>
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
+ <20260730021525.166811-2-lachlan.michael@sony.com>
+ <20260730-elastic-amaranth-urchin-4b8bbf@quoll>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260730-elastic-amaranth-urchin-4b8bbf@quoll>
 
-On Wed Jul 29 11:28:00 2026 +0530, Tarang Raval wrote:
-> Each int3472_gpio_map entry currently maps exactly one ACPI HID to a
-> GPIO quirk. As more sensors needing the same quirk are identified, this
-> means adding a full duplicate table entry per HID, differing only in
-> the HID string, which does not scale.
+On Thu, Jul 30, 2026 at 11:06:09AM +0200, Krzysztof Kozlowski wrote:
+> On Thu, Jul 30, 2026 at 11:15:24AM +0900, Lachlan Michael wrote:
+> > The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
+> > with a MIPI CSI-2 output interface.
+> > 
+> > Add device tree bindings for the sensor.
+> > 
+> > Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
 > 
-> Change int3472_gpio_map::hid to a NULL-terminated hids array so a
-> single entry can match any number of ACPI HIDs, letting new HIDs be
-> added to the relevant array instead of duplicating quirk entries.
+> You need to test code before you send it, not with our infra.
+
+I have provided guidance to Lachlan on how to test DT bindings (and have
+submitted a fix to dt-schema as part of that work) before he submitted
+this patch series. Unfortunately, we missed an issue in the
+configuration of his development environment which resulted in the DT
+bindings check not being run. Mistakes happen, it will work better next
+time :-)
+
+> To spare you one sending cycle:
 > 
-> Cc: linux-media@vger.kernel.org
-> Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Signed-off-by: Tarang Raval <tarang.raval@siliconsignals.io>
-> Tested-by: Kate Hsuan <hpa@redhat.com>
-> Reviewed-by: Kate Hsuan <hpa@redhat.com>
-> Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> A nit, subject: drop second/last, redundant "bindings". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+> 
+> > ---
+> >  .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
+> >  MAINTAINERS                                   |   7 ++
+> >  2 files changed, 114 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> 
+> ...
+> 
+> > +++ b/MAINTAINERS
+> > @@ -25264,6 +25264,13 @@ T:	git git://linuxtv.org/media.git
+> >  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
+> >  F:	drivers/media/i2c/imx415.c
+> >  
+> > +SONY IMX908 SENSOR DRIVER
+> > +M:	Lachlan Michael <lachlan.michael@sony.com>
+> > +L:	linux-media@vger.kernel.org
+> 
+> Drop
 
-Patch committed.
+Why so ?
 
-Thanks,
-Sakari Ailus
+> > +S:	Maintained
+> > +F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+> > +F:	drivers/media/i2c/imx908.c
+> 
+> No such file.
 
- drivers/platform/x86/intel/int3472/discrete.c | 59 ++++++++++++++++++---------
- 1 file changed, 40 insertions(+), 19 deletions(-)
+Lachlan, that line belongs to patch 2/2.
 
----
+> > +
+> >  SONY MEMORYSTICK SUBSYSTEM
+> >  M:	Maxim Levitsky <maximlevitsky@gmail.com>
+> >  M:	Alex Dubov <oakad@yahoo.com>
 
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index adff564bf3fd..6c729fcfce5d 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -123,10 +123,31 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
- 	return desc;
- }
- 
-+/*
-+ * Other vana-supply users (e.g. ST, Toshiba, Sony sensors) can be added to
-+ * this array instead of adding new quirk table entries.
-+ */
-+static const char * const power_enable_hids_vana[] = {
-+	"SONY471A", /* imx471 on Lenovo X9-14 and X9-15 */
-+	"TBE20A0", /* imx471 on Lenovo X1 Carbon G14 */
-+	NULL
-+};
-+
-+static const char * const power_enable_hids_vdd[] = {
-+	"INT33F0", /* mt9m114 */
-+	NULL
-+};
-+
-+static const char * const power_enable_hids_enable[] = {
-+	"INT347E", /* ov7251 */
-+	NULL
-+};
-+
- /**
-  * struct int3472_gpio_map - Map GPIOs to whatever is expected by the
-  * sensor driver (as in DT bindings)
-- * @hid: The ACPI HID of the device without the instance number e.g. INT347E
-+ * @hids: NULL-terminated array of ACPI HIDs of the devices without the
-+ * instance number e.g. INT347E
-  * @type_from: The GPIO type from ACPI ?SDT
-  * @type_to: The assigned GPIO type, typically same as @type_from
-  * @enable_time_us: Enable time in usec for GPIOs mapped to regulators
-@@ -135,7 +156,7 @@ skl_int3472_gpiod_get_from_temp_lookup(struct int3472_discrete_device *int3472,
-  * GPIO_ACTIVE_HIGH otherwise
-  */
- struct int3472_gpio_map {
--	const char *hid;
-+	const char * const *hids;
- 	u8 type_from;
- 	u8 type_to;
- 	bool polarity_low;
-@@ -145,38 +166,27 @@ struct int3472_gpio_map {
- 
- static const struct int3472_gpio_map int3472_gpio_map[] = {
- 	{	/* mt9m114 designs declare a powerdown pin which controls the regulators */
--		.hid = "INT33F0",
-+		.hids = power_enable_hids_vdd,
- 		.type_from = INT3472_GPIO_TYPE_POWERDOWN,
- 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
- 		.con_id = "vdd",
- 		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
- 	},
- 	{	/* ov7251 driver / DT-bindings expect "enable" as con_id for reset */
--		.hid = "INT347E",
-+		.hids = power_enable_hids_enable,
- 		.type_from = INT3472_GPIO_TYPE_RESET,
- 		.type_to = INT3472_GPIO_TYPE_RESET,
- 		.con_id = "enable",
- 	},
- 	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
--		.hid = "OVTI08F4",
-+		.hids = (const char * const[]) { "OVTI08F4", NULL },
- 		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
- 		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
- 		.con_id = "dvdd",
- 		.enable_time_us = 45 * USEC_PER_MSEC,
- 	},
--	{	/* imx471 expects "vana" as con_id for power enable */
--		.hid = "SONY471A",
--		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
--		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
--		.con_id = "vana",
--		.enable_time_us = GPIO_REGULATOR_ENABLE_TIME,
--	},
--	{
--		/*
--		 * imx471 (on Lenovo ThinkPads X1 G14) expects "vana" as con_id
--		 * for power enable
--		 */
--		.hid = "TBE20A0",
-+	{	/* Sensors which expect "vana" as con_id for power enable */
-+		.hids = power_enable_hids_vana,
- 		.type_from = INT3472_GPIO_TYPE_POWER_ENABLE,
- 		.type_to = INT3472_GPIO_TYPE_POWER_ENABLE,
- 		.con_id = "vana",
-@@ -184,6 +194,17 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
- 	},
- };
- 
-+static bool int3472_gpio_map_hids_match(struct acpi_device *adev,
-+					const char * const *hids)
-+{
-+	for (unsigned int i = 0; hids[i]; i++) {
-+		if (acpi_dev_hid_uid_match(adev, hids[i], NULL))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
- 					    const char **con_id, unsigned long *gpio_flags,
- 					    unsigned int *enable_time_us)
-@@ -200,7 +221,7 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 		if (*type != int3472_gpio_map[i].type_from)
- 			continue;
- 
--		if (!acpi_dev_hid_uid_match(adev, int3472_gpio_map[i].hid, NULL))
-+		if (!int3472_gpio_map_hids_match(adev, int3472_gpio_map[i].hids))
- 			continue;
- 
- 		dev_dbg(int3472->dev, "mapping type 0x%02x pin to 0x%02x %s\n",
+-- 
+Regards,
+
+Laurent Pinchart
