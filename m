@@ -1,133 +1,237 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012027.outbound.protection.outlook.com [40.107.200.27])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56D41403156;
-	Mon,  3 Aug 2026 12:16:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785759408; cv=none; b=AZNiS6ui+bQ/2WOTUN1XsMGLC4oxyXBOc2hp/PtTppy3aoW36qR5hfIe7MKkQOE+fr6dLTRyJiXOd+ENqNjAGv0LxdwPL9heZU31PorIS8E69ZPGs3dY+EQ1qcKOz8MnACffgSC4P8zQx4fogDG0pzJOKfjHrExvEyH2HhyuqNY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785759408; c=relaxed/simple;
-	bh=YYFD90m5so6A9XTI4F2KjgkyK7i3tZMuKU0gjw+/xxo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HWqFC9OHmh0+ckEuN+9cPXjYZpLh3mIxDhEocCx8gugl6Vr0624tXVf2jGSJ6L20oZC7CdRWh9L7kmVkAkrWegbxBCZjq5b4Au1itlxwBiQTf/K3NFBELUEWBG/BfqylvVh47cwu0j4ZItGDeXV5W7VbvPS9X/8mD/AMRcNv+2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=d7cBSibY; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D06E2848AA;
+	Mon,  3 Aug 2026 12:26:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785759999; cv=fail; b=ebanQ5UhWHktlJTihHa1ue8FB7Gu6Skj8GoJ4K3OcFg8yMoBay3kCCDtmLIpR8T8uT93kiesIqkogaEe2lKNdZh9XbDNZtOlAPgyNZw0Yv1KrKxEsVLBXPetfyRvoiRmKq9enpj0JB+prCAfnvMvQZUK43lQceCY3vCtW+bGTTA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785759999; c=relaxed/simple;
+	bh=qT+pLYQwS3sTznqBSMnttYdcnZylMddinc0tHeSGpuY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=XiOIwal4ZvqgQoZWLg+MjwNR4ZPub4VEHpwRJ5QFB5iHouJhC1HCj5y0kxeLCbARq1Hc2ssESeg1KAfEek2R0MQHYk4VwjDQ6FY9daAPno1G2joe+N9qIN5mUyGA+ryCAWJvc7gAK9yel+V/nOddx2VZ/jGgt0rhoEVfrzbqEyQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tTTIpK/L; arc=fail smtp.client-ip=40.107.200.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="d7cBSibY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1785759394; bh=YYFD90m5so6A9XTI4F2KjgkyK7i3tZMuKU0gjw+/xxo=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=d7cBSibYeRaoiuQbfgChwVHHFRL1rN61EuS/9W7w4yWJxgwmZKbnCO2qEV7g5qnm3
-	 rEKjwKQg/7ORITk5newcbrPSsN4WcoZ5sSMCHhW6OOxYch5+u/e0Lq940GdsEwhC4n
-	 q1POPLO2guzGhba30dPOecXC1LyTpJAiH2T9Ltzw=
-Date: Mon, 3 Aug 2026 14:16:33 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: Paul Kocialkowski <paulk@sys-base.io>
-Cc: linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Arash Golgol <arash.golgol@gmail.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Subject: Re: [PATCH 00/16] media: sun6i-csi/isp MC-centric support and
- cleanups
-Message-ID: <w72t67p2sucsppxclldfbfenl6hzgwkru4rsvxenfta7duah7h@nbeim2a2ssjt>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	Paul Kocialkowski <paulk@sys-base.io>, linux-media@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-staging@lists.linux.dev, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Arash Golgol <arash.golgol@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260518102451.417971-1-paulk@sys-base.io>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tTTIpK/L"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PyrGYagXHbXMqIGeOkqvHCgJibKg4aYhmF5AWxI2eWTlN+7MaGAfWoRsgtckyaz9COdL2+1V538ZTtQHsSneAZVnZDlpxv/7t2PuxB7tv4EFX+IHmHT9EBEHgYSvpXBBn06kFAKVMYUre8bhUGEZoLIcvkaE7PpDr4fb0GfKBmo4iflIJYpGiqvQhAzOl1wiNpa/U6hFXd12R5C5GHbaR8ocklaj+wiLAg1LL/0mn1IOKcoTxLVbOvyB6UxS/+NK1kZVUdXlZbxuRNDrIYNUhD6duzCwYKEjh8lJ70Pt/kElB+J7pDtr5EdzFxCmm6aiM4y3fWTvhtM1O87baOjc/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
+ b=e6Cgga8s3md7eVmeHul5kmwOKMD6d6UmyigQkJ4h5B9/mFPqT6K095uKu4SeI7natf9xY+5KHC4WEZSyMRpvPUxdolK6BSn+rFJEUqvNla4gfZHUb/0ruvv32SPYuQMnYxvRQtvrkjCI509uFXVlJNHezyDNmMj1DacVzx1CBLIzgzpAN8kyw4czyQXKfrcBZvb+BEi+R+bTMuF1zKEcf90LMMwaOvipbg5URxeZuXAG0nSVWPC8VjhjaIPVPpl/OOFK63pqYuIaz5xqXNKQvOULWTwSUSoUr5qOBTb/4bp/1YQ2BvlYGsi2Ach8qsky898bhefaLPz9RdF6RDNIpw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
+ b=tTTIpK/LDeOXbXVlKMOGPJo/ZgwjpzDf0emX1kDbsTGVeMezpR2EfhEGl+4dMTOV0cTetAtWLrW1j+KgNIrHg8VyEua49OYMB1WU4vGjCF3NbY5rfLZ7prMfGjHLMX/DztK5BnVDBRQWQtm2M6RIe5xFRiS6R/BQGT78fkqd35E=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
+ 2026 12:26:35 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:26:34 +0000
+Message-ID: <5beb0994-556c-4715-aa1c-c8a31b5929b5@amd.com>
+Date: Mon, 3 Aug 2026 14:26:26 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
+ during device unbind
+To: phasta@kernel.org, =?UTF-8?Q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Danilo Krummrich <dakr@kernel.org>, Sean Paul <seanpaul@chromium.org>,
+ Gustavo Padovan <gustavo.padovan@collabora.co.uk>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
+ kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
+ stable@vger.kernel.org
+References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
+ <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
+ <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0201.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:e5::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260518102451.417971-1-paulk@sys-base.io>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4446:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|921020;
+X-Microsoft-Antispam-Message-Info:
+	sOfBtrTJPBrF6arjPt/n4xQDs8pJevWUd5eJk0oYhmGU+z7+YEKvAcLgEbA5WCGDSVElJ4Eq3cYwsaazxRZjyH6+E5foZmB3WiF0dtD07kBMn2udyoMiKrSNEkVOqYT1AxKpVR+skQLDRFQdHvRNZFuXhb7Rj3gA3gyi2wHMFFf7rpnsFSJEB1hP0AoPbteCEMdG2JTfjL/93HvWCSY/ogXABV/MXvfefRgv8HQqGAorU8LFNCWMtrM7KrHXDV1wTF/6ISl+m4mGdh0QfrXSTtsrSJMv4KTo1UFvNI6B2i2yMyqI7NtbGmkTdTk9utwmA06+nvP8TXNf4S/EpMfXBzwUy25hEI7hSlKZpBQUoMO6ui+M2Ax5LEo63+jr0kVL3zAJD85veoZzOY0JnIexyIctFWrQ9JIvKEEhKhIezX8BqCS7z7kqjTYggTS2I9DNdMUFhiiYqXldoEnjXUuBonkgaSG+mCIFPFZU6sOIykpR81Gq/VnMGAf0NnCwP++q5LUYywyq0bsGD5HjEeC2wDjbXnaPy07rpP54BylPAaIud/AAZ45B4kKyNb+vH6J/BoCT5oruMRoy7gVDPqimfTMiFl0wjP4p3v2eYgenY+dVgJo5z5328WAXxuJUSGSqvkdC1Q1Uh7qTJc1hjBiUsQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cXYweU9Sa09TVVliTWhid1pHYUNZTjBHMFJNVEV5QkRRdEVqeVMwdzNLdmtY?=
+ =?utf-8?B?RlRYMUdlRW5FcGZjLzFEZXZkcXBCd3k2Wm1WOU14WVFveXVuRnNPR3NuYTND?=
+ =?utf-8?B?Z25wK0NWTmtEM05GdnlHOXg1U1FVN2lYMVVzYXc4U3NPdEpBRmR5WVIrYzdI?=
+ =?utf-8?B?T2lqQ2F2MzF4WWFEeHA3SnlqVVdKUnp4QSt2SnNzL3pBcDRHMktRZlhBUHZi?=
+ =?utf-8?B?QmFCZ3lIaTJRM3piVDdDYUZXTVN5dzcrMkx4L0xpQWtOSVBEeG0zY3VxZnFi?=
+ =?utf-8?B?Q0dacDBqVVVaUmpVdlI5Rlg3UFErc0pScDdLSVgyRS9YMXA4ODdqU0h1RzlO?=
+ =?utf-8?B?YVJPSTBlU2U2QjJtY1pVUUFsUnhzQnZtSkR1QlRXeGl4bkY2c1RKVmJwajFX?=
+ =?utf-8?B?dGhDMTRJdW9abGxybDdiWlBCOUd2VUZtMHBXRFFkbzFqaHQwcGNiTldTWHpE?=
+ =?utf-8?B?azZqVTdLNzU4Y0R3OGM4YTZ3OTk0YjFsQzVGTDdCY095MVAwZ3JaT0lmWFVj?=
+ =?utf-8?B?S1Y4bWRmWE91UDhBTHdkbVhpU21NSmZjdU1nQ0JtQk02c3FTOFQzQnF3K21Y?=
+ =?utf-8?B?VndtcERuWUJHQ2EydEZUZDZkc0FFWXFTTFBsamtlRXhtMVN4MStQNjM5TG4z?=
+ =?utf-8?B?amNaQjY0N2ptSDUwVnRLNWtpTnZScGpUdEVWNXBMRFVvaCtqNDd4Z0tPL3Bh?=
+ =?utf-8?B?Ym1tL1VsT2hTVU9PRitqWHZURE44K2tVRnJzcnQzUjhwV3FSYzhjVTJBSE5t?=
+ =?utf-8?B?dFpiZFdtUTB0c3E3Zm5zSXVQZTJpdFlWdUQyTXpPL2IzZjR1K1V2SE9DdFdK?=
+ =?utf-8?B?RGVVNU4xMTdzcDVvVUhCS1dTU0RFc2lKUUR1RUxMUDc5L1g2MkVUZ3pZQk9I?=
+ =?utf-8?B?OHp4RFpweWYyODZqMmtsNDQvNnRhYVZpQ0hDWGlYaWF4SzNvdUxTQm9aSXNQ?=
+ =?utf-8?B?YU15UEh5OG9LNHkrajFWYlN4UGhsSDFKWDMvSVFYaDRkRDBSVUJLSmxuY09K?=
+ =?utf-8?B?N002RUl3c2VFQU5qQ2lZWUNrRE9VaFEzRDgyNXJIWVRSUldFR2dpUGg2QzMw?=
+ =?utf-8?B?L0E0ZUgwaFc3S2xzNHk3VEptUWhQMG4yOWRET1VtWmoxaDRVeEhuRFQ0bUUv?=
+ =?utf-8?B?WmE2STJFSldhWDJESzZnSkZnMjBGNjJrVTQzQU54S0dOT3QrTlpmQUR6c2VG?=
+ =?utf-8?B?UHE2c0tQZmtRdXNzVlFMWjFTQ0RmVzlacmw5THpER1g2YWF2Q05SRTBtcExJ?=
+ =?utf-8?B?K0RFSUg0ckoxZ2pYNE1sOFUwVmNRcEJ4VTl4V0tFNzhLeU80dGpzdVJQQy9x?=
+ =?utf-8?B?Z29JTG8wUVVJeW53Q0V0aTRhaExaY0t5c3ZOa1ZCbXQ3VGF2TTVjamZlVG9Q?=
+ =?utf-8?B?eEhBNVRuZGRyRTdGQ3hqWGFLVmVvZkFibzNoYWN1TlVjcThuZjQ3VTBLQkY5?=
+ =?utf-8?B?bDVENlpyNjhrZm0xZEVieVJ1UTMxRzNDZU5IQ0dDUm1RYURaZlE4MWZvaEtp?=
+ =?utf-8?B?YWdFSFpuNU1GV25rQWUxYWxPQ0piWmFESGJQajdWcitiS2kxL2tBTFFKYlVn?=
+ =?utf-8?B?ZFdqUnIxSFVybHRRQXRIbDRiMzBVVUdqbVdQVEJHUGZsdUVHNmd0WlZtU0lu?=
+ =?utf-8?B?Y0hxMDRkMW5DeGJnbTd3RzhWUDJkV0hHenZFVWJZNEh2UTNJbzFxK0FhQzAw?=
+ =?utf-8?B?aUdnZGZUdTJoZ3Q5ZmhENTV5d0VNMnY2N1dFSjB4NzNDRGRoYXpGbDRBQ0Nw?=
+ =?utf-8?B?WUVRSUVKSjc1NGg5b1hVZUJiR200YlhEYUxaZHJEa2QwdUhvUWZZaGMyeVBk?=
+ =?utf-8?B?dDd0VVNxMW1tQ3k2dXRnTGtqVzRBOGFkbW9vQktsRXdTNzdaWExKb1hUVDUv?=
+ =?utf-8?B?eG5WR0VlWk1KRFhvNklLNldpTEVJY2hsdjMra1dZUk12dS8yc3IwYXJpUW9D?=
+ =?utf-8?B?bDlvalN3eG40T0pYZjVJSUU4UnBjR3pPVEdLN09qVWd4NDZRMWNBS3ZYYzNy?=
+ =?utf-8?B?K21XZ3ptekxKbzR5UDl6ZjRYbHk1bk5vV1YwMFpaRnJsZjJUR281TEtTbjVW?=
+ =?utf-8?B?bnp3akZ1d0Qwbk9VMzdEekl4MUtrazZxNlQyRHVPcE52aE1XblNVSGlUa1J2?=
+ =?utf-8?B?L09tWTZnd29NMGZEVWU1eG1pVU9kanc3UHQ2MktJNzhDUU9QRXJSMFlCblJ3?=
+ =?utf-8?B?V1A0dnJMOTFidWpkcDZyQUFkalYwZTF1YUxLQWxldEFkS0ZaMmE3bThOd1ZU?=
+ =?utf-8?B?WWRaaXhOSFVwOFBHRW1sM09YOGZMeWUyb3oxY25GS1gzbzl5Y3RZVEY5Zjhj?=
+ =?utf-8?Q?1kEV7gEQK/Kde4bYQ+?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:26:34.7295
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6CmZqGL67c4rEa1ngRN62QIWZVkN9WyvEECIMN/RLl1iGTB/10wM5GuS2hzwwV+F
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
 
-Hi,
-
-Just a heads up. I'm currently working on sun6i-isp support for A83T (so far all
-the details seem to be turning out fully compatible with V3s), and I just
-noticed this patch series. I'm basing my work on top of linux-next, which
-doesn't have this series yet, sadly.
-
-I'm working with YUYV input (because that's what I have currently on my A83T
-tablet with HM5065 sensor - adding bayer output to it would be another can of
-worms) and I re-organized the driver to support both the dual output mode
-+ rotation (can be enabled on one output only at a time, due to HW limitations).
-
-I also added missing pipeline blocks to the driver and statistics configuration
-and buffer output (all very similar to how rkisp1 does this, which I have quite
-a bit of experience with) + missing formats that thw HW supports.
-
-So I'm pretty far into the whole re-debug on device process on this driver. :)
-
-It would be nice if this series landed so I can submit my work without conflicts.
-And I'm also sending this mail so that people know there's someone working on
-this driver, to not duplicate work.
-
-And it would be nice once I submit it if someone with bayer output sensor would
-do the tests on ISP blocks that work with that (which are also part of my work
-but will be untested).
-
-Best regards,
-	o.j.
-
-On Mon, May 18, 2026 at 12:24:35PM +0200, Paul Kocialkowski wrote:
-> This series first introduces some fixes and new formats to v4l2 format
-> info, one of which we need for the sun6i-csi driver. Support for
-> MC-centric format enumeration is then added, along with cleanups and
-> improvements for both the sun6i-csi and sun6i-isp drivers.
+On 7/21/26 13:20, Philipp Stanner wrote:
+> On Tue, 2026-07-21 at 09:21 +0100, André Draszik wrote:
+>> In [1], sashiko reported the following issue:
+>>
+>> === snip ===
+>> Looking at how these fences are managed, drm_crtc_create_fence()
+>> creates a dma_fence without taking a reference to the drm_device or
+>> drm_crtc. Because the sync_file framework exposes this fence to
+>> userspace, the fence can outlive the CRTC.
+>>
+>> The dma_fence contract requires that data accessed by dma_fence_ops
+>> (like get_driver_name) must remain valid for an RCU grace period after
+>> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
+>> freeing of the device do not wait for an RCU grace period via
+>> synchronize_rcu().
+>>
+>> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
+>> hot-unplug:
+>>
+>> CPU1 (Userspace)
+>> sync_file_get_name()
+>>   ops = rcu_dereference(fence->ops);
+>>   if (!dma_fence_test_signaled_flag())
+>>     // Preempted or delayed here
 > 
-> The first 4 patches are already reviewed and ready to go and are
-> included here as a reminder that this series depends on them.
+> nit: no one will be preempted here since the RCU read lock must be
+> held. The Sashiko tool misses the point, which is simply that someone
+> illegally frees up stuff that might be still in use, with or without
+> delay or preemption, that's all irrelevant for the issue.
 > 
-> Arash Golgol (4):
->   media: sun6i-csi: bridge: Use V4L2 subdev active state
->   media: sun6i-csi: capture: Implement vidioc_enum_framesizes
->   media: sun6i-mipi-csi2: Use V4L2 subdev active state
->   media: sun8i-a83t-mipi-csi2: Use V4L2 subdev active state
+> Anyways, thanks for fixing this:
+
+Seconded.
+
 > 
-> Paul Kocialkowski (12):
->   media: v4l2-common: Fix NV15_4L4 format info block height
->   media: v4l2-common: Add missing tiled format info block sizes
->   media: v4l2-common: Add NV12_16L16 pixel format to v4l2 format info
->   media: v4l2-common: Add NV12_32L32 pixel format to v4l2 format info
->   media: sun6i-csi: Split format validation to a dedicated helper
->   media: sun6i-csi: Add support for MC-centric format enumeration
->   media: sun6i-csi: Tidy up and unify coding style
->   media: sun6i-mipi-csi2: Fix parenthesis alignment
->   media: sun6i-isp: Add dummy params link_validate implementation
->   media: sun6i-isp: Use V4L2 subdev active state
->   media: sun6i-isp: Add support for MC-centric format enumeration
->   media: sun6i-isp: Add support for frame size enumeration
+>>
+>>
 > 
->  .../sunxi/sun6i-csi/sun6i_csi_bridge.c        | 153 +++++++---------
->  .../sunxi/sun6i-csi/sun6i_csi_bridge.h        |   9 -
->  .../sunxi/sun6i-csi/sun6i_csi_capture.c       | 168 +++++++++++++-----
->  .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.c   | 107 ++++++-----
->  .../sunxi/sun6i-mipi-csi2/sun6i_mipi_csi2.h   |   2 -
->  .../sun8i_a83t_mipi_csi2.c                    | 113 ++++++------
->  .../sun8i_a83t_mipi_csi2.h                    |   2 -
->  drivers/media/v4l2-core/v4l2-common.c         |  12 +-
->  .../media/sunxi/sun6i-isp/sun6i_isp_capture.c |  47 ++++-
->  .../media/sunxi/sun6i-isp/sun6i_isp_params.c  |  37 +++-
->  .../media/sunxi/sun6i-isp/sun6i_isp_params.h  |   4 +-
->  .../media/sunxi/sun6i-isp/sun6i_isp_proc.c    | 117 ++++++------
->  .../media/sunxi/sun6i-isp/sun6i_isp_proc.h    |   7 -
->  13 files changed, 437 insertions(+), 341 deletions(-)
+> […]
 > 
-> -- 
-> 2.54.0
+>> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
+>> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: André Draszik <andre.draszik@linaro.org>
 > 
+> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+
+Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
+
+> 
+>>
+>> ---
+>> v3:
+>> - Philipp: update kerneldoc, add Fixes:
+>>
+>> v2: new patch
+>> ---
+>>  drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
+>>  1 file changed, 12 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
+>> index 63ead8ba6756..e8e80c936852 100644
+>> --- a/drivers/gpu/drm/drm_crtc.c
+>> +++ b/drivers/gpu/drm/drm_crtc.c
+>> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
+>>   * drm_crtc_cleanup - Clean up the core crtc usage
+>>   * @crtc: CRTC to cleanup
+>>   *
+>> - * This function cleans up @crtc and removes it from the DRM mode setting
+>> - * core. Note that the function does *not* free the crtc structure itself,
+>> - * this is the responsibility of the caller.
+>> + * This function cleans up @crtc and removes it from the DRM mode setting core,
+>> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
+>> + * dereferenced by our dma_fence_ops.
+>> + *
+>> + * Note that the function does *not* free the crtc structure itself, this is the
+>> + * responsibility of the caller.
+>>   */
+>>  void drm_crtc_cleanup(struct drm_crtc *crtc)
+>>  {
+>>  	struct drm_device *dev = crtc->dev;
+>>  
+>> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
+>> +	 * the fence is signaled. This is necessary because our dma_fence_ops
+>> +	 * dereference crtc->dev.
+>> +	 */
+>> +	synchronize_rcu();
+>> +
+>>  	/* Note that the crtc_list is considered to be static; should we
+>>  	 * remove the drm_crtc at runtime we would have to decrement all
+>>  	 * the indices on the drm_crtc after us in the crtc_list.
+
