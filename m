@@ -1,146 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 061183932F6;
-	Mon,  3 Aug 2026 12:55:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761746; cv=none; b=oV5wyyfV0VmVqeJNQdZNsOzl3YN8A+d9zc1eoQE3VrXzEJXsYmfseiWFG3PFLXYDbHtFOWHRx1dEiyihhki4jKVdTl2wH2J7mooG1MNh7SpGK4BaFEJn1j8T9hA1OaAPb5J+ajJ/jCNd4phF5ljTV5bCsHhXAkCrcs49Rxz8kJo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761746; c=relaxed/simple;
-	bh=Th0Wiu+Dicd+R2zy4lVM9VJScxk+BaVoF9bs+K4JhBw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BIz8OBfGp9LnBqXJtLkpWZSGnXHYiEHAO+qI5lCsLD/n/KJxPe4A5rkQut7lmboscJAr+ymOFBVkd24sl9CSXPbqj9wK3wbEE+PqFSEhtn11zBcz0Ue703mWxQtm+GWyfsS5+U9/q1Uks4oK7IzEWvmVhahf2HzleIAyzYtZdRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C0S5wqNj; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B01F407CF6;
+	Mon,  3 Aug 2026 13:15:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785762916; cv=pass; b=s0l2d574xt+j//D4fBvod6YwC/lT9QVRgNzwB/nI7G5241+wfjPbYtku+ibBAJyRd0zlRJIpKsxqLyh5P2WHbmGQluBawBlnVyTb/Bkpth+uduSqWInY7Yjb093MC7hPnwmkqAxoCcfuaO84zqjBvnzOJLw8lvPxLNs5ye3RNjs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785762916; c=relaxed/simple;
+	bh=E5i/OCLxCnnaM4FE9SIzvEwv2OAkZ42s7cSHFJEfbFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DcXSGGcg+3CYuGG4EgQyMN4C/Nt+ZyaHl7Lm/ITN2O5WqTs7b+n4yEJmnF6C2+wM0pQ6v+K33xIxKQDccMYvD07VQs8NkEUxI4qLy/uuXmjSxH9bAk9lwwaNO6QmgnLHvOPQgla4wxIqaVXS8q02bK5FSbGD79LLEV8djHQ7ujI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=AmgTJA6O; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C0S5wqNj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785761744; x=1817297744;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Th0Wiu+Dicd+R2zy4lVM9VJScxk+BaVoF9bs+K4JhBw=;
-  b=C0S5wqNjd+xq2lnDAo57NYRXZvJw91ky68iif2vGbxmZGn+IkaST1ws+
-   C4kZDdxaV7NSN+32g1qD9LE/Y97ekaZM2jKBDnG6EkVtEEas2Sfk6pE2W
-   jXtuADPdRE3035oI6wwsIRNRVuBs2q3vKi0m9jfctKzp+SVcO2hfsyACL
-   xLd7vZTJ4QPd5YYP+98uqfboB5NxlGM8DHsaPorr5EBP8FHOPBhoTzpY+
-   g7XOT0WVKofHv0m9dXwy9dPCy8YwOUfwOkOAwqCEn6XksrwmA/GXM9hXv
-   2HnzaridoEuw9Nt/HsH0AMrdlvRpxvC+n78NCMCEf+kaL/Fs96evcT/yY
-   g==;
-X-CSE-ConnectionGUID: Y7tSg54xSNadH8Hrnx5DZA==
-X-CSE-MsgGUID: OY2B98IhQyaEF1ZM93tVNA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86497997"
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
-   d="scan'208";a="86497997"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 05:55:43 -0700
-X-CSE-ConnectionGUID: +wzxwPWjTuyivh+Qz8rzIw==
-X-CSE-MsgGUID: URf5YnKhTKmKfzsllNgY0g==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 03 Aug 2026 05:55:40 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wqsCf-000000006x7-1an8;
-	Mon, 03 Aug 2026 12:55:37 +0000
-Date: Mon, 3 Aug 2026 20:55:13 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Bin Liu <bin.liu@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Fan Wu <fanwu01@zju.edu.cn>, Hans Verkuil <hverkuil@kernel.org>,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	Guangshuo Li <lgs201920130244@gmail.com>
-Subject: Re: [PATCH] media: mtk-jpeg: drain hardware completion before
- freeing context
-Message-ID: <202608032056.zBdPisX5-lkp@intel.com>
-References: <20260708120833.755998-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="AmgTJA6O"
+ARC-Seal: i=1; a=rsa-sha256; t=1785762902; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=DkZgs3k/rQrblkWL7CgXOPkplJBH7VooOyJV638Y81bSnEJLlpeyjl/fZhSoAQvSSAn77NzCetqec6qgpYvx6l2MgQDeJ9XptMHpc05q24kiv8GoYVkTHvhmWkEiGjUWcGF+L92v5j+P+0tIVinNqzX0p1d2B149U96cp0wEVP4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1785762902; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=w8p7l9KDyqpQM0h8N7+U6sGCOQfMifyQ98119lXli7Q=; 
+	b=A2bepPLdYzWdsUTwsF4hOdNR5dFGXwWMwdqMspywP1EUC4JTpny9A3I/6pob55UDC4hk1HEupxHnpoxTyRsaM9+dISWAr8s2k/6iP6PqYAaUna6Sqmj0gcyUWPUDT3g2G8J7wq+oY2Qy1+fo4IRVqBasdqL/g7A5wILXWYeivaY=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1785762902;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=w8p7l9KDyqpQM0h8N7+U6sGCOQfMifyQ98119lXli7Q=;
+	b=AmgTJA6OQ8qRlG/Kq+1Vxr5UrIKs6zmE9lytT5HG0B5/QTzDQTpyjj9qvJtAau3G
+	JLhB0zVAVKZY39rACXp0AB1wQWpEGvE+rDBryD1MVG8Ck9Eq4ZnEC6ZVSEFHEvWR7TI
+	mH2vJo0WNQb7blKdnmzCxT7KnmT2W8Zk4Kzgd0QY=
+Received: by mx.zohomail.com with SMTPS id 1785762900286286.4522001800068;
+	Mon, 3 Aug 2026 06:15:00 -0700 (PDT)
+Message-ID: <3c62ce01-e052-490b-a61d-b134a3b3b8fe@collabora.com>
+Date: Mon, 3 Aug 2026 15:14:57 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708120833.755998-1-lgs201920130244@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: imx415: Fix control error handling
+To: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>,
+ sakari.ailus@linux.intel.com, mchehab@kernel.org
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260731125542.293895-1-ahmisaranrao@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260731125542.293895-1-ahmisaranrao@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Hi Guangshuo,
+Hi Narasimharao Vadlamudi,
 
-kernel test robot noticed the following build errors:
+Thanks for the patch!
 
-[auto build test ERROR on linuxtv-media-pending/master]
-[also build test ERROR on media-tree/master linus/master v7.2-rc6 next-20260731]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On 7/31/26 14:55, Narasimharao Vadlamudi wrote:
+> imx415_set_testpattern() accumulates failures from cci_write(), but drops
+> the value and always returns success. Return the accumulated error so V4L2
+> reports failures to userspace.
+> 
+> The VBLANK path also returned immediately when programming VMAX failed
+> after pm_runtime_get_if_in_use() had taken a runtime PM reference. Break
+> out of the switch instead so the common pm_runtime_put() path is used.
+> 
+> Fixes: d5df1c7f3f83 ("media: i2c: imx415: Convert to new CCI register access helpers")
+> Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
+> Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/media-mtk-jpeg-drain-hardware-completion-before-freeing-context/20260803-143440
-base:   https://git.linuxtv.org/media-ci/media-pending.git master
-patch link:    https://lore.kernel.org/r/20260708120833.755998-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] media: mtk-jpeg: drain hardware completion before freeing context
-config: arm-randconfig-004-20260803 (https://download.01.org/0day-ci/archive/20260803/202608032056.zBdPisX5-lkp@intel.com/config)
-compiler: clang version 21.1.8 (https://github.com/llvm/llvm-project 2078da43e25a4623cab2d0d60decddf709aaea28)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260803/202608032056.zBdPisX5-lkp@intel.com/reproduce)
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608032056.zBdPisX5-lkp@intel.com/
+Best regards,
+Michael
 
-All errors (new ones prefixed by >>):
+> ---
+>  drivers/media/i2c/imx415.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
+> index 0b424c17e880..c3b22b238ea0 100644
+> --- a/drivers/media/i2c/imx415.c
+> +++ b/drivers/media/i2c/imx415.c
+> @@ -686,7 +686,7 @@ static int imx415_set_testpattern(struct imx415 *sensor, int val)
+>  		cci_write(sensor->regmap, IMX415_DIG_CLP_MODE, 0x01, &ret);
+>  		cci_write(sensor->regmap, IMX415_WRJ_OPEN, 0x01, &ret);
+>  	}
+> -	return 0;
+> +	return ret;
+>  }
+>  
+>  static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+> @@ -720,7 +720,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
+>  		ret = cci_write(sensor->regmap, IMX415_VMAX,
+>  				format->height + ctrl->val, NULL);
+>  		if (ret)
+> -			return ret;
+> +			break;
+>  		/*
+>  		 * Exposure is set based on VMAX which has just changed, so
+>  		 * program exposure register as well
 
->> drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1207:3: error: call to undeclared function 'mtk_jpeg_release_hw'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-    1207 |                 mtk_jpeg_release_hw(jpeg, ctx);
-         |                 ^
-   drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1207:3: note: did you mean 'mtk_jpeg_release'?
-   drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:1200:12: note: 'mtk_jpeg_release' declared here
-    1200 | static int mtk_jpeg_release(struct file *file)
-         |            ^
-    1201 | {
-    1202 |         struct mtk_jpeg_dev *jpeg = video_drvdata(file);
-    1203 |         struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
-    1204 | 
-    1205 |         if (jpeg->variant->jpeg_worker) {
-    1206 |                 cancel_work_sync(&ctx->jpeg_work);
-    1207 |                 mtk_jpeg_release_hw(jpeg, ctx);
-         |                 ~~~~~~~~~~~~~~~~~~~
-         |                 mtk_jpeg_release
-   1 error generated.
-
-
-vim +/mtk_jpeg_release_hw +1207 drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-
-  1199	
-  1200	static int mtk_jpeg_release(struct file *file)
-  1201	{
-  1202		struct mtk_jpeg_dev *jpeg = video_drvdata(file);
-  1203		struct mtk_jpeg_ctx *ctx = mtk_jpeg_file_to_ctx(file);
-  1204	
-  1205		if (jpeg->variant->jpeg_worker) {
-  1206			cancel_work_sync(&ctx->jpeg_work);
-> 1207			mtk_jpeg_release_hw(jpeg, ctx);
-  1208		}
-  1209	
-  1210		mutex_lock(&jpeg->lock);
-  1211		v4l2_m2m_ctx_release(ctx->fh.m2m_ctx);
-  1212		v4l2_ctrl_handler_free(&ctx->ctrl_hdl);
-  1213		v4l2_fh_del(&ctx->fh, file);
-  1214		v4l2_fh_exit(&ctx->fh);
-  1215		kfree(ctx);
-  1216		mutex_unlock(&jpeg->lock);
-  1217		return 0;
-  1218	}
-  1219	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
