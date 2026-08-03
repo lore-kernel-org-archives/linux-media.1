@@ -1,67 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C7C3D9680;
-	Mon,  3 Aug 2026 09:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35C81387364;
+	Mon,  3 Aug 2026 09:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785748902; cv=none; b=mwI0y/n0BUhLYR7icV4OhSIu0ceYoSZdba7XfhdSSdiEmx+fxDc7hkvEVoLmCABMhI2MQDzVzGKyyb8AFYvdzaI8X23q5thf5TRAD6O0QBfyYG6pVzc0rshda0UrUiF1E2LmyijLCXOU8yG9IileVRugOhTKHfL4iJM3XdIvx30=
+	t=1785750355; cv=none; b=tjwEQkZUsTZDooSGySx6oJYTjhs8k5IJS4rodRJSjXb0oxQfo14ltaHD3dgLbd/JfZ0obqqZP+BXIT8CEMwNaYaMY0ot2/5t5/WEWdumD31aOZOfzT9BjRzy/528VRp7FZJjGr4xO7IqAMFQTwkea8wfvdPytTeTms1FhUvr9r4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785748902; c=relaxed/simple;
-	bh=9vwjQ+6IjSueeim9H2719MmP2VNUdp6T+HrwZK2paV4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ET5NWim/PsdmCmBFULqe8bdX0YO/XxC7BEBUbOiqyzwUod9Qhv8yqmo5uYcDEqz4SIt54DxiJEAnp1VmRTpkbJmN4nZ3PwNfUkfbZMFuj3hRCZlzM7MHT1kV1c408n79cdHta+HjNbgzsTSo0drofAL/D6doRNTXIfL+ni6GKUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBSnfSmB; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBSnfSmB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E79E91F000E9;
-	Mon,  3 Aug 2026 09:21:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785748900;
-	bh=IIDXExp0sPfWWusIP+FZP8RihVviG7VQ9XWu3nvDOOs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SBSnfSmBZcKeZOACe2xeRmoN0XyCzPk6aQTnG1c0pFRYLrQSKp14Crl6MSjq0y+qs
-	 Bha84JSGBHbrjyXfL3+o8ad76XWn4G/3YSdADz9tKWftcQ4goyfBUtxKfMQWN1KrTi
-	 vr8xqtBkxkAS1XS9NmuVl+CkqiRLWuiWJjblVvQGyHh2JT0fhfdtvhAcZKtrAaew8k
-	 gGAz6QSYDvWuw0RDyFfcDTe8Hbvjp/uTi5swgvPmBTQ9u71KxWV6p8A1WjFa0XBEVQ
-	 zcJkuQdEdFaN8ZoRenU+2uESEaaXXQdi2ZgZdIdephpK1qOOe4zLU4oJSRUAP1U0bF
-	 3Qd9yfoK8KRUg==
-Date: Mon, 3 Aug 2026 11:21:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: David Heidelberg <david@ixit.cz>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Alexander Martinz <amartinz@shiftphones.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: dongwoon,dw9714:
- Document DW9714A and V variant
-Message-ID: <20260803-brave-encouraging-anteater-4ffbd4@quoll>
-References: <20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz>
- <20260730-dw9714v-v2-1-d5da19e6c60b@ixit.cz>
+	s=arc-20240116; t=1785750355; c=relaxed/simple;
+	bh=B/Uz3/A3TVs9dMBu3KLvCerT/38ofHI7DobOBhUXyp8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cH97uKoxm2x1FHNAcYSedntKyUklMzwHftzJ+3VRh6a0I2cWKL1Reh9BHufjRlpaFKDapDz8S5Ueh75DW+EeHTIfciz8eMZrurYC8qg6iBJitWu6GfsHOWe6gWI/5OvYRpx8W0NBW8EzqL6YdF12NrDKJ0Ld9Xo4GWf+VGzs6dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 18ec207e8f2011f1aa26b74ffac11d73-20260803
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:233dd3fa-2ede-4533-ae7c-3d15d2f3e99d,IP:0,U
+	RL:0,TC:0,Content:0,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:25
+X-CID-META: VersionHash:e7bac3a,CLOUDID:7c0264b010e8680e365a23ef89970867,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|136|850|865|898,TC:nil,Content:0|15|
+	50,EDM:5,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 18ec207e8f2011f1aa26b74ffac11d73-20260803
+X-User: chenchangcheng@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <chenchangcheng@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 628142516; Mon, 03 Aug 2026 17:45:44 +0800
+From: Chen Changcheng <chenchangcheng@kylinos.cn>
+To: mchehab@kernel.org,
+	crope@iki.fi
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chen Changcheng <chenchangcheng@kylinos.cn>
+Subject: [PATCH 0/2] media: dvb-usb-v2: fix URB lifecycle on allocation failure
+Date: Mon,  3 Aug 2026 17:45:37 +0800
+Message-Id: <20260803094539.242495-1-chenchangcheng@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260730-dw9714v-v2-1-d5da19e6c60b@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Jul 30, 2026 at 12:20:12AM +0200, David Heidelberg wrote:
-> DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
-> 
-> All actuators are backward compatible, but they do introduce new features.
-> 
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml         | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
+Hi,
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+This series fixes the dvb-usb-v2 stream URB handling when
+usb_alloc_urb() fails.
 
-Best regards,
-Krzysztof
+Patch 1 fixes a double free (probe error path) and a use-after-free
+(runtime reconfiguration path) caused by the URB allocation error
+paths leaving a stale urbs_initialized count covering already freed,
+dangling urb_list[] entries.
+
+Patch 2 makes a failed reconfiguration recoverable: the "all fields
+are same" early-out in usb_urb_reconfig() is now gated on
+urbs_initialized, so the next submission rebuilds the URBs instead of
+silently leaving the stream without any submitted URBs.  It depends on
+patch 1 (the gate is only meaningful once the allocation error path
+resets urbs_initialized to 0).
+
+-----
+Chen Changcheng (2):
+  media: dvb-usb-v2: fix URB double free and use-after-free on
+    allocation failure
+  media: dvb-usb-v2: reallocate URBs after a failed reconfiguration
+
+ drivers/media/usb/dvb-usb-v2/usb_urb.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+-- 
+2.25.1
 
