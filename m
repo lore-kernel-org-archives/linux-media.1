@@ -1,179 +1,174 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B5B13A1684
-	for <linux-media@vger.kernel.org>; Mon,  3 Aug 2026 06:38:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAFE392C20
+	for <linux-media@vger.kernel.org>; Mon,  3 Aug 2026 06:58:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785739111; cv=none; b=O8XmaL8XiSBvp4SC5GrK9tcV40XCMbfeQTnh2NDzWfwyNOziGFFRUK72QEMIhxJCRYkmEPiKlf6DH2g+UeFaKt/LZy06eBQbb335mmilly+z6JhcCu9M1MUDO726nGq2R19+J438Cil8/SXRnez65CeTOZJHZ7w8ZqVjj+IpEgg=
+	t=1785740310; cv=none; b=pniCAITGW3iYqOH6lJlQPGUikV6tPBIQa+7GZ9GFB8aV1tMGKI2+/x+arNOLNYZMXJaTIWA+w46wgF9NpMAT2C/AECK6lju1qBsNw+w94dow98STAmoAv+pRTIWb/OQkCPdePzwtagrKQJxS03Kzg0fk8TG/xviAAgg1CCEuzvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785739111; c=relaxed/simple;
-	bh=vLpX4ZuPzLEP67c+cuTJnZelof862na1s4JOb2xUtbE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hU4wzLqkGEgh/Ah1TaOmuQjCj56a3AGPtS8UfpMah5uIjIeHf/luOtj6SvIV0PQvQoHSCYSqLXu0jD3STa09+42z4PhcbKYIQcXInMeaFZ4978dTIwkRdYZrHMREU9dUTqSqN4vhsU2S582x1Y7My5BVsDZWVKbnErf9XPAH7L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=bvyZziJG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j9fkJ/x7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785740310; c=relaxed/simple;
+	bh=On28LPNyT0wHYK1eiiih84TylpPEl11SClJhfwLcI+I=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=bVjGCwNtW8mIgS3vHck3rAAEbHWKf//QmVFD/aYfhhgKc5FsGfN0o4US9pJS4+mYVH+ikMPMu50Is7k8drBY4lKCRD3vvGgNCGWQdxjmAzGD/atqaAdPjRN8B+Cp9k8Bjj18vgIlHxS6gLho9dxkSEwqA5Sv9w2+OozIJ83yrsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--yunkec.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=hA+V6W8W; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--yunkec.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="bvyZziJG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j9fkJ/x7"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6736bgPq3957457
-	for <linux-media@vger.kernel.org>; Mon, 3 Aug 2026 06:38:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LAzrxc2hNI6I+qi7h96XH364pbhlv27NAt6ncX0XJyA=; b=bvyZziJGJa1fnsDR
-	Udsh/FxIwL07LTkBqGzvFBdMCltRBIululm74y68vew/Alm8cxP+UMZrHd/Sy0oZ
-	nLGsGcdc0XnzElu7WMQIhX8jBPHOq2Itjvsskkhob3AQ/lPIwmkbGtt/fmdx7OPT
-	l7wLqt/jxu+FWbL195B0JyvHJVUrC3GkEmD195D/AgJZtx/6jSQoh0bNoysDrLUA
-	C08oFXnrMPhY2KqEucjyuVgRLbPLzkOsFdgDUFZfFosVUnCnxflOL/rok6ypkI/z
-	Qm698Eruzn8WWpOSuZquuGUGaWiz5ptZN2Svh0AqIeiJTW/4V97wNy6F/hAffL3v
-	qHK+7w==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ftnvng041-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 06:38:28 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5283df62d68so28588081cf.0
-        for <linux-media@vger.kernel.org>; Sun, 02 Aug 2026 23:38:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="hA+V6W8W"
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-49d4cb3ca23so4326967b6e.3
+        for <linux-media@vger.kernel.org>; Sun, 02 Aug 2026 23:58:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785739108; x=1786343908; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LAzrxc2hNI6I+qi7h96XH364pbhlv27NAt6ncX0XJyA=;
-        b=j9fkJ/x7pYeFKxew+UpLFzKtBDbigtHmUGam8WHrwAkIU4n3syWzN5FvmtPnBB3noa
-         CImDUMPfOcpHelZT7IlH62VEpqNCWysdsXCXFJyh0tsWtr6RfzKaZrk1xPuxwj0Qc0nv
-         IztIYqWnEDCAp3BRJAfQD3BifOmWtSs1/G0aGiZDJhsAUq8DbrqkFZmv0VJZazh5RzgU
-         KR99uO+QXgnTTkbgcypXUkT/15bUUUvVLMb7vHgzPiD9/2kgqjxlCuJqR1ypic7/bq9P
-         5h7d12uNXvz7IdIOD9yiC8EAyDvBxTwy0QFOMrYOmjjfQbILzFuokOAEPbekL5rgYHkj
-         yVKg==
+        d=google.com; s=20251104; t=1785740308; x=1786345108; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XqovcFe5p0Xr/iAlnmCGfLgOyscM3G7091IkNg+7W2o=;
+        b=hA+V6W8Wjll8zhdOwNv3wVqeC3TrpuuvlFgBs4AEL0iOhAvfdiVqNdh189fS+YqYda
+         6d4yfZZyVpp6AFZOFZAn6xcJmDrART6tCMABUuwEjR2CJeaWKTtw3A4V+qMiVfnhhA8P
+         aVyrTBdukX79eXg9fE8FEmAgorVtA2RBNipmuJpSa75uvLKahGKkvz7C2yCQeL1m6+JW
+         FetNxq8L55dv2izKmfbgcnBuMQdRfShdphtOlT1Dn/A+6vNQoq4ROzKNIBuV7XwQgCQi
+         /4ixSBlP9Fc5gbGfI1eCbWKR0xcwdmDbIN1WFyEBxSyLc7UMll8w2po8xfM9J27JIcWa
+         u69Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785739108; x=1786343908;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LAzrxc2hNI6I+qi7h96XH364pbhlv27NAt6ncX0XJyA=;
-        b=NymcQZbxclD75OLzXK/9bnOQlI6KFPWIqBecNoKScF0waI3149oi3VlNV0+f9jhU1g
-         HaBLlK2I7ctEpoenyHciKr7UTDvkrZmMIzRRx6fTRyCakjx/A6DoNJLLis5lSsfdxEeC
-         DyK2poMieLwPWXC9Y+7QzBqtutrh2gaF/YUn8nSjR9meoDCZNj1+bMDO3Ba9C67THrT9
-         Yz8Lr90qZM1vWwgQZ0S1tHPknubYLJSt6IV/gXifVvBWwSVSynnu9v7Ig6B0M3QvvLgc
-         fWYZ/ec753F9/Po4tV90WcLVEEmyyl7GMKGN775iFM8scaF0tm03S/qcDNpcb3I3nOFE
-         knMw==
-X-Gm-Message-State: AOJu0Yz5oLcSW5ww1HujmLU2A3qDbRo9iGpN78QNTc5cvcRoVxt1xj/o
-	f8WRDx+bplUHcFC7Jo86seNwAOdkUHl0gC/UNVSfgtwmOBBW1IcsKF9UMWdH22sePaxUhQGx1EJ
-	up971JYF29iJGKj82v9L4A6JztUgW1d0VQvgk/E9nlAmaHWNbYIH1IRv4PjFZXYYg9A==
-X-Gm-Gg: AR+sD13fGcFbEaVaab9DD6movKTwc9sdZG3aHAas159yQDnQbrH8zKZvD1agakriCMq
-	szRm/Zk85y3esgF/u0I5KRj2YDuM3QOCqss8keqlHJyFw3HGON1RQyIAAj7wSKErHWZQa0AggKU
-	0HgOBXMOjQXa05XxdE73G4YJMqBPOlUSNDtYRukAGYbFuHtyeiOWj3bgDKd4ZY8ynbSNUJxkS7Z
-	9N5at+edXWn85i1Fddt3J1ym+Olb6ZH+RCqe+7WIBru8gdBlmQgsM8YKyY5ahFhqyJOCi/kf87Q
-	JIcV7Kp7j9yJ5VHBSpkgcI53Ca1BICSlKVO+G0BRe3jeZ1wIj0+qVaflj5maxtydjAJi05Lx5lj
-	cx7a7cTF4jU3ssGbXahkx6V65A81mUuvnMJVscrQsAYMYEmTB7CUNn/8cmguowX+xfPKJfk0v
-X-Received: by 2002:a05:622a:e0dc:10b0:52b:6543:d8b with SMTP id d75a77b69052e-52b654316b5mr81525921cf.12.1785739107713;
-        Sun, 02 Aug 2026 23:38:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:e0dc:10b0:52b:6543:d8b with SMTP id d75a77b69052e-52b654316b5mr81525721cf.12.1785739107190;
-        Sun, 02 Aug 2026 23:38:27 -0700 (PDT)
-Received: from [192.168.1.31] ([85.196.172.179])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c6615a1sm4652514a12.27.2026.08.02.23.38.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 02 Aug 2026 23:38:26 -0700 (PDT)
-Message-ID: <fc2eff99-22aa-496a-8ea6-dc9a856819b6@oss.qualcomm.com>
-Date: Mon, 3 Aug 2026 09:38:23 +0300
+        d=1e100.net; s=20251104; t=1785740308; x=1786345108;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XqovcFe5p0Xr/iAlnmCGfLgOyscM3G7091IkNg+7W2o=;
+        b=tWeeZMDX0ELyvqeBu6Ntv+iI4FC3rJrrSircAVE1GRr679Ja5IVGfVudJih91ZRQNQ
+         Ug/kwtDnV2i/6SVhSVIA6tDOSXjDcUoBf6HWSLRzg5dmfFwS83iyuxPsh2bqrKHzRspx
+         wfAh0PGr8ev3Cp+xdAZ7fRkdV4vWvG5L1Rl1K7YWd6ObI+xLckbj+skp5ZRPUS5adbrB
+         4R+PLJ0L3kQz1UCRPnyjbaR3md/43rm8YWb6wTeD1MU1bLd11k9tYIleiEKZV7fu03ly
+         I42PicH3OkTBkhcv139Kw7luOUn32uDqyp9sR/w2fAHse6lsWnAqZzAWNZfNHA7dK3ji
+         2W6Q==
+X-Gm-Message-State: AOJu0YwZ0laJdPSzZvUyiTt3/wbkGu8jllxFvfBySEVf6wlpzAc7B7TD
+	r1niBBFyA6C1fVb/cyQP2e/y4G0G3zuRmk8hkmrpUh8fYKxDOxqRzyPvLS7+zqVWO2MXpl7XX+M
+	MPTH8NQ==
+X-Received: from oabyo7-n1.prod.google.com ([2002:a05:687c:47:10b0:457:cbf4:edf3])
+ (user=yunkec job=prod-delivery.src-stubby-dispatcher) by 2002:a05:6820:7083:10b0:6a3:1e40:6329
+ with SMTP id 006d021491bc7-6ae43223c2emr9485122eaf.13.1785740307827; Sun, 02
+ Aug 2026 23:58:27 -0700 (PDT)
+Date: Mon,  3 Aug 2026 15:58:11 +0900
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
-        konradybcio@kernel.org, loic.poulain@linaro.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
- <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
- <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
- <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
- <qje2bZKWSzkQQGDw0traOE7SqoXhCBLeDrilCooH6Vh6cYeFWAh_VyhqspJuzVs3iA4ye2U75aZHsVGorNPjPQ==@protonmail.internalid>
- <476aee61-015f-4793-9be7-a102c1c3e811@oss.qualcomm.com>
- <3e8b2574-eab5-4c34-b400-c75312b9a772@kernel.org>
-Content-Language: en-US
-From: "Gjorgji Rosikopulos (Consultant)"
- <gjorgji.rosikopulos@oss.qualcomm.com>
-In-Reply-To: <3e8b2574-eab5-4c34-b400-c75312b9a772@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=aoaCzyZV c=1 sm=1 tr=0 ts=6a703764 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=cLrG_rAEkySFN_cCsHIA:9 a=QEXdDO2ut3YA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: VJsYVxxyO5p2B8FW7qGXS_M17Azjq354
-X-Proofpoint-ORIG-GUID: VJsYVxxyO5p2B8FW7qGXS_M17Azjq354
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODAzMDA1NiBTYWx0ZWRfXwGK94Cr/DO1P
- yny40lTrdXaSYzumzhiZBBGJ2XAyjrWVZj58dglmG2mNKKxDC1zqo1xMSPo1eKSBR1Dpjy3e2YA
- ICSoTK04wqY4O9N6znfcCVjBgS8vfj+y2YkaJ9WpmA+YUwT/wILwBjiB1G/rqjMtD8lbO2OYDRU
- xQKaY8W5jOCTqvmIHnpOyj1kHCsoTDwLmirCBWzQTBiaTf0O/Y0MZDwhCb0mUgxuqcLfKlxqcWT
- euSetU5P/EVhpesGiwiKF4j5vkJHyUL+Oneqt55SXBIdLvVcSAIP0rpMvSw5+vhG11514tS4bPG
- 0gVoUlnHqY8sul1nXZ5qo6aZJnbXkV+YLaP4lJXYk8t9u3NVPhnJr/lDA/HfT0jHj0FISKnz3rB
- gjNxaeLvyAzYXN5s2P/gjttPJJu+7QyHKREOoi5ppCGrX7mXF2nsNCdAvZaO/wbhwo83CdrQcja
- DvKAttXb/GLXpEFRmhQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODAzMDA1NiBTYWx0ZWRfX7bBWL0V2Jt6S
- y10nKxFZoTABE/A5V5sx6uza0zxBmSgwQNE0QYnENoZZ9+RXEpZPtC8gxyPvXr9uDAAlWTx8EjS
- X/FPnntVbTyv21wsdIUpN/AxP7gnItY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-02_06,2026-07-30_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 suspectscore=0 priorityscore=1501 adultscore=0
- spamscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608030056
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.508.g3f0d502094-goog
+Message-ID: <20260803065811.3490286-1-yunkec@google.com>
+Subject: [PATCH] media: uvcvideo: Add quirk for invalid dev_sof in Logitech C925e
+From: Yunke Cao <yunkec@google.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Ricardo Ribalda <ribalda@chromium.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, Yunke Cao <yunkec@google.com>
+Content-Type: text/plain; charset="UTF-8"
 
+Logitech C925e SOF does not increases at a stable rate of 1kHz.
+Add a quirk for this camera to make hwtimestamp usable.
 
-Hi Bryan,
+Before applying the quirk:
+```
+seq:     31 ts: 1075.543294 delta: 29.423 ms fps: 34.94
+seq:     32 ts: 1075.573022 delta: 29.728 ms fps: 34.90
+seq:     33 ts: 1075.602353 delta: 29.331 ms fps: 34.87
+seq:     34 ts: 1075.632031 delta: 29.678 ms fps: 34.84
+seq:     35 ts: 1076.177759 delta: 545.728 ms fps: 23.00
+seq:     36 ts: 1076.213255 delta: 35.496 ms fps: 23.12
+seq:     37 ts: 1076.209371 delta: -3.884 ms fps: 23.82
+seq:     38 ts: 1076.232233 delta: 22.862 ms fps: 24.11
+seq:     39 ts: 1076.264682 delta: 32.449 ms fps: 24.24
+seq:     40 ts: 1076.287318 delta: 22.636 ms fps: 24.52
+seq:     41 ts: 1076.285949 delta: -1.369 ms fps: 25.16
+seq:     42 ts: 1076.317714 delta: 31.765 ms fps: 25.28
+seq:     43 ts: 1076.317085 delta: -0.629 ms fps: 25.89
+seq:     44 ts: 1076.339919 delta: 22.834 ms fps: 26.13
+seq:     45 ts: 1076.212836 delta: -127.083 ms fps: 28.91
+seq:     46 ts: 1076.242494 delta: 29.658 ms fps: 29.00
+seq:     47 ts: 1076.271852 delta: 29.358 ms fps: 29.09
+seq:     48 ts: 1076.301739 delta: 29.887 ms fps: 29.17
+seq:     49 ts: 1076.330887 delta: 29.148 ms fps: 29.26
+seq:     50 ts: 1076.360639 delta: 29.752 ms fps: 29.33
+seq:     51 ts: 1076.390095 delta: 29.456 ms fps: 29.41
+```
 
-On 8/1/2026 1:04 PM, Bryan O'Donoghue wrote:
-> On 31/07/2026 20:30, Gjorgji Rosikopulos (Consultant) wrote:
->>>> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
->>>> please drop separate mmcx vote here and let it come through the
->>>> titan_top (it might require camcc driver and node modifications).
->>>>
->>> The change was requested by Brian, most likely in connection with
->>> upcoming migrations. I think he would be able to explain the exact
->>> reasons. As far as the facts are concerned, this is not currently
->>> necessary for the driver to be functional.
->> In the documentation we have this jpeg block need only TITAN_TOP_GDSC power domain.
->> However Bryan request to ad MMCX and MX.
->> As i can see same is for csiphy. Maybe is better to sync with Bryan.
-> 
-> Check hamoa - I believe it is the case there's a separate vote required 
-> for MMCX/MXA.
-> 
-> I'm prefectly fine if all that is required on kona is titan_top_gdsc 
-> but, basically I'm asking _you_ to go verify the difference and come 
-> back with an answer.
-> 
-> "Not required for Kona we checked" - its not about being asked its about 
-> checking what's actually required, I'm highlighting this because sm8550 
-> perhaps and hamoa definitely are different.
-> 
-> All of this is in the power-tree documentation. Please find the place 
-> where the power-rails are stipulated for venus/iris and then check to 
-> see what's required for the titan block and represent all of the 
-> necessary rails in the jpeg@{} such that jpeg@{} can run standalone 
-> without any of the rest of the block switched on.
-> 
-> I'll trust your diligence in that.
+After applying the quirk:
+```
+seq:     31 ts: 203.782342 delta: 33.460 ms fps: 30.94
+seq:     32 ts: 203.815492 delta: 33.150 ms fps: 30.91
+seq:     33 ts: 203.849017 delta: 33.525 ms fps: 30.88
+seq:     34 ts: 203.882190 delta: 33.173 ms fps: 30.86
+seq:     35 ts: 203.915672 delta: 33.482 ms fps: 30.83
+seq:     36 ts: 203.948902 delta: 33.230 ms fps: 30.81
+seq:     37 ts: 203.982335 delta: 33.433 ms fps: 30.78
+seq:     38 ts: 204.015475 delta: 33.140 ms fps: 30.76
+seq:     39 ts: 204.048992 delta: 33.517 ms fps: 30.74
+seq:     40 ts: 204.082208 delta: 33.216 ms fps: 30.72
+seq:     41 ts: 204.115675 delta: 33.467 ms fps: 30.70
+seq:     42 ts: 204.148995 delta: 33.320 ms fps: 30.69
+seq:     43 ts: 204.182354 delta: 33.359 ms fps: 30.67
+seq:     44 ts: 204.215605 delta: 33.251 ms fps: 30.66
+seq:     45 ts: 204.249004 delta: 33.399 ms fps: 30.64
+seq:     46 ts: 204.282259 delta: 33.255 ms fps: 30.63
+seq:     47 ts: 204.315686 delta: 33.427 ms fps: 30.61
+seq:     48 ts: 204.348945 delta: 33.259 ms fps: 30.60
+seq:     49 ts: 204.382337 delta: 33.392 ms fps: 30.59
+seq:     50 ts: 204.415570 delta: 33.233 ms fps: 30.58
+seq:     51 ts: 204.449069 delta: 33.499 ms fps: 30.56
+seq:     52 ts: 204.482218 delta: 33.149 ms fps: 30.55
+seq:     53 ts: 204.515706 delta: 33.488 ms fps: 30.54
+seq:     54 ts: 204.548940 delta: 33.234 ms fps: 30.53
+seq:     55 ts: 204.582403 delta: 33.463 ms fps: 30.52
+seq:     56 ts: 204.615563 delta: 33.160 ms fps: 30.51
+seq:     57 ts: 204.649057 delta: 33.494 ms fps: 30.50
+seq:     58 ts: 204.682301 delta: 33.244 ms fps: 30.49
+seq:     59 ts: 204.715735 delta: 33.434 ms fps: 30.48
+seq:     60 ts: 204.748890 delta: 33.155 ms fps: 30.48
+```
 
-Understood. We will check that thanks for the clarification.
+lsusb -v
 
-~Gjorgji
+Bus 003 Device 005: ID 046d:085b
+Device Descriptor:
+  bLength                18
+  bDescriptorType          1
+  bcdUSB               2.00
+  bDeviceClass            239
+  bDeviceSubClass         2
+  bDeviceProtocol         1
+  bMaxPacketSize0        64
+  idVendor           0x046d
+  idProduct          0x085b
+  bcdDevice            0.16
+  iManufacturer           0
+  iProduct                2 Logitech Webcam C925e
+  iSerial                 1 2F2036AF
+  bNumConfigurations      1
+
+Signed-off-by: Yunke Cao <yunkec@google.com>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..5b9ea19ad9f2 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2706,6 +2706,15 @@ static const struct usb_device_id uvc_ids[] = {
+ 	  .bInterfaceSubClass	= 1,
+ 	  .bInterfaceProtocol	= 0,
+ 	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
++	/* Logitech HD Pro Webcam C925e */
++	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
++				| USB_DEVICE_ID_MATCH_INT_INFO,
++	  .idVendor		= 0x046d,
++	  .idProduct		= 0x085b,
++	  .bInterfaceClass	= USB_CLASS_VIDEO,
++	  .bInterfaceSubClass	= 1,
++	  .bInterfaceProtocol	= 0,
++	  .driver_info		= UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
+ 	/* Logitech Rally Bar Huddle */
+ 	{ .match_flags		= USB_DEVICE_ID_MATCH_DEVICE
+ 				| USB_DEVICE_ID_MATCH_INT_INFO,
+-- 
+2.55.0.508.g3f0d502094-goog
 
