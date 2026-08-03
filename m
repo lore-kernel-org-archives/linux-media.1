@@ -1,123 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37563324B22;
-	Mon,  3 Aug 2026 07:30:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B4B1DFFB;
+	Mon,  3 Aug 2026 08:28:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785742212; cv=none; b=n9Q9OV7J202ZQop3p3uvKis85Bmwaihnb5P+rH1xUCi9cfg2E6/SXDNZgblRS2ZQuB1pDsZgQIn6YZXcOiujPBom2P5XzsbXjezfdbITBMzN6DtQyOqT12Gb3zwLVHjcEA9DMmpr04lqebZB5SkQKwDUoqb2U/5ZLlHUeHnjwmg=
+	t=1785745739; cv=none; b=MQkuMbwEwg+6i/sGS7MhbgWFErwYLolsOAybfPhVDuOsNpbv00aSoDaYMXyj2Fzru+pml9h0HkCVZ3FLBtS3ZjDFwOsFR4N+egy1C+bo5HB7nTVyeP0b5FgBeeCdg6zGueQeibUtN78wUZYj7foYVNoKpsX6UElf/gESnh2UYsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785742212; c=relaxed/simple;
-	bh=nW4Oria3JDl4RQUhHTC6Ik0Nt7jezSYNDBlP9xfAKwc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kzLjWMkxqDLoAso1GWIr3S8a1UNkcWj3r+E+XP7SnHA0wGPV1xBhgP0ORfKv9wM8A9C3E8P/dQe6o9a8wM2aKnymiVh2ikHN0bdnBBXHEYQxXYsyYbjNLRhpF0na/yzfwIqXeC3YLCTIaV+cV38MIL5q2iKybhBYyCwKpWcqSnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6asfHzA; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1785745739; c=relaxed/simple;
+	bh=xC3OrNnP/G/fQTfG7vaW1/GEapYnFwmRXLB2yIGlMC8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aKU4VZZEbNxtk5rP8pGk9/7Wk8moMiYJGzADNEePF2u1tgvGKtCL1zhtBatMhaptR9epb2q50W5NL0RhRi4qT+lqgk8BUnVSc8X2mUtlHf3JS7qvmhCEH7+Ao5jlaRnPA0h2TXLmcfHSlR4EI0aS2OjXMwe0uHiLVMcINVG7mj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hk7siMCm; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6asfHzA"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E4093C2BCB9;
-	Mon,  3 Aug 2026 07:30:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785742211;
-	bh=nW4Oria3JDl4RQUhHTC6Ik0Nt7jezSYNDBlP9xfAKwc=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=O6asfHzAHoJUgY4Q6Vm4e4JwyiJJ1DTOkTlU2ZKTe65e2GMoPusFY/ZDfsaym+ajC
-	 vEgW2LVyTgvBmbqaLwIHSgvMCdmUTJz6fovtduyRWEXElDAhIlTZGebp8oSDtzUcSn
-	 oAdiDNDi4eL89dX+jFalkngCKKN5YP0skLI0lLQLNjskpOX9WcDgBoRIkhyYJfbWlx
-	 m6z8H4nv0TXWNtnRuamIu9lWM9j5qCTR8iTsgH/D31UHdYimI1hlbVnJS29Mp8FtrO
-	 aXL/01UkIFnweesJwepBW6ETEDgkeUaqpbQuIVvEQy+luI77Tmm24dsgEARRxrIVKK
-	 gnYsSDv/XAsLw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id BA564C55175;
-	Mon,  3 Aug 2026 07:30:10 +0000 (UTC)
-From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
-Date: Mon, 03 Aug 2026 15:29:36 +0800
-Subject: [PATCH] media: vicodec: fix NULL deref on oversized frame
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hk7siMCm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1785745736; x=1817281736;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=xC3OrNnP/G/fQTfG7vaW1/GEapYnFwmRXLB2yIGlMC8=;
+  b=hk7siMCmiJK1idYtxJqkcQc1JMVSQIxTqCJ33TgFF0Y7f9TW4QvqSW9N
+   DvCe7AVy4MOLkMDADxh2RX9TLIawRqqOyP0fKlzkCjFzNeQMxZZpEIJ1E
+   VjsJVLoT1dNqKXW5DdDYeeZReOKGKHQ+7lrZ4I09bVnEdpkuntwn2bGZM
+   ASnqF2OV59MwR6vnNcBtnbk9sARyBoViHLC+ktNzJbxQ9G8w3dXYZZloT
+   dA5gEYYe/+64ixZH8grAkvH/GXQnoYBznB/Zo7IZirhROmPBcm/gLVxS/
+   dj1Xzu4fM0xaA3V7kFZE8LpTx3pTPsMwwHbvhMZ872VXE1bTc0vERRQ6V
+   w==;
+X-CSE-ConnectionGUID: QeA3CivvRVKv2XKuqwh9gw==
+X-CSE-MsgGUID: s64aPPsxS9eGb7gExMZdQg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11863"; a="111828634"
+X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
+   d="scan'208";a="111828634"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 01:28:55 -0700
+X-CSE-ConnectionGUID: Ag1Csky0THygb39DjHKQlg==
+X-CSE-MsgGUID: Q3rjCMSzRxy8JGh8k8BaNg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
+   d="scan'208";a="254882189"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 03 Aug 2026 01:28:53 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wqo2U-000000006WT-0ms4;
+	Mon, 03 Aug 2026 08:28:50 +0000
+Date: Mon, 3 Aug 2026 16:28:09 +0800
+From: kernel test robot <lkp@intel.com>
+To: Aniket Randive <aniket.randive@oss.qualcomm.com>,
+	mukesh.savaliya@oss.qualcomm.com, viken.dadhaniya@oss.qualcomm.com,
+	andi.shyti@kernel.org, sumit.semwal@linaro.org,
+	christian.koenig@amd.com
+Cc: oe-kbuild-all@lists.linux.dev, linux-i2c@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org, naresh.maramaina@oss.qualcomm.com,
+	aniket.randive@oss.qualcomm.com
+Subject: Re: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based on
+ transfer length and frequency
+Message-ID: <202608031643.mPIeogxp-lkp@intel.com>
+References: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-vicodec-fixes-v1-1-f3cc40cacd05@outlook.com>
-X-B4-Tracking: v=1; b=H4sIAF9DcGoC/x3LTQqAIBBA4avErBP8qbCuEi1Cx5qNhoIE4t0bW
- n48XoOCmbDANjTIWKlQigw1DuDuM14oyLNBS71IK42o5JJHJwK9WESwRplVG5zUDPw8Gf/Ay37
- 0/gGlSAuEXwAAAA==
-X-Change-ID: 20260803-vicodec-fixes-f8313923e415
-To: Hans Verkuil <hverkuil@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Dafna Hirschfeld <dafna3@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
- Nicolas Dufresne <nicolas@ndufresne.ca>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Yuhao Jiang <danisjiang@gmail.com>, 
- stable@vger.kernel.org, Junrui Luo <moonafterrain@outlook.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2344;
- i=moonafterrain@outlook.com; h=from:subject:message-id;
- bh=iV3617BfwTniNi3UKnCkcCHXT5MEjJv0HupDO6zG/sQ=;
- b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrALnRosKNnO1BXc+WMzrUhcLu3bjFMdO4ZyWL3rLt
- QIzWzz/WHSUsjCIcTHIiimyHC+49M3Cd4vuFp8tyTBzWJlAhjBwcQrARHZnMDLcaH5U8mXvl6/+
- 1pNS+gOWKTrsY/sUo/V66Rm207xfPr0IZ2RorFzk9n7NaZb1re+0NRWOB9+wvZFuvH+22fbH8g/
- 5Ap/xAAAntku5
-X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
- fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
-X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
- auth_id=909
-X-Original-From: Junrui Luo <moonafterrain@outlook.com>
-Reply-To: moonafterrain@outlook.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260715101805.3615166-1-aniket.randive@oss.qualcomm.com>
 
-From: Junrui Luo <moonafterrain@outlook.com>
+Hi Aniket,
 
-job_ready() only honours the is_header_valid() verdict when
-ctx->comp_has_frame is set, and comp_has_frame is only set once
-comp_size reaches the full frame size. Since the copy is clamped to
-ctx->comp_max_size, a header advertising a larger size leaves comp_size
-stuck at comp_max_size, so comp_has_frame stays false and the failed
-validation is discarded.
+kernel test robot noticed the following build warnings:
 
-Control then falls into the resolution change branch, which calls
-update_capture_data_from_header(). That function re-derives info via
-info_from_header(), assigns it to q_dst->info and dereferences it as
-q_dst->info->sizeimage_mult, with no NULL check of its own.
-is_header_valid() does check that same info_from_header() result --
-if (!info) return false which is precisely the false verdict
-job_ready() discarded above. info_from_header() returns NULL whenever the
-header flags resolve to no supported pixel format.
+[auto build test WARNING on andi-shyti/i2c/i2c-host]
+[cannot apply to linus/master v7.2-rc5 next-20260731]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Drop the comp_has_frame conjunct so an invalid header always bails out.
-The resolution change path is unaffected, as it is entered with a valid
-header. Oversized frames are then rejected by device_process(), which
-already returns -EINVAL when comp_frame_size exceeds comp_max_size.
+url:    https://github.com/intel-lab-lkp/linux/commits/Aniket-Randive/i2c-qcom-geni-Add-dynamic-transfer-timeout-based-on-transfer-length-and-frequency/20260803-151058
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/andi.shyti/linux.git i2c/i2c-host
+patch link:    https://lore.kernel.org/r/20260715101805.3615166-1-aniket.randive%40oss.qualcomm.com
+patch subject: [PATCH V5] i2c: qcom-geni: Add dynamic transfer timeout based on transfer length and frequency
+config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20260803/202608031643.mPIeogxp-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260803/202608031643.mPIeogxp-lkp@intel.com/reproduce)
 
-Fixes: 3b15f68e19c2 ("media: vicodec: Add support for resolution change event.")
-Reported-by: Yuhao Jiang <danisjiang@gmail.com>
-Cc: stable@vger.kernel.org
-Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
----
- drivers/media/test-drivers/vicodec/vicodec-core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608031643.mPIeogxp-lkp@intel.com/
 
-diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/media/test-drivers/vicodec/vicodec-core.c
-index 318e8330f16a..dfc8dde4bad6 100644
---- a/drivers/media/test-drivers/vicodec/vicodec-core.c
-+++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
-@@ -654,7 +654,7 @@ static int job_ready(void *priv)
- 	 * if the header is invalid the device_run will just drop the frame
- 	 * with an error
- 	 */
--	if (!is_header_valid(&ctx->state.header) && ctx->comp_has_frame)
-+	if (!is_header_valid(&ctx->state.header))
- 		return 1;
- 	flags = ntohl(ctx->state.header.flags);
- 	hdr_width_div = (flags & V4L2_FWHT_FL_CHROMA_FULL_WIDTH) ? 1 : 2;
+All warnings (new ones prefixed by >>):
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260803-vicodec-fixes-f8313923e415
+>> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 function parameter 'timeout_jiffies' not described in 'geni_i2c_gpi_multi_xfer_timeout_handler'
+>> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 Excess function parameter 'transfer_timeout_msecs' description in 'geni_i2c_gpi_multi_xfer_timeout_handler'
+>> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 function parameter 'timeout_jiffies' not described in 'geni_i2c_gpi_multi_xfer_timeout_handler'
+>> Warning: drivers/i2c/busses/i2c-qcom-geni.c:622 Excess function parameter 'transfer_timeout_msecs' description in 'geni_i2c_gpi_multi_xfer_timeout_handler'
 
-Best regards,
--- 
-Junrui Luo <moonafterrain@outlook.com>
-
-
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
