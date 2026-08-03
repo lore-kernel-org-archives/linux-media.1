@@ -1,51 +1,51 @@
-Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011029.outbound.protection.outlook.com [52.101.52.29])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010033.outbound.protection.outlook.com [52.101.56.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EE338422F;
-	Mon,  3 Aug 2026 07:22:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26753352036;
+	Mon,  3 Aug 2026 07:23:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.33
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785741756; cv=fail; b=EOO7TtkNj1B9jGmj9Cx5fdovB6F2EdCo8RdhM4f4FRB20d3HnvC2iml62cr8bIaHUeOzKHQu+hExIAqmJDCiEvTYpLCD8aE/EePKfnj2WR4RlUxQNChlI+PzLBB8fnQ11uofOZ6GOiopZa5tDXiTePEeOoxivjHst0Rqk0IjTOk=
+	t=1785741784; cv=fail; b=hWjfkVu67/9ciqTj0NXt4aXO9NdokyDc9NqP8RvV1waaF+BqLh3UOrNSiMd8hTRKk/7bRnN69ADfek575r3owub5Afxna3xi1dWnGlJHCHtvPy45ynT+kTtfQgbpvxhSNL1aRrYPW9bWkPr/OittsQ3Z4uoMUIpGlgdNpKpPk/8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785741756; c=relaxed/simple;
-	bh=B3iWtWRZfnLEMzAfMrcc+LnQyLo9KSoEPfJ7X7cxLO0=;
+	s=arc-20240116; t=1785741784; c=relaxed/simple;
+	bh=c/5M+pUynzYrunXpRctS0xgJhuopxRxs3eIVp7vtGmI=;
 	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=TAHW9f7LdBUihvh2sJbMSpbK+FkUEqEO6ba9nbL85alI+UZTvjox+zGr3iDBJ25si292+xPaUC2KxHWyG9ykkbWCBGyErtXHYktZp5wQBL+ESrc5OshFnQIA9WidSexBrYflBJZqLrtiwK15gxrvK8qqRLOnw+m7DvDfi02xsR0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=kug54GYB; arc=fail smtp.client-ip=52.101.52.29
+	 Content-Type:MIME-Version; b=gyZkkN0L8/nL4Ssg3gOvmPebNg6ZZL6doNT2hjnrjg+dseYY90qX7vtFHsBXNHH3yKxffNCagiCtXbJupdYa+q15I7pYMTxArYsRKwI9v0NdMFksq/AG3sPhdDoBfC1x1gLoBjPF7sspYGi0+BDH1Jn3zP1OinyAchEdfHHbXu8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jIk5up9q; arc=fail smtp.client-ip=52.101.56.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="kug54GYB"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jIk5up9q"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ttpBl/xO9+nLbB946nanSm16MqIL+7LFBNI3UD6CnyutSFgrB5UXrriGW8TXWpCs/9p0sdIzj9oZISwJS7TVsLDQj57nseARTeTLBXBo7FjzKyPBP0M3cDXhXw7IGk8506Jdx6IMZQ2dvNSLst8QgCOFBgilQqC6MZiZtkuuWUHlIODB5FMZTQM470tL4aOZhT9cIwCbrIQsZo340Afvz0Wplaaf2roNmgeHdymWxZYWyeR4hCOC6uLV8VkH4qDlTBPf0D3P9U/zCBD1Gs8Z0YknGgt/k7F87Vig6mm/hO4h5eAzuvzKUjaDCHzxSfX0Apt84xiLzprTA7y7B+ReSg==
+ b=RoGddA7nX7YLQeEsLXeJGMfu0/oQTdBcsfvutqrk2FgaWRCjhXqCdNJ6E4wLXKhujpJEqo+I4vuPxjbcK1o6T9vApeEYFpd9JmiDru7XkxD46yhS8PtkHBqqucdZF3oH0M35+gBtBja7gTo0A403C+pPZel95XNVxq6ZAoXIZwyuUqbuKrV6+j1JCHoO/mcNUCxwMv8NZXq+pfgICbUqK93Q0MKq5Rs/wQ9atCdMBqnSv0+uEdhlSUGGPjGZw1lMDvGpc0rS7hXdHOGn4+X5bbMhSgdp7oj3vNGMJkev5i5M9lHI3Oq0KuhOFeu0YT4zv9zRZqu0rpFLrQrOWcE8jw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=7omJitspzsWfftYxi7EGSeHkxuHobq+VpBMSes8dtr8=;
- b=MHeIcFwtHqppv1En993zDCtSILlyEklchlm+NIMcAG24rxLsWLi5FZoSnkCbJLAfhi+4frF3dW02QCEMPMpvk3wZIsIJ8VdIWWPg/10icJEZrZYTXklOKkachp9rzw3gt87gnyNcJE76qSfDuYmzRH5bcrq1erSj5KiIV852Nubgq1Nag/qfOG+BlhwCgp35UzNvq5ku6G31TSkLtK03M+SEXdkGz/qd5gaMgg7I2JrCjIMtkhXmFnMM7Kt02bKtOQe5FkHf/Nc9eZuT0fB4fPHH6LpLKpQlb5srSoXhTtukVvhTnn5D036WXu6DR1Hxa1h7MV61SwTQyeAzzYEiFw==
+ bh=7eW8XgeLMPNkdwNwjGd4XbbsrWE5+wdftOnHnIlutT4=;
+ b=TgoWo7lO1XaRpAE36rpLre+zynl6w8btHmSooFLqozBrNPYc1PQg99JFdB4K5Bgd0zsbcdB1BGb49wW9IcuKb3vRUPTInqECFJW+393ue/TvdUSO+eMMBwZtHEWK5fTZt4xFShadWWYN9DW4Qk4ysGkeZC5TekqP/EJIORXjmz17VwIHGz8ExOWUaKCwdGfd+0zRd44kLrugONJzIbw0j/mHKFwT2TrXS0GByassVNu4GCT/HyDSfNmWEiuMgDPCTqa/DFyWqpQ6qldyGvJ+0BR/NHXWbcQVSaBbvs4sRiFhoI/tztAgClygrE/zZmLCnILktbjtAuwbFiWmeC4atQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
  header.d=amd.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=7omJitspzsWfftYxi7EGSeHkxuHobq+VpBMSes8dtr8=;
- b=kug54GYBMwtcTewkx6Fi52NDAzpDGdaFKzX7dsspJTlLQdQu97FdaLe2mHDRPj2NvrQ3flexWPy680bYNI0NKwCqb9D0vxYrljs2XllEyHvLVgFsYvDmmWd0qhcX0lR9VyN5sngYifcV183LrA2Qr2QoXxUSoFB9S2yroApYZwg=
+ bh=7eW8XgeLMPNkdwNwjGd4XbbsrWE5+wdftOnHnIlutT4=;
+ b=jIk5up9qI85SuGlDISmbf2ge2tzD0o2eP4p2VpJEKX3H/Hesi6LMfnE0DK1je/wRCL3BWksTaTY9EvTNYN5Ot4HiMnYXyLVbpE9221U4nNd+SooJ+kA5s32dlDP+tWKSlNgCI9WbTZULvOC6N8R4EL9YuSZveVhTGganPpoqqqc=
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=amd.com;
 Received: from DS0PR12MB7747.namprd12.prod.outlook.com (2603:10b6:8:138::20)
  by IA0PR12MB8085.namprd12.prod.outlook.com (2603:10b6:208:400::17) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 07:22:30 +0000
+ 2026 07:23:00 +0000
 Received: from DS0PR12MB7747.namprd12.prod.outlook.com
  ([fe80::2ef2:e88:4708:b589]) by DS0PR12MB7747.namprd12.prod.outlook.com
  ([fe80::2ef2:e88:4708:b589%6]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 07:22:29 +0000
-Message-ID: <baf0db6f-0e68-4d35-a141-a9a3f5caef0d@amd.com>
-Date: Mon, 3 Aug 2026 15:22:24 +0800
+ 07:23:00 +0000
+Message-ID: <dd8eeff2-bb9a-4985-b6d8-f56a46a07a50@amd.com>
+Date: Mon, 3 Aug 2026 15:22:54 +0800
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/2] media: amd: isp4: release partial allocations in
- isp4if_alloc_fw_gpumem()
+Subject: Re: [PATCH v5 2/2] media: amd: isp4: fix self-deadlock in
+ isp4sd_pwron_and_init() error path
 To: Yifei Gao <gyf161023@gmail.com>, Nirujogi Pratap
  <pratap.nirujogi@amd.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
  Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -55,14 +55,14 @@ Cc: Sultan Alsawaf <sultan@kerneltoast.com>, linux-media@vger.kernel.org,
  "Li, King" <King.Li@amd.com>
 References: <20260728190754.363464-1-gyf161023@gmail.com>
  <20260730141413.4136502-1-gyf161023@gmail.com>
- <20260730141413.4136502-2-gyf161023@gmail.com>
+ <20260730141413.4136502-3-gyf161023@gmail.com>
 Content-Language: en-US
 From: Bin Du <Bin.Du@amd.com>
-In-Reply-To: <20260730141413.4136502-2-gyf161023@gmail.com>
+In-Reply-To: <20260730141413.4136502-3-gyf161023@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4PR01CA0005.jpnprd01.prod.outlook.com
- (2603:1096:405:26e::8) To DS0PR12MB7747.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4PR01CA0010.jpnprd01.prod.outlook.com
+ (2603:1096:405:26e::18) To DS0PR12MB7747.namprd12.prod.outlook.com
  (2603:10b6:8:138::20)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -72,115 +72,154 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DS0PR12MB7747:EE_|IA0PR12MB8085:EE_
-X-MS-Office365-Filtering-Correlation-Id: c15a46c1-f174-4472-1503-08def12ffa0a
+X-MS-Office365-Filtering-Correlation-Id: 3fea53b0-0199-4590-207d-08def1300c2c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
 	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	Z48IwrBclmkTNPF3E0vbepT9sVM5w+bhEgG1qR5s02eSPFXt8eE69sytrttrwIjAl1FfQmTFveWRfwe9r6fBA0ILK3djeBN4c8/0ig9oIXT/yKijxRU4qK2eZM1qwlXnIO2hY8+e2iGMff7A/yJ0B4SoV/E+08ao4RYC8/d0+Pt1RhZlKAZ6palfG+4jL/YD8UibiArSmwEWFnx/ZAs4ls81VW0JLQvqzIjZHwhrPs7DW2xMTcsFh3cEKRntS5j3peoYIvmfC4IVuYgE6BFEuczjBN1dRRgOPBugQgwFCevWD2/jE3qg35dI5Lo07vGy9LNSJESgGZLsfuEXyoSUBQRTUDuj47H0xiaWbmDWBR8sC502DgnP//YfeZ/v2JprdlBvRem0K3o3NDFei9MLZI+KHNwOHOdlAA2tsrVIQlk3dyNAjhCW6N2UFMv78upgUGRxCbSEbiQrZBEk3jv3RqaebYzRJEw85K4kYA2Vr07ylX9BT7FldvEDIwWwq1LNJd3VnSOqyiV/ErFsMWPqgaeIV1iv3vWL8AV6Cy6tWLO2wLEl2kCug7vTjTbEv8SXUbTd/0zzDU4YQFz33AgK34kxLpIM4nIML5zA+uVt7g4wvr+8eQdS6z1Ri7Rv0y3zXDMubjwHfJPz1Vj1F1PXwDSHCHHWlDgUQklDlDAeKME=
+	pOUeET7N3V6cvrpmYYTZg+r8Rh20U6Pf1L9VZiuCQgp9ODspC+qLP8GL3gMiBi85sRldeTd6kkUnYzi4VVe/9IRgFS4wF/jhjOpt+EBUDkcyE4dzpc6APmTASfnwFvl/8RN1SZKS0l55MCQxxsplow680knw492FupeDIM74pBlTWFne5BDxHHh0JJrkyiS9bk1U7OG/Vp6IYtCj6NM4mIW4OlsQw+8RXZkw7nTGzKYOLB7gFYDqthF6vp89OE6g+zh1Tf4l7vS7yfQ6RTojZA0bhCtdPzuCTPw6dZfSlWX+S0p0i8izi4cZgNJ3XPk+w6XRy9o2EFccEnLbyr62V5ScyjbYkEiQQF3Qfgwg379autPIL+D/J89rnr71sYtQNg30goqhALUY+0gQiIFPeVapnuf0x3PGnyG4GSJ92HscFOLjYXCGO8nAYs1PlVmWNgZWPMkrfCgeC2yVpadLkhiPkuMfGUm5MT4AoYbQdA5jgYAqLibwdczRTf9n67NVGNT2zPEgwu7p5Xwf0odq7VPS7vhzM4LaRjT234lP7rEsUwODlSoWAStcN2XqYGDMZmfpc8wsBX/1U4mSLSklzq4jfLSYN+e7uK5UyARk3x+qNGYiTu0nEN2fmDcJ8DqAy1PcWWzVTB6nTCHjX46irtuJwt5pCbCK1jYJEBDl1+s=
 X-Forefront-Antispam-Report:
 	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS0PR12MB7747.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?bUJGcTVjcE5rVUcyYjZ1NndpZmVRL0tkdGEvN1BkYTVJUG1PZGg5WWFHZFps?=
- =?utf-8?B?QzNRc1dxK2pVY3QwWk9GZnJqUnNXSmRPRy9aLzQyekF1UFRVWnpITGZvZUx3?=
- =?utf-8?B?V1JSVzhHVVhzYUNrWlN3Y05Yd0hvcDZRVzNJKzVMbytDMW5taDRDeE5CUDJG?=
- =?utf-8?B?VDFacmdpV0Q3M1pBempnRDFSNEdtMUZjZnQzNHM2amt2UmpGNktZNGJ3bVAr?=
- =?utf-8?B?QW9FRDJmVHoyMjlQYmd6dmc5RS9saHQrcjMrRWZVbVZCSURvNlJENGtPeG1C?=
- =?utf-8?B?dWhEMWNTZkZyMElqc2FrMzBVUHpJRE4veS81ejdGTHFic1ZpNU1xYXN6cHVD?=
- =?utf-8?B?aWVxY25aVFF5T3RsZm5vODJpZkVXQTEyVUJVMGR6dEU3bUpKN0Y1ZElETkxD?=
- =?utf-8?B?MU5ZbEZseXo2MDRUSEF2NzhaUDBnd3VYdHRUd0RPS2pTUFFQNm1mU1p6QUxz?=
- =?utf-8?B?TXUwVDZmZGd5emp0dEVBVStoRzk5MGRxLzJ0OWFNcnRTM3ZDUzFURktzOGtE?=
- =?utf-8?B?Y1k2TzdFOW91WkJSR2dZSGw1UFRHNG82RnNybXoydThieitRK21mMVh4UEdP?=
- =?utf-8?B?aUNRbjRjUDA4U1RVai9jY0xmK0lZMXdaSTEzNU1vNHUzeEg2K3U1QXY3Znho?=
- =?utf-8?B?blJROTY3Wlo2ZjBScCtXU0xEa2VMeXd2VjRnZ1RyZmNFcHJiVkZJRVloRWZC?=
- =?utf-8?B?NnZpSEgzczJaSzlKNTRXUndsVnlZMUlQd1Y0a3MyMDkvYTFEZ2FVeDAzaTho?=
- =?utf-8?B?c3owYmcwcEhLMEhKWC9IM0ZrNjNrbElXYXhWclRuMEJEdVJOUVpvcG9aeW8r?=
- =?utf-8?B?eXNLZnhZR3lORlZhb2dvQ0ozNk0ydnZ0Y2NYWkROMTVPVHF4bEtyVUJvb2VK?=
- =?utf-8?B?NjZCeCtidkw5cGNEd0FmQXBYUkNQSlplYjhkQ3R5TmFMRS81bk5VWEoydHk2?=
- =?utf-8?B?YU9XNnowMkZhbXgvSGxxZ0s4bXJpb2k4UW9Dek1oWEpiNTBHWWtBdXpKd0NU?=
- =?utf-8?B?aDhxVGI5dlBYSEFZV2NvMnlPSG9SVjluSWg1THlSMHFiS1dJUTlkNE0weng4?=
- =?utf-8?B?aEQweGFtbjdlU1FRSzJQZFVYRTlMWVZaRzRSVk45bzlpT0lsMGs1STF2aTUr?=
- =?utf-8?B?b1ZiWC92aHJWbXlzdGhYQ1JlUWF2NGpRd1lKdTh4dm1ONldIMC9vNTFwQWNG?=
- =?utf-8?B?dW1EeFRHOWFzcXl1QVBwLzdGM1FKWlAwZTROZEtrdUNTQ2FQM0wwc0RWSEtG?=
- =?utf-8?B?RVVvTEtkdzR0enc5WGo1UVpVK1BQOVNHZEh4NmZBbE9oTjZGdjlId3hBL3VY?=
- =?utf-8?B?dEttTEpXaytPdW83Z1YvMHg2WjhJYmhLdG85a0gyRWNRK2I0emMyVE9kWFpV?=
- =?utf-8?B?VVZGcGxycnVLMGVURDRHdHFCLzRSWlMwVnRFT2l5Q2dSektEMEExMmttUGpk?=
- =?utf-8?B?S2Q3VnJDVi92bmJoWE9CZ29SaGZtWkdFL2s3aHhEblUzSmdZeXFQdTRodFZM?=
- =?utf-8?B?VDU3QWxZMUtNUzhVTFMyNG5qTkd6dHNIem41V0ExcHBVYWx6MGhpWnpiRGNI?=
- =?utf-8?B?Nlhjd1orWUkrUGRsUVd4cllrdDFQZExtZ0xWZmh0VmlCSm1mclNxZUxCb0ZG?=
- =?utf-8?B?TW9TYXZYcUQyN3IxQUl6bDUrdTZIK1hiOHFwTU5kOHduNDdlMVpFNVlGa3c2?=
- =?utf-8?B?NjlIRWE5OTFqUWJKWWF2dUV3OGUwTnY4TU1BN3pnZjByYnFzVjlyM1cxYnF1?=
- =?utf-8?B?SjJ2U29jRi94S0IxMERaRVhrS2hVRk13L2UrQjU2YkdyRThhSGJHR05xdlBr?=
- =?utf-8?B?ZHQ4akEvZ0hYejJGNC9LcjcwczZLTmF0K0x3QnZaYkoybHppMGZvTEZHR041?=
- =?utf-8?B?MGNKNERkREFGMFZhL2MwdzkxTHFqRFFUN2xYRk8vVTRVZnJTcm56S0M3dmhx?=
- =?utf-8?B?Ymx2SFMzTnBNZ0FXeFV0NWZuRTNaYTUyV3JBWlJ5Qkd5S3lBTG5pUG5EaExx?=
- =?utf-8?B?eDcrblRBb3pudmJzbjhUTlFCUTZXeDZyT1JCaGN4Y3FadGdQUGJHaHdVMzM5?=
- =?utf-8?B?amFZOXAzZzEyRk9nZmlHSGg5YktheDFWTi9kWHFITDFpYjFVWi9oWk13cGdK?=
- =?utf-8?B?VVl2WFpiVkR3RTBwSEJkZGtZZHltMUw2dThaNnBraUx0MGJXaEVKMGs3Q1dQ?=
- =?utf-8?B?emE2SSthNEVrZ3llYXh4WjhibzdkYlgwcXF5djhHWHU0V1ZubGpKTkd6ZUpy?=
- =?utf-8?B?Mkc5akh3UnllNThGMkYvSVI3S2x6ek5rRU90THVZblZnTi9rR3Q0NWk2Q2No?=
- =?utf-8?Q?YAmtVV/XbJaCzKnmpB?=
+	=?utf-8?B?dHowWmNhbzZZRVBnSGtnWGdqTzlzeVQ3dVlTT0tZVEVqa1d0eG5LbVo5WWdv?=
+ =?utf-8?B?Q3oxRC8raFFJUDdrcjA0Z1dCNVNuZWZtVnExY1VwSlJGQmRUSkZqYmgvZUtD?=
+ =?utf-8?B?WDlSYUhnaE5PUHRSb3paYWc5dUhlaG9MRmJ5MFZyVXJteWRyVkpEaXBrOHFZ?=
+ =?utf-8?B?M3FIZXlIL0xEdEVLOEdsSExSL0RoY1M0YlFDTEZ5Wk8ySHN5MmlsdW5vektv?=
+ =?utf-8?B?VVcwd1dmS2phaU9YWXRVNEpqSk5lKy90ajk3bXhibFByMkdKcFl3VnhlbTJ5?=
+ =?utf-8?B?eElQc3hJYzV0bHAzY2RUbkdKUzZOVitXd21rUGJIb2RDMjBRRHVCNXRLT2lv?=
+ =?utf-8?B?U1JYeHJIS1JjTmdlcld3RFhhYWxxQ3NQSUJtdlZPOGZsOWxJdWF1TWZwcmtj?=
+ =?utf-8?B?TkZ5d1lnMG1MWW9RR3NIWlkrU2toUFFxUXY0dHZrY0VrMFE5bG1IRHFsa3E1?=
+ =?utf-8?B?UEdoRHJ0eGJFRTlhUlhXVGc4WXZWcWZ2dDJMYTdQTHozS1puYjF0Y3VWVldv?=
+ =?utf-8?B?SjhsMC85ZE5QUm1iOVJ4SnZ5dGNycDBMZzFRalU2TEg1V3cvcXdYekc3dzZG?=
+ =?utf-8?B?WTFVb1lzNklaN0N1Z0pyeEgzTUJHejh2ZHlqZ2pLOWxJLytzeUUySnd3TUho?=
+ =?utf-8?B?SUJVRGJWZ1ZoWENFQWRJcTlJUjUwcEtKZFFDbk92akZ4VUR2Wjh4QVExK2hm?=
+ =?utf-8?B?ODQzZXJkQzhtTTVJQ2ZqRXBNU0ltSzZubW1XV0xZaHNMNjZuUXhmQ0xlT2cv?=
+ =?utf-8?B?bzhpYm42c1BJVWFNQWJYb3cybVR6N3lEUVZzVWZkWUR3dXh5VmZaOUFZeUZP?=
+ =?utf-8?B?MGRJRDVTd3lwWnVvZnRhbVMvOXZDNy9Da2FNT3RSbFZWTGlmK0k3ajRFS0Va?=
+ =?utf-8?B?NTBUbnh4eENLY3NkbUJPb3NrNXZtVnY1ekpCbnRubkV3YXl5c1FjeG5XZkxU?=
+ =?utf-8?B?THVqc0licXgraWp3WmtkK2JZZURWbVdvajNTRUNjTGRlZmhRRkdiTlRydXpB?=
+ =?utf-8?B?anNLUVNJYjRPVm9iYTRlTkMwNlM1bHQrMmhlSXc5SmpkQTE0SkpTWTNlSVBQ?=
+ =?utf-8?B?OEp1d3JUbW1FN1lTSGZDRFkrUlNMM0o2d2tOVCtJakdFeU8xNmhCdGtoaUxm?=
+ =?utf-8?B?Nk5UME1neXpLZlI5NXVydU9pR29SV1BJZkJXKzdHaDNkWWE4LzA1Rm85czcw?=
+ =?utf-8?B?NFNtN2t1QkNrSWE0TDNycTVVVlhKQXBPbTloK1FKZDZmN2xoN2JyK2owcXl4?=
+ =?utf-8?B?dTZGSTJVaWpyeEFnOElHYmg4dGtQUkRycEVaVG9lSjRIQ0p0L3VTajduUlVy?=
+ =?utf-8?B?Sld6ZC9TQStHTk5XYkIyMHlES05BWVZKRE9oV3oweG9Bak81bHVld0pBM0FW?=
+ =?utf-8?B?K2dkMEx1L0Y4RGlJUWhWa0xZMTg0Y3oyVEc0R3ZWcWNiYWNQZ3hUK2NGcytD?=
+ =?utf-8?B?V2lzNjhGY0pXRGlhaklWWEVTM01MNk5zekVOME02RE51bkhGQXQzY0RNSE9R?=
+ =?utf-8?B?Tlg5SVRiMkZhMU8wUDRVMWJtbzBJYkVCa05Mekl1SlVZRGk4MitXbG1DQ3pU?=
+ =?utf-8?B?Ym1NcTNUUWRlSVcrNTdZYmR2WEZDV1dVK2E1R050U1FKMGswSUF5blpaVCtB?=
+ =?utf-8?B?V2dOellNUWIxblJuVXd3SGdBaWN1YUNXaFlTeDlyVlVuZjh4d2d3RmhXMjBz?=
+ =?utf-8?B?Z041eTk0WGZ0N1IvaFNHeEh1d2Zac3RQL0ZaSmIxUnhIVnkzZ1BCeVVWbjF2?=
+ =?utf-8?B?eVlxakdiY0R3K2I5VUFxdW5BWjBaNHF1R2pqTG12K1FueVNUTXBDblNWMzVU?=
+ =?utf-8?B?dzJlVmV5ZS96SmNnK2hneEFoNDJhc3o4MUZZeFJRV2VpQ0hYZE1iUXk4ZU9F?=
+ =?utf-8?B?czZqQlp5KzdLaWJkRUc5VWU0YkxaMmJjeG02QVU3bzY4MEU2d3dnaXdFQVly?=
+ =?utf-8?B?TFZoS0M1ais1bmpZTUt3b3dFVmIvdFpTcTR6QlNNeU9yL3RRTDd2VEpOZnR3?=
+ =?utf-8?B?TzBCQWtZUnFick5OS294bzNzMFd5NEpkQTdLREVYL25tQzhyQ0lSMG9CWmJV?=
+ =?utf-8?B?YXRsMTlwSlIyNHBZeXFQamZDeFc5VitZbGVnbEVvR2g4TXRpYVRyNFk5QUJw?=
+ =?utf-8?B?RUhaNGtVQW5yRDNKQUtMQVNObGVUZk10WGVUSWhQNmUrOTJNRW1jWGRPRjg0?=
+ =?utf-8?B?bTJPaDhmL1FGa0FySXZLTHRLT0VWS3VTZHc0WDNxUXNtaGpqdm4vUWcrYzJy?=
+ =?utf-8?B?WHR2OWhnZlFWSGo0N051UWtTZWJPb3BscHNkaTgzNUl3NU1STnVlZ1BZdVlr?=
+ =?utf-8?Q?WmX4GoF9ZWOayO3vSF?=
 X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c15a46c1-f174-4472-1503-08def12ffa0a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3fea53b0-0199-4590-207d-08def1300c2c
 X-MS-Exchange-CrossTenant-AuthSource: DS0PR12MB7747.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 07:22:29.7091
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 07:23:00.0843
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: NpdUMe0QJYdvrSlmVZkDGHiNPIeixWY53HyaP7InYZE4B489XvoN5aMvVvq4Zdve
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3t5zDDdgBLnaVvpcvyXp0laO1khPld5CEfpfuc7S2Nhy6jMgbnEXeU8pGFw1yQVP
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8085
 
 
 
 On 7/30/2026 10:14 PM, Yifei Gao wrote:
-> isp4if_alloc_fw_gpumem() allocates several GPU memory pools in sequence.
-> If one of them fails, it jumps to error_no_memory and returns -ENOMEM
-> without releasing the pools that were already allocated, leaking them.
+> isp4sd_pwron_and_init() holds ops_mutex via guard(mutex) and, on any
+> init failure, jumps to err_deinit and calls isp4sd_pwroff_and_deinit().
+> That helper takes the same ops_mutex, re-acquiring a non-recursive mutex
+> already held by the current thread, so any init failure deadlocks.
 > 
-> Release the already-allocated pools before returning. isp4if_gpu_mem_free()
-> is a no-op on pools that were not allocated, so calling
-> isp4if_dealloc_fw_gpumem() here safely frees exactly the pools that
-> succeeded.
+> Unwind the error path in stages instead, releasing only what each
+> failure point acquired. This also avoids the issues that an
+> unconditional teardown would hit at the earlier failures, such as a
+> runtime-PM underflow from pm_runtime_resume_and_get() and MMIO access
+> while the device is unpowered.
 > 
-> isp4if_gpu_mem_free() previously logged an error for a NULL entry, which
-> is a normal case during partial-allocation cleanup, so make it silent.
-> 
-> Fixes: 4c5feef6a62c ("media: platform: amd: Add isp4 fw and hw interface")
+> Fixes: 4e5e7a7ddb4a ("media: platform: amd: isp4 subdev and firmware loading handling added")
+> Assisted-by: Claude:claude-opus-4-8 smatch
 > Signed-off-by: Yifei Gao <gyf161023@gmail.com>
 > ---
->  drivers/media/platform/amd/isp4/isp4_interface.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
+>  drivers/media/platform/amd/isp4/isp4_subdev.c | 28 +++++++++++++++----
+>  1 file changed, 22 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/media/platform/amd/isp4/isp4_interface.c b/drivers/media/platform/amd/isp4/isp4_interface.c
-> index 8d73f66bb42c..4fefd0f7fbab 100644
-> --- a/drivers/media/platform/amd/isp4/isp4_interface.c
-> +++ b/drivers/media/platform/amd/isp4/isp4_interface.c
-> @@ -148,12 +148,9 @@ static void isp4if_gpu_mem_free(struct isp4_interface *ispif,
->  				struct isp4if_gpu_mem_info **mem_info_ptr)
->  {
->  	struct isp4if_gpu_mem_info *mem_info = *mem_info_ptr;
-> -	struct device *dev = ispif->dev;
+> diff --git a/drivers/media/platform/amd/isp4/isp4_subdev.c b/drivers/media/platform/amd/isp4/isp4_subdev.c
+> index 48deea79ce6c..868d1c74d35e 100644
+> --- a/drivers/media/platform/amd/isp4/isp4_subdev.c
+> +++ b/drivers/media/platform/amd/isp4/isp4_subdev.c
+> @@ -687,7 +687,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  		if (ret) {
+>  			dev_err(dev, "fail to power on isp_subdev ret %d\n",
+>  				ret);
+> -			goto err_deinit;
+> +			goto err_module_disable;
+>  		}
 >  
-> -	if (!mem_info) {
-> -		dev_err(dev, "invalid mem_info\n");
-> +	if (!mem_info)
->  		return;
-> -	}
+>  		/* ISPPG ISP Power Status */
+> @@ -697,7 +697,7 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  			dev_err(dev,
+>  				"fail to set performance state %u, ret %d\n",
+>  				perf_state, ret);
+> -			goto err_deinit;
+> +			goto err_power_off;
+>  		}
 >  
->  	*mem_info_ptr = NULL;
->  	isp_kernel_buffer_free(&mem_info->mem_handle, &mem_info->gpu_mc_addr,
-> @@ -201,6 +198,7 @@ static int isp4if_alloc_fw_gpumem(struct isp4_interface *ispif)
+>  		ispif->status = ISP4IF_STATUS_PWR_ON;
+> @@ -709,12 +709,12 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  	ret = isp4if_start(ispif);
+>  	if (ret) {
+>  		dev_err(dev, "fail to start isp_subdev interface\n");
+> -		goto err_deinit;
+> +		goto err_perf_restore;
+>  	}
 >  
->  error_no_memory:
->  	dev_err(dev, "failed to allocate gpu memory\n");
-> +	isp4if_dealloc_fw_gpumem(ispif);
->  	return -ENOMEM;
+>  	if (isp4sd_start_resp_proc_threads(isp_subdev)) {
+>  		dev_err(dev, "isp_start_resp_proc_threads fail\n");
+> -		goto err_deinit;
+> +		goto err_stop_interface;
+>  	}
+>  
+>  	dev_dbg(dev, "create resp threads ok\n");
+> @@ -724,8 +724,24 @@ int isp4sd_pwron_and_init(struct v4l2_subdev *sd)
+>  	isp_subdev->irq_enabled = true;
+>  
+>  	return 0;
+> -err_deinit:
+> -	isp4sd_pwroff_and_deinit(sd);
+> +
+> +err_stop_interface:
+> +	isp4if_stop(ispif);
+> +err_perf_restore:
+> +	ret = dev_pm_genpd_set_performance_state(dev, ISP4SD_PERFORMANCE_STATE_LOW);
+> +	if (ret)
+> +		dev_err(dev, "fail to set performance state %u, ret %d\n",
+> +			ISP4SD_PERFORMANCE_STATE_LOW, ret);
+> +err_power_off:
+> +	isp4hw_wreg(isp_subdev->mmio, ISP_SOFT_RESET, 0);
+> +	isp4hw_wreg(isp_subdev->mmio, ISP_POWER_STATUS, 0);
+> +	ret = pm_runtime_put_sync(dev);
+> +	if (ret)
+> +		dev_err(dev, "power off isp_subdev fail %d\n", ret);
+> +	ispif->status = ISP4IF_STATUS_PWR_OFF;
+> +err_module_disable:
+> +	isp4sd_module_enable(isp_subdev, false);
+> +	msleep(20);
+>  	return -EINVAL;
 >  }
 >  
 
 Reviewed-by: Bin Du <bin.du@amd.com>
+
 
