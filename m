@@ -1,315 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256B442376B;
-	Mon,  3 Aug 2026 17:20:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785777649; cv=none; b=kSNA7yhRSpL3n+b8kZ6eYUfDJEXRVTlcrCDGAFcDkPYZEFmjobsD3puNp4HKV3r9jHDifjwy2PHp/MyU3QZEij3FAiN+RC4bt4RCMW+CLUmVqVuSN41efY3iI1xj8pvoINmKRE6dIjWu+lxExn/ppWv4gOrDxcflGb7j6ywG1qg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785777649; c=relaxed/simple;
-	bh=DRW/+Tp1xISKyyN8y71sUaDQyvZ/IFAIbu74Uz0UeZU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=nhvnkIWjZZ4mwBN6uqk0SQ9fb4JUUuyKJBwebw+oSLRDqMtycJpZT7KcOQYzRYG7rSz3+uDlhM0y1GPI1sHgTYDHIZVv7Uj5IbkV4ySyy3kt2Q4mOucHR7zASkhitbsgyW8AlW8wnK+bTSVOsbfy6wkJNwbD8/U9JFHcYcn1eVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P2GwSX5R; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD63426D0C
+	for <linux-media@vger.kernel.org>; Mon,  3 Aug 2026 17:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785778687; cv=pass; b=Dy6O1BKXui70ybDRyWsTL9PfAr0aco38KRNSw9iiSTdv7/+Wkko/Q4RUg4Dh+3Le3zadQrJVuwNpURhmqNe6FpyoIppTI+wIy1nsl+YEDRZyNT31caUKR1qdFdpWPCLNddRobo9porP941jYihLrIzr9VJ0lTRmZcPGKK6Z+5Fg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785778687; c=relaxed/simple;
+	bh=fED54AglBaOIWY4v1dlfH5+jBD/TkjG4+OlNhKcmKpo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HY0WRixetEc5sv6tE9Y000h96jbC3tUbjZmo8UPY2KgzkG7JomU7Yy3LLgtHvTKirOBawqJ19ihmgBZiDI2K1ZPZwvpdHU8DkVpyfBB3Iag5YgJxYxlds28XW02QFY75P0/y+IkQwx6+1i37Z4cezqZTC61u+COg+ZRusFXBTLg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=MyjGPyhz; arc=pass smtp.client-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P2GwSX5R"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 92E1EC2BCB9;
-	Mon,  3 Aug 2026 17:20:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1785777647;
-	bh=DRW/+Tp1xISKyyN8y71sUaDQyvZ/IFAIbu74Uz0UeZU=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=P2GwSX5RvoSU4Vyou6IPYx8BC7paOU8dw641sJgOv9/cZBKDpxnxvPp3dg4umGu7y
-	 AExmoZOGbEaaolQzdrUq4k1W/wnJiSBvPaJPW9kMonvfl3PMTA/LFU8uW1Jk1ixhVo
-	 nY/VJ4fQKCnTdtrobKYprE3F5a03IlvYtQfKU9raWT1CECgao74+gA7jyMk3JouvQs
-	 YF9/KTzmsiFfli+Ay18WbeNEr3o/8u7+HnHOIC+W09YUE5z8U1m7vUo+2VukfefSp+
-	 ZhNl1LCi5Lq9NYrJkIy9IFy1jhnuMRedJ78FHEeFMFa3x/Cg07LlghxbIWol6TtPBs
-	 f133PLELqJ6GA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 79A86C55822;
-	Mon,  3 Aug 2026 17:20:47 +0000 (UTC)
-From: Anuj Bolewar via B4 Relay <devnull+bolewara.gmail.com@kernel.org>
-Date: Mon, 03 Aug 2026 22:50:47 +0530
-Subject: [PATCH] media: ttusb-dec: bound result copy in
- ttusb_dec_send_command
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="MyjGPyhz"
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-45837e52d8aso1363754fac.0
+        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 10:38:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785778684; cv=none;
+        d=google.com; s=arc-20260327;
+        b=TyvEg6OrAx4FdhHkxZoN4KVokGI6xg0t9mjhpAUntugXAHmJipuluPb/GfsWZRfIC4
+         Di2l2GrX3gFWi92CBawQcKTRSGGU82sSz2sjVvV1xubE4wJaoK46IDA8ehB9/q2ZJMQs
+         XaEW0G/43kNWbENxN9Oj7OhUDUssYBafsOyt9yRA5Ci+H1ekyJyAvmXeqMNp0YymFOWk
+         S4paKnSqV76f5dWsMKrV/a6USL0Tk2gIgOVeNB0PdjlPC/0NHl9zxtN5t8l37QbqhMjj
+         foQsN+CUgbmzeQvIW3IByVSLff7rwvn84IkaHJUvZ9+SnxbzIt2/F3xSOBf5TiHmD+Vx
+         kVJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=VthlhOGQJXIygUP5DATqpLoeK2ok5Ycn3uncSQhsgaw=;
+        fh=O+oqcSg2JieTKAnk0UY3sSQo4DPWdosOJlPZOYJVf6Q=;
+        b=RzMvlpPQ52Nt680xydPCuFBVJJqRE4eHTswnTpoio4VRUdpsZlvffMOcYsPiGg8AbZ
+         yQUCegl9RyFTyi9BRdS25RvQiWLFnCehJfTPmAUq7yot0/0NATKOOu7+hzvXW1OrUj/8
+         oDLeLJaML+PsybcgnLsBD/ggJ47JcSFvouYFyk6whMNU924EBRVq2XW54Nt/eMcn9qI+
+         rPDxDZKfJuA5ZlGkYEpClZYRRWRW6OAEKH/HK/r/ZqvYJB8Efx4lO5FdhqCytOCTBut+
+         jdiGp4msSSSR8EiL15YoxV72YOYjYtaPEkDnTUlYUPltirdhfMlZkuGIi+UvhpY8qj/u
+         qBsg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=raspberrypi.com; s=google; t=1785778684; x=1786383484; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VthlhOGQJXIygUP5DATqpLoeK2ok5Ycn3uncSQhsgaw=;
+        b=MyjGPyhz9IEQeeCZnfIqry2IA2geqLHoXnqyaFmyxXmO2KrrOD0GP2dS4zW2uxE06g
+         kn6wt9kXAZuBc0uBJjRD/gd/0nkzpBSbxTOKjqcK4updFn6OujssRnrIL4+s2kgLh02X
+         v2N09kZWhaeumFJUeBnhqn+EsgTC4osIyzg/yh32+VeKtmox9V1HJ8dOIPTtX55Zq6AN
+         oXFyurATip1gZWEket9FPGnN3XxeLuZa+BWL2dI51Byc4sV/SmADvL13EKRFgxuTfZKu
+         i+qtHnPQCcubdSOI7kXksmWKMDCe+nINc3z/Jpw1uy3vutYIvyC0xjnJVBxy28Z40+d8
+         CVLw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785778684; x=1786383484;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=VthlhOGQJXIygUP5DATqpLoeK2ok5Ycn3uncSQhsgaw=;
+        b=hVUmXAZIxZDrbVi6kKMbcJRUGR0u0YPcyF2AEXEwK/M81f4NFn+sdblCYV9H6RNDS9
+         /Hur9w1vXp+xyTwXBXJiLe01m2kesEd/bbhTGn6Pf5DgGEjVPYJ/EfKliHIWsQhBOvNO
+         05K8qbByTG+BCksHVTG6J6q7kj32lqnbumxQJVqB/el81ZmxU+MrrKWGWKpAw37GTOOH
+         T6OGiB1e4qSVniT/OYqrFu4Zw1VoyFBBaYaIOGgqOtEHg3Iqt2eYP2eGL1QU+d543XFs
+         Wvv4pIO97mQqekVF1irt1hAbltcLtOFExgocilbSzxMZEX2/UFltRK+qqhsYispxVYho
+         11Dw==
+X-Forwarded-Encrypted: i=1; AHgh+RpaGWOTuPyIZrScVnYTuhTiWmcuSZ0HkVoxW7Yao8EW66EwJC1nDz30Bra/B2w86Fi2/ehItfpg++Jliw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsaGyvBbe0TLrMOMlfFvI6K3+bh8HO1vElmLxDMxfiCR7oyUln
+	e6DJTpAho5NQZMaUARszJgq+plURqF+Zd5n44Zr4Q8AK0JUzZ/927ObfwiJWwS3i7etEJDvpb4g
+	Bizq+01vLXiF6j12r9MtDVaaDf2cf+kd060nL6jPScg==
+X-Gm-Gg: AR+sD13zejHKZN3Tf+6caAXCuLQ1C4mVV2MR8hHfZh1c0DDSazQlLfjMqLyo40u2T6E
+	ePZ+eLZ/p0B0RUU/sQMXkzEeiPIipQN49K/C8zDi2fyh7BuEnUdTWCrSrKvCmcpJvg6PnTMZaf+
+	q2/uAMW+JrYSjAc8nORqm9IGah+PsI5i9GqZTUY1X1/qK2JSNfCWexZZNrbpbB+WHvxybwcFm3E
+	q3JA108aP99+mUpV7OujAo/gYKdQauNVRCU9PMTkLE2hqoSmlNqe4MPWOHHeYCcm5KxSKxp3OEr
+	JG3nRDmj0L3BMS4QD5MFiWucyAdfj9BjhYNH32SvMaYSS5fXtp6GNNR2MHX/BuuOSif8V+SYk53
+	TmVezx9yai3j0OAy57jM1eSnWOCktiABAfYfILmR81WVR/s1vt+63eBZ81pOm11tgGJEUDg==
+X-Received: by 2002:a05:6870:a40b:b0:43d:38f1:854e with SMTP id
+ 586e51a60fabf-45905a60abamr15360483fac.16.1785778683768; Mon, 03 Aug 2026
+ 10:38:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260803-fix-ttusb-dec-cmd-result-overflow-v1-1-4a3695a981f7@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNSw7CMAwFr1J5jaUQykdcBbEgjgNBpUF2UpCq3
- h0DeqtZvJkZlCWzwrGbQXjKmstosF51QLfLeGXM0Ri88zt3cBtM+Y21Ng0YmZAeEYW1DRXLxJK
- G8sJ9sPlA29T3YJ6nsJ1+jdP5z9rCnal+xbAsHyir0NGFAAAA
-X-Change-ID: 20260803-fix-ttusb-dec-cmd-result-overflow-7b7b72bc5f44
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- syzkaller-bugs@googlegroups.com, 
- syzbot+ac9880be0b0b1a5f54d6@syzkaller.appspotmail.com, 
- Anuj Bolewar <bolewara@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785777646; l=9353;
- i=bolewara@gmail.com; s=20260802; h=from:subject:message-id;
- bh=dnofLJoU8gMJ7/injRh1rxquFHIdxkMMsLjNYYG+bpg=;
- b=qinybXIZjMcses9IJuVllbkFFWyprDcvtM5l5McJjL0EJiD23NBb1dwYYEZ6lDLPJ6yF/rQZm
- PIWl2ezTKhFALqTQnsMVrzOAqGTKrPkOaI/z4YkPEf5qrFmp2oAQvSE
-X-Developer-Key: i=bolewara@gmail.com; a=ed25519;
- pk=XxcXxqFWk9xQziyNEfhS6NRJQR1shqHRRYzkbaYamm0=
-X-Endpoint-Received: by B4 Relay for bolewara@gmail.com/20260802 with
- auth_id=907
-X-Original-From: Anuj Bolewar <bolewara@gmail.com>
-Reply-To: bolewara@gmail.com
+References: <20260730021525.166811-1-lachlan.michael@sony.com>
+ <20260730021525.166811-3-lachlan.michael@sony.com> <20260803005333.GE1927055@killaraus.ideasonboard.com>
+In-Reply-To: <20260803005333.GE1927055@killaraus.ideasonboard.com>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Mon, 3 Aug 2026 18:37:47 +0100
+X-Gm-Features: AUfX_mwaiSbRzqab_uNN2X92ncFvn27Hn8KT8HTw6Ek2_UImIpmFCT3Z9AQg1yc
+Message-ID: <CAPY8ntC1T4_orgvxBRqpqux4V90d5XZ-3KZZKoqnCPkbf6wE0Q@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: i2c: Add Sony IMX908 image sensor driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org, 
+	sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com, 
+	jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, 
+	Tim.Bird@sony.com, Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Anuj Bolewar <bolewara@gmail.com>
+Hi Lachlan and Laurent.
 
-The result length byte in the response packet is controlled by the
-device and may not match the number of bytes actually received, nor the
-size of the caller's buffer. A malicious device can therefore make
-memcpy() read past the end of the response buffer (which is
-COMMAND_PACKET_SIZE + 4 bytes, leaving only 60 bytes of payload after
-the header) and write past the end of cmd_result, which is only 4 bytes
-for the FE read_status path.
+It's brilliant that Sony are getting involved in upstreaming drivers!
 
-Cap the copy to both the received payload length and the caller's
-buffer size, and report the capped length to the caller.
+<snip>
+>
+> In his IMX678 driver, Jai hardcodes the pixel rate to 594MHz, which is
+> 8 * 74.25MHz (IMX908_XHS_HZ). The rationale is that HMAX is expressed in
+> units of the 74.25 MHz internal clock, so we assumed that the pixel
+> array is not read out using the link clock but using a clock derived
+> from the internal clock. The multiplier was chosen to ensure that the
+> minimum HMAX value corresponds to a positive HBLANK, as negative HBLANK
+> would confuse userspace (and developers). Having a fixed pixel rate
+> greatly simplifies the driver, as you don't have to update the pixel
+> rate control, and HMAX calculation from HBLANK becomes a division by 8.
+>
+> We're not sure how the pixel array of the IMX678 is clocked exactly, so
+> I don't know if the above corresponds to reality, neither for the IMX678
+> nor the IMX908. If you could provide more information about the pixel
+> array readout, that would be greatly appreciated. Note that the pixel
+> rate value does not have to match the physical readout clock, as it is
+> only used by userspace to calculate timings (to convert between h/v
+> blank and fps).
+>
+> Jai can provide more information if needed.
 
-Reported-by: syzbot+ac9880be0b0b1a5f54d6@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=ac9880be0b0b1a5f54d6
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Anuj Bolewar <bolewara@gmail.com>
----
-syzbot reports a WARNING in ttusb_dec_send_command: a malformed USB
-device returns a reply whose length byte is larger than the data
-actually received, so ttusb_dec_send_command() over-reads its response
-buffer and can also over-write the caller's result buffer (the FE
-read_status path passes only 4 bytes).
+In case you'd missed it, I'm trying to convert Jai's IMX678 driver
+into a generic Starvis 2 driver[1].
 
-This series bounds the memcpy() by both the received payload length and
-the caller's buffer size, and reports the capped length back to the
-caller.
+IMX662 that I'm interested in is streaming with a total of 7 changes
+to defines or const structs in the current imx678 driver.
+IMX675 (5MPix Starvis2) frames with a similar number of changes but
+currently isn't giving me images (test patterns work).
+IMX585 looks like it may fit the same pattern, but I'm waiting on a
+module for that one.
 
-Link: https://syzkaller.appspot.com/bug?extid=ac9880be0b0b1a5f54d6
----
- drivers/media/usb/ttusb-dec/ttusb_dec.c  | 53 ++++++++++++++++++++++----------
- drivers/media/usb/ttusb-dec/ttusbdecfe.c |  9 +++---
- drivers/media/usb/ttusb-dec/ttusbdecfe.h |  3 +-
- 3 files changed, 43 insertions(+), 22 deletions(-)
+I'm therefore looking to parameterise those diffs but otherwise keep
+it all common. This avoids the hassle of having to convert potentially
+4 (or more) drivers to the Common Raw Sensor Model once it is
+finalised.
 
-diff --git a/drivers/media/usb/ttusb-dec/ttusb_dec.c b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-index 825a3875989..0a4750c2d12 100644
---- a/drivers/media/usb/ttusb-dec/ttusb_dec.c
-+++ b/drivers/media/usb/ttusb-dec/ttusb_dec.c
-@@ -314,7 +314,8 @@ static u16 crc16(u16 crc, const u8 *buf, size_t len)
- 
- static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 				  int param_length, const u8 params[],
--				  int *result_length, u8 cmd_result[])
-+				  int *result_length, u8 cmd_result[],
-+				  int cmd_result_size)
- {
- 	int result, actual_len;
- 	u8 *b;
-@@ -366,10 +367,24 @@ static int ttusb_dec_send_command(struct ttusb_dec *dec, const u8 command,
- 			       __func__, actual_len, b);
- 		}
- 
--		if (result_length)
--			*result_length = b[3];
--		if (cmd_result && b[3] > 0)
--			memcpy(cmd_result, &b[4], b[3]);
-+		if (result_length) {
-+			int copy_len = b[3];
-+
-+			/* The reply length byte is controlled by the device
-+			 * and may not match the data actually received, so
-+			 * bound the copy to the received payload as well as
-+			 * to the caller's buffer.
-+			 */
-+			if (actual_len > 4)
-+				copy_len = min(copy_len, actual_len - 4);
-+			else
-+				copy_len = 0;
-+			if (cmd_result)
-+				copy_len = min(copy_len, cmd_result_size);
-+			*result_length = copy_len;
-+			if (cmd_result && copy_len > 0)
-+				memcpy(cmd_result, &b[4], copy_len);
-+		}
- 	}
- 
- err_mutex_unlock:
-@@ -389,7 +404,8 @@ static int ttusb_dec_get_stb_state (struct ttusb_dec *dec, unsigned int *mode,
- 
- 	dprintk("%s\n", __func__);
- 
--	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c);
-+	result = ttusb_dec_send_command(dec, 0x08, 0, NULL, &c_length, c,
-+					sizeof(c));
- 	if (result)
- 		return result;
- 
-@@ -448,7 +464,7 @@ static void ttusb_dec_set_pids(struct ttusb_dec *dec)
- 	memcpy(&b[2], &audio, 2);
- 	memcpy(&b[4], &video, 2);
- 
--	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x50, sizeof(b), b, NULL, NULL, 0);
- 
- 	dvb_filter_pes2ts_init(&dec->a_pes2ts, dec->pid[DMX_PES_AUDIO],
- 			       ttusb_dec_audio_pes2ts_cb, dec);
-@@ -902,7 +918,7 @@ static int ttusb_dec_set_interface(struct ttusb_dec *dec,
- 			break;
- 		case TTUSB_DEC_INTERFACE_IN:
- 			result = ttusb_dec_send_command(dec, 0x80, sizeof(b),
--							b, NULL, NULL);
-+							b, NULL, NULL, 0);
- 			if (result)
- 				return result;
- 			result = usb_set_interface(dec->udev, 0, 8);
-@@ -1021,7 +1037,7 @@ static int ttusb_dec_start_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x80, sizeof(b0), b0, NULL, NULL, 0);
- 	if (result)
- 		return result;
- 
-@@ -1056,7 +1072,7 @@ static int ttusb_dec_start_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	memcpy(&b0[5], &dvbdmxfeed->filter->filter.filter_value[0], 1);
- 
- 	result = ttusb_dec_send_command(dec, 0x60, sizeof(b0), b0,
--					&c_length, c);
-+					&c_length, c, sizeof(c));
- 
- 	if (!result) {
- 		if (c_length == 2) {
-@@ -1114,7 +1130,7 @@ static int ttusb_dec_stop_ts_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	struct ttusb_dec *dec = dvbdmxfeed->demux->priv;
- 	u8 b0[] = { 0x00 };
- 
--	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x81, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->pva_stream_count--;
- 
-@@ -1135,7 +1151,7 @@ static int ttusb_dec_stop_sec_feed(struct dvb_demux_feed *dvbdmxfeed)
- 	list_del(&finfo->filter_info_list);
- 	spin_unlock_irqrestore(&dec->filter_info_list_lock, flags);
- 	kfree(finfo);
--	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL);
-+	ttusb_dec_send_command(dec, 0x62, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	dec->filter_stream_count--;
- 
-@@ -1238,7 +1254,7 @@ static int ttusb_init_rc( struct ttusb_dec *dec)
- 	if (usb_submit_urb(dec->irq_urb, GFP_KERNEL))
- 		printk("%s: usb_submit_urb failed\n",__func__);
- 	/* enable irq pipe */
--	ttusb_dec_send_command(dec,0xb0,sizeof(b),b,NULL,NULL);
-+	ttusb_dec_send_command(dec, 0xb0, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -1354,7 +1370,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 	firmware_csum_ns = htons(firmware_csum);
- 	memcpy(&b0[6], &firmware_csum_ns, 2);
- 
--	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x41, sizeof(b0), b0, NULL, NULL, 0);
- 
- 	if (result) {
- 		release_firmware(fw_entry);
-@@ -1395,7 +1411,7 @@ static int ttusb_dec_boot_dsp(struct ttusb_dec *dec)
- 		}
- 	}
- 
--	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL);
-+	result = ttusb_dec_send_command(dec, 0x43, sizeof(b1), b1, NULL, NULL, 0);
- 
- 	release_firmware(fw_entry);
- 	kfree(b);
-@@ -1621,10 +1637,13 @@ static void ttusb_dec_exit_filters(struct ttusb_dec *dec)
- 
- static int fe_send_command(struct dvb_frontend* fe, const u8 command,
- 			   int param_length, const u8 params[],
--			   int *result_length, u8 cmd_result[])
-+			   int *result_length, u8 cmd_result[],
-+			   int cmd_result_size)
- {
- 	struct ttusb_dec* dec = fe->dvb->priv;
--	return ttusb_dec_send_command(dec, command, param_length, params, result_length, cmd_result);
-+	return ttusb_dec_send_command(dec, command, param_length, params,
-+				      result_length, cmd_result,
-+				      cmd_result_size);
- }
- 
- static const struct ttusbdecfe_config fe_config = {
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.c b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-index 215221370c1..b013d6dfcbe 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.c
-@@ -44,7 +44,8 @@ static int ttusbdecfe_dvbt_read_status(struct dvb_frontend *fe,
- 
- 	*status=0;
- 
--	ret=state->config->send_command(fe, 0x73, sizeof(b), b, &len, result);
-+	ret = state->config->send_command(fe, 0x73, sizeof(b), b, &len, result,
-+					  sizeof(result));
- 	if(ret)
- 		return ret;
- 
-@@ -85,7 +86,7 @@ static int ttusbdecfe_dvbt_set_frontend(struct dvb_frontend *fe)
- 
- 	__be32 freq = htonl(p->frequency / 1000);
- 	memcpy(&b[4], &freq, sizeof (u32));
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -130,7 +131,7 @@ static int ttusbdecfe_dvbs_set_frontend(struct dvb_frontend *fe)
- 	lnb_voltage = htonl(state->voltage);
- 	memcpy(&b[28], &lnb_voltage, sizeof(u32));
- 
--	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL);
-+	state->config->send_command(fe, 0x71, sizeof(b), b, NULL, NULL, 0);
- 
- 	return 0;
- }
-@@ -149,7 +150,7 @@ static int ttusbdecfe_dvbs_diseqc_send_master_cmd(struct dvb_frontend* fe, struc
- 
- 	state->config->send_command(fe, 0x72,
- 				    sizeof(b) - (6 - cmd->msg_len), b,
--				    NULL, NULL);
-+				    NULL, NULL, 0);
- 
- 	return 0;
- }
-diff --git a/drivers/media/usb/ttusb-dec/ttusbdecfe.h b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-index 73828bb2258..3ccb42977d8 100644
---- a/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-+++ b/drivers/media/usb/ttusb-dec/ttusbdecfe.h
-@@ -14,7 +14,8 @@ struct ttusbdecfe_config
- {
- 	int (*send_command)(struct dvb_frontend* fe, const u8 command,
- 			    int param_length, const u8 params[],
--			    int *result_length, u8 cmd_result[]);
-+			    int *result_length, u8 cmd_result[],
-+			    int cmd_result_size);
- };
- 
- extern struct dvb_frontend* ttusbdecfe_dvbs_attach(const struct ttusbdecfe_config* config);
+IMX908 here looks to very much follow the same pattern, so unless
+there are additional diffs between Starvis 2 and Starvis 3 it would
+potentially fit into the same framework.
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260803-fix-ttusb-dec-cmd-result-overflow-7b7b72bc5f44
+I'm hoping to get an RFC out this week as I'm then on holiday for a
+week. It'll be interesting to see if IMX908 will fit with the same
+pattern.
 
-Best regards,
---  
-Anuj Bolewar <bolewara@gmail.com>
+Lachlan: Are there any particular people we should contact for details
+of IMX908, or just go through our normal contact?
 
+Thanks
+  Dave
 
+[1] https://lore.kernel.org/linux-media/20260312150437.1091195-1-eagle.alexander923@gmail.com/T/#m6072f85b03811932427597d8ffe5da008d33246a
