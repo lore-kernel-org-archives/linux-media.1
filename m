@@ -1,134 +1,127 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38D79345ED5
-	for <linux-media@vger.kernel.org>; Mon,  3 Aug 2026 10:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25BE0384CE8;
+	Mon,  3 Aug 2026 10:59:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785753615; cv=none; b=eECeyjMX16hTcH94kLZnmduiAzdKPYbl8h18e9wlFjuPZT8cA7rakqxhT4/O1BmZHfFphlYh8IlrNQO3VkWN0nTB/DnHRjxGYBNTLbekwQ3K9TLZU4gfkuP+9h1ppXZWQPRhK5KR+bJNN9Zodwmhy066v1vsL90AxKjvDy9q33w=
+	t=1785754781; cv=none; b=Gi2achqXI3/Zw1nxNt8Y0i4tYyoqeJj4mkNsCQez/AZ/lPKQi3N1ijyaIIeQfrFDiZVKz+N2BEX6qTx4DX5G/WuEW97ZgNzgfruFXxjJvKzZl0Uora7EAYoDMFMUo1c/nXnBJB6Vei5a2Sk04eLltxYA23GYOcgUAufSkZXlzjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785753615; c=relaxed/simple;
-	bh=wd36Mr3YTeEOobPW20YCTlYcPkBxI7qt5NNnKBJ1b2Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Q4PRVj4fvyfWSXo1OrD4kxsTSQmYLyGUCK3icWgntwxzW1UNK/tnfd1o1FhZH2QiomvNowhp2L0RAZJVyjJHztqgZOrrB2TLCRX2Sqc9lGP6GmoDMvWk53iWRVjGvwTsq2J3EFVX2s7v7+9rw4rZQadYjTbrTEj+5Uk1ybKzL2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abUfNNwo; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785754781; c=relaxed/simple;
+	bh=vBOwgVMe8mBatIapnGErbEuu+eAuMy9ntS6V/yBIKRc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ci5pPDLjtvSKxdSpLXEdjMHnpBk+hfA4IAfmBzkyebfgXKCvGH98qd2LdZMgFzK0idz4n3BaIiw66AgujYBJs63yN8GYjJYpLg6sEXjRFYMSqcZcMq2pqhf1UPE6b3FpLcAd8hIIFPkuhkbD7badfJqUH0pTvFxq7KrxMpDNfZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rtwkIoZY; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abUfNNwo"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38101f85591so3063333a91.1
-        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 03:40:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785753613; x=1786358413; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=STul+ZYNBULZFVtjqLupAxbSwpG28GFI6NairUsKHOc=;
-        b=abUfNNwoC8XBR7iGBXZYDB2duZPJk0EEfTAr5XAchvAaoZLLptP9JR/9SUMGPLNqSw
-         OGFb88zWSRdkhpc6p7R8L5yh4gyHFtQ7bBZQBL1KI2Rj4BUn1p9LGaRpaC9A1O5Oa0aa
-         +4qeN3W4ThXyG3y1+AXW4+TOdZZi/MZVMBr7417H1MieCJbDrPkwEX9uTLgpSKjGXDcW
-         L9RFiPUHqjVxWX+gIB5bVcQt3ZrIhWAg7qIMlc73KeMHGSBTNrRkp+BVoclIDEFTppGM
-         3pm7g7UJg1Oz1jIyYAu74hF77hJ887zUsl/0z64ZzjOooRKgYK9PYgsbJYwjXcMPZEGs
-         9MPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785753613; x=1786358413;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=STul+ZYNBULZFVtjqLupAxbSwpG28GFI6NairUsKHOc=;
-        b=VC2NvjyvVnyz2AKxdSvvn6jXopZHb+bRlh/7619gVNyMYslZP7z1i5IVGLF4dUsrhR
-         ZcoJ9h03+XJ8dtW53oRw5bGLdNr9fl9gvtQ5+sAryfl0EoIhCAsjKigUsJiA/dtq82no
-         7um9aY/ZUbfkUH7cKML7TFXiqKAh3hHPLV3lMtpYtSD8BRYWZUBacxdly6MRd9HvPcH2
-         ye/lDKjMNouK2OOae5/lbslOsGeUFEzPEcyo90aZhUmaVnaWyu3yIRZZjFIrv6Cybdpa
-         qI16k38kSLk5oWd2gU1P0AxU0SrmZ7V989wLGi5X1HHkhACPsEfLkLx6xMaKZJLzfDSu
-         P4Sw==
-X-Forwarded-Encrypted: i=1; AHgh+Rpl+bSZ9D6y9Khywa2tLte22ZUZfmN1Zt/WNA8fmbSHpL3y+hGjYp2X6zN+qb3UGn3+eRkuELdBWCm1+Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YygeknSE2IwjgjY2QACoFUFRPyxrxNnMocTpfslJCYxo/ebSn24
-	zgFjMjoLQ4jdz0bB5TiLgupghBGCBp++T9242nJ8P/I8AR5umzgTcrhd
-X-Gm-Gg: AR+sD12njENT1qRSRWcedd1ga6OFPzFw3+FzG0FCyomgdhpKucEU+OjWDYX3X0nPwSz
-	4cPBh7ioCJ8+7j/wkIQxQ35kiwy90lr4A1QHuwcgxkEPkJj5h3jGZihHIlp+DAKHGDQwNNBDrxM
-	r7sNfLE/FcY7JFNeMMacMOIY3qawKxOIXy7BT1C8IGu7wn1mcwHAQIcmwCmmK8E4G/Xe2rBk3LX
-	LFs+ejNzJ+P87RXRfm7t6/JYq6Yax18EJSHITHUtbnxqdBuQj2al1VUhsji/Z/c3Bed1ZFopUuQ
-	k1U2n7ynT7/wY0dNf9M4BunfRCPMWYG9QrCgYlSQLPopRNOrihI0hiW1SJT1RZcM1eulhXXSJzC
-	YBF912Mvjgnahl+l8Uh/f8j0EfqUZrMNBJdznsQWYQvoeAuZzXjFHnmJvkJZUEu9qAdMf+gaefC
-	rVeMfEdkCHvBHZjfbG+2zz9mwvL5NnPkYgPsVksFAndWkmk/fak8pzFtEraK8Pw7yj9bt70LaLI
-	kgC7S2E80eWm64Jh2H2BIQf4KEwpONUUElQ
-X-Received: by 2002:a17:90b:17c5:b0:387:d5bd:622f with SMTP id 98e67ed59e1d1-38fbcae2162mr7349457a91.18.1785753613490;
-        Mon, 03 Aug 2026 03:40:13 -0700 (PDT)
-Received: from ML-GYSUBT565.ECARX.COM.CN ([101.47.164.95])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fab1334cfsm33263736c88.1.2026.08.03.03.40.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 03 Aug 2026 03:40:13 -0700 (PDT)
-From: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
-To: isely@pobox.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+20fef510634faf733060@syzkaller.appspotmail.com,
-	Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
-Subject: [PATCH] media: pvrusb2: fix URB pending flag leak on invalid endpoint
-Date: Mon,  3 Aug 2026 18:40:08 +0800
-Message-Id: <20260803104008.2605452-1-khiemtranzo532001@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rtwkIoZY"
+Received: from ideasonboard.com (mob-109-113-25-35.net.vodafone.it [109.113.25.35])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A661E5B3;
+	Mon,  3 Aug 2026 12:58:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785754705;
+	bh=vBOwgVMe8mBatIapnGErbEuu+eAuMy9ntS6V/yBIKRc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=rtwkIoZYeQHz16jaUMDvR8Xv1y7H/RbGwzniTExP5iK5r98rcPSj0QoDo28uh8Ryn
+	 fEFjMqVmwH3idFOeqDey9mC6CYxsYk9S+uAVvBpQdhee5jHUyUg6DNhvZ9+ebZ9xyS
+	 8KYx7WO6vsqCJmU8ZKu4COHKYonPejZyjnUhksIA=
+Date: Mon, 3 Aug 2026 12:59:31 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v10 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Message-ID: <anBzYRw1I3yo0Q8f@zed>
+References: <20260727-mira220-v10-0-8825794e6095@ideasonboard.com>
+ <20260727-mira220-v10-2-8825794e6095@ideasonboard.com>
+ <amjAgRnL0vM2eQJl@kekkonen.localdomain>
+ <amypEMpDvY47VkG5@zed>
+ <anBtWwyNVdKi90Zg@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <anBtWwyNVdKi90Zg@kekkonen.localdomain>
 
-In pvr2_send_request_ex(), when usb_urb_ep_type_check() fails for either
-the write or read control endpoint, the code returned -EINVAL directly
-without clearing the corresponding pending flags (ctl_write_pend_flag or
-ctl_read_pend_flag) or going through the done: cleanup path.
+Hi Sakari
 
-This left the pending flags set while the URBs were never actually
-submitted. On the next call to pvr2_send_request_ex(), the URBs would be
-filled and submitted while the kernel still considered them active,
-triggering the WARNING "URB submitted while active" in usb_submit_urb().
+On Mon, Aug 03, 2026 at 01:28:43PM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
+>
+> On Fri, Jul 31, 2026 at 04:15:53PM +0200, Jacopo Mondi wrote:
+>
+> ...
+>
+> > > > +	/* Sensor control mode */
+> > > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.SLEEP_POWER_MODE(0)
+> > > > +	{ CCI_REG8(0x0043), 0x0 }, //  Sensor Control Mode.IDLE_POWER_MODE(0)
+> > > > +	{ CCI_REG8(0x0043), 0x4 }, //  Sensor Control Mode.SYSTEM_CLOCK_ENABLE(0)
+> > > > +	{ CCI_REG8(0x0043), 0xC }, //  Sensor Control Mode.SRAM_CLOCK_ENABLE(0)
+> > > > +	{ CCI_REG8(0x1001), 0x41 }, //  Sensor Control Mode.EXT_EVENT_SEL(0)
+> > > > +	{ CCI_REG8(0x10f2), 0x1 }, //  Sensor Control Mode.NB_OF_FRAMES_A(0)
+> > > > +	{ CCI_REG8(0x10f3), 0x0 }, //  Sensor Control Mode.NB_OF_FRAMES_A(1)
+> > > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.DIG_DRIVE_STRENGTH(0)
+> > > > +	{ CCI_REG8(0x0012), 0x0 }, //  IO Drive Strength.CCI_DRIVE_STRENGTH(0)
+> > > > +	{ CCI_REG8(0x1001), 0x41 }, //  Readout && Exposure.EXT_EXP_PW_SEL(0)
+> > > > +	{ CCI_REG8(0x10d0), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(0)
+> > > > +	{ CCI_REG8(0x10d1), 0x0 }, //  Readout && Exposure.EXT_EXP_PW_DELAY(1)
+> > > > +	/* MIPI */
+> > > > +	{ CCI_REG8(0x6006), 0x0 }, //  MIPI.TX_CTRL_EN(0)
+> > > > +	{ CCI_REG8(0x5004), 0x1 }, //  MIPI.datarate
+> > > > +	{ CCI_REG8(0x5086), 0x2 }, //  MIPI.datarate
+> > > > +	{ CCI_REG8(0x5087), 0x4e }, //  MIPI.datarate
+> > > > +	{ CCI_REG8(0x5088), 0x0 }, //  MIPI.datarate
+> > > > +	{ CCI_REG8(0x5090), 0x0 }, //  MIPI.datarate
+> > >
+> > > How many of these registers are actually 16 or 32 bits? Does the sensor
+> > > support wider than single-octet writes -- few don't?
+> >
+> > The sensor is said to support both single read/write and burst read/write
+> > sequences.
+> >
+> > There is room for improvements here, but as the startup latency is not
+> > a concern for the time being, I would leave this as an exercize for
+> > later
+>
+> Related to the previous comment, it'd be nice to have human-readable names
+> also for these registers. I'm fine with that if you promise to address this
+> later. :-)
 
-Fix this by:
-- Clearing the pending flag before returning on invalid endpoint
-- Using goto done instead of direct return to go through proper cleanup
-- For the read endpoint case, unlinking the write URB if it was already
-  submitted and waiting for its completion before returning
+Only for the MIPI related ones you mean ?
 
-Reported-by: syzbot+20fef510634faf733060@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=20fef510634faf733060
-Signed-off-by: Nguyen Quang Le Kien <khiemtranzo532001@gmail.com>
----
- drivers/media/usb/pvrusb2/pvrusb2-hdw.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+I'll have to add support for non-cont clock mode and other bus configs
+next, so this part will be reworked anyway.
 
-diff --git a/drivers/media/usb/pvrusb2/pvrusb2-hdw.c b/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
-index 3c270ef00..3a857e95b 100644
---- a/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
-+++ b/drivers/media/usb/pvrusb2/pvrusb2-hdw.c
-@@ -3669,7 +3669,9 @@ static int pvr2_send_request_ex(struct pvr2_hdw *hdw,
- 			pvr2_trace(
- 				PVR2_TRACE_ERROR_LEGS,
- 				"Invalid write control endpoint");
--			return -EINVAL;
-+			hdw->ctl_write_pend_flag = 0;
-+			status = -EINVAL;
-+			goto done;
- 		}
- 		status = usb_submit_urb(hdw->ctl_write_urb,GFP_KERNEL);
- 		if (status < 0) {
-@@ -3699,7 +3701,13 @@ status);
- 			pvr2_trace(
- 				PVR2_TRACE_ERROR_LEGS,
- 				"Invalid read control endpoint");
--			return -EINVAL;
-+			hdw->ctl_read_pend_flag = 0;
-+			status = -EINVAL;
-+			if (hdw->ctl_write_pend_flag) {
-+				usb_unlink_urb(hdw->ctl_write_urb);
-+				wait_for_completion(&hdw->ctl_done);
-+			}
-+			goto done;
- 		}
- 		status = usb_submit_urb(hdw->ctl_read_urb,GFP_KERNEL);
- 		if (status < 0) {
--- 
-2.34.1
+The other registers in the table are not all documented, so I can't
+help much there.
 
+>
+> ...
+>
+> > > > +static struct i2c_driver mira220_i2c_driver = {
+> > > > +	.driver = {
+> > > > +		.name = "mira220",
+> > > > +		.of_match_table	= mira220_dt_ids,
+> > > > +		.pm = pm_ptr(&mira220_pm_ops),
+>
+> If CONFIG_PM isn't defined, mira220_pm_ops needs to use __maybe_unused. I'd
+> just drop pm_ops() here.
+
+Isn't pm_ptr() there exactly to avoid __maybe_unused ?
+
+See 9ab2bd7760a9edc23dfef71bb94092359ce94024 in example
+
+>
+> --
+> Regards,
+>
+> Sakari Ailus
