@@ -1,237 +1,179 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012027.outbound.protection.outlook.com [40.107.200.27])
+Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazolkn19010079.outbound.protection.outlook.com [52.103.72.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D06E2848AA;
-	Mon,  3 Aug 2026 12:26:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E403B40927F;
+	Mon,  3 Aug 2026 12:44:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.79
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785759999; cv=fail; b=ebanQ5UhWHktlJTihHa1ue8FB7Gu6Skj8GoJ4K3OcFg8yMoBay3kCCDtmLIpR8T8uT93kiesIqkogaEe2lKNdZh9XbDNZtOlAPgyNZw0Yv1KrKxEsVLBXPetfyRvoiRmKq9enpj0JB+prCAfnvMvQZUK43lQceCY3vCtW+bGTTA=
+	t=1785761099; cv=fail; b=MQs+RMgQi7Qffw0fSLnRKj6UtjqF0tsMbk4SKR8u77EK+4h1nBw0C8fmKYZAFRjianWnnfMgNFdIiLfOSg6bgfJhuckJZbBVjz6F+5bpFersJTOWVlYa1EnyYZ8NgKZFyxMI0sZs8k/eH0BQX49vr/ralhOgErDAqN2IiNQsuS0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785759999; c=relaxed/simple;
-	bh=qT+pLYQwS3sTznqBSMnttYdcnZylMddinc0tHeSGpuY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=XiOIwal4ZvqgQoZWLg+MjwNR4ZPub4VEHpwRJ5QFB5iHouJhC1HCj5y0kxeLCbARq1Hc2ssESeg1KAfEek2R0MQHYk4VwjDQ6FY9daAPno1G2joe+N9qIN5mUyGA+ryCAWJvc7gAK9yel+V/nOddx2VZ/jGgt0rhoEVfrzbqEyQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=tTTIpK/L; arc=fail smtp.client-ip=40.107.200.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1785761099; c=relaxed/simple;
+	bh=C8EQvscOVlVVTuf/tw5EjAbjPvSFlUH9i6YzkuDu7LY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Dy+d5JZXnd7hyCDV7W8ThfQHtgwKmLq5BZBQ45/C1uqA+bpSxLgl/u+Fapar5Gb5buOrNFp3sYqC56Xr/X8UJqvCcPrZrk8ZwZGxndC7jOqJUYT3GzQJTuvNnsqqFrQnOx11J+ZvoU5lJfzEx9fao3JqvyYYujb2unn1ZHIFsjU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ASi4pIa8; arc=fail smtp.client-ip=52.103.72.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="tTTIpK/L"
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ASi4pIa8"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PyrGYagXHbXMqIGeOkqvHCgJibKg4aYhmF5AWxI2eWTlN+7MaGAfWoRsgtckyaz9COdL2+1V538ZTtQHsSneAZVnZDlpxv/7t2PuxB7tv4EFX+IHmHT9EBEHgYSvpXBBn06kFAKVMYUre8bhUGEZoLIcvkaE7PpDr4fb0GfKBmo4iflIJYpGiqvQhAzOl1wiNpa/U6hFXd12R5C5GHbaR8ocklaj+wiLAg1LL/0mn1IOKcoTxLVbOvyB6UxS/+NK1kZVUdXlZbxuRNDrIYNUhD6duzCwYKEjh8lJ70Pt/kElB+J7pDtr5EdzFxCmm6aiM4y3fWTvhtM1O87baOjc/w==
+ b=Wofak6E74qwrlcP5CXc1QTK4+70Suq23tDqwkx3B5LJbO6wUcdB8LZTmfCjPd6SAU+H/IMom14YVcn/x+QCF651qXHjNpT7IEgTmczBJzzUsFNB4M8/wC/1bKuQQ9m63jn9UPutiDtlTKBELLnftjUd7Y1HPbLnFFFITKprV5eqify9OIFKeSp88KwW+3QDhaSlXLawVX3rdkhzJWh+rOtAlSshwijvhSx9KVDz6wOPFCwvmrB0tNfc6o3Y/clfqoomnYNe9su1IF/kAh9/tyBxx3Yp2ufZr3E3Vr2wL2hMEugG5uvE5gZm/8NkJwcQ+7MbolfJz0QzGteUg2UFyVg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=e6Cgga8s3md7eVmeHul5kmwOKMD6d6UmyigQkJ4h5B9/mFPqT6K095uKu4SeI7natf9xY+5KHC4WEZSyMRpvPUxdolK6BSn+rFJEUqvNla4gfZHUb/0ruvv32SPYuQMnYxvRQtvrkjCI509uFXVlJNHezyDNmMj1DacVzx1CBLIzgzpAN8kyw4czyQXKfrcBZvb+BEi+R+bTMuF1zKEcf90LMMwaOvipbg5URxeZuXAG0nSVWPC8VjhjaIPVPpl/OOFK63pqYuIaz5xqXNKQvOULWTwSUSoUr5qOBTb/4bp/1YQ2BvlYGsi2Ach8qsky898bhefaLPz9RdF6RDNIpw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
+ b=xbCo8h0dl4CUI6yMSHgd+gbGC/YX6SL2sl5BE+g8LbW9hmbZNkcifSm0l+6oEJ2bewPwOJo0uBLnRuEwYCqMzgm94dROCx3UHO9f3XRrJU+CWXzBGBM5VJsd3es9BqoS7fo1G5W10eHcoebcTbODjINfEr1mm2K0jmfR46Xt9CMMIWJZYaIQ2KgPXy1xiHA3yJThzM+PfEkz61XeRqDyUeCVcgTyb6apSLVKcj94ti3e2NGv1oa8b7LxPe0NgA6WmBjDjBh71k3a1lM4gixl9ZIS5fpQwSvkmQpzA+T8HhoMjpAPA+IzJCXbE6muirGIgSnfEaARskGa01pS3nywRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kfU5Nx3Kh2ifQVKWvnfxkACHpShKMvPF86hb0aZ4kmw=;
- b=tTTIpK/LDeOXbXVlKMOGPJo/ZgwjpzDf0emX1kDbsTGVeMezpR2EfhEGl+4dMTOV0cTetAtWLrW1j+KgNIrHg8VyEua49OYMB1WU4vGjCF3NbY5rfLZ7prMfGjHLMX/DztK5BnVDBRQWQtm2M6RIe5xFRiS6R/BQGT78fkqd35E=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA0PR12MB4446.namprd12.prod.outlook.com (2603:10b6:806:71::18) with
+ bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
+ b=ASi4pIa83dwrIHA51SErs7qOxt6OLJhy/xeaDF7YIcSIBdhdyQvdTUo/uf60mZuDuHRT7wAhVgYjKqpohkv6RdtVkf8AL8lf3OTh7ErnjE/BlR8kC3y6To3nlS/BKnHmhlwuURzDTfowLuphUzyHRVWX2ivucsoZ2W+A4T2MJ9jR5qk8cIQUJXhdsZX66vMDzq3KPVlfJv23+h7tEopncgKgciGaAsWDIfluD7ckBadrXw+87V8KKE399VQLmm4id7s5h1+kau0XeNT6OadDWbP+GBGiTQVnVrJUlGfP51zrncwxa+H1JyuwzDlfCGdBjUGQ95+bymZLUdPdHU1M6g==
+Received: from MEYPR01MB7886.ausprd01.prod.outlook.com (2603:10c6:220:17e::8)
+ by SY7PR01MB9055.ausprd01.prod.outlook.com (2603:10c6:10:21e::16) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 12:26:35 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 12:26:34 +0000
-Message-ID: <5beb0994-556c-4715-aa1c-c8a31b5929b5@amd.com>
-Date: Mon, 3 Aug 2026 14:26:26 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/drm_crtc: ensure dma_fence_ops remain valid
- during device unbind
-To: phasta@kernel.org, =?UTF-8?Q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Danilo Krummrich <dakr@kernel.org>, Sean Paul <seanpaul@chromium.org>,
- Gustavo Padovan <gustavo.padovan@collabora.co.uk>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
- Peter Griffin <peter.griffin@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Juan Yescas <jyescas@google.com>,
- kernel-team@android.com, Simona Vetter <simona.vetter@ffwll.ch>,
- stable@vger.kernel.org
-References: <20260721-linux-drm_crtc_fix2-v3-0-afa8c71506e6@linaro.org>
- <20260721-linux-drm_crtc_fix2-v3-1-afa8c71506e6@linaro.org>
- <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
+ 2026 12:44:53 +0000
+Received: from MEYPR01MB7886.ausprd01.prod.outlook.com
+ ([fe80::19df:3891:d8aa:692d]) by MEYPR01MB7886.ausprd01.prod.outlook.com
+ ([fe80::19df:3891:d8aa:692d%4]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
+ 12:44:53 +0000
+From: Junrui Luo <moonafterrain@outlook.com>
+To: Nicolas Dufresne <nicolas@ndufresne.ca>
+CC: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab
+	<mchehab@kernel.org>, Dafna Hirschfeld <dafna3@gmail.com>, Mauro Carvalho
+ Chehab <mchehab+samsung@kernel.org>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write on capture buffer
+Thread-Topic: [PATCH] media: vicodec: fix out-of-bounds write on capture
+ buffer
+Thread-Index: AQHc8cLfT36G8KLRYEyWjUEbjsvUi7ZvjqoAgB0Zf4A=
+Date: Mon, 3 Aug 2026 12:44:53 +0000
+Message-ID: <5DCE028E-E3A6-46DA-9CF2-DEACBBAD5B2F@outlook.com>
+References:
+ <SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
+ <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
+In-Reply-To: <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
+Accept-Language: en-US, zh-CN
 Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <d2d9aca41c4f0b9b6e5ae4e9b8e5de3c2d8f95c6.camel@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0201.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:e5::17) To SJ0PR12MB5673.namprd12.prod.outlook.com
- (2603:10b6:a03:42b::13)
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-exchange-messagesentrepresentingtype: 1
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MEYPR01MB7886:EE_|SY7PR01MB9055:EE_
+x-ms-office365-filtering-correlation-id: ee9407e1-baf1-4aad-b94e-08def15d03ea
+x-microsoft-antispam:
+ BCL:0;ARA:14566002|31061999003|8060799015|8062599012|19110799012|8022599003|24121999003|22091999003|15080799012|24021099003|25010399006|3071699003|2607281247196008|102099032|3412199025|440099028;
+x-microsoft-antispam-message-info:
+ =?us-ascii?Q?odu4ZGrEdUO/onFTYoDNtE9+VK1SHh/L8PG2Whik4srqw+g/UjVh/GzcPjFl?=
+ =?us-ascii?Q?PhmtKh/1dMi6/nvjLlrOeehG51g9r43ePPIaVK5dKhJ3GVn9U0ZtlfCUoVVQ?=
+ =?us-ascii?Q?rU6S/4AYESHgBAjenggTFxJWHgADQ41gveFdQJwvHqrfyJFDSKwK6ivtNTd5?=
+ =?us-ascii?Q?0gfTj+KZdBkBCNLL1euUnwHP5wwIl1x8OfBfmCr/ew9EvEenDyTNKq2xfY6e?=
+ =?us-ascii?Q?i1cqNDMhgZRmv6QldvJvrilQsi3PcVPlUx5cm/d8Bbi8Mqgh4Iq9ynY1jPRx?=
+ =?us-ascii?Q?IpHze2NC4QwQcd3w3Qn22j52YHlPnwLiosedT8/ifT1nbjUhsW1gygYTLEOP?=
+ =?us-ascii?Q?5Y4EmHrNIXyWF/nBW72kwop11KI+N6L0380yYrXtLT/cOR1A1+EJPOSuR4rh?=
+ =?us-ascii?Q?qezXFpL7+BnxPrfDzHovA9esYHhSAQKZlHs+6QZ3zCg0D56vAvuXpybE75X3?=
+ =?us-ascii?Q?+tHeGNB62V4LdaVZF7yiusPxgBnt6XPj9dNW3d53IGp7C93pGm0EKEoMJWu9?=
+ =?us-ascii?Q?5wMWs0l6YH8d53Rb3QrZDsjzfOS8GQ8/vKKCT28Jb24uBQ33BnaDKpJ8302B?=
+ =?us-ascii?Q?jkjMYshO5Dkby9x+F54NZcfGkk/FhSglGqzH8fGYMhaWu+YekpAvCO34YH3e?=
+ =?us-ascii?Q?hLN3BabMogIOpnbggbI1V1Ta42PNqHhF1qi5Gi+IS3v0HYgQ4Qgzrr/74VOp?=
+ =?us-ascii?Q?0lvufyfbwJHQqVuynBotMNEtnC9HLMu022GB4SPXScwfJzA9H2lPhRAWHFnC?=
+ =?us-ascii?Q?cQ/GkhH2T9qwZxRgX4BSpYFOnaFEBTCMwdzjpQZ9avr+7cDmfw7BBscypciC?=
+ =?us-ascii?Q?eXKBxuo/QV/8wxYUcwXelFOUAuT4rX4s4STpICBMKv5GAWjT2RhgeFQeXZlQ?=
+ =?us-ascii?Q?biuQkdic7HShcd9sJkmj7kqZ3PdfOh6F2lvR7MpEwJn/fBB1RQ9XNvZcwPen?=
+ =?us-ascii?Q?uXwX4YCSloGPmjkrB0PDPf9UMIQ4WwZEFnVNZi1a0/JEGVtE3yOBr/x0B54G?=
+ =?us-ascii?Q?GRBT?=
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Fx8JdoZaqkIcNzlnhv+m/GRtdIsVWRoZ4yapzjUf47GQWrCSLe08QoFEjrTQ?=
+ =?us-ascii?Q?2WH1FPnpMmazp9H+h7A2Ij5n5G3Idcl19i1qOdZSUdqsdLafVd9f5oTwhCGp?=
+ =?us-ascii?Q?ktDgBw0Gq1lFG+BAyFpkRbQfhi01ZCQUX0VeCYE76vEGaEmTWzeJDF5xeTZ/?=
+ =?us-ascii?Q?j+h4+fpTSrlM7Ywqw/TzGmqdVB9OS0tP964/LkXsT2ReDEl9CLzvMrRfpjw3?=
+ =?us-ascii?Q?/6KxaLkRMAuGUlBQaRo2urrcZ1nH+CHHIkS9Wvet9KWVqTNKzV0ANtSWPo7j?=
+ =?us-ascii?Q?W0/UTBGxUADbTxozoVa39EPziqZWZoCFHxei5CBj5GaPK+RUEX6HGj7Y5BhN?=
+ =?us-ascii?Q?BJYurNH9a3nkuMJnP4G8QbXmoIU2lVoQgdOj2y5Zom+jUaYAsEqHSp58DpXH?=
+ =?us-ascii?Q?pM06FbkUJlgyoOfWsS7J4Hy+8F0KzBfZYqw3o0kgMyIuvwG12qpcKO8QjQFm?=
+ =?us-ascii?Q?VmgA4JUeKEpGQJLsNtdODFVPLXKnufkmlVPuBzhyAO1HyomJ0XPAnp+E7Raf?=
+ =?us-ascii?Q?BIuFf+ZXIg2s0SMA6ijLe1y3etC8lDgQQej1Xqbn815/rastfeddcVhgR3gZ?=
+ =?us-ascii?Q?snGobI+X/rSSjqM+gvUOXAOXVOFx987bU9qJ+70FrvspYR0+t9G2gNA+/IgA?=
+ =?us-ascii?Q?d9KPsiREKQ+hjonrAgt/OQ1Dqp+sl7ay4rd3fg+i4uCf0uhImRPdY6Z7yJ4a?=
+ =?us-ascii?Q?qNx6HK2WyHQjnqYgrNgCt3U8iANv779HwKyGcf76P3ky0nNIbMkc9kiHhZZZ?=
+ =?us-ascii?Q?8BdqJMvtesxXA4DPM5j9Px2fUf+kuA3BcnPUn4y6UuofNruMrRUqB+13iHf+?=
+ =?us-ascii?Q?FnAF9OikIXlLS6wPtNQIIpxnUJEkzkFTe2gQOlJUFytve/55aXG6PqUROQ4V?=
+ =?us-ascii?Q?4dPHomoMbxBWTR3itl9dyMrQuf09OmkdBVZGzN+txhxbzxSfsfyebObBR0pa?=
+ =?us-ascii?Q?Stl1a9KbYxvaYN7iVuGxV7IgLXoLw5mi9queVZU5JauPnLLaMsMHU9mnj4kj?=
+ =?us-ascii?Q?r+t9I8cL9nczx+oNDLU8hXqSzm8v0VUxqsLct8gF4mwl8tvcGFnrbOc2igwb?=
+ =?us-ascii?Q?00n/TOBjbxEyviicZbm8AOB0DyKR+nqTMCBsKUHmPTFIMvjxaBbGsY5bjHns?=
+ =?us-ascii?Q?JIz7Sfud6Spfx7HGxF1vnHIGOuoO5b9iPXdfR4PO/p+b0ZIG0nLSY3gQQPSL?=
+ =?us-ascii?Q?c9wouGk4P/4druw94s14gbfEFaRn+maNQ9s3Dp0PINjkJMweXKVCSQ8aGM7D?=
+ =?us-ascii?Q?h7XZKQPHn6pv9wXg82ueCGrlaoLfat1L9FQD/le4QJPEvF68pZ+M07lZjYIy?=
+ =?us-ascii?Q?Cc+k7w5egvaC2YRrJNiZuBc7DIZJu1OSkzVOZyM0U1rOPFum2k0BwKo4avMR?=
+ =?us-ascii?Q?FnakhaQ4hBRwF4VU6UkZnPLo9ZKd2euNXxqBhMeUs2C9E0l2Bw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-ID: <8C362B8603E4E649B5B90FA38C8768A0@ausprd01.prod.outlook.com>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA0PR12MB4446:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|366016|23010399003|4143699003|56012099006|11063799006|10067099003|6133799003|18002099003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	sOfBtrTJPBrF6arjPt/n4xQDs8pJevWUd5eJk0oYhmGU+z7+YEKvAcLgEbA5WCGDSVElJ4Eq3cYwsaazxRZjyH6+E5foZmB3WiF0dtD07kBMn2udyoMiKrSNEkVOqYT1AxKpVR+skQLDRFQdHvRNZFuXhb7Rj3gA3gyi2wHMFFf7rpnsFSJEB1hP0AoPbteCEMdG2JTfjL/93HvWCSY/ogXABV/MXvfefRgv8HQqGAorU8LFNCWMtrM7KrHXDV1wTF/6ISl+m4mGdh0QfrXSTtsrSJMv4KTo1UFvNI6B2i2yMyqI7NtbGmkTdTk9utwmA06+nvP8TXNf4S/EpMfXBzwUy25hEI7hSlKZpBQUoMO6ui+M2Ax5LEo63+jr0kVL3zAJD85veoZzOY0JnIexyIctFWrQ9JIvKEEhKhIezX8BqCS7z7kqjTYggTS2I9DNdMUFhiiYqXldoEnjXUuBonkgaSG+mCIFPFZU6sOIykpR81Gq/VnMGAf0NnCwP++q5LUYywyq0bsGD5HjEeC2wDjbXnaPy07rpP54BylPAaIud/AAZ45B4kKyNb+vH6J/BoCT5oruMRoy7gVDPqimfTMiFl0wjP4p3v2eYgenY+dVgJo5z5328WAXxuJUSGSqvkdC1Q1Uh7qTJc1hjBiUsQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(366016)(23010399003)(4143699003)(56012099006)(11063799006)(10067099003)(6133799003)(18002099003)(22082099003)(921020);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cXYweU9Sa09TVVliTWhid1pHYUNZTjBHMFJNVEV5QkRRdEVqeVMwdzNLdmtY?=
- =?utf-8?B?RlRYMUdlRW5FcGZjLzFEZXZkcXBCd3k2Wm1WOU14WVFveXVuRnNPR3NuYTND?=
- =?utf-8?B?Z25wK0NWTmtEM05GdnlHOXg1U1FVN2lYMVVzYXc4U3NPdEpBRmR5WVIrYzdI?=
- =?utf-8?B?T2lqQ2F2MzF4WWFEeHA3SnlqVVdKUnp4QSt2SnNzL3pBcDRHMktRZlhBUHZi?=
- =?utf-8?B?QmFCZ3lIaTJRM3piVDdDYUZXTVN5dzcrMkx4L0xpQWtOSVBEeG0zY3VxZnFi?=
- =?utf-8?B?Q0dacDBqVVVaUmpVdlI5Rlg3UFErc0pScDdLSVgyRS9YMXA4ODdqU0h1RzlO?=
- =?utf-8?B?YVJPSTBlU2U2QjJtY1pVUUFsUnhzQnZtSkR1QlRXeGl4bkY2c1RKVmJwajFX?=
- =?utf-8?B?dGhDMTRJdW9abGxybDdiWlBCOUd2VUZtMHBXRFFkbzFqaHQwcGNiTldTWHpE?=
- =?utf-8?B?azZqVTdLNzU4Y0R3OGM4YTZ3OTk0YjFsQzVGTDdCY095MVAwZ3JaT0lmWFVj?=
- =?utf-8?B?S1Y4bWRmWE91UDhBTHdkbVhpU21NSmZjdU1nQ0JtQk02c3FTOFQzQnF3K21Y?=
- =?utf-8?B?VndtcERuWUJHQ2EydEZUZDZkc0FFWXFTTFBsamtlRXhtMVN4MStQNjM5TG4z?=
- =?utf-8?B?amNaQjY0N2ptSDUwVnRLNWtpTnZScGpUdEVWNXBMRFVvaCtqNDd4Z0tPL3Bh?=
- =?utf-8?B?Ym1tL1VsT2hTVU9PRitqWHZURE44K2tVRnJzcnQzUjhwV3FSYzhjVTJBSE5t?=
- =?utf-8?B?dFpiZFdtUTB0c3E3Zm5zSXVQZTJpdFlWdUQyTXpPL2IzZjR1K1V2SE9DdFdK?=
- =?utf-8?B?RGVVNU4xMTdzcDVvVUhCS1dTU0RFc2lKUUR1RUxMUDc5L1g2MkVUZ3pZQk9I?=
- =?utf-8?B?OHp4RFpweWYyODZqMmtsNDQvNnRhYVZpQ0hDWGlYaWF4SzNvdUxTQm9aSXNQ?=
- =?utf-8?B?YU15UEh5OG9LNHkrajFWYlN4UGhsSDFKWDMvSVFYaDRkRDBSVUJLSmxuY09K?=
- =?utf-8?B?N002RUl3c2VFQU5qQ2lZWUNrRE9VaFEzRDgyNXJIWVRSUldFR2dpUGg2QzMw?=
- =?utf-8?B?L0E0ZUgwaFc3S2xzNHk3VEptUWhQMG4yOWRET1VtWmoxaDRVeEhuRFQ0bUUv?=
- =?utf-8?B?WmE2STJFSldhWDJESzZnSkZnMjBGNjJrVTQzQU54S0dOT3QrTlpmQUR6c2VG?=
- =?utf-8?B?UHE2c0tQZmtRdXNzVlFMWjFTQ0RmVzlacmw5THpER1g2YWF2Q05SRTBtcExJ?=
- =?utf-8?B?K0RFSUg0ckoxZ2pYNE1sOFUwVmNRcEJ4VTl4V0tFNzhLeU80dGpzdVJQQy9x?=
- =?utf-8?B?Z29JTG8wUVVJeW53Q0V0aTRhaExaY0t5c3ZOa1ZCbXQ3VGF2TTVjamZlVG9Q?=
- =?utf-8?B?eEhBNVRuZGRyRTdGQ3hqWGFLVmVvZkFibzNoYWN1TlVjcThuZjQ3VTBLQkY5?=
- =?utf-8?B?bDVENlpyNjhrZm0xZEVieVJ1UTMxRzNDZU5IQ0dDUm1RYURaZlE4MWZvaEtp?=
- =?utf-8?B?YWdFSFpuNU1GV25rQWUxYWxPQ0piWmFESGJQajdWcitiS2kxL2tBTFFKYlVn?=
- =?utf-8?B?ZFdqUnIxSFVybHRRQXRIbDRiMzBVVUdqbVdQVEJHUGZsdUVHNmd0WlZtU0lu?=
- =?utf-8?B?Y0hxMDRkMW5DeGJnbTd3RzhWUDJkV0hHenZFVWJZNEh2UTNJbzFxK0FhQzAw?=
- =?utf-8?B?aUdnZGZUdTJoZ3Q5ZmhENTV5d0VNMnY2N1dFSjB4NzNDRGRoYXpGbDRBQ0Nw?=
- =?utf-8?B?WUVRSUVKSjc1NGg5b1hVZUJiR200YlhEYUxaZHJEa2QwdUhvUWZZaGMyeVBk?=
- =?utf-8?B?dDd0VVNxMW1tQ3k2dXRnTGtqVzRBOGFkbW9vQktsRXdTNzdaWExKb1hUVDUv?=
- =?utf-8?B?eG5WR0VlWk1KRFhvNklLNldpTEVJY2hsdjMra1dZUk12dS8yc3IwYXJpUW9D?=
- =?utf-8?B?bDlvalN3eG40T0pYZjVJSUU4UnBjR3pPVEdLN09qVWd4NDZRMWNBS3ZYYzNy?=
- =?utf-8?B?K21XZ3ptekxKbzR5UDl6ZjRYbHk1bk5vV1YwMFpaRnJsZjJUR281TEtTbjVW?=
- =?utf-8?B?bnp3akZ1d0Qwbk9VMzdEekl4MUtrazZxNlQyRHVPcE52aE1XblNVSGlUa1J2?=
- =?utf-8?B?L09tWTZnd29NMGZEVWU1eG1pVU9kanc3UHQ2MktJNzhDUU9QRXJSMFlCblJ3?=
- =?utf-8?B?V1A0dnJMOTFidWpkcDZyQUFkalYwZTF1YUxLQWxldEFkS0ZaMmE3bThOd1ZU?=
- =?utf-8?B?WWRaaXhOSFVwOFBHRW1sM09YOGZMeWUyb3oxY25GS1gzbzl5Y3RZVEY5Zjhj?=
- =?utf-8?Q?1kEV7gEQK/Kde4bYQ+?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8d2a0922-e155-4fb4-6dcb-08def15a749c
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-OriginatorOrg: outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 12:26:34.7295
+X-MS-Exchange-CrossTenant-AuthSource: MEYPR01MB7886.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: ee9407e1-baf1-4aad-b94e-08def15d03ea
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 12:44:53.2985
  (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6CmZqGL67c4rEa1ngRN62QIWZVkN9WyvEECIMN/RLl1iGTB/10wM5GuS2hzwwV+F
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA0PR12MB4446
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB9055
 
-On 7/21/26 13:20, Philipp Stanner wrote:
-> On Tue, 2026-07-21 at 09:21 +0100, André Draszik wrote:
->> In [1], sashiko reported the following issue:
->>
->> === snip ===
->> Looking at how these fences are managed, drm_crtc_create_fence()
->> creates a dma_fence without taking a reference to the drm_device or
->> drm_crtc. Because the sync_file framework exposes this fence to
->> userspace, the fence can outlive the CRTC.
->>
->> The dma_fence contract requires that data accessed by dma_fence_ops
->> (like get_driver_name) must remain valid for an RCU grace period after
->> the fence is signaled. However, drm_crtc_cleanup() and the subsequent
->> freeing of the device do not wait for an RCU grace period via
->> synchronize_rcu().
->>
->> If userspace calls ioctl(SYNC_IOC_FILE_INFO) concurrently with a device
->> hot-unplug:
->>
->> CPU1 (Userspace)
->> sync_file_get_name()
->>   ops = rcu_dereference(fence->ops);
->>   if (!dma_fence_test_signaled_flag())
->>     // Preempted or delayed here
-> 
-> nit: no one will be preempted here since the RCU read lock must be
-> held. The Sashiko tool misses the point, which is simply that someone
-> illegally frees up stuff that might be still in use, with or without
-> delay or preemption, that's all irrelevant for the issue.
-> 
-> Anyways, thanks for fixing this:
+On Wed, Jul 15, 2026 at 08:21:50PM -0400, Nicolas Dufresne wrote:
+> The analyses is just incorrect. At this point, the driver is entering DRC=
+,
+> meaning the queue will be drain and will stop until streamoff/on cycle ha=
+ppen. =20
+> If there is a out-of-bound bug, it would be that that q_data->sizeimage i=
+s not
+> match to be smaller or equal to the vb2 buffer size at streamon time, not=
+ during
+> processing.
+>=20
+> NAK
+>=20
+> Nicolas
 
-Seconded.
+Thanks for looking. Right, `source_changed` gates the draining during the
+streamoff/on cycle.
 
-> 
->>
->>
-> 
-> […]
-> 
->> Link: https://sashiko.dev/#/patchset/20260618-linux-drm_crtc_fix2-v1-1-c03e77b36f34@linaro.org?part=1
->> Fixes: 6d6003c4b613 ("drm/fence: add fence timeline to drm_crtc")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: André Draszik <andre.draszik@linaro.org>
-> 
-> Reviewed-by: Philipp Stanner <phasta@kernel.org>
+However, `source_changed` is only set in job_ready(). The first source chan=
+ge
+goes through vicodec_buf_queue(), which sets `first_source_change_sent` but=
+ not
+`source_changed`, so it does not drain. A non-conforming application could
+commit CAPTURE resources before calling STREAMON(OUTPUT).
 
-Reviewed-by: Christian König <christian.koenig@amd.com> for both patches.
+On v7.0-rc3, KASAN:
+[    3.777164] BUG: KASAN: slab-out-of-bounds in device_run+0x969/0x1850
+[    3.779180] Write of size 2560 at addr ffff888008de1000 by task trigger/=
+69
 
-> 
->>
->> ---
->> v3:
->> - Philipp: update kerneldoc, add Fixes:
->>
->> v2: new patch
->> ---
->>  drivers/gpu/drm/drm_crtc.c | 15 ++++++++++++---
->>  1 file changed, 12 insertions(+), 3 deletions(-)
->>
->> diff --git a/drivers/gpu/drm/drm_crtc.c b/drivers/gpu/drm/drm_crtc.c
->> index 63ead8ba6756..e8e80c936852 100644
->> --- a/drivers/gpu/drm/drm_crtc.c
->> +++ b/drivers/gpu/drm/drm_crtc.c
->> @@ -493,14 +493,23 @@ EXPORT_SYMBOL(__drmm_crtc_alloc_with_planes);
->>   * drm_crtc_cleanup - Clean up the core crtc usage
->>   * @crtc: CRTC to cleanup
->>   *
->> - * This function cleans up @crtc and removes it from the DRM mode setting
->> - * core. Note that the function does *not* free the crtc structure itself,
->> - * this is the responsibility of the caller.
->> + * This function cleans up @crtc and removes it from the DRM mode setting core,
->> + * after first waiting an RCU grace period to ensure @crtc->dev can safely be
->> + * dereferenced by our dma_fence_ops.
->> + *
->> + * Note that the function does *not* free the crtc structure itself, this is the
->> + * responsibility of the caller.
->>   */
->>  void drm_crtc_cleanup(struct drm_crtc *crtc)
->>  {
->>  	struct drm_device *dev = crtc->dev;
->>  
->> +	/* Ensure our dma_fence_ops remain valid for an RCU grace period after
->> +	 * the fence is signaled. This is necessary because our dma_fence_ops
->> +	 * dereference crtc->dev.
->> +	 */
->> +	synchronize_rcu();
->> +
->>  	/* Note that the crtc_list is considered to be static; should we
->>  	 * remove the drm_crtc at runtime we would have to decrement all
->>  	 * the indices on the drm_crtc after us in the crtc_list.
+It can be triggered by S_FMT(CAPTURE, GREY 1280x720), CREATE_BUFS(CAPTURE) =
+[plane
+over-allocated], STREAMON(CAPTURE). Then QBUF(OUTPUT) with an FWHT
+header for the same 1280x720 but NV24 (3 components, full chroma). That
+grows q_dst->sizeimage to 2764800 without changing coded_width/height, so
+STREAMON(OUTPUT) runs device_run() and copy_cap_to_ref() memcpy()s the
+NV24 chroma plane past the GREY-sized ref_frame.buf.
+
+As for the fix, where would you prefer the guard? I'll send a v2 accordingl=
+y.
+
+Thanks,
+Junrui Luo
 
