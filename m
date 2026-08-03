@@ -1,225 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DBD0364045;
-	Mon,  3 Aug 2026 09:46:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D6E836A377;
+	Mon,  3 Aug 2026 09:50:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785750403; cv=none; b=jJekHLn7JzUAqF3dDVFzEe5MepVvnQ3WZO2P/UNiTYj6AkdMpN+CHjSNm86LlaqnXZGoFV/vljM+QW4YhH0BMMufdSj81GXMBkpzBRbjcUZIMAtLqP3W21N3CyatmyALRtwcqxMbgtKWuPPtR9PmJhN1BqsVUCgzHWaORGTNQ9Y=
+	t=1785750628; cv=none; b=kLVGIf+7tLHcQDD7cv9qNhentDLXM6mjh9/XhfE3YQ11+Wo4kAVOpEXSQ5ErUL1K0RhoJIwKu4mRZGTgAF1YzZSGXw7Nft3tgU/WFJLnYlj2lwIYZ5xjQwMOasIysrBRViGojw3znYjKQo9tb/zRJEKWH5ePoENsKjyLk4Gpeek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785750403; c=relaxed/simple;
-	bh=6ALtOujw6qZIb44eE/l7YNKk/ganU26gj9bvK0lIFrU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XWYd9dpPa7vnQLgs8IsH8SfC7xKNqus7sliTC+7K+5OlyKocRXmHYZQYMEHvtoht9u3JNfX+fWBzBIkITVXuZJnyX0AC9Y8voD2SdH/ZqaAkZVrUnlTiAs6ZrhZ5RaQIPeQFfHZH1JFDPnx4JBXCi4QadTGaHjIOlAi0vKmPXw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UdysqdjJ; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1785750628; c=relaxed/simple;
+	bh=8mY6AAs0bQLlQEslbcv/+yOPtvmhmNLEpSjQGIWWSjE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Tx7wgIob3n7mvlgw6/YWzmTkR1+1QdogZ0p4b3sesu6gyiOUL4peyY1i/Y7864XV7fVUrOFlL/K8Nnl7JNa2Rwt3Cst6/lIQK1zCcAOswA7m/Iq8FH+bh36gWSljK3zWJ7jQE2PZlvpOC5TNhXVMsZlQ2/KhrqFUtQCzzAaxr68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aFqlNP8t; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UdysqdjJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785750401; x=1817286401;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=6ALtOujw6qZIb44eE/l7YNKk/ganU26gj9bvK0lIFrU=;
-  b=UdysqdjJ2yiaF8AKQB+bQrwdkn44axXbMed2nxtzJcXSpaLfuGjQKOzE
-   zKxMxTlA1idWoD0xz6zCo8NnjvSmeuoAU2AGg4Ni+dErivtmkp9OpRCKU
-   5OOZ5d9RGiGZDAdoQmDaGTjMbhXRgObmaUBB8a3hL8GODwRgyaRD7HlRd
-   PNVeJBY6UJpdC1xX3XHoKVEOEdWDjj25VCjsuSzJOvaSc4mXMRtmEQ0lK
-   Mn4bz5DfRhuEeMdallMWqu8TVtxTTg/Hu7pp4vLAjwVUjCkcItsW67c7g
-   BJJIzCvYOvwD8OSkKoQOE61ddKYrgprSitwXJ/GJ/iWP1FZfCihP/w8MX
-   A==;
-X-CSE-ConnectionGUID: VWFYl0orSpypZJ3OE6/73g==
-X-CSE-MsgGUID: SxRVQ8hYRN6VDV6rAQBaiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11863"; a="103682375"
-X-IronPort-AV: E=Sophos;i="6.25,202,1779174000"; 
-   d="scan'208";a="103682375"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 02:46:39 -0700
-X-CSE-ConnectionGUID: mLxF4kesSumxOGYoYjzwvw==
-X-CSE-MsgGUID: kF2i+zThQYuOUeFe+D8Dww==
-X-ExtLoop1: 1
-Received: from zzombora-mobl1 (HELO kekkonen.fi.intel.com) ([10.245.245.14])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Aug 2026 02:46:36 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id BD3F61205B0;
-	Mon, 03 Aug 2026 12:46:39 +0300 (EEST)
-Date: Mon, 3 Aug 2026 12:46:39 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Tetsuya Nomura <tetsuya.nomura@soho-enterprise.com>
-Subject: Re: [PATCH 2/2] media: i2c: Add driver for Sony IMX662 sensor
-Message-ID: <anBjf2YS91Ycw1Ja@kekkonen.localdomain>
-References: <20260312150437.1091195-1-eagle.alexander923@gmail.com>
- <20260312150437.1091195-3-eagle.alexander923@gmail.com>
- <CAPY8ntAf9TjgW-E6WeJuMdsHy8pV8-CvqQJriWEFpgLB-brD5A@mail.gmail.com>
- <178455866124.1426769.18237320419273419942@freya>
- <CAPY8ntCvB9ij=rMwwBmBDfe_gWQboX9Xbt0ZB6WPVyFvc2CLZw@mail.gmail.com>
- <178461038136.1426769.8068222330738680407@freya>
- <CAPY8ntDk+4aseGqijPz8Y9cGFzN=4zHPEj3HiHgetn=O_ufh_Q@mail.gmail.com>
- <178548368547.4139729.2328103728639267380@freya>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aFqlNP8t"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 0E79FC2BCFA;
+	Mon,  3 Aug 2026 09:50:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1785750628;
+	bh=8mY6AAs0bQLlQEslbcv/+yOPtvmhmNLEpSjQGIWWSjE=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=aFqlNP8tZvLage5tV9LZgt2K2M+v1DLfi4a2bsQen2sBqAM6HI/v52NnCdTqb5ffe
+	 wSAh0apRKgY44XJ54WMUWLXgx4GeW2hcUOHSG8I7xXekEV0w9pPq8AEh5YoT2THfqM
+	 iiIpo2kl6QPtPOdLTGwzvlJw4W5iu4eFCq+fkrj/DOUS0IhGcc8GrhInfqwpFt3uls
+	 OP+XStwcQ90G/2VJT6eSX6lgMzer1e6DogCjognSnD3rP0nEKueI2HlSxHkxHqBc5c
+	 nECKMtMsj46ucb+8udrV2Kb7ZmOX6YZv2YLaySkANQanVNRE+EJkAarhP7r5sIp9Bz
+	 1IqO1rChSv4qA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E2A93C55175;
+	Mon,  3 Aug 2026 09:50:27 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 03 Aug 2026 11:50:25 +0200
+Subject: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714: Document
+ DW9714A and V variant
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178548368547.4139729.2328103728639267380@freya>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
+References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
+In-Reply-To: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
+To: Alexander Martinz <amartinz@shiftphones.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1991; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=oVcaXqpDOcmHSgqIwupuG6hdi0uMYFAB5Ml2YkH3+nk=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqcGRi5amBf5BMjN/Bz5MCOgoq1ms+Zcv0dvuYv
+ WAc9xxBqLeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanBkYgAKCRBgAj/E00kg
+ ckH6D/0avCTu0ct8uzwpG+Ml0gfJMd/EzQDGcMcGTLVJFl6GIFzYokXj3rFpbkdJM+X9k14UTwu
+ zbAKLKjXOCs3P9chD/3kFFUp+QZfUxfTspIU+hC6k9pkMCI9o7A3ZwRaZM7hbOedE7KBeqdjzsa
+ Ormw4tX5IJ48EM4kELWM1rmIb7jvRlXGv/EuX22y9OwfJQHpPmnqbsxQTsjj6xBviF3kyu1KohN
+ SQGI4RmL42mpG/7ysa5DJM1yeNSq/e5Nx4Grzsp3kF+8RKA0Jxj/sotkAY7H0FKAPrn3ZgzOwxM
+ mAS0/lpa9HRQavcsC7P81VgVPyEnuX3ClL4eXVFtL+MpRR2XHjJjVKiKdYCMMGF/RXH2PCCWSM8
+ 3DxFosTFDMgy/+0ox4XxT1ke6fwFphbTRms7BqFS2cFQmJfJVMU3Vxz72SDfK+or+QWWluozn8f
+ aVFIQ2qXfqKBABQscU6zV9YKDovEJEG1FompWDlDI5ZnzOZAF2YmbJ8FeRFh21PqoHGMGIahOzC
+ pi4mz7BXUk7p/r0AbQhvoLbmjVBXAa6+Thv1USnGPvInNznNLHc+7nJrjTFil+Qiw+gV5aGYTTl
+ 8fwI2WnCi4On7F4ETHu/wNAVbJfqLOnMSrv9RnSeB5I04uEyrwHe3Jhn/qbB6CWPLByQe+XIOJq
+ 7pNFfZoR0ZucxVQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi Dave, Jai, Laurent,
+From: David Heidelberg <david@ixit.cz>
 
-On Fri, Jul 31, 2026 at 01:11:25PM +0530, Jai Luthra wrote:
-> Hi Dave,
-> 
-> + Sakari, Laurent
-> 
-> Quoting Dave Stevenson (2026-07-30 16:42:01)
-> > Hi Jai
-> > 
-> > On Tue, 21 Jul 2026 at 06:06, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
-> > >
-> > > Hi Dave,
-> > 
-> > <snip>
-> > 
-> > > > > and implement
-> > > > > it using the common raw sensor model directly?
-> > > > >
-> > > > > I did it for IMX678 [1] on Sakari's suggestion [2]. The two sensors are
-> > > > > quite similar, so I'm happy to help in whatever way I can on getting this
-> > > > > working with the new model too :-)
-> > 
-> > I'd also noticed that all the Starvis 2 sensors are very similar, to
-> > the extent that it seemed worth a very quick test to see how much
-> > needed to change for the imx678 driver to work with imx662.
-> > 
-> > The answer turned out to be really not much:
-> > - PIXEL_RATE
-> > - PIX_PER_CLK
-> > - ID
-> > - native and active areas
-> > - min_hmax
-> > - common_regs (culled nearly all of them, although I do have the
-> > spreadsheet from Sony which needs to be added to my next version)
-> > - VMAX_DEFAULT setup if you want the full frame rate.
-> > 
-> 
-> Great! I was hoping for similarities too, but if you got IMX662 streaming
-> already with the IMX678 driver that's quite good news.
-> 
-> > Those would all parameterise quite easily.
-> > 
-> > I also have an IMX675 module from Soho Enterprises which is a 5MPix
-> > Starvis 2 sensor. I don't have a datasheet for it at present.
-> > That streams OK at the requested rates by just updating the active
-> > area to 2608x1960 and ignoring the ID. However I can only receive test
-> > patterns as all the active images I get are pure black :( I'm hoping
-> > it's a faulty module, but will keep poking.
-> > 
-> > There is also IMX585 as an 8MPix Starvis2 sensor. I'd hoped Naush had
-> > one to test, but it seems not. In the meantime I've compared against
-> > the driver Will Whang sent to linux-media a while back [1] and that
-> > also looks largely the same.
-> > 
-> 
-> Indeed looking at the documentation for IMX676, IMX678 and IMX662, I see
-> the features are mostly same, except minor differences:
-> 
-> IMX676 and IMX678 support 8 and 4x2-lane (with XSIZE overlap) features, but
-> IMX662 does not (probably because it's only ~2MP).
-> 
-> IMX676 supports dual-speed streaming (DSS) using MIPI VC1 for sending
-> 2x/4x/.. FPS data for a smaller region-of-interest.
-> 
-> The registers otherwise look identical, so a shared driver would make
-> sense.
+DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
 
-I agree.
+All actuators are backward compatible, but they do introduce new features,
+such as Smart Actuator Control (SAC) mode which can minimize the
+mechanical vibration and achieve very fast mechanical settling time.
+Support for SAC can be implemented in the future.
 
-> 
-> > And the imx908 Starvis 3 driver that has just been posted [2] is also
-> > looking incredibly similar.
-> > 
-> 
-> The flyer for IMX908 mentions some extra HDR modes. If there are some other
-> big architectural differences in Starvis 3 I couldn't immediately make them
-> out from the posted driver.
+Nit: fix typo in description by removing duplicate information.
 
-I wouldn't worry about this too much. If there are still shared features,
-the differences can be usually well compartmentalised and it's not a
-problem if only some supported devices implement these features. Think of
-e.g. the CCS driver. I recall the i915 driver supports more than 10
-generations of Intel GPUs, with quite a bit of differences in features and
-implementation. Also the ipu6 driver will soonish gain support for IPU7 and
-IPU7.5, albeit the functionality of these is roughly similar.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-> 
-> > So the big question is whether it is better to have separate drivers
-> > for all these sensors, or one combined Starvis2/3 driver? Do we shoot
-> > ourselves in the foot when we come to add functionality and find that
-> > it only applies to some models?
-> > The awkward part would be testing all variants when patches are
-> > submitted, as I suspect there won't be one person that has access to
-> > all of them.
-> > 
-> 
-> Honestly, I have the same question. I would love to share as much code as
-> possible so we only do the painful things like moving to new APIs once,
-> which I've already done for IMX678, and it was not a quick exercise.
-> 
-> I haven't deep-dived enough on the different HDR modes (DOL, ClearHDR,
-> and Starvis 3 hybrid HDR) or the DSS feature to know how easy it would be
-> to test and maintain all of those in a single driver. The HDR modes support
-> using MIPI VC 0,1,2 or line-data to distinguish between short/long
-> exposure/gain frames, and DSS also uses VC 0 and 1, so the book-keeping
-> around the combinatorial possibilities of what is allowed or not allowed
-> across different sensors may make a single driver a bit messy.
-> 
-> An alternative could be to create a common starvis2.c module with helpers
-> for shared boilerplate that separate sensor drivers can use. Even if we go
-> the helper route, we would still need multiple people testing or acking
-> patches that touch the shared code. But I see that in the same way as other
-> common parts of the framework that effect multiple drivers.
-
-I'd suggest implementing a single driver. Using helpers requires defining
-APIs and you'll have lots of users of these APIs, too, like we have for
-e.g. V4L2 sub-devices. If you don't assume a common data structure, e.g.
-"starvis" struct that pretty much would assume what the device can do
-(compare with a single driver!), this easily becomes cumbersome.
-
-> 
-> > Thoughts appreciated.
-> > 
-> 
-> Given we don't support HDR modes or the DSS feature today, and probably
-> lack proper APIs in the framework for both, I feel like having a shared
-> module of helpers will be quite an effort and a bit of premature
-> optimization for uncertain gains.
-> 
-> So, I am leaning towards having a common driver for all the Starvis 2
-> drivers with multiple maintainers. I lack enough information on IMX908
-> (Starvis 3) to be sure if that can also be squeezed in.
-> 
-> If it does get hard to maintain in a single driver in future, we could
-> split out common parts at that point without losing the effort we put
-> today.
-> 
-> But let's see what Laurent and Sakari think as well.
+diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+index 66229a3dc05d6..7c2769e6c4880 100644
+--- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
++++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+@@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+ title: Dongwoon Anatech DW9714 camera voice coil lens driver
+ 
+ maintainers:
+   - Krzysztof Kozlowski <krzk@kernel.org>
+ 
+ description:
+-  DW9174 is a 10-bit DAC with current sink capability. It is intended for
+-  driving voice coil lenses in camera modules.
++  10-bit DAC with current sink capability. It is intended for driving
++  voice coil lenses in camera modules.
+ 
+ properties:
+   compatible:
+-    const: dongwoon,dw9714
++    oneOf:
++      - items:
++          - const: dongwoon,dw9714v
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - items:
++          - const: dongwoon,dw9714a
++          - const: dongwoon,dw9714
++      - const: dongwoon,dw9714
+ 
+   reg:
+     maxItems: 1
+ 
+   powerdown-gpios:
+     description:
+       XSD pin for shutdown (active low)
+ 
 
 -- 
-Regards,
+2.55.0
 
-Sakari Ailus
+
