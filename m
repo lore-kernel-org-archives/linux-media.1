@@ -1,245 +1,400 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022081.outbound.protection.outlook.com [40.107.209.81])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA4072F7F1B;
-	Mon,  3 Aug 2026 05:29:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.81
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785734985; cv=fail; b=oIve0Gd8L9KvW4aDHz1GLjdQYKE8x5uTGjclLzYbUXOkXUHccsKOBzF/ZCAQp4E/ReQbQF7tc3lavZHIsfqyMvEsxvmYMq1sdy+W0gMWuGXzylRdOhpGNJ0E9x17wUNa7rw9KtEEhNMy1ccajbMkjSdz+wqPp/0AFF8yJADbjVY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785734985; c=relaxed/simple;
-	bh=2+jqUXV5e+t2ZJzS0Duh7s5CEIk8wnpQED/Oc8rspMg=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZdRsET00jeCxMkirJWTzxSfgDptR0gaoC87c4lw8X92I6PSYbr+dm5A6ri+ONc1dG8Z+23YKGq8OySORid1NZJdjJYEih0HISD6dCYpJDbZl+q0Qctf+CevOZmQqyp2a+oFkUqEW6JuXkU21/udwgI9W80TAXi52VJFi3oc0zus=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=O5IgL2M2; arc=fail smtp.client-ip=40.107.209.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A287A2F90C9;
+	Mon,  3 Aug 2026 05:50:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785736251; cv=none; b=E6GcXjEyoMVBy3uRwLrKsuqaVe18z9D1gfnA3S5nZCsW3KP0nnAG4Qs9LLhpnXffOjGOvwXfH6XhMW5H9s9b3gRL7QYA5Oirt4Y0e+1MX3B47BIMe29shKgJmMmFqPYlDGT3PS6ZOymXGIdb8NtsnFhK5Ukqs8tMhKiuLjTxfw0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785736251; c=relaxed/simple;
+	bh=QHx/6VT+2eE/nev6vnNkXcBJg2kevi1ddJtjcllAIoU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=aaXy82ZjwZbrMGPacGZhu2yzpwNeE4BetfW8Ykl43KVs29b02tWkbso7Nj9KCpy4GQxlh+WcIQTdCRuyGtPmd71gLVtthqyi/qxI0zQ+AyWODvX9EsCDvNMHrdIcD3hBI/LheXptnce0FfCbgzMLYUB1/Fjz0ljuFc0LFCjM/I0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=xhgAeqtt; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="O5IgL2M2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oK1qj0XQxOiWuHollQ0KuBWSbHZ7sMKic0ssPamw2DhcVmZJ12F+1h3T+xrQAZBqLRGaOb5wJfiowxgV6+LnvaJgyUlg9b/rkkFTf5Q30juzd7lZXNO+vbMjbKTeqfXcgURjj+4Z18p4Pj4LxTyLXqGV6uMHUGrtgu9kCA1pzQIGU9lT4vd4EwhjnAykgr1NO3RnbmlxI/zZ6yaVJnitPRpnJ7Xjzj6SKHiVp9o39BckPA/6/mOzUDTaFwOx6mQZVxVEf+wrFmUoBKAmwpK/nPD6Or/5lQc/OT1KQ4e6Gdc2HPwVY2fqGjJqmMnpLQB56XDXT4GWI5WLz4E9nWAb2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bgwUny/O53z2MDiekhBL2KoC65jPpvHmSOD5LlJh77w=;
- b=POQ3sz7RO83k5y0KttJzOKUr8DwF6EL5/Z3dSrJ4+7rad2dV4zmjP9jWdLnrHRXKYmHXCLNORCjEjwbGa5odn13YE2bV75ivhsiuKw8onPE0pz3bvvvnzWSazd84ceacVfdX9B3gFxtFph+4kOQmZRCGjav5IFWE5UKfjXzniigm+BRCG8pv9Ea7v1U9gryYO+nXK9Roq/zRVSC6/aZKRPep0qXpnyqFopMNUZgAa/IG6/Zf9u+miteOd0TLGdNjMtMLHqxaE0B+3WwuZu4ZnV6iT9A9b52JC8iHmBmGur1F0c1OzYzj+4PNatZWj7HcoFU6tmcVGUnjNaz7PobGyg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bgwUny/O53z2MDiekhBL2KoC65jPpvHmSOD5LlJh77w=;
- b=O5IgL2M2tELmtuFbeFOr5w5OUhKf2XCUSAcid3qQ7R+yFJTavHIarlglkXjgL1ZSRR3PNVxc95Zzn3n51rjjPC08JUeaT0Qn42CLqSx8T38R/Lng/wNZWeG5Rf9rFKD5e6aWKr9zUcAZZ7IBNAHKQOh5VtMWE5H3qvB/0+EY4TJQ90E68JBLlwKrFh1iS54fqruV3QbYKjpUw31pJFmhx6Tsy7bECokc4N9m+6EnT5G8C39WyWAUKrDSloXbE/lqQqe5O7158fUCl0ch8yUX+2zuxOOnB1wBFbsRzxQtfUjp7q8ALgn3mmOHghsBW8w0JJstVqh1kmif2uJu1Gq+mw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
- by MN6PR18MB5466.namprd18.prod.outlook.com (2603:10b6:208:470::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.17; Mon, 3 Aug
- 2026 05:29:41 +0000
-Received: from PH0PR18MB4558.namprd18.prod.outlook.com
- ([fe80::ba9:422:da8:b963]) by PH0PR18MB4558.namprd18.prod.outlook.com
- ([fe80::ba9:422:da8:b963%6]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 05:29:40 +0000
-Message-ID: <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
-Date: Mon, 3 Aug 2026 13:29:35 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Shubhangini G <shubhangini@axiado.com>,
- Prasad Bolisetty <pbolisetty@axiado.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
- <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
- <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
-Content-Language: en-US
-From: Tzu-Hao Wei <twei@axiado.com>
-In-Reply-To: <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TP0P295CA0050.TWNP295.PROD.OUTLOOK.COM (2603:1096:910:3::6)
- To PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="xhgAeqtt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1785736249; x=1817272249;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=QHx/6VT+2eE/nev6vnNkXcBJg2kevi1ddJtjcllAIoU=;
+  b=xhgAeqttoWFFEAe3mM9KfcC/vCKgsP5yoQWV7SvLQfJ7+i6mgb2SVRks
+   JJwcD7uyaHwdvTwuI3ig8sD+NrB03ydAl3FLnZs9ZwCcy7Hh51cPqS5zm
+   wrnhsi6HZ2asFVz6lkIAv+YEyHBDHtTW0Ubgaoc7iWQX4pV55SRrHqoCK
+   xQSHA/SdtVcx2HGrnjuozzMj9jh9ubseGimwQcTBnw2cqdgk+AmULdT+P
+   lp/eadB9AvHrpxpgdCw9PQpdUp9/kPH2hWmZxneL31oAip0OnUaiBYGbE
+   J1q9CNuPxv9cIf6i6LEKkflcul9t493+Dw3MFx7v6F8Isy8vcVDwKjeEQ
+   w==;
+X-CSE-ConnectionGUID: 46zazo67RpaGzwwvuOJhsg==
+X-CSE-MsgGUID: N9rO7BBqQXODMUH3FcsR9g==
+X-IronPort-AV: E=Sophos;i="6.25,201,1779174000"; 
+   d="scan'208";a="61860626"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 02 Aug 2026 22:50:43 -0700
+Received: from chn-vm-ex04.mchp-main.com (10.10.85.152) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.58; Sun, 2 Aug 2026 22:50:43 -0700
+Received: from hyd-ld-i35088a.microchip.com (10.10.85.11) by
+ chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Sun, 2 Aug 2026 22:50:40 -0700
+From: shravan kumar <shravan.chippa@microchip.com>
+To: <sakari.ailus@linux.intel.com>, <mchehab@kernel.org>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<conor.dooley@microchip.com>, <valentina.fernandezalanis@microchip.com>,
+	<praveen.kumar@microchip.com>, <shravan.chippa@microchip.com>
+Subject: [PATCH V3] media: i2c: imx334: add new link frequency configuration
+Date: Mon, 3 Aug 2026 11:20:34 +0530
+Message-ID: <20260803055034.3807438-1-shravan.chippa@microchip.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR18MB4558:EE_|MN6PR18MB5466:EE_
-X-MS-Office365-Filtering-Correlation-Id: a30a7b70-05ea-4070-a6e1-08def1203786
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|23010399003|376014|7416014|42112799006|1800799024|4143699003|56012099006|3023799007|10067099003|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	1T1lS4FBgSU311u1ERevDCtLnrSK5aGOdOazoEAm38S2oBwxnIoQNAvE6+mE5/tpKNGo2CBvqFI0d9FIvjm4dWDMbvRg+jaGe7+GkYgZyndpvDhIxaDT/1Q5bANF+AR91OP9qOMR0JjF7Al1S6/nzrS0VjzwEw8QE+Cp4QK+8TOJRd2Xh+ZDX7bLilaKAtDbxezLHzoiJp1o1yNKQrwkgaoywZ2sS7n7TfEpGmBPTGCnYBsN/jLMgFWXZuJJ3LW2sTnmmamvuOwDWemP3FWmqCOWc0WS1k64+uI2JNK+elsIN9ebm0BGBwNQwwB0mnhCMKDxHJrvo8QAVmbCNx8B7jViwWAbFZhcys6mvSa4WPfDfzhmRyukM9yuf3WUlrPB51CrwjxmEbN5ZLCEqZ/5dNcHvs5Hy5gGgEBDqUm7OEwSGLp4ULq6Q3v5zO2TZx0bg2ug/J40WH4QiqyHE2lwquY5wQo21GHptPn04fcq9fonw8EqM/H8WGqN3XGW2sSKad7x6STIJCS3j1mcdCDh+OD0qqeVDa0s/BHgNUOZuGbCzXj3yLyUBEmiRon16+/M8dgzJdiOwuMzVofyxBweQyBE264CM4p6ZsvzSQw6AlL74WHSh4C2WOKfRagUhvuo
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR18MB4558.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(376014)(7416014)(42112799006)(1800799024)(4143699003)(56012099006)(3023799007)(10067099003)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?RHdGM0dvaHVFR2JkTEk3ZHBidmdvWWRhaXUvR3VaazB0Vk92SE9XYkRFOUx0?=
- =?utf-8?B?WFkxeEw1bDYzVWdzcklUNTdzT2lFQjB3VEFUNndUeXdWYUw5RWY2a1V1YW43?=
- =?utf-8?B?TXlNNjROMUJCZ3FWTzZJZEVZVjVMUUF2WWgyM1dIQis5V0NhZERjNDE3TU1D?=
- =?utf-8?B?SDkyOGp1akl5QnJkZWJ3blc1RUJ2R3Z2Y3V3dm9uOTJSUndLUkNpdDRhRUE2?=
- =?utf-8?B?Z2wvbnJ1TG5Ea3dja2V0cXFXb1BJY0lRRTQweTNCZ0hTTWg5bEYrQTkzYUt2?=
- =?utf-8?B?OUhqU0F4cjYvRGJINHlTVURqNlh6aTFiSUtjVUxCSG9jUklPazVORmRpcHhq?=
- =?utf-8?B?MnJ3WGlLVEd6YjVBMmcxbGR4bWJZNkFuaGdqSGZxMmVpQ2Fvc2NiUnAvekZV?=
- =?utf-8?B?UEQvcE14Q2VrLzg1S2Q0bzc5UVk0bTdyWU9lQTlQMGhIdEdmQTNhWExYZkVz?=
- =?utf-8?B?SVFDcEZOQWlqS21OcUx2WmlodlY1TnNyQ0N6dnZRZ1kxTWo5UUdRRHErTFF6?=
- =?utf-8?B?anpjZThzOFRCU1I3ak8zamtPYlZyeGpVVGx1VkF0UjdPZHFvYVV3S0w4NDQ5?=
- =?utf-8?B?Y2Q0SUlIeGpwS1l6Nm5LZWdtV2dvUVdJSUp4SVBwSnFJYmY3QmFKRUNoZlpV?=
- =?utf-8?B?bHJ6UHVwNUdmY1A3SllrbzFzTmYwcytyamY5ekh1dEhBUnFEWTlpWWpCMi90?=
- =?utf-8?B?M3VKaUdkNERDdlkxY0IxeUFlaDZEb1ZhN0xGVWowNHRzUDR1bjkvNmpha2N3?=
- =?utf-8?B?bFgwVHdaUXhaQ3hibkNMWmQvSjZQUEJaeFNzOHN3aE5jOVJ2SnFjNkJZUGtH?=
- =?utf-8?B?NWpRSUJLb2lxcUtKbE82UW4rcC9RS3l1emVjb1FOT1RWb0wrOTYwblpUbWk2?=
- =?utf-8?B?cXVkSmh6NWc2YlVrcUUzWldBZDNmTm45WEhZbUZqVWxEMUZKd0VVcWh4TC83?=
- =?utf-8?B?NVJRRjRmYWZBVnFwcStkS1RWY1I0QWl5Tjh0cllQbjdJY2ptdi9wWktVamhl?=
- =?utf-8?B?ZWdIZE9UNzRZb2dDRFA2QndUd3NjdG9QTy96Z3YxVlZUVUpIR2VVNmxQbXJk?=
- =?utf-8?B?L3JPQkVqZnR4NVNZV0dKZlhJSzlORXJEenIzN04wbHpPQUxsN0lQMWppU25B?=
- =?utf-8?B?ZEVUbWtIaWZrb1RTUzJZQ3hvNCtpNjVVcXZxRVNHYlVEVmZIMEVnMk5MUFFs?=
- =?utf-8?B?U3lYMWlpcC9qbUFLbERYajZEbXBUL0UxbHFkb2NtaXI2RlV0OWVRTURvd3Zx?=
- =?utf-8?B?TXkvZUUrWlQzQUJndlJKM1dkMzBGTE4rVHZobGhaUlF5b0k2bjZKN1BKMlFw?=
- =?utf-8?B?TDh1SjBYakcwUGZTMGtIQUJ1eDAzcnRsSW56YmVsWjhCRU1MRUR2aE14YTlR?=
- =?utf-8?B?dkNSQU1PSlp0MWtFTmdlUkZ1N3JkYjlEK1VRZEdVQWxSb1owdUxrelQvZEJj?=
- =?utf-8?B?bVRXcnVYWm0zYWVvQXU2akpJbWFmalZabW1PcjA4TnROTWwzZnhXMFJXczQ4?=
- =?utf-8?B?L2EwT29ZZWo3VklzbDQ2b2l2MFBuYVJSM1I5dDE2b1B2eVpWUkJWb3ZzMHM2?=
- =?utf-8?B?aFF0b1pwdURpSWNhbEIvZnVNcmlCdWxoa2tCa0NGWVF6YmdJeTVRbHNkYmJP?=
- =?utf-8?B?Q3RIcWU1aDcyUXp6dkkwL0ZPdW52Ly9ySDN2dTJUSnJWbjJvR0IybUFqVmp0?=
- =?utf-8?B?SW14SXo1VU5ULzNzYWNUUXVoRlRuUHdzMk8rVDJYUVIraXZVSEVaNEJRYytM?=
- =?utf-8?B?UFRLOXMySExiNmNDbXhzY0haSkljb0VWK1cxSldJWmRQdDVhMGVaRFBTU2Vn?=
- =?utf-8?B?bUdOSEFkeEJCelk2MHVXWXk3RXJIbUhTQ2FmU2NTRFhLWVVrK2gxMzk2TUtY?=
- =?utf-8?B?c0pFaWVsQzZtb2QxclhQTVRaMUltNk14Y3VieExpZG9yR3piOTZvbjZQYnUy?=
- =?utf-8?B?VGZibFhzUnNyUTE4OUMzVVJDY2w4cEdHZnVNQU5ZRkkrUWVVUUgvekdxdzdh?=
- =?utf-8?B?dzdZMDJycTlwYmJMNGI3NW83MklKNTBCSE1VejdPa0xRb3FtUjhiZEw1ejRr?=
- =?utf-8?B?Mml1cXVteVM3TWhhTVRwVUZsWTlXaGY1eWhYZlVlWXpWVGEzSXNVWEZJYkx5?=
- =?utf-8?B?V1g2akdsbmp1clhIbStmWnc5a2RzYUdBTDdoZ0Y5RktNZXBhRytCWXZmK2ZT?=
- =?utf-8?B?S3BHUUVHRVk0ZHJRQXdCLzBjZTNNWTJjY3dqemV1dFVKMnd0dVo4Zk5xZ2hP?=
- =?utf-8?B?Q2taZjFzYmx1QnAzMjVJU3VOVCtQZU44cEVDMzFpQldjWUQ5THVIV2JZc0dh?=
- =?utf-8?Q?DVbn15V0khp7xb3v4M?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a30a7b70-05ea-4070-a6e1-08def1203786
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR18MB4558.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 05:29:40.7453
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: D2eLE1IrFMrCwvMmAGGV5Oa6gQDXXWbuiFAX+JBfyy416ev6OCompb8zqfWcV5FQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN6PR18MB5466
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-On 7/30/2026 4:12 PM, Krzysztof Kozlowski wrote:
-> On 30/07/2026 09:26, Tzu-Hao Wei wrote:
->> Add a Device Tree binding for the Axiado AX3000 and AX3005 video
->> capture path. There is no local register interface to describe: frames
->> arrive asynchronously into a reserved memory region written by the
->> host's display engine over PCIe, and this node only identifies that
->> region.
->>
->> memory-region accepts an optional second entry for a host-written
->> control mailbox, letting the driver detect the mode the host is
->> actually driving instead of only echoing back the configured capture
->> format.
->>
->> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
->> ---
->>   .../bindings/media/axiado,ax3000-video.yaml        | 44 ++++++++++++++++++++++
->>   MAINTAINERS                                        |  8 ++++
->>   2 files changed, 52 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..c6d8d1843aac9f42869ff90a550b92d0bed7c16f
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
->> @@ -0,0 +1,44 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/media/axiado,ax3000-video.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Axiado AX3000 Video Controller
->> +
->> +maintainers:
->> +  - Shubhangini G <shubhangini@axiado.com>
->> +  - Tzu-Hao Wei <twei@axiado.com>
->> +  - Prasad Bolisetty <pbolisetty@axiado.com>
->> +
->> +description:
->> +  Axiado AX3000 video capture controller. Reads frames written by the
->> +  display engine into a shared reserved memory region and exposes them
->> +  as a V4L2 capture device.
-> 
-> This is really incomplete. You need at least way to power things on,
-> reset them, provide clocks, sensors, data paths. Or at the very minimal:
-> START capturing the frames after configuring the resolution.
-> 
-> It seems you described driver or just a piece of entire video pipeline.
-> 
+From: Shravan Chippa <shravan.chippa@microchip.com>
 
-Thanks for your feedback.
+Add 222 MHz link frequency support and refactor clock registers into
+per-frequency register lists. Introduce imx334_clk_params to map each
+link frequency to its register set and supported resolution range.
+Make the link frequency control writable so userspace can select the
+desired operating point.
 
-The Axiado AX3000 and AX3005 SoCs expose a display capture path that
-delivers frames into a shared reserved memory region and exposes them
-as a standard V4L2 capture device via the videobuf2 framework.
+Signed-off-by: Shravan Chippa <shravan.chippa@microchip.com>
 
-There is no local register interface for this driver to program: frame
-delivery is controlled entirely by the host-side display engine and
-the PCIe endpoint mapping that feeds the shared region, both external
-to this driver. A software polling timer schedules a workqueue item at
-the configured framerate, which copies frames from the WC-mapped
-shared region into vmalloc-backed vb2 buffers. Running the copy in a
-work item rather than directly in the timer callback keeps potentially
-multi-megabyte memcpy and per-pixel conversion work out of softirq
-context.
+---
+Changes from V2 -> V3
 
-To provide more context, this hardware path is designed for BMC iKVM
-applications. The physical data flow is:
-Host Display Engine -> PCIe -> BMC Shared Memory -> v4l2 (video0).
+- Refactor: Introduce struct imx334_clk_params
+    - Maps each link frequency to its clock register set and supported
+      resolution range (width_max, height_max, width_min, height_min).
+    - Includes a default_mode pointer for fallback when resolution is
+      out of range for the selected link frequency.
 
->> +
->> +properties:
->> +  compatible:
->> +    oneOf:
->> +      - const: axiado,ax3000-video
->> +      - items:
->> +          - const: axiado,ax3005-video
->> +          - const: axiado,ax3000-video
->> +
->> +  memory-region:
->> +    minItems: 1
->> +    items:
->> +      - description: video frame buffer, shared with the display engine
->> +      - description: optional control mailbox, shared with the host
-> 
-> Why is it optional?
-> 
+- Enhancement: Make link_freq control writable
+    - Removed V4L2_CTRL_FLAG_READ_ONLY from link_freq_ctrl so userspace
+      can select the desired link frequency operating point.
 
-The second memory region is optional because it is not available on all
-supported hardware configurations or use cases.
+- Enhancement: Add resolution bounds checking in set_pad_format
+    - imx334_set_pad_format() now validates the selected mode against
+      the clk_params width/height constraints and falls back to the
+      default mode if out of range.
 
-For instance, another supported use case has the following data flow:
-vtconsole -> framebuffer -> Shared Memory -> v4l2 (video0).
+- Cleanup: Remove __v4l2_ctrl_s_ctrl for link_freq in update_controls
+    - Link frequency is no longer tied to mode, so the explicit control
+      update in imx334_update_controls() was removed.
 
-The first region handles the raw video frame data (which is sufficient
-for capture if configured by userspace). The second region provides
-host control info for automatic resolution detection.
 
-In the vtconsole scenario, this second control region is not present.
-Making it required would incorrectly exclude systems that can capture
-frames but lack auto-detection. I will clarify this variance in v2.
+Changes from V1 -> V2
 
-Best regards,
-TH
+- Fix: Default mode selection bug
+    - Problem: Used __ffs(link_freq_bitmap) as index into the compacted
+      active_modes array. This index corresponds to a bit position in the
+      bitmap, not an array index in the filtered modes list.
+    - Fix: Use index 0, which is always the first valid mode in the
+      filtered array.
 
-> Best regards,
-> Krzysztof
+- Fix: Rename fields for clarity
+    - Renamed struct fields:
+      * new_supported_modes -> active_modes
+      * new_modes_size -> num_active_modes
+    - Updated kernel-doc header for struct imx334 to document new fields.
+
+- Fix: INCKSEL2 register write - add error handling and switch-case
+    - Location: imx334_enable_streams()
+    - Problem: Original code only handled 222 MHz case with no error
+      checking (passed NULL to cci_write).
+    - Fix: Replaced with switch-case covering all three link frequencies:
+      * 891 MHz -> INCKSEL2 = 0x02
+      * 445 MHz -> INCKSEL2 = 0x06
+      * 222 MHz -> INCKSEL2 = 0x0a
+    - Added proper error handling using &ret accumulator pattern with
+      dev_err and goto err_rpm_put on failure.
+
+- Fix: Use BIT() macro
+    - Location: imx334_update_supported_mode_array()
+    - Replaced (1 << i) with BIT(i) for kernel coding style compliance.
+
+- Fix: Use devm_kmalloc_array() for overflow-safe allocation
+    - Location: imx334_update_supported_mode_array()
+    - Replaced: devm_kmalloc(dev, n * sizeof(struct imx334_mode),
+ GFP_KERNEL)
+    - With: devm_kmalloc_array(dev, n, sizeof(*temp_ptr), GFP_KERNEL)
+    - Provides overflow-safe multiplication and uses sizeof(*ptr) idiom.
+
+- Cleanup: Condensed copy loop
+    - Location: imx334_update_supported_mode_array(), second loop
+    - Simplified the struct copy with post-increment:
+      temp_ptr[size++] = supported_modes[j];
+
+- Fix: Updated function kernel-doc comment
+    - Location: imx334_update_supported_mode_array()
+    - Reworded: "Search for the supported modes add them in the new list"
+    - To: "Build filtered modes array based on DTS link frequencies"
+
+- IMX334_LINK_FREQ_222M changed from 222500000 to 222750000
+
+---
+
+ drivers/media/i2c/imx334.c | 132 +++++++++++++++++++++++++++++++------
+ 1 file changed, 112 insertions(+), 20 deletions(-)
+
+diff --git a/drivers/media/i2c/imx334.c b/drivers/media/i2c/imx334.c
+index 553a16b84f4d..fb036873859c 100644
+--- a/drivers/media/i2c/imx334.c
++++ b/drivers/media/i2c/imx334.c
+@@ -109,6 +109,7 @@
+ /* CSI2 HW configuration */
+ #define IMX334_LINK_FREQ_891M		891000000
+ #define IMX334_LINK_FREQ_445M		445500000
++#define IMX334_LINK_FREQ_222M		222750000
+ #define IMX334_NUM_DATA_LANES		4
+ 
+ #define IMX334_REG_MIN			0x00
+@@ -154,7 +155,6 @@ struct imx334_reg_list {
+  * @vblank_min: Minimal vertical blanking in lines
+  * @vblank_max: Maximum vertical blanking in lines
+  * @pclk: Sensor pixel clock
+- * @link_freq_idx: Link frequency index
+  * @reg_list: Register list for sensor mode
+  */
+ struct imx334_mode {
+@@ -165,7 +165,28 @@ struct imx334_mode {
+ 	u32 vblank_min;
+ 	u32 vblank_max;
+ 	u64 pclk;
+-	u32 link_freq_idx;
++	struct imx334_reg_list reg_list;
++};
++
++/**
++ * struct imx334_clk_params - imx334 sensor clock parameters
++ * @data_rate_per_lane: Data rate per lane in bits per second
++ * @link_freq: Link frequency in Hz
++ * @width_max: Maximum image width in pixels
++ * @height_max: Maximum image height in pixels
++ * @width_min: Minimum image width in pixels
++ * @height_min: Minimum image height in pixels
++ * @default_mode: Pointer to the default sensor mode
++ * @reg_list: Register list for clock configuration
++ */
++struct imx334_clk_params {
++	u32 data_rate_per_lane;
++	u32 link_freq;
++	u32 width_max;
++	u32 height_max;
++	u32 width_min;
++	u32 height_min;
++	const struct imx334_mode *default_mode;
+ 	struct imx334_reg_list reg_list;
+ };
+ 
+@@ -216,6 +237,7 @@ struct imx334 {
+ static const s64 link_freq[] = {
+ 	IMX334_LINK_FREQ_891M,
+ 	IMX334_LINK_FREQ_445M,
++	IMX334_LINK_FREQ_222M,
+ };
+ 
+ /* Sensor common mode registers values */
+@@ -233,13 +255,6 @@ static const struct cci_reg_sequence common_mode_regs[] = {
+ 	{ IMX334_REG_UNREAD_PARAM6,	0x0008 },
+ 	{ IMX334_REG_XVS_XHS_OUTSEL,	0x20 },
+ 	{ IMX334_REG_XVS_XHS_DRV,	0x0f },
+-	{ IMX334_REG_BCWAIT_TIME,	0x3b },
+-	{ IMX334_REG_CPWAIT_TIME,	0x2a },
+-	{ IMX334_REG_INCKSEL1,		0x0129 },
+-	{ IMX334_REG_INCKSEL2,		0x06 },
+-	{ IMX334_REG_INCKSEL3,		0xa0 },
+-	{ IMX334_REG_INCKSEL4,		0x7e },
+-	{ IMX334_REG_SYS_MODE,		0x02 },
+ 	{ IMX334_REG_HADD_VADD,		0x00 },
+ 	{ IMX334_REG_VALID_EXPAND,	0x03 },
+ 	{ IMX334_REG_TCYCLE,		0x00 },
+@@ -397,6 +412,39 @@ static const struct cci_reg_sequence mode_3840x2160_regs[] = {
+ 	{ IMX334_REG_TPLX,		0x005f },
+ };
+ 
++/* Data rate 1782Mbps per lane and 891Mhz link frequency */
++static const struct cci_reg_sequence link_freq_891m_regs[] = {
++	{ IMX334_REG_BCWAIT_TIME,	0x3b },
++	{ IMX334_REG_CPWAIT_TIME,	0x2a },
++	{ IMX334_REG_INCKSEL1,		0x0129 },
++	{ IMX334_REG_INCKSEL2,		0x02 },
++	{ IMX334_REG_INCKSEL3,		0xa0 },
++	{ IMX334_REG_INCKSEL4,		0x7e },
++	{ IMX334_REG_SYS_MODE,		0x00 },
++};
++
++/* Data rate 891Mbps per lane and 445Mhz link frequency */
++static const struct cci_reg_sequence link_freq_445m_regs[] = {
++	{ IMX334_REG_BCWAIT_TIME,	0x3b },
++	{ IMX334_REG_CPWAIT_TIME,	0x2a },
++	{ IMX334_REG_INCKSEL1,		0x0129 },
++	{ IMX334_REG_INCKSEL2,		0x06 },
++	{ IMX334_REG_INCKSEL3,		0xa0 },
++	{ IMX334_REG_INCKSEL4,		0x7e },
++	{ IMX334_REG_SYS_MODE,		0x02 },
++};
++
++/* Data rate 445Mbps per lane and 222Mhz link frequency */
++static const struct cci_reg_sequence link_freq_222m_regs[] = {
++	{ IMX334_REG_BCWAIT_TIME,	0x3b },
++	{ IMX334_REG_CPWAIT_TIME,	0x2a },
++	{ IMX334_REG_INCKSEL1,		0x0129 },
++	{ IMX334_REG_INCKSEL2,		0x0a },
++	{ IMX334_REG_INCKSEL3,		0xa0 },
++	{ IMX334_REG_INCKSEL4,		0x7e },
++	{ IMX334_REG_SYS_MODE,		0x02 },
++};
++
+ static const char * const imx334_test_pattern_menu[] = {
+ 	"Disabled",
+ 	"Vertical Color Bars",
+@@ -442,7 +490,6 @@ static const struct imx334_mode supported_modes[] = {
+ 		.vblank_min = 90,
+ 		.vblank_max = 132840,
+ 		.pclk = 594000000,
+-		.link_freq_idx = 0,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_3840x2160_regs),
+ 			.regs = mode_3840x2160_regs,
+@@ -455,7 +502,6 @@ static const struct imx334_mode supported_modes[] = {
+ 		.vblank_min = 45,
+ 		.vblank_max = 132840,
+ 		.pclk = 297000000,
+-		.link_freq_idx = 1,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1920x1080_regs),
+ 			.regs = mode_1920x1080_regs,
+@@ -468,7 +514,6 @@ static const struct imx334_mode supported_modes[] = {
+ 		.vblank_min = 45,
+ 		.vblank_max = 132840,
+ 		.pclk = 297000000,
+-		.link_freq_idx = 1,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_1280x720_regs),
+ 			.regs = mode_1280x720_regs,
+@@ -481,7 +526,6 @@ static const struct imx334_mode supported_modes[] = {
+ 		.vblank_min = 45,
+ 		.vblank_max = 132840,
+ 		.pclk = 297000000,
+-		.link_freq_idx = 1,
+ 		.reg_list = {
+ 			.num_of_regs = ARRAY_SIZE(mode_640x480_regs),
+ 			.regs = mode_640x480_regs,
+@@ -489,6 +533,46 @@ static const struct imx334_mode supported_modes[] = {
+ 	},
+ };
+ 
++static const struct imx334_clk_params imx334_clk_params[] = {
++	{
++		.data_rate_per_lane = 1782000000,
++		.link_freq = IMX334_LINK_FREQ_891M,
++		.width_max = 3840,
++		.height_max = 2160,
++		.width_min = 3840,
++		.height_min = 2160,
++		.default_mode = &supported_modes[0], /* 3840x2160 */
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(link_freq_891m_regs),
++			.regs = link_freq_891m_regs,
++		},
++	}, {
++		.data_rate_per_lane = 891000000,
++		.link_freq = IMX334_LINK_FREQ_445M,
++		.width_max = 1920,
++		.height_max = 1080,
++		.width_min = 640,
++		.height_min = 480,
++		.default_mode = &supported_modes[1], /* 1920x1080 */
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(link_freq_445m_regs),
++			.regs = link_freq_445m_regs,
++		},
++	}, {
++		.data_rate_per_lane = 445500000,
++		.link_freq = IMX334_LINK_FREQ_222M,
++		.width_max = 1920,
++		.height_max = 1080,
++		.width_min = 640,
++		.height_min = 480,
++		.default_mode = &supported_modes[1], /* 1920x1080 */
++		.reg_list = {
++			.num_of_regs = ARRAY_SIZE(link_freq_222m_regs),
++			.regs = link_freq_222m_regs,
++		},
++	}
++};
++
+ /**
+  * to_imx334() - imv334 V4L2 sub-device to imx334 device.
+  * @subdev: pointer to imx334 V4L2 sub-device
+@@ -512,10 +596,6 @@ static int imx334_update_controls(struct imx334 *imx334,
+ {
+ 	int ret;
+ 
+-	ret = __v4l2_ctrl_s_ctrl(imx334->link_freq_ctrl, mode->link_freq_idx);
+-	if (ret)
+-		return ret;
+-
+ 	ret = __v4l2_ctrl_modify_range(imx334->pclk_ctrl, mode->pclk,
+ 				       mode->pclk, 1, mode->pclk);
+ 	if (ret)
+@@ -746,6 +826,7 @@ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+ {
+ 	struct imx334 *imx334 = to_imx334(sd);
+ 	const struct imx334_mode *mode;
++	const struct imx334_clk_params *clk_params;
+ 	int ret = 0;
+ 
+ 	mode = v4l2_find_nearest_size(supported_modes,
+@@ -753,6 +834,11 @@ static int imx334_set_pad_format(struct v4l2_subdev *sd,
+ 				      width, height,
+ 				      fmt->format.width, fmt->format.height);
+ 
++	clk_params = &imx334_clk_params[imx334->link_freq_ctrl->val];
++	if (mode->width > clk_params->width_max || mode->height > clk_params->height_max ||
++	    mode->width < clk_params->width_min || mode->height < clk_params->height_min)
++		mode = clk_params->default_mode;
++
+ 	imx334_fill_pad_format(imx334, mode, fmt);
+ 	fmt->format.code = imx334_get_format_code(imx334, fmt->format.code);
+ 
+@@ -824,6 +910,15 @@ static int imx334_enable_streams(struct v4l2_subdev *sd,
+ 		goto err_rpm_put;
+ 	}
+ 
++	/* Write sensor link freq registers */
++	reg_list = &imx334_clk_params[imx334->link_freq_ctrl->val].reg_list;
++	ret = cci_multi_reg_write(imx334->cci, reg_list->regs,
++				  reg_list->num_of_regs, NULL);
++	if (ret) {
++		dev_err(imx334->dev, "fail to write initial registers\n");
++		goto err_rpm_put;
++	}
++
+ 	/* Write sensor mode registers */
+ 	reg_list = &imx334->cur_mode->reg_list;
+ 	ret = cci_multi_reg_write(imx334->cci, reg_list->regs,
+@@ -1096,9 +1191,6 @@ static int imx334_init_controls(struct imx334 *imx334)
+ 							__ffs(imx334->link_freq_bitmap),
+ 							link_freq);
+ 
+-	if (imx334->link_freq_ctrl)
+-		imx334->link_freq_ctrl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
+-
+ 	imx334->hblank_ctrl = v4l2_ctrl_new_std(ctrl_hdlr,
+ 						&imx334_ctrl_ops,
+ 						V4L2_CID_HBLANK,
+-- 
+2.34.1
 
