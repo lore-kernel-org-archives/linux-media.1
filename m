@@ -1,179 +1,156 @@
-Received: from SY8PR01CU002.outbound.protection.outlook.com (mail-australiaeastazolkn19010079.outbound.protection.outlook.com [52.103.72.79])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f79.google.com (mail-ot1-f79.google.com [209.85.210.79])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E403B40927F;
-	Mon,  3 Aug 2026 12:44:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.79
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785761099; cv=fail; b=MQs+RMgQi7Qffw0fSLnRKj6UtjqF0tsMbk4SKR8u77EK+4h1nBw0C8fmKYZAFRjianWnnfMgNFdIiLfOSg6bgfJhuckJZbBVjz6F+5bpFersJTOWVlYa1EnyYZ8NgKZFyxMI0sZs8k/eH0BQX49vr/ralhOgErDAqN2IiNQsuS0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785761099; c=relaxed/simple;
-	bh=C8EQvscOVlVVTuf/tw5EjAbjPvSFlUH9i6YzkuDu7LY=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=Dy+d5JZXnd7hyCDV7W8ThfQHtgwKmLq5BZBQ45/C1uqA+bpSxLgl/u+Fapar5Gb5buOrNFp3sYqC56Xr/X8UJqvCcPrZrk8ZwZGxndC7jOqJUYT3GzQJTuvNnsqqFrQnOx11J+ZvoU5lJfzEx9fao3JqvyYYujb2unn1ZHIFsjU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=ASi4pIa8; arc=fail smtp.client-ip=52.103.72.79
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="ASi4pIa8"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Wofak6E74qwrlcP5CXc1QTK4+70Suq23tDqwkx3B5LJbO6wUcdB8LZTmfCjPd6SAU+H/IMom14YVcn/x+QCF651qXHjNpT7IEgTmczBJzzUsFNB4M8/wC/1bKuQQ9m63jn9UPutiDtlTKBELLnftjUd7Y1HPbLnFFFITKprV5eqify9OIFKeSp88KwW+3QDhaSlXLawVX3rdkhzJWh+rOtAlSshwijvhSx9KVDz6wOPFCwvmrB0tNfc6o3Y/clfqoomnYNe9su1IF/kAh9/tyBxx3Yp2ufZr3E3Vr2wL2hMEugG5uvE5gZm/8NkJwcQ+7MbolfJz0QzGteUg2UFyVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
- b=xbCo8h0dl4CUI6yMSHgd+gbGC/YX6SL2sl5BE+g8LbW9hmbZNkcifSm0l+6oEJ2bewPwOJo0uBLnRuEwYCqMzgm94dROCx3UHO9f3XRrJU+CWXzBGBM5VJsd3es9BqoS7fo1G5W10eHcoebcTbODjINfEr1mm2K0jmfR46Xt9CMMIWJZYaIQ2KgPXy1xiHA3yJThzM+PfEkz61XeRqDyUeCVcgTyb6apSLVKcj94ti3e2NGv1oa8b7LxPe0NgA6WmBjDjBh71k3a1lM4gixl9ZIS5fpQwSvkmQpzA+T8HhoMjpAPA+IzJCXbE6muirGIgSnfEaARskGa01pS3nywRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=bRdbckxE7X6/v/jGvlPkzzdxzQK+faoZ52q/+IOPFHc=;
- b=ASi4pIa83dwrIHA51SErs7qOxt6OLJhy/xeaDF7YIcSIBdhdyQvdTUo/uf60mZuDuHRT7wAhVgYjKqpohkv6RdtVkf8AL8lf3OTh7ErnjE/BlR8kC3y6To3nlS/BKnHmhlwuURzDTfowLuphUzyHRVWX2ivucsoZ2W+A4T2MJ9jR5qk8cIQUJXhdsZX66vMDzq3KPVlfJv23+h7tEopncgKgciGaAsWDIfluD7ckBadrXw+87V8KKE399VQLmm4id7s5h1+kau0XeNT6OadDWbP+GBGiTQVnVrJUlGfP51zrncwxa+H1JyuwzDlfCGdBjUGQ95+bymZLUdPdHU1M6g==
-Received: from MEYPR01MB7886.ausprd01.prod.outlook.com (2603:10c6:220:17e::8)
- by SY7PR01MB9055.ausprd01.prod.outlook.com (2603:10c6:10:21e::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 12:44:53 +0000
-Received: from MEYPR01MB7886.ausprd01.prod.outlook.com
- ([fe80::19df:3891:d8aa:692d]) by MEYPR01MB7886.ausprd01.prod.outlook.com
- ([fe80::19df:3891:d8aa:692d%4]) with mapi id 15.21.0270.017; Mon, 3 Aug 2026
- 12:44:53 +0000
-From: Junrui Luo <moonafterrain@outlook.com>
-To: Nicolas Dufresne <nicolas@ndufresne.ca>
-CC: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Dafna Hirschfeld <dafna3@gmail.com>, Mauro Carvalho
- Chehab <mchehab+samsung@kernel.org>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, Yuhao Jiang <danisjiang@gmail.com>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH] media: vicodec: fix out-of-bounds write on capture buffer
-Thread-Topic: [PATCH] media: vicodec: fix out-of-bounds write on capture
- buffer
-Thread-Index: AQHc8cLfT36G8KLRYEyWjUEbjsvUi7ZvjqoAgB0Zf4A=
-Date: Mon, 3 Aug 2026 12:44:53 +0000
-Message-ID: <5DCE028E-E3A6-46DA-9CF2-DEACBBAD5B2F@outlook.com>
-References:
- <SYBPR01MB7881A4E2AC434488ABFA775CAF152@SYBPR01MB7881.ausprd01.prod.outlook.com>
- <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
-In-Reply-To: <79f19fa34a875dc4b6944ec8df498d9862b5d3f6.camel@ndufresne.ca>
-Accept-Language: en-US, zh-CN
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-ms-exchange-messagesentrepresentingtype: 1
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MEYPR01MB7886:EE_|SY7PR01MB9055:EE_
-x-ms-office365-filtering-correlation-id: ee9407e1-baf1-4aad-b94e-08def15d03ea
-x-microsoft-antispam:
- BCL:0;ARA:14566002|31061999003|8060799015|8062599012|19110799012|8022599003|24121999003|22091999003|15080799012|24021099003|25010399006|3071699003|2607281247196008|102099032|3412199025|440099028;
-x-microsoft-antispam-message-info:
- =?us-ascii?Q?odu4ZGrEdUO/onFTYoDNtE9+VK1SHh/L8PG2Whik4srqw+g/UjVh/GzcPjFl?=
- =?us-ascii?Q?PhmtKh/1dMi6/nvjLlrOeehG51g9r43ePPIaVK5dKhJ3GVn9U0ZtlfCUoVVQ?=
- =?us-ascii?Q?rU6S/4AYESHgBAjenggTFxJWHgADQ41gveFdQJwvHqrfyJFDSKwK6ivtNTd5?=
- =?us-ascii?Q?0gfTj+KZdBkBCNLL1euUnwHP5wwIl1x8OfBfmCr/ew9EvEenDyTNKq2xfY6e?=
- =?us-ascii?Q?i1cqNDMhgZRmv6QldvJvrilQsi3PcVPlUx5cm/d8Bbi8Mqgh4Iq9ynY1jPRx?=
- =?us-ascii?Q?IpHze2NC4QwQcd3w3Qn22j52YHlPnwLiosedT8/ifT1nbjUhsW1gygYTLEOP?=
- =?us-ascii?Q?5Y4EmHrNIXyWF/nBW72kwop11KI+N6L0380yYrXtLT/cOR1A1+EJPOSuR4rh?=
- =?us-ascii?Q?qezXFpL7+BnxPrfDzHovA9esYHhSAQKZlHs+6QZ3zCg0D56vAvuXpybE75X3?=
- =?us-ascii?Q?+tHeGNB62V4LdaVZF7yiusPxgBnt6XPj9dNW3d53IGp7C93pGm0EKEoMJWu9?=
- =?us-ascii?Q?5wMWs0l6YH8d53Rb3QrZDsjzfOS8GQ8/vKKCT28Jb24uBQ33BnaDKpJ8302B?=
- =?us-ascii?Q?jkjMYshO5Dkby9x+F54NZcfGkk/FhSglGqzH8fGYMhaWu+YekpAvCO34YH3e?=
- =?us-ascii?Q?hLN3BabMogIOpnbggbI1V1Ta42PNqHhF1qi5Gi+IS3v0HYgQ4Qgzrr/74VOp?=
- =?us-ascii?Q?0lvufyfbwJHQqVuynBotMNEtnC9HLMu022GB4SPXScwfJzA9H2lPhRAWHFnC?=
- =?us-ascii?Q?cQ/GkhH2T9qwZxRgX4BSpYFOnaFEBTCMwdzjpQZ9avr+7cDmfw7BBscypciC?=
- =?us-ascii?Q?eXKBxuo/QV/8wxYUcwXelFOUAuT4rX4s4STpICBMKv5GAWjT2RhgeFQeXZlQ?=
- =?us-ascii?Q?biuQkdic7HShcd9sJkmj7kqZ3PdfOh6F2lvR7MpEwJn/fBB1RQ9XNvZcwPen?=
- =?us-ascii?Q?uXwX4YCSloGPmjkrB0PDPf9UMIQ4WwZEFnVNZi1a0/JEGVtE3yOBr/x0B54G?=
- =?us-ascii?Q?GRBT?=
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?Fx8JdoZaqkIcNzlnhv+m/GRtdIsVWRoZ4yapzjUf47GQWrCSLe08QoFEjrTQ?=
- =?us-ascii?Q?2WH1FPnpMmazp9H+h7A2Ij5n5G3Idcl19i1qOdZSUdqsdLafVd9f5oTwhCGp?=
- =?us-ascii?Q?ktDgBw0Gq1lFG+BAyFpkRbQfhi01ZCQUX0VeCYE76vEGaEmTWzeJDF5xeTZ/?=
- =?us-ascii?Q?j+h4+fpTSrlM7Ywqw/TzGmqdVB9OS0tP964/LkXsT2ReDEl9CLzvMrRfpjw3?=
- =?us-ascii?Q?/6KxaLkRMAuGUlBQaRo2urrcZ1nH+CHHIkS9Wvet9KWVqTNKzV0ANtSWPo7j?=
- =?us-ascii?Q?W0/UTBGxUADbTxozoVa39EPziqZWZoCFHxei5CBj5GaPK+RUEX6HGj7Y5BhN?=
- =?us-ascii?Q?BJYurNH9a3nkuMJnP4G8QbXmoIU2lVoQgdOj2y5Zom+jUaYAsEqHSp58DpXH?=
- =?us-ascii?Q?pM06FbkUJlgyoOfWsS7J4Hy+8F0KzBfZYqw3o0kgMyIuvwG12qpcKO8QjQFm?=
- =?us-ascii?Q?VmgA4JUeKEpGQJLsNtdODFVPLXKnufkmlVPuBzhyAO1HyomJ0XPAnp+E7Raf?=
- =?us-ascii?Q?BIuFf+ZXIg2s0SMA6ijLe1y3etC8lDgQQej1Xqbn815/rastfeddcVhgR3gZ?=
- =?us-ascii?Q?snGobI+X/rSSjqM+gvUOXAOXVOFx987bU9qJ+70FrvspYR0+t9G2gNA+/IgA?=
- =?us-ascii?Q?d9KPsiREKQ+hjonrAgt/OQ1Dqp+sl7ay4rd3fg+i4uCf0uhImRPdY6Z7yJ4a?=
- =?us-ascii?Q?qNx6HK2WyHQjnqYgrNgCt3U8iANv779HwKyGcf76P3ky0nNIbMkc9kiHhZZZ?=
- =?us-ascii?Q?8BdqJMvtesxXA4DPM5j9Px2fUf+kuA3BcnPUn4y6UuofNruMrRUqB+13iHf+?=
- =?us-ascii?Q?FnAF9OikIXlLS6wPtNQIIpxnUJEkzkFTe2gQOlJUFytve/55aXG6PqUROQ4V?=
- =?us-ascii?Q?4dPHomoMbxBWTR3itl9dyMrQuf09OmkdBVZGzN+txhxbzxSfsfyebObBR0pa?=
- =?us-ascii?Q?Stl1a9KbYxvaYN7iVuGxV7IgLXoLw5mi9queVZU5JauPnLLaMsMHU9mnj4kj?=
- =?us-ascii?Q?r+t9I8cL9nczx+oNDLU8hXqSzm8v0VUxqsLct8gF4mwl8tvcGFnrbOc2igwb?=
- =?us-ascii?Q?00n/TOBjbxEyviicZbm8AOB0DyKR+nqTMCBsKUHmPTFIMvjxaBbGsY5bjHns?=
- =?us-ascii?Q?JIz7Sfud6Spfx7HGxF1vnHIGOuoO5b9iPXdfR4PO/p+b0ZIG0nLSY3gQQPSL?=
- =?us-ascii?Q?c9wouGk4P/4druw94s14gbfEFaRn+maNQ9s3Dp0PINjkJMweXKVCSQ8aGM7D?=
- =?us-ascii?Q?h7XZKQPHn6pv9wXg82ueCGrlaoLfat1L9FQD/le4QJPEvF68pZ+M07lZjYIy?=
- =?us-ascii?Q?Cc+k7w5egvaC2YRrJNiZuBc7DIZJu1OSkzVOZyM0U1rOPFum2k0BwKo4avMR?=
- =?us-ascii?Q?FnakhaQ4hBRwF4VU6UkZnPLo9ZKd2euNXxqBhMeUs2C9E0l2Bw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <8C362B8603E4E649B5B90FA38C8768A0@ausprd01.prod.outlook.com>
-Content-Transfer-Encoding: quoted-printable
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00B4A16F27F
+	for <linux-media@vger.kernel.org>; Mon,  3 Aug 2026 12:49:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.79
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785761373; cv=none; b=RsbSWRgZSlFiSaxp1MhqiHnOu7WSec7OFZys+ln269gVM7AoH12K7WDJN90ysyjTgpUU2iDZCbpz1gAv5P3GEjbnhHCVh2KY5RzEOrjvagZCXqOfD5tG9vyyQ09hnN3dCtwQf4oohRB8R5poVhhsAA5NGW29RrCRVJxmrl6JTIs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785761373; c=relaxed/simple;
+	bh=UsgiFDaHoAOw7FOTgq68G0S9b+Wg8R/qcqmmSQBOHaA=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=sCqQDTZVJiTqRNxmdjVmkLhCY41sVfHV2KY5ySyQMqK2fCvwzc00WFiXzG0KCJdjoXyp0x7PJHxSEb1BZFzTJ3bu7oz1VWfTxtGRF5N99KdAgBKAXHvGU4eL+dwZr7la7BJ1AMJmthZdsCU2AH3yRJgfa+oRwSICQjHeymo3WYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-ot1-f79.google.com with SMTP id 46e09a7af769-7ec6685adabso4809893a34.0
+        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 05:49:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785761371; x=1786366171;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=64QN7LTkq2qNHaMOdcQ2ARtSM19t0SiU7kRF5dlfXI8=;
+        b=H06raH12xzrBcdEdPiImlGcoq1gbfGNJbereJNvWk8YcxdNXlasyAnQZheX7b4Lpee
+         xL5/Y5zJICYOUxcqbx7ba+HxVz/fyMzrDgUH8WcEl8PrpjBHYTdRzxgo5xYVsyfW3VSg
+         mr3xDxlpk11SO/xWPvEJiIINPBuMGYcmgHeEopJsv/aod2BpyPQ7KnMvIBvAIwMdRMgc
+         eW/qle9J67IQLXw0d97coTJpaDNf4dkQpJm8Fn2urrhQbd6k4P1NnaOhix8lBIgfm+Sv
+         FL4PVQ3uumiSRY9T9sYjRdSf0Jp2Jdm/gDtTiER6OpsW//bNh0HQiLw159jp3j5Mnmyl
+         N4bQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rqu4/3kCRSSZnYioLSxq4FXm+pxq9OPUgAf9WTf3WDTrcHCqqiV0oiZ1hXGcodKndUJcLfZHVFtieaZ9g==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzk1fy+s1ohEHFLXzOBa5HrOAyVAxhTvhm8ZXC5zMqKRwCRJ721
+	LrmsPeynjRNcpnT56Vc8I6ABaiJZWuv+MFOwENDm/h2OLRkhOMuks/rpOzirLcWctFvFGauXqLl
+	X4uTB+QsgdiEzadhWvB51yaFICuF7FkRih7BM3OumDjPXir80I/UsnWtRJkA=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MEYPR01MB7886.ausprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee9407e1-baf1-4aad-b94e-08def15d03ea
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Aug 2026 12:44:53.2985
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY7PR01MB9055
+X-Received: by 2002:a05:6808:f8f:b0:495:eb85:fc2b with SMTP id
+ 5614622812f47-4af5e29ce58mr15188680b6e.10.1785761371033; Mon, 03 Aug 2026
+ 05:49:31 -0700 (PDT)
+Date: Mon, 03 Aug 2026 05:49:31 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a708e5b.13bfb6d0.1ecdd5.027f.GAE@google.com>
+Subject: [syzbot] [media?] WARNING in v4l2_ctrl_cluster
+From: syzbot <syzbot+2d417475ba9d6d02cfc9@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Jul 15, 2026 at 08:21:50PM -0400, Nicolas Dufresne wrote:
-> The analyses is just incorrect. At this point, the driver is entering DRC=
-,
-> meaning the queue will be drain and will stop until streamoff/on cycle ha=
-ppen. =20
-> If there is a out-of-bound bug, it would be that that q_data->sizeimage i=
-s not
-> match to be smaller or equal to the vb2 buffer size at streamon time, not=
- during
-> processing.
->=20
-> NAK
->=20
-> Nicolas
+Hello,
 
-Thanks for looking. Right, `source_changed` gates the draining during the
-streamoff/on cycle.
+syzbot found the following issue on:
 
-However, `source_changed` is only set in job_ready(). The first source chan=
-ge
-goes through vicodec_buf_queue(), which sets `first_source_change_sent` but=
- not
-`source_changed`, so it does not drain. A non-conforming application could
-commit CAPTURE resources before calling STREAMON(OUTPUT).
+HEAD commit:    11028ab62899 Merge tag 'probes-fixes-v7.2-rc5' of git://gi..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=13654aea580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=f221a1b5d497ed15
+dashboard link: https://syzkaller.appspot.com/bug?extid=2d417475ba9d6d02cfc9
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
 
-On v7.0-rc3, KASAN:
-[    3.777164] BUG: KASAN: slab-out-of-bounds in device_run+0x969/0x1850
-[    3.779180] Write of size 2560 at addr ffff888008de1000 by task trigger/=
-69
+Unfortunately, I don't have any reproducer for this issue yet.
 
-It can be triggered by S_FMT(CAPTURE, GREY 1280x720), CREATE_BUFS(CAPTURE) =
-[plane
-over-allocated], STREAMON(CAPTURE). Then QBUF(OUTPUT) with an FWHT
-header for the same 1280x720 but NV24 (3 components, full chroma). That
-grows q_dst->sizeimage to 2764800 without changing coded_width/height, so
-STREAMON(OUTPUT) runs device_run() and copy_cap_to_ref() memcpy()s the
-NV24 chroma plane past the GREY-sized ref_frame.buf.
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-11028ab6.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/50d1387eb51d/vmlinux-11028ab6.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/30ffbd0f8cd4/bzImage-11028ab6.xz
 
-As for the fix, where would you prefer the guard? I'll send a v2 accordingl=
-y.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+2d417475ba9d6d02cfc9@syzkaller.appspotmail.com
 
-Thanks,
-Junrui Luo
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+------------[ cut here ]------------
+ncontrols == 0 || controls[0] == NULL
+WARNING: drivers/media/v4l2-core/v4l2-ctrls-core.c:2493 at v4l2_ctrl_cluster+0x1a1/0x230 drivers/media/v4l2-core/v4l2-ctrls-core.c:2493, CPU#2: kworker/2:3/5745
+Modules linked in:
+CPU: 2 UID: 0 PID: 5745 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: usb_hub_wq hub_event
+RIP: 0010:v4l2_ctrl_cluster+0x1a1/0x230 drivers/media/v4l2-core/v4l2-ctrls-core.c:2493
+Code: 03 38 d0 7c 08 84 d2 0f 85 88 00 00 00 0f b6 43 35 41 83 e7 01 41 c1 e7 02 83 e0 fb 44 09 f8 88 43 35 eb 09 e8 50 11 f2 f9 90 <0f> 0b 90 e8 47 11 f2 f9 48 83 c4 08 5b 5d 41 5c 41 5d 41 5e 41 5f
+RSP: 0000:ffffc90004406f10 EFLAGS: 00010293
+RAX: 0000000000000000 RBX: 0000000000000000 RCX: ffffffff88179997
+RDX: ffff8880263f2540 RSI: ffffffff88179b10 RDI: ffff8880263f2540
+RBP: 0000000000000000 R08: 0000000000000005 R09: 0000000000000000
+R10: 0000000000000002 R11: 0000000000000000 R12: 0000000000000002
+R13: 0000000000000002 R14: ffff8880449f9628 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096de3000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00000000f72be860 CR3: 0000000073249000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ v4l2_ctrl_auto_cluster+0x4e/0x3a0 drivers/media/v4l2-core/v4l2-ctrls-core.c:2515
+ hackrf_probe.cold+0x5f0/0x12ef drivers/media/usb/hackrf/hackrf.c:1430
+ usb_probe_interface+0x303/0x8f0 drivers/usb/core/driver.c:396
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3772
+ usb_set_configuration+0xd97/0x1c60 drivers/usb/core/message.c:2268
+ usb_generic_driver_probe+0xa1/0xe0 drivers/usb/core/generic.c:250
+ usb_probe_device+0xef/0x400 drivers/usb/core/driver.c:291
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x20e/0x450 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3772
+ usb_new_device.cold+0x685/0x115c drivers/usb/core/hub.c:2695
+ hub_port_connect drivers/usb/core/hub.c:5567 [inline]
+ hub_port_connect_change drivers/usb/core/hub.c:5707 [inline]
+ port_event drivers/usb/core/hub.c:5871 [inline]
+ hub_event+0x30a3/0x4a60 drivers/usb/core/hub.c:5953
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x370/0x450 kernel/kthread.c:436
+ ret_from_fork+0x72b/0xd50 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
 
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
