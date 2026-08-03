@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1EF1E5B64;
-	Mon,  3 Aug 2026 06:16:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF5C2F49F6;
+	Mon,  3 Aug 2026 06:28:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785737780; cv=none; b=pJ33NJNY+a9LezrmGYcdQKq221doz8FxZTsovAEw1Lx4jzc/x+VQtCmEKdeBsMPkDl+FFg0unhG+UX1/hw5MLJp3jm22L0ZWAatuMD5QHNHp/23VoS1kigfmEccBrLUB77PJ5WL5ecdN3Qyk9K7cerG3tSWg17S9SbAAfNJ3qkk=
+	t=1785738494; cv=none; b=IWoJrEQ8zL485PgkEELJ3ZvePbpOP/ZvTbaUr7Zb/B6wJ0glsgpomC5RVe+TZm/+ue00pAWkludaazYoW5PniZIN+mjh+3Pq3vF1M+sPL6/X/wZt4gvUqHTX+B9RlZrWre4RGQU5nXTVkhfNI5yOj3YrcTUPosyXBpiAvtClTx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785737780; c=relaxed/simple;
-	bh=BopCKBvc+/vOh9lupetCn5dslWB7Kn8V1y64Lq8Q8c4=;
+	s=arc-20240116; t=1785738494; c=relaxed/simple;
+	bh=XbW7OOAiebTvnzcbfHlZ4hBAcb7Wtwkk1AKePnS5apQ=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dffcDJR1sgjR4xt2nHOSymI0FrB8GRE58RguTrmei9yv7qRx2F1vw9im1mSqMcrL2faZS7uqrSLyTDE+rp91c1Tzk5dXhwgR0Vk+WfojTZReARmy0Fzmq/CMa9qoMfbwots3UrNJhCPxPH8KyVYECGcZWp9Wr05S8N7urBhM8XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=he3OujF5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=MJs6h/uS56DhMLfC0ogq7UH+L3BM3qoxXe5ihBvDb1nUbKgRrf3PdcNy63qtdDv1QsZn+DjJSg8IfrTpOZZ8VssmcFX0wx99bte/WQFolOTVFxfwGwzgHDDMfan+gMPH/xtWXqOHVER5odBtcBpT4zs4KccO8JGeYQc7z7+y0rg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fqaIdnqn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="he3OujF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066EB1F000E9;
-	Mon,  3 Aug 2026 06:16:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fqaIdnqn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF40E1F000E9;
+	Mon,  3 Aug 2026 06:28:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785737778;
-	bh=Nwv0Hx1KpfpKSMl7HZwvOlDpe7huQxwS54Hy0Bu6Xtg=;
+	s=k20260515; t=1785738492;
+	bh=VJnBpSbqBnN56SuhlrVTljcEvdywgtKAS3fDvd5Ssa4=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=he3OujF57SGehO/1Ovm0njDqlsAnrER2BK1WAKOVqjjlSF5a9cdtoB6SWzR5c3Gzx
-	 usGVF6YPrWWJGtpDbhkxuiYBLfyPcDfRzaNNhFoZi8er5vtvG6Okg2B+Ommly1/e+V
-	 ZJBE7gd/2+7cE1G1hCyDGUQm2eXr9VUCuk9ZCetU6LzWSnJPn76bE7LnAevJF9TY6a
-	 NAXPufU9qOq0LxIpD54W68RmGD/dcU7SyYAqbnYhAmy25+CXM+hlbLnCIMSNbtXzGl
-	 X8YqeATImm2TlNmLVB42Jfo0VmBsA2u64QnFL64Z9LoHS5e8r68Np40ZRh2QTNDbHE
-	 dDMSKHUE68f1w==
-Message-ID: <a4d585fa-ccdc-4021-b7f7-f88638a9dbe4@kernel.org>
-Date: Mon, 3 Aug 2026 08:16:10 +0200
+	b=fqaIdnqnVWZ27PrcDDQGFPRNS8cl5KXdO9qfOnQPWn+IqX5o0zeM/jhDLv3wN5MVy
+	 K2VZF0kx8O9LAj9TR+V3n9C8OlGjamYFxo8R3qRMC9G1IOqEk1HwGPGTn25TSfat0e
+	 RNbFFfCwGYD2pmJs3v0ibO8DqFwNqcG2ts1kK1dX2boRVQgnOkDxtJRLlc7RBj6xR/
+	 dekOI046ovMnKGgvhtYDrI1ZxZlf3mXTskx55wBtH7URKMBlLNARaRHk9HT3yKk3FN
+	 LR0u2C/fDOjqrCW0kweaqlTSWwffrIv6PyGIrKTkx9SGUDxMCZXcS7q4ItSN6iTqFx
+	 HW4DVOYwZAJnA==
+Message-ID: <9f689436-04c6-48d6-8342-7fac998f3910@kernel.org>
+Date: Mon, 3 Aug 2026 08:28:05 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,20 +35,19 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] media: dt-bindings: imx908: Add Sony IMX908 sensor
- bindings
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Lachlan Michael <lachlan.michael@sony.com>, mchehab@kernel.org,
- sakari.ailus@linux.intel.com, hverkuil+cisco@kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, kieran.bingham@ideasonboard.com,
- jai.luthra@ideasonboard.com, Ryuichi.Tadano@sony.com,
- Kengo.Hayasaka@sony.com, Tim.Bird@sony.com, Kazumi.A.Sato@sony.com,
- linux-kernel@vger.kernel.org
-References: <20260730021525.166811-1-lachlan.michael@sony.com>
- <20260730021525.166811-2-lachlan.michael@sony.com>
- <20260730-elastic-amaranth-urchin-4b8bbf@quoll>
- <20260802230344.GD1927055@killaraus.ideasonboard.com>
+Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
+To: Tzu-Hao Wei <twei@axiado.com>, Shubhangini G <shubhangini@axiado.com>,
+ Prasad Bolisetty <pbolisetty@axiado.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ openbmc@lists.ozlabs.org
+References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
+ <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
+ <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
+ <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,61 +93,116 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260802230344.GD1927055@killaraus.ideasonboard.com>
+In-Reply-To: <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/08/2026 01:03, Laurent Pinchart wrote:
-> On Thu, Jul 30, 2026 at 11:06:09AM +0200, Krzysztof Kozlowski wrote:
->> On Thu, Jul 30, 2026 at 11:15:24AM +0900, Lachlan Michael wrote:
->>> The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
->>> with a MIPI CSI-2 output interface.
+On 03/08/2026 07:29, Tzu-Hao Wei wrote:
+> On 7/30/2026 4:12 PM, Krzysztof Kozlowski wrote:
+>> On 30/07/2026 09:26, Tzu-Hao Wei wrote:
+>>> Add a Device Tree binding for the Axiado AX3000 and AX3005 video
+>>> capture path. There is no local register interface to describe: frames
+>>> arrive asynchronously into a reserved memory region written by the
+>>> host's display engine over PCIe, and this node only identifies that
+>>> region.
 >>>
->>> Add device tree bindings for the sensor.
+>>> memory-region accepts an optional second entry for a host-written
+>>> control mailbox, letting the driver detect the mode the host is
+>>> actually driving instead of only echoing back the configured capture
+>>> format.
 >>>
->>> Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
->>
->> You need to test code before you send it, not with our infra.
-> 
-> I have provided guidance to Lachlan on how to test DT bindings (and have
-> submitted a fix to dt-schema as part of that work) before he submitted
-> this patch series. Unfortunately, we missed an issue in the
-> configuration of his development environment which resulted in the DT
-> bindings check not being run. Mistakes happen, it will work better next
-> time :-)
-> 
->> To spare you one sending cycle:
->>
->> A nit, subject: drop second/last, redundant "bindings". The
->> "dt-bindings" prefix is already stating that these are bindings.
->> See also:
->> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
->>
+>>> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
 >>> ---
->>>  .../bindings/media/i2c/sony,imx908.yaml       | 107 ++++++++++++++++++
->>>  MAINTAINERS                                   |   7 ++
->>>  2 files changed, 114 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
+>>>   .../bindings/media/axiado,ax3000-video.yaml        | 44 ++++++++++++++++++++++
+>>>   MAINTAINERS                                        |  8 ++++
+>>>   2 files changed, 52 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+>>> new file mode 100644
+>>> index 0000000000000000000000000000000000000000..c6d8d1843aac9f42869ff90a550b92d0bed7c16f
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
+>>> @@ -0,0 +1,44 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/media/axiado,ax3000-video.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Axiado AX3000 Video Controller
+>>> +
+>>> +maintainers:
+>>> +  - Shubhangini G <shubhangini@axiado.com>
+>>> +  - Tzu-Hao Wei <twei@axiado.com>
+>>> +  - Prasad Bolisetty <pbolisetty@axiado.com>
+>>> +
+>>> +description:
+>>> +  Axiado AX3000 video capture controller. Reads frames written by the
+>>> +  display engine into a shared reserved memory region and exposes them
+>>> +  as a V4L2 capture device.
 >>
->> ...
+>> This is really incomplete. You need at least way to power things on,
+>> reset them, provide clocks, sensors, data paths. Or at the very minimal:
+>> START capturing the frames after configuring the resolution.
 >>
->>> +++ b/MAINTAINERS
->>> @@ -25264,6 +25264,13 @@ T:	git git://linuxtv.org/media.git
->>>  F:	Documentation/devicetree/bindings/media/i2c/sony,imx415.yaml
->>>  F:	drivers/media/i2c/imx415.c
->>>  
->>> +SONY IMX908 SENSOR DRIVER
->>> +M:	Lachlan Michael <lachlan.michael@sony.com>
->>> +L:	linux-media@vger.kernel.org
+>> It seems you described driver or just a piece of entire video pipeline.
 >>
->> Drop
 > 
-> Why so ?
+> Thanks for your feedback.
+> 
+> The Axiado AX3000 and AX3005 SoCs expose a display capture path that
+> delivers frames into a shared reserved memory region and exposes them
+> as a standard V4L2 capture device via the videobuf2 framework.
+> 
+> There is no local register interface for this driver to program: frame
+> delivery is controlled entirely by the host-side display engine and
+> the PCIe endpoint mapping that feeds the shared region, both external
+> to this driver. A software polling timer schedules a workqueue item at
+> the configured framerate, which copies frames from the WC-mapped
+> shared region into vmalloc-backed vb2 buffers. Running the copy in a
+> work item rather than directly in the timer callback keeps potentially
+> multi-megabyte memcpy and per-pixel conversion work out of softirq
+> context.
 
-It's just redundant and bloat. The address will ALWAYS appear through
-the subsystem maintainers entry, thus duplicating exactly the same list
-is not necessary. Many drivers make the same mistake (I fixed Samsung
-now) resulting in quite big amount of redundant data.
+Then this is not a separate device. You just described a Linux driver.
+
+I still wait for answers of my question above. You described getting
+buffers only.
+
+> 
+> To provide more context, this hardware path is designed for BMC iKVM
+> applications. The physical data flow is:
+> Host Display Engine -> PCIe -> BMC Shared Memory -> v4l2 (video0).
+
+Great, not a device. Linux driver.
+
+> 
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    oneOf:
+>>> +      - const: axiado,ax3000-video
+>>> +      - items:
+>>> +          - const: axiado,ax3005-video
+>>> +          - const: axiado,ax3000-video
+>>> +
+>>> +  memory-region:
+>>> +    minItems: 1
+>>> +    items:
+>>> +      - description: video frame buffer, shared with the display engine
+>>> +      - description: optional control mailbox, shared with the host
+>>
+>> Why is it optional?
+>>
+> 
+> The second memory region is optional because it is not available on all
+> supported hardware configurations or use cases.
+> 
+> For instance, another supported use case has the following data flow:
+> vtconsole -> framebuffer -> Shared Memory -> v4l2 (video0).
+
+Use case is irrelevant to actual hardware.
+
 
 Best regards,
 Krzysztof
