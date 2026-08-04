@@ -1,38 +1,69 @@
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC173E1D1D;
-	Tue,  4 Aug 2026 16:55:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D627A484223
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 17:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785862550; cv=none; b=HKAVAKSEzvcJtrXj9qtTU5iuf3RpydMpk3QmLVtCtsZIJ7Lpsnu4icIpJw3RhQb1GfPuW/5pYeIeGWDnhv4NQLnkPl42u0ExPbPfEAdctnrTK2dTLoHvuj+3rWj7UyiugHvyIko3AniO0h6i+VdpnYQdLVsvhNrDUESb48wfZvU=
+	t=1785863960; cv=none; b=SS+rU4IxkIXFKskXEFInO/huSvIo+iHENo4mks7tkYB00tWTS3lvmhOIKvn/OHJVjO+NurtbMHAVV5xNXjfVljKGo+L1sWVGVEVOFXFhpkGXxM3ai03LmXhJkP3IVFxIh6/uXRiu2uSnjblF7iEMCcXUbxJVJhxH3ro4m4n8PYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785862550; c=relaxed/simple;
-	bh=ja4vUEJM4DDwOTHN2ArZG2G8SuCkuLWUjohHCtpfmO4=;
-	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Subject; b=LUzeWFFfx78DSBKW0CaWu3rFaQZf1IkvqImfpijOBQA6K/8JsJvlHingZp+yx06Sqo3h8cL9ZeAdPZyygc0KxH8g4nQauxQ7NVCyqENsbq5N2PHgQQ/OWvdgOkRTMJVwdNGUzXaR3DiBScGOfX5a/eipGLcG5fCuWTLKCTq6OkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=YTGNKiHl; arc=none smtp.client-ip=204.191.154.188
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
+	s=arc-20240116; t=1785863960; c=relaxed/simple;
+	bh=fiynAW9WpUzgt3N4BHN/WeqgVQsTYwv6Egh7edSdGZk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WlbwYLrfsmTvzKqopMJslqFanwXp3E46YDXZXhzySfAbCmd23nvHnVEozJ0Fr2xjmDhfUnqM1IGnejV/DtjvaJLd+KWcDQCrPgD9/6ZoRbo8MEUE7GIbziu3qicxJ7wBmlApKPhkHh5dW4MNdFVH1m3HoCnGaq1sLB61PkpPWvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gB9JzHh/; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="YTGNKiHl"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
-	MIME-Version:Date:Message-ID:content-disposition;
-	bh=msNOem7p+wuff5GBoLB08T6D1Qgn/zf/MKSf7PCUJ9I=; b=YTGNKiHlWOxB29f/0WDUBxevAz
-	wWQbgY4hcj9VuegwPDCW2O4ETw3h8yU99cJ3iWAuHfgW7zaVgtGVRDyZw/PtB5CEn9YTipJb4Ur2j
-	XsKoAzfajZggFn6Yxm+fui4u+uD21U7vZ867CgVMajfYVICR5XKEQfUzD+k6J7SBFCqtY3HqTl2ow
-	T/ZdOTGzYJH/3mSW58cfeT5FvL8m4FUlfkUVbx+SXzbgPZqp7KKJ6XfR6+TtEjqUhA7rXGKsfHZLr
-	/epv48dfzHRXf1VRSFETvL3hqBFaBaWPxZGPTVGOn6SuylnrPYL05zybmbOygD+pgG9mR5Y1rgm38
-	daV/hkjA==;
-Received: from guinness.priv.deltatee.com ([172.16.1.162])
-	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.98.2)
-	(envelope-from <logang@deltatee.com>)
-	id 1wrHrS-00000006NYF-3B7f;
-	Tue, 04 Aug 2026 10:19:27 -0600
-Message-ID: <b30e75d8-37d6-478d-bc72-a9ed0b7e200c@deltatee.com>
-Date: Tue, 4 Aug 2026 10:19:11 -0600
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gB9JzHh/"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47de0093c42so32986f8f.3
+        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 10:19:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785863949; x=1786468749; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kJpsobbV6cDtzB2hYIU7sj8yXmkuFvAex2Z4hVps0ns=;
+        b=gB9JzHh/xNwbsxwl/HtsyKUVQn66uJpc4fGE3xWBbRBF8Bj789qpQkHuQYRZUI1uZH
+         y1ATPiDHs+timfWEFxnQ8qOmZjfmmj3xYlVR86qIr174/WUoTBm8CWOktDfOtHh+vEqo
+         FY7kiI/3/FOvVzA03rCNK2f7HteezMqmQ/yylnkzHyLH/U1gz6yngtU+KTnWdrdMlvY2
+         +SSMhgpAcY3pILj1UPd1xvW/yHxQFHlVeFWGr+ikEeeL+JufTVT7HIo7ghRoQCOubnyt
+         juvM34xc6zLxIMGU01B9wEc7AUyyF6GPpYwVIJ6J3IpHXum3mOowlhaN36AJ36Z1POyc
+         EhVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785863949; x=1786468749;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=kJpsobbV6cDtzB2hYIU7sj8yXmkuFvAex2Z4hVps0ns=;
+        b=Wxp1HXfVQ83VRX4TyCzGodiiVZmL/kSY+bbw8kUbEfufFU644hMh3z2V+ox/jAsJOr
+         tcPeOtJ9VOc0t6+Z2CdpqCpiNbhhuSJgyh4+8uBYTD3UPn7hMMNFg98K1CLgtuBhAjUv
+         lUclZ/7kBoaJuEg4KsA3cRMFaTN7KIPXTUlh8V7HJFYS8V1qyC31Cqt/2baGDotGxQz7
+         pApVzRNfu3BTbb5/fGg/Mwst92cdEQ5mPB/CGzM2Cxtq0lgeslXPLzyykHTkPUbNoZpr
+         yaI9YO6ikcycSc8yROeyKmm1CYNZzJK2414kEkEtVEzAQy9pCeLKQNW3Vx1N3AGP5JCT
+         q2+w==
+X-Forwarded-Encrypted: i=1; AHgh+RoMQ6IVja8qtT7J3eiBht6Uz1qglKu03cO5HtvcweK/dUZB0R78FR459i9O8Orv0LuQ1kJAK6UYru5l1w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxoYvqjB7+Fd1Lkk70uL+aMAz4EOStH8lzxztFZs6lpI606p2sI
+	xXHhfE6sNF3lrq+mG3RBlyBLS4YyvYS8qMAcZN+E37x/wAnliffuFCRl
+X-Gm-Gg: AR+sD12y9CUxtxwRicg9XSH0Hfo/skT4P7hA3x4hgHAQoFBhNtp3MfOLJCs6TaSv48c
+	4WalHO/2yTNXmqdBz1+J4EgvMFeQ0Xis4iA8UjZBZQ71n7wP07mprF6Wuqb0XrpEEnQkNn8+QQo
+	p3ZcUn+rq2UZdYAj3+lf9CyJifhFBxiXoLaWquw1WkWlvxJGHc4QTXrbSuPVKEa7kYB4K83fRrv
+	LKwm3pX5cHQZI0MADZcxQhCQAlGy3YcbxK92jB+AUPp2buNENm1fhkHXF1i29jc0uRl1WWdek81
+	fSlXglTQyDbidLR3ydNYX4l8pk76FZAE/DPF0yFPcj2EQxJOUtJCLRY8EIENJ/VN77xcrIFtAxP
+	Vl+jnpdfjaM5lY3rHYisjrBs4YoO1S3OGD1x7PEfJW6Fa6fLHqnfCAfUXeht7Wl7cz94RANO5HR
+	ZcMQO5Ass4AuNe8n7V6+nvAXvUXf7sK+px1XaVDSYJBP93i2v81Hco3Vd6TgTkXL8WUbqY8qdYo
+	ygi/JLDV228p6OmBTIzrYG4SPyTQ5CQyqjS9E6Qd+43FWCSKFrfGs/QmAu/d9qoD1oaUpszL3mi
+	H+GOQgb9qTzRHbyQlourpyR8QtLjtCnjnyK+Fak=
+X-Received: by 2002:adf:fe49:0:b0:47f:941a:796d with SMTP id ffacd0b85a97d-47fec4fa3admr1381301f8f.12.1785863948785;
+        Tue, 04 Aug 2026 10:19:08 -0700 (PDT)
+Received: from ?IPV6:2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c? ([2a01:4b00:bd21:4f00:7cc6:d3ca:494:116c])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-47febfda6afsm1357370f8f.3.2026.08.04.10.19.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 04 Aug 2026 10:19:07 -0700 (PDT)
+Message-ID: <38163009-770f-4596-abe2-249efc113f59@gmail.com>
+Date: Tue, 4 Aug 2026 18:19:02 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,76 +71,93 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-To: Matt Evans <matt@ozlabs.org>, Leon Romanovsky <leon@kernel.org>,
- Jason Gunthorpe <jgg@nvidia.com>
-Cc: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+Subject: Re: [PATCH v5 07/16] block: introduce dma map backed bio type
+To: Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-3-matt@ozlabs.org>
- <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
-Content-Language: en-CA
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+ linaro-mm-sig@lists.linaro.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785596451.git.asml.silence@gmail.com>
+ <e26aefbcb383be7092dc76343ce745013e671334.1785596451.git.asml.silence@gmail.com>
+ <20260804162440.GB12292@lst.de>
+Content-Language: en-US
+From: Pavel Begunkov <asml.silence@gmail.com>
+In-Reply-To: <20260804162440.GB12292@lst.de>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-SA-Exim-Connect-IP: 172.16.1.162
-X-SA-Exim-Rcpt-To: matt@ozlabs.org, leon@kernel.org, jgg@nvidia.com, alex@shazbot.org, amastro@fb.com, bhelgaas@google.com, kevin.tian@intel.com, praan@google.com, mngyadam@amazon.de, dmatlack@google.com, bjorn@kernel.org, sumit.semwal@linaro.org, ankita@nvidia.com, christian.koenig@amd.com, apopple@nvidia.com, vivek.kasireddy@intel.com, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org, liulongfang@huawei.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Level: 
-Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-
-
-On 2026-08-04 09:42, Matt Evans wrote:
+On 8/4/26 17:24, Christoph Hellwig wrote:
+> On Sat, Aug 01, 2026 at 04:46:19PM +0100, Pavel Begunkov wrote:
+>> Premapped buffers don't require a generic bio_vec since these have
+>> already been dma mapped. Repurpose the bi_io_vec space to strore dmabuf
+>> maps as they are mutually exclusive.
+>>
+>> Suggested-by: Keith Busch <kbusch@kernel.org>
+>> Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
+>> ---
+...>>   
+>> +static inline int bio_split_io_at_dmabuf(struct bio *bio,
+>> +		const struct queue_limits *lim, unsigned *segs,
+>> +		unsigned max_bytes, unsigned len_align_mask,
+>> +		unsigned start_align_mask)
+>> +{
+>> +	unsigned bytes = min(bio->bi_iter.bi_size, max_bytes);
+>> +	unsigned seg_shift = bio->bi_dmabuf_map->seg_shift;
+>> +	unsigned offset = bio->bi_iter.bi_offset & ((1U << seg_shift) - 1);
+>> +
+>> +	if ((bio->bi_iter.bi_offset & start_align_mask) ||
+>> +	    (bio->bi_iter.bi_size & len_align_mask))
+>> +		return -EINVAL;
+>> +
+>> +	/* single contiguous range into the dma-buf */
+>> +	*segs = 1;
+>> +
+>> +	bytes = min(bytes, ((unsigned)lim->max_segments << seg_shift) - offset);
 > 
-> Just shoving an #ifdef in mlx5 isn't right, so would be grateful for
-> your advice on the most tasteful resolution:
-> 
->  1. Imagining future drivers might use pcim_p2pdma_provider(), maybe
->     p2pdma could export a `pcim_p2pdma_supported()` or similar which
->     returns whether CONFIG_PCI_P2PDMA is present and P2P can ever work.
->     A user of pcim_p2pdma_provider() is required to also check if P2P is
->     overall supported.
-> 
->     Ugliness aside, a driver could use #ifdef CONFIG_PCI_P2PDMA to test
->     whether P2P is expected to work, except that doesn't stop modules
->     falling into the same trap.  I think a function export is better.
-> 
->  2. And/or a test (such the function from #1, or an #ifdef) in the IB
->     core DMABUF path, to avoid individual drivers from doing the test in
->     their .mmap_get_pfns().  Other future drivers would be expected to
->     do similar.
-> 
-> Any better ideas?  Sorry I didn't catch this earlier in the review
-> cycles, I know we've looked at this patch a few times now.
+> I guess ->seg_shift is some sort of encoding of a max
+> segment size?
 
-I see the problem now. Yes, it's a bit tricky and I don't have a great
-answer. But the proposed solution seems very confusing. I definitely
-don't think we should be adding ifdefs in the IB core for this.
+I'll add a comment.
 
-For me, this is mainly a naming problem as there's a bunch of ways to
-address it in the code. The question is what do we call p2pdma vs. core
-p2pdma in a way that makes the distinction more obvious.
+We rather need the minimum segment size, you can always split large
+ones. I calculated it even stricter as the least common multiple
+pow2 to avoid divs here.
 
-There's a vague convention for this already: the term 'p2pmem' is often
-used for cases where the driver uses the allocator, etc. (I think I had
-this intention when I wrote the code and have since forgotten about it).
-I'm thinking we should lean into that more and instead of introducing
-CONFIG_PCI_P2PDMA_CORE we introduce CONFIG_PCI_P2PMEM and move all that
-code into it's own file, potentially renaming some functions. Then, in
-the end, we would probably have a pcim_p2pdma_supported() function and a
-pcim_p2pmem_supported() function, the latter being used by existing use
-cases.
+If the device supports N segments and we know that each segment is
+at least M bytes, then we should be able to issue IO of size N*M
+of full segments. The line above truncates the bio size using
+that + offset adjustments.
 
-Logan
+I guess it might be more straightforward to calculate the worst
+case number of segments and then adjust the splitting size, but
+since we don't return the number of segments it's more
+computations. E.g.
+
+seg_size = 1U << seg_shift;
+nsegs = (bio->bi_iter.bi_size + offset + seg_size - 1) / seg_size;
+
+if (nsegs > lim->max_segments) {
+	nsegs = lim->max_segments; // unused after the block
+	bytes = seg_size * nsegs - offset;
+}
+
+-- 
+Pavel Begunkov
+
