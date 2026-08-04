@@ -1,137 +1,120 @@
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13E3D41F34B
-	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 07:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C1A426D16;
+	Tue,  4 Aug 2026 07:39:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785828564; cv=none; b=qXE6HtQH5eYgsVIljVggUyL30zWWPok/wD8EVC+KOEWbhYIob9pNEU9rahg0gmZX20yBe4/F25910KadFqljHZNHoDEgs4R5LvOLxLDHAG3+H5aPR6O93SU6CCAA+5VeJPe/sdDaNACQ5L5lW4xkrxT9/Ht/rykwah8D/GBTBOQ=
+	t=1785829192; cv=none; b=Ze+dewAJ71K5qTvQ4KPIYV2eZOfn0jKaTYof9ujT5kuD//FtFql9X9ri4gR0MAN3KBu5mfTV6y0k807qD+wPLy+pd0kS5sp8W1cq/8/EvH/kH7RO05ACPTR7gZ3Z8O5DiQDZjcWAJZN6y+MS+aYZ4INO+gy/GfzyFC/LIq8syhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785828564; c=relaxed/simple;
-	bh=u4QIQZTdswptGzA7Ts6wBB+sdxAXlbuqrjMHMB4he5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=ARswejvN+qvczckBFMOTRdo7F7ZB82g6ITXkz0OGYJ0Gr/SCxlaF3CcJJxJwCKkJWE/OibXxlPHfUjDm48jqsNS+hgt77xBW5X6Tr/lKntHsGs2iNaUsztKnmcFakhHEBnOkINxmU0Z7futKUS/a7LTKyUtxwX6Yh2vLGObChEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=YuL9mR3P; arc=none smtp.client-ip=203.254.224.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1785829192; c=relaxed/simple;
+	bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BOwcWQFdAz4YezwOzvj1uc+aCnZwk5rO4OA2lQvUqCBiSu0sIEcCh9hC+YKIn/iPGLzoJbSL7uuT42e/SVAgH1ULZW86+46FwSGbsjIgEaRYS8p3oNGa2+ux3rB2Ej+B2I+sde1eQdzcpTZ5URr2GI8Ybi4h8Hsf2ufSfBh9WCA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=kOZQ0H0n; arc=none smtp.client-ip=195.181.215.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="YuL9mR3P"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id 20260804072913epoutp04caf45d50e1a522d64a49aa8189e8706f~IiZuVxSn63069030690epoutp04K
-	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 07:29:13 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com 20260804072913epoutp04caf45d50e1a522d64a49aa8189e8706f~IiZuVxSn63069030690epoutp04K
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1785828553;
-	bh=oq3WXJu/SsF/yYJkxmJpNIikAfWrsHK6PFkUbOrSyxQ=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=YuL9mR3PGb2opeFZiYN0zNin1lKqXZc/cCNGngvIs07OjuKhr0shXabI7kR3ToXg4
-	 m9eu0VhaMLeIMH0kAURIYdc6jWK1UzL4Ga89eE+9NWPW/uLnZVQbYCgfFY8TbDhK0f
-	 rLSzDKGyEGvDXov2c9EdXQ2JUy6DIGmt0glyRSes=
-Received: from epsnrtp02.localdomain (unknown [182.195.42.154]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20260804072912epcas5p2adb2d94e9dbee254b808fbe3e7596043~IiZtxp_B41422314223epcas5p25;
-	Tue,  4 Aug 2026 07:29:12 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.94]) by
-	epsnrtp02.localdomain (Postfix) with ESMTP id 4hDlXm00m2z2SSKd; Tue,  4 Aug
-	2026 07:29:12 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20260804072911epcas5p11ac571c654cc6f9181d41e68c1d776f7~IiZsQAmmo3024630246epcas5p1l;
-	Tue,  4 Aug 2026 07:29:11 +0000 (GMT)
-Received: from [107.122.10.194] (unknown [107.122.10.194]) by
-	epsmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260804072906epsmtip1f5a677211ba3b877f3e13174d1789292~IiZnod7M11634816348epsmtip18;
-	Tue,  4 Aug 2026 07:29:06 +0000 (GMT)
-Message-ID: <c4cec417-24b8-428a-853f-4e1ff1e29a6a@samsung.com>
-Date: Tue, 4 Aug 2026 12:59:05 +0530
+	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="kOZQ0H0n"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
+	t=1785829186; bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
+	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
+	b=kOZQ0H0n7b4gT77O6FBv02l9YBjBiXc3PjJevI3AcTpQiuCrJKoGdy8lThP1WN8O+
+	 LYL6yXozTGg6QoO71NQ2O/8HW2d6OcbzYlnWX7KEjrdZ8wve5TZzLAvlmV4VvdTMcx
+	 LQ77Q1yNMEjykXQO5teDSBR6JP/u93MDiL9nLKAU=
+Date: Tue, 4 Aug 2026 09:39:45 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
+To: david@ixit.cz
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
+ coil requires higher voltage
+Message-ID: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
+	david@ixit.cz, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
+	stable@vger.kernel.org
+X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
+ <https://xff.cz/key.txt>
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 09/16] nvme-pci: implement dma-buf backed requests
-To: Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
-	Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi
-	Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
-	linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
-	<brauner@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, Sumit
-	Semwal <sumit.semwal@linaro.org>, =?UTF-8?Q?Christian_K=C3=B6nig?=
-	<christian.koenig@amd.com>, Nitesh Shetty <nj.shetty@samsung.com>, Kanchan
-	Joshi <joshi.k@samsung.com>, Jason Gunthorpe <jgg@nvidia.com>, Damien Le
-	Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>, Mike Snitzer
-	<snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>, Benjamin
-	Marzinski <bmarzins@redhat.com>, David Sterba <dsterba@suse.com>, Ilya
-	Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
-	nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
-	ceph-devel@vger.kernel.org
-Content-Language: en-US
-From: Anuj Gupta/Anuj Gupta <anuj20.g@samsung.com>
-In-Reply-To: <9e3dd1b2d71dc0f9bd556b6a6d6e48fb6a8d727b.1785596451.git.asml.silence@gmail.com>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20260804072911epcas5p11ac571c654cc6f9181d41e68c1d776f7
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-542,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260801155005epcas5p4ecdcdf532aa2c2ff4e94638eedaa435b
-References: <cover.1785596451.git.asml.silence@gmail.com>
-	<CGME20260801155005epcas5p4ecdcdf532aa2c2ff4e94638eedaa435b@epcas5p4.samsung.com>
-	<9e3dd1b2d71dc0f9bd556b6a6d6e48fb6a8d727b.1785596451.git.asml.silence@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
 
-On 8/1/2026 9:16 PM, Pavel Begunkov wrote:
-> +	map = kmalloc_flex(*map, dma_list, nr_entries);
-> +	if (!map)
-> +		return ERR_PTR(-ENOMEM);
-> +
-> +	sgt = dma_buf_map_attachment(attach, ctx->dir);
-> +	if (IS_ERR(sgt)) {
-> +		ret = PTR_ERR(sgt);
-> +		sgt = NULL;
-> +		goto err;
-> +	}
-> +
-> +	for_each_sgtable_dma_sg(sgt, sg, tmp) {
-> +		dma_addr_t dma_addr = sg_dma_address(sg);
-> +		unsigned long sg_len = sg_dma_len(sg);
-> +
-> +		if (sg_len % NVME_CTRL_PAGE_SIZE) {
-> +			ret = -EINVAL;
-> +			goto err;
-> +		}
-> +		seg_shift = min(seg_shift, __ffs(sg_len));
-> +
-> +		while (sg_len) {
-> +			map->dma_list[i++] = dma_addr;
-> +			dma_addr += NVME_CTRL_PAGE_SIZE;
-> +			sg_len -= NVME_CTRL_PAGE_SIZE;
-> +		}
-> +	}
-> +
-> +	if (WARN_ON_ONCE(seg_shift < NVME_CTRL_PAGE_SHIFT))
-> +		return ERR_PTR(-EFAULT);
+Hi,
 
-This should be 'goto err;' instead of a direct return. If this ever 
-triggers, it leaks the map and already established sgt mapping.
+On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
+> 
+> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
+> 
+> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> index d46cdfe3f7849..bde35d9b2263e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> @@ -473,17 +473,17 @@ wcam_out: endpoint {
+>  			};
+>  		};
+>  	};
+>  
+>  	wcam_lens: camera-lens@c {
+>  		compatible = "dongwoon,dw9714";
+>  		reg = <0x0c>;
+>  		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
+> -		vcc-supply = <&vcc1v8_dvp>;
+> +		vcc-supply = <&avdd2v8_dvp>;
 
-> +
-> +	ret = dma_buf_io_init_map(ctx, &map->base);
-> +	if (ret)
-> +		goto err;
-> +	map->base.seg_shift = seg_shift;
-> +	map->nr_entries = nr_entries;
-> +	map->sgt = sgt;
-> +	return &map->base;
-> +err:
-> +	if (sgt)
-> +		dma_buf_unmap_attachment(attach, sgt, ctx->dir);
-> +	kfree(map);
-> +	return ERR_PTR(ret);
-> +}
+This does not match reality, schematic says it's VCC2V8_DVP:
 
+	https://xff.cz/dl/tmp/6253a0465329df41.png
+
+regards,
+	o.
+
+>  	};
+>  
+>  	ucam: camera@36 {
+>  		compatible = "ovti,ov8858";
+>  		reg = <0x36>;
+>  		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
+>  		clock-names = "xvclk";
+>  		dovdd-supply = <&vcc1v8_dvp>;
+> 
+> -- 
+> 2.53.0
+> 
+> 
