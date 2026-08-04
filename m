@@ -1,245 +1,630 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021087.outbound.protection.outlook.com [40.107.51.87])
+Received: from CY7PR03CU001.outbound.protection.outlook.com (mail-westcentralusazon11010028.outbound.protection.outlook.com [40.93.198.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36C3F19D074;
-	Tue,  4 Aug 2026 13:23:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A36B43E07B;
+	Tue,  4 Aug 2026 13:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.198.28
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785849839; cv=fail; b=M6jeDdEzN3bKQeOdHDApP9oEQ+TbOITqKKnUWQENkYF3FR2ryOShdhzQQScXM56acnMoZDr+dnWH7gt6x+P2bvhEIOcM0cYmVouLXYmFd2iMMWF7UNzbBridqz4npo8soO5WWt/d/ItqUSKxpoDyO5tWso7QpHDGKZnp8MvglfU=
+	t=1785850714; cv=fail; b=dVqkRFY4j82s5QQ1IVraiiSPKz380ZWVcgBfoBeZoW+tS0QDeojIuVd8juaRmhiU6ArCGJbThFM9V2ANk5UtrsBs8o5vVRiGFhfDeSgE4T6ZPzvl3BYL18PzdAmQxU8U6dzcb98Nb3+36nI/lJZkgS++hKifYK45TQks746wPzs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785849839; c=relaxed/simple;
-	bh=CzXkf/fmhYqqKcczABC6hPwO5xJeohSj4dJaW7vtTJs=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=BkZZfl7jFMNUu3YGArRxqBNygolPFwHEICli9UNTE00JL91fQ23bqaE7JI6Jjy7MTqkwX2s3M/3sy+I6kQgjuSzxj/PHbxsVDHWdSf9/Oky6L2krUGATERdp4sJD6Pjo014CjkOqdwpRRKId0bX13HrapUo5jkXp9wtbgVw3QIQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=Y9kfazUL reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	s=arc-20240116; t=1785850714; c=relaxed/simple;
+	bh=aHuee3xRP6gr5IpO5v5KSakavKyDkiVJyDkNjJPDvL0=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=dvopPe5XVAi92n2zWa/sc+c2Ee5qamBZH/YxpD6bwiCNqkTB6uhl2f65a22g7OkY8bTHiS6dIYrDdIXvdx5Msjw+g/StGnTmzowrIgqbt4HjWwZDk7fZJLMfz36eibNeR9eZS2K5s1YtQg//KbU2V2a03625iy7FF1Zm9EDnZS0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=jaCEfpei; arc=fail smtp.client-ip=40.93.198.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="Y9kfazUL"
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="jaCEfpei"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Cz0GMrV/UlC1Ytr8XRqC7jlMg9yrEX5QMQflfjBKa7ytzHzy8juGBheDYOk39cEFeYmSFh2zGIWl78GPnK1B+hKxrPLQVpUiTcO9Pb9iP2oh9WsM9mvqy9fVUiGwJVvLnz37fYrBW84P8P7m1Bdq0EoIXb1XB1DAxLFxmQCcGcAvu54NaIAsLuUuSX1fh1jMvwEmj+dLGUb2U6b3x6BCV+QnVEBaRImSNEWIZowrc1GwxHuN3k3WG1ZB4q1CSm39Jwk3OpHLsS2gSWVzv5o4zeq+kHTHnrrYDmP/rcTtdPkzNjQqfy6wruLCBMrA5kuXqIX0gc7nyMqM8Q36hHA2RQ==
+ b=r96iwnW/WdZ0/lPjKFvwKw53/13qLfA16D1uNcB2DA0clOWwAeWTPfFnfjrCWtAawlPifegi/Gk/O2ayEk1eejGP05KurD/x0Qzl/qgbxapFcQLJSuVd+F4UgeWYGT5buh1V9peObL1naEzQ8xEsepGmFWLYVeMEbJXgJPAjb+mGtHgUVioCh78OU+vKe0R8nWjmTmccxh8zcHU3kUPfhVSNhkjwc2UMlvW6DDgSw2JyAQZBewuCpqJr9bmHmejs5PkY2LmrLsBl0MifGE7Kj7o5+QFeimAc4/StyHcIk8jHDL4Ww0GKcD+M7kq85++0zdai8zILvBi9sZeOi+3Iow==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0d1oxO51lapISOHE/EoIonYRLkGcJTu5YCHYiZitsqk=;
- b=iPhfSjW2Brgx3huD0e2qE7g6N36Gu+jW+InERltdnE8OOHzdXjEOAlUs5c0Bzg+WDCR21BApEy9x+z1RIaLEPG1I8v8JdL6ZW4NSgi5XGGCxerykT7slS0fiso0G4+PzlO5qwLUWpFlQHSH7atn5CGOIh+jv9SGhH71TGaZYlndQCECSjBAikZ/CHYSbymaDEG6JbwbYfC8h5lZV04moRx6rDn5ey8k7gU4GV/swLmxFTWqvKSxQ6sHvtcoRfNPw9zMWqOG+PjqwNUfXZoOvRKwJl048MTfQRSIkkrl88iYl074JX3V8/z5OvbDcd/em1uc9bQIIs0ClVpOyMV2NpA==
+ bh=6OiQ8taLrghruyRg4YmHgzFRo6wnNdajhJXdo46Fzaw=;
+ b=gNY3covjJM0tESQcEQF6Gd6SDeI23uRb0Wxce+6EBk1c6KAS3ztIFMrZUp1uYFUMiA2OqLPu5xe2sPxkswv8EpEx1DltdihiPU53+/RRVOaWl38ZxdFrOflQQYo34GCUJ/D5BkxnyB0IiF6DuBNvaa1Eb/m5cuxn12cdqj8MVcnVXoVLuCEPqi923tsjcr0pwLZpDkGmE9DazKGXXIrY2vGO2w3VhQfw35vYW9Ic5UD2zuwlewQDQq8pTHpN7EDbiQADaZWYKiYZo114YAWhQBfyQ4FU+x08L14TFA4WAlN20en14x89bkXvVH3EFXpmuT36oEFjOwNW7J/uwb3TfQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0d1oxO51lapISOHE/EoIonYRLkGcJTu5YCHYiZitsqk=;
- b=Y9kfazUL7+LZ1ZG8X9y5vTtutewyK5pbEELWHGoVBmB+CNAhoAO5OVEvgh0pcQy96itFbx2cVr88mhRA3vitLOMgMBq2wBY65q3F6GhNGkxmQeryG3Tjx7UOBrtAr7gmn0eTUIM3graXY1PIdlt0obCWZyRCnA7AJaLhrOaydc9FT2es13t8m7XJBb0UEU5HsdFRHG6PSVHtbVU/WQ8Ra9tLyrl3ClMms/JgFp6zz0RGaOD1L4jpprEiIZ8IHcRsNO+vfxUz9+IDqaFULY5/Syg+bI1Y+HVrHsqEfVtoyPsOo6aY3ja3HzYvyCDlKpLbXqnI3T6gUDfJX925SR24Dg==
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:11e::14)
- by PN3P287MB1018.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:17b::6) with
+ bh=6OiQ8taLrghruyRg4YmHgzFRo6wnNdajhJXdo46Fzaw=;
+ b=jaCEfpeiA5AbrFWyKXDrHdyR9N++a+e8dvGtDEniOIwhVfg2/+TnZfgftFG7O9yPye7Pr6FH64RIN8d8HHceYZcWLw0gUjLEL9blul6pH6DLQ6s+ysexnP00vkrW+FfUsBDkNkN6/1A64ksqP7uXQVmekpaEfS8cALyAxuVWVIc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CH2PR12MB4136.namprd12.prod.outlook.com (2603:10b6:610:a4::14) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
- 2026 13:23:52 +0000
-Received: from MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167]) by MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
- ([fe80::f8da:c075:cde1:e167%6]) with mapi id 15.21.0292.013; Tue, 4 Aug 2026
- 13:23:52 +0000
-From: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-To: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-CC: Tarang Raval <tarang.raval@siliconsignals.io>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Hans Verkuil
-	<hverkuil+cisco@kernel.org>, Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>, Walter Werner
- Schneider <contact@schnwalter.eu>, Kate Hsuan <hpa@redhat.com>, Yemike
- Abhilash Chandra <y-abhilashchandra@ti.com>, Svyatoslav Ryhel
-	<clamor95@gmail.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
-Thread-Topic: [PATCH v5 0/2] media: i2c: Add os02g10 camera sensor driver
-Thread-Index: AQHdDspl9ppXmum65ESzuXKgK/RNX7aCoL++gAtqjto=
-Date: Tue, 4 Aug 2026 13:23:52 +0000
-Message-ID:
- <MA0P287MB2178DE6EB4C9E675B9F967DD88D42@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-References: <20260708110949.31313-1-elgin.perumbilly@siliconsignals.io>
- <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-In-Reply-To:
- <MA0P287MB2178B8563D434B18699EFBD188CB2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-Accept-Language: en-US
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.16; Tue, 4 Aug
+ 2026 13:38:24 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%5]) with mapi id 15.21.0270.017; Tue, 4 Aug 2026
+ 13:38:24 +0000
+Message-ID: <1e65ec27-372e-45bc-8c44-99ca2bc97a30@amd.com>
+Date: Tue, 4 Aug 2026 15:38:09 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/gem: Move pages_to_sg helper into drm_gem.c
+To: =?UTF-8?Q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>,
+ Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ Jianmin Lv <lvjianmin@loongson.cn>, Qianhai Wu <wuqianhai@loongson.cn>,
+ Huacai Chen <chenhuacai@kernel.org>, Mingcong Bai <jeffbai@aosc.io>,
+ Xi Ruoyao <xry111@xry111.site>, Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>, Lyude Paul
+ <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ Sandy Huang <hjc@rock-chips.com>, =?UTF-8?Q?Heiko_St=C3=BCbner?=
+ <heiko@sntech.de>, Andy Yan <andy.yan@rock-chips.com>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Mikko Perttunen <mperttunen@nvidia.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Zack Rusin
+ <zack.rusin@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Oleksandr Andrushchenko <oleksandr_andrushchenko@epam.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, etnaviv@lists.freedesktop.org,
+ linux-arm-msm@vger.kernel.org, freedreno@lists.freedesktop.org,
+ nouveau@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-tegra@vger.kernel.org,
+ intel-xe@lists.freedesktop.org, xen-devel@lists.xenproject.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
 Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MA0P287MB2178:EE_|PN3P287MB1018:EE_
-x-ms-office365-filtering-correlation-id: 18190a8f-b922-4c32-7613-08def22ba0aa
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|1800799024|7416014|376014|23010399003|6133799003|5023799004|3023799007|4143699003|56012099006|18002099003|22082099003|10067099003|38070700021;
-x-microsoft-antispam-message-info:
- Dm1Lge2Dp6dbm+gmk3ZcbgpPwD+gM9a0aYiqAZzrg8f61gQQg4y68PzbolFuoXi0gqm9fPhfpnEAxeCAOcUFLrxn4xUq5cKRfl04mQ7fKbArKASs9tdPj2DVDIdf9Zcqyp/x6SxtErR0d16bPOjGr6TRgvlW/cpG4SrtjhoOeQUc3JosVrz7tAGe6Rx/iyQ4vR7Ed0qi279SVboJcckgHoXjpUejz/iLAMSHM+gRCiULDukzc1TxorbfRQQLHx79DSM1PId3DsavCE7SmrQqi/FJbK2xKNdeB1cJTJISiY2cBxAZy6JUbZOD/AGk4w4xFWOvApaKCp79AqFyXP+JnG+bd3raxPqkSGQ1GO4aDK4p/n8rB9xMJQVbTCKQNRuLUX+MfpvLcL7aRk3IvfHxz/6bnD4/+pOwWmDIxZk7PEMnPq33vloZe8dn4cT8fuBcL5N+G9hkD4oH3Gnlv1XTIRtJfemCnmiVUkxZd+bz7GEvhmo7kGD/6+xR0BcNlBLB1JEHTxe2xVFxLniDXsXod/FRtIr9EBACtN19B4fpg1s4USg4nAdt1126UjdoOqaDL24aMQsBMFqT2IwUKDAr50xWeLkNgCszikaGkRY2C8Y5b+9he6PqnwdwOradYJk0se7M80U0Q31rXozdpIVCuYImzLLFocFTacECzZnael7Izj7fO/vczcvXI1ocqMQubmCrGoaNRdm/EqydZxCAq/qKbx7teYHhQbn7VlnrNR8=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:MA0P287MB2178.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(23010399003)(6133799003)(5023799004)(3023799007)(4143699003)(56012099006)(18002099003)(22082099003)(10067099003)(38070700021);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?39964/xtCJM/AJbazZRozub1nfhrggjFitZnz/t3XYPVwEiXUL1nLzcR+Z?=
- =?iso-8859-1?Q?gsIpttNwdxDMeyr1b/OGa0nOH2E/qrVjs63zMQRXW7pfzQBH29o7sXX3yx?=
- =?iso-8859-1?Q?m9uE/9+aEkZbNOI8UFES/qpys/jWr/C0iUlJo/0NJQannQoS5Ryp52lv60?=
- =?iso-8859-1?Q?ZoVwzoXXckOJ36CPD5IZ4JIpVhlcmqzV3n7zUQzztK0W1o7FU/dQruG17A?=
- =?iso-8859-1?Q?6+MBEy7yCbUc1xpMHjH8hgWPdb0m/Q/0xbt/jyMpYtv6lwHfbzPu6Oddxv?=
- =?iso-8859-1?Q?9Oh5+7enRPoIoACrr0yj3O4mVLjLBEb/5p3LdgyITVJWXTgEqpA/NNMWeZ?=
- =?iso-8859-1?Q?EfrLjSC9y/pS/ahh5Tq3BLRek6jDBQg1jpWxlhcqCunC/QX0gcwfp1NMD6?=
- =?iso-8859-1?Q?p4BHHnE6sr+ErigmGM71DCAMIT2+xNghMobElxkEnlPcsb4OMihh75mvZi?=
- =?iso-8859-1?Q?peT2O5p7LEn5efz2zcycNvwxRY77/mZHPrCoBQc63iKofHvR8gqsExhvfO?=
- =?iso-8859-1?Q?7q8Lfsg5monlB8aTFzl0l69UUlwmSRRyfybm35foQOnMmGOJcaoGqc4Hcu?=
- =?iso-8859-1?Q?v5sNwWv1fJOfThGg8uedp03ISVlLYRigA5j2LeJQgyeSvBLZvKLUs6O6PW?=
- =?iso-8859-1?Q?AgheHeeDUqXZcS4+7YJlCEPjnQBJyIORN+gNFusBu16jHofRbt/e26YzXb?=
- =?iso-8859-1?Q?v4zFKl1rJ4jGL68gxffxXgDGfuoE6FTQQJFIi8OJeuFw7mnGbJT/nHJU2O?=
- =?iso-8859-1?Q?bSM2hP8CIRgCY1J1lGFdELezv7f7Vkxb767HSZQ7xh+PYr+oPsTWi5nGFQ?=
- =?iso-8859-1?Q?VDhj4AjptQeE+spRtdy2Ou80o/uUy+mb8Zr7nmz912jNPXDvg5nUc5VUvZ?=
- =?iso-8859-1?Q?0ZrazaZtdm+CBz9rahXXrn/l9z452gO97zSwsFkClOTX43XfFoK77sj2nj?=
- =?iso-8859-1?Q?Kb14H9IULWSVjII4YIUUItcCKd3RoBNa6nIzBmyaw5pbhbDX3QccO9miCk?=
- =?iso-8859-1?Q?DCPB1zv8qOhlFKYgA1KtT+UVsyxa1k1/cwDTt8+Iy9x5tv6EeE/DcC6TqB?=
- =?iso-8859-1?Q?LeOUjf0/7ZHm8Tsb0QC+wf9TgcOJn0JXry41pcJqXhP895l5wSsFH7xcjT?=
- =?iso-8859-1?Q?6PswN3ltE1BlEigYOsAJ2nd8Im5/+CtvYJicOgG0Y9Er9/sdDSYnoC9apK?=
- =?iso-8859-1?Q?OucFB6xIl1nH3KvtyZnuoe427oGQyk6W3+biQ+db/8VkCxNLrAgWxAuWpE?=
- =?iso-8859-1?Q?cIr2sJ00UvzsmxVhMRsL8jjyfo623Zsd4Y1axJucdhvyEi6qSYpdPp5XiK?=
- =?iso-8859-1?Q?XtIVY0rhhz5qynOW68Iq9K3TET7LDFfiTcFxOjEBYLC9Q6dmmFUtk6YHhH?=
- =?iso-8859-1?Q?Khxn73MCu7GsXPnCfBYdvZ6TboVK5UORu4k+TxwJ8Ae4RB0bPZ2G32HGVr?=
- =?iso-8859-1?Q?EjCrsYsCajt72XrWZ6f0SIj7n0Pg0ate+kx+PWIqpaoEEh69U5Xd9l954E?=
- =?iso-8859-1?Q?TVq6wkTuU7leTlNuYkRb4Rw/RBmLBT1FH+JoIqjKRDQdHpKZYoKt8t5CsQ?=
- =?iso-8859-1?Q?H5nsrZJHucGOJ/OGnF2rtHTXpDTiCewFjxGtweVnE+RSywUv123EabpuwX?=
- =?iso-8859-1?Q?hFdf8SutrJHgeHGcd/YHimA/bymm2ua14wfzt23NSUou5/MXfNQjDYkmOv?=
- =?iso-8859-1?Q?dqu1ugFd18Jtk2iofetgPMFOO8vd5Fm74/PEVIJJS1g1h7s6OXAgIRyLaF?=
- =?iso-8859-1?Q?WijU8Vz4jpUInhHYSVIiB3AUoWTyncnqPFMk+2LXqLu0JVE6ixk5BI+QGV?=
- =?iso-8859-1?Q?mabm8gkmLKzIeT5N4KIlkB1bIaIJC6Y=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260724-get_pages-v1-1-b10e5d65628e@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0137.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:b8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: siliconsignals.io
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CH2PR12MB4136:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0147a598-a9d1-4a3b-efc5-08def22da7f1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|366016|1800799024|921020|56012099006|10067099003|11063799006|5023799004|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	R1TpWk3vilOh0hB5JVbEo/bifnhNrQ8r79onpBBFKV5TcudcA8OnR2sxyj8OQ/Ge2XchKLsxXVpGO2VKlOdbQC3xNPfxJrHEUvhVDbXGbgB+yFOZQZWaJGVO8NLJaw3+Ke28xn1g9vEcWtBGD99stLP92Z5wS3LCjN56h79mEQ41m5XHg6ZY84myeGhgQrblxG2naiIsfrAw/5R3o1kmKTsAOstxaGLisuwl91I59F44nfXAiSskpI2EzCcvQES64hh86SJ0dCMz2LEFb+LU7hiLTyejEq5ui3od9Mq5ovBFocOVGneHOppuF7rdsyMl6kYCXvrFTVm6gxXXgizuKzHOu+peq/6EJFUyIf5042AhtpA64WD6ANFeXWz1WqDn83N+Ef1D2eH0Ful/czzXIi6rFVarIb13NEbHQS7C7mMdLDLsNZDtoz5IYiCsP9Vg7aCuG8tl24RUuRG8Ebw73XA/700jGjNdNr1cGrakyi46FplZhJrmq17+jBMKKjP1tTF+nVSfJbF6Xmv3n3i1d5ajgYi4ItYJdpQgZ/RQIndAK7fGB/ryj/9QZgKuqyDw0qS9sbOdbirG0RSVxyCWKVBKiTz7FuPnRFvmYhYw8oGmAORzpz6tosLWESIClimLvTavkVGNilMdMvwawP1UU24o8JQ8s6tISyoTWK7i9l2y0piUv4bV3hbch8AxxVLvpWgosni7vtZk/PDYvJHjcA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(366016)(1800799024)(921020)(56012099006)(10067099003)(11063799006)(5023799004)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?djEyZXZZVWxvNHJOcXYyYlQzRWVKTW9naGp2VDZwNmdrQW96RENpc25SejR0?=
+ =?utf-8?B?N1YzQWpJS1djMU9CUmNlZTUyenFZaDArMnpmV1BwS1p2c2xsTEZaemxzSmZy?=
+ =?utf-8?B?RHgrMm1DNjZBS2xOQzhhR0M3Z1FLY0E1b3IrYVZaWFU4R0srMzF1UnM0dVdT?=
+ =?utf-8?B?R2loT05LODUzaVVObVpJZ1hHNlNRLzNiTXp0T21XaXhjeTBLc1lIYVo5WWhr?=
+ =?utf-8?B?dzVNUU5JMXhNdU01cGhFamFXUEFUSFg3djNCTEpGcXozMmdrbzFoV1VOOEoz?=
+ =?utf-8?B?YUR1KytCUFJpaDVOUGFtREVRS1dvbit4QjQ1SkthSUtnTlBDSlR4cmlTbHNt?=
+ =?utf-8?B?R2piMHFhcmE3RGhBYlBjM2RYN0RNUXpiN2RNWnJZSWF1dGZ6UjBNMG1MeTU3?=
+ =?utf-8?B?cXdrbTZObHd6ZUxmbElqdXdTZzFNY2lxdU1KVlB4NDBNeTNCWEZKaTJaRCtJ?=
+ =?utf-8?B?ZGJxTDV1cjN5SmRiOFV0OW1pdUkyVHFNVjc1bGZ2eDVmQVNrczhJUTU3ejdT?=
+ =?utf-8?B?RDNvTExUWEhIS05hMUZ4Mm95WE9LcXNiTFNYY3lkNUxKWGFxRGlPRk94cXpy?=
+ =?utf-8?B?a0F1dEp4Znp6c05BRjNCSTk1dHRmMTIweTBPZU1KbkcwTGFnbVpBWXkzcmJC?=
+ =?utf-8?B?NnlyS3RCd01uN3VpOGErUiszME9Qem42N3d3OGtjbmhLUzRlSUxWTW8rM2Ry?=
+ =?utf-8?B?bkIzZU9BZXg1VGkwRzNnR3lWNmRFZGc1VjZyemltWUExTmZlUllBYzRHM0FO?=
+ =?utf-8?B?NWFCbUxRVm5BdWo0bW5KTGZ1TUVBWTEvSzM0d0dlS1BXY0lwUGdhcWFFVm5J?=
+ =?utf-8?B?eVFFYXkyTTNkUEx4bkp5TExQSEdVd0U0T3dZWG5rcnZySzYvc3NJTmhaVktp?=
+ =?utf-8?B?cUlXUFc4ZUt1aW8wS25NTVdyQnZMVVd2U0RTYUhYRUdBU010RkkxVnZuMENC?=
+ =?utf-8?B?WFc5Y1d6UUxMdnUzb0hTdUZUQmRUQXdsMVZObEE0Sk9TeUFiYVI2cGhXcTZU?=
+ =?utf-8?B?SzdjUEpyYWxLakt2a2JDamk3L2ZweWVYTWRSTmp0eHdFb0NPbHU2NXIzRExO?=
+ =?utf-8?B?a3pkcEtNNitJa3oyYU9xOGJLTldnQWNqOW4xYmlweUdpVFRyQVg1NDlzWFNy?=
+ =?utf-8?B?SzBweE1Na3JHbkdMVDlVVFhxeWFsUFovemFLYkQ4cU5tdmNuV3liU2xrTW5l?=
+ =?utf-8?B?REVxSTU0MzdkRmtOUVA2Q1kvTzhjRlhlbjMxSnNtMGZWcXJaMVdOVHVybVlH?=
+ =?utf-8?B?VE5jVVQydHpXWVZUdlo3NEVHa29JTUNTMEt0ekd3T3hka2FtTkhYQklJSlVR?=
+ =?utf-8?B?cHRoMHFOYlNzdW1HK2pOb0tOd0c1VzJiMEdLNWFHQWRmK1FpR0hOR2p6Unpy?=
+ =?utf-8?B?c3dTcXB1N3VGb3lGcjJtWmFwcmpYWGhzeVVMdFpxUXJrZUtyOEhIU2NYcVRj?=
+ =?utf-8?B?WnQ4K1BHV1Yra0pnVHpKdjNGWHdBMEgwZ1NDdlovVm5MTklYVjRpY051VXNL?=
+ =?utf-8?B?c0NNM2orVmZnb1MweHROd3paMDQ0ZEl0MjY1ODNRWkJmVGw2Vk0rTlN1MnA2?=
+ =?utf-8?B?ZVpwd2d0Sk55bzYvMTlybHVLcFJldVZwQ3JHQy9iK0NkbERLcFhVaDh1Wk40?=
+ =?utf-8?B?L2xoYmVzTjl6bk1QWEp4dFROQzQ0RDI0Rml3ZHJTdStabE1DUlphR0xvUUZI?=
+ =?utf-8?B?dG16Z0laT0pvNTBaL0NVWWw1djFqVnUzTmQzMDJDYnRIYzJPOXFjbmtrbk42?=
+ =?utf-8?B?K0QwTUdqakp2b0JFRldycWNYbDNSRVg3Z0srQ3NoNHBEZHBwUzlMdkgzSHVx?=
+ =?utf-8?B?b1JWekJzd0lhRGFiM2JKNlBtcHUyTFoxWDJjNWsvcGRGdDVNYkNlcXVTbjh0?=
+ =?utf-8?B?aXJZWHFhbXl5ZDB4UEFZbEsycGJXbEluVFMxL2ZCWENPS1AyN28zdTVKYUJO?=
+ =?utf-8?B?SitocldLUlpjSmZMdVZXZDRKSjBLdnkxVTlzQVVvN1JuOWNiZzhmU1JGR0du?=
+ =?utf-8?B?N1o3NGdERUlac01teFppK2YyVjRJRGJwazl4aTg4SmFxVHdjL051T25ZNGpp?=
+ =?utf-8?B?ZHd2THBCZUtjTnBIdFJWMHhweExBeGQ1Q2dOV3dBb2tiSlJ3UW9pR1pwb2lo?=
+ =?utf-8?B?S00vSnUvZlpQbmVXNEhkdUVnVUQxK2F0V2tVRFVIL2IwV2NvcG5WeDZrY3Rm?=
+ =?utf-8?B?U3J3MlROYTR2b3RubUtUR1dSTEg4SkNNVHlLaW5iZ0ZhL3pUSjJtRllSajlP?=
+ =?utf-8?B?dWFvNkFlYlpqUTdmMUVVT3hjNlF4UTBjMDYwR3VJbmFFdURHVEJwZWppejB6?=
+ =?utf-8?Q?N5jlV4ACThTJGiJhD/?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0147a598-a9d1-4a3b-efc5-08def22da7f1
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MA0P287MB2178.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 18190a8f-b922-4c32-7613-08def22ba0aa
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Aug 2026 13:23:52.6212
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 13:38:24.2839
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: H+QOQ8CLFuJM1vY1VLw48WW/heHMht5Wo5qvr3WOO0DiXuZuihiJ6HQf5mhqm65wmYftlMZ1INyNP3HjJYB/VDzcIhfVvF3EWJb6i9dP/EJ9YsAl7ybx6Y7V+TPjWB4f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN3P287MB1018
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T1we7gz+msqYs5BOViZcVvxzazHnyiEcfi4bcJzi5rasJ0vTAGg2bjyYN9IeDyOl
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH2PR12MB4136
 
-Hi Sakari,=0A=
-=0A=
->Hi Sakari,=0A=
->=0A=
->>The following features are supported:=0A=
->>- Manual exposure and gain control support.=0A=
->>- vblank/hblank control support.=0A=
->>- vflip/hflip control support=0A=
->>- Test pattern control support.=0A=
->>- mode support 1920 x 1080 @ 30 fps, SBGGR10=0A=
->>=0A=
->>The driver is tested on mainline branch v7.0-rc2 on IMX8MP Debix Model a.=
-=0A=
->>=0A=
->>v4l2-compliance 1.31.0-5387, 64 bits, 64-bit time_t=0A=
->>v4l2-compliance SHA: 5508bc4301ac 2025-08-25 08:14:22=0A=
->>=0A=
->>Compliance test for device /dev/v4l-subdev3:=0A=
->>=0A=
->>Driver Info:=0A=
->>        Driver version   : 7.0.0=0A=
->>        Capabilities     : 0x00000000=0A=
->>        Client Capabilities: 0x0000000000000002=0A=
->>interval-uses-which=0A=
->>Required ioctls:=0A=
->>        test VIDIOC_SUDBEV_QUERYCAP: OK=0A=
->>        test invalid ioctls: OK=0A=
->>=0A=
->>Allow for multiple opens:=0A=
->>        test second /dev/v4l-subdev3 open: OK=0A=
->>        test VIDIOC_SUBDEV_QUERYCAP: OK=0A=
->>        test for unlimited opens: OK=0A=
->>=0A=
->>Debug ioctls:=0A=
->>        test VIDIOC_LOG_STATUS: OK (Not Supported)=0A=
->>=0A=
->>Input ioctls:=0A=
->>        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)=0A=
->>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
->>        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)=0A=
->>        test VIDIOC_ENUMAUDIO: OK (Not Supported)=0A=
->>        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)=0A=
->>        test VIDIOC_G/S_AUDIO: OK (Not Supported)=0A=
->>        Inputs: 0 Audio Inputs: 0 Tuners: 0=0A=
->>=0A=
->>Output ioctls:=0A=
->>        test VIDIOC_G/S_MODULATOR: OK (Not Supported)=0A=
->>        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)=0A=
->>        test VIDIOC_ENUMAUDOUT: OK (Not Supported)=0A=
->>        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)=0A=
->>        test VIDIOC_G/S_AUDOUT: OK (Not Supported)=0A=
->>        Outputs: 0 Audio Outputs: 0 Modulators: 0=0A=
->>=0A=
->>Input/Output configuration ioctls:=0A=
->>        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)=0A=
->>        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)=0A=
->>        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)=0A=
->>        test VIDIOC_G/S_EDID: OK (Not Supported)=0A=
->>=0A=
->>Control ioctls:=0A=
->>        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK=0A=
->>        test VIDIOC_QUERYCTRL: OK=0A=
->>        test VIDIOC_G/S_CTRL: OK=0A=
->>        test VIDIOC_G/S/TRY_EXT_CTRLS: OK=0A=
->>        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK=0A=
->>        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)=0A=
->>        Standard Controls: 12 Private Controls: 0=0A=
->>=0A=
->>Format ioctls:=0A=
->>        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported=
-)=0A=
->>        test VIDIOC_G/S_PARM: OK (Not Supported)=0A=
->>        test VIDIOC_G_FBUF: OK (Not Supported)=0A=
->>        test VIDIOC_G_FMT: OK (Not Supported)=0A=
->>        test VIDIOC_TRY_FMT: OK (Not Supported)=0A=
->>        test VIDIOC_S_FMT: OK (Not Supported)=0A=
->>        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)=0A=
->>        test Cropping: OK (Not Supported)=0A=
->>        test Composing: OK (Not Supported)=0A=
->>        test Scaling: OK (Not Supported)=0A=
->>=0A=
->>Codec ioctls:=0A=
->>        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)=0A=
->>        test VIDIOC_G_ENC_INDEX: OK (Not Supported)=0A=
->>        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)=0A=
->>=0A=
->>Buffer ioctls:=0A=
->>        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)=0A=
->>        test CREATE_BUFS maximum buffers: OK=0A=
->>        test VIDIOC_REMOVE_BUFS: OK=0A=
->>        test VIDIOC_EXPBUF: OK (Not Supported)=0A=
->>        test Requests: OK (Not Supported)=0A=
->>        test blocking wait: OK (Not Supported)=0A=
->>=0A=
->>Total for device /dev/v4l-subdev3: 46, Succeeded: 46, Failed: 0, Warnings=
-: 0=0A=
->=0A=
->Could you please have a look at this patch series and let me know your tho=
-ughts ?=0A=
->=0A=
->Best Regards,=0A=
->Elgin=0A=
-=0A=
-Just following up on the os02g10 patch series.=0A=
-Is there any blocker preventing it from being merged, or anything I need to=
- address?=0A=
-=0A=
-Best Regards,=0A=
-Elgin=0A=
+On 7/24/26 14:08, Adrián Larumbe wrote:
+> None of the semantics of the function tell of it being a PRIME-exclusive
+> entry point. In fact, most drivers seem to be using it to translate a list
+> of pages into an sg table that can be used for GPU mapping later on, rather
+> than just for sharing an object's pages with another driver.
+> 
+> Move it across files and rename accordingly.
+> 
+> Signed-off-by: Adrián Larumbe <adrian.larumbe@collabora.com>
+> ---
+> drm_prime_pages_to_sg() has no real dependency on PRIME/dma-buf interfaces.
+> It is a generic helper that converts a page array into a scatter/gather
+> table via dma_map_sg_attrs. Nothing in its implementation touches struct
+> dma_buf or import/export logic.
+
+It is correct that this helper is not DMA-buf dependent, but DMA-buf should be the only case when a DRM driver needs to convert an array of pages into an SG table.
+
+The background is that we want to discourage people from using SG tables because it was a rather bad design choice to have pages mangled with the DMA addresses in one structure in the first place.
+
+So question is why do you want to do this?
+
+Regards,
+Christian.
+
+> ---
+>  drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c |  6 ++---
+>  drivers/gpu/drm/drm_gem.c                   | 35 ++++++++++++++++++++++++++
+>  drivers/gpu/drm/drm_gem_shmem_helper.c      |  2 +-
+>  drivers/gpu/drm/drm_prime.c                 | 38 -----------------------------
+>  drivers/gpu/drm/etnaviv/etnaviv_gem.c       |  3 +--
+>  drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c |  3 ++-
+>  drivers/gpu/drm/loongson/lsdc_gem.c         |  3 +--
+>  drivers/gpu/drm/msm/msm_gem.c               |  2 +-
+>  drivers/gpu/drm/msm/msm_gem_prime.c         |  2 +-
+>  drivers/gpu/drm/nouveau/nouveau_prime.c     |  4 +--
+>  drivers/gpu/drm/panthor/panthor_gem.c       |  6 ++---
+>  drivers/gpu/drm/radeon/radeon_prime.c       |  5 ++--
+>  drivers/gpu/drm/rockchip/rockchip_drm_gem.c |  6 ++---
+>  drivers/gpu/drm/tegra/gem.c                 |  4 +--
+>  drivers/gpu/drm/vmwgfx/vmwgfx_gem.c         |  4 +--
+>  drivers/gpu/drm/xe/xe_dma_buf.c             |  6 ++---
+>  drivers/gpu/drm/xen/xen_drm_front_gem.c     |  2 +-
+>  include/drm/drm_gem.h                       |  5 +++-
+>  include/drm/drm_prime.h                     |  2 --
+>  19 files changed, 68 insertions(+), 70 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> index b33c300e26e2..c9a98aec7eb6 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_dma_buf.c
+> @@ -203,9 +203,9 @@ static struct sg_table *amdgpu_dma_buf_map(struct dma_buf_attachment *attach,
+>  
+>  	switch (bo->tbo.resource->mem_type) {
+>  	case TTM_PL_TT:
+> -		sgt = drm_prime_pages_to_sg(obj->dev,
+> -					    bo->tbo.ttm->pages,
+> -					    bo->tbo.ttm->num_pages);
+> +		sgt = drm_pages_to_sg(obj->dev,
+> +				      bo->tbo.ttm->pages,
+> +				      bo->tbo.ttm->num_pages);
+>  		if (IS_ERR(sgt))
+>  			return sgt;
+>  
+> diff --git a/drivers/gpu/drm/drm_gem.c b/drivers/gpu/drm/drm_gem.c
+> index 018df97d590d..22c8a3b5f667 100644
+> --- a/drivers/gpu/drm/drm_gem.c
+> +++ b/drivers/gpu/drm/drm_gem.c
+> @@ -780,6 +780,41 @@ void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+>  }
+>  EXPORT_SYMBOL(drm_gem_put_pages);
+>  
+> +/**
+> + * drm_pages_to_sg - converts a page array into an sg list
+> + * @dev: DRM device
+> + * @pages: pointer to the array of page pointers to convert
+> + * @nr_pages: length of the page vector
+> + *
+> + * This helper creates an sg table object from a set of pages.
+> + * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
+> + */
+> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
+> +				 struct page **pages, unsigned int nr_pages)
+> +{
+> +	struct sg_table *sg;
+> +	size_t max_segment = 0;
+> +	int err;
+> +
+> +	sg = kmalloc_obj(struct sg_table);
+> +	if (!sg)
+> +		return ERR_PTR(-ENOMEM);
+> +
+> +	if (dev)
+> +		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
+> +	if (max_segment == 0)
+> +		max_segment = UINT_MAX;
+> +	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
+> +						(unsigned long)nr_pages << PAGE_SHIFT,
+> +						max_segment, GFP_KERNEL);
+> +	if (err) {
+> +		kfree(sg);
+> +		sg = ERR_PTR(err);
+> +	}
+> +	return sg;
+> +}
+> +EXPORT_SYMBOL(drm_pages_to_sg);
+> +
+>  static int objects_lookup(struct drm_file *filp, u32 *handle, int count,
+>  			  struct drm_gem_object **objs)
+>  {
+> diff --git a/drivers/gpu/drm/drm_gem_shmem_helper.c b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> index 22ec52e2ffb8..144d088a477f 100644
+> --- a/drivers/gpu/drm/drm_gem_shmem_helper.c
+> +++ b/drivers/gpu/drm/drm_gem_shmem_helper.c
+> @@ -825,7 +825,7 @@ struct sg_table *drm_gem_shmem_get_sg_table(struct drm_gem_shmem_object *shmem)
+>  
+>  	drm_WARN_ON(obj->dev, drm_gem_is_imported(obj));
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
+> +	return drm_pages_to_sg(obj->dev, shmem->pages, obj->size >> PAGE_SHIFT);
+>  }
+>  EXPORT_SYMBOL_GPL(drm_gem_shmem_get_sg_table);
+>  
+> diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
+> index 9b44c78cd77f..54539a8929c1 100644
+> --- a/drivers/gpu/drm/drm_prime.c
+> +++ b/drivers/gpu/drm/drm_prime.c
+> @@ -835,44 +835,6 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
+>  	.vunmap = drm_gem_dmabuf_vunmap,
+>  };
+>  
+> -/**
+> - * drm_prime_pages_to_sg - converts a page array into an sg list
+> - * @dev: DRM device
+> - * @pages: pointer to the array of page pointers to convert
+> - * @nr_pages: length of the page vector
+> - *
+> - * This helper creates an sg table object from a set of pages
+> - * the driver is responsible for mapping the pages into the
+> - * importers address space for use with dma_buf itself.
+> - *
+> - * This is useful for implementing &drm_gem_object_funcs.get_sg_table.
+> - */
+> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+> -				       struct page **pages, unsigned int nr_pages)
+> -{
+> -	struct sg_table *sg;
+> -	size_t max_segment = 0;
+> -	int err;
+> -
+> -	sg = kmalloc_obj(struct sg_table);
+> -	if (!sg)
+> -		return ERR_PTR(-ENOMEM);
+> -
+> -	if (dev)
+> -		max_segment = dma_max_mapping_size(drm_dev_dma_dev(dev));
+> -	if (max_segment == 0)
+> -		max_segment = UINT_MAX;
+> -	err = sg_alloc_table_from_pages_segment(sg, pages, nr_pages, 0,
+> -						(unsigned long)nr_pages << PAGE_SHIFT,
+> -						max_segment, GFP_KERNEL);
+> -	if (err) {
+> -		kfree(sg);
+> -		sg = ERR_PTR(err);
+> -	}
+> -	return sg;
+> -}
+> -EXPORT_SYMBOL(drm_prime_pages_to_sg);
+> -
+>  /**
+>   * drm_prime_get_contiguous_size - returns the contiguous size of the buffer
+>   * @sgt: sg_table describing the buffer to check
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem.c b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> index b0436a1e103f..a8e8614f8210 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem.c
+> @@ -3,7 +3,6 @@
+>   * Copyright (C) 2015-2018 Etnaviv Project
+>   */
+>  
+> -#include <drm/drm_prime.h>
+>  #include <drm/drm_print.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/shmem_fs.h>
+> @@ -104,7 +103,7 @@ struct page **etnaviv_gem_get_pages(struct etnaviv_gem_object *etnaviv_obj)
+>  		unsigned int npages = etnaviv_obj->base.size >> PAGE_SHIFT;
+>  		struct sg_table *sgt;
+>  
+> -		sgt = drm_prime_pages_to_sg(dev, etnaviv_obj->pages, npages);
+> +		sgt = drm_pages_to_sg(dev, etnaviv_obj->pages, npages);
+>  		if (IS_ERR(sgt)) {
+>  			dev_err(dev->dev, "failed to allocate sgt: %ld\n",
+>  				PTR_ERR(sgt));
+> diff --git a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> index 6757ae6ec304..f44484325ddb 100644
+> --- a/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> +++ b/drivers/gpu/drm/etnaviv/etnaviv_gem_prime.c
+> @@ -3,6 +3,7 @@
+>   * Copyright (C) 2014-2018 Etnaviv Project
+>   */
+>  
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_prime.h>
+>  #include <linux/dma-buf.h>
+>  #include <linux/module.h>
+> @@ -22,7 +23,7 @@ struct sg_table *etnaviv_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	if (WARN_ON(!etnaviv_obj->pages))  /* should have already pinned! */
+>  		return ERR_PTR(-EINVAL);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
+> +	return drm_pages_to_sg(obj->dev, etnaviv_obj->pages, npages);
+>  }
+>  
+>  int etnaviv_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/loongson/lsdc_gem.c b/drivers/gpu/drm/loongson/lsdc_gem.c
+> index 2fb03487c983..37160228244c 100644
+> --- a/drivers/gpu/drm/loongson/lsdc_gem.c
+> +++ b/drivers/gpu/drm/loongson/lsdc_gem.c
+> @@ -9,7 +9,6 @@
+>  #include <drm/drm_dumb_buffers.h>
+>  #include <drm/drm_file.h>
+>  #include <drm/drm_gem.h>
+> -#include <drm/drm_prime.h>
+>  #include <drm/drm_print.h>
+>  
+>  #include "lsdc_drv.h"
+> @@ -51,7 +50,7 @@ static struct sg_table *lsdc_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  		return ERR_PTR(-ENOMEM);
+>  	}
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
+> +	return drm_pages_to_sg(obj->dev, tt->pages, tt->num_pages);
+>  }
+>  
+>  static void lsdc_gem_object_free(struct drm_gem_object *obj)
+> diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+> index efd3d3c9a449..7e3418290c22 100644
+> --- a/drivers/gpu/drm/msm/msm_gem.c
+> +++ b/drivers/gpu/drm/msm/msm_gem.c
+> @@ -207,7 +207,7 @@ static struct page **get_pages(struct drm_gem_object *obj)
+>  
+>  		msm_obj->pages = p;
+>  
+> -		msm_obj->sgt = drm_prime_pages_to_sg(obj->dev, p, npages);
+> +		msm_obj->sgt = drm_pages_to_sg(obj->dev, p, npages);
+>  		if (IS_ERR(msm_obj->sgt)) {
+>  			void *ptr = ERR_CAST(msm_obj->sgt);
+>  
+> diff --git a/drivers/gpu/drm/msm/msm_gem_prime.c b/drivers/gpu/drm/msm/msm_gem_prime.c
+> index 036d34c674d9..d25393a9e549 100644
+> --- a/drivers/gpu/drm/msm/msm_gem_prime.c
+> +++ b/drivers/gpu/drm/msm/msm_gem_prime.c
+> @@ -23,7 +23,7 @@ struct sg_table *msm_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	if (WARN_ON(!msm_obj->pages))  /* should have already pinned! */
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, msm_obj->pages, npages);
+> +	return drm_pages_to_sg(obj->dev, msm_obj->pages, npages);
+>  }
+>  
+>  int msm_gem_prime_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_prime.c b/drivers/gpu/drm/nouveau/nouveau_prime.c
+> index caab60fc62f6..b95f2f07df74 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_prime.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_prime.c
+> @@ -32,8 +32,8 @@ struct sg_table *nouveau_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  {
+>  	struct nouveau_bo *nvbo = nouveau_gem_object(obj);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
+> -				     nvbo->bo.ttm->num_pages);
+> +	return drm_pages_to_sg(obj->dev, nvbo->bo.ttm->pages,
+> +			       nvbo->bo.ttm->num_pages);
+>  }
+>  
+>  struct drm_gem_object *nouveau_gem_prime_import_sg_table(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/panthor/panthor_gem.c b/drivers/gpu/drm/panthor/panthor_gem.c
+> index 9855df738194..ec530d254fa4 100644
+> --- a/drivers/gpu/drm/panthor/panthor_gem.c
+> +++ b/drivers/gpu/drm/panthor/panthor_gem.c
+> @@ -321,8 +321,8 @@ panthor_gem_dev_map_get_sgt_locked(struct panthor_gem_object *bo)
+>  	if (ret)
+>  		return ERR_PTR(ret);
+>  
+> -	sgt = drm_prime_pages_to_sg(bo->base.dev, bo->backing.pages,
+> -				    bo->base.size >> PAGE_SHIFT);
+> +	sgt = drm_pages_to_sg(bo->base.dev, bo->backing.pages,
+> +			      bo->base.size >> PAGE_SHIFT);
+>  	if (IS_ERR(sgt))
+>  		return sgt;
+>  
+> @@ -702,7 +702,7 @@ static struct sg_table *panthor_gem_get_sg_table(struct drm_gem_object *obj)
+>  	drm_WARN_ON_ONCE(obj->dev, !bo->backing.pages);
+>  	drm_WARN_ON_ONCE(obj->dev, !refcount_read(&bo->backing.pin_count));
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+> +	return drm_pages_to_sg(obj->dev, bo->backing.pages, obj->size >> PAGE_SHIFT);
+>  }
+>  
+>  static int panthor_gem_vmap_locked(struct drm_gem_object *obj,
+> diff --git a/drivers/gpu/drm/radeon/radeon_prime.c b/drivers/gpu/drm/radeon/radeon_prime.c
+> index a77881f035e7..4cfc4282a59c 100644
+> --- a/drivers/gpu/drm/radeon/radeon_prime.c
+> +++ b/drivers/gpu/drm/radeon/radeon_prime.c
+> @@ -26,6 +26,7 @@
+>  
+>  #include <linux/dma-buf.h>
+>  
+> +#include <drm/drm_gem.h>
+>  #include <drm/drm_prime.h>
+>  #include <drm/radeon_drm.h>
+>  
+> @@ -38,8 +39,8 @@ struct sg_table *radeon_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  {
+>  	struct radeon_bo *bo = gem_to_radeon_bo(obj);
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
+> -				     bo->tbo.ttm->num_pages);
+> +	return drm_pages_to_sg(obj->dev, bo->tbo.ttm->pages,
+> +			       bo->tbo.ttm->num_pages);
+>  }
+>  
+>  struct drm_gem_object *radeon_gem_prime_import_sg_table(struct drm_device *dev,
+> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> index b188539dca0b..7897da0becf4 100644
+> --- a/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_gem.c
+> @@ -89,8 +89,8 @@ static int rockchip_gem_get_pages(struct rockchip_gem_object *rk_obj)
+>  
+>  	rk_obj->num_pages = rk_obj->base.size >> PAGE_SHIFT;
+>  
+> -	rk_obj->sgt = drm_prime_pages_to_sg(rk_obj->base.dev,
+> -					    rk_obj->pages, rk_obj->num_pages);
+> +	rk_obj->sgt = drm_pages_to_sg(rk_obj->base.dev,
+> +				      rk_obj->pages, rk_obj->num_pages);
+>  	if (IS_ERR(rk_obj->sgt)) {
+>  		ret = PTR_ERR(rk_obj->sgt);
+>  		goto err_put_pages;
+> @@ -432,7 +432,7 @@ struct sg_table *rockchip_gem_prime_get_sg_table(struct drm_gem_object *obj)
+>  	int ret;
+>  
+>  	if (rk_obj->pages)
+> -		return drm_prime_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
+> +		return drm_pages_to_sg(obj->dev, rk_obj->pages, rk_obj->num_pages);
+>  
+>  	sgt = kzalloc_obj(*sgt);
+>  	if (!sgt)
+> diff --git a/drivers/gpu/drm/tegra/gem.c b/drivers/gpu/drm/tegra/gem.c
+> index 436394e04812..701af672b4e5 100644
+> --- a/drivers/gpu/drm/tegra/gem.c
+> +++ b/drivers/gpu/drm/tegra/gem.c
+> @@ -17,7 +17,7 @@
+>  
+>  #include <drm/drm_drv.h>
+>  #include <drm/drm_dumb_buffers.h>
+> -#include <drm/drm_prime.h>
+> +#include <drm/drm_gem.h>
+>  
+>  #include "drm.h"
+>  #include "gem.h"
+> @@ -352,7 +352,7 @@ static int tegra_bo_get_pages(struct drm_device *drm, struct tegra_bo *bo)
+>  
+>  	bo->num_pages = bo->gem.size >> PAGE_SHIFT;
+>  
+> -	bo->sgt = drm_prime_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
+> +	bo->sgt = drm_pages_to_sg(bo->gem.dev, bo->pages, bo->num_pages);
+>  	if (IS_ERR(bo->sgt)) {
+>  		err = PTR_ERR(bo->sgt);
+>  		goto put_pages;
+> diff --git a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> index 39f8c46550c2..c9e7f2e3668c 100644
+> --- a/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> +++ b/drivers/gpu/drm/vmwgfx/vmwgfx_gem.c
+> @@ -28,7 +28,7 @@
+>  #include "vmwgfx_bo.h"
+>  #include "vmwgfx_drv.h"
+>  
+> -#include "drm/drm_prime.h"
+> +#include "drm/drm_gem.h"
+>  #include "drm/drm_gem_ttm_helper.h"
+>  
+>  #include <linux/debugfs.h>
+> @@ -76,7 +76,7 @@ static struct sg_table *vmw_gem_object_get_sg_table(struct drm_gem_object *obj)
+>  	if (vmw_tt->vsgt.sgt)
+>  		return vmw_tt->vsgt.sgt;
+>  
+> -	return drm_prime_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
+> +	return drm_pages_to_sg(obj->dev, vmw_tt->dma_ttm.pages, vmw_tt->dma_ttm.num_pages);
+>  }
+>  
+>  static int vmw_gem_vmap(struct drm_gem_object *obj, struct iosys_map *map)
+> diff --git a/drivers/gpu/drm/xe/xe_dma_buf.c b/drivers/gpu/drm/xe/xe_dma_buf.c
+> index 8a920e58245c..f0fe80706b79 100644
+> --- a/drivers/gpu/drm/xe/xe_dma_buf.c
+> +++ b/drivers/gpu/drm/xe/xe_dma_buf.c
+> @@ -118,9 +118,9 @@ static struct sg_table *xe_dma_buf_map(struct dma_buf_attachment *attach,
+>  
+>  	switch (bo->ttm.resource->mem_type) {
+>  	case XE_PL_TT:
+> -		sgt = drm_prime_pages_to_sg(obj->dev,
+> -					    bo->ttm.ttm->pages,
+> -					    obj->size >> PAGE_SHIFT);
+> +		sgt = drm_pages_to_sg(obj->dev,
+> +				      bo->ttm.ttm->pages,
+> +				      obj->size >> PAGE_SHIFT);
+>  		if (IS_ERR(sgt))
+>  			return sgt;
+>  
+> diff --git a/drivers/gpu/drm/xen/xen_drm_front_gem.c b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> index eec4c1da3f9e..a4a7c7f2c91c 100644
+> --- a/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> +++ b/drivers/gpu/drm/xen/xen_drm_front_gem.c
+> @@ -236,7 +236,7 @@ struct sg_table *xen_drm_front_gem_get_sg_table(struct drm_gem_object *gem_obj)
+>  	if (!xen_obj->pages)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	return drm_prime_pages_to_sg(gem_obj->dev,
+> +	return drm_pages_to_sg(gem_obj->dev,
+>  				     xen_obj->pages, xen_obj->num_pages);
+>  }
+>  
+> diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+> index 885244e375d3..7b9cc6335689 100644
+> --- a/include/drm/drm_gem.h
+> +++ b/include/drm/drm_gem.h
+> @@ -155,7 +155,7 @@ struct drm_gem_object_funcs {
+>  	 * here cannot be used for sg tables pointing at driver private memory
+>  	 * ranges.
+>  	 *
+> -	 * See also drm_prime_pages_to_sg().
+> +	 * See also drm_pages_to_sg().
+>  	 */
+>  	struct sg_table *(*get_sg_table)(struct drm_gem_object *obj);
+>  
+> @@ -589,6 +589,9 @@ struct page **drm_gem_get_pages(struct drm_gem_object *obj);
+>  void drm_gem_put_pages(struct drm_gem_object *obj, struct page **pages,
+>  		bool dirty, bool accessed);
+>  
+> +struct sg_table *drm_pages_to_sg(struct drm_device *dev,
+> +				 struct page **pages, unsigned int nr_pages);
+> +
+>  void drm_gem_lock(struct drm_gem_object *obj);
+>  void drm_gem_unlock(struct drm_gem_object *obj);
+>  
+> diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+> index f50f862f0d8b..603e16a40ae7 100644
+> --- a/include/drm/drm_prime.h
+> +++ b/include/drm/drm_prime.h
+> @@ -92,8 +92,6 @@ void drm_gem_dmabuf_vunmap(struct dma_buf *dma_buf, struct iosys_map *map);
+>  int drm_gem_prime_mmap(struct drm_gem_object *obj, struct vm_area_struct *vma);
+>  int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma);
+>  
+> -struct sg_table *drm_prime_pages_to_sg(struct drm_device *dev,
+> -				       struct page **pages, unsigned int nr_pages);
+>  struct dma_buf *drm_gem_prime_export(struct drm_gem_object *obj,
+>  				     int flags);
+>  
+> 
+> ---
+> base-commit: 48dd37d1fef33fbf42f1d6887c61e242fd21d00d
+> change-id: 20260724-get_pages-e2e91c53eaa3
+> 
+> Best regards,
+> --  
+> Adrián Larumbe <adrian.larumbe@collabora.com>
+> 
+
