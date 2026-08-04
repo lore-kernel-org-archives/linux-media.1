@@ -1,55 +1,73 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E3973C199B;
-	Tue,  4 Aug 2026 10:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C88C4398EB
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 11:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785839092; cv=none; b=RpvgkdCP4JW7NjaX76H+5lzklqBQKryQLW6hoXIefYYpuI+MSeDU5SzBKeGgW0BlihmBDXb1AxBjmzBoHgs9XqToqUC6Q+4XMd4e0oN4jzsnPo1DnXORNkBKo3hqTknxLNP+U4fZF/qor1Gy1UKmR9HIKPs0YJqBCL9eXeR230w=
+	t=1785842123; cv=none; b=NXybuh/ZF4yZ6Qso29M1dHDJEVPcMNIXXLenffy64s5QP715a6Jk0Q++tpXYPHEtObs76mJ66Fk8nN9PjCo5uHRGDEtXK+4Tfe79hUXHtku7ubX9e/HqvN6Pu/gYL+iBjGfdEQqg+k09d3GTRq1G4beuGyLFDZB4DaaiEmPwDkE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785839092; c=relaxed/simple;
-	bh=MOiZVN9IjAsl4MH/BX6q5K88Mh5TEauMvPdpLGP77dU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=lAzVhKlbliPnJbswoK440FEbWu+z5ic7JCt0ezBo6GmEIt/Vb1kWZeHI7oTLZUvFbanRzM3YO3QGShDTRqF/CTl4+F+KoBiITGrADICiq+IQmvAtsrKm+/SGkQclo3H366I5YI/dphL2q4877LXhnAcAYtbFisTAhlg+aii3Iyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: b4e498208fee11f1aa26b74ffac11d73-20260804
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.12,REQID:84e22f17-9ba2-4684-9a4f-d6f845452dd4,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:-20,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:-25
-X-CID-META: VersionHash:e7bac3a,CLOUDID:6e5e5c39784c1ed7f11ad1803359c245,BulkI
-	D:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|850|865|898,TC:nil,Content:0|1
-	5|50,EDM:1,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:
-	0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: b4e498208fee11f1aa26b74ffac11d73-20260804
-X-User: lilinmao@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <lilinmao@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1959304178; Tue, 04 Aug 2026 18:24:42 +0800
-From: Linmao Li <lilinmao@kylinos.cn>
-To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	s=arc-20240116; t=1785842123; c=relaxed/simple;
+	bh=uUSiEeKC5Jhes4/hJQI0INTXZFTq0Jt5W/fbROuMR2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Vpci+fm13Eeotg5AM4Mafj7q/g6Ene2gXN2qI6HJcwmm7FmhzyrFx/RdcWjdjT9+wOaeXdJ8UEVJ7e6Me6nEw59A/hPDc9ZDMleLTVXsPPXfkVvS2+LJGfI0XuiEn04PkTaId9+VutswMz1jd4N1ptqbgDC5C4dZAeeVfdhIWZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gLyU7Z9h; arc=none smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gLyU7Z9h"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38ec1402b05so3181917a91.2
+        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 04:15:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785842120; x=1786446920; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OFBSUwUZyXCkVYgyiIaRGQdZLsjpXGpbkt70ey0xKsA=;
+        b=gLyU7Z9h0/uS1njUSz4u38yayQtZEyzv55aNB/PKFhIfnmwFFi+iYuDRoRT83sPw4l
+         mJwu9Ix7YNl+DybC1N/x03qGDGiqHvjFBEW8+bi+pmz7QZwl3mW3ZogQ3nuPV/r5SDaS
+         vEa/ZgpKvgTOV8lmUkxVHNKcomrJlmHcQAyFjKMAhIFGaXnOoDTnOdkct6+UZR/1NVhI
+         CSJVTHRnXgPs7YSxP0+RlahAoXF7vCh7MLfif9nqPsFZEzyP8rdVTGOQ/+coriRb9iQQ
+         /k4D/+s3Rn2U/i6CgiHXy9AiqRrTAqmTEgDKXsihEctjOtKt8/eIvzNLO4atCYO67bCX
+         JTVQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785842120; x=1786446920;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OFBSUwUZyXCkVYgyiIaRGQdZLsjpXGpbkt70ey0xKsA=;
+        b=VJ7Ets5FU+PV8Ph83GeAHPU8s6rjkMiburDBaUXFy+VZ82PlCQqQ7uLvdalmWWB8OO
+         zImxkQqP8cjbD0Vu0NkH8h/4Da6aKClAeGKOD/oFpfhBeyFZHL2/TCFUDJb1kiq7GN6I
+         J+eSruWK89Pb5UN+R5W5y3qYNSVvsMYOzFtJhprCpihyqq8R9m+m07X7GenoB2zYE8SX
+         UjJ6Wg6G+9evNXIkf6iCIifVmudA0AJU/Djd5i91kqfBDS/EoEfFbSX6LzuHw24J5Gu+
+         SHg1x89CgyJ7IZR+h+AsEIvbyxYbQGgmlE4v7FLUNku/AVJsWGAxTgzeaZ8H9+44tjzC
+         5tZQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rr23shMkdVsdbhrEODv3VDY1rRhBJnY45MMpXKhvjvzTTKEzICwF7aqyPAplGPa06w6cY1cu9ILEmVFDg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyISqptpdAZ3stfpkWAZiyD5MKcH9WTlbaqwVQDijweg4Z5iq1O
+	yhF2MUFSaZDpOa51z+F/IXMdKN9lnJy/EGPF3GoqYVD2SwIb19z1J0fO
+X-Gm-Gg: AR+sD12xudC0/ONyACY2DGb7ANVIDh0eknx+xv1GktTrtywGmwqDKS3jr+fZAclSVvr
+	tPQNWqV5nPsEwN9O7OAjAw/DFt3KZ+YufS71iIhmvSCmS0mI8yDwiSPafNMQF3gHex+qLnJmGlj
+	xnCzbLRWz0KffNM9s2tGrUOETaz4SzGA3JYlrWu8Y87kQHKJf2slCCXVeWXFKX3DbffnhuxQ7fX
+	kRwqLx40zQzTKgbRRqE9XVyCLD9MAX7rn0wF/HpxA1JGicpaf2j7c8tu6sR3eF2ibfY60DS8WvP
+	KhMFqgR6SaRtkcnDL3QMNOiLjuEyiFmfkcpYCRZIvcRmm4BnpSsjz8KuAdBDKziB/5RuHFhiec9
+	HFDWvStko+/2fJC8ebeSrlBZADFPQNMVGbOZ+k8+Fpp8h5eXaY5RqODGgX+VDFZsmuXpE8gcPqd
+	XkFy7xFrP3kSCbhOklxVB0FAzfdey9fcPh2+jWAYezt6c5vaHGHzkZdJWTzNZVEQEH8SK4Mt3/l
+	4S/610=
+X-Received: by 2002:a17:90b:3912:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-38fbc0a436emr13244133a91.0.1785842120417;
+        Tue, 04 Aug 2026 04:15:20 -0700 (PDT)
+Received: from Vicious.localdomain ([103.37.82.147])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-13fca50acddsm2750601c88.3.2026.08.04.04.15.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 04:15:19 -0700 (PDT)
+From: Ashmit Kumar <work.ashmitkumar@gmail.com>
+To: gregkh@linuxfoundation.org,
+	mchehab@kernel.org
+Cc: linux-staging@lists.linux.dev,
 	linux-media@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linmao Li <lilinmao@kylinos.cn>
-Subject: [PATCH v2 2/2] media: rcar-isp: Fix VSPX reference leaks
-Date: Tue,  4 Aug 2026 18:24:31 +0800
-Message-Id: <20260804102431.273385-3-lilinmao@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260804102431.273385-1-lilinmao@kylinos.cn>
-References: <20260804102431.273385-1-lilinmao@kylinos.cn>
+	Ashmit Kumar <work.ashmitkumar@gmail.com>
+Subject: [PATCH v3] staging: media: av7110: remove unnecessary parentheses from return
+Date: Tue,  4 Aug 2026 11:15:04 +0000
+Message-ID: <20260804111504.21958-1-work.ashmitkumar@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -58,83 +76,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-of_parse_phandle() and of_find_device_by_node() both acquire references,
-but the ISPCORE probe never releases them. The device node reference is
-leaked immediately, and the VSPX device reference is leaked on probe
-failures and on driver removal.
+The Linux kernel coding style specifies that return is not a function
+and therefore parentheses are not required.
 
-Drop the node reference once the platform device has been looked up, and
-release the device reference on the probe error paths and in the remove
-path.
-
-Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+Signed-off-by: Ashmit Kumar <work.ashmitkumar@gmail.com>
 ---
- drivers/media/platform/renesas/rcar-isp/core.c | 17 +++++++++++++----
- 1 file changed, 13 insertions(+), 4 deletions(-)
+Changes in v3:
+- Formatted as a standalone patch (removed 2/3 series numbering).
 
-diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-index 181446ae53779..b5861d0cd0e8b 100644
---- a/drivers/media/platform/renesas/rcar-isp/core.c
-+++ b/drivers/media/platform/renesas/rcar-isp/core.c
-@@ -820,6 +820,7 @@ static int risp_core_probe_resources(struct rcar_isp_core *core,
- 		return -ENODEV;
+ drivers/staging/media/av7110/sp8870.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
+index 29fb4934c03..83c6ee305d6 100644
+--- a/drivers/staging/media/av7110/sp8870.c
++++ b/drivers/staging/media/av7110/sp8870.c
+@@ -92,7 +92,7 @@ static int sp8870_readreg(struct sp8870_state *state, u16 reg)
+ 		return -1;
+ 	}
  
- 	vspx = of_find_device_by_node(of_vspx);
-+	of_node_put(of_vspx);
- 	if (!vspx)
- 		return -ENODEV;
- 
-@@ -828,7 +829,7 @@ static int risp_core_probe_resources(struct rcar_isp_core *core,
- 
- 	ret = vsp1_isp_init(&vspx->dev);
- 	if (ret < 0)
--		return ret;
-+		goto err_put_vspx;
- 
- 	/* Attach to the RPP library
- 	 *
-@@ -839,7 +840,7 @@ static int risp_core_probe_resources(struct rcar_isp_core *core,
- 	 */
- 	ret = clk_prepare_enable(core->clk);
- 	if (ret)
--		return ret;
-+		goto err_put_vspx;
- 
- 	usleep_range(2000, 4000);
- 
-@@ -847,10 +848,16 @@ static int risp_core_probe_resources(struct rcar_isp_core *core,
- 
- 	clk_disable_unprepare(core->clk);
- 
--	if (!core->rpp)
--		return -ENODEV;
-+	if (!core->rpp) {
-+		ret = -ENODEV;
-+		goto err_put_vspx;
-+	}
- 
- 	return 0;
-+
-+err_put_vspx:
-+	put_device(&vspx->dev);
-+	return ret;
+-	return (b1[0] << 8 | b1[1]);
++	return b1[0] << 8 | b1[1];
  }
  
- int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
-@@ -886,6 +893,7 @@ int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
- 	v4l2_device_unregister(&core->v4l2_dev);
- err_destroy_rpp:
- 	rppx1_destroy(core->rpp);
-+	put_device(core->vspx.dev);
- 	return ret;
+ static int sp8870_firmware_upload(struct sp8870_state *state, const struct firmware *fw)
+@@ -167,7 +167,7 @@ static void sp8870_microcontroller_start(struct sp8870_state *state)
+ 
+ static int sp8870_read_data_valid_signal(struct sp8870_state *state)
+ {
+-	return (sp8870_readreg(state, 0x0D02) > 0);
++	return sp8870_readreg(state, 0x0D02) > 0;
  }
  
-@@ -904,4 +912,5 @@ void risp_core_remove(struct rcar_isp_core *core)
- 
- 	mutex_destroy(&core->io_lock);
- 	rppx1_destroy(core->rpp);
-+	put_device(core->vspx.dev);
- }
+ static int configure_reg0xc05(struct dtv_frontend_properties *p, u16 *reg0xc05)
 -- 
-2.25.1
+2.51.0.windows.1
 
