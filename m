@@ -1,196 +1,280 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE173EB112;
-	Tue,  4 Aug 2026 18:27:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB7B3C3F48
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 19:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785868059; cv=none; b=E7irh1tV5sG7/UvbWwETaxkFNk4y3yvbmCdcxvu7bhW6iFtdquaROnmSof2uhSlE1ni3PjCK3euLyfqFsUGjdWCAUQBoiq0NA42Dy7eg3urQb1Gg0g+Gmv+KCaFo5bFjp/Va+sukUDeAzR4bmd5mgaYKuZ2Qq7Q8weaQ7EdPrMg=
+	t=1785870127; cv=none; b=JvTTzLHdW58YLODOdU4RTKcwCraee5tw8UyHNjQpHX5xZ0vbnaY432LtGq/O/Zbr2RDNTKVyIfsE6fxA3CaSVaN7fqmJZDrJNlTFOg/22sPliiV6OqhYQvFvaLt0njZ1bSGWSfDEJubaEIgQmPxHBPjYLTJc1L2EjXqaS+akMAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785868059; c=relaxed/simple;
-	bh=+nx0m30jvJNLR+AVrWZqkStFCFrEd/LxWlDlNr663aQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RnCdREXY9qMoYsILC8qvjjiWcpn9rEE7zyOtKXXvptujjk9zVeDeLwkDhzX7Oz70yLlyKzu85nkSd9jWtWNztla+lDPCmEWJzNxL+UJjEYHOfX+16erADXNpGyxhkRLKwFKhp7QZEzwOkzhTtfUwNFxfZMLGhDQe+n2NUglCgC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=gLzyDobi; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=/Z4jYYRh; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1785870127; c=relaxed/simple;
+	bh=QWLw5d3PsFELUOtZXKJPtt4CkxNmtXjChuvttT4vh7o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g2pOxCeYwKQUh3IZHQqORFD5DdK0i66YpzmdMCxTyaIfkpaqjudvXvXdiBmQe63RNDWA14Ur4WTvT7UYMksv33fT6Y5DoHzB0FXEU+HMbeH5AqOeJKiXFMDmjQgLUwFtaj4sQcpMybVclnQj59Dg6eXecyDKNzXIS5kabZ/55wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V2XPeA19; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="gLzyDobi";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="/Z4jYYRh"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1785868024; bh=YrMMNGosshER4iLXgDtpRWx
-	BdjnbgQ6m/RcBo2d3aCo=; b=gLzyDobiekLYeul74NVwZIeqq+9U9cogl97CCXaDsOFMhbjipB
-	A/64P6yRvr2mCa/UZkATDS/PFdFrCGe3WHpfiRZpXGK3yFrfeGdQg/mXXGPP7C8IemM8+Q2KVkC
-	SqKQ3rcTtFZUODWBw1AJ/rNDIo/4jF4mEWr19aXRE+qT/gUgpOMfmAT9XbPHmoKw9lpR4rqMnlx
-	JmPIOwHHUdE2Rrjh0axObrnQDenhMrYOyeGAyBDLSggED0qKSicVMBXY3+qxK7PXrOykHqpaJHt
-	Tcy9jrelq1HZfVgqzMsW+9kb7DaX3hBQRRcPLybn5+KW5jjjhcmDNaPr1tmsmXT8g6Q==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1785868024; bh=YrMMNGosshER4iLXgDtpRWx
-	BdjnbgQ6m/RcBo2d3aCo=; b=/Z4jYYRh+7g2lZVXvXMut/rg4c/2TvcRvWAziqmMZ/2Jwvq1mG
-	G1IS8tRg7q5DQvk59l0BUGgjA+5MyfdaNvDg==;
-Message-ID: <f7cae569-0c51-41fe-92ab-f29311a22761@mainlining.org>
-Date: Tue, 4 Aug 2026 21:27:01 +0300
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V2XPeA19"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ccdf36f63dso25065ad.0
+        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 12:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1785870124; x=1786474924; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=o7hc3yljc5+LxUHQxs78+dkD3Zfo1reE/uEECJBVPac=;
+        b=V2XPeA19gXM3fPDmK7dnIChkFnwwjxXN1IothHoQUIofnJI1gMnfkmzOggGxj1rsd2
+         OupN0NEGnmjWbtz6eF7r6SJFNDqzx7iQIjnT7689gnKak6T9dnv11BFnWs1r//hr/nNP
+         Qw0wMI2ec73uAdmw1tN4In4tpWaJFKQ/dDEgx4r4PQ1f3REfkcsXhqGqoT28dWuJ4WAy
+         NtM3+HP0DpSPWSN2VocUCR2ybCWPISC9T5PfuoHL/jFvE3HXvCI73hvR6W20vaYLescI
+         xyY5eir22E6fPeJrESKjwEse3WRoOmVrMyI5D3mzuPwAF22qjH4wmz9ybeeL9LO45aM5
+         FIuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785870124; x=1786474924;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=o7hc3yljc5+LxUHQxs78+dkD3Zfo1reE/uEECJBVPac=;
+        b=QcFbfA61gWGGtNQJWNNTAQAN3RBcnWc/nfAIsH/jb6BzjcWl9siOci1b5CJLm2HA4/
+         9s8VBYIn8apfv2yntrVTbQJXM3sE9iWgYKPED0A/c1pXUVIaBDhdJHX3fwpX2blusqJa
+         9ijExXApQU6dgVAdugVKDhieS9Mc356kUhPoVAGadSslhaZm+UmNGJlPmVcuRM2VMEag
+         WodypVFdVo9ryVzv51azLkGU23/Eu+t1sldyrsxFC4icsw3bZxbvXbyhBYO7oU4LkdzC
+         AcMZBSXNwPhuvlubOW3nRoyRqx1VLGzJ5dCZAYU9FLC2ZX+slCEk54x1pi3PDWbZNLVK
+         krtA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqq37ih5eCq7QXbh6OPo/gScNgdUpt4rmLMES5ME9RY2fLT0kpipFFIiTMXTNkBFkpkLQ4b2F6A+Cte+g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxY618qXX8gFm/bSUqvQTql+TD2JtG/Cs7DI45wQXlZLyiAK9Kc
+	5zNXXwbxbYzgbYncovG+zP+OF7kEdmkcH39pKYLcmYJu44/XCX3Z0Yh0FNsfouqwag==
+X-Gm-Gg: AR+sD13aaliNaKyU6sY0Exh22I9nJIIk42RKzkG/yHRlZksNqmAEWJNZncobvs+9HYi
+	s/CI6gx2E7BIYZ3C31otHWa8D8x3CASYDn0WEAx9PZYfEvm12pUB+zNSUym2WoTYhVOu4a457TP
+	QRgXK5lsjNVSZHcQTXmZ1K9LJSmRZQIZVHpVYIm4rx8UTQhdFbsEKpHpXofGNKOAzEMJeoX6a+8
+	PCCGlzoMzUxccP/n7BCqFwQu0j40wcggOn1gq/D4xaE1y5CXqZ0mNlQ45bg3VsIZVy6VtthHjYB
+	Lqy1MNaIlFBsmOTrkTz04+yJ+5v+zCVyGBWRlq9YEq5UdJmhPTWBGIr5gCKaLw/49JlDF47/+o/
+	UC6+taL+t8rfJr+NHrzRIO2WgxiZ8HEyMq6fT2kmi8gtPLBk8jLYmlCSujRCnVM3WDNhWd71Y9h
+	41Widpzjd8hAIvG25SoTbzTmTTkHdDXHWOjbBlnHgTjN06yMbQ1woWL1yOYl5EBiXrg2+Bw4Rhr
+	QK64IeeDSkDMsb7q2Ht9Hw=
+X-Received: by 2002:a17:903:3c23:b0:2ca:cbe5:c3af with SMTP id d9443c01a7336-2d0caf6bbb3mr2044475ad.7.1785870123058;
+        Tue, 04 Aug 2026 12:02:03 -0700 (PDT)
+Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f2e2c2326sm201840b3a.10.2026.08.04.12.01.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 12:02:02 -0700 (PDT)
+Date: Tue, 4 Aug 2026 19:01:53 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
+	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Kevin Tian <kevin.tian@intel.com>,
+	Longfang Liu <liulongfang@huawei.com>,
+	Mahmoud Adam <mngyadam@amazon.de>,
+	David Matlack <dmatlack@google.com>,
+	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Ankit Agrawal <ankita@nvidia.com>,
+	Alistair Popple <apopple@nvidia.com>,
+	Vivek Kasireddy <vivek.kasireddy@intel.com>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+	kvm@vger.kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
+Message-ID: <anI3IZVZm16BOIc5@google.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-4-matt@ozlabs.org>
+ <amvWXNRtviKEuUoV@google.com>
+ <ecf9b355-9fe1-440b-9281-08671a995139@ozlabs.org>
+ <cfae30ec-18ed-4f06-bf96-ef294a8c2744@ozlabs.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Daniel Scally <dan.scally@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
- Luca Weiss <luca.weiss@fairphone.com>,
- Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
- <anGlY_kwp_I-fRnz@kekkonen.localdomain>
-Content-Language: en-US
-From: Danila Tikhonov <danila@mainlining.org>
-In-Reply-To: <anGlY_kwp_I-fRnz@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cfae30ec-18ed-4f06-bf96-ef294a8c2744@ozlabs.org>
 
-Hi Sakari,
+On Mon, Aug 03, 2026 at 07:22:06PM +0100, Matt Evans wrote:
 
-Thank you for your comment.
+Hi Matt,
 
-On 04/08/2026 11:40, Sakari Ailus wrote:
-> Hi Danila,
->
-> Thank you for the patch.
->
-> On Sat, Aug 01, 2026 at 09:04:15PM +0300, Danila Tikhonov wrote:
->> The DW9800W uses the same chip ID and register layout as the DW9800K,
->> but requires different default VCM frequency value.
-> Is this a real difference between the two models or what fits for the
-> attached lens? Too bad the datasheet isn't publicly available. :-(
->
-> At least the differing default and constraints for dongwoon,vcm-prescale
-> needs to be documented in bindings.
-I share your skepticism and have essentially the same concerns. Since I
-do not have the DW9800K datasheet, I cannot say with certainty how it
-differs from the DW9800W.
+> Hi Praan,
+> 
+> On 31/07/2026 18:43, Matt Evans wrote:
+> > Hi Praan,
+> > 
+> > On 30/07/2026 23:55, Pranjal Shrivastava wrote:
+> >> On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
+> >>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
+> >>> find a PFN.
+> >>>
+> >>> This supports multi-range DMABUFs, which typically would be used to
+> >>> represent scattered spans but might even represent overlapping or
+> >>> aliasing spans of PFNs.
+> >>>
+> >>> Because this is intended to be used in vfio_pci_core.c, we also need
+> >>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
+> >>>
+> >>> Signed-off-by: Matt Evans <matt@ozlabs.org>
+> >>> ---
+> >>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
+> >>>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
+> >>>  2 files changed, 160 insertions(+), 13 deletions(-)
+> >>>
+> >>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >>> index c16f460c01d6..7c047400dfd1 100644
+> >>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
+> >>> @@ -9,19 +9,6 @@
+> >>>  
+> >>>  MODULE_IMPORT_NS("DMA_BUF");
+> >>>  
+> >>> -struct vfio_pci_dma_buf {
+> >>> -	struct dma_buf *dmabuf;
+> >>> -	struct vfio_pci_core_device *vdev;
+> >>> -	struct list_head dmabufs_elm;
+> >>> -	size_t size;
+> >>> -	struct phys_vec *phys_vec;
+> >>> -	struct p2pdma_provider *provider;
+> >>> -	u32 nr_ranges;
+> >>> -	struct kref kref;
+> >>> -	struct completion comp;
+> >>> -	u8 revoked : 1;
+> >>> -};
+> >>> -
+> >>>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
+> >>>  				   struct dma_buf_attachment *attachment)
+> >>>  {
+> >>> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
+> >>>  	.release = vfio_pci_dma_buf_release,
+> >>>  };
+> >>>  
+> >>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
+> >>> +			      struct vm_area_struct *vma,
+> >>> +			      unsigned long fault_addr,
+> >>> +			      unsigned int order,
+> >>> +			      unsigned long *out_pfn)
+> >>> +{
+> >>> +	/*
+> >>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
+> >>> +	 * search the corresponding DMABUF's phys_vec[] to find the
+> >>> +	 * range representing the address's offset into the VMA, and
+> >>> +	 * its PFN.
+> >>> +	 *
+> >>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
+> >>> +	 * upwards from the buffer offset 0; the actual PFNs might be
+> >>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
+> >>> +	 * the desired page given VMA start/pgoff and address, then
+> >>> +	 * search upwards from 0 to find which span contains it.
+> >>> +	 *
+> >>> +	 * On success, a valid PFN for a page sized by 'order' is
+> >>> +	 * returned into out_pfn.
+> >>> +	 *
+> >>> +	 * Failure occurs if:
+> >>> +	 * - A hugepage would cross the edge of the VMA,
+> >>> +	 * - A hugepage isn't entirely contained within a range
+> >>> +	 *   (including where it straddles the boundary between
+> >>> +	 *   ranges),
+> >>> +	 * - We find a range, but the final PFN isn't aligned to the
+> >>> +	 *   requested order.
+> >>> +	 *
+> >>> +	 * Upon failure, -EAGAIN is returned and the caller is
+> >>> +	 * expected to try again with a smaller order, which will
+> >>> +	 * eventually succeed (order=0 will always work).
+> >>> +	 *
+> >>> +	 * It's suboptimal if DMABUFs are created with neighbouring
+> >>> +	 * ranges that are physically contiguous, since hugepages
+> >>> +	 * can't straddle range boundaries.  (The construction of the
+> >>> +	 * ranges should merge them in this case.)
+> >>> +	 *
+> >>> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
+> >>> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
+> >>> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
+> >>> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
+> >>> +	 * To avoid double-offsetting in this scenario, subtracting
+> >>> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
+> >>> +	 * the effective offset.
+> >>> +	 */
+> >>> +
+> >>> +	const unsigned long pagesize = PAGE_SIZE << order;
+> >>> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+> >>> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
+> >>
+> >> Maybe I'm getting ahead of myself here.. but it seems like this
+> >> restricts us to only mapping DMABUFs at offsets < 1TB due to the 
+> >> VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
+> >> may not be a very distant future).
+> > 
+> > This is a really good question, thanks for raisiing it.  It is not too
+> > forward-thinking at all.
+> > 
+> >> While I understand this mask is needed to drop the BAR encoding in the
+> >> high bits. 
+> >>
+> >> My worry is, if in the future a user were to export a massive
+> >> contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
+> >> into it (passing an offset >= 1TB), this bitwise AND would silently drop
+> >> the high bits, leading to silent data corruption.
+> > 
+> > One of the big advantages of DMABUF export was that the range could be
+> > huge and unencumbered by the VFIO_PCI_OFFSET_SHIFT of the traditional
+> > mmap() interface.  It's a way to mmap huge BARs without having to change
+> > the user-visible shift).  So definitely this is a relevant concern.
+> > 
+> >> I think we should explicitly reject such an mmap with -EINVAL like:
+> >>
+> >> +const unsigned long pagesize = PAGE_SIZE << order;
+> >> +unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
+> >>
+> >> +/*
+> >> + * Prevent silent wrap-around if the user mmaps a DMABUF at an
+> >> + * offset greater than the VFIO index mask allows.
+> >> + */
+> >> +if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
+> >> +    return -EINVAL;
+> >>
+> >> +vma_off &= VFIO_PCI_OFFSET_MASK;
+> > 
+> > Agreed, for now this absolutely should not silently wrap if the offset
+> > is > 1TB, and we live with the restriction that a DMABUF sized >1TB
+> > can't be mapped with such an offset.  (We can still, say, map all of a
+> > 16TB DMABUF with offset=0, which is good.).  I'll add a check, thanks
+> > for pointing this out.
+> > 
+> > I suggest as something to revisit later, we flag for a DMABUF (maybe an
+> > evolution of vma_pgoff_adjust) to differentiate whether this masking
+> > needs to be applied (traditional mmap() path) or not (DMABUF mmap()),
+> > and then offsets can be arbitrarily large.
+> 
+> Having tinkered, the two-step approach I suggested isn't great because
+> userspace has no easy way to know that step 2 has occurred and that
+> large offsets are "now supported".
+> 
+> The second problem is this isn't just a limitation to not do an mmap()
+> with offset approaching 1TB, because you could run into trouble just
+> mapping, say, a 2TB BAR and then splitting it by unmapping a hole in the
+> middle:  the second VMA now has a huge offset.
+> 
+> It seems a proper fix is easy though:
+> 
+>  unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) <<
+> 	 		  PAGE_SHIFT;  /* No masking! */
+> 
+> Then in vfio_pci_core_mmap_prep_dmabuf(),
+> 
+>  priv->vma_pgoff_adjust = vma->vm_pgoff;
+> 
+> I.e., if vma_pgoff_adjust just includes the region index up high, it
+> cancels out the (same) index in the vm_pgoff.  Thus regular mmap should
+> work (up to the 1TB offset), and DMABUF VMAs can have arbitrarily large
+> offsets.
 
-In particular, the parameter referred to as the VCM frequency in the
-driver is used to derive the SACT value. For the DW9800W, SACT[5:0]
-defines the actuator resonance period in SAC mode and the one-step
-period in LSC mode. The datasheet gives the corresponding formulas as:
-- tVIB = 6.3 ms + SACT * 0.1 ms
-- LSC 1-step period = 252 µs + SACT * 4 µs
+This looks good to me! I traced through both mmap paths to verify how 
+vma_pgoff_adjust handles the offsets and it looks like this works 
+perfectly for both.
 
-Therefore, the default value may differ between the DW9800K and DW9800W
-if the formulas or timing characteristics used to calculate SACT are
-different.
-
-This uncertainty is also one of the reasons why the series currently
-carries the RFT prefix. I hope the Fairphone guys can provide some
-insight into the rationale behind the default-value directives that were
-added for the DW9800K.
->> Add a separate device match entry for the DW9800W and validate the
->> common chip ID. Use the matched variant to select the appropriate
->> default values.
->>
->> Tested on the Nothing Phone (1) smartphone.
->>
->> Signed-off-by: Danila Tikhonov <danila@mainlining.org>
->> ---
->>   drivers/media/i2c/dw9719.c | 25 +++++++++++++++++++++----
->>   1 file changed, 21 insertions(+), 4 deletions(-)
->>
->> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
->> index 3b7ba88fd67c..bb9319fc350b 100644
->> --- a/drivers/media/i2c/dw9719.c
->> +++ b/drivers/media/i2c/dw9719.c
->> @@ -44,6 +44,7 @@
->>   
->>   #define DW9719_INFO			CCI_REG8(0)
->>   #define DW9719_ID			0xF1
->> +#define DW9800_ID			0xF2
->>   #define DW9761_ID			0xF4
->>   
->>   #define DW9719_CONTROL			CCI_REG8(2)
->> @@ -72,6 +73,8 @@
->>   #define DW9800K_MODE_SAC_SHIFT		6
->>   #define DW9800K_DEFAULT_VCM_FREQ		0x10
->>   
->> +#define DW9800W_DEFAULT_VCM_FREQ	0x60
->> +
->>   #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
->>   
->>   enum dw9719_model {
->> @@ -79,6 +82,7 @@ enum dw9719_model {
->>   	DW9719,
->>   	DW9761,
->>   	DW9800K,
->> +	DW9800W,
->>   };
->>   
->>   struct dw9719_device {
->> @@ -140,10 +144,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->>   			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
->>   			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
->>   			goto props;
->> -		case DW9800K:
->> -			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
->> -			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
->> -			goto props;
->>   		default:
->>   			break;
->>   		}
->> @@ -159,6 +159,21 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->>   			dw9719->sac_mode = DW9719_DEFAULT_SAC;
->>   			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
->>   			break;
->> +		case DW9800_ID:
-> Ideally the detection change would be in its own patch but I guess it's ok
-> as-is.
->
->> +			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
->> +			switch (dw9719->model) {
->> +			case DW9800K:
->> +				dw9719->model = DW9800K;
->> +				dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
->> +				break;
->> +			case DW9800W:
->> +				dw9719->model = DW9800W;
->> +				dw9719->vcm_freq = DW9800W_DEFAULT_VCM_FREQ;
->> +				break;
->> +			default:
->> +				return -ENODEV;
->> +			}
->> +			break;
->>   		case DW9761_ID:
->>   			dw9719->model = DW9761;
->>   			dw9719->mode_low_bits = 0x01;
->> @@ -189,6 +204,7 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->>   
->>   	switch (dw9719->model) {
->>   	case DW9800K:
->> +	case DW9800W:
->>   		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
->>   		cci_write(dw9719->regmap, DW9719_MODE,
->>   			  dw9719->sac_mode << DW9800K_MODE_SAC_SHIFT, &ret);
->> @@ -453,6 +469,7 @@ static const struct of_device_id dw9719_of_table[] = {
->>   	{ .compatible = "dongwoon,dw9719", .data = (const void *)DW9719 },
->>   	{ .compatible = "dongwoon,dw9761", .data = (const void *)DW9761 },
->>   	{ .compatible = "dongwoon,dw9800k", .data = (const void *)DW9800K },
->> +	{ .compatible = "dongwoon,dw9800w", .data = (const void *)DW9800W },
->>   	{ }
->>   };
->>   MODULE_DEVICE_TABLE(of, dw9719_of_table);
->>
----
-
-Best regards,
-Danila
-
+Cheers,
+Praan
