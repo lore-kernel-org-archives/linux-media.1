@@ -1,67 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FD1843CE4D;
-	Tue,  4 Aug 2026 08:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785832180; cv=none; b=Igfzm466irbS6BuEyO4UqQFpRo0RJUqg2VW7u3caq8irSgSdMIhSvZkKA1KHvAFTug72n/8LGfczCwmxTt4JUqjOtHcB3joedX1GzeopyVTZImj5jpuhusHk24GC4bSh+F1FaXgh1vFxlcsnaT/aEnj92f+x2OKJYlikGCfSWDk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785832180; c=relaxed/simple;
-	bh=u45aOxzysrT8leRCEfHEZ//saarRkjOA4gG1Cwdh6zw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FSSHCV+/xnFG22s/ty06C+iZOxqu9kkywA89u5tdzPZvf8FUifGG/WX+6KhI3r/069H0GrNW2ScfY4q+FEWv2MaNOQUvErPHNprL7UMYNdeko3gojZanquB06ZC7vOOuD8Ev1HFseoYN4o6tqVAlGKa9UlcW054rp0GoMVFMdv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dA+B5xhQ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FB7044213A
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 08:38:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785832710; cv=pass; b=daNKGwrAlfMXXFkgOXTPZ9KH09L7ICWVroDLH4nwG/69k1wjPtx7T41JTR1HvQDWp9kNjdYsp6SoFzDRJVGQRUCqOzW8ge60ssJOROEYoJb26m8T2ZmNsoe9pIOGJC2kqilbb7zuCMRbZWN5JMSD7mNyGK4H06nIs4KB9WjCJbA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785832710; c=relaxed/simple;
+	bh=e9TCua0cxE+nGZWodbf1ao1GB6SwUtZmJTt29jQl3Ps=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TLucdARZOmYia+Wmti60KY+QvpbV0zvVW9DfabDdPrbo+9V1n4yJLuRws7p2Bpet1b9jAD/cJNCEvUuGV7UbS7CoLTYXEgei+Ta6ybBKbCd9RqwA7X+yVUiQdGVq1WLLNS44awdEPbrMmD0PfGgeX02qoaRwCiVSZX9JX1nSvFE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l6jVvIXJ; arc=pass smtp.client-ip=209.85.208.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dA+B5xhQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AB991F000E9;
-	Tue,  4 Aug 2026 08:29:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785832179;
-	bh=u45aOxzysrT8leRCEfHEZ//saarRkjOA4gG1Cwdh6zw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dA+B5xhQigUK3M1mXynKOemJigcQdgcbh9OWCOwIc4eTyRFQ0CyQnHMGJNxRBAcCK
-	 eZ11mSxbvFnjo9uB82S1Sv/SMehRR0v9kDewCp3xB9Mai/9ZDxc16gO9XRgj2NpdNp
-	 WTElaUMdarHKIrshrWZK9aK4ZglNKsGKIU5KsaRrCxcuJYpMTbUEvU6cM+C91oIUWu
-	 6dxhFR/LCRUY7vKtm57pjtO9SmORhZlgL2hxQJCJNtytxAFXFypsP4IAowYI5YEsyo
-	 JtfMrX8/JfvspO28HZiUrUxu56ZSJo1ECecZAER2R6e8g4PcN7dICmBPnWWsNWuHYM
-	 /scmJQh4+PbLw==
-Date: Tue, 4 Aug 2026 10:29:35 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Danila Tikhonov <danila@mainlining.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, =?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Eugene Lepshy <fekz115@gmail.com>, Vasiliy Doylov <neko@altlinux.org>, 
-	Achill Gilgenast <achill@achill.org>, Luca Weiss <luca.weiss@fairphone.com>, 
-	Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	~postmarketos/upstreaming@lists.sr.ht
-Subject: Re: [PATCH RFT 1/3] dt-bindings: media: i2c: dw9719: Document DW9800W
-Message-ID: <20260804-terrestrial-solemn-mustang-bdfe60@quoll>
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-1-38978de67963@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l6jVvIXJ"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0a4a28cbdso5589775a12.3
+        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 01:38:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1785832705; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cCSiga9syEbF3OFdqtkSccRucJQmkyLyQOqJRI7z6K7OAltwaf+YsPvr320Dt99SAc
+         /3Zf+wHWwc0NgQp81qAS4VRJ4l2GXEG06TeWbdGecqvK8CmfOg0H/ILZrlWW0lYX+IcX
+         zHDToBbyaQB7QUullSvsPlPeRADUn1NgUYpcI7DpjRkCkbNP5j5v4/kqErguHFa/tuaY
+         lEboVLO8dG4sKGbw6YmCYVzhMjJsAkKOWrD7ppKsZM1HtO/PcL1PEB6FTLJ19ztq7/Bf
+         HLpsPzFOM+aP5QP/ANB2zZfvQFynN6HaLh/vRz9k/jzQSzRYRobQ//T69OcTRR/H44Ty
+         dQHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3jSClShH7LFBWTNoFiWGQfRs7wED7dYbvjLTLylZdJg=;
+        fh=f3mxTZ7gyPD1GSHqrxw7IJjHQf29141pU70YqBONPpY=;
+        b=UGPkwzvyZU5FNSq7Mh9HTsOy48wOOYiYSB1lEgXF+mOsXEm3lZm3KYL7NyRM0U61QA
+         ZndMUceJWe49Mtqnffj9beZCcJEokjxyT6igvYH7ElwaH/+eOTe+9VHJ0TM1kiY/ToVz
+         BPZDjtHZc74SXNLFNBfv6BfosL0uRU9n/q4pJvQWcGNauL+1/c8A65fBsUaeKLZl/qJ9
+         DcvPpowmpYIo0oin3AD9j3kwObXxY30qI1F23ry7hkDJM0Qxjy/VO8XqDoXM37vyHJ9e
+         cWEzkjT/g6J3dekHmA6NP54ON3aT7eQyRJ63rjPym8CB92q/Bw3/XRrcrXuJOiq2jIa3
+         b2Fw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785832705; x=1786437505; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3jSClShH7LFBWTNoFiWGQfRs7wED7dYbvjLTLylZdJg=;
+        b=l6jVvIXJTMqwdxvSdeOoAcui8I6YR36/Xpa25ipeENSfMXIkp1YsbghUWNlkEYUy6F
+         TzowJg7/QJfeE16SX2lGHyIC6hDB8B965dUx2sb7dfSD1s+IF7lXRn7uiyXOLNC+yrX7
+         zshc9MZ14q2o9XlIUU3VCAU9S3SIYKHj5IVHpBZRSZg7Mh7V77n8/vsKDwObeinGPyB8
+         fxNXNh0dZxr0ptoLYvBSp5Odqle5smVq1rmTjRZvqbKJfukvHM6vC2BUlhGBLvm9WJcE
+         fO7M2A3eSwKPUc6bMhZH7yodN+2+211uiBR3Y0rsgJdPUrkz/jW51I+60W5+YAEGz1dg
+         Eb0w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785832705; x=1786437505;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3jSClShH7LFBWTNoFiWGQfRs7wED7dYbvjLTLylZdJg=;
+        b=WRr2JoOUXAKWH4yslHyCXcV3GUocMMtuEqknrGdCXYIBGysLX0DePPIzk803FIZzgF
+         UITzosw5n9q861dRbbXTbLTcumSBR7U5bDdk7i6KpwIttpCRW8gEvQDZU/BU8fhOWJP9
+         QFfapqDTtGu8lLRzJVOBxPTGPkks6uWIE0rFkxm5KbEpQ5KfrkQJTDRPFPz1/RchKnlm
+         61XbRNVuP/VhJEn+LQo+7gorianT4KOoNfUO4KrBKU8M3U9/QqjiZB8pzHcxOfeXRBnl
+         uURbHxWJdykaiAR8/IK8wV8uUcTUTUSs1GzsQYu44ucr1jou3qA1woE53kucD6oTPj6s
+         DobA==
+X-Gm-Message-State: AOJu0Yw24cH588MjmtVaoi10e0mXdo8ZC392+Py7ApIFJYa4jlABL1Oh
+	i597KBBvDceCP+LzwFjzFCjxL38eDh7oxqTKC1CB0CoXr6kJ2FOkANB17Ntwh5RnA4Ukf5Oqzvj
+	+kbNQ4Mo+UFGUs/rFVOHyE0/poZctL1M=
+X-Gm-Gg: AR+sD10JHR9TA/F9K13V+jrnkk6KsPL+3pseUSM7+gu2NQFHi5cX+slAydfH6fxqTzX
+	FwKQa6G6wuQm/DJa48dvkkG0Lz8cky1qxIJbi9Q2YuZIvLG1G2HTsiGPUlczud8deTdUylAcoEV
+	IZ+eAl8cJ1hVZ/SEUGxmsGDcDU+9E7MFj+jYRn7/KVbtZDAQU39FztbPeHVIs0UJjdMh7c+Y5Wn
+	ti61ncMXdaNrPcv5Zeq7N+h8JCqOdNLmRmRyfhridLrBvHjM9i/rn0QpBfHBjJkP2vGWXd0tRdb
+	22oaQ7xhusY68Zw7cITDiPbx92dQCJlttdJiM1M2JK7xaP+zHZxyia3W3906YGzgEh/iqFcdQEO
+	MpLtxd9gW7aQCS8COGtTAPGaf+4v1Luv0HX0=
+X-Received: by 2002:a05:6402:a0cb:b0:698:c14b:a719 with SMTP id
+ 4fb4d7f45d1cf-6a0a7cf8d06mr11349073a12.20.1785832704696; Tue, 04 Aug 2026
+ 01:38:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260801-dw9800w-clean-v1-1-38978de67963@mainlining.org>
+References: <20260804021735.345039-1-j@metarealtyinc.ca>
+In-Reply-To: <20260804021735.345039-1-j@metarealtyinc.ca>
+From: Ramshouriesh R <rshouriesh@gmail.com>
+Date: Tue, 4 Aug 2026 14:08:13 +0530
+X-Gm-Features: AUfX_mzNdE1rruK2Z3CGIYwJP6W6_dKHHpKFZx_yX4Xwu9NTsC8NdF-W6MB0q0Y
+Message-ID: <CAJTcUFT+x-QXZo=MUDK6Zcd4PoridP_M3aXM=YWXcgE0aVQCdg@mail.gmail.com>
+Subject: Re: [PATCH 2/2] media: i2c: Add Himax HM1092 image sensor driver
+To: Jake S <j@metarealtyinc.ca>
+Cc: linux-media@vger.kernel.org, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, Aug 01, 2026 at 09:04:14PM +0300, Danila Tikhonov wrote:
-> Document the Dongwoon Anatech DW9800W.
+Hi Jake,
 
-Which is different than dw9800k? How?
+Thanks for the detailed review and for confirming the Intel-side behaviour.
 
-I should not have to read your driver code to figure that out.
+Good to know that ipu bridge  The latest publicly posted HM1092 series
+is v6, so I prefer to address
+the Intel support in v7 rather than defer it to a follow-up.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Could you send the ACPI match, complete Dell 648x368 register sequence
+and the 19.2 MHz/180.48 MHz configuration as a patch on top of v6? I
+will fold it into v7 and send the integrated driver back to you for
+testing before posting it.
 
-Best regards,
-Krzysztof
+For configuration selection, I propose matching the actual input clock
+and an endpoint link frequency as a pair. The driver can obtain the
+input clock through devm_v4l2_sensor_clk_get()
+and clk_get_rate() 24 MHz from DT on the ASUS and 19.2 MHz from
+INT3472 on the Dell and obtain the permitted link frequencies from the
+DT or ipu-bridge endpoint. Driver-owned profiles
+would then select the corresponding mode and PLL programming:
 
+- 24 MHz EXTCLK, 180 MHz link frequency, ASUS 560x360 mode
+- 19.2 MHz EXTCLK, 180.48 MHz link frequency, Dell 648x368 mode
+
+This avoids relying on DMI data or on the ordering of the two
+frequencies advertised by ipu-bridge.
+
+I will also make the exposure comment explicit: the default of 500 is
+intentional because it matches the value programmed at 0x0202/0x0203
+by the initialization sequence.
+
+The control implementation is based substantially on your register
+analysis and implementation notes, so I agree that Co-developed-by is
+appropriate. I will include:
+
+Co-developed-by: Jake Steinman j@metarealtyinc.ca (j@metarealtyinc.ca)
+Signed-off-by: Jake Steinman j@metarealtyinc.ca (j@metarealtyinc.ca)
+Assisted-by: Claude:claude-opus-5
+
+and retain the links documenting the register-analysis provenance.
+
+Regards,
+Ramshouriesh
