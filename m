@@ -1,208 +1,193 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63BE825B30D
-	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 05:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D04A52D1911
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 05:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785821925; cv=none; b=Q6RiMEWRbpRuvDE3IyG3LavwHe3qwwejWNqzjkxdnPFsHa9hZXlcNKZetT9Wd71+H0x/qUrDyO+8Ed4fd17AGt148HNy4TA/WiyghVjv9IE1aKdIccnDoc6wfetQ3Hhrh0BFDyWnPO9n/YG86+f95sHM/cfaUBypXiE2Q1+pXP8=
+	t=1785822274; cv=none; b=l81Dhmq/IO+2nWUK0ZNXuizz62V4z+DuzGzbz0Prdh9Hw7DQdRDcaPwXMYIEr2XbeYxMiCflO+SkGLcP9Y43hoLVO/iuz5HnCFbZPuBaWBysnikIUS5h+dQ6q5NS+w1ayONWzWSUa6opI6jYljcN/2ZyneYR9YB77m+mEXk1uPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785821925; c=relaxed/simple;
-	bh=cUhyc6REOIcCt/J53B0RZA4iBqBxJJ/nUoqA6gRWgDc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BhvepweVxtMXMOn1CdXZ0M2EJX3dF6V++GQJiEztXoql4ECc1imqbYG2QMjAjWl2o43zLj4OWRO+cm5gt4jzCLP8sbxjCrtNRxPHgVLZVINXUwS9nrRAe4YUcOjNOujxIZsr7ykF+I4nr3jbHtnogbOSrmPls/GQpsBNX2TBy5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Kt101tZi; arc=none smtp.client-ip=209.85.208.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1785822274; c=relaxed/simple;
+	bh=8e13T+HKOw7TVI5KQwQpf9L+RgEH6OJxg8EWPWSmD9U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=KpZieQO8JyZoNFTd/i8Ymz7OowaGOWkbFcPF/fS2UtyjBlq9xgoPOsYMxDWQscSixrQqat2L8YWlfr+pnVTFJKsZblpBajAVIxcTA/PVjBdRub3ydbEkr0l04xzvak50vNV4Uqpis6Oe765ZYOhIgDUN/hZLJOJNejw8O2znUbo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OwTBLo4V; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iyVtBVzY; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Kt101tZi"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a063d211ebso5257535a12.3
-        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 22:38:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OwTBLo4V";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iyVtBVzY"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67429jVF2203758
+	for <linux-media@vger.kernel.org>; Tue, 4 Aug 2026 05:44:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	aawYV5kAKmfenytDI/U9JzQyVoCP49xyxhRjF2TNj/A=; b=OwTBLo4VFEKg1Ofe
+	blx1j7JINANM8PRhjWVoTr0Yy43gzYXJQJiDCq4B04bN7BGjC2O/kDDJah5cu101
+	OT0bEGmIoIWSKcsBT+ObPWbgDELGddGLsP7E87Hc1VCTY403HbO/vIOUu74xRb9v
+	3pbY3Pm5Au77E0+eA599PYr81V1N3MIzKPXIbLSRCVsgGWWJEZCd7dV63/5q8chW
+	Yt95R7C+eKiNBfYmeSi7Z3iwdVbr65YOLI//B13eDhh+BozAMmhCzftx6/hB3VQd
+	Z5HnsPBwxNTvHg1UWtHL5lQTeceFmUa513ZUb2UWmbq+XtoEsZ0XefREoYfYKZgh
+	pt3IXQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fu7270q5p-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 05:44:31 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8f1e4e0eac1so45935356d6.1
+        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 22:44:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1785821922; x=1786426722; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1785822271; x=1786427071; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9+yKsXnoQggzIBNMWMCskf2cbt2dGwSd5WR68jcEVwo=;
-        b=Kt101tZieMtSKs9Q1SggSMzmL/AYfbdYc0I0GQ/9EJimcsW1VO1uveP60wGJGlmXQs
-         n9mgOcSzopJELQU4LUFhEX7LuRYWKwtqsInUpD5vpymqc73PunWD33oD70DJXopqW99M
-         Z4eBjKHDTHhA8tlRVFDbxuC+4rvldivxpbUuo=
+        bh=aawYV5kAKmfenytDI/U9JzQyVoCP49xyxhRjF2TNj/A=;
+        b=iyVtBVzYTDTcsSQnk0A6plAlU42L8SYSCnAgUzSFmj4Rowrz5WaCc7tAMOmFdUyk22
+         R94Qe6hP4SejyyWvPD1H8ClbGNSB+n1c8GCQxU6z3Db9zZQ9OGJ4E3jnq0mVLVy51GFH
+         bOxBICnZP7jnP4NmCyucaojD1XieH4flz+az8DinSCOZbN2lYRB9OmDrbMPuqx5VlHm2
+         4QxL6qgnCW0R0O1wdsSLOl/LK8VIM+PgYokWRvhwABdvQ1vfX3evykxCXyzBM+RttX8N
+         m2GQtBSusgOS252DuXqSz7XRv4HjvhoZNS7aflTXRRkTSdNN8CLYpyf4Lz6KkelVwAZp
+         zJNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785821922; x=1786426722;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=9+yKsXnoQggzIBNMWMCskf2cbt2dGwSd5WR68jcEVwo=;
-        b=DGwsKitKW2aMLUcXGxwiC7uxWpb9Q53RCmaWMMZn1FZi6I2uMfyD3jFWf+jjE18b8j
-         U2jQo/h/Zuqh/kTYvSrzt6F+0ugsWn3GQaFXDh2A8aqBK5EoJXVUEU72MuGS3xQdIIbP
-         /dzMODHagBcCo3+cHsAYzwZu658GOCaqJTQFCw6YwlCNpkhypifdffFkxrj8bAfRo6M/
-         9nhVpbo85ynWbldfgO26dXkPKXeTobNXs7R4KoGFTfta6/gJcdzvzdnUM9AkGI+i8hZt
-         zRRbOFFhoxEv0xT3ZTPOXmf6+h8CdGpuAod1h6i4Elc7lhvUVXkbWLt3E/H9SJO/H7F0
-         ao0g==
-X-Forwarded-Encrypted: i=1; AHgh+Ro+CyIN14GqSeKOwUmvSS5+GNPE/3wCbFRdOm87dnB+IeDd+gz6BwtPiTeVaFrJCEgUvSkZYs2npng9Xw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwfWyDODCfZJsQ7VA/8HvJ9RcImy4Qxi57rvCBQgyaU5ADRpTNR
-	VmDAQ+IpxNr5W/LvlCGO63+64dn38hJumDuRPaiLK+24vEpgX39TVobCJugR9+YwqE55ojAaGnY
-	fdII=
-X-Gm-Gg: AR+sD10a/aZ0HOUy8lFHIgbrJTvx2wakeKQy43wQcjr1NG9TsjoKs67oePgGhSxlcYY
-	QAA/gtTDg7UcHVqSbGqw1udgQWxgdz99eEIPwGi8WS1I2aW29Ifrx+XPPp0iiBntTTLZb6k0WLQ
-	IJfYM6B0gQ5jZJ0lq60YTDpfk9IOU/Q+MSiuWyKEj9npXcQgf0oYqnmpSLK+YI1xF08PO29pnx5
-	xWGLvsUKwVQ2S9rNqfPYXNM5WArr13XBHQvXr0HApMdjzGFnVyp3Vu2ckkxmMxfTQLHHnRw0cxq
-	eLBaByqDCsY0zFbS55p/KQsm340gJvZ3myWjrS1wAU7+3ybqFJs5TFCU/MSaiEali3iDCw6VMPa
-	zbamfJg1dWA/TTmTbCnF9ZoS5Ryw1vjzYg1OI43Qir01SW36kHnGXOS7oRrtMRHK4V0WTcIJobw
-	uudx+PEZQDj3C5KXMWvCYyl1dbMBxcaXzcfxg7dP8aZr07eBRW267ZPAN8vzn0DeP12uvj56GBS
-	6LDjiUHLTSwE9YR8t4NakAnyQ==
-X-Received: by 2002:a05:6402:1f48:b0:6a0:33f6:13b4 with SMTP id 4fb4d7f45d1cf-6a0a7cae888mr10208490a12.13.1785821921817;
-        Mon, 03 Aug 2026 22:38:41 -0700 (PDT)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a09c5a098bsm6485858a12.1.2026.08.03.22.38.39
-        for <linux-media@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1785822271; x=1786427071;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aawYV5kAKmfenytDI/U9JzQyVoCP49xyxhRjF2TNj/A=;
+        b=jSVAt+IG/qZ6tTpY+/JFA6qMor5nRg1CX1bfFoI1q7ZSigCVg76TQgnLXGZYb9kozu
+         CURHvuHbkzYzuiCfAkCWBn+P9BtZ2JKQXayYM0gKDUFfZ81ev1Ujh6yJnJupVp7M83WR
+         E1ocZu4tc1EObMj86YymGIuYaBgX0jwYUA213UoGjxmcpUiTEVQIy/Dw//kLVx7L7A/2
+         RXgcTLwnF1/DSQJppQ32N2KigdIRBB+1sZXzcpV0Om5Hd5QluEqq9ia5He9yJDwRmm02
+         wPSnupo8BKjY4STxYEg141gF5/yEfW48WwwCJoF3rteYg8ft3Ws9wnb8+cF1NeAvevtU
+         vJRg==
+X-Forwarded-Encrypted: i=1; AHgh+RrX3BxKPJrritLddSO6YNuzL0kYKvI8G7w3GQaZSM4n+evntT50hSne/iz2C1ycjR2wj1qLSv1vIxYrOQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzaglqp3J2NQoNnNMtc59q170gb+5dQcFPCJrg7XM7nYNJOGutL
+	Ewr0gDMq6v7pnXBanz4FTieXBKHwf8BVzZ5A+8o57KMi7Rxwto9/qImrT5+RKvttRQL9zDb2cHG
+	PF6PtWiGcdE1bYz9va7yXBSaISWTkVHKjwAHLmNr0OxXXK7vB0X8fRE5VZQv68/VFLg==
+X-Gm-Gg: AR+sD13J/te8iDSLs+Y/tpalvgjwDFosTLmSAdUZWGoyUBR7luSv43u3e6InjvnI5Dv
+	sJVzDDL80eNI07nB5wHpouyyB0f3nQlhOP3j5vHg5UWFreYNO+YBhQPnFMo+sDJVFwG8nU1wWaN
+	+l16RiFvAX3r+WmiWIHODxlRNZq0iuW8K0yEG0s/Dryhli89NO6CqisdJfWUy5vyf61xFHe0Hj5
+	lZEGC2Zb7VNFWMIxOijQCLrM1yv/QFdl6PdHqaHeoB4B/HyNtA8do3xdjOobQT5g+uCkJg5QWVX
+	zI9ryds5bntMpbXyzJ1P2d4tIYCFUCpCfhElgrjaplD0cuxkNpi75rNK28rh90WF2siyAsnZVN5
+	WxQzVG0j37Ag59VKFTLmz6YEuRj1HyQcuCZgzG7ouXiLBoWEvMKWxpjAua48aLBJ/bQ17fcGx
+X-Received: by 2002:a05:622a:5c0e:b0:516:d699:a99b with SMTP id d75a77b69052e-52b567d89e7mr277824791cf.40.1785822270906;
+        Mon, 03 Aug 2026 22:44:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:5c0e:b0:516:d699:a99b with SMTP id d75a77b69052e-52b567d89e7mr277824501cf.40.1785822270355;
+        Mon, 03 Aug 2026 22:44:30 -0700 (PDT)
+Received: from [192.168.1.31] ([85.196.172.179])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c1fd3c5ae9fsm646835966b.7.2026.08.03.22.44.28
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 03 Aug 2026 22:38:40 -0700 (PDT)
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6983f20a8bfso6771510a12.1
-        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 22:38:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq63E4T0284mYw7aY+aUfUiNqmrYGiYEL8sS0Vi3c5f07GkmNsVEmF1tXB7uahZni35qNCe9nDfe8cdCQ==@vger.kernel.org
-X-Received: by 2002:a17:907:c0c:b0:c12:8cbe:b897 with SMTP id
- a640c23a62f3a-c1fe7eec156mr1051857166b.15.1785821918002; Mon, 03 Aug 2026
- 22:38:38 -0700 (PDT)
+        Mon, 03 Aug 2026 22:44:29 -0700 (PDT)
+Message-ID: <cff2cfb1-619b-4f93-b6dc-f7f34a66bdec@oss.qualcomm.com>
+Date: Tue, 4 Aug 2026 08:44:25 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260803065811.3490286-1-yunkec@google.com>
-In-Reply-To: <20260803065811.3490286-1-yunkec@google.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Tue, 4 Aug 2026 07:38:04 +0200
-X-Gmail-Original-Message-ID: <CANiDSCu2TxQOGPNGV_mOwT1xsKH+LRnGU42Qf2C6CCRNnXgSTw@mail.gmail.com>
-X-Gm-Features: AUfX_mwFn1cd6FzTmhdBp2SdECK5b2AO44m-SiXgbc4_Z5bBbckec1NJ6koP7BQ
-Message-ID: <CANiDSCu2TxQOGPNGV_mOwT1xsKH+LRnGU42Qf2C6CCRNnXgSTw@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: Add quirk for invalid dev_sof in
- Logitech C925e
-To: Yunke Cao <yunkec@google.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        linux-media@vger.kernel.org, mchehab@kernel.org, robh@kernel.org,
+        krzk+dt@kernel.org, conor+dt@kernel.org, andersson@kernel.org,
+        konradybcio@kernel.org, loic.poulain@linaro.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
+ <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
+ <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
+ <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
+ <qje2bZKWSzkQQGDw0traOE7SqoXhCBLeDrilCooH6Vh6cYeFWAh_VyhqspJuzVs3iA4ye2U75aZHsVGorNPjPQ==@protonmail.internalid>
+ <476aee61-015f-4793-9be7-a102c1c3e811@oss.qualcomm.com>
+ <3e8b2574-eab5-4c34-b400-c75312b9a772@kernel.org>
+ <mpiuqkxaq4bvz4pc7iug3aoar5jkxz4tpetbg72olrzfar4zlc@w7sgfwfksl4r>
+Content-Language: en-US
+From: "Gjorgji Rosikopulos (Consultant)"
+ <gjorgji.rosikopulos@oss.qualcomm.com>
+In-Reply-To: <mpiuqkxaq4bvz4pc7iug3aoar5jkxz4tpetbg72olrzfar4zlc@w7sgfwfksl4r>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDA0MyBTYWx0ZWRfXym8Hv0MeMsXf
+ 7OkPomUlWqeHNMczbKZDWPhwJZXnr6at54hzyQeTnY72fe0BiBqiZtTsBliDe2PXqEmWzNdauzq
+ mrMJP6cDO/vFGBPLXFV9xTh72CYv6+o=
+X-Authority-Analysis: v=2.4 cv=Z6Lc2nRA c=1 sm=1 tr=0 ts=6a717c3f cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=Q/e3f29T3Hw2hnAEzBPF7w==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=3JPs_qAUubFRTmJlbQsA:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-GUID: N54TDPoCrSwdaRaHM9wHJnPUyavV8lyB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDA0MyBTYWx0ZWRfX+UqMeog8mfJU
+ EN8+DnOJtvsuHyoA8qhsLlGeDnY9SnHGYnzOete/x/KS/WR0aNAwSXkmcgbDSgsk90H5zRULqgh
+ LgH09dDXsy0hrTQ2ShaWpR1A3nUW5u6KeRcK1Iyg827Wq0VVu6mrz03ctlf80wuEx+PgjOSXfZZ
+ 9ZVwOqaCw1pfQFyE7OVnxMPZXix+/e/4ukGRrdTHiunsvAarNetHhZYCYfTMgM9jXnpDuT2lJ6z
+ lY6EgxJh0Jyid4GMMcIqe8mZnofou0Zl45el6zysyg4hJIJy0K9qypCMPI1U8HOC/NpD7UGRE5X
+ zItzF7RVSnl1TWKmxCwdyNlwT+2HLlq7SAu2tSCp18z8zjg6eUxvPv7gvcbls4nzutr4zNeKfWi
+ I+5QJPeZj1C/EiJEyxnXd7l0lsT/TU37gNugAHJF8e+Ga118MPZ1DsVT0GMLb12DTU4S7SsxvDF
+ V5jkoR4AXyoNiwxnmUw==
+X-Proofpoint-ORIG-GUID: N54TDPoCrSwdaRaHM9wHJnPUyavV8lyB
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_01,2026-08-03_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ bulkscore=0 priorityscore=1501 adultscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040043
 
-Hi Yunke
+Hi Dmitry,
 
-On Mon, 3 Aug 2026 at 08:58, Yunke Cao <yunkec@google.com> wrote:
->
-> Logitech C925e SOF does not increases at a stable rate of 1kHz.
-> Add a quirk for this camera to make hwtimestamp usable.
->
-> Before applying the quirk:
-> ```
-> seq:     31 ts: 1075.543294 delta: 29.423 ms fps: 34.94
-> seq:     32 ts: 1075.573022 delta: 29.728 ms fps: 34.90
-> seq:     33 ts: 1075.602353 delta: 29.331 ms fps: 34.87
-> seq:     34 ts: 1075.632031 delta: 29.678 ms fps: 34.84
-> seq:     35 ts: 1076.177759 delta: 545.728 ms fps: 23.00
-> seq:     36 ts: 1076.213255 delta: 35.496 ms fps: 23.12
-> seq:     37 ts: 1076.209371 delta: -3.884 ms fps: 23.82
-> seq:     38 ts: 1076.232233 delta: 22.862 ms fps: 24.11
-> seq:     39 ts: 1076.264682 delta: 32.449 ms fps: 24.24
-> seq:     40 ts: 1076.287318 delta: 22.636 ms fps: 24.52
-> seq:     41 ts: 1076.285949 delta: -1.369 ms fps: 25.16
-> seq:     42 ts: 1076.317714 delta: 31.765 ms fps: 25.28
-> seq:     43 ts: 1076.317085 delta: -0.629 ms fps: 25.89
-> seq:     44 ts: 1076.339919 delta: 22.834 ms fps: 26.13
-> seq:     45 ts: 1076.212836 delta: -127.083 ms fps: 28.91
-> seq:     46 ts: 1076.242494 delta: 29.658 ms fps: 29.00
-> seq:     47 ts: 1076.271852 delta: 29.358 ms fps: 29.09
-> seq:     48 ts: 1076.301739 delta: 29.887 ms fps: 29.17
-> seq:     49 ts: 1076.330887 delta: 29.148 ms fps: 29.26
-> seq:     50 ts: 1076.360639 delta: 29.752 ms fps: 29.33
-> seq:     51 ts: 1076.390095 delta: 29.456 ms fps: 29.41
-> ```
->
-> After applying the quirk:
-> ```
-> seq:     31 ts: 203.782342 delta: 33.460 ms fps: 30.94
-> seq:     32 ts: 203.815492 delta: 33.150 ms fps: 30.91
-> seq:     33 ts: 203.849017 delta: 33.525 ms fps: 30.88
-> seq:     34 ts: 203.882190 delta: 33.173 ms fps: 30.86
-> seq:     35 ts: 203.915672 delta: 33.482 ms fps: 30.83
-> seq:     36 ts: 203.948902 delta: 33.230 ms fps: 30.81
-> seq:     37 ts: 203.982335 delta: 33.433 ms fps: 30.78
-> seq:     38 ts: 204.015475 delta: 33.140 ms fps: 30.76
-> seq:     39 ts: 204.048992 delta: 33.517 ms fps: 30.74
-> seq:     40 ts: 204.082208 delta: 33.216 ms fps: 30.72
-> seq:     41 ts: 204.115675 delta: 33.467 ms fps: 30.70
-> seq:     42 ts: 204.148995 delta: 33.320 ms fps: 30.69
-> seq:     43 ts: 204.182354 delta: 33.359 ms fps: 30.67
-> seq:     44 ts: 204.215605 delta: 33.251 ms fps: 30.66
-> seq:     45 ts: 204.249004 delta: 33.399 ms fps: 30.64
-> seq:     46 ts: 204.282259 delta: 33.255 ms fps: 30.63
-> seq:     47 ts: 204.315686 delta: 33.427 ms fps: 30.61
-> seq:     48 ts: 204.348945 delta: 33.259 ms fps: 30.60
-> seq:     49 ts: 204.382337 delta: 33.392 ms fps: 30.59
-> seq:     50 ts: 204.415570 delta: 33.233 ms fps: 30.58
-> seq:     51 ts: 204.449069 delta: 33.499 ms fps: 30.56
-> seq:     52 ts: 204.482218 delta: 33.149 ms fps: 30.55
-> seq:     53 ts: 204.515706 delta: 33.488 ms fps: 30.54
-> seq:     54 ts: 204.548940 delta: 33.234 ms fps: 30.53
-> seq:     55 ts: 204.582403 delta: 33.463 ms fps: 30.52
-> seq:     56 ts: 204.615563 delta: 33.160 ms fps: 30.51
-> seq:     57 ts: 204.649057 delta: 33.494 ms fps: 30.50
-> seq:     58 ts: 204.682301 delta: 33.244 ms fps: 30.49
-> seq:     59 ts: 204.715735 delta: 33.434 ms fps: 30.48
-> seq:     60 ts: 204.748890 delta: 33.155 ms fps: 30.48
-> ```
->
-> lsusb -v
+On 8/3/2026 10:09 PM, Dmitry Baryshkov wrote:
+> On Sat, Aug 01, 2026 at 11:04:10AM +0100, Bryan O'Donoghue wrote:
+>> On 31/07/2026 20:30, Gjorgji Rosikopulos (Consultant) wrote:
+>>>>> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
+>>>>> please drop separate mmcx vote here and let it come through the
+>>>>> titan_top (it might require camcc driver and node modifications).
+>>>>>
+>>>> The change was requested by Brian, most likely in connection with
+>>>> upcoming migrations. I think he would be able to explain the exact
+>>>> reasons. As far as the facts are concerned, this is not currently
+>>>> necessary for the driver to be functional.
+>>> In the documentation we have this jpeg block need only TITAN_TOP_GDSC power domain.
+>>> However Bryan request to ad MMCX and MX.
+>>> As i can see same is for csiphy. Maybe is better to sync with Bryan.
+>>
+>> Check hamoa - I believe it is the case there's a separate vote required for
+>> MMCX/MXA.
+> 
+> Assuming TITAN_TOP gates MMCX to the whole camera block (please correct
+> me if I'm wrong), why do we need a separate vote on MMCX? I might be
+> missing something here, sorry.
 
-Could you provide the full lsusb output if you still have access to the device?
+Honestly i really don't know, i am trying reach to correct people(find proper documentation) 
+for this. From what i have in the jpeg documentation only power domain which is required,
+for jpeg core is TITAN_TOP for sm8250, i did not check the other platforms.
 
-Thanks
->
-> Bus 003 Device 005: ID 046d:085b
-> Device Descriptor:
->   bLength                18
->   bDescriptorType          1
->   bcdUSB               2.00
->   bDeviceClass            239
->   bDeviceSubClass         2
->   bDeviceProtocol         1
->   bMaxPacketSize0        64
->   idVendor           0x046d
->   idProduct          0x085b
->   bcdDevice            0.16
->   iManufacturer           0
->   iProduct                2 Logitech Webcam C925e
->   iSerial                 1 2F2036AF
->   bNumConfigurations      1
->
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Yunke Cao <yunkec@google.com>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
->
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..5b9ea19ad9f2 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -2706,6 +2706,15 @@ static const struct usb_device_id uvc_ids[] = {
->           .bInterfaceSubClass   = 1,
->           .bInterfaceProtocol   = 0,
->           .driver_info          = UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
-> +       /* Logitech HD Pro Webcam C925e */
-> +       { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
-> +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> +         .idVendor             = 0x046d,
-> +         .idProduct            = 0x085b,
-> +         .bInterfaceClass      = USB_CLASS_VIDEO,
-> +         .bInterfaceSubClass   = 1,
-> +         .bInterfaceProtocol   = 0,
-> +         .driver_info          = UVC_INFO_QUIRK(UVC_QUIRK_INVALID_DEVICE_SOF) },
->         /* Logitech Rally Bar Huddle */
->         { .match_flags          = USB_DEVICE_ID_MATCH_DEVICE
->                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-> --
-> 2.55.0.508.g3f0d502094-goog
->
+~Gjorgji
 
+> 
+>>
+>> I'm prefectly fine if all that is required on kona is titan_top_gdsc but,
+>> basically I'm asking _you_ to go verify the difference and come back with an
+>> answer.
+>>
+>> "Not required for Kona we checked" - its not about being asked its about
+>> checking what's actually required, I'm highlighting this because sm8550
+>> perhaps and hamoa definitely are different.
+>>
+>> All of this is in the power-tree documentation. Please find the place where
+>> the power-rails are stipulated for venus/iris and then check to see what's
+>> required for the titan block and represent all of the necessary rails in the
+>> jpeg@{} such that jpeg@{} can run standalone without any of the rest of the
+>> block switched on.
+>>
+>> I'll trust your diligence in that.
+>>
+>> ---
+>> bod
+> 
 
--- 
-Ricardo Ribalda
