@@ -1,21 +1,21 @@
 Received: from linkmauve.fr (82-65-109-163.subs.proxad.net [82.65.109.163])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 475BC37F31A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4765537F339;
 	Tue,  4 Aug 2026 11:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.65.109.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785843995; cv=none; b=IV+p+4er4JumUcetiSfP6Qb889ew7R9pFHOgHWMVWVT6MOw0NnySWjIt0j2aiZYdgC2YBerCYqck3I2ee7QLhlnfGtxquieMUjRuz5cnc3otoNOkJi/QQO181OBoiKuj8dbB2lqYkXgjFOZ9rurgNpD6qxkxaaib5P86Yjug3oI=
+	t=1785843995; cv=none; b=W+J7AH4g3zZmr2fH/PGtVFGhvawHrUfrv6OZO3Rhk//bkcjtPH6pU7n6Zowg/ylADl0nuHXo9io4s+698LJHHCk6b7gJzG3cn7awfhHoUKBWBZKovknFtxgEtU/LC7b1h2Lm4DyLp6/GDwHEnYL1OgbmTLZwkSHGp2ck4B8nRkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1785843995; c=relaxed/simple;
-	bh=mVZHd2a1Qn/dHgkZGRVnwnOgDG707obb9Q8WRtYqGtQ=;
+	bh=PS53bviljSfzpToelxToKYs0tHz4kHoF7ijd5lS67GY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CGoWF4m2D/Z+cNjl2AQXEiaGTb/eDWOPbCbKGhb5Uj73DTzP4eIw3FjEOssJy+oJnBe60fJ7QXM04CyF9as9D4W1VCWgKKMFn4+4R9tlkrWas5CKEcvBfWCXbFel4EBCLAFqjBswwsFB5LZ96fSiZOq0WB7SOlgBBgfZ8CrSQlw=
+	 MIME-Version:Content-Type; b=F7hRCpbXjd6jqFrj/0AWFb+8q3WEJGBQ0S22eTMoOeSCXkajlbaCP97aSMTD2bl7m3OZ0VrPcNwFxUN191IZyYNCEUEkvhymqcABshOeYn4gSDUvBcmAPYb68LSEMvuuRKsut2i4D4Q8mK66QKEDEgho4A1Z/1CAxIaTj+52v1w=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr; spf=pass smtp.mailfrom=linkmauve.fr; arc=none smtp.client-ip=82.65.109.163
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linkmauve.fr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linkmauve.fr
 Received: by linkmauve.fr (Postfix, from userid 1000)
-	id 5179670A03FB; Tue, 04 Aug 2026 13:46:31 +0200 (CEST)
+	id 4E3F070A03F7; Tue, 04 Aug 2026 13:46:31 +0200 (CEST)
 From: Link Mauve <linkmauve@linkmauve.fr>
 To: linux-media@vger.kernel.org
 Cc: Link Mauve <linkmauve@linkmauve.fr>,
@@ -27,9 +27,9 @@ Cc: Link Mauve <linkmauve@linkmauve.fr>,
 	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
 	Deepanshu Kartikey <kartikey406@gmail.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] media: ts2020: put regmap_config on the stack
-Date: Tue,  4 Aug 2026 13:46:23 +0200
-Message-ID: <20260804114625.2314430-4-linkmauve@linkmauve.fr>
+Subject: [PATCH 2/3] media: m88ds3103: make regmap_config static const
+Date: Tue,  4 Aug 2026 13:46:22 +0200
+Message-ID: <20260804114625.2314430-3-linkmauve@linkmauve.fr>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
 References: <20260804114625.2314430-1-linkmauve@linkmauve.fr>
@@ -42,57 +42,60 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-This struct was previously carried over in the ts2020_priv struct, even
-though it was used only once at probe-time.
+This struct was previously carried over in the m88ds3103_dev struct,
+even though it was used only once at probe-time.
 
-This reduces the size of the ts2020_priv struct by 192 B, at the cost of
-moving it onto the stack of ts2020_probe().
+This reduces the size of the m88ds3103_dev struct by 192 B, by putting
+it in the .rodata section instead.
+
+This regmap_config previously set lock_arg, but without either lock or
+unlock callbacks this argument was unused.
 
 Signed-off-by: Link Mauve <linkmauve@linkmauve.fr>
 ---
- drivers/media/dvb-frontends/ts2020.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+ drivers/media/dvb-frontends/m88ds3103.c      | 9 +++++----
+ drivers/media/dvb-frontends/m88ds3103_priv.h | 1 -
+ 2 files changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/ts2020.c b/drivers/media/dvb-frontends/ts2020.c
-index 8775083f4dd6..27f096ce522e 100644
---- a/drivers/media/dvb-frontends/ts2020.c
-+++ b/drivers/media/dvb-frontends/ts2020.c
-@@ -18,7 +18,6 @@
- struct ts2020_priv {
- 	struct i2c_client *client;
- 	struct mutex regmap_mutex;
--	struct regmap_config regmap_config;
- 	struct regmap *regmap;
- 	struct dvb_frontend *fe;
- 	struct delayed_work stat_work;
-@@ -559,6 +558,12 @@ static int ts2020_probe(struct i2c_client *client)
- 	u8 u8tmp;
+diff --git a/drivers/media/dvb-frontends/m88ds3103.c b/drivers/media/dvb-frontends/m88ds3103.c
+index d79b88848a8c..d3a69a8ec3f6 100644
+--- a/drivers/media/dvb-frontends/m88ds3103.c
++++ b/drivers/media/dvb-frontends/m88ds3103.c
+@@ -2045,6 +2045,10 @@ static int m88ds3103_probe(struct i2c_client *client)
+ 	struct m88ds3103_platform_data *pdata = client->dev.platform_data;
+ 	int ret;
  	unsigned int utmp;
- 	char *chip_str;
-+	struct regmap_config regmap_config = {
++	static const struct regmap_config regmap_config = {
 +		.reg_bits = 8,
 +		.val_bits = 8,
-+		.lock = ts2020_regmap_lock,
-+		.unlock = ts2020_regmap_unlock,
 +	};
  
- 	if (!pdata) {
- 		dev_err(&client->dev, "platform data is mandatory\n");
-@@ -574,12 +579,8 @@ static int ts2020_probe(struct i2c_client *client)
- 
+ 	dev = kzalloc_obj(*dev);
+ 	if (!dev) {
+@@ -2067,10 +2071,7 @@ static int m88ds3103_probe(struct i2c_client *client)
+ 	dev->config.lnb_en_pol = pdata->lnb_en_pol;
+ 	dev->cfg = &dev->config;
  	/* create regmap */
- 	mutex_init(&dev->regmap_mutex);
 -	dev->regmap_config.reg_bits = 8;
 -	dev->regmap_config.val_bits = 8;
--	dev->regmap_config.lock = ts2020_regmap_lock;
--	dev->regmap_config.unlock = ts2020_regmap_unlock;
 -	dev->regmap_config.lock_arg = dev;
--	dev->regmap = regmap_init_i2c(client, &dev->regmap_config);
-+	regmap_config.lock_arg = dev;
-+	dev->regmap = regmap_init_i2c(client, &regmap_config);
+-	dev->regmap = devm_regmap_init_i2c(client, &dev->regmap_config);
++	dev->regmap = devm_regmap_init_i2c(client, &regmap_config);
  	if (IS_ERR(dev->regmap)) {
  		ret = PTR_ERR(dev->regmap);
  		goto err_kfree;
+diff --git a/drivers/media/dvb-frontends/m88ds3103_priv.h b/drivers/media/dvb-frontends/m88ds3103_priv.h
+index d7d16e7904da..a29ba664377b 100644
+--- a/drivers/media/dvb-frontends/m88ds3103_priv.h
++++ b/drivers/media/dvb-frontends/m88ds3103_priv.h
+@@ -33,7 +33,6 @@
+ struct m88ds3103_dev {
+ 	struct i2c_client *client;
+ 	struct i2c_client *dt_client;
+-	struct regmap_config regmap_config;
+ 	struct regmap *regmap;
+ 	struct m88ds3103_config config;
+ 	const struct m88ds3103_config *cfg;
 -- 
 2.55.0
 
