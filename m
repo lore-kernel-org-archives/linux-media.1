@@ -1,276 +1,160 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11022130.outbound.protection.outlook.com [40.107.209.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f208.google.com (mail-oi1-f208.google.com [209.85.167.208])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4340627A92D;
-	Mon,  3 Aug 2026 23:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.130
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785799894; cv=fail; b=PNGP+ugjSEymAtUy0FlQICPrRbBEDp9qCreA+Ynli2WrectNg/r5tfJ7DRkmJU7M5EomLa/iII9FbV8SppicyAuAvytt9/XaoZtg8t9xVJUOQVk1AquNiV28rDEvWHMRqEw3t2samCf1SBeC5W9byZyIXSwtPpJ/10R3TYrJuvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785799894; c=relaxed/simple;
-	bh=E0ld4uBYvbwzcPfO5cighgE2H5rLEvG1TehfStZDY34=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=O4U4C0UAJXgpOSdzv8FQxFIMsffW1Yw3tagJMvUjeq0JjwZ/4xv3uZZMnkC9OyCRf1woP6hwsNqZpGQaeDyaKMEnD8k/hsQHK4V+AiCZJPQoCiaTCraD5NTNWFkxPQKl98hnzJ7ZDoRVZXr2E6kEb+7oJ8l96FZ1mpXnwSEF0tE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=WWzs9jMo; arc=fail smtp.client-ip=40.107.209.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="WWzs9jMo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oG4xdjMeFVJv+/xePttj/TAiuL1xCljzFS4omdOA/29Sr5D3OPhZ43FSLtV34tce2eotePtfMFfy7YnsxWeBDDuDZbDWYfV1W3CFe27E1UHnbPUIvA0xwKKPS0V1eJsN4WRjHrbHqY5ILTFod6Yhud/Zf9RCoyAJpTcp7ZYwXHOkykW6keB0S8ueqEWZV2uq2dD7M08+wsDGosIH2ghvxc/beraBV5uhKY/7v5ZNirDDAc1FkREi4kL/otU5G4bm5qSXQ0l6wBXwxICWV2z6bUkiAoKcuqhWG8LHvPUo0kn9W3TLrZN/l3H69OtER0xU3EoQFwF+EfNjoZjzERlsYw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0cXqWSk8dqPHs0b52b6EmMH/d/T1PPtU8jj/3AAA/CU=;
- b=IYejpl7s8rnR/F7YfBuzph3ujX697p0a/82md8jlVg9h+W0JiKiupvaAvLcV5ndhOvPvEDrRaj8PSWlZWEDWpU8hE9qOA4rPaAGGoXiRf9LZVyk0lQct0ZBCY2ZBHlMmDaDFNXkZ0BIBDSHva9d3FwWuaUULKipactEXBD2iQnDNWsDZSoU//q9mCwR+7y32UeeHhOIMqNTtYlISQ58sxtqdo7ozShW4a/nVey4Uwz2qvUGH1gZ+qQUEDSLbRvzNhPkL56h29/DDaT70TisyHl5U8hOp6AtskXFd5ZufQ79wo3kypC78xo9D5jeFWnYtJqCdbKpsp2qs5uA9qExIAw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
- dkim=pass header.d=axiado.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0cXqWSk8dqPHs0b52b6EmMH/d/T1PPtU8jj/3AAA/CU=;
- b=WWzs9jMotYWHivumcvHiq+Az/OdUNZGOeRdC8jwhVxqQNLLEnh69pEUv7sT2WTPLTQ3J8p0aXmmzYjepBKDga1oOWMRfX3abZlkh3PzF8GXeAJKZszX4mDQCtnxi5Mb8FCdkPpAklIoXGc6fpTaJTxwqTf5en6nv//aC0XoGbtMgyAcTd4XJxAYuDMTySc9XpAGbFSzv1950JMswc/64Xb+3EtwdOzM14Ok0dbAgyipTQAvvBLC2x51HOpPdSP+/n/fxoL+37K5JHw/Hkq9w+Zd3sFrMTAhwOK6pWsWK2GRjG8UT3jRH0xEPW840fUZvoNvXzOnj55A8lkGOW3x26w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axiado.com;
-Received: from PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
- by DM6PR18MB3570.namprd18.prod.outlook.com (2603:10b6:5:2ab::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Mon, 3 Aug
- 2026 23:31:29 +0000
-Received: from PH0PR18MB4558.namprd18.prod.outlook.com
- ([fe80::ba9:422:da8:b963]) by PH0PR18MB4558.namprd18.prod.outlook.com
- ([fe80::ba9:422:da8:b963%6]) with mapi id 15.21.0270.016; Mon, 3 Aug 2026
- 23:31:29 +0000
-Message-ID: <b585130e-710a-434d-bf06-cc06f9bffc33@axiado.com>
-Date: Tue, 4 Aug 2026 07:31:25 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: media: add axiado,ax3000-video
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Shubhangini G <shubhangini@axiado.com>,
- Prasad Bolisetty <pbolisetty@axiado.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Karthikeyan Mitran <kmitran@axiado.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- openbmc@lists.ozlabs.org
-References: <20260730-ax3000-display-driver-v1-0-4fbd4d0c85d3@axiado.com>
- <20260730-ax3000-display-driver-v1-1-4fbd4d0c85d3@axiado.com>
- <ed8ca066-bb8b-4476-be96-37a2b6e022ab@kernel.org>
- <a8383bd7-802b-41b0-897b-812b4a8fca33@axiado.com>
- <9f689436-04c6-48d6-8342-7fac998f3910@kernel.org>
-Content-Language: en-US
-From: Tzu-Hao Wei <twei@axiado.com>
-In-Reply-To: <9f689436-04c6-48d6-8342-7fac998f3910@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TPYP295CA0023.TWNP295.PROD.OUTLOOK.COM (2603:1096:7d0:a::7)
- To PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9DB7386579
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 00:43:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.208
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785804204; cv=none; b=u9rco9H8EdP04D8biiXFfyYgVaJNymC8UolIAtnbHkE1Dd3OvhXD0I2+zC+ng4Us/kKh3QLOTj3ezge1+7gzJ9s7kwMIXotTpF3LNts8SKhAu3lAU65QtGP3Rr/XGhYoKG3U7+3Eub29UrI22Q1tscZcTaHsDYOsrcB6KkKrHLA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785804204; c=relaxed/simple;
+	bh=SnVqgR+zk+hvDlCS+6/AhN/7PekfGtkmOD3jKdbf2A0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=nj2hZzmpyIXYFi0+OrJbmqVESdULchN1ArAC8T2bZ7OORQuTrtz7p+dtzPuVwIUf+8XITG0n6ahUiCoxC6ZAA05f1KbGYC0U83+4qITQ8WZZinD7wG/N+h0WJuu8nih9q4UGS0X9a0XEbvUtCzVYXpevmWQKv6sRuxasSIIoNgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.208
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f208.google.com with SMTP id 5614622812f47-49ce04870f8so5287529b6e.0
+        for <linux-media@vger.kernel.org>; Mon, 03 Aug 2026 17:43:22 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785804202; x=1786409002;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BX7ehIJGJyfP49nhhzQHAYJfl5YPglkal10/oppx1Tw=;
+        b=k5WU9NK044w701n8/STnldMmbU11Pb4zvi8Tg+pqSoveFrREjnqWsbLAQSiy/5pirn
+         2m4NdsV/y/jKu5IWjjxYuJsrv5+VNAxDt7hgZTNP0i0F4VXJY0Z+de0Cz95JY5eiOEZr
+         xkWi8ccoO3SXucPibIAQSTg1fKVieBZNoAvz7c3oqklnvREbXups1/8bfU8cubrxEpPd
+         v6/fEm8Bd+6rAZKM71W2MAxdK4TCCgWsgNKHJhgXx0RRXasNpHro98/8vQKP9i9ZlTlU
+         Kk14nrTSajjWwJEWKXElwKYZbaGnxJrCdOIQ/REwVFjjZ5podCcBJBc6+C+yUC1afuJC
+         xN+Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3WRSPwbz/0ftWHwBcVoTMpCfhnpVjAZ9lLG5SP3+HqKwbjHK5fbJE2GpQg15aXNvMZ800EQxh3yl1Fw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAnFf79+GR6jVyrayqYjr8igZnVjBOrTEJ0z6NekmW9ywgBY29
+	1AxnX+iYSbN+/GAp4BxI4E2+qw5F4hgNkUlOG+kAYjzjBU1UnwKD1xTu4OwMk8ZfvxdnYFaMN9p
+	4JhNs5mBGhDzOUsZojHwB0U2kwqSWQiOiAXjgE4hWAA3Mlr9vYSe6e8PLqyw=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR18MB4558:EE_|DM6PR18MB3570:EE_
-X-MS-Office365-Filtering-Correlation-Id: dd9acd85-d61b-4087-fbed-08def1b75845
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|42112799006|23010399003|376014|1800799024|7416014|56012099006|10067099003|4143699003|3023799007|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	/Hica3yyzTtRFwllEkIZ7XFN+VRNp3pt/DTbM3OjcJ4bD1vIKhYnCWGM7fx8/OW7zRzREg3nH/CyTa9LNm7fYh65kCkKXpmuR4nDkAIfWHWG0M4rraMdbnyN8E3yidDUyi9Ib6gdv/Nlb4pVtgF8b/8yF9+gP+rPxi0Oz05xZt6+w9ZLFpbXws9/cpkjEDyei4ZdlyuSy5hLQ83aLg+iITeogpVD8V511yLU9US7/kon1YwmJJWBfYP8Yr252HbK/DddE3eJXM0CefZoeQhAxMFfRkm4/HaqERC1fLgYrj6pNMoRfmRo9++cAJuLCMFUjSOi7z6fZidrCB4En5QOFMO+YpZ4cY6YbeL7UCXNJKB0hhPFgHjxskrA+GtozeXAMGagruJnU9rMD9zK0cgRIrhpfUsVQHZpTj82drP1zLAdllin8o1aA9EklbGBGN3wm/JkeVIEpbeez9PLNBJcmnGSLpoPcaz+fzpIIJakFez5W5JBsuEw0MMXvIixXwVmbGY9M0ohrsgHvK1Me/XfR0Aoy4exTkyKX9hLjVdlwWvkX3KGUHyciouluL4Tlxxt2ctuksPterLoixEq9oE5nZFZ+7RF0yPfCMWqW/KVWUMcQGpL8IY0R+sEp7ba+2ol
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR18MB4558.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(42112799006)(23010399003)(376014)(1800799024)(7416014)(56012099006)(10067099003)(4143699003)(3023799007)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2o1NjN1eE82eE1sYUJZR1A2UWU0RzR4Z0R3SXdSR0V5cHFHVzVpZjJ2L1M0?=
- =?utf-8?B?Ym05aFF3dWtTVzBGR3BaYjNvV3FGa1lIbEw0V2Z6RE5TcFFVZkxnUmVBcmUz?=
- =?utf-8?B?aDhpMURqRE52dktBRE0vYWFOMnlub2FHOWRKNHo1TTFBUmxXTGVYb3paWHBn?=
- =?utf-8?B?aHl2SWtzS21Jd3I0TlBxbitBeFBiWWhXdEtlZUNLeHRpU1FLcmhWSy9LdS9M?=
- =?utf-8?B?NDFZYTFpUUpzbjErRUcvd3g2TUVQNmQ1eUFnRlQxWC8wTWZyRTFMRGdJVEE1?=
- =?utf-8?B?Y1BIVi85ckx0ajRTV2c5eTJxUlFQM3U2bGJsdExNOExCYkVMMFNzOWwwVVVQ?=
- =?utf-8?B?NlhHZFkxd0xVeWQvd0hsTDlFT3pXUTZjYjcxZXBzTzAvY0hGYjd2OEVRN0JX?=
- =?utf-8?B?SFdUMjFzNVhodTVLQXZIUUE0ck1RUHNkRkFPeFRMZ1c1OVo1ampPY1p1Q0sv?=
- =?utf-8?B?aFhkeUdVRndXeWlRS29oQnBhQWdlYnJBNFdza1lFcURKN0JBWmlCdCsyZ3RN?=
- =?utf-8?B?SDVSd1VGYXYvL3J3YlF4bWhTRXFJckYrZXJXdWh5MTNvYzE1SnVJKy9mMWMr?=
- =?utf-8?B?ZnNBZHFVTTIzekRNUVJRQ2VkaFVDam9SYVBwNWVoeGVkUm9JOTB6T1hwMEFT?=
- =?utf-8?B?bFRxdWdHSEJGaGROb3lzSUhvYUx3SEEzby8zTVVGNjhlcDR3NEZOZSszdHA3?=
- =?utf-8?B?US9ZVzVJWUQwcTNZeFZaZGlucEVhVFNiQ2U1VXprMStYY3FCMFc1cm1weXRK?=
- =?utf-8?B?cUVGYncwT21tcGMzOHJuTlUrdU55RzVoYUt3L1RIRUpzU3kvdXdBdHIrSFZx?=
- =?utf-8?B?Y3BNd2x4ejQyc2orbXhUWkFXWDFIV3B4ZWlhR09TRzJ3a0R1cHFqSU16YzdB?=
- =?utf-8?B?Z0p0YXg3OXBTTDJQeFMrNGMrS2N2QTkreDRZMTZKaGhOSEhNeGNJSVZSQzVB?=
- =?utf-8?B?SENwWlBKdjBPNjBpMmdIUTJHeVl5c1hTbXQ4dmNTUklBWDNEL1h3anAyWjAw?=
- =?utf-8?B?WkZ5NjRKMzNmZURaTFVpV3NqaURrYXFxUGgyM1R2dzh3cFQyZFdiOE5GcVAv?=
- =?utf-8?B?VTB1VlBxYWREbDZYRmp1M1pSMjdSSUdtTWJ4QTJ5R1c5TlBGUzk1SDdBc1Ax?=
- =?utf-8?B?RTI3WFVkakRQME1LT0k4SWRKUVZMcUE1QTdnN0YvaTNLZER5aEJIc2V3L0sr?=
- =?utf-8?B?UVkzWHpUSkpuYVRvQTJkVnFBWjJCcHh5M09Pb3VpdGxwYXBhZ1lBczN4blc1?=
- =?utf-8?B?M210Nnc5cG1YK1BoWUt3aitrT1dwR1c0aFdQR1RvNWNBbHBDTzZSMXVSUk1O?=
- =?utf-8?B?c0x6QkhlbjduVHFLcVl2amhtZFZHM2lQcUF3cWFUVDlwL0lISzRtZVVsRWpt?=
- =?utf-8?B?WVNRcEoxWjFLMkdkalg1S3NpeHA0ZFZNaEZzSVZUbmkzSU11S0hNNWdnd2hM?=
- =?utf-8?B?UEZ3VFM0S0ZZZitLY3phVzFHYVFWR3ZDRmZOV2pkUVlYYVFLZlNZeW5tSHRa?=
- =?utf-8?B?Q0NPem9vanduNTZtZnZRNklaS25MVVZYbHJ1ajE3QW8xYlR2WHpkZVg0V2JZ?=
- =?utf-8?B?bmYyVk1SQ0IvTGdoaHQwekNnTjFUR2E0Uk55NTJhNVVReE85eXVBdUNBQjFy?=
- =?utf-8?B?MWFWbytyNXEwYkRyQXZkNkpQRStQWGlQbWJQNGlqTDNTbkV3YzBxWjFWL242?=
- =?utf-8?B?YjdzMHNaa3VKWTg0UDBGSVhQYzA0cnlaeTY0TjJ2YTVFTTMvWDZTRVpxZGZy?=
- =?utf-8?B?dzZDVnZyYnpjY2VJR2pOYkZVZlU4Qk90Ykd2TitZa2srOEtodTFpOERhcjV1?=
- =?utf-8?B?NDd0QWZIbDBHalI3dWZpb2l2VzhQL0dmYmdsOFF5M0o3Rm5BZ2w5b3d1eTJp?=
- =?utf-8?B?Z0ExNUg2YnF6ZnFyTnZJQzhsZWFlOHdldmdMRGVlT0lKT2RIZmZ1TDB1NlJ3?=
- =?utf-8?B?cTJ3VXhHVWhPakZLZ3hXQUhkUU4rdlpaQUtPTWFiR2lJYlR5dnR6NGJNVEVv?=
- =?utf-8?B?ZllkY0dHaWVBMUhkK0hjT3k2VlhPVEZMMExpY0ordDk3Nyt0UzE4aHBpcjlo?=
- =?utf-8?B?NTNXYjdPd2NrOUE1b3JQRjZVbTdVVnoxaGNDQ0RQd3E4bWhaRUhkeGl5UzAz?=
- =?utf-8?B?RFE3VzBxbEsrVjI1QmQ4dW85Mi91TStHdG85MldUV2REamYvaGlpaGZkalhP?=
- =?utf-8?B?QnNYNE52b0V3ZTJkUGxjMHUwOGlqUTlUOWUxRk4wZ2dBS0tEbDR4WlJKM0Vn?=
- =?utf-8?B?RW9ZMno0VEQ1Smw5cWNFRGZJczhPL2ZvRXYvbGZ0V0JIU0tHblhiT1FUMHF5?=
- =?utf-8?Q?8fd1LzlBWjXvVoX8V3?=
-X-OriginatorOrg: axiado.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: dd9acd85-d61b-4087-fbed-08def1b75845
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR18MB4558.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Aug 2026 23:31:29.7251
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sQWNJLGLzsMHxr77ZjXpsU9x0ROBULsQ8FXj1nzLgnJT3DYtQ73PlP/EWzHmVPFj
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR18MB3570
+X-Received: by 2002:a05:6808:2291:b0:490:315d:e0d5 with SMTP id
+ 5614622812f47-4af5e251641mr18787129b6e.16.1785804201934; Mon, 03 Aug 2026
+ 17:43:21 -0700 (PDT)
+Date: Mon, 03 Aug 2026 17:43:21 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a7135a9.d35e88fd.de8b.0004.GAE@google.com>
+Subject: [syzbot] [media?] WARNING in as102_stream_ctrl
+From: syzbot <syzbot+ea047a32630b1f47da67@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026/8/3 2:28 PM, Krzysztof Kozlowski wrote:
-> On 03/08/2026 07:29, Tzu-Hao Wei wrote:
->> On 7/30/2026 4:12 PM, Krzysztof Kozlowski wrote:
->>> On 30/07/2026 09:26, Tzu-Hao Wei wrote:
->>>> Add a Device Tree binding for the Axiado AX3000 and AX3005 video
->>>> capture path. There is no local register interface to describe: frames
->>>> arrive asynchronously into a reserved memory region written by the
->>>> host's display engine over PCIe, and this node only identifies that
->>>> region.
->>>>
->>>> memory-region accepts an optional second entry for a host-written
->>>> control mailbox, letting the driver detect the mode the host is
->>>> actually driving instead of only echoing back the configured capture
->>>> format.
->>>>
->>>> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
->>>> ---
->>>>   .../bindings/media/axiado,ax3000-video.yaml        | 44 ++++++++++++++++++++++
->>>>   MAINTAINERS                                        |  8 ++++
->>>>   2 files changed, 52 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
->>>> new file mode 100644
->>>> index 0000000000000000000000000000000000000000..c6d8d1843aac9f42869ff90a550b92d0bed7c16f
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/media/axiado,ax3000-video.yaml
->>>> @@ -0,0 +1,44 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/media/axiado,ax3000-video.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Axiado AX3000 Video Controller
->>>> +
->>>> +maintainers:
->>>> +  - Shubhangini G <shubhangini@axiado.com>
->>>> +  - Tzu-Hao Wei <twei@axiado.com>
->>>> +  - Prasad Bolisetty <pbolisetty@axiado.com>
->>>> +
->>>> +description:
->>>> +  Axiado AX3000 video capture controller. Reads frames written by the
->>>> +  display engine into a shared reserved memory region and exposes them
->>>> +  as a V4L2 capture device.
->>>
->>> This is really incomplete. You need at least way to power things on,
->>> reset them, provide clocks, sensors, data paths. Or at the very minimal:
->>> START capturing the frames after configuring the resolution.
->>>
->>> It seems you described driver or just a piece of entire video pipeline.
->>>
->>
->> Thanks for your feedback.
->>
->> The Axiado AX3000 and AX3005 SoCs expose a display capture path that
->> delivers frames into a shared reserved memory region and exposes them
->> as a standard V4L2 capture device via the videobuf2 framework.
->>
->> There is no local register interface for this driver to program: frame
->> delivery is controlled entirely by the host-side display engine and
->> the PCIe endpoint mapping that feeds the shared region, both external
->> to this driver. A software polling timer schedules a workqueue item at
->> the configured framerate, which copies frames from the WC-mapped
->> shared region into vmalloc-backed vb2 buffers. Running the copy in a
->> work item rather than directly in the timer callback keeps potentially
->> multi-megabyte memcpy and per-pixel conversion work out of softirq
->> context.
-> 
-> Then this is not a separate device. You just described a Linux driver.
-> 
-> I still wait for answers of my question above. You described getting
-> buffers only.
-> 
+Hello,
 
-Thank you for the continued review.
+syzbot found the following issue on:
 
-To correctly represent this in device tree without describing a
-software driver as a hardware device, would moving the schema into
-/reserved-memory be the preferred approach for v2?
+HEAD commit:    075b74841bd0 Linux 7.2-rc6
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=1584d3b9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=145fa60d73086782
+dashboard link: https://syzkaller.appspot.com/bug?extid=ea047a32630b1f47da67
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-Specifically, we are considering moving it to:
-Documentation/devicetree/bindings/reserved-memory/axiado,ax3000-video-mem.yaml
+Unfortunately, I don't have any reproducer for this issue yet.
 
-This would follow the same Devicetree architectural pattern as
-qcom,rmtfs-mem:
-Documentation/devicetree/bindings/reserved-memory/qcom,rmtfs-mem.yaml
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/1dc04730d019/disk-075b7484.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d76da42271f4/vmlinux-075b7484.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/07b1cdbcbe45/bzImage-075b7484.xz
 
-Just as qcom,rmtfs-mem describes a reserved memory buffer used by
-remote processors and exports /dev/rmtfs_mem%d without hardware MMIO
-registers, clocks, or resets, axiado,ax3000-video describes the
-reserved memory buffer used by the AX3000 display pipeline and exports
-/dev/video0.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+ea047a32630b1f47da67@syzkaller.appspotmail.com
 
-Does representing axiado,ax3000-video as a reserved-memory node look
-like the appropriate way to model this in v2?
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#0: syz.0.181/6386
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x947/0x1bd0 kernel/locking/mutex.c:821, CPU#0: syz.0.181/6386
+Modules linked in:
+CPU: 0 UID: 0 PID: 6386 Comm: syz.0.181 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94e/0x1bd0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 c6 10 00 00 44 8b 35 c5 b6 65 05 45 85 f6 75 13 48 8d 3d a9 14 69 05 48 c7 c6 00 d9 cf 8b <67> 48 0f b9 3a 90 e9 18 f8 ff ff 4d 8d a7 e8 0a 00 00 4c 89 e7 e8
+RSP: 0018:ffffc900102cf670 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff8880223a6010 RCX: 1ffffffff2245754
+RDX: 0000000000000000 RSI: ffffffff8bcfd900 RDI: ffffffff91261890
+RBP: ffffc900102cf7e0 R08: 0000000000000001 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+FS:  00007febfa3f06c0(0000) GS:ffff888123dd8000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007febfa3efff8 CR3: 00000000551cb000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ as102_stream_ctrl+0x28/0xd0 drivers/media/usb/as102/as102_drv.c:259
+ dvb_frontend_open+0x220/0x16d0 drivers/media/dvb-core/dvb_frontend.c:2825
+ dvb_device_open+0x270/0x3b0 drivers/media/dvb-core/dvbdev.c:109
+ chrdev_open+0x234/0x6a0 fs/char_dev.c:411
+ do_dentry_open+0x6ab/0x14d0 fs/open.c:947
+ vfs_open+0x82/0x3f0 fs/open.c:1052
+ do_open fs/namei.c:4700 [inline]
+ path_openat+0x2873/0x4280 fs/namei.c:4863
+ do_file_open+0x20e/0x430 fs/namei.c:4892
+ do_sys_openat2+0x10f/0x1e0 fs/open.c:1368
+ do_sys_open fs/open.c:1374 [inline]
+ __do_sys_openat fs/open.c:1390 [inline]
+ __se_sys_openat fs/open.c:1385 [inline]
+ __x64_sys_openat+0x12d/0x210 fs/open.c:1385
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x115/0x870 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7febfcd5e84e
+Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+RSP: 002b:00007febfa3efb28 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007febfa3f06c0 RCX: 00007febfcd5e84e
+RDX: 0000000000000800 RSI: 00007febfa3efc00 RDI: ffffffffffffff9c
+RBP: 00007febfa3efc00 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: cccccccccccccccd
+R13: 00007febfd0264e8 R14: 00007febfd026450 R15: 00007ffd17b66708
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 c6 10 00 00    	jne    0x10d6
+  10:	44 8b 35 c5 b6 65 05 	mov    0x565b6c5(%rip),%r14d        # 0x565b6dc
+  17:	45 85 f6             	test   %r14d,%r14d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d a9 14 69 05 	lea    0x56914a9(%rip),%rdi        # 0x56914cc
+  23:	48 c7 c6 00 d9 cf 8b 	mov    $0xffffffff8bcfd900,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 18 f8 ff ff       	jmp    0xfffff84d
+  35:	4d 8d a7 e8 0a 00 00 	lea    0xae8(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
 
-Best regards,
-TH 
 
->>
->> To provide more context, this hardware path is designed for BMC iKVM
->> applications. The physical data flow is:
->> Host Display Engine -> PCIe -> BMC Shared Memory -> v4l2 (video0).
-> 
-> Great, not a device. Linux driver.
-> 
->>
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    oneOf:
->>>> +      - const: axiado,ax3000-video
->>>> +      - items:
->>>> +          - const: axiado,ax3005-video
->>>> +          - const: axiado,ax3000-video
->>>> +
->>>> +  memory-region:
->>>> +    minItems: 1
->>>> +    items:
->>>> +      - description: video frame buffer, shared with the display engine
->>>> +      - description: optional control mailbox, shared with the host
->>>
->>> Why is it optional?
->>>
->>
->> The second memory region is optional because it is not available on all
->> supported hardware configurations or use cases.
->>
->> For instance, another supported use case has the following data flow:
->> vtconsole -> framebuffer -> Shared Memory -> v4l2 (video0).
-> 
-> Use case is irrelevant to actual hardware.
-> 
-> 
-> Best regards,
-> Krzysztof
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
