@@ -1,132 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F363343CE5A;
-	Tue,  4 Aug 2026 09:17:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 296674457C8;
+	Tue,  4 Aug 2026 10:24:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785835080; cv=none; b=MnxkMq6rewfGjOJ621GsLtA4xoqV31WQ+hPtRyWog7HIt5ObG+ncNEMOQzXBAf2s7wBuWbGIIYVD5vsf280HZdC/3U0xDbqASc8bLrK7nFw4NGo8EGnQ7SErKzVm6JbMdta1BIV1O/tW2ueuBPHbgwfBwE4sKFck5fOXU2pOUTM=
+	t=1785839088; cv=none; b=Ui0ERdIbZoz4vBbu62KmtcnD6oqlz2nj4w2EuSWDRT7J3tPQctcO7RQ8fsvpGNp4HWoUhqhbiAb8SOpKnuxT+Po0YUKNKD6EqS/6rskUevmP53/82Dl5oQha/b5iQk8qTdH9EwNyF5TKcDApo74SGoE4awIyZt0cghbTkA7+tUs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785835080; c=relaxed/simple;
-	bh=Xnc5KBLqfTrzf1YHz9XESgTn+NFwXtPtYwkXhanXaHU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oOMSDEEmpQNSDdocWs+lKgNWu070mTyFHxHs67A7Hno+VJDQPj5fsccMD68ydznEXjO3271GR6cVO0HM/NZopagCYSDEncVwxMGfWU6CtPpBYQVEAyEc5u0M0uaY56vpUKWi1t5ZlTxwR2KEuBJqRrkS4/AUHrlIhq/ju6a5sUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WFpdPByB; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WFpdPByB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785835079; x=1817371079;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Xnc5KBLqfTrzf1YHz9XESgTn+NFwXtPtYwkXhanXaHU=;
-  b=WFpdPByBtKQ2kkmfumdicA0tB9nZYI0rDyV9rnJxwsgt+ze6ivuD/fbk
-   wVXA8p8eRMgXzHlX/mevOx7CMH4dAKWyDjUUq8XGmBKesXPwZy2Jcugfl
-   GD+l0bnFzwdUmAKeE1/E9XPM0Bx4YMP5MIfXvfhCmY9p9nPkYRMGudsRM
-   ZIFFDGpyAXjw8L4CLROw5npiD9tpPcsj3oQa/cTVU+t22U4blf5/sJCnQ
-   dXbxwq4l899grHLIHeBi0dMUt+ZbCWI7BNk98LM9ul5k/sdJlMsgbpaJh
-   1w46yKpQrfNZ7+Q5+ebZ50cVtWtbhV9dsaqOvJ/xcMPONM+QJQv+zn5Qx
-   w==;
-X-CSE-ConnectionGUID: 3AegktF4SPuybHqHbe6fFg==
-X-CSE-MsgGUID: WQytdR56TQaHvYL9al+o2A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11864"; a="86150484"
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="86150484"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Aug 2026 02:17:58 -0700
-X-CSE-ConnectionGUID: RwfehJXCRJaaQFErlCyujQ==
-X-CSE-MsgGUID: MDC7Lv8tT+iWScqToc/J2w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,204,1779174000"; 
-   d="scan'208";a="263448278"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 04 Aug 2026 02:17:54 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wrBHT-000000009Wj-2Awl;
-	Tue, 04 Aug 2026 09:17:51 +0000
-Date: Tue, 4 Aug 2026 17:16:56 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
+	s=arc-20240116; t=1785839088; c=relaxed/simple;
+	bh=NS2USlX0OVlziJmItCJOiSYddPkz4UUpDYxLgvv/nqE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=H++h/jmPsqpZ7N7pxPTt0s5/Ign5WrY4sGLXe2DJHaKABlx8MvACAS3Cyp7dMjZvW7ts6+YQiaDZgzWTxgbZkRLRQM7kUGhzh9VjJpob4bOuzPaRqjvH5iBCNd9KNq0xNndPkxG1iEqHjYCq5bGLd5V3/J7DqnO4M3RQCozPGJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: b187929a8fee11f1aa26b74ffac11d73-20260804
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.12,REQID:b2a4b822-69cb-4f4a-9b84-0eaecc7a0323,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:e7bac3a,CLOUDID:0a92f36d3e49d91d1588c800351bb2ae,BulkI
+	D:nil,BulkQuantity:0,Recheck:0,SF:102|850|865|898,TC:nil,Content:0|15|50,E
+	DM:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA
+	:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: b187929a8fee11f1aa26b74ffac11d73-20260804
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1067080345; Tue, 04 Aug 2026 18:24:36 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
-	Houlong Wei <houlong.wei@mediatek.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Tomasz Figa <tfiga@chromium.org>, Chen-Yu Tsai <wenst@chromium.org>,
-	Haoxiang Li <haoxiang_li2024@163.com>, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: mediatek: vcodec: unregister VPU watchdog handler
-Message-ID: <202608041721.qBlQgdnE-lkp@intel.com>
-References: <20260708124235.763036-1-lgs201920130244@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH v2 0/2] media: rcar-isp: Fix ISPCORE resource leaks
+Date: Tue,  4 Aug 2026 18:24:29 +0800
+Message-Id: <20260804102431.273385-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260708124235.763036-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Guangshuo,
+This series fixes resource leaks in the recently added ISPCORE support.
 
-kernel test robot noticed the following build errors:
+The patch order is swapped compared to v1. The VSPX reference is now
+released explicitly rather than through a devm action, and it belongs at
+the end of the error chain introduced by the resource cleanup patch, so
+that patch comes first.
 
-[auto build test ERROR on linuxtv-media-pending/master]
-[also build test ERROR on media-tree/master linus/master v7.2-rc6 next-20260803]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+Changes in v2:
+- Swap the patch order so the VSPX cleanup extends the error chain added
+  by the first patch.
+- Release the VSPX reference explicitly on the probe error paths and in
+  the remove path instead of using a devm action (Niklas).
+- Drop the Fixes tags because the ISPCORE support has not reached a
+  release yet (Jacopo).
+- Collect Reviewed-by tags on patch 1.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/media-mediatek-vcodec-unregister-VPU-watchdog-handler/20260804-140933
-base:   https://git.linuxtv.org/media-ci/media-pending.git master
-patch link:    https://lore.kernel.org/r/20260708124235.763036-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] media: mediatek: vcodec: unregister VPU watchdog handler
-config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20260804/202608041721.qBlQgdnE-lkp@intel.com/config)
-compiler: alpha-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260804/202608041721.qBlQgdnE-lkp@intel.com/reproduce)
+Linmao Li (2):
+  media: rcar-isp: Release ISPCORE resources
+  media: rcar-isp: Fix VSPX reference leaks
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608041721.qBlQgdnE-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/media/platform/mediatek/vpu/mtk_vpu.c:440:1: error: expected identifier or '(' before '+' token
-     440 | +void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id)
-         | ^
+ .../media/platform/renesas/rcar-isp/core.c    | 29 ++++++++++++++-----
+ 1 file changed, 22 insertions(+), 7 deletions(-)
 
 
-vim +440 drivers/media/platform/mediatek/vpu/mtk_vpu.c
+base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
+-- 
+2.25.1
 
-   439	
- > 440	+void vpu_wdt_unreg_handler(struct platform_device *pdev, enum rst_id id)
-   441	{
-   442		struct mtk_vpu *vpu = platform_get_drvdata(pdev);
-   443	
-   444		if (!vpu || id >= VPU_RST_MAX)
-   445			return;
-   446	
-   447		mutex_lock(&vpu->vpu_mutex);
-   448		vpu->wdt.handler[id].reset_func = NULL;
-   449		vpu->wdt.handler[id].priv = NULL;
-   450		mutex_unlock(&vpu->vpu_mutex);
-   451	}
-   452	EXPORT_SYMBOL_GPL(vpu_wdt_unreg_handler);
-   453	
-   454	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
