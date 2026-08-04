@@ -1,204 +1,180 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7094939CCF3;
-	Tue,  4 Aug 2026 08:54:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E14E42FCDE;
+	Tue,  4 Aug 2026 09:12:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785833655; cv=none; b=GHI8PDq2OF5z+GqYmitOljWF415ACQ/hUcmFRWQ0p8br7n9BP7EMU0u4nYQYqYoc4MVlqfIQJAicTGlI57WNqSJv/wwPh5JvxwwLM3Z2ey8JIS3aphnPGefpGqaVvAdy552xFIRrmD23eybCmgwiD9ifm7kKzkcEA3K3ta+TEYE=
+	t=1785834748; cv=none; b=IpcNSMekqAA6GfbDIwrAR2muyevxc7zItuzBXxzfQ+jqvtWIKg+5oxK53E8xsVMYAvkUsOoo9BEVNIy0N+isDDbvEFX4/HK+dN2vBowYASO4KwXLJ8QBm3K3dbufpA+BXh8h4m6QGOqcAzEsUIZQg2r7m7zcFKgCIDMzj42GPVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785833655; c=relaxed/simple;
-	bh=KL/AJCAoRGBAqAS32u8WLZ5PCwGlE5U4j266pFaFTjY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CizA8CWxjLeocdoybf5YZZfulrQV300E7B/xey6unU4/tYfQ49lTwWernlc+tsShXg4NofQESt5kN/LWUvurUKiOZesGFStXGytsgjGVhZKvWTzF9Lz/yxfBReLEmvCco/OqYn+ptQ47hLGWfEuUNu7OG8q5tMBPGK/jQvJnAsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=ayU2Jt+O; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=lxESpT9O; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1785834748; c=relaxed/simple;
+	bh=rA3ndTPXDRKlf1VX6Bg0uKtMubVbUgJkDdvtaNj4igc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=I4MpJNrwYYwu+wvzyqUB5C1sOGBU5tQz0u2iZJI3X/F3G7Yf9iFEryu53FzAq+/hvLRmK4FjCgOZr7vOoDBPfCQXRJpWq8Y55r1U2ObtkpyGJ8gqKhT9yw5SlN+IqxCFd92S5NwyEIdh1viW5TpNQHJf4PDxBHy7SgJSuxuqFIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=Yb9uSmGE; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="ayU2Jt+O";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="lxESpT9O"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 891A51D001AA;
-	Tue,  4 Aug 2026 04:54:12 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Tue, 04 Aug 2026 04:54:12 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1785833652;
-	 x=1785920052; bh=MtWSN2ULMFqVASyfNFljZCa7nYlxiR8NPoVl8egIGr0=; b=
-	ayU2Jt+Ory0zIfazyvV4WqTZh/aBGu7HMx10xIn20R3rYvxOw9DviI6H88oAlYj6
-	A2jViVZSumqktMhoLtVIJdXMiddxWzHWW8GZnH9i1wT43BijfA+Mpbr0Qq97ZKT+
-	IysT1guXcV2RQO1Okajj7hOMBQX4GIU7CiLr/6Ccna9bbG21q9rExbch2fsUIANE
-	QsJn8S1snGdaqKJvzxU3raqjyHj8h2JgMyHd/+I8X6HLqR6qsl4fZMCt9j8vW9wi
-	gOKLr/LB5NNbTw2qdUIcWQFcx7E98YTwwFDGmtBTwA7uWBnK3bPhhHF6hyGbENOI
-	T70i2hPJzrsR59qR/a+8PQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1785833652; x=
-	1785920052; bh=MtWSN2ULMFqVASyfNFljZCa7nYlxiR8NPoVl8egIGr0=; b=l
-	xESpT9OU+rFTV2luw51iw92KZmCdk5B2FD5Nca+CjYbHPMnymIRfUC9jW9ETUnqk
-	ru9VQJNqSPvr+GundcLWYu5iMKb3S7pIBg9rzg9bLKNkisq0EPIZHWDrCPSYJxoY
-	f1H47drjW6SwR43UQqAFYtWuh1TnO7YGyU80h9QXPq07oRU321fRA7p/KKFcjKtz
-	LrOyjUCaW6hvYD8Q47+NK5nLutt5I2mez4OIEdmBnKddyy12T2OnEttOmKqpj0OM
-	lgxvB/xBo6h461nhuiJAekuGu1FaE6I7mxTSVqqGS12YhMOiCyr4y0ijy3vC0fVV
-	9ntiIbvFZBMzEBQ2V4j0g==
-X-ME-Sender: <xms:tKhxau2g4W_Sl-YkMrgtJM9x_RXHd7bxBEqN9IEI0ScBTr_lP3qDyg>
-    <xme:tKhxapSDlPyV1kFA7TWBIGb1R-e1AsCJIYmZ3A3EAU1SOid9BPDf6oz1zK7nHbdp5
-    s-vQzzqEB7vkXss7EHRfWo9l0L-GGcMire2QDmiikC69NzjRaUxeX0B>
-X-ME-Received: <xmr:tKhxaifAXScHdRngXAdAmv7hverIijXxMCwnNb2KSGR3PK3IC9as723kKjUuuGW9Ch_N2GO7zuC2khhoctWdjfpCmH9eL94>
-X-ME-Proxy-Cause: dmFkZTGtDJDbk3dJ4jSgaiPaiqFxjZ9xUlm755D0tCYs66gUhi/dsSDVQB23tDpwP+FICD
-    SByx11lNbrsf8g1dUwuu9V2aQX+lpe7VPJokoqhiQWKmb0QJt9FMZtVz4DTAA3pxyesYFs
-    a8SkQJHd4oJGQI1qKTNG0fKGTJ16JOCYuON4KUuMQgVGB0tDFcYgU8zb8hEZ4tYberCAQ/
-    A8KljdhE2EKPnu9q9HbvBsl1lhp56HJgopEUD2ZGLsspwvjRxCXx3JNQde4QRFXi2huZHZ
-    2uM9OLI7kE1IhVHloz0kWvS6BE4efXfkbj0ROqxsKKOliF1Tm3Ka5TeZDwTvCPonW5HUkj
-    aTmPq2S6386iLT+CXU2mr1a814SiqXUzjHamr0Mixp8kn5KoNjMmHEFgteSLYvn6slJYCO
-    VL8lgD4VzhjXijYMEN9UIUHFvWNgJEn7XWvr+rxAY2G8UAUtXF1yM5/yOn4tXrN+JXUg/z
-    X6aN2+ErxkZ/K7+kK6Cu+sflwddtkbw2rwM5TcR0ItrfxsKlsEUyN8KDkhyicsJiatD5Wv
-    qszD3g0L68O/UiTeB60UjSa48BW+D0HmxIkWuxurk5S965niiI3MfAIzMT+MDWH5uzkvXY
-    Fxq0U9RLbpe8zHCUyGl5Y9DaX89DYwOkEiJIUNdrEbpNspVjgX82UDPhV3dw
-X-ME-Proxy: <xmx:tKhxaqdg-lXSFmt7siGtgccZ1sDLQLVvL9VuVEcw93-owNbG1EYbbw>
-    <xmx:tKhxas10s3EptHHgx05XGcWSwVMLQ0D5R5Sfcxm-E_DJKzGLaq23fQ>
-    <xmx:tKhxai-8OQ5yGq6cTq9nRRXfDivB8NWBBX75hx-6GVTwOZJERm7leA>
-    <xmx:tKhxah51xvpLzl4D_DDm8eRW2782CK6Ahqu5r3d2I87EWrkze-DayQ>
-    <xmx:tKhxar6SdidIPm-LqDncVQ0k5V66Fo1a49egf-3dfG2RDw-eg8dnMnqz>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 4 Aug 2026 04:54:11 -0400 (EDT)
-Date: Tue, 4 Aug 2026 10:54:10 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: rcar-isp: Release ISPCORE resources
-Message-ID: <20260804085410.GC346309@ragnatech.se>
-References: <20260803090553.4082161-1-lilinmao@kylinos.cn>
- <20260803090553.4082161-2-lilinmao@kylinos.cn>
- <anChUtV090GkJ6VI@zed>
- <9a3881ad-0da6-4a47-b408-a2106f5a2f14@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="Yb9uSmGE"
+Received: from [172.16.124.192] (ip-78-44-13-22.bb.vodafone.cz [78.44.13.22])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id D059353400F7;
+	Tue, 04 Aug 2026 11:12:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1785834742;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=wfzxdUNz5hU0FrJNe5i6lUnlVJ8GKKJNvBxqXSs0TCI=;
+	b=Yb9uSmGE0ah/7nH3FizhJeXyiqfu1R43yomBq+k5hC+fsLvtTCgkb/Jo/jLbq9Hs8nRC6X
+	23tpXNuSwosQx24cfAgtOgdtEcW9/MA7c05wI4lVjc+g/VUoZX5qckm85sGbRKfB3treR7
+	oSWoxsCZbKZuBMHA/UUpooMdxbHNyK0=
+Message-ID: <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
+Date: Tue, 4 Aug 2026 11:12:21 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
+ coil requires higher voltage
+To: =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Olivier Benjamin <olivier.benjamin@bootlin.com>,
+ Manuel Traut <manut@mecka.net>, Alexander Warnecke
+ <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+ <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <9a3881ad-0da6-4a47-b408-a2106f5a2f14@kylinos.cn>
 
-Hello,
+On 04/08/2026 09:39, Ondřej Jirman wrote:
+> Hi,
+> 
+> On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+>> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
+>>
+>> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+>> index d46cdfe3f7849..bde35d9b2263e 100644
+>> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+>> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+>> @@ -473,17 +473,17 @@ wcam_out: endpoint {
+>>   			};
+>>   		};
+>>   	};
+>>   
+>>   	wcam_lens: camera-lens@c {
+>>   		compatible = "dongwoon,dw9714";
+>>   		reg = <0x0c>;
+>>   		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
+>> -		vcc-supply = <&vcc1v8_dvp>;
+>> +		vcc-supply = <&avdd2v8_dvp>;
+> 
+> This does not match reality, schematic says it's VCC2V8_DVP:
+> 
+> 	https://xff.cz/dl/tmp/6253a0465329df41.png
 
-On 2026-08-04 10:25:35 +0800, Linmao Li wrote:
-> Hi Jacopo,
-> 
-> 在 2026/8/3 22:17, Jacopo Mondi 写道:
-> > Hi Linmao Li
-> > 
-> > On Mon, Aug 03, 2026 at 05:05:53PM +0800, Linmao Li wrote:
-> > > v4l2_device_register() takes a reference to the parent device, but the
-> > > ISPCORE remove path never calls v4l2_device_unregister(). The reference
-> > > is therefore leaked whenever an ISPCORE is removed.
-> > > 
-> > > Probe failures after rppx1_create() also return without destroying the
-> > > RPPX1 object.
-> > > 
-> > > Unregister the V4L2 device and destroy the RPPX1 object on the
-> > > corresponding error paths, and unregister the V4L2 device during removal.
-> > > v4l2_device_unregister() also unregisters all attached subdevices, so it
-> > > replaces the narrower subdevice-only cleanup.
-> > > 
-> > > Fixes: 2151350f60d1 ("media: rcar-isp: Add support for ISPCORE")
-> > The driver has not landed in any Linux release, but it has just been
-> > collected for the next merge window.
-> > 
-> > If your patches get collected as part of the same cycle, I don't think
-> > there's any need for a Fixes tag ?
-> 
-> Agreed. I will drop the Fixes tags from both patches when respinning the
-> series.
+Ahoj,
 
-With Jacopo's concern addressed,
+thanks for spotting this, since I know you have the device, would be too much to 
+ask you to send standalone fix for PP Pro?
 
-Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+I would drop the change from the series.
+
+David
+
+P.S. I noticed I didn't mark this series RFC. Too late.
 
 > 
+> regards,
+> 	o.
 > 
-> Thanks,
-> Linmao
-> 
-> > 
-> > > Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> > > ---
-> > >   drivers/media/platform/renesas/rcar-isp/core.c | 12 +++++++++---
-> > >   1 file changed, 9 insertions(+), 3 deletions(-)
-> > > 
-> > > diff --git a/drivers/media/platform/renesas/rcar-isp/core.c b/drivers/media/platform/renesas/rcar-isp/core.c
-> > > index 8dafffdd8de68..923970fd7841f 100644
-> > > --- a/drivers/media/platform/renesas/rcar-isp/core.c
-> > > +++ b/drivers/media/platform/renesas/rcar-isp/core.c
-> > > @@ -883,17 +883,23 @@ int risp_core_probe(struct rcar_isp_core *core, struct platform_device *pdev,
-> > > 
-> > >   	ret = v4l2_device_register(core->dev, &core->v4l2_dev);
-> > >   	if (ret)
-> > > -		return ret;
-> > > +		goto err_destroy_rpp;
-> > > 
-> > >   	ret = risp_core_create_subdev(core);
-> > >   	if (ret)
-> > > -		return ret;
-> > > +		goto err_unregister_v4l2;
-> > > 
-> > >   	mutex_init(&core->io_lock);
-> > >   	spin_lock_init(&core->lock);
-> > >   	INIT_LIST_HEAD(&core->risp_jobs);
-> > > 
-> > >   	return 0;
-> > > +
-> > > +err_unregister_v4l2:
-> > > +	v4l2_device_unregister(&core->v4l2_dev);
-> > > +err_destroy_rpp:
-> > > +	rppx1_destroy(core->rpp);
-> > > +	return ret;
-> > >   }
-> > > 
-> > >   void risp_core_remove(struct rcar_isp_core *core)
-> > > @@ -907,7 +913,7 @@ void risp_core_remove(struct rcar_isp_core *core)
-> > >   	for (unsigned int i = 0; i < RISP_CORE_NUM_PADS; i++)
-> > >   		risp_core_io_destroy(&core->io[i]);
-> > > 
-> > > -	v4l2_device_unregister_subdev(&core->subdev);
-> > > +	v4l2_device_unregister(&core->v4l2_dev);
-> > As v4l2_device_unregister() unregister all subdevs of core->v4l2_dev,
-> > this seems correct to me.
-> > 
-> > R-Car ISP is a little complicated, in the sense that the core->subdev
-> > gets registered by risp_cs_registered() which is the handler of the
-> > channel selector subdev .registered() callback, and to properly
-> > balance we should unregister it in the (not implemented)
-> > .unregistered() handler.
-> > 
-> > However, as this is called as part of the driver's remove handler, and
-> > that's what we have at the moment, I guess this is ok
-> > 
-> > Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> > 
-> > >   	mutex_destroy(&core->io_lock);
-> > >   	rppx1_destroy(core->rpp);
-> > > --
-> > > 2.25.1
-> > > 
-> > > 
+>>   	};
+>>   
+>>   	ucam: camera@36 {
+>>   		compatible = "ovti,ov8858";
+>>   		reg = <0x36>;
+>>   		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
+>>   		clock-names = "xvclk";
+>>   		dovdd-supply = <&vcc1v8_dvp>;
+>>
+>> -- 
+>> 2.53.0
+>>
+>>
 
 -- 
-Kind Regards,
-Niklas Söderlund
+David Heidelberg
+
