@@ -1,280 +1,181 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FB7B3C3F48
-	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 19:02:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 513633BCD3C;
+	Tue,  4 Aug 2026 19:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785870127; cv=none; b=JvTTzLHdW58YLODOdU4RTKcwCraee5tw8UyHNjQpHX5xZ0vbnaY432LtGq/O/Zbr2RDNTKVyIfsE6fxA3CaSVaN7fqmJZDrJNlTFOg/22sPliiV6OqhYQvFvaLt0njZ1bSGWSfDEJubaEIgQmPxHBPjYLTJc1L2EjXqaS+akMAI=
+	t=1785872629; cv=none; b=GeStt3tZr4wBOP7q4/nO7lWjiiGRnxi31WV7m/Mo1g2Hka+MVsoga/OcgruPmyoMAkyn5r/RzCE6laLML5KFuv/BL8mgnZJ3Q8dGcd0s2nMOQRgrNEA5eokbXUZJEjmvFL/E/rwV/qq98UsewKIUfOwYxD2IT0kCvjo0+s6TDpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785870127; c=relaxed/simple;
-	bh=QWLw5d3PsFELUOtZXKJPtt4CkxNmtXjChuvttT4vh7o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=g2pOxCeYwKQUh3IZHQqORFD5DdK0i66YpzmdMCxTyaIfkpaqjudvXvXdiBmQe63RNDWA14Ur4WTvT7UYMksv33fT6Y5DoHzB0FXEU+HMbeH5AqOeJKiXFMDmjQgLUwFtaj4sQcpMybVclnQj59Dg6eXecyDKNzXIS5kabZ/55wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=V2XPeA19; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1785872629; c=relaxed/simple;
+	bh=VpQc8qfp9veoR00W6ImThqn1v33YFOWVIw8lQ9hq2es=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=T2fGP7vaoRjgnHpNj5dlNXwNDbzO0+qVgFqo+m+y9UMBoNmUhFCJyzdz9oQYSWpqWH40QCD/TYHc7MsH296N5FI5kBD0vxjisYuJ+w51HwKrQwS8/qBFV2zz1crVK4sIuPnwOxrWgFSKQyAZk6Mb2I8QuJpr2+VXJQle9vi/CHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=MKVMA+GJ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="V2XPeA19"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2ccdf36f63dso25065ad.0
-        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 12:02:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1785870124; x=1786474924; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o7hc3yljc5+LxUHQxs78+dkD3Zfo1reE/uEECJBVPac=;
-        b=V2XPeA19gXM3fPDmK7dnIChkFnwwjxXN1IothHoQUIofnJI1gMnfkmzOggGxj1rsd2
-         OupN0NEGnmjWbtz6eF7r6SJFNDqzx7iQIjnT7689gnKak6T9dnv11BFnWs1r//hr/nNP
-         Qw0wMI2ec73uAdmw1tN4In4tpWaJFKQ/dDEgx4r4PQ1f3REfkcsXhqGqoT28dWuJ4WAy
-         NtM3+HP0DpSPWSN2VocUCR2ybCWPISC9T5PfuoHL/jFvE3HXvCI73hvR6W20vaYLescI
-         xyY5eir22E6fPeJrESKjwEse3WRoOmVrMyI5D3mzuPwAF22qjH4wmz9ybeeL9LO45aM5
-         FIuw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785870124; x=1786474924;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o7hc3yljc5+LxUHQxs78+dkD3Zfo1reE/uEECJBVPac=;
-        b=QcFbfA61gWGGtNQJWNNTAQAN3RBcnWc/nfAIsH/jb6BzjcWl9siOci1b5CJLm2HA4/
-         9s8VBYIn8apfv2yntrVTbQJXM3sE9iWgYKPED0A/c1pXUVIaBDhdJHX3fwpX2blusqJa
-         9ijExXApQU6dgVAdugVKDhieS9Mc356kUhPoVAGadSslhaZm+UmNGJlPmVcuRM2VMEag
-         WodypVFdVo9ryVzv51azLkGU23/Eu+t1sldyrsxFC4icsw3bZxbvXbyhBYO7oU4LkdzC
-         AcMZBSXNwPhuvlubOW3nRoyRqx1VLGzJ5dCZAYU9FLC2ZX+slCEk54x1pi3PDWbZNLVK
-         krtA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqq37ih5eCq7QXbh6OPo/gScNgdUpt4rmLMES5ME9RY2fLT0kpipFFIiTMXTNkBFkpkLQ4b2F6A+Cte+g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxY618qXX8gFm/bSUqvQTql+TD2JtG/Cs7DI45wQXlZLyiAK9Kc
-	5zNXXwbxbYzgbYncovG+zP+OF7kEdmkcH39pKYLcmYJu44/XCX3Z0Yh0FNsfouqwag==
-X-Gm-Gg: AR+sD13aaliNaKyU6sY0Exh22I9nJIIk42RKzkG/yHRlZksNqmAEWJNZncobvs+9HYi
-	s/CI6gx2E7BIYZ3C31otHWa8D8x3CASYDn0WEAx9PZYfEvm12pUB+zNSUym2WoTYhVOu4a457TP
-	QRgXK5lsjNVSZHcQTXmZ1K9LJSmRZQIZVHpVYIm4rx8UTQhdFbsEKpHpXofGNKOAzEMJeoX6a+8
-	PCCGlzoMzUxccP/n7BCqFwQu0j40wcggOn1gq/D4xaE1y5CXqZ0mNlQ45bg3VsIZVy6VtthHjYB
-	Lqy1MNaIlFBsmOTrkTz04+yJ+5v+zCVyGBWRlq9YEq5UdJmhPTWBGIr5gCKaLw/49JlDF47/+o/
-	UC6+taL+t8rfJr+NHrzRIO2WgxiZ8HEyMq6fT2kmi8gtPLBk8jLYmlCSujRCnVM3WDNhWd71Y9h
-	41Widpzjd8hAIvG25SoTbzTmTTkHdDXHWOjbBlnHgTjN06yMbQ1woWL1yOYl5EBiXrg2+Bw4Rhr
-	QK64IeeDSkDMsb7q2Ht9Hw=
-X-Received: by 2002:a17:903:3c23:b0:2ca:cbe5:c3af with SMTP id d9443c01a7336-2d0caf6bbb3mr2044475ad.7.1785870123058;
-        Tue, 04 Aug 2026 12:02:03 -0700 (PDT)
-Received: from google.com (21.168.124.34.bc.googleusercontent.com. [34.124.168.21])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f2e2c2326sm201840b3a.10.2026.08.04.12.01.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 04 Aug 2026 12:02:02 -0700 (PDT)
-Date: Tue, 4 Aug 2026 19:01:53 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Matt Evans <matt@ozlabs.org>
-Cc: Alex Williamson <alex@shazbot.org>, Leon Romanovsky <leon@kernel.org>,
-	Jason Gunthorpe <jgg@nvidia.com>, Alex Mastro <amastro@fb.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Logan Gunthorpe <logang@deltatee.com>,
-	Kevin Tian <kevin.tian@intel.com>,
-	Longfang Liu <liulongfang@huawei.com>,
-	Mahmoud Adam <mngyadam@amazon.de>,
-	David Matlack <dmatlack@google.com>,
-	=?iso-8859-1?Q?Bj=F6rn_T=F6pel?= <bjorn@kernel.org>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Ankit Agrawal <ankita@nvidia.com>,
-	Alistair Popple <apopple@nvidia.com>,
-	Vivek Kasireddy <vivek.kasireddy@intel.com>,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
-	kvm@vger.kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v5 3/9] vfio/pci: Add a helper to look up PFNs for DMABUFs
-Message-ID: <anI3IZVZm16BOIc5@google.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-4-matt@ozlabs.org>
- <amvWXNRtviKEuUoV@google.com>
- <ecf9b355-9fe1-440b-9281-08671a995139@ozlabs.org>
- <cfae30ec-18ed-4f06-bf96-ef294a8c2744@ozlabs.org>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="MKVMA+GJ"
+Received: from [192.168.0.240] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9D6291E2A;
+	Tue,  4 Aug 2026 21:42:29 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1785872551;
+	bh=VpQc8qfp9veoR00W6ImThqn1v33YFOWVIw8lQ9hq2es=;
+	h=From:Subject:Date:To:Cc:From;
+	b=MKVMA+GJ07Jfu1h8DOsXnqE30i8Mbkv5+7ii3cohjJ/3ncETcrhWtwxFEVHirSBH7
+	 MlKHkpXDHeq1kkXnx8lqPr+RI6NhqgrsNBt71W1xKREe3G49X3sKsqFmhYC0JyKMNp
+	 mssr57BWKwJrieJ116EgQxLrgeUhYmMTxpBIXf4k=
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Subject: [PATCH v4 0/7] dt-bindings: Orientation defines
+Date: Tue, 04 Aug 2026 20:43:27 +0100
+Message-Id: <20260804-kbingham-orientation-v4-0-336998dd63b4@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <cfae30ec-18ed-4f06-bf96-ef294a8c2744@ozlabs.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NQQ6CMBBFr0JmbU2d1BZceQ/DooUBJoaWtIRoS
+ O9uJS5dvp+893dIFJkS3KodIm2cOPgC6lRBN1k/kuC+MKBELbWsxdOxHyc7i1A8v9q1CAKlHTo
+ 5ON1cDRR1iTTw68g+2sITpzXE9/Gy4Xf9BVH/D24opFDmYmpHDRqn7tyTTcG7YGN/7sIMbc75A
+ 73Xr1W/AAAA
+X-Change-ID: 20260608-kbingham-orientation-20afc0fb6957
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
+ Matthias Fend <matthias.fend@emfend.at>, 
+ Mikhail Rudenko <mike.rudenko@gmail.com>, 
+ Daniel Scally <dan.scally@ideasonboard.com>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Michael Riesch <michael.riesch@collabora.com>, 
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
+ Sylvain Petinot <sylvain.petinot@foss.st.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Paul Elder <paul.elder@ideasonboard.com>, 
+ Martin Kepplinger <martin.kepplinger@puri.sm>, 
+ Quentin Schulz <quentin.schulz@theobroma-systems.com>, 
+ Tommaso Merciai <tomm.merciai@gmail.com>, 
+ Svyatoslav Ryhel <clamor95@gmail.com>, 
+ Richard Acayan <mailingradian@gmail.com>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Magnus Damm <magnus.damm@gmail.com>, Heiko Stuebner <heiko@sntech.de>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux@ew.tq-group.com, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org, 
+ linux-renesas-soc@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+ linux-tegra@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ David Heidelberg <david@ixit.cz>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Alexander Stein <alexander.stein@ew.tq-group.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+ Quentin Schulz <quentin.schulz@cherry.de>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785872619; l=4772;
+ i=kieran.bingham@ideasonboard.com; s=20260204; h=from:subject:message-id;
+ bh=VpQc8qfp9veoR00W6ImThqn1v33YFOWVIw8lQ9hq2es=;
+ b=7SZI39Py8ffrjnJh1y+hbhPXUnOWY+ZaEQ9KftTGB56v0gDSekjQfN+0f3X93k5+YJyrHR9/v
+ 6RTih1fHC9hD9EvsNdHgSXZpfBshb35aOAVlwCQ6l78f3XdO0TqxsmD
+X-Developer-Key: i=kieran.bingham@ideasonboard.com; a=ed25519;
+ pk=IOxS2C6nWHNjLfkDR71Iesk904i6wJDfEERqV7hDBdY=
 
-On Mon, Aug 03, 2026 at 07:22:06PM +0100, Matt Evans wrote:
+Add a new dt-bindings/media/video-interface-devices.h header that
+initially supports the Orientation types and convert existing users
+throughout the code base.
 
-Hi Matt,
+v3 collects tags, and fixes the typo, but drops all hunks that do not
+apply on the media-next tree so that these changes can be merged. Once
+the core feature is accepted a second sweep will convert remaining (new)
+additions of the orientation field.
 
-> Hi Praan,
-> 
-> On 31/07/2026 18:43, Matt Evans wrote:
-> > Hi Praan,
-> > 
-> > On 30/07/2026 23:55, Pranjal Shrivastava wrote:
-> >> On Wed, Jul 15, 2026 at 06:47:26PM +0100, Matt Evans wrote:
-> >>> Add vfio_pci_dma_buf_find_pfn(), which a VMA fault handler can use to
-> >>> find a PFN.
-> >>>
-> >>> This supports multi-range DMABUFs, which typically would be used to
-> >>> represent scattered spans but might even represent overlapping or
-> >>> aliasing spans of PFNs.
-> >>>
-> >>> Because this is intended to be used in vfio_pci_core.c, we also need
-> >>> to expose the struct vfio_pci_dma_buf in the vfio_pci_priv.h header.
-> >>>
-> >>> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> >>> ---
-> >>>  drivers/vfio/pci/vfio_pci_dmabuf.c | 153 ++++++++++++++++++++++++++---
-> >>>  drivers/vfio/pci/vfio_pci_priv.h   |  20 ++++
-> >>>  2 files changed, 160 insertions(+), 13 deletions(-)
-> >>>
-> >>> diff --git a/drivers/vfio/pci/vfio_pci_dmabuf.c b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> >>> index c16f460c01d6..7c047400dfd1 100644
-> >>> --- a/drivers/vfio/pci/vfio_pci_dmabuf.c
-> >>> +++ b/drivers/vfio/pci/vfio_pci_dmabuf.c
-> >>> @@ -9,19 +9,6 @@
-> >>>  
-> >>>  MODULE_IMPORT_NS("DMA_BUF");
-> >>>  
-> >>> -struct vfio_pci_dma_buf {
-> >>> -	struct dma_buf *dmabuf;
-> >>> -	struct vfio_pci_core_device *vdev;
-> >>> -	struct list_head dmabufs_elm;
-> >>> -	size_t size;
-> >>> -	struct phys_vec *phys_vec;
-> >>> -	struct p2pdma_provider *provider;
-> >>> -	u32 nr_ranges;
-> >>> -	struct kref kref;
-> >>> -	struct completion comp;
-> >>> -	u8 revoked : 1;
-> >>> -};
-> >>> -
-> >>>  static int vfio_pci_dma_buf_attach(struct dma_buf *dmabuf,
-> >>>  				   struct dma_buf_attachment *attachment)
-> >>>  {
-> >>> @@ -106,6 +93,146 @@ static const struct dma_buf_ops vfio_pci_dmabuf_ops = {
-> >>>  	.release = vfio_pci_dma_buf_release,
-> >>>  };
-> >>>  
-> >>> +int vfio_pci_dma_buf_find_pfn(struct vfio_pci_dma_buf *priv,
-> >>> +			      struct vm_area_struct *vma,
-> >>> +			      unsigned long fault_addr,
-> >>> +			      unsigned int order,
-> >>> +			      unsigned long *out_pfn)
-> >>> +{
-> >>> +	/*
-> >>> +	 * Given a VMA (start, end, pgoffs) and a fault address,
-> >>> +	 * search the corresponding DMABUF's phys_vec[] to find the
-> >>> +	 * range representing the address's offset into the VMA, and
-> >>> +	 * its PFN.
-> >>> +	 *
-> >>> +	 * The phys_vec[] ranges represent contiguous spans of VAs
-> >>> +	 * upwards from the buffer offset 0; the actual PFNs might be
-> >>> +	 * in any order, overlap/alias, etc.  Calculate an offset of
-> >>> +	 * the desired page given VMA start/pgoff and address, then
-> >>> +	 * search upwards from 0 to find which span contains it.
-> >>> +	 *
-> >>> +	 * On success, a valid PFN for a page sized by 'order' is
-> >>> +	 * returned into out_pfn.
-> >>> +	 *
-> >>> +	 * Failure occurs if:
-> >>> +	 * - A hugepage would cross the edge of the VMA,
-> >>> +	 * - A hugepage isn't entirely contained within a range
-> >>> +	 *   (including where it straddles the boundary between
-> >>> +	 *   ranges),
-> >>> +	 * - We find a range, but the final PFN isn't aligned to the
-> >>> +	 *   requested order.
-> >>> +	 *
-> >>> +	 * Upon failure, -EAGAIN is returned and the caller is
-> >>> +	 * expected to try again with a smaller order, which will
-> >>> +	 * eventually succeed (order=0 will always work).
-> >>> +	 *
-> >>> +	 * It's suboptimal if DMABUFs are created with neighbouring
-> >>> +	 * ranges that are physically contiguous, since hugepages
-> >>> +	 * can't straddle range boundaries.  (The construction of the
-> >>> +	 * ranges should merge them in this case.)
-> >>> +	 *
-> >>> +	 * Finally, vma_pgoff_adjust is used with a DMABUF created for
-> >>> +	 * a VFIO BAR mmap: a BAR mapped with vm_pgoff > 0 creates a
-> >>> +	 * DMABUF such that byte 0 of the VMA corresponds to byte 0 of
-> >>> +	 * the DMABUF and byte 'vm_pgoff << PAGE_SHIFT' into the BAR.
-> >>> +	 * To avoid double-offsetting in this scenario, subtracting
-> >>> +	 * vma_pgoff_adjust from this (non-zero) vm_pgoff generates
-> >>> +	 * the effective offset.
-> >>> +	 */
-> >>> +
-> >>> +	const unsigned long pagesize = PAGE_SIZE << order;
-> >>> +	unsigned long vma_off = ((vma->vm_pgoff - priv->vma_pgoff_adjust) <<
-> >>> +				 PAGE_SHIFT) & VFIO_PCI_OFFSET_MASK;
-> >>
-> >> Maybe I'm getting ahead of myself here.. but it seems like this
-> >> restricts us to only mapping DMABUFs at offsets < 1TB due to the 
-> >> VFIO_PCI_OFFSET_MASK (since we have HBMs on PCI devices now, hitting 1TB
-> >> may not be a very distant future).
-> > 
-> > This is a really good question, thanks for raisiing it.  It is not too
-> > forward-thinking at all.
-> > 
-> >> While I understand this mask is needed to drop the BAR encoding in the
-> >> high bits. 
-> >>
-> >> My worry is, if in the future a user were to export a massive
-> >> contiguous DMABUF (e.g., >1TB of aggregated HBM) and tried to mmap deep
-> >> into it (passing an offset >= 1TB), this bitwise AND would silently drop
-> >> the high bits, leading to silent data corruption.
-> > 
-> > One of the big advantages of DMABUF export was that the range could be
-> > huge and unencumbered by the VFIO_PCI_OFFSET_SHIFT of the traditional
-> > mmap() interface.  It's a way to mmap huge BARs without having to change
-> > the user-visible shift).  So definitely this is a relevant concern.
-> > 
-> >> I think we should explicitly reject such an mmap with -EINVAL like:
-> >>
-> >> +const unsigned long pagesize = PAGE_SIZE << order;
-> >> +unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) << PAGE_SHIFT;
-> >>
-> >> +/*
-> >> + * Prevent silent wrap-around if the user mmaps a DMABUF at an
-> >> + * offset greater than the VFIO index mask allows.
-> >> + */
-> >> +if (unlikely(vma_off > VFIO_PCI_OFFSET_MASK))
-> >> +    return -EINVAL;
-> >>
-> >> +vma_off &= VFIO_PCI_OFFSET_MASK;
-> > 
-> > Agreed, for now this absolutely should not silently wrap if the offset
-> > is > 1TB, and we live with the restriction that a DMABUF sized >1TB
-> > can't be mapped with such an offset.  (We can still, say, map all of a
-> > 16TB DMABUF with offset=0, which is good.).  I'll add a check, thanks
-> > for pointing this out.
-> > 
-> > I suggest as something to revisit later, we flag for a DMABUF (maybe an
-> > evolution of vma_pgoff_adjust) to differentiate whether this masking
-> > needs to be applied (traditional mmap() path) or not (DMABUF mmap()),
-> > and then offsets can be arbitrarily large.
-> 
-> Having tinkered, the two-step approach I suggested isn't great because
-> userspace has no easy way to know that step 2 has occurred and that
-> large offsets are "now supported".
-> 
-> The second problem is this isn't just a limitation to not do an mmap()
-> with offset approaching 1TB, because you could run into trouble just
-> mapping, say, a 2TB BAR and then splitting it by unmapping a hole in the
-> middle:  the second VMA now has a huge offset.
-> 
-> It seems a proper fix is easy though:
-> 
->  unsigned long vma_off = (vma->vm_pgoff - priv->vma_pgoff_adjust) <<
-> 	 		  PAGE_SHIFT;  /* No masking! */
-> 
-> Then in vfio_pci_core_mmap_prep_dmabuf(),
-> 
->  priv->vma_pgoff_adjust = vma->vm_pgoff;
-> 
-> I.e., if vma_pgoff_adjust just includes the region index up high, it
-> cancels out the (same) index in the vm_pgoff.  Thus regular mmap should
-> work (up to the 1TB offset), and DMABUF VMAs can have arbitrarily large
-> offsets.
+v2:
+ - Now expands from the original v1 "dt-bindings: media: Add macros for
+   video interface devices" to update
+   Documentation/devicetree/bindings/media/video-interface-devices.yaml
+   and extend to actually change all users to the new types.
+ - Link to v2: https://lore.kernel.org/r/20260626-kbingham-orientation-v2-0-47178be927b4@ideasonboard.com
 
-This looks good to me! I traced through both mmap paths to verify how 
-vma_pgoff_adjust handles the offsets and it looks like this works 
-perfectly for both.
+v3:
+ - Fix the arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+   MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
+   - Though this patch is dropped from this series to post the main
+     integration through the media tree.
+ - Drop (temporarily) changes to:
+    - arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+    - arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+    - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
+ - Non applying changes will be re-posted after the core feature
+   lands in linux-next, or after those changes appear in media-next.
 
-Cheers,
-Praan
+-v4:
+ - Rebased media-committers/next (v7.2-rc1)
+ - Reintroduced updates to:
+   - arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+   - arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
+   - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso
+   - arch/arm64/boot/dts/rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso
+ - Squash header introduction and bindings updates
+
+---
+Kieran Bingham (7):
+      dt-bindings: media: Add macros for video interface devices
+      dt-bindings: media: i2c: Utilise video-interface-devices enums
+      arm64: dts: freescale: Convert to new media orientation definitions
+      arm64: dts: qcom: Convert to new media orientation definitions
+      arm64: dts: renesas: Convert to new media orientation definitions
+      arm64: dts: rockchip: Convert to new media orientation definitions
+      ARM: tegra: Convert to new media orientation definitions
+
+ .../devicetree/bindings/media/i2c/hynix,hi846.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov08d10.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov4689.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5675.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov5693.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/ovti,ov64a40.yaml     |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx111.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx355.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/sony,imx415.yaml      |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd55g1.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/st,vd56g3.yaml        |  3 ++-
+ .../devicetree/bindings/media/i2c/thine,thp7312.yaml    |  3 ++-
+ .../bindings/media/video-interface-devices.yaml         | 17 +++++++++++------
+ .../dts/nvidia/tegra30-asus-nexus7-grouper-common.dtsi  |  3 ++-
+ .../dts/nvidia/tegra30-asus-transformer-common.dtsi     |  3 ++-
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts            |  4 +++-
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi             |  3 ++-
+ .../imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso          |  3 ++-
+ arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi       |  3 ++-
+ arch/arm64/boot/dts/qcom/qcm6490-fairphone-fp5.dts      |  3 ++-
+ .../boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts     |  3 ++-
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi      |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j1-imx462.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx219.dtso |  3 ++-
+ .../renesas/r8a779g3-sparrow-hawk-camera-j2-imx462.dtso |  3 ++-
+ arch/arm64/boot/dts/rockchip/px30-pp1516.dtsi           |  3 ++-
+ .../dts/rockchip/px30-ringneck-haikou-video-demo.dtso   |  3 ++-
+ arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts   |  5 +++--
+ .../rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam0.dtso  |  3 ++-
+ .../rockchip/rk3588-rock-5b-plus-radxa-cam4k-cam1.dtso  |  3 ++-
+ include/dt-bindings/media/video-interface-devices.h     | 13 +++++++++++++
+ 32 files changed, 86 insertions(+), 37 deletions(-)
+---
+base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
+change-id: 20260608-kbingham-orientation-20afc0fb6957
+
+Best regards,
+-- 
+Kieran Bingham <kieran.bingham@ideasonboard.com>
+
