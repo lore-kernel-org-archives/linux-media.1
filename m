@@ -1,39 +1,91 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from mx0b-0002e601.pphosted.com (mx0b-0002e601.pphosted.com [148.163.154.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5EA7382F28;
-	Tue,  4 Aug 2026 15:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785858189; cv=none; b=dBU+stN60+kIt/OO4jufVuhwZmURF9vO5byhk/aSGVkFpK5/flfo2aoJz2sk/d1Y08qHDFvYaylBaaKWKUycj9Wg3BlUyw+3/wGKeUZTNch8PnDjhFiQ330G9FH/JC1firh9LcDEsCPhNzPt1iUVUavfshL9poOIY/oyE5KtYAw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785858189; c=relaxed/simple;
-	bh=OsitEDEFewo9FvrDOmBUm6+vM6vVeU+4fVaXsbikIwY=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=aaKIWa6gSxjgQ5eA2kv8hJua34ImoTTcqI2WWx6WFma30ACAdl9/Qo0tiSiwpG0Avy3nS0f1hTeLcsZ4TXOXXyfvH+FlywShazqVHQ/vR7lmXlKz9KKjasfOwZ4BDP5vipS+ZCOHdbCceLMWwvGK5TLmlbaTfWyz41PZkl89xdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=uofpU6qW; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912933CB562;
+	Tue,  4 Aug 2026 15:52:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.154.28
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785858733; cv=fail; b=c35qlSMk/EBCKToUjJ1ZW1kiv4FEMCyzDrzqQaPaRf8Zs3pZ3CXMjzHz4egsBmmV3S+7gzt69Ik+MLl1t7CFBhfZTp0PCbTh3he5Onj2ecfEocchrWB3h6Lz7+TIvTIp3yN0xL3XRoE+SVMTmJ+2zcA7c3athQWDsHOFNbZkg6g=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785858733; c=relaxed/simple;
+	bh=IAaf/0ALMEE9cFZzI3/UUbtlFUkqihTXCoYvhwT8yHY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=biGBPtkSVAatSfSYUmoS2hsmA5aJGpGbFD/R2YZco+0TVsEagc45J8XO2Sh3wu1R7aMMWvziLmQbsTKeulehpqtTbxVUScsu3V9f3gNQoiBxCzS2rC1dLNd2CwG62ziTrwJIF6bltem+BiLxkPQOgEiP2mvSJMO2mHjbJoHfPyE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=IrNQauir; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=wnHhiEb1; arc=fail smtp.client-ip=148.163.154.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="uofpU6qW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1785858178;
-	bh=CSUh0CjnXihmDwp4dxmB3uYnTg/QYI+2ipEdAUCOaHo=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To:From;
-	b=uofpU6qW6cPD6PRpQnWaV4LTFG8Yht5PB/nxIzZQtcaqimpArzG54zEt5FWrTN558
-	 obo73u/TyRUdHUvyNq6QCN2sVzw07NCBC3uxm1Ye0Lz7eTAFp/ABcqjDrALZxHHLR6
-	 zGyaLqI9W7YBe9XjjAhjcbxTfS61H860RdpY9Zgq/cpPRzZaXxV+LbUwsiOGAAbCDY
-	 jtQ8izDud0AuWbLQwuc58IBH/fXLLP7x5eXYEkHzbVzCwT2497xot8vSatNnjN//zG
-	 A2fPhaQfRntbutB/CDE9yAGatJy5MwK2nKiZeY7TMAtBnHC/E8N/sA7GPjX5kqlLRp
-	 vtR8bKXYKP1tw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hDyVH2lhhz4w1k;
-	Wed, 05 Aug 2026 01:42:47 +1000 (AEST)
-Message-ID: <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
-Date: Tue, 4 Aug 2026 16:42:43 +0100
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="IrNQauir";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wnHhiEb1"
+Received: from pps.filterd (m0374956.ppops.net [127.0.0.1])
+	by mx0b-0002e601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 674FerjB2858411;
+	Tue, 4 Aug 2026 10:52:03 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=yVUG7Hy7qV9moE07GHiHfVnJqKLtdAlJMD7PUejR1
+	OA=; b=IrNQauirW87tyqNIrIUsGpkcJ3tzzi5uEvSFe6nkMjRwUDpoYU6arB3Gb
+	JYyUcf6BI9b1L6FQfV6GtiLJpykIBW/oQkFIzJcLnHJoDxTuVOhXTQf92KREE285
+	J9GA//BIkHUM3uHfuE051lhqRWiEd5hrczg0022VOVbL03xnLdSL0pPUJsKoSx/s
+	mMAarEoDRjQ1vfIwen0fSBta6YmTq4MmHCTvPddNEW8jTf9dUaCvOLItGBLYb90N
+	LmN7zoFf/ETjDte2XKqzB2DZX+oredIxvvLAELAh01JM9LtWFHqsHEsPMuetRcqK
+	15WVbhv5lqyZwF/0bKYGU7tLCYA/A==
+Received: from sn4pr2101cu001.outbound.protection.outlook.com (mail-southcentralusazon11012030.outbound.protection.outlook.com [40.93.195.30])
+	by mx0b-0002e601.pphosted.com (PPS) with ESMTPS id 4fufc6suw5-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 04 Aug 2026 10:52:03 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=b4aeJe9FyzJ6eKoFZWLHqOSx+bYTXujmPmWL5spx/QWLtEyCx2gSCF3NcytExogcJQj0BP04B96qu6shs+oDh+ZhU/mj/J72zlAsYsalSYsScYpKy6yZDSKg57IHEsBkVoSCZ3swve5nkrOLCDyE/ghX/RRL5M7svhbDmVnyYyJKffXzdDnVmjvGAbf3D3DOVnfkD8wqLJr2fuTdV05aB8SpWJqHM35xQYEiGq7us6HhK6c0i0ePiPmRMSfB3IrgvV9lm9LeN+0gHBDq4NRqWQEIcEZLPfSJINU/+wmJfSMS1WwKgZfvqrrLr7C11UE6ObkitTjVieIPCCKvYV+ZlQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=yVUG7Hy7qV9moE07GHiHfVnJqKLtdAlJMD7PUejR1OA=;
+ b=h4GBkgLuR/IQOiau9aU60RqubMh1Eb8WUlJUtTA48NkvvmgowiQRExaktwxyBJX1NVD70Hczo85MuDicHZb26O7Ddg8p2WjAQmTy8iqiZ4rq6vi5659BfYxvcHSNN94iX9JwnMFjj4w7WnBUoCz5l+rZdFJCU0EunRMf3E3gyXRJMXeY1YKYPp2cefx2Bsz8KbwPDoasVSbaFcs+aaz59jVyasfvszrJlaGfPloWTDgk9swLCRH/feE+qPogIZU4K2aKLXV5Z7G6Oeaq7ICs8asc9ONLY5gihXFZjgbG1LOOHQAt6AfNT5y4Y7eLsekVUh0//A1JFebYJxF2jV66wQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=yVUG7Hy7qV9moE07GHiHfVnJqKLtdAlJMD7PUejR1OA=;
+ b=wnHhiEb1XmgDTfNKvswlpS1ThJQaaaxZkwmgdN3vd3HdYFdkCu1SVxHSAAS23QUKkuaj+asXkXEhLkrpzFdrHlZm55zlrZn5q5Prxzp9txFARsyEjNK9rmLayRFubTJPzPl0ljPHQ6P1lrwiZjkLviRAT2kaH3VM8CPDvr1t/yE=
+Received: from PH7P221CA0063.NAMP221.PROD.OUTLOOK.COM (2603:10b6:510:328::11)
+ by MW4PR10MB6584.namprd10.prod.outlook.com (2603:10b6:303:226::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.270.18; Tue, 4 Aug
+ 2026 15:51:58 +0000
+Received: from SN1PEPF00036F3D.namprd05.prod.outlook.com
+ (2603:10b6:510:328:cafe::48) by PH7P221CA0063.outlook.office365.com
+ (2603:10b6:510:328::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.292.16 via Frontend Transport; Tue, 4
+ Aug 2026 15:51:58 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ SN1PEPF00036F3D.mail.protection.outlook.com (10.167.248.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.292.8 via Frontend Transport; Tue, 4 Aug 2026 15:51:58 +0000
+Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 4 Aug
+ 2026 10:51:51 -0500
+Received: from DLEE214.ent.ti.com (157.170.170.117) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 4 Aug
+ 2026 10:51:51 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Tue, 4 Aug 2026 10:51:51 -0500
+Received: from [10.24.52.125] (ws.dhcp.ti.com [10.24.52.125])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 674Fpmqr3949823;
+	Tue, 4 Aug 2026 10:51:49 -0500
+Message-ID: <d66a81dc-3919-4ddc-88c5-85dd1853b93d@ti.com>
+Date: Tue, 4 Aug 2026 21:21:47 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,529 +93,103 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
-Content-Language: en-GB
-From: Matt Evans <matt@ozlabs.org>
-To: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Logan Gunthorpe <logang@deltatee.com>
-Cc: Alex Williamson <alex@shazbot.org>, Alex Mastro <amastro@fb.com>,
- Bjorn Helgaas <bhelgaas@google.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-3-matt@ozlabs.org>
-In-Reply-To: <20260715174737.15287-3-matt@ozlabs.org>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH 0/2] Support RAW12 bayer formats
+To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, <mchehab@kernel.org>,
+        <mripard@kernel.org>, <jai.luthra@linux.dev>,
+        <sakari.ailus@linux.intel.com>
+CC: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <devarsht@ti.com>, <u-kumar1@ti.com>
+References: <20260625151756.221096-1-y-abhilashchandra@ti.com>
+Content-Language: en-US
+From: Rishikesh Donadkar <r-donadkar@ti.com>
+In-Reply-To: <20260625151756.221096-1-y-abhilashchandra@ti.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF00036F3D:EE_|MW4PR10MB6584:EE_
+X-MS-Office365-Filtering-Correlation-Id: e5c3e3d9-f07b-43a6-6d90-08def24050ee
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|376014|82310400026|56012099006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	0fhqUWuNtrK2VdAhtWHV2MEd0pCQGwpDuFRCY0eLx1bSpI+5DVtMNegpa6eCfzylJvYl6ytMRp2ykmE3G1Ujczzl/jG0+k3sNMqus66r6c/UxQB3ALksIUUoXBnDtgrR8bv5s1tmp4fZCk31JbhTHo4WaueZsvhdcEVtTAvjywbyC+vaaOPlHzvbERVXG46ELqV3mCtfrLj0O8Ug1Je+75os8V1+hEVPVzxrG3ucIbQVAWkjwiD0rJXXehAl+bYvTdVKxXjCf5R6aFKa3/vAAkn3CphbSOoIGKFvWvp138o3XmnxryiMFrHI4/pK0ikZv5MuOmTAFGKAJWWOZAAJH+DBYKNhfzoNPnPfWliUaZ+G4o1KN0aKCopkV9MTqZEYQhbZDtWKqeYRXyJ37fMtRh6gpaJP/nRKvser4XDbSItHuEMCAtRRF4J69HLYbRr8BVofF2tYfbkANW1ciKtBT2hd71JZjRd5jjxmVb/TSX1kDty5/mVVjAbytu/3UJdun12BGP+1w2aIa1/vPPBP3lFmkXAJGLFmjovrN6JhmFAhvKAjbtCXc3RIMCYrtPH+Lf5NLU+5npHojK7DaCNqRVuyRO3uHO57p7QnV78s9HEKioq45ASA4eclX0z7TIdEzxRgYtdSlx7v0wuiaCnLTCBsQT2poKSX/wHypvOYoxEhIL5QpJ3ji98F/mObS3l4foSm0IxN1A3Qj8trYtu8Mg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(376014)(82310400026)(56012099006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	KUP2++vFhVj+ZIxaBxI3xghTNxUWJeHeE80D7GcOe/1AZcQsQYh7trQuyrNO3l+NsNHl3Fe1sxFfDIgRw4/kyIJgnw35xW/LngfPH1Fp6J46D1qhnSOOl7GdmPZz67ZkvcPVFVxVscx4xOA1pVmXyAqWFxyMLgNYKsEexcwfa4emgX5kDPxVaHNvIFfQvpIGDfQIrYfkLzYLhloIcT5/OELtDeDF8JVN3OiGuOvs27gOi7ZyeUzaXa7BpHgptr3I6kPZzF/K7CJbcy6uTTK9LZvVD32RgWRaIsICgQYuy4noVnugGqdh/iAxsykEzPeFqZMoBLvxd5Tb1QaKKM3rSrP+D2WroTH2T9RA2lFzW/udcbLLcSQ5Oa1qLXUJZup7UhsISyagL+pg4+qtKKpqD4kFYgQ59GEmfg8FU8DzJMv05ynuaQfrThgo8raWX+PQ
+X-Exchange-RoutingPolicyChecked:
+	l9f0eCz7DHNoWEOobv3u3bPNq4sAo1zdsrqR/vdGinIbxoyl/T4VRjy78eqgJKqXvp8qnVh+aiyByJZ8xJjIQMeWkWtc/e5AE/JTCNAiiRTS12QOKFHEsO5r8z97WZXgRz0VAb4kStSiPHlYyCXdgH0MuHlzNOd4bVQJzXSbB/nmw6i6X9GgDlBWpAcyxHiTP2a8UjXay9A3Iu2YCRntFrmpze0HNBNmc/8VzOi+YQqONRprbh98nZU39PB6kF/7JWVud6k71GQSafLayI5QUXRhNUo2Ac69AB4/YEmHKH/HU2AASnfuvq8gob26X4+cJxmLWD1AcPieGa+BeoS50w==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Aug 2026 15:51:58.2063
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e5c3e3d9-f07b-43a6-6d90-08def24050ee
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF00036F3D.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB6584
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA0MDEyNyBTYWx0ZWRfX+osYx78DKX1R
+ UpD4AZpgPamBcYAmVV0BsmJhcUKpT3pWdLyw6b5lsSHcaVUPwMpO1OSYknhv+bvu6S4FUriogrY
+ UGXHE3AF3BH8ix0COVm8HyVih9KJn5cufQn3HP1ditO6GX0KNlowUpFU9I0Q4IT9sGIyy9A9tuh
+ 1UnV1czEe9KUoXUfo4XFGePIXdJQJ2hhSu2D+rNfojZjT08l9VE2vVfORPYlk94OOHco8gGoGbP
+ Zso6o/Vb/4EstZimcRRJWYJJINVgYiP0/06l2s1fj/p5R25O48cX54geahokIAe7W72eje1ts7m
+ EsFM3NgUsCjV2499cHD5o6lqdib/IK4jn5TQusnOMHavQ9K7uUE6Ny16lVAYo/UTfUWsLvJdJl5
+ D4cAdsqQJgEvoHE0UFHf5OkC+T7f998GROOv56FOyr9LYwYXMZBBJ+AAkQzwoufllb8JL9J6SLo
+ k3h7kFH+k+axLgQ9yow==
+X-Proofpoint-GUID: 8mGYoLXBF453EVM31bXv9h-mZbMV_YPG
+X-Proofpoint-ORIG-GUID: 8mGYoLXBF453EVM31bXv9h-mZbMV_YPG
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA0MDEyNyBTYWx0ZWRfX3iab1Lk2+qXI
+ KDbqiPySwUMgzDBospfSxIbytlvI/gnNviuPn5y5gDp9jV2uTx36NKfqUJ6k15uEYrfSXiWyCCT
+ cqtDCfl9KWVjk26CpQsfwAwy3O1SBtQ=
+X-Authority-Analysis: v=2.4 cv=Va3H+lp9 c=1 sm=1 tr=0 ts=6a720aa3 cx=c_pps
+ a=3pdFJ6cSxbCDruMc3dgxYA==:117 a=f+v6EHfkeJbVwR46tk4DMg==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=Z8NIEmU8O1QQgoT56wFK:22 a=jwouBfj2j3NM8CExmVVE:22 a=NEAV23lmAAAA:8
+ a=sozttTNsAAAA:8 a=RJaHbvJJA5o1k_-59LkA:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-04_03,2026-08-04_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1011 lowpriorityscore=0 malwarescore=0 spamscore=0
+ suspectscore=0 priorityscore=1501 impostorscore=0 phishscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608040127
 
-Hi Leon, Jason, Logan,
 
 
-I want to ask for your input on a small issue, please:
-
-On 15/07/2026 18:47, Matt Evans wrote:
-> The P2PDMA code currently provides two features under the same
-> CONFIG_PCI_P2PDMA option:
+On 25/06/26 20:47, Yemike Abhilash Chandra wrote:
+> Hi,
 > 
->  1.  Locate providers via pcim_p2pdma_provider()
->  2.  Manage actual P2P DMA
+> This small series adds support for RAW12 bayer formats in the j721e-csi2rx
+> and cdns-csi2rx.
+
+Hi Abhilash,
+
+Thank you for the patches
+
+For the entire series,
+
+Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+
+Rishikesh
 > 
-> Some drivers (such as vfio-pci) depend on (1), without having a hard
-> dependency on (2).
+> Testing details: Tested on j722s-evm with v3link + IMX390 downstream driver
+> Test logs: https://gist.github.com/Yemike-Abhilash-Chandra/805ec4662b60ad925e979d55a9515f89
+> Testing Branch: https://github.com/Yemike-Abhilash-Chandra/linux/tree/RAW12
 > 
-> A future vfio-pci commit will rely on pcim_p2pdma_provider() always
-> being present.  If that depended on CONFIG_PCI_P2PDMA, it would make
-> vfio-pci only available if CONFIG_ZONE_DEVICE is present (e.g. 64-bit
-> systems), even when P2P is not needed.
-
-(As a reminder, this exists so that vfio-pci can always export a DMABUF
-for mmap() even if !P2PDMA.)
-
-The (in-kernel) users of pcim_p2pdma_provider() are vfio-pci, its
-nvgrace-gpu driver, and (since d6c58f4eb3d0 "RDMA/mlx5: Implement DMABUF
-export ops") the mlx5 driver.
-
-The vfio-pci drivers gate an actual export on CONFIG_VFIO_PCI_DMABUF
-(.'. CONFIG_PCI_P2PDMA), but a comment (in a Claude review!) just
-flagged that mlx5 uses the success of pcim_p2pdma_provider() as a sign
-that P2PDMA is also supported:
-
-  drivers/infiniband/hw/mlx5/main.c:mlx5_ib_mmap_get_pfns():
-
-        *provider = pcim_p2pdma_provider(pdev, bar);
-        /* If the kernel was not compiled with CONFIG_PCI_P2PDMA the
-         * functionality is not supported.
-         */
-        if (!*provider)
-                return -EOPNOTSUPP;
-
-This will return success even without CONFIG_PCI_P2PDMA, then
-UVERBS_METHOD_DMABUF_ALLOC won't fail early anymore.  Even though the
-export's attach ultimately fails, moving the point of failure is ugly.
-
-Just shoving an #ifdef in mlx5 isn't right, so would be grateful for
-your advice on the most tasteful resolution:
-
- 1. Imagining future drivers might use pcim_p2pdma_provider(), maybe
-    p2pdma could export a `pcim_p2pdma_supported()` or similar which
-    returns whether CONFIG_PCI_P2PDMA is present and P2P can ever work.
-    A user of pcim_p2pdma_provider() is required to also check if P2P is
-    overall supported.
-
-    Ugliness aside, a driver could use #ifdef CONFIG_PCI_P2PDMA to test
-    whether P2P is expected to work, except that doesn't stop modules
-    falling into the same trap.  I think a function export is better.
-
- 2. And/or a test (such the function from #1, or an #ifdef) in the IB
-    core DMABUF path, to avoid individual drivers from doing the test in
-    their .mmap_get_pfns().  Other future drivers would be expected to
-    do similar.
-
-Any better ideas?  Sorry I didn't catch this earlier in the review
-cycles, I know we've looked at this patch a few times now.
-
-
-Many thanks,
-
-
-Matt
-
-
+> Jai Luthra (2):
+>    media: ti: j721e-csi2rx: Support RAW12 bayer formats
+>    media: cadence: csi2rx: Support RAW12 bayer formats
 > 
-> To resolve this, introduce CONFIG_PCI_P2PDMA_CORE and refactor the
-> basic provider functionality into a new p2pdma_core.c file.  This is
-> available even if the CONFIG_PCI_P2PDMA feature is disabled (or
-> unavailable due to !CONFIG_ZONE_DEVICE), satisfying (1).
+>   drivers/media/platform/cadence/cdns-csi2rx.c  |  4 ++++
+>   .../platform/ti/j721e-csi2rx/j721e-csi2rx.c   | 24 +++++++++++++++++++
+>   2 files changed, 28 insertions(+)
 > 
-> Then, when the original CONFIG_PCI_P2PDMA is set, drivers have access
-> to the additional P2P features of (2).  This still depends on
-> CONFIG_ZONE_DEVICE.
-> 
-> Signed-off-by: Matt Evans <matt@ozlabs.org>
-> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
-> Reviewed-by: Logan Gunthorpe <logang@deltatee.com>
-> ---
->  MAINTAINERS                |   2 +-
->  drivers/pci/Kconfig        |   5 ++
->  drivers/pci/Makefile       |   1 +
->  drivers/pci/p2pdma.c       | 111 +--------------------------------
->  drivers/pci/p2pdma.h       |  29 +++++++++
->  drivers/pci/p2pdma_core.c  | 122 +++++++++++++++++++++++++++++++++++++
->  include/linux/pci-p2pdma.h |  24 +++++---
->  include/linux/pci.h        |   2 +-
->  8 files changed, 175 insertions(+), 121 deletions(-)
->  create mode 100644 drivers/pci/p2pdma.h
->  create mode 100644 drivers/pci/p2pdma_core.c
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 806bd2d80d15..192029942145 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20867,7 +20867,7 @@ B:	https://bugzilla.kernel.org
->  C:	irc://irc.oftc.net/linux-pci
->  T:	git git://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git
->  F:	Documentation/driver-api/pci/p2pdma.rst
-> -F:	drivers/pci/p2pdma.c
-> +F:	drivers/pci/p2pdma*
->  F:	include/linux/pci-p2pdma.h
->  
->  PCI POWER CONTROL
-> diff --git a/drivers/pci/Kconfig b/drivers/pci/Kconfig
-> index 0c7408509ba2..c991e92bcb85 100644
-> --- a/drivers/pci/Kconfig
-> +++ b/drivers/pci/Kconfig
-> @@ -211,6 +211,7 @@ config PCI_P2PDMA
->  	# requires 64bit
->  	#
->  	depends on 64BIT
-> +	select PCI_P2PDMA_CORE
->  	select GENERIC_ALLOCATOR
->  	select NEED_SG_DMA_FLAGS
->  	help
-> @@ -226,6 +227,10 @@ config PCI_P2PDMA
->  
->  	  If unsure, say N.
->  
-> +config PCI_P2PDMA_CORE
-> +	default n
-> +	bool
-> +
->  config PCI_LABEL
->  	def_bool y if (DMI || ACPI)
->  	select NLS
-> diff --git a/drivers/pci/Makefile b/drivers/pci/Makefile
-> index 41ebc3b9a518..0b32572d57a1 100644
-> --- a/drivers/pci/Makefile
-> +++ b/drivers/pci/Makefile
-> @@ -30,6 +30,7 @@ obj-$(CONFIG_PCI_SYSCALL)	+= syscall.o
->  obj-$(CONFIG_PCI_STUB)		+= pci-stub.o
->  obj-$(CONFIG_PCI_PF_STUB)	+= pci-pf-stub.o
->  obj-$(CONFIG_PCI_ECAM)		+= ecam.o
-> +obj-$(CONFIG_PCI_P2PDMA_CORE)	+= p2pdma_core.o
->  obj-$(CONFIG_PCI_P2PDMA)	+= p2pdma.o
->  obj-$(CONFIG_XEN_PCIDEV_FRONTEND) += xen-pcifront.o
->  obj-$(CONFIG_VGA_ARB)		+= vgaarb.o
-> diff --git a/drivers/pci/p2pdma.c b/drivers/pci/p2pdma.c
-> index 498bca257419..607580f58c26 100644
-> --- a/drivers/pci/p2pdma.c
-> +++ b/drivers/pci/p2pdma.c
-> @@ -21,12 +21,7 @@
->  #include <linux/seq_buf.h>
->  #include <linux/xarray.h>
->  
-> -struct pci_p2pdma {
-> -	struct gen_pool *pool;
-> -	bool p2pmem_published;
-> -	struct xarray map_types;
-> -	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
-> -};
-> +#include "p2pdma.h"
->  
->  struct pci_p2pdma_pagemap {
->  	struct dev_pagemap pgmap;
-> @@ -226,8 +221,7 @@ static const struct dev_pagemap_ops p2pdma_pgmap_ops = {
->  	.folio_free = p2pdma_folio_free,
->  };
->  
-> -static void pci_p2pdma_release_pool(struct pci_dev *pdev,
-> -				    struct pci_p2pdma *p2pdma)
-> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma)
->  {
->  	if (!p2pdma->pool)
->  		return;
-> @@ -237,107 +231,6 @@ static void pci_p2pdma_release_pool(struct pci_dev *pdev,
->  	sysfs_remove_group(&pdev->dev.kobj, &p2pmem_group);
->  }
->  
-> -static void pci_p2pdma_release(void *data)
-> -{
-> -	struct pci_dev *pdev = data;
-> -	struct pci_p2pdma *p2pdma;
-> -
-> -	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
-> -	if (!p2pdma)
-> -		return;
-> -
-> -	/* Flush and disable pci_alloc_p2p_mem() */
-> -	pdev->p2pdma = NULL;
-> -	pci_p2pdma_release_pool(pdev, p2pdma);
-> -	xa_destroy(&p2pdma->map_types);
-> -}
-> -
-> -/**
-> - * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-> - * @pdev: The PCI device to enable P2PDMA for
-> - *
-> - * This function initializes the peer-to-peer DMA infrastructure
-> - * for a PCI device. It allocates and sets up the necessary data
-> - * structures to support P2PDMA operations, including mapping type
-> - * tracking.
-> - */
-> -int pcim_p2pdma_init(struct pci_dev *pdev)
-> -{
-> -	struct pci_p2pdma *p2p;
-> -	int i, ret;
-> -
-> -	if (pdev->non_mappable_bars)
-> -		return -EOPNOTSUPP;
-> -
-> -	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-> -	if (p2p)
-> -		return 0;
-> -
-> -	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
-> -	if (!p2p)
-> -		return -ENOMEM;
-> -
-> -	xa_init(&p2p->map_types);
-> -	/*
-> -	 * Iterate over all standard PCI BARs and record only those that
-> -	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
-> -	 * port BARs) since they cannot be used for peer-to-peer (P2P)
-> -	 * transactions.
-> -	 */
-> -	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> -		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
-> -			continue;
-> -
-> -		p2p->mem[i].owner = &pdev->dev;
-> -		p2p->mem[i].bus_offset =
-> -			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
-> -	}
-> -
-> -	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
-> -	if (ret)
-> -		goto out_p2p;
-> -
-> -	rcu_assign_pointer(pdev->p2pdma, p2p);
-> -	return 0;
-> -
-> -out_p2p:
-> -	devm_kfree(&pdev->dev, p2p);
-> -	return ret;
-> -}
-> -EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
-> -
-> -/**
-> - * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-> - * @pdev: The PCI device to enable P2PDMA for
-> - * @bar: BAR index to get provider
-> - *
-> - * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-> - * of the provider (and of course the MMIO) is bound to the lifetime of the
-> - * driver. A driver calling this function must ensure that all references to the
-> - * provider, and any DMA mappings created for any MMIO, are all cleaned up
-> - * before the driver remove() completes.
-> - *
-> - * Since P2P is almost always shared with a second driver this means some system
-> - * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-> - * function. For example a revoke can be built using DMABUF.
-> - */
-> -struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
-> -{
-> -	struct pci_p2pdma *p2p;
-> -
-> -	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM) ||
-> -	    pdev->non_mappable_bars)
-> -		return NULL;
-> -
-> -	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-> -	if (WARN_ON(!p2p))
-> -		/* Someone forgot to call to pcim_p2pdma_init() before */
-> -		return NULL;
-> -
-> -	return &p2p->mem[bar];
-> -}
-> -EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
-> -
->  static int pci_p2pdma_setup_pool(struct pci_dev *pdev)
->  {
->  	struct pci_p2pdma *p2pdma;
-> diff --git a/drivers/pci/p2pdma.h b/drivers/pci/p2pdma.h
-> new file mode 100644
-> index 000000000000..946383809981
-> --- /dev/null
-> +++ b/drivers/pci/p2pdma.h
-> @@ -0,0 +1,29 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * PCI peer-to-peer DMA support.
-> + */
-> +
-> +#ifndef _PCI_P2PDMA_H
-> +#define _PCI_P2PDMA_H
-> +
-> +#include <linux/genalloc.h>
-> +#include <linux/pci-p2pdma.h>
-> +#include <linux/xarray.h>
-> +
-> +struct pci_p2pdma {
-> +	struct gen_pool *pool;
-> +	bool p2pmem_published;
-> +	struct xarray map_types;
-> +	struct p2pdma_provider mem[PCI_STD_NUM_BARS];
-> +};
-> +
-> +#ifdef CONFIG_PCI_P2PDMA
-> +void pci_p2pdma_release_pool(struct pci_dev *pdev, struct pci_p2pdma *p2pdma);
-> +#else
-> +static inline void pci_p2pdma_release_pool(struct pci_dev *pdev,
-> +					   struct pci_p2pdma *p2pdma)
-> +{
-> +}
-> +#endif
-> +
-> +#endif
-> diff --git a/drivers/pci/p2pdma_core.c b/drivers/pci/p2pdma_core.c
-> new file mode 100644
-> index 000000000000..9e997f373b1e
-> --- /dev/null
-> +++ b/drivers/pci/p2pdma_core.c
-> @@ -0,0 +1,122 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * PCI peer-to-peer DMA support core, providing a bare-bones
-> + * pcim_p2pdma_provider() interface to drivers even if full P2PDMA
-> + * isn't present.  The full P2PDMA feature is in p2pdma.c (see
-> + * CONFIG_PCI_P2PDMA).
-> + *
-> + * Copyright (c) 2016-2018, Logan Gunthorpe
-> + * Copyright (c) 2016-2017, Microsemi Corporation
-> + * Copyright (c) 2017, Christoph Hellwig
-> + * Copyright (c) 2018, Eideticom Inc.
-> + */
-> +
-> +#define pr_fmt(fmt) "pci-p2pdma: " fmt
-> +#include <linux/ctype.h>
-> +#include <linux/genalloc.h>
-> +#include <linux/memremap.h>
-> +#include <linux/pci-p2pdma.h>
-> +#include <linux/xarray.h>
-> +
-> +#include "p2pdma.h"
-> +
-> +static void pci_p2pdma_release(void *data)
-> +{
-> +	struct pci_dev *pdev = data;
-> +	struct pci_p2pdma *p2pdma;
-> +
-> +	p2pdma = rcu_dereference_protected(pdev->p2pdma, 1);
-> +	if (!p2pdma)
-> +		return;
-> +
-> +	/* Flush and disable pci_alloc_p2p_mem() */
-> +	pdev->p2pdma = NULL;
-> +	pci_p2pdma_release_pool(pdev, p2pdma);
-> +	xa_destroy(&p2pdma->map_types);
-> +}
-> +
-> +/**
-> + * pcim_p2pdma_init - Initialise peer-to-peer DMA providers
-> + * @pdev: The PCI device to enable P2PDMA for
-> + *
-> + * This function initializes the peer-to-peer DMA infrastructure
-> + * for a PCI device. It allocates and sets up the necessary data
-> + * structures to support P2PDMA operations, including mapping type
-> + * tracking.
-> + */
-> +int pcim_p2pdma_init(struct pci_dev *pdev)
-> +{
-> +	struct pci_p2pdma *p2p;
-> +	int i, ret;
-> +
-> +	if (pdev->non_mappable_bars)
-> +		return -EOPNOTSUPP;
-> +
-> +	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-> +	if (p2p)
-> +		return 0;
-> +
-> +	p2p = devm_kzalloc(&pdev->dev, sizeof(*p2p), GFP_KERNEL);
-> +	if (!p2p)
-> +		return -ENOMEM;
-> +
-> +	xa_init(&p2p->map_types);
-> +	/*
-> +	 * Iterate over all standard PCI BARs and record only those that
-> +	 * correspond to MMIO regions. Skip non-memory resources (e.g. I/O
-> +	 * port BARs) since they cannot be used for peer-to-peer (P2P)
-> +	 * transactions.
-> +	 */
-> +	for (i = 0; i < PCI_STD_NUM_BARS; i++) {
-> +		if (!(pci_resource_flags(pdev, i) & IORESOURCE_MEM))
-> +			continue;
-> +
-> +		p2p->mem[i].owner = &pdev->dev;
-> +		p2p->mem[i].bus_offset =
-> +			pci_bus_address(pdev, i) - pci_resource_start(pdev, i);
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(&pdev->dev, pci_p2pdma_release, pdev);
-> +	if (ret)
-> +		goto out_p2p;
-> +
-> +	rcu_assign_pointer(pdev->p2pdma, p2p);
-> +	return 0;
-> +
-> +out_p2p:
-> +	devm_kfree(&pdev->dev, p2p);
-> +	return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(pcim_p2pdma_init);
-> +
-> +/**
-> + * pcim_p2pdma_provider - Get peer-to-peer DMA provider
-> + * @pdev: The PCI device to enable P2PDMA for
-> + * @bar: BAR index to get provider
-> + *
-> + * This function gets peer-to-peer DMA provider for a PCI device. The lifetime
-> + * of the provider (and of course the MMIO) is bound to the lifetime of the
-> + * driver. A driver calling this function must ensure that all references to the
-> + * provider, and any DMA mappings created for any MMIO, are all cleaned up
-> + * before the driver remove() completes.
-> + *
-> + * Since P2P is almost always shared with a second driver this means some system
-> + * to notify, invalidate and revoke the MMIO's DMA must be in place to use this
-> + * function. For example a revoke can be built using DMABUF.
-> + */
-> +struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar)
-> +{
-> +	struct pci_p2pdma *p2p;
-> +
-> +	if (!(pci_resource_flags(pdev, bar) & IORESOURCE_MEM) ||
-> +	    pdev->non_mappable_bars)
-> +		return NULL;
-> +
-> +	p2p = rcu_dereference_protected(pdev->p2pdma, 1);
-> +	if (WARN_ON(!p2p))
-> +		/* Someone forgot to call to pcim_p2pdma_init() before */
-> +		return NULL;
-> +
-> +	return &p2p->mem[bar];
-> +}
-> +EXPORT_SYMBOL_GPL(pcim_p2pdma_provider);
-> diff --git a/include/linux/pci-p2pdma.h b/include/linux/pci-p2pdma.h
-> index 873de20a2247..4c42a7b2ee85 100644
-> --- a/include/linux/pci-p2pdma.h
-> +++ b/include/linux/pci-p2pdma.h
-> @@ -67,9 +67,22 @@ enum pci_p2pdma_map_type {
->  	PCI_P2PDMA_MAP_THRU_HOST_BRIDGE,
->  };
->  
-> -#ifdef CONFIG_PCI_P2PDMA
-> +#ifdef CONFIG_PCI_P2PDMA_CORE
->  int pcim_p2pdma_init(struct pci_dev *pdev);
->  struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev, int bar);
-> +#else
-> +static inline int pcim_p2pdma_init(struct pci_dev *pdev)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
-> +							   int bar)
-> +{
-> +	return NULL;
-> +}
-> +#endif
-> +
-> +#ifdef CONFIG_PCI_P2PDMA
->  int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar, size_t size,
->  		u64 offset);
->  int pci_p2pdma_distance_many(struct pci_dev *provider, struct device **clients,
-> @@ -89,15 +102,6 @@ ssize_t pci_p2pdma_enable_show(char *page, struct pci_dev *p2p_dev,
->  enum pci_p2pdma_map_type pci_p2pdma_map_type(struct p2pdma_provider *provider,
->  					     struct device *dev);
->  #else /* CONFIG_PCI_P2PDMA */
-> -static inline int pcim_p2pdma_init(struct pci_dev *pdev)
-> -{
-> -	return -EOPNOTSUPP;
-> -}
-> -static inline struct p2pdma_provider *pcim_p2pdma_provider(struct pci_dev *pdev,
-> -							   int bar)
-> -{
-> -	return NULL;
-> -}
->  static inline int pci_p2pdma_add_resource(struct pci_dev *pdev, int bar,
->  		size_t size, u64 offset)
->  {
-> diff --git a/include/linux/pci.h b/include/linux/pci.h
-> index 64b308b6e61c..8adbabbec5bf 100644
-> --- a/include/linux/pci.h
-> +++ b/include/linux/pci.h
-> @@ -556,7 +556,7 @@ struct pci_dev {
->  	u16		pasid_cap;	/* PASID Capability offset */
->  	u16		pasid_features;
->  #endif
-> -#ifdef CONFIG_PCI_P2PDMA
-> +#ifdef CONFIG_PCI_P2PDMA_CORE
->  	struct pci_p2pdma __rcu *p2pdma;
->  #endif
->  #ifdef CONFIG_PCI_DOE
 
