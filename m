@@ -1,120 +1,111 @@
-Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C1A426D16;
-	Tue,  4 Aug 2026 07:39:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B48372056
+	for <linux-media@vger.kernel.org>; Tue,  4 Aug 2026 07:50:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785829192; cv=none; b=Ze+dewAJ71K5qTvQ4KPIYV2eZOfn0jKaTYof9ujT5kuD//FtFql9X9ri4gR0MAN3KBu5mfTV6y0k807qD+wPLy+pd0kS5sp8W1cq/8/EvH/kH7RO05ACPTR7gZ3Z8O5DiQDZjcWAJZN6y+MS+aYZ4INO+gy/GfzyFC/LIq8syhY=
+	t=1785829809; cv=none; b=btGpHcqzR0KQAPxFsIj/ZQ+O+jjQxjB3D9ZGJd3MrLXSzJUMIFMT/FN5Zcg0Ezu1Np5ts2Txf+pa66k4mwSK917g+lMOuun6GodEuWWDfgc0nszcfrOl2weguJbj4nVshDwmXWdkaFVvCFviPbGGLPO2fgeI/iD0j1HoQ9Vb/RI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785829192; c=relaxed/simple;
-	bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BOwcWQFdAz4YezwOzvj1uc+aCnZwk5rO4OA2lQvUqCBiSu0sIEcCh9hC+YKIn/iPGLzoJbSL7uuT42e/SVAgH1ULZW86+46FwSGbsjIgEaRYS8p3oNGa2+ux3rB2Ej+B2I+sde1eQdzcpTZ5URr2GI8Ybi4h8Hsf2ufSfBh9WCA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=kOZQ0H0n; arc=none smtp.client-ip=195.181.215.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
+	s=arc-20240116; t=1785829809; c=relaxed/simple;
+	bh=KW69lvg8TMWXr7DI9skS9q/ZqrV9+YFodEpT4OCc98o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QX+wN34AysXgvuapgpm8ibEEGrUZZTYtFj91cTWcZemg1pqX7xnMvOCClLcr3/H9KyGV69gKraHG5Ym1rPAHdEryWowhU0J894l7Hlu1Z91MOQlNCF92j/cbcTgg4SJxJf/vjpQtf+PCizkcbhhZ0fEpLQVpaJtekmJbRRSUB6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ffe45oce; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="kOZQ0H0n"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
-	t=1785829186; bh=NEF8spb5u7CiwNS+iTwEBVYL0bpl2VvikQOwHzvJeLU=;
-	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
-	b=kOZQ0H0n7b4gT77O6FBv02l9YBjBiXc3PjJevI3AcTpQiuCrJKoGdy8lThP1WN8O+
-	 LYL6yXozTGg6QoO71NQ2O/8HW2d6OcbzYlnWX7KEjrdZ8wve5TZzLAvlmV4VvdTMcx
-	 LQ77Q1yNMEjykXQO5teDSBR6JP/u93MDiL9nLKAU=
-Date: Tue, 4 Aug 2026 09:39:45 +0200
-From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
-To: david@ixit.cz
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-Message-ID: <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
-Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
-	david@ixit.cz, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
-	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Martin Kepplinger <martin.kepplinger@puri.sm>, Shawn Guo <shawnguo@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, imx@lists.linux.dev, 
-	stable@vger.kernel.org
-X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
- <https://xff.cz/key.txt>
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ffe45oce"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2caed617615so58382035ad.3
+        for <linux-media@vger.kernel.org>; Tue, 04 Aug 2026 00:50:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785829808; x=1786434608; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oSs5ij29ZrMcyZFf2/QKPoy3pslOiUQ8/h4fua66yDk=;
+        b=ffe45oceQnUNIrBlc6wXjT9ta0kvrDZeJnzew3wMk+ppy96M8pHi1/LYcZk6b8z7pv
+         qTSuS9gv2iMs0XPhnkZTyE0X2ufagUW2mBHoCxnvCxX0P47MJje5CTFWx37HgO/DczjU
+         MUCus8KViWGdLrTpaaLurY1Kps2WWjNqlHIAj/spg5VOFSBVeW5yzZgKG7edDESUIeMF
+         5GLON2DNcp1Ux3XFCGC4uTyHNGbhQvutD34TeX/4tdFiuyAg7WGwPnJJWjycEj9h3CGD
+         Mbxa/DUetQLDaM9P6McgOzETYJMHfBsrPkJv0vYKBNmhyESJKPyedYRaP4NQ6A3+3wot
+         B7zw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785829808; x=1786434608;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oSs5ij29ZrMcyZFf2/QKPoy3pslOiUQ8/h4fua66yDk=;
+        b=ANkqfvJ3ArjZcttee0t3gyNkaRYsvcRtuByyJ2g+uTVszxSZzxEPHkqoUVznBfusGv
+         S8Ej8iuMzPEX+huiiOp8hTyQbc8mTQ7oY0Qzq4Se/KUmCZ6Dm+s3hu2KKIbvokpP34rm
+         LOm2GFkmqTIihSlPXJLIDrnm88TfhdgtmWrVf8dxVha4BZhoUZW725epCZxWkZAyFMFJ
+         ox0Im14f7Uzdu/ByKztzDPHMvEr9ewgBWczJCLOmKcHAY7AFkHBAI5Cr6TYtmkjvhH+1
+         kseBSY8+B0xncdoHgbfQOkx+TgPN7ywQGZbWd3u/V3Er+9qMei/xqaT5pfCBdoZW918u
+         0xew==
+X-Forwarded-Encrypted: i=1; AHgh+RrUcMtAKrvUSNfaXeMqBY27Dyf7m4yo65LgcYxcgD4ZHDWdUiDrOHmJX8fl3WDcr/rfmze9KV5bDZBFrQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfI7iYQRlNZz8ZJu4278tR9FNx37bzlAmJOcKeFQc/JMIRmNh1
+	ri7sC8mVsx3mFZi9aSG5PkLOKzybCVIxCvVNOyi9jBTubJpDhNIo7Z6v
+X-Gm-Gg: AR+sD13MEpTmF8FvzT5RQPvx8Robxf7y7Q5v9+7pP8SUpo4cqpFPCDskB9Y8NFhewth
+	SLIHa4w4zrPC8O1sbqRtAscEgVRkrwa2R/DB0eY1EBV4CVIOz0xjbpGDotayL4Z10eSudsrFVmg
+	7a2FFUq1IFXo1vvnosXCuI/csRjONm8QiakVRUMEMvjUQFBKDpVVafHtXDh04m9FFOBj5syxc1/
+	B/n+mpOk8N/TMGbMiAl3CaoVO46On1jW27/BUQpNJkWa7H56AMoOHZAVzBooWdd3xbc1Cv/+azZ
+	Jl3ZvC1oWE4iBd7DiqumsSluuOOGr6Nguoq3l4jKdzBTVgn/ADt88e/yQvgHAdI5DMEhfVmHdNH
+	HlvZ6w/CL5r2JuLD4pb4ntd1zijO3CLnx1/TWSzWkxkc3wzVsXNwvTfhFksUBYp49eiAyouxXQK
+	e44qDd05fDWF8fL5cZC8Gh1PfdlIz7mY1ODoX4JDlVDj/y7A+kIeI50F4EioqofLG/j3WEuikkH
+	/YE348=
+X-Received: by 2002:a17:903:46c6:b0:2c9:a5e9:c26e with SMTP id d9443c01a7336-2d0521ed97emr119765655ad.13.1785829807354;
+        Tue, 04 Aug 2026 00:50:07 -0700 (PDT)
+Received: from Vicious.localdomain ([103.37.82.147])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3158673b7b2sm1444852eec.19.2026.08.04.00.50.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 04 Aug 2026 00:50:06 -0700 (PDT)
+From: Ashmit Kumar <work.ashmitkumar@gmail.com>
+To: gregkh@linuxfoundation.org,
+	mchehab@kernel.org
+Cc: linux-staging@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ashmit Kumar <work.ashmitkumar@gmail.com>
+Subject: [PATCH v2] staging: media: av7110: remove unnecessary parentheses from return
+Date: Tue,  4 Aug 2026 07:49:51 +0000
+Message-ID: <20260804074951.14915-1-work.ashmitkumar@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The Linux kernel coding style specifies that return is not a function
+and therefore parentheses are not required.
 
-On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
-> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
-> 
-> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
->  arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> index d46cdfe3f7849..bde35d9b2263e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
-> @@ -473,17 +473,17 @@ wcam_out: endpoint {
->  			};
->  		};
->  	};
->  
->  	wcam_lens: camera-lens@c {
->  		compatible = "dongwoon,dw9714";
->  		reg = <0x0c>;
->  		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
-> -		vcc-supply = <&vcc1v8_dvp>;
-> +		vcc-supply = <&avdd2v8_dvp>;
+Signed-off-by: Ashmit Kumar <work.ashmitkumar@gmail.com>
+---
+ drivers/staging/media/av7110/sp8870.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-This does not match reality, schematic says it's VCC2V8_DVP:
+diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
+index 29fb4934c03..83c6ee305d6 100644
+--- a/drivers/staging/media/av7110/sp8870.c
++++ b/drivers/staging/media/av7110/sp8870.c
+@@ -92,7 +92,7 @@ static int sp8870_readreg(struct sp8870_state *state, u16 reg)
+ 		return -1;
+ 	}
+ 
+-	return (b1[0] << 8 | b1[1]);
++	return b1[0] << 8 | b1[1];
+ }
+ 
+ static int sp8870_firmware_upload(struct sp8870_state *state, const struct firmware *fw)
+@@ -167,7 +167,7 @@ static void sp8870_microcontroller_start(struct sp8870_state *state)
+ 
+ static int sp8870_read_data_valid_signal(struct sp8870_state *state)
+ {
+-	return (sp8870_readreg(state, 0x0D02) > 0);
++	return sp8870_readreg(state, 0x0D02) > 0;
+ }
+ 
+ static int configure_reg0xc05(struct dtv_frontend_properties *p, u16 *reg0xc05)
+-- 
+2.51.0.windows.1
 
-	https://xff.cz/dl/tmp/6253a0465329df41.png
-
-regards,
-	o.
-
->  	};
->  
->  	ucam: camera@36 {
->  		compatible = "ovti,ov8858";
->  		reg = <0x36>;
->  		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
->  		clock-names = "xvclk";
->  		dovdd-supply = <&vcc1v8_dvp>;
-> 
-> -- 
-> 2.53.0
-> 
-> 
