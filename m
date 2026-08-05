@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D183C553A;
-	Wed,  5 Aug 2026 04:09:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67CAD3CA4BB;
+	Wed,  5 Aug 2026 04:41:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785902989; cv=none; b=TGhVS8feOJntoKVAvgeHeyuyujzTtULG4DcQjpWpA60PAQn07r42C1qgLL+GBrspSpBwvG0MkitKnRhxCRRuT/fhEl3vqxUhmqmi1oFQj6U+LeYvyP9YtSsGD2j4snpWXbpib191GN5VGqfXz79kHNhzF+Hn1hbPvDbox1YZfjI=
+	t=1785904881; cv=none; b=GTEGJ/wZSPFRjB6Injmi8bJr/+ZNltBvoDMzLqmmzXqrHGbncN6CdW8FurkERkG9S3940inbvm6L7NOK/vgF+oTiUqpBG9wYRwVpkEAsSccHl2KfAYhCbLNbIMWikREKIMLTf4e/rqXOBvHVSkivttYneUAvYjrIdyn2Ww/T294=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785902989; c=relaxed/simple;
-	bh=SZnb1Rbp1G4NyIEqIY1A9Teplbq9A1HMCgF0GF5a6So=;
+	s=arc-20240116; t=1785904881; c=relaxed/simple;
+	bh=s40AJqnSS2nUQMj0XkNHWgC2nw875jk0mOQ6JXyH1Ss=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qGK0KbE6Z4OwiYbMhonsQ8+ErfSKh4MlHd8Mik/U8eqDiBHG08i6ughm2coxo+qnZPq40FD7w4Ch6KmIwU3lWbwPZDFUSk5/3vaub+hxotq1+ueXs5L2+Zstd9LhbGfjSYRdVFT8ss4jr3OZRy6Zs0m4Z2a1cICL07N9JlH92/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTnyywXs; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QbIVXJIxSD5kzBPkZUZp0aKpXVPHNuPnVD/lTYX4CE6+KuUsohskV7F+PySfhRYNPuOWyzJ7rM894AE5/sLxiTN1unw6VpWk2nBo/q4r4z65PgBW7KtAnMnW5BikvR97JTz2dC363pTUV4i6b4SZu1UWNbWFpt58SSZ73D0nMtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fBs52w2C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTnyywXs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17B311F000E9;
-	Wed,  5 Aug 2026 04:09:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fBs52w2C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 064311F000E9;
+	Wed,  5 Aug 2026 04:41:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785902987;
-	bh=qL4oJot9F/crn2Zo7NeM2/0Nt/23XyZD728Cxc73nx8=;
+	s=k20260515; t=1785904880;
+	bh=fmohnf+NExslodc8sYpAp9UQ+h99Uy9SYCNVeDX+0lA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=HTnyywXsSFbriB7XWR/Rw2WR8k8WOLxoksscfXf6CZ/JiTCb4hBq3xmR/MGM+BpRa
-	 X5PBnGzw+o/XMgo3Ly4Vekg+XC6rTNmQwx8fv2sDgRlNhbf97ICRnMkgtlf9xI0wQX
-	 W4Nk7jd7NV9IVYegsHafyxkvTlmYyuNwiDid6Sp1t0GA0wp0t4EKWN5Go1o7DPTFle
-	 yb3Sz19FoRrJYLlzkTnl7Jw5zakWFpIVvlke+cWosRdgrQdTWe8mAMiLCyhSiyIZcH
-	 lsqNGUTwR185qb16UBfI7DE8FMFjXuj2EKLHmJbs2W/f6T/XknIpgoTgnicJYC7+L+
-	 ZrdOKXkcDHg3Q==
-Message-ID: <2fd1ce99-464c-4933-8ff6-7783c416cc7d@kernel.org>
-Date: Wed, 5 Aug 2026 05:09:42 +0100
+	b=fBs52w2Cp47y3AkdwpCin6AnrvtH3ETejSEPLKhsdvqz2uEVH+o1ty1NNpkulxK9k
+	 HKELPb8v8yF7JcrmggOl4A5vIg9+OHXA6m39JPC7nEQms9N5gEM/27XkujWnF+xyZz
+	 5M5mSt80xP25E8rmejfjSczxvElS1mWBW5wVegSskbrzUieRiujClPmuDCFouFT2lx
+	 cYfRPGVuD9N61+lrCHdDRODu75uWQJ9WffeBgcYDI/wLet63N33avssQRT2oE4E7mz
+	 HD4lJUOPeTdgBtIKiaiTukvjmeDhp5s9/VMtddrrJ5RJYP4/0Uhq2vGskxBp5y1AdC
+	 u1sr3dUqwc3Rw==
+Message-ID: <a68056fe-75d1-4ff6-82b0-954ee09183dc@kernel.org>
+Date: Wed, 5 Aug 2026 05:41:14 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,16 +35,25 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Implement Region of Interest(ROI) support
-To: Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
+Subject: Re: [PATCH 0/4] media: iris: Fix DMA coherency, power-off ordering,
+ and frame interval issues
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
  Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, kernel test robot <lkp@intel.com>
-References: <_l91CrDl1TZCUzjX1JcRr1cgRM6CNFGa4eRe52VgXTUOOcx8yjj9YCeBaulfAgFkrnN6fCpZfpCIilkjdOV_JA==@protonmail.internalid>
- <20260804-enc_roi_enable-v3-0-e03b622a2d48@oss.qualcomm.com>
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Mansur Alisha Shaik <mansur@codeaurora.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Hans Verkuil <hverkuil@kernel.org>,
+ Stefan Schmidt <stefan.schmidt@linaro.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <VEKY5BOnE_id6Ffw6u5r3P27fJtoDL7JS18ztQULo44427A70oT4o5SEHbD5wM4jJDH1CreNcmSnx_zfLLVi-w==@protonmail.internalid>
+ <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
 From: Bryan O'Donoghue <bod@kernel.org>
 Content-Language: en-GB
 Autocrypt: addr=bod@kernel.org; keydata=
@@ -90,41 +99,53 @@ Autocrypt: addr=bod@kernel.org; keydata=
  LKSGEglMpiX07M1AotgvylN5C8fjbouoK+/RAMsXkk8jba6rPfuuXPaDjCyyKn6zSVHETnHW
  3AJbgVY50T8STpnxayBQvWbCvu+6NOEjXCbyaOJig+5l0zlGN9XHjdANXC5HnwmyaGRL9YDq
  Jh2nVXVJDincOdQRdKcJjYLqaOAoWrYWSDi1iZGspHBTDrnOvfMQzzHY
-In-Reply-To: <20260804-enc_roi_enable-v3-0-e03b622a2d48@oss.qualcomm.com>
+In-Reply-To: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/08/2026 21:05, Deepa Guthyappa Madivalara wrote:
-> Hi all,
+On 01/08/2026 08:37, Vishnu Reddy wrote:
+> This series fixes a set of issues found in the Qualcomm iris video
+> driver and the venus/kodiak devicetree bindings:
 > 
-> This patch set implements region of interest(ROI) support for
-> video encoder to be configured as a MB based delta_qp for
-> the whole frame. Custom controls V4L2_CID_MPEG_VIDEO_ROI_MB_DELTA_QP
-> and V4L2_CID_MPEG_VIDEO_ROI_MB_SIZE are implemented to achieve this.
-> Corresponding support is added in iris encoder to implement this
-> feature.
+> - The venus devicetree nodes for sc7280-based bindings and the kodiak
+>    platform do not declare dma-coherent, which allows the CPU and the
+>    video hardware/controller to see stale or inconsistent data in DMA
+>    buffers they share. This causes hardware faults on input and
+>    corruption of captured output when the client dumps it, observed
+>    while testing with some higher resolution clips.
 > 
-> This submission and design is based on the feedback received
-> from community for the RFC[1] series posted earlier.
-> Initial testing is done by adding support to v4l2-ctl[2] to test this
-> control setting and its functionality.
+> - iris_vpu_power_off_hw() disables the power domain before disabling
+>    the associated clocks, reversing the correct power-down order and
+>    risking clock-controller access after its power domain is already
+>    removed.
 > 
-> [1]https://lore.kernel.org/linux-media/20260113-iris_enc_roi-v1-0-6c86eba38587@oss.qualcomm.com
-> [2]https://lore.kernel.org/linux-media/20260616-enc_roi_enable-v1-1-252792d27894@oss.qualcomm.com
-as a sidenote can someone in qcom please, please, please do something 
-about Dikshita's email bouncing ?
+> - iris_enum_frameintervals() advertised frame intervals as
+>    V4L2_FRMIVAL_TYPE_STEPWISE with a fixed step derived from the
+>    maximum FPS, which excluded valid framerates that aren't exact
+>    divisors of the maximum and broke GStreamer caps negotiation for
+>    those framerates. Switching to V4L2_FRMIVAL_TYPE_CONTINUOUS fixes
+>    this.
+> 
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+> Vishnu Reddy (4):
+>        dt-bindings: media: qcom,sc7280-venus: Add dma-coherent property
+>        arm64: dts: qcom: sc7280: Add dma-coherent property into venus node
+>        media: iris: Fix power-off ordering to disable power domain after clocks
+>        media: iris: Fix frame interval enumeration for non-divisor framerates
+> 
+>   Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 5 +++++
+>   arch/arm64/boot/dts/qcom/kodiak.dtsi                           | 2 ++
+>   drivers/media/platform/qcom/iris/iris_vidc.c                   | 4 ++--
+>   drivers/media/platform/qcom/iris/iris_vpu_common.c             | 2 +-
+>   4 files changed, 10 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 415606a7be939835db9b0d6b711887586646346d
+> change-id: 20260801-iris-fixes-dma-pseq-fint-8345b2d67e3d
+> 
+> Best regards,
+> --
+> Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> 
 
-"Address not found
-Your message wasn't delivered to dikshita.agarwal@oss.qualcomm.com 
-because the address couldn't be found, or is unable to receive mail.
-LEARN MORE"
-
-Understood she is on some kind of sabattical - hope she is enjoying it 
-but can you guys either remove her from MAINTAINERS while the email is 
-bouncing or fix your email system to stop spamming responders with the 
-above response ?
-
-Everybody responding is getting these bounces...
-
----
-bod
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
