@@ -1,176 +1,117 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EAE747D932
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 15:58:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17FE9481AB7
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 16:11:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785945492; cv=none; b=XJ8HMELmqr9BUdhhpsFxD3eaNtBG5Oe8JWifrPtgHbvfIYRRRFpU8MBmceYDvTdrDxUQhl5FTmSNaPE/+dQxtsHim0RwekHvuihUKeZyoMirShG8lObXghqJqffhRL/X5oHXdYOpBwmjtHjy79ndF3sfG9Uen0ahPLUUQ/pQvnw=
+	t=1785946320; cv=none; b=DurGJTbes2zTg4oCP4hPvPnnDsWRL1UZgYbC01NxcYRXwuHYffGhfhONV1i9zKUKL4vHGtFvzmkBr0ENWaBaklaDwJJ/sjlv9k8quGctYuTIaO43+DwJ0rXLXlTHbxXSlnqMPHds8YIbEBs/nc1jxSDbslWDigiWNyLEV5fQido=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785945492; c=relaxed/simple;
-	bh=gY7XO5Vubu2OESvf7S+LKDJRc8u1l3bnXYeVtYSnPhU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=olGTs2lbU+uI5WGEMU8D65db3dojlLavwXKm33A45v5HsSSmYgX2NqPfblKod4NMakmoJjElCMuoozqxhkADriFrYhnbFUejeotTcrnJx2YVTRTx98hgwRRGo+U1aSB6GdwKhJgsw/7buNcM/Qjjt0dSYy9FEUzttdR7Wl7OG24=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IgFqcMmK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=kN+Y1Jkd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785946320; c=relaxed/simple;
+	bh=k2tmsV927fEWq+0uoPJfB+l7KPP84PEO2Drh0XIEcB4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=cZjAnQNT/UG1hh4BpX9c3O+vYTmBQKo8TJQJrCiy/ju/gLSydkBbHU0DXyV98knOo2xb2ixACdM1DpWHudZ/RTfb3NgWeZy4vXHtWi0lJqzdEOtQfVybC+P3odTqAXJx1FJ0FPDD7OnfcPBsNw6rCOq9hNsGrKz8e8XeZIl0bvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=Ue0lP9ra; arc=none smtp.client-ip=209.85.221.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IgFqcMmK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="kN+Y1Jkd"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675FV9nL3082861
-	for <linux-media@vger.kernel.org>; Wed, 5 Aug 2026 15:58:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	BTZhHoMGjpjmVVFmhmmtXYIl+62mQGrblhVqlG+hIw0=; b=IgFqcMmKmDYM0J0N
-	L7p7Y1UWtA8P0topRyyb8y5Ww60AuuyaQ7SZtI21U25hqazbLY4ve6uFUGE2axwQ
-	Kz8PqqGsOSIxlWScqEJbkoZAzE6nPxvMzGPDrPRfpSMs3BEEHM16f8geBkQJHfCZ
-	fYq87T/lt7O1dusoeTwlAc0T/f98WgrWBqgLsT/pELISQ70jDGTkjHxZ6wwq9S7e
-	zGQyhYE99HNDSaE85zgyuqvdV7Mz0MelIDUcWdoFrvJSrRTIQORVTZ9jMbnCeIaj
-	pH+GeARO5GjgQa5F6U3ipHFz8ZYbFaqj++kzVKRiAQIQKHBX1kGqTktk3lKMmke0
-	rVdHWQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fv5x9rts3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 15:58:10 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38ce7fabf76so1884288a91.2
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 08:58:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="Ue0lP9ra"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-47c6e9a694bso771786f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 09:11:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785945489; x=1786550289; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BTZhHoMGjpjmVVFmhmmtXYIl+62mQGrblhVqlG+hIw0=;
-        b=kN+Y1Jkdwyd/7XeTproHUryQxo+ZP047S8JHKkh3jzW9MeDAC0snuHhiLk3sd+SA0A
-         +zC485EfhGKNldy7HXAhpjPp7YiMBMoTg2Pfvz8iS1y6wgQqMqxtoI7i87dAuWk3S48B
-         Eh1p3UaHAuWPB55ZgHLPX0zBJ++gaitlsZJKfYwo1p5Np6Oxl3WZcIYUBhDYvrP46tid
-         G58QmRyaZ4ZNcZFbIHOQk4oU3xxH62f/ijVsqEuUDNIgkl7xtJ5xIIl3VEEXp4XIw3cg
-         OqHGSPvKEQtfc1ZB3xu8uuhO7znjOr746lxPKIDvzOFe7yhitB6pIMDaZU7hHtvMaHOu
-         f2GA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785945489; x=1786550289;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=raspberrypi.com; s=google; t=1785946314; x=1786551114; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BTZhHoMGjpjmVVFmhmmtXYIl+62mQGrblhVqlG+hIw0=;
-        b=hrMj3fZDg0p3uvEtSlWvlLqsyJYgCvntvEMGk41dKTGz5EAuzPVadk7S6M1vIyDvDj
-         7fpLBxRlTb0RdiRLYjqSxC/4F2+bFj+ULW2lmetRVymJ+hxOaCZqkD1y7HtKaUudwVG4
-         S+E3T4Mx40NBynA2R4JTTgYzZTsyd11mEvuGN2ZdVGIto12gdKU/Tj2WSmv/KZ2cpTDf
-         6Ugy3OaRElka3fFMVRgpTCHa5BfvLuG5uvZlM+JDq78MKTMYL6nv545XYWHgWny7CwPy
-         roSEejAojt/d33FBV5NU3sELcofP2ro+2F5zjMH2LmnP+r9R2Qr1C74rPU1EYFGmT1hM
-         CZxg==
-X-Gm-Message-State: AOJu0YzDq47ppryorQ0HeIDjS60ohHectX0jCki+WK0eJmAuc+YV5/jU
-	mMlUNW+7nF9N3QvNDjycdhp153boPhep55DvGwyKvDi8vRa436CZgqcva0RwsPKmna0w/CS4Zja
-	r/PCHmfUFEhwNFgFiqSVBDZevyH5DsC4pJX9XTYZM9tLVU55UlpZ/CWXfFA3EKUK1qA==
-X-Gm-Gg: AR+sD12mGjIm2gaj2wdlmzUIFcshB+eifMmfm7wFzUnPtZ4x5FjYObCjSTjFJVnArT2
-	wc5+lmXA46FhpT2IzvDMngJUgrM0w9S94v9E5oIduhUc1pJ081fTe4KRX7r6xAVD26Bjl4FmAWZ
-	brHqa+VTpx6rwZuRCMGIdDPtckjoKb+cpYWASIDFs+jLTHuvF4JfoEKd45pdZvWSIB/JctDEyOY
-	b5MBoXEzkhDwmnoN+ReREJfTEITz6aEmtFAxEzXgya1kFl1eqrfiQFAWsCMPIma62VChyn/dbUo
-	3BcET9o2aRvXr/bitO2k5r3h8CHphYjEjzoMFwwnqzhPzXK2SH8gJovuclC9MBeLj/88Ta3CIWU
-	lD7hzxPJOEGaAp4D8ojMEjYxTRpFPC1g=
-X-Received: by 2002:a17:90b:288b:b0:38e:8050:e63a with SMTP id 98e67ed59e1d1-3903c54d9a2mr8526255a91.6.1785945489193;
-        Wed, 05 Aug 2026 08:58:09 -0700 (PDT)
-X-Received: by 2002:a17:90b:288b:b0:38e:8050:e63a with SMTP id 98e67ed59e1d1-3903c54d9a2mr8526196a91.6.1785945488698;
-        Wed, 05 Aug 2026 08:58:08 -0700 (PDT)
-Received: from [192.168.0.6] ([183.83.142.209])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586162e80sm19756608eec.0.2026.08.05.08.58.04
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 08:58:08 -0700 (PDT)
-Message-ID: <510ae8a1-d716-cfeb-e53d-f6cacafc826b@oss.qualcomm.com>
-Date: Wed, 5 Aug 2026 21:28:01 +0530
+        bh=t/hiUWokFGsvqlinNWj7i/VJuE+r3v8Euned1qXrpkk=;
+        b=Ue0lP9ra2y1VhGTL+LdBQN+l4YE/wzScxlxjROn8LpZWGs+6I5Us8KjK7s5jSiNb20
+         8DcexvupRoL9pDLLeHtnzN1RjiW6BMhxjyi17Dqdly4DxE1Rhey+Te910216HwQBg2Ox
+         dkqJJFsmCo11gpXyaGvJ5KeS96EJ1M4goQvLpzO5SUZ1JGaAl1+uoNQK17ibxi9pfBXS
+         gA/Wbs3zM971lQjws5fxCSFW1OXQF24kX2iSS+HkgkJUssumz8wdmCs0x5caw4vFUXe5
+         DAgJWrWuHR7RmWLjxr3F0D/QVZ5nmOFABIpPHXEDvVdEwJjZR28LfLjxKYyxe9QItYJl
+         lUZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785946314; x=1786551114;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=t/hiUWokFGsvqlinNWj7i/VJuE+r3v8Euned1qXrpkk=;
+        b=HB4BWa/xoQS51h+c2k8VJQjHkZ4ahL/H4Aw6yVdXeqkJJkPLG2rJo6ByLd9jwcsYUF
+         u5gUmf1z0g1RQoEFMHYXIOBK6GLYruyirF5Rzbk0BjON1XnkSm+Be5rd8uz+BbvAA3YE
+         ZxH9VMfRhFcsCKluJR2nFMq0g/LA1IwESucOeogv5vmngAwX0EPrHWO/MQUMrVK3C0je
+         bFz4AF9Str49D0sNl1wuzY7WRDzV2DeTkgtcSJpJk54SbXDCLi5Ie8ySHCgY389m5wXg
+         0HBilKjUGTWiTBrdFC3Tjgf7OQXBF1BoCl81yP4c9fBEkKe+enM+YqQWPzQxEUIsEmgj
+         FEzQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoXtWbmopyTTkecGY10IqZNmJ278ec80AjDmrnlVcxbJLuM1gSpm00YOXWs7SWrSW3RIZm86ybW3pRg/A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzf/0qO5Rsb7aD2SoMfEOG9e980pFTC3rkd78QeqUh3NveKhuEE
+	5H6qh/01z+o3MoYg1gcig/OEfzxASX3DF16gikek05TvLde0qfEf7bDqeCtCQ8GFS6E=
+X-Gm-Gg: AR+sD12tVdHXY8rpsrX/Dm2umAutZy7Aoo7TciJxRIYHmh4f1rR5NbI4DSAlplGidsG
+	VYrcO712L3QXnNenA5HOsgKsij636EMtfETuc7zbqByZYfNjyyyvKu/zQpVkfljhhxK6noREZUv
+	EV9IV2m6sYG26pbVLRP/iV4v5y0hcbjTvG3J+fgtMtyWT3gsev7ZAMPriJpv54I0o9LhhztKNbb
+	KiYzWXORf91IfKsi9hfash2YoaxoIYdMTQa24QPu0e3jdJgxChnQUiBbXxOQs6bnYLUBp1E+Fb7
+	1n8rXG2ealeC7rExem6Cx2Mm9GQoIzmqYB5qgXdIp5NuQrJozTAjMG+UJVsULdi+xUQBo5CEWLU
+	5sjLqljItmlRzusWM8Jyfgv9mILlehCkQ8rcth803yBmE9ZwYsjuuhr13VY6IDF9Q3ZtMn/ZRA6
+	VlBBvdHClztOJ8cAXfFbCDqpT6HdlS79K2RXT3DX0BuHdqexz2yhwCGL7phlCE8vrFgYvW9Evkw
+	kDFQasWFfrpZMZHTX6GiNuzl9mCpFOPlu56DT5e
+X-Received: by 2002:a05:600c:840f:b0:493:bacb:1341 with SMTP id 5b1f17b1804b1-4994e72605emr94806895e9.4.1785946314017;
+        Wed, 05 Aug 2026 09:11:54 -0700 (PDT)
+Received: from [127.0.1.1] ([2a00:1098:3142:e::8])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-47febfda0cbsm9802575f8f.6.2026.08.05.09.11.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 09:11:53 -0700 (PDT)
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Wed, 05 Aug 2026 17:09:16 +0100
+Subject: [PATCH RFC 1/4] media: i2c: imx678: Always program the sensor in
+ window mode
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 2/9] media: iris: account for UBWC extradata in the QC08C
- buffer size
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260709-iris-vp8-v1-0-6af3ab578a7c@oss.qualcomm.com>
- <20260709-iris-vp8-v1-2-6af3ab578a7c@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260709-iris-vp8-v1-2-6af3ab578a7c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDEzMCBTYWx0ZWRfX2da2a0PQmzU8
- UgMj4cmNYYn58Ok+tH2dw108z8g2qlCL5l83fJbKPYA6kS5y9IewnTGpa+HDsmkRf11VyGYwImr
- ln2a4sG7+FLbvnoKHtLhwdMuGYOxfZhJc0J0beARm4984ZKSZNrGMwrEJpEaxO/kAyjI0fe5FJx
- ee8fYhcxNMPMtUivZt3ZaUqxp+rxzHFMaa9N0cyYYbdSmp15OgO0+YjE/Y7kTydHPH7eKol7P4z
- 0Znx0QCPXgZgkHvbbDKo47dC6kJ+T5E/ayxukjpOZKqctQ4StSbHQ1ShTU47tPpYLbdFIzvqoaA
- DLczi3jCrSJNrqEaiqQ5tVtHdEUe8dU0Thc7wami1//Ht9Tmsuze5jSr3csTBbqp18sqyS5p5+7
- /uz2jByaRcLHCFoUi0+pYQtsOT6dIs+KmRf0XaM6GE34uohit9SQeQkUAqTTKNejpp9nVYqB+IP
- zMcRldNsfwaMn3WgHdw==
-X-Proofpoint-ORIG-GUID: 5UEcx-hjHIRiXSX3cn5z1raCOl50qNXf
-X-Authority-Analysis: v=2.4 cv=BMqDalQG c=1 sm=1 tr=0 ts=6a735d92 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=HwWiqg1urrzBETcKeqCncQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=dgoU-mIJ-J5sefMGBJwA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: 5UEcx-hjHIRiXSX3cn5z1raCOl50qNXf
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDEzMCBTYWx0ZWRfX9aeNiL35mKeh
- qHxOIrkyIbJmfzbBD5rABqOH3JSe6CqDFi5sSqriavDUrfOTzQ7HRDBDDUs8sO/O5oC1rWo/RIk
- AKFyYIZ4xfYbZsTW0RRbFvjC160awFI=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_05,2026-08-04_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 spamscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 suspectscore=0 bulkscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608050130
+Message-Id: <20260805-media-starvis2-v1-1-91e8e4eae44f@raspberrypi.com>
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
+In-Reply-To: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Alexander Shiyan <eagle.alexander923@gmail.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+X-Mailer: b4 0.14.1
 
+If the requested region matched the defined active area then
+the driver switched to all-pixel mode. This left the possibilty
+that the activeare was incorrect and not reading out the area
+expected.
 
-On 7/10/2026 1:06 AM, Dmitry Baryshkov wrote:
-> iris_yuv_buffer_size_qc08c() sums only the luma/chroma data and metadata
-> planes. The UBWC engine additionally writes a trailing extradata/scratch
-> region below the frame, so the computed size is too small for the
-> reconstruction (DPB) buffer. When the firmware writes that trailing region
-> it overruns the buffer and triggers an IOMMU fault; this is hit when
-> decoding interlaced content, where the reconstruction buffers are packed
-> with a gap after each buffer.
->
-> Add the trailing region to the buffer size, sized as the venus driver does
-> (max of 16K and 48 luma lines).
->
-> Fixes: cfd71b14b0d6 ("media: iris: Add support for QC08C format for decoder")
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_buffer.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
-> index 246ad0abbac3..f1de4442be1f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
-> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
-> @@ -261,7 +261,8 @@ static u32 iris_yuv_buffer_size_qc08c(struct iris_inst *inst)
->  	uv_plane = ALIGN(uv_stride * ALIGN(f->fmt.pix_mp.height / 2, UV_SCANLINE_ALIGN_QC08C),
->  			 PIXELS_4K);
->  
-> -	return ALIGN(y_meta_plane + y_plane + uv_meta_plane + uv_plane, PIXELS_4K);
-> +	return ALIGN(y_meta_plane + y_plane + uv_meta_plane + uv_plane +
-> +		     max_t(u32, SZ_16K, y_stride * 48), PIXELS_4K);
+Switch to always requesting window mode.
 
-Can max_t(u32, SZ_16K, y_stride * 48) be stored in a variable such as
-trailing_region or extradata and used here?
+Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+---
+ drivers/media/i2c/imx678.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
->  }
->  
->  /*
->
+diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+index 0efbf43d2fe6..f7b988dca2ac 100644
+--- a/drivers/media/i2c/imx678.c
++++ b/drivers/media/i2c/imx678.c
+@@ -917,9 +917,7 @@ static int imx678_program_window(struct imx678 *imx678,
+ 	int ret = 0;
+ 
+ 	cci_write(imx678->cci, IMX678_REG_ADDMODE, 0x00, &ret);
+-	cci_write(imx678->cci, IMX678_REG_WINMODE,
+-		  v4l2_rect_equal(crop, &imx678_active_area) ? 0x00 : 0x04,
+-		  &ret);
++	cci_write(imx678->cci, IMX678_REG_WINMODE, 0x04, &ret);
+ 	cci_write(imx678->cci, IMX678_REG_PIX_HST,
+ 		  crop->left - imx678_active_area.left, &ret);
+ 	cci_write(imx678->cci, IMX678_REG_PIX_HWIDTH, crop->width, &ret);
+
+-- 
+2.34.1
+
