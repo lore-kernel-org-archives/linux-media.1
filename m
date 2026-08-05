@@ -1,175 +1,310 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B56EA3D45E7
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 18:23:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F87392C32
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 18:33:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785954222; cv=none; b=cgfHI2BIj1Lgdh15T7vKy3w3sXNqFLGJynmmIj8gGGvAzCleV5omjNn7Ab7aK6e0hHH4TQS0EBb9v2xJcUFg/T6DhaSj4h0qPXsU+0tcCf4NsBpCSzOKgLqouLXo1W8WFHyjGpIeLdUDgqmsLvVKlMnDnCSGeY9E1BdsoaSVR4E=
+	t=1785954819; cv=none; b=XngSUerZyW5LhLztcGJcsyZo2K4xFZK4cbd1p+U1TXzO1KBEwwdzMdgiXnbcmlkUeEJuEvcpPA2FNBtTUkdPve24WE3OEvYDzkWjZVobEfhhwEjkFOZIBU8a05atMTPE+f1um+QwoVqnpU45tfKSvLsNlXeHiZqPxTIlrYhrhS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785954222; c=relaxed/simple;
-	bh=b54ks5RNORzdzaeeeOGGQzaGcigoOryJQNXEuvkvRQ8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lWzw98/C3UDLDRa8DN3DM7J9gVlz0gcJr+xiPovZ2AU/jVzjvMTq3EB+AaG4FNsupqsikpHVMp3IVSji80Eyw69z0J5NsjY9ShYsObtPHXE5Fa57agzr0QlbobiHMsL7C7Z+XuUjV20qswjgala9YJ6ZEhh9kU9C4TF2yuMe8ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qjTpnK+3; arc=none smtp.client-ip=209.85.208.182
+	s=arc-20240116; t=1785954819; c=relaxed/simple;
+	bh=KEOWHPmqazn3Rc2NhfWr6RTXphnDCqGYzb+wdac0Md8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N7H2a0SLEGk38Rw/n9izh9gTMxuSgS+cBd/pWl86LPeeH3a056ExUqwssOqu3+j1wKMA/3y1iZj4CPfIXcLgDwZb+aO8xIrvGPGFhJDC/ACPGxX1IQ5ghA7dMFWaDNw97cmsMSCWyT+q18lmtYD3VtaWYBskMTyGJxHYoMWVwdY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGLN6/+j; arc=none smtp.client-ip=209.85.214.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qjTpnK+3"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39c953950dfso12412761fa.1
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 11:23:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGLN6/+j"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfff5f88dbso19956445ad.3
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 11:33:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785954219; x=1786559019; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/etY9O7l1mJNeqKFZj30VOo1bjana+xUrE/MK1RUdyE=;
-        b=qjTpnK+3fZovVumjroNiAZT3jYwZntI8KKhZUdeHMfNIvxBnx9w+gOdcZK9L+FuYXO
-         mT7lC0m2yTgyMdZppRTvXqzWtpL392oicQBtfcinZhBhbXmaoxbL6dKNYHRgzaDDUwSg
-         3JOIuBOqBmpa8D+MRxs3sLLZkysd/WWsujqBe5Wa/Z+Ckv+PZAys8RXTssnEs+hdOkOD
-         C24NPyyuMFsjZvaKz97YGTSEOOjhiGFpmQ6Bjj4BWnYm5hq31l9fKxaHAjr4HpLGZT27
-         wb91IleX8TSd+oKOZGaoJIEGn8CLoLa+/XCk8j9JHUBKpE8lFTgxsAf7vqwk4phlcGoN
-         Z5zw==
+        d=gmail.com; s=20251104; t=1785954816; x=1786559616; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Ll1BDnueTToIDv1UsG/EHfYj5A1zeconA3K3v4tzltY=;
+        b=cGLN6/+jPdU1emcvJtNeQ4T/K/IxEj5d8U+Van+xtBSv2DLt4leTYXV1Oon18SnS43
+         nCKrU92xovDnAmupeEpvtoYYAIzt6VWSR3ijy9oQnOXr4gtGdS8nUW9bLMMvr+WkMd/a
+         Od4jfdVB9Zw2/Y4lG/E5oY8+lO5D4h4fRrHxIHwIFpewtuT32ovnnWU6ytPfkrNalAZC
+         xzHDAR7UXxon0+xN2g0N9IZ44EWIyPZBRtDNLBUYbjME85WErQwb5Ud1KDVCuKm7TID5
+         +D5th0Z5PC7VcMNHg6VX61IswwbYRSDYSkTUvrleI3KVaWk4I5NsptJ7wAJnszz0breF
+         XUiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785954219; x=1786559019;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/etY9O7l1mJNeqKFZj30VOo1bjana+xUrE/MK1RUdyE=;
-        b=YjSRPwhBpWT1YNn/geaWNSlNx2+F0a5huoSLkTZUj+HDdLNsjuDLXqdUxDuKzbRcUe
-         jaXahVAzUg2fibEfRkFJyn1kdBQUTltyanOXemI4OhCP8WYEurkO3U6L4h4PnBWoklva
-         Ilpf8kpBSGvdTwY80oactpYRGBQOXgWjx3OcwgnlY/z1LpwxO86RMS3umnVAdVUgsfaO
-         mwQUbWynFGvdbWpjeLUZLI3EreGpGoDmiKVxhYjd8FaMEYkqegt7MJgXgHa0P7M+JIq6
-         jSksTEsS1wvPEd5VZeIBjfrwJlRqaB12aCU2UdnTWNnqcF5yF8PI9rkSAUEN0NNrWaev
-         yZJQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpTzGZwKfo8XH1+cQcDPj+spbwIwmKXg++i3/weXjcxrsrQSo1s3wG6dis1qvthclJMS/jYPktLwrQj6g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwCJ45fENPqEmmS/nBdYTNiQI0TXp5JwR/k+bvcp3E+e4WL1H+E
-	U/hjMjRdWs9oefbIlVIkBmNGgvLFvxeIQn/QhZLjJdEuroHk/ry8GiHc
-X-Gm-Gg: AR+sD10bd5Y6oPhmxjqyVdToHjNEnZlqBXYdzHBIOi9wrGN91AYcehzolaAO9V4FIT7
-	5RfAY3bY8MqJlW+vGaHA7bwXfXUX4vUju9sXTkWU31CZRQxgDTR80JurfVPoAwfwkRzF+GsUY6j
-	ASui100gk7C0pVksACnWJN13VsbNU3LqQ5/0DVTfPOxiE1+LV4sdBxQdfFHtr+pq3gypyLOkiR2
-	GkLvlXs/W+AiQD0I4XVhiUkcSsarYxLGyqmJ8nPhvzGHjnr2kuJC/8lLOwfioKgIVC9E8otJP1y
-	TEnXIbqu8/s4L3BEmNoKYYuNxYgGNAu93AH9lX91p4cY5IsZ70hsEktetx+kCBkH7yKWpGgdxmE
-	smen1E20uAsCxHNsQivAy7xVKll03jtmiy9is50R2rdtEPCONEGN/l86AhWIV214wC/4sp5yjTb
-	DBUjm2PZKAcROju4KJhapfH0P/7/5/0WP0lM9Jg+labYUdozkrDBsTOBC3HKotnkkPYfyiLg==
-X-Received: by 2002:a05:651c:1993:b0:39b:2757:c1d3 with SMTP id 38308e7fff4ca-39fbae29cffmr10788271fa.9.1785954218658;
-        Wed, 05 Aug 2026 11:23:38 -0700 (PDT)
-Received: from [192.168.243.250] ([94.229.19.199])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a32bb7sm11954811fa.29.2026.08.05.11.23.37
+        d=1e100.net; s=20251104; t=1785954816; x=1786559616;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ll1BDnueTToIDv1UsG/EHfYj5A1zeconA3K3v4tzltY=;
+        b=VuHKK2zKzKZU6dKMzGEnoqwYKF5xUCzc3biLRjTdCf9+Bn8pBxuEpIM4j0EiGM+D8i
+         qlsUjPdJMewp3Ar3FEmUelXSV1lEKxLo6M2gb9/2LJ3i46VyW18G/2rRAw3+GiV0aBN6
+         6FDibBhSeeO4EIcZpRRtHtDTSCeA1SykaC0l+b5TJhC6uwf4mUelqjjIln1jE3Ec4BBx
+         Ds13GJQzX0PaIDQ6lKqF2ekyw84tTueV9lTetoaR6YcnxAuhsmYPf90WVx2AbjLnvaNx
+         qTZ4aQdG9Al1Cefc0oLIg/ktG91khgD9WHw+pxd3r8db3IvXPaA7FRI1iiyKHxHVwKFs
+         1YmQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpK05By7UJWnzbrz/ozkxzqAzjmI41rRDkk534J4BsZmsE/PMwbAp/7kpfLhjeO6Tnv2loxfp/2f1QCeg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlXAGBdEd7cBeiqIcFyqO5Pf3bhzBEoVJsWek2yHfWyWuBcztC
+	E79Lip+HgmFidiM95sub+GKl0z3r8lZT1/4XzE6xAi+2kBEKm9DvdhOj
+X-Gm-Gg: AR+sD13pT7yM7BfBzpSTE6YCloaRBlSzPsFm9jctuKec7pDLWqBS/9NBOZyL1vFjELN
+	TTdjIgcHudA87ZzGtcWtTTIFoJqY+5b8Vvff6qsIx1F/cZ9W+K+A0BRGDGHPlI6MORhl9nRJ2Tx
+	4X0Gb6Gevg9GGxpDtzsks0JS6leGDqwBHE6lq4DrEBEjpZU3tVQFXD/Uy8IP7KcAwpiBxcPjkmj
+	x3LxI2Ee6k8DjmV45lmHta/UOV6xueuFXoBlc58rqN02ES9lLCSyrTluW1fXGiist/CxO4rV+6e
+	crMcoLVi9FBafZ4A6Hd7O/HTl4ffvonlVAObt00y7jHLblI/8XMpMCVDlmoKcECzwaAVy4+VmJz
+	v2GygIdh/AlIWvyLAcXrMXQVztwk8ODsADkrpPgDkhR6X8TSYZQ6B8DF27ZyOhTUXzs+J5omNBB
+	qMo8B87qmCZDEscCaUKYJJOYjuPq6csdCu7Kg3MXlUWbLDjz5F8TgshjoJvTLQzvbIBTdr2pqZK
+	uj1ifRS
+X-Received: by 2002:a17:903:3c27:b0:2c2:bd7f:ccd4 with SMTP id d9443c01a7336-2d0ca961e12mr110253755ad.21.1785954816436;
+        Wed, 05 Aug 2026 11:33:36 -0700 (PDT)
+Received: from Vicious.localdomain ([106.211.56.179])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315a1e0b5cesm2369772eec.5.2026.08.05.11.33.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 11:23:38 -0700 (PDT)
-From: Nikolay Kulikov <nikolayof23@gmail.com>
-Date: Wed, 05 Aug 2026 21:23:08 +0300
-Subject: [PATCH 4/4] staging: media: ipu7: remove unnecessary "#pragma
- pack()" directives
+        Wed, 05 Aug 2026 11:33:36 -0700 (PDT)
+From: Ashmit Kumar <work.ashmitkumar@gmail.com>
+To: gregkh@linuxfoundation.org,
+	mchehab@kernel.org
+Cc: linux-staging@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Ashmit Kumar <work.ashmitkumar@gmail.com>
+Subject: [PATCH v4] staging: rtl8723bs: Replace custom rtw_cbuf with kfifo
+Date: Wed,  5 Aug 2026 18:33:16 +0000
+Message-ID: <20260805183317.85489-1-work.ashmitkumar@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260805-ipu7_abi-v1-4-46d420cef267@gmail.com>
-References: <20260805-ipu7_abi-v1-0-46d420cef267@gmail.com>
-In-Reply-To: <20260805-ipu7_abi-v1-0-46d420cef267@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bingbu Cao <bingbu.cao@intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, Nikolay Kulikov <nikolayof23@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1785954209; l=2463;
- i=nikolayof23@gmail.com; s=20260402; h=from:subject:message-id;
- bh=b54ks5RNORzdzaeeeOGGQzaGcigoOryJQNXEuvkvRQ8=;
- b=4eo1I39brWWCs0IUeATVCS5ndG8QZkYOSCVi//iFbniZQwQWN+4W9556F5oQikt39mz3Gypcr
- YpXAbp0+zAUDYx7GmRBr7/Lp1blbWYuBtoGv/jTFXb5folTRXWsXue9
-X-Developer-Key: i=nikolayof23@gmail.com; a=ed25519;
- pk=2GWUU1isl5NJpkwSCQ4OG80EinZ3EUZXlrgAg6Pz5zI=
+Content-Transfer-Encoding: 8bit
 
-After the removeal of unused structures, these directives have no effect
-and can be removed.
+The rtl8723bs driver implemented its own custom circular buffer
+(rtw_cbuf) for c2h event handling. The kernel already provides a standard,
+lockless circular buffer implementation in <linux/kfifo.h>.
 
-Signed-off-by: Nikolay Kulikov <nikolayof23@gmail.com>
+This patch replaces the custom rtw_cbuf struct and its associated
+functions with the standard kfifo API (kfifo_alloc, kfifo_put,
+kfifo_get, kfifo_is_empty, kfifo_free), simplifying the driver code
+and relying on the robust kernel infrastructure. Furthermore, the allocation
+size is simplified to C2H_QUEUE_MAX_LEN, dropping the vestigial + 1 that
+the original naive ring buffer required to disambiguate full from empty.
+
+Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Ashmit Kumar <work.ashmitkumar@gmail.com>
 ---
- drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h |  6 ------
- drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h    | 20 --------------------
- 2 files changed, 26 deletions(-)
+Changes in v4:
+ - Abandoned ternary operator style fixes in favor of completely
+   replacing the custom rtw_cbuf ring buffer with the standard Linux
+   kfifo API, as suggested by Greg Kroah-Hartman.
 
-diff --git a/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h b/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
-index b85dcc519a31..40c7843ad7a7 100644
---- a/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
-+++ b/drivers/staging/media/ipu7/abi/ipu7_fw_common_abi.h
-@@ -29,9 +29,6 @@ struct ia_gofo_msg_version_list {
- 
- #pragma pack(pop)
- 
--#pragma pack(push, 1)
--#pragma pack(pop)
--
- #define IA_GOFO_MSG_ERR_MAX_DETAILS		(4U)
- #define IA_GOFO_MSG_ERR_OK			(0U)
- #define IA_GOFO_MSG_ERR_GROUP_UNSPECIFIED	(0U)
-@@ -49,14 +46,11 @@ struct ia_gofo_msg_err {
- #define IA_GOFO_MSG_ERR_GROUP_RESERVED	IA_GOFO_MSG_ERR_GROUP_UNSPECIFIED
- #define IA_GOFO_MSG_ERR_GROUP_GENERAL		1
- 
--#pragma pack(push, 1)
- #define IA_GOFO_MSG_TYPE_RESERVED	0
- #define IA_GOFO_MSG_TYPE_INDIRECT	1
- #define IA_GOFO_MSG_TYPE_LOG		2
- #define IA_GOFO_MSG_TYPE_GENERAL_ERR	3
- 
--#pragma pack(pop)
--
- #pragma pack(push, 1)
- enum ia_gofo_msg_link_streaming_mode {
- 	IA_GOFO_MSG_LINK_STREAMING_MODE_SOFF = 0,
-diff --git a/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h b/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
-index b2e6bd9159f2..01f4ce857238 100644
---- a/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
-+++ b/drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h
-@@ -8,8 +8,6 @@
- 
- #include "ipu7_fw_common_abi.h"
- 
--#pragma pack(push, 1)
--
- #define IPU_MSG_NODE_MAX_DEVICES	(128U)
- #define DEB_NUM_UINT32	(IPU_MSG_NODE_MAX_DEVICES / (sizeof(u32) * 8U))
- 
-@@ -21,28 +19,10 @@ typedef u32 ipu7_msg_deb_t[DEB_NUM_UINT32];
- 
- typedef u32 ipu7_msg_rbm_t[RBM_NUM_UINT32];
- 
--#pragma pack(pop)
--
--#pragma pack(push, 1)
--
- #define IPU_MSG_LINK_FOREIGN_KEY_NONE		(65535U)
- #define IPU_MSG_LINK_PBK_ID_DONT_CARE		(255U)
- #define IPU_MSG_LINK_PBK_SLOT_ID_DONT_CARE	(255U)
- 
--#pragma pack(pop)
--
--#pragma pack(push, 1)
--#pragma pack(pop)
--
--#pragma pack(push, 1)
--#pragma pack(pop)
--
--#pragma pack(push, 1)
--
--#pragma pack(pop)
--
--#pragma pack(push, 1)
--#pragma pack(pop)
- 
- #define FWPS_MSG_ABI_MAX_INPUT_QUEUES	(60U)
- #define FWPS_MSG_ABI_MAX_OUTPUT_QUEUES	(2U)
+Changes in v3:
+ - Formatted as a standalone patch (removed 1/3 series numbering).
 
+Changes in v2:
+ - Fixed patch formatting and versioning issues.
+
+Changes in v1:
+ - Initial submission addressing ternary operator style issues in rtw_cbuf.
+
+ drivers/staging/rtl8723bs/core/rtw_cmd.c      | 16 ++--
+ drivers/staging/rtl8723bs/hal/sdio_ops.c      |  2 +-
+ .../staging/rtl8723bs/include/osdep_service.h | 14 ----
+ drivers/staging/rtl8723bs/include/rtw_cmd.h   |  3 +-
+ .../staging/rtl8723bs/os_dep/osdep_service.c  | 77 -------------------
+ 5 files changed, 11 insertions(+), 101 deletions(-)
+
+diff --git a/drivers/staging/rtl8723bs/core/rtw_cmd.c b/drivers/staging/rtl8723bs/core/rtw_cmd.c
+index ce3dfa1fee26..424aa180eecc 100644
+--- a/drivers/staging/rtl8723bs/core/rtw_cmd.c
++++ b/drivers/staging/rtl8723bs/core/rtw_cmd.c
+@@ -202,8 +202,7 @@ int rtw_init_evt_priv(struct evt_priv *pevtpriv)
+ 
+ 	_init_workitem(&pevtpriv->c2h_wk, c2h_wk_callback, NULL);
+ 	pevtpriv->c2h_wk_alive = false;
+-	pevtpriv->c2h_queue = rtw_cbuf_alloc(C2H_QUEUE_MAX_LEN + 1);
+-	if (!pevtpriv->c2h_queue)
++	if (kfifo_alloc(&pevtpriv->c2h_queue, C2H_QUEUE_MAX_LEN, GFP_KERNEL))
+ 		return -ENOMEM;
+ 
+ 	return 0;
+@@ -211,17 +210,17 @@ int rtw_init_evt_priv(struct evt_priv *pevtpriv)
+ 
+ void _rtw_free_evt_priv(struct	evt_priv *pevtpriv)
+ {
++	void *c2h;
++
+ 	_cancel_workitem_sync(&pevtpriv->c2h_wk);
+ 	while (pevtpriv->c2h_wk_alive)
+ 		fsleep(10 * USEC_PER_MSEC);
+ 
+-	while (!rtw_cbuf_empty(pevtpriv->c2h_queue)) {
+-		void *c2h = rtw_cbuf_pop(pevtpriv->c2h_queue);
+-
++	while (kfifo_get(&pevtpriv->c2h_queue, &c2h)) {
+ 		if (c2h && c2h != (void *)pevtpriv)
+ 			kfree(c2h);
+ 	}
+-	kfree(pevtpriv->c2h_queue);
++	kfifo_free(&pevtpriv->c2h_queue);
+ }
+ 
+ void _rtw_free_cmd_priv(struct	cmd_priv *pcmdpriv)
+@@ -1695,12 +1694,13 @@ static void c2h_wk_callback(struct work_struct *work)
+ 	struct evt_priv *evtpriv = container_of(work, struct evt_priv, c2h_wk);
+ 	struct adapter *adapter = container_of(evtpriv, struct adapter, evtpriv);
+ 	u8 *c2h_evt;
++	void *c2h_ptr;
+ 	c2h_id_filter ccx_id_filter = rtw_hal_c2h_id_filter_ccx(adapter);
+ 
+ 	evtpriv->c2h_wk_alive = true;
+ 
+-	while (!rtw_cbuf_empty(evtpriv->c2h_queue)) {
+-		c2h_evt = (u8 *)rtw_cbuf_pop(evtpriv->c2h_queue);
++	while (kfifo_get(&evtpriv->c2h_queue, &c2h_ptr)) {
++		c2h_evt = (u8 *)c2h_ptr;
+ 		if (c2h_evt) {
+ 			/* This C2H event is read, clear it */
+ 			c2h_evt_clear(adapter);
+diff --git a/drivers/staging/rtl8723bs/hal/sdio_ops.c b/drivers/staging/rtl8723bs/hal/sdio_ops.c
+index da2d9088ab5a..e39faed1f195 100644
+--- a/drivers/staging/rtl8723bs/hal/sdio_ops.c
++++ b/drivers/staging/rtl8723bs/hal/sdio_ops.c
+@@ -763,7 +763,7 @@ void sd_int_dpc(struct adapter *adapter)
+ 			}
+ 		} else {
+ 			/* Error handling for malloc fail */
+-			rtw_cbuf_push(adapter->evtpriv.c2h_queue, NULL);
++			kfifo_put(&adapter->evtpriv.c2h_queue, NULL);
+ 			_set_workitem(&adapter->evtpriv.c2h_wk);
+ 		}
+ 	}
+diff --git a/drivers/staging/rtl8723bs/include/osdep_service.h b/drivers/staging/rtl8723bs/include/osdep_service.h
+index 2f5011a8210c..6feeb1351faa 100644
+--- a/drivers/staging/rtl8723bs/include/osdep_service.h
++++ b/drivers/staging/rtl8723bs/include/osdep_service.h
+@@ -36,18 +36,4 @@ extern void rtw_free_netdev(struct net_device *netdev);
+ void rtw_buf_free(u8 **buf, u32 *buf_len);
+ void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len);
+ 
+-struct rtw_cbuf {
+-	u32 write;
+-	u32 read;
+-	u32 size;
+-	void *bufs[];
+-};
+-
+-bool rtw_cbuf_full(struct rtw_cbuf *cbuf);
+-bool rtw_cbuf_empty(struct rtw_cbuf *cbuf);
+-bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf);
+-void *rtw_cbuf_pop(struct rtw_cbuf *cbuf);
+-struct rtw_cbuf *rtw_cbuf_alloc(u32 size);
+-
+-
+ #endif
+diff --git a/drivers/staging/rtl8723bs/include/rtw_cmd.h b/drivers/staging/rtl8723bs/include/rtw_cmd.h
+index 2e791da7e815..62e6b9011625 100644
+--- a/drivers/staging/rtl8723bs/include/rtw_cmd.h
++++ b/drivers/staging/rtl8723bs/include/rtw_cmd.h
+@@ -8,6 +8,7 @@
+ #define __RTW_CMD_H_
+ 
+ #include <linux/completion.h>
++#include <linux/kfifo.h>
+ 
+ #define C2H_MEM_SZ (16*1024)
+ 
+@@ -58,7 +59,7 @@
+ 	struct	evt_priv {
+ 		struct work_struct c2h_wk;
+ 		bool c2h_wk_alive;
+-		struct rtw_cbuf *c2h_queue;
++		DECLARE_KFIFO_PTR(c2h_queue, void *);
+ 		#define C2H_QUEUE_MAX_LEN 10
+ 
+ 		atomic_t event_seq;
+diff --git a/drivers/staging/rtl8723bs/os_dep/osdep_service.c b/drivers/staging/rtl8723bs/os_dep/osdep_service.c
+index 4cfdf7c62344..1db1c5aff530 100644
+--- a/drivers/staging/rtl8723bs/os_dep/osdep_service.c
++++ b/drivers/staging/rtl8723bs/os_dep/osdep_service.c
+@@ -122,80 +122,3 @@ void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len)
+ 		kfree(ori);
+ }
+ 
+-/**
+- * rtw_cbuf_full - test if cbuf is full
+- * @cbuf: pointer of struct rtw_cbuf
+- *
+- * Returns: true if cbuf is full
+- */
+-inline bool rtw_cbuf_full(struct rtw_cbuf *cbuf)
+-{
+-	return (cbuf->write == cbuf->read - 1) ? true : false;
+-}
+-
+-/**
+- * rtw_cbuf_empty - test if cbuf is empty
+- * @cbuf: pointer of struct rtw_cbuf
+- *
+- * Returns: true if cbuf is empty
+- */
+-inline bool rtw_cbuf_empty(struct rtw_cbuf *cbuf)
+-{
+-	return (cbuf->write == cbuf->read) ? true : false;
+-}
+-
+-/**
+- * rtw_cbuf_push - push a pointer into cbuf
+- * @cbuf: pointer of struct rtw_cbuf
+- * @buf: pointer to push in
+- *
+- * Lock free operation, be careful of the use scheme
+- * Returns: true push success
+- */
+-bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf)
+-{
+-	if (rtw_cbuf_full(cbuf))
+-		return _FAIL;
+-
+-	cbuf->bufs[cbuf->write] = buf;
+-	cbuf->write = (cbuf->write + 1) % cbuf->size;
+-
+-	return _SUCCESS;
+-}
+-
+-/**
+- * rtw_cbuf_pop - pop a pointer from cbuf
+- * @cbuf: pointer of struct rtw_cbuf
+- *
+- * Lock free operation, be careful of the use scheme
+- * Returns: pointer popped out
+- */
+-void *rtw_cbuf_pop(struct rtw_cbuf *cbuf)
+-{
+-	void *buf;
+-
+-	if (rtw_cbuf_empty(cbuf))
+-		return NULL;
+-
+-	buf = cbuf->bufs[cbuf->read];
+-	cbuf->read = (cbuf->read + 1) % cbuf->size;
+-
+-	return buf;
+-}
+-
+-/**
+- * rtw_cbuf_alloc - allocate a rtw_cbuf with given size and do initialization
+- * @size: size of pointer
+- *
+- * Returns: pointer of srtuct rtw_cbuf, NULL for allocation failure
+- */
+-struct rtw_cbuf *rtw_cbuf_alloc(u32 size)
+-{
+-	struct rtw_cbuf *cbuf;
+-
+-	cbuf = kzalloc_flex(*cbuf, bufs, size);
+-	if (cbuf)
+-		cbuf->size = size;
+-
+-	return cbuf;
+-}
 -- 
-2.55.0
+2.51.0.windows.1
 
