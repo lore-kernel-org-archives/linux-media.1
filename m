@@ -1,135 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79E9C3E315E;
-	Wed,  5 Aug 2026 07:21:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543383515C9;
+	Wed,  5 Aug 2026 07:43:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785914501; cv=none; b=nNFKcTFVB0vYCa4pmQw72S3i75Ie1pwUHasGhV2q6WJDkuX9bkrgv8H7MlXawG0JFBC/DQ+le7+cFWM0RmosyZ74/Z8XghTdbCRFyAA8PHIiIocxLxiwN+D0c2wFkp20iI8zcFPkpQ2PazrJtGmH4FSMYJcaGYqa0KJhEuHq3/M=
+	t=1785915838; cv=none; b=fMMPIGwu0kwvKEKKlzqWL937piXofSwUBnO4rUwDaQlCZR6lzUhiDHbPr9zVzlBFv1Gw38yP0Jx1NQ+xp+wqhMsbGESu3F/SEbdgmC7HvWBYLz86+qidNt4MrzDmdxgZRM2vxQ8ir219X6H9VLU3V12A1dFkaUQ3jjwuSNmEIVQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785914501; c=relaxed/simple;
-	bh=4xXbWTtC/7UGZN2BXVjiO/BZNeH5ESPefA0/PdFdxAM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N7IVzyWmlTa6odyXSOLJi1E/U56CZAXDFjNQUyQ6LA2h19vCSl0EIEWST05ldOzX9+NTj2TjmYoCUV2cpgHPQwJhKInwH5PJBSb8hPUfmBFoCa8gimDWCIMix0Dd1Pqkrp7elfWCTL7RPx6mVxUKJcf4vtRfyjGkDZquCbyycbs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AnMKQb5g; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785915838; c=relaxed/simple;
+	bh=INcJdKJNULiINN7mNi1oIH6bCPY8yAlihoPfTa/NSMU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hwqynMi2EYPLBlyckR4h6jaUUo+w3rbd7V7Md8Zlu328Be3dMIeR0vjxnsYv9Fk1LJZVgyQAGhKErLkMLdPpiHz//IWbgHqcBeA32qK2UznyIJlSWo2X/NypfgL+4uB5v3PtpxlNoiC+uk3pAV4cnAfUARhciedfhh1ZvFj+8O0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=JJ+bRfNh; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=HI07z7ph; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AnMKQb5g"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99EDC1F000E9;
-	Wed,  5 Aug 2026 07:21:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785914500;
-	bh=cdK8AKWPPhEwUaQW7Dxg4qsOc242eUKSg7dv/RpWNH0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=AnMKQb5grAjIrRzRANKpLl4LWF5Axk1uByKzp1TuCorI/OV0dfKrV+S5wcM7YuIsK
-	 JBWx5gvWO6NnpQuUOY6hLobCWOZFCc2tGZK4OW8jL7HhNH6Nj7Wlc3Xm45/gwqSFC1
-	 jZOdILr7uaYVNPEympm1RVDVA9tTs0tsT7DLoGVNoyTLGAqX2t962EFKDG2sNbEuBQ
-	 yxcELEgxstI5MSR5NwpP8BZp/pFJV9EUjvmaRNKzMIo8lLMxmTsD8dPuXHfxco7tNj
-	 WL8dNJd2KZ1Jtx4ptCrivyz5id+MawmU07MX06PXPkKVlN+njo0RNILat1mmtmPm6H
-	 wEtSGBJerDydA==
-Date: Wed, 5 Aug 2026 09:21:36 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org, 
-	Vishnu Reddy <busanna.reddy@oss.qualcomm.com>, Daniel J Blueman <daniel@quora.org>
-Subject: Re: [PATCH v2 02/12] dt-bindings: media: qcom,sm8550-iris: Add
- context bank subnodes
-Message-ID: <20260805-hulking-woodpecker-from-wonderland-15b7c0@quoll>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="JJ+bRfNh";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="HI07z7ph"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hFMqF4cYWzMlLV;
+	Wed, 05 Aug 2026 09:43:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785915833;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=CvOnvILJapE6cOvfbbHKpGxkPY2vKp10Jy4cwIAjs6g=;
+	b=JJ+bRfNhQkkBpDxVMJdWsrbRP6a0H7KpXvRRH+AditjyiUinQcQtcsd4CGfZMEeXXM75JH
+	uRtMNMzw447FJxeJgQpTRjtnuVafpkF4nOnBbexsZQ1tUASEMecyck8gvuFiZJXWGgUA94
+	W+NXjplAmlC4fJS4r9wfRvvdJcK721fautKWvuyPh779XijIXOvgnL7ICvEWYMlFKMC8xx
+	d/biDZwrpqrc6f57IXEnS7W7k7AKfxHPVOqRnK/XI4jeusrRJDBguuyGkt8F92qgnM9bGq
+	LbHnuYaH+aBh8Pj8osH1S9zx8lmKqJi5zP5VYf1ZRvlBTU3Vg3A0YDoQkKDHxQ==
+From: Qing Ming <a0yami@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1785915832;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=CvOnvILJapE6cOvfbbHKpGxkPY2vKp10Jy4cwIAjs6g=;
+	b=HI07z7phjLSeNNckf9LFeXULmKds7y180AZHuDPV6+E0dIEcn1hq6hINZYnveXWLrlchbr
+	rTDxhA4GiEmHtUFIQqX8DpiD/vaTYwJ/ofDMdSflOScqtLTYLzWBaYpaqxLgxV1FEfONF1
+	532cR+J1g3CXNNauloPvdisuql1fZ6YlZIeC5pBNkeOd1e5LebG1vSj8HPNGD0SBmHFLHR
+	lq0FFXCju/xKyPGpdckzxecMs6OdTxPE1IQlotNTRD54aM8Uf6uK+WWqSFHg2XOH0n+B5f
+	jnjKFlUgxc442Susonb5grBFx6Bf5dSz4eMjQ0jfoPVunun2vZqS1vRN1NrJ2A==
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Max Kellermann <max.kellermann@gmail.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Qing Ming <a0yami@mailbox.org>
+Subject: [PATCH] media: as102: keep device alive for open DVB frontend
+Date: Wed,  5 Aug 2026 15:42:18 +0800
+Message-ID: <20260805074220.7396-1-a0yami@mailbox.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260731-vpu_iommu_iova_handling-v2-2-da52b5228dbd@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: 6d18nqbdwn3izogjwn9jcrjj17z3adtc
+X-MBO-RS-ID: f5955167e07677da1ee
 
-On Fri, Jul 31, 2026 at 11:52:17PM +0530, Vikash Garodia wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> is restricted to use 0-600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream in
-> one IOMMU domain sharing one IOVA allocator, so nothing keeps a
-> non-pixel buffer above 600 MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots:
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> Reference qcom,venus-common.yaml, which describes the per-stream context
-> bank subnodes, and drop "iommus" from the required list. The common
-> schema accepts either the flat "iommus" or the "non-pixel" and "pixel"
-> subnode pair, so device trees that have not been converted still
-> validate.
-> 
-> Update the example to the subnode form, which also picks up the two
-> supporting properties the subnodes need on the parent video-codec node,
-> '#address-cells' and '#size-cells' of 2 and an empty "dma-ranges". Both
-> are described in the common schema change.
-> 
-> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
-> Cc: stable@vger.kernel.org
-> Co-developed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> Tested-by: Daniel J Blueman <daniel@quora.org>
+dvb_frontend_detach() defers the frontend release while an open frontend
+file still holds a reference. The final file release calls ts_bus_ctrl()
+before dropping that reference, but as102_usb_disconnect() has already
+dropped the only as102_dev_t reference by then.
 
-Also not a valid tag.
+This leaves the frontend's private bus adapter pointing into freed memory.
+Closing a frontend file after USB disconnect consequently reaches
+as102_stream_ctrl() and accesses the released device object. KASAN reports:
 
+  BUG: KASAN: slab-use-after-free in mutex_lock_interruptible+0xa1/0x100
+  as102_stream_ctrl+0x23/0x70
+  dvb_frontend_release+0x1ea/0x200
 
-> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/media/qcom,sm8550-iris.yaml    | 18 +++++++++++++++---
->  1 file changed, 15 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 0400ca1bff05dcef6b742c3fbf77e38adca9f280..3d8ff5677bd4fb7f3619a95b1c5f6f9eaf39b32c 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> @@ -98,10 +98,10 @@ required:
->    - interconnect-names
->    - resets
->    - reset-names
-> -  - iommus
->    - dma-coherent
->  
->  allOf:
-> +  - $ref: qcom,venus-common.yaml#
->    - if:
->        properties:
->          compatible:
-> @@ -177,12 +177,24 @@ examples:
->          resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->          reset-names = "bus";
->  
-> -        iommus = <&apps_smmu 0x1940 0x0000>,
-> -                 <&apps_smmu 0x1947 0x0000>;
->          dma-coherent;
->  
->          operating-points-v2 = <&iris_opp_table>;
->  
-> +        #address-cells = <2>;
-> +        #size-cells = <2>;
+The object was allocated by as102_usb_probe() and freed by
+as102_usb_disconnect().
 
-Drop both
+Hold an as102 device reference from frontend attachment through the final
+frontend release callback. Detach the frontend on registration failure so
+the new reference is also released on that path.
 
-Best regards,
-Krzysztof
+Fixes: 1f862a68df24 ("[media] dvb_frontend: move kref to struct
+dvb_frontend")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Ming <a0yami@mailbox.org>
+---
+ drivers/media/dvb-frontends/as102_fe.c  |  2 ++
+ drivers/media/dvb-frontends/as102_fe.h  |  1 +
+ drivers/media/usb/as102/as102_drv.c     | 15 ++++++++++++++-
+ drivers/media/usb/as102/as102_drv.h     |  1 +
+ drivers/media/usb/as102/as102_usb_drv.c |  2 +-
+ 5 files changed, 19 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/dvb-frontends/as102_fe.c b/drivers/media/dvb-frontends/as102_fe.c
+index fecb0735d..06bfa7c9d 100644
+--- a/drivers/media/dvb-frontends/as102_fe.c
++++ b/drivers/media/dvb-frontends/as102_fe.c
+@@ -403,6 +403,8 @@ static void as102_fe_release(struct dvb_frontend *fe)
+ {
+ 	struct as102_state *state = fe->demodulator_priv;
+ 
++	if (state->ops->release)
++		state->ops->release(state->priv);
+ 	kfree(state);
+ }
+ 
+diff --git a/drivers/media/dvb-frontends/as102_fe.h b/drivers/media/dvb-frontends/as102_fe.h
+index a6409b7ca..b0377877e 100644
+--- a/drivers/media/dvb-frontends/as102_fe.h
++++ b/drivers/media/dvb-frontends/as102_fe.h
+@@ -12,6 +12,7 @@ struct as102_fe_ops {
+ 	int (*get_status)(void *priv, struct as10x_tune_status *tstate);
+ 	int (*get_stats)(void *priv, struct as10x_demod_stats *demod_stats);
+ 	int (*stream_ctrl)(void *priv, int acquire, uint32_t elna_cfg);
++	void (*release)(void *priv);
+ };
+ 
+ struct dvb_frontend *as102_attach(const char *name,
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a..bf7ff8a05 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -274,12 +274,22 @@ static int as102_stream_ctrl(void *priv, int acquire, uint32_t elna_cfg)
+ 	return ret;
+ }
+ 
++static void as102_frontend_release(void *priv)
++{
++	struct as10x_bus_adapter_t *bus_adap = priv;
++	struct as102_dev_t *as102_dev;
++
++	as102_dev = container_of(bus_adap, struct as102_dev_t, bus_adap);
++	kref_put(&as102_dev->kref, as102_usb_release);
++}
++
+ static const struct as102_fe_ops as102_fe_ops = {
+ 	.set_tune = as102_set_tune,
+ 	.get_tps  = as102_get_tps,
+ 	.get_status = as102_get_status,
+ 	.get_stats = as102_get_stats,
+ 	.stream_ctrl = as102_stream_ctrl,
++	.release = as102_frontend_release,
+ };
+ 
+ int as102_dvb_register(struct as102_dev_t *as102_dev)
+@@ -333,12 +343,13 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		    __func__, ret);
+ 		goto efereg;
+ 	}
++	kref_get(&as102_dev->kref);
+ 
+ 	ret =  dvb_register_frontend(&as102_dev->dvb_adap, as102_dev->dvb_fe);
+ 	if (ret < 0) {
+ 		dev_err(dev, "%s: as102_dvb_register_frontend() failed: %d",
+ 		    __func__, ret);
+-		goto efereg;
++		goto eferegister;
+ 	}
+ 
+ 	/* init bus mutex for token locking */
+@@ -358,6 +369,8 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	pr_info("Registered device %s", as102_dev->name);
+ 	return 0;
+ 
++eferegister:
++	dvb_frontend_detach(as102_dev->dvb_fe);
+ efereg:
+ 	dvb_dmxdev_release(&as102_dev->dvb_dmxdev);
+ edmxdinit:
+diff --git a/drivers/media/usb/as102/as102_drv.h b/drivers/media/usb/as102/as102_drv.h
+index 4342c7ce3..c125cae23 100644
+--- a/drivers/media/usb/as102/as102_drv.h
++++ b/drivers/media/usb/as102/as102_drv.h
+@@ -70,5 +70,6 @@ struct as102_dev_t {
+ 
+ int as102_dvb_register(struct as102_dev_t *dev);
+ void as102_dvb_unregister(struct as102_dev_t *dev);
++void as102_usb_release(struct kref *kref);
+ 
+ #endif
+diff --git a/drivers/media/usb/as102/as102_usb_drv.c b/drivers/media/usb/as102/as102_usb_drv.c
+index a11024451..6eff2ff2f 100644
+--- a/drivers/media/usb/as102/as102_usb_drv.c
++++ b/drivers/media/usb/as102/as102_usb_drv.c
+@@ -298,7 +298,7 @@ static int as102_usb_start_stream(struct as102_dev_t *dev)
+ 	return 0;
+ }
+ 
+-static void as102_usb_release(struct kref *kref)
++void as102_usb_release(struct kref *kref)
+ {
+ 	struct as102_dev_t *as102_dev;
+ 
+-- 
+2.53.0
 
