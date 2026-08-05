@@ -1,122 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FE525CC79;
-	Wed,  5 Aug 2026 07:09:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4E33DB640
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 07:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785913796; cv=none; b=CvVRsE+g3Qq87z4BNiFfMoLVE7oCu6HfOLceGx+kmNORCXsN2aaqmqZAjYDjJAhggW/t+uMaUoSeMoR3Z7pYhMH2esmz8fGuzQmCRmwosylQqw/xSfRmTppBOcvougb5NRZ2reSoZCuYcxZyLUfvLJ88Y7YMQJOBbfQkIdB8f6I=
+	t=1785914052; cv=none; b=PTK3NP55IwViiI4hJ/2DrLb2InVasgkfcC1bU4LLIe06mlOw3Pr3oCEkxqraHWhmdD1ymAwm6YCBpghHQKAuh7XDDwkMgnqb6kE2a+GBW+QMMCHdkqpo++amuhI0Ij8Ua/LeOxTZQ7oEZ71Fqf2d7xAyoZty03TWbpBuCuP4PXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785913796; c=relaxed/simple;
-	bh=Y+LQMGVBDjqnDB8IGjPNpKwzC4VOQayieFKdwdwUekg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SlSHOVbGRA52+myjhqpDDS9pZJYzDgrsTrKv5xdxOWsPZF/QnqmE0X+mvsn4A3Ri/G/AB52G9XFk1z7CaWp++xadhEEFZ7m42o5/5aXwhlosbvmvyJmS8OstGN+hqVoGSpnD3PcM/YYx2b5/VqHHvDeHKxRBiUKVH28HvP9URSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QijWH5je; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1785914052; c=relaxed/simple;
+	bh=IqxAX4Aba2RzZgaK+dkv9qfFcI/tCUhgX96jbtXOiUY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=MNxl9cmPF26keKt6cM1jKHO9vu0UZwAJYmeLiS9yMzrvOszYX9pzJhxpryyPfXIVW1swviLk+yff2s3+MbATW1albR97V5FnHzFoV9ZyNFLMMvgg7S4QQc9EP/qxNIg9JyMwD2+SkXRh8bk/TK+zQpG58PDWPJzBLUrzJ46XwwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=A0BciSY1; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QijWH5je"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25AE1F000E9;
-	Wed,  5 Aug 2026 07:09:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1785913795;
-	bh=G4xKySEczjJKlV50yKNxN3atJelGibN9yGRp2vrzooU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=QijWH5jeUl1w3T5g/U+UIRCah49Z2j7Fro2KNIi5knm8wE+WmgJb6hGUiRVerdGwr
-	 Ir8mUr5npj+GJC4wq+Ddcm9vaUKQdhJhbTnZFX8ormAiQ+dEw8AUDgpdklRzaVldbb
-	 oCemOovogmvlD5ylxpMFMG+ZDbIYebv1laShUx+ALlOCREK2sEa+Q/ggvRhCHvWpYf
-	 l9kF/yp20fPNWJmXCP/o0gGnAc1AaoJnnV9jMURR95QVRRK0WuWTvNKHI2s04Ixysc
-	 aJ/AGOZWu5bLJBQCj7vzHBLjlZk+y9cAxs8feAgM9/26bgpib1GXGwOOKVJkuTN+oV
-	 A8f6vmg5sZEnA==
-Date: Wed, 5 Aug 2026 09:09:53 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jacopo Mondi <jacopo@jmondi.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Jimmy Su <jimmy.su@intel.com>, 
-	Matthias Fend <matthias.fend@emfend.at>, Mikhail Rudenko <mike.rudenko@gmail.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Michael Riesch <michael.riesch@collabora.com>, Benjamin Mugnier <benjamin.mugnier@foss.st.com>, 
-	Sylvain Petinot <sylvain.petinot@foss.st.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Paul Elder <paul.elder@ideasonboard.com>, Martin Kepplinger <martin.kepplinger@puri.sm>, 
-	Quentin Schulz <quentin.schulz@theobroma-systems.com>, Tommaso Merciai <tomm.merciai@gmail.com>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Richard Acayan <mailingradian@gmail.com>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Heiko Stuebner <heiko@sntech.de>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux@ew.tq-group.com, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v4 7/7] ARM: tegra: Convert to new media orientation
- definitions
-Message-ID: <anLhnbJ3h4G792uq@orome>
-References: <20260804-kbingham-orientation-v4-0-336998dd63b4@ideasonboard.com>
- <20260804-kbingham-orientation-v4-7-336998dd63b4@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="A0BciSY1"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260805071402euoutp0268ebc0c85912e7bb7221714f1bead2b9~I11v0n80S1260612606euoutp02k
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 07:14:02 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260805071402euoutp0268ebc0c85912e7bb7221714f1bead2b9~I11v0n80S1260612606euoutp02k
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1785914042;
+	bh=0eNQKrDF9VmPUJBv/Q/lWaoxWyqj2UAM/GEwIxIsWCw=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=A0BciSY1bB+sfU/Q5QkjzLIWOuP+PDrKnZ2hr0s8mlPYVlEZmSlRZ8wCwRnWCKMZ7
+	 H4PHVdawVxYniUJkMFwXl0bfpZxAJU1ScPub/vTsAXfNhVIvFITFf/I7+u349zlmIY
+	 KU6x3wTdOMf09V3ezryN5jV7TAYowgDK5VV8HfNI=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20260805071401eucas1p1dfd928c7fce7a05a79bd360900777dc3~I11vhLnJg0615706157eucas1p1T;
+	Wed,  5 Aug 2026 07:14:01 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20260805071401eusmtip242c1de3d7fe9c3e9c4212fa00c1765ca~I11u8Y5hR0408204082eusmtip2s;
+	Wed,  5 Aug 2026 07:14:01 +0000 (GMT)
+Message-ID: <48bf9a04-a3ff-421f-8fe8-b65b8af0a2f7@samsung.com>
+Date: Wed, 5 Aug 2026 09:14:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="njba5wbvog4atzxq"
-Content-Disposition: inline
-In-Reply-To: <20260804-kbingham-orientation-v4-7-336998dd63b4@ideasonboard.com>
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH] media: s5p-mfc: use timer_shutdown_sync() for the
+ self-rearming watchdog
+To: Fan Wu <fanwu01@zju.edu.cn>, linux-media@vger.kernel.org
+Cc: stable@vger.kernel.org, andrzej.hajda@intel.com, mchehab@kernel.org,
+	linux-kernel@vger.kernel.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20260730071552.292905-1-fanwu01@zju.edu.cn>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20260805071401eucas1p1dfd928c7fce7a05a79bd360900777dc3
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260730071659eucas1p29e5e6fa1209da048bf1cec7fd821ef77
+X-EPHeader: CA
+X-CMS-RootMailID: 20260730071659eucas1p29e5e6fa1209da048bf1cec7fd821ef77
+References: <CGME20260730071659eucas1p29e5e6fa1209da048bf1cec7fd821ef77@eucas1p2.samsung.com>
+	<20260730071552.292905-1-fanwu01@zju.edu.cn>
 
-
---njba5wbvog4atzxq
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 7/7] ARM: tegra: Convert to new media orientation
- definitions
-MIME-Version: 1.0
-
-On Tue, Aug 04, 2026 at 08:43:34PM +0100, Kieran Bingham wrote:
-> The orientation property for video interface devices now has definitions
-> to prevent hardcoded integer values for the enum options.
->=20
-> Update the users throughout the nvidia device trees to use the new
-> definitions.
->=20
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
+On 30.07.2026 09:15, Fan Wu wrote:
+> The MFC watchdog timer (s5p_mfc_watchdog) is self-rearming: every
+> callback re-arms itself with add_timer() and, on a timeout, schedules
+> watchdog_work. s5p_mfc_remove() tears this down with timer_delete_sync()
+> followed by flush_work().
+>
+> timer_delete_sync() dequeues the timer and waits for a callback that is
+> already running, but it does not prevent a subsequent re-arm. Because the
+> watchdog callback re-arms via add_timer(), this is the wrong shutdown
+> primitive: once the wait returns nothing guarantees a just-queued re-arm
+> will not fire later, dereferencing dev (clock on/off, deinit_hw,
+> load_firmware, init_hw) after video_unregister_device(), DMA teardown and
+> s5p_mfc_final_pm() have run, a potential use-after-free.
+>
+> Use timer_shutdown_sync(), which puts the timer into a shutdown state so
+> that any add_timer()/mod_timer() from the callback becomes a no-op and no
+> later firing is possible. Switch flush_work() to cancel_work_sync() so any
+> watchdog_work that was already queued before the timer was stopped is
+> cancelled rather than allowed to run to completion against the torn-down
+> device.
+>
+> This issue was found by an in-house static analysis tool. No runtime
+> reproducer is available.
+>
+> Fixes: af9357467810 ("[media] MFC: Add MFC 5.1 V4L2 driver")
+> Cc: stable@vger.kernel.org
+> Cc: Marek Szyprowski <m.szyprowski@samsung.com>
+> Cc: Andrzej Hajda <andrzej.hajda@intel.com>
+> Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
+> Assisted-by: Codex:gpt-5.6
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Reviewed-by: Marek Szyprowski <m.szyprowski@samsung.com>
 > ---
-> v2:
->  - Fix MEDIA_ORIENTATION_REAR to MEDIA_ORIENTATION_BACK
-> ---
->  arch/arm/boot/dts/nvidia/tegra30-asus-nexus7-grouper-common.dtsi | 3 ++-
->  arch/arm/boot/dts/nvidia/tegra30-asus-transformer-common.dtsi    | 3 ++-
->  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts                     | 4 +++-
->  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi                      | 3 ++-
->  4 files changed, 9 insertions(+), 4 deletions(-)
+>  drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+> index 32eb402d439c..03e7eac8d1f7 100644
+> --- a/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+> +++ b/drivers/media/platform/samsung/s5p-mfc/s5p_mfc.c
+> @@ -1474,8 +1474,8 @@ static void s5p_mfc_remove(struct platform_device *pdev)
+>  	}
+>  	mutex_unlock(&dev->mfc_mutex);
+>  
+> -	timer_delete_sync(&dev->watchdog_timer);
+> -	flush_work(&dev->watchdog_work);
+> +	timer_shutdown_sync(&dev->watchdog_timer);
+> +	cancel_work_sync(&dev->watchdog_work);
+>  
+>  	video_unregister_device(dev->vfd_enc);
+>  	video_unregister_device(dev->vfd_dec);
 
-Reviewed-by: Thierry Reding <treding@nvidia.com>
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-And if the plan is to merge these through the media tree:
-
-Acked-by: Thierry Reding <treding@nvidia.com>
-
---njba5wbvog4atzxq
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmpy4cEACgkQ3SOs138+
-s6GX7xAAiUn50cg1N3IYryCjW1HFvtOEELAbn3WbEabsf8ChY6p27lszsD2u1SWA
-ljxp3aiozUzCDwS4rO/auUa1ubQ4YRFi+KmviEMAaNlx+odGBEP9OmYdo8CsKq78
-8+xxglQ3WizUEMIc0B7j8IVwUsAvE32qOnrr56XTx1YaqrA66BNENIq9wlURELrw
-bh40y7Cc+hRdum3b85woDbChECrG6q3Y0JFQQuZovQvs/bhWJ27/Z1ILLVkjy5pD
-Ases5xrdbEn7iYc2w80khRpu4aqUycjsCBf6E/bYZj/2TDHK6ir5W4wpB6E00E5D
-AuQo8CmAW+l5aWJDbfBcBPC3xcduHHH9D4dGpO4Cd52Yntu9cgDmfTk+kEgHJ6EC
-adEIuD3pHuqgQWSpOUfSlGFNDq+HhUpXZWH2lx/abGSyjcydQE+urtU3XQilKpOk
-j+Lq191FrKk7epLKNrqklsyKV3xNIBZnkLIb0SxVV9SCWs4qdoRWN9gfHB3VmaL4
-kR2WQrc9xpnabF+v0Mele7z45YdHdoHY/5ttfZAdm53Q1/Zgz058i8Unn5U9GVDM
-pqt/pJjTGqKKn8Z2AHRe2zKw9S4dDTDSybfzC8RdjE5OB8TKjKyjumwpkxGiIUIn
-jogEFjQcRrmyO5tbZ96lii8IL9M+aMr5EeyMpcrJJaxZRSV3cGg=
-=n6SN
------END PGP SIGNATURE-----
-
---njba5wbvog4atzxq--
