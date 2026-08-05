@@ -1,111 +1,117 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EF019F12D
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 13:56:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C59A4248B7;
+	Wed,  5 Aug 2026 13:59:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785938212; cv=none; b=Yz/+11htvlVMy1UavI8rBlwCaeatmyL6Uy/tldzptlE0RFWSAFl6RQpdnRpxa+xW1XQb9AbitWIEdTEOMCzDaIBDoH6ZORb+zX+wBpVPd656Kjo9+0yRRBJprDJpnBOsoFVAuTl8INku3cerXBH/Z2uLp7KQWyTshDup8K01MZ8=
+	t=1785938355; cv=none; b=Jp+sasILZd09iUnboHWYEAg+I1ZN8F4bW/ZJasYyejIAigHvTKW8wXBwkBRtQV/Qud+C4rBhgmL8oTKpeqBb2zWrMZGvkE/KbLzappT4xJtcRZp9iztsvcYC/M8bnyheOH/3NugF75NNmXsc4yZ7hzQ79S6/Tuz/whV5E/9mWUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785938212; c=relaxed/simple;
-	bh=SZNKc2jWaX+7ZPchNb8Z8qXS+B9Dw28m1FGfwGF3Xus=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tczO2ruUQ46HJQuzLhzajujRzxEvgUoKHj1ZNjqxIqk6VRhFq9roSMiOOLslW0Jm1doCUN+UmeIwWVFN26X6hjKEyG/m84mU8eG+aqlm0K/k7HEsDb7x4s9iclttJNSt2bg3I2qs4NyehP9j1zxVXxU6WdP/CXfhYboJe3wJMw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ebNAj5Wk; arc=none smtp.client-ip=209.85.215.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785938355; c=relaxed/simple;
+	bh=nZCWmFKl3LfWD6TOgQV63DvFZ0w2b2tqc7cSKVYPHH0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sUlZbITZ5u+ijAZ5tI/1dz4aXAYhRBiYE9tuZhCttr1zFxjn0+r9ceD8cM0UPdhH1IX1SI4AJpme8Cla1x0eQD7tsOCgrk0RO1Bt3wj4Ksn+af+RfoZ5mM2aT0kcyuK555p3chF6LerhXWpiCUUe75ZYMH35f61exGDNToq40Hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=b95gvb2T; arc=none smtp.client-ip=150.107.74.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ebNAj5Wk"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-c999f162c9aso744723a12.3
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 06:56:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785938211; x=1786543011; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eg7s7wWDZNmPm0HzlM/ekfoGFm4nbJx3bfGiH7qMY1E=;
-        b=ebNAj5WkTyI1XslIXYPbSMa8aI8pUpWwWutETE+sJd0vP+wYbabIIq3SavGcRHfdGV
-         Xx0DKYAfqxCRpdMfS14F++fb34c9VJw07GnLMpZS8N1M26NslYAniaPVJQ23g4QAEv6T
-         nhfkvFgsYJfuCyYHkyQylB483SITjbMs41P0UFDvUt/LSF+9TbbEPIyxlra+EJt68L/6
-         iWgbdJc9L6DFKQ38EwxIGr88ynXa54dtZ7cFAfjJH2/JJkbS1ZvKjbLMClq4+QS4INAH
-         s5M2//2Gz+V1FuKL2393ePv6ucPddp6drwWhFX2NpWtKAQBzl0dnFTHy85ALUUEFny3I
-         IEiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785938211; x=1786543011;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eg7s7wWDZNmPm0HzlM/ekfoGFm4nbJx3bfGiH7qMY1E=;
-        b=ed4Kv401bCqD2pXp2S3feXbfed+2Ai/fbwmkTjK8u26/xXrUS491SDw9YyvVMAVrCD
-         egH/OvdzYNxZjsct/OiOEIby4/dJNC+vgTdrl4E5uaKUOLepaoA1off8ZFHis2lzHV0b
-         F6+IO1twKorE6GAPRptF2PF9cu4ntj10PII88GHCmnCN6bsBy8YpfbC1JGROgo6r3erC
-         uzMvHlfbOGinYb/ZqjiZ8lcBy+UQINaB+wuBvyyTD55o2zkMXw25sBGTS9RMa56F6soW
-         bYKHujZFc/CfE1Jj4kfLP8IMV9Xm+phQlE8fxb96chTvRcchKJ/qqz/vK5YxR6eh9pGm
-         4ZGw==
-X-Forwarded-Encrypted: i=1; AHgh+Ro4PlOSuHy5xP78wFPOSZ2ltx2yuhNG/mxKaabhWbrEq9/IneUPFXr8d0I+osN/QSiosMjMSK8gC03cJA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxjfzQz1t3HLWmRBAjcX4mcBht0dDlU/TgkQqj3DYqz7YZArDf4
-	vmkWjYe09o+Ve1cpUeMvJKDC/lSgns4zyEfNrZUl2tSgde3re3iXtS66
-X-Gm-Gg: AR+sD11BhsCa6qXEhVkXv+aLhIWdUBvM/T9T4amtV8cidpuIbqdGIbgZepj35VRZPB9
-	hG51XMZapFU/UrzVkZGkRTArQgy+Ct8Z8p5K9Vj3CGeHPhI11Rxc3YyVFhB3ypSnxD/EV09gNzn
-	xZQGQYePsDQVKFRbH4b7tTW9EjNzbtOwKpq5UchVK7s8C6yM7ssZEPMgW1SVtFtx6zT99KTDVle
-	OdoUamdtrRQgK2BLS95PPRA1Cz/gK4KqevihojLU4rDRiSZHlMh6hQd7D8D0LQXIMuQGh4mzle1
-	vPp5F9/IjDPYmy67CrVVgq6uRYkkaphoR6C3pSitlobpPb43npSdn8BZfEuEq8Sbqj8waHTKa2k
-	3xjG/wn7ahEV9zLmfwBmb4P3B1Q4XEsivSKeGoCQiEpp+NIp9Cgy8lpX7abZDq6ie4BFACkYriD
-	NPQRzlP5hUCKdEmEhlJ4HE/5zKn8edjJRJAOeNE6iHdAy4tA9+0/oLloIB0Qg2Q+OP+Q==
-X-Received: by 2002:a05:6a20:6f02:b0:3c4:511e:26ab with SMTP id adf61e73a8af0-3cb85ded984mr9538978637.3.1785938210963;
-        Wed, 05 Aug 2026 06:56:50 -0700 (PDT)
-Received: from ahmi-PC.. ([2401:4900:88f5:5e4b:e580:68e3:78da:9f5d])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3158673be4dsm22066935eec.16.2026.08.05.06.56.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 06:56:50 -0700 (PDT)
-From: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org
-Cc: michael.riesch@collabora.com,
-	jacopo.mondi@ideasonboard.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Narasimharao Vadlamudi <ahmisaranrao@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 2/2] media: i2c: imx415: Release runtime PM reference on VBLANK error
-Date: Wed,  5 Aug 2026 19:26:35 +0530
-Message-ID: <20260805135635.56556-2-ahmisaranrao@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260805135635.56556-1-ahmisaranrao@gmail.com>
-References: <20260805135635.56556-1-ahmisaranrao@gmail.com>
+	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="b95gvb2T"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
+	s=201707; t=1785938349;
+	bh=8ZKev4Gomd2h4BZnMddpS4sItcYMIlEiLKSOtv/oACM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=b95gvb2TP5dDfbztGLQkGg1Hsi8rixtPTT0hgwmZ9XUcMkRJ8rigLdQSh4aWOCfdz
+	 CIaOEgN96ojAF6jurM7yvXzvVQU/1+RpADhFufOUReH1qGjfq0lq04b1RpH9Hq53g9
+	 Bq/ZXpW7qGfEakb2jw486rve0G81KGFJ2WTLNDNY9VdrPfsF3pwhUI4dWbKghdUoc/
+	 +Vbe7vL7l61WpF3dThn7HKcDkusFrazYFY9/DzmJ0FAPmEP6+pHL/y2bqvQnwfVPZZ
+	 ZUgFQ5FVBqPGLymqLUrR+qUuR4smm3aE/seJs/rp5Z0JTLhuDFvl18wUnTFH83wK3e
+	 /MMTQALaNga0w==
+Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(Client did not present a certificate)
+	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hFX836TVwz4w23;
+	Wed, 05 Aug 2026 23:58:59 +1000 (AEST)
+Message-ID: <a0e71704-074a-415c-b910-d4e8b623874e@ozlabs.org>
+Date: Wed, 5 Aug 2026 14:58:55 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Content-Language: en-GB
+To: Alex Williamson <alex@shazbot.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
+ Pranjal Shrivastava <praan@google.com>, Longfang Liu
+ <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
+ David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
+ <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
+ Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-8-matt@ozlabs.org>
+ <20260729115204.2a9a50b2@shazbot.org>
+ <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+ <20260804141022.71b6429d@shazbot.org>
+From: Matt Evans <matt@ozlabs.org>
+In-Reply-To: <20260804141022.71b6429d@shazbot.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The VBLANK path returned immediately when programming VMAX failed after
-pm_runtime_get_if_in_use() had taken a runtime PM reference. Break out of
-the switch instead so the common pm_runtime_put() path is used.
+Hi Alex,
 
-Fixes: 3bcae55ab96a ("media: i2c: imx415: Add read/write control of VBLANK")
-Cc: stable@vger.kernel.org
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-Signed-off-by: Narasimharao Vadlamudi <ahmisaranrao@gmail.com>
----
- drivers/media/i2c/imx415.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On 04/08/2026 21:10, Alex Williamson wrote:
+> On Thu, 30 Jul 2026 15:47:13 +0100
+> Matt Evans <matt@ozlabs.org> wrote:
+> 
+>> Hi Alex,
+>>
+>> On 29/07/2026 18:52, Alex Williamson wrote:
+>>> On Wed, 15 Jul 2026 18:47:30 +0100
+>>> Matt Evans <matt@ozlabs.org> wrote:  
+>>>> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+>>>> index 9a1674c152aa..e2b4252e7c3f 100644
+>>>> --- a/include/linux/vfio_pci_core.h
+>>>> +++ b/include/linux/vfio_pci_core.h
+>>>> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+>>>>  	bool			pm_intx_masked;
+>>>>  	bool			pm_runtime_engaged;
+>>>>  	bool			sriov_active;
+>>>> +	bool			zap_bars_on_revoke;
+>>>>  	struct pci_saved_state	*pci_saved_state;
+>>>>  	struct pci_saved_state	*pm_save;
+>>>>  	int			ioeventfds_nr;  
+>>>
+>>> This should be in the bitfield usage group since it's only modified at
+>>> init time.  
+>>
+>> This was intentional, but happy to change it if you're certain ofc.  Is
+>> it inconceivable that a sub-driver could set it after init?  I'd say
+>> they _shouldn't_, but only review will stop them and this placement
+>> intended to be cautious.  It seemed a low cost way to avoid issues
+>> around synchronisation on the bitfield.
+> 
+> I'd agree with the statement that they shouldn't, it would be difficult
+> to synchronize setting the flag once there are any active mappings of
+> the BARs.  Also, if we put it in the bitfield category under the
+> comment that the value is only modified at setup/release, it documents
+> the intentions, hopefully to the extent the author or reviewers notice.
+> An argument can always be made to change it if there's a worthwhile use
+> case.  Thanks,
 
-diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-index f5cd79da512c..c3b22b238ea0 100644
---- a/drivers/media/i2c/imx415.c
-+++ b/drivers/media/i2c/imx415.c
-@@ -720,7 +720,7 @@ static int imx415_s_ctrl(struct v4l2_ctrl *ctrl)
- 		ret = cci_write(sensor->regmap, IMX415_VMAX,
- 				format->height + ctrl->val, NULL);
- 		if (ret)
--			return ret;
-+			break;
- 		/*
- 		 * Exposure is set based on VMAX which has just changed, so
- 		 * program exposure register as well
--- 
-2.43.0
+Okay, book removed in favour of bit.
+
+Thanks,
+
+
+Matt
 
