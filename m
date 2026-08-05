@@ -1,310 +1,213 @@
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020109.outbound.protection.outlook.com [52.101.196.109])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55F87392C32
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 18:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785954819; cv=none; b=XngSUerZyW5LhLztcGJcsyZo2K4xFZK4cbd1p+U1TXzO1KBEwwdzMdgiXnbcmlkUeEJuEvcpPA2FNBtTUkdPve24WE3OEvYDzkWjZVobEfhhwEjkFOZIBU8a05atMTPE+f1um+QwoVqnpU45tfKSvLsNlXeHiZqPxTIlrYhrhS0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785954819; c=relaxed/simple;
-	bh=KEOWHPmqazn3Rc2NhfWr6RTXphnDCqGYzb+wdac0Md8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=N7H2a0SLEGk38Rw/n9izh9gTMxuSgS+cBd/pWl86LPeeH3a056ExUqwssOqu3+j1wKMA/3y1iZj4CPfIXcLgDwZb+aO8xIrvGPGFhJDC/ACPGxX1IQ5ghA7dMFWaDNw97cmsMSCWyT+q18lmtYD3VtaWYBskMTyGJxHYoMWVwdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cGLN6/+j; arc=none smtp.client-ip=209.85.214.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DED3A0E99;
+	Wed,  5 Aug 2026 19:08:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.109
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785956918; cv=fail; b=Gb5c2CoDP2l2cF4sFZeOlY71G2rKkebiqHtZ0Aljky5ZPC9r41vzzNROST3oF+l+Nyz7QsNF+4s3b0iBWociFriXKZJmmeiArvsSSpj4FUfFxaB47tWgYMMniazwXanRVFSO/aqglBjYjTRn8VNEhMLljNRhzltaxGIm5GP7MV4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785956918; c=relaxed/simple;
+	bh=xDsbwwRsMPaDRZnuaiClh2Sh8SG+E9TXpEKYfMXpbWA=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
+	 In-Reply-To:MIME-Version; b=f8UHHhug3nzbyUWCGE7vhrDQyA2vDW0YfQzor0DLZL6HkRPas1faY8rVIrHAjuT6UfQaGlyg+hV8DI9Wu9bV+OMMwISFndr4qfuIMIMfXX4+UJUOnu65LE6crPPJcwkmUVGo2gkXkPczV0hK1bJCf8L8D1JBwyY03daczOrWyTU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=mM0kYcc3; arc=fail smtp.client-ip=52.101.196.109
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cGLN6/+j"
-Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2cfff5f88dbso19956445ad.3
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 11:33:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785954816; x=1786559616; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ll1BDnueTToIDv1UsG/EHfYj5A1zeconA3K3v4tzltY=;
-        b=cGLN6/+jPdU1emcvJtNeQ4T/K/IxEj5d8U+Van+xtBSv2DLt4leTYXV1Oon18SnS43
-         nCKrU92xovDnAmupeEpvtoYYAIzt6VWSR3ijy9oQnOXr4gtGdS8nUW9bLMMvr+WkMd/a
-         Od4jfdVB9Zw2/Y4lG/E5oY8+lO5D4h4fRrHxIHwIFpewtuT32ovnnWU6ytPfkrNalAZC
-         xzHDAR7UXxon0+xN2g0N9IZ44EWIyPZBRtDNLBUYbjME85WErQwb5Ud1KDVCuKm7TID5
-         +D5th0Z5PC7VcMNHg6VX61IswwbYRSDYSkTUvrleI3KVaWk4I5NsptJ7wAJnszz0breF
-         XUiQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785954816; x=1786559616;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Ll1BDnueTToIDv1UsG/EHfYj5A1zeconA3K3v4tzltY=;
-        b=VuHKK2zKzKZU6dKMzGEnoqwYKF5xUCzc3biLRjTdCf9+Bn8pBxuEpIM4j0EiGM+D8i
-         qlsUjPdJMewp3Ar3FEmUelXSV1lEKxLo6M2gb9/2LJ3i46VyW18G/2rRAw3+GiV0aBN6
-         6FDibBhSeeO4EIcZpRRtHtDTSCeA1SykaC0l+b5TJhC6uwf4mUelqjjIln1jE3Ec4BBx
-         Ds13GJQzX0PaIDQ6lKqF2ekyw84tTueV9lTetoaR6YcnxAuhsmYPf90WVx2AbjLnvaNx
-         qTZ4aQdG9Al1Cefc0oLIg/ktG91khgD9WHw+pxd3r8db3IvXPaA7FRI1iiyKHxHVwKFs
-         1YmQ==
-X-Forwarded-Encrypted: i=1; AHgh+RpK05By7UJWnzbrz/ozkxzqAzjmI41rRDkk534J4BsZmsE/PMwbAp/7kpfLhjeO6Tnv2loxfp/2f1QCeg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxlXAGBdEd7cBeiqIcFyqO5Pf3bhzBEoVJsWek2yHfWyWuBcztC
-	E79Lip+HgmFidiM95sub+GKl0z3r8lZT1/4XzE6xAi+2kBEKm9DvdhOj
-X-Gm-Gg: AR+sD13pT7yM7BfBzpSTE6YCloaRBlSzPsFm9jctuKec7pDLWqBS/9NBOZyL1vFjELN
-	TTdjIgcHudA87ZzGtcWtTTIFoJqY+5b8Vvff6qsIx1F/cZ9W+K+A0BRGDGHPlI6MORhl9nRJ2Tx
-	4X0Gb6Gevg9GGxpDtzsks0JS6leGDqwBHE6lq4DrEBEjpZU3tVQFXD/Uy8IP7KcAwpiBxcPjkmj
-	x3LxI2Ee6k8DjmV45lmHta/UOV6xueuFXoBlc58rqN02ES9lLCSyrTluW1fXGiist/CxO4rV+6e
-	crMcoLVi9FBafZ4A6Hd7O/HTl4ffvonlVAObt00y7jHLblI/8XMpMCVDlmoKcECzwaAVy4+VmJz
-	v2GygIdh/AlIWvyLAcXrMXQVztwk8ODsADkrpPgDkhR6X8TSYZQ6B8DF27ZyOhTUXzs+J5omNBB
-	qMo8B87qmCZDEscCaUKYJJOYjuPq6csdCu7Kg3MXlUWbLDjz5F8TgshjoJvTLQzvbIBTdr2pqZK
-	uj1ifRS
-X-Received: by 2002:a17:903:3c27:b0:2c2:bd7f:ccd4 with SMTP id d9443c01a7336-2d0ca961e12mr110253755ad.21.1785954816436;
-        Wed, 05 Aug 2026 11:33:36 -0700 (PDT)
-Received: from Vicious.localdomain ([106.211.56.179])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315a1e0b5cesm2369772eec.5.2026.08.05.11.33.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 11:33:36 -0700 (PDT)
-From: Ashmit Kumar <work.ashmitkumar@gmail.com>
-To: gregkh@linuxfoundation.org,
-	mchehab@kernel.org
-Cc: linux-staging@lists.linux.dev,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashmit Kumar <work.ashmitkumar@gmail.com>
-Subject: [PATCH v4] staging: rtl8723bs: Replace custom rtw_cbuf with kfifo
-Date: Wed,  5 Aug 2026 18:33:16 +0000
-Message-ID: <20260805183317.85489-1-work.ashmitkumar@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="mM0kYcc3"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=P1EOx/5fYvCLvqyrRdtevQrRsqSfeb3nZPTHm6iVYqZYKpnU53IT8jm8q0knqBz4vemytmZ6bQlJ8jVOuW7PtJBhWAelILpNf/GsIx3uWOQnwVseacG8AzPBDNn8rGJ9N6JMbZPUy5mcRYYt3cNvfQZUDRdmvlBtqPKjIWibc5+BN9rLs/a2/s1hqlgoLsnjhJlqSEbdGTLML1b3D1exdEeBLPkqeS8/zg9gDvnItv1U6VSTHC0nEwdEnYAMpgQ0l5YbFoZfOpa0qXmJnVe19LhLMQl344VNHIFWSGZdQAZXUF+emsD+JObx5lnBA7mjPLKLLNsfZPkMhWk5eRQwgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
+ b=P0eGoPwWdEz/HlbmUr5/ectdD4YyLNJWKsfhCzI5W3QX10vMjmbHZsIHeLVTBgG/w8PYElZL35rl4jYbTDRxvIoIzC1HP4LxaMeJsQ5ChwleqTlGwQwZ/5szbijwHSJqPO1xcuXNempTqBkbtIsTBnyGxEP73MJeRazFIzlo93wC321tp5xtl+LYoEM8BGU8w//bjbjZjmVb6OuMeL3GzY0Mi3mbNw840ET4MUnLdbl/KbBypKVxjn/HVnxO8T2OYmAdMKe2gc8aB/0dQD6ChUeEM96n7YrGbKD5JaISRrZK8rfeQ0FbQhhfUN0+x6J8ojYYAa/KMtqLB3McaN01ZQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
+ dkim=pass header.d=garyguo.net; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
+ b=mM0kYcc3EoW5HpdlRmd7JXV2lsxXk9fCBIPUNEfykJsRNYXi7q81lDrlhZsgViz7eA5BTIbqR3mhwLmgs3pgyqwn+MiCUGkuV92r5mpluRUlLXSYXm34f2Ae2b8UcF0Fj2F4ZZi9j0r54JA4srNM24Pgc1m93Gk704jLnlFN/uo=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=garyguo.net;
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
+ by LO6P265MB6144.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b0::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
+ 2026 19:08:33 +0000
+Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
+ 19:08:32 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 05 Aug 2026 20:08:31 +0100
+Message-Id: <DKH8VYS6DMRS.1K1JHX4IVMYZ0@garyguo.net>
+Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linaro-mm-sig@lists.linaro.org>, <rcu@vger.kernel.org>
+Subject: Re: [PATCH v9 3/5] rust: sync: Add abstraction for rcu_barrier()
+From: "Gary Guo" <gary@garyguo.net>
+To: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
+ <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
+ <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
+ "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
+ <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
+ <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
+ <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Paul E.
+ McKenney" <paulmck@kernel.org>, "Frederic Weisbecker"
+ <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
+ "Joel Fernandes" <joelagnelf@nvidia.com>, "Josh Triplett"
+ <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
+ Rostedt" <rostedt@goodmis.org>, "Mathieu Desnoyers"
+ <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
+ "Zqiang" <qiang.zhang@linux.dev>, "Greg Kroah-Hartman"
+ <gregkh@linuxfoundation.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
+ "Burak Emir" <bqe@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "FUJITA
+ Tomonori" <fujita.tomonori@gmail.com>, "Eliot Courtney"
+ <ecourtney@nvidia.com>, "Mirko Adzic" <adzicmirko97@gmail.com>, "Timur
+ Tabi" <ttabi@nvidia.com>, "Daniel del Castillo"
+ <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>
+X-Mailer: aerc 0.21.0
+References: <20260805145949.938505-2-phasta@kernel.org>
+ <20260805145949.938505-5-phasta@kernel.org>
+In-Reply-To: <20260805145949.938505-5-phasta@kernel.org>
+X-ClientProxiedBy: LO4P265CA0142.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c4::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:4ab::19)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6144:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	WSzDE6KP42SAODiL4HCeH/KDX9JNnAmMYbM7iKBacaJBfR1oxy1At2VZq2iiR74MuRqxGjImHl7paX2Nu4tvLPI3Pad1Gy2PCACGiio7qf6kKjZDqMX62Z9YNDCo3Eabc+blqipBRmw584r2pV5BtYF/kOXfEP9eqrLp3qK1xzSeOAyNSj55H+pkVQ7mBQNUKnYTf7vGsN+mzMOdCWgPZdbcO6PvwgkdD1sWtFwjZbz6mtB28rBnEmnbCYQPUYhif8r+PGp79FKZV+lUsWVr4dJnI62HGJgWjJA3OB/aFMtxonRMbQtnewmVfqThY+zbeWCVCvFOBj/4qzubeFWRY15VoQNqt3rdDdJDCtTMw7T1AoeFwEmfrVIq37K2S3eBtC1T9K8x5GbDx6GGzn1AhEO8zELTY6llOFyjY1HEdJ0v/LQ/oZF7vpwMkJ80Oe3FT+30w0/uArtBUOcClh+IwyhLWXbFhDGsU9UVdzNFFQwC8lu0jFLXg0mNhYuCfTu8KgZiEUQ0KZW4VOJL3uZsNPCyr9o0Hi+VPER2H9Wt6Fk6BoDXpFnzU6UiaBgp504NacBWiVW5CZryKr2MI2gGkgWHONy1AP0+CNj7x65E7G7C7Q4E3+w2k+zPtCJHn1IucFcM6EV3c/xUc4l7YaCW3cJGi4186KS2Lus1v5BmbsZcY1ypaPzbGfsO+nwEBQZ8oj1fwkhkw2btZpJnQfV78A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?NGIxZFpvekJ0eVgyNzlIdjZrY29rMWwvK0IxVWRCNjFCRlJDdzRGc2xubFZ1?=
+ =?utf-8?B?eXlKWldLZGEwRHRTMmlTU2xrNUM3TzVLQ0lpN2JtbVlsSmFxOWFvNTJzcnkw?=
+ =?utf-8?B?R0xRZm9KUDYvemQ4MVZFb3lvbmplU2hFb09kaDZ4dEIwSWo4QWszRUhrdHNr?=
+ =?utf-8?B?anRkTkZva0tzYnNvVk9NMDd5cUlvUU9GMDFBRHlSY2NHUVh6T2FhR2NMWXI1?=
+ =?utf-8?B?cENlT0lXVUdsNCtTR1dTRGNTbk5RZ3ludDd0L0RLYk5TYkNzUEN4SU42NUow?=
+ =?utf-8?B?Y24wWVljRU8zaHZOZ1UyRTcwQ2dCS2hyMXY1Sk9HeU13RDgzNG9HQ3cyZVJI?=
+ =?utf-8?B?QVFMOHdvTXlHUzRjcllMMDRBQjFIR1hQVEUrbGJmMnBCcDB3UTBaazdpNkZn?=
+ =?utf-8?B?d3QxaFBoSzNzRFJ6WlNsQkJ6Tk0wK09qMGc3SVlCOTVFKzFBVllReTlMMGRS?=
+ =?utf-8?B?eUdTUkVONWZ1ZnI4NUdFeE54Z21EQkdLdnpzMzBpcFpzcDNuUUhZWGRxemxo?=
+ =?utf-8?B?MFlIVml2bjkvVitxNmM2MDZCYTk2Vm1KRDBCWUg5YXMzVXpldDJ1VHZLc2p1?=
+ =?utf-8?B?dkpNMms3cDkrQjRUeldXMHE2Qzl1bkFPZVJqdko1WTdzQnRHeHhYU2hDUmh4?=
+ =?utf-8?B?LzRqcHYwQk14Z0NTanlGY2ZpMmJVQ3ZlZHFscG5QZ0lqZmZORHNMQVpXeFlV?=
+ =?utf-8?B?WG5PUVVvVkxISk42N0NkWE45cXQ4MCsxWjhwUHRnY3pZV0d6dW0zeWFPQXh1?=
+ =?utf-8?B?QmRDNTJiZWZnR2RFQ0ZJNk5kaTR4SklyREdMdGd4ZktJVThrdjQxWUgyS21x?=
+ =?utf-8?B?QXlqY3FkNnhyOVZzcHJQcWQ5U1lnTTVjcGNwTzMwMnBlTWRQL0ZmcUpETEFn?=
+ =?utf-8?B?T1FRMkh3KzRqcmpockN5ZWh3ZlRiTEpoUDg4WU9HWEFRRUJ3aW9pMDlHMlZr?=
+ =?utf-8?B?M05jMWE5UXhTTHY2QmFTZkFOcWExM0RjMEFhMXlHaG4zVGRjV2t4eVRrVTcy?=
+ =?utf-8?B?M2IxdkM5dUFMZG9WUmJyTlcybzFIY3F4QjV2SGU0VkhwT0VMTHc3UmJqWFJj?=
+ =?utf-8?B?SXRFWGpPNkhZYXNoYTN5QjAvT2RCK3ZHZW1DWXh5V0lxNE5CR1Nlb3l6cHJQ?=
+ =?utf-8?B?b1RCN0dWR05KdHNXekRzUE9YbktVR2pKVDdqNnFvZ2lHbW9QNmV0QjlQblZu?=
+ =?utf-8?B?R2tSK1lHWnBTakE5UUFuaFNOZTZyN1h5NXVTamM5UkNacjg5aml0d3dBRDZI?=
+ =?utf-8?B?SVlXc2p2OVVDdXFZNk42aG82SXRPMFltbVhDV0VJSlJPM2FIT1ZuVUJWVmdQ?=
+ =?utf-8?B?ckF3dnMrNGlmVXNOUVFDdm1yNDJlZDJpeTczZzlXWlc1QUQ3VkpYTURXNVRK?=
+ =?utf-8?B?b3VwWDZKK2cyU2pqL24wNDQrVGZ2OTRwaHJDNncwSFBEU0NvVkxnWkRSS3FI?=
+ =?utf-8?B?U3A1WjVoOG03R2dlTUhCQnlGL3NyUmlIaHg0cFNOaEtFcFdBcGJxTDQyM3Fl?=
+ =?utf-8?B?QmhrckJMSnhNUDk0YytCTXcwbHBHcm9wOEVvMUlIc29YVk1DWTZWckxMdWtv?=
+ =?utf-8?B?NkVnZ0hDUUVDcGlMOVFUc3pSVGVIbXNCUGJ0U092Q0ZyNlNWV0pXNmM3VWlB?=
+ =?utf-8?B?NDd0RlZmUEU4WGE3OE11TnNEMUNYSFd1anlQWlowdmtQNGYyRXBoS3hmd0ha?=
+ =?utf-8?B?VDIraUlVY1ZTNTBaOGZmdnBINTNRM2hqaVFGWGhIdjk0WTMwaTlDY1E0ejdo?=
+ =?utf-8?B?aWIwN0FTbzllbjJEMHBIQWRiSk5MTUlsbXVBWENvUFNIbGV0dVJLRTYwekZj?=
+ =?utf-8?B?RFJPeWc5dXIzZkwySmdDRCsyT1dySStCTExXVHVGNklCT0tWTC9QbHRSbFk2?=
+ =?utf-8?B?M0M2RkNYSkhCM3JOaUxHaERKOFhBRTlqeTB5bUVwYlhVNStXdk1oTXNySTFE?=
+ =?utf-8?B?TGVvL2hobm5hU2Q5QkF1ZVRUWWVKWkg3SkRHZkwrRjh0OGZvcFcyZU1FTms4?=
+ =?utf-8?B?OC9lQlJ4RVVqNGorVWVaN3hRalFnTS9FTE1GZDc0dnRuMVNFN3RsYmJkZ1Jt?=
+ =?utf-8?B?NzFvNk9pY3NEYVJvYnpyWGhkaUNUelN6d1lxT0VyNjZnZnh6MTd5aXhlSys0?=
+ =?utf-8?B?Q3lwWmVXVDd3NkkvS09MRVFOZzlyczFKK29rTEgxaFBlWUR0aUptbjF0cWtw?=
+ =?utf-8?B?YnlGRGJPbERYV20xQzNMazZmZXEydk5IQzY4RElqT1NzYzV6ZnFaRi9HS0Q1?=
+ =?utf-8?B?M2psMkpnck8xNldEOG1JRkUwSnlheHhHcVpwTG9KRDRVd3phRVNrQXhRWm9y?=
+ =?utf-8?B?MDlqeWF6Q2dmWDNUUUxLMkhQdGlUWE5kQlVhazdEWXRhYjdyNmh2QT09?=
+X-OriginatorOrg: garyguo.net
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
+X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 19:08:32.8749
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 6nFcTt7H9AWK5ztZlB4E2xOwgxY5cavNJmVE+BDlEZAW7cZL+Klsd8cDFWSQeNFNXoakwB16WeQ1dXVnXKzjjw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6144
 
-The rtl8723bs driver implemented its own custom circular buffer
-(rtw_cbuf) for c2h event handling. The kernel already provides a standard,
-lockless circular buffer implementation in <linux/kfifo.h>.
+On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
+> rcu_barrier() is a frequently used C function which is always safe to be
+> called.
+>
+> Add a safe abstraction for rcu_barrier().
+>
+> Signed-off-by: Philipp Stanner <phasta@kernel.org>
+> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
 
-This patch replaces the custom rtw_cbuf struct and its associated
-functions with the standard kfifo API (kfifo_alloc, kfifo_put,
-kfifo_get, kfifo_is_empty, kfifo_free), simplifying the driver code
-and relying on the robust kernel infrastructure. Furthermore, the allocation
-size is simplified to C2H_QUEUE_MAX_LEN, dropping the vestigial + 1 that
-the original naive ring buffer required to disambiguate full from empty.
+Acked-by: Gary Guo <gary@garyguo.net>
 
-Suggested-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Signed-off-by: Ashmit Kumar <work.ashmitkumar@gmail.com>
----
-Changes in v4:
- - Abandoned ternary operator style fixes in favor of completely
-   replacing the custom rtw_cbuf ring buffer with the standard Linux
-   kfifo API, as suggested by Greg Kroah-Hartman.
+> ---
+>  rust/kernel/sync/rcu.rs | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
+> index a32bef6e490b..7031ca5d2473 100644
+> --- a/rust/kernel/sync/rcu.rs
+> +++ b/rust/kernel/sync/rcu.rs
+> @@ -50,3 +50,23 @@ fn drop(&mut self) {
+>  pub fn read_lock() -> Guard {
+>      Guard::new()
+>  }
+> +
+> +/// Wait until all in-flight call_rcu() callbacks complete.
 
-Changes in v3:
- - Formatted as a standalone patch (removed 1/3 series numbering).
+This misses some `` quoting but these can be applied on fixup.
 
-Changes in v2:
- - Fixed patch formatting and versioning issues.
+Best,
+Gary
 
-Changes in v1:
- - Initial submission addressing ternary operator style issues in rtw_cbuf.
+> +///
+> +/// Note that this primitive does not necessarily wait for an RCU grace =
+period
+> +/// to complete.  For example, if there are no RCU callbacks queued anyw=
+here
+> +/// in the system, then rcu_barrier() is within its rights to return
+> +/// immediately, without waiting for anything, much less an RCU grace pe=
+riod.
+> +/// In fact, rcu_barrier() will normally not result in any RCU grace per=
+iods
+> +/// beyond those that were already destined to be executed.
+> +///
+> +/// In kernels built with CONFIG_RCU_LAZY=3Dy, this function also hurrie=
+s all
+> +/// pending lazy RCU callbacks.
+> +///
+> +/// Note that this is one of the RCU primitives which must not be called=
+ in
+> +/// atomic context.
+> +#[inline]
+> +pub fn rcu_barrier() {
+> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just migh=
+t wait for a grace period.
+> +    unsafe { bindings::rcu_barrier() };
+> +}
 
- drivers/staging/rtl8723bs/core/rtw_cmd.c      | 16 ++--
- drivers/staging/rtl8723bs/hal/sdio_ops.c      |  2 +-
- .../staging/rtl8723bs/include/osdep_service.h | 14 ----
- drivers/staging/rtl8723bs/include/rtw_cmd.h   |  3 +-
- .../staging/rtl8723bs/os_dep/osdep_service.c  | 77 -------------------
- 5 files changed, 11 insertions(+), 101 deletions(-)
-
-diff --git a/drivers/staging/rtl8723bs/core/rtw_cmd.c b/drivers/staging/rtl8723bs/core/rtw_cmd.c
-index ce3dfa1fee26..424aa180eecc 100644
---- a/drivers/staging/rtl8723bs/core/rtw_cmd.c
-+++ b/drivers/staging/rtl8723bs/core/rtw_cmd.c
-@@ -202,8 +202,7 @@ int rtw_init_evt_priv(struct evt_priv *pevtpriv)
- 
- 	_init_workitem(&pevtpriv->c2h_wk, c2h_wk_callback, NULL);
- 	pevtpriv->c2h_wk_alive = false;
--	pevtpriv->c2h_queue = rtw_cbuf_alloc(C2H_QUEUE_MAX_LEN + 1);
--	if (!pevtpriv->c2h_queue)
-+	if (kfifo_alloc(&pevtpriv->c2h_queue, C2H_QUEUE_MAX_LEN, GFP_KERNEL))
- 		return -ENOMEM;
- 
- 	return 0;
-@@ -211,17 +210,17 @@ int rtw_init_evt_priv(struct evt_priv *pevtpriv)
- 
- void _rtw_free_evt_priv(struct	evt_priv *pevtpriv)
- {
-+	void *c2h;
-+
- 	_cancel_workitem_sync(&pevtpriv->c2h_wk);
- 	while (pevtpriv->c2h_wk_alive)
- 		fsleep(10 * USEC_PER_MSEC);
- 
--	while (!rtw_cbuf_empty(pevtpriv->c2h_queue)) {
--		void *c2h = rtw_cbuf_pop(pevtpriv->c2h_queue);
--
-+	while (kfifo_get(&pevtpriv->c2h_queue, &c2h)) {
- 		if (c2h && c2h != (void *)pevtpriv)
- 			kfree(c2h);
- 	}
--	kfree(pevtpriv->c2h_queue);
-+	kfifo_free(&pevtpriv->c2h_queue);
- }
- 
- void _rtw_free_cmd_priv(struct	cmd_priv *pcmdpriv)
-@@ -1695,12 +1694,13 @@ static void c2h_wk_callback(struct work_struct *work)
- 	struct evt_priv *evtpriv = container_of(work, struct evt_priv, c2h_wk);
- 	struct adapter *adapter = container_of(evtpriv, struct adapter, evtpriv);
- 	u8 *c2h_evt;
-+	void *c2h_ptr;
- 	c2h_id_filter ccx_id_filter = rtw_hal_c2h_id_filter_ccx(adapter);
- 
- 	evtpriv->c2h_wk_alive = true;
- 
--	while (!rtw_cbuf_empty(evtpriv->c2h_queue)) {
--		c2h_evt = (u8 *)rtw_cbuf_pop(evtpriv->c2h_queue);
-+	while (kfifo_get(&evtpriv->c2h_queue, &c2h_ptr)) {
-+		c2h_evt = (u8 *)c2h_ptr;
- 		if (c2h_evt) {
- 			/* This C2H event is read, clear it */
- 			c2h_evt_clear(adapter);
-diff --git a/drivers/staging/rtl8723bs/hal/sdio_ops.c b/drivers/staging/rtl8723bs/hal/sdio_ops.c
-index da2d9088ab5a..e39faed1f195 100644
---- a/drivers/staging/rtl8723bs/hal/sdio_ops.c
-+++ b/drivers/staging/rtl8723bs/hal/sdio_ops.c
-@@ -763,7 +763,7 @@ void sd_int_dpc(struct adapter *adapter)
- 			}
- 		} else {
- 			/* Error handling for malloc fail */
--			rtw_cbuf_push(adapter->evtpriv.c2h_queue, NULL);
-+			kfifo_put(&adapter->evtpriv.c2h_queue, NULL);
- 			_set_workitem(&adapter->evtpriv.c2h_wk);
- 		}
- 	}
-diff --git a/drivers/staging/rtl8723bs/include/osdep_service.h b/drivers/staging/rtl8723bs/include/osdep_service.h
-index 2f5011a8210c..6feeb1351faa 100644
---- a/drivers/staging/rtl8723bs/include/osdep_service.h
-+++ b/drivers/staging/rtl8723bs/include/osdep_service.h
-@@ -36,18 +36,4 @@ extern void rtw_free_netdev(struct net_device *netdev);
- void rtw_buf_free(u8 **buf, u32 *buf_len);
- void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len);
- 
--struct rtw_cbuf {
--	u32 write;
--	u32 read;
--	u32 size;
--	void *bufs[];
--};
--
--bool rtw_cbuf_full(struct rtw_cbuf *cbuf);
--bool rtw_cbuf_empty(struct rtw_cbuf *cbuf);
--bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf);
--void *rtw_cbuf_pop(struct rtw_cbuf *cbuf);
--struct rtw_cbuf *rtw_cbuf_alloc(u32 size);
--
--
- #endif
-diff --git a/drivers/staging/rtl8723bs/include/rtw_cmd.h b/drivers/staging/rtl8723bs/include/rtw_cmd.h
-index 2e791da7e815..62e6b9011625 100644
---- a/drivers/staging/rtl8723bs/include/rtw_cmd.h
-+++ b/drivers/staging/rtl8723bs/include/rtw_cmd.h
-@@ -8,6 +8,7 @@
- #define __RTW_CMD_H_
- 
- #include <linux/completion.h>
-+#include <linux/kfifo.h>
- 
- #define C2H_MEM_SZ (16*1024)
- 
-@@ -58,7 +59,7 @@
- 	struct	evt_priv {
- 		struct work_struct c2h_wk;
- 		bool c2h_wk_alive;
--		struct rtw_cbuf *c2h_queue;
-+		DECLARE_KFIFO_PTR(c2h_queue, void *);
- 		#define C2H_QUEUE_MAX_LEN 10
- 
- 		atomic_t event_seq;
-diff --git a/drivers/staging/rtl8723bs/os_dep/osdep_service.c b/drivers/staging/rtl8723bs/os_dep/osdep_service.c
-index 4cfdf7c62344..1db1c5aff530 100644
---- a/drivers/staging/rtl8723bs/os_dep/osdep_service.c
-+++ b/drivers/staging/rtl8723bs/os_dep/osdep_service.c
-@@ -122,80 +122,3 @@ void rtw_buf_update(u8 **buf, u32 *buf_len, u8 *src, u32 src_len)
- 		kfree(ori);
- }
- 
--/**
-- * rtw_cbuf_full - test if cbuf is full
-- * @cbuf: pointer of struct rtw_cbuf
-- *
-- * Returns: true if cbuf is full
-- */
--inline bool rtw_cbuf_full(struct rtw_cbuf *cbuf)
--{
--	return (cbuf->write == cbuf->read - 1) ? true : false;
--}
--
--/**
-- * rtw_cbuf_empty - test if cbuf is empty
-- * @cbuf: pointer of struct rtw_cbuf
-- *
-- * Returns: true if cbuf is empty
-- */
--inline bool rtw_cbuf_empty(struct rtw_cbuf *cbuf)
--{
--	return (cbuf->write == cbuf->read) ? true : false;
--}
--
--/**
-- * rtw_cbuf_push - push a pointer into cbuf
-- * @cbuf: pointer of struct rtw_cbuf
-- * @buf: pointer to push in
-- *
-- * Lock free operation, be careful of the use scheme
-- * Returns: true push success
-- */
--bool rtw_cbuf_push(struct rtw_cbuf *cbuf, void *buf)
--{
--	if (rtw_cbuf_full(cbuf))
--		return _FAIL;
--
--	cbuf->bufs[cbuf->write] = buf;
--	cbuf->write = (cbuf->write + 1) % cbuf->size;
--
--	return _SUCCESS;
--}
--
--/**
-- * rtw_cbuf_pop - pop a pointer from cbuf
-- * @cbuf: pointer of struct rtw_cbuf
-- *
-- * Lock free operation, be careful of the use scheme
-- * Returns: pointer popped out
-- */
--void *rtw_cbuf_pop(struct rtw_cbuf *cbuf)
--{
--	void *buf;
--
--	if (rtw_cbuf_empty(cbuf))
--		return NULL;
--
--	buf = cbuf->bufs[cbuf->read];
--	cbuf->read = (cbuf->read + 1) % cbuf->size;
--
--	return buf;
--}
--
--/**
-- * rtw_cbuf_alloc - allocate a rtw_cbuf with given size and do initialization
-- * @size: size of pointer
-- *
-- * Returns: pointer of srtuct rtw_cbuf, NULL for allocation failure
-- */
--struct rtw_cbuf *rtw_cbuf_alloc(u32 size)
--{
--	struct rtw_cbuf *cbuf;
--
--	cbuf = kzalloc_flex(*cbuf, bufs, size);
--	if (cbuf)
--		cbuf->size = size;
--
--	return cbuf;
--}
--- 
-2.51.0.windows.1
 
