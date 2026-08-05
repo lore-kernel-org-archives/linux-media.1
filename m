@@ -1,122 +1,155 @@
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com [209.85.160.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83D4C3DE44B
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 20:47:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A59A43E5A07;
+	Wed,  5 Aug 2026 20:51:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.191.154.188
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785962866; cv=none; b=Vy/4xyQfvFvyZjnToDmkcZm3adQyR4m3l+Wo57aCv+IYGHEY3sCPWUPVI3BEa688dc6JhRCpauIf1lZDKt6adkECfLl1Nc2hW0XUlcNnXjyZqXGfYd+X3S5PlcEzipTpViRB4tHcQjxCPA+u1ggEUkJVQFnm5LkEw2CyH6oG4uo=
+	t=1785963078; cv=none; b=bV1hqRHs/lEKsgKrK1iiNPb1dspxh+feG86OP29lFjBiDmqxfOtgV3GAB9Fqp/DDwW8yVPVqG7WWeeo7gwNCWTk5Jc+VNQkMGe+KTs4n3awTgg24S+5KVtbj8lyID+czIWeKNCn5n1NYXmU2MJowJbAW1WzgbkQiC1u0mdh4m/E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785962866; c=relaxed/simple;
-	bh=vdHkCJ+/Glc8aGhWZ+9VZu6loJVEoLi2/QJJuukYIo0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NUszaOaA2wz0cjqUy740o+VcmpmBxch++fomzun+1+NNsQNWfOsHoBCwDoWIyZsEjALg9h1DwODpPTT87sPd2l5zdINSSp/1SRQGldwjLuDwo9WQ/yDtypPWpQprOizsNZ0ZzosypDIRBfE1r6aK1kGDsuHAtGhLSKKp9NoXbZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fZ/e7J4E; arc=none smtp.client-ip=209.85.160.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1785963078; c=relaxed/simple;
+	bh=bPmAYb2IYLi84WYUPCIzt+1z6+/oIytSRI3tys1S4vM=;
+	h=Message-ID:Date:MIME-Version:To:Cc:References:From:In-Reply-To:
+	 Content-Type:Subject; b=H8L9ALD4lFdidLtYAcx/xuWFB4hTFZOZJNdA9sqVkZ++TBuIuXmJnHEJdfVwHygn1TTWKtW0dgMeBCRJLZHUf0X5hGRVip5i/PjvJflK++VFx0zRofiOKv0E4bskcFSs4AclMxBVbPzLYPrTOyrzDrNzm6UXi1KRdFcOpel1l5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com; spf=pass smtp.mailfrom=deltatee.com; dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b=B2nleLYT; arc=none smtp.client-ip=204.191.154.188
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=deltatee.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=deltatee.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fZ/e7J4E"
-Received: by mail-qt1-f175.google.com with SMTP id d75a77b69052e-5218927884fso14113101cf.3
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 13:47:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1785962863; x=1786567663; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
-        b=fZ/e7J4ExYoGHTMXUsqRbsjywkjr28M6SawtF3XqwIBsCwc3nYFPODNekklWyAqsC7
-         BrmlnOmCUe/SoFk3/vWBflrmYYKQxqTWUuwy3RInbmnZVJJjvBilxW1UPwe8CnQxTi26
-         VavLCNOw8S282e/ozwj3JO7WHYLYhfbFg8qAwa1seA5BRSwFhCaoWnXqGMNFKPL2xZ9B
-         rB1tWUUu9kB7A3yzm5NzKDiq8QqWbQsCHZ82D3FtmERWuUpa5yEzGaRFuxfl5NJzv09E
-         kpFeQbOXAxL77VqOhurN8QK7j4YWqMHuxz7vJAFUtb5y8X+CHY+7gbKhtfyas7jZ+a8J
-         EFyg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785962863; x=1786567663;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=m5G3Bj9i5eLT/ujfBhOPRMiKzFS7D44Om03rFcmwrNc=;
-        b=OKBgptHkxK/kUN1RumV+QhqwzFSDtfpOUBtNgW4aAMkammL58Hn+vaulFyM2/DgGOO
-         907r0rJqa44sx8IXVMxvcwsgg0Dh0qljmA071QhVRhAqkljbkjLJfm/x0B7W9fotxvJr
-         v0TV9eMEltMof7Ev1gzycITGElddBiUZD0RPwUt4YX0nDH6gD7Jxlkl7rmPsfntRS2cr
-         3xeqBaxpwoC3VJ2TbWcNhFmg/okXAU0JsV9M5sK6TR+GtYEhPhSfNfPgNa/0c4wNjvzF
-         J4lMYfSd96/vobDrrErNg9ekx+798KJhsOOa6UQ+9kD7wFESJARws8PlWdekGqrWeBf+
-         3zbg==
-X-Forwarded-Encrypted: i=1; AHgh+RqXqXTvVhyqsHBJBNEKIeKveszh4r9IO8Lz7to0wwRhN/HX4uj5iNCJrTEAnN32ZuxtJk0/GBrBVB2Q8A==@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywf01AJcM/fUWGkhXN+r/lUq1PbeDl5aeBijm+6mCRigQsjKKOZ
-	y7Fqp0ZiOUAZVJjQAuX7OXDNO2qqPDPXRsAVwKJi9GW9yM4Fm7g/c+1wyhj0n/O+
-X-Gm-Gg: AR+sD12fTeUZQDHDt5F6jjD9/CVMqMlyZPL31Ez8yj4CNl834np6Ho3qUzR2rbuQMpo
-	VsumqbXvj8wWV80R9vKq1ajWUCbhvxfh/vsgM4ImuzDMXf9BjiEMrXfH2LwMg3ICuY72nd47VuK
-	e7aukbCieEQIsGtcuVTCNbagLyDVktNWejfZ+Ju31RWoq7CymctX6osOmISc9EpvQfVsOC6PvNV
-	xUyCEbyxhZIdacbXFkCBNI3GQMQLqeWPv884kXAynPjNGufTn62XeMpYMMbddUdXj/iGO24lwK/
-	8YxdZKs0yzsCVIwX+X0VOndZnfrUap3Pj37m8jvyLtEH4DCQGTzudDn2dnfr8yNJLBgH5FdKa1J
-	EICtvVA7zcIDz55vF7QsNM2K3S+xId6xwCwfcG/w2tY1i+02kDYJUtHhE1NqcdedZ/ptRNAAeLL
-	MbMToD584MgoObbJI+GAyByoWr8N6D5lO8PuKQp5V9Wjif//iw2qS0n8LYsIU8H0v13OO8/De59
-	hVmv8NN70A8GGjgvg==
-X-Received: by 2002:ac8:5747:0:b0:52b:4f1a:5fde with SMTP id d75a77b69052e-52ce6073bd3mr101761921cf.19.1785962863280;
-        Wed, 05 Aug 2026 13:47:43 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52ce87a9403sm27951871cf.2.2026.08.05.13.47.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 05 Aug 2026 13:47:42 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hyunwoo Kim <v4bel@theori.io>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: Fix UAF in dvb_ca_en50221_io_release()
-Date: Wed,  5 Aug 2026 16:47:04 -0400
-Message-ID: <20260805204704.3789917-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=deltatee.com header.i=@deltatee.com header.b="B2nleLYT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=deltatee.com; s=20200525; h=Subject:In-Reply-To:From:References:Cc:To:
+	MIME-Version:Date:Message-ID:content-disposition;
+	bh=OVQs2iStLJLV1LuL3mHer5/8sWldCiZ2pfWHe8RSHTo=; b=B2nleLYTl/PeneSE7dR8lXX1mg
+	nJApBwd7MAx4rT/cNskor7qwZndKWsVN2eDBy1cQaMwtn3tSTgRdlYzDnTlWxPfAGKWnljYxE/EkD
+	uLXP/lP2gMFqcyUReTBIRs1tWAnjebu5tvEZYYA/IjrFOVkh1yDNzUScJThwCgZSDbhP6j9fKevmY
+	PKADoN2CSxH8xFGS4WKBf/yCrAOHwuK6CixSyksjqaHQvTk/ZBJ8zXZU0vPaIJJq1FMu9NIVW/crK
+	kyC58ekoblBVP9syZJFG6hH8ZIML5CSBhgMBeJMxGrQVo372RUjSV2wJ7lGmz17pwUiYIs3K8iMQp
+	qJK5vUAw==;
+Received: from d172-219-145-25.abhsia.telus.net ([172.219.145.25] helo=[192.168.11.155])
+	by ale.deltatee.com with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+	(Exim 4.98.2)
+	(envelope-from <logang@deltatee.com>)
+	id 1wriZp-00000000pZu-2PYL;
+	Wed, 05 Aug 2026 14:51:02 -0600
+Message-ID: <72c83c2e-fcbb-4925-ba50-5be01af359ad@deltatee.com>
+Date: Wed, 5 Aug 2026 14:50:46 -0600
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+To: Jason Gunthorpe <jgg@nvidia.com>, Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Alex Williamson <alex@shazbot.org>,
+ Alex Mastro <amastro@fb.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Kevin Tian <kevin.tian@intel.com>, Pranjal Shrivastava <praan@google.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Alistair Popple <apopple@nvidia.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
+ linux-pci@vger.kernel.org, Longfang Liu <liulongfang@huawei.com>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+ <20260715174737.15287-3-matt@ozlabs.org>
+ <e90b0bd0-fb8e-4d4e-b282-609c26692e4a@ozlabs.org>
+ <b30e75d8-37d6-478d-bc72-a9ed0b7e200c@deltatee.com>
+ <20260805003914.GK27883@nvidia.com>
+ <554c73c8-bc17-4336-8e38-f4cfe8d8b3fe@ozlabs.org>
+ <20260805164052.GQ27883@nvidia.com>
+Content-Language: en-US
+From: Logan Gunthorpe <logang@deltatee.com>
+In-Reply-To: <20260805164052.GQ27883@nvidia.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 172.219.145.25
+X-SA-Exim-Rcpt-To: jgg@nvidia.com, matt@ozlabs.org, leon@kernel.org, alex@shazbot.org, amastro@fb.com, bhelgaas@google.com, kevin.tian@intel.com, praan@google.com, mngyadam@amazon.de, dmatlack@google.com, bjorn@kernel.org, sumit.semwal@linaro.org, ankita@nvidia.com, christian.koenig@amd.com, apopple@nvidia.com, vivek.kasireddy@intel.com, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org, liulongfang@huawei.com
+X-SA-Exim-Mail-From: logang@deltatee.com
+X-Spam-Level: 
+Subject: Re: [PATCH v5 2/9] PCI/P2PDMA: Add CONFIG_PCI_P2PDMA_CORE
+X-SA-Exim-Version: 4.2.1 (built Sun, 23 Feb 2025 07:57:16 +0000)
+X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
 
-dvb_ca_en50221_io_release() drops the open file's reference to ca
-before testing ca->exit and unlocking ca->remove_mutex.
 
-If dvb_ca_en50221_release() concurrently drops the initial
-reference, the close path's put can be the final one and free ca. The
-following ca->exit access and mutex_unlock() then operate on freed
-memory.
 
-Keep the close path's reference until it has finished accessing ca
-and released remove_mutex. The reference also keeps ca->dvbdev alive
-while the wake-up condition is handled.
+On 2026-08-05 10:40, Jason Gunthorpe wrote:
+> On Wed, Aug 05, 2026 at 05:28:27PM +0100, Matt Evans wrote:
+>> Hi both (Logan thanks for your comments!),
+>>
+>> On 05/08/2026 01:39, Jason Gunthorpe wrote:
+>>> On Tue, Aug 04, 2026 at 10:19:11AM -0600, Logan Gunthorpe wrote:
+>>>
+>>>> There's a vague convention for this already: the term 'p2pmem' is often
+>>>> used for cases where the driver uses the allocator, etc. (I think I had
+>>>> this intention when I wrote the code and have since forgotten about
+>>>> it).
+>>>
+>>> I've been calling it the genalloc layer and the core layer. p2pmem
+>>> would be OK to refer to the genalloc stuff. So if you want to have
+>>> CONFIG_PCI_P2PDMA and CONFIG_PCI_P2PMEM that seem sOk
+>>>
+>>>> code into it's own file, potentially renaming some functions. Then, in
+>>>> the end, we would probably have a pcim_p2pdma_supported() function and a
+>>>> pcim_p2pmem_supported() function, the latter being used by existing use
+>>>> cases.
+>>>
+>>> Not quite sure why we need this?
+>>
+>> ( [1] )
+>>
+>>> Matt, the mlx5 stuff is the same as VFIO, it just uses the "core"
+>>> layer and does not use the genalloc. So there shouldn't be an issue
+>>> here, if the genalloc is off then the mlx5 stuff should still
+>>> work. There shouldn't be a case where CONFIG_PCI_P2PDMA=y and mlx5 is
+>>> broken?
+>>
+>> Oh, when CONFIG_PCI_P2PDMA=y it's all good.
+>>
+>> The issue is when CONFIG_PCI_P2PDMA=n, as mlx5 still seems to permit a
+>> DMABUF export solely because pcim_p2pdma_provider() succeeds.  (This
+>> patch's CONFIG_PCI_P2PDMA_CORE enables that.)  mlx5 assumes that getting
+>> a provider means P2P DMA is also available.
+> 
+> That's my point, the mlx5 should work fine with CONFIG_PCI_P2PDMA_CORE
+> only or it is split wrong.
+> 
+>> Later, DMABUF attach would fail, but it'd be good to keep the original
+>> failure mode where UVERBS_METHOD_DMABUF_ALLOC fails early if no P2PDMA.
+> 
+> Why does it fail? It should not fail :)
+> 
+>> I was thinking something trivial like the following would let things
+>> like IB fail the DMABUF_ALLOC early still, instead of making the
+>> assupmtion that having a provider means having P2P DMA.  E.g. OK
+>> provider's available, but test for P2P DMA support too:
+>>
+>>  bool pcim_p2pdma_supported(void)
+>>  {
+> 
+> it seems illogical, if you have a provider you have p2p dma, things
+> are split wrong if this is not true.
+> 
+> The split should be only around the genalloc and related
+> (sysfs,etc,etc) not anything mlx5 uses.
+> 
+> The only think that should stop working without genalloc (ie
+> CONFIG_PCI_P2PDMA=n) is nvme.
 
-Fixes: 280a8ab81733 ("media: dvb-core: Fix use-after-free due to race condition at dvb_ca_en50221")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/media/dvb-core/dvb_ca_en50221.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Hmm, seems I made a few mistakes in my reply. Though I'm less certain I
+understand the issue anymore.
 
-diff --git a/drivers/media/dvb-core/dvb_ca_en50221.c b/drivers/media/dvb-core/dvb_ca_en50221.c
-index 1b91ebb8f667..86df28c4aa4b 100644
---- a/drivers/media/dvb-core/dvb_ca_en50221.c
-+++ b/drivers/media/dvb-core/dvb_ca_en50221.c
-@@ -1787,8 +1787,6 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
- 
- 	module_put(ca->pub->owner);
- 
--	dvb_ca_private_put(ca);
--
- 	if (dvbdev->users == 1 && ca->exit == 1) {
- 		mutex_unlock(&ca->remove_mutex);
- 		wake_up(&dvbdev->wait_queue);
-@@ -1796,6 +1794,8 @@ static int dvb_ca_en50221_io_release(struct inode *inode, struct file *file)
- 		mutex_unlock(&ca->remove_mutex);
- 	}
- 
-+	dvb_ca_private_put(ca);
-+
- 	return err;
- }
- 
--- 
-2.43.0
+I did confuse in my response pcim_p2pdma_provider() and
+pcim_p2pdma_supported(). The later choice I really dislike. My thinking
+was we'd have two versions of pcim_p2p[dma|mem]_provider()... But I'm
+not sure that's necessary.
 
+I thought there were callers of pcim_p2pdma_provider() in the p2pmem
+code (non-core) section. But digging deeper today, it seems like
+pci_p2pdma_add_resource() is the one caller, which I'd expect would be
+compiled out when CONFIG_PCI_P2PDMA=n. Which seems fine. So I'm not sure
+I understand the root issue anymore.
+
+Logan
