@@ -1,213 +1,199 @@
-Received: from LO3P265CU004.outbound.protection.outlook.com (mail-uksouthazon11020109.outbound.protection.outlook.com [52.101.196.109])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01DED3A0E99;
-	Wed,  5 Aug 2026 19:08:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.196.109
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785956918; cv=fail; b=Gb5c2CoDP2l2cF4sFZeOlY71G2rKkebiqHtZ0Aljky5ZPC9r41vzzNROST3oF+l+Nyz7QsNF+4s3b0iBWociFriXKZJmmeiArvsSSpj4FUfFxaB47tWgYMMniazwXanRVFSO/aqglBjYjTRn8VNEhMLljNRhzltaxGIm5GP7MV4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785956918; c=relaxed/simple;
-	bh=xDsbwwRsMPaDRZnuaiClh2Sh8SG+E9TXpEKYfMXpbWA=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=f8UHHhug3nzbyUWCGE7vhrDQyA2vDW0YfQzor0DLZL6HkRPas1faY8rVIrHAjuT6UfQaGlyg+hV8DI9Wu9bV+OMMwISFndr4qfuIMIMfXX4+UJUOnu65LE6crPPJcwkmUVGo2gkXkPczV0hK1bJCf8L8D1JBwyY03daczOrWyTU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=mM0kYcc3; arc=fail smtp.client-ip=52.101.196.109
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB843DCD80;
+	Wed,  5 Aug 2026 19:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785959701; cv=none; b=nwNQvXrjcnufVe/9JfMQoV8SXoKRWv12mgBGgdI+UT32x5AQGTZq9UEbxNopJHY/G3HQL7bCBTQD0Z+AAfAY5oXK+r75RrUDuqCoGjyC6zRz94wWJucL2dGEO2iDrrysVcGm5zcc+Vfx0R2PchB6y/KRA6x/ESB9OVG81BUO8Ks=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785959701; c=relaxed/simple;
+	bh=EtE9eBuVezPblX0lgqzOCYUHC4jeotEPNRBqwukfnu8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=okEDrGuZ0XN4/+fTAl5O/xvCLKQMt7nXA28RUB+PEGVzOEJOrbGfwM3n+FzlSkzZU2bN7Ct1dcwzUTHTFiqdGZIsvGcdYeY61ZlS7SImh335/6MwgzGzwCYDwQn2HCJQtQIO/9N9lCFSmrivgSyWzbnERt4SjDJZIEApqWOU3d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=FRVNGm6v; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=I3AsTJO+; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="mM0kYcc3"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P1EOx/5fYvCLvqyrRdtevQrRsqSfeb3nZPTHm6iVYqZYKpnU53IT8jm8q0knqBz4vemytmZ6bQlJ8jVOuW7PtJBhWAelILpNf/GsIx3uWOQnwVseacG8AzPBDNn8rGJ9N6JMbZPUy5mcRYYt3cNvfQZUDRdmvlBtqPKjIWibc5+BN9rLs/a2/s1hqlgoLsnjhJlqSEbdGTLML1b3D1exdEeBLPkqeS8/zg9gDvnItv1U6VSTHC0nEwdEnYAMpgQ0l5YbFoZfOpa0qXmJnVe19LhLMQl344VNHIFWSGZdQAZXUF+emsD+JObx5lnBA7mjPLKLLNsfZPkMhWk5eRQwgg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
- b=P0eGoPwWdEz/HlbmUr5/ectdD4YyLNJWKsfhCzI5W3QX10vMjmbHZsIHeLVTBgG/w8PYElZL35rl4jYbTDRxvIoIzC1HP4LxaMeJsQ5ChwleqTlGwQwZ/5szbijwHSJqPO1xcuXNempTqBkbtIsTBnyGxEP73MJeRazFIzlo93wC321tp5xtl+LYoEM8BGU8w//bjbjZjmVb6OuMeL3GzY0Mi3mbNw840ET4MUnLdbl/KbBypKVxjn/HVnxO8T2OYmAdMKe2gc8aB/0dQD6ChUeEM96n7YrGbKD5JaISRrZK8rfeQ0FbQhhfUN0+x6J8ojYYAa/KMtqLB3McaN01ZQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sPp4m/WvIoiEWOkzVlhX0LmXd5VncSdZuqX8H4yeCTw=;
- b=mM0kYcc3EoW5HpdlRmd7JXV2lsxXk9fCBIPUNEfykJsRNYXi7q81lDrlhZsgViz7eA5BTIbqR3mhwLmgs3pgyqwn+MiCUGkuV92r5mpluRUlLXSYXm34f2Ae2b8UcF0Fj2F4ZZi9j0r54JA4srNM24Pgc1m93Gk704jLnlFN/uo=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4ab::19)
- by LO6P265MB6144.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:2b0::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 19:08:33 +0000
-Received: from LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1]) by LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- ([fe80::f60b:1537:68d7:4fc1%4]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 19:08:32 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 05 Aug 2026 20:08:31 +0100
-Message-Id: <DKH8VYS6DMRS.1K1JHX4IVMYZ0@garyguo.net>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rcu@vger.kernel.org>
-Subject: Re: [PATCH v9 3/5] rust: sync: Add abstraction for rcu_barrier()
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Paul E.
- McKenney" <paulmck@kernel.org>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Josh Triplett"
- <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
- "Burak Emir" <bqe@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Mirko Adzic" <adzicmirko97@gmail.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Daniel del Castillo"
- <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>
-X-Mailer: aerc 0.21.0
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-5-phasta@kernel.org>
-In-Reply-To: <20260805145949.938505-5-phasta@kernel.org>
-X-ClientProxiedBy: LO4P265CA0142.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:2c4::16) To LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4ab::19)
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="FRVNGm6v";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="I3AsTJO+"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1785959686; bh=R9UWx9HDr2ao7NFufthBQo0
+	JmWAgNGvgsDSNwDq7BuU=; b=FRVNGm6v2EwZRHcO/OIzYRoonQw/EsF+RiilhWFbStSVV8Kwao
+	bW0cFdiRcaPCNBwhDVC5FprJpBz4R8PnaXDXuyWwoEp6UCL9WXUQrosBSUbpl/ff7CZONu5MCfF
+	BCWLP4n0GbZaRa6dGypFVupgRVorJtWb2M22zF4aq7oUdWHWgnTmK4woSvtQiikEoLWwDR5jO/g
+	WpU2zwo2eirs2xnHGCUD5eQVj4vQuptuRvnkqUktvN1g7Ge+F7umfQ3sazXFtq4avM13grAOlhP
+	UbuBuO9Llqat/85PlE4UUr/6EzVJmNZCPHBGkeVTjMP4cdqQ3B/6ZDBTZ90TfkydxbA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Message-Id:Subject:Date:From; t=1785959686; bh=R9UWx9HDr2ao7NFufthBQo0
+	JmWAgNGvgsDSNwDq7BuU=; b=I3AsTJO+4ziQ+zoEbnl3gRWy9ga6umuyn55YD9njxFMAA3GxAp
+	suGtG3GLz6kRBND+Yw9NitXX5ksDiwmw00Bw==;
+From: Danila Tikhonov <danila@mainlining.org>
+Date: Wed, 05 Aug 2026 22:54:24 +0300
+Subject: [PATCH 1/4] dt-bindings: media: i2c: Add Sony IMX471 CMOS Image
+ Sensor
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOAP265MB8560:EE_|LO6P265MB6144:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	WSzDE6KP42SAODiL4HCeH/KDX9JNnAmMYbM7iKBacaJBfR1oxy1At2VZq2iiR74MuRqxGjImHl7paX2Nu4tvLPI3Pad1Gy2PCACGiio7qf6kKjZDqMX62Z9YNDCo3Eabc+blqipBRmw584r2pV5BtYF/kOXfEP9eqrLp3qK1xzSeOAyNSj55H+pkVQ7mBQNUKnYTf7vGsN+mzMOdCWgPZdbcO6PvwgkdD1sWtFwjZbz6mtB28rBnEmnbCYQPUYhif8r+PGp79FKZV+lUsWVr4dJnI62HGJgWjJA3OB/aFMtxonRMbQtnewmVfqThY+zbeWCVCvFOBj/4qzubeFWRY15VoQNqt3rdDdJDCtTMw7T1AoeFwEmfrVIq37K2S3eBtC1T9K8x5GbDx6GGzn1AhEO8zELTY6llOFyjY1HEdJ0v/LQ/oZF7vpwMkJ80Oe3FT+30w0/uArtBUOcClh+IwyhLWXbFhDGsU9UVdzNFFQwC8lu0jFLXg0mNhYuCfTu8KgZiEUQ0KZW4VOJL3uZsNPCyr9o0Hi+VPER2H9Wt6Fk6BoDXpFnzU6UiaBgp504NacBWiVW5CZryKr2MI2gGkgWHONy1AP0+CNj7x65E7G7C7Q4E3+w2k+zPtCJHn1IucFcM6EV3c/xUc4l7YaCW3cJGi4186KS2Lus1v5BmbsZcY1ypaPzbGfsO+nwEBQZ8oj1fwkhkw2btZpJnQfV78A==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NGIxZFpvekJ0eVgyNzlIdjZrY29rMWwvK0IxVWRCNjFCRlJDdzRGc2xubFZ1?=
- =?utf-8?B?eXlKWldLZGEwRHRTMmlTU2xrNUM3TzVLQ0lpN2JtbVlsSmFxOWFvNTJzcnkw?=
- =?utf-8?B?R0xRZm9KUDYvemQ4MVZFb3lvbmplU2hFb09kaDZ4dEIwSWo4QWszRUhrdHNr?=
- =?utf-8?B?anRkTkZva0tzYnNvVk9NMDd5cUlvUU9GMDFBRHlSY2NHUVh6T2FhR2NMWXI1?=
- =?utf-8?B?cENlT0lXVUdsNCtTR1dTRGNTbk5RZ3ludDd0L0RLYk5TYkNzUEN4SU42NUow?=
- =?utf-8?B?Y24wWVljRU8zaHZOZ1UyRTcwQ2dCS2hyMXY1Sk9HeU13RDgzNG9HQ3cyZVJI?=
- =?utf-8?B?QVFMOHdvTXlHUzRjcllMMDRBQjFIR1hQVEUrbGJmMnBCcDB3UTBaazdpNkZn?=
- =?utf-8?B?d3QxaFBoSzNzRFJ6WlNsQkJ6Tk0wK09qMGc3SVlCOTVFKzFBVllReTlMMGRS?=
- =?utf-8?B?eUdTUkVONWZ1ZnI4NUdFeE54Z21EQkdLdnpzMzBpcFpzcDNuUUhZWGRxemxo?=
- =?utf-8?B?MFlIVml2bjkvVitxNmM2MDZCYTk2Vm1KRDBCWUg5YXMzVXpldDJ1VHZLc2p1?=
- =?utf-8?B?dkpNMms3cDkrQjRUeldXMHE2Qzl1bkFPZVJqdko1WTdzQnRHeHhYU2hDUmh4?=
- =?utf-8?B?LzRqcHYwQk14Z0NTanlGY2ZpMmJVQ3ZlZHFscG5QZ0lqZmZORHNMQVpXeFlV?=
- =?utf-8?B?WG5PUVVvVkxISk42N0NkWE45cXQ4MCsxWjhwUHRnY3pZV0d6dW0zeWFPQXh1?=
- =?utf-8?B?QmRDNTJiZWZnR2RFQ0ZJNk5kaTR4SklyREdMdGd4ZktJVThrdjQxWUgyS21x?=
- =?utf-8?B?QXlqY3FkNnhyOVZzcHJQcWQ5U1lnTTVjcGNwTzMwMnBlTWRQL0ZmcUpETEFn?=
- =?utf-8?B?T1FRMkh3KzRqcmpockN5ZWh3ZlRiTEpoUDg4WU9HWEFRRUJ3aW9pMDlHMlZr?=
- =?utf-8?B?M05jMWE5UXhTTHY2QmFTZkFOcWExM0RjMEFhMXlHaG4zVGRjV2t4eVRrVTcy?=
- =?utf-8?B?M2IxdkM5dUFMZG9WUmJyTlcybzFIY3F4QjV2SGU0VkhwT0VMTHc3UmJqWFJj?=
- =?utf-8?B?SXRFWGpPNkhZYXNoYTN5QjAvT2RCK3ZHZW1DWXh5V0lxNE5CR1Nlb3l6cHJQ?=
- =?utf-8?B?b1RCN0dWR05KdHNXekRzUE9YbktVR2pKVDdqNnFvZ2lHbW9QNmV0QjlQblZu?=
- =?utf-8?B?R2tSK1lHWnBTakE5UUFuaFNOZTZyN1h5NXVTamM5UkNacjg5aml0d3dBRDZI?=
- =?utf-8?B?SVlXc2p2OVVDdXFZNk42aG82SXRPMFltbVhDV0VJSlJPM2FIT1ZuVUJWVmdQ?=
- =?utf-8?B?ckF3dnMrNGlmVXNOUVFDdm1yNDJlZDJpeTczZzlXWlc1QUQ3VkpYTURXNVRK?=
- =?utf-8?B?b3VwWDZKK2cyU2pqL24wNDQrVGZ2OTRwaHJDNncwSFBEU0NvVkxnWkRSS3FI?=
- =?utf-8?B?U3A1WjVoOG03R2dlTUhCQnlGL3NyUmlIaHg0cFNOaEtFcFdBcGJxTDQyM3Fl?=
- =?utf-8?B?QmhrckJMSnhNUDk0YytCTXcwbHBHcm9wOEVvMUlIc29YVk1DWTZWckxMdWtv?=
- =?utf-8?B?NkVnZ0hDUUVDcGlMOVFUc3pSVGVIbXNCUGJ0U092Q0ZyNlNWV0pXNmM3VWlB?=
- =?utf-8?B?NDd0RlZmUEU4WGE3OE11TnNEMUNYSFd1anlQWlowdmtQNGYyRXBoS3hmd0ha?=
- =?utf-8?B?VDIraUlVY1ZTNTBaOGZmdnBINTNRM2hqaVFGWGhIdjk0WTMwaTlDY1E0ejdo?=
- =?utf-8?B?aWIwN0FTbzllbjJEMHBIQWRiSk5MTUlsbXVBWENvUFNIbGV0dVJLRTYwekZj?=
- =?utf-8?B?RFJPeWc5dXIzZkwySmdDRCsyT1dySStCTExXVHVGNklCT0tWTC9QbHRSbFk2?=
- =?utf-8?B?M0M2RkNYSkhCM3JOaUxHaERKOFhBRTlqeTB5bUVwYlhVNStXdk1oTXNySTFE?=
- =?utf-8?B?TGVvL2hobm5hU2Q5QkF1ZVRUWWVKWkg3SkRHZkwrRjh0OGZvcFcyZU1FTms4?=
- =?utf-8?B?OC9lQlJ4RVVqNGorVWVaN3hRalFnTS9FTE1GZDc0dnRuMVNFN3RsYmJkZ1Jt?=
- =?utf-8?B?NzFvNk9pY3NEYVJvYnpyWGhkaUNUelN6d1lxT0VyNjZnZnh6MTd5aXhlSys0?=
- =?utf-8?B?Q3lwWmVXVDd3NkkvS09MRVFOZzlyczFKK29rTEgxaFBlWUR0aUptbjF0cWtw?=
- =?utf-8?B?YnlGRGJPbERYV20xQzNMazZmZXEydk5IQzY4RElqT1NzYzV6ZnFaRi9HS0Q1?=
- =?utf-8?B?M2psMkpnck8xNldEOG1JRkUwSnlheHhHcVpwTG9KRDRVd3phRVNrQXhRWm9y?=
- =?utf-8?B?MDlqeWF6Q2dmWDNUUUxLMkhQdGlUWE5kQlVhazdEWXRhYjdyNmh2QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0f20ec9d-08b8-4b1e-c9df-08def324f16b
-X-MS-Exchange-CrossTenant-AuthSource: LOAP265MB8560.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 19:08:32.8749
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 6nFcTt7H9AWK5ztZlB4E2xOwgxY5cavNJmVE+BDlEZAW7cZL+Klsd8cDFWSQeNFNXoakwB16WeQ1dXVnXKzjjw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO6P265MB6144
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260805-imx471-v1-1-7be79f539ed8@mainlining.org>
+References: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
+In-Reply-To: <20260805-imx471-v1-0-7be79f539ed8@mainlining.org>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Kate Hsuan <hpa@redhat.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>, 
+ Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>, 
+ Luca Weiss <luca.weiss@fairphone.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Danila Tikhonov <danila@mainlining.org>
+X-Mailer: b4 0.15.2
 
-On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
-> rcu_barrier() is a frequently used C function which is always safe to be
-> called.
->
-> Add a safe abstraction for rcu_barrier().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
+Document the Sony IMX471 CMOS Image Sensor.
 
-Acked-by: Gary Guo <gary@garyguo.net>
+Signed-off-by: Danila Tikhonov <danila@mainlining.org>
+---
+ .../devicetree/bindings/media/i2c/sony,imx471.yaml | 123 +++++++++++++++++++++
+ 1 file changed, 123 insertions(+)
 
-> ---
->  rust/kernel/sync/rcu.rs | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
->
-> diff --git a/rust/kernel/sync/rcu.rs b/rust/kernel/sync/rcu.rs
-> index a32bef6e490b..7031ca5d2473 100644
-> --- a/rust/kernel/sync/rcu.rs
-> +++ b/rust/kernel/sync/rcu.rs
-> @@ -50,3 +50,23 @@ fn drop(&mut self) {
->  pub fn read_lock() -> Guard {
->      Guard::new()
->  }
-> +
-> +/// Wait until all in-flight call_rcu() callbacks complete.
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+new file mode 100644
+index 000000000000..9c6c7c55746f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx471.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx471.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX471 CMOS Image Sensor
++
++maintainers:
++  - Danila Tikhonov <danila@mainlining.org>
++
++description: |-
++  The Sony IMX471 is a diagonal 5.822 mm (Type 1/3.09) 16-megapixel
++  back-illuminated stacked CMOS active pixel image sensor with a 4656 x 3496
++  active pixel array and 1.0 um square pixels. It uses a Quad Bayer color filter
++  array, is programmable through an I2C interface, and outputs image data
++  through MIPI CSI-2.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx471
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    description: External input clock (19.2 MHz)
++    maxItems: 1
++
++  vana-supply:
++    description: Analog power supply (2.8 V)
++
++  vdig-supply:
++    description: Digital core power supply (1.05 V)
++
++  vif-supply:
++    description: I/O interface power supply (1.8 V)
++
++  reset-gpios:
++    description: Sensor reset (XCLR) GPIO
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++
++          link-frequencies:
++            maxItems: 1
++            items:
++              const: 200000000
++
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vana-supply
++  - vdig-supply
++  - vif-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,camcc-sc7280.h>
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camf_imx471: camera@1a {
++            compatible = "sony,imx471";
++            reg = <0x1a>;
++
++            vana-supply = <&vreg_camf_vana_2p8>;
++            vdig-supply = <&vreg_camf_vdig_1p1>;
++            vif-supply = <&vreg_cam_vio_1p8>;
++
++            clocks = <&camcc CAM_CC_MCLK0_CLK>;
++            assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
++            assigned-clock-rates = <19200000>;
++
++            reset-gpios = <&tlmm 20 GPIO_ACTIVE_LOW>;
++            pinctrl-0 = <&cam_mclk0_default>;
++            pinctrl-names = "default";
++
++            orientation = <0>;
++            rotation = <270>;
++
++            port {
++                camera_imx471_ep: endpoint {
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <200000000>;
++                    remote-endpoint = <&csiphy0_ep>;
++                };
++            };
++        };
++    };
++...
 
-This misses some `` quoting but these can be applied on fixup.
-
-Best,
-Gary
-
-> +///
-> +/// Note that this primitive does not necessarily wait for an RCU grace =
-period
-> +/// to complete.  For example, if there are no RCU callbacks queued anyw=
-here
-> +/// in the system, then rcu_barrier() is within its rights to return
-> +/// immediately, without waiting for anything, much less an RCU grace pe=
-riod.
-> +/// In fact, rcu_barrier() will normally not result in any RCU grace per=
-iods
-> +/// beyond those that were already destined to be executed.
-> +///
-> +/// In kernels built with CONFIG_RCU_LAZY=3Dy, this function also hurrie=
-s all
-> +/// pending lazy RCU callbacks.
-> +///
-> +/// Note that this is one of the RCU primitives which must not be called=
- in
-> +/// atomic context.
-> +#[inline]
-> +pub fn rcu_barrier() {
-> +    // SAFETY: `rcu_barrier()` is always safe to be called. It just migh=
-t wait for a grace period.
-> +    unsafe { bindings::rcu_barrier() };
-> +}
-
+-- 
+2.55.0
 
