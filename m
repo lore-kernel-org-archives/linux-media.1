@@ -1,248 +1,119 @@
-Received: from CWXP265CU010.outbound.protection.outlook.com (mail-ukwestazon11022078.outbound.protection.outlook.com [52.101.101.78])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FDA322A2E;
-	Wed,  5 Aug 2026 18:23:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.101.78
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785954213; cv=fail; b=qGDWoRo6Ql9VdZN5cjF47IkS4xKjjC/kV8cSxt4yqKqoBjotytXmLKF6gjjkWoI2ANat1oYoO3A8gUG3Xtu4OWU7jixVN1wv+nNFDnRXyYkbAObFigs/bEyrQmNk4fOukifQ5jQyd0Tab2x8iBeArBdzFdF/GtJGI+cw7KAwhFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785954213; c=relaxed/simple;
-	bh=UA/2VW0y0fAO4tgevF7w2H5xtMFl1zLCwJfzU3ddIeM=;
-	h=Content-Type:Date:Message-Id:From:To:Cc:Subject:References:
-	 In-Reply-To:MIME-Version; b=rFCNzNMnZjnrBTNqj4Yc5pqtPL4hmBxYM2Ix+Ngj6PdABIcm7dN3nblnymgORVGK3b8JQ9AKmt3GMw3iCxOx53wmMlEz7FKKB3FfulwOWDJ70TN1LDKo9gX6bkWfZhlxjLrvBsXzC6MvsEtcKZnGY+YzXOYGULl896yK/9MLt/I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=zFi/mz+Q; arc=fail smtp.client-ip=52.101.101.78
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57513D1CD7
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 18:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1785954215; cv=none; b=jdkOaMe443D7ZfC+Dg2Z2pt3ORMMHEjn3eRS/Ihn8o+Bo5Tjyx0uvN7fd6c/efF9+RFpzB2SVbi5lF+KTqk+pSmmbJN/TZIFL/r2pjLrecmLeNcy0dEES3r3OeKy1Y9J59uABDwDLk8dTHa3RWBjevI+m4eWAP/xr6ldHP2fSFc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1785954215; c=relaxed/simple;
+	bh=nTc8+Tr9zgaZd4gVBmuIHYRet4AbJ/Bf3Pe+JF6wnIU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uSCL2ZZStW0TziWHgwRoH2JcP/3NUAwfw4L4OXlReQsPElePOzl61ah59dPOMg+sjMgaMW554UIctmL2hxrUuP/1y90ftEQ2LeIRWFHzD7Pxtif1FLaXbDfkmJimZRz4JhV/ovJ0a4xI2SVAJ5LH9oOT3fK3FyEtsxM5zt0EYUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lHhUawkg; arc=none smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="zFi/mz+Q"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EHAeJyhflLcOXNnDDGxPYC5/EX83y0Og1rk0b9SfnIGU1tsKdsvkXZqmpErZClphMSBIPN9Rz/gZ5GZAhuSY8fRJNDde0alVgTRMOfMWft7V5p5ekn6QImSKR2XZby8n0tN1yEV1TclWd88njsmHbjGfkkbH0FXhjqXj35iHmPmB1w5xhU+abDkvj5X/rbmAvHgutTDAM632GxZJyCVDf141wBZe5SLrB2iYwavT8BFiCUiVU5BvOKfJNxE3qeHu66zvgtNI6J9YdaRYGD06bwjbtfJO8CL46Isblu7Cj4AklSqSGm7UjjZLmJgJYNJoCpb+JGNUlSQoYMGhr9FnzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sFpcatNQVqoR2ms9kLaS9qWyNaIgSnczUBr4mZyyYOA=;
- b=BLCKAAI6GMNyDO537EcHvPtVMJ3BQ3LyG9N6B4Ljyv41EZ9BXXMA2JnXK/sxj6RYfMHYhaNnu25MUhdsYNgX793tr28xfxtPjpZV0SlsG3yDczv9Fw/Z7sEDYiREO9XhGSokMJ4Yl6UWfWLWMGTullhIBEFLjB0wZFIIfEp/ChtgNcS4jVWJTqiblUtA3bX5pyYPkoJ2KL94hHH7cvyxj9M5RnWOUVZY5XUnSQLKuOHZV0FU/a5/0x6CoxZnkA/1hdc6sp2du9BQ57yf9j8VblmsV8k2+sVQzrdQMj1tVbF7QgMoLqKOAwA7nIEKLUlX0cFHWWJiED1biUyg8xau7A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sFpcatNQVqoR2ms9kLaS9qWyNaIgSnczUBr4mZyyYOA=;
- b=zFi/mz+Ql0zlRf1ZviGptHE31VPG49DQ0e02BtSQKg825UoQou/03+Wh/OaFB7BtSZshEeXqpv5y0bRTVkzWpkR9baPq3BlNIE+IlOqs739OPnEIBo3GZnbImIKxwrmg0GKYWkTeBeoUhUUbsKbP2DXfJk7weqdS0U7t2bdcaB0=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b3::9)
- by LO7P265MB7924.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:410::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Wed, 5 Aug
- 2026 18:23:27 +0000
-Received: from LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM
- ([fe80::5d79:38cf:117d:48ee]) by LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM
- ([fe80::5d79:38cf:117d:48ee%6]) with mapi id 15.21.0292.018; Wed, 5 Aug 2026
- 18:23:27 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 05 Aug 2026 19:23:26 +0100
-Message-Id: <DKH7XFS38HQR.3HCZEFK98I605@garyguo.net>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Paul E.
- McKenney" <paulmck@kernel.org>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Josh Triplett"
- <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
- "Burak Emir" <bqe@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Mirko Adzic" <adzicmirko97@gmail.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Daniel del Castillo"
- <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rcu@vger.kernel.org>
-Subject: Re: [PATCH v9 2/5] rust: types: implement ForeignOwnable for
- ARef<T>
-X-Mailer: aerc 0.21.0
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-4-phasta@kernel.org>
-In-Reply-To: <20260805145949.938505-4-phasta@kernel.org>
-X-ClientProxiedBy: LO4P123CA0694.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:37b::16) To LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b3::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lHhUawkg"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39ca300db70so12775471fa.2
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 11:23:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1785954212; x=1786559012; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=cOOcUtJpZgjZhcvvjYqKMWSAMDYUSI7q14I+SQGV0ow=;
+        b=lHhUawkgbNjMs9K5/AdKn1u4MpK3/7znDFDuvbA38I+b1Bxs1mZ0qOP+6pYCC9gL4p
+         Rubwl2jpbdjY44DbhuUTfIAT+wzl54ZqsoY/cUGqJqiFvDT6sVmCxKDAkx1O1PaE5J+7
+         5An/V/6WWPyzNlluzImxK2Nth33qqmc3nT3KU5NLaTbpIXc1S6PaYsCvlAq8weU/bdwC
+         WY731CCi2MuZBsjpRpBOpJZXA+tZnUDbJzCz8LwSIRASBJuEEEDlG1YTFJtAR8i1+LKK
+         urSe8oKmIufz0vc32XQUKoNUMlHI2bwDoexbajQPDtqmJ8sSvk5v18w8wUCtaly9ESty
+         kolQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1785954212; x=1786559012;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=cOOcUtJpZgjZhcvvjYqKMWSAMDYUSI7q14I+SQGV0ow=;
+        b=qwhRm/Qp4MTaUkkF1OfMwL1CKi4pVFgjsihiiPXvwKJ5XBZQOaO8MckorUmYP+/PMf
+         lfti6nldW01tRd0sIrRGnpmTPXkWa+kcrar0EH7VNzEpT7IuyfOfi1G5gmejQweJ+qdx
+         I/YwYmzntwLzZstc81cLbKEvMVQREnMN7QfsNA3T379liAdFElDsV7Lq1ohL4AV7M2Im
+         a1a+z11+x4cGS6RlrSGwLtY+EFm1W9Nk+cOHKz2f7MtLtut9aecMlezU/hrWQtWiWM/4
+         eTPmYOIz09LJm+wnvKa1KnYsT/UaKG8zTkOXKBS1XkvMdcI/vgV989C+4N2/Q2THnJ3H
+         SWtA==
+X-Forwarded-Encrypted: i=1; AHgh+Rr8bQKye+9WmwrWmx/qNSNLrUrW3L+xMn0jdDqh3GYjHLA7EECE+NTf0vGLIr4GGfocO6eEmK3sdCAXww==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLHy14MMsku5DMmAi4tvaa6re30BWKK0EPBOlpdhC7Vzpg3NDW
+	XOFaIN/VI6SY/63RK80pf1KNMVLdW4l2TmdNcg8aqZl9/3tev89/U7Sw
+X-Gm-Gg: AR+sD12882OTtU6JSWscas0XjhKfaOrbK7gtW2yJkRJKq1tqlWtdjHcIPieg8tX8zMI
+	Ft8UayD0w4LACzVp/W5u61YaDSNxeeQjzgn6vtTLxL4pDDx9K4qdfm/krkfgDC8CQkeBucTcfTC
+	RkZhhQTcJFuQc1fXpMiDhfFzKlr9QtCSexKj7E6NKnvu37uSYW3jttcFpv6pjO7xPWWJOlCes9S
+	Y2VMgczJxbUnQYtBNLsXRhBHG6XiWlbgbADTa/4yfbTVVaP/Md0FDfGo8x+y+iCyLjXtWlHYoLo
+	VDsgJJMc/fKN1ffj4k5D/GHW0H8lPKHzeH36avFcP+NFda6ThJnusHxZl3HRw4lCokbfw7lkid7
+	837/Ue/XxRdw2D5k8CHOmV6rnR8qaBvvUMLB9bHznc6jZzjg5ZXR4g6tlrjvxn3D/0F78dycLmj
+	u7VaJQY33oXhz2n4VEQHiFbvJg8ANCi30DbNaKRJeYJMLkHVpIle+lLnAsaIyBgJ+KU2XC5A==
+X-Received: by 2002:a05:651c:211e:b0:39b:1825:d56d with SMTP id 38308e7fff4ca-39fbb0662b3mr12618081fa.6.1785954211453;
+        Wed, 05 Aug 2026 11:23:31 -0700 (PDT)
+Received: from [192.168.243.250] ([94.229.19.199])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39fb9a32bb7sm11954811fa.29.2026.08.05.11.23.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 05 Aug 2026 11:23:31 -0700 (PDT)
+From: Nikolay Kulikov <nikolayof23@gmail.com>
+Subject: [PATCH 0/4] staging: media: ipu7: abi headers cleanup
+Date: Wed, 05 Aug 2026 21:23:04 +0300
+Message-Id: <20260805-ipu7_abi-v1-0-46d420cef267@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LO9P265MB8547:EE_|LO7P265MB7924:EE_
-X-MS-Office365-Filtering-Correlation-Id: d5cc73cd-862c-4300-74d8-08def31ea4ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|23010399003|10070799003|366016|1800799024|921020|6133799003|10067099003|56012099006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ksdYum5CUoXqb4R8JkDtMZ0he++pQffqjklGlNMbjw/kdKIhjyFhNuKUzkRWYq5ynf9R777pmnJANTULr2ICPcVecH0MhoYbaqH0eTT4ZbeqJXcuAY6dQbTn5lofkufT5/U9uVmOncikxAz0gdSaim/21S7a9MjXFuuXTQ3T36pgpZhi9TCFwR9RTcvZyl2U8b3pcCZnN5M1WML2sK82AicsvC7fL9wgQhTD++5wvj5IIziCTuldzH6/SDt1NwegpiBAWT5LyY15/K4gCJSCTPI1L59uLB+IPw9Z8KEpbmznmBVtrY6p/Uzm+IFoHBv3p4LPT2bqXDNokgDdYsMX/rvi+YL4OCoROswXd/uvQUtLfdTDvQQvlxf46hf/Vw4+WQ12nL8hq1p2kiU6n3kyvquocJvZaPM1bKXnyRLIqqvcj0aAtleFgrvJzk9NKE0JH9F7OAC1J3P44ilDSaVzI7fFjSs+M/V6zG8zxTz4MSlChL+gwSUTRyKuVdip6t3+CBSUR+VrUWShYRJw+Dp+HHp9CfgH7qm6AYeYYgzQT9XOGNS+GI8NDnEEuvt2T7SHjxMNZeTKgYEX5wdomSEegqY0VD0kX+iljtg3JgGwsBr8FC9hu0L41gvELBhDVgFTY5Vn86TY26rM+u0NP5ZhHGx34ctV4tYqSy3C7XfpODKJtNvZvoJM3DgYdGjKsJ4WrVph8JoJEAZNnNVu6Cbk5w==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(10070799003)(366016)(1800799024)(921020)(6133799003)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WWtnYWxROU5WZFpSczhHaTJTZVlPVjZycGJwQ21LM1BaSk5qSXpSMzREZFpG?=
- =?utf-8?B?ajFvUUdVb01SV1pEVmg4a1RnY0lDb2JXTHFlNkQ2OHdPVmFDa1Y4VWxZOU00?=
- =?utf-8?B?UVo4VWxqL3B3T1ZnM2x5NC9PMlNNSlZLVjN0M3dybzE3SDA4UTRYZy9CaHhB?=
- =?utf-8?B?SUR5dTNic3RQd1pMWUpXbzVKZHhtNWt6eWFlUHFXb2lEenBXMngrUm5mYlFV?=
- =?utf-8?B?VGgyYnJTemtBNTR5NGQyaHZ3c1NkZWNKdXowV0tDbm1HemM5Zk5Wd1VMS0tw?=
- =?utf-8?B?Nzcwck92Ni9CMUlSVGlzVktjNzFxUGxudDZqNWhhdlFvbm9NdWpTeU8yYkZx?=
- =?utf-8?B?dmhmUFBSdkoybklnczZrQ29pS24rWSt6V1ArNk5rYmlLblV2dVhGL3IyTFVk?=
- =?utf-8?B?c2NYOC8xUVJ6alc2VTZIUU9WT2k1Q054NnhvV1h5R25KY1QzYU5PRmlCdkQ4?=
- =?utf-8?B?WXRQTTJSOEtOeVQ1ZGt5NGxNV1U5azg4QVZOTGNvckRTUzh4ZHRVNm5EUEpF?=
- =?utf-8?B?b2xaNEFJc0FFTVNUSHI3ckVOOVZ5TVhLTFhCbU41VDhad1ZPMlBRUFNtVVgx?=
- =?utf-8?B?WUdxemw4RTRITEUwd2gwdzIvSDJyYkhlWmphMEt3UG9QRjA3UHZxamtzSDkr?=
- =?utf-8?B?a0NhUlMvYjdGODlNb2xyOGtwYm45MG1wWVVBTUhLTDZIcXRraUR4RHdUZE1v?=
- =?utf-8?B?MXhWVEFSOGxvenBPYTRpSWFZWlQrSjlOSCtJS3ZWRU1aK3J5ODRiSy9ZcUU3?=
- =?utf-8?B?RUhINjQzOEVSTGtvUnAwVjV6WEJLT1dQUGlqa2JMMUl3bVQ0U1U0UWZQcFJD?=
- =?utf-8?B?c1R5ZnppZzh3YXNRMnhlM1JIK0E2SlJLbW5PYXZoc3lVQ2F4NXF2ZVV1aXVa?=
- =?utf-8?B?MjFPd3JnMXpBbGw5MEQwaFdzVEV2blJtM01aTGhxWlVJdDJCSlJFbjUxVG03?=
- =?utf-8?B?SGlPc3g5MmVvUUpVSVBvazlBQUFuNFd2VW5Gb0dvSXM0b0pjTGc0eCtGdTFN?=
- =?utf-8?B?RGRwWWQzc2FJZ0g2L2loRDdQQzJrYWRpaXpEL1MvU0xvcjZPYlJNWVJ3YXMv?=
- =?utf-8?B?blZrNVBibUlSRTJFQ1duNUt2ekFOeS9nWG1EcExUU05OanQ1a2YxckNyZHFL?=
- =?utf-8?B?SEh5Z1FoWURMNWErWkwwZTFTcEd2Q0VmaTNwSStNMGpoTnUvSlNTUXBtNlpX?=
- =?utf-8?B?V1ZUKytnMGdvRHFKNEhrd3FEYnV1NUlTZXdUZS8xNEVQUTc5U1pMSmpGdndJ?=
- =?utf-8?B?d0pJTHJwMEp5cmlCUzl5TitGaTd0S0RaTnVISW1JSjJXbWJpcEFxaXI2N0Nt?=
- =?utf-8?B?cHo2dzlubDU5WUQ4OXJPWFAvM2ozamVSV0ZqU0s1am5RM0NJdXdHc3p4WGdR?=
- =?utf-8?B?RVlKUjh3K0REa0tmb2JsazNEd2VQRzkzWDl1S25PcXE2VDREVWNuaVRXclpU?=
- =?utf-8?B?czlSWXVmb2pGZ3N3WE11ajdOVVJPNXcycSs2d3Z4R0JTTUdMTFNKend2Y0k2?=
- =?utf-8?B?T1A1YXpyR3BybHhuK0V6R3lZZkZpQXd3cVlFMVF0OSttcXQzOEN5Nmx2c0hF?=
- =?utf-8?B?emQ4cVhOSUQ0Vi9GUks5UzBFVkMzK0o0OGxKMWpFbjYvTHdnc0NiVlFZN0hF?=
- =?utf-8?B?ZFRYWU5wdHM0WC91cEk4RXdBcWhrZUNtMHhsaDhHMm91ekJwSm9FNHU2ZFZV?=
- =?utf-8?B?YkZDYzRaKzBXUUJKbGVJdGRVWG10dVBQNFBUMldLRkgxbytPVlhiTkEvS2Fw?=
- =?utf-8?B?SThFdkR2K2YzYy9MYlBLU0dpcjdML2NwV1I4c09aSUZCNmZNcmZmV05XSGdU?=
- =?utf-8?B?MGdySnk5Nkc0NzVGblZuMHVoQWxEMnN3WHoyR1FITERndDVIY1M5ZWFwVFgy?=
- =?utf-8?B?T3gvNXk2b0tVNnI2RWlJcVdMa29KQVB5U3Q4d2JTM1VUWUFDSm9vSEp4TTAy?=
- =?utf-8?B?NnQvMkI4V2RYMVY4VTVqejd0dVNXa2x6RERZOW4vRHpPaTlLU25BQ2RHRFdx?=
- =?utf-8?B?d2RxNnBJVE93VHNmOW5OcW8rYjVhbFlOOSt3ZzRxQWRxL3lmRkdpTUN0TVM2?=
- =?utf-8?B?N1pDVElKVWRKaVZaZUhxZk1zRVBWU3Z0ejl6TTVYK1lTaGN2OEl2ek1uczM0?=
- =?utf-8?B?WUJ5Rm56d2dGV3ZGYWxhV01PWjRBTjFMUU4yaktodTliTEpLMmJOMndBUzEr?=
- =?utf-8?B?ZGp6eXF6YzN4U0ovT1ExZzFJQVlzTm1XazVTSHZNUWtaVklSM0U2d1QrZmZE?=
- =?utf-8?B?WnRrSlJrVjJKM3IvNjBtTThKQUN1MzV4bWkwRkFRYnNtZVptN3haTXYzUDkv?=
- =?utf-8?B?Tkwzd0FNcU5aNkg5bDNnSGxkeHJQb0Mrd0dxekZBU0cwRkxlNkE4Zz09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: d5cc73cd-862c-4300-74d8-08def31ea4ac
-X-MS-Exchange-CrossTenant-AuthSource: LO9P265MB8547.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Aug 2026 18:23:27.1471
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: MTcn1gVXZoQvUza3Qpf/adjIO2PP4DZckeVSDr7CXdno3hP8aWz4JD/R2kyLHiCWDn9QzsozSX43jHuCNi2LxQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO7P265MB7924
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM0QpAMBTG8VfRubbaLBteRdJwxnGBNqSWdzdc/
+ ur/fQE8OkIPVRLA4Ume1iVCpAn0k1lGZDREQ8YzxQsuGW2Hbk1HTOIgSqG1NbmCmG8OLV3fVd3
+ 89kc3Y7+/e7jvB+J31KJsAAAA
+X-Change-ID: 20260803-ipu7_abi-3ed19177fa56
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bingbu Cao <bingbu.cao@intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Nikolay Kulikov <nikolayof23@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1785954209; l=1194;
+ i=nikolayof23@gmail.com; s=20260402; h=from:subject:message-id;
+ bh=nTc8+Tr9zgaZd4gVBmuIHYRet4AbJ/Bf3Pe+JF6wnIU=;
+ b=c4irqDJ2R8+GXAKilehgj/HdtSJ/Cp5Ys6yzdaFmPQ37mvpN73t0GhoL0xiVbl7pqAobE0PUT
+ SpwqhgXNTDqC5MAbiT6TGOdtO4dn5PU+JoJCJGnaxYVjjTomLF4y1bq
+X-Developer-Key: i=nikolayof23@gmail.com; a=ed25519;
+ pk=2GWUU1isl5NJpkwSCQ4OG80EinZ3EUZXlrgAg6Pz5zI=
 
-On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
-> From: Danilo Krummrich <dakr@kernel.org>
->
-> Implement ForeignOwnable for ARef<T>, making it possible for C code to
-> own an ARef<T>.
->
-> Since ARef represents shared ownership, BorrowedMut is &T rather than
-> &mut T, matching the semantics of the underlying reference-counted type.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/sync/aref.rs | 40 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
->
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index b721b2e00b98..540766613659 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
-> @@ -24,6 +24,11 @@
->      ptr::NonNull, //
->  };
-> =20
-> +use crate::{
-> +    prelude::*,
-> +    types::ForeignOwnable, //
-> +};
-> +
->  /// Types that are _always_ reference counted.
->  ///
->  /// It allows such types to define their own custom ref increment and de=
-crement functions.
-> @@ -188,6 +193,41 @@ fn eq(&self, other: &ARef<U>) -> bool {
->  }
->  impl<T: AlwaysRefCounted + Eq> Eq for ARef<T> {}
-> =20
-> +// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so i=
-t's non-null. The
-> +// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's=
- aligned to `T`.
-> +unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
+This series cleans up unused definitions of structures, enums, and
+macros. Each one was identified and verified using 'git grep' across the
+entire driver.
+Verified by compilation.
 
-This doesn't need to be static, if you can add `where Self: 'a` on `Borrowe=
-d`
-and `BorrowedMut` instead.
+Signed-off-by: Nikolay Kulikov <nikolayof23@gmail.com>
+---
+Nikolay Kulikov (4):
+      staging: media: ipu7: remove unused structures from abi/ headers
+      staging: media: ipu7: remove unused abi/ macros
+      staging: media: ipu7: remove unused abi enums
+      staging: media: ipu7: remove unnecessary "#pragma pack()" directives
 
-Best,
-Gary
+ drivers/staging/media/ipu7/abi/ipu7_fw_boot_abi.h  |  86 -----
+ .../staging/media/ipu7/abi/ipu7_fw_common_abi.h    |  93 -----
+ .../staging/media/ipu7/abi/ipu7_fw_config_abi.h    |   3 -
+ drivers/staging/media/ipu7/abi/ipu7_fw_isys_abi.h  | 183 ---------
+ drivers/staging/media/ipu7/abi/ipu7_fw_msg_abi.h   | 421 ---------------------
+ .../media/ipu7/abi/ipu7_fw_psys_config_abi.h       |  24 --
+ .../staging/media/ipu7/abi/ipu7_fw_syscom_abi.h    |   1 -
+ 7 files changed, 811 deletions(-)
+---
+base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
+change-id: 20260803-ipu7_abi-3ed19177fa56
 
-> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
-> +
-> +    type Borrowed<'a> =3D &'a T;
-> +    type BorrowedMut<'a> =3D &'a T;
-> +
-> +    fn into_foreign(self) -> *mut c_void {
-> +        ARef::into_raw(self).as_ptr().cast()
-> +    }
-> +
-> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
-> +        // SAFETY: The safety requirements of this function ensure that =
-`ptr` comes from a previous
-> +        // call to `Self::into_foreign`.
-> +        let ptr =3D unsafe { NonNull::new_unchecked(ptr.cast()) };
-> +
-> +        // SAFETY: `ptr` came from `into_foreign`, which consumed an `AR=
-ef` without decrementing
-> +        // the refcount, so we can transfer the ownership to the new `AR=
-ef`.
-> +        unsafe { ARef::from_raw(ptr) }
-> +    }
-> +
-> +    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements of this method ensure that th=
-e object remains alive and
-> +        // immutable for the duration of 'a.
-> +        unsafe { &*ptr.cast() }
-> +    }
-> +
-> +    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements for `borrow_mut` are a supers=
-et of the safety
-> +        // requirements for `borrow`.
-> +        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
-> +    }
-> +}
-> +
->  impl<T, U> PartialEq<&'_ U> for ARef<T>
->  where
->      T: AlwaysRefCounted + PartialEq<U>,
-
+Best regards,
+--  
+Nikolay Kulikov <nikolayof23@gmail.com>
 
