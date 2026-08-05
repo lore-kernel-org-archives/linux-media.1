@@ -1,455 +1,1299 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 625CA470439
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 17:08:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A33DD3CF1FF
+	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 17:33:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785949714; cv=none; b=FmZTNLEb6LdBDD6Awb/aYqYaRGwQKRGQOi3+78oI+Q5r4fzm6G72kO6/1gxu24xnTOpmZtfXwAkB+vLz1yIdEgVALSLYmWC5tc2+4RFrxDHwBYneARl0DggLuaVAka5cjQ5SscqdswgICNbhmdgmWp+Kb3igXIqFEhsO3bmeWSM=
+	t=1785951191; cv=none; b=Eew457Tr8wx3igHNiqLZLtWbspaZJ3Hzb6lK3Jr8SWUDpcZhOFUQJ9D565LAkd2IDW+Q/fDRs6hwqdp80SYGkr2p0RYR53HpAGz+sgJHSaOLDDSlw+f3Oc3AkkSU3qEuusFLKvP6gOzbiz2H6nA0AxepRgK1+kVL1ndf6Plw3JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785949714; c=relaxed/simple;
-	bh=cDyybpxaJw0dN7XiSv5oVDTCSzkuk9r770BM+Foc2mo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=e47/z/MJXdbiI/RHB0xkjZYyk8ydMY8F3HPLisfFyak6/hwOrgd1mqAQ0i9UBa4Yo8z9RZ1a4bVVXeuhlhQu+yawGCWPVHLSRBsqbjDHLAdI2Z6KENlpB6lUWRW9YV5jIPxQz9PrBkB3oibOFUcei2lsezkCuJ436MBrxZ8FSJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hEb2OuOq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EGPACMiU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1785951191; c=relaxed/simple;
+	bh=oUNmQZ/hftpv1HqGKW+zMJkLWirRtWgdGjiQL/fJEXs=;
+	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=qV44tsV7rzDVfFId7NyHH0BX7YmjhZ2PMDGPmWu2s1NQk+Gjs01d34+/YoS331FZiV1oxod07u0hVTT3qHnpgzFpS+lBYihypVAWtalfHN5mX9CcBvSv1FT5vgOPZps1qm/+94qdNzsyq4h8JjUUrIaXmmgDrCrrUcYKpRj2/fQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PipBvgTa; arc=none smtp.client-ip=209.85.160.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hEb2OuOq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EGPACMiU"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 675FVS2R303080
-	for <linux-media@vger.kernel.org>; Wed, 5 Aug 2026 17:08:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	eU7mKjAnDcc2/wcEmoQ8anq7BCf/juwow6LHd13FvQM=; b=hEb2OuOqv4mSzHll
-	phvU3ZhD9ujTGe0AobaIoAJYdNSDOQxvQK+M+JC5CfF9YF4q0/mRAg4/9SpjfjQ2
-	+KuMHA/DCE056wApblXq/ORUJC+SQu+IAyI7VXeCOsfPh4qXhq8M1Q3eNc06+9OZ
-	BluzWWnC1UzJF4Hez2WUioK7pgPDBdO423J0GwIxFB9phtGervYNSNVo28BLnrY7
-	+2p+1ICA63DY9XoQlm7i9U4Tx00cGj765VDlzMCWV3H38r7NQjqz5GRGUg5rOYiN
-	+JTMc+oUdwvT/o8dEH0KgklxRWE2lg9xSa4Tg1t+ulcf0GF5cuuhEjinsw6w9f4+
-	HfugjQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fuu3um3ky-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 17:08:30 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2cca3673560so20410105ad.1
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 10:08:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PipBvgTa"
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51bfe3fa93bso12902891cf.2
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 10:33:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1785949710; x=1786554510; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eU7mKjAnDcc2/wcEmoQ8anq7BCf/juwow6LHd13FvQM=;
-        b=EGPACMiU623ioqUiM2r6v/HPgR/maGhr0gyXjYD/X+sOtbVcmFM40NhcGfdRwwULWQ
-         B0MuRwLN8afTmaAA0jl7fdChdHEJXHmrVGNGUJiH7ne8nYH0sZ9c+5NLhTbwhQyEpTHf
-         ge8JkXX/Kb1WAk7xFYZFSyFaqHFGaLmxHCZqazPEbTQ67B5Vn4IWLa/wG/um2ReL6A7o
-         7AjlM6YlYItLeRK5G4zh+rUleoTQfkU6T9yaAx+UriqiDaOegtCM9bpcIvRD7l7IszML
-         EAz7XNQYqVPcRZMacgn3njYPzmmsve6aTa5Cnm+L3N4v4uQ+MqKWaXnXtMNq3UtZm8yV
-         SCcQ==
+        d=google.com; s=20251104; t=1785951187; x=1786555987; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9Z9JNOm2+mMeRvt7EIqCe740uW7njeH/nio9TBQm4EA=;
+        b=PipBvgTa/jyRL1dHp9aC4lYVWnA4xJ41upOajumKaqwYn8i7zaKH+gy4GRi/VS+LZP
+         5GRNMOyui4F6WO6UN5adVQ3lGlGiH6P4YLkcJjVoW1h5rre0kOzCVQ4gt+UM0VMFyuTL
+         U1XUEuKSlxAEYD9Y19rWiJl/i/JqtYvlnWHAGCvmE8fO8jYE34+o2dmi30SP4lzvPF3r
+         7WSOUg9hzdxcodMSnxIN/qThSw5aBP0xhSTpsQocPqKGUC53SN5tLY2/qcVhhTWcuFHN
+         N5V7nMgsNARz0ZTQA0/nJtdYR6OLeLeIS6RqMy9BErvtJBgHZiDK+pNQnxNl5NNp8Csm
+         m1NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785949710; x=1786554510;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eU7mKjAnDcc2/wcEmoQ8anq7BCf/juwow6LHd13FvQM=;
-        b=WdKMsIFehlYdBn6pxZoCHAaMAk7Hm8Lq7TBu9BBMsnN09GHoS39Z2YB4XfLLvO2kqq
-         V/BFOOGTVDIpvbkan9hX47gkwZG+uWMmA0XQeQdZdZ33sTsQwfcFhN3v6QvwmJQXuyof
-         WWRuGqSqsvWUO+xKU382JwyrFgWZcRZF63TbrxL5OcPXSDVCLh6jE88a+6xPVjacrWSz
-         sZE6nhi+BUDyWygLHbc0/S9TGqqepvD1W/4emUvb/L9SdDF6pJEZa3oN+oppwDXa5w9B
-         UVnTxJT8jwY7XwoqKBqsYSnt+lnvTHsFyn5E5Ps6pvOLBRTBgJB1lAzLm37ZGkTBwHpY
-         Tktg==
-X-Gm-Message-State: AOJu0Yzg5zP5iIbC9Z+4y+Jt8rGcJ0jkzL0cQbMJrJG1IAGdUBi8s7RS
-	fhEHiH7xt2a3rBJWZISs/ebEH3Jk7bnBOTV//MKSKsmC8d+PZlWS50av0dYoZC0BFm1aCEzHzPE
-	GT13ckhIb1nTm7DC3ry8P1j9AR2XGIYmd7ER6AnoE3Bsm7kwV8dgesVt5IDFc5y9QZQ==
-X-Gm-Gg: AR+sD106oGlMExlMRVfPKMDYRLB97Y5VJjtWiIjZ4GnnlY3PwuPIeE3RWJxX6qIJGjC
-	x6hw3JpLyOUElNpGI9eMqkjQDWTd4n/++hTKPIzA7SQqQqKYMc8YxbjkOdJ/jssgwrkBML5MWX6
-	Kv4xKdaVN0cGNnOvLZKIGeGgSw/wtJqfABys14nH0OptX7qIjRXFO8Asw7DLWHaEkKfavHVFR1n
-	562ZPmFEXymhtViNILk7iNPVxF2pLNu7M4rh9Crt2AyQfOulDzm0NVRRfroBDR1vf3oSJyuTtyF
-	nof6fVUgfPhi/F9TEPM3KelNfYXNVDW0a265UcahQGGbCFkbjuVJGIZ6ZO0/MDb2LIt7RzC+3W5
-	2kTcGaa3ZbGcvUvfnkCiNgEnODB1+xbQ=
-X-Received: by 2002:a17:902:e948:b0:2ca:d658:d874 with SMTP id d9443c01a7336-2d0ca961e2dmr104775735ad.23.1785949709649;
-        Wed, 05 Aug 2026 10:08:29 -0700 (PDT)
-X-Received: by 2002:a17:902:e948:b0:2ca:d658:d874 with SMTP id d9443c01a7336-2d0ca961e2dmr104774915ad.23.1785949709070;
-        Wed, 05 Aug 2026 10:08:29 -0700 (PDT)
-Received: from [192.168.0.6] ([183.83.142.209])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31586401627sm21507802eec.10.2026.08.05.10.08.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 05 Aug 2026 10:08:27 -0700 (PDT)
-Message-ID: <ee623b8b-056e-5d07-7e69-9aef94ad32e0@oss.qualcomm.com>
-Date: Wed, 5 Aug 2026 22:38:22 +0530
+        d=1e100.net; s=20251104; t=1785951187; x=1786555987;
+        h=content-type:cc:to:from:subject:message-id:mime-version:date
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9Z9JNOm2+mMeRvt7EIqCe740uW7njeH/nio9TBQm4EA=;
+        b=CeJxQqY+0miUAUXsNXqG8e2vXElq8nrQ5QItAhHQeYm01sYlSNWenh570CehfkGbdC
+         vg5YZacPAySzfZCQ1nC/0MDVX2Vl1n9Jl4xu6V5XIA8tez5pRO6n7GK3HKg67mvJayc0
+         G3v8wOq+Y6EFEjg6vGYAtM7Ihu18k8Q05EQB7C1w+kuEtfogW+7+rnHC590x7mi5F8Oa
+         eCNH3pB24MfWjLWBTgauxmaFBxNvKYKam/Y4dtK2QwHpKh5R7SGSB8bTq277r9GvRsju
+         xkdPmXvV+alTHToKc9xjeO+loBSvOjrBS1BXtChgOJmbCfWQWValPXX7Eh/jDVrXyrp7
+         AvPQ==
+X-Forwarded-Encrypted: i=1; AHgh+RonhFlLeHdKqWl06xWAe2ZUOAj8HiX+HN4cWDmKALk7eDSelDzTtzgwK2YTdChlN3fH/fT1YEAjiQRdmQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyODwQ5UBIfXw7nONTHtO66/3fQUgKFsi2dxnhGpMuXMRlylUMB
+	S/9gAW+zEDQOZqUIvwgdJdH/Kx23eS5ObYxjze91I8Srul3bxGuVfhwmtxQ1q1oGKwpceMrPif+
+	E/4ucU7oghK5eq3LwyRlQnHEdsEwc
+X-Received: from qtbby5-n2.prod.google.com ([2002:a05:622a:945:20b0:521:a691:5e61])
+ (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:622a:5811:b0:51c:ba69:7e02 with SMTP id d75a77b69052e-52ce6146f39mr85163781cf.31.1785951187177;
+ Wed, 05 Aug 2026 10:33:07 -0700 (PDT)
+Date: Wed,  5 Aug 2026 13:25:40 -0400
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH 4/9] media: iris: split Gen2 firmware data for
- vpu2-generation SoCs
-Content-Language: en-US
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260709-iris-vp8-v1-0-6af3ab578a7c@oss.qualcomm.com>
- <20260709-iris-vp8-v1-4-6af3ab578a7c@oss.qualcomm.com>
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-In-Reply-To: <20260709-iris-vp8-v1-4-6af3ab578a7c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA1MDE0MCBTYWx0ZWRfX5QRbd135di1Z
- 7mNiNaTtsL1PAWYFm52LcmtWvUvHtwOjNJGPoHFlOWT/ql9n09ImbXZu9eROMWToMWDznnMbPZW
- 2BTvW1lfvE2KY8MjlMMpmHGFcxJRTbY=
-X-Proofpoint-GUID: jTq0sxgicavcEmCnb8KHQBvhQX2UmFPa
-X-Authority-Analysis: v=2.4 cv=B5aJFutM c=1 sm=1 tr=0 ts=6a736e0e cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=HwWiqg1urrzBETcKeqCncQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=f4rWUTw3jQouaEm55YcA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: jTq0sxgicavcEmCnb8KHQBvhQX2UmFPa
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA1MDE0MCBTYWx0ZWRfX4sC2KIrtOYjM
- sKUKCm1TeSFRkatcqlABlhCWjZI9DPfdBMJAXAP8l3YSdkKXTswH3khOARl14qNSpMx0s4UURMo
- niXb5cq82NpSizIgLJqA2Y8SVlDmcfECuKt9YMZN+0uTMcHO3qAhzfY5Mo/l/CYo+dk9WBiI2Gu
- wsGm198GMChfuuEScwkFW8bhUloN/MnJ64oEqv515nmcEBqOFmlVIWiefg0ZTA15BWTM6FSscqP
- wPJ1QXvk2w2Uy5sxljiL5OxEKa+aQb4rvftkg4hEbDggMYWA9/f4m9NhI0TxnRKk3ItPICnXTSE
- VeD7fSYNhaA5LE/Xp/LpeFpPfVHVx+PkO566uKz2d3NzV/miFvsPde4LlS4pPHnd0oGA2t9vMay
- 98D+v9otQzulb0drhgVUWv/KIoFTmk5T3DpkU4lOqd4e4Bo+K5+iMDYYqvqT5umxj70PeJjGfZ8
- Rtf90kG01R7GGQe2G2Q==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_05,2026-08-04_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 suspectscore=0 phishscore=0 impostorscore=0 clxscore=1015
- spamscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608050140
+Mime-Version: 1.0
+X-Mailer: git-send-email 2.55.0.629.g250fe7f194-goog
+Message-ID: <20260805172545.653506-1-briandaniels@google.com>
+Subject: [PATCH v6 0/5] media: add virtio-media driver
+From: Brian Daniels <briandaniels@google.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
+	gurchetansingh@google.com, hverkuil@xs4all.nl, jasowang@redhat.com, 
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mst@redhat.com, 
+	nicolas.dufresne@collabora.com, virtualization@lists.linux.dev, 
+	xuanzhuo@linux.alibaba.com, Brian Daniels <briandaniels@google.com>
+Content-Type: text/plain; charset="UTF-8"
+
+From: Alexandre Courbot <gnurou@gmail.com>
+
+Add the first version of the virtio-media driver.
+
+This driver acts roughly as a V4L2 relay between user-space and the
+virtio virtual device on the host, so it is relatively simple, yet
+unconventional. It doesn't use VB2 or other frameworks typically used in
+a V4L2 driver, and most of its complexity resides in correctly and
+efficiently building the virtio descriptor chain to pass to the host,
+avoiding copies whenever possible. This is done by
+scatterlist_builder.[ch].
+
+This version supports MMAP buffers, while USERPTR buffers can also be
+enabled through a driver option. DMABUF support is still pending.
+
+NOTE: This depends on the VIRTIO ID being added in this patch:
+https://lore.kernel.org/all/20260310-virtio-media-id-v1-1-be211bcf682b@redhat.com
+---
+Guest Setup
+
+Tests were ran on a Debian 12 guest running with crosvm. The guest image
+was created with:
+
+$ virt-builder debian-12 --root-password password:""
+
+Build crosvm and launch the guest starting at the "Crosvm" section on
+this page: https://github.com/chromeos/virtio-media/blob/main/TRY_IT_OUT.md#crosvm
+
+NOTE: Before running v4l2-compliance in the guest, you need to install
+v4l-utils and ffmpeg:
+
+$ apt update && apt install v4l-utils ffmpeg
+
+---
+Compliance Testing
+
+This was tested using v4l2-compliance. Since virtio-media serves as
+a proxy to host devices for the guest VMs, we expect the guest
+compliance test to essentially match the host compliance test for the
+same device.
+
+NOTE: v4l2-compliance changes its test behavior depending on the driver
+name. In the guest, the driver name for virtio-media proxied-devices is
+always "virtio-media", even if the actual host device has a driver name
+of e.g. "uvcvideo". To ensure the test is consistent between the host
+and the guest, I created a patch for the v4l2-compliance tool that
+allows you to override the driver name. All test results that follow use
+this patch:
+https://lore.kernel.org/r/20260528163448.4031965-1-briandaniels@google.com/
+
+All tests used a Logitech USB Webcam C925e.
+
+As tested on the host:
+
+$ v4l2-compliance -d1 -s
+
+v4l2-compliance 1.33.0-5471, 64 bits, 64-bit time_t
+v4l2-compliance SHA: 9f2d3ea879ff 2026-05-28 14:45:11
+
+Compliance test for uvcvideo device /dev/video1:
+
+Driver Info:
+	Driver name      : uvcvideo
+	Card type        : Logitech Webcam C925e
+	Bus info         : usb-0000:04:00.1-3
+	Driver version   : 6.18.14
+	Capabilities     : 0x84a00001
+		Video Capture
+		Metadata Capture
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x04200001
+		Video Capture
+		Streaming
+		Extended Pix Format
+Media Driver Info:
+	Driver name      : uvcvideo
+	Model            : Logitech Webcam C925e
+	Serial           : 686F371F
+	Bus info         : usb-0000:04:00.1-3
+	Media version    : 6.18.14
+	Hardware revision: 0x00000016 (22)
+	Driver version   : 6.18.14
+Interface Info:
+	ID               : 0x03000002
+	Type             : V4L Video
+Entity Info:
+	ID               : 0x00000001 (1)
+	Name             : Logitech Webcam C925e
+	Function         : V4L2 I/O
+	Flags            : default
+	Pad 0x01000007   : 0: Sink
+	  Link 0x0200001f: from remote pad 0x100000a of entity 'Processing 3' (Video Pixel Formatter): Data, Enabled, Immutable
+
+Required ioctls:
+	test MC information (see 'Media Driver Info' above): OK
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video1 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+		fail: v4l2-test-controls.cpp(983): ret != EINVAL (got 13)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: FAIL
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 19 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+	test read/write: OK (Not Supported)
+
+	Video Capture: Frame #000
+	Video Capture: Frame #001
+	Video Capture: Frame #002
+	Video Capture: Frame #003
+	Video Capture: Frame #004
+	Video Capture: Frame #005
+	Video Capture: Frame #006
+	Video Capture: Frame #007
+	Video Capture: Frame #008
+	Video Capture: Frame #009
+	Video Capture: Frame #010
+	Video Capture: Frame #011
+	Video Capture: Frame #012
+	Video Capture: Frame #013
+	Video Capture: Frame #014
+	Video Capture: Frame #015
+	Video Capture: Frame #016
+	Video Capture: Frame #017
+	Video Capture: Frame #018
+	Video Capture: Frame #019
+	Video Capture: Frame #020
+	Video Capture: Frame #021
+	Video Capture: Frame #022
+	Video Capture: Frame #023
+	Video Capture: Frame #024
+	Video Capture: Frame #025
+	Video Capture: Frame #026
+	Video Capture: Frame #027
+	Video Capture: Frame #028
+	Video Capture: Frame #029
+	Video Capture: Frame #030
+	Video Capture: Frame #031
+	Video Capture: Frame #032
+	Video Capture: Frame #033
+	Video Capture: Frame #034
+	Video Capture: Frame #035
+	Video Capture: Frame #036
+	Video Capture: Frame #037
+	Video Capture: Frame #038
+	Video Capture: Frame #039
+	Video Capture: Frame #040
+	Video Capture: Frame #041
+	Video Capture: Frame #042
+	Video Capture: Frame #043
+	Video Capture: Frame #044
+	Video Capture: Frame #045
+	Video Capture: Frame #046
+	Video Capture: Frame #047
+	Video Capture: Frame #048
+	Video Capture: Frame #049
+	Video Capture: Frame #050
+	Video Capture: Frame #051
+	Video Capture: Frame #052
+	Video Capture: Frame #053
+	Video Capture: Frame #054
+	Video Capture: Frame #055
+	Video Capture: Frame #056
+	Video Capture: Frame #057
+	Video Capture: Frame #058
+	Video Capture: Frame #059
+
+	test MMAP (no poll, REQBUFS): OK
+
+	Video Capture: Frame #000 (select)
+	Video Capture: Frame #001 (select)
+	Video Capture: Frame #002 (select)
+	Video Capture: Frame #003 (select)
+	Video Capture: Frame #004 (select)
+	Video Capture: Frame #005 (select)
+	Video Capture: Frame #006 (select)
+	Video Capture: Frame #007 (select)
+	Video Capture: Frame #008 (select)
+	Video Capture: Frame #009 (select)
+	Video Capture: Frame #010 (select)
+	Video Capture: Frame #011 (select)
+	Video Capture: Frame #012 (select)
+	Video Capture: Frame #013 (select)
+	Video Capture: Frame #014 (select)
+	Video Capture: Frame #015 (select)
+	Video Capture: Frame #016 (select)
+	Video Capture: Frame #017 (select)
+	Video Capture: Frame #018 (select)
+	Video Capture: Frame #019 (select)
+	Video Capture: Frame #020 (select)
+	Video Capture: Frame #021 (select)
+	Video Capture: Frame #022 (select)
+	Video Capture: Frame #023 (select)
+	Video Capture: Frame #024 (select)
+	Video Capture: Frame #025 (select)
+	Video Capture: Frame #026 (select)
+	Video Capture: Frame #027 (select)
+	Video Capture: Frame #028 (select)
+	Video Capture: Frame #029 (select)
+	Video Capture: Frame #030 (select)
+	Video Capture: Frame #031 (select)
+	Video Capture: Frame #032 (select)
+	Video Capture: Frame #033 (select)
+	Video Capture: Frame #034 (select)
+	Video Capture: Frame #035 (select)
+	Video Capture: Frame #036 (select)
+	Video Capture: Frame #037 (select)
+	Video Capture: Frame #038 (select)
+	Video Capture: Frame #039 (select)
+	Video Capture: Frame #040 (select)
+	Video Capture: Frame #041 (select)
+	Video Capture: Frame #042 (select)
+	Video Capture: Frame #043 (select)
+	Video Capture: Frame #044 (select)
+	Video Capture: Frame #045 (select)
+	Video Capture: Frame #046 (select)
+	Video Capture: Frame #047 (select)
+	Video Capture: Frame #048 (select)
+	Video Capture: Frame #049 (select)
+	Video Capture: Frame #050 (select)
+	Video Capture: Frame #051 (select)
+	Video Capture: Frame #052 (select)
+	Video Capture: Frame #053 (select)
+	Video Capture: Frame #054 (select)
+	Video Capture: Frame #055 (select)
+	Video Capture: Frame #056 (select)
+	Video Capture: Frame #057 (select)
+	Video Capture: Frame #058 (select)
+	Video Capture: Frame #059 (select)
+
+	test MMAP (select, REQBUFS): OK
+
+	Video Capture: Frame #000 (epoll)
+	Video Capture: Frame #001 (epoll)
+	Video Capture: Frame #002 (epoll)
+	Video Capture: Frame #003 (epoll)
+	Video Capture: Frame #004 (epoll)
+	Video Capture: Frame #005 (epoll)
+	Video Capture: Frame #006 (epoll)
+	Video Capture: Frame #007 (epoll)
+	Video Capture: Frame #008 (epoll)
+	Video Capture: Frame #009 (epoll)
+	Video Capture: Frame #010 (epoll)
+	Video Capture: Frame #011 (epoll)
+	Video Capture: Frame #012 (epoll)
+	Video Capture: Frame #013 (epoll)
+	Video Capture: Frame #014 (epoll)
+	Video Capture: Frame #015 (epoll)
+	Video Capture: Frame #016 (epoll)
+	Video Capture: Frame #017 (epoll)
+	Video Capture: Frame #018 (epoll)
+	Video Capture: Frame #019 (epoll)
+	Video Capture: Frame #020 (epoll)
+	Video Capture: Frame #021 (epoll)
+	Video Capture: Frame #022 (epoll)
+	Video Capture: Frame #023 (epoll)
+	Video Capture: Frame #024 (epoll)
+	Video Capture: Frame #025 (epoll)
+	Video Capture: Frame #026 (epoll)
+	Video Capture: Frame #027 (epoll)
+	Video Capture: Frame #028 (epoll)
+	Video Capture: Frame #029 (epoll)
+	Video Capture: Frame #030 (epoll)
+	Video Capture: Frame #031 (epoll)
+	Video Capture: Frame #032 (epoll)
+	Video Capture: Frame #033 (epoll)
+	Video Capture: Frame #034 (epoll)
+	Video Capture: Frame #035 (epoll)
+	Video Capture: Frame #036 (epoll)
+	Video Capture: Frame #037 (epoll)
+	Video Capture: Frame #038 (epoll)
+	Video Capture: Frame #039 (epoll)
+	Video Capture: Frame #040 (epoll)
+	Video Capture: Frame #041 (epoll)
+	Video Capture: Frame #042 (epoll)
+	Video Capture: Frame #043 (epoll)
+	Video Capture: Frame #044 (epoll)
+	Video Capture: Frame #045 (epoll)
+	Video Capture: Frame #046 (epoll)
+	Video Capture: Frame #047 (epoll)
+	Video Capture: Frame #048 (epoll)
+	Video Capture: Frame #049 (epoll)
+	Video Capture: Frame #050 (epoll)
+	Video Capture: Frame #051 (epoll)
+	Video Capture: Frame #052 (epoll)
+	Video Capture: Frame #053 (epoll)
+	Video Capture: Frame #054 (epoll)
+	Video Capture: Frame #055 (epoll)
+	Video Capture: Frame #056 (epoll)
+	Video Capture: Frame #057 (epoll)
+	Video Capture: Frame #058 (epoll)
+	Video Capture: Frame #059 (epoll)
+
+	test MMAP (epoll, REQBUFS): OK
+
+	Video Capture: Frame #000
+	Video Capture: Frame #001
+	Video Capture: Frame #002
+	Video Capture: Frame #003
+	Video Capture: Frame #004
+	Video Capture: Frame #005
+	Video Capture: Frame #006
+	Video Capture: Frame #007
+	Video Capture: Frame #008
+	Video Capture: Frame #009
+	Video Capture: Frame #010
+	Video Capture: Frame #011
+	Video Capture: Frame #012
+	Video Capture: Frame #013
+	Video Capture: Frame #014
+	Video Capture: Frame #015
+	Video Capture: Frame #016
+	Video Capture: Frame #017
+	Video Capture: Frame #018
+	Video Capture: Frame #019
+	Video Capture: Frame #020
+	Video Capture: Frame #021
+	Video Capture: Frame #022
+	Video Capture: Frame #023
+	Video Capture: Frame #024
+	Video Capture: Frame #025
+	Video Capture: Frame #026
+	Video Capture: Frame #027
+	Video Capture: Frame #028
+	Video Capture: Frame #029
+	Video Capture: Frame #030
+	Video Capture: Frame #031
+	Video Capture: Frame #032
+	Video Capture: Frame #033
+	Video Capture: Frame #034
+	Video Capture: Frame #035
+	Video Capture: Frame #036
+	Video Capture: Frame #037
+	Video Capture: Frame #038
+	Video Capture: Frame #039
+	Video Capture: Frame #040
+	Video Capture: Frame #041
+	Video Capture: Frame #042
+	Video Capture: Frame #043
+	Video Capture: Frame #044
+	Video Capture: Frame #045
+	Video Capture: Frame #046
+	Video Capture: Frame #047
+	Video Capture: Frame #048
+	Video Capture: Frame #049
+	Video Capture: Frame #050
+	Video Capture: Frame #051
+	Video Capture: Frame #052
+	Video Capture: Frame #053
+	Video Capture: Frame #054
+	Video Capture: Frame #055
+	Video Capture: Frame #056
+	Video Capture: Frame #057
+	Video Capture: Frame #058
+	Video Capture: Frame #059
+
+	test MMAP (no poll, CREATE_BUFS): OK
+
+	Video Capture: Frame #000 (select)
+	Video Capture: Frame #001 (select)
+	Video Capture: Frame #002 (select)
+	Video Capture: Frame #003 (select)
+	Video Capture: Frame #004 (select)
+	Video Capture: Frame #005 (select)
+	Video Capture: Frame #006 (select)
+	Video Capture: Frame #007 (select)
+	Video Capture: Frame #008 (select)
+	Video Capture: Frame #009 (select)
+	Video Capture: Frame #010 (select)
+	Video Capture: Frame #011 (select)
+	Video Capture: Frame #012 (select)
+	Video Capture: Frame #013 (select)
+	Video Capture: Frame #014 (select)
+	Video Capture: Frame #015 (select)
+	Video Capture: Frame #016 (select)
+	Video Capture: Frame #017 (select)
+	Video Capture: Frame #018 (select)
+	Video Capture: Frame #019 (select)
+	Video Capture: Frame #020 (select)
+	Video Capture: Frame #021 (select)
+	Video Capture: Frame #022 (select)
+	Video Capture: Frame #023 (select)
+	Video Capture: Frame #024 (select)
+	Video Capture: Frame #025 (select)
+	Video Capture: Frame #026 (select)
+	Video Capture: Frame #027 (select)
+	Video Capture: Frame #028 (select)
+	Video Capture: Frame #029 (select)
+	Video Capture: Frame #030 (select)
+	Video Capture: Frame #031 (select)
+	Video Capture: Frame #032 (select)
+	Video Capture: Frame #033 (select)
+	Video Capture: Frame #034 (select)
+	Video Capture: Frame #035 (select)
+	Video Capture: Frame #036 (select)
+	Video Capture: Frame #037 (select)
+	Video Capture: Frame #038 (select)
+	Video Capture: Frame #039 (select)
+	Video Capture: Frame #040 (select)
+	Video Capture: Frame #041 (select)
+	Video Capture: Frame #042 (select)
+	Video Capture: Frame #043 (select)
+	Video Capture: Frame #044 (select)
+	Video Capture: Frame #045 (select)
+	Video Capture: Frame #046 (select)
+	Video Capture: Frame #047 (select)
+	Video Capture: Frame #048 (select)
+	Video Capture: Frame #049 (select)
+	Video Capture: Frame #050 (select)
+	Video Capture: Frame #051 (select)
+	Video Capture: Frame #052 (select)
+	Video Capture: Frame #053 (select)
+	Video Capture: Frame #054 (select)
+	Video Capture: Frame #055 (select)
+	Video Capture: Frame #056 (select)
+	Video Capture: Frame #057 (select)
+	Video Capture: Frame #058 (select)
+	Video Capture: Frame #059 (select)
+
+	test MMAP (select, CREATE_BUFS): OK
+
+	Video Capture: Frame #000 (epoll)
+	Video Capture: Frame #001 (epoll)
+	Video Capture: Frame #002 (epoll)
+	Video Capture: Frame #003 (epoll)
+	Video Capture: Frame #004 (epoll)
+	Video Capture: Frame #005 (epoll)
+	Video Capture: Frame #006 (epoll)
+	Video Capture: Frame #007 (epoll)
+	Video Capture: Frame #008 (epoll)
+	Video Capture: Frame #009 (epoll)
+	Video Capture: Frame #010 (epoll)
+	Video Capture: Frame #011 (epoll)
+	Video Capture: Frame #012 (epoll)
+	Video Capture: Frame #013 (epoll)
+	Video Capture: Frame #014 (epoll)
+	Video Capture: Frame #015 (epoll)
+	Video Capture: Frame #016 (epoll)
+	Video Capture: Frame #017 (epoll)
+	Video Capture: Frame #018 (epoll)
+	Video Capture: Frame #019 (epoll)
+	Video Capture: Frame #020 (epoll)
+	Video Capture: Frame #021 (epoll)
+	Video Capture: Frame #022 (epoll)
+	Video Capture: Frame #023 (epoll)
+	Video Capture: Frame #024 (epoll)
+	Video Capture: Frame #025 (epoll)
+	Video Capture: Frame #026 (epoll)
+	Video Capture: Frame #027 (epoll)
+	Video Capture: Frame #028 (epoll)
+	Video Capture: Frame #029 (epoll)
+	Video Capture: Frame #030 (epoll)
+	Video Capture: Frame #031 (epoll)
+	Video Capture: Frame #032 (epoll)
+	Video Capture: Frame #033 (epoll)
+	Video Capture: Frame #034 (epoll)
+	Video Capture: Frame #035 (epoll)
+	Video Capture: Frame #036 (epoll)
+	Video Capture: Frame #037 (epoll)
+	Video Capture: Frame #038 (epoll)
+	Video Capture: Frame #039 (epoll)
+	Video Capture: Frame #040 (epoll)
+	Video Capture: Frame #041 (epoll)
+	Video Capture: Frame #042 (epoll)
+	Video Capture: Frame #043 (epoll)
+	Video Capture: Frame #044 (epoll)
+	Video Capture: Frame #045 (epoll)
+	Video Capture: Frame #046 (epoll)
+	Video Capture: Frame #047 (epoll)
+	Video Capture: Frame #048 (epoll)
+	Video Capture: Frame #049 (epoll)
+	Video Capture: Frame #050 (epoll)
+	Video Capture: Frame #051 (epoll)
+	Video Capture: Frame #052 (epoll)
+	Video Capture: Frame #053 (epoll)
+	Video Capture: Frame #054 (epoll)
+	Video Capture: Frame #055 (epoll)
+	Video Capture: Frame #056 (epoll)
+	Video Capture: Frame #057 (epoll)
+	Video Capture: Frame #058 (epoll)
+	Video Capture: Frame #059 (epoll)
+
+	test MMAP (epoll, CREATE_BUFS): OK
+
+	Video Capture: Frame #000
+	Video Capture: Frame #001
+	Video Capture: Frame #002
+	Video Capture: Frame #003
+	Video Capture: Frame #004
+	Video Capture: Frame #005
+	Video Capture: Frame #006
+	Video Capture: Frame #007
+	Video Capture: Frame #008
+	Video Capture: Frame #009
+	Video Capture: Frame #010
+	Video Capture: Frame #011
+	Video Capture: Frame #012
+	Video Capture: Frame #013
+	Video Capture: Frame #014
+	Video Capture: Frame #015
+	Video Capture: Frame #016
+	Video Capture: Frame #017
+	Video Capture: Frame #018
+	Video Capture: Frame #019
+	Video Capture: Frame #020
+	Video Capture: Frame #021
+	Video Capture: Frame #022
+	Video Capture: Frame #023
+	Video Capture: Frame #024
+	Video Capture: Frame #025
+	Video Capture: Frame #026
+	Video Capture: Frame #027
+	Video Capture: Frame #028
+	Video Capture: Frame #029
+	Video Capture: Frame #030
+	Video Capture: Frame #031
+	Video Capture: Frame #032
+	Video Capture: Frame #033
+	Video Capture: Frame #034
+	Video Capture: Frame #035
+	Video Capture: Frame #036
+	Video Capture: Frame #037
+	Video Capture: Frame #038
+	Video Capture: Frame #039
+	Video Capture: Frame #040
+	Video Capture: Frame #041
+	Video Capture: Frame #042
+	Video Capture: Frame #043
+	Video Capture: Frame #044
+	Video Capture: Frame #045
+	Video Capture: Frame #046
+	Video Capture: Frame #047
+	Video Capture: Frame #048
+	Video Capture: Frame #049
+	Video Capture: Frame #050
+	Video Capture: Frame #051
+	Video Capture: Frame #052
+	Video Capture: Frame #053
+	Video Capture: Frame #054
+	Video Capture: Frame #055
+	Video Capture: Frame #056
+	Video Capture: Frame #057
+	Video Capture: Frame #058
+	Video Capture: Frame #059
+
+	test USERPTR (no poll): OK
+
+	Video Capture: Frame #000 (select)
+	Video Capture: Frame #001 (select)
+	Video Capture: Frame #002 (select)
+	Video Capture: Frame #003 (select)
+	Video Capture: Frame #004 (select)
+	Video Capture: Frame #005 (select)
+	Video Capture: Frame #006 (select)
+	Video Capture: Frame #007 (select)
+	Video Capture: Frame #008 (select)
+	Video Capture: Frame #009 (select)
+	Video Capture: Frame #010 (select)
+	Video Capture: Frame #011 (select)
+	Video Capture: Frame #012 (select)
+	Video Capture: Frame #013 (select)
+	Video Capture: Frame #014 (select)
+	Video Capture: Frame #015 (select)
+	Video Capture: Frame #016 (select)
+	Video Capture: Frame #017 (select)
+	Video Capture: Frame #018 (select)
+	Video Capture: Frame #019 (select)
+	Video Capture: Frame #020 (select)
+	Video Capture: Frame #021 (select)
+	Video Capture: Frame #022 (select)
+	Video Capture: Frame #023 (select)
+	Video Capture: Frame #024 (select)
+	Video Capture: Frame #025 (select)
+	Video Capture: Frame #026 (select)
+	Video Capture: Frame #027 (select)
+	Video Capture: Frame #028 (select)
+	Video Capture: Frame #029 (select)
+	Video Capture: Frame #030 (select)
+	Video Capture: Frame #031 (select)
+	Video Capture: Frame #032 (select)
+	Video Capture: Frame #033 (select)
+	Video Capture: Frame #034 (select)
+	Video Capture: Frame #035 (select)
+	Video Capture: Frame #036 (select)
+	Video Capture: Frame #037 (select)
+	Video Capture: Frame #038 (select)
+	Video Capture: Frame #039 (select)
+	Video Capture: Frame #040 (select)
+	Video Capture: Frame #041 (select)
+	Video Capture: Frame #042 (select)
+	Video Capture: Frame #043 (select)
+	Video Capture: Frame #044 (select)
+	Video Capture: Frame #045 (select)
+	Video Capture: Frame #046 (select)
+	Video Capture: Frame #047 (select)
+	Video Capture: Frame #048 (select)
+	Video Capture: Frame #049 (select)
+	Video Capture: Frame #050 (select)
+	Video Capture: Frame #051 (select)
+	Video Capture: Frame #052 (select)
+	Video Capture: Frame #053 (select)
+	Video Capture: Frame #054 (select)
+	Video Capture: Frame #055 (select)
+	Video Capture: Frame #056 (select)
+	Video Capture: Frame #057 (select)
+	Video Capture: Frame #058 (select)
+	Video Capture: Frame #059 (select)
+
+	test USERPTR (select): OK
+	test DMABUF: Cannot test, specify --expbuf-device
+
+Total for uvcvideo device /dev/video1: 58, Succeeded: 57, Failed: 1, Warnings: 0
+
+As tested on the guest:
+
+$ v4l2-compliance -d0 -s --driver-name uvcvideo
+
+v4l2-compliance 1.33.0-5457, 64 bits, 64-bit time_t
+v4l2-compliance SHA: e7e240f546f3 2026-05-28 17:06:12
+
+Compliance test for uvcvideo device (overridden from virtio-media) /dev/video0:
+
+Driver Info:
+	Driver name      : uvcvideo
+	Card type        : Logitech Webcam C925e
+	Bus info         : platform:virtio-media
+	Driver version   : 7.1.0
+	Capabilities     : 0x84200001
+		Video Capture
+		Streaming
+		Extended Pix Format
+		Device Capabilities
+	Device Caps      : 0x04200001
+		Video Capture
+		Streaming
+		Extended Pix Format
+
+Required ioctls:
+	test VIDIOC_QUERYCAP: OK
+	test invalid ioctls: OK
+
+Allow for multiple opens:
+	test second /dev/video0 open: OK
+	test VIDIOC_QUERYCAP: OK
+	test VIDIOC_G/S_PRIORITY: OK
+	test for unlimited opens: OK
+
+Debug ioctls:
+	test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 1 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls (Input 0):
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+		fail: v4l2-test-controls.cpp(981): ret (got 22)
+	test VIDIOC_G/S/TRY_EXT_CTRLS: FAIL
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 19 Private Controls: 0
+
+Format ioctls (Input 0):
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
+	test VIDIOC_G/S_PARM: OK
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK
+	test VIDIOC_TRY_FMT: OK
+	test VIDIOC_S_FMT: OK
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
+
+Codec ioctls (Input 0):
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls (Input 0):
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK
+
+Test input 0:
+
+Streaming ioctls:
+	test read/write: OK (Not Supported)
+
+	Video Capture: Frame #000
+	Video Capture: Frame #001
+	Video Capture: Frame #002
+	Video Capture: Frame #003
+	Video Capture: Frame #004
+	Video Capture: Frame #005
+	Video Capture: Frame #006
+	Video Capture: Frame #007
+	Video Capture: Frame #008
+	Video Capture: Frame #009
+	Video Capture: Frame #010
+	Video Capture: Frame #011
+	Video Capture: Frame #012
+	Video Capture: Frame #013
+	Video Capture: Frame #014
+	Video Capture: Frame #015
+	Video Capture: Frame #016
+	Video Capture: Frame #017
+	Video Capture: Frame #018
+	Video Capture: Frame #019
+	Video Capture: Frame #020
+	Video Capture: Frame #021
+	Video Capture: Frame #022
+	Video Capture: Frame #023
+	Video Capture: Frame #024
+	Video Capture: Frame #025
+	Video Capture: Frame #026
+	Video Capture: Frame #027
+	Video Capture: Frame #028
+	Video Capture: Frame #029
+	Video Capture: Frame #030
+	Video Capture: Frame #031
+	Video Capture: Frame #032
+	Video Capture: Frame #033
+	Video Capture: Frame #034
+	Video Capture: Frame #035
+	Video Capture: Frame #036
+	Video Capture: Frame #037
+	Video Capture: Frame #038
+	Video Capture: Frame #039
+	Video Capture: Frame #040
+	Video Capture: Frame #041
+	Video Capture: Frame #042
+	Video Capture: Frame #043
+	Video Capture: Frame #044
+	Video Capture: Frame #045
+	Video Capture: Frame #046
+	Video Capture: Frame #047
+	Video Capture: Frame #048
+	Video Capture: Frame #049
+	Video Capture: Frame #050
+	Video Capture: Frame #051
+	Video Capture: Frame #052
+	Video Capture: Frame #053
+	Video Capture: Frame #054
+	Video Capture: Frame #055
+	Video Capture: Frame #056
+	Video Capture: Frame #057
+	Video Capture: Frame #058
+	Video Capture: Frame #059
+
+	test MMAP (no poll, REQBUFS): OK
+
+	Video Capture: Frame #000 (select)
+	Video Capture: Frame #001 (select)
+	Video Capture: Frame #002 (select)
+	Video Capture: Frame #003 (select)
+	Video Capture: Frame #004 (select)
+	Video Capture: Frame #005 (select)
+	Video Capture: Frame #006 (select)
+	Video Capture: Frame #007 (select)
+	Video Capture: Frame #008 (select)
+	Video Capture: Frame #009 (select)
+	Video Capture: Frame #010 (select)
+	Video Capture: Frame #011 (select)
+	Video Capture: Frame #012 (select)
+	Video Capture: Frame #013 (select)
+	Video Capture: Frame #014 (select)
+	Video Capture: Frame #015 (select)
+	Video Capture: Frame #016 (select)
+	Video Capture: Frame #017 (select)
+	Video Capture: Frame #018 (select)
+	Video Capture: Frame #019 (select)
+	Video Capture: Frame #020 (select)
+	Video Capture: Frame #021 (select)
+	Video Capture: Frame #022 (select)
+	Video Capture: Frame #023 (select)
+	Video Capture: Frame #024 (select)
+	Video Capture: Frame #025 (select)
+	Video Capture: Frame #026 (select)
+	Video Capture: Frame #027 (select)
+	Video Capture: Frame #028 (select)
+	Video Capture: Frame #029 (select)
+	Video Capture: Frame #030 (select)
+	Video Capture: Frame #031 (select)
+	Video Capture: Frame #032 (select)
+	Video Capture: Frame #033 (select)
+	Video Capture: Frame #034 (select)
+	Video Capture: Frame #035 (select)
+	Video Capture: Frame #036 (select)
+	Video Capture: Frame #037 (select)
+	Video Capture: Frame #038 (select)
+	Video Capture: Frame #039 (select)
+	Video Capture: Frame #040 (select)
+	Video Capture: Frame #041 (select)
+	Video Capture: Frame #042 (select)
+	Video Capture: Frame #043 (select)
+	Video Capture: Frame #044 (select)
+	Video Capture: Frame #045 (select)
+	Video Capture: Frame #046 (select)
+	Video Capture: Frame #047 (select)
+	Video Capture: Frame #048 (select)
+	Video Capture: Frame #049 (select)
+	Video Capture: Frame #050 (select)
+	Video Capture: Frame #051 (select)
+	Video Capture: Frame #052 (select)
+	Video Capture: Frame #053 (select)
+	Video Capture: Frame #054 (select)
+	Video Capture: Frame #055 (select)
+	Video Capture: Frame #056 (select)
+	Video Capture: Frame #057 (select)
+	Video Capture: Frame #058 (select)
+	Video Capture: Frame #059 (select)
+
+	test MMAP (select, REQBUFS): OK
+
+	Video Capture: Frame #000 (epoll)
+	Video Capture: Frame #001 (epoll)
+	Video Capture: Frame #002 (epoll)
+	Video Capture: Frame #003 (epoll)
+	Video Capture: Frame #004 (epoll)
+	Video Capture: Frame #005 (epoll)
+	Video Capture: Frame #006 (epoll)
+	Video Capture: Frame #007 (epoll)
+	Video Capture: Frame #008 (epoll)
+	Video Capture: Frame #009 (epoll)
+	Video Capture: Frame #010 (epoll)
+	Video Capture: Frame #011 (epoll)
+	Video Capture: Frame #012 (epoll)
+	Video Capture: Frame #013 (epoll)
+	Video Capture: Frame #014 (epoll)
+	Video Capture: Frame #015 (epoll)
+	Video Capture: Frame #016 (epoll)
+	Video Capture: Frame #017 (epoll)
+	Video Capture: Frame #018 (epoll)
+	Video Capture: Frame #019 (epoll)
+	Video Capture: Frame #020 (epoll)
+	Video Capture: Frame #021 (epoll)
+	Video Capture: Frame #022 (epoll)
+	Video Capture: Frame #023 (epoll)
+	Video Capture: Frame #024 (epoll)
+	Video Capture: Frame #025 (epoll)
+	Video Capture: Frame #026 (epoll)
+	Video Capture: Frame #027 (epoll)
+	Video Capture: Frame #028 (epoll)
+	Video Capture: Frame #029 (epoll)
+	Video Capture: Frame #030 (epoll)
+	Video Capture: Frame #031 (epoll)
+	Video Capture: Frame #032 (epoll)
+	Video Capture: Frame #033 (epoll)
+	Video Capture: Frame #034 (epoll)
+	Video Capture: Frame #035 (epoll)
+	Video Capture: Frame #036 (epoll)
+	Video Capture: Frame #037 (epoll)
+	Video Capture: Frame #038 (epoll)
+	Video Capture: Frame #039 (epoll)
+	Video Capture: Frame #040 (epoll)
+	Video Capture: Frame #041 (epoll)
+	Video Capture: Frame #042 (epoll)
+	Video Capture: Frame #043 (epoll)
+	Video Capture: Frame #044 (epoll)
+	Video Capture: Frame #045 (epoll)
+	Video Capture: Frame #046 (epoll)
+	Video Capture: Frame #047 (epoll)
+	Video Capture: Frame #048 (epoll)
+	Video Capture: Frame #049 (epoll)
+	Video Capture: Frame #050 (epoll)
+	Video Capture: Frame #051 (epoll)
+	Video Capture: Frame #052 (epoll)
+	Video Capture: Frame #053 (epoll)
+	Video Capture: Frame #054 (epoll)
+	Video Capture: Frame #055 (epoll)
+	Video Capture: Frame #056 (epoll)
+	Video Capture: Frame #057 (epoll)
+	Video Capture: Frame #058 (epoll)
+	Video Capture: Frame #059 (epoll)
+
+	test MMAP (epoll, REQBUFS): OK
+
+	Video Capture: Frame #000
+	Video Capture: Frame #001
+	Video Capture: Frame #002
+	Video Capture: Frame #003
+	Video Capture: Frame #004
+	Video Capture: Frame #005
+	Video Capture: Frame #006
+	Video Capture: Frame #007
+	Video Capture: Frame #008
+	Video Capture: Frame #009
+	Video Capture: Frame #010
+	Video Capture: Frame #011
+	Video Capture: Frame #012
+	Video Capture: Frame #013
+	Video Capture: Frame #014
+	Video Capture: Frame #015
+	Video Capture: Frame #016
+	Video Capture: Frame #017
+	Video Capture: Frame #018
+	Video Capture: Frame #019
+	Video Capture: Frame #020
+	Video Capture: Frame #021
+	Video Capture: Frame #022
+	Video Capture: Frame #023
+	Video Capture: Frame #024
+	Video Capture: Frame #025
+	Video Capture: Frame #026
+	Video Capture: Frame #027
+	Video Capture: Frame #028
+	Video Capture: Frame #029
+	Video Capture: Frame #030
+	Video Capture: Frame #031
+	Video Capture: Frame #032
+	Video Capture: Frame #033
+	Video Capture: Frame #034
+	Video Capture: Frame #035
+	Video Capture: Frame #036
+	Video Capture: Frame #037
+	Video Capture: Frame #038
+	Video Capture: Frame #039
+	Video Capture: Frame #040
+	Video Capture: Frame #041
+	Video Capture: Frame #042
+	Video Capture: Frame #043
+	Video Capture: Frame #044
+	Video Capture: Frame #045
+	Video Capture: Frame #046
+	Video Capture: Frame #047
+	Video Capture: Frame #048
+	Video Capture: Frame #049
+	Video Capture: Frame #050
+	Video Capture: Frame #051
+	Video Capture: Frame #052
+	Video Capture: Frame #053
+	Video Capture: Frame #054
+	Video Capture: Frame #055
+	Video Capture: Frame #056
+	Video Capture: Frame #057
+	Video Capture: Frame #058
+	Video Capture: Frame #059
+
+	test MMAP (no poll, CREATE_BUFS): OK
+
+	Video Capture: Frame #000 (select)
+	Video Capture: Frame #001 (select)
+	Video Capture: Frame #002 (select)
+	Video Capture: Frame #003 (select)
+	Video Capture: Frame #004 (select)
+	Video Capture: Frame #005 (select)
+	Video Capture: Frame #006 (select)
+	Video Capture: Frame #007 (select)
+	Video Capture: Frame #008 (select)
+	Video Capture: Frame #009 (select)
+	Video Capture: Frame #010 (select)
+	Video Capture: Frame #011 (select)
+	Video Capture: Frame #012 (select)
+	Video Capture: Frame #013 (select)
+	Video Capture: Frame #014 (select)
+	Video Capture: Frame #015 (select)
+	Video Capture: Frame #016 (select)
+	Video Capture: Frame #017 (select)
+	Video Capture: Frame #018 (select)
+	Video Capture: Frame #019 (select)
+	Video Capture: Frame #020 (select)
+	Video Capture: Frame #021 (select)
+	Video Capture: Frame #022 (select)
+	Video Capture: Frame #023 (select)
+	Video Capture: Frame #024 (select)
+	Video Capture: Frame #025 (select)
+	Video Capture: Frame #026 (select)
+	Video Capture: Frame #027 (select)
+	Video Capture: Frame #028 (select)
+	Video Capture: Frame #029 (select)
+	Video Capture: Frame #030 (select)
+	Video Capture: Frame #031 (select)
+	Video Capture: Frame #032 (select)
+	Video Capture: Frame #033 (select)
+	Video Capture: Frame #034 (select)
+	Video Capture: Frame #035 (select)
+	Video Capture: Frame #036 (select)
+	Video Capture: Frame #037 (select)
+	Video Capture: Frame #038 (select)
+	Video Capture: Frame #039 (select)
+	Video Capture: Frame #040 (select)
+	Video Capture: Frame #041 (select)
+	Video Capture: Frame #042 (select)
+	Video Capture: Frame #043 (select)
+	Video Capture: Frame #044 (select)
+	Video Capture: Frame #045 (select)
+	Video Capture: Frame #046 (select)
+	Video Capture: Frame #047 (select)
+	Video Capture: Frame #048 (select)
+	Video Capture: Frame #049 (select)
+	Video Capture: Frame #050 (select)
+	Video Capture: Frame #051 (select)
+	Video Capture: Frame #052 (select)
+	Video Capture: Frame #053 (select)
+	Video Capture: Frame #054 (select)
+	Video Capture: Frame #055 (select)
+	Video Capture: Frame #056 (select)
+	Video Capture: Frame #057 (select)
+	Video Capture: Frame #058 (select)
+	Video Capture: Frame #059 (select)
+
+	test MMAP (select, CREATE_BUFS): OK
+
+	Video Capture: Frame #000 (epoll)
+	Video Capture: Frame #001 (epoll)
+	Video Capture: Frame #002 (epoll)
+	Video Capture: Frame #003 (epoll)
+	Video Capture: Frame #004 (epoll)
+	Video Capture: Frame #005 (epoll)
+	Video Capture: Frame #006 (epoll)
+	Video Capture: Frame #007 (epoll)
+	Video Capture: Frame #008 (epoll)
+	Video Capture: Frame #009 (epoll)
+	Video Capture: Frame #010 (epoll)
+	Video Capture: Frame #011 (epoll)
+	Video Capture: Frame #012 (epoll)
+	Video Capture: Frame #013 (epoll)
+	Video Capture: Frame #014 (epoll)
+	Video Capture: Frame #015 (epoll)
+	Video Capture: Frame #016 (epoll)
+	Video Capture: Frame #017 (epoll)
+	Video Capture: Frame #018 (epoll)
+	Video Capture: Frame #019 (epoll)
+	Video Capture: Frame #020 (epoll)
+	Video Capture: Frame #021 (epoll)
+	Video Capture: Frame #022 (epoll)
+	Video Capture: Frame #023 (epoll)
+	Video Capture: Frame #024 (epoll)
+	Video Capture: Frame #025 (epoll)
+	Video Capture: Frame #026 (epoll)
+	Video Capture: Frame #027 (epoll)
+	Video Capture: Frame #028 (epoll)
+	Video Capture: Frame #029 (epoll)
+	Video Capture: Frame #030 (epoll)
+	Video Capture: Frame #031 (epoll)
+	Video Capture: Frame #032 (epoll)
+	Video Capture: Frame #033 (epoll)
+	Video Capture: Frame #034 (epoll)
+	Video Capture: Frame #035 (epoll)
+	Video Capture: Frame #036 (epoll)
+	Video Capture: Frame #037 (epoll)
+	Video Capture: Frame #038 (epoll)
+	Video Capture: Frame #039 (epoll)
+	Video Capture: Frame #040 (epoll)
+	Video Capture: Frame #041 (epoll)
+	Video Capture: Frame #042 (epoll)
+	Video Capture: Frame #043 (epoll)
+	Video Capture: Frame #044 (epoll)
+	Video Capture: Frame #045 (epoll)
+	Video Capture: Frame #046 (epoll)
+	Video Capture: Frame #047 (epoll)
+	Video Capture: Frame #048 (epoll)
+	Video Capture: Frame #049 (epoll)
+	Video Capture: Frame #050 (epoll)
+	Video Capture: Frame #051 (epoll)
+	Video Capture: Frame #052 (epoll)
+	Video Capture: Frame #053 (epoll)
+	Video Capture: Frame #054 (epoll)
+	Video Capture: Frame #055 (epoll)
+	Video Capture: Frame #056 (epoll)
+	Video Capture: Frame #057 (epoll)
+	Video Capture: Frame #058 (epoll)
+	Video Capture: Frame #059 (epoll)
+
+	test MMAP (epoll, CREATE_BUFS): OK
+	test USERPTR (no poll): OK (Not Supported)
+	test USERPTR (select): OK (Not Supported)
+	test DMABUF (no poll): OK (Not Supported)
+	test DMABUF (select): OK (Not Supported)
+
+Total for uvcvideo device /dev/video0: 59, Succeeded: 58, Failed: 1, Warnings: 0
+
+---
+Changes in v6:
+- Added missing "WITH Linux-syscall-note" for SPDX-License-Identifier in
+  ``include/uapi/linux/virtio_media.h``
+- Rebased on top of v7.2-rc1
+
+Changes in v5:
+- Add DMA buffer alignment and padding for commands, responses, and the event
+  buffer
+- Corrected styling of kernel-doc comments
+- Removed the configurable ``driver_name`` module parameter
+- Moved the protocol to ``include/uapi/linux/virtio_media.h``
+- Link to v4: https://lore.kernel.org/all/20260622204343.1994418-1-briandaniels@google.com/
+
+Changes in v4:
+- Rebased on top of v7.1-rc1
+- Replace usages of filep->private_data with file_to_v4l2_fh()
+  throughout the driver
+- Link to v3: https://lore.kernel.org/r/20250412-virtio-media-v3-1-97dc94c18398@gmail.com
+
+Changes in v3:
+- Rebased on top of v6.15-rc1 and removes obsolete control callbacks.
+- Link to v2: https://lore.kernel.org/r/20250201-virtio-media-v2-1-ac840681452d@gmail.com
+
+Changes in v2:
+- Fixed kernel test robot and media CI warnings (ignored a few false
+  positives).
+- Changed in-driver email address to personal one since my Google one
+  will soon become invalid.
+- Link to v1: https://lore.kernel.org/r/20250123-virtio-media-v1-1-81e2549b86b9@gmail.com
+
+Brian Daniels (5):
+  media: virtio: Add skeleton virtio-media driver
+  media: virtio: Add session management
+  media: virtio: Add scatterlist builder
+  media: virtio: Add ioctl operations and driver logic
+  media: virtio: Add USERPTR memory type support
+
+ MAINTAINERS                                |    8 +
+ drivers/media/Kconfig                      |   13 +
+ drivers/media/Makefile                     |    2 +
+ drivers/media/virtio/Makefile              |    7 +
+ drivers/media/virtio/scatterlist_builder.c |  579 +++++++++
+ drivers/media/virtio/scatterlist_builder.h |  112 ++
+ drivers/media/virtio/session.h             |  132 ++
+ drivers/media/virtio/virtio_media.h        |   97 ++
+ drivers/media/virtio/virtio_media_driver.c |  951 ++++++++++++++
+ drivers/media/virtio/virtio_media_ioctls.c | 1326 ++++++++++++++++++++
+ include/uapi/linux/virtio_media.h          |  287 +++++
+ 11 files changed, 3514 insertions(+)
+ create mode 100644 drivers/media/virtio/Makefile
+ create mode 100644 drivers/media/virtio/scatterlist_builder.c
+ create mode 100644 drivers/media/virtio/scatterlist_builder.h
+ create mode 100644 drivers/media/virtio/session.h
+ create mode 100644 drivers/media/virtio/virtio_media.h
+ create mode 100644 drivers/media/virtio/virtio_media_driver.c
+ create mode 100644 drivers/media/virtio/virtio_media_ioctls.c
+ create mode 100644 include/uapi/linux/virtio_media.h
 
 
-On 7/10/2026 1:07 AM, Dmitry Baryshkov wrote:
-> The single iris_hfi_gen2_data instance is shared by both vpu3x SoCs
-> (sm8550/sm8650/sm8750/x1p42100), which support AV1, and the vpu2 SoC
-> sc7280, which does not. This is harmless today because the list of
-> advertised decode formats is kept separately in the per-SoC platform
-> data, but it prevents moving those format lists onto the firmware data
-> where they belong: a shared struct cannot describe both an AV1-capable
-> and an AV1-incapable generation.
->
-> Add a dedicated iris_hfi_gen2_vpu2_data instance for vpu2-generation
-> SoCs booting Gen2 firmware, using a decode cap table and config
-> parameter lists with all AV1-specific entries dropped, and point
-> sc7280's Gen2 firmware descriptor at it. The vpu3x SoCs keep using
-> iris_hfi_gen2_data unchanged.
->
-> No functional change: sc7280 already did not advertise or accept AV1.
->
-> Assisted-by: Claude:claude-opus-4-8
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_hfi_gen2.c   | 247 +++++++++++++++++++++
->  .../platform/qcom/iris/iris_platform_common.h      |   1 +
->  .../media/platform/qcom/iris/iris_platform_vpu2.c  |   2 +-
->  3 files changed, 249 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> index f89245269e8c..110b5630902f 100644
-> --- a/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_hfi_gen2.c
-> @@ -280,6 +280,189 @@ static const struct platform_inst_fw_cap inst_fw_cap_sm8550_dec[] = {
->  	},
->  };
->  
-> +static const struct platform_inst_fw_cap inst_fw_cap_vpu2_gen2_dec[] = {
-> +	{
-> +		.cap_id = PROFILE_H264,
-> +		.min = V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE,
-> +		.max = V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_H264_PROFILE_BASELINE) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_BASELINE) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_PROFILE_MAIN) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_PROFILE_HIGH) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_PROFILE_CONSTRAINED_HIGH),
-> +		.value = V4L2_MPEG_VIDEO_H264_PROFILE_HIGH,
-> +		.hfi_id = HFI_PROP_PROFILE,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = PROFILE_HEVC,
-> +		.min = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-> +		.max = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_STILL_PICTURE) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN_10),
-> +		.value = V4L2_MPEG_VIDEO_HEVC_PROFILE_MAIN,
-> +		.hfi_id = HFI_PROP_PROFILE,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = PROFILE_VP9,
-> +		.min = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-> +		.max = V4L2_MPEG_VIDEO_VP9_PROFILE_2,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_PROFILE_2),
-> +		.value = V4L2_MPEG_VIDEO_VP9_PROFILE_0,
-> +		.hfi_id = HFI_PROP_PROFILE,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = LEVEL_H264,
-> +		.min = V4L2_MPEG_VIDEO_H264_LEVEL_1_0,
-> +		.max = V4L2_MPEG_VIDEO_H264_LEVEL_6_2,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1B) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_2) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_1_3) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_2_2) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_3_2) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_4_2) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_5_2) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_6_0) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_6_1) |
-> +				BIT(V4L2_MPEG_VIDEO_H264_LEVEL_6_2),
-> +		.value = V4L2_MPEG_VIDEO_H264_LEVEL_6_1,
-> +		.hfi_id = HFI_PROP_LEVEL,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = LEVEL_HEVC,
-> +		.min = V4L2_MPEG_VIDEO_HEVC_LEVEL_1,
-> +		.max = V4L2_MPEG_VIDEO_HEVC_LEVEL_6_2,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_2_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_3_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_4_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_5) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_5_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_5_2) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_6) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_6_1) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_LEVEL_6_2),
-> +		.value = V4L2_MPEG_VIDEO_HEVC_LEVEL_6_1,
-> +		.hfi_id = HFI_PROP_LEVEL,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = LEVEL_VP9,
-> +		.min = V4L2_MPEG_VIDEO_VP9_LEVEL_1_0,
-> +		.max = V4L2_MPEG_VIDEO_VP9_LEVEL_6_0,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_1_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_1_1) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_2_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_2_1) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_3_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_3_1) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_4_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_4_1) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_5_0) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_5_1) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_5_2) |
-> +				BIT(V4L2_MPEG_VIDEO_VP9_LEVEL_6_0),
-> +		.value = V4L2_MPEG_VIDEO_VP9_LEVEL_6_0,
-> +		.hfi_id = HFI_PROP_LEVEL,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = TIER,
-> +		.min = V4L2_MPEG_VIDEO_HEVC_TIER_MAIN,
-> +		.max = V4L2_MPEG_VIDEO_HEVC_TIER_HIGH,
-> +		.step_or_mask = BIT(V4L2_MPEG_VIDEO_HEVC_TIER_MAIN) |
-> +				BIT(V4L2_MPEG_VIDEO_HEVC_TIER_HIGH),
-> +		.value = V4L2_MPEG_VIDEO_HEVC_TIER_HIGH,
-> +		.hfi_id = HFI_PROP_TIER,
-> +		.flags = CAP_FLAG_OUTPUT_PORT | CAP_FLAG_MENU,
-> +		.set = iris_set_u32_enum,
-> +	},
-> +	{
-> +		.cap_id = INPUT_BUF_HOST_MAX_COUNT,
-> +		.min = DEFAULT_MAX_HOST_BUF_COUNT,
-> +		.max = DEFAULT_MAX_HOST_BURST_BUF_COUNT,
-> +		.step_or_mask = 1,
-> +		.value = DEFAULT_MAX_HOST_BUF_COUNT,
-> +		.hfi_id = HFI_PROP_BUFFER_HOST_MAX_COUNT,
-> +		.flags = CAP_FLAG_INPUT_PORT,
-> +		.set = iris_set_u32,
-> +	},
-> +	{
-> +		.cap_id = STAGE,
-> +		.min = STAGE_1,
-> +		.max = STAGE_2,
-> +		.step_or_mask = 1,
-> +		.value = STAGE_2,
-> +		.hfi_id = HFI_PROP_STAGE,
-> +		.set = iris_set_stage,
-> +	},
-> +	{
-> +		.cap_id = PIPE,
-> +		/* .max, .min and .value are set via platform data */
-> +		.step_or_mask = 1,
-> +		.hfi_id = HFI_PROP_PIPE,
-> +		.set = iris_set_pipe,
-> +	},
-> +	{
-> +		.cap_id = POC,
-> +		.min = 0,
-> +		.max = 2,
-> +		.step_or_mask = 1,
-> +		.value = 1,
-> +		.hfi_id = HFI_PROP_PIC_ORDER_CNT_TYPE,
-> +	},
-> +	{
-> +		.cap_id = CODED_FRAMES,
-> +		.min = CODED_FRAMES_PROGRESSIVE,
-> +		.max = CODED_FRAMES_PROGRESSIVE,
-> +		.step_or_mask = 0,
-> +		.value = CODED_FRAMES_PROGRESSIVE,
-> +		.hfi_id = HFI_PROP_CODED_FRAMES,
-> +	},
-> +	{
-> +		.cap_id = BIT_DEPTH,
-> +		.min = BIT_DEPTH_8,
-> +		.max = BIT_DEPTH_10,
-> +		.step_or_mask = 1,
-> +		.value = BIT_DEPTH_8,
-> +		.hfi_id = HFI_PROP_LUMA_CHROMA_BIT_DEPTH,
-> +	},
-> +	{
-> +		.cap_id = RAP_FRAME,
-> +		.min = 0,
-> +		.max = 1,
-> +		.step_or_mask = 1,
-> +		.value = 1,
-> +		.hfi_id = HFI_PROP_DEC_START_FROM_RAP_FRAME,
-> +		.flags = CAP_FLAG_INPUT_PORT,
-> +		.set = iris_set_u32,
-> +	},
-> +};
-> +
->  static const struct platform_inst_fw_cap inst_fw_cap_sm8550_enc[] = {
->  	{
->  		.cap_id = PROFILE_H264,
-> @@ -1119,6 +1302,70 @@ const struct iris_firmware_data iris_hfi_gen2_data = {
->  	.enc_op_int_buf_tbl_size = ARRAY_SIZE(sm8550_enc_op_int_buf_tbl),
->  };
->  
-> +/*
-> + * Firmware data for vpu2-generation SoCs (e.g. sc7280) booting Gen2 firmware.
-> + * These do not support AV1, so the decode cap table and the config parameters
-> + * omit all AV1-specific entries.
-> + */
-> +const struct iris_firmware_data iris_hfi_gen2_vpu2_data = {
-> +	.init_hfi_ops = iris_hfi_gen2_sys_ops_init,
-> +
-> +	.core_arch = VIDEO_ARCH_LX,
-> +
-> +	.inst_fw_caps_dec = inst_fw_cap_vpu2_gen2_dec,
-> +	.inst_fw_caps_dec_size = ARRAY_SIZE(inst_fw_cap_vpu2_gen2_dec),
-> +	.inst_fw_caps_enc = inst_fw_cap_sm8550_enc,
-> +	.inst_fw_caps_enc_size = ARRAY_SIZE(inst_fw_cap_sm8550_enc),
-> +
-> +	.dec_input_config_params_default =
-> +		sm8550_vdec_input_config_params_default,
-> +	.dec_input_config_params_default_size =
-> +		ARRAY_SIZE(sm8550_vdec_input_config_params_default),
-> +	.dec_input_config_params_hevc =
-> +		sm8550_vdec_input_config_param_hevc,
-> +	.dec_input_config_params_hevc_size =
-> +		ARRAY_SIZE(sm8550_vdec_input_config_param_hevc),
-> +	.dec_input_config_params_vp9 =
-> +		sm8550_vdec_input_config_param_vp9,
-> +	.dec_input_config_params_vp9_size =
-> +		ARRAY_SIZE(sm8550_vdec_input_config_param_vp9),
-> +	.dec_output_config_params =
-> +		sm8550_vdec_output_config_params,
-> +	.dec_output_config_params_size =
-> +		ARRAY_SIZE(sm8550_vdec_output_config_params),
-> +
-> +	.enc_input_config_params =
-> +		sm8550_venc_input_config_params,
-> +	.enc_input_config_params_size =
-> +		ARRAY_SIZE(sm8550_venc_input_config_params),
-> +	.enc_output_config_params =
-> +		sm8550_venc_output_config_params,
-> +	.enc_output_config_params_size =
-> +		ARRAY_SIZE(sm8550_venc_output_config_params),
-> +
-> +	.dec_input_prop = sm8550_vdec_subscribe_input_properties,
-> +	.dec_input_prop_size = ARRAY_SIZE(sm8550_vdec_subscribe_input_properties),
-> +	.dec_output_prop_avc = sm8550_vdec_subscribe_output_properties_avc,
-> +	.dec_output_prop_avc_size =
-> +		ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_avc),
-> +	.dec_output_prop_hevc = sm8550_vdec_subscribe_output_properties_hevc,
-> +	.dec_output_prop_hevc_size =
-> +		ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_hevc),
-> +	.dec_output_prop_vp9 = sm8550_vdec_subscribe_output_properties_vp9,
-> +	.dec_output_prop_vp9_size =
-> +		ARRAY_SIZE(sm8550_vdec_subscribe_output_properties_vp9),
-> +
-> +	.dec_ip_int_buf_tbl = sm8550_dec_ip_int_buf_tbl,
-> +	.dec_ip_int_buf_tbl_size = ARRAY_SIZE(sm8550_dec_ip_int_buf_tbl),
-> +	.dec_op_int_buf_tbl = sm8550_dec_op_int_buf_tbl,
-> +	.dec_op_int_buf_tbl_size = ARRAY_SIZE(sm8550_dec_op_int_buf_tbl),
-> +
-> +	.enc_ip_int_buf_tbl = sm8550_enc_ip_int_buf_tbl,
-> +	.enc_ip_int_buf_tbl_size = ARRAY_SIZE(sm8550_enc_ip_int_buf_tbl),
-> +	.enc_op_int_buf_tbl = sm8550_enc_op_int_buf_tbl,
-> +	.enc_op_int_buf_tbl_size = ARRAY_SIZE(sm8550_enc_op_int_buf_tbl),
-> +};
-> +
->  static const struct platform_inst_fw_cap inst_fw_cap_gen2_ar50lt_dec[] = {
->  	{
->  		.cap_id = PROFILE_H264,
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_common.h b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> index 5afe395cc4a0..9743573ab083 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_common.h
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_common.h
-> @@ -57,6 +57,7 @@ enum pipe_type {
->  extern const struct iris_firmware_data iris_hfi_gen1_data;
->  extern const struct iris_firmware_data iris_hfi_gen1_ar50lt_data;
->  extern const struct iris_firmware_data iris_hfi_gen2_data;
-> +extern const struct iris_firmware_data iris_hfi_gen2_vpu2_data;
->  extern const struct iris_firmware_data iris_hfi_gen2_ar50lt_data;
->  
->  extern const struct iris_platform_data qcm2290_data;
-> diff --git a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> index e194f67a6f48..8f01cf7f6d49 100644
-> --- a/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> +++ b/drivers/media/platform/qcom/iris/iris_platform_vpu2.c
-> @@ -25,7 +25,7 @@ static const struct iris_firmware_desc iris_vpu20_p1_gen1_desc = {
->  };
->  
->  static const struct iris_firmware_desc iris_vpu20_p1_gen2_s6_desc = {
-> -	.firmware_data = &iris_hfi_gen2_data,
-> +	.firmware_data = &iris_hfi_gen2_vpu2_data,
->  	.get_vpu_buffer_size = iris_vpu33_buf_size,
->  	.fwname = "qcom/vpu/vpu20_p1_gen2_s6.mbn",
->  };
-
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+base-commit: 31152f5b0f8719f92063b8c6196cd5e34106c73d
+-- 
+2.55.0.629.g250fe7f194-goog
 
