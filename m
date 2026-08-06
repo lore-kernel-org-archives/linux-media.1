@@ -1,151 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB383EEAD2;
-	Thu,  6 Aug 2026 09:40:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C53E421238
+	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 09:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786009234; cv=none; b=jr/gQsvEYSS5CBP83q0PjNVHFdJwV+8dipH6+pd2cjjI29Yzd22AwzzrGbzyCbYWw8S2fUqOsMfaoeQ2Z0HmzD87eByCQt3D4Rjl6VTPV6GXdBJK9tNIsklJk88IxZ+H4gAKrgT8F8fhkv23/Z8+FkNthjhluRvFrFT9I8qgdrc=
+	t=1786009508; cv=none; b=tPOYvcxYSxNFk+yLzGiXCRcgyG2H13I69DPP5yyFeEUCSHGdrVbZXVqeu3zqmErDYfi6jsEiifYE8A/nkAI99PtSDaqy2fWSbIJOfZxVE6plupTnMweUS1DeAZB7qWpXKRr0cc3YqkByFu6hrIOnQhdLCBCidpBlKKkNKsNltB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786009234; c=relaxed/simple;
-	bh=o/4gSmig/Nh6Y8SFPGzhu9zqh6nCuHRcHmGc7kXJKRw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qk1qIK1emSRdrIvWdive4hA0LQVf65L0F5b3q9nO/AIl2U6ZG9p6xjX04hnLvdXymajbr1k6BW5+LQ0bJmCc1+1oMm3p90CCBRjMabhZaG6y3pKezs/q3biRTDz0xSUiF0jDfWQuY/PM0ZK0WUV63EHGE1ul71/D4OPR4dhuOFo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5uUz9WH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786009508; c=relaxed/simple;
+	bh=LG9qQaCKhF0079OaY8ZKwiYgi3jpJGA437LX8i/NVg0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sBN+wYxZejNTjnviAfBnbdLxdI7IcLKBlTDfIuVIXWWbPBOCrgRfemQ2+S4f5viGB2C1yYkjcuScHdQUj2XtZK1aaCx0gI35D+CVSafFPrBEX7j7afxg+63v4VtXkDDY7QZrw/kLyc72vhF/3y9/cxMerQX4wdkyMqHaKiHbsyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T1VtakQJ; arc=none smtp.client-ip=209.85.210.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5uUz9WH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DFCE21F00A3E;
-	Thu,  6 Aug 2026 09:40:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786009233;
-	bh=YViHvEm1dgM1SVqz5mWxjFvaTRpnAVHD3nXeYSDSVO0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=c5uUz9WHh9lSVyflrf03ghAdcf7lMdjD3X3448xsQ4ASfoanUS9+2QGmJbXAVQCxO
-	 sLfdik94efJMO9NrevoCjpOxhZCFM9yb1OMhE63tIVjlF7udJPzvg3c6euFSLUI44X
-	 DfRetAw8HHqTiUNxNqYrqCCPIj4OhMzFNxusDytYiDJXhwYNHC0wnXAK5qae5QfU1U
-	 6mEiWR/68TGzzL6hEyjDVd7W95v+BKzNLN8gbO2TIgjPaEKXRTBel11Ee2TXdubOqb
-	 g1o+CBHs2hEK6TXdrEPHpyNup6FEiBnm+WIesmphwrHPM3pgY/24CouTB2SGt6QEic
-	 d/SPMkhV15JBQ==
-Message-ID: <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
-Date: Thu, 6 Aug 2026 10:40:28 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T1VtakQJ"
+Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-84536ecfc5bso2466884b3a.2
+        for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 02:45:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786009507; x=1786614307; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LG9qQaCKhF0079OaY8ZKwiYgi3jpJGA437LX8i/NVg0=;
+        b=T1VtakQJVSEFFhyJEh9sIIhxsMoYqlwE4cxJplnbv1jrFow7lgImoxirvr8+8dCFiS
+         O2L0svLjjHevxrk0MnksluCsnUIcgQAc2fqGIspjKXL2uPhdVi6ZVlznNatwVkeMKpLS
+         pDydFFWQrtT1RGVpBAkOV1zVF17bbNary4cteItZIi6gQ+lywnR4pR2L4qkXSp6xymkj
+         IeKdJwFt5NtcU3H3jr6FBJnIwzm6MY7TdhCOn8yhAixDuHSqDHeo/P7swrzZvThESoPb
+         KRPJ+/KE2lbjJpp6jAKxdNahSen0s6kx48MXWA1LWkb7Pri37OMl2k5gzzJhoDkaLVEK
+         77Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786009507; x=1786614307;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LG9qQaCKhF0079OaY8ZKwiYgi3jpJGA437LX8i/NVg0=;
+        b=PDOTK9j3pEw16JWTe5lbVwBWi5UAfQGh+rbdKBiW0koFzq4vIGxg1GZ+Hpe3TLQGzP
+         ddBaBhm5hO2b39d/vTL0ujf1KmlDvOYUthLZPy7nBi23C/HEh87nrcVgZDZhEZMP+IHF
+         v750Br5IjHEX7mNvEr8RFLwd9DhY9a6OwxEVxMGXkHEndPBPFzP2q7OKqbnCilQgVaxN
+         aFsAZG7bQK1udlfx6GvBUymOubU+DAa51Ij52CXnTWBN0mTzYkWmqoPiNmjAu/FWGi3+
+         aOw20s9jKMJk78t5EzveQBCKiJ1Jh4u2iF1LVNEBzfYxkFh8Q2SN6tyg0BBqRAGn8Otj
+         6Iww==
+X-Forwarded-Encrypted: i=1; AHgh+RqDdzck6XKSAJlSUJMZsuth2/fUkJF9W1fLTfmiA4rMCW+bg6xLRjiTXeXIoxr9VPHRkzO1/+VPu00QSQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5317cClChwBII10Vn5i46q4dvNw9jfpGqWgiqq7oqGP61FvWJ
+	Qr756gPQsREm4XvefCu85F4N6R3OdgiavczIJjyuENO9/Hj35iBY7f9o
+X-Gm-Gg: AR+sD112Z3wfYLJwVyV+A+vx37hZCpig7dyht3uQmABGcQec8TTMKXVvBKv1NPDjDef
+	Dnv9ZBb4gvvudrSI85rbnKTpqpO88y4bsOt2RpFlQZJBcKnTcgkQgV2UCo9SCQmmTv6sjtL4VJr
+	RjZBpb3O9oQk9zZcC3GV7MDI3/HGICYslkoDDr9ZGaaV5LBxWAVCMR0CyfelGKQNUJl/p9AKXSo
+	6qinbPZYQJ8/7o4kyAC8nuwEXbHBIpHeQJRt0WwVwtjDerjO0rPgt3uEUSU09cIePZQL9fnR5eM
+	o04xYAD8mc2bIA23JB2JWtq+u7wwPV568hVeSpx/LmcZYELnv+Bexx495UzYwiLHE1naqniMPQ3
+	s1CKb7kFvZD6QGrZIh85EF3G/AUXSZ3Wtb56msFtpzNBJ/FMKaFMyWrFqJWe0mwwHGHV1B1jc1y
+	5qxI3MeYl61yBTzdk0PyXaj9172iZoR+aaVNnGhJv2OgfHvWX2L4u8uzeFrDbIUxRk1D6v
+X-Received: by 2002:a05:6a00:4143:b0:848:6720:6fec with SMTP id d2e1a72fcca58-84f2e05e73emr15363801b3a.28.1786009506446;
+        Thu, 06 Aug 2026 02:45:06 -0700 (PDT)
+Received: from eos ([43.245.121.11])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84f45bc5696sm1025470b3a.53.2026.08.06.02.45.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 02:45:05 -0700 (PDT)
+From: =?UTF-8?q?=E3=82=A4=E3=83=A0=E3=83=86=E3=82=A3=E3=83=A4=E3=82=BA?= <reza1234khan1234@gmail.com>
+To: ribalda@chromium.org
+Cc: hansg@kernel.org,
+	laurent.pinchart@ideasonboard.com,
+	linux-media@vger.kernel.org,
+	reza1234khan1234@gmail.com
+Subject: Re: [PATCH] media: uvcvideo: Make uvc_event_control attribute name array const
+Date: Thu,  6 Aug 2026 15:45:00 +0600
+Message-ID: <20260806094500.4729-1-reza1234khan1234@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <CANiDSCvhLt7kWn1bfz_h2Tw+SMs7AsLM-pFyhADZh2-Aor=gxA@mail.gmail.com>
+References: <CANiDSCvhLt7kWn1bfz_h2Tw+SMs7AsLM-pFyhADZh2-Aor=gxA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
- Daniel J Blueman <daniel@quora.org>
-References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <689580d1-8169-41cf-a954-927e10135700@kernel.org>
- <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
- <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 06/08/2026 08:57, Vikash Garodia wrote:
-> On 8/6/2026 1:24 PM, Bryan O'Donoghue wrote:
->> On 06/08/2026 06:21, Vikash Garodia wrote:
->>> On 8/1/2026 3:36 PM, Bryan O'Donoghue wrote:
->>>> On 31/07/2026 19:22, Vikash Garodia wrote:
->>>>> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
->>>>> Cc:stable@vger.kernel.org
->>>>> Tested-by: Daniel J Blueman<daniel@quora.org>
->>>>> Signed-off-by: Vikash Garodia<vikash.garodia@oss.qualcomm.com>
->>>> What about venus ?
->>> Plan is to get the reviews for IRIS3 family SOCs, once we have a go
->>> ahead from binding/DT maintainers, i can either bring in few series
->>> for remaining venus and iris SOC family OR do all of them in one
->>> single series. My preference would be to add in multiple series.
->> I still don't see why we can't just set
->>
->> minItems: 1 for the memory nodes - implement a fix for stable and then
->> iterate around this new way at leisure.
-> you can follow the guidance from binding maintainer [1] and continue to
-> discuss in the same thread if you have any question.
-> 
-> [1]
-> https://lore.kernel.org/linux-media/2b0ea2a2-c3ef-4147-801b- 
-> af41733fba7b@kernel.org/
+Hi Ricardo,
 
-LoL seriously - system resetting bug.
+Thanks for the review.
 
-How long exactly is this going to take - do you have buy in for 
-sub-nodes and when will that get merged.
+I went through the whole uvc driver looking for other variables that
+could be constified the same way. The attrs array in uvc_status.c is
+the only one of this kind (an array of string pointers). The other
+data tables in the driver (exposure_auto_mapping, cros_colorfx_mapping
+in uvc_ctrl.c) are already declared const, so there is no remaining
+group of changes to batch together.
 
-For reference I do not care what happens my concern is an unspecified 
-window where stuff remains broken and we take our leisurely time about 
-doing something about it.
-
-If we can't target something for -stable then this driver and venus 
-should be marked as BROKEN.
-
----
-bod
+Thanks,
+イムティヤズ
