@@ -1,39 +1,87 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1E246D0B5;
-	Thu,  6 Aug 2026 11:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5902147798F
+	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 11:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786016960; cv=none; b=j886KSTrulHkx6IR6AutvVVDenSyRm6lEaPfHJdNg7TZYvh/3Pzyls9oTgivZSIoDgbiD5YHLirQRGQOjW7prNTUagtw69UWaTWqKQvA5ryw8WwQARclxnPwjvx6tpgsNU15S0BbUdgrc8fb07IQvf9x97VLz+smFx6lGVpO80w=
+	t=1786017426; cv=none; b=WNiwoeJ6nhSVIfzuZNFh6mAZgDTBvEpTfYt49JYzRS6cjl5Z8cl71CztruxmGWyWDm3kic250pA/VdqMd1Hled+OaIiqHkJbriPCNWRLEAUdmuuzBzXGbziaKAxVuPE2mcxIvPZf5RpCcImulaEyBqRZgFsStivmpBoJXg/5o9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786016960; c=relaxed/simple;
-	bh=wUd6BTz910GINwkFJ3oxFnudhEev1Ed6wapoS493qi8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=Ms/UcNMfFQj2/GIZVrLGq6VAXTVcRvjRrMRUlRr/Qp5ZMzjvVzrpYbfgZ1wGdSPDVNS4YhPp6nJMOuhV0Pea9O5dvs79okMO6tIhBVyYkcWubSgRqDYGXdk9YIuuxcGF7hImEQ5BFEcRkVQ2eQfgNQJlrGp7qToLR4PtZsM415A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=HPOQ2qS4; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1786017426; c=relaxed/simple;
+	bh=xNFLD4E91K9S2ZUtnWsmxgEzMpCxGHiVf/rcwec9iMk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FpFrNs7IPBYbUgUkXAdmp4eTau+NXUHSN0f+IWV/1zHL7lrmMj52KxG9hKH1y42A7I7IkyiFIvFbfquwvq0ugfdNiU99gjT0XYnrqsahc90VOH3MnydYf96YclVubbtyIinQUfazStucx5VBEhn2sL1R4H1rjscpGQebvqM4cd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GlpPpJgv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FfJ4z9Bp; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="HPOQ2qS4"
-Received: from [10.13.80.162] (unknown [176.101.149.185])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id DB5DA5340316;
-	Thu, 06 Aug 2026 13:49:08 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786016949;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=/s3rnEvEi/wr4ErGlkJ4G8TE/5xsRmeGjRMpGNrPM6s=;
-	b=HPOQ2qS4tGHpMgL/fTwnEaea3KkRxWEnFwBh3/BGjpBGUi9zdkyGcQ/BGa6bd9cyAtm7i2
-	DbIYy2/B/wMoYO6y6Y/g6lg+N14jZ+aqO97FyG+aSDGwwg0RRiwetEdUYud2mHzS/Y7iDL
-	5vDIq5SNL/Wt9IiP0QU9VQuO3ae2kjw=
-Message-ID: <dd2f19ac-a65e-4e53-aa2f-6f76c949366e@ixit.cz>
-Date: Thu, 6 Aug 2026 13:49:07 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GlpPpJgv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FfJ4z9Bp"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769ndVK1578698
+	for <linux-media@vger.kernel.org>; Thu, 6 Aug 2026 11:57:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VkStwf3S7kCqSDAEDhjUDeg3C2rvnMkGzJXuP0MDY+I=; b=GlpPpJgvZ4rXTz3f
+	Vbsow/BTSTRqHZoBrpNGzGx138KjJFsEmgyX9Sc2fuGNub047NhdGuwleFhS4M87
+	+rgPv98MEYMz4fC1yLiveSrHxyyOw2xPq95xVuhtIznpX729wUuwdUqEEiphCr7M
+	eEoVcb12j205pC1C/FqFKPE8FelWHeK7YCcz8lvOnlc0naKn+VjN/ajhz84I9u0S
+	ymJB+jSNGRaAePHEzS9s3NldXyooEL02lVY9a9BrQgr9ZslmLb8kGX1pr7O3Ne+8
+	qHN+xYD4XgdseoK4SIDEks6IzABN9z4VZSZLBY1gQyQw/oZqeDbg2h2BsuuWVOd/
+	Dk2bmg==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvju8hym2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 11:57:02 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cbbb9c9bfc3so1319574a12.1
+        for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 04:57:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786017421; x=1786622221; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VkStwf3S7kCqSDAEDhjUDeg3C2rvnMkGzJXuP0MDY+I=;
+        b=FfJ4z9BpbPicDbzACOITEcRIy8nXerTvWRJ+q7qhdJKoOJ7CCiuRnS2L7gBhcociEm
+         z6XaWnnl6t7K6FLFm4OHxYokwTWEZUJ8/PoZipEY2FoqtlRO+yhTT9IUJkZLwT02leKr
+         3ztibQ6YPqhd4CdKwj+14YgQe9BJrEz1uORcJgi/L2gkTMm9Lrywz/xj0KvKMlkjQ0WI
+         LD8lfiP8MmxpnKEt/Qr9nTG/W9lXijoGp1MlT6PAmwyWSyqLyavyZefFQXS6V8Ft0XLq
+         JE03hMfNdFnL0PywYLf0KsqNUb14adM6TsZJTZ9ZmePOrCfrlMXJtUk3lN4xAbE5Vm5+
+         X3bg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786017421; x=1786622221;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VkStwf3S7kCqSDAEDhjUDeg3C2rvnMkGzJXuP0MDY+I=;
+        b=ectcnB52cP4oEo/0zpmHm7SVLSIm6U6bOsg9O/f0HZAda+Xxo5JuZNd4Ns7u5ISJDw
+         i6iZp6PRCjHRUkiR1dNDvUhtshXThW0rdcNm3W8rtapMbylgHVfLBt86P3sPrfnZYmzN
+         NwImV5oy2d9DE0iq2Et17uXVTYOmU2GoMVJVYz41NzbI814qen7hMsknmxZ1KY9qWgLd
+         l0uIiNdDSv3XrRyhnxiO8OOL4g7tBbwws8ZNg+uiGiQrik3GgRScN86evPPaeWqWGAWB
+         bKvMsN5gdRHpjnAEgSpCQCYOL7akDy/mK3mG8i+TLEg1iLjlqi1ZI1LXpNbhJ6Ddubvx
+         KIjg==
+X-Forwarded-Encrypted: i=1; AHgh+Rrr7g374GmVHl2i9r2FW6mAPVFwVUY8s757acFUqdk6EKc71t6PFdYmQdjemmhDfLw7wwKpNKrZIEBH4g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyF605mBIoKkNUkO8pwfdFmmAOPsNTQy8/C1wgihS+YXrV9y8E+
+	Korjyd0I6t2tex5kn1hxzwdhb0iYxHujkNqH6Ds+00oPBERbEZ2HWqoPKTwuo+cTgI7qbBGCrLW
+	BcR04qwpeEXO/kE1STKnIJVPpf1PGsrMPeVpDl+e2D6AbBG3/698o3ypKoDcDtAapPg==
+X-Gm-Gg: AR+sD10ts4nAohLdgG3PQQ6llENCcjS0k6nYqkEn6aMSOXVfdaXi2eUAQsHx5AGwc6s
+	E2VFKPOi7AuGz8mmWsA1GM0PuAXO792ZF2rn4MoM1p2MroFqOYi5AIWwGkXbu6l8h53FeUGeeKF
+	DzYs455qKGGqGD99aAkTs/8vXzjmmHsuecIQQA4FDOGD0pxnvzwC4tdE8UIQObStlbPJ/1k5kPj
+	+66GziGWVWkriZpv8/6QRUHMOxjesj9uooRo3Zw1edXn1t7qEPpDNnKu5lE72IBa0helkB3Am/v
+	hB0h/nFOrfeYFmoK7oVk6zrM1ZRc7PVYbo1ISDeaHn3PZFftivK1OFwKoBZbKKt9rP0YQeXyUeC
+	oEUGW9X0AVjquyDWHKDhqVGBnFyPRc9FGR38=
+X-Received: by 2002:a05:6a20:9e0e:b0:3bf:6ac8:8d29 with SMTP id adf61e73a8af0-3cb85e736dfmr18447889637.21.1786017421173;
+        Thu, 06 Aug 2026 04:57:01 -0700 (PDT)
+X-Received: by 2002:a05:6a20:9e0e:b0:3bf:6ac8:8d29 with SMTP id adf61e73a8af0-3cb85e736dfmr18447828637.21.1786017420682;
+        Thu, 06 Aug 2026 04:57:00 -0700 (PDT)
+Received: from [192.168.0.173] ([183.83.142.146])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315ae6c1f9fsm4873066eec.17.2026.08.06.04.56.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 06 Aug 2026 04:57:00 -0700 (PDT)
+Message-ID: <d0dfd058-f0a0-41e3-a7ad-89eccd0571cb@oss.qualcomm.com>
+Date: Thu, 6 Aug 2026 17:26:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,172 +89,199 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
- coil requires higher voltage
-To: =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Olivier Benjamin <olivier.benjamin@bootlin.com>,
- Manuel Traut <manut@mecka.net>, Alexander Warnecke
- <awarnecke002@hotmail.com>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Shawn Guo <shawnguo@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- phone-devel@vger.kernel.org, imx@lists.linux.dev, stable@vger.kernel.org
-References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
- <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
- <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
- <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
- <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
+ subnodes to common schema
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>,
+        stable@vger.kernel.org, Daniel J Blueman <daniel@quora.org>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260805-dark-voracious-jacamar-6aae4c@quoll>
+ <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
+ <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
+ <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+ <zqpgl3esozn4dgnm7remmwmquxasyc4qpyh3fgcdfblmn2xe3g@vhp5umdahvmi>
+ <9921567d-4b3a-43b6-bf5e-eb0e92102e34@kernel.org>
+ <npojagmk7x24wpbqcmzg4mijscqz63aluh6lj5uaciztzl53wl@ld342uighqaa>
 Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <npojagmk7x24wpbqcmzg4mijscqz63aluh6lj5uaciztzl53wl@ld342uighqaa>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 4bxOO7Gm6vZT0_l7Ws6FZJxuBNYydRDX
+X-Proofpoint-ORIG-GUID: 4bxOO7Gm6vZT0_l7Ws6FZJxuBNYydRDX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA5NCBTYWx0ZWRfX1vJRhxHsxGIt
+ NRYQ4bKCpkVo3tFZBNmS+ygAgmYTbVwwyo5tWNKoR1v+Ag1z6uHZeEfG+00RCDG1J6YMlsTLhd7
+ bANXKvM5tUvScBRMG7Rs7avKMLIJ6XZQVipKgdv2bJM1aUx9QSqqLc4UiyQPDcjdBgFOFG7H7sB
+ iLRE0c8QQBYQIK4VKMI2Bj9U0OycTauzvXMKybxVw8Lwo86iRckSypks1aGzGo0URG1ElNfI272
+ FxR9NWYXj3+qiWrzUJaanuGT6AAahsKlvAvPvVeWwJAlZJ5hlq3+pTfNdXSDQybuJ/DkPzH0w1+
+ jzPx72FLWDnBwgtdnh89F+8g6Tq212IfVhY2wZKcyY2ysHzfCWmnJ3p1Kip7AY5bjil118zRsbn
+ Hmz7UNIMyksukv47GJALVf0MAVUncXHe2n0ekIFtnhk9GMTc9piyLlZ/LBVj1c2n1AP2gEKfRe8
+ hPMTp3nVUUi3MX90s4w==
+X-Authority-Analysis: v=2.4 cv=K5cS2SWI c=1 sm=1 tr=0 ts=6a74768e cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=eVbXwf39F0J6/s7D6zfB/A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=2aMSz8YdNj8EIwJtzwMA:9 a=QEXdDO2ut3YA:10 a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA5NCBTYWx0ZWRfX7MDRCZZ6DLYX
+ obHnjm7PNouhVUGWSD21o8WxIYiqSpY7upaF7xZunWxEp77smOs5eFFVtvqBIzLseX/mcGbKrW4
+ PbfZwHNj43+Imqy0yNkvyj/4ZYns1U8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ clxscore=1015 phishscore=0 lowpriorityscore=0 adultscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608060094
 
-On 06/08/2026 13:19, Ondřej Jirman wrote:
-> Hi,
-> 
-> On Tue, Aug 04, 2026 at 11:12:21AM +0200, David Heidelberg wrote:
->> On 04/08/2026 09:39, Ondřej Jirman wrote:
->>> Hi,
+
+On 8/6/2026 4:05 PM, Dmitry Baryshkov wrote:
+> On Thu, Aug 06, 2026 at 11:36:45AM +0200, Krzysztof Kozlowski wrote:
+>> On 06/08/2026 11:22, Dmitry Baryshkov wrote:
+>>> On Thu, Aug 06, 2026 at 11:11:09AM +0200, Krzysztof Kozlowski wrote:
+>>>> On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+>>>>>
+>>>>>> dma-ranges tell how this bus - so venus/iris - performs DMA translation
+>>>>>> in respective to parent. Address/size-cells are obviously also needed if
+>>>>>> this is a bus with addressing.
+>>>>>>
+>>>>>> But there are no children with addressing, thus what sort of bus would
+>>>>>> it be?
+>>>>>>
+>>>>>> It looks to me that having here both:
+>>>>>> 1. dma-ranges + address/size-cells
+>>>>>> 2. children without bus addressing
+>>>>>> is some sort of abuse of the DT syntax. It is allowed, but does not
+>>>>>> really represent hardware.
+>>>>>>
+>>>>>> IOW, dma-ranges alone feels okay, although unusual, and it states proper
+>>>>>> DMA translation for this bus. If you add address/size-cells, it means
+>>>>>> this bus HAS addressing and thus YOU MUST use addressing.
+>>>>>>
+>>>>>> If my understanding is correct, then solution would be to add addressing
+>>>>>> to the children (so unit address and "reg" property) or drop
+>>>>>> address/size-cells as Rob pointed out. [1]
+>>>>>
+>>>>> Doesn't dma-ranges require address/size cells? In the end, how can you
+>>>>
+>>>> I think it does not require, at least how I understood the DT spec,
+>>>> unless you provide actual addresses to the property.
+>>>>
+>>>> IOW, this requires address/size-cells:
+>>>> 	dma-ranges = <0 0 0 0 0x10 0>;
+>>>>
+>>>>> specify the DMA address if the device doesn't have addressing at all (or
+>>>>> MMIO-style addressing)?
+>>>>
+>>>> Yeah, that's why having here children without bus addressing is
+>>>> confusing. I would interpret it that, children are not on MMIO bus, thus
+>>>> the venus/iris is some sort of proprietary bus with no mapping between
+>>>> parent MMIO and children nodes.
+>>>>
+>>>> If there is no mapping, then we do not have 'ranges' property. But I
+>>>> could imagine that such no-mapping bus still provides access to system RAM?
+>>>>
+>>>> Actually this feels like a huge stretch, so I tend to think that the
+>>>> only reasonable option is to have children with MMIO, which would make
+>>>> it explicit: Venus/iris is a bus which provides translation of both MMIO
+>>>> and DMA addresses to the parent.
 >>>
->>> On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
->>>> From: David Heidelberg <david@ixit.cz>
->>>>
->>>> By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
->>>> Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
->>>>
->>>> Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: David Heidelberg <david@ixit.cz>
->>>> ---
->>>>    arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
->>>>    1 file changed, 1 insertion(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> index d46cdfe3f7849..bde35d9b2263e 100644
->>>> --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
->>>> @@ -473,17 +473,17 @@ wcam_out: endpoint {
->>>>    			};
->>>>    		};
->>>>    	};
->>>>    	wcam_lens: camera-lens@c {
->>>>    		compatible = "dongwoon,dw9714";
->>>>    		reg = <0x0c>;
->>>>    		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
->>>> -		vcc-supply = <&vcc1v8_dvp>;
->>>> +		vcc-supply = <&avdd2v8_dvp>;
->>>
->>> This does not match reality, schematic says it's VCC2V8_DVP:
->>>
->>> 	https://xff.cz/dl/tmp/6253a0465329df41.png
+>>> But there are no separate addresses for those subnodes. Would you prefer
 >>
->> Ahoj,
+>> There might be some or maybe these should be the addresses of DMA?
 >>
->> thanks for spotting this, since I know you have the device, would be too
->> much to ask you to send standalone fix for PP Pro?
+>>> them to duplicate the addresses of the parent node? Or would the
+>>> 'ranges' be enough?
 >>
->> I would drop the change from the series.
+>> I made mistake earlier - 'dma-ranges' without values is not described in
+>> DT spec explicitly, but should be treated as 'ranges' without values,
+>> thus direct mapping from parent to the child.
 > 
-> Ok. Just for the reference, vcc1v8_dvp here feeds an enable pin for VCC2V8_DVP
-> LDO regulator (which is supplied from VCC3V3_SYS and not described in DT, yet).
-> So in practice enabling vcc1v8_dvp enables both VCC2V8_DVP and AVDD2V8_DVP and
-> while DT does not describe the HW in detail, it describes the only regulator
-> that is actually controllable and enables all needed power rails for the camera
-> modules all by itself in proper order/timing.
+> Documentation/devicetree/bindings/iommu/iommu.txt:
 > 
-> Not sure what's the DT maintainers idea here about whether DT has to describe
-> every detail of power rails routing, or just what's pragmatic.
-
-My perception is that DT syntax should describe everything, except passive 
-components.
-
-No additional GPIO is needed to enable VCC and AVDD?
-
-Here, it seems to me that explanation like this in DT could cover it. But I'm no 
-authority here :)
-
-David
-
+>    An empty "dma-ranges" property means that there is a 1:1 mapping from
+>    IOMMU to memory.
 > 
-> Best regards,
-> 	o.j.
-> 
->> David
 >>
->> P.S. I noticed I didn't mark this series RFC. Too late.
+>> So it also requires address/size-cells, just like 'dma-ranges =
+>> <mapping>'. And dtc checks/reports that.
+>>
+>> I think therefore now that the binding is unusual (because no bus
+>> addresses of children) but actually correct.
 >>
 >>>
->>> regards,
->>> 	o.
->>>
->>>>    	};
->>>>    	ucam: camera@36 {
->>>>    		compatible = "ovti,ov8858";
->>>>    		reg = <0x36>;
->>>>    		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
->>>>    		clock-names = "xvclk";
->>>>    		dovdd-supply = <&vcc1v8_dvp>;
->>>>
->>>> -- 
->>>> 2.53.0
->>>>
->>>>
+>>> Or, thinking about it, if Venus / Iris have 32-bit addressing, then
+>>> dma-range should probably define the limited DMA range.
 >>
->> -- 
->> David Heidelberg
->>
+>> That's another point which I also raised to Vikash already - mapping
+>> should be restricted to 32-bit if this is how the child devices operate.
+> 
+> Souds so. Then we need a non-empty dma-ranges.
+> 
+> 
 
--- 
-David Heidelberg
+based on this discussion, below works for schema check and dtc
 
+schema:
+   '#address-cells':
+     const: 1
+
+   '#size-cells':
+     const: 1
+
+   dma-ranges:
+     maxItems: 1
+
+
+Now in the schema examples, soc is added to match the reg/dma-ranges of 
+parent (iris)
+
+   examples
+      soc {
+           #address-cells = <2>;
+           #size-cells = <2>;
+
+           video-codec@aa00000 {
+             compatible = "qcom,sm8550-iris";
+             reg = <0x0 0x0aa00000 0x0 0xf0000>;
+
+DTS
+
+iris {
+....
+   #address-cells = <1>;
+   #size-cells = <1>;
+   dma-ranges = <0x0 0x0 0x0 0xe0000000>;
+
+   iris_non_pixel: non-pixel {
+	iommus = <&apps_smmu 0x1940 0x0>;
+	memory-region = <&iris_resv>;
+   };
+
+   pixel {
+	iommus = <&apps_smmu 0x1947 0x0>;
+   };
+
+Please review if anything is missed out.
+
+Regards,
+Vikash
