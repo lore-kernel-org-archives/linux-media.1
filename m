@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F3EB41BA95;
-	Thu,  6 Aug 2026 10:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9DE23D7D70;
+	Thu,  6 Aug 2026 10:18:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786011299; cv=none; b=ryu6XZRmNvbVP6Mvu3LTdORHj8g4DgfzBpbqsMA5F1/3+Xk4TzVaSTwsWZMYCkF2XuIJQ1lXnTo8gRf5VZ231U4alwW6Xn6nwHkrN+8Ob5wmEenvbIdV4rm4Kn3Q4IV7xhXPDwt+zbjhF7pp146bYecgM9H2idQTv+hQfDRqVyo=
+	t=1786011520; cv=none; b=Im9vX4F6hdDzkbTkBjzrdUMspUWGqeDznVVf+Mu6KzJolE6Kz29z0/d9U2VK35Uw89Szg+ZmZAXUrNvKTSchYmtgSLblPqhxyf/rncaHh1iIxWRl/1avcx0WtqbjOxavnV3HtuPtOW8YopPZ16QNn6VqqzzUaQz5Th4Wh/2hYSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786011299; c=relaxed/simple;
-	bh=S8WeXm1c8WnTvv7mDzOnPBmOWX5oCtS8rytPALW8BcI=;
+	s=arc-20240116; t=1786011520; c=relaxed/simple;
+	bh=a/ktzM+M5NJYxFpdP7NSDQ/AP6CYbmbaQ3o9nnBo8kc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nshs5/LxVQN1lXJbfswUwBueR5NQHfh4+oMQ60/Quq+qSt4lDCsLsYjhpQzqexowQ53xu9ticoUAThMPhFfIf3Ai/K5O4eDilveL+Wf/jnSMkKJhOy45nIiae6jhHVotQfCGkpR/5IFG1eJy44KAyXB2FHJxvu7PF+OT3KbGNyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XaE8GRp3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=h87eQTY3uk+YppBWmn3hCvRY/HyIYlB/imUkbleLZXi3vAFNG2tt8XY7RrZzYtswDoivSH9FtYRAH8hRIvy/HcGQJsfW5jxSR0YdiiFi8nyDNMsNU+8+L4iR1M45Oc26KA3U0bTmNyrUtnDPqMBRc1WlxDTI2uHSoW6XaP5nrHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMcD5jJG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XaE8GRp3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87BBC1F000E9;
-	Thu,  6 Aug 2026 10:14:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMcD5jJG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC43F1F000E9;
+	Thu,  6 Aug 2026 10:18:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786011298;
-	bh=IInIyXiv4+ElSd6n4jqdO4vD3EK0Ai3x3N1D9sJ3+s8=;
+	s=k20260515; t=1786011519;
+	bh=AuCl1BP2ZnvHnrPdM8vJ14bFDLWZlulNvgD/oSTdoFQ=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XaE8GRp3DpgXiYl1VknGEuevEO1Idne9LSDaXn8pJMhh1ZSXebeVPgIGiJ6jKELYU
-	 dCyWI/WUuGmIWrAMMbZXXiIK6lE9+ZfyT24qt1D5Xak2kViKzeVGboDRs/lCPlQUqX
-	 aCo0euZGntgmD1nn73+lSb6ENRAAwJ10w4pYO44G7PJ9ToEEk/y8vr7tNvhshnocPz
-	 hSjI8NnxFPcI6k+S9cXY96gw5669PHCMZr0E1aM+cDni5KHQ8NhNOJNjkdIaRRrOAD
-	 T4U+LpaNPJ5YpwxnGoi6aXkAlU179nNvhUz1QjQxuW1aWtpG6Ijw6nbYzwcJXEx2dw
-	 Jy9ej4Zz7qjSw==
-Message-ID: <41163185-09e8-47b5-9ece-c6503cb48920@kernel.org>
-Date: Thu, 6 Aug 2026 12:14:48 +0200
+	b=FMcD5jJGfLn/oTIhXTMG0/8x13GSrVz1mNbmeKN30b23v38HrRCdaJcc9lz+XyY8j
+	 wRB+x4VI+jpGuFKP5Y2twEG1qZEqcqfLxLkqvqYZzMJdGOH+d3iDem2yMaCTHzbTHA
+	 jp77vwib+kWvxe+Cm/MUH+OsskomOsDuB0xoqpTVMrC8DwlPqwNJeY/6BnbRRRmz37
+	 8cOwPCpedJiFndFiOQRM7V2OO/8WHSFw1mUnaI3xbSZO5KjMknrnw4Q47eI13ZfZ9x
+	 TVuOj/+y0Rm/SeZWI9aLI9uO/27f028elPvZWRRrBM62I7fOheCJUijZNfbEJ+MJZv
+	 lD8WZxdxuZt3w==
+Message-ID: <4460a2c3-6b4a-4a7d-ba86-51c1c8363781@kernel.org>
+Date: Thu, 6 Aug 2026 12:18:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,35 +35,29 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
- subnodes to common schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
+Subject: Re: [PATCH v2 04/12] media: iris: Add helper to create a context bank
+ device
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>, Bryan O'Donoghue <bod@kernel.org>,
  Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>,
  Stanimir Varbanov <stanimir.varbanov@linaro.org>,
  Neil Armstrong <neil.armstrong@linaro.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Stephan Gerhold <stephan.gerhold@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio
+ <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+ Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
  Daniel J Blueman <daniel@quora.org>
 References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
- <futJwsC0VjGSkjrB5PP9T0jBOVgWADaDAYyRRp-OZifaKPNtjcnnA59QJaQTdqYTeayZk9jY6e1jOfun71Yp5Q==@protonmail.internalid>
- <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
- <689580d1-8169-41cf-a954-927e10135700@kernel.org>
- <d0983bf7-a708-46ff-9f86-f94fb6a92ba7@oss.qualcomm.com>
- <d6ffacaf-7f83-42be-a3cf-40ce00810ca9@linaro.org>
- <Ia82wa4IJDPkQZpTCt4MDMqtq1VGZ7DqIaJFNvV0MjaT3jjWrbD_iBs8RU7pqrIz-ZTMSK2irncUv7-PZ-fvkg==@protonmail.internalid>
- <8130900b-c9f2-4f5a-80f1-1e8567ee1b72@oss.qualcomm.com>
- <f252d83f-e0e7-4061-8da8-d2650f1beadf@kernel.org>
- <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
+ <20260731-vpu_iommu_iova_handling-v2-4-da52b5228dbd@oss.qualcomm.com>
+ <o6s5kezlsbe6z53jbsezeixp2wfrmwmvwda67t6chf57jnbm3x@ta5hktzs7mdf>
+ <36b53e0d-82e2-4fbb-a2b6-3fd7b9c98663@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -109,39 +103,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <ea0f1777-4615-415c-86d2-2a792ea42b3e@linaro.org>
+In-Reply-To: <36b53e0d-82e2-4fbb-a2b6-3fd7b9c98663@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/08/2026 12:07, Bryan O'Donoghue wrote:
-> I tend to think - absent an obvious an immediately applicable fix these 
-> two drivers must be marked BROKEN, the alternative is to apply Daniel's 
-> fix and then live with the results for the bindings.
+On 06/08/2026 12:08, Vikash Garodia wrote:
 > 
-> Since the DT schema change is still under debate - what alternative is 
-> there ?
 > 
-> I'm not far off sending that patch now myself because I'm not seeing 
-> urgency on fixing this and TBH that's pissing me off.
+> On 8/6/2026 2:27 PM, Dmitry Baryshkov wrote:
+>> On Fri, Jul 31, 2026 at 11:52:19PM +0530, Vikash Garodia wrote:
+>>> The VPU issues DMA through several SMMU streams, and the hardware does
+>>> not give every stream the same addressable range. The non-pixel stream
+>>> is restricted to use 0-600MB of IOVA space, while the pixel stream can
+>>> address the full range. A stream can only be confined to its range if it
+>>> has an IOMMU domain of its own, and the IOMMU core attaches a domain per
+>>> struct device, so each stream needs its own device.
+>>> Add iris_create_cb_dev(), which looks up a named child of the iris node
+>>> and registers it as a platform device parented to the iris core. The
+>>> child's fwnode is handed to platform_device_register_full() so the OF
+>>> core applies that subnode's "iommus" property and the new device gets
+>>> its own IOMMU domain. The DMA mask comes from platform data, and the
+>>> segment size and boundary are capped at 32 bits to match the addressing
+>>> the VPU performs.
+>>> Return NULL when the named child is absent, so callers can treat a
+>>> device tree without context bank subnodes as a supported configuration
+>>> rather than an error.
+>>> Backports are intended since the first DTS of 8550 binding schema.
+>>
+>> What does this mean in the commit message?
+>>
+>>>
+>>> Fixes: 41661853ae8e ("arm64: dts: qcom: sm8550: add iris DT node")
+>>
+>> How can driver fix the DT?
+>>
 > 
-> As a user of a system, I expect resonsible and honest behaviour wrt to 
-> bugs, not architecture astronauty while my system can still reset 
-> despite perfectly functional fixes being available.
-> 
-> Great you want to do sub-nodes in DT. Not great, that's not agreed yet, 
-> even more not great - the venus stuff isn't even on the list.
-> 
-> Please indicate what should be done for -stable this week else both of 
-> these drivers need to be marked BROKEN.
+> The idea is to backport the driver fixes till the kernels when the first 
+> DTS landed. Ideally the fixes tags the commit which introduced the bug, 
+> while in this case, was thinking to keep it for DTS.
 
-Nothing should be done for stable. Or rather: you can do whatever you
-wish for the stable, because we discuss here mainline, not stable kernel.
+Fixes tag does not represent the backport, so your idea is wrong. You
+point here to the commit which introduced incorrect code.
 
-There is no problem here "devices running stable kernel are affected"
-which we are solving.
-
-The only problem we are solving is "devices running mainline kernel are
-affected". Fix this one and stable will follow.
+If DTS is incorrect, then a DTS patch fixes it. How a driver can fix
+DRIVER-INDEPENDENT hardware description? It's contradictory to the
+"independent" part.
 
 Best regards,
 Krzysztof
