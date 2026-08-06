@@ -1,1696 +1,217 @@
-Received: from mx08-001d1705.pphosted.com (mx08-001d1705.pphosted.com [185.183.30.70])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010053.outbound.protection.outlook.com [52.101.201.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBB73E0C5C;
-	Thu,  6 Aug 2026 07:11:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.183.30.70
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786000290; cv=none; b=uHciMZ4POgWHzRWbRPdLEH05sD0aoDM8vz4GzNsrFbxga/ZiFH7k50dwK3vFRBTJG2Culoy8Oql4DwD9sPXY1awUBWi0OKGfM36KQ2LnvfzbTHlQdA5fbS6YD1Q5p6s5hb3bIe5ofjvyYgbLU4T0dxXfGlBxrlsGTXiq64vAKzM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786000290; c=relaxed/simple;
-	bh=ebSH4QQKQefNYjtz/KhKnOJ0bzb7GkD5UycTDzfemnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cf5ZQ5Opb26vLJ2EdQttvg+22rn9F7Xj4uTyN+bdpgkqqEArgWV35ghdfHcfs1hsCCf7bBaWQWm7iy1M5xCGHKuZJ2GGbbyebqNRtShJGZdEl+MYA6AXc9TgQW3sg5DvajcX9MsQoIOzbDjyy3hiFTKR7gtfFWw1u3XnfupFHoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com; spf=pass smtp.mailfrom=sony.com; dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b=j8VkByPk; arc=none smtp.client-ip=185.183.30.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sony.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sony.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E398F3D8107;
+	Thu,  6 Aug 2026 07:29:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786001401; cv=fail; b=i9pdOU4RKfUYblh/dpxuLzUMXQeF+Um6Pjw+45a96OiRBqjlbDz+kowU/g50FVoOCum29D84iYsHOat24lD+zE2XBIWlFx71ybrqUw6vZTCt8kifgR2sJU6+H6v9CgezkDuu1+Ke4HhvnYE3jVYyUUmRQxeIIeL5nx3jofyyMLc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786001401; c=relaxed/simple;
+	bh=tXCg9XS5qaZWsZT+Mfkw1K9bmOhdA//5snvEcFJYCNI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=VEFzBr+IpfV56wXo64QZASDl3v92X0es2eukoRn+U+Jmme1BnFldjGjLFv9fcQrW+IFObMsoSiDOnu5XGQqv545gyFuEL/sURM5AjScQyZnTRoyfpfNd+ozWdbvKC5QTnR58+IgFX5GJ7cnVtIXDX3FboU2lv3iHQ5xvTalv/gU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=1RY7idE2; arc=fail smtp.client-ip=52.101.201.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sony.com header.i=@sony.com header.b="j8VkByPk"
-Received: from pps.filterd (m0209323.ppops.net [127.0.0.1])
-	by mx08-001d1705.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6765VIkc4108441;
-	Thu, 6 Aug 2026 07:11:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=sony.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=p1; bh=gY6iq6my5YB1kH4bqU
-	jgm4x0vc1rNPxHwT8j0XkUVfI=; b=j8VkByPkUkundBXUMOojLPUvYTAxVzWjxZ
-	pdp9ILnKRy+xP83rxAJsTSQZfljfZAYeY6ZHU2Q0fXITKMz3N82zbhzeQVcKJ2hw
-	WgDIOU7N9mxSMQ5j51VKDutlC3HRXUlarOCie9xJYLP7old5QiLwPZAhl2aXH29F
-	juHATa6eIN5jTKCic4iWBOkgm6+k2hG2Ew3D7/xTsqQt9qzDXgQ1LnY3sbGlu4ew
-	XjkH9aRxc19toPhuTonz1YVF9yVcqm/ArxNFrYYd6UZCS8ookKUiAWGol4PGxxw1
-	2HO2RAvj1qzLq73sljDONLvkwa3jhfPM1z5OxRbTRXKddMuDVOcg==
-Received: from sgppsea01v.sg.gdce.sony.com.sg ([121.100.43.225])
-	by mx08-001d1705.pphosted.com (PPS) with ESMTPS id 4fs84wd7cf-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 06 Aug 2026 07:11:15 +0000 (GMT)
-Received: from pps.filterd (SGPPSEA01v.sg.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (8.18.1.7/8.18.1.7) with ESMTP id 6766CbSs000473;
-	Thu, 6 Aug 2026 07:11:12 GMT
-Received: from sgppsba01v.s.gdce.sony.com.sg ([146.215.113.218])
-	by SGPPSEA01v.sg.gdce.sony.com.sg (PPS) with ESMTPS id 4fs9vhbgnv-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 06 Aug 2026 07:11:12 +0000 (GMT)
-Received: from pps.filterd (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
-	by SGPPSBA01v.s.gdce.sony.com.sg (8.18.1.7/8.18.1.7) with ESMTP id 6765ZQEx017477;
-	Thu, 6 Aug 2026 07:11:12 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTPS id 4fs9vgkabr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Thu, 06 Aug 2026 07:11:12 +0000 (GMT)
-Received: from SGPPSBA01v.s.gdce.sony.com.sg (SGPPSBA01v.s.gdce.sony.com.sg [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 67678jCv025361;
-	Thu, 6 Aug 2026 07:11:11 GMT
-Received: from localhost.localdomain ([146.215.113.251])
-	by SGPPSBA01v.s.gdce.sony.com.sg (PPS) with ESMTP id 4fs9vgkab5-3;
-	Thu, 06 Aug 2026 07:11:11 +0000 (GMT)
-From: Lachlan Michael <lachlan.michael@sony.com>
-To: mchehab@kernel.org, sakari.ailus@linux.intel.com,
-        hverkuil+cisco@kernel.org, laurent.pinchart@ideasonboard.com,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        kieran.bingham@ideasonboard.com, jai.luthra@ideasonboard.com,
-        Ryuichi.Tadano@sony.com, Kengo.Hayasaka@sony.com, Tim.Bird@sony.com,
-        Kazumi.A.Sato@sony.com, linux-kernel@vger.kernel.org,
-        Lachlan Michael <lachlan.michael@sony.com>
-Subject: [PATCH v2 2/2] media: i2c: Add Sony IMX908 image sensor driver
-Date: Thu,  6 Aug 2026 16:09:34 +0900
-Message-ID: <20260806070934.21764-3-lachlan.michael@sony.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260806070934.21764-1-lachlan.michael@sony.com>
-References: <20260806070934.21764-1-lachlan.michael@sony.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="1RY7idE2"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=a/T3sXza7qZj4Z3keDUpip1lIb7/VE5CHRt3Ub+fmesZxo0ezAahf81poijajiEq19h+g97paMTKHluZyFZkPKx2tN5w5XRHRlwSJVVwy+ErYCS/R+nBnr6YOFHnDhJod/ML/dwWelnS64BeIZfb3t0g+o76nxhdEG8Gbx8LxmnmzCdum+W3pbDPI+MruCg64K32i2cbkqpnqldxKxQDI0fXL8T2lR4FoFao+0cpVFy+Hynlkh1zaracnZ3HK+5ntOXjufg5tyVybJLGZ+KM+RsoSZiZWEWRQWQ0KIjkL2G5hfHmnrjv6XwOp+5UwJamOS0Dneo1H94gcVPSGUUnfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2Qjx11DI63SXND0MN48iCUVVhUe2PqkhXolIVCSP95U=;
+ b=UDGZX8mUyCMl8QrXBIr+WqENpo+Es4GEBVyJFEm42QCFGIMf2U8E88UmNubfulvEMadI84Grsv+Tly1OtEc/cJ12sEF7rbozLNrkgb7QsSRoNUmixWxVVSGtMi8x6jRE1X1XHdM0hQz4RTJrJo8cOIUdG5zzZ/UBUi4jzHPDW0SRu1Dwd+mCCICG9eBX4VR20RhBGCCLegO/xHAY8Dvu7LEqFzE6Nfvb5G7+sGv9rSJtc+eCtKqcnLoKHj4uEJQZC+amUF/QGbA3S5AUW8aJuHwdSvOFOKASmgT4l3SlTFc8FjL+uBWOiqZY3v/6Hsqt10jup5rB5r4ePE8Rzcs4/w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2Qjx11DI63SXND0MN48iCUVVhUe2PqkhXolIVCSP95U=;
+ b=1RY7idE2kt4H5eYA5aES2QQsQgIW2X1cB1usWgjr0aUnlBLzfOeU2n+WsIPGQrJn+QAwtbr2cX53i/Q59AEuZkX7u5DL+K5j5RygLSGO1Et6GYcMs/9UmI8YIGFPNP0UJQXY6yvVBgVHMT8kY4kPOQRLZuHk58TIdSVdQQcIh54=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com (2603:10b6:a03:42b::13)
+ by SJ1PR12MB6051.namprd12.prod.outlook.com (2603:10b6:a03:48a::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.19; Thu, 6 Aug
+ 2026 07:29:54 +0000
+Received: from SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68]) by SJ0PR12MB5673.namprd12.prod.outlook.com
+ ([fe80::c3e5:48f8:beb6:ea68%6]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
+ 07:29:54 +0000
+Message-ID: <0113c49a-a364-4df6-9ab4-681c789d9d3b@amd.com>
+Date: Thu, 6 Aug 2026 09:29:44 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/14] dma-buf: introduce initial file I/O
+ infrastructure
+To: Pavel Begunkov <asml.silence@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Sumit Semwal <sumit.semwal@linaro.org>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>,
+ Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>,
+ William Power <william.power@intel.com>, Phil Cayton
+ <phil.cayton@intel.com>, Jason Gunthorpe <jgg@nvidia.com>,
+ Damien Le Moal <dlemoal@kernel.org>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>,
+ Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev,
+ nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org,
+ ceph-devel@vger.kernel.org
+References: <cover.1785274111.git.asml.silence@gmail.com>
+ <bc20381e8daf85ac58811c344325d8192cde9d1e.1785274111.git.asml.silence@gmail.com>
+ <181b08be-04bc-4ae9-bb88-15321a82440f@amd.com>
+ <8285ede8-bebb-403a-8a37-b9987cd37a8f@gmail.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <8285ede8-bebb-403a-8a37-b9987cd37a8f@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR3P281CA0126.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:94::16) To SJ0PR12MB5673.namprd12.prod.outlook.com
+ (2603:10b6:a03:42b::13)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Sony-BusinessRelay-GUID: _7t7Pe64TQ0guTX00r73c_H8rKtqx75K
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Sony-EdgeRelay-GUID: QeL77nu0Hd9UiuMfu44Y90Xc9yemMjiC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
-X-Proofpoint-ORIG-GUID: 12jI1SBfQyAtTU0j0lOcxcduLkYu5Ky5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA1MyBTYWx0ZWRfXz5vjwymd6m2k
- 2qOmdAU6kNUGxdGKd3wUag6MUnZukyrSW0Gv+Qsf31xNhJqiJzUdNy19//hxFuJkYUXyUc9Y+mF
- hul8/2pZioidYGzaMes+NmYOAFI3EQMU1jrcGzAV1YH5J7iDvgx2m5uk3PpDgf2bdUei2s/63r/
- icmNYetoH7tC2BGKu6E/nhwQFwUXf/qcYLE3tm97QfoUcO02RtGjof3k+nOrM1AreWu3KrCJOCP
- vZslOBhv4iJxqbftOSjYq7Tlik88wjJxyjsGIigtmgDCO1Nsk/7QHVqGrXSZCsaa+mWAAR/duRV
- GpVY7QegTzRb8wDBoVWG6jjDQe+Ax8bJQBWaNw2DmKjHzFYsqxhD7oAvaZIYQCCxbXMwSJQ3sWo
- zKqK0MnJKhhNgyXakIpOO6vYk3a+mKrqMk2eUVDbvwbkVl5fYmdWd9JkGPQABfkTqABUkUxV9U9
- Rcc6BVqeJapxroI/KhA==
-X-Authority-Analysis: v=2.4 cv=O4wJeh9W c=1 sm=1 tr=0 ts=6a743394 cx=c_pps
- a=XNW8778QP6juiAqijDMnrw==:117 a=XNW8778QP6juiAqijDMnrw==:17
- a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22 a=KAb5x4SsHD3PzxGk7EmX:22
- a=dNm3KQjjYUbhztXjLiFs:22 a=z6gsHLkEAAAA:8 a=pGLkceISAAAA:8
- a=E9_scqbVS1aq72BJ3DgA:9
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA1MyBTYWx0ZWRfX534OOJQlnMpd
- jfBqrHT8Y47VzpZw6VQdzJxr83Y14FOdElmnVNMDI2+1+b1pcLiJ6SuGjsZUcpAgKpnEVbDSTy1
- g85MEn8css5PI7ua4/86g1Q+FKMqVh/53VL9eOzQGO7vUrsQ1SWJ
-X-Proofpoint-GUID: 12jI1SBfQyAtTU0j0lOcxcduLkYu5Ky5
-X-Sony-Outbound-GUID: 12jI1SBfQyAtTU0j0lOcxcduLkYu5Ky5
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ0PR12MB5673:EE_|SJ1PR12MB6051:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19859351-ec84-4a37-34c5-08def38c81f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|7416014|366016|1800799024|921020|6133799003|10067099003|11063799006|56012099006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Yc3bxCpz0fVdIn4oqVkLPoXqYLnpztat74wkptBOCBJ2KvX811trvuyYRWPeLq2Ls7aMXOwOFhzr6QK7mif+HTXlhuUPorO6Hiuqm53miJJw8vysjDODMIrkTBJfF4GI1/g6ULmnOYjdu1dJcsjgTJJrbfDZRHzQJyLNpyYsdEhC6PIdhskriA1i7MyJt5dr+dnX1g3neMbUsNS0lth2XXFuKmxkLDupKhym9mC8lfCr5cBt+gaKWwUyM9CQH7e5hV8TnM0ykmHk8hbJmfy/xQNzfSv0wetWYfWgBEm7lvtQslmZx5REcfrD5mfJmIsv9jg5YC67bT8BTLM+aQNV1v65T/O31efZErD5S52YLurdMsq+QmzkrMhdwfGiyBypgy32MtteLYI9FUd7wJgeOGijXhL6pAl/q3gFeOPA4G0MJ07y2cIyjcaA1EQZrcDeKNeWxJVD+VcxDSKQPEff24IMq1dcN28vgFXv3ZC5y4dSjkyOO9YNK1H9oSP7UgU33R5ZMCITLQa8YcPupUxy4LQsCyODLRW5ZqFgshG9b11SE+wVpCv/B+5zclxHIbjvBrhUegFJOoGE4VPtskeiKswfLhY628C/jnHMucnUXdavUIKkRO8efuEmQXULgf9wEf+Yl1euYiPwNtnyQa5x2D+tFGOmuxurIfvcujW+0b2FCdi28VgI+irFG5Q8SSEoEZzLeHzHF2TNNK1fw/OvNg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR12MB5673.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(376014)(7416014)(366016)(1800799024)(921020)(6133799003)(10067099003)(11063799006)(56012099006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?U3Z3WjZyM2lxeXUxQnplNVpJMm4xUjFxZmxKS2owSzdRZTZReHZuWStrVlAw?=
+ =?utf-8?B?bzhXM3ZRZGgzUG9mYjBXbmg0YUE5aTNWZDZWVEF4Q3l1eDJYcWlySTdGclV1?=
+ =?utf-8?B?T3NsY3NQMmp3aDl4L0dPak55M1pIYjl4NFJ6S0IzTTBmVHIwcmRFSmR5Yzk1?=
+ =?utf-8?B?elp3QWJkNk9RcXhQcXhpY0xKQXdRZ3BXUDR6eEkrVXlhaGFSOXlJQk9oZ2do?=
+ =?utf-8?B?SmhuZENYWWkwcWFiUzg0M3JSNjhWdEhiRFlyZWZMWk5ZTjkxeVMya2RKcWd6?=
+ =?utf-8?B?ZzA4S05DVVZGN09yN3AvRUZwdEgzUlQyanBsaGlLSHR5cmZTWFc2Nzg5ZXA5?=
+ =?utf-8?B?dnphYy9FS2hTSXhnMTJDL3FnNzk1eU5sOGdNRXROTDBoMCszc3FMcE44ZlFT?=
+ =?utf-8?B?OGo4WllTQThjbC8xQjBGVnBKTlRBM0hIVDlBN1k1Mi9jUmNZckIyVlVuVGpD?=
+ =?utf-8?B?OUhPdDROU2Z0Z0xmb0hKLzF0MlNNajZjQUtpWDlROUtsblBmalF6Q0ZiN2Fs?=
+ =?utf-8?B?V21HS0xxL0Npc2dXa3NoRUd6NGdJQ0VXUS9NaDdJekRvY1ZLaVEvRUxxMGgy?=
+ =?utf-8?B?cWt5dEhlaHRocklhWWY1cHc3c2lYRFlRbGg2aGc5Z2MwaG03ZkUvNldZYm9q?=
+ =?utf-8?B?MXFLY08xa2hlT1lRNGlWZEZMNkMyN1loaUQzWUk0WEExK3Y0K1VCUDduVE9E?=
+ =?utf-8?B?U1B1VTFib0hsSUhVMnhTU2lXTjlMS1hURzFucHZrT2VCaW9rZC9FNEFraS9u?=
+ =?utf-8?B?Q3ZKeHVHSWtHNGFGR3dyU0ErK0RXS20zK1JEYkhDL1dqdENhbytSUm5iRjl1?=
+ =?utf-8?B?MnZOZkJtWlZDVE9YaGpHSFVycDk4dm95MVkxMXY3dFlwaktPbG5oTDhLajJW?=
+ =?utf-8?B?bVIvQWFXMW04S3JsMDdPRXo3b1ZTWVBqSHdFM05rTnZuUGlOcmh0V2pjUXZM?=
+ =?utf-8?B?UnJjZjZsSnA5dmJIOFN1R3hpanVCQXhrSGhPYWcxNC8rYlIrd083SkRSUktV?=
+ =?utf-8?B?N3k1UytKajQ0OHZUQXc5SlRsUzNlNWJEYUV3MTFVT2wrWFUxam1SRnBmNVc3?=
+ =?utf-8?B?NTZnNHI0ZXBwczNsdG0rMFVWRWhvaWlzdlhYa2w3Y1dmaVk1Y212ZXRnMXlK?=
+ =?utf-8?B?YnpSR2NLTE45UDhZTE5RbnRPcnAvSVhCY2pHYkZMTjlETVFDV0JWd3IybXhE?=
+ =?utf-8?B?TlcrclFLVzVGYVdXRFh2a2ZibjMwQlBJL1pYd2kreExpQU9UYXJ0YTNRcU8x?=
+ =?utf-8?B?L0dRYXhrdmxlbUIxM0hyNVVhODNXWHY1aWVBRkd6ODJlVS9WMWozc09HRlh0?=
+ =?utf-8?B?NCtvdS9md1dsT2R2bXp0R0t1OUpVYyt1eGsxNE9Qa2ZYR0JXMkplRVQ2QmtC?=
+ =?utf-8?B?Y3BHVXBCb05FMXZGVUZjcU96S0ZDanpxQmxjVi9BcHg3STNwc3lpY1dVc2J2?=
+ =?utf-8?B?Y25OYmREeE9CSFplSC9aQ2VtY1FReXpXcWhSU1pxaHNEOVJhbXhuMG5oT0dG?=
+ =?utf-8?B?TUttUVZ2Q3ZuV25uYnhOdWtzWHJYcC8wdGRqMG83Ym1RUHplKzZOZnpzL0xT?=
+ =?utf-8?B?dFpqblZqbnRvNG00ZzZtbWh2MkNUQVVVOUxNYjhkeHRBTnQ2T2x1d2g1VnZz?=
+ =?utf-8?B?T3JrMkpYSGtYUXBnaUU4K2x1TmRXOFNrZ0NTcVhTZnRkT1VsblU1REFyWEQ0?=
+ =?utf-8?B?Z0JCUGYraVpGSkppcU5wQnRoYllvSm9ZengrK29kNnhBcXh5RmpORmZNRmtK?=
+ =?utf-8?B?TFMvaWRSUkdHNDFrbzZ0UU9Cb09lV1Zqc2UvejBqS0RUQmVidTlRMEVVY2Nw?=
+ =?utf-8?B?U3JZREZDT0ZvNGRTaHdwS242SEF3RFJMeW5mQjl1Q0pTL2lXRUxPSkRyQmJ2?=
+ =?utf-8?B?YnY3UXYxbkJBd3BtRlBnL25GUitoVTQ1VTBVUEhUbnR2Uk5TL1Vub0NjTklF?=
+ =?utf-8?B?dW15N1U3UWllR2N1OWVWdFVhYU1hMjJxSjFFVUdlcEN1UDd0TnR0SlpTRzEx?=
+ =?utf-8?B?dGt1Wkw1WFJ6NnZ2VW1BVVRHUVR0bC9mbjFXWGNRbS9PUzdqYjJKQ0RQZzBF?=
+ =?utf-8?B?aFBVYUcrOEVQL0U4RHlTRkhpUDVJRnBMQ24yQ0VFQ1BoVnNrVk5TVzVFV0FK?=
+ =?utf-8?B?bWE1SUVvcnU0Q2ZWeTFaVERNRThCUUpIWlFUbWsvV0pML3dLOTFJT1MzZXdi?=
+ =?utf-8?B?MllJTEtaazBOWFREZytrQzFMMFFXb1RHOG5zanBiSHUvTm4rMy9zM044VHN6?=
+ =?utf-8?B?d0c2WnRIak5yUEtxWnEvNmFia0NqbUtibXlTZHNQcUVCTGRZRHUxVU5VblVp?=
+ =?utf-8?Q?tqE63w0M2J9CRVI3oj?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19859351-ec84-4a37-34c5-08def38c81f4
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR12MB5673.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 07:29:54.0100
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HBzycDVwOvXe0w2rtRaOADja93Gpj5OkC5vGxsilDJLPhS+BpP/dABx7EuBeg697
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6051
 
-The Sony IMX908 is an 8.39 megapixel (3856x2176) CMOS image sensor
-with a MIPI CSI-2 output interface, configurable as either 2 or 4
-data lanes.
+On 8/5/26 12:59, Pavel Begunkov wrote:
+> On 8/5/26 09:27, Christian König wrote:
 
-Add a V4L2 sub-device driver for the sensor. The driver supports
-RAW10 and RAW12 output formats, exposure and analogue gain controls,
-horizontal and vertical flipping, horizontal and vertical blanking
-controls, window cropping and test pattern generation.
+>>> +
+>>> +    dma_resv_lock(dmabuf->resv, NULL);
+>>> +    ctx->dev_ops->unmap(ctx, map);
+>>> +    dma_resv_unlock(dmabuf->resv);
+>>> +
+>>> +    dma_fence_put(&fence->base);
+>>
+>> You should probably set map->fence to NULL after that.
+> 
+> The map is freed two lines below, but I can add it as
+> a defensive measure.
 
-HDR modes and RAW16 output are not currently supported.
+In that case it's ok, I've just haven't seen the kfree(map) below.
 
-Signed-off-by: Lachlan Michael <lachlan.michael@sony.com>
----
-Changes in v2:
-- Treat the pixel rate as a fixed sensor property (594 MHz, 8 px/clock),
-  read-only.
-- Compute HMAX from both the array and MIPI link floors.
-- Express HBLANK in pixels with a step of 8; keep HMAX fixed in crop
-  mode.
-- Drop struct imx908_mode; cache hmax/vmax directly.
-- Change the link-frequency table to s64.
-- Fix the probe error-unwind ordering.
-- Be silent on success (chip ID print is now dev_dbg).
-- Drop redundant comments.
-- Kconfig: fix a "module will be called" typo.
----
- MAINTAINERS                |    1 +
- drivers/media/i2c/Kconfig  |   11 +
- drivers/media/i2c/Makefile |    1 +
- drivers/media/i2c/imx908.c | 1501 ++++++++++++++++++++++++++++++++++++
- 4 files changed, 1514 insertions(+)
- create mode 100644 drivers/media/i2c/imx908.c
+> ...
+>>> +    ret = dma_resv_reserve_fences(dmabuf->resv, 1);
+>>> +    if (WARN_ON_ONCE(ret)) {
+>>> +        struct dma_fence *fence = &map->fence->base;
+>>> +
+>>> +        dma_fence_get(fence);
+>>> +        percpu_ref_kill(&map->refs);
+>>> +        dma_fence_wait(fence, false);
+>>> +        dma_fence_put(fence);
+>>> +        return;
+>>> +    }
+>>> +
+>>> +    dma_resv_add_fence(dmabuf->resv, &map->fence->base,
+>>> +               DMA_RESV_USAGE_KERNEL);
+>>
+>> That sequence is clearly incorrect!
+>>
+>> The fence must be created after dma_resv_reserve_fences(), otherwise you definately have an illegal memory operation here.
+> 
+> I'm not sure what you mean, can you elaborate? I only cared about
+> pre-allocating it to avoid allocations here. We add / signal the fence
+> only once, no reuse. The map is going to be killed here, and if we
+> create a new map, it'll have its own fence.
+> 
+> I can move the dma_fence_init() call here if that makes a difference?
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 666c90e100f1..cbbcda14d4de 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25260,6 +25260,7 @@ SONY IMX908 SENSOR DRIVER
- M:	Lachlan Michael <lachlan.michael@sony.com>
- S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/sony,imx908.yaml
-+F:	drivers/media/i2c/imx908.c
- 
- SONY MEMORYSTICK SUBSYSTEM
- M:	Maxim Levitsky <maximlevitsky@gmail.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5d173e0ecf42..8b41846ac4e1 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -287,6 +287,17 @@ config VIDEO_IMX415
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called imx415.
- 
-+config VIDEO_IMX908
-+	tristate "Sony IMX908 sensor support"
-+	depends on GPIOLIB
-+	select V4L2_CCI_I2C
-+	help
-+	  This is a Video4Linux2 sensor driver for the Sony
-+	  IMX908 CMOS image sensor.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called imx908.
-+
- config VIDEO_MAX9271_LIB
- 	tristate
- 
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index e45359efe0e4..3ccf6d29bbfd 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_VIDEO_IMX335) += imx335.o
- obj-$(CONFIG_VIDEO_IMX355) += imx355.o
- obj-$(CONFIG_VIDEO_IMX412) += imx412.o
- obj-$(CONFIG_VIDEO_IMX415) += imx415.o
-+obj-$(CONFIG_VIDEO_IMX908) += imx908.o
- obj-$(CONFIG_VIDEO_IR_I2C) += ir-kbd-i2c.o
- obj-$(CONFIG_VIDEO_ISL7998X) += isl7998x.o
- obj-$(CONFIG_VIDEO_KS0127) += ks0127.o
-diff --git a/drivers/media/i2c/imx908.c b/drivers/media/i2c/imx908.c
-new file mode 100644
-index 000000000000..406605330bd9
---- /dev/null
-+++ b/drivers/media/i2c/imx908.c
-@@ -0,0 +1,1501 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * V4L2 driver for Sony IMX908
-+ *
-+ * Diagonal 6.42 mm (Type 1/2.8) CMOS image sensor with 8.39 M pixels.
-+ *
-+ * Copyright 2026 Sony Semiconductor Solutions Corporation
-+ *
-+ */
-+
-+#include <linux/align.h>
-+#include <linux/array_size.h>
-+#include <linux/bitops.h>
-+#include <linux/clk.h>
-+#include <linux/container_of.h>
-+#include <linux/delay.h>
-+#include <linux/err.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/math.h>		/* DIV_ROUND_UP */
-+#include <linux/math64.h>	/* DIV64_U64_ROUND_UP */
-+#include <linux/minmax.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <media/media-entity.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-fwnode.h>
-+#include <media/v4l2-mediabus.h>
-+#include <media/v4l2-rect.h>
-+#include <media/v4l2-subdev.h>
-+
-+/* ---- IMX908 Registers --------- */
-+#define IMX908_REG_STANDBY	CCI_REG8(0x3000)
-+#define IMX908_STANDBY_EN	BIT(0)		/* Standby mode */
-+#define IMX908_STANDBY_CANCEL	0x00		/* Operating mode */
-+#define IMX908_REG_XMSTA	CCI_REG8(0x3002)	/* [0] Init 1h */
-+#define IMX908_START_CONTROLLER	0x00	/* Controller mode operation start */
-+#define IMX908_STOP_CONTROLLER	0x01	/* Controller mode operation stop */
-+#define IMX908_REG_XMASTER	CCI_REG8(0x3003)	/* [0] Init 0h */
-+#define IMX908_CONTROLLER_MODE	0x00
-+#define IMX908_REG_INCK_SEL	CCI_REG8(0x3014)	/* 0:74.25 1:37.125 2:72 3:27 4:24 */
-+#define IMX908_REG_DATARATE_SEL	CCI_REG8(0x3015)
-+
-+/* ---- Crop */
-+#define IMX908_REG_WINMODE	CCI_REG8(0x3018)	/* [3:0] */
-+#define IMX908_WINMODE_ALLPIX	0x00	/* All-pixel readout mode */
-+#define IMX908_WINMODE_CROP	0x04	/* Window cropping mode */
-+
-+/* ---- Flip */
-+#define IMX908_REG_HREVERSE	CCI_REG8(0x3020)	/* 0:Normal, 1:Inverted */
-+#define IMX908_REG_VREVERSE	CCI_REG8(0x3021)	/* 0:Normal, 1:Inverted */
-+
-+/* ---- Internal Analog to Digital conversion bit width */
-+#define IMX908_REG_ADBIT	CCI_REG8(0x3022)
-+#define IMX908_ADBIT_10BIT	0x00	/* 10-bit */
-+#define IMX908_ADBIT_12BIT	0x01	/* 11-bit + digital dither */
-+
-+#define IMX908_REG_MDBIT	CCI_REG8(0x3023)
-+#define IMX908_MDBIT_RAW10	0x00
-+#define IMX908_MDBIT_RAW12	0x01
-+
-+/* ---- VMAX  Frame length in lines */
-+#define IMX908_REG_VMAX		CCI_REG24_LE(0x3028)	/* [19:0] */
-+#define IMX908_VMAX_MAX		0xfffffU
-+#define IMX908_VMAX_DEFAULT	2250U
-+/*
-+ * Window cropping mode restrictions:
-+ * VMAX >= PIX_VWIDTH + 70
-+ * VMAX >= 1206
-+ */
-+#define IMX908_VMAX_CROP_MIN_MARGIN	70U
-+#define IMX908_VMAX_CROP_MIN_LIMIT	1206U
-+
-+/* ---- HMAX Line length in clocks */
-+#define IMX908_REG_HMAX		CCI_REG16_LE(0x302c)	/* [15:0] */
-+#define IMX908_HMAX_MAX		0xffffU
-+#define IMX908_HMAX_DEFAULT	1100U
-+
-+/* ---- Cropping related */
-+#define IMX908_REG_PIX_HST	CCI_REG16_LE(0x303c)	/* [12:0] Init 0h */
-+#define IMX908_REG_PIX_HWIDTH	CCI_REG16_LE(0x303e)	/* [12:0] Init 0F10h */
-+#define IMX908_REG_LANEMODE	CCI_REG8(0x3040)	/* 1:2-lane, 3:4-lane */
-+#define IMX908_REG_PIX_VST	CCI_REG16_LE(0x3044)	/* [12:0] Init 0h */
-+#define IMX908_REG_PIX_VWIDTH	CCI_REG16_LE(0x3046)	/* [12:0] Init 0884h */
-+#define IMX908_CROP_ALIGN_VSTART	4U
-+#define IMX908_CROP_ALIGN_VWIDTH	4U
-+#define IMX908_CROP_ALIGN_HSTART	4U
-+#define IMX908_CROP_ALIGN_HWIDTH	16U
-+#define IMX908_CROP_MIN_HEIGHT		1136U
-+#define IMX908_CROP_MIN_WIDTH		1040U
-+
-+/* ---- Shutter */
-+#define IMX908_REG_SHR0		CCI_REG24_LE(0x3050)	/* [19:0] */
-+#define IMX908_MIN_SHR0		7U
-+
-+/*
-+ * Analogue gain control
-+ * Range is from 0 to 100 (0dB - 30dB) with 0.3dB step size
-+ * Values from 101 to 240 are valid but correspond to additional digital gain
-+ * (0.3dB - 42dB) so don't expose it to userspace
-+ */
-+#define IMX908_REG_GAIN		CCI_REG16_LE(0x3070)	/* [10:0] */
-+#define IMX908_ANA_GAIN_MAX	100
-+#define IMX908_ANA_GAIN_MIN	0
-+#define IMX908_ANA_GAIN_STEP	1
-+#define IMX908_ANA_GAIN_DEFAULT	0
-+
-+/* ---- XVS/XHS output mode */
-+#define IMX908_XXS_DRV		CCI_REG8(0x30a6)	/* [1:0] XVS_DRV [3:2] XHS_DRV */
-+
-+#define IMX908_REG_BLKLEVEL	CCI_REG16_LE(0x30dc)	/* [15:0] black level */
-+
-+/* ---- Test Pattern Generator (TPG) registers */
-+#define IMX908_REG_TPG_EN	CCI_REG8(0x30e0)
-+#define IMX908_TPG_EN_BIT	BIT(0)
-+#define IMX908_REG_TPG_PATSEL	CCI_REG8(0x30e2)	/* [4:0] pattern idx */
-+#define IMX908_REG_TESTCLKEN	CCI_REG8(0x4900)
-+#define IMX908_TESTCLKEN_BIT	BIT(3)
-+
-+#define IMX908_REG_TYPE_ID	CCI_REG16_LE(0x4c0c)
-+#define IMX908_CHIP_ID		0x038c			/* 908 */
-+
-+/* ---- IMX908 Common Register List ---- */
-+static const struct cci_reg_sequence imx908_common_regs[] = {
-+	{ IMX908_XXS_DRV, IMX908_CONTROLLER_MODE },
-+	{ CCI_REG8(0x039c), 0x03 },
-+	{ CCI_REG8(0x3416), 0x20 },
-+	{ CCI_REG8(0x3417), 0x00 },
-+	{ CCI_REG8(0x3456), 0xf4 },
-+	{ CCI_REG8(0x345d), 0x01 },
-+	{ CCI_REG8(0x3460), 0x00 },
-+	{ CCI_REG8(0x3461), 0x0b },
-+	{ CCI_REG8(0x3471), 0x00 },
-+	{ CCI_REG8(0x3472), 0x23 },
-+	{ CCI_REG8(0x347b), 0x02 },
-+	{ CCI_REG8(0x3481), 0x01 },
-+	{ CCI_REG8(0x380c), 0x00 },
-+	{ CCI_REG8(0x380f), 0x0c },
-+	{ CCI_REG8(0x381c), 0x11 },
-+	{ CCI_REG8(0x3820), 0x22 },
-+	{ CCI_REG8(0x3824), 0x33 },
-+	{ CCI_REG8(0x3828), 0x22 },
-+	{ CCI_REG8(0x382c), 0x33 },
-+	{ CCI_REG8(0x3830), 0x33 },
-+	{ CCI_REG8(0x3838), 0x05 },
-+	{ CCI_REG8(0x383c), 0x07 },
-+	{ CCI_REG8(0x3840), 0x06 },
-+	{ CCI_REG8(0x3848), 0x17 },
-+	{ CCI_REG8(0x384c), 0x0b },
-+	{ CCI_REG8(0x3850), 0x10 },
-+	{ CCI_REG8(0x3854), 0x12 },
-+	{ CCI_REG8(0x385c), 0x20 },
-+	{ CCI_REG8(0x38c4), 0x64 },
-+	{ CCI_REG8(0x38c5), 0x64 },
-+	{ CCI_REG8(0x38c6), 0x64 },
-+	{ CCI_REG8(0x3c4a), 0x15 },
-+	{ CCI_REG8(0x3c4c), 0x13 },
-+	{ CCI_REG8(0x3c4d), 0x13 },
-+	{ CCI_REG8(0x3c4e), 0x13 },
-+	{ CCI_REG8(0x3c50), 0x77 },
-+	{ CCI_REG8(0x3c51), 0x07 },
-+	{ CCI_REG8(0x3db4), 0x00 },
-+	{ CCI_REG8(0x4419), 0x06 },
-+	{ CCI_REG8(0x441c), 0x00 },
-+	{ CCI_REG8(0x4426), 0x00 },
-+	{ CCI_REG8(0x4538), 0x20 },
-+	{ CCI_REG8(0x4539), 0x19 },
-+	{ CCI_REG8(0x453a), 0x19 },
-+	{ CCI_REG8(0x453b), 0x19 },
-+	{ CCI_REG8(0x453c), 0x19 },
-+	{ CCI_REG8(0x453d), 0x19 },
-+	{ CCI_REG8(0x453e), 0x19 },
-+	{ CCI_REG8(0x453f), 0x19 },
-+	{ CCI_REG8(0x4540), 0x19 },
-+	{ CCI_REG8(0x4544), 0x11 },
-+	{ CCI_REG8(0x4545), 0x11 },
-+	{ CCI_REG8(0x4546), 0x11 },
-+	{ CCI_REG8(0x463c), 0x20 },
-+	{ CCI_REG8(0x465e), 0xcf },
-+	{ CCI_REG8(0x4684), 0x20 },
-+	{ CCI_REG8(0x46a6), 0xcf },
-+	{ CCI_REG8(0x46e2), 0xf3 },
-+};
-+
-+static const u32 tuning_regs[] = {
-+	CCI_REG8(0x3d78),
-+	CCI_REG8(0x3d79),
-+	CCI_REG8(0x3d80),
-+	CCI_REG8(0x3d81),
-+	CCI_REG8(0x3d88),
-+	CCI_REG8(0x3d89),
-+	CCI_REG8(0x3d90),
-+	CCI_REG8(0x3d91),
-+};
-+
-+#define IMX908_EXPOSURE_MIN	1
-+#define IMX908_EXPOSURE_STEP	1
-+
-+/* ---- Speed of internal clock */
-+#define IMX908_XHS_HZ		74250000ULL
-+
-+/* Fixed pixel rate: column ADC reads 8 pixels per 74.25 MHz clock */
-+#define IMX908_PIX_PER_CLK	8U
-+#define IMX908_PIXEL_RATE	(IMX908_XHS_HZ * IMX908_PIX_PER_CLK)	/* 594 MHz */
-+
-+/* ---- Subdev Pads */
-+#define IMX908_SOURCE_PAD	0
-+
-+#define IMX908_DEFAULT_MBUS_CODE MEDIA_BUS_FMT_SRGGB10_1X10
-+
-+/*
-+ * IMX908 total area includes active area height plus
-+ *  4 pixels effective pixel ignored area
-+ * 10 pixels vertical direction effective OB
-+ * 10 pixels OB side ignored area
-+ */
-+static const struct v4l2_rect imx908_total_area = {
-+	.top = 0,
-+	.left = 0,
-+	.width = 3856,
-+	.height = 2200,
-+};
-+
-+static const struct v4l2_rect imx908_active_area = {
-+	.top = 0,
-+	.left = 0,
-+	.width = 3856,
-+	.height = 2176,
-+};
-+
-+/* Recommended 4K recording area centered within the active area */
-+static const struct v4l2_rect imx908_recording_area = {
-+	.top = 8,
-+	.left = 8,
-+	.width = 3840,
-+	.height = 2160,
-+};
-+
-+static const char *const imx908_supply_names[] = {
-+	"avdd",  /* Analog (3.3V) supply */
-+	"dvdd",  /* Digital Core (1.1V) supply */
-+	"ovdd",  /* IF (1.8V) supply */
-+};
-+
-+static const u32 imx908_mbus_codes[] = {
-+	MEDIA_BUS_FMT_SRGGB10_1X10, /* RAW10 */
-+	MEDIA_BUS_FMT_SRGGB12_1X12, /* RAW12 */
-+};
-+
-+enum {
-+	IMX908_LINK_FREQ_297MHZ,
-+	IMX908_LINK_FREQ_360MHZ,
-+	IMX908_LINK_FREQ_445MHZ,
-+	IMX908_LINK_FREQ_594MHZ,
-+	IMX908_LINK_FREQ_720MHZ,
-+	IMX908_LINK_FREQ_891MHZ,
-+	IMX908_LINK_FREQ_1039MHZ,
-+	IMX908_LINK_FREQ_1188MHZ,
-+};
-+
-+static const s64 imx908_link_freqs[] = {
-+	[IMX908_LINK_FREQ_297MHZ]  =  297000000LL,
-+	[IMX908_LINK_FREQ_360MHZ]  =  360000000LL,
-+	[IMX908_LINK_FREQ_445MHZ]  =  445000000LL,
-+	[IMX908_LINK_FREQ_594MHZ]  =  594000000LL,
-+	[IMX908_LINK_FREQ_720MHZ]  =  720000000LL,
-+	[IMX908_LINK_FREQ_891MHZ]  =  891000000LL,
-+	[IMX908_LINK_FREQ_1039MHZ] = 1039500000LL,
-+	[IMX908_LINK_FREQ_1188MHZ] = 1188000000LL,
-+};
-+
-+/* DDR lane_rate (Mbps/lane) = 2 x link_freq (Hz) / 1e6 */
-+static const u8 imx908_datarate_sel[] = {
-+	[IMX908_LINK_FREQ_297MHZ]  = 0x07, /*  594 Mbps */
-+	[IMX908_LINK_FREQ_360MHZ]  = 0x06, /*  720 Mbps */
-+	[IMX908_LINK_FREQ_445MHZ]  = 0x05, /*  891 Mbps */
-+	[IMX908_LINK_FREQ_594MHZ]  = 0x04, /* 1188 Mbps */
-+	[IMX908_LINK_FREQ_720MHZ]  = 0x03, /* 1440 Mbps */
-+	[IMX908_LINK_FREQ_891MHZ]  = 0x02, /* 1782 Mbps */
-+	[IMX908_LINK_FREQ_1039MHZ] = 0x01, /* 2079 Mbps */
-+	[IMX908_LINK_FREQ_1188MHZ] = 0x00, /* 2376 Mbps */
-+};
-+
-+/* Allowed clock values in Hz */
-+static const u32 imx908_inck_table[] = {
-+	74250000,
-+	37125000,
-+	72000000,
-+	27000000,
-+	24000000,
-+};
-+
-+struct imx908 {
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+	struct device *dev;
-+
-+	struct regmap *cci;
-+
-+	struct clk *xclk;
-+	struct gpio_desc *reset_gpio;
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(imx908_supply_names)];
-+
-+	u8  inck_sel;
-+
-+	u8 num_lanes;
-+	unsigned long link_freq_bitmap;
-+	unsigned int link_freq_idx;
-+
-+	/* Cached current sensor timing */
-+	u16 hmax;	/* clocks per line */
-+	u32 vmax;	/* lines per frame */
-+
-+	struct {
-+		struct v4l2_ctrl_handler handler;
-+
-+		struct v4l2_ctrl *pixel_rate;	/* fixed, read-only */
-+		struct v4l2_ctrl *exposure;
-+		struct v4l2_ctrl *vblank;
-+		struct v4l2_ctrl *hblank;
-+		struct v4l2_ctrl *test_pattern;
-+	} ctrls;
-+};
-+
-+static inline struct imx908 *to_imx908(struct v4l2_subdev *_sd)
-+{
-+	return container_of(_sd, struct imx908, sd);
-+}
-+
-+/* ----------------------- Basic Helper Functions --------------------------- */
-+
-+static int imx908_link_freq_to_datarate_sel(struct imx908 *imx,
-+					    u64 link_freq_hz, u8 *sel)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(imx908_link_freqs); i++) {
-+		if (imx908_link_freqs[i] == link_freq_hz) {
-+			*sel = imx908_datarate_sel[i];
-+			return 0;
-+		}
-+	}
-+	return -EINVAL;
-+}
-+
-+static bool imx908_mbus_code_supported(struct imx908 *imx, u32 code)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(imx908_mbus_codes); i++) {
-+		if (imx908_mbus_codes[i] == code)
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
-+static u16 imx908_calc_hmax(u32 width, u32 hblank)
-+{
-+	/* Fixed pixel rate makes this a divide-by-8 */
-+	u32 hmax = DIV_ROUND_UP(width + hblank, IMX908_PIX_PER_CLK);
-+
-+	return min_t(u32, hmax, IMX908_HMAX_MAX);
-+}
-+
-+static u32 imx908_calc_vmax(u32 height, u32 vblank)
-+{
-+	return min_t(u32, height + vblank, IMX908_VMAX_MAX);
-+}
-+
-+/*
-+ * Array (producer) floor: with the fixed pixel rate the column ADC emits
-+ * IMX908_PIX_PER_CLK pixels per internal clock, so a line cannot be shorter
-+ * than ceil(width / 8) internal clocks.
-+ */
-+static u32 imx908_calc_array_min_hmax(u32 width)
-+{
-+	return DIV_ROUND_UP(width, IMX908_PIX_PER_CLK);
-+}
-+
-+/*
-+ * Link (consumer) floor: the line period must be long enough for the MIPI
-+ * burst (width * bpp bits) to drain over num_lanes * link_freq * 2 (DDR).
-+ */
-+static u32 imx908_calc_link_min_hmax(struct imx908 *imx, u32 width, u8 bpp)
-+{
-+	u64 link_hz = imx908_link_freqs[imx->link_freq_idx];
-+	u64 num = (u64)width * bpp * IMX908_XHS_HZ;
-+	u64 den = (u64)imx->num_lanes * link_hz * 2; /* DDR */
-+
-+	/*
-+	 * den can exceed 32 bits (e.g. 4 lanes * 720 MHz * 2 = 5.76 GHz), so
-+	 * DIV_ROUND_UP_ULL / do_div would truncate the divisor to u32. Use a
-+	 * full 64/64 division.
-+	 */
-+	return DIV64_U64_ROUND_UP(num, den);
-+}
-+
-+/* HMAX must satisfy both the array (producer) and link (consumer) limits */
-+static u16 imx908_calc_min_hmax(struct imx908 *imx, u32 width, u8 bpp)
-+{
-+	return max(imx908_calc_array_min_hmax(width),
-+		   imx908_calc_link_min_hmax(imx, width, bpp));
-+}
-+
-+static u32 imx908_calc_min_vmax(const struct v4l2_rect *crop)
-+{
-+	/* In window crop mode constrain VMAX (from datasheet) */
-+	if (!v4l2_rect_equal(crop, &imx908_active_area))
-+		return max_t(u32, crop->height + IMX908_VMAX_CROP_MIN_MARGIN,
-+			   IMX908_VMAX_CROP_MIN_LIMIT);
-+
-+	return IMX908_VMAX_DEFAULT;
-+}
-+
-+static u32 imx908_calc_min_vblank(const struct v4l2_rect *crop)
-+{
-+	u32 min_vmax = imx908_calc_min_vmax(crop);
-+
-+	if (min_vmax <= crop->height)
-+		return 0;
-+
-+	return min_vmax - crop->height;
-+}
-+
-+static u32 imx908_calc_max_vblank(u32 height)
-+{
-+	return IMX908_VMAX_MAX - height;
-+}
-+
-+static int imx908_set_exposure_lines(struct imx908 *imx, u32 exposure_lines)
-+{
-+	u32 max_lines = imx->vmax - IMX908_MIN_SHR0;
-+
-+	exposure_lines = clamp_t(u32, exposure_lines, 1, max_lines);
-+
-+	u32 shr0 = imx->vmax - exposure_lines;
-+
-+	return cci_write(imx->cci, IMX908_REG_SHR0, shr0, NULL);
-+}
-+
-+static u8 imx908_bits_per_pixel(u32 code)
-+{
-+	switch (code) {
-+	case MEDIA_BUS_FMT_SRGGB12_1X12:
-+		return 12;
-+	case MEDIA_BUS_FMT_SRGGB10_1X10:
-+	default:
-+		return 10;
-+	}
-+}
-+
-+static u32 imx908_hmax_to_hblank(u16 hmax, u32 width)
-+{
-+	u32 line_len_pixels = hmax * IMX908_PIX_PER_CLK;
-+
-+	if (line_len_pixels <= width)
-+		return 0;
-+
-+	return line_len_pixels - width;
-+}
-+
-+/*
-+ * Window crop: HMAX is fixed to the pre-crop drive mode (datasheet),
-+ * so cropping only extends HBLANK. Expose it as a single fixed value to
-+ * keep the userspace line time (and thus fps) consistent.
-+ */
-+static void imx908_update_hblank_crop(struct imx908 *imx, u32 width)
-+{
-+	u32 hblank = imx908_hmax_to_hblank(imx->hmax, width);
-+
-+	__v4l2_ctrl_modify_range(imx->ctrls.hblank, hblank, hblank,
-+				 IMX908_PIX_PER_CLK, hblank);
-+
-+	if (imx->ctrls.hblank->val != hblank)
-+		__v4l2_ctrl_s_ctrl(imx->ctrls.hblank, hblank);
-+}
-+
-+static void imx908_update_hblank_limits(struct imx908 *imx, u32 width, u8 bpp)
-+{
-+	u16 min_hmax = imx908_calc_min_hmax(imx, width, bpp);
-+	u32 min_hblank = imx908_hmax_to_hblank(min_hmax, width);
-+	u32 max_hblank = imx908_hmax_to_hblank(IMX908_HMAX_MAX, width);
-+	u32 hblank = imx908_hmax_to_hblank(imx->hmax, width);
-+
-+	hblank = clamp_t(u32, hblank, min_hblank, max_hblank);
-+
-+	/* step = 8: one HMAX clock == 8 pixels of line length */
-+	__v4l2_ctrl_modify_range(imx->ctrls.hblank, min_hblank, max_hblank,
-+				 IMX908_PIX_PER_CLK, hblank);
-+
-+	if (imx->ctrls.hblank->val != hblank)
-+		__v4l2_ctrl_s_ctrl(imx->ctrls.hblank, hblank);
-+}
-+
-+static void imx908_update_vblank_limits(struct imx908 *imx,
-+					const struct v4l2_rect *crop)
-+{
-+	if (!imx->ctrls.vblank)
-+		return;
-+
-+	u32 min_vblank = imx908_calc_min_vblank(crop);
-+	u32 max_vblank = imx908_calc_max_vblank(crop->height);
-+
-+	__v4l2_ctrl_modify_range(imx->ctrls.vblank, min_vblank, max_vblank, 1,
-+				 imx->ctrls.vblank->default_value);
-+}
-+
-+/* ------------------ Pattern Generator (TPG) ----------------------- */
-+static const char * const imx908_tpg_menu[] = {
-+	"Disabled",
-+	"All 000h",
-+	"All FFFh",
-+	"All 555h",
-+	"All AAAh",
-+	"555h / AAAh Toggle",
-+	"AAAh / 555h Toggle",
-+	"000h / 555h Toggle",
-+	"555h / 000h Toggle",
-+	"000h / FFFh Toggle",
-+	"FFFh / 000h Toggle",
-+	"Horiz Color Bars",
-+	"Vert Color Bars",
-+};
-+
-+static int imx908_update_test_pattern(struct imx908 *imx, u32 index)
-+{
-+	int ret = 0;
-+
-+	if (index == 0) {
-+		/* Picture (not TPG) output setting */
-+		cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_EN_BIT,
-+				0x00, &ret);
-+
-+		/* Disable TESTCLKEN (write-only register) */
-+		cci_write(imx->cci, IMX908_REG_TESTCLKEN, 0x00, &ret);
-+
-+		return ret;
-+	}
-+
-+	cci_write(imx->cci, IMX908_REG_TESTCLKEN, IMX908_TESTCLKEN_BIT, &ret);
-+	cci_write(imx->cci, IMX908_REG_TPG_PATSEL, index - 1, &ret);
-+	cci_update_bits(imx->cci, IMX908_REG_TPG_EN, IMX908_TPG_EN_BIT,
-+			IMX908_TPG_EN_BIT, &ret);
-+
-+	return ret;
-+}
-+
-+/* -------------------- Mode Building ----------------------- */
-+static void imx908_mode_build(struct imx908 *imx,
-+			      const struct v4l2_mbus_framefmt *fmt,
-+			      const struct v4l2_rect *crop)
-+{
-+	u8 bpp = imx908_bits_per_pixel(fmt->code);
-+
-+	/* --- H timing (HMAX) --- */
-+	if (v4l2_rect_equal(crop, &imx908_active_area)) {
-+		u16 min_hmax = imx908_calc_min_hmax(imx, fmt->width, bpp);
-+		u32 min_hblank = imx908_hmax_to_hblank(min_hmax, fmt->width);
-+		u32 max_hblank = imx908_hmax_to_hblank(IMX908_HMAX_MAX,
-+						       fmt->width);
-+		u32 hblank = clamp_t(u32, imx->ctrls.hblank->val, min_hblank,
-+				     max_hblank);
-+
-+		imx->hmax = imx908_calc_hmax(fmt->width, hblank);
-+	} else if (!imx->hmax) {
-+		/* First crop before any all-pixel config: seed from default */
-+		u32 hblank = imx908_hmax_to_hblank(IMX908_HMAX_DEFAULT,
-+						   imx908_active_area.width);
-+
-+		imx->hmax = imx908_calc_hmax(fmt->width, hblank);
-+	}
-+	/* else: crop with HMAX already fixed by the drive mode - keep it */
-+
-+	/* --- V timing (VMAX) --- */
-+	u32 min_vblank = imx908_calc_min_vblank(crop);
-+	u32 max_vblank = imx908_calc_max_vblank(fmt->height);
-+	u32 vblank = clamp_t(u32, imx->ctrls.vblank->val,
-+			     min_vblank, max_vblank);
-+
-+	imx->vmax = imx908_calc_vmax(fmt->height, vblank);
-+}
-+
-+static void imx908_update_framing_limits(struct imx908 *imx,
-+					 struct v4l2_subdev_state *state)
-+{
-+	const struct v4l2_mbus_framefmt *fmt;
-+	const struct v4l2_rect *crop;
-+
-+	fmt = v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-+	crop = v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-+	u8 bpp = imx908_bits_per_pixel(fmt->code);
-+
-+	/* All-pixel: HBLANK drives HMAX. Crop: HMAX fixed, HBLANK derived. */
-+	if (v4l2_rect_equal(crop, &imx908_active_area))
-+		imx908_update_hblank_limits(imx, fmt->width, bpp);
-+	else
-+		imx908_update_hblank_crop(imx, crop->width);
-+
-+	imx908_update_vblank_limits(imx, crop);
-+	imx908_mode_build(imx, fmt, crop);
-+
-+	__v4l2_ctrl_modify_range(imx->ctrls.exposure,
-+				 IMX908_EXPOSURE_MIN,
-+				 imx->vmax - IMX908_MIN_SHR0,
-+				 IMX908_EXPOSURE_STEP,
-+				 imx->ctrls.exposure->default_value);
-+}
-+
-+/* ----------------------- HW Programming ---------------------- */
-+
-+static int imx908_mode_apply(struct imx908 *imx,
-+			     const struct v4l2_mbus_framefmt *fmt)
-+{
-+	int ret = 0;
-+	u8 adbit, mdbit;
-+
-+	switch (fmt->code) {
-+	case MEDIA_BUS_FMT_SRGGB12_1X12:
-+		adbit = IMX908_ADBIT_12BIT;
-+		mdbit = IMX908_MDBIT_RAW12;
-+		break;
-+
-+	case MEDIA_BUS_FMT_SRGGB10_1X10:
-+	default:
-+		adbit = IMX908_ADBIT_10BIT;
-+		mdbit = IMX908_MDBIT_RAW10;
-+		break;
-+	}
-+
-+	cci_write(imx->cci, IMX908_REG_XMASTER, IMX908_CONTROLLER_MODE, &ret);
-+	cci_write(imx->cci, IMX908_REG_ADBIT, adbit, &ret);
-+	cci_write(imx->cci, IMX908_REG_MDBIT, mdbit, &ret);
-+
-+	/* Tuning registers that need to be changed for RAW10/10-bit */
-+	u8 value = adbit == IMX908_ADBIT_10BIT &&
-+		   mdbit == IMX908_MDBIT_RAW10 ? 0x0c : 0x05;
-+
-+	for (unsigned int i = 0; i < ARRAY_SIZE(tuning_regs); ++i)
-+		cci_write(imx->cci, tuning_regs[i], value, &ret);
-+
-+	cci_write(imx->cci, IMX908_REG_INCK_SEL, imx->inck_sel, &ret);
-+	if (ret) {
-+		dev_err(imx->dev, "INCK register write failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	u8 datarate_sel;
-+	u64 link_freq = imx908_link_freqs[imx->link_freq_idx];
-+
-+	ret = imx908_link_freq_to_datarate_sel(imx, link_freq, &datarate_sel);
-+	cci_write(imx->cci, IMX908_REG_DATARATE_SEL, datarate_sel, &ret);
-+	cci_write(imx->cci, IMX908_REG_LANEMODE, imx->num_lanes - 1, &ret);
-+
-+	/* Recommended black level offset is 50 in 10-bit, 200 for others */
-+	u16 blklevel = (mdbit == IMX908_MDBIT_RAW10) ? 50 : 200;
-+
-+	cci_write(imx->cci, IMX908_REG_BLKLEVEL, blklevel, &ret);
-+
-+	return ret;
-+}
-+
-+static int imx908_program_window(struct imx908 *imx,
-+				 const struct v4l2_rect *crop)
-+{
-+	bool all_pixel_mode = v4l2_rect_equal(crop, &imx908_active_area);
-+	int ret = 0;
-+
-+	cci_write(imx->cci, IMX908_REG_WINMODE,
-+		  all_pixel_mode ? IMX908_WINMODE_ALLPIX : IMX908_WINMODE_CROP,
-+		  &ret);
-+
-+	if (!all_pixel_mode) {
-+		cci_write(imx->cci, IMX908_REG_PIX_HST,    crop->left,   &ret);
-+		cci_write(imx->cci, IMX908_REG_PIX_HWIDTH, crop->width,  &ret);
-+		cci_write(imx->cci, IMX908_REG_PIX_VST,    crop->top,    &ret);
-+		cci_write(imx->cci, IMX908_REG_PIX_VWIDTH, crop->height, &ret);
-+	}
-+
-+	return ret;
-+}
-+
-+/* ----------------------- Start/Stop streaming ---------------------- */
-+
-+static int imx908_start_streaming(struct imx908 *imx,
-+				  struct v4l2_subdev_state *sd_state)
-+{
-+	const struct v4l2_rect *crop;
-+	const struct v4l2_mbus_framefmt *format;
-+	int ret = 0;
-+
-+	crop = v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-+	format = v4l2_subdev_state_get_format(sd_state, IMX908_SOURCE_PAD);
-+
-+	imx908_mode_build(imx, format, crop);
-+
-+	cci_multi_reg_write(imx->cci, imx908_common_regs,
-+			    ARRAY_SIZE(imx908_common_regs), &ret);
-+	if (ret)
-+		return ret;
-+
-+	ret = imx908_mode_apply(imx, format);
-+	if (ret)
-+		return ret;
-+
-+	ret = imx908_program_window(imx, crop);
-+	if (ret)
-+		return ret;
-+
-+	ret = __v4l2_ctrl_handler_setup(imx->sd.ctrl_handler);
-+	if (ret)
-+		return ret;
-+
-+	cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CANCEL, &ret);
-+	msleep(24); /* Datasheet >=24 ms stabilization after standby cancel */
-+
-+	cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_START_CONTROLLER, &ret);
-+	return ret;
-+}
-+
-+static int imx908_stop_streaming(struct imx908 *imx)
-+{
-+	int ret = 0;
-+
-+	cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, &ret);
-+	cci_write(imx->cci, IMX908_REG_XMSTA, IMX908_STOP_CONTROLLER, &ret);
-+	return ret;
-+}
-+
-+/* --------------------------- V4L2 controls ------------------------------ */
-+
-+static int imx908_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct imx908 *imx = container_of(ctrl->handler, struct imx908,
-+					  ctrls.handler);
-+	struct v4l2_subdev_state *state;
-+	const struct v4l2_mbus_framefmt *format;
-+	int ret = 0;
-+
-+	state = v4l2_subdev_get_locked_active_state(&imx->sd);
-+	format = v4l2_subdev_state_get_format(state, IMX908_SOURCE_PAD);
-+
-+	/* Update exposure control limits even if the sensor is not streaming */
-+	if (ctrl->id == V4L2_CID_VBLANK) {
-+		const struct v4l2_rect *crop;
-+
-+		crop = v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-+
-+		u32 min_vblank = imx908_calc_min_vblank(crop);
-+		u32 max_vblank = imx908_calc_max_vblank(format->height);
-+		u32 vblank = clamp_t(u32, ctrl->val, min_vblank, max_vblank);
-+
-+		imx->vmax = imx908_calc_vmax(format->height, vblank);
-+
-+		__v4l2_ctrl_modify_range(imx->ctrls.exposure,
-+					 IMX908_EXPOSURE_MIN,
-+					 imx->vmax - IMX908_MIN_SHR0,
-+					 IMX908_EXPOSURE_STEP,
-+					 imx->ctrls.exposure->default_value);
-+	}
-+
-+	/* Hardware writes only when powered; cached ctrls applied on resume */
-+	ret = pm_runtime_get_if_in_use(imx->dev);
-+	if (ret <= 0)
-+		return ret;
-+	ret = 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_EXPOSURE:
-+		ret = imx908_set_exposure_lines(imx, ctrl->val);
-+		break;
-+
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		cci_write(imx->cci, IMX908_REG_GAIN, ctrl->val, &ret);
-+		break;
-+
-+	case V4L2_CID_VBLANK:
-+		ret = cci_write(imx->cci, IMX908_REG_VMAX, imx->vmax, NULL);
-+		/* SHR0 derived from VMAX, re-apply exposure after changes */
-+		if (!ret)
-+			ret = imx908_set_exposure_lines(imx,
-+							imx->ctrls.exposure->val);
-+
-+		break;
-+
-+	case V4L2_CID_HBLANK: {
-+		const struct v4l2_rect *crop;
-+
-+		crop = v4l2_subdev_state_get_crop(state, IMX908_SOURCE_PAD);
-+
-+		/* HBLANK drives HMAX only in all-pixel; crop HMAX is fixed */
-+		if (v4l2_rect_equal(crop, &imx908_active_area))
-+			imx->hmax = imx908_calc_hmax(format->width, ctrl->val);
-+
-+		cci_write(imx->cci, IMX908_REG_HMAX, imx->hmax, &ret);
-+		break;
-+	}
-+
-+	case V4L2_CID_PIXEL_RATE:
-+	case V4L2_CID_LINK_FREQ:
-+		break;
-+
-+	case V4L2_CID_TEST_PATTERN:
-+		ret = imx908_update_test_pattern(imx, ctrl->val);
-+		break;
-+
-+	case V4L2_CID_HFLIP:
-+		cci_write(imx->cci, IMX908_REG_HREVERSE, ctrl->val, &ret);
-+		break;
-+
-+	case V4L2_CID_VFLIP:
-+		cci_write(imx->cci, IMX908_REG_VREVERSE, ctrl->val, &ret);
-+		break;
-+
-+	default:
-+		dev_warn(imx->dev,
-+			 "ctrl(id:0x%x,val:0x%x) is not handled\n",
-+			 ctrl->id, ctrl->val);
-+		break;
-+	}
-+
-+	pm_runtime_put(imx->dev);
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops imx908_ctrl_ops = {
-+	.s_ctrl = imx908_set_ctrl,
-+};
-+
-+/* ------------------------ Pad/video ops ------------------ */
-+
-+static int imx908_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	if (code->index >= ARRAY_SIZE(imx908_mbus_codes))
-+		return -EINVAL;
-+	code->code = imx908_mbus_codes[code->index];
-+	return 0;
-+}
-+
-+static int imx908_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	struct imx908 *imx = to_imx908(sd);
-+	const struct v4l2_rect *crop;
-+
-+	if (fse->index > 0)
-+		return -EINVAL;
-+
-+	if (!imx908_mbus_code_supported(imx, fse->code))
-+		return -EINVAL;
-+
-+	crop = v4l2_subdev_state_get_crop(sd_state, IMX908_SOURCE_PAD);
-+
-+	fse->min_width  = crop->width;
-+	fse->max_width  = crop->width;
-+	fse->min_height = crop->height;
-+	fse->max_height = crop->height;
-+
-+	return 0;
-+}
-+
-+static int imx908_set_pad_format(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 struct v4l2_subdev_format *fmt)
-+{
-+	struct imx908 *imx = to_imx908(sd);
-+	struct v4l2_mbus_framefmt *format;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	format = v4l2_subdev_state_get_format(sd_state, fmt->pad);
-+
-+	if (imx908_mbus_code_supported(imx, fmt->format.code))
-+		format->code = fmt->format.code;
-+	else
-+		format->code = IMX908_DEFAULT_MBUS_CODE;
-+
-+	/* Fully define metadata */
-+	format->field        = V4L2_FIELD_NONE;
-+	format->colorspace   = V4L2_COLORSPACE_RAW;
-+	format->ycbcr_enc    = V4L2_YCBCR_ENC_DEFAULT;
-+	format->quantization = V4L2_QUANTIZATION_FULL_RANGE;
-+	format->xfer_func    = V4L2_XFER_FUNC_NONE;
-+
-+	/* Limits track the real controls only for the ACTIVE state, not TRY */
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		imx908_update_framing_limits(imx, sd_state);
-+
-+	fmt->format = *format;
-+
-+	return 0;
-+}
-+
-+static int imx908_set_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	struct v4l2_mbus_framefmt *format;
-+	struct v4l2_rect *crop;
-+	struct v4l2_rect *r = &sel->r;
-+	struct imx908 *imx = to_imx908(sd);
-+
-+	if (sel->target != V4L2_SEL_TGT_CROP)
-+		return -EINVAL;
-+
-+	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	crop = v4l2_subdev_state_get_crop(sd_state, sel->pad);
-+	format = v4l2_subdev_state_get_format(sd_state, sel->pad);
-+
-+	/*
-+	 * Round the crop rectangle size down to the hardware alignment
-+	 * constraints, then clamp it to the supported size range.
-+	 */
-+	r->width = clamp_t(s32, ALIGN_DOWN(r->width, IMX908_CROP_ALIGN_HWIDTH),
-+			   IMX908_CROP_MIN_WIDTH, imx908_active_area.width);
-+	r->height = clamp_t(s32, ALIGN_DOWN(r->height, IMX908_CROP_ALIGN_VWIDTH),
-+			    IMX908_CROP_MIN_HEIGHT, imx908_active_area.height);
-+
-+	/*
-+	 * Round and clamp the crop position similarly, with the maximum value
-+	 * chosen so that the crop rectangle remains fully inside the active
-+	 * pixel array.
-+	 */
-+	r->left = clamp_t(s32, ALIGN_DOWN(r->left, IMX908_CROP_ALIGN_HSTART), 0,
-+			  imx908_active_area.width - r->width);
-+	r->top = clamp_t(s32, ALIGN_DOWN(r->top, IMX908_CROP_ALIGN_VSTART), 0,
-+			 imx908_active_area.height - r->height);
-+
-+	*crop = *r;
-+
-+	/* IMX908 has no binning, so the output size matches the crop 1:1 */
-+	format->width  = crop->width;
-+	format->height = crop->height;
-+
-+	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		imx908_update_framing_limits(imx, sd_state);
-+
-+	return 0;
-+}
-+
-+static int imx908_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *sd_state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(sd_state,
-+						     IMX908_SOURCE_PAD);
-+		return 0;
-+
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r = imx908_total_area;
-+		return 0;
-+
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+		sel->r = imx908_recording_area;
-+		return 0;
-+
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r = imx908_active_area;
-+		return 0;
-+
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int imx908_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *sd_state,
-+				 u32 pad,
-+				 u64 streams_mask)
-+{
-+	struct imx908 *imx = to_imx908(sd);
-+	int ret;
-+
-+	ret = pm_runtime_resume_and_get(imx->dev);
-+	if (ret)
-+		return ret;
-+
-+	ret = imx908_start_streaming(imx, sd_state);
-+	if (ret) {
-+		pm_runtime_mark_last_busy(imx->dev);
-+		pm_runtime_put_autosuspend(imx->dev);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int imx908_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *sd_state,
-+				  u32 pad,
-+				  u64 streams_mask)
-+{
-+	struct imx908 *imx = to_imx908(sd);
-+	int ret;
-+
-+	ret = imx908_stop_streaming(imx);
-+
-+	pm_runtime_mark_last_busy(imx->dev);
-+	pm_runtime_put_autosuspend(imx->dev);
-+
-+	return ret;
-+}
-+
-+static int imx908_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *sd_state)
-+{
-+	struct v4l2_subdev_selection sel = {
-+		.which  = V4L2_SUBDEV_FORMAT_TRY,
-+		.pad    = IMX908_SOURCE_PAD,
-+		.target = V4L2_SEL_TGT_CROP,
-+		.r      = imx908_active_area,
-+	};
-+	struct v4l2_subdev_format fmt = {
-+		.which = V4L2_SUBDEV_FORMAT_TRY,
-+		.pad   = IMX908_SOURCE_PAD,
-+		.format = {
-+			.code   = IMX908_DEFAULT_MBUS_CODE,
-+			.width  = imx908_active_area.width,
-+			.height = imx908_active_area.height,
-+		},
-+	};
-+
-+	imx908_set_selection(sd, sd_state, &sel);
-+	imx908_set_pad_format(sd, sd_state, &fmt);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_core_ops imx908_core_ops = {
-+	.subscribe_event   = v4l2_ctrl_subdev_subscribe_event,
-+	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
-+};
-+
-+static const struct v4l2_subdev_video_ops imx908_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops imx908_pad_ops = {
-+	.enum_mbus_code      = imx908_enum_mbus_code,
-+	.enum_frame_size     = imx908_enum_frame_size,
-+	.get_fmt             = v4l2_subdev_get_fmt,
-+	.set_fmt             = imx908_set_pad_format,
-+	.get_selection       = imx908_get_selection,
-+	.set_selection       = imx908_set_selection,
-+	.enable_streams      = imx908_enable_streams,
-+	.disable_streams     = imx908_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_internal_ops imx908_internal_ops = {
-+	.init_state = imx908_init_state,
-+};
-+
-+static const struct v4l2_subdev_ops imx908_subdev_ops = {
-+	.core  = &imx908_core_ops,
-+	.video = &imx908_video_ops,
-+	.pad   = &imx908_pad_ops,
-+};
-+
-+/* ----------------------- Power management ---------------------- */
-+
-+static int imx908_power_on(struct imx908 *imx)
-+{
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(imx908_supply_names),
-+				    imx->supplies);
-+	if (ret) {
-+		dev_err(imx->dev, "failed to enable regulators\n");
-+		return ret;
-+	}
-+	msleep(200); /* IMX908 power ok after 200ms */
-+
-+	if (imx->reset_gpio) {
-+		gpiod_set_value_cansleep(imx->reset_gpio, 1); /* XCLR low */
-+		udelay(1); /* >= 500ns T_low */
-+		gpiod_set_value_cansleep(imx->reset_gpio, 0); /* Sensor start */
-+	}
-+
-+	ret = clk_prepare_enable(imx->xclk);
-+	if (ret) {
-+		dev_err(imx->dev, "failed to enable xclk: %d\n", ret);
-+		goto err_reset;
-+	}
-+
-+	/* T_1 >=20us delay before initial SDA/SCL */
-+	usleep_range(20, 25);
-+
-+	return 0;
-+
-+err_reset:
-+	gpiod_set_value_cansleep(imx->reset_gpio, 1); /* assert reset */
-+	regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supplies);
-+	return ret;
-+}
-+
-+static void imx908_power_off(struct imx908 *imx)
-+{
-+	gpiod_set_value_cansleep(imx->reset_gpio, 1);
-+	clk_disable_unprepare(imx->xclk);
-+	regulator_bulk_disable(ARRAY_SIZE(imx908_supply_names), imx->supplies);
-+}
-+
-+static int imx908_runtime_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct imx908 *imx = to_imx908(sd);
-+
-+	return imx908_power_on(imx);
-+}
-+
-+static int imx908_runtime_suspend(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct imx908 *imx = to_imx908(sd);
-+
-+	imx908_power_off(imx);
-+	return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(imx908_pm_ops,
-+				 imx908_runtime_suspend,
-+				 imx908_runtime_resume, NULL);
-+
-+/* ------------------------------- Probe/remove --------------------------- */
-+
-+static int imx908_get_inck_sel(struct imx908 *imx, u32 xclk_freq)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(imx908_inck_table); i++) {
-+		if (imx908_inck_table[i] == xclk_freq) {
-+			imx->inck_sel = i;
-+			return 0;
-+		}
-+	}
-+
-+	return dev_err_probe(imx->dev, -EINVAL, "unsupported xclk %u Hz\n",
-+			     xclk_freq);
-+}
-+
-+static int imx908_get_regulators(struct imx908 *imx)
-+{
-+	for (unsigned int i = 0; i < ARRAY_SIZE(imx908_supply_names); i++)
-+		imx->supplies[i].supply = imx908_supply_names[i];
-+
-+	return devm_regulator_bulk_get(imx->dev,
-+			ARRAY_SIZE(imx908_supply_names),
-+			imx->supplies);
-+}
-+
-+static int imx908_parse_fwnode(struct imx908 *imx)
-+{
-+	struct fwnode_handle *ep;
-+	struct v4l2_fwnode_endpoint bus_cfg = {
-+		.bus_type = V4L2_MBUS_CSI2_DPHY
-+	};
-+	int ret = 0;
-+
-+	ep = fwnode_graph_get_next_endpoint(dev_fwnode(imx->dev), NULL);
-+	if (!ep) {
-+		dev_err(imx->dev, "failed to find endpoint in device tree\n");
-+		return -ENXIO;
-+	}
-+
-+	/* Only data-lanes and link-frequencies are used from the endpoint */
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, &bus_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return ret;
-+
-+	imx->num_lanes = bus_cfg.bus.mipi_csi2.num_data_lanes;
-+
-+	if (imx->num_lanes != 2 && imx->num_lanes != 4) {
-+		dev_err(imx->dev,
-+			"only 2 or 4 CSI-2 data lanes are supported (got %u)\n",
-+			imx->num_lanes);
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	ret = v4l2_link_freq_to_bitmap(imx->dev,
-+				       bus_cfg.link_frequencies,
-+				       bus_cfg.nr_of_link_frequencies,
-+				       imx908_link_freqs,
-+				       ARRAY_SIZE(imx908_link_freqs),
-+				       &imx->link_freq_bitmap);
-+	if (ret) {
-+		dev_err(imx->dev, "failed to parse link frequencies from DT\n");
-+		goto out_free;
-+	}
-+
-+	if (bitmap_empty(&imx->link_freq_bitmap, ARRAY_SIZE(imx908_link_freqs))) {
-+		dev_err(imx->dev,
-+			"no common link frequencies between driver and DT\n");
-+		ret = -EINVAL;
-+		goto out_free;
-+	}
-+
-+	imx->link_freq_idx = __ffs(imx->link_freq_bitmap);
-+	dev_dbg(imx->dev, "using %u lanes at link freq %llu Hz\n",
-+		imx->num_lanes, imx908_link_freqs[imx->link_freq_idx]);
-+
-+out_free:
-+	v4l2_fwnode_endpoint_free(&bus_cfg);
-+	return ret;
-+}
-+
-+static int imx908_init_controls(struct imx908 *imx)
-+{
-+	struct v4l2_ctrl_handler *hdl = &imx->ctrls.handler;
-+	struct v4l2_fwnode_device_properties props;
-+	struct v4l2_ctrl *link_freq_ctl;
-+	int ret;
-+
-+	ret = v4l2_ctrl_handler_init(hdl, 11);
-+	if (ret)
-+		return ret;
-+
-+	imx->ctrls.pixel_rate = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-+						  V4L2_CID_PIXEL_RATE,
-+						  IMX908_PIXEL_RATE,
-+						  IMX908_PIXEL_RATE, 1,
-+						  IMX908_PIXEL_RATE);
-+	if (imx->ctrls.pixel_rate)
-+		imx->ctrls.pixel_rate->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	link_freq_ctl = v4l2_ctrl_new_int_menu(hdl, &imx908_ctrl_ops,
-+					       V4L2_CID_LINK_FREQ,
-+					       ARRAY_SIZE(imx908_link_freqs) - 1,
-+					       imx->link_freq_idx,
-+					       imx908_link_freqs);
-+
-+	if (link_freq_ctl)
-+		link_freq_ctl->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	imx->hmax = IMX908_HMAX_DEFAULT;
-+	imx->vmax = IMX908_VMAX_DEFAULT;
-+
-+	u32 min_vblank = IMX908_VMAX_DEFAULT - imx908_active_area.height;
-+	u32 max_vblank = imx908_calc_max_vblank(imx908_active_area.height);
-+
-+	imx->ctrls.vblank = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-+					      V4L2_CID_VBLANK,
-+					      min_vblank,
-+					      max_vblank,
-+					      1,
-+					      min_vblank);
-+
-+	u8 bpp = imx908_bits_per_pixel(IMX908_DEFAULT_MBUS_CODE);
-+	u16 min_hmax = imx908_calc_min_hmax(imx, imx908_active_area.width, bpp);
-+	u32 min_hblank = imx908_hmax_to_hblank(min_hmax,
-+					       imx908_active_area.width);
-+	u32 max_hblank = imx908_hmax_to_hblank(IMX908_HMAX_MAX,
-+					       imx908_active_area.width);
-+	u32 hblank = imx908_hmax_to_hblank(IMX908_HMAX_DEFAULT,
-+					   imx908_active_area.width);
-+
-+	/* Default HMAX can be infeasible at low link freqs; clamp into range */
-+	hblank = clamp_t(u32, hblank, min_hblank, max_hblank);
-+
-+	/* Keep cached HMAX consistent with the clamped default */
-+	imx->hmax = imx908_calc_hmax(imx908_active_area.width, hblank);
-+
-+	imx->ctrls.hblank = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-+					      V4L2_CID_HBLANK,
-+					      min_hblank,
-+					      max_hblank,
-+					      IMX908_PIX_PER_CLK,
-+					      hblank);
-+	u32 max_exp = IMX908_VMAX_DEFAULT - IMX908_MIN_SHR0;
-+
-+	imx->ctrls.exposure = v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops,
-+						V4L2_CID_EXPOSURE,
-+						IMX908_EXPOSURE_MIN,
-+						max_exp,
-+						IMX908_EXPOSURE_STEP,
-+						max_exp / 2);
-+
-+	v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
-+			  IMX908_ANA_GAIN_MIN, IMX908_ANA_GAIN_MAX,
-+			  IMX908_ANA_GAIN_STEP, IMX908_ANA_GAIN_DEFAULT);
-+
-+	/* Set test pattern. Menu (13 entries: Disabled + 12 patterns) */
-+	imx->ctrls.test_pattern = v4l2_ctrl_new_std_menu_items(hdl,
-+							       &imx908_ctrl_ops,
-+							       V4L2_CID_TEST_PATTERN,
-+							       ARRAY_SIZE(imx908_tpg_menu) - 1,
-+							       0,
-+							       0,
-+							       imx908_tpg_menu);
-+	if (imx->ctrls.test_pattern)
-+		imx->ctrls.test_pattern->flags |= V4L2_CTRL_FLAG_EXECUTE_ON_WRITE;
-+
-+	v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_HFLIP, 0, 1, 1, 0);
-+	v4l2_ctrl_new_std(hdl, &imx908_ctrl_ops, V4L2_CID_VFLIP, 0, 1, 1, 0);
-+
-+	/* Read rotation and orientation properties from the firmware node */
-+	ret = v4l2_fwnode_device_parse(imx->dev, &props);
-+	if (ret)
-+		goto err_free;
-+
-+	v4l2_ctrl_new_fwnode_properties(hdl, &imx908_ctrl_ops, &props);
-+	if (hdl->error) {
-+		ret = hdl->error;
-+		goto err_free;
-+	}
-+
-+	imx->sd.ctrl_handler = hdl;
-+
-+	return 0;
-+
-+err_free:
-+	v4l2_ctrl_handler_free(hdl);
-+	return ret;
-+}
-+
-+static int imx908_identify_model(struct imx908 *imx)
-+{
-+	u16 chip_id;
-+	u64 val;
-+	int ret;
-+
-+	/*
-+	 * The TYPE_ID registers are not accessible after power-up while
-+	 * the device remains in standby. Exit standby and wait for the
-+	 * required stabilization period before reading the chip ID.
-+	 */
-+	ret = cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_CANCEL, NULL);
-+	if (ret)
-+		return ret;
-+
-+	msleep(24); /* Datasheet: >=24 ms stabilization after standby cancel */
-+
-+	ret = cci_read(imx->cci, IMX908_REG_TYPE_ID, &val, NULL);
-+	if (ret)
-+		return ret;
-+
-+	chip_id = val;
-+	dev_dbg(imx->dev, "IMX908 chip ID: 0x%04x\n", chip_id);
-+
-+	if (chip_id != IMX908_CHIP_ID) {
-+		dev_err(imx->dev, "unexpected chip ID 0x%04x (expected 0x%04x)\n",
-+			chip_id, IMX908_CHIP_ID);
-+		return -ENXIO;
-+	}
-+
-+	/* Set to standby mode */
-+	ret = cci_write(imx->cci, IMX908_REG_STANDBY, IMX908_STANDBY_EN, NULL);
-+	if (ret) {
-+		dev_err(imx->dev, "failed to enter standby state: %d\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int imx908_probe(struct i2c_client *client)
-+{
-+	struct imx908 *imx;
-+	int ret;
-+
-+	imx = devm_kzalloc(&client->dev, sizeof(*imx), GFP_KERNEL);
-+	if (!imx)
-+		return -ENOMEM;
-+	imx->dev = &client->dev;
-+
-+	v4l2_i2c_subdev_init(&imx->sd, client, &imx908_subdev_ops);
-+	imx->sd.internal_ops = &imx908_internal_ops;
-+
-+	imx->cci = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(imx->cci))
-+		return dev_err_probe(&client->dev, PTR_ERR(imx->cci),
-+				     "CCI regmap init failed\n");
-+
-+	imx->xclk = devm_clk_get(imx->dev, NULL);
-+	if (IS_ERR(imx->xclk))
-+		return dev_err_probe(imx->dev, PTR_ERR(imx->xclk),
-+				     "failed to get clock\n");
-+
-+	ret = imx908_get_inck_sel(imx, clk_get_rate(imx->xclk));
-+	if (ret)
-+		return ret;
-+
-+	imx->reset_gpio = devm_gpiod_get_optional(imx->dev, "reset",
-+						  GPIOD_OUT_HIGH);
-+
-+	if (IS_ERR(imx->reset_gpio))
-+		return dev_err_probe(imx->dev, PTR_ERR(imx->reset_gpio),
-+				     "failed to get reset gpio\n");
-+
-+	ret = imx908_get_regulators(imx);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "failed to get regulators\n");
-+
-+	ret = imx908_parse_fwnode(imx);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "device tree parse failed\n");
-+
-+	ret = imx908_power_on(imx);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "power-on failed\n");
-+
-+	ret = imx908_identify_model(imx);
-+	if (ret) {
-+		dev_err(imx->dev, "failed to identify model: %d\n", ret);
-+		goto err_power_off;
-+	}
-+
-+	pm_runtime_set_active(imx->dev);
-+	pm_runtime_enable(imx->dev);
-+
-+	ret = imx908_init_controls(imx);
-+	if (ret)
-+		goto err_pm_disable;
-+
-+	imx->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE | V4L2_SUBDEV_FL_HAS_EVENTS;
-+	imx->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+	imx->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&imx->sd.entity, 1, &imx->pad);
-+	if (ret)
-+		goto err_hdl;
-+
-+	/* Share the ctrl handler lock so s_ctrl can access the locked state */
-+	imx->sd.state_lock = imx->ctrls.handler.lock;
-+
-+	ret = v4l2_subdev_init_finalize(&imx->sd);
-+	if (ret)
-+		goto err_entity;
-+
-+	pm_runtime_set_autosuspend_delay(imx->dev, 1000);
-+	pm_runtime_use_autosuspend(imx->dev);
-+	pm_runtime_mark_last_busy(imx->dev);
-+
-+	ret = v4l2_async_register_subdev_sensor(&imx->sd);
-+	if (ret)
-+		goto err_subdev;
-+
-+	return 0;
-+
-+err_subdev:
-+	v4l2_subdev_cleanup(&imx->sd);
-+err_entity:
-+	media_entity_cleanup(&imx->sd.entity);
-+err_hdl:
-+	v4l2_ctrl_handler_free(imx->sd.ctrl_handler);
-+err_pm_disable:
-+	pm_runtime_disable(imx->dev);
-+	pm_runtime_set_suspended(imx->dev);
-+err_power_off:
-+	imx908_power_off(imx);
-+
-+	return ret;
-+}
-+
-+static void imx908_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct imx908 *imx = to_imx908(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	v4l2_subdev_cleanup(sd);
-+	media_entity_cleanup(&sd->entity);
-+	v4l2_ctrl_handler_free(sd->ctrl_handler);
-+
-+	pm_runtime_disable(imx->dev);
-+	if (!pm_runtime_status_suspended(imx->dev))
-+		imx908_power_off(imx);
-+	pm_runtime_set_suspended(imx->dev);
-+}
-+
-+static const struct of_device_id imx908_of_ids[] = {
-+	{ .compatible = "sony,imx908" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, imx908_of_ids);
-+
-+static struct i2c_driver imx908_i2c_driver = {
-+	.driver = {
-+		.name           = "imx908",
-+		.pm             = pm_ptr(&imx908_pm_ops),
-+		.of_match_table = imx908_of_ids,
-+	},
-+	.probe  = imx908_probe,
-+	.remove = imx908_remove,
-+};
-+module_i2c_driver(imx908_i2c_driver);
-+
-+MODULE_AUTHOR("Lachlan Michael <Lachlan.Michael@sony.com>");
-+MODULE_DESCRIPTION("Sony IMX908 Sensor Driver");
-+MODULE_LICENSE("GPL");
--- 
-2.47.3
+Yeah that is a good start, but you might need a bit more.
 
+Here is a summary of the usual procedure you need to follow when implementing a dma_fence backend:
+
+1. Allocate your operation object, in this case here it's your mapping I think.
+2. Prepare your operation, including all memory allocations.
+3. Call dma_resv_reserve_fences() to reserve a fence slot.
+4. Allocate and init your dma_fence object.
+
+After this step no memory allocation is allowed any more until your dma_fence object signals.
+
+The only exception is optional logging or crash dumping using GFP_NOWAIT (can fail trivially!) or minimal allocations using GFP_ATOMIC if you absolutely have to.
+
+5. dma_resv_add_fence() to publish the fence.
+6. dma_resv_unlock().
+
+Having a dma_fence is certainly nice to have, but the tricky part is that memory allocations using GFP_KERNEL (or GFP_IO, GFP_FS etc...) can cycle back and wait for your dma_fence to signal which essentially can cause a deadlock very deeply inside memory management.
+
+Since those deadlocks happen only on memory contention situations they are usually just hard to reproduce but still totally break your neck if you manage to mess this up. So that needs to be super carefully implemented.
+
+Regards,
+Christian.
