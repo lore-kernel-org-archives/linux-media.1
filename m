@@ -1,134 +1,117 @@
-Received: from mail-ot1-f77.google.com (mail-ot1-f77.google.com [209.85.210.77])
+Received: from mail-ot1-f80.google.com (mail-ot1-f80.google.com [209.85.210.80])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B467262A
-	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 00:01:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D5828150F
+	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 00:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785974492; cv=none; b=Y7Ac0++bBo0S/VMdtqwnDIPYley+siGMq1DBZPGob2Xf0GwxCezJidFGK6wBeT+lxDtR0/ioSVaJJNQq3Z21Vzeq/dF1yTo2w4rp1EbCl6UoM6iv/xNZjcT4thL0lIPYzDUaV0H4nXnN/oVHMJBtffn1cxsFbxLYBtp0JPntUoI=
+	t=1785975158; cv=none; b=AQ6sS92Y79Qy4cTt5nAROTNCvo2t/RG9Kh5fN6gNls8qY4WkabLxEnwzS0W6fLNtzfRXmhciogD/2cdVnVvCkecMyDn3f3z7G05zVn0DRzr7NVPM8cHvZ1AMJDPkQh8gU/dOnPbFWxoOnPVSfXPZp0JGzw15CR+ONGeHTgnhfqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785974492; c=relaxed/simple;
-	bh=p/IoeRRIOIzwSXi1I1NCd+Y0Ikp1A9En37b50pUpMU0=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bRSOm5JQSvdOkpTlg0U66v/Y8nrkKDHi+TrcPAztqlc455MyexKp6McTBODrbZB/44UOwIApvna8PzeVoJEOTqt2/FBtVUbD2ZD/vEdf48ge9s0Un64db0ApH+qVj4nahqRpR6jMmY5XYxUAzBFSIGG8E/QgpX+RaYTpMmMaVwk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.77
+	s=arc-20240116; t=1785975158; c=relaxed/simple;
+	bh=bIALpx1CXVLdDN8p5i5hrudHhkyx+biMnkip5hypfN0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=evIURdZjFg9Z7PJibzGFcK13Tb7zeQNmWFKJ7/AVL0UKpUg44Ygz7ZpnFcMOlATiUu4eQj0x64aKy8woEjKZdjF17uvRaxbiyl0kq6hM9szBoFOrwqmD6pS5bSaHyXS55WE5OTTERYvIqBXAzWHODMf31UJeTaJPoc2SoDDqmZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.80
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f77.google.com with SMTP id 46e09a7af769-7e9dc0f5900so701189a34.0
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 17:01:31 -0700 (PDT)
+Received: by mail-ot1-f80.google.com with SMTP id 46e09a7af769-7ec3b429610so1820249a34.1
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 17:12:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785974490; x=1786579290;
+        d=1e100.net; s=20251104; t=1785975156; x=1786579956;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=vC11jzeBf6ckEVxKByBrHYnsIlId2H3g9XWIPuYbZ0s=;
-        b=aW9mWDCI3bmvmVSySz4dkI+9YsCP8XPneJbLGSFPTLDpMohKxkbIcMrhAHbZ3qJTxh
-         QgeWTUjx+91e/nZsofYH/nQo8MPut0sNWoDJeQP0bpvkt3gowHBHlTU+rFyR917M6Ik+
-         LoPmY+amckeSDTF/j/VMwt1pKNZHb/1hwNYYmj/IXUo0UalFvictOlBCJHeCeyONF4tR
-         vo9L6f2CicIHjjHAObLQCK7aPSJfD2WbxUD4t33bbuT1K67EkTYylDesQflOO91Gy22q
-         FUome0gqEzg1cDTY3a98Hq2c6Ju4h96qfC1XQhrR08sQFMePDl/dzzey5wtKYfqccPpr
-         CgLQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoDXdwSXm29MT9M4DOebiNIs1oX/2s3rviLImOZm4YycqC3TFs8Kz2sgZw2VUW+oTUWNs57EIJL+ndI4A==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxchev3IKxYMJcUn+Krmi5bUvxu0DxEf+3LyMd/SzNEMi8iPg8T
-	dMRyh356tHzVBm6bggoJfo2pKwQ0dF90XYAfY0Zz2/ZRzBLLomVmOZi0vYFLggXlIPuEgHDozX2
-	oRhBQFir51dK8OOeFI/PLGRXAdaSfJEODLC5R7xDp/nSCkbkvb1dRVIPq5gs=
+        bh=780tSsCyIGPFXmHHr+TYr749n1cZQtCj/2NCjvnVRqA=;
+        b=Vxl5SdYPEuk+volOd30qtcq7T1ecRJrDXcpXa/d4FKmEx4kTKsm8zTvB1/LoaRx5NI
+         LsLwrZvh5P3hBWphdN9KAFXTeqkhnOts5KTrdk/Th2eneTGTWVBFKTV38JXvgy75ZsRo
+         Tw2UCUQ1pkEY6htD9mtmgawFHErnFcZEvPdjGlSSQYXgJCiud+NXUdPnqEi8gYVkREfv
+         /XglDX8Q+CYHFWG/FjP7kwy1jcNIL+ml3dCiLZsF1go4H9lX7fkDETvn2ZPbnhlPkPCA
+         IkHy2nz/WecfTJmTg2jhkjyid5f234kvaTR+Ws9FT48jMHqa57uA+tqNLJ3MnRY7Lpen
+         5Sow==
+X-Forwarded-Encrypted: i=1; AHgh+Roi9kCDx+iAjOqEzjIMG/dPRtrt1LSEmHf7rer70JA63nmuiSoznwAx9d/bJGTabFQ4ZFRB8MSmDy9MUQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqlBBaB5bMLLcirBpEXzW1RG5laqfwyDD2cTPfXZq89kvPWLV5
+	QteIMEROHJDgVzBv5VmhXYvHgTkL2pWqyAJl5mx1HEJ/FzR4Ru/F/LjqFL+6Insyi7u++b7a2Qj
+	kVmi2j3g3YD2RltEZlnhkyQDVCg/CVMFonuXpiPr3rmuNnkbHdSAqlWIXaHg=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:2d0c:b0:6aa:1bc8:ae0d with SMTP id
- 006d021491bc7-6aeaba25683mr1898200eaf.4.1785974490090; Wed, 05 Aug 2026
- 17:01:30 -0700 (PDT)
-Date: Wed, 05 Aug 2026 17:01:30 -0700
+X-Received: by 2002:a05:6820:8187:b0:6aa:1633:7af9 with SMTP id
+ 006d021491bc7-6ae97038ad5mr5936841eaf.35.1785975155968; Wed, 05 Aug 2026
+ 17:12:35 -0700 (PDT)
+Date: Wed, 05 Aug 2026 17:12:35 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a73ceda.5aeeccc9.207e63.0007.GAE@google.com>
-Subject: [syzbot] [media?] WARNING in __media_pipeline_start
-From: syzbot <syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com>
-To: laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com, 
-	syzkaller-bugs@googlegroups.com
+Message-ID: <6a73d173.5aeeccc9.207e63.000a.GAE@google.com>
+Subject: [syzbot] [media?] INFO: trying to register non-static key in as102_stream_ctrl
+From: syzbot <syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    7235a3e71949 Merge branch 'for-next/core' into for-kernelci
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
-console output: https://syzkaller.appspot.com/x/log.txt?x=10c0dbb9580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccf4bea59f67007
-dashboard link: https://syzkaller.appspot.com/bug?extid=68e901d044baaea1f60c
+HEAD commit:    075b74841bd0 Linux 7.2-rc6
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=133e8cc6580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=cb17729fb04b1e3a
+dashboard link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
 compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-userspace arch: arm64
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=163b7649580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13926cc6580000
+
+Unfortunately, I don't have any reproducer for this issue yet.
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/fd45635beaae/disk-7235a3e7.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/d7d2e6507223/vmlinux-7235a3e7.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/b5b5d8de4cea/Image-7235a3e7.gz.xz
+disk image: https://storage.googleapis.com/syzbot-assets/678e77cc37b9/disk-075b7484.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/cc9f771e7069/vmlinux-075b7484.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/71a5d4620b85/bzImage-075b7484.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
 
-vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
-vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
-------------[ cut here ]------------
-WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785, CPU#0: syz.0.17/4920
-Modules linked in:
-CPU: 0 UID: 0 PID: 4920 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/02/2026
-pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
-pc : __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785
-lr : __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785
-sp : ffff800093407710
-x29: ffff800093407790 x28: ffff0000cbe68a20 x27: 1fffe000197cd0e6
-x26: ffff0000cbe68760 x25: 1fffe000197cd15b x24: ffff0000cbe68ad8
-x23: dfff800000000000 x22: ffff0000cbabf010 x21: 0000000000000001
-x20: ffff0000cbe68b10 x19: dfff800000000000 x18: 0000000000000000
-x17: 0000000000000000 x16: 0000000000000000 x15: 0000000020007200
-x14: 00000000ffff8000 x13: 0000000000000001 x12: 0000000000000000
-x11: 0000000000000000 x10: 0000000000000003 x9 : 0000000000000000
-x8 : 0000000000000000 x7 : ffff8000839d6934 x6 : 0000000000000000
-x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff8000839d4f70
-x2 : 0000000000000001 x1 : ffff0000c4551d40 x0 : 0000000000000000
-Call trace:
- __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785 (P)
- media_pipeline_start+0x58/0x7c drivers/media/mc/mc-entity.c:924
- video_device_pipeline_start+0x88/0xb4 drivers/media/v4l2-core/v4l2-dev.c:1159
- vimc_capture_start_streaming+0x6c/0xec drivers/media/test-drivers/vimc/vimc-capture.c:248
- vb2_start_streaming+0x114/0x4ac drivers/media/common/videobuf2/videobuf2-core.c:1783
- vb2_core_streamon+0x288/0x44c drivers/media/common/videobuf2/videobuf2-core.c:2336
- vb2_streamon+0x80/0xb4 drivers/media/common/videobuf2/videobuf2-v4l2.c:875
- vb2_ioctl_streamon+0xb8/0xd0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1118
- v4l_streamon+0x64/0x94 drivers/media/v4l2-core/v4l2-ioctl.c:1965
- __video_do_ioctl+0x768/0xaa8 drivers/media/v4l2-core/v4l2-ioctl.c:3133
- video_usercopy+0x74c/0xe88 drivers/media/v4l2-core/v4l2-ioctl.c:3475
- video_ioctl2+0x3c/0x50 drivers/media/v4l2-core/v4l2-ioctl.c:3532
- v4l2_ioctl+0x148/0x18c drivers/media/v4l2-core/v4l2-dev.c:366
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
- __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
- invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
- el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
- do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
- el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:736
- el0t_64_sync_handler+0x48/0x148 arch/arm64/kernel/entry-common.c:755
- el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:594
-irq event stamp: 1910
-hardirqs last  enabled at (1909): [<ffff800080b9e27c>] kasan_quarantine_put+0xb4/0x1c4 mm/kasan/quarantine.c:234
-hardirqs last disabled at (1910): [<ffff8000868e6198>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:425
-softirqs last  enabled at (1722): [<ffff800080139980>] local_bh_enable include/linux/bottom_half.h:33 [inline]
-softirqs last  enabled at (1722): [<ffff800080139980>] put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
-softirqs last  enabled at (1722): [<ffff800080139980>] do_sve_acc+0x32c/0x4b8 arch/arm64/kernel/fpsimd.c:1349
-softirqs last disabled at (1720): [<ffff800080139760>] local_bh_disable include/linux/bottom_half.h:20 [inline]
-softirqs last disabled at (1720): [<ffff800080139760>] get_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:234 [inline]
-softirqs last disabled at (1720): [<ffff800080139760>] do_sve_acc+0x10c/0x4b8 arch/arm64/kernel/fpsimd.c:1325
----[ end trace 0000000000000000 ]---
+INFO: trying to register non-static key.
+The code is fine but needs lockdep annotation, or maybe
+you didn't initialize this object before use?
+turning off the locking correctness validator.
+CPU: 0 UID: 0 PID: 8032 Comm: syz.4.881 Not tainted syzkaller #0 PREEMPT_{RT,(full)} 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+Call Trace:
+ <TASK>
+ dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
+ assign_lock_key+0x133/0x150 kernel/locking/lockdep.c:984
+ register_lock_class+0xcc/0x2e0 kernel/locking/lockdep.c:1299
+ __lock_acquire+0xab/0x2ce0 kernel/locking/lockdep.c:5112
+ lock_acquire+0x106/0x350 kernel/locking/lockdep.c:5868
+ __mutex_lock_common kernel/locking/rtmutex_api.c:559 [inline]
+ mutex_lock_interruptible_nested+0x5a/0x1d0 kernel/locking/rtmutex_api.c:592
+ as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+ dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
+ dvb_device_open+0x258/0x350 drivers/media/dvb-core/dvbdev.c:109
+ chrdev_open+0x4dc/0x600 fs/char_dev.c:411
+ do_dentry_open+0x849/0x1420 fs/open.c:947
+ vfs_open+0x3b/0x350 fs/open.c:1052
+ do_open fs/namei.c:4700 [inline]
+ path_openat+0x2e60/0x3850 fs/namei.c:4863
+ do_file_open+0x23e/0x4a0 fs/namei.c:4892
+ do_sys_openat2+0x115/0x200 fs/open.c:1368
+ do_sys_open fs/open.c:1374 [inline]
+ __do_sys_openat fs/open.c:1390 [inline]
+ __se_sys_openat fs/open.c:1385 [inline]
+ __x64_sys_openat+0x138/0x170 fs/open.c:1385
+ do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+ do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f5093cae84e
+Code: 08 0f 85 a5 a8 ff ff 49 89 fb 48 89 f0 48 89 d7 48 89 ce 4c 89 c2 4d 89 ca 4c 8b 44 24 08 4c 8b 4c 24 10 4c 89 5c 24 08 0f 05 <c3> 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 80 00 00 00 00 48 83 ec 08
+RSP: 002b:00007f50916bdb28 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+RAX: ffffffffffffffda RBX: 00007f50916be6c0 RCX: 00007f5093cae84e
+RDX: 0000000000000802 RSI: 00007f50916bdc00 RDI: ffffffffffffff9c
+RBP: 00007f50916bdc00 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: cccccccccccccccd
+R13: 00007f5093f763f8 R14: 00007f5093f76360 R15: 00007ffc19dbf768
+ </TASK>
 
 
 ---
@@ -141,10 +124,6 @@ https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
 If the report is already addressed, let syzbot know by replying with:
 #syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
 
 If you want to overwrite report's subsystems, reply with:
 #syz set subsystems: new-subsystem
