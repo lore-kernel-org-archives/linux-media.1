@@ -1,254 +1,292 @@
-Received: from MA0PR01CU012.outbound.protection.outlook.com (mail-southindiaazon11021076.outbound.protection.outlook.com [40.107.57.76])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7C05471CF6;
-	Thu,  6 Aug 2026 12:03:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.57.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786017798; cv=fail; b=IB/uW6wN0B8BlAVTC14UXH4hV2oS79ZXb2MFB5W41VNTgG43wePhf4aUAkKKuSt4kTANZiE7DC0bgTF6XUrXSF3dTh3wODCTQPmrQps4vY1CT03XcTuQY3wE/ixnoco+EQGynJXQGi06yrJuj5rpp2I/audAMGnr0a1C5uDaptA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786017798; c=relaxed/simple;
-	bh=NvrIF1VWHPD2cGrbjpu+JxPFy4LAKk7q9k3fnWA+q0Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=frlBpYUQEIzwpbY5VkMZPxC81Q//3jQWnN2GhxXEDfqJVzTBRdTukibntmgUFWHtVYD6SakPudPqhfAndxUCAw/LoRWzUSRcgx4cWDq7c5SOBW7yZCpJer0kqBn1LM4cYhTgyv3acZEjKcRRrj1oARwDXXhTBFo0BAlyWTXBCtI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=T8tJFDxx reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.57.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAB54772B9
+	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 12:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786018225; cv=none; b=OW1BfrU27cXjdn+iPNeX5vAendfcTlkC2AY3trlYPtx7BjnsNN9VcXtvjKsKyy8b6QqwTlGJ2NVTlQPueBDHkXJp+Qxbq//BMt2Muhu7Lu+iQ9uaYFbueLw5y5zaN/AyC1TfSV2WLi2XfSRqGh1T7ngSwsu63rE8XOz5EGGw51M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786018225; c=relaxed/simple;
+	bh=epfdEmdQWF1LXChrd7bCh2YxTWsAOg+WkUubgRu4MNk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E0tk6dwFKpCajbZXtFYaE+NFM8YcOWteHmyI/15xVg9mHkQrmHDI5/P5derDua4ubkqEY87bHHbz/kA7zlhtnmLmjwJK71IQqcrMM6xkbimKKLBCe/nQHTiGqWG6kWW9nW4osocNcS4reAVfmHgMeSzppbD1NkDgW+HwdByCa1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R+hgvKNJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F+0Iy3y5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="T8tJFDxx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=lYnQu+NRK3CAsd/hRkkNTCG6yHQ2iCHool4YBZt7JL5f4kIxhVG7PX15yPhssxZJbk/4QOoLpEVnM7Ruwgt+lsPkAyPAf1W0VF7lgZKPVrYRFQhLVVnpByXQtsMduIXikHl10xktDoYFUlwvM4jL7gEDmXPnhfP+lXDGdfa4/3/OPgHk//ewA0oglrBA7Jjhnzs3gTI32pylstzkGib5sJF64l1BaL7HKpRCuhuyHccT1h9jaP1xanNBG9VPUM47S4WXWWtijYqua98OIcN12lLSYG/uVy7I5n4bqff/Xb9WPDG/VG3DV3hE6/cyKxNHq+gqOZK3b6rUmpEtv580wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pqDWnbS/3DHYupEEGbCVd/KzgBdOQ1ppDe2O4EmqC30=;
- b=G914R8xR7nCtA379oqvP1hlUKZYa7r7yIYx9F1n+7xyIqQrnhiiYadNo1ag4mz3PeBF+oMNNPbRvHx5zW3bQUnQ4tNOA6OYKTXXj7K3iSggkFeGtv7H05hJ5AXwGzTGJaoOScws8BBYsyfm768PA5Qqb4I/xHlgdbIiUzfAMRMptg8ImzPu3JJrYlMK3+SINXxWp3WGmg5WW1I6CW16uU9CchR5/eHXKiHi2cAw8aoxi4u4nt8ARrqx2xHu12wV/inwMvikh4JdqwD4z82E7xQ3MZ1auopN25REpbU1FSd8jxDrNqrRMlRx9PQaT/ZrkDoX2dJMHbvirRvE+wcyUtg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
- header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pqDWnbS/3DHYupEEGbCVd/KzgBdOQ1ppDe2O4EmqC30=;
- b=T8tJFDxxJqwgr0vAj+imO0oAX0VQ6NkM2l40IijH2k4Iw9o+no90CK8uUGmNfJcFzGv3PLUNBuBiODwCcktsDRj8dPPObh9UBclTYvYDFcjYgpta/SMpiBcJwGbx7p+2EYxg6FftJTqoxtgFZFyX5edtjj8KF/eUGAlFqy9ornnADHwKJXagQYgOymWbhUXFUlsaT8rWzs5zw7THACSk/KRR5sfp+dKg15vrvjav/cuYuUkJbeAVsJMlCa3hzWKCN9Y2rwy2/ZG7DULM8ruhdFDsQGv1odSpCrXz6oeKr8ZNKVmOGu31Y04+tKMvX0e09SAx30OKLAdEqHsoqvz60w==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=siliconsignals.io;
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by PNWP287MB6109.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:345::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.20; Thu, 6 Aug
- 2026 12:03:14 +0000
-Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 12:03:14 +0000
-From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
-To: sakari.ailus@linux.intel.com
-Cc: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Tarang Raval <tarang.raval@siliconsignals.io>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
-	Kate Hsuan <hpa@redhat.com>,
-	Xiaolei Wang <xiaolei.wang@windriver.com>,
-	Walter Werner Schneider <contact@schnwalter.eu>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org
-Subject: [PATCH v3 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony IMX576 front camera support
-Date: Thu,  6 Aug 2026 17:32:09 +0530
-Message-Id: <20260806120216.24145-4-himanshu.bhavani@siliconsignals.io>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io>
-References: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: PN2PR01CA0246.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:21a::16) To PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:1b8::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R+hgvKNJ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F+0Iy3y5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6769ns4K1278138
+	for <linux-media@vger.kernel.org>; Thu, 6 Aug 2026 12:10:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rEBv5mbQUcmm8dCs+CeVZBi1
+	W0eLFbJkEKta6P6jcRM=; b=R+hgvKNJFn/qo6+lLddsRTcAHQIOHY/RCzW82gto
+	/AlTj5Omt20bsLW/TOfBZMHVcEfZkis7bC1XwME2vl2BvebK9nQgb0UhB3oQ3y6k
+	QkryNJtAn0iNxdgKBgHGrogLlSrtIxqJHrZGR/pG01BC4PADEQJoEFWp0UZXBAGC
+	adFDJ1mV6QZVGP7GBfilAl5dbXLE2zOZl0CxFYQBrXYL6gYCXZ+lAHMosY0hYu4+
+	BRlWBsfIY4vX3IRuRtAUNGWhGwwtR+pZrNWtEGCl5GshVHkhWcTO0yWJUlk3Jdy1
+	H55FLsbjZmiDqAew3t9NeFI1SZKldklHD907u9qstCEN4w==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvjuej1p9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 12:10:23 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfe3fa93bso22671231cf.2
+        for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 05:10:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786018222; x=1786623022; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rEBv5mbQUcmm8dCs+CeVZBi1W0eLFbJkEKta6P6jcRM=;
+        b=F+0Iy3y5C0+Rvj1drv6puE2w4U3pxcwOHTsuL0xcj6kuK/PkiruHwfnsnMgsVnrpWk
+         CWxWQU9Kq09j71tlpEQFSZZNG7JTeSbkvAq7CCmutf0gzt8RxS2rhaAq0xCcMZl6ux9I
+         u2iZwh9Kwk35PX9xSbOwgksy5RbwTB/PkcqvG9a0O/AesrptpSJHK8SDiPI54k+rk4Y2
+         OWmMVpKYD8YsA2W8XvI1aie5bbdnet2al5ox74OnTF/VyxI99LCvicxevHI0GUPAHzzN
+         TlkUYJwbiGwJz45x8AAzp42dzIn/ImXPA9tBj/KlovHJYlPegCSQs8u2Yvr1fKPs4wHT
+         /2lQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786018222; x=1786623022;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rEBv5mbQUcmm8dCs+CeVZBi1W0eLFbJkEKta6P6jcRM=;
+        b=QdcK3xza4J06mI/4Mt4T4GwrJolyGKMHz5tFZeAuz97JWk2RpsForuiF66bcHf91lN
+         ZMgsezs/j2bNe61W9eEWAvFz8XOxX5ysDiAqkNTDj5klhkrT8gjNFhyqWMKH7prdBrU8
+         Mjdim6NLq0No5B7YamNQyGSvdvcdpD0Hd+0xgLMgjiSfW5aEVz1eDSBU0MJhGuvJo/bI
+         OVjSLLFEfAkjjmyhM7kxohrhgBHGjlQvosOY2PCS03rxP2WDLy186BComv/YJoiGw0/s
+         vT6oxn2EhgSp/a8gpORxRa6E3+QPiGBoPKAEHKIr0r+Hkcz9VHBVZ92k5UX6I2FtSYRx
+         vOtA==
+X-Forwarded-Encrypted: i=1; AHgh+RplsIHdzskAEWaPhAYvkQ5BKQSzsfn4+rNsrGzqZ8g5kJwMW8kwM7dF4R8HXEXEY4L8r2kCykhfSB3SiA==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxgRmR10om/eMQNWy/8du6HpPhFGl4oeYOHZldMrQVpC0kD5U/d
+	P9t4/kS0TyAOYNOD4jyiRW25vQS4EO2L1wJV3bWvioEXefIvI5aGvKgBzhVpo5LhBikz2CQPVca
+	j9BkgyiC38SXNN+bMD5AHu8a+Om7u8iO1KnScWs9xmRJMT9q0DRpNlDaK2s77X2mLIQ==
+X-Gm-Gg: AR+sD10NyA7UQdgJW1i5cjZeUEb0D1qV0ID+NJWmFvqO+Pibw3dXHKztbN2Ux5jMuYL
+	xJJqUe2u1z4R1ij0mcrW1VhZkq41BBvEhYEPh/+OuMoKf3yrIypE2ZomnWXsyI3iSSsX2XvAMhL
+	24GR0xTleLgxlHg7hvRdx96NarFOSEWBKUkHzGzDD6B0tXBp/Pe0rafhWGZsSPpuuJgjdzcD4IE
+	aEnHGALYJcrl8LDlUn8GTFpl1hWI2YMkOAOWkCzg7S0hyRkOPaZa+6qjYjMSSWdtEA5o8HC8Xkn
+	p56/WuSYOgd/ZNi7SmXTVc6ZdPDuClKtaT266o6fR7t8tq9jAoZWKnKKYCjhdNcu5+xPVIJX5cy
+	OW2drkgQaG/clzDw58W1pEvk4p5yKqn0MkFYloHo5HQoigdT3mv7qhuHvQ2WmLbtQeJyPEvpomp
+	U+64EhDFZMn9F8SQ==
+X-Received: by 2002:a05:622a:1ccc:b0:51c:9b44:c59e with SMTP id d75a77b69052e-52ce60d3fd2mr155473531cf.22.1786018221986;
+        Thu, 06 Aug 2026 05:10:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:1ccc:b0:51c:9b44:c59e with SMTP id d75a77b69052e-52ce60d3fd2mr155472761cf.22.1786018221498;
+        Thu, 06 Aug 2026 05:10:21 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b2f62af4d9sm675938e87.49.2026.08.06.05.10.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 06 Aug 2026 05:10:20 -0700 (PDT)
+Date: Thu, 6 Aug 2026 15:10:18 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, stable@vger.kernel.org,
+        Daniel J Blueman <daniel@quora.org>
+Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context
+ bank subnodes to common schema
+Message-ID: <dpyynzha2vkpbzmhspeinfe3yhl5j76vrtlf5vhf4dbm3tluzh@36qp6slwsfsq>
+References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com>
+ <20260731-vpu_iommu_iova_handling-v2-1-da52b5228dbd@oss.qualcomm.com>
+ <20260805-dark-voracious-jacamar-6aae4c@quoll>
+ <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
+ <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
+ <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
+ <zqpgl3esozn4dgnm7remmwmquxasyc4qpyh3fgcdfblmn2xe3g@vhp5umdahvmi>
+ <9921567d-4b3a-43b6-bf5e-eb0e92102e34@kernel.org>
+ <npojagmk7x24wpbqcmzg4mijscqz63aluh6lj5uaciztzl53wl@ld342uighqaa>
+ <d0dfd058-f0a0-41e3-a7ad-89eccd0571cb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|PNWP287MB6109:EE_
-X-MS-Office365-Filtering-Correlation-Id: 21b10b22-3770-4622-3ba4-08def3b2b168
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|52116014|366016|1800799024|23010399003|56012099006|10067099003|22082099003|18002099003|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	75pVZUFiECmWDxqa5b1iLAdZc6/AHtPJI8cjMn10iDnt3Sr8+fQxIG4rKDqogdcQDYy3zKeqc2lwHYj5UrCACq/ZgEwi0gZls2hBiVLAgR50Onx22Vn6Y55czQMbrOyMtEhWsZEjkiCpIy0JWGeiG5xIWchJiTyYSTfQSuknxqMcaNuqI+vq0c0NxUe0LhCNqDHHn6+dr1jhVUGqv9u+S9qDqFHPq4Inf6i0SZrlyTuHzUNK43N0dOQGdsmHLQZGYDkESrVP130z+44f+eeMHbShHx6kuJRyoSJUUQ/FjKo4aOOQXO8WsnE0YjYWvN3utC4zFanWiB6i1fT9PfnItLCp/miujuge00fYaUIhsdLr8r6K2KF0fksVgMlV53ewj//OCCFaQOaudlhdCT2ELz1Y0WnKzUqqTEbjrjUxlDxeBThfqm/3YfBOFQlOMpe+5tMnu/eDX8HGH80k/u01Poi867xmycKOVHpMbAxV2tL8lQgHvP+cBQkOqlN05/g4vZEMZLK1BtWqLSLuhf2AuoPwQKBaMifRMYRhD4WijgAWTUcXzJ9l1xUaHrYHco72c73pQzYWxeUVxFn5xVx+yTuIJ96F4tY/H64x5SL6D5kJSj50VFwPJo50NOtKiRu0D1F366joguGEdaIbEyQSV08AQTlSfgRKclS4EMAITdaoFAeoPdqnwv3rm/mWqaBASxKmtW+qg4FLDPvPF6OPsLw4ltcmidxFBWLsjH4ShPw=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(52116014)(366016)(1800799024)(23010399003)(56012099006)(10067099003)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?RI2O8AxvXR6Q7sE+0uGfpcHwJW2heEOszuZ/h1P5pc029hpbyet8MKFtmd3c?=
- =?us-ascii?Q?OYoMhzvBT74cLTsfOFAqtz2cVR5SVXx+dIhKQ1Esank+wAB9pG3NIIVbrMsy?=
- =?us-ascii?Q?aJK28bgJD/kTPU/HRE4mkgx8OTAv61FmnBt2wxAfyMrpe9kK9bLhS8taD5Sv?=
- =?us-ascii?Q?AKvU0m0G4kmXdAN2Mt1bL6eSNS80JshPwHWiV4ewF2uH8cu2c7njrQqF/oVt?=
- =?us-ascii?Q?yHC66aVW+AHZb8O4t4cnXNuvA8Hzqc/JoMh7ZaHJoPf/PtgvIGhC/cqY2EdF?=
- =?us-ascii?Q?So9YJopCbOmDmMjp1KyD6bobOhtA8qySIMhB1O5LAXkwjU8iGmBTD6HmJIyq?=
- =?us-ascii?Q?7BVgAmAmEEmQRK79g3kGDFiK/q0RkccvVqxHSWYC8NdX/DO3QbfqV6Mw4vnm?=
- =?us-ascii?Q?plILeCDcWAtULetKZix1xbcscZspZa2m1rJ7DiIBw3Ps4IdvUHYgO50cHVPK?=
- =?us-ascii?Q?cfHJDYIiy6RRWNB4ADUibtoNwxk11FtlMI5LbNn7Aj448vWnoUoiKw5vFj3u?=
- =?us-ascii?Q?W8bkNzrdXLKL3Ea1JSxTaMqbpRTYAPYYfFGUHo38NoXDGIKtN2+q7HgzmrGI?=
- =?us-ascii?Q?18+OJ5Luhrejxeisa4LvCJoRpS4o4Rbn3xslIHji4rCFnYb163PbVvz2Og0a?=
- =?us-ascii?Q?SasJHOi8NbuAXj/HxEB215ukPHVzJPPhWP1qFL4hRkN+94Fd7ECJGnZW9DBJ?=
- =?us-ascii?Q?jndiHmxhiu2ktR31O5HF6J8yw5q9C+grcflew2/qEguwXAqvLai2PpV2u9tW?=
- =?us-ascii?Q?SkITEj4dYIVVMe0pmr/e4y5qgHSUjwnkdlemp4A1/VLJbIu2nUFq+3dNBuZM?=
- =?us-ascii?Q?3yCbUCmLfEvHXDoEuxDc2lWMFFpb0s0qfsmhRGXBGdVfs2JcByxI8hQzFYn3?=
- =?us-ascii?Q?mwYEy5VAk/IfDRw1kFo7KmzTt/QjgXtcE8gvE/RFNPxfD/QFS5JlNJ6oLEuP?=
- =?us-ascii?Q?zR0TNBncwRYX9xY2bLUkwLFQwrGRO/YeF17yOMcu+4/FEAN14j77OHEFE59w?=
- =?us-ascii?Q?RbOSmPL0ps+No8N+7tkp63IAsgRYydaA+dPT/OvtZqNJLO3kPToTNsfC7/6k?=
- =?us-ascii?Q?+5yKewB81sD0veEFtXKPEEn6SRgsURnKVs6dQWZdkiLJE/agzUqBXq3HtAZ/?=
- =?us-ascii?Q?7DJlWCMM4jffLwWArRrt/e+ZAyYnUR4evLRBw3vBnFvLnw6STVzQp3TO+oJg?=
- =?us-ascii?Q?J0fQ5UNtTtGTYSVgldrkF3St++4mzBdP7+suuR+z4vZQGXDq68sh4D9rvUpQ?=
- =?us-ascii?Q?3Sd9JNUopaA6HVbTi4jElLSTH4s/HV0LOuori2IwUvTu0d3/diL3RZ5eY+Qx?=
- =?us-ascii?Q?BmX5D/wsX7QhCCxY7FwuadstyHXAvQ+X+7+vGHfH5qVajHVR4L6wKGEMKP83?=
- =?us-ascii?Q?NE4zvrIY6TjkarFRxrVcbA0fpgyE0j9kI9Ogz5LOuVZCIQpzEykxel5eOmnY?=
- =?us-ascii?Q?gKiZRrI4W44/q2IOpHrxJpNPKxrWWANcuv5RhdeWvccAasHgSNu2oqeMia3O?=
- =?us-ascii?Q?StrWjPCcWe2r+IAj6yI5KdlIwmxkD0EhhpYTXl5pkhDycMqqlQ+cQOP6goUC?=
- =?us-ascii?Q?KlBFC6B/ZQGjyIywKBq2M9xNY+k7MFWuFnJf5s9ca4d2m1ToUDVXgUoKKR8p?=
- =?us-ascii?Q?UB6J071RQLo2Ryno8oMSP6D7szkKhX/067gndvGMvNZeXb4ifAt7KTRqcXoX?=
- =?us-ascii?Q?/ETfLn1FVYQ0NJji7MoLr0mnc7BNXhEw0cq8TmCbagSzhvD/OIMCKEkIdD0P?=
- =?us-ascii?Q?UmWjCHWHtUotrfV5ea/LJ452HwEKkU5pblfC02cjVbJFC8YmdTxX?=
-X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21b10b22-3770-4622-3ba4-08def3b2b168
-X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 12:03:14.0215
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: G1nFnn6whW7DrhzxSYt0uoi8ZZJwrTEef0Vdg8BiYDeNs01apUVwfdQm7l/oXWbiRGpU14JiTLah8sFZyVQv5FBV+q2uPbZDshZ7S9HVKRJkSZTd7d+VAFoUgbS9CjHL
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PNWP287MB6109
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d0dfd058-f0a0-41e3-a7ad-89eccd0571cb@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=aNzAb79m c=1 sm=1 tr=0 ts=6a7479af cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=9BINTe81hO8Yagh1QJMA:9
+ a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: 2Ga7BGKK2V-arLYiKGHkXMdAZDAHka5D
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA2MDA5NSBTYWx0ZWRfX5CK8+apLIWM6
+ VW/yiaSCZ5UJ62gpSf5bCrl00+32VWuVK/QY770RmiQIWLPkd+e6WANIepRR2hB3Ubl07k23z7Q
+ NZqikzoU3JqTA0HAbtOR3w1E7GRkpin8Z8LVuds6CM5M5//O2AuFrCZq3qNgUwQ+6Q3ePJWplb+
+ OrUSbSoJWdpiAhC+tMfypW2QC7Y/kAo8mLwM2CjfyhieM6yU3WlxsuA2CPpgaaqVqf1q2kWJbS/
+ US9JaDjhVq8qewKBYHJ8bFBtB+mRBuTe03y9dxrGtliwo2fpUVYhGkH7jyb87ha8PL9Vcjpuepj
+ pzyPVRIJ+b/2UxsFbxgRVwd6qNaWCkikJ9By00CnMnVm5ySdNnz6nRscJvRp4qipV7BG2sy//wD
+ pbt1TFy9gFHXUn7j9jQZ+6OQwkVkdK7J/fZ6UNOcMfyCguUyG+nQigprnKXL+Hr95tnCetTvmWD
+ 98nR01aDZMUgzExmKrw==
+X-Proofpoint-ORIG-GUID: 2Ga7BGKK2V-arLYiKGHkXMdAZDAHka5D
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODA2MDA5NSBTYWx0ZWRfX7xJ0T4bB8Bno
+ hFNMA4BbcDvkhs0wlJqQYSmCRRt1GO3V9iZDCqXUaXo9jnwTU0tzOeRumYS3FGDhrZhz8n91Ewj
+ EhUGTwvBqrf04zP1Zv6/MFEM22EjORw=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-05_06,2026-08-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015 malwarescore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608060095
 
-From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+On Thu, Aug 06, 2026 at 05:26:51PM +0530, Vikash Garodia wrote:
+> 
+> On 8/6/2026 4:05 PM, Dmitry Baryshkov wrote:
+> > On Thu, Aug 06, 2026 at 11:36:45AM +0200, Krzysztof Kozlowski wrote:
+> > > On 06/08/2026 11:22, Dmitry Baryshkov wrote:
+> > > > On Thu, Aug 06, 2026 at 11:11:09AM +0200, Krzysztof Kozlowski wrote:
+> > > > > On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+> > > > > > 
+> > > > > > > dma-ranges tell how this bus - so venus/iris - performs DMA translation
+> > > > > > > in respective to parent. Address/size-cells are obviously also needed if
+> > > > > > > this is a bus with addressing.
+> > > > > > > 
+> > > > > > > But there are no children with addressing, thus what sort of bus would
+> > > > > > > it be?
+> > > > > > > 
+> > > > > > > It looks to me that having here both:
+> > > > > > > 1. dma-ranges + address/size-cells
+> > > > > > > 2. children without bus addressing
+> > > > > > > is some sort of abuse of the DT syntax. It is allowed, but does not
+> > > > > > > really represent hardware.
+> > > > > > > 
+> > > > > > > IOW, dma-ranges alone feels okay, although unusual, and it states proper
+> > > > > > > DMA translation for this bus. If you add address/size-cells, it means
+> > > > > > > this bus HAS addressing and thus YOU MUST use addressing.
+> > > > > > > 
+> > > > > > > If my understanding is correct, then solution would be to add addressing
+> > > > > > > to the children (so unit address and "reg" property) or drop
+> > > > > > > address/size-cells as Rob pointed out. [1]
+> > > > > > 
+> > > > > > Doesn't dma-ranges require address/size cells? In the end, how can you
+> > > > > 
+> > > > > I think it does not require, at least how I understood the DT spec,
+> > > > > unless you provide actual addresses to the property.
+> > > > > 
+> > > > > IOW, this requires address/size-cells:
+> > > > > 	dma-ranges = <0 0 0 0 0x10 0>;
+> > > > > 
+> > > > > > specify the DMA address if the device doesn't have addressing at all (or
+> > > > > > MMIO-style addressing)?
+> > > > > 
+> > > > > Yeah, that's why having here children without bus addressing is
+> > > > > confusing. I would interpret it that, children are not on MMIO bus, thus
+> > > > > the venus/iris is some sort of proprietary bus with no mapping between
+> > > > > parent MMIO and children nodes.
+> > > > > 
+> > > > > If there is no mapping, then we do not have 'ranges' property. But I
+> > > > > could imagine that such no-mapping bus still provides access to system RAM?
+> > > > > 
+> > > > > Actually this feels like a huge stretch, so I tend to think that the
+> > > > > only reasonable option is to have children with MMIO, which would make
+> > > > > it explicit: Venus/iris is a bus which provides translation of both MMIO
+> > > > > and DMA addresses to the parent.
+> > > > 
+> > > > But there are no separate addresses for those subnodes. Would you prefer
+> > > 
+> > > There might be some or maybe these should be the addresses of DMA?
+> > > 
+> > > > them to duplicate the addresses of the parent node? Or would the
+> > > > 'ranges' be enough?
+> > > 
+> > > I made mistake earlier - 'dma-ranges' without values is not described in
+> > > DT spec explicitly, but should be treated as 'ranges' without values,
+> > > thus direct mapping from parent to the child.
+> > 
+> > Documentation/devicetree/bindings/iommu/iommu.txt:
+> > 
+> >    An empty "dma-ranges" property means that there is a 1:1 mapping from
+> >    IOMMU to memory.
+> > 
+> > > 
+> > > So it also requires address/size-cells, just like 'dma-ranges =
+> > > <mapping>'. And dtc checks/reports that.
+> > > 
+> > > I think therefore now that the binding is unusual (because no bus
+> > > addresses of children) but actually correct.
+> > > 
+> > > > 
+> > > > Or, thinking about it, if Venus / Iris have 32-bit addressing, then
+> > > > dma-range should probably define the limited DMA range.
+> > > 
+> > > That's another point which I also raised to Vikash already - mapping
+> > > should be restricted to 32-bit if this is how the child devices operate.
+> > 
+> > Souds so. Then we need a non-empty dma-ranges.
+> > 
+> > 
+> 
+> based on this discussion, below works for schema check and dtc
+> 
+> schema:
+>   '#address-cells':
+>     const: 1
+> 
+>   '#size-cells':
+>     const: 1
+> 
+>   dma-ranges:
+>     maxItems: 1
 
-Add device tree support for the Sony IMX576 front camera
-sensor and connect it to CAMSS via CSIPHY3.
+If this works, then LGTM.
 
-Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
-Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
----
- arch/arm64/boot/dts/qcom/sm6350.dtsi          |  7 +++
- .../boot/dts/qcom/sm7225-fairphone-fp4.dts    | 54 ++++++++++++++++++-
- 2 files changed, 60 insertions(+), 1 deletion(-)
+> 
+> 
+> Now in the schema examples, soc is added to match the reg/dma-ranges of
+> parent (iris)
+> 
+>   examples
+>      soc {
+>           #address-cells = <2>;
+>           #size-cells = <2>;
+> 
+>           video-codec@aa00000 {
+>             compatible = "qcom,sm8550-iris";
+>             reg = <0x0 0x0aa00000 0x0 0xf0000>;
+> 
+> DTS
+> 
+> iris {
+> ....
+>   #address-cells = <1>;
+>   #size-cells = <1>;
+>   dma-ranges = <0x0 0x0 0x0 0xe0000000>;
+> 
+>   iris_non_pixel: non-pixel {
+> 	iommus = <&apps_smmu 0x1940 0x0>;
+> 	memory-region = <&iris_resv>;
+>   };
+> 
+>   pixel {
+> 	iommus = <&apps_smmu 0x1947 0x0>;
+>   };
+> 
+> Please review if anything is missed out.
+> 
+> Regards,
+> Vikash
 
-diff --git a/arch/arm64/boot/dts/qcom/sm6350.dtsi b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-index 9ecd17e0b6a0..5db18f6c1be6 100644
---- a/arch/arm64/boot/dts/qcom/sm6350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm6350.dtsi
-@@ -2926,6 +2926,13 @@ cci2_sleep: cci2-sleep-state {
- 				bias-pull-down;
- 			};
- 
-+			cam_mclk1_default: cam-mclk1-default-state {
-+				pins = "gpio30";
-+				function = "cam_mclk1";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
- 			sdc2_off_state: sdc2-off-state {
- 				clk-pins {
- 					pins = "sdc2_clk";
-diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-index 711a120753ad..452fc649ddb3 100644
---- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-+++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-@@ -17,6 +17,8 @@
- #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- #include <dt-bindings/sound/qcom,q6asm.h>
-@@ -547,6 +549,29 @@ vreg_bob: bob {
- 	};
- };
- 
-+&camss {
-+	vdd-csiphy0-0p9-supply = <&vreg_l18a>;
-+	vdd-csiphy0-1p25-supply = <&vreg_l22a>;
-+	vdd-csiphy1-0p9-supply = <&vreg_l18a>;
-+	vdd-csiphy1-1p25-supply = <&vreg_l22a>;
-+	vdd-csiphy2-0p9-supply = <&vreg_l18a>;
-+	vdd-csiphy2-1p25-supply = <&vreg_l22a>;
-+	vdd-csiphy3-0p9-supply = <&vreg_l18a>;
-+	vdd-csiphy3-1p25-supply = <&vreg_l22a>;
-+
-+	status = "okay";
-+
-+	ports {
-+		port@3 {
-+			csiphy3_ep: endpoint {
-+				data-lanes = <0 1 2 3>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				remote-endpoint = <&camera_imx576_ep>;
-+			};
-+		};
-+	};
-+};
-+
- &cci0 {
- 	status = "okay";
- };
-@@ -581,7 +606,34 @@ &cci1 {
- };
- 
- &cci1_i2c0 {
--	/* Front cam (Sony IMX576) @ 0x10 */
-+	camera@10 {
-+		compatible = "sony,imx576";
-+		reg = <0x10>;
-+
-+		vana-supply = <&vreg_l3p>;
-+		vif-supply = <&vreg_l6p>;
-+		vdig-supply = <&vreg_32m_cam_dvdd_1p05>;
-+
-+		clocks = <&camcc CAMCC_MCLK1_CLK>;
-+		assigned-clocks = <&camcc CAMCC_MCLK1_CLK>;
-+		assigned-clock-rates = <24000000>;
-+
-+		reset-gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_mclk1_default>;
-+		pinctrl-names = "default";
-+
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		rotation = <90>;
-+
-+		port {
-+			camera_imx576_ep: endpoint {
-+				data-lanes = <1 2 3 4>;
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				link-frequencies = /bits/ 64 <1017000000>;
-+				remote-endpoint = <&csiphy3_ep>;
-+			};
-+		};
-+	};
- 
- 	eeprom@50 {
- 		compatible = "giantec,gt24p64a", "atmel,24c64";
 -- 
-2.34.1
-
+With best wishes
+Dmitry
