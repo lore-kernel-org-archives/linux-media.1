@@ -1,47 +1,47 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9E23B9DA5
-	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 06:13:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3FC08635D;
+	Thu,  6 Aug 2026 06:13:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785996802; cv=none; b=HVyCdPpmBvQK7ynEd92izB5+6yHgaojYknQTCYGtznr+c3Qjbt6jCqzFR8QbHkaxmqyqIaSPHj6u0XUs2wvffm9AgvUH/K1hZzHq65FUFOeNK7fh55JDbTJ6PERgOFORTH2R2Ow54xYB1kQEM/plxaaaIgYoEDbUZt1U2PJgy+U=
+	t=1785996830; cv=none; b=O97egq9/YR/YLer4bfdt55nJsiJYRlNf3lxirf69Z3XIph8ti3SY/V199u2WWfwdRTOjH3w3l0YZtqHTxwelWnxZfNkviiO8yeptMYPfFApF/2HnRVLkxqu9KL63AdJNPLNAM3uFZ6RuzNTESqpxzKg22A5HrWjKbsUH4gc4rmg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785996802; c=relaxed/simple;
-	bh=NDgy5FNzI2lae9SEYJXK+zmSNoq+WTx2vwvK8F9ILrM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WC2s5B7ojBqxSapT5NDiU6TGGBo6vwVpn8BPoHwUK13bsBzBZUomhGVeJwJesPewoK19LBLGKYuwftO1F8qpQT5/yG/t1hWdVRM5VJEyoSVMoXVPFKoaX3rugQZPfK4ZR2XL9I/0PJ9I+Rde4iiq/luyVAdo0oIQbGQw45YgxO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=X8DBy/Wk; arc=none smtp.client-ip=192.198.163.17
+	s=arc-20240116; t=1785996830; c=relaxed/simple;
+	bh=DP352WImcWYlInjaHyrODPI3o/XF1NyYfycSe2fR4jk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DrbeYytxP8xG1noIYYRQSzogi4pEyhLUc1Us6Zn7qP3f8FJQoipquzEJrSod8SydcphMBsG+ewSYdqko9Lpzs1GLszSXqVsxZHcGbPHoLNHwn2Iun2dP3tBNurkuAXqs2nT+zxw5dUESIeZHa0eDw7azSdcGwwXSCj1HDmEPHeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WJCKSP3B; arc=none smtp.client-ip=198.175.65.9
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="X8DBy/Wk"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WJCKSP3B"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1785996799; x=1817532799;
+  t=1785996827; x=1817532827;
   h=from:to:cc:subject:date:message-id:mime-version:
    content-transfer-encoding;
-  bh=NDgy5FNzI2lae9SEYJXK+zmSNoq+WTx2vwvK8F9ILrM=;
-  b=X8DBy/WkPUTV0vKWImlgVGMKq/6X2yPXk32aTE2ZQ2qTcOrFyoIwDpeJ
-   TuiuD3FFJJm+/YsKhsd5IOaZ76PfCHzD61nNqg4Nj1BwaTsivTptetybx
-   D/1YZFarN1M3MUN0luf00JNA7bdv+xyCON9tfpEQQfPR5E4F2ElK5z63a
-   j+o08TAYdfsBexiA7TO9U2vKh3qmRmsaxpKpyEsL04znyYtFkGIaVNF8F
-   P12xeHPWyyKBtxeAMjdlncQFYOB6dUjnBve6OWwTCgnMX0Gd3yS0Z6sfe
-   I0fTjIuBkPJVj4+GoWXJF2CMbZ3S7fwFvE8iybfkUQ8sGJQMvPQ4St8Bc
-   A==;
-X-CSE-ConnectionGUID: z/MUcGpYRj+v3paFiz9pZA==
-X-CSE-MsgGUID: wBmNbqA7RvSaxJvY0rkKcA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="86455796"
+  bh=DP352WImcWYlInjaHyrODPI3o/XF1NyYfycSe2fR4jk=;
+  b=WJCKSP3B1xWragOtKb5+YGpCWT2aYCAhk+8Dxzeej7jZii1nMVHyiPxc
+   Be5iHvJzJ7wVwoKcwZmKJJhkP0Cc2NYWxSpTLme05D7R6Le91uw/KW8zf
+   PUKoxWzaBqafYryI75rIvmcr7jjqmW453FB5E+vWRxNVgLTc7aR8bNgiE
+   NW3WkjXvsIuIMYPwvGFM+rgR00El/OdyUCRYnWJUtut8zoZPNb4vpKh3c
+   p3V6pgaKNmatuwmVALjHdfMChLnmKhIQm9PGLF8XwdyjV5BKAGrNsfCly
+   5TC/TLmKLt0Y7y9UFqrK1Gj1gOeOqh3N5EHFJ4Cuv9LJxqccBJPgt96Fm
+   g==;
+X-CSE-ConnectionGUID: +2beYwrhSvudFbhp8OLclw==
+X-CSE-MsgGUID: b5vCh7vMShqizC9AFXA3vQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11866"; a="109372704"
 X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="86455796"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 23:13:18 -0700
-X-CSE-ConnectionGUID: wDul+mvPTsu3ahmHF1qn4w==
-X-CSE-MsgGUID: IE4vQZWFRkO+g8KPSX4kqw==
+   d="scan'208";a="109372704"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Aug 2026 23:13:46 -0700
+X-CSE-ConnectionGUID: nf0b/s9VQJC7AN0i7uJTLw==
+X-CSE-MsgGUID: kmKN1luuSOKrT5jr74O4Kg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,207,1779174000"; 
-   d="scan'208";a="260757746"
+   d="scan'208";a="259386320"
 Received: from serinyeh-ms-7d25.itwn.intel.com ([10.225.65.16])
-  by orviesa010.jf.intel.com with ESMTP; 05 Aug 2026 23:13:16 -0700
+  by fmviesa008.fm.intel.com with ESMTP; 05 Aug 2026 23:13:43 -0700
 From: Serin Yeh <serin.yeh@intel.com>
 To: linux-media@vger.kernel.org
 Cc: serin.yeh@intel.com,
@@ -49,10 +49,12 @@ Cc: serin.yeh@intel.com,
 	jimmy.su@intel.com,
 	sarang.sapre@intel.com,
 	bod@kernel.org,
-	kieran.bingham@ideasonboard.com
-Subject: [PATCH v4 0/2] media: ov8856: run full power sequence on ACPI
-Date: Thu,  6 Aug 2026 14:17:35 +0800
-Message-Id: <20260806061735.1359269-1-serin.yeh@intel.com>
+	kieran.bingham@ideasonboard.com,
+	stable@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v4 1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
+Date: Thu,  6 Aug 2026 14:18:04 +0800
+Message-Id: <20260806061804.1359700-1-serin.yeh@intel.com>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -62,62 +64,90 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series makes the ov8856 driver request its power resources and run
-the power on/off sequence on ACPI platforms as well as DT, and fixes an
-unrelated debug message.
-
-- Background: power resources on Intel ACPI platforms :
 On Intel platforms the sensor is enumerated via ACPI, and an INT3472
 "discrete" companion device (the power-logic-control driver under
 drivers/platform/x86/intel/int3472) registers the sensor's
-reset/powerdown GPIOs and the regulator supply.
-These resources are therefore discoverable and usable through the
-standard gpiod/regulator lookups at probe time.
+reset/powerdown GPIOs and the regulator supply. These resources are
+therefore discoverable and usable through the standard gpiod/regulator
+lookups at probe time.
 
-- Current symptom :
-Previously the driver guarded both the GPIO/regulator acquisition in
-ov8856_get_hwcfg() and the whole power on/off sequence with 
+However, the driver guarded both the GPIO/regulator acquisition in
+ov8856_get_hwcfg() and the whole power-on/off sequence with
 is_acpi_node() and skipped them on ACPI. As a result the sensor was
-never powered or reset by the driver and probe failed when reading
-the chip ID in ov8856_identify_module().
-Removing those checks makes the ACPI path behave like DT.
+never powered or reset by the driver, and probe failed when reading the
+chip ID in ov8856_identify_module().
 
-- Validation :
+Remove the is_acpi_node() checks so the GPIO/regulator resources are
+acquired and the full power sequence runs regardless of the firmware
+interface. The driver now behaves consistently across DT and ACPI
+platforms and initialises the hardware correctly.
+
 Tested on Intel platforms with kernel 6.17 and 7.0.
 
-Changes in v4:
- [1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
-   - Modified commit log description.
-   - Added tags : Reviewed-by
- [2/2] media: i2c: ov8856: fix debug message to report actual CSI-2 lane
-count
-   - No change
+Fixes: d2fa1134a48b ("media: i2c: ov8856: Use V4L2 legacy sensor clock helper")
+Cc: stable@vger.kernel.org
+Signed-off-by: Serin Yeh <serin.yeh@intel.com>
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+ drivers/media/i2c/ov8856.c | 29 ++++++++++-------------------
+ 1 file changed, 10 insertions(+), 19 deletions(-)
 
-Changes in v3:
- Add cover letter to describe details of patches.
- [1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
-   - Add tags : Fixes and Cc
-   - Removed a sentence from commit as this change has already been
-     split out and is covered separately in patch 2/2
- [2/2] media: i2c: ov8856: fix debug message to report actual CSI-2 lane
-count
-   - Added tags : Cc
-
-Changes in v2:
- [1/2] media: i2c: ov8856 : remove ACPI node bypass mechanism
-   - No change
- [2/2] media: i2c: ov8856: fix debug message to report actual CSI-2 lane
-count
-   - Added tags : Fixes and Reviewed-by
-
-Serin Yeh (2):
-  media: i2c: ov8856 : remove ACPI node bypass mechanism
-  media: i2c: ov8856: fix debug message to report actual CSI-2 lane
-    count
-
- drivers/media/i2c/ov8856.c | 32 ++++++++++++--------------------
- 1 file changed, 12 insertions(+), 20 deletions(-)
-
+diff --git a/drivers/media/i2c/ov8856.c b/drivers/media/i2c/ov8856.c
+index 8bedb47cd7cf..9d2b0469a576 100644
+--- a/drivers/media/i2c/ov8856.c
++++ b/drivers/media/i2c/ov8856.c
+@@ -2082,9 +2082,6 @@ static int ov8856_power_on(struct device *dev)
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 	int ret;
+ 
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	ret = clk_prepare_enable(ov8856->xvclk);
+ 	if (ret < 0) {
+ 		dev_err(dev, "failed to enable xvclk\n");
+@@ -2120,9 +2117,6 @@ static int ov8856_power_off(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct ov8856 *ov8856 = to_ov8856(sd);
+ 
+-	if (is_acpi_node(dev_fwnode(dev)))
+-		return 0;
+-
+ 	gpiod_set_value_cansleep(ov8856->reset_gpio, 1);
+ 	regulator_bulk_disable(ARRAY_SIZE(ov8856_supply_names),
+ 			       ov8856->supplies);
+@@ -2293,21 +2287,18 @@ static int ov8856_get_hwcfg(struct ov8856 *ov8856)
+ 		dev_warn(dev, "external clock rate %u is unsupported",
+ 			 xvclk_rate);
+ 
+-	if (!is_acpi_node(fwnode)) {
+-		ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+-							     GPIOD_OUT_LOW);
+-		if (IS_ERR(ov8856->reset_gpio))
+-			return PTR_ERR(ov8856->reset_gpio);
++	ov8856->reset_gpio = devm_gpiod_get_optional(dev, "reset",
++						     GPIOD_OUT_LOW);
++	if (IS_ERR(ov8856->reset_gpio))
++		return PTR_ERR(ov8856->reset_gpio);
+ 
+-		for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
+-			ov8856->supplies[i].supply = ov8856_supply_names[i];
++	for (i = 0; i < ARRAY_SIZE(ov8856_supply_names); i++)
++		ov8856->supplies[i].supply = ov8856_supply_names[i];
+ 
+-		ret = devm_regulator_bulk_get(dev,
+-					      ARRAY_SIZE(ov8856_supply_names),
+-					      ov8856->supplies);
+-		if (ret)
+-			return ret;
+-	}
++	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ov8856_supply_names),
++				      ov8856->supplies);
++	if (ret)
++		return ret;
+ 
+ 	ep = fwnode_graph_get_next_endpoint(fwnode, NULL);
+ 	if (!ep)
 -- 
 2.25.1
 
