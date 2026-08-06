@@ -1,78 +1,177 @@
-Received: from mail-vk1-f174.google.com (mail-vk1-f174.google.com [209.85.221.174])
+Received: from vps.xff.cz (vps.xff.cz [195.181.215.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90BF37F012
-	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 13:58:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A1030C156;
+	Thu,  6 Aug 2026 14:18:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.181.215.36
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786024727; cv=none; b=LY073xwwSGKK3LYzDrFeavUvc6kp7YYNnMIVi57ibS6iigPneFZNkGb6anjr9Owsy09jJYd2a5tuzWgHJE+DgIuhKbLkLwqjs5xpvIYuRLsAQN5Z4NCMZoKwBMkxDpGwRxV7qY4YzUDbaupSaV10GPqv3ljHaxN1rFbV5AEVf2c=
+	t=1786025940; cv=none; b=APdyNQO3giH0xuM+EO+OEI/5tz5+O3tFgMJdCvk8ihQa5wLXUWgvtZ/bcZYIGvTfLbsboiPYUhpSXNIzJiOdptcBqqjZMuXzFISGx0xADYZuKb+8KkCXIvMkRuip3XKPRMTsLzRJsGGNvQMZZZsk5FXSqd4nGN5KUeeqAXwuMOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786024727; c=relaxed/simple;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	h=Message-ID:Date:MIME-Version:To:From:Subject:Content-Type; b=ckQX80D+kxsz5v+MeOWEAQb1d9ka3dS+PR/aXPaS5qM4o2jqCJvV8gmvFswMwue7glky4kPt4jBXqFHPug309hKjy62iPBHz6i/WCaniyQsEKzUZowaReCQrZztpVRJu7wBlIrlV9OX9+qjV4NxRo2lvkpmr8pzowkhkCO3/tys=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=THkOZtzn; arc=none smtp.client-ip=209.85.221.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786025940; c=relaxed/simple;
+	bh=b6tGJgjbWseM7FlphtaARLIwHe4KRXa10wZMxOFBvWo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dFLVFEp1WwErLt8Hn3tDHWnJ09v+Q9VYvPmnkIUNhp6Hrk+vk0tpsMGpZP62+iGfZAiqx5zypyfklD6W/aGoGNt1PibLJS5Vst1qbuy0ql3lJu3EAtcTVgqeB/gswO1DxWdOLD4HicCTiFsSm0NA45zOC450d9UsP2K02khRkpE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz; spf=pass smtp.mailfrom=xff.cz; dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b=hfvsUE2U; arc=none smtp.client-ip=195.181.215.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=xff.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xff.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="THkOZtzn"
-Received: by mail-vk1-f174.google.com with SMTP id 71dfb90a1353d-59cd803792aso1464045e0c.3
-        for <linux-media@vger.kernel.org>; Thu, 06 Aug 2026 06:58:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786024725; x=1786629525; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        b=THkOZtznsG53SzsxbSLJHTHKCD3kz0VPmU8bkj6YcUDHOSUi/KJX8SG5ICGNibHLnj
-         pA/Ou/Pcfho+2+O5H39GgdDFqommo2FL3TfIBnGoW9rSuAbNRMLsCGLNV3z1mPK0KgLz
-         1VcGFefGvA7GEdlPnKu13+4Ebm+i9Nr3IgAUvTld4i18wuq6nvbHz5mYKrVblEkrIred
-         eVnxcsbYlt93cW2A+Ms8M36vX7R0ntJYGZ2rLYqmXeqw3/EK2QfDnYrLFphaIw/ebRx4
-         R4eOEll16P4hkwsyGuZHWLh8Ra2s9w3U5yLRgHuHBTxIIcGN15QIPF2+n9dtzF+Q0373
-         gepg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786024725; x=1786629525;
-        h=content-transfer-encoding:content-type:subject:from:to
-         :content-language:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-        b=I4ithNvJL0hUWrxVJ/bfFfRh05PvJuHZt8XDPs3vdCayOJU6rSGWpfeWfXt6IYm9DC
-         mCcGMqln2U8hGmXzc7rcokImXR9scaoUxKpez0roDCDO70fAD7S7os+JeRQtQoTdQVQL
-         +2BF06sOR0ESGtJEnLy5Fxfmrm9u2ArSneoXT9TIRaJsUkIzqWff5maee9jWJzzqs5JZ
-         ORyIhkCvbP9uNVj7eTDIAzRgTTZSlt7UwZJ4VGXZQhumd9dKhRsfyCNx0LZmkWzRvLPc
-         3dM4mIapiBO9wNlo9qcID2PsaA3MwfNZRPvky0P7nKnFRlhCZQpG+RSKZiR/lUht/QRn
-         Adrw==
-X-Gm-Message-State: AOJu0YwhwtI17Da60mKaOEo/Z94PlzA/Ja6U2kagHI6F2Z665ePPJ92H
-	eo/tCqW5cx6NoJKvc0ZQ1w02Rn0ov/cU+kpH1uiFCBbsaNpF66XRDx2yJ/Rm7A==
-X-Gm-Gg: AR+sD11GvCZsGN8TfzUKex7A8YsCx9P8XNvHerV5CBSJqreY2ePL0/ceU1HJYZVdWFZ
-	bjjxvHs+QRNDomOvhRLDlCQzMrlCrD8488sD+D1g7+Mmx8hy5PGpIM5piH+T36az6aBQ6iDV21I
-	hK5rnQoYB8WQfJQn3I4upyAjWNYHWH9E/sVq7MFItZXYWWRlnqBWb15XzLfWYmOKVI5BAoXDeZa
-	Y6ppmy9iQ7p0J9raAozKT+rV0aQEb5eLHAQyof1k8JzMfoBaiPilsOsxtq64PCMfqolV2eywV1k
-	dCNcC0AaN0MeeKxGg02zN+s9taUsvTUig2/+xs5RED+f/8YOi1/Mj5fpwhlWMh9zNF80ulQXeGV
-	VkoWKxcS2KXgZ3raWDV4cy6n8cTCrmxUSjPptqB3Yb34DPsXunIkln7+SxoSlvYLwhhpkrN/YEi
-	9BA3errNY803Pc7FBsdHWC6bP3jOOJb9adgWaoBg3wPKelp4w/qRwmCq6EWlMpJpTpeKJK3mqZV
-	XmWPLIkvOONcZyL3QQL
-X-Received: by 2002:a05:6122:278e:b0:5bd:71cf:e97e with SMTP id 71dfb90a1353d-5c3d91171f5mr2272837e0c.5.1786024724601;
-        Thu, 06 Aug 2026 06:58:44 -0700 (PDT)
-Received: from [192.168.1.200] ([95.138.85.237])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c3d05c594fsm3344668e0c.8.2026.08.06.06.58.43
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 06 Aug 2026 06:58:43 -0700 (PDT)
-Message-ID: <3ad9859f-017b-416c-99a3-b278fcc2aad3@gmail.com>
-Date: Thu, 6 Aug 2026 09:58:42 -0400
+	dkim=pass (1024-bit key) header.d=xff.cz header.i=@xff.cz header.b="hfvsUE2U"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=xff.cz; s=mail;
+	t=1786025934; bh=b6tGJgjbWseM7FlphtaARLIwHe4KRXa10wZMxOFBvWo=;
+	h=Date:From:To:Cc:Subject:X-My-GPG-KeyId:References:From;
+	b=hfvsUE2U2fnm8isZGBZhasv9Exh8AzA5/wdep+DCpOAZUfJlytb89pnFX+BEV5dHo
+	 hsJUXMCTeaXxQw0KmF8+jgzbdq9VbYQRYiUgvkEzgLQMx2F+V582cYawsbpKGPXCpj
+	 zXYXArluPudj1uElf1TWmKIWdeMegs/rvjZQfplU=
+Date: Thu, 6 Aug 2026 16:18:53 +0200
+From: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>
+To: David Heidelberg <david@ixit.cz>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
+	imx@lists.linux.dev, stable@vger.kernel.org
+Subject: Re: [PATCH 2/4] arm64: dts: rockchip: rk3399-pinephone-pro: DW9714
+ coil requires higher voltage
+Message-ID: <cluhol4kfk4mi3ybxfo52hyuepxuwfgrgv54vsvn3e7x43d3la@xfcodg4jlosv>
+Mail-Followup-To: =?utf-8?Q?Ond=C5=99ej?= Jirman <megi@xff.cz>, 
+	David Heidelberg <david@ixit.cz>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Olivier Benjamin <olivier.benjamin@bootlin.com>, 
+	Manuel Traut <manut@mecka.net>, Alexander Warnecke <awarnecke002@hotmail.com>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Shawn Guo <shawnguo@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, phone-devel@vger.kernel.org, 
+	imx@lists.linux.dev, stable@vger.kernel.org
+X-My-GPG-KeyId: EBFBDDE11FB918D44D1F56C1F9F0A873BE9777ED
+ <https://xff.cz/key.txt>
+References: <20260801-pp-pro-camera-v1-0-7b4d90788f9f@ixit.cz>
+ <20260801-pp-pro-camera-v1-2-7b4d90788f9f@ixit.cz>
+ <2j7ogeqj565sftp5wzqvtzi2id76fof623bifbmyu6ckhf6vm6@ya7h4tp5i4qf>
+ <7d55eaba-967c-4de6-8021-6b2d17670b1f@ixit.cz>
+ <galrq4ug3hhny2ivpylqwuztwv7vnqvm6sdhlu6pucxk6qy2mz@zxw4ckkxj2sh>
+ <dd2f19ac-a65e-4e53-aa2f-6f76c949366e@ixit.cz>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-From: Emmanuel ALLAUD <eallaud@gmail.com>
-Subject: unsubscribe
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <dd2f19ac-a65e-4e53-aa2f-6f76c949366e@ixit.cz>
 
+On Thu, Aug 06, 2026 at 01:49:07PM +0200, David Heidelberg wrote:
+> On 06/08/2026 13:19, Ondřej Jirman wrote:
+> > Hi,
+> > 
+> > On Tue, Aug 04, 2026 at 11:12:21AM +0200, David Heidelberg wrote:
+> > > On 04/08/2026 09:39, Ondřej Jirman wrote:
+> > > > Hi,
+> > > > 
+> > > > On Sat, Aug 01, 2026 at 02:35:21AM +0200, David Heidelberg via B4 Relay wrote:
+> > > > > From: David Heidelberg <david@ixit.cz>
+> > > > > 
+> > > > > By datasheet the VDD (in-kernel named vcc) range is between 2.3 to 4.3 V.
+> > > > > Usually it's around 2.8 V. Here it matches the avdd2v8_dvp.
+> > > > > 
+> > > > > Fixes: 9336eb829a18 ("arm64: dts: rockchip: describe I2c Bus 1 and IMX258 world camera on PinePhone Pro")
+> > > > > Cc: stable@vger.kernel.org
+> > > > > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > > > > ---
+> > > > >    arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts | 2 +-
+> > > > >    1 file changed, 1 insertion(+), 1 deletion(-)
+> > > > > 
+> > > > > diff --git a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > > > index d46cdfe3f7849..bde35d9b2263e 100644
+> > > > > --- a/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > > > +++ b/arch/arm64/boot/dts/rockchip/rk3399-pinephone-pro.dts
+> > > > > @@ -473,17 +473,17 @@ wcam_out: endpoint {
+> > > > >    			};
+> > > > >    		};
+> > > > >    	};
+> > > > >    	wcam_lens: camera-lens@c {
+> > > > >    		compatible = "dongwoon,dw9714";
+> > > > >    		reg = <0x0c>;
+> > > > >    		/* Same I2c bus as both cameras, depends on vcca1v8_codec for power. */
+> > > > > -		vcc-supply = <&vcc1v8_dvp>;
+> > > > > +		vcc-supply = <&avdd2v8_dvp>;
+> > > > 
+> > > > This does not match reality, schematic says it's VCC2V8_DVP:
+> > > > 
+> > > > 	https://xff.cz/dl/tmp/6253a0465329df41.png
+> > > 
+> > > Ahoj,
+> > > 
+> > > thanks for spotting this, since I know you have the device, would be too
+> > > much to ask you to send standalone fix for PP Pro?
+> > > 
+> > > I would drop the change from the series.
+> > 
+> > Ok. Just for the reference, vcc1v8_dvp here feeds an enable pin for VCC2V8_DVP
+> > LDO regulator (which is supplied from VCC3V3_SYS and not described in DT, yet).
+> > So in practice enabling vcc1v8_dvp enables both VCC2V8_DVP and AVDD2V8_DVP and
+> > while DT does not describe the HW in detail, it describes the only regulator
+> > that is actually controllable and enables all needed power rails for the camera
+> > modules all by itself in proper order/timing.
+> > 
+> > Not sure what's the DT maintainers idea here about whether DT has to describe
+> > every detail of power rails routing, or just what's pragmatic.
+> 
+> My perception is that DT syntax should describe everything, except passive
+> components.
+> 
+> No additional GPIO is needed to enable VCC and AVDD?
 
+Yes, it's completely transparent. vcc1v8_dvp indirectly powers up all other
+camera sensor regulators.
+
+Regards,
+	o.j.
+
+> Here, it seems to me that explanation like this in DT could cover it. But
+> I'm no authority here :)
+> 
+> David
+> 
+> > 
+> > Best regards,
+> > 	o.j.
+> > 
+> > > David
+> > > 
+> > > P.S. I noticed I didn't mark this series RFC. Too late.
+> > > 
+> > > > 
+> > > > regards,
+> > > > 	o.
+> > > > 
+> > > > >    	};
+> > > > >    	ucam: camera@36 {
+> > > > >    		compatible = "ovti,ov8858";
+> > > > >    		reg = <0x36>;
+> > > > >    		clocks = <&cru SCLK_CIF_OUT>; /* MIPI_MCLK1, derived from CIF_CLK0 */
+> > > > >    		clock-names = "xvclk";
+> > > > >    		dovdd-supply = <&vcc1v8_dvp>;
+> > > > > 
+> > > > > -- 
+> > > > > 2.53.0
+> > > > > 
+> > > > > 
+> > > 
+> > > -- 
+> > > David Heidelberg
+> > > 
+> 
+> -- 
+> David Heidelberg
+> 
