@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 785A03F1ADA;
-	Thu,  6 Aug 2026 09:11:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E787C431A2B;
+	Thu,  6 Aug 2026 09:20:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786007482; cv=none; b=Xf4cRwYlrG/2bkbM+fr1rUUcgwXj1SN2dKutcZIFjty47CseqfZ57HP10t3dHMETQfMVKiqd1LfTUfYuKuGcvkhOzX44FgqME3xO7X12wJHW3F1x51ChevvUSp7qR7SInnOZ15DjGYCzezUTpATsjcdBV8pGhTB0sKvcsl/G0WY=
+	t=1786008021; cv=none; b=KdHgYsavuMcRzx99ZHigzhEeogDa+Ujxh/IXCMOEgRn7YeEYOgbhbcZGRdnLb8cDADP4GD1UKLjM30KrkXSWJIZb3bMTNoxK4atdNyGW6Ph/YO1x1UcUuiCHrV6DQACK1rk6rfG5SL2yQgBZo4a9RP5u7wP5DJxDINgOnv2wheo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786007482; c=relaxed/simple;
-	bh=5e9QuQ+zLqaCJ7/aMvkLwPRnnnXvYV0dZngRxxy/tKw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pA4aT64TfZaZlkdayXN+E7XLfozv7h48/kYkF/4kzDlIoMwznfnkdUr/lCIsedC4kOOjX8Ifrh6jGz67C/yirGT+DRQPY5MkOCDdusZZFZGnM9sb70iZubEckVrRzbZOwqB3bF+CqWSTdOr26fjpFnKfhLsVRa79whBcBuTlxm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j+bXCehl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786008021; c=relaxed/simple;
+	bh=jud4DCF3dznJD9IVUp/NPwI1SiYzOcqCdgmq3NM7IpM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=eFT68enxj/9c3JgqFGGRiU8pr4J0ouI/3gSXZSCPMeSnfhkR4Dx3E1j5PD5ynHrrK6AhuG+6ncnMlhv6vbaRCM3jlCWk58A1hXortdBhmtvXfPHU4aQOsQsRVAzYp6HObD+flqD1PNIpWnB1HLSm0bSAzNJ0wXSDX/cj0YUJ4tU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g/lejn03; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j+bXCehl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 128C31F000E9;
-	Thu,  6 Aug 2026 09:11:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g/lejn03"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D7A71F000E9;
+	Thu,  6 Aug 2026 09:20:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786007479;
-	bh=ffzSoAaEsj0Mhz4niPLNZqO+oPL8aXxnAY4x9hVr9sI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=j+bXCehlFvKik1VcOXj8X2NEhYD+1KEJ99SroNadbNH1tD8qtL3wzek6wfQyEpJ8C
-	 eJERPjWlt/9rZmx/kXweC0IiKgZanDdB7l8RujpAerFj5Jo2KjRHwvohiPUrhkMFwT
-	 kvF30pN+wHLWhS3vCTDaTiwJblQgJ6bw7T2GyXbAmgZEfUOHpKc1v5NU3nEYURTvNA
-	 gM6gk3nNCnwAhJXyKz2CyoD9vdE/5UZIuLtCVF8B/h7kntChAv8FvX8dZ6r3XLaEzy
-	 LpD0hqlwe8b9L4SK2dhOfWX0Iv81oBJy/BezMZQS9rWotkLhzANaFTXovD4B1Lf/sl
-	 XPtTGMu2YK2wQ==
-Message-ID: <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
-Date: Thu, 6 Aug 2026 11:11:09 +0200
+	s=k20260515; t=1786008019;
+	bh=iGxek032oK2fSaxH+Kzf0mPcVIk2FAv6elrIDa8hzJ0=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=g/lejn03Ul/ylviBdhxYK8cnWQtzz78zo8Nb6v3Pfjb5QLxpcqgPJQsIElpQOxWVH
+	 rmrJGB/y1U+67692/RhvrBa3QeEgMCEYxwtm0CazkypyQiCLbV46BeSi1pU3hDS6Nu
+	 qqoN6IG6kvtbQT37DfVBJbbYgDJ8WbhWq51zeDuY+2ELq1MYXnSTbmHILiST+uSBW1
+	 /XKlqDIyaTGBoefRm7B7Gf7ifgh0kvkZfeIlWQUF9W9HDMl4QXWm6/6QsC+91YmjOI
+	 VrcDigJxD2q6YXwHvt8sfp3ANwDfKfSSjiRs86xueZOkN5iMYYupwJyMxE9aicTPKO
+	 9ylG3IlEfiRuA==
+Message-ID: <0f6c0803-1f87-4c2f-97c9-89b0546a95b3@kernel.org>
+Date: Thu, 6 Aug 2026 11:20:09 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,6 +37,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v2 01/12] dt-bindings: media: qcom,venus: Add context bank
  subnodes to common schema
+From: Krzysztof Kozlowski <krzk@kernel.org>
 To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
  Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
@@ -58,7 +59,7 @@ References: <20260731-vpu_iommu_iova_handling-v2-0-da52b5228dbd@oss.qualcomm.com
  <20260805-dark-voracious-jacamar-6aae4c@quoll>
  <7a546bc6-a2b4-457d-ac27-05fc1cfe17f5@kernel.org>
  <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+ <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -103,56 +104,67 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <m4rccl6zsdzmkzntc3njv3uczcppva3passjr5ukmru5q6rylx@wlwha7ydttfp>
+In-Reply-To: <163c24ba-6b78-44bb-afe9-3dcbb4d47475@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+On 06/08/2026 11:11, Krzysztof Kozlowski wrote:
+> On 06/08/2026 10:46, Dmitry Baryshkov wrote:
+>>
+>>> dma-ranges tell how this bus - so venus/iris - performs DMA translation
+>>> in respective to parent. Address/size-cells are obviously also needed if
+>>> this is a bus with addressing.
+>>>
+>>> But there are no children with addressing, thus what sort of bus would
+>>> it be?
+>>>
+>>> It looks to me that having here both:
+>>> 1. dma-ranges + address/size-cells
+>>> 2. children without bus addressing
+>>> is some sort of abuse of the DT syntax. It is allowed, but does not
+>>> really represent hardware.
+>>>
+>>> IOW, dma-ranges alone feels okay, although unusual, and it states proper
+>>> DMA translation for this bus. If you add address/size-cells, it means
+>>> this bus HAS addressing and thus YOU MUST use addressing.
+>>>
+>>> If my understanding is correct, then solution would be to add addressing
+>>> to the children (so unit address and "reg" property) or drop
+>>> address/size-cells as Rob pointed out. [1]
+>>
+>> Doesn't dma-ranges require address/size cells? In the end, how can you
 > 
->> dma-ranges tell how this bus - so venus/iris - performs DMA translation
->> in respective to parent. Address/size-cells are obviously also needed if
->> this is a bus with addressing.
->>
->> But there are no children with addressing, thus what sort of bus would
->> it be?
->>
->> It looks to me that having here both:
->> 1. dma-ranges + address/size-cells
->> 2. children without bus addressing
->> is some sort of abuse of the DT syntax. It is allowed, but does not
->> really represent hardware.
->>
->> IOW, dma-ranges alone feels okay, although unusual, and it states proper
->> DMA translation for this bus. If you add address/size-cells, it means
->> this bus HAS addressing and thus YOU MUST use addressing.
->>
->> If my understanding is correct, then solution would be to add addressing
->> to the children (so unit address and "reg" property) or drop
->> address/size-cells as Rob pointed out. [1]
+> I think it does not require, at least how I understood the DT spec,
+
+'dtc' disagrees with me on this matter and treats 'dma-ranges' exactly
+the same as 'ranges' property, thus requires address/size cells. So
+maybe my below interpretation is not right and the schema is fine... Rob
+commented earlier on a case which had address/size-cells but no dma-ranges.
+
+https://lore.kernel.org/all/20260716165434.GA290489-robh@kernel.org/
+
+> unless you provide actual addresses to the property.
 > 
-> Doesn't dma-ranges require address/size cells? In the end, how can you
+> IOW, this requires address/size-cells:
+> 	dma-ranges = <0 0 0 0 0x10 0>;
+> 
+>> specify the DMA address if the device doesn't have addressing at all (or
+>> MMIO-style addressing)?
+> 
+> Yeah, that's why having here children without bus addressing is
+> confusing. I would interpret it that, children are not on MMIO bus, thus
+> the venus/iris is some sort of proprietary bus with no mapping between
+> parent MMIO and children nodes.
+> 
+> If there is no mapping, then we do not have 'ranges' property. But I
+> could imagine that such no-mapping bus still provides access to system RAM?
+> 
+> Actually this feels like a huge stretch, so I tend to think that the
+> only reasonable option is to have children with MMIO, which would make
+> it explicit: Venus/iris is a bus which provides translation of both MMIO
+> and DMA addresses to the parent.
 
-I think it does not require, at least how I understood the DT spec,
-unless you provide actual addresses to the property.
 
-IOW, this requires address/size-cells:
-	dma-ranges = <0 0 0 0 0x10 0>;
-
-> specify the DMA address if the device doesn't have addressing at all (or
-> MMIO-style addressing)?
-
-Yeah, that's why having here children without bus addressing is
-confusing. I would interpret it that, children are not on MMIO bus, thus
-the venus/iris is some sort of proprietary bus with no mapping between
-parent MMIO and children nodes.
-
-If there is no mapping, then we do not have 'ranges' property. But I
-could imagine that such no-mapping bus still provides access to system RAM?
-
-Actually this feels like a huge stretch, so I tend to think that the
-only reasonable option is to have children with MMIO, which would make
-it explicit: Venus/iris is a bus which provides translation of both MMIO
-and DMA addresses to the parent.
 
 
 Best regards,
