@@ -1,215 +1,134 @@
-Received: from mail-oo1-f78.google.com (mail-oo1-f78.google.com [209.85.161.78])
+Received: from mail-ot1-f77.google.com (mail-ot1-f77.google.com [209.85.210.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 837883F4830
-	for <linux-media@vger.kernel.org>; Wed,  5 Aug 2026 22:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.78
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B467262A
+	for <linux-media@vger.kernel.org>; Thu,  6 Aug 2026 00:01:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1785970001; cv=none; b=Vks9uEUiyr/7gCoAGxmPKggR4ICuHPjYHFkbdIvIobQu1mp5T+T/POLw21u9fBUeg18hquNFtSIrm9X4Z1+4xJpBexSNXZ7oOoOBopSqiAcW6QR1l1slTbOXOQ54bia181KbiFDAo0dYnhnlyJuNLY2LWlNPozfHYM15DFbRtpU=
+	t=1785974492; cv=none; b=Y7Ac0++bBo0S/VMdtqwnDIPYley+siGMq1DBZPGob2Xf0GwxCezJidFGK6wBeT+lxDtR0/ioSVaJJNQq3Z21Vzeq/dF1yTo2w4rp1EbCl6UoM6iv/xNZjcT4thL0lIPYzDUaV0H4nXnN/oVHMJBtffn1cxsFbxLYBtp0JPntUoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1785970001; c=relaxed/simple;
-	bh=K+zIjmdJrCEEj1IQTz+QeKG9zPvBP936dvU3Rb2KJ3M=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=lCnFk1dV31xWAXdQgjmJif4dUuOq6XSvE8dpgmvCUUJypSdhPNkGPmN1S/KPftGpxzIJz95B03tv5gOiFGIoi2gBtpm6lJYgTo6LqMm94efHrbAMWqGpEkrf04gK9D7yxmA6LRnIH44Sg0hYxMCs2acM88sTkXNcjfgI4gkRC4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.161.78
+	s=arc-20240116; t=1785974492; c=relaxed/simple;
+	bh=p/IoeRRIOIzwSXi1I1NCd+Y0Ikp1A9En37b50pUpMU0=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=bRSOm5JQSvdOkpTlg0U66v/Y8nrkKDHi+TrcPAztqlc455MyexKp6McTBODrbZB/44UOwIApvna8PzeVoJEOTqt2/FBtVUbD2ZD/vEdf48ge9s0Un64db0ApH+qVj4nahqRpR6jMmY5XYxUAzBFSIGG8E/QgpX+RaYTpMmMaVwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.77
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo1-f78.google.com with SMTP id 006d021491bc7-6aee72d5fcdso398074eaf.1
-        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 15:46:39 -0700 (PDT)
+Received: by mail-ot1-f77.google.com with SMTP id 46e09a7af769-7e9dc0f5900so701189a34.0
+        for <linux-media@vger.kernel.org>; Wed, 05 Aug 2026 17:01:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1785969998; x=1786574798;
+        d=1e100.net; s=20251104; t=1785974490; x=1786579290;
         h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=hW1kR4PCs+j9u0P6TWu5mUOKyvDpcA/hLwG0b/hfKTk=;
-        b=PbwAq53mQutIuAqsvT4Mg2yyQ14yL5QCPEou1nlUq+fqFIcl1PN2OhmX8oaWG+I/rI
-         8E+qY4MoLdbmzcvIz2bw343tFs+uFWv8NGbmgCsUlsS6ewrrN/qDZ7mjZC4xDIIpvz/P
-         HYWkGcSiayqyrftoTRWYuihAwTPhIWZv1ETFuoYrnjfFJdqB7Bd1ouIc2t6pqfpQsY/O
-         rUiuK8u6eJKm3KnvtJPOHgIVvEPa3YN9zFBHVWWDwvvjpctc5TAeeKHQ0/TqzLy4h63y
-         jwB6xbJKz9Qlx+yI11Wn08WiaN6tNAwsjpoMwcZQmrJThzGeLC3RDDhxzoB1sOChCRG5
-         InSw==
-X-Forwarded-Encrypted: i=1; AHgh+RpXmo1iLD6z9AFEK1JePr/EM3syG8usqkWmr5ZyKgxqG7PMhiJD/QSaaACYxhnTtmLILxshTWlFbT5V0A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxfKOiNrbk77sLrDwB6wS0T+CSFYSF7t3kr6FCt9NfMz7XYz0e+
-	7c1J4kMR9Gj+nAxEspCFcu9qQru7ZF5prZXV0xWXVxpldQYg2uWMAwf0RNMcJ3egxzZwz6COebg
-	hOlqQYRSz4rX1PsxxKwEB3vPDhJ3N0rSIYGpvA60OSsWiHRaSx8/i/f0eUH0=
+        bh=vC11jzeBf6ckEVxKByBrHYnsIlId2H3g9XWIPuYbZ0s=;
+        b=aW9mWDCI3bmvmVSySz4dkI+9YsCP8XPneJbLGSFPTLDpMohKxkbIcMrhAHbZ3qJTxh
+         QgeWTUjx+91e/nZsofYH/nQo8MPut0sNWoDJeQP0bpvkt3gowHBHlTU+rFyR917M6Ik+
+         LoPmY+amckeSDTF/j/VMwt1pKNZHb/1hwNYYmj/IXUo0UalFvictOlBCJHeCeyONF4tR
+         vo9L6f2CicIHjjHAObLQCK7aPSJfD2WbxUD4t33bbuT1K67EkTYylDesQflOO91Gy22q
+         FUome0gqEzg1cDTY3a98Hq2c6Ju4h96qfC1XQhrR08sQFMePDl/dzzey5wtKYfqccPpr
+         CgLQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoDXdwSXm29MT9M4DOebiNIs1oX/2s3rviLImOZm4YycqC3TFs8Kz2sgZw2VUW+oTUWNs57EIJL+ndI4A==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxchev3IKxYMJcUn+Krmi5bUvxu0DxEf+3LyMd/SzNEMi8iPg8T
+	dMRyh356tHzVBm6bggoJfo2pKwQ0dF90XYAfY0Zz2/ZRzBLLomVmOZi0vYFLggXlIPuEgHDozX2
+	oRhBQFir51dK8OOeFI/PLGRXAdaSfJEODLC5R7xDp/nSCkbkvb1dRVIPq5gs=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:4b04:b0:6ae:941b:521c with SMTP id
- 006d021491bc7-6ae96e82cabmr5889529eaf.18.1785969998392; Wed, 05 Aug 2026
- 15:46:38 -0700 (PDT)
-Date: Wed, 05 Aug 2026 15:46:38 -0700
+X-Received: by 2002:a05:6820:2d0c:b0:6aa:1bc8:ae0d with SMTP id
+ 006d021491bc7-6aeaba25683mr1898200eaf.4.1785974490090; Wed, 05 Aug 2026
+ 17:01:30 -0700 (PDT)
+Date: Wed, 05 Aug 2026 17:01:30 -0700
 X-Google-Appengine-App-Id: s~syzkaller
 X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a73bd4e.01d0871a.3a0d52.0007.GAE@google.com>
-Subject: [syzbot] [media?] KASAN: slab-out-of-bounds Read in dw210x_op_rw
-From: syzbot <syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
+Message-ID: <6a73ceda.5aeeccc9.207e63.0007.GAE@google.com>
+Subject: [syzbot] [media?] WARNING in __media_pipeline_start
+From: syzbot <syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com>
+To: laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, sakari.ailus@linux.intel.com, 
+	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
 
 Hello,
 
 syzbot found the following issue on:
 
-HEAD commit:    848acc8ffe1b Merge tag 'fsverity-for-linus' of git://git.k..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=1655fc9e580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=4e38b15c29e6a1d9
-dashboard link: https://syzkaller.appspot.com/bug?extid=f408eac9faa61d5a1927
+HEAD commit:    7235a3e71949 Merge branch 'for-next/core' into for-kernelci
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux.git for-kernelci
+console output: https://syzkaller.appspot.com/x/log.txt?x=10c0dbb9580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccf4bea59f67007
+dashboard link: https://syzkaller.appspot.com/bug?extid=68e901d044baaea1f60c
 compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17167e32580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1427acc6580000
+userspace arch: arm64
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=163b7649580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=13926cc6580000
 
 Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/9bf3ffd710de/disk-848acc8f.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/770c0a63a80c/vmlinux-848acc8f.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/c54f9393cb03/bzImage-848acc8f.xz
+disk image: https://storage.googleapis.com/syzbot-assets/fd45635beaae/disk-7235a3e7.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/d7d2e6507223/vmlinux-7235a3e7.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/b5b5d8de4cea/Image-7235a3e7.gz.xz
 
 IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
+Reported-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
 
-dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
-dw2102: start downloading DW210X firmware
-==================================================================
-BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
-Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
-
-CPU: 1 UID: 0 PID: 803 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Workqueue: usb_hub_wq hub_event
-Call Trace:
- <TASK>
- dump_stack_lvl+0xe8/0x150 lib/dump_stack.c:120
- print_address_description+0x55/0x1e0 mm/kasan/report.c:378
- print_report+0x58/0x70 mm/kasan/report.c:482
- kasan_report+0x117/0x150 mm/kasan/report.c:595
- check_region_inline mm/kasan/generic.c:-1 [inline]
- kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
- __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
- dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
- dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
- dvb_usb_download_firmware+0x1c3/0x270 drivers/media/usb/dvb-usb/dvb-usb-firmware.c:109
- dvb_usb_device_init+0xddf/0x2570 drivers/media/usb/dvb-usb/dvb-usb-init.c:298
- dw2102_probe+0x8a/0x270 drivers/media/usb/dvb-usb/dw2102.c:2594
- usb_probe_interface+0x653/0xc60 drivers/usb/core/driver.c:396
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3772
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:291
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3772
- usb_new_device+0x99d/0x1620 drivers/usb/core/hub.c:2695
- hub_port_connect drivers/usb/core/hub.c:5567 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5707 [inline]
- port_event drivers/usb/core/hub.c:5871 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5953
- process_one_work kernel/workqueue.c:3322 [inline]
- process_scheduled_works+0xa8e/0x14e0 kernel/workqueue.c:3405
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3486
- kthread+0x388/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
-
-Allocated by task 803:
- kasan_save_stack mm/kasan/common.c:57 [inline]
- kasan_save_track+0x3e/0x80 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0x93/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __do_kmalloc_node mm/slub.c:5334 [inline]
- __kmalloc_noprof+0x375/0x720 mm/slub.c:5359
- _kmalloc_noprof include/linux/slab.h:992 [inline]
- dw2102_load_firmware+0x175/0x970 drivers/media/usb/dvb-usb/dw2102.c:1896
- dvb_usb_download_firmware+0x1c3/0x270 drivers/media/usb/dvb-usb/dvb-usb-firmware.c:109
- dvb_usb_device_init+0xddf/0x2570 drivers/media/usb/dvb-usb/dvb-usb-init.c:298
- dw2102_probe+0x8a/0x270 drivers/media/usb/dvb-usb/dw2102.c:2594
- usb_probe_interface+0x653/0xc60 drivers/usb/core/driver.c:396
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3772
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:291
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3772
- usb_new_device+0x99d/0x1620 drivers/usb/core/hub.c:2695
- hub_port_connect drivers/usb/core/hub.c:5567 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5707 [inline]
- port_event drivers/usb/core/hub.c:5871 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5953
- process_one_work kernel/workqueue.c:3322 [inline]
- process_scheduled_works+0xa8e/0x14e0 kernel/workqueue.c:3405
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3486
- kthread+0x388/0x470 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff88802bcf2ba0
- which belongs to the cache kmalloc-16 of size 16
-The buggy address is located 0 bytes inside of
- allocated 16-byte region [ffff88802bcf2ba0, ffff88802bcf2bb0)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802bcf2600 pfn:0x2bcf2
-flags: 0xfff00000000200(workingset|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000200 ffff88801b001640 ffff88801b000408 ffffea0000af2d50
-raw: ffff88802bcf2600 000000080080007a 00000000f5000000 0000000000000000
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 0, migratetype Unmovable, gfp_mask 0xd2cc0(GFP_KERNEL|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 16259999448, free_ts 0
- create_dummy_stack mm/page_owner.c:103 [inline]
- register_dummy_stack+0x98/0x100 mm/page_owner.c:109
- init_page_owner+0x2e/0x5f0 mm/page_owner.c:127
- invoke_init_callbacks mm/page_ext.c:152 [inline]
- page_ext_init+0x509/0x550 mm/page_ext.c:490
- mm_core_init+0x97/0xb0 mm/mm_init.c:2748
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802bcf2a80: 00 00 fc fc fa fb fc fc 00 01 fc fc 00 01 fc fc
- ffff88802bcf2b00: 00 01 fc fc 00 04 fc fc 00 04 fc fc 00 04 fc fc
->ffff88802bcf2b80: 00 04 fc fc 00 00 fc fc 00 00 fc fc fa fb fc fc
-                                     ^
- ffff88802bcf2c00: 00 00 fc fc 00 00 fc fc 00 00 fc fc 00 00 fc fc
- ffff88802bcf2c80: 00 00 fc fc fa fb fc fc fa fb fc fc fa fb fc fc
-==================================================================
+vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
+vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
+------------[ cut here ]------------
+WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785, CPU#0: syz.0.17/4920
+Modules linked in:
+CPU: 0 UID: 0 PID: 4920 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/02/2026
+pstate: 83400005 (Nzcv daif +PAN -UAO +TCO +DIT -SSBS BTYPE=--)
+pc : __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785
+lr : __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785
+sp : ffff800093407710
+x29: ffff800093407790 x28: ffff0000cbe68a20 x27: 1fffe000197cd0e6
+x26: ffff0000cbe68760 x25: 1fffe000197cd15b x24: ffff0000cbe68ad8
+x23: dfff800000000000 x22: ffff0000cbabf010 x21: 0000000000000001
+x20: ffff0000cbe68b10 x19: dfff800000000000 x18: 0000000000000000
+x17: 0000000000000000 x16: 0000000000000000 x15: 0000000020007200
+x14: 00000000ffff8000 x13: 0000000000000001 x12: 0000000000000000
+x11: 0000000000000000 x10: 0000000000000003 x9 : 0000000000000000
+x8 : 0000000000000000 x7 : ffff8000839d6934 x6 : 0000000000000000
+x5 : 0000000000000000 x4 : 0000000000000001 x3 : ffff8000839d4f70
+x2 : 0000000000000001 x1 : ffff0000c4551d40 x0 : 0000000000000000
+Call trace:
+ __media_pipeline_start+0x13c4/0x17fc drivers/media/mc/mc-entity.c:785 (P)
+ media_pipeline_start+0x58/0x7c drivers/media/mc/mc-entity.c:924
+ video_device_pipeline_start+0x88/0xb4 drivers/media/v4l2-core/v4l2-dev.c:1159
+ vimc_capture_start_streaming+0x6c/0xec drivers/media/test-drivers/vimc/vimc-capture.c:248
+ vb2_start_streaming+0x114/0x4ac drivers/media/common/videobuf2/videobuf2-core.c:1783
+ vb2_core_streamon+0x288/0x44c drivers/media/common/videobuf2/videobuf2-core.c:2336
+ vb2_streamon+0x80/0xb4 drivers/media/common/videobuf2/videobuf2-v4l2.c:875
+ vb2_ioctl_streamon+0xb8/0xd0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1118
+ v4l_streamon+0x64/0x94 drivers/media/v4l2-core/v4l2-ioctl.c:1965
+ __video_do_ioctl+0x768/0xaa8 drivers/media/v4l2-core/v4l2-ioctl.c:3133
+ video_usercopy+0x74c/0xe88 drivers/media/v4l2-core/v4l2-ioctl.c:3475
+ video_ioctl2+0x3c/0x50 drivers/media/v4l2-core/v4l2-ioctl.c:3532
+ v4l2_ioctl+0x148/0x18c drivers/media/v4l2-core/v4l2-dev.c:366
+ vfs_ioctl fs/ioctl.c:51 [inline]
+ __do_sys_ioctl fs/ioctl.c:597 [inline]
+ __se_sys_ioctl fs/ioctl.c:583 [inline]
+ __arm64_sys_ioctl+0x154/0x1cc fs/ioctl.c:583
+ __invoke_syscall arch/arm64/kernel/syscall.c:35 [inline]
+ invoke_syscall+0x98/0x244 arch/arm64/kernel/syscall.c:49
+ el0_svc_common+0xec/0x23c arch/arm64/kernel/syscall.c:121
+ do_el0_svc+0x4c/0x5c arch/arm64/kernel/syscall.c:140
+ el0_svc+0x64/0x260 arch/arm64/kernel/entry-common.c:736
+ el0t_64_sync_handler+0x48/0x148 arch/arm64/kernel/entry-common.c:755
+ el0t_64_sync+0x198/0x19c arch/arm64/kernel/entry.S:594
+irq event stamp: 1910
+hardirqs last  enabled at (1909): [<ffff800080b9e27c>] kasan_quarantine_put+0xb4/0x1c4 mm/kasan/quarantine.c:234
+hardirqs last disabled at (1910): [<ffff8000868e6198>] el1_brk64+0x20/0x54 arch/arm64/kernel/entry-common.c:425
+softirqs last  enabled at (1722): [<ffff800080139980>] local_bh_enable include/linux/bottom_half.h:33 [inline]
+softirqs last  enabled at (1722): [<ffff800080139980>] put_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:251 [inline]
+softirqs last  enabled at (1722): [<ffff800080139980>] do_sve_acc+0x32c/0x4b8 arch/arm64/kernel/fpsimd.c:1349
+softirqs last disabled at (1720): [<ffff800080139760>] local_bh_disable include/linux/bottom_half.h:20 [inline]
+softirqs last disabled at (1720): [<ffff800080139760>] get_cpu_fpsimd_context arch/arm64/kernel/fpsimd.c:234 [inline]
+softirqs last disabled at (1720): [<ffff800080139760>] do_sve_acc+0x10c/0x4b8 arch/arm64/kernel/fpsimd.c:1325
+---[ end trace 0000000000000000 ]---
 
 
 ---
