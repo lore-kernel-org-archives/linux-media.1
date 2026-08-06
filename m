@@ -1,246 +1,202 @@
-Received: from LO0P265CU003.outbound.protection.outlook.com (mail-uksouthazon11022143.outbound.protection.outlook.com [52.101.96.143])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1CD13AA9E2;
-	Thu,  6 Aug 2026 14:31:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.96.143
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786026709; cv=fail; b=HxO9uEJXMMJnGp94vRG+zRJX5MsA/vNMJebTD+CFE/MyhuBppEmq/XkiOYGzoST5aM/ar3IT19FTRiID8GhpsNhbrJCDaoyzoR9HdAb90/pFSNj5KH4fSmGh5RVupaE3egtv4qK7QQIklD9AoRMmAKcsC5UClG4mZPocHRD/sdY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786026709; c=relaxed/simple;
-	bh=i2FQuXdWXSWsUnHYZVOMZmLyYpbjUQ8uhWnDpc0vIno=;
-	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:References:
-	 In-Reply-To:MIME-Version; b=W36+WPBzer7gnZBoFplzX+cvxc4Ng6GXqFfA49QLlnUxWDhwQUlo3wS82iLkFHq6rL6ktabLgpouPpdpvk+ST6PrTKBLXPv4oCmvJIXYpwFNJqaXSwjlgNXh63OvrBshRjX333BklNzku7DMtofEcafKxCwd+YJ/mnnMcCVHMPI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net; spf=pass smtp.mailfrom=garyguo.net; dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b=PAgznlcV; arc=fail smtp.client-ip=52.101.96.143
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=garyguo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=garyguo.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 918193AA4E2;
+	Thu,  6 Aug 2026 16:09:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786032552; cv=none; b=dl2yEACu4yXb/PNidDl3ZfSz+Q9kkKorr2vGPgNWfmbrPopVgKoZfU/N3IzEqwcaaUkSmlyA12dADUsq6widAtjXlc6x1s47uq2d4HzRHeWoSXoI4pv1czxLYNqSII3VSw+IdddIDBq9/SFiDPNklGW99oALiRVg2gaDvPcyj3g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786032552; c=relaxed/simple;
+	bh=J1mmhRLKDxaELj7616F3jLYF/axUtWF1l/JEzzjmppo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KZc0h6Ey93RKvXjo7szZouQSPCVLcsOx5DJesSSHhTCcYv4BcIvB7hJOWxaGmurYV1wSrzLD2EzrEj/zEyZRYh3UbGH218x7CczU2r9/jBy8BYIdzoFZjqSQaUIEMBPWXCRurlJUgGd+WNa9gWZRN3/goyvgVasf5G3tu2VE5XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kKNEIVai; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=garyguo.net header.i=@garyguo.net header.b="PAgznlcV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IkVST1F9r6RKNO0M2RXxy96JPvRfRxQw2zutTPkAOljcU5328xXHGrm5VisyCF8D/edrNvSThkq5YTm3YhhvPzEX1zDYxRnJk2ZAmiFgtOnV8uJA79jQmoAQN8AM/gJVYDKAUjZiJCVPjdCdEjoNgF+ksF+HdKLIHUOh+OZhFUM3DDoyB7ie1oyq2s3jxdRYK73H5Qolsoo/pZ3C1op5HVGa4sRoA08Euu1lX5wN/lwTVBTuZh5SNFBR2J2KZx3DYE3HMBE9yYRVQEkW3AJXSW3eiIdBR9ks0bsdmaSXLtacDja3W5f0OxjWvucXweSFNo068PRkwjDpS1/LpgRGvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9b4/QpiWcT44iBzFEVJvjJouhXlMVu5CaNpiIpOjh+U=;
- b=QDqRxY7VKKOZErMi8mQMxkK+IIeqsL8i4STkwpUDFQ6e6+CqvI3PfQMxL103TURjxfi5QvgceqUsOepu/k9FQFFngI0XmBSm6LbhF4aCdMmwPrIK+p7phBYvkurnIPWHEm5GzpowxH4aTJyowUY/nHhjvPv427hplLpxBp745fSchWNfjC0/fNicV7Ook86ve1ifHVxcbL5MqamQzELHAYtoutO+AmfAsvYcA2Kn8oNuBdvRQp1IxHCFb5VrYqhTU9/Jqj1z6V8mC3T2722okX8aGBBfKbr4jSqz4fVvp4GdPNFu5PKnAuGbaj3v7x+8C3rzPr0vVhd7qT1BmCcQAQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=garyguo.net; dmarc=pass action=none header.from=garyguo.net;
- dkim=pass header.d=garyguo.net; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=garyguo.net;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=9b4/QpiWcT44iBzFEVJvjJouhXlMVu5CaNpiIpOjh+U=;
- b=PAgznlcV/yiLm/Zs0j0N/597XjDKwubk6csnDuTitCOyqOmlQrnmWannp/0fnrQMFXRgLgepH/hCJCtq4tCVmIl3ovEMMM8bZb1g5JFsK3rxFlUdFtCV5q1hztF2VsdVZvq8FlRI7QobWWUjO1s/llf1d/hdNT1+tUgbcOwJOqQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=garyguo.net;
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:4b4::24)
- by LO0P265MB3177.GBRP265.PROD.OUTLOOK.COM (2603:10a6:600:15d::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.21; Thu, 6 Aug
- 2026 14:31:44 +0000
-Received: from LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a]) by LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- ([fe80::c07d:488c:d4aa:2a4a%4]) with mapi id 15.21.0292.019; Thu, 6 Aug 2026
- 14:31:44 +0000
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 06 Aug 2026 15:31:42 +0100
-Message-Id: <DKHXMKC3GJ7Q.4G61DUUAFY05@garyguo.net>
-Cc: <linux-kernel@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rcu@vger.kernel.org>
-Subject: Re: [PATCH v9 2/5] rust: types: implement ForeignOwnable for
- ARef<T>
-From: "Gary Guo" <gary@garyguo.net>
-To: "Philipp Stanner" <phasta@kernel.org>, "Miguel Ojeda"
- <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
- "Trevor Gross" <tmgross@umich.edu>, "Danilo Krummrich" <dakr@kernel.org>,
- "Daniel Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Lyude Paul" <lyude@redhat.com>, "Paul E.
- McKenney" <paulmck@kernel.org>, "Frederic Weisbecker"
- <frederic@kernel.org>, "Neeraj Upadhyay" <neeraj.upadhyay@kernel.org>,
- "Joel Fernandes" <joelagnelf@nvidia.com>, "Josh Triplett"
- <josh@joshtriplett.org>, "Uladzislau Rezki" <urezki@gmail.com>, "Steven
- Rostedt" <rostedt@goodmis.org>, "Mathieu Desnoyers"
- <mathieu.desnoyers@efficios.com>, "Lai Jiangshan" <jiangshanlai@gmail.com>,
- "Zqiang" <qiang.zhang@linux.dev>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Asahi Lina" <lina+kernel@asahilina.net>,
- "Burak Emir" <bqe@google.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "FUJITA
- Tomonori" <fujita.tomonori@gmail.com>, "Eliot Courtney"
- <ecourtney@nvidia.com>, "Mirko Adzic" <adzicmirko97@gmail.com>, "Timur
- Tabi" <ttabi@nvidia.com>, "Daniel del Castillo"
- <delcastillodelarosadaniel@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>
-X-Mailer: aerc 0.21.0
-References: <20260805145949.938505-2-phasta@kernel.org>
- <20260805145949.938505-4-phasta@kernel.org>
-In-Reply-To: <20260805145949.938505-4-phasta@kernel.org>
-X-ClientProxiedBy: LO4P123CA0571.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:276::10) To LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:4b4::24)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kKNEIVai"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D4651F00A3E;
+	Thu,  6 Aug 2026 16:09:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786032551;
+	bh=J1mmhRLKDxaELj7616F3jLYF/axUtWF1l/JEzzjmppo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kKNEIVaiVH4wrn5oHK5ajPxUnFHB9+4/A/1LvM/uKTkDc0Tv9t57ZG0ITr9wXU8Xp
+	 dM7Cy6hGgHbZ/yeYTfWQ71Y57HgqRdmv1eKN2HCcuSEE4ilC3CtyGNaMO6veI78U67
+	 YcMqItiqFW5t/eUfTLQayfOrEOELuT08s9jUqHMsWIlKuGRS7h4T2GXPWrf4X6w2Zv
+	 tNNgofe3iP7rxX22Z7nlivDoSEEfrD+/jWedR6As/aEKkVkXWpqV8mSDDYNCbarkZ1
+	 SVWiBIPcCxOreaWD7DyyAbxr2eCgQZMraKPZN7mkuyWcqW1KUCi9T1+4s4zx6S89Zo
+	 2vOjrgZWIe6og==
+Date: Thu, 6 Aug 2026 18:09:08 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Marek Szyprowski <m.szyprowski@samsung.com>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>, 
+	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+	Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+	Christian Borntraeger <borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, 
+	Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+	Michal Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, 
+	Sumit Semwal <sumit.semwal@linaro.org>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	"T.J. Mercier" <tjmercier@google.com>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, linux-mm@kvack.org, 
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+	linux-trace-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+Message-ID: <anSuYvj1JU5K8xUO@orome>
+References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
+ <CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
+ <20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
+ <3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
+ <e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
+ <83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com>
+ <ak_E4UxfnFJywJa7@orome>
+ <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LOZP265MB8551:EE_|LO0P265MB3177:EE_
-X-MS-Office365-Filtering-Correlation-Id: eee25dcf-78a0-4c3b-b45d-08def3c77035
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|1800799024|376014|366016|23010399003|7416014|56012099006|10067099003|6133799003|18002099003|4143699003|22082099003|921020;
-X-Microsoft-Antispam-Message-Info:
-	hJBGW5wOqqrINZdjOJZn38+jStivcxiRUlkBwN7TPU8rbRmDMVgrxdHBfWBw0bzDyhf6zCF88GL0mW+TT1hCdoT8PbXkfOnUVWRFrdr161jnpPEJSjvRU6BzaqE8y9Di5pTQ8Xld/P90qJl6NzjdwPbWR+LlX1H72X30wU/M2Hubn9+Cb7LZ6cUWj1JjP30PPbrzuhqNVzyVi6d9xW7u/VFQlIN/YKdG7fn0eJJysdpWBTcCdZ/CVjIoajHOBG5Oe4z4+F56lAAgGanMzFP6bwcHtj9Ry+VwjSTaR1ausfsAvqVVHlQ+XtvuBlwgDR2LDGj8yB+sC5LAM690Ya1COiYX8spi9Q1tphI8XpbajRJ4/7BwJ8vHaoWQ9h92Rml4Zl8hNXpElTr5Ip3SF+Jp8nfPdQwkNYMYrUoWyJNXdeWtZu6YlRY02QJx/6/c3cFqmkofdikLwyHq/DZrxfdOI7Xo4D+i0Zqf0sirWgtKVwP2n8stSr+FX+5+VPH3Lqfo5pk0ikdUb/vF+X4Ab8XBq2ICUe0fcOcKhTSjeciUyCDVTo4WYc4Gs6+/vvy7mr5ebyY/0Gp42Y0mgnC/7BfbBvMdoRso+Se9O800FnQc0fNVynyFe6X73zomB8lIne+CXragvVBu71WiyI3yjEgvcvOt+uRUMWktgF3uoy6/627BrVFLewKhN3AyBXKMTZlZp5vlI0IDpzMNEiFoLrnruw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(1800799024)(376014)(366016)(23010399003)(7416014)(56012099006)(10067099003)(6133799003)(18002099003)(4143699003)(22082099003)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N3dhQ25ieWltNk9IdGhSTkRybUdjRXZTeStiQk5lSCs0SVpSTkNaNHVhVXFt?=
- =?utf-8?B?S2RjRWlieW9pZE10dDFKdGJCTktxOXE2TStaSXhnbWVNblY2cnR0NXN1aVdE?=
- =?utf-8?B?WjFFSWp3YmxhaS85RWVaTmNqQ1ljc1dYSm8zeVhNRmkrWjF6bUF2ZUxGQkl0?=
- =?utf-8?B?aUNVczVoMXdXV2JZSExrS2tuZUtpTkd5TjRudWdjUDdBVU80cXd1RVB3KzVV?=
- =?utf-8?B?S0YxUnYxeVNtYkNodzZOWXlUQXR0NjZwTVpMWENtb0p1RGREeGpoanQxTkxq?=
- =?utf-8?B?MFZRZmNmUmxQMk05WXJERERaemc4WmYzSHh1ZTNXRitqNFNlYVQycEpwY21k?=
- =?utf-8?B?bmVoelI1NCtyY0xJUGpJRCsxdHRITEFhcEFMTEh6aTkxK0RDL3daUzkySS9l?=
- =?utf-8?B?UU9WRyt1T3NrTG1TcW9UaHJQNTZPd0JYMEtMWEQ5bUFHZWVhZFg0V3VFT1lI?=
- =?utf-8?B?V1hCbVdCbkFLODR2djRFMFpsWkFXOXhjV0xXSFZXQkZXQXJBNmVmaEhGMWpJ?=
- =?utf-8?B?dC83cG9oODJPd2lybDZKTHNHUmhjRm01Q2RjSHp2V1BOTGs2VGlNR1hJUnBv?=
- =?utf-8?B?U3U3TFVBVUNEa2FHbDRyMHRGOFZDWHF1WFNNQVJSZ0FzNFdvdWZ0cyt6enFt?=
- =?utf-8?B?N3M0S2tzSHVRRmZzbStlbStDSmVSaTdwYkhYQlk3ODRUMW80VkVBeWhvbFc1?=
- =?utf-8?B?VkpxdmlGOXJET2t0YnpCRkxXUWhJVFhvWTBGbGhYaWhWVmx1MDhwUGtNVjRq?=
- =?utf-8?B?ZkZhcXBaN25lMVJ5NjZXYzNzNHpvaHhCMlZjNE54cXM2ek5YMUVBMCtka0dL?=
- =?utf-8?B?NnB0emk4SVpMSjVscW82ekxUMUlPcC90QnZrUTJKQjFTSFBuTksrWTFPUXZ0?=
- =?utf-8?B?SFNKempBS1BOMDlmWFNOTGhqS2ZVQzdMbmZvN3ZaUVMrdEJiUk9hVGJRWVRY?=
- =?utf-8?B?SWZUZExPRGZkc2gzTWV2S2pDVHZlT1ZJUHFxb2xFZDRtdm1FV3lLN0ROSUJz?=
- =?utf-8?B?V2h3V0pyOGhNREZETjBzRWxXWXRyckNtVWg2ZkV1TmhVdENMbjVFU1lUVDdT?=
- =?utf-8?B?eEtvT0xUeDRwWDN1RjI0UkRRWHhZU3BGZW9WY1BaeldQL1V1WG1aWkZmdlgy?=
- =?utf-8?B?NUtQb3g0ZmVGNDZUZ0hvUllKWUc4YUhIU2trZVZibGdZZUVQK0U0aU11UURH?=
- =?utf-8?B?NFdYc0FmQjRobHZFTlVQaW5LREZsOWNpV0RzUkdudHNlbk92ZTRtV0Rqc0Iv?=
- =?utf-8?B?QnJmZHJxOURWZlNTZVpwNTE5cmRHUE4ySzVpU0hiUlVwdi9ZN1dxK2ZmRkli?=
- =?utf-8?B?eVMvUG12WU0weEd2ODQza0pFYlI2clI0aS9WOENrQlIyaE80YmM5dkFBQXZa?=
- =?utf-8?B?Uk9vdG1TRUFDdlp0eWJveVJzMytQcFloMWMxSENIQ3dnTlJSUGFlMHI2cjRE?=
- =?utf-8?B?MFpmVDJPK3E3OG1PVGFUeENKSnhiaGpYTktvQnlDKzlqY2NsbENMYjZXaTU4?=
- =?utf-8?B?WExZVmx5dGhMZmxwbG1uRHBJNEJpd0VvbG1CV1hwSzU4TElmQ3drNldEYnJR?=
- =?utf-8?B?UXYwaVNRWnBkSVhqMGZ6MVhvVlFnaGMxR3JKQkk0MmlacFBrZG5qUWFLZjNk?=
- =?utf-8?B?NkFTdlNzd1RJelptNmxFWHlNWXVTVWFGa3BtcFZ5eUtrRXhGdUhyNlhqeUl3?=
- =?utf-8?B?WHM0dDRnVGV5Ti8waDRmVkFadjBDNlNiWUpNL3J1b2F3MHFoWVhOU0lONEkx?=
- =?utf-8?B?RnFDYzN0TFdxQytkaEc1dXRVN1R3Vks5K213SUlFUnp4Ym1WVkRrcEFrV291?=
- =?utf-8?B?dXhzZlI5OXd3VW1qc212VWdGb2JJaEJuK3dvNUgxMUpvMktXekxYRVpKR2tQ?=
- =?utf-8?B?U1g3alg1bEM2ajN0ZzNBcm10K3JUNGhFalEzRGlHb1Z5dEs0LzAybFB4RXJy?=
- =?utf-8?B?NzhyczZRK3dMUXlGSTRGZks5SWZyY1F2QVg2dVpWQmdsSGdLWHZvcEM5TENP?=
- =?utf-8?B?U0R2TFB6dU5DTWQrUjFRQ0IyRkU1dHUzL1BjWmhGME11VDg3RElCcTBVUzN2?=
- =?utf-8?B?SjdjUUpoMHJsM0VjMzY0UUtCeS8rZktnQ0I3NFZQNVR1TmxIaEFBWk9CQ25V?=
- =?utf-8?B?Vmdvb1FDc2xwVEx1NkFzUHJPY0gvbmtlZ1NaaXlqRDlMSUJyVFFnT3BKTGVm?=
- =?utf-8?B?LzZmVUZNcUxRalJvRkU2ZnREOHhacGdRTG1JdEFyYXNLY1JFMkpaUVRQR1Vh?=
- =?utf-8?B?eXZhdFV4TDllajFFcm5TTTQrNWtldzRNUFBIS2hLYlJSWUhEcEUyR2RIaEU0?=
- =?utf-8?B?QWRobTk3eGFyMkJIakZYaU9Nb3ZJdFRjempsVStNL0pBZnpMdDY1QT09?=
-X-OriginatorOrg: garyguo.net
-X-MS-Exchange-CrossTenant-Network-Message-Id: eee25dcf-78a0-4c3b-b45d-08def3c77035
-X-MS-Exchange-CrossTenant-AuthSource: LOZP265MB8551.GBRP265.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Aug 2026 14:31:44.0930
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: bbc898ad-b10f-4e10-8552-d9377b823d45
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: sBvUAwy7HwgjRmX8E1jwCQxGu697icx5X5OJiCf/kNs+XmDO5cP9VYJoMBIwa/aqkeIKgDsaKWsGKme9/Mt0ow==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LO0P265MB3177
-
-On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
-> From: Danilo Krummrich <dakr@kernel.org>
->
-> Implement ForeignOwnable for ARef<T>, making it possible for C code to
-> own an ARef<T>.
->
-> Since ARef represents shared ownership, BorrowedMut is &T rather than
-> &mut T, matching the semantics of the underlying reference-counted type.
->
-> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Tested-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/sync/aref.rs | 40 ++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 40 insertions(+)
->
-> diff --git a/rust/kernel/sync/aref.rs b/rust/kernel/sync/aref.rs
-> index b721b2e00b98..540766613659 100644
-> --- a/rust/kernel/sync/aref.rs
-> +++ b/rust/kernel/sync/aref.rs
-> @@ -24,6 +24,11 @@
->      ptr::NonNull, //
->  };
-> =20
-> +use crate::{
-> +    prelude::*,
-> +    types::ForeignOwnable, //
-> +};
-> +
->  /// Types that are _always_ reference counted.
->  ///
->  /// It allows such types to define their own custom ref increment and de=
-crement functions.
-> @@ -188,6 +193,41 @@ fn eq(&self, other: &ARef<U>) -> bool {
->  }
->  impl<T: AlwaysRefCounted + Eq> Eq for ARef<T> {}
-> =20
-> +// SAFETY: `into_foreign` returns a pointer from `NonNull::as_ptr`, so i=
-t's non-null. The
-> +// `ARef` invariant guarantees that `ptr` points to a valid `T`, so it's=
- aligned to `T`.
-> +unsafe impl<T: AlwaysRefCounted + 'static> ForeignOwnable for ARef<T> {
-> +    const FOREIGN_ALIGN: usize =3D core::mem::align_of::<T>();
-> +
-> +    type Borrowed<'a> =3D &'a T;
-> +    type BorrowedMut<'a> =3D &'a T;
-> +
-
-`#[inline]` here and all others.
-
-Best,
-Gary
-
-> +    fn into_foreign(self) -> *mut c_void {
-> +        ARef::into_raw(self).as_ptr().cast()
-> +    }
-> +
-> +    unsafe fn from_foreign(ptr: *mut c_void) -> Self {
-> +        // SAFETY: The safety requirements of this function ensure that =
-`ptr` comes from a previous
-> +        // call to `Self::into_foreign`.
-> +        let ptr =3D unsafe { NonNull::new_unchecked(ptr.cast()) };
-> +
-> +        // SAFETY: `ptr` came from `into_foreign`, which consumed an `AR=
-ef` without decrementing
-> +        // the refcount, so we can transfer the ownership to the new `AR=
-ef`.
-> +        unsafe { ARef::from_raw(ptr) }
-> +    }
-> +
-> +    unsafe fn borrow<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements of this method ensure that th=
-e object remains alive and
-> +        // immutable for the duration of 'a.
-> +        unsafe { &*ptr.cast() }
-> +    }
-> +
-> +    unsafe fn borrow_mut<'a>(ptr: *mut c_void) -> &'a T {
-> +        // SAFETY: The safety requirements for `borrow_mut` are a supers=
-et of the safety
-> +        // requirements for `borrow`.
-> +        unsafe { <Self as ForeignOwnable>::borrow(ptr) }
-> +    }
-> +}
-> +
->  impl<T, U> PartialEq<&'_ U> for ARef<T>
->  where
->      T: AlwaysRefCounted + PartialEq<U>,
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="awe2ln3pvo2iqnm5"
+Content-Disposition: inline
+In-Reply-To: <1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com>
 
 
+--awe2ln3pvo2iqnm5
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
+MIME-Version: 1.0
+
+On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
+> On 09.07.2026 17:59, Thierry Reding wrote:
+> > On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
+> >> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
+> >>> On 7/7/26 12:02, Marek Szyprowski wrote:
+> >>>> On 01.07.2026 18:08, Thierry Reding wrote:
+> >>>>> From: Thierry Reding <treding@nvidia.com>
+> >>>>>
+> >>>>> There is no technical reason why there should be a limited number o=
+f CMA
+> >>>>> regions, so extract some code into helpers and use them to create e=
+xtra
+> >>>>> functions (cma_create() and cma_free()) that allow creating and fre=
+eing,
+> >>>>> respectively, CMA regions dynamically at runtime.
+> >>>> Well, the technical reason for not creating cma regions dynamically =
+at
+> >>>> runtime is that on some architectures (like 32bit ARM) the early fix=
+up
+> >>>> for the region is needed to make it functional for DMA.
+> >>> Can you point me at the code that does that? Thanks!
+> >> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in=C2=A0
+> >> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappin=
+gs for
+> >> the CMA reserved region in linear map are remapped with 4k pages inste=
+ad
+> >> of the 1M sections, so later, it will be=C2=A0possible to alter the ma=
+ppings and
+> >> change them to coherent when needed (altering 1M sections is not possi=
+ble,
+> >> because each process has it's own level-1 array even for the kernel li=
+near
+> >> mapping).
+> >>
+> >>
+> >>
+> >> However, in the use case in this patchset the reserved region is only =
+shared
+> >> with buddy allocator by using the CMA infrastructure, not registered t=
+o the
+> >> regular DMA-mapping API, so it would work fine. I'm not convinced that=
+ this
+> >> is the right API to use for this though.
+> > Are you saying you're not convinced that CMA is the right API to use for
+> > this? Or something else?
+> I read this again and indeed CMA seems to be right solution. I only wonder
+> why do You want to create the CMA areas dynamically? Imho it would work=
+=C2=A0if
+> You just create large enough CMA area on boot, what would automatically
+> share the memory with buddy allocator and then allocate dynamic VPR regio=
+ns
+> with cma_alloc(), potentially unmapping or marking the allocated region as
+> reserved in linear kernel mapping to avoid any potential speculative acce=
+ss
+> to the protected memory.
+
+Hi Marek,
+
+sorry for missing your reply earlier.
+
+The reason why we want to create the CMA areas dynamically is because we
+want to split the secure memory into multiple areas. And the size and
+number of these areas may need to vary, so I didn't want to have to rely
+on rebuilding kernels with different numbers of maximum CMA areas
+depending on the chunk size that we choose.
+
+The reason why we need to split up the protected memory into multiple
+CMA areas is that allocation patterns can create holes within a CMA
+area. For the VPR memory, however, we must ensure that there aren't any
+holes within the protected region because it is specified using a single
+base address and a size. So there is one contiguous region that can be
+marked protected.
+
+If we were to use a single CMA area, we could get holes within an area
+that is marked protected and once the pages are returned to the buddy
+allocator with cma_release(), something else could be attempting to
+access it and cause an error because it is still protected.
+
+The only way to make sure we get a single, resizable and contiguous
+region is by using multiple CMA areas and allocating the entire area
+once our allocations need to expand into that new area. So we're not in
+fact using much of the CMA infrastructure and actually need to duplicate
+some of it. We primarily need it for the page migration and reclaim
+functionality.
+
+> In both cases You will probably won't need the DMA-mapping API on top of
+> it, although it might be even possible to partially use with by
+> registering custom dma_ops for the devices using the protected region
+> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
+> allocations).
+
+Yeah, I don't think we want the DMA API on top at all. The allocator has
+special needs, like clustered allocations to minimize fragmentation and
+keeping as few chunks activated as possible. We also want to avoid
+resize operations because they can be quite heavy depending on system
+load.
+
+Thierry
+
+--awe2ln3pvo2iqnm5
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmp0saEACgkQ3SOs138+
+s6HmUQ//RyPTgx2QiCZkziDzWhQ8YjQ9J8KlwiQnyLspOz+Na5x6bslbOl/AuuBd
+DCTC8+y/ax94aG30aB0SctUZLtHriGHwevA3J9hm/CfR1K72DsjLSDnkqujE5h7B
+QxLJyl9wyqStgOfJEl6PwA8H9VbDkdJNHJlmpFzeki7a5QHQR28b+FyoWOZGGutC
+YKiDlqpqQk1rs9d8WQ4M5w6JiRmImAI9YcoFP36b36oPf6/DziGOYjqCO6k9o1GI
+pKj8EV6as2MTKoCdsuwHiQo/f2gQfyquJF+yK6m62NZy6wyr1ceed6jmCoIcuuh6
+NKDs1AUWYdLhOVod22LHwn8GCjaDRkYHuUNgRtVrz5BgUuVUW/EmVieF/7BeRpna
+HZ+uWPa09LwQq0ma8cRTNEQykq4zhVKxshPlVGeFuRJqIQ7C3ba/4UCWEDtT4Dlj
+udGkgC059nR72DiCjPnQ40LV5naHw+dIkTt7uS2rh/xRih0ZW5bTc1ex3KvVq2H+
+wtjVSehARwHbIzU3ijuk3iNDaGRYZS99YYB5NjULlXGFeldz0M4qj8L/Gu684Kt0
+c0DFGObvF6isiTZgfuIwCNEEURIKdOut/DpqvFXcAmaAYvwvko7EPo4xwigfSapd
+63yY0m3zfV1lefYdShI86wkQ8t4KSbU6Vhoh/A0AUNc1mcNqir8=
+=PD/g
+-----END PGP SIGNATURE-----
+
+--awe2ln3pvo2iqnm5--
