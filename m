@@ -1,34 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0119477E22;
-	Fri,  7 Aug 2026 12:56:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 265D532B112;
+	Fri,  7 Aug 2026 12:56:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786107392; cv=none; b=lBiuWsJtknWPL5rKM/TCH2tLqmt7042iHo8WWcIE7vArPDY61WsZ/SmZil0m3MNq632XGwrEKCvcFu6tGM+CEYaeUpk1ODKo/EbAYESJJe2OKdTIhYJlwe6MzlXlQ1WPf3NYEBJpGxVGF+7xOrA8Fn62fHXVsFCTTtzYEd4czWk=
+	t=1786107392; cv=none; b=ly19kAtQ9S5rO9OKFNSCGWA60eWSvdCJew11eNv8TNEMNFw8dzEZ66M66Vg6jMav4GJlLE2TSz5fa9ZyoXNuKu2rSXBtYbdF9vQrij7+eeO4bC94He47KsNDndPNn8b1thvJ9CDuXCrtINi9HraMcCbd5c54cCtR7KRL2CEG5EE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786107392; c=relaxed/simple;
-	bh=Oy+4CTzEIRCWVBFUKGel8hsUYWiiJUABik/my3g++MQ=;
+	bh=Ie3VxD5isjLSW8L48mz6OxmWd8JKx9mwDt6hx9HrtXY=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CW3NY3VwI8j0RsMiC3PT0Dsf1XZzGSrpqEtTaTuw23/ib7viEGDVOoaKeozFufrT2ivokFCeN9BCN6/6/sHH9Tru3uHZkHaEzseI4sztVs0ySuSu+VI8KOOKnBGgfRLSN2rRUk8NULBwMbzGjb7AUDciJv1ACCrWCDJADCi1fPI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=e8XcNdaF; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=PR3rZs/f+ltKiup8ns0uV9TmlNjfNlM0+Vs6o7YNBJ/XX7Mr8AF2Ah9KwAElMZnvE6MRehDBIvjOMCXVh2OCaQsOE1MErGha0ARLzj0lBw03CxlxQmt6t0eeGZvwmUuwqES2ZPy8VDAlIm73Go6MSlVUMT+sfIcEbcOAtzUk8Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=KNp6cks+; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="e8XcNdaF"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="KNp6cks+"
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:4f4:b619:ec54:a907:a006])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CC67656D;
-	Fri,  7 Aug 2026 14:54:59 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 568E3741;
+	Fri,  7 Aug 2026 14:55:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786107300;
-	bh=Oy+4CTzEIRCWVBFUKGel8hsUYWiiJUABik/my3g++MQ=;
+	s=mail; t=1786107305;
+	bh=Ie3VxD5isjLSW8L48mz6OxmWd8JKx9mwDt6hx9HrtXY=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=e8XcNdaFjXtlBMhS7w/9ZszMm/rxiag3X6HmpzgN+Q2UJUWmjh+eeu1NDEGsk9rMY
-	 tlS7DiPlB6fGBplQBmO58DeZg3Wm8palnWH+KX7KT2pnUOEiCAsyAq4kmH7eBAxfd7
-	 LQXPoiMyQ6pEVw3CgC1yhvaX/fJzIwVlAgROFvwc=
+	b=KNp6cks+Esk9R+GoFFA69xSiVMzOtBjF1v3osOgGdaAsagdZs0gf3+WBcyUXkkmVi
+	 1/w0/DdsQn6zemrfYw5Ol/SbdzcNzLECGrJ0LjJLHYHYYj9nYiKOXNjzDPoopT1wjq
+	 0FpTifKELBATp/p3pHoXpa5bJqHSv3cYhhKrDNd4=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Fri, 07 Aug 2026 18:25:18 +0530
-Subject: [PATCH v2 1/3] dt-bindings: media: i2c: Add imx708 image sensor
+Date: Fri, 07 Aug 2026 18:25:19 +0530
+Subject: [PATCH v2 2/3] media: ccs-pll: Support optional input for VT pixel
+ rate
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -37,7 +38,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-imx708-v2-1-7d3d7b57779d@ideasonboard.com>
+Message-Id: <20260807-imx708-v2-2-7d3d7b57779d@ideasonboard.com>
 References: <20260807-imx708-v2-0-7d3d7b57779d@ideasonboard.com>
 In-Reply-To: <20260807-imx708-v2-0-7d3d7b57779d@ideasonboard.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
@@ -51,187 +52,88 @@ Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>,
  Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
  linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
  Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
- Jai Luthra <jai.luthra@ideasonboard.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4424;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2391;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=Oy+4CTzEIRCWVBFUKGel8hsUYWiiJUABik/my3g++MQ=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqddXdPWdy+MCmyqDhFxc9Dfzsy7+5o1cF+SyqL
- lkziVIYDNeJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCanXV3QAKCRBD3pH5JJpx
- Rb5REACyd/LRIdNwZ1NTseaBzGRm8D9V8z5GXnb3USQHj0b1A2WzMZSUoPOb231wLUBV2Bndj6Z
- 28381AJiMUHEkFMCmR8OMNy/blWjkf+Z8UsWmGvQ8Vl0qOrIa7Tyt9B4Z+BlDRNuFrUnv1Ezmic
- ogZcYrWcLJ2p+jfBVQyCUhs757A8kyjROBjoHYXqBK4bcAXDuVGqunZ89NSIV18C8Wjp9VCJ5E8
- yboeOYMXsYWDI+/9Xf/hfsUf8GAHF8TiYWMtCWMmALh9DH0M73eaO1UI0h5cpdh8msLKSKISZsK
- cZ3v3jRl5cju61kdlAQmLGvPeWif3twSV/YxqQZN5XPL2VJ3k5Ypze0vcGCxm+Xp3hwcc0kbp/M
- ht1vESgAZWUsYATFF4Q8jMpieP9yY8oEcuDEYOY2fsCXiXRt7vKAVMKvd/lecFwv5swhQKpHq4K
- eZmB+3pKkicHMs/EnSDQyONISdeBURkDvdlZJgtoSCqfndbaMleJUCBL11oIApHvu64WyptwmJZ
- OAvuL0jDEpDk0y1XvVAOLOyJvjyD0kV45ysVky6758mZ1/a/K0xYNvfhkj02Rq0tUQMJFewVN6Z
- dev8Qz180UDUwxt4B79CuK8Wg+57li8RUQ92SNfBFKtPhEx1mwD57g8rRo6w5RwGzE5spf41c3Z
- wgNtHHyzJWWRsFw==
+ bh=Ie3VxD5isjLSW8L48mz6OxmWd8JKx9mwDt6hx9HrtXY=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqddXe6zsU+da09t1Prl8i/XZjSWmbkWeoU7XbI
+ ypXbGsOEa+JAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCanXV3gAKCRBD3pH5JJpx
+ RdyeD/49fUmERut/BwmnsFV0p+6ZdblNqQ6VXwsax2STUoo1gxbNPlnww+fQcQDyjvLORaihPYa
+ hZt5B/dVqKh0EsW0MeKhJ8sL7I17lQ9/Y7rqSdgVUgclCbcRlGzD5sZvJVcNGGlL/jPRcM8W/Lk
+ BMKirKxs7xVSW59zK8IG34jQ/Qo6A3Unzgp8VDElf585upBZ6xWoHXzu2uvILNxZx3GFuzKztyW
+ OBnbhnrMn9Xx6HlzX/mgo2dg+9PBwyYxEP1Hh3P4s6Odj4xK99hWlG0fdSqw2gRfhJlnhzoTTUF
+ samZeM7aSgnPWRq55anugjjCKi3c0sy5F3sVEHoNAxJEbzyawPPnDyOy3buVFIeAOyh4LXEkGHG
+ vG6KmcNV9Hvca2BaLvp+dq4paAoXCgeYwNAdf4GMis3iTzPrThs+dvpwP/2VBUNpTNvbP2Fmrfl
+ ikZf9ttGfaMREd+Xu1ChCzFpp4en11dMtOl10igYyElM0D6pWBChJw2e7OgYWjqCmfza64xUQ1u
+ AL3HzUjj+J3RxdybeiWEnppeE27Py/SrFZMjuzR1jT3isiycfxq3gEPLRmML9XlvpMy9p0Cyo5i
+ +4RJl+4LtJSGyu04t1WzNoq03rbhmsax3ZRthwLOyiZShjFcC6patfC7RToiQvkeJhZqVHeHWkA
+ icncglh1+ki6XRQ==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-Sony IMX708 is an 11.9 Megapixel CMOS sensor, that can output pixels
-over MIPI CSI-2 bus. Add bindings for it.
+When the PLL is configured in DUAL_MODE (separate VT and OP trees) and
+the sensor's FIFOs allow derating and/or overrating, the VT pixel rate
+might be higher or lower than OP pixel rate.
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Support such usecases by allowing an optional input for the target VT
+pixel rate.
+
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
-Changes in v2:
-- Drop the |- before the description
-- Add Dave as M:, and move kernel-list@raspberrypi.com as R:
-- Add Krzysztof's R-by tag
----
- .../devicetree/bindings/media/i2c/sony,imx708.yaml | 120 +++++++++++++++++++++
- MAINTAINERS                                        |   8 ++
- 2 files changed, 128 insertions(+)
+ drivers/media/i2c/ccs-pll.c | 13 +++++++++++--
+ drivers/media/i2c/ccs-pll.h |  4 +++-
+ 2 files changed, 14 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-new file mode 100644
-index 000000000000..e41b3ca53706
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
-@@ -0,0 +1,120 @@
-+# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/sony,imx708.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Sony IMX708 Sensor
-+
-+maintainers:
-+  - Jai Luthra <jai.luthra@ideasonboard.com>
-+  - Dave Stevenson <dave.stevenson@raspberrypi.com>
-+
-+description:
-+  The Sony IMX708 is a 1/2.3-inch CMOS active pixel digital image sensor
-+  with an active array size of 4608H x 2592V. It is programmable through
-+  I2C interface. The I2C address is fixed to 0x1A as per sensor data sheet.
-+  Image data is sent through MIPI CSI-2, which is configured as either 2 or
-+  4 data lanes.
-+
-+properties:
-+  compatible:
-+    const: sony,imx708
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    maxItems: 1
-+
-+  vdig-supply:
-+    description:
-+      Digital I/O voltage supply, 1.1 volts
-+
-+  vana1-supply:
-+    description:
-+      Analog1 voltage supply, 2.8 volts
-+
-+  vana2-supply:
-+    description:
-+      Analog2 voltage supply, 1.8 volts
-+
-+  vddl-supply:
-+    description:
-+      Digital core voltage supply, 1.8 volts
-+
-+  reset-gpios:
-+    description: Sensor RESETN (XCLR) GPIO
-+    maxItems: 1
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            oneOf:
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+              - items:
-+                  - const: 1
-+                  - const: 2
-+                  - const: 3
-+                  - const: 4
-+
-+        required:
-+          - data-lanes
-+          - link-frequencies
-+
-+    required:
-+      - endpoint
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdig-supply
-+  - vana1-supply
-+  - vana2-supply
-+  - vddl-supply
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        camera@1a {
-+            compatible = "sony,imx708";
-+            reg = <0x1a>;
-+
-+            clocks = <&clk 90>;
-+
-+            vdig-supply = <&camera_vdig>;
-+            vana1-supply = <&camera_vana1>;
-+            vana2-supply = <&camera_vana2>;
-+            vddl-supply = <&camera_vddl>;
-+
-+            reset-gpios = <&gpio 35 GPIO_ACTIVE_LOW>;
-+
-+            port {
-+                imx708_ep: endpoint {
-+                    data-lanes = <1 2>;
-+                    link-frequencies = /bits/ 64 <450000000>;
-+                    remote-endpoint = <&csi_ep>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3785b8c1de0a..9928f68175ed 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -25281,6 +25281,14 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
- F:	drivers/media/i2c/imx678.c
+diff --git a/drivers/media/i2c/ccs-pll.c b/drivers/media/i2c/ccs-pll.c
+index 1605cfa5db19..9aa164994cc7 100644
+--- a/drivers/media/i2c/ccs-pll.c
++++ b/drivers/media/i2c/ccs-pll.c
+@@ -388,6 +388,14 @@ __ccs_pll_calculate_vt_tree(struct device *dev,
+ 	return 0;
+ }
  
-+SONY IMX708 SENSOR DRIVER
-+M:	Dave Stevenson <dave.stevenson@raspberrypi.com>
-+M:	Jai Luthra <jai.luthra@ideasonboard.com>
-+R:	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/media/i2c/sony,imx708.yaml
++static inline u32 ccs_pll_vt_pixel_rate(const struct ccs_pll *pll)
++{
++	if (pll->pixel_rate_pixel_array)
++		return pll->pixel_rate_pixel_array;
 +
- SONY MEMORYSTICK SUBSYSTEM
- M:	Maxim Levitsky <maximlevitsky@gmail.com>
- M:	Alex Dubov <oakad@yahoo.com>
++	return pll->pixel_rate_csi;
++}
++
+ static int ccs_pll_calculate_vt_tree(struct device *dev,
+ 				     const struct ccs_pll_limits *lim,
+ 				     struct ccs_pll *pll)
+@@ -396,11 +404,12 @@ static int ccs_pll_calculate_vt_tree(struct device *dev,
+ 	struct ccs_pll_branch_fr *pll_fr = &pll->vt_fr;
+ 	u16 min_pre_pll_clk_div = lim_fr->min_pre_pll_clk_div;
+ 	u16 max_pre_pll_clk_div = lim_fr->max_pre_pll_clk_div;
++	u32 vt_pixel_rate = ccs_pll_vt_pixel_rate(pll);
+ 	u32 pre_mul, pre_div;
+ 
+-	pre_div = gcd(pll->pixel_rate_csi,
++	pre_div = gcd(vt_pixel_rate,
+ 		      pll->ext_clk_freq_hz * pll->vt_lanes);
+-	pre_mul = pll->pixel_rate_csi / pre_div;
++	pre_mul = vt_pixel_rate / pre_div;
+ 	pre_div = pll->ext_clk_freq_hz * pll->vt_lanes / pre_div;
+ 
+ 	/* Make sure PLL input frequency is within limits */
+diff --git a/drivers/media/i2c/ccs-pll.h b/drivers/media/i2c/ccs-pll.h
+index e22903931e72..5c00a72c41df 100644
+--- a/drivers/media/i2c/ccs-pll.h
++++ b/drivers/media/i2c/ccs-pll.h
+@@ -114,7 +114,9 @@ struct ccs_pll_branch_bk {
+  * @op_bk: Operational timing back-end configuration (output)
+  * @pixel_rate_csi: Pixel rate on the output data bus (output)
+  * @pixel_rate_pixel_array: Nominal pixel rate in the sensor's pixel array
+- *			    (output)
++ *			    (input/output). It is a valid input only when
++ *			    FLAG_DUAL_PLL is set, serving as a target rate
++ *			    for the VT tree.
+  */
+ struct ccs_pll {
+ 	/* input values */
 
 -- 
 2.54.0
