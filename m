@@ -1,166 +1,197 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395D538F24B
-	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 14:30:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B250647124B;
+	Fri,  7 Aug 2026 15:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786113027; cv=none; b=usRK3XCsHjJWazxMJnCz4AeeoSAA731tfAA0l1gIFG+1pIDtMqmtD0+VwoIjvx71fN8UHBhqt/aB4de0EVyQkqnbp2NstQB41C3iwBmNVwPJHSrDQb0yAFiIZrzNXFEllxy3ckBOlD9wLVsUHUrGKi1MaK3PTN05IJGTrRbFft4=
+	t=1786118092; cv=none; b=uPJLP02sk+Gh+xosOZ2MKUMGQCTnRuFYsNZMd/EOUsAq4XvixPROWa3LYFUiD65/Axi0VV7e6EyWJrQ3x05/rYjHsOlEYoQxdghG0lNLmssgjz9cza/mL0gX9ebRjM9v727vnr642+Bd8hBkudNhuO2xZTm2XrCIu2/V2BzDqd0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786113027; c=relaxed/simple;
-	bh=9chXbWvneviCBI6gsPcp6rBnUHso6qIi2DiOcMGp3AU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kuEiMBpIlU4LKqEgvm90uNZomJhblYscTPNoHxYdl2UQKJUA41EwVbaRvOWY2XuAfnZLrH+BgwWYc2SF9IBIGCNPOdjRNBEfBgzyRXsizSGGU/2gqFqDDC+Jp2Upq4WbpF1yJzfsmh05FfczNpYORKnleKY5aGAkHm9zsXZ2KUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=JVavm7f6; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1786118092; c=relaxed/simple;
+	bh=cNpFkM+ZcxbrYyXoZiVbDg/M+vrbqp/SW9+T2kNjvg8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EA1tPNQbJ5Ou4en8qQMiBvD8VfFD63Aj8gfQEPBqd64x5ypLGb1ypFKKWORhHLG5qKyKLEvvno6H19fFA5IjYS/xs8qoxJLrVM/pEOf1F/jXhDi/ktjqlKHzCkf+NZLJUtWJjaW+k4vcx5bTF7GZU0rE7GNfPy11yMLhkVOHg8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFetetgo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="JVavm7f6"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so5451312a12.1
-        for <linux-media@vger.kernel.org>; Fri, 07 Aug 2026 07:30:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1786113023; x=1786717823; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LmlvdA3j1ijNUJj1yqvwrA06bbHfnJpUaXqtqC2M7xE=;
-        b=JVavm7f6sIIjrsJWPx0XFYh1H9ETdYiYFmTgIubT02q70kVTKIM99thpu+bu5hrtGu
-         yAsfwnZuCzvQciRe73WLkwHiX+iN2A7QuWS1uJhFTMqFsB0//B9BuY8/PKv/xQe9IRi0
-         2oZXDtQuE2lJ3y+TPKUdSlE+V4soG1B+dUHm0XQWMo594nSw/0O2jIftrWApnYUSdHfx
-         4bBxA8rMZDcE0wzq5WVMegMCCDnG6Vb+WOTkOm6m8Gpp2po8MC4L3Ozb6+yrNZ4SQeVx
-         YTfDPCS4VNCKeVwlMEct5p8uJnT94cvh/gNNF3NKK2Xyu9McOiQzzzRDgDLI6LZxPdhG
-         FNtA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786113023; x=1786717823;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LmlvdA3j1ijNUJj1yqvwrA06bbHfnJpUaXqtqC2M7xE=;
-        b=lA85JcCgbjJv+tty65kPIN1MFmg7xGuk8+AXXovRTz7SRQe+/9jQmuW+naQaTB61bi
-         S7tfb2y3Z23TK7SnMsHIsWWpDyTPs0oCLQfbyFELuiOU/fIyKlVpD0WivjUDOu6q9zSB
-         cjghvab2bGJYaH9ifv18tAvlS5SCoUR3lghKbpvEG3gFTTAPHs+nRy9yZ1rzwha1x8q3
-         wBnUz5KMD2t/3VF9ur5O5aGxZgnut4wxVVjSFkWm3BKJjPcml9vg+WcX/5NAWqLAbnIG
-         hsM6HzoMUyC672jkXXvzTB5zSg3rnWzpd+1UKV8rDB6eT+IYtaN71M7SgMhvf6bJXUKf
-         Zkcg==
-X-Forwarded-Encrypted: i=1; AHgh+RrJxGvm2Al8lbXHSLDMpXRoE+7A6hrq3B7BPawGYptEA26Abihsohb2lKcWBOnxLr5CjyY/RA9J9QA/5w==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyq/6b7NJNtmJPyd3mPwNhMAPM116PeppRL52c7Dx2had6u/C5P
-	9ZoyjnlJqfHi8909pDH9OztyGfXdm+NmoWrDCnvG8RdFpUL0KnxNkWBO740AbILKLxp4a86yKi6
-	mac3tLok=
-X-Gm-Gg: AR+sD13h486InWdbacyEnx0WvEVvixw95ciaX6MLPESg0XjJQKWIpfy/TqgeVA3LBGq
-	1MVU69BL32PzFNSORZbNYw46GBtqQXHPey73WA/ErSnFT6KWXpbp3MuNn+yB0LAb5Kglqbw65jE
-	trTDcHSDvqi+36w5SMmUR22SmB8PmsWA3R7Ksi56zSXVAQmtaofhcd2y6X972RSoN8N+FIYBLX8
-	jyMUOeAldi6NmX0gqi7wOaf/+YHVvnUHIYg5I13Acr3E0qmiTNpZZoz62fAzCJvfmx74d4UlCIx
-	2uPpfGrq/zIx3AEBta13skjtP01WW79qIuphEDfNmvPNyhQyAHnvWIyXHzry2Ma8OJTE3D2lFDB
-	j4RrZqNCPz9xfJOZ6F2VtAAI6lgx97c1FxZbfYcxOxJ9RhaGqvYb0go9+GerALJuX35inZT50wi
-	8wahC6E7f1QT+JjGCo4eOitbCjt3oiy4fgowCakXPoDzBpJn8+3jEI+B+zS6lnZs2wa8IlLJBjZ
-	x5mRUahWyipf15DcxGPnerUlVkkK8Loqp+CNo/mgfKGBDskHHL+azbTnjFTTg==
-X-Received: by 2002:a05:6402:28cb:b0:6a1:8fff:1590 with SMTP id 4fb4d7f45d1cf-6a1e62d7f80mr2357759a12.19.1786113023537;
-        Fri, 07 Aug 2026 07:30:23 -0700 (PDT)
-Received: from [172.16.240.238] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a1e7cab26fsm604018a12.7.2026.08.07.07.30.22
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 07:30:22 -0700 (PDT)
-Message-ID: <3554d8d1-65f7-4556-8b99-1c03e0cdca53@fairphone.com>
-Date: Fri, 7 Aug 2026 16:30:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFetetgo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E8D1F000E9;
+	Fri,  7 Aug 2026 15:54:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786118090;
+	bh=xDlurFDxUaKm0+DeKwG11I5Asqll1HaQOs3bWTM7T2A=;
+	h=From:Subject:Date:To:Cc;
+	b=RFetetgo7jgxk2hRoVBNP2thvqE1EPEabTG4g4lH092YzQbD/Odq965rNejDzleVE
+	 J3ckOBjT8nkXZ3wNy9Nx4RPTK6m+askAC7z4QSWoQpfG4MxebffJpKPmv69UDX+6OL
+	 iEVDLsrFQqAMjC3zb8GatM7NAYAeBLlhnRtZ8Mcce5gdM7SrXJqHkgyYk7Or7MAkVf
+	 1v73+4+H/NMIykEPIocARawL6LBt2xLJEDW2wFY+w7Ljr85NJJJx0OjEEz4tm8uqs7
+	 VRYlNv+S0gcff4TM8qKclQrd/ETGd8YPtZJh6hMl1H2rsh9+vs6QAXsneltbsqhXC2
+	 1o0k2EvBe+C8g==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v4 00/10] dma-buf: heaps: Add support for Tegra VPR
+Date: Fri, 07 Aug 2026 17:54:20 +0200
+Message-Id: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Danila Tikhonov <danila@mainlining.org>,
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Daniel Scally <dan.scally@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
- <anGlY_kwp_I-fRnz@kekkonen.localdomain>
- <f7cae569-0c51-41fe-92ab-f29311a22761@mainlining.org>
- <anMeoKP6rUlgtKyR@kekkonen.localdomain>
-Content-Language: en-US
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-In-Reply-To: <anMeoKP6rUlgtKyR@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WPwWrDMBBEfyXoXImVLNtyTvmP0oMtb+RtEzmsX
+ NEQ/O+1YkoLPQ7Me8M8REImTOJ4eAjGTInmuAX7chB+6mNASeOWhQHTQA2tXDBwL/ONpR/t4E0
+ NnbdebP0b45m+nq7Xtz2nz+Ed/VIEpTFRWma+P8eyLr3i3QxgdG2bCpSFynTOSi2XiZD5rhhHi
+ uEUrj1dlJ+voqiz+YEb0MboRgN0qnJN7Zz7D38gR7yomcNOV790C/rPpVxJkKODczu4Vg+DPcV
+ MI/X78Lqu36G64F8wAQAA
+X-Change-ID: 20260507-tegra-vpr-cd4bc2509c4c
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Sowjanya Komatineni <skomatineni@nvidia.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Russell King <linux@armlinux.org.uk>, 
+ Alexander Gordeev <agordeev@linux.ibm.com>, 
+ Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
+ Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
+ Christian Borntraeger <borntraeger@linux.ibm.com>, 
+ Sven Schnelle <svens@linux.ibm.com>, 
+ Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
+ Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
+ Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+ Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+ "T.J. Mercier" <tjmercier@google.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Masami Hiramatsu <mhiramat@kernel.org>, 
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+ Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
+ Chun Ng <chunn@nvidia.com>
+Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
+ linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
+ linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4495; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=cNpFkM+ZcxbrYyXoZiVbDg/M+vrbqp/SW9+T2kNjvg8=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqdf/COeJXZyRFVSTKd7+3r7oFtNF7xrGETRn4j
+ DEXKT18h/KJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCanX/wgAKCRDdI6zXfz6z
+ oX86EACf3u52ZHWbNE0gzPHk1VCKvHipIKLbzawEbY/eyFL+F3hj0f1oRk5u22tUVgR+XqqdgdU
+ gwYJjdIxng+xk3RWveQ2oBaMIzwMJwiykwHMNXFjTMWO7RYuWiz8hLNjGRNX/h6RZRGUa7rSqpc
+ ODAcuSqcvfgjqo//n+HcYlrTTme0RgMivbMPVwq/G7KLmDX/7m9mryCILkoR90jXSg0Ha1q8HLM
+ DxVa1dmvxpWECDYJU/uizu1XpnO9zKnxwMgHpyNwRTaajqkRB0AOGV1CbZ9mYSFbu1bp5IKwk7e
+ SwqEJxq9caikk5y6VUtj3udpbhhJkLqmgyQ1iRROgJ4Jdb0YGfmaMfcI7gpMADo9riMISSZ7BPb
+ KBLw3THjD8cjbJl9FeEgiiSWvZce1TCAZEfduXqjJNI9lLl1gpIz2Zz7JyN9gcDPYyjetrj3bFP
+ gOOJKTnB7mY4la1dVjl1x5RLq36hdfJhFvabG6qYclCsmQFgU17Oh/nbgiQtV/5S1wQgX5h4KJa
+ TiAbSxXHoiN+eL+PJL+Rx5bz5TEcblTUMPK+ub7afb3I9XHkM65Yaj/dE8ZVfmeviLNuhQktuAf
+ WXcrW3LRRxZH1TZWTSGjJwaUEcgrGaBx3zUoiECwB7n/9GpOfYfGp4P0FwZ4bqQ9EiWbyjmX1dC
+ fksdo8Ciavc0KLw==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-Hello Sakari, Danilla,
+This series adds support for the video protection region (VPR) used on
+Tegra SoC devices. It's a special region of memory that is protected
+from accesses by the CPU and used to store DRM protected content (both
+decrypted stream data as well as decoded video frames).
 
-On 05/08/2026 13:29, Sakari Ailus wrote:
-> Hi Danila, Griffin,
->
-> On Tue, Aug 04, 2026 at 09:27:01PM +0300, Danila Tikhonov wrote:
->> Hi Sakari,
->>
->> Thank you for your comment.
->>
->> On 04/08/2026 11:40, Sakari Ailus wrote:
->>> Hi Danila,
->>>
->>> Thank you for the patch.
->>>
->>> On Sat, Aug 01, 2026 at 09:04:15PM +0300, Danila Tikhonov wrote:
->>>> The DW9800W uses the same chip ID and register layout as the DW9800K,
->>>> but requires different default VCM frequency value.
->>> Is this a real difference between the two models or what fits for the
->>> attached lens? Too bad the datasheet isn't publicly available. :-(
->>>
->>> At least the differing default and constraints for dongwoon,vcm-prescale
->>> needs to be documented in bindings.
->> I share your skepticism and have essentially the same concerns. Since I
->> do not have the DW9800K datasheet, I cannot say with certainty how it
->> differs from the DW9800W.
-> Indeed. The limits should have been added for dw9800k, too, but I guess I
-> missed this in review. :-\
->
->> In particular, the parameter referred to as the VCM frequency in the
->> driver is used to derive the SACT value. For the DW9800W, SACT[5:0]
->> defines the actuator resonance period in SAC mode and the one-step
->> period in LSC mode. The datasheet gives the corresponding formulas as:
->> - tVIB = 6.3 ms + SACT * 0.1 ms
->> - LSC 1-step period = 252 µs + SACT * 4 µs
->>
->> Therefore, the default value may differ between the DW9800K and DW9800W
->> if the formulas or timing characteristics used to calculate SACT are
->> different.
-> Griffin, would you be able to comment this?
+Patches 1 through 3 add DT binding documentation for the VPR and add the
+VPR to the list of memory-region items for display, host1x and NVDEC.
 
-After checking on my side, DW9800W and K are almost identical in both 
-structure
-and register values, including how tVIB and tLSC are calculated, DW9800K 
-has an extra
-register that can change the output current to 130mA but we don't ever 
-use that.
+Patch 4 adds bitmap_allocate(), which is like bitmap_allocate_region()
+but works on sizes that are not a power of two.
 
-We didn't have a datasheet when working on the DW9800k so we had to go 
-off of
-the downstream driver during runtime to get our register values. The 
-datasheet is a
-much more reliable source to be using for this instead.
+Patch 5 introduces new APIs needed by the Tegra VPR implementation that
+allow CMA areas to be dynamically created at runtime rather than using
+the fixed, system-wide list. This is used in this driver specifically
+because it can use an arbitrary number of these areas (though they are
+currently limited to 4).
 
-My colleague has already identified ways to fix the bindings, which we will
-tackle ourselves.
+Patch 6 adds some infrastructure for DMA heap implementations to provide
+information through debugfs.
 
-> Another matter: the comment on dw9800k says there's no device ID. So is
-> there a device ID that wasn't just checked earlier or is there really no
-> device ID?
+The Tegra VPR implementation is added in patch 7. See its commit message
+for more details about the specifics of this implementation.
 
-Indeed, it turns out the DW9800K DOES have an info register, which should be
-0xEB, that's on us for not updating it after we received more documentation.
+Finally, patches 8-10 add the VPR placeholder node on Tegra234 and
+Tegra264 and hook it up to the host1x node so that it can make use of
+this region.
 
-Thanks for drawing our attention to this! Nice patch.
+Changes in v4:
+- Link to v3: https://patch.msgid.link/20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com
+- fully remove from linear map while chunks are active
+- address checkpatch.pl and Sashiko comments
+- improve error handling
+- remove freezer support
 
-Griffin
+Changes in v3:
+- Link to v2: https://patch.msgid.link/20260122161009.3865888-1-thierry.reding@kernel.org
+- introduce set_memory_device() and set_memory_normal()
+- rename VPR nodes to "protected"
+- add Tegra264 placeholder nodes
+
+Changes in v2:
+- Link to v1: https://patch.msgid.link/20250902154630.4032984-1-thierry.reding@gmail.com
+- Tegra VPR implementation is now more optimized to reduce the number of
+  (very slow) resize operations, and allows cross-chunk allocations
+- dynamic CMA areas are now trackd separately from static ones, but the
+  global number of CMA pages accounts for all areas
+
+Thierry
+
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Thierry Reding (10):
+      dt-bindings: reserved-memory: Document Tegra VPR
+      dt-bindings: display: tegra: Document memory regions
+      dt-bindings: gpu: host1x: Document memory-regions for NVDEC
+      bitmap: Add bitmap_allocate() function
+      mm/cma: Allow dynamically creating CMA areas
+      dma-buf: heaps: Add debugfs support
+      dma-buf: heaps: Add support for Tegra VPR
+      arm64: tegra: Add VPR placeholder node on Tegra234
+      arm64: tegra: Hook up VPR to host1x
+      arm64: tegra: Add VPR placeholder node on Tegra264
+
+ .../display/tegra/nvidia,tegra124-vic.yaml         |    8 +
+ .../bindings/display/tegra/nvidia,tegra186-dc.yaml |   10 +
+ .../bindings/display/tegra/nvidia,tegra20-dc.yaml  |   10 +-
+ .../display/tegra/nvidia,tegra20-host1x.yaml       |    7 +
+ .../bindings/gpu/host1x/nvidia,tegra234-nvdec.yaml |    8 +
+ .../nvidia,tegra-video-protection-region.yaml      |   75 ++
+ arch/arm/mm/dma-mapping.c                          |    2 +-
+ arch/arm64/boot/dts/nvidia/tegra234.dtsi           |   45 +
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |   33 +
+ arch/s390/mm/init.c                                |    2 +-
+ drivers/dma-buf/dma-heap.c                         |   56 +
+ drivers/dma-buf/heaps/Kconfig                      |   12 +
+ drivers/dma-buf/heaps/Makefile                     |    1 +
+ drivers/dma-buf/heaps/tegra-vpr.c                  | 1368 ++++++++++++++++++++
+ include/linux/bitmap.h                             |   25 +-
+ include/linux/cma.h                                |    8 +-
+ include/linux/dma-heap.h                           |    2 +
+ include/trace/events/tegra_vpr.h                   |   57 +
+ kernel/dma/contiguous.c                            |    2 +-
+ mm/cma.c                                           |  221 +++-
+ mm/cma.h                                           |    5 +-
+ mm/cma_debug.c                                     |    6 +-
+ mm/cma_sysfs.c                                     |    6 +-
+ mm/mm_init.c                                       |    4 +-
+ 24 files changed, 1912 insertions(+), 61 deletions(-)
+---
+base-commit: a6cebf4799ccfd3ea08e45abe5360414fd3822e1
+change-id: 20260507-tegra-vpr-cd4bc2509c4c
+
+Best regards,
+--  
+Thierry Reding <treding@nvidia.com>
 
