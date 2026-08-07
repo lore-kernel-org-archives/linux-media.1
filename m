@@ -1,274 +1,137 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D027446D092;
-	Fri,  7 Aug 2026 12:28:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FDEE471268;
+	Fri,  7 Aug 2026 12:56:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786105726; cv=none; b=CCI7PzWuxv8l88mPWN9Y50RkA6KXr/XhVxMGuxKZrvTl4cQ9mOgwQ7jdDSTbITHv8Efu4wZWVJRic0m8AjsVelv0VfxLHMDEp+R9yaFxikGJ7ySJw3wvPkAhVQucXKNLSmrbl9behXGB7AedrdbJY1BLDFQv+0y9/wzckta46do=
+	t=1786107375; cv=none; b=pmV3G6b1a2bHO8SZKf1mkCPzGfgM5Mr7it5p3vK+B6QCWaLN7SxDl5n1Z7LboRlf/U7n4eZYBF2vuvcKwBF88VDFxPG7gtAk/Hs6fB+MHCRyygUaBkJX9u8bgPrrY11Ryzy6nOXj6TE84vZKQQwLwgGSEHSKCXIZidEiPqeh5ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786105726; c=relaxed/simple;
-	bh=3cSBl7HReDfm7Zk0sgjHm1MDmnlqQLZ8cInaYFaSiZo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TZQbNVJ/kYKOH5wIshfaap8Ypknb8HBG6XO5R/1dWCyikxJ6taKkuoHo7KOIfX7CJQds/12gliwCeZgKoj8YJCPZKCCvkcnzZwFiFr4eVyg4Gt8LeciVy1VKl7RoDisyihno7Z7V63Tw9KVWzMmXZlV11B5sue5Tgu3qfA/XcX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=THr1K3jb; arc=none smtp.client-ip=213.167.242.64
+	s=arc-20240116; t=1786107375; c=relaxed/simple;
+	bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ru4bgnSrLUAnt+hNBdHmX0Nm0JZvgBNr0A4CxaQk3Y/vSXqqKs7NJYcrg2TjBkcrLmZ66QVNNYfs9c/fdC+yZl8NYMP+WPQdz6dMaBFllk2g+ONMd7SUff58nXmMgudiPHDnnybOsgRIOxu7A/BMIZ8Pau3hFiSJYLLLR+gjtu0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=PAMYIJr4; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="THr1K3jb"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C20B456D;
-	Fri,  7 Aug 2026 14:27:14 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="PAMYIJr4"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c67:4f4:b619:ec54:a907:a006])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C5B78741;
+	Fri,  7 Aug 2026 14:54:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786105634;
-	bh=3cSBl7HReDfm7Zk0sgjHm1MDmnlqQLZ8cInaYFaSiZo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=THr1K3jbVhkvA/tOKaBQeQphUp0VSzC9tRmsjFGUHUMVQs9OvW2v5SOLdozWTic7S
-	 fS/hAzdkK/iJYmfr97p1xciaNn5l2FE1xBUOpjGlqs4wOqlznw1VjJsIG51pJ/cN3D
-	 CvfI+vReZXQAizg+DjxTPrvWoCdIgYh/R7ol+XZQ=
-Date: Fri, 7 Aug 2026 15:28:25 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sang-Heon Jeon <ekffu200098@gmail.com>
-Cc: Julia.Lawall@inria.fr, Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
-	Michael Krufky <mkrufky@linuxtv.org>,
-	Hans Verkuil <hverkuil@kernel.org>, cocci@inria.fr,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 12/36] media: remove conditional return with no effect
-Message-ID: <20260807122825.GJ2201016@killaraus.ideasonboard.com>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
- <20260723184538.3888637-13-ekffu200098@gmail.com>
+	s=mail; t=1786107294;
+	bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+	h=From:Subject:Date:To:Cc:From;
+	b=PAMYIJr4eaUbGlFbV5b3akaUNFOO0Kb0unUhdJ0XAmgc/mU0X2uTvxurxm945h7Ma
+	 HcZgQro6EeNsrOvg58wuacX6tyR1l1TvQvs3uN4uvlvzlozyhCihgc3WsthwBF0MGj
+	 H0iPZ9/jBHuKA6nS3P6kJHvANBCllBn6gmWBKXec=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v2 0/3] media: Add bindings and driver for Sony IMX708
+Date: Fri, 07 Aug 2026 18:25:17 +0530
+Message-Id: <20260807-imx708-v2-0-7d3d7b57779d@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260723184538.3888637-13-ekffu200098@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNsQ7CIBRFf6V5sxjAlqKT/2E6ILzaNxQUalPT8
+ O9iHRwcz8nNuSskjIQJTtUKEWdKFHwBuavADsbfkJErDJJLxVvRMBqXlmt2VK1T2hpljYYyvkf
+ sadlCl+7LER/P0pt+cqA0hfjazmbxsX/dWTDORH9QfVOjqF19JocmBX8NJrq9DSN0Oec3FWKWt
+ LgAAAA=
+X-Change-ID: 20260715-imx708-967d68ca6ca8
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Naushir Patuck <naush@raspberrypi.com>, 
+ David Plowman <david.plowman@raspberrypi.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Nick Hollinghurst <nick.hollinghurst@raspberrypi.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2410;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=e/nyA8ZuEuZ/5Fo0XgsWg8k93yqYev6K+aC9c7ggKY0=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqddXRcknBkhLQvmKUHyT8ivBrsCIZ/ib4fOw0A
+ zOGpCSIqdKJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCanXV0QAKCRBD3pH5JJpx
+ RYKHD/4sU8pH/9g/ndZ1GmlxgsviJ0zvLXjfeYpMrOE44N/w0OmyET8+r1CfGWHv3EIvlkGHCHr
+ UZgoeF/NgaFpSMbQkJTvjgNzSnXcDbu19SFdJXxEIZwpUNIJzmfOhBn6/JiKYnqgRTNrKyRAiq6
+ FdwHX66v1kDn8JXInAR4b/W0D60tv95lX/O7kTUL9bwccMxQlsSMe1S+NyEZb5H/cIecd0HwUJ9
+ adjhH5ACAxejJdGag+gvKQQEb1+UT0I86GaNslfFtawigUWT8+2uYwHZMLEsOPXcaGXtPX3vPJg
+ pxWVWIySQi3y5LBnSrjN/wDkc2czMsIMY3s+9TLPdL6IerYbgBd6p3YQXmJ+ZKaNRa4ufPmyq26
+ uqVlZQOiNW7aQEhX4hm9kfMTEPu6qyH7DlnnlErWPpn1HPBo/0lt9lxegU4eS3s4b3SIOywpuBH
+ UK4gFuClbaEip50uXWXYiMvQRLPKaqacUebOwaeaH/8EoghVXCcx+WAGTClx5OyT7sEEZ825WBK
+ rRY/TPyU24dXqT+SVik0nnKf96Pe747nUOQBMHgEiisREf2Pql/VVpeLNCrlCwmFXNv7CVxjXTl
+ P4JwMkURFDNsNYE3ynVPo8qBnlx23PgKcjTBaY/l5i+QesrBzfzHWg/8vX1uQrQWn2h6ErFKfHC
+ h/YsRpDmfjRpClg==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-On Fri, Jul 24, 2026 at 03:45:14AM +0900, Sang-Heon Jeon wrote:
-> Both branches of the check return the same value, so the check has
-> no effect. Remove it and return the value directly.
-> 
-> This is the result of running the Coccinelle script from
-> scripts/coccinelle/misc/cond_return_no_effect.cocci.
-> 
-> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> ---
->  drivers/media/i2c/mt9p031.c                          |  6 +-----
->  .../media/platform/microchip/microchip-sama7g5-isc.c |  7 +------
->  drivers/media/platform/qcom/iris/iris_resources.c    |  6 +-----
->  drivers/media/platform/qcom/venus/pm_helpers.c       |  7 +------
->  drivers/media/platform/renesas/rcar-csi2.c           |  6 +-----
->  .../media/platform/samsung/s3c-camif/camif-core.c    |  7 +------
->  drivers/media/usb/dvb-usb-v2/mxl111sf.c              | 12 ++----------
->  drivers/media/usb/gspca/jl2005bcd.c                  |  7 +------
->  8 files changed, 9 insertions(+), 49 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
-> index d21510caf45a..2b09e8315c8e 100644
-> --- a/drivers/media/i2c/mt9p031.c
-> +++ b/drivers/media/i2c/mt9p031.c
-> @@ -452,11 +452,7 @@ static int mt9p031_set_params(struct mt9p031 *mt9p031)
->  	ret = mt9p031_write(client, MT9P031_HORIZONTAL_BLANK, hblank - 1);
->  	if (ret < 0)
->  		return ret;
-> -	ret = mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return ret;
+Hi,
 
-I would have just replaced the last line with a
+This series adds dt-bindings and a basic V4L2 driver for Sony IMX708
+camera sensor, used in Raspberry Pi Camera Module 3 [1].
 
-	return 0;
+This basic driver is an adaptation of the one present in the downstream
+rpi-6.18.y tree (written by Nick Hollinghurst). Many features from the
+downstream driver (like HDR, binned and 720p crop modes, etc.) are not
+present here, and will be added on top using common raw sensor model in
+a later series.
 
-as I find it easier to read code that has multiple error paths when all
-the error paths look the same. It's a small personal preference though
-(and ths best option would be to convert this driver to the CCI
-helpers), so I'm OK with this change as-is.
+This has been tested on a Raspberry Pi 5 with libcamera.
 
-> +	return mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
->  }
->  
->  static int mt9p031_s_stream(struct v4l2_subdev *subdev, int enable)
-> diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> index b0302dfc3278..7383341ec51d 100644
-> --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> @@ -598,13 +598,8 @@ static int __maybe_unused xisc_runtime_suspend(struct device *dev)
->  static int __maybe_unused xisc_runtime_resume(struct device *dev)
->  {
->  	struct isc_device *isc = dev_get_drvdata(dev);
-> -	int ret;
-> -
-> -	ret = clk_prepare_enable(isc->hclock);
-> -	if (ret)
-> -		return ret;
->  
-> -	return ret;
-> +	return clk_prepare_enable(isc->hclock);
+[1]: https://www.raspberrypi.com/products/camera-module-3/
 
-Here the change looks good, there's a single error paths so a direct
-return is fine.
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+---
+Changes in v2:
+PATCH 1/3:
+    - Drop the |- before the description
+    - Add Dave as M:, and move kernel-list@raspberrypi.com as R:
+    - Add Krzysztof's R-by tag
+PATCH 2/3:
+    - New in v2, to support reuse of CCS PLL helpers with IMX708.
+PATCH 3/3:
+    - Use the helpers from ccs-pll.h to calculate the VT and OP clock tree,
+      setting up the limits following the datasheet instead of the CCS limit
+      registers
+    - Keep the same VT Pixel Rate and OP Link Rate as before. The VT tree
+      runs much faster than the 2-Lane CSI link, and we don't have enough
+      details about the FIFO capacity to support freely-configurable rates
+      just yet.
+    - Drop macros of CCS registers, and include ccs-regs.h to use the
+      existing names
+    - Update Copyright and MODULE_AUTHOR entries
 
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+- Link to v1: https://lore.kernel.org/r/20260715-imx708-v1-0-1f36f54e14d4@ideasonboard.com
 
->  }
->  
->  static const struct dev_pm_ops microchip_xisc_dev_pm_ops = {
-> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-> index 773f6548370a..872bd09656b1 100644
-> --- a/drivers/media/platform/qcom/iris/iris_resources.c
-> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-> @@ -78,11 +78,7 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
->  	if (ret)
->  		return ret;
->  
-> -	ret = pm_runtime_get_sync(pd_dev);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return ret;
-> +	return pm_runtime_get_sync(pd_dev);
->  }
->  
->  int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
-> diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
-> index be1cbd5cfe84..e88e66be4f6d 100644
-> --- a/drivers/media/platform/qcom/venus/pm_helpers.c
-> +++ b/drivers/media/platform/qcom/venus/pm_helpers.c
-> @@ -781,7 +781,6 @@ static int decide_core(struct venus_inst *inst)
->  	unsigned long max_freq = ULONG_MAX;
->  	struct device *dev = core->dev;
->  	struct dev_pm_opp *opp;
-> -	int ret = 0;
->  
->  	if (legacy_binding) {
->  		if (inst->session_type == VIDC_SESSION_TYPE_DEC)
-> @@ -829,11 +828,7 @@ static int decide_core(struct venus_inst *inst)
->  	}
->  
->  done:
-> -	ret = hfi_session_set_property(inst, ptype, &cu);
-> -	if (ret)
-> -		return ret;
-> -
-> -	return ret;
-> +	return hfi_session_set_property(inst, ptype, &cu);
->  }
->  
->  static int acquire_core(struct venus_inst *inst)
-> diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
-> index 7305cc4a04cb..6635f5782175 100644
-> --- a/drivers/media/platform/renesas/rcar-csi2.c
-> +++ b/drivers/media/platform/renesas/rcar-csi2.c
-> @@ -2273,11 +2273,7 @@ static int rcsi2_init_phtw_v3u(struct rcar_csi2 *priv,
->  			return ret;
->  	}
->  
-> -	ret = rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
-> -	if (ret)
-> -		return ret;
-> -
-> -	return ret;
-> +	return rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
->  }
->  
->  /* -----------------------------------------------------------------------------
-> diff --git a/drivers/media/platform/samsung/s3c-camif/camif-core.c b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> index 14eedd1ceb27..bb06847f3a63 100644
-> --- a/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> +++ b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> @@ -301,7 +301,6 @@ static int camif_media_dev_init(struct camif_dev *camif)
->  	struct media_device *md = &camif->media_dev;
->  	struct v4l2_device *v4l2_dev = &camif->v4l2_dev;
->  	unsigned int ip_rev = camif->variant->ip_revision;
-> -	int ret;
->  
->  	memset(md, 0, sizeof(*md));
->  	snprintf(md->model, sizeof(md->model), "Samsung S3C%s CAMIF",
-> @@ -316,11 +315,7 @@ static int camif_media_dev_init(struct camif_dev *camif)
->  
->  	media_device_init(md);
->  
-> -	ret = v4l2_device_register(camif->dev, v4l2_dev);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return ret;
-> +	return v4l2_device_register(camif->dev, v4l2_dev);
->  }
->  
->  static void camif_clk_put(struct camif_dev *camif)
-> diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> index 870ac3c8b085..6404eb74db32 100644
-> --- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> +++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> @@ -987,11 +987,7 @@ static int mxl111sf_frontend_attach_atsc_mh(struct dvb_usb_adapter *adap)
->  	if (ret < 0)
->  		return ret;
->  
-> -	ret = mxl111sf_lg2160_frontend_attach(adap, 2);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return ret;
-> +	return mxl111sf_lg2160_frontend_attach(adap, 2);
->  }
->  
->  static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
-> @@ -1007,11 +1003,7 @@ static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
->  	if (ret < 0)
->  		return ret;
->  
-> -	ret = mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
-> -	if (ret < 0)
-> -		return ret;
-> -
-> -	return ret;
-> +	return mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
->  }
->  
->  static int mxl111sf_frontend_attach_mercury_mh(struct dvb_usb_adapter *adap)
-> diff --git a/drivers/media/usb/gspca/jl2005bcd.c b/drivers/media/usb/gspca/jl2005bcd.c
-> index a408fcc3a060..4988fbf5005e 100644
-> --- a/drivers/media/usb/gspca/jl2005bcd.c
-> +++ b/drivers/media/usb/gspca/jl2005bcd.c
-> @@ -148,17 +148,12 @@ static int jl2005c_start_new_frame(struct gspca_dev *gspca_dev)
->  static int jl2005c_write_reg(struct gspca_dev *gspca_dev, unsigned char reg,
->  						    unsigned char value)
->  {
-> -	int retval;
->  	u8 instruction[2];
->  
->  	instruction[0] = reg;
->  	instruction[1] = value;
->  
-> -	retval = jl2005c_write2(gspca_dev, instruction);
-> -	if (retval < 0)
-> -			return retval;
-> -
-> -	return retval;
-> +	return jl2005c_write2(gspca_dev, instruction);
->  }
->  
->  static int jl2005c_get_firmware_id(struct gspca_dev *gspca_dev)
+---
+Jai Luthra (3):
+      dt-bindings: media: i2c: Add imx708 image sensor
+      media: ccs-pll: Support optional input for VT pixel rate
+      media: i2c: Add a driver for Sony IMX708
 
+ .../devicetree/bindings/media/i2c/sony,imx708.yaml |  120 ++
+ MAINTAINERS                                        |    9 +
+ drivers/media/i2c/Kconfig                          |   12 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/ccs-pll.c                        |   13 +-
+ drivers/media/i2c/ccs-pll.h                        |    4 +-
+ drivers/media/i2c/imx708.c                         | 1312 ++++++++++++++++++++
+ 7 files changed, 1468 insertions(+), 3 deletions(-)
+---
+base-commit: 8a6e017c06fbc1b96af618e82a4d35889d442964
+change-id: 20260715-imx708-967d68ca6ca8
+
+Best regards,
 -- 
-Regards,
+Jai Luthra <jai.luthra@ideasonboard.com>
 
-Laurent Pinchart
