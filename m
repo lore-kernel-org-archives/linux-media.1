@@ -1,170 +1,153 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067A23A6F09;
-	Fri,  7 Aug 2026 16:16:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE2E242882B;
+	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786119390; cv=none; b=m7CxIN/NmhLoATgdDBHbjNcHM8sHHljBdQhYZGrgtz53x2umhuIiNIMh1TLyVJsTURxhV4zvozwPOP/fkZrvHQAqQLTBmOrZL/jRTx3LM+KKCey900BPuCh73Sz8PajjxlZtiLiuY+KdkGz+NIPdSy1g+9aIaH3a4inwlXHONp0=
+	t=1786119848; cv=none; b=WVz1+U7mJybuydHue8vI5vdSTDK9sYAv5b5uNa+TvauAqziNC57wKsc9VHkn5R+L7Kv+WS9NupL296hyaE+ukVwIy0OvMrFgSQuD3GuTTKipnxUcoeCtOa4CffKNVfYT2Tov8l7uijJxIxYn7pqJtmhAhCcHTDMupuLXAyTQ+QQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786119390; c=relaxed/simple;
-	bh=VhlSvAGMC/BlUPOsJBVkvrM1Gt3qGLw8g6G/LgwPmjw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bANbhuePtaCKW9lUFrF/9ikii3CbxncHqsRykf3qs9XWCXuxg/ZzgJ/SVsP0Ucj4ZYukGa1yeqYoJjTl9Xwpqf0KD9yQoBFQAbeiiDz6UmpaFq19KyfW07WvZuF/9TnONneAVcwTOJYMHOWVcn8vApc5MEVbCZdWJnDLzOnBgSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RJyBP+6B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786119848; c=relaxed/simple;
+	bh=HJmelZBkGJ3fs60a9AFTN5SU/MTv4T95mVU514g09d4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EQvYiAnGHzNoPLML93QTOR5difhsA7h6bdEwOEN34ZEWVBwytRioOgH/QTLnERksAJGgI62j+VhO3FC73+1luFvx9VHEjAfgQd/yG1JwuwhTwotYFLWOo8IQ4LhtuA+UT7wcZ0zr6P7WuWAx3tND/fI2UKw8Qa77LKd8rC1rWrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LukuwJoB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RJyBP+6B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF98F1F000E9;
-	Fri,  7 Aug 2026 16:16:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LukuwJoB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12E011F000E9;
+	Fri,  7 Aug 2026 16:24:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786119383;
-	bh=G4M6WaWJHJkAgTKhvMBMOdrskvc3i17djUnErYhCZd0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RJyBP+6BN5+JrlhxCrfvrqnbQhrx+JvztZlUHBVIpV4LBQfuVGSj+B2zmoOm4Ro39
-	 fODvJOTHaggB60ZlLgqnFkMyLOrDJ0Ff8JFO7jlqylAdHlT5F3TMAOpbdMouCK4JkK
-	 5WBcoaAUPwB/DUm0zX5Zp8ba/0t6KTi6zN5PFiWqEx/WD7tfM9obOY7eLRGuviuNp/
-	 OreKT0eZi1lCo4X5E9aBAxti/Sj7DFuc3sAp3OGmrf8K1ingGeVFR7IC1UHw0DltW+
-	 uVqXjYI5xwtmMETVFNDfS66m4SfW94w12B0AM9KiVkM/kg77HrQULtMnME1OFFzqt4
-	 9Qyg0lJpOWuMw==
-Message-ID: <3b458c02-e836-4b24-a712-57fa8dd59e45@kernel.org>
-Date: Fri, 7 Aug 2026 18:16:06 +0200
+	s=k20260515; t=1786119846;
+	bh=JpK2GRoQzXcryb8G9EYVZqijm6DNJokoOliHq07rgC8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LukuwJoBKFNiyI/39Ka9P3qQM1VQJHQlTb0dvdfRUJtLNMU2EFD87WyQY058kY5t6
+	 5cfijZWM1VxIpsZSpX/5OU03Zfz59FRfbgwjr43sOuJybafMDWkVh8zkffT8y4mBGh
+	 UCWLBg5e+DV7qaiqCdMhBbArItG30ozebJeuaYY7oc1Lw5mj/Sw/5C3rMMHzvatQ9d
+	 Lpcv8GrM0RQxFCod2/QuFp6/hpi/PnrHNXyKH98Hgn1GttfdT7ImIPDNkvCUuq6oLK
+	 JE8ZpgpQunNOsKHT13IViOgHd7nT1gX1Sxqk7n6Xwe9+Bx5OP1FS7Sbch05EwOz6zp
+	 lFRUOXou+0HxA==
+Date: Fri, 7 Aug 2026 11:24:05 -0500
+From: Rob Herring <robh@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Johan Hovold <johan+linaro@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	Mansur Alisha Shaik <mansur@codeaurora.org>,
+	Andy Gross <andy.gross@linaro.org>,
+	Rob Clark <robin.clark@oss.qualcomm.com>,
+	Stephen Boyd <sboyd@codeaurora.org>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	Pierre-Hugues Husson <phhusson@freebox.fr>,
+	Marc Gonzalez <mgonzalez@freebox.fr>,
+	cros-qcom-dts-watchers@chromium.org,
+	Matthias Kaehlcke <mka@chromium.org>,
+	Douglas Anderson <dianders@chromium.org>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Aniket Masule <amasule@codeaurora.org>,
+	Malathi Gottam <quic_mgottam@quicinc.com>,
+	Rajendra Nayak <quic_rjendra@quicinc.com>,
+	Jonathan Marek <jonathan@marek.ca>,
+	Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+	Renjiang Han <quic_renjiang@quicinc.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range
+ for Iris
+Message-ID: <20260807162405.GA896590-robh@kernel.org>
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 05/10] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Sowjanya Komatineni <skomatineni@nvidia.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Russell King <linux@armlinux.org.uk>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>,
- Andrew Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>,
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>,
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>,
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- "T.J. Mercier" <tjmercier@google.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu
- <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
- Chun Ng <chunn@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org,
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
- <20260807-tegra-vpr-v4-5-5510d16af89e@nvidia.com>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260807-tegra-vpr-v4-5-5510d16af89e@nvidia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
 
-On 8/7/26 17:54, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
+> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
+> > From: Daniel J Blueman <daniel@quora.org>
+> > 
+> > On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
+> > below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
+> > into that range, from any other stream id would triggers unhandled SMMU
+> > page faults that cause spontaneous device reboots. This is readily
+> > reproduced with one or more browser tabs driving multiple concurrent
+> > video decode streams.
+> > 
+> > Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+> > and reference it from the Iris node so the IOMMU layer keeps DMA
+> > allocations above that boundary.
+> > 
+> > Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+> > Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> > Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+> > ---
+> >  arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
+> >  1 file changed, 12 insertions(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
+> > --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+> > @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
+> >  			hwlocks = <&tcsr_mutex 3>;
+> >  			no-map;
+> >  		};
+> > +
+> > +		/*
+> > +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
+> > +		 * primarily for non-pixel buffers using different Stream IDs.
+> > +		 * DMA into that range triggers unhandled SMMU faults and
+> > +		 * spontaneous reboots, so reserve it to keep IOMMU
+> > +		 * allocations above this boundary.
+> > +		 */
+> > +		iris_iova: iris-iova {
+> > +			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
+> > +		};
+> >  	};
+> >  
+> >  	qup_opp_table_100mhz: opp-table-qup100mhz {
+> > @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> >  			interconnect-names = "cpu-cfg",
+> >  					     "video-mem";
+> >  
+> > -			memory-region = <&video_mem>;
+> > +			memory-region = <&video_mem>, <&iris_iova>;
 > 
-> There is no technical reason why there should be a limited number of CMA
-> regions, so extract some code into helpers and use them to create extra
-> functions (cma_create() and cma_free()) that allow creating and freeing,
-> respectively, CMA regions dynamically at runtime.
+> I don't like the idea of this series, because it _again_ doesn't tell us
+> the truth about the hardware. This typicall ends up with bigger problems
+> later on, when it starts to affect other bits and pieces.
 > 
-> The static array of CMA areas cannot be replaced by dynamically created
-> areas because for many of them, allocation must not fail and some cases
-> may need to initialize them before the slab allocator is even available.
-> To account for this, keep these "early" areas in a separate list and
-> track the dynamic areas in a separate list.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
+> I don't want to NAK it, but I'd strongly ask to reconsider it.
 
-Sorry that I didn't get to reply earlier to
+I think this is an abuse of /reserved-memory. reserved-memory is 
+reserved *physical* memory. Reserved IOVA is a property on top of that. 
+I'm surprised this passes validation. If it does, I may go fix that.
 
-	https://lore.kernel.org/all/anS0nxAwCXGWZRl9@orome/
-
-But I am still not convinced why we shouldn't just have a single array that
-grows dynamically.
-
-"
-After replying to T.J. I think this static array is actually a nice
-feature in a way. It allows us to more easily make a distinction between
-the regular CMA regions created from reserved-memory regions that
-represent classic carveouts, and the more versatile CMA areas that could
-be used for any purpose.
-
-Telling the two types apart could obviously also be solved using some
-kind of flag stored with the CMA area, but at this point I don't really
-see a reason why the two lists would need to be unified.
-"
-
-Really, cma_for_each_early_area() + cma_for_each_area() is just nasty.
-
-I'd strongly vote to unify unless there is a very good reason to do it
-separately.
-
--- 
-Cheers,
-
-David
+Rob
