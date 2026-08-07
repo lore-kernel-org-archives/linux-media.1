@@ -1,272 +1,208 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5870645FFA0
-	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 10:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2192A346FB3
+	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 10:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786098153; cv=none; b=gN23af6adIUJQVOIHet8SyR/j2YKq0FdAjoZSf5vgqEW8dXUnizVm7XqzKZXDXKLBch4KDELkghVzIUppxToYJkhBS9aY0u+lzlYm8DIuGI1MqhZ7g9H1fOjY2+VTj+ulLLybukTWnYfcQsPHTbb0OAgS1qgKGKC+8cEW9bpSaQ=
+	t=1786098552; cv=none; b=AOeJPqTLEMrsBNq9YMS05sD4aLuUuh4sg1JDKIZSJ9RCpAgdZ6bpz2D/cZHzsCus8mYnW1LMfxO5ZH04LjJoqUJMLkr11W3TC1NP2v64FTPQTrQq3U/wdyAsmUt1fUg9RCkGJhb9KjxVzV7fwl+JJvaHzcYTRNnmn2kxG2hZCdc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786098153; c=relaxed/simple;
-	bh=7zkyUWwkB69eCRYNVOott12JcB3HyoSQ1gvyGaXCpXk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TOATZJTcyCZ4czH+kAKURNzp9Lcs2c4alZqfoK8cwS/UAKqbdTkwvSFJ93t8rcewEzXAtZxf3rFALdJHwJXLpOfVZTmjLhv+YhAU/f1ikKOe8UgKtdXrLYA/lYfAikObz+tDJJ8ZOjMDOzVOe2ahMkE9wBD9zzSHbZRbEQK/QkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j876Lv27; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PHyT+MG3; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786098552; c=relaxed/simple;
+	bh=y1tLlMek28TMCEjGaWtcRk/xpz+gs6V3j4GxdYCRBDo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JdE1/4DbvIXYS9CErKorEzWAT6XXsGN0lJ4KX1stGxSaxjp5Ji8aksN3LZi1JGnG6O5mgesQlB41EEQWUKF+V+0a0mnKN79AYk1NnWmZWuwEc0LICo7LZP383i8YWI8/j1rS0/xt83fOILXwWNKGPVVfk2ZZKIehVTwLBlwi1C4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gc4v1gYu; arc=none smtp.client-ip=209.85.167.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j876Lv27";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PHyT+MG3"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6778Axlj3253810
-	for <linux-media@vger.kernel.org>; Fri, 7 Aug 2026 10:22:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	RQctFQu5cMeG5fr/LvJoKgC8qsXR7V5CESvfC5rs/PM=; b=j876Lv27IBsPJGHX
-	Bo+hLjcNn2B14hUmoJ7L6eWSlx/k/y7ZFqoi46hiHO6sTlMnqYBLAd52xN3U/Dtr
-	qAM+NST/8GDHXXLF1O8pq5X61KwxdZM6CGXSrkVv/aska9K7kXKM7kebWwJ+DlRG
-	B/CfDxNLPr+ACzLBc/9+QTYs73mVmcrrqLakdWWYJ9JPEWdKMMejoTB58mUx4lsn
-	jMSLgypnNwVQO31IdGfvOGrBgUPL9aqAF8dZ1ItLn16BeUtXSj4A59gjMYgUF+5r
-	CKC7yxUFYr68oG9VHePqr3xKucSQKEFuwbTUXvF3xjJsyAFni0cTRNpWJwJ0oz/k
-	qDtwJg==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fvy6k3g1n-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 07 Aug 2026 10:22:30 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38f5ac7416eso3983117a91.3
-        for <linux-media@vger.kernel.org>; Fri, 07 Aug 2026 03:22:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gc4v1gYu"
+Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b2a22c52c1so3194569e87.3
+        for <linux-media@vger.kernel.org>; Fri, 07 Aug 2026 03:29:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786098149; x=1786702949; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RQctFQu5cMeG5fr/LvJoKgC8qsXR7V5CESvfC5rs/PM=;
-        b=PHyT+MG3cJPdY28BR27Z/9OvAPs1a4uy7BRT+yVQILgZRsWnbH1XqapVeRs5BnFXsx
-         tb9CZ6V3tOjaWVPbhqPBEtWVJQX9BZ08tNKTga1Itr1I55KilIcJRSYZe4hoXy7AhgoP
-         4sNWS6SbAYfEhWBVFC2p+PquGxI+FTBEkurI1ISjL3pe5trbA0nCJHWYWPMlM+OHR2MT
-         nwodnCHMTu5+MSPmHRD8I16VW7Mq56cFgQJ9VFaNBFtUzwXgaoHfRw2CjksdH6E2RDvE
-         4XjnvR/xJd5LdERFQanytGdauCAZkV+vkUSpJqc2Va4Ux6s3+TfHT81GRDhv4XIPgTsF
-         GLXA==
+        d=gmail.com; s=20251104; t=1786098549; x=1786703349; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dU/K9fyx5mxLUEJE5PMTRMAmnix/bdUYR+gmTXvxCzA=;
+        b=gc4v1gYuTYKo9HGSnEw4cm+vHoyOii4W6rlh1Vz98pbjKAqyWZ99L8qHbvg1t0mlHz
+         QjEsKmo0r2zJn/w1PV2CdrSrl+7kGmVzBur8JUBx3LsVHepbikeXSnUbYSU9SW60CjMS
+         h70WE0Q9usa5iEvpAXnqNc1lyxLEUmHruUTQYCzs2FhP5mpE+xL18swA0TJmNdcaJte2
+         u0YeIOMcUMC5fqg+2EzAbvGjfYUzyJPu2C2afmMDB92kcYxMfFj4TxVp112V6EDSr6G0
+         t0ILBo9TFjDrqUW0TmZB/PhuamR+3yjw3vjpLT/dKgFcGAJdFDJlozHJAnTqfIlVdFBs
+         wpvA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786098149; x=1786702949;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1786098549; x=1786703349;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RQctFQu5cMeG5fr/LvJoKgC8qsXR7V5CESvfC5rs/PM=;
-        b=GDM8XuWnfoyGY0W7/7MOc1WZCvzG+c/v7KEHOdLfb2HScuurArN7t/AohTDwMvWQfn
-         jsgd0COmbSiSyQ6BtEkVDZRld37jIKQbYaSyNGz8mG3BzgS5ZSihzZQ/8+FsJmNCNdIa
-         WJacrdS+E5BIrnr1hxTwINjpB7+kWSOlLSPvK9AN2+n1lFLHBp+grT+TBiHVzkXvOZLv
-         BxOHk7d75+ZsojyalV5ALNlmB2fRXAAOk+LuBVnaA3YiSpxw3BnTkETY2VnE38W6LJBV
-         5iWDp9EFw3axCP/WHT6jxpqwTVIxFu1kXra+DPHbqow/TGLYpfzBMPtyZI3BoBonos/n
-         KvFQ==
-X-Forwarded-Encrypted: i=1; AHgh+Robt0IA0MTa77ghs6HBTgypYBHcgmisz87VTVD0IHkZOnXgGSFpjgIE67dkQhA/mCkgXWOVdMDS4hFWow==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFxWGMqIv4n463J5EN8WXdKP0d/hZr9xTGKeDztZSjeDRLRsua
-	tU5waV3Kr4w0cuCuRkOCM2xa49fWf6tyK0X6QOhM0FvznnCEmnMuCSkUNKUszb7up663vwslSgs
-	JnIZ12JywREeOPHmdZuwU3NrtnIzvkF0KZ5cGr1DAycsiRsyKDpqu3UTHkksUuCG1kQ==
-X-Gm-Gg: AR+sD10AT5ZLfxKg6ZvofE0FLaKrBwcEZcY7/rGd3Eqm+tdBFxqvL3tdPTdWhShTCBK
-	qKbqRBew3bPJTc2zS5HZeXo9CO/OndlOxhwOCtAgQCqxUy1cKLtZ7eD2Zxh7QFL/UAXBZXbnBag
-	uB7Gakv3nyAWx6zRk4dqdDEgg8Q4MoakFa73GOFPEX1zO3nRPArKduY4X7Dva5tmw2F8KaDa9pv
-	uwFHHdyrUqY9WmCKiW4a3SIW48q2TxF85bYfCM+ASpsJTEfls1YpyOkDLbkJfMsqFxaG5Y8Qwyo
-	mdxEbNEYvHuVG+3khOziYsMrwZbVQaw2civl+1xrtv3A8rL2kdw+i6p0zr9eK41GgISk7qjw5Ej
-	B6mww+6nDU7/ERzmbUXFYKzwADoFuQNh2GaI=
-X-Received: by 2002:a17:90b:17c6:b0:38f:1a2e:6e56 with SMTP id 98e67ed59e1d1-3903c59330amr20917496a91.9.1786098149017;
-        Fri, 07 Aug 2026 03:22:29 -0700 (PDT)
-X-Received: by 2002:a17:90b:17c6:b0:38f:1a2e:6e56 with SMTP id 98e67ed59e1d1-3903c59330amr20917408a91.9.1786098148489;
-        Fri, 07 Aug 2026 03:22:28 -0700 (PDT)
-Received: from [192.168.0.173] ([183.83.142.146])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb88413sm9100037eec.18.2026.08.07.03.22.14
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 07 Aug 2026 03:22:28 -0700 (PDT)
-Message-ID: <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
-Date: Fri, 7 Aug 2026 15:52:12 +0530
+        bh=dU/K9fyx5mxLUEJE5PMTRMAmnix/bdUYR+gmTXvxCzA=;
+        b=WX9AqeXxXbB8YKPC2N9rpARV+0d9IZzXDQ+nvlSrhwyfUaj42uEBGDI6VJGXwTr6DX
+         wglPpDtdhDdIPeqTgT5p7HsPmgMdKUVyl4cqDWBkUSqUmkrjRik6t8DzObtIeyOc2Q7R
+         CrQtO746vqGnGs/ITZi7Fd3NC3+BwapS+z9lM7igWxDWmsTakGQZHa4rJNMRKQZaCVaE
+         jvLOPnM8LqSCVxbtaP4Io/Pd/mteERn3dEZ9BNf7qDhSCgAVPnlGCil0WiskhCzcdxFh
+         tCcpAKomBG8Yb9tFR7nnCurgYmuM5vrmok+SaVI3aANkPtwJDWBFf2zOy+KcaySRrI4s
+         V0uQ==
+X-Gm-Message-State: AOJu0YxzoTqqZjCt0l6/0YwyMu/QQtumM1eDZ04ahxSF9wqwpobW669h
+	Y3fd87Gi/7m+Gmeen/m+LKNyEJUS4utFZHZivPLQHI1QCuxoNRMai6IoEWgIdVeU
+X-Gm-Gg: AR+sD12UwBDU1BXI20OD+VcP2DlFOWusHhtG+jxsYbm09Ae4qFGi7DswI4J1V0JfFB7
+	zC5T9jrMIgdZWbrkgosRAKWLbWf8vcBlP6hrQkNHzCfSv+9+zFn64xR/Chg5Ors5hXcg4vQSToe
+	5z9AbvqjXiZ37dzzCOC3E+C+5X3KUWk1zMMBtTmPeFtho/pFXUNiXoy2yRvd3MPJZu+Y7dGAvm1
+	EWYq1vQAy7O46EDr00VH7qtXzzm7a4hMMoYx/aSHWHls9pDuireEEMosLySnLtYfCgwUrO7o+Yi
+	MqO6JYgDnZB/TFoB6PJW0oGMZaMvmkeVMbzybgSvf0LevHgKsQSlur/M/IzjhhjCMqdGNSCTLqj
+	05d4gbdcT7h0/V30lwLdlwf/rOl/hMzf31hW0Cn8A/p9Qd0mUU4jkb6wm8y+bEDrUlK6KgVVOB4
+	IB53G0DFW32kjZqSeP8YMgyalFFOpGwdBLZC3vH85IOaglrdFezdNZ7YhFnjqdOojaxJt1NZS5Z
+	Sq3o6WLpyDg2y0=
+X-Received: by 2002:a05:6512:628a:b0:5b1:589b:3579 with SMTP id 2adb3069b0e04-5b2f4b84a6emr3570956e87.4.1786098548833;
+        Fri, 07 Aug 2026 03:29:08 -0700 (PDT)
+Received: from gentoo.sknt.ru ([95.161.221.172])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b304fd1d2bsm394811e87.6.2026.08.07.03.29.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 03:29:07 -0700 (PDT)
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Alexander Shiyan <eagle.alexander923@gmail.com>
+Subject: [PATCH v2 0/2] media: i2c: Add onsemi AR0234 camera sensor driver
+Date: Fri,  7 Aug 2026 13:28:45 +0300
+Message-ID: <20260807102847.1813059-1-eagle.alexander923@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Rob Clark
- <robin.clark@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Pierre-Hugues Husson <phhusson@freebox.fr>,
-        Marc Gonzalez <mgonzalez@freebox.fr>,
-        cros-qcom-dts-watchers@chromium.org,
-        Matthias Kaehlcke <mka@chromium.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Aniket Masule <amasule@codeaurora.org>,
-        Malathi Gottam <quic_mgottam@quicinc.com>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jonathan Marek
- <jonathan@marek.ca>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Renjiang Han <quic_renjiang@quicinc.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
- <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=RpX16imK c=1 sm=1 tr=0 ts=6a75b1e6 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=eVbXwf39F0J6/s7D6zfB/A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=NEAV23lmAAAA:8 a=VwQbUJbxAAAA:8 a=COk6AnOGAAAA:8 a=t9ty7G3lAAAA:8
- a=EUspDBNiAAAA:8 a=klHhFlPy27of03slvZkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=TjNXssC_j7lpFel5tvFf:22 a=CsAS6f0m0zARWR-uHzm3:22
-X-Proofpoint-ORIG-GUID: kLvIh_bo3WrBeFfyxnPwR7WVSuMR2HDm
-X-Proofpoint-GUID: kLvIh_bo3WrBeFfyxnPwR7WVSuMR2HDm
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODA3MDA3OSBTYWx0ZWRfX0WMU4LOCE2UV
- Im5KSfUdw0Vgn9yfBaWMX/XTQgBjfiIht/ZSRn60XGx6r93cC7Wyp/OMb0xLcQLMDlGu2nIBkc5
- M5L2514W/PyYbeUwIt45V/x8GizZ6UcNd0UZVvE7mUDwzqOgZLxsfJ9gSQPd1Rx/LjltpIaOEK0
- BkawcDZ4SshrXKQybDmeb8Ww9745s3mA1YlMz4NWjZEnZCMGAE9merA+3EFu8Jf3GUw8l4lV8Bt
- 3wC55Xa3NNXaVYmmL7Z3lJzNq1Tw0B81LeMQzQq8lP+zQn/vSGWi1G4VenL52CTDaIeqfLWKUyL
- SQ2VtXFgQJiqTxbLorlVrAKmI1GXA0/ZaL5CSIcCosqOiMUl5LSZfO9xNpXfP/M/QZYRhNdG6XN
- SbU0GJFHo+6F6cvGoeZ8wiQinnwgZ35aGfz2QVvdGK8GiHjAL1XHZ6hsrjVA9Z8jSSDELfxiYhq
- c99dNLTTUCt6alEYKfw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODA3MDA3OSBTYWx0ZWRfX9B7sFWCAiokA
- j40CkD/8/Fzq2riJFXrlXYXM1wgez3t6QtHQPtLwAiLhq1f5EkUpXGcy1WYB+YuAvcQ0v9mp6Yd
- r1B9y1MtBt8jwckHEPrrUOpxGNQq0qc=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-07_01,2026-08-06_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 clxscore=1015 impostorscore=0
- suspectscore=0 spamscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608070079
+Content-Transfer-Encoding: 8bit
 
+This series adds a driver for the onsemi AR0234 CMOS image sensor.
+The AR0234 is a 1/2.6-inch global-shutter sensor with a 1940x1220
+pixel array, capable of 1920x1200 resolution at up to 120 fps.
+It supports MIPI CSI-2 output with 1 to 4 data lanes, raw Bayer
+(8/10-bit) and monochrome formats, as well as DPCM 10->8 compression.
 
-On 8/7/2026 3:30 PM, Dmitry Baryshkov wrote:
-> On Fri, Aug 07, 2026 at 02:56:27PM +0530, Vikash Garodia wrote:
->>
->> On 8/7/2026 2:33 PM, Dmitry Baryshkov wrote:
->>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
->>>> From: Daniel J Blueman <daniel@quora.org>
->>>>
->>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
->>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
->>>> into that range, from any other stream id would triggers unhandled SMMU
->>>> page faults that cause spontaneous device reboots. This is readily
->>>> reproduced with one or more browser tabs driving multiple concurrent
->>>> video decode streams.
->>>>
->>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
->>>> and reference it from the Iris node so the IOMMU layer keeps DMA
->>>> allocations above that boundary.
->>>>
->>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
->>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
->>>> Cc: stable@vger.kernel.org
->>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
->>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->>>> ---
->>>>    arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
->>>>    1 file changed, 12 insertions(+), 1 deletion(-)
->>>>
->>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
->>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
->>>>    			hwlocks = <&tcsr_mutex 3>;
->>>>    			no-map;
->>>>    		};
->>>> +
->>>> +		/*
->>>> +		 * The Iris VPU reserves IOVA below 0x25800000 (600MB),
->>>> +		 * primarily for non-pixel buffers using different Stream IDs.
->>>> +		 * DMA into that range triggers unhandled SMMU faults and
->>>> +		 * spontaneous reboots, so reserve it to keep IOMMU
->>>> +		 * allocations above this boundary.
->>>> +		 */
->>>> +		iris_iova: iris-iova {
->>>> +			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
->>>> +		};
->>>>    	};
->>>>    	qup_opp_table_100mhz: opp-table-qup100mhz {
->>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
->>>>    			interconnect-names = "cpu-cfg",
->>>>    					     "video-mem";
->>>> -			memory-region = <&video_mem>;
->>>> +			memory-region = <&video_mem>, <&iris_iova>;
->>>
->>> I don't like the idea of this series, because it _again_ doesn't tell us
->>> the truth about the hardware. This typicall ends up with bigger problems
->>
->> honestly...thats all the info i have about the vpu hardware that it
->> restricts non pixel to DMA from the 0-600MB range. The same i have been
->> trying for a year now
-> 
-> You are not honest here. You also know that there are secure streams,
-> which have to use their own IOMMU SIDs. And some of them, as far as I
-> remember, also have memory range restrictions.
+The driver has been tested with 2 and 4 lanes on an ARM64 Rockchip
+RK3588 platform with a 27 MHz external clock. Both 8-bit and 10-bit
+raw Bayer modes are functional.
 
-please read the commit description again, the answer is there.
+Notes:
+- 1-lane mode is currently disabled; attempts to use it produced no
+  valid image.
 
-> 
-> So, if we land these patches, how do extend it later to account for all
-> of that?
-> 
+[root@diasom-evb ~]# v4l2-compliance -u 2
+v4l2-compliance 1.28.1, 64 bits, 64-bit time_t
 
-forward looking design would be subnode, which we can land ontop of this 
-series.
+Compliance test for device /dev/v4l-subdev2:
 
->>
->> https://lore.kernel.org/all/20250627-video_cb-v3-1-51e18c0ffbce@quicinc.com/
->>
->>> later on, when it starts to affect other bits and pieces.
->>>
->>> I don't want to NAK it, but I'd strongly ask to reconsider it.
->>>
->>>>    			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
->>>>    			reset-names = "bus";
->>>>
->>>> -- 
->>>> 2.34.1
->>>>
->>>
->>
-> 
+Driver Info:
+ar0234 9-0018: =================  START STATUS  =================
+ar0234 9-0018: ==================  END STATUS  ==================
+        Driver version   : 7.1.0
+        Capabilities     : 0x00000000
+        Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+        test VIDIOC_SUDBEV_QUERYCAP: OK
+        test invalid ioctls: OK
+
+Allow for multiple opens:
+        test second /dev/v4l-subdev2 open: OK
+        test VIDIOC_SUBDEV_QUERYCAP: OK
+        test for unlimited opens: OK
+
+Debug ioctls:
+        test VIDIOC_LOG_STATUS: OK (Not Supported)
+
+Input ioctls:
+        test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+        test VIDIOC_ENUMAUDIO: OK (Not Supported)
+        test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDIO: OK (Not Supported)
+        Inputs: 0 Audio Inputs: 0 Tuners: 0
+
+Output ioctls:
+        test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+        test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+        test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+        test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+        test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+        Outputs: 0 Audio Outputs: 0 Modulators: 0
+
+Input/Output configuration ioctls:
+        test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+        test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+        test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+        test VIDIOC_G/S_EDID: OK (Not Supported)
+
+Control ioctls:
+        test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+        test VIDIOC_QUERYCTRL: OK
+        test VIDIOC_G/S_CTRL: OK
+        test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+        test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+        test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+        Standard Controls: 20 Private Controls: 0
+
+Format ioctls:
+        test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+        test VIDIOC_G/S_PARM: OK (Not Supported)
+        test VIDIOC_G_FBUF: OK (Not Supported)
+        test VIDIOC_G_FMT: OK (Not Supported)
+        test VIDIOC_TRY_FMT: OK (Not Supported)
+        test VIDIOC_S_FMT: OK (Not Supported)
+        test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+        test Cropping: OK (Not Supported)
+        test Composing: OK (Not Supported)
+        test Scaling: OK (Not Supported)
+
+Codec ioctls:
+        test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+        test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+        test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
+
+Buffer ioctls:
+        test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+        test CREATE_BUFS maximum buffers: OK
+        test VIDIOC_REMOVE_BUFS: OK
+        test VIDIOC_EXPBUF: OK (Not Supported)
+        test Requests: OK (Not Supported)
+
+Total for device /dev/v4l-subdev2: 45, Succeeded: 45, Failed: 0, Warnings: 0
+
+V1 -> V2:
+- Fixed bugs reported by sashiko-bot:
+  - [Low] The `compatible` property schema contains fatal YAML syntax errors due to missing list hyphens (`-`), resulting in invalid JSON schema constructs that will fail `dt_binding_check`.
+  - [Low] The `data-lanes` schema constraint mathematically allows 3 lanes, which contradicts the explicit 2-or-4 lane hardware requirement described in the binding.
+  - [Critical] Incorrect clamping order in crop selection bounds calculation causes unsigned integer underflow, bypassing bounds checks.
+  - [High] Incorrect validation of `pm_runtime_get_if_active()` allows execution to proceed on negative error codes, leading to a usage counter underflow.
+  - [High] Missing `v4l2_subdev_cleanup()` causes a memory leak of the subdevice active state.
+  - [High] Static hblank lower bounds permit dynamic line length reduction below the absolute hardware minimum.
+  - [High] Potential division by zero during delay calculation if the clock rate is zero.
+  - [Medium] Unlocked V4L2 control helpers are called during initialization without acquiring the control handler lock, triggering a lockdep splat.
+  - [Medium] Mixing goto-based error handling with scope-based `__free()` cleanup in the same function violates API guidelines.
+  - [Medium] Changing the crop height fails to update exposure control limits reliably.
+  - [Medium] The active format state is modified before verifying PLL configuration, leaving state inconsistent on error.
+  - [Medium] Unlocked access to shared format state in `ar0234_get_frame_desc`.
+  - [Low] Using `DIV_ROUND_UP` with a 64-bit numerator causes a link error on 32-bit architectures.
+
+Alexander Shiyan (2):
+  dt-bindings: media: i2c: Add onsemi AR0234 image sensor binding
+  media: i2c: Add onsemi AR0234 image sensor driver
+
+ .../bindings/media/i2c/onnn,ar0234.yaml       |  126 ++
+ drivers/media/i2c/Kconfig                     |   12 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/ar0234.c                    | 1290 +++++++++++++++++
+ 4 files changed, 1429 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+ create mode 100644 drivers/media/i2c/ar0234.c
+
+-- 
+2.52.0
 
