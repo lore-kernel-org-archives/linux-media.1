@@ -1,169 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5354480DCB;
-	Fri,  7 Aug 2026 15:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFAAD3750A9
+	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 16:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786118120; cv=none; b=XldJWhRcgJ8yjcWuGJtHk/nFiSHt1iPgDE2xLcEmbSTUPKURye7uxBSrbEk5XHBNqVCuzv1f9GV8jyQhz3Rv7QenKaOvIHK+GTN1wWLfXHQXNiu6I4XZhx/SK6h9FgVzZUe2HSZmOOYYs3BjPamcU1Qiroe1RN1F64ZxXxM4zLU=
+	t=1786118528; cv=none; b=CTf3Z6AzcMOv+G0AnJJ22mpjJJhzolgdHZRjXk3iPciMY9dOWaOxO8KlRvCCGPBTiCVv0D1NZsJdcKYAxGcBiTn94m+rHBHVto0rJBiamhmDExacrWPCX0GRX8TTCnf25IALCp7aT4IRIDbf9oVoCDFeIXh8/y54modPIWvpNbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786118120; c=relaxed/simple;
-	bh=e21mAeQTUMlhRFf5ezwrR2Qw0RlmiJRWQ3qNZC4OuH0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UybzIgvfuSBQ/FJ9LOv8soLozjkx+ozR97U0KIwERxgkoIBIjSsaLycbdwsID9eGitAq2ZdfsczZyWej5HeJmaj/RTPNnomPQKU8LXZGXSbtXQPmYkNFUv/e8Tz8sYYzQZgvZlBT2pk5JV98N2TKwdyTIm0f+6GfMh71laYG68Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAc7ypy7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786118528; c=relaxed/simple;
+	bh=EM4Vhda4iANKw4zH1mLVyegOjLPWicuTh1IS7OIaYHg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FgX97otrLlTv48CSMcB1tgDEGtqMWyKEX+bjwp7kVwh3dZZE2MhRjTt0LQ0e6sCbssWgZdkUjCt2FJCfnG+WSjmtL/rHTy2BJLl9ZWDd2FavgURckgsPtj9AJtQO23j5VGY9VDMgec75GHrJhlSHTHr03BFfS/CCpfL0W8x6tus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tcf1Skyn; arc=none smtp.client-ip=209.85.214.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAc7ypy7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC6A61F000E9;
-	Fri,  7 Aug 2026 15:55:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786118118;
-	bh=G6i7xakpX8Dwar6IEApYmKxiKoL21IvPSWS9A/gXEcg=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=TAc7ypy7uy91ocURkv9VM/VMtzRJ1CwREqZd4iBKT3JROVnFb01mez/Uwhm9yVGpN
-	 i8V2wU7wKgygYtaxlvDmpDVDt8EsK6siaBgcHkEdLsEZCJ46BS9RCX9VLXvvIA1RcK
-	 n1KgqLVkt3oOEfgydBBTeg9nwj5NFYzTLxgHLRiAN23R7QitKVmk79fE6dqzbZjFLl
-	 o9F8U9BVxffM3anm0tZpSwbFSn1sSS6DS5i0Q8LMa0B2dPWNohm6YTPmAD4jwHQmVM
-	 sGhu67Ke+TEBcBvNot6xMeM54JhEnQc4vQAwT4RzvNnNU55F5VLwqfwT5IBeeyEXnE
-	 M4YC+WGPOs0Sw==
-From: Thierry Reding <thierry.reding@kernel.org>
-Date: Fri, 07 Aug 2026 17:54:30 +0200
-Subject: [PATCH v4 10/10] arm64: tegra: Add VPR placeholder node on
- Tegra264
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tcf1Skyn"
+Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2caea3f742bso48714945ad.0
+        for <linux-media@vger.kernel.org>; Fri, 07 Aug 2026 09:02:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786118526; x=1786723326; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a53gzyAyuQlXypxOv3PMFxi0c3UAzkrW7E7a+SiDOU4=;
+        b=Tcf1Skynw9nnxphBort01LDDwlx2xUxzBW5HGrNRVDXZEDEBRin0A5FqUb1Hep8Jz2
+         LMYiNfoqeSYTd0GxaY1JNR3LqAqmW2Fmd7mrYkphmFmrgg20W/n1xmI9axviZ/Ki76Z3
+         iuvKacOJIufAat02OX6zHgfCqSsb9J/ANcSv8rfPue3bFT5E28IkiiGT9r9hXTo1pYD6
+         z5lrlTEIjpmzbj32sKsih4Q6U0Bvoh1pC2dSGfJbpCOpWkO8aZhBkfxkomRsEOYJPl2Y
+         MLjiRoB3unM4KLT4jG37gEIfXmz98JoVFHkG1M/xX84Q9O9ClGlbiduvx21aqqMss5TI
+         4z8w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786118526; x=1786723326;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a53gzyAyuQlXypxOv3PMFxi0c3UAzkrW7E7a+SiDOU4=;
+        b=PxkAY69+clI4ee8rJEqW6L5UTk+h/9Tols8w7oqdEOBE6XY/I/UYjCiFJmxcDMbRMd
+         kTRoZWzxtghRpwbICtWAR9SvkfRPct13Vsz/lt5GaWU7feyiHDNsSKapljEITTvZ/+5l
+         2RropBPY0m7k7aBXgyoEq8psuZtHOLbAifluw45TPmsKXpESNRkOuZf2Vcy1XmP8y5UN
+         2gnzKkrptGH4Z0NZQHkf/pVjQIOtnmGDpru0dFvex7tx0z4eOinjDhJW/igJKCl0jhlC
+         ZcssN3fmHXa8HvfTJi27EAKsD8pwuCEj1whaiDptzZAt9tUe7+zgTh/p+fPvqXu8owxP
+         I+TA==
+X-Gm-Message-State: AOJu0YzqFGkDmNtpTryPFdINRB+ozlN3HZirramBoVmW/cKpQijEGPzK
+	3aGwCgcH3pRezaQkT6hNVFeA7++WO1oQHBQKogXzeYnCulnzh09oBTQZ
+X-Gm-Gg: AR+sD10bf+715tpC1T7Rm1gSDiGlSj5WevIUOtkwH9LPzZuA6kwG63e6JxuaxlQZD8G
+	YMI0nHcjIdoyYrFLNoXOFTpc20POv+R1okcrhP01Dxx/BQ6UyrlBgKkWTKAkl6qqewT+bprBnQF
+	KqhtWZCnYaBbtRmLYyfJtsau3Ch5s81TeJeF0C9YzFJdSdKiKeHieqDSeGZRDqKTex8uc/1QtB+
+	evhe8feB1UVm1Br/vUg/+T0TREOV3ObbXp85WTSxvi6Vj/eKn1IRgSigQ/6u1pFLaivC5GTSZeL
+	C+JTKgpLAkn7IAySCzb87lbKaveSd3mqbIfQw3eFYtwJY4KSCfcANjTRnlJcsmmcQJe5hQAsoZ4
+	r0dePLW0B7iOXFJY/HdwmNqpIgg0CXFlW3HNYbiI+8S6y5tatDnFACQ71yI/oo0rK5Gu0gMm1ju
+	ZTLX4geJ7j1QW5BnPG0Fqfho6wxVurCAtjETBZk0MgM8n1O1KpTIZn7FV/f9ZAGkRRMnDoue+qk
+	SflicOGH+s7+VdG637fYUYeV8wo7g==
+X-Received: by 2002:a17:902:ccd1:b0:2d1:1a28:10d with SMTP id d9443c01a7336-2d11a280465mr102386685ad.18.1786118525413;
+        Fri, 07 Aug 2026 09:02:05 -0700 (PDT)
+Received: from localhost ([2401:4900:1c70:5a7c:d1d2:a457:c3e3:35a1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bebde353sm9884952eec.23.2026.08.07.09.02.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 07 Aug 2026 09:02:04 -0700 (PDT)
+From: Punnay299 <punnaysharma805@gmail.com>
+To: gregkh@linuxfoundation.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Punnay299 <punnaysharma805@gmail.com>
+Subject: [PATCH] staging: media: av7110: fix sp8870 initialization and hardware communication
+Date: Fri,  7 Aug 2026 21:31:49 +0530
+Message-ID: <20260807160149.41580-1-punnaysharma805@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260807-tegra-vpr-v4-10-5510d16af89e@nvidia.com>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
-In-Reply-To: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Sowjanya Komatineni <skomatineni@nvidia.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, 
- Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
- Russell King <linux@armlinux.org.uk>, 
- Alexander Gordeev <agordeev@linux.ibm.com>, 
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>, 
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>, 
- Christian Borntraeger <borntraeger@linux.ibm.com>, 
- Sven Schnelle <svens@linux.ibm.com>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- David Hildenbrand <david@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, 
- "Liam R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, 
- Mike Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, 
- Michal Hocko <mhocko@suse.com>, Marek Szyprowski <m.szyprowski@samsung.com>, 
- Robin Murphy <robin.murphy@arm.com>, Sumit Semwal <sumit.semwal@linaro.org>, 
- Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
- "T.J. Mercier" <tjmercier@google.com>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Steven Rostedt <rostedt@goodmis.org>, 
- Masami Hiramatsu <mhiramat@kernel.org>, 
- Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Chun Ng <chunn@nvidia.com>
-Cc: Thierry Reding <thierry.reding@gmail.com>, devicetree@vger.kernel.org, 
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-s390@vger.kernel.org, 
- linux-mm@kvack.org, iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org, 
- linux-trace-kernel@vger.kernel.org, Thierry Reding <treding@nvidia.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2208; i=treding@nvidia.com;
- h=from:subject:message-id; bh=Amv4qp5tX12gNsVMO5kThf6U9odepWbA842/SdJEBzY=;
- b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqdf/HprxUEDkF7YNXkuUx3mD3Wv6Omp42ATta0
- okbOTVnGuSJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCanX/xwAKCRDdI6zXfz6z
- oTzpEACqvEWstLuzYaAPJDeIP3lR2uFYwKEtVCmeV8hHU/eQlcRERFHPgVJkx3ul/gh0GpGqpgS
- A0I5u8OVTzyn/6T334TyhKeK7V9sXxOEitUpKQOWg+3mltay5WBq9Y9JlPffkH6k75ysySB7jEH
- vHQwMIYq9rigJMZF//LFimhtQSZGp029lTxH3Hzyffe6qTBHlkPGBl2/FkIs9M4Mo2iHW0570kc
- +gLMw33NycSpoR0dK8KCY9g4ypDp2jneqDNzHSu/lVDqVD7mCWG3Tc/OaD8Uk8RGHegrUdNUuuz
- K51HXP7iMjyJ5eSX3fjprfmzpdgPd+ksntEacG7XFMt7hdrjQxRD9fG/xgsNyS8isxdSHuEDImQ
- 3u9yj/6OXOOyFRCPcejWzS1efdAo3+pUe/pAIukmzk5HTo3r/wx41sAGS2qNLwl0ZU5SgkJ2Du2
- Mm32mnY1iKAVKI7xqkIR0osPAlSahomBfoHcAgtqydpeBNz9PbdP147LEvKw3lo4+J/5kY0lTvD
- RCrTASguilnGOPdOLD+axzj624w7lhWauT+/pw7nbDUFMBDrjFDoIVJAnEpfVh3rEt6d1eEc8vo
- AiZrARs8IJVMHXsQgzypvz7SSdoo4KZzNMdZ4+rdCcrLOt4anb2Rr43fki67HI7H9BR+CGDJHPA
- KmaaDqlprG0hTfg==
-X-Developer-Key: i=treding@nvidia.com; a=openpgp;
- fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
+Content-Transfer-Encoding: 8bit
 
-From: Thierry Reding <treding@nvidia.com>
+Address multiple correctness issues in the sp8870 demodulator:
+- Fix BER reporting in sp8870_read_ber() by correctly ORing the upper bits.
+- Set state->initialised only after successful firmware upload in sp8870_init() to allow recovery from transient I2C failures.
+- Catch partial I2C transfers (err == 0) in sp8870_firmware_upload() and return -EREMOTEIO to prevent silent firmware corruption.
 
-This node contains two sets of properties, one for the case where the
-VPR is resizable (in which case the VPR region will be dynamically
-allocated at boot time) and another case where the VPR is fixed in size
-and initialized by early firmware.
-
-The firmware running on the device is responsible for updating the node
-with the real physical address for the fixed VPR case and remove the
-properties needed only for resizable VPR. Similarly, if the VPR is
-resizable, the firmware should remove the "reg" property since it is no
-longer needed.
-
-Signed-off-by: Thierry Reding <treding@nvidia.com>
+Signed-off-by: Punnay299 <punnaysharma805@gmail.com>
 ---
-Changes in v3:
-- comment out fixed VPR properties, assume resizable by default
-- rename node to "protected"
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 33 ++++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+ drivers/staging/media/av7110/sp8870.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 31bd29df8e46..b3a8ea64aa37 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -24,6 +24,39 @@ shmem_bpmp: shmem@86070000 {
- 			reg = <0x0 0x86070000 0x0 0x2000>;
- 			no-map;
- 		};
-+
-+		vpr: protected {
-+			compatible = "nvidia,tegra-video-protection-region";
-+			status = "disabled";
-+
-+			/*
-+			 * Two variants exist for this. For fixed VPR, the
-+			 * firmware is supposed to update the "reg" property
-+			 * with the fixed memory region configured as VPR.
-+			 *
-+			 * For resizable VPR we don't care about the exact
-+			 * address and instead want a reserved region to be
-+			 * allocated with a certain size and alignment at
-+			 * boot time.
-+			 *
-+			 * The below assumes resizable VPR by default. If the
-+			 * firmwares sets up fixed VPR, it is responsible for
-+			 * adding the missing "reg" property, removing any of
-+			 * the unused properties, as well as adding a unit-
-+			 * address matching the "reg" property.
-+			 */
-+
-+			/* fixed VPR */
-+			/*
-+			reg = <0x0 0x0 0x0 0x0>;
-+			no-map;
-+			*/
-+
-+			/* resizable VPR */
-+			size = <0x0 0x70000000>;
-+			alignment = <0x0 0x100000>;
-+			reusable;
-+		};
- 	};
+diff --git a/drivers/staging/media/av7110/sp8870.c b/drivers/staging/media/av7110/sp8870.c
+index 29fb4934c..def2a7f0c 100644
+--- a/drivers/staging/media/av7110/sp8870.c
++++ b/drivers/staging/media/av7110/sp8870.c
+@@ -68,7 +68,8 @@ static int sp8870_writereg(struct sp8870_state *state, u16 reg, u16 data)
  
- 	/* SYSTEM MMIO */
-
+ 	err = i2c_transfer(state->i2c, &msg, 1);
+ 	if (err != 1) {
+-		dprintk("writereg error (err == %i, reg == 0x%02x, data == 0x%02x)\n", err, reg, data);
++		dprintk("writereg error (err == %i, reg == 0x%02x, data == 0x%02x)\n",
++			err, reg, data);
+ 		return -EREMOTEIO;
+ 	}
+ 
+@@ -135,7 +136,7 @@ static int sp8870_firmware_upload(struct sp8870_state *state, const struct firmw
+ 		if (err != 1) {
+ 			pr_err("%s(): firmware upload failed!\n", __func__);
+ 			pr_err("%s(): i2c error (err == %i)\n", __func__, err);
+-			return err;
++			return err < 0 ? err : -EREMOTEIO;
+ 		}
+ 		fw_pos += tx_len;
+ 	}
+@@ -315,7 +316,6 @@ static int sp8870_init(struct dvb_frontend *fe)
+ 	sp8870_wake_up(state);
+ 	if (state->initialised)
+ 		return 0;
+-	state->initialised = 1;
+ 
+ 	dprintk("initialising frontend...\n");
+ 
+@@ -353,6 +353,8 @@ static int sp8870_init(struct dvb_frontend *fe)
+ 	sp8870_writereg(state, 0x0D00, 0x010);
+ 	sp8870_writereg(state, 0x0D01, 0x000);
+ 
++	state->initialised = 1;
++
+ 	return 0;
+ }
+ 
+@@ -401,7 +403,7 @@ static int sp8870_read_ber(struct dvb_frontend *fe, u32 *ber)
+ 	if (ret < 0)
+ 		return -EIO;
+ 
+-	tmp = ret << 6;
++	tmp |= ret << 6;
+ 	if (tmp >= 0x3FFF0)
+ 		tmp = ~0;
+ 
+@@ -511,7 +513,8 @@ static int sp8870_set_frontend(struct dvb_frontend *fe)
+ 		if (valid) {
+ 			if (trials > 1) {
+ 				pr_info("%s(): firmware lockup!!!\n", __func__);
+-				pr_info("%s(): recovered after %i trial(s))\n",  __func__, trials - 1);
++				pr_info("%s(): recovered after %i trial(s))\n",
++					__func__, trials - 1);
+ 				lockups++;
+ 			}
+ 		}
+@@ -530,7 +533,8 @@ static int sp8870_sleep(struct dvb_frontend *fe)
+ 	return sp8870_writereg(state, 0xC18, 0x000);
+ }
+ 
+-static int sp8870_get_tune_settings(struct dvb_frontend *fe, struct dvb_frontend_tune_settings *fesettings)
++static int sp8870_get_tune_settings(struct dvb_frontend *fe,
++				    struct dvb_frontend_tune_settings *fesettings)
+ {
+ 	fesettings->min_delay_ms = 350;
+ 	fesettings->step_size = 0;
 -- 
-2.54.0
+2.55.0
 
