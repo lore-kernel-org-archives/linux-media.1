@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8E1F42902A
-	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 12:25:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5918347124B
+	for <linux-media@vger.kernel.org>; Fri,  7 Aug 2026 12:25:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786105546; cv=none; b=pVVqgEoigruN1JfD/0Kh9kWE/hgiUXUS5n9qtkjtCv2XVSMTvazszBiy7s/WbAF156e7IaqNo4O+bsWJll8/lnQ06dYNBE9pRklxnlzUXAGjDBj2cPAFUs4KMbhdZK7qclNo3D3j9whTOQge8FFMS3AXSf0gi8xOZTdjFXAtqOM=
+	t=1786105564; cv=none; b=QcTQk81Yo+ih4vQpkrnqnqqiNSeZn5818RH/w8yi8/gfZ36/vIHDl82KeMPGVmjxA71vpfeptrmyvfXEpEAezA6qqm1qNBtwBGhK0zKHkFcYU2+4Mn71SqakSKabouzMBypP/SM3rcl7qYZwLt0c/Ycen0ELkmJ7XGtDI1A3kTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786105546; c=relaxed/simple;
-	bh=mP+pU31vWmV604j8n8+fvf/g9c6lMcP0exh3bPVYUkk=;
+	s=arc-20240116; t=1786105564; c=relaxed/simple;
+	bh=ueWCU3eDJiVaVAgvKLbqy56e6vGFBfnLjhweC5ozo6c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hhoDbKhzivhTxmS6dymdpNnCFIxAIFMVJ6n32rK6mhf5xXD+0KJMPPt64Mp9cGmu3NX0BRs3rvDzRA7X3Vyk0OotggquY6kqKIUu+biiayEtQZAdbiPbx4VQ35mDAWDC0b2OFlCRJR2DPEWgxIyi+iytwF5HsvLjUi4vPOZsJps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSFbFimy; arc=none smtp.client-ip=198.175.65.14
+	 MIME-Version; b=saK3CI3zz3fVa2/sXph7t7eCCYim6acTlCCR0DZ3URtmv/9pOVI9kd2/aGCc5W7PiKBRrV0NVrP5spNgGrW0i78/HT9s/tik6l8peaoVAwmmR5cS7jKTZGejptaYN4gDAn0dAvmtmdx9BfN8i1gUcr+uM0b/NsWjc7VC5H+VwCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=EpbE9FXc; arc=none smtp.client-ip=198.175.65.14
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSFbFimy"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="EpbE9FXc"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786105534; x=1817641534;
+  t=1786105543; x=1817641543;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=mP+pU31vWmV604j8n8+fvf/g9c6lMcP0exh3bPVYUkk=;
-  b=VSFbFimy2kZXumJ944xL3FCBUOwBjoJO1BsyISPbhpGiDitSzLRuxGDQ
-   nHy/iNaio/Tki0iffOYewkB9zsw6HiMdOs0NGt+MLAGYZ9yISk33X57XN
-   37ey0ORYRabNl/fwqRFU6JTfsWCE9c4j77PE1PKa5QyqEj+mF6aur97v6
-   89o1EI7pbH7xFT7qXcbY1gcXUoTpiu65tBgQY5LLRep4gpB42vGWm3892
-   rzkqZhSwLsdZYg8i2gWDEBU7+ZmCibqtN2HFc6mduPJp/A8Uc1SAnP6vk
-   HqOG/61JbQeevuEkm/Na4+WgRyWv9AUzDyhBK1fGs+y7FDVQ1sxTrepjQ
-   Q==;
-X-CSE-ConnectionGUID: 6gOGz+QlTY62VKoGxolOqQ==
-X-CSE-MsgGUID: xh0IvvdcQp6iusFqeft0Nw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="90592041"
+  bh=ueWCU3eDJiVaVAgvKLbqy56e6vGFBfnLjhweC5ozo6c=;
+  b=EpbE9FXcLYfimjDssRwY87dSuW2Pq2V3zLQ9umrcpHIkNeyVTSzA+VnJ
+   5qMUoePxJEkQv9KgshRAaPA2O8H30eJEx39DChtgudmWKonTQxU7/paTC
+   riimr2TFNKphjZxkgm08seF4q7lSQB+vfcp06Da14SaPuBOqP65AO24NE
+   e1sO+tQmDZLu9SUuGu1cYD/o0c8QM6xByWGyq+i1ea7DA3IjtQW7I5z+S
+   MGjTcWyKKSHI66rTfFoCR2m3CuiTrFMbaK93LbSda5SoP+KE9kw3/8VV+
+   TQ5P8WXbzAMV/a/i2dEtzFVEHM7bFPEgNsdr8Wb13Ue13sQzTcrvHRDfE
+   w==;
+X-CSE-ConnectionGUID: qkJlDQ7XSma1Oajd+4uHQQ==
+X-CSE-MsgGUID: BOgM9DPFT9yCKuioGdDhPw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11867"; a="90592051"
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="90592041"
+   d="scan'208";a="90592051"
 Received: from fmviesa008.fm.intel.com ([10.60.135.148])
   by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:24:37 -0700
-X-CSE-ConnectionGUID: ahIG2mHLSu2/uUAyrBl9hw==
-X-CSE-MsgGUID: TTGG0UtTRsWzyKTYLO+aVg==
+X-CSE-ConnectionGUID: PUjTBZDbTFO8dNn2bAOwgA==
+X-CSE-MsgGUID: kOQzCh5tTWqEjMJEpeutmg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,210,1779174000"; 
-   d="scan'208";a="259779687"
+   d="scan'208";a="259779689"
 Received: from ijarvine-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.179])
   by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Aug 2026 05:24:31 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id ABED8121CE2;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B7D55121CEF;
 	Fri, 07 Aug 2026 15:24:20 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wsJcP-00000000BwC-3SZP;
+	id 1wsJcP-00000000BwP-3fpl;
 	Fri, 07 Aug 2026 15:24:09 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -80,9 +80,9 @@ Cc: hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: [PATCH v7 10/14] media: v4l2-subdev: Don't assign set_fmt where it's equivalent to get_fmt
-Date: Fri,  7 Aug 2026 15:24:05 +0300
-Message-ID: <20260807122409.45807-11-sakari.ailus@linux.intel.com>
+Subject: [PATCH v7 13/14] media: cvs: Drop comments on sub-device operations
+Date: Fri,  7 Aug 2026 15:24:08 +0300
+Message-ID: <20260807122409.45807-14-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
 References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
@@ -94,92 +94,157 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Do not assign the set_fmt() pad op where it is the same as get_fmt(). The
-get_fmt() pad op is called by the framework now in absence of set_fmt()
-op.
+The sub-device operations are well documented in the V4L2 sub-device
+framework already. Drop them from the CVS driver.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 ---
- drivers/media/i2c/ak881x.c                | 1 -
- drivers/media/i2c/gc0310.c                | 1 -
- drivers/media/i2c/rdacm20.c               | 1 -
- drivers/media/i2c/rdacm21.c               | 1 -
- drivers/media/i2c/tvp5150.c               | 1 -
- drivers/staging/media/max96712/max96712.c | 1 -
- 6 files changed, 6 deletions(-)
+ drivers/media/i2c/cvs/v4l2.c | 82 ------------------------------------
+ 1 file changed, 82 deletions(-)
 
-diff --git a/drivers/media/i2c/ak881x.c b/drivers/media/i2c/ak881x.c
-index cea46f01997d..4cedfc2d4136 100644
---- a/drivers/media/i2c/ak881x.c
-+++ b/drivers/media/i2c/ak881x.c
-@@ -216,7 +216,6 @@ static const struct v4l2_subdev_video_ops ak881x_subdev_video_ops = {
- static const struct v4l2_subdev_pad_ops ak881x_subdev_pad_ops = {
- 	.enum_mbus_code = ak881x_enum_mbus_code,
- 	.get_selection	= ak881x_get_selection,
--	.set_fmt	= ak881x_fill_fmt,
- 	.get_fmt	= ak881x_fill_fmt,
- };
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
+index 9fadca7a3bee..33c5393ee8d2 100644
+--- a/drivers/media/i2c/cvs/v4l2.c
++++ b/drivers/media/i2c/cvs/v4l2.c
+@@ -71,19 +71,6 @@ static int csi_set_link_cfg(struct icvs *ctx, u64 link_freq)
+  * Streaming
+  */
  
-diff --git a/drivers/media/i2c/gc0310.c b/drivers/media/i2c/gc0310.c
-index 754e82ad50ae..f2c381602d18 100644
---- a/drivers/media/i2c/gc0310.c
-+++ b/drivers/media/i2c/gc0310.c
-@@ -537,7 +537,6 @@ static const struct v4l2_subdev_pad_ops gc0310_pad_ops = {
- 	.enum_mbus_code = gc0310_enum_mbus_code,
- 	.enum_frame_size = gc0310_enum_frame_size,
- 	.get_fmt = v4l2_subdev_get_fmt,
--	.set_fmt = v4l2_subdev_get_fmt, /* Only 1 fixed mode supported */
- 	.get_selection = gc0310_get_selection,
- 	.set_selection = gc0310_get_selection,
- 	.enable_streams = gc0310_enable_streams,
-diff --git a/drivers/media/i2c/rdacm20.c b/drivers/media/i2c/rdacm20.c
-index 52e8e2620b4d..0179508626b5 100644
---- a/drivers/media/i2c/rdacm20.c
-+++ b/drivers/media/i2c/rdacm20.c
-@@ -442,7 +442,6 @@ static const struct v4l2_subdev_video_ops rdacm20_video_ops = {
- static const struct v4l2_subdev_pad_ops rdacm20_subdev_pad_ops = {
- 	.enum_mbus_code = rdacm20_enum_mbus_code,
- 	.get_fmt	= rdacm20_get_fmt,
--	.set_fmt	= rdacm20_get_fmt,
- };
+-/**
+- * cvs_csi_enable_streams - Start streaming through the bridge
+- * @sd: Sub-device pointer
+- * @state: Active state
+- * @pad: Pad identifier (must be ICVS_CSI_PAD_SOURCE)
+- * @streams_mask: Streams to enable (bit 0 supported)
+- *
+- * Runtime-resumes the bridge (triggering cvs_runtime_resume() to claim CSI-2
+- * link ownership), fetches the link frequency, programs the MIPI configuration,
+- * and forwards the enable request downstream.
+- *
+- * Return: 0 on success or negative errno.
+- */
+ static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
+ 				  struct v4l2_subdev_state *state,
+ 				  u32 pad, u64 streams_mask)
+@@ -129,19 +116,6 @@ static int cvs_csi_enable_streams(struct v4l2_subdev *sd,
+ 	return ret;
+ }
  
- static const struct v4l2_subdev_ops rdacm20_subdev_ops = {
-diff --git a/drivers/media/i2c/rdacm21.c b/drivers/media/i2c/rdacm21.c
-index ece8a410e7ce..68d2b9d83c3c 100644
---- a/drivers/media/i2c/rdacm21.c
-+++ b/drivers/media/i2c/rdacm21.c
-@@ -322,7 +322,6 @@ static const struct v4l2_subdev_video_ops rdacm21_video_ops = {
- static const struct v4l2_subdev_pad_ops rdacm21_subdev_pad_ops = {
- 	.enum_mbus_code = rdacm21_enum_mbus_code,
- 	.get_fmt	= rdacm21_get_fmt,
--	.set_fmt	= rdacm21_get_fmt,
- };
+-/**
+- * cvs_csi_disable_streams - Stop streaming through the bridge
+- * @sd: Sub-device pointer
+- * @state: Active state
+- * @pad: Pad identifier (must be ICVS_CSI_PAD_SOURCE)
+- * @streams_mask: Streams to disable (bit 0 supported)
+- *
+- * Disables the remote sensor stream then drops the PM reference acquired
+- * during enable. After the autosuspend delay, cvs_runtime_suspend() will
+- * return CSI-2 link ownership to CVS firmware.
+- *
+- * Return: 0 on success or negative errno.
+- */
+ static int cvs_csi_disable_streams(struct v4l2_subdev *sd,
+ 				   struct v4l2_subdev_state *state,
+ 				   u32 pad, u64 streams_mask)
+@@ -167,15 +141,6 @@ static int cvs_csi_disable_streams(struct v4l2_subdev *sd,
+ /*
+  * Pad operations / formats
+  */
+-/**
+- * cvs_csi_init_state - Initialize pad formats in subdev state
+- * @sd: Sub-device
+- * @state: State container
+- *
+- * Sets all pad formats to a minimal 1x1 default.
+- *
+- * Return: 0.
+- */
+ static int cvs_csi_init_state(struct v4l2_subdev *sd,
+ 			      struct v4l2_subdev_state *state)
+ {
+@@ -186,17 +151,6 @@ static int cvs_csi_init_state(struct v4l2_subdev *sd,
+ 	return 0;
+ }
  
- static const struct v4l2_subdev_ops rdacm21_subdev_ops = {
-diff --git a/drivers/media/i2c/tvp5150.c b/drivers/media/i2c/tvp5150.c
-index 9c204f38935d..5b92424a0148 100644
---- a/drivers/media/i2c/tvp5150.c
-+++ b/drivers/media/i2c/tvp5150.c
-@@ -1724,7 +1724,6 @@ static const struct v4l2_subdev_vbi_ops tvp5150_vbi_ops = {
- static const struct v4l2_subdev_pad_ops tvp5150_pad_ops = {
- 	.enum_mbus_code = tvp5150_enum_mbus_code,
- 	.enum_frame_size = tvp5150_enum_frame_size,
--	.set_fmt = tvp5150_fill_fmt,
- 	.get_fmt = tvp5150_fill_fmt,
- 	.get_selection = tvp5150_get_selection,
- 	.set_selection = tvp5150_set_selection,
-diff --git a/drivers/staging/media/max96712/max96712.c b/drivers/staging/media/max96712/max96712.c
-index 0751b2e04895..94ae304ac85f 100644
---- a/drivers/staging/media/max96712/max96712.c
-+++ b/drivers/staging/media/max96712/max96712.c
-@@ -264,7 +264,6 @@ static const struct v4l2_subdev_internal_ops max96712_internal_ops = {
+-/**
+- * cvs_csi_set_fmt - Negotiate pad format
+- * @sd: Sub-device
+- * @state: State
+- * @format: Desired / returned format
+- *
+- * Mirrors sink format onto source pad. Accepts many media bus codes, falling
+- * back to Y8 if unsupported. Normalizes field setting.
+- *
+- * Return: 0.
+- */
+ static int cvs_csi_set_fmt(struct v4l2_subdev *sd,
+ 			   struct v4l2_subdev_state *state,
+ 			   struct v4l2_subdev_format *format)
+@@ -319,17 +273,6 @@ static int cvs_csi_set_fmt(struct v4l2_subdev *sd,
+ 	return 0;
+ }
  
- static const struct v4l2_subdev_pad_ops max96712_pad_ops = {
- 	.get_fmt = v4l2_subdev_get_fmt,
--	.set_fmt = v4l2_subdev_get_fmt,
- };
+-/**
+- * cvs_csi_get_mbus_config - Provide current CSI-2 bus configuration
+- * @sd: Sub-device
+- * @pad: Pad index
+- * @cfg: Returned bus config
+- *
+- * Fills lane ordering and number of lanes; retrieves link frequency from
+- * remote entity.
+- *
+- * Return: 0 on success or negative errno.
+- */
+ static int cvs_csi_get_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
+ 				   struct v4l2_mbus_config *cfg)
+ {
+@@ -384,17 +327,6 @@ static const struct media_entity_operations cvs_csi_entity_ops = {
+ /*
+  * Async notifier
+  */
+-/**
+- * cvs_csi_notify_bound - Remote sensor bound callback
+- * @notifier: Async notifier
+- * @sd: Remote subdev
+- * @asc: Async match connection
+- *
+- * Locates the source pad of the remote sensor and creates a media link to
+- * the CVS bridge sink pad enabling it by default.
+- *
+- * Return: 0 on success or negative errno.
+- */
+ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_subdev *sd,
+ 				struct v4l2_async_connection *asc)
+@@ -414,12 +346,6 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				     MEDIA_LNK_FL_IMMUTABLE);
+ }
  
- static const struct v4l2_subdev_ops max96712_subdev_ops = {
+-/**
+- * cvs_csi_notify_unbind - Remote sensor unbind callback
+- * @notifier: Notifier
+- * @sd: Remote subdev
+- * @asc: Connection
+- */
+ static void cvs_csi_notify_unbind(struct v4l2_async_notifier *notifier,
+ 				  struct v4l2_subdev *sd,
+ 				  struct v4l2_async_connection *asc)
+@@ -437,14 +363,6 @@ static const struct v4l2_async_notifier_operations cvs_csi_notify_ops = {
+ /*
+  * Controls
+  */
+-/**
+- * cvs_csi_init_controls - Initialize V4L2 controls
+- * @ctx: CVS context
+- *
+- * Currently sets up a read-only privacy control placeholder.
+- *
+- * Return: 0 on success or negative errno.
+- */
+ static int cvs_csi_init_controls(struct icvs *ctx)
+ {
+ 	struct v4l2_ctrl *privacy_ctrl;
 -- 
 2.47.3
 
