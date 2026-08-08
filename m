@@ -1,157 +1,127 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEB1240FD86;
-	Sat,  8 Aug 2026 12:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AEE1E2834
+	for <linux-media@vger.kernel.org>; Sat,  8 Aug 2026 15:08:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786192969; cv=none; b=c9wTgK35Uy20hoxuscjKOhhr/4/0xVNZXzQLXVfLwmo0LjNF55KGaWP5oLG1kfDMpSOSfiuX13H2NwfuxO74oxzkw7dKX5Kq5Xq20t+hBWOlhxRdE0jbE8V62X+jLTLXbN5nMBrkrNdYMArLKjvPl6mmmWVk+0bFs/RLH7caigU=
+	t=1786201733; cv=none; b=EcNNEBYOqUt5zRwWCA8FAWaHCAbgmFGR0f6RTWMomjqcMBqQMTc8fva6UEdQXzYcCniw+y8CEatcidmgtjm0akjMxTwdLKrDTfzeopK2tzMeK1EG4qkZOqTGwjD1dyNJ3LMypRDCdMG1TeJkZIjHQUFpFt7nj+NXvU52iWMAuZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786192969; c=relaxed/simple;
-	bh=mUoCsQbdGafhK4yw2jR4QnJOvGmcxW/iciqw7nDsy4w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q3nToAFvyTxSPkNmp16SnRKPvUI5oWuTwhKahCmqjxAor0rA/eS/jhCjw3FGesX1ckbqzU5O79O9YriAsbzduk9UwXFrFjowmQg40zeJKcdZ0JiRhPLfdsKAOj2P/RpvZlQum1mHdTbXa9otVwILk0kZmoItsCUyJJ3ltTJ4QhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=p8HnxdkJ; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YogH5M5s; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1786201733; c=relaxed/simple;
+	bh=B///jw+Sio/CEZUlXYcAgc4i5QJz1XbwZfwYvidho5M=;
+	h=Message-ID:Date:To:Cc:MIME-Version:Content-Type:From:Subject; b=EbdGIp5ir+vVLKkuiBXryHq0gXk9iiq0D15OkCAesFsqWkC6MxweVHhPMzt09ydiaXWEuwr/d+RhzQZMJi918Y4NUE0Ly4qMJapbYFMeAE2UR9gpuSAdZIt+O2/jMn36Gb6FhgjS9W4gnGXr8eBlcwdzTf01XKQlTda0KJXypD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P+JLkQGQ; arc=none smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="p8HnxdkJ";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YogH5M5s"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1786192936; bh=TjAyu7WMvcZuDZqJUV1+hYw
-	J+wJ5yyIqrRwvxBioKoY=; b=p8HnxdkJZuyhBMDuOM4SHLcKMWv7MMm9U9+onZ5spIGd/5+Dzh
-	rj6bF6NJ7pVtVMPCWuhkgIi00Nfb2Wu/fDtHERkQK7VbKDywsNRbpCw1mh+ADevpjpqqpO9+iCC
-	ir5/omBAKAhQlJM0S0z3Tg2ctfkLyFRX4UWK98CPTz6ZA8cpSzhM5yG5GnRjTsnU3PmPSL5BA+0
-	+7LoR5jUU9wBD3jg+yZfivjogpmzja5UFvKWTHwbNxp1X/kXmhWGtBWuq6cc1lNTYK1oOvVx4aF
-	UfyTiBV7zLXy5W0+eVzHWjuiNpXkiR1StvmiwMdysZDKIJVbIdnwAl+u0a1Fec8qTGA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1786192936; bh=TjAyu7WMvcZuDZqJUV1+hYw
-	J+wJ5yyIqrRwvxBioKoY=; b=YogH5M5sluQPKiHkxYCk2luSzfxl7vez0uESXE+opRQNm1l9Th
-	JUmKPJyj+ym/5lEQQ3SKlJt8rWdEOwEWooBA==;
-Message-ID: <dc1040f9-0ffc-4e64-a154-ece99b16eea5@mainlining.org>
-Date: Sat, 8 Aug 2026 15:42:14 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P+JLkQGQ"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2cf6d65d8a7so7701765ad.0
+        for <linux-media@vger.kernel.org>; Sat, 08 Aug 2026 08:08:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786201731; x=1786806531; darn=vger.kernel.org;
+        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
+         :to:date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xrJoFcJRcNN7a4wuSEk0P7pO/7NYaaMRF1MmKxQ8zlc=;
+        b=P+JLkQGQr4uuxspxmF+T2aP6d9oHVIoZ1iHd3QAZLjCYgT3ZY/DvaZ4mJRpGZJTjtw
+         Ai0DP6fXGcrQmS9ic0l4I7tkLmlPtSKZe+7s3AdAe1rH5OsIUeYi7N9AdRDUL2IbIhNr
+         UnvE9jYmHlMLJSSEUos0WWk83DKdxxx2nPvFHmRO+wznb6ea3g0FhevO7eOBdy90xZdk
+         wK41RqhbHL4SwgQWXr202uduuV5gIP/0wFXFnB4DKE90D7DhxJLjEOipKZDXyCGJmwKE
+         D3ak1JBKzsjb84QJat/ipLVB/S9t2UBPAGkAgxjAvrUR87qXQqQ6lW0Q1V4JLqyGj9U3
+         zBOw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786201731; x=1786806531;
+        h=subject:from:content-transfer-encoding:content-type:mime-version:cc
+         :to:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=xrJoFcJRcNN7a4wuSEk0P7pO/7NYaaMRF1MmKxQ8zlc=;
+        b=GuABf1bzv/UwSPGUq77a+9Dd+iwmngEVbO8oKTf2c6wyO/ndEGCEsc5aXE0csXQLLw
+         S+4ryybpbA4DyFD7OvBmwgDpWYQBOBj9kZVi+KWcMC7fIEmhvBBi6bYRdZEbfayP8Y23
+         P81M58htoBG26qICDCk/M+HclZQ/mttblD3n2pmez6S6zUnaTzCcG88nE7e2sbPan7kE
+         zFhIPKFZkGiDv40h6QTm0Jncgm+F6jXMw/Avo8DR4ZnIF6el5N9SAGUaZa5gxynivDLk
+         ZvT69jjCbN8pFws/x4rylkFyXTyVv+JfrRatr/ljgFZwu3jlLtou0OjE6h2K322fLIdo
+         S81A==
+X-Forwarded-Encrypted: i=1; AHgh+RplR6yqjf8tKC6qh92xzxMiyN8q9A6aIsGlq9bjs5HgWZ1e/Damx5Ppbumlg4I/DbRhO4KSrvBUUAzdJg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIlwyCUnDE04Ki7ZcZHZ2nY2VwZKWYYAgXDixM0U98z2aNNvxE
+	QIYj3s/mrxRP7wb4U7Eui67OdProFPgMHnYGgyxdUNBEyIxM1uplyhaB
+X-Gm-Gg: AR+sD11i2ztg0J5HINzQMeq/6loJLKNc+g9iG16ubjg7Im6MoCzfgXEohAZZaoGjbjt
+	s0pLzgUYOIYzehi3MSgjXCzOqoG5JSf96ZtJxwLXCpIRLH9tRjJWgoFp60TmXLSYByCD+QTg6hc
+	/8Zp8+FSxvESKwG60F3wSzCB4AhbuGNYOOB3yv3pGsiN0RMCKnJ661dXU38Sz3rwUfQztl96jB+
+	QLfuW4ymXOC5JisAb8yUW5SniJEDR5I/+zDwIXf33gbDtoLUZ1EAYCisBN01dopWQJk78r2o4xo
+	x/lLP4SoHPHkcd1wYha8ZaIaKyWg7dJgOku8V15GDlBTZKjIs6FMlXUGM6ubuS8w+L8xNkhQCMU
+	uKxn/ULHFPKiplQqQsX8Jgpwk3ibHs8YZpdOy1nGUgEJ2ILo9cUd/2QS1sHdsvr9uJG8lIsSWQH
+	otSwCEh5AVf7wd3ZF9yyVZFWxQeismi6Xz4J855iBA8ykvgyE0RTQvR20SYV3eNqszfyJBFfRzJ
+	q+usOxDkXFVUG9QTBVVveEICesKeos=
+X-Received: by 2002:a17:903:f90:b0:2c9:b2c1:13ec with SMTP id d9443c01a7336-2d294c225a1mr145556715ad.11.1786201730777;
+        Sat, 08 Aug 2026 08:08:50 -0700 (PDT)
+Received: from hws_send.eml (114-47-78-137.dynamic-ip.hinet.net. [114.47.78.137])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d14dbeaad6sm19213225ad.51.2026.08.08.08.08.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 08 Aug 2026 08:08:50 -0700 (PDT)
+Message-ID: <20260808230846.12232.alvinhuang0603@gmail.com>
+Date: Sat, 08 Aug 2026 23:08:46 +0800
+To: Ben Hoff <hoff.benjamin.k@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFT 2/3] media: i2c: dw9719: Add DW9800W support
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Luca Weiss <luca.weiss@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Daniel Scally <dan.scally@ideasonboard.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Eugene Lepshy <fekz115@gmail.com>,
- Vasiliy Doylov <neko@altlinux.org>, Achill Gilgenast <achill@achill.org>,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801-dw9800w-clean-v1-0-38978de67963@mainlining.org>
- <20260801-dw9800w-clean-v1-2-38978de67963@mainlining.org>
- <anGlY_kwp_I-fRnz@kekkonen.localdomain>
- <f7cae569-0c51-41fe-92ab-f29311a22761@mainlining.org>
- <anMeoKP6rUlgtKyR@kekkonen.localdomain>
- <3554d8d1-65f7-4556-8b99-1c03e0cdca53@fairphone.com>
-Content-Language: en-US
-From: Danila Tikhonov <danila@mainlining.org>
-In-Reply-To: <3554d8d1-65f7-4556-8b99-1c03e0cdca53@fairphone.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+From: Hao-Qun Huang <alvinhuang0603@gmail.com>
+Subject: [PATCH] media: hws: Wait for IRQ handler before returning buffers
 
-Hi Griffin, Sakari,
+hws_stop_streaming() disables capture and then collects the active and
+queued buffers straight away. Clearing cap_active and setting
+stop_requested only stops a VDONE handler that has not checked them
+yet; one already running on another CPU has passed those checks and
+cannot be recalled.
 
-Thank you for the clarification.
+That handler snapshots v->active into a local pointer and drops
+irq_lock before it touches the buffer, so stop_streaming can run in
+between. Without a next_prepared buffer both paths complete the same
+buffer, and the second vb2_buffer_done() hits the WARN_ON for a buffer
+that is no longer active. With a next_prepared buffer the snapshot is
+the only remaining reference to the old active buffer, so
+stop_streaming returns without it and vb2 reports "stop_streaming
+operation is leaving buffer %u in active state" before completing it
+with an error.
 
-On 07/08/2026 17:30, Griffin Kroah-Hartman wrote:
-> Hello Sakari, Danilla,
->
-> On 05/08/2026 13:29, Sakari Ailus wrote:
->> Hi Danila, Griffin,
->>
->> On Tue, Aug 04, 2026 at 09:27:01PM +0300, Danila Tikhonov wrote:
->>> Hi Sakari,
->>>
->>> Thank you for your comment.
->>>
->>> On 04/08/2026 11:40, Sakari Ailus wrote:
->>>> Hi Danila,
->>>>
->>>> Thank you for the patch.
->>>>
->>>> On Sat, Aug 01, 2026 at 09:04:15PM +0300, Danila Tikhonov wrote:
->>>>> The DW9800W uses the same chip ID and register layout as the DW9800K,
->>>>> but requires different default VCM frequency value.
->>>> Is this a real difference between the two models or what fits for the
->>>> attached lens? Too bad the datasheet isn't publicly available. :-(
->>>>
->>>> At least the differing default and constraints for 
->>>> dongwoon,vcm-prescale
->>>> needs to be documented in bindings.
->>> I share your skepticism and have essentially the same concerns. Since I
->>> do not have the DW9800K datasheet, I cannot say with certainty how it
->>> differs from the DW9800W.
->> Indeed. The limits should have been added for dw9800k, too, but I 
->> guess I
->> missed this in review. :-\
->>
->>> In particular, the parameter referred to as the VCM frequency in the
->>> driver is used to derive the SACT value. For the DW9800W, SACT[5:0]
->>> defines the actuator resonance period in SAC mode and the one-step
->>> period in LSC mode. The datasheet gives the corresponding formulas as:
->>> - tVIB = 6.3 ms + SACT * 0.1 ms
->>> - LSC 1-step period = 252 µs + SACT * 4 µs
->>>
->>> Therefore, the default value may differ between the DW9800K and DW9800W
->>> if the formulas or timing characteristics used to calculate SACT are
->>> different.
->> Griffin, would you be able to comment this?
->
-> After checking on my side, DW9800W and K are almost identical in both 
-> structure
-> and register values, including how tVIB and tLSC are calculated, 
-> DW9800K has an extra
-> register that can change the output current to 130mA but we don't ever 
-> use that.
->
-> We didn't have a datasheet when working on the DW9800k so we had to go 
-> off of
-> the downstream driver during runtime to get our register values. The 
-> datasheet is a
-> much more reliable source to be using for this instead.
->
-> My colleague has already identified ways to fix the bindings, which we 
-> will
-> tackle ourselves.
->
-I'm glad you were able to clarify the situation, as this should help us
-handle both IC variants correctly.
->> Another matter: the comment on dw9800k says there's no device ID. So is
->> there a device ID that wasn't just checked earlier or is there really no
->> device ID?
->
-> Indeed, it turns out the DW9800K DOES have an info register, which 
-> should be
-> 0xEB, that's on us for not updating it after we received more 
-> documentation.
->
-Given this, and assuming everyone agrees, I think it would make sense
-for me to leave the DW9800K untouched in the next version of this patch
-series. Since it turns out that the DW9800K has a different Chip ID, you
-can fix the Chip ID check for it separately based on the information you
-have.
+Either way the driver breaks the vb2 rule that stop_streaming has to
+give back every buffer it owns before it returns.
 
-One point is still unclear to me, though: is the default VCM frequency
-the same for both ICs, or does it differ between them?
+Wait for the handler once the hardware is disabled and before the
+buffers are collected. The live mode change and the channel cleanup
+paths already do this around the same collect helper.
 
-> Thanks for drawing our attention to this! Nice patch.
->
-> Griffin
->
+Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
 ---
-Best regards,
-Danila
+Found by code inspection; I do not have an HWS card, so this is not
+reproduced on hardware. What convinced me is the asymmetry inside the
+driver itself: the live mode change path calls synchronize_irq() before
+the same hws_video_collect_done_locked() helper, and hws_stop_streaming()
+does not.
+
+ drivers/media/pci/hws/hws_video.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hws_video.c
+index 18e4bc6901d3..7f7e51040926 100644
+--- a/drivers/media/pci/hws/hws_video.c
++++ b/drivers/media/pci/hws/hws_video.c
+@@ -1292,6 +1292,8 @@ static void hws_stop_streaming(struct vb2_queue *q)
+ 	WRITE_ONCE(v->stop_requested, true);
+ 
+ 	hws_enable_video_capture(v->parent, v->channel_index, false);
++	if (hws->irq >= 0)
++		synchronize_irq(hws->irq);
+ 
+ 	/* 2) Collect in-flight + queued under the IRQ lock */
+ 	spin_lock_irqsave(&v->irq_lock, flags);
+-- 
+2.43.0
+
