@@ -1,79 +1,71 @@
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 856143A2569
-	for <linux-media@vger.kernel.org>; Sun,  9 Aug 2026 04:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB8AC3C3428
+	for <linux-media@vger.kernel.org>; Sun,  9 Aug 2026 10:17:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786249628; cv=none; b=LCgyAsMvpEfYnuf58CmeLib3OHYy7dDiMv7gj6REyqGPiGfmWVaCgbALl5hT2vzs9HlqhHK21Jp0aM/PQMuPdZ95XMc8+Av7S+VB6+zKWYjJMYVULI7kt2Df6PO8s+5q7uf+bnaw4V2YgJMEaiubqflXZBp6SWyA2bjcjoIzRvA=
+	t=1786270646; cv=none; b=FJFhhmY4YG5vO4fsQkVQxa2OrHldNt1xHLl6LWFE0gqNu4Crvyei2wIOoalXXgMebdur8dTtTMrETCStWwYvua9GdyU67i6sjSqjiBeZB8AqsKIdXM+qiDjIY3cwz1znZTe+zb1jYuMCLtKBAeaG2UXA9wXXh33B1zsT8VBX8lQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786249628; c=relaxed/simple;
-	bh=3BLRNn9BFgWPIcjS83UUdtk2AE6DhPirjaUW6ukskX4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Cjl7qAG+1uPn6U2MUEWprq811oddj1hYVE0WcItZEbPmXRT/XIJGtgnvV8HPuYo2SAD3GnvGpAkY6HrlcJu4ZvcRT0xjB3ojoPav6R3ZfIbghSmmyaDnkeDSQLLNBSOcXZNf1D/1QRGgAUp+61cmiC9MjDCqWggiuBPZh6+X8iQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dI65B5kF; arc=none smtp.client-ip=209.85.214.173
+	s=arc-20240116; t=1786270646; c=relaxed/simple;
+	bh=RvmzwK4dlyG2JGoHxX32qWKM1EMpKArPl1QuK0QEqAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=maSJ5oA68DXWd42Gmhquf5q+Pf4iSA13FBEdBgkX6RiWzGwFW5yDtCMUT+XQ3kivelJ4GaRNf4xb+xF4vfC5NTrDNYPL1sFD8Uvq56wY6n2wplWSSDDtj9Qa8Fr0pDm8hZTqR0SdUijtx+joE33AUgSWI7tQXaDbalQgz0Xhmw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ARldIPFD; arc=none smtp.client-ip=209.85.210.181
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dI65B5kF"
-Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2caea3f742bso13406435ad.0
-        for <linux-media@vger.kernel.org>; Sat, 08 Aug 2026 21:27:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ARldIPFD"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-848761b5897so442770b3a.3
+        for <linux-media@vger.kernel.org>; Sun, 09 Aug 2026 03:17:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786249627; x=1786854427; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hoKe5zyW8uN2y0zixFka7SwpyUgNoPXFgQjUlHoz6IY=;
-        b=dI65B5kFr0zS8rqqTyxfAWjU6TLloVMTiFsB7/K9embJBbhLbrgLPvcE8h3FFeOv67
-         3krTDnHDQUkiyONcbZ5lLcjypO9pMuCuLFInzLJGHr2HwTGvvfygOeFuIlW97jkap052
-         AnIcXmtykopC+EgL0OV0cScdZfmx0fiOVfBUnV9aFslpaT8jCkIjffmewizLkLgaHOnM
-         V/FrhndyAqlqzTmYcVUZCfGL+ygsy/SK1N5AVSTyFgCpt0c5QyAv03MElmI+iAxj8ScR
-         mAdfurGEalwMd8B4/lEglS/Szd4VO7R+EpdraC6zlpt0rdFKKkrxV8Vg1GicKkHbZXQw
-         34Ew==
+        d=gmail.com; s=20251104; t=1786270644; x=1786875444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Y4SiRXpVk5uM6KSMknWzyY90uVTBQIGYj5y9bvf1u24=;
+        b=ARldIPFDkzbBELNfI5X7LX4znIEQuOdw8gcyodocMNRfcK+Ecf3+6iKjLR1VyCnkiw
+         1GMrVyLkQekI2Zyo3bLr2qYMVJQBVLu+yTt7/VPQk21GFyW82cw/vrRgSZvCWBJs2kB/
+         BTIbDKWUiockWO6IdQiXqSg0CSYF9kEgsMo1KyEyaTfOqlF3sJJo+tDU5/YpQl1hDTik
+         /kIvrgTK13I+cXFUHY+PNiaJyIgLHhKfN/aEsicz2ajLqvbI2ICaw2A8NLQJfBkVsshk
+         2INr+Ujsh6G4JYOu0NUbH2q53edthn0rL6Y49CQVepjyU3UVJ6jdxiv+fUDd2+eIgZRg
+         Nk/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786249627; x=1786854427;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hoKe5zyW8uN2y0zixFka7SwpyUgNoPXFgQjUlHoz6IY=;
-        b=tE9Jz6eYOIWyqRI3HlIkYHYQpmFO3tbHXq5QIr8MnQ6KqURbYywbzxYq2C9Yyfut4o
-         Pp3XJu20fTSawK++TJn9BfxKWRICus/IiS5dikijy4O598RNCwt50DeFRhGIRgStCEZC
-         bX2HM/jILAF9BRzekHIfqK8ZbMVxcqK4ZWOe6l+QIHMrDezLQ8T6XNifdmtolFmN5YOg
-         MlHCj3ZHYTTe3nRen6AfGZblWvBabaGLe0W0NWErzSeKv2Y9EbtHmmwswWyWRqiQ8VDD
-         DtuRo4VTfEz1YGLwG+SvjxFgtUfv6h0IYP5ApQEu4Aouy2jFJa39S1GEVdFCJbTzZp50
-         ZfGA==
-X-Forwarded-Encrypted: i=1; AHgh+RpbRtSyLASsjIcoouupRYOhn6DbauGg44Mo+q0CQvaPY2ui9XgRChScsYGlxzwLnZpsDqYWqT4jXmgnag==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxemYjVS8JN7HpdmbgB1dtf5mgiC5h8S3HDF6de0Qp1i2ZQ7VNM
-	xl/fDybcQMp1jQY5/rjuXXfgIFDMI13OkHU+IU03xxHqKEB0VJ6WEv7LCf2PpIbU
-X-Gm-Gg: AR+sD12g7cBvw/rU6KRqmsZXDf1kBxL/yuOqQ0pq/dbYKFFu2rwbWGactketqm79xYp
-	ImEv8rMcL6FHFCVbUMfw0HNBeRh8A8oipuWMPjTjHY36BQKft6tGmY3y6YpfWhiSvzxds/lcHHC
-	ARwwf/CbPnrTFoG2lsqx8N264ABk7M6pdzR0189ci/urvBO4+W2W81vzyzTHtc5bbIrndQJA3MZ
-	0KcuQz6vmVnw6a4wR4AQr6wLVHLogdPD4koXz2ZaO3PdafuaQtSohuCMbwLhGlhO8ykmQY5OiEm
-	LvW/K7ZUMB1fzu/1GHIR8aRr2rOUmzt4sZwzY3v4YCrWpfG0enW10B3A4dLZpxUpwQK3ifNPIPi
-	25RQd4dExIAiKgjvec/USR7Nuj5tdf1iuAV/y348tLHqcr4rb1JBchB31yS33lf2T7XTlv+nisa
-	xyAY/Y5FAe64d218idShEomgLVH4qQ4+f5eBQq3bgnVxJfFHS9LCUyMfgHrCmEe43oiOWDfnFd5
-	mlXwxvOaND3eX5ZRaTEc41zdVg3d94hON9AfcJd9ALK1A8bWq2C
-X-Received: by 2002:a05:6a20:6a1e:b0:3b4:7e2d:a3c2 with SMTP id adf61e73a8af0-3cb85ec567bmr31633197637.18.1786249626830;
-        Sat, 08 Aug 2026 21:27:06 -0700 (PDT)
-Received: from prof-g-y-land-Latitude-7320-Detachable (121-45-161-118.tpgi.com.au. [121.45.161.118])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1410199cf49sm21659516c88.3.2026.08.08.21.27.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 08 Aug 2026 21:27:06 -0700 (PDT)
-From: Sahan Nissanka <adee.sahan@gmail.com>
-To: platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org
-Cc: dan.scally@ideasonboard.com,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	mchehab@kernel.org,
+        d=1e100.net; s=20251104; t=1786270644; x=1786875444;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Y4SiRXpVk5uM6KSMknWzyY90uVTBQIGYj5y9bvf1u24=;
+        b=YXTiKhcQRnOLK1puoRBuAkWKQNPrlf2TH/E3XfKsecDPkNRtLSC6qHlj033nHpUN0l
+         VIrlLB4Vh3mb642yW6CYmHtd8nBn8yYK12eYK5nTCG4vV4mdC5Xn4cQF58TXQhmEvhps
+         FumYRkTQsEklYQRSP7fB4Sp50XIqgeHLGirX251MHI1Mn97uDsNstgVwj7+epVTJThp3
+         k8/ACRnuYo8/WggQYclto5vLstOLqn9lGszU1y0AAN3L5t7ZeLPXNIh2jS2xy5Mp/UJ9
+         TxHBNidsWtMCDxZeZOFY5VocUXjDZS2EVDy4t3nT0nh0N4XYYMEs6mXNiEGIVmf2N9uq
+         WjBA==
+X-Gm-Message-State: AOJu0YyNbnXHb6hppkfrnArqtnA+WS/Q/zz/rpQ6gFYlOEwvY3n4XS4C
+	CnjTwa1q6iM1zH+F3HypFxgxWILc2LKaKWo1iI6Qa0srNjxin+e9o5H/
+X-Gm-Gg: AR+sD10JIeXw+hxmC0bGVEtm0/lMOaThqWx6RzFA5vNi4GTMA9FycinK3eH6ffJSSHB
+	2JrK2Wx3ym9OT4wP9lyNA0aGovZbhiHHst+m4t8eQEXzu9oA/4oyRTIhDZd4KpS2DQOMkbeVzWq
+	KNSMCczms4MqOxmbER3LMdgPNMRIIVnOxE7B7hsHrb1VPiqa7jwBY/ayWnwW46d/z048VaucyYU
+	GSfGIsmPF3uOhPBBJsM9+/HWGASvePWMzmfFCILo6VEzMT4xH1xVvgBRF97Wk5A8M3lFqeul1nA
+	vvhAwmM7ISymPbnaV+BeoEB8P+IjY297wwAHG/sWQqrSfHbhcvV2bfM56rC3xspcw0AUNUmNSoT
+	uGf+1MmIYENwp6I1U9MWQvF3wWfe8e5g4rXgG/o6g76UIREFlpGkYUetr3OlDffM4OjIwzOVZlk
+	qPvMKaG17Ab9TSZk400UhxmeZ6w+N/5yHys9rDP5+P9Ywfpr4Iz0Qjs1B8p1RoE+UqLk2tRrAT2
+	n+EwkDpElb5LuIXZaAsbccrALn6XkKmKpXXUiARIx/QXqSFLgt3eYaSx15IJlLoepiLGYvMbTA8
+	iG2YQAaCcng0rxRezQl9rqiDiWU5zpZ7kdNq+9xrRdmR/UKm7jtUmiKgBPli4WaJzTfMXiYq9jT
+	o8FIAPCFnHuwHPFrZDr15gEAgvCrsH4hDVlyNSDYSkKTsWS6z
+X-Received: by 2002:a05:6a20:d52c:b0:3c3:812a:2198 with SMTP id adf61e73a8af0-3cb85df190amr44418663637.4.1786270644170;
+        Sun, 09 Aug 2026 03:17:24 -0700 (PDT)
+Received: from localhost.localdomain ([101.251.7.10])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315bec128a0sm33347654eec.25.2026.08.09.03.17.22
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Sun, 09 Aug 2026 03:17:23 -0700 (PDT)
+From: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 3/3] media: ipu-bridge: Add sensor configuration for OV5675 (OVTI5678)
-Date: Sun,  9 Aug 2026 14:25:19 +1000
-Message-ID: <20260809042540.15849-4-adee.sahan@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260809042540.15849-1-adee.sahan@gmail.com>
-References: <20260809042540.15849-1-adee.sahan@gmail.com>
+Subject: [PATCH] media: dvbdev: fix stale minor on registration failure
+Date: Sun,  9 Aug 2026 16:02:18 +0545
+Message-ID: <20260809101718.24495-1-acharyalaxman8848@gmail.com>
+X-Mailer: git-send-email 2.51.2
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,42 +74,93 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The front camera of the Dell Latitude 7320 Detachable is an OV5675
-described in ACPI as OVTI5678. Without an entry here ipu-bridge creates
-no software node for it, so no fwnode endpoint exists and the sensor
-cannot be connected to the IPU6 even once a driver binds it:
+dvb_register_device() gives the new device one reference and publishes
+a second reference through dvb_minors[] before media-device
+registration and device_create() complete.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI8856:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
+If either operation fails, the current error paths free the device
+directly. The published minor then retains a pointer to freed memory,
+and the global DVB character device can pass that pointer to
+dvb_device_open().
 
-450 MHz is OV5675_LINK_FREQ_450MHZ, the only link frequency ov5675.c
-supports, and matches the two data lanes the machine's SSDB reports.
+Route both failures through one cleanup path. Remove the minor under
+minor_rwsem, drop its reference, release the registration resources,
+and finally drop the initial device reference.
 
-With this entry both cameras are found and the front sensor appears in
-the media graph:
-
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI5678:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI8856:00
-  intel-ipu6 0000:00:05.0: Connected 2 cameras
-
-Signed-off-by: Sahan Nissanka <adee.sahan@gmail.com>
+Assisted-by: ChatGPT:gpt-5
+Signed-off-by: Laxman Acharya Padhya <acharyalaxman8848@gmail.com>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/media/dvb-core/dvbdev.c | 42 ++++++++++++++++-----------------
+ 1 file changed, 20 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 9cebc6a..78fe1f7 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -101,6 +101,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
- 	/* Omnivision OV2680 */
- 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
-+	/* Omnivision OV5675, described as OVTI5678 in ACPI */
-+	IPU_SENSOR_CONFIG("OVTI5678", 1, 450000000),
- 	/* Omnivision OV8856 */
- 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
- 	/* Sony IMX471 */
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..9a2783175771 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -551,36 +551,17 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 	if (ret) {
+ 		pr_err("%s: dvb_register_media_device failed to create the mediagraph\n",
+ 		       __func__);
+-		if (new_node) {
+-			list_del(&new_node->list_head);
+-			kfree(dvbdevfops);
+-			kfree(new_node);
+-		}
+-		dvb_media_device_free(dvbdev);
+-		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
+-		*pdvbdev = NULL;
+-		mutex_unlock(&dvbdev_register_lock);
+-		return ret;
++		goto err_register;
+ 	}
+ 
+ 	clsdev = device_create(dvb_class, adap->device,
+ 			       MKDEV(DVB_MAJOR, minor),
+ 			       dvbdev, "dvb%d.%s%d", adap->num, dnames[type], id);
+ 	if (IS_ERR(clsdev)) {
++		ret = PTR_ERR(clsdev);
+ 		pr_err("%s: failed to create device dvb%d.%s%d (%pe)\n",
+ 		       __func__, adap->num, dnames[type], id, clsdev);
+-		if (new_node) {
+-			list_del(&new_node->list_head);
+-			kfree(dvbdevfops);
+-			kfree(new_node);
+-		}
+-		dvb_media_device_free(dvbdev);
+-		list_del(&dvbdev->list_head);
+-		kfree(dvbdev);
+-		*pdvbdev = NULL;
+-		mutex_unlock(&dvbdev_register_lock);
+-		return PTR_ERR(clsdev);
++		goto err_register;
+ 	}
+ 
+ 	dprintk("DVB: register adapter%d/%s%d @ minor: %i (0x%02x)\n",
+@@ -588,6 +569,23 @@ int dvb_register_device(struct dvb_adapter *adap, struct dvb_device **pdvbdev,
+ 
+ 	mutex_unlock(&dvbdev_register_lock);
+ 	return 0;
++
++err_register:
++	down_write(&minor_rwsem);
++	dvb_minors[minor] = NULL;
++	dvb_device_put(dvbdev);
++	up_write(&minor_rwsem);
++	if (new_node) {
++		list_del(&new_node->list_head);
++		kfree(dvbdevfops);
++		kfree(new_node);
++	}
++	dvb_media_device_free(dvbdev);
++	list_del(&dvbdev->list_head);
++	*pdvbdev = NULL;
++	mutex_unlock(&dvbdev_register_lock);
++	dvb_device_put(dvbdev);
++	return ret;
+ }
+ EXPORT_SYMBOL(dvb_register_device);
+ 
 -- 
-2.53.0
+2.51.2
 
