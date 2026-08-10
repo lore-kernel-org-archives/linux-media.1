@@ -1,145 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE075285060
-	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 07:42:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5F534DCE4;
+	Mon, 10 Aug 2026 07:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786347771; cv=none; b=uOpRSPhRE63GZU8sW+vbJAWUxUaW8LVOQ8gJHe4EaQjJQ+Dm7tpCzijm3gykFJ4CpROej4LkGGHkrvPk42E2wsQjlgmrHe9zH84CYkuknLjANtp4dGtd1rGTsKo7iFkjuEolh9tzXYMcKG7kh1i9lH6r+obj2KTpWt3wjEe/jyg=
+	t=1786348104; cv=none; b=sgCb8Q8jNEof0yziW+heHd/xKEG0iDvSCevcQhpOS6DfcNxZRkzLeWY4ZumzjL7Al+kNaXRhTjRxh8jn4A1Dc7yjC/rWLJAsiB0tvfPLO6bJLnLCospuHgbBbFheIBrg7e9Z4p6PNMbv0+kcL4WNuMs7RidChjffFuMvUJwB8YU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786347771; c=relaxed/simple;
-	bh=/56FfivAzVTEuLwgr1bhSFMJ+n+3LJSYmGjNq3rTru0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XCZvrXhIPW293ezf/bao5nagSjwAndJVaG4fvreQzdOk+ULTKp+AeU/3cC/UT902Tuq0+pTueLFYoZgnsrLjgqGMWriPh2uzIg1N5D25dbRGuV/ziw+S/svXVuk20YZda75bpH2zQhcwdlg6NWGBGBtOzDteIEEJqKcGk5T8F9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UEMoUWYI; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786348104; c=relaxed/simple;
+	bh=wcfouqGkbtN6qbgtaKfsihWkqZ0FKvP4t7FAWyvgg3k=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Bb0Fa4tizdR8Oe7ufvcZm2dXSJakq87MqiuqXngns4Ze/9ikfl6H+MWhhL+EI+o4nxQUGzhhSbjjaNS4/L4A+63HKTlPiXaeGHekcW92PnXQqf+f4q05XHXeq/UWPhONvSyjMoaB6JL8EpeQws+vb7ARp97rqtrDCJKAE57rc/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ViiVWbZH; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UEMoUWYI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786347770; x=1817883770;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=/56FfivAzVTEuLwgr1bhSFMJ+n+3LJSYmGjNq3rTru0=;
-  b=UEMoUWYIDk+4nDYCGEJ5+oQxpOND3gC9eDL8366INeXQyjbUyPJwy5/x
-   SBs57eUoNhSuJncZ7SXGYbGKzhjoY/Dru1vjtY2y5oEiYtE6+AlBk1iTK
-   fdjOru8o0NY66Gqcq/P6rfdjniG36OZ327OXCfEU3cveLz1WvuyTTNERr
-   woKHfzF68ZXdeRwHmmUzdFHioJsNQoUHOSOAKcdpEimKd1jlsCT+R2N9z
-   Oyf1G5hLFrCo0tELkVru3edFmNFKhrCtgLy76owWXVraSKwjz5EFKt2tv
-   2slRn2RdgA3iANxW0FEdvbgM/c3YmiYcJ8uNTIjvgCmXv/hluk4XisMM7
-   A==;
-X-CSE-ConnectionGUID: nqQ7e9QlSwSki1yjDDDbkA==
-X-CSE-MsgGUID: 0DzsdY7yQe+mX8m/FvdJTQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="86963697"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
-   d="scan'208";a="86963697"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:42:49 -0700
-X-CSE-ConnectionGUID: W3ZyohqnRzuqxOKlxO2gZw==
-X-CSE-MsgGUID: 6bZb75OeRxK2j7zQq0jVLg==
-X-ExtLoop1: 1
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.104])
-  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 00:42:47 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7F1BD121197;
-	Mon, 10 Aug 2026 10:42:46 +0300 (EEST)
-Date: Mon, 10 Aug 2026 10:42:46 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: =?iso-8859-1?Q?Jos=E9_Mar=EDa_Mart=EDn?= <jmmartinf@hotmail.com>
-Cc: johannes.goede@oss.qualcomm.com, dan.scally@ideasonboard.com,
-	bingbu.cao@intel.com, tian.shu.qiu@intel.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: check all DMI entries when overriding
- sensor rotation
-Message-ID: <anmA9lPTuP4gZ7pj@kekkonen.localdomain>
-References: <VI6PPFD0A65370F3F49A1C8B719D27C50F3A3DF2@VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ViiVWbZH"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hJRgv2Mm8zMlDr;
+	Mon, 10 Aug 2026 09:48:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786348091; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=wcfouqGkbtN6qbgtaKfsihWkqZ0FKvP4t7FAWyvgg3k=;
+	b=ViiVWbZH8vUUunF8Vd0PWAu3HSRksIQ9wiOB+zo9xu3rhYOC84nlsH7di9G3hhbeYZxSP2
+	WCl+f9V615ix5sjUwX+AnN6Y0A4Xe5jpj+DBVdbYXLn1OmrOWiudIyoTWSWY7tg9exUXap
+	gVEPbTy+Yi4IB4GH1SKZQY4CgNeaM7vlh9om3T31EaSxe7Jz/i0XQb94Refz1BOCmbAGpe
+	OZd7lUsn/Nikk9iUfybN8obV24vjLwq8OzWUuJ3BnRUXsreuqhyKXmzYFaWidBOtk4ewfj
+	M2cG09kFLzRAg/3TFj4o2L/EE3ayEaFFUa9W6S85R5DyH8T50R5iXFox69UVsQ==
+Message-ID: <91325da652d7840509015c043c8cb7b4450a00f3.camel@mailbox.org>
+Subject: Re: [PATCH v9 0/5] rust / dma_buf: Add abstractions for dma_fence
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Philipp Stanner
+	 <phasta@kernel.org>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+	 <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
+ <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
+ =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Sumit Semwal	
+ <sumit.semwal@linaro.org>, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Lyude Paul <lyude@redhat.com>, "Paul E.
+ McKenney"	 <paulmck@kernel.org>, Frederic Weisbecker <frederic@kernel.org>,
+ Neeraj Upadhyay <neeraj.upadhyay@kernel.org>, Joel Fernandes
+ <joelagnelf@nvidia.com>, Josh Triplett	 <josh@joshtriplett.org>, Uladzislau
+ Rezki <urezki@gmail.com>, Steven Rostedt	 <rostedt@goodmis.org>, Mathieu
+ Desnoyers <mathieu.desnoyers@efficios.com>,  Lai Jiangshan
+ <jiangshanlai@gmail.com>, Zqiang <qiang.zhang@linux.dev>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, Asahi Lina
+ <lina+kernel@asahilina.net>, Burak Emir <bqe@google.com>, Lorenzo Stoakes
+ <ljs@kernel.org>, FUJITA Tomonori	 <fujita.tomonori@gmail.com>, Eliot
+ Courtney <ecourtney@nvidia.com>, Mirko Adzic	 <adzicmirko97@gmail.com>,
+ Timur Tabi <ttabi@nvidia.com>, Daniel del Castillo	
+ <delcastillodelarosadaniel@gmail.com>, Boris Brezillon	
+ <boris.brezillon@collabora.com>, linux-kernel@vger.kernel.org, 
+	rust-for-linux@vger.kernel.org, linux-media@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
+	rcu@vger.kernel.org
+Date: Mon, 10 Aug 2026 09:47:55 +0200
+In-Reply-To: <CANiq72nZ25wkxVHpz9GTA_m5E_vyBmRKdDSUNMsJAZ=6zk=zhw@mail.gmail.com>
+References: <20260805145949.938505-2-phasta@kernel.org>
+	 <CANiq72nZ25wkxVHpz9GTA_m5E_vyBmRKdDSUNMsJAZ=6zk=zhw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <VI6PPFD0A65370F3F49A1C8B719D27C50F3A3DF2@VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM>
+X-MBO-RS-META: e1q7rg1nfpbi93b8n3c9nfpegttm8ggb
+X-MBO-RS-ID: 32b232e1d19317e22c3
 
-Hi José,
+On Mon, 2026-08-10 at 08:00 +0200, Miguel Ojeda wrote:
+> On Wed, Aug 5, 2026 at 5:01=E2=80=AFPM Philipp Stanner <phasta@kernel.org=
+> wrote:
+> >=20
+> > =C2=A0 rust: types: implement ForeignOwnable for ARef<T>
+> > =C2=A0 rust: sync: Add abstraction for rcu_barrier()
+> > =C2=A0 rust: error: add remaining error codes
+>=20
+> Applied (these three) to `rust-next` -- thanks everyone!
+>=20
+> Please note that your Signed-off-by is required when sending a patch
+> from someone else:
+>=20
+> =C2=A0 https://docs.kernel.org/process/submitting-patches.html#sign-your-=
+work-the-developer-s-certificate-of-origin
+>=20
+> I added it here on apply for you -- please let me know if that is not
+> what you intended!
 
-Thanks for the patch.
+No, fine by me, thank you for fixing it
 
-On Mon, Aug 10, 2026 at 01:38:45AM +0200, José María Martín wrote:
-> A machine can have more than one sensor whose rotation needs to be
-> overridden, which takes one upside_down_sensor_dmi_ids[] entry per
-> sensor, all sharing the same DMI match but with different ACPI HIDs in
-> driver_data.
-> 
-> ipu_bridge_parse_rotation() uses dmi_first_match(), which always stops
-> at the first entry matching the running machine, so any further entry
-> for the same machine is unreachable and only one sensor per machine can
-> ever be corrected.
-> 
-> No machine in the mainline table currently lists two sensors, but the
-> Microsoft Surface Pro 9 has both its front (OVTI5693) and rear
-> (OVTID858) cameras mounted upside down while its SSDB reports degree=0
-> for both; the linux-surface downstream kernel carries such a pair of
-> entries and hits this limitation.
+P.
 
-This paragraph would better fit for a cover letter.
-
-> 
-> Walk the whole table and match every entry for the running machine
-> against the sensor's ACPI HID instead.
-> 
-> Tested on a Surface Pro 9 (6.19-based linux-surface kernel with this
-> change backported): both cameras report Rotation = 180 and render
-> upright in libcamera clients.
-
-Ditto.
-
-> 
-> Signed-off-by: José María Martín <jmmartinf@hotmail.com>
-
-I think a Fixes: tag would be appropriate.
-
-> ---
->  drivers/media/pci/intel/ipu-bridge.c | 15 ++++++++++++---
->  1 file changed, 12 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 88581a4..75db4cb 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -298,9 +298,18 @@ static u32 ipu_bridge_parse_rotation(struct acpi_device *adev,
->  {
->  	const struct dmi_system_id *dmi_id;
->  
-> -	dmi_id = dmi_first_match(upside_down_sensor_dmi_ids);
-> -	if (dmi_id && acpi_dev_hid_match(adev, dmi_id->driver_data))
-> -		return 180;
-> +	/*
-> +	 * A machine can have more than one sensor whose rotation must be
-> +	 * overridden (e.g. both the front and the rear camera), listed as
-> +	 * one entry per sensor sharing the same DMI match.
-> +	 * dmi_first_match() only ever returns the first matching entry, so
-> +	 * walk the whole table and match each candidate against the
-> +	 * sensor's ACPI HID.
-> +	 */
-
-I don't think such an elaborate comment is needed, either make it shorter
-or drop it altogether.
-
-> +	for (dmi_id = dmi_first_match(upside_down_sensor_dmi_ids); dmi_id;
-> +	     dmi_id = dmi_first_match(dmi_id + 1))
-> +		if (acpi_dev_hid_match(adev, dmi_id->driver_data))
-> +			return 180;
->  
->  	switch (ssdb->degree) {
->  	case IPU_SENSOR_ROTATION_NORMAL:
-
--- 
-Regards,
-
-Sakari Ailus
+>=20
+> =C2=A0=C2=A0=C2=A0 [ Formatted comments. Added the submitter's Signed-off=
+-by tag. - Miguel ]
+>=20
+> =C2=A0=C2=A0=C2=A0 [ Relaxed `'static` bound and added `#[inline]` as dis=
+cussed. Added
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 the submitter's Signed-off-by tag. - Migue=
+l ]
+>=20
+> =C2=A0=C2=A0=C2=A0 [ Formatted documentation. Sorted tags. - Miguel ]
+>=20
+> Thanks!
+>=20
+> Cheers,
+> Miguel
