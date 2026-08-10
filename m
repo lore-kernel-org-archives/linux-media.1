@@ -1,262 +1,235 @@
-Received: from mail-ed1-f42.google.com (mail-ed1-f42.google.com [209.85.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDFBE3C140F
-	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 11:56:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 779233D7D72
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 12:10:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786363009; cv=none; b=ShpyPGtQrjPIIShQ9ezZeNFxzACXBVAhoFOLlLSkU4QyYFViq5nlJ4i42xobVkv2xZ1rfHP6igSgcK1YNrvOAqR63qiX/tlEN3Grf5wkedTNDANUKAcHCRFxuCvPbSsLqWbG3etFOcjR1awqRAUUZq3Atx+YDNAcFbnxFH/oUvU=
+	t=1786363817; cv=none; b=WvksjNPJoay+H6MaKGSlxqBOvNaCUEAbl08Mh5SDyUJsNmXaNG4Eo71MZ7gbAsW+z3/5fom9xeLjVJBFMdfjUFyQu6BHHq31bZEB7wlTt/kps1SADOVJ7+VaxflD+zvpVRSvpoA+fGjUN2Vn6xtN5Rl0opTOsECOOoiHbsTX4MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786363009; c=relaxed/simple;
-	bh=KRfJIiPa51V1djniqs2J+yGnjkzHnnLfa0Qqm8HPfYw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Content-Type; b=aPElYs0h8c8FaZVJA+aKPna+gvFOOQ+c9Vmum9vHms0C7FeBNnDoa26i54HyQDc8gxPh+kmAKFU3NsP4NMI0keMn/iimemjuHGPAFb8uhWrSJ17HPTU9D4FTwbX9qbM8o27w6AOUYbNl4feDd2vpEWO+7ghMQc/ztjGa9msIQuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Lxg+5bn6; arc=none smtp.client-ip=209.85.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1786363817; c=relaxed/simple;
+	bh=e8URI1HupHz6cZ5X4siEkWj2LxOcgc5bMkMhzNHrXH4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Quw8H0+ZJrZ0+D9zia26aXUfudXV56+xltdVDY/CYC9gs07J0F0QR8AoZTagIgtKtdBg97dnNZvf/Sm4FXQx1/xNEX7mNI1LQlzqpeO0Lks7k8U9x/nIwMP/5hOH8OGg/jWWIey7Rm4hMpiHZKKXQigAFJLrzUWBpA2gDSSiGd0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fHdYMOFg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Bkva3JPn; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Lxg+5bn6"
-Received: by mail-ed1-f42.google.com with SMTP id 4fb4d7f45d1cf-69fab5a852cso2192927a12.0
-        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 04:56:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fHdYMOFg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Bkva3JPn"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67A9SKaT2341876
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 12:10:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=rz94gqtfLhb3foxkB1808JzQ
+	JTuxGFnwz5wYt82+rAs=; b=fHdYMOFg0kMhtcYDEhUtw9CAQy3DfjNvMU95ZDku
+	lwWwIzQMiRjeESpvQggjqh3N2nS11a+mS2mR0Egtnzl3pB90zhgyLvxGXcTniV6M
+	j1R9oBDewrskfgR8cclmhpY+jnvI39QmTlU+dautgKY8X66dm44A6Pe5i6F9VMCI
+	3bK9FzQdL6ZbBEnxQJmvIIjJXsJcXpPdD1iGdUafXj3X/X2IeOLBLR+JUF1hyWff
+	hj6/GqmVDddkuqOVzcjFALVjURQGsy2xgY/KbxgAkxxFNOHbiwN6GBZR2tFDWk6k
+	GSR4lQlUQQiwVmsgsVlXVnU+n0hfbnZkr81ieAVdPIgy/Q==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fy19kjeed-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 12:10:14 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e5fc4c7e9so176984485a.3
+        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 05:10:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786363006; x=1786967806; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KRfJIiPa51V1djniqs2J+yGnjkzHnnLfa0Qqm8HPfYw=;
-        b=Lxg+5bn6Kv/YW1HOLXZMz/BEz6f6RQ8BQi18PPUq50968au5qalK56dSfqvuiAc4Ro
-         sKnvf/pvwR8HS4hhARoFhmf0Pf6Wfzn+IK4l9gW2OKQmQFN3QCpomRRt8psxi1wFjt2H
-         g1LD28dQkXQTiFxAhGsrTpUthBM5wQC5gfqC8=
+        d=oss.qualcomm.com; s=google; t=1786363813; x=1786968613; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=rz94gqtfLhb3foxkB1808JzQJTuxGFnwz5wYt82+rAs=;
+        b=Bkva3JPnXQOIrGhWkXFQTslHHCkgPphykBEac/8KESRsYkn03Vz4lk3IkGZNekwPhi
+         Ty8EOfrPsGnCmDhhTT6vcWWqd8m75jvbtnagNjLoTX+HZ/ymJxQkkY2Eqc4q5gq5GtmD
+         LNw4P9MLqMQKxUXjGtRI9k+hAXBTNU7Bp7g+8PGBiU+DsURy8TGFLgSy1Q0pJLKPjCNd
+         4KBpwruad4sAB3/6qA2MCGHbkajNQJOHQVpOuYHIgFOsWg0rVsMdtcHQpZ2+4CV6g51O
+         7BEcFQ/9xbVpirYXauOlpF4vEP2xb2V6Pnztf4rnVjtq5goyzfMNFLaMq6VP0Wg9s2ib
+         J92w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786363006; x=1786967806;
-        h=content-transfer-encoding:content-type:to:subject:message-id:date
-         :from:in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KRfJIiPa51V1djniqs2J+yGnjkzHnnLfa0Qqm8HPfYw=;
-        b=eFxUspDpenKOGCZPedjF0eQjAHIJkuWwaq1TRbaeEQBmg0se3z6CQAd6fY+wR2sYpH
-         u9uiP0mk4FC+fB42a8HkxPjOgPHUPonAfCKv469XGgj8xdkNDPBO9wu9n385C0nTwP1u
-         CoUe6lbyG/1UlIxCZcfR/xX6QUuYkeLv6W2DAFJdpULps88akDZWoC25FoEO2pr/va9d
-         +2/KH0li6tr9pDv2yN3zxvfBfFs767Igy4Ze8eXVdxhLuvT3Gn/0B5fQxTs4yT2FuECy
-         lHLhqBN+UHbOJmStN08Uw2cYPYUR84HUzsRBs4f7duqaih8lr4ZvVKQ8WfBOcVVVOyWl
-         t6Vw==
-X-Forwarded-Encrypted: i=1; AHgh+RrXDUnqVg6eh1bDhFacxzC56OeW6qUwF8cf7ABrGVLWA49RyaXn8n8s3u17c2bGWLKEXC4kmw0MMNo0Og==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy+ClRDeiaip0bQE/P4CFHIr3aQ/yVfq7jo7vfctwKqK+ydZlWh
-	/1vMpWoTGakpaNGGMOrveR/Y4wrKlnA1fK/5JFBzLXUpmXxc1mORvMHcqkgT1zs0954MWp13YP4
-	nltubjQ==
-X-Gm-Gg: AR+sD10wkxtD5TNoH57GxF4EX9W05bfTa2IZasTFIb1dv7832V1leRo0eV+LqbMirNm
-	nkAYBWjaQTHJ/abKnUsXgF9LMbwynN6Oo+8U8auUN/NydlaZd1En8vn4cSZ3Y58KfkEqB2TUPBI
-	7UoSHunFK1d4SMI1Xymjp2rFMyQpaaOLPnyDWHb/KIeYwp49eoOwU0XBsvh5nmkwV47i3AQsg35
-	saYozfAEu4zmQJcFCldKygcfOcioTd2nXIQeMIe2CGFoNPDoobIsyTFC3ZOOfz4bYBWe/HgmVPo
-	w4dBE+n4ZcQCSkN2BjtVY8M4ll+0U5ZXKIdjENITECe1oGNkWV2ie4W0xBuNAuktY/vB3hAhu09
-	hUv5eJFovBhLMJ1jw+DVP1F9IiwTZlTHzVyR9JyJ4iXVCaSBw3MBTYGvs5kxAEyXalbxUR3Oa4w
-	nbJW8Use2wbvrgynR5vQ3AwxZb+w5f4rPdobrkH07nOiQIxXNQfndyVosLmfsLXjNRwijAftUxN
-	CvBsAD6D2zjdIwu6Qx0clQL0KboI7LeQ70sbg==
-X-Received: by 2002:a05:6402:24db:b0:6a1:feb6:6d78 with SMTP id 4fb4d7f45d1cf-6a1feb6806amr5417996a12.18.1786363006086;
-        Mon, 10 Aug 2026 04:56:46 -0700 (PDT)
-Received: from mail-ej1-f46.google.com (mail-ej1-f46.google.com. [209.85.218.46])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a1e7c0de5csm3958505a12.0.2026.08.10.04.56.44
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 10 Aug 2026 04:56:44 -0700 (PDT)
-Received: by mail-ej1-f46.google.com with SMTP id a640c23a62f3a-c1fbe461f59so223897966b.2
-        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 04:56:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RrfFfFPuxD7ITBNuLlxTPsQfjb1XcuNmA5CLEKiCb/peG2GMxFne0jbaJxllvSDmokUk2o4B/tNxo6y8g==@vger.kernel.org
-X-Received: by 2002:a17:906:ef02:b0:c1c:332b:74a1 with SMTP id
- a640c23a62f3a-c20733ef517mr1445207466b.28.1786363003498; Mon, 10 Aug 2026
- 04:56:43 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786363813; x=1786968613;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=rz94gqtfLhb3foxkB1808JzQJTuxGFnwz5wYt82+rAs=;
+        b=relMPGVvFgcAYUBVkBxC6w/5olpCzIl5kASsReTsITKRhK9kWEvT12UWh+u2ccmI+8
+         fAta/6rlurScF1uSVtLMCxGmbGeObp/AEDZ6ylLTmNP4hHNtBJH44ePm6RlZyoK87wQH
+         p+yY4+uoyky5yOuJT47iM4KHSyIwL1Kd+0lmlDkdAi+VdZpGRl44ClP+jxzF500+P8RJ
+         Ew8jxjYZ+NBYiAcMR/a8smK4mgtKIlQqFbk+XM76t175b60z0QxSkNEwTbJod5oRepMR
+         MGlz3rPlFyWH8/DTl4PUV47PRM5KyO3Ffiwu5nFkkBIKXkiM+vkzKFeDdosWhPk1l29r
+         QgqQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rrq0lwwLWGsO+c4rygL/MdyIPW894xHZSMpWEvH0VaWpF1v9zBw5w11nmw62loa3lIcVv6qOuiGjgiCtQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxLc6p+bkdqkWyyaBDYlyi2ElPZjtv9J1FE10HgPginmIITvCze
+	xIfiFXzNviZ77axM5VPJUIbtVVEETi3n7H2gnsz01JJ/xgbfQXxGUPN8MVF3/d/bhOniiaPwFo+
+	cU2vL0cT0FxlvTUYMvbmeYkYTKdnUcNae95odUvlZeG5hfOh+7x7Eq2dE4zesZg7I3w==
+X-Gm-Gg: AR+sD13HzWhHiZuyTo0Sf1duTXWlW4+bV6j5Bz8FdSQHZ1SWDbLOr3WzwItNET741SA
+	mNylFMbOKVG/otiOypzptfxKF+Ce1MXZ3ZX9LROgC5oFodxiXdmXVz+vW+F1PUQo/ICeEamyqQw
+	xIEaqc0v09+XHLM9VwJgS4bJgp5NOPN30VbZoXZsZyA5t+obBnWo//4kJGmPRL2Mjf9veXQyfrP
+	w6iDr/nd+4KjzqircCy2I0D8Hy5Bf2YIqG39VkzPF5xQxTooexaamAmqx75G8yK2Q4UNDniYm4q
+	1SM2bJ/w2SbD7E+NMRXNTglOMMuz7J4DY6lMJNw2PR7oMUcm1sP+m4EZMk3Urkl3T1nSYRsHdPm
+	CKrp/+DVLag+ieMARx2wi3l+EvfGTw8SXyVvrzH4sycgfmZnvstZf/yGDJujkom2stFN1gM/Nh/
+	lVq14iM/g/zMdVCQ==
+X-Received: by 2002:a05:622a:58c8:b0:52c:dffc:4645 with SMTP id d75a77b69052e-52d18e1a66amr240979811cf.7.1786363813386;
+        Mon, 10 Aug 2026 05:10:13 -0700 (PDT)
+X-Received: by 2002:a05:622a:58c8:b0:52c:dffc:4645 with SMTP id d75a77b69052e-52d18e1a66amr240978421cf.7.1786363812742;
+        Mon, 10 Aug 2026 05:10:12 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b3056f13cfsm1913261e87.79.2026.08.10.05.10.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 05:10:11 -0700 (PDT)
+Date: Mon, 10 Aug 2026 15:10:09 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        Andy Gross <andy.gross@linaro.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Stephen Boyd <sboyd@codeaurora.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Pierre-Hugues Husson <phhusson@freebox.fr>,
+        Marc Gonzalez <mgonzalez@freebox.fr>,
+        cros-qcom-dts-watchers@chromium.org,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Aniket Masule <amasule@codeaurora.org>,
+        Malathi Gottam <quic_mgottam@quicinc.com>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jonathan Marek <jonathan@marek.ca>,
+        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+        Renjiang Han <quic_renjiang@quicinc.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range
+ for Iris
+Message-ID: <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+ <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
+ <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
+ <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
+ <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
+ <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
+ <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <CABGBkYsZckKwJqcjaQrRvhsmRQ2faST9h0zbPEk9xaCVyXPJ7g@mail.gmail.com>
- <CANiDSCvVJ7tTA91rV5S502sL-Ao+KH5x5SvUCn401PYj+PqwyQ@mail.gmail.com>
- <CABGBkYv7m35cd_sGdufbv-eBj663dP2NAzpwh1x4h=bwufBwgg@mail.gmail.com>
- <CABGBkYsu9FRPAgnXis-YLhJJafp0CziJB2v=t=utMnJHaKE_Wg@mail.gmail.com>
- <CANiDSCsTKnqyKZvOHGx3Jcpsmqb1VugXGBr_P7yq_ZP1ra88eg@mail.gmail.com> <CABGBkYveKjm8Q9zbVxaWCVEK-R2zGScH1xmeMhB+b9771t2dLQ@mail.gmail.com>
-In-Reply-To: <CABGBkYveKjm8Q9zbVxaWCVEK-R2zGScH1xmeMhB+b9771t2dLQ@mail.gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 10 Aug 2026 13:56:29 +0200
-X-Gmail-Original-Message-ID: <CANiDSCvt4f=NYCV3Y0eD=mKNkKknKv1WUz0gXcWBcrM6sW4Htw@mail.gmail.com>
-X-Gm-Features: AUfX_mywMrvYyyl3SApBIZ-jTZwKf_nTH9VekPZbUOo6M27vFaG71L_deXDfpKk
-Message-ID: <CANiDSCvt4f=NYCV3Y0eD=mKNkKknKv1WUz0gXcWBcrM6sW4Htw@mail.gmail.com>
-Subject: Re: usb webcam: infinite reset/resume bug
-To: Flynn <flynnwilson772@gmail.com>, 
-	Linux Media Mailing List <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: syDI3Na8S6Kn12D4GgT6XcYHindYtoPf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEwMDEwNCBTYWx0ZWRfX1THa/bVfnZ+H
+ IthUnstANayewPnlLQzRWo37lHu0kADwx1r84zqJ2PWnmc1B1KDFz/N4T2kC5bUWBiuytEYSAw0
+ GUb55CyNfjvCIMuu4MDDGCZIAGnukEiWBzOs1Z9UH7LirLMQQDcjQ1j3Qn49Q+x3HcIkhR3GYsH
+ +fexcm2NR7er3L9U29PpaG7VLLDONxrEVhsr4/6JGok8Fnw+vmtFj3r+pifnyUbZMq3csGe1WI+
+ Yq1Ztkzpnz41LlhjqB+8oi6QktbfivLCGB+jv/hEbHXgP6abcK4Hj4acoFYDN8wS4NfBYq6Gqrw
+ mn+P7Mms24bLSXAlL3bgQML6ZHvIEmNsLXjoXa9uqTpbByECJjK89FfVYVSLzIgFUD3uyv9VfCw
+ V7l5PC6StFSunV0DHwigONjGxBrmiWJQrtiBHN124409bPSoaMyBdi4sXn6d6IFqnKZBXtD584a
+ oO/1Wk01etvh7YfLZkg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEwMDEwNCBTYWx0ZWRfX9amnR0Nq0DJC
+ uICD7OEmiOKTHUi/SiaOIIzAyftpU4Z/CpiGWbSCLIM+8dpZO/waR9QvkH1W3TCEDj8veEhBi89
+ 5QkzBZLExE8t54vqCHesZDOlcr8CO6M=
+X-Proofpoint-GUID: syDI3Na8S6Kn12D4GgT6XcYHindYtoPf
+X-Authority-Analysis: v=2.4 cv=abxRWxot c=1 sm=1 tr=0 ts=6a79bfa6 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=DL-TQF8ImT5wUrRkYbQA:9
+ a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_02,2026-08-07_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0
+ priorityscore=1501 spamscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608100104
 
-Hi Flynn
+On Sat, Aug 08, 2026 at 09:18:42PM +0530, Vikash Garodia wrote:
+> 
+> 
+> On 8/7/2026 6:48 PM, Bryan O'Donoghue wrote:
+> > On 07/08/2026 11:22, Vikash Garodia wrote:
+> > > > > > I don't like the idea of this series, because it_again_
+> > > > > > doesn't tell us
+> > > > > > the truth about the hardware. This typicall ends up with
+> > > > > > bigger problems
+> > > > > honestly...thats all the info i have about the vpu hardware that it
+> > > > > restricts non pixel to DMA from the 0-600MB range. The same i have been
+> > > > > trying for a year now
+> > > > You are not honest here. You also know that there are secure streams,
+> > > > which have to use their own IOMMU SIDs. And some of them, as far as I
+> > > > remember, also have memory range restrictions.
+> > > please read the commit description again, the answer is there.
+> > 
+> > So I don't necessarily get all of the detail out of the commit log myself.
+> > 
+> > Could you give some detail to address Dmitry's point.
+> > 
+> > The question as I read it is - are all of the other potential SIDs
+> > covered by this change ?
+> > 
+> 
+> I get the query as "secure streams also have their dedicated reserve
+> regions, so how does this approach helps" - This patch does not reserve any
+> IOVA for secure streams, only the forward looking subnode can assign
+> specific reserve for specific streams.
+> The patch enforces a common IOVA across all streams, and is good enough to
+> fix the problem we have w.r.t device reset.
 
-Just to understand what is going on:
+No, it's not good enough. It defines that both non-secure streams use
+the provided memory range, it doesn't provide a natural way to later
+_expand_ it to support secure subnodes, etc.
 
-OBS with pipewire+v4l2 plugins -> fails
-OBS with v4l2 plugin -> works
-OBS with pipewire plugin -> works
+We know that there is a problem. We already have been bitten by not
+describing the hardware as is and using band-aids. Can we now learn the
+lesson and write a proper hardware description?
 
-?
+> 
+> > > > So, if we land these patches, how do extend it later to account for all
+> > > > of that?
+> > > > 
+> > > forward looking design would be subnode, which we can land ontop of this
+> > > series.
+> > 
+> > Yes it should be possible to branch to make subnodes work on-top of this
+> > - accepting that once this lands it becomes ABI and support for this
+> > method must be sustained, even after sub-nodes land.
+> > 
+> 
+> Thats the plan. This goes as ABI with subnode to land on top of it.
 
-On Sun, 9 Aug 2026 at 03:50, Flynn <flynnwilson772@gmail.com> wrote:
->
-> Hi, sorry for the late reply.
->
-> I could have sworn I removed it, but when I went to check the camera situ=
-ation today I realized I had a Pipewire beta camera input in my OBS in addi=
-tion to the V4L2 one. The Pipewire one seems to work even when the V4L2 one=
- is fucked, and removing the Pipewire one seems to fix the V4L2 one. I real=
-ly don't know how I missed this for so long. So after that discovery everyt=
-hing seems to work fine but I'll update you if it breaks again. Thanks for =
-your patience
->
-> Regards,
-> Flynn
->
-> On Fri, Jul 31, 2026 at 1:43=E2=80=AFAM Ricardo Ribalda <ribalda@chromium=
-.org> wrote:
->>
->> Hi Flynn
->>
->>
->> On Sat, 25 Jul 2026 at 00:54, Flynn <flynnwilson772@gmail.com> wrote:
->> >
->> > Just thought I should note I was just on a Discord call using this sam=
-e camera and it worked fine with no issues.
->>
->> Looks like the camera is marking frames as erroneous after you change
->> the control:
->>
->> [674830.694385] uvcvideo 1-4.3.2:1.0: Control 1/4 value change len 9
->> [674830.710385] uvcvideo 1-4.3.2:1.0: Control 2/10 value change len 7
->> [674830.725403] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->> [674830.725408] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->> [674830.725410] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->> [674830.725411] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->> [674830.725412] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->> [674830.725413] uvcvideo 1-4.3.2:1.0: Marking buffer as bad (error bit s=
-et)
->>
->>
->> So we have to debug two different things:
->>
->> - Is the error bit confusing OBS?
->>
->> You can check if that is the case by
->> rmmod uvcvideo
->> modprobe uvcvideo trace=3D0xffffffff nodrop=3D0
->> CRASH YOUR CAMERA
->> dmesg > dmesg.log
->>
->> If that works, then we need ping the obs studio guys.
->>
->>
->> - Is your camera unable to recover? (is it broken?)
->>
->> If the previous test do not work. We should probably ask Logitech what
->> is going on.
->>
->>
->> But lets go step by step and check the nodrop test.
->> Regards!
->> >
->> > On Fri, Jul 24, 2026 at 2:52=E2=80=AFPM Flynn <flynnwilson772@gmail.co=
-m> wrote:
->> >>
->> >> Hi Ricardo, I only managed to get any output from the second test (th=
-e first one printed nothing at all to dmesg). I've attached it as dmesg.txt=
-.
->> >>
->> >> You'll note there are two different devices doing stuff in the log. O=
-ne is my laptop's inbuilt webcam and the other is the USB webcam I'm primar=
-ily troubleshooting (which I bought so I had a camera to move around). Afte=
-r realizing they were both using the same driver, I did another test that w=
-ent like this:
->> >> - opened OBS to see USB camera input currently broken
->> >> - opened camera input properties, upon which it fixed itself
->> >> - switched to my inbuilt webcam (causing it to freeze again on a fram=
-e of the USB webcam)
->> >> - switched back to the usb webcam (it did not recover from the freeze=
-)
->> >> I've attached that log as dmesg3.txt, though I sure don't recognize a=
-ny of the specific events in it. Pretty sure the USB webcam is on 1-4 or wh=
-atever and the inbuilt is 1-13. Thanks for the help
->> >>
->> >> Regards,
->> >> Flynn
->> >>
->> >> On Fri, Jul 24, 2026 at 12:17=E2=80=AFAM Ricardo Ribalda <ribalda@chr=
-omium.org> wrote:
->> >>>
->> >>> Hi Flynn
->> >>>
->> >>> Is the error reproducible? If so, could you share the output of dmes=
-g
->> >>> after the camera freezes?
->> >>>
->> >>> Also, try this:
->> >>>
->> >>> dmesg -c
->> >>> rmmod uvcvideo
->> >>> modprobe uvcvideo trace=3D0xffffffff
->> >>> CRASH YOUR CAMERA
->> >>> dmesg > dmesg.log
->> >>>
->> >>> And then share the dmesg, hopefully it has enough information for us
->> >>> to figure out what is going on
->> >>>
->> >>>
->> >>> On Fri, 24 Jul 2026 at 02:18, Flynn <flynnwilson772@gmail.com> wrote=
-:
->> >>> >
->> >>> > Hello mailing list, please go easy on me as I've never reported a =
-bug this way before.
->> >>> >
->> >>> > So I have a Logitech USB webcam using uvcvideo and v4l2, and I'm t=
-rying to use it with OBS Studio (the Flatpak if it matters). However, upon =
-changing the device's video settings (possibly to an impossible/unsupported=
- combination? i did try to increase the exposure AND set the framerate to m=
-ax?), the video stream froze fully and as far as I can tell didn't recover =
-until I manually replugged it. (Frankly I don't have the patience today to =
-check what makes it start working again, lol)
->> >>> >
->> >>> > Expected behavior is that the device should either not fail in the=
- first place, or should recover the first time it tries to.
->> >>> >
->> >>> > Kernel: Linux pop-os 7.0.9-76070009-generic #202605191504~17804318=
-19~24.04~94774ef SMP PREEMPT_DYNAMIC Wed J x86_64 x86_64 x86_64 GNU/Linux
->> >>> > Distro: Pop OS 24.04 LTS
->> >>> >
->> >>> > UVCVideo quirks: 4294967295
->> >>> > modinfo uvcvideo | head -20 attached as uvcvideo.txt
->> >>> > lsusb -v -d 046d:0825 attached as webcam_info.txt
->> >>> > v4l2-ctl --device=3D/dev/video3 --all attached as capabilities.txt
->> >>> > v4l2-ctl --device=3D/dev/video3 --list-formats-ext attached as for=
-mats.txt
->> >>> > the full OBS run log is attached as obs_log.txt
->> >>> >
->> >>> > I'm ready and willing to provide further info, do more diagnostics=
- or run test patches if it would help. Thank you
->> >>> >
->> >>> > Regards,
->> >>> > Flynn
->> >>> >
->> >>> >
->> >>>
->> >>>
->> >>> --
->> >>> Ricardo Ribalda
->>
->>
->>
->> --
->> Ricardo Ribalda
+So, do you actually plan to support both ABIs? This would also mean
+moving reserved regions to the subnode. What prevents us from
+landing subnodes straight away?
 
-
-
---=20
-Ricardo Ribalda
+-- 
+With best wishes
+Dmitry
