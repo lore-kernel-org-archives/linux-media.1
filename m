@@ -1,151 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E6379CD;
-	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF653AE6E5;
+	Mon, 10 Aug 2026 10:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786357348; cv=none; b=Ugma28KrV7+9FWEK05ZBWN7seUDCN573IbahSC3ADQQCD2jSZ0uH9v9j7rWW76DSim3r5ul2q6w8VVs+dgGbMd2YVuCgzusrS1RsVfMSzlnKypwxQoLpEVkoVYCaTArrFrjzPczrOXNREKAQoKGtTDwcz90A4TWzew5/8fiUdCI=
+	t=1786357508; cv=none; b=ex0Qj+vrI7IzUa14p5TtuJb5LiNg94ss+vFlzVTUV4aybEtFoq1oHIGoWpkWQTQ8MLKn8x06isr5G6y07yuUsbClfFKqIJAsBjHTlgB2VBZGskptBZ+lteJiXu7oU1vKMes8skGdct7g0wz/26VKwnPbhrwnP/Hrls0pPtZSKNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786357348; c=relaxed/simple;
-	bh=DgcQbeChtGW8icM1Xx04FXlp9L3vAMf4t3oeZdi2CFs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=U2hU4xQlCviqbS6SVWuWe5DoZpo2GfWzOTdzQHg7jOpWYHsHrAhDiUYgenVVDr1NcnNpLaJIh6bwZGfafMf+cSD3K0QeUadyFsWJSBRrpTqAVWFVsfkOtO/EwKEHDsmYFOg8KS7duaXuIoVsp1r12j9bAOxz+PoEjQQcxejSvQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oU4Hzsg1; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786357508; c=relaxed/simple;
+	bh=3dsY8FIX9DzqEbT1NZad7IU9g0NMFzgWcKRnXmkmE5U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=GCsNcXe//vw2GX/mHQ+H9bEvxhxjdmVJIS1F+NtA90M/Pr6OXi+biAYpqgAmoxlLw8/+H4+18ULkb64p76drZdkYBBiSYPvdiZ7tom1cdFx19RjgUu+lp5GejVj8tJ6egXZA5Z2EVQV0zahNfOOUBu9rjbEs5hytbRDQcupfvvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CuhxUz4k; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oU4Hzsg1"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 62640C2BCF7;
-	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786357348;
-	bh=DgcQbeChtGW8icM1Xx04FXlp9L3vAMf4t3oeZdi2CFs=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=oU4Hzsg13dM2FMlItBlNO+ftXrzOC+xXJILx6xKcYh0aOyl0gtGu7LWW/Bs8NOpY5
-	 9ri6rT1hwlox7zDNDgsvOUtV/7ULZrzBs74sdYT7lcj8p1j4VbHyKPHf9DFLe92GLC
-	 63WeUEjuuTnHc23AGBSC2paZQP71PDpQlb3YfT8DtZnF0UWgMdJVjG3PapUAoMkWde
-	 nmetDRJ1uZNDGnx316QlzJTjdRFBi31dCNyX5FW8vXihesPJtPFORX2mQCtRXdEwOc
-	 si+w8L9xeknDfXvOkxWqH7h6vFP2/Ni0pfOjMCiNpvSScbhhmtBrPfmdd0Jzcywg7w
-	 4hyki+LZBbYEg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3C78FC5AD7B;
-	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v4 0/2] Enable DW9714V camera focus coil on SHIFT 6MQ
-Date: Mon, 10 Aug 2026 12:22:22 +0200
-Message-Id: <20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CuhxUz4k"
+Received: from [10.0.0.152] (unknown [10.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 0E11553407E8;
+	Mon, 10 Aug 2026 12:24:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1786357499;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=lZUtrJm2QH00/3zx50/d35ViLWwmpOYtZnYNMg+wTUE=;
+	b=CuhxUz4kcoXZqLfJc8QyhSQQTkIuiZbkDf1QP7cUWK4v40wsk69Nm12RnjKPs0DCb4zhC9
+	ZcHPnu/Xr6mvtlupJubiDxqQT7x1dGw9WPN+w7siXIGFjxX9u3MlykLzuejblQQZZDTS6g
+	I4/kziwOGdXfLT5VUMxjO46puhquK9c=
+Message-ID: <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
+Date: Mon, 10 Aug 2026 12:24:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XMyw6CMBCF4VchXVszvdCLK9/DuIB2kG7AFFJRw
- rtbMBFdnsl8/0wGjAEHcipmEjGFIfRdHvJQENdW3Q1p8HkTDlyBZIr6h9VMJipLpaQqsUbtSf6
- +R2zCtJUu17zbMIx9fG7hxNbrp6G5/TYSo0CFk9rWwjXGwTlMYTy6F1kLif8oAbviWfnSV8yic
- grqfyV2ZUDsSmRlkAHXxjsPflfLsrwBDFvWvggBAAA=
-X-Change-ID: 20260416-dw9714v-4566465ebe7d
-To: Alexander Martinz <amartinz@shiftphones.com>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714: Document
+ DW9714A and V variant
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Alexander Martinz <amartinz@shiftphones.com>,
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, phone-devel@vger.kernel.org,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2958; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=DgcQbeChtGW8icM1Xx04FXlp9L3vAMf4t3oeZdi2CFs=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqeaZiy43kjvu/WwtCZvoAsI8zsQR6rQYJUywOF
- 0ujgJOoCHCJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanmmYgAKCRBgAj/E00kg
- chEcEACwp2dBao5cybUyeVvZjdhXzMXAtb4rc6cJbvIgnXQkC5cd0zT2oO3kNwubWM1VzrGd5rC
- gOtyuXtlg6YAkwnnGNSybPcA4xQe3oyQQEuADzuL+lsKUJFFwE18i/KlSn3hz4+5fdz3EvUTy4r
- i/FghdlW6E5ZGCl//xTRaqwzEGsTrQwT3WAf7d0QhraLDSOqe4zOidjQ34w/d/BD4kXDXN2x+C+
- Zjfn2Sk1QX9FWCCQNN4f5KwRKXD+cfWjJHQqBw+kWXSp8cOEQ3A+MIDAECr1p1p13QaTIvv/t1v
- PZxYYdA40hlujZUf9a3i59qvFehrgC5mJd7ym4YK8Az/Av42v+wP1afi/XnfWfeXQtLWlBVdcta
- 9COJ17k0Mc394fSEkjm3XSTodPl0Ob+vrS1vdEKozNuPUd5r43G5V3N2AkhGU4ZZBC0u/erlTJA
- dkTh4luUIbzmU892lWQ0TWVwEnODg5pGrpsaFOIeo/ZwLAWse3W9Jx2c1boPPg72lQAfC7qcwql
- lpOiSqWi06YnlGaP4RB821dS+iiYg/RBaCiNltI7GI8lcaEjqpZt+E/ZSA71w/x/fRnu/JV731m
- qYsgEMvQll59IYZgS/296lesCo4fwMsKfelUemW7sLlPA33CTEy8LrnIbs8r+lftiK/9YX8d0+C
- /m9u1k6VlSgOqDA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
+ <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
+ <anmcEvEwld-ZV9WE@kekkonen.localdomain>
+Content-Language: en-US
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <anmcEvEwld-ZV9WE@kekkonen.localdomain>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Implements wiring for:
- - SGM2036 linear regulator used to turn on the focus coil [1]
- - Dongwoon 9714V focus coil used by IMX519 camera sensor [2]
+On 10/08/2026 11:38, Sakari Ailus wrote:
+> Hi David,
+> 
+> On Mon, Aug 03, 2026 at 11:50:25AM +0200, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
+>>
+>> All actuators are backward compatible, but they do introduce new features,
+>> such as Smart Actuator Control (SAC) mode which can minimize the
+>> mechanical vibration and achieve very fast mechanical settling time.
+>> Support for SAC can be implemented in the future.
+> 
+> What kind of configuration does SAC require? Such things generally aren't
+> configured from the userspace, compare e.g. with the dw9719 bindings
+> discussion.
 
-[1] https://www.sg-micro.com/rect/assets/efa85993-263c-41aa-9274-b488f59f85d5/SGM2036.pdf
-[2] https://datasheet4u.com/pdf/1247146/DW9714V.pdf
+I don't have extra deep insight (except basic how the sensor works).
 
-Open question for future work: modeling the I2C bus supply.
+By default all dw9714* sensors starts in the default "legacy" mode.
 
-Like many similar chips, the DW9714 has a single VDD supply, but its I2C
-lines go through a level shifter to a 1.8V rail, and there is currently no
-place in DT to describe that rail so it gets enabled during I2C access to
-the device. As a stopgap, this series models it as an always-on, see the
-comment in the vreg_lvs1a_1p8 node).
+The clanker after looking at datasheets and kernel struct produced, if it make 
+sense:
 
-Direction agreed with Rob Herring and Mark Brown on IRC:
+the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
+the mechanical tVIB of the actuator and lens assembly of the given camera
+module, the same way dongwoon,aac-mode/aac-timing/clock-presc do for
+dongwoon,dw9768 and dongwoon,sac-mode/vcm-prescale for dongwoon,dw9719.
+Those properties are left out until there is driver support and measured
+values; note the DW9714V mode set differs from DW9719's, so its enum cannot
+be reused as is.
 
- - Modeling the level shifter itself is overkill as long as it is just a
-   supply; modeling the connector would come first if needed.
- - Since each side of the shifter has its own supply, the proper solution
-   is a generic 'bus-supply' property valid in both the I2C controller and
-   device nodes.
- - Defining it per-device-schema would ideally use an I2C equivalent of
-   spi-peripheral-props.yaml, which does not exist yet. The pragmatic
-   interim is to define bus-supply in i2c-controller.yaml for both places
-   and add 'bus-supply: true' to schemas that need it now (dw9714),
-   deferring the peripheral-props question until more shared device
-   properties accumulate.
+David
 
-Once bus-supply exists, the regulator-always-on workaround in this DTS can
-be dropped.
+> 
+>>
+>> Nit: fix typo in description by removing duplicate information.
+>>
+>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>>   .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
+>>   1 file changed, 11 insertions(+), 3 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+>> index 66229a3dc05d6..7c2769e6c4880 100644
+>> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+>> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
+>> @@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
+>>   $schema: http://devicetree.org/meta-schemas/core.yaml#
+>>   
+>>   title: Dongwoon Anatech DW9714 camera voice coil lens driver
+>>   
+>>   maintainers:
+>>     - Krzysztof Kozlowski <krzk@kernel.org>
+>>   
+>>   description:
+>> -  DW9174 is a 10-bit DAC with current sink capability. It is intended for
+>> -  driving voice coil lenses in camera modules.
+>> +  10-bit DAC with current sink capability. It is intended for driving
+>> +  voice coil lenses in camera modules.
+>>   
+>>   properties:
+>>     compatible:
+>> -    const: dongwoon,dw9714
+>> +    oneOf:
+>> +      - items:
+>> +          - const: dongwoon,dw9714v
+>> +          - const: dongwoon,dw9714a
+>> +          - const: dongwoon,dw9714
+>> +      - items:
+>> +          - const: dongwoon,dw9714a
+>> +          - const: dongwoon,dw9714
+>> +      - const: dongwoon,dw9714
+>>   
+>>     reg:
+>>       maxItems: 1
+>>   
+>>     powerdown-gpios:
+>>       description:
+>>         XSD pin for shutdown (active low)
+>>   
+>>
+> 
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v4:
-- Updated DT bindings commit description. (Sakari)
-- Link to v3: https://patch.msgid.link/20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz
-
-Changes in v3:
-- Multiline compatible. (Konrad)
-- Dropped output-low from avdd_cam pinctrl. (Konrad)
-- Then dropped whole sleep pinctrl state, as it's same as default.
-- Reworded the TODO. (Konrad)
-- Dropped camss node. (claude)
-- Moved before cdsp_pas (sort)
-- Dropped unused regulator label.
-- Switched the i2c bus shifter with the regulator VDD, as previously it
-  was incorrectly wired and keep always-on on the i2c bus shifter.
-- Link to v2: https://patch.msgid.link/20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz
-
-Changes in v2:
-- Address Sashiko findings.
-- Link to v1: https://patch.msgid.link/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz
-
----
-David Heidelberg (2):
-      dt-bindings: media: i2c: dongwoon,dw9714: Document DW9714A and V variant
-      arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for main rear camera
-
- .../bindings/media/i2c/dongwoon,dw9714.yaml        | 14 +++++--
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  | 48 ++++++++++++++++++++++
- 2 files changed, 59 insertions(+), 3 deletions(-)
----
-base-commit: 95d6a9ccef99117115e41e9adb271243bd5e985b
-change-id: 20260416-dw9714v-4566465ebe7d
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
+-- 
+David Heidelberg
 
