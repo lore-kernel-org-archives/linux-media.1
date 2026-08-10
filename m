@@ -1,201 +1,163 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazolkn19013080.outbound.protection.outlook.com [52.103.33.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAEB63793BA
-	for <linux-media@vger.kernel.org>; Sun,  9 Aug 2026 23:38:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.33.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4DF49620
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 00:14:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786318732; cv=fail; b=nRmAyPL5vqZCDkbVMZBJTZpudzb+3UJ3U+dkZBdnmTVrltRXeT+kPn17i/bPUvggrF40vBKqghO6OSW/ZVYAluJ4GF0OeR1+x8kAeF++cc4yJ+tPiTFWwboZbG/gTWC68AT5OV+2QZzeqNKeAnqM85zCNBQ8trvX19vUeS5RKJA=
+	t=1786320867; cv=pass; b=C6OOBVL71cyLe/KI6NlAk7S50kqwy+qBleYFyo1ah1RkvUGwDjyNpO90Wxc86o1dkUUvywpG3sD1RwuwAedkbNQEYlH1qhSPzhEWi2wJJH0NKr7aN4Yz/cIjD7+Abb1W6hEptTSAelxEjSNVkZYBjj1ED/rYWQ7DylACgukpvuk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786318732; c=relaxed/simple;
-	bh=wBi5K/X3SPpzGtTaoIq7PvR3PQYhvwi0oJ+cX/wW0F8=;
-	h=Message-ID:Date:From:To:Cc:Subject:Content-Type:MIME-Version; b=Yw4Lxx+P7C0vUCVTufjRL+4HvyQCzO7wPqep2KlXYKLCmGjZOOHCtHLK/JzoGzN5RBRJ16sIX0o1xBskESqZ+LC+/AT+Mxy2UYifJw2WEKncwah+pkSNF/SdoSAidk5QYGhJCCfZ1ksRK8jyxm3eegL5SIDVkNiCH5WzrSDObTw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=JPIC1YyM; arc=fail smtp.client-ip=52.103.33.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	s=arc-20240116; t=1786320867; c=relaxed/simple;
+	bh=JEgqZXe+TmWcFDkQ4RSSR720wWFwjKRWFdTLBUwIihc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bgvNvzyuJUWu2eQ/X/+kWNx+jHj47YtZqEdKh7/2CEMIP/1bXL/zc/xbAFic5zSRI+T+LULAW0KP0fMklLBd6paS7bQVjSdMi3RU/Je9ZDQyE7prDB37Mb/vauEuXeXLyV5clSQSRvdUiyPtfLI1sAnK4pfxoUxjcIy7kQ1HwfA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qS9GUrBc; arc=pass smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="JPIC1YyM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=q/za0WZNUMGGPYeOOSNd5CGl0BaZRZdwBkK2uDeRqd5EfP7QmfV03IbQ8gWgUB78WLFZnfbxoHKK99nF2lfyDXYNLinjvudufIX3NlCCj6VOL54rvi6Z2ONHXI3bl3TUPkzbgv+jWsSSOuFlUcm2Awz1SQxAGCPjpTWBNViTnYe4Kojk4DjY5XGjqvv7NoE6fgYMi9hes9BFSGWKoVj4I46JunFeSwh4S1EaNGMfOVrmMwNRMnlpkkRpNBrJyTTnY7YerzLXnrYmUv2d4uegChfsmlNvVeFSBMsapQ14TSQFkh3PIktjJVfgaOvN4yU9J9b6c8NV97rjjVMThdvEag==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zGYNQosOHNGucFhl+65PNuXZxRrCci0fxir4pyvhk9Y=;
- b=IslZsxTLRQ0svZ26uie8gXtGRl937dZo610VynAhY7IEaNkUQzGZxiCPFjzcw5KqQuQWVXXPXf8cEwqBAcgl/wrgtUeMCSt+AkmtM1wLIfaWuKbksUKmX4+Xjl6KtKERpFDfawe1WMqQDuJ4puTCgTseAferm74xGaezlOviC4hO31eyRjbd9LjhaQCs3Kgr/bHj64+qRHcVqHDwJDCjhlzxfR1k4H02hgb1wjdIV9ck+NlRm6kMd327L5x7zp87tMOh7Pzz9EgaRoylFbWFFhAktAJk576iTU54x/cyHYVIS0O/Q5Iwl+XFy6jcbWwnLiBVe+cDU3Nifl2xGwMmzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGYNQosOHNGucFhl+65PNuXZxRrCci0fxir4pyvhk9Y=;
- b=JPIC1YyMfJKEn5kjrfUpfeeoDWmIrsqyfi4I3QYbXDxBwuTWIHaF40VUtRuKz6h4dViHevDFV2+SZKls3Pjw1crKmthX3NH9epFocBNDnm7s+hxKKkD9/lh1LqgzIKT9nLVTwFIbzK5dabuWvNG8PvexYBhjOSt5HiBBGHkYeWNsFgxdU1IwetRW+rvVFlShGkHh25/ij1ktsDbROvAP3cHUgaI0Mo/ptiZXknnjJDIx3oJsDkU/pLRqaC9C0vccP8OZvsnDUAYOqktl91hEueN6h5v2w0N34/ZMy8Mo/eQEGDbuEJWsehUOr8l/yWyHPt8UD8G/b1ofmafn3Y5CDQ==
-Received: from VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM (2603:10a6:808:1::124)
- by DB8P195MB0696.EURP195.PROD.OUTLOOK.COM (2603:10a6:10:15a::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Sun, 9 Aug
- 2026 23:38:47 +0000
-Received: from VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM
- ([fe80::cfa8:9780:b74e:1465]) by VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM
- ([fe80::cfa8:9780:b74e:1465%4]) with mapi id 15.21.0292.024; Sun, 9 Aug 2026
- 23:38:47 +0000
-Message-ID:
- <VI6PPFD0A65370F3F49A1C8B719D27C50F3A3DF2@VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM>
-Date: Mon, 10 Aug 2026 01:38:45 +0200
-User-Agent: Mozilla Thunderbird
-From: =?UTF-8?B?Sm9zw6kgTWFyw61hIE1hcnTDrW4=?= <jmmartinf@hotmail.com>
-To: sakari.ailus@linux.intel.com, johannes.goede@oss.qualcomm.com
-Cc: dan.scally@ideasonboard.com, bingbu.cao@intel.com,
- tian.shu.qiu@intel.com, mchehab@kernel.org, linux-media@vger.kernel.org
-Subject: [PATCH] media: ipu-bridge: check all DMI entries when overriding
- sensor rotation
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: MA3P292CA0027.ESPP292.PROD.OUTLOOK.COM
- (2603:10a6:250:47::13) To VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM
- (2603:10a6:808:1::124)
-X-Microsoft-Original-Message-ID:
- <ce0c894f-361a-4615-b1ca-b426e9acdc18@hotmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qS9GUrBc"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dd55ad76cso1029381a91.1
+        for <linux-media@vger.kernel.org>; Sun, 09 Aug 2026 17:14:25 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786320865; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ddAVOOqj21w0sILwpDVutgydO1316d5Fc+lXxK/Os1SzwWN69DIJ6aVSQOMMsOhPLg
+         YU6+cYFcyzURjKU0nRvWDsRRhOZPhnAnr2WV1HG29BiXnplUdYcFgrhHa3+cqw0qpOMS
+         C6Ecd1Srk9vRJf1CBI6j0e0YU1j26XYlxfPGwaQ6bO/+F4oQAAdCxNOXsjeI5bROUmDu
+         1zTFuodkLFQhOCd3wYiEVaq+0HMXIQiqKEjXLQQ7Vb2KExYrQxWwmqIlsgNxZkyUX8X9
+         JaTdCQzQlx4s37Gkl8DUdB0HuK5gBX6VFnsviRcA4QrAhXeg3F1eqI5A0t8kiU/ICPcF
+         yRFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7iBsYXZ6NNe/IK85imXuaVPUbbvLo/YiytAGi0EJQvw=;
+        fh=ut9UYEdHq4Z95zDHp6Njjh+u5PNjBmSzT+uumsN0kbQ=;
+        b=AtF4xVnxQlcx6byrSHymq6zA96yWdSW24HecDpgpB/+wjtJSSoyyh6mpKxv3CZAxCh
+         zLeIX0yB0JM7+2b0OXs1gCfG2B3qZ7qsjnIFsDQtcEGV3wBqxn4DDvqtXq1aTS+W4as4
+         sscPQYuF4djB6iYvxvnYZ0ev60xzmzNEO2tHCOD/xsPaH1LjR0wTyYtXpXNkGS5v+Rrt
+         Nb+i0zDzdeDtpgw7MS+rEbACKebojklQtpMoPh8LJkiSzz6qAo4F94vOeUSCdpJVGPPH
+         6mTfO618h+0JFu7LAwagXRuw73N9BOsJikS6dVdj5SqNqGsNMBHKC1UhdL1F+Aql2u7i
+         UK0A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786320865; x=1786925665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7iBsYXZ6NNe/IK85imXuaVPUbbvLo/YiytAGi0EJQvw=;
+        b=qS9GUrBcCibqljHNUgOD3+eiQj+6oDn1JdmxzBzyLIT18wdZLWcSZwADrhCZmzLHXl
+         GAzjRVWGaQO3Vz54UHyWBiPDKuViL2JcZP7kS6TgqnJ8ZEKFkpB5WVu7UV1PRpttQuKk
+         wWUTiMM0OE/IrTw47Vxp0aGUXrp//GgGojJQdfx2zbnrBn6hhBeh481GlAQHqap0O/h6
+         3Wua+y8wobyshBMN1FCAjmI8FpZZ3l0oTs5wZyd3Pc7J5qriNeC7y+KVMCOskOjMbAC2
+         e9Z8i5B3LavRYeEeY9ttiZElB1JIllXzejQLSBoHSfogE2N5BjGA1YlleIQu6pwDH14O
+         /Pyw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786320865; x=1786925665;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7iBsYXZ6NNe/IK85imXuaVPUbbvLo/YiytAGi0EJQvw=;
+        b=KO9Qxdf9mvmvXtp2sgpB+QkhWhXH36k4z2uPF59TjMzfQFEnvmmhhxBg3mowf222SN
+         s9WccPHP7C1jUd9tgPxkl9XwAaWjphyd0B1FBTiBvz2HEI22iAf9MArVVLFF65QjBoy0
+         wAFgpnlBIObdLDZAGqd/MmwoJ+kPuWIIfTc5AgTjeRv7154Zr5E4GQqfjoRyV4dYczmM
+         O2co5xssmSEgLqvsCd5iPpKZXo/3ay3WyGotHIO/lVHYqXXA8AnEc0kG84Sv1zso/F3L
+         x7HXmk4IiP9Rtm9iuhUTpiU5+GqiE9D5AAcn4qIshjS0Ao3vY/YRsBuNAwCCa4nKd0o9
+         7cEA==
+X-Forwarded-Encrypted: i=1; AHgh+RrDidPFsl8qYw2c6mb09sbrXMfH8tJ/pxv6NLySN7awaU6azfj/69DD0qG1zZDDxeo9qNTRYD+Jh86ojw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyjzV2xMXVkheFKMWrFHhEDlLGREKBstTZRonhIMMJshAo6PyfK
+	AWADXiUuf3YjXumYFRbMWZnfEIrlSilrd18lLtvhsPiEyoZaaw0bkryEhNdQRDInx6z3X3Juo02
+	lt5PtayW07F6zYIuhlrotj6vFK9rHL+0=
+X-Gm-Gg: AR+sD12RxTtMatPszdc8KlsCrRdOwvYD1zPTJAnuc20zs+VHxO3T7DbI14iBhHwEnA9
+	249cHb7Aqr32dfJmk5HRFkiqeujslQUEWd1AcEkbdnQGTDEVI/IbBBv7MsnrVSuVoHJ8QYdntWP
+	XuJm0hdTEwrmEW1hjlClqBM9UM++59+EwPIw4imjWPWKW6VaaIswcLNUScq3qnO8t9Qy2ncmME0
+	fth8ZUWHYz7ZySaMTkSFJxKNGFd/xT0wnbvHgNLUYWOeC2eN1vhTGFjHqybj177l+8LnRg1zkJX
+	HzCsY+hrVajJlR7/r2Md6RxGRiV+/XaFT5kptASGz/g=
+X-Received: by 2002:a17:90b:4c42:b0:38f:cab0:9aa9 with SMTP id
+ 98e67ed59e1d1-39284703808mr7292370a91.13.1786320865147; Sun, 09 Aug 2026
+ 17:14:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: VI6PPFD0A65370F:EE_|DB8P195MB0696:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7a37231e-e047-463d-60be-08def66f5b8e
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|24021099003|37011999003|25031999004|6090799003|39105399006|24071999003|15080799012|23021999003|5072599009|4140399003|25010399006|5062599005|20031999006|41001999006|8060799015|19110799012|3412199025|440099028|40105399003|2607281247196008;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?dFRMQm5lZ3NDZDI4VHlxNlh1dXI2ZS9uTVlMRTlISEcwM2U3SmdmM2ZSRytT?=
- =?utf-8?B?Q0lRMm0wRWx0OEdjemd4aytmLzhMQXMvOG1ERkVmeGlQYTAwbElZQWR5SnpZ?=
- =?utf-8?B?S3pmaE1BOTBuY3BhWGF1cEpTQnNRaExBMmpGY0MxdENvQVV5UDRvUTd6Zlhk?=
- =?utf-8?B?Q3pCMFFpM2FkOWhueTNYRk1KNXdCU3dxOFBFdzdvcnVXUlhCeVBCZ1JnelZV?=
- =?utf-8?B?YWNzK0NINmxDa0t4cDZ1UUxwbXVzQVhxK3ZLekN2V0d0bTlSMUVaUTJVNnda?=
- =?utf-8?B?K2hJN29DUXpSMnFIZjJ5RzlVOFE3NjR2NXl1OTlwR1lVNUFGakRnMC9pb3BY?=
- =?utf-8?B?cC81QjJ1VnNobFIrZk1MK3htY0hUTEYwM0liWjlPb3lCSWdxK0VjSHoyVGhC?=
- =?utf-8?B?UmZOcFM0Z0J5Tng5OG94dDEwZzFIaEg4ZmhyYkJUcUxyNFhvWmZ0QU1CZVp6?=
- =?utf-8?B?Qit1cjhLOGZFWnp4WDNOanRkQkcxYUJIckdPYlhTQnFQSHlGNmZ4d2ZDeDhj?=
- =?utf-8?B?eWZMamFHRGVZUDA2RnlVZ09lSmhEMUJsUjFSU281VGJyc2MxZjF6NHNtcGZp?=
- =?utf-8?B?akI0WUFzRVpweENXUHpWZjlMYXJlOTZ1Vk9QcGJvWGcxQmM3N3greWpNQllE?=
- =?utf-8?B?YWxiamhEY3JUWWQ2UTd3TDdFbTd6bE8ydUpkNFJPaWlEQUJjWUxNbVJvMURh?=
- =?utf-8?B?L0NCOHRhSWVmMWp6OXFCOXM1RFJHZFR1dDdrT1ZUUlNwa0xzaEZEQXZmWTJp?=
- =?utf-8?B?Z2VhQjJjMys2U1psSldDelR1ZWcvRjdOaGQ0eWp3SjBXYmxGNjJxczBGMFJK?=
- =?utf-8?B?N01GNGRnNExaK2RsM0lyaVl2eTkvekZ3TWw0MFJPa2FXQXpXZ1F2L0ZMc3lW?=
- =?utf-8?B?NHlzWFVzNzQwUzlDcHk4V0ZobVRXdTBoaHZqS2F3cUZwMkcwZ0UvdWZ0SUJY?=
- =?utf-8?B?SXlTeVVLRnl5eGs4ZlF2T283WVBqNlMvbjFDdkdOYnZUVHNYV0NOUmpVRUVo?=
- =?utf-8?B?ZDA0My91TzdwK1VZTXc3ZnZUazBXTFRuZ0tGOXM2R05Sb090S3E1bytZSVIz?=
- =?utf-8?B?MjVYNndva3VJOXl1VzJLajNiYnNCN2g5SW0zZ2NTcHZDN3RQMlRUV3ZmM004?=
- =?utf-8?B?dlorc2FlS0ZiKzJKdXAzaVRwUHVmZG5tVXZPZWNHdkt5NnlOUXZpNFUvZ1Ux?=
- =?utf-8?B?b0lyOFRKaFZ5cWR0ZHJDcnlmNkQvbTNhZCtwSXY2YTUwZEVPeFlmL3Jmekti?=
- =?utf-8?B?ayt4N2ZlWW9DdkFscWJ2N0M1WXRrWWR5bjF6bWorS2pEbmE4L0FMdHRnU083?=
- =?utf-8?B?dk1oY1B6cFFrQ2szNGZPZTNCczlBbHVmcm1OQUh5Q1J1Y1prbGphVXg5UU85?=
- =?utf-8?B?ZnY2Wmg4U1ZOVHdoY2ZZU201M2ZzT1YrazJsSmtIS0NYNDBhZ2VYRVV2U05h?=
- =?utf-8?B?WGI3c0xtdTkwbEhXMXNTRGJBNGJkU050dVR0RnJ3MjhCU1liUkMxVWN4YWIw?=
- =?utf-8?B?Tmh0SG1ueVo5cHl1cXlqaEJjaVFZZTFod25waFFRMkdCR1g3VWJ4a1RVN3oz?=
- =?utf-8?B?MEQxQT09?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWt5UmxqS0xLZ2JFcGRDekJTdnZVdXdjZjVXcGFuUWYvTUZRNkh2SXBtZEdk?=
- =?utf-8?B?ZHRYT2ZsUXp2cXl6NkJLdU9DdUJSRC8yRi9YUmU3SHE5TDVYUXNDWmJpMnly?=
- =?utf-8?B?b0x5L2g5aDBneVpZTWIyVkRkSUdHZGJya1ZKOEZqWWJLZHpvcEtONjArZEtD?=
- =?utf-8?B?cTVwSHZyVFZ0UDAzRXkzMWZWY1pwYmRaS2plRFJpSlJUeU9LYVViWmtkZWJp?=
- =?utf-8?B?SzJNL01YUGV1TUkrYVB6Q3V0VFhncFo5NktmVURENmVzZUMwNEQ4NlVMQTNY?=
- =?utf-8?B?ZDArdG1jUjVGL1pVZEhSSjhLeFVOTnVjN29lZnJZbCtXYUVjYkdUQS9zVEhv?=
- =?utf-8?B?T0xxL2JpM0wzNW9xRmEyS0VscFlUUUl5VVNGU29yS29jT3F6OUJpNngvN1pC?=
- =?utf-8?B?MnAvOHFEdDhGc1JxNFo0ODNGWVZseDZkOUJpRU1neU5JL3A0ekJFV0Fyb1BL?=
- =?utf-8?B?U0VRTjVnUTkxa1dYYmxrd3praENYTlhicWhNazhUSjhoOTVwK0VRL0hXZTVo?=
- =?utf-8?B?K1VLTHp0RFdoeGVJM0lncVhvRVF1REE4bm5QSUxzU0N6R01aNFVYTWROQ1p1?=
- =?utf-8?B?NXozNVhnUGpTNC9WN1N3djRweXE5dVYxVnVIbUtrMGcybEZCWTBmRmttS0xk?=
- =?utf-8?B?SllFOWIwelRLSGtYaTZMUzBsRnZIaTJETUJHMmFpc2Z0c2Z1K3Zlbmh4S2lG?=
- =?utf-8?B?WmdtdVlzTHhSUDF5NUJldXN2QWVXZFVSdEJranhmTHpheWw0ZDFSbG9qVU5a?=
- =?utf-8?B?Z1B3VkFGcUpNM3Zsekowbmduazg5YTliVFhyNmlIczdJNytyZkMraXF4cGZN?=
- =?utf-8?B?UEl0eWNmclNSSllyMzNIS21NenRIWEtrT1NoVkJjQlhaa3JaSjRBOU9RMVc4?=
- =?utf-8?B?RzRyQ1B3VjFtb0FudjQxelZsWklVY0dVK0hkNWdSVXkrUVRRSFAzUUQydFlr?=
- =?utf-8?B?a3R3dFZNWks4UDVySFlmdHlTQ1h2czBFNUZoRnV6YTdHajY2SEI3cTdzVW5V?=
- =?utf-8?B?Z1dkbmJNNjhIaGttelJpK216SnVhekN2cExOdjE4a1M2SExINzhDQnE3eTN2?=
- =?utf-8?B?aHNWeEk3RVk1QUtuT1NLL1RpYkIzcW9IUmdvRDJvdVFva3JXUVFjeTFIVzdY?=
- =?utf-8?B?WmhsYVljMCsyeEllQjdqQTJ2UFQxQkNmSGIxbis0a0NrQVhuV0owZ2JsK0pX?=
- =?utf-8?B?dmNZK1NjNUpmaHFtajB5d2RHd1VBcW43aEtjbk13bC9tN0hGSG9wdXVaUGRu?=
- =?utf-8?B?NGVRWGZmRGxWS2M0aWxYRUdDbEJORGZ3SXNvWkEvcitPM01BYTN3RFBaKzRu?=
- =?utf-8?B?NWV2REhaSjhMajdJbVliQTlaMEtqK2VxdFNXMzhud2NnelZYNnRNdVdYVkNZ?=
- =?utf-8?B?ZEpmYksvemxhYVZmYTJCSUJWRHhlcFJLVklDR3dnVUNnSkxKOENmRHZYem5B?=
- =?utf-8?B?cXkyM0dTWURoR1FaRzFRYktLZ3I2SHMyZVZad1gwb3BQYnpuODlOR3BLbmZH?=
- =?utf-8?B?YmtkM2YrK0dWLytBUFY5SCs0MEFsM093M21PTWRWeDlyaHd3ZitKbGM2YXNh?=
- =?utf-8?B?akVwMkY0eVNZQzZkMXlqYVhjamZVczlZd0hLQysyOTFGMTB0T1JDUm1iQUVR?=
- =?utf-8?B?cnEyczE2WWdWN3krY1dZSDhxMHVmUVJyMjZZeENkQko4YUJ3OXA0QzlvMU1V?=
- =?utf-8?B?dzNtQXFCRTQ1R0xYZWlCYkk5MTVTUTZMRTJRbnNkRVpYOGk2NVkrUVROQVN4?=
- =?utf-8?B?UFJYak9nVnk2NTZ1VHNXaWpYWjg0dy9VS3VsMlJzNzRrMXNFMlppRWVEb1gv?=
- =?utf-8?B?TDRnSXRrcWxab201R1laSmcweHo1eVhQOFl0RXNUamZJb1NhMDQvQWhic2NV?=
- =?utf-8?Q?uGQcgynlcsXv+?=
-X-OriginatorOrg: sct-15-20-9412-6-msonline-outlook-c31bb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7a37231e-e047-463d-60be-08def66f5b8e
-X-MS-Exchange-CrossTenant-AuthSource: VI6PPFD0A65370F.EURP195.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2026 23:38:47.3113
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P195MB0696
+References: <20260808230846.12232.alvinhuang0603@gmail.com>
+In-Reply-To: <20260808230846.12232.alvinhuang0603@gmail.com>
+From: Ben Hoff <hoff.benjamin.k@gmail.com>
+Date: Sun, 9 Aug 2026 20:14:14 -0400
+X-Gm-Features: AUfX_mx7VV0p1_H-JfpjuXCXhMo3xwUEcp8S0EvqHlA876mhXySGmYpFX3SWUf4
+Message-ID: <CAMSzxxTpHyUVud3Lwrg3Q5==OuHq3MBrwxyhmysnFhCsWzJmNg@mail.gmail.com>
+Subject: Re: [PATCH] media: hws: Wait for IRQ handler before returning buffers
+To: Hao-Qun Huang <alvinhuang0603@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A machine can have more than one sensor whose rotation needs to be
-overridden, which takes one upside_down_sensor_dmi_ids[] entry per
-sensor, all sharing the same DMI match but with different ACPI HIDs in
-driver_data.
+I reproduced this on HWS hardware.
 
-ipu_bridge_parse_rotation() uses dmi_first_match(), which always stops
-at the first entry matching the running machine, so any further entry
-for the same machine is unreachable and only one sensor per machine can
-ever be corrected.
+Without the patch, the synchronized STREAMOFF/VDONE test produced vb2
+ownership warnings. With the patch applied, 500 attempts entered the
+instrumented 250 ms post-snapshot VDONE window without an ownership
+warning or capture failure.
 
-No machine in the mainline table currently lists two sensors, but the
-Microsoft Surface Pro 9 has both its front (OVTI5693) and rear
-(OVTID858) cameras mounted upside down while its SSDB reports degree=0
-for both; the linux-surface downstream kernel carries such a pair of
-entries and hits this limitation.
+Reviewed-by: Ben Hoff <hoff.benjamin.k@gmail.com>
+Tested-by: Ben Hoff <hoff.benjamin.k@gmail.com>
 
-Walk the whole table and match every entry for the running machine
-against the sensor's ACPI HID instead.
-
-Tested on a Surface Pro 9 (6.19-based linux-surface kernel with this
-change backported): both cameras report Rotation = 180 and render
-upright in libcamera clients.
-
-Signed-off-by: José María Martín <jmmartinf@hotmail.com>
----
- drivers/media/pci/intel/ipu-bridge.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 88581a4..75db4cb 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -298,9 +298,18 @@ static u32 ipu_bridge_parse_rotation(struct acpi_device *adev,
- {
- 	const struct dmi_system_id *dmi_id;
- 
--	dmi_id = dmi_first_match(upside_down_sensor_dmi_ids);
--	if (dmi_id && acpi_dev_hid_match(adev, dmi_id->driver_data))
--		return 180;
-+	/*
-+	 * A machine can have more than one sensor whose rotation must be
-+	 * overridden (e.g. both the front and the rear camera), listed as
-+	 * one entry per sensor sharing the same DMI match.
-+	 * dmi_first_match() only ever returns the first matching entry, so
-+	 * walk the whole table and match each candidate against the
-+	 * sensor's ACPI HID.
-+	 */
-+	for (dmi_id = dmi_first_match(upside_down_sensor_dmi_ids); dmi_id;
-+	     dmi_id = dmi_first_match(dmi_id + 1))
-+		if (acpi_dev_hid_match(adev, dmi_id->driver_data))
-+			return 180;
- 
- 	switch (ssdb->degree) {
- 	case IPU_SENSOR_ROTATION_NORMAL:
--- 
-2.55.0
-
+On Sat, Aug 8, 2026 at 11:08=E2=80=AFAM Hao-Qun Huang <alvinhuang0603@gmail=
+.com> wrote:
+>
+> hws_stop_streaming() disables capture and then collects the active and
+> queued buffers straight away. Clearing cap_active and setting
+> stop_requested only stops a VDONE handler that has not checked them
+> yet; one already running on another CPU has passed those checks and
+> cannot be recalled.
+>
+> That handler snapshots v->active into a local pointer and drops
+> irq_lock before it touches the buffer, so stop_streaming can run in
+> between. Without a next_prepared buffer both paths complete the same
+> buffer, and the second vb2_buffer_done() hits the WARN_ON for a buffer
+> that is no longer active. With a next_prepared buffer the snapshot is
+> the only remaining reference to the old active buffer, so
+> stop_streaming returns without it and vb2 reports "stop_streaming
+> operation is leaving buffer %u in active state" before completing it
+> with an error.
+>
+> Either way the driver breaks the vb2 rule that stop_streaming has to
+> give back every buffer it owns before it returns.
+>
+> Wait for the handler once the hardware is disabled and before the
+> buffers are collected. The live mode change and the channel cleanup
+> paths already do this around the same collect helper.
+>
+> Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
+> Assisted-by: Claude:claude-opus-5
+> Signed-off-by: Hao-Qun Huang <alvinhuang0603@gmail.com>
+> ---
+> Found by code inspection; I do not have an HWS card, so this is not
+> reproduced on hardware. What convinced me is the asymmetry inside the
+> driver itself: the live mode change path calls synchronize_irq() before
+> the same hws_video_collect_done_locked() helper, and hws_stop_streaming()
+> does not.
+>
+>  drivers/media/pci/hws/hws_video.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/media/pci/hws/hws_video.c b/drivers/media/pci/hws/hw=
+s_video.c
+> index 18e4bc6901d3..7f7e51040926 100644
+> --- a/drivers/media/pci/hws/hws_video.c
+> +++ b/drivers/media/pci/hws/hws_video.c
+> @@ -1292,6 +1292,8 @@ static void hws_stop_streaming(struct vb2_queue *q)
+>         WRITE_ONCE(v->stop_requested, true);
+>
+>         hws_enable_video_capture(v->parent, v->channel_index, false);
+> +       if (hws->irq >=3D 0)
+> +               synchronize_irq(hws->irq);
+>
+>         /* 2) Collect in-flight + queued under the IRQ lock */
+>         spin_lock_irqsave(&v->irq_lock, flags);
+> --
+> 2.43.0
+>
