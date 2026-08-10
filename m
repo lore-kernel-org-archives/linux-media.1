@@ -1,307 +1,110 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E716D374E5A;
-	Mon, 10 Aug 2026 09:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0663B2FD4;
+	Mon, 10 Aug 2026 09:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786354897; cv=none; b=APCjf7IwPpDgnmGEH3f2MwZrmTy2LLNsnq0mWQE3g7ekdjOBo+2kllP3RPVskmy/QbFnF49nIQ2u/ggxYCgU82dEYA3INsBszZ69OTS/5HVJib2HKenrn22DFmdKQKUs2D2Ct4cUOaStP04sE08ZAvFXlbaEgxAEL4lwLH4eOHc=
+	t=1786355708; cv=none; b=jYJ9Wvkv3/T3rHCfeQOM0hMduYkfEJvE+n85qVO69O0ZhBkdfG+8yfV4rJWgM5H+JxnHAXJH1bCold70xkccJ24zrH4xUK44XntfiXkKFZnWN1C91jvo9v5PsCzMxnOlFPt7kcjHHcA2Js/wrzLGOnH636ad4aS6j6kTkSSBSRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786354897; c=relaxed/simple;
-	bh=cOREWmnPykCUZDl8mbww0QbQDYHQ97pWPJwBTHheYnY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PhSfa7wLyKxY/M4IdoAm9d6OeQ5pxSpDJiRwqPGpjXy9xeGVgudq9Jc8kkMAK2ChfFbfIicn/PlYfS9y7UA64MPDwbOYzF2+jsuADLMb+bmb28Npt5dUoLF02Vb8899S4yBzkN5zMaLpLBsAD6/AVXfR4I3ylbY3sPUWCXREYFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RrwXAIBB; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1786355708; c=relaxed/simple;
+	bh=f3caQ2UCUMk5my+imjAfiCG6fjdRCHqq6UR3F8QpURc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OFr/IM2IoCarr04Tz/TCDY3XAiPYv+al2VMnWr9OhZTJE2Ekdx7W7hgT2xdIDRQ5XwWnMqJQCZCkgkqr2Xc3NY5jf9iiVF9zwczWn56DN7EhfXtlc6W61E58U5bFR7IRHUCOL2twGdwDnec82K9AMph1+iz64q+nGj5xTTh8o5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Fy31fysw; arc=none smtp.client-ip=54.204.34.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RrwXAIBB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786354895; x=1817890895;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=cOREWmnPykCUZDl8mbww0QbQDYHQ97pWPJwBTHheYnY=;
-  b=RrwXAIBBkT+UVQBEJ3CDe1VCsjZPqybGPW20aDQryNUpeRvL+2yzTvDm
-   C5dV9IU6jewo3h6h0NNiFP1dKGbNwHE9N7y1tRLb/DwuV/FGp+g0QUJAQ
-   IJzyWJdFdlI5DKtFpTskd3FOp6pA6htaR/SGvgDofpJBsyNxF3RxYp3gt
-   2mTYFI3dq6nwYqcWuuaBnwDfBwB86uEyxDOShHyFC8plqm2gNfPaUobEp
-   DavFP5fvdVsquZjcUVOdUYy2tLuZjyj2SYzVAd14wJg/HceCbdxS04vDr
-   luJYfwuWmMSFDdG2TqTxDPJnzH9pOg1tBeugRR2ZUehfLzGoL9UnA+JsZ
-   A==;
-X-CSE-ConnectionGUID: pGZpT2EMQQOk0K1jBDwn6g==
-X-CSE-MsgGUID: Zf3CcnZbQ4yvpxJs+GgKdQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11870"; a="89387736"
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
-   d="scan'208";a="89387736"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 02:41:34 -0700
-X-CSE-ConnectionGUID: KR5OuCjVQT+N3NNT/q2FfQ==
-X-CSE-MsgGUID: 8GqWIe1WQnyFLae702V6Uw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,215,1779174000"; 
-   d="scan'208";a="263607423"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.127])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Aug 2026 02:41:28 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 21C8C11FA5C;
-	Mon, 10 Aug 2026 12:41:27 +0300 (EEST)
-Date: Mon, 10 Aug 2026 12:41:27 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Sang-Heon Jeon <ekffu200098@gmail.com>, Julia.Lawall@inria.fr,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Eugen Hristev <ehristev@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Niklas =?iso-8859-1?Q?S=F6derlund?= <niklas.soderlund@ragnatech.se>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Sylwester Nawrocki <sylvester.nawrocki@gmail.com>,
-	Michael Krufky <mkrufky@linuxtv.org>,
-	Hans Verkuil <hverkuil@kernel.org>, cocci@inria.fr,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org
-Subject: Re: [PATCH 12/36] media: remove conditional return with no effect
-Message-ID: <anmcxzxwQSzPfXEr@kekkonen.localdomain>
-References: <20260723184538.3888637-1-ekffu200098@gmail.com>
- <20260723184538.3888637-13-ekffu200098@gmail.com>
- <20260807122825.GJ2201016@killaraus.ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Fy31fysw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1786355674;
+	bh=6wE0xvjj3+AnsYJVrqK2gGz/Q4kGKjKA2hUYKFIzW4A=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=Fy31fyswBSCDNMrdFv3Vm1fJ3njgRqjOwE0wWRvHgUs+IXAI9t9ivMsUluzQCL30i
+	 ry2lUO74OBQ9YWHdJKAobLZhQpaivKFQx78K/hwkDaQRXEhnEd7mgKfwJLhTjwxf0C
+	 pGJKeaEZHYRd9dHxGsgqPjoWrU94D9NTwbVTL7rU=
+X-QQ-mid: esmtpgz10t1786355656t7e9814bc
+X-QQ-Originating-IP: tI+UWEGuDjn0Cnqyl9unKI9UELnJQoNCbetKoAfq3Ko=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 10 Aug 2026 17:54:14 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 16993563754584466698
+EX-QQ-RecipientCnt: 6
+From: raoxu <raoxu@uniontech.com>
+To: sakari.ailus@linux.intel.com
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: v4l2-async: avoid deleting unlinked ASC entry on link error
+Date: Mon, 10 Aug 2026 17:50:12 +0800
+Message-ID: <660DEFF8A732CF1A+20260810095012.2213444-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807122825.GJ2201016@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: MhIE0ZejpDV/nb1PmXIzcBo5OHWRs3l8CsJgpAqdIgtN/drpoYz0b8I5
+	36l3vGocQMhV19Wq9doOvjLs6uKhzw0txHzIOZYfQLiTulX2KMXaNU/i/xwWFjkoDgAsft/
+	WrxN8iTnBy6QMnsVPPvP0zcDtjdBfGY0kCGslEpKJRWHuyBk8Yihcw29svn1fXKLPd/6Unk
+	W0pSsRNriYDYmVkVRc5IxQ0z6X9QDV0dompFhrMRvr9+3FXCvqkC493S3KNLiVr913Oxjfq
+	anvGIZ3BjqUp/6F2mKe/YVhY+FFu4Wmd9lahicbn3vuOrgZa6jCU2wg81s27CmObG24x+ch
+	E74j8uimJ5ta9RMWxCyPM3f1majsTRwd71AqF6qBXuC2YPQTsOiWDxXBP4zgI9w49r7+6/F
+	AVdojZM7BEJMNdG6Qw5HPEnu8fyEapBCKVopVNhQKMLhEK8hrT2vphVULdsidT7e/6SCSgT
+	m3vHvpmmVRhx2M+zQXt4AQ/EfNJjZBpBSOBNY143EUI0Rv9gXxnH3YxYM/2QUpMvZldDUQK
+	OwHqLnq2Cwo+twhcnQa+eCntabFu1GIixax9rQs+NnQUBUaukoPpMgPQAvmMbfd8VqhOee2
+	svBCwLY4fmvwlJtOTp/4eRvdahEK9LPLjnMOFxyju6k+STjQMOM3VKwRSnjRFqwbMe7Um/L
+	U99st+6toiZ3fRhirUP7Hdi+bffFSnBlqAfQ0eYE+Vhfhb9tIH/mpFll4IBE5pJ7OId/N+v
+	3hqRBAj8u+wyMvGNBfvtkm4KjTj0xI7eR0onN/eppQqpdQW3y8miB32C+w8y8o+gM7TvhNc
+	pKTU3fU+wa9HByP54mOmeWc0jKv2aUzKxFb9k9EtLmdly8y6bBXcE7/3pcVQ33ItsO03Q2h
+	HxObmmvl1oqyE8jtSqU6KdcDwVYIqTgkkjGkBNtW/sbCpN3hbqX6I9Na01y9ithNTJi74VN
+	9Q7NzW15MGKgturQkcFIdMGgLExVAYEYT+k4oiybAZJDSl6wf05axAgpIua1c9Jjh5yv+fh
+	Bv1a9i5WtT6ngw8dib7CFwQHKpRQ6yBw8dF/Z01cyQkfcINN1BIkQf9wtAtJnYYB9PMgBFM
+	wU+Plnn4Yzj
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-QQ-RECHKSPAM: 0
 
-Hi Laurent, Sang-Heon,
+From: Xu Rao <raoxu@uniontech.com>
 
-On Fri, Aug 07, 2026 at 03:28:25PM +0300, Laurent Pinchart wrote:
-> On Fri, Jul 24, 2026 at 03:45:14AM +0900, Sang-Heon Jeon wrote:
-> > Both branches of the check return the same value, so the check has
-> > no effect. Remove it and return the value directly.
-> > 
-> > This is the result of running the Coccinelle script from
-> > scripts/coccinelle/misc/cond_return_no_effect.cocci.
-> > 
-> > Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-> > ---
-> >  drivers/media/i2c/mt9p031.c                          |  6 +-----
-> >  .../media/platform/microchip/microchip-sama7g5-isc.c |  7 +------
-> >  drivers/media/platform/qcom/iris/iris_resources.c    |  6 +-----
-> >  drivers/media/platform/qcom/venus/pm_helpers.c       |  7 +------
-> >  drivers/media/platform/renesas/rcar-csi2.c           |  6 +-----
-> >  .../media/platform/samsung/s3c-camif/camif-core.c    |  7 +------
-> >  drivers/media/usb/dvb-usb-v2/mxl111sf.c              | 12 ++----------
-> >  drivers/media/usb/gspca/jl2005bcd.c                  |  7 +------
-> >  8 files changed, 9 insertions(+), 49 deletions(-)
-> > 
-> > diff --git a/drivers/media/i2c/mt9p031.c b/drivers/media/i2c/mt9p031.c
-> > index d21510caf45a..2b09e8315c8e 100644
-> > --- a/drivers/media/i2c/mt9p031.c
-> > +++ b/drivers/media/i2c/mt9p031.c
-> > @@ -452,11 +452,7 @@ static int mt9p031_set_params(struct mt9p031 *mt9p031)
-> >  	ret = mt9p031_write(client, MT9P031_HORIZONTAL_BLANK, hblank - 1);
-> >  	if (ret < 0)
-> >  		return ret;
-> > -	ret = mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	return ret;
-> 
-> I would have just replaced the last line with a
-> 
-> 	return 0;
-> 
-> as I find it easier to read code that has multiple error paths when all
-> the error paths look the same. It's a small personal preference though
-> (and ths best option would be to convert this driver to the CCI
-> helpers), so I'm OK with this change as-is.
+v4l2_async_match_notify() creates ancillary media links before adding
+asc->asc_subdev_entry to sd->asc_list.
 
-I wouldn't make an exception here, but obviously CCI is the way to go.
+If ancillary link creation fails, the function jumps to
+err_call_unbind while asc_subdev_entry has not been linked yet. Async
+connections are zero-allocated, so the list entry still has NULL next
+and prev pointers on this path. Calling list_del() on it can therefore
+dereference NULL instead of returning the original link creation error.
 
-> 
-> > +	return mt9p031_write(client, MT9P031_VERTICAL_BLANK, vblank - 1);
-> >  }
-> >  
-> >  static int mt9p031_s_stream(struct v4l2_subdev *subdev, int enable)
-> > diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> > index b0302dfc3278..7383341ec51d 100644
-> > --- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> > +++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-> > @@ -598,13 +598,8 @@ static int __maybe_unused xisc_runtime_suspend(struct device *dev)
-> >  static int __maybe_unused xisc_runtime_resume(struct device *dev)
-> >  {
-> >  	struct isc_device *isc = dev_get_drvdata(dev);
-> > -	int ret;
-> > -
-> > -	ret = clk_prepare_enable(isc->hclock);
-> > -	if (ret)
-> > -		return ret;
-> >  
-> > -	return ret;
-> > +	return clk_prepare_enable(isc->hclock);
-> 
-> Here the change looks good, there's a single error paths so a direct
-> return is fine.
-> 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> 
-> >  }
-> >  
-> >  static const struct dev_pm_ops microchip_xisc_dev_pm_ops = {
-> > diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/media/platform/qcom/iris/iris_resources.c
-> > index 773f6548370a..872bd09656b1 100644
-> > --- a/drivers/media/platform/qcom/iris/iris_resources.c
-> > +++ b/drivers/media/platform/qcom/iris/iris_resources.c
-> > @@ -78,11 +78,7 @@ int iris_enable_power_domains(struct iris_core *core, struct device *pd_dev)
-> >  	if (ret)
-> >  		return ret;
-> >  
-> > -	ret = pm_runtime_get_sync(pd_dev);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return pm_runtime_get_sync(pd_dev);
+Do not delete asc_subdev_entry from err_call_unbind. There is no list
+insertion to undo on this path; the bound callback and sub-device
+registration are the operations that need to be rolled back.
 
-The patch no longer applies after commit
-f87d7eda07fca21efe4b96169ae59007db46e60e .
+Fixes: 28a1295795d8 ("media: v4l: async: Allow multiple connections between entities")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/media/v4l2-core/v4l2-async.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-> >  }
-> >  
-> >  int iris_disable_power_domains(struct iris_core *core, struct device *pd_dev)
-> > diff --git a/drivers/media/platform/qcom/venus/pm_helpers.c b/drivers/media/platform/qcom/venus/pm_helpers.c
-> > index be1cbd5cfe84..e88e66be4f6d 100644
-> > --- a/drivers/media/platform/qcom/venus/pm_helpers.c
-> > +++ b/drivers/media/platform/qcom/venus/pm_helpers.c
-> > @@ -781,7 +781,6 @@ static int decide_core(struct venus_inst *inst)
-> >  	unsigned long max_freq = ULONG_MAX;
-> >  	struct device *dev = core->dev;
-> >  	struct dev_pm_opp *opp;
-> > -	int ret = 0;
-> >  
-> >  	if (legacy_binding) {
-> >  		if (inst->session_type == VIDC_SESSION_TYPE_DEC)
-> > @@ -829,11 +828,7 @@ static int decide_core(struct venus_inst *inst)
-> >  	}
-> >  
-> >  done:
-> > -	ret = hfi_session_set_property(inst, ptype, &cu);
-> > -	if (ret)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return hfi_session_set_property(inst, ptype, &cu);
-> >  }
-> >  
-> >  static int acquire_core(struct venus_inst *inst)
-> > diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
-> > index 7305cc4a04cb..6635f5782175 100644
-> > --- a/drivers/media/platform/renesas/rcar-csi2.c
-> > +++ b/drivers/media/platform/renesas/rcar-csi2.c
-> > @@ -2273,11 +2273,7 @@ static int rcsi2_init_phtw_v3u(struct rcar_csi2 *priv,
-> >  			return ret;
-> >  	}
-> >  
-> > -	ret = rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
-> > -	if (ret)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return rcsi2_phtw_write_array(priv, step4, ARRAY_SIZE(step4));
-> >  }
-> >  
-> >  /* -----------------------------------------------------------------------------
-> > diff --git a/drivers/media/platform/samsung/s3c-camif/camif-core.c b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> > index 14eedd1ceb27..bb06847f3a63 100644
-> > --- a/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> > +++ b/drivers/media/platform/samsung/s3c-camif/camif-core.c
-> > @@ -301,7 +301,6 @@ static int camif_media_dev_init(struct camif_dev *camif)
-> >  	struct media_device *md = &camif->media_dev;
-> >  	struct v4l2_device *v4l2_dev = &camif->v4l2_dev;
-> >  	unsigned int ip_rev = camif->variant->ip_revision;
-> > -	int ret;
-> >  
-> >  	memset(md, 0, sizeof(*md));
-> >  	snprintf(md->model, sizeof(md->model), "Samsung S3C%s CAMIF",
-> > @@ -316,11 +315,7 @@ static int camif_media_dev_init(struct camif_dev *camif)
-> >  
-> >  	media_device_init(md);
-> >  
-> > -	ret = v4l2_device_register(camif->dev, v4l2_dev);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return v4l2_device_register(camif->dev, v4l2_dev);
-> >  }
-> >  
-> >  static void camif_clk_put(struct camif_dev *camif)
-> > diff --git a/drivers/media/usb/dvb-usb-v2/mxl111sf.c b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> > index 870ac3c8b085..6404eb74db32 100644
-> > --- a/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> > +++ b/drivers/media/usb/dvb-usb-v2/mxl111sf.c
-> > @@ -987,11 +987,7 @@ static int mxl111sf_frontend_attach_atsc_mh(struct dvb_usb_adapter *adap)
-> >  	if (ret < 0)
-> >  		return ret;
-> >  
-> > -	ret = mxl111sf_lg2160_frontend_attach(adap, 2);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return mxl111sf_lg2160_frontend_attach(adap, 2);
-> >  }
-> >  
-> >  static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
-> > @@ -1007,11 +1003,7 @@ static int mxl111sf_frontend_attach_mercury(struct dvb_usb_adapter *adap)
-> >  	if (ret < 0)
-> >  		return ret;
-> >  
-> > -	ret = mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
-> > -	if (ret < 0)
-> > -		return ret;
-> > -
-> > -	return ret;
-> > +	return mxl111sf_lg2161_ep6_frontend_attach(adap, 2);
-> >  }
-> >  
-> >  static int mxl111sf_frontend_attach_mercury_mh(struct dvb_usb_adapter *adap)
-> > diff --git a/drivers/media/usb/gspca/jl2005bcd.c b/drivers/media/usb/gspca/jl2005bcd.c
-> > index a408fcc3a060..4988fbf5005e 100644
-> > --- a/drivers/media/usb/gspca/jl2005bcd.c
-> > +++ b/drivers/media/usb/gspca/jl2005bcd.c
-> > @@ -148,17 +148,12 @@ static int jl2005c_start_new_frame(struct gspca_dev *gspca_dev)
-> >  static int jl2005c_write_reg(struct gspca_dev *gspca_dev, unsigned char reg,
-> >  						    unsigned char value)
-> >  {
-> > -	int retval;
-> >  	u8 instruction[2];
-> >  
-> >  	instruction[0] = reg;
-> >  	instruction[1] = value;
-> >  
-> > -	retval = jl2005c_write2(gspca_dev, instruction);
-> > -	if (retval < 0)
-> > -			return retval;
-> > -
-> > -	return retval;
-> > +	return jl2005c_write2(gspca_dev, instruction);
-> >  }
-> >  
-> >  static int jl2005c_get_firmware_id(struct gspca_dev *gspca_dev)
-> 
+diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
+index 888a2e213b08..0aa4265a6782 100644
+--- a/drivers/media/v4l2-core/v4l2-async.c
++++ b/drivers/media/v4l2-core/v4l2-async.c
+@@ -392,7 +392,6 @@ static int v4l2_async_match_notify(struct v4l2_async_notifier *notifier,
 
--- 
-Regards,
+ err_call_unbind:
+ 	v4l2_async_nf_call_unbind(notifier, sd, asc);
+-	list_del(&asc->asc_subdev_entry);
 
-Sakari Ailus
+ err_unregister_subdev:
+ 	if (registered)
+--
+2.50.1
+
