@@ -1,110 +1,217 @@
-Received: from smtpbguseast2.qq.com (smtpbguseast2.qq.com [54.204.34.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC0663B2FD4;
-	Mon, 10 Aug 2026 09:54:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FC03B27D6;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786355708; cv=none; b=jYJ9Wvkv3/T3rHCfeQOM0hMduYkfEJvE+n85qVO69O0ZhBkdfG+8yfV4rJWgM5H+JxnHAXJH1bCold70xkccJ24zrH4xUK44XntfiXkKFZnWN1C91jvo9v5PsCzMxnOlFPt7kcjHHcA2Js/wrzLGOnH636ad4aS6j6kTkSSBSRg=
+	t=1786357348; cv=none; b=T3pap1yR1l1fq/9H3pkplgS1Q6shhbNlBJ1r7+vBYhfayIV/ooPGOJsBVBKbaOK32yc1W18IRPKG47jpWGxNV7umOSYkrUGOVTCCG6R+qWuC6eJUeCn7bKxtQHU1JsFgIwCULhLif4/HDpUJayDePNh/CCcnnRqBUsaz1oeqHaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786355708; c=relaxed/simple;
-	bh=f3caQ2UCUMk5my+imjAfiCG6fjdRCHqq6UR3F8QpURc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OFr/IM2IoCarr04Tz/TCDY3XAiPYv+al2VMnWr9OhZTJE2Ekdx7W7hgT2xdIDRQ5XwWnMqJQCZCkgkqr2Xc3NY5jf9iiVF9zwczWn56DN7EhfXtlc6W61E58U5bFR7IRHUCOL2twGdwDnec82K9AMph1+iz64q+nGj5xTTh8o5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=Fy31fysw; arc=none smtp.client-ip=54.204.34.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786357348; c=relaxed/simple;
+	bh=xVwPK23/+6oDXZNpMf/gW3JZfBJxlS5Nk1s81uB+XEw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=iMAZz0j4RXjXL/X4kZHhS9AOAz4dz2J8Z/8d5EIviJy8Wfs/GdoOsUN4jmhPDPZmFNRWW8YOt7PlnAml+I6VHuHTHtclD6qrUV35vJgZ+ZU+/JWDmI5GCf/J+HFiIvsvaEjsPJCrQrp7MGr2YNlQaG0nyqX5ybHbfDOvy+Itf0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FJ4ORuYz; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="Fy31fysw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786355674;
-	bh=6wE0xvjj3+AnsYJVrqK2gGz/Q4kGKjKA2hUYKFIzW4A=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=Fy31fyswBSCDNMrdFv3Vm1fJ3njgRqjOwE0wWRvHgUs+IXAI9t9ivMsUluzQCL30i
-	 ry2lUO74OBQ9YWHdJKAobLZhQpaivKFQx78K/hwkDaQRXEhnEd7mgKfwJLhTjwxf0C
-	 pGJKeaEZHYRd9dHxGsgqPjoWrU94D9NTwbVTL7rU=
-X-QQ-mid: esmtpgz10t1786355656t7e9814bc
-X-QQ-Originating-IP: tI+UWEGuDjn0Cnqyl9unKI9UELnJQoNCbetKoAfq3Ko=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 10 Aug 2026 17:54:14 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 16993563754584466698
-EX-QQ-RecipientCnt: 6
-From: raoxu <raoxu@uniontech.com>
-To: sakari.ailus@linux.intel.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: v4l2-async: avoid deleting unlinked ASC entry on link error
-Date: Mon, 10 Aug 2026 17:50:12 +0800
-Message-ID: <660DEFF8A732CF1A+20260810095012.2213444-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FJ4ORuYz"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8B5C9C2BD01;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786357348;
+	bh=xVwPK23/+6oDXZNpMf/gW3JZfBJxlS5Nk1s81uB+XEw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=FJ4ORuYzZHB/iSE/4ILjP644wHPb6Zczb3jvL97YZ9oc4xyCUBEiBxxQlW3qk1hD2
+	 zCZEBIIaIVQrKPcqk8HCNfjRvcYvMs/1e6W8GVHxMLAySYH8BaK6Vcdm/MDiQCvGRa
+	 YqAj7h8QKc3+ywaqD7+anmnyyiT3++tsqfPJy4f0x72/CVY4n6VBsfpXjKJtbQgDge
+	 5KeKLBu8AO+P5RkHiezbHQnBxgLKyR+y1iDdhV58vf1EIecgoecjkz+UshV+iysHgx
+	 1gMEmjdJpH8diM8I9OIwGv83CMgr7BPf1A/uNPUMGZmvuqbqqPvtrATMdFdl3nk2Z5
+	 FTQtwqb6pD7Rg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 6E28EC5B561;
+	Mon, 10 Aug 2026 10:22:28 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Mon, 10 Aug 2026 12:22:24 +0200
+Subject: [PATCH v4 2/2] arm64: dts: qcom: sdm845-shift-axolotl: Add
+ actuator for main rear camera
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpgz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: MhIE0ZejpDV/nb1PmXIzcBo5OHWRs3l8CsJgpAqdIgtN/drpoYz0b8I5
-	36l3vGocQMhV19Wq9doOvjLs6uKhzw0txHzIOZYfQLiTulX2KMXaNU/i/xwWFjkoDgAsft/
-	WrxN8iTnBy6QMnsVPPvP0zcDtjdBfGY0kCGslEpKJRWHuyBk8Yihcw29svn1fXKLPd/6Unk
-	W0pSsRNriYDYmVkVRc5IxQ0z6X9QDV0dompFhrMRvr9+3FXCvqkC493S3KNLiVr913Oxjfq
-	anvGIZ3BjqUp/6F2mKe/YVhY+FFu4Wmd9lahicbn3vuOrgZa6jCU2wg81s27CmObG24x+ch
-	E74j8uimJ5ta9RMWxCyPM3f1majsTRwd71AqF6qBXuC2YPQTsOiWDxXBP4zgI9w49r7+6/F
-	AVdojZM7BEJMNdG6Qw5HPEnu8fyEapBCKVopVNhQKMLhEK8hrT2vphVULdsidT7e/6SCSgT
-	m3vHvpmmVRhx2M+zQXt4AQ/EfNJjZBpBSOBNY143EUI0Rv9gXxnH3YxYM/2QUpMvZldDUQK
-	OwHqLnq2Cwo+twhcnQa+eCntabFu1GIixax9rQs+NnQUBUaukoPpMgPQAvmMbfd8VqhOee2
-	svBCwLY4fmvwlJtOTp/4eRvdahEK9LPLjnMOFxyju6k+STjQMOM3VKwRSnjRFqwbMe7Um/L
-	U99st+6toiZ3fRhirUP7Hdi+bffFSnBlqAfQ0eYE+Vhfhb9tIH/mpFll4IBE5pJ7OId/N+v
-	3hqRBAj8u+wyMvGNBfvtkm4KjTj0xI7eR0onN/eppQqpdQW3y8miB32C+w8y8o+gM7TvhNc
-	pKTU3fU+wa9HByP54mOmeWc0jKv2aUzKxFb9k9EtLmdly8y6bBXcE7/3pcVQ33ItsO03Q2h
-	HxObmmvl1oqyE8jtSqU6KdcDwVYIqTgkkjGkBNtW/sbCpN3hbqX6I9Na01y9ithNTJi74VN
-	9Q7NzW15MGKgturQkcFIdMGgLExVAYEYT+k4oiybAZJDSl6wf05axAgpIua1c9Jjh5yv+fh
-	Bv1a9i5WtT6ngw8dib7CFwQHKpRQ6yBw8dF/Z01cyQkfcINN1BIkQf9wtAtJnYYB9PMgBFM
-	wU+Plnn4Yzj
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260810-dw9714v-v4-2-a227cb1d29bd@ixit.cz>
+References: <20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz>
+In-Reply-To: <20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz>
+To: Alexander Martinz <amartinz@shiftphones.com>, 
+ Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3383; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=GdbUfwJ10fR0lW+Kb3dZndvP8ed4Y2Pebi8vBrKB8vI=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqeaZibOVmhl6yvr/oiJxQy+/Jbfob7dOqliVZw
+ Szw+HfL0oaJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCanmmYgAKCRBgAj/E00kg
+ clKXD/9n9OvigmT5Se6QzJSDxr5cMWVuAQ0eCkgqw4ykgCP+puuvF3ZKpY5kWlKYbo6iKsBv7St
+ NNBD6ee0I/D9QL7AFaIgB4uMjHNZuE7fCAqOJkLTzonKTfvqZ9QOSLoi7ahHm1TLHvCetyZ1FlO
+ Nc9732sGiYgPoH8RsizwsmQ/yN5cgdUG0vrxHQDJts+AqKNCBSMnKkOm8J1WcHyFaUQ7zx/2MT4
+ LwRwpwg4T/e0wzbWSAsaT/Yt6aWM7t2mWvxAVjB1sOuXOyo+00SpFey7ASLE1ifg0RG18G1nB/g
+ E8pSRaMccYhOoaKyF8N7kcfYSDAEaJKKK1nbgrTHRyKHjv+Dximbi2RBNeEkqN+msJqsRIB/ZsT
+ MfYfJNfLyonq/MXMAYC6Pe9glzMrko3Xqbi3MOAtZCrBsV0xZ1YUO3AIs3Xa7z63M+rABj43TVl
+ UAByP4ofkGqF5vOkz5Ib6SC6H/wEk7CfslxnUPzwWXyXtpyaF44LaDb0nok5YHz7a3p6vkiKTim
+ WliswUE15tFlZHQ7kf81OXB8FbMnJ9GGraT5XODeZMzU5QHh2GcNv4b0kxW6UdpfZAKUS7+xVvq
+ +fOQ2PSXc8mnhU3/3HX+Znd7pxk6eAcEV73hmMNAZ8GxtmknR9fs6IQ9hzjrqvIri7VuFPMmgVL
+ Iy/zi/F0QjKuLoQ==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-From: Xu Rao <raoxu@uniontech.com>
+From: David Heidelberg <david@ixit.cz>
 
-v4l2_async_match_notify() creates ancillary media links before adding
-asc->asc_subdev_entry to sd->asc_list.
+Main rear camera uses Dongwoon DW9714V actuator. Add regulator and
+actuator node.
 
-If ancillary link creation fails, the function jumps to
-err_call_unbind while asc_subdev_entry has not been linked yet. Async
-connections are zero-allocated, so the list entry still has NULL next
-and prev pointers on this path. Calling list_del() on it can therefore
-dereference NULL instead of returning the original link creation error.
+Since the actuator sits on the CCI I2C bus, whose 1.8V side is fed by
+vreg_lvs1a_1p8 and there is no place to describe that, keep it always-on
+for now, until bus-supply exists.
 
-Do not delete asc_subdev_entry from err_call_unbind. There is no list
-insertion to undo on this path; the bound callback and sub-device
-registration are the operations that need to be rolled back.
-
-Fixes: 28a1295795d8 ("media: v4l: async: Allow multiple connections between entities")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/media/v4l2-core/v4l2-async.c | 1 -
- 1 file changed, 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 48 +++++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-async.c b/drivers/media/v4l2-core/v4l2-async.c
-index 888a2e213b08..0aa4265a6782 100644
---- a/drivers/media/v4l2-core/v4l2-async.c
-+++ b/drivers/media/v4l2-core/v4l2-async.c
-@@ -392,7 +392,6 @@ static int v4l2_async_match_notify(struct v4l2_async_notifier *notifier,
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index e31c784eff3de..358ce1930d4e1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -81,16 +81,34 @@ ramoops: ramoops@b0000000 {
+ 	battery: battery {
+ 		compatible = "simple-battery";
+ 
+ 		charge-full-design-microamp-hours = <3850000>;
+ 		voltage-min-design-microvolt = <3600000>;
+ 		voltage-max-design-microvolt = <4400000>;
+ 	};
+ 
++	/* SGM2036-2.8YUDH4G/TR */
++	cam_main_af_2p8: regulator-cam-main-af-2p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "cam_main_af_2p8";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
++
++		gpio = <&tlmm 8 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_main_af_default_state>;
++		pinctrl-names = "default";
++
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	vph_pwr: vph-pwr-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+ 		regulator-min-microvolt = <3700000>;
+ 		regulator-max-microvolt = <3700000>;
+ 	};
+ 
+ 	vreg_s4a_1p8: pm8998-smps4 {
+@@ -403,16 +421,23 @@ vreg_l28a_3p0: ldo28 {
+ 			regulator-min-microvolt = <2856000>;
+ 			regulator-max-microvolt = <3008000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+ 		vreg_lvs1a_1p8: lvs1 {
+ 			regulator-min-microvolt = <1800000>;
+ 			regulator-max-microvolt = <1800000>;
++
++			/*
++			 * Supplies the 1.8V side of the CCI I2C level
++			 * shifter; keep enabled until a generic
++			 * bus-supply property exists.
++			 */
++			regulator-always-on;
+ 		};
+ 
+ 		vreg_lvs2a_1p8: lvs2 {
+ 			regulator-min-microvolt = <1800000>;
+ 			regulator-max-microvolt = <1800000>;
+ 		};
+ 	};
+ 
+@@ -441,16 +466,32 @@ regulators-2 {
+ 
+ 		vreg_s3c_0p6: smps3 {
+ 			regulator-min-microvolt = <600000>;
+ 			regulator-max-microvolt = <600000>;
+ 		};
+ 	};
+ };
+ 
++&cci {
++	status = "okay";
++};
++
++&cci_i2c0 {
++	/* main camera actuator */
++	camera-lens@c {
++		compatible = "dongwoon,dw9714v",
++			     "dongwoon,dw9714a",
++			     "dongwoon,dw9714";
++		reg = <0x0c>;
++
++		vcc-supply = <&cam_main_af_2p8>;
++	};
++};
++
+ &cdsp_pas {
+ 	firmware-name = "qcom/sdm845/SHIFT/axolotl/cdsp.mbn";
+ 
+ 	status = "okay";
+ };
+ 
+ &gcc {
+ 	protected-clocks = <GCC_QSPI_CORE_CLK>,
+@@ -699,16 +740,23 @@ &slpi_pas {
+ 	firmware-name = "qcom/sdm845/SHIFT/axolotl/slpi.mbn";
+ 
+ 	status = "okay";
+ };
+ 
+ &tlmm {
+ 	gpio-reserved-ranges = <0 4>, <81 4>;
+ 
++	cam_main_af_default_state: cam-main-af-default-state {
++		pins = "gpio8";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	sdc2_default_state: sdc2-default-state {
+ 		clk-pins {
+ 			pins = "sdc2_clk";
+ 			drive-strength = <16>;
+ 			bias-disable;
+ 		};
+ 
+ 		cmd-pins {
 
- err_call_unbind:
- 	v4l2_async_nf_call_unbind(notifier, sd, asc);
--	list_del(&asc->asc_subdev_entry);
+-- 
+2.55.0
 
- err_unregister_subdev:
- 	if (registered)
---
-2.50.1
 
