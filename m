@@ -1,148 +1,237 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FAB3D3334;
-	Mon, 10 Aug 2026 14:09:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6262D2487
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 14:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786370992; cv=none; b=mllOqFhCy0BmWkDLR9Rzhj6KAK1PFQJSnJnXGbYfsuXr8NwYsBq46TP9lfEGjSICbTPn/Bg9ud8uQbl1zRuUOFzXWmA7p+asS7G5wHHtvNIAyvtD0uDtmhUjW7IEbDRyGKX2G7qwbs+mL8BXD3ClQUMRwYSDfAHOuxp1JOX8xc4=
+	t=1786371160; cv=none; b=HshBvdUx25KNMLVYlQW8BBMzd8jXnjoK2BgWoxY1FhDOw8wAdlXv6LzvWxaWAKv8cWzjYkqR31X6+kgm1IcmzDWNVmYaGv7RpovOziNuilZUuwEFw6ZSIbxalCGWW8szXO6o3bBzgSiQrAJJyV0fuUhMHEMIusVpYpzX07iFw9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786370992; c=relaxed/simple;
-	bh=q9XZ9PFaOttrJScNyLsrJJf0rfpu9aYHOmG8UewkSsY=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ug7oNvHUDYLAhU13lWmPVILWZ6/Iv2fSQqvloPU+r/VJgGP3pR6jzOwo31GqTs5aFoMlGmimDEiPHTge2hWt5mWVig8cMv8yP3cRSoTzQr9RZLrkKcyeUEoyUAFF0OF/mHwZcd7SR8fU15WC2vJ3rTM5uUWbyDiCPanp2majfgM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=WVUqf6kd; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786371160; c=relaxed/simple;
+	bh=gCk2UVklh44bDQQtEhtPWs8mWMnfgKQGh5YrBUXqwCw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=AdbpoFfveYCsLDxi9SuWFgcFHc0fArFHr/9uYqBD6XMeGxcMHsyOhZ12csmP/06oUt9d1QLPZJPnjUba3XlGATMmOA719NYi590X8i1szTvJuj5DOZzKhmLTaCK5YmBt9sj8+TkpzPfzjy8+NjwoqaMKBBuM7KAnvYEYn/gQDC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/Ftv1+e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="WVUqf6kd"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786370987;
-	bh=q9XZ9PFaOttrJScNyLsrJJf0rfpu9aYHOmG8UewkSsY=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=WVUqf6kdmhif9DQCIU3WmUyS9amW1W3+89dBAQ4c4TpXeOM93wAwIRg9ldbukcGCd
-	 FkvKkZaDBYXJdQyWH2OO/5rMSjn8H1WLRBoJ69zxAXuZS53cUti7M0pfZ88yde7KfP
-	 L+NPf9SBo6N2AG44qWzVDMhDdJ6LvnX1CtvNJMpNMN/W9W5vLZULfeomUAaVfB4Sz9
-	 vgC/G75pQnH4f8wjOOaghgJPWVvykDkruRUaxe1JwxkwLskpXG1muD015U71AcuTlA
-	 mjJTYLNVR7c/j3nfF69QD0wYHXA23pZELAldzjSyAZ6+Q4Q+OtjlJOTsYHP18dTzD5
-	 uru3kEg16fptA==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 9709617E077F;
-	Mon, 10 Aug 2026 16:09:45 +0200 (CEST)
-Message-ID: <2a5abb0004aa453c2f985aff41c72d4952006fc9.camel@collabora.com>
-Subject: Re: [PATCH] media: hantro: Harden MPEG-2 control access against NULL
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Tharit Tangkijwanichakul <tharitt97@gmail.com>, Benjamin Gaignard	
- <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil	
- <hverkuil@kernel.org>, Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org, 
-	me@brighamcampbell.com, jkoolstra@xs4all.nl
-Date: Mon, 10 Aug 2026 10:09:44 -0400
-In-Reply-To: <20260731140751.1183-1-tharitt97@gmail.com>
-References: <20260731140751.1183-1-tharitt97@gmail.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-zKDJou/lVj/KGzVMp1c8"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/Ftv1+e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C481F000E9;
+	Mon, 10 Aug 2026 14:12:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786371158;
+	bh=8ivEMkGZaF761+pOxlmv1+8OzL7vQmgI81kjO2Y7fww=;
+	h=Date:From:Subject:To:Cc:References:In-Reply-To;
+	b=Q/Ftv1+eF/LfpHPJgZv7a062/EwqIPxFEADE+/4pcXxEYLDU1IEmsd0ovJfbch701
+	 49uwrYhCob+6+DAYMtp78Un0+b7MFxkO5QKEixUmZeGREYCq/Jl06G7kz7uUdihofb
+	 ShvFrUPqZ9i8b0nqgho7jO4FrWtpOn84sFpD4yAXV8FoJMV+MDCyKm3qNrFrtGiAS6
+	 8wfM82B0U7eyrWWFjt/4KlDhLftcj6Iv2Abt1cX4ggKPxt4IxfW3jNzDi2bZ9GJ78K
+	 eObC7tY8vifrLroR+Z7u9vMs0Fk785+VTbk+w1FiH/VolJg+MmY4KxyX1aBHJqGP2k
+	 yuuYvIwXJsecg==
+Message-ID: <65b0c3ab-ae76-49ec-824a-b9d882c28a5c@kernel.org>
+Date: Mon, 10 Aug 2026 16:12:31 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-zKDJou/lVj/KGzVMp1c8
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le vendredi 31 juillet 2026 =C3=A0 14:07 +0000, Tharit Tangkijwanichakul a =
-=C3=A9crit=C2=A0:
-> The MPEG-2 sequence and picture controls are validated
-> before a job is queued, so hantro_get_ctrl() is not expected to return
-> NULL in hantro_g1_mpeg2_dec_run(). The controls are nonetheless
-> dereferenced unconditionally.
->=20
-> Harden the invariant by checking the sequence and picture controls with
-> WARN_ON().
->=20
-> Found by code inspection.
->=20
-> Fixes: f329e21e9dad ("media: uapi: mpeg2: Split sequence and picture para=
-meters")
-> Signed-off-by: Tharit Tangkijwanichakul <tharitt97@gmail.com>
-
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-
-p.s. this is a bit cosmetic, since only a programming error could lead to t=
-hat,
-once a control is registered, it has a value. But that makes it consistent =
-with
-all other use of hantro_get_ctrl() in this driver, which I like.
-
-Nicolas
-
-> ---
-> Tested on a Rockchip RK3588 (Rock 5B) board with Fluster:
-> =C2=A0 MPEG-2 (MPEG2_VIDEO-MAIN): 23/43, unchanged
->=20
-> =C2=A0drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c | 5 +++++
-> =C2=A01 file changed, 5 insertions(+)
->=20
-> diff --git a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c b/d=
-rivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-> index e0d6bd0a6e44..6a942f4b8a2d 100644
-> --- a/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-> +++ b/drivers/media/platform/verisilicon/hantro_g1_mpeg2_dec.c
-> @@ -161,8 +161,13 @@ int hantro_g1_mpeg2_dec_run(struct hantro_ctx *ctx)
-> =C2=A0
-> =C2=A0	seq =3D hantro_get_ctrl(ctx,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V4L2_CID_STATELESS_MPEG2_SEQUENCE=
-);
-> +	if (WARN_ON(!seq))
-> +		return -EINVAL;
-> +
-> =C2=A0	pic =3D hantro_get_ctrl(ctx,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 V4L2_CID_STATELESS_MPEG2_PICTURE)=
-;
-> +	if (WARN_ON(!pic))
-> +		return -EINVAL;
-> =C2=A0
-> =C2=A0	reg =3D G1_REG_DEC_AXI_RD_ID(0) |
-> =C2=A0	=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 G1_REG_DEC_TIMEOUT_E(1) |
-
---=-zKDJou/lVj/KGzVMp1c8
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+From: Hans Verkuil <hverkuil+cisco@kernel.org>
+Subject: Re: [PATCH v7 11/14] media: v4l2-subdev: Add
+ v4l2_subdev_call_ci_state_{active,try}
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com, Prabhakar
+ <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Tommaso Merciai <tomm.merciai@gmail.com>,
+ Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+ Sylvain Petinot <sylvain.petinot@foss.st.com>,
+ Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ Julien Massot <julien.massot@collabora.com>,
+ Naushir Patuck <naush@raspberrypi.com>,
+ "Yan, Dongcheng" <dongcheng.yan@intel.com>,
+ Stefan Klug <stefan.klug@ideasonboard.com>,
+ Mirela Rabulea <mirela.rabulea@nxp.com>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
+ <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+ Kieran Bingham <kieran.bingham@ideasonboard.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Ricardo Ribalda Delgado <ribalda@kernel.org>,
+ Hans de Goede <hansg@kernel.org>,
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+ David Plowman <david.plowman@raspberrypi.com>,
+ "Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen"
+ <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
+ Rishikesh Donadkar <r-donadkar@ti.com>
+References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
+ <20260807122409.45807-12-sakari.ailus@linux.intel.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260807122409.45807-12-sakari.ailus@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+On 07/08/2026 14:24, Sakari Ailus wrote:
+> Add v4l2_subdev_call_ci_state_active(), and
+> v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
+> take struct v4l2_subdev_client_info pointer as an argument. These ops
+> cannot be called using v4l2_subdev_call_state_active() or
+> v4l2_subdev_call_state_try() as the client_info argument precedes the
+> state argument.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCannbqAAKCRDZQZRRKWBy
-9PC2AQDVAd/UdtrSKkwnBgNQg0ktJGp/cu6WEQ6j3In+PD+JiAEA0ZU60FJ2OJJD
-VeT5C82uLSGrdUmNhdpqYU1ti06g2w8=
-=2WtK
------END PGP SIGNATURE-----
+So if we have to jump through all these hoops just because the client_info
+pointer precedes the state pointer in the pad op argument list, wouldn't it
+be better to swap the order? For example by moving the client_info pointer
+as the last argument?
 
---=-zKDJou/lVj/KGzVMp1c8--
+Honestly, these macros are getting really hard to follow, and I'm not sure
+it is worth it just to keep the client_info before the state pointer. Yes, that's
+the logical order, but at the price of some very hard to read defines.
+
+Or am I missing something?
+
+Regards,
+
+	Hans
+
+> 
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  include/media/v4l2-subdev.h | 95 +++++++++++++++++++++++++++++--------
+>  1 file changed, 74 insertions(+), 21 deletions(-)
+> 
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> index b8874eeec2e5..307655ee25e0 100644
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+> @@ -1964,6 +1964,22 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+>  		__result;						\
+>  	})
+>  
+> +#define __v4l2_subdev_call_drop_fourth(first, second, third, fourth, rest...) \
+> +	v4l2_subdev_call(first, second, third, ##rest)
+> +
+> +#define __v4l2_subdev_call_state_active(call, sd, o, f, args...) \
+> +	({								\
+> +		int __result;						\
+> +		struct v4l2_subdev_state *state;			\
+> +		state = v4l2_subdev_get_unlocked_active_state(sd);	\
+> +		if (state)						\
+> +			v4l2_subdev_lock_state(state);			\
+> +		__result = call(sd, o, f, NULL, state, ##args);		\
+> +		if (state)						\
+> +			v4l2_subdev_unlock_state(state);		\
+> +		__result;						\
+> +	})
+> +
+>  /**
+>   * v4l2_subdev_call_state_active - call an operation of a v4l2_subdev which
+>   *				   takes state as a parameter, passing the
+> @@ -1982,22 +1998,13 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+>   * active state, lock it before calling the op and unlock it after the call.
+>   */
+>  #define v4l2_subdev_call_state_active(sd, o, f, args...)		\
+> -	({								\
+> -		int __result;						\
+> -		struct v4l2_subdev_state *state;			\
+> -		state = v4l2_subdev_get_unlocked_active_state(sd);	\
+> -		if (state)						\
+> -			v4l2_subdev_lock_state(state);			\
+> -		__result = v4l2_subdev_call(sd, o, f, state, ##args);	\
+> -		if (state)						\
+> -			v4l2_subdev_unlock_state(state);		\
+> -		__result;						\
+> -	})
+> +	__v4l2_subdev_call_state_active(__v4l2_subdev_call_drop_fourth,	\
+> +					sd, o, f, ##args)
+>  
+>  /**
+> - * v4l2_subdev_call_state_try - call an operation of a v4l2_subdev which
+> - *				takes state as a parameter, passing the
+> - *				subdev a newly allocated try state.
+> + * v4l2_subdev_call_ci_state_active - call an operation of a v4l2_subdev which
+> + *				      takes state as a parameter, passing the
+> + *				      subdev its active state.
+>   *
+>   * @sd: pointer to the &struct v4l2_subdev
+>   * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
+> @@ -2007,13 +2014,14 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+>   *     each element at &struct v4l2_subdev_ops.
+>   * @args: arguments for @f.
+>   *
+> - * This is similar to v4l2_subdev_call_state_active(), except that as this
+> - * version allocates a new state, this is only usable for
+> - * V4L2_SUBDEV_FORMAT_TRY use cases.
+> - *
+> - * Note: only legacy non-MC drivers may need this macro.
+> + * This macro is just as v4l2_subdev_call_state_active(), with the exception
+> + * that it passes NULL as the client info to sub-device ops that need it
+> + * (currently pad ops set_fmt, get_selection and set_selection).
+>   */
+> -#define v4l2_subdev_call_state_try(sd, o, f, args...)                         \
+> +#define v4l2_subdev_call_ci_state_active(sd, o, f, args...)		\
+> +	__v4l2_subdev_call_state_active(v4l2_subdev_call, sd, o, f, ##args)
+> +
+> +#define __v4l2_subdev_call_state_try(call, sd, o, f, args...)		      \
+>  	({                                                                    \
+>  		int __result;                                                 \
+>  		static struct lock_class_key __key;                           \
+> @@ -2025,13 +2033,58 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
+>  			__result = PTR_ERR(state);                            \
+>  		} else {                                                      \
+>  			v4l2_subdev_lock_state(state);                        \
+> -			__result = v4l2_subdev_call(sd, o, f, state, ##args); \
+> +			__result = call(sd, o, f, NULL, state, ##args);	      \
+>  			v4l2_subdev_unlock_state(state);                      \
+>  			__v4l2_subdev_state_free(state);                      \
+>  		}                                                             \
+>  		__result;                                                     \
+>  	})
+>  
+> +/**
+> + * v4l2_subdev_call_state_try - call an operation of a v4l2_subdev which
+> + *				takes state as a parameter, passing the
+> + *				subdev a newly allocated try state.
+> + *
+> + * @sd: pointer to the &struct v4l2_subdev
+> + * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
+> + *     Each element there groups a set of callbacks functions.
+> + * @f: callback function to be called.
+> + *     The callback functions are defined in groups, according to
+> + *     each element at &struct v4l2_subdev_ops.
+> + * @args: arguments for @f.
+> + *
+> + * This is similar to v4l2_subdev_call_state_active(), except that as this
+> + * version allocates a new state, this is only usable for
+> + * V4L2_SUBDEV_FORMAT_TRY use cases.
+> + *
+> + * Note: only legacy non-MC drivers may need this macro.
+> + */
+> +#define v4l2_subdev_call_state_try(sd, o, f, args...)			      \
+> +	__v4l2_subdev_call_state_try(__v4l2_subdev_call_drop_fourth, sd, o, f, \
+> +				     ##args);
+> +
+> +/**
+> + * v4l2_subdev_call_ci_state_try - call an operation of a v4l2_subdev which
+> + *				   takes state as a parameter, passing the
+> + *				   subdev a newly allocated try state.
+> + *
+> + * @sd: pointer to the &struct v4l2_subdev
+> + * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
+> + *     Each element there groups a set of callbacks functions.
+> + * @f: callback function to be called.
+> + *     The callback functions are defined in groups, according to
+> + *     each element at &struct v4l2_subdev_ops.
+> + * @args: arguments for @f.
+> + *
+> + * This is similar to v4l2_subdev_call_state_try(), with the exception
+> + * that it passes NULL as the client info to sub-device ops that need it
+> + * (currently pad ops set_fmt, get_selection and set_selection).
+> + *
+> + * Note: only legacy non-MC drivers may need this macro.
+> + */
+> +#define v4l2_subdev_call_ci_state_try(sd, o, f, args...)		     \
+> +	__v4l2_subdev_call_state_try(v4l2_subdev_call, sd, o, f, ##args);
+> +
+>  /**
+>   * v4l2_subdev_has_op - Checks if a subdev defines a certain operation.
+>   *
+
