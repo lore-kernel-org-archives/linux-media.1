@@ -1,241 +1,329 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B900D1514F8
-	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 15:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786375932; cv=none; b=DIeWqioRyCqAbNtRANHTfl2FRocQOgS6RrDW+OYcn4UKU6GMPWV7Qd3dAP3XGLobZ65eEq+7hkLAy+Wja6rpbxMz4rNO5fInvR4OfrkGmy2rRCWGSYys79Ybl4ULdZYs3G59wSYxnu5CHERpdhyxr3mCaiZCzyXD45r64o8BFOw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786375932; c=relaxed/simple;
-	bh=igWoN+SxilILmJgHpfaNGC1OPAawRgD1dUFq8PRGkSs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m1zGjCTfLiNaiisqYtfIu0rk/c+EibmMvoU0KS6t2NE+k2NU6uYw4Ypxv8H9lSHzi8lbfioeWTfBU5fXuYpmIv9SqhWTppf9Lqw9UOIzfyUDHs/Fhx6TP5zvZIaX8E6p/PZ/VhDzQ21TMotG7pJdcRvcyhz045cpuKP0QrlLdSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=m16mHk5E; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A213F9A1E;
+	Mon, 10 Aug 2026 15:40:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786376408; cv=pass; b=rRkW6Hqqah0td7n9/uiT8RX62OXIo+z6HLsksiBaeKPsmNQ2mRxPhE4okDUkqy+ZGPEixtp1NVyspWIOJy0veJsLRBxRPZHt0+Eo+8nnb0kBaGf/bGdH9kIiyrQREEsG7aSi0QGcmL9GB/M7QVX/Q9OsS29Yj/bDV9cMSwrj614=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786376408; c=relaxed/simple;
+	bh=AkPDw84VbfMYf7AEIPQKQAKuCQRsLpeyXqySBsgn2lc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=fieaZG/5YtHRWp+v7xMgrFghgtE9rb8+uoh1ydcNK8wM1Z0HVUEoCzZwPRRgb20d+xu3A7UbVgpohyQ3gpyCbn+ZXLQQhZXm3OYf8RUVn1YNT82qoUGnpG8n1JJevbuVejh709YSJOPKYwHiX0fOYU3nGrneEG/At+gdGjNqUP8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b=iblyMT1k; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="m16mHk5E"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3080BBB;
-	Mon, 10 Aug 2026 17:30:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786375854;
-	bh=igWoN+SxilILmJgHpfaNGC1OPAawRgD1dUFq8PRGkSs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=m16mHk5Ed/0iz7dmolTVbmm4HxQbANVTpdxA5T5blg7Kx3WlAbPbVsiBD6Xv3T/Fs
-	 g6boD666BBUUCshwysBB+I4gS90p04zCZTqiOHqm6YLrKooP0KxjEfyZm25SQq0kHC
-	 FghnqJBMwpzVZWX17cHZi42425CljQE8zKHryXn4=
-Date: Mon, 10 Aug 2026 18:32:07 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
-	Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v7 11/14] media: v4l2-subdev: Add
- v4l2_subdev_call_ci_state_{active,try}
-Message-ID: <20260810153207.GC3011310@killaraus.ideasonboard.com>
-References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
- <20260807122409.45807-12-sakari.ailus@linux.intel.com>
- <65b0c3ab-ae76-49ec-824a-b9d882c28a5c@kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=detlev.casanova@collabora.com header.b="iblyMT1k"
+ARC-Seal: i=1; a=rsa-sha256; t=1786376376; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=giozI1u7dJ+5r1g+wq/+mQnM0kuAP2V7q7Bw1viy21DzpR7TnCNY2kIAJOosw2vTETYhwWiNUKtHEfvvEoqK4MDFA8wot06MV66T6fe1Xs+kdXf4Zjoo4kUmIb5V7oF/btULdBvCTQ1NeHDC7dsc7BmpmoaOrJ/VjHvehjxMHFg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1786376376; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Xa0u/zVElWPUOyk4vaPXP1KhKSEfswjdAfWz5D1PLQQ=; 
+	b=TOM3rwJ3pQPECOrq2OVcyOjWLLhu7l5ghqpYWpUz6FzYJ8wWgZlUl4BZvUA06wgY0JqBRaVj6zTjAJQx9KoOmx874N+WhKMeGmo0ysKLeGJqf/OgTxTnDQ676/KLy3/bcGFR50BrS8DWrtrgSj0Yi6MignUjk73TQsTpYEakLtA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=detlev.casanova@collabora.com;
+	dmarc=pass header.from=<detlev.casanova@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1786376376;
+	s=zohomail; d=collabora.com; i=detlev.casanova@collabora.com;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
+	bh=Xa0u/zVElWPUOyk4vaPXP1KhKSEfswjdAfWz5D1PLQQ=;
+	b=iblyMT1kBdXZERWSmIBTW2XN5BgKN2QqST1pFyMxIIXv1uxByjRL9pJjS/cNZRlr
+	jXPq/wgTx6+0RijFQX1YNu3riCoIoQtEUT+ZAV0FzpUuLP4XFQ33JapgOtcAgYLgWDi
+	QiyRD7ZG6UnHXkFU8KW1E3TLrViVjJ80WWynVh/c=
+Received: by mx.zohomail.com with SMTPS id 1786376375087743.4479949557322;
+	Mon, 10 Aug 2026 08:39:35 -0700 (PDT)
+From: Detlev Casanova <detlev.casanova@collabora.com>
+To: Jacob Chen <jacob-chen@iotwrt.com>,
+ Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-rockchip@lists.infradead.org
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ kernel@pengutronix.de, Michael Tretter <m.tretter@pengutronix.de>,
+ Sven =?UTF-8?B?UMO8c2NoZWw=?= <s.pueschel@pengutronix.de>
+Subject:
+ Re: [PATCH 05/17] media: v4l2-mem2mem: support running multiple jobs in
+ parallel
+Date: Mon, 10 Aug 2026 11:39:32 -0400
+Message-ID: <f1RqEsL3T-SFEBZFuL9s-A@collabora.com>
+In-Reply-To: <20260606-spu-rga3multicore-v1-5-3ec2b15675f7@pengutronix.de>
+References:
+ <20260606-spu-rga3multicore-v1-0-3ec2b15675f7@pengutronix.de>
+ <20260606-spu-rga3multicore-v1-5-3ec2b15675f7@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <65b0c3ab-ae76-49ec-824a-b9d882c28a5c@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ZohoMailClient: External
 
-On Mon, Aug 10, 2026 at 04:12:31PM +0200, Hans Verkuil wrote:
-> On 07/08/2026 14:24, Sakari Ailus wrote:
-> > Add v4l2_subdev_call_ci_state_active(), and
-> > v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
-> > take struct v4l2_subdev_client_info pointer as an argument. These ops
-> > cannot be called using v4l2_subdev_call_state_active() or
-> > v4l2_subdev_call_state_try() as the client_info argument precedes the
-> > state argument.
-> 
-> So if we have to jump through all these hoops just because the client_info
-> pointer precedes the state pointer in the pad op argument list, wouldn't it
-> be better to swap the order? For example by moving the client_info pointer
-> as the last argument?
-> 
-> Honestly, these macros are getting really hard to follow, and I'm not sure
-> it is worth it just to keep the client_info before the state pointer. Yes, that's
-> the logical order, but at the price of some very hard to read defines.
-> 
-> Or am I missing something?
+Hi Sven !
 
-Those are exactly the points I raised in the review of v6 :-)
+On Friday, 5 June 2026 18:06:51 EDT Sven P=C3=BCschel wrote:
+> Add support for running multiple jobs in parallel for SoCs containing
+> multiple identical devices. An example is the Rockchip RK3588 SoC,
+> which contains two identical RGA3 devices. Therefore it is desirable to
+> have the kernel schedule the work across all available devices and only
+> expose one video device to the userspace.
+>=20
+> Previously the curr_ctx member of a v4l2_m2m_dev was used to track the
+> currently running context. But the currently running context will always
+> be at the top of the job_queue. As the TRANS_RUNNING flag can be used to
+> check if the queue head is already running, the curr_ctx member can be
+> completely dropped
+>=20
+> To avoid queueing too many parallel jobs, the
+> v4l2_m2m_set_max_parallel_jobs method is added. It allows a driver
+> to set the number of parallel jobs and avoids calling device_run when
+> the given number of jobs is already running. This is set to 1 by default
+> to prevent parallel job runs. Drivers with the need and support for
+> scheduling jobs can adjust this value accordingly.
+>=20
+> Note that this change doesn't allow a context to be used multiple times
+> in parallel. So a single stream won't be able to utilize multiple devices
+> at once, but N streams can utilize up to N devices. This is caused by the
+> fact that a context is not added multiple times to the job_list and also
+> holds the job_flags to distinguish if it's currently running.
+>=20
+> Signed-off-by: Sven P=C3=BCschel <s.pueschel@pengutronix.de>
+> ---
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 89
+> ++++++++++++++++++++++------------ include/media/v4l2-mem2mem.h          =
+ |
+>  3 ++
+>  2 files changed, 62 insertions(+), 30 deletions(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> b/drivers/media/v4l2-core/v4l2-mem2mem.c index a65cbb124cfe0..14ac9c85803=
+d1
+> 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -84,16 +84,15 @@ static const char * const m2m_entity_name[] =3D {
+>   *			v4l2_m2m_unregister_media_controller().
+>   * @intf_devnode:	&struct media_intf devnode pointer with the interface
+>   *			with controls the M2M device.
+> - * @curr_ctx:		currently running instance
+>   * @job_queue:		instances queued to run
+>   * @job_spinlock:	protects job_queue
+>   * @job_work:		worker to run queued jobs.
+>   * @job_queue_flags:	flags of the queue status, %QUEUE_PAUSED.
+> + * @max_parallel_jobs:	max job_queue instances number marked as running
+>   * @m2m_ops:		driver callbacks
+>   * @kref:		device reference count
+>   */
+>  struct v4l2_m2m_dev {
+> -	struct v4l2_m2m_ctx	*curr_ctx;
+>  #ifdef CONFIG_MEDIA_CONTROLLER
+>  	struct media_entity	*source;
+>  	struct media_pad	source_pad;
+> @@ -108,6 +107,7 @@ struct v4l2_m2m_dev {
+>  	spinlock_t		job_spinlock;
+>  	struct work_struct	job_work;
+>  	unsigned long		job_queue_flags;
+> +	u32			max_parallel_jobs;
+>=20
+>  	const struct v4l2_m2m_ops *m2m_ops;
+>=20
+> @@ -123,6 +123,12 @@ static struct v4l2_m2m_queue_ctx *get_queue_ctx(stru=
+ct
+> v4l2_m2m_ctx *m2m_ctx, return &m2m_ctx->cap_q_ctx;
+>  }
+>=20
+> +void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
+> +				    u32 max_parallel_jobs)
+> +{
+> +	m2m_dev->max_parallel_jobs =3D max_parallel_jobs;
+> +}
 
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > ---
-> >  include/media/v4l2-subdev.h | 95 +++++++++++++++++++++++++++++--------
-> >  1 file changed, 74 insertions(+), 21 deletions(-)
-> > 
-> > diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> > index b8874eeec2e5..307655ee25e0 100644
-> > --- a/include/media/v4l2-subdev.h
-> > +++ b/include/media/v4l2-subdev.h
-> > @@ -1964,6 +1964,22 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
-> >  		__result;						\
-> >  	})
-> >  
-> > +#define __v4l2_subdev_call_drop_fourth(first, second, third, fourth, rest...) \
-> > +	v4l2_subdev_call(first, second, third, ##rest)
-> > +
-> > +#define __v4l2_subdev_call_state_active(call, sd, o, f, args...) \
-> > +	({								\
-> > +		int __result;						\
-> > +		struct v4l2_subdev_state *state;			\
-> > +		state = v4l2_subdev_get_unlocked_active_state(sd);	\
-> > +		if (state)						\
-> > +			v4l2_subdev_lock_state(state);			\
-> > +		__result = call(sd, o, f, NULL, state, ##args);		\
-> > +		if (state)						\
-> > +			v4l2_subdev_unlock_state(state);		\
-> > +		__result;						\
-> > +	})
-> > +
-> >  /**
-> >   * v4l2_subdev_call_state_active - call an operation of a v4l2_subdev which
-> >   *				   takes state as a parameter, passing the
-> > @@ -1982,22 +1998,13 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
-> >   * active state, lock it before calling the op and unlock it after the call.
-> >   */
-> >  #define v4l2_subdev_call_state_active(sd, o, f, args...)		\
-> > -	({								\
-> > -		int __result;						\
-> > -		struct v4l2_subdev_state *state;			\
-> > -		state = v4l2_subdev_get_unlocked_active_state(sd);	\
-> > -		if (state)						\
-> > -			v4l2_subdev_lock_state(state);			\
-> > -		__result = v4l2_subdev_call(sd, o, f, state, ##args);	\
-> > -		if (state)						\
-> > -			v4l2_subdev_unlock_state(state);		\
-> > -		__result;						\
-> > -	})
-> > +	__v4l2_subdev_call_state_active(__v4l2_subdev_call_drop_fourth,	\
-> > +					sd, o, f, ##args)
-> >  
-> >  /**
-> > - * v4l2_subdev_call_state_try - call an operation of a v4l2_subdev which
-> > - *				takes state as a parameter, passing the
-> > - *				subdev a newly allocated try state.
-> > + * v4l2_subdev_call_ci_state_active - call an operation of a v4l2_subdev which
-> > + *				      takes state as a parameter, passing the
-> > + *				      subdev its active state.
-> >   *
-> >   * @sd: pointer to the &struct v4l2_subdev
-> >   * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
-> > @@ -2007,13 +2014,14 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
-> >   *     each element at &struct v4l2_subdev_ops.
-> >   * @args: arguments for @f.
-> >   *
-> > - * This is similar to v4l2_subdev_call_state_active(), except that as this
-> > - * version allocates a new state, this is only usable for
-> > - * V4L2_SUBDEV_FORMAT_TRY use cases.
-> > - *
-> > - * Note: only legacy non-MC drivers may need this macro.
-> > + * This macro is just as v4l2_subdev_call_state_active(), with the exception
-> > + * that it passes NULL as the client info to sub-device ops that need it
-> > + * (currently pad ops set_fmt, get_selection and set_selection).
-> >   */
-> > -#define v4l2_subdev_call_state_try(sd, o, f, args...)                         \
-> > +#define v4l2_subdev_call_ci_state_active(sd, o, f, args...)		\
-> > +	__v4l2_subdev_call_state_active(v4l2_subdev_call, sd, o, f, ##args)
-> > +
-> > +#define __v4l2_subdev_call_state_try(call, sd, o, f, args...)		      \
-> >  	({                                                                    \
-> >  		int __result;                                                 \
-> >  		static struct lock_class_key __key;                           \
-> > @@ -2025,13 +2033,58 @@ extern const struct v4l2_subdev_ops v4l2_subdev_call_wrappers;
-> >  			__result = PTR_ERR(state);                            \
-> >  		} else {                                                      \
-> >  			v4l2_subdev_lock_state(state);                        \
-> > -			__result = v4l2_subdev_call(sd, o, f, state, ##args); \
-> > +			__result = call(sd, o, f, NULL, state, ##args);	      \
-> >  			v4l2_subdev_unlock_state(state);                      \
-> >  			__v4l2_subdev_state_free(state);                      \
-> >  		}                                                             \
-> >  		__result;                                                     \
-> >  	})
-> >  
-> > +/**
-> > + * v4l2_subdev_call_state_try - call an operation of a v4l2_subdev which
-> > + *				takes state as a parameter, passing the
-> > + *				subdev a newly allocated try state.
-> > + *
-> > + * @sd: pointer to the &struct v4l2_subdev
-> > + * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
-> > + *     Each element there groups a set of callbacks functions.
-> > + * @f: callback function to be called.
-> > + *     The callback functions are defined in groups, according to
-> > + *     each element at &struct v4l2_subdev_ops.
-> > + * @args: arguments for @f.
-> > + *
-> > + * This is similar to v4l2_subdev_call_state_active(), except that as this
-> > + * version allocates a new state, this is only usable for
-> > + * V4L2_SUBDEV_FORMAT_TRY use cases.
-> > + *
-> > + * Note: only legacy non-MC drivers may need this macro.
-> > + */
-> > +#define v4l2_subdev_call_state_try(sd, o, f, args...)			      \
-> > +	__v4l2_subdev_call_state_try(__v4l2_subdev_call_drop_fourth, sd, o, f, \
-> > +				     ##args);
-> > +
-> > +/**
-> > + * v4l2_subdev_call_ci_state_try - call an operation of a v4l2_subdev which
-> > + *				   takes state as a parameter, passing the
-> > + *				   subdev a newly allocated try state.
-> > + *
-> > + * @sd: pointer to the &struct v4l2_subdev
-> > + * @o: name of the element at &struct v4l2_subdev_ops that contains @f.
-> > + *     Each element there groups a set of callbacks functions.
-> > + * @f: callback function to be called.
-> > + *     The callback functions are defined in groups, according to
-> > + *     each element at &struct v4l2_subdev_ops.
-> > + * @args: arguments for @f.
-> > + *
-> > + * This is similar to v4l2_subdev_call_state_try(), with the exception
-> > + * that it passes NULL as the client info to sub-device ops that need it
-> > + * (currently pad ops set_fmt, get_selection and set_selection).
-> > + *
-> > + * Note: only legacy non-MC drivers may need this macro.
-> > + */
-> > +#define v4l2_subdev_call_ci_state_try(sd, o, f, args...)		     \
-> > +	__v4l2_subdev_call_state_try(v4l2_subdev_call, sd, o, f, ##args);
-> > +
-> >  /**
-> >   * v4l2_subdev_has_op - Checks if a subdev defines a certain operation.
-> >   *
+This needs to be exported so that drivers can use it even when compiled as=
+=20
+modules.
++EXPORT_SYMBOL(v4l2_m2m_set_max_parallel_jobs);
 
--- 
-Regards,
+> +
+>  struct vb2_queue *v4l2_m2m_get_vq(struct v4l2_m2m_ctx *m2m_ctx,
+>  				       enum v4l2_buf_type type)
+>  {
+> @@ -229,14 +235,22 @@ EXPORT_SYMBOL_GPL(v4l2_m2m_buf_remove_by_idx);
+>  void *v4l2_m2m_get_curr_priv(struct v4l2_m2m_dev *m2m_dev)
+>  {
+>  	unsigned long flags;
+> -	void *ret =3D NULL;
+> +	struct v4l2_m2m_ctx *first_ctx;
+>=20
+>  	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+> -	if (m2m_dev->curr_ctx)
+> -		ret =3D m2m_dev->curr_ctx->priv;
+> +	if (list_empty(&m2m_dev->job_queue)) {
+> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +		return NULL;
+> +	}
+> +
+> +	first_ctx =3D list_first_entry(&m2m_dev->job_queue,
+> +				     struct v4l2_m2m_ctx, queue);
+>  	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>=20
+> -	return ret;
+> +	if (first_ctx->job_flags & TRANS_RUNNING)
+> +		return first_ctx->priv;
+> +	else
+> +		return NULL;
+>  }
+>  EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
+>=20
+> @@ -252,13 +266,11 @@ EXPORT_SYMBOL(v4l2_m2m_get_curr_priv);
+>  static void v4l2_m2m_try_run(struct v4l2_m2m_dev *m2m_dev)
+>  {
+>  	unsigned long flags;
+> +	struct v4l2_m2m_ctx *ctx;
+> +	struct v4l2_m2m_ctx *chosen_ctx =3D NULL;
+> +	u32 running_jobs =3D 0;
+>=20
+>  	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+> -	if (NULL !=3D m2m_dev->curr_ctx) {
+> -		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> -		dprintk("Another instance is running, won't run=20
+now\n");
+> -		return;
+> -	}
+>=20
+>  	if (list_empty(&m2m_dev->job_queue)) {
+>  		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> @@ -272,13 +284,30 @@ static void v4l2_m2m_try_run(struct v4l2_m2m_dev
+> *m2m_dev) return;
+>  	}
+>=20
+> -	m2m_dev->curr_ctx =3D list_first_entry(&m2m_dev->job_queue,
+> -				   struct v4l2_m2m_ctx, queue);
+> -	m2m_dev->curr_ctx->job_flags |=3D TRANS_RUNNING;
+> +	list_for_each_entry(ctx, &m2m_dev->job_queue, queue) {
+> +		if (!(ctx->job_flags & TRANS_RUNNING)) {
+> +			chosen_ctx =3D ctx;
+> +			break;
+> +		}
+> +
+> +		running_jobs++;
+> +	}
+> +	if (running_jobs >=3D m2m_dev->max_parallel_jobs) {
+> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +		dprintk("Maximum number of parallel jobs reached\n");
+> +		return;
+> +	}
+> +	if (!chosen_ctx) {
+> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +		dprintk("All jobs already running\n");
+> +		return;
+> +	}
+> +
+> +	chosen_ctx->job_flags |=3D TRANS_RUNNING;
+>  	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>=20
+> -	dprintk("Running job on m2m_ctx: %p\n", m2m_dev->curr_ctx);
+> -	m2m_dev->m2m_ops->device_run(m2m_dev->curr_ctx->priv);
+> +	dprintk("Running job on m2m_ctx: %p\n", chosen_ctx);
+> +	m2m_dev->m2m_ops->device_run(chosen_ctx->priv);
+>  }
+>=20
+>  /*
+> @@ -469,15 +498,14 @@ static void v4l2_m2m_schedule_next_job(struct
+> v4l2_m2m_dev *m2m_dev, static bool _v4l2_m2m_job_finish(struct v4l2_m2m_d=
+ev
+> *m2m_dev,
+>  				 struct v4l2_m2m_ctx *m2m_ctx)
+>  {
+> -	if (!m2m_dev->curr_ctx || m2m_dev->curr_ctx !=3D m2m_ctx) {
+> +	if (!m2m_ctx || !(m2m_ctx->job_flags & TRANS_RUNNING)) {
+>  		dprintk("Called by an instance not currently=20
+running\n");
+>  		return false;
+>  	}
+>=20
+> -	list_del(&m2m_dev->curr_ctx->queue);
+> -	m2m_dev->curr_ctx->job_flags &=3D ~(TRANS_QUEUED | TRANS_RUNNING);
+> -	wake_up(&m2m_dev->curr_ctx->finished);
+> -	m2m_dev->curr_ctx =3D NULL;
+> +	list_del(&m2m_ctx->queue);
+> +	m2m_ctx->job_flags &=3D ~(TRANS_QUEUED | TRANS_RUNNING);
+> +	wake_up(&m2m_ctx->finished);
+>  	return true;
+>  }
+>=20
+> @@ -544,16 +572,19 @@ EXPORT_SYMBOL(v4l2_m2m_buf_done_and_job_finish);
+>  void v4l2_m2m_suspend(struct v4l2_m2m_dev *m2m_dev)
+>  {
+>  	unsigned long flags;
+> -	struct v4l2_m2m_ctx *curr_ctx;
+> +	struct v4l2_m2m_ctx *ctx;
+> +	struct v4l2_m2m_ctx *ctx_safe;
+>=20
+>  	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+>  	m2m_dev->job_queue_flags |=3D QUEUE_PAUSED;
+> -	curr_ctx =3D m2m_dev->curr_ctx;
+>  	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+>=20
+> -	if (curr_ctx)
+> -		wait_event(curr_ctx->finished,
+> -			   !(curr_ctx->job_flags & TRANS_RUNNING));
+> +	list_for_each_entry_safe(ctx, ctx_safe, &m2m_dev->job_queue, queue)=20
+{
+> +		if (!(ctx->job_flags & TRANS_RUNNING))
+> +			break;
+> +
+> +		wait_event(ctx->finished, !(ctx->job_flags &=20
+TRANS_RUNNING));
+> +	}
+>  }
+>  EXPORT_SYMBOL(v4l2_m2m_suspend);
+>=20
+> @@ -896,10 +927,8 @@ int v4l2_m2m_streamoff(struct file *file, struct
+> v4l2_m2m_ctx *m2m_ctx, q_ctx->num_rdy =3D 0;
+>  	spin_unlock_irqrestore(&q_ctx->rdy_spinlock, flags);
+>=20
+> -	if (m2m_dev->curr_ctx =3D=3D m2m_ctx) {
+> -		m2m_dev->curr_ctx =3D NULL;
+> +	if (m2m_ctx->job_flags & TRANS_RUNNING)
+>  		wake_up(&m2m_ctx->finished);
+> -	}
+>  	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags_job);
+>=20
+>  	return 0;
+> @@ -1194,12 +1223,12 @@ struct v4l2_m2m_dev *v4l2_m2m_init(const struct
+> v4l2_m2m_ops *m2m_ops) if (!m2m_dev)
+>  		return ERR_PTR(-ENOMEM);
+>=20
+> -	m2m_dev->curr_ctx =3D NULL;
+>  	m2m_dev->m2m_ops =3D m2m_ops;
+>  	INIT_LIST_HEAD(&m2m_dev->job_queue);
+>  	spin_lock_init(&m2m_dev->job_spinlock);
+>  	INIT_WORK(&m2m_dev->job_work, v4l2_m2m_device_run_work);
+>  	kref_init(&m2m_dev->kref);
+> +	m2m_dev->max_parallel_jobs =3D 1;
+>=20
+>  	return m2m_dev;
+>  }
+> diff --git a/include/media/v4l2-mem2mem.h b/include/media/v4l2-mem2mem.h
+> index 31de25d792b98..e6177d0eaf637 100644
+> --- a/include/media/v4l2-mem2mem.h
+> +++ b/include/media/v4l2-mem2mem.h
+> @@ -594,6 +594,9 @@ static inline void v4l2_m2m_set_dst_buffered(struct
+> v4l2_m2m_ctx *m2m_ctx, m2m_ctx->cap_q_ctx.buffered =3D buffered;
+>  }
+>=20
+> +void v4l2_m2m_set_max_parallel_jobs(struct v4l2_m2m_dev *m2m_dev,
+> +				    u32 max_parallel_jobs);
+> +
+>  /**
+>   * v4l2_m2m_ctx_release() - release m2m context
+>   *
 
-Laurent Pinchart
+
+
+
