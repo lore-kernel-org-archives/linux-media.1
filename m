@@ -1,48 +1,80 @@
-Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F9C372062;
-	Mon, 10 Aug 2026 09:20:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 261D635E953
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 09:26:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786353663; cv=none; b=gSFai2iOmDorPjcG//qv6wqvuRGT5Jjgq9UIDMLmL43M509o/zm7TZ0aZdbS9Ei8Zr99NQcvpO8E4pb1cgaJwL1PBn6FY1W1D77yV8FHLyDA2Y5ueuCin9Mjfsnz2L0B6AvrSFXgNc0FZ66PXqge+QeMKg2m3bpLSDcqpxuVAQk=
+	t=1786354001; cv=none; b=QGSRSAyaGoKODV4yxcJBMeyOd8tNVqvwcRdmAuRvzrkUVi8MzK2B8YUUdjGKKEAHLWXVrcbneil+KQEkJdTVSjKeiv/pRBmTejHarOPgl/38GPTX3jzs/L5fhc4ojrhOmLsJYcxPunxw3ZnoW9ks4HjsnOxJPnwTlYQPNaMbB7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786353663; c=relaxed/simple;
-	bh=QdkTzbtCkDJxlS7CTj1PwUNqIInKL45U5ZUtV1lh49I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RbVoM1gOgMjBdRhCypgJm8I1RJAL7Bmw/DIwxpZUOfWPNPYWnxdGWYLSGbvDWQ617zZfFTGAnxFUfgNhc0NxaM5ekPKwnuBb+BW9lFM2zPVXV6MdGai9u+cdcLqbTuxLT7I3nIYSGSaTKNiaFyZLhddtgM/sOZ8HekFVKPYKWso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=a3s61FHe; arc=none smtp.client-ip=54.92.39.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786354001; c=relaxed/simple;
+	bh=r2PkE0oi/VSTJVzcc6zI56DSvvO0dsneNQrVL+aEAKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=egGedJ8zVxXyfjIbXborNgEI6RspU8vz9lX1oOsB/lqP10XJJ4O6K8pkpg8TE1w0dEZxkErNDemywcF7gIzR9e89TSgN7XkMJhSzYGZlrB54rZAKyKuMflvWDq1BEGR/V33huySiZ7f5kVS/pnpV36ny3hlS+ou8C7xFK6l1zGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BMn5XkMW; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="a3s61FHe"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786353645;
-	bh=8tLGbIp0Ta1vTWMv6dNkzKIVnot+g5opsJmhP+J5sCI=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=a3s61FHeQ5uuErXvlvVP7dfdc7lQZu0R3FfcTbfQPrLF/9/m2nw/oTv4HP7lrJY86
-	 ljLIt9h782JmijvnxHLkpPkNaKTIx1AmcL4+Kw0OJey/C4Rtie+Ru5DagP3iJaYKDM
-	 ZN/6nTxkm4N+tYLxdB/4+gBS4rwM4Nm5C5jBn7mo=
-X-QQ-mid: esmtpsz10t1786353627t9a19c8f8
-X-QQ-Originating-IP: xbGbFhxW2SyckUwBsp53UOPcQ0aUNYZcEgMpZMTtYmg=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Mon, 10 Aug 2026 17:20:25 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 2117933671536180727
-EX-QQ-RecipientCnt: 7
-From: raoxu <raoxu@uniontech.com>
-To: laurent.pinchart@ideasonboard.com
-Cc: hansg@kernel.org,
-	mchehab@kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BMn5XkMW"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38dfe910e9dso1607244a91.3
+        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 02:26:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786353999; x=1786958799; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=39MnD4WMHl99u8wHNngWbLPAoL4NahAVgxuRbaUB5js=;
+        b=BMn5XkMW7NvwY4YO6ZX1BKTeJsgLgAu+IPNxHYbk+A9MYob0pYv9KCpjQlM+eFwWhg
+         XzJgelLxVBKAmfdCPpSRGgJRMTJss+rjGz8eAmER5EZCx029HA+xEuvms50cX7Rpu8wG
+         wu72TRbcVc6rCiv41bNWL6CeDTDm1nLJUR7Zoc3Ke+7UD48xU1anIwIppG+jDYTiMRS1
+         QLE6oyMT9ZuoAyIQ3f3hry4CyZlqmq/YS0D5L8CYXLG77tDeaqx71bBFoAXBCxer0zx2
+         iU1UCNg5nu467NCnAycclNG8SI8fIGHpMnEuiHaytdXp5r4pZfaRzKmgRPaZgJPfqfUb
+         MWRQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786353999; x=1786958799;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=39MnD4WMHl99u8wHNngWbLPAoL4NahAVgxuRbaUB5js=;
+        b=O9y6fKN9mA6QebOpRKnZIFbBFci1eaZowcr6fBSWL2vl+uvuZVEXufwzhlxEAqNwwA
+         az04U+J+/CwynK4iaWhKmEb38smVCc5USDB4t/sJqB7Tlwq8r0S4DDfkLM3YBNEf3u2r
+         B5f9R+8rJlEb/cORCRDR8tS1kiAiw202LvgCfI4rzxBAeNfDGC52/MnoBOTXTD8bVtdB
+         2EQiZQ5W0zNgAuFxLyZj/dUNNJLdqGfA76ipC2om4xnwMIu7u1FwV9JKZ41BE4WWOABq
+         4LqKfMBd9+12qVtKENZ4Qp8Hs/vdXaQCZvgyILCRpYL/70lRWlqnIB5Jyd6n9SnPtP6u
+         BISQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpO9JGpQWlOcejfPUqufcfKCf8+zZnl8vr1ipDtrSkf/y0Q+dmBJGNyqYFTnjBctrUzwWwysT28pa651Q==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxyE+Hs/jYywFJ6yoq5Rh7hr78Z6xOXqmkTc2nUpwsZ8WeffLZ2
+	20geWNNSXgH0wUpsT8eTSmp5AIQnSXSyBKpm5VrrhRJt9WBHH43vYE2h
+X-Gm-Gg: AR+sD11M1ltUYgJKVhNA/G/XxbOY71/8sFpvoUSrlZkRV0n+UVG1MJyI2Ib9xzjBQSd
+	ItoQQL6rTJUHEYp1/LIT1dMX0FjssXRiyPHNudj3XqrXH3XNY9/jHRY19yENrhAkpc/R2vpi2cB
+	TlPIStyZav6TsLtXApNIAFKZ+x8BSFAg8AZzhDYzYFRywtW9noO/iSiJbpcGItmsZmQ7+c3nX3z
+	fHwHHBBmWTYTtBOApzFKrOOHWs/gEA1sHBziXlgTxqiJAUfq1pVx3sLMQn5kQDEqdn/yvTmIrES
+	PttzgWHMOpiBp+xlsjDLnuBVBJSBlF7y2BFJmOHjfNIvxNDrbAMAK+j5gRffklh/BTAEb928OLR
+	kQQfLHkloTzKHBjvrMvKY+w8QeDXZQSZVdsZyC6PQXoFey2CWJfJhR0bJq9hO1RdJm82aWT60b6
+	m5pVMtHCBxbXAmgbiMoEY1vtIf37ZhdLhDJcg0Uny1cwMghve+hed8EkBZM5ujFa1axfqlIeow/
+	TtcLSunJlcc7rFNc5Oi
+X-Received: by 2002:a17:90b:580b:b0:38e:9e9d:9209 with SMTP id 98e67ed59e1d1-3903c5c51cdmr43016068a91.17.1786353999298;
+        Mon, 10 Aug 2026 02:26:39 -0700 (PDT)
+Received: from sahan-i3-12100 (121-45-161-118.tpgi.com.au. [121.45.161.118])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-315beb88473sm38052384eec.17.2026.08.10.02.26.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 02:26:38 -0700 (PDT)
+From: Sahan Nissanka <adee.sahan@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Sahan Nissanka <adee.sahan@gmail.com>,
+	platform-driver-x86@vger.kernel.org,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	raoxu@uniontech.com,
-	stable@vger.kernel.org
-Subject: [PATCH] media: uvcvideo: fix output terminal type check for ID namespace
-Date: Mon, 10 Aug 2026 17:16:24 +0800
-Message-ID: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dan.scally@ideasonboard.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mchehab@kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] media: i2c: ov5675: Add OVTI5678 ACPI id
+Date: Mon, 10 Aug 2026 19:24:45 +1000
+Message-ID: <20260810092457.12357-1-adee.sahan@gmail.com>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <anmHRjxruBaYQRaC@kekkonen.localdomain>
+References: <20260809042540.15849-1-adee.sahan@gmail.com> <20260809042540.15849-3-adee.sahan@gmail.com> <anmHRjxruBaYQRaC@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -50,74 +82,97 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: McJfg7Aee/FZ1Lz1Kz0sHqAM9YNqZGzKAEgRnCdHW5rPEcCxbBvGPZna
-	eQzLC9Lm9mzcxjzyfUdDPlHc2OLKqqVZvClZ9NdO/xPkHtQ+vpMepp5CA9OBBTTKKsfPdno
-	Fy5qI8PhsqDfv20cCwiL6kSJQuf8JEiYd/LmsTasbTatGQ/efG7KV5hwT9dZ/Ai3SjBX3KZ
-	56ril+0AHCRkW1TZOl11RgD5IVipra6kJ0cKpvVrUZ5TPl9Er3UKDGh+eAj1kBJlWP6/hlj
-	bIT5mBPFKHSOOpjZ1t5D62XBSS2NUldtYmE5H0Axy/mw11cxfFrpETQknW7qMIJ040BkoVC
-	9S79UaZTz4Efs77AyfXsXDFNUfs0KSAkExBIWXZ3iojzIJ06eYQUuOaJ4ZuIWkD0wVRuhJ4
-	O6PQ6guJ1S3H6bqZ6Wz3nsODtjXkIVawOjgwNsdAO1jvLHDR5c4EDggKp+r3ju7uQTdsn6o
-	KPaLuFSjcC45/WZ9TJqDwqFSyytvvrLyeNVtoeir+7KeeSSsPU5cB5Y8fxStrVHGgopShrs
-	WMmnBf+kiUhCWCEJPGnAgJPI/HFkucBDVm1bZ5A4VSrSmI4Gd3MVlh4gOgzIErFRkJBr9OQ
-	tnAKr8yOePudasqbCkRyb7LPMhwWT/qZDgdd7EpkanqtM5h0xyRKwd2+FchmBsKMVkK5ffe
-	w7TJaigUCp6xpMQty51e4grFQ6RIfLpUtKPVs6vRAPikZLo6mm/Nvwk9uvTXgB/hWt0R+lm
-	cweUsr8+4m0/yaHT/iNzNDF73i0jrwWpT6CNWKpTFV86mDi+zZMnhrduFvE+06y/kw8hVvX
-	75d+c1+0HeRFJuD61aepfayLKBGAA4YWV8TaGqoA0EpJ0yqrw415+C5IxP/NoQIGJIvmmm6
-	6ES9FMgqxNH4qCHgN0SN1I6dViLpCBL/BLWow9oKMCJdTBdlmxtrp3GKqv9TX/cOORHpi+Y
-	4v4U8LHxf4yDqVNTyDh2vJ0NajOaCGSQvwjnRluZl7z4Lw8Foeahg2/Fbdw/8vUEoF/ox6z
-	BhkcZn3/JlNjYOgylpXpQ1FWRyanozXXk1T+v5WH8hHT4GntN0hyd9Gmn4isk=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
 
-From: Xu Rao <raoxu@uniontech.com>
+Hi Sakari,
 
-Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
-streaming output terminals") added a separate internal ID namespace for
-streaming output terminals.  The namespace is only valid for those
-terminals because their descriptor IDs are used by streaming interface
-bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
-the internal namespace bit when matching that link.
+Thank you for the review.
 
-The parser currently decides whether to use the namespace with
-`type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
-Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
-types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
-UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
-0x0100 bits.
+> Most non-Bayer colour raw sensors can be programmed to produce Bayer
+> output. It'd be interesting to know what are the differences in register
+> writes compared to the Windows driver -- it might use that feature.
 
-Those terminals can then receive an internal ID that differs from their
-descriptor ID even though normal UVC descriptor references still use the
-8-bit descriptor ID.  This can make later entity lookups fail or hide an
-entity ID collision that should be handled as a regular UVC descriptor
-collision.
+I have not captured the Windows driver's register writes, so I cannot answer
+that directly. What I do have is Intel's shipped configuration for this exact
+module, and all of it points the other way: their stack appears to take RGB-IR
+from the sensor and convert it downstream rather than ask the sensor for
+Bayer.
 
-Use an equality check so that only UVC_TT_STREAMING output terminals
-enter the separate namespace.  The issue was easy to miss because real
-streaming output terminals make both the bitwise and equality tests true,
-so the devices targeted by the original change keep working.
+  - iacamera64.sys documents an IPU6 hardware block named x2b_rgbir, 314
+    registers, i.e. RGB-IR to Bayer conversion in the IPU6 itself.
 
-Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/usb/uvc/uvc_driver.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  - graph_settings_OV5678_0BF501T3_TGL.xml, tied to this module by ACPI _DDN
+    rather than to a near relative, declares sensor_type="RGB_IR" and
+    bayer_order="GIGI_RGBG_GIGI_BGRG". The rear OV8856 on the same machine
+    declares plain GRBG, which makes a useful control.
 
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index e289cc71ba98..acfc5797a1c2 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
- 		 * so limit usage of this separate namespace to streaming output
- 		 * terminals.
- 		 */
--		if (type & UVC_TT_STREAMING)
-+		if (type == UVC_TT_STREAMING)
- 			id |= UVC_TERM_OUTPUT;
+  - The module's tuning file carries a lens shading record whose 4x4 channel
+    index map has five channels, two greens tracked separately plus IR,
+    against four on the rear sensor.
 
- 		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
+  - Intel lists exactly one mode for this part, 2592x1944, where the Bayer
+    OV8856 gets several.
+
+If the part could be told to emit Bayer, that hardware block and that tuning
+would not be needed for this module. But that is an argument about what Intel
+chose to do, not proof about what the sensor can do. I have no register-level
+documentation for this variant, and the OV5675 documentation I do have does
+not describe an RGB-IR part at all.
+
+Since posting, another person working on this hardware extracted and shared
+Intel's Windows sensor driver for this part - ov5678.sys, an ACPI\OVTI5678
+KMDF driver - so I went looking for the register writes directly. They are not
+in it: the driver carries no sensor initialisation tables, and instead reads
+external configuration through an ExtFilesPath value under its service key,
+from a BSPDRIVERS store. So the Windows driver binary does not settle your
+question either, and I would rather say so than imply I have checked something
+I have not.
+
+It does suggest a cleaner way to answer it than sniffing the bus. The driver
+has a register-dump facility of its own, writing to C:\OV5678reg.txt, and a
+matching NVM dump for the module EEPROM. If the replacement machine arrives
+with the factory Windows image, letting Windows bring the camera up and then
+dumping the sensor's register state gives a direct comparison against the
+tables in ov5675.c, using Intel's own tooling rather than my inference. If
+there is a mode bit that switches the output to Bayer, that is where it should
+appear. I will report either way, including if it turns out I cannot get at
+it.
+
+> The metadata series I've been preparing adds common raw formats and moves
+> the CFA pattern to a control. Then we can add the non-Bayer patters to the
+> UAPI as well. This isn't in upstream yet though. See
+> <URL:https://git.linuxtv.org/sailus/media_tree.git/log/?h=metadata>.
+
+That is good to know, and it changes my plans usefully. I had started drafting
+an RFC proposing RGB-IR media bus codes; I will drop that rather than propose
+a competing mechanism, and follow your branch instead. The CFA pattern as a
+control looks like the better model for this - a 4x4 pattern does not reduce
+to a Bayer order, so new bus codes would have multiplied awkwardly.
+
+Two questions, then, on how you would like to proceed.
+
+Would you prefer this patch waits for the metadata series to land, and returns
+as part of describing the sensor honestly? I am content to hold it. The
+practical cost is that the front camera stays dead on this machine in the
+meantime, which is what prompted the patch, but that is not an argument for
+merging something inaccurate.
+
+And how should I read the precedent in ox05b1s? It declares SGRBG10 for an
+RGB-IR sensor of this same class and resolution, which is what I was following
+here. If that is regarded as a mistake not to repeat, I would rather know now
+and wait than argue from it.
+
+> Most of the commit message would seem to be better located in the cover
+> letter.
+
+Agreed - I will move it in v2.
+
+One other thing you should know, since it affects the series rather than this
+patch. I have asked that 1/3 not be applied: an owner of the same machine has
+shown the GPIO mapping in it is wrong, and that the sensor probes with no pin
+assignment at all, so my "it works" was never evidence that the mapping was
+right. I will verify the corrected mapping on the replacement machine before
+sending v2. Patch 3/3 is unaffected, and was independently arrived at by the
+same person.
+
 --
-2.50.1
-
+Sahan Nissanka
