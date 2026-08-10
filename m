@@ -1,194 +1,123 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtpbgjp3.qq.com (smtpbgjp3.qq.com [54.92.39.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FEA3A7F70;
-	Mon, 10 Aug 2026 09:07:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7F9C372062;
+	Mon, 10 Aug 2026 09:20:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.92.39.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786352861; cv=none; b=eYLrsJOpABf9+2W/wVCkX04+BG/jf/eI0WLCjhOa1XSTJbC8rXF+AaAulEo2+25fOZ1udH7IkBn5RB5lrYPcBC9VJFIdJX+mZ9RwGQV/q0/znrNQXVIYtbGeK2NOxTpMXbaSwyymtbMbvOTgIobDARkUQ/Q5bkvdU0ft949wHCQ=
+	t=1786353663; cv=none; b=gSFai2iOmDorPjcG//qv6wqvuRGT5Jjgq9UIDMLmL43M509o/zm7TZ0aZdbS9Ei8Zr99NQcvpO8E4pb1cgaJwL1PBn6FY1W1D77yV8FHLyDA2Y5ueuCin9Mjfsnz2L0B6AvrSFXgNc0FZ66PXqge+QeMKg2m3bpLSDcqpxuVAQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786352861; c=relaxed/simple;
-	bh=FlbmwqF4ICRM3NnxBPtjmBEJtf4uFOF4jpAZ9Ecv4q8=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:In-Reply-To:
-	 Content-Type:References; b=Rplc7B8ZCN/MDk/NAhZka1sh21Mk1y2rckeE71448nRm/Xuixt8rkBJv+ZlVs2iq+FrkK3+PVcpUsgXE8PzwuzP2LgdVbzsJTJgQHb6lAt3y2khwFzRZCIl6ZU6Gb40SNDh4B++f9CMWVT65aok588MYGAXyhu8rRGicxIZSrG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=HPsvRX7C; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1786353663; c=relaxed/simple;
+	bh=QdkTzbtCkDJxlS7CTj1PwUNqIInKL45U5ZUtV1lh49I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RbVoM1gOgMjBdRhCypgJm8I1RJAL7Bmw/DIwxpZUOfWPNPYWnxdGWYLSGbvDWQ617zZfFTGAnxFUfgNhc0NxaM5ekPKwnuBb+BW9lFM2zPVXV6MdGai9u+cdcLqbTuxLT7I3nIYSGSaTKNiaFyZLhddtgM/sOZ8HekFVKPYKWso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=a3s61FHe; arc=none smtp.client-ip=54.92.39.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="HPsvRX7C"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R;
-	Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20260810090730euoutp02f7b9709c04b553a5c0d5fadac9823431~KZnQV0R580704107041euoutp02R
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1786352851;
-	bh=ySuGWbXUDGRFaGMKt5Y7z0dskEZPyGt9AbN/dMvXf1U=;
-	h=Date:From:Subject:To:Cc:In-Reply-To:References:From;
-	b=HPsvRX7C15j1heJymtevQXoi/AnN/UmZgnpt+LPxF3VYvuPtRJ3PYpNdLnmaXR0Ag
-	 59kf/XM9EHs3O50nSy+7hCuFxp4Q55Xi5/hdzAIdCWJOo8JxnrbbHOV1ClSd71HV0d
-	 r4jlBz+O8JAs/tO9cz+lHcFefZSDAVIP9ORDDg9o=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de~KZnPjUrlt0040900409eucas1p2L;
-	Mon, 10 Aug 2026 09:07:30 +0000 (GMT)
-Received: from [106.120.50.46] (unknown [106.120.50.46]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20260810090727eusmtip10eb84a9d5031d28278c93306c2caa136~KZnNUvdOP2715827158eusmtip1g;
-	Mon, 10 Aug 2026 09:07:27 +0000 (GMT)
-Message-ID: <8a988f86-e497-4e9b-92db-c9b454467df5@samsung.com>
-Date: Mon, 10 Aug 2026 11:07:26 +0200
+	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="a3s61FHe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
+	s=onoh2408; t=1786353645;
+	bh=8tLGbIp0Ta1vTWMv6dNkzKIVnot+g5opsJmhP+J5sCI=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=a3s61FHeQ5uuErXvlvVP7dfdc7lQZu0R3FfcTbfQPrLF/9/m2nw/oTv4HP7lrJY86
+	 ljLIt9h782JmijvnxHLkpPkNaKTIx1AmcL4+Kw0OJey/C4Rtie+Ru5DagP3iJaYKDM
+	 ZN/6nTxkm4N+tYLxdB/4+gBS4rwM4Nm5C5jBn7mo=
+X-QQ-mid: esmtpsz10t1786353627t9a19c8f8
+X-QQ-Originating-IP: xbGbFhxW2SyckUwBsp53UOPcQ0aUNYZcEgMpZMTtYmg=
+Received: from PEN202512010004 ( [113.57.152.160])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Mon, 10 Aug 2026 17:20:25 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 1
+X-BIZMAIL-ID: 2117933671536180727
+EX-QQ-RecipientCnt: 7
+From: raoxu <raoxu@uniontech.com>
+To: laurent.pinchart@ideasonboard.com
+Cc: hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	raoxu@uniontech.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: uvcvideo: fix output terminal type check for ID namespace
+Date: Mon, 10 Aug 2026 17:16:24 +0800
+Message-ID: <ABE1FC11603F6BBE+20260810091624.2159038-1-raoxu@uniontech.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-Subject: Re: [PATCH v3 06/11] mm/cma: Allow dynamically creating CMA areas
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: "David Hildenbrand (Arm)" <david@kernel.org>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Mikko
-	Perttunen <mperttunen@nvidia.com>, Yury Norov <yury.norov@gmail.com>, Rasmus
-	Villemoes <linux@rasmusvillemoes.dk>, Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>, Gerald Schaefer
-	<gerald.schaefer@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>, Vasily
-	Gorbik <gor@linux.ibm.com>, Christian Borntraeger
-	<borntraeger@linux.ibm.com>, Sven Schnelle <svens@linux.ibm.com>, Andrew
-	Morton <akpm@linux-foundation.org>, Lorenzo Stoakes <ljs@kernel.org>, "Liam
- R. Howlett" <liam@infradead.org>, Vlastimil Babka <vbabka@kernel.org>, Mike
-	Rapoport <rppt@kernel.org>, Suren Baghdasaryan <surenb@google.com>, Michal
-	Hocko <mhocko@suse.com>, Robin Murphy <robin.murphy@arm.com>, Sumit Semwal
-	<sumit.semwal@linaro.org>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>, Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>, "T.J. Mercier" <tjmercier@google.com>,
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, Steven Rostedt
-	<rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, Mathieu
-	Desnoyers <mathieu.desnoyers@efficios.com>, Catalin Marinas
-	<catalin.marinas@arm.com>, Will Deacon <will@kernel.org>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org, iommu@lists.linux.dev,
-	linaro-mm-sig@lists.linaro.org, linux-trace-kernel@vger.kernel.org
-Content-Language: en-US
-In-Reply-To: <anSuYvj1JU5K8xUO@orome>
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20260810090730eucas1p23ceee7c50d9b5f62e163a92c91aa20de
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-X-EPHeader: CA
-X-CMS-RootMailID: 20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c
-References: <20260701-tegra-vpr-v3-0-d80f7b871bb4@nvidia.com>
-	<CGME20260701160902eucas1p1214af933ba0f54b85630a3a4e5a4689c@eucas1p1.samsung.com>
-	<20260701-tegra-vpr-v3-6-d80f7b871bb4@nvidia.com>
-	<3f47aeab-33b1-4966-a5ce-5d6d5261e0e2@samsung.com>
-	<e212caac-6c30-448a-9e10-32fff8b842f6@kernel.org>
-	<83e5e74d-7106-4e14-9d10-56438372f6a3@samsung.com> <ak_E4UxfnFJywJa7@orome>
-	<1eec88e6-1ea8-4525-bb17-e41444d715dc@samsung.com> <anSuYvj1JU5K8xUO@orome>
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
+X-QQ-XMAILINFO: McJfg7Aee/FZ1Lz1Kz0sHqAM9YNqZGzKAEgRnCdHW5rPEcCxbBvGPZna
+	eQzLC9Lm9mzcxjzyfUdDPlHc2OLKqqVZvClZ9NdO/xPkHtQ+vpMepp5CA9OBBTTKKsfPdno
+	Fy5qI8PhsqDfv20cCwiL6kSJQuf8JEiYd/LmsTasbTatGQ/efG7KV5hwT9dZ/Ai3SjBX3KZ
+	56ril+0AHCRkW1TZOl11RgD5IVipra6kJ0cKpvVrUZ5TPl9Er3UKDGh+eAj1kBJlWP6/hlj
+	bIT5mBPFKHSOOpjZ1t5D62XBSS2NUldtYmE5H0Axy/mw11cxfFrpETQknW7qMIJ040BkoVC
+	9S79UaZTz4Efs77AyfXsXDFNUfs0KSAkExBIWXZ3iojzIJ06eYQUuOaJ4ZuIWkD0wVRuhJ4
+	O6PQ6guJ1S3H6bqZ6Wz3nsODtjXkIVawOjgwNsdAO1jvLHDR5c4EDggKp+r3ju7uQTdsn6o
+	KPaLuFSjcC45/WZ9TJqDwqFSyytvvrLyeNVtoeir+7KeeSSsPU5cB5Y8fxStrVHGgopShrs
+	WMmnBf+kiUhCWCEJPGnAgJPI/HFkucBDVm1bZ5A4VSrSmI4Gd3MVlh4gOgzIErFRkJBr9OQ
+	tnAKr8yOePudasqbCkRyb7LPMhwWT/qZDgdd7EpkanqtM5h0xyRKwd2+FchmBsKMVkK5ffe
+	w7TJaigUCp6xpMQty51e4grFQ6RIfLpUtKPVs6vRAPikZLo6mm/Nvwk9uvTXgB/hWt0R+lm
+	cweUsr8+4m0/yaHT/iNzNDF73i0jrwWpT6CNWKpTFV86mDi+zZMnhrduFvE+06y/kw8hVvX
+	75d+c1+0HeRFJuD61aepfayLKBGAA4YWV8TaGqoA0EpJ0yqrw415+C5IxP/NoQIGJIvmmm6
+	6ES9FMgqxNH4qCHgN0SN1I6dViLpCBL/BLWow9oKMCJdTBdlmxtrp3GKqv9TX/cOORHpi+Y
+	4v4U8LHxf4yDqVNTyDh2vJ0NajOaCGSQvwjnRluZl7z4Lw8Foeahg2/Fbdw/8vUEoF/ox6z
+	BhkcZn3/JlNjYOgylpXpQ1FWRyanozXXk1T+v5WH8hHT4GntN0hyd9Gmn4isk=
+X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-RECHKSPAM: 0
 
-On 06.08.2026 18:09, Thierry Reding wrote:
-> On Thu, Jul 16, 2026 at 12:43:56PM +0200, Marek Szyprowski wrote:
->> On 09.07.2026 17:59, Thierry Reding wrote:
->>> On Thu, Jul 09, 2026 at 07:56:45AM +0200, Marek Szyprowski wrote:
->>>> On 08.07.2026 10:35, David Hildenbrand (Arm) wrote:
->>>>> On 7/7/26 12:02, Marek Szyprowski wrote:
->>>>>> On 01.07.2026 18:08, Thierry Reding wrote:
->>>>>>> From: Thierry Reding <treding@nvidia.com>
->>>>>>>
->>>>>>> There is no technical reason why there should be a limited number of CMA
->>>>>>> regions, so extract some code into helpers and use them to create extra
->>>>>>> functions (cma_create() and cma_free()) that allow creating and freeing,
->>>>>>> respectively, CMA regions dynamically at runtime.
->>>>>> Well, the technical reason for not creating cma regions dynamically at
->>>>>> runtime is that on some architectures (like 32bit ARM) the early fixup
->>>>>> for the region is needed to make it functional for DMA.
->>>>> Can you point me at the code that does that? Thanks!
->>>> Check dma_contiguous_early_fixup() and dma_contiguous_remap() in 
->>>> arch/arm/mm/dma-mapping.c. Those functions ensures that the CPU mappings for
->>>> the CMA reserved region in linear map are remapped with 4k pages instead
->>>> of the 1M sections, so later, it will be possible to alter the mappings and
->>>> change them to coherent when needed (altering 1M sections is not possible,
->>>> because each process has it's own level-1 array even for the kernel linear
->>>> mapping).
->>>>
->>>>
->>>>
->>>> However, in the use case in this patchset the reserved region is only shared
->>>> with buddy allocator by using the CMA infrastructure, not registered to the
->>>> regular DMA-mapping API, so it would work fine. I'm not convinced that this
->>>> is the right API to use for this though.
->>> Are you saying you're not convinced that CMA is the right API to use for
->>> this? Or something else?
->> I read this again and indeed CMA seems to be right solution. I only wonder
->> why do You want to create the CMA areas dynamically? Imho it would work if
->> You just create large enough CMA area on boot, what would automatically
->> share the memory with buddy allocator and then allocate dynamic VPR regions
->> with cma_alloc(), potentially unmapping or marking the allocated region as
->> reserved in linear kernel mapping to avoid any potential speculative access
->> to the protected memory.
-> Hi Marek,
->
-> sorry for missing your reply earlier.
->
-> The reason why we want to create the CMA areas dynamically is because we
-> want to split the secure memory into multiple areas. And the size and
-> number of these areas may need to vary, so I didn't want to have to rely
-> on rebuilding kernels with different numbers of maximum CMA areas
-> depending on the chunk size that we choose.
->
-> The reason why we need to split up the protected memory into multiple
-> CMA areas is that allocation patterns can create holes within a CMA
-> area. For the VPR memory, however, we must ensure that there aren't any
-> holes within the protected region because it is specified using a single
-> base address and a size. So there is one contiguous region that can be
-> marked protected.
->
-> If we were to use a single CMA area, we could get holes within an area
-> that is marked protected and once the pages are returned to the buddy
-> allocator with cma_release(), something else could be attempting to
-> access it and cause an error because it is still protected.
->
-> The only way to make sure we get a single, resizable and contiguous
-> region is by using multiple CMA areas and allocating the entire area
-> once our allocations need to expand into that new area. So we're not in
-> fact using much of the CMA infrastructure and actually need to duplicate
-> some of it. We primarily need it for the page migration and reclaim
-> functionality.
+From: Xu Rao <raoxu@uniontech.com>
 
-This still looks over-engineered. I understand that in case of a single CMA
+Commit 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for
+streaming output terminals") added a separate internal ID namespace for
+streaming output terminals.  The namespace is only valid for those
+terminals because their descriptor IDs are used by streaming interface
+bTerminalLink fields, and uvc_stream_for_terminal() intentionally masks
+the internal namespace bit when matching that link.
 
-area using cma_alloc() is not enough for Your use-case, but You already
+The parser currently decides whether to use the namespace with
+`type & UVC_TT_STREAMING`.  Terminal types are values, not bitmasks.
+Since UVC_TT_STREAMING is 0x0101, standard non-streaming output terminal
+types such as UVC_OTT_VENDOR_SPECIFIC, UVC_OTT_DISPLAY and
+UVC_OTT_MEDIA_TRANSPORT_OUTPUT also make the test true through their
+0x0100 bits.
 
-pointed that You need to have custom method of managing which part of memory
+Those terminals can then receive an internal ID that differs from their
+descriptor ID even though normal UVC descriptor references still use the
+8-bit descriptor ID.  This can make later entity lookups fail or hide an
+entity ID collision that should be handled as a regular UVC descriptor
+collision.
 
-is assigned to secure world, so wouldn't it be much simpler just to add
+Use an equality check so that only UVC_TT_STREAMING output terminals
+enter the separate namespace.  The issue was easy to miss because real
+streaming output terminals make both the bitwise and equality tests true,
+so the devices targeted by the original change keep working.
 
-cma_alloc_exact_range() -like function and keep using a single, boot-time
+Fixes: 3d9f32e02c2e ("media: uvcvideo: Create an ID namespace for streaming output terminals")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+---
+ drivers/media/usb/uvc/uvc_driver.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-defined CMA area? Then in instead of creating and deleting CMA areas
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..acfc5797a1c2 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1130,7 +1130,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 		 * so limit usage of this separate namespace to streaming output
+ 		 * terminals.
+ 		 */
+-		if (type & UVC_TT_STREAMING)
++		if (type == UVC_TT_STREAMING)
+ 			id |= UVC_TERM_OUTPUT;
 
-dynamically, You just 'allocate' respective ranges from the single CMA area
-
-and manage them on You own (like in current patchset).
-
->> In both cases You will probably won't need the DMA-mapping API on top of
->> it, although it might be even possible to partially use with by
->> registering custom dma_ops for the devices using the protected region
->> (assuming that it would support only DMA_ATTR_NO_KERNEL_MAPPING
->> allocations).
-> Yeah, I don't think we want the DMA API on top at all. The allocator has
-> special needs, like clustered allocations to minimize fragmentation and
-> keeping as few chunks activated as possible. We also want to avoid
-> resize operations because they can be quite heavy depending on system
-> load.
-
-That's okay.
-
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+ 		term = uvc_alloc_new_entity(dev, type | UVC_TERM_OUTPUT,
+--
+2.50.1
 
