@@ -1,195 +1,324 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBF653AE6E5;
-	Mon, 10 Aug 2026 10:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B6A3C1082;
+	Mon, 10 Aug 2026 11:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786357508; cv=none; b=ex0Qj+vrI7IzUa14p5TtuJb5LiNg94ss+vFlzVTUV4aybEtFoq1oHIGoWpkWQTQ8MLKn8x06isr5G6y07yuUsbClfFKqIJAsBjHTlgB2VBZGskptBZ+lteJiXu7oU1vKMes8skGdct7g0wz/26VKwnPbhrwnP/Hrls0pPtZSKNM=
+	t=1786360909; cv=none; b=UZkMaifKu07FsXWlE5utCsSK4fYAx4tRu7R3DdLRQeWYTe3uKCATUqCXQdiqqcSwabBAIxXP2nCxVpWZuR1nDGDLC7dJbNBQgGjyUkuOacR2xQ9/GbM38+cZ92I9B729Q4Fy6b40SxaNSnOcVAUpZw8m3g33Hqq5V4Xb6UKwfqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786357508; c=relaxed/simple;
-	bh=3dsY8FIX9DzqEbT1NZad7IU9g0NMFzgWcKRnXmkmE5U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GCsNcXe//vw2GX/mHQ+H9bEvxhxjdmVJIS1F+NtA90M/Pr6OXi+biAYpqgAmoxlLw8/+H4+18ULkb64p76drZdkYBBiSYPvdiZ7tom1cdFx19RjgUu+lp5GejVj8tJ6egXZA5Z2EVQV0zahNfOOUBu9rjbEs5hytbRDQcupfvvg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=CuhxUz4k; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1786360909; c=relaxed/simple;
+	bh=uGVq6Q55GjK0RBlUs6eIITKHKa6Q9+s8MlIaPDS/yn8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zgn6IvXYcm50K3KWPsRchetu+n60LUlnwPP9xX2TmzJp8rCr0yctjh98kjZx9e3tG9yFDOV5BBdOY0TFSRM5GU3m3tMlY6l40d/ZPe4Ja9+jPadfQSDAlqG6k8JXIq8vS/HeNtcRrcANXy89UNXHguyzkfjh/j3MD1I9y2K7eWM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Ov7RO552; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="CuhxUz4k"
-Received: from [10.0.0.152] (unknown [10.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 0E11553407E8;
-	Mon, 10 Aug 2026 12:24:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1786357499;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=lZUtrJm2QH00/3zx50/d35ViLWwmpOYtZnYNMg+wTUE=;
-	b=CuhxUz4kcoXZqLfJc8QyhSQQTkIuiZbkDf1QP7cUWK4v40wsk69Nm12RnjKPs0DCb4zhC9
-	ZcHPnu/Xr6mvtlupJubiDxqQT7x1dGw9WPN+w7siXIGFjxX9u3MlykLzuejblQQZZDTS6g
-	I4/kziwOGdXfLT5VUMxjO46puhquK9c=
-Message-ID: <de220aa4-2bf1-4cf3-8d59-904fefa7e815@ixit.cz>
-Date: Mon, 10 Aug 2026 12:24:58 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Ov7RO552"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5F8161F8;
+	Mon, 10 Aug 2026 13:20:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786360830;
+	bh=uGVq6Q55GjK0RBlUs6eIITKHKa6Q9+s8MlIaPDS/yn8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=Ov7RO552zuaaKltlNeaCunKPiw7HG5JXwr2kx6CrVdHbu7/jp+8DFoT8doDzk7GsH
+	 AWZoyFuGS6m7j+FW+6Vz2wuaBVMzM3SeMGlqeFWMVc2jpJxeXLalHK1oOk3LfXwK1y
+	 nkU2sROSZEf11RrHONS6t5mI6VvJUbHKQeAzZkpc=
+Date: Mon, 10 Aug 2026 14:21:43 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Brian Daniels <briandaniels@google.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, adelva@google.com,
+	aesteve@redhat.com, changyeon@google.com,
+	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com,
+	gurchetansingh@google.com, hverkuil@xs4all.nl, jasowang@redhat.com,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	mst@redhat.com, nicolas.dufresne@collabora.com,
+	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com
+Subject: Re: [PATCH v5 5/5] media: virtio: Add USERPTR memory type support
+Message-ID: <20260810112143.GA2967445@killaraus.ideasonboard.com>
+References: <20260723183219.737296-1-briandaniels@google.com>
+ <20260723183219.737296-6-briandaniels@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: dongwoon,dw9714: Document
- DW9714A and V variant
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Alexander Martinz <amartinz@shiftphones.com>,
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, phone-devel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz>
- <20260803-dw9714v-v3-1-8e10278dcd0d@ixit.cz>
- <anmcEvEwld-ZV9WE@kekkonen.localdomain>
-Content-Language: en-US
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <anmcEvEwld-ZV9WE@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260723183219.737296-6-briandaniels@google.com>
 
-On 10/08/2026 11:38, Sakari Ailus wrote:
-> Hi David,
+On Thu, Jul 23, 2026 at 02:32:19PM -0400, Brian Daniels wrote:
+> From: Alexandre Courbot <gnurou@gmail.com>
 > 
-> On Mon, Aug 03, 2026 at 11:50:25AM +0200, David Heidelberg via B4 Relay wrote:
->> From: David Heidelberg <david@ixit.cz>
->>
->> DW9714A is successor of DW9714 and DW9714V is successor of the DW9714A.
->>
->> All actuators are backward compatible, but they do introduce new features,
->> such as Smart Actuator Control (SAC) mode which can minimize the
->> mechanical vibration and achieve very fast mechanical settling time.
->> Support for SAC can be implemented in the future.
+> This patch adds support for the USERPTR memory type to the virtio-media
+> driver.
 > 
-> What kind of configuration does SAC require? Such things generally aren't
-> configured from the userspace, compare e.g. with the dw9719 bindings
-> discussion.
+> It adds the allow_userptr module parameter, implements the userptr
+> mapping logic in the scatterlist builder, and enables USERPTR in
+> reqbufs if allowed.
 
-I don't have extra deep insight (except basic how the sensor works).
+USERPTR is deprecated, it shouldn't be used in new drivers or in new
+userspace code.
 
-By default all dw9714* sensors starts in the default "legacy" mode.
-
-The clanker after looking at datasheets and kernel struct produced, if it make 
-sense:
-
-the mode and the vibration period (SAC_CFG/PRESC/SACT) have to match
-the mechanical tVIB of the actuator and lens assembly of the given camera
-module, the same way dongwoon,aac-mode/aac-timing/clock-presc do for
-dongwoon,dw9768 and dongwoon,sac-mode/vcm-prescale for dongwoon,dw9719.
-Those properties are left out until there is driver support and measured
-values; note the DW9714V mode set differs from DW9719's, so its enum cannot
-be reused as is.
-
-David
-
+> Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
+> Assisted-by: Antigravity:gemini-3.5-flash
+> Co-developed-by: Brian Daniels <briandaniels@google.com>
+> Signed-off-by: Brian Daniels <briandaniels@google.com>
+> ---
+>  drivers/media/virtio/scatterlist_builder.c | 64 ++++++++++++++++++++++
+>  drivers/media/virtio/scatterlist_builder.h |  3 +
+>  drivers/media/virtio/virtio_media_driver.c | 42 +++++++++-----
+>  drivers/media/virtio/virtio_media_ioctls.c | 11 +++-
+>  4 files changed, 104 insertions(+), 16 deletions(-)
 > 
->>
->> Nit: fix typo in description by removing duplicate information.
->>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->>   .../devicetree/bindings/media/i2c/dongwoon,dw9714.yaml     | 14 +++++++++++---
->>   1 file changed, 11 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> index 66229a3dc05d6..7c2769e6c4880 100644
->> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9714.yaml
->> @@ -5,22 +5,30 @@ $id: http://devicetree.org/schemas/media/i2c/dongwoon,dw9714.yaml#
->>   $schema: http://devicetree.org/meta-schemas/core.yaml#
->>   
->>   title: Dongwoon Anatech DW9714 camera voice coil lens driver
->>   
->>   maintainers:
->>     - Krzysztof Kozlowski <krzk@kernel.org>
->>   
->>   description:
->> -  DW9174 is a 10-bit DAC with current sink capability. It is intended for
->> -  driving voice coil lenses in camera modules.
->> +  10-bit DAC with current sink capability. It is intended for driving
->> +  voice coil lenses in camera modules.
->>   
->>   properties:
->>     compatible:
->> -    const: dongwoon,dw9714
->> +    oneOf:
->> +      - items:
->> +          - const: dongwoon,dw9714v
->> +          - const: dongwoon,dw9714a
->> +          - const: dongwoon,dw9714
->> +      - items:
->> +          - const: dongwoon,dw9714a
->> +          - const: dongwoon,dw9714
->> +      - const: dongwoon,dw9714
->>   
->>     reg:
->>       maxItems: 1
->>   
->>     powerdown-gpios:
->>       description:
->>         XSD pin for shutdown (active low)
->>   
->>
-> 
+> diff --git a/drivers/media/virtio/scatterlist_builder.c b/drivers/media/virtio/scatterlist_builder.c
+> index 97925b277..85c6a36b4 100644
+> --- a/drivers/media/virtio/scatterlist_builder.c
+> +++ b/drivers/media/virtio/scatterlist_builder.c
+> @@ -349,14 +349,30 @@ static int scatterlist_builder_add_userptr(struct scatterlist_builder *builder,
+>  int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
+>  				   struct v4l2_buffer *b)
+>  {
+> +	int i;
+>  	int ret;
+>  
+> +	/* Fixup: plane length must be zero if userptr is NULL */
+> +	if (!V4L2_TYPE_IS_MULTIPLANAR(b->type) &&
+> +	    b->memory == V4L2_MEMORY_USERPTR && b->m.userptr == 0)
+> +		b->length = 0;
+> +
+>  	/* v4l2_buffer */
+>  	ret = scatterlist_builder_add_data(builder, b, sizeof(*b));
+>  	if (ret)
+>  		return ret;
+>  
+>  	if (V4L2_TYPE_IS_MULTIPLANAR(b->type) && b->length > 0) {
+> +		/* Fixup: plane length must be zero if userptr is NULL */
+> +		if (b->memory == V4L2_MEMORY_USERPTR) {
+> +			for (i = 0; i < b->length; i++) {
+> +				struct v4l2_plane *plane = &b->m.planes[i];
+> +
+> +				if (plane->m.userptr == 0)
+> +					plane->length = 0;
+> +			}
+> +		}
+> +
+>  		/* Array of v4l2_planes */
+>  		ret = scatterlist_builder_add_data(builder, b->m.planes,
+>  						   sizeof(struct v4l2_plane) *
+> @@ -368,6 +384,54 @@ int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
+>  	return 0;
+>  }
+>  
+> +/**
+> + * scatterlist_builder_add_buffer_userptr() - Add the payload of a ``USERPTR``
+> + *                                            &struct v4l2_buffer to the
+> + *                                            descriptor chain.
+> + * @builder: builder to use.
+> + * @b: &struct v4l2_buffer whose ``USERPTR`` payload we want to add.
+> + *
+> + * Add an array of &struct virtio_media_sg_entry pointing to a ``USERPTR``
+> + * buffer's contents. Does nothing if the buffer is not of type ``USERPTR``.
+> + * This is split out of scatterlist_builder_add_buffer() because we only want
+> + * to add these to the device-readable part of the descriptor chain.
+> + */
+> +int scatterlist_builder_add_buffer_userptr(struct scatterlist_builder *builder,
+> +					   struct v4l2_buffer *b)
+> +{
+> +	int i;
+> +	int ret;
+> +
+> +	if (b->memory != V4L2_MEMORY_USERPTR)
+> +		return 0;
+> +
+> +	if (V4L2_TYPE_IS_MULTIPLANAR(b->type)) {
+> +		for (i = 0; i < b->length; i++) {
+> +			struct v4l2_plane *plane = &b->m.planes[i];
+> +
+> +			if (b->memory == V4L2_MEMORY_USERPTR &&
+> +			    plane->length > 0) {
+> +				unsigned long uptr = plane->m.userptr;
+> +				unsigned long len = plane->length;
+> +
+> +				ret =
+> +				scatterlist_builder_add_userptr(builder,
+> +								uptr,
+> +								len);
+> +				if (ret)
+> +					return ret;
+> +			}
+> +		}
+> +	} else if (b->length > 0) {
+> +		ret = scatterlist_builder_add_userptr(builder, b->m.userptr,
+> +						      b->length);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+>  /**
+>   * scatterlist_builder_retrieve_buffer() - Retrieve a &struct v4l2_buffer
+>   *                                         written by the device on the shadow
+> diff --git a/drivers/media/virtio/scatterlist_builder.h b/drivers/media/virtio/scatterlist_builder.h
+> index 47bfd7ae0..53d964a48 100644
+> --- a/drivers/media/virtio/scatterlist_builder.h
+> +++ b/drivers/media/virtio/scatterlist_builder.h
+> @@ -90,6 +90,9 @@ int scatterlist_builder_add_ioctl_resp(struct scatterlist_builder *builder,
+>  int scatterlist_builder_add_buffer(struct scatterlist_builder *builder,
+>  				   struct v4l2_buffer *buffer);
+>  
+> +int scatterlist_builder_add_buffer_userptr(struct scatterlist_builder *builder,
+> +					   struct v4l2_buffer *b);
+> +
+>  int scatterlist_builder_retrieve_buffer(struct scatterlist_builder *builder,
+>  					size_t sg_index,
+>  					struct v4l2_buffer *buffer,
+> diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
+> index c431c3eb2..b6f79593d 100644
+> --- a/drivers/media/virtio/virtio_media_driver.c
+> +++ b/drivers/media/virtio/virtio_media_driver.c
+> @@ -7,26 +7,29 @@
+>   */
+>  
+>  #include <linux/bits.h>
+> +#include <linux/delay.h>
+>  #include <linux/device.h>
+>  #include <linux/dev_printk.h>
+> +#include <linux/mm.h>
+>  #include <linux/mutex.h>
+> +#include <linux/scatterlist.h>
+>  #include <linux/types.h>
+> +#include <linux/videodev2.h>
+> +#include <linux/vmalloc.h>
+> +#include <linux/wait.h>
+> +#include <linux/workqueue.h>
+>  #include <linux/module.h>
+> +#include <linux/moduleparam.h>
+>  #include <linux/virtio.h>
+>  #include <linux/virtio_config.h>
+>  #include <linux/virtio_ids.h>
+> -#include <linux/slab.h>
+> -#include <linux/scatterlist.h>
+> -#include <linux/vmalloc.h>
+> -#include <linux/workqueue.h>
+> -#include <linux/dma-mapping.h>
+> -#include <linux/poll.h>
+> -#include <linux/mm.h>
+>  
+> +#include <media/frame_vector.h>
+>  #include <media/v4l2-dev.h>
+> -#include <media/v4l2-device.h>
+> -#include <media/v4l2-fh.h>
+>  #include <media/v4l2-event.h>
+> +#include <media/videobuf2-memops.h>
+> +#include <media/v4l2-device.h>
+> +#include <media/v4l2-ioctl.h>
+>  
+>  #include "uapi/linux/virtio_media.h"
+>  #include "session.h"
+> @@ -40,6 +43,15 @@
+>  /* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
+>  #define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
+>  
+> +/*
+> + * Whether USERPTR buffers are allowed.
+> + *
+> + * This is disabled by default as USERPTR buffers are dangerous, but the option
+> + * is left to enable them if desired.
+> + */
+> +bool virtio_media_allow_userptr;
+> +module_param_named(allow_userptr, virtio_media_allow_userptr, bool, 0660);
+> +
+>  /**
+>   * virtio_media_session_alloc() - Allocate a new session.
+>   * @vv: virtio-media device the session belongs to.
+> @@ -849,15 +861,11 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+>  			      VIRTIO_MEDIA_SHM_MMAP);
+>  
+>  	vd = &vv->video_dev;
+> +
+>  	vd->v4l2_dev = &vv->v4l2_dev;
+>  	vd->vfl_type = VFL_TYPE_VIDEO;
+>  	vd->ioctl_ops = &virtio_media_ioctl_ops;
+>  	vd->fops = &virtio_media_fops;
+> -	vd->release = video_device_release_empty;
+> -	strscpy(vd->name, "virtio-media", sizeof(vd->name));
+> -
+> -	video_set_drvdata(vd, vv);
+> -
+>  	vd->device_caps = virtio_cread32(virtio_dev, 0);
+>  	if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MPLANE))
+>  		vd->vfl_dir = VFL_DIR_M2M;
+> @@ -866,6 +874,10 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+>  		vd->vfl_dir = VFL_DIR_TX;
+>  	else
+>  		vd->vfl_dir = VFL_DIR_RX;
+> +	vd->release = video_device_release_empty;
+> +	strscpy(vd->name, "virtio-media", sizeof(vd->name));
+> +
+> +	video_set_drvdata(vd, vv);
+>  
+>  	ret = video_register_device(vd, virtio_cread32(virtio_dev, 4), 0);
+>  	if (ret)
+> @@ -890,6 +902,7 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
+>  	virtio_dev->config->del_vqs(virtio_dev);
+>  err_find_vqs:
+>  	v4l2_device_unregister(&vv->v4l2_dev);
+> +
+>  	return ret;
+>  }
+>  
+> @@ -900,6 +913,7 @@ static void virtio_media_remove(struct virtio_device *virtio_dev)
+>  
+>  	cancel_work_sync(&vv->eventq_work);
+>  	virtio_reset_device(virtio_dev);
+> +
+>  	v4l2_device_unregister(&vv->v4l2_dev);
+>  	virtio_dev->config->del_vqs(virtio_dev);
+>  	video_unregister_device(&vv->video_dev);
+> diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
+> index f0b82b5ec..88465f239 100644
+> --- a/drivers/media/virtio/virtio_media_ioctls.c
+> +++ b/drivers/media/virtio/virtio_media_ioctls.c
+> @@ -273,6 +273,12 @@ static int virtio_media_send_buffer_ioctl(struct v4l2_fh *fh, u32 ioctl,
+>  		return ret;
+>  
+>  	end_buf_sg = builder.cur_sg;
+> +
+> +	/* Payload of SHARED_PAGES buffers, if relevant */
+> +	ret = scatterlist_builder_add_buffer_userptr(&builder, b);
+> +	if (ret < 0)
+> +		return ret;
+> +
+>  	num_cmd_sgs = builder.cur_sg;
+>  
+>  	/* Response descriptor */
+> @@ -719,7 +725,7 @@ static int virtio_media_reqbufs(struct file *file, void *fh,
+>  	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
+>  		return -EINVAL;
+>  
+> -	if (b->memory == V4L2_MEMORY_USERPTR)
+> +	if (b->memory == V4L2_MEMORY_USERPTR && !virtio_media_allow_userptr)
+>  		return -EINVAL;
+>  
+>  	ret = virtio_media_send_wr_ioctl(vfh, VIDIOC_REQBUFS, b, sizeof(*b),
+> @@ -752,7 +758,8 @@ static int virtio_media_reqbufs(struct file *file, void *fh,
+>  	if (V4L2_TYPE_IS_MULTIPLANAR(b->type))
+>  		session->uses_mplane = true;
+>  
+> -	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_USERPTR;
+> +	if (!virtio_media_allow_userptr)
+> +		b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_USERPTR;
+>  
+>  	/* We do not support DMABUF yet. */
+>  	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_DMABUF;
 
 -- 
-David Heidelberg
+Regards,
 
+Laurent Pinchart
