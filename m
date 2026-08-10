@@ -1,32 +1,32 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36B6403AF9
-	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 15:11:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C1623DC871
+	for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 15:13:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786374662; cv=none; b=gL0AKrVoHgiqxnUKlW0VS4w+5m5lRjC5L4USPQxjYEOP2OaXhZ3pBw81ZWuJMCMvlijAzPZJV2E+WSRompa4M8VHIpF2+yKtx+Xq2iEJCWZqxg7dhfhvmZME67n+LNAWPeW2BlqNw2ZXxMoj+DxdcCxAq/aaSYkigBmlSHMTSy0=
+	t=1786374813; cv=none; b=j1G7Re2r+Q5pY8Gu8ALonJCLazBXjr5fcWhbGWIqZCsx6jL7fuRk6/UmZeRfEtXTsLbcDR1FyU5ic8d4WsZNo62GaY5AFEgNq+7KSPabjqm2Lm+hQ0/2D7t6kkoOGQx2gXJ16u7qGH5wQgoM2hXEifkYtI6IQJFuE4/mRi6JhDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786374662; c=relaxed/simple;
-	bh=YeUuyT8DtZhNCrNcshz0W69GulLY7bro8uPw0k4OIZE=;
+	s=arc-20240116; t=1786374813; c=relaxed/simple;
+	bh=hDmLkZ8arv1a95EryRJ9b7B6LTzeeznyRgj2fO3i+qE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WrCCOknyygT6ZbwXlosGSJegiLEJbP2mYYHf1sX+sU1HfnclozRF4ZXemRbw+0YIXSucMzuVGdefOtI1sfXnt/Yy3oQJO3iJJzbeezWjEV+IvYKpK+i06SZyZtitOnNKiRkyx3/NVosPrLMzb1PnQeYlucpZ/d0PdqP28HBRr4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YYnE+zQy; arc=none smtp.client-ip=213.167.242.64
+	 Content-Type:Content-Disposition:In-Reply-To; b=ma6vGn1QooQnKifvMNIGYCdnYdOxIeVjTYRpGcE4rbl8XaGre12clFUN7A2GK0rRsOqyf7Adqc7TXJf2trj+VwDnW+t0bsqsiXOzt15I0oV8MTgFy+v4pJg6GCYzSprVzrIUDqvOXsmUyXV8HZs2YicGLf5NZZFuBLfS+lZO3XA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mrgQbI/c; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YYnE+zQy"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mrgQbI/c"
 Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id F2314BB;
-	Mon, 10 Aug 2026 17:09:42 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 28719BB;
+	Mon, 10 Aug 2026 17:12:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786374583;
-	bh=YeUuyT8DtZhNCrNcshz0W69GulLY7bro8uPw0k4OIZE=;
+	s=mail; t=1786374734;
+	bh=hDmLkZ8arv1a95EryRJ9b7B6LTzeeznyRgj2fO3i+qE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YYnE+zQy+dG2zotL9r1Cn/B1SgLXuVSxUVaTNq/ywbwWlxDG9yyAQAc3TINdLORDJ
-	 19aNZe9a809VQxkGjfcc0AnBljRdECrA630cXUMjD5BT5HQoSlx5tk9Zk/Js1JYiTG
-	 7s/pbiadG7gJJNdqB+cJ1URAnTvMm/vqJBRSaCIc=
-Date: Mon, 10 Aug 2026 18:10:55 +0300
+	b=mrgQbI/c1NMsyGycIOIlj98SaElPxTa78bOnKzIbofmJcaNIR18rpckYWnHwLlIrr
+	 gILhb8MNpTsJBHqvQUl1gYxzXW5SHeVTf8KhuMIp6N5tFksy85AfBXwqdD0YKpB7vE
+	 0qqHPAtzPwLIeZN//TQ31OhMaF7mNu3WhO8vteLA=
+Date: Mon, 10 Aug 2026 18:13:26 +0300
 From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
@@ -54,11 +54,11 @@ Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
 	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v7 03/14] media: imx219: Account for rate_factor in
- control steps
-Message-ID: <20260810151055.GD2967212@killaraus.ideasonboard.com>
+Subject: Re: [PATCH v7 07/14] media: v4l2-subdev: Move subdev client
+ capabilities into a new struct
+Message-ID: <20260810151326.GE2967212@killaraus.ideasonboard.com>
 References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
- <20260807122409.45807-4-sakari.ailus@linux.intel.com>
+ <20260807122409.45807-8-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -67,86 +67,107 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260807122409.45807-4-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260807122409.45807-8-sakari.ailus@linux.intel.com>
 
-On Fri, Aug 07, 2026 at 03:23:58PM +0300, Sakari Ailus wrote:
-> The controls that are divided by the rate_factor before writing them to
-> the registers have the step of the value of the rate_factor. Take this
-> into account when the control's range is modified. The controls are
-> created in a configuration where rate_factor is always 1, hence there's no
-> need to change the code adding new controls.
+On Fri, Aug 07, 2026 at 03:24:02PM +0300, Sakari Ailus wrote:
+> Add struct v4l2_subdev_client_info to hold sub-device client capability
+> bits that used to be stored in the client_caps field of struct
+> v4l2_subdev_fh.
 > 
-> Fixes: f513997119f4 ("media: i2c: imx219: Scale the pixel rate for analog binning")
-> Cc: stable@vger.kernel.org
+> The intent is to enable passing this struct to sub-device pad operation
+> callbacks for capability information. The main reason why this is a new
+> struct instead of a u64 field is that modifying the callback arguments
+> requires touching almost every sub-device driver and that is desirable to
+> avoid in the future, should more than the client capability bits need to
+> be known to the callbacks.
+> 
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Reviewed-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> Reviewed-by: Mirela Rabulea <mirela.rabulea@nxp.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
 Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
 > ---
->  drivers/media/i2c/imx219.c | 16 +++++++---------
->  1 file changed, 7 insertions(+), 9 deletions(-)
+>  drivers/media/v4l2-core/v4l2-subdev.c |  8 ++++----
+>  include/media/v4l2-subdev.h           | 12 ++++++++++--
+>  2 files changed, 14 insertions(+), 6 deletions(-)
 > 
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index 5184523de8be..b1f29037af74 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -340,13 +340,13 @@ static const struct imx219_mode supported_modes[] = {
->  		/* 2x2 binned 60fps mode */
->  		.width = 1640,
->  		.height = 1232,
-> -		.fll_def = 1707,
-> +		.fll_def = 1706,
->  	},
->  	{
->  		/* 640x480 60fps mode */
->  		.width = 640,
->  		.height = 480,
-> -		.fll_def = 1707,
-> +		.fll_def = 1706,
->  	},
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index e9f81b9be9e2..f392586d5dba 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -611,7 +611,7 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+>  	case VIDIOC_SUBDEV_S_FRAME_INTERVAL: {
+>  		struct v4l2_subdev_frame_interval *fi = arg;
+>  
+> -		if (!(subdev_fh->client_caps &
+> +		if (!(subdev_fh->ci.caps &
+>  		      V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH))
+>  			fi->which = V4L2_SUBDEV_FORMAT_ACTIVE;
+>  
+> @@ -650,7 +650,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  	struct v4l2_subdev_fh *subdev_fh = to_v4l2_subdev_fh(vfh);
+>  	bool ro_subdev = test_bit(V4L2_FL_SUBDEV_RO_DEVNODE, &vdev->flags);
+>  	bool streams_subdev = sd->flags & V4L2_SUBDEV_FL_STREAMS;
+> -	bool client_supports_streams = subdev_fh->client_caps &
+> +	bool client_supports_streams = subdev_fh->ci.caps &
+>  				       V4L2_SUBDEV_CLIENT_CAP_STREAMS;
+>  	int rval;
+>  
+> @@ -1117,7 +1117,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  	case VIDIOC_SUBDEV_G_CLIENT_CAP: {
+>  		struct v4l2_subdev_client_capability *client_cap = arg;
+>  
+> -		client_cap->capabilities = subdev_fh->client_caps;
+> +		client_cap->capabilities = subdev_fh->ci.caps;
+>  
+>  		return 0;
+>  	}
+> @@ -1137,7 +1137,7 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>  		client_cap->capabilities &= (V4L2_SUBDEV_CLIENT_CAP_STREAMS |
+>  					     V4L2_SUBDEV_CLIENT_CAP_INTERVAL_USES_WHICH);
+>  
+> -		subdev_fh->client_caps = client_cap->capabilities;
+> +		subdev_fh->ci.caps = client_cap->capabilities;
+>  
+>  		return 0;
+>  	}
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> index d9dca6905b33..04fa23b9a651 100644
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+> @@ -734,6 +734,14 @@ struct v4l2_subdev_state {
+>  	struct v4l2_subdev_stream_configs stream_configs;
 >  };
 >  
-> @@ -473,8 +473,7 @@ static int imx219_set_ctrl(struct v4l2_ctrl *ctrl)
->  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
->  					       imx219->exposure->minimum,
->  					       exposure_max,
-> -					       imx219->exposure->step,
-> -					       exposure_def);
-> +					       rate_factor, exposure_def);
->  		if (ret)
->  			return ret;
+> +/**
+> + * struct v4l2_subdev_client_info - Sub-device client information
+> + * @caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
+> + */
+> +struct v4l2_subdev_client_info {
+> +	u64 caps;
+> +};
+> +
+>  /**
+>   * struct v4l2_subdev_pad_ops - v4l2-subdev pad level operations
+>   *
+> @@ -1130,14 +1138,14 @@ struct v4l2_subdev {
+>   * @vfh: pointer to &struct v4l2_fh
+>   * @state: pointer to &struct v4l2_subdev_state
+>   * @owner: module pointer to the owner of this file handle
+> - * @client_caps: bitmask of ``V4L2_SUBDEV_CLIENT_CAP_*``
+> + * @ci: sub-device client info related to this file handle
+>   */
+>  struct v4l2_subdev_fh {
+>  	struct v4l2_fh vfh;
+>  	struct module *owner;
+>  #if defined(CONFIG_VIDEO_V4L2_SUBDEV_API)
+>  	struct v4l2_subdev_state *state;
+> -	u64 client_caps;
+> +	struct v4l2_subdev_client_info ci;
+>  #endif
+>  };
 >  
-> @@ -902,7 +901,8 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->  
->  		/* Update limits and set FPS to default */
->  		ret = __v4l2_ctrl_modify_range(imx219->vblank, IMX219_VBLANK_MIN,
-> -					       IMX219_FLL_MAX - mode->height, 1,
-> +					       IMX219_FLL_MAX - mode->height,
-> +					       rate_factor,
->  					       mode->fll_def - mode->height);
->  		if (ret)
->  			return ret;
-> @@ -920,8 +920,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->  		ret = __v4l2_ctrl_modify_range(imx219->exposure,
->  					       imx219->exposure->minimum,
->  					       exposure_max,
-> -					       imx219->exposure->step,
-> -					       exposure_def);
-> +					       rate_factor, exposure_def);
->  		if (ret)
->  			return ret;
->  
-> @@ -946,8 +945,7 @@ static int imx219_set_pad_format(struct v4l2_subdev *sd,
->  			return ret;
->  
->  		/* Scale the pixel rate based on the mode specific factor */
-> -		pixel_rate = imx219_get_pixel_rate(imx219) *
-> -			     imx219_get_rate_factor(state);
-> +		pixel_rate = imx219_get_pixel_rate(imx219) * rate_factor;
->  		ret = __v4l2_ctrl_modify_range(imx219->pixel_rate, pixel_rate,
->  					       pixel_rate, 1, pixel_rate);
->  		if (ret)
 
 -- 
 Regards,
