@@ -1,181 +1,359 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021124.outbound.protection.outlook.com [40.107.51.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A191420476
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:58:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786438690; cv=none; b=cpH/Ex38/E8GxUTnrOuBBFBLp/lOqUe/kSuoXdK2Z5IYBD5yhTDcMSYjgLZzut4UGjm80wyPUK6FV9+STLNKc8LrvhlDNoPNNwiZjHWXGO5Jlwx+IH4APne65bhrvKYg+ECteCovQCp6lTa+af8BpFdRNBlaeqJQt2wKWAFnoBY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786438690; c=relaxed/simple;
-	bh=iDRbwdsfovx3xb+RUtNUQjIB4cAV7bkHsVi34En+MxI=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=rAWadxpRT/Ol5dr4dzfisXhUrXqSiL4rOwXc2mQ/3E+4DUBDxLHQT1oImlIt8CLyAt0rnRjcuEzUaOxzJlyxcbPmr6amT4MZoyKLVxcqpdJYRvl/vt2E1A4QArMdwgf/aR+bYOFmRL307aa+9ARLSPOvpedOF6JqpP88aX4+x5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=az0cLA59; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HU7Rsgqg; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7944D400995;
+	Tue, 11 Aug 2026 09:14:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786439661; cv=fail; b=klLFTpBcC7URmyzs8OV5lsyfBbAdDvNyQ9X4SzmuKBgMEYvAz0VzxMO3CVQtr3pb91PlzQ1Y/ON+9f4LfsHKqePJEqB/vUv0e/rCtRQFfY1CM4kX6TPub+k9fc4HAw8q8mFsSj0UZCGL3WOXnrn5Nz8P5Z16ZOnowCMoeSI8yPk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786439661; c=relaxed/simple;
+	bh=5YYJDfWrdZPVHrIPmY8kROcNvSyT/5mOaXMTtzjOeZc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=hsoP6WVXkG+PdoEbM/L3bkra2WPputYIIxh3BSBoFEkxKyDUaibrssgZGptcMQwiOOjaBU4nN+F2BZ1yU/tqVzt+iHqcAkuEg20RyDoRJg/DQJL4/cruX16uKKKqQPmyw9Zw8VzpD8eZqRioVm2ge/9AUy+vDcDoVU5guXcUhPA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=ZI2DUDZJ reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="az0cLA59";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HU7Rsgqg"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67B70ImB3048467
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:58:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qqgYOHAGZ5JHEhPZIqaXtDk4dQ4rwadktM0ky4dxGXI=; b=az0cLA59d6UXRr19
-	3lfgDiQh+hNrQD70gkCo88/+4tFfjYvNOXKC2PHVC8Puz+g33zhQHCVvIGb+tLz1
-	O7sUtlv2fD626HFFplqkCYyIgk2NnZzv3quW+b9Kw2sFjJPFl69tK8A4ZEcLcFCE
-	O/LRRNpRJG+txO1pThyJhS0mtI7/pPUKIvSxQQQhQEGwegTkmn9+hslJq48vTYXp
-	Ot+xEtTraNW3DSBJsPJpIJkOXXzMeGP/J94WVlQeWACHUGs7hpw0uN6yV5eLfunx
-	tt7R1h6ykVhDUAoJbv83W0GbbkrfGYUvaG7NESb8jb7HOBygOQBM8mGFckciIWW7
-	m4yLCA==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyjk23bye-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:58:08 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-936a796a23aso24741885a.2
-        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 01:58:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786438678; x=1787043478; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qqgYOHAGZ5JHEhPZIqaXtDk4dQ4rwadktM0ky4dxGXI=;
-        b=HU7RsgqgOTRnd58ZdfH9j6Xrqf39VsJlPyUp0S3x+DxLVRdvbuRQFpHzRrVA1GePI4
-         N5pg8Q+x2sWBka7nKcNlNWrx8jQQR4MJOObENbMmnL/TYH3Bi7Ua/z35cogY7aNOau4N
-         NQN3tuB1CHPDXSCgF8vprVWo1Of1U0tWeMnyms6YbOIXoqk7qIPMlKJx3P9oYUaG6KDC
-         XvKbnbn2fW0vp5Hw+LpaqxepdbC1CD+NkXFl4UCwNjpU4K8Ck0+HzXTgc/tufp3fmhQ0
-         4AXU411ZVEVJbw7OHu6cEberWgdDR2Gp+fmXXPvTfsufnjckCz0r9YUqh21oDiQW7ws5
-         7Qeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786438678; x=1787043478;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qqgYOHAGZ5JHEhPZIqaXtDk4dQ4rwadktM0ky4dxGXI=;
-        b=mfFNj3cGhbnWx0LYKs5eGaSZDS+4utXjHxtJtgpVE4AWWfM6qEjW1FM9PRPH+kxmj8
-         Y0J7fCm0hzLhZuweHph8SzYHGPWK8p25TJaDQ1A0hUyva9u9D06WvQ3fxbakSMp7TEB3
-         iDvBlTbGY5+nxqaj2T9b6t2c1Bi9FXGnuOytuibhMTThPMv2CoQ98pw7ouVGpzNY9p6j
-         agE+Eu0rmGNZFf3KItqU9jjH5liGwNwnVm4H9vIYSbkJ4zzPMXgW0JQX+/5ijzPWdzQx
-         u6Ko+L9Lma7wuz/VZPnyQyIEdnClvMUuOU2IMIJbs1zf2UJqxSdTtbRsGn+ZvppGGD3r
-         MtXg==
-X-Forwarded-Encrypted: i=1; AHgh+RreHik/PjnVYxxmJwEgY1Bcq8lRw7pC+lg+cgjeCN4kv7fjGENOAdcc+jdccbAtjQP2Ww3757QETgEsZw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6jZFOFt9TIHD6+Ya0pFJWYlkzJ9H9SSzf4gGYgSXs/FDsHa9g
-	3aIk7OjF3wnswEPqOOTH3U3RArxOgXSbAUyuH/B/07Hr9u17yfNo8m/DxTTaxTzbNYv9yZ7pe6A
-	wguh9n6Lo5YEmXIUd3D9EmdgYujTJAO/N67OOTuQnLWQf5YaKN/P/OSCehksNrsa4mw==
-X-Gm-Gg: AR+sD12biYd179L9YWOtxRCO+YwQn/ZLFUE5iNPig/WpQ3YDk6hA1zuEKfjEl+HjurS
-	pnReaK1MGVwgsPd/2g7QOuk/+KHQhzde9uvs5vyTAysrX68amg4kRW9/HpVWl08dRl1qitzrPfB
-	DqIY4IwPkwXw0lv7DzX3i6/DZO+kJa1Arvuxh9p58vD3Dp92tT2OQceQOhYgS9bWdwrU3o9mMBW
-	W4dNjQAii1Gs1YHj26xZb4GKsFqZoi437Q9G8OrkIdPAhxUZzAdppl32r5OHXJz1YkgtrSg98b7
-	VdhSz86nKUVcSjlvxrU0fIwMf8FFfmrpD73FDmTvVG2/hoR4aAFmZrq1RoGVYzLGpUMRCz2MrrI
-	+K/Sb6uqy0P82A8ghY5dWXGOHrOJ7ufVHCWQFLsS9C5/OJw6GZD9zkHcvpNVl1Pd1/aKY+k9tZF
-	JwD0mi6n4IkJK9LzstGo48Ukis2n1T8qqXIw16iBJn1dqbfsfNLoXLliIUJgL1oGyCq+s=
-X-Received: by 2002:a05:620a:4e8b:b0:92f:199:b035 with SMTP id af79cd13be357-936a8e96cc0mr94236685a.3.1786438677816;
-        Tue, 11 Aug 2026 01:57:57 -0700 (PDT)
-X-Received: by 2002:a05:620a:4e8b:b0:92f:199:b035 with SMTP id af79cd13be357-936a8e96cc0mr94235685a.3.1786438677335;
-        Tue, 11 Aug 2026 01:57:57 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a362ec87a5sm389585a12.16.2026.08.11.01.57.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 01:57:56 -0700 (PDT)
-Message-ID: <e60deaa2-33f5-4c87-8d69-c37b0ec70f23@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 10:57:56 +0200
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="ZI2DUDZJ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EA1iyXBMoZYTXnqPoRGCDeulvq2p7FBPOTVitnib2jrw7eeepUPlms6GOD1B9JY29+VwU7zhop4LmYOYrhLqaR6Vlvx7Vc4PSbckUKpBw1vV1IHoSI4fGVUD7uo1YslakABcL9zRSrIuh8rUg9wlLaSXerG5cb9sm5arcikXvSyH4vwSUxoPY0cV7eij4kV67uh8vWRpUxIJhYx7A0GNlX6DZ4BqwSYIhd5+JaTflrsk9nsM2QK+mtDD54RWaeS5IcpF+BOc4G7OHNi57zAAI9fqItI6tsbh+dz0NSuDioPLtA8nLWkZRkBk1Gl5mIJb4zvH2qqEvxpBvevB1lb9WQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2f1nBRZzV0mFpmpiwPEyPAoJloEE5HWgJ6QwBC6E9ew=;
+ b=sywCqnbOqc3ijkJIqkFojAncEBeb7U6tgmsLnVQePEZz8R12036Qw7TQb5JWgn1JIPkbqMAVzcXA87rHJ1XrZyGfMlaLMX36tIfnZZCo4Y61lPAy3EbOQJZXf1JB8crWSQUsg+hsIKclSvqSA43acpYvLXaHYGmxTGoCVXPmWi/Tk/g8QUqEhPj3Nm7UU0tulvgNG2ZmM/xqGVY2kf7tAwQiFjul86914cXO53Q7JL7gO3MioYdZth7SR8wQiVRqwef+shoFT48QW0Vt6gWZb6VuW1VMU2y6f8G4U30V9R3W+SfODtbzYyUHfwkJAL3D0GQrvk6ShoWhcMq1wUjpKQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2f1nBRZzV0mFpmpiwPEyPAoJloEE5HWgJ6QwBC6E9ew=;
+ b=ZI2DUDZJMGpqRLpgJFFvNtGaGP0QWHQGcqNuD9ccqRgpY81y4MDUcYNcs3z0+0gus+E5KCaX3KaURGJT4EVBAAawMUwvIIgua53RxmKmFS+P6nQSXLn4vXeya4JlakuKssA33P4/3b/AmUTLh9BmDQrAV3eH/m2ElmPXw+ex77oMvUH52sKz2yJQ0GWML5vclzmxNnTtFBGk4yW2wye9j69vlacU1xQXtgDfuyNQKX5ozWDDeLhYVxePiKsyCWp4z+L7aqS2ZBgszUReDP5XgdDnnnqQrJl6/OqEJtskaCaASGHSCj5MpIq3dqR0hE0E6fLk2+atGCqPu7G4VXTsog==
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
+ by MA5P287MB5316.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1bd::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
+ 2026 09:14:12 +0000
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0315.008; Tue, 11 Aug 2026
+ 09:14:12 +0000
+From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+To: Jai Luthra <jai.luthra@ideasonboard.com>, "sakari.ailus@linux.intel.com"
+	<sakari.ailus@linux.intel.com>
+CC: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+	<konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de
+ Goede <johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy
+	<vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Xiaolei Wang
+	<xiaolei.wang@windriver.com>, Kate Hsuan <hpa@redhat.com>, Walter Werner
+ Schneider <contact@schnwalter.eu>, Laurent Pinchart
+	<laurent.pinchart@ideasonboard.com>, Bartosz Golaszewski
+	<bartosz.golaszewski@oss.qualcomm.com>, "linux-media@vger.kernel.org"
+	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
+	<linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH v3 2/3] media: i2c: add imx576 image sensor driver
+Thread-Topic: [PATCH v3 2/3] media: i2c: add imx576 image sensor driver
+Thread-Index: AQHdJZuI/Y7nmH3ipkS4g472TIaz9raSKcaAgAZub0g=
+Date: Tue, 11 Aug 2026 09:14:12 +0000
+Message-ID:
+ <PN0P287MB201968EA50C12E941A58AABE9ADD2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+References: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io>
+ <20260806120216.24145-3-himanshu.bhavani@siliconsignals.io>
+ <178608605778.4139729.11308202650136036897@freya>
+In-Reply-To: <178608605778.4139729.11308202650136036897@freya>
+Accept-Language: en-GB, en-US
+Content-Language: en-GB
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+msip_labels:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PN0P287MB2019:EE_|MA5P287MB5316:EE_
+x-ms-office365-filtering-correlation-id: 96319ca7-b77c-4710-d689-08def788e8ad
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|56012099006|10067099003|6133799003|38070700021|3023799007;
+x-microsoft-antispam-message-info:
+ AD0PiUl8OwG7AlG79Q5dtbJ2pjGiSJ+XkXv+pGIAhLUok/AULTRkg2n67HCghLiYZEnLZCxPP1vc7vtF76nzUvDLg1i8UXLX1wfJTmWUKNvqkp9hxYYN0NPS8hngSrhcXs5fHfCn6ysDalGiXEpWdxeES0XjjT3jg9ky2eNkxebnWGrMpWQvaZobUK7EWbOxQeBpzeJ829GpSHykrc2jrQzxhgNSNIf3zlhUQ9MgJpgcIK5Gnf7VhTwv2eL2MWcPZZZ6uz8Ju85b6t8I6gUjTWW/bJ13uLJ0s4i/O5WzuS5oNKLYVihhMhU/o0Uc6BEEAvYF6T8eLdHHML6L2U6e+/BDjHamTce/xF223pnmIEn+0cxZ78drL+lGjEAEl9M5v8BcvVPKCKD9lSWWbhRsichi9IaIyT+N/oHc6dF1tte4RyGIuvlj6XCGfwcBQdeaDBu2JIMjUZlOsv7iExnuOPudkyR2tf9dTCroD9k1iKR18Nl7XyB0Et0KZ1H8CukxH4C8Vm34/fDfjddjdwG0ZhhhdAr7Jpq0CIKqBTxA/034xxUZ7GUuQbZpliOLjaw9fxdTxJ/EwY6VoXM581ce509S/+KF8jXisAhHhwB4Wn5K708kMAx+8hfsDerY/sEDxhd5z1dAI+xnG/bGTGthlbLA3w+fDhQBI+AAPxPtKIT1PHw1P4krRtH2YXFs/U7RY9XnQaFsR7G5RtPDLRlg90aHI2fMo9MsJ8DHvzo5+38=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003)(6133799003)(38070700021)(3023799007);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?FdxnjfQiY8JZMp7VWiq040FnwFoffCXTJdCcSziEh+kjPLf3IsBGbpgNY+?=
+ =?iso-8859-1?Q?TH1lY0v1ONllUYFeeYH6PJJe0CoXeD8nxS8FHVkWw7UYcKT59JHeQOq0J8?=
+ =?iso-8859-1?Q?yWfQqd0e0aDQU74mw/HJjIZO+I/TVlqA+H+C6WdTvNQHCmJY/ftC83Ndl8?=
+ =?iso-8859-1?Q?3W6LdjHjk/XOLFRd7t+4o+LUqzi9vNUG6oFwmQxmx/dfMuzqh5RubqNJBb?=
+ =?iso-8859-1?Q?Rm2NW6rsiopDbk6Bl3iHiJ8iR6kp2ZE+5THPFBVQDh4gActpxvYqCj3O2l?=
+ =?iso-8859-1?Q?iQHvSAZLqF4FFkEyndyoy4WvaDemepGTVANozGi7kf6Psw6pmpzT31My5k?=
+ =?iso-8859-1?Q?+t5wmdw9x2Exjw8j4NcI16k1l+dtackjTL1VZrNDAfq61vy6nXB8l/PtnM?=
+ =?iso-8859-1?Q?jE4JGMeElNIelaTUY5IUyxlo4kdACWPM/GOP7DlhUzA622767uzHzuwnPP?=
+ =?iso-8859-1?Q?PbNAjgN2Fmqd0Q/mconpm2HWSmFIlhK92a/9LKzPpJgLRBL1ltGmmQhDim?=
+ =?iso-8859-1?Q?onryPBQhrMk+wFcO1MMgH/8XgfFo/073Xxmo9+4xdW5+8oxd9CZmOwiEan?=
+ =?iso-8859-1?Q?cXDPsoqrb317RW0ah2lL+Ozg2T/CM73qmGTqviASwbut9B8XuVapoKl890?=
+ =?iso-8859-1?Q?F/bQ0JotM3NwCN+7elG9mu5uDxUrlMdaclOh44YXJX/KTvwgytgnwghGfw?=
+ =?iso-8859-1?Q?PF4IVxn4jAsxI90cNVgg5nucMvHYNYXCObtJKmf9mkrna8NSBeNdJqxH2F?=
+ =?iso-8859-1?Q?iUDXTMEQvegZNYIJXm32jEAT+maku/pi9ERrFqtiY9nzkRvmbr4im9Chti?=
+ =?iso-8859-1?Q?rVxnkgjVrvnTzs90aTmcirUH/XW9AgDGkB1UqpFSyHk/cxUxH8U2oO0yA0?=
+ =?iso-8859-1?Q?VHcwd+YF9n9l9t15jrojv2PtdIuhTBTR9mu9npWI1yGB9PE9G37yImG2ww?=
+ =?iso-8859-1?Q?AljegrzNB35UEl2NMa0QxJ1uBlaVIi6l3WIXRl6VpYuObs7UM3aqZCNAW1?=
+ =?iso-8859-1?Q?JZqfcbcMkgAriIT6OpEYXhm7nhXadkyiHtawu2niBLqqpnGCSvBXUX5raU?=
+ =?iso-8859-1?Q?u0J88AXW0lbmFEJube30xHB6G0egU1oizpcnqiUFmO+cRE25EewAgecVY2?=
+ =?iso-8859-1?Q?tetG8+w5pQlCRFB4WFAxEklz2EcKhdYYQWMnQpy6KHeQYvPHLF+2qNuVKd?=
+ =?iso-8859-1?Q?Rkzp6yhaclG81OoWNdKDnmt+FenAZAOGhL0+DnkdPYiyxnGPBkgK05IEd1?=
+ =?iso-8859-1?Q?Mh+mYTnwBx1VlGRJqZo8gw2ajIkkbuvjRn6ILvEE/ehNy+f9RwCTzpn6mJ?=
+ =?iso-8859-1?Q?laQGZOfegxd+bKEGQ6zgFjqf6ttwnnHIt2QNCp+HpMSijmqYZiyrcBgEVn?=
+ =?iso-8859-1?Q?GVHa+r879Pq8vG6GNaf5teKQ21/HBHxTaV/dIjw6g3UMnNoxIa3Bl0N+q9?=
+ =?iso-8859-1?Q?ITmRmq85CnJoBn4gxVf3VGDrXOlXAynGx14ejV0tQ3fdBFMafN4bKTd/NW?=
+ =?iso-8859-1?Q?1fqKEBKzVsfEAvVHJ63jwNuT3j6p6bkRgj2+3z/snDkNcRZ2LMjuIye+Jd?=
+ =?iso-8859-1?Q?CGa+aACTwtY6wgMAr0i1ORieoERyOqj7o6MsZijmRmTtZ+wWTj3ZkhkIgE?=
+ =?iso-8859-1?Q?cxVi22e/GyDjJ/f3u+AQkovFvjjVedIxaks72AY6AWpmWGZwT6UDtbr8tK?=
+ =?iso-8859-1?Q?UHBxZQnA0irXuUw/3hZdCyF862rCMgGc7rf/E/1AbNcy1LoTcuZQ4tyEUw?=
+ =?iso-8859-1?Q?3aOS4vEZGisQrl2a9pFLtws/i4vsC+SS5DvsRzSOZFxTCCKk/HVoZH+Cb8?=
+ =?iso-8859-1?Q?kFotDXKwk7X95nPZkKkV04nI3lWv738=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH 1/1] media: ipu-bridge: Print SSDB information on debug
- level
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Cc: antti.laakso@linux.intel.com
-References: <20260811061612.325451-1-sakari.ailus@linux.intel.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260811061612.325451-1-sakari.ailus@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA3MyBTYWx0ZWRfX2EdKKupGPWVJ
- GSikucvwLELmg3A6jaWSk2wb6N2kIWzdFI2VIBtR0DLYeX6ZcBqG9HDcVUTZAF0F9zXyV4gbDot
- EBB5Rx1dY4kcg0Io3ovR85OpLHkdPAk=
-X-Proofpoint-GUID: 8ePJz1QuDxnijap9kJdlnHplTgXEuCWG
-X-Proofpoint-ORIG-GUID: 8ePJz1QuDxnijap9kJdlnHplTgXEuCWG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA3MyBTYWx0ZWRfXyf0gogBzfChW
- 2EtaABuqcEb2181ieWuJEwWs8q4ypVpFN7ZJr+vs6U+LW6fsmwNm459fsbIUTDlO1mrCFQh9BrW
- jj09JcFdo8WbYg6jbC8/2n3sxiCWS/rL4JYb9b2DGXAGL+9cmaOSfUy+TtBltFwn2q1oFXFCQR1
- qLZG0DXDTgWPtyLe6Go9o7aV0g6Vh6uOn3fQt/8dSxpGDv7pB5bRzVYYF0pSRKCqc6+xrCBQAv/
- SC2DWAsoec5DR28HtqYjS8Faap2wTQumRbq21srdXpMqxI2R/M7qpST6FgbDAuJRtvqqqcPD8YY
- t48H0lYVX3PiG5gl6utftRFHFrs5l0wIvdbRgUAj8MEnb9+ZoKOFIvvFjXZTVG7VUXII8pVIa9H
- MY2W3B5/FKTy1J3GpzPsQZ1i9uSgq2P8mq2kqAp/mmJYwZKXZBZrtYV0iPeKqk+G8MPEtvizJj1
- lNG3cizpcT2CZi1TxRQ==
-X-Authority-Analysis: v=2.4 cv=eJ4jSnp1 c=1 sm=1 tr=0 ts=6a7ae420 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=QyXUC8HyAAAA:8
- a=EUspDBNiAAAA:8 a=UDpfuZXWZKkqJqgzBFEA:9 a=QEXdDO2ut3YA:10
- a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 malwarescore=0 bulkscore=0
- adultscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608110073
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96319ca7-b77c-4710-d689-08def788e8ad
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 09:14:12.4191
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 6sisCWEEXvMm+W2EW7RqAZA8lOTW+SKNGPF0W9sp6CblhZZQF0zKe7sKBnnZPADq1iPyY7h/J2wAmbuYkac0F2LU4RBM2AlLtEIMWunQm0bXI0Pkl8SkhNfajcgmxCDX
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB5316
 
-Hi,
-
-On 11-Aug-26 08:16, Sakari Ailus wrote:
-> Print information mainly from SSDB: port number, number of lanes, rotation
-> and orientation as well as VCM model on debug level.
-> 
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
-Thanks, patch looks good to me:
-
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-> ---
->  drivers/media/pci/intel/ipu-bridge.c | 10 +++++++++-
->  1 file changed, 9 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 1bb3a3e98d6b..ff3bb80d374e 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -412,6 +412,7 @@ static enum v4l2_fwnode_orientation ipu_bridge_parse_orientation(struct acpi_dev
->  
->  int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
->  {
-> +	acpi_handle handle = acpi_device_handle(ACPI_PTR(adev));
->  	struct ipu_sensor_ssdb ssdb = {};
->  	int ret;
->  
-> @@ -435,8 +436,15 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
->  	sensor->rotation = ipu_bridge_parse_rotation(adev, &ssdb);
->  	sensor->orientation = ipu_bridge_parse_orientation(adev);
->  
-> -	if (ssdb.vcmtype)
-> +	acpi_handle_debug(handle,
-> +			  "CSI-2 port %u, lanes %u, mclkspeed %u, rotation %u (SSDB %u), orientation %u\n",
-> +			  sensor->link, sensor->lanes, sensor->mclkspeed,
-> +			  sensor->rotation, ssdb.degree, sensor->orientation);
-> +
-> +	if (ssdb.vcmtype) {
->  		sensor->vcm_type = ipu_vcm_types[ssdb.vcmtype - 1];
-> +		acpi_handle_debug(handle, "VCM %s\n", sensor->vcm_type);
-> +	}
->  
->  	return 0;
->  }
-
+Hi Jai,=0A=
+=0A=
+>Hi Himanshu,=0A=
+>=0A=
+>Thanks for the patch.=0A=
+>=0A=
+>Not a full review, but just a few comments on the PLL programming.=0A=
+>=0A=
+>Quoting Himanshu Bhavani (2026-08-06 17:32:08)=0A=
+>> Add a v4l2 subdevice driver for the Sony imx576 sensor.=0A=
+>>=0A=
+>> The Sony IMX576 image sensor with an active=0A=
+>> array size of 5760 x 4312=0A=
+>>=0A=
+>> The following features are supported:=0A=
+>> - Manual exposure an gain control support=0A=
+>> - vblank/hblank control support=0A=
+>> - Supported resolution: 5760 x 4312 30fps (SRGGB10)=0A=
+>>=0A=
+>> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>=0A=
+>=0A=
+>[...]=0A=
+>=0A=
+>> +#define IMX576_INCLK_RATE              (24 * HZ_PER_MHZ)=0A=
+>> +=0A=
+>> +#define IMX576_REG_CHIP_ID             CCI_REG16(0x0016)=0A=
+>> +#define IMX576_CHIP_ID                 0x0576=0A=
+>> +=0A=
+>> +#define IMX576_REG_MODE_SELECT         CCI_REG8(0x0100)=0A=
+>> +#define IMX576_MODE_STANDBY            0x00=0A=
+>> +#define IMX576_MODE_STREAMING          0x01=0A=
+>> +=0A=
+>> +#define IMX576_REG_HOLD                        CCI_REG8(0x0104)=0A=
+>> +=0A=
+>> +#define IMX576_REG_EXPOSURE            CCI_REG16(0x0202)=0A=
+>> +#define IMX576_EXPOSURE_MIN            8=0A=
+>> +#define IMX576_EXPOSURE_OFFSET         22=0A=
+>> +#define IMX576_EXPOSURE_STEP           1=0A=
+>> +#define IMX576_EXPOSURE_DEFAULT                0x0648=0A=
+>> +=0A=
+>> +#define IMX576_REG_ANALOG_GAIN         CCI_REG16(0x0204)=0A=
+>> +#define IMX576_ANA_GAIN_MIN            0=0A=
+>> +#define IMX576_ANA_GAIN_MAX            978=0A=
+>> +#define IMX576_ANA_GAIN_STEP           1=0A=
+>> +#define IMX576_ANA_GAIN_DEFAULT                0=0A=
+>> +=0A=
+>> +#define IMX576_REG_IVT_PXCK_DIV                CCI_REG8(0x0301)=0A=
+>> +#define IMX576_REG_IVT_SYCK_DIV                CCI_REG8(0x0303)=0A=
+>> +#define IMX576_REG_IVT_PREPLLCK_DIV    CCI_REG8(0x0305)=0A=
+>> +#define IMX576_REG_IVT_PLL_MPY         CCI_REG16(0x0306)=0A=
+>> +#define IMX576_REG_IOP_SYCK_DIV                CCI_REG8(0x030b)=0A=
+>> +#define IMX576_REG_IOP_PREPLLCK_DIV    CCI_REG8(0x030d)=0A=
+>> +#define IMX576_REG_IOP_PLL_MPY         CCI_REG16(0x030e)=0A=
+>> +#define IMX576_REG_PLL_MULT_DRIV       CCI_REG8(0x0310)=0A=
+>> +=0A=
+>> +#define IMX576_REG_FRM_LENGTH_LINES    CCI_REG16(0x0340)=0A=
+>> +#define IMX576_REG_LINE_LENGTH_PCK     CCI_REG16(0x0342)=0A=
+>> +#define IMX576_LINE_LENGTH             6144=0A=
+>> +#define IMX576_VBLANK_DEF              4387=0A=
+>> +=0A=
+>> +/* FIXME: Exact VBLANK limit unknown (no datasheet). */=0A=
+>> +#define IMX576_VBLANK_MAX              32420=0A=
+>> +=0A=
+>> +#define IMX576_REG_X_ADD_STA           CCI_REG16(0x0344)=0A=
+>> +#define IMX576_REG_Y_ADD_STA           CCI_REG16(0x0346)=0A=
+>> +#define IMX576_REG_X_ADD_END           CCI_REG16(0x0348)=0A=
+>> +#define IMX576_REG_Y_ADD_END           CCI_REG16(0x034a)=0A=
+>> +#define IMX576_REG_X_OUTPUT_SIZE       CCI_REG16(0x034c)=0A=
+>> +#define IMX576_REG_Y_OUTPUT_SIZE       CCI_REG16(0x034e)=0A=
+>> +=0A=
+>> +#define IMX576_REG_DIG_CROP_X_OFFSET   CCI_REG16(0x0408)=0A=
+>> +#define IMX576_REG_DIG_CROP_Y_OFFSET   CCI_REG16(0x040a)=0A=
+>> +#define IMX576_REG_DIG_CROP_WIDTH      CCI_REG16(0x040c)=0A=
+>> +#define IMX576_REG_DIG_CROP_HEIGHT     CCI_REG16(0x040e)=0A=
+>=0A=
+>This sensor's registers seem quite similar to the MIPI CCS specification.=
+=0A=
+=0A=
+Yes, you are right some registers seems to be similar I will address it.=0A=
+=0A=
+=0A=
+>Please check if the sensor is CCS compatible. Even if it is not, I think=
+=0A=
+>the PLL programming is compatible, so you can use the helpers from=0A=
+>ccs-pll.c.=0A=
+=0A=
+Most PLL values are derived from the limited IMX576 datasheet information a=
+vailable.=0A=
+=0A=
+For the unknown values, I referred to out of tree driver and validated and =
+assumed them based on the PLL configuration.=0A=
+=0A=
+Should I proceed with the PLL programming as it is, or drop the PLL approac=
+h and retain only the CCS-supported registers?=0A=
+=0A=
+static const struct ccs_pll_limits imx576_pll_limits =3D {=0A=
+	.min_ext_clk_freq_hz =3D 6000000,=0A=
+	.max_ext_clk_freq_hz =3D 27000000,=0A=
+=0A=
+	.vt_fr =3D {=0A=
+		/* Confirmed values as per datasheet */=0A=
+=0A=
+		.min_pre_pll_clk_div =3D 1,=0A=
+		.max_pre_pll_clk_div =3D 4,=0A=
+		.min_pll_ip_clk_freq_hz =3D 6000000,=0A=
+		.max_pll_ip_clk_freq_hz =3D 12000000,=0A=
+		.min_pll_multiplier =3D 87,=0A=
+		.max_pll_multiplier =3D 350,=0A=
+		.min_pll_op_clk_freq_hz =3D 1050000000,=0A=
+		.max_pll_op_clk_freq_hz =3D 2100000000,=0A=
+	},=0A=
+=0A=
+	.vt_bk =3D {=0A=
+		/* here the sys_clk_div (IVT_SYCK_DIV -> 0303) value as per out of tree d=
+river they are using div as 2 or 4  */=0A=
+=0A=
+		.min_sys_clk_div =3D 2,=0A=
+		.max_sys_clk_div =3D 4,=0A=
+		.min_sys_clk_freq_hz =3D 262500000,=0A=
+		.max_sys_clk_freq_hz =3D 1050000000,=0A=
+=0A=
+		/* pix_clk_div also being used as an Fixed to 5 */=0A=
+		.min_pix_clk_div =3D 5,=0A=
+		.max_pix_clk_div =3D 5,=0A=
+		.min_pix_clk_freq_hz =3D 52500000,=0A=
+		.max_pix_clk_freq_hz =3D 210000000,=0A=
+	},=0A=
+	.op_fr =3D {=0A=
+=0A=
+		/* Confirmed values as per datasheet */=0A=
+=0A=
+		.min_pre_pll_clk_div =3D 1,=0A=
+		.max_pre_pll_clk_div =3D 15,=0A=
+		.min_pll_ip_clk_freq_hz =3D 6000000,=0A=
+		.max_pll_ip_clk_freq_hz =3D 12000000,=0A=
+		.min_pll_multiplier =3D 47,=0A=
+		.max_pll_multiplier =3D 2300,=0A=
+		.min_pll_op_clk_freq_hz =3D 1250000000,=0A=
+		.max_pll_op_clk_freq_hz =3D 2300000000,=0A=
+	},=0A=
+	.op_bk =3D {=0A=
+=0A=
+		 /* Similarly here also (OP_SYS_CLK_DIV -> 030b) value being used is 1,2,=
+4 in out of tree driver=0A=
+		  * But as per ccs-limits { CCS_R_MAX_OP_SYS_CLK_DIV =3D 2 }=0A=
+		  */=0A=
+=0A=
+		.min_sys_clk_div =3D 1,=0A=
+		.max_sys_clk_div =3D 2,=0A=
+		.min_sys_clk_freq_hz =3D 625000000,=0A=
+		.max_sys_clk_freq_hz =3D 2300000000,=0A=
+=0A=
+		/* (RAW8 and RAW10) */=0A=
+		.min_pix_clk_div =3D 8,=0A=
+		.max_pix_clk_div =3D 10,=0A=
+		.min_pix_clk_freq_hz =3D 62500000,=0A=
+		.max_pix_clk_freq_hz =3D 2300000000,=0A=
+	},=0A=
+=0A=
+>> +=0A=
+>> +#define IMX576_REG_BINNING_MODE                CCI_REG8(0x0900)=0A=
+>> +#define IMX576_REG_BINNING_TYPE                CCI_REG8(0x0901)=0A=
+>> +#define IMX576_REG_BINNING_WEIGHT      CCI_REG8(0x0902)=0A=
+>> +=0A=
+>> +#define IMX576_PIXEL_RATE              813600000=0A=
+>> +#define IMX576_NUM_DATA_LANES          4=0A=
+>> +=0A=
+>> +/* IMX576 native and active pixel array size */=0A=
+>> +static const struct v4l2_rect imx576_native_area =3D {=0A=
+>> +       .top =3D 0,=0A=
+>> +       .left =3D 0,=0A=
+>> +       .width =3D 5792,=0A=
+>> +       .height =3D 4464,=0A=
+>> +};=0A=
+>> +=0A=
+>> +static const struct v4l2_rect imx576_active_area =3D {=0A=
+>> +       .top =3D 136,=0A=
+>> +       .left =3D 16,=0A=
+>> +       .width =3D 5760,=0A=
+>> +       .height =3D 4312,=0A=
+>> +};=0A=
+>> +=0A=
+>> +static const char * const imx576_supply_names[] =3D {=0A=
+>> +       "vana",         /* Analog Power */=0A=
+>> +       "vif",          /* Interface Power */=0A=
+>> +       "vdig",         /* Digital Power */=0A=
+>> +};=0A=
+>> +=0A=
+>> +static const struct cci_reg_sequence imx576_common_regs[] =3D {=0A=
+>=0A=
+>[...]=0A=
+>=0A=
+>> +       { IMX576_REG_IVT_PXCK_DIV, 0x05 },=0A=
+>> +       { IMX576_REG_IVT_SYCK_DIV, 0x02 },=0A=
+>> +       { IMX576_REG_IVT_PREPLLCK_DIV, 0x04 },=0A=
+>> +       { IMX576_REG_IVT_PLL_MPY, 0x0154 },=0A=
+>> +       { IMX576_REG_IOP_SYCK_DIV, 0x01 },=0A=
+>> +       { IMX576_REG_IOP_PREPLLCK_DIV, 0x04 },=0A=
+>> +       { IMX576_REG_PLL_MULT_DRIV, 0x01 },=0A=
+>=0A=
+>I think when Laurent asked to make the PLL configurable for different link=
+=0A=
+>frequencies, he meant deriving these and the OP_PLL_MPY value instead of=
+=0A=
+>hardcoding all of them and only supporting one link freq.=0A=
+>> +       { CCI_REG8(0x0b06), 0x01 },=0A=
+>> +       { CCI_REG8(0x3620), 0x01 },=0A=
+>> +       { CCI_REG8(0x3f0c), 0x00 },=0A=
+>> +};=0A=
+>> +=0A=
+>=0A=
+>Thanks,=0A=
+>    Jai=0A=
+=0A=
+=0A=
+Best Regards,=0A=
+Himanshu=
