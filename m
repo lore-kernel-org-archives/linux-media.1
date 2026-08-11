@@ -1,275 +1,85 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A810C449B13
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1332931DE;
+	Tue, 11 Aug 2026 15:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786458985; cv=none; b=cn/wz9vV4CtcJnMG0Zgd1GMZcCtOnfO/Qk4swhlYHA3g8C4wi7ptzBCPKSP9X/isSRH2XZx4EYXKW8Nt/ViwpnXtQW9GaEmGxUD7QPXeUDJxjfn5gqWGqH6ZLr2IKcZvZZVSpXPeeC3w3DT7NfdHPYy/7aOxdsGuT6eMTCA5wEI=
+	t=1786460426; cv=none; b=juKTktsraOMXVIOLpD9+7+Z0kCviHQ1RzzxzckLTL10ohfws6VFdCrGPlnaBzU51VyhNDC0UVzN/Wgv0WdtKvgGRQEazk7nWJoRxEOUAeRY41xfnOL4WOI64eCUUZDdfGUjwDRtnKMSyUJCHz72vy5dqCTRiKvQlPyoqyaUmyM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786458985; c=relaxed/simple;
-	bh=G3BdBR7697xUjjuCo7MFSXSomFi+FPGZV8uhCFjNX24=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jd78WfsWv84340hmKBUyFr4m/tAm5Yd0vniDFpImtmxHPdWT6Rzoq1lwjz9h6KKu29bOOgIKhGBA7WP7QsLMyOZbsCghOMFvsQ5Vfd+EHpgn1cowKPfVkLP7SQQOexebhFanDpGKzIbRZRMxH/q+mwq44LBdtNlEPZgiXyxoceM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hrYksqob; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EDRJstX4; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786460426; c=relaxed/simple;
+	bh=hAeM2Ul1CgdC4B6aZZPnSIz+48UgApspnpa3Pu9iLig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=flr4vWprKhzR2XUsKH4qZGSyUre25ev+Yi3G9yoljh0wwI3YI9WiOkSwSq0eUXoS9TRZsgrnqVK4xfG8Lt68htFWB/U5erypJ9E0Tz+iHHyPUOF/EDaQRba7GL2K4jNQSzWzi9+mhddl/UoGXQyFn0tqi05vzgKTI04ur1nnD74=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=E9QP+/IN; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrYksqob";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EDRJstX4"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BDWWut1914245
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:23 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=; b=hrYksqobfha8uye+
-	Zk0gc0WLv+GeP7IXh3sc1JGMMZ4/JZ5AF4B9f2h2x8dOemPIG2nVI5rhKa/Bue6K
-	aQJialweIRGAQuQepQ6ek3zEDtHeCQGSuNgHWun3iR0bKP+loR/mbJ5aRUVabGyJ
-	fxMfKVLBHxuAgsGorh2jwgCqiLfyh7qxFP0nk6pij485UjFAUmYJBFP2ClY49pAu
-	+rG9Wc6QOo0I8rFx+LnzE+RKtl7puHJcmRtVJwk8+g3eiGTufppFbyfz/gO+pfwd
-	BNWgawO3W2v2ojkHD/G9lI8UtbhtPTxl+l20VVc8fx3/8bLd11HdBmS8uaSM0v5/
-	8GuhoQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g049brdme-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:22 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e538afe65so344968285a.3
-        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 07:36:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786458981; x=1787063781; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=;
-        b=EDRJstX4yoNyZ4FobRvVeThC54W3SfbmCm4VW2tkAJ/ZtxDdpZU9nm8ppj1XABVchQ
-         L/9mBRWxR1wE4pLG4as7J33BthtfI7OfJqsM1khK5hNFHsx2mms1uw2GrnixvVOcVMmJ
-         8qK7dgc0Kg1MQaJVlOgmYhJDZkzEzmHqTz1wfnVuMb+cABjs2jxAr7Ku/pLD7YFnfIRR
-         8k9cAg609S42+c2gN4D/W1Tp4CtcK1ZK00RW7wQ8aD0kS7aGVlHx4ALDgHA+zHOhkM9X
-         bzTu99dqk5U3XBjvXR6enFG7Or4drwsq8ar/keti1TU8jPQE40cS/4wgwSmIrOUJK3WN
-         /wCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786458981; x=1787063781;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :references:cc:to:subject:from:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=;
-        b=AJ2jecxWrmBtapoyTFFHivq3rOEIF0qMtH63aSoEJme20Y73pmTqInMfPhfunjzkEB
-         drjN5M3Dwj8wd/ZAFUrRP5O8vJmCTlZyWjGLprdvCy4Clxs8l9zqXTtrYyhjHU8tNkLn
-         oTMHLJn7z8bfzRWt0wfAG6sYiEGidIiZHlv+XgtEpr9OOyILrI2QGUekL0QKlPsBXkVm
-         5qWL6QQL7mb8mKz6BV+NteR1TD260EvsGt3Dy6i7w3Urr9WtVyYNBT2MDk9bPQDds4eS
-         vVWYXrNil+Wmx/8YjSszGBu/9GnLcez6qEyfiCECo2nwUMK6S1APqsEVwEoIZhuZYiWa
-         S3ew==
-X-Forwarded-Encrypted: i=1; AHgh+Rq6+kpnXnMnE9lvEqYzUu/ho17uuxvJS6s6niL79ZZe9JPM1oc8LBWfa8Xm8NtqiyVhPjIJQfnwjn3C3g==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwgQtGpTwZnGKzkVrvQvN4rcVVJ6TCZWP0kCcBfYVRKGJDtZkqF
-	mw2NS9j/ANnlem4ZyyZxlFX/sxvS4QWSSXxXCOIxaCXQVN4cPDSSHLHPgKWi88Y1dnAnZG+Vfj1
-	mVd6PjAy8fcHD/8kqpkzOpnqgAgwlS2Q20u7SgMSyGVJoq1ReC4IHOg5bZLaxdlfdfYKEL6Ydzw
-	==
-X-Gm-Gg: AR+sD12ku53NwbXl/eUefhPVZ0YSpI2F5wLPRgyiNTQdXGyOfMtoJRwg5lHZZ0hYSZB
-	R7duyV/XNacA4rROv2WPcthNyNhNNph5TCoSMzul40wJrzdaL/t/BdFc/GuYT22edzy2FnnjW2h
-	OF0R27BFGDgXxD1hfJn4Jl5+9oj+i2iHaWuV45lmMPRdQO9qPOQNp1ALzxXmk+u00/SyuW4pl/Y
-	IGsXlIl8zg3sohNaRR9QA7Rl13NKwJkQWbfzUSlM5E/7sOQSq9Guh55wiQu1B0YsAaroAgg9tdd
-	0recw7cHXF4qrU4K0mgUIhYAIfTskjKfxNyqN4W74wfygR+WZL4YWn+rLhA/zu0BQl3vhslJyF0
-	Ly2tI05OuRxcbxOExFH1DK82fiaW4QhZ7HDxc5f1fIJanfyORin6Ce4Sb4idgo51B0aHDlxS4gD
-	h9+dj/lnK7Qsv2hqijXw7otIOCCxjNLGYywfIDzNrP9E0H8r0zAIgLrmfRPh0dldP86SE=
-X-Received: by 2002:ac8:7f41:0:b0:51c:19af:6341 with SMTP id d75a77b69052e-52d60251984mr6645991cf.36.1786458981519;
-        Tue, 11 Aug 2026 07:36:21 -0700 (PDT)
-X-Received: by 2002:ac8:7f41:0:b0:51c:19af:6341 with SMTP id d75a77b69052e-52d60251984mr6645201cf.36.1786458981070;
-        Tue, 11 Aug 2026 07:36:21 -0700 (PDT)
-Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20e4102739sm63344066b.21.2026.08.11.07.36.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 11 Aug 2026 07:36:20 -0700 (PDT)
-Message-ID: <47ba3fb7-baf1-4689-bac5-7f296e70f3b3@oss.qualcomm.com>
-Date: Tue, 11 Aug 2026 16:36:18 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="E9QP+/IN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786460424; x=1817996424;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=hAeM2Ul1CgdC4B6aZZPnSIz+48UgApspnpa3Pu9iLig=;
+  b=E9QP+/INAwJbKevIuZXGUX64uxpOv4nlJcpYE3U7BNKR59+PqvppKkOd
+   MKdlF6amUkv+N7NjJNkrg/mo4gv//DN3SUbXzMqq+jtJU4ztUVzL3yukD
+   AQo1RHSQiB8Y5sURN09OfpGIoj/Kur5H76CRFJ69EGymyljPderA0apzW
+   NgC6JcuE6ln/0oGcpiQq4xEH5syaRsiYxsYL6RGdj2C0azYUgnMeOicVO
+   dWAu5XsjdfEondZJ3D6IMrMH77b0+3lNX0CGc6cUTVhcb7OZHc0M+Mz/p
+   EQiOHDSP8dsBMRzE9sUQ0ixc0UN9LKnAmu8o0UFc3mYnLQ0fy3GWvzsN6
+   w==;
+X-CSE-ConnectionGUID: oEnBVeUrQvm8IXDH1RXfqg==
+X-CSE-MsgGUID: 3t7gOq39SZKZjQVjCKS3DA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11872"; a="109784330"
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; 
+   d="scan'208";a="109784330"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 08:00:24 -0700
+X-CSE-ConnectionGUID: 8C6PGCJ4RSSi3yanfdn9YQ==
+X-CSE-MsgGUID: 7hRi1QYZThKdHBfceGMH1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,218,1779174000"; 
+   d="scan'208";a="260745775"
+Received: from kniemiec-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.207])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 08:00:21 -0700
+Date: Tue, 11 Aug 2026 18:00:18 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Neal Patalay <nealpatalay0@gmail.com>
+Cc: hansg@kernel.org, mchehab@kernel.org, andy@kernel.org,
+	gregkh@linuxfoundation.org, sakari.ailus@linux.intel.com,
+	matt@mattwardle.net, mugrinphoto@gmail.com,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH v5] staging: media: atomisp: refactor pipe graph dump
+ stage formatting
+Message-ID: <ans5AreArUHVP-MA@ashevche-desk.local>
+References: <20260708042939.40420-1-nealpatalay0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: johannes.goede@oss.qualcomm.com
-Subject: Re: [PATCH v5] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
-To: jason98166@gmail.com, Steve Longerbeam <slongerbeam@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>,
-        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-        Kieran Bingham <kieran.bingham@ideasonboard.com>,
-        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-References: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
-Content-Language: en-US, nl
-In-Reply-To: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: gmDK40LM8SvWSb90F5vTKk41szN31TYG
-X-Authority-Analysis: v=2.4 cv=ENg2FVZC c=1 sm=1 tr=0 ts=6a7b3366 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=PFQL8LixuE-k6l4gkC0A:9 a=QEXdDO2ut3YA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: gmDK40LM8SvWSb90F5vTKk41szN31TYG
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfX9KR1m3i3OdEx
- +hxyiwWq7UyKES4icuOdQfiDB0yV7/Ei1keHvCkqtsMqrwTF6/11oczFVfTMVAiajxqh/eZz9Q0
- PPta3rYSxTdtGFFZr0xbmEQvpwQsAT9dCDM+JSPP+pbl5duL8/Wol1/VvZzv0GrmfFM4RK46oaU
- skiRA5VzAw/qGfspMoxdnJQbEq3QeNK0NK+DoFjckQQShnkyWf6CdBCZTsU3Jz2a9UnFykxyd4o
- 2lGHhvzrzCjeOKh9vxoUb+jMe3+zZvNBVuUFlY6jhzgv2SN85AII6EvtKgvy+CEJcNEIAKOyL2Q
- M7v/hxWuKdrotczkrYHPZbAFkZVHb18cFRZWXboIlCertV8zXuHD0IptUCpzNJGs+6tw/ANPRpi
- 8ZlrMNabWt91J3Q5CanCLMUK7DhS+Lpl/gPXOxAtk9UWTmmuw5ZDvey0wZQF49zkZ9bAEuzzal6
- hJZvYrHS38k30hbEwsA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfXyWpTVDiOzWwK
- K0MT1kelSLeEtRJMbcSN0ZLTM4uv5iLZsLZVsqQMOarnfjClB1nTyXoYWv937CPiBijgxwmQasC
- OFJQrLHKKkPvAbfceyT5MG6L8VewzgM=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-11_03,2026-08-10_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 adultscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608110121
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260708042939.40420-1-nealpatalay0@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi,
+On Tue, Jul 07, 2026 at 09:29:39PM -0700, Neal Patalay wrote:
+> The original implementation of ia_css_debug_pipe_graph_dump_stage()
+> includes an off-by-one error where the original strscpy() size drops
+> characters immediately before newlines. It also allocates over 600
+> bytes across multiple buffers on the stack and truncates all output
+> debug information after three lines. Fix the strscpy() bug, reduce
+> stack usage with a single 256 byte buffer, and remove the three line
+> limit via a new helper function, ia_css_debug_build_info().
 
-On 11-Aug-26 16:06, Jason Yang via B4 Relay wrote:
-> From: Jason Yang <jason98166@gmail.com>
-> 
-> ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-> which selects the two data lane mode: the number of data lanes
-> described in the devicetree endpoint only feeds the sensor's clock
-> tree computations, so a module wired with one data lane starts
-> streaming in two lane mode and the receiver never assembles a
-> frame.
-> 
-> Take the lane mode from the endpoint instead, both when streaming
-> starts and in the power-up path. The field encodes the lane count
-> directly - 001 for one lane, 010 for two - per the current sensor
-> manual (version 2.33). The 2.03 manual documented 000/001 for
-> one/two lanes; OmniVision corrected the table in version 2.1,
-> which is why the long-standing comment here found 001 unusable for
-> two lanes and validated 010 instead.
-> 
-> The power-down path still resets the register to 0x58, which is
-> the chip's reset default.
-> 
-> Tested with a single data lane module on an i.MX8MP board
-> (imx-mipi-csis receiver), where the unpatched value produces no
-> frames at all, and on an RK3588 board.
-> 
-> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jason Yang <jason98166@gmail.com>
-> Assisted-by: Claude:claude-opus-5
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Thanks, patch looks good to me:
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-
-Regards,
-
-Hans
-
-
-
-> ---
-> Changes in v5:
-> - Program the endpoint lane count in the power-up path as well,
->   instead of leaving the hardcoded two-lane value there until
->   streaming starts (Hans de Goede); the power-down reset value
->   0x58 is the chip default and stays.
-> - Credit the v4 changes to Hans de Goede - v4 wrongly named
->   Hans Verkuil.
-> - Link to v4: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v4-1-c4a05d4c1b32@gmail.com
-> 
-> Changes in v4:
-> - Keep the lane count programmed also while the interface is
->   disabled, toggling only the enable bits (Hans Verkuil); with one
->   data lane the disable value becomes 0x20 instead of 0x40.
-> - Link to v3: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com
-> 
-> Changes in v3:
-> - Inline the lane count in the write instead of going through a
->   local variable (Sakari Ailus).
-> - Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
-> 
-> Changes in v2:
-> - Compute the register value from the lane count in the single
->   write instead of branching on it (Sakari Ailus), with the count
->   in a local variable to stay within 80 columns; the programmed
->   values are unchanged, 0x25 for one lane and 0x45 for two.
-> - Request a normal stable backport rather than opting out of
->   AUTOSEL (Sakari Ailus).
-> - Drop the quotes around the function name in the reference from
->   ov5640_set_power_mipi() (Sakari Ailus).
-> - Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
-> ---
->  drivers/media/i2c/ov5640.c | 25 ++++++++++---------------
->  1 file changed, 10 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> index 8deb5f5501fa..526939041ad0 100644
-> --- a/drivers/media/i2c/ov5640.c
-> +++ b/drivers/media/i2c/ov5640.c
-> @@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
->  	/*
->  	 * Enable/disable the MIPI interface
->  	 *
-> -	 * 0x300e = on ? 0x45 : 0x40
-> -	 *
-> -	 * FIXME: the sensor manual (version 2.03) reports
-> -	 * [7:5] = 000  : 1 data lane mode
-> -	 * [7:5] = 001  : 2 data lanes mode
-> -	 * But this settings do not work, while the following ones
-> -	 * have been validated for 2 data lanes mode.
-> -	 *
-> -	 * [7:5] = 010	: 2 data lanes mode
-> +	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
-> +	 *		  per version 2.33 of the sensor manual
->  	 * [4] = 0	: Power up MIPI HS Tx
->  	 * [3] = 0	: Power up MIPI LS Rx
->  	 * [2] = 1/0	: MIPI interface enable/disable
->  	 * [1:0] = 01/00: FIXME: 'debug'
->  	 */
->  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-> -			       on ? 0x45 : 0x40);
-> +			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-> +			       (on ? 0x05 : 0x0));
->  	if (ret)
->  		return ret;
->  
-> @@ -2532,16 +2526,17 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
->  	}
->  
->  	/*
-> -	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
-> +	 * Power up MIPI HS Tx and LS Rx
->  	 *
-> -	 * 0x300e = 0x40
-> -	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
-> -	 *		  "ov5640_set_stream_mipi()")
-> +	 * [7:5]	: data lane count (see the note in
-> +	 *		  ov5640_set_stream_mipi())
->  	 * [4] = 0	: Power up MIPI HS Tx
->  	 * [3] = 0	: Power up MIPI LS Rx
->  	 * [2] = 1	: MIPI interface enabled
->  	 */
-> -	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x44);
-> +	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-> +			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-> +			       0x04);
->  	if (ret)
->  		return ret;
->  
-> 
-> ---
-> base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-> change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
-> 
-> Best regards,
 
