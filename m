@@ -1,164 +1,232 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6218941A902
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:49:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786438185; cv=pass; b=T/TO3XMakFKByQkEwdakuw8uw285+JwUP59PmnnZY2fYCDiuOX6B5iE175bEbJmQiIlzD75alf48sFCoIt4P3mUUOmV+rmADuJI1ieJ3LbzqyWx/5h03UVTv6T4hnSLLn9jvuTRO+JB7ECrz8zI12Tz33AyNWo8EJ+vgCtOyZu4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786438185; c=relaxed/simple;
-	bh=ivL+fRFB0SI4FCYqzCCCvnIHn0hdxkIDu8XSrnu613k=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=JADAKz4an/ievowtowwahR3d//YPCAJQUr/MC7dY5qEGcA20ZUTiNcZybKfHG5OAhRjPqZ+Cfh3zHeN0IQ8TRge5RUJoKJ3Ls+FHgzTXLCM2myVZvYzWntODGDPWDdwxDGp70Em7APRh06ikLy8BQF939K097g9vtNgp+ulwoFw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e6dcsi+j; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=KNybpxIf; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E7E41F7F2
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:57:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786438645; cv=none; b=jGDzz41DoyWsURdEikhoGse4N8S4AaOl3sv7FAQy+JHBLy8blvrlWl2lBg4Wgch47uOG++JZKykD1WdVuS2whKiu1WM9wT8AE4WWhjlLubaEIzs3FT+CxfTK7MgnWLoWH8OcuVjE/0mtAJI78U7Gc4On0WU/n1Q9AzM7qFDR8y0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786438645; c=relaxed/simple;
+	bh=ctVwGNs67Fa6z+hLCuJ8VLAaBJHX9wbgA9F0FRIaAuw=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=OkrsK52ffdFGgNgmEWla7lGNCOd4HqdU6B6OWsgEp0N0aCOpczv/XWPoNJUhQp6k16bMkj0wp5Tlehh7GxIkEumaQLSPt4yn3KaFU/dKUtjCjD4JtDhJF4uw28bDd79983pkZ7iyrgyfaOQYqBWjmbvRUlcxniBim0N63HbhTFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=F0m5H1v3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=e0LgnNBD; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e6dcsi+j";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="KNybpxIf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1786438183;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type;
-	bh=ivL+fRFB0SI4FCYqzCCCvnIHn0hdxkIDu8XSrnu613k=;
-	b=e6dcsi+jwwbHA91iTEjFxRAYrLFfs6nNOzHPAjWiU8aDsL0YrvYwW855iLSXm3BErXOTI2
-	MlUUqvhaE7y92n2F8qv3N4J7RZQ6J/OHN1UXLO2KsMBsD3aoIn3nRA7lAYY8xwiZHCXiWC
-	UjHP5UcUMzCuczLnVW25QUlVRloIkf8=
-Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com
- [209.85.167.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-168-BG8J3_aHMmaiiAMCvhB1xA-1; Tue, 11 Aug 2026 04:49:31 -0400
-X-MC-Unique: BG8J3_aHMmaiiAMCvhB1xA-1
-X-Mimecast-MFC-AGG-ID: BG8J3_aHMmaiiAMCvhB1xA_1786438170
-Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4b1bc2e44e0so635952b6e.0
-        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 01:49:31 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786438170; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hb9vZO09dtEWW99dRDVQ1invUjzN8lBPwNvlC/ZqUXsXOerNZ8CxUauZuyan+8y2yX
-         FBJjKEpqKbCU6ZZjhYp2zt4SLz11wsMeKA+hP1HbLeXM/o8yI7TLuugNzFUYrRSnchrq
-         FPQFqpW2QzcyTv+K0HgUQaJEVWJTIOmbVKJkJsR81NeJUH5leUz44eZ/r69ttxur1IEF
-         bxCr6O0s6P5iW/oydBRmFpmf3SPSSjWz0dN8OuGoGNaP7a8O/3/AdKwFe6VTxiqBANmP
-         +8AJw2YibqKusLN6WCWNvwqOBTywgWdzJRXpTVefdevkxTlktn9dffirFEC09ggl2YKO
-         L8Ow==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=ivL+fRFB0SI4FCYqzCCCvnIHn0hdxkIDu8XSrnu613k=;
-        fh=mrFmrHlafWYLA3LicceqfFqXXYnmlJehvxvjYznKDrk=;
-        b=IB3I7AZerFVO4bMSl/esBAdc4lHw0c/SlytbZD1t8BERaGGCSCgTHzuioNq9pqHXoR
-         V7WiNTvcfnImPoZLXrGkEWto5nqIeUFFevgsDmwNtYl8gChYgQD7KVx0GujSAQWD/1v7
-         thU7W/OODeirQ2Blwqke5EhSax8PufGzoHrlWt1Oku4d5PSiPf7Wwif1qB9j1RBHIl0a
-         33EdZtSGBY0DR20UlZjaBGyPJrxIWxWfrLr+0wzVyeLt9UX2mHXnihaa/jBdsH0xeTIE
-         o2KLRiCniShaFPQT/sOQbnnjToMPXtdWo6LhWu0hEs/a6//ObQH1IAqOPzouuUo6yd5u
-         8UHg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="F0m5H1v3";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="e0LgnNBD"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67B6uXVK2812807
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:57:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	elooRN3b3UOMpv7wiJboOEuKd6vdGvMOOo10ZNjf5Bc=; b=F0m5H1v3uPL5OCJL
+	lVKiVbn5NLq+9yv4FUiK30drplli0dk+njiMmv61n0OBBqiiWvSoWtRbhz0GRrnc
+	yUxZFqT5mwngnm2RPsKeqrlls0wd6WZgCDgiRsNbmTjEJ3CvzDHF9Mqjfs4iEzVe
+	TeLURWcKEk5tlFklXxvr2CfP/eZB7EPgOO671QZXktBj8nQqfK/kDZraVsgNQTAY
+	XQbx1LouIpCVXWHTDFJ8GDh/o53yi7Irz+S4nfzUeF/dbjP9yf9wwg5qM2J3fOAg
+	FEWSkedq1hw+NkvXzcCCDB64w5ptEFl7hdB0zdPiBJY4U+1XNhXIaieDe9ad1Rap
+	vrsg4g==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4fyxwerfh8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:57:22 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51a8b0a08d2so4938401cf.0
+        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 01:57:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1786438170; x=1787042970; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ivL+fRFB0SI4FCYqzCCCvnIHn0hdxkIDu8XSrnu613k=;
-        b=KNybpxIf6DmctulV3g6yU5TOORXdhzZqb0difJAhQBkKWXznnRDgokpDAILPqfqWtL
-         1LNNMZc9WJq04wrvtqLn5eJ4A7Jqy49/2fefrjBdPRBVVaMYoiiZVHZwNlHUVYT2uUBa
-         ynq72SsO8YCsuU5WvE/TI223vFlOctj6ELm3JZHF8N6QMH/dhQ6GqxLYaNcQ7B7xh+s8
-         IHuOK85m8CDphdxaYWfPKAgzTPZrGubT6OUhcbcvgwZbPtsIKfROvuwff5YiTxF9bDhk
-         9YL+EYvcSwfhmbvjb+s4VEGJwfjKDjKidN84vBg8onKfECzNDAu3b5fPw/It7aI+p1Sa
-         F8mg==
+        d=oss.qualcomm.com; s=google; t=1786438642; x=1787043442; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=elooRN3b3UOMpv7wiJboOEuKd6vdGvMOOo10ZNjf5Bc=;
+        b=e0LgnNBDm01jNRH6KikcAxRvvOYrQI9koZxSeakCyupolXYGEW5AhoHCrXgwXxtZA6
+         KmskxOdjvJwwrvL6V7AoeT2nZ79MRZU8Qb9/wDpPZSzIDKckUiwi6eS/HxCiJQOnXOvD
+         VJhlgz1vqy7aofhpofTuCQGmWbcMy5To5sC5ghbcXzLpF3eqiscPWoX3P0mOVmfmWTX4
+         YT0NKdtzQjYpy7pw27Xb7y1CAzA4vqDXjkgJospCCei1nLZ0oUlRPbrVyN1P2r2Jh3I7
+         FlKOBi2S1Hx0Tz60eIueasVt5xmWAeLAXV4JTm81kcEUwMWEsFF0MwTtYGYBqW0CYuRC
+         Ds1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786438170; x=1787042970;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ivL+fRFB0SI4FCYqzCCCvnIHn0hdxkIDu8XSrnu613k=;
-        b=DADBkWXIRqSd3Rk2xDKMJbkpa+s6qbllhfC+QLf9VGZva7XAI2wFqSAeq045LI+WOs
-         FpbRq9jO3F4Dudd7RB8q9CsfW+bpslYSJWf5f6ngS2sRUKjO6mVj5+XDbwh6NhB/aTqS
-         as6w44nIKqoCMbYCeK6JaZvi5HWhA/wQWmUObOkqXJgIwG+UVSuW8odn7iFqVk3rMOLV
-         yQoorZ84V6gbJs62WW7LfZaRYc+RyWJYySmV5rAAGNjOGp/nXPP3sn9S9NTd3kel9au9
-         5hnCZCtMSAi7xc+C7U8YwmG11y0neN8JtRwYIek++Lx9nTym5bHFbjI1VZfy1DekQD5O
-         3zMw==
-X-Forwarded-Encrypted: i=1; AHgh+RrOfZU6sEJTYv2BCIQjULjxjh2lHjq0HY9L0oW2shPjiodhlXbTrjmQ7w5+iLxp+Xh3JoGbnfz7lSlzSA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyG2/qkM0rnP95FbAEYUpTJvoLtWf2iNyWPnW/VYr+cnUQ1JDng
-	ZgxazKM0huIGBWmpDq/wAz07bz/pdirTsBm2Z++1DPE+PN9Arg66sypNvna0DDkQvXUwl2PccCG
-	1pB+LxSxbmSM7+tcSPTiHXO9mTQHIkDQcSEg4EZ+IuzwDA5148ILiov7i4vU6OUShGuKyEe24/A
-	oxDR1ClmdO25vYLoP5fBU9cJf/yQjabQJraF7qhEY=
-X-Gm-Gg: AR+sD12E2bxjpOxrUrftTG9eEL4gawthecxFeGt/n1g7esQ6T20Cp4pBd/pgtFSMrqy
-	vwgX50duZkQfRVB/hObeDKsBZYL3ESZjNrCN3C0nMZDCU7GaFaZ6SElwMhYLUNOvm+nwQeWbi7Z
-	0acNodSrhqD0yomGQI5KOAYSNVqOYIAERChrHe+CCe8jSlQNp+s+YijCnOwOJ4P0L9KL6a9nEsB
-	uP0c+9dk1gss7da+j/sTQ/2Q/1vc4Y4riAjJUZknai35A==
-X-Received: by 2002:a05:6808:30a1:b0:4a0:6d4c:7cc1 with SMTP id 5614622812f47-4b1fd268fb6mr1261339b6e.0.1786438170474;
-        Tue, 11 Aug 2026 01:49:30 -0700 (PDT)
-X-Received: by 2002:a05:6808:30a1:b0:4a0:6d4c:7cc1 with SMTP id
- 5614622812f47-4b1fd268fb6mr1261306b6e.0.1786438170085; Tue, 11 Aug 2026
- 01:49:30 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1786438642; x=1787043442;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=elooRN3b3UOMpv7wiJboOEuKd6vdGvMOOo10ZNjf5Bc=;
+        b=Di2jI1lUYsojJeqlXJ6TpGdCEWW3cuw3b8axNROIHfv/e9/y3SSyXngYkQ9ljQ4hqO
+         c0nGSK1+aMnU+NTPRFTCFlIgmirjDTGtm/IepK3oEB6rFCIY7iWGK6Ydzz4jDDYXIpER
+         38bwCbLQ1LCS3ruJWyipdTd3eDs3rJlFhQpZ6p0DGg0edNu4ba2YSOEO+RWWNQvHChXL
+         t0p0NpVTKTnJ0EZFrnDtMZUtFaMqtU9G40eTdtTBW2PPCBQXV8Vd+VA4v92GblrDHBE/
+         QYml9+goc2LdPJ+Cnb5XRaHrgol3STF+W8bOZ1jimS9OXwtMjjFD17dIs5mV+WR6jAHp
+         hd2g==
+X-Forwarded-Encrypted: i=1; AHgh+Rq0WMNXUBjrRuMZLGfWyYfm0zLUiI2yJ8JUTCE/BAx1iBatoiwf6AYcwjk8Cj99H4aG3s5q6uIPvSJtcg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yys/BbGkVIzJesunfgAdjbC4qZzl/N2cOwWNE1YyB0VzEKhRljV
+	GlJ4Krms33dQgBX9cLV5GBgu2x9ogsjLWZLQqvfaKuJ4J2mcoGgwoQjEn/ERkqcMA29xrNH+lxK
+	pPUppXQPGcMeImGgOuZxKobWYDjUxNw0nLMK6Jv2mokhuldxZvokvp3PHMljSQEVmnUof/EIBBw
+	==
+X-Gm-Gg: AR+sD10UUCg3aYwKRRCkPxGzox1JMlAz3J9A6nWf/s2uKD9WGRvMrxW40BMrUCDm1py
+	g0FFk0kbWAShQnlwIiN6Gvel7MmqmFhI1Hn2fw6jSzEQQi080DCpPefUQwQTpTx4qB45fCPypbg
+	LYLoRmEp76Mt+GxxwzB4gjozkay5Q5YfsQMoLfAhPjsRzmeZfMBmwIolccJNrKBWQsRPtcMfhnG
+	EwzuOwJSGUQbIdf9JlZphlqOSgX1WrXsyAEOy6k42IonoITTBHdZEEyeKM7bKAa5OW6W5buAySw
+	WEF0YLAxctlVjl6mY/0TjbLyHLb4It1Ix0Bk3CnFMtTtTlGLn6DgwLMLuWNvaDXRHClzwt2yPH8
+	/bfX3vXcV95zNpd/x9BE0+YwEnD4XMmKqwOC0oQVlz4MjKDjmelSu2o5rowFQDbsj6cPjzD22u6
+	yqAD698h3UhLau1HG8KZ3gr557wmMZoePGiLWoUVLYzEwxdc/jDyBxAuMlLbIDY7tGsrI=
+X-Received: by 2002:a05:622a:1820:b0:51c:ba4:d837 with SMTP id d75a77b69052e-52d5856d370mr12243641cf.18.1786438641981;
+        Tue, 11 Aug 2026 01:57:21 -0700 (PDT)
+X-Received: by 2002:a05:622a:1820:b0:51c:ba4:d837 with SMTP id d75a77b69052e-52d5856d370mr12243301cf.18.1786438641426;
+        Tue, 11 Aug 2026 01:57:21 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a362e17756sm399788a12.1.2026.08.11.01.57.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 01:57:20 -0700 (PDT)
+Message-ID: <cff4de4b-3a94-4a5d-acb9-726939a75791@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 10:57:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Dorinda Bassey <dbassey@redhat.com>
-Date: Tue, 11 Aug 2026 10:49:18 +0200
-X-Gm-Features: AUfX_myup5Cn7XHNiGhYWSQ_DXHMKD_bon7ysZ5L9_VfRayW5JmQ-J3z0cr4fPg
-Message-ID: <CACzuRywJFBi8VS9iLNFABgNvjK1_cmYLzdjwjBXdZBggFr1SWA@mail.gmail.com>
-Subject: Re: [PATCH v4 0/8] media: add virtio-media driver
-To: briandaniels@google.com
-Cc: acourbot@google.com, adelva@google.com, Albert Esteve <aesteve@redhat.com>, 
-	changyeon@google.com, daniel.almeida@collabora.com, 
-	Eugenio Perez Martin <eperezma@redhat.com>, gnurou@gmail.com, 
-	Gurchetan Singh <gurchetansingh@google.com>, hverkuil@xs4all.nl, 
-	Jason Wang <jasowang@redhat.com>, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, mchehab@kernel.org, 
-	Michael Tsirkin <mst@redhat.com>, nicolas.dufresne@collabora.com, 
-	virtualization@lists.linux.dev, xuanzhuo@linux.alibaba.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH v3] media: ov5640: select the MIPI lane mode from the
+ endpoint lane count
+To: jason98166@gmail.com, Steve Longerbeam <slongerbeam@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Kieran Bingham <kieran.bingham@ideasonboard.com>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: lgX9I9oFdMxBFNf68-7cphvAqvy9jLJD
+X-Authority-Analysis: v=2.4 cv=K8QS2SWI c=1 sm=1 tr=0 ts=6a7ae3f2 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=s5WTe2n68omTjJFxeYUA:9 a=QEXdDO2ut3YA:10
+ a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-ORIG-GUID: lgX9I9oFdMxBFNf68-7cphvAqvy9jLJD
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDA3MyBTYWx0ZWRfX9Xm4k/8QTt9N
+ jub5Mm5cTgcYHmv+y32o+6BchwbGkxQYSWa1rbtfaPX+haPqt4lvldPQEP1wL8wWvVKj6NWfOP0
+ VE0ir4vastnia4HbxGZuJLThtBP9iAs=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDA3MyBTYWx0ZWRfX4rdxrbkn/5FT
+ 3IXI5wuOsYYuu2cxkmfPlLWs68MeteuzjBZN7rF4i3Fy/2WBvEoip1JG5sYNblIyT7NgOeFPyWB
+ OBP3yn9MehJtf1GWJCP9NYWZI+BoyBeOy0yFO98byyr8TkC+8xJejzZOZBPT16DIRQkRdesFdDX
+ 7ATqwwURiiDimzn3wY+vyMPuNeCnDQ0jUU/ZdCmFJkfLVmJWXgBMcQBIY1lZFCP2P4XP2vy1U2q
+ Hkn6WPcT+2Imn6IirWfOG0xN2H6pRhRkiXMghvIttOkRMemG4dpNiPaTiOTfF92hQmcvW2cT/W3
+ o2JwfabVy24r1aCctY2SYDtrWJ1nP2iejpZ7lGK9zY/JNK9/v6V80GXDvY/eZW4YtdeiABIpn8N
+ UzxFQyftwvNlwDPWMOBt7PT0MqRFhJWPUpXqMtfd2iQQD0sDYGYtk+o8/Ygjtly3fji9RsuXWKK
+ sY6upNwCC2GihoA5FbQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-10_06,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 malwarescore=0 spamscore=0 priorityscore=1501 bulkscore=0
+ clxscore=1015 phishscore=0 impostorscore=0 adultscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608110073
 
-Hi Brian,
+Hi,
 
-I've been working on a vhost-user frontend for virtio-media
-in libkrun[1] and tested this series with vhost-device-media[2].
-A few things I noticed:
+On 11-Aug-26 09:30, Jason Yang via B4 Relay wrote:
+> From: Jason Yang <jason98166@gmail.com>
+> 
+> ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
+> which selects the two data lane mode: the number of data lanes
+> described in the devicetree endpoint only feeds the sensor's clock
+> tree computations, so a module wired with one data lane starts
+> streaming in two lane mode and the receiver never assembles a
+> frame.
+> 
+> Take the lane mode from the endpoint instead. The field encodes
+> the lane count directly - 001 for one lane, 010 for two - per the
+> current sensor manual (version 2.33). The 2.03 manual documented
+> 000/001 for one/two lanes; OmniVision corrected the table in
+> version 2.1, which is why the long-standing comment here found 001
+> unusable for two lanes and validated 010 instead.
+> 
+> The power-up path also programs a two data lane mode, but that
+> value is overwritten when streaming starts, so it is left alone.
+> 
+> Tested with a single data lane module on an i.MX8MP board
+> (imx-mipi-csis receiver), where the unpatched value produces no
+> frames at all, and on an RK3588 board.
+> 
+> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> ---
+> Changes in v3:
+> - Inline the lane count in the write instead of going through a
+>   local variable (Sakari Ailus).
+> - Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
+> 
+> Changes in v2:
+> - Compute the register value from the lane count in the single
+>   write instead of branching on it (Sakari Ailus), with the count
+>   in a local variable to stay within 80 columns; the programmed
+>   values are unchanged, 0x25 for one lane and 0x45 for two.
+> - Request a normal stable backport rather than opting out of
+>   AUTOSEL (Sakari Ailus).
+> - Drop the quotes around the function name in the reference from
+>   ov5640_set_power_mipi() (Sakari Ailus).
+> - Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
+> ---
+>  drivers/media/i2c/ov5640.c | 18 ++++++------------
+>  1 file changed, 6 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> index 8deb5f5501fa..18c3bb5498f8 100644
+> --- a/drivers/media/i2c/ov5640.c
+> +++ b/drivers/media/i2c/ov5640.c
+> @@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
+>  	/*
+>  	 * Enable/disable the MIPI interface
+>  	 *
+> -	 * 0x300e = on ? 0x45 : 0x40
+> -	 *
+> -	 * FIXME: the sensor manual (version 2.03) reports
+> -	 * [7:5] = 000  : 1 data lane mode
+> -	 * [7:5] = 001  : 2 data lanes mode
+> -	 * But this settings do not work, while the following ones
+> -	 * have been validated for 2 data lanes mode.
+> -	 *
+> -	 * [7:5] = 010	: 2 data lanes mode
+> +	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
+> +	 *		  per version 2.33 of the sensor manual
+>  	 * [4] = 0	: Power up MIPI HS Tx
+>  	 * [3] = 0	: Power up MIPI LS Rx
+>  	 * [2] = 1/0	: MIPI interface enable/disable
+>  	 * [1:0] = 01/00: FIXME: 'debug'
+>  	 */
+>  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+> -			       on ? 0x45 : 0x40);
+> +			       on ? 0x5 | sensor->ep.bus.mipi_csi2.num_data_lanes << 5 :
+> +			       0x40);
 
-1. Wrong constant in vfl_dir detection in virtio_media_driver.c:
->
-> + if (vd->device_caps & (V4L2_CAP_VIDEO_M2M | V4L2_CAP_VIDEO_M2M_MPLANE))
-> + vd->vfl_dir = VFL_DIR_M2M;
-> + else if (vd->device_caps &
-> + (V4L2_CAP_VIDEO_OUTPUT | V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE))
-> + vd->vfl_dir = VFL_DIR_TX;
+You're writing 0x40 aka 2 lines now when turning the sensor off in 1 line mode.
 
-V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE is a buffer
-type enum, not a capability flag. So it should be
-V4L2_CAP_VIDEO_OUTPUT_MPLANE.
+I believe this should be:
 
-2. Kconfig architecture support
+  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
+			       (on ? 0x05 : 0x0));
 
-> + depends on VIRTIO && VIDEO_DEV && 64BIT && (X86 || (ARM && CPU_LITTLE_ENDIAN))
+Only changing the low nibble for on / off and always setting the correct
+lane count.
 
-ARM64 is missing here, so the driver cannot be selected on
-aarch64. Also, CONFIG_ARM is 32-bit only, so 64BIT && ARM
-can never be true; that branch is dead code. Since the driver
-has no platform specific code, this could just be:
+Regards,
 
-+ depends on VIRTIO && VIDEO_DEV && 64BIT
+Hans
 
-as it already covers x86_64, ARM64, and any other 64 bit
-architecture without listing them individually.
 
-3. Error sign convention:
-
-> + resp_header = sg_virt(sgs[out_sgs]);
-> + if (resp_header->status)
-> + /* Host returns a positive error code. */
-> + return -resp_header->status;
-
-The comment in the driver and the protocol spec contradict
-each other. The protocol.h describes the status field as
-"one of the standard Linux error codes" without specifying
-a sign. It's probably worth making the protocol spec explicit
-that the host returns positive error codes to match the driver's
-assumption.
-[1] https://github.com/libkrun/libkrun/pull/811
-[2] https://github.com/rust-vmm/vhost-device/tree/main/vhost-device-media
-
-BR,
-Dorinda.
 
