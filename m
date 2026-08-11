@@ -1,32 +1,34 @@
-Received: from out-177.mta0.migadu.com (out-177.mta0.migadu.com [91.218.175.177])
+Received: from out-182.mta0.migadu.com (out-182.mta0.migadu.com [91.218.175.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08322331207;
-	Tue, 11 Aug 2026 20:46:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3745419305
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 20:46:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786481205; cv=none; b=n7xVG12N42/mbTfNstyGUF17mG7eFEmW/hVNn/ZrjNMW7jo6J/aKNZzL02kzY3+ZT77Dim6rVTWRY+italkP4OXGmnOLH/5hnkf1x94jNIxS+jTA2nmZZ3sgyMvSOCuVGNtxtXIhmDk2T9SOlK7G5w+udtHgdZzgG4fhFa9iFUQ=
+	t=1786481210; cv=none; b=g/ZKBzbWevAU6ZOKZ+lG4VMu5OVrWDwx6frS1z6U1/v/IsTnQt/k45vpNdMz0KTGHOr7SsRKZ5XOXe1llPEHC0/GBzIhsG/s+eZzw8oqr00hrYaZjEuaUJValsE4weCKJpY4wS64O3heSqNziFFxWyt+WUz/yKTfcy0avK3xKNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786481205; c=relaxed/simple;
-	bh=wbinzThRuKGaPuoIICJWP7a4prk1iD0qlCWj3EkW57c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UmbuNeJLkExhm+hRTM/gZsPXUADeQZjApTyet5lgJOWOZ/txb9HqM4lgYr13LCgP25MIqSTduVbiL5hpjDLFmzVmy2NHMYp5NTURdiJeGnAOtZb/Q+2ZQtv1wuAZBrFJsApmyRwBjDSWxKCCwvvUq33b8OY/hLIxXJVRtPEe+l0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kaitmazov.com; spf=pass smtp.mailfrom=kaitmazov.com; dkim=pass (2048-bit key) header.d=kaitmazov.com header.i=@kaitmazov.com header.b=ocDTzXXR; arc=none smtp.client-ip=91.218.175.177
+	s=arc-20240116; t=1786481210; c=relaxed/simple;
+	bh=cwk9bNwBWVL+AmXZmNT0dHFKF9mJOaQCKyrhf/EqdqI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fsTL3Ac+Zu2E20QPdujZPI0CyjHvMw28GfdgNKB3XVsPTw9dzuvfRfLmlN3uJJ8Tv2csZXHZaqQkPyjmLssRq7Hlg6jGEHNV+2qQIotAB/ptox4xaCnuHEuJ795KfrRVgklWkrNkMjJrwZ0LkwHsjWWWOcvYZ8YJH4ryjoK1Yms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kaitmazov.com; spf=pass smtp.mailfrom=kaitmazov.com; dkim=pass (2048-bit key) header.d=kaitmazov.com header.i=@kaitmazov.com header.b=bBkmNYWG; arc=none smtp.client-ip=91.218.175.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=kaitmazov.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kaitmazov.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="ocDTzXXR"
+	dkim=pass (2048-bit key) header.d=kaitmazov.com header.i=@kaitmazov.com header.b="bBkmNYWG"
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kaitmazov.com;
-	s=key1; t=1786481201;
+	s=key1; t=1786481206;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=aDkKTQC9f3yIQxSXJJME0YlSAV3GHeMNq+8Rxpkv2uI=;
-	b=ocDTzXXR35vVYPzxxe2NKc05DDr2b8qcuv/y0NUNpJ/yRVuUKEq+hC9zkiWVN05NiSDpbX
-	EtmJWzX5fOuS3HE71ohRXS1wiurVZDyY6DH1G59X/V3dp4xC/IslwzyI0V5MZpy8Ned8lt
-	FEffpXNM5dTZEvYjqa1EPTfS/INGUx1U1xawYx+xwOtmCYcsot9azy/Xf9zzausjd6eUrt
-	Q3Iu6dW2KVCzljyEO4rMciL7TNz6qojaO6RG2Fw/cBLMFveWKGDZBaNPOB//adUkkVsNgW
-	rAmZmUNxhEs+gODrjVxhZ9uz9TBHBJbAJQiB0P7oSSfNkwFV7yFfTabyTfdvQg==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2ntw0VuP3EeY8k4KPnQJ84+od73prlFVgKVcC4psjLY=;
+	b=bBkmNYWGoLopsn087f7L9jlJ5Q3Jwv+PHzJG/NCbk4WbingkQcZg6nlTsInWx/xTcQb0Ci
+	jOK3erqfLnKDZjvL6nMhT6flxnTQkb1SbYBu7/uK226/WbBTwuGbPnobGvMioKRQSYl453
+	ItP7G/NO/gUuWmWDEUimQS42y9V06/a8yEOkx+2wReYk43lRv6G0wDJei6yLlI5lHnUghl
+	6TqOS11EF1Vomx/wtBns0p4m2LtGZV4tZBqOIAkXC+jQpYL5U0q8LXx1eAHd+cKnFAak3+
+	WyCPM75veqfcbuziJoTo4Y7g135RAXzRSZzzfsPtBwh+a//+phzrUmH8nhDXUw==
 From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
 To: mamin506@gmail.com,
 	lizhi.hou@amd.com,
@@ -38,9 +40,11 @@ Cc: dri-devel@lists.freedesktop.org,
 	linux-media@vger.kernel.org,
 	linaro-mm-sig@lists.linaro.org,
 	Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Subject: [PATCH 0/3] accel/amdxdna: honour the SYNC_BO range
-Date: Tue, 11 Aug 2026 23:45:53 +0300
-Message-ID: <20260811204556.875037-1-taimuraz@kaitmazov.com>
+Subject: [PATCH 1/3] accel/amdxdna: refuse an I/O memory mapping of an imported BO
+Date: Tue, 11 Aug 2026 23:45:54 +0300
+Message-ID: <20260811204556.875037-2-taimuraz@kaitmazov.com>
+In-Reply-To: <20260811204556.875037-1-taimuraz@kaitmazov.com>
+References: <20260811204556.875037-1-taimuraz@kaitmazov.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -50,48 +54,60 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Migadu-Flow: FLOW_OUT
 
-SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours them
-only on the vmap path. An imported BO is tested for first and flushes its
-whole scatterlist, so a sync costs what the BO is worth rather than what
-the caller asked to maintain: on npu4 an imported 64 MiB BO cost 1056 us
-to sync at every size from 4 KiB up. Patch 3 reorders the arms so the
-vmap path is tried first, and indexes the page-array fallback from the
-requested offset.
+amdxdna_gem_obj_vmap() accepts whatever dma_buf_vmap() returns and only
+rejects a NULL vaddr. struct iosys_map is a union discriminated by
+is_iomem, so an exporter that answers with an I/O mapping leaves a
+void __iomem pointer in map->vaddr, and amdxdna_gem_vmap() stores it in
+abo->mem.kva, which callers use as an ordinary kernel address:
+amdxdna_cmd_set_error() memsets and memcpys through it.
 
-Reaching an imported BO through vmap needs two things in front of it.
-Patch 1 refuses an I/O memory mapping, which the driver currently stores
-as if it were an ordinary kernel address; that one stands on its own and
-does not depend on the rest of the series, so it can be taken separately
-or first. Patch 2 adds a probe that does not log, so that patch 3 does
-not make an exporter without a vmap op print on every ioctl; it is a
-refactor and does not depend on patch 1 either. Only patch 3 depends on
-both: on patch 2 for the probe, and on patch 1 to keep an I/O mapping
-out of the flush it adds.
+amdxdna_drm_va_tbl takes a dmabuf_fd, so a BO of type AMDXDNA_BO_SHARE
+or AMDXDNA_BO_CMD can be any exporter's buffer. Whether such a buffer is
+still in a bus aperture when it is mapped depends on the exporter.
+amdxdna attaches without importer ops, so an exporter that implements
+.pin has it called before the mapping, and amdgpu's removes VRAM from
+the allowed domains as soon as one attachment cannot do peer to peer,
+which this driver's cannot; an amdgpu buffer is therefore in GTT
+before any of this runs. An exporter using drm_gem_prime_dmabuf_ops
+has no .pin at all, nothing moves the buffer, and drm_gem_ttm_vmap()
+answers with iosys_map_set_vaddr_iomem() for a VRAM resident object.
+nouveau and radeon are in that group, so an NPU paired with one of
+those GPUs reaches this.
 
-The measurements in patch 3 were taken with the equivalent change in
-AMD's out-of-tree xdna-driver, where this merged as #1541. That version
-and this one differ in two places, neither of them on the path the
-measurement exercises: it carries a second page-array fallback that
-mainline has no field for, reached only when the mapping fails and the BO
-is neither imported nor shmem backed, and the mapping helper has a
-different name. The flush and the helper are otherwise identical. This
-version is compile-tested; it has not been booted.
+Refuse the mapping, so it never reaches a caller that cannot use it.
+vmw_gem_vmap() does the same for the same reason. Unlike that one, this
+path is reachable from an unprivileged ioctl, so it does not warn;
+-EOPNOTSUPP is what drm_gem_vmap_locked() already returns here for an
+exporter with no vmap op.
 
-Patch 1 is from inspection rather than a reproducer. The exporter I can
-test against is amdgpu, and amdgpu is the case that cannot reach it: it
-implements .pin, so a non peer to peer attachment like this driver's
-forces the buffer to GTT before anything maps it. Reproducing it needs a
-GPU whose exporter has no .pin, which I do not have paired with an NPU
-here.
+Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+---
+ drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
-Taimuraz Kaitmazov (3):
-  accel/amdxdna: refuse an I/O memory mapping of an imported BO
-  accel/amdxdna: add a quiet variant of amdxdna_gem_vmap()
-  accel/amdxdna: flush only the requested range in amdxdna_flush_bo
-
- drivers/accel/amdxdna/amdxdna_gem.c | 53 +++++++++++++++++++++--------
- 1 file changed, 38 insertions(+), 15 deletions(-)
-
+diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+index 1f190b319..b66ec9e48 100644
+--- a/drivers/accel/amdxdna/amdxdna_gem.c
++++ b/drivers/accel/amdxdna/amdxdna_gem.c
+@@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
+ 
+ 	dma_resv_assert_held(obj->resv);
+ 
+-	if (is_import_bo(abo))
++	if (is_import_bo(abo)) {
+ 		ret = dma_buf_vmap(abo->dma_buf, map);
+-	else
++		/* Callers use mem.kva as an ordinary kernel address. */
++		if (!ret && map->is_iomem) {
++			dma_buf_vunmap(abo->dma_buf, map);
++			return -EOPNOTSUPP;
++		}
++	} else {
+ 		ret = drm_gem_shmem_object_vmap(obj, map);
++	}
+ 	if (ret)
+ 		return ret;
+ 	if (!map->vaddr)
 -- 
 2.55.0
 
