@@ -1,299 +1,176 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540A52F532F
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 04:29:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E252FD1DA;
+	Tue, 11 Aug 2026 04:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786422599; cv=none; b=nFEflAwqPq1ljL9OTRr5QViY0wVLa/JaSF7pRFJ1+10nDgS1TKNpACgQzkYk0p8djcmUDfv1Cr1fUA6Ds9h1Lw2U1rv4Iz2DeY5/lBX6oYDcY3Xarxy4tVuZT8Uo/9k7Sr2ISehvkLJClSy49FBe5Yj4So279mf/MFK86VVfYYg=
+	t=1786423215; cv=none; b=s6txNTXBBl4tNWmHpLMpL9+N42iNHjwvDKuCfBwtPIHLaYxsgFfwyCvwh3eJoDycxROH/sFF11a2L9s+gTYQYYhwBwtptFrZFgrSkb4UfvM0u/RbBt036oGyq3KVMmZ6P0S7aTcwdvsLc2NPMbcHHCC6fR3d5hPPClIiiySznX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786422599; c=relaxed/simple;
-	bh=S28ohBK9dXBiLnQQv+dZI37NtJ2g0+ZDJxpqPoLWBS0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LSoY7mzbyI67nNFs3Fl8y6yW8ouNapVmR0f0Hr0nb+aPpfHz2GSS05FUO06dKaKNCq4o9bF6/zFjgkr1b0X1j3LZE9BUMXG7AAsMXCT/lsDhBY1Kn36wE+jxRWji9KSHR9i8FetjhB/LR7nxZ5Kdw+elcXHnZuYihqWN1U1nAYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tK73BcIL; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786423215; c=relaxed/simple;
+	bh=VDvGZpTYevQ5R3CCfvUWng5h/GqJQpVpzq48V+F5T50=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=pdEgtu/HGxKSSVPAehH6IrtvyXvWr1IGIPpY0lMyEDLhGJrLZBaN4I9CH8NUW7vXIyFynNXRs+RMjuNoIdP8VRk0dYjpRjGYsh0N2m3u2mBTpqT5yeQaCESq1ij3xnWvPf1n6ovaozrtgpOhH0/5BMYlH3ADixoxHxOCg8XVKaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ciMMCK8O; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tK73BcIL"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4953de5be0aso18889455e9.0
-        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 21:29:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786422595; x=1787027395; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=GMxhp/GgRpaUt1BU0dy/EFJVLwtZvh0sQQllQJR0VqA=;
-        b=tK73BcILKyNZcITzWDMRI/k3r9FASAM3bDpq3iaVqjo6qz9SAeCD90ynus0qPR3ECD
-         Hxn/TDixvGVgpFmqoIavtu9Ey0LrA6dTiOUxtShRlBREm4YRtzVU1Ed5U8DFFzS/KHFj
-         S5xBF7vmkw/G2gFBJ5uOp4amBFrBlToO4/fdwaIEqlvQwsmxHwnC/qYyW0yzTluOa5co
-         gzOAKF9rhLgf/URUcuunX6fnDp4pwdIIAmeqIQa76h8+MOpOv42m3xTWxZ1Vf9mwB1uB
-         ZQvyG1RviLG7ejXGNMT0y+CeNtyXDFZatIWRWfs5dZsaRu5q9wiJmEB1omrt8zCNkFg8
-         /wyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786422595; x=1787027395;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GMxhp/GgRpaUt1BU0dy/EFJVLwtZvh0sQQllQJR0VqA=;
-        b=PIyfV+6VfZSdCynOX7uYDECmVV2mWnT+ejDstah3jK0nCwTWFuXNMoasgMWrU5KBS5
-         GbFELh5WoQdDBYZbb3gPiwZN29yKuBO3sauvSkkQz6LOCD1Kof/mNi+3omzjWrbLa1Ur
-         MQxClkjEKGDkwmJD/f350zdSZGenLiq3dD5ArUll+xd9viLtmNmHfP6XDCimJ8c/3S1Y
-         cEtzqT4GxOOdYi7WI8MGCzxcvaN2HRV0eR08LbTzYmBg+rPYdo5kdmBmMBguWgEgHyrF
-         eTnwTI94lIeL5H6aYH2IfFe+vGyESvE1Om26G7NYHEnQf5R4gHjeW4ZLRaBhkdClO9EO
-         /7Xw==
-X-Gm-Message-State: AOJu0YxJgOrvqvHe4JHEYY/JOFpJ7YeURgJn0yTQt4DkI3/ajCCz/Cte
-	lLTvMkeODru4kkYrccY+fq7x/Na4LN+0s3Y6GG4Qo+jBx1UuewlZ/ej2
-X-Gm-Gg: AR+sD11KGiGrff0Kyof/MpRJ9Y9Ox4UIRCmyjGlkJdkAUD1B83XqfAQanxlOlGBRAFp
-	+PbyqUa9uL6nO7cduQLIHe7fPK/3UXqLyih+mQe+glRjbm9EwsNXtlYId+g7fQlk69ZK5fJRVJ9
-	s8ZP5p7fYrZ28O+jx0zqY5NgiGZhhFor4hXffG9mzZv73q+qacfBOK+imlP8gxDXTuLcu/5r8k2
-	nR3bx6cbAvCW3/YEEYCJ7n9vOTDSx45O6QUdlX1QNd8rSfqR8bcJxSdokYnrEuj1OhzeSHNarR3
-	CwQT1BVWFmvkpuNU2nfKjuCVyE79jvYTJSvrRoS4ffybQTqN7OYpCrsHZOFiyQ9Q8czwGMTvOSl
-	pS+fODVG7/p2jFv8G9CAK6yCDe2NmtGYJSUa0KEqvsc8a2LgvK56kOfO2FMXMMTny6ZV9mdcDlS
-	a3LIYA5GcfqK1y2Rl4jttF49bV000PtMYNVY8MKo141ZNnD8EbhKJr+Kwqo0wG3kI7u2oElav22
-	ettqR8QsCIRiXivLb6rqFHjP3Mk
-X-Received: by 2002:a05:600c:3553:b0:499:7312:2d5f with SMTP id 5b1f17b1804b1-49978494c8cmr6635375e9.19.1786422595138;
-        Mon, 10 Aug 2026 21:29:55 -0700 (PDT)
-Received: from localhost ([77.237.184.247])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49977e5ace7sm13777145e9.2.2026.08.10.21.29.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 10 Aug 2026 21:29:53 -0700 (PDT)
-Date: Tue, 11 Aug 2026 07:59:47 +0330
-From: Ali Nasrollahi <a.nasrolahi01@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mchehab@kernel.org, Frank.Li@nxp.com, hverkuil+cisco@kernel.org, 
-	guoniu.zhou@oss.nxp.com
-Subject: Re: [PATCH] media: v4l2-core: make number of video devices
- configurable
-Message-ID: <anqic68F2nWjgA1p@zephyr>
-References: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
- <20260810162858.GA3012183@killaraus.ideasonboard.com>
- <anqdNsu7VS63YKOo@zephyr>
- <20260811040459.GE3046075@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ciMMCK8O"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id BB693C2BCC7;
+	Tue, 11 Aug 2026 04:40:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786423214;
+	bh=VDvGZpTYevQ5R3CCfvUWng5h/GqJQpVpzq48V+F5T50=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ciMMCK8OApZuxdhwiRTkSaPNX06IdqlCP4AvKVvRjb7HpS9LTJoOtHenHJjtWYQGA
+	 QUGwgZfylmLDsLW0ikNfTDYhVT5F0eJnQqK86dKQkxwr/6ec9hV0FcTdTt2HNXlwXG
+	 dO0ypvfOr/aCjfL41VL6NJ6c5sUPgtTvHLb9ZpfETcAkp+37uO9Hn2OR93mi79vEpO
+	 Na7ql0gXbZuLxld9pQckg/BcECErA98iiKeYODbYJg/Zw1jd9B4zjhzaIQOl9c7Zjj
+	 gVEg+2k88r/plfEpsek3zcuf0ALfb9ggUw+deX4i7CQpnXR8P/zAqCwXux/3MPlvFh
+	 w7rNnxct1XyPw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9874AC5AD55;
+	Tue, 11 Aug 2026 04:40:14 +0000 (UTC)
+From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
+Date: Tue, 11 Aug 2026 12:40:13 +0800
+Subject: [PATCH] media: ov5640: select the MIPI lane mode from the endpoint
+ lane count
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260811040459.GE3046075@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAKynemoC/x3MTQqAIBBA4avIrBtw+rHoKtHCaqyB0FCQILp70
+ vJbvPdA4iicYFQPRM6SJPgCqhSsh/U7o2zFUOva6IEIQ+5Mq5FO6xkz4aIdNz3bpd0GKNUV2cn
+ 9H6f5fT+GuxsRYQAAAA==
+To: Steve Longerbeam <slongerbeam@gmail.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>, 
+ Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ stable+noautosel@kernel.org, Jason Yang <jason98166@gmail.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786423213; l=3857;
+ i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
+ bh=JLDHPSBzrmch0mGpVQ30kfImnbkVknIlLZhN6P+MA10=;
+ b=8luqWGa83kBbS3u+hSP+wCiAxj72h1IH0Wlkkjig1Hf53dXV5FookHIDpx0DgQ167OwmF33ob
+ rtY73D25TDhAbn2Zc308tOYh7ft1OaKcsuffh1yiqEdwiKALUNiIuKV
+X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
+ pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
+X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
+ auth_id=887
+X-Original-From: Jason Yang <jason98166@gmail.com>
+Reply-To: jason98166@gmail.com
 
-On 26/08/11 07:04AM, Laurent Pinchart wrote:
-> On Tue, Aug 11, 2026 at 07:29:36AM +0330, Ali Nasrollahi wrote:
-> > On 26/08/10 07:28PM, Laurent Pinchart wrote:
-> > > On Mon, Aug 10, 2026 at 07:54:07PM +0330, Ali Nasrollahi wrote:
-> > > > The V4L2 core currently limits the number of registered video devices to
-> > > > 256. This can become a restriction for workloads that create a large
-> > > > number of virtual video devices, such as v4l2loopback instances.
-> > > 
-> > > We don't support v4l2loopback upstream though.
-> > 
-> > Yes, you are correct.
-> > 
-> > But perhaps my description was a bit misleading. The main idea of this
-> > patch is not to support out-of-tree modules by any means, but to allow a
-> > configurable number of V4L2 devices to be created and used, whether
-> > through loopback devices or other means.
-> 
-> Do you have a use case where you're reaching the limit without
-> out-of-tree drivers ?
-> 
+From: Jason Yang <jason98166@gmail.com>
 
-My workloads depend on loopback devices which is how I've reached the
-limit, however I haven't had a usecase with a such number of deivces
-through physical hardware.
+ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
+which selects the two data lane mode: the number of data lanes
+described in the devicetree endpoint only feeds the sensor's clock
+tree computations, so a module wired with one data lane starts
+streaming in two lane mode and the receiver never assembles a
+frame.
 
-> > > > Make the maximum number of video devices configurable through a module
-> > > > parameter. The default and minimum remain at the existing limit of 256,
-> > > > while the maximum is capped at 4096.
-> > > > 
-> > > > The parameter is only available when CONFIG_VIDEO_FIXED_MINOR_RANGES is
-> > > > disabled, as the fixed minor allocation scheme relies on the existing
-> > > > minor ranges.
-> > > > 
-> > > > The device array is allocated according to the configured limit, while
-> > > > the allocation bitmaps remain statically sized to the maximum supported
-> > > > limit of 4096.
-> > > > 
-> > > > Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-> > > > ---
-> > > >  drivers/media/v4l2-core/v4l2-dev.c | 70 +++++++++++++++++++++++-------
-> > > >  1 file changed, 55 insertions(+), 15 deletions(-)
-> > > > 
-> > > > diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> > > > index fd267fb74905..5a526b577970 100644
-> > > > --- a/drivers/media/v4l2-core/v4l2-dev.c
-> > > > +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> > > > @@ -31,7 +31,8 @@
-> > > >  #include <media/v4l2-ioctl.h>
-> > > >  #include <media/v4l2-event.h>
-> > > >  
-> > > > -#define VIDEO_NUM_DEVICES	256
-> > > > +#define VIDEO_MIN_NUM_DEVICES	256
-> > > > +#define VIDEO_MAX_NUM_DEVICES	4096
-> > > >  #define VIDEO_NAME              "video4linux"
-> > > >  
-> > > >  #define dprintk(fmt, arg...) do {					\
-> > > > @@ -39,6 +40,27 @@
-> > > >  		       __func__, ##arg);				\
-> > > >  } while (0)
-> > > >  
-> > > > +static unsigned int video_nr_devices = VIDEO_MIN_NUM_DEVICES;
-> > > > +
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +static int param_set_video_nr_devices(const char *val,
-> > > > +				      const struct kernel_param *kp)
-> > > > +{
-> > > > +	return param_set_uint_minmax(val, kp, VIDEO_MIN_NUM_DEVICES,
-> > > > +				     VIDEO_MAX_NUM_DEVICES);
-> > > > +}
-> > > > +
-> > > > +static const struct kernel_param_ops param_ops_video_nr_devices = {
-> > > > +	.set = param_set_video_nr_devices,
-> > > > +	.get = param_get_uint,
-> > > > +};
-> > > > +
-> > > > +module_param_cb(video_nr_devices, &param_ops_video_nr_devices,
-> > > > +		&video_nr_devices, 0444);
-> > > > +
-> > > > +MODULE_PARM_DESC(video_nr_devices, "Maximum number of V4L2 devices (256-4096)");
-> > > > +#endif
-> > > > +
-> > > >  /*
-> > > >   *	sysfs stuff
-> > > >   */
-> > > > @@ -98,9 +120,14 @@ static struct dentry *v4l2_debugfs_root_dir;
-> > > >  /*
-> > > >   *	Active devices
-> > > >   */
-> > > > -static struct video_device *video_devices[VIDEO_NUM_DEVICES];
-> > > > +#ifdef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +static struct video_device *video_devices[VIDEO_MIN_NUM_DEVICES];
-> > > > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MIN_NUM_DEVICES);
-> > > > +#else
-> > > > +static struct video_device **video_devices;
-> > > > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MAX_NUM_DEVICES);
-> > > > +#endif
-> > > >  static DEFINE_MUTEX(videodev_lock);
-> > > > -static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_NUM_DEVICES);
-> > > >  
-> > > >  /* Device node utility functions */
-> > > >  
-> > > > @@ -504,7 +531,7 @@ static const struct file_operations v4l2_fops = {
-> > > >   * in the video_device array, but it was able to obtain a minor number.
-> > > >   *
-> > > >   * This means that we can always obtain a free stream index number since
-> > > > - * the worst case scenario is that there are VIDEO_NUM_DEVICES - 1 slots in
-> > > > + * the worst case scenario is that there are video_nr_devices - 1 slots in
-> > > >   * use of the video_device array.
-> > > >   *
-> > > >   * Returns a free index number.
-> > > > @@ -513,19 +540,19 @@ static int get_index(struct video_device *vdev)
-> > > >  {
-> > > >  	/* This can be static since this function is called with the global
-> > > >  	   videodev_lock held. */
-> > > > -	static DECLARE_BITMAP(used, VIDEO_NUM_DEVICES);
-> > > > +	static DECLARE_BITMAP(used, VIDEO_MAX_NUM_DEVICES);
-> > > >  	int i;
-> > > >  
-> > > > -	bitmap_zero(used, VIDEO_NUM_DEVICES);
-> > > > +	bitmap_zero(used, VIDEO_MAX_NUM_DEVICES);
-> > > >  
-> > > > -	for (i = 0; i < VIDEO_NUM_DEVICES; i++) {
-> > > > +	for (i = 0; i < video_nr_devices; i++) {
-> > > >  		if (video_devices[i] != NULL &&
-> > > >  		    video_devices[i]->v4l2_dev == vdev->v4l2_dev) {
-> > > >  			__set_bit(video_devices[i]->index, used);
-> > > >  		}
-> > > >  	}
-> > > >  
-> > > > -	return find_first_zero_bit(used, VIDEO_NUM_DEVICES);
-> > > > +	return find_first_zero_bit(used, video_nr_devices);
-> > > >  }
-> > > >  
-> > > >  #define SET_VALID_IOCTL(ops, cmd, op) \
-> > > > @@ -915,7 +942,7 @@ int __video_register_device(struct video_device *vdev,
-> > > >  	int i = 0;
-> > > >  	int ret;
-> > > >  	int minor_offset = 0;
-> > > > -	int minor_cnt = VIDEO_NUM_DEVICES;
-> > > > +	int minor_cnt = video_nr_devices;
-> > > >  	const char *name_base;
-> > > >  
-> > > >  	/* A minor value of -1 marks this video device as never
-> > > > @@ -1020,10 +1047,10 @@ int __video_register_device(struct video_device *vdev,
-> > > >  #else
-> > > >  	/* The device node number and minor numbers are independent, so
-> > > >  	   we just find the first free minor number. */
-> > > > -	for (i = 0; i < VIDEO_NUM_DEVICES; i++)
-> > > > +	for (i = 0; i < video_nr_devices; i++)
-> > > >  		if (video_devices[i] == NULL)
-> > > >  			break;
-> > > > -	if (i == VIDEO_NUM_DEVICES) {
-> > > > +	if (i == video_nr_devices) {
-> > > >  		mutex_unlock(&videodev_lock);
-> > > >  		pr_err("could not get a free minor\n");
-> > > >  		return -ENFILE;
-> > > > @@ -1032,7 +1059,7 @@ int __video_register_device(struct video_device *vdev,
-> > > >  	vdev->minor = i + minor_offset;
-> > > >  	vdev->num = nr;
-> > > >  
-> > > > -	if (WARN_ON(vdev->minor >= VIDEO_NUM_DEVICES)) {
-> > > > +	if (WARN_ON(vdev->minor >= video_nr_devices)) {
-> > > >  		mutex_unlock(&videodev_lock);
-> > > >  		return -EINVAL;
-> > > >  	}
-> > > > @@ -1241,7 +1268,7 @@ static int __init videodev_init(void)
-> > > >  	int ret;
-> > > >  
-> > > >  	pr_info("Linux video capture interface: v2.00\n");
-> > > > -	ret = register_chrdev_region(dev, VIDEO_NUM_DEVICES, VIDEO_NAME);
-> > > > +	ret = register_chrdev_region(dev, video_nr_devices, VIDEO_NAME);
-> > > >  	if (ret < 0) {
-> > > >  		pr_warn("videodev: unable to get major %d\n",
-> > > >  				VIDEO_MAJOR);
-> > > > @@ -1250,11 +1277,21 @@ static int __init videodev_init(void)
-> > > >  
-> > > >  	ret = class_register(&video_class);
-> > > >  	if (ret < 0) {
-> > > > -		unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> > > > +		unregister_chrdev_region(dev, video_nr_devices);
-> > > >  		pr_warn("video_dev: class_register failed\n");
-> > > >  		return -EIO;
-> > > >  	}
-> > > >  
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +	video_devices = kzalloc_objs(*video_devices, video_nr_devices);
-> > > > +	if (!video_devices) {
-> > > > +		class_unregister(&video_class);
-> > > > +		unregister_chrdev_region(dev, video_nr_devices);
-> > > > +		pr_warn("video_dev: failed to allocate video_devices\n");
-> > > > +		return -ENOMEM;
-> > > > +	}
-> > > > +#endif
-> > > > +
-> > > >  	return 0;
-> > > >  }
-> > > >  
-> > > > @@ -1262,8 +1299,11 @@ static void __exit videodev_exit(void)
-> > > >  {
-> > > >  	dev_t dev = MKDEV(VIDEO_MAJOR, 0);
-> > > >  
-> > > > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> > > > +	kvfree(video_devices);
-> > > > +#endif
-> > > >  	class_unregister(&video_class);
-> > > > -	unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> > > > +	unregister_chrdev_region(dev, video_nr_devices);
-> > > >  	debugfs_remove_recursive(v4l2_debugfs_root_dir);
-> > > >  	v4l2_debugfs_root_dir = NULL;
-> > > >  }
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+Select the lane mode from the endpoint instead. The one lane
+encoding is [7:5] = 001 per the current sensor manual (version
+2.33). The 2.03 manual documented 000/001 for one/two lanes;
+OmniVision corrected the table in version 2.1, which is why the
+long-standing comment here found 001 unusable for two lanes and
+validated 010 instead.
+
+The power-up path also programs a two data lane mode, but that
+value is overwritten when streaming starts, so it is left alone.
+
+Tested with a single data lane module on an i.MX8MP board
+(imx-mipi-csis receiver), where the unpatched value produces no
+frames at all, and on an RK3588 board.
+
+Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+Cc: stable+noautosel@kernel.org # no in-tree 1-lane users
+Signed-off-by: Jason Yang <jason98166@gmail.com>
+Assisted-by: Claude:claude-opus-5
+---
+The three [7:5] encodings were exercised individually on the
+i.MX8MP board (v7.2-rc4, data-lanes = <1>) by patching the value
+and capturing with v4l2-ctl:
+
+  001 (this patch): 30/30 frames, zero PHY error events in
+      steady state (3 x 300 frames)
+  000 (2.03 manual / NXP KB): same result
+  010 (unpatched two lane mode): no frames; the receiver logs
+      only start-of-transmission errors and never assembles one
+
+The RK3588 run used the same module and devicetree (data-lanes =
+<1>) through a Rockchip CSI-2 receiver, streaming to natural EOS
+with a clean kernel log.
+
+Happy to run additional tests on either platform if that would
+help.
+---
+ drivers/media/i2c/ov5640.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 8deb5f5501fa..ef731709bdc8 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -1826,27 +1826,27 @@ static int ov5640_set_stream_dvp(struct ov5640_dev *sensor, bool on)
+ 
+ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
+ {
++	u8 val;
+ 	int ret;
+ 
+ 	/*
+ 	 * Enable/disable the MIPI interface
+ 	 *
+-	 * 0x300e = on ? 0x45 : 0x40
+-	 *
+-	 * FIXME: the sensor manual (version 2.03) reports
+-	 * [7:5] = 000  : 1 data lane mode
+-	 * [7:5] = 001  : 2 data lanes mode
+-	 * But this settings do not work, while the following ones
+-	 * have been validated for 2 data lanes mode.
+-	 *
++	 * [7:5] = 001	: 1 data lane mode
+ 	 * [7:5] = 010	: 2 data lanes mode
++	 *		  Encodings per version 2.33 of the sensor manual.
+ 	 * [4] = 0	: Power up MIPI HS Tx
+ 	 * [3] = 0	: Power up MIPI LS Rx
+ 	 * [2] = 1/0	: MIPI interface enable/disable
+ 	 * [1:0] = 01/00: FIXME: 'debug'
+ 	 */
+-	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+-			       on ? 0x45 : 0x40);
++	if (on)
++		val = sensor->ep.bus.mipi_csi2.num_data_lanes == 1 ?
++		      0x25 : 0x45;
++	else
++		val = 0x40;
++
++	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, val);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -2535,7 +2535,7 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
+ 	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
+ 	 *
+ 	 * 0x300e = 0x40
+-	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
++	 * [7:5] = 010	: 2 data lanes mode (see the note in
+ 	 *		  "ov5640_set_stream_mipi()")
+ 	 * [4] = 0	: Power up MIPI HS Tx
+ 	 * [3] = 0	: Power up MIPI LS Rx
+
+---
+base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
+
+Best regards,
+-- 
+Jason Yang <jason98166@gmail.com>
+
+
