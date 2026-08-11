@@ -1,221 +1,380 @@
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7822426EDA
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 09:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439842; cv=pass; b=FHqD+3PukkKlZDozBZeZMAOmUOXmbsQaHC5veA1jmQS6bk25Ayi7ki1aVTWmTkhGMG/JvjX3EsY4rdP2sAw4lqlYeHNLvEjxv99SpDWZWZWjY6tlG0x61IbKtc0XO6g+b8nm9G9P9nCdn7JdTqJd+ZsRqAk7ejyt9lF3DdnLkrY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439842; c=relaxed/simple;
-	bh=KpcqzEH1ePmPvfI72lRYO2R89XBPggH7Y6FsYa5Szgw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NprGgm3RZh19GjoGIQA36/3UcGXkRl1y5lYS9CMihz1zXNc2Z4xZRHpel7leEIrW7KrBdit+d/W8H5qwm4l+WWs0TEdy2z+K2k5FH8PRTE+KlUdzr63hxIn8TuPkpFkuN/0L9leNYF85TXqyzh8SZnJBuN/J/H3gr65MCCo/2fQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VoMqf0I9; arc=pass smtp.client-ip=209.85.208.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A1144229D9;
+	Tue, 11 Aug 2026 09:47:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786441624; cv=none; b=fJTHitweQ3jI+NXC+CfIQ5Qn+4Wjw9Kt0jrrpHsv8s0Gcyg4F6hCHOU9tb2VKdSXQIWYUxyojhDBEPuhuxZmQLkcKDwiicICUyD80Za56xF1UflTNCtljhv8DqIvAH61dMZxUNHL08EB+bapQymz/OFWnK1h7IQQunSg5MqMzfE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786441624; c=relaxed/simple;
+	bh=SMTYumGGj/OlPrilnAWOxWy4+DP0GwV+EuPjKPGpFWM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UEKeBcqWr5Au2Km0wSPJklozq3ZA6+L07L61u9PwX63T9DeQ0Ny6eMUNBnBpg0CR4EsFk+IVmjkPmufuC7WL/Ap3tE04oApLOynsYC7fTnz6lY0XUDOcarIkh0cFUbwsTUILuQrYVTkMSarR3TbNc/tQk8sGcj35RPHX5Vzsaz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=BCR9Oqdt; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VoMqf0I9"
-Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a1541ea780so433200a12.1
-        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 02:17:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786439839; cv=none;
-        d=google.com; s=arc-20260327;
-        b=G+lY/7/yiLP0XILm1Z90EQ3/3qKpQ5wp60/h10QUCllE/ENcocKi1M6u74ECgJqhw2
-         NcWftB5QXm7asqcUJeYwpqFQnS8uFDphdKHt860kavnklzwcYx3J1lGctxxMRPQuPvIV
-         pSnuoc/HTVAg/hNsNOhBS/SfLLQ3A7hWjXhAO9v1zrgwj5RLIpWqnu7Jhfd+hMFsXU+u
-         O0GO5Kxz26zOr1YZSn+4su1O5KwRdptk3T4la048+lM2i8dNErnosk8JzoNcghV0G9lm
-         H8rpAfmZ9jsITR0HHaKXrtdfnIW1+8jc7rz7jsnGTOQsD/I9iId5AJK3JqqxkacTIDI9
-         2Abw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        fh=gUigUlNZaHF+K7lvsvvUXCUxEYTzi/C1Ao9BIlzdDeQ=;
-        b=JmUMyD3ZmymINsO/PCmwcsI3Coz2E3Upmhlxn+fkOd12FBCIfP9rzXOLLsuwPogiAK
-         9gUuST+M4g5uEsiq3B4QLUS5x0QtplABHTdcrSs1fznsk4n2sw2i9U4rVizBhlX9983x
-         H67ymdYuRmMaF+lPiuRrvZwQCmyt1nnrqz+1fjojRfKj9X+r9TbwBuBZDK1qKcLJAsWB
-         WPF+QhN9v7dDFHvU1i0nE7JQlDQflgKMjXrm2+3aczyPOTNDf2r9a0Jmt/Es0otf1Oxd
-         +J3r/7zxvHDsTEVkCPu9ToYV25QCZZBGluUKePE8ODIwRbg95Px2TNlz9razlYI4sPWh
-         S36Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786439839; x=1787044639; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        b=VoMqf0I9Xd3T/MAol2jU17ncYvWKokfKYadQotnUa16IV2UV9vKpPpjfIndl8WOpWZ
-         9WCvF9bG8wSGx7/5WbUzOD0I/cQy1Uq4Zl5ykzQGzecgavEGlRMS1ckyCFtwjENofGsK
-         kRBhHnXAt906oho/fjrfknnDb065GmvG+1dCnYR6BY3jbTG54BkJL/aVhfr0j8+K5uwB
-         W0Q8PSZiC945GuKE3nPwzRYN6fY6athktyMlpvNPXP3WLeaJTwLC3ujK/yDz/dnnJzpv
-         sFSPSgfWjVx4YSv9Bx5y3wgVxfYIh/lqZDjIJp6m9z7ieTcfHB4XZ+kKnPLoR1THGrhG
-         Yiew==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786439839; x=1787044639;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hZSuQ7916Bf9+Y+2gxJN3rLoU22x89w0ikU47PZS+4I=;
-        b=QLfaFtAGgtImRXFu4Ev/zKY8IVP3x5h94tt0g6uLu5zs11y+1c79RBo23L0bZuBn1b
-         Yy5y+GCt4mRge253J+U66k6ldD8G2YIoZKBgtUduziYbKxPCt+PnNRF3ful/6Dib3KbO
-         RjlDyXQsjBH1lMxvl9ciGmnItxw++TE3aMs68e8xrzY30+76odlsmbRkL2mFlGd6OSJE
-         SCjnPcLt5Jlo3xFy1vQb9yFfNYoJixyIhyIyVjdRufrmki5KEfRre/goyLs96fpu3KdA
-         O591DNAwIz8qf9DGHtKBM5FBI+fEeCNvMNqyRTgkTCkl4QK1KRiRPAn3hfTBpndrX04+
-         ZIDA==
-X-Forwarded-Encrypted: i=1; AHgh+RpGoDQNTamIIl4r4Fo6N/zECKBWWxYwanXK8xEsx/oQkrtSGOXR6p6su7qsPxt2iTGdIsN0YR2zVgHBAw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxbrur1IaRZGlAgzPcyQ/JAp1omag3NnQwvCL8/Gdl7RUnhIuf9
-	XOuB9kV02G6AIxZuSse8Y42hPlryr/wNG5MjPfud8QlYgI1OTAeDh4IuoH1/HFkHfucq7xD4GE5
-	HTxSYW3UfG15t0reYgbnFvAKzG0B/KZg=
-X-Gm-Gg: AR+sD10gwkkZ1DafofVnrzAqE7EGUadabeRxZKwCospvfX8/R2qTZA/Oe5o2zI8NLFy
-	K9Q/CfwOssZPV5iFczJJ1sJWQuWdBR/RlExSil0lnP39LSexjaPOrl61OPR7aXxHgd8RK/EUYw+
-	+skfeIIZaGSiSORDu0Wtv/D9cmi1oc/YO9XLkfHMFzpUPrSqmWyHVkMoxTBwZ6d1IMVP3aT87q9
-	JDYQpAF8pZvs4SWjcKIm55l4BzXhiUB6UIiCaPrFqy5vgA0Rknbz696aRvKESt9k/09tjqOyt2F
-	1qfBnl3CXvmZJ9auX/zkLzD80r/QM4n1qt9TU5OZUSQ=
-X-Received: by 2002:a05:6402:3507:b0:69c:794d:4866 with SMTP id
- 4fb4d7f45d1cf-6a36451210amr549230a12.4.1786439838260; Tue, 11 Aug 2026
- 02:17:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="BCR9Oqdt"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hK6GP0vQxzKvtK;
+	Tue, 11 Aug 2026 11:46:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786441613; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=SMTYumGGj/OlPrilnAWOxWy4+DP0GwV+EuPjKPGpFWM=;
+	b=BCR9OqdtTaUXm0vE502KFCqwdcDiSiT4Q+ezpZNXBa3pic7Y338q7lcYh+jWKnxTfw9qV/
+	x6yuHxdxMUf+Tj7N14LMsqHOehJ2RXbAvULtS3YPpPD1EpJiFiYDIkgwZs1/dJFIuOPtbd
+	CT7KOPGgqu59ScY1c46eJE2Ae96PY2MuHASAdC2K6lkSzYYMtxbfD/56/uyFlbyCHMg+dK
+	JN38DN8gpJycQ8hkEOfkKVJSvxOy/KooMu38oHAwFjv/0Wv0T//XhoBdKN4/MdQPdn4Lxd
+	leEW/lsl1OzNdC53/t8PLiK8CImfAet0rJeDPkR/ef3tOgt/5TYyJqa2sCvBxg==
+Message-ID: <43fe1fd5e88ac7dda08f522346cfa39ec58006bc.camel@mailbox.org>
+Subject: Re: [PATCH v9 4/5] rust: Add dma_fence abstractions
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Gary Guo <gary@garyguo.net>, Philipp Stanner <phasta@kernel.org>, Miguel
+ Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	 <bjorn3_gh@protonmail.com>, Benno
+ Lossin <lossin@kernel.org>, Andreas Hindborg	 <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross	 <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Daniel Almeida	
+ <daniel.almeida@collabora.com>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=
+ <work@onurozkan.dev>, Sumit Semwal	 <sumit.semwal@linaro.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Lyude Paul
+ <lyude@redhat.com>, "Paul E. McKenney"	 <paulmck@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Neeraj Upadhyay
+ <neeraj.upadhyay@kernel.org>, Joel Fernandes <joelagnelf@nvidia.com>, Josh
+ Triplett	 <josh@joshtriplett.org>, Uladzislau Rezki <urezki@gmail.com>,
+ Steven Rostedt	 <rostedt@goodmis.org>, Mathieu Desnoyers
+ <mathieu.desnoyers@efficios.com>,  Lai Jiangshan <jiangshanlai@gmail.com>,
+ Zqiang <qiang.zhang@linux.dev>, Greg Kroah-Hartman	
+ <gregkh@linuxfoundation.org>, Asahi Lina <lina+kernel@asahilina.net>, Burak
+ Emir <bqe@google.com>, Lorenzo Stoakes <ljs@kernel.org>, FUJITA Tomonori	
+ <fujita.tomonori@gmail.com>, Eliot Courtney <ecourtney@nvidia.com>, Mirko
+ Adzic	 <adzicmirko97@gmail.com>, Timur Tabi <ttabi@nvidia.com>, Daniel del
+ Castillo	 <delcastillodelarosadaniel@gmail.com>, Boris Brezillon	
+ <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	linaro-mm-sig@lists.linaro.org, rcu@vger.kernel.org
+Date: Tue, 11 Aug 2026 11:46:36 +0200
+In-Reply-To: <DKHWVRYDD28C.3H5R8CKLZ3035@garyguo.net>
+References: <20260805145949.938505-2-phasta@kernel.org>
+	 <20260805145949.938505-6-phasta@kernel.org>
+	 <DKHWVRYDD28C.3H5R8CKLZ3035@garyguo.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com> <cff4de4b-3a94-4a5d-acb9-726939a75791@oss.qualcomm.com>
-In-Reply-To: <cff4de4b-3a94-4a5d-acb9-726939a75791@oss.qualcomm.com>
-From: =?UTF-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
-Date: Tue, 11 Aug 2026 17:17:06 +0800
-X-Gm-Features: AUfX_mwvAcly8I6-88t7WFFW5unFKbTgdsOtp3Ivfbg8asrINcSNy_rjnatdgIY
-Message-ID: <CAPwA33KyHsKm2U40n-i=tnoYBcJJHBmSufBxNUKO8tDEP8VfUg@mail.gmail.com>
-Subject: Re: [PATCH v3] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
-To: johannes.goede@oss.qualcomm.com
-Cc: Steve Longerbeam <slongerbeam@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil@kernel.org>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MBO-RS-ID: 2e84bd00eabb74370c6
+X-MBO-RS-META: cmorqhb7w3gby9wj56qptq968e5d46eh
 
-Hi Hans,
+On Thu, 2026-08-06 at 14:56 +0100, Gary Guo wrote:
+> On Wed Aug 5, 2026 at 3:59 PM BST, Philipp Stanner wrote:
+> >=20
 
-Thanks for the review.
+[=E2=80=A6]
 
-> Only changing the low nibble for on / off and always setting the correct
-> lane count.
+(feel free to crop huge mails like this)
 
-You're right, that is more consistent - applied exactly as you
-wrote it in v4.
 
-Regards,
-Jason
+> > +/// Error type for fence callback registration.
+> > +///
+> > +/// Generic over `T` so that `AlreadySignaled` can return the callback=
+ to the
+> > +/// caller, allowing it to reclaim any resources owned by the callback=
+ (e.g.,
+> > +/// a fence handle that needs to be signaled).
+> > +#[derive(Debug)]
+> > +pub enum CallbackError<T =3D ()> {
+>=20
+> What is this `=3D ()` used for?
 
-<johannes.goede@oss.qualcomm.com> =E6=96=BC 2026=E5=B9=B48=E6=9C=8811=E6=97=
-=A5=E9=80=B1=E4=BA=8C =E4=B8=8B=E5=8D=884:57=E5=AF=AB=E9=81=93=EF=BC=9A
+A relic, can remove.
 
->
-> Hi,
->
-> On 11-Aug-26 09:30, Jason Yang via B4 Relay wrote:
-> > From: Jason Yang <jason98166@gmail.com>
-> >
-> > ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-> > which selects the two data lane mode: the number of data lanes
-> > described in the devicetree endpoint only feeds the sensor's clock
-> > tree computations, so a module wired with one data lane starts
-> > streaming in two lane mode and the receiver never assembles a
-> > frame.
-> >
-> > Take the lane mode from the endpoint instead. The field encodes
-> > the lane count directly - 001 for one lane, 010 for two - per the
-> > current sensor manual (version 2.33). The 2.03 manual documented
-> > 000/001 for one/two lanes; OmniVision corrected the table in
-> > version 2.1, which is why the long-standing comment here found 001
-> > unusable for two lanes and validated 010 instead.
-> >
-> > The power-up path also programs a two data lane mode, but that
-> > value is overwritten when streaming starts, so it is left alone.
-> >
-> > Tested with a single data lane module on an i.MX8MP board
-> > (imx-mipi-csis receiver), where the unpatched value produces no
-> > frames at all, and on an RK3588 board.
-> >
-> > Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Jason Yang <jason98166@gmail.com>
-> > Assisted-by: Claude:claude-opus-5
-> > ---
-> > Changes in v3:
-> > - Inline the lane count in the write instead of going through a
-> >   local variable (Sakari Ailus).
-> > - Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-6=
-5205ae86feb@gmail.com
-> >
-> > Changes in v2:
-> > - Compute the register value from the lane count in the single
-> >   write instead of branching on it (Sakari Ailus), with the count
-> >   in a local variable to stay within 80 columns; the programmed
-> >   values are unchanged, 0x25 for one lane and 0x45 for two.
-> > - Request a normal stable backport rather than opting out of
-> >   AUTOSEL (Sakari Ailus).
-> > - Drop the quotes around the function name in the reference from
-> >   ov5640_set_power_mipi() (Sakari Ailus).
-> > - Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-7=
-9699457ce13@gmail.com
-> > ---
-> >  drivers/media/i2c/ov5640.c | 18 ++++++------------
-> >  1 file changed, 6 insertions(+), 12 deletions(-)
-> >
-> > diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-> > index 8deb5f5501fa..18c3bb5498f8 100644
-> > --- a/drivers/media/i2c/ov5640.c
-> > +++ b/drivers/media/i2c/ov5640.c
-> > @@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640=
-_dev *sensor, bool on)
-> >       /*
-> >        * Enable/disable the MIPI interface
-> >        *
-> > -      * 0x300e =3D on ? 0x45 : 0x40
-> > -      *
-> > -      * FIXME: the sensor manual (version 2.03) reports
-> > -      * [7:5] =3D 000  : 1 data lane mode
-> > -      * [7:5] =3D 001  : 2 data lanes mode
-> > -      * But this settings do not work, while the following ones
-> > -      * have been validated for 2 data lanes mode.
-> > -      *
-> > -      * [7:5] =3D 010  : 2 data lanes mode
-> > +      * [7:5]        : data lane count, 001 for one lane and 010 for t=
-wo,
-> > +      *                per version 2.33 of the sensor manual
-> >        * [4] =3D 0      : Power up MIPI HS Tx
-> >        * [3] =3D 0      : Power up MIPI LS Rx
-> >        * [2] =3D 1/0    : MIPI interface enable/disable
-> >        * [1:0] =3D 01/00: FIXME: 'debug'
-> >        */
-> >       ret =3D ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-> > -                            on ? 0x45 : 0x40);
-> > +                            on ? 0x5 | sensor->ep.bus.mipi_csi2.num_da=
-ta_lanes << 5 :
-> > +                            0x40);
->
-> You're writing 0x40 aka 2 lines now when turning the sensor off in 1 line=
- mode.
->
-> I believe this should be:
->
->         ret =3D ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
->                                sensor->ep.bus.mipi_csi2.num_data_lanes <<=
- 5 |
->                                (on ? 0x05 : 0x0));
->
-> Only changing the low nibble for on / off and always setting the correct
-> lane count.
->
-> Regards,
->
-> Hans
->
->
->
+>=20
+> > +=C2=A0=C2=A0=C2=A0 /// The fence was already signaled. The callback is=
+ returned so the caller
+> > +=C2=A0=C2=A0=C2=A0 /// can extract owned resources without losing them=
+.
+> > +=C2=A0=C2=A0=C2=A0 AlreadySignaled(T),
+> > +=C2=A0=C2=A0=C2=A0 /// Some other error occurred during registration.
+> > +=C2=A0=C2=A0=C2=A0 Other(Error),
+> > +}
+> > +
+> > +impl<T> From<CallbackError<T>> for Error {
+>=20
+> #[inline]
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn from(err: CallbackError<T>) -> Self {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 match err {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cal=
+lbackError::AlreadySignaled(_) =3D> ENOENT,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Cal=
+lbackError::Other(e) =3D> e,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> > +impl<T> From<AllocError> for CallbackError<T> {
+>=20
+> #[inline]
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn from(e: AllocError) -> Self {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 CallbackError::Other(Error:=
+:from(e))
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +pub trait FenceCallback: Send + 'static {
+> > +=C2=A0=C2=A0=C2=A0 /// Called when the fence is signaled.
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// This is called from the fence signaling path, w=
+hich may be in interrupt
+> > +=C2=A0=C2=A0=C2=A0 /// context or with locks held, which is why `self`=
+ is only borrowed, so that
+> > +=C2=A0=C2=A0=C2=A0 /// it cannot drop. Implementations must not sleep =
+or perform
+> > +=C2=A0=C2=A0=C2=A0 /// long-running operations.
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// An implementation likely wants to inform itself=
+ (e.g., through a work item)
+> > +=C2=A0=C2=A0=C2=A0 /// within this callback that the associated [`Fenc=
+eCallbackRegistration`]
+> > +=C2=A0=C2=A0=C2=A0 /// can now be dropped.
+> > +=C2=A0=C2=A0=C2=A0 fn called(&mut self);
+>=20
+> The name feels a bit awkward to me. I think this should either look like =
+an
+> action on the callback, in which case "call" or describe an event on the =
+fence,
+> i.e. "on_signal" or "signaled". Naming it "called" is very weird because =
+it's
+> not a event that is triggered when something is "called".
+
+on_signal() sounds good.
+
+>=20
+> > +}
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +#[pinned_drop]
+> > +impl<T: FenceCallback> PinnedDrop for FenceCallbackRegistration<T> {
+> > +=C2=A0=C2=A0=C2=A0 fn drop(self: Pin<&mut Self>) {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // Always call dma_fence_re=
+move_callback, even if `callback` has already
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // been taken by `dma_fence=
+_callback`.=C2=A0 This is necessary for
+>=20
+> Is this still up-to-date? You're not taking callback anymore in
+> `dma_fence_callback`.
+
+The comment is outdated, but the race prevention is still necessary.
+I'll update the text.
+
+>=20
+> >=20
+
+[=E2=80=A6]
+
+> > +impl Deref for FenceGuard {
+> > +=C2=A0=C2=A0=C2=A0 type Target =3D *mut bindings::dma_fence;
+>=20
+> Why not store and return `&Fence`?
+
+Sounds good, although it would be cool if the FenceGuard directly
+derefs to the raw pointer, since the need for accessing the latter with
+the lock held is the reason the guard exists.
+
+>=20
+> > +
+> >=20
+
+[=E2=80=A6]
+
+>=20
+> #[inline] here and many more below.
+
+I do not understand the Rust policy regarding inline at all. When do
+you need it and when not?
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 fn lock(&self) -> FenceGuard {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let mut guard =3D FenceGuar=
+d {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 inn=
+er: self.as_raw(),
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 fla=
+gs: 0,
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 };
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid=
+ because `self` is valid. `flag_ptr` is
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // merely a pointer to an i=
+nteger, whose lifetime is tied to the guard
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // object.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_fenc=
+e_lock_irqsave(guard.inner, &raw mut guard.flags) };
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 guard
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /// Get the fence's sequence number.
+> > +=C2=A0=C2=A0=C2=A0 pub fn seqno(&self) -> u64 {
+
+inline?
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Valid because `s=
+elf` is valid.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { (*self.as_raw()).s=
+eqno }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 fn as_raw(&self) -> *mut bindings::dma_fence {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 self.inner.get()
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0 /// Create a [`Fence`] from a raw C [`bindings::dma=
+_fence`].
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// # Safety
+> > +=C2=A0=C2=A0=C2=A0 ///
+> > +=C2=A0=C2=A0=C2=A0 /// `ptr` must point to an initialized fence that i=
+s embedded into a [`Fence`].
+> > +=C2=A0=C2=A0=C2=A0 pub unsafe fn from_raw<'a>(ptr: *mut bindings::dma_=
+fence) -> &'a Self {
+
+inline?
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: Safe as per the =
+function's overall safety requirements.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { &*ptr.cast() }
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+
+In C, we spent literally decades to get it out of people's heads to use
+the inline keyword, because "the compiler knows better than you". It
+should only be used for code in headers (and I even think that there
+should not be code in headers).
+
+What is the Rust equivalent?
+
+
+> > +
+> >=20
+
+[=E2=80=A6]
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid=
+ because `self` is valid. The lock must be
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // held, which we acquired =
+directly above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if !unsafe { bindings::dma_=
+fence_test_signaled_flag(*fence.deref()) } {
+>=20
+> These `*fence.deref()` are quite weird as consequence of `FenceGuard` des=
+ign.
+> If `FenceGuard` just derefs to `&Fence` then this can be `fence.as_raw()`=
+.
+
+True; it's good to fix this.
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if =
+let Err(err) =3D res {
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `fence` is valid because `self` is valid. =
+The fence
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 // must not have been signaled yet, which we check di=
+rectly above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::dma_fence_set_error(*fence.deref()=
+, err.to_errno()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+SAFETY: `fence` is valid because `self` is valid. The lock must
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // =
+be held, which we acquired above.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 uns=
+afe { bindings::dma_fence_signal_locked(*fence.deref()) };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > +
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `self.data` is v=
+alid because `self` is valid.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let fctx =3D unsafe { self.=
+data.as_ref().fctx };
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 let _ =3D fctx.nr_of_unsign=
+aled_fences.fetch_sub(1, Relaxed);
+>=20
+> Drop impl of `self` here will neededlessly take lock again before checkin=
+g it's
+> signaled already and unlock.
+
+Yes, I know.
+So? What could we do about it?
+
+We need to take the lock when signaling, and we need to take it when
+dropping to check if everyone was kind and did indeed signal before.
+
+What you describe is a lock-relock on the same CPU, and it is unlikely
+that there are contenders (only contender right now could be
+Fence::is_signaled(), which is nothing upcoming users will poll
+intensively).
+
+tl;dr I don't see a problem with that
+
+>=20
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> >=20
+
+[=E2=80=A6]
+
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // SAFETY: `call_rcu()` is =
+always safe to be called. `rcu_head_ptr` was
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // created validly above. T=
+he module must perform a `synchronize_rcu()`
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 // or `rcu_barrier()` call =
+to guard against module unload.
+> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsafe { bindings::call_rcu=
+(rcu_head_ptr, Some(drop_driver_fence_data::<T>)) };
+>=20
+> I thought at some point it was mentioned that we want a fast path
+>=20
+> =C2=A0=C2=A0=C2=A0 if !mem::needs_drop::<...>() {
+> =C2=A0=C2=A0=C2=A0 }
+
+True. Added it.
+
+>=20
+> ?
+>=20
+> > +=C2=A0=C2=A0=C2=A0 }
+> > +}
+> > +
+
+
+Regarding all your nits and comments I skipped above, I agree with them
+for the most part and will address them in v10.
+
+
+P.
