@@ -1,114 +1,293 @@
-Received: from smtpbgau1.qq.com (smtpbgau1.qq.com [54.206.16.166])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89C2E28488F;
-	Tue, 11 Aug 2026 01:57:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.206.16.166
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C2B37F307
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 03:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786413445; cv=none; b=W73dYJMQYq/TMGyhIehKD4mPVIkFgOCAa3fzbuONXnU23CzX+vDZv//ATNvUl/Ob5nk+/PPytpxSWu/y6IIVmkh8XK+wF5jflsUmEwdBaQXAmRwwFxCUfx+TgJhwOlY4wEa/x/0yYgzZi71UQyx3NNQkJW8vKc2efLZHoifOkqg=
+	t=1786420791; cv=none; b=BDfjShRskPcE03ozMXDDJfYvbpB+WyuiQgalJYirG9yEuS8hoMnPlkSQ5Dpl1HLtshKE2SCLu8VTW+rgfW3+D/Ub0OClahlcJwfvU/OUQD/FtMYfsSk2cKCUwg7+k6PKCF6/n4nqA670oupmrZIC7w0KUim7BsVclFujNZUs9ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786413445; c=relaxed/simple;
-	bh=e1gqOZxEDv1kDj/6cj2ccj2uSN4ZY4HZ7E76W7ZMh2Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aEz+ci5qnlaxh6acX0CEzDwCZcDkv8auqFqD9DjCQ2nZZXKX+dscOl4hNFnsdPN/NdRiVBovN+N7c26uLdr6QqmiEfemsxPCQaniRO5qAqrnGha2eC+rig3M+kdsPeMiVI1jGQYzpV9k8n9zUylaHt4sCr3UXNY68X8YRG6mxXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=BpMzMtdK; arc=none smtp.client-ip=54.206.16.166
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1786420791; c=relaxed/simple;
+	bh=xiVDGWTEDmU1Wiq18KKoNLhZmIsnKRZUa9Y+ikLcILg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fw6WU7Ho+8GXdNGWPwgbhil9lMy1NGL88v8tpSKnFsumxOzXmY+BTUGdBKHgVoU3HpFrb8za2e7unkmUBIFzJGLnGwe8XuZqw8NQGrMdG1rWUnbMyXr4XO0CGS4TRHfaGvx52vXsAmXZBmWOxhS5sEA7ahYSOniGFeHOJ7/w8y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jkpfmzTV; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="BpMzMtdK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1786413407;
-	bh=KXc1/qLa28tfbtPy8EDMIsswqOngERVeaBjC8Qpywyk=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=BpMzMtdKIiPvZfUfUTgl56Xzjn63zhZnXThuoMFRAMjMWzazEeHgQMQ+zSXcpf1D2
-	 0azNj1IqMCC3ND13E1U0WJT1DWT1lMzhP9B+JZy7VTRg1su8pbZPpLLV5gTLGnzGeA
-	 McY7c8JM2zVPXa7Rm/pTEWCFXuXQICc11DL8s/yo=
-X-QQ-mid: esmtpsz10t1786413390t9ca42b5e
-X-QQ-Originating-IP: XPXm+OilYtbG7Qd8jrnI7ThGFpdpndmqxGyKl8erAT0=
-Received: from PEN202512010004 ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Tue, 11 Aug 2026 09:56:28 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 7480406507912225365
-EX-QQ-RecipientCnt: 8
-From: raoxu <raoxu@uniontech.com>
-To: mchehab@kernel.org
-Cc: hverkuil+cisco@kernel.org,
-	laurent.pinchart@ideasonboard.com,
-	jacopo.mondi@ideasonboard.com,
-	kees@kernel.org,
-	raoxu@uniontech.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: m2m-deinterlace: fix default capture field
-Date: Tue, 11 Aug 2026 09:52:22 +0800
-Message-ID: <2F5126811A6B9396+20260811015222.3467910-1-raoxu@uniontech.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jkpfmzTV"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49553515a8bso40175645e9.1
+        for <linux-media@vger.kernel.org>; Mon, 10 Aug 2026 20:59:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786420787; x=1787025587; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=HKFgRZj/2i5Z0qiAnZwPZtS8KLmwU9/bQbhWxuzTWnw=;
+        b=jkpfmzTVmwg0UQSjkTTrnKZ+pU8UW7ZzQlYawHUH5jFkXAFjlD7KtimEEBsA9b/pU5
+         8sgqpfgrIbBRV0JIE5JF4lH7E/I1kaKE/U6QZWYhxr1t2jPc09Vbi1GmWZvHYdYDNJNX
+         SK1Jk0kzIJHA2pVBLy6ZU5pJ88Br3vaRmGbBcClwMWkjetsca2C0oTUPq7NK1OXLVzPk
+         g/QCF4FRIKsdu3IAZnJPUXNL5AmAzxO2mSI6zUaR5Mh2RIw0FDiGzvX6EfmxdEaefKhn
+         77ogwLJobA9xC0T2a+pXXYLqGV9pLO2sDaaTogQgr0IGvVPhHjqivj+g0qC75X2TQ3dx
+         dHxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786420787; x=1787025587;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=HKFgRZj/2i5Z0qiAnZwPZtS8KLmwU9/bQbhWxuzTWnw=;
+        b=D/KyFWiM1CMbxL8CvTznDv6utH/kFcfGD7sEgTiT/Ux9ujiLLY5AVkyheQmGImDiQh
+         ZOZWdfSHXGZvxDg439eQGvZ8x3W4I5yhvNwWvWRaciZOR+jDyc/FiXO9Gtf4IpusRo6X
+         rYZ6belan+kj1Al2cZ/9tp23zKDbVFkqV3FXRnYMAR5CT4MaociTWzviVvBPR5vNS/yB
+         7arPijk1wPofeX6SeCxA52YXkROJgKSZ/sFvN9DCtboE+semlMkCKAmwBUy8WMRV8grC
+         7ahlg7pt3YoBFgo/hZkS8fXpDMbX0nEax1i7NmK+VTTlBTs2Y4YRKRs7u1Gyokos+0rx
+         yjwg==
+X-Gm-Message-State: AOJu0YwL8kWgyInpUTAHnUYo3/aTOz3omjMikGY+KWeVR676xqibzVRY
+	XErV8pXH/l8YXZrokCnaBcyfrbfISvZs6WCNgIywrylNGjfG9siimz6n
+X-Gm-Gg: AR+sD12+pgc7EsmHUqbLzmOWvo5/z+IR77DOwwUnuwibzs9oC2k4PBQZBV9SYO9nHv9
+	eCCtpxQ2LPXgZoZj0ak+fQgsN5SRCX/BEVnG+NhNnL2IvAW1Ud71W/GO3668U5SbAYhZ6m4es75
+	cN+uy3sgQvH2nlVr5c64aaLlBkEzpqo1x7pqKWhgak9qth+C3RPYB2JAef94jA05WCM5FjEKPt2
+	JWyhejX9olt4Hj+GoANuodb6vgQ7A9feWsqAH4t1hQwfcrBa+PFwf9sLBfAl8A3aNLBBRJuYwmI
+	2+I6N6Hm2uJEicsYvKygu0VAsRQuuGtw7v6zubHpMa00e/L5JHzv3TGuedvNP/T5MQD9Pj70yDi
+	kT0J+2QQRA9ceAX483rLcdtvqwl5AG+IDed2W7ZFoT+ti/SCISWL7GSMIcJdOV+w69KyJzHVJzV
+	cKY7gOsFeD+XBvsY7JRaS5PPRA9MBwDpPQq27izxYf2wohsReb5EqGALaMExssOTnOQSGqCRhGd
+	5L4r8a/ZDIJOvEQpkTeNh4=
+X-Received: by 2002:a05:600c:3b0c:b0:499:48bb:417e with SMTP id 5b1f17b1804b1-4997842c0a1mr6227645e9.2.1786420787114;
+        Mon, 10 Aug 2026 20:59:47 -0700 (PDT)
+Received: from localhost ([77.237.184.247])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49977e641d1sm18510195e9.3.2026.08.10.20.59.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 10 Aug 2026 20:59:46 -0700 (PDT)
+Date: Tue, 11 Aug 2026 07:29:36 +0330
+From: Ali Nasrollahi <a.nasrolahi01@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	mchehab@kernel.org, Frank.Li@nxp.com, hverkuil+cisco@kernel.org, 
+	guoniu.zhou@oss.nxp.com
+Subject: Re: [PATCH] media: v4l2-core: make number of video devices
+ configurable
+Message-ID: <anqdNsu7VS63YKOo@zephyr>
+References: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
+ <20260810162858.GA3012183@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz6b-0
-X-QQ-XMAILINFO: NrJHW3hvBPkCqRXkG1WFzJwP5gYMs4+g3YWkJUW07InEda8VUWK2j0Zh
-	Sw7IybapjZ+jPVku88qtAAfucjW8w0xTVIylVErXf5EyS0vmFJwBUXGb0tO1GQimdPtH5R6
-	pHfHMC+rEJrspmAEDa0oAzRhQWHQNyuuY3pUKjATzCPWE+4Jm0zAj9umdG7f7hVNzC9cYyt
-	V/LmKEChzbckdTspDxLeE9qyIM+fz87KpaMVaSaU8flt4JXF7LZt8zHt+pLuxuWr0kTDWM7
-	U9ezUczd1/CKSCMuPUw3OqT3Dp8G6STqEZcbYFuopwL0vYLEITGW3Usf9IJj/2q8rTlHkVF
-	CcztTgkGiNa+taWM7DNzN4HLOcalbiOcGLJ8rycbXvQWVUV+WpjEoRQZlooo7yDQ86Kz4KX
-	bcXFTJq4ZMJ4A0MllPQlwEKvX1mPE2YftGt/FhtwCBTvwh5z+Hl7j0rwl7w5kL5hg8upZaB
-	cQJkEInMr9CYZMCdtriQ5HSravZ+nsqdjMP3r4AIk5IyQU/Xs+qC5kdtPgLchwxjjKm/R17
-	+E/If2doDLIiplXydy9IKQxnztk9JCPo0vN1WxCSnGIMZ0cAGmh3QPz6GVagTN89487VD69
-	Il2XA/TIpjmNvJgxWpRERMB8tDmKB9jCABL0g65t6Dsr4rp36A4+vK85yMHJvVl4pTiRWHc
-	Comawlc9CpL5qgN75sWWGaOBKe/2SJxujsVF9rr6ZwIDSj+xeiUR6h7aPLTDKNicuSCYTIv
-	qHLywq2tVsgqClH4xmMkHP36fcPcwnP0UQUkr5dc1MThARIwtbSzmachy+wwABGPP2YeUsI
-	UMXA4uetDAzCcXILrvDb4bHwe2/dtmzAafarzqThd5me2ajaArlKcHSAOitqmFyyhovqDM5
-	uMbaPi1JeBFLRyeLcka37E4fRiy3JTLwNiq+4YBP8kIyiJuUJvMHIrF2wIGN2JtOaZVG+xB
-	aygYH7bU3lXL15nJswgtIfMO0yKgaXP7DdiZqgTcgj5eSb86scZM0259RsFXB5njHxjhyh3
-	5aTmj2NyNAPvs7OPeEGrTXPlnnOITm5JLsESt2jg==
-X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260810162858.GA3012183@killaraus.ideasonboard.com>
 
-From: Xu Rao <raoxu@uniontech.com>
+On 26/08/10 07:28PM, Laurent Pinchart wrote:
+> On Mon, Aug 10, 2026 at 07:54:07PM +0330, Ali Nasrollahi wrote:
+> > The V4L2 core currently limits the number of registered video devices to
+> > 256. This can become a restriction for workloads that create a large
+> > number of virtual video devices, such as v4l2loopback instances.
+> 
+> We don't support v4l2loopback upstream though.
+> 
 
-queue_init() initializes default formats for both the source and capture
-queues.  It first sets the source field to V4L2_FIELD_SEQ_TB, but then
-stores the capture default, V4L2_FIELD_INTERLACED_TB, in the source queue
-again while initializing the capture queue.
+Yes, you are correct.
 
-This overwrites the valid source default and leaves the capture field at
-its zero-initialized value, V4L2_FIELD_ANY.  vidioc_streamon() accepts
-only V4L2_FIELD_SEQ_TB or V4L2_FIELD_SEQ_BT on the source queue, and
-requires the capture queue to use a compatible interlaced or NONE field.
-Userspace that relies on the default formats can therefore get -EINVAL
-when starting streaming.
+But perhaps my description was a bit misleading. The main idea of this
+patch is not to support out-of-tree modules by any means, but to allow a
+configurable number of V4L2 devices to be created and used, whether
+through loopback devices or other means.
 
-Initialize the capture field instead.  The bug is usually hidden because
-mem2mem applications commonly call S_FMT on both queues before streaming;
-the TRY_FMT paths normalize the fields and S_FMT overwrites q_data[].field.
 
-Fixes: 8f0755c06b90 ("[media] media: Add mem2mem deinterlacing driver")
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
----
- drivers/media/platform/m2m-deinterlace.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> > Make the maximum number of video devices configurable through a module
+> > parameter. The default and minimum remain at the existing limit of 256,
+> > while the maximum is capped at 4096.
+> > 
+> > The parameter is only available when CONFIG_VIDEO_FIXED_MINOR_RANGES is
+> > disabled, as the fixed minor allocation scheme relies on the existing
+> > minor ranges.
+> > 
+> > The device array is allocated according to the configured limit, while
+> > the allocation bitmaps remain statically sized to the maximum supported
+> > limit of 4096.
+> > 
+> > Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
+> > ---
+> >  drivers/media/v4l2-core/v4l2-dev.c | 70 +++++++++++++++++++++++-------
+> >  1 file changed, 55 insertions(+), 15 deletions(-)
+> > 
+> > diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
+> > index fd267fb74905..5a526b577970 100644
+> > --- a/drivers/media/v4l2-core/v4l2-dev.c
+> > +++ b/drivers/media/v4l2-core/v4l2-dev.c
+> > @@ -31,7 +31,8 @@
+> >  #include <media/v4l2-ioctl.h>
+> >  #include <media/v4l2-event.h>
+> >  
+> > -#define VIDEO_NUM_DEVICES	256
+> > +#define VIDEO_MIN_NUM_DEVICES	256
+> > +#define VIDEO_MAX_NUM_DEVICES	4096
+> >  #define VIDEO_NAME              "video4linux"
+> >  
+> >  #define dprintk(fmt, arg...) do {					\
+> > @@ -39,6 +40,27 @@
+> >  		       __func__, ##arg);				\
+> >  } while (0)
+> >  
+> > +static unsigned int video_nr_devices = VIDEO_MIN_NUM_DEVICES;
+> > +
+> > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> > +static int param_set_video_nr_devices(const char *val,
+> > +				      const struct kernel_param *kp)
+> > +{
+> > +	return param_set_uint_minmax(val, kp, VIDEO_MIN_NUM_DEVICES,
+> > +				     VIDEO_MAX_NUM_DEVICES);
+> > +}
+> > +
+> > +static const struct kernel_param_ops param_ops_video_nr_devices = {
+> > +	.set = param_set_video_nr_devices,
+> > +	.get = param_get_uint,
+> > +};
+> > +
+> > +module_param_cb(video_nr_devices, &param_ops_video_nr_devices,
+> > +		&video_nr_devices, 0444);
+> > +
+> > +MODULE_PARM_DESC(video_nr_devices, "Maximum number of V4L2 devices (256-4096)");
+> > +#endif
+> > +
+> >  /*
+> >   *	sysfs stuff
+> >   */
+> > @@ -98,9 +120,14 @@ static struct dentry *v4l2_debugfs_root_dir;
+> >  /*
+> >   *	Active devices
+> >   */
+> > -static struct video_device *video_devices[VIDEO_NUM_DEVICES];
+> > +#ifdef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> > +static struct video_device *video_devices[VIDEO_MIN_NUM_DEVICES];
+> > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MIN_NUM_DEVICES);
+> > +#else
+> > +static struct video_device **video_devices;
+> > +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MAX_NUM_DEVICES);
+> > +#endif
+> >  static DEFINE_MUTEX(videodev_lock);
+> > -static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_NUM_DEVICES);
+> >  
+> >  /* Device node utility functions */
+> >  
+> > @@ -504,7 +531,7 @@ static const struct file_operations v4l2_fops = {
+> >   * in the video_device array, but it was able to obtain a minor number.
+> >   *
+> >   * This means that we can always obtain a free stream index number since
+> > - * the worst case scenario is that there are VIDEO_NUM_DEVICES - 1 slots in
+> > + * the worst case scenario is that there are video_nr_devices - 1 slots in
+> >   * use of the video_device array.
+> >   *
+> >   * Returns a free index number.
+> > @@ -513,19 +540,19 @@ static int get_index(struct video_device *vdev)
+> >  {
+> >  	/* This can be static since this function is called with the global
+> >  	   videodev_lock held. */
+> > -	static DECLARE_BITMAP(used, VIDEO_NUM_DEVICES);
+> > +	static DECLARE_BITMAP(used, VIDEO_MAX_NUM_DEVICES);
+> >  	int i;
+> >  
+> > -	bitmap_zero(used, VIDEO_NUM_DEVICES);
+> > +	bitmap_zero(used, VIDEO_MAX_NUM_DEVICES);
+> >  
+> > -	for (i = 0; i < VIDEO_NUM_DEVICES; i++) {
+> > +	for (i = 0; i < video_nr_devices; i++) {
+> >  		if (video_devices[i] != NULL &&
+> >  		    video_devices[i]->v4l2_dev == vdev->v4l2_dev) {
+> >  			__set_bit(video_devices[i]->index, used);
+> >  		}
+> >  	}
+> >  
+> > -	return find_first_zero_bit(used, VIDEO_NUM_DEVICES);
+> > +	return find_first_zero_bit(used, video_nr_devices);
+> >  }
+> >  
+> >  #define SET_VALID_IOCTL(ops, cmd, op) \
+> > @@ -915,7 +942,7 @@ int __video_register_device(struct video_device *vdev,
+> >  	int i = 0;
+> >  	int ret;
+> >  	int minor_offset = 0;
+> > -	int minor_cnt = VIDEO_NUM_DEVICES;
+> > +	int minor_cnt = video_nr_devices;
+> >  	const char *name_base;
+> >  
+> >  	/* A minor value of -1 marks this video device as never
+> > @@ -1020,10 +1047,10 @@ int __video_register_device(struct video_device *vdev,
+> >  #else
+> >  	/* The device node number and minor numbers are independent, so
+> >  	   we just find the first free minor number. */
+> > -	for (i = 0; i < VIDEO_NUM_DEVICES; i++)
+> > +	for (i = 0; i < video_nr_devices; i++)
+> >  		if (video_devices[i] == NULL)
+> >  			break;
+> > -	if (i == VIDEO_NUM_DEVICES) {
+> > +	if (i == video_nr_devices) {
+> >  		mutex_unlock(&videodev_lock);
+> >  		pr_err("could not get a free minor\n");
+> >  		return -ENFILE;
+> > @@ -1032,7 +1059,7 @@ int __video_register_device(struct video_device *vdev,
+> >  	vdev->minor = i + minor_offset;
+> >  	vdev->num = nr;
+> >  
+> > -	if (WARN_ON(vdev->minor >= VIDEO_NUM_DEVICES)) {
+> > +	if (WARN_ON(vdev->minor >= video_nr_devices)) {
+> >  		mutex_unlock(&videodev_lock);
+> >  		return -EINVAL;
+> >  	}
+> > @@ -1241,7 +1268,7 @@ static int __init videodev_init(void)
+> >  	int ret;
+> >  
+> >  	pr_info("Linux video capture interface: v2.00\n");
+> > -	ret = register_chrdev_region(dev, VIDEO_NUM_DEVICES, VIDEO_NAME);
+> > +	ret = register_chrdev_region(dev, video_nr_devices, VIDEO_NAME);
+> >  	if (ret < 0) {
+> >  		pr_warn("videodev: unable to get major %d\n",
+> >  				VIDEO_MAJOR);
+> > @@ -1250,11 +1277,21 @@ static int __init videodev_init(void)
+> >  
+> >  	ret = class_register(&video_class);
+> >  	if (ret < 0) {
+> > -		unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
+> > +		unregister_chrdev_region(dev, video_nr_devices);
+> >  		pr_warn("video_dev: class_register failed\n");
+> >  		return -EIO;
+> >  	}
+> >  
+> > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> > +	video_devices = kzalloc_objs(*video_devices, video_nr_devices);
+> > +	if (!video_devices) {
+> > +		class_unregister(&video_class);
+> > +		unregister_chrdev_region(dev, video_nr_devices);
+> > +		pr_warn("video_dev: failed to allocate video_devices\n");
+> > +		return -ENOMEM;
+> > +	}
+> > +#endif
+> > +
+> >  	return 0;
+> >  }
+> >  
+> > @@ -1262,8 +1299,11 @@ static void __exit videodev_exit(void)
+> >  {
+> >  	dev_t dev = MKDEV(VIDEO_MAJOR, 0);
+> >  
+> > +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
+> > +	kvfree(video_devices);
+> > +#endif
+> >  	class_unregister(&video_class);
+> > -	unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
+> > +	unregister_chrdev_region(dev, video_nr_devices);
+> >  	debugfs_remove_recursive(v4l2_debugfs_root_dir);
+> >  	v4l2_debugfs_root_dir = NULL;
+> >  }
+> 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
 
-diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
-index 1d0e70eaea3d..9dcc4bd6cbdd 100644
---- a/drivers/media/platform/m2m-deinterlace.c
-+++ b/drivers/media/platform/m2m-deinterlace.c
-@@ -822,7 +822,7 @@ static int queue_init(void *priv, struct vb2_queue *src_vq,
- 	q_data[V4L2_M2M_DST].width = 640;
- 	q_data[V4L2_M2M_DST].height = 480;
- 	q_data[V4L2_M2M_DST].sizeimage = (640 * 480 * 3) / 2;
--	q_data[V4L2_M2M_SRC].field = V4L2_FIELD_INTERLACED_TB;
-+	q_data[V4L2_M2M_DST].field = V4L2_FIELD_INTERLACED_TB;
-
- 	return vb2_queue_init(dst_vq);
- }
---
-2.50.1
+Cheers,
+    Ali
 
