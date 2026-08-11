@@ -1,67 +1,70 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7783941A4F5
-	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 08:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1B341A920;
+	Tue, 11 Aug 2026 08:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786437544; cv=none; b=cS4zi+X+g3mrZEO4AWy7Pwd7C9xbURAl/TAAtoI67yp+gcNzEbTvvDt4WAzxXzw+wZ7rlPKoefTNxdH4GA9ZXyt/OJOehdRTbyYtJYHd6HfcwrNU2ewi+YvrbHiJHEXmTueFIMbkIlhw0MYetd+/UbSm7CiHcnMiefEYXn6psw4=
+	t=1786437771; cv=none; b=Xa1bvNFeqF+Joz1MqbaemCHYZtR0Wxo3CqxQJ45KPP4LudbGV2MQkIRTB454lXK5wu8FwLmPq00+tIcixNmyDpF6eGcoYTyGUvRqUtcHDaWwtgQ/q9h/MH2hVvgbx4K/q7mT1iJovVm5UmPQ0GE9WelcSzS8FMmmOcP3XEfa5Ns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786437544; c=relaxed/simple;
-	bh=syqT7P59cOpbBoF+9malbFKFOrw3l2kwwr/daq0ZsBE=;
+	s=arc-20240116; t=1786437771; c=relaxed/simple;
+	bh=GF2pb4J87GtzvNNouBIPxtNue45MF8Tk4K6nR9qTIjs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A6g9USsF7TyeZUlwiUvKBx+A0wcsox0f3Q46MJ6SKNly503+arcFDBz/Ybb6Fdmz9H/BiBv8G+z5uIpSprsHiHLFV3UlJ1LQ86SQNMX95xc7xPVVckTunwiZg9Lc2O4Ifvg2bGvz3gXYBUwTt49l0J9Gj87rFFm0nj3XETnbEiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=VlOOM3nY; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tkr7dObyUMvCVavFfG7ZHrP26T46ByGWdD3V27D2c02GK0OvAKdfdhf6NjK+YUN7iUe9dBJGtxveIQiQi4aPT97yjdAEAc79JkIYnJaA1a861HDYKNv3RbWTEgImhP5iO1Zxy2P7WCq8+sqpmV77+2iA22wbpoo4QizA4yter7Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ePzg1U8D; arc=none smtp.client-ip=198.175.65.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VlOOM3nY"
-Received: from killaraus.ideasonboard.com (unknown [83.245.238.164])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1571DA25;
-	Tue, 11 Aug 2026 10:37:44 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786437464;
-	bh=syqT7P59cOpbBoF+9malbFKFOrw3l2kwwr/daq0ZsBE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VlOOM3nYYvbywYpSKVRzkLdUgBIG5OBYupxz+pO2bMo38S8BFfHjNOA36Tv/bIWDr
-	 xJPAEJ0qXOf8qneZbX7P5Gfg/jX0jJ/szDHG/sjxew2UHBKHvbm5bq06HSf9R/FBL/
-	 f5Y5O7L+siQf7l91NFm0GiD52t2r8egalAnJq9J4=
-Date: Tue, 11 Aug 2026 11:38:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Tommaso Merciai <tomm.merciai@gmail.com>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Julien Massot <julien.massot@collabora.com>,
-	Naushir Patuck <naush@raspberrypi.com>,
-	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
-	Stefan Klug <stefan.klug@ideasonboard.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
-	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Ricardo Ribalda Delgado <ribalda@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ePzg1U8D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786437769; x=1817973769;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=GF2pb4J87GtzvNNouBIPxtNue45MF8Tk4K6nR9qTIjs=;
+  b=ePzg1U8DGhJ8uaDIVGlgjjplXsUSJjjkSJledOE08FubFTliN7L2HoMz
+   AjdodF/I/HuZfFg/9LCiUthZkURx3tSVFPsUfx7jhQK9wlk3kiFb6T9sa
+   Pkn9BI86/GwpCMVHtx38aBnV8fvmBikV1ZQ6wnhhIrpdE+jUz4aQAxBhR
+   PnKefGwuCg2rrf9GJM0qSzcL3WvssFM1q0GQC7nFTk6vNb5VrZR8/Ka6M
+   Vnk3blNdW8CDta4oU13gC/w1tGSsfhUMom5GYJka3FtajlMTY/SZj5JYO
+   ybXkEFvWSEUECxEQNcqMcASJqwe2DvDXYn+Dq1U2JVrMt7zHS/wyaVMwr
+   A==;
+X-CSE-ConnectionGUID: a1thQXdBQv6PBx1bqLYlKw==
+X-CSE-MsgGUID: id/EddAtTJyDE+L3CrkEsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11871"; a="86724509"
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="86724509"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:42:48 -0700
+X-CSE-ConnectionGUID: xWd9KMpfQCqPoT3aJ0tO+g==
+X-CSE-MsgGUID: UuwPud76QZ6yVZfRsNMUGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,217,1779174000"; 
+   d="scan'208";a="266765848"
+Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.215])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Aug 2026 01:42:47 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 98A6A11FC6D;
+	Tue, 11 Aug 2026 11:42:44 +0300 (EEST)
+Date: Tue, 11 Aug 2026 11:42:44 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: =?utf-8?B?5qWK5pm65oiQ?= <jason98166@gmail.com>
+Cc: Steve Longerbeam <slongerbeam@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	David Plowman <david.plowman@raspberrypi.com>,
-	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
-	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Rishikesh Donadkar <r-donadkar@ti.com>
-Subject: Re: [PATCH v7 11/14] media: v4l2-subdev: Add
- v4l2_subdev_call_ci_state_{active,try}
-Message-ID: <20260811083854.GA3120099@killaraus.ideasonboard.com>
-References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
- <20260807122409.45807-12-sakari.ailus@linux.intel.com>
- <65b0c3ab-ae76-49ec-824a-b9d882c28a5c@kernel.org>
- <20260810153207.GC3011310@killaraus.ideasonboard.com>
- <anrNQN93dT51kM3s@kekkonen.localdomain>
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable+noautosel@kernel.org
+Subject: Re: [PATCH] media: ov5640: select the MIPI lane mode from the
+ endpoint lane count
+Message-ID: <anrghCY5zUOICXXa@kekkonen.localdomain>
+References: <20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com>
+ <anq5HzmP33fqWYEO@kekkonen.localdomain>
+ <CAPwA33LJsSr3w_Vfc6wd7VXNBW2fjrn2zaVxDGB_RfJ-FRrdHg@mail.gmail.com>
+ <anrNowQWOaCkh4W1@kekkonen.localdomain>
+ <CAPwA33JXkioCo0=RC_mO3ZaY-LjCJpWynB7b8chY6eP=fnpvHQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -70,50 +73,21 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <anrNQN93dT51kM3s@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPwA33JXkioCo0=RC_mO3ZaY-LjCJpWynB7b8chY6eP=fnpvHQ@mail.gmail.com>
 
-On Tue, Aug 11, 2026 at 10:20:32AM +0300, Sakari Ailus wrote:
-> On Mon, Aug 10, 2026 at 06:32:07PM +0300, Laurent Pinchart wrote:
-> > On Mon, Aug 10, 2026 at 04:12:31PM +0200, Hans Verkuil wrote:
-> > > On 07/08/2026 14:24, Sakari Ailus wrote:
-> > > > Add v4l2_subdev_call_ci_state_active(), and
-> > > > v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
-> > > > take struct v4l2_subdev_client_info pointer as an argument. These ops
-> > > > cannot be called using v4l2_subdev_call_state_active() or
-> > > > v4l2_subdev_call_state_try() as the client_info argument precedes the
-> > > > state argument.
-> > > 
-> > > So if we have to jump through all these hoops just because the client_info
-> > > pointer precedes the state pointer in the pad op argument list, wouldn't it
-> > > be better to swap the order? For example by moving the client_info pointer
-> > > as the last argument?
-> > > 
-> > > Honestly, these macros are getting really hard to follow, and I'm not sure
-> > > it is worth it just to keep the client_info before the state pointer. Yes, that's
-> > > the logical order, but at the price of some very hard to read defines.
-> > > 
-> > > Or am I missing something?
-> > 
-> > Those are exactly the points I raised in the review of v6 :-)
+On Tue, Aug 11, 2026 at 03:30:40PM +0800, 楊智成 wrote:
+> Hi Sakari,
 > 
-> And my answer then was that I prefer some additional complexity on the
-> framework side -- where we have a single implementation of this -- over
-> pushing less than ideal APIs to all the drivers.
+> > There's no need for a local variable, the above remains within 80
+> > columns.
+> 
+> Dropped - v3 has the write exactly as you wrote it.
 
-I'm not convinced, but I won't make that a blocker if it's only me.
+Ah, I think I missed 'sensor->' there. 80 isn't a hard limit though and I
+wouldn't introduce local variable in this case.
 
-> To give some idea, we currently have about 200 drivers implementing the
-> set_fmt() pad op.
-
-Does the order of arguments really matter for drivers implementing those
-operations ?
-
-> I also expect the number of pad ops where we need client
-> info will grow over time, making this quite a bit more visible in the
-> drivers than the scope (set_fmt, get_selection and set_selection)
-> introduced in this set.
+Thanks!
 
 -- 
-Regards,
-
-Laurent Pinchart
+Sakari Ailus
