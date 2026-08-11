@@ -1,45 +1,45 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021124.outbound.protection.outlook.com [40.107.51.124])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020132.outbound.protection.outlook.com [52.101.225.132])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7944D400995;
-	Tue, 11 Aug 2026 09:14:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FAD41DE02;
+	Tue, 11 Aug 2026 09:16:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.132
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786439661; cv=fail; b=klLFTpBcC7URmyzs8OV5lsyfBbAdDvNyQ9X4SzmuKBgMEYvAz0VzxMO3CVQtr3pb91PlzQ1Y/ON+9f4LfsHKqePJEqB/vUv0e/rCtRQFfY1CM4kX6TPub+k9fc4HAw8q8mFsSj0UZCGL3WOXnrn5Nz8P5Z16ZOnowCMoeSI8yPk=
+	t=1786439781; cv=fail; b=D0c4lrezcUZEp7z6sasSpxqbpAkNdJkJsHjOrL3PQRpUuGCFVNNIB9kpaNo70kE2ih91Npx+7R+Hncw0aI2Ji39q5dsnjx44Xx0xLV2s+CEPtbkNZhoZZIrrlAx21tPERwagBb+GxYrwIaKCkvGHq6YBst1mSxGCL+LQ1Vbm7KI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786439661; c=relaxed/simple;
-	bh=5YYJDfWrdZPVHrIPmY8kROcNvSyT/5mOaXMTtzjOeZc=;
+	s=arc-20240116; t=1786439781; c=relaxed/simple;
+	bh=xW60TyZuOWLuUnTS6Co2T3Ugx8+pf0xg90qcoEPUL5I=;
 	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=hsoP6WVXkG+PdoEbM/L3bkra2WPputYIIxh3BSBoFEkxKyDUaibrssgZGptcMQwiOOjaBU4nN+F2BZ1yU/tqVzt+iHqcAkuEg20RyDoRJg/DQJL4/cruX16uKKKqQPmyw9Zw8VzpD8eZqRioVm2ge/9AUy+vDcDoVU5guXcUhPA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=ZI2DUDZJ reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.124
+	 Content-Type:MIME-Version; b=OdLuqdKtXQ/ZbEM9oLEaKrIfcNKde2hN7JdTz0WsUXP67iDgT3KVqRXTDXVAQ22ArfmvCqRC7gCSDx81ypP2H7JHGW0iqOezoGT1uai+C8npS1rzDtll/GVdFOipli4N0Cj1FV4DUjFyvQTVP1Q9vDXJE1dQ8BHZJXJXBdrn4fw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=cxQEqZ4n reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.132
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="ZI2DUDZJ"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="cxQEqZ4n"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EA1iyXBMoZYTXnqPoRGCDeulvq2p7FBPOTVitnib2jrw7eeepUPlms6GOD1B9JY29+VwU7zhop4LmYOYrhLqaR6Vlvx7Vc4PSbckUKpBw1vV1IHoSI4fGVUD7uo1YslakABcL9zRSrIuh8rUg9wlLaSXerG5cb9sm5arcikXvSyH4vwSUxoPY0cV7eij4kV67uh8vWRpUxIJhYx7A0GNlX6DZ4BqwSYIhd5+JaTflrsk9nsM2QK+mtDD54RWaeS5IcpF+BOc4G7OHNi57zAAI9fqItI6tsbh+dz0NSuDioPLtA8nLWkZRkBk1Gl5mIJb4zvH2qqEvxpBvevB1lb9WQ==
+ b=MW0F9VtqJUpH1U9fb+oPMwduzMkotp7+b75p4RWMaeJZv8isZSgbYehxnPvPVdCe8aJTYNArpwOLIt3fwM7pnWGhqiuNuoM+xkYfevYHUZ6//gMdQonGYsGYFXG/dPA2O6lG8a3PWFhT3aWAkab2n0k96+yTGUvtGEah4TjJqVc4Ou3m7+67P3i7czVYAfiS2mBfq7grqFR+q58abdQWdyhwv6QN9yfbMLY3c17PJcj4wWWyjN5uyVopHZ1MxJsyBLdZm6CAxwoDNhnYFCrvl4seF4AAAWXjLefz02K8BvMobecL+Fs77+SSeuNFOWb2JOM7seJFW4NxdTg3Eq21/A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=2f1nBRZzV0mFpmpiwPEyPAoJloEE5HWgJ6QwBC6E9ew=;
- b=sywCqnbOqc3ijkJIqkFojAncEBeb7U6tgmsLnVQePEZz8R12036Qw7TQb5JWgn1JIPkbqMAVzcXA87rHJ1XrZyGfMlaLMX36tIfnZZCo4Y61lPAy3EbOQJZXf1JB8crWSQUsg+hsIKclSvqSA43acpYvLXaHYGmxTGoCVXPmWi/Tk/g8QUqEhPj3Nm7UU0tulvgNG2ZmM/xqGVY2kf7tAwQiFjul86914cXO53Q7JL7gO3MioYdZth7SR8wQiVRqwef+shoFT48QW0Vt6gWZb6VuW1VMU2y6f8G4U30V9R3W+SfODtbzYyUHfwkJAL3D0GQrvk6ShoWhcMq1wUjpKQ==
+ bh=aDlPddlyQmLdXfLdWhP2wapnEr5AhJJQ6rxBtj9bKL8=;
+ b=nXSquXhShXMughOJNP0y/sjxzGPv65ekdldx9oobPchZ2W4djX//imv5XxvGg6DIJfr5j5dk069bS7RuUjgZc9kJOe0B/6k+e5NUNYPyFVgda/3kyJaWec2MlvZvAtjM3uHnAO1ZWGWs0SVVU5QmvnwKXZrCZRd2KBAqW5SSu+48IX2IcdWsv7Ays6u91Ppi7q3UhP4c7BlFGGVPucWiWnRMqjhs2dxLi+LP0hk2mtBOAp8yW8NaMi1/nYJLAsTIeK6PkdtOgBD+a589K/nsAgNlid7laN4kGocMZGFE0xLuRnm9FpRWkEMhGJ08GF6su6CSkbYDgp4ySLfNYPa7HA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=2f1nBRZzV0mFpmpiwPEyPAoJloEE5HWgJ6QwBC6E9ew=;
- b=ZI2DUDZJMGpqRLpgJFFvNtGaGP0QWHQGcqNuD9ccqRgpY81y4MDUcYNcs3z0+0gus+E5KCaX3KaURGJT4EVBAAawMUwvIIgua53RxmKmFS+P6nQSXLn4vXeya4JlakuKssA33P4/3b/AmUTLh9BmDQrAV3eH/m2ElmPXw+ex77oMvUH52sKz2yJQ0GWML5vclzmxNnTtFBGk4yW2wye9j69vlacU1xQXtgDfuyNQKX5ozWDDeLhYVxePiKsyCWp4z+L7aqS2ZBgszUReDP5XgdDnnnqQrJl6/OqEJtskaCaASGHSCj5MpIq3dqR0hE0E6fLk2+atGCqPu7G4VXTsog==
+ bh=aDlPddlyQmLdXfLdWhP2wapnEr5AhJJQ6rxBtj9bKL8=;
+ b=cxQEqZ4nCK2YcNINy+6zw0jW9ZJIGY8JJvdCGQ3mGydyHLNcB9XqnRRjCa2xzRMR4CzX+geVtpM2/Y1DOg9AUPtw2tNZNZBquJ02FMnciZZW3TyAGyVY0IKSS1UKN1MIJeXuJAIdmEdH+mZdK1C2ofV2ykcfbvIMaZckmAilWbNw0D+mgNSo564F7qJNk4ez71CiSEL1w/a37oJ1kH8iWagX53yooXaVdBP1WqBC0xi4MmcWi0U8SM7GuppB13MIcaG/3ZweraYzxQhf0dqoceLiTTDEg+cR+oWqX06BFxCc55THTtZNnxtm6U7LzVZnzD92eR/RBK7/B+F1bRnkwQ==
 Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by MA5P287MB5316.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:1bd::10) with
+ by MAUP287MB5955.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:224::7) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Tue, 11 Aug
- 2026 09:14:12 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.11; Tue, 11 Aug
+ 2026 09:16:14 +0000
 Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
  ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
  ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0315.008; Tue, 11 Aug 2026
- 09:14:12 +0000
+ 09:16:14 +0000
 From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
 To: Jai Luthra <jai.luthra@ideasonboard.com>, "sakari.ailus@linux.intel.com"
 	<sakari.ailus@linux.intel.com>
@@ -47,28 +47,32 @@ CC: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>, Mauro
  Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
 	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
-	<konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Hans de
- Goede <johannes.goede@oss.qualcomm.com>, Vladimir Zapolskiy
-	<vladimir.zapolskiy@linaro.org>, Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, Xiaolei Wang
-	<xiaolei.wang@windriver.com>, Kate Hsuan <hpa@redhat.com>, Walter Werner
- Schneider <contact@schnwalter.eu>, Laurent Pinchart
+	<konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, Vladimir
+ Zapolskiy <vladimir.zapolskiy@linaro.org>, Hans de Goede
+	<johannes.goede@oss.qualcomm.com>, Tarang Raval
+	<tarang.raval@siliconsignals.io>, Elgin Perumbilly
+	<elgin.perumbilly@siliconsignals.io>, Kate Hsuan <hpa@redhat.com>, Xiaolei
+ Wang <xiaolei.wang@windriver.com>, Walter Werner Schneider
+	<contact@schnwalter.eu>, Laurent Pinchart
 	<laurent.pinchart@ideasonboard.com>, Bartosz Golaszewski
-	<bartosz.golaszewski@oss.qualcomm.com>, "linux-media@vger.kernel.org"
-	<linux-media@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<bartosz.golaszewski@oss.qualcomm.com>, Mehdi Djait
+	<mehdi.djait@linux.intel.com>, Miguel Vadillo <miguel.vadillo@intel.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, LKML
 	<linux-kernel@vger.kernel.org>, "linux-arm-msm@vger.kernel.org"
 	<linux-arm-msm@vger.kernel.org>
-Subject: Re: [PATCH v3 2/3] media: i2c: add imx576 image sensor driver
-Thread-Topic: [PATCH v3 2/3] media: i2c: add imx576 image sensor driver
-Thread-Index: AQHdJZuI/Y7nmH3ipkS4g472TIaz9raSKcaAgAZub0g=
-Date: Tue, 11 Aug 2026 09:14:12 +0000
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
+ IMX576 front camera support
+Thread-Topic: [PATCH v3 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
+ IMX576 front camera support
+Thread-Index: AQHdJZuOLkX8gz7F4kutrW9cTd3eIraSKGOAgAZwNBk=
+Date: Tue, 11 Aug 2026 09:16:14 +0000
 Message-ID:
- <PN0P287MB201968EA50C12E941A58AABE9ADD2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
+ <PN0P287MB2019FFBFD284AB4822AFF4B39ADD2@PN0P287MB2019.INDP287.PROD.OUTLOOK.COM>
 References: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io>
- <20260806120216.24145-3-himanshu.bhavani@siliconsignals.io>
- <178608605778.4139729.11308202650136036897@freya>
-In-Reply-To: <178608605778.4139729.11308202650136036897@freya>
+ <20260806120216.24145-4-himanshu.bhavani@siliconsignals.io>
+ <178608575956.4139729.7371211848831143170@freya>
+In-Reply-To: <178608575956.4139729.7371211848831143170@freya>
 Accept-Language: en-GB, en-US
 Content-Language: en-GB
 X-MS-Has-Attach:
@@ -77,50 +81,51 @@ msip_labels:
 authentication-results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: PN0P287MB2019:EE_|MA5P287MB5316:EE_
-x-ms-office365-filtering-correlation-id: 96319ca7-b77c-4710-d689-08def788e8ad
+x-ms-traffictypediagnostic: PN0P287MB2019:EE_|MAUP287MB5955:EE_
+x-ms-office365-filtering-correlation-id: 954a36af-f5b3-48c5-86e9-08def7893189
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|7416014|376014|23010399003|1800799024|18002099003|22082099003|4143699003|56012099006|10067099003|6133799003|38070700021|3023799007;
+ BCL:0;ARA:13230040|23010399003|366016|7416014|376014|1800799024|38070700021|56012099006|10067099003|4143699003|18002099003|22082099003;
 x-microsoft-antispam-message-info:
- AD0PiUl8OwG7AlG79Q5dtbJ2pjGiSJ+XkXv+pGIAhLUok/AULTRkg2n67HCghLiYZEnLZCxPP1vc7vtF76nzUvDLg1i8UXLX1wfJTmWUKNvqkp9hxYYN0NPS8hngSrhcXs5fHfCn6ysDalGiXEpWdxeES0XjjT3jg9ky2eNkxebnWGrMpWQvaZobUK7EWbOxQeBpzeJ829GpSHykrc2jrQzxhgNSNIf3zlhUQ9MgJpgcIK5Gnf7VhTwv2eL2MWcPZZZ6uz8Ju85b6t8I6gUjTWW/bJ13uLJ0s4i/O5WzuS5oNKLYVihhMhU/o0Uc6BEEAvYF6T8eLdHHML6L2U6e+/BDjHamTce/xF223pnmIEn+0cxZ78drL+lGjEAEl9M5v8BcvVPKCKD9lSWWbhRsichi9IaIyT+N/oHc6dF1tte4RyGIuvlj6XCGfwcBQdeaDBu2JIMjUZlOsv7iExnuOPudkyR2tf9dTCroD9k1iKR18Nl7XyB0Et0KZ1H8CukxH4C8Vm34/fDfjddjdwG0ZhhhdAr7Jpq0CIKqBTxA/034xxUZ7GUuQbZpliOLjaw9fxdTxJ/EwY6VoXM581ce509S/+KF8jXisAhHhwB4Wn5K708kMAx+8hfsDerY/sEDxhd5z1dAI+xnG/bGTGthlbLA3w+fDhQBI+AAPxPtKIT1PHw1P4krRtH2YXFs/U7RY9XnQaFsR7G5RtPDLRlg90aHI2fMo9MsJ8DHvzo5+38=
+ L+JybVCvq16NhThLOs3+jJy+HARb+vGeaHPCk/2WnVWlsFOMg4LcxwGtaR/e458x5910RMP89/vZDxeyUnIIW52tbQoC20D7SGkoSbs9SCVgs9t/BuqwDx34I917gx4D7FG0K7GdTWdQBfS+PCTwn/mQZ1OvgdpNfO7gWIRnoeM003vL33zjab/Et1JaWchHJT+DPN9lyTfmpvDL72MBieEvMTvczE2Z18XXkFuR1J0h/3H/PixzTjsY6IxC+vDiI/qbZK2pD0zTF3V28++o0z26Z8F8Q3kj7rOCUzIDVVwdfUdOc6kpfjlmB2GaYbAfwTxw3kSQva+5cIK7NEwgY7b4IEctmtkpLBLVzitPrdj24LybcWq3Sg2yiebLXTKwAod1QGQC0MhIUtS/j+X8efl/lzazneFgC+ecFqeb5K5gKew6MUyRyGV1wuAbAh3R1qYa6nUh72+wCK3g6JSwsw7uXGnlPmKXo/qCcLsaV+wXVk8CD0buniGRnIhVnQe8ZFU+c1UO/y2Iac14GKOqYjsBTI8/zz/RyrSrPA+W8o3b8uad58Lj5eFXJL3zKZAlwHb0n0x02Fc7hbOY9MbwbnQbBSkPYQVCBWTFdx5OS9uAA3UKjJ4AXZEiW0GH3UHNKqvlUvHYp/ky7MAl4s0dy/IBYmSyzSKRIp9+nifdRiSUj/0NDCavV2pAmDG7EfZXrVj66AS7Osp/t9ViSFHbcDgYOBzIigu3+a78+pLS1vU=
 x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(23010399003)(1800799024)(18002099003)(22082099003)(4143699003)(56012099006)(10067099003)(6133799003)(38070700021)(3023799007);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(7416014)(376014)(1800799024)(38070700021)(56012099006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
 x-ms-exchange-antispam-messagedata-chunkcount: 1
 x-ms-exchange-antispam-messagedata-0:
- =?iso-8859-1?Q?FdxnjfQiY8JZMp7VWiq040FnwFoffCXTJdCcSziEh+kjPLf3IsBGbpgNY+?=
- =?iso-8859-1?Q?TH1lY0v1ONllUYFeeYH6PJJe0CoXeD8nxS8FHVkWw7UYcKT59JHeQOq0J8?=
- =?iso-8859-1?Q?yWfQqd0e0aDQU74mw/HJjIZO+I/TVlqA+H+C6WdTvNQHCmJY/ftC83Ndl8?=
- =?iso-8859-1?Q?3W6LdjHjk/XOLFRd7t+4o+LUqzi9vNUG6oFwmQxmx/dfMuzqh5RubqNJBb?=
- =?iso-8859-1?Q?Rm2NW6rsiopDbk6Bl3iHiJ8iR6kp2ZE+5THPFBVQDh4gActpxvYqCj3O2l?=
- =?iso-8859-1?Q?iQHvSAZLqF4FFkEyndyoy4WvaDemepGTVANozGi7kf6Psw6pmpzT31My5k?=
- =?iso-8859-1?Q?+t5wmdw9x2Exjw8j4NcI16k1l+dtackjTL1VZrNDAfq61vy6nXB8l/PtnM?=
- =?iso-8859-1?Q?jE4JGMeElNIelaTUY5IUyxlo4kdACWPM/GOP7DlhUzA622767uzHzuwnPP?=
- =?iso-8859-1?Q?PbNAjgN2Fmqd0Q/mconpm2HWSmFIlhK92a/9LKzPpJgLRBL1ltGmmQhDim?=
- =?iso-8859-1?Q?onryPBQhrMk+wFcO1MMgH/8XgfFo/073Xxmo9+4xdW5+8oxd9CZmOwiEan?=
- =?iso-8859-1?Q?cXDPsoqrb317RW0ah2lL+Ozg2T/CM73qmGTqviASwbut9B8XuVapoKl890?=
- =?iso-8859-1?Q?F/bQ0JotM3NwCN+7elG9mu5uDxUrlMdaclOh44YXJX/KTvwgytgnwghGfw?=
- =?iso-8859-1?Q?PF4IVxn4jAsxI90cNVgg5nucMvHYNYXCObtJKmf9mkrna8NSBeNdJqxH2F?=
- =?iso-8859-1?Q?iUDXTMEQvegZNYIJXm32jEAT+maku/pi9ERrFqtiY9nzkRvmbr4im9Chti?=
- =?iso-8859-1?Q?rVxnkgjVrvnTzs90aTmcirUH/XW9AgDGkB1UqpFSyHk/cxUxH8U2oO0yA0?=
- =?iso-8859-1?Q?VHcwd+YF9n9l9t15jrojv2PtdIuhTBTR9mu9npWI1yGB9PE9G37yImG2ww?=
- =?iso-8859-1?Q?AljegrzNB35UEl2NMa0QxJ1uBlaVIi6l3WIXRl6VpYuObs7UM3aqZCNAW1?=
- =?iso-8859-1?Q?JZqfcbcMkgAriIT6OpEYXhm7nhXadkyiHtawu2niBLqqpnGCSvBXUX5raU?=
- =?iso-8859-1?Q?u0J88AXW0lbmFEJube30xHB6G0egU1oizpcnqiUFmO+cRE25EewAgecVY2?=
- =?iso-8859-1?Q?tetG8+w5pQlCRFB4WFAxEklz2EcKhdYYQWMnQpy6KHeQYvPHLF+2qNuVKd?=
- =?iso-8859-1?Q?Rkzp6yhaclG81OoWNdKDnmt+FenAZAOGhL0+DnkdPYiyxnGPBkgK05IEd1?=
- =?iso-8859-1?Q?Mh+mYTnwBx1VlGRJqZo8gw2ajIkkbuvjRn6ILvEE/ehNy+f9RwCTzpn6mJ?=
- =?iso-8859-1?Q?laQGZOfegxd+bKEGQ6zgFjqf6ttwnnHIt2QNCp+HpMSijmqYZiyrcBgEVn?=
- =?iso-8859-1?Q?GVHa+r879Pq8vG6GNaf5teKQ21/HBHxTaV/dIjw6g3UMnNoxIa3Bl0N+q9?=
- =?iso-8859-1?Q?ITmRmq85CnJoBn4gxVf3VGDrXOlXAynGx14ejV0tQ3fdBFMafN4bKTd/NW?=
- =?iso-8859-1?Q?1fqKEBKzVsfEAvVHJ63jwNuT3j6p6bkRgj2+3z/snDkNcRZ2LMjuIye+Jd?=
- =?iso-8859-1?Q?CGa+aACTwtY6wgMAr0i1ORieoERyOqj7o6MsZijmRmTtZ+wWTj3ZkhkIgE?=
- =?iso-8859-1?Q?cxVi22e/GyDjJ/f3u+AQkovFvjjVedIxaks72AY6AWpmWGZwT6UDtbr8tK?=
- =?iso-8859-1?Q?UHBxZQnA0irXuUw/3hZdCyF862rCMgGc7rf/E/1AbNcy1LoTcuZQ4tyEUw?=
- =?iso-8859-1?Q?3aOS4vEZGisQrl2a9pFLtws/i4vsC+SS5DvsRzSOZFxTCCKk/HVoZH+Cb8?=
- =?iso-8859-1?Q?kFotDXKwk7X95nPZkKkV04nI3lWv738=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
+ =?Windows-1252?Q?NqQn5pvrIoQjxXcyVopG8C0R+U1Ul927pQpD1A8tScreFRfHQOZOWYL1?=
+ =?Windows-1252?Q?IEqZEseIzGOtFW2wZ4c0bSCUQOqTB1cj+jZKkz6jd/GJltaHzGQTS7t4?=
+ =?Windows-1252?Q?ObmI3vh88DRsIV2DTxz/3Q00K+FsQ5iZj+CM9hctQRZBYv3OenfSbDH7?=
+ =?Windows-1252?Q?JWjDwht5kfHoNdTQGgB1LDXf1UI6AtC8kVbdQo3ptWMUlh88Y8trDqot?=
+ =?Windows-1252?Q?JFfv1WP8Xs+fSzWCZiohBb47JsxDq0hm9fbkeukkjX6VLazqj3M8Uogc?=
+ =?Windows-1252?Q?eKGSuQ7/QNhQfA3LCinCsXnzYxLaMiibQ9b+8/IpN49JgtHcC5XjH2N/?=
+ =?Windows-1252?Q?GkxjxklIl8EII5VobOgOjbmCEmRru5Kuc/HMqFoqQ6i89xQ8+yUEqClI?=
+ =?Windows-1252?Q?0WvjC7w6/FoHj3ch6NFJw73f5x4vcrIVKTvRQXPFhNu0PYalS6ITIzSY?=
+ =?Windows-1252?Q?fubOCIAtnqQXjZ2jjqKV4rKv29iU9jlRHFtuxRRgp7EiXzo+dpKLUeOW?=
+ =?Windows-1252?Q?A3IE6ea+tPtAQWDKciAkj9e0vzCJPtj0chIYGn/uSQRf/kWYkcb6EZ/O?=
+ =?Windows-1252?Q?Pm34YXva3H6qFxnkLG5nteS7Dn9Ou6ZaLpgJ0RZvR629QhnvnKwUBATF?=
+ =?Windows-1252?Q?XA1TQn/xL/oIoq6U1tKtyiqCtx9qYO4cQZUPTtWczUyMPkvt7Bn2qNvW?=
+ =?Windows-1252?Q?kBOwMlm1KAsUe8wgtb/9qHDT/GNH8sm4F0qrRzJMAza5HmUigg/JUJ8w?=
+ =?Windows-1252?Q?flxT+tUirE+gUaNxJjYyyhFxYeEGsLobckZQIEDOhEFGZWH7RtpIqqwI?=
+ =?Windows-1252?Q?ex76QOwgg8Mi/9loIcyHI2L9cg6E6AAJtvx5lvluF2C6UHJOevlA1KtJ?=
+ =?Windows-1252?Q?tBRtyLe8wnfXLfI1brgTKjvD6sUbQYvvO8TYsig7zVjRoQ2ykEfwZBh+?=
+ =?Windows-1252?Q?wk15g8sA1WoCyelQLHGqRr/VIscTYlJRSJ/09vP4UZzTCVJHiejSmKrq?=
+ =?Windows-1252?Q?oQZT8yMMMGFuf5IQJAzEGGXAr4e6fI/rtGj+sgLWs6c5qMkAnUyLucOR?=
+ =?Windows-1252?Q?NjmOPpNPgyefmGN+moR+UekMCjT/Cx+Q/TifiD5OSY/wle2FDbt228g/?=
+ =?Windows-1252?Q?FHFc239nIOLE5HkIk65CB8ERjEPQ5ecMBujYuNHb5fG1XtnDA4UkcdM9?=
+ =?Windows-1252?Q?Co+SwhcikZoNRiXqksmW0gUxUqjG06a6Yc602tHmrWMnZtVfRSmHmRXh?=
+ =?Windows-1252?Q?4mImIy2aUiDhs/jL8ydx2aLk5P3SVZozTIRBiZrmYzI8MhWrI2DfDflg?=
+ =?Windows-1252?Q?aTzBlDuT+vAJCnvt0YCqPDjhvyo8eX0g1whxy2tGPiLQ0HCpaIgqLIDt?=
+ =?Windows-1252?Q?kUK4PkNRMqyQZ5MHCIhoU7JTzDSLDwYsj2yiLn1NQ40LBUe3I+O1qa6k?=
+ =?Windows-1252?Q?jN2RRi4CHt3XoavPzLi3eXvizgVDczqk8EC2F9Rrk3wPMbp54wCMbgn7?=
+ =?Windows-1252?Q?StdwrqcMZJhrOcbm4YXewK1aW9b38V5fzPJBxuleTf/Lr4jn1ruMfaGV?=
+ =?Windows-1252?Q?z/I/jlCm7I6M8s/m7fQ2YOxrFQs5KsCbbW6pn+a0HY2ahyjxFKzZV06Y?=
+ =?Windows-1252?Q?1JjulLR6pwndhsLxiZpQyX5kGtWu55/WybSseb+x+PpqimfcA+v5FPoF?=
+ =?Windows-1252?Q?haa68cqx8d3ggcjfMAbvrD3ymBeE5AUQch3vSHJaoKsn7l4giSzILqEU?=
+ =?Windows-1252?Q?dnxCph8NoT+iP32nb0hNpDAPeDhmNk7wtfdpq0PXo9HdE6XH7XMhITz4?=
+ =?Windows-1252?Q?tP8bkC4Cp39ZgseszrA9bYcEaAXSDAO1p/FyVHQOKm8Up6TUxR4I3vRK?=
+ =?Windows-1252?Q?NGKySKpom+N/Yv6Tqdb6QTELbfOoZaU6Ok4=3D?=
+Content-Type: text/plain; charset="Windows-1252"
 Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -131,229 +136,44 @@ MIME-Version: 1.0
 X-OriginatorOrg: siliconsignals.io
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96319ca7-b77c-4710-d689-08def788e8ad
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 09:14:12.4191
+X-MS-Exchange-CrossTenant-Network-Message-Id: 954a36af-f5b3-48c5-86e9-08def7893189
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Aug 2026 09:16:14.6403
  (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 6sisCWEEXvMm+W2EW7RqAZA8lOTW+SKNGPF0W9sp6CblhZZQF0zKe7sKBnnZPADq1iPyY7h/J2wAmbuYkac0F2LU4RBM2AlLtEIMWunQm0bXI0Pkl8SkhNfajcgmxCDX
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA5P287MB5316
+X-MS-Exchange-CrossTenant-userprincipalname: x5a42dVQqJscpolueU0tZeA3S+OrPzIl9a0VM3tgglrpGB9HZspdF5fhdfi2KWxHVgwA8TIf2Pw9fSXUuBHI0vmgIuik/iswwoe+OqVZNwi1pqbTR38o+ONQSY/8GyMW
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MAUP287MB5955
 
 Hi Jai,=0A=
 =0A=
 >Hi Himanshu,=0A=
 >=0A=
->Thanks for the patch.=0A=
->=0A=
->Not a full review, but just a few comments on the PLL programming.=0A=
->=0A=
->Quoting Himanshu Bhavani (2026-08-06 17:32:08)=0A=
->> Add a v4l2 subdevice driver for the Sony imx576 sensor.=0A=
+>Quoting Himanshu Bhavani (2026-08-06 17:32:09)=0A=
+>> From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>=0A=
 >>=0A=
->> The Sony IMX576 image sensor with an active=0A=
->> array size of 5760 x 4312=0A=
+>> Add device tree support for the Sony IMX576 front camera=0A=
+>> sensor and connect it to CAMSS via CSIPHY3.=0A=
 >>=0A=
->> The following features are supported:=0A=
->> - Manual exposure an gain control support=0A=
->> - vblank/hblank control support=0A=
->> - Supported resolution: 5760 x 4312 30fps (SRGGB10)=0A=
->>=0A=
+>> Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.i=
+o>=0A=
 >> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>=0A=
 >=0A=
->[...]=0A=
+>It's best to keep the DT series (which go through the arm tree) separate=
+=0A=
+>from the one adding the driver and bindings (which go through media tree).=
+=0A=
 >=0A=
->> +#define IMX576_INCLK_RATE              (24 * HZ_PER_MHZ)=0A=
->> +=0A=
->> +#define IMX576_REG_CHIP_ID             CCI_REG16(0x0016)=0A=
->> +#define IMX576_CHIP_ID                 0x0576=0A=
->> +=0A=
->> +#define IMX576_REG_MODE_SELECT         CCI_REG8(0x0100)=0A=
->> +#define IMX576_MODE_STANDBY            0x00=0A=
->> +#define IMX576_MODE_STREAMING          0x01=0A=
->> +=0A=
->> +#define IMX576_REG_HOLD                        CCI_REG8(0x0104)=0A=
->> +=0A=
->> +#define IMX576_REG_EXPOSURE            CCI_REG16(0x0202)=0A=
->> +#define IMX576_EXPOSURE_MIN            8=0A=
->> +#define IMX576_EXPOSURE_OFFSET         22=0A=
->> +#define IMX576_EXPOSURE_STEP           1=0A=
->> +#define IMX576_EXPOSURE_DEFAULT                0x0648=0A=
->> +=0A=
->> +#define IMX576_REG_ANALOG_GAIN         CCI_REG16(0x0204)=0A=
->> +#define IMX576_ANA_GAIN_MIN            0=0A=
->> +#define IMX576_ANA_GAIN_MAX            978=0A=
->> +#define IMX576_ANA_GAIN_STEP           1=0A=
->> +#define IMX576_ANA_GAIN_DEFAULT                0=0A=
->> +=0A=
->> +#define IMX576_REG_IVT_PXCK_DIV                CCI_REG8(0x0301)=0A=
->> +#define IMX576_REG_IVT_SYCK_DIV                CCI_REG8(0x0303)=0A=
->> +#define IMX576_REG_IVT_PREPLLCK_DIV    CCI_REG8(0x0305)=0A=
->> +#define IMX576_REG_IVT_PLL_MPY         CCI_REG16(0x0306)=0A=
->> +#define IMX576_REG_IOP_SYCK_DIV                CCI_REG8(0x030b)=0A=
->> +#define IMX576_REG_IOP_PREPLLCK_DIV    CCI_REG8(0x030d)=0A=
->> +#define IMX576_REG_IOP_PLL_MPY         CCI_REG16(0x030e)=0A=
->> +#define IMX576_REG_PLL_MULT_DRIV       CCI_REG8(0x0310)=0A=
->> +=0A=
->> +#define IMX576_REG_FRM_LENGTH_LINES    CCI_REG16(0x0340)=0A=
->> +#define IMX576_REG_LINE_LENGTH_PCK     CCI_REG16(0x0342)=0A=
->> +#define IMX576_LINE_LENGTH             6144=0A=
->> +#define IMX576_VBLANK_DEF              4387=0A=
->> +=0A=
->> +/* FIXME: Exact VBLANK limit unknown (no datasheet). */=0A=
->> +#define IMX576_VBLANK_MAX              32420=0A=
->> +=0A=
->> +#define IMX576_REG_X_ADD_STA           CCI_REG16(0x0344)=0A=
->> +#define IMX576_REG_Y_ADD_STA           CCI_REG16(0x0346)=0A=
->> +#define IMX576_REG_X_ADD_END           CCI_REG16(0x0348)=0A=
->> +#define IMX576_REG_Y_ADD_END           CCI_REG16(0x034a)=0A=
->> +#define IMX576_REG_X_OUTPUT_SIZE       CCI_REG16(0x034c)=0A=
->> +#define IMX576_REG_Y_OUTPUT_SIZE       CCI_REG16(0x034e)=0A=
->> +=0A=
->> +#define IMX576_REG_DIG_CROP_X_OFFSET   CCI_REG16(0x0408)=0A=
->> +#define IMX576_REG_DIG_CROP_Y_OFFSET   CCI_REG16(0x040a)=0A=
->> +#define IMX576_REG_DIG_CROP_WIDTH      CCI_REG16(0x040c)=0A=
->> +#define IMX576_REG_DIG_CROP_HEIGHT     CCI_REG16(0x040e)=0A=
->=0A=
->This sensor's registers seem quite similar to the MIPI CCS specification.=
+>Moreover, I believe DT changes can't be merged until the bindings land in=
 =0A=
-=0A=
-Yes, you are right some registers seems to be similar I will address it.=0A=
-=0A=
-=0A=
->Please check if the sensor is CCS compatible. Even if it is not, I think=
-=0A=
->the PLL programming is compatible, so you can use the helpers from=0A=
->ccs-pll.c.=0A=
-=0A=
-Most PLL values are derived from the limited IMX576 datasheet information a=
-vailable.=0A=
-=0A=
-For the unknown values, I referred to out of tree driver and validated and =
-assumed them based on the PLL configuration.=0A=
-=0A=
-Should I proceed with the PLL programming as it is, or drop the PLL approac=
-h and retain only the CCS-supported registers?=0A=
-=0A=
-static const struct ccs_pll_limits imx576_pll_limits =3D {=0A=
-	.min_ext_clk_freq_hz =3D 6000000,=0A=
-	.max_ext_clk_freq_hz =3D 27000000,=0A=
-=0A=
-	.vt_fr =3D {=0A=
-		/* Confirmed values as per datasheet */=0A=
-=0A=
-		.min_pre_pll_clk_div =3D 1,=0A=
-		.max_pre_pll_clk_div =3D 4,=0A=
-		.min_pll_ip_clk_freq_hz =3D 6000000,=0A=
-		.max_pll_ip_clk_freq_hz =3D 12000000,=0A=
-		.min_pll_multiplier =3D 87,=0A=
-		.max_pll_multiplier =3D 350,=0A=
-		.min_pll_op_clk_freq_hz =3D 1050000000,=0A=
-		.max_pll_op_clk_freq_hz =3D 2100000000,=0A=
-	},=0A=
-=0A=
-	.vt_bk =3D {=0A=
-		/* here the sys_clk_div (IVT_SYCK_DIV -> 0303) value as per out of tree d=
-river they are using div as 2 or 4  */=0A=
-=0A=
-		.min_sys_clk_div =3D 2,=0A=
-		.max_sys_clk_div =3D 4,=0A=
-		.min_sys_clk_freq_hz =3D 262500000,=0A=
-		.max_sys_clk_freq_hz =3D 1050000000,=0A=
-=0A=
-		/* pix_clk_div also being used as an Fixed to 5 */=0A=
-		.min_pix_clk_div =3D 5,=0A=
-		.max_pix_clk_div =3D 5,=0A=
-		.min_pix_clk_freq_hz =3D 52500000,=0A=
-		.max_pix_clk_freq_hz =3D 210000000,=0A=
-	},=0A=
-	.op_fr =3D {=0A=
-=0A=
-		/* Confirmed values as per datasheet */=0A=
-=0A=
-		.min_pre_pll_clk_div =3D 1,=0A=
-		.max_pre_pll_clk_div =3D 15,=0A=
-		.min_pll_ip_clk_freq_hz =3D 6000000,=0A=
-		.max_pll_ip_clk_freq_hz =3D 12000000,=0A=
-		.min_pll_multiplier =3D 47,=0A=
-		.max_pll_multiplier =3D 2300,=0A=
-		.min_pll_op_clk_freq_hz =3D 1250000000,=0A=
-		.max_pll_op_clk_freq_hz =3D 2300000000,=0A=
-	},=0A=
-	.op_bk =3D {=0A=
-=0A=
-		 /* Similarly here also (OP_SYS_CLK_DIV -> 030b) value being used is 1,2,=
-4 in out of tree driver=0A=
-		  * But as per ccs-limits { CCS_R_MAX_OP_SYS_CLK_DIV =3D 2 }=0A=
-		  */=0A=
-=0A=
-		.min_sys_clk_div =3D 1,=0A=
-		.max_sys_clk_div =3D 2,=0A=
-		.min_sys_clk_freq_hz =3D 625000000,=0A=
-		.max_sys_clk_freq_hz =3D 2300000000,=0A=
-=0A=
-		/* (RAW8 and RAW10) */=0A=
-		.min_pix_clk_div =3D 8,=0A=
-		.max_pix_clk_div =3D 10,=0A=
-		.min_pix_clk_freq_hz =3D 62500000,=0A=
-		.max_pix_clk_freq_hz =3D 2300000000,=0A=
-	},=0A=
-=0A=
->> +=0A=
->> +#define IMX576_REG_BINNING_MODE                CCI_REG8(0x0900)=0A=
->> +#define IMX576_REG_BINNING_TYPE                CCI_REG8(0x0901)=0A=
->> +#define IMX576_REG_BINNING_WEIGHT      CCI_REG8(0x0902)=0A=
->> +=0A=
->> +#define IMX576_PIXEL_RATE              813600000=0A=
->> +#define IMX576_NUM_DATA_LANES          4=0A=
->> +=0A=
->> +/* IMX576 native and active pixel array size */=0A=
->> +static const struct v4l2_rect imx576_native_area =3D {=0A=
->> +       .top =3D 0,=0A=
->> +       .left =3D 0,=0A=
->> +       .width =3D 5792,=0A=
->> +       .height =3D 4464,=0A=
->> +};=0A=
->> +=0A=
->> +static const struct v4l2_rect imx576_active_area =3D {=0A=
->> +       .top =3D 136,=0A=
->> +       .left =3D 16,=0A=
->> +       .width =3D 5760,=0A=
->> +       .height =3D 4312,=0A=
->> +};=0A=
->> +=0A=
->> +static const char * const imx576_supply_names[] =3D {=0A=
->> +       "vana",         /* Analog Power */=0A=
->> +       "vif",          /* Interface Power */=0A=
->> +       "vdig",         /* Digital Power */=0A=
->> +};=0A=
->> +=0A=
->> +static const struct cci_reg_sequence imx576_common_regs[] =3D {=0A=
->=0A=
->[...]=0A=
->=0A=
->> +       { IMX576_REG_IVT_PXCK_DIV, 0x05 },=0A=
->> +       { IMX576_REG_IVT_SYCK_DIV, 0x02 },=0A=
->> +       { IMX576_REG_IVT_PREPLLCK_DIV, 0x04 },=0A=
->> +       { IMX576_REG_IVT_PLL_MPY, 0x0154 },=0A=
->> +       { IMX576_REG_IOP_SYCK_DIV, 0x01 },=0A=
->> +       { IMX576_REG_IOP_PREPLLCK_DIV, 0x04 },=0A=
->> +       { IMX576_REG_PLL_MULT_DRIV, 0x01 },=0A=
->=0A=
->I think when Laurent asked to make the PLL configurable for different link=
-=0A=
->frequencies, he meant deriving these and the OP_PLL_MPY value instead of=
-=0A=
->hardcoding all of them and only supporting one link freq.=0A=
->> +       { CCI_REG8(0x0b06), 0x01 },=0A=
->> +       { CCI_REG8(0x3620), 0x01 },=0A=
->> +       { CCI_REG8(0x3f0c), 0x00 },=0A=
->> +};=0A=
->> +=0A=
+>mainline (or at least the linux-next tree)=0A=
 >=0A=
 >Thanks,=0A=
 >    Jai=0A=
 =0A=
+Thanks, understood. We=92ll submit the DT changes separately after the bind=
+ings=0A=
+land in mainline.=0A=
 =0A=
 Best Regards,=0A=
-Himanshu=
+Himanshu=0A=
