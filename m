@@ -1,195 +1,275 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18CBF36729C;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A810C449B13
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786457194; cv=none; b=hjBiK5qY8Axgsrsl01dYAWKb+bBpLVrIhi5E1JJezSC+FuGI/85kRhxq8KVJEncLaA34x7rsuWo21iz8Ztkj0p2D/bATSFBZ5WWmAH8NRPwk4JNEOn7Oz48puCofUcjY5XDx8lVVuzrsmsxHHo7VIWjylCTrpHKKnna+qLDvQCc=
+	t=1786458985; cv=none; b=cn/wz9vV4CtcJnMG0Zgd1GMZcCtOnfO/Qk4swhlYHA3g8C4wi7ptzBCPKSP9X/isSRH2XZx4EYXKW8Nt/ViwpnXtQW9GaEmGxUD7QPXeUDJxjfn5gqWGqH6ZLr2IKcZvZZVSpXPeeC3w3DT7NfdHPYy/7aOxdsGuT6eMTCA5wEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786457194; c=relaxed/simple;
-	bh=JD9S9E7qbRV19UEDzg93FHSCM8x7c6AJ5aIe9ovHFos=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=aJ9aH8zHTRznkoIndF16knjFYpI6UxNC+rfnzpS7a96wuPitkpmP+w6T8mDgdKTXVkYcmSdYBdHs+zf9CTRuxxfWWP9WufhM7ZAN+jqi2LAEtAUrZ7G8wBPeYjbmuMkgYahvRDCxYeXtYurAT6ZkEFxnW/UKDNV+kkFR2v2BFA0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIgYFqHn; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1786458985; c=relaxed/simple;
+	bh=G3BdBR7697xUjjuCo7MFSXSomFi+FPGZV8uhCFjNX24=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jd78WfsWv84340hmKBUyFr4m/tAm5Yd0vniDFpImtmxHPdWT6Rzoq1lwjz9h6KKu29bOOgIKhGBA7WP7QsLMyOZbsCghOMFvsQ5Vfd+EHpgn1cowKPfVkLP7SQQOexebhFanDpGKzIbRZRMxH/q+mwq44LBdtNlEPZgiXyxoceM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hrYksqob; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EDRJstX4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIgYFqHn"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 89D70C2BCC7;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1786457193;
-	bh=JD9S9E7qbRV19UEDzg93FHSCM8x7c6AJ5aIe9ovHFos=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=MIgYFqHnR7gDB/wFWkVA7T7SvPneMCBKKHADBqhtFGTJ/cnOosLDlDRGOCnM2lfPp
-	 jCMThTDe9p85+5PmcxiNHLUtvwKcuWy99d5uE6VgOxYxwNxhvvM8PrQCu6dw4dKPMW
-	 vufaX6oWXkZc+Zbcc7/YOSC18iFuRHjnczcePy3CYU8AUk/zf5OO4JAuCtlFl29JXI
-	 3W67eGjf+NndF8lgJ0upKOUzm4TokUbZsIzhkzRsmHPKXNivQLINYD6VIvd6a/CwwM
-	 ykcZspsIz40Tv7tbl1zx3WuwRwHgavHfxE+fdtIm+sf4AX0pOL69YVLDvJaCA74Gju
-	 nBpMsOFuHgWPA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 651FCC5B56A;
-	Tue, 11 Aug 2026 14:06:33 +0000 (UTC)
-From: Jason Yang via B4 Relay <devnull+jason98166.gmail.com@kernel.org>
-Date: Tue, 11 Aug 2026 22:06:24 +0800
-Subject: [PATCH v5] media: ov5640: select the MIPI lane mode from the
- endpoint lane count
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hrYksqob";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EDRJstX4"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67BDWWut1914245
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=; b=hrYksqobfha8uye+
+	Zk0gc0WLv+GeP7IXh3sc1JGMMZ4/JZ5AF4B9f2h2x8dOemPIG2nVI5rhKa/Bue6K
+	aQJialweIRGAQuQepQ6ek3zEDtHeCQGSuNgHWun3iR0bKP+loR/mbJ5aRUVabGyJ
+	fxMfKVLBHxuAgsGorh2jwgCqiLfyh7qxFP0nk6pij485UjFAUmYJBFP2ClY49pAu
+	+rG9Wc6QOo0I8rFx+LnzE+RKtl7puHJcmRtVJwk8+g3eiGTufppFbyfz/gO+pfwd
+	BNWgawO3W2v2ojkHD/G9lI8UtbhtPTxl+l20VVc8fx3/8bLd11HdBmS8uaSM0v5/
+	8GuhoQ==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g049brdme-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 14:36:22 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e538afe65so344968285a.3
+        for <linux-media@vger.kernel.org>; Tue, 11 Aug 2026 07:36:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786458981; x=1787063781; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=;
+        b=EDRJstX4yoNyZ4FobRvVeThC54W3SfbmCm4VW2tkAJ/ZtxDdpZU9nm8ppj1XABVchQ
+         L/9mBRWxR1wE4pLG4as7J33BthtfI7OfJqsM1khK5hNFHsx2mms1uw2GrnixvVOcVMmJ
+         8qK7dgc0Kg1MQaJVlOgmYhJDZkzEzmHqTz1wfnVuMb+cABjs2jxAr7Ku/pLD7YFnfIRR
+         8k9cAg609S42+c2gN4D/W1Tp4CtcK1ZK00RW7wQ8aD0kS7aGVlHx4ALDgHA+zHOhkM9X
+         bzTu99dqk5U3XBjvXR6enFG7Or4drwsq8ar/keti1TU8jPQE40cS/4wgwSmIrOUJK3WN
+         /wCw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786458981; x=1787063781;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:subject:from:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z4npT91whHGlaKUkHbgyocvB+1xGRkT8HCeq2TRpFog=;
+        b=AJ2jecxWrmBtapoyTFFHivq3rOEIF0qMtH63aSoEJme20Y73pmTqInMfPhfunjzkEB
+         drjN5M3Dwj8wd/ZAFUrRP5O8vJmCTlZyWjGLprdvCy4Clxs8l9zqXTtrYyhjHU8tNkLn
+         oTMHLJn7z8bfzRWt0wfAG6sYiEGidIiZHlv+XgtEpr9OOyILrI2QGUekL0QKlPsBXkVm
+         5qWL6QQL7mb8mKz6BV+NteR1TD260EvsGt3Dy6i7w3Urr9WtVyYNBT2MDk9bPQDds4eS
+         vVWYXrNil+Wmx/8YjSszGBu/9GnLcez6qEyfiCECo2nwUMK6S1APqsEVwEoIZhuZYiWa
+         S3ew==
+X-Forwarded-Encrypted: i=1; AHgh+Rq6+kpnXnMnE9lvEqYzUu/ho17uuxvJS6s6niL79ZZe9JPM1oc8LBWfa8Xm8NtqiyVhPjIJQfnwjn3C3g==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwgQtGpTwZnGKzkVrvQvN4rcVVJ6TCZWP0kCcBfYVRKGJDtZkqF
+	mw2NS9j/ANnlem4ZyyZxlFX/sxvS4QWSSXxXCOIxaCXQVN4cPDSSHLHPgKWi88Y1dnAnZG+Vfj1
+	mVd6PjAy8fcHD/8kqpkzOpnqgAgwlS2Q20u7SgMSyGVJoq1ReC4IHOg5bZLaxdlfdfYKEL6Ydzw
+	==
+X-Gm-Gg: AR+sD12ku53NwbXl/eUefhPVZ0YSpI2F5wLPRgyiNTQdXGyOfMtoJRwg5lHZZ0hYSZB
+	R7duyV/XNacA4rROv2WPcthNyNhNNph5TCoSMzul40wJrzdaL/t/BdFc/GuYT22edzy2FnnjW2h
+	OF0R27BFGDgXxD1hfJn4Jl5+9oj+i2iHaWuV45lmMPRdQO9qPOQNp1ALzxXmk+u00/SyuW4pl/Y
+	IGsXlIl8zg3sohNaRR9QA7Rl13NKwJkQWbfzUSlM5E/7sOQSq9Guh55wiQu1B0YsAaroAgg9tdd
+	0recw7cHXF4qrU4K0mgUIhYAIfTskjKfxNyqN4W74wfygR+WZL4YWn+rLhA/zu0BQl3vhslJyF0
+	Ly2tI05OuRxcbxOExFH1DK82fiaW4QhZ7HDxc5f1fIJanfyORin6Ce4Sb4idgo51B0aHDlxS4gD
+	h9+dj/lnK7Qsv2hqijXw7otIOCCxjNLGYywfIDzNrP9E0H8r0zAIgLrmfRPh0dldP86SE=
+X-Received: by 2002:ac8:7f41:0:b0:51c:19af:6341 with SMTP id d75a77b69052e-52d60251984mr6645991cf.36.1786458981519;
+        Tue, 11 Aug 2026 07:36:21 -0700 (PDT)
+X-Received: by 2002:ac8:7f41:0:b0:51c:19af:6341 with SMTP id d75a77b69052e-52d60251984mr6645201cf.36.1786458981070;
+        Tue, 11 Aug 2026 07:36:21 -0700 (PDT)
+Received: from ?IPV6:2001:1c00:c32:7800:5bfa:a036:83f0:f9ec? (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c20e4102739sm63344066b.21.2026.08.11.07.36.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 11 Aug 2026 07:36:20 -0700 (PDT)
+Message-ID: <47ba3fb7-baf1-4689-bac5-7f296e70f3b3@oss.qualcomm.com>
+Date: Tue, 11 Aug 2026 16:36:18 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+From: johannes.goede@oss.qualcomm.com
+Subject: Re: [PATCH v5] media: ov5640: select the MIPI lane mode from the
+ endpoint lane count
+To: jason98166@gmail.com, Steve Longerbeam <slongerbeam@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Kieran Bingham <kieran.bingham@ideasonboard.com>,
+        linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+References: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
+Content-Language: en-US, nl
+In-Reply-To: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260811-ov5640-1lane-v1-v5-1-14849a3d3a71@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAF8se2oC/4XNTQqDMBAF4KtI1k3JzyRqV71H6SKJEw1YU7SEF
- vHuja6KUITZvAffm5lMOAacyKWYyYgpTCEOOahTQVxnhhZpaHImggnNKs5pTEoDo7w3A9LEqWU
- eZYnGQlORrJ4j+vDeFm/3nLswveL42R4kvrb/t/JxWta6rkGVDrm8tg8T+rOLD7JuJXHgRfZaC
- aYMVtqj3Xt54GX2BqHUaLxiAvYeDjxk78Aw1YDjVopfvyzLF/AcNl1uAQAA
-To: Steve Longerbeam <slongerbeam@gmail.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil@kernel.org>, 
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
- Kieran Bingham <kieran.bingham@ideasonboard.com>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Jason Yang <jason98166@gmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786457192; l=4903;
- i=jason98166@gmail.com; s=20260721; h=from:subject:message-id;
- bh=uAAC7TSafNkUxaGVKrMNqcaGlxdJ/qh/FP1j05iJCXk=;
- b=t8E2nqcm3luy3WHm6UwJumed0JU8Aou0OZwWXfLpenfguEYaciyCq1VlEiYGc97lxBGQEaR8R
- SOh5VtLSo46AdHeALmqXLTXu7RT4H7kWvAygV4XMjzajak9JE+mn93q
-X-Developer-Key: i=jason98166@gmail.com; a=ed25519;
- pk=xQmD001Q/ooHl39PxyQtusbUQmgbOsSfpFryRVWZ/k4=
-X-Endpoint-Received: by B4 Relay for jason98166@gmail.com/20260721 with
- auth_id=887
-X-Original-From: Jason Yang <jason98166@gmail.com>
-Reply-To: jason98166@gmail.com
+X-Proofpoint-GUID: gmDK40LM8SvWSb90F5vTKk41szN31TYG
+X-Authority-Analysis: v=2.4 cv=ENg2FVZC c=1 sm=1 tr=0 ts=6a7b3366 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=pGLkceISAAAA:8 a=EUspDBNiAAAA:8 a=PFQL8LixuE-k6l4gkC0A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: gmDK40LM8SvWSb90F5vTKk41szN31TYG
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfX9KR1m3i3OdEx
+ +hxyiwWq7UyKES4icuOdQfiDB0yV7/Ei1keHvCkqtsMqrwTF6/11oczFVfTMVAiajxqh/eZz9Q0
+ PPta3rYSxTdtGFFZr0xbmEQvpwQsAT9dCDM+JSPP+pbl5duL8/Wol1/VvZzv0GrmfFM4RK46oaU
+ skiRA5VzAw/qGfspMoxdnJQbEq3QeNK0NK+DoFjckQQShnkyWf6CdBCZTsU3Jz2a9UnFykxyd4o
+ 2lGHhvzrzCjeOKh9vxoUb+jMe3+zZvNBVuUFlY6jhzgv2SN85AII6EvtKgvy+CEJcNEIAKOyL2Q
+ M7v/hxWuKdrotczkrYHPZbAFkZVHb18cFRZWXboIlCertV8zXuHD0IptUCpzNJGs+6tw/ANPRpi
+ 8ZlrMNabWt91J3Q5CanCLMUK7DhS+Lpl/gPXOxAtk9UWTmmuw5ZDvey0wZQF49zkZ9bAEuzzal6
+ hJZvYrHS38k30hbEwsA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODExMDEyMSBTYWx0ZWRfXyWpTVDiOzWwK
+ K0MT1kelSLeEtRJMbcSN0ZLTM4uv5iLZsLZVsqQMOarnfjClB1nTyXoYWv937CPiBijgxwmQasC
+ OFJQrLHKKkPvAbfceyT5MG6L8VewzgM=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-11_03,2026-08-10_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 adultscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608110121
 
-From: Jason Yang <jason98166@gmail.com>
+Hi,
 
-ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
-which selects the two data lane mode: the number of data lanes
-described in the devicetree endpoint only feeds the sensor's clock
-tree computations, so a module wired with one data lane starts
-streaming in two lane mode and the receiver never assembles a
-frame.
+On 11-Aug-26 16:06, Jason Yang via B4 Relay wrote:
+> From: Jason Yang <jason98166@gmail.com>
+> 
+> ov5640_set_stream_mipi() always programs IO_MIPI_CTRL00 with 0x45,
+> which selects the two data lane mode: the number of data lanes
+> described in the devicetree endpoint only feeds the sensor's clock
+> tree computations, so a module wired with one data lane starts
+> streaming in two lane mode and the receiver never assembles a
+> frame.
+> 
+> Take the lane mode from the endpoint instead, both when streaming
+> starts and in the power-up path. The field encodes the lane count
+> directly - 001 for one lane, 010 for two - per the current sensor
+> manual (version 2.33). The 2.03 manual documented 000/001 for
+> one/two lanes; OmniVision corrected the table in version 2.1,
+> which is why the long-standing comment here found 001 unusable for
+> two lanes and validated 010 instead.
+> 
+> The power-down path still resets the register to 0x58, which is
+> the chip's reset default.
+> 
+> Tested with a single data lane module on an i.MX8MP board
+> (imx-mipi-csis receiver), where the unpatched value produces no
+> frames at all, and on an RK3588 board.
+> 
+> Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Jason Yang <jason98166@gmail.com>
+> Assisted-by: Claude:claude-opus-5
 
-Take the lane mode from the endpoint instead, both when streaming
-starts and in the power-up path. The field encodes the lane count
-directly - 001 for one lane, 010 for two - per the current sensor
-manual (version 2.33). The 2.03 manual documented 000/001 for
-one/two lanes; OmniVision corrected the table in version 2.1,
-which is why the long-standing comment here found 001 unusable for
-two lanes and validated 010 instead.
+Thanks, patch looks good to me:
 
-The power-down path still resets the register to 0x58, which is
-the chip's reset default.
+Reviewed-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
 
-Tested with a single data lane module on an i.MX8MP board
-(imx-mipi-csis receiver), where the unpatched value produces no
-frames at all, and on an RK3588 board.
+Regards,
 
-Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jason Yang <jason98166@gmail.com>
-Assisted-by: Claude:claude-opus-5
----
-Changes in v5:
-- Program the endpoint lane count in the power-up path as well,
-  instead of leaving the hardcoded two-lane value there until
-  streaming starts (Hans de Goede); the power-down reset value
-  0x58 is the chip default and stays.
-- Credit the v4 changes to Hans de Goede - v4 wrongly named
-  Hans Verkuil.
-- Link to v4: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v4-1-c4a05d4c1b32@gmail.com
+Hans
 
-Changes in v4:
-- Keep the lane count programmed also while the interface is
-  disabled, toggling only the enable bits (Hans Verkuil); with one
-  data lane the disable value becomes 0x20 instead of 0x40.
-- Link to v3: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com
 
-Changes in v3:
-- Inline the lane count in the write instead of going through a
-  local variable (Sakari Ailus).
-- Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
 
-Changes in v2:
-- Compute the register value from the lane count in the single
-  write instead of branching on it (Sakari Ailus), with the count
-  in a local variable to stay within 80 columns; the programmed
-  values are unchanged, 0x25 for one lane and 0x45 for two.
-- Request a normal stable backport rather than opting out of
-  AUTOSEL (Sakari Ailus).
-- Drop the quotes around the function name in the reference from
-  ov5640_set_power_mipi() (Sakari Ailus).
-- Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
----
- drivers/media/i2c/ov5640.c | 25 ++++++++++---------------
- 1 file changed, 10 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 8deb5f5501fa..526939041ad0 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
- 	/*
- 	 * Enable/disable the MIPI interface
- 	 *
--	 * 0x300e = on ? 0x45 : 0x40
--	 *
--	 * FIXME: the sensor manual (version 2.03) reports
--	 * [7:5] = 000  : 1 data lane mode
--	 * [7:5] = 001  : 2 data lanes mode
--	 * But this settings do not work, while the following ones
--	 * have been validated for 2 data lanes mode.
--	 *
--	 * [7:5] = 010	: 2 data lanes mode
-+	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
-+	 *		  per version 2.33 of the sensor manual
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1/0	: MIPI interface enable/disable
- 	 * [1:0] = 01/00: FIXME: 'debug'
- 	 */
- 	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
--			       on ? 0x45 : 0x40);
-+			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-+			       (on ? 0x05 : 0x0));
- 	if (ret)
- 		return ret;
- 
-@@ -2532,16 +2526,17 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
- 	}
- 
- 	/*
--	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
-+	 * Power up MIPI HS Tx and LS Rx
- 	 *
--	 * 0x300e = 0x40
--	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
--	 *		  "ov5640_set_stream_mipi()")
-+	 * [7:5]	: data lane count (see the note in
-+	 *		  ov5640_set_stream_mipi())
- 	 * [4] = 0	: Power up MIPI HS Tx
- 	 * [3] = 0	: Power up MIPI LS Rx
- 	 * [2] = 1	: MIPI interface enabled
- 	 */
--	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x44);
-+	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
-+			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
-+			       0x04);
- 	if (ret)
- 		return ret;
- 
-
----
-base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
-change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
-
-Best regards,
--- 
-Jason Yang <jason98166@gmail.com>
-
+> ---
+> Changes in v5:
+> - Program the endpoint lane count in the power-up path as well,
+>   instead of leaving the hardcoded two-lane value there until
+>   streaming starts (Hans de Goede); the power-down reset value
+>   0x58 is the chip default and stays.
+> - Credit the v4 changes to Hans de Goede - v4 wrongly named
+>   Hans Verkuil.
+> - Link to v4: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v4-1-c4a05d4c1b32@gmail.com
+> 
+> Changes in v4:
+> - Keep the lane count programmed also while the interface is
+>   disabled, toggling only the enable bits (Hans Verkuil); with one
+>   data lane the disable value becomes 0x20 instead of 0x40.
+> - Link to v3: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v3-1-ae476eaf5024@gmail.com
+> 
+> Changes in v3:
+> - Inline the lane count in the write instead of going through a
+>   local variable (Sakari Ailus).
+> - Link to v2: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v2-1-65205ae86feb@gmail.com
+> 
+> Changes in v2:
+> - Compute the register value from the lane count in the single
+>   write instead of branching on it (Sakari Ailus), with the count
+>   in a local variable to stay within 80 columns; the programmed
+>   values are unchanged, 0x25 for one lane and 0x45 for two.
+> - Request a normal stable backport rather than opting out of
+>   AUTOSEL (Sakari Ailus).
+> - Drop the quotes around the function name in the reference from
+>   ov5640_set_power_mipi() (Sakari Ailus).
+> - Link to v1: https://lore.kernel.org/r/20260811-ov5640-1lane-v1-v1-1-79699457ce13@gmail.com
+> ---
+>  drivers/media/i2c/ov5640.c | 25 ++++++++++---------------
+>  1 file changed, 10 insertions(+), 15 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+> index 8deb5f5501fa..526939041ad0 100644
+> --- a/drivers/media/i2c/ov5640.c
+> +++ b/drivers/media/i2c/ov5640.c
+> @@ -1831,22 +1831,16 @@ static int ov5640_set_stream_mipi(struct ov5640_dev *sensor, bool on)
+>  	/*
+>  	 * Enable/disable the MIPI interface
+>  	 *
+> -	 * 0x300e = on ? 0x45 : 0x40
+> -	 *
+> -	 * FIXME: the sensor manual (version 2.03) reports
+> -	 * [7:5] = 000  : 1 data lane mode
+> -	 * [7:5] = 001  : 2 data lanes mode
+> -	 * But this settings do not work, while the following ones
+> -	 * have been validated for 2 data lanes mode.
+> -	 *
+> -	 * [7:5] = 010	: 2 data lanes mode
+> +	 * [7:5]	: data lane count, 001 for one lane and 010 for two,
+> +	 *		  per version 2.33 of the sensor manual
+>  	 * [4] = 0	: Power up MIPI HS Tx
+>  	 * [3] = 0	: Power up MIPI LS Rx
+>  	 * [2] = 1/0	: MIPI interface enable/disable
+>  	 * [1:0] = 01/00: FIXME: 'debug'
+>  	 */
+>  	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+> -			       on ? 0x45 : 0x40);
+> +			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
+> +			       (on ? 0x05 : 0x0));
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -2532,16 +2526,17 @@ static int ov5640_set_power_mipi(struct ov5640_dev *sensor, bool on)
+>  	}
+>  
+>  	/*
+> -	 * Power up MIPI HS Tx and LS Rx; 2 data lanes mode
+> +	 * Power up MIPI HS Tx and LS Rx
+>  	 *
+> -	 * 0x300e = 0x40
+> -	 * [7:5] = 010	: 2 data lanes mode (see FIXME note in
+> -	 *		  "ov5640_set_stream_mipi()")
+> +	 * [7:5]	: data lane count (see the note in
+> +	 *		  ov5640_set_stream_mipi())
+>  	 * [4] = 0	: Power up MIPI HS Tx
+>  	 * [3] = 0	: Power up MIPI LS Rx
+>  	 * [2] = 1	: MIPI interface enabled
+>  	 */
+> -	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00, 0x44);
+> +	ret = ov5640_write_reg(sensor, OV5640_REG_IO_MIPI_CTRL00,
+> +			       sensor->ep.bus.mipi_csi2.num_data_lanes << 5 |
+> +			       0x04);
+>  	if (ret)
+>  		return ret;
+>  
+> 
+> ---
+> base-commit: 1590cf0329716306e948a8fc29f1d3ee87d3989f
+> change-id: 20260811-ov5640-1lane-v1-b0fe37eab4d8
+> 
+> Best regards,
 
