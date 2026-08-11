@@ -1,102 +1,288 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D32F629D29F;
-	Tue, 11 Aug 2026 10:12:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97A6D34F27B;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786443158; cv=none; b=UY4GNeh9+0OF760soAfTqElKCv/E/A18Amfi3RQ+6qEr56Dzgm75gHRtg6QK6l5BvjrnGBWyrf/ljcctTyRN2MFxbn5PY0NBkJOjF9DWJN1aMUctQ3l8TIMfwzyIsYrbR7GC1W/o4olgpKCyF/yfkBCrcca+RacY+HMSzv5NcXg=
+	t=1786444287; cv=none; b=KOZKEhLWoPveN0md1IV5lP1PpwMzWMg/AUA3Q07Lp0hxRZ9ny/+FCPvwApaRaPRZp+AUMDB6r/a8O6QxeQaEtDj9AVOchHdKq2WCchNvGJxznEigYjJDiLekJCXOsmPVcjuEnqWIWHjzKEJWlZXmxoAX/z5KV54IZ+QO7EryTFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786443158; c=relaxed/simple;
-	bh=/kAOnHyuarOKueut2GQG+WxET23EAqz4Py4OOG/++Qs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KlsFWfsoQrl8OyOeIOaWcvBW4ZCq5393tMYt1oJdF88mMKYrXkYpGm/u5AacrpHDYgMCEWwXwvjqqVS13adRnGohcnsPzSxf8JL/IP2SA6UBTUYhKGi5zWLcJP4mzA0HhHu8z2wt9JRWumQaYffvv22sLhPu8TbJLBac060Rw6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rJRWCGMW; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786444287; c=relaxed/simple;
+	bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ChfHth1LYHf2XIA5abPYlAQkQYF/z7sfsXnehRSQ1yOeWV2hGy8zsYFfJ/ttVhzmwxzf3bTokquokg12QITyv82ceCgfthia913puXHVap75HJtiUGeq1WAsrFjR87NmXrExi7a/Ne7d4EzVafY3zl+M9kNbr3s/v3rHcpdYA/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LFmirh2J; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rJRWCGMW"
-Received: from ideasonboard.com (mob-109-113-74-220.net.vodafone.it [109.113.74.220])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5A4D54DC;
-	Tue, 11 Aug 2026 12:11:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786443070;
-	bh=/kAOnHyuarOKueut2GQG+WxET23EAqz4Py4OOG/++Qs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=rJRWCGMWbNVFpzJ2ki5KAVs5rLUp8Y3Hd6tcFj90u0b1/uCiSuybvZwWcTUsEs1QQ
-	 SqqqaYNcLQvdEfqzCmokImh/45zjpE5a+3nFJF6xkRZ7DQsydkaKBxXRhz6k777nRn
-	 zkTLjVoWiCqrlexN2PRA6RsvawXmTZfeUjbmCtkI=
-Date: Tue, 11 Aug 2026 12:12:21 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: raoxu <raoxu@uniontech.com>
-Cc: mchehab@kernel.org, hverkuil+cisco@kernel.org, 
-	laurent.pinchart@ideasonboard.com, jacopo.mondi@ideasonboard.com, kees@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: m2m-deinterlace: fix default capture field
-Message-ID: <anr1DLTi2UUdWWZ0@zed>
-References: <2F5126811A6B9396+20260811015222.3467910-1-raoxu@uniontech.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LFmirh2J"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2A558C2BCC7;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786444287;
+	bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=LFmirh2JaVWAwHGWttaJfwD7jz3EQy1aOvRg727gUv7sf+vFAC9ExoUY1Pp0axYGv
+	 9BSXXNf0rJiSZM/XH4MprciEUYyux4Ct3M7RxiB7xmiJS5NmvKxFa/37gW+n3xO3/x
+	 wzOGAwNxZS3cAWXX9g5gwSTyg16NzPevF3wSMWrgroNpK9LLivapEz8ayJiP0c5DAx
+	 dGjEN8be8bue0FIUDnFeGCSMlA3o8lWDV7Fjz1+kFs8ow3gASkbEbwhQhGy9bL5+e0
+	 o3aOZUi9d/wnnh0KpN7vKR6VRczYKGzAstHmDK8BmbKiJUWLeUCsXZBESkL8esrURK
+	 mfZ+47wlXXulg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 173B0C5CFC1;
+	Tue, 11 Aug 2026 10:31:27 +0000 (UTC)
+From: Hermes Wu via B4 Relay <devnull+Hermes.wu.ite.com.tw@kernel.org>
+Subject: [PATCH v10 0/2] media: i2c: add support for ITE IT6625/IT6626 HDMI
+ to MIPI CSI-2 bridge
+Date: Tue, 11 Aug 2026 18:31:24 +0800
+Message-Id: <20260811-upstream-it6625-it6626-v10-0-9b6bb75262c9@ite.com.tw>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2F5126811A6B9396+20260811015222.3467910-1-raoxu@uniontech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAPz5emoC/43SzWrDMAwA4FcpPi/Fli3J3mnvMXawHXv1oT8kW
+ bZR8u5zux0yTKAnIYE+IaGrGNNQ0iied1cxpLmM5XyqiZJPOxEP/vSeutLXggAJJFlR93EZpyH
+ 5Y1cmIsDfQB1ZNj5Yj1qiqM2XIeXydZdf32p+KON0Hr7vg2Z1q/6RILfIWXWyM4xOQWZj0L2UK
+ e3j+bifPsXNnGHtqE0HqsPRZI1kote2cfTagU1HV8cZTiizVEymccxjjqlOlFoTpIAYfePgYw5
+ WR1tOjNZkiO196DGHqkNKcW96R8jtXrx29KbD1clWMYYgk1fQOHbt8KZjqwNRB5kdgsmxcdzK0
+ dv/46qTmAH7AMFB/ucsy/IDuwXVmv4CAAA=
+X-Change-ID: 20260716-upstream-it6625-it6626-6874ab8a5305
+To: Hermes Wu <Hermes.Wu@ite.com.tw>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Hermes Wu <Hermes.wu@ite.com.tw>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786444285; l=12396;
+ i=Hermes.wu@ite.com.tw; s=20241230; h=from:subject:message-id;
+ bh=kABI02I9UfFmz+A+DQGlsGvO4zT9JmHmAIb0YNRw7qc=;
+ b=HKKHxaP+TH3E1QUCSJQBwjrEhBdymKU/vQO3+xf49e6Oxd6ku//i3NoEXB6qRwCIEDT/4J/QN
+ cttklpVGbcWCUstS4zPUsSPnTsylQQ2WaL2EBT8y34QHJUSLzQ/53WU
+X-Developer-Key: i=Hermes.wu@ite.com.tw; a=ed25519;
+ pk=qho5Dawp2WWj9CGyjtJ6/Y10xH8odjRdS6SXDaDAerU=
+X-Endpoint-Received: by B4 Relay for Hermes.wu@ite.com.tw/20241230 with
+ auth_id=310
+X-Original-From: Hermes Wu <Hermes.wu@ite.com.tw>
+Reply-To: Hermes.wu@ite.com.tw
 
-Hi Xu Rao
+This series adds support for the ITE IT6625/IT6626 HDMI to MIPI CSI-2
+bridge chips. IT6625 accepts an HDMI 2.0 input and IT6626 an HDMI 2.1
+input, converting it to a D-PHY (or C/D-PHY on IT6626) MIPI CSI-2
+output. The bridge is configured over I2C, exposes an HDMI CEC
+adapter, and supports EDID read/write, DV timings detection and
+configuration, and HPD control via the standard V4L2 subdevice pad
+and video ops.
 
-On Tue, Aug 11, 2026 at 09:52:22AM +0800, raoxu wrote:
-> From: Xu Rao <raoxu@uniontech.com>
->
-> queue_init() initializes default formats for both the source and capture
-> queues.  It first sets the source field to V4L2_FIELD_SEQ_TB, but then
-> stores the capture default, V4L2_FIELD_INTERLACED_TB, in the source queue
-> again while initializing the capture queue.
->
-> This overwrites the valid source default and leaves the capture field at
-> its zero-initialized value, V4L2_FIELD_ANY.  vidioc_streamon() accepts
-> only V4L2_FIELD_SEQ_TB or V4L2_FIELD_SEQ_BT on the source queue, and
-> requires the capture queue to use a compatible interlaced or NONE field.
-> Userspace that relies on the default formats can therefore get -EINVAL
-> when starting streaming.
->
-> Initialize the capture field instead.  The bug is usually hidden because
-> mem2mem applications commonly call S_FMT on both queues before streaming;
-> the TRY_FMT paths normalize the fields and S_FMT overwrites q_data[].field.
->
-> Fixes: 8f0755c06b90 ("[media] media: Add mem2mem deinterlacing driver")
+Patch 1 documents the devicetree binding for the bridge, including
+its two selectable CSI-2 output graph ports.
 
-Missing
+Patch 2 adds the V4L2 subdevice driver itself.
 
-Cc: stable@vger.kernel.org
+Signed-off-by: Hermes Wu <Hermes.wu@ite.com.tw>
+---
+Changes in v10:
+- Patch 1 (dt-bindings): no code change -- the sashiko.dev automated
+  review of v9 re-raised the it6625 bus-type constraint yet again;
+  checked and dismissed again for the same reason (Krzysztof
+  Kozlowski's explicit request). Reviewed-by carried forward unchanged.
+- Patch 2 (driver): fix four issues found by the sashiko.dev automated
+  review of v9, confirmed against the chip's datasheet --
+  CEC_MAX_LOG_ADDRS advertised more simultaneous logical
+  addresses than the hardware can actually hold, adap_log_addr
+  (CEC_LOG_ADDR_INVALID) didn't release a claimed address in hardware,
+  a hardcoded IRQF_TRIGGER_LOW overrode the board's devicetree-configured
+  interrupt polarity, and it6625_s_edid()'s multi-step sequence wasn't
+  atomic against a concurrent call. Also add .init_state so a
+  freshly-opened subdev's TRY format isn't left zero-initialized. One
+  other v9 review finding (a UAF in it6625_remove() vs. an in-flight
+  ioctl) was checked and confirmed real, but is not being acted on this
+  round -- see the patch's own changelog for why no driver-only fix
+  closes it.
+- Patch 2 (driver): fix a set of issues from Hans Verkuil's on-list
+  review of v9 -- CEC logical-address clear didn't actually
+  clear the address, a redundant CEC message dump duplicated the CEC
+  core's own logging, the HPD delay used an unreliable timing
+  constant, SOURCE_CHANGE wasn't raised on signal loss, S_DV_TIMINGS
+  incorrectly disabled stream output, three DV-timings pad-ops
+  wrappers were needlessly split from their bodies, g_edid()/s_edid()
+  assumed a fixed EDID block count and used the wrong CEC
+  physical-address helper, two custom controls (HDMI_INFO/MIPI_CONFIG)
+  had no real use case, and the driver was missing the required
+  InfoFrame debugfs export. Also reserve a proper
+  V4L2_CID_USER_IT6625_BASE and public header for the two remaining
+  custom audio controls, replacing the old locally-defined base that
+  collided with V4L2_CID_USER_NPCM_BASE. See the patch's own
+  changelog for the full list.
+- Link to v9: https://lore.kernel.org/r/20260730-upstream-it6625-it6626-v9-0-e7725db2b92f@ite.com.tw
 
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> ---
->  drivers/media/platform/m2m-deinterlace.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/m2m-deinterlace.c b/drivers/media/platform/m2m-deinterlace.c
-> index 1d0e70eaea3d..9dcc4bd6cbdd 100644
-> --- a/drivers/media/platform/m2m-deinterlace.c
-> +++ b/drivers/media/platform/m2m-deinterlace.c
-> @@ -822,7 +822,7 @@ static int queue_init(void *priv, struct vb2_queue *src_vq,
->  	q_data[V4L2_M2M_DST].width = 640;
->  	q_data[V4L2_M2M_DST].height = 480;
->  	q_data[V4L2_M2M_DST].sizeimage = (640 * 480 * 3) / 2;
-> -	q_data[V4L2_M2M_SRC].field = V4L2_FIELD_INTERLACED_TB;
-> +	q_data[V4L2_M2M_DST].field = V4L2_FIELD_INTERLACED_TB;
+Changes in v9:
+- Patch 1 (dt-bindings): no code change -- the sashiko.dev automated
+  review of v8 re-raised the it6625 bus-type constraint dropped in v8
+  at Krzysztof Kozlowski's explicit request; checked and dismissed
+  again for the same reason. Also carrying forward his Reviewed-by
+  from v8's on-list review, since the patch content is unchanged.
+- Patch 2 (driver): fix two correctness issues found by the sashiko.dev
+  automated review of v8 -- the IRQ handler always returned
+  IRQ_HANDLED even when no interrupt source was observed, defeating
+  the kernel's spurious-IRQ storm protection, and
+  it6625_initial_setup() touched REG_HOST_CTRL_INT without holding
+  it6625_lock despite running after cec_register_adapter() already
+  exposed /dev/cecX to userspace. One other v8 review finding
+  (fps_from_bt_timings() 32-bit overflow) was checked and is not being
+  acted on -- see the patch's own changelog for the arithmetic
+  reasoning.
+- Link to v8: https://lore.kernel.org/r/20260727-upstream-it6625-it6626-v8-0-2c3b0f9524fc@ite.com.tw
 
-Looks like a bug indeed. As you said, set_fmt re-initializes the field
-to V4L2_FIELD_INTERLACED_TB so it should be harmless, but there are no
-reasons not to fix the initialization.
+Changes in v8:
+- Patch 1 (dt-bindings): fix several nits from Krzysztof Kozlowski's
+  on-list review (subject, description style, two redundant bare
+  properties, a missing blank line), drop the it6625 bus-type
+  constraint he questioned as redundant with compatible, and document
+  interrupts and the three power-supply properties -- also answering
+  his "how does this device work without any power supplied?" and
+  closing the same undocumented-ABI gap he flagged for interrupts on
+  patch 2. See the patch's own changelog for the full list.
+- Patch 2 (driver): drop of_match_ptr() (Krzysztof's review), and fix
+  an interlaced-signal pixel clock bug found by the sashiko.dev
+  automated review of v7 and confirmed against the IT6625 spec: the
+  chip already reports the correct pixel clock for interlaced sources,
+  so halving it on top of that was wrong. One other v7 review finding
+  (get_fmt leaking active state into TRY width/height/field) was
+  checked and is not being acted on -- it matches an established
+  pattern in tc358743.c. See the patch's own changelog for both.
+- Replying on-list (not a patch change) to Krzysztof's question about
+  whether the it6625/it6626 compatible strings encode any real
+  difference -- they do (C-PHY is gated on chip_type in
+  it6625_parse_endpoint()).
+- Link to v7: https://lore.kernel.org/r/20260723-upstream-it6625-it6626-v7-0-f8175bb0ea12@ite.com.tw
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Changes in v7:
+- Patch 1 (dt-bindings): add back port@2 for the HDMI input port,
+  reversing the v4 decision to drop it -- the v6 automated review
+  re-raised the concern, and adi,adv7604.yaml (an actively-maintained
+  binding for a comparable HDMI-receiver chip) confirms documenting an
+  input port unused by the driver is the established convention, not
+  a defect.
+- Patch 2 (driver): fix three correctness issues found by automated
+  review of v6 -- it6625_parse_endpoint() could read the mipi_csi2
+  union under a bus_type the parser had silently fallen back to
+  parallel/BT656 on; it6625_set_fmt()'s active-format path left
+  format->format.colorspace stale for VIDIOC_SUBDEV_S_FMT callers; and
+  it6625_s_edid() never rejected a non-zero start_block as the
+  VIDIOC_S_EDID spec requires. See the patch's own changelog for the
+  full list.
+- Link to v6: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v6-0-6117d4d96574@ite.com.tw
 
->
->  	return vb2_queue_init(dst_vq);
->  }
-> --
-> 2.50.1
->
+Changes in v6:
+- Patch 2 (driver): fix two correctness issues found by automated
+  review of v5 -- an ignored v4l2_phys_addr_validate() return let a
+  malformed CEC physical address reach cec_s_phys_addr() and get
+  broadcast on the CEC bus, and it6625_parse_endpoint() pre-set the
+  fwnode bus_type to D-PHY, which made the parser reject every IT6626
+  C-PHY device tree outright. One other v5 review finding (a
+  concurrent-ioctl-vs-remove() race) was checked and is not being
+  acted on -- see the patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- the v5 review concern was
+  checked and dismissed; see the patch's own changelog for the
+  reasoning.
+- Link to v5: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v5-0-387e7584f2c9@ite.com.tw
+
+Changes in v5:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v4 -- two debugfs read handlers could leak uninitialized
+  kernel stack memory to userspace on an I2C read failure, TRY-format
+  state could go stale or leak active hardware state into what should
+  be an isolated buffer, a concurrent S_FMT ioctl could interleave
+  with hardware programming because the lock was released too early,
+  S_EDID's blocks==0 case didn't actually disable the EDID per spec
+  and a failed EDID write left HPD disabled permanently, the mipi_reg
+  debugfs write was unlocked, and the HDMI info control returned a
+  hardcoded string instead of real telemetry; also wire up the
+  previously-unused reset-gpios line during probe. See the patch's
+  own changelog for the full list, including three other v4 review
+  findings that were checked (one against the hardware author's own
+  knowledge of the chip) and are not being acted on -- see the
+  patch's own changelog for the reasoning.
+- Patch 1 (dt-bindings): unchanged -- both v4 review concerns for this
+  patch were self-dismissed by the automated review itself with sound
+  reasoning (the endpoint/patternProperties gap matches an established
+  single-endpoint convention already used elsewhere in-tree, and
+  dropping port@2 doesn't weaken validation since graph.yaml's own
+  generic port pattern still covers it).
+- Link to v4: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v4-0-c03362eb55ca@ite.com.tw
+
+Changes in v4:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v3 -- a CEC RX interrupt left unacknowledged on an invalid
+  message length could storm the IRQ line, set_fmt returned -EINVAL
+  for an unrecognized format code instead of falling back to a
+  default, get_fmt's active-path reads of the format state were
+  unlocked against a concurrent set_fmt, g_edid/s_edid didn't follow
+  the VIDIOC_G/S_EDID spec for over-capacity requests, and the two
+  mipi_reg debugfs handlers were missing locking/offset handling; also
+  mark the HDMI info control volatile so it is actually refreshed. See
+  the patch's own changelog for the full list. Separately (not a
+  review finding), drop a redundant FW-start register trigger from
+  probe -- the firmware starts automatically on power-on.
+- Patch 1 (dt-bindings): drop the unused port@2 (HDMI input) graph
+  port entirely rather than the review's suggested fix of adding it to
+  required, and require bus-type on port@0/port@1 endpoints for
+  "ite,it6626" specifically, since only that variant's D-PHY default
+  can silently mismatch actual board wiring. Both found by the
+  automated review of v3, which also flagged one other dt-bindings
+  issue that was checked and is not being acted on -- see the patch's
+  own changelog for the reasoning.
+- Link to v3: https://lore.kernel.org/r/20260722-upstream-it6625-it6626-v3-0-947e50f01764@ite.com.tw
+
+Changes in v3:
+- Patch 2 (driver): fix further correctness issues found by automated
+  review of v2 -- two banked-register reads still missing a lock, a
+  CEC RX length TOCTOU and a dropped CEC TX interrupt on invalid RX
+  length, it6625_s_edid() treating a successful write as a failure,
+  missing V4L2_SUBDEV_FORMAT_TRY support, an unlocked active-format
+  commit, and detected timings lumping the whole blanking interval
+  into hsync/vsync instead of reading the real porch registers. See
+  the patch's own changelog for the full list, including four other
+  v2 review findings that were checked and are not being acted on
+  (with reasoning).
+- Patch 1 (dt-bindings): unchanged.
+- Link to v2: https://lore.kernel.org/r/20260721-upstream-it6625-it6626-v2-0-7c4f3564ca38@ite.com.tw
+
+Changes in v2:
+- Patch 2 (driver): fix several correctness issues found by automated
+  review of v1 -- premature V4L2 async subdev registration/teardown
+  ordering, a missing-lock race on banked register reads, a
+  status-poll interval bug, a dropped CEC interrupt, an unacked CEC
+  transmit, set_fmt mutating active state on TRY, EDID blocks=0
+  handling, and a couple of uninitialized-stack hardening fixes. See
+  the patch's own changelog for the full list.
+- Patch 1 (dt-bindings): restrict port@0/port@1 bus-type to D-PHY (4)
+  only for "ite,it6625", since that chip doesn't support C-PHY (also
+  found by the automated review of v1).
+- Link to v1: https://lore.kernel.org/r/20260720-upstream-it6625-it6626-v1-0-475912f74459@ite.com.tw
+
+---
+Hermes Wu (2):
+      dt-bindings: media: add ITE IT6625/IT6626 HDMI bridge
+      media: i2c: add driver for ITE IT6625/IT6626
+
+ .../devicetree/bindings/media/i2c/ite,it6625.yaml  |  175 ++
+ MAINTAINERS                                        |    8 +
+ drivers/media/i2c/Kconfig                          |   18 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/it6625.c                         | 2394 ++++++++++++++++++++
+ include/uapi/linux/it6625.h                        |   25 +
+ include/uapi/linux/v4l2-controls.h                 |    6 +
+ 7 files changed, 2627 insertions(+)
+---
+base-commit: 8a6e017c06fbc1b96af618e82a4d35889d442964
+change-id: 20260716-upstream-it6625-it6626-6874ab8a5305
+
+Best regards,
+-- 
+Hermes Wu <Hermes.wu@ite.com.tw>
+
+
