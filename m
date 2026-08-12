@@ -1,202 +1,283 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013069.outbound.protection.outlook.com [40.93.201.69])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA3D47ECDD;
-	Wed, 12 Aug 2026 15:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.69
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786549523; cv=fail; b=Fj/pQlnVm27H2IVDPvh4uDTYJXrDVfZtxOcNTDE+HcRRqPuRvzWlVbAxdGOoEI8l4cGV77h4dQah7uzW0WjA0jrWmuUvXwJDtCsLcZuZTy6Q++pQmFHY/Y4N59a2KaqFLlMbXSKsmnYR0ucaPknLJP1ZISS7RKK3dY6wibrip/c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786549523; c=relaxed/simple;
-	bh=BNbnkOfAyHDxgmW0o8cspTHFSXKqfYG1uXfnqjN5xWo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=YzYFvHX1cuqqWLKFv2VlDnmw45+sl41X7FZ55H0Eb/TpwjfkW3imSl4hWzn0cfP8/AD9x3WsABXUIwZE44XGl6Pj/vItblp9ME61b/zEVdZo3NGAexHjhKXKre72zDE1fClVvW9WpGgF0gne/lpul9amU41aeztGUJadowQZu5w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4+D/o4yx; arc=fail smtp.client-ip=40.93.201.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C258E463B60
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:46:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786549569; cv=none; b=hbJvc9gDfUtD+xKccKqX2uQ9wWEk1DI//WTU83cSi2d+rhfUQ1tolKALmywD/w4deu5O6y421dLP31t4GFotJ12TywdPPlhWzs8A6iFhh4GkEzdL7cb/TkBRjLXEpd0Gug4yZXbrS+piNLzsGxUI865yYo74IRMpMCdOlHCYxzI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786549569; c=relaxed/simple;
+	bh=jqyL1l0kF09CMhY6OhtHP7ayRFOweOGyvTapk4qvAOo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XGCXtudQjBNr/zYe6sFvr27DOJtgRqyVCVRJD0/JpXMq1DbpunmFf+5y2DbsQC9TeFiqmtLeCddbS3GtVgSMdS0ObOwapPC9RyV6U5EjIZlX3doDcieCKXNz9GZQI+R9wsN9bD08e59WGnuKY3Zp5DQJTvbCBALRwS8AkCHzQEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RLCkMEAd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bA9/WLL8; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4+D/o4yx"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dTGK/XLBEeRRx4QU9HLPAP0aWCrYy7Ndh9NsnHV05F6U28x9n7j366naQ1Q2rjF3YdptGO63uE9+018hrC9dfRSypTssKa2c4v36eEfbXFDPwWEyQbYAp2Hie/zYOuoa9CWqk7QZRkhXPauUnTSsIiJjDlvGl+ij4cEQwSuOETFyKsysy8Pbz80uYFBWGJo943U/JirWd2b0LLB9c68sbJxhUFF70L97miM4Z2bCB1bFYpwu3j/DRu414AbOYA4naqhRup5wY9Fxwj88uCHrCL/PNixrXnayfMIdXPDPc1bWLbqHhBfHFxRlvN3xz4Of1wdjXRspZAQIb8q4E9oYnQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=vaj+IUZls1mEwf74SjwB8CWxMZTuOk6brAlQc/hv0rg=;
- b=vbkvE1Rc6zxT/ABZDafDa5aGTidgJDO1lkgvS8yw/asgfMG+pq3yJMK6dsIsXs1bnqTrldsiS9VjtUAGTEEoF/TUTY1vIJhNStUpL3OGL1Va7g44RmSQjonzXV219ZmR7I7uW0PQPUfYzBr/ACgN5+Ap6xKhOQrS/3zkXPlnFy96VnravUswMwtCoyMRkfBritd1DwPMx1VwWWdYp2RFStAS0zrIBhXrF4qmOCZYFFGDhRgBU8tFgDHTX+7Trijq/CDw5+SnwcEHCJvcDZ4R7iAHjI+YJ2qrkSav3/EhK2fr2kGR4Cfw6iwUHLm3uuNYj+CWzBBsriWnKtVrCrcU8A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=vaj+IUZls1mEwf74SjwB8CWxMZTuOk6brAlQc/hv0rg=;
- b=4+D/o4yxusbpntzbM6CVVyOEj7wrFQrdTUffPptStco7i4QPb2wJ8GBhdJPwP9lvGD7qOk0gpkJbeXyQE730/+p5x6fAdKKihT7GyVyun9aDcobY/F+fNqz+hwhcfRt3BwKZEgg00S/IGwIK1vMkvinyCkeLEcBNHhqY9SVlmUI=
-Received: from DS7PR05CA0017.namprd05.prod.outlook.com (2603:10b6:5:3b9::22)
- by PH7PR12MB9152.namprd12.prod.outlook.com (2603:10b6:510:2ec::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
- 2026 15:45:15 +0000
-Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
- (2603:10b6:5:3b9:cafe::3a) by DS7PR05CA0017.outlook.office365.com
- (2603:10b6:5:3b9::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Wed,
- 12 Aug 2026 15:45:15 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.12) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 15:45:13 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
- 2026 10:45:12 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
- 2026 10:45:12 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Wed, 12 Aug 2026 10:45:11 -0500
-Message-ID: <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
-Date: Wed, 12 Aug 2026 08:45:11 -0700
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RLCkMEAd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bA9/WLL8"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CDcsWW3654845
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:46:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=; b=RLCkMEAdgNlO5xV0
+	m5oIjihbhHyvDQ+HHWefhkDrKSJAFq6fdYzcFhC91sZzaAbOjOghQ4niEu0OMzW2
+	ta8O1f8/nn6TgLGXjwD9aSaE8ubH7BksuzTg50vEuIKXGzmDYKHop9ujnClmoFM3
+	8z45VKmNwAK/vi/dbRYx/o9MdeXklx8ikCGFzzwdFmIlJR7YirgI/d5XqxoXGXb6
+	WQn67cpHIyrGC/TbwQEjV3qnof9CnrZYfXAI7PE7liYvlFwuVv5FRL/mtuhRB+mW
+	lO41Z29AwhH6g+GOLBM3utPN64jFZX3zU1ge2MSg/4PNsfn/cczUYOgllw5fN+9m
+	048qkQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0pmysfwb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:46:06 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cc6dd43737so22393115ad.2
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 08:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786549566; x=1787154366; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=;
+        b=bA9/WLL8LmDRP9OddYA+g3MP6KCB3pZtvZt4F2dc6P/rk5QP2uEpRVPg4AZ2zvEkVC
+         1UmdqscS1aN96bZGMkhYA4DW1HHwU0Az3jHHu6CS97ZDYCuENAnRLaeJS+CnR8ZVgIQV
+         aEk5J0zXfp/c0er/JnN0slhUZDvREAX1e9EeqTpfSf+ghM9LGePvd0lLqWTNXCxxB1Sw
+         VHj1mkvRh4sQ57uM8C6jgaWr20V5NTdBJ1CNQ2iwLy584c7YwnV4DZUmKSc2IhWvbHyn
+         rRpDfuFmoJ85Bhw+oKePuwL/GONFr9Qk4Z+C8WyA6LkTj2rSbLyFU42trxemsvVpAtnM
+         2KgA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786549566; x=1787154366;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=NaFq4qxdTWpI7rm7g/Neah3FbIy2SS31Jc7PR9Dcav0=;
+        b=Fub9TUu7hQETefLxiTjGbclK+4R3Lhz5v5m1NtRUNXtXBTHhRqEjWc+WLcw5BiMDAq
+         +p/PSUo4y++hFlm+x76W/5l2ZwnGUOzVtYgyUuyRv3xmQ/HEMhdfXSOEB2ORSAFoPLwD
+         4q6Rf1mrcqoAoVBlTVmnuzmNvqTKouJzF5rWb9BF6xkZHLcrjwSCJye1vx1M4of1YoZ8
+         6Cat9yEcnUFN3WO0AOs/UWVQnXA3FbwKvehrBJG9HHfBfY7svgZXgK9SI8TklMuwYwGj
+         shcEGMZ5ObWz7cOTWjrPFlYlffJ4TVKQhowAJDZNKyEV+x2wRqE30Q2nGKyrgy+0FtG0
+         fK6w==
+X-Forwarded-Encrypted: i=1; AHgh+RoDJqdGCCouup5aqHLIJgPI8CR6S55Q7RcBgo+s7pwcT2UpFTSri52pHGEJ7EKtzOgBM/wOYDGvajgh8g==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2FsBcbmydoo+GiaCXyR4XG4cKi6OsvPOXtB4vtnKWczAzcITc
+	4g4lWc1R74npIR3C6A6O8uULekaPBmqN6g9j5RLJlOEqbLiJbAYYf4DlRicXcKFv4yCMLZe6NGV
+	17KMe0WlXHqY+Bj8fDHYv3QNfAlzTjzG71E9PborvDPZiXDYS/THpkZ5hCkjnehCxlQ==
+X-Gm-Gg: AR+sD13SZ86D2Nc1/W1h19DMhnN7yb0/UNvDf3PL36LJUXhgNPvUD7dJAGjk/cCcbY8
+	K7k/9uKzrZyRibt3HCmZGAYcR37lS/P0GMaGTUpsfppS+w/6j81Q3lO9M5PDoQ0OQWiwEYFOeTR
+	3HIK0zTYg7NlWO8oUZJqHap7ZVnRJ7iyC1vtTbiBsdjNpFixWcszMRCO/FqmbVPXLLY0Z/wfv8R
+	0qEV3M0AMxkg6zXPuAndFoAP66j0QHhDChgInFIgINoq7w24Wb3+qUqG67GzPlvIsDp9OAfk28T
+	Tj5pkW8c3MrjFQKlwQwnM1Vzy2k3kvZs3BumYEBZzeSyJlcIFyYC+PuXu0cyRdM1CICVAK41JUJ
+	hsUwb1MrEiVQtVi9j7inCKaiqB9ScH8K6Q4M=
+X-Received: by 2002:a05:6a21:6017:b0:3c3:a7ab:135a with SMTP id adf61e73a8af0-3cc3f6eab4amr6708213637.20.1786549566136;
+        Wed, 12 Aug 2026 08:46:06 -0700 (PDT)
+X-Received: by 2002:a05:6a21:6017:b0:3c3:a7ab:135a with SMTP id adf61e73a8af0-3cc3f6eab4amr6708098637.20.1786549565606;
+        Wed, 12 Aug 2026 08:46:05 -0700 (PDT)
+Received: from [192.168.0.172] ([183.83.139.112])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14124583ad0sm10443586c88.12.2026.08.12.08.45.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 12 Aug 2026 08:46:04 -0700 (PDT)
+Message-ID: <6937899f-2fbf-4349-8c7b-1de53850a855@oss.qualcomm.com>
+Date: Wed, 12 Aug 2026 21:15:48 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>
+Cc: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Stephan Gerhold <stephan.gerhold@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Johan Hovold <johan+linaro@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+        Mansur Alisha Shaik <mansur@codeaurora.org>,
+        Andy Gross <andy.gross@linaro.org>,
+        Rob Clark
+ <robin.clark@oss.qualcomm.com>,
+        Stephen Boyd <sboyd@codeaurora.org>,
+        Yassine Oudjana <y.oudjana@protonmail.com>,
+        Pierre-Hugues Husson <phhusson@freebox.fr>,
+        Marc Gonzalez <mgonzalez@freebox.fr>,
+        cros-qcom-dts-watchers@chromium.org,
+        Matthias Kaehlcke <mka@chromium.org>,
+        Douglas Anderson <dianders@chromium.org>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Aniket Masule <amasule@codeaurora.org>,
+        Malathi Gottam <quic_mgottam@quicinc.com>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Jonathan Marek
+ <jonathan@marek.ca>,
+        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+        Renjiang Han <quic_renjiang@quicinc.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+References: <27f0b033-e940-4369-aaa0-f08426aac73f@oss.qualcomm.com>
+ <tdgbfewnlj3xypfnyckivnd2b6667laapkcfs2vpnk74bh22aa@obasatns3jfr>
+ <MHRdGybtgutWtIo4EOZisrGdCVgOj7AdOArjfuxCXTTNcc1o1v40eltpkDUqZl5sOY9tjRFaY6tc_OKvzrYJ4w==@protonmail.internalid>
+ <429d5d1d-92d5-4949-9991-b092cc7e9937@oss.qualcomm.com>
+ <181b02e3-831e-4461-9327-ab5646380a10@kernel.org>
+ <73b26356-8ccb-4a81-b626-a96de5b13173@oss.qualcomm.com>
+ <v7vlh2lgvluvacmxora6l7u5r3cbhr4xaqqlzqdli5jympfwxl@5qsqc354n4u3>
+ <g_hgO2Ky6WOywvRuvLUE7DXb-e7Kb8S3QoVsLbN3yhHbYzryQwZBT0VLRe3C4iVy8rUA9Tvc1Vu255IjAnbRJQ==@protonmail.internalid>
+ <7caa7fd4-6732-4c80-8b8e-a0ed99631ba2@oss.qualcomm.com>
+ <6906ca3c-03b2-4d9a-a3b6-2d38345d8534@kernel.org>
+ <oeiqgw74eede7d3l42fgpplvk6lscpx4kjzj5iae6vrrgsxomi@wnl7cnon6rty>
 Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Taimuraz
- Kaitmazov" <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
-	<ogabbay@kernel.org>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>,
-	<linaro-mm-sig@lists.linaro.org>, "Zhen, Max" <Max.Zhen@amd.com>, "Santan,
- Sonal" <sonal.santan@amd.com>
-References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
- <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|PH7PR12MB9152:EE_
-X-MS-Office365-Filtering-Correlation-Id: 51bf70af-7cbc-4ed4-7ef3-08def888b342
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|56012099006|10067099003|18002099003|11063799006|4143699003|3023799007|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	qByRcup/tz7rRHYACtNw8gcFrvi266I83C445jDqW3BpE2PSk1tFqWdwltM6k3A/JXu1GzzWr18pul6bZ8TaK8V5MtnIr5BU0saIjKLJ3a2TBzxdomd+eNbOeYf+nBGhe3YGos0V1zUOwXM3v0h1Yb3w+Lt5/BhS2eWBEqVlC1M9njjwf7DeH2O+ktuElvDStKCQeQC1a2GSS/sEaHnRY1XshZEi+sdNqyHHOJVGx4yKFQV4WbRf3yReSRZhRE8v/Qab3snhe1K2IxCn7ePR2eI2FJqdLKThP2sZycfvSUlAh8Yh0poHEoiN3xkakIm0W24CPDDYpOEMmVY4uYvn3fdO0e7pMHtBwND8b0MH6Jnp9vj4wKyHEmVAFnwxaRT9kORBmtAfkrrDJxJBjqNE1Bv9eouafq5mixnU6ed15o0t2fGld5MYwEmL1CBqcwUKe6ATrfqwCVyDHJs/5iwGhFAxhtMFgSZDLJtg37FhKr/mem0/YFMtwUP1cRE3mpqLp3EF1qJQOTd4pRSTIVYx9Usq2jd/HnXp8aw+4fSsO1T6HipI5+eOA7eBYeV/YjUSicBBXJSM9QAEkNern3UK5vWFKnh7VnWLcCFk13Hms/kduq7cm+yweDrEMaESZ2dchtxobgeIHQ7bSyB3drW7wulllkZsxpCYz6pKSLgCVikvDg1GOZLvtb2L192LDxlYIAQTiicCp5Zqc68gYg+xjg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(56012099006)(10067099003)(18002099003)(11063799006)(4143699003)(3023799007)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	dCrDWSYNJN39yJ/sNdK2/SEz/aorfvDdTw7oQriBtHF+6F/8ek4is7WPt12ttlQYWPRqs4uwBSBScip5CpqRv2A7V+5iPPDuYQIeZUTfHDm0jbbeiI6nGHHYOGcUsFhRmUFQ0DT9wUBxJ/eE9OwlvlIP/YsoHdyvJE+NwuIEtq3tnogPPlzUM5/NWJGlIaSELynfyq7BCf5kJh6qyWN4fjlhhppSUMhnZanYxbtMJTC81xpkhqJIwSA6Y7dz7V6VQRTUz6dUwfbId8x7PcWdfMloEl0eITdeA/P2i0glwYKsxvCyawsZdQfmOXjY1231ygw1DaRpkcR89T6+mm5yknRpRb7VbWXPVPCRv7zvHkhCu1bPPg9ImJiR/irmYBQ3URuffcvvYFTX2sq56L5ymSAIWTQe2f2ck/5dSCDR2aHIDqqbjiM4m3VQwWmn5OXE
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 15:45:13.8976
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 51bf70af-7cbc-4ed4-7ef3-08def888b342
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000EE3A.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9152
-
-Hi Christian,
-
-Thanks for pointing this out.
-
-Taimuraz, this is not introduced by your patch. And the current code 
-violates dma-buf protocol. It look we need to unconditionally return 
--EOPNOTSUPP for imported BO at the beginning of amdxdna_flush_bo(). 
-Could you help to modify your patch 1 for this if it makes sense?
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <oeiqgw74eede7d3l42fgpplvk6lscpx4kjzj5iae6vrrgsxomi@wnl7cnon6rty>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfX2dU+faAroeUY
+ 0IUa6+W+BK0kBal+HYk3WPtrC9Q1eHzJqUQkl5a33FBbKJue3peBTlK3aefkmYQeTLpBRYpvhO3
+ nusFNa5ioShKe3mqMmg/Ym5DTbbdZrE=
+X-Proofpoint-ORIG-GUID: i9FBKWn86tHXY_QXOOH8Bwwt2Ozv3z6T
+X-Authority-Analysis: v=2.4 cv=C/fZDwP+ c=1 sm=1 tr=0 ts=6a7c953e cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=vZaankvBGbqXg3MvYcFdyQ==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=H1XTA3wU2jA9kjazOnIA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: i9FBKWn86tHXY_QXOOH8Bwwt2Ozv3z6T
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfXw0XBPqUZSs+F
+ k7y5doGXOfeoUXoXH+alawoe7P3Kbp1XDU95xyFkznMnon7yXCO/wlpricl+a958Gu8+U2tb9Ym
+ T4Yj9DK7wTO+r7g7PK7/4VbxHVvEy36St6Ayl9GyNrljGddI+Do4bcDV3d+Wgr3UcWVJVJEEyBe
+ nrT0EJr3Ff3lnoge8Jrq77x6OUrQnTNNK+bdxKgUIHtXo9vJs/+QTaJ2MjwqyYcovm3pEwXjH/y
+ Rr91Eh7kdki2YTLZm104pQCmyxHoEpvtAaLoqqSvTqKSSeFaF29WBTTQ6ptwM9HKnTIrCr7e4f1
+ GUWFJ5iAAJYktkWdp+qTtkxVbVUIkdhD517PKQ7/taeIy/A2v5KdVzJiB0sRcJKiQ3CaPHeZ6Rw
+ xKdiVlwnIWXleKg4IIRH9sauPu1TCchyk8ZewWkxWNQpVOWqPXzx10UrLviuqMhkIX3t15da1m5
+ rdsJVGHgoElCPhueJNw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 clxscore=1015 phishscore=0 spamscore=0 malwarescore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120128
 
 
-Thanks,
 
-Lizhi
+On 8/12/2026 6:16 PM, Dmitry Baryshkov wrote:
+> On Wed, Aug 12, 2026 at 06:02:58AM +0100, Bryan O'Donoghue wrote:
+>> On 10/08/2026 17:57, Vikash Garodia wrote:
+>>>
+>>>
+>>> On 8/10/2026 5:40 PM, Dmitry Baryshkov wrote:
+>>>> On Sat, Aug 08, 2026 at 09:18:42PM +0530, Vikash Garodia wrote:
+>>>>>
+>>>>>
+>>>>> On 8/7/2026 6:48 PM, Bryan O'Donoghue wrote:
+>>>>>> On 07/08/2026 11:22, Vikash Garodia wrote:
+>>>>>>>>>> I don't like the idea of this series, because it_again_
+>>>>>>>>>> doesn't tell us
+>>>>>>>>>> the truth about the hardware. This typicall ends up with
+>>>>>>>>>> bigger problems
+>>>>>>>>> honestly...thats all the info i have about the vpu hardware that it
+>>>>>>>>> restricts non pixel to DMA from the 0-600MB range. The same i have been
+>>>>>>>>> trying for a year now
+>>>>>>>> You are not honest here. You also know that there are secure streams,
+>>>>>>>> which have to use their own IOMMU SIDs. And some of them, as far as I
+>>>>>>>> remember, also have memory range restrictions.
+>>>>>>> please read the commit description again, the answer is there.
+>>>>>>
+>>>>>> So I don't necessarily get all of the detail out of the commit log myself.
+>>>>>>
+>>>>>> Could you give some detail to address Dmitry's point.
+>>>>>>
+>>>>>> The question as I read it is - are all of the other potential SIDs
+>>>>>> covered by this change ?
+>>>>>>
+>>>>>
+>>>>> I get the query as "secure streams also have their dedicated reserve
+>>>>> regions, so how does this approach helps" - This patch does not reserve any
+>>>>> IOVA for secure streams, only the forward looking subnode can assign
+>>>>> specific reserve for specific streams.
+>>>>> The patch enforces a common IOVA across all streams, and is good enough to
+>>>>> fix the problem we have w.r.t device reset.
+>>>>
+>>>> No, it's not good enough. It defines that both non-secure streams use
+>>>> the provided memory range, it doesn't provide a natural way to later
+>>>> _expand_ it to support secure subnodes, etc.
+>>>>
+>>>> We know that there is a problem. We already have been bitten by not
+>>>> describing the hardware as is and using band-aids. Can we now learn the
+>>>> lesson and write a proper hardware description?
+>>>>
+>>>>>
+>>>>>>>> So, if we land these patches, how do extend it later to account for all
+>>>>>>>> of that?
+>>>>>>>>
+>>>>>>> forward looking design would be subnode, which we can land ontop of this
+>>>>>>> series.
+>>>>>>
+>>>>>> Yes it should be possible to branch to make subnodes work on-top of this
+>>>>>> - accepting that once this lands it becomes ABI and support for this
+>>>>>> method must be sustained, even after sub-nodes land.
+>>>>>>
+>>>>>
+>>>>> Thats the plan. This goes as ABI with subnode to land on top of it.
+>>>>
+>>>> So, do you actually plan to support both ABIs? This would also mean
+>>>> moving reserved regions to the subnode.
+>>>
+>>> How is that different from moving the reserve region when stream IDs
+>>> would also need to move, so be it for the associated memory regions.
+>>>
+>>>> What prevents us from landing subnodes straight away?
+>>>>
+>>>
+>>> You are well aware of them, but still asking the same. Reasons,
+>>> 1. We have been attempting the subnodes for almost a year with multiple
+>>> pushbacks from multiple maintainers. We are closer and working on it to
+>>> post for iris, followed by venus, once review is acceptable for iris.
+>>> 2. Current solution, in this series, is much easy to apply for all
+>>> kernels and can land faster so that it can fix the reset issue we have
+>>> for already enabled devices.
+>>>
+>>> Both from timewise and simplicity wise, this proposal is made to address
+>>> the reset issue, while subnode can land ontop of this, without breaking ABI.
+>>>
+>>> Regards,
+>>> Vikash
+>>>
+>>
+>> There is another solution.
+>>
+>> Restrict multiple concurrent streams in both drivers. The failure mode is as
+>> I understand it only triggered by _concurrent_ streams so, restrict that
+>> case in the .c code.
+> 
+> I think this might be the best hot fix for now. Very local, very
 
-On 8/12/26 01:57, Christian König wrote:
-> On 8/12/26 01:13, Taimuraz Kaitmazov wrote:
->> SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours them
->> only on the vmap path. An imported BO is tested for first and flushes its
->> whole scatterlist,
-> Absolutely clear NAK to that from a DMA-buf maintainer side.
->
-> Flushing on imported scatterlist of a DMA-buf is a really big NO-GO.
->
-> If DMA-buf imports are used with the device then the device needs to be able to coherently access the underlying memory.
->
-> In other words you *CAN'T* call drm_clflush_pages() on imported memory.
->
-> Regards,
-> Christian.
->
->> so a sync costs what the BO is worth rather than what
->> the caller asked to maintain: on npu4 an imported 64 MiB BO cost 1056 us
->> to sync at every size from 4 KiB up. Patch 5 reorders the arms so the
->> vmap path is tried first, and indexes the page-array fallback from the
->> requested offset.
->>
->> The four before it are the ground that has to be solid first. Patch 1
->> refuses an I/O memory mapping, which the driver currently stores as if it
->> were an ordinary kernel address. Patch 2 adds a probe that does not log,
->> so patch 5 does not make an exporter without a vmap op print on every
->> ioctl. Patches 3 and 4 fix two ways the ioctl mishandles its own range: a
->> zero length reaching drm_clflush_virt_range(), and an offset and size
->> added to the BO address without an overflow check, one level above a
->> function that checks the same arithmetic. All four stand on their own and
->> can be taken separately; only patch 5 depends on them.
->>
->> v1 did not reach dri-devel, so this is the first version visible there.
->> It is on lore via the other lists it was copied to:
->> https://lore.kernel.org/lkml/20260811204556.875037-1-taimuraz@kaitmazov.com/
->>
->> Changes in v2:
->>   - patch 2: take the device from the GEM object rather than abo->client.
->>     amdxdna_gem_obj_close() clears that pointer under abo->lock, which the
->>     pre-split code held across the log and the split did not.
->>   - new patch 3: return early from a zero-length flush.
->>   - new patch 4: check the sync range for overflow on a device BO.
->>   - patch 5: say why the persistent mapping adds no pin.
->>
->> The measurements in patch 5 were taken with the equivalent change in
->> AMD's out-of-tree xdna-driver, where this merged as #1541. That version
->> and this one differ only in a page-array fallback mainline has no field
->> for, reached when the mapping fails and the BO is neither imported nor
->> shmem backed, and in the name of the mapping helper. The flush and the
->> helper are otherwise identical. This version is compile-tested; it has
->> not been booted.
->>
->> Patch 1 is from inspection rather than a reproducer. The exporter I can
->> test against is amdgpu, and amdgpu is the case that cannot reach it: it
->> implements .pin, so a non peer to peer attachment like this driver's
->> forces the buffer to GTT before anything maps it. Reproducing it needs a
->> GPU whose exporter has no .pin, which I do not have paired with an NPU
->> here.
->>
->> Taimuraz Kaitmazov (5):
->>    accel/amdxdna: refuse an I/O memory mapping of an imported BO
->>    accel/amdxdna: add a quiet variant of amdxdna_gem_vmap()
->>    accel/amdxdna: return early from a zero-length flush
->>    accel/amdxdna: check the sync range for overflow on a device BO
->>    accel/amdxdna: flush only the requested range in amdxdna_flush_bo
->>
->>   drivers/accel/amdxdna/amdxdna_gem.c | 66 +++++++++++++++++++++--------
->>   1 file changed, 49 insertions(+), 17 deletions(-)
->>
->> --
->> 2.55.0
->>
+No, it's not. Restricting concurrency does not avoid the reset, it just 
+reduces the possibility of occurrence.
+
+> presice, touching the driver pieces, letting it to continue to exist
+> even after the subnodes have landed to support the legacy case.
+> 
+
