@@ -1,281 +1,202 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013069.outbound.protection.outlook.com [40.93.201.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CF1B485501
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786549510; cv=none; b=b5hg6fc2AWppG2nsSQKbgqzQImShICQqR8i/26GI0OUXyhX9uInD59AeAh0yIGY3JjeJRKRq3hrVrn9gg3YLSTGuPR9scL4lSSoioiiSnpDRv2s1SdwWS1USBumOJkBZt3BuIrBpD/DhXFyhbYSgmeCMg5F6QMD1shEu6IRyLTo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786549510; c=relaxed/simple;
-	bh=5WsJee6RnG8FDL/km9AY8oElVGx145sSlu07kgjc8jw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QcwDHEBSUsxhJ4Ii0u/pG6vSP8oKfxT6vqrgdyX8Ol/dbBkGrnlEjne0IJdz2ndw98USZ4JI2Lnyhg5zRzb4hddOkb6lvWQtag6sg8gyZ3gHLXYr+ahhsMTJwgY8yZGxf5D8kT2bH9wiSbyKg0nJLs+hEUR1dZZt4qKEC/zvmuQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lswnwMII; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ajaiem5Z; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA3D47ECDD;
+	Wed, 12 Aug 2026 15:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786549523; cv=fail; b=Fj/pQlnVm27H2IVDPvh4uDTYJXrDVfZtxOcNTDE+HcRRqPuRvzWlVbAxdGOoEI8l4cGV77h4dQah7uzW0WjA0jrWmuUvXwJDtCsLcZuZTy6Q++pQmFHY/Y4N59a2KaqFLlMbXSKsmnYR0ucaPknLJP1ZISS7RKK3dY6wibrip/c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786549523; c=relaxed/simple;
+	bh=BNbnkOfAyHDxgmW0o8cspTHFSXKqfYG1uXfnqjN5xWo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=YzYFvHX1cuqqWLKFv2VlDnmw45+sl41X7FZ55H0Eb/TpwjfkW3imSl4hWzn0cfP8/AD9x3WsABXUIwZE44XGl6Pj/vItblp9ME61b/zEVdZo3NGAexHjhKXKre72zDE1fClVvW9WpGgF0gne/lpul9amU41aeztGUJadowQZu5w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4+D/o4yx; arc=fail smtp.client-ip=40.93.201.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lswnwMII";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ajaiem5Z"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CDbrTl3971762
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:45:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kQLR4H1Nicj+xSHL9x7Wan7JxfTrbvx2Q5V49rtcMEY=; b=lswnwMIIpg3FLu7d
-	AxZTGAhy9V6liPRDkU0u/Jb0s6QlxvPV3QJY1hcCpFEqndv3NNfkrz9ENtkDVOcK
-	McTqjwEm2szea+lecKpDWggqH3oMCYlcXtlVINtpLLgEsfwaNviyTjHUK7Jobpbi
-	kXzVkqGZcnTISDsVFeCCs7cmiCMWCiC0U4+K19JNnkFi9ttfNimSJwJUTdBxFt9f
-	f0MA+DmKQXdA9RquU26rv4715AqEMY6RjVPuQys1OSFZMqx1A9UlwwugvMyV8bu9
-	aqpyxRNZKa9ArmMSI0MezpYo7A7f7TiwQ7cIj6Bb7cKGoKvLSf0xrcupdjBkeMKh
-	yVuksA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0jgrjjqk-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:45:07 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e25e4b41cso1469532a91.0
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 08:45:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786549506; x=1787154306; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kQLR4H1Nicj+xSHL9x7Wan7JxfTrbvx2Q5V49rtcMEY=;
-        b=ajaiem5ZFfCl+jtoCp/e0QS3j8GE6/FAyI1CymSd+CyWLw62fXSM4kj8Tp2PLrgMgn
-         TTVBsDRvYz/Nr3imTb4wpEaBvO/48IggaMzxk1ltpj58mXxhcmmtSki2atiS1I85kIRc
-         KekHFTGg6Np4ouEWD1SYZ6oYYIkmfjULOGySzBPcDXz9OU5MpRejexQ1qKrooIM5W8iU
-         ZD96kLJYuzYLexsVB4zQaAP+YAKhCa9BRwTDhWS3KlimVVs9hl9u3ggleCqzM9DXO4ar
-         ENs8SZaKwndJbtvl8xvvJyOQbg86OKG560m5fcs5gQhrEbOF2P12OvBOk9wVRR2UCPuw
-         DcqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786549506; x=1787154306;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kQLR4H1Nicj+xSHL9x7Wan7JxfTrbvx2Q5V49rtcMEY=;
-        b=A1Y149aaq/wnCwzKALTcC3T0zR0sQVhEa8qGcQLc6KOWK7UoIbpceidIAYky5ocr9p
-         BXAB8s0glw5tPzKvYpakjWkkXU43eaYLYFEwJIreCn9DtEKlb2P6KuXKxu+gqYtWihrR
-         LY4nDyy1gl3uPXGxctgVtN8+EFnrVY3uK8XPJwo+gc4uAccy9l4NgNOm1hUJ2OjxXcYZ
-         vb6xUoCgVsfKr2bZU3jGM16UZ+oaP3itnyr6zOhAxNr69y+QAmkURtXCxqCOL8TfvdBO
-         YrW/zPDB3NGOE4SmFdAH5Q5pB1KPL1v2oFu3LI7CsKd6tDosN5Aa3of5yfIkzJ9+btlQ
-         6jcA==
-X-Forwarded-Encrypted: i=1; AHgh+RrpyMHd/cGiF61R77JXOcYEQ2WLrsp8vgv6CAMukzXW9GecaxU8L4oCWqLEWfoDgZF2mvb7aKq7huZ0VA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxAVxQ7Wmj1YNHRV5fcd2XpPmfKNY5hmwckWexgS073KAT+Mzrb
-	jPyqEQRpa2ckcQJQAYmoBtZqJvjzydobf/aZlHsGy8pZi7cgkSw7stq5BGHdBlrTg3HlE5HdrdS
-	G1bv+c73BeF7MLijPrB3e1ReqXFUf9v6HSjlx9+eLbhXxbMlrSp6nuJq8LIkyvyQHcg==
-X-Gm-Gg: AR+sD10U6jgxIznWP5n/FnKforICmwTWmmYc+egtD7l8jY91ilHIFVG5zFF2mNbc7ud
-	kdH0x3gqglRup7x/YbpKhrG6vuG+hwzSaPf21MI3K5I43sKk1fzmA20VhuQiqVbMLQQUVoa+R1i
-	zJrVcAhQEcOFSNugAP535mY48ZYVvkY+0G82oO66Hd71JQSSeKYIMMEAyLukPgvnfqXYfwhuAFl
-	9eNEHmL7wSU0wkdy8Ttql1TB7bdFrR4LCHFCmddw+jFyx86tU/TBaXo8wFi/7mBSE+ZNVHtVIVT
-	r4Ch+nTnqbepwve8sF8tHk4hFqR6f6/DFKj4eL0WjbH0zhWTEaY11D8Ml/CV+PLy+28FvIVmEKo
-	QMBifzlUsAugiOHyAmaH0G9e9x0u5iIuekZM=
-X-Received: by 2002:a17:90b:1b0d:b0:38f:7f60:ba35 with SMTP id 98e67ed59e1d1-3930123788cmr6180037a91.5.1786549506270;
-        Wed, 12 Aug 2026 08:45:06 -0700 (PDT)
-X-Received: by 2002:a17:90b:1b0d:b0:38f:7f60:ba35 with SMTP id 98e67ed59e1d1-3930123788cmr6179918a91.5.1786549505589;
-        Wed, 12 Aug 2026 08:45:05 -0700 (PDT)
-Received: from [192.168.0.172] ([183.83.139.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-31cf3c08163sm11160525eec.7.2026.08.12.08.44.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 12 Aug 2026 08:45:05 -0700 (PDT)
-Message-ID: <1a7c222a-617b-4dfd-a551-2c00115747a9@oss.qualcomm.com>
-Date: Wed, 12 Aug 2026 21:14:49 +0530
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4+D/o4yx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=dTGK/XLBEeRRx4QU9HLPAP0aWCrYy7Ndh9NsnHV05F6U28x9n7j366naQ1Q2rjF3YdptGO63uE9+018hrC9dfRSypTssKa2c4v36eEfbXFDPwWEyQbYAp2Hie/zYOuoa9CWqk7QZRkhXPauUnTSsIiJjDlvGl+ij4cEQwSuOETFyKsysy8Pbz80uYFBWGJo943U/JirWd2b0LLB9c68sbJxhUFF70L97miM4Z2bCB1bFYpwu3j/DRu414AbOYA4naqhRup5wY9Fxwj88uCHrCL/PNixrXnayfMIdXPDPc1bWLbqHhBfHFxRlvN3xz4Of1wdjXRspZAQIb8q4E9oYnQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vaj+IUZls1mEwf74SjwB8CWxMZTuOk6brAlQc/hv0rg=;
+ b=vbkvE1Rc6zxT/ABZDafDa5aGTidgJDO1lkgvS8yw/asgfMG+pq3yJMK6dsIsXs1bnqTrldsiS9VjtUAGTEEoF/TUTY1vIJhNStUpL3OGL1Va7g44RmSQjonzXV219ZmR7I7uW0PQPUfYzBr/ACgN5+Ap6xKhOQrS/3zkXPlnFy96VnravUswMwtCoyMRkfBritd1DwPMx1VwWWdYp2RFStAS0zrIBhXrF4qmOCZYFFGDhRgBU8tFgDHTX+7Trijq/CDw5+SnwcEHCJvcDZ4R7iAHjI+YJ2qrkSav3/EhK2fr2kGR4Cfw6iwUHLm3uuNYj+CWzBBsriWnKtVrCrcU8A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vaj+IUZls1mEwf74SjwB8CWxMZTuOk6brAlQc/hv0rg=;
+ b=4+D/o4yxusbpntzbM6CVVyOEj7wrFQrdTUffPptStco7i4QPb2wJ8GBhdJPwP9lvGD7qOk0gpkJbeXyQE730/+p5x6fAdKKihT7GyVyun9aDcobY/F+fNqz+hwhcfRt3BwKZEgg00S/IGwIK1vMkvinyCkeLEcBNHhqY9SVlmUI=
+Received: from DS7PR05CA0017.namprd05.prod.outlook.com (2603:10b6:5:3b9::22)
+ by PH7PR12MB9152.namprd12.prod.outlook.com (2603:10b6:510:2ec::22) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Wed, 12 Aug
+ 2026 15:45:15 +0000
+Received: from CY4PEPF0000EE3A.namprd03.prod.outlook.com
+ (2603:10b6:5:3b9:cafe::3a) by DS7PR05CA0017.outlook.office365.com
+ (2603:10b6:5:3b9::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.12 via Frontend Transport; Wed,
+ 12 Aug 2026 15:45:15 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ CY4PEPF0000EE3A.mail.protection.outlook.com (10.167.242.12) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.315.6 via Frontend Transport; Wed, 12 Aug 2026 15:45:13 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 10:45:12 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 12 Aug
+ 2026 10:45:12 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 12 Aug 2026 10:45:11 -0500
+Message-ID: <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
+Date: Wed, 12 Aug 2026 08:45:11 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Rob Herring <robh@kernel.org>, Bryan O'Donoghue <bod@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Johan Hovold <johan+linaro@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Mansur Alisha Shaik <mansur@codeaurora.org>,
-        Andy Gross <andy.gross@linaro.org>,
-        Rob Clark
- <robin.clark@oss.qualcomm.com>,
-        Stephen Boyd <sboyd@codeaurora.org>,
-        Yassine Oudjana <y.oudjana@protonmail.com>,
-        Pierre-Hugues Husson <phhusson@freebox.fr>,
-        Marc Gonzalez <mgonzalez@freebox.fr>,
-        cros-qcom-dts-watchers@chromium.org,
-        Matthias Kaehlcke <mka@chromium.org>,
-        Douglas Anderson <dianders@chromium.org>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Aniket Masule <amasule@codeaurora.org>,
-        Malathi Gottam <quic_mgottam@quicinc.com>,
-        Rajendra Nayak <quic_rjendra@quicinc.com>,
-        Jonathan Marek
- <jonathan@marek.ca>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Renjiang Han <quic_renjiang@quicinc.com>,
-        Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <20260807162405.GA896590-robh@kernel.org>
- <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
- <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
- <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
- <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
 Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Taimuraz
+ Kaitmazov" <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
+	<ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, "Zhen, Max" <Max.Zhen@amd.com>, "Santan,
+ Sonal" <sonal.santan@amd.com>
+References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+ <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfX9S78Udj/f2uy
- nMv/KkKXftRBjGeQygi7wgWxfGWFG4f+NJvLgYRI8DlUwYfkWTtUv3WSl5Tg2vhMr40T6R2Fxa1
- ItYkN1UC1INvR8t1jYMuLbfSCxtE0ShEbBDBixzncev5amy5zIE3jur6U50AvCoJ8CVHWhm6l9r
- v8FHVDt+6hrXqsbgn+C8FV4BfaoCvhAgAN1hrLVBBGrbowHFrcL7+Or9FecvyAiEC8Nah1lDo7M
- wfhgsFJ/UIl9iMuSaVVZDhIrZo7g6rhoQE+i+YW11E6UhyqcysuH+PsxIbT18PaVJZtKboDH/Uz
- L7NAJwdT5GlbGCyx2coTZkDo4WNsRS24JuFIAk70B13v9PVpeYmK/Znbg9J13sp0PfwfaPmzO+I
- ZbKJNiIIYDvS0sHE3bT6vt+S7HNWeX2jpVzo10t29EVj7syssTjGyaILEhG8ZoFSSFNWfLvorLe
- 2Qzk9U1ub9YN7vuLHPg==
-X-Proofpoint-ORIG-GUID: dNrDYNlnSVGX3dcA4r4rBiIwh4ESqcMy
-X-Authority-Analysis: v=2.4 cv=TNJ1jVla c=1 sm=1 tr=0 ts=6a7c9503 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=vZaankvBGbqXg3MvYcFdyQ==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=NEAV23lmAAAA:8 a=YG64nluAAAAA:20 a=VwQbUJbxAAAA:8 a=t9ty7G3lAAAA:8
- a=EUspDBNiAAAA:8 a=JoBr3x7BRt4YSxSGyWwA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=CsAS6f0m0zARWR-uHzm3:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-GUID: dNrDYNlnSVGX3dcA4r4rBiIwh4ESqcMy
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDEyOCBTYWx0ZWRfX2GZKHXYTiQB2
- hmgMnv8t3o0GEyvWRX4GAf5sa/+HMyiEWSHoFDp7J0gaNpvjDj4GTXYBGTniziERtDYIJ7G1v8h
- 169++fsf3F9EtK8c8k+0hFNJJpKBuFA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 phishscore=0 impostorscore=0 adultscore=0
- suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120128
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY4PEPF0000EE3A:EE_|PH7PR12MB9152:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51bf70af-7cbc-4ed4-7ef3-08def888b342
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|56012099006|10067099003|18002099003|11063799006|4143699003|3023799007|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	qByRcup/tz7rRHYACtNw8gcFrvi266I83C445jDqW3BpE2PSk1tFqWdwltM6k3A/JXu1GzzWr18pul6bZ8TaK8V5MtnIr5BU0saIjKLJ3a2TBzxdomd+eNbOeYf+nBGhe3YGos0V1zUOwXM3v0h1Yb3w+Lt5/BhS2eWBEqVlC1M9njjwf7DeH2O+ktuElvDStKCQeQC1a2GSS/sEaHnRY1XshZEi+sdNqyHHOJVGx4yKFQV4WbRf3yReSRZhRE8v/Qab3snhe1K2IxCn7ePR2eI2FJqdLKThP2sZycfvSUlAh8Yh0poHEoiN3xkakIm0W24CPDDYpOEMmVY4uYvn3fdO0e7pMHtBwND8b0MH6Jnp9vj4wKyHEmVAFnwxaRT9kORBmtAfkrrDJxJBjqNE1Bv9eouafq5mixnU6ed15o0t2fGld5MYwEmL1CBqcwUKe6ATrfqwCVyDHJs/5iwGhFAxhtMFgSZDLJtg37FhKr/mem0/YFMtwUP1cRE3mpqLp3EF1qJQOTd4pRSTIVYx9Usq2jd/HnXp8aw+4fSsO1T6HipI5+eOA7eBYeV/YjUSicBBXJSM9QAEkNern3UK5vWFKnh7VnWLcCFk13Hms/kduq7cm+yweDrEMaESZ2dchtxobgeIHQ7bSyB3drW7wulllkZsxpCYz6pKSLgCVikvDg1GOZLvtb2L192LDxlYIAQTiicCp5Zqc68gYg+xjg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(56012099006)(10067099003)(18002099003)(11063799006)(4143699003)(3023799007)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dCrDWSYNJN39yJ/sNdK2/SEz/aorfvDdTw7oQriBtHF+6F/8ek4is7WPt12ttlQYWPRqs4uwBSBScip5CpqRv2A7V+5iPPDuYQIeZUTfHDm0jbbeiI6nGHHYOGcUsFhRmUFQ0DT9wUBxJ/eE9OwlvlIP/YsoHdyvJE+NwuIEtq3tnogPPlzUM5/NWJGlIaSELynfyq7BCf5kJh6qyWN4fjlhhppSUMhnZanYxbtMJTC81xpkhqJIwSA6Y7dz7V6VQRTUz6dUwfbId8x7PcWdfMloEl0eITdeA/P2i0glwYKsxvCyawsZdQfmOXjY1231ygw1DaRpkcR89T6+mm5yknRpRb7VbWXPVPCRv7zvHkhCu1bPPg9ImJiR/irmYBQ3URuffcvvYFTX2sq56L5ymSAIWTQe2f2ck/5dSCDR2aHIDqqbjiM4m3VQwWmn5OXE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Aug 2026 15:45:13.8976
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51bf70af-7cbc-4ed4-7ef3-08def888b342
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CY4PEPF0000EE3A.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB9152
+
+Hi Christian,
+
+Thanks for pointing this out.
+
+Taimuraz, this is not introduced by your patch. And the current code 
+violates dma-buf protocol. It look we need to unconditionally return 
+-EOPNOTSUPP for imported BO at the beginning of amdxdna_flush_bo(). 
+Could you help to modify your patch 1 for this if it makes sense?
 
 
-On 8/10/2026 7:17 PM, Rob Herring wrote:
-> On Sat, Aug 8, 2026 at 4:55 AM Bryan O'Donoghue <bod@kernel.org> wrote:
+Thanks,
+
+Lizhi
+
+On 8/12/26 01:57, Christian König wrote:
+> On 8/12/26 01:13, Taimuraz Kaitmazov wrote:
+>> SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours them
+>> only on the vmap path. An imported BO is tested for first and flushes its
+>> whole scatterlist,
+> Absolutely clear NAK to that from a DMA-buf maintainer side.
+>
+> Flushing on imported scatterlist of a DMA-buf is a really big NO-GO.
+>
+> If DMA-buf imports are used with the device then the device needs to be able to coherently access the underlying memory.
+>
+> In other words you *CAN'T* call drm_clflush_pages() on imported memory.
+>
+> Regards,
+> Christian.
+>
+>> so a sync costs what the BO is worth rather than what
+>> the caller asked to maintain: on npu4 an imported 64 MiB BO cost 1056 us
+>> to sync at every size from 4 KiB up. Patch 5 reorders the arms so the
+>> vmap path is tried first, and indexes the page-array fallback from the
+>> requested offset.
 >>
->> On 08/08/2026 05:37, Vishnu Reddy wrote:
->>>
->>> On 8/7/2026 9:54 PM, Rob Herring wrote:
->>>> On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
->>>>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
->>>>>> From: Daniel J Blueman <daniel@quora.org>
->>>>>>
->>>>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
->>>>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
->>>>>> into that range, from any other stream id would triggers unhandled SMMU
->>>>>> page faults that cause spontaneous device reboots. This is readily
->>>>>> reproduced with one or more browser tabs driving multiple concurrent
->>>>>> video decode streams.
->>>>>>
->>>>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
->>>>>> and reference it from the Iris node so the IOMMU layer keeps DMA
->>>>>> allocations above that boundary.
->>>>>>
->>>>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
->>>>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
->>>>>> Cc: stable@vger.kernel.org
->>>>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
->>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
->>>>>> ---
->>>>>>    arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
->>>>>>    1 file changed, 12 insertions(+), 1 deletion(-)
->>>>>>
->>>>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
->>>>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
->>>>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
->>>>>>                     hwlocks = <&tcsr_mutex 3>;
->>>>>>                     no-map;
->>>>>>             };
->>>>>> +
->>>>>> +          /*
->>>>>> +           * The Iris VPU reserves IOVA below 0x25800000 (600MB),
->>>>>> +           * primarily for non-pixel buffers using different Stream IDs.
->>>>>> +           * DMA into that range triggers unhandled SMMU faults and
->>>>>> +           * spontaneous reboots, so reserve it to keep IOMMU
->>>>>> +           * allocations above this boundary.
->>>>>> +           */
->>>>>> +          iris_iova: iris-iova {
->>>>>> +                  iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
->>>>>> +          };
->>>>>>     };
->>>>>>
->>>>>>     qup_opp_table_100mhz: opp-table-qup100mhz {
->>>>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
->>>>>>                     interconnect-names = "cpu-cfg",
->>>>>>                                          "video-mem";
->>>>>>
->>>>>> -                  memory-region = <&video_mem>;
->>>>>> +                  memory-region = <&video_mem>, <&iris_iova>;
->>>>> I don't like the idea of this series, because it _again_ doesn't tell us
->>>>> the truth about the hardware. This typicall ends up with bigger problems
->>>>> later on, when it starts to affect other bits and pieces.
->>>>>
->>>>> I don't want to NAK it, but I'd strongly ask to reconsider it.
->>>> I think this is an abuse of /reserved-memory. reserved-memory is
->>>> reserved *physical* memory. Reserved IOVA is a property on top of that.
->>>> I'm surprised this passes validation. If it does, I may go fix that.
->>>
->>> As per the reserved-memory.yaml schema document, the iommu-addresses
->>> property for IOVA reservation into /reserved-memory is allowed — it's
->>> documented for IOVA carveout reservations:
->>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/reserved-memory/reserved-memory.yaml#L56
->> I think that is an entirely reasonable reading of the text
+>> The four before it are the ground that has to be solid first. Patch 1
+>> refuses an I/O memory mapping, which the driver currently stores as if it
+>> were an ordinary kernel address. Patch 2 adds a probe that does not log,
+>> so patch 5 does not make an exporter without a vmap op print on every
+>> ioctl. Patches 3 and 4 fix two ways the ioctl mishandles its own range: a
+>> zero length reaching drm_clflush_virt_range(), and an offset and size
+>> added to the BO address without an overflow check, one level above a
+>> function that checks the same arithmetic. All four stand on their own and
+>> can be taken separately; only patch 5 depends on them.
 >>
->> Quote:
+>> v1 did not reach dri-devel, so this is the first version visible there.
+>> It is on lore via the other lists it was copied to:
+>> https://lore.kernel.org/lkml/20260811204556.875037-1-taimuraz@kaitmazov.com/
 >>
->> "If no "reg" property is specified, the "iommu-addresses" property
->>    defines carveout regions in the IOVA space for the given device. This
->>    can be useful if a certain memory region should not be mapped through
->>    the IOMMU."
+>> Changes in v2:
+>>   - patch 2: take the device from the GEM object rather than abo->client.
+>>     amdxdna_gem_obj_close() clears that pointer under abo->lock, which the
+>>     pre-split code held across the log and the split did not.
+>>   - new patch 3: return early from a zero-length flush.
+>>   - new patch 4: check the sync range for overflow on a device BO.
+>>   - patch 5: say why the persistent mapping adds no pin.
 >>
->> Which is exactly what this series does. Excludes a specific IOVA range
->> from being allocated for this device.
-> 
-> But if "iommu-addresses" is the only property of the reserved memory,
-> why put this property in reserved-memory rather than directly in the
-> device's node? I'm only questioning where is the right place to
-> describe a reserved IOVA.
-> 
-
-a single property node vs multi-property node should not be the reason 
-to decide the place i believe, rather having them all under 
-reserve-memory keeps all reservation at one place instead of scattering 
-it all over.
-
-Regards,
-Vikash
-
-> Rob
-
+>> The measurements in patch 5 were taken with the equivalent change in
+>> AMD's out-of-tree xdna-driver, where this merged as #1541. That version
+>> and this one differ only in a page-array fallback mainline has no field
+>> for, reached when the mapping fails and the BO is neither imported nor
+>> shmem backed, and in the name of the mapping helper. The flush and the
+>> helper are otherwise identical. This version is compile-tested; it has
+>> not been booted.
+>>
+>> Patch 1 is from inspection rather than a reproducer. The exporter I can
+>> test against is amdgpu, and amdgpu is the case that cannot reach it: it
+>> implements .pin, so a non peer to peer attachment like this driver's
+>> forces the buffer to GTT before anything maps it. Reproducing it needs a
+>> GPU whose exporter has no .pin, which I do not have paired with an NPU
+>> here.
+>>
+>> Taimuraz Kaitmazov (5):
+>>    accel/amdxdna: refuse an I/O memory mapping of an imported BO
+>>    accel/amdxdna: add a quiet variant of amdxdna_gem_vmap()
+>>    accel/amdxdna: return early from a zero-length flush
+>>    accel/amdxdna: check the sync range for overflow on a device BO
+>>    accel/amdxdna: flush only the requested range in amdxdna_flush_bo
+>>
+>>   drivers/accel/amdxdna/amdxdna_gem.c | 66 +++++++++++++++++++++--------
+>>   1 file changed, 49 insertions(+), 17 deletions(-)
+>>
+>> --
+>> 2.55.0
+>>
