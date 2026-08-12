@@ -1,79 +1,75 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B309F425872
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 10:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66011423E9A
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 10:53:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786530791; cv=none; b=u4RrcNZ1xeQMvYBFytILX35kyXAaXI/UQM8whACEyZF1nA3FA9ugttTWtbwriWzVLRnFzZd9QdKZw7rnJU7Qe0FqI/yecQDVAYnBAC2mSPfksIL5WGFAjP+MbdqRw8BB40BE+AeMYLVOPODL42bED0BjdhXYza3yameNxUS0LAg=
+	t=1786532007; cv=none; b=ujDf6ujQJdA+QhGNQDcsKq4Y4lPiVMtxwuuMGATHwD3bpGp3DKK27goHKC1jSU8dSFaM85/OGIXtxq+QBlyLv0ZsC9W83qINP+F1EY0ymUFzM4P5zXi7N2rJxPqCpVa0QI2SAR/l8BRQ4j+t3omp1FdJQ5zravsKaSzbGIkV45c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786530791; c=relaxed/simple;
-	bh=B8ueUhG5tBGvwqhk81omzoqC2jILrshowUdeHW5IBPs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FjSHbz9+NoksstIUQCAoSUCWMNWrPdrx1KZAxJv5Y/yL2I33i9eRhj+d750ONvjZo58iqzfkl3F1lB4JkR7BbEoaBXrwoP3BnT9pH4WEvBgamajchLvImFOOGx9TZkaxujq1a14RXvku7+kfOtPtiLn7pNJuTJmPJuQNoOvyEY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DeznSG6m; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1786532007; c=relaxed/simple;
+	bh=EOEb3UPJO0b6mx0UWjxOTX67IPVI7s0B5UaSclrLb3Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ItKFaapiUMXZw9bNfThbrOCpkQdxJ9kvEGLmIEgkCOdN7Pe00SqaE5Phbw/SkbLpv2RdC2l2J5k5Ell3R9HaTPt2eJYD9NwVkwkFcR0cyKKlIzuG2xm4taEkZXyMHLlvI4hSVUgeUAWAH0G8Hs0bj60crCZtnOcj88/9oBjdC0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PSBclENy; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DeznSG6m"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49557167508so5640195e9.1
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 03:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PSBclENy"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4954a2e73a9so4154795e9.3
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 03:53:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786530788; x=1787135588; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wfIp5NDU7PWeyYmfA4vACcCezJB2SbD/Br0L9G6eGm0=;
-        b=DeznSG6mv9jKSk4rglFXT9baXJaPccQQoF298H1rMi9eKRZaQLeis2ANhZILTpUubA
-         YrRQA1iY798aj8ds5VR6exSISLPjwmYqP+DG+tz94tcYPkT6mAZUB7kbssHFCdpJrbrS
-         MCUTdS09XJPdK+KBcpxuseoGRZfp6WyADNlhzThMLO6LDm6rgCyk4W8ea05X6tiTbQJT
-         /20IhicXqva+UNL9+RrbCub1KgLYeDadBctjxu5vsBdfR/Hh10fbPnYQDWXd32NatudW
-         45tce91CO2JKm8bGCPhxwnrZsjbYL5l7db0+QSGVTIj8/8NGwCuK9849LZi7LL1r7ljF
-         LXxQ==
+        d=gmail.com; s=20251104; t=1786532003; x=1787136803; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qJWZ6QeYAslNfnwX1/nS1qNOqky0RLqqSS3O/3zFPTc=;
+        b=PSBclENyc8inXPf3+QjhVFtnEUaZiBGQmvXhqAJTlp36zPcDSJSMHZujNVM+K42g70
+         shkRVjRM9jSDRrqM9ESsp6BGiAAIA0MGWwClTlMAdPr+jIgN1KeaE3DXpWwG6US+JCHJ
+         uwkSyKFd3134lT8uEVuNJCJsEF2roxRltSDUnF+SXsvvpZJHuMvs17DepyOicBDvPbtx
+         pAjG2gyKDQXypwlqoqdOFq5P6pE7vnOCzuJ0mArPTz2Uvq8EjpnT4velc9QCq1VJ/Ao6
+         N2fz0PGM0HOSRY48sN3HwOd4iQGh+5LnswkdbkWZTjNEUlNfqKxbTTVTJWrhm9ePKc7i
+         qcjw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786530788; x=1787135588;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wfIp5NDU7PWeyYmfA4vACcCezJB2SbD/Br0L9G6eGm0=;
-        b=dPvcKmFwmOw82bZtBAjPLkG7hn/P8Y90QHh89IUed9jMNa02CnQhbk5XLXFb1KPeAQ
-         7leM44tiqtDL9XP+2bf00TmbDJD/hLQku1Zqs591RZBNGZTaJ2LbgO2iyOoTFoVWvlBf
-         oCocnfEXBJZu/6/AIzo+jNCE07LbsFjwUzlqrFYV2FbXdgFdEkopbsAXiZh2JVCrEus0
-         VKQ+lxWcmuxKA+1zvUtPjVm3p85iRyAxKRUfE+qpyOJjdje+VZA0xLJhkGdXzX2Joyn7
-         ilyfOpeNXWdWpQsCUUlPrmVbM1MshwtiG0cEP/8trfsMf8ebdbMq6ttsbTsmxJO+QJhW
-         thVQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqhI4lKZI/w+lnabqC3dsbrUfsgzXi1ttIDjo6fusGdkYn95arBwFp1TGwfObBekM/BRRjO7XY8EpQ/Ig==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw4YAWNKWT1aViLAqWpF8mPnUM3PEjpSvbXS0aRkVdjBsfFVPOz
-	ngoOQxZ1s+SX6ir0LZbbIR0e+k+0IRISSTZ8UuLVphYi3SpW8OGx908C
-X-Gm-Gg: AR+sD12f08i1hNqD/56EnQ5sT97ug9sCpFsYbNWu8cBsvAltJFU6ALwR9uuwuaP+hwP
-	OfT+Exe4q2VCgBjYSz00joD7EV4kqM7ZzhPccvz7fTKq4URvVfApsBKswp3wruTJ0NKG4g8W9dt
-	0GQdKfRk/1cSPUcmdYMaPSSdCGUFSgjxJLrDv4vbHnhFk3vM40w3WlpGMhQZ666e78HZnCnk1sv
-	rXNcrAFUxdAObCBVI9bMFm6uoyc0FrDzlqaKzRlg8gwiH2RNM0kX5lhPXDsU83ECus7l978XNbY
-	YubEtLwz+CmNlhm7fBrY4pY18ZiPrsUG1XzqqLtcYN797ZtUZTVtWTU5G41g5hsl1bncDIG09k4
-	KC8dVkeg5hAvq6b7G1jXFOWMivU1lBAD/PR6yQZ0JvkI+7i+sAuRVzdPowVVjnBYLqLDJBJdgZE
-	v0vcA59ZaKRuNqAFSUNO0qKSAqoeR6oZlDz3Y341e+SoLrJNHH2zGVIsU59xJqkHwBrwFtyxt5v
-	9ZSduYB4RjC1Y8BFAmUyzDkdoUmtgAlEd9PyaDKcd0=
-X-Received: by 2002:a05:600c:2e11:b0:498:943:ccc0 with SMTP id 5b1f17b1804b1-4997c0e2ba9mr30739545e9.6.1786530787670;
-        Wed, 12 Aug 2026 03:33:07 -0700 (PDT)
-Received: from USERUSE-R7PLK0L.localdomain (IGLD-84-228-188-63.inter.net.il. [84.228.188.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997abf917csm73026875e9.13.2026.08.12.03.33.04
+        d=1e100.net; s=20251104; t=1786532003; x=1787136803;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qJWZ6QeYAslNfnwX1/nS1qNOqky0RLqqSS3O/3zFPTc=;
+        b=R83eI9cqnx3cBwN42ZKR0WEcE9qf2BK+jcqBgWotFyqHbIRkvch//TEwDgo2h0Ftdw
+         IEoxzyv9cQgNOoma9S5IeVmYu9XYr24NfWNrFPg/BLYRIDpZ13XjhIGjeR6k1P1yTFJt
+         6/N8Y1QiCa/Bp79g2deFZKVBMQ+6YMj2oENQh2/pUJPcn7PbG0Zk2+MR+I5UeI7ora8w
+         qncHAZqAT/fN6wfxJlTyZphnJOUauRanOATX0ZF2GhJZqz0gX4D4Ojbl4GKJihiEqeuE
+         eR9TAiMqyKKjEcDVGV2Q/Tes7Jyox1a4cP5z7w2I0PkFbaiO12aMvF3CXrbzGUZg4kK7
+         xLfg==
+X-Gm-Message-State: AOJu0YzeVgA/xcn4QO/u54PJ7MeA+g62j+/6qIuc7Ws5OzMLkiAucGx/
+	uyTa4v1lW1f3m3WaiPaAQBNf8WMvrVmx4cX1GBDZdTWptr25wWXuFNhx8bewrH6m
+X-Gm-Gg: AR+sD12FkZy9lXREjS2Bo+brnO/VeK2JeR+rxc3P4Ya65xouFPXYNfWHc+XbC7ANcnH
+	BFE10KTQnXrLdaOvHhyrpImbpfwKMgavft8s85B16HjBjHlXLVU2JNt6EPtMxCA5Qop/r1qUp5H
+	8cDmXIUeIjIG98Lwe74RkARAiRbEvuCmjx/t1vCUim7Zd2qxu/9NcKiTbx27znAHOqrKH7gT9Nc
+	wzFZra9WWmb1G2W6uCmg/F4rXajC/usrsgF9azMmfrTNdu8Nky2fXMzW/nmXLFi6JBp19ZqLESy
+	EwSiZ33uTTv81jeEqss5yMMybpja0XYFwb1zJN+tci2NiQCL3n73/TTVpJ64eTGQmHsk7jblINz
+	SBPcf7QJ6mgut0hi71+VR2OyphMeveTUVQ+6GCJ72ppp0Fk1WGxWFyI9O3brhcMH+EbLGBorQGz
+	IBmby12khigSlUGrpUr4nV7VoFGhJj3ojDdIN2rv8Mx1lPz/eO/9ReeyKu26E7jI70J1ZT7zCNK
+	xxWrNqMwGKW4bAW66/3nZFo2SILsAcFJAinxGLAmN5BGeMVV9zDDZVE4ZwPeyKVExcrBuKpShW+
+	bfhGmVbJtXOn6urYFPZwPY4uivJ1J84vkluVa4li+W6j3ZGkJ8VQI+DtTUN1MlN/hsOL87/7g6B
+	9F6DNHzIugssjt/qaG+ogjMRb2I7vUewX4mc/xJsdm8ESEw==
+X-Received: by 2002:a05:600c:8b22:b0:495:5045:39e6 with SMTP id 5b1f17b1804b1-4997c138cf5mr48034675e9.17.1786532003480;
+        Wed, 12 Aug 2026 03:53:23 -0700 (PDT)
+Received: from localhost.localdomain (host-213-45-168-79.pool21345.interbusiness.it. [213.45.168.79])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c939574sm37352315e9.1.2026.08.12.03.53.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 03:33:06 -0700 (PDT)
-From: Noam Ben Shimon <noambs2999@gmail.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org,
-	mchehab@kernel.org
-Cc: ribalda@chromium.org,
-	linux-media@vger.kernel.org,
+        Wed, 12 Aug 2026 03:53:23 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	bingbu.cao@intel.com,
+	tian.shu.qiu@intel.com,
 	linux-kernel@vger.kernel.org,
-	Noam Ben Shimon <noambs2999@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: uvcvideo: Fix integer overflow in frame buffer size calculation
-Date: Wed, 12 Aug 2026 13:32:51 +0300
-Message-Id: <20260812103251.18309-1-noambs2999@gmail.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260807101433.54886-1-noambs2999@gmail.com>
-References: <20260807101433.54886-1-noambs2999@gmail.com>
+	Nicola Fiorillo <nicfio@gmail.com>
+Subject: [PATCH 0/3] media: Two oopses and a hang when unbinding a streaming sensor
+Date: Wed, 12 Aug 2026 12:53:02 +0200
+Message-ID: <20260812105305.32447-1-nicfio@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,110 +78,65 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In the function uvc_parse_frame(), it recomputes
-dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
-around devices that report it wrong:
+Unbinding a camera sensor while a capture is running is a scenario that
+nothing in the IPU6 path handles: the kernel oopses twice, corrupts memory
+once, and leaves the application blocked forever. None of this is caused by
+the sensor drivers themselves, and all four failures are present in
+mainline today.
 
-	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
-					 * frame->wHeight / 8;
+They were found while testing two new sensor drivers on a CHUWI Hi10 X1
+(Intel N100, Alder Lake-N, IPU6) on a kernel built with KASAN, UBSAN,
+KMEMLEAK, PROVE_LOCKING and DETECT_HUNG_TASK. Three of them are fixed here;
+the fourth, a use-after-free in the media controller, is sent separately
+because it belongs to a different subsystem.
 
-These three arguments originate from the device's own descriptors, and
-therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
-u16. The expression is evaluated in int, and the maximum value is
-255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
-A device that declares large dimensions therefore overflows a signed
-int here.
-The kernel is built using -fno-strict-overflow, so this wraps rather
-than being miscompiled, but the wrapped value (which is often negative)
-is then divided by 8 and stored in a u32 used as a size.
+Patch 1 is a NULL pointer dereference in ipu6_isys_csi2_get_remote_desc().
+The remote pad is dereferenced without being checked, and unbinding the
+sensor mid-stream makes it NULL. Present since May 2024.
 
-Two examples for this (using legal field values):
+Patch 2 is a second NULL pointer dereference, in subdev_open().
+v4l2_device_unregister_subdev() clears sd->v4l2_dev before the device node
+goes away, so anything opening /dev/v4l-subdevN in that window oopses. This
+one was not provoked deliberately: udev's v4l_id walked into it on its own.
+The window has been open since 2011.
 
-  - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
-    INT_MIN. After division and conversion to u32 the field has the
-    value 4026531840 rather than 268435456.
+Patch 3 is the hang. isys_async_ops has no .unbind() callback, so nothing
+tells the video nodes that the sensor is gone, and a DQBUF already waiting
+in vb2_core_dqbuf() never returns. The sleep is interruptible, so
+DETECT_HUNG_TASK stays quiet and the process is simply stuck until it is
+killed. Reproduced 10 times out of 10 on both sensors of the machine; with
+the patch, all 10 return -EIO and exit.
 
-  - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
-    The field holds 0, rather than the correct 536870912.
+How each one was verified, since the three differ:
 
-I don't think memory corruption is a consequence of this. The value
-reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
-decode path is bounded by buf->length, which uvc_buffer_prepare() gets
-from vb2_plane_size() rather than this field. What a wrapped value does
-instead is make the driver describe the stream inconsistently.
-For an uncompressed format uvc_fixup_video_ctrl() copies it into
-ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
-sizeimage reported by VIDIOC_G_FMT. This is while width, height and
-bytesperline continue to describe the full frame.
-This also makes uvc_video_validate_buffer() mark error on all frames,
-because it is comparing bytesused against the same number.
+  - patch 1: the oops was provoked deliberately on the unpatched kernel
+    before the fix was written
+  - patch 2: reproduced itself, unprompted, with udev alone; after the fix,
+    150 cycles of a reproducer with four concurrent openers left no oops
+    and no leaked minors
+  - patch 3: rebuilt both ways, same kernel and same test. Without it,
+    3 attempts out of 3 hang; with it, 10 out of 10 wake up and return
+    -EIO
 
-Compute the size in 64-bit, and if the result does not fit in the u32
-field then reject the frame descriptor. An uncompressed frame this
-large is probably not a real device and rejection is consistent with
-the other checks over malformed-descriptors in this function.
+The full test cycle with the three fixes in place is clean: no KASAN or
+UBSAN reports, no KMEMLEAK findings, and lockdep still enabled at the end
+of the run. That last detail matters: lockdep disables itself on its first
+complaint and silently invalidates everything measured afterwards.
 
-Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
----
-Changes in v2:
-- Used a shift instead of division (Ricardo Ribalda) (Thanks!)
-- Add Cc: stable@vger.kernel.org (Ricardo Ribalda)
+The reproducer is a shell script that streams with v4l2-ctl, unbinds the
+sensor after two seconds, then rebinds it, in a loop. I am happy to post it
+if that would be useful.
 
-Compile-tested using W=1 and no warnings.
+Nicola Fiorillo (3):
+  media: ipu6: Check the remote pad before dereferencing it
+  media: v4l2-subdev: Check v4l2_dev before dereferencing it in open()
+  media: ipu6: Signal the video queues when a sensor is unbound
 
-Tested with a UVC gadget over dummy_hcd with WSL. A frame descriptor
-declaring 32 bpp at 40000x40000 (computed size = 6400000000, which is
-above U32_MAX) is then rejected as expected, and the streaming interface
-is not registered:
+ drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c | 14 ++++++-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      | 41 +++++++++++++++++++
+ drivers/media/v4l2-core/v4l2-subdev.c         | 31 +++++++++++---
+ 3 files changed, 78 insertions(+), 8 deletions(-)
 
-  uvcvideo 1-1:1.0: Found format YUYV little-endian (0x56595559)
-  uvcvideo 1-1:1.0: device 2 videostreaming interface 1 FRAME 1: computed buffer size overflows
-  uvcvideo 1-1:1.0: No streaming interface found for terminal 32771.
-
-I was working on a certain device that had a variation of the Linux
-kernel. During my work, I had searched for memory mismanagement and
-misallocation in media drivers. At some point I stumbled into the
-uvc_driver.c and found a flaw that is not a vulnerability, but still a
-flaw. I figured that it was worth letting you know rather than shrug it
-off.
-
- drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-index e289cc71ba98..29e23f94751c 100644
---- a/drivers/media/usb/uvc/uvc_driver.c
-+++ b/drivers/media/usb/uvc/uvc_driver.c
-@@ -296,9 +296,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
- 	 * information. For uncompressed formats this can be fixed by computing
- 	 * the value from the frame size.
- 	 */
--	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
--		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
--						 * frame->wHeight / 8;
-+	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
-+		u64 bufsize;
-+
-+		bufsize = ((u64)format->bpp * frame->wWidth * frame->wHeight) >> 3;
-+		if (bufsize > U32_MAX) {
-+			uvc_dbg(dev, DESCR,
-+				"device %d videostreaming interface %d FRAME %u: computed buffer size overflows\n",
-+				dev->udev->devnum,
-+				alts->desc.bInterfaceNumber,
-+				frame->bFrameIndex);
-+			return -EINVAL;
-+		}
-+
-+		frame->dwMaxVideoFrameBufferSize = bufsize;
-+	}
- 
- 	/*
- 	 * Clamp the default frame interval to the boundaries. A zero
-
-base-commit: f9a2394a23482bfd330911e9c8295b71724feacd
 -- 
-2.34.1
+2.47.3
 
