@@ -1,227 +1,171 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23D454B04B7
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 18:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8959F3515EA
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786559753; cv=none; b=YtOessm1PDl83l4Ns4576GyanZjWNDcyRp5fxkY8+BktK8ldnezx1tWA1nsb+NpQHgIfYJhw1Et8wbCFQSpfgYRi0wKbdZZW87OnxivHPeBptxHZW8JGtQP4CsK3jDAZE/3CYtYgvUyJyyeSEAUCu6AH3rXAosM1OAgtbBTo1ZM=
+	t=1786564893; cv=none; b=LA+UOS333C3HfodyPKvETlRgCrW1XCOVwLhuANzIf5WsbLneB/HYkGEZBV91an2HX8q/zSkKAllFJ7tPAlTDw3EmCVSj9hK4rNLNt/Boc+EeNwpz/61i/wWMXqLMsnPZ/xGn1f5bsh7zRoZiRodJ15+obGBQu9JfDZiSy8e906Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786559753; c=relaxed/simple;
-	bh=1NIZQUYfg9BSi01KzTSM60h3UAC/m69Q7zoRHbS/Hrc=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=Dn/XT6pAT8bKIZ/b6r/f5h/rQGReOQLFezVizvvR9Nmv0eeNcOKd/YFnLWVDcfFhnPbVQVY8ctic0gTtwBAhHDnM8p2pE15/sVSeCFLkHeb7DSVmhRFCN2L7dTr8J3xaL5V8t04HHsoILQySNnmQJYQqmW28LWOrv1Eq65GUtWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LLYkuyvI; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786564893; c=relaxed/simple;
+	bh=r6opA0kNEQrfiaF67bom8srKxpwwHd5XT4pgmfEnYNw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=RfQhc12ykH+NbkRURjKzujkTXE18qpGmTrhFP+SgwPig3ZC1ccAXlemW+sGc2np/eBncoBkrvM9s+1KpASOo0/pIjweB+OgAMboGthwsc4VjMv0AxkqAfiOCpoXAIRWy+Sm0dODkidpkCmRX8t3rGoA7OUrFiWvIBkOpvgRLNyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gl0vzHNm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BLUKbudJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LLYkuyvI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786559751; x=1818095751;
-  h=date:from:to:cc:subject:message-id;
-  bh=1NIZQUYfg9BSi01KzTSM60h3UAC/m69Q7zoRHbS/Hrc=;
-  b=LLYkuyvIYqvkRG6SKqDUKcEiAnzTLChyukgSgrIoZaH5hOdhXON58ym4
-   fTTQovV+TmmEq6lxCjx4d8EMvbAmOf19sm6JSEcX2dT6Msd9yxepOtUex
-   SxhJwgCu3zbjaWFHMC0/5tb60E+3usLg5S050YLakX+6z5tMk8Dc3O8ry
-   ThlixW8+L+04/CI5iaijS7RTFTZmug1uTBXSHUshexCc0HRNoZr+wt/jR
-   w8c+dCIFpSy+h+VR08SUspTNUa21M7JcGZit1T6j9FGtYJ4zMwAZXFF+X
-   2mLmCKjdXysjB+lS5h2O6FPVsEXOfdeyS6HY9j+CmpNBtAeaVCBJ6a8L8
-   w==;
-X-CSE-ConnectionGUID: 66hmlTOPRBeAWbnJlHkRqA==
-X-CSE-MsgGUID: cbnxE7kSQSeGcinZzpBrCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="74665212"
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="74665212"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Aug 2026 11:35:50 -0700
-X-CSE-ConnectionGUID: cp/dw643ReqFVluD4JiDgg==
-X-CSE-MsgGUID: oQg70X02RES9DzEk9sHxLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,219,1779174000"; 
-   d="scan'208";a="301971996"
-Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
-  by orviesa001.jf.intel.com with ESMTP; 12 Aug 2026 11:35:50 -0700
-Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wuDnn-00000000RMc-12kv;
-	Wed, 12 Aug 2026 18:35:47 +0000
-Date: Thu, 13 Aug 2026 02:35:33 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org
-Subject: [sailus-media-tree:master] BUILD SUCCESS
- 56c29fa3ee666197516a231e75aed789ae9c530d
-Message-ID: <202608130219.zPT3Ni61-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gl0vzHNm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BLUKbudJ"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CI8ekN001076
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=pkY9uRaTzpSbkhel8Yhdfr
+	qDz8pSWXGRHDaTs4X3HMw=; b=Gl0vzHNmkmH2fBqNnJz1ki+0ENSyEVnz4YalB4
+	EvcTgKhQfh7/Z8NJG4R1qZtTwK667d8G0vYgk3NjuQv4QBJvvzrMFMse6k7qkNxi
+	2efZAVKbVKuUDDa4kkeDSct2retHUC8Hhk7Ff9MQUYkSSq0d0IcVIt6pzdeQcGky
+	aPCPTCrAWeM8yWKRYPW364XZsb8cN+cBvG31W/amcEIwm2lHRCGRlYE1idyLUKpq
+	1hXfCcCRNB3azux7Gt6mHPbl+q/f9cpINYjVp+rW7+YvSN9Wfg8Y2aX1Wq2ssReC
+	0kgptGNcxQczlPAWEnU2W1dyh6oddHdekKQY7I9f+KH4wGUg==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0uts15k2-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:31 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-52d28f8737eso25593871cf.2
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 13:01:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786564890; x=1787169690; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pkY9uRaTzpSbkhel8YhdfrqDz8pSWXGRHDaTs4X3HMw=;
+        b=BLUKbudJnL4y74zXgDf/we4bIzxc8G6LjUSqOvl9fNgkv1c8nOc8dYmLcTS1SKdQ7C
+         Wks0hohs03o6LJn0CZyqdGECSNCIJAQuSEb5ZxEIfIMFpeJjD7oLmEfQDg9NVCS8lag2
+         LZKKb64dFu0mjdrefPsQG1NbugQFrNPa1Sa/e7NrSQNmWYwAQcw9p7CioIaTIvA4bJv4
+         3WFarnLdOG/Zn/SpuNFMoYC+95Jda/LI3PFEfy8BxU35iMdFrCuvF+hW5H2cbN0/JAcs
+         hTuPlXzi3J0P2RqEqthKCkwJEcW7hebnVzZ/3Dp+GGlyugHp1/yXTaXKgdNbVwV4QX4G
+         Rojg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786564890; x=1787169690;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pkY9uRaTzpSbkhel8YhdfrqDz8pSWXGRHDaTs4X3HMw=;
+        b=gLvi4rMU2JN1SL961A4FXHCxxeA4cluIGQ230+6oz51Ss5D+xDGE6/wPqzL6iMNhs/
+         ffPkrM8twvQdGJWHn83atQ1IBkRYo4R8Goo5V7EMm+sENF1zGlTWkvtbnVhb4vCky1jG
+         hyB7TFzaFcbnBK4DeLet6V6i1i895S++vthWfAlGgx3uNU3HsidJ/Tbw5TH3CvU8k4Er
+         WkSt5kyeNnk9EhBP6DyUxSY+rOEo8PRVTqOAV48zaPvuliFQQ6aNJLkDi5OtcnWviuLZ
+         ZODYRVfxYKxCRTzNRzrmqHX/8V0Aynof9yDdcFaUM8lgcf7u/3hzeMAZjTEmn+27XKcw
+         zMmQ==
+X-Gm-Message-State: AOJu0YxVHdmTdI6Q+d0isZXFGt42CFrdGBbVSGA+oQEX/3bj96+R2wNZ
+	bDPwgAUX9IK0R2CCMgQ3PJOzQ0H3W3nfr92eGocO8RRW/qsAwLIpDSljHChUk7MP2PYjTw3e1Em
+	ht/m5cGpCZGcgOq4xTkpNJDlPk4ZCy/j5OY64iJ/t8Jd9OJNctwESgx3e6JXMebUD9Q==
+X-Gm-Gg: AR+sD127YZkbfNkIPxjZLjg8gS6iqlcu7j23Oo49BOa3v+E1QXO3EP09bKnXQw1/vsg
+	TRfoGKS69DLGRO3hbNVNpXMBixvmbYnkJq5+4+lmCXu+Y/NlLgbPsOXKR28lpC4f4rstQXqAE/C
+	xEg1Tzyp5J3VS+NS3qEUeL0cgj6Z0S8CQ5sh2babpcYMVi08Y3rPKdelOKGsKJv6UBsP6h85x+p
+	zHkpa4McDX7dYZJUWcEiTDOK6BG3QiJ/hD9khNj1PNZUh5TYyCUxomVTHFRDKmxx4vnnKkglbOE
+	0GGGNPLUfG2Mg+LmJG6OtDik4aDsFjI+Jl+uGB/1lKizwrRN4OOYcV/KWb1/ThvkEJNab9t9Jsm
+	qCIxLQhSL12kSuMFaOVjGflN99Nrw5nP5L18G/qnLSg2SloKIlcdpCIS1rtWeRvB3oXwIxfLwOZ
+	4zBBToQ9TOaFXu
+X-Received: by 2002:a05:622a:8c9:b0:528:3b83:3483 with SMTP id d75a77b69052e-52d73d5d865mr7476611cf.23.1786564890525;
+        Wed, 12 Aug 2026 13:01:30 -0700 (PDT)
+X-Received: by 2002:a05:622a:8c9:b0:528:3b83:3483 with SMTP id d75a77b69052e-52d73d5d865mr7475561cf.23.1786564890051;
+        Wed, 12 Aug 2026 13:01:30 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a11b2acb0fsm354561fa.12.2026.08.12.13.01.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 12 Aug 2026 13:01:28 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/3] media: venus: fix several caps parsing bugs
+Date: Wed, 12 Aug 2026 23:01:22 +0300
+Message-Id: <20260812-venus-8996-v1-0-6615f82a63b8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIABLRfGoC/yXMQQ5AMBBA0avIrDXRhkZdRSxKB2NR0kEkjbsrl
+ m/xfwTGQMjQZBECnsS0+gSZZzDM1k8oyCWDKpQuaqnEif5gURujhcTeqNJoW1YOUrAFHOn6Zm3
+ 3m49+wWF/D3DfD6pjgi9uAAAA
+X-Change-ID: 20260812-venus-8996-1eb92496a45d
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+        Hans Verkuil <hverkuil@kernel.org>, Tomasz Figa <tfiga@chromium.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1143;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=r6opA0kNEQrfiaF67bom8srKxpwwHd5XT4pgmfEnYNw=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqfNEWRZShgm1Ac2l6Evgha/3DMJRgBZ2S+a+DS
+ D2T3ooeJmCJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCanzRFgAKCRCLPIo+Aiko
+ 1XYgB/9NW40oqkYFA6WL7rRDjaoKop1bpP2rvz13hZiNy5hCGKrvU2qpujM5zDr9NNyUAFmCDAu
+ 7Y3mh6FQ+QpG4+JSDjTM7Lota2x9nAlFhyOOKs1E33/cqou1WBSbtDM3+rLq9KV5V1LAFlSBtDw
+ 2RnWzKeCfbZ3xUEmYbbe6/YQZNhrYz3ZKQwMQsOwvyi9UhPZ6LU3nzYxVbnpySQmupNntnoNvqW
+ Nc0IL0PiHZhNsT0MDaq3YmS/DUOkIDAzcDc7RQZ2TqRWPL6PGqXwA6iZZOC1kvRLvgD23VRFdS5
+ WmxHWzZYykRu9qa0+8xoKlPR/QbTbGtfNJXjU0lLHvgDiL03
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-GUID: 3I_KDO66IN_jVPOgOLxCqP8oJbXXCJie
+X-Authority-Analysis: v=2.4 cv=aPDAb79m c=1 sm=1 tr=0 ts=6a7cd11b cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=z1JbGT0kfS7yTgG4yncA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-ORIG-GUID: 3I_KDO66IN_jVPOgOLxCqP8oJbXXCJie
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2MCBTYWx0ZWRfXw0LT+BYhNPyv
+ C55Z14HDxFQYpUaRXYc3vuZ6TCTVmPiG0nl8DUPbRIpCvRF1p7yYKGfbgDZunWsREeUqxQByIbT
+ PxDWxG/18DHhM1slNsU6zW+WnWbaQ30=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2MCBTYWx0ZWRfX9ekhcuJISDD5
+ 796D3DJ+jJooUbxEyA1tVjPxbbHq0roKzqUGBPYi7Cj5jtIYUWekoEyzDSIQRZlEVAU1Z+R40zU
+ ftGlM0g3MQmB7Jps5tR8HKzHXIverzCDmkls2avrCPTYep/MyoWF9fxDcIBTeDmg7W7zoFOKy86
+ KHG1s/Y2QDhAfJgV2u1iA7BaDGy7Qv6F7tsCojw08Owr7QNagT3JmxiUBM/9RG6ytD+ftTtj2W+
+ hSy6yH7pOTc0Q4jwkYaNX6fFg5F2Gx8if/50+QSO/4kKZcvHCMHHLgMTfBElV62TXbXSYkwK8J0
+ QnNY+q3dY3el/T90doqZifVjKUgaSln+EwLRvxVjze979l5lmY+8Urzqi0LGLsAm9ydLs640YgL
+ gVHst/EHurM00FtO5c6dPJcD2OMwRRXLqAk2rHeHvQYUuccZcjxJ629JVFfoSdgCAdCftfKj0Qd
+ zkIdmKxmyTZOqWTD8dQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-12_05,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 suspectscore=0 malwarescore=0
+ adultscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120160
 
-tree/branch: git://linuxtv.org/sailus/media_tree.git master
-branch HEAD: 56c29fa3ee666197516a231e75aed789ae9c530d  media: rzg2l-cru: Align bytesperline to hardware DMA stride requirement
+Testing Venus on MSM8996 revealed several issues with caps parsing,
+which didn't manifest on other generations of Venus hardware / firmware.
+Fix them to make Venus decode streams properly on MSM8996-era of the
+hardware.
 
-elapsed time: 1898m
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (3):
+      media: venus: hfi_parser: account for all capabilities when skipping a property
+      media: venus: hfi_parser: size a raw format property by its own entries
+      media: venus: report the frame size of the codec being enumerated
 
-configs tested: 150
-configs skipped: 1
+ drivers/media/platform/qcom/venus/helpers.c    | 75 +++++++++++++++++---------
+ drivers/media/platform/qcom/venus/helpers.h    |  2 +
+ drivers/media/platform/qcom/venus/hfi_parser.c |  9 ++--
+ drivers/media/platform/qcom/venus/hfi_parser.h | 12 +++--
+ drivers/media/platform/qcom/venus/vdec.c       |  7 +--
+ drivers/media/platform/qcom/venus/venc.c       |  7 +--
+ 6 files changed, 66 insertions(+), 46 deletions(-)
+---
+base-commit: 78bc8af4affb9a732504eb22eeac7d1e50883853
+change-id: 20260812-venus-8996-1eb92496a45d
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Best regards,
+--  
+With best wishes
+Dmitry
 
-tested configs:
-alpha                            allnoconfig    gcc-16.1.0
-alpha                           allyesconfig    gcc-16.1.0
-alpha                              defconfig    gcc-16.1.0
-arc                             allmodconfig    gcc-16.1.0
-arc                             allyesconfig    gcc-16.1.0
-arc                           randconfig-001    gcc-12.5.0
-arc                  randconfig-001-20260812    gcc-12.5.0
-arc                  randconfig-002-20260812    gcc-12.5.0
-arm                    am200epdkit_defconfig    gcc-16.1.0
-arm                  randconfig-001-20260812    gcc-12.5.0
-arm                  randconfig-002-20260812    gcc-12.5.0
-arm                  randconfig-003-20260812    gcc-12.5.0
-arm                  randconfig-004-20260812    gcc-12.5.0
-arm64                         randconfig-001    gcc-14.3.0
-arm64                randconfig-001-20260812    clang-24
-arm64                randconfig-001-20260812    gcc-10.5.0
-arm64                randconfig-001-20260812    gcc-14.3.0
-arm64                randconfig-002-20260812    clang-20
-arm64                randconfig-002-20260812    gcc-10.5.0
-arm64                randconfig-002-20260812    gcc-14.3.0
-arm64                randconfig-003-20260812    clang-17
-arm64                randconfig-003-20260812    gcc-10.5.0
-arm64                randconfig-003-20260812    gcc-14.3.0
-arm64                randconfig-004-20260812    clang-24
-arm64                randconfig-004-20260812    gcc-10.5.0
-arm64                randconfig-004-20260812    gcc-14.3.0
-csky                            allmodconfig    gcc-16.1.0
-csky                 randconfig-001-20260812    gcc-10.5.0
-csky                 randconfig-001-20260812    gcc-14.3.0
-csky                 randconfig-002-20260812    gcc-10.5.0
-csky                 randconfig-002-20260812    gcc-14.3.0
-csky                 randconfig-002-20260812    gcc-16.1.0
-hexagon              randconfig-001-20260812    clang-24
-hexagon              randconfig-001-20260812    gcc-11.5.0
-hexagon              randconfig-002-20260812    clang-17
-hexagon              randconfig-002-20260812    gcc-11.5.0
-i386                            allmodconfig    gcc-14
-i386                buildonly-randconfig-001    clang-22
-i386       buildonly-randconfig-001-20260812    clang-22
-i386       buildonly-randconfig-002-20260812    clang-22
-i386       buildonly-randconfig-002-20260812    gcc-14
-i386       buildonly-randconfig-003-20260812    clang-22
-i386       buildonly-randconfig-004-20260812    clang-22
-i386       buildonly-randconfig-005-20260812    clang-22
-i386       buildonly-randconfig-005-20260812    gcc-14
-i386       buildonly-randconfig-006-20260812    clang-22
-i386                 randconfig-001-20260812    clang-22
-i386                 randconfig-001-20260812    gcc-14
-i386                 randconfig-002-20260812    clang-22
-i386                 randconfig-002-20260812    gcc-14
-i386                 randconfig-003-20260812    clang-22
-i386                 randconfig-004-20260812    clang-22
-i386                 randconfig-004-20260812    gcc-14
-i386                 randconfig-005-20260812    clang-22
-i386                 randconfig-005-20260812    gcc-14
-i386                 randconfig-006-20260812    clang-22
-i386                 randconfig-007-20260812    clang-22
-i386                 randconfig-007-20260812    gcc-14
-i386                 randconfig-011-20260812    gcc-12
-i386                 randconfig-012-20260812    gcc-12
-i386                 randconfig-013-20260812    gcc-12
-i386                 randconfig-014-20260812    gcc-12
-i386                 randconfig-015-20260812    gcc-12
-i386                 randconfig-016-20260812    gcc-12
-i386                 randconfig-017-20260812    gcc-12
-loongarch                          defconfig    clang-24
-loongarch            randconfig-001-20260812    clang-24
-loongarch            randconfig-001-20260812    gcc-11.5.0
-loongarch            randconfig-002-20260812    clang-24
-loongarch            randconfig-002-20260812    gcc-11.5.0
-mips                      bmips_be_defconfig    gcc-16.1.0
-mips                    cu1000-neo_defconfig    gcc-16.1.0
-nios2                           allmodconfig    gcc-11.5.0
-nios2                            allnoconfig    gcc-11.5.0
-nios2                randconfig-001-20260812    gcc-11.5.0
-nios2                randconfig-002-20260812    gcc-10.5.0
-nios2                randconfig-002-20260812    gcc-11.5.0
-parisc                          allmodconfig    gcc-16.1.0
-parisc                          allyesconfig    gcc-16.1.0
-parisc                             defconfig    gcc-16.1.0
-parisc               randconfig-001-20260812    clang-17
-parisc               randconfig-001-20260812    gcc-8.5.0
-parisc               randconfig-002-20260812    clang-17
-parisc               randconfig-002-20260812    gcc-8.5.0
-powerpc              randconfig-001-20260812    clang-17
-powerpc              randconfig-001-20260812    gcc-14.3.0
-powerpc              randconfig-002-20260812    clang-17
-powerpc              randconfig-002-20260812    clang-24
-powerpc64            randconfig-001-20260812    clang-17
-powerpc64            randconfig-002-20260812    clang-17
-powerpc64            randconfig-002-20260812    clang-24
-riscv                randconfig-001-20260812    clang-24
-riscv                randconfig-002-20260812    clang-24
-s390                 randconfig-001-20260812    clang-24
-s390                 randconfig-002-20260812    clang-24
-sh                                 defconfig    gcc-16.1.0
-sh                   randconfig-001-20260812    clang-24
-sh                   randconfig-002-20260812    clang-24
-sparc                randconfig-001-20260811    gcc-16.1.0
-sparc                randconfig-001-20260812    gcc-13.4.0
-sparc                randconfig-002-20260811    gcc-16.1.0
-sparc                randconfig-002-20260812    gcc-13.4.0
-sparc64              randconfig-001-20260811    gcc-8.5.0
-sparc64              randconfig-001-20260812    gcc-13.4.0
-sparc64              randconfig-002-20260811    gcc-8.5.0
-sparc64              randconfig-002-20260812    gcc-13.4.0
-um                   randconfig-001-20260811    gcc-14
-um                   randconfig-001-20260812    gcc-13.4.0
-um                   randconfig-002-20260811    gcc-14
-um                   randconfig-002-20260812    gcc-13.4.0
-x86_64              buildonly-randconfig-001    gcc-14
-x86_64     buildonly-randconfig-001-20260812    gcc-14
-x86_64     buildonly-randconfig-002-20260812    gcc-14
-x86_64     buildonly-randconfig-003-20260812    gcc-14
-x86_64     buildonly-randconfig-004-20260812    gcc-14
-x86_64     buildonly-randconfig-005-20260812    gcc-14
-x86_64     buildonly-randconfig-006-20260812    gcc-14
-x86_64                                 kexec    clang-22
-x86_64               randconfig-001-20260811    clang-22
-x86_64               randconfig-001-20260812    clang-22
-x86_64               randconfig-002-20260811    gcc-14
-x86_64               randconfig-002-20260812    clang-22
-x86_64               randconfig-003-20260811    clang-22
-x86_64               randconfig-003-20260812    clang-22
-x86_64               randconfig-004-20260811    gcc-14
-x86_64               randconfig-004-20260812    clang-22
-x86_64               randconfig-005-20260811    clang-22
-x86_64               randconfig-005-20260812    clang-22
-x86_64               randconfig-006-20260811    gcc-13
-x86_64               randconfig-006-20260812    clang-22
-x86_64                        randconfig-011    clang-22
-x86_64               randconfig-011-20260812    clang-22
-x86_64               randconfig-012-20260812    clang-22
-x86_64               randconfig-013-20260812    clang-22
-x86_64               randconfig-014-20260812    clang-22
-x86_64               randconfig-015-20260812    clang-22
-x86_64               randconfig-016-20260812    clang-22
-x86_64               randconfig-071-20260812    clang-22
-x86_64               randconfig-072-20260812    clang-22
-x86_64               randconfig-073-20260812    clang-22
-x86_64               randconfig-073-20260812    gcc-14
-x86_64               randconfig-074-20260812    clang-22
-x86_64               randconfig-075-20260812    clang-22
-x86_64               randconfig-075-20260812    gcc-14
-x86_64               randconfig-076-20260812    clang-22
-x86_64                          rhel-9.4-bpf    gcc-14
-xtensa               randconfig-001-20260811    gcc-16.1.0
-xtensa               randconfig-001-20260812    gcc-13.4.0
-xtensa               randconfig-002-20260811    gcc-10.5.0
-xtensa               randconfig-002-20260812    gcc-13.4.0
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
