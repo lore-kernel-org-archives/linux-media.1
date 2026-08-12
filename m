@@ -1,46 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 177F747D475;
-	Wed, 12 Aug 2026 21:03:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49722339365;
+	Wed, 12 Aug 2026 22:33:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786568595; cv=none; b=CNgJWlnJQVZ9Vq8p9KX/9NGbo1Y3S1RiEqWyEQMDAbGPlCANkwcMttbSv75fQt/A7V6S+Ey/C21RN7MhyGVm7LSXr7tojzZGs7aEbZaZ0JR9uBf/OfircMxdCf3lOjdcBn9hoON8Dj0xhAv7ZCbQ2oglk85dCRzDQUyfEsWxpGc=
+	t=1786574019; cv=none; b=CeousrofJSFxNajkPrNYk8NCY74WqBjPYuwYM9xnHgNqz18GOY63PPUQlw8908matOrzyG5bx1vDIRqdEGe/1jR1qWRsJYTf5+R/ARC/JoJu4CUfmQl8zoRe/wFoyujZQwobh4j+O6872VW47lYYBkxwHPouXtCx093y3k15QNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786568595; c=relaxed/simple;
-	bh=PTKQki6lrRfRXl9qYq/uE9BOmgI34rvC7zxcNf/Y9Pc=;
+	s=arc-20240116; t=1786574019; c=relaxed/simple;
+	bh=9jEZcXgs8xFvSWyzWWxmvAqve19sJy+uBZfUIpOHysc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E4QGIMtZUOiaBiIvv1S+sPjMKCWhp3BtF7GwxbPMTMI+ekJyKb/ZNLJHi7JmbpiQh82c7UMIpYIoyVIVspUGIHQpd3tvLaDYEZmKj0TM5taTe0ibPMdzqWAF9Vf1uDFDzhaecq2I+dWtB8sZ+oWJha07cgvEEKNhNNtKxFGS+ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ijUm1XTN; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=d5cmfq+d7fDRTWEub1fPRxnvG/0ozXdQr5kfrR6+2T/CSEhieRLQNTB1OQUMW2R3w+1UBca69VfYWdPPzV3YVWUYtjLwmIxVn3cuImRWBtA87ooooERYpxYjTC1ZJeGkk428ptsBB7NFCU3JfmFumP8+n+ALw9o9Bc8xAj9CkNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NxnDcAN9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ijUm1XTN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 614C21F000E9;
-	Wed, 12 Aug 2026 21:03:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NxnDcAN9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6503E1F00A3F;
+	Wed, 12 Aug 2026 22:33:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786568590;
-	bh=IzdXJdVv6w+k64qbO8YPTQcV7pwAVZW/byaC0vBWslI=;
+	s=k20260515; t=1786574017;
+	bh=aHVs81CE2IQ9JD4d8n66KMCOswlVQXDqi/24OSbt1Sk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ijUm1XTNRj3j/EI4W6TNdY/elT/30dh0orYvzeAs+46QyG3K1z8zGh2biHvLwwwo9
-	 UbS8kUxUx2FeuUe/vQg5FO4u/Tfx+Mc3CR4Y56M7BDhzPf9ahIVp0tZp4rKVGM69fl
-	 YXiyntfCGo/9VsByl2aJ/uMSFWRK0Ogq3EPv4xH38bN9C1rStfoe5NtJpP5hZ8PQlt
-	 zVOZXmLogMqzjuxOpw3nEq2rUOtq8jhTZN6sI0xWjdpcwyZq2JxWOF/KCTrIEHAyi+
-	 RjU+5pUrpXG2dctyKRV1P+8uRtEZcSK9zBIDUY5UwS/+YNyOgskJg55Lba8F95Qx7W
-	 CjEFiTxC5/YEQ==
-Date: Wed, 12 Aug 2026 16:03:09 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
- sensor binding
-Message-ID: <20260812210309.GA972604-robh@kernel.org>
-References: <20260807102847.1813059-1-eagle.alexander923@gmail.com>
- <20260807102847.1813059-2-eagle.alexander923@gmail.com>
+	b=NxnDcAN9Z4zXwB8VaQ4ooTdrRgky6Q8zLm6mxJ1RjWe0Ovnre8a/4e3j/pRx23n0/
+	 cgEf7TjrJMOhg0gmXjJXZ4JO3u25sFIG+ohZ87f1hnkqMiFEbX7HY4rFnFRxcBbrlh
+	 tarqc9v8P+vKy7klLcouGokQZCYzNvAPTFlHUzDvkg0nGKbkA5JZXjdnJZSEsnLwSd
+	 kSwV3PlOUlPY3k2iIRlibhfvsba3Q+ayHFC5C16qaWaoflAOG0WuK1M2/oFs8EbGqQ
+	 7FfrFAcQJBPX6Dt+03UO4/bZ+nDwz1sfdBzJP5rXNK3BVTpjgRsNEjab5htv4BFZXL
+	 /sa4Zn9VXn4YQ==
+Date: Wed, 12 Aug 2026 17:33:36 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: linaro-mm-sig@lists.linaro.org, Sumit Semwal <sumit.semwal@linaro.org>,
+	Russell King <linux@armlinux.org.uk>, linux-tegra@vger.kernel.org,
+	linux-mm@kvack.org, Maxime Ripard <mripard@kernel.org>,
+	Yury Norov <yury.norov@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	iommu@lists.linux.dev,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	linux-trace-kernel@vger.kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>,
+	David Hildenbrand <david@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Masami Hiramatsu <mhiramat@kernel.org>, devicetree@vger.kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Suren Baghdasaryan <surenb@google.com>, Chun Ng <chunn@nvidia.com>,
+	Thierry Reding <treding@nvidia.com>, linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Will Deacon <will@kernel.org>, David Airlie <airlied@gmail.com>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Jonathan Hunter <jonathanh@nvidia.com>
+Subject: Re: [PATCH v4 02/10] dt-bindings: display: tegra: Document memory
+ regions
+Message-ID: <178657401505.1337249.16016860893024599580.robh@kernel.org>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-2-5510d16af89e@nvidia.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,112 +88,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260807102847.1813059-2-eagle.alexander923@gmail.com>
+In-Reply-To: <20260807-tegra-vpr-v4-2-5510d16af89e@nvidia.com>
 
-On Fri, Aug 07, 2026 at 01:28:46PM +0300, Alexander Shiyan wrote:
-> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+
+On Fri, 07 Aug 2026 17:54:22 +0200, Thierry Reding wrote:
+> From: Thierry Reding <treding@nvidia.com>
 > 
-> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> Add the memory-region and memory-region-names properties to the bindings
+> for the display controllers and the host1x engine found on various Tegra
+> generations. These memory regions are used to access firmware-provided
+> framebuffer memory as well as the video protection region.
+> 
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 > ---
->  .../bindings/media/i2c/onnn,ar0234.yaml       | 126 ++++++++++++++++++
->  1 file changed, 126 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> Changes in v4:
+> - typofix
 > 
-> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> new file mode 100644
-> index 000000000000..d6db435be9e2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> @@ -0,0 +1,126 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/onnn,ar0234.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: ON Semiconductor AR0234 1/2.6-inch CMOS Digital Image Sensor
-> +
-> +maintainers:
-> +  - Alexander Shiyan <eagle.alexander923@gmail.com>
-> +
-> +description:
-> +  The AR0234 is a 1/2.6-inch CMOS digital image sensor with a pixel
-> +  array of 1940x1220 pixels, capable of 1920x1200 resolution at up
-> +  to 120 fps. It supports MIPI CSI-2 output with 2 or 4 data lanes,
-> +  color raw Bayer (8/10-bit) or monochrome output.
-> +
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: onnn,ar0234cs
-> +      - items:
-> +          - enum: ["onnn,ar0234cssc", "onnn,ar0234cssm"]
+> Changes in v3:
+> - document properties for VIC
+> ---
+>  .../devicetree/bindings/display/tegra/nvidia,tegra124-vic.yaml |  8 ++++++++
+>  .../devicetree/bindings/display/tegra/nvidia,tegra186-dc.yaml  | 10 ++++++++++
+>  .../devicetree/bindings/display/tegra/nvidia,tegra20-dc.yaml   | 10 +++++++++-
+>  .../bindings/display/tegra/nvidia,tegra20-host1x.yaml          |  7 +++++++
+>  4 files changed, 34 insertions(+), 1 deletion(-)
+> 
 
-- enum:
-    - onnn,ar0234cssc
-    - onnn,ar0234cssm
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-Please explain somewhere what the differences between the 3 cases are.
-
-
-> +          - const: onnn,ar0234cs
-> +
-> +  reg:
-> +    description: I2C device address
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    description: Reference clock (external clock) input
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    description: Reset pin, usually active low (if needed)
-> +    maxItems: 1
-> +
-> +  vaa-supply:
-> +    description: Analog (2.8V) supply regulator
-> +
-> +  vdd-supply:
-> +    description: Digital Core (1.2V) supply regulator
-> +
-> +  vddio-supply:
-> +    description: I/O (1.8V-2.8V) supply regulator
-> +
-> +  orientation: true
-> +  rotation: true
-
-You need a reference to video-interface-device.yaml if you are going to 
-use these.
-
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    description: CSI-2 transmitter port
-> +    additionalProperties: false
-
-blank line
-
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        unevaluatedProperties: false
-
-blank line
-
-> +        properties:
-> +          data-lanes:
-> +            description: Number of MIPI CSI-2 data lanes
-> +            oneOf:
-> +              - items:
-> +                  enum: [1, 2]
-
-Is any order allowed? That implies some sort of lane remapping. If 
-that's not supported, then see pretty much any other binding for an 
-example of what this should look like.
-
-> +                minItems: 2
-> +                maxItems: 2
-> +              - items:
-> +                  enum: [1, 2, 3, 4]
-> +                minItems: 4
-> +                maxItems: 4
