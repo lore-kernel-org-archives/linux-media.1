@@ -1,62 +1,62 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C2D3B52FB
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA3743B0AE7
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:55:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786568133; cv=none; b=W1hE/JWUeRgzLy3zPCODnlJmKPajqe5GJL3MkEVPt4tgBaDEwBcH8nvx64cYBMx33dknIspI1Eh6sPbUrZlgmVpIhgbGEbJvPRgSnnf5ScocZPOwe1al8snz/dcGuglNikO7KQ02PcOdgsau19cVGcR9tMsB9tr2KT+pwGKAugs=
+	t=1786568136; cv=none; b=UnHy60r1CrsLccqrYDqtMkBR36oqXZaheoKgpxRWbLVLDsL7bdfXajKQo636LvJiT/IRW9pYRcfAkf3i3ff+S9BtQjh7DEyq288+vbDI6A2qA6QyPrXlrbFiGjxsAZ1mpSK94JW0+ZhbWMN044zU+NMQo55C92P54LSA8w+FwoA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786568133; c=relaxed/simple;
-	bh=N7YavMIxn189yOCIt8BdETPEDeHw4RDxuO0Znx6qmho=;
+	s=arc-20240116; t=1786568136; c=relaxed/simple;
+	bh=yJUCgUb4KFcxXLpPv/Qf1WbDX5e+fr80HZIWVnsFP3A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LJlHw7xOR6eN2C/FedOgFcnyH074KzNZmEayG8/3Ayo+tkf5NnEVDMAj1oy3w9QzmHOFeT24MN42cfJeqijwrWRWFjJjEABibE825D9RtI5BbFcm8jJBOQ1BjJo6Gsd7N1ApwY2nw6a2YJIf2weSqnQQSx/jiX/wV9nAy7Bs+ZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDJZ5eOG; arc=none smtp.client-ip=209.85.167.47
+	 MIME-Version; b=KdHco0u1ZfuN/gWc9v9u+6rF0aRqsQ9eMqxmU0mZ9cfaJ3r9h+AuPyFSfuhYD8OndXWK9SP0775qvamCqQQSr8BXtWw2B+Q6H2+V++7KL92UxDvXXLxuwxOmrejSYn41r/XvM9WHzvJV1fhneVyQsuJyd9LlSC8ltOG+8DggwO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NG3/SLru; arc=none smtp.client-ip=209.85.167.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDJZ5eOG"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aeba09900bso1063741e87.2
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 13:55:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NG3/SLru"
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b0148201fbso1159351e87.3
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 13:55:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786568126; x=1787172926; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786568129; x=1787172929; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=id+z5c34tokzsRgaGzBKaJJ/gVoWUF0wZyeg82CjYJg=;
-        b=ZDJZ5eOG0YGhZAy9L3nzUtLrcINZKIvprA+DlcvTOu3vNA/izhBXmTotxaAAL5Weyv
-         FA4MIlLIRkL8W/KtWlugW05WNSlyviHjzjp+R8aJq76KINvk4m+MYWirD71liPrHhYjX
-         VTm9ET8zQuqO4R3OG9oa0xG8Dx7dVMaAG6raJTCXWIoVjeA+vVGKUIIcwEQHg1JZOKxT
-         HiZL7h1RIjWhA7e0PNieMmvxxMjASTOJR2oZre2+4gypCWdieToEpQDxXVggQMZ98+IW
-         p1079ryIHKwHrt1wywBkUAcgH6oU7zS8DCrSRVG9G5DVTpoX5bL8LisLATC9WejvThrS
-         HuCw==
+        bh=gjB2fBDmkMwtaR91YZkC47S7tI/AMH5A7bYroiu6yaY=;
+        b=NG3/SLruuNcjdR5iOHPh9FkWxwO8p32Yd+KvyVdxhkLIL69rRVg3jLcNhpFTfBSPkb
+         J1N2qKr6jtr0XbKzVkYq2MUOqv6GFF18m4vasjw6xyxpDZpSTB1dyUkIrYig7LsiypP+
+         Dv0LBwicDxOsiLL2DwrOXavzl+IE/kpr0HHCtajGrn7DrG7gbD7ByUrOGPnRVj5jlTWB
+         bqBbnPjTbkR5213GD2FUpZLbsLPCGbDuO9bimIfll+JU56UAVzb3me+AtzVe1DfA3V1X
+         OisyJUyKNU2hug/ZzR2D9IzBP9FxUttYR1K90pPWXL1A6tW//cLpX7AxODerRnVp/bd8
+         /KKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786568126; x=1787172926;
+        d=1e100.net; s=20251104; t=1786568129; x=1787172929;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=id+z5c34tokzsRgaGzBKaJJ/gVoWUF0wZyeg82CjYJg=;
-        b=aRJjnW1zHT8vSOEU1rk7nOQXP9jkG93VTtIFAC+S9v1w139xls3vLbNluJYHDOa3aw
-         K+ObdLgeS5zIL1bOLapapPSqiyYcSNsIM5EMRW3o8RH+Dc10959n7VJkhi1SCIGcsmkB
-         ze5cOyYt2r9IILAUdOEroPyd7FqZZn7JQsbHhHL2U+BAX4TCd0aGQKHC/STHhc+ldlcz
-         TmddiPxLnE64tAKXe//bL3Ssi02EDtc8U6m5sZgAGQOJa8VNImRSJiINA6sjXzxOzrPT
-         Bx/gzz2AEr1lVm6g8jWKxhBt4BgNRvkBwnwKoGlqC4HBqSwzoUswLPjEiqaQA2F8dRHE
-         kAfA==
-X-Gm-Message-State: AOJu0YyO05qy68Jr73nyhRNA5JC5yFqA2n6FgRQU8QfDXihCw3Mbcprx
-	msQn4cjYYy6U8DvrxzO7gEzawPiA1cB7anY9nxwJOpvMXYbGeBv/5Ukw
-X-Gm-Gg: AR+sD12SxuBxRc6QtNyrlt6Pl7WT5WFYtoCF8/XnVEDXYE0V9QmpCAVnqcI/9QOhpcy
-	XhGbqJgb+ZiQk2IdlNStIv2dIFW/MN+V6uJC3DmtZMV6vnSbsIeGHHG/DqeoP+uQBPUvTQUgNBH
-	oahEbUXaPcipT2VLeFe9gmNIPT8eXIjkBtDbDxfKsS8ZFvf0j8/EWLssDNJZAB4iEovL1nae8E6
-	K3ySjF7BqYsCz744YiD0oKHem8mDNRqryUeGSwGaCIzqbjraqJacLKID4X4UqZJznbrpSDbycWu
-	C3PPxgJO38JvQXeBWoluw22bzp+hzttVfRXQPMb+DSM6tP8nXBxBpNrCR/GaQu3qPGruYy24Ywz
-	iQdMnpT+c3ixdhxXzvbpsnsABeRlGpp1TORjS6K7cSmXpsHuqzGw/dHfJ6TSayG9PRSCof2DsJJ
-	Tb7TaFrgTctPmHwt1IIQ6auMn8CVcw+1VcawaCi8eH+PlbluhUxUd+MBgmteg=
-X-Received: by 2002:a05:6512:805b:b0:5ae:b86b:71f0 with SMTP id 2adb3069b0e04-5b453f830e2mr30498e87.37.1786568125682;
-        Wed, 12 Aug 2026 13:55:25 -0700 (PDT)
+        bh=gjB2fBDmkMwtaR91YZkC47S7tI/AMH5A7bYroiu6yaY=;
+        b=ZMPG9QNAHVW+4GTGfM3DoXcksuCfmVgv+DuSpN/Pltv1UIowh66R8L+nNMGfiTPUkx
+         ksHlDR3Ip55BKidRg2AL0tl6raObQClVoyH+cKX7aRRxOFbFj3CtX/HhUGnoh4E5wpRE
+         Lmlru70QpabbCkj3p6PU2aNn9BIxIgIPsy3Og2Kks1Z1BD9PiTJaJzrslx4+B93Ir7dl
+         aSrJyq61o0aVegHH9vG343ssx9EKhbhwEwNdZcqda+6wmTvLLr65vSxs/80aeIlzEdLh
+         jhtszGWSPyWXuL5QQL6p4dpnF5+Pgf1L6iLi7yyIRIJwCjvECG4JMloVwsr0zMlZH78i
+         FRpA==
+X-Gm-Message-State: AOJu0Yy5v+Q5p7c7NqJYrwGdLhZjChJcisBeLFAqqlC8++eWNsNTHoQv
+	ELhRfJdtwZ+dBU56hZhTOKnbaAy8vSdeDOobWo7JJS09Q/HkjRsBtvCS
+X-Gm-Gg: AR+sD13ynMsX30dxoI9Vn6LqRU825rA6cqm9GAYM4WI7ql03VW1WVSGkc+xDLHlc1uU
+	/2kwE++LgU8xYd7nSXxAHnPuLHGydm25jhyaipwJOBAzUbVFge9rP+4tigLYvtwcdVB631KZG8L
+	wePexf21v5Mtik1wzEctW8ExxMMLisQeCH9wY0VS8Loogske40/GMj1fhn+XNOAl2duL1b+hqv3
+	5mCpw9p2ZBrGDTS4CD/UsAE2WPfoXfbtxELsUYeyzlWa+a1ag2QgJ2kNnI05Cc3gPQJrAvGMzkt
+	FZeUDnaYWjLm4JgWobN3fiCGVADWDtWhjzboJMrYS2wiVc0ZVgK+nK+Qw2qG+uoiEdvPKZQ5Avc
+	e4nFlCxmwr3cXNDk5JU7app/JqfoZE2zIQfEFQJMyuj6lPB2oa/nEJ37bZb85Bm7RhO+i8CxxE5
+	CTIzJsbM2TKcYZDKCfUkJxfkreBAaRJMpj11nvJsIWNfrYNjdH0SOHVL8FCYA=
+X-Received: by 2002:a05:6512:33d0:b0:5b0:137f:9476 with SMTP id 2adb3069b0e04-5b453f464b2mr52173e87.16.1786568128897;
+        Wed, 12 Aug 2026 13:55:28 -0700 (PDT)
 Received: from archlinux ([94.229.19.199])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4539e9605sm60999e87.22.2026.08.12.13.55.23
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b4539e9605sm60999e87.22.2026.08.12.13.55.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 13:55:25 -0700 (PDT)
+        Wed, 12 Aug 2026 13:55:28 -0700 (PDT)
 From: Nikolay Kulikov <nikolayof23@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Hans de Goede <hansg@kernel.org>,
@@ -68,9 +68,9 @@ Cc: linux-media@vger.kernel.org,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Nikolay Kulikov <nikolayof23@gmail.com>
-Subject: [PATCH v3 3/5] staging: media: atomisp: inline the check_bo_status_*() macros
-Date: Wed, 12 Aug 2026 23:51:36 +0300
-Message-ID: <20260812205429.39181-4-nikolayof23@gmail.com>
+Subject: [PATCH v3 4/5] staging: media: atomisp: inline the var_equal_return*() macros
+Date: Wed, 12 Aug 2026 23:51:37 +0300
+Message-ID: <20260812205429.39181-5-nikolayof23@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260812205429.39181-1-nikolayof23@gmail.com>
 References: <20260812205429.39181-1-nikolayof23@gmail.com>
@@ -82,129 +82,63 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-These macros check a bit in the bo->status field. Replace them with
-conditional expressions to make the code clearer.
+These macros check the passed variables for equality, hiding the 'if'
+and 'return' statements; replace them with a standard conditional to
+simplify the code.
 
 Signed-off-by: Nikolay Kulikov <nikolayof23@gmail.com>
 ---
- .../media/atomisp/include/hmm/hmm_bo.h        | 12 --------
- .../media/atomisp/include/hmm/hmm_common.h    | 18 -----------
- .../staging/media/atomisp/pci/hmm/hmm_bo.c    | 30 ++++++++++++-------
- 3 files changed, 20 insertions(+), 40 deletions(-)
+ .../media/atomisp/include/hmm/hmm_common.h    | 20 -------------------
+ .../staging/media/atomisp/pci/hmm/hmm_bo.c    |  6 ++++--
+ 2 files changed, 4 insertions(+), 22 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/include/hmm/hmm_bo.h b/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
-index e974ab5ca2fc..69cf490bd88c 100644
---- a/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
-+++ b/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
-@@ -19,18 +19,6 @@
- #include "hmm/hmm_common.h"
- #include "ia_css_types.h"
- 
--#define	check_bo_status_yes_goto(bo, _status, label) \
--	var_not_equal_goto((bo->status & (_status)), (_status), \
--			label, \
--			"HMM buffer status not contain %s.\n", \
--			#_status)
--
--#define	check_bo_status_no_goto(bo, _status, label) \
--	var_equal_goto((bo->status & (_status)), (_status), \
--			label, \
--			"HMM buffer status contains %s.\n", \
--			#_status)
--
- #define rbtree_node_to_hmm_bo(root_node)	\
- 	container_of((root_node), struct hmm_buffer_object, node)
- 
 diff --git a/drivers/staging/media/atomisp/include/hmm/hmm_common.h b/drivers/staging/media/atomisp/include/hmm/hmm_common.h
-index f215130e5e17..c406fe8b1345 100644
+index c406fe8b1345..029620347302 100644
 --- a/drivers/staging/media/atomisp/include/hmm/hmm_common.h
 +++ b/drivers/staging/media/atomisp/include/hmm/hmm_common.h
-@@ -33,22 +33,4 @@
- 		} \
- 	} while (0)
+@@ -12,25 +12,5 @@
  
--#define	var_equal_goto(var1, var2, label, fmt, arg ...)	\
+ #define	HMM_BO_NAME	"HMM"
+ 
+-/*
+- * some common use micros
+- */
+-#define	var_equal_return(var1, var2, exp, fmt, arg ...)	\
 -	do { \
 -		if ((var1) == (var2)) { \
 -			dev_err(atomisp_dev, \
 -			fmt, ## arg); \
--			goto label;\
+-			return exp;\
 -		} \
 -	} while (0)
 -
--#define	var_not_equal_goto(var1, var2, label, fmt, arg ...)	\
+-#define	var_equal_return_void(var1, var2, fmt, arg ...)	\
 -	do { \
--		if ((var1) != (var2)) { \
+-		if ((var1) == (var2)) { \
 -			dev_err(atomisp_dev, \
 -			fmt, ## arg); \
--			goto label;\
+-			return;\
 -		} \
 -	} while (0)
--
+ 
  #endif
 diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-index ecd920e49488..dbda4394a239 100644
+index dbda4394a239..89e56ce07444 100644
 --- a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
 +++ b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
-@@ -687,7 +687,10 @@ int hmm_bo_alloc_pages(struct hmm_buffer_object *bo,
+@@ -396,8 +396,10 @@ struct hmm_buffer_object *hmm_bo_alloc(struct hmm_bo_device *bdev,
  	}
  
- 	mutex_lock(&bo->mutex);
--	check_bo_status_no_goto(bo, HMM_BO_PAGE_ALLOCED, status_err);
-+	if (bo->status & HMM_BO_PAGE_ALLOCED) {
-+		dev_err(atomisp_dev, "HMM buffer status contains HMM_BO_PAGE_ALLOCED.\n");
-+		goto status_err;
+ 	root = &bdev->free_rbtree;
+-	var_equal_return(hmm_bo_device_inited(bdev), 0, NULL,
+-			 "hmm_bo_device not inited yet.\n");
++	if (!hmm_bo_device_inited(bdev)) {
++		dev_err(atomisp_dev, "hmm_bo_device not inited yet.\n");
++		return NULL;
 +	}
  
- 	bo->pages = kzalloc_objs(struct page *, bo->pgnr);
- 	if (unlikely(!bo->pages)) {
-@@ -738,7 +741,10 @@ void hmm_bo_free_pages(struct hmm_buffer_object *bo)
- 
- 	mutex_lock(&bo->mutex);
- 
--	check_bo_status_yes_goto(bo, HMM_BO_PAGE_ALLOCED, status_err2);
-+	if (!(bo->status & HMM_BO_PAGE_ALLOCED)) {
-+		dev_err(atomisp_dev, "HMM buffer status not contain HMM_BO_PAGE_ALLOCED.\n");
-+		goto status_err2;
-+	}
- 
- 	/* clear the flag anyway. */
- 	bo->status &= (~HMM_BO_PAGE_ALLOCED);
-@@ -788,11 +794,15 @@ int hmm_bo_bind(struct hmm_buffer_object *bo)
- 
- 	mutex_lock(&bo->mutex);
- 
--	check_bo_status_yes_goto(bo,
--				 HMM_BO_PAGE_ALLOCED | HMM_BO_ALLOCED,
--				 status_err1);
-+	if (!(bo->status & (HMM_BO_PAGE_ALLOCED | HMM_BO_ALLOCED))) {
-+		dev_err(atomisp_dev, "HMM buffer status not contain HMM_BO_PAGE_ALLOCED | HMM_BO_ALLOCED.\n");
-+		goto status_err1;
-+	}
- 
--	check_bo_status_no_goto(bo, HMM_BO_BINDED, status_err2);
-+	if (bo->status & HMM_BO_BINDED) {
-+		dev_err(atomisp_dev, "HMM buffer status contains HMM_BO_BINDED.\n");
-+		goto status_err2;
-+	}
- 
- 	bdev = bo->bdev;
- 
-@@ -868,10 +878,10 @@ void hmm_bo_unbind(struct hmm_buffer_object *bo)
- 
- 	mutex_lock(&bo->mutex);
- 
--	check_bo_status_yes_goto(bo,
--				 HMM_BO_PAGE_ALLOCED |
--				 HMM_BO_ALLOCED |
--				 HMM_BO_BINDED, status_err);
-+	if (!(bo->status & (HMM_BO_PAGE_ALLOCED | HMM_BO_ALLOCED | HMM_BO_BINDED))) {
-+		dev_err(atomisp_dev, "HMM buffer status not contain HMM_BO_PAGE_ALLOCED | HMM_BO_ALLOCED | HMM_BO_BINDED.\n");
-+		goto status_err;
-+	}
- 
- 	bdev = bo->bdev;
- 
+ 	if (pgnr == 0) {
+ 		dev_err(atomisp_dev, "0 size buffer is not allowed.\n");
 -- 
 2.55.0
 
