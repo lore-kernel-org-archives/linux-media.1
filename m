@@ -1,65 +1,65 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBCB425CC6
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 10:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75B842C502
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 10:53:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786532010; cv=none; b=jhQOoQiaRtbatO3ziEyf2+6Q5qMT20Q0UGp0ZxrSUYt1/vLg2LdAB+235htFBmcSouHyl9EH6IiSyOTcOc8kzTrsa9sPkYYQiVmp7RzNjCk4uhxsz3uD2/EOmSkwN8GIUmzsKNg0qVIiHjxSRw1rUyp63DlPOSmNiTgOAPmqfzo=
+	t=1786532011; cv=none; b=q1TeFwYAj0ZEElxPfypXJNeei6YbZyEaWalCuPNkP1gfHB9SMTVBbAkxoRdqx3jqykyI7cvCjSCU4ZNfeKeFwO0rfE57QojiG4Oa7/QrN4uraMT10yc1xwbW27fSkHQnq6A8oU9wNPQuUqxCTrrDUMgmoaQbtR+IoD9wVY/f2fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786532010; c=relaxed/simple;
-	bh=Vk850nZ6nsG45RIDn4Sgo92jf2NilX70CluYj/q9p4w=;
+	s=arc-20240116; t=1786532011; c=relaxed/simple;
+	bh=3U8yTqWdcMedAAD5xD43DIh+6Q0rTvKIilQ/8WcxKkU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hTv1AvZ1HQARcvgZDEtR2XkrleJ/YqFwpbK2ybY4QFSl4c8wRYb3M1EZjkAEDxA9mjoCekaF03+XIkeXgxlHF3ZwqfxvhdO0RWBlaghFbYaMDb/9kBqXlxw34h103S1Kr6gF4xYaOP1stt+hyGYC5gcgKRkWlTZFFmDLOVIGquI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AnRUIUnS; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=lV9S6Zz2t9LP2zUDhUoWrRb2pv7UMuw2NIYFrXRxq1Kb53fAM3/9aR0kIt86OVycNAusm4Vd0uwEnpWreUvdo1Dq9uY2+rlPoZgdXQ7OUGIocvr8H2CqBKSERiEj9u8Me/E+SpXeP99W6L1TiO0Z/vniCda+dugCx7CkXRa16/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PCBlv+S5; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AnRUIUnS"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4996f1ee4a4so4806295e9.2
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 03:53:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PCBlv+S5"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-496bb7cdf51so9086435e9.2
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 03:53:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786532006; x=1787136806; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1786532007; x=1787136807; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ZepWu022dhLaFNiqakPl4fWF3YzvM+iZ8Tl88qOlm90=;
-        b=AnRUIUnScwNDqTYPhGdC20Y82gHBBRW7quVzN/sPjQkStkfvCseW3wNy8/9SJLIZNC
-         a2EMWy8XsolgVgZvW9pR4rZl4RyHencHPH8yT8ybEvFZ+SzHfB8rUBAD5LfgU5YNqk3L
-         eV5COANTYIkO3wawMiNJwk4pAf/T0ACnxwJdBZvTdHDchz6cS3mzn3Dc26hDxrS8l53S
-         hQB3Spvcz9dDwLoHjedV92TU3yN3A3HD+VFVxgyuWYU5KuXDoWlJnS/ytDprH/dBuIqM
-         AHzJ5f/FB+c/bLZbRYA798ZVzIZLjoBCGV7kpbdHShvxJl/XmzQN6hAIMi26opbCfKXL
-         phbA==
+        bh=5jgs5U43ai39YOGkWm4gKlSWagxfcI4VO/2d/d10obI=;
+        b=PCBlv+S5FOSLRU5xEEOaFkB0btHalZykHD1VvV2qoYkPxoGFBPqU0iuHHFgxuVH2mp
+         ZqM7lAGjCSJrCBu6XHLaiFgGLZtn8ky0WAB71WFNR5kbymzJ8Eh/UfWoVNA+u1JY8uc+
+         A5mhNBrDeO6SwqNU3S7aCwnt1fbcxBNK+1kLMIV82LVzM+zFg5c67cFwEy4La8tdAsiE
+         YojGxzeErnnhIkrlT4aIl4uG/aWOpOdBc1jPJniTvTmgvD5Z+Sv33H78gw7ODkroC2n9
+         Jr74W2K9vzpJhp1dAXlUyfCiI/NTYfMgrjgLr1z/Wg5Du2yqMj9GOLMvQqqxP31iOqaN
+         lBNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786532006; x=1787136806;
+        d=1e100.net; s=20251104; t=1786532007; x=1787136807;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZepWu022dhLaFNiqakPl4fWF3YzvM+iZ8Tl88qOlm90=;
-        b=A/3M9gueKHBMD2nbk4OugvipTkuYfeYKEXTFZaVOGN1zQWl0Kf9PWG5i/2hvKYdaoc
-         3Va6QMYOuWTihIoPp43DONyjfXHKyd0CNfsfqk2ZMauz66omiL9GfhxfvxLmi6NsWi99
-         Kap9ctSbAWwKmkkaRr1App1buc//gwi+axDNk/jNl4zp17G2/M65swRSueL5AZsSrVNZ
-         e3TVdihEbZSPsjDtljhVi2kqbZEV4ymegIx4A5IUJL7CF+yN3lJH+7Z/yK3bVGF2ZJib
-         z5PzmV5oIAFlGUeoJtdZNUx2xGex2hRTXAAcYlo0tQfZukTFg4YTzumZirEU4rRxzYcJ
-         9CbA==
-X-Gm-Message-State: AOJu0YxicdW+/VL+wVwGx0+unl7zdCh3kzXZnZemRIZkAuDpq70+q1CA
-	i/fZxIuDRiQ/ynQ/7yYhJa8/ObM4RQN4a9Aij8ysIwmPkSp3pkYAaO8Actw3xEoX
-X-Gm-Gg: AR+sD11zNCpeFxtRFh4QC9GvXmjJJq5rhHvCNEQ/mQEf5TR3O3231tK5W8rWFsebKRg
-	QEyPc5RwIQ+i+t0HgB04mQDfW/ZchHGRXXSUFzpPP9Mn9o/wfxopOTEYGqwdoP1CuRw7W2odzoP
-	ktyIkCXrhb0vix/6gx8TEGpm5zxn0GngoUTP14np2/RJx1I3EUswGYr9EsSWxvOBKQKMLk755e1
-	IA0K8G3ENnwokTxKiLEIeXWexzdCcE4x+ZXktpxZ9hZPClxEGbpZkkMrskwHE1yQyV8New15t3F
-	N7HyMsSFZXfpvkMKTGMQBr97reziI+KM/H3LZkMP4q2ZjD6o3iOHf6N9py2PrNEfI3DdlzWhout
-	I5dJueFwanI3iyp+FJlchQAoEspbmLVFBKFdRbSDpao2rKz8scanx6+ceBtNyszMVQoGt5eZC6U
-	aBDw9Th5zezN/cmyclqiO/COus9/WOtC5T3MAGcpVKl2j5nKuBLm6LnpilPgrkBdesY4c6ipiAb
-	IGdqahFqh+U8Q42XwzElILVABQqOzvuX8V9UAmFFHJO0Yq9P5rbQry4/2vYmDAe3HU3Xu4KZeNt
-	pkHbRPXiyH+TvtFd4Xf7v+nbJJKdQy9GAsgAMyotwn3c/uztWVempOOV1/ktzkBrOfst5N8QLxN
-	kEG+KkgHElGPt03X27X2GomltMHHgnkWqAzjHuRvWQAUWEQ==
-X-Received: by 2002:a05:600c:4e90:b0:495:6a50:3fb8 with SMTP id 5b1f17b1804b1-4997c0e3721mr41283045e9.1.1786532005885;
-        Wed, 12 Aug 2026 03:53:25 -0700 (PDT)
+        bh=5jgs5U43ai39YOGkWm4gKlSWagxfcI4VO/2d/d10obI=;
+        b=BTV6C+ESgEZM2OrHrdnzi1RAgi+t1g6HdDBvmaKLpsOay6ntcP/A9ZKoJKbn4z9DYz
+         6w+OUSgBuM/hX6rLn2dVH8O8sV3cThOCSOLi60U8X7dV0Uwd9pmsrP+wy+ygMczTbFln
+         9ZcaziLrhD6VVT7Vs2hqiVOAdVOcfWjBSlm0v8lnpzMY7nNsGFI1ysTm2Ts48Smm1Azx
+         36+oIX7UZSoMtJAGlCTElgGbh4xyfddvlADfRjBABZqfgZO7UjV3Fw9PO6j5KpRJJihM
+         dQeDRGIfifPojS5fQDUSXTCWW2AxJGtjXQSL2+WG1Y/oY80wqrnZv5N4lOX6j+KZlHDx
+         BI+g==
+X-Gm-Message-State: AOJu0YxEJqxch6h5+h54sl7eRA4fPT38vq4JsZhTeVMhJWCzm+aTRwzw
+	cAzwGzvYQZV7pCfbtGhs3hNDtBbc6piTL4tgM36X84kbdz5wkP74Ntvw6OUnE0zR
+X-Gm-Gg: AR+sD13FvoH1Jl6lR6ssWR3gg77Z06sW1IrAPrhCAxqnVK5Z0lt8Xw/OcBGNV0D9W/H
+	WKbN+NelGq72dWNULGt89bGCWnhuPrNQwt3urakb3UGBQEO/ERm5wcCkEkXXzJo0R7cR/JvtEpn
+	dOwaY3XHIAHRiqusF4uu+17LahOm5Oi1KFZsSG3fVNUNXA2hvSOlIPX9cvJe3/RIxDfMiPGnumH
+	+Bt9rTbyo+gKXarAvZpRxYAN6F3fGyg753mZSyWHdXxIahj//+PLnHzuW+zGrGIZOmUhQ1c/6SY
+	TzBSQTXTkfXubTqMTdUuNAw81FlNP2SogcmZ4cuKH1vih7c1DwfEwHPA4tG1JAu2AZesC2Oi2bC
+	pmkIw/9lJc52ey7DiWwc7RAYev6NkRGD4To0w/tdWSIaDtzSzphvQhKXRZ8d+ye6Xc4qjhG9gGj
+	lDGJDtm1AMg66Gs0KOZmwZyJ6q0xpxNfXKcWln1K/7krOe9ODP5PF6/+I0aDO7p+34amqYh4k4Y
+	j94dYJPd2pPT9hAPOE5gN+n29aAaBrRqVbsgR9H6zpE/8dSauIh5lUHB1xISKNhcjS4djgmMciJ
+	qcixgZD8PQzyBP5dsdCCHT1S4rJwT5JNKG+Da3NQHDiDlOUwvkQAPSRvQOAubJ9P8GMgwH6qwU6
+	Z5dabzg9fINd/SFiqeB7kr67JLCVGCdmyzvXnmOLDfHfmjQ==
+X-Received: by 2002:a05:600c:8209:b0:496:bbce:fc with SMTP id 5b1f17b1804b1-4997c126dbemr59720255e9.12.1786532007084;
+        Wed, 12 Aug 2026 03:53:27 -0700 (PDT)
 Received: from localhost.localdomain (host-213-45-168-79.pool21345.interbusiness.it. [213.45.168.79])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c939574sm37352315e9.1.2026.08.12.03.53.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4997c939574sm37352315e9.1.2026.08.12.03.53.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 03:53:25 -0700 (PDT)
+        Wed, 12 Aug 2026 03:53:26 -0700 (PDT)
 From: Nicola Fiorillo <nicfio@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: mchehab@kernel.org,
@@ -68,9 +68,9 @@ Cc: mchehab@kernel.org,
 	tian.shu.qiu@intel.com,
 	linux-kernel@vger.kernel.org,
 	Nicola Fiorillo <nicfio@gmail.com>
-Subject: [PATCH 2/3] media: v4l2-subdev: Check v4l2_dev before dereferencing it in open()
-Date: Wed, 12 Aug 2026 12:53:04 +0200
-Message-ID: <20260812105305.32447-3-nicfio@gmail.com>
+Subject: [PATCH 3/3] media: ipu6: Signal the video queues when a sensor is unbound
+Date: Wed, 12 Aug 2026 12:53:05 +0200
+Message-ID: <20260812105305.32447-4-nicfio@gmail.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260812105305.32447-1-nicfio@gmail.com>
 References: <20260812105305.32447-1-nicfio@gmail.com>
@@ -82,106 +82,108 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Unbinding a sensor driver while something opens its /dev/v4l-subdevN node
-oopses the kernel:
+isys_async_ops implements .bound() and .complete() but not .unbind(), so
+nothing tells the ISYS video nodes that the sensor feeding them has gone
+away. A capture that is streaming when the sensor is unbound stays
+blocked in vb2_core_dqbuf() forever, waiting for a frame that can no
+longer arrive:
 
-  BUG: kernel NULL pointer dereference, address: 0000000000000008
-  RIP: 0010:subdev_open+0x8a/0x190 [videodev]
-  Call Trace:
-   v4l2_open+0xa9/0x100 [videodev]
-   chrdev_open+0xb2/0x230
-   do_dentry_open+0x14c/0x440
-   vfs_open+0x2e/0xe0
-   path_openat+0x82e/0x12d0
-   do_filp_open+0xc4/0x170
-   do_sys_openat2+0xae/0xe0
-   __x64_sys_openat+0x55/0xa0
+  [<0>] vb2_core_dqbuf+0x362/0x1190 [videobuf2_common]
+  [<0>] vb2_dqbuf+0xb4/0x210 [videobuf2_v4l2]
+  [<0>] __video_do_ioctl+0x894/0xb30
+  [<0>] video_usercopy+0x479/0xde0
+  [<0>] v4l2_ioctl+0x198/0x220
+  [<0>] __x64_sys_ioctl+0x134/0x1c0
 
-v4l2_device_unregister_subdev() clears sd->v4l2_dev, then unregisters the
-media entity, and only then unregisters the device node. Until the node is
-gone userspace can still open it, and subdev_open() dereferences
-sd->v4l2_dev unconditionally. The faulting address is the offset of the
-mdev member in struct v4l2_device.
+The wait in __vb2_wait_for_done_vb() ends on a new buffer, on
+!q->streaming, or on q->error. Tearing the sensor down sets none of the
+three. The sleep is interruptible, so DETECT_HUNG_TASK stays quiet as
+well and the process is simply stuck until something kills it.
 
-The window is not a narrow one: media_device_unregister_entity() sleeps,
-and the first oops seen here was not provoked at all, it was hit by v4l_id,
-run by udev on the very node that was appearing and disappearing.
+Add the missing .unbind() and mark the queues of the CSI-2 receiver the
+departing sensor was attached to, which is enough for DQBUF to return
+-EIO. Only streaming queues are flagged: q->error is cleared by
+__vb2_queue_cancel(), so flagging an idle queue would leave it in error
+until the next VIDIOC_STREAMOFF.
 
-The same window leaves sd->entity.graph_obj.mdev NULL while
-sd->v4l2_dev->mdev is not, and the second dereference on that line goes
-through it. That one was found by reading the teardown path, not by
-crashing on it; it arrived later, with commit 218bf10e39ed ("media:
-v4l2-subdev: handle module refcounting here").
+Reproduced on a CHUWI Hi10 X1 (Alder Lake-N, IPU6) by unbinding the
+sensor while v4l2-ctl was streaming, with both sensors of the machine.
+Without this patch 3 attempts out of 3 hang; with it, 10 out of 10 wake
+up, report "VIDIOC_DQBUF: failed: Input/output error" and exit. The same
+run under KASAN reports nothing.
 
-Unregistering the device node before clearing the pointers would narrow the
-window but not close it, because v4l2_open() drops videodev_lock before it
-calls fops->open() and the whole of v4l2_device_unregister_subdev() can run
-in between. Check the pointers in subdev_open() instead.
-
-Reproduced on a CHUWI Hi10 X1 (Alder Lake-N, IPU6) running 6.12.86, at
-cycle 7 of a loop unbinding and rebinding a sensor while four processes
-opened every /dev/v4l-subdev*. The code is unchanged in 7.2-rc7.
-
-Fixes: 61f5db549dde ("[media] v4l: Make v4l2_subdev inherit from media_entity")
+Fixes: f50c4ca0a820 ("media: intel/ipu6: add the main input system driver")
 Signed-off-by: Nicola Fiorillo <nicfio@gmail.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 31 +++++++++++++++++++++------
- 1 file changed, 25 insertions(+), 6 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-isys.c | 41 ++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index e9f81b9be..2a47b9730 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -97,8 +97,19 @@ static int subdev_open(struct file *file)
- 	struct video_device *vdev = video_devdata(file);
- 	struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
- 	struct v4l2_subdev_fh *subdev_fh;
-+	struct v4l2_device *v4l2_dev;
- 	int ret;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index c9cdeb705..8055ae169 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -31,6 +31,7 @@
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-fwnode.h>
++#include <media/videobuf2-core.h>
  
+ #include "ipu6-bus.h"
+ #include "ipu6-cpd.h"
+@@ -700,6 +701,45 @@ static int isys_notifier_bound(struct v4l2_async_notifier *notifier,
+ 	return v4l2_device_register_subdev_nodes(&isys->v4l2_dev);
+ }
+ 
++/* The .unbind() notifier callback when a sub-device goes away */
++static void isys_notifier_unbind(struct v4l2_async_notifier *notifier,
++				 struct v4l2_subdev *sd,
++				 struct v4l2_async_connection *asc)
++{
++	struct ipu6_isys *isys =
++		container_of(notifier, struct ipu6_isys, notifier);
++	struct sensor_async_sd *s_asd =
++		container_of(asc, struct sensor_async_sd, asc);
++	struct ipu6_isys_csi2 *csi2;
++	unsigned int i;
++
++	if (s_asd->csi2.port >= isys->pdata->ipdata->csi2.nports)
++		return;
++
 +	/*
-+	 * v4l2_device_unregister_subdev() clears sd->v4l2_dev and unregisters
-+	 * the entity before it unregisters the device node, so an open() that
-+	 * races with the sub-device going away lands here with those pointers
-+	 * already gone.
++	 * The sensor is gone, so no more frames will ever arrive on the video
++	 * nodes fed by it. Tell videobuf2, or a DQBUF already blocked in
++	 * vb2_core_dqbuf() would sleep forever: nothing else in the teardown
++	 * path wakes that queue up.
++	 *
++	 * Only queues that are actually streaming are marked. The error flag
++	 * is only cleared by __vb2_queue_cancel(), so flagging an idle queue
++	 * would leave it poisoned until the next STREAMOFF.
 +	 */
-+	v4l2_dev = READ_ONCE(sd->v4l2_dev);
-+	if (!v4l2_dev)
-+		return -ENODEV;
++	csi2 = &isys->csi2[s_asd->csi2.port];
++	for (i = 0; i < NR_OF_CSI2_SRC_PADS; i++) {
++		struct vb2_queue *q = &csi2->av[i].aq.vbq;
 +
- 	subdev_fh = kzalloc_obj(*subdev_fh);
- 	if (subdev_fh == NULL)
- 		return -ENOMEM;
-@@ -112,15 +123,23 @@ static int subdev_open(struct file *file)
- 	v4l2_fh_init(&subdev_fh->vfh, vdev);
- 	v4l2_fh_add(&subdev_fh->vfh, file);
- 
--	if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
--		struct module *owner;
-+	if (v4l2_dev->mdev) {
-+		struct media_device *mdev = READ_ONCE(sd->entity.graph_obj.mdev);
- 
--		owner = sd->entity.graph_obj.mdev->dev->driver->owner;
--		if (!try_module_get(owner)) {
--			ret = -EBUSY;
-+		if (!mdev) {
-+			ret = -ENODEV;
- 			goto err;
- 		}
--		subdev_fh->owner = owner;
++		if (!vb2_is_streaming(q))
++			continue;
 +
-+		if (mdev->dev) {
-+			struct module *owner = mdev->dev->driver->owner;
++		dev_dbg(&isys->adev->auxdev.dev,
++			"%s went away while streaming on %s\n", sd->name,
++			csi2->av[i].vdev.name);
++		vb2_queue_error(q);
++	}
++}
 +
-+			if (!try_module_get(owner)) {
-+				ret = -EBUSY;
-+				goto err;
-+			}
-+			subdev_fh->owner = owner;
-+		}
- 	}
+ static int isys_notifier_complete(struct v4l2_async_notifier *notifier)
+ {
+ 	struct ipu6_isys *isys =
+@@ -710,6 +750,7 @@ static int isys_notifier_complete(struct v4l2_async_notifier *notifier)
  
- 	if (sd->internal_ops && sd->internal_ops->open) {
+ static const struct v4l2_async_notifier_operations isys_async_ops = {
+ 	.bound = isys_notifier_bound,
++	.unbind = isys_notifier_unbind,
+ 	.complete = isys_notifier_complete,
+ };
+ 
 -- 
 2.47.3
 
