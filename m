@@ -1,367 +1,209 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703ED322B6D
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D20933A717;
+	Wed, 12 Aug 2026 20:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786564907; cv=none; b=OdhI5GhgdXWRyMeQ9DHmWMdbDIqw/2VFLqex+iuOne98e6QKTfXYSpnyN56+IwOTJWuxJq0azu3JlSB4iBE1aYks2KWEZJL1w2/rv1SioxQ+NQ2q95Xb1j1/YVkTTvANhQyJxqV5sPZVNs5Vdl08uPGnySYYSCFkYyWWHK+AVkA=
+	t=1786565228; cv=none; b=tPTrsO0mCtcUjhzQSUDzMxdpSr8VJ+De+O7khzBX9fdvAeFBrSAuKcZvQIXyDHZwg3dKfdkgZHtEdYruMXX0BE8uO+3NqEDxXKIof8j7KzHf3rPvHRx1WhtMtKcG9/gzez5y++mkdA/Bwb0BzSj38VfAb10HnupWq7QRoI+Kqro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786564907; c=relaxed/simple;
-	bh=5TydX6YikVp1Sc2sSWcsXlwWC7g4cca4nfCeQ4bD1Rc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MUx+/O5MC2HovGTJoseiJd52X4IB3PXce+lwAkcKAg2cgQfbhbXDFH89dUz+Ute+H9Wrnf1htdcD8fd6vjyQvoSIyeOxWfBxF3sDiFU9+c6nfk9GhifKNXxuq2UEZOdnAwacRERurb86tla++RFx1ueNeghmXmQfKR4codTDsO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ejK8hlVI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=j9nwhkE5; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786565228; c=relaxed/simple;
+	bh=H13ur29CDd66EDmCZ6WZhT1RgY2n3OpWrbka52hy3nk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lEHZFAzPN1Yqgp6FpCIytbiL9XeVkoYOfpkSO7Rt+LZPzMIr12qUHY1iRqSglnFpfcmH3WfwokpS7atKh6fXMHEBVXpmrFvOhNJ9WpvW7zJ1H6RZUMopW6aPr2oaNAp9nMtF5L9M7D6InwtF9GImvcveUTSHw8s1yrkUB4xISts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org; spf=pass smtp.mailfrom=shazbot.org; dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b=goLQDROv; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=P+HMnnyB; arc=none smtp.client-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=shazbot.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=shazbot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ejK8hlVI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="j9nwhkE5"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67CI9DEE057113
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	NAAK+dVxkbm/up/widEbGwaEg5Z5O0NAGPsT/Irywtw=; b=ejK8hlVInCwO3kMX
-	OwlsGhri9rkwqmiHE+Vkh25HTmyAX/jHtzDq5wEzg8Dds/MIjKq/2s744Iqcvcq5
-	d3IG4uWtAVIq8d/iBIWTaNqZZHtFWVPcU3HfuODwE/TNz0bvmXmdFGXsqVFWcIF3
-	vVLHZS9cL8YBCmP30pBtzEypC1MNmEUQYnx9gnMsRkg86YAJLrmVdO153/oXLHSd
-	a/T41alC/t1tlkXVZlfKc+/fDsARzmRRQHAl8kRI+KwUrexK5nUZdMQfNTrM0v13
-	y5j0aOLMeJD4YWj7opoGw58ZlEkcihxo/jhUznK6HZD+7L0Y3o1DWYz78iW1kqYq
-	3mopFg==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g0pmytnar-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 20:01:45 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51c21c01cf3so23444801cf.2
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 13:01:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786564904; x=1787169704; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NAAK+dVxkbm/up/widEbGwaEg5Z5O0NAGPsT/Irywtw=;
-        b=j9nwhkE5fgPyPYGDwhm89RBZ2et5zg+O8UQcE+zkV9rn9LlGoKW+pofsnTwBfljaXN
-         NaC55YiOrM9zvTnKDuGhosfD92V4UVDzdJ9g+/CiB71VrNp/rwTTIMDKS1w7Ha10f+YT
-         nSs5OmEr3G7PxLglDZLzJNfHSJvqb7L0WwSoJI/eQ8tl88xVs9KV+oD81C7zfHBuBa1O
-         GWiIdJqk1TMXlI8xxYaSpq2QRgRDuxaLN/jwWV6I2wRb90RIhpX8POIcaXZL34yIemBd
-         cG8ZC84l+07KX2YO9u1ppWzRDuxuxb2iAgei4EqJHzvaGF17h+VE2ufHXWHzKWrb6Z6k
-         6zUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786564904; x=1787169704;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NAAK+dVxkbm/up/widEbGwaEg5Z5O0NAGPsT/Irywtw=;
-        b=afqC6hFsHK4ttVZCfqusFm1VTsGQtib9paYEIpgsmMI98rkscIA1y5PNAWjVYFpFJq
-         heKhW/BWd2rQTCDo6wLws4zHaTr2stH+MOaHZW5l8V5GVLZcmi8X3JhZcKUEQa5nYV1S
-         iJzWYl5yKyFBktUlTtLsGSEPet4ZZI11xCvh3c+y8fTIXs35L6VXnqfW/LHrRsT/5wGX
-         fHd/vHvt1DSIafYvcmuG5MJqeZ884Xz2ssQpet3F9D2CygGBL8mDC7Wf12fUtAKAq8LD
-         VhZuqAtOaY1JLRLVKs8eTTbWGIORpXyfGnJa+MosCcGilj3tGvSWWcjVULlckOugPC1Z
-         LzHw==
-X-Gm-Message-State: AOJu0Yzte8GxHeka4763dNNs9dXtuBVgcET0+voh8RXsAySR3/ydeer/
-	+dphRNauFJgfdw8imu9/J5F2IfoSD5mQmYB71eNl29Jb5+dIc1XxZLTdA7323NXFJOij7sUyYhu
-	0csw4qCjWp2P3V1c4XWyoYCBTISvOCDTLhcF4UJovhxJjeLTXi2cbDvELx3iQB/SajCvtbRXpqw
-	==
-X-Gm-Gg: AR+sD12Nrj9rhpAptz6he5CL74+RxaNh7ardadhSpLmQhHGVl7CdhXQ75ZNRKDv7qMH
-	eN5wYCCowy4tS4WLI48M+DXgBZ3RhRzrqYTcMQ53GyMHvRYigIAaKdsRvnRlLLx1tiNRAUWyUGI
-	ldoeZYE0Pknu4lVpb8KZl/a0fNoJCNJVAwuCNPjyXb3IzOJqzft00ZFioC4lwq8m7iQ163/du/L
-	W76UiwA0fZKfpRRBldARGCN55m64MzNaA87PIqiiLn4f6BoUlsV2N1TbJ0b+LghHMwP2r+LDgbS
-	wp9EnLzZ7gfWDjs4IuJW7V2qh6de26hvLCQ9eU5KmMjVmYZn0EqgZx3nRGXU2qxTVLJmAFB1AYm
-	QmkPIoREsbp+GWx3vKo2NJfgv+dQEl2HelqXvNoQelUWX/bmV1jjbQlrJ/AIPTWNuaV2sUVnt+p
-	kIurW4kRrUE1yr
-X-Received: by 2002:ac8:5dc9:0:b0:527:7842:72cc with SMTP id d75a77b69052e-52d73dee51cmr5592371cf.39.1786564902442;
-        Wed, 12 Aug 2026 13:01:42 -0700 (PDT)
-X-Received: by 2002:ac8:5dc9:0:b0:527:7842:72cc with SMTP id d75a77b69052e-52d73dee51cmr5589561cf.39.1786564900440;
-        Wed, 12 Aug 2026 13:01:40 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a11b2acb0fsm354561fa.12.2026.08.12.13.01.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 12 Aug 2026 13:01:37 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Wed, 12 Aug 2026 23:01:25 +0300
-Subject: [PATCH 3/3] media: venus: report the frame size of the codec being
- enumerated
+	dkim=pass (2048-bit key) header.d=shazbot.org header.i=@shazbot.org header.b="goLQDROv";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="P+HMnnyB"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 62A7C14000E2;
+	Wed, 12 Aug 2026 16:07:01 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-11.internal (MEProxy); Wed, 12 Aug 2026 16:07:01 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=shazbot.org; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1786565221;
+	 x=1786651621; bh=q6vLuK4NOs9J00j+cLp1FMNvI5c69+T/NFPNSqeXvzI=; b=
+	goLQDROv8rmxUSUNimpLI8gF0O4ZaMrxP7GiOR/NyCGqukozDBkQGJnGwpXeLT+v
+	ZfWHAXLzzwpG2A6NtNgBqZajq+qs1GMg3Mf9aTj0A6ByU5RKBY4tbF1gLlYwtOWD
+	vKuKaeXfacbplGb2uWoSn0yuX6LqvVNjyUaKB5lNf/6f/9hjM4jKJjXpM1Iy10DM
+	T8mxQPeLEdPUve/cGcB/GaIcDpnqqIPPfJN7SNg+8B3P3zWROLw31xfk1bANFRDO
+	+VzA1S4edsqT0tqBs2+zDCNxTZah6QihkEOgOQe0n40x5LKQa/AJXxx+U3NWM/MH
+	2pRrC55C+fdOYelAot7w5A==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786565221; x=
+	1786651621; bh=q6vLuK4NOs9J00j+cLp1FMNvI5c69+T/NFPNSqeXvzI=; b=P
+	+HMnnyBrEKPlp4k17H+M0UJJFiZ7YPjPWJyQqIX+7Gfix+P8fOdFXnKGfshEnm9a
+	NJLvpsTKFu714oHza/ctoEYjrfKmZ97xMHyauLj9A/p07NqPKAtG2xJz1O+O9zqy
+	5a3h8xsgUCgXjmGPW+SVnfjg9ZT3cXHi1taalD8o9N9ne/GIone3UgNHY0pHQ3YF
+	jxAybnkL+UnG11HypsiP2zdM5DSnU18tyiXKCuDw0BfZNRs1aWnOBoyCiv7trZX3
+	GuUBYbfptyhZNmhqWMp3Wb2MHe6jSl3Jx6WoD8ES6X2fMPMMe9HtPTo1X/SdIrXi
+	67MuQmhN+XhkqeDyLWSAw==
+X-ME-Sender: <xms:ZNJ8antfIxAtov5MMh2VUu-xJL7dgXVY_vmpMJ-zBM8_ioAfwq8FzA>
+    <xme:ZNJ8aj47hVXCXQhV8EpXZqVJHWFi2rXvzq5OGrEN75bGfVXYLOsW42vHkPQETR9I-
+    EaE89wBjAzqdLmmj7AmDYV2ukUB-dupXMMkJKuVhVC8g7MjsT3v>
+X-ME-Received: <xmr:ZNJ8apcTDc5IC2zkByKPl85EI2DOLStlIEy3nFf2y41TXuS4OtYfzFYdUkfF9Q>
+X-ME-Proxy-Cause: dmFkZTE7YD1dYnn0YDep05yqqF1gLDcK+bObP31dZ9RE+zhxSsc4fnHrLBDmN/QqUrRomF
+    jOH9mOxzon6Y+WPZy9cI3Rv/STnC+rLyT2/VGFz5btSb/yEd7HT6ljArSwSugWzYkf1C6E
+    tdAvF7j3OTOdW+Mf5RGPgoJo8DGZjGwCDNwcmdyEY6TTdbRaXrriYYkFfFtnqCoynmskIF
+    F4l3LCD1G799Gbrc+7wr3w3M9H+PuaAlzD5g6fUYW6HnZRKkrWXHc5qxg70inh+Lcfp6Mt
+    rFw3FvxzjRcON2xizEJ4UK+ozOuB/N/NuPgnJIofsJRQ4xmz+A8zesXeFs/BPKZOwyTJfo
+    WvlqNMFTS+CybWhksDx7ae0/vq4Gb/Iz0GW/Sf39s2Kf0syscftv28VMjaCiadkbkHaYGO
+    2qjinsFvhHMfg+XPgnp6qKdzy2Jy6a6wO0eylvjXx6TJ8yCQZRZ/vByC05NApJx/nzf+Ox
+    oaodjBsp6/qbr3G3Ozq2jHbYua8FtlZYdfMuyVGnV2EsVMJwkZ4SKxI+bhjdgyiivlq5BA
+    ax6bUDCB3Smc5fQq6+R0pMG878F1lsBDM6TIS+y/Dx2wUvJ/XTRsqt97NWk3b9C2xZyTmD
+    1ZArnQZujL4dm/PyuTUKkZFicUYD7AcADdCjlXDnatThCqf0SsJFv1g5JQLw
+X-ME-Proxy: <xmx:ZNJ8ajUwAdVoMTBRbYYDYhTeC8s1aEgwd8s94cAluIdlYOX9UO5UKw>
+    <xmx:ZNJ8auVw91HYFs0_ru65Sgen4GrRs1-Tab8lbjidEgZd7vr9krI4sg>
+    <xmx:ZNJ8asRqQXKG_ALzsZB2YVzHbEMylNZ77vuhBt84akB76Ir-rFywxw>
+    <xmx:ZNJ8al0-dc3ctr2Ii-PEp6vGdRET8cPBk2xQ0oondLjcMGCokyGd4Q>
+    <xmx:ZdJ8ar2fvMHkaGKNMXJiUPrF7L7t0Qzug66QwIobzqvQe6MpiPNjhf6Y>
+Feedback-ID: i03f14258:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
+ 12 Aug 2026 16:06:58 -0400 (EDT)
+Date: Wed, 12 Aug 2026 14:06:57 -0600
+From: Alex Williamson <alex@shazbot.org>
+To: Matt Evans <matt@ozlabs.org>
+Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Alex Mastro <amastro@fb.com>, Christian =?UTF-8?B?S8O2bmln?=
+ <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>, Logan
+ Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>, Pranjal
+ Shrivastava <praan@google.com>, Longfang Liu <liulongfang@huawei.com>,
+ Mahmoud Adam <mngyadam@amazon.de>, David Matlack <dmatlack@google.com>,
+ =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?= <bjorn@kernel.org>, Sumit Semwal
+ <sumit.semwal@linaro.org>, Ankit Agrawal <ankita@nvidia.com>, Alistair
+ Popple <apopple@nvidia.com>, Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ kvm@vger.kernel.org, linux-pci@vger.kernel.org, alex@shazbot.org
+Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
+Message-ID: <20260812140657.247b9fa3@shazbot.org>
+In-Reply-To: <291625a2-f281-4c05-b51f-553018a34b08@ozlabs.org>
+References: <20260715174737.15287-1-matt@ozlabs.org>
+	<20260715174737.15287-8-matt@ozlabs.org>
+	<20260729115204.2a9a50b2@shazbot.org>
+	<6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
+	<20260804141022.71b6429d@shazbot.org>
+	<291625a2-f281-4c05-b51f-553018a34b08@ozlabs.org>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-venus-8996-v1-3-6615f82a63b8@oss.qualcomm.com>
-References: <20260812-venus-8996-v1-0-6615f82a63b8@oss.qualcomm.com>
-In-Reply-To: <20260812-venus-8996-v1-0-6615f82a63b8@oss.qualcomm.com>
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Hans Verkuil <hverkuil@kernel.org>, Tomasz Figa <tfiga@chromium.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=8427;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=5TydX6YikVp1Sc2sSWcsXlwWC7g4cca4nfCeQ4bD1Rc=;
- b=kA0DAAoBizyKPgIpKNUByyZiAGp80RbIJFmZPxfq+64dIRgRSIMojefUFZVzmLmlOa3N7HE4v
- YkBMwQAAQoAHRYhBExwhJVcsmNW8LiVf4s8ij4CKSjVBQJqfNEWAAoJEIs8ij4CKSjVjEsH/R1X
- 6wClTtjkrFSys/pP4seh5XFIWo4p8E2MA70s8hV0PkDjMdln7WZkKb/l1CWkBEuw/GghEAAkQ3x
- ml+pr1VmRipzqTmYyDBhFQ6NP5+yDzgQTxX0iSg3DxLMDfPXSPqrLgzZTsjEcq8XGpk7JGVok+R
- D4kiJLhXo90DATMi6PfCFTsmXqED8Ufka0nEduSV3XgglDWiRYTLoTREoyP9v5vZExak2D0XQHi
- tS3956SPQ83xGM3e67xvLbfXijzw5Z6KYWzGz+U1xZ3OXVXoSVsGtsZ3XfQp51xeH366d725i/i
- RaBisAx263SE1yfRkWn+mfjzRftxX1XUIOUUvJ8=
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODEyMDE2MCBTYWx0ZWRfX98S2OURzsIJ2
- 04XW2XbopDSx3KstAWKR587NI3wG8ACfSMoXv1MQ0137bS/7IYvsSj8z9N/b5LdUskkgMlBd8pX
- nbgIdRUmQ4YscmpuiczOK/amMSDo2vY=
-X-Proofpoint-ORIG-GUID: AmzNENDuM70A83s_ilw7GCYHcApQelsW
-X-Authority-Analysis: v=2.4 cv=C/fZDwP+ c=1 sm=1 tr=0 ts=6a7cd129 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
- a=BhK9gz1YmpFySvrNxgUA:9 a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: AmzNENDuM70A83s_ilw7GCYHcApQelsW
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODEyMDE2MCBTYWx0ZWRfX3sMSyWpUA7nN
- cIvsFSeUDaaScer93mptH1JR+MMVHYtHT3qIq8ZM7tsrmxC5AhJsNp/tyGDtL6eE/d1CMyei9h4
- OTK1nZx/PBtf9tIoFG/elTaoUCN9RGPIevIMkfDa3T9PgkOVstgrcVuH4QCdsVnEFHj0b4sPi96
- 9jXAsTA4yVA3RZex2IpsyqchNQPQIuZ+2NujfYPEoxyzS9X7Z1rK+eVlfZMZsVye4DTI4Hcdb0b
- HSDJs0TnM7ee5ywLtaV+F4rU6vKkjnR7OxEWXeDL63wms/XJOLWYHW1LjO1Z1sluW6C8h0p4Rm+
- sfHXZuHLMiHeeOjhN7prynv3csII7ItI4xubQ0yyLZNsxpWU+Be3G6DBBZjK+GmBXVjqS9upGNY
- T3iopNJVL7Le+UAjDNbjyXtnE28NONykx4RkZlzkonV6oGSpKY5f5a6MqRWhWjdPOc7I+GzO444
- /Wt4up6FZRz3bBukxwQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-12_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 phishscore=0 spamscore=0 malwarescore=0
- adultscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608120160
 
-VIDIOC_ENUM_FRAMESIZES takes the pixel format to describe from
-userspace, but both vdec and venc answer it out of frame_width_min() and
-friends, which resolve the capabilities through inst->hfi_codec, the
-codec the instance is currently set to.  Enumerating any format other
-than that one therefore returns the limits of an unrelated codec: on a
-freshly opened decoder, which starts out as H.264, asking about MPEG-2
-on MSM8996 reports the H.264 limits where the firmware describes MPEG-2
-as 16x16 to 1920x1920.
+On Tue, 11 Aug 2026 16:58:43 +0100
+Matt Evans <matt@ozlabs.org> wrote:
 
-Resolve the capabilities through the format being enumerated instead,
-falling back to the codec in use for the raw formats, which have no
-codec of their own.  Both drivers now share one helper, alongside the
-pixel format to codec mapping that venus_helper_check_codec() already
-carried.
+> Hi Alex,
+> 
+> On 04/08/2026 21:10, Alex Williamson wrote:
+> > On Thu, 30 Jul 2026 15:47:13 +0100
+> > Matt Evans <matt@ozlabs.org> wrote:
+> >   
+> >> Hi Alex,
+> >>
+> >> On 29/07/2026 18:52, Alex Williamson wrote:  
+> >>> On Wed, 15 Jul 2026 18:47:30 +0100
+> >>> Matt Evans <matt@ozlabs.org> wrote:    
+> >>>> diff --git a/include/linux/vfio_pci_core.h b/include/linux/vfio_pci_core.h
+> >>>> index 9a1674c152aa..e2b4252e7c3f 100644
+> >>>> --- a/include/linux/vfio_pci_core.h
+> >>>> +++ b/include/linux/vfio_pci_core.h
+> >>>> @@ -134,6 +134,7 @@ struct vfio_pci_core_device {
+> >>>>  	bool			pm_intx_masked;
+> >>>>  	bool			pm_runtime_engaged;
+> >>>>  	bool			sriov_active;
+> >>>> +	bool			zap_bars_on_revoke;
+> >>>>  	struct pci_saved_state	*pci_saved_state;
+> >>>>  	struct pci_saved_state	*pm_save;
+> >>>>  	int			ioeventfds_nr;    
+> >>>
+> >>> This should be in the bitfield usage group since it's only modified at
+> >>> init time.    
+> >>
+> >> This was intentional, but happy to change it if you're certain ofc.  Is
+> >> it inconceivable that a sub-driver could set it after init?  I'd say
+> >> they _shouldn't_, but only review will stop them and this placement
+> >> intended to be cautious.  It seemed a low cost way to avoid issues
+> >> around synchronisation on the bitfield.  
+> > 
+> > I'd agree with the statement that they shouldn't, it would be difficult
+> > to synchronize setting the flag once there are any active mappings of
+> > the BARs.  Also, if we put it in the bitfield category under the
+> > comment that the value is only modified at setup/release, it documents
+> > the intentions, hopefully to the extent the author or reviewers notice.
+> > An argument can always be made to change it if there's a worthwhile use
+> > case.  Thanks,  
+> 
+> (Having noticed in moving this to the bitfield; my previous reply didn't
+> supply the real reason it wasn't in the bitfield.)
+> 
+> Isn't the init-time 'event horizon' for writing the bitfield the
+> vfio_register_group_dev() in vfio_pci_core_register_device(), after
+> which synchronisation is needed?
+> 
+> The hisi_acc_vfio_pci driver's .probe calls
+> vfio_pci_core_register_device() and _after that_ sets
+> zap_bars_on_revoke, and that's now in the "needs synchronisation to
+> write the bitfield" phase.
+> 
+> (Re-reading my comment in vfio_pci_core_register_device() I'd noted
+> this, "Drivers can opt out after registration".  Has to be done after by
+> definition as the default's set in vfio_pci_core_register_device().)
+> 
+> The concern is just blatting neighbours in the bitfield, not the window
+> of time before the flag's set.  The flag's an opt-out of a safe but (for
+> this driver) unnecessary zap, so having it unset for a short time is OK.
+> 
+> I still think this really should be a standalone bool, not a bit in the
+> bitfield.  It has to be set after registration and having to take a lock
+> to do that has downsides.
 
-Assisted-by: Claude:claude-opus-5
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- drivers/media/platform/qcom/venus/helpers.c    | 75 +++++++++++++++++---------
- drivers/media/platform/qcom/venus/helpers.h    |  2 +
- drivers/media/platform/qcom/venus/hfi_parser.h | 12 +++--
- drivers/media/platform/qcom/venus/vdec.c       |  7 +--
- drivers/media/platform/qcom/venus/venc.c       |  7 +--
- 5 files changed, 62 insertions(+), 41 deletions(-)
+You're right on the ordering, the device is live after
+vfio_pci_core_register_device().  However, I think that's evidence that
+vfio-pci-core is setting the default polarity, inferred from the mmap
+op, in the wrong place.  It should happen in init, not register_device.
 
-diff --git a/drivers/media/platform/qcom/venus/helpers.c b/drivers/media/platform/qcom/venus/helpers.c
-index 59eee3dd9e06..17415d0cdf8e 100644
---- a/drivers/media/platform/qcom/venus/helpers.c
-+++ b/drivers/media/platform/qcom/venus/helpers.c
-@@ -38,47 +38,43 @@ struct intbuf {
- 	u32 dpb_out_tag;
- };
+The same mmap op pointer is available in vfio_pci_core_init_dev(), which
+is used by all vfio-pci variant drivers in their init callback.  The
+proposed vfio_pci_core_register_device() change just needs to be lifted
+into vfio_pci_core_init_dev().  hisi_acc is then modified to fix the
+flag after vfio_pci_core_init_dev(), something like below.
+
+I think that's better than anticipating it being dynamic when we don't
+have a use case that requires it.  Thanks,
+
+Alex
+
+--- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
++++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
+@@ -1564,6 +1564,7 @@ static int hisi_acc_vfio_pci_migrn_init_dev(struct vfio_device *core_vdev)
+        struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_get_vf_dev(core_vdev);
+        struct pci_dev *pdev = to_pci_dev(core_vdev->dev);
+        struct hisi_qm *pf_qm = hisi_acc_get_pf_qm(pdev);
++       int ret;
  
--bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt)
-+static u32 venus_pixfmt_to_hfi_codec(u32 v4l2_pixfmt)
- {
--	struct venus_core *core = inst->core;
--	u32 session_type = inst->session_type;
--	u32 codec;
--
- 	switch (v4l2_pixfmt) {
- 	case V4L2_PIX_FMT_H264:
--		codec = HFI_VIDEO_CODEC_H264;
--		break;
-+		return HFI_VIDEO_CODEC_H264;
- 	case V4L2_PIX_FMT_H263:
--		codec = HFI_VIDEO_CODEC_H263;
--		break;
-+		return HFI_VIDEO_CODEC_H263;
- 	case V4L2_PIX_FMT_MPEG1:
--		codec = HFI_VIDEO_CODEC_MPEG1;
--		break;
-+		return HFI_VIDEO_CODEC_MPEG1;
- 	case V4L2_PIX_FMT_MPEG2:
--		codec = HFI_VIDEO_CODEC_MPEG2;
--		break;
-+		return HFI_VIDEO_CODEC_MPEG2;
- 	case V4L2_PIX_FMT_MPEG4:
--		codec = HFI_VIDEO_CODEC_MPEG4;
--		break;
-+		return HFI_VIDEO_CODEC_MPEG4;
- 	case V4L2_PIX_FMT_VC1_ANNEX_G:
- 	case V4L2_PIX_FMT_VC1_ANNEX_L:
--		codec = HFI_VIDEO_CODEC_VC1;
--		break;
-+		return HFI_VIDEO_CODEC_VC1;
- 	case V4L2_PIX_FMT_VP8:
--		codec = HFI_VIDEO_CODEC_VP8;
--		break;
-+		return HFI_VIDEO_CODEC_VP8;
- 	case V4L2_PIX_FMT_VP9:
--		codec = HFI_VIDEO_CODEC_VP9;
--		break;
-+		return HFI_VIDEO_CODEC_VP9;
- 	case V4L2_PIX_FMT_XVID:
--		codec = HFI_VIDEO_CODEC_DIVX;
--		break;
-+		return HFI_VIDEO_CODEC_DIVX;
- 	case V4L2_PIX_FMT_HEVC:
--		codec = HFI_VIDEO_CODEC_HEVC;
--		break;
-+		return HFI_VIDEO_CODEC_HEVC;
- 	default:
--		return false;
-+		return 0;
- 	}
-+}
-+
-+bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt)
-+{
-+	struct venus_core *core = inst->core;
-+	u32 session_type = inst->session_type;
-+	u32 codec = venus_pixfmt_to_hfi_codec(v4l2_pixfmt);
-+
-+	if (!codec)
-+		return false;
+        hisi_acc_vdev->vf_id = pci_iov_vf_id(pdev) + 1;
+        hisi_acc_vdev->pf_qm = pf_qm;
+@@ -1575,7 +1576,9 @@ static int hisi_acc_vfio_pci_migrn_init_dev(struct vfio_device *core_vdev)
+        core_vdev->migration_flags = VFIO_MIGRATION_STOP_COPY | VFIO_MIGRATION_PRE_COPY;
+        core_vdev->mig_ops = &hisi_acc_vfio_pci_migrn_state_ops;
  
- 	if (session_type == VIDC_SESSION_TYPE_ENC && core->enc_codecs & codec)
- 		return true;
-@@ -90,6 +86,33 @@ bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt)
- }
- EXPORT_SYMBOL_GPL(venus_helper_check_codec);
- 
-+/*
-+ * Report the frame size of the codec being enumerated, which is not
-+ * necessarily the one the instance is currently set to.  A raw format maps to
-+ * no codec of its own and is described by the coded format in use.
-+ */
-+void venus_helper_get_frame_sizes(struct venus_inst *inst, u32 v4l2_pixfmt,
-+				  struct v4l2_frmsize_stepwise *fsize)
-+{
-+	struct venus_core *core = inst->core;
-+	u32 dom = inst->session_type;
-+	u32 codec = venus_pixfmt_to_hfi_codec(v4l2_pixfmt) ?: inst->hfi_codec;
-+
-+	fsize->min_width = get_codec_cap(core, codec, dom,
-+					 HFI_CAPABILITY_FRAME_WIDTH, WHICH_CAP_MIN);
-+	fsize->max_width = get_codec_cap(core, codec, dom,
-+					 HFI_CAPABILITY_FRAME_WIDTH, WHICH_CAP_MAX);
-+	fsize->step_width = get_codec_cap(core, codec, dom,
-+					  HFI_CAPABILITY_FRAME_WIDTH, WHICH_CAP_STEP);
-+	fsize->min_height = get_codec_cap(core, codec, dom,
-+					  HFI_CAPABILITY_FRAME_HEIGHT, WHICH_CAP_MIN);
-+	fsize->max_height = get_codec_cap(core, codec, dom,
-+					  HFI_CAPABILITY_FRAME_HEIGHT, WHICH_CAP_MAX);
-+	fsize->step_height = get_codec_cap(core, codec, dom,
-+					   HFI_CAPABILITY_FRAME_HEIGHT, WHICH_CAP_STEP);
-+}
-+EXPORT_SYMBOL_GPL(venus_helper_get_frame_sizes);
-+
- static void free_dpb_buf(struct venus_inst *inst, struct intbuf *buf)
- {
- 	ida_free(&inst->dpb_ids, buf->dpb_out_tag);
-diff --git a/drivers/media/platform/qcom/venus/helpers.h b/drivers/media/platform/qcom/venus/helpers.h
-index 358e4f39c9c0..80d623db106c 100644
---- a/drivers/media/platform/qcom/venus/helpers.h
-+++ b/drivers/media/platform/qcom/venus/helpers.h
-@@ -12,6 +12,8 @@ struct venus_inst;
- struct venus_core;
- 
- bool venus_helper_check_codec(struct venus_inst *inst, u32 v4l2_pixfmt);
-+void venus_helper_get_frame_sizes(struct venus_inst *inst, u32 v4l2_pixfmt,
-+				  struct v4l2_frmsize_stepwise *fsize);
- struct vb2_v4l2_buffer *venus_helper_find_buf(struct venus_inst *inst,
- 					      unsigned int type, u32 idx);
- void venus_helper_change_dpb_owner(struct venus_inst *inst,
-diff --git a/drivers/media/platform/qcom/venus/hfi_parser.h b/drivers/media/platform/qcom/venus/hfi_parser.h
-index 5751d0140700..bcd11e7a9c1c 100644
---- a/drivers/media/platform/qcom/venus/hfi_parser.h
-+++ b/drivers/media/platform/qcom/venus/hfi_parser.h
-@@ -12,14 +12,14 @@ u32 hfi_parser(struct venus_core *core, struct venus_inst *inst,
- #define WHICH_CAP_MAX	1
- #define WHICH_CAP_STEP	2
- 
--static inline u32 get_cap(struct venus_inst *inst, u32 type, u32 which)
-+static inline u32 get_codec_cap(struct venus_core *core, u32 codec, u32 domain,
-+				u32 type, u32 which)
- {
--	struct venus_core *core = inst->core;
- 	struct hfi_capability *cap = NULL;
- 	struct hfi_plat_caps *caps;
- 	unsigned int i;
- 
--	caps = venus_caps_by_codec(core, inst->hfi_codec, inst->session_type);
-+	caps = venus_caps_by_codec(core, codec, domain);
- 	if (!caps)
- 		return 0;
- 
-@@ -47,6 +47,12 @@ static inline u32 get_cap(struct venus_inst *inst, u32 type, u32 which)
- 	return 0;
+-       return vfio_pci_core_init_dev(core_vdev);
++       ret = vfio_pci_core_init_dev(core_vdev);
++       hisi_acc_vdev->core_device.zap_bars_on_revoke = false;
++       return ret;
  }
  
-+static inline u32 get_cap(struct venus_inst *inst, u32 type, u32 which)
-+{
-+	return get_codec_cap(inst->core, inst->hfi_codec, inst->session_type,
-+			     type, which);
-+}
-+
- static inline u32 cap_min(struct venus_inst *inst, u32 type)
- {
- 	return get_cap(inst, type, WHICH_CAP_MIN);
-diff --git a/drivers/media/platform/qcom/venus/vdec.c b/drivers/media/platform/qcom/venus/vdec.c
-index 6a43ea191da1..0f62931eea4c 100644
---- a/drivers/media/platform/qcom/venus/vdec.c
-+++ b/drivers/media/platform/qcom/venus/vdec.c
-@@ -512,12 +512,7 @@ static int vdec_enum_framesizes(struct file *file, void *fh,
- 
- 	fsize->type = V4L2_FRMSIZE_TYPE_STEPWISE;
- 
--	fsize->stepwise.min_width = frame_width_min(inst);
--	fsize->stepwise.max_width = frame_width_max(inst);
--	fsize->stepwise.step_width = frame_width_step(inst);
--	fsize->stepwise.min_height = frame_height_min(inst);
--	fsize->stepwise.max_height = frame_height_max(inst);
--	fsize->stepwise.step_height = frame_height_step(inst);
-+	venus_helper_get_frame_sizes(inst, fsize->pixel_format, &fsize->stepwise);
- 
- 	return 0;
- }
-diff --git a/drivers/media/platform/qcom/venus/venc.c b/drivers/media/platform/qcom/venus/venc.c
-index 79acf7c1ec9a..e0f7b9817ccf 100644
---- a/drivers/media/platform/qcom/venus/venc.c
-+++ b/drivers/media/platform/qcom/venus/venc.c
-@@ -456,12 +456,7 @@ static int venc_enum_framesizes(struct file *file, void *fh,
- 	if (fsize->index)
- 		return -EINVAL;
- 
--	fsize->stepwise.min_width = frame_width_min(inst);
--	fsize->stepwise.max_width = frame_width_max(inst);
--	fsize->stepwise.step_width = frame_width_step(inst);
--	fsize->stepwise.min_height = frame_height_min(inst);
--	fsize->stepwise.max_height = frame_height_max(inst);
--	fsize->stepwise.step_height = frame_height_step(inst);
-+	venus_helper_get_frame_sizes(inst, fsize->pixel_format, &fsize->stepwise);
- 
- 	return 0;
- }
-
--- 
-2.47.3
-
+ static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
