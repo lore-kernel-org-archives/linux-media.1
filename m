@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE266380FCF;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFD813806DD;
 	Wed, 12 Aug 2026 02:41:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786502495; cv=none; b=SHsU8dfW3L1neZN7er77xmiSrt4R6Z95fYbJZiB15L3YJzcznHojUZy/7pQtnwBfwDjsjJ/uNQKAc/2aB9wzVlv7tSIk5pW/JyQ7blTT9V6G+xy4VTfVphvja/1lo2I6wmPlf4p8GinadU10/NtnlTaihwWBtWFHxlDuxuXHsXU=
+	t=1786502495; cv=none; b=doKYmRnLs7d0g6+G9nS0rvMehuIg9HbyO2a1rBspFFwV8UFa5LGxFsl3BAJ4Vndj6MTj7C+Kbzv4e/P3XhtBEZ4qWqX0o0Odm1KZp+8Tktqg+wZW4ULjhw+JxVp+b/SGue6f9hveFyakOK5/Pn53H9kGmXlYK3rVwSQ5unPmLyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786502495; c=relaxed/simple;
-	bh=WUzJAYQHchFad4GvLC0D7YFZzyv0eyNbhdVP3Of0Nvo=;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LEGdkU+LlaeyZfigsp6jZN/yKu+BOSv8Vk8PTznF4vVrhKG1qsDTtGX7IZjao60Oeg7D6yQETf5jCixG6VRODmq9S51xcUX8pPH+/MaXRdnjDLZbfNKU+wzGAQH/mVwGV+MiNvLXvnbRp/FGF1cZiqLynZXWHX1En711YPT7XPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jSpLwkDq; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=kOFEBOKSce6e4FKVu8EVdDRwtaLCsN/XtLaHZBccXQ922sqdzkW5Xmx+o1HK0vfWAsKtq5A/meIA1g5D3VMZWiFdN5HjhDVHVMb3/BwmLZWiRY8rOLmsxa+KvqkCZfRrraEq63nr+XEqMrbxhILm6bqiOcxSxCeJ1K/omK+3/mQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BWbMolET; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jSpLwkDq"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7158DC2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BWbMolET"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6A64AC2BCC7;
 	Wed, 12 Aug 2026 02:41:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1786502495;
-	bh=WUzJAYQHchFad4GvLC0D7YFZzyv0eyNbhdVP3Of0Nvo=;
+	bh=PynJ5xo9Sdp/Ik69/y60OZIBerQ/6DJ4h2lEOta72bc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jSpLwkDqZ6C7ia46qYI3N93gHk2zucG4Z+Fdvv1hW/wRqG3gpX3vzEfCT5YWEdQ4+
-	 vJdsBWk7hM2cEaBZ4dRbBAh4N7qS4zd8+Nhl3Wyo25UCl/fKQerIq+BJs1AOqDS92X
-	 jExG/HmqEDN9dkL9TCj11hz55tin2RBX65sIw6ke4KoMPx2vA6cdlaqwkh9z+DTL7M
-	 jd9wFZmKde3HY4R9/mzZ7TX/kB7B3hHcvgXYX/iy0K3sWbBna3hAefT8dVUak9+g0w
-	 qJSZ8z6KW17vXVuWidPOTeVQ4E2kbmHlKtdr2f+OHlfHLLEgd3KP3iifq4ZFflom/x
-	 JU5AqXmkeycug==
+	b=BWbMolET+BUv+HCNiYSywfCMTafMv8EbTu0ttnqa/PNdzATzYBBf4YeM4WKsEDDa0
+	 HrAmpp3S79mhFqgPiZgBmjS2ztfwAIYgV4VpC0sgtoWCN1DF7ngjKh/vCPCgrju3Xz
+	 Hkyp0Mi/02tM34/G2qs+T92MqTZ89rh3WJJfKIg5Fws1TqeLLTcn42LrCVpeeEjVeL
+	 DZ8ioJpfLv2n+pavUKjrihHzeXLRLt9ODk+4CYz9j/LAIMpUBSF0I0QkEqgo7f1faR
+	 DEj2EICD53DFsFcdjXuYf9kK+y3KpgNZI9qBK8Zg8ssKpsUTl2wHjC7sp43Ud/D6Vw
+	 C5bLQd9OPIsgA==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 56582C5CFCF;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48316C5AC67;
 	Wed, 12 Aug 2026 02:41:35 +0000 (UTC)
 From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Wed, 12 Aug 2026 10:41:24 +0800
-Subject: [PATCH v7 2/6] firmware: meson: sm: Add video firmware loading SMC
- call
+Date: Wed, 12 Aug 2026 10:41:23 +0800
+Subject: [PATCH v7 1/6] firmware: meson: sm: video firmware loading via
+ secure monitor
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260812-b4-s4-vdec-upstream-v7-2-3fae085861bd@amlogic.com>
+Message-Id: <20260812-b4-s4-vdec-upstream-v7-1-3fae085861bd@amlogic.com>
 References: <20260812-b4-s4-vdec-upstream-v7-0-3fae085861bd@amlogic.com>
 In-Reply-To: <20260812-b4-s4-vdec-upstream-v7-0-3fae085861bd@amlogic.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -54,11 +54,11 @@ Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
  devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1786502492; l=711;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786502492; l=670;
  i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=wZ/Fw+jH+tOBVIXbBc8zSjH7Kx36sATJ09qPRAeyKKk=;
- b=Xt9ivrgwhvWtWeZnwM8Ld7t2yIjug1HR5O+eGfK+i13eAomJhfiwHZYm66+z9QwUDbEgLTNV7
- 9HKitnCon3UApj3PEwp3fqX7NQ2wIFqNj2pUhUUWA0BGhmOPWqGt07Z
+ bh=ioNPQiZsvUfM7WHdEfF4xb07l7H3o3hVIdC2XZUtO1g=;
+ b=eK1kDLPi+TZ0ozmq9apoa6V7z/Tacdapq4Ey5p5r/Sn47u2Ng6Q6TZMe7fL2KhAE4D5HqpoDk
+ Or7Tr9aXEvzDGucXn6s0rGvzAFbylCH9EbAjRSx6HrMqVTJnk2bFngM
 X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
  pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
 X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
@@ -68,26 +68,27 @@ Reply-To: zhentao.guo@amlogic.com
 
 From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Add SM_LOAD_VIDEO_FW at SMC ID 0xb200000f in the command
-table to load video firmware.
+Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+to allow decoder drivers to load firmware through the meson_sm
+interface.
 
 Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
 ---
- drivers/firmware/meson/meson_sm.c | 1 +
+ include/linux/firmware/meson/meson_sm.h | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/drivers/firmware/meson/meson_sm.c b/drivers/firmware/meson/meson_sm.c
-index ab9751a59b55..887caa5c625d 100644
---- a/drivers/firmware/meson/meson_sm.c
-+++ b/drivers/firmware/meson/meson_sm.c
-@@ -48,6 +48,7 @@ static const struct meson_sm_chip gxbb_chip = {
- 		CMD(SM_THERMAL_CALIB_READ,	0x82000047),
- 		CMD(SM_A1_PWRC_SET,		0x82000093),
- 		CMD(SM_A1_PWRC_GET,		0x82000095),
-+		CMD(SM_LOAD_VIDEO_FW,		0xb200000f),
- 		{ /* sentinel */ },
- 	},
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 3ebc2bd9a976..3b90b49d0552 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -15,6 +15,7 @@ enum {
+ 	SM_THERMAL_CALIB_READ,
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
++	SM_LOAD_VIDEO_FW,
  };
+ 
+ struct meson_sm_firmware;
 
 -- 
 2.42.0
