@@ -1,129 +1,238 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7FE37B402
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 16:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786550777; cv=pass; b=WRCT06QLnkOIZmdFnbCHo94G8kCTz5NF2WLx3w4LaCgSQN3RsSToL1LhDk1O0wKjrO97+GvOi84GZRb+O6StDrX6XRLWdKMjMPIqdYpgrQzdpio2rTd0KMk0uB+dfPfYLn1m5kWtP5nshM7QzVo9Gh18HnD74K4vEy0tMvDDxZw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786550777; c=relaxed/simple;
-	bh=J9mnqO6eJ4ZveGNY3D4ObFWr3/57QctvngM8TX1zOA8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jm5j0Iv4wSKw1AFlWA/yl3m9Zpc/xqjm8YpjQPtR5yrj+fGFxUW5bntFymnzn/PU+zwEVicfuYrGlzyofwKVzYnEta98HdZM1xQrsLN+l35dIgAFPOZi6xv2wP5O0hGkuEVCGpX31BxV35zY8kWqB85D2UmHnhsAKgx1zzW5Ozw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=bMrCuosY; arc=pass smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FAC3321A7;
+	Wed, 12 Aug 2026 16:09:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786550975; cv=none; b=tIeDlSCLYke2pBlD7lkXK7naEMWxKeuESrtrtzBkHpOvWIRkNFH9hoffE8BAkoJzV8UsoMo81+fmukmkAJ0yWnFGr/PfV2NZlQN9Tz7466xDOBGrB1G0CtS7PG9ZQsqZkZ384/UZSg7eSYa4bWjk9TSrGkBGintdDSTilE1yaCE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786550975; c=relaxed/simple;
+	bh=gE61fvifrYqpGR3X2GYMe+i9ZrniAMwVNwX7pDzGIhw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=H6VfVND3BovNMrv6nhf8/g6Bzaxy71ofQeZPJRnTE+PpSVL235Ut52g+tMkWu4ST8Hx5udp4vTJvhFp/pNOUc4Rpi30vBTXV08NcEausPBJY3zVsoe0BBT0LBARGFYpK5FrapqlwfiyGwCOzAoTLQjkEe31HtELSOY6EUBz6ic4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P1jeFAOq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="bMrCuosY"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4994d67d260so54925e9.1
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 09:06:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786550774; cv=none;
-        d=google.com; s=arc-20260327;
-        b=h5ui2e0A6bO5szg5IZ2EpXpxvkf1hvo+2Dpu80BSWzVbEpnF7yQCeK3TZTOriE+Te+
-         bIyzrK0j+AucMAdlMGrTqQHWbfNck7d0FUkAq7ANGb3+b2lRFx6KeLPP6dcBKv6os0jn
-         DvSOLjv2YbYX/BSdZ/GGnqkPDw3FLd1qQwQo9xp87ffohj/Yay4wNK/KYfqWwtAggOfl
-         hpY+2IIyVtf9ygnxeV3vfFj6dqgec5DpIlg2M9RDRpewUNLylQ12snVxFhD12cJECRHX
-         qL1qYzM5gzcZ8NGHN3LecXkIFF/muGm8jbjHSi5Mj1tnMiWeGUcv1eTc/3WSP3lqRg5f
-         pn6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=J9mnqO6eJ4ZveGNY3D4ObFWr3/57QctvngM8TX1zOA8=;
-        fh=Qxzb6yFF4S/PITh3GuMMlj5RrE1IR19GQqyVeIlK1X8=;
-        b=EodDSbsrePSy/rOSqxsyGE9CspmGR2OBa1sCMBeGO6rGSUyxGHUT4ilxv1AgYTUzBs
-         GHhwEuBbLz8aKnGWHH9L3fdNkuSae+vZXzfqWwXyYcIqHamDvK/VD5YiWwunok0KRvtc
-         omzR8vcQfpblfFesEv0zYr6XYr9Z2oNoiw4wHSlHnk/0g8OJ2+Ki/42SNRXm9pRNalY6
-         iTS6ELSciwhLzswJXrKBkh78puDLfiX1eS2bv9yTeaDFhnaGEeqxjxxqoD5mHcGXTfgy
-         3uhnaiFMG0ynLjJtrq6ZEhyNMMUaud027138F/oONGjBuTexdMhp39fnL4SPYRbdoMIU
-         /Oiw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786550774; x=1787155574; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=J9mnqO6eJ4ZveGNY3D4ObFWr3/57QctvngM8TX1zOA8=;
-        b=bMrCuosYRVpYcUkmfIhmXsv/BaraLNYJJFjJa4C4Qva6/fBZuz9TPtaWzwJsyfjacQ
-         huujSeJbEOQeDrR6enOI8fy9RDuBfT9gQghuZKmnrCHJrM+DmzjwZJHO4I5wupW0jyLv
-         +d//LTlHJ21GqcHrPsV2LQuB0wK3ew5HWZP3Tn3nZO1JizkQ/sXQsqK77KC7PZ9Y6U8z
-         KS8FyhXijHc0Bg0yCwi29ZZxHkssTraCF8smtcY3F50aQChzrK1XwKNN1sx/fOFpKhfB
-         C88iVJYliM1Ayt+ZlI1XqpzKabt/Uo4vG0uJWPIYHcFNj0+2QULCWB4xPwPF3UyLawoI
-         tpqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786550774; x=1787155574;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=J9mnqO6eJ4ZveGNY3D4ObFWr3/57QctvngM8TX1zOA8=;
-        b=OCCg2xb2LkR87+idIO6dEAc6qW/DFFaAhHD73+UR8ClSMVUXWPa7qApEJFAy28Ham5
-         +TCoV38jvWVM9JdTIe7g6PYzKVc1yOTYfRU1012VHDcsZAiZltmTor35s8RW9VRKmzi/
-         sV9Of+dbKhHzLhb2WbZLHj58UTUBmhprDkn1+rt7HhGQEc+avCRb5wvgYW5qgYvF26Fd
-         ysUg27tBpuICs+yXQ0dsxcsbn8Puwe6HQ8ruhUroxCm9siKbUwgi+uDuNgu+/OSjZiXF
-         jvOMpytF38uxtSearGiZ1j3xLFST+rkrhox2eUNYdoBaCGis9saVtPwKvK72Hq+bRLJu
-         Px8A==
-X-Forwarded-Encrypted: i=1; AHgh+RpSoAXNii2xTRLZzyNxAEJ/AdLFv99+qitfgaucFGUhNRfmmgTGgzWdwHShHM6nU4h7+mpQYH7i/PTtHA==@vger.kernel.org
-X-Gm-Message-State: AOJu0YynhgIOQsf3ulMHXWtDZ0QP81+i0rdO6m8Yq8NogmDMAuezW/oA
-	1UjAXbW6m9j9yC0xZG8ticmwVYzwOIiPFRzwkCr5H6L4pkA8u/YfNERCbbxdokATingHmevOIVo
-	ULhoV8EAiyr5Iz8esPzW/CdeXNjz83/0epkHPPpHW
-X-Gm-Gg: AR+sD12xPcDa12HpbbsZYwOvV61NwJaUVOySpQ14vJljKvWoRh64NR0FDdt1tktKDbC
-	VMWILL+0/Pv/ivJuu3EwOvzj86OkDYZ0by8clmUXYzu1J0Srv1K1xao2Ih/4hHmN/2D53OYl+Dv
-	3zUxfDEieOf0ezBjnvG0+5En05/pxqBYPhBJyOO2gFQ/wh2HlmYvDkIf5hQKKH/BiZspmQL615E
-	YVV8Ol9HSA53DAQSj9P5yg1466Ree0gXamJ+9RNunusLDL/SJhfbMVOaSfKmHvKHp8Vl0dZ19Z0
-	2SBidqFWsDaA+riSGdwRSIIAHZdV2+lgCSvaLhc5x/AIZsdZyRBn3i06eFB3Fj1LgBe5Wdd0cyr
-	aVhuXGzmskGkVUXJ3JM2HO0xjUcVD7jIAdc0cOEJrFg==
-X-Received: by 2002:a05:600c:a192:b0:495:4593:616c with SMTP id
- 5b1f17b1804b1-4997c2e7c70mr1158565e9.1.1786550773969; Wed, 12 Aug 2026
- 09:06:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P1jeFAOq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C109B1F000E9;
+	Wed, 12 Aug 2026 16:09:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786550973;
+	bh=SUFBrQ1nQLkrBvvgBqMI8JlTiz31F3hZgB1piZ45IDY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=P1jeFAOqKyRs12l5w++ExNW2uzyP3pMsxLuK5ozTyW92m6vOwMByjqAaONNogjibZ
+	 qFv71P2EXTWRjj75c4h+rfc2eRjkL1rA8rEdvIvaIQduXoU2zgsoQisETRxGxrThFo
+	 HhMaPDq34DYnte1w6W7rhJUq0IVykDEnmK2zTqVd3zWGlF67382Q2t6+IXyFDXH2bI
+	 IpaTyVXWTJfnsVxGGcHYTS6ZkWaU/pE0WKlHVMlzeFWYzT50LVhn8D3P4CF2Ik3CcP
+	 deNhb0IyTfQGGrYd+v0H97wuP6U5mTlG+x3X9gg4ELqR5i7L0XcnMH6X84GK0ySo3p
+	 7J/t9H4M+RNIg==
+Message-ID: <815c0301-200f-4bc9-bb80-e4920eb4fe27@kernel.org>
+Date: Wed, 12 Aug 2026 18:09:14 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811204123.3198370-1-tjmercier@google.com> <CAO_48GEUhpyeenX8Vu1NoDnvzib5FGv3rOBYNYwQEWu1-6cjaQ@mail.gmail.com>
-In-Reply-To: <CAO_48GEUhpyeenX8Vu1NoDnvzib5FGv3rOBYNYwQEWu1-6cjaQ@mail.gmail.com>
-From: "T.J. Mercier" <tjmercier@google.com>
-Date: Wed, 12 Aug 2026 09:06:01 -0700
-X-Gm-Features: AUfX_myIZHpwdUvC8ZYvqUsuTjt-Hphx_vEEPobdfDAGB6v3g7pueyskoXW0GVA
-Message-ID: <CABdmKX0uiX=QKFAYgwwBPHW-X3vh-Rm7w-cNp9EsJzQarTzDpQ@mail.gmail.com>
-Subject: Re: [PATCH] kselftests: dmabuf-heaps: Open heap device files O_RDONLY
-To: Sumit Semwal <sumit.semwal@linaro.org>
-Cc: benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, christian.koenig@amd.com, shuah@kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
+ Iris
+To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Bryan O'Donoghue <bod@kernel.org>
+Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Stephan Gerhold <stephan.gerhold@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Johan Hovold <johan+linaro@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+ Mansur Alisha Shaik <mansur@codeaurora.org>,
+ Andy Gross <andy.gross@linaro.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
+ Yassine Oudjana <y.oudjana@protonmail.com>,
+ Pierre-Hugues Husson <phhusson@freebox.fr>,
+ Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
+ Matthias Kaehlcke <mka@chromium.org>,
+ Douglas Anderson <dianders@chromium.org>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Aniket Masule <amasule@codeaurora.org>,
+ Malathi Gottam <quic_mgottam@quicinc.com>,
+ Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
+ <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
+ Renjiang Han <quic_renjiang@quicinc.com>, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
+References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
+ <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
+ <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
+ <20260807162405.GA896590-robh@kernel.org>
+ <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
+ <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
+ <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
+ <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
+ <1a7c222a-617b-4dfd-a551-2c00115747a9@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <1a7c222a-617b-4dfd-a551-2c00115747a9@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Aug 12, 2026 at 8:02=E2=80=AFAM Sumit Semwal <sumit.semwal@linaro.o=
-rg> wrote:
->
-> Hello T J,
->
-> On Wed, 12 Aug 2026 at 02:11, T.J. Mercier <tjmercier@google.com> wrote:
-> >
-> > Write permissions on the /dev/dma_heap/* device files are not required
-> > to issue ioctls and allocate dmabufs. Applications should be opening
-> > these file as O_RDONLY. The BPF dmabuf_iter selftest already does
-> > this. [1]
-> >
-> > Users are pointing to these selftests as examples of how use dmabuf,
-> > and encountering permission errors on systems where write permissions
-> > are not available on /dev/dma_heap/*. Apply the principle of least
-> > privilege to selftests which open dmabuf heaps by removing the write
-> > access mode and using O_RDONLY for the open() instead.
->
-> Thanks for the patch.
-> >
-> > The same is true for the vgem test using /dev/dri/card.
-> >
-> > [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/=
-tree/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c?h=3Dv7.1#n49
-> >
-> > Signed-off-by: T.J. Mercier <tjmercier@google.com>
-> Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
+On 12/08/2026 17:44, Vikash Garodia wrote:
+> 
+> On 8/10/2026 7:17 PM, Rob Herring wrote:
+>> On Sat, Aug 8, 2026 at 4:55 AM Bryan O'Donoghue <bod@kernel.org> wrote:
+>>>
+>>> On 08/08/2026 05:37, Vishnu Reddy wrote:
+>>>>
+>>>> On 8/7/2026 9:54 PM, Rob Herring wrote:
+>>>>> On Fri, Aug 07, 2026 at 12:03:50PM +0300, Dmitry Baryshkov wrote:
+>>>>>> On Fri, Aug 07, 2026 at 01:54:48PM +0530, Vikash Garodia wrote:
+>>>>>>> From: Daniel J Blueman <daniel@quora.org>
+>>>>>>>
+>>>>>>> On X1-family hamoa platforms, the Iris VPU reserves IOVA addresses
+>>>>>>> below 0x25800000 (600MB), primarily for secure non-pixel buffers. DMA
+>>>>>>> into that range, from any other stream id would triggers unhandled SMMU
+>>>>>>> page faults that cause spontaneous device reboots. This is readily
+>>>>>>> reproduced with one or more browser tabs driving multiple concurrent
+>>>>>>> video decode streams.
+>>>>>>>
+>>>>>>> Add a reserved-memory IOVA reservation node covering [0, 0x25800000]
+>>>>>>> and reference it from the Iris node so the IOMMU layer keeps DMA
+>>>>>>> allocations above that boundary.
+>>>>>>>
+>>>>>>> Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+>>>>>>> Fixes: 9065340ac04d ("arm64: dts: qcom: x1e80100: Add IRIS video codec")
+>>>>>>> Cc: stable@vger.kernel.org
+>>>>>>> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+>>>>>>> Signed-off-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>>>>> ---
+>>>>>>>    arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 ++++++++++++-
+>>>>>>>    1 file changed, 12 insertions(+), 1 deletion(-)
+>>>>>>>
+>>>>>>> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>>>>> index 8a96ea1bdb9c4c409b2af997680d8c13fed0643e..87f424765d513c97b06303bceb75ca9f176d2ace 100644
+>>>>>>> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>>>>> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
+>>>>>>> @@ -666,6 +666,17 @@ smem_mem: smem@ffe00000 {
+>>>>>>>                     hwlocks = <&tcsr_mutex 3>;
+>>>>>>>                     no-map;
+>>>>>>>             };
+>>>>>>> +
+>>>>>>> +          /*
+>>>>>>> +           * The Iris VPU reserves IOVA below 0x25800000 (600MB),
+>>>>>>> +           * primarily for non-pixel buffers using different Stream IDs.
+>>>>>>> +           * DMA into that range triggers unhandled SMMU faults and
+>>>>>>> +           * spontaneous reboots, so reserve it to keep IOMMU
+>>>>>>> +           * allocations above this boundary.
+>>>>>>> +           */
+>>>>>>> +          iris_iova: iris-iova {
+>>>>>>> +                  iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
+>>>>>>> +          };
+>>>>>>>     };
+>>>>>>>
+>>>>>>>     qup_opp_table_100mhz: opp-table-qup100mhz {
+>>>>>>> @@ -5439,7 +5450,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+>>>>>>>                     interconnect-names = "cpu-cfg",
+>>>>>>>                                          "video-mem";
+>>>>>>>
+>>>>>>> -                  memory-region = <&video_mem>;
+>>>>>>> +                  memory-region = <&video_mem>, <&iris_iova>;
+>>>>>> I don't like the idea of this series, because it _again_ doesn't tell us
+>>>>>> the truth about the hardware. This typicall ends up with bigger problems
+>>>>>> later on, when it starts to affect other bits and pieces.
+>>>>>>
+>>>>>> I don't want to NAK it, but I'd strongly ask to reconsider it.
+>>>>> I think this is an abuse of /reserved-memory. reserved-memory is
+>>>>> reserved *physical* memory. Reserved IOVA is a property on top of that.
+>>>>> I'm surprised this passes validation. If it does, I may go fix that.
+>>>>
+>>>> As per the reserved-memory.yaml schema document, the iommu-addresses
+>>>> property for IOVA reservation into /reserved-memory is allowed — it's
+>>>> documented for IOVA carveout reservations:
+>>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/reserved-memory/reserved-memory.yaml#L56
+>>> I think that is an entirely reasonable reading of the text
+>>>
+>>> Quote:
+>>>
+>>> "If no "reg" property is specified, the "iommu-addresses" property
+>>>    defines carveout regions in the IOVA space for the given device. This
+>>>    can be useful if a certain memory region should not be mapped through
+>>>    the IOMMU."
+>>>
+>>> Which is exactly what this series does. Excludes a specific IOVA range
+>>> from being allocated for this device.
+>>
+>> But if "iommu-addresses" is the only property of the reserved memory,
+>> why put this property in reserved-memory rather than directly in the
+>> device's node? I'm only questioning where is the right place to
+>> describe a reserved IOVA.
+>>
+> 
+> a single property node vs multi-property node should not be the reason 
+> to decide the place i believe, rather having them all under 
+> reserve-memory keeps all reservation at one place instead of scattering 
+> it all over.
+> 
 
-Thanks for the quick revieews John, Christian, and Sumit!
+It is not about the amount of properties, but the intention of
+reserved-nodes. Their intention is for reserved memory, which you do not
+have here really.
+
+Best regards,
+Krzysztof
