@@ -1,152 +1,193 @@
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com [209.85.218.54])
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1738646AF2D
-	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:02:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498074418F2
+	for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 15:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.46
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786546947; cv=pass; b=j/3DOrZO3RXVmY+1w1cgrlqWNfNoykbXpq3R1TibuzgZvEeEGqXDQhIpHC9FXqB3BNBoTcd7nivghbAMj2V2i0JlYLMoxmqmxUoM+nrV1KMon8kt8BCBNaB9Ebff5olJ/2hSgQeSgOr3DmjYPlNgVncE6Bbs27DybuSvoyjUaZw=
+	t=1786548448; cv=pass; b=EGSYrosXjd2NuFK7nI9+Zttamg4VUfxyLN3cbPPHqyGV8sxKiHDPNil85NPoT7xVnGmi2aELx29r5eXUyxr5grp7xRvqGIylbA/Av74ujmRUq35alvcFzC2jK62AF89Uebk4gpR2uoHvk80aa+/Py3KNPKySuXekDJBFCqt1e2w=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786546947; c=relaxed/simple;
-	bh=dXagVN0/kmU6TCjEQGzKhj+CDaoiXU32QOBD/KQk5sM=;
+	s=arc-20240116; t=1786548448; c=relaxed/simple;
+	bh=Ts9PK9aXwLEU/nrIRNxnM9qG/yIOXNQLDe8r+ZcI+pE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=piUSP6mOfRBXEa4uAequjfBzQxaKgTSqCakISiYlJ5kx3QQv9kcQFHOUeLoDnBAZH5jeA9yyizxv0ToCUyjrrrmYIUr5LenxPodmnGa7E5ZjtotWUmIee9ACYO9pnBEW2iwAjD9FL/QmoqgZvMTnJnumu48qalSJ52sZawsQ3S4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vFsTbeWm; arc=pass smtp.client-ip=209.85.218.54
+	 To:Cc:Content-Type; b=dbt3Vv2BHLIwSmZYf/oa6ao0sXIyGaad/3Rpfs4tnDfluQAVWZeVW8EHusiB+E2bEPtvSuKLt4kl2TQKw9RE13Sc/XlnLnmOEWVogDVY1snFByqf5JKEZ+idiDC7QIoVKdrnkbVfBlAjFvmEE3B39fd2kPWSKKxmPAtDotK3yS4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MuE9lDq4; arc=pass smtp.client-ip=209.85.208.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vFsTbeWm"
-Received: by mail-ej1-f54.google.com with SMTP id a640c23a62f3a-c15ca7a7ca9so104636366b.0
-        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 08:02:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1786546935; cv=none;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MuE9lDq4"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so2051294a12.2
+        for <linux-media@vger.kernel.org>; Wed, 12 Aug 2026 08:27:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786548436; cv=none;
         d=google.com; s=arc-20260327;
-        b=GRTqGf82zRsWRmkuwYm/xgyEvuT8VqAlaRwO96Pm5D1I3mazU2qFZic0JnFLCfK7ye
-         O1JZ/X3P5lyOUZ5ZTNMzynPOeoVH+UXvQWP4NDDsVCuyduwuB5pn8GRE2JXUA36/xU4f
-         u4gYTWULbt2em6r3coRO9UKUeAkE+I9F78ncYSZ32i8qBV+2CNFt7Ux0fdAX4MVw8NXf
-         W+QHthczGXfmmBSUSiG0g7Ko8DEbxYBsIJV2RHVgL2h39miXPdBlWf+ZPNTeJWKre2An
-         qVlcQhCd0lk9M+T5N/yf4QnAAHNUp/8j0I3zVDS9yan0PA8Bzq6guUXqBHgs6L8x7zQ6
-         RPUg==
+        b=fbhnvrWJxrZ6hjh2A5oJbwv7twM+mNpPrf20qqdla4VDe9JeW5OUfk1j6DliMxq/VX
+         ZCMpU1mH3m86GS01Q/TYcB6mT3uwqreUux1/13LTJEffyua3Yj5LvQ+gb7rkhShcMNv5
+         Cu/SDa8xQLWdIS6USOObpzDWpo/2RKiVqDVCM6y74eabEx3B0MOouFcSeBHb2eLq2Yc7
+         u7aoUTXK4gkxCvOn4SC0LUaYW1AtmEbZbuBrcOMtwu0bPCySryQWIYF0VF3DE7TaY/BB
+         GhciA7WlkLz7Tt9UkAthfT6hnzkZhXBNdicfjpv1hYSE37S5SdNZ9bsvPWPggmPMTyoD
+         oZsg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
-        fh=Bna1NIaMddkBtiiHsZyLtKu0zLVqk6Y/dF5DHFFILcc=;
-        b=sqpLxk93bqTE2/ph3zYVf0UoH/eAYd4G1+/a4wkAPGNcqVAhl3jtkqyLFSDCPPklph
-         5Crh7qTeZFHTyBvgoszKljogParo/V7qp7M60mPoB7pLu505tTA+ttb4TEhUNI7yyXgB
-         zgEWaazh2Rj9wMFqj3msoANwvbHxasQGVmP3sNmFzhcKJ6LZMAnAYYPthCmV/l86xzIX
-         2n1vj9uJnNYQ1x1WGOq7+eQXZM+8LE6TRKzQtxQA+ADmV/WhF8m89q4fHdOIdr7s6JEm
-         HosCMl6L/GRMxIejqgc8pgoWxfnmTAhjFyK6tMk1sYUKDBUEHVUgHUg4jFf5bpPE18eD
-         H25g==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        fh=M9xZU3JxhNoYAng4XvYVTk3pwhdt0hbz5kkDHlHDXjY=;
+        b=HlIvg6JbfVT+v56d731ty9CEEul2d0zkNehTAQr9UWlDE6EFieM+R7B18fuWmKkyUy
+         zmfrzmpVLkcPEFBqqneG1Sly5L2nspJwNT2TmIXJ9u74JrmsiXg0u2NB4Q50scBfyUMr
+         kcC0JV3xbJPKloQFC4lNI7QV33shTIbAOoXO0KZayOnRs2KUguRQDe5M3iEnX/gkpkrJ
+         xTbOPTjno3yh691KSwVhfJcM1DolAD0Hl6Uao3WCIrafrqbEJBPp1SeGTbHuoZgB9kgk
+         mGTuebuUgf837TE5d90Ig0spzgItNJ6TwCx152r2QBj2caP7ewmYHRWIqFIFkggUGoRE
+         8mMQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1786546935; x=1787151735; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
-        b=vFsTbeWmT20H1Il3YQ0XWizui8UFdv2WwgedM2qieXWbIuTCtzgjrL6oNEhBsuIzrW
-         sSVIX7zn2leQi9N7uE4eWOrln3hyM4BM519t82pztbAyTnD0W1nsn2+9SryTvDfX+xZA
-         h7sIv8O44gx0yWyL60E9NpNQG2ZONQfstyEAd5z3Le/nQcuruRfXVaL5u6vuA+cZXa9F
-         2KEGAc3UryGbBNLZJWsjPUJGjrlWiX0/ftGXqNiD4d+4yO4IxOqgbZdx2blwRjUBG4GJ
-         1ECiBRojNWx5XT7I0puQMWob+ZYgSDnY68Mp8heCNtmEiCsFbAb2mYnRqPRox09aMOus
-         WLoQ==
+        d=linaro.org; s=google; t=1786548436; x=1787153236; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        b=MuE9lDq4eU/VmDmnJ0bdER+wcAXpqzUL9FpQFQFw8ysphFxuWvXkt6ouCcNepWpmIi
+         Hwp5S4eOH+U2E34qrxvHwOiYQ/aFVgvmnEOoDOywKLDpbJ1EmBz8HtOwUlq05v07c0EB
+         7yJeTC5vSRJCLulUdZuaQVh8Of8LPr6dwk3Ca0D/fJDrWmvUm/VMgsCWyBVVOS6bZoVc
+         LYvCemx9m7N5vs5dvziRKE3Ctm2pu8dcNnVsVeLiDmqmeFnudiwYpsnKXNnnSFu/th8a
+         7pWmh1GregKJwByIXvrRVsD1iakbnBJxxGMjbIAfVMMGC09cADuF5spUQXinBM/mAaZr
+         +qJQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786546935; x=1787151735;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=q5uEzbGEkmct8ZKXCwDqoN9egKEIy/PFu90SVjOVj20=;
-        b=jpWg9NO0kb2Zl9/+9/925mZ5W6XtYuFWjQDW3PaZAbzVmfCry7hI5Exo3Ew/jpuica
-         byxhH80uqn/QTf+8DcKvukIGTIXs0IvgDZKrWJ+RHRq6/6cEgSSfy5SJA6F0iiGbIAbd
-         e1at5Kc7DsS5JKC0IAOEpdcHNhlIEB5EbTIoKUp6VWLgY4dqn2L1XzNqkB+DYv3LtVpz
-         j8ElTImB2esjMIx90W2AzlmnwsYM9Sak03jmcCntUGieI5El3umHzXNFrT2AYyWgtQ8R
-         hn6+zM5P1LmZXJTKPZdV/KByBWPpgGqRWLh9WUQ0D2YSPeh2T16gTiio/xrADqT/Ip+z
-         L/wg==
-X-Forwarded-Encrypted: i=1; AHgh+RpqurQ3kRGc/MBisiyVyNAvWcx0CBCji2BHlpR/wrVczJYHBY6iC97TjAru9jL1zuHp7eSxTPBO/+nWBg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YyLsBRuejqni4h86lmdf4dyG8jyjShAUG6KeeLZW1OSjcyaEBJg
-	Mc6eaBIPT2JWkaemG/yzJiXBEwH9TKw0S+z/2WRDKo7auznhzT5NRUfOV4v3vabEJs+zTDMsVqh
-	b1jRhdDL2XfAHWVZ3hePFwr+yhWwElnXY5BOUWIzllw==
-X-Gm-Gg: AR+sD13czxzya5wCusZaDU7vArV4JJUdy+BkYvq/Prvdx69Hzbs6sELha5d6oLBAsgU
-	TLyb+B3LSwW9EqzNb5Xg5MZl/KLLiu93fMzIkcx32JFzwAEBEBRra/Jtyf8fhzl1WBp1915c41A
-	9SdNb2o8KXY+3/EuEFOAqvGoNaBa7xjf20m6qxEj/46p6/1v67MITRrv/en1SLd56N3yKx8J+p0
-	KH9N/T0VzpMGFX7Rj0KuRL2EBZjzuMpVkKOz0i2Ix8YXO/P+++7DB5Wd69b/tbWq605F4MujQA3
-	iHF34ebAMtMheu/qH4mAMnqiY/5ExJ9kbsXecxtxCdcAFd1LORE2bX/A358Y/brKB8EpsTlC5Q=
+        d=1e100.net; s=20251104; t=1786548436; x=1787153236;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9HQw24hdIiiBy71zEiY+V8zJ9GZN0hXXJxvtzQE5bgc=;
+        b=ZF1GE4dtUXAa87+PoL5JnXkM5iIfslE5h0MMI7UtFDBVE+V0c42qckH3Q/fvOuN4gt
+         4u6ZMwMtm7UCnZjsIPsBLUasS8CbiU3LnTegH8ie+Cx1L5SSkhXBw/APTI57OcdYjPXe
+         n6QdPkyFxBvwqmpUnoYN3WqzsKTCl2nZZ+tfuVDYUOloYMYRrLnYzFQALcJHy8rBbI32
+         nrkloF/Q/zpxVbAbtKz7SeMXIYGIQD3quNH94fzleOJ2slo4eoZd0JWQEjBeOgXVxpMQ
+         Z7ilVyTtq1qdmG8gKKu1svKeuB+8AVgw0XZyt0a3XI0Xr+OcKLcqbFL/XjE/Ozg1YWWH
+         8ulg==
+X-Forwarded-Encrypted: i=1; AHgh+RqhYNprqnx2G+p8BHPyWzXjUp+Tk7hQY1o5DnI/GkPHdQgw9OJIL0H7FDwX8zQGsO1sp/nH0HF0ka6zag==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCC5l1SBWkXro3CJH4l16QYFpu5dzwj9c8nD6v/BJUuWNEYQfd
+	I6A/l+4XKZcX0OVRap8/+4vnfsbudXYC22xbLuMu9FrK3xazAzkJhVLEjbGzhBtHCf34HL+LZA2
+	5Xwd2TdsHZZgnv88SlZ6rLxO6g8aXpCwA/gltkukjoA==
+X-Gm-Gg: AR+sD118few6L7j0p3uuFMs1jpgIKvUe+8gs6vzBU6U9aZ58t7WpCjwMygzOg04wQc0
+	hCub7TVjEi/EzFA4c9zh6z/mAkpwiVca7ocMtY9zkloHM/UcYhF4lEl5i8gYkaqxo0VY2hjbTfv
+	aCrVrs55J73frhx2CtBKTcJ4Dg07prlUijjl8Z3iljcPIGSfoBIrvXrK41JdQW44k08PlJbjs35
+	RuQtA1olDIdbfzDsunkDf7L0YgIWnBTdw7gmTkMFZHWUDpjjF7HI6tMAxUytYQI0th/d5C/hRQQ
+	IsgqgQVvTfLU2Mcm8sEuvOp73o+xFbge6jsHWWY3ah7A8Bv0Tg8qOah8Opf9GLOnJUmxBlS2AA=
 	=
-X-Received: by 2002:a17:907:980b:b0:c12:9b98:209e with SMTP id
- a640c23a62f3a-c20f300e2c3mr249056166b.23.1786546934618; Wed, 12 Aug 2026
- 08:02:14 -0700 (PDT)
+X-Received: by 2002:a17:907:f816:b0:c20:2d38:e518 with SMTP id
+ a640c23a62f3a-c20f2e66a3bmr273702966b.2.1786548435676; Wed, 12 Aug 2026
+ 08:27:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260811204123.3198370-1-tjmercier@google.com>
-In-Reply-To: <20260811204123.3198370-1-tjmercier@google.com>
+References: <CABdmKX1-0bXdU_pWKrY3LR4JmOpxC48ka9akS8PHYDBnngFqWQ@mail.gmail.com>
+ <20260807101140.1357218-1-shoubaineng@gmail.com>
+In-Reply-To: <20260807101140.1357218-1-shoubaineng@gmail.com>
 From: Sumit Semwal <sumit.semwal@linaro.org>
-Date: Wed, 12 Aug 2026 20:32:02 +0530
-X-Gm-Features: AUfX_mxNO1BArOhzalHmBpnvLYxDFW9EBmuDhA91cv0HkIInUfoU4eE504H7mhY
-Message-ID: <CAO_48GEUhpyeenX8Vu1NoDnvzib5FGv3rOBYNYwQEWu1-6cjaQ@mail.gmail.com>
-Subject: Re: [PATCH] kselftests: dmabuf-heaps: Open heap device files O_RDONLY
-To: "T.J. Mercier" <tjmercier@google.com>
-Cc: benjamin.gaignard@collabora.com, Brian.Starkey@arm.com, jstultz@google.com, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linaro-mm-sig@lists.linaro.org, christian.koenig@amd.com, shuah@kernel.org, 
-	linux-kselftest@vger.kernel.org, linux-kernel@vger.kernel.org
+Date: Wed, 12 Aug 2026 20:57:03 +0530
+X-Gm-Features: AUfX_mxKHc0XJq4SFZbCVvYoj4A8ln1CqD7e7dKrGyTLzT3rZmWFByVVhkPNP5I
+Message-ID: <CAO_48GHc2TQJ9baa+EYst5vR0qUYvRVj=r8F9hxMLpySWE5+QA@mail.gmail.com>
+Subject: Re: [PATCH v6 0/4] dma-buf: fix fd leak when copy_to_user() fails
+ after fd_install()
+To: Baineng Shou <shoubaineng@gmail.com>
+Cc: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+	"T . J . Mercier" <tjmercier@google.com>, Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
+	Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>, 
+	Sandeep Patil <sspatil@android.com>, "Andrew F . Davis" <afd@ti.com>, Srinivas Kandagatla <srini@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, stable@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, linux-media@vger.kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello T J,
+Hello Baineng,
 
-On Wed, 12 Aug 2026 at 02:11, T.J. Mercier <tjmercier@google.com> wrote:
+On Fri, 7 Aug 2026 at 15:41, Baineng Shou <shoubaineng@gmail.com> wrote:
 >
-> Write permissions on the /dev/dma_heap/* device files are not required
-> to issue ioctls and allocate dmabufs. Applications should be opening
-> these file as O_RDONLY. The BPF dmabuf_iter selftest already does
-> this. [1]
+> Several drivers call dma_buf_fd() =E2=80=94 which internally calls fd_ins=
+tall()
+> =E2=80=94 before copy_to_user() returns the fd number to userspace.  If
+> copy_to_user() fails, the fd is already published in the caller's fd
+> table but the ioctl returns an error, so userspace never learns the fd
+> number.  Worse, the window between fd_install() and copy_to_user()
+> allows other threads to observe and manipulate the fd (dup, close,
+> SCM_RIGHTS), making any "close it on the failure path" fix unsafe.
 >
-> Users are pointing to these selftests as examples of how use dmabuf,
-> and encountering permission errors on systems where write permissions
-> are not available on /dev/dma_heap/*. Apply the principle of least
-> privilege to selftests which open dmabuf heaps by removing the write
-> access mode and using O_RDONLY for the open() instead.
+> The fix is to split the allocation into three steps: reserve an fd with
+> get_unused_fd_flags() (not yet visible to other threads), do
+> copy_to_user(), and only then publish the fd with fd_install() via the
+> new dma_buf_fd_install() helper.  On copy_to_user() failure,
+> put_unused_fd() + dma_buf_put() cleanly unwind with no user-visible
+> side effects.
+>
+> Patch 1 introduces dma_buf_fd_install() in dma-buf.c (wrapping
+> fd_install() together with the DMA_BUF_TRACE call to preserve export
+> tracing) and applies the fix to dma-heap.
+>
+> Patch 2 applies the same fix to fastrpc, which even had a comment
+> acknowledging the problem could not be fixed before.
+>
+> Patch 3 replaces the bare fd_install() in drm_gem_prime_handle_to_fd()
+> with dma_buf_fd_install() to restore tracepoint coverage for DRM PRIME
+> exports (suggested by Christian K=C3=B6nig).
+>
+> Patch 4 adds a selftest to tools/testing/selftests/dmabuf-heaps/ that
+> reproduces the fd-leak scenario (mprotect flip before the ioctl) and
+> verifies the fd count is unchanged after a failed ioctl (suggested by
+> Sumit Semwal).
 
-Thanks for the patch.
->
-> The same is true for the vgem test using /dev/dri/card.
->
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/tools/testing/selftests/bpf/prog_tests/dmabuf_iter.c?h=v7.1#n49
->
-> Signed-off-by: T.J. Mercier <tjmercier@google.com>
+Thank you for the series - please feel free to add my
+
 Acked-by: Sumit Semwal <sumit.semwal@linaro.org>
-> ---
->  tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
+
 >
-> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> index fc9694fc4e89..45b420e37c97 100644
-> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> @@ -48,7 +48,7 @@ static int open_vgem(void)
+> v1: https://lore.kernel.org/dri-devel/20260703080922.1838362-1-shoubainen=
+g@gmail.com/
+> v2: https://lore.kernel.org/dri-devel/20260710105430.3059661-1-shoubainen=
+g@gmail.com/
+> v3: https://lore.kernel.org/dri-devel/20260714114654.3885457-1-shoubainen=
+g@gmail.com/
 >
->                 snprintf(name, 80, "%s%u", drmstr, i);
+> Changes in v6:
+>  - Rework the selftest (patch 4) per review: extract a count_open_fds()
+>    helper, fix the copy_from_user() comment, fail (not skip) when the
+>    ioctl does not return -1, drop the bogus mprotect-race mention, and
+>    reword the result message.
 >
-> -               fd = open(name, O_RDWR);
-> +               fd = open(name, O_RDONLY);
->                 if (fd < 0)
->                         continue;
+> Changes in v5:
+>  - Add selftest (patch 4) reproducing the fd-leak scenario (Sumit Semwal)
 >
-> @@ -96,7 +96,7 @@ static int dmabuf_heap_open(char *name)
->         if (ret < 0)
->                 ksft_exit_fail_msg("snprintf failed! %d\n", ret);
+> Changes in v4:
+>  - Add patch 3: drm/prime: use dma_buf_fd_install() (Christian K=C3=B6nig=
+)
+>  - Add Acked-by: Christian K=C3=B6nig to patches 1 and 2
 >
-> -       fd = open(buf, O_RDWR);
-> +       fd = open(buf, O_RDONLY);
->         if (fd < 0)
->                 ksft_exit_fail_msg("open %s failed: %s\n", buf, strerror(errno));
+> Changes in v3:
+>  - Split into two patches (dma-heap + fastrpc separately)
+>  - Add dma_buf_fd_install() to preserve trace_dma_buf_fd tracepoint
+>  - Add fastrpc fix using the new helper (T.J. Mercier)
 >
+> Baineng Shou (4):
+>   dma-buf: dma-heap: don't publish fd before copy_to_user() succeeds
+>   misc: fastrpc: don't publish fd before copy_to_user() succeeds
+>   drm/prime: use dma_buf_fd_install() to preserve export tracing
+>   selftests: dmabuf-heaps: add fd-leak-on-EFAULT regression test
 >
-> base-commit: 9a11db68872055e6ead919bad04d6330851c522d
+>  drivers/dma-buf/dma-buf.c                     |  20 ++++
+>  drivers/dma-buf/dma-heap.c                    |  80 ++++++-------
+>  drivers/gpu/drm/drm_prime.c                   |   2 +-
+>  drivers/misc/fastrpc.c                        |  16 +--
+>  include/linux/dma-buf.h                       |   1 +
+>  .../selftests/dmabuf-heaps/dmabuf-heap.c      | 113 +++++++++++++++++-
+>  6 files changed, 180 insertions(+), 52 deletions(-)
+>
 > --
-> 2.55.0.679.g6767b8d81c-goog
+> 2.34.1
 >
+
+Best,
+Sumit.
