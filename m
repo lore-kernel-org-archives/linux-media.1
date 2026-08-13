@@ -1,99 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347C4451985;
-	Thu, 13 Aug 2026 09:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82BD5334C05;
+	Thu, 13 Aug 2026 10:13:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786614289; cv=none; b=sSGsEsVEi1e0YwyikqDNZwAF81jaVeY4uZfL8u107X6Nh+8yfxZLgpLzHxm0YFigZd96f6CEHdaU53PoaJRw3elnHrVt7g6RYqb9s2yc5ThlmPDtiLAGhZnSutg7uUVrzu1X5tTsaSF9u+jVTUDpPB6WzV1g90bVr5RCeZZQ+TI=
+	t=1786616001; cv=none; b=Vye247pHSXDNlBDvMSmLx4eBmpx/ptdNK0EDyIY/KPdG+AsdRTA1yJYLSgVSUdal+0LWcpVbLAe7ZZ5YuMb9RPmVhAfemaYFBRHsCCiMxy3HbewiQ4xuA4DcZdsMhRsuFdO+/2Kwa5pcRelooq+Dll3cKlOxel/QPMGJMZ2mYmc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786614289; c=relaxed/simple;
-	bh=rvY7e9bR8LvFPSgPMw4iRngEmcMGm8uqxFiy9fDTdzk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oLcI5CTXiWlt9Rl+52KMK386hbncTp4Z8EA72elCcSjxZiw7XMlkmz++fojTiOXi3MWiZ91OUfEnmsiKU/6zxFmab/5n3ay1KNeZPcWGbrlJjnhqtMLXw1MREktFjvN5JSJW19VwkgMaUtiwSZp0COADZivZRxlPEjsTIGLhHSg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=awllfWYx; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1786616001; c=relaxed/simple;
+	bh=0qDx8+dwcPppO915k5epXPi+XGtCM8B1sEtg2mSfqY4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=n7koZuhlNswz6S7GiVXa9Dh1Yb78MaAXqMgxzeaFCC71FJgh6quHhXXf9cgvVknCiV/9U7TImSZPLH5bnp0JIQAhzd+EgIFNOgE2TvcyL51tESENWE/utRelOaQSajM3AjDGq0/6D7yitcYuv9mRDiwbSIYiZannTzl7jtm35E8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=A8oqBCr5; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="awllfWYx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786614286; x=1818150286;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=rvY7e9bR8LvFPSgPMw4iRngEmcMGm8uqxFiy9fDTdzk=;
-  b=awllfWYxGvpZkyQTHkLew56abRnjputGyZ2mUhGOdxm0GKDnK8B3FlEH
-   rO9lhT0JgWCmwmzhBnjZpUbP9RvMUDKu7SkXBx1PXb2KCVrW1ehqJJO8C
-   QUptVpYf91y8Ua14ydmNfDHWQx1y2FvPTXaKI8kysh7vk90aDLi5chN7n
-   WFE9a/hcv28fslzgUiIES+FQItPbMhtI4U4EhRUaSX61CmQRr+S4v72ib
-   i9p0xv14o8If3ZcnfIfTV8KDMkmDzx0jr0U2Sma17NWG7vR4W76lfMD7T
-   pkdaLpzfecd1Mg+lKI+Cs2WMQzQSVZVCo+XXmuY4EOVnDCI/9yYL7e59F
-   A==;
-X-CSE-ConnectionGUID: X9wKvkpqSp2nbR5RQJ9NyQ==
-X-CSE-MsgGUID: cmItymqfTbG0cZZbOaucGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11873"; a="97772241"
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="97772241"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 02:44:46 -0700
-X-CSE-ConnectionGUID: 2E6NsyLQRkaFuLHZaXtJLg==
-X-CSE-MsgGUID: PwK0xQQKS065M0ygD4rBUA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
-   d="scan'208";a="288683501"
-Received: from slindbla-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.250])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 02:44:43 -0700
-Date: Thu, 13 Aug 2026 12:44:40 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
-	dan.carpenter@linaro.org, andy@kernel.org,
-	sakari.ailus@linux.intel.com, linux-staging@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: media: atomisp: Use ARRAY_SIZE macro
-Message-ID: <an2SCK1slBHQNNB-@ashevche-desk.local>
-References: <an1vaFk4UrhQPkSu@stanley.mountain>
- <20260813075529.153217-1-rishab.madhugiri@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="A8oqBCr5"
+Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hLLlw341bzKwL3;
+	Thu, 13 Aug 2026 12:13:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1786615996; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WZRbCEJ1DrmBkK+k4bC9JHRBYf7jSP7KWeUNUIKAJ8M=;
+	b=A8oqBCr5PhGRKE7FWHo0Q7s+Rtqg3l+n9xG8inoflVzpnyFvx2sjiIFLs0bGcvtLOLc5Dc
+	Q1WXjCQ98Q68gIv4fHCYi9axeJdersnSCjhkDb4LZU5NGouqLEuZYeSueE89gZDMZi9UHG
+	t3pul0XGmlfcRIw0RjaUIqnfJCIbiWa37Ch88zYbgPKU3bydU5f/O6ryzNmc3VTA1wOzGe
+	2ii94lubAvxy83RrQQNf7AgnV4w9APGM2BQBR55bgMpq+502baztLJiXRSdSoESo4+pvsf
+	T2o2ywezfj1cOwRCkKHGbF3HGQpaRCSMDaxGlIk0RNc7ctH928RzCTxWJz5nAg==
+Message-ID: <ee5e9d04d45080b6d4189e9b6f5357d07cd77782.camel@mailbox.org>
+Subject: Re: [PATCH v2 2/2] drm/sched: Protect entity->last_scheduled with
+ spinlock
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Philipp Stanner <phasta@kernel.org>, Matthew Brost
+ <matthew.brost@intel.com>,  Danilo Krummrich	 <dakr@kernel.org>, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <ckoenig.leichtzumerken@gmail.com>, Maarten
+ Lankhorst	 <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>,  Thomas Zimmermann <tzimmermann@suse.de>, David
+ Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Sumit Semwal
+ <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org
+Date: Thu, 13 Aug 2026 12:13:10 +0200
+In-Reply-To: <20260813092510.2385962-6-phasta@kernel.org>
+References: <20260813092510.2385962-4-phasta@kernel.org>
+	 <20260813092510.2385962-6-phasta@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813075529.153217-1-rishab.madhugiri@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MBO-RS-META: zsbg87i5thrucb9gkyfzgo394uzbe3jy
+X-MBO-RS-ID: 635c47fe6de67341a7e
 
-On Thu, Aug 13, 2026 at 07:55:29AM +0000, Rishab Madhugiri wrote:
-> Clean up loop bound calculation by replacing sizeof(bds_factors) /
-> sizeof(struct bayer_ds_factor) with the ARRAY_SIZE() helper macro
-> to improve readability and maintainability.
-
-> v2: Move loop increment to the same line as the for statement as requested.
-
-This should go...
-
-> Signed-off-by: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-> ---
-
-...under here, so it won't be included into Git history.
-
-...
-
-> -	for (i = 0; i < sizeof(bds_factors) / sizeof(struct bayer_ds_factor);
-> -	     i++) {
-> +	for (i = 0; i < ARRAY_SIZE(bds_factors); i++) {
-
-While at it, also consider
-
-	for (unsigned int i = 0; i < ARRAY_SIZE(bds_factors); i++) {
-
-and dropping the above definition since i is not used outside of the loop.
-
--- 
-With Best Regards,
-Andy Shevchenko
+On Thu, 2026-08-13 at 11:25 +0200, Philipp Stanner wrote:
+>=20
+> +	drm_sched_rq_pop_entity(entity);
+> +	spin_unlock(&entity->lock);
+> =C2=A0
+> =C2=A0	spsc_queue_pop(&entity->job_queue);
+> =C2=A0
+> -	spin_lock(&entity->lock);
+> -	drm_sched_rq_pop_entity(entity);
+> -	spin_unlock(&entity->lock);
+> +	dma_fence_put(prev_last_scheduled);
 
 
+The relative order between these must not be changed. My bad.
+
+So unfortunately it looks as if at least locking spsc_queue here is
+necessary. I really wished someone could pick up our spsc_queue locking
+TODO.
+
+
+P.
