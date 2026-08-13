@@ -1,167 +1,133 @@
-Received: from mail-ed1-f52.google.com (mail-ed1-f52.google.com [209.85.208.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011046.outbound.protection.outlook.com [40.107.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 699C9435514
-	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 20:52:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786654382; cv=none; b=pZzc9aVZDPV0Zh7wmddKOqTQKwFxkKfq3QzWFYejn8Nd3JJWNgNMOq25vXPHQWXhcJW+d4BJXHCyUjmMu8n6BE/7kb8qiF6HBbwlabOAio1j+WMPMyO4Muz6IH5fv9hTQJ+SCvZyexm5LDEMhFvDg8Gvfl/WxBr7xIC6+ioPAMk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786654382; c=relaxed/simple;
-	bh=YvOvKR30cP/m0cVMtk8jy1/sQaWDyEAB2J7fRPzdSJg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=UTVPmUQbHksuiv0R4NTxBY19IeIDN6OBZjDhMFUQNUKxBY5tai7VM11ap2Y924Wn9IamezZul05lxqpQ1sTzFgT6hzJc1ahuGd1ooW40yggNq1lLekdPyis1JqmZywtOzOJ58TVskl+g0VJ+2VS23OjO+VIiW7wmuvkhbj2ivic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=bNUxsnaU; arc=none smtp.client-ip=209.85.208.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76344322E7;
+	Thu, 13 Aug 2026 21:02:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.46
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786654962; cv=fail; b=R3yVHR2xngbdkBV1IGsbv5VBtPgtjNwpy9ajI8HKTFkSkWGjxF03XIwZGi2dqFfes8Frr5Xcj5HNeR0YiZEaarvj9rNu4khuO7LloKOzQpH/0UZnzvbWhrKeHN3SVvZDyx7JKqsp4KuEIXWRmF9W0CDbBGnPg/DMTm1+T9k/1xo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786654962; c=relaxed/simple;
+	bh=0r/FKFDIBkBEjU8e4ulCxxtc2+1FAFwrFcxDD53RrVk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=tpDhJ1eGAsIaMB53QVrfHXywFrza0J7batPM7VTIrwUNbSwUqYV1T08PhP2GA1Lhm2/iZyulxdw7soqyf4Y/jYn+mJkDELXLSJmn5ZVxTcr0uLKDPlAIeW0Ck63R/r+yWWWy7+OOrucri4jYGAqDVs4mc+k4gH3q/1q82JSnBec=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=CKh4eK9K; arc=fail smtp.client-ip=40.107.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="bNUxsnaU"
-Received: by mail-ed1-f52.google.com with SMTP id 4fb4d7f45d1cf-698ae09e356so315267a12.2
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 13:52:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786654373; x=1787259173; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=QKG0huuOVMT2uJhSczfBBnWYxOx3sQqhXePb2p3rxzk=;
-        b=bNUxsnaUbVEh1Nyskk3NoJW5ik9oFsi3vYqH3aUCnpR0Uu+uBk7dESXFKJPuQ5AoZ8
-         F1Vl4bfW6ihn/AMpKpzk6o480S0gER2ViexuZAQT6njcz1a9D1jwDUlAkxxxBgrISFzl
-         n3CDCHFDMogb9EZQSw4kmiox1Pi+v0i/AuGts=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786654373; x=1787259173;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=QKG0huuOVMT2uJhSczfBBnWYxOx3sQqhXePb2p3rxzk=;
-        b=fYOhEQf2POfvzHYux4noCGxTc3dqabQrcP7iAQ7y0Eer/1N5CHxCXtyS+MyhKzAAFh
-         F7ymcmIFtfX9CAmJdWJBBbxGgl+wyF/z+Law5cYIeBZnNm4NcPymQ0pYoJh5m9pSWrQT
-         anJrGeJcs+H5RhOIr6jzdsV6onbAdeZjgHBer1m9bCWcRIjb2BLO1Wz9DLz9jWwwUqBc
-         5LQtFVl64u/Ozk+YhOd5Kc8LQdyjH1ubLWphXTzNxMVN97BqtJca/nopgGQRHKH8PO+5
-         r0EILOWkE/hUnqc3YvkrQRKMJnZWIsPI6/7x3GuAEE2uIriBngpcNaIvr/bJ4v3JI52M
-         wstQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrHBhfjOE0n0ccXGNcIwRW24M4ArZMjSgis5qp49eeTjoLX1h2vIgywbjBtdZAnYP8M9MH9oK4ZDdn/Pg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxwkY/jOtQXVEEl88a8d/eDaTgbp5zSm8wtMnonnh61Xr9L38qx
-	3ius6pZuwG/0cb+7JzF+AyaOjDOGKD1RPKoIZ8Aju84fJ1AdBox1xcVgkgfvMUMv5BBoHBkgZqp
-	ALS9EqA==
-X-Gm-Gg: AR+sD11NTxuDOE+oYkrImPXZWCubHGnEloT9a4diWOA3mmZylppzpYQQdS0MTg8E14r
-	TQ3abpO0jm8wmNTfts6WUq+nTO2eUgrqzyaDUmf6saoJi6rfGcNgS42rO0ZUsbzNHdbLGpvtGWC
-	yextS2aZ/JSjC057ZeUyp9SSBNlvLKUVacVJ1NB47QK3W1hKMmsSmXsl1Y9xaBaPh4zFBrF407K
-	XS6ZlQazJLlQhlgAlqXuDmpMe8gmYNQ9Ue9JqCD2HmZ85E36Y7xyHjOU3xjTxZ95M7zNJVzTxD4
-	cSoflogpPOllGIKMQ6odAM1oN7jtdbjJBo9n5nW/KxDsnVPr0w++A36BPuF5oP2kxeAz3oyMhE9
-	THoLgoqdRL/edpVb8DjBzrq/hcU0023kD7kv4U34BYp7YuqBUtAl3SDn14wbzcLiGs9YDH7E3lg
-	o8kRwtVk/OH5yneLf6/l/q4nLRv6vLSjCQyBy7MWix+dNxPLU7uIA2rdxvRsgQG45e/djoJj4rO
-	a3a3TAk9C07MVoOobw2CjS0Cw==
-X-Received: by 2002:a05:6402:52d6:b0:6a1:1e25:143e with SMTP id 4fb4d7f45d1cf-6a38a8bf3c2mr579785a12.3.1786654373248;
-        Thu, 13 Aug 2026 13:52:53 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a37f8a24e6sm1322624a12.19.2026.08.13.13.52.51
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 13 Aug 2026 13:52:52 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1f758014b8so36803466b.3
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 13:52:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RriODQcCcWT3Njs/E9cr8dx8xt2xsJz4dF8Q8YfoBB93BokUftxdhDf4ZaB9NS8/eHq1x/nfYGWcYSshQ==@vger.kernel.org
-X-Received: by 2002:a17:907:874f:b0:c21:167b:47f0 with SMTP id
- a640c23a62f3a-c2129a8508amr50889566b.2.1786654370710; Thu, 13 Aug 2026
- 13:52:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="CKh4eK9K"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=VZJ9x6+gf27kcKzcTLA4SCQBBOG3m82g9P4SXBNpLzjh4vqZU24zLRGC5106T5I9xRwPXGblQNYCDo81cHvpvchOEqgJi2+A+gvnX/1V/Uwh96Cu2Nn3rOfD1pdQvSpkKL1tTd48jrVrrU4fTE/8JAo59/mujpZecmtCx7tT8I6S8AQi1WZZmMpNSByD+TK39CfHwCzBVLAvjyUliDiltlvVH5vbVsHLvGgk6qBUzAN9noWLMwZDevoQ7m9vfBLZsYWBo0+Q/DxNYacRO4k6NtB2RKmheEBxGRHzULXqCMiX3RJ4MNXmJETH82xaZzHfDLkYkcqPOt5nohvymcvbHg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=NVnqbBE4wqikU6PFQ9OmS9gRKQjh/RFYL6OHqRlb+rg=;
+ b=LNZtYpDAa3w9SuBLyHGlA1KjXUWz1YVOvhnY63iBQLnQpf9mvGhKwXZhoowus3YttFppje8N2VuOQZ7y08utz+Wcqwxt+sEz2t2dpduwrLbhtcwdQsnh2YG11rvSyiy9ZGM5Ip37EoyMpxi4cOq9cabWTJVMvTvarbajeys2DHmoEWFxb6iESW+SfHksXVCf/e4yNG7I9IMxgdETKFklL9oIDXKFRaV1pAyl/34QOkVDlQsWRd7HnpAAxW40iuarX8P1dClBeLbviJG1E/OiJeaGGeM9N1+s3N0BEjTefUNw+BeJOVVbQqMLyVB6blYS7gXWaQN0OLucFLWMMjJ8FQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=NVnqbBE4wqikU6PFQ9OmS9gRKQjh/RFYL6OHqRlb+rg=;
+ b=CKh4eK9KH/vIceArcJgAhdTSYcSpmQndZ3TVpMNU/4NAkvtDedkWNZHcZMotYhSPaIBxHkC3KUvmzRnhLv4ZLPop345OChCqNTZZiLynEICY6QcxwDsemmqIEeXqW/aVWrtkOUP1yZQLKSEDw3E6WmjDI+dfu1PYC371dNwyKHU=
+Received: from DS7P220CA0044.NAMP220.PROD.OUTLOOK.COM (2603:10b6:8:224::30) by
+ BL1PR12MB5994.namprd12.prod.outlook.com (2603:10b6:208:39a::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.292.25; Thu, 13 Aug
+ 2026 21:02:29 +0000
+Received: from DS1PEPF00017099.namprd05.prod.outlook.com
+ (2603:10b6:8:224:cafe::18) by DS7P220CA0044.outlook.office365.com
+ (2603:10b6:8:224::30) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Thu,
+ 13 Aug 2026 21:02:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ DS1PEPF00017099.mail.protection.outlook.com (10.167.18.103) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 21:02:28 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
+ 2026 16:02:28 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Thu, 13 Aug 2026 16:02:27 -0500
+Message-ID: <9e7444c7-7a2a-5946-6197-86676de0cbb2@amd.com>
+Date: Thu, 13 Aug 2026 14:02:27 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
-In-Reply-To: <F0F008459FFA835D+20260813074632.2021311-1-raoxu@uniontech.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 13 Aug 2026 22:52:38 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsguGSgvEkWTCWVEctHFYN3teRXS07OczJfumWzVqv4Qw@mail.gmail.com>
-X-Gm-Features: AUfX_mxdIy5-HXGmurVL_I6Zb5p7z94joSTv9qPTZsylVv8sW9Fe3PFFjKqGIpQ
-Message-ID: <CANiDSCsguGSgvEkWTCWVEctHFYN3teRXS07OczJfumWzVqv4Qw@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: preserve status URB interval on resubmit
-To: raoxu <raoxu@uniontech.com>
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-
-Hi Xu
-
-Good catch :)
-
-On Thu, 13 Aug 2026 at 09:48, raoxu <raoxu@uniontech.com> wrote:
->
-> From: Xu Rao <raoxu@uniontech.com>
->
-> usb_fill_int_urb() takes an endpoint interval value and stores the
-> period expected by usb_submit_urb() in urb->interval. For high-speed
-> and SuperSpeed interrupt endpoints, it converts the logarithmic
-> descriptor encoding to the corresponding microframe period.
->
-> The UVC status URB is initialized once in uvc_status_init(), including
-> the UVC_QUIRK_STATUS_INTERVAL adjustment required by high-speed devices
-> that report bInterval using the old full-speed convention. The first
-> submission therefore carries the intended interval.
->
-> Both status resubmit paths, however, overwrite urb->interval with the
-> raw endpoint bInterval before submitting the same URB again. On
-> high-speed and SuperSpeed devices this mixes the descriptor encoding
-> with the already converted URB interval representation. For devices
-> using UVC_QUIRK_STATUS_INTERVAL it also deterministically discards the
-> quirk adjustment after the first status completion, making the
-> workaround effective only for the initial submission.
->
-> This has been easy to miss because the initial status submission is
-> correct, full-speed interrupt endpoints do not have the same
-> logarithmic encoding mismatch, and the status endpoint carries
-> relatively infrequent control and streaming notifications rather than
-> the video payload itself. The problem only appears after the status URB
-> has completed and is resubmitted, and the externally visible effect
-> also depends on how the host controller handles the resulting period.
->
-> Do not restore bInterval when resubmitting the status URB. Reuse the
-> interval established by usb_fill_int_urb() and usb_submit_urb(), which
-> also preserves the quirk-adjusted value. No additional state or
-> interval conversion is needed because the same URB is being reused.
->
-> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
-> Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-> Cc: stable@vger.kernel.org
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Xu Rao <raoxu@uniontech.com>
-> ---
->  drivers/media/usb/uvc/uvc_ctrl.c   | 1 -
->  drivers/media/usb/uvc/uvc_status.c | 1 -
->  2 files changed, 2 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index 3ca108b83f1d..6552f541aa0d 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2196,7 +2196,6 @@ static void uvc_ctrl_status_event_work(struct work_struct *work)
->                 return;
->
->         /* Resubmit the URB. */
-> -       w->urb->interval = dev->int_ep->desc.bInterval;
->         ret = usb_submit_urb(w->urb, GFP_KERNEL);
->         if (ret < 0)
->                 dev_err(&dev->intf->dev,
-> diff --git a/drivers/media/usb/uvc/uvc_status.c b/drivers/media/usb/uvc/uvc_status.c
-> index b632cf5e3fe9..680c6c7f4ad7 100644
-> --- a/drivers/media/usb/uvc/uvc_status.c
-> +++ b/drivers/media/usb/uvc/uvc_status.c
-> @@ -245,7 +245,6 @@ static void uvc_status_complete(struct urb *urb)
->         }
->
->         /* Resubmit the URB. */
-> -       urb->interval = dev->int_ep->desc.bInterval;
->         ret = usb_submit_urb(urb, GFP_ATOMIC);
->         if (ret < 0)
->                 dev_err(&dev->intf->dev,
-> --
-> 2.50.1
->
->
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Alex Deucher
+	<alexdeucher@gmail.com>, =?UTF-8?Q?Christian_K=c3=b6nig?=
+	<christian.koenig@amd.com>
+CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, "Sumit
+ Semwal" <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>, Sonal Santan
+	<sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
+	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>
+References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+ <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
+ <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
+ <CADnq5_OR5bFoFJoMoj9bc2_f47TunVnDFrmA_2tT+0k-DZk_jw@mail.gmail.com>
+ <20260813195059.149991-1-taimuraz@kaitmazov.com>
+ <CADnq5_PZxoBKqsg6i0eN-wkOBF3UrEZ2cVkMAtgzVD7Kv6ZSDA@mail.gmail.com>
+ <20260813201416.158728-1-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260813201416.158728-1-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS1PEPF00017099:EE_|BL1PR12MB5994:EE_
+X-MS-Office365-Filtering-Correlation-Id: d0539f4d-e167-46b3-325f-08def97e2ef9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|23010399003|376014|36860700016|5023799004|56012099006|10067099003|11063799006|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	PHWo+7DAqi0uccHU3XGrXr1sbh2AASG5omKTq0U2NXWdLQSXktKFj4r2F8ixj0iBpJOR8IgeA0cl6NTTAr6irczwhjHF3AZjNxgihn66cHK8EKqesaeUjBqyq4b+DPhQTTSl1JyZguGJswrtfiblXzPdzbeG5BMYF3wcnzs+yiJBWmwa2uzOBnxkmw6/X5Uyz0f/nnRE0UPKFz/PZEjW/uF6Hf/d0qm0I0iUfErWYXoSy/+O2NEtJIcHsjDfbrmigkKvYyl//9gbkwqkCJ8KHOSqqouYdZjPHDneD/ObM/OJCzmq1WEg3Yewb6zfq5cEpF14T41uVvpzoLwqYJPziABtF4I4rMmdO3jXgYDHTmyEToaCpByW+La++v1QWd40UpkTN3WMHorj2l2dYvjX8+Nhq5AIFrrC5Vhk76jRy1Eqc2TCrCCgk57zwg5Nw5YUnkfQWuU7GlECD6OjxgLehLNlWyYmyMLmHpOTbw0M8gW5xxs8ZKWt9FjNtcZKweDmyo92ixt9OkLTvlQFt6YgWnTBvn7OQTOZp1GawY49g/3dWtN1njVORu/0bUTIJ3vL3c6Xtp3Jz/OeiezwOw3ktXrsu2zNHpHr+ZWzK/q8/+F6xKsEczfsbUSjasLMDoYrB2q7nCB5aUkUz2z8VrSR3QySTeNUUeZLKxzC3+45cqPi3cpEXB4bBqmCbKPDtcUZyyis127k4PmiR199llod8Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(23010399003)(376014)(36860700016)(5023799004)(56012099006)(10067099003)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	yOOdfDR7BYJhSxZuZsUJJK0toZZVTaRq6thU+szkA4RGMuKBIa8F/ohdzbLiT7sGZ4L1m6Lpb+DoP8RO653sVCiEfp/17Ni0b2DZWIxXrMiZF62pX5wdIySB7dFuYUSL0lDs6Z427alVtml3HgVZmfklrLwiTEpasxmpCv8Pdy/BLqN2H/hLUv2a9Vmkq/mOLDfL06uTlmygjZG3EZiSjDNuU9E39jIIcdJ94FPKl61nYBF8oHMmnm9bqa6zytbKhDFCbrTtkVMVY6JcVQElGZhW46ti481hBsKU5KVmoHSVJnDbADtvSae0qr/XmNgjcb1kLi9C6ZPGmKT9CVgCQ2vC5rx3oiPJn1LAtgKvM46nl87JYYivLmlIDqlBWjgXKwb8M95yGfaQ0bEhzng18NE3e1sTT/cRpoZgviN7gCW1PoAccfriyx5Y2trjM6Lm
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 21:02:28.2028
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d0539f4d-e167-46b3-325f-08def97e2ef9
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS1PEPF00017099.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5994
 
 
--- 
-Ricardo Ribalda
+On 8/13/26 13:14, Taimuraz Kaitmazov wrote:
+> On 8/13/26 23:06, Alex Deucher wrote:
+>> I wonder if there is some device config option to enable snooped vs.
+>> non-snooped DMAs?
+> I tried the PCIe one. Clearing Enable No Snoop in DevCtl, with lspci then showing NoSnoop-, changes nothing: same 20 out of 20 stale both ways. So the array either isn't carrying the attribute or isn't looking at it.
+
+Yes. It is known that the legacy hardware has problem to support snoop. 
+In your case, the XRT's buffer::sync() could be used.
+
+Lizhi
+
+>
+> Taimuraz
+>
+>
