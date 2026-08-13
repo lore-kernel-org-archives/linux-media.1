@@ -1,174 +1,139 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013071.outbound.protection.outlook.com [40.93.196.71])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1691F3254A0;
-	Thu, 13 Aug 2026 19:02:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.71
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786647734; cv=fail; b=hKb2+85Y9Bl0yjNQ+s7yYYiavaOcfu/rLarsmfer1xtuzRHujPyj7PDzDDEOxkhbOVU3TUsEEd780QvprCfA4FSeAvILr//hWBIXEJ1/btL0ZonhfHOw3XYFmA9fqGUZ2dUtrjW/YAZhxvQI1cb6gHxuChr6Egx/iLpkfrBl8nU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786647734; c=relaxed/simple;
-	bh=aFxM/6qS/kEBfGC65lMMViPo/igwSh2G7GXeVdI3Jjo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=jJ9Oof3o+ZIQx88caSMcfxhUopOoyxR2/h/3fhV8tKP9y23uH3VCxd6YDTzOE3kzAzePlrZJ2b1RaGJes3r5qndB8KR3YZHZBQSdPS1YqG4R5+f0VGFynhFhx/HqtaoestPK0mpe1ZGQPFacD5gyL0RLgMQCfO6oWmRaS9Zx1Fk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=uRI+sTPc; arc=fail smtp.client-ip=40.93.196.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A713B14D2;
+	Thu, 13 Aug 2026 19:10:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786648210; cv=none; b=CebCxac4R0Hqfn/W484o6QAuepD4cV+2J5AfaNkaRPPwsP9xXnzJ6WFlvZ2Kv49WHxc5ZNdwCG9p36KOPN+i3QInDTAB7I0ZL03QxgC5RU7zAqLR8xBQkRuJSBx0IgKzR2vaWKkCb18LY1xY7a/d/q7HlyKdsuV37JyB+aCyfB8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786648210; c=relaxed/simple;
+	bh=gWxgPdOFICTOnswLeOTRw2haQDIn2SOw2YLCySUySWw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HGHkBkNwDuaeiMVM1/a5J/MzaQxe+8rSpM2AkZ9V2bJzOfDbJsNVjz0Od0NsR0CmahcUERDeifTrfaBOrBcmJv2idNI3Xj0Nze0KAqtB3BlbwNj+desK5PSBZvERqsJz09GmN6LG4U/5mIvqiBQwBgLzYLicAncq4JcdNhqZ9x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bpuw3Yc1; arc=none smtp.client-ip=198.175.65.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="uRI+sTPc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=g7DxFucLoeBhtwyrrOfNGZN/FwyI15+XUSrDNpqnCJoBeq0ju13tU1lFOe/DGEmu+/HDV2yfdGkCKt2em/WN8bvj9+Pptr4zctRSzAbgdyvKbX8Lq/yjHlhRV5Lm4qmybsWzHEbUE75VUgsHfwMLTvc0ACVGQDCdV8DCawtFtikDC7/X7Kdk+XR7oHrqPA9h4xv5MMRoT+7c6sZ21ZzJeg89O1EPD0evzsbql14T2zncA6MSooq4t6+NvDki5hFDcSCTLq+lLCVPv20jUm+2z6fXgHwd/SPrbexRkque3Tuz0su41X+BM+F4PuBSgJsm5HcSIkAo5YVT1qRXPlKzUw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=OJABstt1Jx6xgKcBx6/rMvi66BgkmaDg/ELHCUtriaM=;
- b=ivBGE9ATvBYRzpM2gwRa+Gj+ufA0vRjnQltH+aC2YvPAf5mHAB2YjBWbKsLiaPGJUjUv98xfVDNTQ0BhS4j4I4mjMAhwKpO9tB8tt5gJNgzeVcrQk4zAuUNuxNcFx2u9qj3gU49MvhOzkGHXjEt4dmjcfYXxy5prHdJEpWn2fmO2gRsQ+NWBWdnSOozIZOQXeYr8jof0iOLstWXrK4f1qAS0CdvZIZMGSleG+lFhV+I1OBCtoEJhOC32tg8NCfUbIsl6R8vqYzbDNQopAT6MIOFfvajFRrl9BiVrj3qe63IJXs+0LclBvtZCRdbu5C+jXIRkRR/T+Er2CNHqXiL/PQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=OJABstt1Jx6xgKcBx6/rMvi66BgkmaDg/ELHCUtriaM=;
- b=uRI+sTPc+MLb+LCe74pqypg07udiZHWLRn18NO8r6V6LvUbl4Hiuw6Ztd6REmPY08Bb3ScT7ZEHC+kcVj1Cn3Krbj5+Df5Sqb7oNIzP/MJBSzHLmrPlusrUP5fwczGgIEjEyv+PO1HD1Ls2n7BkF5FqTwncqpHtxL+NMoCQ9t/4=
-Received: from CH0PR03CA0107.namprd03.prod.outlook.com (2603:10b6:610:cd::22)
- by SJ1PR12MB6074.namprd12.prod.outlook.com (2603:10b6:a03:45f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
- 2026 19:02:01 +0000
-Received: from MN1PEPF0000ECD4.namprd02.prod.outlook.com
- (2603:10b6:610:cd:cafe::2) by CH0PR03CA0107.outlook.office365.com
- (2603:10b6:610:cd::22) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.15 via Frontend Transport; Thu,
- 13 Aug 2026 19:02:01 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- MN1PEPF0000ECD4.mail.protection.outlook.com (10.167.242.132) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 19:02:00 +0000
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
- 2026 14:02:00 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Thu, 13 Aug 2026 14:01:59 -0500
-Message-ID: <a218d2e7-62cc-23e0-386f-8b6e2a5c2297@amd.com>
-Date: Thu, 13 Aug 2026 12:01:54 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bpuw3Yc1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786648209; x=1818184209;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gWxgPdOFICTOnswLeOTRw2haQDIn2SOw2YLCySUySWw=;
+  b=bpuw3Yc1xeDstVIx65b6vB3sBqiTDzud5e1cEzrCkpdxptkSRXebMStZ
+   JUM1wUeWpAxm2UMaSBvcX5NTp92B0J/OzxWjLUzT/Qk9aTGnlSr4jfuCc
+   uH7fVUVQ80dQO0B1ckNH9fotta7aE2IgoMB/slvmSkkCyrQJv46H09xuR
+   5x7z/TQQROgIT31jd2i39gAmke6C1H5LvVIGiyG7GVXU32cLcsQ3qKS0m
+   FcpUOsE7i9CWIg0y8y6HLEP3N4xOkaAHV+PsbESnP30bj0JvX0HE5sYez
+   A7LS405KYtSdKCLyK99tEcovXYVcbZm03h8oRJNutjXbF0y7jDT1TI+D/
+   w==;
+X-CSE-ConnectionGUID: 1XnbXKAARr6ZPJiHrmkCrg==
+X-CSE-MsgGUID: JdwY9uCbTsiQu/6/sMIw5w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11874"; a="90908360"
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
+   d="scan'208";a="90908360"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Aug 2026 12:10:09 -0700
+X-CSE-ConnectionGUID: AhQgDMt/QdqBysArdk5JEw==
+X-CSE-MsgGUID: omL7kmDLTLKcn7Ct55Xm1Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,221,1779174000"; 
+   d="scan'208";a="269212724"
+Received: from lkp-server01.sh.intel.com (HELO 6eda058d650d) ([10.239.97.150])
+  by fmviesa005.fm.intel.com with ESMTP; 13 Aug 2026 12:10:05 -0700
+Received: from kbuild by 6eda058d650d with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wuaoU-00000000WHu-3ocs;
+	Thu, 13 Aug 2026 19:10:02 +0000
+Date: Fri, 14 Aug 2026 03:09:57 +0800
+From: kernel test robot <lkp@intel.com>
+To: Brandon Brnich <b-brnich@ti.com>, devarsht@ti.com, mchehab@kernel.org,
+	hverkuil@kernel.org, benjamin.gaignard@collabora.com,
+	sebastian.fricke@collabora.com
+Cc: oe-kbuild-all@lists.linux.dev, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, b-brnich@ti.com, k-willis@ti.com
+Subject: Re: [PATCH] media: imagination: e5010: Enable autosuspend for
+ runtime PM
+Message-ID: <202608140323.qyc8mKlp-lkp@intel.com>
+References: <20260722210845.723864-1-b-brnich@ti.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
-Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>,
-	=?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>, Sonal Santan
-	<sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>
-References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
- <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
- <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
- <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
- <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
- <20260813182905.124248-1-taimuraz@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260813182905.124248-1-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD4:EE_|SJ1PR12MB6074:EE_
-X-MS-Office365-Filtering-Correlation-Id: 039553e5-cf0b-4dae-b0ed-08def96d5b0f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|36860700016|376014|1800799024|82310400026|10067099003|4143699003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	X/AEsOE4Wevh2X1Yv4cJTINoNeJlzPM1mznmspFPN7joVlW/dec9bxfeNpRLSE0puxr0XLC3wf1biwqpozd71KfdmMAg/zVRaTXwDxMAgM8FQwIwznhimetzzUXTEsrwihGzgzfnuDCCG9Xi6MdE5mXYhupC0A5Bn7Z+rZVwgkRzjGeQhFAUiHQVaq6RRqdF5O57nhDtfzZizjr+sD73UaXGz/xJUoAdMWhPe6CdbUcnQJTOkJe4bAShijG69LZo/+k9P3KQFiUIVOlqiGcj8c2e98QI50/q/vp0lYHoxyFvXMh8lFP1bx38w5k2SbkKRURDSyO8LNQ5k0Dbl3Tljd6VYY52hcxFmC6Kj4w/xDirjM0c0HnNuV6XpL2zCMnoE/77XESBrq+lQqUtvh6FPJZxyZtHciAITkvwFr8jM1MRuZwd39j9oraTIROwbOhEcHa/tnThso/Bh74bNRZOzyM1PTJVrKNxY2tSj2Iyo2Uy0EuEFYIzaJHR3uHG6/0HTHJofsl5pe2HSqkjKkOH9ZpuqvYXJr2YFXup84r6FBwUpV5BLpsr8N6EGk+CXmK+JEc6K1aZRgChLNM1ayZIJoZ5Vu+UXgv//NRqkysgT3fqceJOyUQTXjRFVaAN7j5OM8A/UXWAOVrRRV9yivCMd8jIY/fYJ+/TnzA/a+UN7o8IqyYKhBee3JLFAtbYo9b4JNTLbLgMe553D8VX1YazYw==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(376014)(1800799024)(82310400026)(10067099003)(4143699003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	LbtQ/yQS7hY9Qoe6ahSgP7cFf/5JE0LhAzKsca3HRSIsL0kjpPioIuEfTx95hMv7VV695H6djZJbM95k7vxDj6rBax08JXNuqCwxuSKxgTlRL0KiigluEm/LzRNmmo5oJJ9s/qbC7R9oJoZv5GiLRRYF1IcM5hhVNQPB3Q9vgqzlcSYFwK8KcSyJORh6Mzhg77UBcYvawZL7iKU1KfXvEO8YzqZgy1whWSm0K5pUuZimFMA0hHNo4vIUWCagHJMK0SQ+U2DxGNMAfdfcx/gjJL5gDv9+Qg/NT8ka9wj6BrPEPWnHBSBp5GRoKr1OdY4qnif7S/Se6h57gIRhXhq54bw/y25NeY0Th37g/vh5frwcx4rQkC69LwRUfIcPdbHRnUtXjGgXcqyVGSxr+P6kjytq1Vvyoqw9ZP7g6Cwh59Q+NzpgkG+zPZ+iry6c+WwR
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 19:02:00.7331
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 039553e5-cf0b-4dae-b0ed-08def96d5b0f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000ECD4.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR12MB6074
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260722210845.723864-1-b-brnich@ti.com>
+
+Hi Brandon,
+
+kernel test robot noticed the following build warnings:
+
+[auto build test WARNING on linuxtv-media-pending/master]
+[also build test WARNING on linus/master v7.2-rc7 next-20260812]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Brandon-Brnich/media-imagination-e5010-Enable-autosuspend-for-runtime-PM/20260813-213716
+base:   https://git.linuxtv.org/media-ci/media-pending.git master
+patch link:    https://lore.kernel.org/r/20260722210845.723864-1-b-brnich%40ti.com
+patch subject: [PATCH] media: imagination: e5010: Enable autosuspend for runtime PM
+config: alpha-allmodconfig (https://download.01.org/0day-ci/archive/20260814/202608140323.qyc8mKlp-lkp@intel.com/config)
+compiler: alpha-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260814/202608140323.qyc8mKlp-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608140323.qyc8mKlp-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/media/platform/imagination/e5010-jpeg-enc.c:987:12: warning: 'e5010_init_device' defined but not used [-Wunused-function]
+     987 | static int e5010_init_device(struct e5010_dev *e5010)
+         |            ^~~~~~~~~~~~~~~~~
 
 
-On 8/13/26 11:29, Taimuraz Kaitmazov wrote:
-> Resending: my earlier reply does not appear on the lists, so I assume it
-> did not reach you either.
->
-> On 8/13/26 20:08, Lizhi Hou wrote:
->> The legacy NPU device is not cache coherent. And the next generation
->> (aie4) devices will be cache coherent.
-> Confirming that with numbers, since I had measured it before your reply
-> landed. On npu4, without a flush the CPU reads what the buffer held
-> before the NPU wrote it, and the NPU reads what DRAM held before the CPU
-> wrote it. Both reproduce on all 20 runs, and the stale read is most of
-> the buffer, not a stray line: 3931 of 4096 values on average.
->
-> Good to know aie4 is coherent -- that makes anything we do here a
-> legacy-only concern.
->
-> On 8/13/26 09:44, Christian König wrote:
->> An alternative would be to use DMA_BUF_IOCTL_SYNC from userspace
-> Tried it against amdgpu, imported into amdxdna: stale on all 20 runs, no
-> better than no sync at all. SYNC_BO on the same buffer is clean on all
-> 20.
->
-> Which leaves me no legal way to import a buffer the CPU also reads. Is
-> there one I'm missing, or should a device like this just not import?
->
-> On 8/12/26 17:45, Lizhi Hou wrote:
->> we need to unconditionally return -EOPNOTSUPP for imported BO
-> is_import_bo() also covers ubuf and cbuf, so that stops maintaining our
-> own userptr and carve-out BOs too. They take that arm today: on a 64 MiB
-> userptr BO a 4 KiB sync and a full sync both cost 659 us, so the range
-> is already being ignored there.
+vim +/e5010_init_device +987 drivers/media/platform/imagination/e5010-jpeg-enc.c
 
-I am working on removing the dma-buf part for ubuf BO because that is 
-also not a good usage of dma-buf. So the ubuf will be a object soon. 
-cbuf is mainly for debug and is disabled by default.
+a1e2940458853d Devarsh Thakkar 2024-06-19   986  
+a1e2940458853d Devarsh Thakkar 2024-06-19  @987  static int e5010_init_device(struct e5010_dev *e5010)
+a1e2940458853d Devarsh Thakkar 2024-06-19   988  {
+a1e2940458853d Devarsh Thakkar 2024-06-19   989  	int ret = 0;
+a1e2940458853d Devarsh Thakkar 2024-06-19   990  
+a1e2940458853d Devarsh Thakkar 2024-06-19   991  	/*TODO: Set MMU in bypass mode until support for the same is added in driver*/
+a1e2940458853d Devarsh Thakkar 2024-06-19   992  	e5010_hw_bypass_mmu(e5010->mmu_base, 1);
+a1e2940458853d Devarsh Thakkar 2024-06-19   993  
+a1e2940458853d Devarsh Thakkar 2024-06-19   994  	if (e5010_hw_enable_auto_clock_gating(e5010->core_base, 1))
+a1e2940458853d Devarsh Thakkar 2024-06-19   995  		v4l2_warn(&e5010->v4l2_dev, "failed to enable auto clock gating\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19   996  
+a1e2940458853d Devarsh Thakkar 2024-06-19   997  	if (e5010_hw_enable_manual_clock_gating(e5010->core_base, 0))
+a1e2940458853d Devarsh Thakkar 2024-06-19   998  		v4l2_warn(&e5010->v4l2_dev, "failed to disable manual clock gating\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19   999  
+a1e2940458853d Devarsh Thakkar 2024-06-19  1000  	if (e5010_hw_enable_crc_check(e5010->core_base, 0))
+a1e2940458853d Devarsh Thakkar 2024-06-19  1001  		v4l2_warn(&e5010->v4l2_dev, "failed to disable CRC check\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19  1002  
+a1e2940458853d Devarsh Thakkar 2024-06-19  1003  	if (e5010_hw_enable_output_address_error_irq(e5010->core_base, 1))
+a1e2940458853d Devarsh Thakkar 2024-06-19  1004  		v4l2_err(&e5010->v4l2_dev, "failed to enable Output Address Error interrupts\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19  1005  
+a1e2940458853d Devarsh Thakkar 2024-06-19  1006  	ret = e5010_hw_set_input_source_to_memory(e5010->core_base, 1);
+a1e2940458853d Devarsh Thakkar 2024-06-19  1007  	if (ret) {
+a1e2940458853d Devarsh Thakkar 2024-06-19  1008  		v4l2_err(&e5010->v4l2_dev, "failed to set input source to memory\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19  1009  		return ret;
+a1e2940458853d Devarsh Thakkar 2024-06-19  1010  	}
+a1e2940458853d Devarsh Thakkar 2024-06-19  1011  
+a1e2940458853d Devarsh Thakkar 2024-06-19  1012  	ret = e5010_hw_enable_picture_done_irq(e5010->core_base, 1);
+a1e2940458853d Devarsh Thakkar 2024-06-19  1013  	if (ret)
+a1e2940458853d Devarsh Thakkar 2024-06-19  1014  		v4l2_err(&e5010->v4l2_dev, "failed to enable Picture Done interrupts\n");
+a1e2940458853d Devarsh Thakkar 2024-06-19  1015  
+a1e2940458853d Devarsh Thakkar 2024-06-19  1016  	return ret;
+a1e2940458853d Devarsh Thakkar 2024-06-19  1017  }
+a1e2940458853d Devarsh Thakkar 2024-06-19  1018  
 
-
-Lizhi
-
->
-> Keying on dma_buf->ops instead would confine it to foreign buffers.
-> Either is fine by me, tell me which you want.
->
-> Separately: XRT's buffer::sync() clflushes in userspace unless
-> Debug.force_driver_sync is set, so the stack does this to foreign
-> dma-bufs whatever the driver does. And when the ioctl is used, a
-> FROM_DEVICE sync returns -EINVAL after the flush has already run, out of
-> amdxdna_hwctx_sync_debug_bo() when the BO has no assigned hwctx. Happy
-> to send that as its own patch; the helper has one caller, so returning 0
-> there is the obvious shape unless you want it done elsewhere.
->
-> v3 is sent: patches 1, 3 and 4 only. Patch 5 is dropped, and 2 with it
-> since it only serves 5. I have not tested 5 on a matching tree and its
-> numbers came from the foreign import case.
->
-> Taimuraz
->
->
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
