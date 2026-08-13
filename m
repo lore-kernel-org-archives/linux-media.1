@@ -1,151 +1,134 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEB4032D0FC;
-	Thu, 13 Aug 2026 14:02:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033BE471252;
+	Thu, 13 Aug 2026 15:06:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786629750; cv=none; b=n/2S9pRBYoe3uWT4uJOB2vvQt5SZiV89Co2FwtVjfGhGa2uAxeJzO7V+GdOQJf0BhKFHZmj8Z2+uhcHW2XxcoyyDj4mElvmQwuGEqt0ZSBkYe+jDGMknIbEmOaoMJ7fJ6tJ5Sp6YFkvdBOuzXgGhMFKG3DUC3d0U2+6neNMEU00=
+	t=1786633569; cv=none; b=P28r+ZgGm8DflVNQgRi9KuG+BCOQaIl25zjnEQA006BM/SiNiXdQfJvqHxX/yxKtinJ89ICX1BgrjRKMzsghfcV/EfANroo4Sg83XNh3odds2aRZ4H3NQTHhkgQS1tuYywd5VDEbUKv+r1SjOvVu9z7ePPz5Qjh+wir+JmiHNi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786629750; c=relaxed/simple;
-	bh=vbKfBch/UEEFFguO+x8EG2UHHMgwwOY2dQPtAJhBb9c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gdo1V4Ppmf882yK9PkMcx0nbezTAJ+DjJ3TLJWYuQQt10d3QLeTQVTTtLU3MjvcZf/O4NTAxxtS6hGa48jqPjOm/9jB77GUjT5jWd4LNX3wlOfulikZpmSZBgpRs4Ca/0JiMH4ELRo/lebyyNPXOqoUL6UFK2FMpYXw7gWbdOCc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=l0LXSmRg; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="l0LXSmRg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1786629740; bh=vbKfBch/UEEFFguO+x8EG2UHHMgwwOY2dQPtAJhBb9c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=l0LXSmRgLt8DhA65tPanpkIl8ch92js75Txwz3aosDrkPmyPOFeFCBTcb2V9lfKxS
-	 1jgb/OMCQxjUMY/MeSz5hSEveImHV3jADQ5b8gsAISl7CEWHbzAcy6UDVMGMnijqyX
-	 pWLyLX/og0vNPP1rxdu4DA5W4Gt6ijp3LBrPu17d7cnomVFdSb9o0iAI3gryx6gQG2
-	 9MyyOllluZ5A39zxLFr8N468Krfh6dgj3Q5nBsniFZj7cIZa+ppdS9fmYoZ7O625V0
-	 Udj2QECvNCnR7OD5US2qNzGn+aclpRcsEtTpxMNnWkW+YaijkhQbWaTLWwsiryt7A7
-	 xt3ERXqZaw7VQ==
-Received: by extorris.mess.org (Postfix, from userid 1001)
-	id F070641567; Thu, 13 Aug 2026 15:02:20 +0100 (BST)
-Date: Thu, 13 Aug 2026 15:02:20 +0100
-From: Sean Young <sean@mess.org>
-To: Rik van Riel <riel@surriel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jarod Wilson <jarod@redhat.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: redrat3: fix UAF in probe error path leaving
- rc device registered
-Message-ID: <an3ObNj_uyRJI2tY@extorris.mess.org>
-References: <20260808232031.500f781c@fangorn>
+	s=arc-20240116; t=1786633569; c=relaxed/simple;
+	bh=FrKqTXe4RuZmz/MmVtW19uFgRKBmh6/15DpGP69Lz9U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IYG8cDQZJjred1LFVzf4aynsgz70vE4Y3FB/PvWjEzYg/QQVVubQFtlPJeHO+FWg0o9MHgYkOR1J7PsEeyxt6TS8HqsL5PGhJLDvrAlta9kksL6Pm6kCzOswJw3cqoqYnSU1tkagDuTQM3bU5YbjgNqRajl4gMkGXasrdvGZIkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-01 (Coremail) with SMTP id qwCowACnf_NX3X1qEOB4BQ--.64885S2;
+	Thu, 13 Aug 2026 23:05:59 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Antti Palosaari <crope@iki.fi>,
+	Laura Abbott <labbott@fedoraproject.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>
+Subject: [PATCH v3] media: dvb-frontends: si2168: validate firmware record bounds
+Date: Thu, 13 Aug 2026 23:05:59 +0800
+Message-ID: <20260813150559.15187-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260808232031.500f781c@fangorn>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACnf_NX3X1qEOB4BQ--.64885S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxWr1DAr13KFW3Kr1kJr17trb_yoW5Ar1kpF
+	Z8JF98tF4UWr43CasxGay3Z3WfC3yfG34UGay3G3ZYvrnI9Fy8Jayjq3yUCr1Skr4fA34U
+	ZrZFqr18ZasxJF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r12
+	6r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
+	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y
+	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
+	W8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
+	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU18sqtUUUU
+	U==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Hoi Rik,
+The new Si2168 firmware format stores a command length followed by
+16 payload bytes in each 17-byte record. Checking the length only against
+SI2168_ARGLEN protects the destination but not the source record. An
+empty image also passes the modulo check before data[0] is read.
 
-On Sat, Aug 08, 2026 at 11:20:31PM -0400, Rik van Riel wrote:
-> redrat3 stores its device name and phys path inside the main rr3
-> structure, and the rc device's device_name and input_phys point into
-> rr3. When the RC device is registered, it keeps those pointers.
-> 
->   KASAN: slab-use-after-free in string_nocheck lib/vsprintf.c:648
->   Read of size 1 at addr ffff888051fda758 by task udevd/7464
->   Call Trace:
->    string_nocheck lib/vsprintf.c:648 [inline]
->    string+0x216/0x2d0 lib/vsprintf.c:730
->    vsnprintf+0x74a/0xef0 lib/vsprintf.c:2945
->    vscnprintf+0x41/0x90 lib/vsprintf.c:3014
->    sysfs_emit+0x10e/0x180 fs/sysfs/file.c:761
->    input_dev_show_name+0x58/0x70 drivers/input/input.c:1282
-> 
->   Allocated by task 10:
->    redrat3_dev_probe+0x477/0x2570 drivers/media/rc/redrat3.c:1023
->   Freed by task 10:
->    redrat3_delete drivers/media/rc/redrat3.c:466 [inline]
->    redrat3_dev_probe+0x1bf4/0x2570 drivers/media/rc/redrat3.c:1124
-> 
-> Syzkaller triggers this via usb probing. It probes the RedRat3 USB
-> interface, which calls redrat3_dev_probe() in redrat3.c. That function
-> allocates rr3, then builds an rc device whose name points into rr3 via
-> redrat3_init_rc_dev() in redrat3.c, and registers it with
-> rc_register_device().
-> 
-> When the detector enable fails after the RC device is registered, the
-> probe jumps to the led_free path. That path unregisters the LED but does
-> not unregister the RC device before freeing rr3 via redrat3_delete() in
-> redrat3.c. The RC device still holds device_name = rr3->name which is now
-> freed.
-> 
-> Later udevd reads /sys/.../input device name via sysfs_emit() in file.c,
-> which calls input_dev_show_name() in input.c, which emits dev->name which
-> is the freed rr3->name.
-> 
-> When the detector enable fails after the RC device is registered, the
-> error path must not leave the RC device registered. Make the probe error
-> path clean up the same way redrat3_dev_disconnect() does.
-> 
-> This change should be safe because the RC device is fully registered at
-> this point and its teardown via rc_unregister_device() is protected by
-> the input device mutex, and rr3 is still alive during unregister so
-> device_name remains valid until after unregister. The URBs are killed
-> before rc_free, so no completion can run after rc is freed. No new lock
-> ordering is introduced.
-> 
-> Reported-by: syzbot+302b9b575a06733ff60c@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=302b9b575a06733ff60c
-> Link: https://lore.kernel.org/all/6a74a76d.ec7c9571.3ac9bb.0056.GAE@google.com/
-> Fixes: 2154be651b90 ("[media] redrat3: new rc-core IR transceiver device driver")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Hermes:muse-spark-1.2 syzkaller
-> Signed-off-by: Rik van Riel <riel@surriel.com>
+Reject empty firmware, name both record sizes, and require each command
+to fit the current record payload and destination array.
 
-The commit message is very good. Your patch is very similar to a patch
-I wrote earlier (which still has to be reviewed, I can't merge my
-own patches without review into the media-committer tree):
+Fixes: 47810b4341ac ("[media] si2168: Bounds check firmware")
+Cc: stable@vger.kernel.org
 
-https://lkml.org/lkml/2026/7/29/1730 
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+Changes since v2: https://lore.kernel.org/all/20260715083945.33781-1-pengpeng@iscas.ac.cn/
+- rebase the unchanged source fix on current media sources
+- add the coding-assistant disclosure required for this revision
 
-I don't really have a preference for which one to merge. 
+The old/new firmware record extents were reviewed statically; no Si2168
+hardware or firmware-loading test was performed.
 
-Sean
+ drivers/media/dvb-frontends/si2168.c | 22 ++++++++++++++++------
+ 1 file changed, 16 insertions(+), 6 deletions(-)
 
-> ---
-> v2: fix the Sashiko bug https://sashiko.dev/#/patchset/20260808174213.1d68336e%40fangorn
-> 
->  drivers/media/rc/redrat3.c | 4 ++++
->  1 file changed, 4 insertions(+)
-> 
-> diff --git a/drivers/media/rc/redrat3.c b/drivers/media/rc/redrat3.c
-> index 3f828a564e19..565c490b7051 100644
-> --- a/drivers/media/rc/redrat3.c
-> +++ b/drivers/media/rc/redrat3.c
-> @@ -975,6 +975,7 @@ static int redrat3_dev_probe(struct usb_interface *intf,
->  	struct device *dev = &intf->dev;
->  	struct usb_host_interface *uhi;
->  	struct redrat3_dev *rr3;
-> +	struct rc_dev *rc;
->  	struct usb_endpoint_descriptor *ep;
->  	struct usb_endpoint_descriptor *ep_narrow = NULL;
->  	struct usb_endpoint_descriptor *ep_wide = NULL;
-> @@ -1119,9 +1120,12 @@ static int redrat3_dev_probe(struct usb_interface *intf,
->  	return 0;
->  
->  led_free:
-> +	rc_unregister_device(rr3->rc);
->  	led_classdev_unregister(&rr3->led);
->  redrat_free:
-> +	rc = rr3->rc;
->  	redrat3_delete(rr3, rr3->udev);
-> +	rc_free_device(rc);
->  
->  no_endpoints:
->  	return retval;
-> -- 
-> 2.55.0
-> 
+diff --git a/drivers/media/dvb-frontends/si2168.c b/drivers/media/dvb-frontends/si2168.c
+index 8bc3b6eb1dd3..182c2b671508 100644
+--- a/drivers/media/dvb-frontends/si2168.c
++++ b/drivers/media/dvb-frontends/si2168.c
+@@ -11,6 +11,9 @@
+ 
+ static const struct dvb_frontend_ops si2168_ops;
+ 
++#define SI2168_NEW_FIRMWARE_RECORD_SIZE 17
++#define SI2168_OLD_FIRMWARE_RECORD_SIZE 8
++
+ static void cmd_init(struct si2168_cmd *cmd, const u8 *buf, int wlen, int rlen)
+ {
+ 	memcpy(cmd->args, buf, wlen);
+@@ -459,11 +462,15 @@ static int si2168_init(struct dvb_frontend *fe)
+ 	dev_info(&client->dev, "downloading firmware from file '%s'\n",
+ 			dev->firmware_name);
+ 
+-	if ((fw->size % 17 == 0) && (fw->data[0] > 5)) {
++	if (fw->size &&
++	    fw->size % SI2168_NEW_FIRMWARE_RECORD_SIZE == 0 &&
++	    fw->data[0] > 5) {
+ 		/* firmware is in the new format */
+-		for (remaining = fw->size; remaining > 0; remaining -= 17) {
++		for (remaining = fw->size; remaining > 0;
++		     remaining -= SI2168_NEW_FIRMWARE_RECORD_SIZE) {
+ 			len = fw->data[fw->size - remaining];
+-			if (len > SI2168_ARGLEN) {
++			if (len > SI2168_ARGLEN ||
++			    len >= SI2168_NEW_FIRMWARE_RECORD_SIZE) {
+ 				ret = -EINVAL;
+ 				break;
+ 			}
+@@ -473,10 +480,13 @@ static int si2168_init(struct dvb_frontend *fe)
+ 			if (ret)
+ 				break;
+ 		}
+-	} else if (fw->size % 8 == 0) {
++	} else if (fw->size &&
++		   fw->size % SI2168_OLD_FIRMWARE_RECORD_SIZE == 0) {
+ 		/* firmware is in the old format */
+-		for (remaining = fw->size; remaining > 0; remaining -= 8) {
+-			cmd_init(&cmd, &fw->data[fw->size - remaining], 8, 1);
++		for (remaining = fw->size; remaining > 0;
++		     remaining -= SI2168_OLD_FIRMWARE_RECORD_SIZE) {
++			cmd_init(&cmd, &fw->data[fw->size - remaining],
++				 SI2168_OLD_FIRMWARE_RECORD_SIZE, 1);
+ 			ret = si2168_cmd_execute(client, &cmd);
+ 			if (ret)
+ 				break;
+-- 
+2.50.1 (Apple Git-155)
+
