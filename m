@@ -1,140 +1,123 @@
-Received: from mail-lf1-f47.google.com (mail-lf1-f47.google.com [209.85.167.47])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598A33314AC
-	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 20:43:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786653815; cv=none; b=EzCeTN3V7F8t1BI8Yh2GgROrRF7wooeruVJnEvETN+WDjyngfmAB0OwVHE4ZJWh5WWMTIcNXzBNBxSGjonaQfa8makcClaN9l6cMXU6vcJzZQA+bb4+HQMhv7PLOqoy1FRvKeDGa50svP2u6kYVC12fcDoO8IEg1o0y+diMQIiU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786653815; c=relaxed/simple;
-	bh=UsjfjuhDncxtlbBeZ9IQfuCMw8Vym1bwPGtUunGcIJs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=jz0BK5UClagbS+FpLNYYeP+8L9VlrUpf6ZNjYu6PVfsR5H46eVNney0qzkctH6+/3twcih9AWio6Lp5e0p6gsZcwdY8mdBsLwYE6VAIROcsCJ/CDPRQGVOlpnZMJXSTnG6uecHC5kGHXtrde7lAvJJUdfUKYSf90875oYlvpuXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YKQvpvxt; arc=none smtp.client-ip=209.85.167.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2EEF440A1D
+	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 20:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786654334; cv=pass; b=sO02bRRzZx5vi4Kv3LRaeJEwChhPvGZDnWKPn/DCn33L5CUgNjPbiRB02+P7j5DHkR0R3fzZx1uzfN2Nlfu0GFR8lMsC3QAqAZ4uz57eaqz48QoWXRN5LZ+KPgnO//3vGeQeAp4aR+5HW3SxhIOLWquVS2+n5Hyd6ZN7GXZRuRc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786654334; c=relaxed/simple;
+	bh=fG15OhH2dzYlb4DsYjWF9/Cq0WDCMyRgsw5enN5N+IE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HppVU4ZTW3H+cEL8D82ReDI38LaMF3LmB8X/ZC0O5qZyZN/ArheMiEHMh/ag+jcMUZscWPxBd2wKNW5goiZlfFyrc/58EVNNWFQ89ARwd9CGDF0xn1TscV4JboSAR+RsD+Oru/0cJjYjabsPEAnkb/YxkU7b6ZBCTBGxAD6mTRw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pbyA0gja; arc=pass smtp.client-ip=209.85.218.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YKQvpvxt"
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5b0148201fbso228192e87.3
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 13:43:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pbyA0gja"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-c169ae1cb26so258296866b.1
+        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 13:52:08 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786654325; cv=none;
+        d=google.com; s=arc-20260327;
+        b=c47WkFAPhhGgKG/cvsom6qNfqQ/aKXmD2RAZDLP+o6fLo4zevol97DdH7SBDujkBqd
+         gh8z/o9waY6Kn4XfYvb57mnM3dDgx8uMnoLR5QTblk1EwXFgqI8+I0GDOsPvpvU9tdGb
+         IPhucmsS3UuclQgtM16ASzPJyxEfD1Ul9Gg4m564/bx4Up2fXoVjh5YdmGKLPfByxBeN
+         KN6POaV1urxFJEKvZuNGyxHyYt1FvuBuBH/yxMfhN0QFDmm+KcJFOGBLRe4vqOPxp357
+         dScCDL40GAmvqIHCflvvPxB7Q5922sksbbZnOKkrHuCSKpERIIGdSPJIZiA9X0PlTk9k
+         k1Ng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=PmkC/SC0r1DtEmc1lwjFEmmXFkt8QZi8W/yEFPQjw4s=;
+        fh=52wo6sM7Q+i/VlKyQiRkdFpv8XDJOrX8lAASpYTfJaQ=;
+        b=ctYojvzcI2QVsmpKNSSaGl5AbHd62nXODHesAkgXFzKWSbDT+cpLXiFAMcTbqYpSrR
+         0vj8ZAAYBRH4P46WZr93ZXsVFS9ps6HAezRb6cKU54j04Czadnh2oZa0EdPBiAdlehD2
+         hCN4FO9KmZ4eOaiWleCC/XX2oytuhQfjL9dpHYyuhOL6wyw2pmRAk1Hg2iQx6UIzb3KN
+         FQ2N718osuyMLOWCbsS/a03kKfFYNE/zM7edWkzo43RjEwABIbCWP8vD5TUylapouHir
+         PS5q9KLOcErk+N5/hiP/bqGMR7b7S5zxmRUkoGWp84eb2x6A5cZMJnQYQDCnSbds5VLH
+         mFyg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1786653810; x=1787258610; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NdrNrxezjoizxu3zjSdvwdOKcGeoA1YtD7Hl3JvJCrU=;
-        b=YKQvpvxte2Lew8DZ5sPh1icol+ABX16MA5EOORUVWK4C7FuNirUn+TXmrUu1S+LRFc
-         P16rNgww0MGV78SwInO63gz6pEwX93quSQe0LXvu6D6c0MP4OpKagaUlXOMeyDJGGM4X
-         7V24FElM6FnXWogF587dCLc/+kNLqVUhCDwj0=
+        d=gmail.com; s=20251104; t=1786654325; x=1787259125; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=PmkC/SC0r1DtEmc1lwjFEmmXFkt8QZi8W/yEFPQjw4s=;
+        b=pbyA0gjamM/VLEPTbUvkfybP7bXNg6zpFvLNalrO+Pa6mhSVNY4r1OE0t3tS43+dLn
+         Lwn4kuFvasLZvC1va2Pd/0QO9VGqOBPYc1rNG6qlsCYdvRcrDnmNeB6Qpazk1+y20uJC
+         UL5d9VKtx7yfhpl/Wh1j9a33ro7094gyeqice0zpQqedKevDvmsEhCO0efh+HCraKQli
+         aD8WSOPzu8rmpTznNc2Tybw4t61mYFatwtCW4vPewTloionHjVHDAcTmZUnUKKNMzxjk
+         6NxfYoJRNGx9iG+K6Iq6Pz+LphJcq32TdYlJXaK8tD4qlXHl2PKy/tdty0AIMNxEeI7d
+         n3Yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786653810; x=1787258610;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=NdrNrxezjoizxu3zjSdvwdOKcGeoA1YtD7Hl3JvJCrU=;
-        b=XqaCdtpOyZkU/rjsteaS7tdilTaObdKdN/Zpd1C/ZzhgHsevwHEoNbprzk2xc6y0Mh
-         IN2zZEAa7bIMfAruE6p+WQEjGOmVSA/EQOHv4zN5aGmmQN16U4lorct7OxVzruSlqVD6
-         3XJVifwO3NImormp11LuKq1EP9ff9pCo8R/OXBg3DiqFJlADtzIzGN9zSzeNq5N+CjAy
-         dighiwlx/omWwzrie2km3JMJRd9fGWCLIrGjp7M4l1hxovC/iKBn9V7KzaD/MZnOkvVX
-         fa2i9AanuuShlqWebRxnqqJTNbfm52zQbCTkHw7BGWJTsAya8B6IK79GT3VTYqTyHwFf
-         qdxg==
-X-Forwarded-Encrypted: i=1; AHgh+RoxSU3hwEUFvM7m7ef6qrees49wBDM1TgVxtVwahxdLF3Qa5tsNCmFl5nGzkLs7ZcsSDbbv5JLZ9DKsWg==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy58Bv9YNakMdctf/pM8pZui9n+w19sVG8/niHwXtwAvH50Savf
-	SOrkvGk9l2EcS2CDgF0zjHxI1zIjhD4fQyRUtwZatGL60ufo6PJmg1m1D6wrP3h1Lg==
-X-Gm-Gg: AR+sD12qpIenytbD73VDnUTxEqyT3i3fnq8i7aeN9Kxg/OWz7BZ/vbyzvF4xKDGMFph
-	FzUskyZlOpRwnrqAwPinLM6qb+evRiV/+NrhB4DWLr8rQx3rkz4R1dwtakTYSfr5q5JUMYydS9U
-	PIN/A/JDfXWoHw8q/igQOeqiQ0akXzdk3mpsroqJgVlZfkeMy4kJwIySnDNPXRx876LbOS7oGTy
-	rRuMTswb1zwWzmkc0H2qnC9S69Qeti5D1vvuDDrz0oqTPdq1ld7GqrbiMHVwGOzh54fsBLgpN/W
-	6Vgoxoq9/nE5XGoJKBYoaOOvHKGwsLQr+y4H1tsv6u9gvFR/I0TUoBr34Yi+cXwFybEAWoDYUR4
-	9SP0ffy2+uTen5VLsJUWNu6BgIHlM5HlJ6yhy47yYHejBVqZUAOK+geh7Ll0wr19dhvzckCTyBE
-	ZB32IbFE2169NVw8z+aPzH1AiFn1D6C9czGi9CHcwIEZoynx2OVTRwLr/XVhPDzfTdwCj9z/Kwh
-	ndr600wKd7u9nkTQJtHMXUVPSX4Q4FNBoOl7cQ=
-X-Received: by 2002:a05:6512:2315:b0:5b1:5a31:8603 with SMTP id 2adb3069b0e04-5b45914b27cmr88124e87.55.1786653810310;
-        Thu, 13 Aug 2026 13:43:30 -0700 (PDT)
-Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b458bac84fsm102509e87.37.2026.08.13.13.43.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 13:43:28 -0700 (PDT)
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 13 Aug 2026 20:43:24 +0000
-Subject: [PATCH] media: uvcvideo: Do not read beyond the uvc_status_control
- memory
+        d=1e100.net; s=20251104; t=1786654325; x=1787259125;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=PmkC/SC0r1DtEmc1lwjFEmmXFkt8QZi8W/yEFPQjw4s=;
+        b=QinKiDOgdiD0gI15PoN3A20zvG0h82eFx2uQedZSvYs35v0Xbm9bdMv4w0mMRcBCgv
+         i2Go645RHV+Ot4sAFeM/EgI6x5oNFAQ1LbRTekVdnL6SY6N1kpyfFXWaKcsisDkClmbm
+         lTZmeVNONBNHO5ao5l6khmEWb1jJbmOqUaMe3KCaKJ3n2EKvgd9v/topZGrtVHhHqjvD
+         +w0e/7CdbmoxO6kUqql5SxEbBZs+b8q7Es8x1oLY8T6ObGEZ0NI4shkz8cBSusOyJGh2
+         lWm/GJpz1BhE1q2NDHGQ1DX4tFS831wPJjj4ITCJlpVAAVxb+QYlvsjie90THaDE2WOE
+         ac2Q==
+X-Forwarded-Encrypted: i=1; AHgh+RqaY/ah2CM2ZvfpVp/L/O2fvRvwMd2r2RQvwGfzpgBeW43X1laXalU1LQISlVnHkexr2pkVRvVcT2CPCw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBrZ1kDM8M+W4OTDO4T8F0tQ7AC0MNvpxq4M8Wm2MgFyaOOU9/
+	gHFC7wvBSxB3EBlB0rY+kklJrLFk9gJlPSzIIcbjZI4Ccg5pA3tCPxiei4zdoHHTOgEw3MdpkOd
+	WFWkWo9sf+1f0TN9syzOgKfIPDaSfgZM=
+X-Gm-Gg: AR+sD126B3NJPEE4xYgcmxgIgFGAWOBMFWObDIm2KHDIhdRhzrFQpiezv/IgVNhyij0
+	WUoSO/ahwoHIS7+zWYxe/UIublbjwJd7vTtBcPm1dHKAMx2nVleM2DrEadSql5P3aZP4IbpqzLw
+	vX9xwNW0TDWchXAdi4jfPChRE+7VnJyeFWiid2GAXWzPq/K9SN+n90JLytQM7gKSNUA9cOG/e3d
+	izYArCCNofAQZ0JV0ORLpn7Ij0WZH4yKHN+LBZ7WysscIa6GPMKQc8nf7urIHFPSTUmGq5WfNuD
+	hjqqHBdL8jtYdYoeZA9UAoDHjgmX09o8SD7DovRan1W01lNTDbs4TPQgAggsV5q6oF9d6WmgsDz
+	UOFeufLjjVyj7TkdKXeubYaZZtXtfqHgZRmR75KTP3jNK5Yb6ffjtyjcIMnDJmnjQ8lXrAMy3s+
+	oNftA0HMXhcOgaVvPUkf4NUAjUVZCN+g==
+X-Received: by 2002:a17:907:d0f:b0:c08:580e:899a with SMTP id
+ a640c23a62f3a-c212aa1d477mr42443966b.10.1786654325049; Thu, 13 Aug 2026
+ 13:52:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org>
-X-B4-Tracking: v=1; b=H4sIAGssfmoC/x3MQQqAIBBA0avIrBtIg8quEi2sppqNhVMSiHdPW
- r7F/wmEApPAoBIEiix8+gJdKVgO53dCXovB1Kate93gExeU292PoNZo7WzJdK4nZ6E0V6CN3/8
- 3Tjl/2Ap7Fl8AAAA=
-X-Change-ID: 20260813-uvc-status-11-99b9e27a8ea9
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Hans de Goede <hansg@kernel.org>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Guennadi Liakhovetski <guennadi.liakhovetski@intel.com>
-Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
-X-Mailer: b4 0.14.3
+References: <20260813-atomisp-fix-typo-aswell-v1-1-0aaf45422cf2.ref@yahoo.pl> <20260813-atomisp-fix-typo-aswell-v1-1-0aaf45422cf2@yahoo.pl>
+In-Reply-To: <20260813-atomisp-fix-typo-aswell-v1-1-0aaf45422cf2@yahoo.pl>
+From: Andy Shevchenko <andy.shevchenko@gmail.com>
+Date: Thu, 13 Aug 2026 23:51:27 +0300
+X-Gm-Features: AUfX_mx_N9ZWgbNi1dwZpb3gSmsLHwluWxGJpTXUDWD9v7tdmrgt_mbDYd9pLdY
+Message-ID: <CAHp75VfzB=kkU5996wMh5mjsVLMw8r15ENs9Hp+H1H5He1q9BQ@mail.gmail.com>
+Subject: Re: [PATCH] staging: media: atomisp: fix typo in refcount.c comment
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-When we receive an event from the camera we only receive 11 bytes. If a
-v4l2 control is mapped into a UVC control beyond those 11 bytes, right
-now the code is blindly reading those.
+On Thu, Aug 13, 2026 at 7:59=E2=80=AFPM Tomasz Unger <tomasz.unger@yahoo.pl=
+> wrote:
+>
+> Fix 'aswell' typo to 'as well' in a TODO comment describing
+> refcount support for memory types other than ia_css_ptr. Only
+> the spelling is corrected; the TODO item itself is unchanged
+> and still needs to be addressed separately.
 
-Add a check in the event handler to ignore controls that are not
-available in those 11 bytes.
+...
 
-Cc: stable@vger.kernel.org
-Closes: https://sashiko.dev/#/patchset/F0F008459FFA835D%2B20260813074632.2021311-1-raoxu%40uniontech.com
-Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
----
- drivers/media/usb/uvc/uvc_ctrl.c | 4 +++-
- drivers/media/usb/uvc/uvcvideo.h | 3 ++-
- 2 files changed, 5 insertions(+), 2 deletions(-)
+> -/* TODO: enable for other memory aswell
+> +/* TODO: enable for other memory as well
+>          now only for ia_css_ptr */
 
-diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 3ca108b83f1d..3061f388f57b 100644
---- a/drivers/media/usb/uvc/uvc_ctrl.c
-+++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2158,7 +2158,9 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
- 	list_for_each_entry(mapping, &ctrl->info.mappings, list) {
- 		s32 value;
- 
--		if (uvc_ctrl_mapping_is_compound(mapping))
-+		if (uvc_ctrl_mapping_is_compound(mapping) ||
-+		    DIV_ROUND_UP(mapping->offset + mapping->size, 8) >
-+		    UVC_STATUS_CONTROL_LEN)
- 			value = 0;
- 		else
- 			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
-diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvcvideo.h
-index b6bcee4a222f..ae5e6b6fdd98 100644
---- a/drivers/media/usb/uvc/uvcvideo.h
-+++ b/drivers/media/usb/uvc/uvcvideo.h
-@@ -559,10 +559,11 @@ struct uvc_status_streaming {
- 	u8	button;
- } __packed;
- 
-+#define UVC_STATUS_CONTROL_LEN 11
- struct uvc_status_control {
- 	u8	bSelector;
- 	u8	bAttribute;
--	u8	bValue[11];
-+	u8	bValue[UVC_STATUS_CONTROL_LEN];
- } __packed;
- 
- struct uvc_status {
+It's still okay to make it either a single-line comment, or use the
+proper style for multi-line comments. On top of that I think it's not
+a single spelling mistake in that driver. Have you had a chance to
+check for the rest?
 
----
-base-commit: 7b1734e1761258d78651263706182f1d772c0d3b
-change-id: 20260813-uvc-status-11-99b9e27a8ea9
-
-Best regards,
--- 
-Ricardo Ribalda <ribalda@chromium.org>
-
+--=20
+With Best Regards,
+Andy Shevchenko
