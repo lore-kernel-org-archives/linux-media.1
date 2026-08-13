@@ -1,100 +1,248 @@
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com [209.85.219.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023074.outbound.protection.outlook.com [52.101.127.74])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18F48440A15
-	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 08:15:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786608943; cv=none; b=hsReUoJ0mCQQeMbPCWOtjmLabSyr9t8ZXYZoXFGkz7MBXpvQ3yb/OVBSxprI2YpxDvEMU6hI5DDV/tEMKvZS9F6h2suZe3ebAAVk6FienTuRDlKQScCV77UFlCjMo5pI8RWpjOUKwVC+J54ab2XAUcwoKZ90I55lWbQtApEmsVk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786608943; c=relaxed/simple;
-	bh=CDW3D3ihlzfGcvfK3Kg26K2DWt1/HEjNmJeSJUhJbvY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FmOSA64gB11p986nX7XGnHIBf+gAb4oUBzenjC2w728YjvOWhkBaMGLCJkc7LGMwTDictoGr60p7IsXQLObzob6Yo67WzjLHHuuAM7L/yzYn19PgbxoGUCLVjD+MYa/owLV3dVLthdUO0lor8d6BCqjQCjA0UUo34p+0nxypM4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CC00MD1t; arc=none smtp.client-ip=209.85.219.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AD0390CA9;
+	Thu, 13 Aug 2026 08:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.74
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786610405; cv=fail; b=MfxPrQ0+0r3FSrVhYks3ohtsAqgRWV2puDLNdjpn+2cXtAyPTz/V1oJw2xKq/gWkKhaAX8E/YdJ8FoMF5ESZq9S0bwCm86O3ii7PZMcnl0fv/gX5xNpKYrZ9a3LYQTmqHk5wIGTCmuQgBFqyJ4Cx5YhaRrxFAnpoFqcAWJUgAhg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786610405; c=relaxed/simple;
+	bh=fCxb3gX5jWkUMd/sDSpB4VQ4RvfDCO1qz0j5IognllQ=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ceZ6cY5jpWZ56edqv02SkJCmeHD7Ie1KjNX4kNUYcvKK99xjoFzGyHLAX9fDfcrq9pRPsZAAnpP/n2YAd9zvGKr72cuSYkM0jnxrKt6WwVGICeVJu7+noEb8Es/pdbLQ7fQTA297fb5ngQt9zU/cQaIGiBrketziJslYmqIUuOM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=NM3e//pT; arc=fail smtp.client-ip=52.101.127.74
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CC00MD1t"
-Received: by mail-qv1-f52.google.com with SMTP id 6a1803df08f44-90a80860d35so5335726d6.2
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 01:15:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786608939; x=1787213739; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JEQS7llX9UaH8wutbu1sfenYXPYeQd9lp24h870ImTY=;
-        b=CC00MD1tkJyOZOt3i18gmi0nfaBLIKg320ZpsavgCaARrDRXGecJ4WPVLtmXPET+Gw
-         6hX25fx5kmKqbbeQvcl1OWtbnKUMWglwj+Aaut/yeQaFxybgPV2EYxDeHvgr8YOKz1Mn
-         e4TbbYzr+v8KoIkNydoizHIGf/6Ddk3Sa+01YlPvRQbDoTw2vDo/4dM1823yh9c/OXKk
-         +g9IRK+gqJEZgw/009mLY+t37sYtfHNYH3gdWNNPw3WKZIgJBCJ3TQvWyAvH4/1i0foi
-         SGCYFzZLnNwoezHp0Q08zPpyFBeP9YFnuLk1FBcPyolcw8Xa/I41L9gLykpG7Z8IFQKA
-         njXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786608939; x=1787213739;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JEQS7llX9UaH8wutbu1sfenYXPYeQd9lp24h870ImTY=;
-        b=q/s0Y/87Qxpv1H65NT1nqDdcxBiknFE7pI8SvhaN74ZRnz5OOuEl0IIlvNo2Dlo/P/
-         NUethRk0QDO8Cib2QLKTAerrt3+sq8UPm3dkYcAR3jF9dHUMijUOaCWuuUFyBdVm8qZo
-         g1T8B19JZsQaW2obwCO42nzDAygYuz1nCpoHfU6CsrJY/35r0+qggGrlOGNRWT4/qW8p
-         ke3ZladV7JHw0B2sXZhMs2J2tMVPQ7qLvHax4wpITjDvvRoS20eMIct3dYMBdtnUeFkO
-         Hh0lLtN8WFla4bYZ8RsXmaPB+fPeoqiCWxMbvdw+qKg98DArHp/2SkrOIIEPhUxQIKJq
-         Atww==
-X-Forwarded-Encrypted: i=1; AHgh+Ro2gAFhqYZeU89lWN0h7rpgR6h5bcuQ1q1h7Ii1aWU6Ubw2BUHTBb5aLAsir466jBT1WyBDkM/I8U4upQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt9az3cfwsSdcow5/O42qtl0J0gNlzs+XpYzprvuGwxvLp7nhG
-	+ZnvO2X0mp2pLNchXSSNOxkA4f5+jwVhFCVcFezKsHAZIV4ai27H2LjY
-X-Gm-Gg: AR+sD11YQfqCxd830UpI3fziDEfaZeMtE0rASVFiP1gytQi5WcUdYjj6etqE0d7CSf/
-	QdEGtBYVA6KxYiwvjyKa2n+/KSXEXZSnjQqWb32w24pJ3dP0oWwcFmCOj36QAMwIavQWpzReOWI
-	evjdppegWEZVbMClGjhaVagO1QsL9iotloySZvLLY5oEIuoj5ixfqRk9GiSmldNj074UqLkKuNz
-	sV/trew705lCTE2PVPxwya9Gh9xuTzjIa9V7vRtbW9z1PiaH7wbhuHEF4BCb10ED3u7i6YFmjbC
-	EKS2R9kfLFRB3ZNNQ5rnIjJ8pX9+rXF866mzbL7dZzS4tpNPMe9Y28E5TPQEYWgyWBGJgUgj89M
-	2sLCyp3OHyzIle6KKwrAVTrLIs+/3Z8YQJaSh7HrtcnBCi9Hgj6bor9z/XhJTVBYzy6YnkSoQGL
-	mgvFieLgpS7EhA9CESIRbKAGsCEezJGFVqIpkj9+66TKVbFg0P4PFTWPE=
-X-Received: by 2002:a05:6214:53ca:b0:908:8f97:7d9c with SMTP id 6a1803df08f44-90a80b7767fmr39877276d6.30.1786608939438;
-        Thu, 13 Aug 2026 01:15:39 -0700 (PDT)
-Received: from localhost ([45.144.115.139])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90a8179e584sm10187926d6.9.2026.08.13.01.15.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 01:15:38 -0700 (PDT)
-Date: Thu, 13 Aug 2026 11:15:33 +0300
-From: Dan Carpenter <error27@gmail.com>
-To: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-Cc: hansg@kernel.org, mchehab@kernel.org, gregkh@linuxfoundation.org,
-	dan.carpenter@linaro.org, andy@kernel.org,
-	sakari.ailus@linux.intel.com, linux-staging@lists.linux.dev,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] staging: media: atomisp: Use ARRAY_SIZE macro
-Message-ID: <an19JYgofcj2-5sC@stanley.mountain>
-References: <an1vaFk4UrhQPkSu@stanley.mountain>
- <20260813075529.153217-1-rishab.madhugiri@gmail.com>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="NM3e//pT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mWUcj2dN7j0l/Xwf0hWCvn0L89s1qmKudATl/pM8ygW4l5We/BBW+BY4OYNbJdMd4ezoeYoZTiDgw5ZQKBCIKNqsSeiuTDPwjFym0pGUcHadTyyCFV0XYbmpDTNCtXnNZ1cbdozek0yTAmSDgdGiyL/KgjZ+FGtryixiC2JqvLEYZcL00CWcJbebW/EEeym4XzzlPfzX5ZF2hzo6+od8ZSYbDvBxPSWYBrahpFh7JZ8s8+fEdM/xcyU5ry7uAPs2J7Fy9UdbbM0fPUSEKsQaq59mWZhOVVxCRgduLEaItsWr7nVZDJQJ+pY4fhro/oGABsz9toMSWgrnjLiDScW0kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=grCyy9zTRwg3O66Wp1XnXrxUOrpyGQzjNyhJ4w8cV/U=;
+ b=EOLhk1nMT5tcHnj/kPmNRwW74YnIbwMUBFUgVW/xe5H9Zyx1EopWGTtMEjVwAMCAZNcm1UbvUt+dnzyQ4JWp+0LF2MEkBB3fXrQNGYix+EtbgAhkMkxI7uP+dKLUuVOLfc7yaeR1QcuVeyy5/aZVyy4TrOyxA9RBJTMczW/hM9LYgR3OlNBkDM1l6Fc0iuPzj1ujwnz8klQaIeZSvg1F9QtmbzeDoZq4uHqoX9aYNyZ+SSVShWLPsTuC5flfsJ8MU5ZrWdTQ3EGwNfZH1SlvoJkdsg5Jpw4pPymSALIUXY0aoLyvWZ6yN1rR8uzH4fdvWW639h7nI3QFeL24Fw4otg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=grCyy9zTRwg3O66Wp1XnXrxUOrpyGQzjNyhJ4w8cV/U=;
+ b=NM3e//pTbykOyh2lygGiao+HPwaamNmpH03nLINOo2De00sOFqZShjXRGBCXH6i6/+C9lsXd3eBeZPIe2h6lnIz8aOIwgwPOwq6Y+ioJrPiXB2P6Y1P+tmIakFztRsMBj1KwLs6UB0bsxpOwPvX84EUUwtodQ9vZMhXp+BoCngvA8DWIpRf3udpbDEoYsu7tOng94A7b/n1vwgVnu2t5Dl0EAqXYejgUYdC7mBvick/rvuPZAsTdeg+selsJZWYMxSfoksPWY2XRKfgg2m2MupBDHQkgTPruQxTkl1NJtqWFl8HPD59v3SiE++1o+m0Ohyi05UHRh8RKk3xjmRUP/w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com (2603:1096:820:51::12)
+ by PS1PPF8AB88AC68.apcprd03.prod.outlook.com (2603:1096:308::2df) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.13; Thu, 13 Aug
+ 2026 08:39:54 +0000
+Received: from KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e]) by KL1PR03MB5521.apcprd03.prod.outlook.com
+ ([fe80::f12b:85e:f95c:191e%3]) with mapi id 15.21.0315.014; Thu, 13 Aug 2026
+ 08:39:54 +0000
+Message-ID: <80e58bd7-7eb7-4d05-b309-115643767a43@amlogic.com>
+Date: Thu, 13 Aug 2026 16:39:51 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260812-b4-s4-vdec-upstream-v7-0-3fae085861bd@amlogic.com>
+ <20260812-b4-s4-vdec-upstream-v7-3-3fae085861bd@amlogic.com>
+ <20260813-rustling-sassy-terrier-11b99d@quoll>
+From: Zhentao Guo <zhentao.guo@amlogic.com>
+In-Reply-To: <20260813-rustling-sassy-terrier-11b99d@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SI2PR01CA0026.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:192::16) To KL1PR03MB5521.apcprd03.prod.outlook.com
+ (2603:1096:820:51::12)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260813075529.153217-1-rishab.madhugiri@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB5521:EE_|PS1PPF8AB88AC68:EE_
+X-MS-Office365-Filtering-Correlation-Id: 58720953-38d4-4ef6-d968-08def9167260
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|23010399003|366016|1800799024|3023799007|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	MaKndnI14yolYzFxnJRk0oKNP6bLavoDj1xsCQLUu9FGUNNeRWqQiqBky6zDVzuiU6X1nXAY8LunnfVQaIR5qNwU3pyzUappEZ9lnClzYU1t2KjZCl2OGzBfAS6mSfqM5ssjjCwkeV3dqIvHnA9sKdX/InVbq6q1O/lceyM7R3uYjwpEA1HEbxB4362V3ZxlsZwe7tuFQuNT7vWehTCHkaWsxKP4nubHJOvT0F6yaSpOB5j9TfNht9HtCBpL2DT1blj/8P9c1FrYyvVw03qlw3ziWC7sBvFqXjOpqDdhz5jkZ4sotw+hV4PLH1tuRov00E/wT9oww+tss8+LorqWETl54ZiSxBEV8P7zVL0wB262+xA42gwd/2mKOpb9eZ0rPsB/IkAuZULygYaOEm1OD2rbMPnEVk3dZW01kIFVjvufG5jqIO9mDBatbfyvvqnECJbJ4T+BUQ62W60/GCSLxkv0aYw74jyQ14MMKz7iHddhaDYqyxnaxGPYUK2L4CX41mSOpyFuRJWbYRVGFIl3IrID4XjGkApuYAANRDMw5WnR0ml1GhWFHPYzE/29AtlzfS8mCEbOLO1uKcr3W6YAolsUO53ep7D8sD1UU2IfCWTIILfDT6bdwhblE3kt2dvT
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB5521.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(23010399003)(366016)(1800799024)(3023799007)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?eVFDaTNTSnVYLzNrbkh2M3V3Nk5JZkkrY1NCN0ErTU9ISU9PRFdaK1VoUWpt?=
+ =?utf-8?B?MTNmYzhPTVpMb2NkbkUyaXNqWGNWWWVheXhoRTEvY1AvVkdwTytoNjZ3NWd4?=
+ =?utf-8?B?ekhqNVdVV0VqQUd3QUN4eU1WajRKdnUwK2NOWUlkVTM0THBwVU8wY2NBakZX?=
+ =?utf-8?B?V1V6RTBRM2lKQTFGcm5JbENpbTdBR2EyQTg3bFlyK1dIQ05LcG13UzdXZzZL?=
+ =?utf-8?B?Uzc4L1hMcmFnbURBZ2xxdDJ4eDM5RXZxemJibFNRMHBubENQZmpXWk9zb2lN?=
+ =?utf-8?B?K0JKYktOcW8yeWV5QnR1Mi9yU1pIcWtpbGFlVVllbmZxVE1GNk96VnZEbEV6?=
+ =?utf-8?B?b1c5QjkvMkJBajJLeXM1NmlNZHVWQUpsanFrSm9keFhabk9LdTRrMG4xQ0Zv?=
+ =?utf-8?B?YWE4dWZmdVBSZVZEdlJyUWV4TGZaM0Fta2U2b1JFYjh2N2YxN1UwWVBNUCtV?=
+ =?utf-8?B?QzZCSUV0Uk41MzRMLzNaelZRcXQySUJGck1ySm55OVJhK3owYXlSVUk3Ykxv?=
+ =?utf-8?B?RnEwVU83b1RrN0d6djFTcThhTE12VGtXZUJoU3pEZDU4Mm55WDgxaG5ndXZT?=
+ =?utf-8?B?K3RRL2JvclZDYW9JcVp6OGF5WWdXcFRSbG1GMXVycFp5UEZlVFAwTlpmZ2NR?=
+ =?utf-8?B?OFgvZERNcUhoR2pXS2dHeXozZmcwdWp6MlNicHBScGpyQzVxWEhVVlNZYlZ2?=
+ =?utf-8?B?R3J6UkI0bWRBNDFDa3FwamVvQTZYU0h0NVFCeVlnWnAxNmhQMW9HeHRoU3Vz?=
+ =?utf-8?B?Z2JHVnRJZzJ0UkJVMDJXWXVjQ3Q1anlETkhHTUwrSlFKb3V6eE5QRXRvRmR0?=
+ =?utf-8?B?RThHNlYxNHNLY1AzRFNKdzRBTG5Hc2MraEpodWVBaU5YR2VBajY5aFRQdk8v?=
+ =?utf-8?B?WjZtdmxDbFhuSXBZYzduV2tBOEFUVHlrODIwRHhRVVRSdzFZbVBZZDFMSW9y?=
+ =?utf-8?B?bGptSTJzL3hFZU5NQWFETzJKK2QzTE41KytsSGdiU0ZwNU5rLzV1Y2xqU1Rl?=
+ =?utf-8?B?aEVUNEkzdlh4TFBUVnpoWFhuVGZBRlpmaE1PSC9JbWdmSFE5ZGQxL204MEcx?=
+ =?utf-8?B?Q04yQjB2UHlpaTQyemNiSnJWVXhTZGJwbVlYTG1YSS9SVi9aYTJiT3JvVExJ?=
+ =?utf-8?B?dURwbWxWTXVPOHh1MHltSWQxVm45a3VNbG1neHQ1SXZYVU5veDdUaFVRN21s?=
+ =?utf-8?B?QVFOc2hyRUM5MFVrSldkRTVSSUkzb2pVMklucjE1SkoyUVZ4cVZLWDhzUE0z?=
+ =?utf-8?B?ZlpLZzNhU0NwVDNVN2w2TVkxMVl0QlA1UXhnOUsycWFocjBsR2plclFRMmRV?=
+ =?utf-8?B?UHBUMkxyQ0VVS0pYQjlOcjNrWEZlNjg1QXVneTNsbVROcVFubEpYNVFvVVdp?=
+ =?utf-8?B?ejhTemhWQncwVU5UUEQ0OENyVDBZQlNqbFlwa0I4TXZsTmFNSmhPS1hKVVRi?=
+ =?utf-8?B?OUJGSFpHY0FsaTA0K24xUXBJa1RNd3Y4ekJuK1U5cCtsZWxrSElxb1J3RjdW?=
+ =?utf-8?B?SyttWUxlc29hZ0NYRnM3aUY4NjA5SFpoTkFsbThJb0p1UHdrZ0ZHOE5Qd2dS?=
+ =?utf-8?B?QjhYNlpLZDRPYi9xSVlGR3ZHUlNKQ1BCa0YxVU94WkxYdWxySWhBZHF2anlJ?=
+ =?utf-8?B?alpvV0FBdEkwak1nMDRQRVp0Q3ByY1F3Sms4bGZmK3ZKK2E3cm14UThjNnFQ?=
+ =?utf-8?B?dmd5elA1TmFWcklSQ0VKWExxT1dtc1dtNllUYU9HdWZuQ0hiSXFhL2ZvZE1l?=
+ =?utf-8?B?RVN6UFVMZUh6RDh3SGpmb3Exbm83VUgrZFZGcEFBOUNRK29QMkVmc1AwbnRG?=
+ =?utf-8?B?MVZKZGdqNkIyY3pwcjQzMHBMUHhWcEZUZmhWSmFZVlVNOGlIVnJzaGRLT0xM?=
+ =?utf-8?B?bE8wVGlQdVdyeXdJRWtHSHlkZStnYmdnaXQ5K2FhVmpobjJhczg2TDd3Tm12?=
+ =?utf-8?B?R1VDRVJkeFVqUTJFS0t0Z3QrSUE3TG0rYU10TXRCMG4yMUVwY1p2ZWMyaE83?=
+ =?utf-8?B?WjlRclBVb2lTMVR1WEFnWGozWXhJYTNFVXdydWVFWjhuNUVEenNsVlRsM1Np?=
+ =?utf-8?B?MkgzVlBqdURqR01PeExFL3k2OTVUWEowSmplMmVxUXBiYkhjNDRlUHlkeVVE?=
+ =?utf-8?B?YUZwMTBUK2ZpWUo5dGJxNUlTdGNEdEhVNjZGcEs4dENMcyt5aVZpQ0gzNWwz?=
+ =?utf-8?B?d05PN1ErR001OEFCbjVCak9lQmZwVFJMYi9TdDNPcW1SaHc1U3JJRnI3TFVv?=
+ =?utf-8?B?MjlEcXVsMThlUHVRZjZmNlZOKzR0VHpZZmRLblFqZGpVeW9Ha2E5YWl0ZEpu?=
+ =?utf-8?B?ZjlEOElUWnNScm40ZUhkREowbW5LcUtHV3JxdkQ0L1hHUUZrZk8vZz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 58720953-38d4-4ef6-d968-08def9167260
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB5521.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 08:39:54.0703
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: OEjifFey5Pj8kGt+MlTFqv9fBQQiPGb4zHxanDDdEEH66i98XoBFll0v1zgt0/9L4GnwJrE7/OFsoy3j7oEjZQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PPF8AB88AC68
 
-On Thu, Aug 13, 2026 at 07:55:29AM +0000, Rishab Madhugiri wrote:
-> Clean up loop bound calculation by replacing sizeof(bds_factors) /
-> sizeof(struct bayer_ds_factor) with the ARRAY_SIZE() helper macro
-> to improve readability and maintainability.
-> 
-> v2: Move loop increment to the same line as the for statement as requested.
-> 
-> Signed-off-by: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-> ---
+Hi Krzysztof
 
-Thanks, but the v2 has to go below, also best to wait a day between
-resends.
+> On Wed, Aug 12, 2026 at 10:41:25AM +0800, Zhentao Guo wrote:
+>> Describe the initial support for the V4L2 stateless video decoder
+>> driver used with the Amlogic S4 (S805X2) platform.
+>>
+>> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+>> ---
+>>   .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 111 +++++++++++++++++++++
+>>   1 file changed, 111 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>> new file mode 100644
+>> index 000000000000..b5af3f931b26
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+>> @@ -0,0 +1,111 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Amlogic Video Decode Accelerator
+>> +
+>> +maintainers:
+>> +  - Zhentao Guo <zhentao.guo@amlogic.com>
+>> +
+>> +description:
+>> +  The Video Decoder Accelerator present on Amlogic SOCs.
+>> +  It supports stateless h264 decoding.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: amlogic,s4-vdec
+>> +
+>> +  reg:
+>> +    maxItems: 2
+>> +
+>> +  reg-names:
+>> +    items:
+>> +      - const: dos
+>> +      - const: dmc
+>> +
+>> +  interrupts:
+>> +    maxItems: 2
+>> +
+>> +  interrupt-names:
+>> +    items:
+>> +      - const: hvdec
+>> +      - const: vdec
+> vdec is the name of the module, so not really useful name.
+Ok, I'll come up with a new name and change it in the next revision.
+>> +
+>> +  clocks:
+>> +    maxItems: 3
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: dos
+>> +      - const: vdec
+> Same here
+OK, but there would be a nit. In file 
+drivers/soc/amlogic/meson-clk-measure.c, This clock source is also named 
+*"vdec"*in|drivers/soc/amlogic/meson-clk-measure.c|, where a 
+*"vdec"*clock node is created in debugfs for checking its status. Using 
+a different name in the driver (including DT and binding) would make it 
+inconsistent with the debugfs node naming.
+>> +      - const: hevcf
+>> +
+>> +  power-domains:
+>> +    maxItems: 2
+>> +
+>> +  power-domain-names:
+>> +    items:
+>> +      - const: vdec
+>> +      - const: hvdec
+> Same here.
+Ok, I'll rename this.
+>> +
+>> +  resets:
+>> +    maxItems: 1
+>> +
+>> +  amlogic,canvas:
+>> +    description: should point to a canvas provider node
+> You basically duplicate the property name. Say something useful, what is
+> it used for?
+I'll update the description to explain its usage in the next version.
+>
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +
+>> +  secure-monitor:
+>> +    description: phandle to the secure-monitor node
+> Can a property whose type is a phandle and is called "secure-monitor" be
+> not "phandle to the secure-monitor node"?
+>
+> Write useful code, not redundant.
+Okay, I'll explain it more detailed.
+> Anyway, missing vendor prefix as it is not a generic property (otherwise
+> point me to generic schema defining it).
+I checked the upstream code, this is not a generic property. I'll add 
+the prefix.
+>
+> Best regards,
+> Krzysztof
 
-https://staticthinking.wordpress.com/2022/07/27/how-to-send-a-v2-patch/
+BRs
 
-regards,
-dan carpenter
+Zhentao
 
