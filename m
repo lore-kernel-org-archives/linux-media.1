@@ -1,72 +1,72 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 071ED38BF7F
-	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 17:36:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 461F739182A
+	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 17:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786642609; cv=none; b=LBwzwavLSOUjU2JjvwH1I8WzygfWlduoXeu2aKGVBhr3V4I5prDUMOfFOWrbg64wAEN8mMOXA88dGFvPkTEIbU/sLeq2EV/ib23Dd/3b/Uj4sMVDFfgGu3oJX8GJnYaLkWkjASDmCXE/prgCgB5j656w+z7p6hByYUMnIncwzJE=
+	t=1786642609; cv=none; b=beX45UR/bWDG8wqdcpr4omjxY99/9H6APZowAj8HLIaxeS0bLdrMKFPB1U/uWcDIyEBzAuaeNl92UgrNlyc4gDNFpPQWkgd8HhU4yI+9d5h3u+K1dr6fVrlXV4p+uqxwlCHZAqg4zPyXVC6onBdY6JYcr/GPRmyjh+xuf2bjorQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1786642609; c=relaxed/simple;
-	bh=vFO8T5St9bHRfShOkdntWHdgKTvr0mMlitt92RbLqMI=;
+	bh=/Vosjh7J54NGVazTGGa/Txp+MQ2qfbIZSR9iZOPYyFY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=l9PZe/HWyNw9k8swJPQbamBmtd7CLtyWDP6y13chsa9dE08U03Ch4aw3k91d3/YMNRBQqkqTOCWv7oVEbmD4cWbuezjHQRjrVzMtfuZDHT6znEyJXJMnYBHe2UxMzKBRNGgNPlXnP7LcZlVziSyxerJXUDayqPufSL2V975FL34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XsARKkqS; arc=none smtp.client-ip=209.85.210.173
+	 MIME-Version; b=dzkL3rj9iijPi8r7/mdNPoZ5JVJHpjimTUsujtCQ3903GXtdC7JEZ+ztyerd4pACaNOQP2Z7+6haKVhMXH3wWG87++eziMP5cQzgIsxdtvBDKX1arPmjM3vuzjWHfKv+2zDQMtoswE8G0PYa/XnEoGImyH6rT1Sd7z356cB4pAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RptHBWli; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XsARKkqS"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-84874b52eabso15946b3a.0
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 10:36:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RptHBWli"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-8487214ad2bso726b3a.1
+        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 10:36:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1786642607; x=1787247407; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
-        b=XsARKkqSqd1BWPT/NINX3h8YppwGjyvr5vZ3FjQR5qPpavJUMZPCwylQ9g62IdyWkG
-         gwFxd/uN27O8JsrOtaLZuAQ7cumW5ew0stYfESr+6aTzRCuvNi+WLUAbvNNS4Ap8gSTx
-         cJYzOQcG7tRLsyGmqEhUu13/T4ORcV2I4AmtPSXlg6IZ+XMzeSVhuOZjL9CFIj9LI8dS
-         qO/RMydYmk5CRGxkjlfkVNZYUgsbtXz/tQt/5AMBzp3L447kWzLJ7YPQ2pgw32A6EjUa
-         E7xqCb3DQu+jWz7CWiSNTsms0JZdv5U9cvAggoAUaJsFjrImfXhiU3vnzBwuuTqEzMQ2
-         RDvw==
+        bh=5imqyFJhnygYk4HSMbWp/AoAsATKDJSePVqUZgPoY+Q=;
+        b=RptHBWliIdvDmh1jfc2ocNnv9Vkdj6v0W/KLq9EuBV+DbL1NxOK8Q8nEXlt/1nbHU2
+         uhDQSb5nT+u4jWIoPVUAJygidEa8uLpj1SZDkDPq69KQ9Dt8/qt6vz/8DPnTAqoi2Zr1
+         yYBF+5rjQlcYYdpSghHvZhxqpzaXjUvXEES1+bI8rhqI94C/QXHsp7hadM02BjTbuoPz
+         MlOuiJEOwpi8XUwtDEJqthxwpR2xA3dyCi/0VFMiZAFEb/pTktk9RtzSv+qs+Z0FHf3g
+         O80eQXgVpETLzlGRcICB1fMkN1jMFOHs9XK8L1INi+vnlRWypK4JS3i/Hg9mQrmI4IPh
+         /gLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1786642607; x=1787247407;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
-        b=of3P8puoNLRiKFqV89FN4pmtCLXY8HMQc8W51Tz1Jc1FkH6ojTiMd8i1yWNZQKGd6A
-         rz/NZAmoKljRin+QabRkvVmTFI72kuKtxg2pSzW0Vj48mGKZdwilD/byDmsSI3KzqXuL
-         mUQ0Rd7XvIMvHFb2LikCXaDSUd9CtTA5SFI0K9AheB1ePqq8NI3Z9SLmL3VGPBZFHPzw
-         HTO3wg5J66TcEAVYmbTTORRw8zWBcF3QlLxsH0cB7u3mqmCS9fd24Tm+HYXlMZMR0j2h
-         6eI9pX1YD1RbeKgIhaxM8hObc/mlf38SJWvN1Y+iUg0VZihYO+Gg5hi2ZAvksBTVlzmv
-         N5SQ==
-X-Gm-Message-State: AOJu0YzaBpbLkmFmMI2IDlu39q5RKA6HN3aewuLTRqbEo2rAL5D34adY
-	VT530hMYjdrCL53AZW4YnWwhB4ebL9Gf1rb/Jh8RhluJd03hxrzVi++TO4KfpHhV/MM=
-X-Gm-Gg: AR+sD12Ijt1buA+UB8Ynf8HYb1RXtV1xCDskxZNijeXFx+7sJbnM8M3Kqumd9G1uPPz
-	4aaTNV5dT7KxW09oVrjyWM25/QXGDExgMJlVf/XvyO6mEXunkM0XHAGVtWYD7cMlHjcQj/CGHZn
-	9eN27RtYUsSvJ9gCYoaf/Jk47HPGc1kb1CJR34KBaH/dtIsfrDkhi4Ua+4qTeLr3+N6zgUpBkDH
-	MSmIurw30RAm9qUJ5CvkWk42bF9hmwgfoRD9zxAXBwGR0UWbw3Tmvp3DcLl4QWrPzlTXcR+diCa
-	WgQxPmiEGPa88LqVp1k6fwCLtT2jLNFiRFxsoTFYRMdx8T3YEQM46zkuUMFWIkNjnuLvR++QAQ3
-	jkAKTfPyaG5xNmliIwZA36H805pkSFhf77XcNvWxskvJ8hK9I9FIF9EhsLm6fRmdab4C0Wg9ylt
-	Vt7pr1XonTO59+LY4lMKwVt9imwB77dnn34CClahv+ZS0sVFEtJTQALeWJ/p4fk5k9vhH0WAJ5W
-	a/d+m7QI2WG9zvDrQC3ZvqjiLGwdrt/5V5tGR5db1Zu2V0xKVTrqc5bxLN1iWrmv3Q=
-X-Received: by 2002:a05:6a00:410a:b0:845:cd11:37e8 with SMTP id d2e1a72fcca58-84fc6dc6b5bmr8664947b3a.24.1786642606723;
-        Thu, 13 Aug 2026 10:36:46 -0700 (PDT)
+        bh=5imqyFJhnygYk4HSMbWp/AoAsATKDJSePVqUZgPoY+Q=;
+        b=gvBFPGcRzmVA+oTCf3xw/O7QRGNTf7heeWdpBv32CK/Q8v9Bk0oYhBvzmbg3pjWMnu
+         SGRv7djRfH6oSwat6j23NSVeUU/l5C8wnn9v4lOjVZtDB3fD8InTijcK1jcpc+CdVfXT
+         KDOccImgDdRBHcbMtpzK7NW3BmZVskAKFkjGO8QzyArXHGkHVTXdAGkwPmDRKdtgjjVx
+         FrnbvQAghUXsiucZRJ06oTlqRnmvI05cS6KBgek50a8q6r2z2/G066C7DDemu83ELe6z
+         A2Z9t7sxjYUy6RZOVXcY76X6Sl8fAu1hx7XcmSZIZpm3v1KNwdAFpcxabIeNsRrM3K9a
+         Jfqw==
+X-Gm-Message-State: AOJu0YwgEjuHbtWmFXLL1G7syy3G2uZxF95ur9OgXNAUpjoSoIGidmXX
+	+LLBaW+xQ16z9HYfW2rX6RsgRlLqKEVjE7v9I5T1dt1D9aJ8koTcKaQZi/OPpng3Eas=
+X-Gm-Gg: AR+sD12EUvDyswFXA1NCPG7jnqerRGOjgGruo8DVvtlI/6a94CHeZr5K+FkZquS49BM
+	n7XK3KIG7gs193jRrxXF5vCNVuaobwOs7FePuTtW3dLX7MYEnqj23yr3O3V+gaEJlulDBmiGf/9
+	pEC0EJ7vCyKO6S001V2mAedEe1SceIrzMnElXb/gWLQksTvobIDdRspwszcMde0LJRKd3BTyjq1
+	0CbrDcQQwC6uSzOCBw/Y/1X3tFxSt3gjjXIUH1DVd0+3v3mogotaXOkEmQOTySVPCJvLUx49WfY
+	oSCz2RDXdoADlsq2QsTj8s5K4i0wK8SdZik28V9CTMaoRaBb5F5NvroyL59uy/7NJBU/mecuOts
+	CtskF/VVPgktx39FQQdZUvMkjq3kid1stgNSnut9hmtkUuH4TN9IbK6ZMQx8d90wmy1lMkKoXOY
+	4YthlINrGPqGdegjP3cd5h7wojgskVpUMHVVpvIrcIpuCOB5KVGWBHzYn0UbcPzpIM32cvvlAoe
+	uWTT0HDVE5c1HN2w+8CYR0MSy9gJHcLh0oAAd6cPHs6gzgtWhAA/1a5
+X-Received: by 2002:a05:6a00:4c15:b0:845:eadb:821 with SMTP id d2e1a72fcca58-84fc6d01387mr9325857b3a.14.1786642607585;
+        Thu, 13 Aug 2026 10:36:47 -0700 (PDT)
 Received: from desktop.local (97-115-114-204.ptld.qwest.net. [97.115.114.204])
         by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84fc4565c86sm1269994b3a.12.2026.08.13.10.36.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 13 Aug 2026 10:36:46 -0700 (PDT)
+        Thu, 13 Aug 2026 10:36:47 -0700 (PDT)
 From: Jack Flusche <jackflusche@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Jack Flusche <jackflusche@gmail.com>,
 	patrik.r.jakobsson@gmail.com,
 	sakari.ailus@linux.intel.com,
 	hverkuil@kernel.org
-Subject: [PATCH 4/5] facetimehd: add firmware extraction script from patjak/facetimehd-firmware
-Date: Thu, 13 Aug 2026 10:35:12 -0700
-Message-ID: <20260813173516.29293-5-jackflusche@gmail.com>
+Subject: [PATCH 5/5] facetimehd: add entry to MAINTAINERS
+Date: Thu, 13 Aug 2026 10:35:13 -0700
+Message-ID: <20260813173516.29293-6-jackflusche@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260813173516.29293-1-jackflusche@gmail.com>
 References: <20260813173516.29293-1-jackflusche@gmail.com>
@@ -78,98 +78,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Copy script from https://github.com/patjak/facetimehd-firmware to
-extract proprietary firmware for the FacetimeHD driver from an
-Apple OSX update file and add a FIRMWARE file to describe usage
+Add MAINTAINERS entry for the FacetimeHD driver
 
 Signed-off-by: Jack Flusche <jackflusche@gmail.com>
 ---
- drivers/media/pci/facetimehd/FIRMWARE    |  6 +++
- drivers/media/pci/facetimehd/firmware.sh | 61 ++++++++++++++++++++++++
- 2 files changed, 67 insertions(+)
- create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
- create mode 100755 drivers/media/pci/facetimehd/firmware.sh
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/media/pci/facetimehd/FIRMWARE b/drivers/media/pci/facetimehd/FIRMWARE
-new file mode 100644
-index 000000000000..ba9f37aa702f
---- /dev/null
-+++ b/drivers/media/pci/facetimehd/FIRMWARE
-@@ -0,0 +1,6 @@
-+This driver uses proprietary Apple firmware. To obtain this firmware, use the
-+included firmware.sh script (copied from patjak/facetimehd-firmware). This
-+script will download and extract the firmware from a Mac update file found at
-+https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
-+The script extracts the firmware to /usr/lib/firmware or /lib/firmware,
-+or to a folder specified using the first argument
-\ No newline at end of file
-diff --git a/drivers/media/pci/facetimehd/firmware.sh b/drivers/media/pci/facetimehd/firmware.sh
-new file mode 100755
-index 000000000000..fc6b67149390
---- /dev/null
-+++ b/drivers/media/pci/facetimehd/firmware.sh
-@@ -0,0 +1,61 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f8253e..ba9661d4945a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5396,6 +5396,13 @@ F:	drivers/net/phy/bcm*.[ch]
+ F:	drivers/net/phy/broadcom.c
+ F:	include/linux/brcmphy.h
+ 
++BROADCOM FACETIMEHD CAMERA DRIVER
++M:	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
++M:	Jack Flusche <jackflusche@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/pci/facetimehd/
 +
-+# This is a simplified version of the download/extract/install scripts
-+# It is intended to be used by disto package installs (e.g. in %post stage)
-+
-+URL=https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
-+RANGE=204909802-207733123
-+OSX_DRV=AppleCameraInterface
-+OSX_DRV_DIR=System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS
-+FILE=$OSX_DRV_DIR/$OSX_DRV
-+DRV_HASH=f56e68a880b65767335071531a1c75f3cfd4958adc6d871adf8dbf3b788e8ee1
-+FW_HASH=e3e6034a67dfdaa27672dd547698bbc5b33f47f1fc7f5572a2fb68ea09d32d3d
-+OFFSET=81920
-+SIZE=603715
-+
-+if [[ "$EUID" != 0 ]]
-+	then echo "Please run as root"
-+	exit 1
-+fi
-+
-+echo -e "FacetimeHD firmware download and installation script\n"
-+
-+echo -n "Downloading driver..."
-+cd /tmp
-+curl -s -L -r "$RANGE" "$URL" | xzcat -q  2> /dev/null | \
-+	cpio --format odc -i -d "./$FILE" &> /dev/null
-+mv $FILE .
-+rm -R ./System
-+echo "done"
-+
-+HASH=$(sha256sum $OSX_DRV | awk '{ print $1 }')
-+if [[ "$HASH" != "$DRV_HASH" ]]; then
-+	echo "Incorrect driver checksum. Aborting."
-+	exit 1
-+fi
-+
-+echo -n "Extracting firmware..."
-+dd bs=1 skip=$OFFSET count=$SIZE if=./$OSX_DRV of=./firmware.bin.gz &> /dev/null
-+rm ./$OSX_DRV
-+gunzip ./firmware.bin.gz
-+echo "done"
-+HASH=$(sha256sum ./firmware.bin | awk '{ print $1 }')
-+if [[ "$HASH" != "$FW_HASH" ]]; then
-+	echo "Incorrect firmware checksum. Aborting."
-+	exit 1
-+fi
-+
-+echo -n "Installing firmware..."
-+if [ -n "$1" ]; then
-+    FW_DIR=$1
-+elif [ -d "/usr/lib/firmware" ]; then
-+	FW_DIR=/usr/lib/firmware/facetimehd
-+else
-+	FW_DIR=/lib/firmware/facetimehd
-+fi
-+
-+install -dm755 $FW_DIR
-+install -m644 firmware.bin $FW_DIR/firmware.bin
-+rm firmware.bin
-+echo "done"
+ BROADCOM GENET ETHERNET DRIVER
+ M:	Doug Berger <opendmb@gmail.com>
+ M:	Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
 2.55.0
 
