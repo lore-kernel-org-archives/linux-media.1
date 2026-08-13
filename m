@@ -1,1675 +1,225 @@
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013009.outbound.protection.outlook.com [40.93.201.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E13B3FD969
-	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 18:00:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.200
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786644056; cv=none; b=JV/SchwDfX2ApzcTmPVmfSMeDz0VNdlYtxL/IylrgoK7S4tVicYwxC5xdSEX0x7VXR2gWzOkPiZTjH71hYV9rQ3Egfg7weL3X2CR9wWJtZpER1mu+TVWU3s6jEi4nRbQt+5BxzvbkXg9XEee2WiZ9lYzV1AXPu7+PB/ZTFzvj1o=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786644056; c=relaxed/simple;
-	bh=k6Zof5Q269nMrAFx+ueVy6Rn7Zypp9aMpvjAViJA9tU=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=Qn3cV5Uf7hh7wGF4m2JuRiI+K3aqmXMRbLH7CLNLZuB9sB/ojFRsEoGZwTfhe21uxxRW9TCReV1zwine226s1YnlJk6Kx512u/2fynRvaPRd7UlJocD/j4vwm/FrNEVHAD9EI2SeulGFUSBRsLibhgHRCH5BxygGOUXyu6DHz4I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VaNrsLip; arc=none smtp.client-ip=209.85.160.200
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--briandaniels.bounces.google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B493CAA31;
+	Thu, 13 Aug 2026 18:09:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786644557; cv=fail; b=dj+iEJznOJ/qbCZqGLPBdZkBCPwBh03TasrsvblbCExI2AzaS2eOHnf/bP9JCQLOASOv3DPCmhEmPCHGncFyqwAgXaJH01KQ/ww4z1D9QdfpTfAexCrVCoDd/K54njzSVv9TYXULFc6At0sJJbktnvEl6gTCS3IvP43vfQOohPE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786644557; c=relaxed/simple;
+	bh=NmVU4+scDSjs1DRKC+i7PmNxnSrIxzyaMjRxjzZyndM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=ey4tSOeIMoiW4X+n+nJQECcmiZSP+bx4idiYikB3imfnvUjXBgDZEWGS3Fzc3ffjpNrIo0OnJ85Xgy4UvD/5lc2/QQOZcs+QyV/cK2voo6i3ErXkgZMsFRXUBwsAuuubk1cVBD+imjnyxOqBNUX5/so2ipZh1mjwuCNb4sdyo1Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ZsqHvtrX; arc=fail smtp.client-ip=40.93.201.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VaNrsLip"
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-51ebdfceddcso2280671cf.3
-        for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 11:00:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1786644050; x=1787248850; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=scrxEFnDGzO0In3d+nkL0Uk4a8rUb8dbSenQhVmzjbk=;
-        b=VaNrsLipZWmwhMdkQb+KKNUcQP8EJEYoLdlhFpm5D77RwYYv0cyS5dF+WBKdNomiQh
-         jRL65dCTs9vvZ6lGYeGhakT91p5so+qjAFidzQsmkxNzGsctjqj2csPeOgP3FkGzjGVq
-         AISBQOZgnnpyCR45EDO4Nwoz1REMzl+b0LUKBw8t6WlG4imiqv2sSeGkAvdgUrPAVhZF
-         fLG3UtY/qvGqeEMqjZx9WcRaOXlDPdxOxe8mbIpABJ0T20MNBx/4KuZOB5Oh5OVkJyFB
-         KcJRqSW2AjBMBiAmucUFYSG9Ixo2eROx4sDn+cfvyysOqgQX63LSTdO/ioMbZ7FTC5BN
-         WLYg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786644050; x=1787248850;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=scrxEFnDGzO0In3d+nkL0Uk4a8rUb8dbSenQhVmzjbk=;
-        b=AH6dMYfwBT3scDt1ziCZT2bo6EZSMcn2oHxFs4ecUlTFqoVEJNRpZT/wLmrvM+pAKT
-         JyWIxdC+9XfuZZjcjjSKcPdqwLV/bNQzr2Vc+MNnxW9ZoJ7hF2ZJzpC3Rv8x+P/Eg2QS
-         6CG/erXwLEGMLFOSoJFFk7/tREMUw1i+ittkiFHa7s6v0/y5Xh6CAj2+cywLRgYoplj7
-         kMgpQrzsX1haof2pemJhra8EFci7HGjcPe+S3cFO/vcgXuZoO422W/cSEHjxm9U/Vm3O
-         oXaaT+Fj2CotjCABVroVuhN9NPRkWhZdUcrqDCWA7+CexVvOu/juq/DqohMuHo9IUtqJ
-         HlGg==
-X-Forwarded-Encrypted: i=1; AHgh+RqX4chZJnFVFFZFWmFDRc5yf1qmyZ32JVrIY2GyzkAYp19BmFAzQ5+pQRnhAbSj58WYxr1PbDFWnKxLNw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxBCEek5FyE5QRpdWHpZjriMyXzSr9c3rXB5LrJ736byPtZ7MV0
-	LgB0u8MBnWRWizuLpVdOTB0Y48q1XQHW/Su+4P/KiaanQKRjKp/H0LrDOsE+IralwG1l8llS8NZ
-	HRm3ZToeUtCHIl7FSQx7TEPlPwVqB
-X-Received: from qtbne9.prod.google.com ([2002:a05:622a:8309:b0:51c:86a:5c73])
- (user=briandaniels job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:622a:1653:b0:51b:f40b:2fb3 with SMTP id d75a77b69052e-52d73c27097mr81890461cf.9.1786644048816;
- Thu, 13 Aug 2026 11:00:48 -0700 (PDT)
-Date: Thu, 13 Aug 2026 14:00:26 -0400
-In-Reply-To: <20260813180026.2636879-1-briandaniels@google.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ZsqHvtrX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=je9PHXlAQXDipnHL8XwXCXXM0LCBs07U576j8/LsolWK5xjLgLEDy/cgubE5YvSphZ7/LKrkojBqOoxeUSfKXjtZNmCm06p0oWK0v9t8K2iwkUIDYqPCMzeNEiESs7qkYtV4kjjVIiBYmLsWCeV2gTlQOBIHk2bi8/+Wr+50ZeAbt8X/K6cyb8JBHdStytLbf4lbmeF4/H9rkcTuxIZN6U6umUQJGcHBO0jgVkJ7NQtlYKwTmwbF3dB4aGurB9MOzDUStJrwITJ3JU5GHuD2YoXPSei63ssiDnA/qHQZD528FTDtiXl3sFWprYqimEYkn9uxI6ai7vLQzeBdGUKiqQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=M6JJtkStOT5t7Vr2BJG51M6jpv6w1dSC700B+6YKWak=;
+ b=xrQMihUETTI5azIj9maRyrOd8TjC/5hLZ2tH3KWSgfO2jDZKAMElJWLMfFHgbQ6c3Kz2OgYXd4NelZ6oI5ZLXBbdPJKSc71KERAlp2NgTca3DUQ4/WOo23J8vvH+bxMTw7nLlJbqOcNjrIdkHKYcas3XFFiX4xZ4GmPjisf2s6Pnfnxs+w9pUkmswMskwcwa0k+6Cn3IKGMj3jlsMNtGBv1A1FLNzB7xT+pnlyj6rxvX9PjLNVQK1MoNHnIrkeCxXdM9IL1hvLlkSJbC+CsgkMxdymJiST7w6a2bx3UqRAYpsZpQD2y3OIMUDTk+nRT+4rES/cIqXOe/mdJWRWX8jQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=M6JJtkStOT5t7Vr2BJG51M6jpv6w1dSC700B+6YKWak=;
+ b=ZsqHvtrXUgGuFPKJ4ofSA3+4Jzfe6Bl3sjbZGEDR+e4CqcXWezkSmln45qW1zn5DpwGgCGz2elNpEEs7s4bXXEqndYAG3/MhkvO1KBNCN1URd8+8x8Il/VNzDp2s0jv4qx9BLw3WZ5JeBJBz/B4rNmdYghPeFI4y5BnFtQBaAb4=
+Received: from SJ0PR05CA0018.namprd05.prod.outlook.com (2603:10b6:a03:33b::23)
+ by DM3PR12MB9351.namprd12.prod.outlook.com (2603:10b6:8:1ac::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.15; Thu, 13 Aug
+ 2026 18:09:08 +0000
+Received: from MWH0EPF000C6185.namprd02.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::b) by SJ0PR05CA0018.outlook.office365.com
+ (2603:10b6:a03:33b::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.3 via Frontend Transport; Thu, 13
+ Aug 2026 18:09:02 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MWH0EPF000C6185.mail.protection.outlook.com (10.167.249.117) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Thu, 13 Aug 2026 18:09:01 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
+ 2026 13:09:01 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 13 Aug
+ 2026 13:08:54 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Thu, 13 Aug 2026 13:08:54 -0500
+Message-ID: <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
+Date: Thu, 13 Aug 2026 11:08:53 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <20260813180026.2636879-1-briandaniels@google.com>
-X-Mailer: git-send-email 2.55.0.737.g08866a6d13-goog
-Message-ID: <20260813180026.2636879-5-briandaniels@google.com>
-Subject: [PATCH v7 4/4] media: virtio: Add ioctl operations and driver logic
-From: Brian Daniels <briandaniels@google.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: adelva@google.com, aesteve@redhat.com, changyeon@google.com, 
-	daniel.almeida@collabora.com, eperezma@redhat.com, gnurou@gmail.com, 
-	gurchetansingh@google.com, hverkuil@xs4all.nl, jasowang@redhat.com, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, mst@redhat.com, 
-	nicolas.dufresne@collabora.com, virtualization@lists.linux.dev, 
-	xuanzhuo@linux.alibaba.com, dbassey@redhat.com, 
-	laurent.pinchart@ideasonboard.com, Brian Daniels <briandaniels@google.com>
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
+Content-Language: en-US
+To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Taimuraz
+ Kaitmazov" <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
+	<ogabbay@kernel.org>
+CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<sumit.semwal@linaro.org>, <linux-media@vger.kernel.org>,
+	<linaro-mm-sig@lists.linaro.org>, "Zhen, Max" <Max.Zhen@amd.com>, "Santan,
+ Sonal" <sonal.santan@amd.com>
+References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
+ <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
+ <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
+ <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000C6185:EE_|DM3PR12MB9351:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9af650a0-f83e-48e5-1b92-08def965f44e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|22082099003|18002099003|3023799007|56012099006|13003099007|11063799006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	5rTviwbryeg0JhwyiC/wmgUt/TfRnCf9uB1A2PtpSD9icqwfT2PG+aJYo5PhFca2qkdM3gwkLFtfrmDDokafH2Clpyi6upticBe+ZSP3ekS7JB6NXjoy6RUmcYxcBSttHrvt3OkRGCaMyK4l1ipN1gWTBY2NMpnQom3EX81btzyhq5rWyjgKwaLaHDk3gM4zJK/BxyTCbITqhcCi4pDrgCTPrrYzHivYkFb0aAxE9ItX1gnNq9Okjx7soYfIvnmnPsbRPBAMxFUY47Z9nk1epvycUh6S6dvb1RBGC0k50Z6VjzNXM8UMkv91xg+UP1pO+XzAB6fsFjFX8NIAWlXTjJbsun0E6IkElbtNCGYPJ4CSo/fUf2Yx0HAHXTyb93LYXiWR2KsD8RuTbu/E9yHTbz9389RjQQqdXptJZmpXZ+SCxLk+/Yhv5Lo6EdbEuqT8JfLTT9QnUoDt2Ur0ycC2cy3iuqg4qb8grhvJ9+QlHAQglk6tj1FFOQ0mOrCA87cdPqSCWKXsVuFfhojNatpiEFNBc5RVtCzzOkG46RNlnQLXQ4ixNldgT00fxgzJpbBE6rhIMfsVOT5cN53J9KEBemci521WCmbSuWDKXit15tl4WW/7fcgkgnpeNJ5sx/utxDS0tkWo7LiUBxoO94D8OVruWzqS106pXI1Bqet3I1OBlhmBRPBVswtZ2gJBTj6IS5mhnWmFSPmiC4VUhemcTA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(22082099003)(18002099003)(3023799007)(56012099006)(13003099007)(11063799006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	gpRvSINfg+xAUd6VCDrcNia1VzaFiwjTu0T+67pxBpH57CgosF12bGBBWPobpaTZNJmngJXmqllF95WJBKQnJG4+37zfcfSxNRzgJXS8DvSzlxafero6ZcGupYTBkXeon1cXt+rlabfLC7cW7hlhnUwgyikDKErVxENBkRjgK3o/PpyIVh2qS0m8QzI3OtTgAp0ZnRKvS3hLo82KYnaEUtE1mhLzdPV4lPR4humJSBqvdcfOiQswndJR/7/g+gaAmApl4kcTl+wNCYWYFoV+C8Cf4yGrSP6DH/XC/1RkmJ9iEiMM2a4XAEWm/maV2KfuPyqndSSAVJpjm96SVh4b777NmoBbVL3l+oKVrvZqElG3h+CQpHhX3lHcLWEy90caVi4w+h8NKuXWacYdM1rlaSpOEmCv5bdeaDtp1o1bV7SWkIWwIWGvwSMu5YYLmLy6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Aug 2026 18:09:01.7623
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9af650a0-f83e-48e5-1b92-08def965f44e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000C6185.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PR12MB9351
 
-From: Alexandre Courbot <gnurou@gmail.com>
 
-This patch adds the ioctl operations and the remaining driver logic
-for polling and mmapping.
+On 8/13/26 00:44, Christian König wrote:
+> Hi Lizhi,
+>
+> yeah that sounds reasonable.
+Thanks. :)
+>
+> An alternative would be to use DMA_BUF_IOCTL_SYNC from userspace, but that is usually only for the exporter to implement clflush or similar actions. As importer you need to be able to take the data as it is.
+>
+> We have discussed before if that shouldn't be changed somehow, but so far didn't settled on an interface.
+>
+> Question is why do you need clflush in the first place? The NPU is a PCIe device, isn't it? And so it should be using cache coherent memory accesses.
 
-It adds drivers/media/virtio/virtio_media_ioctls.c and updates
-virtio_media_driver.c to support poll, mmap, and ioctls.
+I do not know the hardware detail. The legacy NPU device is not cache 
+coherent. And the next generation (aie4) devices will be cache coherent.
 
-Signed-off-by: Alexandre Courbot <gnurou@gmail.com>
-Assisted-by: Antigravity:gemini-3.5-flash
-Co-developed-by: Brian Daniels <briandaniels@google.com>
-Signed-off-by: Brian Daniels <briandaniels@google.com>
----
- drivers/media/virtio/Makefile              |    2 +-
- drivers/media/virtio/virtio_media_driver.c |  195 +++
- drivers/media/virtio/virtio_media_ioctls.c | 1319 ++++++++++++++++++++
- 3 files changed, 1515 insertions(+), 1 deletion(-)
- create mode 100644 drivers/media/virtio/virtio_media_ioctls.c
 
-diff --git a/drivers/media/virtio/Makefile b/drivers/media/virtio/Makefile
-index 8290d8506..f1bc8a3ce 100644
---- a/drivers/media/virtio/Makefile
-+++ b/drivers/media/virtio/Makefile
-@@ -2,6 +2,6 @@
- #
- # Makefile for the virtio-media device driver.
- 
--virtio-media-objs := scatterlist_builder.o virtio_media_driver.o
-+virtio-media-objs := scatterlist_builder.o virtio_media_ioctls.o virtio_media_driver.o
- 
- obj-$(CONFIG_MEDIA_VIRTIO) += virtio-media.o
-diff --git a/drivers/media/virtio/virtio_media_driver.c b/drivers/media/virtio/virtio_media_driver.c
-index ef8065e34..5840bb349 100644
---- a/drivers/media/virtio/virtio_media_driver.c
-+++ b/drivers/media/virtio/virtio_media_driver.c
-@@ -6,6 +6,7 @@
-  * Copyright (c) 2024-2026 Google LLC.
-  */
- 
-+#include <linux/bits.h>
- #include <linux/device.h>
- #include <linux/dev_printk.h>
- #include <linux/mutex.h>
-@@ -19,6 +20,8 @@
- #include <linux/vmalloc.h>
- #include <linux/workqueue.h>
- #include <linux/dma-mapping.h>
-+#include <linux/poll.h>
-+#include <linux/mm.h>
- 
- #include <media/v4l2-dev.h>
- #include <media/v4l2-device.h>
-@@ -31,6 +34,12 @@
- 
- #define VIRTIO_MEDIA_NUM_EVENT_BUFS 16
- 
-+/* ID of the SHM region into which MMAP buffer will be mapped. */
-+#define VIRTIO_MEDIA_SHM_MMAP 0
-+
-+/* Bit mask for the VIRTIO_MEDIA_MMAP_FLAG_RW flag */
-+#define VIRTIO_MEDIA_MMAP_FLAG_RW_MASK BIT(VIRTIO_MEDIA_MMAP_FLAG_RW)
-+
- /**
-  * virtio_media_session_alloc() - Allocate a new session.
-  * @vv: virtio-media device the session belongs to.
-@@ -593,10 +602,191 @@ static int virtio_media_device_close(struct file *file)
- 	return virtio_media_session_close(vv, session);
- }
- 
-+/**
-+ * virtio_media_device_poll() - Poll logic for a virtio-media device.
-+ * @file: file of the session to poll.
-+ * @wait: poll table to wait on.
-+ */
-+static __poll_t virtio_media_device_poll(struct file *file, poll_table *wait)
-+{
-+	struct virtio_media_session *session =
-+		fh_to_session(file->private_data);
-+	enum v4l2_buf_type capture_type =
-+		session->uses_mplane ? V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE :
-+				       V4L2_BUF_TYPE_VIDEO_CAPTURE;
-+	enum v4l2_buf_type output_type =
-+		session->uses_mplane ? V4L2_BUF_TYPE_VIDEO_OUTPUT_MPLANE :
-+				       V4L2_BUF_TYPE_VIDEO_OUTPUT;
-+	struct virtio_media_queue_state *capture_queue =
-+		&session->queues[capture_type];
-+	struct virtio_media_queue_state *output_queue =
-+		&session->queues[output_type];
-+	__poll_t req_events = poll_requested_events(wait);
-+	__poll_t rc = 0;
-+
-+	poll_wait(file, &session->dqbuf_wait, wait);
-+	poll_wait(file, &session->fh.wait, wait);
-+
-+	mutex_lock(&session->queues_lock);
-+	if (req_events & (EPOLLIN | EPOLLRDNORM)) {
-+		if (!capture_queue->streaming ||
-+		    (capture_queue->queued_bufs == 0 &&
-+		     list_empty(&capture_queue->pending_dqbufs)))
-+			rc |= EPOLLERR;
-+		else if (!list_empty(&capture_queue->pending_dqbufs))
-+			rc |= EPOLLIN | EPOLLRDNORM;
-+	}
-+	if (req_events & (EPOLLOUT | EPOLLWRNORM)) {
-+		if (!output_queue->streaming)
-+			rc |= EPOLLERR;
-+		else if (output_queue->queued_bufs <
-+			 output_queue->allocated_bufs)
-+			rc |= EPOLLOUT | EPOLLWRNORM;
-+	}
-+	mutex_unlock(&session->queues_lock);
-+
-+	if (v4l2_event_pending(&session->fh))
-+		rc |= EPOLLPRI;
-+
-+	return rc;
-+}
-+
-+static void virtio_media_vma_close_locked(struct vm_area_struct *vma)
-+{
-+	struct virtio_media *vv = vma->vm_private_data;
-+	struct virtio_media_cmd_munmap *cmd_munmap = &vv->cmd.munmap;
-+	struct virtio_media_resp_munmap *resp_munmap = &vv->resp.munmap;
-+	struct scatterlist cmd_sg = {}, resp_sg = {};
-+	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
-+	int ret;
-+
-+	sg_set_buf(&cmd_sg, cmd_munmap, sizeof(*cmd_munmap));
-+	sg_mark_end(&cmd_sg);
-+
-+	sg_set_buf(&resp_sg, resp_munmap, sizeof(*resp_munmap));
-+	sg_mark_end(&resp_sg);
-+
-+	cmd_munmap->hdr.cmd = VIRTIO_MEDIA_CMD_MUNMAP;
-+	cmd_munmap->driver_addr =
-+		(vma->vm_pgoff << PAGE_SHIFT) - vv->mmap_region.addr;
-+	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_munmap),
-+					NULL);
-+	if (ret < 0) {
-+		v4l2_err(&vv->v4l2_dev, "host failed to unmap buffer: %d\n",
-+			 ret);
-+	}
-+}
-+
-+/**
-+ * virtio_media_vma_close() - Close a MMAP buffer mapping.
-+ * @vma: VMA of the mapping to close.
-+ *
-+ * Inform the host that a previously created MMAP mapping is no longer needed
-+ * and can be removed.
-+ */
-+static void virtio_media_vma_close(struct vm_area_struct *vma)
-+{
-+	struct virtio_media *vv = vma->vm_private_data;
-+
-+	mutex_lock(&vv->vlock);
-+	virtio_media_vma_close_locked(vma);
-+	mutex_unlock(&vv->vlock);
-+}
-+
-+static const struct vm_operations_struct virtio_media_vm_ops = {
-+	.close = virtio_media_vma_close,
-+};
-+
-+/**
-+ * virtio_media_device_mmap() - Perform a mmap request from userspace.
-+ * @file: opened file of the session to map for.
-+ * @vma: VM area struct describing the desired mapping.
-+ *
-+ * This requests the host to map a MMAP buffer for us, so we can then make that
-+ * mapping visible into user-space address space.
-+ */
-+static int virtio_media_device_mmap(struct file *file,
-+				    struct vm_area_struct *vma)
-+{
-+	struct video_device *video_dev = video_devdata(file);
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session =
-+		fh_to_session(file->private_data);
-+	struct virtio_media_cmd_mmap *cmd_mmap = &session->cmd.mmap;
-+	struct virtio_media_resp_mmap *resp_mmap = &session->resp.mmap;
-+	struct scatterlist cmd_sg = {}, resp_sg = {};
-+	struct scatterlist *sgs[2] = { &cmd_sg, &resp_sg };
-+	int ret;
-+
-+	if (!(vma->vm_flags & VM_SHARED))
-+		return -EINVAL;
-+	if (!(vma->vm_flags & (VM_READ | VM_WRITE)))
-+		return -EINVAL;
-+
-+	mutex_lock(&vv->vlock);
-+
-+	cmd_mmap->hdr.cmd = VIRTIO_MEDIA_CMD_MMAP;
-+	cmd_mmap->session_id = session->id;
-+	cmd_mmap->flags =
-+		(vma->vm_flags & VM_WRITE) ? VIRTIO_MEDIA_MMAP_FLAG_RW_MASK : 0;
-+	cmd_mmap->offset = vma->vm_pgoff << PAGE_SHIFT;
-+
-+	sg_set_buf(&cmd_sg, cmd_mmap, sizeof(*cmd_mmap));
-+	sg_mark_end(&cmd_sg);
-+
-+	sg_set_buf(&resp_sg, resp_mmap, sizeof(*resp_mmap));
-+	sg_mark_end(&resp_sg);
-+
-+	/*
-+	 * The host performs reference counting and is smart enough to return
-+	 * the same guest physical address if this is called several times on
-+	 * the same
-+	 * buffer.
-+	 */
-+	ret = virtio_media_send_command(vv, sgs, 1, 1, sizeof(*resp_mmap),
-+					NULL);
-+	if (ret < 0)
-+		goto end;
-+
-+	vma->vm_private_data = vv;
-+	/*
-+	 * Keep the guest address at which the buffer is mapped since we will
-+	 * use that to unmap.
-+	 */
-+	vma->vm_pgoff = (resp_mmap->driver_addr + vv->mmap_region.addr) >>
-+			PAGE_SHIFT;
-+
-+	/*
-+	 * We cannot let the mapping be larger than the buffer.
-+	 */
-+	if (vma->vm_end - vma->vm_start > PAGE_ALIGN(resp_mmap->len)) {
-+		dev_dbg(&video_dev->dev,
-+			"invalid MMAP, as it would overflow buffer length\n");
-+		virtio_media_vma_close_locked(vma);
-+		ret = -EINVAL;
-+		goto end;
-+	}
-+
-+	ret = io_remap_pfn_range(vma, vma->vm_start, vma->vm_pgoff,
-+				 vma->vm_end - vma->vm_start,
-+				 vma->vm_page_prot);
-+	if (ret)
-+		goto end;
-+
-+	vma->vm_ops = &virtio_media_vm_ops;
-+
-+end:
-+	mutex_unlock(&vv->vlock);
-+	return ret;
-+}
-+
- static const struct v4l2_file_operations virtio_media_fops = {
- 	.owner = THIS_MODULE,
- 	.open = virtio_media_device_open,
- 	.release = virtio_media_device_close,
-+	.poll = virtio_media_device_poll,
-+	.unlocked_ioctl = virtio_media_device_ioctl,
-+	.mmap = virtio_media_device_mmap,
- };
- 
- static int virtio_media_probe(struct virtio_device *virtio_dev)
-@@ -654,9 +844,14 @@ static int virtio_media_probe(struct virtio_device *virtio_dev)
- 	vv->eventq = vqs[1];
- 	INIT_WORK(&vv->eventq_work, virtio_media_event_work);
- 
-+	/* Get MMAP buffer mapping SHM region */
-+	virtio_get_shm_region(virtio_dev, &vv->mmap_region,
-+			      VIRTIO_MEDIA_SHM_MMAP);
-+
- 	vd = &vv->video_dev;
- 	vd->v4l2_dev = &vv->v4l2_dev;
- 	vd->vfl_type = VFL_TYPE_VIDEO;
-+	vd->ioctl_ops = &virtio_media_ioctl_ops;
- 	vd->fops = &virtio_media_fops;
- 	vd->release = video_device_release_empty;
- 	strscpy(vd->name, "virtio-media", sizeof(vd->name));
-diff --git a/drivers/media/virtio/virtio_media_ioctls.c b/drivers/media/virtio/virtio_media_ioctls.c
-new file mode 100644
-index 000000000..f0b82b5ec
---- /dev/null
-+++ b/drivers/media/virtio/virtio_media_ioctls.c
-@@ -0,0 +1,1319 @@
-+// SPDX-License-Identifier: BSD-3-Clause OR GPL-2.0+
-+
-+/*
-+ * Ioctl implementations for the virtio-media driver.
-+ *
-+ * Copyright (c) 2024-2026 Google LLC.
-+ */
-+
-+#include <linux/mutex.h>
-+#include <linux/videodev2.h>
-+#include <linux/virtio_config.h>
-+#include <linux/vmalloc.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-ioctl.h>
-+
-+#include "scatterlist_builder.h"
-+#include "virtio_media.h"
-+
-+/**
-+ * virtio_media_send_r_ioctl() - Send a read-only ioctl to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @ioctl_data: pointer to the ioctl payload.
-+ * @ioctl_data_len: length in bytes of the ioctl payload.
-+ *
-+ * Send an ioctl that has no driver payload, but expects a response from the
-+ * host (i.e. an ioctl specified with ``_IOR``).
-+ */
-+static int virtio_media_send_r_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+				     void *ioctl_data, size_t ioctl_data_len)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	struct scatterlist *sgs[3];
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+	};
-+
-+	/* Command descriptor */
-+	int ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+
-+	if (ret)
-+		return ret;
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		return ret;
-+
-+	/* Response payload */
-+	ret = scatterlist_builder_add_data(&builder, ioctl_data,
-+					   ioctl_data_len);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to prepare command descriptor chain\n");
-+		return ret;
-+	}
-+
-+	ret = virtio_media_send_command(vv, sgs, 1, 2,
-+					sizeof(struct virtio_media_resp_ioctl) +
-+					ioctl_data_len, NULL);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = scatterlist_builder_retrieve_data(&builder, 2, ioctl_data);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to retrieve response descriptor chain\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtio_media_send_w_ioctl() - Send a write-only ioctl to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @ioctl_data: pointer to the ioctl payload.
-+ * @ioctl_data_len: length in bytes of the ioctl payload.
-+ *
-+ * Send an ioctl that does not expect a reply beyond an error status (i.e. an
-+ * ioctl specified with ``_IOW``) to the host.
-+ */
-+static int virtio_media_send_w_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+				     const void *ioctl_data,
-+				     size_t ioctl_data_len)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	struct scatterlist *sgs[3];
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+	};
-+
-+	/* Command descriptor */
-+	int ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+
-+	if (ret)
-+		return ret;
-+
-+	/* Command payload */
-+	ret = scatterlist_builder_add_data(&builder, (void *)ioctl_data,
-+					   ioctl_data_len);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to prepare command descriptor chain\n");
-+		return ret;
-+	}
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		return ret;
-+
-+	ret = virtio_media_send_command(vv, sgs, 2, 1,
-+					sizeof(struct virtio_media_resp_ioctl),
-+					NULL);
-+	if (ret < 0)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtio_media_send_wr_ioctl() - Send a read-write ioctl to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @ioctl_data: pointer to the ioctl payload.
-+ * @ioctl_data_len: length in bytes of the ioctl payload.
-+ * @minimum_resp_payload: minimum expected length of the response's payload.
-+ *
-+ * Sends an ioctl that expects a response of exactly the same size as the
-+ * input (i.e. an ioctl specified with ``_IOWR``) to the host.
-+ *
-+ * This corresponds to what most V4L2 ioctls do. For instance
-+ * ``VIDIOC_ENUM_FMT`` takes a partially-initialized &struct v4l2_fmtdesc
-+ * and returns its filled version.
-+ */
-+static int virtio_media_send_wr_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+				      void *ioctl_data, size_t ioctl_data_len,
-+				      size_t minimum_resp_payload)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	struct scatterlist *sgs[4];
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+	};
-+
-+	/* Command descriptor */
-+	int ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+
-+	if (ret)
-+		return ret;
-+
-+	/* Command payload */
-+	ret = scatterlist_builder_add_data(&builder, ioctl_data,
-+					   ioctl_data_len);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to prepare command descriptor chain\n");
-+		return ret;
-+	}
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		return ret;
-+
-+	/* Response payload, same as command */
-+	ret = scatterlist_builder_add_descriptor(&builder, 1);
-+	if (ret)
-+		return ret;
-+
-+	ret = virtio_media_send_command(vv, sgs, 2, 2,
-+					sizeof(struct virtio_media_resp_ioctl) +
-+						minimum_resp_payload,
-+					NULL);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = scatterlist_builder_retrieve_data(&builder, 3, ioctl_data);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to retrieve response descriptor chain\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtio_media_send_buffer_ioctl() - Send an ioctl taking a buffer as
-+ * parameter to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @b: &struct v4l2_buffer to be sent as the ioctl payload.
-+ *
-+ * Buffers can require an additional descriptor to send their planes array, and
-+ * can have pointers to userspace memory hence this dedicated function.
-+ */
-+static int virtio_media_send_buffer_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+					  struct v4l2_buffer *b)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	struct v4l2_plane *orig_planes = NULL;
-+	struct scatterlist *sgs[64];
-+	/*
-+	 * End of the device-readable buffer SGs, to reuse in device-writable
-+	 * section.
-+	 */
-+	size_t num_cmd_sgs;
-+	size_t end_buf_sg;
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+	};
-+	size_t resp_len;
-+	int ret;
-+	int i;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	if (V4L2_TYPE_IS_MULTIPLANAR(b->type))
-+		orig_planes = b->m.planes;
-+
-+	/* Command descriptor */
-+	ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+	if (ret)
-+		return ret;
-+
-+	/* Command payload (struct v4l2_buffer) */
-+	ret = scatterlist_builder_add_buffer(&builder, b);
-+	if (ret < 0)
-+		return ret;
-+
-+	end_buf_sg = builder.cur_sg;
-+	num_cmd_sgs = builder.cur_sg;
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		return ret;
-+
-+	/* Response payload (same as input, but no userptr mapping) */
-+	for (i = 1; i < end_buf_sg; i++) {
-+		ret = scatterlist_builder_add_descriptor(&builder, i);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = virtio_media_send_command(vv, builder.sgs, num_cmd_sgs,
-+					builder.cur_sg - num_cmd_sgs,
-+					sizeof(struct virtio_media_resp_ioctl) +
-+					sizeof(*b), &resp_len);
-+	if (ret < 0)
-+		return ret;
-+
-+	resp_len -= sizeof(struct virtio_media_resp_ioctl);
-+
-+	/* Make sure that the reply length covers our v4l2_buffer */
-+	if (resp_len < sizeof(*b))
-+		return -EINVAL;
-+
-+	ret = scatterlist_builder_retrieve_buffer(&builder, num_cmd_sgs + 1, b,
-+						  orig_planes);
-+	if (ret) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "failed to retrieve response descriptor chain\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtio_media_send_ext_controls_ioctl() - Send an ioctl taking extended
-+ * controls as parameters to the device.
-+ * @fh: file handler of the session doing the ioctl.
-+ * @ioctl: ``VIDIOC_*`` ioctl code.
-+ * @ctrls: &struct v4l2_ext_controls to be sent as the ioctl payload.
-+ *
-+ * Queues an ioctl that sends a &struct v4l2_ext_controls to the host and
-+ * receives an updated version.
-+ *
-+ * &struct v4l2_ext_controls has a pointer to an array of
-+ * &struct v4l2_ext_control, and also potentially pointers to user-space memory
-+ * that we need to map properly, hence the dedicated function.
-+ */
-+static int virtio_media_send_ext_controls_ioctl(struct v4l2_fh *fh, u32 ioctl,
-+						struct v4l2_ext_controls *ctrls)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session = fh_to_session(fh);
-+	size_t num_cmd_sgs;
-+	size_t end_ctrls_sg;
-+	struct v4l2_ext_control *controls_backup = ctrls->controls;
-+	const u32 num_ctrls = ctrls->count;
-+	struct scatterlist *sgs[64];
-+	struct scatterlist_builder builder = {
-+		.descs = session->command_sgs.sgl,
-+		.num_descs = DESC_CHAIN_MAX_LEN,
-+		.cur_desc = 0,
-+		.shadow_buffer = session->shadow_buf,
-+		.shadow_buffer_size = VIRTIO_SHADOW_BUF_SIZE,
-+		.shadow_buffer_pos = 0,
-+		.sgs = sgs,
-+		.num_sgs = ARRAY_SIZE(sgs),
-+		.cur_sg = 0,
-+	};
-+	size_t resp_len = 0;
-+	int i;
-+
-+	/* Command descriptor */
-+	int ret = scatterlist_builder_add_ioctl_cmd(&builder, session, ioctl);
-+
-+	if (ret)
-+		return ret;
-+
-+	/* v4l2_controls */
-+	ret = scatterlist_builder_add_ext_ctrls(&builder, ctrls);
-+	if (ret)
-+		return ret;
-+
-+	end_ctrls_sg = builder.cur_sg;
-+
-+	ret = scatterlist_builder_add_ext_ctrls_userptrs(&builder, ctrls);
-+	if (ret)
-+		return ret;
-+
-+	num_cmd_sgs = builder.cur_sg;
-+
-+	/* Response descriptor */
-+	ret = scatterlist_builder_add_ioctl_resp(&builder, session);
-+	if (ret)
-+		return ret;
-+
-+	/* Response payload (same as input but without userptrs) */
-+	for (i = 1; i < end_ctrls_sg; i++) {
-+		ret = scatterlist_builder_add_descriptor(&builder, i);
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	ret = virtio_media_send_command(vv, builder.sgs, num_cmd_sgs,
-+					builder.cur_sg - num_cmd_sgs,
-+					sizeof(struct virtio_media_resp_ioctl) +
-+					sizeof(*ctrls),
-+					&resp_len);
-+
-+	/* Just in case the host touched these. */
-+	ctrls->controls = controls_backup;
-+	if (ctrls->count != num_ctrls) {
-+		v4l2_err(&vv->v4l2_dev,
-+			 "device returned a number of controls different than the one submitted\n");
-+	}
-+	if (ctrls->count > num_ctrls)
-+		return -ENOSPC;
-+
-+	/*
-+	 * Even if we have received an error, we may need to read our payload
-+	 * back.
-+	 */
-+	if (ret < 0 && resp_len >= sizeof(struct virtio_media_resp_ioctl) +
-+					   sizeof(*ctrls)) {
-+		/*
-+		 * Deliberately ignore the error here as we want to return the
-+		 * previous one.
-+		 */
-+		scatterlist_builder_retrieve_ext_ctrls(&builder,
-+						       num_cmd_sgs + 1, ctrls);
-+		return ret;
-+	}
-+
-+	resp_len -= sizeof(struct virtio_media_resp_ioctl);
-+
-+	/* Make sure that the reply's length covers our v4l2_ext_controls */
-+	if (resp_len < sizeof(*ctrls))
-+		return -EINVAL;
-+
-+	ret = scatterlist_builder_retrieve_ext_ctrls(&builder, num_cmd_sgs + 1,
-+						     ctrls);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+/**
-+ * virtio_media_clear_queue() - clear all pending buffers on a streamed-off
-+ *                              queue.
-+ * @session: session which the queue to clear belongs to.
-+ * @queue: state of the queue to clear.
-+ *
-+ * Helper function to clear the list of buffers waiting to be dequeued on a
-+ * queue that has just been streamed off.
-+ */
-+static void virtio_media_clear_queue(struct virtio_media_session *session,
-+				     struct virtio_media_queue_state *queue)
-+{
-+	struct list_head *p, *n;
-+	int i;
-+
-+	mutex_lock(&session->queues_lock);
-+
-+	list_for_each_safe(p, n, &queue->pending_dqbufs) {
-+		struct virtio_media_buffer *dqbuf =
-+			list_entry(p, struct virtio_media_buffer, list);
-+
-+		list_del(&dqbuf->list);
-+	}
-+
-+	/* All buffers are now dequeued. */
-+	for (i = 0; i < queue->allocated_bufs; i++)
-+		queue->buffers[i].buffer.flags = 0;
-+
-+	queue->queued_bufs = 0;
-+	queue->streaming = false;
-+	queue->is_capture_last = false;
-+
-+	mutex_unlock(&session->queues_lock);
-+}
-+
-+/*
-+ * Macros suitable for defining ioctls with a constant size payload.
-+ */
-+
-+#define SIMPLE_WR_IOCTL(name, ioctl, payload_t)                       \
-+	static int virtio_media_##name(struct file *file, void *fh,   \
-+				       payload_t *payload)            \
-+	{                                                             \
-+		struct v4l2_fh *vfh = file_to_v4l2_fh(file);          \
-+		return virtio_media_send_wr_ioctl(vfh, ioctl, payload,\
-+						  sizeof(*payload),   \
-+						  sizeof(*payload));  \
-+	}
-+#define SIMPLE_R_IOCTL(name, ioctl, payload_t)                       \
-+	static int virtio_media_##name(struct file *file, void *fh,  \
-+				       payload_t *payload)           \
-+	{                                                            \
-+		struct v4l2_fh *vfh = file_to_v4l2_fh(file);         \
-+		return virtio_media_send_r_ioctl(vfh, ioctl, payload,\
-+						 sizeof(*payload));  \
-+	}
-+#define SIMPLE_W_IOCTL(name, ioctl, payload_t)                       \
-+	static int virtio_media_##name(struct file *file, void *fh,  \
-+				       payload_t *payload)           \
-+	{                                                            \
-+		struct v4l2_fh *vfh = file_to_v4l2_fh(file);         \
-+		return virtio_media_send_w_ioctl(vfh, ioctl, payload,\
-+						 sizeof(*payload));  \
-+	}
-+
-+/*
-+ * V4L2 ioctl handlers.
-+ *
-+ * Most of these functions just forward the ioctl to the host, for these we can
-+ * use one of the SIMPLE_*_IOCTL macros. Exceptions that have their own
-+ * standalone function follow.
-+ */
-+
-+SIMPLE_WR_IOCTL(enum_fmt, VIDIOC_ENUM_FMT, struct v4l2_fmtdesc)
-+SIMPLE_WR_IOCTL(g_fmt, VIDIOC_G_FMT, struct v4l2_format)
-+SIMPLE_WR_IOCTL(s_fmt, VIDIOC_S_FMT, struct v4l2_format)
-+SIMPLE_WR_IOCTL(try_fmt, VIDIOC_TRY_FMT, struct v4l2_format)
-+SIMPLE_WR_IOCTL(enum_framesizes, VIDIOC_ENUM_FRAMESIZES,
-+		struct v4l2_frmsizeenum)
-+SIMPLE_WR_IOCTL(enum_frameintervals, VIDIOC_ENUM_FRAMEINTERVALS,
-+		struct v4l2_frmivalenum)
-+SIMPLE_WR_IOCTL(query_ext_ctrl, VIDIOC_QUERY_EXT_CTRL,
-+		struct v4l2_query_ext_ctrl)
-+SIMPLE_WR_IOCTL(s_dv_timings, VIDIOC_S_DV_TIMINGS, struct v4l2_dv_timings)
-+SIMPLE_WR_IOCTL(g_dv_timings, VIDIOC_G_DV_TIMINGS, struct v4l2_dv_timings)
-+SIMPLE_R_IOCTL(query_dv_timings, VIDIOC_QUERY_DV_TIMINGS,
-+	       struct v4l2_dv_timings)
-+SIMPLE_WR_IOCTL(enum_dv_timings, VIDIOC_ENUM_DV_TIMINGS,
-+		struct v4l2_enum_dv_timings)
-+SIMPLE_WR_IOCTL(dv_timings_cap, VIDIOC_DV_TIMINGS_CAP,
-+		struct v4l2_dv_timings_cap)
-+SIMPLE_WR_IOCTL(enuminput, VIDIOC_ENUMINPUT, struct v4l2_input)
-+SIMPLE_WR_IOCTL(querymenu, VIDIOC_QUERYMENU, struct v4l2_querymenu)
-+SIMPLE_WR_IOCTL(enumoutput, VIDIOC_ENUMOUTPUT, struct v4l2_output)
-+SIMPLE_WR_IOCTL(enumaudio, VIDIOC_ENUMAUDIO, struct v4l2_audio)
-+SIMPLE_R_IOCTL(g_audio, VIDIOC_G_AUDIO, struct v4l2_audio)
-+SIMPLE_W_IOCTL(s_audio, VIDIOC_S_AUDIO, const struct v4l2_audio)
-+SIMPLE_WR_IOCTL(enumaudout, VIDIOC_ENUMAUDOUT, struct v4l2_audioout)
-+SIMPLE_R_IOCTL(g_audout, VIDIOC_G_AUDOUT, struct v4l2_audioout)
-+SIMPLE_W_IOCTL(s_audout, VIDIOC_S_AUDOUT, const struct v4l2_audioout)
-+SIMPLE_WR_IOCTL(g_modulator, VIDIOC_G_MODULATOR, struct v4l2_modulator)
-+SIMPLE_W_IOCTL(s_modulator, VIDIOC_S_MODULATOR, const struct v4l2_modulator)
-+SIMPLE_WR_IOCTL(g_selection, VIDIOC_G_SELECTION, struct v4l2_selection)
-+SIMPLE_WR_IOCTL(s_selection, VIDIOC_S_SELECTION, struct v4l2_selection)
-+SIMPLE_R_IOCTL(g_enc_index, VIDIOC_G_ENC_INDEX, struct v4l2_enc_idx)
-+SIMPLE_WR_IOCTL(encoder_cmd, VIDIOC_ENCODER_CMD, struct v4l2_encoder_cmd)
-+SIMPLE_WR_IOCTL(try_encoder_cmd, VIDIOC_TRY_ENCODER_CMD,
-+		struct v4l2_encoder_cmd)
-+SIMPLE_WR_IOCTL(try_decoder_cmd, VIDIOC_TRY_DECODER_CMD,
-+		struct v4l2_decoder_cmd)
-+SIMPLE_WR_IOCTL(g_parm, VIDIOC_G_PARM, struct v4l2_streamparm)
-+SIMPLE_WR_IOCTL(s_parm, VIDIOC_S_PARM, struct v4l2_streamparm)
-+SIMPLE_R_IOCTL(g_std, VIDIOC_G_STD, v4l2_std_id)
-+SIMPLE_R_IOCTL(querystd, VIDIOC_QUERYSTD, v4l2_std_id)
-+SIMPLE_WR_IOCTL(enumstd, VIDIOC_ENUMSTD, struct v4l2_standard)
-+SIMPLE_WR_IOCTL(g_tuner, VIDIOC_G_TUNER, struct v4l2_tuner)
-+SIMPLE_W_IOCTL(s_tuner, VIDIOC_S_TUNER, const struct v4l2_tuner)
-+SIMPLE_WR_IOCTL(g_frequency, VIDIOC_G_FREQUENCY, struct v4l2_frequency)
-+SIMPLE_W_IOCTL(s_frequency, VIDIOC_S_FREQUENCY, const struct v4l2_frequency)
-+SIMPLE_WR_IOCTL(enum_freq_bands, VIDIOC_ENUM_FREQ_BANDS,
-+		struct v4l2_frequency_band)
-+SIMPLE_WR_IOCTL(g_sliced_vbi_cap, VIDIOC_G_SLICED_VBI_CAP,
-+		struct v4l2_sliced_vbi_cap)
-+SIMPLE_W_IOCTL(s_hw_freq_seek, VIDIOC_S_HW_FREQ_SEEK,
-+	       const struct v4l2_hw_freq_seek)
-+
-+/*
-+ * QUERYCAP is handled by reading the configuration area.
-+ */
-+
-+static int virtio_media_querycap(struct file *file, void *fh,
-+				 struct v4l2_capability *cap)
-+{
-+	struct video_device *video_dev = video_devdata(file);
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+
-+	strscpy(cap->bus_info, "platform:virtio-media");
-+	strscpy(cap->driver, VIRTIO_MEDIA_DEFAULT_DRIVER_NAME);
-+
-+	virtio_cread_bytes(vv->virtio_dev, 8, cap->card, sizeof(cap->card));
-+
-+	cap->capabilities = video_dev->device_caps | V4L2_CAP_DEVICE_CAPS;
-+	cap->device_caps = video_dev->device_caps;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Extended control ioctls are handled mostly identically.
-+ */
-+
-+static int virtio_media_g_ext_ctrls(struct file *file, void *fh,
-+				    struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_G_EXT_CTRLS,
-+						    ctrls);
-+}
-+
-+static int virtio_media_s_ext_ctrls(struct file *file, void *fh,
-+				    struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_S_EXT_CTRLS,
-+						    ctrls);
-+}
-+
-+static int virtio_media_try_ext_ctrls(struct file *file, void *fh,
-+				      struct v4l2_ext_controls *ctrls)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+
-+	return virtio_media_send_ext_controls_ioctl(vfh, VIDIOC_TRY_EXT_CTRLS,
-+						    ctrls);
-+}
-+
-+/*
-+ * Subscribe/unsubscribe from an event.
-+ */
-+
-+static int
-+virtio_media_subscribe_event(struct v4l2_fh *fh,
-+			     const struct v4l2_event_subscription *sub)
-+{
-+	struct video_device *video_dev = fh->vdev;
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	int ret;
-+
-+	/* First subscribe to the event in the guest. */
-+	switch (sub->type) {
-+	case V4L2_EVENT_SOURCE_CHANGE:
-+		ret = v4l2_src_change_event_subscribe(fh, sub);
-+		break;
-+	default:
-+		ret = v4l2_event_subscribe(fh, sub, 1, NULL);
-+		break;
-+	}
-+	if (ret)
-+		return ret;
-+
-+	/* Then ask the host to signal us these events. */
-+	ret = virtio_media_send_w_ioctl(fh, VIDIOC_SUBSCRIBE_EVENT, sub,
-+					sizeof(*sub));
-+	if (ret < 0) {
-+		v4l2_event_unsubscribe(fh, sub);
-+		return ret;
-+	}
-+
-+	/*
-+	 * Subscribing to an event may result in that event being signaled
-+	 * immediately. Process all pending events to make sure we don't
-+	 * miss it.
-+	 */
-+	if (sub->flags & V4L2_EVENT_SUB_FL_SEND_INITIAL)
-+		virtio_media_process_events(vv);
-+
-+	return 0;
-+}
-+
-+static int
-+virtio_media_unsubscribe_event(struct v4l2_fh *fh,
-+			       const struct v4l2_event_subscription *sub)
-+{
-+	int ret = virtio_media_send_w_ioctl(fh, VIDIOC_UNSUBSCRIBE_EVENT, sub,
-+					sizeof(*sub));
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = v4l2_event_unsubscribe(fh, sub);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+/*
-+ * Streamon/off affect the local queue state.
-+ */
-+
-+static int virtio_media_streamon(struct file *file, void *fh,
-+				 enum v4l2_buf_type i)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	int ret;
-+
-+	if (i > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	ret = virtio_media_send_w_ioctl(vfh, VIDIOC_STREAMON, &i, sizeof(i));
-+	if (ret < 0)
-+		return ret;
-+
-+	session->queues[i].streaming = true;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_streamoff(struct file *file, void *fh,
-+				  enum v4l2_buf_type i)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	int ret;
-+
-+	if (i > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	ret = virtio_media_send_w_ioctl(vfh, VIDIOC_STREAMOFF, &i, sizeof(i));
-+	if (ret < 0)
-+		return ret;
-+
-+	virtio_media_clear_queue(session, &session->queues[i]);
-+
-+	return 0;
-+}
-+
-+/*
-+ * Buffer creation/queuing functions deal with the local driver state.
-+ */
-+
-+static int virtio_media_reqbufs(struct file *file, void *fh,
-+				struct v4l2_requestbuffers *b)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	struct virtio_media_queue_state *queue;
-+	int ret;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	if (b->memory == V4L2_MEMORY_USERPTR)
-+		return -EINVAL;
-+
-+	ret = virtio_media_send_wr_ioctl(vfh, VIDIOC_REQBUFS, b, sizeof(*b),
-+					 sizeof(*b));
-+	if (ret)
-+		return ret;
-+
-+	queue = &session->queues[b->type];
-+
-+	/* REQBUFS(0) is an implicit STREAMOFF. */
-+	if (b->count == 0)
-+		virtio_media_clear_queue(session, queue);
-+
-+	vfree(queue->buffers);
-+	queue->buffers = NULL;
-+
-+	if (b->count > 0) {
-+		queue->buffers =
-+			vzalloc(sizeof(struct virtio_media_buffer) * b->count);
-+		if (!queue->buffers)
-+			return -ENOMEM;
-+	}
-+
-+	queue->allocated_bufs = b->count;
-+
-+	/*
-+	 * If a multiplanar queue is successfully used here, this means
-+	 * we are using the multiplanar interface.
-+	 */
-+	if (V4L2_TYPE_IS_MULTIPLANAR(b->type))
-+		session->uses_mplane = true;
-+
-+	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_USERPTR;
-+
-+	/* We do not support DMABUF yet. */
-+	b->capabilities &= ~V4L2_BUF_CAP_SUPPORTS_DMABUF;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_querybuf(struct file *file, void *fh,
-+				 struct v4l2_buffer *b)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	struct virtio_media_queue_state *queue;
-+	struct virtio_media_buffer *buffer;
-+
-+	int ret = virtio_media_send_buffer_ioctl(vfh, VIDIOC_QUERYBUF, b);
-+
-+	if (ret)
-+		return ret;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	queue = &session->queues[b->type];
-+	if (b->index >= queue->allocated_bufs)
-+		return -EINVAL;
-+
-+	buffer = &queue->buffers[b->index];
-+	/*
-+	 * Set the DONE flag if the buffer is waiting in our own dequeue
-+	 * queue.
-+	 */
-+	b->flags |= (buffer->buffer.flags & V4L2_BUF_FLAG_DONE);
-+
-+	return 0;
-+}
-+
-+static int virtio_media_create_bufs(struct file *file, void *fh,
-+				    struct v4l2_create_buffers *b)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	struct virtio_media_queue_state *queue;
-+	struct virtio_media_buffer *buffers;
-+	u32 type = b->format.type;
-+	int ret;
-+
-+	if (type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	queue = &session->queues[type];
-+
-+	ret = virtio_media_send_wr_ioctl(vfh, VIDIOC_CREATE_BUFS, b, sizeof(*b),
-+					 sizeof(*b));
-+	if (ret)
-+		return ret;
-+
-+	/* If count is zero, we were just checking for format. */
-+	if (b->count == 0)
-+		return 0;
-+
-+	buffers = queue->buffers;
-+
-+	queue->buffers =
-+		vzalloc(sizeof(*queue->buffers) * (b->index + b->count));
-+	if (!queue->buffers) {
-+		queue->buffers = buffers;
-+		return -ENOMEM;
-+	}
-+
-+	memcpy(queue->buffers, buffers,
-+	       sizeof(*buffers) * queue->allocated_bufs);
-+	vfree(buffers);
-+
-+	queue->allocated_bufs = b->index + b->count;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_prepare_buf(struct file *file, void *fh,
-+				    struct v4l2_buffer *b)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	struct virtio_media_queue_state *queue;
-+	struct virtio_media_buffer *buffer;
-+	int i, ret;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+	queue = &session->queues[b->type];
-+	if (b->index >= queue->allocated_bufs)
-+		return -EINVAL;
-+	buffer = &queue->buffers[b->index];
-+
-+	buffer->buffer.m = b->m;
-+	if (V4L2_TYPE_IS_MULTIPLANAR(b->type)) {
-+		if (b->length > VIDEO_MAX_PLANES)
-+			return -EINVAL;
-+		for (i = 0; i < b->length; i++)
-+			buffer->planes[i].m = b->m.planes[i].m;
-+	}
-+
-+	ret = virtio_media_send_buffer_ioctl(vfh, VIDIOC_PREPARE_BUF, b);
-+	if (ret)
-+		return ret;
-+
-+	buffer->buffer.flags = V4L2_BUF_FLAG_PREPARED;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_qbuf(struct file *file, void *fh, struct v4l2_buffer *b)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+	struct virtio_media_queue_state *queue;
-+	struct virtio_media_buffer *buffer;
-+	bool prepared;
-+	u32 old_flags;
-+	int i, ret;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+	queue = &session->queues[b->type];
-+	if (b->index >= queue->allocated_bufs)
-+		return -EINVAL;
-+	buffer = &queue->buffers[b->index];
-+	prepared = buffer->buffer.flags & V4L2_BUF_FLAG_PREPARED;
-+
-+	/*
-+	 * Store the buffer and plane `m` information so we can retrieve
-+	 * it again when DQBUF occurs.
-+	 */
-+	if (!prepared) {
-+		buffer->buffer.m = b->m;
-+		if (V4L2_TYPE_IS_MULTIPLANAR(b->type)) {
-+			if (b->length > VIDEO_MAX_PLANES)
-+				return -EINVAL;
-+			for (i = 0; i < b->length; i++)
-+				buffer->planes[i].m = b->m.planes[i].m;
-+		}
-+	}
-+	old_flags = buffer->buffer.flags;
-+	buffer->buffer.flags = V4L2_BUF_FLAG_QUEUED;
-+
-+	ret = virtio_media_send_buffer_ioctl(vfh, VIDIOC_QBUF, b);
-+	if (ret) {
-+		/* Rollback the previous flags as the buffer is not queued. */
-+		buffer->buffer.flags = old_flags;
-+		return ret;
-+	}
-+
-+	queue->queued_bufs += 1;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_dqbuf(struct file *file, void *fh,
-+			      struct v4l2_buffer *b)
-+{
-+	struct video_device *video_dev = video_devdata(file);
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct virtio_media_session *session =
-+		fh_to_session(file_to_v4l2_fh(file));
-+	struct virtio_media_buffer *dqbuf;
-+	struct virtio_media_queue_state *queue;
-+	struct list_head *buffer_queue;
-+	struct v4l2_plane *planes_backup = NULL;
-+	const bool is_multiplanar = V4L2_TYPE_IS_MULTIPLANAR(b->type);
-+	int ret;
-+
-+	if (b->type > VIRTIO_MEDIA_LAST_QUEUE)
-+		return -EINVAL;
-+
-+	queue = &session->queues[b->type];
-+
-+	/*
-+	 * If a buffer with the LAST flag has been returned, subsequent
-+	 * calls to DQBUF must return -EPIPE until the queue is cleared.
-+	 */
-+	if (queue->is_capture_last)
-+		return -EPIPE;
-+
-+	buffer_queue = &queue->pending_dqbufs;
-+
-+	if (session->nonblocking_dequeue) {
-+		if (list_empty(buffer_queue))
-+			return -EAGAIN;
-+	} else if (queue->allocated_bufs == 0) {
-+		return -EINVAL;
-+	} else if (!queue->streaming) {
-+		return -EINVAL;
-+	}
-+
-+	/*
-+	 * vv->lock has been acquired by virtio_media_device_ioctl. Release it
-+	 * while we wait so that other ioctls for this session can be processed
-+	 * and potentially trigger dqbuf_wait.
-+	 */
-+	mutex_unlock(&vv->vlock);
-+	ret = wait_event_interruptible(session->dqbuf_wait,
-+				       !list_empty(buffer_queue));
-+	mutex_lock(&vv->vlock);
-+	if (ret)
-+		return -EINTR;
-+
-+	mutex_lock(&session->queues_lock);
-+	dqbuf = list_first_entry(buffer_queue, struct virtio_media_buffer,
-+				 list);
-+	list_del(&dqbuf->list);
-+	mutex_unlock(&session->queues_lock);
-+
-+	/* Clear the DONE flag as the buffer is now being dequeued. */
-+	dqbuf->buffer.flags &= ~V4L2_BUF_FLAG_DONE;
-+
-+	if (is_multiplanar) {
-+		size_t nb_planes = min_t(u32, b->length, VIDEO_MAX_PLANES);
-+
-+		memcpy(b->m.planes, dqbuf->planes,
-+		       nb_planes * sizeof(struct v4l2_plane));
-+		planes_backup = b->m.planes;
-+	}
-+
-+	memcpy(b, &dqbuf->buffer, sizeof(*b));
-+
-+	if (is_multiplanar)
-+		b->m.planes = planes_backup;
-+
-+	if (V4L2_TYPE_IS_CAPTURE(b->type) && b->flags & V4L2_BUF_FLAG_LAST)
-+		queue->is_capture_last = true;
-+
-+	return 0;
-+}
-+
-+/*
-+ * s/g_input/output work with an unsigned int - recast this to a u32 so the
-+ * size is unambiguous.
-+ */
-+
-+static int virtio_media_g_input(struct file *file, void *fh, unsigned int *i)
-+{
-+	u32 input;
-+
-+	int ret = virtio_media_send_wr_ioctl(file_to_v4l2_fh(file),
-+					 VIDIOC_G_INPUT, &input,
-+					 sizeof(input), sizeof(input));
-+	if (ret)
-+		return ret;
-+
-+	*i = input;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_s_input(struct file *file, void *fh, unsigned int i)
-+{
-+	u32 input = i;
-+
-+	return virtio_media_send_wr_ioctl(file_to_v4l2_fh(file),
-+					  VIDIOC_S_INPUT, &input,
-+					  sizeof(input), sizeof(input));
-+}
-+
-+static int virtio_media_g_output(struct file *file, void *fh, unsigned int *o)
-+{
-+	u32 output;
-+
-+	int ret = virtio_media_send_wr_ioctl(file_to_v4l2_fh(file),
-+					 VIDIOC_G_OUTPUT, &output,
-+					 sizeof(output), sizeof(output));
-+	if (ret)
-+		return ret;
-+
-+	*o = output;
-+
-+	return 0;
-+}
-+
-+static int virtio_media_s_output(struct file *file, void *fh, unsigned int o)
-+{
-+	u32 output = o;
-+
-+	return virtio_media_send_wr_ioctl(file_to_v4l2_fh(file),
-+					  VIDIOC_S_OUTPUT, &output,
-+					  sizeof(output), sizeof(output));
-+}
-+
-+/*
-+ * decoder_cmd can affect the state of the CAPTURE queue.
-+ */
-+
-+static int virtio_media_decoder_cmd(struct file *file, void *fh,
-+				    struct v4l2_decoder_cmd *cmd)
-+{
-+	struct v4l2_fh *vfh = file_to_v4l2_fh(file);
-+	struct virtio_media_session *session = fh_to_session(vfh);
-+
-+	int ret = virtio_media_send_wr_ioctl(vfh, VIDIOC_DECODER_CMD, cmd,
-+					 sizeof(*cmd), sizeof(*cmd));
-+	if (ret)
-+		return ret;
-+
-+	/* A START command makes the CAPTURE queue able to dequeue again. */
-+	if (cmd->cmd == V4L2_DEC_CMD_START) {
-+		session->queues[V4L2_BUF_TYPE_VIDEO_CAPTURE].is_capture_last =
-+			false;
-+		session->queues[V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE]
-+			.is_capture_last = false;
-+	}
-+
-+	return 0;
-+}
-+
-+/*
-+ * s_std doesn't work with a pointer, so we cannot use SIMPLE_W_IOCTL.
-+ */
-+
-+static int virtio_media_s_std(struct file *file, void *fh, v4l2_std_id s)
-+{
-+	int ret = virtio_media_send_w_ioctl(file_to_v4l2_fh(file), VIDIOC_S_STD,
-+					&s, sizeof(s));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+const struct v4l2_ioctl_ops virtio_media_ioctl_ops = {
-+	/* VIDIOC_QUERYCAP handler */
-+	.vidioc_querycap = virtio_media_querycap,
-+
-+	/* VIDIOC_ENUM_FMT handlers */
-+	.vidioc_enum_fmt_vid_cap = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_vid_overlay = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_vid_out = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_sdr_cap = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_sdr_out = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_meta_cap = virtio_media_enum_fmt,
-+	.vidioc_enum_fmt_meta_out = virtio_media_enum_fmt,
-+
-+	/* VIDIOC_G_FMT handlers */
-+	.vidioc_g_fmt_vid_cap = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vid_overlay = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vid_out = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vid_out_overlay = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vbi_cap = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vbi_out = virtio_media_g_fmt,
-+	.vidioc_g_fmt_sliced_vbi_cap = virtio_media_g_fmt,
-+	.vidioc_g_fmt_sliced_vbi_out = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vid_cap_mplane = virtio_media_g_fmt,
-+	.vidioc_g_fmt_vid_out_mplane = virtio_media_g_fmt,
-+	.vidioc_g_fmt_sdr_cap = virtio_media_g_fmt,
-+	.vidioc_g_fmt_sdr_out = virtio_media_g_fmt,
-+	.vidioc_g_fmt_meta_cap = virtio_media_g_fmt,
-+	.vidioc_g_fmt_meta_out = virtio_media_g_fmt,
-+
-+	/* VIDIOC_S_FMT handlers */
-+	.vidioc_s_fmt_vid_cap = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vid_overlay = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vid_out = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vid_out_overlay = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vbi_cap = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vbi_out = virtio_media_s_fmt,
-+	.vidioc_s_fmt_sliced_vbi_cap = virtio_media_s_fmt,
-+	.vidioc_s_fmt_sliced_vbi_out = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vid_cap_mplane = virtio_media_s_fmt,
-+	.vidioc_s_fmt_vid_out_mplane = virtio_media_s_fmt,
-+	.vidioc_s_fmt_sdr_cap = virtio_media_s_fmt,
-+	.vidioc_s_fmt_sdr_out = virtio_media_s_fmt,
-+	.vidioc_s_fmt_meta_cap = virtio_media_s_fmt,
-+	.vidioc_s_fmt_meta_out = virtio_media_s_fmt,
-+
-+	/* VIDIOC_TRY_FMT handlers */
-+	.vidioc_try_fmt_vid_cap = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vid_overlay = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vid_out = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vid_out_overlay = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vbi_cap = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vbi_out = virtio_media_try_fmt,
-+	.vidioc_try_fmt_sliced_vbi_cap = virtio_media_try_fmt,
-+	.vidioc_try_fmt_sliced_vbi_out = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vid_cap_mplane = virtio_media_try_fmt,
-+	.vidioc_try_fmt_vid_out_mplane = virtio_media_try_fmt,
-+	.vidioc_try_fmt_sdr_cap = virtio_media_try_fmt,
-+	.vidioc_try_fmt_sdr_out = virtio_media_try_fmt,
-+	.vidioc_try_fmt_meta_cap = virtio_media_try_fmt,
-+	.vidioc_try_fmt_meta_out = virtio_media_try_fmt,
-+
-+	/* Buffer handlers */
-+	.vidioc_reqbufs = virtio_media_reqbufs,
-+	.vidioc_querybuf = virtio_media_querybuf,
-+	.vidioc_qbuf = virtio_media_qbuf,
-+	.vidioc_expbuf = NULL,
-+	.vidioc_dqbuf = virtio_media_dqbuf,
-+	.vidioc_create_bufs = virtio_media_create_bufs,
-+	.vidioc_prepare_buf = virtio_media_prepare_buf,
-+	/* Overlay interface not supported yet */
-+	.vidioc_overlay = NULL,
-+	/* Overlay interface not supported yet */
-+	.vidioc_g_fbuf = NULL,
-+	/* Overlay interface not supported yet */
-+	.vidioc_s_fbuf = NULL,
-+
-+	/* Stream on/off */
-+	.vidioc_streamon = virtio_media_streamon,
-+	.vidioc_streamoff = virtio_media_streamoff,
-+
-+	/* Standard handling */
-+	.vidioc_g_std = virtio_media_g_std,
-+	.vidioc_s_std = virtio_media_s_std,
-+	.vidioc_querystd = virtio_media_querystd,
-+
-+	/* Input handling */
-+	.vidioc_enum_input = virtio_media_enuminput,
-+	.vidioc_g_input = virtio_media_g_input,
-+	.vidioc_s_input = virtio_media_s_input,
-+
-+	/* Output handling */
-+	.vidioc_enum_output = virtio_media_enumoutput,
-+	.vidioc_g_output = virtio_media_g_output,
-+	.vidioc_s_output = virtio_media_s_output,
-+
-+	/* Control handling */
-+	.vidioc_query_ext_ctrl = virtio_media_query_ext_ctrl,
-+	.vidioc_g_ext_ctrls = virtio_media_g_ext_ctrls,
-+	.vidioc_s_ext_ctrls = virtio_media_s_ext_ctrls,
-+	.vidioc_try_ext_ctrls = virtio_media_try_ext_ctrls,
-+	.vidioc_querymenu = virtio_media_querymenu,
-+
-+	/* Audio ioctls */
-+	.vidioc_enumaudio = virtio_media_enumaudio,
-+	.vidioc_g_audio = virtio_media_g_audio,
-+	.vidioc_s_audio = virtio_media_s_audio,
-+
-+	/* Audio out ioctls */
-+	.vidioc_enumaudout = virtio_media_enumaudout,
-+	.vidioc_g_audout = virtio_media_g_audout,
-+	.vidioc_s_audout = virtio_media_s_audout,
-+	.vidioc_g_modulator = virtio_media_g_modulator,
-+	.vidioc_s_modulator = virtio_media_s_modulator,
-+
-+	/* Crop ioctls */
-+	/*
-+	 * Not directly an ioctl (part of VIDIOC_CROPCAP), so no need to
-+	 * implement.
-+	 */
-+	.vidioc_g_pixelaspect = NULL,
-+	.vidioc_g_selection = virtio_media_g_selection,
-+	.vidioc_s_selection = virtio_media_s_selection,
-+
-+	/* Compression ioctls */
-+	/* Deprecated in V4L2. */
-+	.vidioc_g_jpegcomp = NULL,
-+	/* Deprecated in V4L2. */
-+	.vidioc_s_jpegcomp = NULL,
-+	.vidioc_g_enc_index = virtio_media_g_enc_index,
-+	.vidioc_encoder_cmd = virtio_media_encoder_cmd,
-+	.vidioc_try_encoder_cmd = virtio_media_try_encoder_cmd,
-+	.vidioc_decoder_cmd = virtio_media_decoder_cmd,
-+	.vidioc_try_decoder_cmd = virtio_media_try_decoder_cmd,
-+
-+	/* Stream type-dependent parameter ioctls */
-+	.vidioc_g_parm = virtio_media_g_parm,
-+	.vidioc_s_parm = virtio_media_s_parm,
-+
-+	/* Tuner ioctls */
-+	.vidioc_g_tuner = virtio_media_g_tuner,
-+	.vidioc_s_tuner = virtio_media_s_tuner,
-+	.vidioc_g_frequency = virtio_media_g_frequency,
-+	.vidioc_s_frequency = virtio_media_s_frequency,
-+	.vidioc_enum_freq_bands = virtio_media_enum_freq_bands,
-+
-+	/* Sliced VBI cap */
-+	.vidioc_g_sliced_vbi_cap = virtio_media_g_sliced_vbi_cap,
-+
-+	/* Log status ioctl */
-+	/* Guest-only operation */
-+	.vidioc_log_status = NULL,
-+
-+	.vidioc_s_hw_freq_seek = virtio_media_s_hw_freq_seek,
-+
-+	.vidioc_enum_framesizes = virtio_media_enum_framesizes,
-+	.vidioc_enum_frameintervals = virtio_media_enum_frameintervals,
-+
-+	/* DV Timings IOCTLs */
-+	.vidioc_s_dv_timings = virtio_media_s_dv_timings,
-+	.vidioc_g_dv_timings = virtio_media_g_dv_timings,
-+	.vidioc_query_dv_timings = virtio_media_query_dv_timings,
-+	.vidioc_enum_dv_timings = virtio_media_enum_dv_timings,
-+	.vidioc_dv_timings_cap = virtio_media_dv_timings_cap,
-+	.vidioc_g_edid = NULL,
-+	.vidioc_s_edid = NULL,
-+
-+	.vidioc_subscribe_event = virtio_media_subscribe_event,
-+	.vidioc_unsubscribe_event = virtio_media_unsubscribe_event,
-+
-+	/* For other private ioctls */
-+	.vidioc_default = NULL,
-+};
-+
-+long virtio_media_device_ioctl(struct file *file, unsigned int cmd,
-+			       unsigned long arg)
-+{
-+	struct video_device *video_dev = video_devdata(file);
-+	struct virtio_media *vv = to_virtio_media(video_dev);
-+	struct v4l2_fh *vfh = NULL;
-+	struct v4l2_standard standard;
-+	v4l2_std_id std_id = 0;
-+	int ret;
-+
-+	if (test_bit(V4L2_FL_USES_V4L2_FH, &video_dev->flags))
-+		vfh = file_to_v4l2_fh(file);
-+
-+	mutex_lock(&vv->vlock);
-+
-+	/*
-+	 * We need to handle a few ioctls manually because their results
-+	 * rely on vfd->tvnorms, which is normally updated by the driver
-+	 * as S_INPUT is called. Since we want to just pass these ioctls
-+	 * through, we have to hijack them from here.
-+	 */
-+	switch (cmd) {
-+	case VIDIOC_S_STD:
-+		ret = copy_from_user(&std_id, (void __user *)arg,
-+				     sizeof(std_id));
-+		if (ret) {
-+			ret = -EINVAL;
-+			break;
-+		}
-+		ret = virtio_media_s_std(file, vfh, std_id);
-+		break;
-+	case VIDIOC_ENUMSTD:
-+		ret = copy_from_user(&standard, (void __user *)arg,
-+				     sizeof(standard));
-+		if (ret) {
-+			ret = -EINVAL;
-+			break;
-+		}
-+		ret = virtio_media_enumstd(file, vfh, &standard);
-+		if (ret)
-+			break;
-+		ret = copy_to_user((void __user *)arg, &standard,
-+				   sizeof(standard));
-+		if (ret)
-+			ret = -EINVAL;
-+		break;
-+	case VIDIOC_QUERYSTD:
-+		ret = virtio_media_querystd(file, vfh, &std_id);
-+		if (ret)
-+			break;
-+		ret = copy_to_user((void __user *)arg, &std_id, sizeof(std_id));
-+		if (ret)
-+			ret = -EINVAL;
-+		break;
-+	default:
-+		ret = video_ioctl2(file, cmd, arg);
-+		break;
-+	}
-+
-+	mutex_unlock(&vv->vlock);
-+
-+	return ret;
-+}
--- 
-2.55.0.737.g08866a6d13-goog
+Lizhi
 
+>
+> Regards,
+> Christian.
+>
+> On 8/12/26 17:45, Lizhi Hou wrote:
+>> Hi Christian,
+>>
+>> Thanks for pointing this out.
+>>
+>> Taimuraz, this is not introduced by your patch. And the current code violates dma-buf protocol. It look we need to unconditionally return -EOPNOTSUPP for imported BO at the beginning of amdxdna_flush_bo(). Could you help to modify your patch 1 for this if it makes sense?
+>>
+>>
+>> Thanks,
+>>
+>> Lizhi
+>>
+>> On 8/12/26 01:57, Christian König wrote:
+>>> On 8/12/26 01:13, Taimuraz Kaitmazov wrote:
+>>>> SYNC_BO carries an offset and a size, but amdxdna_flush_bo() honours them
+>>>> only on the vmap path. An imported BO is tested for first and flushes its
+>>>> whole scatterlist,
+>>> Absolutely clear NAK to that from a DMA-buf maintainer side.
+>>>
+>>> Flushing on imported scatterlist of a DMA-buf is a really big NO-GO.
+>>>
+>>> If DMA-buf imports are used with the device then the device needs to be able to coherently access the underlying memory.
+>>>
+>>> In other words you *CAN'T* call drm_clflush_pages() on imported memory.
+>>>
+>>> Regards,
+>>> Christian.
+>>>
+>>>> so a sync costs what the BO is worth rather than what
+>>>> the caller asked to maintain: on npu4 an imported 64 MiB BO cost 1056 us
+>>>> to sync at every size from 4 KiB up. Patch 5 reorders the arms so the
+>>>> vmap path is tried first, and indexes the page-array fallback from the
+>>>> requested offset.
+>>>>
+>>>> The four before it are the ground that has to be solid first. Patch 1
+>>>> refuses an I/O memory mapping, which the driver currently stores as if it
+>>>> were an ordinary kernel address. Patch 2 adds a probe that does not log,
+>>>> so patch 5 does not make an exporter without a vmap op print on every
+>>>> ioctl. Patches 3 and 4 fix two ways the ioctl mishandles its own range: a
+>>>> zero length reaching drm_clflush_virt_range(), and an offset and size
+>>>> added to the BO address without an overflow check, one level above a
+>>>> function that checks the same arithmetic. All four stand on their own and
+>>>> can be taken separately; only patch 5 depends on them.
+>>>>
+>>>> v1 did not reach dri-devel, so this is the first version visible there.
+>>>> It is on lore via the other lists it was copied to:
+>>>> https://lore.kernel.org/lkml/20260811204556.875037-1-taimuraz@kaitmazov.com/
+>>>>
+>>>> Changes in v2:
+>>>>    - patch 2: take the device from the GEM object rather than abo->client.
+>>>>      amdxdna_gem_obj_close() clears that pointer under abo->lock, which the
+>>>>      pre-split code held across the log and the split did not.
+>>>>    - new patch 3: return early from a zero-length flush.
+>>>>    - new patch 4: check the sync range for overflow on a device BO.
+>>>>    - patch 5: say why the persistent mapping adds no pin.
+>>>>
+>>>> The measurements in patch 5 were taken with the equivalent change in
+>>>> AMD's out-of-tree xdna-driver, where this merged as #1541. That version
+>>>> and this one differ only in a page-array fallback mainline has no field
+>>>> for, reached when the mapping fails and the BO is neither imported nor
+>>>> shmem backed, and in the name of the mapping helper. The flush and the
+>>>> helper are otherwise identical. This version is compile-tested; it has
+>>>> not been booted.
+>>>>
+>>>> Patch 1 is from inspection rather than a reproducer. The exporter I can
+>>>> test against is amdgpu, and amdgpu is the case that cannot reach it: it
+>>>> implements .pin, so a non peer to peer attachment like this driver's
+>>>> forces the buffer to GTT before anything maps it. Reproducing it needs a
+>>>> GPU whose exporter has no .pin, which I do not have paired with an NPU
+>>>> here.
+>>>>
+>>>> Taimuraz Kaitmazov (5):
+>>>>     accel/amdxdna: refuse an I/O memory mapping of an imported BO
+>>>>     accel/amdxdna: add a quiet variant of amdxdna_gem_vmap()
+>>>>     accel/amdxdna: return early from a zero-length flush
+>>>>     accel/amdxdna: check the sync range for overflow on a device BO
+>>>>     accel/amdxdna: flush only the requested range in amdxdna_flush_bo
+>>>>
+>>>>    drivers/accel/amdxdna/amdxdna_gem.c | 66 +++++++++++++++++++++--------
+>>>>    1 file changed, 49 insertions(+), 17 deletions(-)
+>>>>
+>>>> -- 
+>>>> 2.55.0
+>>>>
