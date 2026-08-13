@@ -1,156 +1,119 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B41B3955F9;
-	Thu, 13 Aug 2026 15:50:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63741483BD2
+	for <linux-media@vger.kernel.org>; Thu, 13 Aug 2026 16:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786636223; cv=none; b=ABgq6j1MaGL0RZ5CxD5rv6FZMiiPyq9QKVTVVtjqbdsThQRkeEGe3ZWxv62avn5BDlQa5Q9DLgyENc119aQg/ppLT6TLf9Wjx9IDtm1qzppLpXCfwPKk20sJdkZ1C7fz8RuswcjfPH1wV/w6VH1KtXAgjW7eHfeQWlfq3YhEZQg=
+	t=1786640366; cv=none; b=rthRQ0LMNOXzdOiqva/XCHU7Jl6BYP0jHsFVzGiJ8RlzKVnMJWTRgr/is7PuIRzKrkNaiQpHwOMuWREQwt2w5ybUNPv/FkVGFSYo3kUtf0Uk1IjPYe0S8BYdQTs406OCvuepqMO2vvOr7zPEHZ38O0KRUQdytCkn8PNI/eoTiek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786636223; c=relaxed/simple;
-	bh=r4fAFmUDrtddKraDNS8TmzAzDA8Z1bk/cbz11RoC7dA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gXnXcftWAjt0eM64liW7H5Brh5Fsa8wMTLTVr7znw1THeNCW4kdDa4+zion0waLrW9xFZanQSuBq43GdmIdfbvDQdtj4CtlsZD1rbdXKPpU6AAPO5nqntabFWkjQoukk8M1IwNG6DRGgyDfjyR1UT3+Zkp9+BagSnGMd0erQGN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org; spf=pass smtp.mailfrom=ozlabs.org; dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b=HksqieLv; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ozlabs.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ozlabs.org
+	s=arc-20240116; t=1786640366; c=relaxed/simple;
+	bh=deheVz6EbziO6lh3IHy2gLuNM1X/uj8YtA0JHMxBanI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=H01GmGr1wckRoE+DpMctZssg9H/FfM6AQ0T9ESJaxaoiX8g0mPc01LJc5FTEqChR8CaqVSQOO8hjM0SRlrtftRqVOLSmGus4b6wFdeh3KsMu6MYgDwqDxCpL4PvtQbvVQWIN6Rxh/FsxVnNtREmWHAKbgbXYbeIJLYGiGM64wxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=HOxY9PqQ; arc=none smtp.client-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ozlabs.org header.i=@ozlabs.org header.b="HksqieLv"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ozlabs.org;
-	s=201707; t=1786636209;
-	bh=XIhu+nqQzjz2LR4uuSfg1nS0R2BhHb+M3dJJmBjOuH8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=HksqieLv+7l3go3qji728AvWDA/KOIJMhP8NA/h/2+sy+kKQunlYCHfEKDxNClQPF
-	 2D+lUyQofOGCJVyhHzI5v3ELDfMKl3kpqVhDP3ogL5IJH3aOoKdsrlF7u3JZrLzOGy
-	 ZGu9k5dFmblugyvQNVlLvLpkCIoz0pa9PBSxtiVGqQVeB3fQg85ECFqBaCv8vrKUt4
-	 +wJ3G00wsquFBfzpJJNV72lRDJWGxD8tzO0ohmJmot+a8+DWMPNEhwLskicyzMR4ja
-	 g7zeN2f8qpeqfmHY3gxZ8WkX/zrkWO/QkFI5gp6aLodJtQ+w2/En3WS01z1nuBvVCv
-	 73KeJrw3kUHmw==
-Received: from authenticated.ozlabs.org (localhost [127.0.0.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	by mail.ozlabs.org (Postfix) with ESMTPSA id 4hLVDR6fLRz4wDm;
-	Fri, 14 Aug 2026 01:49:59 +1000 (AEST)
-Message-ID: <2ba56abd-797c-4051-b345-e025a5ed0421@ozlabs.org>
-Date: Thu, 13 Aug 2026 16:49:55 +0100
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="HOxY9PqQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1786640362; bh=JizmvpkgHQ7shMwyqDODWSUaf4k34aMQnLoLbYQLanc=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=HOxY9PqQD+2jzhAfjtsn7vlFLEP1zh76RD3sgLpZrxgTf0Ka++D3cqIbNUUGKyJehV6rrQeY/+eHgNzP+khoPwHArKsFgf3CPsRKXPZUfXG2RZhHchh9f5hotzNjadp+0yiUmKzMkH1pH6+WD9EKFfwGVJRzKFSlSBPwDL+udszEoq2dkl7odEpoiJSra1lnYAAm+PcyBYe/rQ2WpmO5oJSEjq/Z6ds8Mq6udfRTTzW/rLazywRfVllBJS6M1yv9PsSyIEzfSKWDw/7JfCOWqrQOAJpmmo1G/SQll5mmWWUajfkew4jtYvml+3ugiLJfKSYRjcNDmBHpKTVFyyuCOg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1786640362; bh=Md0Lynv+x8EhUFeltoTHPFnwCwYbnaz97W8ZgxgcNQI=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=n5O/0sC0A1ZGukr7sHyjvigHSZbQPm39X4zdo6Y94810YTIV2MI432E8gBZPY3lQ8LQihEqXMYd/X6/tMCqTkhb3J8lwHc7f4qr8MBCzUoRrPSKp8wEdwXwzELRKfTiBqERZikihGWuGr4+rjCYZhFSOM1KLlMLIjzOU2lldf0iBVbOufi7IKJphOA74MlV6mFdb7ZpLe1P/RQfqZ/k6g/CIBhjnvwST19dm/P7I1YdR7fdZXpYOJrXZpD5FgR1eutWzSudIFTONg0mMVyFXOfRwYI4tJ88H8/kn3cOcLVXEBZgDXNc9WHcUXdbFdBCj4WGtLLylD6YGMY/SMqEXmw==
+X-YMail-OSG: gBa_3B8VM1mvRjQk_.nIWqxwWn_5w7oXy9FhbmQe0Lxfa5KbTUs5rN0xi1AYLtd
+ .M7vVdag.uXDKXZXQTPBGpeEIpVn.sjG55Ugay7nunqKnCrPgdo3CDYpgW9Yvf5LXklXaal4B28u
+ PLO9W4dGpl.QZ2cDDyxoENrs3Id37jowjYjLiRWYcItlTeZ3JgaCCBEvurgDkgYgqnBxg.NQeuD6
+ q8vj4d4l1_4N93FVi9Pv5wJ3IMtWTzNx7Pv1P7bOXtwRFCwGom8K3wUsvUgzpfG7.8wKuAbPY5_D
+ Wpln5eN8Q0EOsW7_yYJFntA32Togse75z7Egf.RQH1eioCbHQBICwFonevFuizgrt4wYrFZvMv2P
+ OQtVcD4pa8F74ev3lzC08MIJa5vckLmmghtpsL9i3LDkOW5V_9mbkt0RETxMfuN_WlDQFpyxcbQd
+ fficSzfsg11JJtUjzLvZaebywrgdrQLPuT93VTM1Xio2F8L902fiIdXBFiYLW82TGk1KVUvuI7Ik
+ NA.0st5bBXIrhWLa56ZrTZYzfYiNBkBZ2Nv8U5xj2w6Vq5Tcof9P8UFFOoLBdkRx6lHaExX3Ydqv
+ UePihm0RHq31iFWW2vDNXM1EcEme78t4LQuOm5J8ZG0CB9eR4m7mVhAc3g2NHTQmvUHSnREGqWbG
+ mZUwuC3EzMIFXB_NXlwyZjBM3KCiAKiF9qt5P4QfMc4WDp4LOJSLpk6aAB9CSbVsIcaCIDLPkz1u
+ 9PBNtjZT3cb5uGNxjGvU.oou0FrHS8N48T779ddNyp9TfJGCR5vHvMspy9BHGYtPj1OTIAr5Uaf.
+ ER.hkpg6Zhb9DpMsVxm8aE0D.jY5AbHf2c5fyqJG2waN0om0DpcIir8MDBHPFUCnzYMRTDQNpJkH
+ uf0YmvY7Q5l6vZLVTezn75sNOgC9Nuz1w3bFTd5s_BRHJ0lv1qrqlMB07hSy.GCFCqCZu1L4uELD
+ vRYW0nCQCT5BoZZNFuC3sIjmT5M4EcjboPWixQC7jueX9rPCAO99Rqgghk6B09o4JpP2fdBL5bnl
+ RNYXozQQ5wWDVCG4jsfy.GNs0vARqvyAKDbriM8aQHwiE_XYa3F2J32ecOc6HLjfnGNulwkQsiW8
+ IZpMr_qgm1dUdXFdy6pr.7mrAXTTBNB_Fb3ZQ.MEVKIuXpEEuU6xlBQgKVYHLh4fTUlURj2km6he
+ RRWj9dGYI0IoyRncyslAWbWbF0zgGvWQ4u9X.7_whC36pgeUkO2veg__uZ9zQVXy9dQvIn.goruE
+ CgmKWYJWQraeoJ6HCSZ_BTxEvdBkqLzwRZh.1jHOoe7ooqaBbXO_EKtlC.k3LRyiRlVy29x9hFY3
+ 0qJd_BIo8oJofoaydlaUhKNw9lbjRN0xQley1FDhjzPdKEXNosaBjUVN.wr0Cvl8jAaySdXPfSFy
+ H6QysOqZMVPOnpNynmMzeaVWZUItsXgDy06obBfme2OpucCW7dsNkcPiqKX8lUzrhO9HbtLRXLFw
+ PZw1tCaJIX6ewEYlwen4mFn1GebhP1qiMpRoXZ1QCQWN32_OyNnVpOQSxqb6CFQtn4qFI3hFzDEF
+ 1MfDV_FeCx2cOAZCmxtZkw6HGm8qCmTdxCiruPiOEntpjtXN9WFQegLzIXnh1oMVQidRYyXz9.46
+ SMFPTtgYnv8kk7Tlcrm783S4sA8td.9HcO1rTOGFWf1DZ7oSsCo6_IK.sFVpqoZmOtbx.lVW.mC7
+ Sbx_4bNAcwxPQNjE6Lm_lheIKfK9_F979qV4y8UWNIrD9ZmMSyIvDDWmurXp1OGywS3.UiFsAMdd
+ zGZuB2RMwrut3RtUtCrIupuYHnqJ1GW1z2thqXBlgP5QspTBMIJ6P2TBRIz6mHEsOEZdy2OtWJeR
+ C3h0Lz1qTOol5rSk9zueP_JmyAmuaGEGK7nv2MkWjjSDcok7h9PqZi94xjC.E4q89dI8qicoFRwO
+ IKaOlOy_.vQKG3JxpohN3u6UiS2IQ3B1NcVZ03_0KFhmxUfuBmIxzM1XawjW2QKJvQ0umCLzWJj0
+ -
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 00ff135e-0536-4402-9714-0ae4b0d45c4f
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Thu, 13 Aug 2026 16:59:22 +0000
+Received: from dip2.lsn.ir2.yahoo.com ([87.248.99.11])
+          by hello (SMTP) with SMTP ID 5af242c419c37af97605f8d8a2f48edc;
+          Thu, 13 Aug 2026 16:59:21 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Thu, 13 Aug 2026 18:59:19 +0200
+Subject: [PATCH] staging: media: atomisp: fix typo in refcount.c comment
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 7/9] vfio/pci: Clean up BAR zap and revocation
-Content-Language: en-GB
-To: Alex Williamson <alex@shazbot.org>
-Cc: Leon Romanovsky <leon@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Alex Mastro <amastro@fb.com>, =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, Bjorn Helgaas <bhelgaas@google.com>,
- Logan Gunthorpe <logang@deltatee.com>, Kevin Tian <kevin.tian@intel.com>,
- Pranjal Shrivastava <praan@google.com>, Longfang Liu
- <liulongfang@huawei.com>, Mahmoud Adam <mngyadam@amazon.de>,
- David Matlack <dmatlack@google.com>, =?UTF-8?B?QmrDtnJuIFTDtnBlbA==?=
- <bjorn@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Ankit Agrawal <ankita@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Vivek Kasireddy <vivek.kasireddy@intel.com>, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org, kvm@vger.kernel.org,
- linux-pci@vger.kernel.org
-References: <20260715174737.15287-1-matt@ozlabs.org>
- <20260715174737.15287-8-matt@ozlabs.org>
- <20260729115204.2a9a50b2@shazbot.org>
- <6a964960-722c-44b5-837d-9d582aeb0a3c@ozlabs.org>
- <20260804141022.71b6429d@shazbot.org>
- <291625a2-f281-4c05-b51f-553018a34b08@ozlabs.org>
- <20260812140657.247b9fa3@shazbot.org>
-From: Matt Evans <matt@ozlabs.org>
-In-Reply-To: <20260812140657.247b9fa3@shazbot.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260813-atomisp-fix-typo-aswell-v1-1-0aaf45422cf2@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywqDMBCF4VeRWTtgUujFVxEXk3Rsp6gJmdgL4
+ rs3tcsPzvlXUE7CCm21QuKnqIS5wNQV+DvNN0a5FoNt7LE5mwNSDpNoxEHemD8xIOmLxxFp8Cd
+ jyF08WyjvmLhM9nLX/62Le7DPvxxs2xcigj22ewAAAA==
+X-Change-ID: 20260813-atomisp-fix-typo-aswell-afc711ab9ce2
+To: Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786640360; l=1133;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=deheVz6EbziO6lh3IHy2gLuNM1X/uj8YtA0JHMxBanI=;
+ b=imDm4e1qNZaoUWBwttLWhFYwvMOa+STREfScuammUYh0dyD6Ts/Z/SAerSH/qrvSM/YTBEoah
+ VoFDMy1mU5gB/v1areY5pHXplWOqMZgoGQ5DodHn4lghKyWPVRWufqY
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260813-atomisp-fix-typo-aswell-v1-1-0aaf45422cf2.ref@yahoo.pl>
 
-Hola Alex,
+Fix 'aswell' typo to 'as well' in a TODO comment describing
+refcount support for memory types other than ia_css_ptr. Only
+the spelling is corrected; the TODO item itself is unchanged
+and still needs to be addressed separately.
 
-On 12/08/2026 21:06, Alex Williamson wrote:
-> On Tue, 11 Aug 2026 16:58:43 +0100
-> Matt Evans <matt@ozlabs.org> wrote:
-> 
->> Hi Alex,
->>
->> [snip]
->> Isn't the init-time 'event horizon' for writing the bitfield the
->> vfio_register_group_dev() in vfio_pci_core_register_device(), after
->> which synchronisation is needed?
->>
->> The hisi_acc_vfio_pci driver's .probe calls
->> vfio_pci_core_register_device() and _after that_ sets
->> zap_bars_on_revoke, and that's now in the "needs synchronisation to
->> write the bitfield" phase.
->>
->> (Re-reading my comment in vfio_pci_core_register_device() I'd noted
->> this, "Drivers can opt out after registration".  Has to be done after by
->> definition as the default's set in vfio_pci_core_register_device().)
->>
->> The concern is just blatting neighbours in the bitfield, not the window
->> of time before the flag's set.  The flag's an opt-out of a safe but (for
->> this driver) unnecessary zap, so having it unset for a short time is OK.
->>
->> I still think this really should be a standalone bool, not a bit in the
->> bitfield.  It has to be set after registration and having to take a lock
->> to do that has downsides.
-> 
-> You're right on the ordering, the device is live after
-> vfio_pci_core_register_device().  However, I think that's evidence that
-> vfio-pci-core is setting the default polarity, inferred from the mmap
-> op, in the wrong place.  It should happen in init, not register_device.
-> 
-> The same mmap op pointer is available in vfio_pci_core_init_dev(), which
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+ drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Ahaa, they're passed into vfio_alloc_device()!
+diff --git a/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c b/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
+index 4a8675d0129a..5947f9033b89 100644
+--- a/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
++++ b/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
+@@ -15,7 +15,7 @@
+ 
+ #include "ia_css_debug.h"
+ 
+-/* TODO: enable for other memory aswell
++/* TODO: enable for other memory as well
+ 	 now only for ia_css_ptr */
+ struct ia_css_refcount_entry {
+ 	u32 count;
 
-> is used by all vfio-pci variant drivers in their init callback.  The
-> proposed vfio_pci_core_register_device() change just needs to be lifted
-> into vfio_pci_core_init_dev().  hisi_acc is then modified to fix the
-> flag after vfio_pci_core_init_dev(), something like below.
-> 
-> I think that's better than anticipating it being dynamic when we don't
-> have a use case that requires it.  Thanks,
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260813-atomisp-fix-typo-aswell-afc711ab9ce2
 
-Yes, that works nicely.  Done.  As ever, thanks for the suggestion.
-
-
-Matt
-
-
-PS: Series v6 has several improvements/review fixes ready, but I'm 
-holding off posting it.  It'd depend on resolving the awful deadlock I 
-posted about on patch [4/9].
-
-
-
-
-> 
-> Alex
-> 
-> --- a/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> +++ b/drivers/vfio/pci/hisilicon/hisi_acc_vfio_pci.c
-> @@ -1564,6 +1564,7 @@ static int hisi_acc_vfio_pci_migrn_init_dev(struct vfio_device *core_vdev)
->          struct hisi_acc_vf_core_device *hisi_acc_vdev = hisi_acc_get_vf_dev(core_vdev);
->          struct pci_dev *pdev = to_pci_dev(core_vdev->dev);
->          struct hisi_qm *pf_qm = hisi_acc_get_pf_qm(pdev);
-> +       int ret;
->   
->          hisi_acc_vdev->vf_id = pci_iov_vf_id(pdev) + 1;
->          hisi_acc_vdev->pf_qm = pf_qm;
-> @@ -1575,7 +1576,9 @@ static int hisi_acc_vfio_pci_migrn_init_dev(struct vfio_device *core_vdev)
->          core_vdev->migration_flags = VFIO_MIGRATION_STOP_COPY | VFIO_MIGRATION_PRE_COPY;
->          core_vdev->mig_ops = &hisi_acc_vfio_pci_migrn_state_ops;
->   
-> -       return vfio_pci_core_init_dev(core_vdev);
-> +       ret = vfio_pci_core_init_dev(core_vdev);
-> +       hisi_acc_vdev->core_device.zap_bars_on_revoke = false;
-> +       return ret;
->   }
->   
->   static const struct vfio_device_ops hisi_acc_vfio_pci_migrn_ops = {
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
