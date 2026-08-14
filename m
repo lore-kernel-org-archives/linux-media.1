@@ -1,104 +1,69 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57359477E31;
-	Fri, 14 Aug 2026 17:49:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 502DF3C1419;
+	Fri, 14 Aug 2026 19:50:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786729749; cv=none; b=V5Sm/52AVDlZquqTO2nhH+xo2QBn38Naxvnr+D8Em8/EVYCPl4uOhi58NFCo313DDelK5b47ENnYFmFgH6MqSQn2Wl1jyiAF7+30cv+6Mh3l8nr4BgF3e8h0EcBnHzwY8qvJUYZfn+z+JgLvF2dDcXrKa3PpZgu3mB3zh+dmuYY=
+	t=1786737026; cv=none; b=t8m2W9Xpr3GaiDuYUUPvlLBvYn7A4KerG9R8RuPife/EXAbXbQ6hvzhOM0ymzWkqhro46Eu3l6Wgz9iXvvRm7UkY9Kk6FojKw0Bys2hdrCsVGVUftFaVBcof4TV0/Y+m8rtueCHGq2MuHbkLG1QLHX0+Kbgw64QEdXTPujfVh4k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786729749; c=relaxed/simple;
-	bh=WiMdb59+b31lr74VpZ1vPRs0h/z5NpcPddg6oaeJ/HM=;
+	s=arc-20240116; t=1786737026; c=relaxed/simple;
+	bh=ersILPzCP4c1Gmtm/0IiOKwo8eIfiku/ZO5FH94nqeA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kzg2KptjuEl3sXnug1xZtkNb5Fq0kdUEbxasc4yvzQBK+1vdf32pfyyIw3WAKjssEGl2L3smjRPl/HebcxRA/i2k44it7/IrzgWjNAuOqPOCtzfjsMHTS6CCppSkj9ZlNfYOetwdqExOKV8FZhxnG73OMGif0KBea0zWRL2cU30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WiO5de/2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nPeupnvW7jDSPi08ylUPYEcSirliSlzfVFigEyN+N+MLyI741nNXkYq0UHa1DbrixSWZ6ikyHYuY2ipftR+rZ+G63Ws09aczh4Io1eG5fWqw4qcuwH4Luo60lnzThpl1JsOxXLaedxFrw+XVH7gdAPHky7MYTNiiCvLhDdcMbkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NXQNSsf2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WiO5de/2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D011F000E9;
-	Fri, 14 Aug 2026 17:49:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NXQNSsf2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEAC61F000E9;
+	Fri, 14 Aug 2026 19:50:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786729747;
-	bh=vUScZQaDO9LOJUAA7/eGGTWqCSli6iZ/EX6QJoxuS+0=;
+	s=k20260515; t=1786737025;
+	bh=yXMisPQDrDDM1FFKPPWcBOejo0x/kDzEd69++bzHsl4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WiO5de/2thRArGyJ9iBATrXsY/4ttOOkENioAGX2qsM7Xe1dCzIpn+CYG85tfRK08
-	 ZftIPiRzngAPGPQMlFzLfadtoZrEFjALLk7BCrPk+eogNNwaNEZXRzwXJO5fdBtvLi
-	 uPlNbAMvuGvBowQ7aPEa3+5i6tvNxawjZhsbFjbFuDsmXWwQHF3AVKrXoA59ZYxVEd
-	 fckTnIMKzNKBP3YG4vMUC+OVDmam2Ib69kZytKUEHKSan1Bbl24ks9s2gJ0v3DmQ6Y
-	 sFvWfIjE2keRNpjUUIPIBTllUsS5/03U1tIEe9bOecO55CP0Cw2MeoLiCgaZ7M/mW4
-	 6fc6h9/mJRxHQ==
-Date: Fri, 14 Aug 2026 12:49:07 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-	Mansur Alisha Shaik <mansur@codeaurora.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Stefan Schmidt <stefan.schmidt@linaro.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: media: qcom,sc7280-venus: Add
- dma-coherent property
-Message-ID: <20260814174907.GD1981719-robh@kernel.org>
-References: <20260801-iris-fixes-dma-pseq-fint-v1-0-aba0cb22f6ab@oss.qualcomm.com>
- <20260801-iris-fixes-dma-pseq-fint-v1-1-aba0cb22f6ab@oss.qualcomm.com>
- <20260811135103.GA2063083-robh@kernel.org>
- <46af20c8-1182-2db3-0099-63e27903a6f5@oss.qualcomm.com>
+	b=NXQNSsf2TCNQuKb0TScma0MoaFM6xG2OFBZd1fbGK0y8G0QvecruRzitLPNBiyjU+
+	 FRXPWOdRQwc1MeIumZJgcGG5nGfeNLUF23b2NkZ6s+7b9US+YTt8YHb9ExQrv4wTtD
+	 qZAVABanB290W/WwbwWZ3uiZnumkP45lppkeVbyWUi2upmfU+BBQCmnqdk7T7a1JUL
+	 Gh7Fg8TZldtTNnwMeapnHRDDWjmxQfqAAwvwog9DEVxocdUphbPbH/uPxnpiC8DJJv
+	 puHjNF0v6xujMjWlT99O2IRRpet45U6R5cF/JwPaZ0QJiAHXqXX0UzPRcKCrGhywBJ
+	 F+23U8dQGOJyA==
+Date: Fri, 14 Aug 2026 14:50:24 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Bhargav Joshi <j.bhargav.u@gmail.com>
+Cc: linux-kernel@vger.kernel.org, simona.toaca@nxp.com,
+	Mauro Carvalho Chehab <mchehab@kernel.org>, daniel.baluta@gmail.com,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, m-chawdhry@ti.com,
+	goledhruva@gmail.com, Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org, linux-media@vger.kernel.org
+Subject: Re: [PATCH v2] media: dt-bindings: ti,da850-vpif: Convert to
+ dt-schema
+Message-ID: <178673702293.2790919.17984558270805900112.robh@kernel.org>
+References: <20260813-ti-da850-vpif-v2-1-80ba62ca53d0@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <46af20c8-1182-2db3-0099-63e27903a6f5@oss.qualcomm.com>
+In-Reply-To: <20260813-ti-da850-vpif-v2-1-80ba62ca53d0@gmail.com>
 
-On Fri, Aug 14, 2026 at 10:58:47AM +0530, Vishnu Reddy wrote:
-> 
-> On 8/11/2026 7:21 PM, Rob Herring wrote:
-> > On Sat, Aug 01, 2026 at 01:07:27PM +0530, Vishnu Reddy wrote:
-> >> While testing with some higher resolution clips, the venus hardware
-> >> triggers a fault due to wrong input data being received. Corruption
-> >> was also observed in the captured output when the client dumped it
-> >> to a file.
-> >>
-> >> On debugging, this was traced to the venus node not declaring
-> >> dma-coherent. As a result, DMA buffers shared between the CPU and the
-> >> venus video hardware/controller are not guaranteed to be I/O coherent:
-> >> CPU writes to an input buffer can remain in CPU caches without being
-> >> visible to the video hardware when it reads the same buffer, so the
-> >> hardware receives input data that does not match what the CPU wrote.
-> >> Likewise, on the capture path, data written by the video hardware to
-> >> the output buffer may not be visible to the CPU, so the client reads
-> >> stale or partial data, resulting in corruption.
-> > The only side effect of 'dma-coherent' not being present should be doing 
-> > unnecessary cache flushes. It should still work. Maybe you are missing 
-> > some DMA API sync functions?
-> 
-> dma-coherent tells the kernel that this device DMA path is hardware-coherent,
-> so the SMMU maps its buffers as cacheable. That attribute is what causes the
-> coherent interconnect to snoop CPU cache lines on every VPU transaction, so
-> hardware keeps CPU caches and VPU visible memory in sync — which is why the
-> dma-coherent property lets us skip the unnecessary cache clean/invalidate.
-> 
-> If a device doesn't support I/O coherence, its buffers would instead be mapped
-> non-cacheable, no snooping would occur, and the driver would need explicit
-> dma_sync_*() calls at each transition.
 
-The driver should have dma_sync_*() calls regardless. Even if cache 
-flush/invalidate are not needed, IIRC the calls still provide barriers 
-which may be needed.
+On Thu, 13 Aug 2026 05:09:08 +0530, Bhargav Joshi wrote:
+> Convert the Texas Instruments DA850/AM18x Video Port Interface (VPIF)
+> device tree binding from text format to YAML dt-schema.
+> Add power-domains property missing from text.
+> 
+> Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+> ---
+> Changes in v2:
+> - Removed old text binding that wasn't removed in v1
+> - Link to v1: https://lore.kernel.org/r/20260813-ti-da850-vpif-v1-1-275fd0363341@gmail.com
+> ---
+>  .../devicetree/bindings/media/ti,da850-vpif.txt    | 106 -------------
+>  .../devicetree/bindings/media/ti,da850-vpif.yaml   | 168 +++++++++++++++++++++
+>  2 files changed, 168 insertions(+), 106 deletions(-)
+> 
 
-Rob
+Applied, thanks!
 
