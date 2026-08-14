@@ -1,194 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AB0D41B366;
-	Fri, 14 Aug 2026 07:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D681D40B6E2
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 07:57:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786693400; cv=none; b=HayPWamHWKuzWY8RhH5ervK7ixmNbcuItJe6yk4HhkmsyHJwdZRWS41FjxCfOD6RdEQU4Im2I62PSQx9PgW9UvuQpWXIhmjEDFCjCBHlOJg31ZtOBjiWjhcxH4L4y3JhsK6bZ28eP/eEhvmk1ZkgJQuTAxUFwc3im0BFU6PnXqw=
+	t=1786694231; cv=none; b=C9dEKabupPKVrznZ2Cb7sXfXsI8EtakSyoZxUsJmbprY90+zx5gGOHqNV26N35V9hIG3fmTDskQYQuNvXUFwsWMB3o5vC3/Nd2as53od/5IbHGKamEhXuoy0DJjOBA6n+MxI+fztXKmjeroG+OW1q+msMJjjOk94uFIxSWnRUxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786693400; c=relaxed/simple;
-	bh=XFfUVU43t9uA7NhVKcYlFHb3bbrazee/jiS7Tobci5I=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=TpNgl5dqDsH3qCFJU7xsVO74PfTE6G9a6aT/+iotSuGwq9E5ZEkwXSI2SPcoK7Os/H6OA3b+px956cV+SxyT16fZJgv5mynpxeO/Yatkb/Df22xaJ0TndcUtvb4E8OlusqhJe5w2FtpwI1vbO1UbXSoe2VYFKFRl3ReqMgCV2SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FWjBSyUT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786694231; c=relaxed/simple;
+	bh=nrPQO0iIItATmJ/aS/7vY6iL/e3Nbh2iCgFSaekxpvU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=sfmSCzbWcyPzDloeBkbnbNkUk6dubPf88dkomghEInv4/HL0Iny9RrRC2cqiVIu2QlLvYHZYOCT/sSmzpSiFIxk77xx2RRemscuMToCuqQUli1ZpLkrIkDCNQ2kcS7egIppXd8yK0j6/7Pp9x3EenveTerj681MtiRfJUDI2AHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=l8Uyozri; arc=none smtp.client-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FWjBSyUT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A8C81F000E9;
-	Fri, 14 Aug 2026 07:43:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786693389;
-	bh=Ml655NV4XLxcpqiomtzeZ7c76CDuUeFIwpXGTfPEJFk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=FWjBSyUTPwB9WtlfFgUvNMzgACF+MCZU4pP1kvOTsk9leycF0oFaHHSBOfPT/ZQmD
-	 LL2wkczqjxOMyfNOaK/0KMomIf5ma7HBJY3d9JfXipgjCl+t+er997DD7U8MlP5qAu
-	 oTSOyufu+gu5+OW5NuFSLn3Q8aqIAGvaVAWC6vn6+d72nkUTrYKtYt5KrrFqhMRl8X
-	 td+rcEwi8O45g0hGAnW+xLKS7RTiRNN8YS2TG4FMWAiont+Bp150S4GUubGkNWU9LE
-	 hFVMkuFwHteEEZeQVq9+OYgk+5Q6mFRGx7ZMPR/UJfhXgme5dLHIYdiubif5xGX75L
-	 I1/TIEmm5JWBg==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Sakari Ailus
- <sakari.ailus@linux.intel.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Laurent Pinchart
- <laurent.pinchart@ideasonboard.com>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Tomi
- Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH] media: imx219: Report streams using frame descriptors
-In-Reply-To: <20260611-imx219-frame-desc-v1-1-fe7e975bca6e@ideasonboard.com>
-References: <20260611-imx219-frame-desc-v1-1-fe7e975bca6e@ideasonboard.com>
-Date: Fri, 14 Aug 2026 09:43:06 +0200
-Message-ID: <87se4h171x.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="l8Uyozri"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1786694228; bh=wtE16y1FuNbm0MQIN12RZSFZ5HeO/AXt27hv95iYe6s=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=l8UyozriAuerhLUXd0S0QzghNCrMDdJBnaTECqsYVemTGLhXnLev/BfPH70qrki7N2dQuCbL+Viyuo7sc8uQLkHUyY+qyNKAeyqohv0P+/ESwkBdfZR3bEOiQ7aw/CzcqhvjGb85f69H7dm9FE5VO86rUYiryCb6BaYvgnA6wJ+FiXRsevc9NaMwIvjiODOzAGA4ylHPjHxEWipX7xCc/x4P3K+6jyPgoimaaKXOugXiv2R34d6J+yz8LGwRf/QvEU2WyQYGHQREY9F49+4hjjSPZU+4quRcquP47zshjwmbzi8C/KKykPJEFx19gFMahlDF9aa/YWuZ9RQqTyv3Ew==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1786694228; bh=W2rkh51jNiyBNs5EmzZFxYeOOjd2K0JM6gQ3x/iUQJb=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=nqikwCWyIuQo1h/bilx6IM/7yIiccK9O3ye1QLUiIdmdkOifbO82txouDw3GxDeeKLHxiMcrixf434HVdhoOqoAVR4OopO5ST3PqIQPF3w0BMGHrvBl9+C5KUYJj+/vjpTZXa8Y/2iQ+GllgKEpqbkLe1sqs4meP8DS125xP1S6kPsYqwRljKxmr1mI3UFnkoXvpSAHrqjCs3WYPJO69y0dz1ODiFc64gqdNvgpFeKARpGxqANxPibI9WM+xfWQ20po2f9mObzGjqZcg2pk5c5j/7FS4HAx6DDCcrcO7S+5vcHlPkX+cuiIk2aA62n5nDAVKjQqprtcDczWLUVe9Tg==
+X-YMail-OSG: .LaRsMMVM1nG1l8bVvLe.LPELHlRSUuQBRcGoSX4Q7YxPjLiWWWNFoiOZYp5Sri
+ 86vgrho8QogQUw_bajAUg8zHOToLFkIh2BRLaVW9jUmmTFYXkNjc7LAke_PmvAP61ETN2LVoKL8a
+ jvQg3epnR7uc3VYBz9kJ05r3n44sPmZYgd_C9KbizQbg56T0LUFQtNP9X8EuWwOwRf4NTRUQYKP6
+ _vOxLgNiSxGURZkCOzEwiy2mO9tUKKagQ4URrCpf7ugGZDopEqBfHGA3xAXG3IJW0GgyMwB9IAcX
+ KKQz_mqnAtZxZ19MOlbJGMp_zuk8ODJx3MGpuIgg4NPVxAl0KBPuRiwmHo_dEoSjsPwBjnT5tfgC
+ vezOS10Xx48_7zThVPYslAk8C5Hf8M8kQy1ZggAxh9GJLiH41VqBpXiIXtNCT7G3qYZQc4Qtto3X
+ iF1eW3lwCaKMfXeA3FMRSfwnmaXc47SCGLbwpdOOJrlixqo16pMM62hTLpKwMh2SRO.HI9L6Dc9.
+ zxH5E_oEUfjzSOnVj1txGs8triVPITeCuf6fxgDhvWelr65qldGwnH3Mmiqf21QvSynRYJnv7jMw
+ UDZxB4ar5852SmzIEuiwT4WLR6Lv7.OUDE1hdjKNwbScntFMzxSC9YeYcpPcC2VXvAr2n6jt0V2p
+ QtYC1xeCYmxVztgbmQDc3lCPVq7t28WSszVPghKGYnM.PXhGt2XLoJqDqe1zBzbblvhfy_qMPfgU
+ .m.jwUQNjQzs_2ot3QNUmjS5BHmGRgOBxZqCsdCCn5qavZbsZMC39ZIShaSw5SJ4oatP0NntT.A1
+ hN4.vNt68O_7z1rDe6OybmHJF8gOsbwgkeXytArbY19Kkev1LALfjRuPmyGQ6dWHcGEOyJmPvhjD
+ qn95F8nU3OC4m63PWaDYwpleRx6eoJYAP0UxRvvqBacKeHafmQo2wtDMFOKQRTg586IaK3_Iokw1
+ .hdOBcr1uBPWBdlujILwjgnmUqqEaLyFPFN_WbPu9QdFvygbh4qpSm4oN_DmloRi.BncYQ1.54Hg
+ fhCVrHbQwHc3b8FX3vNpIsDOGc.8Uk6gMiFJkPPpirRUl.uP_wZQClDine2uNTP4OA7u6tf9XJyw
+ v2mEzRnWY88TDgsPlqzXwcpyv4uhEaWVxydE_r.KjUj.9V5lWMB2LD_uzJT5UlzJ3EPM.9gjXdFJ
+ 2HgiNcwFQl6yzxCOITDYOMIoYB5ZFzBOWdPncVonX04rI4LlDLvcjl5Q6kOUGdaqATCRrXYeSYqO
+ Er3AqATq8.JFd9BrzYbXHXYNj2TJaW8pubvoKxGBos2mEydpYMCS.U6cnKTic.x8J0ZMh.IK3kqz
+ uXjZl7bijRDYE.08JqAcvEoiIsWVHSVcDFMn0r_PS2314_z4d88ZQE9iJZrxVXXLMxjU6bWUeosj
+ mXVfTUaW5.3Iv0Wsa0lMm_cIwN4pBFuSmsJHxhfb4Dotq6Ai5e.jclTqgTMhlytC5f9xLQPa2XFW
+ QG0ypndeB4ACN9q1FK5un3MFC6AVbzud.EyCao8mnqB0JvZ4QdWbi.RsOoqIPRaFa7GAGZdaNG03
+ QyeiJHvwGvaZdczRjwzZ5fUF5I.9vLVgzAxFj3OHvZt2HeNp1zLEi6C6ZfKFmuJFtMC.gWjmqn.v
+ qZhm32Ayz3N9i62uj0UX_gutvOo6GO23yfGxVCc2Zy5C8fgfeVBcXC_rSvnXPn07YeqVBb8eM0IF
+ w_LO.psIcNGvSAI5GpSHWQzBHeRnkp4duY6PdcYGxq9SsBXmhWsaxPOOmSzqP8figMB7IF3nGg50
+ 6zmUdeCsGAuw.s04RLJOKh0_bJ3EfBxvHWrS3v43era8MkJvakA0wfZvqdkPjTWIDkNNe_5so9Kh
+ c1ySk8BJItqzfIsUQCmyPAfJ3Emrvvtwp.c3FL4JnA8QnfeBkWtESzt2VTOkgLj4IzohNH6WVUZY
+ Tp.OX9HgP0jXIUMtZySieuqYjqfIOrnu0yLBCC98YiwnZIhiXAcsKDF1CHk_yFQhQdXBbvCsbLr4
+ HQH27Ju7mISiToYCKEvXMcl.A.rFQPVVJGaHodOPdIcBD0CK9LNG5nFNzJvUOOg--
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: e8628154-6de0-4b16-a62f-4e04133acaeb
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-101 with HTTP; Fri, 14 Aug 2026 07:57:08 +0000
+Received: from dip142.lsn.ir2.yahoo.com ([87.248.99.151])
+          by hello (SMTP) with SMTP ID 8603dcd3bb51cce8243c85885af5c82f;
+          Fri, 14 Aug 2026 07:57:06 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Fri, 14 Aug 2026 09:57:03 +0200
+Subject: [PATCH v2] staging: media: atomisp: fix typo in refcount.c comment
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260814-atomisp-v2-real-v2-1-8f5ece54cc79@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ6CQAxG4auQrmkyFMcQr0JYDPCrNQhkCsSEc
+ HdHXH6L93YyRIXRLdspYlPTaUyQPKPuGcYHWPtkEidXVxUXDsv0Vpt5E44IA6OUXlzhW3hPqZo
+ j7vo5j3Xzt63tC93y29BxfAEu6xWscwAAAA==
+X-Change-ID: 20260814-atomisp-v2-real-e32d2015be55
+To: Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786694225; l=1528;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=nrPQO0iIItATmJ/aS/7vY6iL/e3Nbh2iCgFSaekxpvU=;
+ b=HyhhAxB8Va6Y0pwvo/7OvHTZn57tZA6edKGU5rJTeXztab/bfaHRemIULkpDh8djz9XswQmE9
+ +OL45gdcwZLDtluYIWK2RPVFHBPZGCXuZ8eV3Co/QSw01k3tShQW4jJ
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260814-atomisp-v2-real-v2-1-8f5ece54cc79.ref@yahoo.pl>
 
-Hi Tomi,
+Fix 'aswell' typo to 'as well' in a TODO comment describing
+refcount support for memory types other than ia_css_ptr. Only
+the spelling is corrected; the TODO item itself is unchanged
+and still needs to be addressed separately.
 
-Thank you for the patch.
+Reformat the comment to a single line, since it fits well
+within the line length limit, instead of the previous
+non-standard two-line style.
 
-On Thu, Jun 11, 2026 at 12:13, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+Suggested-by: Andy Shevchenko <andy@kernel.org>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+---
+Changes in v2:
+- Reformatted the comment to a single line, per Andy Shevchenko's review feedback, instead of the previous non-standard two-line style.
+---
+ drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-> From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
->
-> Implement the .get_frame_desc() subdev operation to report information
-> about streams to the connected CSI-2 receiver. This is required to let
-> the CSI-2 receiver driver know about virtual channels and data types for
-> each stream.
->
-> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> [tomi.valkeinen: picked from "Generic line based metadata support, internal pads" series]
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
-> This patch that adds .get_frame_desc() support to imx219 driver has been
-> circulating for a few years, and is currently posted in "[PATCH v12
-> 00/86] Generic line based metadata support, internal pads" series.
->
-> However, as some bridge drivers require modern drivers that support
-> .get_frame_desc, specifically ds90ub960.c, let's pick the patch and
-> queue it separately from the huge metadata series.
-> ---
->  drivers/media/i2c/imx219.c | 44 ++++++++++++++++++++++++++++++++++++++++++++
->  1 file changed, 44 insertions(+)
+diff --git a/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c b/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
+index 4a8675d0129a..168180f3873e 100644
+--- a/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
++++ b/drivers/staging/media/atomisp/pci/base/refcount/src/refcount.c
+@@ -15,8 +15,7 @@
+ 
+ #include "ia_css_debug.h"
+ 
+-/* TODO: enable for other memory aswell
+-	 now only for ia_css_ptr */
++/* TODO: enable for other memory as well, now only for ia_css_ptr */
+ struct ia_css_refcount_entry {
+ 	u32 count;
+ 	ia_css_ptr data;
 
-Note: I understand that this is not the preferred solution because there
-is [1]. I still found value on testing this so:
+---
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260814-atomisp-v2-real-e32d2015be55
 
-Tested-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
-Details:
-This is the only patch I needed on top of linux/master to get camera
-working on a TI AM69-SK.
-
-I used a AM69-SK with the Arducam FPD V3Link[2] using
-the following device tree overlays:
-  ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
-
-See TI's documentation about this [3]
-
-[1] https://lore.kernel.org/linux-media/20260518164318.3367888-1-sakari.ailus@linux.intel.com/
-[2] https://www.arducam.com/arducam-v3link-camera-kit-for-ti-development-boards.html
-[3]
-https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am69/11_00_10_01/exports/docs/linux/Foundational_Components/Kernel/Kernel_Drivers/Camera/CSI2RX.html
-
-Some review comment below.
-
->
-> diff --git a/drivers/media/i2c/imx219.c b/drivers/media/i2c/imx219.c
-> index 223d3753cc93..7829ddc115a0 100644
-> --- a/drivers/media/i2c/imx219.c
-> +++ b/drivers/media/i2c/imx219.c
-> @@ -23,6 +23,7 @@
->  #include <linux/pm_runtime.h>
->  #include <linux/regulator/consumer.h>
->  
-> +#include <media/mipi-csi2.h>
->  #include <media/v4l2-cci.h>
->  #include <media/v4l2-ctrls.h>
->  #include <media/v4l2-device.h>
-> @@ -661,6 +662,24 @@ static void imx219_free_controls(struct imx219 *imx219)
->   * Subdev operations
->   */
->  
-> +static unsigned int imx219_format_bpp(u32 code)
-> +{
-> +	switch (code) {
-> +	case MEDIA_BUS_FMT_SRGGB8_1X8:
-> +	case MEDIA_BUS_FMT_SGRBG8_1X8:
-> +	case MEDIA_BUS_FMT_SGBRG8_1X8:
-> +	case MEDIA_BUS_FMT_SBGGR8_1X8:
-> +		return 8;
-> +
-> +	case MEDIA_BUS_FMT_SRGGB10_1X10:
-> +	case MEDIA_BUS_FMT_SGRBG10_1X10:
-> +	case MEDIA_BUS_FMT_SGBRG10_1X10:
-> +	case MEDIA_BUS_FMT_SBGGR10_1X10:
-> +	default:
-> +		return 10;
-> +	}
-> +}
-> +
-
-Do we need this function when we already have imx219_get_format_bpp()
-which does the same thing?
-
->  static int imx219_set_framefmt(struct imx219 *imx219,
->  			       struct v4l2_subdev_state *state)
->  {
-> @@ -969,6 +988,30 @@ static int imx219_get_selection(struct v4l2_subdev *sd,
->  	return -EINVAL;
->  }
->  
-> +static int imx219_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-> +				 struct v4l2_mbus_frame_desc *fd)
-> +{
-> +	const struct v4l2_mbus_framefmt *fmt;
-> +	struct v4l2_subdev_state *state;
-> +	u32 code;
-> +
-> +	state = v4l2_subdev_lock_and_get_active_state(sd);
-
-Do we need error handling here? v4l2_subdev_lock_and_get_active_state()
-can return NULL.
-
-> +	fmt = v4l2_subdev_state_get_format(state, 0);
-> +	code = fmt->code;
-> +	v4l2_subdev_unlock_state(state);
-> +
-> +	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
-> +	fd->num_entries = 1;
-> +
-> +	fd->entry[0].pixelcode = code;
-> +	fd->entry[0].stream = 0;
-> +	fd->entry[0].bus.csi2.vc = 0;
-> +	fd->entry[0].bus.csi2.dt = imx219_format_bpp(code) == 8 ?
-> +		MIPI_CSI2_DT_RAW8 : MIPI_CSI2_DT_RAW10;
-> +
-> +	return 0;
-> +}
-> +
->  static int imx219_init_state(struct v4l2_subdev *sd,
->  			     struct v4l2_subdev_state *state)
->  {
-> @@ -995,6 +1038,7 @@ static const struct v4l2_subdev_pad_ops imx219_pad_ops = {
->  	.set_fmt = imx219_set_pad_format,
->  	.get_selection = imx219_get_selection,
->  	.enum_frame_size = imx219_enum_frame_size,
-> +	.get_frame_desc = imx219_get_frame_desc,
->  	.enable_streams = imx219_enable_streams,
->  	.disable_streams = imx219_disable_streams,
->  };
->
-> ---
-> base-commit: 06cb687a5132fcffe624c0070576ab852ac6b568
-> change-id: 20260611-imx219-frame-desc-9cc223b1fbd5
->
-> Best regards,
-> --  
-> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
