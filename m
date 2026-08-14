@@ -1,164 +1,189 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14DF1472F97;
-	Fri, 14 Aug 2026 14:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DCE146D57E
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:41:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786717908; cv=none; b=uulbDi92zZ9UrH6/tOsQCRAS/b7vBDvZ+I9n5xmxgwhrouJO9b2mMaWHw50bqag0WU34lj2X1UfvMBxaeLUps4e8NQiMYN2vpK4qz3tC+CSYBsK8NkIS/vx2q3kN/jvlnZR+X6q9UyiDUBwYHS5QscIvs7+QDvxsaW/kd+33DEY=
+	t=1786718491; cv=none; b=hW36myr+xxVQhxB/heTIteI+7Bd0jufodQ/31DOuekaSP7Yy2asiW0416V6TKBnBUbUvrPBrOCmyH+4oZjoXyO5UDvDNwmMoXK7rCUzuRhwER8r/jalnB+rnXJir8KXPVA6eU32R1uWZS0bF+qDTOJ0L8HlmC3bPxITzoiWrD4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786717908; c=relaxed/simple;
-	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KqIxKpkiNadZR1mfNRQgL0d3qssQex+ntZe73WkSZLiw+9Fy84bO21T4aNMVaOpiGFGWb1FhWG41JHPPuK83i6Qk0XosXRcvotm2fbnVBYrVbVZ99diOefFE3nNJq2c3oded1v8sGL8q8KVMEi3orvWy9wirBoT+PC/pRc06JmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=pfUKVYmb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1786718491; c=relaxed/simple;
+	bh=QTe92VTed7P60FmFpX0Q5Dd4oLw6vNGPMsslVbNyB60=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YI6Q7jCEax7U0w4Bz2Wkxq46r55CwrOe1SsZhHDUflknY2ffchX3Xeh6RYA5EiborAOmPZ7Mr1n3L5j5Chad2QfyEXMyt5PA1Ukg35fLnPDsjvmWDGUg3l8qHyS3am/h/9A7flz4iS+2TK1vTWobL6XW5hd9iNDUjVHecyOYiCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f4eEd/ba; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D6vKEC8M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="pfUKVYmb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1786717902;
-	bh=OcLA+9NxXaZ0Z8qAWG9RrfMqZWDWTvs48FyXhXFFOCg=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=pfUKVYmbkxlA+SMcEC8ybrcIQqZtCcqxkwdD4V+FUYhiI2NHNLPCg+n18pYPmf7CN
-	 g6CISMdt6CDVXaBKviCpMUoXDjyx6YdG3u/oSCsc4SSXvioxGl0ADHjxP7apIUmz6W
-	 8EIZDrCsa3vR1aq9Ot2u8zgQ2jZFh0GjiHZFxPHcU3Ymc2kUvXNiNoqEnnXqLxiai6
-	 UqjulyZxOj3rl6/shuSU0DLi3oUNlIs0RKMXKcOfgn1jthZdJS/GvZjtKLwHmKEByF
-	 GrWyw2zbA8vVSoY/ffcom4AJCqtOTVO7nWjCyaFQt8/lN64ighUUkHTqh9qQVFH756
-	 UZZI+qsDcohRQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id EB00617E07B5;
-	Fri, 14 Aug 2026 16:31:38 +0200 (CEST)
-Message-ID: <dcb6ecbd6184c01861c7d36068abb266df4587c5.camel@collabora.com>
-Subject: Re: [PATCH v6 01/14] media: mediatek: vcodec: support vcp
- architecture
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Kyrie Wu =?UTF-8?Q?=28=E5=90=B4=E6=99=97=29?= <Kyrie.Wu@mediatek.com>, 
- "fshao@chromium.org"	 <fshao@chromium.org>, Yunfei Dong
- =?UTF-8?Q?=28=E8=91=A3=E4=BA=91=E9=A3=9E=29?=	 <Yunfei.Dong@mediatek.com>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,  "fanwu01@zju.edu.cn"	
- <fanwu01@zju.edu.cn>, "jacopo.mondi@ideasonboard.com"	
- <jacopo.mondi@ideasonboard.com>, "haoxiang_li2024@163.com"	
- <haoxiang_li2024@163.com>, "tfiga@chromium.org" <tfiga@chromium.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Andrew-CT Chen =?UTF-8?Q?=28=E9=99=B3=E6=99=BA=E8=BF=AA=29?=	
- <Andrew-CT.Chen@mediatek.com>, "linux-media@vger.kernel.org"	
- <linux-media@vger.kernel.org>, "ribalda@chromium.org"
- <ribalda@chromium.org>,  "wenst@chromium.org"	 <wenst@chromium.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"	 <linux-kernel@vger.kernel.org>,
- "kees@kernel.org" <kees@kernel.org>,  "rongqianfeng@vivo.com"	
- <rongqianfeng@vivo.com>, Irui Wang =?UTF-8?Q?=28=E7=8E=8B=E7=91=9E=29?=	
- <Irui.Wang@mediatek.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
- "linux-mediatek@lists.infradead.org"	 <linux-mediatek@lists.infradead.org>,
- Tiffany Lin =?UTF-8?Q?=28=E6=9E=97=E6=85=A7=E7=8F=8A=29?=	
- <tiffany.lin@mediatek.com>, "p.zabel@pengutronix.de"
- <p.zabel@pengutronix.de>,  "benjamin.gaignard@collabora.com"	
- <benjamin.gaignard@collabora.com>, "matthias.bgg@gmail.com"	
- <matthias.bgg@gmail.com>, "mchehab@kernel.org" <mchehab@kernel.org>, 
- "sebastian.fricke@collabora.com"	 <sebastian.fricke@collabora.com>,
- "robh@kernel.org" <robh@kernel.org>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, 
- "laurent.pinchart+renesas@ideasonboard.com"	
- <laurent.pinchart+renesas@ideasonboard.com>, "hverkuil+cisco@kernel.org"	
- <hverkuil+cisco@kernel.org>
-Cc: "sakari.ailus@linux.intel.com" <sakari.ailus@linux.intel.com>
-Date: Fri, 14 Aug 2026 10:31:37 -0400
-In-Reply-To: <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
-References: <20260720012056.1026551-1-kyrie.wu@mediatek.com>
-		 <20260720012056.1026551-2-kyrie.wu@mediatek.com>
-		 <c3abd49fc12e8cfab6993feb60b361ba07b6fb7d.camel@collabora.com>
-		 <275503aae6ff76a4c186efe665acf996dec9229d.camel@mediatek.com>
-		 <c8ab26c2edfa4ee4fbbb83faf5f54547f252464f.camel@collabora.com>
-	 <44d9ec5c5f856b378f745fae8bd60aa4730df044.camel@mediatek.com>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-1Pa9FEAnN6BDVnhiPDGq"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f4eEd/ba";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D6vKEC8M"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67EDx2dB1906770
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:41:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/dVGa0Epfwju3+kziPy6JjeCQYvIjk2mCPesl9qfjeA=; b=f4eEd/baj7CPamLi
+	uO7qrsSde2i5yZ1haRIgvmVMsVqkxKYzl03CDAOJU4B+ynEtXBhVeM5KwijYjKBF
+	4W2YQrZ2KDa7F6Oqvx2Dmb9ZsXsmdttHeyiIWH9CYwLJBogl9120gQalm7fzAgd6
+	1Uv+1nL8Sgyz51Z4oD0icIy2Yyw2htmy2UO9w8PblLUopfxX5+J4k1yaNkChwjGV
+	dapjMof0K4NCgm/n6mV+jDIzk5l6Yg7ySDL9VEmE4MPRmAM0N7AVb6iMZBfx5lVM
+	yFnGxOb/PGqEt8yKT1QjuLToUTyUzsjamrBDQc8Tn2P7uR3w5H1YcroT2o65Bxaz
+	cUpOZg==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1xexhu3h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:41:27 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2d004f13426so15497615ad.3
+        for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 07:41:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1786718487; x=1787323287; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=/dVGa0Epfwju3+kziPy6JjeCQYvIjk2mCPesl9qfjeA=;
+        b=D6vKEC8MrRpfLwKfVLnVs7B68NkvWLoKOaD52RjV4w1gn0hYwy7YNY8yy8lEfZdK+G
+         eK0316Ph4AsS7ZosovH/aJ5Q6mXf+Gf67RkLi5/gJqFTefVrultmNlhwsnVi1HPI98X3
+         aMETKv6G1eOuIu7wgiUZEu0WkZHDo7Kmqymp6IkI15FyguTTWagjiFEBigJDtSAe7o+D
+         tG5t7/RhVVvo0lSBN4ph3DZSnNuRRqDwcNKYt4l+2Zn08qd/016reAzrNIHXKT9US0xr
+         FjMVGVj1vrG818OJdWI2EW/TqEhG5f77NvbQmtzxopopAenDp8zLX+fNu7mqOSghMxZe
+         Zt/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786718487; x=1787323287;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/dVGa0Epfwju3+kziPy6JjeCQYvIjk2mCPesl9qfjeA=;
+        b=MzjvBHgyJ/HiWWInTmsOxttjuS5Dhnk/IjqFk7H4BUE5asETFyfeL777KYYZ/bPcYI
+         ofheulG3xph0hFqTq8TS04SQUcwicd+SapN4ouHVzrn/XmW2vmXR/+o65qmPldZuQqcx
+         qjmCPmY7oGBo9l/Vig9Uw1Pa+cYEKMuiNa7L2Uy0zl83Zmncq92nPCWQ9RF2DosjjRir
+         /Vx2Fw83fCETEEbCSPz6/p51hY94u1oJ+qpoOFu0K3dh161VFtSG195ED7lIEq4qCV8x
+         qdtsYs+G1U0DMUyUh74MGkceWy9/kZvCFtikQ9ccIhU1F4jyxb49ffApOr7l77Prqe0p
+         23Tw==
+X-Gm-Message-State: AOJu0Ywxa6L81Nvkh8s0IAd4awIrzjcQiLLmOlU6Fo0zZ1fRQXWMcFAY
+	DCTJdNuf4HX2umJiV30Y/ClKfe31nuGvg3cC+6GZB5mKYwH4eTbr0NMqO3HHvfbWdgNpumy4u19
+	olXORbr7mhlSLvIdDxyV3bpO0RegpBA4B4dgRU6zBSnSD2w3Dasz0vkbJyYYIhDSHcg==
+X-Gm-Gg: AR+sD11O0MZTnXVyZlqSYIhrwLB9WszF+nS8w0x37kABQbxBf5EoBHUjR55CLv067N7
+	29EVs3WRK1Fm2Dy2iFW1wHoBdFtPQz/TWRu+1U090/ZZWBQ4vng2v3rmcFx+QUrdd/EHt7UWJmI
+	G63eCcE5iZiyFt9bWi3V5dvBzttNxijFLb8gjo4/Rcw5SB/IV2RuG7TUZbW1RZXejyKj+xgZdgJ
+	tQ0pIVHNvnCPWN46H102uNBhGM2Y8N1klpXtujoXO4eMbhtyl36BTV7a63N3B0D2uCFKMcXOsuH
+	gx3ogh+2XglpmWfLN6ZHh+IlN997k+kQcgvCFaaIXovjBSbFlN4kaqDaS6k/jv+pqAo3WNI71O3
+	ahUF5ibQSJAtrhClpjAtz4HvQnNmexbzF
+X-Received: by 2002:a17:903:2384:b0:2cf:c543:2c7e with SMTP id d9443c01a7336-2d3b088651dmr86267595ad.10.1786718486453;
+        Fri, 14 Aug 2026 07:41:26 -0700 (PDT)
+X-Received: by 2002:a17:903:2384:b0:2cf:c543:2c7e with SMTP id d9443c01a7336-2d3b088651dmr86266655ad.10.1786718485849;
+        Fri, 14 Aug 2026 07:41:25 -0700 (PDT)
+Received: from [10.206.103.83] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320e9df03f9sm5561208eec.19.2026.08.14.07.41.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 14 Aug 2026 07:41:25 -0700 (PDT)
+Message-ID: <67e2f178-125c-4fee-9e56-9c5e31e996ec@oss.qualcomm.com>
+Date: Fri, 14 Aug 2026 20:11:19 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-1Pa9FEAnN6BDVnhiPDGq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Le vendredi 14 ao=C3=BBt 2026 =C3=A0 02:38 +0000, Kyrie Wu (=E5=90=B4=E6=99=
-=97) a =C3=A9crit=C2=A0:
-> On Tue, 2026-08-11 at 16:22 -0400, Nicolas Dufresne wrote:
-> > Hi Kyrie,
-> >=20
-> > Le lundi 10 ao=C3=BBt 2026 =C3=A0 03:05 +0000, Kyrie Wu (=E5=90=B4=E6=
-=99=97) a =C3=A9crit=C2=A0:
-> > > I agree. Since the platform data is introduced in the MT8189 patch
-> > > series, I will move fw_type to the platform data and make
-> > > mtk_vcodec_dec_get_chip_name() derive the chip identifier from it
-> > > in
-> > > the MT8189 series.
-> >=20
-> > I'm not sure I have captured the plan correctly. Would you mind
-> > clarifying ?
-> >=20
-> > Nicolas
->=20
-> Hi Nicolas,
->=20
-> Sorry, my previous reply was unclear.
->=20
-> The platform-data refactoring will be included in the next revision of
-> the MT8189 series. That series depends on the updated MT8196 encoder
-> series, so I need to wait for the new MT8196 encoder revision to be
-> posted before I can rebase and send the updated MT8189 series.
->=20
-> In the updated MT8189 series, `fw_type` and the chip identifier will be
-> set in the platform data for each compatible, rather than being derived
-> by probing DT properties. Consequently, the DT-property-based selection
-> shown in this patch will be removed.
->=20
-> I will make this dependency explicit in the cover letter. Sorry again
-> for not explaining the plan clearly.
-
-Thanks, this will be helpful to handle follow-up series.
-
-Nicolas
-
->=20
-> Best regards,
-> Kyrie
-
---=-1Pa9FEAnN6BDVnhiPDGq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] media: iris: Fix iova allocation from restrict region
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Bryan O'Donoghue <bod@kernel.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Hans Verkuil <hverkuil@kernel.org>,
+        Stefan Schmidt <stefan.schmidt@linaro.org>,
+        Stanimir Varbanov <stanimir.varbanov@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
+ <20260812-reserve_iova_in_driver-v1-1-ed62f801275c@oss.qualcomm.com>
+Content-Language: en-US
+From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+In-Reply-To: <20260812-reserve_iova_in_driver-v1-1-ed62f801275c@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX8mKwubzYWTp4
+ b550aRA/6Bd7NJknsLMPIvU8OmAQ6XdyAlBVjk1MI+cHCHFV/O+bLQs9qP/s92tbgJ0t7KgmqjK
+ w3nGfv8bqL2yX95TA8Pw1xVv8gqZIf4=
+X-Proofpoint-GUID: qXF5iNhbH1E-Ukr3RJ6MY6QXB2e81CDR
+X-Authority-Analysis: v=2.4 cv=eO4jSnp1 c=1 sm=1 tr=0 ts=6a7f2917 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Hj55FqqFgxrcsKo4rRQA:9
+ a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22 a=Vxmtnl_E_bksehYqCbjh:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX5o2bkNJFWNr4
+ bPCMoU+2OxfTzsTjDLZ/zcdzEGSIYKPhz5ltQijo0jbjE/yWKjxGjuDLwe77+bPqeBgQD8nXnQN
+ AvYhMtTExyEgep2cjb2pqRJoXk/Kn7XDyHKoObgzJhhXSz8AqIX5qqNNjqnmng0lCjCTHwzpRgL
+ DczyU208yv2qLkHyEofvaVKhPVjdiJGbPXCvoIy7M3PUkdAJOD3uUCURu9foAHzsDqYHp7VTqmw
+ oGV3h+c5tLoCGB+EkNEDkCK0YTgRGdmMZm19N7MHcctx1zP04pzQd9vyFFC5sNXA6bDRL9fV0Zt
+ oYJMEZ0CfPjv0clSETazS1xdXwYP/pC1cm9ZlD3KbTJV9Zx+OMTzsJhfO0eFHZ5PCUMWFovoXz7
+ YmvmvtlDAeiRZOYKgmt1suJfdlkKHu60pEbMen/9ctOWadc3yn+2f6CQawm4JyNysF6+JrYn/nv
+ 1zWst6ccXfpAdO3yY3A==
+X-Proofpoint-ORIG-GUID: qXF5iNhbH1E-Ukr3RJ6MY6QXB2e81CDR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-14_05,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140112
 
------BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCan8myQAKCRDZQZRRKWBy
-9AjrAP47W1O0MlybGV5nddQLSeB987/IQrb90AsBaMHCuSPMNwEAqHnDqWue4hCg
-bIF5omk88zNifV9lAU/7JgU1KPCuiAU=
-=bcq9
------END PGP SIGNATURE-----
+On 8/12/2026 4:25 PM, Vishnu Reddy wrote:
+> The VPU issues DMA through several SMMU streams, and the hardware does
+> not give every stream the same addressable range. The non-pixel stream
+> cannot address the low 600MB of IOVA space, while the pixel stream can
+> address the full range:
+>      +-----------------------------------------------------------+
+>      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
+>      | 0x25800000 - 0xe0000000                                   |
+>      +-----------------------------------------------------------+
+>      | pixel stream addressable range (0 - 3.5 GB)               |
+>      | 0x00000000 - 0xe0000000                                   |
+>      +-----------------------------------------------------------+
+> A single "iommus" property on the video-codec node puts every stream
+> in one IOMMU domain sharing one IOVA allocator, so nothing restricts a
+> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below that
+> boundary the hardware faults, which shows up as unhandled SMMU page
+> faults and spontaneous reboots.
+> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
+> 
+> A series to reserve the 0-600MB IOVA range via "iommu-addresses" was
+> already posted here:
+> https://lore.kernel.org/all/20260807-iris_iova_600mb_fix- 
+> v1-0-3996f67e33f9@oss.qualcomm.com
+> 
+> Those changes involve DT binding and DT node changes, and discussion is
+> still ongoing on how to handle those for stable and for the upcoming
+> sub-node design, with no conclusion reached yet. Thereby a critical reset
+> issue is still open.
+> 
+> This is an alternate solution to fix the unhandled SMMU page fault
+> by restricting the IOVA range in the video driver, which also makes it
+> easier and faster to land on mainline and stable kernels. At the same
+> time the patch only reserves in the IOVA space without allocating
+> any physical memory.
+> 
+> Currently sub-nodes are not yet present, and only a single device is
+> available, so the restriction is applied to both non-pixel and pixel
+> stream IDs. This makes the solution unoptimal while fixing the issue
+> considering all scenarios.
+> Once sub-nodes for non-pixel, pixel, and secure streams become available,
+> the restriction can be made stream specific.
+> 
+> Fixes: d7378f84e94e ("media: iris: introduce iris core state management with shared queues")
+> Cc:stable@vger.kernel.org
+> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
+> ---
+>   drivers/media/platform/qcom/iris/iris_core.h  |  6 +++
+>   drivers/media/platform/qcom/iris/iris_probe.c | 69 ++++++++++++++++++++++++++-
+>   2 files changed, 74 insertions(+), 1 deletion(-)
 
---=-1Pa9FEAnN6BDVnhiPDGq--
+
+Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
