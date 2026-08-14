@@ -1,513 +1,182 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9239476CF9
-	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 13:41:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF46C2EA754
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 13:54:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786714918; cv=none; b=WDv5LVRTAI6kB4iLJwrRGN70DKOz8AV7iUbjkc5ocyK+PzzA53h1U5gpPwZN/C0mGslIFfMu4Vj/1g5cPj587wVG0qEEjAkDnmpvchVuFjJpKuyZSYVSVgfQUp29qsxBfZfVgmrYf+JASvZVXQ/GiBxw++k94bDEHrp3dTNwXQY=
+	t=1786715648; cv=none; b=MSyhuKw/nu4xXEE2ncvFGD3CredYDXlTTlowQnzWvRt5VU17O7YTsJCbZ6PEG7tthNl7lHWGkiszaYnQzC2j4kp4ek/eXDUqa9ZfNiJmhsnS/eRSTqBm9jv04fbrF/EbIpZdHV7CBMKDcCuBtiz6qi8sFRDBRzytTjbdxYfJAbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786714918; c=relaxed/simple;
-	bh=fu0byHZvEg1TbRbZZ/OBFL3Dvcup553OeECEyli7Xx8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NLc3EMZQB1h27ZTmcumqHN1zbvH9ntX6sq+VCSW8gsdE/7dAuZkN+cmGvZcRutUofr/QhOXgLH4ybDewopIjgN23EaorbkIntwvTVs50Y8VsQzbgBqgKMPtWY004/TAntvQEES/6TFQryqN+cjdjc/sXOylNYIZKpUOK8xj58t4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BLSFiCP9; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1786715648; c=relaxed/simple;
+	bh=0H3j7sWl5G8y6Uv1S0WkJaRGAOnVVH/GrTVxH1ZKHyI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=DkwtIEGb52HXPrPafXr5QENUtO6Kx1hxJfD4tpBJqThdZ13Ajs0poTwLdVTFuQ/ewA1rdewu+QOoe+VxCwgF+UNCYFOMH5FkHZAqT35uKTiqjvvbYatHhZkzEeaYHZeI2elRx61X9r6Ww93gk0PqUNv58LVFgDGNfB8p938AhcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=sZUywr3K; arc=none smtp.client-ip=209.85.160.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BLSFiCP9"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8485bd28dd0so1025036b3a.2
-        for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 06:41:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="sZUywr3K"
+Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-52b6543169fso7351701cf.2
+        for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 06:54:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786714916; x=1787319716; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Qy9SThPu3wUxXaNzRzJLMmOO1oJzOYnPdwijqYr7Rfg=;
-        b=BLSFiCP9zoAmY643fJyc065E8Y047qql7HJD45Hkwj41zQV4i1NFLsksbDPqHi6Hzz
-         bK1nEI8Eky7kBC9WrzABofWrLxptj4wjVaJH4p+1DeMN+m4PUvkiuQ9Er9CxH5Ui5ZM2
-         1a02lranE6sI9clTr2CuOnJ89rejcM4LSsezrQXyOJG/JvyIiNBaJVivL3Sp8fFaHCbj
-         2YdRBo23OK1OzOacjUMf62+p/Bu/pEQM06jHRTHmBqgazCCNvjfl/nt6gTFkCd24Ozop
-         Sy08gFfeiTUt/s5CQ4yRU4GT02mv3cTzaglbj9jDmug9Jm3MXH1Q7GnR3ryZ1dXNNdPR
-         b5MQ==
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1786715645; x=1787320445; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Tq/4Dxp9Lq5lOmtwqVhbb0b5mzgrcMsvD4kX5zmmpJg=;
+        b=sZUywr3KbNrnC1+xtKhzKulyZNvid8xpoXtEDCz8lRJRI8QgVoeluk5ysK7cjGrctV
+         926zTFPKAqZXmaG7I+dKjVD/3C8o8VuPmh6pnC3MX/+xDQHQa9qSgyqPw9PBczeXOZ/O
+         1cYzFsT0CsYerp3o96c5r+pG7SVOpaFwSSyTAhkLVpFYPgGDPze7OI4F3v+ek6SwSyVQ
+         s767OV7peNM1hhom2dtO13B8hIFxdZ1Cy5+nB0jFWCp1Aid5Qj98Bjxp28YO57NQj31m
+         +M/AhEvw4we+y92y6ijj+ob4P13NGP1L7KgNrAqYBM/LEkDUoQw0ieSHVjSJv/9Q/GVN
+         m4TQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786714916; x=1787319716;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Qy9SThPu3wUxXaNzRzJLMmOO1oJzOYnPdwijqYr7Rfg=;
-        b=mKpK6AxvxVZRCflHuz8QFGTDJhiKCDVb6/S/PRTyAD5uJdIm+Cbjx1ZL8FjEyy37A1
-         td6xMz6M885WbwhaXUbjmqB0V9PJ14nlMWKNn9VYq4X3jLglZiMf4MaPHwKZjItZbLPm
-         0hBwqY5dlg53eB7UAlwycvgOoJH/zV58jijxMknqsBIXYQ+nWI2cISt3pF9yj69VqZh7
-         vAT+OyhmEaYwy7zcbmu//cFfSzcOTYPq3g/hXhX5j/Lw4fEvFgY65m0rBF+nMgls/dS6
-         MyQlejx0TxL6DPSeDsyjgZD0ZNMs1q0+/nqo7qW83s8H95sPFMrdOt/ruGUp5b++R4br
-         Lfrw==
-X-Gm-Message-State: AOJu0YzGSlvWA/HQE09N51Br6fHefNnyZU1ninRxnJSa1jQxiez1UXnV
-	7VkK778zdD54GEHDeepGLU4o/dBhrj4YOt8abA6qoPHpIgunzK4LZ/Nl
-X-Gm-Gg: AR+sD13G5pZ7vEafChUXUyygmvpRjH4HjThiA15iuVhzWJc5bzurDkqgzX8elaTI1/w
-	9gjEFltyZ0/UY7Z3tr09lmW4fQKGAr3fwYzoeiFLeU74hJBKLtd0PB+SbjIKsvntuUXzPIlzlwl
-	TYZRdfw2d3bOglbZ8n5Y1YZYoSgZ47tSTWV6EGAx2P3EvSgBWv73ntvJd213x3EoDy+JpNBJ6t9
-	pfbhuJoOa73g672xwSIeevNaM894x+9yyY8RMp/lP6nng+S37A6Fq9imofqzgQptI3P7P+z/naP
-	VQpZO8xSTEU5LQ4uqPbgyEw41HeovNrPe6Di0tQ9T3ApGu8wdtC8m2VvmQKa7IUFhjfp5OGQKRY
-	RKjGV0Kz2/VUK/kwrf0AB2rICzSLkGJiptjGigcpc/Key63sCAncGgDkhmTzRKWB7GHA1aZVc8w
-	oZayyetgXdxZBv8SepFSg5acTG7N2z9AiawNM/uJAJVJKFCW3MRkOftTz0lhwyiTdbKgCf+jnOo
-	I1XSABD
-X-Received: by 2002:a05:6a00:a242:b0:848:6c9c:4074 with SMTP id d2e1a72fcca58-84fde018c5dmr6488674b3a.1.1786714915931;
-        Fri, 14 Aug 2026 06:41:55 -0700 (PDT)
-Received: from haichao.tail057a43.ts.net ([2001:da8:e000:1206:e9af:7c0e:be31:2c3f])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8517d249c49sm477557b3a.49.2026.08.14.06.41.53
+        d=1e100.net; s=20251104; t=1786715645; x=1787320445;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Tq/4Dxp9Lq5lOmtwqVhbb0b5mzgrcMsvD4kX5zmmpJg=;
+        b=dU9RDjKWFpmIPnqXOzNE9gXRfS8f4tQw3MM367C8JTRKVuGFFcD6yvWuqJN8VAsbm5
+         DBaHv40buPbHQZifB4NQhkY/XpXYaCfAxDjqZ269VG+RYtZ5sVONvhGrQW0URnIm/jA5
+         Zvn2PhJtOIt05nQ/AHoo0krgERMyyA/h4KioUH0wMvc6Fdy/JND5GEP48Fq2ZgZlvmBQ
+         5Rv34rewOP6Eii1fvC2HrSjgA9WwkaOHMuDcQxl4WrB9V7ZqcMMAzQA/NW08l/8uim7y
+         OjQrEvVIGAS/JXY2WZKbyld5kt2gaEgDbR5En436WNoH0dqiNMkqMie8+dNhtVc6+fPU
+         Vg/Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrPY3qJul1t59tnrgsEL6k0sYwymwl9vdIq1mPW3hA3a2sud7jlluf+34Qgta5TzK0fEGSwAJsPWVM/Og==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxsfXil2qbNYLgjZ/JGPyS5hf74J/irZhmYjQmn/6ntJKN/Unl
+	lYYGAO0U9mb/uC12xW1ZfanOJnHFDZ07BR8eT5HxKiIdMyE0huvmiaPoZyjSF/jp2M8=
+X-Gm-Gg: AR+sD117KSgUUEtpJm6DT9kgr0+NIfiS91vCD0TRRjiDagnjrGBbGJ6iEti5czPbNT2
+	BQouWAuIelTndjC36ePGv29y1FDljM1kmpeOvYE1ZYDkLeYSP41ezEsbAG9BsTJ+5e/3H6UnpH0
+	6li6eT83e5aahgx7tzhDXzSxcJpqCSND8L3HmoOFNEPfj1Zx9jK4+PnV+5PSduXJ4QKEGZpgbKZ
+	+vErC5ewyexxsBRbVZmd9GsKmToHUsBEH6PV5UraDtSx70KN62+CntD5uvf4WEqSM1A3hS6/7vT
+	NUA+6NbWEB9ojykhF/GZHzYJDcpfV4Xy72uPZAZORUZximFzUhsoZ87JPJcQaQlKqiAJPfM27Tv
+	5cJY3ey+weP+pXltxZfeJYbaK2flqeFjfLgnnP2cux9iqj1XK96EdgRUJ2kjBPVzhWWVVvXRW2S
+	+A0qiSieI6XlTY1+YCnm1Rv1r6pNxYA3Dt4KvV5l5mLM7O7eakowyBMNY1r6d08fdlpw==
+X-Received: by 2002:ac8:5952:0:b0:51c:1ec5:d0f with SMTP id d75a77b69052e-52d854f2433mr60161451cf.40.1786715644660;
+        Fri, 14 Aug 2026 06:54:04 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::5ac? ([2606:6d00:15:e221::5ac])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52d83ef775csm21392021cf.7.2026.08.14.06.54.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 14 Aug 2026 06:41:55 -0700 (PDT)
-From: Ruoyu Wang <ruoyuw560@gmail.com>
-To: Bluecherry Maintainers <maintainers@bluecherrydvr.com>,
-	Andrey Utkin <andrey_utkin@fastmail.com>,
-	Ismael Luceno <ismael@iodev.co.uk>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Ben Collins <bcollins@bluecherry.net>,
-	Greg Kroah-Hartman <gregkh@suse.de>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ruoyu Wang <ruoyuw560@gmail.com>
-Subject: [PATCH v2] media: solo6x10: Propagate I2C read errors
-Date: Fri, 14 Aug 2026 21:41:50 +0800
-Message-ID: <20260814134150.1388305-1-ruoyuw560@gmail.com>
-X-Mailer: git-send-email 2.51.0
+        Fri, 14 Aug 2026 06:54:03 -0700 (PDT)
+Message-ID: <3a0996708452454edb9ef4735d0ae343a04dbce6.camel@ndufresne.ca>
+Subject: Re: [PATCH] media: vicodec: zero-initialize stateful decoder heap
+ buffers
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: moonafterrain@outlook.com, Hans Verkuil <hverkuil@kernel.org>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Keiichi Watanabe
+ <keiichiw@chromium.org>
+Cc: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Yuhao Jiang
+	 <danisjiang@gmail.com>, stable@vger.kernel.org
+Date: Fri, 14 Aug 2026 09:54:01 -0400
+In-Reply-To: <20260813-vicodec-fixes-v1-1-13077b5b6c29@outlook.com>
+References: <20260813-vicodec-fixes-v1-1-13077b5b6c29@outlook.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-v6aq/8iizxPYsUlaL/5Q"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-solo_i2c_readbyte() ignores the number of messages completed by
-i2c_transfer() and returns the read byte even when the transfer did not
-complete. A short transfer can therefore expose an uninitialized stack
-byte to chip detection, input-status queries, and ALSA gain controls.
 
-Return status separately from the output byte and map short transfers to
--EIO. Propagate failures where callers provide an error channel. At
-input-status and write-and-verify sites, avoid consuming the output after
-a failed read while retaining the existing ioctl and best-effort retry
-behavior.
+--=-v6aq/8iizxPYsUlaL/5Q
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-This issue was found by a static analysis checker and confirmed by manual
-source review.
+Hi,
 
-Fixes: faa4fd2a0951 ("Staging: solo6x10: New driver (staging) for Softlogic 6x10")
-Signed-off-by: Ruoyu Wang <ruoyuw560@gmail.com>
----
-Changes in v2:
-- replace the zero-initialization fallback with an explicit error channel;
-- update every active caller without making ENUMINPUT fail on status-read
-  errors;
-- preserve the existing best-effort write-and-verify policy and leave disabled
-  code untouched;
-- rebase onto media-committers next at 4900cad020c0.
+Le jeudi 13 ao=C3=BBt 2026 =C3=A0 13:51 +0800, Junrui Luo via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Junrui Luo <moonafterrain@outlook.com>
+>=20
+> vicodec_start_streaming() allocates state->ref_frame.buf and the
+> compressed_frame buffer with kvmalloc() for the stateful decoder and
+> leaves both uninitialized.
+>=20
+> decode_plane() derives is_intra from the reference pointer being NULL
+> (is_intra =3D !ref) rather than from frame-sequence state, and the
+> stateful decoder always passes a valid ref, so a P-coded first frame
+> reaches add_deltas() over stale heap content that is then folded into
+> the decoded frame and returned via VIDIOC_DQBUF. The padding rows
+> between visible_height and coded_height leak on every P-frame as well,
+> since copy_cap_to_ref() writes only visible_height rows while
+> decode_plane() reads up to round_up(visible_height, 8). For
+> compressed_frame, only comp_size bytes are copied into the new
+> comp_max_size allocation, leaving the tail uninitialized for derlc() to
+> walk into.
 
-v1: https://lore.kernel.org/r/20260813153120.3952770-1-ruoyuw560@gmail.com/
+There is a lot of description of what the code does already, and what your
+change does, but for some reason, it seem you have forgotten the essential,
+which is the rationale for this patch. Please focus on what this patch fixe=
+s,
+and then go into details. Looking forward a v2.
 
- drivers/media/pci/solo6x10/solo6x10-g723.c    |  17 ++-
- drivers/media/pci/solo6x10/solo6x10-i2c.c     |  15 ++-
- drivers/media/pci/solo6x10/solo6x10-tw28.c    | 114 ++++++++++++------
- drivers/media/pci/solo6x10/solo6x10-tw28.h    |   4 +-
- .../media/pci/solo6x10/solo6x10-v4l2-enc.c    |   4 +-
- drivers/media/pci/solo6x10/solo6x10-v4l2.c    |   5 +-
- drivers/media/pci/solo6x10/solo6x10.h         |   3 +-
- 7 files changed, 108 insertions(+), 54 deletions(-)
+Nicolas
 
-diff --git a/drivers/media/pci/solo6x10/solo6x10-g723.c b/drivers/media/pci/solo6x10/solo6x10-g723.c
-index e41b8d90a30ecc..5138a6ec55df61 100644
---- a/drivers/media/pci/solo6x10/solo6x10-g723.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-g723.c
-@@ -257,8 +257,13 @@ static int snd_solo_capture_volume_get(struct snd_kcontrol *kcontrol,
- {
- 	struct solo_dev *solo_dev = snd_kcontrol_chip(kcontrol);
- 	u8 ch = value->id.numid - 1;
-+	u8 gain;
-+	int ret;
- 
--	value->value.integer.value[0] = tw28_get_audio_gain(solo_dev, ch);
-+	ret = tw28_get_audio_gain(solo_dev, ch, &gain);
-+	if (ret)
-+		return ret;
-+	value->value.integer.value[0] = gain;
- 
- 	return 0;
- }
-@@ -269,14 +274,16 @@ static int snd_solo_capture_volume_put(struct snd_kcontrol *kcontrol,
- 	struct solo_dev *solo_dev = snd_kcontrol_chip(kcontrol);
- 	u8 ch = value->id.numid - 1;
- 	u8 old_val;
-+	int ret;
- 
--	old_val = tw28_get_audio_gain(solo_dev, ch);
-+	ret = tw28_get_audio_gain(solo_dev, ch, &old_val);
-+	if (ret)
-+		return ret;
- 	if (old_val == value->value.integer.value[0])
- 		return 0;
- 
--	tw28_set_audio_gain(solo_dev, ch, value->value.integer.value[0]);
--
--	return 1;
-+	ret = tw28_set_audio_gain(solo_dev, ch, value->value.integer.value[0]);
-+	return ret ? ret : 1;
- }
- 
- static const struct snd_kcontrol_new snd_solo_capture_volume = {
-diff --git a/drivers/media/pci/solo6x10/solo6x10-i2c.c b/drivers/media/pci/solo6x10/solo6x10-i2c.c
-index 7db785e9c99791..52f8a95c370d72 100644
---- a/drivers/media/pci/solo6x10/solo6x10-i2c.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-i2c.c
-@@ -22,10 +22,11 @@
- 
- #include "solo6x10.h"
- 
--u8 solo_i2c_readbyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off)
-+int solo_i2c_readbyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off,
-+		      u8 *data)
- {
- 	struct i2c_msg msgs[2];
--	u8 data;
-+	int ret;
- 
- 	msgs[0].flags = 0;
- 	msgs[0].addr = addr;
-@@ -35,11 +36,15 @@ u8 solo_i2c_readbyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off)
- 	msgs[1].flags = I2C_M_RD;
- 	msgs[1].addr = addr;
- 	msgs[1].len = 1;
--	msgs[1].buf = &data;
-+	msgs[1].buf = data;
- 
--	i2c_transfer(&solo_dev->i2c_adap[id], msgs, 2);
-+	ret = i2c_transfer(&solo_dev->i2c_adap[id], msgs, ARRAY_SIZE(msgs));
-+	if (ret == ARRAY_SIZE(msgs))
-+		return 0;
-+	if (ret < 0)
-+		return ret;
- 
--	return data;
-+	return -EIO;
- }
- 
- void solo_i2c_writebyte(struct solo_dev *solo_dev, int id, u8 addr,
-diff --git a/drivers/media/pci/solo6x10/solo6x10-tw28.c b/drivers/media/pci/solo6x10/solo6x10-tw28.c
-index 8f53946c67928f..66a9fd1e04ee63 100644
---- a/drivers/media/pci/solo6x10/solo6x10-tw28.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-tw28.c
-@@ -168,17 +168,17 @@ static const u8 tbl_tw2865_pal_template[] = {
- 
- #define is_tw286x(__solo, __id) (!((__solo)->tw2815 & (1U << (__id))))
- 
--static u8 tw_readbyte(struct solo_dev *solo_dev, int chip_id, u8 tw6x_off,
--		      u8 tw_off)
-+static int tw_readbyte(struct solo_dev *solo_dev, int chip_id, u8 tw6x_off,
-+		       u8 tw_off, u8 *val)
- {
- 	if (is_tw286x(solo_dev, chip_id))
- 		return solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
- 					 TW_CHIP_OFFSET_ADDR(chip_id),
--					 tw6x_off);
-+					 tw6x_off, val);
- 	else
- 		return solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
- 					 TW_CHIP_OFFSET_ADDR(chip_id),
--					 tw_off);
-+					 tw_off, val);
- }
- 
- static void tw_writebyte(struct solo_dev *solo_dev, int chip_id,
-@@ -200,9 +200,10 @@ static void tw_write_and_verify(struct solo_dev *solo_dev, u8 addr, u8 off,
- 	int i;
- 
- 	for (i = 0; i < 5; i++) {
--		u8 rval = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW, addr, off);
-+		u8 rval;
- 
--		if (rval == val)
-+		if (!solo_i2c_readbyte(solo_dev, SOLO_I2C_TW, addr, off,
-+				       &rval) && rval == val)
- 			return;
- 
- 		solo_i2c_writebyte(solo_dev, SOLO_I2C_TW, addr, off, val);
-@@ -582,14 +583,17 @@ static void saa712x_setup(struct solo_dev *dev)
- int solo_tw28_init(struct solo_dev *solo_dev)
- {
- 	int i;
-+	int ret;
- 	u8 value;
- 
- 	solo_dev->tw28_cnt = 0;
- 
- 	/* Detect techwell chip type(s) */
- 	for (i = 0; i < solo_dev->nr_chans / 4; i++) {
--		value = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
--					  TW_CHIP_OFFSET_ADDR(i), 0xFF);
-+		ret = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
-+					TW_CHIP_OFFSET_ADDR(i), 0xFF, &value);
-+		if (ret)
-+			return ret;
- 
- 		switch (value >> 3) {
- 		case 0x18:
-@@ -602,9 +606,11 @@ int solo_tw28_init(struct solo_dev *solo_dev)
- 			solo_dev->tw28_cnt++;
- 			break;
- 		default:
--			value = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
--						  TW_CHIP_OFFSET_ADDR(i),
--						  0x59);
-+			ret = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
-+						TW_CHIP_OFFSET_ADDR(i), 0x59,
-+						&value);
-+			if (ret)
-+				return ret;
- 			if ((value >> 3) == 0x04) {
- 				solo_dev->tw2815 |= 1 << i;
- 				solo_dev->tw28_cnt++;
-@@ -641,13 +647,17 @@ int solo_tw28_init(struct solo_dev *solo_dev)
- int tw28_get_video_status(struct solo_dev *solo_dev, u8 ch)
- {
- 	u8 val, chip_num;
-+	int ret;
- 
- 	/* Get the right chip and on-chip channel */
- 	chip_num = ch / 4;
- 	ch %= 4;
- 
--	val = tw_readbyte(solo_dev, chip_num, TW286x_AV_STAT_ADDR,
--			  TW_AV_STAT_ADDR) & 0x0f;
-+	ret = tw_readbyte(solo_dev, chip_num, TW286x_AV_STAT_ADDR,
-+			  TW_AV_STAT_ADDR, &val);
-+	if (ret)
-+		return ret;
-+	val &= 0x0f;
- 
- 	return val & (1 << ch) ? 1 : 0;
- }
-@@ -681,6 +691,7 @@ int tw28_set_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch,
- {
- 	char sval;
- 	u8 chip_num;
-+	int ret;
- 
- 	/* Get the right chip and on-chip channel */
- 	chip_num = ch / 4;
-@@ -696,9 +707,13 @@ int tw28_set_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch,
- 	case V4L2_CID_SHARPNESS:
- 		/* Only 286x has sharpness */
- 		if (is_tw286x(solo_dev, chip_num)) {
--			u8 v = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
--						 TW_CHIP_OFFSET_ADDR(chip_num),
--						 TW286x_SHARPNESS(chip_num));
-+			u8 v;
-+
-+			ret = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
-+						TW_CHIP_OFFSET_ADDR(chip_num),
-+						TW286x_SHARPNESS(chip_num), &v);
-+			if (ret)
-+				return ret;
- 			v &= 0xf0;
- 			v |= val;
- 			solo_i2c_writebyte(solo_dev, SOLO_I2C_TW,
-@@ -756,6 +771,7 @@ int tw28_get_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch,
- 		      s32 *val)
- {
- 	u8 rval, chip_num;
-+	int ret;
- 
- 	/* Get the right chip and on-chip channel */
- 	chip_num = ch / 4;
-@@ -768,35 +784,48 @@ int tw28_get_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch,
- 	case V4L2_CID_SHARPNESS:
- 		/* Only 286x has sharpness */
- 		if (is_tw286x(solo_dev, chip_num)) {
--			rval = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
--						 TW_CHIP_OFFSET_ADDR(chip_num),
--						 TW286x_SHARPNESS(chip_num));
-+			ret = solo_i2c_readbyte(solo_dev, SOLO_I2C_TW,
-+						TW_CHIP_OFFSET_ADDR(chip_num),
-+						TW286x_SHARPNESS(chip_num),
-+						&rval);
-+			if (ret)
-+				return ret;
- 			*val = rval & 0x0f;
- 		} else
- 			*val = 0;
- 		break;
- 	case V4L2_CID_HUE:
--		rval = tw_readbyte(solo_dev, chip_num, TW286x_HUE_ADDR(ch),
--				   TW_HUE_ADDR(ch));
-+		ret = tw_readbyte(solo_dev, chip_num, TW286x_HUE_ADDR(ch),
-+				  TW_HUE_ADDR(ch), &rval);
-+		if (ret)
-+			return ret;
- 		if (is_tw286x(solo_dev, chip_num))
- 			*val = (s32)((char)rval) + 128;
- 		else
- 			*val = rval;
- 		break;
- 	case V4L2_CID_SATURATION:
--		*val = tw_readbyte(solo_dev, chip_num,
--				   TW286x_SATURATIONU_ADDR(ch),
--				   TW_SATURATION_ADDR(ch));
-+		ret = tw_readbyte(solo_dev, chip_num,
-+				  TW286x_SATURATIONU_ADDR(ch),
-+				  TW_SATURATION_ADDR(ch), &rval);
-+		if (ret)
-+			return ret;
-+		*val = rval;
- 		break;
- 	case V4L2_CID_CONTRAST:
--		*val = tw_readbyte(solo_dev, chip_num,
--				   TW286x_CONTRAST_ADDR(ch),
--				   TW_CONTRAST_ADDR(ch));
-+		ret = tw_readbyte(solo_dev, chip_num,
-+				  TW286x_CONTRAST_ADDR(ch),
-+				  TW_CONTRAST_ADDR(ch), &rval);
-+		if (ret)
-+			return ret;
-+		*val = rval;
- 		break;
- 	case V4L2_CID_BRIGHTNESS:
--		rval = tw_readbyte(solo_dev, chip_num,
--				   TW286x_BRIGHTNESS_ADDR(ch),
--				   TW_BRIGHTNESS_ADDR(ch));
-+		ret = tw_readbyte(solo_dev, chip_num,
-+				  TW286x_BRIGHTNESS_ADDR(ch),
-+				  TW_BRIGHTNESS_ADDR(ch), &rval);
-+		if (ret)
-+			return ret;
- 		if (is_tw286x(solo_dev, chip_num))
- 			*val = (s32)((char)rval) + 128;
- 		else
-@@ -832,38 +861,45 @@ void tw2815_Set_AudioOutVol(struct solo_dev *solo_dev, unsigned int u_val)
- }
- #endif
- 
--u8 tw28_get_audio_gain(struct solo_dev *solo_dev, u8 ch)
-+int tw28_get_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 *val)
- {
--	u8 val;
- 	u8 chip_num;
-+	int ret;
- 
- 	/* Get the right chip and on-chip channel */
- 	chip_num = ch / 4;
- 	ch %= 4;
- 
--	val = tw_readbyte(solo_dev, chip_num,
-+	ret = tw_readbyte(solo_dev, chip_num,
- 			  TW286x_AUDIO_INPUT_GAIN_ADDR(ch),
--			  TW_AUDIO_INPUT_GAIN_ADDR(ch));
-+			  TW_AUDIO_INPUT_GAIN_ADDR(ch), val);
-+	if (ret)
-+		return ret;
- 
--	return (ch % 2) ? (val >> 4) : (val & 0x0f);
-+	*val = (ch % 2) ? (*val >> 4) : (*val & 0x0f);
-+	return 0;
- }
- 
--void tw28_set_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 val)
-+int tw28_set_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 val)
- {
- 	u8 old_val;
- 	u8 chip_num;
-+	int ret;
- 
- 	/* Get the right chip and on-chip channel */
- 	chip_num = ch / 4;
- 	ch %= 4;
- 
--	old_val = tw_readbyte(solo_dev, chip_num,
--			      TW286x_AUDIO_INPUT_GAIN_ADDR(ch),
--			      TW_AUDIO_INPUT_GAIN_ADDR(ch));
-+	ret = tw_readbyte(solo_dev, chip_num,
-+			  TW286x_AUDIO_INPUT_GAIN_ADDR(ch),
-+			  TW_AUDIO_INPUT_GAIN_ADDR(ch), &old_val);
-+	if (ret)
-+		return ret;
- 
- 	val = (old_val & ((ch % 2) ? 0x0f : 0xf0)) |
- 		((ch % 2) ? (val << 4) : val);
- 
- 	tw_writebyte(solo_dev, chip_num, TW286x_AUDIO_INPUT_GAIN_ADDR(ch),
- 		     TW_AUDIO_INPUT_GAIN_ADDR(ch), val);
-+	return 0;
- }
-diff --git a/drivers/media/pci/solo6x10/solo6x10-tw28.h b/drivers/media/pci/solo6x10/solo6x10-tw28.h
-index 4a8ede3139a856..a0feed7cf3ddee 100644
---- a/drivers/media/pci/solo6x10/solo6x10-tw28.h
-+++ b/drivers/media/pci/solo6x10/solo6x10-tw28.h
-@@ -44,8 +44,8 @@ int tw28_set_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch, s32 val);
- int tw28_get_ctrl_val(struct solo_dev *solo_dev, u32 ctrl, u8 ch, s32 *val);
- bool tw28_has_sharpness(struct solo_dev *solo_dev, u8 ch);
- 
--u8 tw28_get_audio_gain(struct solo_dev *solo_dev, u8 ch);
--void tw28_set_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 val);
-+int tw28_get_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 *val);
-+int tw28_set_audio_gain(struct solo_dev *solo_dev, u8 ch, u8 val);
- int tw28_get_video_status(struct solo_dev *solo_dev, u8 ch);
- 
- #if 0
-diff --git a/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c b/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-index 91b5c416193036..dc79f88d17567f 100644
---- a/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-v4l2-enc.c
-@@ -774,6 +774,7 @@ static int solo_enc_enum_input(struct file *file, void *priv,
- {
- 	struct solo_enc_dev *solo_enc = video_drvdata(file);
- 	struct solo_dev *solo_dev = solo_enc->solo_dev;
-+	int ret;
- 
- 	if (input->index)
- 		return -EINVAL;
-@@ -783,7 +784,8 @@ static int solo_enc_enum_input(struct file *file, void *priv,
- 	input->type = V4L2_INPUT_TYPE_CAMERA;
- 	input->std = solo_enc->vfd->tvnorms;
- 
--	if (!tw28_get_video_status(solo_dev, solo_enc->ch))
-+	ret = tw28_get_video_status(solo_dev, solo_enc->ch);
-+	if (ret <= 0)
- 		input->status = V4L2_IN_ST_NO_SIGNAL;
- 
- 	return 0;
-diff --git a/drivers/media/pci/solo6x10/solo6x10-v4l2.c b/drivers/media/pci/solo6x10/solo6x10-v4l2.c
-index 35715b21dbdffc..78cd07a800818a 100644
---- a/drivers/media/pci/solo6x10/solo6x10-v4l2.c
-+++ b/drivers/media/pci/solo6x10/solo6x10-v4l2.c
-@@ -410,11 +410,14 @@ static int solo_enum_input(struct file *file, void *priv,
- 		if (ret < 0)
- 			return ret;
- 	} else {
-+		int ret;
-+
- 		snprintf(input->name, sizeof(input->name), "Camera %d",
- 			 input->index + 1);
- 
- 		/* We can only check this for normal inputs */
--		if (!tw28_get_video_status(solo_dev, input->index))
-+		ret = tw28_get_video_status(solo_dev, input->index);
-+		if (ret <= 0)
- 			input->status = V4L2_IN_ST_NO_SIGNAL;
- 	}
- 
-diff --git a/drivers/media/pci/solo6x10/solo6x10.h b/drivers/media/pci/solo6x10/solo6x10.h
-index 126f6fb7b755db..baacf99141aba9 100644
---- a/drivers/media/pci/solo6x10/solo6x10.h
-+++ b/drivers/media/pci/solo6x10/solo6x10.h
-@@ -333,7 +333,8 @@ void solo_motion_isr(struct solo_dev *solo_dev);
- void solo_video_in_isr(struct solo_dev *solo_dev);
- 
- /* i2c read/write */
--u8 solo_i2c_readbyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off);
-+int solo_i2c_readbyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off,
-+		      u8 *data);
- void solo_i2c_writebyte(struct solo_dev *solo_dev, int id, u8 addr, u8 off,
- 			u8 data);
- 
+>=20
+> Use kvzalloc() for both allocations.
+>=20
+> Fixes: 256bf813ba39 ("media: vicodec: add the virtual codec driver")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
+>  drivers/media/test-drivers/vicodec/vicodec-core.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/drivers/media/test-drivers/vicodec/vicodec-core.c b/drivers/=
+media/test-drivers/vicodec/vicodec-core.c
+> index 318e8330f16a..7ebde8f3fc37 100644
+> --- a/drivers/media/test-drivers/vicodec/vicodec-core.c
+> +++ b/drivers/media/test-drivers/vicodec/vicodec-core.c
+> @@ -1595,9 +1595,9 @@ static int vicodec_start_streaming(struct vb2_queue=
+ *q,
+>  	}
+>  	state->ref_stride =3D q_data->coded_width * info->luma_alpha_step;
+> =20
+> -	state->ref_frame.buf =3D kvmalloc(total_planes_size, GFP_KERNEL);
+> +	state->ref_frame.buf =3D kvzalloc(total_planes_size, GFP_KERNEL);
+>  	state->ref_frame.luma =3D state->ref_frame.buf;
+> -	new_comp_frame =3D kvmalloc(ctx->comp_max_size, GFP_KERNEL);
+> +	new_comp_frame =3D kvzalloc(ctx->comp_max_size, GFP_KERNEL);
+> =20
+>  	if (!state->ref_frame.luma || !new_comp_frame) {
+>  		kvfree(state->ref_frame.luma);
+>=20
+> ---
+> base-commit: f5bbbfec59b4e2fb7520a91de3df8a6174325d6a
+> change-id: 20260813-vicodec-fixes-a91ec4217ce3
+>=20
+> Best regards,
 
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
--- 
-2.51.0
+--=-v6aq/8iizxPYsUlaL/5Q
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCan8d+QAKCRDZQZRRKWBy
+9OlFAQDWCBKY1VPxjrIt6+0Y0vi5NqefHw4gi/J7J0jhjV3jIAEA/8niRR+SFiue
+2AmZGOwn+1aLC2jGt1PU+A5ccjQnRgY=
+=ew/F
+-----END PGP SIGNATURE-----
+
+--=-v6aq/8iizxPYsUlaL/5Q--
