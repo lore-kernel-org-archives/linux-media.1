@@ -1,190 +1,403 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 539B13D5C38
-	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:42:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 997544657EA
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 15:11:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786718532; cv=none; b=UY7egslzNgwtoXbMmNxd2iz8ysQP5VtPnRTOS48PEHcnyD/EpQPK24O3IfYVZFG4QRMe8px3h2wx0tk5TPaf+5jBfEbHvbazmTE0xRTQp1CSVhM9dtdQeDMr1dmVB80ntUA1EYsNcGcpR2aoiwmYEhE/1NwH2HYAS8xBh15svVA=
+	t=1786720288; cv=none; b=UCYyQqAWLiUeNvKbqGzcANgfotm+r2CR1DS2lrV0ACYqJ568lcR8VzgoNVoAx1wzPdP9/u5XwN+XOFOQlosH+vovUk9ajEJx6qsrkUerbsy8on3tmPIv+0JMnb7JmG3MccYcrlpZHLzhCVDU+zQxCe+3naOe2/AkAM2fhMG1VC4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786718532; c=relaxed/simple;
-	bh=ZunX9x9Qfg2ygxY02z1CqlB35kcZIQXd5mtkNO+VIUc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bDN8GSijwZ+stN8AMmFwdPBVr4fxDVAv5H8tidGatBHvwhAPokvmwSrWL/3Jn2CoAj9k0ZfWimpLfQzowoYVfyuqM2mzqjAFtSlNciw11QJcd6tCYZkl0bB+/HIw/fZFSZr0eMPlJQv+1a3ODLSjxzHaeHyI7IfKeXTGeitl9MY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JdsNhp0p; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Z7FPnPIN; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1786720288; c=relaxed/simple;
+	bh=0BrBkcX9UcEVHPKeK7NYdXxTwBJE9wFp4qVEes7QwFQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dsqqKgKoR6BnE4zm4byZw5RrhRzsPusCk1BvQ+bSbc31QrqRgszEykE2E7qOX9UsM8xBjQxAZEF5iqPhIQPrH7oeEUF9k1DRomP/eHcvPAFAcV4WS0D+XRhWLFxttxlAerRFPSwsR9tuaHzIoWjy5NZy8IVMkbjLzAYTBSeaXFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IcTWvEKU; arc=none smtp.client-ip=209.85.208.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JdsNhp0p";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Z7FPnPIN"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67EDxMbO1505885
-	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:42:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=; b=JdsNhp0pcIFBNjGn
-	fPVUydAE6lLbJbeqsTa3wtzxyODH90NGk/9PdiuELpkIY+112yeFjkQ1PWlz2G72
-	Hqi5W/Wis0ZUdmXIYrBhkzmrrAMSjWtIH8CFiMfZZCoMiDwN56MWtLVmkV858avM
-	tkKAhlYGdMCDYyW1LqgpslktuMzcsKO/0fy6JGaJNxg7BQmiiOeYVKTMUoRqz1iz
-	ECnLmHWtvDZROMLiKeizflR67PaZ6KfdY+79bCroF0v+jcAPyZV97cfJ3uWJ+ova
-	DQ0X3P2J7Hx6peJg/KJNfk74ZyUdFksiH3chVfXQSW3I17+tKufGNE+WpgGfNnKm
-	BTdQmA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g1v8ptbyh-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 14:42:07 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3811279d51aso1851890a91.1
-        for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 07:42:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IcTWvEKU"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-39f20d19895so7661881fa.2
+        for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 08:11:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1786718526; x=1787323326; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=;
-        b=Z7FPnPINumW5xf0486+PRmnPEGfYs4qRNEN1Lq/7g71JIPne2GQbybL7R7jQNZ0j5a
-         57mqAXxgXvI3OTJV5vr7X2Wjz7diSsjAgSIkvx2ZDgKIkyC6mjQJ/TUtriIIAivsasnP
-         /UIDSuyjnnL/1C81JUWP0fDL4aaa8ILn1TOZy2VbIJp64dpWakpjsLZDQR+nl1Z8UmZe
-         GbmdFvPiBi8VQH0Vve3fK8nTfTqanYkHYT1+OsctWode58RkzOJr9VUBkt3WMI5tVCXO
-         xDMCxZrbLF1ULFhRNbwfXv6zAYAG3GnCMmIz+/b0eSepNYHvtszjXM1AtUXwIzN0R41t
-         HU2w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786718526; x=1787323326;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1786720285; x=1787325085; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=GKepa7JDsXLcEEP/HR6lN/pxWVDviaNjxQkZKdCVmdg=;
-        b=aPCIj3slh8/21+qFZ8tcs07DgrXnm4i8jWFi/jvN2pPHn8493iKUg+vvK0ae7A7vfa
-         HFVyjFv/b8memh0L4lSW5nROzgaG/eNmKZupoXry+mz+u05yBzfgUkSWHzUK47R0csWE
-         Uj6IISrWN5sqXe2bAjRET4+KYJmWc8qqHxVHUGmliMAUpsKL3xoZG8bsiP8EfyhELaji
-         D44O2t7HWXykxtBttwEDWt1qIfmiX8XvcgKH5VIMzuD8b4CbllFLIk58w0+bGLkgd6jv
-         Ph6Pz6PwbhqqbrbnKKdTRRTgH3Xqml4dzrOo3RrNGHjYN6gVgqNOX+9LAPqKtIiTeG6G
-         dIWQ==
-X-Gm-Message-State: AOJu0YwcAvZyX7q2P8cnZk9qP7H/Z4jkcegR4FtCQ0WetrhBscLuYkCB
-	6UTfGmoedr7acNJ8pa9tS9I1xbJbypEgggl4RpmWeb9Q8dWHLvNctoREu+J/6H0u9MvGLWfi3gn
-	+n+0M9ZDh/gJ03NiDj0jetpOSmHtMmOJSseZwjKOzEXN4VwSNTwDbzerH9D8lra4vyw==
-X-Gm-Gg: AR+sD11v3pIpaWebNMOGNhgr63/Cd/aq6fKcQ7B/TmM9Olegv10PgfL6re4QQnEPgFb
-	wK9/Ek2KqjOBybMuNiGby6bufJw09wX2qUd1LutDzLGIzPzz1amRUZM29R/uTrDwcpzvkbT0m5l
-	iB0Aci3nvIBQRZuvk8GPQ3KDhpX2kzGJVFyILLpylYlfgBSL3TKxE44ZVciPaqO+rRxfniVkNMs
-	T0M5Nr9dYoALnNy0x7Ww06JPFro3InWtGujJsJ8mFd5bTggpiHrXm7ujV2v30dpLYuYYF1J/uEh
-	sCgx7TCgFx6MrZac+IOlMTzACokTDfAHczwjEnkmK8pIrVmvD46fma0iIJOk6ekkjFgPltnoYQj
-	9l58rv+qjz/Ptj09hxElrdtghykGxUpvU
-X-Received: by 2002:a17:90b:5101:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-3933b6d0deamr8279691a91.1.1786718526240;
-        Fri, 14 Aug 2026 07:42:06 -0700 (PDT)
-X-Received: by 2002:a17:90b:5101:b0:36d:b424:4f17 with SMTP id 98e67ed59e1d1-3933b6d0deamr8279625a91.1.1786718525734;
-        Fri, 14 Aug 2026 07:42:05 -0700 (PDT)
-Received: from [10.206.103.83] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387ac9b1sm11516933c88.2.2026.08.14.07.42.01
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 14 Aug 2026 07:42:05 -0700 (PDT)
-Message-ID: <36dd132f-a879-4e40-9ab3-d416d7e8fb1f@oss.qualcomm.com>
-Date: Fri, 14 Aug 2026 20:11:58 +0530
+        bh=kRvtXqxadNf2/AlBnV7jwVTo92rSYf1Qe1Qdjea6EK4=;
+        b=IcTWvEKUT8lFiSd0oPWJ1qghyEoeB4gouWeb2jHFOfhDAHWMqYz294thA47iwdtEdB
+         XkF9vHRXPI65uXHFpSOl53zArjzEUwT4lSZakpEMYpZMBPYgvqbQa+SxqOoNneKHKWwi
+         eBhZL+IXfRF6xknqe4eP7tzqw6dY+6DZWfoFCQMjoFkzuMTO+3julFXNcIeo7XTo2vMF
+         qiPr21oCx46xLMT+qPIuXQfGD8hrdm9S6Z9YycUqRxIpaLu1XWUcRCk5ef5WK/6lqN00
+         MG7IsBFpquhmfksEy7ZIkTq0mLPQ9LrlpO4eF4tjC59qtrRlfQw0MrZyrRWSj352y7Hc
+         3srg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786720285; x=1787325085;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kRvtXqxadNf2/AlBnV7jwVTo92rSYf1Qe1Qdjea6EK4=;
+        b=QuVANMLqaqby1MKCjSaT0fZyZx0s7Ko77rn85IeCDGqT24ZY2Xk4jnB+NoN0XImpUn
+         rwOnzQXJmYbZuaiqDv7U+1wnBrbUaVes7pGdYetnoLPKr5xM32WNc2PeIPMvD1oTqBjv
+         27T/vpey6/jxbFA9zc67Ji1j/FP6k9+ohRGTlmMWlW30uDWN6sVCF8QegmWES0DGaTAC
+         ah6JDx6Rh+h16rNM0s2cMzmeHtPEsHIGTMGx4nCCiLAesEyfD67NDvW4MfjetQTEFtgV
+         k4reL+A4zQKRxZaeZpBeDRHA0YIGWMcw/yyXp/mXuY3zwA2YQBr5vecy/ncNx9XFpfXW
+         J5Vw==
+X-Forwarded-Encrypted: i=1; AHgh+Ro3f/hvwfhDtcV03sBOU9lPY06opVtAu0yn9mwelihjEp4DgUVITKTModpFteXoXOGA+6k9u+wkeMxiOQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx3zeGzeWWl0qVQmW5FaULWVYnr0+uyGPlfIEbbE9VmJn3TRwaD
+	/Cwfd0ZxeDZ3ZhcAgFTE9Cj3L2umS/3pnI/uq0JXAUc9pf7ad6BUMOxh
+X-Gm-Gg: AR+sD13lCFPBB/Kvx3b+fDNjDzY86nkAuAIIRLyAc2Za2W+q4Yn5wzDIfDFEUS7BUXJ
+	CJl2ODmtv1st5zRb9Z7vfa31vIB0pDMe+r5MgQstp1H9g2xbDBcRIm1HUeN+736DOo0aG9AlLy1
+	DwGDym7l6YNUc8twFHmjBZj+TvX9UhksI05sB4CerNwGrU+5fV5re2yZYKPcuH3ZsT66+eAWdwa
+	G72N08j7/Yl9vbabLJbBEGuYPMuTfSFQNc4TojyKkjJkx/zvB+GdorljpfDy88j3QDimTq7X/Gk
+	c4+0vyFLHNVA4DcsAy/FOy2WAsLl2fnLwM35o3DthryAnkzu+AF/587ni4CgafT9HHDpAHp7DlC
+	3LR9MCXqlgf6Grt7SXCLrfQjnrOHErPkfH0i20qwYU9AcNqLlCoh6jjAWSsXZckJ1YH5TIzwus3
+	LuygewHsFsAO5NbeiCf5xp4BK37+fqrTd8KTmPwhV/Sy5Cz1Q75tmQU7HJKKWPqOCj1qoQQQ==
+X-Received: by 2002:a2e:be9b:0:b0:39c:650c:4540 with SMTP id 38308e7fff4ca-3a132498229mr7305901fa.15.1786720284542;
+        Fri, 14 Aug 2026 08:11:24 -0700 (PDT)
+Received: from [192.168.243.250] ([94.229.19.199])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a130d204b2sm7138251fa.41.2026.08.14.08.11.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 14 Aug 2026 08:11:24 -0700 (PDT)
+From: Nikolay Kulikov <nikolayof23@gmail.com>
+Date: Fri, 14 Aug 2026 18:10:08 +0300
+Subject: [PATCH v4 1/5] staging: media: atomisp: remove unused functions
+ from pci/hmm/
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] media: venus: Fix iova allocation from restrict
- region
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
- <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
-Content-Language: en-US
-From: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
-In-Reply-To: <20260812-reserve_iova_in_driver-v1-2-ed62f801275c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=K4MS2SWI c=1 sm=1 tr=0 ts=6a7f293f cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=e5mUnYsNAAAA:8 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Hj55FqqFgxrcsKo4rRQA:9
- a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX2Su4ANYoWAt2
- VppjnZpcHzTZdiV3SN1mSdj22wTSIdUr0mjnXDnMSL50tJyO7tyLwZKoqmZGfXzjkI+fKPF/eCg
- Oq5kRehj/slTC5bD4ZZvxJ9lJQQcJjk10Qd1TV1MH5BDq/M6TGZV/1Rok06WP0z999xnHy8QMqs
- 6HaMBSwbi6PAyHpOnFbmNU14amsYUJ5SzLOmp/kUxpYzOG2UuH8SbV79wyNvlNQCh9sgqLf7VsJ
- 7P7TmWH0NHzn+FcjOIbaliqXqQ+/VMH6UDEGEXEf272JgmWnXaDLSuT+XraSgAm6PVjLsjCnjzX
- pmYRBS2X9Hfo+WvBELdKSF/Jx0Zig2NLgJALEVzeCr1pK4Rdw1tCGZeD3hS298OFk6fBI/tRj6Z
- /OOUeoNbAgwulXXHsueuh5uExdywXui+BOO0VmJ10wirdXsDD8bG444nNMWwWLthbmS90Xchh9U
- Ncvx+uC85BGUpHF1Sog==
-X-Proofpoint-GUID: 3Uaodv3eDaCqdF53LSXQAJQ3fdN6OYhu
-X-Proofpoint-ORIG-GUID: 3Uaodv3eDaCqdF53LSXQAJQ3fdN6OYhu
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE0MDExMiBTYWx0ZWRfX0wnUgmLosQJj
- QLMI1BfWiJmRh8OnhGscSVmBbyWH3kx+bEJ1hWur4lFdspOri8t/T9PlMMfeqAGI6fdfcjrupJ7
- jRhMpc16/xFH0rddfJ9/24wF6q0IV+I=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-14_05,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 adultscore=0 clxscore=1015 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608140112
+Message-Id: <20260814-atomisp_remove_hmm-v4-1-c3c954a12b51@gmail.com>
+References: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
+In-Reply-To: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
+To: Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Andy Shevchenko <andy@kernel.org>, 
+ Andy Shevchenko <andriy.shevchenko@intel.com>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, Nikolay Kulikov <nikolayof23@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1786720280; l=8865;
+ i=nikolayof23@gmail.com; s=20260402; h=from:subject:message-id;
+ bh=0BrBkcX9UcEVHPKeK7NYdXxTwBJE9wFp4qVEes7QwFQ=;
+ b=17ov1ejH9Y4fmeXP3BlwdLqNSouwa2H9tDhTC1BBA95xdO1q9x28gFeTjPyboMALzh/ZhO6UL
+ KTKPOMuChCSBH14x5SiQ9dtCl7PsP1+wvBSgtfUFKqiKmbTOGkSuNdW
+X-Developer-Key: i=nikolayof23@gmail.com; a=ed25519;
+ pk=2GWUU1isl5NJpkwSCQ4OG80EinZ3EUZXlrgAg6Pz5zI=
 
+These functions are declared and defined but are not called anywhere.
 
-On 8/12/2026 4:25 PM, Vishnu Reddy wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->      +-----------------------------------------------------------+
->      | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->      | 0x25800000 - 0xe0000000                                   |
->      +-----------------------------------------------------------+
->      | pixel stream addressable range (0 - 3.5 GB)               |
->      | 0x00000000 - 0xe0000000                                   |
->      +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream
-> in one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots.
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> A series to reserve the 0-600MB IOVA range via "iommu-addresses" was
-> already posted here:
-> https://lore.kernel.org/all/20260807-iris_iova_600mb_fix- 
-> v1-0-3996f67e33f9@oss.qualcomm.com
-> 
-> Those changes involve DT binding and DT node changes, and discussion is
-> still ongoing on how to handle those for stable and for the upcoming
-> sub-node design, with no conclusion reached yet. Thereby a critical reset
-> issue is still open.
-> 
-> This is an alternate solution to fix the unhandled SMMU page fault
-> by restricting the IOVA range in the video driver, which also makes it
-> easier and faster to land on mainline and stable kernels. At the same
-> time the patch only reserves in the IOVA space without allocating
-> any physical memory.
-> 
-> Currently sub-nodes are not yet present, and only a single device is
-> available, so the restriction is applied to both non-pixel and pixel
-> stream IDs. This makes the solution unoptimal while fixing the issue
-> considering all scenarios.
-> Once sub-nodes for non-pixel, pixel, and secure streams become available,
-> the restriction can be made stream specific.
-> 
-> Fixes: af2c3834c8ca ("[media] media: venus: adding core part and helper functions")
-> Cc:stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy<busanna.reddy@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/venus/core.c | 71 +++++++++++++++++++++++++++++++-
->   drivers/media/platform/qcom/venus/core.h |  5 +++
->   2 files changed, 74 insertions(+), 2 deletions(-)
+Signed-off-by: Nikolay Kulikov <nikolayof23@gmail.com>
+---
+ drivers/staging/media/atomisp/include/hmm/hmm.h    |  16 ---
+ drivers/staging/media/atomisp/include/hmm/hmm_bo.h |  19 ---
+ drivers/staging/media/atomisp/pci/hmm/hmm.c        |  41 ------
+ drivers/staging/media/atomisp/pci/hmm/hmm_bo.c     | 139 ---------------------
+ 4 files changed, 215 deletions(-)
 
+diff --git a/drivers/staging/media/atomisp/include/hmm/hmm.h b/drivers/staging/media/atomisp/include/hmm/hmm.h
+index a7aef27f54de..6bda02b9ff85 100644
+--- a/drivers/staging/media/atomisp/include/hmm/hmm.h
++++ b/drivers/staging/media/atomisp/include/hmm/hmm.h
+@@ -32,12 +32,6 @@ void hmm_free(ia_css_ptr ptr);
+ int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes);
+ int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes);
+ int hmm_set(ia_css_ptr virt, int c, unsigned int bytes);
+-int hmm_flush(ia_css_ptr virt, unsigned int bytes);
+-
+-/*
+- * get kernel memory physical address from ISP virtual address.
+- */
+-phys_addr_t hmm_virt_to_phys(ia_css_ptr virt);
+ 
+ /*
+  * map ISP memory starts with virt to kernel virtual address
+@@ -55,16 +49,6 @@ void hmm_vunmap(ia_css_ptr virt);
+  */
+ void hmm_flush_vmap(ia_css_ptr virt);
+ 
+-/*
+- * map ISP memory starts with virt to specific vma.
+- *
+- * used for mmap operation.
+- *
+- * virt must be the start address of ISP memory (return by hmm_alloc),
+- * do not pass any other address.
+- */
+-int hmm_mmap(struct vm_area_struct *vma, ia_css_ptr virt);
+-
+ extern struct hmm_bo_device bo_device;
+ 
+ #endif
+diff --git a/drivers/staging/media/atomisp/include/hmm/hmm_bo.h b/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
+index e09ac29ac43d..ba3c582a0f89 100644
+--- a/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
++++ b/drivers/staging/media/atomisp/include/hmm/hmm_bo.h
+@@ -205,7 +205,6 @@ int hmm_bo_page_allocated(struct hmm_buffer_object *bo);
+  */
+ int hmm_bo_bind(struct hmm_buffer_object *bo);
+ void hmm_bo_unbind(struct hmm_buffer_object *bo);
+-int hmm_bo_binded(struct hmm_buffer_object *bo);
+ 
+ /*
+  * vmap buffer object's pages to contiguous kernel virtual address.
+@@ -224,17 +223,6 @@ void hmm_bo_flush_vmap(struct hmm_buffer_object *bo);
+  */
+ void hmm_bo_vunmap(struct hmm_buffer_object *bo);
+ 
+-/*
+- * mmap the bo's physical pages to specific vma.
+- *
+- * vma's address space size must be the same as bo's size,
+- * otherwise it will return -EINVAL.
+- *
+- * vma->vm_flags will be set to (VM_RESERVED | VM_IO).
+- */
+-int hmm_bo_mmap(struct vm_area_struct *vma,
+-		struct hmm_buffer_object *bo);
+-
+ /*
+  * find the buffer object by its virtual address vaddr.
+  * return NULL if no such buffer object found.
+@@ -251,11 +239,4 @@ struct hmm_buffer_object *hmm_bo_device_search_start(
+ struct hmm_buffer_object *hmm_bo_device_search_in_range(
+     struct hmm_bo_device *bdev, ia_css_ptr vaddr);
+ 
+-/*
+- * find the buffer object with kernel virtual address vaddr.
+- * return NULL if no such buffer object found.
+- */
+-struct hmm_buffer_object *hmm_bo_device_search_vmap_start(
+-    struct hmm_bo_device *bdev, const void *vaddr);
+-
+ #endif
+diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm.c b/drivers/staging/media/atomisp/pci/hmm/hmm.c
+index f998b57f90c4..8130be4a30e3 100644
+--- a/drivers/staging/media/atomisp/pci/hmm/hmm.c
++++ b/drivers/staging/media/atomisp/pci/hmm/hmm.c
+@@ -262,12 +262,6 @@ int hmm_load(ia_css_ptr virt, void *data, unsigned int bytes)
+ 	return load_and_flush(virt, data, bytes);
+ }
+ 
+-/* Flush hmm data from the data cache */
+-int hmm_flush(ia_css_ptr virt, unsigned int bytes)
+-{
+-	return load_and_flush(virt, NULL, bytes);
+-}
+-
+ /* Write function in ISP memory management */
+ int hmm_store(ia_css_ptr virt, const void *data, unsigned int bytes)
+ {
+@@ -411,41 +405,6 @@ int hmm_set(ia_css_ptr virt, int c, unsigned int bytes)
+ 	return 0;
+ }
+ 
+-/* Virtual address to physical address convert */
+-phys_addr_t hmm_virt_to_phys(ia_css_ptr virt)
+-{
+-	unsigned int idx, offset;
+-	struct hmm_buffer_object *bo;
+-
+-	bo = hmm_bo_device_search_in_range(&bo_device, virt);
+-	if (!bo) {
+-		dev_err(atomisp_dev,
+-			"can not find buffer object contains address 0x%x\n",
+-			virt);
+-		return -1;
+-	}
+-
+-	idx = (virt - bo->start) >> PAGE_SHIFT;
+-	offset = (virt - bo->start) - (idx << PAGE_SHIFT);
+-
+-	return page_to_phys(bo->pages[idx]) + offset;
+-}
+-
+-int hmm_mmap(struct vm_area_struct *vma, ia_css_ptr virt)
+-{
+-	struct hmm_buffer_object *bo;
+-
+-	bo = hmm_bo_device_search_start(&bo_device, virt);
+-	if (!bo) {
+-		dev_err(atomisp_dev,
+-			"can not find buffer object start with address 0x%x\n",
+-			virt);
+-		return -EINVAL;
+-	}
+-
+-	return hmm_bo_mmap(vma, bo);
+-}
+-
+ /* Map ISP virtual address into IA virtual address */
+ void *hmm_vmap(ia_css_ptr virt, bool cached)
+ {
+diff --git a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
+index 0a8f401a1ca1..fd40e64e660e 100644
+--- a/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
++++ b/drivers/staging/media/atomisp/pci/hmm/hmm_bo.c
+@@ -578,31 +578,6 @@ struct hmm_buffer_object *hmm_bo_device_search_in_range(
+ 	return bo;
+ }
+ 
+-struct hmm_buffer_object *hmm_bo_device_search_vmap_start(
+-    struct hmm_bo_device *bdev, const void *vaddr)
+-{
+-	struct list_head *pos;
+-	struct hmm_buffer_object *bo;
+-	unsigned long flags;
+-
+-	check_bodev_null_return(bdev, NULL);
+-
+-	spin_lock_irqsave(&bdev->list_lock, flags);
+-	list_for_each(pos, &bdev->entire_bo_list) {
+-		bo = list_to_hmm_bo(pos);
+-		/* pass bo which has no vm_node allocated */
+-		if ((bo->status & HMM_BO_MASK) == HMM_BO_FREE)
+-			continue;
+-		if (bo->vmap_addr == vaddr)
+-			goto found;
+-	}
+-	spin_unlock_irqrestore(&bdev->list_lock, flags);
+-	return NULL;
+-found:
+-	spin_unlock_irqrestore(&bdev->list_lock, flags);
+-	return bo;
+-}
+-
+ static void free_pages_bulk_array(unsigned long nr_pages, struct page **page_array)
+ {
+ 	unsigned long i;
+@@ -885,21 +860,6 @@ void hmm_bo_unbind(struct hmm_buffer_object *bo)
+ 		"buffer vm or page not allocated or not binded yet.\n");
+ }
+ 
+-int hmm_bo_binded(struct hmm_buffer_object *bo)
+-{
+-	int ret;
+-
+-	check_bo_null_return(bo, 0);
+-
+-	mutex_lock(&bo->mutex);
+-
+-	ret = bo->status & HMM_BO_BINDED;
+-
+-	mutex_unlock(&bo->mutex);
+-
+-	return ret;
+-}
+-
+ void *hmm_bo_vmap(struct hmm_buffer_object *bo, bool cached)
+ {
+ 	check_bo_null_return(bo, NULL);
+@@ -981,102 +941,3 @@ void hmm_bo_unref(struct hmm_buffer_object *bo)
+ 
+ 	kref_put(&bo->kref, kref_hmm_bo_release);
+ }
+-
+-static void hmm_bo_vm_open(struct vm_area_struct *vma)
+-{
+-	struct hmm_buffer_object *bo = vma->vm_private_data;
+-
+-	check_bo_null_return_void(bo);
+-
+-	hmm_bo_ref(bo);
+-
+-	mutex_lock(&bo->mutex);
+-
+-	bo->status |= HMM_BO_MMAPED;
+-
+-	bo->mmap_count++;
+-
+-	mutex_unlock(&bo->mutex);
+-}
+-
+-static void hmm_bo_vm_close(struct vm_area_struct *vma)
+-{
+-	struct hmm_buffer_object *bo = vma->vm_private_data;
+-
+-	check_bo_null_return_void(bo);
+-
+-	hmm_bo_unref(bo);
+-
+-	mutex_lock(&bo->mutex);
+-
+-	bo->mmap_count--;
+-
+-	if (!bo->mmap_count) {
+-		bo->status &= (~HMM_BO_MMAPED);
+-		vma->vm_private_data = NULL;
+-	}
+-
+-	mutex_unlock(&bo->mutex);
+-}
+-
+-static const struct vm_operations_struct hmm_bo_vm_ops = {
+-	.open = hmm_bo_vm_open,
+-	.close = hmm_bo_vm_close,
+-};
+-
+-/*
+- * mmap the bo to user space.
+- */
+-int hmm_bo_mmap(struct vm_area_struct *vma, struct hmm_buffer_object *bo)
+-{
+-	unsigned int start, end;
+-	unsigned int virt;
+-	unsigned int pgnr, i;
+-	unsigned int pfn;
+-
+-	check_bo_null_return(bo, -EINVAL);
+-
+-	check_bo_status_yes_goto(bo, HMM_BO_PAGE_ALLOCED, status_err);
+-
+-	pgnr = bo->pgnr;
+-	start = vma->vm_start;
+-	end = vma->vm_end;
+-
+-	/*
+-	 * check vma's virtual address space size and buffer object's size.
+-	 * must be the same.
+-	 */
+-	if ((start + pgnr_to_size(pgnr)) != end) {
+-		dev_warn(atomisp_dev,
+-			 "vma's address space size not equal to buffer object's size");
+-		return -EINVAL;
+-	}
+-
+-	virt = vma->vm_start;
+-	for (i = 0; i < pgnr; i++) {
+-		pfn = page_to_pfn(bo->pages[i]);
+-		if (remap_pfn_range(vma, virt, pfn, PAGE_SIZE, PAGE_SHARED)) {
+-			dev_warn(atomisp_dev,
+-				 "remap_pfn_range failed: virt = 0x%x, pfn = 0x%x, mapped_pgnr = %d\n",
+-				 virt, pfn, 1);
+-			return -EINVAL;
+-		}
+-		virt += PAGE_SIZE;
+-	}
+-
+-	vma->vm_private_data = bo;
+-
+-	vma->vm_ops = &hmm_bo_vm_ops;
+-	vm_flags_set(vma, VM_IO | VM_DONTEXPAND | VM_DONTDUMP);
+-
+-	/*
+-	 * call hmm_bo_vm_open explicitly.
+-	 */
+-	hmm_bo_vm_open(vma);
+-
+-	return 0;
+-
+-status_err:
+-	dev_err(atomisp_dev, "buffer page not allocated yet.\n");
+-	return -EINVAL;
+-}
 
-Reviewed-by: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+-- 
+2.55.0
+
