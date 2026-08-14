@@ -1,107 +1,118 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD69A421239;
-	Fri, 14 Aug 2026 08:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53C4142DA29
+	for <linux-media@vger.kernel.org>; Fri, 14 Aug 2026 08:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786694963; cv=none; b=dEU7PQR2b1UrG0mjKYXiMs+ZYFakxOXQGGJMtLtrZyhU/MhW1WFg0xSBMEvEaRbTDWyziYdGeskv/fpqD7nTyeJspMw4cRpl6ZHL420/SHtf8PATiRKKNPH+63jaa6q98m2p+Tc68faGJPaNZHC6mATAQn/DN2AyMwpebAFDumI=
+	t=1786695486; cv=none; b=jjYYrVWGgJ+WyaBDHINSpr9549B8RTGm8IyDVbcwaOowSHNR3Jf7UpIYkHz2o6CUofN5FmqwYqk+0ZSqhoVGZ6llmIbPO9PieYiHp+chrmtKd48P7PSGNKOtsEI5iMDk0+YA5jHv9Fbyc+h+BHEiCTdURO/i521zU2Ny2e/IF5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786694963; c=relaxed/simple;
-	bh=okwL7ZJplb/sP/nkMXhC6y/oR8+Vkv22Spo11h4TLJo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Qd4i3vOwEUA5pM4d/HMNofMSEnH3VcAM+L9/tI/haqOmh8ZdJ2+TCF9K/4OJYwTZLGRjCEezOjaEEZpsEm2IrHsTDemah1kCMOPQyz7VFJ8ooosYRKoEKCWg91n4uUbgK+RPkxsxUvcXOiR5PClZEeTEE/cqD8c0oXWze+XXlFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-01 (Coremail) with SMTP id qwCowABXK+8tzX5qRv2eBQ--.62772S2;
-	Fri, 14 Aug 2026 16:09:18 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>
-Subject: [PATCH v2] media: require two-byte Cypress type 04 records
-Date: Fri, 14 Aug 2026 16:08:02 +0800
-Message-ID: <20260814080802.24018-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1786695486; c=relaxed/simple;
+	bh=aY/1bExoj5pvBrOIrCRMGBkSxbwgthc11ZcOCjFcGSY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HjsgGEtmznoUIqetG4eb+vfVuZFfVoQVnAC4o1jcItp5UC3kyArOP5oq0QTKRIWrM3mN/1RIrx7EKR/SBBfC8NBu7EAC4L2QXdFbgNnL+gDo0K1ylSmNWWdtG9Eb8c5zvLPq9v+vl5pSD/FHGk2wFvZXfORnB2j6sg6JpVknc7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YzlzBF84; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YzlzBF84"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E7041F000E9;
+	Fri, 14 Aug 2026 08:18:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1786695482;
+	bh=mKP7zgM8858Yd0t2ptZPUT8ioYR+Q1ATTYrOxbnqJGI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=YzlzBF84ZAQsmxCeHHTal8X77+zP/f1oIQ8ZHPl9Gx4qtDZ6Vprpe+wFS+GcQ4gCe
+	 SpTyD/X2TZ8bKDKf6kmzlCzY3SN+7D9sZpvNdT1PbuYxQ449MdPdlIiSok/LjM8Np/
+	 1abahmHeh7hL7OSAWqnEhNLo3ieUkmjynjdtK4k12WmdTxKkaXxA6aj1OFPLOA63ve
+	 SXEyDumRUYJJ6fpW6+0o1dDlkhj1+7U0wtkIpG9jn8bpR8j/7Dd1bkgTSQyHWS+328
+	 cjBZzL/aXhTJe0hqAUgcYK68Sc7Q+cvmJy2G9bCbUdWlv8f5E+8w25w6kCcUk/kiFD
+	 G9Z4L+xAARxMA==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com, Dave Stevenson
+ <dave.stevenson@raspberrypi.com>, Jacopo Mondi
+ <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen
+ <tomi.valkeinen@ideasonboard.com>, Jai Luthra
+ <jai.luthra@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Frank Li <Frank.li@nxp.com>
+Subject: Re: [PATCH v2 00/17] Rework frame descriptors
+In-Reply-To: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+Date: Fri, 14 Aug 2026 10:17:59 +0200
+Message-ID: <87pkzl15fs.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowABXK+8tzX5qRv2eBQ--.62772S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1kJFy3ZryrJF45Ww1xXwb_yoW8tF4fpa
-	y0gF4IkFWkGrWSq3y7Jw13uFWrWws3W3y5Gr9rA3ZYvF4fCa4DCry8Ka4jgr15Jr1fAasr
-	KFs0qr93GFy5JF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUyK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxAIw28IcxkI7VAK
-	I48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7
-	xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xII
-	jxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04
-	k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7Cj
-	xVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU0pBTUUUUU
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain
 
-Both Cypress Intel HEX parsers read two address bytes from type 04
-records. Generic record framing permits any record length, so a short
-record can make the parser consume the checksum or bytes beyond the
-firmware record. A longer record also violates the Intel HEX type 04
-layout.
+Hi Sakari,
 
-Require the type 04 payload length to be exactly two bytes in both
-implementations.
+Thank you for the series.
 
-Fixes: 79a63c60a6a2 ("[media] media: move dvb-usb-v2/cypress_firmware.c to media/common")
-Fixes: 776338e121b9 ("[PATCH] dvb: Add generalized dvb-usb driver")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-Changes since v1: https://lore.kernel.org/all/20260715084129.36795-1-pengpeng@iscas.ac.cn/
-- enforce the Intel HEX type 04 exact two-byte payload contract
-- apply the same contract to both independent Cypress parsers
+On Mon, May 18, 2026 at 19:43, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
 
-The Intel HEX record contract was reviewed statically; malformed firmware
-was not injected into either Cypress loader.
+> Hi folks,
+>
+> This smallish set makes frame descriptors dynamically allocated and
+> implements a single-entry frame descriptor based on the device's format,
+> using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
+> do not obtain their frame descriptor from upstream are converted. The
+> helper also obtains a frame descriptor for the desired type (parallel or
+> CSI-2) and checks there's at least one entry there. These checks are
+> removed from drivers that currently perform them. (Some drivers also check
+> there's exactly a single frame descriptor entry but I think in most cases
+> this check could be loosened. That could be done after this set.)
+>
+> On callee side these patches introduce no changes as the number of
+> pre-allocated memory for 8 frame descriptors remains as-is. The
+> get_frame_desc() pad op can return more than 8 frame descriptors by
+> setting the num_entries to the desired number and returning -ENOSPC.
+>
+> If people prefer using cleanup.h / __free() to release the dynamically
+> allocated array (I think I'd almost require that), I'll merge the
+> now-separate __v4l2_subdev_get_frame_desc() into
+> v4l2_subdev_get_frame_desc().
+>
+> More formats can be added to df-to-mbus conversion as needed. These are
+> meant to be initial formats that are enough for typical raw sensors (and
+> one RGB format, too).
 
- drivers/media/common/cypress_firmware.c      | 2 ++
- drivers/media/usb/dvb-usb/dvb-usb-firmware.c | 2 ++
- 2 files changed, 4 insertions(+)
+I've tried this out on a AM69-SK with the Arducam FPD V3Link[1] using
+the following device tree overlays:
+  ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
 
-diff --git a/drivers/media/common/cypress_firmware.c b/drivers/media/common/cypress_firmware.c
-index 66274fdf5243..d0f66ed01c4b 100644
---- a/drivers/media/common/cypress_firmware.c
-+++ b/drivers/media/common/cypress_firmware.c
-@@ -59,6 +59,8 @@ static int cypress_get_hexline(const struct firmware *fw,
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data
- 		 * field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- 	}
- 
-diff --git a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-index 0fb3fa6100e4..675d9d1d4f47 100644
---- a/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-+++ b/drivers/media/usb/dvb-usb/dvb-usb-firmware.c
-@@ -141,6 +141,8 @@ int dvb_usb_get_hexline(const struct firmware *fw, struct hexline *hx,
- 
- 	if (hx->type == 0x04) {
- 		/* b[4] and b[5] are the Extended linear address record data field */
-+		if (hx->len != 2)
-+			return -EINVAL;
- 		hx->addr |= (b[4] << 24) | (b[5] << 16);
- /*		hx->len -= 2;
- 		data_offs += 2; */
--- 
-2.50.1 (Apple Git-155)
+See TI's documentation about this [2]
 
+I (naively) assumed that this series would replace Tomi's patch [3], but
+it did not. I see the following in dmesg:
+
+[  286.686574] cdns-csi2rx 4504000.csi-bridge: collect_streams: "cdns_csi2rx.4504000.csi-bridge":1: found 0x1 enabled 0x0
+[  286.686754] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
+[  286.700147] ds90ub960 7-0030: Failed to get source frame desc for pad 0
+[  286.712679] j721e-csi2rx 4500000.ticsi2rx: enable streams "ds90ub960 7-0030":4/0x1
+[  286.712684] ds90ub960 7-0030: collect_streams: "ds90ub960 7-0030":4: found 0x1 enabled 0x0
+[  286.712690] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
+[  286.725884] j721e-csi2rx 4500000.ticsi2rx: enable streams 4:0x1 failed: -515
+
+Here is my camera topology:
+https://paste.debian.net/hidden/7f56f635
+
+I also made the following patch to attempt to convert over j721e-csi2rx:
+https://paste.debian.net/hidden/314f9c32
+
+Is this series indeed aimed to replace all sensor-specific
+implementations of .get_frame_desc() or are patches such as the one send
+from Tomi [3] still useful?
+
+Thanks
+Mattijs
+
+[1] https://www.arducam.com/arducam-v3link-camera-kit-for-ti-development-boards.html
+[2] https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am69/11_00_10_01/exports/docs/linux/Foundational_Components/Kernel/Kernel_Drivers/Camera/CSI2RX.html
+[3] https://lore.kernel.org/all/20260611-imx219-frame-desc-v1-1-fe7e975bca6e@ideasonboard.com/
+
+>
+> since v1:
+>
