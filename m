@@ -1,93 +1,102 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AB2E201278
-	for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 02:24:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF35C3F9F20
+	for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 07:02:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786760647; cv=none; b=QJ0xVIw+wrLVmYBf6fDH9ZllM77BbKt8gTnK9UXvkJw/nZiVx0Eb9tCwWirZ3Pb66o2b+5495dFXfH/bSVMgIjaZ6rcWrdoPN9KYtV7sPLQIrGMMGKFBTLGjyRlKebU8O940my5IgrPE93tMK5DVWEzt+MnsoIJFcpQz2cPVt0Q=
+	t=1786777328; cv=none; b=PVzxyuy0jNFNYZ/m02wmhoanwed7LLwvGGTcwZ6f6JYaHQVtruUWJDZKze/Am0pTUj4YEyASmAAJCtpJ6YYsPe0MkTZ6zXS7ctxyWKP1iloexuUsrC0V5kOHx+mFOecLj5eVGsRnzGYewJE1Kb0AnH8sU1J6L+vOCCY3/Ly1wLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786760647; c=relaxed/simple;
-	bh=xshB2XP+4+64spuX2Zf8enVu3M98izEeJpN+ScuIfrE=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ZtyAanWOIsBh2BnIfOdt9iJ4DzvvCh8+zUyYflhTQ/BO1+J4AyTtiXRzZXcagdwLu4GEauet70bH+TAtFJixGBnuSt+T+WCdYOOaw4W/q0J7WAl9ruvmXvih+Q3s5W/usiIqkqwr1Qo0waMcoufgL0EEUUVJ3xiHRikHAjQU1Sk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=SRQ6qYtl; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1786777328; c=relaxed/simple;
+	bh=iPualk3ExWlEnxN7ZTR58LOodbMlHOM9QkLFiZ0s2k0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y7pIy3p9oC+OZcawkHyAEGfKIeUKNGkuoBeQyun5Yk9Kzt9gRE8twuk4i659HWkwhAhfdZSRt3GD7RDW2+OTPCJMyaJdvaCrqSkbnxK7xUNSDB+3hmN2OVVjbltHUUEe9UVsdF9CAPmtCr06ZEfUQrkN1if2nQwAohkKUGlPM4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hIrNprBn; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="SRQ6qYtl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1786760636; x=1787019836;
-	bh=jMLb2xOHGE2Kb5g8JOv7WBzZBlRcKRFUckc4miIvm6E=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=SRQ6qYtlquS3VXymrNYrzcKuUAh60b2DbY+FAUQfMrVeMC8NnEFTg9OaagLY84VBN
-	 rI5pJuxAofJCuyM0N5taIxvii6Kule6jtzjnv2sczrEjDg/ntn8P/qwB0Cf+8Gf2Ig
-	 qbDWp66Inq2S/20+wdHMyzzeqptSMFRHia7clLrlcRUHEfKG2dZXxOvOacbHmZ1ACP
-	 8/rD9cz5bB/N+deZMKpRQ+jvSodsOtFC14ZKX3zW2NTc7CJmybtG9WDrkh8PTwvcr3
-	 AjbxOFDhLs8WN7oMkvYljSm4xx3bQTWAO2pBzMMMc30Secg0bYwqSle4jBFTIfbVS5
-	 eL39SEnESJ0TQ==
-Date: Sat, 15 Aug 2026 02:23:50 +0000
-To: linux-media@vger.kernel.org
-From: Steve Kaznak <skaznak@protonmail.com>
-Cc: mchehab@kernel.org, sakari.ailus@linux.intel.com, johannes.goede@oss.qualcomm.com, hverkuil+cisco@kernel.org, mehdi.djait@linux.intel.com, linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: ipu-bridge: Add OV01A1B sensor config
-Message-ID: <20260815022320.728925-1-skaznak@protonmail.com>
-Feedback-ID: 24244511:user:proton
-X-Pm-Message-ID: dbbef4033255d718b3f0d6687b7ea7a9129debbe
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hIrNprBn"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-383cb94f742so2079501a91.3
+        for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 00:02:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786777322; x=1787382122; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MyxSssjLe/0OOnYg8ql2xBDGIwb07hj7I4YlvifUNpo=;
+        b=hIrNprBncskuukl2ibycdKcUkYxI8Ss5vHhs91p8bqU3Jnf9JHVbzBFdhz2N3uojJ4
+         gjKISuGmdjoP21j02jn7MoKA5NQZ20wTyg8WEYK6mB8tRh3BFdVpMkfW151NjoFRYEtk
+         tb85DitMrl567IfeOVSI2+hjb0F+guyaBHbUxTx/qOWCvOl0RIwD2y7q2nAISks7uKjx
+         B1/xVfeVW5vjPPKot/kN3vjl5nlCsDeA4vOIcCNij4qLUh0Cwed69vHfpnKsD9rAhWHl
+         hyT7QcDes58Eev/7M5SNBOqDBwIIfyiqajoaLbwrb+FlyNvf0cUkuCeF+KjDoEpYZgKH
+         dULQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786777322; x=1787382122;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MyxSssjLe/0OOnYg8ql2xBDGIwb07hj7I4YlvifUNpo=;
+        b=AX7by6Dn7+JKu0nTlegJZPK1H6bTN3InwBRcVSfpQoPFoyT6TjKg0cXSARDjiXYF+m
+         PwxHEK/b3hXL6Z/SmyzK37rgBMpoLA8ntNWdzs8lj8VvH4ZrqQLp0oCglkQ1bOHm0O89
+         xCFEGJFa/88Ol/UeOFISdZwALyj0eeWEprFXvRCX5lc95SWenuRWqv8ElowxnYWl2U0J
+         ZCgazHbcmb5WxwlwpoBVpU94Lvu3xaOLJIyl7+gX/9Z1oK4Rqb7OX5Y178EkPR2Msdch
+         5iTmo2J7Je09OiuGs9OLWXOm+qyt0AK/A7N1SBsJvj7xHk/5hntp5pYLcGHaMGbnC0YF
+         tXow==
+X-Forwarded-Encrypted: i=1; AHgh+RpKYSYEtDm/rvuAm8jBhmQjHyvjt3OHd9O/uS18uk1EI7CM55wN6NW5RIB/W/AlBVkczjQzLZHJkZx/iw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRTKrIoRR7A1C9U7Iqh1sDJ6g1/YaFTObkKsc5T6USKD+18upu
+	UyD+m2PCtVi/OO5fx8YdYoNAYFaebeTTMlye8pspEVsoIoE6bjHCj5L2
+X-Gm-Gg: AR+sD13obCaxQp66KKtY+mAcbios7T/tbh534N9TvYGy6wdbrMaPLRSMcvORcZJ16mG
+	GutaIDSRzjeAgUV4Q6hXY3CTEzLP4WL0Sy13QkNUfopiCyPcVAZ5TWW1H0UIFKddNIXWm0wEAko
+	5XIp/ctPBTLVK74p8P3UYkltyOFZJo+oHm4qa7cCOMnatPaZegDasI9MVVBJBL2DigKDnuJO89U
+	ofIxqxPzdnyJqPZPV3yZvkX3UcFQJebe6cszDZTanoGSU8V0J+F8rD/IrIRGEW3JWFbvFxMoaVs
+	K591+ndyDs/pjwf7DLfDoLnY7Y/9XmJCm9wO/2wnc2j3dnPZS1D1S1W02IlqE1rdIIHdWo7yAvH
+	IJ6xvJN0Fpy/foNm48dQKd0TzHnAbhgirq5GFVTfLv/byfIByZlJoYJ6N+L2i+m6EOjMSgWRCfX
+	GgoPlXLDPGflW8yEZfCqQ1DA7DU6wA9Qo/Ko6qQyNJc8s81gAh26PRgJOQ1w3UYQ==
+X-Received: by 2002:a17:90b:5803:b0:38f:18f9:785 with SMTP id 98e67ed59e1d1-3933cb3b889mr13039740a91.8.1786777322154;
+        Sat, 15 Aug 2026 00:02:02 -0700 (PDT)
+Received: from localhost ([103.210.95.70])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-320ea7fe465sm12363343eec.25.2026.08.15.00.01.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 15 Aug 2026 00:02:01 -0700 (PDT)
+From: Raushan Kumar <mitramaurya80@gmail.com>
+To: Hans de Goede <hansg@kernel.org>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	Raushan Kumar <mitramaurya80@gmail.com>
+Subject: [PATCH] staging: media: atomisp: remove unnecessary return in gdc_reg_store()
+Date: Sat, 15 Aug 2026 12:31:05 +0530
+Message-ID: <20260815070105.124813-1-mitramaurya80@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Add the Omnivision OV01A1B (ACPI HID OVTI01AB) to the
-ipu_supported_sensors[] table, with the same single 400 MHz link
-frequency as the OV01A10 and OV01A1S entries it shares a comment with.
+Remove the return statement at the end of the void function
+gdc_reg_store(), as it's not needed since the function returns
+implicitly, as flagged by checkpatch.pl.
 
-The sensor is the IR camera in the Dell XPS 13 Plus 9320, behind an
-Intel Vision Sensing Controller (IVSC). Commit 36eab90d3f4f ("media:
-i2c: ov01a10: Add ov01a1b support") added driver support for it, but
-without a bridge entry no fwnode graph endpoint is created, so the
-driver never binds and the camera is not enumerated.
-
-Tested on an XPS 13 Plus 9320: the sensor binds and streams 1296x816
-Y10 at 30 fps.
-
-Signed-off-by: Steve Kaznak <skaznak@protonmail.com>
-Reviewed-by: Mehdi Djait <mehdi.djait@linux.intel.com>
+Signed-off-by: Raushan Kumar <mitramaurya80@gmail.com>
 ---
-Changes in v2:
-- Move OVTI01AB before OVTI01AS so the table stays sorted by ACPI HID,
-  and reorder the shared comment to match (Mehdi Djait)
-- Add Reviewed-by from v1
+ drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gdc.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-v1: https://lore.kernel.org/linux-media/20260805021154.51404-1-skaznak@prot=
-onmail.com/
-
- drivers/media/pci/intel/ipu-bridge.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel=
-/ipu-bridge.c
-index 88581a4c081d..3dde07443002 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -73,8 +73,9 @@ static const struct ipu_sensor_config ipu_supported_senso=
-rs[] =3D {
- =09IPU_SENSOR_CONFIG("INT3537", 1, 437000000),
- =09/* Lontium lt6911uxe */
- =09IPU_SENSOR_CONFIG("INTC10C5", 0),
--=09/* Omnivision OV01A10 / OV01A1S */
-+=09/* Omnivision OV01A10 / OV01A1B / OV01A1S */
- =09IPU_SENSOR_CONFIG("OVTI01A0", 1, 400000000),
-+=09IPU_SENSOR_CONFIG("OVTI01AB", 1, 400000000),
- =09IPU_SENSOR_CONFIG("OVTI01AS", 1, 400000000),
- =09/* Omnivision OV02C10 */
- =09IPU_SENSOR_CONFIG("OVTI02C1", 1, 400000000),
---=20
+diff --git a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gdc.c b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gdc.c
+index b31e3809c0e4..c60f53514553 100644
+--- a/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gdc.c
++++ b/drivers/staging/media/atomisp/pci/hive_isp_css_common/host/gdc.c
+@@ -96,5 +96,4 @@ static inline void gdc_reg_store(
+     const hrt_data		value)
+ {
+ 	ia_css_device_store_uint32(GDC_BASE[ID] + reg * sizeof(hrt_data), value);
+-	return;
+ }
+-- 
 2.55.0
-
 
