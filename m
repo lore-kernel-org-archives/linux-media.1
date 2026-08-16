@@ -1,164 +1,152 @@
-Received: from mail-oi1-f199.google.com (mail-oi1-f199.google.com [209.85.167.199])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012032.outbound.protection.outlook.com [52.101.43.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CDAA4B04B9
-	for <linux-media@vger.kernel.org>; Sun, 16 Aug 2026 13:57:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.199
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786888664; cv=none; b=RfuLSskQWxQdSL82bCAIeLCnBvmVloE5Z798g3ebJZEY3k3VXoqcYm5q61LYYACsTQHYvYdQA81N190OcC1JxIyd+UVgs3aJuLNkpOvha+BaQPg/lm0fl7qQoCxJGtu5OkghA1DPJ0UCafbqeuKVPl1IlTDYCx8sz18156JdZJ4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786888664; c=relaxed/simple;
-	bh=MkIPwFwUEvXlgpotKmXi/mA6roiKwnLi8Uop2NPsfWM=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=kRD5PurRcHMqDu9Mc6jY7J0EILiA6hMQGjFafQzbfcH2upHAVOrLbU/lyoO9ppJOAEzOEpkN5ruJbJzyZ27Q0CKG1ZGQsOxeZC5xe+PHxnyvUyMQ5k/ueJxzn/OgkqU5JJfAZCPR/yZ+PhhhjAZUqIxOgYdVJe7FoIt4a7laj/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f199.google.com with SMTP id 5614622812f47-4a49f09233fso1604093b6e.0
-        for <linux-media@vger.kernel.org>; Sun, 16 Aug 2026 06:57:42 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786888662; x=1787493462;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5aU6bugQoLbIdYKNHZVm0ke9QxnlsrgCffkUdWwr3ZE=;
-        b=F5eio2tDArRRtQz6Jl4NY3s/PXdJJ+Xo3gQrtcqI1vW4NJDYrYSn0CRvspvuD9y4WV
-         CwMtYbNmDT+IKQPiNJUVMlrAPr5H4xWYL9ikda2zfDXxxxyxJAcG2tt1ea+7pnTYmbTz
-         m8ZbxBc34cZGhAjV1Hft5YgtuBKdgighOPZi/xuASqcAfYZyJ3npM2CkXQm1E6GAdtzZ
-         WoqGO6lvF2SRzY4DSW/Twv0OF6iG06e4WmuS/YIZqEtJCWqr8c8bSNJK5PxYpJ6oc8FX
-         uF8I+APC6D7TG10fNo+TIglMOiA5rfOpIN/nO5ZqJvGZeMAD7a0GHJ+lSqNwewEUzWCb
-         AWoA==
-X-Forwarded-Encrypted: i=1; AHgh+RoPd1Sa9HwN2OsGmaKE/aBO/SrlIW+6HV/0eoKGrEv0yfPO2/vB/MziHPhTFbPc6la8D0F8L8kf6gu00w==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yztq96ytmQoxnWnxCmWEGl+vxiZU1XPiSdcWK4RPGuiK4sAzC7Y
-	xSU/yhI1PPilehSFOCIl1v0NH6MRyAy6edU+9ppyIMHIvoW6To/gV36truVvoMVeOcfUCekkbuP
-	E/aBMsyBkEa/lXpFQuVn46cMAeGG9P4Ych07lH7P/r2ddvsfGQn1D1IzP5Lc=
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F4E34388F;
+	Sun, 16 Aug 2026 15:07:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786892870; cv=fail; b=YtXfZerKZV62x6U9Y+RzGrMz2MV25zBZs0NaZRkSFKsqR1ir5JIIZvko8CuwLhEWyODVk+MdQPppzMebuhDmpw/1rmc33hKmRGmc1a5ZM0qdwISznoruvoB+lBpE3DZxNlv+4L9cwOifIbx3jJ4AVAcoXlQ6+dhbAI3zqIiqb/Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786892870; c=relaxed/simple;
+	bh=KiggJWWOTGAYulj+WhwtlvobhwNpZUyXyOqCLfIjrM8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TK+X1/4ClWmxPbYj3RX3ivk33Eor6VAMkFJk3MK2Kk/dqSO/kWnb8Z0Wnm0SdRFpx6qc66DGcn0WCAZ8Q3J9HyTfYQwCH2KcpbhkvKh76bkv6Q8WD4h4cduQGFJRPcU+srOcMMCLcXA1Z+syyMlks2jupcimeR+B8HgFUsjrq3I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=znKnSbFP; arc=fail smtp.client-ip=52.101.43.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="znKnSbFP"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FQFKaKly0PjQpBIivzaQE3rbI/CJbfhoicdQLFVKjFu9SJJ6z53x9OZpO9awiHZMgLnaKYOG7Sq9Q1bcRGPKVp2RvgDqhVKrS0Tdl0rgsrBToI3uHZA8kuM7aKNHlfO7c6QEaVKrGvmsO6lCIgwGdcXY72xSBA2Oorpj3Cms4AE05+p/2SaZ9zt+4vKUlAzIqjvTxgNxPvBnPMYwC/AoNM4HJ32d6WWSY7tb/sHG1aqD68uukl8idTLTkDXa5NCndyYW70RKvBydVNB7zMP4/A150qafxxA0skdeUPHiO54eOEpdJ5XBMxAdVU8qzrV7Bx9/iv+mOHC0SSTh9loI7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Hn6SMwsM0Q8V0fp4EcGeoF+ud56vhGz4Ohhd1TbaYKM=;
+ b=flCKG02ztNdebRQKkO7bHWWcs7UNHxlT0rst3I7Cw3OtSC9E0TxUWbS7FA8bV/aH7m5iGLabdmjM4DbTIB9kQl7hgNvMaOJTliCOa3GVTr+KbPC9Yc+/A2x0FUC9Fin8U+/uSWD+L2Qlxf7PYDPl2mwxxSTa/FXc6zlWt12MfWy+SX3GcDaKBMVEZ3N6Svpm/zWQhuWTlS0glufNTpG4gltyN4127nz6NC0T4u2is1ocWWqS/5JxXg6WIbmy4737HFUDNKx34OnhTCNnC64juAkOkohfeIZaxulRQbXwwG/vnhLjReT4lfWkPkKpJ8Px7AzVg7/JZpqKZ+y++YSDgg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Hn6SMwsM0Q8V0fp4EcGeoF+ud56vhGz4Ohhd1TbaYKM=;
+ b=znKnSbFPPVRimDywPaJokqEVry/Kf4LoXiRrtyleJ4B6yid4sTxAmFJTjNYIU8jeYzTY4ozB3/5ecPXP7amfuxfD3dxGvXFRaQ98dhmg5naL3rTJFSsR2uq2HXLvrjCQXs4ksLHVWN3qQX8vkllsIg+OhmDxiTMEx8ixo516UmY=
+Received: from SJ2PR07CA0006.namprd07.prod.outlook.com (2603:10b6:a03:505::18)
+ by CY5PR12MB6430.namprd12.prod.outlook.com (2603:10b6:930:3a::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.14; Sun, 16 Aug
+ 2026 15:07:45 +0000
+Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
+ (2603:10b6:a03:505:cafe::3) by SJ2PR07CA0006.outlook.office365.com
+ (2603:10b6:a03:505::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Sun,
+ 16 Aug 2026 15:07:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Sun, 16 Aug 2026 15:07:45 +0000
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
+ 2026 10:07:43 -0500
+Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Sun, 16 Aug 2026 10:07:40 -0500
+From: Aravind Thokala <aravind.thokala@amd.com>
+To: <mdf@kernel.org>, <yilun.xu@intel.com>, <trix@redhat.com>,
+	<sumit.semwal@linaro.org>, <christian.koenig@amd.com>
+CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
+	<linux-kernel@vger.kernel.org>, <linux-fpga@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+	<linaro-mm-sig@lists.linaro.org>, <linux-doc@vger.kernel.org>, <git@amd.com>,
+	<aravind.thokala@amd.com>, <nava.kishore.manne@amd.com>
+Subject: [PATCH 0/2] fpga: add dma-buf based FPGA programming interface
+Date: Sun, 16 Aug 2026 20:37:32 +0530
+Message-ID: <20260816150734.2092802-1-aravind.thokala@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:13d4:b0:4af:9364:b5a9 with SMTP id
- 5614622812f47-4b228019344mr17022560b6e.6.1786888662100; Sun, 16 Aug 2026
- 06:57:42 -0700 (PDT)
-Date: Sun, 16 Aug 2026 06:57:42 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a81c1d6.dbb3a75c.20434b.0033.GAE@google.com>
-Subject: [syzbot] [media?] general protection fault in usbtv_querycap
-From: syzbot <syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|CY5PR12MB6430:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6aca5568-5e79-403b-9d1a-08defba8209e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|82310400026|376014|7416014|10067099003|56012099006|6133799003|18002099003|11063799006|5023799004;
+X-Microsoft-Antispam-Message-Info:
+	Z//76FKIr9CmO2nBArMdgueG3pTt5ydEy3EClmu1jCkhhINLaimB6+rQuKacziTpaTUqP/0DcD68U6GnK/4P60k873fihwNyGDKXjiGTx7aB1/cakd1doJiRi5qLL179HnJk0KYPyY4dpmhVwsK1eK6maPAPWlSVn/hIM0hLLQv+sEn7yAtH5JdWmpKkCxp/crWoSNQVA1z703YoHXb+TRfveSOc+XplpPq8JW3jCR8Nt0/kYGxOuyje8lErSEvlAmngPuoeCRkd5SBl0KNr+AR19ycbR0JtGsVXDr0AyPKNEIHc3kxVSR2+Li+WXzzdfFidkBbhOLuMof+IHQHcidscuy7e6w+m9IOeLPmf8PwzGPWXy99gADSspNfsrhN0WvQHCF/HOCyuQb/2fVDn87+wGaT10sAv1lLiV1XpUIlVMn9NlLhiuUWwe9HQhZB7mMiGcnTeJs6C06R0hcOk8wXpVGH/05DDpOZK/c1qaenaAZIJTYLq00od2MdSPqujFeTd48lnaJit04USJdeAzOspyqeKegrT655hrNdJIQWRpbwK67wyv+L1pN8Yhrv6EmLM5dUJrNPunVR/cTBiK+VPhxvtR0bAhGPxpjZbgDhDKwWQ9/R99p76eXU1PaNLsnXplkk2YwvnWiyoIwjrj37aMUfNvAk67UhXkvH5jpQeRrowR6hbx57XK1d1uACP2s2q3b/Is+APIyT7HfYsrw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(82310400026)(376014)(7416014)(10067099003)(56012099006)(6133799003)(18002099003)(11063799006)(5023799004);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	43MCLv6Kz2NG04h24Fu4vbv6onSVrdbRavVy5+v31ToNSSlQEdJSupDjxhRluW+V9ud0JwHaYgh3F4nzs/yjg/TEgRVYn6dGj7o91zRw/p48XDquftRMpVOpUmvxzPF/7wXqwe83kz3coKc8ulICbZfE24RB3Q5dPRhKiAniAOcVs/cZaDbfwzgqZUKXuaQBBK59xj3Fx7O8wV96AtGBGg2LOeDb6GLihffs+69HdLNdgkyWWgGoAtYNWFKX3bZYX8a7kpNQWmqhp7tQpJWwep9ERDEeJSZ8UT9HrjHhxDMsoHFHJn2XLGw/BlcON/oIHBvx4cBWWMmIz1P4qDvBr1kaa7tEHSyiCDSzxJb6jtWWGm1KiwJ1xeXW6s5KrdGfb66QAA52h/nGBCLPkY3cukgJN0dioTDKlaXTv78capXkAWVBQjPshgb/Y9fPk9ko
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 15:07:45.2760
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6aca5568-5e79-403b-9d1a-08defba8209e
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A672F.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6430
 
-Hello,
+Some systems need to load large FPGA configuration images. The FPGA
+subsystem allows loading images from the filesystem, but this requires
+the entire image to be loaded into kernel memory first. For drivers
+that need a DMA-capable buffer for programming, the data is then
+copied again into DMA memory. This creates needless memory pressure
+and delays due to the extra copy.
 
-syzbot found the following issue on:
+This series adds dma-buf support that allows userspace to allocate a
+buffer directly from a DMA heap, write the FPGA image into it, and
+pass the file descriptor to the kernel via ioctl — skipping the
+intermediate kernel buffer entirely.
 
-HEAD commit:    3eb40771c00a Merge tag 'soc-fixes-7.2-3' of git://git.kern..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11b7ba79580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=2ca5f2f2c4197664
-dashboard link: https://syzkaller.appspot.com/bug?extid=37a57a84893052ab6071
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=15009949580000
+Userspace flow:
+  1. Allocate buffer from /dev/dma_heap/ (e.g., CMA heap)
+  2. mmap the buffer and write the FPGA image into it
+  3. ioctl(/dev/fpgaX, FPGA_IOCTL_LOAD_DMA_BUF, &dmabuf_fd)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+37a57a84893052ab6071@syzkaller.appspotmail.com
-
-Oops: general protection fault, probably for non-canonical address 0xdffffc000000000a: 0000 [#1] SMP KASAN PTI
-KASAN: null-ptr-deref in range [0x0000000000000050-0x0000000000000057]
-CPU: 1 UID: 0 PID: 5878 Comm: syz-executor121 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
-RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
-RIP: 0010:usbtv_querycap+0x9c/0x100 drivers/media/usb/usbtv/usbtv-video.c:612
-Code: d9 f9 49 83 c6 08 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 42 3b d9 f9 4d 8b 36 4d 8d 7e 50 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 25 3b d9 f9 48 83 c3 30 4d 8b 3f
-RSP: 0018:ffffc90003757b10 EFLAGS: 00010206
-RAX: 000000000000000a RBX: ffffc90003757d60 RCX: 0000000074627375
-RDX: 0000000000000006 RSI: ffffffff8cd143a0 RDI: ffffc90003757d70
-RBP: 1ffff920006eafb6 R08: 0000000000767462 R09: 1ffff920006eafae
-R10: dffffc0000000000 R11: fffff520006eafaf R12: dffffc0000000000
-R13: ffff888035e170d8 R14: 0000000000000000 R15: 0000000000000050
-FS:  00007f7ef67fc6c0(0000) GS:ffff888125049000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055c7f8b42d51 CR3: 0000000071dc6000 CR4: 00000000003526f0
-Call Trace:
- <TASK>
- v4l_querycap+0x236/0x470 drivers/media/v4l2-core/v4l2-ioctl.c:1106
- __video_do_ioctl+0x8af/0xc70 drivers/media/v4l2-core/v4l2-ioctl.c:3133
- video_usercopy+0x860/0x1430 drivers/media/v4l2-core/v4l2-ioctl.c:3475
- v4l2_ioctl+0x18d/0x1e0 drivers/media/v4l2-core/v4l2-dev.c:366
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl+0xfc/0x170 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
- do_syscall_64+0x174/0x580 arch/x86/entry/syscall_64.c:94
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f7efcf7300b
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007f7ef67fc120 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000080685600 RCX: 00007f7efcf7300b
-RDX: 00007f7ef67fc190 RSI: 0000000080685600 RDI: 0000000000000006
-RBP: 0000000000000021 R08: 0000000000000002 R09: 0000000000000000
-R10: 00007f7efcfe37e0 R11: 0000000000000246 R12: ffffffffffffffd0
-R13: 0000000000000000 R14: 00007ffc6b9d1890 R15: 00007ffc6b9d1978
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:usb_make_path include/linux/usb.h:985 [inline]
-RIP: 0010:usbtv_querycap+0x9c/0x100 drivers/media/usb/usbtv/usbtv-video.c:612
-Code: d9 f9 49 83 c6 08 4c 89 f0 48 c1 e8 03 42 80 3c 20 00 74 08 4c 89 f7 e8 42 3b d9 f9 4d 8b 36 4d 8d 7e 50 4c 89 f8 48 c1 e8 03 <42> 80 3c 20 00 74 08 4c 89 ff e8 25 3b d9 f9 48 83 c3 30 4d 8b 3f
-RSP: 0018:ffffc90003757b10 EFLAGS: 00010206
-RAX: 000000000000000a RBX: ffffc90003757d60 RCX: 0000000074627375
-RDX: 0000000000000006 RSI: ffffffff8cd143a0 RDI: ffffc90003757d70
-RBP: 1ffff920006eafb6 R08: 0000000000767462 R09: 1ffff920006eafae
-R10: dffffc0000000000 R11: fffff520006eafaf R12: dffffc0000000000
-R13: ffff888035e170d8 R14: 0000000000000000 R15: 0000000000000050
-FS:  00007f7ef67fc6c0(0000) GS:ffff888125049000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055c7f8b42d51 CR3: 0000000071dc6000 CR4: 00000000003526f0
-----------------
-Code disassembly (best guess):
-   0:	d9 f9                	fyl2xp1
-   2:	49 83 c6 08          	add    $0x8,%r14
-   6:	4c 89 f0             	mov    %r14,%rax
-   9:	48 c1 e8 03          	shr    $0x3,%rax
-   d:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1)
-  12:	74 08                	je     0x1c
-  14:	4c 89 f7             	mov    %r14,%rdi
-  17:	e8 42 3b d9 f9       	call   0xf9d93b5e
-  1c:	4d 8b 36             	mov    (%r14),%r14
-  1f:	4d 8d 7e 50          	lea    0x50(%r14),%r15
-  23:	4c 89 f8             	mov    %r15,%rax
-  26:	48 c1 e8 03          	shr    $0x3,%rax
-* 2a:	42 80 3c 20 00       	cmpb   $0x0,(%rax,%r12,1) <-- trapping instruction
-  2f:	74 08                	je     0x39
-  31:	4c 89 ff             	mov    %r15,%rdi
-  34:	e8 25 3b d9 f9       	call   0xf9d93b5e
-  39:	48 83 c3 30          	add    $0x30,%rbx
-  3d:	4d 8b 3f             	mov    (%r15),%r15
-
-
+The dma-buf logic is implemented as a separate layer on top of the
+FPGA manager, keeping buffer management separate from the write path.
+Individual FPGA drivers opt in by calling fpga_dmabuf_register().
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+This work is based on the approach discussed in [1].
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+[1] https://lore.kernel.org/all/20231122053035.3758124-1-nava.kishore.manne@amd.com/
+---
+Aravind Thokala (2):
+  fpga: Add dma-buf interface for FPGA programming
+  fpga: versal: add dma-buf programming support
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+ .../userspace-api/ioctl/ioctl-number.rst      |   1 +
+ MAINTAINERS                                   |   1 +
+ drivers/fpga/Kconfig                          |   9 +
+ drivers/fpga/Makefile                         |   2 +
+ drivers/fpga/fpga-dmabuf.c                    | 198 ++++++++++++++++++
+ drivers/fpga/versal-fpga.c                    |  33 ++-
+ include/linux/fpga/fpga-dmabuf.h              |  22 ++
+ include/linux/fpga/fpga-mgr.h                 |   1 +
+ include/uapi/linux/fpga.h                     |  15 ++
+ 9 files changed, 281 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/fpga/fpga-dmabuf.c
+ create mode 100644 include/linux/fpga/fpga-dmabuf.h
+ create mode 100644 include/uapi/linux/fpga.h
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+-- 
+2.34.1
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
