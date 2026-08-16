@@ -1,125 +1,123 @@
-Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com [209.85.167.169])
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6204A4B049D
-	for <linux-media@vger.kernel.org>; Sun, 16 Aug 2026 00:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946F732B13A
+	for <linux-media@vger.kernel.org>; Sun, 16 Aug 2026 01:03:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786838499; cv=none; b=dhYSbVGs2jL7DBrrPjaANhHt+RnzuXuM3wc3IkqUGu2q5e8K6GR2zFuucPE/vrrm2m0k/O4+tW8+qS2mmJNwMZcuQwZtMO1aoVL8o8XYatO8POnBXJaHcB6dHFWXeaPl97V3pQd/Fig99gQYCcXfzgB4sB84w5n4nHxiNZvgtzw=
+	t=1786842214; cv=none; b=Y0rP1H7tt0IV4vk1+OVRPJMqInuzJ6drXwaX3fAh598nBEQzN7HRFPcjVmYRIPHCv8RmAnylX9i6x8t+Lh8vBt9W2k6NRnLHtvk5wbt0ftSZaxZACnZgKe4+p7my8t9mSoAUZB88HbKAKMD1eCbPygLlcK7J4nDylABp4vMfY84=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786838499; c=relaxed/simple;
-	bh=GLv7MLH1JWc+5XrUg1Z1RvY7w8aG92a4ZA0fo54R1DI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=KUBJYTuHl5G0fswrJrZFwhR8GAsssWbishK0Ug9VUKLyagtMzX/WqUl2y/SShghLu9q57ibrfNcKXss2SoJYAWvpvDiWQ33+QvF1p2eCU3tpj1xs5zWtgcDQBnbNFfj5eBdA4EPSrsBuE1ONK9MxtCUHZy1SP/n1FbzVbcsKRi4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk; spf=pass smtp.mailfrom=kernel.dk; dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b=qDO2y/Ef; arc=none smtp.client-ip=209.85.167.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.dk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.dk
+	s=arc-20240116; t=1786842214; c=relaxed/simple;
+	bh=FifGW5MG7JbFILeAVwa1jNog8QfeQwpsY+9kcqd4X7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kT5bgADzOAoPMXxfDhmbNbn3/8GxpHmrYqqzaHjfYl3PLYlD2UeSYnq88n15bV3XwbxjwT3XD2nToLjzuJ524goDtLwAE3LkgjGu76ocEYDMfMby6GQCapVIYdZ72iLoc89ADWfYrp/yAP36TjMMRVqRUlaZ3Wyd7tlmqlmzmBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F9pIVOdf; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel-dk.20251104.gappssmtp.com header.i=@kernel-dk.20251104.gappssmtp.com header.b="qDO2y/Ef"
-Received: by mail-oi1-f169.google.com with SMTP id 5614622812f47-4a427e628a9so649803b6e.0
-        for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 17:01:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F9pIVOdf"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cacf197759so32634435ad.2
+        for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 18:03:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernel-dk.20251104.gappssmtp.com; s=20251104; t=1786838496; x=1787443296; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZPPcb+6L1tSSLsANqwKI7loeM1EwHu96h0gKbDhNEvI=;
-        b=qDO2y/EfO1t3CC7NC3XoESwjR8/JgFZ75ERzn4KAiUkKS4Oq4LyMLiMaVem3HyPUzC
-         aiNiTPv18jaYEhX6LQAYyQDYxeVvX13XDEd7o06Ae1cG82j1gRfcc5nKchSIyjf/xPO/
-         BDRjJknqIe9XGJl1u9HX3s/6rqC6VjQ8vJpAeZWMllAOjnAM9EW082zCSHUFnbzqI5Gv
-         dNPjKNg/FBcOzL4s92Bh5XGc8MBeo7x4edRS9J9uOaROxmsszLVgYjfDmT2Wm0m4URBz
-         cFeCpY3XBU/f0+RUjPeaUofSMUmLfA5JewUZ8Bkh3heeQ1qmygZORMw4+uvO42ImRYcJ
-         wJGA==
+        d=gmail.com; s=20251104; t=1786842213; x=1787447013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lsCwMPKOG1ojLz18oQtlTHtiNUW+J/Ma5sW3249cgm8=;
+        b=F9pIVOdf7Ro7nyG3/zXv6WgRdaJVEClNVvusAiJvCVxj2bZTSNdu6tZKy8YRYCzDSM
+         zc6bjwgm2TTq0Fn4rWxc4VlpA/EW4SHezSyaG1lyRNHYmf5R3anmIIDx/j3uF5BptSUI
+         EvfCufi9LtqSJuh3EMPh5JQrp0C4MItEt4yXSw75Fsn4+xOEv+QbrTNSUiZBRzJbZT44
+         CyG3GIxO7Me34/FYtiGWg1MKA6pGaMoOGrjn2XYU6LHQrW/0C+GgpyjuI0fcJ6HlrgSF
+         2v4oOtSnPVXtwX7Jb8ESBsmWbXpgj5GF2ldj11LPtpFOAXr7A+/pIGrurr5uvSEBkdsi
+         pKxw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786838496; x=1787443296;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ZPPcb+6L1tSSLsANqwKI7loeM1EwHu96h0gKbDhNEvI=;
-        b=BgO+iHSlJauPD2y213YEIk8f2n6eVgpR7CvT0eYJG2lt9mwYa2oqv46ZNGb2jUAGBJ
-         K2dEYQx5gid3UmlMAc2lIb98neM096D5WV5jI3zmfnqJiOxFYPtaOas/p18/J5lruxr9
-         V1AkN1oMbCo3cVkTMtWcqmulOGJjM6ERwK0jU01ah4WBKKA08BsCcTPvMkn+wbWOkZHS
-         w9v7itgYT27xHs44vDuUya4DcPDEO3M5hxF1uVEZTY6uOIufTZbgWIDRr2N2U7EPVc7E
-         2d6A9YV79o2DY2YNK7nRJMwhSQtb21u6kFxZbK7V5ba5Xkf8/P5MKA0ik0+KkzCiQaFZ
-         Kxag==
-X-Forwarded-Encrypted: i=1; AHgh+RrLKudvAvnMM6jXs20VIZXyJApCo1ZN2PqESlFLZP9EDkF0dpT710iyc1jNhXDnrZQMCW/PcEt6fyuj8A==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzuKxAS3Kh011GwL7i2BcfRbPGyfW3WppLEe17NKzf1H/5R8ZMm
-	/Gry+4z0T9SXCI/bdcZfSdiNcrKi3lwNlmb3yuNFw9/yjeogLYUbNZVUZ96fV4pWt40UO3hw0o/
-	ILM6CITdxCg==
-X-Gm-Gg: AR+sD10c7il80b4cvscSmPUXRD2L/NuufSA/IZ3d2XjDXPljPDzpeE2CLhzIsYrb4WK
-	AM3v3D7JJZ3AJxKrSsg0pKq9bOYDjCwVjB4MTxoRYmd6/rQhQH6S5JSNPgv/8A4tc5Qr/mMNd7Y
-	QaEyOXbnEVrrBALQPvyZXLXLiE3mgW8pIUR2kfPPcqPe9A7aDYHfD1TpjVeD0JoGeVYjwRvt1Va
-	fknjgBMnPoH9h/H/W57o9d69UEvAbh4BdT+PJZ0wkVtO2oYEd19DYEdRQ5D/+6cas4nWw0A9z7l
-	e+UoI+P75/sXHu089gkNQai1VBL5o+xumYGx/MS86+A+uVjH34CFR7tL885RIJDo9wkAKG2EUai
-	UVCvGOcpxNCu66lKpieV+4FvrSAHfuiXHsDCLdLg9dpNquo5xb76xo8PZnLsmy7UCWjI869BMpO
-	TiO8RGwvqBanZAhzj+3oNzziWt+JirCyXtkaxdHkFaOFE66QPr653gSTdG5Gr58BSdAR6WKwxu/
-	zBOM2QsA6dDj9y9LCd6volvtNMohEiCTNbhAGEZyw==
-X-Received: by 2002:a05:6808:23d4:b0:4a4:ddde:5207 with SMTP id 5614622812f47-4b24198f27dmr12801839b6e.8.1786838496365;
-        Sat, 15 Aug 2026 17:01:36 -0700 (PDT)
-Received: from [127.0.0.1] ([198.8.77.157])
-        by smtp.gmail.com with ESMTPSA id 5614622812f47-4b24d92462dsm4347729b6e.5.2026.08.15.17.01.15
+        d=1e100.net; s=20251104; t=1786842213; x=1787447013;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lsCwMPKOG1ojLz18oQtlTHtiNUW+J/Ma5sW3249cgm8=;
+        b=HElQIQzgHGba1el9mkPO5fEXtqbNI7u7LQ8Am5h/8YG0ujUFww6omzs6CSKZAiMuck
+         T656BDcyZgKcMO2pT9cWFWxFQFcJ1/EuQ2Wv/EcjNfcXwRdlQ3atH5EEPfSwZLHIHZP5
+         ArX4uKF9WIH+ooMzaZWVhvfrVwdEme58KMHOOjqMaYG8ZH+YGz6YwoLsZy4qp+Pf2G2L
+         DFKfTOj7DOyroVMVL/vzlw8W0VEBVCDOtoZb60ps6MPTrtqFFfNXGuICaNacjrANpOpJ
+         bAVtKeKh+Rzgh5OvVr+ppHXOWyxcYjSL2czpz2+RqvLGZ1k/mhGW/aaK69NwF6q1dRID
+         gCwQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrUnxflyxtRk/P73kAFYuOLsaFV6gVyXBLjinW/rgE3NIqwkvp9YIw0lTU3CxsJwV6kigVxrhhZ3bUNiQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxeSmD7mAmmKsB8/tJFngjbu06lLUHup+wdLoBSnAJfFsntH019
+	xUMezLJ25MfqsCvqkNJupqXTgZtz+G7x0JJIX4NF56uP6/Ii+r2PQQEcNwTeaJVn
+X-Gm-Gg: AR+sD11+pi8C5t7dhOKNiftsguugeCS0EDoTER3suPv9EPFvFkMAY9sPOx7rZ9tkV+s
+	C7LkXGt6Rm5nD47HzqSUJAPsVyeysfSf9rGTOoTcMAcBv/2XEFWC8CKtPuKDwlgwg8rtWcU856j
+	CF7p7oOxXCsfwD5AlXdMG/LHm4rFYsxGgonaAV+C4PAbEWZ/gNYhCb1Uj1Qsv355z09GEKMkD2h
+	SNdxn/k7eqAt6FLBxTme4FIjco33tLI/Svgc0FCiYUtImz9MAXlCWoxn2jgd4GIb3KfitHQh+p/
+	sXPs+xl0LXjJp+iV9wI85CODfFnoUwX6vJZZ+BppxESoxAzqs/C80GqL3IlBi7EjQ9W2gU9Wahx
+	ghhj9mS+7eRBq9G581UbjInBWjA2PAIaE03qO6Q7Vvlgm4IxXnfozhYwrxBWn2EDsnOKbCWAkhQ
+	iq4CQBxyOw34UsxqLLBHRM+zefDcegcSQAZDheDFaSxH/i9NE2HjKBi+tQGGiANa/bD3JVcukV1
+	+TH673B5qeEp3KhDzJn4nYk0BN2Vt95yvOzXUAYscKP
+X-Received: by 2002:a05:6a20:b598:b0:3bf:b1d3:393e with SMTP id adf61e73a8af0-3cc719c7b62mr19336093637.2.1786842212702;
+        Sat, 15 Aug 2026 18:03:32 -0700 (PDT)
+Received: from ubuntu-vm.. (c-73-189-122-63.hsd1.ca.comcast.net. [73.189.122.63])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387c6f95sm32113463c88.6.2026.08.15.18.03.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 17:01:17 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, 
- Sagi Grimberg <sagi@grimberg.me>, linux-block@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org, 
- linux-fsdevel@vger.kernel.org, io-uring@vger.kernel.org, 
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linaro-mm-sig@lists.linaro.org, Pavel Begunkov <asml.silence@gmail.com>
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, 
- Christian Brauner <brauner@kernel.org>, 
- Andrew Morton <akpm@linux-foundation.org>, 
- Sumit Semwal <sumit.semwal@linaro.org>, 
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- Nitesh Shetty <nj.shetty@samsung.com>, Kanchan Joshi <joshi.k@samsung.com>, 
- Anuj Gupta <anuj20.g@samsung.com>, Tushar Gohad <tushar.gohad@intel.com>, 
- William Power <william.power@intel.com>, 
- Phil Cayton <phil.cayton@intel.com>, Damien Le Moal <dlemoal@kernel.org>, 
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
- Mikulas Patocka <mpatocka@redhat.com>, 
- Benjamin Marzinski <bmarzins@redhat.com>, 
- Vishal Verma <vishal.l.verma@intel.com>, David Sterba <dsterba@suse.com>, 
- Ilya Dryomov <idryomov@gmail.com>, dm-devel@lists.linux.dev, 
- nvdimm@lists.linux.dev, linux-btrfs@vger.kernel.org, 
- ceph-devel@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>
-In-Reply-To: <cover.1785596451.git.asml.silence@gmail.com>
-References: <cover.1785596451.git.asml.silence@gmail.com>
-Subject: Re: (subset) [PATCH v5 00/16] Add dmabuf read/write via io_uring
-Message-Id: <178683847578.1984298.10059277109543676478.b4-ty@b4>
-Date: Sat, 15 Aug 2026 18:01:15 -0600
+        Sat, 15 Aug 2026 18:03:32 -0700 (PDT)
+From: Rishab Madhugiri <rishab.madhugiri@gmail.com>
+To: hansg@kernel.org,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: andy@kernel.org,
+	sakari.ailus@linux.intel.com,
+	linux-staging@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	error27@gmail.com,
+	Rishab Madhugiri <rishab.madhugiri@gmail.com>
+Subject: [PATCH v3] staging: media: atomisp: Use ARRAY_SIZE macro
+Date: Sun, 16 Aug 2026 01:01:26 +0000
+Message-ID: <20260816010126.159514-1-rishab.madhugiri@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
+Clean up loop bound calculation by replacing sizeof(bds_factors) /
+sizeof(struct bayer_ds_factor) with the ARRAY_SIZE() helper macro
+to improve readability and maintainability. Move loop counter
+increment to the same line as the for loop and declare the loop
+counter locally.
 
-On Sat, 01 Aug 2026 16:46:12 +0100, Pavel Begunkov wrote:
-> The patch set allows to register a dmabuf to an io_uring instance for
-> a specified file and use it with io_uring read / write requests. The
-> infrastructure is not tied to io_uring and there could be more users
-> in the future. A similar idea was attempted some years ago by Keith [1]
-> (from where I borrowed a good number of changes). Later it was brough
-> back up to life by Tushar and Vishal.
-> 
-> [...]
+Signed-off-by: Rishab Madhugiri <rishab.madhugiri@gmail.com>
+---
+v3: Declare loop counter variable locally in the for loop and remove
+    previous function-scope declaration as suggested by Andy Shevchenko.
+v2: Move loop increment to the same line as the for statement as
+    suggested by Dan Carpenter.
 
-Applied, thanks!
+ drivers/staging/media/atomisp/pci/atomisp_compat_css20.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-[05/16] block: move bvec init into __bio_clone
-        commit: e228404b05c8293f6a1286856e49ba3e55da1933
-[06/16] block: introduce bio_iov_iter_set()
-        commit: 8b8755e00847da1027fe6624277e43d289e2300e
-
-Best regards,
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+index 0ee52637e..eacd7ee5c 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
+@@ -2118,7 +2118,6 @@ static void __configure_video_pp_input(struct atomisp_sub_device *asd,
+ 	static const struct bayer_ds_factor bds_factors[] = {
+ 		{8, 1}, {6, 1}, {4, 1}, {3, 1}, {2, 1}, {3, 2}
+ 	};
+-	unsigned int i;
+ 
+ 	if (width == 0 && height == 0)
+ 		return;
+@@ -2160,8 +2159,7 @@ static void __configure_video_pp_input(struct atomisp_sub_device *asd,
+ 	bayer_ds_out_res->width = effective_res->width;
+ 	bayer_ds_out_res->height = effective_res->height;
+ 
+-	for (i = 0; i < sizeof(bds_factors) / sizeof(struct bayer_ds_factor);
+-	     i++) {
++	for (unsigned int i = 0; i < ARRAY_SIZE(bds_factors); i++) {
+ 		if (effective_res->width >= out_width *
+ 		    bds_factors[i].numerator / bds_factors[i].denominator &&
+ 		    effective_res->height >= out_height *
 -- 
-Jens Axboe
-
-
+2.43.0
 
