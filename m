@@ -1,195 +1,211 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010044.outbound.protection.outlook.com [52.101.61.44])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 737E334388F;
-	Sun, 16 Aug 2026 15:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786892879; cv=fail; b=r8/Nccs6AKU3pii10Nlqkrm0+54w12yyJaaNpCWJB+Em3ZfBIJvinz2psVXFsIzg63KMeBVIHhJ11XWUhlG+c5IJUoiWYXsoZxFj5rRswXqmq1RLIfytyAAlxcJeCUspkpLy/hFcihuULcx7KeLW3G6zvm2sWSAjSKpS7aY3EfU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786892879; c=relaxed/simple;
-	bh=vXr9KT5UKslGuKDqQsQ++vjhzTDwaWW/E9GgPN2/r74=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E2PbA0+0FUg1rRSmjDA4uCyqTTzIgdsvT12C/APaFQXJTfYzbscgKACa7qX1TsTAWpvX56TFGkbPGt2kM2pTdDSensjHvSeTfZM3aI4ShF6ivS3EvmWeaAGmJ1+kdLZ5Sq5z8ZmVG6LclvIp7KcYtRAc6Q8tOB8Cx8DZumGItuU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=QQbvyrhy; arc=fail smtp.client-ip=52.101.61.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C23D12FF69;
+	Sun, 16 Aug 2026 16:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786896683; cv=none; b=W0oGJr8U1E7kIkOzy0iwklbl7ISmmQrGKDdH4Y/FCzr8IM1pOFuqpNY/eCZX9JEmxuEq53Z6BXg8OZnunM8ul565jAitLeBYAdRAEdJFgy96sHZymDizhxbveBYzxu2/g9bacUA2wOdNTEEALEy/Ojc58aBwlbVd1Atdaf1PLHs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786896683; c=relaxed/simple;
+	bh=B0xH7282wEonwKJuIpT7PcOpcLbv8IJHnA8PFCVeSpY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=aitI57NHyWJqdota54ODFBiGsFoHCqnnMyR8bzn3pxMYhBRYp+uAMty+IYqL4Q4e3ISIpqiKJMsOTHuNUTpdDxQ4jXCpAXfPt6h5qEHCrxKwhjBxVG/zoGMffLQqA4TGmB1ARuysGdKThYYLYY4oCNR5r1D7CaZ44FAnUKUmw8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=vO8L9Vz5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="QQbvyrhy"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DbyLC7T+XlKHoLm7p4pnAZ2zwq+iC9eupE5ZzClZPbTZkQN5YiuXxxlNh8Otvd2O+O+kHGdrw39NbVMDN+2rYqDZTUvXrjp0UPXEePBQ9tePSstipDg3ODXAQfCjc1t39CyXMRf4kKOZzVX7+13oKVxNFkQC3FVztTIEllHZFhU/jLfwflB3KM5jMpOCPjmCBU1671TLobB7ksn1lU6P+btc+UbkRfgZRXyl6PrHitLgIoUC5h6CQxINz9TVKSqS4tx9T5jzFj/Xm2xOlOuKj/uCNmwK4t+3e9RXNduvKTTaaOVTblcR+xqNuBjnJR+KeI5PrP6vNechusXOLWKOKg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=wWiEbjvB6KG8r35ElgGB2hSjNOPcqL39sj13KUsV9Qk=;
- b=Zvxvf28vbdE89NkEwTZ69N17oKvFyD2BqO7RQYXw7ZPXhSn1pis9LWhl1pzWaXwS2kuvoOgeSRglj79GjR7ipIQ4Q764ORnAuVnRNVMWywwZ1QDlAWcUxu9xyegZzJuDBJpkYSVl4fzKpUn43EtYLOquCytobWjVomlIQ6qwqMAa9CNfDIh3vVpT+3tWaW/VX6P94cuTS1+/Kh8/coU5bzDec/NDacQmosAREC3KiAxpFNhqBNsuH5YzROqWt/hR+L+RiXFe0Vw9Xsj4QSnetaZau/dn2R+NeaFvCjxIng0kWDOzK1XjNGd75fpOOrjG/HWpTQFpeirgvh+uS2itcw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=wWiEbjvB6KG8r35ElgGB2hSjNOPcqL39sj13KUsV9Qk=;
- b=QQbvyrhyw2ojZiuUrrsFVVxqhXMKLGmy5Ja9aUWfjg1zHmzWOPIzhd5+C2XqxjhrEoa1FHJPo41KN4U852iI6qnRZJ3FkDlzTNUUW/Wg4iJFBApklNzTv2VB4NdDeSaoyKR308o42BAV0Zah5qm77hSSqVokDOlKlCRkYElv8GI=
-Received: from CH0PR03CA0332.namprd03.prod.outlook.com (2603:10b6:610:11a::9)
- by DS0PR12MB6655.namprd12.prod.outlook.com (2603:10b6:8:d0::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Sun, 16 Aug
- 2026 15:07:54 +0000
-Received: from DM2PEPF00003FC2.namprd04.prod.outlook.com
- (2603:10b6:610:11a:cafe::64) by CH0PR03CA0332.outlook.office365.com
- (2603:10b6:610:11a::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.315.17 via Frontend Transport; Sun,
- 16 Aug 2026 15:07:54 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- DM2PEPF00003FC2.mail.protection.outlook.com (10.167.23.20) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Sun, 16 Aug 2026 15:07:53 +0000
-Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
- 2026 10:07:53 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb09.amd.com
- (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Sun, 16 Aug
- 2026 10:07:52 -0500
-Received: from xhdappanad40.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Sun, 16 Aug 2026 10:07:48 -0500
-From: Aravind Thokala <aravind.thokala@amd.com>
-To: <mdf@kernel.org>, <yilun.xu@intel.com>, <trix@redhat.com>,
-	<sumit.semwal@linaro.org>, <christian.koenig@amd.com>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>,
-	<linux-kernel@vger.kernel.org>, <linux-fpga@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
-	<linaro-mm-sig@lists.linaro.org>, <linux-doc@vger.kernel.org>, <git@amd.com>,
-	<aravind.thokala@amd.com>, <nava.kishore.manne@amd.com>
-Subject: [PATCH 2/2] fpga: versal: add dma-buf programming support
-Date: Sun, 16 Aug 2026 20:37:34 +0530
-Message-ID: <20260816150734.2092802-3-aravind.thokala@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260816150734.2092802-1-aravind.thokala@amd.com>
-References: <20260816150734.2092802-1-aravind.thokala@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="vO8L9Vz5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E5094C2BCF6;
+	Sun, 16 Aug 2026 16:11:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1786896682;
+	bh=B0xH7282wEonwKJuIpT7PcOpcLbv8IJHnA8PFCVeSpY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=vO8L9Vz5lBVjlZqtjCi2ARCaO2yh5g2CknSQTKRw76W6Hy51Sj565jKV+xVhKpf4m
+	 1ek8Cl93TaC85zQJSk06DWdtCBAGwtFKAkcPYNbIZmtRjPBmkdVzgbrredNw62ROLi
+	 oPHjLVeft9MIyDexleSJcqrXWsy7bPbkYfCT+MRq0BZqx7ZDu7tbo9E+FpPOrF/vbg
+	 W1NL0j990CDYBm8mrVfRu0qtqXXGtydlJcnTu84lbK8ZHVmOXAMT31Des4qRpDYvDy
+	 aaG7sktB3zfSjHh7wBkyFY8CRFBnLDSGPrLnECDtlLKjrm0yCB7AdPxhkiqpjVpdUV
+	 lm44GVLCpSMGg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C5DFEC5B572;
+	Sun, 16 Aug 2026 16:11:22 +0000 (UTC)
+From: Junrui Luo via B4 Relay <devnull+moonafterrain.outlook.com@kernel.org>
+Date: Mon, 17 Aug 2026 00:11:18 +0800
+Subject: [PATCH 1/2] drm/amdgpu/userq: cancel linked fences on fence driver
+ free
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM2PEPF00003FC2:EE_|DS0PR12MB6655:EE_
-X-MS-Office365-Filtering-Correlation-Id: efcbe18b-b801-423f-dba7-08defba825ba
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|23010399003|7416014|376014|82310400026|22082099003|18002099003|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	lZswCj3PVPVaVCL5WPjHVFMhqAyDpAbNh8Yl7jgrFmSl4D44O9vMXjnjhLRnsaOwzX8/FbQUutW1xlGVEcuGrQBAOclInru5RFFTUfq9i0wJtaPbuQtwyv80agfygrgaWwin8/ZsjXhC8KMkzcgkj7Pfw1mdH3+wEmNmplcgeacGla4crUNiXsjTvidiqHjVWDQFIW8QGTaxZRkFm4qvRbBImcvOAA1A5kSoS4Jn4eXL2Y1rsFkaup+sbZm/v7iKicVMEPnlGe2CTdG54D3uqx/QjikCIrobqqhUMD5uqCgXkJ5LaSGhr4mdc4C3PrPOgACRb7IXOyDLPG3nhkMooBZZDzX0m6Iw5v48Fc1aeST39PzL9FdbjyO89TbqhH7m/vhUDrIbTClentw5VUwpa08RRtUyJk1CXK997t055Pq3AxWgpyL8UbksARsq3ypBnasdJY2kL6OsURHa+AfakLfHpd2r8UwvcJ3kQukPC//HSj/BsOuTg4YneNywd7HFa6EiD9umRlqWQaw+Bued00owFQF3EhFujpIkZXsm33RcpNdEAcf0y1QCyvLpfSIn6nitSTuiRdLyOql1dubZLhbIYCwhahbilz84F5qIg/twoPSvQuF22g4htAqyRNcRyFfjiklKIdXx3iHoBcEZFSJNsrO5jp0L15Prm2FrhaaDO/pCG0/FPU6ynekg9hUvRGMWX/S1RFegaaNOUAcHrg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(23010399003)(7416014)(376014)(82310400026)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	fVGE6v7EbWk/7532ZASAA3wrQbPh8L3YakVYJ4ckP9AWRQO6SPCl3S7DsQveQH7/NpwpIAJye3Jdxt80N0ocLiFOV4bHRafhJt0EOLv5iItb1smvBAFE7X76kRsI521LOaxSy2FHUqI6pMZBcWQtfSgQS1bXa3bUWMCsd9VTB+fJHFC7etCX2yCVso6CIxx0RygDQwxThLElTYnj3hw9LGuSI8vm/rPA5Bm4nYR7UK2Y2NYChVSO5Ghbhok3I/bO5mEftpCLaIWXIXHHu5vXKRdhlujU87Wlln94vy/yySCuCQndUJvKmgEoa7azCne37ZVH+4Fn54niLQe7aMnPC2+eBC14ozUd0QiC5fvjssr59lWXcy7c6Cbf74ZHEIW80WwuvffxQo8xMDb6B9cHnPt9KAE96izh2jWZskQXnPVU8wZAkv0uQvA+m06DepaN
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Aug 2026 15:07:53.8477
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: efcbe18b-b801-423f-dba7-08defba825ba
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DM2PEPF00003FC2.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6655
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260817-amdgpu-fixes-v1-1-36d5298da646@outlook.com>
+References: <20260817-amdgpu-fixes-v1-0-36d5298da646@outlook.com>
+In-Reply-To: <20260817-amdgpu-fixes-v1-0-36d5298da646@outlook.com>
+To: Alex Deucher <alexander.deucher@amd.com>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, Sunil Khatri <sunil.khatri@amd.com>, 
+ "Jesse.Zhang" <Jesse.Zhang@amd.com>
+Cc: amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, Junrui Luo <moonafterrain@outlook.com>, 
+ Yuhao Jiang <danisjiang@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5115;
+ i=moonafterrain@outlook.com; h=from:subject:message-id;
+ bh=2astBnZBsX4+8nD4Zsb9SZRRyac5fnId9PzuwVaoLfg=;
+ b=owJ4nJvAy8zAJVb4wiKgu++DA+NptSSGrMaHmhWnInneP0oq3szipf5c4PytHWJejOcenXpnG
+ P5RiTmmvLejlIVBjItBVkyR5XjBpW8Wvlt0t/hsSYaZw8oEMoSBi1MAJpLDwshwXFjw7EO9X8ee
+ tL15dPPsxEkbTOXlzfRdjxZ5St6XD1u1iuGf4vxXKrcKHX32L3/a41rjeHL74vRnT6fNirv7zNJ
+ qp/NmTgDgm02F
+X-Developer-Key: i=moonafterrain@outlook.com; a=openpgp;
+ fpr=C770D2F6384DB42DB44CB46371E838508B8EF040
+X-Endpoint-Received: by B4 Relay for moonafterrain@outlook.com/default with
+ auth_id=909
+X-Original-From: Junrui Luo <moonafterrain@outlook.com>
+Reply-To: moonafterrain@outlook.com
 
-The existing .write callback allocates a DMA-coherent buffer and
-copies the image into it before passing the address to firmware. With
-dma-buf, the buffer is already DMA-mapped by userspace.
+From: Junrui Luo <moonafterrain@outlook.com>
 
-Add a .write_sg callback that extracts the DMA address directly from
-the scatter-gather table and passes it to zynqmp_pm_load_pdi(),
-avoiding the intermediate copy. Register the dma-buf interface in
-probe with devres-managed cleanup.
+amdgpu_userq_fence_driver_free() drops the queue's reference to fence_drv
+but leaves fence_drv->fences alone. Each fence still linked there holds a
+fence_drv reference of its own, and the list holds a reference on the
+fence, so the count never drops to zero and
+amdgpu_userq_fence_driver_destroy() never runs.
 
-Co-developed-by: Nava kishore Manne <nava.kishore.manne@amd.com>
-Signed-off-by: Nava kishore Manne <nava.kishore.manne@amd.com>
-Signed-off-by: Aravind Thokala <aravind.thokala@amd.com>
+A fence stays linked when it has not signaled by the time the queue goes
+away. amdgpu_userq_fence_init() uses the wptr read by
+amdgpu_userq_fence_read_wptr() from the user mapped wptr buffer as the
+fence seqno without requiring it to increase, so a signal with a wptr
+below the previous one leaves the earlier fence unsignaled on the list
+while userq->last_fence points at the new, already signaled one.
+amdgpu_userq_destroy() waits only on last_fence and returns at once.
+This leaks the seq64 slot that amdgpu_seq64_free() would release, for
+the lifetime of the device.
+
+Cancel the fences that are still linked before the queue drops its
+reference, in a helper shared with amdgpu_userq_fence_driver_destroy().
+Like amdgpu_userq_fence_driver_process(), the helper drains the list
+under fence_list_lock and releases each fence outside it, so dropping
+the fence's fence_drv_array does not recurse into the lock.
+
+Fixes: edc762a51c71 ("drm/amdgpu/userq: move some code around")
+Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Cc: stable@vger.kernel.org
+Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
 ---
- drivers/fpga/versal-fpga.c | 33 ++++++++++++++++++++++++++++++++-
- 1 file changed, 32 insertions(+), 1 deletion(-)
+Found by code inspection; not tested on hardware.
+---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c | 71 ++++++++++++++++---------
+ 1 file changed, 46 insertions(+), 25 deletions(-)
 
-diff --git a/drivers/fpga/versal-fpga.c b/drivers/fpga/versal-fpga.c
-index e6189106c468..bdaa15a6c991 100644
---- a/drivers/fpga/versal-fpga.c
-+++ b/drivers/fpga/versal-fpga.c
-@@ -4,6 +4,7 @@
-  */
- 
- #include <linux/dma-mapping.h>
-+#include <linux/fpga/fpga-dmabuf.h>
- #include <linux/fpga/fpga-mgr.h>
- #include <linux/io.h>
- #include <linux/kernel.h>
-@@ -37,11 +38,34 @@ static int versal_fpga_ops_write(struct fpga_manager *mgr,
- 	return ret;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+index f74ad378e407..eea351a887a8 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_userq_fence.c
+@@ -114,6 +114,45 @@ static void amdgpu_userq_walk_and_drop_fence_drv(struct xarray *xa)
+ 	xa_unlock(xa);
  }
  
-+static int versal_fpga_ops_write_sg(struct fpga_manager *mgr,
-+				    struct sg_table *sgt)
++static void
++amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
 +{
-+	dma_addr_t dma_addr;
++	unsigned long i;
 +
-+	/* zynqmp_pm_load_pdi() takes a single base address */
-+	if (sgt->nents != 1) {
-+		dev_err(&mgr->dev, "dma-buf has %u segments, need exactly 1\n",
-+			sgt->nents);
-+		return -EINVAL;
++	for (i = 0; i < userq_fence->fence_drv_array_count; i++)
++		amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
++	userq_fence->fence_drv_array_count = 0;
++}
++
++static void
++amdgpu_userq_fence_driver_cancel(struct amdgpu_userq_fence_driver *fence_drv)
++{
++	struct amdgpu_userq_fence *userq_fence, *tmp;
++	LIST_HEAD(to_be_cancelled);
++	struct dma_fence *fence;
++	unsigned long flags;
++
++	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
++	list_splice_init(&fence_drv->fences, &to_be_cancelled);
++	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
++
++	list_for_each_entry_safe(userq_fence, tmp, &to_be_cancelled, link) {
++		fence = &userq_fence->base;
++		list_del_init(&userq_fence->link);
++
++		if (!dma_fence_is_signaled(fence)) {
++			dma_fence_set_error(fence, -ECANCELED);
++			dma_fence_signal(fence);
++		}
++
++		/* Drop fence_drv_array outside fence_list_lock
++		 * to avoid the recursion lock.
++		 */
++		amdgpu_userq_fence_put_fence_drv_array(userq_fence);
++		dma_fence_put(fence);
 +	}
-+
-+	dma_addr = sg_dma_address(sgt->sgl);
-+
-+	return zynqmp_pm_load_pdi(PDI_SRC_DDR, dma_addr);
 +}
 +
- static const struct fpga_manager_ops versal_fpga_ops = {
- 	.write_init = versal_fpga_ops_write_init,
- 	.write = versal_fpga_ops_write,
-+	.write_sg = versal_fpga_ops_write_sg,
- };
- 
-+static void versal_fpga_dmabuf_remove(void *data)
-+{
-+	fpga_dmabuf_unregister(data);
-+}
-+
- static int versal_fpga_probe(struct platform_device *pdev)
+ void
+ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
  {
- 	struct device *dev = &pdev->dev;
-@@ -56,7 +80,14 @@ static int versal_fpga_probe(struct platform_device *pdev)
- 
- 	mgr = devm_fpga_mgr_register(dev, "Xilinx Versal FPGA Manager",
- 				     &versal_fpga_ops, NULL);
--	return PTR_ERR_OR_ZERO(mgr);
-+	if (IS_ERR(mgr))
-+		return PTR_ERR(mgr);
-+
-+	ret = fpga_dmabuf_register(mgr);
-+	if (ret)
-+		return ret;
-+
-+	return devm_add_action_or_reset(dev, versal_fpga_dmabuf_remove, mgr);
+@@ -122,19 +161,16 @@ amdgpu_userq_fence_driver_free(struct amdgpu_usermode_queue *userq)
+ 	amdgpu_userq_walk_and_drop_fence_drv(&userq->fence_drv_xa);
+ 	xa_destroy(&userq->fence_drv_xa);
+ 	mutex_destroy(&userq->fence_drv_lock);
++	/*
++	 * Cancel the fences still linked on the driver.  Each of them holds a
++	 * fence_drv reference of its own, so leaving them behind keeps the
++	 * driver - and its seq64 slot - allocated after the queue is gone.
++	 */
++	amdgpu_userq_fence_driver_cancel(userq->fence_drv);
+ 	/* Drop the queue's ownership reference to fence_drv explicitly */
+ 	amdgpu_userq_fence_driver_put(userq->fence_drv);
  }
  
- static const struct of_device_id versal_fpga_of_match[] = {
+-static void
+-amdgpu_userq_fence_put_fence_drv_array(struct amdgpu_userq_fence *userq_fence)
+-{
+-	unsigned long i;
+-	for (i = 0; i < userq_fence->fence_drv_array_count; i++)
+-		amdgpu_userq_fence_driver_put(userq_fence->fence_drv_array[i]);
+-	userq_fence->fence_drv_array_count = 0;
+-}
+-
+ /*
+  * Returns:
+  * -ENOENT when no fences were processes
+@@ -186,23 +222,8 @@ void amdgpu_userq_fence_driver_destroy(struct kref *ref)
+ 					 struct amdgpu_userq_fence_driver,
+ 					 refcount);
+ 	struct amdgpu_device *adev = fence_drv->adev;
+-	struct amdgpu_userq_fence *fence, *tmp;
+-	unsigned long flags;
+-	struct dma_fence *f;
+ 
+-	spin_lock_irqsave(&fence_drv->fence_list_lock, flags);
+-	list_for_each_entry_safe(fence, tmp, &fence_drv->fences, link) {
+-		f = &fence->base;
+-
+-		if (!dma_fence_is_signaled(f)) {
+-			dma_fence_set_error(f, -ECANCELED);
+-			dma_fence_signal(f);
+-		}
+-
+-		list_del(&fence->link);
+-		dma_fence_put(f);
+-	}
+-	spin_unlock_irqrestore(&fence_drv->fence_list_lock, flags);
++	amdgpu_userq_fence_driver_cancel(fence_drv);
+ 
+ 	/* Free seq64 memory */
+ 	amdgpu_seq64_free(adev, fence_drv->va);
+
 -- 
-2.34.1
+2.51.2
+
 
