@@ -1,77 +1,31 @@
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 946F732B13A
-	for <linux-media@vger.kernel.org>; Sun, 16 Aug 2026 01:03:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782EF3438B5;
+	Sun, 16 Aug 2026 05:19:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786842214; cv=none; b=Y0rP1H7tt0IV4vk1+OVRPJMqInuzJ6drXwaX3fAh598nBEQzN7HRFPcjVmYRIPHCv8RmAnylX9i6x8t+Lh8vBt9W2k6NRnLHtvk5wbt0ftSZaxZACnZgKe4+p7my8t9mSoAUZB88HbKAKMD1eCbPygLlcK7J4nDylABp4vMfY84=
+	t=1786857550; cv=none; b=BAKDaLJlyQfd5nB9osphmML2XKiMpXyxDB/et1NltN6cL6oBfqt7Wqt4qm/8l4j2CpG12OfN0koD2Vk3J+Qemye+N8c6FRtJLUJPrq9+gSkcrf/QBDehz20ygEpL44Se3npIt57ruF9H69IZw/b+YrgjOseKgkWc4loZDaXpfSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786842214; c=relaxed/simple;
-	bh=FifGW5MG7JbFILeAVwa1jNog8QfeQwpsY+9kcqd4X7s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kT5bgADzOAoPMXxfDhmbNbn3/8GxpHmrYqqzaHjfYl3PLYlD2UeSYnq88n15bV3XwbxjwT3XD2nToLjzuJ524goDtLwAE3LkgjGu76ocEYDMfMby6GQCapVIYdZ72iLoc89ADWfYrp/yAP36TjMMRVqRUlaZ3Wyd7tlmqlmzmBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F9pIVOdf; arc=none smtp.client-ip=209.85.214.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F9pIVOdf"
-Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2cacf197759so32634435ad.2
-        for <linux-media@vger.kernel.org>; Sat, 15 Aug 2026 18:03:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1786842213; x=1787447013; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lsCwMPKOG1ojLz18oQtlTHtiNUW+J/Ma5sW3249cgm8=;
-        b=F9pIVOdf7Ro7nyG3/zXv6WgRdaJVEClNVvusAiJvCVxj2bZTSNdu6tZKy8YRYCzDSM
-         zc6bjwgm2TTq0Fn4rWxc4VlpA/EW4SHezSyaG1lyRNHYmf5R3anmIIDx/j3uF5BptSUI
-         EvfCufi9LtqSJuh3EMPh5JQrp0C4MItEt4yXSw75Fsn4+xOEv+QbrTNSUiZBRzJbZT44
-         CyG3GIxO7Me34/FYtiGWg1MKA6pGaMoOGrjn2XYU6LHQrW/0C+GgpyjuI0fcJ6HlrgSF
-         2v4oOtSnPVXtwX7Jb8ESBsmWbXpgj5GF2ldj11LPtpFOAXr7A+/pIGrurr5uvSEBkdsi
-         pKxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1786842213; x=1787447013;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=lsCwMPKOG1ojLz18oQtlTHtiNUW+J/Ma5sW3249cgm8=;
-        b=HElQIQzgHGba1el9mkPO5fEXtqbNI7u7LQ8Am5h/8YG0ujUFww6omzs6CSKZAiMuck
-         T656BDcyZgKcMO2pT9cWFWxFQFcJ1/EuQ2Wv/EcjNfcXwRdlQ3atH5EEPfSwZLHIHZP5
-         ArX4uKF9WIH+ooMzaZWVhvfrVwdEme58KMHOOjqMaYG8ZH+YGz6YwoLsZy4qp+Pf2G2L
-         DFKfTOj7DOyroVMVL/vzlw8W0VEBVCDOtoZb60ps6MPTrtqFFfNXGuICaNacjrANpOpJ
-         bAVtKeKh+Rzgh5OvVr+ppHXOWyxcYjSL2czpz2+RqvLGZ1k/mhGW/aaK69NwF6q1dRID
-         gCwQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrUnxflyxtRk/P73kAFYuOLsaFV6gVyXBLjinW/rgE3NIqwkvp9YIw0lTU3CxsJwV6kigVxrhhZ3bUNiQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeSmD7mAmmKsB8/tJFngjbu06lLUHup+wdLoBSnAJfFsntH019
-	xUMezLJ25MfqsCvqkNJupqXTgZtz+G7x0JJIX4NF56uP6/Ii+r2PQQEcNwTeaJVn
-X-Gm-Gg: AR+sD11+pi8C5t7dhOKNiftsguugeCS0EDoTER3suPv9EPFvFkMAY9sPOx7rZ9tkV+s
-	C7LkXGt6Rm5nD47HzqSUJAPsVyeysfSf9rGTOoTcMAcBv/2XEFWC8CKtPuKDwlgwg8rtWcU856j
-	CF7p7oOxXCsfwD5AlXdMG/LHm4rFYsxGgonaAV+C4PAbEWZ/gNYhCb1Uj1Qsv355z09GEKMkD2h
-	SNdxn/k7eqAt6FLBxTme4FIjco33tLI/Svgc0FCiYUtImz9MAXlCWoxn2jgd4GIb3KfitHQh+p/
-	sXPs+xl0LXjJp+iV9wI85CODfFnoUwX6vJZZ+BppxESoxAzqs/C80GqL3IlBi7EjQ9W2gU9Wahx
-	ghhj9mS+7eRBq9G581UbjInBWjA2PAIaE03qO6Q7Vvlgm4IxXnfozhYwrxBWn2EDsnOKbCWAkhQ
-	iq4CQBxyOw34UsxqLLBHRM+zefDcegcSQAZDheDFaSxH/i9NE2HjKBi+tQGGiANa/bD3JVcukV1
-	+TH673B5qeEp3KhDzJn4nYk0BN2Vt95yvOzXUAYscKP
-X-Received: by 2002:a05:6a20:b598:b0:3bf:b1d3:393e with SMTP id adf61e73a8af0-3cc719c7b62mr19336093637.2.1786842212702;
-        Sat, 15 Aug 2026 18:03:32 -0700 (PDT)
-Received: from ubuntu-vm.. (c-73-189-122-63.hsd1.ca.comcast.net. [73.189.122.63])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141387c6f95sm32113463c88.6.2026.08.15.18.03.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 15 Aug 2026 18:03:32 -0700 (PDT)
-From: Rishab Madhugiri <rishab.madhugiri@gmail.com>
-To: hansg@kernel.org,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: andy@kernel.org,
-	sakari.ailus@linux.intel.com,
-	linux-staging@lists.linux.dev,
+	s=arc-20240116; t=1786857550; c=relaxed/simple;
+	bh=ohIE386wEoVcyWRElFwmsTJ5xap98ikabxyZuY/5C0s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BMvI1/zNdgpwhTFixwmOhn4zL3pfpxhACXxWnumDGjJ90aiRBtz3x2bu6xZ5lom+AckRDRGCoUk0SMog55PVjBaSS5vlFl3w/JQywh1HEZfZibfZjCOVf5GHy2rFU/0X6j1yTK/ZCDvUNv5qlpMn8a3/BMoER58YSFNT8OLVmC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowAAHET88SIFqUjeMBQ--.5585S2;
+	Sun, 16 Aug 2026 13:18:53 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	error27@gmail.com,
-	Rishab Madhugiri <rishab.madhugiri@gmail.com>
-Subject: [PATCH v3] staging: media: atomisp: Use ARRAY_SIZE macro
-Date: Sun, 16 Aug 2026 01:01:26 +0000
-Message-ID: <20260816010126.159514-1-rishab.madhugiri@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: coda: validate firmware payload before copying
+Date: Sun, 16 Aug 2026 13:18:49 +0800
+Message-ID: <20260816051851.3712-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -79,45 +33,162 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAAHET88SIFqUjeMBQ--.5585S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAw4rGrW5ZFWxAFW3uFW7Arb_yoWrtF13pa
+	y5Kay2yFW5Cr1Yyr1xAw47AFy5uws5JFWUGFW7CFn7C34Dtr1kX34DtFyjqryrCrWIg3W3
+	uFsaqFnxAFnF9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
+	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjuHq7
+	UUUUU==
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Clean up loop bound calculation by replacing sizeof(bds_factors) /
-sizeof(struct bayer_ds_factor) with the ARRAY_SIZE() helper macro
-to improve readability and maintainability. Move loop counter
-increment to the same line as the for loop and declare the loop
-counter locally.
+coda_copy_firmware() accepts an optional 16-byte MX header, but moves the
+source pointer without reducing the remaining size.  The pre-reordered path
+then copies the original size from the advanced pointer, reading 16 bytes
+past the firmware allocation.  The native-order path always subtracts 16
+from the size, including for images without the header, and can truncate or
+underflow the payload length.  The function also probes and reads words
+without first proving their alignment and extent.
 
-Signed-off-by: Rishab Madhugiri <rishab.madhugiri@gmail.com>
+Track the payload pointer and length together.  Validate the optional
+header, opcode, word alignment, and paired-word requirement before copying.
+Use unaligned little-endian accessors and stop hardware initialization when
+the firmware layout is invalid.
+
+Fixes: a1a87fa3a0cf ("[media] coda: add support for native order firmware files with Freescale header")
+Assisted-by: Codex:gpt-5
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
-v3: Declare loop counter variable locally in the for loop and remove
-    previous function-scope declaration as suggested by Andy Shevchenko.
-v2: Move loop increment to the same line as the for statement as
-    suggested by Dan Carpenter.
+Changes since v1:
+- use unaligned little-endian accessors instead of typed firmware casts
+- validate the optional header before probing the first payload opcode
+- validate both native and pre-reordered payload extents
+- report an invalid image instead of continuing hardware initialization
 
- drivers/staging/media/atomisp/pci/atomisp_compat_css20.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+v1: https://lore.kernel.org/all/20260706092922.79898-1-pengpeng@iscas.ac.cn/
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-index 0ee52637e..eacd7ee5c 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_compat_css20.c
-@@ -2118,7 +2118,6 @@ static void __configure_video_pp_input(struct atomisp_sub_device *asd,
- 	static const struct bayer_ds_factor bds_factors[] = {
- 		{8, 1}, {6, 1}, {4, 1}, {3, 1}, {2, 1}, {3, 2}
- 	};
--	unsigned int i;
+Validation:
+- scripts/checkpatch.pl --no-tree --strict: clean
+- git diff --check: clean
+- manual source-level audit of every read and copy in coda_copy_firmware()
+
+ .../media/platform/chips-media/coda/coda-common.c  | 61 ++++++++++++++++------
+ 1 file changed, 45 insertions(+), 16 deletions(-)
+
+diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
+index be37ea568bfe5..18311b60cc285 100644
+--- a/drivers/media/platform/chips-media/coda/coda-common.c
++++ b/drivers/media/platform/chips-media/coda/coda-common.c
+@@ -24,6 +24,7 @@
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/slab.h>
++#include <linux/unaligned.h>
+ #include <linux/videodev2.h>
+ #include <linux/ratelimit.h>
+ #include <linux/reset.h>
+@@ -2927,36 +2928,60 @@ static int coda_register_device(struct coda_dev *dev, int i)
+ 	return ret;
+ }
  
- 	if (width == 0 && height == 0)
- 		return;
-@@ -2160,8 +2159,7 @@ static void __configure_video_pp_input(struct atomisp_sub_device *asd,
- 	bayer_ds_out_res->width = effective_res->width;
- 	bayer_ds_out_res->height = effective_res->height;
+-static void coda_copy_firmware(struct coda_dev *dev, const u8 * const buf,
+-			       size_t size)
++static int coda_copy_firmware(struct coda_dev *dev, const u8 *buf,
++			      size_t size)
+ {
+-	u32 *src = (u32 *)buf;
++	u32 *dst = dev->codebuf.vaddr;
++	size_t words, i;
++	u32 first, second;
  
--	for (i = 0; i < sizeof(bds_factors) / sizeof(struct bayer_ds_factor);
--	     i++) {
-+	for (unsigned int i = 0; i < ARRAY_SIZE(bds_factors); i++) {
- 		if (effective_res->width >= out_width *
- 		    bds_factors[i].numerator / bds_factors[i].denominator &&
- 		    effective_res->height >= out_height *
+ 	/* Check if the firmware has a 16-byte Freescale header, skip it */
+-	if (buf[0] == 'M' && buf[1] == 'X')
+-		src += 4;
++	if (size < 2)
++		return -EINVAL;
++
++	if (buf[0] == 'M' && buf[1] == 'X') {
++		if (size < 16)
++			return -EINVAL;
++
++		buf += 16;
++		size -= 16;
++	}
++
++	if (size < sizeof(__le16))
++		return -EINVAL;
++
+ 	/*
+ 	 * Check whether the firmware is in native order or pre-reordered for
+ 	 * memory access. The first instruction opcode always is 0xe40e.
+ 	 */
+-	if (__le16_to_cpup((__le16 *)src) == 0xe40e) {
+-		u32 *dst = dev->codebuf.vaddr;
+-		int i;
+-
++	if (get_unaligned_le16(buf) == 0xe40e) {
+ 		/* Firmware in native order, reorder while copying */
++		if (size % sizeof(u32))
++			return -EINVAL;
++
++		words = size / sizeof(u32);
+ 		if (dev->devtype->product == CODA_DX6) {
+-			for (i = 0; i < (size - 16) / 4; i++)
+-				dst[i] = (src[i] << 16) | (src[i] >> 16);
++			for (i = 0; i < words; i++) {
++				first = get_unaligned_le32(buf + i * sizeof(u32));
++				dst[i] = (first << 16) | (first >> 16);
++			}
+ 		} else {
+-			for (i = 0; i < (size - 16) / 4; i += 2) {
+-				dst[i] = (src[i + 1] << 16) | (src[i + 1] >> 16);
+-				dst[i + 1] = (src[i] << 16) | (src[i] >> 16);
++			if (words % 2)
++				return -EINVAL;
++
++			for (i = 0; i < words; i += 2) {
++				first = get_unaligned_le32(buf + i * sizeof(u32));
++				second = get_unaligned_le32(buf + (i + 1) * sizeof(u32));
++				dst[i] = (second << 16) | (second >> 16);
++				dst[i + 1] = (first << 16) | (first >> 16);
+ 			}
+ 		}
+ 	} else {
+ 		/* Copy the already reordered firmware image */
+-		memcpy(dev->codebuf.vaddr, src, size);
++		memcpy(dev->codebuf.vaddr, buf, size);
+ 	}
++
++	return 0;
+ }
+ 
+ static void coda_fw_callback(const struct firmware *fw, void *context);
+@@ -3007,8 +3032,12 @@ static void coda_fw_callback(const struct firmware *fw, void *context)
+ 	if (ret < 0)
+ 		goto put_pm;
+ 
+-	coda_copy_firmware(dev, fw->data, fw->size);
++	ret = coda_copy_firmware(dev, fw->data, fw->size);
+ 	release_firmware(fw);
++	if (ret) {
++		v4l2_err(&dev->v4l2_dev, "invalid firmware image\n");
++		goto put_pm;
++	}
+ 
+ 	ret = coda_hw_init(dev);
+ 	if (ret < 0) {
+
+base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
 -- 
-2.43.0
+2.50.1
 
