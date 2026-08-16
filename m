@@ -1,194 +1,131 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782EF3438B5;
-	Sun, 16 Aug 2026 05:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9385745000;
+	Sun, 16 Aug 2026 05:21:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786857550; cv=none; b=BAKDaLJlyQfd5nB9osphmML2XKiMpXyxDB/et1NltN6cL6oBfqt7Wqt4qm/8l4j2CpG12OfN0koD2Vk3J+Qemye+N8c6FRtJLUJPrq9+gSkcrf/QBDehz20ygEpL44Se3npIt57ruF9H69IZw/b+YrgjOseKgkWc4loZDaXpfSc=
+	t=1786857679; cv=none; b=UgMeHItWfR4DvhvXOMxmvzzwy6ufnibUuSaI2NseLLR466as7kj1+R7ejWoQTBJ0xLDozirjYpJYTOTuJI83DqJt8dF+smnwPrfxx1uBh98+hoxWuuN7Kkkazn2h5tHTXa8iy7s4PiqPwRqp0lhcOsmfgsp2Ak589FJBaZ9s1zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786857550; c=relaxed/simple;
-	bh=ohIE386wEoVcyWRElFwmsTJ5xap98ikabxyZuY/5C0s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BMvI1/zNdgpwhTFixwmOhn4zL3pfpxhACXxWnumDGjJ90aiRBtz3x2bu6xZ5lom+AckRDRGCoUk0SMog55PVjBaSS5vlFl3w/JQywh1HEZfZibfZjCOVf5GHy2rFU/0X6j1yTK/ZCDvUNv5qlpMn8a3/BMoER58YSFNT8OLVmC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowAAHET88SIFqUjeMBQ--.5585S2;
-	Sun, 16 Aug 2026 13:18:53 +0800 (CST)
-From: Pengpeng Hou <pengpeng@iscas.ac.cn>
-To: Philipp Zabel <p.zabel@pengutronix.de>
-Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] media: coda: validate firmware payload before copying
-Date: Sun, 16 Aug 2026 13:18:49 +0800
-Message-ID: <20260816051851.3712-1-pengpeng@iscas.ac.cn>
-X-Mailer: git-send-email 2.50.1
+	s=arc-20240116; t=1786857679; c=relaxed/simple;
+	bh=wkD+puIDwH8X5KcAPo5+8dzCJMmaOS+fabuqW1fkf5o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kdBd+QZf33Qf3sEkysgELIop+WCkK26nHwK7PMmZF9WjYfvFPjkRetPidlonYg8HwQQ9cakbM9cJiNA3hy26nCGF+vp8lKOwR9L30o9x2SazZ8jt/2mWrUdIBUZ//RlZ8Kg7BEx/gRzpv9QPvlAvhQTmzORP7lp8JmwtcBOCh/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fUTiFcvj; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fUTiFcvj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786857678; x=1818393678;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=wkD+puIDwH8X5KcAPo5+8dzCJMmaOS+fabuqW1fkf5o=;
+  b=fUTiFcvjM8DlV+6zQuErkqXslTRK+6LOf82da78PYcQgAouSOqIP7s/Q
+   TtbfDi89VBT1XmlVgP9v+LtSnXENTNwBELS+HuB8HLC4u7Nu6/7yjw+G1
+   RK2miQhrDRjIYZbK0BBhMbHl4M65QKHxbwhw0LJF306ndpNMhbuJVQSnC
+   UaEI4nhNqzWDTcSFkH14zx+BaImiDUhHtEcT9Ue8gRtJQDtp5tmm7lxuR
+   zRGjGLDR//Oy5ia2Dbs7OHg3OmZm3KQ+KZNXe878PDcgosqAwZVYZ6lve
+   FtTHvWKg+auyOym3Uco63VVUN/XgvuZcjSojLtBmc7E5S6E3NJ6/GnU63
+   Q==;
+X-CSE-ConnectionGUID: egZcs64vT0GEsg4Hw9wF9A==
+X-CSE-MsgGUID: inxMx69HRV2ixEu/Rs6Mbw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11876"; a="89889057"
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
+   d="scan'208";a="89889057"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Aug 2026 22:21:17 -0700
+X-CSE-ConnectionGUID: 0rXfYLmnQnmfOM4eSrY5ZQ==
+X-CSE-MsgGUID: Edb951HeR0eQwvARDEzx/Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,226,1779174000"; 
+   d="scan'208";a="265204091"
+Received: from igk-lkp-server01.igk.intel.com (HELO 3cba2a188a06) ([10.211.93.152])
+  by orviesa009.jf.intel.com with ESMTP; 15 Aug 2026 22:21:16 -0700
+Received: from kbuild by 3cba2a188a06 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wvTJ3-000000006YP-1XVL;
+	Sun, 16 Aug 2026 05:21:13 +0000
+Date: Sun, 16 Aug 2026 07:20:59 +0200
+From: kernel test robot <lkp@intel.com>
+To: Pol =?iso-8859-1?Q?Fern=E1ndez_Fern=E1ndez?= <fernandezfernandezpol@gmail.com>,
+	linux-media@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, laurent.pinchart@ideasonboard.com,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Pol =?iso-8859-1?Q?Fern=E1ndez_Fern=E1ndez?= <fernandezfernandezpol@gmail.com>
+Subject: Re: [PATCH 2/2] media: uvcvideo: add device entry for Logitech C920
+ (046d:08e5)
+Message-ID: <202608160712.l89JPkSj-lkp@intel.com>
+References: <20260629163805.37879-2-fernandezfernandezpol@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHET88SIFqUjeMBQ--.5585S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxAw4rGrW5ZFWxAFW3uFW7Arb_yoWrtF13pa
-	y5Kay2yFW5Cr1Yyr1xAw47AFy5uws5JFWUGFW7CFn7C34Dtr1kX34DtFyjqryrCrWIg3W3
-	uFsaqFnxAFnF9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjuHq7
-	UUUUU==
-X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260629163805.37879-2-fernandezfernandezpol@gmail.com>
 
-coda_copy_firmware() accepts an optional 16-byte MX header, but moves the
-source pointer without reducing the remaining size.  The pre-reordered path
-then copies the original size from the advanced pointer, reading 16 bytes
-past the firmware allocation.  The native-order path always subtracts 16
-from the size, including for images without the header, and can truncate or
-underflow the payload length.  The function also probes and reads words
-without first proving their alignment and extent.
+Hi Pol,
 
-Track the payload pointer and length together.  Validate the optional
-header, opcode, word alignment, and paired-word requirement before copying.
-Use unaligned little-endian accessors and stop hardware initialization when
-the firmware layout is invalid.
+kernel test robot noticed the following build errors:
 
-Fixes: a1a87fa3a0cf ("[media] coda: add support for native order firmware files with Freescale header")
-Assisted-by: Codex:gpt-5
-Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
----
-Changes since v1:
-- use unaligned little-endian accessors instead of typed firmware casts
-- validate the optional header before probing the first payload opcode
-- validate both native and pre-reordered payload extents
-- report an invalid image instead of continuing hardware initialization
+[auto build test ERROR on linuxtv-media-pending/master]
+[also build test ERROR on media-tree/master sailus-media-tree/master linus/master v7.2-rc7 next-20260721]
+[cannot apply to sailus-media-tree/streams]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-v1: https://lore.kernel.org/all/20260706092922.79898-1-pengpeng@iscas.ac.cn/
+url:    https://github.com/intel-lab-lkp/linux/commits/Pol-Fern-ndez-Fern-ndez/media-uvcvideo-add-device-entry-for-Logitech-C920-046d-08e5/20260814-213320
+base:   https://git.linuxtv.org/media-ci/media-pending.git master
+patch link:    https://lore.kernel.org/r/20260629163805.37879-2-fernandezfernandezpol%40gmail.com
+patch subject: [PATCH 2/2] media: uvcvideo: add device entry for Logitech C920 (046d:08e5)
+config: x86_64-rhel-9.4-bpf (https://download.01.org/0day-ci/archive/20260816/202608160712.l89JPkSj-lkp@intel.com/config)
+compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260816/202608160712.l89JPkSj-lkp@intel.com/reproduce)
 
-Validation:
-- scripts/checkpatch.pl --no-tree --strict: clean
-- git diff --check: clean
-- manual source-level audit of every read and copy in coda_copy_firmware()
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608160712.l89JPkSj-lkp@intel.com/
 
- .../media/platform/chips-media/coda/coda-common.c  | 61 ++++++++++++++++------
- 1 file changed, 45 insertions(+), 16 deletions(-)
+All errors (new ones prefixed by >>):
 
-diff --git a/drivers/media/platform/chips-media/coda/coda-common.c b/drivers/media/platform/chips-media/coda/coda-common.c
-index be37ea568bfe5..18311b60cc285 100644
---- a/drivers/media/platform/chips-media/coda/coda-common.c
-+++ b/drivers/media/platform/chips-media/coda/coda-common.c
-@@ -24,6 +24,7 @@
- #include <linux/platform_device.h>
- #include <linux/pm_runtime.h>
- #include <linux/slab.h>
-+#include <linux/unaligned.h>
- #include <linux/videodev2.h>
- #include <linux/ratelimit.h>
- #include <linux/reset.h>
-@@ -2927,36 +2928,60 @@ static int coda_register_device(struct coda_dev *dev, int i)
- 	return ret;
- }
- 
--static void coda_copy_firmware(struct coda_dev *dev, const u8 * const buf,
--			       size_t size)
-+static int coda_copy_firmware(struct coda_dev *dev, const u8 *buf,
-+			      size_t size)
- {
--	u32 *src = (u32 *)buf;
-+	u32 *dst = dev->codebuf.vaddr;
-+	size_t words, i;
-+	u32 first, second;
- 
- 	/* Check if the firmware has a 16-byte Freescale header, skip it */
--	if (buf[0] == 'M' && buf[1] == 'X')
--		src += 4;
-+	if (size < 2)
-+		return -EINVAL;
-+
-+	if (buf[0] == 'M' && buf[1] == 'X') {
-+		if (size < 16)
-+			return -EINVAL;
-+
-+		buf += 16;
-+		size -= 16;
-+	}
-+
-+	if (size < sizeof(__le16))
-+		return -EINVAL;
-+
- 	/*
- 	 * Check whether the firmware is in native order or pre-reordered for
- 	 * memory access. The first instruction opcode always is 0xe40e.
- 	 */
--	if (__le16_to_cpup((__le16 *)src) == 0xe40e) {
--		u32 *dst = dev->codebuf.vaddr;
--		int i;
--
-+	if (get_unaligned_le16(buf) == 0xe40e) {
- 		/* Firmware in native order, reorder while copying */
-+		if (size % sizeof(u32))
-+			return -EINVAL;
-+
-+		words = size / sizeof(u32);
- 		if (dev->devtype->product == CODA_DX6) {
--			for (i = 0; i < (size - 16) / 4; i++)
--				dst[i] = (src[i] << 16) | (src[i] >> 16);
-+			for (i = 0; i < words; i++) {
-+				first = get_unaligned_le32(buf + i * sizeof(u32));
-+				dst[i] = (first << 16) | (first >> 16);
-+			}
- 		} else {
--			for (i = 0; i < (size - 16) / 4; i += 2) {
--				dst[i] = (src[i + 1] << 16) | (src[i + 1] >> 16);
--				dst[i + 1] = (src[i] << 16) | (src[i] >> 16);
-+			if (words % 2)
-+				return -EINVAL;
-+
-+			for (i = 0; i < words; i += 2) {
-+				first = get_unaligned_le32(buf + i * sizeof(u32));
-+				second = get_unaligned_le32(buf + (i + 1) * sizeof(u32));
-+				dst[i] = (second << 16) | (second >> 16);
-+				dst[i + 1] = (first << 16) | (first >> 16);
- 			}
- 		}
- 	} else {
- 		/* Copy the already reordered firmware image */
--		memcpy(dev->codebuf.vaddr, src, size);
-+		memcpy(dev->codebuf.vaddr, buf, size);
- 	}
-+
-+	return 0;
- }
- 
- static void coda_fw_callback(const struct firmware *fw, void *context);
-@@ -3007,8 +3032,12 @@ static void coda_fw_callback(const struct firmware *fw, void *context)
- 	if (ret < 0)
- 		goto put_pm;
- 
--	coda_copy_firmware(dev, fw->data, fw->size);
-+	ret = coda_copy_firmware(dev, fw->data, fw->size);
- 	release_firmware(fw);
-+	if (ret) {
-+		v4l2_err(&dev->v4l2_dev, "invalid firmware image\n");
-+		goto put_pm;
-+	}
- 
- 	ret = coda_hw_init(dev);
- 	if (ret < 0) {
+   drivers/media/usb/uvc/uvc_queue.c: In function 'uvc_queue_buffer_complete':
+>> drivers/media/usb/uvc/uvc_queue.c:360:14: error: implicit declaration of function 'uvc_queue_to_stream'; did you mean 'uvc_queue_streaming'? [-Wimplicit-function-declaration]
+     360 |             (uvc_queue_to_stream(queue)->dev->quirks & UVC_QUIRK_DROP_STREAM_ERR))) {
+         |              ^~~~~~~~~~~~~~~~~~~
+         |              uvc_queue_streaming
+>> drivers/media/usb/uvc/uvc_queue.c:360:40: error: invalid type argument of '->' (have 'int')
+     360 |             (uvc_queue_to_stream(queue)->dev->quirks & UVC_QUIRK_DROP_STREAM_ERR))) {
+         |                                        ^~
 
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
--- 
-2.50.1
 
+vim +360 drivers/media/usb/uvc/uvc_queue.c
+
+   352	
+   353	static void uvc_queue_buffer_complete(struct kref *ref)
+   354	{
+   355		struct uvc_buffer *buf = container_of(ref, struct uvc_buffer, ref);
+   356		struct vb2_buffer *vb = &buf->buf.vb2_buf;
+   357		struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+   358	
+   359		if (buf->error && (!uvc_no_drop_param ||
+ > 360		    (uvc_queue_to_stream(queue)->dev->quirks & UVC_QUIRK_DROP_STREAM_ERR))) {
+   361			uvc_queue_buffer_requeue(queue, buf);
+   362			return;
+   363		}
+   364	
+   365		buf->state = buf->error ? UVC_BUF_STATE_ERROR : UVC_BUF_STATE_DONE;
+   366		vb2_set_plane_payload(&buf->buf.vb2_buf, 0, buf->bytesused);
+   367		vb2_buffer_done(&buf->buf.vb2_buf, buf->error ? VB2_BUF_STATE_ERROR :
+   368								VB2_BUF_STATE_DONE);
+   369	}
+   370	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
