@@ -1,95 +1,93 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF06265623;
-	Mon, 17 Aug 2026 07:36:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5ACF38F94C;
+	Mon, 17 Aug 2026 07:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786952219; cv=none; b=otIB/ogQRJM/JFtv+luW5FuVfLMVykKtoolBTDqF6KltIT9G1iQJSwmc0R5hdIeR34/oUzveVtdMLKi+QJbDXa4CBOIOLM4GEO0EwJepxO44bTN6yrwmMRf6TySzsdYvTV/kpbCT5QOEiEPh/kiJoYT2+QF3H85gOLdWM7ps1Mo=
+	t=1786953453; cv=none; b=CCOosztQ2LMoZvv8FezOnfOKzGqlV4/oduGGxFnTQNokL6C8y8/LRJKlA6dHhu4IwnvTyfA06eQuWortdMViPC+UKVLNbEtQAxgut5q5+XiHANFNFKQc1FAsFtfN0sMEhjFSdxK/PvLSg8gVFUUGRrmP2BPjePRrSEGaioyIuEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786952219; c=relaxed/simple;
-	bh=qWKKqdIfuWeRKxCYXt/fCFAwVAR33Q7CTFRZIRLKafw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UtznCsE7YWxU7p2rc/xT8kk1Rbbs3aoC5rswHXCvVEyJq/Xw6GlL+SXfvZ4pyYr6O0n+JSpWwgxgIqUOTD1whWs4+b4IUA3ucb1ur949BzS8nn7+XGSLXDCbLqxEhMQOUnJWqzvVIGGfSdc1lKSYyIKY+1dqDDXbSIaMpewNFo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IsQAOe1w; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IsQAOe1w"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1786952217; x=1818488217;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qWKKqdIfuWeRKxCYXt/fCFAwVAR33Q7CTFRZIRLKafw=;
-  b=IsQAOe1wV48w57gNcn9Q2grgu5vXr9lMeyOPvFfDGH50qlu10doAUlFD
-   4rbp6VrNEBSLt2R8xEu0Yc2a8FcDaSjCD91it78Q8pTpT3ohrCSlmjQdE
-   tnurHsOOsBkFtAXhhGnHniWk4Dh7nqrlXx6PcZbeCII0FS1w1tvPpwKjw
-   ck3EyrWyrOwpm3Sf+4aZmCoWMMCng91dftgm5kt1mv7dke+tIYm49DhDB
-   XWG41HoyAT4GQwySXdZckA1ulsDPtqx/ubBdBKAtvIY7rDMJCBgIgovmg
-   ubxW76tq3GzRWp822FsPhiemtaevIyrrLsXgmHkH3AMcGI9A0WMnS4jl9
-   g==;
-X-CSE-ConnectionGUID: KtgEatOaQIOjhV5T8S3erw==
-X-CSE-MsgGUID: xVg2LEooTl+YvUcqtcChAA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87437714"
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="87437714"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:36:56 -0700
-X-CSE-ConnectionGUID: kiTIXR0qQeSgDEffe1212A==
-X-CSE-MsgGUID: YRWyijFbRQOPgOdjQEe42Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
-   d="scan'208";a="261100873"
-Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:36:54 -0700
-Date: Mon, 17 Aug 2026 10:36:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Nikolay Kulikov <nikolayof23@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev
-Subject: Re: [PATCH v4 0/5] staging: media: atomisp: cleanup pci/hmm/ code
-Message-ID: <aoK6E58VGAVRKuSZ@ashevche-desk.local>
-References: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
+	s=arc-20240116; t=1786953453; c=relaxed/simple;
+	bh=b0vGHuKuUFAg5/ZUnH3cM8K/pDKrxbE1Ez7Xs5ojDSQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CtwfmFWlBxB+nfIxNmX3vfsiu9azQwgUvDTBR1YO90LSy0E34dg++F1tAffhPUTMOXey2qkPVPJi6Bxpa86lrb+bfI4dseujknz8H8RGYNLi2Rj1Hiqzpqo7D3rogs8/BrNjhrv35eR/GJaMAw78btpqKoKiWgiBwjjCmEHASDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3pD7YvoJqzpj6BQ--.49758S2;
+	Mon, 17 Aug 2026 15:57:12 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: sakari.ailus@linux.intel.com,
+	laurent.pinchart@ideasonboard.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haotian Zhang <vulab@iscas.ac.cn>
+Subject: [PATCH] media: mc: Fix potential media_device lifetime race
+Date: Mon, 17 Aug 2026 15:51:19 +0800
+Message-ID: <20260817075119.2106-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3pD7YvoJqzpj6BQ--.49758S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF4ftF15KFW3tFWUJw45trb_yoW8WF1kpF
+	W5Ka45CFyUXrWDGa1kXa18ua4rZ3yft34rGrW2gw1v9r1fX343trWqg345XF9xAFZ7Ja4j
+	qr1jgr1xZFWUA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUeNtxDU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcCA2qCqnBPWwAAsn
 
-On Fri, Aug 14, 2026 at 06:10:07PM +0300, Nikolay Kulikov wrote:
-> This series removes unused functions and replaces obscure
-> variable-checking macros with clear conditional statements.
+__media_device_get() traverses the global media_device_list under
+media_device_lock and takes a reference on a matching instance with an
+unconditional kref_get(). media_device_delete() drops the last
+reference with kref_put() outside the lock, so the refcount can reach
+zero while the instance is still on the list; if a concurrent
+allocate() attempts to acquire a reference from such an instance,
+kref_get() operates on a zero refcount while release() is already in
+progress. The allocator may then return an instance that release()
+subsequently frees, leading to a use-after-free.
 
-> Nikolay Kulikov (5):
->       staging: media: atomisp: remove unused functions from pci/hmm/
->       staging: media: atomisp: inline macros for checking the bo/bodev pointer
->       staging: media: atomisp: inline the check_bo_status_*() macros
->       staging: media: atomisp: inline the var_equal_return*() macros
->       staging: media: atomisp: remove hmm/hmm_common.h file
+Use kref_get_unless_zero() in __media_device_get() when acquiring the
+reference. If the reference count has already dropped to zero, release
+is in progress, so skip the entry and allocate a fresh instance
+instead.
 
-I don't know what the problem is, but in all four versions of this series
-I have never get patch 5 in my mailbox (yes, I can retrieve it from
-lore.kernel.org, but the thing is that either corporate spam-filter or
-something else gates the message to me).
+Fixes: 6e1d824e7a1d ("media: Media Device Allocator API")
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+ drivers/media/mc/mc-dev-allocator.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Overall, LGTM, thanks for pursuing this!
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-for the entire series.
-
+diff --git a/drivers/media/mc/mc-dev-allocator.c b/drivers/media/mc/mc-dev-allocator.c
+index ae17887dec59..8b97372adc83 100644
+--- a/drivers/media/mc/mc-dev-allocator.c
++++ b/drivers/media/mc/mc-dev-allocator.c
+@@ -68,7 +68,8 @@ static struct media_device *__media_device_get(struct device *dev,
+ 		if (mdi->mdev.dev != dev)
+ 			continue;
+ 
+-		kref_get(&mdi->refcount);
++		if (!kref_get_unless_zero(&mdi->refcount))
++			continue;
+ 
+ 		/* get module reference for the media_device owner */
+ 		if (owner != mdi->owner && !try_module_get(mdi->owner))
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.43.0
 
