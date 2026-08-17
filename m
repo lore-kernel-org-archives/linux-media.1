@@ -1,44 +1,61 @@
-Received: from mail.8bytes.org (mail.8bytes.org [85.214.250.239])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id F1B663B3C1B;
-	Mon, 17 Aug 2026 07:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.214.250.239
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786950080; cv=none; b=VZz568ml/olnLqOJezTOBSANlmJpMhkdNGA2/dpS4GVM5tWhmGff4lswulH08+JWNFJ6iy8IRndRxSfqKz7jEXVbXoFDGWajpxgAuvtUNJFE7Az1ZF7AkJo4FoYJ6BmXxwPWewbsGLobe5/PDaLeliGV57g+faxxbss5nO8Dlbg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786950080; c=relaxed/simple;
-	bh=dqaHMnWvKu7zw1fa/cy9Y6aO3pgK3zqhwjOIgODNyZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c4olh8kxoHOj4UrPpfrgVOTpnkFf9+J2/ITKDiBOZP0T7knOAWCSk29gdZL20PdmheAg0S37lqDsJL3xF0Lo1ENQdluyaaiKuXWXzZ0A9yeRRf2/BCBeoYqPhoTopkKU3mw/krgISmEnUhWRmR1C2bBJVFTvgkzHgglvY8xSY+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org; spf=pass smtp.mailfrom=8bytes.org; arc=none smtp.client-ip=85.214.250.239
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=8bytes.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=8bytes.org
-Received: from 8bytes.org (p4ffe1d30.dip0.t-ipconnect.de [79.254.29.48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mail.8bytes.org (Postfix) with ESMTPSA id 4962B206465;
-	Mon, 17 Aug 2026 09:01:11 +0200 (CEST)
-Date: Mon, 17 Aug 2026 09:01:10 +0200
-From: "Joerg Roedel (AMD)" <joro@8bytes.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
-	Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap <rdunlap@infradead.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, Bharath Kumar <quic_bkumar@quicinc.com>, 
-	Chenna Kesava Raju <quic_chennak@quicinc.com>, srinivas.kandagatla@oss.qualcomm.com, 
-	dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, 
-	iommu@lists.linux.dev, linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-Subject: Re: [PATCH v2 05/15] iommu: Add QDA compute context bank bus to
- iommu_buses
-Message-ID: <aoKxmtgbjmVBTwBS@8bytes.org>
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF06265623;
+	Mon, 17 Aug 2026 07:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786952219; cv=none; b=otIB/ogQRJM/JFtv+luW5FuVfLMVykKtoolBTDqF6KltIT9G1iQJSwmc0R5hdIeR34/oUzveVtdMLKi+QJbDXa4CBOIOLM4GEO0EwJepxO44bTN6yrwmMRf6TySzsdYvTV/kpbCT5QOEiEPh/kiJoYT2+QF3H85gOLdWM7ps1Mo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786952219; c=relaxed/simple;
+	bh=qWKKqdIfuWeRKxCYXt/fCFAwVAR33Q7CTFRZIRLKafw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UtznCsE7YWxU7p2rc/xT8kk1Rbbs3aoC5rswHXCvVEyJq/Xw6GlL+SXfvZ4pyYr6O0n+JSpWwgxgIqUOTD1whWs4+b4IUA3ucb1ur949BzS8nn7+XGSLXDCbLqxEhMQOUnJWqzvVIGGfSdc1lKSYyIKY+1dqDDXbSIaMpewNFo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IsQAOe1w; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IsQAOe1w"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1786952217; x=1818488217;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qWKKqdIfuWeRKxCYXt/fCFAwVAR33Q7CTFRZIRLKafw=;
+  b=IsQAOe1wV48w57gNcn9Q2grgu5vXr9lMeyOPvFfDGH50qlu10doAUlFD
+   4rbp6VrNEBSLt2R8xEu0Yc2a8FcDaSjCD91it78Q8pTpT3ohrCSlmjQdE
+   tnurHsOOsBkFtAXhhGnHniWk4Dh7nqrlXx6PcZbeCII0FS1w1tvPpwKjw
+   ck3EyrWyrOwpm3Sf+4aZmCoWMMCng91dftgm5kt1mv7dke+tIYm49DhDB
+   XWG41HoyAT4GQwySXdZckA1ulsDPtqx/ubBdBKAtvIY7rDMJCBgIgovmg
+   ubxW76tq3GzRWp822FsPhiemtaevIyrrLsXgmHkH3AMcGI9A0WMnS4jl9
+   g==;
+X-CSE-ConnectionGUID: KtgEatOaQIOjhV5T8S3erw==
+X-CSE-MsgGUID: xVg2LEooTl+YvUcqtcChAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11877"; a="87437714"
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
+   d="scan'208";a="87437714"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:36:56 -0700
+X-CSE-ConnectionGUID: kiTIXR0qQeSgDEffe1212A==
+X-CSE-MsgGUID: YRWyijFbRQOPgOdjQEe42Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,228,1779174000"; 
+   d="scan'208";a="261100873"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.67])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Aug 2026 00:36:54 -0700
+Date: Mon, 17 Aug 2026 10:36:51 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Nikolay Kulikov <nikolayof23@gmail.com>
+Cc: Hans de Goede <hansg@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH v4 0/5] staging: media: atomisp: cleanup pci/hmm/ code
+Message-ID: <aoK6E58VGAVRKuSZ@ashevche-desk.local>
+References: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -47,25 +64,32 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
+In-Reply-To: <20260814-atomisp_remove_hmm-v4-0-c3c954a12b51@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Mon, Aug 17, 2026 at 10:17:40AM +0530, Ekansh Gupta wrote:
-> Register the QDA compute context bank bus (qda-compute-cb) with the
-> IOMMU subsystem by adding it to the iommu_buses[] array.
-> 
-> The QDA driver creates synthetic devices on this bus to represent
-> IOMMU context banks (CBs). Each CB device needs its own IOMMU domain
-> so that the DSP memory manager can enforce per-session address space
-> isolation. Without this registration, the IOMMU subsystem does not
-> probe CB devices for IOMMU groups and of_dma_configure() in the bus
-> dma_configure callback has no IOMMU domain to attach to.
-> 
-> Assisted-by: Claude:claude-sonnet-5
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-> ---
->  drivers/iommu/iommu.c | 4 ++++
->  1 file changed, 4 insertions(+)
+On Fri, Aug 14, 2026 at 06:10:07PM +0300, Nikolay Kulikov wrote:
+> This series removes unused functions and replaces obscure
+> variable-checking macros with clear conditional statements.
 
-Acked-by: Joerg Roedel <joerg.roedel@amd.com>
+> Nikolay Kulikov (5):
+>       staging: media: atomisp: remove unused functions from pci/hmm/
+>       staging: media: atomisp: inline macros for checking the bo/bodev pointer
+>       staging: media: atomisp: inline the check_bo_status_*() macros
+>       staging: media: atomisp: inline the var_equal_return*() macros
+>       staging: media: atomisp: remove hmm/hmm_common.h file
+
+I don't know what the problem is, but in all four versions of this series
+I have never get patch 5 in my mailbox (yes, I can retrieve it from
+lore.kernel.org, but the thing is that either corporate spam-filter or
+something else gates the message to me).
+
+Overall, LGTM, thanks for pursuing this!
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+for the entire series.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
