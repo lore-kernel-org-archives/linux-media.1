@@ -1,172 +1,283 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010018.outbound.protection.outlook.com [52.101.201.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1634B378D6B;
-	Mon, 17 Aug 2026 17:56:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786989374; cv=fail; b=o0Ptz4Sz9hHaB3x6oBF3rSsmrjoUg+m4q2xZy19D+lsc3v4f1T1jTle8f9uWHWyHuEit+iOHYK9KjSajfJ2kvGvqoScIV+KOVeYixcICC6uiU9FjhK+JgZ9JBGIkYWrWcz1nJApJcdfpDuOEDfRN4lTcUWYqmSgK/p3K1pW2bxQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786989374; c=relaxed/simple;
-	bh=mok7oa3F2d4v2UIxbEnX4oj4ahKr+OW/cV4bpaK/g4Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=nvf5S/2dm2ZxlhSnhsXoL0nw4b/ng1dknnPkUfTYkv/3Zqk6galdU3cjHvqqLkEaj+sTShKGB6a1JSsr9dllY2k/LvSOWhAEd8Ne5NUlBHzNR3Z44Yox8cRkso+xAP2fncgYrE892lrJUK5vhJD4JCi5ymboncfgOIrRKYDCZQI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=du/ZPEA/; arc=fail smtp.client-ip=52.101.201.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 357E337F8AF
+	for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 18:30:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786991457; cv=none; b=GAj7+KpH2bWRkkO0MvJmf/0RdRIiGvw6p9+ie+bj+lymfKa+sjzkXSMVct5kNYzWFhqwxa0aXKGi6SrAuOfEP0DaXGG/5bkO++rH4wA+8ATuY6D1hud3uIe7ElYa8dunytdZmvEEbAkPvMiA1gSB6GkcifjruDngcCvrhjbQyKc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786991457; c=relaxed/simple;
+	bh=uSvhEAqyPaF9DS1lIT77dCJ+dwwoN5i8B6hTnC6Brj0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=ACX2Nyobi871usipt8hAMXk1MHLwzBamJkYSTEx9+hhoncTGvxsgrN34nscO7Ex5wIBSzA5/eJOQwlvtNeJIgfePMlwFjxybFNzVFQnWqbdfeDmTl65aUZRvM2wbuRcWwP+EDND0yk7pU/WCww6fno5lNvTWAwI2547VvRt3dBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=Twz9nXha; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="du/ZPEA/"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=IoOnx7c52ewnqJvgL9k4UwDZsuQao3DwpW7ZUNCp6p1E9olz3cOHG92yuHQM6uZGKFW1h8up4wGpXybqHZIytveMMN1gRTGzF0QNZal9LBj0A2FD+7ETIq+UJ8JQN0+MKILov15P2K3w9cGiY7nWLR9gUUlAl1bq0/culeQKxCwaXeY6NEeGUcxv9U3E+WjEaEVFSocl6rxh/ivuvhi23IqSQtVy0l1sNYkAFMEqA2hxbFoTHZg0pTjAOI3XUs8TK+/x6mTBMnSmDJQU8sh7Sgkpvt5koDwGyewl3f/Lo9p/3u/8TveQ8r0lSpog7MxAsW0V6blRoSx/xNnn9UfAfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=nTedkcnqYCkIR47sGmH+H9JPd8QzOzuHy/JD1BichtE=;
- b=IZmOmYpr5hfPKRYNqEVBXzzVt3ZJgxQLWD1ekRmL9vOQl8uGFo6AuspZ1MuK+ZO1+/bQCycu0oflz4lBRrk8wrCltTMwIxmZqTSdpUQp2Sqwbf7CLh2YKb7YyO7flfYTVUFT1akSPCbqU8bxbX3onBJGs6Mqwe7scXxkR3TFIJtzgYL0hqboMBCfHfgCuf63EQtPWZ1yrHfARB+9diRg4bpM4Xow5BEGLzxRPPtnKVLt4eNHnJhaIJ6vcBieppc/7kusxLWd2j1KKzYGBTv0nq9g/vWgwAVaMm1AKQikrGH/1+XtXcETQlM8dzSS2cqfkwzayC+RRfpaseLlYAiDmA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=nTedkcnqYCkIR47sGmH+H9JPd8QzOzuHy/JD1BichtE=;
- b=du/ZPEA/jHK7/aaxUJIMPIn6LaSMw1Rennl9PTlFb6YGsVsl7jocbFLIvCnY8mKNPJuGnhP0edn/J1XKx5SGepBne+Arxjol6MPNfuQQspxRXE6lhBhg2oKv+haL5XXUKUYQ/wku56FI2PIkU/iqHy7amqtS3hojucyiRR3eOJ0=
-Received: from SJ0PR13CA0041.namprd13.prod.outlook.com (2603:10b6:a03:2c2::16)
- by DS7PR12MB9526.namprd12.prod.outlook.com (2603:10b6:8:251::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.315.17; Mon, 17 Aug
- 2026 17:56:07 +0000
-Received: from SJ1PEPF00001CE3.namprd05.prod.outlook.com
- (2603:10b6:a03:2c2:cafe::88) by SJ0PR13CA0041.outlook.office365.com
- (2603:10b6:a03:2c2::16) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Mon, 17
- Aug 2026 17:56:07 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- SJ1PEPF00001CE3.mail.protection.outlook.com (10.167.242.11) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Mon, 17 Aug 2026 17:56:06 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 17 Aug
- 2026 12:56:06 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 17 Aug 2026 12:56:05 -0500
-Message-ID: <1aba31b8-36a6-d3f0-8624-a603d319c54d@amd.com>
-Date: Mon, 17 Aug 2026 10:56:00 -0700
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="Twz9nXha"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52d8679c149so24370051cf.2
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 11:30:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1786991453; x=1787596253; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=X3Et/3n5ITlvJxpO+xTy2H305JPgTylywrosUJl6XNw=;
+        b=Twz9nXhaXLFck+g8WlTK4E9xrtMQA5RHwWqE0pCbcgqZNUijUTEdg+eGkJ3luwsmtn
+         LqHMTc0KWJqiGV2oXomkadEZAQ2HhPejEi37ckec4xcNbH47AP5TutWqopAcPiTXREuM
+         GThZB7eeAVy0bAKJU2621LtoNiSRzHdb97mpg6VmAjy8/X2DsGj3x3kte+nMFlryxGGP
+         aIzNQL1TiNWuJMWHRa3cdaFOLa8dcxClfV/Sg+gFKUbvMeSIoH1uLPxb1jTst/Bzvelr
+         fd4GtheVCuy8joG28xp5To3Pb9ySb3GHFbU4BTBb5VyvoudvP+gxofjhVWxysZhsHqm2
+         0Ddg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786991453; x=1787596253;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=X3Et/3n5ITlvJxpO+xTy2H305JPgTylywrosUJl6XNw=;
+        b=bcd0GsTP05qy0K3SsanGWgvjDwUHCKkNvVdi8ZjstOk21IwKb4DMCwMtIOH5BeKpJF
+         OsbTxpy2XaXWY8GfQDjm54krhsbzsNzp4eD7cQ7ydwcka8SGScYXkOtU6Zo/O653g4uz
+         K5fBxqCOS3Bw+M4bQJf1+hvaQDby2lAu1ihZGdmdNZLM2+gr9uKk2s7IIwbsPNuhuTuc
+         vjEs7YqTrAtYGhsYRVBs8Bm3yV1swXXzW7gBgo7+YwOW9UVK2In4rR5qyrxoxgaZcv4y
+         vFVAG7DJZDnbld6c88+9dnx6K6QTaf0tBLTtQwGRDg7r+eeeuRddbtMvj7mcym5MKrpM
+         MC8w==
+X-Gm-Message-State: AOJu0YyoT1Bm4ndsB1jgyuzLPdDva2XMb8lFr59iynimg7aqYObU7iPM
+	CUljh+99yn+bn0SohUFNB5/OQ1tnF8W15bW10fbgXxR3eSEoIRtScrHxBAg5xjLKYd4=
+X-Gm-Gg: AR+sD111c3IfKI5yuJxIxRy2T0obcalY32CUtrMEmm7Rm2P/ddg4X7QlbTki+HVY9ZZ
+	brjv45APwPb9B33x+TV0DC+GbGOROVKbO28CGgJY9OomjgYZBs7UAWxIUtwM67zAiSbKLX0p8d4
+	FEpk+D98/UQ+1TJsTmG4b0hYT3wUm3raZo30vSDqnruHb5ncBfqoODeWkyAzpdgvdGgEOcYpzdx
+	TE3a1jiXcvdSMK6pIdnXsU2Fk9Ae+ccb4QqZOTxic04Isf2FWDJQYpQCSAWqCFOMeaQyNTYH2WE
+	LJONEUgcntTBZ3pHoCHHI+1Ka9FPoLJSWBooCvIu0hrymmkZSciMniMWBLqKP2S9ZOEuPVHuX7d
+	KDurX6GArY6PmV3VzSYqMM0LF31GuRAYiYOcfVvp3ELZs8Ncel5AW2K1yyduOP6gpV8ns6pBY/O
+	ySHcJtEe/9kSct26inN8/EuEHu09xw47Tpl0A+kIPNS326Y8Q2lbYxm+nQrDlNPcQn+bFPcD56n
+	XA=
+X-Received: by 2002:ac8:6546:0:b0:51e:47a4:4851 with SMTP id d75a77b69052e-52d8530dbb8mr314632181cf.8.1786991452831;
+        Mon, 17 Aug 2026 11:30:52 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52db60eb85csm21612111cf.4.2026.08.17.11.30.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 11:30:52 -0700 (PDT)
+Message-ID: <311a2dc7cb1d95a518f9a97b643dcc05c38c4f4b.camel@ndufresne.ca>
+Subject: Re: [PATCH 1/4] media: v4l2-mem2mem: serialize REMOVE_BUFS with job
+ execution
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: moonafterrain@outlook.com, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, Benjamin Gaignard
+ <benjamin.gaignard@collabora.com>, Dafna Hirschfeld	 <dafna3@gmail.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, Mauro
+ Carvalho Chehab <mchehab+samsung@kernel.org>, Yuhao Jiang
+ <danisjiang@gmail.com>, stable@vger.kernel.org
+Date: Mon, 17 Aug 2026 14:30:51 -0400
+In-Reply-To: <20260815-vicodec-fixes-v1-1-12101572eba7@outlook.com>
+References: <20260815-vicodec-fixes-v1-0-12101572eba7@outlook.com>
+	 <20260815-vicodec-fixes-v1-1-12101572eba7@outlook.com>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-UmT6kcNk5jTJzN0Vqpr/"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v2 0/5] accel/amdxdna: honour the SYNC_BO range
-Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>,
-	=?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>
-CC: Min Ma <mamin506@gmail.com>, Oded Gabbay <ogabbay@kernel.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>, Sonal Santan
-	<sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>
-References: <20260811231351.1011244-1-taimuraz@kaitmazov.com>
- <ee663474-5de0-4ffe-8ac1-1dcdff5dbc28@amd.com>
- <224dd281-da48-84b3-a048-016b51aa0362@amd.com>
- <a505f9e5-b416-43e9-934d-c5c29b8a70e9@amd.com>
- <9420bbe5-46a3-84be-eae8-596bc42bddac@amd.com>
- <20260813182905.124248-1-taimuraz@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260813182905.124248-1-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE3:EE_|DS7PR12MB9526:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56d22b77-2273-428d-c4d7-08defc88cfd9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|36860700016|82310400026|376014|10067099003|56012099006|18002099003|22082099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	0/KCSY5XmLpnTmZ45JU9qEc9s6/qQnnVnfQ+6t96sR2uFctpj/M/yUlGmQeI74iEdkwGNyJC9M6MLTEhp4IOnwneVSui5OQ4e326cT/VF7+wIvwzOHPlD4JPSMF/AIaxFD+Shad2vGVJ1lu76c5NAHQGea2aOOgclOWZnyLHQe8DkeW5fkwd8I5c4sxNUlkE/L8YL/qMb2qVi+B3xZwryrw5aKk8rZ74WrEJWgB+fk6GchROW6UiioAxWFC5d31MJioQ+esEuT4mUR3wCCW5xTrqS4MF9jMHPiFOkVTNTAo8sUmDAHHxcDXmCEufmIpHbleRbx5MC84QierbjkNfM4jeONNZJW+f2iJxP+gooTKfYqijOXFdTMidwUr1uwRfboHDD8kEmzIvZtzRIPUWlcdkSbBu/Y/2EaPpHRL4TJLcQzmO/9SkHFNYI0SaMcNULHxI9Rn7EisdCF00EQ2CYiCHiBaXQG1i4sXfAWh612r7latMUTPUkhwNSM6fPi83KWMjVuQuD3IzZZpJTz5LPtyQ18T2vGXYQd5H94K59xLhzo7Bq7TjpPU9ZdE0EcECu5D4yFf2uD8WqhXZMynckdVqVEuG3jxPKnW+p1Xde6QKNRFOf4axqDR6CBWFpCOsWbk18OW8z7jCtRDIfEJhKuFIgPNvVWLl0w+y5F0dk5CqPKritxJXw1isCTux9RgO4AVRlCyKS6bVlvdAcRq3zQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(36860700016)(82310400026)(376014)(10067099003)(56012099006)(18002099003)(22082099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Fci0jueljnmOg7ICnOJcWbotkyZhgV2aPyDzmjqNfyx6n9ycrrxufsIq9ZFdtAqvHIA8YMbEUkQXnXoY9XOa0lrUZenY7kWutOsG2u9io9dgcdDE3j6A/6LIgitE1aBjE3trlWhldkHUBgIIhXm4H3bwRN6obnrBFCvI/wrspelkJSvVDoMAIk4qhq6iOsLSKxYOsVqTNt0luZc2ZnRvbPGDot8GJ2lnBodQJzqFuK+GonrW2HimQ6j8xfCTMGkLDBfD70nJG4OiYQuPowW2XpeMz2UrfE1GrvNVO10+Zf4Oi7yQsn+LESOEJj1WnDBpwT4MG72+ojpwm+0qorbFtro3cI/lJ+g7q+J6G+VoJbx4OOJ+8leUf0GHhGvoMCpaiJBORcSm0DP+e9Lrrk2nkBDB1DZwrwt2nes4Areo81XOP8VnZyZdt0He4O6Lbai6
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Aug 2026 17:56:06.5412
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56d22b77-2273-428d-c4d7-08defc88cfd9
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF00001CE3.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB9526
 
 
-On 8/13/26 11:29, Taimuraz Kaitmazov wrote:
-> Resending: my earlier reply does not appear on the lists, so I assume it
-> did not reach you either.
->
-> On 8/13/26 20:08, Lizhi Hou wrote:
->> The legacy NPU device is not cache coherent. And the next generation
->> (aie4) devices will be cache coherent.
-> Confirming that with numbers, since I had measured it before your reply
-> landed. On npu4, without a flush the CPU reads what the buffer held
-> before the NPU wrote it, and the NPU reads what DRAM held before the CPU
-> wrote it. Both reproduce on all 20 runs, and the stale read is most of
-> the buffer, not a stray line: 3931 of 4096 values on average.
->
-> Good to know aie4 is coherent -- that makes anything we do here a
-> legacy-only concern.
->
-> On 8/13/26 09:44, Christian König wrote:
->> An alternative would be to use DMA_BUF_IOCTL_SYNC from userspace
-> Tried it against amdgpu, imported into amdxdna: stale on all 20 runs, no
-> better than no sync at all. SYNC_BO on the same buffer is clean on all
-> 20.
->
-> Which leaves me no legal way to import a buffer the CPU also reads. Is
-> there one I'm missing, or should a device like this just not import?
->
-> On 8/12/26 17:45, Lizhi Hou wrote:
->> we need to unconditionally return -EOPNOTSUPP for imported BO
-> is_import_bo() also covers ubuf and cbuf, so that stops maintaining our
-> own userptr and carve-out BOs too. They take that arm today: on a 64 MiB
-> userptr BO a 4 KiB sync and a full sync both cost 659 us, so the range
-> is already being ignored there.
->
-> Keying on dma_buf->ops instead would confine it to foreign buffers.
-> Either is fine by me, tell me which you want.
->
-> Separately: XRT's buffer::sync() clflushes in userspace unless
-> Debug.force_driver_sync is set, so the stack does this to foreign
-> dma-bufs whatever the driver does. And when the ioctl is used, a
-> FROM_DEVICE sync returns -EINVAL after the flush has already run, out of
-> amdxdna_hwctx_sync_debug_bo() when the BO has no assigned hwctx. Happy
-> to send that as its own patch; the helper has one caller, so returning 0
-> there is the obvious shape unless you want it done elsewhere.
->
-> v3 is sent: patches 1, 3 and 4 only. Patch 5 is dropped, and 2 with it
-> since it only serves 5. I have not tested 5 on a matching tree and its
-> numbers came from the foreign import case.
+--=-UmT6kcNk5jTJzN0Vqpr/
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Based on the discussion, could you add one patch to unconditionally 
-return -EOPNOTSUPP for imported BO at the beginning of amdxdna_flush_bo()?
+Le samedi 15 ao=C3=BBt 2026 =C3=A0 22:56 +0800, Junrui Luo via B4 Relay a =
+=C3=A9crit=C2=A0:
+> From: Junrui Luo <moonafterrain@outlook.com>
+>=20
+> VIDIOC_REMOVE_BUFS can free a buffer that an in-flight job is still
+> decoding from, giving a use-after-free of the reference frame.
+>=20
+> For stateless decoders a reference frame sits in VB2_BUF_STATE_DEQUEUED,
+> which is exactly what REMOVE_BUFS frees: userspace dequeues the decoded
+> capture buffer and names its timestamp as the reference for the next
+> frame. device_run() resolves that timestamp with vb2_find_buffer() and
+> keeps the vb2_plane_vaddr() result for the whole decode without holding a
+> reference. Nothing serializes the two paths: REMOVE_BUFS runs under
+> m2m_ctx->q_lock and q->mmap_lock, while the job path holds neither and
+> reaches device_run() from schedule_work() outside any ioctl lock.
+>=20
+> Hold the instance off the job queue and wait for its in-flight job before
+> removing the buffers. The pause is per-instance rather than device-wide
+> because the buffers belong to that instance's own queues and the caller
+> is inside one of its own ioctls, so the context cannot be released while
+> the wait is in progress. A losing race degrades to vb2_find_buffer()
+> returning NULL and the job failing with -EINVAL, which is already
+> handled.
 
-Lizhi
+I recognize this is a bug, but the fix waits, where it should just fail (EB=
+USY).
+We have flags to track the buffers owned by the driver, and that should be
+usable here and entirely done at vb2 level.
 
->
-> Taimuraz
->
->
+Once this solved, you should check if this isn't actually a vicodec bug (th=
+ere
+is other related bug  report iirc) rather then a m2m framework issues as yo=
+u
+subject state.
+
+Please don't just prompt this back, read and understand.
+
+Nicolas
+
+>=20
+> Reproduced on vicodec under KASAN:
+>=20
+>   BUG: KASAN: vmalloc-out-of-bounds in add_deltas+0x450/0xcc0
+>   Read of size 1 at addr ffffc90000a77bc0 by task trigger_bin/71
+>   Call Trace:
+>    add_deltas+0x450/0xcc0
+>    decode_plane+0x1799/0x34b0
+>    fwht_decode_frame+0x173/0x620
+>    v4l2_fwht_decode+0x595/0xea0
+>    device_run+0x6bb/0x1850
+>    media_request_ioctl+0x2fb/0x450
+>    __se_sys_ioctl+0xb1/0x110
+>    do_syscall_64+0x12c/0x360
+>=20
+> Fixes: 2f2419502f69 ("media: v4l2: Add mem2mem helpers for REMOVE_BUFS io=
+ctl")
+> Reported-by: Yuhao Jiang <danisjiang@gmail.com>
+> Assisted-by: Claude:claude-opus-5
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Junrui Luo <moonafterrain@outlook.com>
+> ---
+>  drivers/media/v4l2-core/v4l2-mem2mem.c | 60 ++++++++++++++++++++++++++++=
++++---
+>  1 file changed, 56 insertions(+), 4 deletions(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-mem2mem.c b/drivers/media/v4l2-=
+core/v4l2-mem2mem.c
+> index a65cbb124cfe..10a0a74f782c 100644
+> --- a/drivers/media/v4l2-core/v4l2-mem2mem.c
+> +++ b/drivers/media/v4l2-core/v4l2-mem2mem.c
+> @@ -41,6 +41,8 @@ module_param(debug, bool, 0644);
+>  #define TRANS_RUNNING		(1 << 1)
+>  /* Instance is currently aborting */
+>  #define TRANS_ABORT		(1 << 2)
+> +/* Instance must not be scheduled while its buffers are being removed */
+> +#define TRANS_PAUSED		(1 << 3)
+> =20
+> =20
+>  /* The job queue is not running new jobs */
+> @@ -309,9 +311,9 @@ static void __v4l2_m2m_try_queue(struct v4l2_m2m_dev =
+*m2m_dev,
+> =20
+>  	spin_lock_irqsave(&m2m_dev->job_spinlock, flags_job);
+> =20
+> -	/* If the context is aborted then don't schedule it */
+> -	if (m2m_ctx->job_flags & TRANS_ABORT) {
+> -		dprintk("Aborted context\n");
+> +	/* If the context is aborted or paused then don't schedule it */
+> +	if (m2m_ctx->job_flags & (TRANS_ABORT | TRANS_PAUSED)) {
+> +		dprintk("Aborted or paused context\n");
+>  		goto job_unlock;
+>  	}
+> =20
+> @@ -1388,16 +1390,66 @@ int v4l2_m2m_ioctl_create_bufs(struct file *file,=
+ void *priv,
+>  }
+>  EXPORT_SYMBOL_GPL(v4l2_m2m_ioctl_create_bufs);
+> =20
+> +/*
+> + * Keep @m2m_ctx off the job queue and wait for its in-flight job, if an=
+y.
+> + *
+> + * Only this instance is held back: the buffers about to be removed belo=
+ng to
+> + * its own queues, so no other instance can be reading them. Waiting on =
+this
+> + * instance is also what makes the wait safe -- the caller is inside one=
+ of its
+> + * ioctls, so v4l2_m2m_ctx_release() cannot free it here.
+> + */
+> +static void v4l2_m2m_pause_ctx(struct v4l2_m2m_ctx *m2m_ctx)
+> +{
+> +	struct v4l2_m2m_dev *m2m_dev =3D m2m_ctx->m2m_dev;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+> +	m2m_ctx->job_flags |=3D TRANS_PAUSED;
+> +	if (m2m_ctx->job_flags & TRANS_RUNNING) {
+> +		spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +		wait_event(m2m_ctx->finished,
+> +			   !(m2m_ctx->job_flags & TRANS_RUNNING));
+> +		return;
+> +	}
+> +	if (m2m_ctx->job_flags & TRANS_QUEUED) {
+> +		list_del(&m2m_ctx->queue);
+> +		m2m_ctx->job_flags &=3D ~TRANS_QUEUED;
+> +	}
+> +	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +}
+> +
+> +static void v4l2_m2m_resume_ctx(struct v4l2_m2m_ctx *m2m_ctx)
+> +{
+> +	struct v4l2_m2m_dev *m2m_dev =3D m2m_ctx->m2m_dev;
+> +	unsigned long flags;
+> +
+> +	spin_lock_irqsave(&m2m_dev->job_spinlock, flags);
+> +	m2m_ctx->job_flags &=3D ~TRANS_PAUSED;
+> +	spin_unlock_irqrestore(&m2m_dev->job_spinlock, flags);
+> +
+> +	v4l2_m2m_try_schedule(m2m_ctx);
+> +}
+> +
+>  int v4l2_m2m_ioctl_remove_bufs(struct file *file, void *priv,
+>  			       struct v4l2_remove_buffers *remove)
+>  {
+>  	struct v4l2_fh *fh =3D file_to_v4l2_fh(file);
+>  	struct vb2_queue *q =3D v4l2_m2m_get_vq(fh->m2m_ctx, remove->type);
+> +	int ret;
+> =20
+>  	if (q->type !=3D remove->type)
+>  		return -EINVAL;
+> =20
+> -	return vb2_core_remove_bufs(q, remove->index, remove->count);
+> +	/*
+> +	 * Removal is only allowed for DEQUEUED buffers, but that is exactly
+> +	 * the state a stateless decoder's reference frame is in while a job
+> +	 * resolves it by timestamp and reads its memory.
+> +	 */
+> +	v4l2_m2m_pause_ctx(fh->m2m_ctx);
+> +	ret =3D vb2_core_remove_bufs(q, remove->index, remove->count);
+> +	v4l2_m2m_resume_ctx(fh->m2m_ctx);
+> +
+> +	return ret;
+>  }
+>  EXPORT_SYMBOL_GPL(v4l2_m2m_ioctl_remove_bufs);
+> =20
+
+--=-UmT6kcNk5jTJzN0Vqpr/
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoNTWwAKCRDZQZRRKWBy
+9A+TAQDzT19jvMHuEkO79vd5IoN/64y4cPUOs4LQKpVLeLe8/AEA/NknG6GW+Z4O
+odGAQjeIJtsvbcYPUflJfer+oqHksAo=
+=gTE2
+-----END PGP SIGNATURE-----
+
+--=-UmT6kcNk5jTJzN0Vqpr/--
