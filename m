@@ -1,177 +1,131 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D5763AB47E;
-	Mon, 17 Aug 2026 09:55:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C58B03E49C3;
+	Mon, 17 Aug 2026 09:59:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786960508; cv=none; b=BNp3Fj/OODY1Lvwl/n0I6StzM1d4sZ+Op+6BXcWwczyqvb+mscmEs4k6VOm1VcMEP3z9qO5W4q6+BV4JlfZRwBa5TSP+p1eLcuaNtD0lnYKHTiZM9ndgGsVQxr0w8QWJ2PTHHEB6x29Yl2HBBnbDQz2ojUh+5FEvO8ILfoUksjg=
+	t=1786960789; cv=none; b=QzS3yCQcZrXPUMtRqki+lX/NnESpt0biTjoP+G4gBBFzsseGFAReO9IpInnArTCG62GR+uhaGCY/C7nkjbzbItjM+0dYJRPD4q8a/3X0gA6NFGUDZ5RUU6D+SiudrLhmFXwMG+prvBH8pc1Pz0ErwYuP46BkJRPyzgZ6kXVown4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786960508; c=relaxed/simple;
-	bh=wplaBJDMkV25nU9sxF6S09uQ1TlArf0Uk2IpJewXnT4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OdRuBHPVeNw46u8j16cgb4QZ4srvR+7bqrY3yd0tCwkQHMprOYQxNpegxXWTWdeQXr937bQ1d1ByWBnpwZ+RY5xV/DI7YEt7+QroR2/DS1jx+0i3FP2MLb1LJ3NLKk99qZw7pGLTHz9DTIcEPNEC3WWRqc35LGG9UrJsf5/jeHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHp7JlD9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1786960789; c=relaxed/simple;
+	bh=Yj5MBTZ2van77jAiPAMYhDjEtXS4a7m4vLGorz0PETg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mCvCw1DO7FGk6ZAwRGtjrIRGwRDaCQjXoKg0JjJcbb6h1mZ2IFgwMjPoCrHc34/UlS/Qg4OWnKQQZqCou+F+DFcw28x3QIjN7HaU62hVUjkP7SNBFUekCdQH6In72umSAC/1fnDwXO7/R5mTvxyuDbNJkghlnZOR3RRN/glcn8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=dtZGSKi0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHp7JlD9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36D101F000E9;
-	Mon, 17 Aug 2026 09:54:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1786960507;
-	bh=+Lv1NIWLjXK/CzfWPsyXDeMuZHAoY0c6NItRAMaTRxY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LHp7JlD95ovgSe8r0bR72lGNqqz8lIIrBBVRUyh1pozBAv5uE+g9C6zFCQqjsMnkW
-	 DmUgJUMiQOSOoFt7Cc4v+LCWenjyqMc3Wf1Xs6ckxwFk3zEsAbYM9JZN793yXK6VYN
-	 KbSEhe8SNgjDJ2NY6Is305LoEzuuNmHEwzGh2OadlUX4D5hxMGwksUI8I5EB/FmRhg
-	 uA6TO5F4mU+T4tBbKsAwUaaFaf7tUvhJ3QBYhB02AF97L0UBINVaXb3cdAfzX5385r
-	 jcFZEAw6T2O717gnR5C9BNna5eJjT8FM4PHZPPuIunZtuKuM8EDvL44O42OzPGUu/I
-	 YozSSqCPt9PJw==
-Message-ID: <e5e2d588-cee0-4105-b34e-34d2718786ee@kernel.org>
-Date: Mon, 17 Aug 2026 10:54:47 +0100
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="dtZGSKi0"
+Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 840E6447;
+	Mon, 17 Aug 2026 11:58:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1786960680;
+	bh=Yj5MBTZ2van77jAiPAMYhDjEtXS4a7m4vLGorz0PETg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=dtZGSKi0mOze7aabN3iJHhkWPcQVt7X7IgO2yBp69mTjKP3r0hhllIIWEBuZvL9g+
+	 anGyx15PUXj82cJpMl8lWdUiqleQdI9wNF6pOSJBdxRJ/GRSUJjxqN1Ql7zxyP5IOR
+	 6ko3SAGHcga1HVz7bOdZL5R6INqVunTjDcu9AN88=
+Date: Mon, 17 Aug 2026 11:59:15 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
+Message-ID: <aoLZ5e0ffVvZ-FfB@zed>
+References: <20260815193839.141406-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Rob Herring <robh@kernel.org>
-Cc: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <20260807162405.GA896590-robh@kernel.org>
- <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
- <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
- <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
- <Gm8h4cjoxHsgA2enLuxEd_3c_3Nq_RVJ9PkosuciOEss5Bw-GbnVoJCzsc5ciseK-L6bnlf9dbkbbh4ui3PSOQ==@protonmail.internalid>
- <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260815193839.141406-1-devnexen@gmail.com>
 
-On 10/08/2026 14:47, Rob Herring wrote:
->>> As per the reserved-memory.yaml schema document, the iommu-addresses
->>> property for IOVA reservation into /reserved-memory is allowed — it's
->>> documented for IOVA carveout reservations:
->>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/ 
->>> schemas/reserved-memory/reserved-memory.yaml#L56
->> I think that is an entirely reasonable reading of the text
->>
->> Quote:
->>
->> "If no "reg" property is specified, the "iommu-addresses" property
->>    defines carveout regions in the IOVA space for the given device. This
->>    can be useful if a certain memory region should not be mapped through
->>    the IOMMU."
->>
->> Which is exactly what this series does. Excludes a specific IOVA range
->> from being allocated for this device.
-> But if "iommu-addresses" is the only property of the reserved memory,
-> why put this property in reserved-memory rather than directly in the
-> device's node? I'm only questioning where is the right place to
-> describe a reserved IOVA.
-> 
-> Rob
+Hi David
 
-Back from the eclipse, sorry for the delayed response.
+On Sat, Aug 15, 2026 at 08:38:39PM +0100, David Carlier wrote:
+> v4l2_isp_params_validate_buffer() advances by block->size but never
+> bounds it from below. A block with size 0 passes both the
+> block->size > buffer_size test and the comparison against info->size
+> whenever the driver's type_info[] entry is an uninitialised hole, so
 
-Ah I get you.
+This shouldn't happen (an empty type_info[] I mean)
 
-Yes.
+> the walk makes no forward progress and loops forever.
+>
+> Drivers call this from vb2 .buf_prepare, so VIDIOC_QBUF on the
+> parameters video device hangs the calling task with the queue mutex
+> held. rppx1 has such a hole today; fix the core so the walk terminates
 
-I take your point. This is a property of the node itself; the IOVA < 
-600MB only matters _if_ the venus or iris nodes are enabled - otherwise 
-an IOVA < 600MB is perfectly fine.
+Uh, where ?
 
-So it follows its a property specific to this node not specific to the 
-overall system.
+I see
 
-Yep, I agree - its a device/node property, not a top-level property.
+static const struct v4l2_isp_params_block_type_info
+rppx1_ext_params_blocks_info[] = {
+	RPPX1_PARAMS_BLOCK_INFO(BLS_PRE1, bls),
+	RPPX1_PARAMS_BLOCK_INFO(BLS_PRE2, bls),
+	RPPX1_PARAMS_BLOCK_INFO(LIN_PRE1, lin),
+	RPPX1_PARAMS_BLOCK_INFO(LIN_PRE2, lin),
+	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE1, lsc),
+	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
+	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
+	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE2, awbg),
+	RPPX1_PARAMS_BLOCK_INFO(CCOR_POST, ccor),
+	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE1, hist),
+	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE2, hist),
+	RPPX1_PARAMS_BLOCK_INFO(HIST_POST, hist),
+	RPPX1_PARAMS_BLOCK_INFO(EXM_PRE1, exm),
+	RPPX1_PARAMS_BLOCK_INFO(EXM_PRE2, exm),
+	RPPX1_PARAMS_BLOCK_INFO(WBMEAS_POST, wbmeas),
+	RPPX1_PARAMS_BLOCK_INFO(GA_HV, ga),
+	RPPX1_PARAMS_BLOCK_INFO(GA_MV, ga),
+};
 
----
-bod
+being passed to v4l2_isp_params_validate_buffer().
+
+> for any driver.
+>
+> Require every block to be at least as large as its header. Blocks
+> carrying only a header to disable a block are exactly that size and
+> still pass.
+>
+> Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+>  drivers/media/v4l2-core/v4l2-isp.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+> index 1eb46e080afa..760e16a5ba9d 100644
+> --- a/drivers/media/v4l2-core/v4l2-isp.c
+> +++ b/drivers/media/v4l2-core/v4l2-isp.c
+> @@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+>  			return -EINVAL;
+>  		}
+>
+> +		if (block->size < sizeof(*block)) {
+> +			dev_dbg(dev,
+> +				"Invalid block size %u at offset %zu\n",
+> +				block->size, block_offset);
+> +			return -EINVAL;
+> +		}
+> +
+
+I'm not against this, but it only makes sense if the driver populates
+the list of v4l2_isp_params_block_type_info[] with an empty item,
+which shouldn't happen.
+
+>  		if (block->size > buffer_size) {
+>  			dev_dbg(dev, "Premature end of parameters data\n");
+>  			return -EINVAL;
+> --
+> 2.55.0
+>
