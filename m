@@ -1,137 +1,341 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05560463B9A;
-	Mon, 17 Aug 2026 17:14:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF76A3002AB
+	for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 17:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786986858; cv=none; b=NLitk3Sj4FDJkVvAWQ2WKuCxcItM+lERa3mwp9VGApLWcgGL04J5wIpIFnWiJgu9X6OMVxgSEslzLMU8ES5M9oHuWATM/yzBjuCsiQLxpFm9XSHjV7qLE2+OGmXKuGYcKOHMsFGo9RMxtPeBPcKsbor3vreVDLVq0463gHzDACc=
+	t=1786987342; cv=none; b=IndGoY6xI83jRJYhN2yrvsQWMldOsgSZEq6fTD028vMwgZU1dYXoL2pmjL9fv+JwGRZQF7Ftk4P9XSNHd6N9YudEarDJfm0YbQgMxWawuxqQasjOQ373oVpcjeh+DuzA5ytsfJXQUU75Im+oSI/C6fqIyzX38dhjxOQUFEWbg9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786986858; c=relaxed/simple;
-	bh=E7AQQ7E9iRsVZ3/uwkBQqgZFZJAhqxUd5nmvxUHxQIQ=;
+	s=arc-20240116; t=1786987342; c=relaxed/simple;
+	bh=TsDzbeMIAoB15auULJGz0zaAQwkoG+YfRfs7YSfJtPw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OxSypX2MOpYgdrzKVMDXBDX91SJFJWszKGZmjafHRrqbyDD3MTaDmq3W8XZhfxlCKjm+JbXRkXCjLzGs+bcB4lNw6Tq9G1Cyh/e1yw+xvexmRXu9+GWHoMp4uTfe3vn6Kkpf5+0oJf4F4gX5/2bAkN4SdwaZVFrHO5A2ZH3HffY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=imDKBWQs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=WkhF+Gk9; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	 Content-Type:Content-Disposition:In-Reply-To; b=c8B3vjKbxbvaKvbyN6hwEqv5V4Fkur3r+uOqLdDeEdle7Sj+5Pis8QjnFdqbv/c/22MEVmK4wDLIgiErSpvE/OD/7Iqv+yNd9rCfwjenfy3qsVe7KAj3GpdCfTheWsI/tver3KfDjH/NIoyXNcpnI19wcThcsCDByjce2dfcRvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=rT3iikZD; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="imDKBWQs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="WkhF+Gk9"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 1598E1400060;
-	Mon, 17 Aug 2026 13:14:15 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-02.internal (MEProxy); Mon, 17 Aug 2026 13:14:15 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1786986855;
-	 x=1787073255; bh=XEz6jJPMypeL6O3581aitXUQ4nlKFKql6QjN3NglMi8=; b=
-	imDKBWQsaA8MkhhcP9EgkbspPDWyxA5C6/heg5T9m05cF6HWSQP4EB+k3TgviKY3
-	lx73TR/IaJu/RgCvY6VpBlJqfoCSCpWyvIQDDNRds6sGYGX2On44qz/Ng5dTpHGQ
-	vwbEqBWJfQcsvhD35vzSrWhn6L5l1jeKGJOxkebeQHRQcXI70306xIiCZEQVUOpY
-	mZej64XHh6xcU00t97xmvVIqKsn7Ap6oa4Hei6Ugajoqrml6oNOHc9Ye/nVAnIte
-	PcmcCa+crx1SfWDBnK3bfH5tsIQQrqGpfzpz1DMZ5VtVTu9vbNZV6O1y52roh9Nd
-	5Wiy0oxMuaATACIZycIUSw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1786986855; x=
-	1787073255; bh=XEz6jJPMypeL6O3581aitXUQ4nlKFKql6QjN3NglMi8=; b=W
-	khF+Gk91rNOGbvW/K/a2pwWTy8fVK+VmamctUFjNaFCYhOs50DJ5zQLgytNLcbZX
-	kqPHX4fPaa37t2F47R0e9j0t7uA19pcqAq0JcSpRhum4l8DbNemgWJrDJZHnVzh1
-	wCzFBm9UNnmZCdzPX+W0f3GTmIX4/3mJFPyWYGykyuw41QmEZh0x5yKmRSXn71OT
-	ZT/egxJFyuE/BmfXT2WAueZXunISWsaODIU6Whsd4FlallpkRw+3S4NbcOwXpjrq
-	r/OLuyOv6I4WMBlkWMjb3Yv0I7WIwCXkrU1pzoZ3OD6jCjRNDwMJHxHMbai4r0yr
-	xYgpbKl1ydHyBZ3GN9bPg==
-X-ME-Sender: <xms:ZkGDajBXX0Az7BWfSQouX47HJjHAU4LUnro_UMyB6OyEqIOleQgURg>
-    <xme:ZkGDajmfemPc0eFNTDFcdpyoJEDPRsLZ6WWDbdrF789DUjnFREfgekgwwHGH-1otO
-    PMUdKktBYVJgrk6GhYTHJQIyCsQCbC_AsDsHexJGytwaFazdEwvvoxT>
-X-ME-Received: <xmr:ZkGDaudcqTBiaHMJZGRtyUzjhBtFJwXt5dHVQUzGmUQpLzWF-pZxxaBwVJh83ULa39Qtgb2UKEXrXzwufaMyUyMOdK7Ygjk>
-X-ME-Proxy-Cause: dmFkZTGIdQAjq1QJgHkwPYWqrkKtgei2anHcEu0XbIEpBH1Hr8tkNO7WP93XcpcP1R77s8
-    TxaQ8yePjHLPqV1CtHW04yUHjwQvkHjV+OTYVGLiCgmggLEwpNp8A8e/dWNKVeTKUDZbaD
-    JzARUf1z1k9JeE9UFPEEXU3aQmgpuKRnIu1h9u2u7LvCyiaLuP1CfwxLFBQ5Dd50YhlbxV
-    d+yiwP/vGtR95MXoMyRaQh5eLm4J6qEecOzpssoFwghTGWUDJx15+1//03ueH8g51YaWmL
-    CRgzJJneTRxMHHIb77YxT02YzK0BcTqzxHnWItyzc9AnETwDyabQbs3YGugTIQcbhPtxYv
-    ImlslVnQQiRxMTbbb/RH3meGlVow9WTrCdqh6fZjVrOBoEMGgCgWaU9gBemqTtWae3tyoi
-    zsljQzVXYBs+q2FvUYorKNETSHxfS486RY4n3ZAC63iadKsjntNZQ3h/3iFx9GxFiIRbAj
-    5Goty2CDTI5cZZgFf7i9MBbNJS/s4aCot0+qVnW+/mNwv0d8RVSbI4OCcZ0+vNJQ9iAG0t
-    71sUPjp1w3Cat+X1NlwwH2NBHl1Y5CUIw+8n7tGZXwkUGqC0AvhdnrGTd9Ckz4BFrb16YU
-    6vcKIN+DR6q7tbGvOm6hpi7EczpoCXQu9uW7yq2dYGmDZYJ27bvI54ZChmtw
-X-ME-Proxy: <xmx:ZkGDanQT8WYT1S3k4TsGlzwaPCyj-W-DcwsjWXKolAsBJ54PjVRrmQ>
-    <xmx:ZkGDals-nIbR_K7ZD0Q63kSma0iEypgNhvYfk13d-prxsjHtN_yBLg>
-    <xmx:ZkGDaodsWYsI14hRgWt3PTdaPWjcMVORBvteAu36qtW2gZrzil9cTg>
-    <xmx:ZkGDavYNR_PaOpvByZ09xvAkkLMUC6IBaK9wGgwiy6v1HSfwtIdk2g>
-    <xmx:Z0GDai_Tqh0J0GF25RVw3HPU1wa5-NAYMkWxGQZup7YzICvfOfbQepGL>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 17 Aug 2026 13:14:13 -0400 (EDT)
-Date: Mon, 17 Aug 2026 19:14:12 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: rppx1: bls: read the raw pattern from the
- PRE2 acquisition module
-Message-ID: <20260817171412.GJ2757863@ragnatech.se>
-References: <20260817104529.3132552-1-lilinmao@kylinos.cn>
- <20260817104529.3132552-3-lilinmao@kylinos.cn>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="rT3iikZD"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49545ba3d4eso18032115e9.3
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 10:22:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1786987338; x=1787592138; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=c63lTPw0sJ/0kiyWxvGmU6Nz+vfC7FNZqHlcFwaoBHw=;
+        b=rT3iikZD/YYIJoqR5MfpwvdJQrQVjCs9vXXmvNmzLsCCyrNoyku0JRW/9YpPrIEG9C
+         +yzLoM5UDpd+tncwANyA55sMO7PGY0/9qi+OUumYrfXbFpEhGl5KzUU38nCx2AzT/I9Q
+         nAalEHdBnOoA4AD152DUqZZ/sCuvPbTtzmfLOes5kYueXge7+A2xjnK8F5n3V5Fn+tVP
+         7jTM7HDD+Qcz4L5TgBDMO/qYrhdJCw9Athq3BfGH2VTAKfaDxGdYUBniSws7tO/qkP2Z
+         b4wfC3ghkKo6lTqo8k9wmPhu9VDca/p93FB7g69O7KnOYn8N0MAqA0eZWTk3D3g9Uy3e
+         9vKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786987338; x=1787592138;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=c63lTPw0sJ/0kiyWxvGmU6Nz+vfC7FNZqHlcFwaoBHw=;
+        b=olKSVTew4KAf90dxYgHgFmtkqR5kTdYX399vAhtMvqS93MBu7paTHlTkxICwrDyEq1
+         2pSQ5Firn8yoHNlQPnW+k6Zot6OMb/V+96fFuyVFwfj7mqWynb0B+YE4CjpzXRX2H0Jf
+         XJ6Kvtoi7W6o0fFpcnRaBazPUWhHyHoUbCjcuMU8JNPOC5UooI91GcVCQ23ne0GCybBe
+         8MgpyNxSWOzytVmrZ4pO1jdGzKpH1oO50SfdwE1JOe6Myx6FzxchbroZlUj36mOjVFAa
+         bLtTd6KGEnl6i7ZAhaB15jXGg7MZVQ05M58sd4eS/NF1DIPNeQJHG8uE7WtNdWDH0DfI
+         84Qg==
+X-Forwarded-Encrypted: i=1; AHgh+RqLYcfY2Vfw0WO73tzYa+ltT0eNbb8w998rrgW5oD3lHGnyUwhKzJNlkGVs8sDr8d4ljluh/btk5Eb++A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwrCJ8px/hVciOgR+M4dbAIlvLWl5rVFKTSD2NHmvdXbMtV0/na
+	acQMnEmAAtKEv71DQDUO8Vc8WZZPEb4EzsSUdoqqOL9G/hz7tbiW+p+oGCeI/q3nGA==
+X-Gm-Gg: AR+sD10NAYISyPGoxA7EmEBfwB+MdpLV6WDZSmVcxIQMqt+SMxlhC7pKfieDR8dfeqj
+	+NZOi+A+6mHFwbRH8/HiFOi0PnbiBYeap+PBfWzZUmw6fQhZiqT09OLFmENoZczxt7+QUKaNb9b
+	pfZq1edCv7K/EN/rsWlKa/cM/ndx8VBZhGQQKHkiVOXx0/LgmLSOoRZFMmRihWaJsmzOb7jEJHK
+	1Wk+gPT1CgjkRKqWQEC8oNkp1AE7LlNLxWCSRgHbMG+sf0CHer5fBbyu2taK8v1+TvPgM+xqrTC
+	IUJ1RGM5JKM+CBJ8tpz3fjIcJNe5yaPArZkBXeHIgUJCq6r4VmPjEhKYRXNTHLHQsYzEFzCAcaS
+	mJuzwO53Hdz52270Q9ng+eT06Vw+p2DKF32LXH8tXMBhGBiJdaLOYCNwADrflXVxNmn6rLryyG1
+	hxqNnK0w2K5T1XGk00ngsKWxZLH5TyMh9ICEao9vim2gU74GkDe14uTU3Q16k0BLRYYqUOKPlc4
+	sWZ7+9khWib9XkjwSESZigKDvemYx7X
+X-Received: by 2002:a05:600c:c171:b0:499:7f38:d77 with SMTP id 5b1f17b1804b1-4999fb2e1dbmr33554105e9.6.1786987337398;
+        Mon, 17 Aug 2026 10:22:17 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a3b51asm5583583f8f.11.2026.08.17.10.22.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 17 Aug 2026 10:22:16 -0700 (PDT)
+Date: Mon, 17 Aug 2026 18:22:13 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sowjanya Komatineni <skomatineni@nvidia.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Yury Norov <yury.norov@gmail.com>,
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
+	Russell King <linux@armlinux.org.uk>,
+	Alexander Gordeev <agordeev@linux.ibm.com>,
+	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
+	Heiko Carstens <hca@linux.ibm.com>,
+	Vasily Gorbik <gor@linux.ibm.com>,
+	Christian Borntraeger <borntraeger@linux.ibm.com>,
+	Sven Schnelle <svens@linux.ibm.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	David Hildenbrand <david@kernel.org>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	"Liam R. Howlett" <liam@infradead.org>,
+	Vlastimil Babka <vbabka@kernel.org>,
+	Mike Rapoport <rppt@kernel.org>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Michal Hocko <mhocko@suse.com>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-s390@vger.kernel.org, linux-mm@kvack.org,
+	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
+	linux-trace-kernel@vger.kernel.org,
+	Thierry Reding <treding@nvidia.com>, pavan.kondeti@oss.qualcomm.com
+Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
+Message-ID: <aoNDRTKCUkzd2n5G@google.com>
+References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
+ <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
+ <an4MEI7lkc2p3nKI@google.com>
+ <an8K2gb1pIqbDj6-@orome>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260817104529.3132552-3-lilinmao@kylinos.cn>
+In-Reply-To: <an8K2gb1pIqbDj6-@orome>
 
-Hello Linmao,
-
-Thanks for your work.
-
-On 2026-08-17 18:45:29 +0800, Linmao Li wrote:
-> rppx1_bls_swap_regs() gets the Bayer pattern from the acquisition
-> module. The PRE1 path uses pre1.acq, but the PRE2 path mistakenly uses
-> pre2.bls. The BLS module does not store a Bayer pattern, so PRE2 would
-> read zero (RGGB) and map fixed black levels to the wrong colour
-> registers.
+On Fri, Aug 14, 2026 at 02:56:05PM +0200, Thierry Reding wrote:
+> On Thu, Aug 13, 2026 at 07:25:20PM +0100, Vincent Donnefort wrote:
+> > On Fri, Aug 07, 2026 at 05:54:27PM +0200, Thierry Reding wrote:
+> > > From: Thierry Reding <treding@nvidia.com>
+> > > 
+> > > NVIDIA Tegra SoCs commonly define a Video-Protection-Region, which is a
+> > > region of memory dedicated to content-protected video decode and
+> > > playback. This memory cannot be accessed by the CPU and only certain
+> > > hardware devices have access to it.
+> > > 
+> > > Expose the VPR as a DMA heap so that applications and drivers can
+> > > allocate buffers from this region for use-cases that require this kind
+> > > of protected memory.
+> > > 
+> > > VPR has a few very critical peculiarities. First, it must be a single
+> > > contiguous region of memory (there is a single pair of registers that
+> > > set the base address and size of the region), which is configured by
+> > > calling back into the secure monitor. The memory region also needs to
+> > > quite large for some use-cases because it needs to fit multiple video
+> > > frames (8K video should be supported), so VPR sizes of ~2 GiB are
+> > > expected. However, some devices cannot afford to reserve this amount
+> > > of memory for a particular use-case, and therefore the VPR must be
+> > > resizable.
+> > > 
+> > > Unfortunately, resizing the VPR is slightly tricky because the GPU found
+> > > on Tegra SoCs must be in reset during the VPR resize operation. This is
+> > > currently implemented by freezing all userspace processes and calling
+> > > invoking the GPU's freeze() implementation, resizing and the thawing the
+> > > GPU and userspace processes. This is quite heavy-handed, so eventually
+> > > it might be better to implement thawing/freezing in the GPU driver in
+> > > such a way that they block accesses to the GPU so that the VPR resize
+> > > operation can happen without suspending all userspace.
+> > > 
+> > > In order to balance the memory usage versus the amount of resizing that
+> > > needs to happen, the VPR is divided into multiple chunks. Each chunk is
+> > > implemented as a CMA area that is completely allocated on first use to
+> > > guarantee the contiguity of the VPR. Once all buffers from a chunk have
+> > > been freed, the CMA area is deallocated and the memory returned to the
+> > > system.
+> > 
+> > Hi,
+> > 
+> > I believe we (the Android team) are trying to solve similar issue to yours: Arm
+> > CPUs can still speculatively read memory after it has been transitioned to the
+> > Secure state, as long as they retain a cacheable mapping to it.
+> > 
+> > As modifying the direct mapping is difficult, the workaround ended up in the
+> > hypervisor which unmaps the pages from the host stage-2 on intercepted FF-A Lend
+> > invocations.
+> > 
+> > If convenient, this is nonetheless the wrong place to do it. Scattering the host
+> > stage-2 is really terrible for performance and we would like to move it where it
+> > should be, directly into the kernel...
+> > 
+> > This is what I thought was the attempt in v3, but I am now a bit confused
+> > because I see you are using set_direct_map_invalid_noflush()
+> > set_direct_map_default_noflush(), but I am not sure that works if rodata=full is
+> > not set? So does the memory for the NVIDIA IP still need to be unmapped?
 > 
-> PRE2 is not started or dispatched yet, so the bug is currently
-> latent. Read the pattern from pre2.acq, as the PRE1 path does.
+> Yeah, this currently relies on the circumstances being such that
+> can_set_direct_map() returns true, and in the case where we want to use
+> the resizable VPR functionality, we're going to have page-granular
+> mappings anyway.
 > 
-> Fixes: 3f8a2a883655 ("media: rppx1: bls: Add support for black level compensation")
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> ---
->  drivers/media/platform/dreamchip/rppx1/rppx1_bls.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> > If so, how about having an option where the CMA allocation is backed by a direct
+> > map with the same page granularity, or at least a smaller and aligned granule?
+> > 
+> > With that, we know that for whatever CMA allocation we do, we can safely unmap
+> > from the direct map without risking splitting blocks. On CMA free, we can safely
+> > remap into the direct map as I do not believe we coalesce yet.
 > 
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> index 01a61db279bf7..71c5561457d52 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> @@ -70,7 +70,7 @@ rppx1_bls_swap_regs(struct rpp_module *mod, const u32 input[4], u32 output[4])
->  
->  	/* Swap to pattern used in our path, PRE1 or PRE2. */
->  	struct rpp_module *acq = mod == &mod->rpp->pre1.bls ?
-> -		&mod->rpp->pre1.acq : &mod->rpp->pre2.bls;
-> +		&mod->rpp->pre1.acq : &mod->rpp->pre2.acq;
+> This sounds intriguing. For VPR we could possibly make the size a
+> multiple of the memblock size (or whatever might be appropriate). If we
+> can create a page-granular linear mapping specifically for that region,
+> that'd be ideal. I don't know if the linear mapping can be subdivided in
+> this fashion, though.
 
-As pointed out elsewhere in this series, PRE2 is not enabled yet.
+Actually I don't think modifying the memblock is necessary at all!
 
->  	enum rpp_raw_pattern pattern = acq->info.acq.raw_pattern;
->  
->  	for (unsigned int i = 0; i < 4; ++i)
-> -- 
-> 2.25.1
+Here's what I have so far:
+
+diff --git a/arch/arm64/mm/mmu.c b/arch/arm64/mm/mmu.c
+index d4de88770ecf..a9f81413b70d 100644
+--- a/arch/arm64/mm/mmu.c
++++ b/arch/arm64/mm/mmu.c
+@@ -22,6 +22,7 @@
+ #include <linux/fs.h>
+ #include <linux/io.h>
+ #include <linux/mm.h>
++#include <linux/of_fdt.h>
+ #include <linux/vmalloc.h>
+ #include <linux/set_memory.h>
+ #include <linux/kfence.h>
+@@ -1138,6 +1139,27 @@ static inline void arm64_kfence_map_pool(void) { }
+ 
+ #endif /* CONFIG_KFENCE */
+ 
++#define MAX_FORCE_PTE_REGIONS 64 /* Greater or equal to MAX_RESERVED_REGIONS */
++
++static struct {
++       phys_addr_t start;
++       phys_addr_t end;
++} force_pte_regions[MAX_FORCE_PTE_REGIONS] __initdata;
++
++void __init early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end)
++{
++       static int count;
++
++       if (force_pte_mapping())
++               return;
++
++       if (count >= MAX_FORCE_PTE_REGIONS)
++               return;
++
++       force_pte_regions[count].start = start;
++       force_pte_regions[count++].end = end;
++}
++
+ static void __init map_mem(void)
+ {
+        static const u64 direct_map_end = _PAGE_END(VA_BITS_MIN);
+@@ -1186,6 +1208,15 @@ static void __init map_mem(void)
+        __map_memblock(init_end, kernel_end, pgprot_tagged(PAGE_KERNEL),
+                       flags);
+ 
++       for (i = 0; i < ARRAY_SIZE(force_pte_regions); i++) {
++               if (!force_pte_regions[i].end)
++                       break;
++
++               __map_memblock(force_pte_regions[i].start, force_pte_regions[i].end,
++                              pgprot_tagged(PAGE_KERNEL),
++                              flags | NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS);
++       }
++
+        /* map all the memory banks */
+        for_each_mem_range(i, &start, &end) {
+                /*
+diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+index 42e3e2d8a2b8..445f204f01e4 100644
+--- a/drivers/of/of_reserved_mem.c
++++ b/drivers/of/of_reserved_mem.c
+@@ -136,6 +136,8 @@ static int __init early_init_dt_reserve_memory(phys_addr_t base,
+        return memblock_reserve(base, size);
+ }
+ 
++void __weak early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end) { }
++
+ /*
+  * __reserved_mem_reserve_reg() - reserve memory described in the
+  * first entry in 'reg' property
+@@ -168,6 +170,9 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
+        size = s;
+ 
+        if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
++               if (of_get_flat_dt_prop(node, "force-pte", NULL))
++                       early_init_dt_force_pte_arch(base, base + size);
++
+                fdt_fixup_reserved_mem_node(node, base, size);
+                pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
+                         uname, &base, (unsigned long)(size / SZ_1M));
+@@ -517,6 +522,9 @@ static int __init __reserved_mem_alloc_size(unsigned long node, const char *unam
+                return -ENOMEM;
+        }
+ 
++       if (of_get_flat_dt_prop(node, "force-pte", NULL))
++               early_init_dt_force_pte_arch(base, base + size);
++
+        fdt_fixup_reserved_mem_node(node, base, size);
+        fdt_init_reserved_mem_node(node, uname, base, size);
+diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
+index 51dadbaa3d63..6c73c76dee1b 100644
+--- a/include/linux/of_fdt.h
++++ b/include/linux/of_fdt.h
+@@ -74,6 +74,7 @@ extern void early_init_dt_check_for_usable_mem_range(void);
+ extern int early_init_dt_scan_chosen_stdout(void);
+ extern void early_init_fdt_scan_reserved_mem(void);
+ extern void early_init_fdt_reserve_self(void);
++extern void early_init_dt_force_pte_arch(phys_addr_t start, phys_addr_t end);
+ extern void early_init_dt_add_memory_arch(u64 base, u64 size);
+ extern u64 dt_mem_next_cell(int s, const __be32 **cellp);
+ 
 > 
+> > (This alignment is not necessary for upcoming systems with BBML3)
+> > 
+> > However, to implement this, we'd need to split memblocks and I believe the only
+> > way at the moment is temporarily mark it as "nomap" which didn't seem very
+> > popular in the comments on v3.
+> 
+> Could this be simplified if this type of allocation is always memblock
+> aligned?
+> 
+> Looking at map_mem(), it seems like we could add some sort of special-
+> casing in the for_each_mem_range() block to check if the memory is VPR
+> (or generic, page-granular carveout, or whatever we want to call it) and
+> set NO_BLOCK_MAPPINGS | NO_CONT_MAPPINGS in that case.
+> 
+> If that works, set_direct_map_*() could be enhanced to detect such cases
+> and always work. Or perhaps a more specific API could be introduced.
+> 
+> Thierry
+
+for set_direct_map() I think we could extend it to check if it is mapped at the
+PTE-level and if it is we can proceed?
+
+I am currently looking at extending CMA with an option "unmap-on-alloc;" that
+would only be available if CONFIG_ARCH_HAS_SET_DIRECT_MAP, or
+cma_set_unmap_on_alloc, or if "force-pte;" is set. 
+
+Hopefully I can share something this week.
 
 -- 
-Kind Regards,
-Niklas Söderlund
+Vincent
