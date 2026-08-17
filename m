@@ -1,117 +1,130 @@
-Received: from mail.amicon.ru (unknown [77.108.111.100])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com [209.85.210.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B109449B2D;
-	Mon, 17 Aug 2026 16:09:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.108.111.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786982978; cv=none; b=KjW794JOt3BaHG6hmRwhmtFpManWXdGPko8IlrR6yKRZaKc1vOXWVJkDmzpA+kSfbMOYD1EnlSNy6aFbhxtKKkLTtBOTfz/9XxSZ8QMA3LEw5xZEnyITcRSAP9P9QXvr/A2GBarLYWQoSJwqIiRTBc1qfE1XQxIXZIrjlVaCDUA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786982978; c=relaxed/simple;
-	bh=U0DxjJ60lrDiSwBgNUFbdEYuAeWQWITXaKsHEtXIeVQ=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=KrEeHdojJCjBrS2YxNdTRC+hTiFrib8oKwj4EfF40/UF9C08DM1wmzAyoyiVu5vSyCZ9agQfay9RNl03f2RrBz1YuJ8+I3hMszK3NSHCWV8WTnu5KXwuZhvKptXQysYEBP98aePj2Zpd9b2dK6RhjcBmvOWCXkC+vs/AQEKT14g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru; spf=pass smtp.mailfrom=amicon.ru; dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b=WfGP0Izi; arc=none smtp.client-ip=77.108.111.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D459644C670
+	for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 16:19:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.54
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1786983575; cv=pass; b=rEKXFMsRsX7I7+OndWc7uWXnghoLgtweIDvnvG4xmCjyrocJdNk/EVC0PEvqkFwdDUeMXLhRrm37G0sDJo6eyhE4toqrcbizIwUYDxXadknGV3UBvDUKaOndwufZwtoS7j1DdW6z9GCswutFrnlzk7MBWkBXVwq8H/iunC9bunY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1786983575; c=relaxed/simple;
+	bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=SjCzEx47kyG5AgXoGJmfnH2nrFg4XZ6B8ABEl7Tqz53DdNik0nH4x/eeorAHiOtzHkJc9X/TJz/zxivaorusC1bWK8jxrNKzDu0ZeogUpijGs23omWk+VTypX7CX8aB2Vo0RaBK5VXVKwI2VUwaVO+OiZGv6lGFXdxZu7isIj0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPf5m405; arc=pass smtp.client-ip=209.85.210.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b="WfGP0Izi"
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
-	t=1786982970; h=from:subject:to:date:message-id;
-	bh=U0DxjJ60lrDiSwBgNUFbdEYuAeWQWITXaKsHEtXIeVQ=;
-	b=WfGP0IziQhidLXGebgAUkxsHqlAOlirPaTo6yPs0HP0CTXyaRQ3PshUbeOh/CvPWF8t1DNthNRj
-	++bkV33D2AB0MRPbaNRLNFHmeZNZyz9gam50fC8j8JIfK53lE4j7r2CheK9/3x897Yjt2G3fMu0LV
-	dpMoUgpFbh1YJMn39LyvYz+i4twBMnBT0PLRMQAH8ybwgMllnQ4jEmotOBL2A4S9TiXK7neQy5pdc
-	jNoKucHmLrWkxV4anraa7CpZUZ8GBmC4uQSpJspD0GFMTr4V8v+OawSF9Ad4ojqvngzK8KbfDN+9K
-	s1uqNUzgkH8VAUr09QA+5z4AAaKmcjve4G7Q==
-Received: from dish.amicon.lan (172.16.30.10) by mail.amicon.lan
- (192.168.0.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Mon, 17 Aug
- 2026 19:09:29 +0300
-From: Daniil Iskhakov <dish@amicon.ru>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-CC: Daniil Iskhakov <dish@amicon.ru>, Steve Longerbeam
-	<slongerbeam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Jacopo
- Mondi" <jacopo+renesas@jmondi.org>, Maxime Ripard <mripard@kernel.org>,
-	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Agalakov
- Daniil" <ade@amicon.ru>, Roman Razov <rrv@amicon.ru>
-Subject: [PATCH v2] media: i2c: ov5640: Fix potential integer overflow in sysclk calculation
-Date: Mon, 17 Aug 2026 19:11:13 +0300
-Message-ID: <20260817161115.2530827-1-dish@amicon.ru>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPf5m405"
+Received: by mail-ot1-f54.google.com with SMTP id 46e09a7af769-7eb787dec99so2350447a34.0
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 09:19:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1786983570; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fPz2oFK+SQyvHjURQi04p0BelSPsKAe/7EXhdHKriBs7l/CKBvZtujA+3b3PGd15Q2
+         ayefZdVWbfZiLYUvP2Mqx90b+QJpntuibjaLI173zM0YZ93niIy9vbjwgaCsNRSTQIib
+         v3DkzVHMflZ5CsF0L5mFhbEEDw+c7gd1K/aYtXggXYd5J0PB+rPHAVdULnlMRCgpcm9s
+         medZNbr3CbthTLrpN/4BhuuG0Gm1dC4M/awVMsbAH+QETbx0VXgAeUUTI10GLzGN0NVS
+         X5ydGe9+4mYoFhoaTe+HgpWMaLyn+NVV+pwnboVkGaLb6mNgDM1O9BHJsTpCVYy9rS+x
+         PejQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
+        fh=zgmXkoYfbTFkJK6Vv46wdBZ6U9m2Hi6M4jBn86Z4kY0=;
+        b=GtjcOGO4CPGUNY6vdVqcKeDypSOnzmcLjoV6CQEi0tqm7WOio41CaWKtAtFj6+4oTY
+         TLu5J1L7N+vTIY82PGllZ/ytOX7BV2vQOID/os7UBc2iLzc+vKSGYKYoUdoDpnTs0R3E
+         FeD1jaa8cMySz/bRz5qVwkLHwc2WwxdGnQsCFyWizeps/zWCA8QQPuknQdO+4Sx1nkD2
+         CeaPqNEnbGhuuJTpViVz8ZGdAXY8eGGJc9SMmCeHQJnlbswt9RH50DbScvhGWhy9xPee
+         91YiajVEJOzpUyd5a9EetCW0PYPTm5YKOHmlSaLjcgVEY4rKJOIbwEaTf0yz6rQ7VdWy
+         aIAw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1786983570; x=1787588370; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
+        b=JPf5m405qPvZwR2e3ujJvHhR2vqCU4opbuw1B7H7DhzYIgSjZs7yC4TP7s2Ujm/K8K
+         rEKXzV5fo5Zw/goVj7ZrJKiumFXdTZPszwF+GdgNTX4SdjPHpHS6nz1J/MDUCZU1g10e
+         svl0D1KT36pKyfakNXY/lfCRXxow5cIJwCSE6xPxFa9Wjdw27hLNxJCFGtK/lo6GsDEP
+         PXR7hdMQbNudyzzPV1K0jOB4flHjNDZ+PXOi1cEZ6dtkvXZD2WEeL4QegMZnqg6cu+5Q
+         kjGhwlN5/FoFWxvkBLw3KuuNsDahkMldxyQJt6gb2/3u/yC3B+gYq1gaTh9sP7934scg
+         yBkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1786983570; x=1787588370;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=ok9b/hGgMHy0RvQBlUb/jv2F/avpSyhfO7YHzTf9RfE=;
+        b=GCSRabHEoheq8KBRavEER9RN91scV8pfz1oX3B4n6lrIEJNCUR4xc7uwqCvS+7Mqb0
+         1GGt0kTBnrcxiZdYFoU4Gk22NFUOyokG0EAoH8yrWXJTcBy0IZstPkxEL8AcmGJmL2Jv
+         HrHkNxgpODJn2U/QN8AyP2g0rl6CIq+0OTRMKQ5CWAKK5C8lzVc51Jm0c2JY9o288F8Y
+         AdahpOgycxLfAdL4wWFNhsPtzYX1/6dMLM/DxXvMeL4rlHEBwNQkL+oM6OGPYuZUTyjX
+         G+Yywg27+nHsGvvTEu6VjnKddQ3FE6p0aji8lpj1XVytEkZk9PTH530AAM88mOYJssiI
+         pPPw==
+X-Forwarded-Encrypted: i=1; AHgh+RqxJM3ao44S8sVXSKHweydQEh0FwMpqgJK0dZJWlJh2OMefV5Vf0x1BCps14CwhKKH7tXJjSs0MTIMKEg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YyzVJUTMBhmRG8u8wVwxhOXYPoMcQ041JCbB3LftzqV0CPlWuTh
+	E9VSWWCOimznZPI+oU7XUds05AbAvntOixEatzFzkHZ2wPlx91U7mdBjfqxLYhfrV/6wgtxvDqA
+	qXnSH4yXFXUw2WJbZ2uV+ttEL5XI6F24=
+X-Gm-Gg: AR+sD13azOdGFzE1vtpEf8QXvkjpI1nThD2wKGXBtjmchYkoVoIKd5eBg/SHTJ+tfry
+	txNEPff2u4HnwI/8z5ROVC3rN01OSJqKCsWr2KgrfVQlOpf2uX6eOktafsf2kBFjrpO8hvCvCAO
+	tKeFVAoCYF6lqtb1UBV8474JNTFaTSFgGu28sjfXqQ/mi3vAU83SPcPgefqP1pmt+T28PTyUC59
+	7YUII8puB3fq6n//VS3Dd2kfs8aFDMpUNzi83C8mv1hpsZ4yO3VxlJfjeXXTMR3r4SHF7neCUh7
+	wl5uuEZ4xFovdKz2CdxqT9JA33pTcAKrSs8HpwkVGQfQCk7cxSXhHH1pkugPOsFdxJFUODNBsxk
+	=
+X-Received: by 2002:a05:6830:2708:b0:7e9:cad9:4bc4 with SMTP id
+ 46e09a7af769-7f3de64c4e5mr26475112a34.7.1786983570237; Mon, 17 Aug 2026
+ 09:19:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: mail.amicon.lan (192.168.0.59) To mail.amicon.lan
- (192.168.0.59)
+References: <20260815193839.141406-1-devnexen@gmail.com> <aoLZ5e0ffVvZ-FfB@zed>
+ <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com> <aoMuMvE0zJG1MYD2@zed>
+In-Reply-To: <aoMuMvE0zJG1MYD2@zed>
+From: David CARLIER <devnexen@gmail.com>
+Date: Mon, 17 Aug 2026 17:19:18 +0100
+X-Gm-Features: AcwNN1WZtk7Zm16KusB7eA5zYDAAIyL9cuvp343NEcRNeo5rJN7TigkzkaaAfMw
+Message-ID: <CA+XhMqxY3u5YR06j8jX2+wCwX95vQrb5EVH39GvuJXrwA48XWw@mail.gmail.com>
+Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The calculation of sysclk uses 32-bit arithmetic because
-sensor->xclk_freq is a 32-bit integer. The intermediate multiplication
-result can overflow 32 bits sysclk variable.
+On Mon, Aug 17, 2026 at 05:56:30PM +0200, Jacopo Mondi wrote:
+> Should we instead deman that all entries provided by the driver are
+> populated by failing validation if info->size == 0 ?
 
-For example, with pll_prediv fixed at 3 (OV5640_PLL_PREDIV), xclk_freq
-set to its maximum of 54MHz (OV5640_XCLK_MAX) and a pll_mult value above
-238 (the maximum value for pll_mult is 252, defined as
-OV5640_PLL_MULT_MAX), the result exceeds the 32-bit limit.
+Good idea, and I'd rather keep both in v2 if you don't mind - they
+guard different things.
 
-This overflow causes the 1GHz safety check to fail, as the truncated
-value fits within the 1GHz limit. Consequently, the function returns an
-incorrect frequency, leading to misconfiguration of the sensor.
+info->size == 0 is about the driver table, and it lets us answer
+"this driver doesn't handle that type" rather than carrying on with
+an empty entry and a NULL block_validate.
 
-The expression sysclk / 1000000 > 1000 now also cannot be compiled on
-nios2.
+block->size < sizeof(*block) is about the buffer coming from
+userspace: a block's size includes its header, so anything smaller is
+malformed no matter what the table says, and it keeps the loop moving
+without depending on the table at all.
 
-Cast the result of the naturally 32-bit xclk_freq / pll_prediv division
-to u64 instead. This keeps the pre-divider operation 32-bit while the
-potentially overflowing multiplication is performed with 64-bit
-precision. Once the 1GHz safety check has passed, sysclk is guaranteed
-to fit in an unsigned long even on 32-bit systems. Cast it back before
-dividing by sysdiv to avoid another variable 64-bit division. Avoid
-64-bit division in test.
+Both are a couple of lines, so dropping either one is no trouble if
+you prefer.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
+> Right.. you might have seen ?
+> https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
 
-Fixes: aa2882481cad ("media: ov5640: Adjust the clock based on the expected rate")
-Co-developed-by: Agalakov Daniil <ade@amicon.ru>
-Signed-off-by: Agalakov Daniil <ade@amicon.ru>
-Signed-off-by: Daniil Iskhakov <dish@amicon.ru>
----
-v2: The patch is adapted for nios2 thanks to automated tests and a tip from
-David Laight <david.laight.linux@gmail.com>. The first version cast
-sensor->xclk_freq to u64, making the division by pll_prediv a 64-bit operation.
-Keeping sysclk as u64 also made the final division by sysdiv a 64-bit operation.
-The kernel test robot reported that nios2 GCC emitted unresolved references to
-__udivdi3 and __divdi3. These libgcc helpers are not provided by the kernel,
-causing modpost to fail.
+I hadn't, thanks. That takes care of the rppx1 side, so there's
+nothing left for me to send there and I'll stick to the core change.
 
- drivers/media/i2c/ov5640.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+I'll reword the commit message so it doesn't lean on rppx1, and keep
+Cc: stable unless you disagree.
 
-diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
-index 92d2d6cd4ba4..dbe767afefd5 100644
---- a/drivers/media/i2c/ov5640.c
-+++ b/drivers/media/i2c/ov5640.c
-@@ -1377,13 +1377,13 @@ static unsigned long ov5640_compute_sys_clk(struct ov5640_dev *sensor,
- 					    u8 pll_prediv, u8 pll_mult,
- 					    u8 sysdiv)
- {
--	unsigned long sysclk = sensor->xclk_freq / pll_prediv * pll_mult;
-+	u64 sysclk = (u64)(sensor->xclk_freq / pll_prediv) * pll_mult;
- 
- 	/* PLL1 output cannot exceed 1GHz. */
--	if (sysclk / 1000000 > 1000)
-+	if (sysclk > 1000000000)
- 		return 0;
- 
--	return sysclk / sysdiv;
-+	return (unsigned long)sysclk / sysdiv;
- }
- 
- static unsigned long ov5640_calc_sys_clk(struct ov5640_dev *sensor,
--- 
-2.53.0
-
+Cheers.
