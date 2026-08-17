@@ -1,138 +1,117 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail.amicon.ru (unknown [77.108.111.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1ED93E5EC0;
-	Mon, 17 Aug 2026 16:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B109449B2D;
+	Mon, 17 Aug 2026 16:09:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.108.111.100
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1786982421; cv=none; b=SZKePjXq4e1NkQf3jgzeHrr04ajj5uzwCUVL2ntTZ0avbVn66eMcbEiRIgYCtldhUDJs4b1j2516foLHoREr2Vp2/hlyNDAXNS3QtPUluvKKSI6Q0S5XmjDgnWCx56TxDh5ynksUVcEUYPyvIPLRQe86WpV6Py3HFpwyl7e2yQg=
+	t=1786982978; cv=none; b=KjW794JOt3BaHG6hmRwhmtFpManWXdGPko8IlrR6yKRZaKc1vOXWVJkDmzpA+kSfbMOYD1EnlSNy6aFbhxtKKkLTtBOTfz/9XxSZ8QMA3LEw5xZEnyITcRSAP9P9QXvr/A2GBarLYWQoSJwqIiRTBc1qfE1XQxIXZIrjlVaCDUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1786982421; c=relaxed/simple;
-	bh=YZOkasreBsQ+MnXpfyGzG+AlDurz+6cLY3rlaHgVfNw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aG6nqJTzihNbk4vtOtemVCIdT9US1rDq6NS7EqNgBk59wXyCvL2KwzhhLdnZJJfQj/CLpNtgahr73BtiHwqZzxo7QPCr7eKK55hJ5EiKtQNgc0DkjzNGQWTIamwl/7YR5thdQqDt3ixLq5ebyiXqrI5Fqr7m1idR/G2bLKoheJQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=VZSU8KNe; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1786982978; c=relaxed/simple;
+	bh=U0DxjJ60lrDiSwBgNUFbdEYuAeWQWITXaKsHEtXIeVQ=;
+	h=Content-Type:From:To:CC:Subject:Date:Message-ID:MIME-Version; b=KrEeHdojJCjBrS2YxNdTRC+hTiFrib8oKwj4EfF40/UF9C08DM1wmzAyoyiVu5vSyCZ9agQfay9RNl03f2RrBz1YuJ8+I3hMszK3NSHCWV8WTnu5KXwuZhvKptXQysYEBP98aePj2Zpd9b2dK6RhjcBmvOWCXkC+vs/AQEKT14g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru; spf=pass smtp.mailfrom=amicon.ru; dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b=WfGP0Izi; arc=none smtp.client-ip=77.108.111.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amicon.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amicon.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="VZSU8KNe"
-Received: from ideasonboard.com (unknown [IPv6:2001:b07:6462:5de2:520d:d7a3:63ca:99e8])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id A3F89E4E;
-	Mon, 17 Aug 2026 17:58:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1786982337;
-	bh=YZOkasreBsQ+MnXpfyGzG+AlDurz+6cLY3rlaHgVfNw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=VZSU8KNeQw0AYK2JRLjwEuabwEZKg2UYGkrVxCToNqCAxmo41CIZ9BJW64/OQhcDE
-	 cOq6Wk7BboLh2CRFBohdEdcw4K6Y8Z7mM3uMvJQ2M2toC+j1OZS6t5ao1ZpCvcTHrT
-	 pavjlNITQOnQJXZilto1w1f4RRFIxHopof1+HaK0=
-Date: Mon, 17 Aug 2026 18:00:13 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-Cc: Linmao Li <lilinmao@kylinos.cn>, 
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, Jai Luthra <jai.luthra+renesas@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: rppx1: handle the MAIN_POST white balance
- gains block
-Message-ID: <aoMveqnDXyPvJdTD@zed>
-References: <20260817104529.3132552-1-lilinmao@kylinos.cn>
- <20260817104529.3132552-2-lilinmao@kylinos.cn>
- <20260817154952.GI2757863@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=amicon.ru header.i=@amicon.ru header.b="WfGP0Izi"
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+DKIM-Signature: v=1; a=rsa-sha256; d=amicon.ru; s=mail; c=simple/simple;
+	t=1786982970; h=from:subject:to:date:message-id;
+	bh=U0DxjJ60lrDiSwBgNUFbdEYuAeWQWITXaKsHEtXIeVQ=;
+	b=WfGP0IziQhidLXGebgAUkxsHqlAOlirPaTo6yPs0HP0CTXyaRQ3PshUbeOh/CvPWF8t1DNthNRj
+	++bkV33D2AB0MRPbaNRLNFHmeZNZyz9gam50fC8j8JIfK53lE4j7r2CheK9/3x897Yjt2G3fMu0LV
+	dpMoUgpFbh1YJMn39LyvYz+i4twBMnBT0PLRMQAH8ybwgMllnQ4jEmotOBL2A4S9TiXK7neQy5pdc
+	jNoKucHmLrWkxV4anraa7CpZUZ8GBmC4uQSpJspD0GFMTr4V8v+OawSF9Ad4ojqvngzK8KbfDN+9K
+	s1uqNUzgkH8VAUr09QA+5z4AAaKmcjve4G7Q==
+Received: from dish.amicon.lan (172.16.30.10) by mail.amicon.lan
+ (192.168.0.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.27; Mon, 17 Aug
+ 2026 19:09:29 +0300
+From: Daniil Iskhakov <dish@amicon.ru>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+CC: Daniil Iskhakov <dish@amicon.ru>, Steve Longerbeam
+	<slongerbeam@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, "Jacopo
+ Mondi" <jacopo+renesas@jmondi.org>, Maxime Ripard <mripard@kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, "Agalakov
+ Daniil" <ade@amicon.ru>, Roman Razov <rrv@amicon.ru>
+Subject: [PATCH v2] media: i2c: ov5640: Fix potential integer overflow in sysclk calculation
+Date: Mon, 17 Aug 2026 19:11:13 +0300
+Message-ID: <20260817161115.2530827-1-dish@amicon.ru>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260817154952.GI2757863@ragnatech.se>
+X-ClientProxiedBy: mail.amicon.lan (192.168.0.59) To mail.amicon.lan
+ (192.168.0.59)
 
-Hello Linmao, Niklas
+The calculation of sysclk uses 32-bit arithmetic because
+sensor->xclk_freq is a 32-bit integer. The intermediate multiplication
+result can overflow 32 bits sysclk variable.
 
-On Mon, Aug 17, 2026 at 05:49:52PM +0200, Niklas Söderlund wrote:
-> Hi Linmao,
->
-> Thanks for your work.
->
-> On 2026-08-17 18:45:28 +0800, Linmao Li wrote:
-> > RPPX1_PARAMS_BLOCK_TYPE_AWBG_POST is defined in the uAPI, the MAIN_POST
-> > white balance gains module is probed and started, and
-> > RPPX1_PARAMS_MAX_SIZE already reserves room for all three white balance
-> > gains blocks. However, the parameters type table has no entry for
-> > AWBG_POST and rppx1_params() does not dispatch it, so userspace cannot
-> > configure the module.
-> >
-> > The missing type-table entry is zero-initialised. A zero-sized
-> > AWBG_POST block can therefore make v4l2_isp_params_validate_buffer()
-> > loop forever. A pending v4l2-isp patch rejects zero-sized blocks in the
-> > common validator.
-> >
-> > Add the missing type entry and dispatch AWBG_POST to rpp->post.awbg.
-> >
-> > Fixes: 9ebf50010c68 ("media: rppx1: awbg: Add support for white balance gain settings")
-> > Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> > ---
-> >  drivers/media/platform/dreamchip/rppx1/rpp_params.c | 4 ++++
-> >  1 file changed, 4 insertions(+)
-> >
-> > diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> > index a75a27a8afd09..88162f0bdc115 100644
-> > --- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> > +++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
-> > @@ -25,6 +25,7 @@ rppx1_ext_params_blocks_info[] = {
-> >  	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
-> >  	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
-> >  	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE2, awbg),
-> > +	RPPX1_PARAMS_BLOCK_INFO(AWBG_POST, awbg),
->
-> This looks good.
->
-> >  	RPPX1_PARAMS_BLOCK_INFO(CCOR_POST, ccor),
-> >  	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE1, hist),
-> >  	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE2, hist),
-> > @@ -79,6 +80,9 @@ int rppx1_params(struct rppx1 *rpp, struct vb2_buffer *vb, size_t max_size,
-> >  		case RPPX1_PARAMS_BLOCK_TYPE_AWBG_PRE1:
-> >  			module = &rpp->pre1.awbg;
-> >  			break;
-> > +		case RPPX1_PARAMS_BLOCK_TYPE_AWBG_POST:
-> > +			module = &rpp->post.awbg;
-> > +			break;
->
-> As you point out in the cover letter there are many modules, specially
-> in the PRE2 pipeline, that we reserve space for in the configuration
-> buffer but to not dispatch yet. But also some in the POST pipeline. The
-> reason for this is that we have no users (libcamera) or test-cases for
-> those blocks.
->
-> I think I would prefers keeping it like this until we do. If you really
-> really want to go this path should you not also add AWBG_PRE2 here, that
-> is also not dispatched ;-) But I think you should drop this and just add
-> the missing entry to rppx1_ext_params_blocks_info.
+For example, with pll_prediv fixed at 3 (OV5640_PLL_PREDIV), xclk_freq
+set to its maximum of 54MHz (OV5640_XCLK_MAX) and a pll_mult value above
+238 (the maximum value for pll_mult is 252, defined as
+OV5640_PLL_MULT_MAX), the result exceeds the 32-bit limit.
 
-FYI: https://patchwork.linuxtv.org/project/linux-media/patch/20260815193839.141406-1-devnexen@gmail.com/
+This overflow causes the 1GHz safety check to fail, as the truncated
+value fits within the 1GHz limit. Consequently, the function returns an
+incorrect frequency, leading to misconfiguration of the sensor.
 
-I feel like we should populate all blocks indeed to avoid holes in the
-rppx1_ext_params_blocks_info[] array.
+The expression sysclk / 1000000 > 1000 now also cannot be compiled on
+nios2.
 
-If we can work out a patch quick enough we can send it as a fix and
-have it collected with the rpp-x1 driver for v7.3 (hence, no need for
-a fixes tag).
+Cast the result of the naturally 32-bit xclk_freq / pll_prediv division
+to u64 instead. This keeps the pre-divider operation 32-bit while the
+potentially overflowing multiplication is performed with 64-bit
+precision. Once the 1GHz safety check has passed, sysclk is guaranteed
+to fit in an unsigned long even on 32-bit systems. Cast it back before
+dividing by sysdiv to avoid another variable 64-bit division. Avoid
+64-bit division in test.
 
-Thanks
-  j
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
->
-> >  		case RPPX1_PARAMS_BLOCK_TYPE_CCOR_POST:
-> >  			module = &rpp->post.ccor;
-> >  			break;
-> > --
-> > 2.25.1
-> >
->
-> --
-> Kind Regards,
-> Niklas Söderlund
->
+Fixes: aa2882481cad ("media: ov5640: Adjust the clock based on the expected rate")
+Co-developed-by: Agalakov Daniil <ade@amicon.ru>
+Signed-off-by: Agalakov Daniil <ade@amicon.ru>
+Signed-off-by: Daniil Iskhakov <dish@amicon.ru>
+---
+v2: The patch is adapted for nios2 thanks to automated tests and a tip from
+David Laight <david.laight.linux@gmail.com>. The first version cast
+sensor->xclk_freq to u64, making the division by pll_prediv a 64-bit operation.
+Keeping sysclk as u64 also made the final division by sysdiv a 64-bit operation.
+The kernel test robot reported that nios2 GCC emitted unresolved references to
+__udivdi3 and __divdi3. These libgcc helpers are not provided by the kernel,
+causing modpost to fail.
+
+ drivers/media/i2c/ov5640.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 92d2d6cd4ba4..dbe767afefd5 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -1377,13 +1377,13 @@ static unsigned long ov5640_compute_sys_clk(struct ov5640_dev *sensor,
+ 					    u8 pll_prediv, u8 pll_mult,
+ 					    u8 sysdiv)
+ {
+-	unsigned long sysclk = sensor->xclk_freq / pll_prediv * pll_mult;
++	u64 sysclk = (u64)(sensor->xclk_freq / pll_prediv) * pll_mult;
+ 
+ 	/* PLL1 output cannot exceed 1GHz. */
+-	if (sysclk / 1000000 > 1000)
++	if (sysclk > 1000000000)
+ 		return 0;
+ 
+-	return sysclk / sysdiv;
++	return (unsigned long)sysclk / sysdiv;
+ }
+ 
+ static unsigned long ov5640_calc_sys_clk(struct ov5640_dev *sensor,
+-- 
+2.53.0
+
