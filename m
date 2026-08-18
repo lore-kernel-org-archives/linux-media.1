@@ -1,163 +1,182 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6700422E08;
-	Tue, 18 Aug 2026 08:20:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639FF37CD21
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 08:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787041219; cv=none; b=WsnT21t4N8T+lbnIOV6ByoQJ8l9GhR0Yl3eZJo1bqwcObN3WG+4+mZlAffA0FelX8o+XvlZah6K0qI4f7SRnYMI5SER+kxqAErPfb6AJBuPMImOYPzFX4Txq72l6eUjSjDybB2zJsE0UlECnCdjUqDlJXrid/TDqiWKf6wEABuY=
+	t=1787041690; cv=none; b=BKDx/7z1LUQujGpW2nmwGyei3gsPh20F1WG80WtfaSElBggashJRGvNzrW+LITa6OjKxDLQka2WAbEGCpkIZ9zyi2MYevImarf7zvBuzmnuk1kKJEf8NvKss4aYANolbMDxtUxSfINqRCrwZ+LaHbUEm3eGDf0BZXkPTWb1p6cU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787041219; c=relaxed/simple;
-	bh=T/PUSjuzvOlvBBIfd/OsPlpjiNbkGNNDTW7lRBYUL4Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZIAwV2AqAIY1LRfZ3PYrCgsxZjgg9az5NKGNZDEZlqZ3M7NVaSlo9ol+AZ6Azyd1jtXUQZLTMJ605bYSikQYuGrmmCPMgod02FJpqMpTMS8Q47j0pXEbzXbeaUa6sYEKfhLCMHRwPtdWU9GsqyXscdqxm9bSP5iHwTZY1OblTBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=K1Fj7mas; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=VnWcO2+j; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1787041690; c=relaxed/simple;
+	bh=5WH9YNuH8fmW2zcH2Hrx09bNNHw+SgEvOlcVgPJoLxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=extUr3GCJl122DTlP/6dU2mnhR930DkRLNYFAOEi09erwE2TWr+GConvoOg4g9eU/rvCZD8Rt5LV7MHecAGT4/PNkZDAtMNzdvwU130qeGOK6VpbQKG/GBo2aMpjmaiGYc2OOOo8vmMmW+cLguFpy/Xwor98umPpTeJxGoCgZJU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cm01I/na; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="K1Fj7mas";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="VnWcO2+j"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id BCC477A0159;
-	Tue, 18 Aug 2026 04:20:16 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Tue, 18 Aug 2026 04:20:16 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1787041216;
-	 x=1787127616; bh=/X49oHlJF1ZAd9H9Xw2MlhSlZqO5feik+BsPdfcnEMU=; b=
-	K1Fj7mas5OYaIly+vxaeRyB3lGTsFh3+Rz2v43Qy1yKehuEIGi0eZL/hw1mf9X4A
-	Rqi9TQJ5CxzsVyUFdfYeCDDg1ZJPvRk3Yr3XK2FvSIXqmwEnHAyMxusFp6g93QA9
-	32jE3GQNoSd9Ykgmcqf2kvsA2ICheKvV1FSlGwqc7PhHUZLnP1Tj6r73Zz0zLX8p
-	kNJ+BQPG7IMPjN1QV7CGHsTfKwrO9OEU6Vm/o8kBKsdhNm3b1FaZJT8AvGPCUZOb
-	TXsAK++E3GMdnojYgGRyw+Cn9oS3saE096BhSBV/+VQkPFh0IJXyN+DJQPUWt5BP
-	SnEVhuwE2++Bhdkazta6IQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787041216; x=
-	1787127616; bh=/X49oHlJF1ZAd9H9Xw2MlhSlZqO5feik+BsPdfcnEMU=; b=V
-	nWcO2+jMIobXm3ASbsaDb07c5nRZ4V6gckhiOxSEnda/+NHUbpe1CrElG0Pie0lj
-	yh2dw2IynyHgVkwomME7YD0E6WP8tx2lTFpGbj0+89paAn5GSPORjo8bCiL/pWmv
-	iO9dD3G6j0bj+dA8Z6zVo0y218k4ZFHfVuMT/SVuv7T6SMCcIBFvSIGBZYUaF+D4
-	xx1QmKdvg4rhZfnHj5eS/XCDMferLBOTb7ZOFKrexFuh0Jp7rkHw3Zr1ZEsdLo8S
-	UfXSYiMVMEW8IjTbixouMF3nEKJ4QJ80tEhc2f4oi0YGvChWPEbp6nnGijp60MK7
-	N3keT3V6RICJjAJAhQApA==
-X-ME-Sender: <xms:wBWEarHREhlpWVrsK4NHjUjPVp8WgYMm7qeIrz9bCCP9a1JoD6wJsw>
-    <xme:wBWEakVMTENyzLkPwboeW2IU1_lyXjZRZG5hWXYYShzaBRH-mCt53xMIQFkXTey_8
-    Xj9tibZ-aH-fggbFvLzy7Wm9hLlr3xjVEvzTCyDUxhhr6AzZKj259k>
-X-ME-Received: <xmr:wBWEavXHYdyv1WbB5Okuidxnr-RY83kWgr9kE5FBgdhBl7TYLCR8jIEtmOyvgLrRfjj1Rk2YvydSmtOoaOF4jxPlVMNDgts>
-X-ME-Proxy-Cause: dmFkZTEvQbRrwjJEBZXXSeZgC10SY3qptrvBbeeQp9W3odH4MolBe+hZPAcIH8fYFfne7B
-    VL1bETgxnauZhoFADxj9DacftQ8ISUNuLNK3DH72HQnJAer0ImejKbbgmfVt9B7rMh3rNv
-    w3bFn8sW2H3ovuGyp5ZCJIsZA6mrhZpRRmssskGJvzjZjZZQQgQTJ29FCxwT3CwJC0AKdO
-    oajS2URcfTEnTZ/3ZQ2LKt2+NzDl6AX2H0MTjWai5bmGrtzWUItDiIvDXAAudZKS2oJ35f
-    +uXEty2XDt0lGX2+XybffYihLFgmv5NVtOPyMCiYVIIWU3+nHvwUvmbumk9az6E9cwD0ex
-    HyVQkoSVPUguSgr/0+KxfUsmWiUgeG7Kovs/sykyNwKQAlGlgSCdI5SCUpDJfkB4CKXYy1
-    10c6/BoKM7KQQg/6XlNEmtDWJmgeMgNEr/TbwkKJ5D6asbafwaMF2Q1Rlk5iXc/4yf8ISv
-    rFoRkPge955bMOmKVAhl0nftCWztCbidS3ijbKvekj1qhdz4+W2xK1M6c6+g85hE7U8Tn3
-    zTGymLzoZ/JUsbCrtniNh9fm3KevNR1hRI66JIY9x9mjD/iFJBLqTvzyI6J0pOlH2ZdKH2
-    0BCHcUmq8KDw85aHqcCMZkyH4/L4ph9epY3eI1d3aj4rQIRzRxeqUy4nHw0Q
-X-ME-Proxy: <xmx:wBWEaqIh2K0mfn11uixnsWqW-ZMR9K-c5vCn56RNCGZQg_9iAzaTxQ>
-    <xmx:wBWEavCyszfvbwvHnq-DI0p-l8nL4BL8MOuqRiQu5i8vb4e8kSP8MA>
-    <xmx:wBWEaqeFE03F-MjE-QqUSkPS8rLgZ1OCl4rbY0f4gLzS5DMYIJ4cvQ>
-    <xmx:wBWEau0h2OSLQd9QweHTUki_F7p5sluWNsKb13BX4uPUvzs5gLo9jg>
-    <xmx:wBWEamLuA-j0MKSP3kWsowPhB83q_fBmnJEGHYJ9Q72HV7e9hB-z7oTJ>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 18 Aug 2026 04:20:15 -0400 (EDT)
-Date: Tue, 18 Aug 2026 10:20:14 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Linmao Li <lilinmao@kylinos.cn>,
-	Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] media: rppx1: bls: read the raw pattern from the
- PRE2 acquisition module
-Message-ID: <20260818082014.GL2757863@ragnatech.se>
-References: <20260817104529.3132552-1-lilinmao@kylinos.cn>
- <20260817104529.3132552-3-lilinmao@kylinos.cn>
- <20260817171412.GJ2757863@ragnatech.se>
- <aoP5qI43R1lwanPR@zed>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cm01I/na"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-47fe89fb333so2630483f8f.3
+        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 01:28:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787041688; x=1787646488; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JqARlhjnju46OOH9kkzdURfO1R0DZex76yD1hra+3Ww=;
+        b=cm01I/naHm1V16GIP98X7umB52jbnP3Tx7ilIp1rDlfLjmy/clEdNfL0iVthzI0mn0
+         BdIgCduVs0hajvpdjPWazW7kVOVd41OuZ3/lbhLCzUjSVRE5eMsl18DvkAgKkIWo/v68
+         /82gASzLKRuxS2vMbhe6sle+mNhFmZKQxSZl5jfEadDkGT6gUQjxNfsbn7q+GDgzenJG
+         4lNt1IXn2JMMk8AjYQoJaWn/lukF5z7VJMPgG0EZhSvRe9FGdzMfLyNkX6s1zIhU3sB/
+         a31qcFf8IBXAdMxT3PJCtaK1puWVr8uMhl30QcdFG4korWjOYCNDuijPdlCJIb7tg4p8
+         Gi5w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787041688; x=1787646488;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JqARlhjnju46OOH9kkzdURfO1R0DZex76yD1hra+3Ww=;
+        b=RWyaMWPulBAdaobhLfHkEJKdV/AhaHp25IeFNYDQl2Zezx0E/PXPSFmEJ4r/gpaEnh
+         3qjVjGH3A8wh06OhdyFUGbanwZmJnq+lQnGbm8x9+yn7RcWHBQK5h8x4PJVTmdqlWotN
+         BPlk3V+QOJQdHgFKYSRYC85t1vnmDAMTTkApPYTGZ75j+UHl1GN3Ca6Lzs++d3gVWURQ
+         c3Wh3mBHq3smQLbvkB22CEtrW3GuB7owCSbOANfnofhN3khF0KWJ52J1I1XLEKn7p3bK
+         P4RAByxUrrq8gDQ5JYLqp3aBxphRnhH8SsEt3v4P/lvK1/Qp0+kdgAWpYzwIrmbfilnB
+         UihA==
+X-Forwarded-Encrypted: i=1; AHgh+RoBh/dWNJzcztUc6phHOx0QOB6Svvnoyyr4XPwJk0O0tU8tjubbQiU4UWK5t9UmenlhLm8A81XcXU+oag==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzwo27+Wl3lfLA+fSkSaFFUM1LaqmUIXs4vpWnnpYNWhC0QDj5h
+	D7o/m0EYKTM0p2DVZiBKtGxzs3gahyJ2VAZZWVQIAjTAOv8HuM5yUJyM
+X-Gm-Gg: AR+sD13Q2U09oV/xIkyXek9dazWXd2uy8NwSYvQJs0kaiadSkg7iEHyBiX1mr3td0qg
+	kG5eSybrX1uwRjbpwUf0qIV8GrG7dnkckFi7cbJeBFYJBhMUcSdNZ6I1XWdM4YUaDtgW3GFMfLl
+	1XhZyUHIbLaqyIpS14MV+oTbcT/gCLhYjIv+BO4DXXOWtwx4bmpwW1UJvMlr9ShQ67RbWtpRIh/
+	fJntuzjkAvUoZ103x9z0ctAOUfHkg7ZvSvy+o7veF6DPf4NbCNSkA3HAGy1z0n6bwBPUDgYpYIe
+	AJCQEPwOXlw8LVIVosAJOnSSmEIiSSHQLxxdolaOGl4sx6tWmJgFQK66eFGGWKXeMnPl4EGqRgB
+	O4i0IzGQqGSceDPEZQWB3oMHJFuR19KjOB9bMDjiYNR+7ISRaOROMJT/FbI6iU5mNXhPnfUYR/+
+	77kvQUm2S3oHoiWt1+fUJtcXSeRIw+/t2PtToFw9GuLheOzu+yd5UCP5AyNc0ab1/+6KhbCC553
+	ZR0wWoj3x/l9p/YthAc5vgr/w==
+X-Received: by 2002:a5d:5009:0:b0:47f:e729:c588 with SMTP id ffacd0b85a97d-482a90cd751mr8657078f8f.14.1787041687385;
+        Tue, 18 Aug 2026 01:28:07 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a31543sm10988285f8f.4.2026.08.18.01.28.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 01:28:05 -0700 (PDT)
+Date: Tue, 18 Aug 2026 09:28:03 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Noam Ben Shimon <noambs2999@gmail.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix integer overflow in frame buffer
+ size calculation
+Message-ID: <20260818092803.4f51e6dc@pumpkin>
+In-Reply-To: <20260807101433.54886-1-noambs2999@gmail.com>
+References: <20260807101433.54886-1-noambs2999@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aoP5qI43R1lwanPR@zed>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On 2026-08-18 08:25:29 +0200, Jacopo Mondi wrote:
-> Hi Niklas
-> 
-> On Mon, Aug 17, 2026 at 07:14:12PM +0200, Niklas Söderlund wrote:
-> > Hello Linmao,
-> >
-> > Thanks for your work.
-> >
-> > On 2026-08-17 18:45:29 +0800, Linmao Li wrote:
-> > > rppx1_bls_swap_regs() gets the Bayer pattern from the acquisition
-> > > module. The PRE1 path uses pre1.acq, but the PRE2 path mistakenly uses
-> > > pre2.bls. The BLS module does not store a Bayer pattern, so PRE2 would
-> > > read zero (RGGB) and map fixed black levels to the wrong colour
-> > > registers.
-> > >
-> > > PRE2 is not started or dispatched yet, so the bug is currently
-> > > latent. Read the pattern from pre2.acq, as the PRE1 path does.
-> > >
-> > > Fixes: 3f8a2a883655 ("media: rppx1: bls: Add support for black level compensation")
-> > > Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> > > ---
-> > >  drivers/media/platform/dreamchip/rppx1/rppx1_bls.c | 2 +-
-> > >  1 file changed, 1 insertion(+), 1 deletion(-)
-> > >
-> > > diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> > > index 01a61db279bf7..71c5561457d52 100644
-> > > --- a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> > > +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> > > @@ -70,7 +70,7 @@ rppx1_bls_swap_regs(struct rpp_module *mod, const u32 input[4], u32 output[4])
-> > >
-> > >  	/* Swap to pattern used in our path, PRE1 or PRE2. */
-> > >  	struct rpp_module *acq = mod == &mod->rpp->pre1.bls ?
-> > > -		&mod->rpp->pre1.acq : &mod->rpp->pre2.bls;
-> > > +		&mod->rpp->pre1.acq : &mod->rpp->pre2.acq;
-> >
-> > As pointed out elsewhere in this series, PRE2 is not enabled yet.
-> >
-> 
-> Isn't this however a bug worth fixing anyway ?
+On Fri,  7 Aug 2026 13:14:33 +0300
+Noam Ben Shimon <noambs2999@gmail.com> wrote:
 
-We could. I was under the impression we did not want to enable stuff 
-that did not have a user. If you are OK with this so am I.
+> In the function uvc_parse_frame(), it recomputes
+> dwMaxVideoFrameBufferSize for uncompressed formats. This helps working
+> around devices that report it wrong:
+> 
+> 	frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+> 					 * frame->wHeight / 8;
+> 
+> These three arguments originate from the device's own descriptors, and
+> therefore can be decided by it. bpp is a u8 and wWidth and wHeight are
+> u16. The expression is evaluated in int, and the maximum value is
+> 255 * 65535 * 65535 (which is roughly 510 times INT_MAX).
+> A device that declares large dimensions therefore overflows a signed
+> int here.
+> The kernel is built using -fno-strict-overflow, so this wraps rather
+> than being miscompiled, but the wrapped value (which is often negative)
+> is then divided by 8 and stored in a u32 used as a size.
+> 
+> Two examples for this (using legal field values):
+> 
+>   - 32 bpp, 16384x4096: the product is exactly 2^31 and wraps to
+>     INT_MIN. After division and conversion to u32 the field has the
+>     value 4026531840 rather than 268435456.
+> 
+>   - 16 bpp, 16384x16384: the product is exactly 2^32 and wraps to 0.
+>     The field holds 0, rather than the correct 536870912.
+> 
+> I don't think memory corruption is a consequence of this. The value
+> reaches uvc_queue_setup() as the vb2 buffer size, and every copy on the
+> decode path is bounded by buf->length, which uvc_buffer_prepare() gets
+> from vb2_plane_size() rather than this field. What a wrapped value does
+> instead is make the driver describe the stream inconsistently.
+> For an uncompressed format uvc_fixup_video_ctrl() copies it into
+> ctrl->dwMaxVideoFrameSize unconditionally, and that becomes the
+> sizeimage reported by VIDIOC_G_FMT. This is while width, height and
+> bytesperline continue to describe the full frame.
+> This also makes uvc_video_validate_buffer() mark error on all frames,
+> because it is comparing bytesused against the same number.
+> 
+> Compute the size in 64-bit, and if the result does not fit in the u32
+> field then reject the frame descriptor. An uncompressed frame this
+> large is probably not a real device and rejection is consistent with
+> the other checks over malformed-descriptors in this function.
+> 
+> Fixes: c0efd232929c ("V4L/DVB (8145a): USB Video Class driver")
+> Signed-off-by: Noam Ben Shimon <noambs2999@gmail.com>
+> ---
+>  drivers/media/usb/uvc/uvc_driver.c | 18 +++++++++++++++---
+>  1 file changed, 15 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..d319368f9d21 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -296,9 +296,21 @@ static int uvc_parse_frame(struct uvc_device *dev,
+>  	 * information. For uncompressed formats this can be fixed by computing
+>  	 * the value from the frame size.
+>  	 */
+> -	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED))
+> -		frame->dwMaxVideoFrameBufferSize = format->bpp * frame->wWidth
+> -						 * frame->wHeight / 8;
+> +	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
+> +		u64 bufsize;
+> +
+> +		bufsize = (u64)format->bpp * frame->wWidth * frame->wHeight / 8;
 
-> 
-> The raw_pattern is initialized for the 'acq' module, not the bls one
-> 
-> rppx1/rppx1_acq.c:             mod->info.acq.raw_pattern = RPP_BGGR;
-> rppx1/rppx1_acq.c:             mod->info.acq.raw_pattern = RPP_GBRG;
-> rppx1/rppx1_acq.c:             mod->info.acq.raw_pattern = RPP_GRBG;
-> rppx1/rppx1_acq.c:             mod->info.acq.raw_pattern = RPP_RGGB;
-> 
-> 
-> > >  	enum rpp_raw_pattern pattern = acq->info.acq.raw_pattern;
-> > >
-> > >  	for (unsigned int i = 0; i < 4; ++i)
-> > > --
-> > > 2.25.1
-> > >
-> >
-> > --
-> > Kind Regards,
-> > Niklas Söderlund
+I'd bet there is a requirement that width*bpp is a multiple of 8 (or even 32)?
+You definitely don't want the divide rounding down!
 
--- 
-Kind Regards,
-Niklas Söderlund
+> +		if (bufsize > U32_MAX) {
+
+Should that be >= ?
+
+> +			uvc_dbg(dev, DESCR,
+> +				"device %d videostreaming interface %d FRAME %u: computed buffer size overflows\n",
+
+s/buffer/frame buffer/ ?
+
+> +				dev->udev->devnum,
+> +				alts->desc.bInterfaceNumber,
+> +				frame->bFrameIndex);
+
+I'd include the bpp, width and height values in the trace.
+If the error happens the first thing you need the the three values.
+
+	David
+
+> +			return -EINVAL;
+> +		}
+> +
+> +		frame->dwMaxVideoFrameBufferSize = bufsize;
+> +	}
+>  
+>  	/*
+>  	 * Clamp the default frame interval to the boundaries. A zero
+> 
+> base-commit: f9a2394a23482bfd330911e9c8295b71724feacd
+
