@@ -1,141 +1,199 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33567368D65
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 04:55:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 277CB3A4F2F
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 05:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787028938; cv=none; b=sKT7ujscO9EaDkTsKKEWTTqJaU2iDTMrQFH8Ki3ELQD7+Z1+Gw1qaXtmGWxeGuUq2ugy0n7xapMd6mRfqEpdJg9Fx7J88D6W9+Tnva7zQYu8fRo/CQudTnCWT+oWESsf2Ht/O85V2jCqD+ZzzudFb/RsVw+AG73ylibi+lmdb3M=
+	t=1787029839; cv=none; b=mtyVcYq7EAO7WCwdWKWd/KV7hj82srOE5QhGodBITaMXIhb11r3cqi6s2kZ2VNWcCJkir8Io1R+lphCWErqkhyC2V6LYg3wpUnmbEsurhWUqBXjuIHiamiDdrjll+WMhOZluk2HvwgJELyFCxFibjNzj3THhgQlC4kbwwvcEAAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787028938; c=relaxed/simple;
-	bh=o4+aZ6qS0S9nkK81uPz+cUCUIngJN+MKKpptDZdgbkk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ah8pzUtpH7Br6k641A9x3xFoSQzi4A82ZXf+xB5kLFcWc3Zws8UWvkLP1IXjX/F+EcU4ixbOx8zDyJR9AUwb16Hs2x3xPi5nybM8Q/IkPBfLrQCB5iUQcpqvNzXF0DJ1wK2Lq7nGSd4IlZ4uNu5w/SKrCDIYRZNsTDWLagPEKH0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R9+r6LDA; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787029839; c=relaxed/simple;
+	bh=FeAbcPh2BNksaU1ol+KzsK0r4wOWdTJppcdaT2TRPqs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sSOGiS573mgBiqCzpkuAbDUQKsyEReqi80JRcB9umZtHvV0Ux9XfG2VP65NwrIa5PiRlHNLTyGNvDSr6ZM0CMbuAa10w0OGgjspeM5cNIkHc+3MGqUriTsmbXGcUuDaglZzu3t1zzsZgUnDsikeo2IrMrRXqOFP4A8zDgUu33y4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KeBhHxQZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LWr7poZJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R9+r6LDA"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-8edda5d56a5so44434456d6.3
-        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 21:55:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KeBhHxQZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LWr7poZJ"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I2YPpV3761854
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 05:10:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=; b=KeBhHxQZWxpTR36D
+	Psjvj/wq85jpkNoelRCr7GA7IQCCNbmQzbbatB7HF/+kMmEmIX47iSfKo78TrcSi
+	zRz5ZSG449nqvSpSoNWzt68dQQgrrECiYvvocNwe0bQUC3g/OuRn/tEfNoxb24oC
+	O9wbXTcyPL56yRHFNej8KVXdeaEMBbZEEIPNDfRrpfJcoG68OgijLhbpI6ejiKy9
+	0/VB2vb/qCwEl8lPPqalgpvM78u5K5Sp+CNMHTxsKImtrqVSh44YqH9H+pABffO5
+	hr6Tf/yxspMv8oPqYzuJdIWNp2SdtEDSQsiwbvkCPxvoGVfB+nOTF1tlZ9n7YP78
+	D4B/iQ==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4eqtrhpb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 05:10:37 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-84857446424so7227858b3a.1
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 22:10:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787028936; x=1787633736; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
-        b=R9+r6LDA3Xn+S/lYbFDZCeT8SGWO01cNC4BvR7OwUBV6EM4RPLA5M7UWrLWvPKTDK3
-         GLLdICa8NOVoEtU4Ve/nPkW8HeOc2DKUAZFHJgiWBN/JvjXQco/uAxS/wtF5DEFv1cbX
-         OSb53Xr86zUHNM+sqCUHyDp1l4fGLRptFimOnuGHvaFb8Sb0rlXSvtpyiH5keKVrc4xm
-         cPNs/d8YnTihaA1lI9qHzj0NObvHVgikRLm9W8U5M8XywTsLmcq+vRaafgNc0PWIHdOX
-         j2Kh6XFPoHgVX73fE7oy+RJcLfg257xx/AydkZAgyi/d/kLf1ZSNzxHWrYyyvKOFjNTs
-         Qkpw==
+        d=oss.qualcomm.com; s=google; t=1787029836; x=1787634636; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=;
+        b=LWr7poZJYk7Q0HTF5LwrWCT9KE4JuohiFX3PV+0O4QlVUd0fXDrxhbK9qUC7HsnJaf
+         rNQ6/FfjGdng7iKIft9KFK12ZpAfHG7VeogePVdd5k2jeX8bY6RWpUdWocaW1rQ5NOhx
+         99iAa6i0hHaiEY+krpniHI5EFQHpVETeZX5FI8xDeS2/vfddChZO67qTSCzgc8f5KOHD
+         8rM662Fuh8v7cHO/p7py8HFJO3etIDGjYUYDEzc5M9Qtkj2opIZNy3EowEryaU1E8uZK
+         7shtfAzhDB7RIFDlCqeFv1btfd4hM/u7fqWUlpYBQZxj7xPFIdJabOO0Y+5pWIN6rQRG
+         ZvRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787028936; x=1787633736;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787029836; x=1787634636;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Wc1B4UKGofVVH26ecK+ofT0cydYY+iUUwt3ZyLVBedk=;
-        b=EkxuVCtJ/xndP3bm1ib8gIqwHKiRjYNzw0EKdwXIaZ3TZZgeW6whjL+zdLwINiyg78
-         wQB4irzml6VJFZVsUL9jZg3OzA7NVb8HpKQ+S0sHW62wYaNAS7G+SUwYBk6YCC/yvKcS
-         g5028+rTNMlcQq2CK/ntoRd5O6Ac3na+WslsQ2XRVCPhaMCmm3p2LsCSXfj+1IyVYceK
-         RFqgtYkHoUMkMpPjqVWBXnxF+507uSvfGjjaUtTzNKPGMPhDRRY3Wy1h2iZzico5+ROh
-         jQ17ToYAm3fvWerKDICXe5SAZVmY5mK3KSZBE3tb4BKi7gM8ByQ4/XYVlxYpxhWbE3Tg
-         8qTA==
-X-Gm-Message-State: AOJu0Yxpt9NdXBJoXAWpaE+PHZGe1LksLDJN8pJq/L90NNFiYYj2QopW
-	Pvpu3sbKthiXdkC64cgI/Euf06y3vPsmUdP30BHKM9OiVijn90tyeZfFkt/u6ITv
-X-Gm-Gg: AR+sD10akeqgDFN6BvXippG/XmHLp4eMZBR3Tt+0O7r9G2HktfQ8X88JBAgfULj4p1Q
-	VApwbZ+d1sksa4qPBqqUIFzWicnCZpN54+O0toLUENH2bSIxgdZ4pHphY92oRd37NrPIShL9jTR
-	zoQNhsGA/kTBnJyOycKb+YrIUKnUrRyInA+yLFfEQi8oBDA1mrSVevNVhXPQ+hWMeId4pRcR/GN
-	bZ5B3X3F9oT8/AbHZJNM4MM+v5GVPUDXBUlsw9+pRh9slE5pBA9IYBPnBAEt3GGsEEch8bflTiU
-	HXUcee0l6OzEI6ZdQuuPmhd//iye2ifj1b5pgXnK9j2lLgpCjWX0PNc3taKUZtA1vDePvKr0uqO
-	4SFRkYbvmvIlXSaWfDiExDL8JTButYcswvZjlqyLLMuMK73VwD4Q7PNJtdPJfegk8C3IFL3lVQw
-	vG8hMPYiHe0jIUfbuyky0odwtaFSQ/mNWoQeHI4oKE2gDJQz8QeXr5H7VitCs8jBuQJLsrLIMAz
-	HX3yUw+r4EN079J6Q==
-X-Received: by 2002:a05:6214:53c3:b0:906:2b80:4684 with SMTP id 6a1803df08f44-90a91cf1279mr338284886d6.3.1787028936056;
-        Mon, 17 Aug 2026 21:55:36 -0700 (PDT)
-Received: from i4-l-hqh5357-03.ad.psu.edu ([130.203.139.71])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c4d0c0360sm12345536d6.16.2026.08.17.21.55.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 21:55:35 -0700 (PDT)
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: dvb-core: remove active network interfaces on release
-Date: Tue, 18 Aug 2026 00:55:21 -0400
-Message-ID: <20260818045521.1600266-1-shuangpeng.kernel@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=Rp3lIMjCbjVBjSLiXhtJRxpN1gXNwjBR1B2cE1UgyMk=;
+        b=fZsXDvOiy+3AuH1A1VwK70esLHcfauHo28cKV64lwZZiQbddwWkcWvwMujpgrNOxwm
+         hbQGf6DZZ78tVgYCMSujkoNEb8z2CAVsLQ5bchMZDa3Lsp/QMHM1t7OzB75hrTYGNeeg
+         cY3b82WhGZTu5cGj1lTm2C3cgEG9YcTX4yIfP1JwZTopJoW0bOYChAD6ZjCeWivsFtXt
+         PBfXoomlNwbHznlMXbWCt+0nlWyS90U2H0dQVTjB+7fY4xt7EY31AZx7qgJYak/eHc1m
+         fjkCjHd/UYrD21Km/8IlK5NSBkYeSUkcOsWYj27AGjR0pDUlJvroZUemVuD/JY44cx01
+         HozA==
+X-Forwarded-Encrypted: i=1; AHgh+RqJ6mSvbHQEuP2TRMRtanKAb81ajwL4UkE//eQka4f5zzkJrvHOx4bsdr/QgOxPn6TC7TmTmvpcAIYqiA==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw1NpR8XSNIAM3lz4+8+FxD9Wct9rCe+uS8Z2FHG0fwMiD1WUfa
+	bWelCTl2Ye0lCZCLTRcb2ktgZqj32zDCO/+s81L3awGJpfTQ02KCgnuR6pGow/ToEfJ/up0sn1c
+	bKXn84/S6kXkDlMvlbCa3foVOELpnsq8lVqbsgx8ceU31OsfOO1s9Fgxt/c3rnXzV8w==
+X-Gm-Gg: AR+sD10clvCp8St2R49qGNjGMZcqJs+/KPH849UccwgeIZHxYZin63ZqFSQUvpjA91r
+	DuVs6VMI1CDL8chKACIhSCGBwUq/g5d9aLURw95JXaYtDDkYxp7ZqaD2jFSNootDtJDvWNBX1/W
+	jBbl5Y9s9LTvcexvh+s98lqhhH+rtXJN4qcwA4L8P5BA6DODyAiazYD/I3qQKoSqObHtoTfnC7z
+	2QmcR3bppm/YCO0i8KsBuJU0a2y3zWTrytznktP0cEnmKjTI4u4yS0iBAbIgjYw4vq0IpN2ovOt
+	rC98WLM3sRT0CmGL8br00LLSUJsQsUrhMIadiWS1+6e3oNDx9EVZ1P30LDb4zSoT8Z8oknj86QB
+	1/O5HnrK+rgN570+wEnJVXSj9bMJV8A==
+X-Received: by 2002:a05:6a00:188b:b0:845:e8b9:347 with SMTP id d2e1a72fcca58-84fddfe099cmr29499656b3a.13.1787029836085;
+        Mon, 17 Aug 2026 22:10:36 -0700 (PDT)
+X-Received: by 2002:a05:6a00:188b:b0:845:e8b9:347 with SMTP id d2e1a72fcca58-84fddfe099cmr29499576b3a.13.1787029835654;
+        Mon, 17 Aug 2026 22:10:35 -0700 (PDT)
+Received: from [10.219.56.166] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851b6ff2232sm1015652b3a.52.2026.08.17.22.10.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 22:10:35 -0700 (PDT)
+Message-ID: <89ec74da-15ed-4278-b651-5c753fa4f146@oss.qualcomm.com>
+Date: Tue, 18 Aug 2026 10:40:25 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/15] iommu: Add QDA compute context bank bus to
+ iommu_buses
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
+ <20260817134416.GA1415075@ziepe.ca>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <20260817134416.GA1415075@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX33s987CXEiHE
+ Zace/izYERh3zfk458xMGdbjq0pcB9n109iMDUxZPNPx/tOh1khvtWjccMNKkLAyPO+fo6pOSKB
+ T0LCbRNnp5j5SxRykbzkRpCc4mnOo8g=
+X-Proofpoint-ORIG-GUID: pO0Gz1OkGwyJzW_hcazXGr_BezfjRVpU
+X-Authority-Analysis: v=2.4 cv=UfFhjqSN c=1 sm=1 tr=0 ts=6a83e94d cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=UlZBYPnkdO8YS_jrOJUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: pO0Gz1OkGwyJzW_hcazXGr_BezfjRVpU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDAzNiBTYWx0ZWRfX54ldrkf0C+rs
+ IQRa6oVlPoX8Q3L13DGEJg/VtUZ/wt2TSI/dEnh4BFjJRVYZLqG4BR4X99NH3MLk0Ol4XAwq2IO
+ 3gZBeY8LTSa/++AZsNdhZxAEw2WxD99cqKwN/VtdGcX63TcmAIjWs8uMvtB48Fg+EL0cfOCDavh
+ lpwvMPeRyIBGVzuprekeSfSqQfF+Kd0WSFvzQb4FCHJvXusbAXBan9ixXPiX1vvRa1tbjU7Fjj0
+ rCa/eV8s3QhoJKj/HlJRg+6sALzU8OoKMpzWo1Grs8fwbxW3oihCFRftBL0o3/KKlhFYpdj5eZk
+ E8dRepWpfGckVlxeo3ocIS6dVE+KQl0krGkDMrSo8iy0gM7fJT4e3QZ3m0Uwb5mpWAdu2Ds/ALq
+ o2puGFeM6KhKogSMoHz6kHoF4l9M0lKKnvUgUmbrYeE765p0uRpveC0tRsjE5tTDfVVejM+vEqE
+ ch0KmgzsowyLd3oK4UA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180036
 
-dvb_net_release() marks the DVB net instance as exiting and then calls
-dvb_net_remove_if() for each network interface.  The latter rejects an
-interface while it is in use, but the release path cannot propagate the
-result and leaves the netdev registered and its feed active.  Callers may
-then proceed to tear down the demux and driver resources on which that feed
-depends.
+On 17-08-2026 19:14, Jason Gunthorpe wrote:
+> On Mon, Aug 17, 2026 at 10:17:40AM +0530, Ekansh Gupta wrote:
+>> Register the QDA compute context bank bus (qda-compute-cb) with the
+>> IOMMU subsystem by adding it to the iommu_buses[] array.
+>>
+>> The QDA driver creates synthetic devices on this bus to represent
+>> IOMMU context banks (CBs). Each CB device needs its own IOMMU domain
+>> so that the DSP memory manager can enforce per-session address space
+>> isolation. Without this registration, the IOMMU subsystem does not
+>> probe CB devices for IOMMU groups and of_dma_configure() in the bus
+>> dma_configure callback has no IOMMU domain to attach to.
+> 
+> I didn't notice a clear explanation of the proposed DT schema for this
+The context banks are described in DT as child nodes of the fastrpc
+RPMsg endpoint with compatible "qcom,fastrpc-compute-cb" and a `reg`
+property for the stream ID, this is the existing binding in
+Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml. QDA reuses
+this schema unchanged.
+> 
+> But it looks awfully similar to the other driver that was creating a
+> kernel synthetic bus for actual real HW, that wasn't well liked.
+> 
+> What is this for? Why can't you have a normal DT binding for the
+> iommu with normal devices?
+The CB child nodes are not separate addressable hardware — they are SMMU
+stream-ID assignments described as sub-resources of the parent DSP
+interface. Using platform devices for them was explicitly rejected by
+Greg KH [1] and subsequently using a generic shared bus in drivers/base/
+was also rejected [2]. Greg's conclusion was that each driver needing
+this pattern should have its own custom bus type.
 
-In ttusb-budget, a concurrent netdev open can be starting an isochronous
-feed while disconnect passes the failed interface removal and frees the
-driver's URBs.  If URB submission fails, the feed-start error path can then
-call usb_kill_urb() on an URB freed by disconnect.
+That is exactly what QDA does: the qda-compute-cb bus is a per-driver
+bus type with a dma_configure callback, following the same pattern as
+the existing host1x_context_device_bus_type that has been in the
+iommu_buses[] array since 2021. The bus creates devices synchronously in
+probe, calls of_dma_configure() via its bus callback so the IOMMU
+subsystem probes them normally, and tears them down on remove.
 
-Keep returning -EBUSY when userspace explicitly requests removal of an
-active interface, but use the exit state to let the final release proceed.
-Unregister the netdev first so the networking core blocks new opens,
-synchronizes with an open already in progress, and invokes ndo_stop for an
-active interface.  Wait for the feed-management work to finish before
-freeing the netdev.  Since set_multicast_list_wq can restart a feed after
-ndo_stop(), stop any feed left by a completed work item.
+[1] https://lore.kernel.org/all/2025062434-reviving-grumble-1e53@gregkh/
+[2] https://lore.kernel.org/all/2026042442-luxurious-antonym-f20c@gregkh/
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
----
- drivers/media/dvb-core/dvb_net.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/dvb-core/dvb_net.c b/drivers/media/dvb-core/dvb_net.c
-index a2159b2bc176..a5726a006bc1 100644
---- a/drivers/media/dvb-core/dvb_net.c
-+++ b/drivers/media/dvb-core/dvb_net.c
-@@ -1404,18 +1404,26 @@ static int dvb_net_remove_if(struct dvb_net *dvbnet, unsigned long num)
- {
- 	struct net_device *net = dvbnet->device[num];
- 	struct dvb_net_priv *priv;
-+	bool exiting;
- 
- 	if (!dvbnet->state[num])
- 		return -EINVAL;
- 	priv = netdev_priv(net);
--	if (priv->in_use)
-+	mutex_lock(&dvbnet->remove_mutex);
-+	exiting = dvbnet->exit;
-+	mutex_unlock(&dvbnet->remove_mutex);
-+	if (priv->in_use && !exiting)
- 		return -EBUSY;
- 
--	dvb_net_stop(net);
--	flush_work(&priv->set_multicast_list_wq);
--	flush_work(&priv->restart_net_feed_wq);
- 	pr_info("removed network interface %s\n", net->name);
- 	unregister_netdev(net);
-+	flush_work(&priv->set_multicast_list_wq);
-+	flush_work(&priv->restart_net_feed_wq);
-+	/*
-+	 * set_multicast_list_wq may have restarted a feed after ndo_stop().
-+	 */
-+	if (priv->secfeed || priv->tsfeed)
-+		dvb_net_feed_stop(net);
- 	dvbnet->state[num]=0;
- 	dvbnet->device[num] = NULL;
- 	free_netdev(net);
--- 
-2.43.0
+//Ekansh>
+> Jason
 
