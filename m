@@ -1,238 +1,193 @@
-Received: from mta0.migadu.com (out-217.mta0.migadu.com [91.218.175.217])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B603EE1DB
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 11:40:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E8764570F8
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787053256; cv=none; b=Zr+mUgBnxac7iBxQ9/sHzWPLtu3FPyGzlvAUIUtD+375PGodLvRJPwQOR8fT9tG5Oi8iD3sQhQaBfdmuJTioVOIq5SnjHFtbxYx8v5aD+m1D3rK/O6WGJfBUNLA1sNzF54mPv6g+zZ2cf46SiplQDvX5g6LxaKe0yFzllWnxBh0=
+	t=1787055291; cv=none; b=N5pKll9AinEQRbXkUPWpbLlO5wtKHnnu2qZDvs8rXKjecdYMeMmNW/IMqU6TBpOcfPF6OLAZ+Wmu4BGAuWaXnZSQtkKAFfTPElVkJcCTHtD9WMZKYrba4PzRIOyIeS06ToRIHLMTgA0Gr5QpPl3OQB9cz3nL+PbD2+oXHLTkQw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787053256; c=relaxed/simple;
-	bh=1WMHENEYr0OqLYuuU4QREt9kYkPM7Zi0Jgv7vPZ7ygU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RooLKn9IqMorOcxz6h+umXH/jfJ3YzGWI7EMpHHRjf8gm/XwHB3kA9LRy8WCFIvGzhI51ga0HQVLqO6e2xffQyvNqQ5rSqLZK9y6QGm3nvGwTqdcqv4V6Pm0cmPWfDGNPC7scZ26GL3UoCBU3dtHCOSTwdlKaAXyiOBy21NX7lA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=WuoiiXul; arc=none smtp.client-ip=91.218.175.217
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1787055291; c=relaxed/simple;
+	bh=LNwrpJ2jGDIVWzaHS6+BBNGZ+u3Hm7KHw91cH/cSj70=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rRdHG/s1o6SfevEsxQDqeXTwKdJFQcLMdk36CbXak5omgmx+ECi81nAMMLP8nhWhxWNLJ97zzghMNsy0tLg+YaIYevjl5epQnvQdAP3IzlA251cqdJRn52isJ45KbfAYMB59jhzo7I/TWj1tCF5dnePCzDNIkcJXqjN798awHb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ghAKAF8U; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q8R8BsbU; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="WuoiiXul"
-X-Envelope-To: linux-media@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=1WMHENEYr0OqLYuuU4QREt9kYkPM7Zi0Jgv7vPZ7ygU=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1787053251; v=1; x=1787658051;
- b=WuoiiXulGs2VD+GlB0mNMAZ5G9u0uuKyukUPpijrw8tBRlEVYBpcZ7tm+H6xiB9vYmPoFKDn
- EPi63+m0ZvpgLpPfsQz+KcXSRVWkKVDS76oubsAauQsWdvwQal54KcUvubW6xE0WLDyQqFzSA1r
- hgsF/ibxBFoCw5OHUBpN/0m4=
-X-Envelope-To: linux-media@vger.kernel.org
-Received: from fedora (117.129.78.49)
-	by smtp.migadu.com with ESMTPS id 5b473eed746572f9;
-	Tue, 18 Aug 2026 11:40:51 +0000
-X-Migadu-Flow: FLOW_OUT
-Date: Tue, 18 Aug 2026 19:40:27 +0800
-From: Hao Li <hao.li@linux.dev>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>, Alexei Starovoitov <ast@kernel.org>, 
-	Alexander Potapenko <glider@google.com>, Marco Elver <elver@google.com>, 
-	Sumit Semwal <sumit.semwal@linaro.org>, Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Ingo Molnar <mingo@redhat.com>, 
-	Peter Zijlstra <peterz@infradead.org>, Juri Lelli <juri.lelli@redhat.com>, 
-	Vincent Guittot <vincent.guittot@linaro.org>, Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
-	Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
-	Andrew Morton <akpm@linux-foundation.org>, Christoph Lameter <cl@gentwo.org>, 
-	David Rientjes <rientjes@google.com>, Roman Gushchin <roman.gushchin@linux.dev>, bpf@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, Dmitry Vyukov <dvyukov@google.com>, 
-	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org, 
-	kasan-dev@googlegroups.com, Dietmar Eggemann <dietmar.eggemann@arm.com>, 
-	Ben Segall <bsegall@google.com>, Mel Gorman <mgorman@suse.de>, 
-	Valentin Schneider <vschneid@redhat.com>, K Prateek Nayak <kprateek.nayak@amd.com>, 
-	linux-rt-devel@lists.linux.dev
-Subject: Re: [PATCH RFC 3/5] mm/slab, kmemleak: handle kmemleak freeing in
- kfree_nolock()
-Message-ID: <aoRDqeBrzitJcqyY@fedora>
-References: <20260807-kfree_nolock_kmalloc-v1-0-ba993cbf7a60@kernel.org>
- <20260807-kfree_nolock_kmalloc-v1-3-ba993cbf7a60@kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ghAKAF8U";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q8R8BsbU"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABh83599415
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:14:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=zbfLTR9IwLCu1Z6/pbfQqxBwAeYCv1l1Xrh
+	mM8Mbttk=; b=ghAKAF8UszpYCsc2pHNV/UXt3QKW+lE1Za2BbR0JMpFF0Qo5s+T
+	BTEgmLhwOSlNyjro1bLNsbcRYB9ihKGr8R2fnzMnlau09Iaq4v26mpTowLZiHUyr
+	UR5Xj1gp/8cNcAs6N245emE8zpJtqdESlV0SAby/SmhIGG4S4XafBILWJ0f245/U
+	xr41VpVZ1WTq8vZYNV+aGDMlyQu6Di/rJPsbAH9LjerbUaaPYn1ToXyFlL/CrqXN
+	oD8tHPvm5AV/oaLEhHvtICqaFiAuebR23G2eug5Vo7m7zwgq2qB68lVxhnzdhUgh
+	g+prf3VdLovRcD1LVbhGAsuWqChrY1zjRIQ==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4eqtt8gu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:14:49 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-92e82060977so109422185a.1
+        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 05:14:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787055288; x=1787660088; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=zbfLTR9IwLCu1Z6/pbfQqxBwAeYCv1l1XrhmM8Mbttk=;
+        b=Q8R8BsbU1eDb5hBSCjs3atIm2wQnYbTS/L9XQJkLIT9wP1hsC20oH63+ait07p8/uK
+         gTbc6rQ598lfw5WX0d4wik4qp7PgaZh3ZxeJ75aGGzlWMD6kZ2mREyw20RikTYz/Aicy
+         yqVm9TQHDhGDs9EUDIar/aGjaFVrr/BSmI0bSFlUG0OVC4+7k57rgMQHjgg84eRUezzv
+         Q5hYmWjRGLHLU3j+Ln+FVFDf92RRW2XfarJz+rfklxg44Hq8jbnc2ctCs9etkPINOQ3O
+         mdbyW4sLkYGDGemVBsNhWxVPf29WyXx7Wns/qTKbc3utQloYJ6W/am4cVKNk8xYFX0JE
+         9Ucg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787055288; x=1787660088;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zbfLTR9IwLCu1Z6/pbfQqxBwAeYCv1l1XrhmM8Mbttk=;
+        b=Pjti6uo+calxXxGeOi7gMTvUaizrthgn6mirFR68GamLH51skT2aXVMqsjw1SYq3cP
+         bvd4FCoH6udP2FV+ONFtHlW0sw8lp9k42oA9Jcxm8lYXYy5GUD5bcAxSrOjbtkCGOn/K
+         4meyyMuqBrEYJ1UTbot+tz4NID37z0/I8eqjN1eJ616eoSTSncWzW1b7jGavuDuHXI6s
+         +hfCwYi46r8NmGPOT2cE08xJCulIrDKyLoeHaRTf7WQNYXjCBjblfpz09N9q18y+y0+O
+         WNxMakb8qZEekCVMFf4bF0NujZc0hohAwVjvk09iTvqtDeyh0Jn6JaXqMG6MrafbiKBb
+         BXFQ==
+X-Forwarded-Encrypted: i=1; AHgh+Rq/xEGak9K2wCouQbn7JXtB5VIWIwnQzaj32rtL/HIWGp1trG045Hd7itZiEsicPPwTib5y8m8vxKF79A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwaNMHCiQgNPdzsuYviWmqyrPODyYRDIcBFOE6s7W+DBfHX23u2
+	LqMQdFHWVzAStjIpUGlvc7MHXXY7GW9RKrwSCvb3T9EybRj+Dj5YDsK543nyD3x+/HB1pgnwOsW
+	7gqR1vCR6gjvPDsHln1vN38UIweWiyUTnMwY+Dz3ctbneqdU5kVJ7BFbweBCF3Pe+A/E/KsuP6w
+	==
+X-Gm-Gg: AR+sD13sBCvEGZ/UHenGj7yMk0kAo9R+ZdEqubgfne0lluvKKunSZt4YlkvrgAmUP7o
+	PvT7bH1fRE1DeISWlm4Q1rE2E2/ESc4J8EKgN+wbsxihvS+Twaz6Y90ngQb4fGUgnLeoJDoUl6H
+	9fC1PFhRDaxpoO+g1Wow4yzffpOTjt45jdynhxHBDiyZPdZsY5y/9a6bn5U1u4t5UdpcigbVIUQ
+	f0JBg41VKX+EP85Vcz5YzDsHeN6FvXCbO2Bum2lfAYjggybl9657rXxbyq+624CwXG9Kj4onybp
+	WXSoNA3dfUUoiBEHnk4GZx85aw/oZzre+3+IyqtgZZhVw94JTrf/bDofk8+OD7mtybh+R1+dkjo
+	S9/R6kBvYz5MV2LOiMbP/SWZeQFDa2OpYrO5cDetBC2+8ITXfL49NMjebES5AMp+D0YO6wRheJc
+	YceWkBijhsynt/AuQ=
+X-Received: by 2002:a05:620a:284c:b0:936:ce17:7792 with SMTP id af79cd13be357-9370657a3bdmr585376785a.8.1787055288317;
+        Tue, 18 Aug 2026 05:14:48 -0700 (PDT)
+X-Received: by 2002:a05:620a:284c:b0:936:ce17:7792 with SMTP id af79cd13be357-9370657a3bdmr585371285a.8.1787055287878;
+        Tue, 18 Aug 2026 05:14:47 -0700 (PDT)
+Received: from shalem (2001-1c00-0c32-7800-5bfa-a036-83f0-f9ec.cable.dynamic.v6.ziggo.nl. [2001:1c00:c32:7800:5bfa:a036:83f0:f9ec])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fea1e64sm175659266b.21.2026.08.18.05.14.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 05:14:46 -0700 (PDT)
+From: Hans de Goede <johannes.goede@oss.qualcomm.com>
+To: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Daniel Scally <dan.scally@ideasonboard.com>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
+        James Alexander <opensource@inspiredexperts.com>,
+        stable@vger.kernel.org
+Subject: [PATCH] platform/x86: int3472: Increase handshake GPIO delay to 200 ms
+Date: Tue, 18 Aug 2026 14:14:45 +0200
+Message-ID: <20260818121445.160751-1-johannes.goede@oss.qualcomm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260807-kfree_nolock_kmalloc-v1-3-ba993cbf7a60@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA5MCBTYWx0ZWRfXwt5Cmflba9fj
+ exYQhDpUe0LtuRVxNRgZwKF6kXZWGGM5e553ctm68NjCAL8JrOXy8eH67Vk8pwmGkxxavGL5Mus
+ 0oz8GZnofJRr6uXulrqRPcqq1mxgLos=
+X-Proofpoint-ORIG-GUID: fVPelm_ICYtLWGW15heo4_bP8J3to3Jc
+X-Authority-Analysis: v=2.4 cv=UfFhjqSN c=1 sm=1 tr=0 ts=6a844cb9 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8 a=BEWJZVgQAAAA:8 a=20KFwNOVAAAA:8
+ a=EUspDBNiAAAA:8 a=NkGqlDX_d_C5XZyMslwA:9 a=PEH46H7Ffwr30OY-TuGO:22
+ a=r2lMSnxMdfrVB7dy-wwo:22
+X-Proofpoint-GUID: fVPelm_ICYtLWGW15heo4_bP8J3to3Jc
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA5MCBTYWx0ZWRfXx4oGz1f0Brtt
+ UsmriKoeC7m2jyOzOJ080OdxsVH5SRERnkunQBZkhRm70DMFzEl4emGDqLcSEpMLtLNOsBGWYiQ
+ SrXXcDAUHZU/kEURNF1zkRm2vUrVxObMS6eN6D/jV6VFzkGoH97DQvToZc1OMJhkqonx2LwQzun
+ i6FNyDtT/DZj6X2R06onHFY2bdhexDLMI8ve62uF4oAa6aQawMh1+c7tNtGRsIBE166eN66eMLB
+ sVldmPUaeU49YIAnVEafFAS5Ytetk7Q7b3PqYoJJId7eRy1oxLtwbrjBbxexOlH6/o/Bpe8pkO6
+ M550F/qq4zTfIEv3OLT39ls8CgLNmm5AigwVno/n/aTmfOmtWYTt0VgKQTu3rmtL1CfoSn6F5C1
+ Uv1G0XR15ISg91ftUP0ga50ISKkJ+TiZP3wMC2NIPOmIM/dmsJ8qQ+TBwKMyAkXFCPtYLs1z1Ag
+ wR8/NM7z8S65DpNkb0g==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0
+ spamscore=0 priorityscore=1501 clxscore=1015 phishscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180090
 
-On Fri, Aug 07, 2026 at 03:50:29PM +0200, Vlastimil Babka (SUSE) wrote:
-> Kmemleak handling is one of the reasons why kfree_nolock() cannot
-> currently handle kmalloc() objects, because calling kmemleak_free()
-> would involve spinning on its internal raw spinlocks.
-> 
-> Kmemleak is a debugging mechanism so we could simply defer all
-> kfree_nolock() to irq_work if it's enabled, and eat the extra cost. But
-> that would be unnecessary pessimistic. We expect kfree_nolock() will be
-> still mostly called on objects from kmalloc_nolock() that are not
-> registered in kmemleak so they still don't need any deferred freeing.
-> 
-> Thus introduce kmemleak_may_need_free() that can check if the object is
-> registered. This is done using __lookup_object() performed under a
-> raw_spin_trylock_irqsave(), which is safe to attempt from kfree_nolock()
-> (except from a NMI on a !CONFIG_SMP system). When that trylock fails or
-> can't be attempted, we however must assume the object might be
-> registered, and defer the freeing.
-> 
-> The ordering of kmsan/kasan handling and kmemleak is also different from
-> what kfree() is doing, but as explained in the comment, it should be OK.
-> 
-> Signed-off-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> ---
->  include/linux/kmemleak.h | 17 +++++++++++++++++
->  mm/kmemleak.c            | 42 ++++++++++++++++++++++++++++++++++++++++++
->  mm/slub.c                | 34 ++++++++++++++++++++++++++--------
->  3 files changed, 85 insertions(+), 8 deletions(-)
-> 
-> diff --git a/include/linux/kmemleak.h b/include/linux/kmemleak.h
-> index fbd424b2abb1..52f75f10a9ce 100644
-> --- a/include/linux/kmemleak.h
-> +++ b/include/linux/kmemleak.h
-> @@ -22,6 +22,7 @@ extern void kmemleak_alloc_percpu(const void __percpu *ptr, size_t size,
->  extern void kmemleak_vmalloc(const struct vm_struct *area, size_t size,
->  			     gfp_t gfp) __ref;
->  extern void kmemleak_free(const void *ptr) __ref;
-> +bool kmemleak_may_need_free(const void *ptr) __ref;
->  extern void kmemleak_free_part(const void *ptr, size_t size) __ref;
->  extern void kmemleak_free_percpu(const void __percpu *ptr) __ref;
->  extern void kmemleak_update_trace(const void *ptr) __ref;
-> @@ -50,6 +51,14 @@ static inline void kmemleak_free_recursive(const void *ptr, slab_flags_t flags)
->  		kmemleak_free(ptr);
->  }
->  
-> +static inline bool kmemleak_may_need_free_recursive(const void *ptr, slab_flags_t flags)
-> +{
-> +	if (!(flags & SLAB_NOLEAKTRACE))
-> +		return kmemleak_may_need_free(ptr);
-> +
-> +	return false;
-> +}
-> +
->  static inline void kmemleak_erase(void **ptr)
->  {
->  	*ptr = NULL;
-> @@ -86,6 +95,14 @@ static inline void kmemleak_free_part(const void *ptr, size_t size)
->  static inline void kmemleak_free_recursive(const void *ptr, slab_flags_t flags)
->  {
->  }
-> +static inline bool kmemleak_may_need_free(const void *ptr)
-> +{
-> +	return false;
-> +}
-> +static inline bool kmemleak_may_need_free_recursive(const void *ptr, slab_flags_t flags)
-> +{
-> +	return false;
-> +}
->  static inline void kmemleak_free_percpu(const void __percpu *ptr)
->  {
->  }
-> diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-> index 7c7ba17ce7af..e3560ce82632 100644
-> --- a/mm/kmemleak.c
-> +++ b/mm/kmemleak.c
-> @@ -1168,6 +1168,48 @@ void __ref kmemleak_free(const void *ptr)
->  }
->  EXPORT_SYMBOL_GPL(kmemleak_free);
->  
-> +/**
-> + * kmemleak_may_need_free - check if object is registered
-> + * @ptr:	pointer to beginning of the object
-> + *
-> + * This function is called from the kernel allocator when an object should be
-> + * freed but the caller context might be unsafe to spin on the internal locks.
-> + *
-> + * It will therefore only use trylock and thus might return a false positive
-> + * if the trylock fails and the status cannot be determined.
-> + *
-> + * For objects that (might) need free, the allocator has to defer the actual
-> + * freeing to a safe context.
-> + *
-> + * The assumption is that most objects freed from the unsafe context are also
-> + * allocated in such context and thus are not registered in kmemleak, so it's
-> + * unlikely the defered freeing will be necessary just because kmemleak is
-> + * enabled.
-> + */
-> +bool __ref kmemleak_may_need_free(const void *ptr)
-> +{
-> +	unsigned long flags;
-> +	struct kmemleak_object *object;
-> +
-> +	pr_debug("%s(0x%px)\n", __func__, ptr);
-> +
-> +	if (!kmemleak_free_enabled || !ptr || IS_ERR(ptr))
-> +		return false;
-> +
-> +	/* On UP, raw_spin_trylock() always succeeds even when it is locked */
-> +	if (!IS_ENABLED(CONFIG_SMP) && in_nmi())
-> +		return true;
-> +
-> +	if (!raw_spin_trylock_irqsave(&kmemleak_lock, flags))
-> +		return true;
-> +
-> +	object = __lookup_object((unsigned long)ptr, 0, 0);
-> +
-> +	raw_spin_unlock_irqrestore(&kmemleak_lock, flags);
-> +
-> +	return !!object;
-> +}
-> +
->  /**
->   * kmemleak_free_part - partially unregister a previously registered object
->   * @ptr:	pointer to the beginning or inside the object. This also
-> diff --git a/mm/slub.c b/mm/slub.c
-> index 2d7648b96bfa..423b5bdb910b 100644
-> --- a/mm/slub.c
-> +++ b/mm/slub.c
-> @@ -6390,6 +6390,8 @@ static void deferred_percpu_work_fn(struct irq_work *work)
->  		/* Point 'x' back to the beginning of allocated object */
->  		x -= s->offset;
->  
-> +		kmemleak_free_recursive(x, s->flags);
-> +
->  		/*
->  		 * We used freepointer in 'x' to link 'x' into df->objects.
->  		 * Clear it to NULL to avoid false positive detection
-> @@ -6403,8 +6405,15 @@ static void deferred_percpu_work_fn(struct irq_work *work)
->  
->  	llnode = llist_del_all(&dpw->objects_kfence);
->  	llist_for_each_safe(pos, t, llnode) {
-> +		struct kmem_cache *s;
-> +		struct slab *slab;
->  		void *obj = kfence_llnode_to_obj(pos);
->  
-> +		slab = virt_to_slab(obj);
-> +		s = slab->slab_cache;
-> +
-> +		kmemleak_free_recursive(obj, s->flags);
-> +
->  		__kfence_free(obj);
->  	}
->  
-> @@ -6781,15 +6790,10 @@ EXPORT_SYMBOL(kfree);
->  
->  /*
->   * Can be called while holding raw_spinlock_t or from IRQ and NMI,
-> - * but ONLY for objects allocated by kmalloc_nolock().
-> - *
-> - * In case kmemleak is enabled,
-> + * but may defer freeing to irq_work() in some cases.
->   *
-> - * obj = kmalloc(); kfree_nolock(obj);
-> - *
-> - * will miss kmemleak book keeping and will cause false positives.
-> - *
-> - * large_kmalloc is not supported either.
-> + * Intended mainly for objects allocated from kmalloc_nolock(), but can handle
-> + * also kmem_cache_alloc() and kmalloc() objects, except large_kmalloc.
+There have been several reports of the sensor not properly powering on,
+on laptops where an INT3472 handshake GPIO is used. Both with ov08x40 and
+hi556 sensors.
 
-Do we need to add slab_want_init_on_free support for kfree_nolock as well?
+Testing has shown that a delay of 200 ms is necessary in some cases.
+The handshake GPIO is typically used to signal an extra bridge or other IC
+with that IC running the full sensor power sequence based on the handshake
+signal and also possible controlling I2C pass-through.
 
+It seems that in some cases that extra IC takes up to 200 ms to before
+the sensor is fully powered up and ready for I2C communication.
+
+With the default handshake signal delay increased to 200 ms the quirk to
+increase it to 45 ms for the ov08x40 is no longer necessary and is actually
+undesirable since some ov08x40 setups also need the longer delay, drop it.
+
+Fixes: 30359c239ba8 ("platform/x86: int3472: Increase ov08x40 handshake GPIO delay to 45 ms")
+Closes: https://lore.kernel.org/platform-driver-x86/20260816204247.2844986-1-opensource@inspiredexperts.com/
+Reported-by: James Alexander <opensource@inspiredexperts.com>
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333331
+Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2333647
+Cc: stable@vger.kernel.org
+Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
+---
+ drivers/platform/x86/intel/int3472/discrete.c | 12 +++---------
+ 1 file changed, 3 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index 115bb37577a1..f9e42959647e 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -15,6 +15,7 @@
+ #include <linux/platform_data/x86/int3472.h>
+ #include <linux/platform_device.h>
+ #include <linux/string_choices.h>
++#include <linux/time64.h>
+ #include <linux/uuid.h>
+ 
+ /*
+@@ -157,13 +158,6 @@ static const struct int3472_gpio_map int3472_gpio_map[] = {
+ 		.type_to = INT3472_GPIO_TYPE_RESET,
+ 		.con_id = "enable",
+ 	},
+-	{	/* ov08x40's handshake pin needs a 45 ms delay on some HP laptops */
+-		.hid = "OVTI08F4",
+-		.type_from = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.type_to = INT3472_GPIO_TYPE_HANDSHAKE,
+-		.con_id = "dvdd",
+-		.enable_time_us = 45 * USEC_PER_MSEC,
+-	},
+ };
+ 
+ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3472, u8 *type,
+@@ -234,8 +228,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+ 		*con_id = "dvdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+-		/* Setups using a handshake pin need 25 ms enable delay */
+-		*enable_time_us = 25 * USEC_PER_MSEC;
++		/* Powering up the sensor through the handshake pin takes up to 200 ms */
++		*enable_time_us = 200 * USEC_PER_MSEC;
+ 		break;
+ 	default:
+ 		*con_id = "unknown";
 -- 
-Thanks,
-Hao
+2.55.0
+
