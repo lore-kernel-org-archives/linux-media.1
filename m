@@ -1,96 +1,146 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mail-244107.protonmail.ch (mail-244107.protonmail.ch [109.224.244.107])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70D312FF69;
-	Tue, 18 Aug 2026 06:31:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78D274B04AB
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.107
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787034676; cv=none; b=m7eNMQY1u2E8PCBkNh48ImAxbtwsCgpt69dbMa1jZHCZkMAK/MbE1+gNYEM36RxgzLXFr1x39RXenxzBKEmngEzCQ8pcMTyKbvmq6xljOWokj4QtHDjEZsTXEnwJCEJWuszWJdR18GKuSBqj3DIk6t9C56LqQBdf1lDqPshFrFc=
+	t=1787035535; cv=none; b=WC4G2r2ZlgRseoE83kRhidfRL9bypP+eEsCKZUkBkoCP1XQtBdzP557A2gc2/YSVJlaSxOaQ2ph2+pD+dPTyFip2wosiTqGITD5uSUXU0wTVRx5+4aTe2bE57JbACVzeezy/sRlb0o7jmh63WIkQYvnwgfxp8fHiTiThlSjp0lM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787034676; c=relaxed/simple;
-	bh=oyTnicrXmfy6OAYX/BWV3WFgIs8HebwOm6OfeXNFF5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k8grbt80n273TryS6JHaHaYT/tU6heEIeKIkJI6hHXYm4hRe9qNO9nWM6Up2/Jo+axGb/Dc3Xf/Qa2uKAF66oWhexcqrDGyEJOTS4+ifAMrTEQBpsjOIEsir5GZahFdGTaB86Wi1O0Fr7NepLshNMn0S92M5imBzLDYJgGpBt5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YGm0DQ97; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1787035535; c=relaxed/simple;
+	bh=8oQIGis4Vn1P7FN4gi/Tww4mCVaS8Zj+8pSNmGGhF2g=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pqxNa2RYEj7r9Apo+0955/YkH5StUEa9awjg3CEd/5rd5nT8yT4SM3fWiNXJS3ikhMAAaQghPqgN4WhHb4jiMa9fbJ8EelhSTibOxF2WKAQ0YnARHQru5vSBakRYeUHyKH/WAdRisJwtvRJ1tUy9DZ9H2rwGE1W2eukpjSrKGZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=N1BnUAz1; arc=none smtp.client-ip=109.224.244.107
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YGm0DQ97"
-Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4F263244;
-	Tue, 18 Aug 2026 08:29:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787034592;
-	bh=oyTnicrXmfy6OAYX/BWV3WFgIs8HebwOm6OfeXNFF5s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=YGm0DQ97CtUhFos+SLlS0jgWJ4MvY3Cdi3w9CbfNIpaXlyq7lm2ZA93ET+V2ibU5M
-	 /48eemRnKP+si2EjXpqHksfKTArmUm3bbi4xzRqylhP2AZu9KntFe9lVNSnQh3GDYc
-	 KWZ3LVr3+Qp8QLtZR7yYZ0plMqhJStJMYfaOSsTw=
-Date: Tue, 18 Aug 2026 08:31:08 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David CARLIER <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: v4l2-isp: reject zero-sized parameter blocks
-Message-ID: <aoP7A6oYPkjmh3gv@zed>
-References: <20260815193839.141406-1-devnexen@gmail.com>
- <aoLZ5e0ffVvZ-FfB@zed>
- <CA+XhMqxR+m7Jt0UUHetCfXSHHtW5w-jUc0_PSSWjTbprYn8ZwQ@mail.gmail.com>
- <aoMuMvE0zJG1MYD2@zed>
- <CA+XhMqxY3u5YR06j8jX2+wCwX95vQrb5EVH39GvuJXrwA48XWw@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="N1BnUAz1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=runtimeverification.com; s=protonmail; t=1787035527; x=1787294727;
+	bh=VzLWIBWdUGTRg8xaYf15XR+9ztGdjCtVIw4E10h8fN8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=N1BnUAz11qHxVyYOGF/ahXqelHXB2vq1e+kUgXf39kArY2AnDns7cHql5PG282JwR
+	 HgfdBpgOFzN0MQVzfLCf+3GosjP3T64jvLIpbxgHWoHml7psSkFRB+knxpAWGeLxna
+	 ag8hsNkG9IRM1G7r5+409C6mg6UGtscEMiZ5a/YIRJnsX4zjc61pgAZrVtMS0q8JVx
+	 nIiU+1aCNp/N8Yfb4QWjf/YeIdU9r8T/jhdboTjw6S3lXSkqAMoF+ReDyvhL1tWzsx
+	 K0Urmlb6mB9gtCw4v5LLf3tt6yRw+MwDsftfSFp3zFHm3D8CP74AeHAjJO74RmlI7J
+	 Dl5bNisK1ZdIw==
+X-Pm-Submission-Id: 4hPKvl4mq0z1DDWf
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: noambs2999@gmail.com
+Cc: ribalda@chromium.org,
+	laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Natasha Klaus <natalie.klaus@runtimeverification.com>
+Subject: Re: [PATCH v2] media: uvcvideo: Fix integer overflow in frame buffer size calculation
+Date: Tue, 18 Aug 2026 09:45:11 +0300
+Message-Id: <20260818064511.104024-1-natalie.klaus@runtimeverification.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260812103251.18309-1-noambs2999@gmail.com>
+References: <20260812103251.18309-1-noambs2999@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <CA+XhMqxY3u5YR06j8jX2+wCwX95vQrb5EVH39GvuJXrwA48XWw@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
 
-Hi David,
+On Wed, Aug 12, 2026 at 01:32:51PM +0300, Noam Ben Shimon wrote:
+> +	if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
+> +		u64 bufsize;
+> +
+> +		bufsize = ((u64)format->bpp * frame->wWidth * frame->wHeight) >> 3;
+> +		if (bufsize > U32_MAX) {
+> +			uvc_dbg(dev, DESCR,
+> +				"device %d videostreaming interface %d FRAME %u: computed buffer size overflows\n",
+> +				dev->udev->devnum,
+> +				alts->desc.bInterfaceNumber,
+> +				frame->bFrameIndex);
+> +			return -EINVAL;
+> +		}
+> +
+> +		frame->dwMaxVideoFrameBufferSize = bufsize;
+> +	}
 
-On Mon, Aug 17, 2026 at 05:19:18PM +0100, David CARLIER wrote:
-> On Mon, Aug 17, 2026 at 05:56:30PM +0200, Jacopo Mondi wrote:
-> > Should we instead deman that all entries provided by the driver are
-> > populated by failing validation if info->size == 0 ?
->
-> Good idea, and I'd rather keep both in v2 if you don't mind - they
-> guard different things.
->
-> info->size == 0 is about the driver table, and it lets us answer
-> "this driver doesn't handle that type" rather than carrying on with
-> an empty entry and a NULL block_validate.
+Ricardo asked me to look at this. I had been looking at the same expression
+independently, so I checked your numbers and the surrounding behaviour
+rather than only the diff.
 
-Do you think we should fail validation because the info table has
-holes or we should simply skip entries with info->size == 0 ?
+Both examples in the commit message reproduce exactly. 32 bpp at
+16384x4096 gives 4026531840 against a true 268435456, and 16 bpp at
+16384x16384 gives 0 against 536870912.
 
-I'm leaning towards the latter fwiw
+One case I would add to the commit message, because it is the strongest
+argument for rejecting rather than only widening. bpp=32 at 32768x32768
+is exactly 2^35, so the 64-bit quotient is exactly 2^32. A bare (u64)
+cast without your check would store 0 there, which is the same failure
+the patch removes. Your check catches it.
 
->
-> block->size < sizeof(*block) is about the buffer coming from
-> userspace: a block's size includes its header, so anything smaller is
-> malformed no matter what the table says, and it keeps the loop moving
-> without depending on the table at all.
->
-> Both are a couple of lines, so dropping either one is no trouble if
-> you prefer.
->
-> > Right.. you might have seen ?
-> > https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
->
-> I hadn't, thanks. That takes care of the rppx1 side, so there's
-> nothing left for me to send there and I'll stick to the core change.
->
-> I'll reword the commit message so it doesn't lean on rppx1, and keep
-> Cc: stable unless you disagree.
->
+I also checked when the check can fire at all. For bpp <= 8 the threshold
+is unreachable given the u16 field limits, and it does not need to be
+reachable: the largest possible result at bpp=8 is 4294836225, which
+still fits in u32. So the check fires exactly where it is needed and
+nowhere else. That seemed worth confirming rather than assuming.
 
-Yes thanks, as v4l2-isp went in in v6.19 this is worth a Fixes tag I
-think..
+My one question is about the error path rather than the arithmetic.
 
+uvc_parse_frame() has a single caller, and -EINVAL propagates further
+than I first expected:
 
-> Cheers.
+  uvc_driver.c:495   return ret, so the whole format is abandoned
+  uvc_driver.c:745   goto error, so remaining formats are never parsed
+  uvc_driver.c:788   usb_driver_release_interface() and uvc_stream_delete(),
+                     so the streaming interface never reaches dev->streams
+  uvc_driver.c:1004  the uvc_parse_streaming() return value is discarded,
+                     so probe continues and succeeds
+  uvc_driver.c:2135  "No streaming interface found for terminal %u"
+
+So one malformed frame descriptor costs the entire streaming interface,
+not just that frame, and probe still succeeds. On a single-interface
+webcam that means the device binds with no /dev/videoN, and the only
+explanation is the uvc_dbg line above, which sits behind a debug bit
+that is off by default.
+
+I do not think this is a practical regression risk, since no plausible
+device reaches 2^35, and the surrounding function is otherwise built
+around repairing bad descriptors rather than rejecting them. What
+bothers me is the silence: a user who does trip it sees a device that
+binds and produces nothing, with no logged reason. Two ways to address
+that:
+
+  - dev_warn() instead of uvc_dbg(), so the reason is visible without a
+    debug build
+  - skip only that frame descriptor and continue, rather than failing
+    the format
+
+Either would satisfy me. If you and the maintainers would rather keep
+-EINVAL with uvc_dbg as it stands, I have no objection to that either,
+and you are welcome to add
+
+Reviewed-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+
+to v2 as it is.
+
+Separately, and explicitly not an objection to this patch: a zero
+dwMaxVideoFrameBufferSize stays reachable from the other end. Any zero
+operand, or any product below 8, gives 0 after the shift, and bpp=0 does
+reach the computation on uncompressed formats. Nothing between the
+descriptor bytes at uvc_driver.c:254, :255 and :382 and this line
+validates any of the three. A zero then goes through uvc_video.c:214
+into stream->ctrl, sizes vb2 at uvc_queue.c:90, and trips
+WARN_ON(!plane_sizes[i]) in vb2_core_reqbufs() at
+videobuf2-core.c:951. That is pre-existing and unchanged by your patch,
+so it is not yours to fix here. I am happy to send a follow-up if the
+maintainers want it as a separate change.
+
+One caveat on my side: all of the above comes from reading the tree at
+v7.2, not from running it. I did not test on hardware or a UVC gadget,
+and I did not build your patch.
+
+Natasha
