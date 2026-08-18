@@ -1,77 +1,111 @@
-Received: from mail.auroraos.dev (unknown [95.181.193.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FF9137F315
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 20:54:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.181.193.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 587B623ED5E;
+	Tue, 18 Aug 2026 21:52:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787086476; cv=none; b=QbyxZ3ZtE+A2rsLWy4GNaVRycuh28Y25n+3qzKNJ6yx+DqJXd7dABAvwx2HQT+HKxXYY/pEQr29a7A2D0b83Mzy5Xy9kNsoRxQZX7MQjI+SQT1K/1DEj0f/pORnM4E8cPt9tzyCW3wEkHzgpVSe/DmNAUKMQS02WqeL+X4MVsJk=
+	t=1787089946; cv=none; b=HkJvoP56d7vYekOu4DciAFdh5S59LjEplQRUV+/Isp67IDCSfXZkV/IXYF4AR8/172H+BGsXotkUecALkQgPzlwWyAtAr8BXf3dAPxghxrhixAjABegYrkPQtIXs64NsGhsv6k9vn6n8vTrrqAgq0Blmng9eBtpDC4UMRZ3fRZo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787086476; c=relaxed/simple;
-	bh=YAWWOTQg8yHW7eNOrybEKMjw9WJgG4X5lpOZ0c1pCRc=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jIqLspO6oI4Ii6+dOw/WyJfwJ5+tI6S8ICVPWX/Ar/EVoKHOl1eO/DI+9pC6DWVj2f+gEu3MkAyie99G23irsAAWPbsoFrxuMkrAm5LvfuJcDvshUf/R+0R72QBuCbh+lb+4z+l+UJ1OUuajascj7vdUErHzUSXheJmdV5hYxzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev; spf=pass smtp.mailfrom=auroraos.dev; arc=none smtp.client-ip=95.181.193.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=auroraos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=auroraos.dev
-Received: from wasted (91.79.33.236) by exch16.corp.auroraos.dev
- (10.189.209.38) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.1847.3; Tue, 18 Aug
- 2026 23:39:20 +0300
-From: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-To: Sean Young <sean@mess.org>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	<linux-media@vger.kernel.org>
-CC: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Subject: [PATCH] media: rc: rc-ir-raw: drop useless decrements in ir_raw_gen_{manchester,pl}()
-Date: Tue, 18 Aug 2026 23:38:30 +0300
-Message-ID: <20260818203832.46030-1-s.shtylyov@auroraos.dev>
-X-Mailer: git-send-email 2.55.0
+	s=arc-20240116; t=1787089946; c=relaxed/simple;
+	bh=5rB3CzCVwjhOp1/bYvMXX/zf9TBvXxRkfs+sPNutojs=;
+	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
+	 Message-Id:Subject; b=NS8FbXCnzgL9KeHHZRZ7ocjxM2Zvm9mNwqyfYq5ZqHqjxu9dMbbHmX41DxTt8duokD946PNNIpkFLko9wCZdzyijNKq7x42+Xeu+cAprbnsym1v4KXebCohQBoyk13OnArASKW+zVNdrkKF/gd5Rm09BRppfMowwc8lT8QkDDrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDjoExYd; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDjoExYd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2CD1F000E9;
+	Tue, 18 Aug 2026 21:52:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787089945;
+	bh=NpeHBToS6yPyfIxplx9AMeP2CHKJr5xgLNRGxEKyLxQ=;
+	h=Date:From:Cc:To:In-Reply-To:References:Subject;
+	b=bDjoExYdLzJj3dsXRoadqw1Mn7b4iugxnL60WLCyLbDE7mhlRkZMecu37jEMhy6uo
+	 xt5QVZM+5NQZ8FlngqQH1s5UXSvbKABRTdj8DaKFNMeKq2jB08cdB+ZVXUXrHxlbio
+	 y68d1g7u0UoTMg3hk9pPgh4EUW0K7FREYiOVmbNS9HqlE/q/x7k2l860L9w03hcIpW
+	 tQ7gM8zynr3X0kyWKd7TResFV3C69B90gFOYCk/8F9VyeApTAqbACut+nSb00JrTUX
+	 wA4ub4r4/dqM3tRZNoW0s9jjJloG5cYpOzsRP+15QsjWnFvS9DrQqbO9vOrRs5+KjS
+	 XGPXOCXIbWsUw==
+Date: Tue, 18 Aug 2026 16:52:24 -0500
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: exch16.corp.auroraos.dev (10.189.209.38) To
- exch16.corp.auroraos.dev (10.189.209.38)
+From: "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ stable@vger.kernel.org, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ Stefan Schmidt <stefan.schmidt@linaro.org>, 
+ Hans Verkuil <hverkuil@kernel.org>, linux-kernel@vger.kernel.org, 
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+ Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Abhinav Kumar <abhinav.kumar@linux.dev>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, 
+ Mansur Alisha Shaik <mansur@codeaurora.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
+References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
+Message-Id: <178708994427.782078.4185269965925097284.robh@kernel.org>
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sc7280-venus: Add
+ dma-coherent property
 
-In ir_raw_gen_{manchester,pl}(), the paremeter max is usually decremented
-while checking it for 0 but sometimes that action seems fruitless as max
-isn't used afterwards -- drop the useless decrement operators...
 
-Found by Linux Verification Center (linuxtesting.org) with the Svace static
-analysis tool.
+On Tue, 18 Aug 2026 21:24:15 +0530, Vishnu Reddy wrote:
+> The venus video hardware on SC7280 is IO-coherent hardware: even though
+> the driver does dma_sync*() calls for the input and output buffers, the
+> venus node still needs to declare dma-coherent so that the DMA mapping
+> layer relies on this hardware level snooping to keep the CPU cache and
+> the DMA buffers in sync. This avoids the unnecessary cache clean or
+> invalidate operations performed by the dma_sync*() calls, which are not
+> required once hardware level snooping is enabled via dma-coherent.
+> 
+> Add the dma-coherent property to the venus node to describe this
+> hardware capability.
+> 
+> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
+> Cc: stable@vger.kernel.org
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
 
-Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
----
-The patch is against the next branch of the linuxtv.org/media.git repo...
+My bot found errors running 'make dt_binding_check' on your patch:
 
- drivers/media/rc/rc-ir-raw.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+yamllint warnings/errors:
 
-diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
-index ba24c2f22d39..ed494be8896f 100644
---- a/drivers/media/rc/rc-ir-raw.c
-+++ b/drivers/media/rc/rc-ir-raw.c
-@@ -362,7 +362,7 @@ int ir_raw_gen_manchester(struct ir_raw_event **ev, unsigned int max,
- 	if (timings->trailer_space) {
- 		if (!(*ev)->pulse)
- 			(*ev)->duration += timings->trailer_space;
--		else if (!max--)
-+		else if (!max)
- 			goto nobufs;
- 		else
- 			init_ir_raw_event_duration(++(*ev), 0,
-@@ -491,7 +491,7 @@ int ir_raw_gen_pl(struct ir_raw_event **ev, unsigned int max,
- 		}
- 	}
- 
--	if (!max--)
-+	if (!max)
- 		return ret;
- 
- 	init_ir_raw_event_duration((*ev)++, 0, timings->trailer_space);
--- 
-2.55.0
+dtschema/dtc warnings/errors:
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/mfd/qcom,spmi-pmic.yaml: Unresolvable reference: /schemas/input/qcom,spmi-haptics.yaml#
+
+doc reference errors (make refcheckdocs):
+Documentation/translations/pt_BR/process/security-bugs.rst: :doc:`regular path submission </../../../process/submitting-patches>`
+Documentation/translations/zh_CN/how-to.rst: Documentation/translations/zh_CN/xxx.rst
+arch/arm/xen/enlighten.c: Documentation/devicetree/bindings/arm/xen.txt
+
+See https://patchwork.kernel.org/project/devicetree/patch/20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com
+
+The base for the series is generally the latest rc1. A different dependency
+should be noted in *this* patch.
+
+If you already ran 'make dt_binding_check' and didn't see the above
+error(s), then make sure 'yamllint' is installed and dt-schema is up to
+date:
+
+pip3 install dtschema --upgrade
+
+Please check and re-submit after running the above command yourself. Note
+that DT_SCHEMA_FILES can be set to your schema file to speed up checking
+your schema. However, it must be unset to test all examples with your schema.
 
