@@ -1,106 +1,127 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2A892D77F7;
-	Tue, 18 Aug 2026 10:05:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6B1B3BBFCC
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 10:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787047530; cv=none; b=S/CL1NuqHXXt1neIjGLAk8TxE/iMtIsRPXdTdpHzHfnrbXQ0y1sxd0ZU0Clsk6b4soFigc2crDyUBMtmnMAxH8uwV99mHuBAE0qU0j1gk/h5EdUKDrxnK9MzrogRK9rVRaQt3gB0Ncqw2Rqse0l4CcHtihNKJL5/EiPheMZ1iMg=
+	t=1787048318; cv=none; b=ptdXm3a4jgCvDG0+wiGnb+acd8Ib08FzFUXLFDnKtps1DLddS5RPmLDTt1W/pxYGrw7yrHQDpREVTn1J9N6XUlM/5+vWdCcXHcCs7guot/gZdEbj28X1fh91T1DCXaAIgfTbwlB4IyZHfiIf9FpZSbU9Sbt2U5+9WwkezrHwECg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787047530; c=relaxed/simple;
-	bh=MVzutqfE0RrBlOSu8tsyluuhgkqHMCEcx2LLJBrLIiU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=o4LervhRLM9XPPiIlJGiiNomnN/EzgDEqX3Bb81gOp4QTpDBNZ5LtXnKV2cBY/yQuMz8CejpkfSTS1OEunl5VPMqLQqdTeroARfObG1cgThEKfzru0csI/r9uEYktqugwSfBUnsiPK28Zg5SrZwTk92TjyMFx8kltrA0aJ0Em/Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=OKmV13OX; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1787048318; c=relaxed/simple;
+	bh=dUjKG53ZlFCLSApN1wFxjTm4nhGX8LGRJK8VU5dSEqU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WAEWOKqGr1vqst5maZ3BcuLyhwvtziYBRn2pRc/rjOcXIwCDRow1TkRxYekbcr++DhH4dIgluyctqEcRdnxoXlm5yFyjBhsd5smch/HSxfVflBR7GZX3Tc81vdXcApCyvbou2KLHz43B1FlirLBTWiLye1i85Y8Yqw2zYlYKc8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ZEgD7pHP; arc=none smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="OKmV13OX"
-Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BBD2BABF;
-	Tue, 18 Aug 2026 12:03:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787047440;
-	bh=MVzutqfE0RrBlOSu8tsyluuhgkqHMCEcx2LLJBrLIiU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=OKmV13OXYTni3OjjiaT1gFxa8+rWqT2dU4VqG0Ml7QnfzYnCJRXprJz2UcRqcG/Tr
-	 awh0i4K/WzBa7/Dyuz8MyHaXMKWW+UY67z3yb6OYWKlpv5vvmE3EWDLMqs3GM983Y/
-	 c16WwUpkTW2ee9LWqf+ZUSZpl2s1pYW0AOeNPTpk=
-Date: Tue, 18 Aug 2026 12:05:15 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linmao Li <lilinmao@kylinos.cn>
-Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, 
-	Jai Luthra <jai.luthra+renesas@ideasonboard.com>, 
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: Re: [PATCH v2] media: rppx1: bls: read the raw pattern from the PRE2
- acquisition module
-Message-ID: <aoQuSs1aSw2Z4Wyq@zed>
-References: <20260818095929.3194503-1-lilinmao@kylinos.cn>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ZEgD7pHP"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a38098734bso6428279a12.1
+        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 03:18:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787048315; x=1787653115; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=USZtO/EZE0nd7rm/IM6Cvup5cPT/v7JWv+iAOXGJowU=;
+        b=ZEgD7pHPrpe8rdpw391A1hWVkbYC16Qq1ZrCDOMBzsIYBZ3sn4l9o6E5/59bVbQh1Q
+         3UIfYUz4tQcNU5IWPC51+zzFdLFj3/1frL6J3bwkvV7BTiYFVzMuGICc5SCNoVBXCfO2
+         op4EjRYKodciikqr80CdqoSURT4puYshI/CEY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787048315; x=1787653115;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=USZtO/EZE0nd7rm/IM6Cvup5cPT/v7JWv+iAOXGJowU=;
+        b=jvCe/clLL/ThZCK2h/lWYIJ0pSt5Bxb9NqGTh+qRZdMw1E9ZUtAf7VxK1VUCSO+UG6
+         bSWtmi/o7MAQCg/r9JOcjPgOpIgXls8SIAbkqHRHMbYGRgs0kTV/0qZG5O4LyYK5TWpZ
+         TaWM2mERD2K7M/RyB7g79v3LDqeMzV1cS1kQghHN/p+0ZWb7vaB1oBQbQxNpveJGZmyx
+         szWFM57ULT8Idqsp3n6ajw6LEzHVti8Qvb8LvG6bTmGA8knkaxw669C67r2VdrMwdeg9
+         Rk+FTolFVd50nh2DmSFgTR3B/Xov51C/ryOAy+LIke8kyxa40USfhuorvGQINGzPCzm5
+         PICA==
+X-Forwarded-Encrypted: i=1; AHgh+RoLBuqNakNq0dYXTVWfWsGAxTXDEJsbxDbvqtFwG/A28dMHtEGJf2HNS9lHOHH7NIVwePdXzYDbISDwfg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzyh+dVsUG3camTf244qPs93ZQehvyxpFhmcpiO5l27ikwicMRb
+	V4gMU8Y6mqaZkABbsbXX6AAt0F3cf5bRApa+iWA7lyfrH4hmlvDeeIjmxU3TQhfYwjT7FMdBeQo
+	XeIBQ0RJM
+X-Gm-Gg: AR+sD12sGhW+AJeY8rr8MYzt5abu2mSRX867OCAuoSTGI3knCdS9wArGsJ0anIOY606
+	pt/QFoDn6tx624L2x3v9vNLY5RWwBtBjPxzk3aqWm9amJYO1k3Sk9gc7mExMGi/iNh+1XHLmBfQ
+	RgL8wJmArorkUaHxmrT0UNaBFjvG+40zKgTriNO6gnLHi9sDa8aHfdFl0Udxi7h6VIuotJN1Qh7
+	QleiCUafVwGypC8cZwIKbZelIre2trHRsJy/jYea4uajdgaKlHiizsbx7CcuOseFzzK/jiKZEF/
+	eoswUXMo2QylQ0QsI7TgxwcXJMxOXO0G7vXzxl8uj5kI2yGbmVfZ8zuBcmW7oX/ZTbjwxpF6Yn9
+	y2sjakSxfuI5dPBhwIZVMo+wCkmg0ncAlu7N3rsIIR5cT56nyQM1E7nUAJ/wpoqSeAsxXAj+UT0
+	lX/q8H7uZn7+IvbgKf/alKO1qF1AzqwY3WSwMJeDX2yx8N+xpNDcpGqWQKf5ckMmSBJwmiPuBvb
+	OCeIAJ6L1zSU0etY6HHg91/0z0=
+X-Received: by 2002:a17:906:9c8a:b0:c16:8404:4631 with SMTP id a640c23a62f3a-c2188ae7e63mr435201466b.26.1787048315144;
+        Tue, 18 Aug 2026 03:18:35 -0700 (PDT)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com. [209.85.208.41])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2187c83829sm109803366b.41.2026.08.18.03.18.34
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 18 Aug 2026 03:18:34 -0700 (PDT)
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a17211b9ecso9683245a12.2
+        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 03:18:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RqGfuUAHXgb+hq0eyiRS9YOxf02bbkJm+V7A4qvrsT9VsyVgnnZmzrr8AyA5U0Rw30kscvTkyJ1n/DaUw==@vger.kernel.org
+X-Received: by 2002:a17:907:d08e:b0:c1c:2c32:1163 with SMTP id
+ a640c23a62f3a-c2188ac8fddmr388097066b.25.1787048313110; Tue, 18 Aug 2026
+ 03:18:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260818095929.3194503-1-lilinmao@kylinos.cn>
+References: <CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com>
+ <20260818094010.353021-1-natalie.klaus@runtimeverification.com>
+In-Reply-To: <20260818094010.353021-1-natalie.klaus@runtimeverification.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 18 Aug 2026 12:18:19 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsW8K3wdwMPS+Wq4f1Va_g2TpAGpoHzGSxHUUt91Jkrhw@mail.gmail.com>
+X-Gm-Features: AcwNN1VTBT1es0-Wv3wLLMGNOoRQPfKzg5g8chBosMxHegxxzhKvlrVnC6BIGcU
+Message-ID: <CANiDSCsW8K3wdwMPS+Wq4f1Va_g2TpAGpoHzGSxHUUt91Jkrhw@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: Skip frame descriptors with a zero
+ computed size
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: noambs2999@gmail.com, laurent.pinchart@ideasonboard.com, hansg@kernel.org, 
+	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Linmao
+Hi Natasha
 
-On Tue, Aug 18, 2026 at 05:59:29PM +0800, Linmao Li wrote:
-> rppx1_bls_swap_regs() gets the Bayer pattern from the acquisition
-> module. The PRE1 path uses pre1.acq, but the PRE2 path mistakenly uses
-> pre2.bls. The BLS module does not store a Bayer pattern, so PRE2 would
-> read zero (RGGB) and map fixed black levels to the wrong colour
-> registers.
+On Tue, 18 Aug 2026 at 11:40, Natasha Klaus
+<natalie.klaus@runtimeverification.com> wrote:
 >
-> PRE2 is not started or dispatched yet, so the bug is currently latent.
-> Read the pattern from pre2.acq, as the PRE1 path does, so that enabling
-> PRE2 does not start out with the wrong register mapping.
+> On Tue, Aug 18, 2026, Ricardo Ribalda wrote:
+> > I think we need to have some consistency. We cannot have  one
+> > condition returning -EINVAL and the other skipping it.
 >
-> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
-> Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> Agreed, and your shape is cleaner than mine.
+>
+> > If Noam is okay with this, perhaps Natasha could prepare a patchset
+> > with the 3 patches? (keeping Noams author on his patch)
+>
+> Happy to. Noam, are you okay with me carrying your patch in a series?
+>
+> One question on placement before I write it. Your comment puts the checks after
+> the frame interval parsing, which is outside the !UVC_FMT_FLAG_COMPRESSED
+> branch. Frame based formats legitimately carry a zero
+> dwMaxVideoFrameBufferSize, set unconditionally at uvc_driver.c:265 because the
+> frame based frame descriptor has no such field, so a zero check there would skip
+> every frame of a conformant frame based device. Did you mean the checks stay
+> inside the branch with only the return value changing to -EINVAL, or outside
+> with an explicit frame based exemption?
 
-Thanks
+I meant keep the checks on the position of your patch and Noam patch.
+Sorry for the misunderstanding.
 
-Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+>
+> I will test the refactor before sending.
+>
+> The Media CI failure on my patch is the missing dependency on Noam's v2. The
+> series fixes that.
+>
+> Natasha
 
-> ---
-> Changes since v1 [1]:
-> - no code changes;
-> - dropped the Fixes: tag, the patch is expected to be collected together
->   with the driver for v7.3;
-> - picked up Niklas' Reviewed-by;
-> - resent after Jacopo offered to collect this one as well [2].
->
-> v1 was patch 2/2 of "media: rppx1: parameters block fixes"; its patch
-> 1/2 is on the list separately as "[PATCH v2] media: rppx1: describe the
-> MAIN_POST white balance gains block".
->
-> [1] https://lore.kernel.org/linux-media/20260817104529.3132552-3-lilinmao@kylinos.cn/
-> [2] https://lore.kernel.org/linux-media/aoQniglSwAEH3V0D@zed/
->
->  drivers/media/platform/dreamchip/rppx1/rppx1_bls.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> index 01a61db279bf7..71c5561457d52 100644
-> --- a/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> +++ b/drivers/media/platform/dreamchip/rppx1/rppx1_bls.c
-> @@ -70,7 +70,7 @@ rppx1_bls_swap_regs(struct rpp_module *mod, const u32 input[4], u32 output[4])
->
->  	/* Swap to pattern used in our path, PRE1 or PRE2. */
->  	struct rpp_module *acq = mod == &mod->rpp->pre1.bls ?
-> -		&mod->rpp->pre1.acq : &mod->rpp->pre2.bls;
-> +		&mod->rpp->pre1.acq : &mod->rpp->pre2.acq;
->  	enum rpp_raw_pattern pattern = acq->info.acq.raw_pattern;
->
->  	for (unsigned int i = 0; i < 4; ++i)
-> --
-> 2.25.1
->
->
+
+
+-- 
+Ricardo Ribalda
