@@ -1,168 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f176.google.com (mail-qk1-f176.google.com [209.85.222.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA635473C87
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:53:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D83947276D
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 13:07:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787057641; cv=none; b=P++5sSYxaxQhiDqzURt1uoDVlCgNOvFb1mK1HmQLeVZzuLYkTs8cBeis0jXrDVLdZtDoisvu1Vcky1pAIXPpYyLfC6q61oW5liv/uHdb569Yipt18DDmKCbTLo/yxldaf0BKEt4yUThxjW+QuDnQEZat//rftDrDSbjnNDhfgSU=
+	t=1787058449; cv=none; b=oXaMsytAPhhbv3ug7ut5WDMIU2jZaGUcWyWXQYkWe02DHw/+dPA6w0TonbTlekCURzdblhTK6BBZc34d0ainoMernwxZGErKbH3OiTIcW+ZQg4M6dw9BuFbe0mXbAyLvqlnJVWKdf2fHHuiP7eX/l1/AZ6wTm2xMis8ynbuqftE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787057641; c=relaxed/simple;
-	bh=NwU5TLaCkzOyPWAX4VPubu3QsyHhlIgwVadkFHdKUi8=;
+	s=arc-20240116; t=1787058449; c=relaxed/simple;
+	bh=aU2VtRXj8vmLbAKszI/rzjIGfSjXrWM/1EcRNLc+2zY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XU2K6F8iZDQedYc0ePuinLICmcz4jz4xfsGlqH/kEDID6F81SK2rdHQYinz042nQXdsjepIWqZOSLSpj9L9+bkWE+tVKDkKjEjsBYXUC+FWEteOKdde/aZp9A0wbI93aWxVWrQdrwEAIBDR/tOv0+Q98F25UUWdxpr2eZJp4nBM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YJ3XNU9j; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ldiITj/utclcTDl1RgTghGnR52X/YWNnwLY/z3gfuc6bT2wjXBUOh/zTADqIGhyw+Bq4RBguiQ7uxaqxdfQjZKh4KV8mXEqg4NgUpAbmw3zTQHkmzlzNuFr0tiZqCk7Drk4UpsfG3w2XdVGw9iE8u+WK7gzrNXnDk2jKlgRUBf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=IMXjsW3Q; arc=none smtp.client-ip=209.85.222.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YJ3XNU9j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787057639; x=1818593639;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NwU5TLaCkzOyPWAX4VPubu3QsyHhlIgwVadkFHdKUi8=;
-  b=YJ3XNU9jh3ElplW/BlZZ9jxy3SZ0MrdOJTKanEouOFJRVfFwiN/H750/
-   akklHDd870ZtmbpYrfvc6t/G2KxxsfhGkxz/fl9khqpP+t2aRqGaVdSaj
-   WmZcNMQ48mCjL/uUp3dP4QpJe4gCyHXPwu04i4+h+ceuKZu58ZkxfqT1h
-   NzOB/h+QVVSJ408t0KrP23KLgpjqAjOHWiTZIEJmqstOYsyUVPGAOQjdS
-   32grYNjseXOtuHOn8Y5at3wWElkeOUbQ6nLDdDVsadKg5fnTj/30zsKva
-   y0rYDXktj6ZF8C/hcj1KjUz0L5lb0oFDTzAMbpJTNF+JM7RYJ/AVjG5hn
-   g==;
-X-CSE-ConnectionGUID: 2G83p1nxRzuYI3PRR4Ccgg==
-X-CSE-MsgGUID: TzMa9feSQXCSDdOqLLR3cg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87670999"
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="87670999"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 05:53:40 -0700
-X-CSE-ConnectionGUID: /iKOoQO5RPygC0Rrqy49PA==
-X-CSE-MsgGUID: RKBckIuzRW+oBCEAS8jGpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
-   d="scan'208";a="261933090"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.254])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 05:53:38 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 535D0121504;
-	Tue, 18 Aug 2026 15:53:43 +0300 (EEST)
-Date: Tue, 18 Aug 2026 15:53:43 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Mattijs Korpershoek <mkorpershoek@kernel.org>
-Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Frank Li <Frank.li@nxp.com>
-Subject: Re: [PATCH v2 00/17] Rework frame descriptors
-Message-ID: <aoRV18TXSBQj6U49@kekkonen.localdomain>
-References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
- <87pkzl15fs.fsf@kernel.org>
- <2b31cfaf-82ca-4585-b7c8-41a15e5dcc91@ideasonboard.com>
- <87mrup129s.fsf@kernel.org>
+	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="IMXjsW3Q"
+Received: by mail-qk1-f176.google.com with SMTP id af79cd13be357-92e5b048375so236747585a.1
+        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:07:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ziepe.ca; s=google; t=1787058446; x=1787663246; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=k6wSKG5ykq4Q6C1KtG/SKHUImq95NPkNyQJpM3ppYMA=;
+        b=IMXjsW3QZBuzmHSSfwoteRgKE8pXOM/DA7B4luXxKrXXjnwiHBFndm3cY42TgMqRxx
+         KujU0k5lFeIIFd9c+/JD7t0bJXZYVitv18HnmwTsFK5KtA+1DJdVUFXoejfBlgkVbJ9c
+         cKhCSEYO6LZ2VixXf8mJCoFhmTsWTXERJcu1rGWAckAGl9Te3+auHs1mfP6etHb2+GrL
+         HJOaknnaFfoP0InWsK5H299Ndev3wwK0gAOnaCMtuaBp5RIBpro8il3J1Kejnwjl6gTm
+         UjSiGZbRyzCNiVP+j9V4xfxCZ6EnW2BVERyKQh8dxAtSS5SlgttqlBfgfKsfdqNTB92y
+         XsvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787058446; x=1787663246;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=k6wSKG5ykq4Q6C1KtG/SKHUImq95NPkNyQJpM3ppYMA=;
+        b=l20uTYt/lXTeL18p8n693Tdj3KleZgvg/O/fqOJzhHv3LGl1cSdOTx2ITHmanuHwtc
+         NEgJpaEkOY8LOHrNz7nL85vTf8n02rAKMF0hu3pVxM1eQd+eYSOOKUtPxbN7kz9u3nJC
+         3YRZJvDQz++3S4X05uizVBp+vEG4HsBMmd4TGviDL2Ao2fKyZKkIMXbRA2ZOTcyebZuE
+         2xqpJAm8JN0Zd9IqLA42g/I4zB29stRiJp0i73drj5Oifx8jC8WD8Va3K/r/YLY91UMd
+         aVyy+EAcDQboCNZeFv7jn99r5M38CBSszReOAyukpK0d7/HI5ZyHiIP+zDHKlTkxolh1
+         VHeA==
+X-Forwarded-Encrypted: i=1; AHgh+RoaEFljSafUMaKB/1zT1hLeIQwgACg8FGyIMoPaIKSP+7WA16X5UiOPPTX9FK1shdMmY1hxHcXa0ODpqQ==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2YfF9wH6kmx6yF1lUSBaNFwlC1v7KyhjeBc269rfk6Y22iLAj
+	0dYjZhBJzEuYcqmt4pO4iUDCnzNU9YlkC9ZQW89uMDiDeYeqeksrItuxDPhpJrRuk2I=
+X-Gm-Gg: AR+sD10vHKcfblF/HFr6O5L57z85T3UD6eO9fhp6q5xD/6ooMXMsEillZJaQ478lY1Q
+	bzNS6fk5A8b3yK8cMKOMNnMwNohsySoSqq2ouH61vF5LZ/DYC3pYInNdUcGoELUe2V0UjDzoPcp
+	jcWRYmqOaC+zvJqQKv+19qRL5CcYzbZA5UdosjlJq7ufRxyxS0h7ccy7aHXx/wp8Ej5jj40Eogo
+	DTprsRd5BCz2l99UbbuW49hq8EoFCktbod9kBacsg9J492S+bqt8lQpKWutAw6y170Zy2lPWuQV
+	eDDeBA2CzDGMbJ1ZBtL56ZDg6OYuz5FT4lE9cXDyFbRKx3Oi8IU+SpKZoNQdpi81/YZDw4cJDPw
+	FlSLoIUJHhuj668yxFshkFHHy529xJ36wRso1gEtly9QTSw+w8el7kh72q42gLMZsVYverDSBi+
+	i89avW3IYFMVReCRsvy+fVsY0AK9iXIsSWB8mImSLEs7/AgxAuNPZmiwZeihKO2vvdN5Hm+ZG0p
+	rNsq86/p/V56Sgj3cR3OE5t18b0vlxuFC9iNmcO1015ww==
+X-Received: by 2002:a05:620a:4624:b0:934:aa56:45df with SMTP id af79cd13be357-93704af041cmr767327285a.11.1787058445831;
+        Tue, 18 Aug 2026 06:07:25 -0700 (PDT)
+Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9370342b3b4sm281378685a.44.2026.08.18.06.07.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 18 Aug 2026 06:07:25 -0700 (PDT)
+Received: from jgg by wakko with local (Exim 4.97)
+	(envelope-from <jgg@ziepe.ca>)
+	id 1wwJXI-000000001zD-16ZT;
+	Tue, 18 Aug 2026 10:07:24 -0300
+Date: Tue, 18 Aug 2026 10:07:24 -0300
+From: Jason Gunthorpe <jgg@ziepe.ca>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	"Joerg Roedel (AMD)" <joro@8bytes.org>,
+	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Bharath Kumar <quic_bkumar@quicinc.com>,
+	Chenna Kesava Raju <quic_chennak@quicinc.com>,
+	srinivas.kandagatla@oss.qualcomm.com,
+	dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+	iommu@lists.linux.dev, linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH v2 05/15] iommu: Add QDA compute context bank bus to
+ iommu_buses
+Message-ID: <20260818130724.GA5482@ziepe.ca>
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-5-69a02e9090d4@oss.qualcomm.com>
+ <20260817134416.GA1415075@ziepe.ca>
+ <89ec74da-15ed-4278-b651-5c753fa4f146@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <87mrup129s.fsf@kernel.org>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <89ec74da-15ed-4278-b651-5c753fa4f146@oss.qualcomm.com>
 
-Hi Mattijs, Tomi,
+On Tue, Aug 18, 2026 at 10:40:25AM +0530, Ekansh Gupta wrote:
 
-On Fri, Aug 14, 2026 at 11:26:23AM +0200, Mattijs Korpershoek wrote:
-> Hi Tomi,
-> 
-> On Fri, Aug 14, 2026 at 11:21, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
-> 
-> > Hi,
-> >
-> > On 14/08/2026 11:17, Mattijs Korpershoek wrote:
-> >> Hi Sakari,
-> >> 
-> >> Thank you for the series.
-> >> 
-> >> On Mon, May 18, 2026 at 19:43, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
-> >> 
-> >>> Hi folks,
-> >>>
-> >>> This smallish set makes frame descriptors dynamically allocated and
-> >>> implements a single-entry frame descriptor based on the device's format,
-> >>> using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
-> >>> do not obtain their frame descriptor from upstream are converted. The
-> >>> helper also obtains a frame descriptor for the desired type (parallel or
-> >>> CSI-2) and checks there's at least one entry there. These checks are
-> >>> removed from drivers that currently perform them. (Some drivers also check
-> >>> there's exactly a single frame descriptor entry but I think in most cases
-> >>> this check could be loosened. That could be done after this set.)
-> >>>
-> >>> On callee side these patches introduce no changes as the number of
-> >>> pre-allocated memory for 8 frame descriptors remains as-is. The
-> >>> get_frame_desc() pad op can return more than 8 frame descriptors by
-> >>> setting the num_entries to the desired number and returning -ENOSPC.
-> >>>
-> >>> If people prefer using cleanup.h / __free() to release the dynamically
-> >>> allocated array (I think I'd almost require that), I'll merge the
-> >>> now-separate __v4l2_subdev_get_frame_desc() into
-> >>> v4l2_subdev_get_frame_desc().
-> >>>
-> >>> More formats can be added to df-to-mbus conversion as needed. These are
-> >>> meant to be initial formats that are enough for typical raw sensors (and
-> >>> one RGB format, too).
-> >> 
-> >> I've tried this out on a AM69-SK with the Arducam FPD V3Link[1] using
-> >> the following device tree overlays:
-> >>    ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
-> >> 
-> >> See TI's documentation about this [2]
-> >> 
-> >> I (naively) assumed that this series would replace Tomi's patch [3], but
-> >> it did not. I see the following in dmesg:
-> >> 
-> >> [  286.686574] cdns-csi2rx 4504000.csi-bridge: collect_streams: "cdns_csi2rx.4504000.csi-bridge":1: found 0x1 enabled 0x0
-> >> [  286.686754] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
-> >> [  286.700147] ds90ub960 7-0030: Failed to get source frame desc for pad 0
-> >> [  286.712679] j721e-csi2rx 4500000.ticsi2rx: enable streams "ds90ub960 7-0030":4/0x1
-> >> [  286.712684] ds90ub960 7-0030: collect_streams: "ds90ub960 7-0030":4: found 0x1 enabled 0x0
-> >> [  286.712690] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
-> >> [  286.725884] j721e-csi2rx 4500000.ticsi2rx: enable streams 4:0x1 failed: -515
-> >> 
-> >> Here is my camera topology:
-> >> https://paste.debian.net/hidden/7f56f635
-> >> 
-> >> I also made the following patch to attempt to convert over j721e-csi2rx:
-> >> https://paste.debian.net/hidden/314f9c32
-> >> 
-> >> Is this series indeed aimed to replace all sensor-specific
-> >> implementations of .get_frame_desc() or are patches such as the one send
-> >> from Tomi [3] still useful?
-> > I don't remember the details anymore, but probably related to my comment 
-> > in this thread:
-> >
-> > "It also looks like you only modified platform drivers. Did you check 
-> > the i2c drivers? Some call get_frame_desc().". So I think ub953 is 
-> > missing the conversion to v4l2_subdev_get_frame_desc().
-> 
-> Thanks for the hint.
-> 
-> ub953 and ub960 (which I both use) indirectly call .get_frame_desc() via
-> v4l2_subdev_get_frame_desc_passthrough().
-> 
-> So maybe v4l2_subdev_get_frame_desc_passthrough() needs an update as
-> well in this series.
+> The CB child nodes are not separate addressable hardware — they are SMMU
+> stream-ID assignments described as sub-resources of the parent DSP
+> interface. 
 
-Using v4l2_subdev_call() is still ok as such but it won't be able to return
-more routes than it used to.
+So this is exactly the same thing.
 
-I've made some changes since which I have pushed to my frame-desc branch in
-my linuxtv.org (and FDo) trees but I'm not sure if these address the issue.
+Read my remarks here:
+https://lore.kernel.org/linux-iommu/20260618151745.GD231643@ziepe.ca/
 
--- 
-Regards,
+The DT modeling for devices that have multiple stream-IDs is to list
+them all in iommus list.
 
-Sakari Ailus
+If you don't like that DT modeling then you need to start out by
+explaining why not very clearly.
+
+There is undeniably a Linux gap where it forces all streams in the
+iommus property to share a translation. This is a *linux* problem in
+the iommu subsystem and DMA API. In an ideal world it should not be
+fixed by hacking up new busses or mangling the DT.
+
+But of the easy options I think hacking in new busses is the worst
+option and has already been basically NAK'd for the hamoa project so
+please don't use it here for a diferent qualcomm IP.
+
+Given several qualcomm chips now have this same issue I strongly
+suggest qualcomm consider trying to fix the root cause and provide
+some way for a Linux driver to progmatically "unbundle" the multiple
+streams.
+
+It would be much easier if the HW properly supported actual sub
+streams as we do already have a programming model for PASID. Maybe
+some kind of driver thing to reconstruct the iommus so that each entry
+is exposed as a PASID in the API instead of an alias or something like
+that would be an easy direction.
+
+Jason
