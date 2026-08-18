@@ -1,34 +1,34 @@
 Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net [178.154.239.136])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0437E3C10B0;
-	Tue, 18 Aug 2026 09:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A4A93C10B0;
+	Tue, 18 Aug 2026 09:29:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045339; cv=none; b=kW/dxbZ/LX+8VXPfrvpFsksknZeuQWqrIWb3Fi3jJ+nmmXm5cg90C8WbMTBSb6YMbVd3Lca2WwUCsLSwtAPeg8nA4KfAp8tPP6UqIuBOCLgdWA2BY3I46ISt06rGrnXl87M8ARGoEZz7u/Q79JHw/rpTKnTgbaqjz83AWn6U/MU=
+	t=1787045351; cv=none; b=TPhUdfC4F4VztGWeAwE/wUd2A1X6M3SH+7p/f9IRr4tBi8nmmA22UTf+RxHqPxuXcdvwPvnwa5z2LAvMDCgFXniFE9sAtwjhocQpx7HikRH8SXR5zfXONeg31PTSlTyUyVLTk1pCzyHN4f6bBKWbGHGmuBaEoKwo7A3mj3KfHNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045339; c=relaxed/simple;
+	s=arc-20240116; t=1787045351; c=relaxed/simple;
 	bh=qSDbSBGYDH07oPwBa+Rp+nBO3HAO/2alQKi/kD/jmxc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=imSxM6I9Bk3PAk2jzhNZOdMQWXOXBFE0OHsQundDz+4R6ABEb5ZnPke+RBkAsh/a0OsQgBldr1I6uYxupqe5k3lkIO8JrX8w6NpSRmmHa0ePyH8/wM/uD86gfJRdC1cFK7VCPPClPYejBqYsuPRiw8at1CPmAVADk+t2q1zLuzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=plU/4h+b; arc=none smtp.client-ip=178.154.239.136
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YTo1pMzS20z/W+adLa63EA2kY4I9jrtGUV5NRahpnsEMpasaY2heHlpypzv+379p+eDxo+J0L0v1n/fRJHQPbFZtXNnEfuvW7w5T70YvewEgIB0gc8XqqKMTS0C/zGprTMrFGGoUsNdPB3rKNpWu4dqmyvMWcrMds1Ln10fkl+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=K+00kQzk; arc=none smtp.client-ip=178.154.239.136
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="plU/4h+b"
+	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="K+00kQzk"
 Received: from mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:fa2:0:640:41ee:0])
-	by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id 856AD8085B;
-	Tue, 18 Aug 2026 12:28:45 +0300 (MSK)
+	by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id 7AF0C80B41;
+	Tue, 18 Aug 2026 12:29:06 +0300 (MSK)
 Received: from i111667286.ld.yandex.ru (unknown [2a02:6bf:8080:51e::1:6])
-	by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA id fSRm579aVa60-kPdJBykV;
-	Tue, 18 Aug 2026 12:28:44 +0300
+	by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA id 3TRt879acOs0-JBPvC6Ne;
+	Tue, 18 Aug 2026 12:29:05 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1787045325;
+	s=default; t=1787045346;
 	bh=733PnIbHO+Ohzr6RPQsMlbQJ91Cy5grRI728PGy9aeM=;
 	h=Message-ID:Date:Cc:Subject:To:From;
-	b=plU/4h+bzSlho4oiD8IHRx4LValFVcIx6rHM+y7FF5OeVCrTGT8/Zt0bV8yaiVBZp
-	 c5ikFWt89S618rt3+t7W9/fe3okyUpwGO7OOF+gw2nptokfqGVDlR9m1ZSFsb9PbC5
-	 iGeBeoOgnKRJAsnD+39fVozuStFm6nWMyM5/Ly4w=
+	b=K+00kQzkxW1sPjrEiFi7RQgtPQCBWm0+hR3cRX/cApSFVIimSMiuY8hGVXOoVQ8CL
+	 YaA75Jgf815R5ML2dXbnD5DMkuFV6Y1drI6u5FHx+l/jpVwGuaeLOUmvgosHaj0ILN
+	 CC7GvJ+Rz2srwXNuG7Z3QFP5wiJKN1e1AMpDQb/I=
 Authentication-Results: mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
 From: Andrey Troshin <drtrosh@yandex-team.ru>
 To: stable@vger.kernel.org,
@@ -41,9 +41,9 @@ Cc: Andrey Troshin <drtrosh@yandex-team.ru>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	linux-media@vger.kernel.org,
 	lvc-project@linuxtesting.org
-Subject: [PATCH 5.10 1/2] media: mtk-vcodec: potential null pointer deference in SCP
-Date: Tue, 18 Aug 2026 12:28:40 +0300
-Message-ID: <20260818092842.1975-1-drtrosh@yandex-team.ru>
+Subject: [PATCH 5.15 1/2] media: mtk-vcodec: potential null pointer deference in SCP
+Date: Tue, 18 Aug 2026 12:29:02 +0300
+Message-ID: <20260818092903.1994-1-drtrosh@yandex-team.ru>
 X-Mailer: git-send-email 2.51.0.windows.2
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
