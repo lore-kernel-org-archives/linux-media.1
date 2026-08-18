@@ -1,154 +1,168 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D977147252C
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:39:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA635473C87
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787056765; cv=none; b=mTWoA8XJ0llK/XCzIoaFLQ3XrCUEVBvfWk/Hd2qkO7GSEikteK2Eg0wnt5J7beEPoBWw14jfiuR/bOO1oxOvTDXpv+a92Gs5r3bt6Xle/IANetMV3/qr7UGGg/irvLQ/k0VoBISXi9gCr45KzVrCasliI5YFWJZD7+180J5YipM=
+	t=1787057641; cv=none; b=P++5sSYxaxQhiDqzURt1uoDVlCgNOvFb1mK1HmQLeVZzuLYkTs8cBeis0jXrDVLdZtDoisvu1Vcky1pAIXPpYyLfC6q61oW5liv/uHdb569Yipt18DDmKCbTLo/yxldaf0BKEt4yUThxjW+QuDnQEZat//rftDrDSbjnNDhfgSU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787056765; c=relaxed/simple;
-	bh=YWSxs0QhOciQmaLVZF+gvmiXEVMso+zn92JvOv5pGPc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tqggAf2ERcJhQurqN4Phv3ymxCU2ZzRyTu+V6voRGdHRaLITpvQkM6SMYOKRucjep+9SnobGKQ4BYCAzV7qCOhueHiGUR90hDMm+ObmPOR5iVzMSFaOwhmweUB2eGuBH5tSF8iwZrE1AQVa34t2QtgiPTIny01AngAH0REJFN0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TM8J0xCm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U41SdFCw; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787057641; c=relaxed/simple;
+	bh=NwU5TLaCkzOyPWAX4VPubu3QsyHhlIgwVadkFHdKUi8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XU2K6F8iZDQedYc0ePuinLICmcz4jz4xfsGlqH/kEDID6F81SK2rdHQYinz042nQXdsjepIWqZOSLSpj9L9+bkWE+tVKDkKjEjsBYXUC+FWEteOKdde/aZp9A0wbI93aWxVWrQdrwEAIBDR/tOv0+Q98F25UUWdxpr2eZJp4nBM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YJ3XNU9j; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TM8J0xCm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U41SdFCw"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67IABWhv1544848
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:39:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9sT+fDlFKf91nl/V9cobhIbz6pURUSVOTqoQvdEFabo=; b=TM8J0xCmEZewL4S/
-	dbMxsHXBib6HAbyTZYLYPSDrx98anNKB/jwnSq93FKHHtlEArfohkCMk9DwbTodI
-	BqmbJPZuGmAcR0xw6sJSe54hZZDWpw9qS8CFhcteeqgU3YNuRH6svWAMPmBrepPW
-	Qdz9yumvQ8pokDpLIlf6Wr1v/e5jbQkHHe7QhuBGkNgOMOzWGLlfuC8/Tj7qm63U
-	QQ2E23BbF53ab0rT4lZHVxrmy9ZGdOr8KBeGaW4v+LCcC5psbnTdZPwyai3yThAN
-	3QVLrArxnwkbQfhgRdvCTYgOl2vNxL73a4zhE8qdlaXppS6yzJNgRFf7/UOUL/PE
-	jUZgPA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g4dcn2n8s-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 12:39:13 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-51bfd1772d8so6997341cf.1
-        for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 05:39:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787056752; x=1787661552; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9sT+fDlFKf91nl/V9cobhIbz6pURUSVOTqoQvdEFabo=;
-        b=U41SdFCw/owJbmuomeOXAZMJkj4GSCmfntJTlnH6srb3fRdr1xMevdE/fQnHqTklir
-         VUEQm84cnXq2o/upwAn2/bnA3oy8gjnzFf1UOhVf1m9EkXKu0XRArmMquUDg8b96BOml
-         fhqyh+Ayf69zsCP48/1fQaradpGyl4hvrJU7rR+jTYjsUT4qHlaqb0okathpXA6Bcwlw
-         ENirtRMa6yE5kmmQY9EK+0lOPbgTEMzVXdHNAemECkeez2TMvbwyJvF2jsbZUDqGP5uN
-         9iDJKOHfjZzeBiJFF+DIMb55x4g3KQQTJUhgPbNOtCnG9TlcACpPG2lcPTxUQQZrKUFD
-         W0+w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787056752; x=1787661552;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9sT+fDlFKf91nl/V9cobhIbz6pURUSVOTqoQvdEFabo=;
-        b=oKF42eAaqXACk96a2P9WM1WERZplCkgNu0p6GEyti+DqrdinaIbBaPe1K0t4O2SDLC
-         ygTFRHgBd7or37LaaQtNyi9lusc0MGavTyDbjJ1r2v2wTjBXhMExkUMaoUUrvJpecmFl
-         f0JYqu1+h6rBvaJ2jghG9sTU6+O2AxADRIjKcQ8FRcswiAHK0T2xFAALmUGFuWgxX7DX
-         JMoNAg7ACMhWg6gkPwD9lgXmik7lJCs2+5LwmHcHOrMFrISVxrrFnfbSUHFk5y0MtdyP
-         8/clIqayzhMR/41ya2krJUGLI4tlOs86IpGp/btj1pbDHKJDk0E9rTNXvw0Q2IkKoQ8F
-         zDAg==
-X-Forwarded-Encrypted: i=1; AHgh+Rp7tE8jKrolbm8VTjDXkBvWnZaz4Ce9vJ8uHtXHkqIqARfIv99LO1Jbzu6qnR6SYrEhlrdMYizsXfwzLg==@vger.kernel.org
-X-Gm-Message-State: AOJu0YwKnUw118uQrEYgPgF2QEWz7n7zWCVyGoFv2w3Pc0TkN+dRz9HJ
-	E8czLDCAT0gbe0Ysh6VPcB83ZyILyYlgGCh4wCtzuPo0/YmUeIISuPv6izxfT7uxMx6DdKYOmEu
-	giF7jq/aZOCqdGq7gB/446k+rEz5F57iuKi10yTqPTf6lEwPKZ28afqhW/klhoP22yQ==
-X-Gm-Gg: AR+sD13/utAoHgyFy4a+ZX6+qpgJavB6iBFHsVXedg40ywotZ6taBMVoWvGtCFeWe2Y
-	klzXIBw7bQKekdOWS7f2AeIuTi04qXeIcLRG+VX2D7xjyICoNtizDI+AuDAW+d7MIvjIMH+hRnc
-	nc/1Si7y1sMQ5iPYdcXr5WQkzllN4adJOJ7IG4NfCXczzGud2Lp1mrE7cT+AfFTqkslHCbL/bwO
-	3slUL7Rcrmu1AQxAUY/bLRqeMoI6DzhdQOMjc1YNfBhyUyROWeMUVJphGCL5aY7c/sK7j5cJiVI
-	dS4UOcqfJmJAZC9vZZzfjJOaT9NPFRxPDF3N1M0yJYqTtjUxhHzHenL1s0/hqwgu0AhtFj2PK0h
-	XPlOCanjTlhF+LWepmMfUEnrE
-X-Received: by 2002:a05:622a:1787:b0:51a:8079:795e with SMTP id d75a77b69052e-52d854d318amr235315541cf.4.1787056752499;
-        Tue, 18 Aug 2026 05:39:12 -0700 (PDT)
-X-Received: by 2002:a05:622a:1787:b0:51a:8079:795e with SMTP id d75a77b69052e-52d854d318amr235314971cf.4.1787056751991;
-        Tue, 18 Aug 2026 05:39:11 -0700 (PDT)
-Received: from [192.168.120.193] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3d8517775sm1713144a12.2.2026.08.18.05.39.07
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 18 Aug 2026 05:39:10 -0700 (PDT)
-Message-ID: <4b0287b4-6fa7-4fe8-a880-446ecdf01b1d@oss.qualcomm.com>
-Date: Tue, 18 Aug 2026 14:39:06 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YJ3XNU9j"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787057639; x=1818593639;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NwU5TLaCkzOyPWAX4VPubu3QsyHhlIgwVadkFHdKUi8=;
+  b=YJ3XNU9jh3ElplW/BlZZ9jxy3SZ0MrdOJTKanEouOFJRVfFwiN/H750/
+   akklHDd870ZtmbpYrfvc6t/G2KxxsfhGkxz/fl9khqpP+t2aRqGaVdSaj
+   WmZcNMQ48mCjL/uUp3dP4QpJe4gCyHXPwu04i4+h+ceuKZu58ZkxfqT1h
+   NzOB/h+QVVSJ408t0KrP23KLgpjqAjOHWiTZIEJmqstOYsyUVPGAOQjdS
+   32grYNjseXOtuHOn8Y5at3wWElkeOUbQ6nLDdDVsadKg5fnTj/30zsKva
+   y0rYDXktj6ZF8C/hcj1KjUz0L5lb0oFDTzAMbpJTNF+JM7RYJ/AVjG5hn
+   g==;
+X-CSE-ConnectionGUID: 2G83p1nxRzuYI3PRR4Ccgg==
+X-CSE-MsgGUID: TzMa9feSQXCSDdOqLLR3cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11878"; a="87670999"
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="87670999"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 05:53:40 -0700
+X-CSE-ConnectionGUID: /iKOoQO5RPygC0Rrqy49PA==
+X-CSE-MsgGUID: RKBckIuzRW+oBCEAS8jGpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,230,1779174000"; 
+   d="scan'208";a="261933090"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.254])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 05:53:38 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 535D0121504;
+	Tue, 18 Aug 2026 15:53:43 +0300 (EEST)
+Date: Tue, 18 Aug 2026 15:53:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Frank Li <Frank.li@nxp.com>
+Subject: Re: [PATCH v2 00/17] Rework frame descriptors
+Message-ID: <aoRV18TXSBQj6U49@kekkonen.localdomain>
+References: <20260518164318.3367888-1-sakari.ailus@linux.intel.com>
+ <87pkzl15fs.fsf@kernel.org>
+ <2b31cfaf-82ca-4585-b7c8-41a15e5dcc91@ideasonboard.com>
+ <87mrup129s.fsf@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: sm7325-nothing-spacewar: Add ultra
- wide camera support
-To: Danila Tikhonov <danila@mainlining.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Sakari Ailus <sakari.ailus@linux.intel.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Eugene Lepshy
- <fekz115@gmail.com>, Vasiliy Doylov <neko@altlinux.org>,
-        Achill Gilgenast <achill@achill.org>,
-        Luca Weiss <luca.weiss@fairphone.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        ~postmarketos/upstreaming@lists.sr.ht
-References: <20260801143125.267054-1-danila@mainlining.org>
- <20260801143125.267054-3-danila@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260801143125.267054-3-danila@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: bxZUxwhN5Djn2HaKcR3Lza7Xj5-CDgFb
-X-Authority-Analysis: v=2.4 cv=Gs5yPE1C c=1 sm=1 tr=0 ts=6a845271 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=OuZLqq7tAAAA:8 a=2Ii_74CIHdEfXmswDR0A:9 a=QEXdDO2ut3YA:10 a=4cnV9WtFwDsA:10
- a=dawVfQjAaf238kedN5IG:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-GUID: bxZUxwhN5Djn2HaKcR3Lza7Xj5-CDgFb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA5MyBTYWx0ZWRfX0GPKAKduz8ni
- v7IeP8KLWkKeKt6ldJY2Y4LIsccHLWOxDTaZxwwQN+aYSRNbuY3s3x/dlkE6sykF777OFL8dIGH
- kTMCMLOHBoIpkiychzEieS9LhgVHVFBswuO4XsnOh98PbDWyQsPuas8ZHJrTIlh/5ETPmx0EkEG
- uuOaKnvfePmV+9pHfkbBt/YYTzgnfMB+Abbs/kxYRksP9DIA3rpljTT8sFXwcCNYw++tsvPlv9i
- 30GG9AbZla+pRk3CXx5PBdg0Xu+ksp29SnJa87h6lWV/sLJsUabBictLYVpLf7kQkWPKLnmlVIO
- BqFNvD/ihsaN5h2n5gkc2RAPFwiFOVOJp8W4+rpt8gwoy97I931S8P989Bjy8R16nbutaKKG7cO
- ngAWC/1m64VYTjtIT0wnKYI2oAyXXMC88HQzy363t6STTj0n0Lk9pRkahCa9Dcoz0AmYObZChrn
- HpFaU9bfp+fN4EVR1nA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA5MyBTYWx0ZWRfX41c6pqTApR+R
- P147KOkO88gDOwNs+x6C4TX0Lqw1gPAn+HiPqPoMzlD01y6dpD+l8VWvxrBwjkz23p5jBSvubTI
- BS96eByDkfhqHumsKZ09rduShv91fyQ=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-18_01,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 priorityscore=1501 clxscore=1015 suspectscore=0
- phishscore=0 adultscore=0 impostorscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180093
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <87mrup129s.fsf@kernel.org>
 
-On 8/1/26 4:31 PM, Danila Tikhonov wrote:
-> Add and configure the necessary nodes to enable the ultra wide camera
-> (Samsung S5KJN1), connected to CSIPHY 2.
+Hi Mattijs, Tomi,
+
+On Fri, Aug 14, 2026 at 11:26:23AM +0200, Mattijs Korpershoek wrote:
+> Hi Tomi,
 > 
-> Signed-off-by: Danila Tikhonov <danila@mainlining.org>
-> ---
+> On Fri, Aug 14, 2026 at 11:21, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com> wrote:
+> 
+> > Hi,
+> >
+> > On 14/08/2026 11:17, Mattijs Korpershoek wrote:
+> >> Hi Sakari,
+> >> 
+> >> Thank you for the series.
+> >> 
+> >> On Mon, May 18, 2026 at 19:43, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+> >> 
+> >>> Hi folks,
+> >>>
+> >>> This smallish set makes frame descriptors dynamically allocated and
+> >>> implements a single-entry frame descriptor based on the device's format,
+> >>> using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
+> >>> do not obtain their frame descriptor from upstream are converted. The
+> >>> helper also obtains a frame descriptor for the desired type (parallel or
+> >>> CSI-2) and checks there's at least one entry there. These checks are
+> >>> removed from drivers that currently perform them. (Some drivers also check
+> >>> there's exactly a single frame descriptor entry but I think in most cases
+> >>> this check could be loosened. That could be done after this set.)
+> >>>
+> >>> On callee side these patches introduce no changes as the number of
+> >>> pre-allocated memory for 8 frame descriptors remains as-is. The
+> >>> get_frame_desc() pad op can return more than 8 frame descriptors by
+> >>> setting the num_entries to the desired number and returning -ENOSPC.
+> >>>
+> >>> If people prefer using cleanup.h / __free() to release the dynamically
+> >>> allocated array (I think I'd almost require that), I'll merge the
+> >>> now-separate __v4l2_subdev_get_frame_desc() into
+> >>> v4l2_subdev_get_frame_desc().
+> >>>
+> >>> More formats can be added to df-to-mbus conversion as needed. These are
+> >>> meant to be initial formats that are enough for typical raw sensors (and
+> >>> one RGB format, too).
+> >> 
+> >> I've tried this out on a AM69-SK with the Arducam FPD V3Link[1] using
+> >> the following device tree overlays:
+> >>    ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
+> >> 
+> >> See TI's documentation about this [2]
+> >> 
+> >> I (naively) assumed that this series would replace Tomi's patch [3], but
+> >> it did not. I see the following in dmesg:
+> >> 
+> >> [  286.686574] cdns-csi2rx 4504000.csi-bridge: collect_streams: "cdns_csi2rx.4504000.csi-bridge":1: found 0x1 enabled 0x0
+> >> [  286.686754] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
+> >> [  286.700147] ds90ub960 7-0030: Failed to get source frame desc for pad 0
+> >> [  286.712679] j721e-csi2rx 4500000.ticsi2rx: enable streams "ds90ub960 7-0030":4/0x1
+> >> [  286.712684] ds90ub960 7-0030: collect_streams: "ds90ub960 7-0030":4: found 0x1 enabled 0x0
+> >> [  286.712690] ds90ub953 7-0044: Failed to get frame desc from remote subdev imx219 10-0010
+> >> [  286.725884] j721e-csi2rx 4500000.ticsi2rx: enable streams 4:0x1 failed: -515
+> >> 
+> >> Here is my camera topology:
+> >> https://paste.debian.net/hidden/7f56f635
+> >> 
+> >> I also made the following patch to attempt to convert over j721e-csi2rx:
+> >> https://paste.debian.net/hidden/314f9c32
+> >> 
+> >> Is this series indeed aimed to replace all sensor-specific
+> >> implementations of .get_frame_desc() or are patches such as the one send
+> >> from Tomi [3] still useful?
+> > I don't remember the details anymore, but probably related to my comment 
+> > in this thread:
+> >
+> > "It also looks like you only modified platform drivers. Did you check 
+> > the i2c drivers? Some call get_frame_desc().". So I think ub953 is 
+> > missing the conversion to v4l2_subdev_get_frame_desc().
+> 
+> Thanks for the hint.
+> 
+> ub953 and ub960 (which I both use) indirectly call .get_frame_desc() via
+> v4l2_subdev_get_frame_desc_passthrough().
+> 
+> So maybe v4l2_subdev_get_frame_desc_passthrough() needs an update as
+> well in this series.
 
-Same comments as on the other patchset
+Using v4l2_subdev_call() is still ok as such but it won't be able to return
+more routes than it used to.
 
-Konrad
+I've made some changes since which I have pushed to my frame-desc branch in
+my linuxtv.org (and FDo) trees but I'm not sure if these address the issue.
+
+-- 
+Regards,
+
+Sakari Ailus
