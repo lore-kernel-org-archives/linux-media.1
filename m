@@ -1,191 +1,203 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A193833B969
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0CE72C325C
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:54:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787035782; cv=none; b=CzVkm3lTqthOFPWZmGk/66WKOQ2CXFhScx4BBa/5tYiTYAcuqhRDVSFU4JS6unNI87ZDFgNNpF2ynROW+eXDeFNeSKkwZVo3rOXgTWe6zuD1/JxDP6n5dOONScBI8z3fVGqnfrYtUTAzDiKFPzIBW7v4b86fyIkm12I9dZAvUrU=
+	t=1787036099; cv=none; b=tRHmmMuaXNrXufRceXYaKOBaVGWg9J8LlAQfE/yZzIfoGzkLQgI8EuOja+rXCk6l2a9853awQOoMUyroZJEU3bm6M3psDr+RaES7Lf4Ao2zuAH3ZAobjz2IvnXkyK1TUbjU5GZVscby39lqwSArhBZsX6N3Mys/yJ5KdakZS7/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787035782; c=relaxed/simple;
-	bh=bM6pDSjFTrw3Nm56Uum62JiF+u0GZCCUqToMVeaD8Vk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bBGQ+/RU4mHYzThR+S/u7nx1Nf3FtGYXR/W//4sHOVAjZQEDqr+4v15IZd9yFSMObWfjbq+6nlf5RwqiexEWUX+acQpMBmMZUsKF4/YjB3TSjrbaIKWOgP6PiC9hTkeJ9C9oP5AYFdIuAG1x3qGgO8UOxdedNQrxF8OG+5OPjoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IFHu1E/M; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cqmIwc3V; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787036099; c=relaxed/simple;
+	bh=uxADqqUqCp9lRGcGKt4U7cXYiUtV7lUnZZyit6MQqoM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GXFEaRExAa2ihl5yF7J0gjnp/qAIul/o4LuapoQFolSSI4X7mauRzTjFd2J8WN0htEAI2vPia7QlX+S7QlbS3Hi+k5aN6YEgYfLZAkxnomZzURqvJ1Yc5MXzW/NfUHVWapg6vuenJr482ZZbcHswydZDhvr6VNDdnOrIAQXGqHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cW6MOdcq; arc=none smtp.client-ip=209.85.218.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IFHu1E/M";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cqmIwc3V"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67I59IYe3566316
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:49:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=k4JiTPe+bV5Bhf2Yri0mM0d2
-	+t3X2WZruXXiZxqw0ZA=; b=IFHu1E/Mv4Kqnp0FU/pK7eVfYYOF/FRTGmbZMo8+
-	E4z9LUwB+slAA077NtvPqeL8pr7vjcRxM2pHY85d1jwxV5+n8V9OG5roTMNl3FzV
-	HaRsf+wIuPgp+gtPU/mXSapbYm23A6qyiobEI64b39Eyx5jnQol12uUVAOC8A4wK
-	wB7NPb7Zzxue9goykupW+c/nrSOVvQxsMBPDqTik/YVCF3CGA5n2b6MZOFUaChna
-	I5R18DNr6RJ1+QPcd1WRhYnGvKi/mwAoZTViWNeMA2TLVUXUnB7DpkXwXqtfKFhk
-	ricqUkBe+qhuzSYjvMDk6nhaxYzQW1zwlVW8SjRsibvoUA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g48q0tc04-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 06:49:39 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-92e9a2b95b5so742742485a.2
-        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 23:49:39 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cW6MOdcq"
+Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-c1c52d920b8so571480366b.2
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 23:54:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787035779; x=1787640579; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=k4JiTPe+bV5Bhf2Yri0mM0d2+t3X2WZruXXiZxqw0ZA=;
-        b=cqmIwc3VpHSWvmRE1rL2Vj7s0w8/m6dgjlrYLIyeAVfaHWg4nTfpNn6tvNP2xFgXO3
-         RizxkZJrhqYP+MWEVUwvha12Oay6waBt161hSFoVKAGmd/2+1jc6w6gletYxmOHHrPbt
-         N2kfR1vpY82FBZhTJHPwFb4N9GFl106SYnVrTrHsg5F9eyCjDlTtxQwU2HEAvkOt+f7u
-         R+Yyl6eQz/hNCJpYIZs9PEnK4Zmaj4+1KVuL2WOqFzU2rm5ixLsW1ZQ72Fio6PjutxvT
-         HWBIxPzEZYn5oB9p5pedYhdx+Lj04VbUHRXBtDQIWJzfjJKr+Ir/JDnFRuH2c2pKIoK6
-         Qt9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787035779; x=1787640579;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1787036096; x=1787640896; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=k4JiTPe+bV5Bhf2Yri0mM0d2+t3X2WZruXXiZxqw0ZA=;
-        b=EqIxZ+X97xg8/yIrm9lfFVjPMZZ41h9kZtyd7m97sTI0iQuyJYnDGHjteA6LcC79qI
-         omoEvuChC+VxSx/jp2y3c+jKYz7hxGsOI/RiQD8q4pge5IHrZi0Ab1JM1NJv0eP2Em0h
-         5X1IMoFX/jCHP6whn4TOfoicg5CqlL1zTLyA0flvihFIhr5Btjj00LXXrcN9FS6EMIPJ
-         ioIWAIl+v7C3jzMvKT+rKWrQ5VAWjb2y14M/CFrmAn5E7N++5e2JCZOJdYbnY3DTiBca
-         4CX8aqcKUp0JgT4BWJkNGmNdliBcpyvK866ZW4G1ymrPUrqnpnwHEZJA4IvBIHhkcb8z
-         SvrA==
-X-Forwarded-Encrypted: i=1; AHgh+Rowixglz2JWIHi7IE4lhnPxetfU6FRKm6NSr8LTSDEYt+dL76DqmFYu5Bbub1rXSnGSpBfUQHtYwmkohA==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc0IY/OCp4ZVigqNwTJ7IjAITZ9OAs3TdrE6xQQdvi68SB9jXz
-	dV8r4kCgkxjFhttu/N8nlo2reEjoakR8OTo29K3qY6hNYtK0vpzoVbm6tFHs7zliMCJ8UKMQ262
-	Ib6cnUTOXLtO8am7yALepCtZ4eP2NJBcwpAGjR15t9+0P+Hy1Xb+EkZWG7nYHKJuCVg==
-X-Gm-Gg: AR+sD13meuOj9fh+8BsPtPVPNnARygbe6K9937h/+1pr6y7Ktd+xrGOblTGSKaxvDc/
-	+C2v27Q2/WTS9L4diWaUX4L3ek39ZO7pqjDA/JNP7CiSFB/CLSwbJFhceMaD43EDC5efSBauAtS
-	WiOVh8A0ffKz5oHwUU51agyGioCaZr8RfAjR/QPDygLNh9OW41CZf8Mvsh6O5xtVtrfCyT131CU
-	nLK99Ehz4XeqzmOrgnLPEqLYlt8xRTHDp6w1N8neWuVgko5/4p0zLDEGK7F9+GEHQqmM/kjiPQn
-	dUF5ppqUbUga/4y9Gruqu7a+F/22pqr1vycMw1gdAzymSZxc4MM8c0DLEO0Xw3a7Bjrdjl1ak7y
-	vpKE4Nc7sp+Ssp23C4LFur1PxyM9grfBlMviCQLWtzZTdgPOo/cibZxsJE3hZNW/gCUClPb1vJ+
-	BP4FXX1rBdDSj/
-X-Received: by 2002:a05:620a:4150:b0:915:79c8:ec92 with SMTP id af79cd13be357-936d231f768mr3068128185a.37.1787035778771;
-        Mon, 17 Aug 2026 23:49:38 -0700 (PDT)
-X-Received: by 2002:a05:620a:4150:b0:915:79c8:ec92 with SMTP id af79cd13be357-936d231f768mr3068121085a.37.1787035777872;
-        Mon, 17 Aug 2026 23:49:37 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a16b0e3c17sm9714011fa.14.2026.08.17.23.49.35
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 23:49:35 -0700 (PDT)
-Date: Tue, 18 Aug 2026 09:49:33 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] media: iris: Fix iova allocation from restrict region
-Message-ID: <yc4clrtiuphrdfcd5nmvttr6lpgsxkbnrrmp7s4urkola3p23u@uv4ahf65clnr>
-References: <20260812-reserve_iova_in_driver-v1-0-ed62f801275c@oss.qualcomm.com>
- <20260812-reserve_iova_in_driver-v1-1-ed62f801275c@oss.qualcomm.com>
+        bh=pO7FpNF5m3BDuFMVo48UeMY6Fg48ViaT4+C4AKatBjQ=;
+        b=cW6MOdcqVT8rIr3w816DsBIPWVpFN3z9HG+85edIcx2FrayeTkJrLpNnH271XxrvVA
+         UVVTl79aRroWaXFg8cx7bqKDMSyxYs1iXyBPiYzffoRh6+5UIOIp52fSKbER/khw1pk3
+         rHLKpaqScz69qztm8lKw7mROH1DF4QShi5lug=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787036096; x=1787640896;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=pO7FpNF5m3BDuFMVo48UeMY6Fg48ViaT4+C4AKatBjQ=;
+        b=CTVmZhgb7lW4Jt2ogbnmVMUfW+K6IBLvYijqdGwA12APqEybJwG4l1ldLRy4NrBkuk
+         lX/YNqxqESva06BOaJoPJzebpvlS3t55OPnLyKi2syU3joyDPYHM4tHbSDkzaUYr6bLM
+         Z9tAZhxLYBU95FFoBMHVR7iCOz8VGB195HIs2K7zo/GG2DIeq07C6dre9UjLjYf22ZLx
+         AZJq+6LtMYFY2reMSwxvfNva9aMAQ66Y3VOaW2g/Ngbhj+eamOSjijgrLMdae5HuU+sr
+         fQWmXTWoKqNPGqvDjOkCa5owpN/q7OHT7c5GgjdwnkMGyxzT8p+tyuF0pVKK8yjbWATC
+         3a/w==
+X-Forwarded-Encrypted: i=1; AHgh+RrV9Y5pxoULREdRLU8raA8LXNVp/6KUCScwUZHSbTCwAt2VAX9Oo69mRHaTaEhjjpgnandnu9Qmb8Mb2w==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxkTtj/mk27ziDFanGXdOp2EzeyERkORcqwaZMVuXWVMGogs2XK
+	94u7GbGu5OHEdLuo6VeRJ2ybIGbOtZxsrUkppkbzqNzPMpaNCEc6A/iIrfyz2M88TttbpBgSn2W
+	XLsegyx6W
+X-Gm-Gg: AR+sD10neTAIiSH00zgrEbpspuDC0b0cV9SzBTEHnE0lnpOu4aE7MBg2SjfSpYvXEDt
+	lys50n0KK3InC8gD/2opCNUjRmdEdInWOMJ3rYvkx7OTUC1g3KTwlHypo3g/jStV/HIFC137Pn7
+	2VQLcAH+2pRApG7ELiUBTR5SqrV6OoyDnYexGmDKls8E+JGV8bmfvSFYRC0xVyJU6st2gnAGUWG
+	JhYDoy+4Mig7GbTV7ZqZaGV6ewcM7mBMnCeBOUZcp3UfCYE673VqKkzj8lxxQ1k1A/qQOusONUz
+	Glxg9kgJU3IuGoD5E8iszc890ddbFxSOVWCCrmqxLX7p+8QvTajUad3qb/s4s3ecYmZrT6z/7O4
+	UUhQprfzifsGf8TRoZ/+NedsZOJB5/9pdgT14Eau+BLAX9O/s+a6PLXmMZOIwEVRb79fZU3yI1N
+	viel8T7cD3JnpXaUw8qDvqI1QaYsZkcDJIWoPVDyxtrqde1HQpeK5CMp0Cn2NDTvcrr1xrEUYZX
+	bWwnDVkqFu9DZH3lt8gBM4Nvg==
+X-Received: by 2002:a17:906:6290:b0:c20:3733:a8c5 with SMTP id a640c23a62f3a-c212a0ea0a2mr1425410666b.8.1787036096015;
+        Mon, 17 Aug 2026 23:54:56 -0700 (PDT)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com. [209.85.208.54])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c217fea2607sm147656166b.16.2026.08.17.23.54.55
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 17 Aug 2026 23:54:55 -0700 (PDT)
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so4337413a12.1
+        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 23:54:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrfPdWgIqlxS0runbgKGHByDjb1IA9CIyaSmDvXVso8XMLik16bgdNfqGa6iD26Am/kL5mFaEiXzEIOqQ==@vger.kernel.org
+X-Received: by 2002:a17:906:ee84:b0:c1c:4db0:8314 with SMTP id
+ a640c23a62f3a-c212a1428cemr1546194066b.13.1787036094082; Mon, 17 Aug 2026
+ 23:54:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260812-reserve_iova_in_driver-v1-1-ed62f801275c@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODE4MDA0OSBTYWx0ZWRfX3B9uFqw4crRw
- +WzdzZ+i73ue56LW6Lr65/xjzJI7nv+9SumUixUyJqG85ZuYQeTN9+mx4JXU+k3n1H1esChTqSJ
- WPwejUWLHmOvQfzNmC+iq5qGMCdSol8=
-X-Authority-Analysis: v=2.4 cv=VuITxe2n c=1 sm=1 tr=0 ts=6a840083 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=e5mUnYsNAAAA:8
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Hj55FqqFgxrcsKo4rRQA:9 a=CjuIK1q_8ugA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-GUID: 0uDIF8hF2Pd56b9jHm0I9LBuY49Cgmkr
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE4MDA0OSBTYWx0ZWRfXyZXsy3tvv/zR
- ZT8y85uL2wT735BhXhCFM/HF/0QTP+dkf5hM0AXMMGExodKCFmvcnGEDSZ+nv8FvOWZsaM5HSEl
- JcDZjnkw0KNL+WEalF8sx/X2h16xGRc9yysIMaXq80WMXbkxeOIyP8wOvqvM8fZ2mi5gqHMXZtM
- P48SWDCUt7vmQWrTkXYxB6wikd1j1+vT7t6UWkViIqHyV8qp7frF9f4JVVjyzJ5oEYUeZ+TJPj9
- m59zya6DvETf7KjbnHU2rb+RvIutugsUV7IVT3Xc0Y6qR5zoukUHhP+j+dIA9FCHPbFYLPHoGdQ
- d9oeE87BBUhTvXM/xuIMK2B/4jfDxbgRRfpJeheTwFaQCa+y2dSAscBPpBgly/rdNG+DvvGfYgl
- OQ5bT6dGxex3xWVSrOj6gsPk0myRsyJzef0jfcYuA0RlM9rWHix30NBt/KTtJru5fwo7gCOz6fc
- v3DxC+xzRwkh7P5SHmg==
-X-Proofpoint-ORIG-GUID: 0uDIF8hF2Pd56b9jHm0I9LBuY49Cgmkr
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-17_04,2026-08-12_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 clxscore=1015 spamscore=0 adultscore=0
- impostorscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608180049
+References: <20260812103251.18309-1-noambs2999@gmail.com> <20260818064511.104024-1-natalie.klaus@runtimeverification.com>
+In-Reply-To: <20260818064511.104024-1-natalie.klaus@runtimeverification.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 18 Aug 2026 08:54:41 +0200
+X-Gmail-Original-Message-ID: <CANiDSCuMJ6A+0aC32Fz18P4x=of6Ww0FgudVXHKOtXFx09fjDA@mail.gmail.com>
+X-Gm-Features: AcwNN1VjKbTcaMJT38M-etEGA88i2opui0_Dm_A0JJqhhudQSd62qK0pBK0DapM
+Message-ID: <CANiDSCuMJ6A+0aC32Fz18P4x=of6Ww0FgudVXHKOtXFx09fjDA@mail.gmail.com>
+Subject: Re: [PATCH v2] media: uvcvideo: Fix integer overflow in frame buffer
+ size calculation
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: noambs2999@gmail.com, laurent.pinchart@ideasonboard.com, hansg@kernel.org, 
+	mchehab@kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Wed, Aug 12, 2026 at 04:25:58PM +0530, Vishnu Reddy wrote:
-> The VPU issues DMA through several SMMU streams, and the hardware does
-> not give every stream the same addressable range. The non-pixel stream
-> cannot address the low 600MB of IOVA space, while the pixel stream can
-> address the full range:
->     +-----------------------------------------------------------+
->     | non-pixel stream addressable range (600 MB - 3.5 GB)      |
->     | 0x25800000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
->     | pixel stream addressable range (0 - 3.5 GB)               |
->     | 0x00000000 - 0xe0000000                                   |
->     +-----------------------------------------------------------+
-> A single "iommus" property on the video-codec node puts every stream
-> in one IOMMU domain sharing one IOVA allocator, so nothing restricts a
-> non-pixel buffer to avoid 0 to 600MB. Once an allocation lands below that
-> boundary the hardware faults, which shows up as unhandled SMMU page
-> faults and spontaneous reboots.
-> https://gitlab.freedesktop.org/drm/msm/-/work_items/100
-> 
-> A series to reserve the 0-600MB IOVA range via "iommu-addresses" was
-> already posted here:
-> https://lore.kernel.org/all/20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com
-> 
-> Those changes involve DT binding and DT node changes, and discussion is
-> still ongoing on how to handle those for stable and for the upcoming
-> sub-node design, with no conclusion reached yet. Thereby a critical reset
-> issue is still open.
-> 
-> This is an alternate solution to fix the unhandled SMMU page fault
-> by restricting the IOVA range in the video driver, which also makes it
-> easier and faster to land on mainline and stable kernels. At the same
-> time the patch only reserves in the IOVA space without allocating
-> any physical memory.
-> 
-> Currently sub-nodes are not yet present, and only a single device is
-> available, so the restriction is applied to both non-pixel and pixel
-> stream IDs. This makes the solution unoptimal while fixing the issue
-> considering all scenarios.
-> Once sub-nodes for non-pixel, pixel, and secure streams become available,
-> the restriction can be made stream specific.
-> 
-> Fixes: d7378f84e94e ("media: iris: introduce iris core state management with shared queues")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/iris/iris_core.h  |  6 +++
->  drivers/media/platform/qcom/iris/iris_probe.c | 69 ++++++++++++++++++++++++++-
->  2 files changed, 74 insertions(+), 1 deletion(-)
-> 
+Hi Natasha
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Thanks for the thorough review
+
+
+On Tue, 18 Aug 2026 at 08:45, Natasha Klaus
+<natalie.klaus@runtimeverification.com> wrote:
+>
+> On Wed, Aug 12, 2026 at 01:32:51PM +0300, Noam Ben Shimon wrote:
+> > +     if (!(format->flags & UVC_FMT_FLAG_COMPRESSED)) {
+> > +             u64 bufsize;
+> > +
+> > +             bufsize = ((u64)format->bpp * frame->wWidth * frame->wHeight) >> 3;
+> > +             if (bufsize > U32_MAX) {
+> > +                     uvc_dbg(dev, DESCR,
+> > +                             "device %d videostreaming interface %d FRAME %u: computed buffer size overflows\n",
+> > +                             dev->udev->devnum,
+> > +                             alts->desc.bInterfaceNumber,
+> > +                             frame->bFrameIndex);
+> > +                     return -EINVAL;
+> > +             }
+> > +
+> > +             frame->dwMaxVideoFrameBufferSize = bufsize;
+> > +     }
+>
+> Ricardo asked me to look at this. I had been looking at the same expression
+> independently, so I checked your numbers and the surrounding behaviour
+> rather than only the diff.
+>
+> Both examples in the commit message reproduce exactly. 32 bpp at
+> 16384x4096 gives 4026531840 against a true 268435456, and 16 bpp at
+> 16384x16384 gives 0 against 536870912.
+>
+> One case I would add to the commit message, because it is the strongest
+> argument for rejecting rather than only widening. bpp=32 at 32768x32768
+> is exactly 2^35, so the 64-bit quotient is exactly 2^32. A bare (u64)
+> cast without your check would store 0 there, which is the same failure
+> the patch removes. Your check catches it.
+>
+> I also checked when the check can fire at all. For bpp <= 8 the threshold
+> is unreachable given the u16 field limits, and it does not need to be
+> reachable: the largest possible result at bpp=8 is 4294836225, which
+> still fits in u32. So the check fires exactly where it is needed and
+> nowhere else. That seemed worth confirming rather than assuming.
+>
+> My one question is about the error path rather than the arithmetic.
+>
+> uvc_parse_frame() has a single caller, and -EINVAL propagates further
+> than I first expected:
+>
+>   uvc_driver.c:495   return ret, so the whole format is abandoned
+>   uvc_driver.c:745   goto error, so remaining formats are never parsed
+>   uvc_driver.c:788   usb_driver_release_interface() and uvc_stream_delete(),
+>                      so the streaming interface never reaches dev->streams
+>   uvc_driver.c:1004  the uvc_parse_streaming() return value is discarded,
+>                      so probe continues and succeeds
+>   uvc_driver.c:2135  "No streaming interface found for terminal %u"
+>
+> So one malformed frame descriptor costs the entire streaming interface,
+> not just that frame, and probe still succeeds. On a single-interface
+> webcam that means the device binds with no /dev/videoN, and the only
+> explanation is the uvc_dbg line above, which sits behind a debug bit
+> that is off by default.
+>
+> I do not think this is a practical regression risk, since no plausible
+> device reaches 2^35, and the surrounding function is otherwise built
+> around repairing bad descriptors rather than rejecting them. What
+> bothers me is the silence: a user who does trip it sees a device that
+> binds and produces nothing, with no logged reason. Two ways to address
+> that:
+>
+>   - dev_warn() instead of uvc_dbg(), so the reason is visible without a
+>     debug build
+>   - skip only that frame descriptor and continue, rather than failing
+>     the format
+
+Good point. if you send a v3. please use:
+ dev_warn_once(&dev->intf->dev, "UVC non compliance: blah blah foo bar"...)
+
+We are trying to standarize the "UVC non compliance" string
+
+
+
+>
+> Either would satisfy me. If you and the maintainers would rather keep
+> -EINVAL with uvc_dbg as it stands, I have no objection to that either,
+> and you are welcome to add
+>
+> Reviewed-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+>
+> to v2 as it is.
+>
+> Separately, and explicitly not an objection to this patch: a zero
+> dwMaxVideoFrameBufferSize stays reachable from the other end. Any zero
+> operand, or any product below 8, gives 0 after the shift, and bpp=0 does
+> reach the computation on uncompressed formats. Nothing between the
+> descriptor bytes at uvc_driver.c:254, :255 and :382 and this line
+> validates any of the three. A zero then goes through uvc_video.c:214
+> into stream->ctrl, sizes vb2 at uvc_queue.c:90, and trips
+> WARN_ON(!plane_sizes[i]) in vb2_core_reqbufs() at
+> videobuf2-core.c:951. That is pre-existing and unchanged by your patch,
+> so it is not yours to fix here. I am happy to send a follow-up if the
+> maintainers want it as a separate change.
+
+Happy to review it if you send it :)
+
+>
+> One caveat on my side: all of the above comes from reading the tree at
+> v7.2, not from running it. I did not test on hardware or a UVC gadget,
+> and I did not build your patch.
+>
+> Natasha
+
 
 
 -- 
-With best wishes
-Dmitry
+Ricardo Ribalda
