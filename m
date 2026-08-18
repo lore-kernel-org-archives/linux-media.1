@@ -1,112 +1,108 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799EC3AE1A0
-	for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 21:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20958379971;
+	Tue, 18 Aug 2026 02:09:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787003518; cv=none; b=SyVfR13XfJow3KczNk5rRuT7DCNoMdvN4Y33NOK5sLsWRERR6oFTADfzDQ8NFFJFfOQZsSRcd9xxROdBbsJOd+QqrivllCw1odkHKLT30maLkYoSxu0/guFIo6bVUfLL1FzrePavVH1QVb0zRP5Ar8ZH6nJGrN8tqpWQa5Wt9vo=
+	t=1787018989; cv=none; b=SMsMzC2uVu9fPY7X/UYsqKTLH/rkMCaBlc42y7fll/fLM58K9cF/BH4F9PtgGHro+nUWqg2sWydl1pcPNRXe35GDUJS4T4yvhnKZYM3GtOHlCN06IcxnryPzhtor0n7/v6EYR0rSaOzOg93rtwLL4h5lT8GAh6oNYK0DnRuB5nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787003518; c=relaxed/simple;
-	bh=1OUwH3vpefuJTu+Cf5X1NgO2KYMRYxDAo1MiyQly/Go=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Cw3VEGiEGhRkD3LWPklPjnqq3BLWQgii96tTrWLge4ibLIo7WcOsY+xPh2B+I0pdmyNU3KFu2zjlKwlR/Gj8z2cuaVYv49F1X3TuPY7XKY/1yWs6BwW9CT/BFhFaVaHipmXd+wq9X24/NRusuk2v55NrxR/7Oju22dyb63ID+U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FgqCGRcH; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FgqCGRcH"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4955aa106b1so35097395e9.0
-        for <linux-media@vger.kernel.org>; Mon, 17 Aug 2026 14:51:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787003513; x=1787608313; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=1OUwH3vpefuJTu+Cf5X1NgO2KYMRYxDAo1MiyQly/Go=;
-        b=FgqCGRcHH9gMgXgzNRGLOMDqAN6BUbNQyL79vnhPflelKoUO9vKhwhQPhQGHO//Bl9
-         9SOZLwynKnanaKNhJ+iGvh0BW7bncCmhu9HwE5CB7qAq61wxFmYtZnPCM6mrRM/IFjcq
-         zCj0s0YSIdMoG/XPJynktk1hb1wnb0Q0L1mhfdrxaMQimKtiKj5/vVLtxr0vpvmodh4G
-         zi1nUU9kkGeUcclauZvj15LEpykYNufMdU+RGiAfpNImeICzEqd30hXai0q2XfFX19Pz
-         3IO96DHmuDqSEzmo0cmvnlX313f9NE8nwRJ7l2Av2r36mqU/cbiyq0lHGYSdW6e/KPk9
-         O4VQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787003513; x=1787608313;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=1OUwH3vpefuJTu+Cf5X1NgO2KYMRYxDAo1MiyQly/Go=;
-        b=VpPavWP3WJXgsI3o7z/4h9J/H8aIr8b1YS4pMmx9mtbu8ivWR0vUZilNdG5aB5wFjg
-         yRAZof8Z/BSOLoy//YAYc2if/4OMbyzT7Jrv/7qokcGt0vzHwbONMYNEUBPlgCL9KQRU
-         TnMuifpEHKAz3xQ8TNEI5XohjqwyvmpgHb2MJfUYL+PYCW5B6sdrynBmtyI/jtEVIp9w
-         ix15r0pssMM1QVG3Ievdmr2BaZU2h6ul7mkkiuSLJUy52LMud8XEZgeVy+RcJdSaHZ3P
-         zIdU/NULhA2ITQMWQaLq2dln9woU/9df+soMhkxgc5cBkrVSNKgQdnQF0keLu/Clga0l
-         fj4w==
-X-Forwarded-Encrypted: i=1; AHgh+Rr6uyZQRS7ymAD+dIvRQHNtAIIJGbzwqObcYyJT0a5s6tWKbRaVV0fu7Bs5uJGxHJq6b0V1DdPxRuQTCw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy/7KDaTWES3zmQXHVvR650CK/zpqsfI4KS/riq6y2K+gN4MKoa
-	g/UupIBDJZkcmxocnBF9B0mtbq3xsL/4HWzEFCyPG3pqGGTN7tz6TRyh
-X-Gm-Gg: AR+sD12mVYk364UhIh1PS4ekNqLDdbWWUnXKs7QaHOhlecfO7LHL3AwjOE5YEeiHbpU
-	h8FTRfbatLu1qLH7SxD66JjHdDoIT6bfWwVXWnSBVKjNEwgw4hX7pEeMILxYq1xXBbjg0tj1Tbj
-	ECH5lyk995/YdWu7vXYL4xgr70r8a1B/X+DUJrbkmNr4NYxX0dLTrivysnWHmYdxNbnfZEQjVeD
-	kvQzgyXPjyt7KAeRCESnZIRIShgwLYG2paGAq1vN+b1iZgVf2mit9Cccx8vnT/xLzmx7eT0D0bq
-	1nCqU5ZCjeaf/XLTKVcZ30rXg0Ny1GDMXyQcpgj3Xc5H2BS+72P0jGMp9bzVCOzTKOpsgiTvbQg
-	sifUcDkCICS92pbh1WF76T011NgrCpXLekVcp9dHyPMnJ58310ohIUn1XngyEqOEYOREz0FhKmG
-	BhZdKLAQIqh2VQb4bUfWGt54LOgE8g4Do+q+XmqYFKO4uSz2taV91a3sW0YgVk+m6pP/BOOOUcO
-	TlJdcXPDGGNfOwYz8G6MyfxAZBkLDTwRPaENAzWIfCOsmSAI4SFN0zxJR5GQQm85GI=
-X-Received: by 2002:a05:600c:1546:b0:499:484a:98e7 with SMTP id 5b1f17b1804b1-49987974700mr415672585e9.14.1787003512692;
-        Mon, 17 Aug 2026 14:51:52 -0700 (PDT)
-Received: from localhost (178.43.142.119.ipv4.supernova.orange.pl. [178.43.142.119])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482a5a31572sm7076978f8f.5.2026.08.17.14.51.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 17 Aug 2026 14:51:52 -0700 (PDT)
+	s=arc-20240116; t=1787018989; c=relaxed/simple;
+	bh=fN4kQFpz9cguwXnCok8/sRf0kywrj1uCQJu4fnuOrMo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fNgPH+rRavyQ9Ncp7we33pP+exzFDMvRj7wPCqq+KL2FS64oWh1wr2SmPDB5iV/KQAXj6KBbj6AQtslkQ65fi9Ww3ri3zhpUBhaXCMpwfCH8HgfCbOmp4Erct6fpSSNkTolXKFklFKdfMNFb06ucV/sl0238yNl4/h+VYOvbh5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: dd9fc53a9aa911f19a56ed5b684f684d-20260818
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:948d89ca-a7e7-4bc2-8824-9a89bd7c56b4,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:4f757c189a1f5de188447293e5b40a2d,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:99|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0
+	,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULS
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: dd9fc53a9aa911f19a56ed5b684f684d-20260818
+X-User: lilinmao@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <lilinmao@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1574117582; Tue, 18 Aug 2026 10:09:38 +0800
+From: Linmao Li <lilinmao@kylinos.cn>
+To: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Linmao Li <lilinmao@kylinos.cn>
+Subject: [PATCH v2] media: rppx1: describe the MAIN_POST white balance gains block
+Date: Tue, 18 Aug 2026 10:09:33 +0800
+Message-Id: <20260818020933.3153280-1-lilinmao@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 17 Aug 2026 23:41:07 +0200
-Message-Id: <DKRJNC8R41H4.1TJ6IRW0XR5XP@gmail.com>
-Cc: <mitrutzceclan@gmail.com>, <linux-media@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-gpio@vger.kernel.org>,
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- "Martin Hecht" <Martin.Hecht@avnet.eu>, "Andrian Suciu"
- <Adrian.Suciu@analog.com>, "Tomi Valkeinen"
- <tomi.valkeinen@ideasonboard.com>, "Cosmin Tanislav"
- <demonsingur@gmail.com>, "Vivekananda Dayananda" <vivekana@amd.com>, "Cory
- Keitz" <ckeitz@amazon.com>
-Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-From: "Artur Andrzejczak" <andrzejczak.artur@gmail.com>
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Mauro Carvalho Chehab"
- <mchehab@kernel.org>, "Sakari Ailus" <sakari.ailus@linux.intel.com>,
- "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Julien Massot"
- <julien.massot@collabora.com>, "Rob Herring" <robh@kernel.org>,
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>
-X-Mailer: aerc 0.21.0
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri Aug 7, 2026 at 3:02 PM CEST, Dumitru Ceclan wrote:
-> [...]
+rppx1_ext_params_blocks_info[] is indexed by block type and is built
+with designated initialisers, so a block type without an entry is left
+as a zero-sized hole. RPPX1_PARAMS_BLOCK_TYPE_AWBG_POST is the only
+such hole: a block reporting that type and a size of zero passes
+v4l2_isp_params_validate_buffer(), which then has nothing to advance
+the walk with.
 
-Thanks for the patches, good to see the GMSL support integrated into a
-common framework.
+Describe the block, so the array covers all block types the uAPI
+defines. The MAIN_POST white balance gains module is probed and started
+with the rest of the POST pipe, and RPPX1_PARAMS_MAX_SIZE already
+reserves room for all three white balance gains blocks.
 
-Small note: patch 16 adds a second config VIDEO_MAX96717 and a second
-max96717.o. The old driver is only removed in patch 21. One symbol then
-builds two max96717.o objects, which scripts/modules-check.sh rejects.
-Won't allmodconfig bisection be broken for patches 16..20? Both drivers
-also match maxim,max96717f in that window. The same overlap exists for
-maxim,max96712 (staging driver vs the new max96724 one, patches 17..19)
-and maxim,max96714f (18..21), where probing becomes order-dependent. Can
-the removals be reordered so that these windows close?
+The block is not dispatched by rppx1_params(), in line with the other
+described blocks that have no users yet.
 
-Kind Regards,
-Artur Andrzejczak
+Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
+---
+Changes since v1 [1]:
+- dropped the rppx1_params() dispatch hunk, the block stays undispatched
+  like the other described blocks that have no users yet (Niklas);
+- retitled, and the commit message now leads with the hole in the array;
+- dropped the Fixes: tag, the fix is expected to be collected together
+  with the driver for v7.3 (Jacopo).
+
+The second patch of v1, "media: rppx1: bls: read the raw pattern from
+the PRE2 acquisition module", is dropped for now and will be resent when
+PRE2 support lands.
+
+The zero-sized block problem in the common validator is addressed by
+David Carlier's "media: v4l2-isp: reject zero-sized parameter blocks"
+[2], so it is not touched here.
+
+[1] https://lore.kernel.org/linux-media/20260817104529.3132552-1-lilinmao@kylinos.cn/
+[2] https://lore.kernel.org/linux-media/20260815193839.141406-1-devnexen@gmail.com/
+
+ drivers/media/platform/dreamchip/rppx1/rpp_params.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+index a75a27a8afd09..5e6727d589464 100644
+--- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
++++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+@@ -25,6 +25,7 @@ rppx1_ext_params_blocks_info[] = {
+ 	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
+ 	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
+ 	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE2, awbg),
++	RPPX1_PARAMS_BLOCK_INFO(AWBG_POST, awbg),
+ 	RPPX1_PARAMS_BLOCK_INFO(CCOR_POST, ccor),
+ 	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE1, hist),
+ 	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE2, hist),
+-- 
+2.25.1
+
