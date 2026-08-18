@@ -1,53 +1,56 @@
-Received: from forwardcorp1b.mail.yandex.net (forwardcorp1b.mail.yandex.net [178.154.239.136])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D79E9446070;
-	Tue, 18 Aug 2026 09:29:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.136
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCD4D3839AA
+	for <linux-media@vger.kernel.org>; Tue, 18 Aug 2026 09:36:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787045352; cv=none; b=eqqv4WizTnsnuI+73xvYrYOb1HU9ZJ3RqYSTytQKqHOlzVkQ6vNPfhnQOgOEkrEJtnkZ4hn/n48kgdGSVIesF9LRis9uCrYF3wr1DtHfk2N74opUZ4n9REUezp7yH09SjwL5i6R5LACBUmQ/5m7mQvx9kaRC+HGxWQvhC9QhZGI=
+	t=1787045814; cv=none; b=gjeN9BGHVTNh9oaePpRXlpSKfjmNSXP8eFEDyD5KnX7xzPr4Hwyi/PO5tBhPyddh+OlWRdlfJXO18yrZUGi7gt7GJD/jF8ZkxDlqNVq1QBKnW2hx8JYRZ18TnBFgDZnve3uYXRcB5P7F/14R57Y3izKmvL72JajiCSxCHQLa9NA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787045352; c=relaxed/simple;
-	bh=dVGF+ZS6XSO4lCuX8vS3zZQ+tdoVgMfWiYwdNhdenbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Uv0Ww2m3Rp7+mHrfKSC9BFi7T3Ft4V2ih3uTIF0Gi8J4jMt3vwkoVkYTdc8nPPWiVh3NiiNHBpAYzftGx+i0dXV/IEyWgBPG6h1LEOBdTCSFaCpqeK5HgtuLRnwyOrArDZm1Am3Zz5NEOK7wq9o+EcjIyOOPIaDfJ9eA+Hn/QTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru; spf=pass smtp.mailfrom=yandex-team.ru; dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b=pODSJXcZ; arc=none smtp.client-ip=178.154.239.136
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex-team.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex-team.ru
+	s=arc-20240116; t=1787045814; c=relaxed/simple;
+	bh=gxhumfPkxkdaCiQ/1ZpswMsiTMXC8L+ll6GYQzzPgio=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LNM0asfJHKwzy54OHpktuakMNKM9k0Oy/J2HUD6PiuXYq2kPK6ScXD0g6qX9TQwA8GWbxDHG7JlAa7A1rjYG8kPe8y3/2oPCVfYeEkwzxsFBIlv52G9V7mupGjYlz2gy0H9WGRT17iX1N0Gl6nBLvf8Fbwsv+eC+dlEetcEhxSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=D7Ixff8d; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=D7Ixff8d; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.b="pODSJXcZ"
-Received: from mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net [IPv6:2a02:6b8:c24:fa2:0:640:41ee:0])
-	by forwardcorp1b.mail.yandex.net (postfix) with ESMTPS id 00FE680B85;
-	Tue, 18 Aug 2026 12:29:08 +0300 (MSK)
-Received: from i111667286.ld.yandex.ru (unknown [2a02:6bf:8080:51e::1:6])
-	by mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net (smtpcorp) with ESMTPSA id 3TRt879acOs0-kS6xHUOt;
-	Tue, 18 Aug 2026 12:29:07 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
-	s=default; t=1787045347;
-	bh=7YHeaGtfFB57Boz98X24i52ucfO9TNpH/XKFlY+nlbc=;
-	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=pODSJXcZx80OBrWafdWXVdCE6Xy4FFe+/IKbI0xw+OEIiUTsdzajCWBYjgkjDyx8k
-	 5SX/+8jX0Rp/1+PAzH1IT1igxpgMM40plZyA21JamvUkzVPYctAeM6LI3zN7TuFUOf
-	 LPf2NaFptP7XTIrwNlp2wD6TEw+UdWBWbApNhSdo=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-34.sas.yp-c.yandex.net; dkim=pass header.i=@yandex-team.ru
-From: Andrey Troshin <drtrosh@yandex-team.ru>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Andrey Troshin <drtrosh@yandex-team.ru>,
-	Sasha Levin <sashal@kernel.org>,
-	Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	linux-media@vger.kernel.org,
-	lvc-project@linuxtesting.org
-Subject: [PATCH 2/2] media: mediatek: vcodec: Fix a resource leak related to the scp device in FW initialization
-Date: Tue, 18 Aug 2026 12:29:03 +0300
-Message-ID: <20260818092903.1994-2-drtrosh@yandex-team.ru>
-X-Mailer: git-send-email 2.51.0.windows.2
-In-Reply-To: <20260818092903.1994-1-drtrosh@yandex-team.ru>
-References: <20260818092903.1994-1-drtrosh@yandex-team.ru>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="D7Ixff8d";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="D7Ixff8d"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1787045804; bh=gxhumfPkxkdaCiQ/1ZpswMsiTMXC8L+ll6GYQzzPgio=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D7Ixff8dhm6QlSnBMUxaUfoCtyRnoyy+bvY2N5OOqE1udUiiRad+2dVcZIC7liT9O
+	 0OZXOeK7R9CIq4tIy2d6D3/tCYs6rNFmpevjqWqklTw+xuseAnmKikp8pLAeuRR6ra
+	 4ZRKflLepQrtQz2AM3bmk0slC04Je9Si3B6efoblYoJsSbGt/YaAgPlgIkxoTNV70o
+	 jT+aVf2RHP4QY7usF14lIS1ojs7JMkuFPHgMYgiiZJ9dOlnc2mQY+mD/RqitRqzqGC
+	 bnj/zTB/LTrvOs2rxcgywcgfyvumY9vkt1fx669TavZ0vBySuMzUW1St3fsvWJtCfv
+	 lvq0OqbU8AhSw==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id CD285408BD; Tue, 18 Aug 2026 10:36:44 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1787045804; bh=gxhumfPkxkdaCiQ/1ZpswMsiTMXC8L+ll6GYQzzPgio=;
+	h=From:To:Cc:Subject:Date:From;
+	b=D7Ixff8dhm6QlSnBMUxaUfoCtyRnoyy+bvY2N5OOqE1udUiiRad+2dVcZIC7liT9O
+	 0OZXOeK7R9CIq4tIy2d6D3/tCYs6rNFmpevjqWqklTw+xuseAnmKikp8pLAeuRR6ra
+	 4ZRKflLepQrtQz2AM3bmk0slC04Je9Si3B6efoblYoJsSbGt/YaAgPlgIkxoTNV70o
+	 jT+aVf2RHP4QY7usF14lIS1ojs7JMkuFPHgMYgiiZJ9dOlnc2mQY+mD/RqitRqzqGC
+	 bnj/zTB/LTrvOs2rxcgywcgfyvumY9vkt1fx669TavZ0vBySuMzUW1St3fsvWJtCfv
+	 lvq0OqbU8AhSw==
+Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 20F0340192;
+	Tue, 18 Aug 2026 10:36:44 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org
+Cc: Rik van Riel <riel@surriel.com>,
+	Sean Young <sean@mess.org>
+Subject: [PATCH 0/4] Fix locking issues in rc core 
+Date: Tue, 18 Aug 2026 10:36:30 +0100
+Message-ID: <cover.1787045579.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -56,47 +59,20 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jiasheng Jiang <jiashengjiangcool@gmail.com>
+Fix issues found by Sashiko.
 
-[ Upstream commit 4936cd5817af35d23e4d283f48fa59a18ef481e4 ]
+Sean Young (4):
+  media: rc: Ensure registered is cleared in error path
+  media: rc: Ensure that rc_unregister_device() does not free input
+    device
+  media: rc: Fix ABBA deadlock by making locks more fine grained
+  media: rc: Add missing locking for keymap
 
-On Mediatek devices with a system companion processor (SCP) the mtk_scp
-structure has to be removed explicitly to avoid a resource leak.
-Free the structure in case the allocation of the firmware structure fails
-during the firmware initialization.
+ drivers/media/rc/rc-ir-raw.c |  39 ++++++----
+ drivers/media/rc/rc-main.c   | 134 +++++++++++++++++++++--------------
+ include/media/rc-map.h       |   2 -
+ 3 files changed, 105 insertions(+), 70 deletions(-)
 
-Fixes: 53dbe0850444 ("media: mtk-vcodec: potential null pointer deference in SCP")
-Cc: stable@vger.kernel.org
-Signed-off-by: Jiasheng Jiang <jiashengjiangcool@gmail.com>
-Signed-off-by: Hans Verkuil <hverkuil@xs4all.nl>
-[Andrey Troshin: backport fixs from
- drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_scp.c 
- to drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c]
-Signed-off-by: Andrey Troshin <drtrosh@yandex-team.ru>
----
-Backport fix for CVE-2025-23160
-Link: https://nvd.nist.gov/vuln/detail/CVE-2025-23160
----
- drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
-index 27f08b1d34d1..199a64c853bc 100644
---- a/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
-+++ b/drivers/media/platform/mtk-vcodec/mtk_vcodec_fw_scp.c
-@@ -65,8 +65,11 @@ struct mtk_vcodec_fw *mtk_vcodec_fw_scp_init(struct mtk_vcodec_dev *dev)
- 	}
- 
- 	fw = devm_kzalloc(&dev->plat_dev->dev, sizeof(*fw), GFP_KERNEL);
--	if (!fw)
-+	if (!fw) {
-+		scp_put(scp);
- 		return ERR_PTR(-ENOMEM);
-+	}
-+
- 	fw->type = SCP;
- 	fw->ops = &mtk_vcodec_rproc_msg;
- 	fw->scp = scp;
 -- 
-2.34.1
+2.55.0
 
