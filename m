@@ -1,218 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-b2-smtp.messagingengine.com (fout-b2-smtp.messagingengine.com [202.12.124.145])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE3DB3B3890;
-	Tue, 18 Aug 2026 08:05:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E35D3446B0;
+	Tue, 18 Aug 2026 08:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.145
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787040343; cv=none; b=AYTfs6u8f3q1ysCpT9SDWQYK/1d2zloEDBNbSsPJ+ubI3NCiOCD8qUZ9MG+xRAOlBT0w7r9LD44hx7IXz7aBohsCLJYN11kL5WtyZWANZKEwGrY10nS4ya0cToredScgGgvo00AgL2ETR6st9g7cx7jYqYGXm4nKKU6hmWhKQwI=
+	t=1787041071; cv=none; b=uWx/wuIrDS+VnFjlRqkTnCmNxDHAkXE3j6Zcc5kxrCTcMMT3OWB2JCmkWWXIPzl4fPG/mPhHt1ziTrEzJWTPrqitpuL6EG50d5GpsZCDDpU8zHrNGy9pg86c+m4/L2Y/gdLLmqhet7WFgXqgNrsB3eTkKNPznzvQtR9ia805NDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787040343; c=relaxed/simple;
-	bh=TU/Bhi2gM0JbuD7T7dXHtIUaqsKA7Qy/oEy19b8K54k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hZvuoHpyxl00Ivn2ZWP+5UHubo+Twa6kjL41yRZtFU7mtkxwIJCU0AJI3lar1Q8DkSzgTso7qhlzB1reN8sRNvvqCEUiOB+dfpXfnYDmJ18D9TMs6loDz769kaKFgobEl2C9lY0jkXrB685Wr6VWB59sS05B6zodrCMx3Amm0+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DqDFHv9R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787041071; c=relaxed/simple;
+	bh=NwYzDFYcG5R3/hpA4SsHotr/SfjM0cSh6qOAIcBB9Qk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dl/bfzQ1nK5AkT0cCNRyhe+l77ADo2vDOfZY6Jq3vkZ5zh7+XgZvyTnb/VEvZa0v0iFIpgTzdx7kx8aHaEkn8t1sAIEk7f/banbmjqz6IaJJArKp6uWaq6l3gc5ZOXsQv62CP+ZHWTNZ1DCjg4DZopHIAcO4fNzkU6pb1x2BUKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=HsHdoa9J; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=e9mhsTMC; arc=none smtp.client-ip=202.12.124.145
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DqDFHv9R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B34D1F000E9;
-	Tue, 18 Aug 2026 08:05:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787040342;
-	bh=YpSGMsOy5RXLf3ioYqkFCn2tDlBgIKiLUH4GctlGLi4=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DqDFHv9RJxF/pEU65Azm6UpjE+K8uwh2MR6UAKdfDK/Abuu7rhAnrU6avvRkEQmNt
-	 tbaK5DaT6ft3lHuk5FUsVDth0pIaFRxnyJoW0wHwVUHd1A5nO9hni3oDwCueOmZFGY
-	 DiZVPg5H/wggC3Am29rnxLmIULdhyYO8OyuynFl4r7O9/yGsbObcuIdsg+9RNwr9wN
-	 6TqzScmu7x8i4pyKsQlKpJ+Lx1wcu9pdJCRlQN4zEr4L1sGeWMJ6zK6d5PBbI6h0kY
-	 VmdlsR390DTRCy/uiT+mqO4b71Q4iofbL/BVx2J/R07j6sxhnrh9ZmmdPuuSSFFQQS
-	 7ItAwprXBrOnw==
-Message-ID: <662f7093-fb0a-4564-9ca0-98e03e68ba9a@kernel.org>
-Date: Tue, 18 Aug 2026 10:05:13 +0200
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="HsHdoa9J";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="e9mhsTMC"
+Received: from phl-compute-11.internal (phl-compute-11.internal [10.202.2.51])
+	by mailfout.stl.internal (Postfix) with ESMTP id BB9611D0010A;
+	Tue, 18 Aug 2026 04:17:47 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-11.internal (MEProxy); Tue, 18 Aug 2026 04:17:47 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1787041067;
+	 x=1787127467; bh=T/tb/wwVml4lK5WPxEjId+XzaKMtBZnlAIzT0wSkyPE=; b=
+	HsHdoa9JeTvaXZ8YKaVoMSv3ust5Nt5ew7IgO71064zIA725meFnCG7GCwIrEWiL
+	tq7mpD8JDoQUJL7m+dFXbHjBST0ssL/PeCX00X/xWAyji3aQr99KE9bcF/78PdxW
+	ChtET6SaYRGErTppM9I2eiIi6qGvsugwdkfn1NCV+ubhta1UTyNc8KjBdIi4rgtA
+	cm8CfCu1EluZNRZMd9jCU6YpjoPL/7SmMzod6FAU8mV892TW58wONt/4sbFRak1J
+	54Sxm5JPHz95FPeXlcCN2BZRl47PgLXRN6pD5tq9myBDqntxPqG6zyTzT7QXhYzD
+	VfWO437MqRVzcEvq5SFVjw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=1787041067; x=
+	1787127467; bh=T/tb/wwVml4lK5WPxEjId+XzaKMtBZnlAIzT0wSkyPE=; b=e
+	9mhsTMCB2Hjttsjjs88ZH6W7QAF9fA33mklzRaW/U1ifAjiUDLQ9pfJn2rpNt8bf
+	LyNiiVU9BDtLr102l6XGmPMY4b93VZ8do0zUtahb3ak0ojsA6GngSEfYDbOsjbcn
+	2J2RD2zg8gOSeT3sfkJWJqT7HsSKlZcD7PZu+P9vsLY799vJ8HR7zu25QdrCuhv3
+	hNY9F3e910Iq/8fol226dY5yjmpBtbxvUCKbPOqkRt4fGqZIwvkbEndqWbLTPAR+
+	N3Sw8sxcJ9AzeGmAf7ofN/Ki9s68H+y5fCaM3Qvu9rV+Y14Mp8utFqxgzAHGEbTt
+	a38XX+e+BVcs8u3syROww==
+X-ME-Sender: <xms:KhWEaspnIsnSs5WrIumUGc5R_eDe_jjcpUo021Wyd3PKvjTnopvWzA>
+    <xme:KhWEassMa7l3pLek5qtBIXsvRTjY3wLpxCi0w-ou6V9xHOHEC3JOLude6gRZBZAa6
+    ZZvWmLP5v-KBOPMubgGpJe-v3RCoznfsVyuRqutgkXntDXo-OCX2jZF>
+X-ME-Received: <xmr:KhWEahEwEWmgC9Cu1spUr6rGXkP2TXnhAsZruXfiNQF329z685PJDzol98wTjE6XUjF36W9sMHeE3jPu1CNug0ZZQ0FaiFM>
+X-ME-Proxy-Cause: dmFkZTGscohYx44IGm9NeCycOUDhQ2rHfwJxJSvHtyaoOHNy3eqWCEIDBRqKn9hTnKJPWL
+    cG/zILUGY+7XRubHkoxKX+LkY9OJhs8bwa/i0G6iowgLsPkW+XuQ/jO7oRC8zbsSKBaX1a
+    mCXt4SzY8/GcEraD4RJ+uX2nas89/liI8SM2/Qk/1SmQo4Hk1WiMAe3EoNfBOo4bg7L5K9
+    nfL68th76FOe2B+Ev3QiKKMQnU4X+cENmU9lkSDeDxyc6GrMc17L5R+pBRxKV+bOSq8T3D
+    nz1UblHKyc9WjTPTykio6915wPDSM4pEyNOmgduXQ+bzitzbjG7tePg75dck88uIF/7PWG
+    lqcalZYtuZiXWy8MbRw+GJpPREy2FwW9Tjd78uB5zmc7RhE1QNxTiwsvKcGpB2j86QJ039
+    27zJcGHF4SH7lCRHFkG6QGFFByRaipUHyw5HGRKgO4AuimnCq0g1GAE4reO7p+85IsU/Df
+    Szs40LS9kySvBNu7/TWsoubSnxqcFZhApZdEo7CJlEkqM8IDqEB2ywBs4c3M/XnsEIT5+7
+    qIb8ikqp4zPoNHtC5zivB/8pNj0mYwDjymkHoMC2PVk+mOhpdbc41+ovhzBC5k2wl4udZk
+    sljcMUZJgNspo+GUsVN726o3lGR6/xKMdEru8xayBxFsi3rvNvKL8FPwlF2Q
+X-ME-Proxy: <xmx:KhWEala4lcnha6uGj54RR2hS4mx2Ya7_b9iYYvnzjMFhthmttN2euA>
+    <xmx:KhWEapV-MW89jqw8lvXu3lwswoY8wkFt8780y53I8NOngAe-Xrnmaw>
+    <xmx:KhWEajnhESzl9oY-hqlzzmRv5nzxbvOoWukM65LfGpO7tGFOj65k6g>
+    <xmx:KhWEasCpwApGEtWnXYjSenZdMzREruTUBUQgf_PgfCbJ_fb1TqnKAQ>
+    <xmx:KxWEaqEtSgCWh-R8d7UHiq-NNtHpmVSTUEJzieHfHCffCsrhMlszSxSz>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 18 Aug 2026 04:17:46 -0400 (EDT)
+Date: Tue, 18 Aug 2026 10:17:43 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Linmao Li <lilinmao@kylinos.cn>
+Cc: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>,
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: rppx1: describe the MAIN_POST white balance
+ gains block
+Message-ID: <20260818081743.GK2757863@ragnatech.se>
+References: <20260818020933.3153280-1-lilinmao@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/22] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
- Vishnu Reddy <busanna.reddy@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.k.varbanov@gmail.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Stephan Gerhold <stephan.gerhold@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Stanimir Varbanov <stanimir.varbanov@linaro.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Johan Hovold <johan+linaro@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
- Mansur Alisha Shaik <mansur@codeaurora.org>,
- Andy Gross <andy.gross@linaro.org>, Rob Clark
- <robin.clark@oss.qualcomm.com>, Stephen Boyd <sboyd@codeaurora.org>,
- Yassine Oudjana <y.oudjana@protonmail.com>,
- Pierre-Hugues Husson <phhusson@freebox.fr>,
- Marc Gonzalez <mgonzalez@freebox.fr>, cros-qcom-dts-watchers@chromium.org,
- Matthias Kaehlcke <mka@chromium.org>,
- Douglas Anderson <dianders@chromium.org>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Aniket Masule <amasule@codeaurora.org>,
- Malathi Gottam <quic_mgottam@quicinc.com>,
- Rajendra Nayak <quic_rjendra@quicinc.com>, Jonathan Marek
- <jonathan@marek.ca>, Dikshita Agarwal <dikshita@qti.qualcomm.com>,
- Renjiang Han <quic_renjiang@quicinc.com>, linux-media@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Daniel J Blueman <daniel@quora.org>, stable@vger.kernel.org
-References: <20260807-iris_iova_600mb_fix-v1-0-3996f67e33f9@oss.qualcomm.com>
- <20260807-iris_iova_600mb_fix-v1-4-3996f67e33f9@oss.qualcomm.com>
- <ruow4uus64krlpy2gvm3g2d6rq5kgmgxnlhstmecil3gw7lhkd@2golvucd473l>
- <20260807162405.GA896590-robh@kernel.org>
- <c3hVumMy_QnRbUmbFTSWGjkfG7lPjGFEcZfPsZeGQ57nWKkhlBL3wgmcDcAgT9cNb8Ju3qZ_sSKgHk8vmow0xQ==@protonmail.internalid>
- <6ee7f32e-eb6c-e264-6f0d-541555f8fd62@oss.qualcomm.com>
- <56b3dfcf-b1ad-4192-8199-06c80cc5d124@kernel.org>
- <Gm8h4cjoxHsgA2enLuxEd_3c_3Nq_RVJ9PkosuciOEss5Bw-GbnVoJCzsc5ciseK-L6bnlf9dbkbbh4ui3PSOQ==@protonmail.internalid>
- <CAL_JsqLGOz7Fh=AsM+g84=Uko10YXU4QN1buApD3CJMkOmsebA@mail.gmail.com>
- <e5e2d588-cee0-4105-b34e-34d2718786ee@kernel.org>
- <xbzl4s37jr3uzsd23kvphiguxmq4ngkajju4ifg76kwqrs4xrg@2egp56nwrxgu>
- <0bccfd31-dbbd-4bc7-9d9d-be048ef22b04@oss.qualcomm.com>
- <c339cbff-490e-42fe-a461-042fdd6bfea6@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <c339cbff-490e-42fe-a461-042fdd6bfea6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260818020933.3153280-1-lilinmao@kylinos.cn>
 
-On 18/08/2026 10:00, Vikash Garodia wrote:
+Hi Linmao,
+
+Thanks for your work.
+
+On 2026-08-18 10:09:33 +0800, Linmao Li wrote:
+> rppx1_ext_params_blocks_info[] is indexed by block type and is built
+> with designated initialisers, so a block type without an entry is left
+> as a zero-sized hole. RPPX1_PARAMS_BLOCK_TYPE_AWBG_POST is the only
+> such hole: a block reporting that type and a size of zero passes
+> v4l2_isp_params_validate_buffer(), which then has nothing to advance
+> the walk with.
 > 
-> On 8/18/2026 1:21 PM, Vikash Garodia wrote:
->>
->> On 8/18/2026 11:53 AM, Dmitry Baryshkov wrote:
->>> On Mon, Aug 17, 2026 at 10:54:47AM +0100, Bryan O'Donoghue wrote:
->>>> On 10/08/2026 14:47, Rob Herring wrote:
->>>>>>> As per the reserved-memory.yaml schema document, the iommu-addresses
->>>>>>> property for IOVA reservation into /reserved-memory is allowed — it's
->>>>>>> documented for IOVA carveout reservations:
->>>>>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/
->>>>>>> schemas/reserved-memory/reserved-memory.yaml#L56
->>>>>> I think that is an entirely reasonable reading of the text
->>>>>>
->>>>>> Quote:
->>>>>>
->>>>>> "If no "reg" property is specified, the "iommu-addresses" property
->>>>>>     defines carveout regions in the IOVA space for the given 
->>>>>> device. This
->>>>>>     can be useful if a certain memory region should not be mapped 
->>>>>> through
->>>>>>     the IOMMU."
->>>>>>
->>>>>> Which is exactly what this series does. Excludes a specific IOVA range
->>>>>> from being allocated for this device.
->>>>> But if "iommu-addresses" is the only property of the reserved memory,
->>>>> why put this property in reserved-memory rather than directly in the
->>>>> device's node? I'm only questioning where is the right place to
->>>>> describe a reserved IOVA.
->>>>>
->>>>> Rob
->>>>
->>>> Back from the eclipse, sorry for the delayed response.
->>>>
->>>> Ah I get you.
->>>>
->>>> Yes.
->>>>
->>>> I take your point. This is a property of the node itself; the IOVA < 
->>>> 600MB
->>>> only matters _if_ the venus or iris nodes are enabled - otherwise an 
->>>> IOVA <
->>>> 600MB is perfectly fine.
->>>>
->>>> So it follows its a property specific to this node not specific to the
->>>> overall system.
->>>>
->>>> Yep, I agree - its a device/node property, not a top-level property.
->>>
->>> :-)
->>>
->>> FWIW, I think it's a proper way to describe it too.
->>>
->>
->>  From my readings, a node defined under reserved-memory can have other 
->> properties like "reg" alongwith "iommu-addresses". Are we saying when 
->> *only* "iommu-addresses" is there, then move to the device and when 
->> other property is there, then move to individual device ?
+> Describe the block, so the array covers all block types the uAPI
+> defines. The MAIN_POST white balance gains module is probed and started
+> with the rest of the POST pipe, and RPPX1_PARAMS_MAX_SIZE already
+> reserves room for all three white balance gains blocks.
 > 
-> sorry, typo. Pls read the last few words as ".., then keep under 
-> reserve-memory ?"
+> The block is not dispatched by rppx1_params(), in line with the other
+> described blocks that have no users yet.
 > 
->>
->> Again the device may have the "reg" property already, in such case, 
->> moving the iommu-addresses + reg in corresponding device might not be 
->> feasible.
+> Signed-off-by: Linmao Li <lilinmao@kylinos.cn>
 
-Your sub-devices do not have reg property, so there is no such case,
-unless you meant the entire iris node?
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-Anyway, the point is that this does not describe anyhow system memory,
-any reserved memory. You want to affect the device virtual memory
-mappings and as such this is a property of the device itself, because
-this is how we structure DT. Attributes of devices do not go to
-top-level but to the devices themselves as properties.
+> ---
+> Changes since v1 [1]:
+> - dropped the rppx1_params() dispatch hunk, the block stays undispatched
+>   like the other described blocks that have no users yet (Niklas);
+> - retitled, and the commit message now leads with the hole in the array;
+> - dropped the Fixes: tag, the fix is expected to be collected together
+>   with the driver for v7.3 (Jacopo).
+> 
+> The second patch of v1, "media: rppx1: bls: read the raw pattern from
+> the PRE2 acquisition module", is dropped for now and will be resent when
+> PRE2 support lands.
+> 
+> The zero-sized block problem in the common validator is addressed by
+> David Carlier's "media: v4l2-isp: reject zero-sized parameter blocks"
+> [2], so it is not touched here.
+> 
+> [1] https://lore.kernel.org/linux-media/20260817104529.3132552-1-lilinmao@kylinos.cn/
+> [2] https://lore.kernel.org/linux-media/20260815193839.141406-1-devnexen@gmail.com/
+> 
+>  drivers/media/platform/dreamchip/rppx1/rpp_params.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/media/platform/dreamchip/rppx1/rpp_params.c b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+> index a75a27a8afd09..5e6727d589464 100644
+> --- a/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+> +++ b/drivers/media/platform/dreamchip/rppx1/rpp_params.c
+> @@ -25,6 +25,7 @@ rppx1_ext_params_blocks_info[] = {
+>  	RPPX1_PARAMS_BLOCK_INFO(LSC_PRE2, lsc),
+>  	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE1, awbg),
+>  	RPPX1_PARAMS_BLOCK_INFO(AWBG_PRE2, awbg),
+> +	RPPX1_PARAMS_BLOCK_INFO(AWBG_POST, awbg),
+>  	RPPX1_PARAMS_BLOCK_INFO(CCOR_POST, ccor),
+>  	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE1, hist),
+>  	RPPX1_PARAMS_BLOCK_INFO(HIST_PRE2, hist),
+> -- 
+> 2.25.1
+> 
 
-Best regards,
-Krzysztof
+-- 
+Kind Regards,
+Niklas Söderlund
