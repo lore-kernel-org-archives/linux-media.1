@@ -1,79 +1,124 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13911302753;
-	Wed, 19 Aug 2026 06:34:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BA4E3D669D;
+	Wed, 19 Aug 2026 07:15:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787121244; cv=none; b=isO208tRt+e9f1weQbDNJokdZmvzfMuhoeLBZijVD3M37hul8rtPe9LhIEQGJGWKY4tRqREVrZ2l4BS5FsexsiMKzLwx/EVE1k48QedEHkd5/cAwMhjHH+N3yp1gr+0sdSl5aNhqB+IVUULqgNpvN3vsn5cATBFTCD1XIwbpBBM=
+	t=1787123741; cv=none; b=ePfaTdaHSYUNi4pjcuDcd7p49WlxdIc9Qb6YI7cHSrOVwA4QDbvJMLFmgBcLIe/P6pZaUeCkUzpS+eb7UTCcjUgXe8KaaYeLS/HjgUo5qASEDoQp4qCcWjYqqo/ix9rsITNNxjT/l96rJK3h6UENmTtawhyG6PyDmGBQexoNTMY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787121244; c=relaxed/simple;
-	bh=lWEA0itxyfpTjM8g98wzSo6j0fIj1KxxCis1MjXDerw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h504CLBqU+R53PU2ggA4l4M/Q3Tpb38E4C7YvqKscdwu17EYY4arQb4dDc7niHXqgFwTczSN90Yqs8zuPOEtTgl916L4Bdgpf0zYyAUFn8if307zII8pejYF16viPAXRRfI8nl4E5PYN+sWI4rAijZz3iJ0bKXTuZw3L44HMxWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f43484229b9711f19a56ed5b684f684d-20260819
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c341df24-24ef-4c31-9bbf-3f96c02fd83d,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:8ad58eea5427002ea2b3e27a32a53e95,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f43484229b9711f19a56ed5b684f684d-20260819
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <gonglinkai@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1795377435; Wed, 19 Aug 2026 14:33:56 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Ben Hoff <hoff.benjamin.k@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gonglinkai@kylinos.cn
-Subject: [PATCH] media: pci: hws: only init channels the device actually has
-Date: Wed, 19 Aug 2026 14:33:51 +0800
-Message-Id: <20260819063351.3804260-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787123741; c=relaxed/simple;
+	bh=Tfg9uoPwNYl2AlcPWXqS35BH8PG/QCck7rk9eK+/C/E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MKbdE86rCXD56uTugHuGpH/rimAKqlxv+c7OyPFz5LMkvXE0WGL/24l7wepOV6GKRii16OZ9oC5N46ZI9K4wI4osiOcHF7sB+DoVrXXT92VnKSgq7etGGmB+6UkLY/fjlgv97kZmBuESRb03a+2zMlk93qqm9eaA2LDRFsYK7oE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nw80rRbr; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nw80rRbr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 907621F000E9;
+	Wed, 19 Aug 2026 07:15:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787123738;
+	bh=Q6dVWa7FdVyeCQqTLcjGqFMgyWYOU4s3/Ghyjt/ebag=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Nw80rRbr22Zloezf4KbcOCv3nLtNFSrcKYpGKzSmmd/BnkZ74Ctm8EcJCc6XsX84y
+	 FSzfmnpcJdPSQ1s4Xiee3VrCXQzLHJl+e0xO+5RU9bUCq+jTxPbNoXrqJFweoueEpm
+	 rJHko/7M7iioqDy3/LwA/wVx5IX5Yz2MATCLwl2PgDvf7oCaL211Kiz4tSd8x7Vy3P
+	 IjeKA9YpNuoA9xqw7RJiZ31DNDHlgY/Y944qz99GBPtm0fR9WWIkKEfBTfppsL34+H
+	 X1ybb1LVcIdkWFIb+KORTJJ2wYP4e7QEcPF0Jp27dzPSo3dfExZm0Jl1LQrELXkd6V
+	 3+t8UWDBIgJqg==
+Date: Wed, 19 Aug 2026 09:15:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
+	Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Hans Verkuil <hverkuil@kernel.org>, Stefan Schmidt <stefan.schmidt@linaro.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Mansur Alisha Shaik <mansur@codeaurora.org>, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, stable@vger.kernel.org, 
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: Re: [PATCH v2 2/5] dt-bindings: media: qcom,sc7280-venus: Add
+ dma-coherent property
+Message-ID: <20260819-neat-prudent-chamois-aa65f2@quoll>
+References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
+ <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-2-8dc8c4b3880e@oss.qualcomm.com>
 
-hws_probe() initializes max_channels (always 4) control handlers, but
-register/unregister only walk cur_max_video_ch (1 or 2 on smaller
-chips). The extra handlers are never freed.
+On Tue, Aug 18, 2026 at 09:24:15PM +0530, Vishnu Reddy wrote:
+> The venus video hardware on SC7280 is IO-coherent hardware: even though
+> the driver does dma_sync*() calls for the input and output buffers, the
 
-Initialize the same number of channels that cleanup uses.
+No, the driver does not.
 
-Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
----
- drivers/media/pci/hws/hws_pci.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-diff --git a/drivers/media/pci/hws/hws_pci.c b/drivers/media/pci/hws/hws_pci.c
-index 30bb7d34465b..87ba27877f29 100644
---- a/drivers/media/pci/hws/hws_pci.c
-+++ b/drivers/media/pci/hws/hws_pci.c
-@@ -441,7 +441,7 @@ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
- 	hws_init_video_sys(hws, false);
- 
- 	/* 5) Init channels (video state, locks, vb2, ctrls) */
--	for (i = 0; i < hws->max_channels; i++) {
-+	for (i = 0; i < hws->cur_max_video_ch; i++) {
- 		ret = hws_video_init_channel(hws, i);
- 		if (ret) {
- 			dev_err(&pdev->dev, "video channel init failed (ch=%d)\n", i);
--- 
-2.25.1
+Anyway, explain the hardware.
+
+> venus node still needs to declare dma-coherent so that the DMA mapping
+> layer relies on this hardware level snooping to keep the CPU cache and
+> the DMA buffers in sync. This avoids the unnecessary cache clean or
+> invalidate operations performed by the dma_sync*() calls, which are not
+> required once hardware level snooping is enabled via dma-coherent.
+> 
+> Add the dma-coherent property to the venus node to describe this
+> hardware capability.
+> 
+> Fixes: 37613aee2179 ("arm64: dts: qcom: sc7280: Add venus DT node")
+> Cc: stable@vger.kernel.org
+
+Nothing to be fixed here, I already told you.
+
+NAK
+
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml b/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
+> index 9725fcb761dc..cc31f3ba7e7e 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sc7280-venus.yaml
+> @@ -42,6 +42,8 @@ properties:
+>        - const: vcodec_core
+>        - const: vcodec_bus
+>  
+> +  dma-coherent: true
+> +
+>    iommus:
+>      maxItems: 1
+>  
+> @@ -85,6 +87,7 @@ properties:
+>  
+>  required:
+>    - compatible
+> +  - dma-coherent
+
+ABI break.
+
+>    - power-domain-names
+>    - iommus
+>  
+> @@ -119,6 +122,8 @@ examples:
+>                          <&mmss_noc MASTER_VIDEO_P0 0 &mc_virt SLAVE_EBI1 0>;
+>          interconnect-names = "cpu-cfg", "video-mem";
+>  
+> +        dma-coherent;
+> +
+>          iommus = <&apps_smmu 0x2180 0x20>;
+>  
+>          memory-region = <&video_mem>;
+> 
+> -- 
+> 2.34.1
+> 
