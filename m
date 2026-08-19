@@ -1,109 +1,79 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA6E03CFF53;
-	Wed, 19 Aug 2026 06:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13911302753;
+	Wed, 19 Aug 2026 06:34:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787120370; cv=none; b=DsTjjyHvQ3QpqScUIJ3cqxovFDs9x0bIsKu5KjmCgI0Qsi34B5H1Dv10DkbzROnpRlRLmCPHbsjENM0+mutQJ5EbsEYoflRFCp65Vbm7onYLeFmiMaNhTOlpGn7B6j6IyzucHyXUmGLVC6zVfniT1BAx6CQnF9PC7Y4d1xuq6Rs=
+	t=1787121244; cv=none; b=isO208tRt+e9f1weQbDNJokdZmvzfMuhoeLBZijVD3M37hul8rtPe9LhIEQGJGWKY4tRqREVrZ2l4BS5FsexsiMKzLwx/EVE1k48QedEHkd5/cAwMhjHH+N3yp1gr+0sdSl5aNhqB+IVUULqgNpvN3vsn5cATBFTCD1XIwbpBBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787120370; c=relaxed/simple;
-	bh=ATCkRO2g6l2bTSEx7CNXrwSPV9W78Jrv6mGvvIGs4Ww=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=uTrzetDGZlt8RN+eQ0CNTABC1tKHcGZ617lhH7HFR7jyZT4tON5jGGRTdM8vHEQtZT/5CUFqUXGtQ/JhKUrjfUA/Xrhbunr2iKCw1RIFO6EgZZt0b1WbEgEWjqyFcDJmC5FWAnSNW5kiYLvVlez/W/HD7UoFvhSrh0kPajYXi+Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=NhqRbQmh; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="NhqRbQmh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1787120368; x=1818656368;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=ATCkRO2g6l2bTSEx7CNXrwSPV9W78Jrv6mGvvIGs4Ww=;
-  b=NhqRbQmhVSUtTgJBsYP8QT9KRZTl20Y2DJTkBZKTytZx3T6nTTiAcmya
-   tsuLoS9akjvxPrsoHFqRrDMzNuZyoj59ybBju0Ko9pivt+AsmcJl1kFIx
-   LFef+y4xxptOx9Kr+AdcIfjwFSSIXRtuIeXTipYoMJwa7tTcBjblF/npi
-   vPn/1+L5vjn+JtonqKyEvaXCJEeW+sw1ladaiII1uNCwv78aadcOBf4FF
-   nmvZZ6Fr/6SodWMnNYKTTotuOle3C7elTJs9liYtMKCD3fxS2Mfr2cSZS
-   70AkTGlHheS5KdPblJmloBR4m2XqHGWpQKzzx9Qo1J1Z0D/tdtMrJUnQy
-   g==;
-X-CSE-ConnectionGUID: YKs8HlfwQe+CQGvJ1rIPqA==
-X-CSE-MsgGUID: Aon8myYhRiuw5IKyAIHO7w==
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="72082233"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Aug 2026 23:19:25 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Tue, 18 Aug 2026 23:19:25 -0700
-Received: from che-ll-i71840.microchip.com (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 18 Aug 2026 23:19:22 -0700
-From: Balakrishnan Sambath <balakrishnan.s@microchip.com>
-To: Eugen Hristev <ehristev@kernel.org>, Mauro Carvalho Chehab
-	<mchehab@kernel.org>
-CC: Hans Verkuil <hverkuil@xs4all.nl>, Wenyou Yang
-	<wenyou.yang@microchip.com>, <linux-media@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-Subject: [PATCH] media: microchip-isc: don't sleep in the clk .is_enabled callback
-Date: Wed, 19 Aug 2026 11:49:20 +0530
-Message-ID: <20260819061920.22954-1-balakrishnan.s@microchip.com>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1787121244; c=relaxed/simple;
+	bh=lWEA0itxyfpTjM8g98wzSo6j0fIj1KxxCis1MjXDerw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h504CLBqU+R53PU2ggA4l4M/Q3Tpb38E4C7YvqKscdwu17EYY4arQb4dDc7niHXqgFwTczSN90Yqs8zuPOEtTgl916L4Bdgpf0zYyAUFn8if307zII8pejYF16viPAXRRfI8nl4E5PYN+sWI4rAijZz3iJ0bKXTuZw3L44HMxWY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: f43484229b9711f19a56ed5b684f684d-20260819
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:c341df24-24ef-4c31-9bbf-3f96c02fd83d,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:8ad58eea5427002ea2b3e27a32a53e95,BulkI
+	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
+	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
+	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: f43484229b9711f19a56ed5b684f684d-20260819
+X-User: gonglinkai@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <gonglinkai@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1795377435; Wed, 19 Aug 2026 14:33:56 +0800
+From: Linkai Gong <gonglinkai@kylinos.cn>
+To: Ben Hoff <hoff.benjamin.k@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	gonglinkai@kylinos.cn
+Subject: [PATCH] media: pci: hws: only init channels the device actually has
+Date: Wed, 19 Aug 2026 14:33:51 +0800
+Message-Id: <20260819063351.3804260-1-gonglinkai@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
 
-isc_clk_is_enabled() calls pm_runtime_resume_and_get() and
-pm_runtime_put_sync(), which can sleep and are not safe here, as
-.is_enabled must run in atomic context. clk_disable_unused() calls it so
-at boot, and CONFIG_DEBUG_ATOMIC_SLEEP reports a "sleeping function
-called from invalid context" BUG.
+hws_probe() initializes max_channels (always 4) control handlers, but
+register/unregister only walk cur_max_video_ch (1 or 2 on smaller
+chips). The extra handlers are never freed.
 
-Use the atomic-safe pm_runtime_get_if_active() and pm_runtime_put()
-instead. A suspended ISC has its clocks gated, so report the clock
-disabled when the device is not already active.
+Initialize the same number of channels that cleanup uses.
 
-Fixes: 01192aa1c5c2 ("media: atmel-isc: Enable the clocks during probe")
-Cc: stable@vger.kernel.org
-Signed-off-by: Balakrishnan Sambath <balakrishnan.s@microchip.com>
+Fixes: ba07fd2f5742 ("media: pci: add AVMatrix HWS capture driver")
+Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
 ---
- drivers/media/platform/microchip/microchip-isc-clk.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/platform/microchip/microchip-isc-clk.c b/drivers=
-/media/platform/microchip/microchip-isc-clk.c
-index 24358d804e75..66dc522a6190 100644
---- a/drivers/media/platform/microchip/microchip-isc-clk.c
-+++ b/drivers/media/platform/microchip/microchip-isc-clk.c
-@@ -98,15 +98,14 @@ static int isc_clk_is_enabled(struct clk_hw *hw)
- {
- 	struct isc_clk *isc_clk =3D to_isc_clk(hw);
- 	u32 status;
--	int ret;
-=20
--	ret =3D pm_runtime_resume_and_get(isc_clk->dev);
--	if (ret < 0)
-+	/* Runs in atomic context, so must not sleep to resume the ISC. */
-+	if (pm_runtime_get_if_active(isc_clk->dev) <=3D 0)
- 		return 0;
-=20
- 	regmap_read(isc_clk->regmap, ISC_CLKSR, &status);
-=20
--	pm_runtime_put_sync(isc_clk->dev);
-+	pm_runtime_put(isc_clk->dev);
-=20
- 	return status & ISC_CLK(isc_clk->id) ? 1 : 0;
- }
-
-base-commit: 05f7e89ab9731565d8a62e3b5d1ec206485eeb0b
---=20
-2.34.1
-
+ drivers/media/pci/hws/hws_pci.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+diff --git a/drivers/media/pci/hws/hws_pci.c b/drivers/media/pci/hws/hws_pci.c
+index 30bb7d34465b..87ba27877f29 100644
+--- a/drivers/media/pci/hws/hws_pci.c
++++ b/drivers/media/pci/hws/hws_pci.c
+@@ -441,7 +441,7 @@ static int hws_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
+ 	hws_init_video_sys(hws, false);
+ 
+ 	/* 5) Init channels (video state, locks, vb2, ctrls) */
+-	for (i = 0; i < hws->max_channels; i++) {
++	for (i = 0; i < hws->cur_max_video_ch; i++) {
+ 		ret = hws_video_init_channel(hws, i);
+ 		if (ret) {
+ 			dev_err(&pdev->dev, "video channel init failed (ch=%d)\n", i);
+-- 
+2.25.1
