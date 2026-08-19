@@ -1,59 +1,61 @@
-Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021075.outbound.protection.outlook.com [40.107.51.75])
+Received: from PNYPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11020115.outbound.protection.outlook.com [52.101.225.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94D3223708;
-	Wed, 19 Aug 2026 12:57:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C47E304BB2;
+	Wed, 19 Aug 2026 12:57:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.225.115
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787144238; cv=fail; b=TRKnop4Qgx4e/hRcqIbBhC/s5cUfzmRYZQn10Ev3TfTUAoYslREJwUOKQy46KMqDdnm5w6clW+QsDva1faKRBKOPFDh0vGL8g/kaAKu2rxSc3JkAFVq1J4Of1t1MuoDJNSAaSlUeMEW0SRrTqJ+Q8J8g2FCqbpfDFH/3Z4uoKmI=
+	t=1787144251; cv=fail; b=oGI0cAFWyyo/sJh6tQbauwgRvG+LJcPeDgOax5Fh1I7kcQ8ajc1u7/oG++Wp7y1bUCSZj5akZiQ3eTcgiiAiUlQ309o3GkejAV2RF9aBXbXLXkUHXjhHwLKamgMYOTEtqxjTZ6PDn9CdQSOzqJpoUZw82W1FW+RNjgPjcJfyYLo=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787144238; c=relaxed/simple;
-	bh=5ZeiJWPlQRYR4tqCPFOXtw3UCy1DzzrLLH7V+dxyt3I=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=qr1J/0OEZsQyu5tgfsby76SgoIGTRRPW+dwNc027yg6lFXciLzJbUmZtIN4hIFcnSRhpl0rgXsYAy09YnGoIZmgxCLHP7nYiYUDwVT/J/AYXwlGzyZb2w8u16w1+GUJUkw+dP5Sopl15gDHgX5aVAp9eoH0yHEE1DgLIf1gJVwY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=G1HipSaU reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.75
+	s=arc-20240116; t=1787144251; c=relaxed/simple;
+	bh=A/P5WQAWWzUKfW1O2YhAh33KI9HbfRknlA1DSC5Piew=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=VfdsO8xa56L4RtD+S+9Asl7/dTeoNsBOTnbBzfY2YnlDaq7kAGHUjoFfreyTP6R6ePs28e4fXM8U/t7rzplh7QdB6vPz2CNot2fZRsFeNr52QznpQTC6MYKCwx/Fu/F6jHUMGr6+ebEVzvh/4iKa9ifgEsyOsI4umapf+JiKz6s=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=UeKIumGI reason="key not found in DNS"; arc=fail smtp.client-ip=52.101.225.115
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="G1HipSaU"
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="UeKIumGI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gPjXngqfx79XYAvPTrWZwbcHP5kPg7EjDc+S43l7iJWOsrSTaQSnh4qzLDeiXuiA+qnH/oO9KTarvDrzRtfchTJTzYpE1jxL8f/o/PglGOMuy3kSdwwpDiyJ4WXm2mWAzIt1h+JHflLVLnKX22X3UDFio8w4APz+xHmjDlhLbGpoMI/CmbCkzAzFca9VcTCkqxPVGqiOpnj7LC0rwLNLTfTIZ/YruaAJKU8f1HvNFiCV7NVTmSdfkQeq4tSJN7drDMywgiv4JZRt8s3xdmSp0u+7gFtQSG0Q7erCi1rw51XIMVDuDCgEehGzLwo1U2qAJEyMH2AXp27dy2npk9U8XQ==
+ b=egoGACPu26p2NegVTOgNFA3ZXVKPj42t4baT9kULsMR9RY4P0x4X9UsEZqBBK3ytL0RaL2xdpBxX2TitAZhTd689MPnP/PHr+Po5cLbJ1VUAUHYzrxwtKK0B7nrgAfEVUOC5u3MBBX/ZNRBkel2Tl6Mj11jiR2+oRIh+OB5k3CbaQxAyxBWcgOfMxAAEBp/YST75nzrPwnw1s3k2cnTcuYWbSCSaUVJorV9QK7NLEfUZk9CCUyKIk73jjpLhYYFWnHgOKFPsHyQbAlakethyeFAuxTgN3rPEnHbnS+GiwywjFj+Gm4HvwuFoqZk4pbcjkT8VarrwzpYMJRoJq8IBdg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FZ6MsJQQaAxS92hZsgzO2InvRmh8nTAWbTEd7cJgfdA=;
- b=czzioNrCVRCWyFlLax/7JJE2Z22tyEjmJI/0N5AEwqOKX/Q7areuAreqhd4+V8hV54ZZlZXr4rMHUscfty3pR621zQqyRyOjbq3gG2bEDbpXggtRd/Go7AbTLMqSYWVjIQcbkpuKBAY8wVIP/D4vpl+rQ09e3XXx3P25ISTmsxytI0bJ7uU29S6ekHdqdM/+mD42qDPFCQSPeq28uvOO8Ui8zcfh9MvQojQzWqEXBdCvaKct4gcVXy4x7AsjwZFviIDbHve4SQJ2LTQY3k4OUIPTdP6yEBHv8/dMEpanDmdfxrQrDkfuv7GdAFdHkU3lxA89ACJazpfx9N62gi9JhA==
+ bh=bTK9naZrA7aePspAy5n7eo10Vgn/Q6tzmo0PEQjGgnI=;
+ b=mm5i3dgBY30lrfNaJk3jnVgp6/jSPhvdENlbVVPpUFiW+/KopLsPFt7DAb/VZTHtPOIJ1bpy3/t643KRfbdxC/zJLcVmmrtzJGAj31LrsR80qI6jLw0vtaj0KLLbRGjmEZtZb9LzuQfPgtrc6gdMVjdpJTVxexijec+7Lo5mp50pHUuniQQcof1Mb/0hulZ29zR3aW2HnbdcVGNzHy7kM/by870JT59m8uSiwapOT66d4pjLdAW7V2Ya5oiYSHoU5XEuEnz+jwSwMqNvQL5mcfQgdok7Keq2NwKxgiwcZnk7uUTcKKiiqIiiELVE9vy+1e2WRavDniwK1kfJdMVNLg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
  header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
  s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FZ6MsJQQaAxS92hZsgzO2InvRmh8nTAWbTEd7cJgfdA=;
- b=G1HipSaUvekqb70ndmSxerJlIDWvGcGJ49jPcYPFNgOrKTzgTbA+LJbRHpNLHm6z9tHLIc45Hc81AMhNujCQNXqKGKf8beTlgb/Y2kTbTzerkBLtXy7kQJj04tjQHQcZYOCJ8BpqllO2vJGcn1cU0IRnjCkgMdryHX6tr0Xe/5uoCponA7rxproy38jd3lRjxGo9Pk69lfRCGWRvfTiQ/9mXw3QXXuumSEJv6ael7wROToym4Y4wWkgxGgrbPvMAZRehqB7LwmRA2Tdnsm0zN2dLlg8o16hwH2P2+EcjdRHHDlFJbDapFkQU32L6HZlv2IhIOtXHw5NUER2diA/Njw==
+ bh=bTK9naZrA7aePspAy5n7eo10Vgn/Q6tzmo0PEQjGgnI=;
+ b=UeKIumGIpWEM308H84KGPwUe9uBrfrHHo/+D8F9tt6mQMo9dz/JQ35KwxVvR7DC9HVOyEdDmstkIxRK379SFUzC9gWjOdgUD7zH4hitbwwUKb00cEdwLE3PPApwm38PIf2EsIJKrvUZcf5fuMcMPTmqUE3UmOtm9YbqYAEq34xcol/zCYGS2idgHkQcN7sG8gJjprbneg5cjo4iAaS0CD4aHqxx+L+ztK4ZYpYCQnYJ+hJXr+bUFB1RZytH/+MAgoThGWMSErevCdQqBMrxREdVhxQq2DHpKwGbuFUGclVbSzIb4UUpdYBXUY3JXKFVY6ZYKRbjuhhr8C4G5t7CTaw==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=siliconsignals.io;
 Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
- by MA0P287MB0458.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:c9::5) with
+ by PN0P287MB1762.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:188::5) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
- 2026 12:57:12 +0000
+ 2026 12:57:25 +0000
 Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
  ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
  ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
- 12:57:11 +0000
+ 12:57:25 +0000
 From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
 To: sakari.ailus@linux.intel.com
 Cc: jai.luthra@ideasonboard.com,
 	tarang.raval@siliconsignals.io,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
 	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
 	Xiaolei Wang <xiaolei.wang@windriver.com>,
 	Kate Hsuan <hpa@redhat.com>,
@@ -62,16 +64,17 @@ Cc: jai.luthra@ideasonboard.com,
 	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
 	linux-media@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v4 0/2] media: i2c: Add imx576 camera sensor driver
-Date: Wed, 19 Aug 2026 18:26:38 +0530
-Message-Id: <20260819125647.68910-1-himanshu.bhavani@siliconsignals.io>
+Subject: [PATCH v4 1/2] dt-bindings: media: i2c: Add imx576 sensor
+Date: Wed, 19 Aug 2026 18:26:39 +0530
+Message-Id: <20260819125647.68910-2-himanshu.bhavani@siliconsignals.io>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260819125647.68910-1-himanshu.bhavani@siliconsignals.io>
+References: <20260819125647.68910-1-himanshu.bhavani@siliconsignals.io>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 X-ClientProxiedBy: MA5P287CA0074.INDP287.PROD.OUTLOOK.COM
  (2603:1096:a01:1b3::8) To PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
  (2603:1096:c01:1b8::9)
@@ -82,213 +85,222 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|MA0P287MB0458:EE_
-X-MS-Office365-Filtering-Correlation-Id: f86e36cb-8957-4c83-4f6b-08defdf1622a
+X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|PN0P287MB1762:EE_
+X-MS-Office365-Filtering-Correlation-Id: 19e155c9-9a70-46a9-0abc-08defdf16a96
 X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|38350700014|6133799003|3023799007|56012099006|10067099003|5023799004|18002099003;
+ BCL:0;ARA:13230040|366016|52116014|376014|7416014|1800799024|23010399003|10067099003|56012099006|3023799007|22082099003|18002099003|38350700014;
 X-Microsoft-Antispam-Message-Info:
- tzlqv3t+ini8kGfizge4PMsZT6sAD3OQzcGorx8ZdsrYqQSoYQhGT3MD7mOX/yUg3QYIsaB8x9kusVt9xrpWvW9NSr1Twmd7ScSPv7xPPM6PN/CWDHIgVcbMN7MRnuO2Vw+Z2CgNT0Oof1BUShD896IosHSVQ637TDhkJQLwTl4LRqFtZM5s4omFkVdFH4L3hGA3MB8dYU0EkfrEZq5cMjP8sfUFODJyIqxf0Is/bcqdDSdnmcjVIvQs5W2uQn8Ytb8SQfIQjGYZmZ36b1S8exmayH4DcrsjXDiK4jCxn5rbtIKM2PYQCI/CcBFscfE4l8idYCZ5df05t8RNf3W3EM3R1qm+fWczd1KQErnElopemDpQC7b8XNcavajAkT/XlxaYZf3tMFxL9hx+ZnUusnGY9dgjLdO65bwR3GKGPwErJDFuArgHnf4kRZEdmBikb9cD/rebAw8AelddGPyukd0xIC34X7QbS/mBwwKNej8SYDO13vGsA5DWDnn5NcrBo4EX1XgStfJ0wwvN4C+G4jX8Xp1KjjvFeBsHN0BCaleZcfyk0e29t1/Iun5kRhPvMiu0RzGJ+EljG9+ojmjppBvLnFMheYMSdf+xQSfd+twV61UP2HwPzhke4oHsmlucgVwTfIdSlT2D7i+shndBNYOdB///BOSANw0T7kQN2lUFIKTG8h+cFOwGJk7um5dbtyEZWD1MhZduLsupW4pn6zQMj8yFN2QaU45dofiv9uA=
+ eOthvFrC6LnQCCHO9lgUMR51L9RkYjlx8fMaXQCYvD0gHS4jJUHU/IHzNaYQPFXwZeeBLNDu7rNPFDo7fDBnWNmtG/hD+r+1Vfp1E5Nc6LduLf7quUvMyv9c8P8A1HJcIZueH370ehnaMEprisUc5VFoIIPdzAaVxX4EFZQJMwZswd8MoB/WrqQpTiUqc9FGc1pTW+vDoTrojUIOSvPSckGbOZJXz9PkhIh36SGQYLdTrmQzo0kDSCcIj8cczHMXTEXWgX8N6Cv1+OC3ezh3TRmgWhYi2rIzx3qCWkRlGuxwpACA7tfp2VNRscSrn/5Nt3piMmbjKZ+Wc9+c8n5mIRDd2GMNeR82o/0alZp2aED0O6F3pj5VxOQ86kden89utjQMpkNzzVuobpcE+pIQxO/nwrHsa0L2AFpd+DLRtcljOlpUSmEJt7vREp/SErFvCy/IU2VakA5dP+cujpJEckWzayz7k90nzwkDnP2Ave9DCkA1o3padYTqJVrXsdobnZiP4Bw+kB4sRUV9cjTrBQi6icm2o7PUkfJB1VgF54ymp12P1TmHVwMLXVSI6G7UyvP1qSQfWhBFDqZtR62FPq0qUAwvIKEtRo5SPSBu9zdVUTcEs6aKsNA73/CfFEloh3Hfd7ngyOIFgMzPEGRFEKhfCTG8fXqTv5cbk0dGUlE=
 X-Forefront-Antispam-Report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(6133799003)(3023799007)(56012099006)(10067099003)(5023799004)(18002099003);DIR:OUT;SFP:1102;
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(52116014)(376014)(7416014)(1800799024)(23010399003)(10067099003)(56012099006)(3023799007)(22082099003)(18002099003)(38350700014);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
- =?us-ascii?Q?BMqY8Z2/gJThabdrvmU/ac5/yD1YldoYFeLu9t63WikTq8vocVktnpB9P7TH?=
- =?us-ascii?Q?8Lgu2XkNzAje5v88dbIcst1feoTS+JTaaF4Mlaz32iQTa/seW+h0r18+eSJz?=
- =?us-ascii?Q?0KaTvpTxiV9wsFBEGyq59IALoHcLIv4SoaGJZGOfkjHGLQHdDd8/TO7RrYTX?=
- =?us-ascii?Q?s8HjN2PT4c3FITISnmNKhN6/R/tI1yO/PXrQLqFfWHuSHvlFFdD/wVukVGA8?=
- =?us-ascii?Q?TPDNol3PAnyAfLANwu3/fg6Wr/t5nRddjHcmoQhy3whTez9+6vz7DoTThuFr?=
- =?us-ascii?Q?9osybw+KoLulRCi+p+13qt+IVL8ggED3JF+tSZ31ENKtbf3FTcenSO0E3xhm?=
- =?us-ascii?Q?4lFv0QBIVmDdKpT3TVP9IfIuan6DuQ4xJntADwUFm4DdzRQEoIDhHNuVW7WX?=
- =?us-ascii?Q?UtzkOyvc6dw45CAgUbRHPamgKLN6YSJxbSn9G/giw4OttKrl8/FD3geVTqRK?=
- =?us-ascii?Q?GshnueI1MJtnuZDJnVRJTAxSJc4BE6yigTs53n3ves57fAXTjUt9/Q3UT5s7?=
- =?us-ascii?Q?dwQhQm/OvwLKuxBiPhKp9/WloE0kE1pX1QZqg2p9QY1ErZ7HPTNpaPA017IZ?=
- =?us-ascii?Q?FY6S4rH2nl85sXJ4YO2aLwswWjXau0OhGOdKBjaqmjwJTIXDg3oEDbb7RePQ?=
- =?us-ascii?Q?FkmUeeP0cII1/IOpnpiA+9A/HYiSdzoXNfNp/W928FrrS8leT/DbYsC57F3V?=
- =?us-ascii?Q?Vs9oIcln5AhP9nG+FkAbORQfp1UwPtkTHLe8/X97cBqW3kOBp2G5xKuW3+uZ?=
- =?us-ascii?Q?mM6GQOsxgfJu/6Nk5SqOzqHiUOjzVn83NYOxYbF7rG7VUYtxhq6akW5P9RJh?=
- =?us-ascii?Q?d7s+lhP7jOLyX11X9nOtkX7du1CYUqFiAulBCENmqs0LqXyGsfNvWnQsRCkx?=
- =?us-ascii?Q?oBnrCcMjv22zkFY/7Ba69PDDVGc4nWOZuuu+eZ0CyHJbTraZapzprEOyFChB?=
- =?us-ascii?Q?TwskvfcPTWObYDHPpSaFVjLK8RuXaM3RWzK4XVl0Hf3iEbpukOfPD1p39G94?=
- =?us-ascii?Q?6jUhhKHFlqGEhjsAOtI5e5AHgZ5wDm3042Qkd29cUTKSM9TBz6uMLj+ot3RG?=
- =?us-ascii?Q?xODA24rmrbI8FJFFsfWn72+8+8YryaRg4CXNTP05sXHkilhHuU97F7jCWyww?=
- =?us-ascii?Q?4Flp4ybVmERZ0Dup7RhgprNHH/aLdfh/6zIikCBl4htWa1BZokldRGLLScem?=
- =?us-ascii?Q?rasQcWBSEEOKII0MZr3uFD06gvkb830xFebWFuQMZ+Qk15S9uUFL0jJaSsli?=
- =?us-ascii?Q?GhxLHpZMhgYP3gMafv8bI7qtYbGVdH9209E7kQazUHWhVoDHPtfqwFDPTVjC?=
- =?us-ascii?Q?vpiBoL94sko5RZA1ksKzWbo1RY1qSSRpByuKRQYX7L45lufeYTRWQKjJfhmd?=
- =?us-ascii?Q?/iXSREkyOJbm6z58bO++or+3YRjgc2t6+QhChRIDPtqQPDJoK5AprlvndV/D?=
- =?us-ascii?Q?dXNFSG7qTHS9kL4QQaIc0h3ZVK4sX/SfKuHznn8iAdWrRU92jFe39nqm8mHl?=
- =?us-ascii?Q?qgHanNyLb0fbVOLyW+mIyHk9dss/ykxUe8AJx4WwQXp/EkSRcnflvbYvp2Ta?=
- =?us-ascii?Q?WU9UihzTiYy73Z4CuBJ8fGpmcg0piVtWN84SqE3jfAItko5SLIA7UocF4VnO?=
- =?us-ascii?Q?La9rWhaF2VvEHPF1gV7xgIf9TJjbd8b5UHVIOAshlq+iPEZQu3+ZnM7vQ5Ya?=
- =?us-ascii?Q?xI2gPeT1DMMLThGcIls0vKTM5wOz0V3PbFBw63yiY2XJew2e5OyKJ1DV938Y?=
- =?us-ascii?Q?P8qSruJcG6YuPwi8V/pW0+LsEBr0ZtNuLpX5Hvxx/zBBnJBf6ePx?=
+ =?utf-8?B?TnJDa3d5L0pKcUF5Z3ZCTjNLbk5FWm5MdkxOV2pVN0ZaNHlsTmhHOHVmemVB?=
+ =?utf-8?B?VmN5ekVpNzBOMzBEcnBKTVBBOWRRcUthRDJtT1crbDk2bHhIMW0zdVlvVnFv?=
+ =?utf-8?B?Q1hrajB5L1B2Tnh1NjNWeVgzWldsM2Fkb2ZueU5KbzMxZXVjdUd4OVU3dHd4?=
+ =?utf-8?B?MVdNZFJza0ZFOHlGcTVTejVoZ2puQ3kwdFc3Yi9GcWtiM0dmYjYveko0a3Rz?=
+ =?utf-8?B?UXhaSTFLbHdPN0JkWnJ3MFZJMDhCZG1lNU4vTG9HTmM3Qks0QTR0RzBjK3oz?=
+ =?utf-8?B?L0cySDBvVkVoVUd1aTJ6YU5lRGN0dUhZaytlSXRpQlA0OGNKbGdpVFJOR3Rr?=
+ =?utf-8?B?bWZ4Q0FZVm1uWUFLc2dJM3JkWU5qRkFXWEJReTVxVHIrR3F3SDFRL0tDcnBU?=
+ =?utf-8?B?elJhd1pXVjRHU3l6TnZXVUczNVZxMHlJR01nWXVWakVrR0hDeG9WMkZsUll1?=
+ =?utf-8?B?TGRtTjZ6N3F2RkpNVmZnZVRQSUk4bHF2K2d2dG4rbXYvMEZLZFF3REZmNDlX?=
+ =?utf-8?B?Szh3Ni9VYXJPQUFDZFZxOVVjSWJCRGZDaEJ1TE0yQ2lWTnl4RWFvWG55RUpk?=
+ =?utf-8?B?WjA2QmpJZWFWbjFtK2p1Sk9JbFUxMGpueTJJaWdNQmhXQ2Qrd1dCeE1TY085?=
+ =?utf-8?B?QURZT3pIR0pzMDhQOGtiVTBHS3JvTDZPOTNXa0k4WUtyWmZGQmVCUHhLSXFp?=
+ =?utf-8?B?cGY4UlBjUzVDVFkxYmFoaHVGY2RuSVVSazU1SkxicUxhMUxpME5INHVVVUkr?=
+ =?utf-8?B?dXJPTjRpUDZRR2c2NWpremMvdDVVeGRTY1luTHBxQ1laeExWa2IvdWNNZ3hX?=
+ =?utf-8?B?NXVXYzlFcjgzVnNTRk83R004OXI3bVgwSXpMd2w1d2phRHRsSWZZbE5LdGtH?=
+ =?utf-8?B?bHRPaXNENEgxUlhmL2huTUJIUEhRTkZLa3d5R01wc01obXpnbnNRSVpOQ0N3?=
+ =?utf-8?B?aUF5UkVJeUNXQjlMblMwNXB2ckdpTDJEMFZ4YTZob2hxV1dXNFN0UVJHY3RP?=
+ =?utf-8?B?UjhIRTJITHZ3ZlIzK1cwTWpOMzZMUHJsOGNXWWlseHV2bU9uSGFDdFRyUTJC?=
+ =?utf-8?B?MmZ6Tm9kRkhWRGlWWmVOSFRnVERVNkUzc2c3cHBERjBVekZLL1BlQmNPdk9S?=
+ =?utf-8?B?M2psUnlRbmJxRjRkWHVROFhaSlVkaUtteTBYOS93RmV4M3VQZ2MrbkV0cWNJ?=
+ =?utf-8?B?RE42YWQyblFIbk5ONnpJbGlRdEZIdTJEYnkvdWhUQlBNcXE5ZU9JVVpOYnps?=
+ =?utf-8?B?UnRBWVhJQjB5K2hEaDZaTlFqMUVpZHZTV3dtV2cvNFBJVjhuUXRtM0tlamdR?=
+ =?utf-8?B?bXRPaVlVaGx0dUprVVp0cXlWNHQvOElNcWZ3WEtQRk02VHl2MWRnRW82UVVT?=
+ =?utf-8?B?Mlp1TUprRGxLeTJHakpIazZwOHBaNzBkUjR2UFFuc1R5WjhCOFhmMTFWZXZ4?=
+ =?utf-8?B?RHF1Lzhvb2FvcDQycFpqL0FGQUJXNGtnM3haWEZ0K0E5akJwbHgrWGlDVjFy?=
+ =?utf-8?B?VUZLUU1Tend3S3JINWMyVmFXcXMwbmFyUjBGUjkvcjAwUmxIYjQvU0RXOFRL?=
+ =?utf-8?B?eHFZNmM3YlNwaWRUMWM2dzBZaTV4NzFSNDRLbm9UWXhrQ2cxbE5CUk05V21H?=
+ =?utf-8?B?Sm1Cd0VzWi9DRWhZclhjQkE3NlMvZksxcW5SMzN5U3d0TWJnUWZZZStHdlk1?=
+ =?utf-8?B?QnVtTWJSZEwrNFh4NW9FRFc5TzFXdW5KbWNCUElRWkFPMGh0NnhIZFd5M0hq?=
+ =?utf-8?B?WGNldXFHRm9PMXNnQW9LTHNEZUdPcUtXYldUQ1JQdTZJb3NFRmNpRHQxd1pJ?=
+ =?utf-8?B?ZlZLV1JydHhCTkYwQzBEQ2F5N2d5T0oyN1BZVkd1UnY1MVIrZVZ0R2FWM21m?=
+ =?utf-8?B?U1UxRkhGY0hGYTEybVpEb0orbXRNZmk5SlJIVFEvTGIrZURzSm9zS1NKZzVj?=
+ =?utf-8?B?bHYwNGxwSXhvWlB0aCtJQWQ3WklqcFZPbTlMMWpRT2toZFhuVUdHL29ROFRM?=
+ =?utf-8?B?bE4wUm4zOHJ0SVNLSTJNQmFMQmlPRHhabHo4ZHp0V3ZKZEE3ZWxOOFVibzdK?=
+ =?utf-8?B?Nnd3eEgvSjh3ZXluRndDZDBwanVaVGNWcG9DZXg2QkdrV3JNN1RiMUJDelhK?=
+ =?utf-8?B?WVZOT1diRDgyOUVQdk5tY0JHMWc4U1ZFTU5JZnRTUEZaM01SM0VIVXk1bWR1?=
+ =?utf-8?B?eTlBS01mV1NXWHpyeXBaczMvdy93WDZVaG56djFNR2hLcmlhQmlqeGFtQ2Z6?=
+ =?utf-8?B?UVJ4Z3dWSmRuRnRvM0NQbXdRTkdIZGpsdlgxSlMwWVZQMnAyU3Uvam13bjVH?=
+ =?utf-8?B?S05sNmNmZnRRRFlXeThwQU1zNGhzUk4wYWJUb084dnU4a1pXOW56WmV3UzJQ?=
+ =?utf-8?Q?+W8JgguhZrl0qE34+RnukJdxKfDA739DXlRI0?=
 X-OriginatorOrg: siliconsignals.io
-X-MS-Exchange-CrossTenant-Network-Message-Id: f86e36cb-8957-4c83-4f6b-08defdf1622a
+X-MS-Exchange-CrossTenant-Network-Message-Id: 19e155c9-9a70-46a9-0abc-08defdf16a96
 X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 12:57:11.0409
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 12:57:25.1702
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: QQb0AZI7GCaESwqXF5CfyhP7+Z0MLI6ZHzeKtJr7KGLTvRccy5q9I60GaBYrOAeYjjFmwZLYG6ZdcPVvDfH5sVim5nO1fBKYtNW6vd5LwDNKQFAYcSVdVKzfPBFVe/GO
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB0458
+X-MS-Exchange-CrossTenant-UserPrincipalName: j8g+82y0XCfagbPzYuSEhNwMF5hlLn4qaIKnDVIevg3s7egvuobTTH5gmTKZktbJuLSt4FYqVSbQARcYn9YCsj+bmr6jKg0ktboG6VKKJVUi0T0wMG5ZDMZD5TbChJpI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PN0P287MB1762
 
-The following features are supported:
-- Manual exposure an gain control support.
-- vblank/hblank control support.
-- Supported resolution: 5760 x 4312 30fps (SRGGB10)
+From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
 
-This series depends on the SM6350 CAMSS support series
-https://lore.kernel.org/linux-arm-msm/20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com/
+Add bindings for Sony IMX576 sensor
 
-The driver has been tested on the mainline v7.0-rc6 kernel on the Fairphone 4 running postmarketOS.
-
-fairphone-fp4:~$ v4l2-compliance -d /dev/v4l-subdev21
-v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
-
-Compliance test for device /dev/v4l-subdev21:
-
-Driver Info:
-	Driver version   : 7.0.0
-	Capabilities     : 0x00000000
-	Client Capabilities: 0x0000000000000002
-interval-uses-which
-Required ioctls:
-	test VIDIOC_SUDBEV_QUERYCAP: OK
-	test invalid ioctls: OK
-
-Allow for multiple opens:
-	test second /dev/v4l-subdev21 open: OK
-	test VIDIOC_SUBDEV_QUERYCAP: OK
-	test for unlimited opens: OK
-
-Debug ioctls:
-	test VIDIOC_LOG_STATUS: OK (Not Supported)
-
-Input ioctls:
-	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
-	test VIDIOC_ENUMAUDIO: OK (Not Supported)
-	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDIO: OK (Not Supported)
-	Inputs: 0 Audio Inputs: 0 Tuners: 0
-
-Output ioctls:
-	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
-	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
-	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
-	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
-	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
-	Outputs: 0 Audio Outputs: 0 Modulators: 0
-
-Input/Output configuration ioctls:
-	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
-	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
-	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
-	test VIDIOC_G/S_EDID: OK (Not Supported)
-
-Control ioctls:
-	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
-	test VIDIOC_QUERYCTRL: OK
-	test VIDIOC_G/S_CTRL: OK
-	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
-	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
-	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
-	Standard Controls: 12 Private Controls: 0
-
-Format ioctls:
-	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
-	test VIDIOC_G/S_PARM: OK (Not Supported)
-	test VIDIOC_G_FBUF: OK (Not Supported)
-	test VIDIOC_G_FMT: OK (Not Supported)
-	test VIDIOC_TRY_FMT: OK (Not Supported)
-	test VIDIOC_S_FMT: OK (Not Supported)
-	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
-	test Cropping: OK (Not Supported)
-	test Composing: OK (Not Supported)
-	test Scaling: OK (Not Supported)
-
-Codec ioctls:
-	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
-	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
-	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-
-Buffer ioctls:
-	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
-	test CREATE_BUFS maximum buffers: OK
-	test VIDIOC_REMOVE_BUFS: OK
-	test VIDIOC_EXPBUF: OK (Not Supported)
-	test Requests: OK (Not Supported)
-	test blocking wait: OK (Not Supported)
-
-Total for device /dev/v4l-subdev21: 46, Succeeded: 46, Failed: 0, Warnings: 0
-
-
-V3 -> V4
-
-In Patch 2/3
-- Use CCS-supported registers.
-- Add corresponding CCS PLL calculations.
-- Remove registers already defined in ccs-regs.h.
-- Add more link frequencies support.
-
-- Dropped Patch 3/3 as per review, will push it after the binding lands in mainline/linux-next.
-
-
-V2 -> V3
-
-In Patch 1/3
-- Added required endpoint
-
-In Patch 2/3
-- Change the capturing to full active-area of 5760x4312, up to 30fps.
-- Replace mode table with imx576_program_window().
-- Added DT-configurable link frequency with PLL parameters.
-
-In Patch 3/3
-- Replace the hardcoded orientation <0> with <MEDIA_ORIENTATION_FRONT>.
-
-
-V1 -> V2
-
-In Patch 1/3
-- Rename regulator supplies to (vana, vdig, vif).
-
-In Patch 2/3
-- Rename link_freq array to avoid confusion with the link_freq control.
-- Use IMX576_EXPOSURE_STEP in exposure control range update.
-- Make cci_write() error handling consistent.
-- Return imx576_set_pad_format() result instead of return 0.
-- Initialize link_freq_index before creating the link frequency control.
-- Replace dev_err() with dev_err_probe().
-- Remove redundant comment.
-
-In Patch 3/3
-- Added the remaining supplies CSIPHYs (0-3).
-- Add comment for camera orientation property.
-- Move cam_mclk1_default{..} pinctrl definition to SoC SM6350 dtsi.
-
-
-Hardevsinh Palaniya (1):
-  dt-bindings: media: i2c: Add imx576 sensor
-
-Himanshu Bhavani (1):
-  media: i2c: add imx576 image sensor driver
-
- .../bindings/media/i2c/sony,imx576.yaml       |  114 ++
- MAINTAINERS                                   |    8 +
- drivers/media/i2c/Kconfig                     |   10 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/imx576.c                    | 1103 +++++++++++++++++
- 5 files changed, 1236 insertions(+)
+Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/media/i2c/sony,imx576.yaml       | 114 ++++++++++++++++++
+ MAINTAINERS                                   |   7 ++
+ 2 files changed, 121 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
- create mode 100644 drivers/media/i2c/imx576.c
 
+diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
+new file mode 100644
+index 000000000000..c82efd17eb7f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/sony,imx576.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Sony IMX576 Image Sensor
++
++maintainers:
++  - Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
++
++description:
++  IMX576 sensor is a Sony CMOS active pixel digital image sensor with an active
++  array size of 5760(H) × 4312(V). It is programmable through an I2C interface.
++  Image data is transmitted through MIPI CSI-2. It supports RAW10/RAW8, COMP8
++  output formats.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: sony,imx576
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: INCLK clock
++
++  vana-supply:
++    description: Analog Supply Voltage (2.8v)
++
++  vdig-supply:
++    description: Digital Supply Voltage (1.05v)
++
++  vif-supply:
++    description: Interface Supply Voltage (1.8v)
++
++  reset-gpios:
++    maxItems: 1
++    description: Reset Pin GPIO Control (active low)
++
++  port:
++    description: MIPI CSI-2 transmitter port
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++              - items:
++                  - const: 1
++                  - const: 2
++        required:
++          - data-lanes
++          - link-frequencies
++
++    required:
++      - endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - vana-supply
++  - vif-supply
++  - vdig-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/media/video-interfaces.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera-sensor@10 {
++            compatible = "sony,imx576";
++            reg = <0x10>;
++            clocks = <&imx576_clk>;
++            reset-gpios = <&tlmm 35 GPIO_ACTIVE_LOW>;
++
++            vana-supply = <&vreg_l3p>;
++            vif-supply = <&vreg_l6p>;
++            vdig-supply = <&vreg_32m_cam_dvdd_1p05>;
++
++            orientation = <0>;
++            rotation = <90>;
++
++            port {
++                cam_out: endpoint {
++                   remote-endpoint = <&csiphy3_ep>;
++                   data-lanes = <1 2 3 4>;
++                   link-frequencies = /bits/ 64 <1017000000>;
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index e95fc6f2ddc6..faf5753be337 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -25437,6 +25437,13 @@ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/i2c/sony,imx678.yaml
+ F:	drivers/media/i2c/imx678.c
+
++SONY IMX576 SENSOR DRIVER
++M:	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
++M:	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
++
+ SONY MEMORYSTICK SUBSYSTEM
+ M:	Maxim Levitsky <maximlevitsky@gmail.com>
+ M:	Alex Dubov <oakad@yahoo.com>
 --
 2.34.1
 
