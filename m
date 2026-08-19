@@ -1,162 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E69A3806B0;
-	Wed, 19 Aug 2026 15:27:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C20621F8755;
+	Wed, 19 Aug 2026 15:48:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787153246; cv=none; b=FU54uiPFUlGFUWWI4K+RjykNHDa1xzvrfpXaXIXPVC3YRjbtLkojEf0AMa2mxBf5B0ROBRpHGmqqe5/0pWdncVpPZyPYSS+1GAKzxusIkQZ7IWKS/Pq9PivJONYztQELmVtrJ9X1D+dFphjw2bnEjASbgg1Tj5SJSd6h5LLgavw=
+	t=1787154499; cv=none; b=UUZRNh7GzMQgyyRQoX16Kd/qfRdZCbNuDkSsco6hIv/vDSLSI8HwbLhb4Xz3jdgoiRp3AZed+cRtk4X/d7mFu8GqvLj164lnw4tCcr4MqHhxjk4rJ0GgrvF/GuePSMPDPloZkhEoJvvzwsO7IWSLClGdYHonmFs57dPe2n1Bb2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787153246; c=relaxed/simple;
-	bh=BBU4ww3GBoRIjHBCLIfmcjj7fdNplX+AhVW7f2j3WoA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B3wc/edZWm/qTmlM3W+Btfb1jToKD+b4SQ/lzvUWoLMWq1IBvWMfC8W2rAa1JJzErw9VpfNRq344p/ZyorX5ySip3hWWRTh9GsAHeFteiYK4HynGO45Mf8RZTRM8eBDJ7MC5oaB167KALgcoM2QxudmUSl5gJlHWJsPUoFTl9RI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmyP5u5v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787154499; c=relaxed/simple;
+	bh=Nns172wxL0Ep4S9FnOGpNap2WkSsjjZKWZktzclPSJM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aZQh7pgHviNsbfAPPNe+MBkU3Qmk074MA4//SnDLxoJpFe9TEGjlbPgCUaEHiDlnEm844DngMARkMtZ1BG5vuIP2BRT7aazI8g/M0ijfHK4bjWYW1l6JuFIAtisue9agRXvaiWZfS20gEsOhtbohoknmwjyMjDQ2v9XBvSO1hww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=Ti8Q1sow; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmyP5u5v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2869B1F000E9;
-	Wed, 19 Aug 2026 15:27:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787153245;
-	bh=MsJdRaS+WVPtAUMCkn9lJWDQpvDTryfwaC+o4Hyk0KM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=gmyP5u5vmT5YiY5yF0z9wfJYdXT3eE/7czKjfJSlVQ6GjZFj4oXQIYgjSCFxFnJV6
-	 hAlElbANu6r5JUYBQo1OXFyIBYM+6vRD0+7Y2+w1gt+AlPDPbKMzg+8REOi2oSrV+b
-	 93ko0FfcVyDOw9778Ixj7lwl4fktV4rMYHOzz75DtkTjioxiIVHd8Q0BZld4YjDW3N
-	 5AOZKKWNcaXYhW0i2NHPlX3Cqw6qbzXusuA2X6pEN1ZJQfPbOoM+ETmSOS6AkuAhR6
-	 iTOFgDg1DGSaBNDVxXSbysVhkojonxzeXASBUtULmHKifbIVwCfDy2pkvZnO1k0iDp
-	 5+GWhPFjuRlIw==
-Message-ID: <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
-Date: Wed, 19 Aug 2026 17:27:09 +0200
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="Ti8Q1sow"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787154495;
+	bh=Nns172wxL0Ep4S9FnOGpNap2WkSsjjZKWZktzclPSJM=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=Ti8Q1sowFKGW/WW92JCUdtPeDrx26VS8yBllFbIxTfXPJ6N0skNpr0k+sCX1tTM5q
+	 7B8y02/R2ySANZAp42NGPjBahBxLOzLwRCNTQgf+71aFZYo0B6JfbVxY0zB3UwFWrY
+	 yidYvI5FmislZoRRlCXAxTqIwtA2en0SvTxaoeho8dq/oRG9v9hiEEYKboQXVz2Tct
+	 nnLguUfTqGv793z3B6xFV6x1OVfwEy1nvm/rw4QJhJmmXiadRWp0vDclF2fnN95jU+
+	 K7kYevFLcmhI1jSmzuuB8df79eLoLMByXMrQoJUu0IDe1wMV7KMb4bwHSedK9dgN5H
+	 maJofJgz6+HSA==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id A42D917E025E;
+	Wed, 19 Aug 2026 17:48:13 +0200 (CEST)
+Message-ID: <2816bd84651dcbfd0cd76bbc56e461bd409f9611.camel@collabora.com>
+Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>, Benjamin Gaignard	
+ <benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Mauro Carvalho Chehab	 <mchehab@kernel.org>, Heiko Stuebner
+ <heiko@sntech.de>, Ezequiel Garcia	 <ezequiel@vanguardiasur.com.ar>,
+ Andrzej Pietrasiewicz <andrzej.p@collabora.com>,  Hans Verkuil
+ <hverkuil@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>, Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Sinn	 <lucas.sinn@wolfvision.net>
+Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
+	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org
+Date: Wed, 19 Aug 2026 11:48:11 -0400
+In-Reply-To: <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+	 <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-gAMZ1BrMIjddsvqywxMw"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: rob.clark@oss.qualcomm.com
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
- <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
- <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
- <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
- <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
- <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
- <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
- <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
+
+
+--=-gAMZ1BrMIjddsvqywxMw
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Sascha,
+
+Le mercredi 19 ao=C3=BBt 2026 =C3=A0 12:37 +0200, Sascha Hauer a =C3=A9crit=
+=C2=A0:
+> +/* ------------------------------------------------------------------ */
+> +/* Register byte offsets from dec_base=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0 */
+> +/* ------------------------------------------------------------------ */
+> +
+> +/* REG0: IP version / product ID */
+> +#define VDPU720_REG_VERSION		0x000
+> +#define VDPU720_PROD_NUM		GENMASK(31, 16)
+> +#define VDPU720_BIT_DEPTH		BIT(8)
+
+Can you share a dump and share these register reset values. Looking at the
+layout, clearly its highly modified, but probably derived from VSI multi-co=
+dec,
+but I'm thinking perhaps we'll learn more from that. Its always nice to jus=
+tify
+when adding more chips that are not strictly VSI designs (or maybe it is) t=
+o the
+hantro dirver.
+
+Nicolas
+
+--=-gAMZ1BrMIjddsvqywxMw
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-On 19/08/2026 17:23, Rob Clark wrote:
->>>>
->>>> Growing old driver does not look complicated itself. The only a bit
->>>> tricky thing is to present somehow exclusive interface to user-space,
->>>> like usage of one disables the second etc. Depending on actual
->>>> differences in that interface.
->>>>
->>>> But having a duplicated driver is a clear no go and it is well known
->>>> upstream requirement. Nothing new here.
->>>
->>> Would it be acceptable as a first step to, by default (ie. when no
->>> cmdline override/etc) for the new driver to bind to new compatibles
->>
->> You have one compatible.
->>
->>> and the existing driver to old?  Ie. have both drivers but only one
->>> binds on a given platform?
->>
->> I don't see how is it possible to write such DTS, because - repeating my
->> question - how many hardware blocks is there? I believe only one per
->> given DSP, so how could you have two device nodes?
-> 
-> Maybe I'm misunderstanding something here.. I don't see any new
-> bindings with this series so my assumption is that the bindings are
-> the same.  What I meant was something more like "qcom,glymur-fastrpc"
-> would bind to new driver but "qcom,fastrpc" (which seems to be what is
-> used on older platforms) would bind to the old driver.
-> 
-> So single dts node, but different compatible strings picking which
-> driver is used.
+-----BEGIN PGP SIGNATURE-----
 
-Glymur is already done, so imagining we talk about next/future SoC then
-we would be at point of duplicating drivers for the same hardware. So
-back to square one of my comments.
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoXQPAAKCRDZQZRRKWBy
+9L97AP97ZqUufmP34nj7H6WO1VaHBkcmFPE1w2dWMA2Ud0d53AEAqqCnWF8UEG7K
+NT0DsFxf8TDJvZBbMJ1719B7rBGgGAo=
+=mBFn
+-----END PGP SIGNATURE-----
 
-The rule of usptream development is that we do not accept duplicated
-code, just because a vendor wants to write something new. This is
-basically the concept applied all over the drivers tree, where we pushed
-back against all sorts of duplications all over the vendors.
-
-What I miss in this thread is why would there be any exception here. We
-do not grant exceptions from standard practices on "I want" reasons.
-
-Best regards,
-Krzysztof
+--=-gAMZ1BrMIjddsvqywxMw--
