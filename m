@@ -1,38 +1,38 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A73F2E0B5C;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A86D3B8944;
 	Wed, 19 Aug 2026 11:05:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787137525; cv=none; b=tq+XTHe6DnPAAarbu0dbW1oFNX16PMFs/d4LjtCKl6Xv/vQnYEySXbket6LfKIasKyPSiBU74upLMp5rJrS652G/JMf0OSGydqj50b8LLqAzxd2W3hLBlE2IB9Z+b+ki/SJjzV4XCLJIeeCYmPJXkkJ5tt6oJ8hcueD8A+DQwO8=
+	t=1787137525; cv=none; b=G75+oLN62Yok+/Yo38mXsl1RJ6LssgOA+YwYOwvjv629HtRYNjv/PnFBNQYBtHeInPd75fsfiqJMYRLO2wuQT1tHabLwuwkIXTMOZv58Lmke9EEfq7yFILmMZ1oK0UyBwVh2ybYDAhs3z/6ludu/+cNJrDwQMvbGEPxarn1ux60=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787137525; c=relaxed/simple;
-	bh=l0E1OzIH9xEMPSY6fmQuaCaGDOGWtHkFs6pOhb6IKWI=;
+	bh=I2ck4Qb0X4dTAM30ag8UYhxBpIdZg3/0QUdORTQ/EIc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RJ0e6AJxs24HUdMk2qRA1/kukjK3JebDlEsOL9ylKpl9KJBuIzF6QKNrsFBBVkEyhy6bR9OqXnoE/oarZRU18AH+e03cLNPEfC9bsgKTb4CQ43KACQHvbfk23sg6Ye8xX7BFJRuodFwGMoomBxguWvnaxvIR77f6vf+waWJQ/GA=
+	 In-Reply-To:To:Cc; b=pwyM6XvJ23OQKMaNE8p59M3Ygrn7De0NUZPwI/8ov914GDMM4Y9ozttO9dPu9KvJDdwvtdt9VgFs+cdMgFpUPm6YvQi1TH3CQoZJHXQVXmR25K66McxL2058qU41NGw+dMwxswXz+kJknhiHryPIyBbcLEutuDM2KG3i2ARysgs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 0149B2023F4;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id EAEB8201AC8;
 	Wed, 19 Aug 2026 13:05:17 +0200 (CEST)
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-002HRd-2f;
+	id 1wwe6f-002HRb-2R;
 	Wed, 19 Aug 2026 13:05:17 +0200
 Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
 	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
 	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-00000004K0O-2oB3;
+	id 1wwe6f-00000004K0O-2ZnZ;
 	Wed, 19 Aug 2026 13:05:17 +0200
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Wed, 19 Aug 2026 12:37:36 +0200
-Subject: [PATCH 7/7] arm64: dts: rockchip: rk3588: Add VPU720 JPEG decoder
- node
+Date: Wed, 19 Aug 2026 12:37:33 +0200
+Subject: [PATCH 4/7] media: dt-bindings: Add Rockchip RK3588 VPU720 JPEG
+ decoder
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-rk3588-jpegdec-v1-7-33d74cdf369c@pengutronix.de>
+Message-Id: <20260819-rk3588-jpegdec-v1-4-33d74cdf369c@pengutronix.de>
 References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
 In-Reply-To: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
@@ -59,69 +59,148 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  devicetree@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137517; l=2099;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137517; l=4361;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=09LgIxKVW/xeLzRIgPtDOatpX+UD0n980xnV7SeDSfk=;
- b=kp9zdxYYrAz/ecfOKGMcox9oKAppTIOY3ro4+APBo45R1aqcqaGxPyHYm32U6qnI8VuEAn10E
- e4FRFfbdY1sBJGEAsyOn2TQ80mNtnpqjgff7QQ4RgxgTtI2dtgSknJa
+ bh=I2ck4Qb0X4dTAM30ag8UYhxBpIdZg3/0QUdORTQ/EIc=;
+ b=XVpfSQ+mCWDVHwnLqdyD2kv4xwSsvoaWOhqs9YuVgMgcr4W1EWJKKEtp8La/u25+v+x4yypdE
+ G217MDzodjXA8SBh02C9WRWvPkDrq18mRHlbzf6fJY8zQ5vxpq3h8yb
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-From: Lucas Sinn <lucas.sinn@wolfvision.net>
+Add a devicetree binding schema for the VPU720 JPEG hardware decoder on
+the RK3588, driven by the hantro V4L2 driver.  Documents the single
+register window (task registers plus the LLP link-table block at offset
+0x300), the JPEG decode interrupt, the aclk/hclk clocks, the AXI/AHB
+resets, the IOMMU and the power domain.
 
-Add device tree node for the Rockchip VPU720 JPEG hardware decoder and
-its IOMMU.
+The resets and the power domain are required.  The block sits in
+RK3588_PD_VDPU and cannot be reached with the domain off, and the driver
+takes the resets with reset_control_array_get_optional(), so a node
+without them probes and the hard reset fallback in its error recovery
+silently does nothing.
 
-The VPU720 JPEG decoder is located at 0xfdb90000 with its MMU at
-0xfdb90480. It requires ACLK and HCLK clocks, both aclk and hclk resets,
-and resides in the VDPU power domain.
-
-Both blocks are entirely on-SoC and have no board dependency, so they are
-enabled unconditionally like the other codec blocks in this file.
+The IOMMU stays optional.  The driver never refers to it, it is a platform
+integration detail, and rockchip-vpu.yaml does not require it for the
+other codec blocks on this SoC either.
 
 Assisted-by: Claude:claude-opus-5
-Signed-off-by: Lucas Sinn <lucas.sinn@wolfvision.net>
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ .../bindings/media/rockchip,rk3588-vpu720.yaml     | 93 ++++++++++++++++++++++
+ MAINTAINERS                                        |  1 +
+ 2 files changed, 94 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-index 376ad04e07869..75fecd70d8878 100644
---- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-+++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-@@ -1317,6 +1317,31 @@ rga: rga@fdb80000 {
- 		power-domains = <&power RK3588_PD_VDPU>;
- 	};
+diff --git a/Documentation/devicetree/bindings/media/rockchip,rk3588-vpu720.yaml b/Documentation/devicetree/bindings/media/rockchip,rk3588-vpu720.yaml
+new file mode 100644
+index 0000000000000..6bbddea66c9b9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/rockchip,rk3588-vpu720.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/rockchip,rk3588-vpu720.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Rockchip VPU720 JPEG Decoder
++
++maintainers:
++  - Lucas Sinn <lucas.sinn@wolfvision.net>
++
++description:
++  The VPU720 is Rockchip's in-house JPEG/MJPEG hardware decoder found on the
++  RK3588.  It is driven by the Hantro V4L2 driver.  A dedicated Link List
++  Processor (LLP) register block, located at offset 0x300 within the same
++  register window, allows the hardware to decode a chain of frames
++  autonomously ("link mode").
++
++properties:
++  compatible:
++    const: rockchip,rk3588-vpu720
++
++  reg:
++    maxItems: 1
++    description:
++      The decoder register window.  It covers both the task (function)
++      registers at offset 0x000 and the LLP (link table) registers at
++      offset 0x300.
++
++  interrupts:
++    maxItems: 1
++
++  interrupt-names:
++    const: vdpu
++
++  clocks:
++    items:
++      - description: AXI clock
++      - description: AHB clock
++
++  clock-names:
++    items:
++      - const: aclk
++      - const: hclk
++
++  resets:
++    items:
++      - description: AXI reset line
++      - description: AHB reset line
++
++  reset-names:
++    items:
++      - const: axi
++      - const: ahb
++
++  power-domains:
++    maxItems: 1
++
++  iommus:
++    maxItems: 1
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++  - clocks
++  - clock-names
++  - resets
++  - reset-names
++  - power-domains
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/power/rk3588-power.h>
++    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
++
++    video-codec@fdb90000 {
++        compatible = "rockchip,rk3588-vpu720";
++        reg = <0xfdb90000 0x400>;
++        interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
++        interrupt-names = "vdpu";
++        clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
++        clock-names = "aclk", "hclk";
++        resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
++        reset-names = "axi", "ahb";
++        iommus = <&jpegd_mmu>;
++        power-domains = <&power RK3588_PD_VDPU>;
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 9f8d226b305aa..7ef189e4ba237 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -11375,6 +11375,7 @@ L:	linux-rockchip@lists.infradead.org
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/media/nxp,imx8mq-vpu.yaml
+ F:	Documentation/devicetree/bindings/media/rockchip,rk3568-vepu.yaml
++F:	Documentation/devicetree/bindings/media/rockchip,rk3588-vpu720.yaml
+ F:	Documentation/devicetree/bindings/media/rockchip-vpu.yaml
+ F:	drivers/media/platform/verisilicon/
  
-+	jpegd: video-codec@fdb90000 {
-+		compatible = "rockchip,rk3588-vpu720";
-+		reg = <0x0 0xfdb90000 0x0 0x400>;
-+		interrupts = <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
-+		interrupt-names = "vdpu";
-+		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+		clock-names = "aclk", "hclk";
-+		assigned-clocks = <&cru ACLK_JPEG_DECODER>;
-+		assigned-clock-rates = <600000000>;
-+		resets = <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER>;
-+		reset-names = "axi", "ahb";
-+		iommus = <&jpegd_mmu>;
-+		power-domains = <&power RK3588_PD_VDPU>;
-+	};
-+
-+	jpegd_mmu: iommu@fdb90480 {
-+		compatible = "rockchip,rk3588-iommu", "rockchip,rk3568-iommu";
-+		reg = <0x0 0xfdb90480 0x0 0x40>;
-+		interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH 0>;
-+		clocks = <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
-+		clock-names = "aclk", "iface";
-+		power-domains = <&power RK3588_PD_VDPU>;
-+		#iommu-cells = <0>;
-+	};
-+
- 	vepu121_0: video-codec@fdba0000 {
- 		compatible = "rockchip,rk3588-vepu121";
- 		reg = <0x0 0xfdba0000 0x0 0x800>;
 
 -- 
 2.47.3
