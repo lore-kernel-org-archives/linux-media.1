@@ -1,98 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F07703CB57B;
-	Wed, 19 Aug 2026 07:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49C2376BEF
+	for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 07:31:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787123912; cv=none; b=BBmURr+OQg+7il2T4pMzq2bR3ngGdRMqTRDqac+Q6RKR5jQhjoOpwblzRyCENPIsWU0KVrLDlMAPItubzNK16NqbPmv1RUFeaR1wV3hQSjETF7uEG6BANk7ypfdBeRr9frjymZZ6XMjztI2SCxbV5TgYpYTdlM53TZx+1WAlDwI=
+	t=1787124693; cv=none; b=G3o9SoL68Zif4lnqKN0M0TWuYlmzy4l5pCmgL425SJimPOYBjoVok98W/2HSrZ/egS8uaTgsKPIOz44AMLbDMQRMbBwvavMMGoh+8MT5QMunmKY0yKvJFopww9EABuQTn5C37SCh60O/ghgKmFez1eMj7H5vFnPW+xbJ2TxQbmo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787123912; c=relaxed/simple;
-	bh=pcwvfb3ivhOkWSLegrsz8kIIRMTLR8cdrzbnOc3npuA=;
+	s=arc-20240116; t=1787124693; c=relaxed/simple;
+	bh=QW5hx3/agEXiOLQdfq+fLrEgpdD4UZdxo+hRkmcG2zc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FUmPsnpSk6Cwj/XtiIon1Mx0koaSIczzW8+LM8lxVAjnr2UdgxeiwaFiqXpd4ivjqQYD3F9vRAHxXIokOVj84fyQfbFZ9o82w+UhWaAuF1tSMHtr9rVtRrWN+zKky9qy55B5aV1f3hNsV/GwluQ704MJg1xHM3azO5FQ1fqtY3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R8NZFKH+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZFXpyKEzma9Q13Vo+wD/vPhzIPsCs7CPydJBkY5iEPnx3SSUvN46UraWtyPBQVKmm4uw4/c/H0/xLJf7O91aAnjhpAoYJ9gO4CUo9W7cY8z9bVDQbUQp4vPJcJEhqq7SbgOPT0Uog8G7UlAllglIwaPtHOBhLDVm89R3itwSwtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=jb91zmcU; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R8NZFKH+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 985CB1F000E9;
-	Wed, 19 Aug 2026 07:18:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787123910;
-	bh=oaLIuywnH4SyCV/RCpoCYLZAD29H5M8DUZxH9KYY0dE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R8NZFKH+UtAN7P2cvw8Sll3E1ipc7xtNQloWNieuC8n5gQRnhDvPV5Zu3HKpQpfzj
-	 cK2lOUs3bfRe39Iem64Uj7z1kOXGejKSeUZAySRWnSZOmnGwLEnhpeeHyTPM00XwvY
-	 kibr/sfSMEMjKUkuiG6uG+uRCE7Kn04hjmsnX3IjGd+evuSPBMj1UtKlUbZqIi1Whx
-	 mAEvGzPcJYGR52DwHyiYg1/GJTNZoHt2oE5a1OrwXQpvzamEomJ8XNZacZTRgkQeMM
-	 NWjSi1iu6GW1Va2/dorVXOJLhNIb9Yjmo6FbGhLwDsxAgJQ7r9j55x0mtnoScHDqrr
-	 Q0y/dAEXbhGyQ==
-Date: Wed, 19 Aug 2026 09:18:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Cc: Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Stanimir Varbanov <stanimir.varbanov@linaro.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Stefan Schmidt <stefan.schmidt@linaro.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, Mansur Alisha Shaik <mansur@codeaurora.org>, 
-	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, stable@vger.kernel.org, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Subject: Re: [PATCH v2 4/5] media: iris: Fix power-off ordering to disable
- power domain after clocks
-Message-ID: <20260819-truthful-porcupine-from-eldorado-bbf912@quoll>
-References: <20260818-iris-fixes-dma-pseq-fint-v2-0-8dc8c4b3880e@oss.qualcomm.com>
- <20260818-iris-fixes-dma-pseq-fint-v2-4-8dc8c4b3880e@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="jb91zmcU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1787124686; bh=QW5hx3/agEXiOLQdfq+fLrEgpdD4UZdxo+hRkmcG2zc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=jb91zmcUQhD9E9hMx9gHYW9gk5vaUjErbyDA3mknmeojiX4pZQSLzOGB34fQb7hag
+	 /oW5As1fSA7BOtPyjlFXZRZW5mlbbuZYNNmlFjcoBEbtenWwDtn/Qoi5G1lM6menJ9
+	 9X+Rf2pWGzmZrE1WFq+BaA1HN3AVnK7JWnVltjEZ5w8yBvJykqRsl65+UKzraw1diG
+	 1bsHSS8C/Fxob+hFLVo7OLZK7gR5vWUFuJFNf6EIYc3GvkImMngOaO/7vJh9mjrOsP
+	 mo8WFmFGchPpPUvaERQfnPGH/rHp7UECp3tV5RTlxqFWBIwCzRzaZSyBI4mRvFaAE0
+	 6yVrLAKOzs8SQ==
+Received: by extorris.mess.org (Postfix, from userid 1001)
+	id 8EC2F408BB; Wed, 19 Aug 2026 08:31:26 +0100 (BST)
+Date: Wed, 19 Aug 2026 08:31:26 +0100
+From: Sean Young <sean@mess.org>
+To: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+Subject: Re: [PATCH] media: rc: rc-ir-raw: drop useless decrements in
+ ir_raw_gen_{manchester,pl}()
+Message-ID: <aoVbzp0cn1euNa_h@extorris.mess.org>
+References: <20260818203832.46030-1-s.shtylyov@auroraos.dev>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260818-iris-fixes-dma-pseq-fint-v2-4-8dc8c4b3880e@oss.qualcomm.com>
+In-Reply-To: <20260818203832.46030-1-s.shtylyov@auroraos.dev>
 
-On Tue, Aug 18, 2026 at 09:24:17PM +0530, Vishnu Reddy wrote:
-> In iris_vpu_power_off_hw(), iris_disable_power_domains() was called
-> before the associated clocks (IRIS_BSE_HW_CLK, IRIS_HW_AHB_CLK,
-> IRIS_HW_CLK) were disabled and unprepared. This reverses the correct
-> power-down sequence: with the power domain already removed, the
-> subsequent clk_disable_unprepare() calls end up operating on
-> clock-controller hardware that is no longer powered, which can hang
-> or behave unpredictably.
+On Tue, Aug 18, 2026 at 11:38:30PM +0300, Sergey Shtylyov wrote:
+> In ir_raw_gen_{manchester,pl}(), the paremeter max is usually decremented
+> while checking it for 0 but sometimes that action seems fruitless as max
+> isn't used afterwards -- drop the useless decrement operators...
 > 
-> Reorder the calls so iris_disable_power_domains() runs after all
-> three clocks are disabled, ensuring clocks are always turned off
-> while their power domain is still active, and mirroring the reverse
-> of the power-on sequence.
+> Found by Linux Verification Center (linuxtesting.org) with the Svace static
+> analysis tool.
 > 
-> Fixes: bb8a95aa038e ("media: iris: implement power management")
-> Cc: stable@vger.kernel.org
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Signed-off-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
 > ---
->  drivers/media/platform/qcom/iris/iris_vpu_common.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> The patch is against the next branch of the linuxtv.org/media.git repo...
 > 
-> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> index e4847c107709..3cd493b06d84 100644
-> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
-> @@ -223,10 +223,10 @@ int iris_vpu_power_off_controller(struct iris_core *core)
->  void iris_vpu_power_off_hw(struct iris_core *core)
->  {
->  	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN], false);
-> -	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
->  	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
->  	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
->  	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
-> +	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAIN]);
+>  drivers/media/rc/rc-ir-raw.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+> index ba24c2f22d39..ed494be8896f 100644
+> --- a/drivers/media/rc/rc-ir-raw.c
+> +++ b/drivers/media/rc/rc-ir-raw.c
+> @@ -362,7 +362,7 @@ int ir_raw_gen_manchester(struct ir_raw_event **ev, unsigned int max,
+>  	if (timings->trailer_space) {
+>  		if (!(*ev)->pulse)
+>  			(*ev)->duration += timings->trailer_space;
+> -		else if (!max--)
+> +		else if (!max)
+>  			goto nobufs;
+>  		else
+>  			init_ir_raw_event_duration(++(*ev), 0,
+> @@ -491,7 +491,7 @@ int ir_raw_gen_pl(struct ir_raw_event **ev, unsigned int max,
+>  		}
+>  	}
+>  
+> -	if (!max--)
+> +	if (!max)
 
-Really, how is this depending on dma-coherent DTS patch?
+This patch is technically correct, but won't make any difference to
+generated code. The decremented value of max will have zero users in the
+SSA tree, and will be droppped.
 
-Best regards,
-Krzysztof
+Changing this is purely cosmetic change to the code.
 
+Sean
+
+>  		return ret;
+>  
+>  	init_ir_raw_event_duration((*ev)++, 0, timings->trailer_space);
+> -- 
+> 2.55.0
+> 
