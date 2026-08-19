@@ -1,38 +1,37 @@
 Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC0444E03B;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CC9144E652;
 	Wed, 19 Aug 2026 11:15:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787138122; cv=none; b=ibVIlk9yreYJ80kJmXEFX/ac8E45nfIZ2bEK+675vW2KeejZoB/Cu8DA6wQmaRYPGsAUEs+Nis+yZ7jjlvijEDDk0qNR9abHeqG7AAe0OBvKuWFQKmnDXS7Of5jlR/80Q5MKKxBagWXpvRLkZGpfYXYeGKeNBdaUUP7t2EOICxY=
+	t=1787138123; cv=none; b=qXrI17mAK5LL6WdjOfxxTLItPBEpokXSFzqSLxuVVOo+9klLTVXMWBkho4mJHUhlhLBzoLtpKedTKwkw4nwXy6iXR9tZKFQf13v6koPZ14SDZ5q2YxF8nEYBuT7ELvMIylra2RfflxVHjFxNMMWpWyJM2fHqULyikODECFcvfUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787138122; c=relaxed/simple;
-	bh=q+N1QxJB5EPKH/FAFy+Ua/qwmhUKQ8iu0PuyLy12Oww=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d5TItKAugTkHHWfwOKeeWbYUy8od4dSxvYZr1Mj7Htq3ZbmKxb1o+rmtOP+dJD+jiyb4DzUkR/A2IyMbdA6UdTg/0o5Sg3lV5HBusE7UiplueEzIIUNfxTSs5HTLqQEZFHADAcXSgCFrJv6CQG+Pheb/HlyktxEUrixgJvTFnh8=
+	s=arc-20240116; t=1787138123; c=relaxed/simple;
+	bh=+O0Gd7dYD+ML+lDGGE6X0GreAnrSVB14tNzQ3byWCIc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bojW3iPkbrW6ubE1W/QK48bBcARtS8luNCeUXIcJwt8WU0oPXAePtEGBUsmUZi87IKMEoZh9VGYDUZLrcAsWMOgsr3TXeSAt3ngzyLDSUjmLSzaEsUdZ0WKTe4oEafeRIo5jNx7fnTeEtbLrWXtY/d/c9Wwa0R0BaFSIsixqaDU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
 Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
 	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id F0DFB20227F;
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E226A20044D;
 	Wed, 19 Aug 2026 13:05:17 +0200 (CEST)
 Received: from dude02.red.stw.pengutronix.de ([2a0a:edc0:0:1101:1d::28])
 	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
 	(Exim 4.96)
 	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-002HRa-2N;
+	id 1wwe6f-002HRY-2M;
 	Wed, 19 Aug 2026 13:05:17 +0200
 Received: from [::1] (helo=dude02.red.stw.pengutronix.de)
 	by dude02.red.stw.pengutronix.de with esmtp (Exim 4.98.2)
 	(envelope-from <s.hauer@pengutronix.de>)
-	id 1wwe6f-00000004K0O-2Sxk;
+	id 1wwe6f-00000004K0O-2O4l;
 	Wed, 19 Aug 2026 13:05:17 +0200
 From: Sascha Hauer <s.hauer@pengutronix.de>
-Date: Wed, 19 Aug 2026 12:37:31 +0200
-Subject: [PATCH 2/7] media: verisilicon: Complete the request on the
- ->run() error paths
+Subject: [PATCH 0/7] media: verisilicon: Add RK3588 VPU720 JPEG decoder
+Date: Wed, 19 Aug 2026 12:37:29 +0200
+Message-Id: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,9 +40,10 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-rk3588-jpegdec-v1-2-33d74cdf369c@pengutronix.de>
-References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
-In-Reply-To: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+X-B4-Tracking: v=1; b=H4sIAGqHhWoC/x3MTQqAIBBA4avErBO0P8auEi1CR5sCC4UIxLsnL
+ b/FexkSRaYEc5Mh0sOJr1Ch2gbMvgVPgm01dLKbJCot4tmPiOK4yVsyAjUp4waDqBFqdEdy/P7
+ DZS3lA/2YKy9gAAAA
+X-Change-ID: 20260819-rk3588-jpegdec-89e1cf4c8898
 To: Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
  Benjamin Gaignard <benjamin.gaignard@collabora.com>, 
  Philipp Zabel <p.zabel@pengutronix.de>, 
@@ -59,160 +59,85 @@ Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  devicetree@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137517; l=6242;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787137517; l=3717;
  i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
- bh=q+N1QxJB5EPKH/FAFy+Ua/qwmhUKQ8iu0PuyLy12Oww=;
- b=jDwDnoEVA+fgU+YOlHMQyolvT1mmtBtHqSkdRIh71pZ7N2Y7fejlAy9aFNEasWEG0tn7Q+/5u
- 1h4tYFNfPODAZ3Lb+Zu453grnZO1SJfaaRCpFmA+PCEZ9C/xeL0VlB8
+ bh=+O0Gd7dYD+ML+lDGGE6X0GreAnrSVB14tNzQ3byWCIc=;
+ b=dG5ZAOPzpg6YY00ZFsztwh+kX27axvdSlRbGYX5WU3XPRC07G+PHESYaoGaxlNuUZCf5Zrgm2
+ DSIpuKZXeBhDLKDHZRNvV5mjtnZAZ55V40y8bqFUlVlvt5TOg+z3BP7
 X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
  pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
-Several codec ->run() operations return early without calling
-hantro_end_prepare_run(), even though hantro_start_prepare_run() has
-already run and set up the controls of the request attached to the source
-buffer.
+This series adds support for the RK3588 JPEG/MJPEG hardware decoder, the
+VPU720. This series adds it to the hantro driver, along with three fixes
+to the hantro core that came out of the work.
 
-The buffers are still returned to userspace, device_run() finishes the job
-with VB2_BUF_STATE_ERROR, but nothing completes the control handler object
-bound to the media request. vb2_buffer_done() only unbinds the request
-object owned by videobuf2 itself, so num_incomplete_objects never drops to
-zero and the request stays in MEDIA_REQUEST_STATE_QUEUED forever: poll() on
-the request file descriptor never returns and MEDIA_REQUEST_IOC_REINIT
-fails with -EBUSY. The request is only cleaned up when userspace closes it.
+Patches 1-3 are independent of the new decoder and stand on their own. A
+codec ->run() that fails currently leaves an armed watchdog behind that
+later aborts an unrelated job, leaks the pm_runtime reference and the
+clocks, and never completes the control handler object bound to the
+media request, so the request stays queued until userspace closes it.
+Patch 3 makes V4L2_EVENT_EOS subscribable; hantro queues the event in
+three places but no application can ask for it.
 
-The vb2 buf_request_complete() callback does not help here, it is only
-called from __vb2_queue_cancel() for buffers that were never queued to the
-driver.
+Patches 4-7 add the decoder itself: the binding, the driver, a minimum
+sizeimage for the coded queue, and the DT node.
 
-Call hantro_end_prepare_run() with the error code on those paths. Since
-hantro_end_prepare_run() takes an error argument this completes the request
-without arming the watchdog.
+Unlike the other hantro en/decoders the VPU720 works as a stateful
+decoder - userspace hands it a whole frame and never looks inside the
+bitstream. The driver parses the JPEG header on the CPU, builds the
+quantisation and Huffman tables into a DMA side buffer and programs the
+hardware from there.
 
-Fixes: 42cb2a8f27d2 ("media: hantro: change hantro_codec_ops run prototype to return errors")
-Assisted-by: Claude:claude-opus-5
+Patch 6 enforces a minimum frame size to the coded queue for the JPEG
+decoder path. This is necessary here as userspace doesn't know how large
+a frame can get, but the decoder needs a full frame to work. In my
+Gstreamer tests Gstreamer came up with buffers that were too small to
+take a full frame at higher resolutions (> 1080p). That is expensive of
+course, 16 MiB for a 4k image.
+
+Tested on a Radxa Rock-5t board
+
 Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
 ---
- drivers/media/platform/verisilicon/hantro_g1_h264_dec.c        | 4 +++-
- drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c         | 4 +++-
- drivers/media/platform/verisilicon/hantro_g2_hevc_dec.c        | 9 +++++++--
- drivers/media/platform/verisilicon/rockchip_vpu2_hw_h264_dec.c | 4 +++-
- drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c | 4 +++-
- drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_dec.c  | 4 +++-
- 6 files changed, 22 insertions(+), 7 deletions(-)
+Lucas Sinn (3):
+      media: verisilicon: Add Rockchip VPU720 JPEG decoder
+      media: verisilicon: Enforce a minimum sizeimage for the JPEG decoder
+      arm64: dts: rockchip: rk3588: Add VPU720 JPEG decoder node
 
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c b/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
-index 30c2ac32cd0b0..4e1012eeeab6d 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g1_h264_dec.c
-@@ -255,8 +255,10 @@ int hantro_g1_h264_dec_run(struct hantro_ctx *ctx)
- 
- 	/* Prepare the H264 decoder context. */
- 	ret = hantro_h264_dec_prepare_run(ctx);
--	if (ret)
-+	if (ret) {
-+		hantro_end_prepare_run(ctx, ret);
- 		return ret;
-+	}
- 
- 	/* Configure hardware registers. */
- 	src_buf = hantro_get_src_buf(ctx);
-diff --git a/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c b/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-index eb43b2fc19582..a001b37ee1e32 100644
---- a/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g1_vp8_dec.c
-@@ -442,8 +442,10 @@ int hantro_g1_vp8_dec_run(struct hantro_ctx *ctx)
- 	hantro_start_prepare_run(ctx);
- 
- 	hdr = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_VP8_FRAME);
--	if (WARN_ON(!hdr))
-+	if (WARN_ON(!hdr)) {
-+		hantro_end_prepare_run(ctx, -EINVAL);
- 		return -EINVAL;
-+	}
- 
- 	/* Reset segment_map buffer in keyframe */
- 	if (V4L2_VP8_FRAME_IS_KEY_FRAME(hdr) && ctx->vp8_dec.segment_map.cpu)
-diff --git a/drivers/media/platform/verisilicon/hantro_g2_hevc_dec.c b/drivers/media/platform/verisilicon/hantro_g2_hevc_dec.c
-index d76d03eeac39d..2093cbe59b837 100644
---- a/drivers/media/platform/verisilicon/hantro_g2_hevc_dec.c
-+++ b/drivers/media/platform/verisilicon/hantro_g2_hevc_dec.c
-@@ -596,7 +596,7 @@ int hantro_g2_hevc_dec_run(struct hantro_ctx *ctx)
- 	/* Prepare HEVC decoder context. */
- 	ret = hantro_hevc_dec_prepare_run(ctx);
- 	if (ret)
--		return ret;
-+		goto end_prepare_run;
- 
- 	/* Configure hardware registers. */
- 	set_params(ctx);
-@@ -604,7 +604,7 @@ int hantro_g2_hevc_dec_run(struct hantro_ctx *ctx)
- 	/* set reference pictures */
- 	ret = set_ref(ctx);
- 	if (ret)
--		return ret;
-+		goto end_prepare_run;
- 
- 	set_buffers(ctx);
- 	prepare_tile_info_buffer(ctx);
-@@ -634,4 +634,9 @@ int hantro_g2_hevc_dec_run(struct hantro_ctx *ctx)
- 	vdpu_write(vpu, G2_REG_INTERRUPT_DEC_E, G2_REG_INTERRUPT);
- 
- 	return 0;
-+
-+end_prepare_run:
-+	hantro_end_prepare_run(ctx, ret);
-+
-+	return ret;
- }
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_h264_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_h264_dec.c
-index eb9067d56f35d..58b39879de723 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_h264_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_h264_dec.c
-@@ -473,8 +473,10 @@ int rockchip_vpu2_h264_dec_run(struct hantro_ctx *ctx)
- 
- 	/* Prepare the H264 decoder context. */
- 	ret = hantro_h264_dec_prepare_run(ctx);
--	if (ret)
-+	if (ret) {
-+		hantro_end_prepare_run(ctx, ret);
- 		return ret;
-+	}
- 
- 	src_buf = hantro_get_src_buf(ctx);
- 	set_params(ctx, src_buf);
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-index aa34bd2e47ad2..b273b0b56ced5 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_jpeg_enc.c
-@@ -143,8 +143,10 @@ int rockchip_vpu2_jpeg_enc_run(struct hantro_ctx *ctx)
- 
- 	memset(&jpeg_ctx, 0, sizeof(jpeg_ctx));
- 	jpeg_ctx.buffer = vb2_plane_vaddr(&dst_buf->vb2_buf, 0);
--	if (!jpeg_ctx.buffer)
-+	if (!jpeg_ctx.buffer) {
-+		hantro_end_prepare_run(ctx, -ENOMEM);
- 		return -ENOMEM;
-+	}
- 
- 	jpeg_ctx.width = ctx->dst_fmt.width;
- 	jpeg_ctx.height = ctx->dst_fmt.height;
-diff --git a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_dec.c
-index 6568e2aee80fc..1569e86c23bbf 100644
---- a/drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_dec.c
-+++ b/drivers/media/platform/verisilicon/rockchip_vpu2_hw_vp8_dec.c
-@@ -519,8 +519,10 @@ int rockchip_vpu2_vp8_dec_run(struct hantro_ctx *ctx)
- 	hantro_start_prepare_run(ctx);
- 
- 	hdr = hantro_get_ctrl(ctx, V4L2_CID_STATELESS_VP8_FRAME);
--	if (WARN_ON(!hdr))
-+	if (WARN_ON(!hdr)) {
-+		hantro_end_prepare_run(ctx, -EINVAL);
- 		return -EINVAL;
-+	}
- 
- 	/* Reset segment_map buffer in keyframe */
- 	if (V4L2_VP8_FRAME_IS_KEY_FRAME(hdr) && ctx->vp8_dec.segment_map.cpu)
+Sascha Hauer (4):
+      media: verisilicon: Fix the cleanup when a codec ->run() fails
+      media: verisilicon: Complete the request on the ->run() error paths
+      media: verisilicon: Allow the EOS event to be subscribed
+      media: dt-bindings: Add Rockchip RK3588 VPU720 JPEG decoder
 
+ .../bindings/media/rockchip,rk3588-vpu720.yaml     |  93 ++
+ MAINTAINERS                                        |   1 +
+ arch/arm64/boot/dts/rockchip/rk3588-base.dtsi      |  25 +
+ drivers/media/platform/verisilicon/Makefile        |   1 +
+ drivers/media/platform/verisilicon/hantro.h        |  17 +
+ drivers/media/platform/verisilicon/hantro_drv.c    |  49 +-
+ .../platform/verisilicon/hantro_g1_h264_dec.c      |   6 +-
+ .../platform/verisilicon/hantro_g1_mpeg2_dec.c     |   2 +-
+ .../media/platform/verisilicon/hantro_g1_vp8_dec.c |   6 +-
+ .../platform/verisilicon/hantro_g2_hevc_dec.c      |  11 +-
+ .../media/platform/verisilicon/hantro_g2_vp9_dec.c |   4 +-
+ .../platform/verisilicon/hantro_h1_jpeg_enc.c      |   2 +-
+ drivers/media/platform/verisilicon/hantro_hw.h     |  19 +-
+ drivers/media/platform/verisilicon/hantro_v4l2.c   |  69 +-
+ .../verisilicon/rockchip_vpu2_hw_h264_dec.c        |   6 +-
+ .../verisilicon/rockchip_vpu2_hw_jpeg_enc.c        |   6 +-
+ .../verisilicon/rockchip_vpu2_hw_mpeg2_dec.c       |   2 +-
+ .../verisilicon/rockchip_vpu2_hw_vp8_dec.c         |   6 +-
+ .../verisilicon/rockchip_vpu720_hw_jpeg_dec.c      | 962 +++++++++++++++++++++
+ .../platform/verisilicon/rockchip_vpu720_regs.h    | 261 ++++++
+ .../verisilicon/rockchip_vpu981_hw_av1_dec.c       |   5 +-
+ .../media/platform/verisilicon/rockchip_vpu_hw.c   |  80 ++
+ 22 files changed, 1595 insertions(+), 38 deletions(-)
+---
+base-commit: bd5f485f3f026225b86573e559af0b7254ef4184
+change-id: 20260819-rk3588-jpegdec-89e1cf4c8898
+
+Best regards,
 -- 
-2.47.3
+Sascha Hauer <s.hauer@pengutronix.de>
 
