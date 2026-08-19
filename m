@@ -1,284 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010018.outbound.protection.outlook.com [52.101.85.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A89440651;
-	Wed, 19 Aug 2026 20:17:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787170636; cv=none; b=jszSVrvjAeAMC787I6OYDeLJerPo+StPsZ8u3Wd2Hig33IAoYOOMNdC+ivcuUvCsgaghiNhhRr1R62+gZ7t3byDy1JpFBb1sy842JPbRKbRk2POAqqefLNbPki3aOuU60qA1rbaFVRUTOoJXpftRgEm8js2WoNEuPd7UUfT8dKo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787170636; c=relaxed/simple;
-	bh=8KDt+AF3Aq2SfgklXWlogeWNbbc6RtM4RboHKV9BijM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kp1jSRYlaXZ/e1L0fMinl8tecHnEyFQE9YVwamRE+N3uMJWH3v038qkytM9wGHAZssutwjQwfLf/IPzJhi5YE8330RYiLbrciSE0km942vP+nhH5CCP4Y5xGxdEz5JMcfdT6XeT6IWQ2kOXR9s79uISuy88hFaq0e6XubZTjNQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgPngBK5; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 769C633D506;
+	Wed, 19 Aug 2026 20:39:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.18
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787171959; cv=fail; b=gFnlaW5Ry/rVDEsNDEsf5icHGBE2DoKujVXlnPBDsqny3rAaqzDCu/P/Jr3WvlpZZYvkzW+4GNwcFOES6JN2S0QbdscOO3hrfqQ5Rq/xLLfNv9hrcdthz4yDUWnT6JpDBTDow9f+ThPGtVVg1RQ1ojT9eSXnrRAemxSRsYKkMLo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787171959; c=relaxed/simple;
+	bh=keSRiEUipB9T0dbUAoNOkc3YgujgiFwlR2sCmz3WYZY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=bGO2RzQnxIK5ZwfplFeTdMMHN56Lt44EnNkUzNMIzxytRBGrV95iZeb5YEY++AmaUj2GdDTUmN3hDEPBVlA+HgqYDHrmr6gLMQnPBNbhhiWq8g9FYC4ceWQl3Z65RMEKeI+zUzjImxfw29XGLEwkehxen7YEN27I1BzQW+v6Y8w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=3jQzVcF1; arc=fail smtp.client-ip=52.101.85.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgPngBK5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EC29CC2BCC7;
-	Wed, 19 Aug 2026 20:17:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787170636;
-	bh=8KDt+AF3Aq2SfgklXWlogeWNbbc6RtM4RboHKV9BijM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=UgPngBK59w0ykJUxUMeWgLVX2+Oa8YSoR1NctGYKhKQgkzS2d4t0ZBJOehf+eLTBf
-	 L0jihFCcmRXolNeIgdpctPMvyEFwaoBRzqeodT1YjD/PnGduWG4UAJhAqLeTS9OHT+
-	 asMacWKD4+ee8pw8ujKPclSR/4UrY9khJwt/Axr7w4ZiZypsAWUldYQwJ/3eLaTzew
-	 KMCj05D8wZTff4y9MtGoefW4W6XwSDnBOenSb6CjVSH/eF5P0N9Qc+GhWyddsLptHg
-	 XuWjSojAVdhmvG2EFT4rFALZ6gudfsvqtwO62obb3XwknVRsYKX7DjMNj2pVFvNFBQ
-	 ntiRf6SCWoe8w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C38D7C5B572;
-	Wed, 19 Aug 2026 20:17:15 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 19 Aug 2026 22:17:08 +0200
-Subject: [PATCH RFC] media: imx355: reuse existing CCS defines
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="3jQzVcF1"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=FdG2ZDHw2HA97uEU6yUKak/DfpN6LCRXLvUrCe3KQEmuwMUanDHMZvd+H7YiATLAPzODzuaFpO85jGd7Ab8zG4DoGtn6DtaCerwyuSxoYowngzBOiS6pO0UzWefZw8jMzemjBWpnoV5py5KUzdutrg9dVEzRwy70f4T09lzOLcWj+eveTkI4kNLtfvI0OlidLTWWjhN3O8JQnzSKSbT+g2o+TstmYKBFK0pcGSr/1I0P0nPmbtcEec/g0DgnlqD4lOWUbTfV2bvy51JSJsPbjyLoJMxHQNQw0dDMJsbaZID/yVZGoAUf74c0rKnv6kJlfpWc6m+zUvLraVLY5gci9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
+ b=sSmsic1AxWRTTMznjMaBp5NdaY4dA2U9mNOMzFDxahwtywkOGCsKlYHkUwxkd8pX+qLthm6y33ri27rJ8di3PUg9h6jS7J+PPcz0mluuLCEMUqtFNYkA9/9GJ/ENFHQ7pYtDl/zcncyZvseJ4ldyq/kGbRLxkgQoW20M5TtHyrm1WB91KDyUeAkGF8qnc4GiIRKlfSWs9Saf1bYvFr4pxdyMnbimNxxc1oRQeOoSfLBiK9rNCDJOMIj4D8tphp8KyF2yrOcBZQ6wttvYfUimspyEe+CSvzKsgizitPqaev9WiL3Kt4vjiTh5+lS4CHAq3o7U7cPJxjyKQDwZiKwwrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SNo1SOX9PmlU5v4C53iI2CBDWKKfyD0KGuN7/L1lmzI=;
+ b=3jQzVcF16E52SoVFq7uXb+OxFAJGMkUTW8ZDP8kG/dNogMN582rye+7YgBN65Ljib0STc7C6Uk+61UADAfGg3dORbV8n/Pw7zzJW55TjsXOsLxCRtp15FELLumjAEMBiEFYn2KDm8YIiWmsgr2duwVjYw7TTPH7rtlsvZ3wz+mI=
+Received: from SA0PR11CA0168.namprd11.prod.outlook.com (2603:10b6:806:1bb::23)
+ by DS0PR12MB999266.namprd12.prod.outlook.com (2603:10b6:8:426::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 20:39:12 +0000
+Received: from SN1PEPF0002636A.namprd02.prod.outlook.com
+ (2603:10b6:806:1bb:cafe::a4) by SA0PR11CA0168.outlook.office365.com
+ (2603:10b6:806:1bb::23) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Wed, 19
+ Aug 2026 20:39:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SN1PEPF0002636A.mail.protection.outlook.com (10.167.241.135) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.339.3 via Frontend Transport; Wed, 19 Aug 2026 20:39:11 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 15:39:11 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 19 Aug
+ 2026 15:39:11 -0500
+Received: from [172.19.71.207] (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
+ Transport; Wed, 19 Aug 2026 15:39:10 -0500
+Message-ID: <3d677570-2204-016c-efde-779b07e76538@amd.com>
+Date: Wed, 19 Aug 2026 13:39:10 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+Subject: Re: [PATCH v4 1/5] accel/amdxdna: refuse an I/O memory mapping of an
+ imported BO
+Content-Language: en-US
+To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, <mamin506@gmail.com>,
+	<ogabbay@kernel.org>
+CC: <christian.koenig@amd.com>, <sumit.semwal@linaro.org>,
+	<alexdeucher@gmail.com>, <max.zhen@amd.com>, <sonal.santan@amd.com>,
+	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
+References: <20260817230707.356828-1-taimuraz@kaitmazov.com>
+ <20260817230707.356828-2-taimuraz@kaitmazov.com>
+From: Lizhi Hou <lizhi.hou@amd.com>
+In-Reply-To: <20260817230707.356828-2-taimuraz@kaitmazov.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzMDC0NL3czcCmNTU93k5OLMtEpdC1OzZAtTA1Nz0zRDJaCegqLUtMwKsHn
- RSkFuzkqxEMHi0qSs1OQSkElKtbUAVQ+ouHYAAAA=
-X-Change-ID: 20260819-imx355-ccsify-856c850575f1
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7626; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=Kb/HQ6WuSE/P7jxZPeyXPYdrpcDOJkmCNEEtRhs5294=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqhg9KN3QVeimZ0uMcMRhOYh4MfsiqDL028DpoE
- nxAClKWkmqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaoYPSgAKCRBgAj/E00kg
- csE2D/4u2zwUSD4Qe7dwcH8NnKzU6krcYZuAWLdvByD5g8PFGZelS4OOD4mtFJYQ8/h2ndQQvZo
- DEi25kKeBlOHlQVA67MGESwQ/m2fMItgGMzTN6UsMe3iLLVA/4Rtd++vYa/Y6fVmnlqYABAeM9j
- eYKJBjZwOkhKuRhIUdyPkmduDX9dioLzER9m6IQHzZsnjCkDk9RJjsdlLEewPv1ac0XcsFY20qd
- rblusCaiw39/7fnMqRYdmRGbBbfaCwKRjdQiHidaJZZaEXvCzbmz1oGF5QC8YKmWP1YQh5wdiHW
- iBYBSrHA+V2kcjBeW/zFVFdgpVo3b6CB8ipFi/thRdlQluqXcar4mceKqzgnxY5ms0qYVk6ugCE
- Ihn1meLxZ/vtV/hPpgGFlUtKGuE8xkC3BvEG4yNfawZ4zxthYl7mcpVniD/tWJSI2dfx9Ny3v45
- zSqlx0JfA5stjEJYC16sPtArYJ01vfSSbNsV0Oots7XVJAw5LVW6A3/ryjG+nF9saH2xQk0NRDf
- 0KKfZxug8wDGdQveahFDPQAtNGFGxHfT++TrBhBP6zmk0njYN1Sxa1j8vDZtO5m0ZoqtQaTKbq7
- KoIMQHeBZAhhdeUqq1+sQXlxCc9rcMU/bcRNYRZeOyTaY1L0+zX6ZtyYGT+FCm0iX670POj9m98
- 7owwr16hhWel7Xg==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
-
-From: David Heidelberg <david@ixit.cz>
-
-The driver may not be MIPU CCS compliant, but does use same address and
-often set same values as compliant drivers. Do not define for every Sony
-imx* driver registers we already know and are standard.
-
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-I'm sending this as RFC, because we'll need to upstream at least 4 - 6
-drivers, which aren't compliant with MIPI CCS. Quirking these drivers in
-mipi-ccs would be pointless, thou we could at least simplify and unify
-what needs to be separate.
-
-Thanks for the feedback, just did few lines for the idea how the final
-changes will look like. Anything ambiguous will be left as is.
----
- drivers/media/i2c/imx355.c | 46 +++++++++++++++-------------------------------
- 1 file changed, 15 insertions(+), 31 deletions(-)
-
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 8eb8588cb71bb..57f7c70d18453 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -14,50 +14,34 @@
- #include <linux/unaligned.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-fwnode.h>
- 
--#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
--#define IMX355_MODE_STANDBY		0x00
--#define IMX355_MODE_STREAMING		0x01
-+#include "ccs/ccs-regs.h"
- 
--/* Chip ID */
--#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
- #define IMX355_CHIP_ID			0x0355
- 
--#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
--
- /* PLL registers that depend on the external clock frequency */
- #define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
- #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
--#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
- #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
- #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
- #define IMX355_PLL_OP_PREDIV		2
- #define IMX355_PLL_IVT_PCK_DIV		5
- 
- /* V_TIMING internal */
--#define IMX355_REG_FLL			CCI_REG16(0x0340)
- #define IMX355_FLL_MAX			0xffff
- #define IMX355_VBLANK_MIN		20
- 
--#define IMX355_REG_LLP			CCI_REG16(0x0342)
- #define IMX355_LLP_MAX			0xffff
- 
--#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
--#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
--#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
--#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
--#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
--#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
--
- /* Exposure control */
- #define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
- #define IMX355_EXPOSURE_MIN		1
- #define IMX355_EXPOSURE_STEP		1
- #define IMX355_EXPOSURE_DEFAULT		0x0282
- #define IMX355_EXPOSURE_OFFSET		10
- 
- /* Analog gain control */
-@@ -629,17 +613,17 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_EXPOSURE:
- 		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		/* Update FLL that meets expected vertical blanking */
--		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
-+		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
- 				format->height + ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
- 		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_HFLIP:
- 	case V4L2_CID_VFLIP:
-@@ -823,75 +807,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
- 	crop = v4l2_subdev_state_get_crop(state, 0);
- 	mode = v4l2_find_nearest_size(supported_modes,
- 				      ARRAY_SIZE(supported_modes),
- 				      width, height, fmt->width, fmt->height);
- 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
- 			    mode->reg_list.num_of_regs, &ret);
- 
- 	/* Set readout crop and size registers  */
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
- 		  &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
- 		  crop->width + crop->left - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
- 		  crop->height + crop->top - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
-+	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
- 
- 	binning_mode = ((crop->width / fmt->width) << 4) |
- 			(crop->height / fmt->height);
- 	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
- 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
- 	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
- 	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
- 
- 	/* Set PLL registers for the external clock frequency */
- 	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
- 		  imx355->clk_params->extclk_freq, &ret);
--	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
-+	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
- 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
- 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
- 		  lane_idx ? 2 : 1, &ret);
- 
- 	/* Set MIPI configuration */
--	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
-+	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
- 		  imx355->hwcfg->num_lanes - 1, &ret);
- 
- 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
- 		       imx355->hwcfg->num_lanes * 2;
- 	do_div(link_bitrate, 1000000);
- 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
- 		  &ret);
- 
- 	/* set digital gain control to all color mode */
- 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
- 
- 	/* set line length */
--	cci_write(imx355->regmap, IMX355_REG_LLP,
-+	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
- 		  imx355->hblank->val + fmt->width, &ret);
- 
- 	/* Apply customized values from user */
- 	if (!ret)
- 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
- 
--	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
-+	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
- 		  &ret);
- 
- 	return ret;
- }
- 
- /* Stop streaming */
- static int imx355_stop_streaming(struct imx355 *imx355)
- {
--	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
--			 IMX355_MODE_STANDBY, NULL);
-+	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
-+			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
- }
- 
- static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct imx355 *imx355 = to_imx355(sd);
- 	struct v4l2_subdev_state *state;
- 	int ret = 0;
- 
-@@ -931,17 +915,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- }
- 
- /* Verify chip ID */
- static int imx355_identify_module(struct imx355 *imx355)
- {
- 	int ret;
- 	u64 val;
- 
--	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
-+	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
- 	if (ret)
- 		return ret;
- 
- 	if (val != IMX355_CHIP_ID) {
- 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
- 			IMX355_CHIP_ID, val);
- 		return -EIO;
- 	}
-
----
-base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
-change-id: 20260819-imx355-ccsify-856c850575f1
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF0002636A:EE_|DS0PR12MB999266:EE_
+X-MS-Office365-Filtering-Correlation-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|1800799024|82310400026|23010399003|376014|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	Cn6vmydGRga99A7mxBHxGX8DTfrFb6lQNMb7G8jmbaU9FCXuf5Uu5jKG8XRryd0kzipTBRmlBYmWFLmcM7bhZhJLBvIxS6VryJPpOEhLGQyqsF4iSvIXWFl7o034zp3TUXB0e+kxhmKx1h1ZhYUM7eoo2hE0OF7YK/tfZ3OLRzxDqDzVskbE+zP2nq5CFXEWdK+w0fuoatBB43Ys6JqefAoWIRpuHYEH4Xb9YurQOYzq8uUFw8tlEU9yz2voiPUY4svqiZucpsnKifTG29lJyEsILbMbH6F9xWh12kKLPgJ4rjFKL+NlTLkkMY11DRQ98NgLUFKiMcJbOf0vutdpbFBK7j7b0Ro7L5mSVkvDQ+Ovx4LpKwlgJHip9efx+pFf6wUx1QnWc2z587DEADLr4CZv676yQsILQ6J9tHx7k7u5zuydB0TmpBBWrWMsfBgy0xgxkxz2PKVXm8PrXuHUnvxuRSzLQzo6P2nVwmyOmDkCiuqOhw/e0cFXcfcQ4EYE/ks971y1+oPs4JXRQywBLGyEAqaykVh0yB75auCYFKoljIw6LE/sA6Po1N5+NpMJqW+t4izbcG4EXpwtohEjz9CWXuGMq2PlgYBD3EUn1CklaoYVXOzRnm4xiTHlLsKz8ikDUBMpRmex+ErHB7rbxhYgRM1BtRYUKCY7J4Ew/nWOBmm7kkw/+g0VrY/ktybXfVo84//0zeOkhDSbo93O5Q==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(1800799024)(82310400026)(23010399003)(376014)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d4FTGwGHxeR+s/XxnomnclLXrAb/UHsCulWRwdGItNiPiaZr6106WUacw8ZwiJX6RSOF0UlTdzp6vzgnjvRzccUpTfkEaNwP9osyvMQNF+eXeRU1K/+OqaAbOaQexGe2qaz1WRnR0xcr6rZ9et8vlr47SXwKur73O3t8U0mFLja+O6Kqa+AxZrHd78YhFnY5GkoWu6CLK9LHpl4TEvOxbLdapJ9cmEdDBcBBcFV6AJz4NC9603Q3YGd4V8MhanqcMJ47X/01PPUodjJx4pbUmQfMgswezLgDqxec+4Hm63KzlBumbfLOGm+0U706MYU2Hv3lpkA7X1eArQog+ck+HNR/PMHi1zIUarLtZUqPXghQHdDUFKECMmeqG9gX22qiOpPGz9e3LsT8t4z9Lsl1fniZt1Sm7guiSXcVzqMb2vuryT43XYKjxOe93/9kXSAg
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 20:39:11.7259
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ec4dc8c7-4d48-484b-d25e-08defe31ed19
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF0002636A.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB999266
 
 
+On 8/17/26 16:07, Taimuraz Kaitmazov wrote:
+> amdxdna_gem_vmap() flattens the iosys_map drm_gem_vmap() fills in down to
+> the void * in abo->mem.kva, and iosys_map is discriminated by is_iomem, so
+> an exporter answering with an I/O mapping leaves a void __iomem pointer
+> there, which amdxdna_cmd_set_error() memsets and memcpys through.
+>
+> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
+> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
+> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
+> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
+> object, so an NPU paired with nouveau or radeon does.
+>
+> Drop such a mapping and answer NULL. Checking here rather than in the
+> .vmap callback leaves that callback's iosys_map contract intact for a
+> caller equipped to read I/O memory, and covers everything that takes a
+> plain kernel address through this helper. vmw_gem_vmap() refuses the
+> same case; unlike that one this path is reachable from an unprivileged
+> ioctl, so it neither warns nor logs at error level.
+>
+> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+> ---
+>   drivers/accel/amdxdna/amdxdna_gem.c | 9 +++++++--
+>   1 file changed, 7 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
+> index cca84fa07e9d..f88b5349cd4b 100644
+> --- a/drivers/accel/amdxdna/amdxdna_gem.c
+> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
+> @@ -209,10 +209,15 @@ void *amdxdna_gem_vmap(struct amdxdna_gem_obj *abo)
+>   
+>   	if (!abo->mem.kva) {
+>   		ret = drm_gem_vmap(to_gobj(abo), &map);
+> -		if (ret)
+> +		if (ret) {
+>   			XDNA_ERR(abo->client->xdna, "Vmap bo failed, ret %d", ret);
+> -		else
+> +		} else if (map.is_iomem) {
+> +			/* Callers use the result as an ordinary kernel address. */
+> +			XDNA_DBG(abo->client->xdna, "Vmap bo returned I/O memory");
+> +			drm_gem_vunmap(to_gobj(abo), &map);
+> +		} else {
+>   			abo->mem.kva = map.vaddr;
+> +		}
+Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
+>   	}
+>   	return abo->mem.kva;
+>   }
