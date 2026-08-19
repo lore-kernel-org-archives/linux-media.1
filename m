@@ -1,192 +1,226 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56A2847A868
-	for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 14:28:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787149698; cv=none; b=q6Z9RZ789J9J4HP1hqJ2hX7X7kBv588uVPZeg9PbKkrJmhrLGaSMSOnKUug3z5Ti0YVCO+/tBRNWnpB7yzqeE6dfRTdxgSn7A6jysy1qyAEn8F7Gcr4P9LdkVz9dbXGW6vOycoQcjOykyBTzuuIiGXampEYYLmcQjcU7oLi7VbY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787149698; c=relaxed/simple;
-	bh=NdR/r5cs4L7ZRKp84zLL5vTM42zkOs6f/D8Mq7IpFms=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=EUEt4Momo2tkZ0LO398DCQJSatB6epH6aMZj08SxleANqgcYEg/nK/RXXJ/lgCpnr+6P3ycIHhWsKnP4ebpIuhGb+iYfpIwlc0zBRcBIOiSPXG23SfMV5GzRi9GGFRFpLn8wg6PnFjecE0Q5Am2pbD1nYxVww1v200ppcDIQIsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QxLIa+Oi; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F373A0E8A
+	for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 14:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787150298; cv=pass; b=Fqc9vVGm02rkx08WVt4yCki8HgfmMQvz04Rk9TVmujxNiMyEZXEKphiVM/ot6Z8vYCYpGGIXsbHyP+vap9qLmF24taxZU94WbdS0tUrlKP7UD2l+q4rbI8vui1TDZ3q7f8jLGfPpFP0oTeQnU5J0i6YhDms6GjQXf5DwwTN8EfA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787150298; c=relaxed/simple;
+	bh=JOHfuMDahWJpprTXbJI3zSINoNZd4BLeLIcmol+bfrY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eS8hTUxbhIG1OcRAYaJTnIXegas4ElRPDY26snFmP4Cu65QXpuwxJVaAd27GhYwWBvNExPvmKTXGKMfO5My3YwNjVQ3G+tqz+3VWZA62oduO4HHgWOobImGV7hmeZexULbnIIxmBMnk9vagVfa01nRQG3d0grIC4aEoGsas9Uzg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GPeudUYz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IW1TE8yL; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QxLIa+Oi"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4954a9e8490so13972495e9.1
-        for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 07:28:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GPeudUYz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IW1TE8yL"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JEbM0t067610
+	for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 14:38:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=; b=GP
+	eudUYzAmwpt46XExjtHoL24a2I/8JX5JZHI9Hy6CbC7dO1tazpRAgFP+VcfrugoN
+	qQqsW9ubazohF9DaVxrl3s/LKRe5kznPmCK3LoVzh6vJ+iebuKHns765pvdU8/jk
+	Lx7WZ4bv8UVCBWYHz3m6v5/GnJT2VNZ0ww0LUj8Ylet1jPbTbGqxlh474I7MyGKO
+	RI1PPcRlaETWg5xn/0/ig7ssX0OVcLJI/cDW3vOkQPZjH9SybyNVUYXczHdUhTB5
+	BQOZ3N3z7a1vzgCS4xi5BbzZii7NWgVe1Zsvy1mFlVQsrVsTo6F9HCwWhsQoGkSA
+	JLDz4rujLqSxMRs9pEMA==
+Received: from mail-oo1-f70.google.com (mail-oo1-f70.google.com [209.85.161.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5e5d02k9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 14:38:13 +0000 (GMT)
+Received: by mail-oo1-f70.google.com with SMTP id 006d021491bc7-6afead7b341so727436eaf.3
+        for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 07:38:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787150292; cv=none;
+        d=google.com; s=arc-20260327;
+        b=b8dqWdXsl+2yjth9lzCypiEVM8VcNnQp+njYIUHVSZ1/0P/9Od7uBDrJ0KPUv73v9I
+         Y8wquNqjSEqBfxVLdsQqPsqZutpOTCjJmq95vz57CzacB1sHjTv1IDw/z23HxXfY/xPA
+         UPtXLVjMevTzM0f6uOfnKWFkVP3n36qu5Fd8dkFBBb50UeWw/959kK/7xmEDW6esCJFJ
+         ZIWRp1mAmh5krjeZimmQMpiOz0zrT1RbXo8JWEYfMoyG9ctGKUDTwKh04pKkVcUJdiXl
+         IIZpxmoRRiv8IIytiEw0NoWLpBaekSqeCp8OleS4U8RDMt0JZmSw9XASW6gQGj6lEo4V
+         GDdg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+        fh=s7qWikXMIEG0eclGuc+huanImRh5UqC/auCeub9nqSQ=;
+        b=FYghJOawrx7pwIKwjSIrivosOVuwfSnIyrgfraAXsBovdpXoBMM/AuUNvCBSILNhpr
+         VYGV9UpoTL1bLHZ935u6lEv+qW/0mStUb/44CnHpTQ0neYTv9CI2HYmf0+KgHcAURQZh
+         Z4kQp9oK90nljAPpqPDx7i1iuCzwV4VJoq5dh2oqPKWlgQU8ms1MmZvIPbvtZzBVCx/p
+         PxevYB9oNtb04gTyVERArHo3phe5/YS8rZzMK0DLxsZIxMr9zcXtqeaOCMWhTfWWQo6W
+         SBALdcIkC9z5cwqgpqX6W4IA+/q7v1v4vWuZuIiPx50pkSkdfSqotsoKOWYbiQm0ZOHY
+         8Svw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787149687; x=1787754487; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
+        d=oss.qualcomm.com; s=google; t=1787150292; x=1787755092; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=7un4O3L9YLxIWNurYwHJNMBBiutfCLK9e9so1V1Jlvw=;
-        b=QxLIa+OitKCiehiaW8mxC+S8O9Bk0pLa8p+pHr0hJLiHIUrdvCUDp88yASlfqcV1rl
-         iDACjBiExOwmH3OOSyiszg8ajWnQz7F0aYhZJpe9PrGDFixXOPZUBRrhduN9Sphuhk26
-         BiETZ0eeD28hElYFPhnQ6yocFtdcOHSRbaH4L9iiqiz6gSRxmOo9tmWbKTNQHIyy4y/3
-         ka1FJPYOiOgeGckslYXMo+WNqzNnoBlSaN52ZJc3cImwmMBjobxZ7w3noRdc+awt7SFN
-         f4KR5jVT2gG9M6FlE2HN8lgGRFGhv/qJgWc7/mxn1E2zZpdbqvdYhaoAxVQxCqTl+GoQ
-         46uA==
+        bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+        b=IW1TE8yLpJ8IycuVnjpM7XVKslaypCYN9D/g4mBRltkoFVqRboTt1T4fvSgl9dCK9E
+         8xcLgoeOKT3h1JlCMyOgcrd5D73jtqRabHDRkPT3pJbOfmXy8d4Rt5y0U+Cbny4HL5O2
+         lUyV4jfMu8XHlIhl2XbabZeFXx9HuVdLoRAoP2kzblnCK3Ulg4l0nFMIVuKsnBUwLr+W
+         ptGiSy+Fyn+zwLTDVNdcoYt7iDTeFBYhz6cQQ5dBJ/1X0ZPsSX7tn3fn9kQEh0nX2ihv
+         99GNZ1U/YHT3DJ2ojUxiq67rdeYK7WS2St8atV+15pDqh9/B708brwRCJXJYJ13Cw623
+         toQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787149687; x=1787754487;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787150292; x=1787755092;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7un4O3L9YLxIWNurYwHJNMBBiutfCLK9e9so1V1Jlvw=;
-        b=Em5khaBjPpt7mqz2CTsYPygkzLcx2hzVCQcj0of8rh1ujZG3EWyMQWl+iXULjtsRjx
-         nm0p+4YNJGPzThdJE1Z4keG2p7LeS4oyoB3wuuczqGfBh7U3r45Kgml5KtmCeWTS/hW7
-         Mc0esq0RceYSimNJOzgg36ywLv9UkRQGLscFu78E9Wwlpe71WsjObm+QDUYPtQDf5a/v
-         pYjbjWbUwCxQqv94dZ+u9JwVo8pKoBjqO3kvzF5c2DHkO9nbMAcf+28SwPMOhVWTI1/Z
-         GzYYYqweWSk0AVIGW9yIj5M4vE5rasv/TS5iDqR+dlp2DLUx1kOLaAcyoc2pAPisMYu0
-         gmeg==
-X-Forwarded-Encrypted: i=1; AHgh+RrqOaXTA1e+GwsscyK2VmwvNDcBnxGERMW8KD1dlikbENmslxEDPFB5ecEPqmbUYOW4i4v6nQAP+wEd0Q==@vger.kernel.org
-X-Gm-Message-State: AOJu0YynwDw+5eUurSMsdpmHFAuX2osc/jjMXnWM9rsMKIUboUNsWCWg
-	lWkMHuLLwFBvOydL09Y6FIUi/nCRcCvjOVVBo+fTn/vQ4EzDgOo18bL2
-X-Gm-Gg: AR+sD13AKrr22BDt1UJKMYUYl7rDhtAr1PYh7Zm2YBQfcEpu2vFyQsYI2XQ0yV/C3cN
-	nnNPxZ0zhk6xweV+BYh8FBMgm6Me7KvyA2V7YLmNn9xP/iHfR0cdDJ2U6+m34qy1Wq3GL5G4jxM
-	ZnvkkO00mSyg+lBP/AExpWg6+hS3tx+XXH1nOHtzyWnmijntzVILT53ACFw/ujgiek//evRqRvI
-	GgYE4DF6oSXxs7+CzDq4v2WCV8/wo/OKE10WRu7ZrVdytYEQoRcHSAjtsVZB7fnG3HdoA/492CU
-	h8nO3+uFaoFtGaq34+4A71v79R2q0ydZpICf3qhPQnT+I3EY2Zz/eIMbMRro1rSzXoDf2t4ZBgh
-	WqUFTGEejCOAkNuu0gg0h9mIbKyhNtjwvdntl8xL5HkKXQX0fVXhL+orkh7zwMRMXsvCoem+jH1
-	2vCZhrQy2cIrMqdopeD/opEPr7DiJXDq20pb906/xPpS7xe3cfDWdOpfKM/AbCoyqhx5FxUVqMU
-	ka80raIUrE1g3iPF4Wd92fSySLR1NBzwM6hE80SYx7B5yl+gGBI/sE=
-X-Received: by 2002:a05:600c:8b71:b0:499:5f80:83ac with SMTP id 5b1f17b1804b1-499aa100de8mr89119795e9.7.1787149686732;
-        Wed, 19 Aug 2026 07:28:06 -0700 (PDT)
-Received: from localhost (178.43.142.119.ipv4.supernova.orange.pl. [178.43.142.119])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9ddee1esm39709255e9.2.2026.08.19.07.28.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 19 Aug 2026 07:28:05 -0700 (PDT)
+        bh=OV4Etzi0F84EHavFR+Cnl8cEpGoAZCQzZFi7p8gpeMI=;
+        b=jwo0WCJ7DU3fh+g9Qoiyd/IngSnTlUF0SSvcmApzSLkGgBYKmfygHgHbnY+IuhNugh
+         M+OMv8Z+TPrPE3g+PZ9R+64C8k3bhQN6DLHPiuw7thaor0Zc88zUAeFO93xA4OUtXLZW
+         /OcoZtnjTdJk/4OFCUBMpR3kGzjW3TKTfqPSOwmQdbPGn8p1JXArT4pgF/s/QZ2ZtKON
+         ffRGrh24AFhrlaM6WxCi6HW9NoRllxeQTrqXEWecaLEDjRcZa5ZlMGX+GYjRzDSKjWMS
+         +fQkluyq6zjBnfi5DiXV5c7ztDURBW68p5/8YdBkdFddjAl2QaIq3kplx5qh5zHT5+FS
+         +6bA==
+X-Forwarded-Encrypted: i=1; AHgh+RqGZ063dk9jIYYGK1JyCoJn1UBoN3OEpR8EFK1aKqFvVlOYwSl8TwhN5LfjK4KRdLReBzOFz1yHOsblJg==@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx05PVoDPuFi56K+86DKglhbEcgEJgMfevCwTa8137ZKXyDfk8y
+	RpfhhdVCJPOBl1257fY2ZkT6rAewlRsEVZVOJVNNNxmtU1nLaEUnQtwvDtx4KdkdYP+TqLuhtRr
+	Bv6+7+O2HGRlx8aCYlUSF/ka5DPSTE2niKbxTCKL2QkQDiUY/+PXTFbQMELUPVXj1otahw/0g2W
+	4k4bOIta4IPPM85tITEeG0YKqMlNDyOapvDGD/ez/U
+X-Gm-Gg: AR+sD11fzFiWnEAYiNTUBTSmgjLfyVDfMI9vRVO+Zpl5dU+Zry5Ie8hbscksA3Ojs0i
+	82PzJQ7wrKLRMUIGrqiI5GNNYL4+huHczWdWCPZhlEvgVedE19CDJyxSu2dZ2+B6xl0B+44mT9i
+	Ao9WZ07khCQK7b70KGK31E3jzvX2xxjMil30XGj01vj/HrGWUO/Fy5qhGv
+X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id 006d021491bc7-6b13c69056emr3835925eaf.32.1787150292224;
+        Wed, 19 Aug 2026 07:38:12 -0700 (PDT)
+X-Received: by 2002:a05:6820:1ca2:b0:6ac:b1ae:6ce3 with SMTP id
+ 006d021491bc7-6b13c69056emr3835876eaf.32.1787150291802; Wed, 19 Aug 2026
+ 07:38:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org> <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
+ <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
+In-Reply-To: <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Wed, 19 Aug 2026 07:38:01 -0700
+X-Gm-Features: AcwNN1UJH0MueaAt4fuAnOTplgnMr9BZwDd-FRtcH8UIxmOIWCFCFvjMK1YdptU
+Message-ID: <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 19 Aug 2026 16:21:14 +0200
-Message-Id: <DKSZJMQ4KJ2W.1HB8IJEZ9WDFX@gmail.com>
-Cc: <mitrutzceclan@gmail.com>, <linux-media@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-staging@lists.linux.dev>, <linux-gpio@vger.kernel.org>,
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- "Martin Hecht" <Martin.Hecht@avnet.eu>, "Andrian Suciu"
- <Adrian.Suciu@analog.com>, "Cosmin Tanislav" <demonsingur@gmail.com>
-Subject: Re: [PATCH v15 16/22] media: i2c: maxim-serdes: add MAX96717 driver
-From: "Artur Andrzejczak" <andrzejczak.artur@gmail.com>
-To: "Dumitru Ceclan" <dumitru.ceclan@analog.com>, "Tomi Valkeinen"
- <tomi.valkeinen+renesas@ideasonboard.com>, "Mauro Carvalho Chehab"
- <mchehab@kernel.org>, "Sakari Ailus" <sakari.ailus@linux.intel.com>,
- "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>, "Julien Massot"
- <julien.massot@collabora.com>, "Rob Herring" <robh@kernel.org>,
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, "Greg
- Kroah-Hartman" <gregkh@linuxfoundation.org>
-X-Mailer: aerc 0.21.0
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
- <20260807-gmsl2-3_serdes-v15-16-7212e9e5156a@analog.com>
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-16-7212e9e5156a@analog.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfX7NSKFd15hBlc
+ 11z4ZUkpPnky9DN7vEZ1XP5HCZohsIAnyNEgG2+Ruem5swugVYURR86bFBLog3Edx/sOrrPOw6/
+ QscjCZfQKAUUEXVmDBmLnBNVIib2jKbpB0ZU0qj0WPPBo4sHcF+lWVtWeKuRq4dyd/A62wcqd18
+ c1neV6IZPNVrtIsP2VCc/CBQA98HtvhHgi88lS1AhKgTetzUFTSduL94vqVinnJCmF8tj3exm49
+ 4puPTBfB/sYA+7OnXhP/XMUHN69kWh/g4mZkSe5DipmwWMtEm2i9Agg0IBMUxRpOtrRWFTDwkj/
+ rhx2HrWRM1FlKO2kpeMPKdA5sAAkhRCsCQlw7CpHD7MDPRGu0oV7W2KHGUWeP2FWWartbC19d4Q
+ YXVRFihHUAuZZDwMRpjd63HEgk9Aa5CcVyBeQ81qgsMt0N9gnx3PHdxNK9JKB+TlvMFd1ABd8Nd
+ phO7VTx+VdFPs4rBosQ==
+X-Authority-Analysis: v=2.4 cv=cuOrVV4i c=1 sm=1 tr=0 ts=6a85bfd5 cx=c_pps
+ a=lkkFf9KBb43tY3aOjL++dA==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=YMgV9FUhrdKAYTUUvYB2:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=OXa2z63zbhD_Ho30eBkA:9 a=QEXdDO2ut3YA:10 a=k4UEASGLJojhI9HsvVT1:22
+X-Proofpoint-ORIG-GUID: 5qjN72anPlvxYxNw0mH8ElZiF5jG5qpe
+X-Proofpoint-GUID: 5qjN72anPlvxYxNw0mH8ElZiF5jG5qpe
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODE5MDExNCBTYWx0ZWRfXyH38wj6APnAx
+ rh+XxtpTvyR99nIiIHylyXIZOvx5GRGpBZgoh+2OKCEsJDYb3RWVV8sxHcN/tgvDz2x1bZJt+Ly
+ Ve2W8mzOgAN2ds1cuuJ5MkaRhoZDsKU=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_04,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
+ clxscore=1011 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608190114
 
-I only went through the clock, pinctrl and CSI-2 lane code, not the
-whole patch.
+On Wed, Aug 19, 2026 at 7:21=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 19/08/2026 15:26, Ekansh Gupta wrote:
+> > On 19-08-2026 00:43, Krzysztof Kozlowski wrote:
+> >> On 17/08/2026 06:47, Ekansh Gupta wrote:
+> >>> This patch series introduces the Qualcomm DSP Accelerator (QDA) drive=
+r,
+> >>> a DRM-based accelerator driver for Qualcomm DSPs. The driver provides=
+ a
+> >>> standardized interface for offloading computational tasks to DSPs fou=
+nd
+> >>> on Qualcomm SoCs, supporting all DSP domains.
+> >>>
+> >>> The QDA driver implements the FastRPC protocol over the DRM accel
+> >>> subsystem. It uses the same device-tree node structure as the existin=
+g
+> >>> fastrpc driver in drivers/misc/. The approach for binding the QDA dri=
+ver
+> >>> to device-tree nodes while coexisting with the fastrpc driver is an o=
+pen
+> >>> item described below.
+> >>
+> >> No. Grow/replace/improve existing driver instead of coming with a dupl=
+icate.
+> >>
+> >> That's a standard upstream requirement, basically given on every
+> >> upstreaming guide.
+> >>
+> >> Please watch old talk from Greg - "I Don=E2=80=99t Want Your Code!".
+> > Posted discussion threads here[1]. Would seek comments from Dmitry,
+> > Srini as well.
+> >
+> > [1]
+> > https://lore.kernel.org/all/3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qu=
+alcomm.com/
+>
+> The rest of the comments is still valid even if you did not acknowledge
+> them.
+>
+> Anyway, regarding above - again, watch the talk from Greg.
+>
+> You have ONE driver. Not two.
 
-On Fri Aug 7, 2026 at 3:02 PM CEST, Dumitru Ceclan wrote:
-> [...]
-> +	{ "maxim,jitter-compensation", MAX96717_PINCTRL_JITTER_COMPENSATION_EN,=
- 0 },
+Long term, moving to the common driver framework (which did not exist
+when fastrpc was first created) seems like a good thing.  But does
+that not allow for some transition period?  How can we get from here
+to there without otherwise breaking userspace?  Is there some other
+precedent elsewhere in other driver subsystems?
 
-The automated review already raised this: maxim,jitter-compensation is a
-boolean in the binding, so the property is present but zero length.
-Reading a zero-length property as a u32 gives -EOVERFLOW.
-pinconf-generic treats only -EINVAL as absent and substitutes the
-default above on any other error, so 0 lands.
-max96717_conf_pin_config_set_one() then takes the arg ? en_val : ~en_val
-branch with arg =3D=3D 0 and clears the bit. That means the property for
-enabling jitter compensation never sets this bit, and nothing else in
-the driver sets it either. Giving it a value does not help, since
-maxim,jitter-compensation =3D <1> is rejected by the schema.
-pinctrl-k210.c uses 1 for its boolean params. Should the default value
-here be 1 as well?
+I suppose drm exposing legacy fbdev on top of drm drivers is _sort of_
+a precedent if you squint a bit?  I'm not really familiar enough to
+say if that would be reasonable/possible in this case.
 
-> [...]
-> +	/* Configure a lane count. */
-> +	ret =3D regmap_update_bits(priv->regmap, MAX96717_MIPI_RX1,
-> +				 MAX96717_MIPI_RX1_CTRL_NUM_LANES,
-> +				 FIELD_PREP(MAX96717_MIPI_RX1_CTRL_NUM_LANES,
-> +					    num_data_lanes - 1));
+BR,
+-R
 
-max96717_init_phy() calculates num_data_lanes - 1 without
-checking for zero. The binding requires data-lanes, so this needs a
-non-conforming DT, but the driver removed in patch 21 still rejected it
-with "Invalid data lanes must be 1 to 4". Here num_data_lanes remains 0
-and the write sets 0b11, so the count becomes four, silently.
-max_ser_find_phys_config() compares num_data_lanes against the single
-{ 4 } entry in max96717_phys_configs, so zero passes there too. The
-automated review asked about the upper bound on this line, this is the
-lower one. Shall the range check come back?
-
-> [...]
-> +	val =3D FIELD_PREP(MAX96717_REF_VTG0_REFGEN_PREDEF_FREQ,
-> +			 predef_freq->val);
-> +
-> +	if (predef_freq->is_alt)
-> +		val |=3D MAX96717_REF_VTG0_REFGEN_PREDEF_FREQ_ALT;
-> +	if (!predef_freq->is_rclk)
-> +		val |=3D MAX96717_REF_VTG0_REFGEN_EN;
-> +
-> +	val |=3D MAX96717_REF_VTG0_REFGEN_RST;
-> +
-> +	ret =3D regmap_write(priv->regmap, MAX96717_REF_VTG0, val);
-
-max96717_clk_set_rate() sets REFGEN_PREDEF_FREQ and its ALT bit, but not
-the predefined frequency enable bit. The REF_VTG0 defines stop at
-PREDEF_FREQ. Bit 6 is not part of the composed value, and this is a full
-regmap_write(), so the write clears it. The driver removed in patch 21
-sets REFGEN_PREDEF_EN (BIT(6)) in its own write of that register, with
-the same encodings for the six rates the two tables share. Currently,
-that bit is left 0 on every rate that goes through REFGEN, including the
-24 MHz default programmed at probe. The datasheet has REFGEN_PREDEF_EN
-reset to 1, and describes REF_VTG4/5 as the feedback divider fraction
-used when predefined mode is disabled, which this driver never writes.
-Was that on purpose, or should it be set here too?
-
-> [...]
-> +static int max96717_register_clkout(struct max96717_priv *priv)
-> +{
-> +	struct device *dev =3D &priv->client->dev;
-> +	struct clk_init_data init =3D { .ops =3D &max96717_clk_ops };
-> +	int ret;
-> +
-> +	ret =3D max96717_mux_set_rclkout(priv, MAX96717_RCLK_MFP);
-> +	if (ret)
-> +		return ret;
-
-max96717_register_clkout() routes RCLKOUT to mfp4 and sets that pin to
-the fastest slew rate. It runs after max96717_gpiochip_probe(), which
-calls pinctrl_enable(), so at that time the pin setup from the max96717
-node itself has already been applied. The binding in patch 03 allows
-function =3D "rclkout" on mfp2, so a config that asks for the RCLK there
-gets it, but loses it a few lines later: max96717_mux_set_rclkout()
-clears RCLK_ALT for any group other than mfp2. A slew rate set on mfp4
-is overwritten the same way. Should this leave alone a mux state that
-pinctrl has already selected?
-
-Moreover, the driver names seven slew fields for eleven pins. The
-binding allows slew-rate on every pin, but max96717_get_pin_config_reg()
-returns -EINVAL for it on mfp5, mfp6, mfp9 and mfp10, so a slew-rate
-that passes the schema on one of those four makes pinctrl_select_state()
-fail. Another device pointing its pinctrl-0 at such a node fails to
-probe, since pinctrl_bind_pins() returns -EINVAL. On the max96717 node
-itself it does not: pinctrl_claim_hogs() logs the error and returns 0.
-Either way pinctrl_commit_state() stops at the failing setting, so the
-pin configs after it are never applied. Table 13 in the datasheet lists
-no pin slew for mfp5, mfp6, mfp9 and mfp10, so the driver looks right
-here. Should the binding restrict slew-rate to the seven pins that have
-the field?
-
-Kind Regards,
-Artur Andrzejczak
-
+> Best regards,
+> Krzysztof
