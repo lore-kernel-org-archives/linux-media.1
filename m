@@ -1,193 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051D73ACF18;
-	Wed, 19 Aug 2026 14:53:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B4947A875;
+	Wed, 19 Aug 2026 14:56:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787151208; cv=none; b=o/WaRn7u8OZwr4cPcm3vnis6MF0N79TDPka1I94AiorRAzo8HEkc75EfrlCjiKtAEfQq3hiVntQbcBzWZRZ44f9E1qbaP1t2FHGsq+eSdZ8trVZSoMDj/xGV2mmUF4STZCb1EREX2MlEfiriQR300vCjzrkzkQPUIza6fN4JAnI=
+	t=1787151411; cv=none; b=X0zDI/LwVBOdjl6US1c7rnp4+i72Ches2D8+WpdxGQTCpRLKkemeswBMFxZNfML2I/TsNZORJX1zuyD1dOGAMLNiLROgGri0Lp6RKY+RWQOc2NgJ7Y2o8H93BNw8GSIOliMeFRPjoJpVyA8t8qoY0IxhWJNiCDCUWVwexG0inQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787151208; c=relaxed/simple;
-	bh=QVcVWBaHPP43ECVAhtIVq7+L2mpEbVXEeS+wYVsb4A4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uITbxNY+mMaEBcvg9toq8bhs0cPtZp/tfJUgD7Mo0FRzrXm1KUr1YlOsly2pZQK1KFrkv6rVuR5r4FUFYGeCXH6fU6q8bgGw0C7xJk8a5kCQpi0EVUP8qMMKa/gnmDa9sc2AKZc07S4l4hGY2zdNGE88AaFzc08OWYffRaNrMWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1UBIQu0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787151411; c=relaxed/simple;
+	bh=FOm1i0Lfsfb1A6Zt1WGtl44whvkO3XeGfDcxRIW1PBE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P9Nvd7Io11wKVFM6u/JwsemEfWfXx5K1oe+6oFBP50dzNlYs+O373ai8hO+Nh2xsPnwb9P9TORRpqMiK4QEKey0vUxQByqvIbd6ZjbFr3n8N0SfeH6StMcxKbhja+Q5tmTuTEg7ODvgDO/YMHey0JgcWUcIeJcgAZTzoTQeOsEk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=IljBzVV1; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1UBIQu0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62D581F000E9;
-	Wed, 19 Aug 2026 14:53:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787151199;
-	bh=W2EIvkv9Nq32WWVSfwklxxGLToFHgsoCABwz/s4TkD8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=U1UBIQu0ssOyvURDZkHuUnjZuEGlsrJqH+xUIcNmnFhrxDmytdrcG/vlRO8tYBLj6
-	 aqTHL0o5ITTMnnX594JQNTXv+MufvSl1yUMQrjWHne9GuXU9iVu9mxGGsArKKzb176
-	 nAV9kSrU/uady8iPq9hruXqEGPaRFHL7Ta14QTBRSZqPni/Sg3luPYTUbmCXZB+rlw
-	 /dh+tWIKxtq9QR6Luk3IP16uffZVs1aNM0vuSO5LRXlDTRZd6Pjsq8cnoPDJV8KUx7
-	 qfPIRTYx2/XJaAmyplVAgid4AuAcJTuixmTA+GbD3MsD1+TVXrNnxCqOZc7IybUIEf
-	 eXzQ6wjkVY1Ig==
-Message-ID: <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
-Date: Wed, 19 Aug 2026 16:53:05 +0200
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="IljBzVV1"
+Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 84A4043;
+	Wed, 19 Aug 2026 16:55:16 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787151316;
+	bh=FOm1i0Lfsfb1A6Zt1WGtl44whvkO3XeGfDcxRIW1PBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IljBzVV1zv+zVcIoViz+ezrgAMoeYQfWV/PVmGLnlDy2SiA/mWtmQeFzr15KWvFp5
+	 ceN2OLdIxicVTcDurALybtpMTA2hgvcYcMfkSIYaRxmRFHcz9NG+1IhLVJ6egrWz+t
+	 Ab2bOdiYgH1GBFHwYmGsq8y8HpmoMe/HzuUuPObA=
+Date: Wed, 19 Aug 2026 16:56:33 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Michael Riesch <michael.riesch@collabora.com>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, stable@vger.kernel.org, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] media: v4l2-isp: reject zero-sized parameter blocks
+Message-ID: <aoXC2xL-J21mcxW9@zed>
+References: <20260818105642.65381-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
-To: rob.clark@oss.qualcomm.com
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, dmitry.baryshkov@oss.qualcomm.com,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-doc@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- llvm@lists.linux.dev, iommu@lists.linux.dev, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
- <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
- <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
- <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
- <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
- <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260818105642.65381-1-devnexen@gmail.com>
 
-On 19/08/2026 16:49, Rob Clark wrote:
-> On Wed, Aug 19, 2026 at 7:43 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>
->> On 19/08/2026 16:38, Rob Clark wrote:
->>> On Wed, Aug 19, 2026 at 7:21 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>
->>>> On 19/08/2026 15:26, Ekansh Gupta wrote:
->>>>> On 19-08-2026 00:43, Krzysztof Kozlowski wrote:
->>>>>> On 17/08/2026 06:47, Ekansh Gupta wrote:
->>>>>>> This patch series introduces the Qualcomm DSP Accelerator (QDA) driver,
->>>>>>> a DRM-based accelerator driver for Qualcomm DSPs. The driver provides a
->>>>>>> standardized interface for offloading computational tasks to DSPs found
->>>>>>> on Qualcomm SoCs, supporting all DSP domains.
->>>>>>>
->>>>>>> The QDA driver implements the FastRPC protocol over the DRM accel
->>>>>>> subsystem. It uses the same device-tree node structure as the existing
->>>>>>> fastrpc driver in drivers/misc/. The approach for binding the QDA driver
->>>>>>> to device-tree nodes while coexisting with the fastrpc driver is an open
->>>>>>> item described below.
->>>>>>
->>>>>> No. Grow/replace/improve existing driver instead of coming with a duplicate.
->>>>>>
->>>>>> That's a standard upstream requirement, basically given on every
->>>>>> upstreaming guide.
->>>>>>
->>>>>> Please watch old talk from Greg - "I Don’t Want Your Code!".
->>>>> Posted discussion threads here[1]. Would seek comments from Dmitry,
->>>>> Srini as well.
->>>>>
->>>>> [1]
->>>>> https://lore.kernel.org/all/3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com/
->>>>
->>>> The rest of the comments is still valid even if you did not acknowledge
->>>> them.
->>>>
->>>> Anyway, regarding above - again, watch the talk from Greg.
->>>>
->>>> You have ONE driver. Not two.
->>>
->>> Long term, moving to the common driver framework (which did not exist
->>> when fastrpc was first created) seems like a good thing.  But does
->>> that not allow for some transition period?  How can we get from here
->>> to there without otherwise breaking userspace?  Is there some other
->>> precedent elsewhere in other driver subsystems?
->>
->> Yes, Iris and Venus where we agreed for an exception (two drivers) as
->> long as new driver supports old hardware / features.
->>
->> This is not the case here, right?
->>
->>>
->>> I suppose drm exposing legacy fbdev on top of drm drivers is _sort of_
->>> a precedent if you squint a bit?  I'm not really familiar enough to
->>> say if that would be reasonable/possible in this case.
->>
->> Growing old driver does not look complicated itself. The only a bit
->> tricky thing is to present somehow exclusive interface to user-space,
->> like usage of one disables the second etc. Depending on actual
->> differences in that interface.
->>
->> But having a duplicated driver is a clear no go and it is well known
->> upstream requirement. Nothing new here.
-> 
-> Would it be acceptable as a first step to, by default (ie. when no
-> cmdline override/etc) for the new driver to bind to new compatibles
+Hi David
 
-You have one compatible.
+On Tue, Aug 18, 2026 at 11:56:42AM +0100, David Carlier wrote:
+> v4l2_isp_params_validate_buffer() walks the blocks of a parameters
+> buffer by adding block->size to the current offset, but never bounds
+> that size from below. A block with size 0 is not caught by the
+> block->size > buffer_size test, and the comparison against info->size
+> passes as well when the driver's type_info[] entry is an uninitialised
+> hole, both sizes being 0. The walk then makes no forward progress and
+> loops forever.
+>
+> Drivers build their type_info[] arrays with designated initialisers
+> indexed by their block type enumeration, so an enumerator left without
+> an entry leaves a zeroed hole rather than failing the build. Drivers
+> call the validator from vb2 .buf_prepare, so such a hole turns a
+> VIDIOC_QBUF on the parameters video device into an unkillable task
+> spinning with the queue mutex held.
+>
+> Reject a block smaller than its own header. A block's size includes its
+> header, so anything below that is malformed whatever the driver table
+> contains, and rejecting it is what keeps the walk moving. Blocks
+> carrying only a header to disable a block are exactly that size and
+> still pass.
+>
+> An empty type info entry can then no longer stall the walk, so skip
+> such a block instead of failing the whole buffer: drivers may reserve
+> uAPI block types they do not implement yet, and are free to ignore the
+> block when processing the buffer.
+>
+> Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> Signed-off-by: David Carlier <devnexen@gmail.com>
+> ---
+> v2:
+> - skip a block whose type info entry is empty instead of
+>   matching it against a zeroed entry, so a type the driver
+>   does not implement is ignored rather than failing the
+>   whole buffer (Jacopo)
+> - reworded the commit message, which no longer leans on
+>   rppx1: its missing AWBG_POST entry is being fixed at
+>   https://patchwork.linuxtv.org/project/linux-media/list/?series=29170
+>
+>  drivers/media/v4l2-core/v4l2-isp.c | 41 ++++++++++++++++++++----------
+>  1 file changed, 28 insertions(+), 13 deletions(-)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
+> index 1eb46e080afa..439477b2b941 100644
+> --- a/drivers/media/v4l2-core/v4l2-isp.c
+> +++ b/drivers/media/v4l2-core/v4l2-isp.c
+> @@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+>  			return -EINVAL;
+>  		}
+>
+> +		if (block->size < sizeof(*block)) {
+> +			dev_dbg(dev,
+> +				"Invalid block size %u at offset %zu\n",
+> +				block->size, block_offset);
+> +			return -EINVAL;
+> +		}
+> +
 
-> and the existing driver to old?  Ie. have both drivers but only one
-> binds on a given platform?
+This looks good
 
-I don't see how is it possible to write such DTS, because - repeating my
-question - how many hardware blocks is there? I believe only one per
-given DSP, so how could you have two device nodes?
+>  		if (block->size > buffer_size) {
+>  			dev_dbg(dev, "Premature end of parameters data\n");
+>  			return -EINVAL;
+> @@ -100,23 +107,31 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
+>  		}
+>
+>  		/*
+> -		 * Match the block reported size against the type info provided
+> -		 * one, but allow the block to only contain the header in
+> -		 * case it is going to be disabled.
+> +		 * An empty type info entry denotes a block type the driver
+> +		 * does not support. Skip the block, it is up to the driver to
+> +		 * ignore it when processing the buffer.
+>  		 */
+>  		info = &type_info[block->type];
+> -		if (block->size != info->size &&
+> -		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+> -		    block->size != sizeof(*block))) {
+> -			dev_dbg(dev,
+> -				"Invalid block size %u (expected %zu) at offset %zu\n",
+> -				block->size, info->size, block_offset);
+> -			return -EINVAL;
+> +		if (info->size) {
 
+This, however, makes me wonder: if userspace creates block of type
+'type' and the driver has a 0-initialized hole for that 'type',
+shouldn't we refuse the whole parameters buffer right away instead of
+ignoring the 'type' block ?
 
-Best regards,
-Krzysztof
+The reasoning is that drivers might have holes (I would argue they
+shouldn't, but as you noticed one already escaped us in rppx1) and if
+userspace sends a block for an un-handled type and we just ignore it,
+userspace can theoretically populate the block with garbage and nobody
+will notice. A few kernel version later that block type becomes
+supported and suddenly the configuration gets validated and possibly
+rejected, breaking a userspace application that used to work fine.
+
+What do you think ?
+
+> +			/*
+> +			 * Match the block reported size against the type info
+> +			 * provided one, but allow the block to only contain the
+> +			 * header in case it is going to be disabled.
+> +			 */
+> +			if (block->size != info->size &&
+> +			    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
+> +			    block->size != sizeof(*block))) {
+> +				dev_dbg(dev,
+> +					"Invalid block size %u (expected %zu) at offset %zu\n",
+> +					block->size, info->size, block_offset);
+> +				return -EINVAL;
+> +			}
+> +
+> +			if (info->block_validate &&
+> +			    info->block_validate(dev, block))
+> +				return -EINVAL;
+>  		}
+>
+> -		if (info->block_validate && info->block_validate(dev, block))
+> -			return -EINVAL;
+> -
+>  		block_offset += block->size;
+>  		buffer_size -= block->size;
+>  	}
+> --
+> 2.55.0
+>
