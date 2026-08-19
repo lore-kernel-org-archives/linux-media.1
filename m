@@ -1,449 +1,294 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from PNZPR01CU001.outbound.protection.outlook.com (mail-centralindiaazon11021075.outbound.protection.outlook.com [40.107.51.75])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C850921CC59;
-	Wed, 19 Aug 2026 12:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787143586; cv=none; b=gwp0aL76scHN7jtP/JEyhwAt8baMJQuyc9+gsm/mgOJA6+reD1kSVgLgUVzeX6NvSKWqgqkX1eey5hvQXx/YJS+K0oSyQ+gjVNzDDyadNjsR4T0Rfgpot669P9tPVstuGQ3Y3/ILSAXuxm+HzCWw7Eyi6nASLCDG2jDX91GQTXQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787143586; c=relaxed/simple;
-	bh=GhkXEFaq/NS7ZJS51N294NGsTsT3td9OqiJBMbrknKQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ejpjsvr7gCcNEz0xvY4Bu+q7i8GZ+/RCjXeQlaoF+shR0+moay6JJiLX9WGa9pLXW3STBKFlxL5+3Cs7YgNl9PrJXCHGjjLakqNnBH3BCDym8ZrW/I9FDeuaXypaqkN0w7APGsrCs6OnbkTaVRnBPqTo/0P0S+KxWomcCpk4+Pc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=c60JtS49; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94D3223708;
+	Wed, 19 Aug 2026 12:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.51.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787144238; cv=fail; b=TRKnop4Qgx4e/hRcqIbBhC/s5cUfzmRYZQn10Ev3TfTUAoYslREJwUOKQy46KMqDdnm5w6clW+QsDva1faKRBKOPFDh0vGL8g/kaAKu2rxSc3JkAFVq1J4Of1t1MuoDJNSAaSlUeMEW0SRrTqJ+Q8J8g2FCqbpfDFH/3Z4uoKmI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787144238; c=relaxed/simple;
+	bh=5ZeiJWPlQRYR4tqCPFOXtw3UCy1DzzrLLH7V+dxyt3I=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=qr1J/0OEZsQyu5tgfsby76SgoIGTRRPW+dwNc027yg6lFXciLzJbUmZtIN4hIFcnSRhpl0rgXsYAy09YnGoIZmgxCLHP7nYiYUDwVT/J/AYXwlGzyZb2w8u16w1+GUJUkw+dP5Sopl15gDHgX5aVAp9eoH0yHEE1DgLIf1gJVwY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io; spf=pass smtp.mailfrom=siliconsignals.io; dkim=fail (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b=G1HipSaU reason="key not found in DNS"; arc=fail smtp.client-ip=40.107.51.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=siliconsignals.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=siliconsignals.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="c60JtS49"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=tUgb1cSpQmg48mQ4LeBUx+FaaJ2tUQcxNw47rzDBl0M=; b=c60JtS49PMHVt+c/VQa3RMOhX9
-	JKyBgGVwi/gCexVHLprpOqe2nC4fd5r4AVyZ2bJeQRrsdS9yz5zjC8dqjXG3bDnn9ICBfrmfEuFFe
-	d4DeLFRKOxoRWHlDCtXYC7mPwlAdiaL8gR3CVuPEq6VAdsI7FS4FG33eydwTBpc7RXNPSyBML/nA5
-	d3hx4AGWwBOd4zClcdEpQBfTCT3x3jWSkvN4vq85KTbmdqAEas/djWDYFA3XQgvEednYBAjaMHFQg
-	s28+3zbULNM4zJXO6ivQr/9rZkfLYJLaNd7o/yfgXdoy8o86c/jq28mwCtvqXyZVSvHS2yefvUyyA
-	mayaMPOg==;
-From: Heiko =?UTF-8?B?U3TDvGJuZXI=?= <heiko@sntech.de>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
- Andrzej Pietrasiewicz <andrzej.p@collabora.com>,
- Hans Verkuil <hverkuil@kernel.org>, Chen-Yu Tsai <wenst@chromium.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lucas Sinn <lucas.sinn@wolfvision.net>,
- Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
- linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>
-Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
-Date: Wed, 19 Aug 2026 14:46:10 +0200
-Message-ID: <5715409.BjyWNHgNrj@diego>
-In-Reply-To: <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
-References:
- <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
- <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+	dkim=fail reason="key not found in DNS" (0-bit key) header.d=siliconsignals.io header.i=@siliconsignals.io header.b="G1HipSaU"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gPjXngqfx79XYAvPTrWZwbcHP5kPg7EjDc+S43l7iJWOsrSTaQSnh4qzLDeiXuiA+qnH/oO9KTarvDrzRtfchTJTzYpE1jxL8f/o/PglGOMuy3kSdwwpDiyJ4WXm2mWAzIt1h+JHflLVLnKX22X3UDFio8w4APz+xHmjDlhLbGpoMI/CmbCkzAzFca9VcTCkqxPVGqiOpnj7LC0rwLNLTfTIZ/YruaAJKU8f1HvNFiCV7NVTmSdfkQeq4tSJN7drDMywgiv4JZRt8s3xdmSp0u+7gFtQSG0Q7erCi1rw51XIMVDuDCgEehGzLwo1U2qAJEyMH2AXp27dy2npk9U8XQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FZ6MsJQQaAxS92hZsgzO2InvRmh8nTAWbTEd7cJgfdA=;
+ b=czzioNrCVRCWyFlLax/7JJE2Z22tyEjmJI/0N5AEwqOKX/Q7areuAreqhd4+V8hV54ZZlZXr4rMHUscfty3pR621zQqyRyOjbq3gG2bEDbpXggtRd/Go7AbTLMqSYWVjIQcbkpuKBAY8wVIP/D4vpl+rQ09e3XXx3P25ISTmsxytI0bJ7uU29S6ekHdqdM/+mD42qDPFCQSPeq28uvOO8Ui8zcfh9MvQojQzWqEXBdCvaKct4gcVXy4x7AsjwZFviIDbHve4SQJ2LTQY3k4OUIPTdP6yEBHv8/dMEpanDmdfxrQrDkfuv7GdAFdHkU3lxA89ACJazpfx9N62gi9JhA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=siliconsignals.io; dmarc=pass action=none
+ header.from=siliconsignals.io; dkim=pass header.d=siliconsignals.io; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=siliconsignals.io;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FZ6MsJQQaAxS92hZsgzO2InvRmh8nTAWbTEd7cJgfdA=;
+ b=G1HipSaUvekqb70ndmSxerJlIDWvGcGJ49jPcYPFNgOrKTzgTbA+LJbRHpNLHm6z9tHLIc45Hc81AMhNujCQNXqKGKf8beTlgb/Y2kTbTzerkBLtXy7kQJj04tjQHQcZYOCJ8BpqllO2vJGcn1cU0IRnjCkgMdryHX6tr0Xe/5uoCponA7rxproy38jd3lRjxGo9Pk69lfRCGWRvfTiQ/9mXw3QXXuumSEJv6ael7wROToym4Y4wWkgxGgrbPvMAZRehqB7LwmRA2Tdnsm0zN2dLlg8o16hwH2P2+EcjdRHHDlFJbDapFkQU32L6HZlv2IhIOtXHw5NUER2diA/Njw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=siliconsignals.io;
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM (2603:1096:c01:1b8::9)
+ by MA0P287MB0458.INDP287.PROD.OUTLOOK.COM (2603:1096:a01:c9::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Wed, 19 Aug
+ 2026 12:57:12 +0000
+Received: from PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432]) by PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ ([fe80::ebd8:538d:c705:8432%6]) with mapi id 15.21.0339.007; Wed, 19 Aug 2026
+ 12:57:11 +0000
+From: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+To: sakari.ailus@linux.intel.com
+Cc: jai.luthra@ideasonboard.com,
+	tarang.raval@siliconsignals.io,
+	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+	Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+	Xiaolei Wang <xiaolei.wang@windriver.com>,
+	Kate Hsuan <hpa@redhat.com>,
+	Walter Werner Schneider <contact@schnwalter.eu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/2] media: i2c: Add imx576 camera sensor driver
+Date: Wed, 19 Aug 2026 18:26:38 +0530
+Message-Id: <20260819125647.68910-1-himanshu.bhavani@siliconsignals.io>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0074.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:1b3::8) To PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:c01:1b8::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PN0P287MB2019:EE_|MA0P287MB0458:EE_
+X-MS-Office365-Filtering-Correlation-Id: f86e36cb-8957-4c83-4f6b-08defdf1622a
+X-LD-Processed: 7ec5089e-a433-4bd1-a638-82ee62e21d37,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|23010399003|7416014|52116014|376014|1800799024|366016|38350700014|6133799003|3023799007|56012099006|10067099003|5023799004|18002099003;
+X-Microsoft-Antispam-Message-Info:
+ tzlqv3t+ini8kGfizge4PMsZT6sAD3OQzcGorx8ZdsrYqQSoYQhGT3MD7mOX/yUg3QYIsaB8x9kusVt9xrpWvW9NSr1Twmd7ScSPv7xPPM6PN/CWDHIgVcbMN7MRnuO2Vw+Z2CgNT0Oof1BUShD896IosHSVQ637TDhkJQLwTl4LRqFtZM5s4omFkVdFH4L3hGA3MB8dYU0EkfrEZq5cMjP8sfUFODJyIqxf0Is/bcqdDSdnmcjVIvQs5W2uQn8Ytb8SQfIQjGYZmZ36b1S8exmayH4DcrsjXDiK4jCxn5rbtIKM2PYQCI/CcBFscfE4l8idYCZ5df05t8RNf3W3EM3R1qm+fWczd1KQErnElopemDpQC7b8XNcavajAkT/XlxaYZf3tMFxL9hx+ZnUusnGY9dgjLdO65bwR3GKGPwErJDFuArgHnf4kRZEdmBikb9cD/rebAw8AelddGPyukd0xIC34X7QbS/mBwwKNej8SYDO13vGsA5DWDnn5NcrBo4EX1XgStfJ0wwvN4C+G4jX8Xp1KjjvFeBsHN0BCaleZcfyk0e29t1/Iun5kRhPvMiu0RzGJ+EljG9+ojmjppBvLnFMheYMSdf+xQSfd+twV61UP2HwPzhke4oHsmlucgVwTfIdSlT2D7i+shndBNYOdB///BOSANw0T7kQN2lUFIKTG8h+cFOwGJk7um5dbtyEZWD1MhZduLsupW4pn6zQMj8yFN2QaU45dofiv9uA=
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PN0P287MB2019.INDP287.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(7416014)(52116014)(376014)(1800799024)(366016)(38350700014)(6133799003)(3023799007)(56012099006)(10067099003)(5023799004)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?BMqY8Z2/gJThabdrvmU/ac5/yD1YldoYFeLu9t63WikTq8vocVktnpB9P7TH?=
+ =?us-ascii?Q?8Lgu2XkNzAje5v88dbIcst1feoTS+JTaaF4Mlaz32iQTa/seW+h0r18+eSJz?=
+ =?us-ascii?Q?0KaTvpTxiV9wsFBEGyq59IALoHcLIv4SoaGJZGOfkjHGLQHdDd8/TO7RrYTX?=
+ =?us-ascii?Q?s8HjN2PT4c3FITISnmNKhN6/R/tI1yO/PXrQLqFfWHuSHvlFFdD/wVukVGA8?=
+ =?us-ascii?Q?TPDNol3PAnyAfLANwu3/fg6Wr/t5nRddjHcmoQhy3whTez9+6vz7DoTThuFr?=
+ =?us-ascii?Q?9osybw+KoLulRCi+p+13qt+IVL8ggED3JF+tSZ31ENKtbf3FTcenSO0E3xhm?=
+ =?us-ascii?Q?4lFv0QBIVmDdKpT3TVP9IfIuan6DuQ4xJntADwUFm4DdzRQEoIDhHNuVW7WX?=
+ =?us-ascii?Q?UtzkOyvc6dw45CAgUbRHPamgKLN6YSJxbSn9G/giw4OttKrl8/FD3geVTqRK?=
+ =?us-ascii?Q?GshnueI1MJtnuZDJnVRJTAxSJc4BE6yigTs53n3ves57fAXTjUt9/Q3UT5s7?=
+ =?us-ascii?Q?dwQhQm/OvwLKuxBiPhKp9/WloE0kE1pX1QZqg2p9QY1ErZ7HPTNpaPA017IZ?=
+ =?us-ascii?Q?FY6S4rH2nl85sXJ4YO2aLwswWjXau0OhGOdKBjaqmjwJTIXDg3oEDbb7RePQ?=
+ =?us-ascii?Q?FkmUeeP0cII1/IOpnpiA+9A/HYiSdzoXNfNp/W928FrrS8leT/DbYsC57F3V?=
+ =?us-ascii?Q?Vs9oIcln5AhP9nG+FkAbORQfp1UwPtkTHLe8/X97cBqW3kOBp2G5xKuW3+uZ?=
+ =?us-ascii?Q?mM6GQOsxgfJu/6Nk5SqOzqHiUOjzVn83NYOxYbF7rG7VUYtxhq6akW5P9RJh?=
+ =?us-ascii?Q?d7s+lhP7jOLyX11X9nOtkX7du1CYUqFiAulBCENmqs0LqXyGsfNvWnQsRCkx?=
+ =?us-ascii?Q?oBnrCcMjv22zkFY/7Ba69PDDVGc4nWOZuuu+eZ0CyHJbTraZapzprEOyFChB?=
+ =?us-ascii?Q?TwskvfcPTWObYDHPpSaFVjLK8RuXaM3RWzK4XVl0Hf3iEbpukOfPD1p39G94?=
+ =?us-ascii?Q?6jUhhKHFlqGEhjsAOtI5e5AHgZ5wDm3042Qkd29cUTKSM9TBz6uMLj+ot3RG?=
+ =?us-ascii?Q?xODA24rmrbI8FJFFsfWn72+8+8YryaRg4CXNTP05sXHkilhHuU97F7jCWyww?=
+ =?us-ascii?Q?4Flp4ybVmERZ0Dup7RhgprNHH/aLdfh/6zIikCBl4htWa1BZokldRGLLScem?=
+ =?us-ascii?Q?rasQcWBSEEOKII0MZr3uFD06gvkb830xFebWFuQMZ+Qk15S9uUFL0jJaSsli?=
+ =?us-ascii?Q?GhxLHpZMhgYP3gMafv8bI7qtYbGVdH9209E7kQazUHWhVoDHPtfqwFDPTVjC?=
+ =?us-ascii?Q?vpiBoL94sko5RZA1ksKzWbo1RY1qSSRpByuKRQYX7L45lufeYTRWQKjJfhmd?=
+ =?us-ascii?Q?/iXSREkyOJbm6z58bO++or+3YRjgc2t6+QhChRIDPtqQPDJoK5AprlvndV/D?=
+ =?us-ascii?Q?dXNFSG7qTHS9kL4QQaIc0h3ZVK4sX/SfKuHznn8iAdWrRU92jFe39nqm8mHl?=
+ =?us-ascii?Q?qgHanNyLb0fbVOLyW+mIyHk9dss/ykxUe8AJx4WwQXp/EkSRcnflvbYvp2Ta?=
+ =?us-ascii?Q?WU9UihzTiYy73Z4CuBJ8fGpmcg0piVtWN84SqE3jfAItko5SLIA7UocF4VnO?=
+ =?us-ascii?Q?La9rWhaF2VvEHPF1gV7xgIf9TJjbd8b5UHVIOAshlq+iPEZQu3+ZnM7vQ5Ya?=
+ =?us-ascii?Q?xI2gPeT1DMMLThGcIls0vKTM5wOz0V3PbFBw63yiY2XJew2e5OyKJ1DV938Y?=
+ =?us-ascii?Q?P8qSruJcG6YuPwi8V/pW0+LsEBr0ZtNuLpX5Hvxx/zBBnJBf6ePx?=
+X-OriginatorOrg: siliconsignals.io
+X-MS-Exchange-CrossTenant-Network-Message-Id: f86e36cb-8957-4c83-4f6b-08defdf1622a
+X-MS-Exchange-CrossTenant-AuthSource: PN0P287MB2019.INDP287.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 19 Aug 2026 12:57:11.0409
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7ec5089e-a433-4bd1-a638-82ee62e21d37
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: QQb0AZI7GCaESwqXF5CfyhP7+Z0MLI6ZHzeKtJr7KGLTvRccy5q9I60GaBYrOAeYjjFmwZLYG6ZdcPVvDfH5sVim5nO1fBKYtNW6vd5LwDNKQFAYcSVdVKzfPBFVe/GO
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MA0P287MB0458
 
-Hi,
+The following features are supported:
+- Manual exposure an gain control support.
+- vblank/hblank control support.
+- Supported resolution: 5760 x 4312 30fps (SRGGB10)
 
-Am Mittwoch, 19. August 2026, 12:37:34 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb Sascha Hauer:
-> From: Lucas Sinn <lucas.sinn@wolfvision.net>
->=20
-> Add support for the Rockchip VPU720 JPEG hardware decoder on RK3588
-> to the verisilicon hantro driver.
->=20
-> Hardware requirements:
-> - CPU-side JPEG header parsing via v4l2_jpeg_parse_header()
-> - DMA side buffer with Q-tables (zigzag->raster), Huffman mincode
->   and value tables
-> - VPU720-specific two-phase IRQ clear sequence
-> - 16-byte stream alignment with start-byte offset
-> - MCU-aligned PIC_H (e.g. 1080p YUV420 needs 1088, not 1080)
-> - FILL_DOWN_E on every NV12 conversion, the output chroma is vertically
->   subsampled so the hardware completes the bottom of the picture
-> - DRI (restart interval) support when present
->=20
-> Implementation adds:
-> - HANTRO_JPEG_DECODER codec and HANTRO_MODE_JPEG_DEC mode
-> - struct hantro_jpeg_dec_hw_ctx holding the Q/H table side buffer,
->   which is rebuilt from the frame header on every run
-> - src_needs_kmap and dst_needs_kmap flags for vb2_plane_vaddr() without
->   DMA_ATTR_NO_KERNEL_MAPPING
-> - a neutral chroma plane written by the driver for a grayscale frame.
->   The output format converter has no YUV400 path, so the hardware writes
->   the luma plane and leaves the chroma alone, which comes out green
-> - rockchip_vpu720_jpeg_dec_run() for parse/fill/program/kick
-> - rejection of a frame that carries no EOI marker, which is what a
->   source buffer too small for the frame looks like
-> - rejection of a frame larger than the negotiated capture format,
->   whose dimensions would otherwise be programmed against strides
->   taken from that format
-> - IRQ handler with detailed error diagnostics (REG32/33:
->   MCU position, error flags) and soft-reset
-> - AXI perf counter setup (REG30)
->=20
-> Exposes one V4L2 M2M device: JPEG input -> NV12 output.
->=20
-> Assisted-by: Claude:claude-opus-5
-> Signed-off-by: Lucas Sinn <lucas.sinn@wolfvision.net>
-> Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
-> ---
->  drivers/media/platform/verisilicon/Makefile        |   1 +
->  drivers/media/platform/verisilicon/hantro.h        |  17 +
->  drivers/media/platform/verisilicon/hantro_drv.c    |  17 +-
->  drivers/media/platform/verisilicon/hantro_hw.h     |  17 +
->  drivers/media/platform/verisilicon/hantro_v4l2.c   |  38 +-
->  .../verisilicon/rockchip_vpu720_hw_jpeg_dec.c      | 962 +++++++++++++++=
-++++++
->  .../platform/verisilicon/rockchip_vpu720_regs.h    | 261 ++++++
->  .../media/platform/verisilicon/rockchip_vpu_hw.c   |  80 ++
->  8 files changed, 1385 insertions(+), 8 deletions(-)
->=20
+This series depends on the SM6350 CAMSS support series
+https://lore.kernel.org/linux-arm-msm/20260216-sm6350-camss-v4-0-b9df35f87edb@fairphone.com/
 
-> diff --git a/drivers/media/platform/verisilicon/hantro.h b/drivers/media/=
-platform/verisilicon/hantro.h
-> index 0353de154a1ec..00e0f5981cca3 100644
-> --- a/drivers/media/platform/verisilicon/hantro.h
-> +++ b/drivers/media/platform/verisilicon/hantro.h
-> @@ -39,6 +39,7 @@ struct hantro_postproc_ops;
->  #define HANTRO_HEVC_DECODER	BIT(19)
->  #define HANTRO_VP9_DECODER	BIT(20)
->  #define HANTRO_AV1_DECODER	BIT(21)
-> +#define HANTRO_JPEG_DECODER	BIT(22)
->  #define HANTRO_DECODERS		0xffff0000
-> =20
->  /**
-> @@ -102,6 +103,19 @@ struct hantro_variant {
->  	unsigned int double_buffer : 1;
->  	unsigned int legacy_regs : 1;
->  	unsigned int late_postproc : 1;
-> +	/*
-> +	 * src_needs_kmap: when set, the source queue will be allocated with
-> +	 * a kernel virtual address so the driver can CPU-parse the bitstream
-> +	 * (e.g. for JPEG header parsing).
-> +	 */
+The driver has been tested on the mainline v7.0-rc6 kernel on the Fairphone 4 running postmarketOS.
 
-there is already a struct documentation present, so there is
-=2D no need to put that huge comment here, this can be shortened
-=2D the actual field-documentation is missing
+fairphone-fp4:~$ v4l2-compliance -d /dev/v4l-subdev21
+v4l2-compliance 1.32.0, 64 bits, 64-bit time_t
 
-probably true for more places
+Compliance test for device /dev/v4l-subdev21:
 
+Driver Info:
+	Driver version   : 7.0.0
+	Capabilities     : 0x00000000
+	Client Capabilities: 0x0000000000000002
+interval-uses-which
+Required ioctls:
+	test VIDIOC_SUDBEV_QUERYCAP: OK
+	test invalid ioctls: OK
 
-> +	unsigned int src_needs_kmap : 1;
-> +	/*
-> +	 * dst_needs_kmap: when set, the capture queue will be allocated with
-> +	 * a kernel virtual address so the driver can write the parts of a
-> +	 * frame the hardware does not produce (e.g. the chroma plane of a
-> +	 * grayscale JPEG).
-> +	 */
-> +	unsigned int dst_needs_kmap : 1;
->  	const struct of_device_id *shared_devices;
->  };
-> =20
-> @@ -115,6 +129,7 @@ struct hantro_variant {
->   * @HANTRO_MODE_HEVC_DEC: HEVC decoder.
->   * @HANTRO_MODE_VP9_DEC: VP9 decoder.
->   * @HANTRO_MODE_AV1_DEC: AV1 decoder
-> + * @HANTRO_MODE_JPEG_DEC: VPU720 JPEG decoder
+Allow for multiple opens:
+	test second /dev/v4l-subdev21 open: OK
+	test VIDIOC_SUBDEV_QUERYCAP: OK
+	test for unlimited opens: OK
 
-here it worked correctly, it seems.
+Debug ioctls:
+	test VIDIOC_LOG_STATUS: OK (Not Supported)
 
->   */
->  enum hantro_codec_mode {
->  	HANTRO_MODE_NONE =3D -1,
-> @@ -125,6 +140,7 @@ enum hantro_codec_mode {
->  	HANTRO_MODE_HEVC_DEC,
->  	HANTRO_MODE_VP9_DEC,
->  	HANTRO_MODE_AV1_DEC,
-> +	HANTRO_MODE_JPEG_DEC,
->  };
-> =20
->  /*
-> @@ -276,6 +292,7 @@ struct hantro_ctx {
->  		struct hantro_hevc_dec_hw_ctx hevc_dec;
->  		struct hantro_vp9_dec_hw_ctx vp9_dec;
->  		struct hantro_av1_dec_hw_ctx av1_dec;
-> +		struct hantro_jpeg_dec_hw_ctx jpeg_dec;
+Input ioctls:
+	test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
+	test VIDIOC_ENUMAUDIO: OK (Not Supported)
+	test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDIO: OK (Not Supported)
+	Inputs: 0 Audio Inputs: 0 Tuners: 0
 
-here the documentation for the new field is missing completely
+Output ioctls:
+	test VIDIOC_G/S_MODULATOR: OK (Not Supported)
+	test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
+	test VIDIOC_ENUMAUDOUT: OK (Not Supported)
+	test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
+	test VIDIOC_G/S_AUDOUT: OK (Not Supported)
+	Outputs: 0 Audio Outputs: 0 Modulators: 0
 
->  	};
->  };
-> =20
+Input/Output configuration ioctls:
+	test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
+	test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
+	test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
+	test VIDIOC_G/S_EDID: OK (Not Supported)
 
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_d=
-ec.c b/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_dec.c
-> new file mode 100644
-> index 0000000000000..81fd79911d694
-> --- /dev/null
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu720_hw_jpeg_dec.c
-> @@ -0,0 +1,962 @@
+Control ioctls:
+	test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
+	test VIDIOC_QUERYCTRL: OK
+	test VIDIOC_G/S_CTRL: OK
+	test VIDIOC_G/S/TRY_EXT_CTRLS: OK
+	test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
+	test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
+	Standard Controls: 12 Private Controls: 0
 
-> +	/*
-> +	 * REG2: system config =E2=80=93 always output NV12.
-> +	 *
-> +	 * FILL_DOWN_E belongs to the NV12 conversion rather than to a
-> +	 * particular pair of heights: the output chroma is vertically
-> +	 * subsampled, so the hardware has to complete the bottom of the
-> +	 * picture.  Two cases need it:
-> +	 *
-> +	 *  a) jpeg_height is not on an MCU boundary (e.g. YUV420 1080p:
-> +	 *     jpeg_height=3D1080, jpeg_height_aligned=3D1088, buf_height=3D108=
-8).
-> +	 *     The VPU720 needs FILL_DOWN_E to complete the last MCU row's
-> +	 *     chroma reconstruction.  Without it the bottom rows are corrupt
-> +	 *     even though PIC_H is already set to the MCU-aligned height.
-> +	 *
-> +	 *  b) MCU-aligned height < buf_height (e.g. YUV422 1080p: mcu_h=3D8,
-> +	 *     jpeg_height_aligned=3D1080, buf_height=3D1088).  The hardware fi=
-lls
-> +	 *     rows 1080..1087 by repeating the last valid row.
-> +	 *
-> +	 * A height that is a multiple of 16 leaves nothing to fill, but the
-> +	 * bit is set there as well: the reference driver enables it for every
-> +	 * NV12 conversion, whatever the picture and buffer heights are.
-> +	 *
-> +	 * FILL_RIGHT_E does the same for the right hand edge, but there it
-> +	 * depends on the mode.  The decoder writes whole MCUs, so the last
-> +	 * MCU column ends at ALIGN(jpeg_width, mcu_width) while the buffer is
-> +	 * 16 pixel aligned.  Only the 8 pixel MCU widths can stop short of
-> +	 * that and need the columns in between filled; a 16 or 32 pixel MCU
-> +	 * already reaches at least as far.  The reference driver arrives at
-> +	 * the same set through a per mode test on (width & 0xf) <=3D 8.
-> +	 */
-> +	reg =3D FIELD_PREP(VDPU720_YUV_OUT_FMT, VDPU720_YUV_OUT_FMT_NV12) |
-> +	      VDPU720_FILL_DOWN_E;
-> +	if (ALIGN(jpeg_width, mcu_width) < ALIGN(jpeg_width, 16))
-> +		reg |=3D VDPU720_FILL_RIGHT_E;
-> +	vdpu_write_relaxed(vpu, reg, VDPU720_REG_SYS);
-> +
-> +	/*
-> +	 * --- REG3: picture dimensions ---
+Format ioctls:
+	test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK (Not Supported)
+	test VIDIOC_G/S_PARM: OK (Not Supported)
+	test VIDIOC_G_FBUF: OK (Not Supported)
+	test VIDIOC_G_FMT: OK (Not Supported)
+	test VIDIOC_TRY_FMT: OK (Not Supported)
+	test VIDIOC_S_FMT: OK (Not Supported)
+	test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
+	test Cropping: OK (Not Supported)
+	test Composing: OK (Not Supported)
+	test Scaling: OK (Not Supported)
 
-can we have one consistent comment style please?
+Codec ioctls:
+	test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
+	test VIDIOC_G_ENC_INDEX: OK (Not Supported)
+	test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
 
-> +	 *
-> +	 * PIC_W stays at the raw header width while PIC_H is rounded up to
-> +	 * the MCU boundary.  Rounding the width up the same way is not safe:
-> +	 * mcu_width reaches 32 for YUV411, so ALIGN(jpeg_width, mcu_width)
-> +	 * can land beyond the 16 pixel aligned buffer width and point the
-> +	 * decoder past the end of a row.  FILL_RIGHT_E above covers the cases
-> +	 * where the MCU column stops short instead.  The reference driver
-> +	 * programs the raw width here too.
-> +	 */
-> +	vdpu_write_relaxed(vpu,
-> +			   FIELD_PREP(VDPU720_PIC_W_M1, jpeg_width - 1) |
-> +			   FIELD_PREP(VDPU720_PIC_H_M1, jpeg_height_aligned - 1),
-> +			   VDPU720_REG_PIC_SIZE);
-> +
+Buffer ioctls:
+	test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK (Not Supported)
+	test CREATE_BUFS maximum buffers: OK
+	test VIDIOC_REMOVE_BUFS: OK
+	test VIDIOC_EXPBUF: OK (Not Supported)
+	test Requests: OK (Not Supported)
+	test blocking wait: OK (Not Supported)
 
-[...]
-
-> +/*
-> + * vdpu720_fill_chroma - write neutral chroma for a grayscale frame.
-> + *
-> + * The output format converter has no YUV400 path: VDPU720_YUV_OUT_FMT_N=
-V12
-> + * only covers the subsampled colour modes, and for a single component f=
-rame
-> + * the hardware writes the luma plane and leaves the chroma plane untouc=
-hed.
-> + *
-> + * Fill the plane here, before the hardware is started: once the decode =
-is
-> + * running the interrupt can complete the job and hand the buffer to
-> + * userspace at any time.
-> + */
-> +static int vdpu720_fill_chroma(struct hantro_ctx *ctx,
-> +			       struct vb2_v4l2_buffer *dst_buf)
-
-[...]
-
-> +/**
-> + * rockchip_vpu720_jpeg_dec_init() - allocate the per-context DMA side b=
-uffer
-> + * @ctx:	context to allocate the Q/Huffman table buffer for
-> + *
-> + * Return: 0 on success, -ENOMEM if the buffer could not be allocated.
-> + */
-
-again comment style ( "/**", also the ctx line could use a blank line above=
- it)
-Seemingly one function before this the LLM did get it right?
-
-Same applies for repeats below.
-
-> +int rockchip_vpu720_jpeg_dec_init(struct hantro_ctx *ctx)
-> +{
-> +	struct hantro_dev *vpu =3D ctx->dev;
-> +	struct hantro_jpeg_dec_hw_ctx *jpeg_ctx =3D jpeg_dec_ctx(ctx);
-> +
-> +	jpeg_ctx->table_base.size =3D VDPU720_TABLE_BUF_SIZE;
-> +	jpeg_ctx->table_base.cpu  =3D
-> +		dma_alloc_noncoherent(vpu->dev,
-> +				      jpeg_ctx->table_base.size,
-> +				      &jpeg_ctx->table_base.dma,
-> +				      DMA_TO_DEVICE, GFP_KERNEL);
-> +	if (!jpeg_ctx->table_base.cpu)
-> +		return -ENOMEM;
-> +
-> +	return 0;
-> +}
-> +
-
-[...]
-
-> diff --git a/drivers/media/platform/verisilicon/rockchip_vpu720_regs.h b/=
-drivers/media/platform/verisilicon/rockchip_vpu720_regs.h
-> new file mode 100644
-> index 0000000000000..cae9052126be1
-> --- /dev/null
-> +++ b/drivers/media/platform/verisilicon/rockchip_vpu720_regs.h
-> @@ -0,0 +1,261 @@
-> +/* SPDX-License-Identifier: GPL-2.0 */
-> +/*
-> + * Rockchip VPU720 JPEG decoder register definitions
-> + *
-> + * Derived from downstream Rockchip MPP HAL (hal_jpegd_rkv_reg.h).
-> + * Copyright (C) 2020 Rockchip Electronics Co., Ltd.
-> + * Copyright (C) 2026 WolfVision GmbH
-> + */
-> +#ifndef ROCKCHIP_VPU720_REGS_H_
-> +#define ROCKCHIP_VPU720_REGS_H_
-> +
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/align.h>
-> +#include <linux/types.h>
-> +
-> +/* ------------------------------------------------------------------ */
-> +/* Register byte offsets from dec_base                                 */
-> +/* ------------------------------------------------------------------ */
-
-less dashed lines maybe? ;-)
-
-> +
-> +/* REG0: IP version / product ID */
-
-no need the same information when the register naming is obvious.
-Same for the below registers
-
-> +#define VDPU720_REG_VERSION		0x000
-> +#define VDPU720_PROD_NUM		GENMASK(31, 16)
-> +#define VDPU720_BIT_DEPTH		BIT(8)
-> +
-> +/* REG1: Interrupt control and status */
-> +#define VDPU720_REG_INT			0x004
-
-[...]
-
-> +/* ------------------------------------------------------------------ */
-> +/* Side-buffer layout for Q-tables and Huffman tables                  */
-> +/*                                                                     */
-> +/* The VPU720 JPEG decoder reads quantisation tables and Huffman       */
-> +/* tables from a contiguous DMA buffer with the following layout:      */
-> +/*                                                                     */
-> +/*   [0,         QTBL_SIZE):    Q-table data (u16, raster-scan order) */
-> +/*   [HMINCODE_OFF, +HMIN_SZ):  Huffman mincode table                 */
-> +/*   [HVALUE_OFF,  +HVAL_SZ):   Huffman value table                   */
-> +/* ------------------------------------------------------------------ */
-> +/* The Q-tables are per component, one entry each */
-
-again, the comment style is very strange
-
-[...]
-
-> @@ -816,3 +831,68 @@ const struct hantro_variant rk3588_vpu981_variant =
-=3D {
->  	.clk_names =3D rk3588_vpu981_vpu_clk_names,
->  	.num_clocks =3D ARRAY_SIZE(rk3588_vpu981_vpu_clk_names)
->  };
-> +
-> +/* ------------------------------------------------------------------ */
-> +/* RK3588 VPU720 JPEG decoder                                          */
-> +/* ------------------------------------------------------------------ */
-> +
-> +/*
-> + * Capture format: NV12.  The JPEG codec entry is listed last.
-> + */
-> +static const struct hantro_fmt rk3588_vpu720_dec_fmts[] =3D {
-> +	{
-> +		.fourcc    =3D V4L2_PIX_FMT_NV12,
-> +		.codec_mode =3D HANTRO_MODE_NONE,
-> +		.frmsize   =3D {
-> +			.min_width  =3D FMT_MIN_WIDTH,
-> +			.max_width  =3D VPU720_JPEGD_MAX_SIZE,
-> +			.step_width =3D MB_DIM,
-> +			.min_height =3D FMT_MIN_HEIGHT,
-> +			.max_height =3D VPU720_JPEGD_MAX_SIZE,
-> +			.step_height =3D MB_DIM,
-> +		},
-> +	},
-> +	{
-> +		.fourcc    =3D V4L2_PIX_FMT_JPEG,
-> +		.codec_mode =3D HANTRO_MODE_JPEG_DEC,
-> +		.max_depth  =3D 2,
-> +		.frmsize   =3D {
-> +			.min_width  =3D FMT_MIN_WIDTH,
-> +			.max_width  =3D VPU720_JPEGD_MAX_SIZE,
-> +			.step_width =3D VPU720_JPEGD_STEP,
-> +			.min_height =3D FMT_MIN_HEIGHT,
-> +			.max_height =3D VPU720_JPEGD_MAX_SIZE,
-> +			.step_height =3D VPU720_JPEGD_STEP,
-> +		},
-> +	},
-> +};
-> +
-> +static const struct hantro_codec_ops rk3588_vpu720_codec_ops[] =3D {
-> +	[HANTRO_MODE_JPEG_DEC] =3D {
-> +		.run   =3D rockchip_vpu720_jpeg_dec_run,
-> +		.reset =3D rockchip_vpu720_reset,
-> +		.init  =3D rockchip_vpu720_jpeg_dec_init,
-> +		.exit  =3D rockchip_vpu720_jpeg_dec_exit,
-> +	},
-> +};
-> +
-> +static const struct hantro_irq rk3588_vpu720_irqs[] =3D {
-> +	{ "vdpu", rockchip_vpu720_irq },
-> +};
-> +
-> +static const char * const rk3588_vpu720_clk_names[] =3D {
-> +	"aclk", "hclk",
-> +};
-> +
-> +const struct hantro_variant rk3588_vpu720_variant =3D {
-> +	.dec_fmts     =3D rk3588_vpu720_dec_fmts,
-> +	.num_dec_fmts =3D ARRAY_SIZE(rk3588_vpu720_dec_fmts),
-> +	.codec        =3D HANTRO_JPEG_DECODER,
-> +	.codec_ops    =3D rk3588_vpu720_codec_ops,
-> +	.irqs         =3D rk3588_vpu720_irqs,
-> +	.num_irqs     =3D ARRAY_SIZE(rk3588_vpu720_irqs),
-> +	.clk_names    =3D rk3588_vpu720_clk_names,
-> +	.num_clocks   =3D ARRAY_SIZE(rk3588_vpu720_clk_names),
-> +	.src_needs_kmap =3D 1,
-> +	.dst_needs_kmap =3D 1,
-> +};
-
-could you move the individual parts to the correct places in the file?
-All the other variants are clustered together, with their specific
-fmt, etc definitions being in other clusters above that.
+Total for device /dev/v4l-subdev21: 46, Succeeded: 46, Failed: 0, Warnings: 0
 
 
-Heiko
+V3 -> V4
+
+In Patch 2/3
+- Use CCS-supported registers.
+- Add corresponding CCS PLL calculations.
+- Remove registers already defined in ccs-regs.h.
+- Add more link frequencies support.
+
+- Dropped Patch 3/3 as per review, will push it after the binding lands in mainline/linux-next.
 
 
+V2 -> V3
+
+In Patch 1/3
+- Added required endpoint
+
+In Patch 2/3
+- Change the capturing to full active-area of 5760x4312, up to 30fps.
+- Replace mode table with imx576_program_window().
+- Added DT-configurable link frequency with PLL parameters.
+
+In Patch 3/3
+- Replace the hardcoded orientation <0> with <MEDIA_ORIENTATION_FRONT>.
+
+
+V1 -> V2
+
+In Patch 1/3
+- Rename regulator supplies to (vana, vdig, vif).
+
+In Patch 2/3
+- Rename link_freq array to avoid confusion with the link_freq control.
+- Use IMX576_EXPOSURE_STEP in exposure control range update.
+- Make cci_write() error handling consistent.
+- Return imx576_set_pad_format() result instead of return 0.
+- Initialize link_freq_index before creating the link frequency control.
+- Replace dev_err() with dev_err_probe().
+- Remove redundant comment.
+
+In Patch 3/3
+- Added the remaining supplies CSIPHYs (0-3).
+- Add comment for camera orientation property.
+- Move cam_mclk1_default{..} pinctrl definition to SoC SM6350 dtsi.
+
+
+Hardevsinh Palaniya (1):
+  dt-bindings: media: i2c: Add imx576 sensor
+
+Himanshu Bhavani (1):
+  media: i2c: add imx576 image sensor driver
+
+ .../bindings/media/i2c/sony,imx576.yaml       |  114 ++
+ MAINTAINERS                                   |    8 +
+ drivers/media/i2c/Kconfig                     |   10 +
+ drivers/media/i2c/Makefile                    |    1 +
+ drivers/media/i2c/imx576.c                    | 1103 +++++++++++++++++
+ 5 files changed, 1236 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx576.yaml
+ create mode 100644 drivers/media/i2c/imx576.c
+
+--
+2.34.1
 
