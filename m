@@ -1,111 +1,284 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B16503CFF49;
-	Wed, 19 Aug 2026 18:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60A89440651;
+	Wed, 19 Aug 2026 20:17:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787165051; cv=none; b=V1FCDTIr4uMi/YGYAZiab09Xsr1us1g+SyU4uBsL+e+UOFHek2cDcO+so6mD5/XLHHQN9fMAqkZ4sk+ty6YE3NVt+4Gan1ijW1q8oIbcFet0BqoNdLC7fdj+a4yEJVtK/RBzMxL5rlkNFhGd1TCwOcIxmg5WecbmEDM2uV76Lck=
+	t=1787170636; cv=none; b=jszSVrvjAeAMC787I6OYDeLJerPo+StPsZ8u3Wd2Hig33IAoYOOMNdC+ivcuUvCsgaghiNhhRr1R62+gZ7t3byDy1JpFBb1sy842JPbRKbRk2POAqqefLNbPki3aOuU60qA1rbaFVRUTOoJXpftRgEm8js2WoNEuPd7UUfT8dKo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787165051; c=relaxed/simple;
-	bh=SPqqymPJpQ8qpN1NTi30aQGwdWihw4xicyFwV5Rmqys=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZbNcX60BzflQjhRh/NFS3EKl+7RyilvclCYhHZLLNw5qDGDxsYKa6ewZ7hWOMWxKzUBD1GvR/9UGJlWkqW8Xo16dcfgd5Pwj/g5FejHfGYcks1/KXO0e7a3srq2QuWvZ8Uo80GtNIzDJrEVm8bcu1GJnYhq+/o0yxxyjNarX4rc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=M8wpUYm9; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787170636; c=relaxed/simple;
+	bh=8KDt+AF3Aq2SfgklXWlogeWNbbc6RtM4RboHKV9BijM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=kp1jSRYlaXZ/e1L0fMinl8tecHnEyFQE9YVwamRE+N3uMJWH3v038qkytM9wGHAZssutwjQwfLf/IPzJhi5YE8330RYiLbrciSE0km942vP+nhH5CCP4Y5xGxdEz5JMcfdT6XeT6IWQ2kOXR9s79uISuy88hFaq0e6XubZTjNQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UgPngBK5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="M8wpUYm9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787165048; x=1818701048;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SPqqymPJpQ8qpN1NTi30aQGwdWihw4xicyFwV5Rmqys=;
-  b=M8wpUYm9HCoBOeqcN7Ukk2nDKWDXEQ7I6QWDTZJY3Kb9XomxDXis5AAn
-   eO7jOwUV1fXpaFjq/IhcGzOp9rDu3xnmWuTAehWlXP8fw5i0+b1L+4+t1
-   YC41t/6ciU7ERdyz7l586oBcIddGKNxJg+sWNykRVP4PzINE5P0TvYSD0
-   rsi7odai+yA6X+KSYzphTFawqZfk23+1zRTyuE2O7n/z7aC6DxyD9OHYP
-   VnsqFrhGzSttgTLOtJTtonSt8q4gWgofg4IiyReUTBqE6x0QZFnXecKZF
-   9TWL4B+VJcKY+Z212NQOIkRBArMuwpPVsCyUoy9KqoY5WY6Bm+/Nr4nlT
-   g==;
-X-CSE-ConnectionGUID: k+99TTTCRAGUg296Yp8nbg==
-X-CSE-MsgGUID: 5sr7q2QdS0aayl2k4JQHhg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11880"; a="105227712"
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="105227712"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 11:44:06 -0700
-X-CSE-ConnectionGUID: MZHHGdFxSqSRYfOGnsx8QQ==
-X-CSE-MsgGUID: WXEHwwssTXudH82EEn0yJA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,231,1779174000"; 
-   d="scan'208";a="303844187"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.244.106])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Aug 2026 11:44:02 -0700
-Date: Wed, 19 Aug 2026 21:43:59 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v7 1/5] platform/x86: intel_lpss: add resource conflict
- quirk for Dell Latitude 5285
-Message-ID: <aoX5bwRdqLTo_UKL@ashevche-desk.local>
-References: <ae8U0JBdSaPgU-Zl@kekkonen.localdomain>
- <20260819140107.1329091-1-tchatard@gmail.com>
- <20260819140107.1329091-2-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UgPngBK5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EC29CC2BCC7;
+	Wed, 19 Aug 2026 20:17:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787170636;
+	bh=8KDt+AF3Aq2SfgklXWlogeWNbbc6RtM4RboHKV9BijM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=UgPngBK59w0ykJUxUMeWgLVX2+Oa8YSoR1NctGYKhKQgkzS2d4t0ZBJOehf+eLTBf
+	 L0jihFCcmRXolNeIgdpctPMvyEFwaoBRzqeodT1YjD/PnGduWG4UAJhAqLeTS9OHT+
+	 asMacWKD4+ee8pw8ujKPclSR/4UrY9khJwt/Axr7w4ZiZypsAWUldYQwJ/3eLaTzew
+	 KMCj05D8wZTff4y9MtGoefW4W6XwSDnBOenSb6CjVSH/eF5P0N9Qc+GhWyddsLptHg
+	 XuWjSojAVdhmvG2EFT4rFALZ6gudfsvqtwO62obb3XwknVRsYKX7DjMNj2pVFvNFBQ
+	 ntiRf6SCWoe8w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id C38D7C5B572;
+	Wed, 19 Aug 2026 20:17:15 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 19 Aug 2026 22:17:08 +0200
+Subject: [PATCH RFC] media: imx355: reuse existing CCS defines
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819140107.1329091-2-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDC0NL3czcCmNTU93k5OLMtEpdC1OzZAtTA1Nz0zRDJaCegqLUtMwKsHn
+ RSkFuzkqxEMHi0qSs1OQSkElKtbUAVQ+ouHYAAAA=
+X-Change-ID: 20260819-imx355-ccsify-856c850575f1
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=7626; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=Kb/HQ6WuSE/P7jxZPeyXPYdrpcDOJkmCNEEtRhs5294=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqhg9KN3QVeimZ0uMcMRhOYh4MfsiqDL028DpoE
+ nxAClKWkmqJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaoYPSgAKCRBgAj/E00kg
+ csE2D/4u2zwUSD4Qe7dwcH8NnKzU6krcYZuAWLdvByD5g8PFGZelS4OOD4mtFJYQ8/h2ndQQvZo
+ DEi25kKeBlOHlQVA67MGESwQ/m2fMItgGMzTN6UsMe3iLLVA/4Rtd++vYa/Y6fVmnlqYABAeM9j
+ eYKJBjZwOkhKuRhIUdyPkmduDX9dioLzER9m6IQHzZsnjCkDk9RJjsdlLEewPv1ac0XcsFY20qd
+ rblusCaiw39/7fnMqRYdmRGbBbfaCwKRjdQiHidaJZZaEXvCzbmz1oGF5QC8YKmWP1YQh5wdiHW
+ iBYBSrHA+V2kcjBeW/zFVFdgpVo3b6CB8ipFi/thRdlQluqXcar4mceKqzgnxY5ms0qYVk6ugCE
+ Ihn1meLxZ/vtV/hPpgGFlUtKGuE8xkC3BvEG4yNfawZ4zxthYl7mcpVniD/tWJSI2dfx9Ny3v45
+ zSqlx0JfA5stjEJYC16sPtArYJ01vfSSbNsV0Oots7XVJAw5LVW6A3/ryjG+nF9saH2xQk0NRDf
+ 0KKfZxug8wDGdQveahFDPQAtNGFGxHfT++TrBhBP6zmk0njYN1Sxa1j8vDZtO5m0ZoqtQaTKbq7
+ KoIMQHeBZAhhdeUqq1+sQXlxCc9rcMU/bcRNYRZeOyTaY1L0+zX6ZtyYGT+FCm0iX670POj9m98
+ 7owwr16hhWel7Xg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-On Wed, Aug 19, 2026 at 04:01:03PM +0200, Thierry Chatard wrote:
-> The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
-> and the I2C4 controller (INT3446) both claim the same MMIO region via the
-> shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
-> with -EBUSY, preventing the front camera (OV5670) sensor from being
-> registered.
-> 
-> Add a DMI quirk that selects IGNORE_RESOURCE_CONFLICTS for INT3446 on this
-> machine, matching the existing pattern used by other LPSS quirks.
+From: David Heidelberg <david@ixit.cz>
 
-You replied to the same thread as all previous versions: don't do like this.
-The below seems doesn't follow comments from me given against v1, why?
-With all this, please, go to the whole thread, read all comments, address them,
-or reply why you disagree.
+The driver may not be MIPU CCS compliant, but does use same address and
+often set same values as compliant drivers. Do not define for every Sony
+imx* driver registers we already know and are standard.
 
-Also v8 requires a cover letter.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+I'm sending this as RFC, because we'll need to upstream at least 4 - 6
+drivers, which aren't compliant with MIPI CCS. Quirking these drivers in
+mipi-ccs would be pointless, thou we could at least simplify and unify
+what needs to be separate.
 
-...
+Thanks for the feedback, just did few lines for the idea how the final
+changes will look like. Anything ambiguous will be left as is.
+---
+ drivers/media/i2c/imx355.c | 46 +++++++++++++++-------------------------------
+ 1 file changed, 15 insertions(+), 31 deletions(-)
 
-> +	if (acpi_dev_hid_uid_match(ACPI_COMPANION(&pdev->dev),
-> +				   "INT3446", NULL) &&
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 8eb8588cb71bb..57f7c70d18453 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -14,50 +14,34 @@
+ #include <linux/unaligned.h>
+ 
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
+ 
+-#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
+-#define IMX355_MODE_STANDBY		0x00
+-#define IMX355_MODE_STREAMING		0x01
++#include "ccs/ccs-regs.h"
+ 
+-/* Chip ID */
+-#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
+ #define IMX355_CHIP_ID			0x0355
+ 
+-#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
+-
+ /* PLL registers that depend on the external clock frequency */
+ #define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
+ #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
+-#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
+ #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
+ #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
+ #define IMX355_PLL_OP_PREDIV		2
+ #define IMX355_PLL_IVT_PCK_DIV		5
+ 
+ /* V_TIMING internal */
+-#define IMX355_REG_FLL			CCI_REG16(0x0340)
+ #define IMX355_FLL_MAX			0xffff
+ #define IMX355_VBLANK_MIN		20
+ 
+-#define IMX355_REG_LLP			CCI_REG16(0x0342)
+ #define IMX355_LLP_MAX			0xffff
+ 
+-#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
+-#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
+-#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
+-#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
+-#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
+-#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
+-
+ /* Exposure control */
+ #define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
+ #define IMX355_EXPOSURE_MIN		1
+ #define IMX355_EXPOSURE_STEP		1
+ #define IMX355_EXPOSURE_DEFAULT		0x0282
+ #define IMX355_EXPOSURE_OFFSET		10
+ 
+ /* Analog gain control */
+@@ -629,17 +613,17 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_EXPOSURE:
+ 		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		/* Update FLL that meets expected vertical blanking */
+-		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
++		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
+ 				format->height + ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_TEST_PATTERN:
+ 		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_HFLIP:
+ 	case V4L2_CID_VFLIP:
+@@ -823,75 +807,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	crop = v4l2_subdev_state_get_crop(state, 0);
+ 	mode = v4l2_find_nearest_size(supported_modes,
+ 				      ARRAY_SIZE(supported_modes),
+ 				      width, height, fmt->width, fmt->height);
+ 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+ 			    mode->reg_list.num_of_regs, &ret);
+ 
+ 	/* Set readout crop and size registers  */
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
++	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+ 		  &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
++	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+ 		  crop->width + crop->left - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+ 		  crop->height + crop->top - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
++	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
++	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
+ 
+ 	binning_mode = ((crop->width / fmt->width) << 4) |
+ 			(crop->height / fmt->height);
+ 	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
+ 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
+ 
+ 	/* Set PLL registers for the external clock frequency */
+ 	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
+ 		  imx355->clk_params->extclk_freq, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
++	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+ 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+ 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+ 		  lane_idx ? 2 : 1, &ret);
+ 
+ 	/* Set MIPI configuration */
+-	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
++	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+ 		  imx355->hwcfg->num_lanes - 1, &ret);
+ 
+ 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
+ 		       imx355->hwcfg->num_lanes * 2;
+ 	do_div(link_bitrate, 1000000);
+ 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
+ 		  &ret);
+ 
+ 	/* set digital gain control to all color mode */
+ 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
+ 
+ 	/* set line length */
+-	cci_write(imx355->regmap, IMX355_REG_LLP,
++	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+ 		  imx355->hblank->val + fmt->width, &ret);
+ 
+ 	/* Apply customized values from user */
+ 	if (!ret)
+ 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
+ 
+-	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
++	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
+ 		  &ret);
+ 
+ 	return ret;
+ }
+ 
+ /* Stop streaming */
+ static int imx355_stop_streaming(struct imx355 *imx355)
+ {
+-	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+-			 IMX355_MODE_STANDBY, NULL);
++	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
++			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+ }
+ 
+ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct imx355 *imx355 = to_imx355(sd);
+ 	struct v4l2_subdev_state *state;
+ 	int ret = 0;
+ 
+@@ -931,17 +915,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ }
+ 
+ /* Verify chip ID */
+ static int imx355_identify_module(struct imx355 *imx355)
+ {
+ 	int ret;
+ 	u64 val;
+ 
+-	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
++	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+ 	if (val != IMX355_CHIP_ID) {
+ 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
+ 			IMX355_CHIP_ID, val);
+ 		return -EIO;
+ 	}
 
-This should be rather in the ACPI ID table, so the respective match function,
-see how intel-lpss-pci.c organises quirks.
+---
+base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+change-id: 20260819-imx355-ccsify-856c850575f1
 
-> +	    dmi_check_system(dell5285_lpss_dmi)) {
-> +		dev_info(&pdev->dev, "Dell 5285: applying IGNORE_RESOURCE_CONFLICTS for I2C4\n");
-
-No. Message has to be generic (and not here, but where quirk is really being
-applied, in intel-lpss.c).
-
-> +		data = &spt_i2c_info_ignore_conflicts;
-> +	}
-
--- 
-With Best Regards,
-Andy Shevchenko
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
