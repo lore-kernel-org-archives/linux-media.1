@@ -1,248 +1,251 @@
-Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EEF2139C9
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5F3C377AAB
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787235336; cv=pass; b=UFcRh/XtzchQydkTFin4n8Q+D9obuJGkl8Ntf0bhtaCwoAsdnBwslB+N9qTmF6XMdeRpE4vQIkdkyMh77gkGenrlMV8LmwslKoQlZ9FgmTGhb64YhNQn0zgryFvlBYHS1g1Yu6RqmPL2UhYgvUVdQRrZuLoEIKVCybMvVq4y8LI=
+	t=1787237281; cv=pass; b=WiRc7DUIg5bdUmQr1Vp/yA93/WK9d9uoEU0VCvc5C5Rc1X2j6Fx2q8ugHrGobWw8IK/vtLxo+G5FxETaxNopt9bqXvdYlyBZjMhUl++Gid236MAn+hpuunDY1kgV/rSbYDstk0fYDSL4i1p49eUv712tXZxoiea+xOVGVo06aKY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787235336; c=relaxed/simple;
-	bh=fVDI9qUr0qMP1TyCb6Rht+fdKuU++t9fRjNPPJhK6Gc=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ZEuDGJw4WL8iXCU+2+ZAcq5Ln/sHdZw8kyL2504171DU7uXkk2748YxFeGe9EwCherVmg47q+xvA3wRMSd52s5XyqUw2+ZzI/vlEr+opUk5F3uGlRVmYXZWwmsbgvkHJfPIPoN8uhEAicsgA6PjRXJalLhgSrnRgxQxD+/nNKCU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNH5OuwE; arc=pass smtp.client-ip=74.125.224.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787237281; c=relaxed/simple;
+	bh=Tj982Jh94LhkkenOX9KGGw0zBOx2N1w5l+SjfXMkOqo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EFYGJTkARi1d2UBqFos1uKhjLbrwMI38kfhbgVBL80KyBQJNKbp+pLnjsoDop+GnPTMR9sJYBIjmquPtesnT9tO2OWyxXI4pwWq+FpxbuMYyGVRuC5PK5jHqh9w85OJPPHHeXoxrg701EZdze8PvOBBH9QEGXQFlDYeld+x05+w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kIlzaYIa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=d0eiacJQ; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNH5OuwE"
-Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66ca4bdccfaso3646050d50.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 07:15:33 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787235333; cv=none;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kIlzaYIa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="d0eiacJQ"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KE7ZOV3559864
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:47:57 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=yLR4KHznvXfb+H7PWHV2AIGDk1Msa3uBxnhAbjxWO9s=; b=kI
+	lzaYIaMnkLJeut0wYrwIzKu5PkJIhncQceAOkWy0QZ+en9V0SahIzZBQ/Wppo6XS
+	e2OQQ5dsjGw+/0JN2opJpNdUhvJFbKpEBa4Yuah5jDSD2nB3EMLkmNDZBsY/qOOV
+	/uQz6ezGkCfPLaPqCmNE8Yw/T7lIY2GCG7Dur4QGFPGdOqUX4q3ePnNlzPAfd8hg
+	w18DDIJ6pn6sBlpf83trCcQyPoUfNxwHqlpgKCOy7oJuJIctvvy46DW3hPkN0x0/
+	nqY3CHwpMb6sMB/05dCd8VbDUJuSfzxziFYVVHToUNMt0iCL5l7I0UGfJQ1BitfN
+	4YkTEh42f9Ydcsk2BzJQ==
+Received: from mail-oa1-f72.google.com (mail-oa1-f72.google.com [209.85.160.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5xuk1auk-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:47:57 +0000 (GMT)
+Received: by mail-oa1-f72.google.com with SMTP id 586e51a60fabf-45eef45a188so1919326fac.1
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 07:47:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787237277; cv=none;
         d=google.com; s=arc-20260327;
-        b=RI8QlAq2fZS4Lj8IX1b3mANFXqSBTPXllr37aQn9zcwmYZQOY5NuupICRdL5uoVBkE
-         A9jFefIj9Yhryauez6Nus/X/Pssewy4z0rP32fUgtRQYorIJKe4fbvDxgIhdaOoafaTz
-         bMLFAmVdZFYB8zvRszYhZjE3+PvRat1TSdbfun/a1siaXJXchKCFEV8AUOJ0z0c/3uXY
-         s1MeR7cEUJZKY7uHtrOnCMQIpPSlo6SeN9o3ykNA8zu3jpfijfYL6ag1XWNBEkY22a6r
-         xYDmpjOnSVh4pwb9mLtRQzDuDgXoFI3ZgYTLCy83Z3tjlp4cw/QgDziBOtPbrtlw3Kk2
-         cGkg==
+        b=BEU/qx+/i6QpkbA30y4otOeSSuAScsEC7+OevvO7Oly2RMpwcq81hCD0L8NH8jhiht
+         Fu7rN2UZqdXFX+u67XmZMEWceGxTXH3t9OY8o/rrpJc/Jrv4nK+mj9sMSTa8Sjl+Uf2L
+         4mBhHQ64Y6l9erSMHF+fqey8gHwzEyBg4TAd/W6mrFpp4fVYdrcwpWSZSPyBfssDXUd7
+         WfxGzG64UwLddLTrZKLGjB9gDtA0jJWAPdQlCgbNs2KXTxJhSEs36rE5g+86ofnmpX7t
+         HxRfcv2zMzYxChzDWaF1SxwcRXMD3D+1cowBTonErEpHk3S6anzmRLq1gtZ+W4g07pDt
+         iaiw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
-        fh=WpoetKQJPRBOk5Dbl/gAyGGMPpBUy8E3SWkNnXuJ7v4=;
-        b=i5plagO0WxRuFvgHpYp9KmZhKpxzr8zQ9TzC7dc158Zjrk0eRejNMyKa+GfBdR9H4v
-         6ZxkQGUidWmAXLNN1fJ6882TaJJKxgO/0zROb7NhaVXBgGtopOVPQyN15GWh8ahoxpWH
-         o7UTZPYyd8GV5v/beSLv71MWKPey9gTV/PTs43n+Ghq2rq6B2yrY6xTqvNnkwKdGtfGg
-         +KDUYdTBL/XpdMRF37arxTBSupL45O4OjqqCu2pj+54Y1Ll+7TJWfnDh0jjxqPaZApro
-         141UUlgev34h7qltVJTEyAmu9AWBmVH42kR8pEl/gkbRS7y9Pq8SdMjM2Ko6mxZi9ECy
-         Jrxw==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=yLR4KHznvXfb+H7PWHV2AIGDk1Msa3uBxnhAbjxWO9s=;
+        fh=GYcHUL8kKmAmrViu+fQbrbyPVnV+yFIGSlIgJi6lwB0=;
+        b=QyPtl6m5Bso7cjsVXqCwNlVnd0LudefOZpCBatnJqMxgmdQjkixahw6ALvosleqK1t
+         AaXMip9hTXN/VNkWupubcNzUVQRSkZZIFyBwjshg4vqqnnZzbcXM2/0GfBnUU79FcYtQ
+         d48hmaTAcqNu/Q9WKFbPLdAsSla2fcGhi7pj5aHC5FphpYMAqRCsYVtv7GMGYAk/KBek
+         CLJNQfJtFK/SKO6l7hiL/0UBkjHDK+tp3xRlbKQbjMh5Dx+2MXW4Lz65F7S+LqSS74sz
+         ht7ZF1ft4GM44K6oPeuV+pmKWwXaFnb6s8gkEsifmxDVmSLrLkpCnmfoCZ2paa3cYiE6
+         3P6g==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787235333; x=1787840133; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
-        b=oNH5OuwEhxoNJiPaeB2Po0VqggKwdKFysmkB1/52/sRK+L+pwvIAL+2/hdjbqM3eJ4
-         YERbWQw/gBRVzht0fuNypT14VZ3b/qqRCtQhHg8Ounw6ZJ37FEwoQb1K7r5JSolm1FLJ
-         W0MT44sSxqIjuwAjmr2K7SA/1Ciqxlrt3W5A3T8LcWUns8zKFxW2JqRaIOOdDTVh8Tsh
-         48taYUwW+Sl4F3KH+KIvRs3vn8aRKwdR/KrMrCxnPB+P9Lz+CvI99udzPoPsPfGKlSm9
-         cWfpmw2flf9OEKf3sxSzGrz9VjcwTpLAcnxvvzeTgkD/BiiC5nxjxa5TRkzJYGXn+4tu
-         UJaA==
+        d=oss.qualcomm.com; s=google; t=1787237277; x=1787842077; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=yLR4KHznvXfb+H7PWHV2AIGDk1Msa3uBxnhAbjxWO9s=;
+        b=d0eiacJQfZXhCrRBwCNBxbz8BTwijRlkMFN3Cjsv/HGsHDwTVYE/fhyTsqn3kuuqjN
+         zSljB9MJkp585AGs0cdUkPnqtHvSCSDb3rYDEoffvI8avbmT9VeGGmWcFqb7SR05ZGv5
+         uA8zjEzDtw3QV3ODkgO1Qkpu1q2MWUQY48yiuW7YpT0CLVE14SH1Hxm+CnDewEYHRLFI
+         AXL1gDkExwOmy+mlsGXmKHoEqlahuk6Xf6nMHBCHqwR+UmxSnrBNrj0qdjJFWvEiEdt5
+         ncJA1EJMNaKRvAkpPRGkaI60iJYLdV7YWTcS1xyXrYXiq774vXZ3L/QuRsJRuYbfuV+X
+         OhqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787235333; x=1787840133;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
-        b=lN3HQTcsi+RT7Wbh7vGOZN969bnoKggR+pmHj14NBpQANnYj8V57KDvbfe+WEDIgKI
-         NLtiFgciip3wL37TRYu8A4jSA9UgsBQEjUSpj7BEgdTxY6Ob2A8gcCsvXemc83pA/A5A
-         UXMuf73aQa29caXJzmnnCevK+npjO8ofoCDd7qM+tEjr8iv7e0O+0keIXmlfPEvtc5yU
-         kiWsIXlsODhxGE3UYhHjTCi/PSm0xd2/dFi9knxUXUdUa1c4XYUXAi3pASL8Cls+kQ+d
-         g2/2YPQlKyCpF4lOyAIHFLRN/rcSVidGe/kIMy5EttJKVXHfQdLqm+4Vv16+mNoDnWdK
-         IMqA==
-X-Gm-Message-State: AFuF++nl1J8XoF+qY4x9GchpsMzpJstTI5g2TzAddiO6RVtg4DnNBTjm
-	XQC1IVZNnp3w91DQ4pSmFxRVTEStM5QH5zPlbNM8nYfDroLND6y53LtlNU82UMLeJv2+xbiLMxO
-	TJcq5NCqBk1nbXcRgcCvmjy6yKoIQ7D4nZN2I
-X-Gm-Gg: AR+sD11S1oR0uUXOlr4fNqDz1uje9IML1tI1PMUi71QeIuN/FS1cQovm55oKUkN6Jgp
-	Rxmp1us90J4ouvcON68jsICFkbARzAOwYyqLc0TrayUyWpClZcKxrIQ305iqhOJLcNowHFtjNiX
-	qrRnINrp/B7uM+X6pHahTh8aXP49amyMS9eAnqxvGmyPPTV9NQzU1i9Ak4r4URatFTBbi6slfq8
-	FS/bPCDL9cfSThQdXG1hnff/jm6AugvlFJcD16n+/UlWqhJMbrQnRsxMeTB3SohsxPjv19NrCNA
-	jg6yGDVX3CqFFm3WytmEgs7RCUsXkI8Bgc0YH/meD28+S1qofUkJZoGy6qfBcCpIODHm+kDX7/b
-	z2MOLYmyd+hv0T0nk2gDqC4oqAQFwZYutNCDTg8my006jxlbxTNsfyBtxalPU5F0YYf/QpXby83
-	uP1UOKTFLxnvNQarE4H6Pg
-X-Received: by 2002:a05:690e:c4e:b0:667:a025:89a4 with SMTP id
- 956f58d0204a3-66ccb618589mr4430455d50.18.1787235332559; Thu, 20 Aug 2026
- 07:15:32 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787237277; x=1787842077;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yLR4KHznvXfb+H7PWHV2AIGDk1Msa3uBxnhAbjxWO9s=;
+        b=BlYvbJreiZ5MlP6ypO+sqiAuAXyc1FeVl4BpLIE7WCzufmliYZs0pJn3hWXMODfLv+
+         Mxv66UxhfDttEOa5wXdRMML1JsijEb2WDlMnTF0qc5FASuuSfTDt5rghe/G/QTr2OdIM
+         zVrm7DLaYUeBbB8lbgv+nbSJ74AfhBCA7s/z7ZQ8lbSG+IQGcA2BH5vV+SkwGDFjkvZ4
+         8PQnw6SH3rzhGQZkgfiHNNKkF+KUoavYl3MnME1V59sjrQ6sEsN+VZ3lhd2QeKVv/I+3
+         ih7n9ZrEAQlnKWDIpELhtCEDx1b3NP+QzsJfU2PqG5r4akbAWWlHWjAYwK22rCTAWagt
+         QiXQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpnbNmDSJEj53TrsZyq8CVbbJMpOTtdx4bg2/zE/QE+IQ5pwIdDJtGacFibfpNVWbjEjz/AEakNwPkr7A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwsqW28umISsIEcDYXpTwzFbLCa26697rfJyc86nzi8PNfxXxrt
+	7gtD5SqP7dIrlwHDhNz1zEoP6xxfrJGCrBq2YIUKaCXM0LxphlFCtnYCAToX1KmZ0LF9jamG4O7
+	asePwKDwROBqwMpK8QTF3B1nimGQYV93nd2kt7goUFZhRuv/LNz9TiEDhC/VgZIq/ZEG+0262Fg
+	l5y6fkmxcdhes6HUO3T6i+ah1nlaz9sOmzOcRcf+su
+X-Gm-Gg: AR+sD12v4LcWnZyFylYPxEpkkspDTM/f+YADCoECLG8+9yEyskno9hi2eN+hoVRzmWY
+	D5dE+SO4oYbtZtA2GiN3ojrCB+w99HTsQfjgERa/KJNphREw5rrs3llJte8u+COJ6/O/JmPa1HJ
+	RQWkXjhE4QRSHQ65TCqPR5xoy5+dxAx6xEy3L3RhITg1EaC26GTs2lzPpd
+X-Received: by 2002:a05:6870:718e:b0:457:ed1a:9da3 with SMTP id 586e51a60fabf-462f68b3ee7mr12218549fac.17.1787237276732;
+        Thu, 20 Aug 2026 07:47:56 -0700 (PDT)
+X-Received: by 2002:a05:6870:718e:b0:457:ed1a:9da3 with SMTP id
+ 586e51a60fabf-462f68b3ee7mr12218513fac.17.1787237276312; Thu, 20 Aug 2026
+ 07:47:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Vasco Valadares Semana <vasco.valadaressemana@gmail.com>
-Date: Thu, 20 Aug 2026 16:15:19 +0200
-X-Gm-Features: AcwNN1V3xcTl-MOoxSGp4vh2Mp4wjKMjo1TJ1r8axgU9_lrZp3Rdm9iaNAIIASo
-Message-ID: <CADybn6f2E3Vqus5fxcPN-bKp7Em-jyzo1ph_AXRrW=c4wUe_3A@mail.gmail.com>
-Subject: [BUG] libdvbv5: dvbv5-scan hangs forever on a NIT with two versions
- in the stream
-To: linux-media@vger.kernel.org
-Cc: mchehab@kernel.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org> <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
+ <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org> <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+ <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org> <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
+ <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org> <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
+ <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org> <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
+ <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+In-Reply-To: <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+Reply-To: rob.clark@oss.qualcomm.com
+From: Rob Clark <rob.clark@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 07:47:45 -0700
+X-Gm-Features: AcwNN1UDFgTj8DhU60we-UxrgwU5qCqC53mRJdhnjcqckwpTsRRAswI7otuboc0
+Message-ID: <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: Ef9NPedDDZwZblNMK0_5CH9ns56Z08Ym
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDExMSBTYWx0ZWRfX043JluBSCWmd
+ Ji3frkm3//xtFTrYXm7I6Ll8UIQ7IAYjjz525x0AB7aq6o3YUS20y8ICGNlWlpgFjfSqqLLjDkP
+ RC6BwiQPe0j+nTdLwesINOXZRwB2e7k=
+X-Authority-Analysis: v=2.4 cv=T/O8ifKQ c=1 sm=1 tr=0 ts=6a87139d cx=c_pps
+ a=Z3eh007fzM5o9awBa1HkYQ==:117 a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=_Q5Bhtsilc8r9Aqu0AoA:9
+ a=QEXdDO2ut3YA:10 a=eBU8X_Hb5SQ8N-bgNfv4:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDExMSBTYWx0ZWRfXz7II+vLDd3dg
+ wZH0en7Oc+nYBiuPPw3kxT9TYfwLfZi0tG7Rvotq1/H47dpzDtLhze1QByiKD1m7NG3ygkyONe8
+ MOeN+aX4btz+ohVLltN883EeRdvm6zGLzaaIiFr+WgbnF3uyRG2an1Jp/YldpQ7aKUMIiS5zqPv
+ j6FJazAtulHzpzk5FWbNAjsSn2m+xco4jXPFtAsNYQt5EJ9/0QN7F8T3bCRxYOu12e3YGmHS/Do
+ ZEeU5IcZ2s6H0o66rIkjeaUqzY793xidKHYzeAtcGWz2GMqd0d1SFGLIxPjibWsm6g4dLXCnLgk
+ ISWS9y+xVKEyBGSZuLM8xhtDh56wDFmbFOnwnkCZ8tVU6Qju5y2WRU2w3NT7B6ieEml8koCo9Yw
+ C6NqMAsu5gEiXuYuEVXUi3RXuj224bPEpYk7tDSkZyFHcTSmAbLfZFtl7BkHqvPapH1eORb7CUN
+ n4VCoYtVYjz4zp9q6/g==
+X-Proofpoint-ORIG-GUID: Ef9NPedDDZwZblNMK0_5CH9ns56Z08Ym
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-20_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200111
 
-Hello,
+On Wed, Aug 19, 2026 at 11:15=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On 19/08/2026 17:48, Rob Clark wrote:
+> > On Wed, Aug 19, 2026 at 8:27=E2=80=AFAM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> >> The rule of usptream development is that we do not accept duplicated
+> >> code, just because a vendor wants to write something new. This is
+> >> basically the concept applied all over the drivers tree, where we push=
+ed
+> >> back against all sorts of duplications all over the vendors.
+> >>
+> >> What I miss in this thread is why would there be any exception here. W=
+e
+> >> do not grant exceptions from standard practices on "I want" reasons.
+> >
+> > I agree that we should not have duplicated drivers just for vendor
+> > lolz.  But when it comes to adopting common frameworks and integrating
+> > better into the ecosystem, this doesn't seem like something we should
+> > actively discourage.  I don't think this is a case of vendor lolz, but
+>
+> No one discourages it. Following standard Linux kernel practices and
+> requirements is not discouraging, do not twist the narrative here.
+> Again, it is standard upstream review telling that we do not duplicate
+> drivers. Ever, unless there is serious exception needed.
 
-dvbv5-scan hangs indefinitely on one of my DVB-S2 transponders. I can
-reproduce it every time and I have collected traces and a stream capture.
+I wasn't trying to twist the narrative, just trying to come up with a
+path forward that isn't "no" or "improve existing driver", since
+neither of those gets us towards a future using common frameworks.
 
-I am a developer but new to this codebase, so the source reading in the
-second half is offered as a possible lead rather than a diagnosis. I used
-an AI assistant to help interpret the captures and find my way around the
-code, so it is worth checking the reasoning rather than taking it at face
-value. The observations in the first half are mine and reproducible.
+> I asked why there should be an exception granted? Is the reason for
+> exception following:
+> "We want to adopt common framework"
+> ?
 
-Environment:
+Possibly?  But I don't think we want two drivers to be any sort of
+long term solution.  (Ie. as long as venus/iris have co-exist.)
 
-  dvbv5-scan 1.22.1 (Debian bookworm, libdvbv5-0 1.22.1-5+b2)
-  TBS ECP3 card, DVB-S2
-  Turksat 42.0E, 12685 V (same on 12685 H and 12729 V)
+>
+> > rather reacting to drm/accel emerging as the standard framework for
+> > this sort of driver.
+> >
+> > So how do we get from here to there?
+>
+> What is wrong with my proposal?
 
-The code I ended up looking at appears unchanged in current master
-(95ad25f).
+Maybe I missed something, my understanding was your proposal was
+"Grow/replace/improve existing driver instead of coming with a
+duplicate"..  grow or improve doesn't move us toward common
+frameworks.  Maybe "replace" is a valid option.  If there is something
+I missed, then I apologize.
 
+Options I can think of are:
 
-What I can confirm
-==================
+1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
+   driver
+2. Backwards compat chardev registered by new driver, providing existing
+   UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
+   AFAIU the fastrpc folks where planning a backwards compat layer in
+   userspace, so maybe it is possible.
+3. exception?
 
-Reproducer, single mux, no -F, no -T:
+I'd like to know what the feasibility of #2 is, since at a high level
+that sounds like the best option.  Possibly limit exposure of legacy
+UABI to existing hw so we don't get into a place of needing to extend
+the legacy UABI for new hw?
 
-  $ cat /tmp/one.conf
-  [T]
-  DELIVERY_SYSTEM = DVBS2
-  FREQUENCY = 12685000
-  POLARIZATION = VERTICAL
-  SYMBOL_RATE = 30000000
-  INNER_FEC = 2/3
-  INVERSION = AUTO
-  MODULATION = PSK/8
-  PILOT = AUTO
-  ROLLOFF = 35
-  STREAM_ID = 0
+But #1 sounds like a non-controversial place to start regardless.
+Possibly with #2 coming as followup and necessary step before eventual
+migration to new driver for existing hw?
 
-  $ dvbv5-scan -a 1 -I DVBV5 -l EXTENDED -o /tmp/out.conf /tmp/one.conf
-  Using LNBf EXTENDED
-  [...]
-  Scanning frequency #1 12685000
-  Lock   (0x1f) C/N= 12,20dB
-  <never returns, killed after 5 minutes>
+Even if we start with #2, how do we handle first-merge-window
+bugs/regressions without reverting addition of new driver and removal
+of old?  It seems like we'd need a window of a couple release cycles
+where both drivers exist?
 
-Same with -l UNIVERSAL. The process sits in do_select on
-/dev/dvb/adapter1/demux0. strace shows the same 102 byte section being
-read every ~8 seconds, with the 10 second select window restarting each
-time:
+Maybe others have other/better options in mind?
 
-  12:36:56.853097 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
-      4096) = 102
-  12:36:56.853348 pselect6(1024, [4], NULL, NULL, {tv_sec=10, tv_nsec=0},
-      NULL) = 1 (in [4], left {tv_sec=1, tv_nsec=984464352})
-  12:37:04.869171 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
-      4096) = 102
-  12:37:04.869306 pselect6(1024, [4], NULL, NULL, {tv_sec=10, tv_nsec=0},
-      NULL) = 1 (in [4], left {tv_sec=2, tv_nsec=808841})
-  12:37:12.868722 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
-      4096) = 102
-  [repeats indefinitely]
-
-  (lines folded for mail, they are single lines in the original)
-
-The mux itself looks healthy otherwise: it locks, carries about 55 Mbps,
-and PAT, SDT and the PMTs all parse fine. Other transponders on the same
-dish and adapter scan normally, so I do not think this is a reception or
-configuration problem on my side.
-
-Decoding PID 0x10 from a 15 second raw TS capture (dvbv5-zap -P -o) gives
-three distinct NIT section headers:
-
-  table_id=0x40 net_id=1070 ver=5   section=0/0
-  table_id=0x40 net_id=1070 ver=10  section=0/1
-  table_id=0x40 net_id=1070 ver=10  section=1/1
-
-Version 5 announces a single section table, version 10 announces two, and
-both are broadcast in a loop. My understanding is that this is not
-allowed, so the stream is at fault to begin with. Still, it seems like
-something the scanner should survive.
-
-For comparison, a transponder that scans fine (12458 V, same dish and
-adapter) shows a single NIT, version 10, section 0/0.
-
-
-What I am less sure about
-=========================
-
-Reading dvb-scan.c, struct dvb_table_filter_ext_priv keys extensions on
-ext_id and does not appear to carry a version number:
-
-  struct dvb_table_filter_ext_priv {
-          int last_section;
-          unsigned long is_read_bits[BITS_TO_LONGS(256)];
-          int ext_id;
-          int first_section;
-          int done;
-  };
-
-If I am reading it right, sections from both versions would then share one
-extension, and last_section is only assigned when the extension is created
-(dvb-scan.c:229 and :256) rather than revised afterwards. That would leave
-the completion test
-
-  is_all_bits_set(ext->last_section, ext->is_read_bits)
-
-comparing against whichever section count arrived first. I could not work
-out an arrival order for this stream that satisfies it, but I did not step
-through it under a debugger, so I may simply be missing the path. Repeated
-sections seem to take
-
-  if (test_bit(h.section_id, ext->is_read_bits))
-          return 0;
-
-which would keep dvb_parse_section() returning 0.
-
-Separately, in dvb_read_sections():
-
-  do {
-          do {
-                  available = dvb_poll(parms, dmx_fd, timeout);
-          } while (available < 0 && errno == EOVERFLOW);
-          /* ... */
-          if (available <= 0) {
-                  dvb_logerr(_("%s: no data read on section filter"),
-                             __func__);
-                  ret = -1;
-                  break;
-          }
-          /* ... */
-          ret = dvb_parse_section(parms, sect, buf, buf_length);
-  } while (!ret);
-
-timeout looks like it bounds each dvb_poll() rather than the loop as a
-whole, so an arriving section resets it. That would match the strace,
-where the available <= 0 exit is never reached because data keeps coming.
-
-
-What might help
-===============
-
-If version_number were tracked per extension and collection restarted when
-it changed, I would expect this stream to settle on one version and
-complete. And a bound on total time in dvb_read_sections() would stop any
-table that cannot be assembled from hanging the caller outright.
-
-I have not sent a patch. I would probably get the details wrong, and I do
-not know whether restarting on a version change causes problems for the
-gap tolerant paths (EIT, ts_id != -1).
-
-I can test patches against this transponder, it reproduces on demand, at
-least for now. I also still have the raw capture if a filtered PID 0x10
-extract would be useful.
-
-Thanks,
-Vasco Valadares Semana
+BR,
+-R
