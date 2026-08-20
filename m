@@ -1,360 +1,153 @@
-Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010063.outbound.protection.outlook.com [52.101.201.63])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA06D47D930
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:51:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8670337A839;
+	Thu, 20 Aug 2026 16:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.63
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787244721; cv=pass; b=A9AqEmJV6BtGWUq1DjvSzFQmy6Qz/YN8wzaqIg8YHdqtwum/xbA3KJPTnlV/CKL0Ias5tqv2gmRAGphachbPkdqb3EuE4cgeDkT89fJZC+ro19ifu1h7dxp2vLXBrZ1J9AJ6APKua2Xr3XNfkpl05Edxoi722kWlYnp8c9jihDA=
+	t=1787244989; cv=fail; b=i033CN6LyL+wKhUpudxMOORv2dqMNyRMs8i/Z7pVrBl40Hfn4QjsZ9SPN4kiSuizmhF3qvPnjA1rFpDYmTNvsUJY95kImaVKPIPoG0NuYMX5LXxIO14U2/ZPbXANIJ9suOd+JS9G/nWEUMhiqYGjGiTNgREL7fsNHFeSGaVzl64=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787244721; c=relaxed/simple;
-	bh=yyOHGz7RXXVC57xoRkoaTFCBjwkuyt6at/OQqRYbakg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FlWsodfTUfRbu9LGb6LAN8bVsnC80lXeJ1Ek+ZvaYi8MZ+5WJ4/f6KhtDG+D6QhRko+uX6r3GkK/Fpq7CmYC/egaJlLDPPIhvaBM4wibwoXOdID7fTJWsqEFQsCfwelx7Ut0f/ThyeDn0fQuV8YbMIzo6/MSUH3HtT+dzQJlgJQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=XjUBKzmz; arc=pass smtp.client-ip=209.85.128.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kynesim.co.uk
+	s=arc-20240116; t=1787244989; c=relaxed/simple;
+	bh=h6mv9v3BdUpIDV1z7SL7//aoqyky6kMIUVf9CtmTQL0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=eV+fKCrR/rhvjJsnHuFMyCHzeIXW3Qzm9bNPf+Ubx/hpg/EgoWCJgWzs19aj5EHll12hINGc8YGR+Yk/4rtRxiWV/GAqAHh8S8UeeZqRIcm1onu7AT/6tCmTTxbze+bmZTLBeVU6yG/qwhoKMfdfe4gS0qBVSJBgpvDmh2lrN10=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=Z+V47ETw; arc=fail smtp.client-ip=52.101.201.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="XjUBKzmz"
-Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-836c8bdac50so1786287b3.0
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:51:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787244718; cv=none;
-        d=google.com; s=arc-20260327;
-        b=PglihK8nUEOuYkEf58XO6QmcMmVLCTIbiHHbwO+igyMEyr9Q3h40QID6pO89jxEf1z
-         aF3DAGXBsF9HI9Yd6l3C1zCBcasiGPXiDl2yI1lgtV0r7xy2ISnxgOvwOuBcZjB/ZYk+
-         /vpeb8/tHq+RiMX9EkzfvmYzk+kt5qXp2/CksOcwSmWXfCcUZVt/j/UtwYqTbiZ35iV7
-         okkXcuV97DhOzMqV7cxVFle98LUl8s2ILnUGr6eyBeXN5hB+Wlf4KXjhBxk19KC4vJKH
-         6+RHCt9mNaPVuo9Wel+hM7Y62jdzOBkse2QtezG2WRgxZ3pWyAJ87uFAtO5QITuVo2I6
-         O8cg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
-        fh=3v08Ty92Zsamfh4RsyoGhL6h2U/H4JAQBapWaAkpOEc=;
-        b=U01aeJnlP0UtvDnj9vrbD3lkCAivaBHhfZYA4yti4QqlpVqsA1L0WbhrFOkIX68Ny4
-         q5zk3c6JsMxPBLFyRrNxVWKPkPA5hCtmo8F4LTZzYa1KxFajtXn8W5iNL/h1hkSTU1Bl
-         Fg3Rws+EATlaCTBd/C3DlAxDiaNVMp/0jk4KH/7Hkwvv3XlWn6wYiGzMQd9Hc3lYclN/
-         Qisg2MRNP+gaact6/Iwpt6ch6DkUPyvuhovARCI8SrfT5n0sMMFo5rwBFVDYtXv2CKZa
-         4zx2bkTzcvYaUaAhW+tsmOBsCX4LibNJHfMM1RYNcdgVd3+o5io/uHj4tJxK//RKu1jq
-         0nPA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kynesim.co.uk; s=google; t=1787244718; x=1787849518; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:reply-to
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
-        b=XjUBKzmzBtBfnto0Gvrxww3xU8fl4eB0gF5+mrdFpR09O4Ut19JsWlP3M/qbhibX3E
-         YadnlsJgEq6nGWzuxTyu1sWKWfxTWdWdRe11YpBBMtxMkZEECKd0Z0CxAAyxXSB1LUMz
-         1Qn7++JxcKZnC/t4wemZwNpA9H9W0585/N7fkzMOG6BrV6/1CoEV8p3AONDi++ltU/st
-         G0XJA3Ss7GZjxMaKXJDvKvQ3uIF1tg/7w4fxYSTQQGMFUwLMJnEfgvgC4eNMh9OVMZ1a
-         h0c1o4ks7zPxA0LsfS2VNzHfIeYsGnNmkmJNqJgf2/lABzZcR93L77wIFLfX0TSJUPBV
-         gNTw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787244718; x=1787849518;
-        h=content-type:cc:to:subject:message-id:date:from:reply-to
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
-        b=jkQWy96KqsWSOJM0EAyLF+xiU/VltKe4ZqtX64Imq1CkNPDynlfLEsX9Nqw9ce0OUO
-         kG4PMrk8qIbAPaBuh0KablLk/uJzLOQswPzjVpI6HxX1tLF/AV6GbN3AnOQviCHhEtKz
-         NrEeaLkdbsyywR3u8r8Z3DHW6h2OatCIuMRxAnrnDd7nePn1xpL8rJk3mLjvJKLriEsG
-         VfH2qCM4nmsnEpmWkHBKr6ZEyhXP428f0zfEfMogdVaM/b0zTZhxPA1jwL1So7bwr/GL
-         40TjjPmEEak7hn0fEZXsjKM0BtvBxmMidsxJYcN+2CPuH3koq8JnBtROKAv9ZpCUVSLJ
-         EYhQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrDxx5NV30b9qlnMSG4B95RALhmjq1T1Ji/hI1Vj6BLKKHFItuB9jQ1C3YNVKY4YZD0OwGSuyXJeEeVkA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mc/qzwTagR7qXNODuT/8U12Wi5kXPt62JZxWEmBycVaooRBR8S
-	VIuwu6aq/sHuU0E4qLXsDpIL2uPVmNHj3awjzqhCOjlg80wMC42TaKzrOp9uNyjyALUG4v3u4Xc
-	O1kG+NxZo7x8xT0FNdRLo1qp2VkMLpzHeSAFV33EwNA==
-X-Gm-Gg: AR+sD10lPRAYjqfOqhcfpKnpaaR0Nzfm6VhmZOA6ia0B/YEyOt4o2/sPnpJ/8g/ISIj
-	/P7ffrH6SVCTsSaEDvnMqKhPG9M9sfrK/oIm1p/+ti5dr9u4wOxESifLpTVG64LUvOdKYpFdo8I
-	8JF2Sw25uRRsnK7Bg49HkJedfxOaf4VA3v70IivM6B37ygS5GspL8QJwTn2ECSrSCf7N0ocsBa5
-	gTyMxXNxjpvRDnU97RmuFeLWlue4tqDbemzDPmkWdAGXKaffEacXkrw3ATjUCWdwpIx6UEQYudm
-	F8WjccCq4dZmJOnDvofcmxRWFftPtkU0m3rJh1psvy3czLvUzLMi+g==
-X-Received: by 2002:a05:690c:60c3:b0:820:a7c:7495 with SMTP id
- 00721157ae682-844dd143d1cmr56304437b3.3.1787244717686; Thu, 20 Aug 2026
- 09:51:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="Z+V47ETw"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Kl6GXsJz3vKw38yk+XtJCl4jh65+99XrftYm6UVw94wPbQ2C6kZwr1PXEUhwnhEc6bNuffIAsi1qAQQyQjCmxfeXLhV/OzyMQQVjr882NC07fMCHNHz4ojlEQ3RLxcdvw+4Y9RjSSMQnfBM3MNjCo/ZH8Fbjh+0PVfcBUp4JL/hVe1Azr2hva3ierJLI4JjY8DE1yyS5lOyaKWolbkiZ1PCWhypLPegwOAZ0eHWZxdbObc8wJ9qLvM4falnJbh4ODb5cPwo9QTQBSffODEbfzxrs13EPNIWIQ8wVvw89/eGeC9OrgbqXfyXtWdQSnPuQgl6txFM2LTeqzgx3B8ml3A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=S1Rgk3rfpmXzDH86F2FS7kdD9r2K10EjW8nbWDaDurI=;
+ b=WITyomwpMNfrtKc9x+SbNfy0A7NBtuyjHNIUDxbXTXdKZmRBINiCZGH17L7cA+cIZcJzcCKuY+bl32xp5smgmrOnhDGhuHA3gK/BYGne1x3wLsu7m2RwvXg7n6VRyQ6v/WsXp6+wFO6tQgSqnWOm+mnRdisAPAOkZuGpl68o9A7Q+1bkGbUfH4Ee51JnVQ+4jnfXWBdF6qqu8Hjfr1hm3MJiTOueeKeEw8CVnRwrFppbe4oSLCk7xp4QyQa49G3iLLl6lIUynuQ59E3yoaYk38H0BVG8CMdrC9OxcR9KxM8yt2cKdMF6HcehT9s8RJIM8BVTKRIyRM7jk8NHKBy/vA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=S1Rgk3rfpmXzDH86F2FS7kdD9r2K10EjW8nbWDaDurI=;
+ b=Z+V47ETw/57PRDPoXBVCTy+YXxvC+veBeQykXfCqTM895i6XMB/Ax998gMau85nG3FfHjNSd7EeZsKxsCuONP/fLuSrSvbwtjMkqUxchNzULrRvGI9sRqPlsDFWcr/N+9YNS7MhTQ7S5g6pM9wwB6peWYH78Zq4dL8BCdcF/kgp+w35Pi959+jN1YaI5KJ8p/Gb72i3HUm14kdNrPEUFRz6jGbIlVgcIKTsXCxooRijLS7uYCkP9zd6LgfZCreEzVEeqzZVAh/EsOfWrL1xm8/k0sN1XPDlotnBnnaA3+c3K+tkA50uSkERNaAHSNz/ysum7LxeIIeSKxt0M9JytLA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com (2603:10b6:408:2a1::19)
+ by DM6PR12MB4418.namprd12.prod.outlook.com (2603:10b6:5:28e::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Thu, 20 Aug
+ 2026 16:56:22 +0000
+Received: from LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528]) by LV8PR12MB9620.namprd12.prod.outlook.com
+ ([fe80::299d:f5e0:3550:1528%4]) with mapi id 15.21.0339.007; Thu, 20 Aug 2026
+ 16:56:22 +0000
+Date: Thu, 20 Aug 2026 13:56:20 -0300
+From: Jason Gunthorpe <jgg@nvidia.com>
+To: Steven Price <steven.price@arm.com>
+Cc: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
+	Marc Zyngier <maz@kernel.org>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	Thomas Gleixner <tglx@kernel.org>,
+	"T.J. Mercier" <tjmercier@google.com>,
+	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
+	Brian Starkey <Brian.Starkey@arm.com>,
+	John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
+	Marek Szyprowski <m.szyprowski@samsung.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>
+Subject: Re: [PATCH v2 4/4] dma-buf: heaps: Fix shared system heap allocation
+ rollback
+Message-ID: <20260820165620.GA973874@nvidia.com>
+References: <20260820150034.88729-1-steven.price@arm.com>
+ <20260820150034.88729-5-steven.price@arm.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260820150034.88729-5-steven.price@arm.com>
+X-ClientProxiedBy: YT3PR01CA0047.CANPRD01.PROD.OUTLOOK.COM
+ (2603:10b6:b01:82::11) To LV8PR12MB9620.namprd12.prod.outlook.com
+ (2603:10b6:408:2a1::19)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20250724-multicontext-mainline-2025-v2-0-c9b316773486@ideasonboard.com>
- <20250724-multicontext-mainline-2025-v2-5-c9b316773486@ideasonboard.com>
-In-Reply-To: <20250724-multicontext-mainline-2025-v2-5-c9b316773486@ideasonboard.com>
-Reply-To: jc@kynesim.co.uk
-From: John Cox <jc@kynesim.co.uk>
-Date: Thu, 20 Aug 2026 17:51:43 +0100
-X-Gm-Features: AcwNN1WwQTxs0WjtTh8s7fQQFsbKA65xSEl5vJQyrVwbh2jI5dFisjCf1lLZEIo
-Message-ID: <CAFyCYyM=WaDwVZY5yCYkpbF1psckzRLs_arJfWBu28sS8uy3GQ@mail.gmail.com>
-Subject: Re: [PATCH v2 05/27] media: v4l2-dev: Introduce video device context
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Tomasz Figa <tfiga@chromium.org>, Marek Szyprowski <m.szyprowski@samsung.com>, 
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Hans Verkuil <hverkuil@kernel.org>, 
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Content-Type: text/plain; charset="UTF-8"
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: LV8PR12MB9620:EE_|DM6PR12MB4418:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6b7b2034-f2d4-49cf-483f-08defedbf679
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|23010399003|376014|366016|1800799024|10067099003|4143699003|11063799006|56012099006|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	be8KHRK0WTJXHiD+GkuG6apvPmhiAX8uW9IfN2N2p42eKJOAl5RMehemSAj8rjWFiAJjFvz7FIF6aHTEg6JHRixtO077bEAIk7GmJfVhY9QjXuP3kaxlkysIFMxXujb+rM1sDPglfr76sZWF0fufhxNRmhTizKj8FaCuPmWIKmFoZV7aofU8ew24v2vhtw8kW2XZYf4vmkjHGJbY7NH/w4nBPwTTgUYg4mEdxBvDa9zuMrycrpBLIxAyEkyokc8seOo+gGal3nMtK/zhkSGj3DgiaqZlE0bzV2dqt0Q8nEo8Yc+LRaQxlG8U4OwnLLjA5Bf5jGWQ72mWiAdL8BE95khUr41/X6yU4fz/Jy5ZxWYfJ9TxTO7Gc14qp8gUR4fryKId/De6GHCU/lCK6Gn8rRq45PyCmqPXgaCx6762/szOz9hdLNZUYCLCixWctXZvqz8F+VFhrPC66JcYuMD7G1U6oUUNuE1za3BlkqhAhTMfySSlzr3NCsVpzm8Q9wBQ4UrxCsuJ1wZj5sFRYZ7IQolGgF8C5DGttQ7UdSjxegVj4EvlJAFIN7dZ0FFc+HX6THekynMVIltQD0xJ4c9NRhD4Stl8W9h6TAO31Un/DxkMjNQB+yICJ3ahxfFK7KS19J5bvtoPDALJ+c+OtP7qm52AFdjRNrcbXskOuVlg6BQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV8PR12MB9620.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(23010399003)(376014)(366016)(1800799024)(10067099003)(4143699003)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?Y8Cj/Vjb4D+yErJTNg13TsklrVPx0Cbv6Yvu3+ZYrHgvb28Xc/CyJ7K0POBO?=
+ =?us-ascii?Q?JGfAB8TFy7uBiWkZcxLWdTC+axhu8RHxW2zA4Wh7aYw9hGkbONQFTHEf2DBh?=
+ =?us-ascii?Q?6WIY5tfZkAKiQ1DH/IbgCpye3xq3ch1LyKACHLxaW0WjEpJ2C/n4K0UNum1A?=
+ =?us-ascii?Q?nEKbQ+zz/yA0U6aNlIJeQY8AJysLqkidySyupGU+ddZY3+IhgFtEaZFGF9Ae?=
+ =?us-ascii?Q?hAbjHHL6n27MyJfUURDs12et0sf4WsAdGGhqqUcJtfCycfizhMSwTyifTnKf?=
+ =?us-ascii?Q?mUiAXM+v3V1ACvy3pn9NTKU1ngOCVtU68c+zLQN9fdgN/lZaJnLVOHPULKg0?=
+ =?us-ascii?Q?mKDcSklqLca8TaFfzfpSAlHq3cdxVZY688SQYOK01mUQLf0Boyh9o1QR1E94?=
+ =?us-ascii?Q?V8ueTs093mVVl3Coxt6HEDeNAFbsqfZCxXuqt+IFlFRaeTxi3lJiAjWt1VUU?=
+ =?us-ascii?Q?bLsUbaDNQPL+sBel3iY/+zx4dce7BLe9y8yrW+ws6pEtF3LtFKxd/XOWZT5l?=
+ =?us-ascii?Q?VFf0zeqBKuMpqLknprmCJyr9Ye5nOjh2tAnkMjk8BgCsvVByh75bdf6dMn57?=
+ =?us-ascii?Q?Msq3/XKZU/3cE8R+KIHWq6zKSsLhohH6pwwolMP5N8nq50I4w/BKlj3HFbS0?=
+ =?us-ascii?Q?LRCdZpsOVxKUfZNUwiWgMRRYcCR9/LYTA2U+/3Sk5b7k+lLgAfwtQUxB5/wE?=
+ =?us-ascii?Q?RR/gGUnueuAnEv9aAtLKzl7umeNtacJpBFRLFpGF1WdWBcTDm4//8wt3OHrq?=
+ =?us-ascii?Q?kLH7vkzAo6F5+psVueqRxMN3zYVDN+rl6del6iMg8eUzmjvOvZY6spy4nMb6?=
+ =?us-ascii?Q?NJKyaxghTwbpk0jkBI7S8JmZt0qro5YC718WpHhWYRrU1LrccqM3/U6Y4JXo?=
+ =?us-ascii?Q?IUx++1ZGuMR7J+3Vqwaq5Q4d25sn+3f2tJR3JKXCcr1gbiiIu9HkI9zc3OHA?=
+ =?us-ascii?Q?P21udS/FLAoaena4WBHyONKJIUEKrzTXjrtHiWfdHkygHcVrbWPUWDRxc7RG?=
+ =?us-ascii?Q?V4Ol+HQ7PrGu9UNSMhWgbyIgFGMQwaUHEqMCr62mCW5bTkj1I10Mhawyh7HF?=
+ =?us-ascii?Q?cwGgQSS2lf3r5BvkUUyE1oGryklVr2meaLTGPUmAFSJpZl2Pw6lKZy4U5fRG?=
+ =?us-ascii?Q?xZ8SMPLlWLPePgi9BVdHvBah+SYxxlXrq2oMhWfbUYDp9SAh4ECqqmm8gAw2?=
+ =?us-ascii?Q?E8zXenCdGnvdfgTLbFGK73SbYS6kTzUPHYU/5lVkYod3Eo5ojN28BrxlZoyx?=
+ =?us-ascii?Q?E4prxOWrLr220c1OsdTMjqioMGT71BXXscYK9WPa1n8yanadQRpkw6ZZEGIP?=
+ =?us-ascii?Q?hzX5KQH0geD2z8jxQgagFS4klAqrEj0rf8EeUHxctieeAx95r3dCPIEkFRft?=
+ =?us-ascii?Q?bnWAKwGMinDyn/91Lzp9p3+lMivH6318esh0McHxLbGbI9sVOwMTVELHmJns?=
+ =?us-ascii?Q?DKdRjl80/F3x73NVm1DxlnW8SL2uXXhBrVEpMMH0juK6AH11CXLawgF0Ld41?=
+ =?us-ascii?Q?KX0FJT9O3zGEufy9nlWlRVDGS7Q80N/aMWH1LyOlrlRrRjJV9LoZDckELwZC?=
+ =?us-ascii?Q?aWpnVo5yw8RysX+ysciap8ZJmiPD/P9axd1P5iFMfUZ++sPrTsWcLDroHLzR?=
+ =?us-ascii?Q?CWvg73sd84Iwx0uO9d9jJx7SoqN9pkmxYpS1yJcXzozCDo3PIUp5eRYwo60Z?=
+ =?us-ascii?Q?K2kQVLPLEP+q+CDDpT+HWVfPXd1Tdn5SDZy8jN0aNW7I2TsB?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6b7b2034-f2d4-49cf-483f-08defedbf679
+X-MS-Exchange-CrossTenant-AuthSource: LV8PR12MB9620.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 16:56:22.1742
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uUJpNUjggZkxLVcZ4E3eopEpAJyk2zm6TMOYkddsgT5XlBlK2H41CS5P3mfFGWZq
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR12MB4418
 
-> Introduce a new type in video-device that represents a video device
-> context. It extends 'struct media_entity_context' to include
-> video-device specific data and configuration. The new type is intended
-> to be extended by drivers that can store driver-specific information
-> in their video device derived types.
->
-> The next patch will introduce the VIDIOC_BIND_CONTEXT ioctl that allows
-> to create a video device context and uniquely associate it with a media
-> context.
->
-> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+On Thu, Aug 20, 2026 at 04:00:33PM +0100, Steven Price wrote:
+> If converting one of the allocated pages to shared memory fails, the
+> cleanup path attempts to convert every page back to private memory.
+> Pages after the failed page have not been converted yet, so attempting
+> to convert them back can fail and cause otherwise reusable memory to be
+> leaked.
+> 
+> Count the pages converted successfully and only convert those and the
+> failed allocation back during cleanup. If converting the failed
+> allocation back succeeds it can be freed safely; otherwise it is leaked
+> because its state is unknown. Allocations that were not converted can be
+> freed directly.
+> 
+> Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
+> Signed-off-by: Steven Price <steven.price@arm.com>
 > ---
->  drivers/media/v4l2-core/v4l2-dev.c |  43 +++++++++++++
->  include/media/v4l2-dev.h           | 126 +++++++++++++++++++++++++++++++++++++
->  include/media/v4l2-fh.h            |   3 +
->  3 files changed, 172 insertions(+)
->
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index c369235113d98ae26c30a1aa386e7d60d541a66e..c83c37843c9e7beb899a4b2bd176273c3dec381b 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -1200,6 +1200,49 @@ struct media_pipeline *video_device_pipeline(struct video_device *vdev)
->  }
->  EXPORT_SYMBOL_GPL(video_device_pipeline);
->
-> +struct video_device_context *
-> +video_device_context_get(struct media_device_context *mdev_context,
-> +                        struct video_device *vdev)
-> +{
-> +       struct media_entity *entity = &vdev->entity;
-> +       struct media_entity_context *ctx =
-> +               media_device_get_entity_context(mdev_context, entity);
-> +
-> +       if (!ctx)
-Needs to be IS_ERR_OR_NULL(ctx)
+>  drivers/dma-buf/heaps/system_heap.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
 
-Regards
+Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
 
-John Cox
-
-> +               return NULL;
-> +
-> +       return container_of(ctx, struct video_device_context, base);
-> +}
-> +EXPORT_SYMBOL_GPL(video_device_context_get);
-> +
-> +void video_device_context_put(struct video_device_context *ctx)
-> +{
-> +       if (!ctx)
-> +               return;
-> +
-> +       media_entity_context_put(&ctx->base);
-> +}
-> +EXPORT_SYMBOL_GPL(video_device_context_put);
-> +
-> +int video_device_init_context(struct video_device *vdev,
-> +                             struct video_device_context *ctx)
-> +{
-> +       media_entity_init_context(&vdev->entity, &ctx->base);
-> +
-> +       ctx->vdev = vdev;
-> +       mutex_init(&ctx->queue_lock);
-> +
-> +       return 0;
-> +}
-> +EXPORT_SYMBOL_GPL(video_device_init_context);
-> +
-> +void video_device_cleanup_context(struct video_device_context *ctx)
-> +{
-> +       mutex_destroy(&ctx->queue_lock);
-> +       media_entity_cleanup_context(&ctx->base);
-> +}
-> +EXPORT_SYMBOL_GPL(video_device_cleanup_context);
-> +
->  #endif /* CONFIG_MEDIA_CONTROLLER */
->
->  /*
-> diff --git a/include/media/v4l2-dev.h b/include/media/v4l2-dev.h
-> index a69801274800f4f9add723b51fe0a31331e88f97..9276e095fb17414a9eb7845db0aa81572c42ca45 100644
-> --- a/include/media/v4l2-dev.h
-> +++ b/include/media/v4l2-dev.h
-> @@ -18,6 +18,7 @@
->  #include <linux/videodev2.h>
->
->  #include <media/media-entity.h>
-> +#include <media/videobuf2-core.h>
->
->  #define VIDEO_MAJOR    81
->
-> @@ -660,6 +661,131 @@ __must_check int video_device_pipeline_alloc_start(struct video_device *vdev);
->   */
->  struct media_pipeline *video_device_pipeline(struct video_device *vdev);
->
-> +/**
-> + * struct video_device_context - The video device context
-> + * @base: The media entity context base class member
-> + * @vdev: The video device this context belongs to
-> + * @queue_lock: Protects the vb2 queue
-> + * @queue: The vb2 queue
-> + *
-> + * This structure represents an isolated execution context of a video device.
-> + * This type 'derives' the base 'struct media_entity_context' type which
-> + * implements refcounting on our behalf and allows instances of this type to be
-> + * linked in the media_device_context contexts list.
-> + *
-> + * By storing the data and the configuration of a video device in a per-file
-> + * handle context, userspace is allowed to multiplex the usage of a single video
-> + * device devnode by opening it multiple times and by associating it with a
-> + * media device context. This operation is called 'bounding' and is performed
-> + * using the VIDIOC_BIND_CONTEXT ioctl.
-> + *
-> + * A video device context is created and stored in the v4l2-fh file handle
-> + * associated with an open file descriptor when a video device is 'bound' to a
-> + * media device context. The 'bounding' operation realizes a permanent
-> + * association valid until the video device context is released.
-> + *
-> + * A video device can be bound to the same media device context once only.
-> + * Trying to bind the same video device to the same media device context a
-> + * second time, without releasing the already established context by closing the
-> + * bound file descriptor first, will result in an error.
-> + *
-> + * To create a video device context userspace shall use the VIDIOC_BIND_CONTEXT
-> + * ioctl that creates the video device context and uniquely associates it with a
-> + * media device file descriptor.
-> + *
-> + * Once a video device file descriptor has been bound to a media device context,
-> + * all the operations performed on the video device file descriptor will be
-> + * directed on the just created video device context. This means, in example,
-> + * that the video device format and the buffer queue are isolated from the ones
-> + * associated with a different file descriptor obtained by opening again the
-> + * same video device devnode but bound to a different media device context.
-> + *
-> + * Drivers that implement multiplexing support have to provide a valid
-> + * implementation of the context-related operations in the
-> + * media entity operations.
-> + *
-> + * Drivers are allowed to sub-class the video_device_context structure by
-> + * defining a driver-specific type which embeds a struct video_device_context
-> + * instance as first member, and allocate the driver-specific structure size in
-> + * their implementation of the `alloc_context` operation.
-> + *
-> + * Video device contexts are ref-counted by embedding an instance of 'struct
-> + * media_entity_context' and are freed once all the references to it are
-> + * released.
-> + *
-> + * A video device context ref-count is increased when:
-> + * - The context is created by bounding a video device to a media device context
-> + * - The media pipeline starts streaming
-> + * A video device context ref-count is decreased when:
-> + * - The associated file handle is closed
-> + * - The media pipeline stops streaming
-> + *
-> + * The ref-count is increased by a call to video_device_context_get() and is
-> + * reponsibility of the caller to decrease the reference count with a call to
-> + * video_device_context_put().
-> + */
-> +struct video_device_context {
-> +       struct media_entity_context base;
-> +
-> +       struct video_device *vdev;
-> +       /* Protects the vb2 queue. */
-> +       struct mutex queue_lock;
-> +       struct vb2_queue queue;
-> +};
-> +
-> +/**
-> + * video_device_context_get - Helper to get a video device context from a
-> + *                           media device context
-> + *
-> + * @mdev_context: The media device context
-> + * @vdev: The video device the context refers to
-> + *
-> + * Helper function that wraps media_device_get_entity_context() and returns
-> + * the video device context associated with a video device in a media device
-> + * context.
-> + *
-> + * The reference count of the returned video device context is increased.
-> + * Callers of this function are required to decrease the reference count of
-> + * the context reference with a call to video_device_context_put().
-> + */
-> +struct video_device_context *
-> +video_device_context_get(struct media_device_context *mdev_context,
-> +                        struct video_device *vdev);
-> +
-> +/**
-> + * video_device_context_put - Helper to decrease a video context reference
-> + *                           count
-> + *
-> + * @ctx: The video context to release
-> + */
-> +void video_device_context_put(struct video_device_context *ctx);
-> +
-> +/**
-> + * video_device_init_context - Initialize the video device context
-> + *
-> + * @vdev: The video device this context belongs to
-> + * @ctx: The context to initialize
-> + *
-> + * Initialize the video device context. The intended callers of this function
-> + * are driver-specific implementations of the media_entity_ops.alloc_context()
-> + * function that allocates their driver specific types that derive from
-> + * struct video_device_context.
-> + */
-> +int video_device_init_context(struct video_device *vdev,
-> +                             struct video_device_context *ctx);
-> +
-> +/**
-> + * video_device_cleanup_context - Cleanup the video device context
-> + *
-> + * @ctx: The context to cleanup.
-> + *
-> + * Cleanup the video device context. The intended callers of this function are
-> + * driver specific implementation of the media_entity_ops.destroy_context()
-> + * function before releasing the memory previously allocated by
-> + * media_entity_ops.alloc_context().
-> + */
-> +void video_device_cleanup_context(struct video_device_context *ctx);
-> +
->  #endif /* CONFIG_MEDIA_CONTROLLER */
->
->  #endif /* _V4L2_DEV_H */
-> diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
-> index b5b3e00c8e6a0b082d9cd8a0c972a5094adcb6f2..a8de8613a026589ede94dc3e70c8a49ae08f4582 100644
-> --- a/include/media/v4l2-fh.h
-> +++ b/include/media/v4l2-fh.h
-> @@ -20,6 +20,7 @@
->
->  struct video_device;
->  struct v4l2_ctrl_handler;
-> +struct video_device_context;
->
->  /**
->   * struct v4l2_fh - Describes a V4L2 file handler
-> @@ -38,6 +39,7 @@ struct v4l2_ctrl_handler;
->   * @sequence: event sequence number
->   *
->   * @m2m_ctx: pointer to &struct v4l2_m2m_ctx
-> + * @context: The video device context
->   */
->  struct v4l2_fh {
->         struct list_head        list;
-> @@ -54,6 +56,7 @@ struct v4l2_fh {
->         u32                     sequence;
->
->         struct v4l2_m2m_ctx     *m2m_ctx;
-> +       struct video_device_context *context;
->  };
->
->  /**
->
-> --
-> 2.49.0
->
->
+Jason
