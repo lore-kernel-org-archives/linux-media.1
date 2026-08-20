@@ -1,69 +1,69 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013016.outbound.protection.outlook.com [52.101.72.16])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013011.outbound.protection.outlook.com [52.101.83.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3428A3C9456;
-	Thu, 20 Aug 2026 07:23:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6CF3246EC;
+	Thu, 20 Aug 2026 07:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.11
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787210608; cv=fail; b=Tog1WjP7XhorvO5gg1PkQNtMG4N6kPn0jgtUBLMbhWcky56Udsm3Qlw5fCH3UrhSZflmStWUcpIUDAWV+QOGemi2CkxsBc/eCQkEjhaU/OiUrPu4meBjQ6PIjq1YPlcqIGnC5Pb9jpyYR8Re3B4APmAX7a3GzS8dghb7CHFWj04=
+	t=1787210609; cv=fail; b=YVInzIundJoCVODFCLXo/mVDWcua4SyZTwpbLKyCGooPojjM2YIDO+6hvUw7HKTI8UNnb3ChkCsUUNZczbXq5M/DRWJgz6uU/QkrAY//18jd7OssIVmxF42ZzC/t+5yD5At3p+yGUiLzhk4f6y2arL6bbN89t9vYBrFUzHz2KNY=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787210608; c=relaxed/simple;
-	bh=jzRc/wWOottg7uEWjl6eURl2KjBCUpbboJyNxiVCM8w=;
+	s=arc-20240116; t=1787210609; c=relaxed/simple;
+	bh=zGVWxJDwPCyXTIQNztca/LeB2vwKgYTv9DXtSAntAnA=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=iBNO1un/PWCwSDsiBOTAvpgqO6G0lMy9kqIRb9LP5DYJ42E6c75ZSEvE6HVq08MwwGzgYr1XF8UGo+S76CsqkAVsY0GvsJN4vn6dAnIRV1fvjd+Vb2HeGASZWU7XrYAtiqan4sRm+GyZPvnw879yp9K3uYOxPfw6f2HzINIg51A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=DzSt9qtn; arc=fail smtp.client-ip=52.101.72.16
+	 In-Reply-To:To:CC; b=UGZmrh8OWoLdbHTquslzkISfggR8IkerD8vkYpDks36I4PQMHjOYGxyvGQKgofHTdyjMngFEGx0tWnRdH8W9qcRIpDuZ1WBd9zj7f24GHr8IgKtPX+D5W6ZnIiZCQKhNTpBa83oBu8sC7QzyNgFYLp7L8pwzbaUUCZr0E1JgBmw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=P4lGLMFl; arc=fail smtp.client-ip=52.101.83.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="DzSt9qtn"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="P4lGLMFl"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=B8e5eVuBanRzikQaeJYCVc8cdSLxzqdYwaeBhB6mWrlK/L5c9Tu7xYe6ahDDGOSs9SQW/F6OypngPD8lc1r9doEkp36/esANLslDiZKPvYeBEaEgSmKfGQc7FgNa5aHWBGWpoLgZXRAlrxUvgsEKCqF3cF2epZlRRg5yvlJJYF4KYPxbcd4otaGCU/vh8rC9X5GBYoLYFyzCPVKLH51d3Wt1tMv4Af/OSbKvJKMdgfLsnEN/zZMQQUmnO2+2EwcR+ZTBNiEnBzKkN3yK6PLQEYdw7jptX9Hk1aGfI3Qg2OAQZKmPa9r1h2ZgfA7pPN/BgnjTwYpPtT5srqOiNXBqOg==
+ b=J1tWnTmsG3jyEHuy31XPoUXDFV4NA892X5m55kNk0NI0tDt/UF5UgVYj5YGG9PNnMU0mJJAEHxtN3VIUXxMcBQ56QlFqCMp6KcsBZIEtL6X2zrYEesm1E+SzwtFyytZJueC8YMuDLfKYZm91qWRy1cXDpdpBnrMRelr8j5Fb1zcahoknAu+qiBitqhub74LyBdnhdRhcLm2nFwIAmUDOJt1xTGVAG26B6pztEs9Pt1qdqi4WOruS3WwgTDJmJXv8qvYvUGO0+nJ+sr7amze2jw2nAH9hkWWFqguAGl3MzfknbVTSQFxSvaJDqzOPRIrWxQY2GY7VPV/DVcqrxADnRA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xQvtEtuiF+uLwjQNJCXPhxECCGDPcGIks8lQpPi3d6M=;
- b=eL0/plt5fuPbSoOEsG+aoobXyvYRrcvQbzmki4wdGXthDrnCwcBce+4XXJA9iJ3wy4MJcfCNZ+ipZ3SZTpDD1SQRZxuegPvdQHjVRB9mDZ6ISlxl5fBMGOXAZ8rqjN5QUZeJpE8Al1EXqXpA+l2snI40x2YvwfSd9Avh73VO4Ydd4fPQ0NgzHqdedJTsB9q9MSER8XU+BiKiwJF9sCII+SwZNIthNFjzylRTZjDAGv0UMIrvvJ6jph1sypzL0seAW0Eg24ScAL7aX/beXQBbiW5Y253UaDCGP9sPkeYi2bOtIgBSD0aaG3RgURP2l0YwSnKcAsioUild7HYxr/j53w==
+ bh=mbgQP9IB1qeuWabyyqhjfhhNYDDooC2janKkqTj0xfI=;
+ b=i/iYhC+Vwj6tptr3J+WCaq5QmR8rXrPt8Q+Q/yChdAcFQnqWIFDyUqVse8h4c07DWw9yMxYnI5qj+eWXpmIdUEPKKhhtcAbmHBGKF3Y6f6LCHP4sT2e9rF5GPR8rNPxCakuhqljZ9w4g88sg51VQqwyV9P927At3LSMqGJ27JkfC8FmaTB12Wr/m0c0wD/G4N9Tc6LkGvZRA/nArmMxNwNE/NrCK7O4Fdpc7MhuhrSNXRaERalBH7bXR+V6qnp5PIM+9KQasaw99zzEcbRR6cr650Hd/j+IOzMvIdqRznO+ZyHC8u/ENquoJKyxIiIoQ5Xl4vbfqpH/KsbXSdXGnfA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
  dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xQvtEtuiF+uLwjQNJCXPhxECCGDPcGIks8lQpPi3d6M=;
- b=DzSt9qtnSaxM0OTDoAYBuDbaEEeXbk+582aSCeunlrwSUq2CQShVsSQ0ZvacVzpB76n2PPO1GmD9YCBn3TXRWKG7JyilswmGYpjO/YNYQ/NCj4GN3Eb47/XN2YUBmkXhVJBsJQMnMfCrL5TZTqi3b5o6ach7xIxcRnnbSUCSZXekbqRQRRSjaj47WtU5zVCKnxXWPiSiaXw2q0MTVPADT/pNLY1iqDED9S+Lfue3FLldd0xvApN9PO88F/MKJDuylnEx6oEGP5wOxwEYcjrbXTtzZ+YfE8nYBHaPqPYB3sFufOU3/BUkjJa7eIZeo9QA6v9K6MrnYUhwz2S2HQi8Gw==
-Received: from AS4P191CA0011.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::9)
- by DBAPR10MB4012.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:1b4::19) with
+ bh=mbgQP9IB1qeuWabyyqhjfhhNYDDooC2janKkqTj0xfI=;
+ b=P4lGLMFlVWrm1O7auU8yjeoumpA+MC0/UQ8Q6+Iv2IoVd6pWlCyca2q2ew51IzYBio3F5kmwxjDmaGz4VhPSdO49968Jpd+EE4LrM8mr6ze+o/T4eXwHhwOk10pBsnFKvDArCKqtnBzTCQ650NTXNDAFPf16grFPgEfLfITO+u8bGEH+C+1yazhLO+/RhHBE5BuAD60eJx+B73KQ+DBugCn+8sonkrfn8we9RRuGPIJP3fFpCBU7UoUT4G6b5m+V3cqt1ykI0Pe6L0PQkVfWkAijspmGIecACIGSUPiKCMaiWOhbuBfk7gyMEEO4pf/x/cU7bG3bWuztxitfaVbmqg==
+Received: from AS4P190CA0044.EURP190.PROD.OUTLOOK.COM (2603:10a6:20b:5d1::8)
+ by VI0PR10MB9336.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:2ae::18) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Thu, 20 Aug
- 2026 07:23:13 +0000
-Received: from DB5PEPF00014B94.eurprd02.prod.outlook.com
- (2603:10a6:20b:5d5:cafe::15) by AS4P191CA0011.outlook.office365.com
- (2603:10a6:20b:5d5::9) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.8 via Frontend Transport; Thu, 20
- Aug 2026 07:23:13 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ 2026 07:23:14 +0000
+Received: from AMS0EPF000001A7.eurprd05.prod.outlook.com
+ (2603:10a6:20b:5d1:cafe::50) by AS4P190CA0044.outlook.office365.com
+ (2603:10a6:20b:5d1::8) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.10 via Frontend Transport; Thu,
+ 20 Aug 2026 07:23:14 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
 Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- DB5PEPF00014B94.mail.protection.outlook.com (10.167.8.232) with Microsoft
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ AMS0EPF000001A7.mail.protection.outlook.com (10.167.16.234) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 07:23:12 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ 15.21.339.3 via Frontend Transport; Thu, 20 Aug 2026 07:23:14 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 20 Aug
- 2026 09:28:47 +0200
+ 2026 09:28:13 +0200
 Received: from localhost (10.252.29.67) by STKDAG1NODE2.st.com (10.75.128.133)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 20 Aug
- 2026 09:23:12 +0200
+ 2026 09:23:13 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Thu, 20 Aug 2026 09:22:33 +0200
-Subject: [PATCH v4 05/14] media: stm32: dcmipp: correct swap in YUYV data
- with parallel input
+Date: Thu, 20 Aug 2026 09:22:34 +0200
+Subject: [PATCH v4 06/14] media: stm32: dcmipp: configure csi input of all
+ pipes on stm32mp25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260820-stm32-dcmipp-pixel-pipes-support-v4-5-d212eb4e3792@foss.st.com>
+Message-ID: <20260820-stm32-dcmipp-pixel-pipes-support-v4-6-d212eb4e3792@foss.st.com>
 References: <20260820-stm32-dcmipp-pixel-pipes-support-v4-0-d212eb4e3792@foss.st.com>
 In-Reply-To: <20260820-stm32-dcmipp-pixel-pipes-support-v4-0-d212eb4e3792@foss.st.com>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, Hugues Fruchet
@@ -86,175 +86,231 @@ X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DB5PEPF00014B94:EE_|DBAPR10MB4012:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7faf51de-79b7-457f-e272-08defe8be515
+X-MS-TrafficTypeDiagnostic: AMS0EPF000001A7:EE_|VI0PR10MB9336:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0a885fe-1a50-47e3-7510-08defe8be5c5
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|23010399003|376014|22082099003|18002099003|10067099003|56012099006|11063799006|6133799003;
+	BCL:0;ARA:13230040|376014|1800799024|36860700016|23010399003|82310400026|10067099003|56012099006|11063799006|6133799003|22082099003|18002099003;
 X-Microsoft-Antispam-Message-Info:
-	XYJ0Ka4rxvEO7JM3FeOodgwXcNyoWuXolJ7A7ibexD20kJe57VOzXyVxOd0rybVcBayfX1janeZkBW+DraLg+HUDuYHfqeR1y7YjfRBK/oLf9wznPFTCNEMae+ngHibRvUOrB5wh44dwuwMUnH5ZuSZ5jAjfebhVkaRIyTNOEK4dedmhBatjS+mhTidcqB88mCBCyHBkzn2Go701mquFV2gBGKR9AqXI2LR83GdgCYH0N28w0YVPHvPjJ92+UhCTRMvIgIJCopiaOl+wlKJXnDFKf+W7ePUsnZlzjzYNbvBjpLLqVfGNO8v2CP5Lba59RA9KG3v1sOgcPqw2QXLEL4u4AO7h4JkCl3kwnEeyBdFmyciSolNefvKtKYDRm7kdKmRN6hpNLum7AhbtaMAycdoD7WtiDu9n3PlxQiiGE6DHr4BqX45AsVcC+rKddaf3wLtgiWUTIrw4esUaY280tH+VbIKr2VNScRQy+IB/b8dAWTPioRkr+dhZ7f4F6qoTw0sl9WVeI7Ga14n0TLmbKWxyopPdqTDTlnJ4nN8pknPryXt+HVHawIbKiydTKZmX9KvvMi79Sko0PDn1qR5TbxEOFF02w1AHYyGKp7bSRJ1CX6q9yRRf9tUzfMzu6IGQCkNhoahNmLqF6v7ZLqvAk19SxZw/JJPZiHxPQ6IkJ2Tm332VzTMqSUBWR1Vj4HxNu8JC6aTzhHFFOnr10LqmIg==
+	E3+dvI5FFtZ/ClGAdahKp856qT3Y4k86uHR+qrSbb7tGgB8xZuWlgMGALBPCcfg6gnVI/JGPobGacac0PaLMoFE6CbBkfgotw+r0CmoMGRrfKBJYiGc1qjMNcQzQp6+xhDeq7iBWNUNvIe8/aSIhbRAlYj5JGxB80+XHYh9KB36XYV72xw9dYmIMoWKEummyI0DZ87AXLeG6uQZaPdRVPTABxI1udZwDCsi+IxP882nMw7v4TdEBXyBYdM4WKlAHEJFnL4YN2Lo7v/N5feWjcWGU2sWYEmu+ZJPi0+ytodNrjW+8NNg08dY43nBCfUyAd/+dbp+Eh9IMFRiO26shd943F2ieGCzYPjQUvL3GuGsblmhJvYyVW5oC5yJ/lFGcKai/VuswMqEEbX6QqsqdBNNl7TvklGQ9sfbkLqH/fQF4niDaWdj+lFn/FOwdexgIXgIboX7672uAUIO2E+eG9czIj9fQlRDgVE/705c46/uIZoStrGSUBkpQJ6911JWJP33z9wD364/fNXmqz4340KDX5U8fxS2PBE2HNhaXHcUbqna4mt0OAWqXhlYJHRLSMEGOUnDFhB5D5EHAgDTTVPR1mntvqyFpfzRA0gdd0OAS71s74EWEY+aLCehZqL3czlFJ5DuZNt/4SlDxzdUr3WW2CJS6w5+uVQAkHN1+irs9YSWrQkNI/2P1gbZmcqBfIz1projdL00CcYfgnIEgPA==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(23010399003)(376014)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(23010399003)(82310400026)(10067099003)(56012099006)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	V1ZjyQLeb0N6mj46DWKk6tE1MeLgjOmgBMowwbdHDr9nmU6AvyRv2h6uQluaI1pKJsX0mSVp87FLtHDvD5PJUixR7Sc7fpnIcm7esdPuAFsBoDuX2/4Q1Y87RrmjWi7bPm18SU+eUzx4Y9YdKfIHNngun5qTalO9h/4aVPc6VTOnRLsLKN7luqWUnKwgMP6P07PhwqhzVzX0IJ5V0dnDdSVMC89ckZtiDMMdq+aEG9424gxyN0Bx08tzgtRNnhL/BwO+hA/MhydLVsm1ObPpaMBVrlvakBk0RrM1ELWpij3U3173PdYUFa+J8Pav6dh/VE3Uz8CGzUTDdtP8uZQsAKYxZAFlWnvpJInTya/BPTSJrH+I8ng4dNByP+R+kArujk/w776RMNvP2yJoWExZqwHOV+FV/k246gzIyMfOGPDlR3egg1GRDmXTSV7ch7sM
+	Hq7gAzlp58lEu0Po5k1fHLammZDu6JH2UPJjR8gy5d7hFQnWZ0dcn02kcA7G0AJ16yaMod6Ls9PF3sd57ZLvy80d064GoEkYyaoabcvswWITgkUvf4F2uKx3jYYpRJskI5rER5jY7B2ulvam6rArJ6qxeTgUloFcYtAloq+2WqEpdm2GSdaEAnQupwCU3fa5RhJhDQeGvJDx2Vp5tHXKf3wwF3yQF8PvME6KdsLT6cm2kfLm+bnQGo+YWEtT5SOLMGZehSZMOnOWK0KjymyA1/bv4/ppFcDrkOHE/5mo3FySDWrzo7ZAV9jyGunwnz2e8b0ZGf640igXZhPr6+MCNuaY1f9AOXd+rtzwZhoKHlEvMpj58sNWKt4Ky7fmrW8Mbv2Szd/Byz8sgF/xKKnYySsyL1d3oWdbJDxWhD0wVDxTHjmQOWQXME/vESagcJKb
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:23:12.9278
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Aug 2026 07:23:14.1047
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7faf51de-79b7-457f-e272-08defe8be515
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0a885fe-1a50-47e3-7510-08defe8be5c5
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	DB5PEPF00014B94.eurprd02.prod.outlook.com
+	AMS0EPF000001A7.eurprd05.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR10MB4012
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR10MB9336
 
-When used with parallel input, the DCMIPP is expecting data to come
-in YUYV order (for all DUMP/MAIN and AUX pipes).  Not doing so will
-lead to bad color generated by the pipes when processing is done.
-The DUMP pipe is also doing by default a swap since, while it accepts
-YUYV data, it will by default generate UYVY data.
-
-Current implementation is not correct for parallel input since it is
-performing a cycle swap on the input side and since the dump pipe is
-also internally doing a swap, the data captured from the dump pipe are
-correct, while the data captured from the main / aux pipes are not.
-
-To correct this, only perform cycle swap when it is necessary, hence
-changing from YUYV to UYVY for example, and for all parallel YUV MBUS,
-add the P0PPCR based SWAPYUV to put back the data into the ordering of
-the input.
-
-Keep previous behavior when the SWAPYUV is not available (such as
-stm32mp13).
+The STM32MP25 has CSI input and 2 additional pixel pipes in addition
+to the byte pipe. Each pipe can select which data to receive based
+on CSI VC/DT selection.
+The multi-stream support of DCMIPP will be added in a future commit,
+however, to start putting proper control method, the input subset
+has now 3 SRC pads, one per pipe available.
+Currently, and until multi-stream support is added, same data is
+sent to all pipes.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- .../st/stm32/stm32-dcmipp/dcmipp-byteproc.c        | 16 ++++++++++++-
- .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |  1 +
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   |  3 ++-
- .../platform/st/stm32/stm32-dcmipp/dcmipp-input.c  | 28 +++++++++++++++-------
- 4 files changed, 38 insertions(+), 10 deletions(-)
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-input.c  | 86 +++++++++++++++-------
+ 1 file changed, 58 insertions(+), 28 deletions(-)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-index 5fcd5123136f8..f61618e123224 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-byteproc.c
-@@ -25,6 +25,7 @@
- #define DCMIPP_P0SCSZR_HSIZE_SHIFT	0
- #define DCMIPP_P0SCSZR_VSIZE_SHIFT	16
- #define DCMIPP_P0PPCR	0x5c0
-+#define DCMIPP_P0PPCR_SWAPYUV		BIT(0)
- #define DCMIPP_P0PPCR_BSM_1_2		0x1
- #define DCMIPP_P0PPCR_BSM_1_4		0x2
- #define DCMIPP_P0PPCR_BSM_2_4		0x3
-@@ -428,9 +429,11 @@ static int dcmipp_byteproc_configure_scale_crop
- 	if (!vpix)
- 		return -EINVAL;
- 
--	/* clear decimation/crop */
-+	/* clear decimation/crop/swap yuv */
- 	reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_BSM_MASK);
- 	reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_LSM);
-+	if (byteproc->ved.dcmipp->pipe_cfg->has_swapyuv)
-+		reg_clear(byteproc, DCMIPP_P0PPCR, DCMIPP_P0PPCR_SWAPYUV);
- 	reg_write(byteproc, DCMIPP_P0SCSTR, 0);
- 	reg_write(byteproc, DCMIPP_P0SCSZR, 0);
- 
-@@ -451,6 +454,17 @@ static int dcmipp_byteproc_configure_scale_crop
- 	if (vprediv == 2)
- 		val |= DCMIPP_P0PPCR_LSM | DCMIPP_P0PPCR_OELS;
- 
-+	/*
-+	 * Perform a SWAP YUV if input is parallel since in this mode
-+	 * the DCMIPP will swap YUV by default
-+	 */
-+	if (byteproc->ved.dcmipp->pipe_cfg->has_swapyuv &&
-+	    (sink_fmt->code == MEDIA_BUS_FMT_YUYV8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_YVYU8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_UYVY8_2X8 ||
-+	     sink_fmt->code == MEDIA_BUS_FMT_VYUY8_2X8))
-+		val |= DCMIPP_P0PPCR_SWAPYUV;
-+
- 	/* decimate using bytes and lines skipping */
- 	if (val) {
- 		reg_set(byteproc, DCMIPP_P0PPCR, val);
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-index 9e7b2434200a1..2d26425b0b0fb 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-@@ -118,6 +118,7 @@ struct dcmipp_pipeline_config {
- 	u32 hw_revision;
- 	bool has_csi2;
- 	bool needs_mclk;
-+	bool has_swapyuv;
- };
- 
- /**
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index 3a0a4df410d8a..9aba16096d289 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -108,7 +108,8 @@ static const struct dcmipp_pipeline_config stm32mp25_pipe_cfg = {
- 	.num_links	= ARRAY_SIZE(stm32mp25_ent_links),
- 	.hw_revision    = DCMIPP_STM32MP25_VERR,
- 	.has_csi2	= true,
--	.needs_mclk	= true
-+	.needs_mclk	= true,
-+	.has_swapyuv	= true
- };
- 
- #define LINK_FLAG_TO_STR(f) ((f) == 0 ? "" :\
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
-index 564f37e2e1dd4..75421035cfad5 100644
+index 75421035cfad5..220e03ea38aae 100644
 --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-input.c
-@@ -80,15 +80,15 @@ static const struct dcmipp_inp_pix_map dcmipp_inp_pix_map_list[] = {
- 	PIXMAP_SINK_SRC_PRCR_SWAP(RGB888_3X8, RGB888_3X8, RGB888, 0, MIPI_CSI2_DT_RGB888),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(RGB888_1X24, RGB888_1X24, RGB888, 0, MIPI_CSI2_DT_RGB888),
- 	/* YUV422 */
--	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, YUYV8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, YUYV8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_1X16, YUYV8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, UYVY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, UYVY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YUYV8_2X8, UYVY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, UYVY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_1X16, UYVY8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, YUYV8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_2X8, YVYU8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(UYVY8_2X8, YUYV8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_2X8, YVYU8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(YVYU8_1X16, YVYU8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
--	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_2X8, VYUY8_2X8, YUV422, 1, MIPI_CSI2_DT_YUV422_8B),
-+	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_2X8, VYUY8_2X8, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	PIXMAP_SINK_SRC_PRCR_SWAP(VYUY8_1X16, VYUY8_1X16, YUV422, 0, MIPI_CSI2_DT_YUV422_8B),
- 	/* GREY */
- 	PIXMAP_SINK_SRC_PRCR_SWAP(Y8_1X8, Y8_1X8, G8, 0, MIPI_CSI2_DT_RAW8),
-@@ -356,8 +356,20 @@ static int dcmipp_inp_configure_parallel(struct dcmipp_inp_device *inp,
- 	val |= vpix->prcr_format << DCMIPP_PRCR_FORMAT_SHIFT;
+@@ -43,12 +43,18 @@
+ #define DCMIPP_CMCR_INSEL	BIT(0)
  
- 	/* swap cycles */
--	if (vpix->prcr_swapcycles)
--		val |= DCMIPP_PRCR_SWAPCYCLES;
-+	/*
-+	 * Table dcmipp_inp_pix_map_list take into consideration that SWAPYUV
-+	 * bit is available when dealing with 16bit YUV formats. If it is not
-+	 * available (such as on stm32mp13), swapcycle setting should be
-+	 * reversed
-+	 */
-+	if (!inp->ved.dcmipp->pipe_cfg->has_swapyuv &&
-+	    (src_fmt->code == MEDIA_BUS_FMT_YUYV8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_YVYU8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_UYVY8_2X8 ||
-+	     src_fmt->code == MEDIA_BUS_FMT_VYUY8_2X8))
-+		val |= (!vpix->prcr_swapcycles ? DCMIPP_PRCR_SWAPCYCLES : 0);
-+	else
-+		val |= (vpix->prcr_swapcycles ? DCMIPP_PRCR_SWAPCYCLES : 0);
+ #define DCMIPP_P0FSCR	0x404
+-#define DCMIPP_P0FSCR_DTMODE_MASK	GENMASK(17, 16)
+-#define DCMIPP_P0FSCR_DTMODE_SHIFT	16
+-#define DCMIPP_P0FSCR_DTMODE_DTIDA	0x00
++#define DCMIPP_P1FSCR	0x804
++#define DCMIPP_P2FSCR	0xC04
++#define DCMIPP_PXFSCR_DTMODE_MASK	GENMASK(17, 16)
++#define DCMIPP_PXFSCR_DTMODE_SHIFT	16
++#define DCMIPP_PXFSCR_DTMODE_DTIDA	0x00
+ #define DCMIPP_P0FSCR_DTMODE_ALLDT	0x03
+-#define DCMIPP_P0FSCR_DTIDA_MASK	GENMASK(5, 0)
+-#define DCMIPP_P0FSCR_DTIDA_SHIFT	0
++#define DCMIPP_PXFSCR_DTIDA_MASK	GENMASK(5, 0)
++#define DCMIPP_PXFSCR_DTIDA_SHIFT	0
++
++#define DCMIPP_PXFSCR(a) (((a) == 0) ? DCMIPP_P0FSCR :\
++			  ((a) == 1) ? DCMIPP_P1FSCR :\
++			   DCMIPP_P2FSCR)
  
- 	reg_write(inp, DCMIPP_PRCR, val);
+ #define IS_SINK(pad) (!(pad))
+ #define IS_SRC(pad)  ((pad))
+@@ -274,6 +280,7 @@ static int dcmipp_inp_set_fmt(struct v4l2_subdev *sd,
+ {
+ 	struct dcmipp_inp_device *inp = v4l2_get_subdevdata(sd);
+ 	struct v4l2_mbus_framefmt *mf;
++	int pad;
+ 
+ 	if (v4l2_subdev_is_streaming(sd))
+ 		return -EBUSY;
+@@ -298,9 +305,11 @@ static int dcmipp_inp_set_fmt(struct v4l2_subdev *sd,
+ 
+ 	/* When setting the sink format, report that format on the src pad */
+ 	if (IS_SINK(fmt->pad)) {
+-		mf = v4l2_subdev_state_get_format(sd_state, 1);
+-		*mf = fmt->format;
+-		dcmipp_inp_adjust_fmt(inp, mf, 1);
++		for (pad = 1; pad < sd->entity.num_pads; pad++) {
++			mf = v4l2_subdev_state_get_format(sd_state, pad);
++			*mf = fmt->format;
++			dcmipp_inp_adjust_fmt(inp, mf, pad);
++		}
+ 	}
+ 
+ 	return 0;
+@@ -383,7 +392,8 @@ static int dcmipp_inp_configure_parallel(struct dcmipp_inp_device *inp,
+ }
+ 
+ static int dcmipp_inp_configure_csi(struct dcmipp_inp_device *inp,
+-				    struct v4l2_subdev_state *state)
++				    struct v4l2_subdev_state *state,
++				    u32 pad)
+ {
+ 	const struct dcmipp_inp_pix_map *vpix;
+ 	struct v4l2_mbus_framefmt *sink_fmt;
+@@ -391,7 +401,7 @@ static int dcmipp_inp_configure_csi(struct dcmipp_inp_device *inp,
+ 
+ 	/* Get format information */
+ 	sink_fmt = v4l2_subdev_state_get_format(state, 0);
+-	src_fmt = v4l2_subdev_state_get_format(state, 1);
++	src_fmt = v4l2_subdev_state_get_format(state, pad);
+ 
+ 	vpix = dcmipp_inp_pix_map_by_code(sink_fmt->code, src_fmt->code);
+ 	if (!vpix) {
+@@ -399,22 +409,28 @@ static int dcmipp_inp_configure_csi(struct dcmipp_inp_device *inp,
+ 		return -EINVAL;
+ 	}
+ 
+-	/* Apply configuration on each input pipe */
+-	reg_clear(inp, DCMIPP_P0FSCR,
+-		  DCMIPP_P0FSCR_DTMODE_MASK | DCMIPP_P0FSCR_DTIDA_MASK);
++	/* Perform the configuration on the related pad/pipe */
++	reg_clear(inp, DCMIPP_PXFSCR(pad - 1),
++		  DCMIPP_PXFSCR_DTMODE_MASK | DCMIPP_PXFSCR_DTIDA_MASK);
+ 
+ 	/* In case of JPEG we don't know the DT so we allow all data */
+ 	/*
+ 	 * TODO - check instead dt == 0 for the time being to allow other
+ 	 * unknown data-type
+ 	 */
+-	if (!vpix->dt)
+-		reg_set(inp, DCMIPP_P0FSCR,
+-			DCMIPP_P0FSCR_DTMODE_ALLDT << DCMIPP_P0FSCR_DTMODE_SHIFT);
+-	else
++	if (!vpix->dt) {
++		if (pad != 1) {
++			dev_err(inp->dev, "JPEG only available on pipe 0\n");
++			return -EINVAL;
++		}
++		/* Only available on Pipe #0 */
+ 		reg_set(inp, DCMIPP_P0FSCR,
+-			vpix->dt << DCMIPP_P0FSCR_DTIDA_SHIFT |
+-			DCMIPP_P0FSCR_DTMODE_DTIDA);
++			DCMIPP_P0FSCR_DTMODE_ALLDT << DCMIPP_PXFSCR_DTMODE_SHIFT);
++	} else {
++		reg_set(inp, DCMIPP_PXFSCR(pad - 1),
++			vpix->dt << DCMIPP_PXFSCR_DTIDA_SHIFT |
++			DCMIPP_PXFSCR_DTMODE_DTIDA);
++	}
+ 
+ 	/* Select the DCMIPP CSI interface */
+ 	reg_write(inp, DCMIPP_CMCR, DCMIPP_CMCR_INSEL);
+@@ -432,20 +448,24 @@ static int dcmipp_inp_enable_streams(struct v4l2_subdev *sd,
+ 	struct media_pad *s_pad;
+ 	int ret = 0;
+ 
+-	/* Get source subdev */
+-	s_pad = media_pad_remote_pad_first(&sd->entity.pads[0]);
+-	if (!s_pad || !is_media_entity_v4l2_subdev(s_pad->entity))
+-		return -EINVAL;
+-	s_subdev = media_entity_to_v4l2_subdev(s_pad->entity);
+-
+ 	if (inp->ved.bus_type == V4L2_MBUS_PARALLEL ||
+ 	    inp->ved.bus_type == V4L2_MBUS_BT656)
+ 		ret = dcmipp_inp_configure_parallel(inp, state);
+ 	else if (inp->ved.bus_type == V4L2_MBUS_CSI2_DPHY)
+-		ret = dcmipp_inp_configure_csi(inp, state);
++		ret = dcmipp_inp_configure_csi(inp, state, pad);
+ 	if (ret)
+ 		return ret;
+ 
++	/* If there where no other pad enabled, then enable the source subdev */
++	if (sd->enabled_pads)
++		return 0;
++
++	/* Get source subdev */
++	s_pad = media_pad_remote_pad_first(&sd->entity.pads[0]);
++	if (!s_pad || !is_media_entity_v4l2_subdev(s_pad->entity))
++		return -EINVAL;
++	s_subdev = media_entity_to_v4l2_subdev(s_pad->entity);
++
+ 	ret = v4l2_subdev_enable_streams(s_subdev, s_pad->index, BIT_ULL(0));
+ 	if (ret < 0) {
+ 		dev_err(inp->dev,
+@@ -466,6 +486,10 @@ static int dcmipp_inp_disable_streams(struct v4l2_subdev *sd,
+ 	struct media_pad *s_pad;
+ 	int ret;
+ 
++	/* Don't do anything if there are still other pads enabled */
++	if ((sd->enabled_pads & ~BIT(pad)))
++		return 0;
++
+ 	/* Get source subdev */
+ 	s_pad = media_pad_remote_pad_first(&sd->entity.pads[0]);
+ 	if (!s_pad || !is_media_entity_v4l2_subdev(s_pad->entity))
+@@ -533,8 +557,10 @@ struct dcmipp_ent_device *dcmipp_inp_ent_init(const char *entity_name,
+ 	struct dcmipp_inp_device *inp;
+ 	const unsigned long pads_flag[] = {
+ 		MEDIA_PAD_FL_SINK, MEDIA_PAD_FL_SOURCE,
++		MEDIA_PAD_FL_SOURCE, MEDIA_PAD_FL_SOURCE,
+ 	};
+ 	struct device *dev = dcmipp->dev;
++	u16 num_pads = ARRAY_SIZE(pads_flag);
+ 	int ret;
+ 
+ 	/* Allocate the inp struct */
+@@ -543,18 +569,22 @@ struct dcmipp_ent_device *dcmipp_inp_ent_init(const char *entity_name,
+ 		return ERR_PTR(-ENOMEM);
+ 
+ 	inp->regs = dcmipp->regs;
++	inp->ved.dcmipp = dcmipp;
++
++	/* For DCMIPP without CSI2, there is only a single pipe hence 2 pads */
++	if (!inp->ved.dcmipp->pipe_cfg->has_csi2)
++		num_pads = 2;
+ 
+ 	/* Initialize ved and sd */
+ 	ret = dcmipp_ent_sd_register(&inp->ved, &inp->sd, &dcmipp->v4l2_dev,
+ 				     entity_name, MEDIA_ENT_F_VID_IF_BRIDGE,
+-				     ARRAY_SIZE(pads_flag), pads_flag,
++				     num_pads, pads_flag,
+ 				     &dcmipp_inp_int_ops, &dcmipp_inp_ops,
+ 				     NULL, NULL);
+ 	if (ret) {
+ 		kfree(inp);
+ 		return ERR_PTR(ret);
+ 	}
+-	inp->ved.dcmipp = dcmipp;
+ 
+ 	inp->dev = dev;
  
 
 -- 
