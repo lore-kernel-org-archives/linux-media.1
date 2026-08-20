@@ -1,121 +1,163 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AAC415B62
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:31:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0466402432
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:32:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221895; cv=none; b=tbyEQtNJ8O2HreeVG3+IfgacJaaQcSS4EvHu62x+e02LnEkjulF5oECy/8dEQOJUhNFs2miMi1HqUThxkOirjHApIt3vGa3VwVWKu3JPbfFS4+jPxoIgcC4WrE+Hgfq2Jia++yRhC805Tbi+EG+sYtwFM+I9S6oeTUilkAUO/CI=
+	t=1787221939; cv=none; b=ElfO2Pnd7NFQ566bhhZKy29YLUOZbFAHyzAc6tOvzt0IanSaf5jPPjLdFIvp2UXVWKe2tMv1mzr0fQDIzNtxwdZQXtF0YaS/Yi5vGYzovtC/O1GI1IuQ4WZ9GFrdtsmobtfOsmF5PKtZZe2q5+KtCKSPMPQKDmnHudHnauf+2tI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221895; c=relaxed/simple;
-	bh=C6fK7LBKbrFygwVhO/77jAB48+YWk938Y0HiYcbWDRU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=rDrEEcc3jpfhcIcJ8ypCwyfJZiFk7Fk1WJ120zqZzDZ8FmS9L6yXGoZTUYKwUY3c5sb+WjhYqkvyvn+rbc7SDrGPNpxdWNuGRaet31UnofwYjS3xUJpbmeAjPCIKB2exjkArvbz7tmmuCFJvTKm45XPigBc9kLtq7PAPodShLPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=alw7CU7d; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787221939; c=relaxed/simple;
+	bh=KWwU9fKJ0FKccFa9CEsaT/oAI0rQxv7O8etWGutvVqE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=q5LYd5EpbKnRRFd4prUXaH230cwzIkjp7qvvisMpHxwYWnJ+ONi6cky+MkScuc0xb7l6xz5Agl6a5RKHuBRwJMvRZRhu5rLmU6KFFCLj12/fJ+pS1F1XoPJ7xdcdbNLc9Mzm1R+bIQg187riglgdUBzwXDOXdP8DLF46A1X1aiM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=lLKSF+IA; arc=none smtp.client-ip=209.85.218.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="alw7CU7d"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4998590d392so18464655e9.0
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:31:33 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="lLKSF+IA"
+Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c1677c91969so230886966b.1
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:32:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787221892; x=1787826692; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JmNPY02cVo/U0I4x7MQpmeXuTddemXfkDW0UPzRYQpE=;
-        b=alw7CU7dSQaG02fI722eA6mEMOx0R4bwdOz32+hSs/u9pNTRUEu13QrgI+gA0OJ4Ot
-         poMCViCSs7rZeybe8vnzVREeO1ZbcVFnPraJtS/zmD6tXzz4PtGPcea9qZflXCFeCh/q
-         v9B8O/LevqdD5vqD2H6Dp+yBgeVuRs3AFXVZLSnJ8R0AjPwQTPbcRHR7jUxCJ1alFK3b
-         nZ7oamALGY1mEC2sgdmSlEhG1g+uvdgvLyE4o1ebWUTZduSpVJ2dXPkHpcH03iOp8s8m
-         /xgDlx0kwfhu1qoiCmkv+bI//+UXPFjZVZeru20F8prDb2mX42ynP5nITrkItaaED/o5
-         GOxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787221892; x=1787826692;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=chromium.org; s=google; t=1787221936; x=1787826736; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JmNPY02cVo/U0I4x7MQpmeXuTddemXfkDW0UPzRYQpE=;
-        b=pp9EDUjlV1IO7v80kjQuMfk2n10Xdn5UgdbqUsG/9lK40h3hjQMixtTeiE64Silsli
-         4AqQPSdEvcvH/R8LEJ8z89HC88d+5ERMaiKHgJvlMolMnyv9y0MEeQSWH4zQoPv8D77+
-         0jkFGuy32mNmSrO4awg5CUt/Drhi3P0VI9JFbl04HErrki9o0RiCtgZfIkxtaCqezKgq
-         aqyZ8mQh8Pg1mxFx+efaYr7Jpn3t5M4h6UrSmC3Y6FVLURBCz7PDxrcF/T3gaT+SPr/Q
-         lu/LMkGZ0pdWE5h3Z95AElO64GH7p+m7TreP3MngWzFJocis15A09hZEnqTRk+XdjTdB
-         6UsQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoVO0UdRsdyjm6G8USGfoO5zr3+PwrqRJ854g0RI3gMIbHImntnZ/B29DclNthrH3NFnz9K/ln1DMsEKw==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzaNODt/UCkJklQVDkjLgRJtd9wlrK6M8qj0p35BOAlI0+8oMga
-	JhfDM0WXHiUNtU94eAz6nSZzkYMlyxqPtV6hZXcAIMF7RKQeexAM0qeV
-X-Gm-Gg: AR+sD13UdDtSa9huLwxc5gF+BXkZSyGLxOMJHqb+SycOJDXC19+yWHaEVcgC8jtQ4Yq
-	z8ycnYWmmgx4xZIwU5bX6AwP7mytrc945BmexwkO6uuQrqJVP11B8Zqxcy1o8yBWa2paF3IJr2r
-	GYqyVDUQh/dKiLcgqiyERGOgdATV6CWs0JLX3LK1yd1Pf9pASd/naVDF8dp4IrtWIhqYROUz3W1
-	xPjx/hqcKED53bSnPDiPfTzfhYUWNjpkYpDwIYjV5J/VovFE9BVODBOpW/pVH1tsQ+g3m49a67w
-	Q9rSKNOlNaO18LKoc9/oIcm25EdFSVwaHcIHT5PNfy61pS1K4lP1hWZ4Y6Z4qjZrxQIHS/u5Sx6
-	XdekyEvL5yEPoetilfwRcYwoTuCjD3dCPtAdsegwxlmKoNBll04tJllrJ+40rF3gRoJlZxbMps0
-	WD7UJm0BgGidGSnUR1uGneOQ+BRdpTHID0Ikvgm4aTaFwjH3R27ojCtsZjfKJwvibopPUWLDE5s
-	CJZF95PJkTKG0lA3vEDVkkOoQ==
-X-Received: by 2002:a05:600c:5291:b0:495:4fd4:619b with SMTP id 5b1f17b1804b1-499aa189357mr212082575e9.1.1787221892198;
-        Thu, 20 Aug 2026 03:31:32 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9e78496sm148819115e9.2.2026.08.20.03.31.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 03:31:31 -0700 (PDT)
-Date: Thu, 20 Aug 2026 11:31:29 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: noambs2999@gmail.com, ribalda@chromium.org,
- laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: uvcvideo: Fix integer overflow in frame buffer
- size calculation
-Message-ID: <20260820113129.299aa918@pumpkin>
-In-Reply-To: <20260820091339.42288-1-natalie.klaus@runtimeverification.com>
-References: <20260818092803.4f51e6dc@pumpkin>
-	<20260820091339.42288-1-natalie.klaus@runtimeverification.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=HC96uIh5OlerbZADctBJVxLvYqvq4QcjjrItEzh8ENo=;
+        b=lLKSF+IARN89cSDXsJWXi1kG5UKRrrCvsQFdDG0b+XWMjpvxjq1FLOJywNHTKj6VGH
+         04XzeF1IYQ70FnjxVudQud8GQ9ZQiaaChUpwpiq2J7KvpiyYCM0fkSRW7zriBS3hwUan
+         NrKn6ULz63EmFv/0gUu4GEQ2u7Vy/ojsx1x4c=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787221936; x=1787826736;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=HC96uIh5OlerbZADctBJVxLvYqvq4QcjjrItEzh8ENo=;
+        b=WUiDXziwnZQG27N3lj3ses4omef5BrRGkIkTbVpYAaMsphIb53wjAk7CCocWlN1di/
+         VIRBAE2uoTMTfuBHXqgpQ4NILtLUobf5gC7E32AHcEQqR0oblums4GQbnpCfLpwMUX9Z
+         rgWou9pzZPROXn9hurzvz8qdQTvRSUSJ1cEhJcrkP24aTtxa92a3nBXPg1XREJm6RD3s
+         Vw6/Fc5nKtATxrzXuiNxTUt+u1Z3ylytuZWR00vuCY0vyN9lLx9ZweNxk3Ibqip60v7X
+         BpABEq+xt231EOHdx1blEIOIyFKDru3JfOX627mEc4nFZjSyYKgwmxzA0S8vXDNygoy3
+         LOgg==
+X-Forwarded-Encrypted: i=1; AHgh+RqNE5fKjp3JrEoeHQo4DsyzCu7eklTiiuIgtI4/TsX4Hh5hPUKdQAFNdKChhkEJ6KYRqWq20mQ8zKeaRw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPgYNa99fE8cLCV+M8dVCYLueFooUITdf3t0ECYSIQlunGFX4+
+	YIN8iLxd9gs3pRpduYfyQOQsGI0r0rQoQhZVECbw1ejGGWovOhy+mkITpD7NWp5mVFSiehEwYS4
+	3jtM9Mg==
+X-Gm-Gg: AR+sD11NXmJPqhe4I5D9yuoOALgWpIb/Phr8v7+MrfC/RazBNLYbLg0uD7cTh90W4qc
+	ja5a0/fBC8Ph+9IT+HJRWPeVpuF+4FbaX6+sCAwZwlIblan4VMfeP+n/XjXH9TB2xlOk5qRD4zv
+	tr1WJTkWtx6mEZ/u3+xHSN19uevoAB0PKjcNqch64W2BfiH66wke/E8502TvCVbH/tByffPq5f+
+	5LrBjVWXRQocJeotAQcraLLM25vScjNbvat8rV9O1ksQN6MjfnsLFaLvB5CvGjHYyaKv8+NYUu+
+	8rt0Q2IO8o72zgmguT3ey0ozPqqkiMUc5TbfBDTOCcUl1lniAJpblnVdIV0/I8uvGUsIiiwzczC
+	ARm7WpY8KlQEzAMUKkSetcdPpDvhn2HL7WltUFqNkOOhEQm127EaJIQNdbR736BKvsb4TnR1TZr
+	wLpPKeM0Z5SgJBx3QSjTeVel/MpftuML3gxkAdw6hEcC6C8hhvYBVWuqW0ZIeQNxaoAKx4QtMzY
+	eJu5q4AxCovHvxEZuaDzqYkemeP1rd999aq
+X-Received: by 2002:a17:907:db15:b0:c21:450d:cd7e with SMTP id a640c23a62f3a-c23e8713c52mr665651466b.9.1787221936055;
+        Thu, 20 Aug 2026 03:32:16 -0700 (PDT)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com. [209.85.208.48])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2458b095fasm50441766b.24.2026.08.20.03.32.13
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 03:32:14 -0700 (PDT)
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a15d54ac95so3466796a12.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:32:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq8yTvYKNWKzucHCUMq+Sa1ZPBY9Wr0NcfFKAsKa/+UF0DaIjm/wtSYIzqq4f25Dt6BS+aqECxwWcMaYw==@vger.kernel.org
+X-Received: by 2002:a17:907:608c:b0:c20:3679:a2e6 with SMTP id
+ a640c23a62f3a-c23e8718f2cmr774092066b.10.1787221932268; Thu, 20 Aug 2026
+ 03:32:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com> <20260820095626.111196-4-natalie.klaus@runtimeverification.com>
+In-Reply-To: <20260820095626.111196-4-natalie.klaus@runtimeverification.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 20 Aug 2026 12:31:58 +0200
+X-Gmail-Original-Message-ID: <CANiDSCtBqiShkaCyrDhwiFZSJTwZSLng=sphMf4MmfGEvyziLQ@mail.gmail.com>
+X-Gm-Features: AcwNN1VgxCuQFxEdQnaD8YO_4dvDDcuFE-RRU3gi3eYWhGfjPwO7J_qs8KsaJc8
+Message-ID: <CANiDSCtBqiShkaCyrDhwiFZSJTwZSLng=sphMf4MmfGEvyziLQ@mail.gmail.com>
+Subject: Re: [PATCH 3/3] media: uvcvideo: Skip frame descriptors with a zero
+ computed size
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
+	noambs2999@gmail.com, david.laight.linux@gmail.com, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, 20 Aug 2026 12:13:39 +0300
-Natasha Klaus <natalie.klaus@runtimeverification.com> wrote:
+Hi Natasha
 
-> On Tue, 18 Aug 2026, David Laight wrote:
-> > I'd bet there is a requirement that width*bpp is a multiple of 8 (or even 32)?
-> > You definitely don't want the divide rounding down!  
-> 
-> There is no such check. bpp is a raw descriptor byte at uvc_driver.c:405, and
-> wWidth is unvalidated. The rounding is pre-existing, c0efd232929c has the same
-> /8, so it is not a regression, but it should be DIV_ROUND_UP. uvc_driver.c:431
-> already uses it thirty lines below.
+On Thu, 20 Aug 2026 at 11:57, Natasha Klaus
+<natalie.klaus@runtimeverification.com> wrote:
+>
+> For uncompressed formats uvc_parse_frame() recomputes
+> dwMaxVideoFrameBufferSize from the frame dimensions and the bits per
+> pixel. All three operands are read straight from the descriptor bytes
+> with no range check, so the computed size is zero whenever any of them
+> is zero.
+>
+> A zero size is not harmless. It is copied into
+> ctrl->dwMaxVideoFrameSize by uvc_fixup_video_ctrl() and reaches
+> uvc_queue_setup() as the vb2 plane size, where it trips
+> WARN_ON(!plane_sizes[i]) in vb2_core_reqbufs() at
+> drivers/media/common/videobuf2/videobuf2-core.c:951 and fails
+> VIDIOC_REQBUFS with -EINVAL. On a kernel built with panic_on_warn that
+> WARN is fatal.
+>
+> Such a frame can also become the active one without any application
+> asking for it: when no frame matches the device's default bFrameIndex,
+> uvc_video_init() falls back to frames[0], so a device that also has
+> usable frames can come up unusable.
+>
+> Skip the frame rather than rejecting the descriptor, which would discard
+> the whole streaming interface and every valid format on it. This follows
+> commit 81f3affa19d6 ("media: uvcvideo: Don't expose unsupported formats
+> to userspace"), which drops a format descriptor the driver cannot use
+> for the same reason: to keep it from reaching userspace and triggering a
+> WARN_ON.
+>
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+> ---
+> Depends on 1/3 for -EINVAL to mean "skip this frame", and on 2/3 for the
+> bufsize local.
+>
+> After 2/3 rounds up instead of truncating, the computed size is zero only
+> when one of bpp, wWidth or wHeight is zero; the "product below 8 truncates
+> to zero" case no longer exists.
+>
+>  drivers/media/usb/uvc/uvc_driver.c | 14 ++++++++++++++
+>  1 file changed, 14 insertions(+)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index eb7177ea291d..3bd8d31e1378 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -308,6 +308,20 @@ static int uvc_parse_frame(struct uvc_device *dev,
+>                         return -EINVAL;
+>                 }
+>
+> +               /*
+> +                * A zero-sized frame is unusable: it reaches vb2 as a zero
+> +                * plane size, and it is reported to userspace as a 0x0 frame
+> +                * with a zero sizeimage. Skip the frame descriptor, the
+> +                * caller moves on to the next one.
+> +                */
+> +               if (!bufsize) {
+> +                       dev_warn(&streaming->intf->dev,
+> +                                "UVC non compliance: FRAME %u has zero size (%ux%u, %u bpp), skipping it.\n",
+> +                                frame->bFrameIndex, frame->wWidth,
+> +                                frame->wHeight, format->bpp);
+> +                       return -EINVAL;
+> +               }
+> +
+>                 frame->dwMaxVideoFrameBufferSize = bufsize;
+>         }
+>
+> --
+> 2.34.1
+>
 
-I'd guess that the only values of bpp that have ever been used are 1, 2, 4, 8,
-16, 24?, 32 and maybe 64 (for 16bit colour).
-Anything else won't go through a hardware FIFO.
-Similarly the hardware wants to do a whole number of memory reads for each
-video line - otherwise it all gets hard to get the porches right.
 
-> 
-> > > +		if (bufsize > U32_MAX) {  
-> > Should that be >= ?  
-> 
-> No, U32_MAX itself fits.
-
-Brain fade :-)
-
-David
-
-> > I'd include the bpp, width and height values in the trace.  
-> 
-> Agreed, will do.
-> 
-> I am carrying this as part of a three-patch series at Ricardo's request. Will
-> fold in the rounding and the trace values.
-> 
-> Natasha
-
+-- 
+Ricardo Ribalda
