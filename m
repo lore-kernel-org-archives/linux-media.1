@@ -1,80 +1,80 @@
-Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBDF47ACD4
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AAD647ACE2
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787242275; cv=pass; b=HFWNPNLtgQ3pYHhZAY6Ik7AE62vQPaZ3Ank/WmcYY/sKtgwv7vTiihROoZPAVSJsNhld2n6Y+RtRe9f74gD8/TpXc2XsRp5DZ6TrKexPtGsluUboFquB+L9/KcifESPcEl+3etzKBkg2U5MTp8+68q2fCxOpYHN48xe6WgZWKNQ=
+	t=1787243018; cv=pass; b=jaTxfvWrTLwO7aH4ncni+hTlB7tKGy3tCNlBBxYfKsq96UkbNRQyN9D6RYILsCDput0viv28qXRHDY5LrQw6g/izWBqJHfQeLKfOSUcc61H2CA7txtXsCNe0kO5ai6thKpodW7o9REyCkWU9XRFtI8KMgJ2vhGx0PmYAHA1f7B0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787242275; c=relaxed/simple;
-	bh=QJccLskrpAn1D0a2oDqJF86S6xGOrMefsxxtfxI6+D4=;
+	s=arc-20240116; t=1787243018; c=relaxed/simple;
+	bh=9NvAZTe/xeY48pNBZPHQysKUH30JnhBtmj3WSY969Wk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XVvABVz9fIUKEWdbiu5J+8bXJhoZkdnvQvjOSrrHpZkus8fMbgWnLtvQLJm/41Qread/9iVMX5QWLDb5XPJNA040agScw9Nc07FusdFNYUBxzZRwQNk++nhLQ9lzQUtnZKAkZGfEemU3VpEmqSyw6hOSNSBHe1fv0ToLAfZrcPY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=Mv3ynL2/; arc=pass smtp.client-ip=74.125.224.53
+	 To:Cc:Content-Type; b=kMyBI5CcsHGQE2nUY6Su6VtTaePSoIWVstoNwOCZQn7Bx2A/enyX7HfdnGDdi8ZnYXkNvTBO6yivVNMMZ3jhy2pN9IdYT5gJdtdnJ+FrERtx4aSjyvZUUCO+5VHhP0XtnNghVJKbFGiB1Eb88rs4ku3+Gw6Rk4BgJts3G46QJmU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=tl2Bk/0d; arc=pass smtp.client-ip=209.85.128.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="Mv3ynL2/"
-Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c70d1672cso2770968d50.0
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:11:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787242272; cv=none;
+	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="tl2Bk/0d"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-81ff017d420so18203857b3.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:23:36 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787243015; cv=none;
         d=google.com; s=arc-20260327;
-        b=LY067NdLmrbYzeUzIYeTIVNB0D1CIZZ3icv7khoDy79z8T7j6WYheAjsOKPb5iVNXE
-         6t2ogWzA0k1QuiYknjnQc9vp/mhH987t8hcXvaLQx1Yqbg/tH65JuHUt/dF82K2xb/nS
-         mZarVb186J342nWMD7KQjlk1fHZtyDxst9C39LD3FCFyybKX3yV1FUhCLmRWYwjB+UEj
-         HFtUQnnSRGCARCtdzWhEb4tYbq7LUlZKh4RSZDd/geMnNfujQGYPN/mcyHGhswreTFzQ
-         z8AgT2QN+Da3uAArq2bIYegTCKHXLtQ7pPD9+JAz90ROO6YMJNExbZzfIVkW8CuDk1A5
-         VCkQ==
+        b=nVBmTuii7V1wNKstcOqP0FARUJiWYVy8bz2GD9gjPSHigj1XwYcDbF1+a86SjjMwSq
+         TuPCZRab2wYiSTyhlOalpuzwTvLShjhqZqHmlF7MlhJ2CsHH78b7R1aGXTdMN+8Icm8/
+         CCQxBTk00cISO/l+cvJfftzvxZ2EB1qWo76I+ud+/TAkCFyfYHTHuhPXcE9VMCw5BtXU
+         ZIQ3RzLD4e9dupD8e44367skTpAfB/qbRSHY60vH4r8uhmufnkKiAf41O1ocZw/ZplRH
+         pg3fn2JcatOgyAFBWrnjEpOFI3dqQ6F7P7XYt8kXkQx4Zro89ub5ZmFPyKxB7MxAjHoF
+         Uvew==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=LvT1hGcgM8JOWRpKKkgMqVQoUDJ59PniRKM0U1WWl60=;
-        fh=Y8FVOsVcQM/xcGVfJWEFa7nbaBf4G27IdZLt7fF1WDE=;
-        b=aSDBmj2LRM4ZmhBopfxmy7mfog0PsC9CIwO48JJFxs8myXr/LRZaDtxM0MkOrkOkPi
-         Un4iRxBXru2SLzYgALK6I1ixRB3yTVQZjp/P3QTT0K+e51lBPyI3nImg1V5eKqO05F69
-         MrYbUyEIt12OKG1Sp5C5aJkM3gAY7y5He4FMsDjzqun9KmSGJ2NiukoeFHW0nxSdjgml
-         xbqQM6zyOGnWLJh6S+f2ynqdT+L0VdZGqOFiez0VeGoS2ZOtA93FeaMtKiqTCYYjUAy1
-         L5sJ/9wYNQySbeJ1YZ85zBU65LuiyXNjngn3n/XtEoWahTs+uYwpuoDlXwxF9UcvwIRG
-         eLLg==;
+        bh=YnRM0KTrisOCjmklL/YoGuQ5GhJTGvbJYvWODwmflkI=;
+        fh=VLCyHz+sXBr9yuSMsI48rBnVN8RDlgysj89mafUCmOM=;
+        b=CsDkEvqzmEtj/8H74qejluqxIx4JGPTbB30Eub8jRlBWAsBges2f2WQlfv7f9IZxhu
+         xFDAd7s60OK/i5BY62R80GlrnsGdpRMd05SXxg4WR+XgnDWg1Z7KrAJgq1LtWkhl9KvC
+         1usPLFAkxEigMl1UkopbA9gI0z1NJridnj1cMtUBb+S15ciY9PkEcsIKTMkXdrxJj1ci
+         xWKg6mwac11gCsSARgX+0UrdVOtEj+K1s4wEmUmpjzRmt/cYwnoCBKQLgd6xiHloE69+
+         5+mtT0TwYCoj4TNVdTyyo54UiBttPqRkTY7hbyAT8m0GGmyZbt9pQAt/BV4gmUkK6VCV
+         QhHg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kynesim.co.uk; s=google; t=1787242272; x=1787847072; darn=vger.kernel.org;
+        d=kynesim.co.uk; s=google; t=1787243015; x=1787847815; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=LvT1hGcgM8JOWRpKKkgMqVQoUDJ59PniRKM0U1WWl60=;
-        b=Mv3ynL2/axV9fBlu99+EqYnRSb68t1fvpuOHvz2aXVf9ug0Go06+nTKWrFoWw88oFI
-         eG8AkHgsdkgqr/OtD1cXXCI6uPIzXXDu4dK4159jkvKeS0NVw06SjvMXS8SchSm/eNuO
-         tOX88XjmgcfCboJJJtxKRqHk7nmz+mQK6f9N0mj/E/q1pmLwkA4egd/EFxmJr4Zdh28P
-         rKp85KvkwF0Lhk63IpDwYLEY15minue/NUPWw2YDJXkO/qo71ewvXZhQKS5k5VBrgfHA
-         plGmLR2mGyf1TY6EXH7hZZx3F5vWSdI9RLuE54LqKMJPwAzdI0fdmY+SbQnzI4TweuLi
-         jNvg==
+        bh=YnRM0KTrisOCjmklL/YoGuQ5GhJTGvbJYvWODwmflkI=;
+        b=tl2Bk/0d2LcMp0a3as1bkT9/DE7qmYlit/vq/qo2yAwrl/WUUwt3iLJDb1gKQeK6x7
+         b/QV7R7SRAFRHrkHF35ZkoGwZ9yBdbiSetSMtEYP7QWPMO5ydl2GEdgfyLKtxlsbI4YU
+         h31CIW3IG3wfjehXFen2334XIAZtGHmeCGw3cb6Y98lPkCfRa3JB2A71HPnf/YxgH/sC
+         ZAm7hCnGAcE8iUlAP9YCn2EolYoTuBFemOABoGBQdjyTlZmQnUfpKHU3DgV7ObtSK+ng
+         qNO4P7uo1rN9jn7FK7WIHCmE2O7gbCnDsH0W+H1eb0A/FCiv19/ExslFfLXbLAaXBFAU
+         XbPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787242272; x=1787847072;
+        d=1e100.net; s=20251104; t=1787243015; x=1787847815;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LvT1hGcgM8JOWRpKKkgMqVQoUDJ59PniRKM0U1WWl60=;
-        b=K/dBbdU0u+6xjr7Y8OGTotLvSPb9DYYGrzrLJFBP08SzhU0pheLxuk6oAxuUZE+7mO
-         Gg7Pnb/NFE+g8SuBdAl2wJ5JXq0Pc5HnO6npP43+em+hTbKOhg2Dpwi3ASt6QAVjABGF
-         nYEk9o81s4B29GnEFweBxRGl0aBxxIb/hbZy6EspOuiYKxbzjjze+NYZCPK/R05u9zkk
-         CFIpDVJ7NRmbdEoS/Cnv8SuLAZvxAlM5Fy0x5hXBuP33DUjF98jW6+zItDBFLj6/cKzB
-         +893Nhni9m4Rlh6cDAQU6jYb+XCLJFu2hTl1L5S5tj/HY/qkdd6mGFT3o73E/my7wjNJ
-         RKUg==
-X-Forwarded-Encrypted: i=1; AHgh+RoCoIfjjb7CVw/mKorT7SMeCS7oZV+7cZO36fcfD/j7SJmE0wBmpGzJ1JcC0Pf49RqQzLpITdBmeCj+RQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++m5O0igQnuey0VlLknRUF+sqv1aftVdVQhxmaHGX0JCfHBN+QDw
-	ANE7eawsriA9fRisufJawrio6rpM8DMp8xgxjL7pYiPW20VY7y2Vi2axkQnOVI+S9F/N6wIdvGe
-	RB3WRTbcNwFpUHE3mpEQhWUwbGv4OwohFZs1zl1tjLA==
-X-Gm-Gg: AR+sD10nreQ3r264U16aLFZwOjAxRUdgzc3lTBQiMv/PXXbnUfX3/rJzt+vehOsQdkv
-	D6cZYMbzp/Q4CW3P5PDTl3zlxsZDOLgEs6vO+lainwNI8//CKY6d7ROanlvIzOp01AbDzIxDSRx
-	Raoybb9DMae8+qod16cz7izgKJs8SmGqhiMyADLYDn81j2CQFpLtgviLhCBejAjTKjU8SV/JU1I
-	AiNJBdf+1yRdKZ7Dysid7lwi+arLdqF9eiyfJuHLgIFL0mTrTXVwEjnCnkRiLa0YU/JejTT6wwB
-	adJvXIqTKFzbCKlq+eUgWPAsueokT3Dj4r1oTojlNSQ=
-X-Received: by 2002:a53:b5c8:0:b0:667:5960:a59d with SMTP id
- 956f58d0204a3-66ccb5a3e50mr3251761d50.6.1787242271727; Thu, 20 Aug 2026
- 09:11:11 -0700 (PDT)
+        bh=YnRM0KTrisOCjmklL/YoGuQ5GhJTGvbJYvWODwmflkI=;
+        b=Wc8T08QQnHTisYrZJ7pUIVpx3UkFJUy68Be7/t/xERqJaRalWTN8Xz9KBvm+3/9Hje
+         Lw5xKXXLUl4CDZZs939Gl2fX3+0METUcolb47TRl5B6rUTtXWT1iI015MsmJN1M6c3bj
+         7vDvbsIL1Pde+muMLXh8n4Nhfmx7NTnwOcZyOpQNpGQHpZD4206FL+yzDEdlCMeWIU5z
+         rqb4xdHKC3JpQZzzNXMj7o0v5mrzgjplEFnKmV3zU3lCvcW0ERic2bZcnHKhVDg+SVZb
+         9pBqSZ0Nj206VvS8l3zRmzWLE6qVBV453x+XdJWZrDJi3iP+SsjencPYlffQ/EZ2Sbkb
+         aiGQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoRpC9M/3Sp7LNxpcK3QM3sOoE3WctapIYzgG0qAqIHsvbODypuXekV+O5J6gBq/R4npnpoLNDjue+t2g==@vger.kernel.org
+X-Gm-Message-State: AFuF++lnxYdzzy5HmKhBHhPAIjEOSKhsZW5uMDetvwuCAcwNKeXcRN6/
+	OGourNRbKzRJKGwpR3RVKYg0IbXJ/611eP9P9de9ORqOY9lumIF20jUD6qdbLxrA7u6HbGebaEM
+	dDFpnuekJKUxFEUon1f5Jpkm++qyc45FYzX16CfEq8Q==
+X-Gm-Gg: AR+sD10hpxTyZ8MxUyMP8HSaLviRVrXMsxmpUJMD8++0NjQH2qJfJdp+JOH+SNZHUNZ
+	HGmelhFmspQExdFq1XqM5k4gulPE9EfKhR4tGHtJ2stMqsH7+QoZxVP3rMkt1xG5JGsVK2u5Hqb
+	pIBozrUp7LDsBYREtSRj9XAsIq3qPRcBE5kEdwv/BOQRUGufLeoHq191u/TDg1NYnAUmeOGpuQN
+	TXZXqCq9w3bAp10lBGLam49uz8hWwk9itSE8u+w+S52gqlx/H8y+52QJyk25BBh3Lrvch7DVVKf
+	74lXnnJ5gROJXBoZ9dzeCReWqlRwAZFz0tKEcTW6tts=
+X-Received: by 2002:a05:690c:88f:b0:826:8d02:8e97 with SMTP id
+ 00721157ae682-8470b3d3551mr31060647b3.11.1787243015459; Thu, 20 Aug 2026
+ 09:23:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,14 +82,14 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20250724-multicontext-mainline-2025-v2-0-c9b316773486@ideasonboard.com>
- <20250724-multicontext-mainline-2025-v2-18-c9b316773486@ideasonboard.com>
-In-Reply-To: <20250724-multicontext-mainline-2025-v2-18-c9b316773486@ideasonboard.com>
+ <20250724-multicontext-mainline-2025-v2-13-c9b316773486@ideasonboard.com>
+In-Reply-To: <20250724-multicontext-mainline-2025-v2-13-c9b316773486@ideasonboard.com>
 Reply-To: jc@kynesim.co.uk
 From: John Cox <jc@kynesim.co.uk>
-Date: Thu, 20 Aug 2026 17:10:59 +0100
-X-Gm-Features: AcwNN1V_idDpMwMCaz8xax0IgTVb59cj1wVnzqsdeIp7ExNN-xbtAqAZLpD_MCo
-Message-ID: <CAFyCYyNgKx27CnR36PufqzayS7BZxjRzay2eDucYPri=6aY=GA@mail.gmail.com>
-Subject: Re: [PATCH v2 18/27] media: media-entity: Support context in pipeline_start
+Date: Thu, 20 Aug 2026 17:23:23 +0100
+X-Gm-Features: AcwNN1Umw00-Vm0FaKi02tHzavFmcraLoTJPjWghZ5jBCN0htqJyMwd4j2ttQ1Q
+Message-ID: <CAFyCYyPq0P0FfNL=ciiPnOV5Oa9tXZ09TE2gca9ovEiYOUqd3w@mail.gmail.com>
+Subject: Re: [PATCH v2 13/27] media: v4l2-subdev: Introduce VIDIOC_SUBDEV_BIND_CONTEXT
 To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -104,499 +104,139 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-> Add helpers to propagate an execution context when starting the media
-> pipeline. Starting a pipeline with an execution context implies that
-> when creating the streaming pipeline all the entities part of the
-> pipeline shall have a valid context associated with the media context in
-> use.
+> Introduce a new ioctl in V4L2 subdev to allocate a subdevice context
+> and associate it with a media device context.
 >
-> When creating the media pipeline increase the device context use
-> count to guarantee that during the streaming phase drivers will
-> always operate with valid contexts.
+> The ioctl handler calls the entity ops to let the driver allocate a
+> new context and initialize the subdev state there contained.
 >
-> Add 'overrides' for all the video_device_pipeline_start() and
-> media_pipeline_start() variants to support contexts.
+> The new subdevice context is bound to the media device context
+> associated with the file descriptor provided by userspace as the new
+> ioctl argument.
+>
+> The newly allocated context is stored in the v4l2_subdev_fh handle
+> that represent the open file handle on which the ioctl has been called.
 >
 > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > ---
->  drivers/media/mc/mc-entity.c       | 150 ++++++++++++++++++++++++++++++++-----
->  drivers/media/v4l2-core/v4l2-dev.c |  44 +++++++++++
->  include/media/media-entity.h       |  56 +++++++++++++-
->  include/media/v4l2-dev.h           |  57 ++++++++++++++
->  4 files changed, 287 insertions(+), 20 deletions(-)
+>  drivers/media/v4l2-core/v4l2-subdev.c | 59 +++++++++++++++++++++++++++++++++++
+>  include/uapi/linux/v4l2-subdev.h      | 11 +++++++
+>  2 files changed, 70 insertions(+)
 >
-> diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-> index 7bc276c725f974539ea06e3882d004b81be1de68..f421d6d74630bb96400d39d805c5db5d3d1ff913 100644
-> --- a/drivers/media/mc/mc-entity.c
-> +++ b/drivers/media/mc/mc-entity.c
-> @@ -768,8 +768,50 @@ static int media_pipeline_populate(struct media_pipeline *pipe,
->         return ret;
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index 7307f57439499c8d5360c89f492944828ac23973..300f84317623dd082a4cd2caec97057f972e82a3 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -607,6 +607,46 @@ subdev_ioctl_get_state(struct v4l2_subdev *sd, struct v4l2_subdev_fh *subdev_fh,
+>                              v4l2_subdev_get_unlocked_active_state(sd);
 >  }
 >
-> -__must_check int __media_pipeline_start(struct media_pad *origin,
-> -                                       struct media_pipeline *pipe)
-> +static int
-> +media_pipeline_validate_context(struct media_device_context *mdev_context,
-> +                               struct media_entity *entity,
-> +                               struct media_pipeline_pad *ppad)
+> +static int subdev_do_bind_context(struct v4l2_subdev *sd,
+> +                                 struct v4l2_subdev_context **context,
+> +                                 struct media_device_context *mdev_context)
 > +{
-> +       struct media_entity_context *context;
+> +       static struct lock_class_key key;
+> +       struct v4l2_subdev_state *state;
+> +       int ret;
 > +
-> +       if (!mdev_context)
-> +               return 0;
+> +       ret = sd->entity.ops->alloc_context(&sd->entity,
+> +                                           (struct media_entity_context **)
+> +                                           context);
+> +       if (ret)
+> +               return ret;
+> +
+> +       state = __v4l2_subdev_state_alloc(sd, "context->state->lock", &key);
+> +       if (IS_ERR(state)) {
+> +               ret = PTR_ERR(state);
+> +               goto err_put_context;
+> +       }
+> +       (*context)->state = state;
 > +
 > +       /*
-> +        * It's not mandatory for all entities in the pipeline to support
-> +        * contexts.
+> +        * Bind the newly created video device context to the media device
+> +        * context identified by the file descriptor.
 > +        */
-> +       if (!entity->ops || !entity->ops->alloc_context ||
-> +           !entity->ops->destroy_context)
-> +               return 0;
+> +       ret = media_device_bind_context(mdev_context,
+> +                                       (struct media_entity_context *)
+> +                                       *context);
+> +       if (ret)
+> +               goto err_free_state;
 > +
-> +       /*
-> +        * But if they do they should be bound to the same media device context
-> +        * as all other entities.
-> +        *
-> +        * media_device_get_entity_context increases the ref-counting of the
-> +        * context. Store a reference in the ppad for later decreasing the
-> +        * reference count when the pipeline is stopped.
-> +        *
-> +        * Fail validation if no context is associated with this media context
-> +        * and be loud about that as userspace should be informed it has to
-> +        * bind all entities of the pipeline in the same context.
-> +        */
-> +       context = media_device_get_entity_context(mdev_context, entity);
-> +       if (WARN_ON(IS_ERR(context)))
-> +               return -EPIPE;
+> +       return 0;
 > +
-> +       media_entity_context_get(context);
-I'm pretty sure this is a second unintended context_get as it is already done
-by the media_device_get_entity_context() above.
+> +err_free_state:
+> +       __v4l2_subdev_state_free((*context)->state);
+> +err_put_context:
+> +       v4l2_subdev_context_put(*context);
+> +       return ret;
+> +}
+> +
+>  static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>                             struct v4l2_subdev_state *state)
+>  {
+> @@ -1089,6 +1129,25 @@ static long subdev_do_ioctl(struct file *file, unsigned int cmd, void *arg,
+>                 return 0;
+>         }
+>
+> +       case VIDIOC_SUBDEV_BIND_CONTEXT: {
+> +               struct v4l2_subdev_bind_context *c = arg;
+> +               struct media_device_context *mdev_context;
+> +               int ret;
+> +
+> +               if (!sd->entity.ops || !sd->entity.ops->alloc_context ||
+> +                   !sd->entity.ops->destroy_context)
+> +                       return -ENOTTY;
+> +
+> +               mdev_context = media_device_context_get_from_fd(c->context_fd);
+> +               if (!mdev_context)
+> +                       return -EINVAL;
+> +
+> +               ret = subdev_do_bind_context(sd, &subdev_fh->context,
+> +                                            mdev_context);
+> +               media_device_context_put(mdev_context);
+> +               return ret;
+> +       }
+> +
+I think you also need a v4l2_subdev_context_put in subdev_close to
+free up the bound
+context.
 
 Regards
 
 John Cox
 
-> +       ppad->context = context;
-> +
-> +       return 0;
-> +}
-> +
-> +__must_check int
-> +__media_pipeline_start_context(struct media_pad *origin,
-> +                              struct media_pipeline *pipe,
-> +                              struct media_device_context *mdev_context)
->  {
->         struct media_device *mdev = origin->graph_obj.mdev;
->         struct media_pipeline_pad *err_ppad;
-> @@ -829,7 +871,15 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
->                 }
+>         case VIDIOC_SUBDEV_G_CLIENT_CAP: {
+>                 struct v4l2_subdev_client_capability *client_cap = arg;
 >
->                 /*
-> -                * 2. Validate all active links whose sink is the current pad.
-> +                * 2. If we have a media context, ensure the entity has a device
-> +                * context associated with it.
-> +                */
-> +               ret = media_pipeline_validate_context(mdev_context, entity, ppad);
-> +               if (ret)
-> +                       goto error;
-> +
-> +               /*
-> +                * 3. Validate all active links whose sink is the current pad.
->                  * Validation of the source pads is performed in the context of
->                  * the connected sink pad to avoid duplicating checks.
->                  */
-> @@ -875,7 +925,7 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
->                 }
->
->                 /*
-> -                * 3. If the pad has the MEDIA_PAD_FL_MUST_CONNECT flag set,
-> +                * 4. If the pad has the MEDIA_PAD_FL_MUST_CONNECT flag set,
->                  * ensure that it has either no link or an enabled link.
->                  */
->                 if ((pad->flags & MEDIA_PAD_FL_MUST_CONNECT) &&
-> @@ -905,6 +955,9 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
->                 if (err_ppad == ppad)
->                         break;
->
-> +               if (err_ppad->context)
-> +                       media_entity_context_put(err_ppad->context);
-> +
->                 err_ppad->pad->pipe = NULL;
->         }
->
-> @@ -912,19 +965,35 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
->
->         return ret;
->  }
-> +EXPORT_SYMBOL_GPL(__media_pipeline_start_context);
-> +
-> +__must_check int __media_pipeline_start(struct media_pad *origin,
-> +                                       struct media_pipeline *pipe)
-> +{
-> +       return __media_pipeline_start_context(origin, pipe, NULL);
-> +}
->  EXPORT_SYMBOL_GPL(__media_pipeline_start);
->
-> -__must_check int media_pipeline_start(struct media_pad *origin,
-> -                                     struct media_pipeline *pipe)
-> +__must_check int
-> +media_pipeline_start_context(struct media_pad *origin,
-> +                            struct media_pipeline *pipe,
-> +                            struct media_device_context *context)
->  {
->         struct media_device *mdev = origin->graph_obj.mdev;
->         int ret;
->
->         mutex_lock(&mdev->graph_mutex);
-> -       ret = __media_pipeline_start(origin, pipe);
-> +       ret = __media_pipeline_start_context(origin, pipe, context);
->         mutex_unlock(&mdev->graph_mutex);
->         return ret;
->  }
-> +EXPORT_SYMBOL_GPL(media_pipeline_start_context);
-> +
-> +__must_check int media_pipeline_start(struct media_pad *origin,
-> +                                     struct media_pipeline *pipe)
-> +{
-> +       return media_pipeline_start_context(origin, pipe, NULL);
-> +}
->  EXPORT_SYMBOL_GPL(media_pipeline_start);
->
->  void __media_pipeline_stop(struct media_pad *pad)
-> @@ -942,8 +1011,11 @@ void __media_pipeline_stop(struct media_pad *pad)
->         if (--pipe->start_count)
->                 return;
->
-> -       list_for_each_entry(ppad, &pipe->pads, list)
-> +       list_for_each_entry(ppad, &pipe->pads, list) {
-> +               if (ppad->context)
-> +                       media_entity_context_put(ppad->context);
->                 ppad->pad->pipe = NULL;
-> +       }
->
->         media_pipeline_cleanup(pipe);
->
-> @@ -962,14 +1034,13 @@ void media_pipeline_stop(struct media_pad *pad)
->  }
->  EXPORT_SYMBOL_GPL(media_pipeline_stop);
->
-> -__must_check int media_pipeline_alloc_start(struct media_pad *pad)
-> +static struct media_pipeline *
-> +media_pipeline_alloc(struct media_pad *pad)
->  {
->         struct media_device *mdev = pad->graph_obj.mdev;
-> -       struct media_pipeline *new_pipe = NULL;
->         struct media_pipeline *pipe;
-> -       int ret;
->
-> -       mutex_lock(&mdev->graph_mutex);
-> +       lockdep_assert_held(&mdev->graph_mutex);
->
->         /*
->          * Is the pad already part of a pipeline? If not, we need to allocate
-> @@ -977,19 +1048,33 @@ __must_check int media_pipeline_alloc_start(struct media_pad *pad)
->          */
->         pipe = media_pad_pipeline(pad);
->         if (!pipe) {
-> -               new_pipe = kzalloc(sizeof(*new_pipe), GFP_KERNEL);
-> -               if (!new_pipe) {
-> -                       ret = -ENOMEM;
-> -                       goto out;
-> -               }
-> +               pipe = kzalloc(sizeof(*pipe), GFP_KERNEL);
-> +               if (!pipe)
-> +                       return ERR_PTR(-ENOMEM);
->
-> -               pipe = new_pipe;
->                 pipe->allocated = true;
->         }
->
-> +       return pipe;
-> +}
-> +
-> +__must_check int media_pipeline_alloc_start(struct media_pad *pad)
-> +{
-> +       struct media_device *mdev = pad->graph_obj.mdev;
-> +       struct media_pipeline *pipe;
-> +       int ret;
-> +
-> +       mutex_lock(&mdev->graph_mutex);
-> +
-> +       pipe = media_pipeline_alloc(pad);
-> +       if (IS_ERR(pipe)) {
-> +               ret = PTR_ERR(pipe);
-> +               goto out;
-> +       }
-> +
->         ret = __media_pipeline_start(pad, pipe);
->         if (ret)
-> -               kfree(new_pipe);
-> +               kfree(pipe);
->
->  out:
->         mutex_unlock(&mdev->graph_mutex);
-> @@ -998,6 +1083,33 @@ __must_check int media_pipeline_alloc_start(struct media_pad *pad)
->  }
->  EXPORT_SYMBOL_GPL(media_pipeline_alloc_start);
->
-> +__must_check
-> +int media_pipeline_alloc_start_context(struct media_pad *pad,
-> +                                      struct media_device_context *mdev_context)
-> +{
-> +       struct media_device *mdev = pad->graph_obj.mdev;
-> +       struct media_pipeline *pipe;
-> +       int ret;
-> +
-> +       mutex_lock(&mdev->graph_mutex);
-> +
-> +       pipe = media_pipeline_alloc(pad);
-> +       if (IS_ERR(pipe)) {
-> +               ret = PTR_ERR(pipe);
-> +               goto out;
-> +       }
-> +
-> +       ret = __media_pipeline_start_context(pad, pipe, mdev_context);
-> +       if (ret)
-> +               kfree(pipe);
-> +
-> +out:
-> +       mutex_unlock(&mdev->graph_mutex);
-> +
-> +       return ret;
-> +}
-> +EXPORT_SYMBOL_GPL(media_pipeline_alloc_start_context);
-> +
->  struct media_pad *
->  __media_pipeline_pad_iter_next(struct media_pipeline *pipe,
->                                struct media_pipeline_pad_iter *iter,
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index fafd4209e2cab320a6e164d33e9a0f73784d22db..eacaa38cffe8847b66acdeebf2330a072b3be85f 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -1221,6 +1221,36 @@ __must_check int __video_device_pipeline_start(struct video_device *vdev,
->  }
->  EXPORT_SYMBOL_GPL(__video_device_pipeline_start);
->
-> +__must_check int
-> +video_device_context_pipeline_start(struct video_device_context *context,
-> +                                   struct media_pipeline *pipe)
-> +{
-> +       struct video_device *vdev = context->vdev;
-> +       struct media_entity *entity = &vdev->entity;
-> +
-> +       if (entity->num_pads != 1)
-> +               return -ENODEV;
-> +
-> +       return media_pipeline_start_context(&entity->pads[0], pipe,
-> +                                           context->base.mdev_context);
-> +}
-> +EXPORT_SYMBOL(video_device_context_pipeline_start);
-> +
-> +__must_check int
-> +__video_device_context_pipeline_start(struct video_device_context *context,
-> +                                     struct media_pipeline *pipe)
-> +{
-> +       struct video_device *vdev = context->vdev;
-> +       struct media_entity *entity = &vdev->entity;
-> +
-> +       if (entity->num_pads != 1)
-> +               return -ENODEV;
-> +
-> +       return __media_pipeline_start_context(&entity->pads[0], pipe,
-> +                                             context->base.mdev_context);
-> +}
-> +EXPORT_SYMBOL(__video_device_context_pipeline_start);
-> +
->  void video_device_pipeline_stop(struct video_device *vdev)
->  {
->         struct media_entity *entity = &vdev->entity;
-> @@ -1254,6 +1284,20 @@ __must_check int video_device_pipeline_alloc_start(struct video_device *vdev)
->  }
->  EXPORT_SYMBOL_GPL(video_device_pipeline_alloc_start);
->
-> +__must_check int
-> +video_device_context_pipeline_alloc_start(struct video_device_context *context)
-> +{
-> +       struct video_device *vdev = context->vdev;
-> +       struct media_entity *entity = &vdev->entity;
-> +
-> +       if (entity->num_pads != 1)
-> +               return -ENODEV;
-> +
-> +       return media_pipeline_alloc_start_context(&entity->pads[0],
-> +                                                 context->base.mdev_context);
-> +}
-> +EXPORT_SYMBOL_GPL(video_device_context_pipeline_alloc_start);
-> +
->  struct media_pipeline *video_device_pipeline(struct video_device *vdev)
->  {
->         struct media_entity *entity = &vdev->entity;
-> diff --git a/include/media/media-entity.h b/include/media/media-entity.h
-> index 32298fe8a18c6ee3c1dbcff9ef869548904417a7..b60c311ab390beb6931fe8f2bbe8939e11cda452 100644
-> --- a/include/media/media-entity.h
-> +++ b/include/media/media-entity.h
-> @@ -119,16 +119,20 @@ struct media_pipeline {
->   * @list:              Entry in the media_pad pads list
->   * @pipe:              The media_pipeline that the pad is part of
->   * @pad:               The media pad
-> + * @context:           Reference to a video device or subdevice context
->   *
->   * This structure associate a pad with a media pipeline. Instances of
->   * media_pipeline_pad are created by media_pipeline_start() when it builds the
->   * pipeline, and stored in the &media_pad.pads list. media_pipeline_stop()
-> - * removes the entries from the list and deletes them.
-> + * removes the entries from the list and deletes them. The context field is
-> + * populated only if a valid context has been associated with the pad.
->   */
-> +struct media_entity_context;
->  struct media_pipeline_pad {
->         struct list_head list;
->         struct media_pipeline *pipe;
->         struct media_pad *pad;
-> +       struct media_entity_context *context;
+> diff --git a/include/uapi/linux/v4l2-subdev.h b/include/uapi/linux/v4l2-subdev.h
+> index 2347e266cf7516b4073c1edd43b97a3ddddb183b..6184cc0153a9dd9fbfa6729e1b6127ba4a961395 100644
+> --- a/include/uapi/linux/v4l2-subdev.h
+> +++ b/include/uapi/linux/v4l2-subdev.h
+> @@ -243,6 +243,16 @@ struct v4l2_subdev_routing {
+>         __u32 reserved[11];
 >  };
 >
->  /**
-> @@ -1212,6 +1216,39 @@ __must_check int media_pipeline_start(struct media_pad *origin,
->  __must_check int __media_pipeline_start(struct media_pad *origin,
->                                         struct media_pipeline *pipe);
+> +/**
+> + * struct v4l2_subdev_bind_context - Subdev context information
+> + *
+> + * @context_fd: The file descriptor of the media_device instance the subdevice
+> + *             has to be bound to
+> + */
+> +struct v4l2_subdev_bind_context {
+> +       __u32 context_fd;
+> +};
+> +
+>  /*
+>   * The client is aware of streams. Setting this flag enables the use of 'stream'
+>   * fields (referring to the stream number) with various ioctls. If this is not
+> @@ -285,6 +295,7 @@ struct v4l2_subdev_client_capability {
+>  #define VIDIOC_SUBDEV_S_SELECTION              _IOWR('V', 62, struct v4l2_subdev_selection)
+>  #define VIDIOC_SUBDEV_G_ROUTING                        _IOWR('V', 38, struct v4l2_subdev_routing)
+>  #define VIDIOC_SUBDEV_S_ROUTING                        _IOWR('V', 39, struct v4l2_subdev_routing)
+> +#define VIDIOC_SUBDEV_BIND_CONTEXT             _IOWR('V', 50, struct v4l2_subdev_bind_context)
+>  #define VIDIOC_SUBDEV_G_CLIENT_CAP             _IOR('V',  101, struct v4l2_subdev_client_capability)
+>  #define VIDIOC_SUBDEV_S_CLIENT_CAP             _IOWR('V',  102, struct v4l2_subdev_client_capability)
 >
-> +/**
-> + * media_pipeline_start_context - Mark a pipeline as streaming
-> + * @origin: Starting pad
-> + * @pipe: Media pipeline to be assigned to all pads in the pipeline.
-> + * @context: The media device context the pipeline belongs to
-> + *
-> + * Mark all pads connected to a given pad through enabled links, either
-> + * directly or indirectly, as streaming. The given pipeline object is assigned
-> + * to every pad in the pipeline and stored in the media_pad pipe field.
-> + *
-> + * Calls to this function can be nested, in which case the same number of
-> + * media_pipeline_stop() calls will be required to stop streaming. The
-> + * pipeline pointer must be identical for all nested calls to
-> + * media_pipeline_start().
-> + */
-> +__must_check int
-> +media_pipeline_start_context(struct media_pad *origin,
-> +                            struct media_pipeline *pipe,
-> +                            struct media_device_context *context);
-> +
-> +/**
-> + * __media_pipeline_start_context - Mark a pipeline as streaming
-> + * @origin: Starting pad
-> + * @pipe: Media pipeline to be assigned to all pads in the pipeline.
-> + * @context: The media device context the pipeline belongs to
-> + *
-> + * ..note:: This is the non-locking version of media_pipeline_start_context()
-> + */
-> +__must_check int
-> +__media_pipeline_start_context(struct media_pad *origin,
-> +                              struct media_pipeline *pipe,
-> +                              struct media_device_context *context);
-> +
->  /**
->   * media_pipeline_stop - Mark a pipeline as not streaming
->   * @pad: Starting pad
-> @@ -1318,6 +1355,23 @@ __media_pipeline_entity_iter_next(struct media_pipeline *pipe,
->   */
->  __must_check int media_pipeline_alloc_start(struct media_pad *pad);
->
-> +/**
-> + * media_pipeline_alloc_start_context - Mark a pipeline as streaming
-> + * @pad: Starting pad
-> + * @context: The media device context the pipeline belongs to
-> + *
-> + * media_pipeline_alloc_start_context() is similar to
-> + * media_pipeline_start_context() but instead of working on a given pipeline the
-> + * function will use an existing pipeline if the pad is already part of a
-> + * pipeline, or allocate a new pipeline.
-> + *
-> + * Calls to media_pipeline_alloc_start_context() must be matched with
-> + * media_pipeline_stop().
-> + */
-> +__must_check int
-> +media_pipeline_alloc_start_context(struct media_pad *pad,
-> +                                  struct media_device_context *context);
-> +
->  /**
->   * media_devnode_create() - creates and initializes a device node interface
->   *
-> diff --git a/include/media/v4l2-dev.h b/include/media/v4l2-dev.h
-> index bab4b13b109362bec84d8d16440b6ea895206b60..93095df692e3628d4be003d25843fa744d6b20a4 100644
-> --- a/include/media/v4l2-dev.h
-> +++ b/include/media/v4l2-dev.h
-> @@ -602,6 +602,48 @@ __must_check int video_device_pipeline_start(struct video_device *vdev,
->  __must_check int __video_device_pipeline_start(struct video_device *vdev,
->                                                struct media_pipeline *pipe);
->
-> +/**
-> + * video_device_context_pipeline_start - Mark a pipeline as streaming starting
-> + *                                      from a video device context
-> + * @context: The video device context that starts the streaming
-> + * @pipe: Media pipeline to be assigned to all entities in the pipeline.
-> + *
-> + * ..note:: This is the multi-context version of video_device_pipeline_start()
-> + *          Documentation of this function only describes specific aspects of
-> + *          this version. Refer to the video_device_pipeline_start()
-> + *          documentation for a complete reference.
-> + *
-> + * Validate that all entities connected to a video device through enabled links
-> + * by ensuring that a context associated with the same media device context
-> + * exists for them. Increase the reference counting of each of the contexts part
-> + * of the pipeline to guarantee their lifetime is maintained as long as the
-> + * pipeline is streaming.
-> + *
-> + * Context validation and refcounting of all entities that are part of a
-> + * streaming pipeline ensures that device drivers can safely access device
-> + * contexts in a media device context during streaming. References to contexts
-> + * retried by a call to media_device_get_entity_context(), are guaranteed to be
-> + * valid as long as the pipeline is streaming. Likewise, the media device
-> + * context that contains the device contexts is guaranteed to be valid as long
-> + * as the pipeline is streaming.
-> + */
-> +__must_check int
-> +video_device_context_pipeline_start(struct video_device_context *context,
-> +                                   struct media_pipeline *pipe);
-> +
-> +/**
-> + * __video_device_context_pipeline_start - Mark a pipeline as streaming starting
-> + *                                        from a video device context
-> + * @context: The video device context that starts the streaming
-> + * @pipe: Media pipeline to be assigned to all entities in the pipeline.
-> + *
-> + * ..note:: This is the non-locking version of
-> + *         __video_device_context_pipeline_start()
-> + */
-> +__must_check int
-> +__video_device_context_pipeline_start(struct video_device_context *context,
-> +                                     struct media_pipeline *pipe);
-> +
->  /**
->   * video_device_pipeline_stop - Mark a pipeline as not streaming
->   * @vdev: Starting video device
-> @@ -646,6 +688,21 @@ void __video_device_pipeline_stop(struct video_device *vdev);
->   */
->  __must_check int video_device_pipeline_alloc_start(struct video_device *vdev);
->
-> +/**
-> + * video_device_context_pipeline_alloc_start - Mark a pipeline as streaming
-> + * @context: The video device context that starts the streaming
-> + *
-> + * video_device_context_pipeline_alloc_start() is similar to
-> + * video_device_context_pipeline_start() but instead of working on a given
-> + * pipeline the function will use an existing pipeline if the video device is
-> + * already part of a pipeline, or allocate a new pipeline.
-> + *
-> + * Calls to video_device_context_pipeline_alloc_start() must be matched with
-> + * video_device_pipeline_stop().
-> + */
-> +__must_check int
-> +video_device_context_pipeline_alloc_start(struct video_device_context *context);
-> +
->  /**
->   * video_device_pipeline - Get the media pipeline a video device is part of
->   * @vdev: The video device
 >
 > --
 > 2.49.0
