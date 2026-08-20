@@ -1,196 +1,121 @@
-Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EBFB3C3C11
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:30:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16AAC415B62
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:31:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787221808; cv=none; b=sFN2yyJsMAzOoezzDE21/5CNBTSWBCMA6e4UnpbcPpju16sNbf7NX0Cx7hgaMmNqw57vDJzFL5X0Uryz4nb1ua4ds2l95oFrlS7O4EmhVa7/cVGA9MEdMlHibjTSOzmKcdaiXEumJlsVasb0bT1qjK8Vdnq5J6pJPj5Lq0gvBV4=
+	t=1787221895; cv=none; b=tbyEQtNJ8O2HreeVG3+IfgacJaaQcSS4EvHu62x+e02LnEkjulF5oECy/8dEQOJUhNFs2miMi1HqUThxkOirjHApIt3vGa3VwVWKu3JPbfFS4+jPxoIgcC4WrE+Hgfq2Jia++yRhC805Tbi+EG+sYtwFM+I9S6oeTUilkAUO/CI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787221808; c=relaxed/simple;
-	bh=g3JRO9O7G2IJDN+8UQIFj94a5h1FQ3MFHRJ7R/0D4SY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sI7pwno074AvsIxHXjwoKCCUIxcVs6r2jtY7KoSqhk55EyT7TxGZUtM9DkDV9qz3olTVyOiutqRtNtxalsPUz5wvPABLt/R+uq7X0kQjPD1gBHVfkfqrXyoCWnFQOpaAi7sUrq5hKkM7axkBIv4rgweZuukEw67ZF27XvDqB4r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=YUINLcx7; arc=none smtp.client-ip=209.85.208.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787221895; c=relaxed/simple;
+	bh=C6fK7LBKbrFygwVhO/77jAB48+YWk938Y0HiYcbWDRU=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rDrEEcc3jpfhcIcJ8ypCwyfJZiFk7Fk1WJ120zqZzDZ8FmS9L6yXGoZTUYKwUY3c5sb+WjhYqkvyvn+rbc7SDrGPNpxdWNuGRaet31UnofwYjS3xUJpbmeAjPCIKB2exjkArvbz7tmmuCFJvTKm45XPigBc9kLtq7PAPodShLPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=alw7CU7d; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="YUINLcx7"
-Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a157f90752so3691598a12.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:30:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="alw7CU7d"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4998590d392so18464655e9.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:31:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787221804; x=1787826604; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Xgk0gcUij9t1Zktyfwo1OhttybzA3umgR6gVLSa3/4I=;
-        b=YUINLcx79MAjxGjnljka5y1CmDbkkcoAHnQjyqM8nqCsTYTppF9pLjxVGq2vXlmASZ
-         ZgcW3Ta+D76uZC+6D7z3prWDKos/bIcg9ePZqbGnoNVagQw6Uehqi7styZwErS7Cbm7/
-         tT1Mo//8qp9MEsakQzMYqu1v1sLp6QdvBbhFs=
+        d=gmail.com; s=20251104; t=1787221892; x=1787826692; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JmNPY02cVo/U0I4x7MQpmeXuTddemXfkDW0UPzRYQpE=;
+        b=alw7CU7dSQaG02fI722eA6mEMOx0R4bwdOz32+hSs/u9pNTRUEu13QrgI+gA0OJ4Ot
+         poMCViCSs7rZeybe8vnzVREeO1ZbcVFnPraJtS/zmD6tXzz4PtGPcea9qZflXCFeCh/q
+         v9B8O/LevqdD5vqD2H6Dp+yBgeVuRs3AFXVZLSnJ8R0AjPwQTPbcRHR7jUxCJ1alFK3b
+         nZ7oamALGY1mEC2sgdmSlEhG1g+uvdgvLyE4o1ebWUTZduSpVJ2dXPkHpcH03iOp8s8m
+         /xgDlx0kwfhu1qoiCmkv+bI//+UXPFjZVZeru20F8prDb2mX42ynP5nITrkItaaED/o5
+         GOxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787221804; x=1787826604;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Xgk0gcUij9t1Zktyfwo1OhttybzA3umgR6gVLSa3/4I=;
-        b=AD8cvU1uwPZco0s1vqKY2J/ZWJV+69GkQDi76N1alfsLYalcDrQ/1oxM+8TxBJ60Tk
-         t8uBm8utWhcpxFcdOys2tY6DM3ay9Rw91v0JZLF2HtpYW0+qyYqtwH7wrCGCWdseqpsE
-         wWryU2UsXb9fZEBLK9zJOmQkSc2Hu5bKPYwZLU9VX/x/O3B4SzCNmZzt6J+nprU/YanF
-         Gv4/w3nTbeN1JmTVAc+fu9vYwF1aCNDN4ONW8bcFCy72j1KUgXC/+I8XF+Uw9Bn5fMA1
-         DXcaZltGGkCdtd0JSman1UeQfwzRf4X45S/0GK1Gr4OxjcQ6GUXGGtn0GL59/7JVvMUI
-         yWfQ==
-X-Forwarded-Encrypted: i=1; AHgh+RqnpiOns6g8Mv130eys6wA5qQIjjW4+aAGIvcnWV2RVX4rtVinYLzH4AzpFCUsonXIukYgQzJr3D8LCtw==@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz2Y/zh0kvbFgzNAUnQ7D8d+Y5XBWU/eaF0caax+YiY/nlrzToJ
-	e7WcrN57GTa4w7hXul/U79F9ziY7QsH5YjHIRm7xtZXXuUZxlQS2x/VPyP0RrsZSMlhlfk4TudF
-	WcWdKiw==
-X-Gm-Gg: AR+sD13tX/LgtqyC0GBlqXhntpDj45EBZMd5Ahmmcfw8LQNWZNpktZ5p6Q1ay/IFXV8
-	OZYh3tislLTi+QSz9jClL8gVQQnGsvrSg6SNm6OTVAYNtMLGCTO7ugcac2GmIUoqIcQNilWkmAB
-	2Zu4t61RHKRJMt8bD2TfIXmsNbZ46DxJRO2dJR5h9GjNtv7hj/gnR5UtxVgBD8EXUKwSFRwYbVw
-	aYrfVo8kzR7lsV3tpdei7vrvYR+GG8c4wwy1cYTYIB2eSE3PcOeP5pDfbXNCzq5F8SRrRJpqMf/
-	+sfXCAdDrXKUQRG8fV/cl01S7GjHPWTKRwf/OukFImlAVP9gCKT7Quo3jAMQEuEs3q6WEUgBsiI
-	PqHa7eGxKt1IRaKoAc/ihp6fSE4EXi41vbi1fuv7E2zwHvujJP7SwSJYdEgWgLe8abmxaKqBK63
-	BNQyTsCKd3slzF2ooGpUp8Z6WySmrOYtXlJp8V3X0nJd6Apkw9SyW2OkKcMP88OwxaaERqX24ro
-	2Giaf2qQKJDONOaWBXkzo3wzQ==
-X-Received: by 2002:a17:907:1788:b0:c20:fe93:a86 with SMTP id a640c23a62f3a-c242e1de421mr825842466b.18.1787221804491;
-        Thu, 20 Aug 2026 03:30:04 -0700 (PDT)
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com. [209.85.218.53])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2459197cd4sm52714266b.30.2026.08.20.03.30.03
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 20 Aug 2026 03:30:03 -0700 (PDT)
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c1c50c1e29bso328722366b.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 03:30:03 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+RquWCZGxPb3Dha2HYEtyV434r7n7yZtNmH9CKlEX0Sg0JHIWYJxOdtKiezgjVgLhBHUuI5EvF0NPxJyQA==@vger.kernel.org
-X-Received: by 2002:a17:906:fe42:b0:c21:9cf4:e1b0 with SMTP id
- a640c23a62f3a-c23f929e249mr793080966b.3.1787221802587; Thu, 20 Aug 2026
- 03:30:02 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787221892; x=1787826692;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JmNPY02cVo/U0I4x7MQpmeXuTddemXfkDW0UPzRYQpE=;
+        b=pp9EDUjlV1IO7v80kjQuMfk2n10Xdn5UgdbqUsG/9lK40h3hjQMixtTeiE64Silsli
+         4AqQPSdEvcvH/R8LEJ8z89HC88d+5ERMaiKHgJvlMolMnyv9y0MEeQSWH4zQoPv8D77+
+         0jkFGuy32mNmSrO4awg5CUt/Drhi3P0VI9JFbl04HErrki9o0RiCtgZfIkxtaCqezKgq
+         aqyZ8mQh8Pg1mxFx+efaYr7Jpn3t5M4h6UrSmC3Y6FVLURBCz7PDxrcF/T3gaT+SPr/Q
+         lu/LMkGZ0pdWE5h3Z95AElO64GH7p+m7TreP3MngWzFJocis15A09hZEnqTRk+XdjTdB
+         6UsQ==
+X-Forwarded-Encrypted: i=1; AHgh+RoVO0UdRsdyjm6G8USGfoO5zr3+PwrqRJ854g0RI3gMIbHImntnZ/B29DclNthrH3NFnz9K/ln1DMsEKw==@vger.kernel.org
+X-Gm-Message-State: AOJu0YzaNODt/UCkJklQVDkjLgRJtd9wlrK6M8qj0p35BOAlI0+8oMga
+	JhfDM0WXHiUNtU94eAz6nSZzkYMlyxqPtV6hZXcAIMF7RKQeexAM0qeV
+X-Gm-Gg: AR+sD13UdDtSa9huLwxc5gF+BXkZSyGLxOMJHqb+SycOJDXC19+yWHaEVcgC8jtQ4Yq
+	z8ycnYWmmgx4xZIwU5bX6AwP7mytrc945BmexwkO6uuQrqJVP11B8Zqxcy1o8yBWa2paF3IJr2r
+	GYqyVDUQh/dKiLcgqiyERGOgdATV6CWs0JLX3LK1yd1Pf9pASd/naVDF8dp4IrtWIhqYROUz3W1
+	xPjx/hqcKED53bSnPDiPfTzfhYUWNjpkYpDwIYjV5J/VovFE9BVODBOpW/pVH1tsQ+g3m49a67w
+	Q9rSKNOlNaO18LKoc9/oIcm25EdFSVwaHcIHT5PNfy61pS1K4lP1hWZ4Y6Z4qjZrxQIHS/u5Sx6
+	XdekyEvL5yEPoetilfwRcYwoTuCjD3dCPtAdsegwxlmKoNBll04tJllrJ+40rF3gRoJlZxbMps0
+	WD7UJm0BgGidGSnUR1uGneOQ+BRdpTHID0Ikvgm4aTaFwjH3R27ojCtsZjfKJwvibopPUWLDE5s
+	CJZF95PJkTKG0lA3vEDVkkOoQ==
+X-Received: by 2002:a05:600c:5291:b0:495:4fd4:619b with SMTP id 5b1f17b1804b1-499aa189357mr212082575e9.1.1787221892198;
+        Thu, 20 Aug 2026 03:31:32 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499a9e78496sm148819115e9.2.2026.08.20.03.31.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 20 Aug 2026 03:31:31 -0700 (PDT)
+Date: Thu, 20 Aug 2026 11:31:29 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Natasha Klaus <natalie.klaus@runtimeverification.com>
+Cc: noambs2999@gmail.com, ribalda@chromium.org,
+ laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix integer overflow in frame buffer
+ size calculation
+Message-ID: <20260820113129.299aa918@pumpkin>
+In-Reply-To: <20260820091339.42288-1-natalie.klaus@runtimeverification.com>
+References: <20260818092803.4f51e6dc@pumpkin>
+	<20260820091339.42288-1-natalie.klaus@runtimeverification.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820095626.111196-1-natalie.klaus@runtimeverification.com> <20260820095626.111196-2-natalie.klaus@runtimeverification.com>
-In-Reply-To: <20260820095626.111196-2-natalie.klaus@runtimeverification.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 20 Aug 2026 12:29:48 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtDyJsFrz7iBe8Yb8rPM=Tb1e1av9qGcNwE-C5nwFPfZw@mail.gmail.com>
-X-Gm-Features: AcwNN1WOz4wySaVT8CaYdQaKGy6rC0J4crS2XKI6gD7IQwqmpusCzVh5-L3tA38
-Message-ID: <CANiDSCtDyJsFrz7iBe8Yb8rPM=Tb1e1av9qGcNwE-C5nwFPfZw@mail.gmail.com>
-Subject: Re: [PATCH 1/3] media: uvcvideo: Let uvc_parse_frame() report a
- skipped frame
-To: Natasha Klaus <natalie.klaus@runtimeverification.com>
-Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
-	noambs2999@gmail.com, david.laight.linux@gmail.com, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Natasha
+On Thu, 20 Aug 2026 12:13:39 +0300
+Natasha Klaus <natalie.klaus@runtimeverification.com> wrote:
 
-On Thu, 20 Aug 2026 at 11:56, Natasha Klaus
-<natalie.klaus@runtimeverification.com> wrote:
->
-> uvc_parse_frame() returns the descriptor length on success and a
-> negative error code on failure, and uvc_parse_format() treats every
-> negative value as fatal for the whole streaming interface. There is no
-> way for the parser to say "this frame descriptor is unusable, but the
-> rest of the format is fine".
->
-> Change the return convention so it can. Return 0 on success and let the
-> caller advance by buffer[0], which is the value the function returned
-> anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
-> and leave every other negative value to mean "skip this frame descriptor
-> and carry on with the next one".
->
-> -ENODATA is currently the only error the function can return, so the
-> skip path is unreachable until later patches add checks that use it. The
-> one behavioural change is the truncated-descriptor diagnostic, which
-> moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
-> without the DESCR debug flag. That leaves the local alts variable
-> unused, and the kernel builds -Wunused-variable as an error, so it goes
-> too.
->
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-> Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
-> ---
-> The Cc: stable line is present without a Fixes: tag because this patch is
-> a prerequisite for 2/3 rather than a fix in its own right. Stable needs
-> both or neither: backported alone, 2/3's -EINVAL would revert to meaning
-> "discard the whole streaming interface".
->
->  drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
->  1 file changed, 10 insertions(+), 10 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..0cc0e351d139 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
->                            u32 **intervals, u8 ftype, int width_multiplier,
->                            const unsigned char *buffer, int buflen)
->  {
-> -       struct usb_host_interface *alts = streaming->intf->cur_altsetting;
->         unsigned int maxIntervalIndex;
->         unsigned int interval;
->         unsigned int i, n;
-> @@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
->         n = n ? n : 3;
->
->         if (buflen < 26 + 4 * n) {
-> -               uvc_dbg(dev, DESCR,
-> -                       "device %d videostreaming interface %d FRAME error\n",
-> -                       dev->udev->devnum, alts->desc.bInterfaceNumber);
-> -               return -EINVAL;
-> +               dev_warn(&streaming->intf->dev,
-> +                        "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
-> +                        buflen, 26 + 4 * n);
-> +               return -ENODATA;
->         }
->
->         frame->bFrameIndex = buffer[3];
-> @@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
->
->         *intervals += n;
->
-> -       return buffer[0];
-> +       return 0;
->  }
->
->  static int uvc_parse_format(struct uvc_device *dev,
-> @@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
->                         ret = uvc_parse_frame(dev, streaming, format, frame,
->                                               intervals, ftype, width_multiplier,
->                                               buffer, buflen);
-> -                       if (ret < 0)
-> +                       if (!ret)
-> +                               format->nframes++;
-> +                       if (ret == -ENODATA)
->                                 return ret;
+> On Tue, 18 Aug 2026, David Laight wrote:
+> > I'd bet there is a requirement that width*bpp is a multiple of 8 (or even 32)?
+> > You definitely don't want the divide rounding down!  
+> 
+> There is no such check. bpp is a raw descriptor byte at uvc_driver.c:405, and
+> wWidth is unvalidated. The rounding is pre-existing, c0efd232929c has the same
+> /8, so it is not a regression, but it should be DIV_ROUND_UP. uvc_driver.c:431
+> already uses it thirty lines below.
 
-I know this is my proposal, but if you resubmit the series I think it
-is more correct to swap the order (sorry about that):
- +                       if (ret == -ENODATA)
- +                                return ret;
- +                       if (!ret)
- +                               format->nframes++;
+I'd guess that the only values of bpp that have ever been used are 1, 2, 4, 8,
+16, 24?, 32 and maybe 64 (for 16bit colour).
+Anything else won't go through a hardware FIFO.
+Similarly the hardware wants to do a whole number of memory reads for each
+video line - otherwise it all gets hard to get the porches right.
 
-> -                       format->nframes++;
-> -                       buflen -= ret;
-> -                       buffer += ret;
-> +                       buflen -= buffer[0];
-> +                       buffer += buffer[0];
->                 }
->         }
->
-> --
-> 2.34.1
->
-With that minor nitpick, regardless of whether you change it or not.
+> 
+> > > +		if (bufsize > U32_MAX) {  
+> > Should that be >= ?  
+> 
+> No, U32_MAX itself fits.
 
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Brain fade :-)
 
--- 
-Ricardo Ribalda
+David
+
+> > I'd include the bpp, width and height values in the trace.  
+> 
+> Agreed, will do.
+> 
+> I am carrying this as part of a three-patch series at Ricardo's request. Will
+> fold in the rounding and the trace values.
+> 
+> Natasha
+
