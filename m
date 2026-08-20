@@ -1,228 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244106.protonmail.ch (mail-244106.protonmail.ch [109.224.244.106])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5763815E1;
-	Thu, 20 Aug 2026 09:08:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB03E2E7F17
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:14:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.106
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787216883; cv=none; b=ZxRKT9mLyYl/9GjtjiKSGMFvoaIH8qweYv4Bsw0HC2p/ZRo7Xtsr0I8DEwqk4GWXqfrGznplggHEQlbmtIoLicswGqsgbdoWFv1P+piECWkhnEM1p6Pc4RoXD/nu5F1piIQAap7AOqr5kRsB0bpvt+a11lz0AHpNVmPaQ5JIgeg=
+	t=1787217245; cv=none; b=p6UsIUtWHVWDFGaFXaBOGX4u00ZhgIxuH+gVvL+Y+vxxkFLDF01uX9X++9KbUtAt7hbS5vKLONabQLNXbmd8uG86ODTci/MHQSmy8RGRe/jZ2MUb0u9It8l9g+/s7T2/MVGL9liDWp0cCng/x0P9nmo/1e+al8in8Ea0WYneGTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787216883; c=relaxed/simple;
-	bh=CjiDKzlsB4CYB3VlBFqqIUTkbqsfzicmrXYq15K6CAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iGwgqa6W1T4N3QUfbc8iclxWCxlVdIRLBxLJv6nlExg94ADrQ8R1jsY1C5sVYtjj5k0PpsYvn3qMINfQakU1hansJQ9pit4wvdijzx6IhVPC9ngCtoHfCk4E6ChN+CBURR17OPHSHL4XjBS6/EiQhTPSVQUMl30cf7fv3B485I8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlmSPT3J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787217245; c=relaxed/simple;
+	bh=Ix5Kvrk08izmUTJAJJsED+itii2hjUN0KK6oicmh01U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=L6/b+RBgRZYdrzlOW+Mn6gX5EITQ00iMnY0gTFXwtuf1vRLBCvRrEHsKFfPNaLXTbg7XnwPIe81m/1wB/+y1m8IrOaPyvDtVb5JH8zGe3wXtvQIaMDn2eAsIVhH3A9KtMu5k30g7rkei7iPe98z6+wxWi1CKm21eTKsUBcdakHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=B39QL+8z; arc=none smtp.client-ip=109.224.244.106
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlmSPT3J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4C01F000E9;
-	Thu, 20 Aug 2026 09:07:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787216881;
-	bh=HbWHyhAGccmmUKHPlabuPDznJTtRzS7rm2Ks8U4Pdfc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mlmSPT3J/cxMvk1ov/w4xrvfdrL6tX66o8ftXD5mN3k7JQ8j3foKO9uBxmBQydxt1
-	 TtMSCXwwGkasHU0t3ucF2w3dJWF7QFP/DVBqasId6l5nO45toANB+2trMq8b8Lturb
-	 1tzJWNqxDt/Uwp0HuNtForVsvHnj06UOoe4pkyxDdPKrScwLpD/QxB3fzbKoe6ZBqf
-	 YS3e+wDJI8t3uWw8HpZjGmY868z0ohcXf+doJY12cRN3l+HFNq+ZB2JQVseDqVIMe5
-	 Lc2M/o42Xq42es7Zh5DrfISEpE4qv23FIKNLg38AAtA4TbonNtvyniinosKwNGP/09
-	 qzqp3pidoqThg==
-Message-ID: <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
-Date: Thu, 20 Aug 2026 11:07:45 +0200
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="B39QL+8z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=runtimeverification.com; s=protonmail; t=1787217233; x=1787476433;
+	bh=8hb79duKljCsOF/OG7kIY4E4KbBi5Yk59OWwmouDX8w=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=B39QL+8zq4uJAKvsErY/o1k2I7mxT5ByY3kmszBwMjlEL4+LxF3GMYEn2Ou2BVzyg
+	 MKd7z44MkuVIa5q1P4Vm8r0/rA8fY/zTYWtumOvzuKUuGp88/OIo7L0EDjLHrLV645
+	 uiBDf2LQLw+h0pGjrlJbC7agtHVsLULXTNTJHv2lpW/vu8vuEkdS7KVfvAzDG+tGHe
+	 V/paCvE1wZIUOpOeY6VtSpOj5pAZCC/Zd87V0/8myG7q5r2raS6ejFYLkg1F8HZPiW
+	 +1TfM/xkoXAJ/vSj+OkySvzmx96WCFFEMHFeef54uJblXHN1SZjrX4DT+TogvFcbCy
+	 P6WsgZLuaSyFA==
+X-Pm-Submission-Id: 4hQd646Qxhz1DDWl
+From: Natasha Klaus <natalie.klaus@runtimeverification.com>
+To: david.laight.linux@gmail.com,
+	noambs2999@gmail.com
+Cc: ribalda@chromium.org,
+	laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: uvcvideo: Fix integer overflow in frame buffer size calculation
+Date: Thu, 20 Aug 2026 12:13:39 +0300
+Message-Id: <20260820091339.42288-1-natalie.klaus@runtimeverification.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260818092803.4f51e6dc@pumpkin>
+References: <20260818092803.4f51e6dc@pumpkin>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
- driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
- <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
- <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
- <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
- <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 20/08/2026 10:52, Dmitry Baryshkov wrote:
-> On Wed, Aug 19, 2026 at 04:18:51PM +0200, Krzysztof Kozlowski wrote:
->> On 19/08/2026 15:17, Ekansh Gupta wrote:
->>> On 19-08-2026 00:40, Krzysztof Kozlowski wrote:
->>>> On 17/08/2026 06:47, Ekansh Gupta wrote:
->>>>> Add the skeleton of the Qualcomm DSP Accelerator (QDA) driver, a DRM
->>>>> accel driver for the Hexagon DSPs found on Qualcomm SoCs.
->>>>>
->>>>> This patch registers a DRM accel device, exposing a /dev/accel/accelN
->>>>> character device node, and binds it to the RPMsg channel used to reach
->>>>> the DSP. Buffer management, IOMMU context banks and the FastRPC
->>>>> protocol are added by later patches in this series.
->>>>>
->>>>> qda_drv.c / qda_drv.h define the drm_driver ops table, the per-file
->>>>> private state (qda_file_priv) and the main device structure (qda_dev),
->>>>> which embeds drm_device so that it can be recovered with container_of().
->>>>>
->>>>> qda_rpmsg.c binds to the "qcom,fastrpc" compatible via
->>>>> module_rpmsg_driver(), reads the DSP domain name from the "label"
->>>>> device-tree property, and registers the DRM device.
->>>>>
->>>>> Assisted-by: Claude:claude-sonnet-5
->>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->>>>> ---
->>>>> Changes in v2:
->>>>> - Use module_rpmsg_driver() and drop the qda_rpmsg_register()/
->>>>>   _unregister() wrappers, module_init()/module_exit() and
->>>>>   qda_rpmsg.h entirely (Dmitry Baryshkov)
->>>>> - Read the "label" property directly into qdev->dsp_name (Dmitry Baryshkov)
->>>>> - Drop the probe/remove/init log messages (Dmitry Baryshkov)
->>>>> - Return the result of qda_register_device() directly (Dmitry Baryshkov)
->>>>> - Clarify the Kconfig help text (Dmitry Baryshkov)
->>>>> ---
->>>>>  drivers/accel/Kconfig         |  1 +
->>>>>  drivers/accel/Makefile        |  1 +
->>>>>  drivers/accel/qda/Kconfig     | 30 ++++++++++++++++
->>>>>  drivers/accel/qda/Makefile    | 10 ++++++
->>>>>  drivers/accel/qda/qda_drv.c   | 71 ++++++++++++++++++++++++++++++++++++++
->>>>>  drivers/accel/qda/qda_drv.h   | 61 +++++++++++++++++++++++++++++++++
->>>>>  drivers/accel/qda/qda_rpmsg.c | 79 +++++++++++++++++++++++++++++++++++++++++++
->>>>>  7 files changed, 253 insertions(+)
->>>>>
->>>>> diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
->>>>> index bdf48ccafcf2..74ac0f71bc9d 100644
->>>>> --- a/drivers/accel/Kconfig
->>>>> +++ b/drivers/accel/Kconfig
->>>>> @@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
->>>>>  source "drivers/accel/habanalabs/Kconfig"
->>>>>  source "drivers/accel/ivpu/Kconfig"
->>>>>  source "drivers/accel/qaic/Kconfig"
->>>>> +source "drivers/accel/qda/Kconfig"
->>>>>  source "drivers/accel/rocket/Kconfig"
->>>>>  
->>>>>  endif
->>>>> diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
->>>>> index 1d3a7251b950..58c08dd5f389 100644
->>>>> --- a/drivers/accel/Makefile
->>>>> +++ b/drivers/accel/Makefile
->>>>> @@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
->>>>>  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
->>>>>  obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
->>>>>  obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
->>>>> +obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
->>>>>  obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
->>>>> \ No newline at end of file
->>>>
->>>> You have trivial patch errors.
->>> newline problem was already there, wasn't introduced as part of this
->>> patch series, so I wasn't sure to fix it here. I can fix this in v3.>
->>>> ...
->>>>
->>>>> +}
->>>>> +
->>>>> +static const struct of_device_id qda_rpmsg_id_table[] = {
->>>>> +	{ .compatible = "qcom,fastrpc" },
->>>>> +	{},
->>>>
->>>> Device node with this compatible is already populated, so this looks
->>>> simply wrong or you are adding a duplicated driver.
->>>>
->>>> That's a no-go, you are supposed to work with existing drivers and grow
->>>> them.
->>> I'll bring the discussion again here, there was a discussion to move the
->>> driver to accel subsystem if we want to support new features/uAPI
->>> changes. Please read [1],[2] threads. The intention is to replace
->>> fastrpc driver with QDA eventually.
->>
->> None of them address the problem. You want to grow fastrpc into user of
->> dmabuf? So you move it from misc to here.
-> 
-> It's not as easy and nice, so I think in this case it's better to repeat
+On Tue, 18 Aug 2026, David Laight wrote:
+> I'd bet there is a requirement that width*bpp is a multiple of 8 (or even 32)?
+> You definitely don't want the divide rounding down!
 
-I disagree. The existing fastrpc driver is not that complicated. It's
-actually moderate amount of code, much less than Venus was (~7 times less).
+There is no such check. bpp is a raw descriptor byte at uvc_driver.c:405, and
+wWidth is unvalidated. The rounding is pre-existing, c0efd232929c has the same
+/8, so it is not a regression, but it should be DIV_ROUND_UP. uvc_driver.c:431
+already uses it thirty lines below.
 
-It easily can grow to support two interfaces and the only difficulty is
-how to manage these two interfaces simultaneously or exclusively, e.g.
-opening first one disables the second.
+> > +		if (bufsize > U32_MAX) {
+> Should that be >= ?
 
-> what we did for the venus/iris migration or what happened already
-> several times in the kernel history (for example the AIC7xxx SCSI host
-> drivers were migrated by introducing the second driver and then removing
-> the first one after the grace period). The backwards compatibility is a
-> separate topic, but it will be addressed before the driver can be
+No, U32_MAX itself fits.
 
-Backwards compatibility should be one of the first things explained in
-cover letter in one of the first paragraphs.
+> I'd include the bpp, width and height values in the trace.
 
-And if you make it backwards compatible, then just remove old driver,
-because there is no point to keep it there. Again, this should be one of
-the first things explained in cover letter.
+Agreed, will do.
 
-Best regards,
-Krzysztof
+I am carrying this as part of a three-patch series at Ricardo's request. Will
+fold in the rounding and the trace values.
+
+Natasha
