@@ -1,80 +1,80 @@
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com [209.85.128.172])
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C5E947A0DA
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:31:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8A246D0BD
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:35:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787243506; cv=pass; b=hGs56U4Ui6ohKZw7HRfBDHwVNWUoSidqqvp62ctd686ilnfn6pcB2vYy4ycM/6ZJh8uLhkNB9HRMLLy6wyW5Up4hvvC8GbeHOIeinCJIoCgl/Torwq4HI9dn0Gvd6weA+OMTr+gkmZUPd1kKBAkZmHN5OOCyhpbmwxa3qxEVPhU=
+	t=1787243760; cv=pass; b=XNovauIZ+KHoJxhogsL22sJSFtqIv4nrE/LZkiuBYrHJ38tByee8/wkt9eKx8LF6lGMy1E3VB4vwrs8P0nk/Kv6J5HHgqyK0B85bo4CpzO6cY/CLAiyaxtOFlFhq+7jHy/q+f3Ljy/x/BYiFIwgnm3uBdM9+ayrkjGUtUQ8acKc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787243506; c=relaxed/simple;
-	bh=Q41aA4cvtCASf2GuEIN5EZRDKyWnkPQvDlEFCmonvoA=;
+	s=arc-20240116; t=1787243760; c=relaxed/simple;
+	bh=ncEsqQ0AAYurKKLqsqrXr21Ar5a5RoOWWYL6ZOQlXcc=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PFAX0stqpbjIGiIxJbucZe7pPVxEGEp/uEhHP5ktI043l/n2X5M5vAy/tJOm2UZFEKARK7QCqKd2SkP6I6a9Vxv29Mj6Unj9sgpLfwZjJed9b8RS5HEcp/xWksyUIwf+CL2NY+36u17ECLleE3JkO1zQXlQpA2WIgQFqidzqMAA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=XccI/VSv; arc=pass smtp.client-ip=209.85.128.172
+	 To:Cc:Content-Type; b=JPHhJ0JE16vI6YNdZOGgVHZDgDeIv17iVm9U+K9dXY+jzzxm6i6U74lx8CJHBECx/ogQ+M0k3vt+nrgqac23fJhAZ/VsZmG6fYnJhhVwcl2dQUIVRI7uxz8WV0yp3rjOmy1U4i2LANw4nZ4jtnYrNUQ3hKZfrOulkINC5snegqQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=uwrAbve4; arc=pass smtp.client-ip=74.125.224.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="XccI/VSv"
-Received: by mail-yw1-f172.google.com with SMTP id 00721157ae682-7dbcb505578so889727b3.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:31:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787243503; cv=none;
+	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="uwrAbve4"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66c2d726650so4108d50.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:35:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787243757; cv=none;
         d=google.com; s=arc-20260327;
-        b=nSq1nnW5YFnDfvYQjsLHxTy9rSM92nb2RQjfAOdsGd4jdi1zk+IzdiSWiMWWWIIXSB
-         vM99HBT9Jrsbnbwui/tHTueUPvqp/9jSYnLzZpxgv5tGvmaHim4L2HhaHPu7lp7LYZhF
-         jDNUs4urqAJIgoLsY7slm+jMSKZqTFuGA1m3btuPDUg3m/gy5r0FObY1zNdSHVIxoWjM
-         m8XuI2QgrI1QdsMKN3Qo0Ge2Ad42T8pbZqMESb4f/1d1YTUop7XLfzimA0Nv0zzavjU7
-         oFU2Z8IQ5+MBjZyXXocswP3ICsdU7ayVaOMPAz+jeWEviKRYRD1wjYpkxg7pXHpFZbF+
-         3bDg==
+        b=ieMK4fjK0w2U5VY04Bm0muCjAEUBVJlt/HzWRRYu2yhyof7+9TFAKDIbO8xL5fVxgg
+         2V3DtAzcWwHSU1WgPZMWol0Dxx0q6KW1eBIIGmGL7BgQCr2fvhCz3fxfWU+B/owv7Ki9
+         WwP0PKvklw1fpuz+QN09DRJ12KA60giDuVrqB5GvzHxXrR7ZcA4EycMvZNCy0dx0uRkr
+         4ed5lstji1aNqPp/I+gDx0YxxHjcSXjKX6/fS8bSKf0ydDrcqJmUVMOoP0DXOK1bJIhq
+         XrworIC83/HX34llG5ZCDvC8f0+l/B7GvSp86m6pCJy5upxBV9M2GlZl4dXQHb6ThgxB
+         TDVQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=qEfeanj2B21UQ4s13w9n0/O/Ii0JASvFsbQaoVe9iHE=;
-        fh=7Fyez3pIpQsIWrG2ZeflIDYGeKnXE7Sdv2BUfuyC1Bw=;
-        b=h11rKLBRu9sKZIAvL64y5PfqNG87fWb9aho8m8Pyx+5uUdJZ7zglx+c7Mp8EIBetTw
-         LVxZK2jfh9xJi1jM7VhgK7v/sAm2iMjmOZGNo1fVOTGPHJBNSZJbGLpxZwZV17wsR99x
-         GTT5G9Te4x6j6Ys1cT1bX19uLfq4fgfhFCBqqrqk5PGsGdunlo1xb81aRvpX6a9TIhI/
-         Mb9E8jynoU8mxXxnK0Q8YXl7KPoTraHhLbdK5xhRx5kMsUjehUhu8hd0Lqv9/6urkZXD
-         rnZ/herhLbI3RMzvTyrprSkAqhV0l8x8br8/dDCA7GAcvm3JsYmEunuB/7eMFSSogSIo
-         dUPw==;
+        bh=NYyiZU75J+4VHDQmrZ9Udm24uk72U3pWtfogoXgw+Us=;
+        fh=HlrIm4oYengf7L8h2G7SEgh9XfO97Z0/o6yFdTdYZDY=;
+        b=G2dA7SSgqB72ha8OYs+7lC+WaAdxPnp5dWrkiNIzgh5VNyYJG2Nu9u13CR5UvdZfGY
+         78j3ixfeVhQ/b/10HApZxF+h5cRtVVDMIoqMaAGU9lJrW51jrLayk4Bagigy079CJwdY
+         6bU8WdhibXApMu8WMoTlhI/YUvNYBC+KP8+tOryaRQ2qJqnE7fnT5jHxQoSoIUNdy3HR
+         4yKnv1MxfXuWR+5dGe4uqxozbswVuNgP1Mj8njK4AcfR5XqxqPX0R6xNIyZkvd8dI1y+
+         QgJw2h2rzKFaTb9Q3J8uoqL1xOSJE8RfQ3fvdwgjAHUPXqe60cIYFXMtTb1C6iu9y2PR
+         1Szw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kynesim.co.uk; s=google; t=1787243503; x=1787848303; darn=vger.kernel.org;
+        d=kynesim.co.uk; s=google; t=1787243757; x=1787848557; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qEfeanj2B21UQ4s13w9n0/O/Ii0JASvFsbQaoVe9iHE=;
-        b=XccI/VSvAKAJ3udI3BuJa/+5E3isT7oxlI9cOPwqQ7wfIjmdP8wAaa5Q28AlDoRW60
-         aX8HkoQwveG16IOqpIIf+CF8ORZnbUH2YvoaN2MdioldyCM6N2GxW5jVnOWm69AQzdzw
-         jr8f/YgkFrPIGWTz8klW7TJFUxjlZwEaCUcXsaJ29IK7vmd9gz09UzW0lObp6QnCOUDX
-         uFCeoTyYtQX8gMMyiUAby+Pj/LmGx8cf3B0twe3KTJspj3IFGlBMjnWMIQI2NuNjq53O
-         0e4VRczfuI+rpn2WlQUIIvbjq5UsC3rvBti9ohGIHIWucBU7UQ6qSokiLRFTXUwT5x/h
-         g9Sg==
+        bh=NYyiZU75J+4VHDQmrZ9Udm24uk72U3pWtfogoXgw+Us=;
+        b=uwrAbve4Ax1qErCWxELg5U8KWoIvbOwEx7VzXPdhMs0Id/3Q3Q13zJ17NtXKOpEhWw
+         XOh92KJ6vKsu2YFYr5P2PUxeNW3kBwG8fKnGPfrOHOLOXbYnE9r8Vom/7BZMoZNgbXFs
+         Lkr2HHLAW61SEk8aaRjnzpk4sReBapDt7OqvpBhKFDP4+3XHe/OWSk6vYqovVWqeXP4u
+         v17meVNBYqjg51BJHHqIOEa491o9kbqua1jG2Xt4KYWTOmackrKV2SC+3hHovhSOzURu
+         8WIeS1fie548sYL04hVaAzsAJzd9BP5CZZw1k4aUHuUJQiTwk/joiW6SlT/55uhhllCs
+         rtAg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787243503; x=1787848303;
+        d=1e100.net; s=20251104; t=1787243757; x=1787848557;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qEfeanj2B21UQ4s13w9n0/O/Ii0JASvFsbQaoVe9iHE=;
-        b=hAjHmrOrTbvT/XL2u72MXPIO86xFnlV00FeFh6hk6pi2nFjYsL4X27V3IbshzlcYkB
-         EilKNk1YN7awPO7QjG74DPnSZCC78tcAkfG+YsbUYixrPWgVIJX45pV88Qn3SYgLgRdz
-         oIr6uoi2s2K3SDRp/WUl0A7BuYEcQ8lkK4w+SWpv+NJAGDJ88i7i2R60eUJcFR14aqWa
-         8CFAFvVN1cvThFRhQttxDIQoC5N5py60skEDGHxmW7SiDyPIiXk7tj85aSkUCV0SGaD0
-         34iyDwZRTfNpin2CsDFWRSDyyCRSJLo3kRp+hJTJRg4wizntDy4LQB06uU4B8cN2lOYK
-         DpVA==
-X-Forwarded-Encrypted: i=1; AHgh+RoZiwWBRwTkTIZfQU0qDIpIhAdaBk4ABLY4m3L7QPiK5PWdp6RoR99Wio3JGLKitkX+ejLvkMvEXED/JQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++maoTf3rlovT5LIxJwwDhd92mwcmk0wKG+eHqr26PUP3WxxhOL/
-	uYDV4dKucC8XihlQhXbq4gy+Jt7dPnXcahcq2PuD7RoEy02yrFqQimzQV4Odao2GWySl0/GYQLH
-	vWlaZEzKjc1UTyO3Z6TtnpcT0othD5f93Pmpp7FGECg==
-X-Gm-Gg: AR+sD12OR5QPsO2Fe/coco64xGCzGD1TBQxKhW/odnAQ12l8Z2aQYo/yZULH5E7+PZB
-	rkLHrHU+re8/J8NGaYtNNfcmgCRwdXIa5TJRwtQWORJE5zdF418c3gu2moPK4VPTjyIBU8wsOxy
-	zeYfIUL7r4f/7ODL844zkUxV23JMQFMki/PJEVm7O2hGxw6yhBzZcDxHddHaGJB+VrSQGBr6BlQ
-	zBEp8IBEbqv7V24t9tAgRejTXwiJ8Iv+0gT5icv204iRgc87uFNs9a+WaizpWPZ0Q3bUXpXFs1h
-	YgYn6pE/pSF53YYlVcEjGCBVrEoDh8Fn7/ajVqt0TBo=
-X-Received: by 2002:a05:690c:4b82:b0:820:1251:d2c2 with SMTP id
- 00721157ae682-844e250fe23mr51872287b3.28.1787243503265; Thu, 20 Aug 2026
- 09:31:43 -0700 (PDT)
+        bh=NYyiZU75J+4VHDQmrZ9Udm24uk72U3pWtfogoXgw+Us=;
+        b=a81ZXdlpPR47Y49iQB5p5wMGqA27bIjnMYOEohqKP3Q+K5MLS8FuYTJTjWb+1rjwcR
+         siZT6+XmDFYxplXXASTxxQ1TWr3irNxHQ8knRK94RZwkyALpvdN2n4YMqh0WIQM8ItBy
+         6BHfT6s/BiucH+hvBIRaUqM1zjNWzB81P2omwSf6nheSjSynC5nhL0AsNz1sL0QhLbOI
+         0AVmAsQiFSmlb30jp7JPsF7Fa88MNbxaLs3bHzHIHPxIxGwVxOrXY0Xb0ZNY0nNgEWKw
+         BTx2+qa0FQHNCHCab9H2JuRosjwWH0MOQHtsK9aSTN/rP/UQYWlKnxc4Lwv38djgRsb3
+         jzvw==
+X-Forwarded-Encrypted: i=1; AHgh+RqAmlNtOjqXTXZMpaGjyKiPK8OPbzIltUBfeVFhCw9Cevf/F/ioHEN+Ot5tlsaiB8avBphIsmHEW2AmwA==@vger.kernel.org
+X-Gm-Message-State: AFuF++kGS6C1pCWc78q4hlCUD95Ef93yJA9Uu4hVOXyQXz8+/rFojb+p
+	00G2Aan0M2Xx8OkPj6F+G3vxXBs7RinVxwnhLWKz6UE3GNBMTmSyjpCqxQ+PJGLK0ibkQK0sEsG
+	DDnqx4bRxd65j/WkqLmSxw8/v5fTLNjmPEnefTtRj/Q==
+X-Gm-Gg: AR+sD11sC1oKqkaMtHyzyBbYXpzBVDYnHr0fxnbB/KcQIfnucLq+1WDxy9tBl3x8jCJ
+	sXPi+/M2Sa4Rx37jFAueAVws/MxR2vDtLpx5NoQgiBCMFxA4yuZsUaDc3wtDB6y21q2LjkpT3tp
+	OZf+oy/A+IsFCohOoOhA+KmEv2nGNaK3tHBWR88BUOlmytn7aCupbwHX3myuBrcoIZ8prgaBcf4
+	kKaeTYl2Dg2AW+j5nDZGe8vs/kUuBvMhiEEHTH+ZZ4A7xprWv657eA/Pxgl4/Oy2Mz/2inRPrnm
+	ptv4YFwyTWiw8ubWb2Kla9Z+6+TVMNgVYop6lIrWE+w=
+X-Received: by 2002:a05:690c:6c8e:b0:7ff:1a93:be35 with SMTP id
+ 00721157ae682-844df158a81mr55435577b3.16.1787243757334; Thu, 20 Aug 2026
+ 09:35:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,15 +82,14 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20250724-multicontext-mainline-2025-v2-0-c9b316773486@ideasonboard.com>
- <20250724-multicontext-mainline-2025-v2-11-c9b316773486@ideasonboard.com>
-In-Reply-To: <20250724-multicontext-mainline-2025-v2-11-c9b316773486@ideasonboard.com>
+ <20250724-multicontext-mainline-2025-v2-16-c9b316773486@ideasonboard.com>
+In-Reply-To: <20250724-multicontext-mainline-2025-v2-16-c9b316773486@ideasonboard.com>
 Reply-To: jc@kynesim.co.uk
 From: John Cox <jc@kynesim.co.uk>
-Date: Thu, 20 Aug 2026 17:31:31 +0100
-X-Gm-Features: AcwNN1WjC9dLxoZ7a36oz6GWGckQua1_XePXPkJUpae3tu3WKspB2mZQpv2Wx2Q
-Message-ID: <CAFyCYyMaKT9zDxZCruS84S0DvSWrAR_==jjokTPXwBcJAp01pA@mail.gmail.com>
-Subject: Re: [PATCH v2 11/27] media: videobuf2-v4l2: Support vb2_queue
- embedded in a context
+Date: Thu, 20 Aug 2026 17:35:44 +0100
+X-Gm-Features: AcwNN1XvSxfmyHAua9fqxn606YkjVXnPvYXRH1omWRpiWwQiPt5bLdsOlWDBu1A
+Message-ID: <CAFyCYyNsKa4CvpYNsRc_UabDg5emev6qdCtqUkqMHbJ0BNiOnw@mail.gmail.com>
+Subject: Re: [PATCH v2 16/27] media: v4l2-subdev: Add subdev state accessor helpers
 To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -105,353 +104,306 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-> Support device drivers that implement multi-context operations in the
-> videobuf2 core by providing an helper to retrieve the vb2_queue from
-> the context associated with an open file handle. If no context is
-> associated with a file handle, retrieve it from the video device
-> default context, created by the core for multi-context aware drivers.
+> The v4l2-subdev.c file offers three helpers to access the subdevice
+> active state from a v4l2_subdev pointer:
 >
-> Fall-back to use the vb2_queue from the video_device to support existing
-> drivers which are not context aware.
+> - v4l2_subdev_get_unlocked_active_state(sd)
+> - v4l2_subdev_get_locked_active_state(sd)
+> - v4l2_subdev_lock_and_get_active_state(sd)
+>
+> With the introduction of struct v4l2_subdev_context which contains a
+> subdev_state as well, the actual "active" state is stored in three
+> possible places:
+> - A context associated with a v4l2_subdev_fh for context aware drivers
+>   operated by context aware userspace
+> - The default subdevice context for context aware drivers operated by
+>   non-context aware userspace
+> - The subdevice active state for non-context aware drivers
+>
+> Provide helpers similar in spirit the existing ones but accept as
+> argument either a subdevice the context itself and retrieve the active
+> state from the correct place.
+>
+> Helpers will be used in following patches for link validation.
 >
 > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > ---
->  drivers/media/common/videobuf2/videobuf2-v4l2.c | 139 +++++++++++++++---------
->  1 file changed, 88 insertions(+), 51 deletions(-)
+>  drivers/media/v4l2-core/v4l2-subdev.c | 101 +++++++++++++++++++++++++++++++++
+>  include/media/v4l2-subdev.h           | 104 +++++++++++++++++++---------------
+>  2 files changed, 159 insertions(+), 46 deletions(-)
 >
-> diff --git a/drivers/media/common/videobuf2/videobuf2-v4l2.c b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> index 1cd26faee50338aefeb670c6865da7c2d43f44d3..ad7892551f54c5abc7db7641bb8fb89d77b1337f 100644
-> --- a/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> +++ b/drivers/media/common/videobuf2/videobuf2-v4l2.c
-> @@ -998,23 +998,46 @@ EXPORT_SYMBOL_GPL(vb2_poll);
->   * and so they simplify the driver code.
->   */
+> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+> index 438f51980e5ac0f092ba6b0a979a376133968ddf..7372f61127c871cec44a3d1900e2b8bef34632b9 100644
+> --- a/drivers/media/v4l2-core/v4l2-subdev.c
+> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
+> @@ -20,6 +20,7 @@
+>  #include <linux/version.h>
+>  #include <linux/videodev2.h>
 >
+> +#include <media/media-device.h>
+>  #include <media/v4l2-ctrls.h>
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-event.h>
+> @@ -189,6 +190,106 @@ static inline int check_pad(struct v4l2_subdev *sd, u32 pad)
+>         return 0;
+>  }
+>
+> +/* subdev state accessor helpers */
+> +
 > +/*
-> + * Helper to get the vb2 queue either from:
-> + * 1) The video context bound to the open file handle
-> + * 2) The default context for context-aware drivers if userspace has not bound
-> + *    a context to the file handle
-> + * 3) From the video device for non-context aware drivers
+> + * Access the state from the subdevice.
+> + *
+> + * If the driver is context-aware use the state stored in the default context
+> + * otherwise use the active state stored in the subdevice.
 > + */
-> +static struct vb2_queue *get_vb2_queue(struct file *file,
-> +                                      struct video_device *vdev)
+> +
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_unlocked_active_state_from_sd(struct v4l2_subdev *sd)
 > +{
-> +#if defined(CONFIG_MEDIA_CONTROLLER)
-> +       struct video_device_context *ctx =
-> +                               video_device_context_from_file(file, vdev);
+> +       if (!sd)
+> +               return NULL;
 > +
-> +       return ctx ? &ctx->queue
-> +                  : vdev->default_context ? &vdev->default_context->queue
-> +                  : vdev->queue;
-> +#else
-> +       return vdev->queue;
-> +#endif /* CONFIG_MEDIA_CONTROLLER */
+> +       if (sd->default_context) {
+> +               lockdep_assert_not_held(sd->default_context->state->lock);
+> +
+> +               return sd->default_context->state;
+> +       }
+> +
+> +       if (sd->active_state)
+> +               lockdep_assert_not_held(sd->active_state->lock);
+> +       return sd->active_state;
 > +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_get_unlocked_active_state_from_sd);
 > +
->  /* vb2 ioctl helpers */
->
->  int vb2_ioctl_remove_bufs(struct file *file, void *priv,
->                           struct v4l2_remove_buffers *d)
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_locked_active_state_from_sd(struct v4l2_subdev *sd)
+> +{
+> +       if (!sd)
+> +               return NULL;
+> +
+> +       if (sd->default_context) {
+> +               lockdep_assert_held(sd->default_context->state->lock);
+> +
+> +               return sd->default_context->state;
+> +       }
+> +
+> +       if (sd->active_state)
+> +               lockdep_assert_held(sd->active_state->lock);
+> +       return sd->active_state;
+> +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_get_locked_active_state_from_sd);
+> +
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_lock_and_get_active_state_from_sd(struct v4l2_subdev *sd)
+> +{
+> +       if (!sd)
+> +               return NULL;
+> +
+> +       if (sd->default_context) {
+> +               v4l2_subdev_lock_state(sd->default_context->state);
+> +
+> +               return sd->default_context->state;
+> +       }
+> +
+> +       if (sd->active_state)
+> +               v4l2_subdev_lock_state(sd->active_state);
+> +       return sd->active_state;
+> +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_lock_and_get_active_state_from_sd);
+> +
+> +/* Access the subdevice state from a subdvice context. */
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_unlocked_active_state_from_ctx(struct v4l2_subdev_context *ctx)
+> +{
+> +       if (!ctx)
+> +               return NULL;
+> +
+> +       if (ctx->state)
+> +               lockdep_assert_not_held(ctx->state->lock);
+> +       return ctx->state;
+> +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_get_unlocked_active_state_from_ctx);
+> +
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_locked_active_state_from_ctx(struct v4l2_subdev_context *ctx)
+> +{
+> +       if (!ctx)
+> +               return NULL;
+> +
+> +       if (ctx->state)
+> +               lockdep_assert_held(ctx->state->lock);
+> +       return ctx->state;
+> +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_get_locked_active_state_from_ctx);
+> +
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_lock_and_get_active_state_from_ctx(struct v4l2_subdev_context *ctx)
+> +{
+> +       if (!ctx)
+> +               return NULL;
+> +
+> +       if (ctx->state)
+> +               v4l2_subdev_lock_state(ctx->state);
+> +       return ctx->state;
+> +}
+> +EXPORT_SYMBOL_GPL(v4l2_subdev_lock_and_get_active_state_from_ctx);
+> +
+>  static int check_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
+>                        u32 which, u32 pad, u32 stream)
 >  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> index 1fa42a9f322be0be44fc9308744f4f4ae0cf1606..8087c0ae3bc0a0a95512b4b0ff5257522a104ca0 100644
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+> @@ -29,16 +29,17 @@
 >
-> -       if (vdev->queue->type != d->type)
-> +       if (q->type != d->type)
->                 return -EINVAL;
+>  #define        V4L2_DEVICE_NOTIFY_EVENT                _IOW('v', 2, struct v4l2_event)
 >
->         if (d->count == 0)
->                 return 0;
+> -struct v4l2_device;
+> +struct led_classdev;
+> +struct media_device_context;
+> +struct tuner_setup;
+>  struct v4l2_ctrl_handler;
+> +struct v4l2_device;
+>  struct v4l2_event;
+>  struct v4l2_event_subscription;
+>  struct v4l2_fh;
+> +struct v4l2_mbus_frame_desc;
+>  struct v4l2_subdev;
+>  struct v4l2_subdev_fh;
+> -struct tuner_setup;
+> -struct v4l2_mbus_frame_desc;
+> -struct led_classdev;
 >
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
->
-> -       return vb2_core_remove_bufs(vdev->queue, d->index, d->count);
-> +       return vb2_core_remove_bufs(q, d->index, d->count);
+>  /**
+>   * struct v4l2_decode_vbi_line - used to decode_vbi_line
+> @@ -1968,64 +1969,75 @@ static inline void v4l2_subdev_unlock_states(struct v4l2_subdev_state *state1,
+>                 mutex_unlock(state2->lock);
 >  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_remove_bufs);
 >
-> @@ -1022,21 +1045,21 @@ int vb2_ioctl_reqbufs(struct file *file, void *priv,
->                           struct v4l2_requestbuffers *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       int res = vb2_verify_memory_type(vdev->queue, p->memory, p->type);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
-> +       int res = vb2_verify_memory_type(q, p->memory, p->type);
->         u32 flags = p->flags;
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_unlocked_active_state_from_sd(struct v4l2_subdev *sd);
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_locked_active_state_from_sd(struct v4l2_subdev *sd);
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_lock_and_get_active_state_from_sd(struct v4l2_subdev *sd);
+> +
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_unlocked_active_state_from_ctx(struct v4l2_subdev_context *ctx);
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_get_locked_active_state_from_ctx(struct v4l2_subdev_context *ctx);
+> +struct v4l2_subdev_state *
+> +v4l2_subdev_lock_and_get_active_state_from_ctx(struct v4l2_subdev_context *ctx);
+> +
+>  /**
+> - * v4l2_subdev_get_unlocked_active_state() - Checks that the active subdev state
+> - *                                          is unlocked and returns it
+> - * @sd: The subdevice
+> + * v4l2_subdev_get_unlocked_active_state() - Checks that the subdev state is
+> + *                                          unlocked and returns it
+> + * @sdctx: The subdevice, or the subdevice context
+>   *
+> - * Returns the active state for the subdevice, or NULL if the subdev does not
+> - * support active state. If the state is not NULL, calls
+> - * lockdep_assert_not_held() to issue a warning if the state is locked.
+> + * Returns the subdevice state, or NULL if it is not valid. If the state is
+> + * not NULL, calls lockdep_assert_not_held() to issue a warning if the state
+> + * is locked.
+>   *
+> - * This function is to be used e.g. when getting the active state for the sole
+> - * purpose of passing it forward, without accessing the state fields.
+> + * This function is to be used e.g. when getting the state for the sole purpose
+> + * of passing it forward, without accessing the state fields.
+>   */
+> -static inline struct v4l2_subdev_state *
+> -v4l2_subdev_get_unlocked_active_state(struct v4l2_subdev *sd)
+> -{
+> -       if (sd->active_state)
+> -               lockdep_assert_not_held(sd->active_state->lock);
+> -       return sd->active_state;
+> -}
+> +#define v4l2_subdev_get_unlocked_active_state(sdctx)                           \
+> +       _Generic((sdctx),                                                       \
+> +               struct v4l2_subdev *:                                           \
+> +                       v4l2_subdev_get_unlocked_active_state_from_sd,          \
+> +               struct v4l2_subdev_context *:                                   \
+> +                       v4l2_subdev_get_unlocked_active_state_from_ctx)         \
+> +       (sdctx)
 >
-> -       vb2_set_flags_and_caps(vdev->queue, p->memory, &flags,
-> -                              &p->capabilities, NULL);
-> +       vb2_set_flags_and_caps(q, p->memory, &flags, &p->capabilities, NULL);
->         p->flags = flags;
->         if (res)
->                 return res;
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       res = vb2_core_reqbufs(vdev->queue, p->memory, p->flags, &p->count);
-> +       res = vb2_core_reqbufs(q, p->memory, p->flags, &p->count);
->         /* If count == 0, then the owner has released all buffers and he
->            is no longer owner of the queue. Otherwise we have a new owner. */
->         if (res == 0)
-> -               vdev->queue->owner = p->count ? file->private_data : NULL;
-> +               q->owner = p->count ? file->private_data : NULL;
->         return res;
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_reqbufs);
-> @@ -1045,11 +1068,12 @@ int vb2_ioctl_create_bufs(struct file *file, void *priv,
->                           struct v4l2_create_buffers *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       int res = vb2_verify_memory_type(vdev->queue, p->memory, p->format.type);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
-> +       int res = vb2_verify_memory_type(q, p->memory, p->format.type);
+>  /**
+> - * v4l2_subdev_get_locked_active_state() - Checks that the active subdev state
+> - *                                        is locked and returns it
+> - *
+> - * @sd: The subdevice
+> + * v4l2_subdev_get_locked_active_state() - Checks that the subdev state is
+> + *                                        locked and returns it
+> + * @sdctx: The subdevice, or the subdevice context
+>   *
+> - * Returns the active state for the subdevice, or NULL if the subdev does not
+> - * support active state. If the state is not NULL, calls lockdep_assert_held()
+> - * to issue a warning if the state is not locked.
+> + * Returns the subdevice state, or NULL is not valid. If the state is not NULL,
+> + * calls lockdep_assert_held() to issue a warning if the state is not locked.
+>   *
+> - * This function is to be used when the caller knows that the active state is
+> + * This function is to be used when the caller knows that the context state is
+>   * already locked.
+>   */
+> -static inline struct v4l2_subdev_state *
+> -v4l2_subdev_get_locked_active_state(struct v4l2_subdev *sd)
+> -{
+> -       if (sd->active_state)
+> -               lockdep_assert_held(sd->active_state->lock);
+> -       return sd->active_state;
+> -}
+> +#define v4l2_subdev_get_locked_active_state(sdctx)                             \
+> +       _Generic((sdctx),                                                       \
+> +               struct v4l2_subdev *:                                           \
+> +                       v4l2_subdev_get_locked_active_state_from_sd,            \
+> +               struct v4l2_subdev_context *:                                   \
+> +                       v4l2_subdev_get_locked_active_state_from_ctx)           \
+> +       (sdctx)
 >
-> -       p->index = vb2_get_num_buffers(vdev->queue);
-> -       vb2_set_flags_and_caps(vdev->queue, p->memory, &p->flags,
-> -                              &p->capabilities, &p->max_num_buffers);
-> +       p->index = vb2_get_num_buffers(q);
-> +       vb2_set_flags_and_caps(q, p->memory, &p->flags, &p->capabilities,
-> +                              &p->max_num_buffers);
->         /*
->          * If count == 0, then just check if memory and type are valid.
->          * Any -EBUSY result from vb2_verify_memory_type can be mapped to 0.
-> @@ -1058,12 +1082,12 @@ int vb2_ioctl_create_bufs(struct file *file, void *priv,
->                 return res != -EBUSY ? res : 0;
->         if (res)
->                 return res;
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
->
-> -       res = vb2_create_bufs(vdev->queue, p);
-> +       res = vb2_create_bufs(q, p);
->         if (res == 0)
-> -               vdev->queue->owner = file->private_data;
-> +               q->owner = file->private_data;
->         return res;
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_create_bufs);
-> @@ -1072,69 +1096,76 @@ int vb2_ioctl_prepare_buf(struct file *file, void *priv,
->                           struct v4l2_buffer *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_prepare_buf(vdev->queue, vdev->v4l2_dev->mdev, p);
-> +       return vb2_prepare_buf(q, vdev->v4l2_dev->mdev, p);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_prepare_buf);
->
->  int vb2_ioctl_querybuf(struct file *file, void *priv, struct v4l2_buffer *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
->         /* No need to call vb2_queue_is_busy(), anyone can query buffers. */
-> -       return vb2_querybuf(vdev->queue, p);
-> +       return vb2_querybuf(q, p);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_querybuf);
->
->  int vb2_ioctl_qbuf(struct file *file, void *priv, struct v4l2_buffer *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_qbuf(vdev->queue, vdev->v4l2_dev->mdev, p);
-> +       return vb2_qbuf(q, vdev->v4l2_dev->mdev, p);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_qbuf);
->
->  int vb2_ioctl_dqbuf(struct file *file, void *priv, struct v4l2_buffer *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_dqbuf(vdev->queue, p, file->f_flags & O_NONBLOCK);
-> +       return vb2_dqbuf(q, p, file->f_flags & O_NONBLOCK);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_dqbuf);
->
->  int vb2_ioctl_streamon(struct file *file, void *priv, enum v4l2_buf_type i)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_streamon(vdev->queue, i);
-> +       return vb2_streamon(q, i);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_streamon);
->
->  int vb2_ioctl_streamoff(struct file *file, void *priv, enum v4l2_buf_type i)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_streamoff(vdev->queue, i);
-> +       return vb2_streamoff(q, i);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_streamoff);
->
->  int vb2_ioctl_expbuf(struct file *file, void *priv, struct v4l2_exportbuffer *p)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 return -EBUSY;
-> -       return vb2_expbuf(vdev->queue, p);
-> +       return vb2_expbuf(q, p);
->  }
->  EXPORT_SYMBOL_GPL(vb2_ioctl_expbuf);
->
-> @@ -1143,20 +1174,22 @@ EXPORT_SYMBOL_GPL(vb2_ioctl_expbuf);
->  int vb2_fop_mmap(struct file *file, struct vm_area_struct *vma)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       return vb2_mmap(vdev->queue, vma);
-> +       return vb2_mmap(q, vma);
->  }
->  EXPORT_SYMBOL_GPL(vb2_fop_mmap);
->
->  int _vb2_fop_release(struct file *file, struct mutex *lock)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
->         if (lock)
->                 mutex_lock(lock);
-> -       if (!vdev->queue->owner || file->private_data == vdev->queue->owner) {
-> -               vb2_queue_release(vdev->queue);
-> -               vdev->queue->owner = NULL;
-> +       if (!q->owner || file->private_data == q->owner) {
-> +               vb2_queue_release(q);
-> +               q->owner = NULL;
->         }
->         if (lock)
->                 mutex_unlock(lock);
-> @@ -1167,7 +1200,8 @@ EXPORT_SYMBOL_GPL(_vb2_fop_release);
->  int vb2_fop_release(struct file *file)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       struct mutex *lock = vdev->queue->lock ? vdev->queue->lock : vdev->lock;
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
-> +       struct mutex *lock = q->lock ? q->lock : vdev->lock;
->
->         return _vb2_fop_release(file, lock);
->  }
-> @@ -1177,19 +1211,20 @@ ssize_t vb2_fop_write(struct file *file, const char __user *buf,
->                 size_t count, loff_t *ppos)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       struct mutex *lock = vdev->queue->lock ? vdev->queue->lock : vdev->lock;
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
-> +       struct mutex *lock = q->lock ? q->lock : vdev->lock;
->         int err = -EBUSY;
->
-> -       if (!(vdev->queue->io_modes & VB2_WRITE))
-> +       if (!(q->io_modes & VB2_WRITE))
->                 return -EINVAL;
->         if (lock && mutex_lock_interruptible(lock))
->                 return -ERESTARTSYS;
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 goto exit;
-> -       err = vb2_write(vdev->queue, buf, count, ppos,
-> -                      file->f_flags & O_NONBLOCK);
-> -       if (vdev->queue->fileio)
-> -               vdev->queue->owner = file->private_data;
-> +       err = vb2_write(q, buf, count, ppos,
-> +                       file->f_flags & O_NONBLOCK);
-> +       if (q->fileio)
-> +               q->owner = file->private_data;
->  exit:
->         if (lock)
->                 mutex_unlock(lock);
-> @@ -1201,20 +1236,21 @@ ssize_t vb2_fop_read(struct file *file, char __user *buf,
->                 size_t count, loff_t *ppos)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       struct mutex *lock = vdev->queue->lock ? vdev->queue->lock : vdev->lock;
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
-> +       struct mutex *lock = q->lock ? q->lock : vdev->lock;
->         int err = -EBUSY;
->
-> -       if (!(vdev->queue->io_modes & VB2_READ))
-> +       if (!(q->io_modes & VB2_READ))
->                 return -EINVAL;
->         if (lock && mutex_lock_interruptible(lock))
->                 return -ERESTARTSYS;
-> -       if (vb2_queue_is_busy(vdev->queue, file))
-> +       if (vb2_queue_is_busy(q, file))
->                 goto exit;
-> -       vdev->queue->owner = file->private_data;
-> -       err = vb2_read(vdev->queue, buf, count, ppos,
-> +       q->owner = file->private_data;
-> +       err = vb2_read(q, buf, count, ppos,
->                        file->f_flags & O_NONBLOCK);
-> -       if (!vdev->queue->fileio)
-> -               vdev->queue->owner = NULL;
-> +       if (!q->fileio)
-> +               q->owner = NULL;
->  exit:
->         if (lock)
->                 mutex_unlock(lock);
-> @@ -1225,7 +1261,7 @@ EXPORT_SYMBOL_GPL(vb2_fop_read);
->  __poll_t vb2_fop_poll(struct file *file, poll_table *wait)
->  {
->         struct video_device *vdev = video_devdata(file);
-> -       struct vb2_queue *q = vdev->queue;
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->         struct mutex *lock = q->lock ? q->lock : vdev->lock;
->         __poll_t res;
->         void *fileio;
-> @@ -1241,7 +1277,7 @@ __poll_t vb2_fop_poll(struct file *file, poll_table *wait)
->
->         fileio = q->fileio;
->
-> -       res = vb2_poll(vdev->queue, file, wait);
-> +       res = vb2_poll(q, file, wait);
->
->         /* If fileio was started, then we have a new queue owner. */
->         if (!fileio && q->fileio)
-> @@ -1257,8 +1293,9 @@ unsigned long vb2_fop_get_unmapped_area(struct file *file, unsigned long addr,
->                 unsigned long len, unsigned long pgoff, unsigned long flags)
->  {
->         struct video_device *vdev = video_devdata(file);
-> +       struct vb2_queue *q = get_vb2_queue(file, vdev);
->
-> -       return vb2_get_unmapped_area(vdev->queue, addr, len, pgoff, flags);
-> +       return vb2_get_unmapped_area(q, addr, len, pgoff, flags);
->  }
->  EXPORT_SYMBOL_GPL(vb2_fop_get_unmapped_area);
->  #endif
-
-You need similar logic in v4l2-ioctl.c to retrieve the correct queue from
-a video_device and v4l2_fh so v4l2_ioctl_get_lock retrieves the correct
-lock.
+>  /**
+> - * v4l2_subdev_lock_and_get_active_state() - Locks and returns the active subdev
+> - *                                          state for the subdevice
+> - * @sd: The subdevice
+> + * v4l2_subdev_lock_and_get_active_state_from_ctx() - Locks and returns the
+> + *                                                   subdevice state
+> + * @sdctx: The subdevice, or the subdevice context
+>   *
+> - * Returns the locked active state for the subdevice, or NULL if the subdev
+> - * does not support active state.
+> + * Returns the locked subdevice state, or NULL if it is not valid.
+>   *
+>   * The state must be unlocked with v4l2_subdev_unlock_state() after use.
+>   */
+> -static inline struct v4l2_subdev_state *
+> -v4l2_subdev_lock_and_get_active_state(struct v4l2_subdev *sd)
+> -{
+> -       if (sd->active_state)
+> -               v4l2_subdev_lock_state(sd->active_state);
+> -       return sd->active_state;
+> -}
+> +#define v4l2_subdev_lock_and_get_active_state(sdctx)                           \
+> +       _Generic((sdctx),                                                       \
+> +               struct v4l2_subdev *:                                           \v4l2_subdev_lock_and_get_active_state_from_
+> +                       v4l2_subdev_lock_and_get_active_state_from_sd,          \
+> +               struct v4l2_subdev_context *:                                   \
+> +                       v4l2_subdev_get_locked_active_state_from_ctx)           \
+Cut and paste error?
+This should be v4l2_subdev_lock_and_get_active_state_from_ctx?
 
 Regards
 
 John Cox
+
+> +       (sdctx)
+>
+>  /**
+>   * v4l2_subdev_init - initializes the sub-device struct
+>
+> --
+> 2.49.0
+>
+>
