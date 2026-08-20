@@ -1,230 +1,228 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 672AE3C65F4
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 08:55:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787216148; cv=pass; b=EQbB/oqodw+fn5BhxPchjCwKX4Ilov2PsViKRVpEErgXDrQ/yi5BOnP0vZsR6KoUrweDylz+JTUF2oVinViSXMi7OwHCWwgv6DTETpAwxy3tWfHvhcLYhYRCzT3eGhkZj0gRvdPZXzxUqOjy/Eqo7IZgxNZX91NWzH0LIEwH2aE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787216148; c=relaxed/simple;
-	bh=yq6qBaYEd8EWyUc0cX7E33WMuFA5Gh/NyidWLLeEDsI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QBmFnUA2fmBtoSOSA4h0Vo6x3t8iz4V5zzBTa83S5tYKVsAfmndCrfs8NtUzcnhyHvg7x+RLVNBBPqjELe29tOLxegvIHqZw0DrqCGRn8eSzYFOtIdip+CuX5Y9RbotPG7QTyV4/1xwBWsfYI70DHYZtXNU5Rdwis4fzmTGij0g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O9DbdMSx; arc=pass smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA5763815E1;
+	Thu, 20 Aug 2026 09:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787216883; cv=none; b=ZxRKT9mLyYl/9GjtjiKSGMFvoaIH8qweYv4Bsw0HC2p/ZRo7Xtsr0I8DEwqk4GWXqfrGznplggHEQlbmtIoLicswGqsgbdoWFv1P+piECWkhnEM1p6Pc4RoXD/nu5F1piIQAap7AOqr5kRsB0bpvt+a11lz0AHpNVmPaQ5JIgeg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787216883; c=relaxed/simple;
+	bh=CjiDKzlsB4CYB3VlBFqqIUTkbqsfzicmrXYq15K6CAc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=iGwgqa6W1T4N3QUfbc8iclxWCxlVdIRLBxLJv6nlExg94ADrQ8R1jsY1C5sVYtjj5k0PpsYvn3qMINfQakU1hansJQ9pit4wvdijzx6IhVPC9ngCtoHfCk4E6ChN+CBURR17OPHSHL4XjBS6/EiQhTPSVQUMl30cf7fv3B485I8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mlmSPT3J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O9DbdMSx"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-47f904e80eeso1823640f8f.1
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 01:55:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787216143; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NEq0TkFMmxzMZs0UJpxCuBFzjNy8PMhZphW01oHaeTQffd0ZKw39aIIdZFCy5mbG9P
-         WfuiopiouSxXBa7RfluT5ioT/xcD4auvznJkClpCJbO+TtGkYbXgp6LoZiRVrgjotwY1
-         2gCYo7NvGkpg+lyEoZph5b3cCJsMfyOHsyfOlwoc2UQRfYjehcjZyBajDKyb5yTH3LJl
-         thrIDX1X6T0+Lt9ogHX6E0I+Ypsy7semysqtld5j1ZIBICLRfVIMKxbUJ7zXRT5T7wgx
-         wD+XURTuXw2Jqa+l6g4cvc2CotT8rXFssfYxF8iamgoIhsxu6Btxk3MuUcOWF3uJG8u5
-         NqOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Q4u+NdUMNPAkV97SlmJLYtbUzZRlFDkakz/9HAp+z3M=;
-        fh=Tk5Xkc+uPVqkai7hJ9PxCMIU256yFJwHziPsmuDjhnE=;
-        b=ZjIQtaO/0hzRpyDayFGklp1U6h79s1YdD8qkkRZBOi5bA8rT3JuM/O3bxWNpRwUnzH
-         kVUxXdL0FkE10KkZkNyuJtIWJufO4njilY3J0OCMQfOYwbzo1RWR08njt9Zlhi5nOB47
-         TSk00nJkD4NW9gqKcaEZG9Bu5Zwsrlj4K5+B/xiDqEgZDteRUTFJZ8LGfOwJ8EDcfga1
-         LOSBWXYfwPPRvK/KjrXs0kHhFJXHAWzd5uhbhD+jIAVctlfa0iCXcXXGMPviR3Cqdboi
-         P9NUv0Loahr1ODpgR7jVPjXepXyyz0PAsFYRlsxvXIDz9XC7pxMWb+kX9risBtvTG6HC
-         CZEg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787216143; x=1787820943; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Q4u+NdUMNPAkV97SlmJLYtbUzZRlFDkakz/9HAp+z3M=;
-        b=O9DbdMSxWwIsyL9H4+pXHVuf3+8Ue9IhODOEOq34AxJfMlCQunXb2QmbOR956XXEmy
-         XFDOfHi019fDzX/zE1EINaUXw3nsD9zGNXQqxWevFdbTR5dFBx2u1hPishriMk7YK2jb
-         fLRy7zsPjq34kP/ibu+X6Sn31+MoJEtoLjxBP90MNEs4IzEE6PPoerQQZUTRgI3IPT7H
-         Bgg6bJEiZfUHJA9PaxJedpqJX8RihtqCas09tWarmGWmv7XYxQ1t0u4Itb2zi20aMngw
-         Z/zekTnoeHA+Da3/gFPQZZTGzBCwIXTPP6JrJgq/ILS/xuJ6OXTgY3qwR1baxdM9EjS3
-         Qf4w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787216143; x=1787820943;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Q4u+NdUMNPAkV97SlmJLYtbUzZRlFDkakz/9HAp+z3M=;
-        b=StdifgC8s4i6Cug3GKV1h9klk9meJkVKoNewI4QSDegnblBzZdn82QntsGWnZyUdkj
-         KQixS4cTeg257WS7/cCzRF4ge/9UcaFmVJyEnLncjBfLbSzou/cDbPrznMeQADimZGRy
-         jeiBmV6dB7fownEZCIAGJ5ZpzVMgk2Vrp+iqWpcdp+OVlqatl6/bKbPrym2WLDfhyi85
-         Gyp8veRN8MQ+xRsr8sNNGS0DV++ydFyQecAE/8yshSW80yG36BDLDBxISzeO5wsUk9Mt
-         TsNIoLMF3ScviV34M1F7qokjRQUXFIbz2dQ4HArhkyLerH1Pw5IYoORAkz5JBaG+Mbdv
-         42KA==
-X-Forwarded-Encrypted: i=1; AHgh+RrjNySamQo/IIHXtnSc06+hySevRuzk3oLXhFkV96nDHaF+Fpj+MpbYTiS74I20IVtf5dUnAYGSxMlnjQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lJS5MCdLpFp12/BLs8dn/HBbY6oC/FFJ4vU+qW3fkVITy5JZAJ
-	vHz8q56Y0nbw5J5+P6bfTB9dgI8Q2fyIWm34YPUgWvdYxzQdwTyXquJrplOh1fCV+vsWQQjPYxh
-	cSF8u87n44mj28phIHJz3hib4lN+znas=
-X-Gm-Gg: AR+sD11o99hPbsMAeWy5fgs5Nr1adGa56iCbXAmw9HtusTxdxrVqg1N/ps35NKbqUKs
-	UFX1p9vuDhbJd6qzV8ZVBHZL5S+h1VfnOAPzX+MQ1ApXNAmdtfaeUB6BzmZBcybicjXz7Mgo/mi
-	umjtoWMXojqT6/vEx2AlWWhRfm++3T18/H0PIPPZVVZV48oK6xtuIrejP/DCCXInyLwu6w0p/DN
-	EHvtHJm/61BIwoh8MNYgDFHSaiSP/dMDDsmXFy54w7avDWW3n0WKm8BUOAOH1brXk8/0Ft3x7mN
-	6N0djyNvvSjXHNCzCto1/Ky/V/ZUa/oaa3mzUejjSMR1PiyVBtUu9O7gW8yE253FKzG3cVU8ewj
-	qNPAUaFYpNYZEU2RYoD5DB/ps4hG92F8=
-X-Received: by 2002:a05:6000:2383:b0:47d:ee9d:90c8 with SMTP id
- ffacd0b85a97d-482b1e872e3mr17978958f8f.3.1787216143464; Thu, 20 Aug 2026
- 01:55:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mlmSPT3J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4C01F000E9;
+	Thu, 20 Aug 2026 09:07:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787216881;
+	bh=HbWHyhAGccmmUKHPlabuPDznJTtRzS7rm2Ks8U4Pdfc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=mlmSPT3J/cxMvk1ov/w4xrvfdrL6tX66o8ftXD5mN3k7JQ8j3foKO9uBxmBQydxt1
+	 TtMSCXwwGkasHU0t3ucF2w3dJWF7QFP/DVBqasId6l5nO45toANB+2trMq8b8Lturb
+	 1tzJWNqxDt/Uwp0HuNtForVsvHnj06UOoe4pkyxDdPKrScwLpD/QxB3fzbKoe6ZBqf
+	 YS3e+wDJI8t3uWw8HpZjGmY868z0ohcXf+doJY12cRN3l+HFNq+ZB2JQVseDqVIMe5
+	 Lc2M/o42Xq42es7Zh5DrfISEpE4qv23FIKNLg38AAtA4TbonNtvyniinosKwNGP/09
+	 qzqp3pidoqThg==
+Message-ID: <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
+Date: Thu, 20 Aug 2026 11:07:45 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260819102812.2592880-1-tommaso.merciai.xr@bp.renesas.com>
- <20260819102812.2592880-6-tommaso.merciai.xr@bp.renesas.com> <aoW8O_p_DyG0P5p3@zed>
-In-Reply-To: <aoW8O_p_DyG0P5p3@zed>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Thu, 20 Aug 2026 09:55:00 +0100
-X-Gm-Features: AcwNN1U3WRaznNUlioKHrhx5tA4kU23Omg_nTO7h7nNJohBAgFWIGrpJrMB2n4Y
-Message-ID: <CA+V-a8t-cVQdB5WEkvAmGpEriyttaprfjzd+BRaN+QX9Rt-YJQ@mail.gmail.com>
-Subject: Re: [PATCH v6 5/5] media: rzg2l-cru: Replace has_stride with
- stride_align field
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, tomm.merciai@gmail.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Nicolas Dufresne <nicolas.dufresne@collabora.com>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Nas Chung <nas.chung@chipsnmedia.com>, 
-	Isaac Scott <isaac.scott@ideasonboard.com>, Paul Cercueil <paul@crapouillou.net>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
+ driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
+ <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
+ <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
+ <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
+ <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Wed, Aug 19, 2026 at 3:24=E2=80=AFPM Jacopo Mondi
-<jacopo.mondi@ideasonboard.com> wrote:
->
-> Hi Tommaso,
->    thanks for the update
->
-> On Wed, Aug 19, 2026 at 12:28:09PM +0200, Tommaso Merciai wrote:
-> > RZG2L_CRU_STRIDE_ALIGN hardcodes an alignment only RZ/G3E and RZ/V2H
-> > need, as only they have an AMnIS register.
-> >
-> > Store the alignment into rzg2l_cru_info instead: 128 on RZ/G3E, 1 on
-> > RZ/G2L, and update the code accordingly.
-> >
-> > No functional change intended.
-> >
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
-> > ---
-> > v5->v6:
-> >  - New patch.
-> >
-> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c  | 3 ++-
-> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h   | 2 +-
-> >  drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c | 7 +++----
-> >  3 files changed, 6 insertions(+), 6 deletions(-)
-> >
+On 20/08/2026 10:52, Dmitry Baryshkov wrote:
+> On Wed, Aug 19, 2026 at 04:18:51PM +0200, Krzysztof Kozlowski wrote:
+>> On 19/08/2026 15:17, Ekansh Gupta wrote:
+>>> On 19-08-2026 00:40, Krzysztof Kozlowski wrote:
+>>>> On 17/08/2026 06:47, Ekansh Gupta wrote:
+>>>>> Add the skeleton of the Qualcomm DSP Accelerator (QDA) driver, a DRM
+>>>>> accel driver for the Hexagon DSPs found on Qualcomm SoCs.
+>>>>>
+>>>>> This patch registers a DRM accel device, exposing a /dev/accel/accelN
+>>>>> character device node, and binds it to the RPMsg channel used to reach
+>>>>> the DSP. Buffer management, IOMMU context banks and the FastRPC
+>>>>> protocol are added by later patches in this series.
+>>>>>
+>>>>> qda_drv.c / qda_drv.h define the drm_driver ops table, the per-file
+>>>>> private state (qda_file_priv) and the main device structure (qda_dev),
+>>>>> which embeds drm_device so that it can be recovered with container_of().
+>>>>>
+>>>>> qda_rpmsg.c binds to the "qcom,fastrpc" compatible via
+>>>>> module_rpmsg_driver(), reads the DSP domain name from the "label"
+>>>>> device-tree property, and registers the DRM device.
+>>>>>
+>>>>> Assisted-by: Claude:claude-sonnet-5
+>>>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>>>>> ---
+>>>>> Changes in v2:
+>>>>> - Use module_rpmsg_driver() and drop the qda_rpmsg_register()/
+>>>>>   _unregister() wrappers, module_init()/module_exit() and
+>>>>>   qda_rpmsg.h entirely (Dmitry Baryshkov)
+>>>>> - Read the "label" property directly into qdev->dsp_name (Dmitry Baryshkov)
+>>>>> - Drop the probe/remove/init log messages (Dmitry Baryshkov)
+>>>>> - Return the result of qda_register_device() directly (Dmitry Baryshkov)
+>>>>> - Clarify the Kconfig help text (Dmitry Baryshkov)
+>>>>> ---
+>>>>>  drivers/accel/Kconfig         |  1 +
+>>>>>  drivers/accel/Makefile        |  1 +
+>>>>>  drivers/accel/qda/Kconfig     | 30 ++++++++++++++++
+>>>>>  drivers/accel/qda/Makefile    | 10 ++++++
+>>>>>  drivers/accel/qda/qda_drv.c   | 71 ++++++++++++++++++++++++++++++++++++++
+>>>>>  drivers/accel/qda/qda_drv.h   | 61 +++++++++++++++++++++++++++++++++
+>>>>>  drivers/accel/qda/qda_rpmsg.c | 79 +++++++++++++++++++++++++++++++++++++++++++
+>>>>>  7 files changed, 253 insertions(+)
+>>>>>
+>>>>> diff --git a/drivers/accel/Kconfig b/drivers/accel/Kconfig
+>>>>> index bdf48ccafcf2..74ac0f71bc9d 100644
+>>>>> --- a/drivers/accel/Kconfig
+>>>>> +++ b/drivers/accel/Kconfig
+>>>>> @@ -29,6 +29,7 @@ source "drivers/accel/ethosu/Kconfig"
+>>>>>  source "drivers/accel/habanalabs/Kconfig"
+>>>>>  source "drivers/accel/ivpu/Kconfig"
+>>>>>  source "drivers/accel/qaic/Kconfig"
+>>>>> +source "drivers/accel/qda/Kconfig"
+>>>>>  source "drivers/accel/rocket/Kconfig"
+>>>>>  
+>>>>>  endif
+>>>>> diff --git a/drivers/accel/Makefile b/drivers/accel/Makefile
+>>>>> index 1d3a7251b950..58c08dd5f389 100644
+>>>>> --- a/drivers/accel/Makefile
+>>>>> +++ b/drivers/accel/Makefile
+>>>>> @@ -5,4 +5,5 @@ obj-$(CONFIG_DRM_ACCEL_ARM_ETHOSU)	+= ethosu/
+>>>>>  obj-$(CONFIG_DRM_ACCEL_HABANALABS)	+= habanalabs/
+>>>>>  obj-$(CONFIG_DRM_ACCEL_IVPU)		+= ivpu/
+>>>>>  obj-$(CONFIG_DRM_ACCEL_QAIC)		+= qaic/
+>>>>> +obj-$(CONFIG_DRM_ACCEL_QDA)		+= qda/
+>>>>>  obj-$(CONFIG_DRM_ACCEL_ROCKET)		+= rocket/
+>>>>> \ No newline at end of file
+>>>>
+>>>> You have trivial patch errors.
+>>> newline problem was already there, wasn't introduced as part of this
+>>> patch series, so I wasn't sure to fix it here. I can fix this in v3.>
+>>>> ...
+>>>>
+>>>>> +}
+>>>>> +
+>>>>> +static const struct of_device_id qda_rpmsg_id_table[] = {
+>>>>> +	{ .compatible = "qcom,fastrpc" },
+>>>>> +	{},
+>>>>
+>>>> Device node with this compatible is already populated, so this looks
+>>>> simply wrong or you are adding a duplicated driver.
+>>>>
+>>>> That's a no-go, you are supposed to work with existing drivers and grow
+>>>> them.
+>>> I'll bring the discussion again here, there was a discussion to move the
+>>> driver to accel subsystem if we want to support new features/uAPI
+>>> changes. Please read [1],[2] threads. The intention is to replace
+>>> fastrpc driver with QDA eventually.
+>>
+>> None of them address the problem. You want to grow fastrpc into user of
+>> dmabuf? So you move it from misc to here.
+> 
+> It's not as easy and nice, so I think in this case it's better to repeat
 
-Reviewed-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+I disagree. The existing fastrpc driver is not that complicated. It's
+actually moderate amount of code, much less than Venus was (~7 times less).
 
-> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c b/dr=
-ivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> > index 3c5fbd857371..a2b833e2bf9a 100644
-> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-core.c
-> > @@ -361,7 +361,7 @@ static const struct rzg2l_cru_info rzg3e_cru_info =
-=3D {
-> >       .max_width =3D 4095,
-> >       .max_height =3D 4095,
-> >       .image_conv =3D ICnIPMC_C0,
-> > -     .has_stride =3D true,
-> > +     .stride_align =3D 128,
->
-> We could use a #define here
->
-I think to be consistent with most of the members of rzg3e_cru_info
-raw value should be OK?
+It easily can grow to support two interfaces and the only difficulty is
+how to manage these two interfaces simultaneously or exclusively, e.g.
+opening first one disables the second.
 
-Cheers,
-Prabhakar
+> what we did for the venus/iris migration or what happened already
+> several times in the kernel history (for example the AIC7xxx SCSI host
+> drivers were migrated by introducing the second driver and then removing
+> the first one after the grace period). The backwards compatibility is a
+> separate topic, but it will be addressed before the driver can be
 
-> Apart from that, the patch looks good, thank you!
-> Reviewed-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->
-> >       .regs =3D rzg3e_cru_regs,
-> >       .irq_handler =3D rzg3e_cru_irq,
-> >       .enable_interrupts =3D rzg3e_cru_enable_interrupts,
-> > @@ -406,6 +406,7 @@ static const struct rzg2l_cru_info rzg2l_cru_info =
-=3D {
-> >       .max_width =3D 2800,
-> >       .max_height =3D 4095,
-> >       .image_conv =3D ICnMC,
-> > +     .stride_align =3D 1,
-> >       .regs =3D rzg2l_cru_regs,
-> >       .irq_handler =3D rzg2l_cru_irq,
-> >       .enable_interrupts =3D rzg2l_cru_enable_interrupts,
-> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h b/dri=
-vers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> > index b426bc7898bf..2c192d370dcb 100644
-> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-cru.h
-> > @@ -75,7 +75,7 @@ struct rzg2l_cru_info {
-> >       unsigned int max_height;
-> >       u16 image_conv;
-> >       const u16 *regs;
-> > -     bool has_stride;
-> > +     u8 stride_align;
-> >       irqreturn_t (*irq_handler)(int irq, void *data);
-> >       void (*enable_interrupts)(struct rzg2l_cru_dev *cru);
-> >       void (*disable_interrupts)(struct rzg2l_cru_dev *cru);
-> > diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/d=
-rivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > index 27a35ef2a6df..a7b6dce66570 100644
-> > --- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > +++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
-> > @@ -32,7 +32,6 @@
-> >  #define RZG2L_CRU_DEFAULT_COLORSPACE V4L2_COLORSPACE_SRGB
-> >
-> >  #define RZG2L_CRU_STRIDE_MAX         32640
-> > -#define RZG2L_CRU_STRIDE_ALIGN               128
-> >
-> >  struct rzg2l_cru_buffer {
-> >       struct vb2_v4l2_buffer vb;
-> > @@ -277,11 +276,11 @@ static void rzg2l_cru_initialize_axi(struct rzg2l=
-_cru_dev *cru)
-> >               rzg2l_cru_fill_hw_slot(cru, cru->num_buf - 1);
-> >       }
-> >
-> > -     if (info->has_stride) {
-> > +     if (info->stride_align > 1) {
-> >               u32 stride =3D cru->format.bytesperline;
-> >               u32 amnis;
-> >
-> > -             stride /=3D RZG2L_CRU_STRIDE_ALIGN;
-> > +             stride /=3D info->stride_align;
-> >               amnis =3D rzg2l_cru_read(cru, AMnIS) & ~AMnIS_IS_MASK;
-> >               rzg2l_cru_write(cru, AMnIS, amnis | AMnIS_IS(stride));
-> >       }
-> > @@ -850,7 +849,7 @@ static void rzg2l_cru_format_align(struct rzg2l_cru=
-_dev *cru,
-> >                             &pix->height, 240, info->max_height, 2, 0);
-> >
-> >       v4l2_fill_pixfmt_aligned(pix, pix->pixelformat, pix->width, pix->=
-height,
-> > -                              info->has_stride ? RZG2L_CRU_STRIDE_ALIG=
-N : 1);
-> > +                              info->stride_align);
-> >
-> >       dev_dbg(cru->dev, "Format %ux%u bpl: %u size: %u\n",
-> >               pix->width, pix->height, pix->bytesperline, pix->sizeimag=
-e);
-> > --
-> > 2.54.0
-> >
->
+Backwards compatibility should be one of the first things explained in
+cover letter in one of the first paragraphs.
+
+And if you make it backwards compatible, then just remove old driver,
+because there is no point to keep it there. Again, this should be one of
+the first things explained in cover letter.
+
+Best regards,
+Krzysztof
