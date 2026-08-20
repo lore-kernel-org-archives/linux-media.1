@@ -1,72 +1,72 @@
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
+Received: from mail-pf1-f182.google.com (mail-pf1-f182.google.com [209.85.210.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D624391E7E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAD03921F6
 	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 18:22:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250135; cv=none; b=GulDhFImW2rsh1cTRUtyfk0f4k7l2iLNYczKn0RK1PkNUghnzOUzLapdVm+ZuH/OaSJK8uMgtO2tG317qXrw4kCqCKw4twcRcTZNaZOIo49ErRcCdkoDB4BO1VO8cbUh2QBGoR1lKcmiKN9FwYTEIBj6cdks8xF3hDWJGINR9X0=
+	t=1787250136; cv=none; b=ErdkgZzQ+iR+EkZ7rq4jih+0yHV3blAu15xVc1dNDb/7uKANzqQHePAPFsvJqb307T7G61eGq2O3BDITpR41S9H/Q1+GsGQadS1RcsPVRI9E+vSFBIj6YHxGfHPXuOChcZpw5s7qh+0pUa/noYFRoSP/3zBiFuzgMjlWNnidV1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250135; c=relaxed/simple;
-	bh=vFO8T5St9bHRfShOkdntWHdgKTvr0mMlitt92RbLqMI=;
+	s=arc-20240116; t=1787250136; c=relaxed/simple;
+	bh=/Vosjh7J54NGVazTGGa/Txp+MQ2qfbIZSR9iZOPYyFY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rvFZA85ascJKNlFjy6lTecyLnmq9a5g4689nDKM/9JC+TQ9QD0WM6RMZyx7+BCd6oAj5tVqM9KSdFgWxQPn1HBGsdGflus+v7K8VmTpBsskSE3syVOGRaKI3y4lzbn/FPgTrmHaIuPqiokaAftyVBMX6cdZswucAUOUZY33p4Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3nNNieI; arc=none smtp.client-ip=209.85.210.171
+	 MIME-Version; b=Td8ccOqM1FiGIqlKiDQmoGcYepQ3GP3EaFGKljqXRsQQogiAZgSMGni/G28ke+qSkgJyVEoOB3c9AMFyl/GOJhAMSuQLz94ypnpYRDbvD2P7kVPbspxqvKeD5tDzdbASDgnvCaBy/r20KgSl2OhbMltiJls9V08y+qo86KfyHWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ox/5/tSd; arc=none smtp.client-ip=209.85.210.182
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3nNNieI"
-Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso133511b3a.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ox/5/tSd"
+Received: by mail-pf1-f182.google.com with SMTP id d2e1a72fcca58-84874b52eabso181562b3a.0
         for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 11:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787250133; x=1787854933; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787250134; x=1787854934; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
-        b=j3nNNieI6K4yEhT1NSKudTuUjMfXlEAOW3lc++p5WRzz2WUc1lR7UMys/0Ir2Vjtxm
-         evLPKGkrejZTOebcAPbF6Om5GJ3feshMBfBlrBUU2mkTrrTJySygaHKreuRQc1GwmM62
-         p1NPyTM0BruyOs76k4jHQP/oYxHyEJMPReXV4/ZbHC85HYJB9M3RpsWY+RlTBI9/jOmZ
-         E2ih9LYy7xqoJ/mYKZd1kOOBVMG2vnO5VDOib8I7Wx8E/zEQf1LhV606hjUIMGmTE7xL
-         3PzJJ2649NraaB2wHFtndXH4Nftq0tKjw14aUvJ+D05EbF5JVviWW5MiXkC9SpiAx0+o
-         bVSA==
+        bh=5imqyFJhnygYk4HSMbWp/AoAsATKDJSePVqUZgPoY+Q=;
+        b=ox/5/tSdWq30xyi3F5cYJQqAPVA5jUhmKnuv24PchCynNCoINEHfPHU4TM25ru5+Ms
+         Ylgr7CvM1uzZ2nsO5dq5Gurp/3otBEReAXc4oPTGuIS3b/sfu4ONtlimoEH3+2g7HoBz
+         i4dJJhvpXYKpC+TaLHFGhFxZyGiLKAXF//NBDUISVWMTE//+bsCBjjnhemisdumA3Qz2
+         ONUBcEidgTsafl+yVQptEbk1UsqNXpiaGgR1R2JGKpRTQtYA6Fgv122IVDoC5FNLGcyD
+         cqDmuTQVHN2dDeiumQXpCojJ9IVZdjmfdf3Hjt5/58LVbhL/tEZFTBpeGw7EsFsz2842
+         SSoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787250133; x=1787854933;
+        d=1e100.net; s=20251104; t=1787250134; x=1787854934;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
-        b=GuUtoXVM1ZRqqmljNGy8r1txnBznOxsIG0UJH21N1ilRzXHUiNoIxUmWkQfDd0BLJQ
-         jzZ0fLwONtiEhXUezTOx5D5fmSSLhP6exImDk35uFN2sAr41y4u5rWqr5E1ZL39iaq3w
-         rq44SENXn9RsWZj1imnnkvgAmsRhEJGcbxBe8PgChTywoetIWJDq5Fst+WxRVroTorRH
-         o5YcS0FCwdtGQCzgrisDOG/mM9S75dETkcJyQXcDK7CN4DCYljTxzJ2dwGwKGhQ39R3P
-         d8p/FB6nGGLYIW2jI/+9siFPLkGSRs+HA0YnxwELzu4G+APRIOmfTIRQhfaNxfVP6akT
-         MqMQ==
-X-Gm-Message-State: AOJu0Yy7QdFcUG620L8fCxfNfa9eaWQlYvdS061yWwLiLhc0Ww5dfYta
-	yokSSV+wpjDVQA6R02DntIa5LLRg1Dq1Z4r/lJ0QdH6QP2py3NRT+fsiQArg/Oy4t9E=
-X-Gm-Gg: AR+sD13QvcQ0uJxTQqwRNroLIr7K24JOlkICgNBoQxYiawQli8RUD0Pc/LX6GA7ZMwe
-	NxYgG8KOPCMWCw52qF/s6iHmIfWA8glpYznw3dQz//ovyoi/6pMX9X6ktNkXetZSDlKHMmZFQPA
-	ckZpmK5PX9NbmOuOX0ohxYbR0eEr3t64CzWhT6To/Tt8CYahp5APgkLNOOOwViF6NpmUu+APn8K
-	cbFAMSx33sCAEi7rucaRB4RI3olF8XCy6TW3fo7x5YamRadu5bj/wFB1GE2HiuI3WfoODBCzXtG
-	JFBjMMk6A52Fi5GhBlIih0FjmWALd7xjNW6THzm2W2vb4uvGCNfbnsDtux2bmoYbfXxmcZMD8gu
-	wY8JiQevPSSqr12ALEcFkgS1VqQMP4Kw+Vq32PQ28PobEwVLZ+nQyPr/kr4BewLrbYvvIiamJOE
-	cMnmYd3CyeKapQlARwFz906LfwY8ikxY5Tan+IzWbRnKT/PSCkgoBJwjLq3AniHRrS9D7EC45XP
-	qkwBwTSlgli266lqHhJmUBXGkesZdWwTeJF0hEJOsXu20HB2mvkaw==
-X-Received: by 2002:a05:6a00:4c84:b0:851:b03a:fcb with SMTP id d2e1a72fcca58-851d39405c0mr26924904b3a.14.1787250133099;
+        bh=5imqyFJhnygYk4HSMbWp/AoAsATKDJSePVqUZgPoY+Q=;
+        b=NMxQkuEzn3cgi11FJVKDvzvGve2NkP9DuMEtLg9jj90fwfTBHssKDJFXwtVDwL9sU+
+         w6A8WFmB6KC+ty5CyoplmSFTLnJH8rbluPCGk4fUATnpslfE1tpASVNsXctzyMNt9aiz
+         r7jxgclBe0W+WI0CPpkAYGt90WkGT+hOH3VhTNUMcTg14J4QP9PWT591LpSShcLPZJgg
+         e+hDoPSi/LooLTKNznB0ZL53GYlOgDj1jTKT1xPMpqKYhpMKNsnYCkZfDKWCZ4RlwXqL
+         lzXLY1dVP1viysccGHd+LFae9KmGgo9WHXzIJwIqSjFdkjJHRO00mqLbaNsR2+CRpDDU
+         uMqw==
+X-Gm-Message-State: AOJu0YxkFOCXvjyuc98mI1wQOfddRQhEAvwG/A2Zzg2JRlGN1H8v2f7y
+	A8XpwvKeD2KQhZPJ3HxtO306d8vOQ5XRvSFu35IcApT/5gEz0t30G3VqoT8nGMZ86m0=
+X-Gm-Gg: AR+sD11Z5uuS6hffLGXGyWv2MJQny1K8HtydbaA3lfDepWLsoN8/Lcp1QiEc5nTfRWq
+	CsZ8cDfwiHPyqLqHG7RUnPMyeHMauQzqCFc3pUL9yLYc4iClvWU5Iv/unv0zCN7L5xwYklPa0NW
+	XrSl0lpJ4GNXsWUx2rVnr81Fmy+Hsb4qE7St/RK5/3MqniP/9UqCzyPg5Mq/YJAnVOJYCQQDI6b
+	MIHKAm+bdQBBChR2M+hS0ENQ9x7alpXYB5jRGmfQ84Wez1tujRPk1liaNeO0/hvoog2BC1Gh4Dp
+	EXI0QyNeczOe/nwSjLpEOd7A4mD3p37d9AY1DAbmWSBcnS2IaoJ4L2gNcD8TPmhiTZd+ihZL9wN
+	r9g41tTnOWdHVaaaYk62e6V0Ez2AY3LOU42BWREiPzHupBI4ndhF1H+cIYySTDNhPLC7UUK9TO2
+	+ZIUxziyPGdKp9Y7tEL8NpfrOIcU48Qo6njTtbZy41CRGmJY6X2KblipUJhwxker05Zu2hgK7Xg
+	IWdnoeJP8jjOLFCDqrmv4k7/GXYu1ePoA4AmM6bPyCX5+uLTFJjWg==
+X-Received: by 2002:a05:6a00:2291:b0:847:893f:2d0c with SMTP id d2e1a72fcca58-851d385f151mr22376341b3a.5.1787250133981;
         Thu, 20 Aug 2026 11:22:13 -0700 (PDT)
 Received: from desktop.local (97-115-106-59.ptld.qwest.net. [97.115.106.59])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d369a487sm2037829b3a.59.2026.08.20.11.22.12
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d369a487sm2037829b3a.59.2026.08.20.11.22.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 11:22:12 -0700 (PDT)
+        Thu, 20 Aug 2026 11:22:13 -0700 (PDT)
 From: Jack Flusche <jackflusche@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Jack Flusche <jackflusche@gmail.com>,
 	patrik.r.jakobsson@gmail.com,
 	sakari.ailus@linux.intel.com,
 	hverkuil@kernel.org
-Subject: [RESEND PATCH 4/5] facetimehd: add firmware extraction script from patjak/facetimehd-firmware
-Date: Thu, 20 Aug 2026 11:21:53 -0700
-Message-ID: <20260820182156.18078-5-jackflusche@gmail.com>
+Subject: [RESEND PATCH 5/5] facetimehd: add entry to MAINTAINERS
+Date: Thu, 20 Aug 2026 11:21:54 -0700
+Message-ID: <20260820182156.18078-6-jackflusche@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260820182156.18078-1-jackflusche@gmail.com>
 References: <20260820182156.18078-1-jackflusche@gmail.com>
@@ -78,98 +78,31 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Copy script from https://github.com/patjak/facetimehd-firmware to
-extract proprietary firmware for the FacetimeHD driver from an
-Apple OSX update file and add a FIRMWARE file to describe usage
+Add MAINTAINERS entry for the FacetimeHD driver
 
 Signed-off-by: Jack Flusche <jackflusche@gmail.com>
 ---
- drivers/media/pci/facetimehd/FIRMWARE    |  6 +++
- drivers/media/pci/facetimehd/firmware.sh | 61 ++++++++++++++++++++++++
- 2 files changed, 67 insertions(+)
- create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
- create mode 100755 drivers/media/pci/facetimehd/firmware.sh
+ MAINTAINERS | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/media/pci/facetimehd/FIRMWARE b/drivers/media/pci/facetimehd/FIRMWARE
-new file mode 100644
-index 000000000000..ba9f37aa702f
---- /dev/null
-+++ b/drivers/media/pci/facetimehd/FIRMWARE
-@@ -0,0 +1,6 @@
-+This driver uses proprietary Apple firmware. To obtain this firmware, use the
-+included firmware.sh script (copied from patjak/facetimehd-firmware). This
-+script will download and extract the firmware from a Mac update file found at
-+https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
-+The script extracts the firmware to /usr/lib/firmware or /lib/firmware,
-+or to a folder specified using the first argument
-\ No newline at end of file
-diff --git a/drivers/media/pci/facetimehd/firmware.sh b/drivers/media/pci/facetimehd/firmware.sh
-new file mode 100755
-index 000000000000..fc6b67149390
---- /dev/null
-+++ b/drivers/media/pci/facetimehd/firmware.sh
-@@ -0,0 +1,61 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-2.0-only
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 8014b9f8253e..ba9661d4945a 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -5396,6 +5396,13 @@ F:	drivers/net/phy/bcm*.[ch]
+ F:	drivers/net/phy/broadcom.c
+ F:	include/linux/brcmphy.h
+ 
++BROADCOM FACETIMEHD CAMERA DRIVER
++M:	Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
++M:	Jack Flusche <jackflusche@gmail.com>
++L:	linux-media@vger.kernel.org
++S:	Maintained
++F:	drivers/media/pci/facetimehd/
 +
-+# This is a simplified version of the download/extract/install scripts
-+# It is intended to be used by disto package installs (e.g. in %post stage)
-+
-+URL=https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
-+RANGE=204909802-207733123
-+OSX_DRV=AppleCameraInterface
-+OSX_DRV_DIR=System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS
-+FILE=$OSX_DRV_DIR/$OSX_DRV
-+DRV_HASH=f56e68a880b65767335071531a1c75f3cfd4958adc6d871adf8dbf3b788e8ee1
-+FW_HASH=e3e6034a67dfdaa27672dd547698bbc5b33f47f1fc7f5572a2fb68ea09d32d3d
-+OFFSET=81920
-+SIZE=603715
-+
-+if [[ "$EUID" != 0 ]]
-+	then echo "Please run as root"
-+	exit 1
-+fi
-+
-+echo -e "FacetimeHD firmware download and installation script\n"
-+
-+echo -n "Downloading driver..."
-+cd /tmp
-+curl -s -L -r "$RANGE" "$URL" | xzcat -q  2> /dev/null | \
-+	cpio --format odc -i -d "./$FILE" &> /dev/null
-+mv $FILE .
-+rm -R ./System
-+echo "done"
-+
-+HASH=$(sha256sum $OSX_DRV | awk '{ print $1 }')
-+if [[ "$HASH" != "$DRV_HASH" ]]; then
-+	echo "Incorrect driver checksum. Aborting."
-+	exit 1
-+fi
-+
-+echo -n "Extracting firmware..."
-+dd bs=1 skip=$OFFSET count=$SIZE if=./$OSX_DRV of=./firmware.bin.gz &> /dev/null
-+rm ./$OSX_DRV
-+gunzip ./firmware.bin.gz
-+echo "done"
-+HASH=$(sha256sum ./firmware.bin | awk '{ print $1 }')
-+if [[ "$HASH" != "$FW_HASH" ]]; then
-+	echo "Incorrect firmware checksum. Aborting."
-+	exit 1
-+fi
-+
-+echo -n "Installing firmware..."
-+if [ -n "$1" ]; then
-+    FW_DIR=$1
-+elif [ -d "/usr/lib/firmware" ]; then
-+	FW_DIR=/usr/lib/firmware/facetimehd
-+else
-+	FW_DIR=/lib/firmware/facetimehd
-+fi
-+
-+install -dm755 $FW_DIR
-+install -m644 firmware.bin $FW_DIR/firmware.bin
-+rm firmware.bin
-+echo "done"
+ BROADCOM GENET ETHERNET DRIVER
+ M:	Doug Berger <opendmb@gmail.com>
+ M:	Florian Fainelli <florian.fainelli@broadcom.com>
 -- 
 2.55.0
 
