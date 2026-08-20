@@ -1,32 +1,33 @@
-Received: from mail-43170.protonmail.ch (mail-43170.protonmail.ch [185.70.43.170])
+Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43177415F14
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:47:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BA041612A
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 10:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787222863; cv=none; b=hEW1p8O7apEin/hvaDyA6V/PIyZcExmnm1wHn4jNXgpqSm46Wt7XDJm9L5OfLXpatazm1C+CHl/O3Cp4GkgzH72ApAaFMOvh9z3rH9g3jryqHv8VEf+h5oEgimBNGvp76OFwGdVvokwbh6Gt1de4b451/Ki9RJCqpDCq33cYgKs=
+	t=1787222877; cv=none; b=WxKcVROM8+bfZN/cpgHjcoKi/PhMOOkpMAqknpQzJInjU1F6HyWePYaWRVdyQY1ZxVjriCcWs0MEoZk2yDfw2spBvbrgAkzHtCohXX9iJLTwqyL4gkoKCSKf5qkQzWiQj/Yac1aZrmZiQaALaiZj7K3te5kHtudinm6A3HCqaRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787222863; c=relaxed/simple;
-	bh=nzQKr2q9+PQ1qfsWWoEmw4mc5Wl9zV1gGZ1oZjxGzbI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tjzOxvBVo18p7BVOUlMutRvnbB6Oed0dhhnGhwRAx2/ucUE9misknassDj6626pmj58jKE3ph9I05X2GtSb9DwAd0UqAivfDRDEFfWw+jlzE8jo2ZfvqD0uSejJw7zq/P2t7d+7k+HqZAJWI3t7LICC7FYg2Jfw8UOCVa8chwlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=KPZnpMBy; arc=none smtp.client-ip=185.70.43.170
+	s=arc-20240116; t=1787222877; c=relaxed/simple;
+	bh=hNT7pS9AEoulxAZUxymzHoju9b+YzeJDWDclzjJAUVA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=pB596YjjnPvNe6knpjQTUnpSCBegGnvqK1Om9j1znDZtj6abv2nnrhJ0TJWeqrxr+XGJdMHss7X4pPMPxxlLz5Tger+YDBdJ8cITzSLGGI09UWxKZnsOTjcjbLoIw6k+E7Sxb+9PTutjNkoBF77ego9aUhe/qJOwLwl3KQVuC78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com; spf=pass smtp.mailfrom=runtimeverification.com; dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b=eH9+X3m7; arc=none smtp.client-ip=79.135.106.112
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=runtimeverification.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="KPZnpMBy"
+	dkim=pass (2048-bit key) header.d=runtimeverification.com header.i=@runtimeverification.com header.b="eH9+X3m7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=runtimeverification.com; s=protonmail; t=1787222855; x=1787482055;
-	bh=z6pgZcXMItMel+deav3ZSwG0oHk6ofQYlX9jbU6ELXo=;
-	h=From:To:Cc:Subject:Date:Message-Id:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=KPZnpMByqZxuqGE3hk1+BE7Hudkn5GfB/1lhTQ5Vthd6j9GCu4od1/qDhxsFp3fyJ
-	 IV+aZPMHB8+lRKt5Xp1uOTxTBxL2OiCGz3Wi1MziwR1dQnXF/WyNODip4VRPvmVquW
-	 KUI7WiRqwlJZw7Yz2RIt/UOJMCtcKIF6zUbWVat2Q1T29kTmgtjh2d7ZEt4JV/w0yf
-	 u32hV3AbrlAHldAaya2L7f5kpNnoIC3IxQVmsuA1EW371ALkbDnBGnpSVHyvd6SPy1
-	 FXdGp8DZQRQ5GKl5SJAD/6yHDOGDqC0F190fGlXMvbI/BZIrsiMXG3bY8UL9JhwLtP
-	 0hRHpDN0iFFEQ==
-X-Pm-Submission-Id: 4hQgBC6YMQz1DDLh
+	d=runtimeverification.com; s=protonmail; t=1787222873; x=1787482073;
+	bh=aOumxHCEc1nr9O4cF/Z08xwo3x1H1Mc9T+I+iEa73gg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eH9+X3m7dwbwuMSMDGnor3ENpkPcSfGEFsLDnPxVvcewoxWUFygh7OmlvDX7plu5y
+	 yPrQmuDfg5A2DWKnnKRxvowlJ9Pl13P1JS40WHnnNfnU4XvSYGq45BxGDh+2d2e1BK
+	 Utew1nsl9RG60MjpAunBZqrwRMDHOI6ra41bJ/yDJNmfLhkQV8LQhOQ+qDm6I/mIzP
+	 EMjZM0vRrZR2Zkx49qum+/IU7ZLWnPb3HyEVNrwhMAtTbUCxXIi3WOBf6lJXulcfwU
+	 IFOHlEQx9Q4r0TC72Sg7Gn/W2dNupfKpusoyITufxn/3NMIO4SbllvtRol4o1ryhjD
+	 4Azf3IHR0l/3w==
+X-Pm-Submission-Id: 4hQgBX6mJvz1DDLh
 From: Natasha Klaus <natalie.klaus@runtimeverification.com>
 To: laurent.pinchart@ideasonboard.com,
 	hansg@kernel.org,
@@ -36,11 +37,14 @@ Cc: ribalda@chromium.org,
 	david.laight.linux@gmail.com,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Natasha Klaus <natalie.klaus@runtimeverification.com>
-Subject: [PATCH v2 0/3] media: uvcvideo: harden the frame buffer size computation
-Date: Thu, 20 Aug 2026 13:47:21 +0300
-Message-Id: <20260820104724.191119-1-natalie.klaus@runtimeverification.com>
+	Natasha Klaus <natalie.klaus@runtimeverification.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] media: uvcvideo: Let uvc_parse_frame() report a skipped frame
+Date: Thu, 20 Aug 2026 13:47:22 +0300
+Message-Id: <20260820104724.191119-2-natalie.klaus@runtimeverification.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260820104724.191119-1-natalie.klaus@runtimeverification.com>
+References: <20260820104724.191119-1-natalie.klaus@runtimeverification.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -49,49 +53,97 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-uvc_parse_frame() recomputes dwMaxVideoFrameBufferSize for uncompressed
-formats from three descriptor fields that nothing validates. The product
-is evaluated in 32-bit signed arithmetic, so it wraps, and the driver
-stores a size that is usually far too small and sometimes exactly zero.
+uvc_parse_frame() returns the descriptor length on success and a
+negative error code on failure, and uvc_parse_format() treats every
+negative value as fatal for the whole streaming interface. There is no
+way for the parser to say "this frame descriptor is unusable, but the
+rest of the format is fine".
 
-Noam Ben Shimon reported and fixed the overflow. Reviewing it surfaced a
-second route to a zero size, and Ricardo Ribalda asked for a series
-rather than two independent patches, so the two cases are not handled
-inconsistently.
+Change the return convention so it can. Return 0 on success and let the
+caller advance by buffer[0], which is the value the function returned
+anyway. Report a truncated descriptor with -ENODATA, which stays fatal,
+and leave every other negative value to mean "skip this frame descriptor
+and carry on with the next one".
 
-  1/3  changes the return convention of uvc_parse_frame() so it can
-       report "skip this frame descriptor" separately from a fatal
-       error. Suggested by Ricardo.
-  2/3  Noam's overflow check, adapted to skip rather than reject, with
-       DIV_ROUND_UP_ULL and the operand values in the diagnostic per David
-       Laight's review.
-  3/3  the zero-size case.
+-ENODATA is currently the only error the function can return, so the
+skip path is unreachable until later patches add checks that use it. The
+one behavioural change is the truncated-descriptor diagnostic, which
+moves from uvc_dbg() to dev_warn() so a malformed descriptor is reported
+without the DESCR debug flag. That leaves the local alts variable
+unused, and the kernel builds -Wunused-variable as an error, so it goes
+too.
 
-On stable: 1/3 carries Cc: stable with no Fixes: tag of its own. It is a
-prerequisite, since 2/3 and 3/3 need -EINVAL to mean "skip". Backporting
-2/3 without 1/3 is not broken, it reverts to discarding the streaming
-interface, but the commit message would then describe something the
-backport does not do. Both or neither, please.
+Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+Link: https://lore.kernel.org/linux-media/CANiDSCue8yyiGubzbAybRqSUTTFuB=-Y2TZy6yvOx32SpAASWg@mail.gmail.com/
+Cc: stable@vger.kernel.org
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Signed-off-by: Natasha Klaus <natalie.klaus@runtimeverification.com>
+---
+The Cc: stable line is present without a Fixes: tag because this patch is
+a prerequisite for 2/3 rather than a fix in its own right. Stable needs
+both or neither: backported alone, 2/3's -EINVAL would revert to meaning
+"discard the whole streaming interface".
 
-Carrying 2/3 on Noam's behalf, with his agreement on the list.
+The caller checks -ENODATA before counting the frame, per Ricardo's review.
+Behaviour is unchanged either way, since -ENODATA is non-zero, but the fatal
+case reads better first.
 
-Build tested on x86_64 only, no hardware and no UVC gadget.
+ drivers/media/usb/uvc/uvc_driver.c | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-Changes in v2:
-- 1/3: check -ENODATA before counting the frame (Ricardo Ribalda)
-- 2/3: DIV_ROUND_UP -> DIV_ROUND_UP_ULL (Ricardo Ribalda)
-- Reviewed-by from Ricardo Ribalda added to all three
-
-Natasha Klaus (2):
-  media: uvcvideo: Let uvc_parse_frame() report a skipped frame
-  media: uvcvideo: Skip frame descriptors with a zero computed size
-
-Noam Ben Shimon (1):
-  media: uvcvideo: Fix integer overflow in frame buffer size calculation
-
- drivers/media/usb/uvc/uvc_driver.c | 52 ++++++++++++++++++++++--------
- 1 file changed, 39 insertions(+), 13 deletions(-)
-
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..b94fe5366e55 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -230,7 +230,6 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 			   u32 **intervals, u8 ftype, int width_multiplier,
+ 			   const unsigned char *buffer, int buflen)
+ {
+-	struct usb_host_interface *alts = streaming->intf->cur_altsetting;
+ 	unsigned int maxIntervalIndex;
+ 	unsigned int interval;
+ 	unsigned int i, n;
+@@ -243,10 +242,10 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 	n = n ? n : 3;
+ 
+ 	if (buflen < 26 + 4 * n) {
+-		uvc_dbg(dev, DESCR,
+-			"device %d videostreaming interface %d FRAME error\n",
+-			dev->udev->devnum, alts->desc.bInterfaceNumber);
+-		return -EINVAL;
++		dev_warn(&streaming->intf->dev,
++			 "UVC non compliance: FRAME descriptor is %d bytes, expected at least %u.\n",
++			 buflen, 26 + 4 * n);
++		return -ENODATA;
+ 	}
+ 
+ 	frame->bFrameIndex = buffer[3];
+@@ -329,7 +328,7 @@ static int uvc_parse_frame(struct uvc_device *dev,
+ 
+ 	*intervals += n;
+ 
+-	return buffer[0];
++	return 0;
+ }
+ 
+ static int uvc_parse_format(struct uvc_device *dev,
+@@ -492,11 +491,12 @@ static int uvc_parse_format(struct uvc_device *dev,
+ 			ret = uvc_parse_frame(dev, streaming, format, frame,
+ 					      intervals, ftype, width_multiplier,
+ 					      buffer, buflen);
+-			if (ret < 0)
++			if (ret == -ENODATA)
+ 				return ret;
+-			format->nframes++;
+-			buflen -= ret;
+-			buffer += ret;
++			if (!ret)
++				format->nframes++;
++			buflen -= buffer[0];
++			buffer += buffer[0];
+ 		}
+ 	}
+ 
 -- 
 2.34.1
 
