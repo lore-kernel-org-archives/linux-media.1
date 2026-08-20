@@ -1,157 +1,215 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6045339398;
-	Thu, 20 Aug 2026 12:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C3AF446068
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 13:06:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787230660; cv=none; b=OD4c8KQW9WGpu1mWsAxNrdUG1ys3oESTxbEo0XHbFsJu16DatFN3p63UCNuVIPU0ArmkvtKJ5lVkvY6NjeLfrNU8ToBq6KjgbLjTSeYJ5wVrxE023KP5Fnn12yP/Hbc24CUGSPxHfBKUa/ab52HeNGVwN5W4A5Nvy6wFIavyQT4=
+	t=1787231163; cv=none; b=jkjkQSAIStNj3yFgqbBKueViw9nkNIkYHGVhLAiavsXGeE14J6gouQ2o/vDQhVEkNOvLUuuPITiovhDkxKZSvTZ8Ged2sVaZwg5aqN+Z0p+IccedB4wQKaQsYGdI2j5hsnILBRv6sQL1LpXTabP0+0K5ucl/HagkQ1U/X7LMt6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787230660; c=relaxed/simple;
-	bh=NBURnJ/h8jK40DD3L0sAXfodvA9mcG66XWuTjw7j+b0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XD/GndM22teUkI6b3AZkqkm6w3lxrRy5YZo8E8+BdM5kxuFqr4hDfOVxLPY4TGjCPc0OBPzbN1lXqWW5YJ0HI49kPyhZ3Qq0ycwWb1RDWO05KU7AKu/Aj8X6guKwvphxAcxpWD6zgGT2AFuiVCz5o7w1jOEMpA4kw/aa1FA4XKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iunfu5DJ; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1787231163; c=relaxed/simple;
+	bh=/MvLGjCq9P+3TJQdi9yv+SMKwpIqRwp5tDl+T95B12k=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hK3Jo1TnwRDv7ZPyLVuobLsxJPFttUuDlAQ2RbpOHUqeG+if9xV8Uu1MmbGf58XaNRj9Epxmulc0zgb8Dy7wWXGFyrDzy+GfjKkUJeatO0AgeCOfYCRBZHiwwYc62qIyA/WBF4zG6bWtR8lbCm/qg2Z9UwHYU+rwf7blgLUc1PU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jwaV4z2T; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=K+QNVqvG; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iunfu5DJ"
-Received: from ideasonboard.com (mob-109-113-29-237.net.vodafone.it [109.113.29.237])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 23EDE492;
-	Thu, 20 Aug 2026 14:56:14 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787230574;
-	bh=NBURnJ/h8jK40DD3L0sAXfodvA9mcG66XWuTjw7j+b0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=iunfu5DJAfG2Ho2eUUeKR+7z8rrxdDN8kfPfJgIFcwoBq9cz8YlhcmN3NZuiIYy4k
-	 sBVqz6OnRbUiI2b8l/ce4A6qLxFyaVzIKfi18GxxVmu5kQtwZDbl0NoQySc81KDY9h
-	 f7IWASQVPEZ0UNek04eIeC1RVfOghNYhbNwFEGD4=
-Date: Thu, 20 Aug 2026 14:57:32 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	linux-media@vger.kernel.org, stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] media: v4l2-isp: reject zero-sized parameter blocks
-Message-ID: <aob5VU6sOBwWUZ0z@zed>
-References: <20260820111722.1233915-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jwaV4z2T";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="K+QNVqvG"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KAOqd72214537
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 13:05:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=; b=jwaV4z2TzGHiIR6o
+	jRjasUFvEdE3hZE4YOADkjaSjyq+fcG4SjuMiuZVqbaXpQo4fXaIGY24SYwIat5Y
+	xEHhlCuMnmrr/SJYHxUbGJ+FCUVgQRxIlibWMy7b/sBOaiRz0+BwV58KjdvUWos0
+	MymhkSBlK9tfmtpyUhUVKJsUFs7C/x9lF8qpNUMfawb2xETI4YbvdSb/Fm3cQMvp
+	wpXyQIuiglhtbRGv11uPR8LPyT8bF0b6C169b+Ox9GnAJLwwDeqD8AZtXLm3YYqq
+	gt/e/bKxwCGZ8iFBBe16qImQzjIyszZalA0J2/MKSZVYh0FOA7HSdLy82KtShU+Q
+	AQ3oYw==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5ytc8htb-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 13:05:59 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-38e54b6556aso2763870a91.2
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 06:05:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787231158; x=1787835958; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=;
+        b=K+QNVqvGQJh9E1M4wM8omsoldMeAmnRhxq/AWSq/6fYpZVLKZMto52wOLUTOj4EJJX
+         J2ZKIBm+3RviHXaOg1aLZ4pgWuPN/6SzfFBWGKhWg0epLnBiiLmcLJYvF+EjSd3QtDgz
+         BA1EfrcPXcmrleUTdd2x4o1KM5WinCJWwsStadGAI3tE6PogA/QZe6zXQA4LGS+kHCQU
+         0ClonjOQBF8GnmgB+n6jd5RdWs4t0xU1xM4OdewDqEkf4OpY/D06JccFAT6xrLqsd+6M
+         V8loTSs74vRCKRHXq30Wz3ug1MJvVnEIw7sCdMsWp14+amE4L//z/b2p8X8hlDk2NBeG
+         GIKQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787231158; x=1787835958;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AieFSNSsSUo34uQSMJ/dNEJ/DOfK3/fGsi4sE8iI73Y=;
+        b=H+bTatxorZiEu0b6qAH+O+CEJoGtGDcmc/YA7DQajKmP3kJlxFufIHAejFFPt37r/b
+         lpEnF7aZyQFa/5ZVFu3BXx6utt77CiZlhAD17HeIEpUJXf4qR+Wl0mHkZXeOtmV9ToOq
+         kRZ3s1Jr58BTFqd8uGau0qs3wJ8A0NUDP/wg9uje5Xg66GFLfsy1Vls88Vk848VN6yFH
+         xWKn2UG1wykZb/FIuoU0QQRESYuEnYboGJ5hpwUWtiUW3iON93zOb/3DFZpAez3WFzzw
+         WLe2yj4jrJHLc6Ipl2BnM3Te1F1qk5WpiZzPaDp0OVEA2PzdZs+vcdvWkdNJM/P0mXY9
+         2TQg==
+X-Forwarded-Encrypted: i=1; AHgh+RqOm+bS4Io5CJJqGZPwAmBr2mi0q8mtGmcmroP/gFIGjynbv4nZ9BNDLz4XOLfSBBS5A94AgYkggbUQ+A==@vger.kernel.org
+X-Gm-Message-State: AFuF++kZDW3tcv4nMSsCy9wrSchos28EVatoZkUA3o6FzEgfy3a1I9P0
+	k2nwR2RabN42hWCoBw5rhzzzprtlDagemvDQXNABlXGFsaTPlwmZyOlfgfv+QpLCDuZRGY1Tqld
+	SfVqmnc6bVnFGKvbmHEuYTa/pf9T4aO+aXoW8XHkwsvKgyncH5231OGn/W80c0LJ7Yw==
+X-Gm-Gg: AR+sD10S3CF0PRdyfd8/bjHIGLdfU5aj40KYYMDMQFZ5MySTJgvuMrTMl3SNqnoNUN7
+	SD1oHnD+tjoGhtLXGpZuoVG8n6aQeqxfVrWyu5Sc64Ln0QOUG+IMLL5HnpjWJorvaO3zgNk8nx5
+	492NqCY81OZA/kx/Ut7T0btqBhs9i2Pn9BQoTq5DtqEXWbqkQ4R6IS8Jt7OvexXQiWk/YOvqs/r
+	GUGIacUoPB0iDmurWxNrIyZDwPoBBIRFmXYL7uOUxzVv3kY+AxFxPBmjJZVqUWWbLbcvva9SebJ
+	Rh4Qu/ug/FJhi8xVjHMeR1eSee3Hlusa9KHfv+kHHqOpG9ASwZ2mE8ooREhEDvvbBfU9zvOVfpZ
+	MiBupar7X6u9z5GteK3NYfOZyZFvzew==
+X-Received: by 2002:a17:90b:4d82:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39580ed143bmr23044559a91.3.1787231157828;
+        Thu, 20 Aug 2026 06:05:57 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d82:b0:395:4de4:92c7 with SMTP id 98e67ed59e1d1-39580ed143bmr23044231a91.3.1787231156489;
+        Thu, 20 Aug 2026 06:05:56 -0700 (PDT)
+Received: from [10.219.56.166] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3957fb12145sm6574171a91.4.2026.08.20.06.05.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 06:05:49 -0700 (PDT)
+Message-ID: <eb05740b-8683-41ea-83ec-8a4a484881e9@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 18:35:40 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260820111722.1233915-1-devnexen@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/15] accel/qda: Add remote memory unmap from DSP
+ address space
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-757ab8ed2f64@oss.qualcomm.com>
+ <20260817-qda-v2-v2-15-757ab8ed2f64@oss.qualcomm.com>
+ <6k6ogbosxx4z5bh7uriu4fnj24ycuakylq6g2gnuwsbckl2zww@e66jgj5xo52o>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <6k6ogbosxx4z5bh7uriu4fnj24ycuakylq6g2gnuwsbckl2zww@e66jgj5xo52o>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=OqZ/DS/t c=1 sm=1 tr=0 ts=6a86fbb7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=rYwYc2LNA-xZppdo0x8A:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA5NyBTYWx0ZWRfXzz6clizUvTa8
+ LQCrM/lMo6wYFlEZHJMnq7gTzM/oGmK6bU6jyLp1PC2qlWo3/+1wmy3ClsBjJjy8dKOjkCI8ry8
+ HVynGqKAlUagJhyfRO66FwmwI8lqzcaDLj7R22TwjkWWLY1cU/RFjtJl9DfzX+45Xen0ZKEuTE6
+ D9ldclmHDa3pKfucWJt9VGN89lxnoFoLAQCmpcyodSTR0EIVPNirnTPe+NBybY73JOC1Cu2Tvbf
+ udiE5my1E7O8sEbo1wdXMyNgNo+fxdWlByJgB1TZbgIGCtPzTVl8g+5dQCbZ4TxkqZrsxs947Px
+ s+TJVKLdQ8mcnQkVGe7GuJyiqs8vOQRRAgXdyHvzuAvyGK31SH35HShlFEHR7dXV2EwFrnLs3Oo
+ Jds7iukqiwoazsPFtu+aJ+eOUNIYo+741EyAzzj+20hvzz6n9dCxnwEoGFw6v3j7nLgbjKdAIUS
+ PhiTt9VJrnoAQJKy2Gw==
+X-Proofpoint-ORIG-GUID: w-hlHVAMk-700P2hbJErvZsCO0ju6TIK
+X-Proofpoint-GUID: w-hlHVAMk-700P2hbJErvZsCO0ju6TIK
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA5NyBTYWx0ZWRfXxmulTjzGMeq2
+ BSHcJcoSfiKxfFjdm5n2kMSrRvg7Ha5aeuu5x6U+88+1lAgStHxlcGf1kNhTP4JNkwSr5XtY7SV
+ 6joIcvNEZ+AdV5fY2RHFZNzVkCd2IEg=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 malwarescore=0 clxscore=1015 adultscore=0
+ bulkscore=0 suspectscore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608200097
 
-Hi David
+On 17-08-2026 11:14, Dmitry Baryshkov wrote:
+> On Mon, Aug 17, 2026 at 10:38:45AM +0530, Ekansh Gupta wrote:
+>> Add DRM_IOCTL_QDA_REMOTE_MUNMAP, which removes a mapping previously
+>> established with DRM_IOCTL_QDA_REMOTE_MAP from the DSP address space of
+>> the calling process.
+>>
+>> Mirroring the map path, the DSP exposes two unmap operations, both
+>> reachable through this IOCTL and selected by the request field of
+>> struct drm_qda_mem_unmap:
+>>
+>>   QDA_REQUEST_MUNMAP unmaps a region by the DSP address that the
+>>   corresponding map call returned. It uses the vaddrout and size fields.
+>>
+>>   QDA_REQUEST_MEM_UNMAP unmaps a region by buffer identity, using the
+>>   GEM handle, the DSP virtual address and the size.
+> 
+> Why do we need two different operations? Can you just pass the GEM
+> handle to the IOCTL?
+QDA_REQUEST_MUNMAP (RMID 5): The DSP locates the mapping by the DSP
+virtual address that was returned by the corresponding MMAP call. This
+is the older protocol message that only needs {address, size} to
+identify the region in the DSP's page table.
 
-On Thu, Aug 20, 2026 at 12:17:22PM +0100, David Carlier wrote:
-> v4l2_isp_params_validate_buffer() walks the blocks of a parameters
-> buffer by adding block->size to the current offset, but never bounds
-> that size from below. A block with size 0 is not caught by the
-> block->size > buffer_size test, and the comparison against info->size
-> passes as well when the driver's type_info[] entry is an uninitialised
-> hole, both sizes being 0. The walk then makes no forward progress and
-> loops forever.
->
-> Drivers build their type_info[] arrays with designated initialisers
-> indexed by their block type enumeration, so an enumerator left without
-> an entry leaves a zeroed hole rather than failing the build. Drivers
-> call the validator from vb2 .buf_prepare, so such a hole turns a
-> VIDIOC_QBUF on the parameters video device into an unkillable task
-> spinning with the queue mutex held.
->
-> Reject a block smaller than its own header. A block's size includes its
-> header, so anything below that is malformed whatever the driver table
-> contains, and rejecting it is what keeps the walk moving. Blocks
-> carrying only a header to disable a block are exactly that size and
-> still pass.
->
-> An empty type info entry can then no longer stall the walk, but a block
-> matched against it is only constrained by that header size check. Reject
-> such a block explicitly: the driver does not implement the type and
-> cannot tell whether the block content is meaningful, and accepting it
-> silently would leave that content unconstrained until a later kernel
-> implements the type and starts validating it.
->
-> Fixes: 3cb6de6fafb8 ("media: v4l2-core: Introduce v4l2-isp.c")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
-> v3:
-> - reject a block whose type info entry is empty instead of skipping
->   it, so a type the driver does not implement cannot become
->   unconstrained uAPI (Jacopo)
->
-> v2:
-> - skip an empty type info entry instead of matching the block against
->   a zeroed one
-> - reworded the commit message, which no longer leans on rppx1
->
->  drivers/media/v4l2-core/v4l2-isp.c | 22 +++++++++++++++++++++-
->  1 file changed, 21 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/v4l2-core/v4l2-isp.c b/drivers/media/v4l2-core/v4l2-isp.c
-> index 1eb46e080afa..efe994b4c4d7 100644
-> --- a/drivers/media/v4l2-core/v4l2-isp.c
-> +++ b/drivers/media/v4l2-core/v4l2-isp.c
-> @@ -84,6 +84,13 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
->  			return -EINVAL;
->  		}
->
-> +		if (block->size < sizeof(*block)) {
-> +			dev_dbg(dev,
-> +				"Invalid block size %u at offset %zu\n",
-> +				block->size, block_offset);
-> +			return -EINVAL;
-> +		}
-> +
+QDA_REQUEST_MEM_UNMAP (RMID 11): The DSP locates the mapping by its
+internal handle association. This is the newer protocol message that is
+not supported on older platforms.
 
-I'm sorry, but now that we refuse empty block info with size == 0,
-wouldn't this be caught by the below
+> 
+> Also, what happens if the buffer is still in use on the DSP side? Will
+> the DSP crash? Will the whole board crash?
+The access from DSP after unmap will trigger an SMMU context fault on
+the context bank device. The fault does not bring down the board but
+might trigger remoteproc to restart(I'm not exactly sure about the iommu
+side handling of such faults).
 
-		if (block->size != info->size &&
-		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
-		    block->size != sizeof(*block))) {
+Thanks for reviewing the patches.
 
-Do we need to check it here as well ?
+//Ekansh
 
-nit: the dev_dbg() line fits on 2 lines only.
+> 
+> 
+>>
+>> Each request type has its own argument builder in qda_fastrpc.c,
+>> documented with the packed argument layout the DSP expects. Unknown
+>> request types are rejected with -EINVAL.
+>>
+>> Assisted-by: Claude:claude-sonnet-5
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> ---
+>>  drivers/accel/qda/qda_drv.c     |   1 +
+>>  drivers/accel/qda/qda_fastrpc.c | 119 ++++++++++++++++++++++++++++++++++++++++
+>>  drivers/accel/qda/qda_fastrpc.h |  34 ++++++++++++
+>>  drivers/accel/qda/qda_ioctl.c   |  22 ++++++++
+>>  drivers/accel/qda/qda_ioctl.h   |   1 +
+>>  include/uapi/drm/qda_accel.h    |  39 ++++++++++++-
+>>  6 files changed, 215 insertions(+), 1 deletion(-)
+>>
+>>
+> 
 
-
->  		if (block->size > buffer_size) {
->  			dev_dbg(dev, "Premature end of parameters data\n");
->  			return -EINVAL;
-> @@ -99,12 +106,25 @@ int v4l2_isp_params_validate_buffer(struct device *dev, struct vb2_buffer *vb,
->  			return -EINVAL;
->  		}
->
-> +		/*
-> +		 * An empty type info entry denotes a block type the driver
-> +		 * does not support. Reject the buffer instead of ignoring the
-> +		 * block: accepting it silently would let userspace fill it
-> +		 * with data that a later kernel, once it implements the type,
-> +		 * would validate and possibly reject.
-> +		 */
-> +		info = &type_info[block->type];
-> +		if (!info->size) {
-> +			dev_dbg(dev, "Unsupported block type %u at offset %zu\n",
-> +				block->type, block_offset);
-> +			return -EINVAL;
-> +		}
-> +
->  		/*
->  		 * Match the block reported size against the type info provided
->  		 * one, but allow the block to only contain the header in
->  		 * case it is going to be disabled.
->  		 */
-> -		info = &type_info[block->type];
->  		if (block->size != info->size &&
->  		    (!(block->flags & V4L2_ISP_PARAMS_FL_BLOCK_DISABLE) ||
->  		    block->size != sizeof(*block))) {
-> --
-> 2.55.0
->
