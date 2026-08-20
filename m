@@ -1,1433 +1,1365 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F3D3D3D0E
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 07:55:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A723D9DAD
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 08:35:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787212553; cv=none; b=Hm6DYW0HQq3JBpljh74qIs9Vrcl3P9DhfTGl0Zyq3qLXd7f/skFBhmB4YlSVcSwnf35omarBJzMm5RV3HY4atvrTd9wqR5LQ0/FS0OSygoeLZkpRDfEk0rg2b7hxPB5GLMfcMny9zhSIXRi6D/nAyf1WWtpMhkfiNttjHCpw4XI=
+	t=1787214919; cv=none; b=uKjRdpjniiZ2DTjGFYSo17pY7wxHNAWK359eL+ju3FG/VMN3cAgYpCJRhkleZNBPMZjJG47jxX1XAvn8IgkgMUmA1UclpNxzsDSwTNkQCUE3EO7R6p3hNel3DgzXHgxi6Ed1ZRHToivNjAV718as7XPKiIBjdJsHaNG4/FawMsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787212553; c=relaxed/simple;
-	bh=NfdjKYN7wfZzG53LskQmbJkdW+97jcOfJKZmdEFlY9Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=P5ljlW7j/PdIPgyD24k5TNzNtw9SGULMtMBy/60P2p3PPms5gom4CGhxdsBFZILZlboO7GkicC5h7ZHGL2ybO5Mv5h627n6Dw33MssHue3AX6UjJCeGgnsUgyBuWeIk/CDVKtfXwA7NswNhjwIcLRzsvaX2r0diQahCGrzTBqeY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nIZ1YTNP; arc=none smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787214919; c=relaxed/simple;
+	bh=1o5n5S+EgsL+1buh0+qymEUrf/dYHCQwHcTy0/U+4Dg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IvJDM5WaKmV+K0LUIzPS/HJoBqQJvjxPAYSMqHTU5PT+w/tfEWWI3naYpKtAOmLkzTrbt8Nkp3OhBRT4NOqpJ7Z84wLtOjil/WIDd/2Mbi3O5tY0sDa4jJP25TqV/IKD1LB8ylNLlHcgJ61bvY/HzSKoHkQCcfgAqrooc7FLvX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=B4YzHc3I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Brruzo9+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nIZ1YTNP"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-39c8dbf4f38so19202581fa.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 00:55:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="B4YzHc3I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Brruzo9+"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67K6eZor2161130
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 08:35:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jCv2gaDfdfiywx4XADngtQbTqMlo3WWgWTCb2dUlyYA=; b=B4YzHc3ItpW4wZh6
+	v6PmYQBgz0pDXwrK7cPnr3NYKbwW0l8otbqb2MQPSPsycgXMLehGDNqIN8xjScJN
+	JVFDLSBV88HC1jVb1E6Px27pO+EE1xHSB64VfGFdBu8Y6irbKk7qkki9Arb8xvcW
+	AbeNTCKfimEssUf0wvnUY+Dso9/g1vl55kizfgVeL5i7LHjjZaw2IhzZTd+QIPQe
+	H2hU0c5KzoMgfRqHI80BugLQScbLKboIxUQPJZ2+Q7ixeHYRt8PdAH1OOI6lL6TD
+	5MFCso0bIuq+GI10eJ/MBPVZLm+hJaDPsxkrkqYmvNhdXDyksbXSwxoqtbfoMueY
+	3uie0Q==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5vh7rd4q-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 08:35:14 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-84e01a62d99so2411843b3a.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 01:35:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787212548; x=1787817348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R5Yto8VX/8BdNT7NVsNwG/K17ujwjYBgIBaGcQrnOQE=;
-        b=nIZ1YTNPQl2r4IIhL6uUOtjEDS5r/RoPPs3JG3JHErS6pOQyFRqR4/qsUaDONpaAnI
-         BE1Ux3ErWBVRqdd9AxRmkl6E2BIDCgvN4iaaxpkuweGxxyprQgC72BZAsv0PA+WwtWdx
-         qkCX05qwguSDyGQlKZ1BDuiOva429j9LhNGOKYLkoCDC/WDYarEkbpc11Y9MX5OCUIaQ
-         5bWPV524LzrosOHb3jSbHe1/OdT66zHmn2bp5GDivDZMS6Ra4GBKekoR8ExYLSZNxiN5
-         SoOAIxUC/BrCW4qGYq4V33BU5jndu51ECNASp/hvM6OfuOA2k6oqpsDKYGmeMgAKf/gf
-         VbpA==
+        d=oss.qualcomm.com; s=google; t=1787214914; x=1787819714; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jCv2gaDfdfiywx4XADngtQbTqMlo3WWgWTCb2dUlyYA=;
+        b=Brruzo9+tWF8mZFqSxJOFi/VdDSEogQVhN7ovIAcnd7kK7qQyzeMFa2alhAzHqjk63
+         InQxk0cvtS8UJT9vDlP5FL/an6WzxaZjT6gaolC4NaySKpEAJbP/g2fXVP373XKwK+uA
+         +Zd862W6UcQ4OIOHeHmVzzs6yiI6GbxvxSNSD+kT3u2wCUrKcZkRzzhgYNjJ1NdAsF6L
+         BjgMKzLnLcSXSi7731aOCfqcA62/UklzhsCoCnQukvp+TlydAKVm8tvxR7y1H2yrz4lW
+         H2Kwzq/8qniHouTo9uRbeddsOQi2M3N4G28B4oUScdKkm51ZKwt71hBg9kdQ0RKLFAA8
+         jlJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787212548; x=1787817348;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R5Yto8VX/8BdNT7NVsNwG/K17ujwjYBgIBaGcQrnOQE=;
-        b=s7A/5gA8ey3KSXICKpBD7PsQPBTmsKBT35mPc47vPCVL3Fvs3gPbdnPYgUOaPTRNn+
-         tLPFx42/+Tq8AhgBwht3t+H+/8HfUB9wUQLg2hHFGL4ZrwZOOKkKPY5ArTbiWHaBu7NE
-         7iXtVC1LqrLAnKFPl5cSRD2L4/QHfCICftrjfDZp8Og1WMNp10b6pP2Y11+/SulgzE7P
-         myw/K0467A6Ofb/vOeMQQMEK42IPvfE/iOn6QOdtF0Ffa6O3FpfqPQLNXZqb/nxSdIeA
-         R64k6SV9k9gwqw9zLTlgmuatVdK5NAAJSjtNLvtmBGVNF9fiIP25vUpMYdhYKm7ZIPH/
-         l2nw==
-X-Gm-Message-State: AOJu0YzHW1rLX77xksX5zXf6VqN8EAHlp04KtSYd37C3pVv70lJ1ozr6
-	f3J7r/ZwXEIe/TDQ2JYHUVxoO+aqvyFnXiGEZIRhoaVJY4BIWQREK1wbTUIrmdWA
-X-Gm-Gg: AR+sD13YKT8D6G9RDLSfzWb1Xh5EAbCtZ2KcI5yOaXAcblRma+17rYh2fwDMFC6OhRc
-	cEl1L1jrR78PS7PLiVp+45Jt0/dwmUvCkmqh5MBOSsLJ2H4hVF19DmjpixSNwLzCnx3mN/U2Czy
-	NiIiZr2cG4jXAqPR9KqgrT/151xMYOLb9hGEUQ41T5voURYgSwvx4vzhEDCmzSy0BP7m5etE/W/
-	BVWTMFnfTlqh/WsYsE0srUuXOolsC4qbI3gOPvXInUNG+UBoLGm3VT/dBjjcDCEcntmn9nBs0d8
-	3a4CzpUAvnai84NKyEmzwHDFSrA2u4PtyNeHtJtXEP1ddxZtEVrFAYUV4kKoz01Pz0XvH8z6sne
-	ktpfClVS8kWO054kkq+z5xwidVaKXORosrDHO9neCKdjIQ58oBxn2h0AnvmFjqNGsIUPshiFPCD
-	Twjw8E8r8gZpy6bKOlP+1E4v+Uj7dFHJd25fu2E27ktwHMnTdBDV5mU2IR+5doe3eyGmjPhXdc7
-	khQjw==
-X-Received: by 2002:a05:651c:a0b:b0:3a1:60e9:d42f with SMTP id 38308e7fff4ca-3a1899439c0mr22423631fa.7.1787212547329;
-        Thu, 20 Aug 2026 00:55:47 -0700 (PDT)
-Received: from gentoo.sknt.ru ([95.161.221.172])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a189e15d1dsm11757751fa.33.2026.08.20.00.55.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 00:55:46 -0700 (PDT)
-From: Alexander Shiyan <eagle.alexander923@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Quentin Freimanis <quentin@q-lab.dev>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Alexander Shiyan <eagle.alexander923@gmail.com>
-Subject: [PATCH v3 2/2] media: i2c: Add onsemi AR0234 image sensor driver
-Date: Thu, 20 Aug 2026 10:55:24 +0300
-Message-ID: <20260820075524.2056029-3-eagle.alexander923@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
-References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+        d=1e100.net; s=20251104; t=1787214914; x=1787819714;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jCv2gaDfdfiywx4XADngtQbTqMlo3WWgWTCb2dUlyYA=;
+        b=iEmSEc8N/OaB/6gWjRgFYpp2t/qKw96qnlb6CLCbriZ1ryXG+7AhdFZxmmUZDdzCyI
+         xjOdtgFeXFQm9lQB5upMXo+hhoMGcRcDTcwPpr9+za4dDuSZ87+iLXZGLnB62KCLopeM
+         6bmwbZTknHTq42itD4NV1O5ekJxczQgAZDPWIdjlGPGdSvr2X+ysmE2J7YfW+NiD4I2M
+         brLLXGvl6Eyu4FiYVNJ8h9R97fwXqVhp5BtcFDQATF6KNSIDqOnC+TIiSrezcTlNU4Hn
+         yxIm8VLwrrrsNQc0n654nQyg0KhPU3TB7HZb5vIcGnHrFubY/PXHpVVk2LpebqTUSmfS
+         JQiQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqVEH8o/H2QaoZJJE4qF5FYYpXrTTxsYvqod6QqKuJc5XM0mIt8dordnQbHUjmiG3n7w2J8hl01U8CIEg==@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmRKLlPnuWWr2Fc1Mlfm5R31BLgjD86WjHWrS8wVhMnPw093Hs
+	MfNwN2LeZEZ6OJts8Egtvzsludq9gYnGeZez+X5fyaccV3SaxLyo+IKsyN5fU0g+ELpfaN1O1kc
+	OhhmjDhRTa8/rFtyfXFwyNexuSj05mY/0S9Ga5FUbWVbR5lwTG+LrWMa98dC/FPcM5w==
+X-Gm-Gg: AR+sD12QwEKyLfIlOxtXd1dJJmbcG4vgl69JcpPaWy2vVUvGW4NrCwJmh6UUZMjCzug
+	OEBxezzU7RxFFEwiB45my56FUvgIHNcqzQateHvruUWTLdWDoP14dGFttUFOc9n6pXZBHlRv6rh
+	Rnj5n/pHOzS9uevWohfpXa2b0e3h73RVsPpLBmC/rfp0GgswCrWNLi0b5YaWlY7QiAiEMf+Ce/V
+	/oZdfcYmKfbFiVTooWDNJFbwiuJ/dZn7ZAD/5ajsL5ujVKkiR1aVPWmpGXpOMxP+XMxTpeVh4N8
+	AJ4jeUK4To0TNZCs47BJYeJX70WzLqNz2iJsD8BNqNDSeukJvvpDtXk8nAkhyduIOOFl6laCjsM
+	IILWjOcYBu7nVYCsFl4Iopb14qkiR
+X-Received: by 2002:aa7:88c8:0:b0:847:9015:e68c with SMTP id d2e1a72fcca58-851d3953ac9mr17145204b3a.17.1787214913588;
+        Thu, 20 Aug 2026 01:35:13 -0700 (PDT)
+X-Received: by 2002:aa7:88c8:0:b0:847:9015:e68c with SMTP id d2e1a72fcca58-851d3953ac9mr17145086b3a.17.1787214912719;
+        Thu, 20 Aug 2026 01:35:12 -0700 (PDT)
+Received: from [10.218.24.45] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d366d65dsm1432781b3a.50.2026.08.20.01.35.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 20 Aug 2026 01:35:12 -0700 (PDT)
+Message-ID: <3f644c83-ffd6-452d-aa81-1c13aaa397ac@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 14:05:01 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 12/15] accel/qda: Add FastRPC invocation support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-12-69a02e9090d4@oss.qualcomm.com>
+ <hbrtbfpmcodd3nkaytihzki56232bws7ubbcth7ewwckwi5y6t@ft4ej4fr7duz>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <hbrtbfpmcodd3nkaytihzki56232bws7ubbcth7ewwckwi5y6t@ft4ej4fr7duz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDA2MSBTYWx0ZWRfX2lIV7gWS0xRx
+ bvkCrdTHBn1Vgo5hkWsatLCzh7tI7mV33LmX30o312NBTukDYHKf2Lp0UUnDKLF+bhSGcQLu28e
+ +u6MfHpxoQg9Qxagn/uFwBG0Cc0+/kthIHKb67LdRb5jAYWtAxPaoD9ZvnJBVtV/LwT94y9Ewsc
+ hhqEId6vrrtPc9oNvVWN7MtJPO5Uzk+XKuWvL3RdL+Rl5FZmtj+/qFqVEvhnly9+I6MRpJ8W/Mb
+ qKPlnKIiVGFLwI8nNBaLcAuds9rzIU4iAkNGL7BrQWNM37347s0dIhoz9/hdMthLcqwkvQrjyAs
+ H50mxZ5y+G+nInCy0rgT/Y45f+FKWvLZNFl6cdOd6U2yl6R86mFxXT/lSGXJ8WuzwV3p1GczTrV
+ h8k4udxj/4hWsC19phG1DWn+puBc3qKd9LoJunGQUg89mqmQsRYbvmkphNvBKm92PPaCBH4/gzO
+ 7weGRLGoY4rbjAmlbbA==
+X-Proofpoint-ORIG-GUID: JonaGSfbP68c-yxNKhUvlhQeUA-QkNQu
+X-Authority-Analysis: v=2.4 cv=Y7fIdBeN c=1 sm=1 tr=0 ts=6a86bc42 cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Y1CC68NBrqNVb_7mDsMA:9
+ a=XJfJ34QqSPnrsVep:21 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDA2MSBTYWx0ZWRfX1jInvQG3261m
+ G0AuVLqkiRYvz3UY85CHTlh9tPGZMpwatvpFUASQs1g1P34Q0iwhO36Dv/X3XGFsMaDaWPK7s1g
+ CytiWU/pGSVPUNDXJgaORnd4b5ILGlY=
+X-Proofpoint-GUID: JonaGSfbP68c-yxNKhUvlhQeUA-QkNQu
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 bulkscore=0 clxscore=1015 malwarescore=0 impostorscore=0
+ lowpriorityscore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200061
 
-Add driver for the onsemi AR0234 CMOS image sensor.
+On 18-08-2026 09:49, Dmitry Baryshkov wrote:
+> On Mon, Aug 17, 2026 at 10:17:47AM +0530, Ekansh Gupta wrote:
+>> Implement the FastRPC remote procedure call path, allowing user-space to
+>> invoke methods on the DSP via DRM_IOCTL_QDA_REMOTE_INVOKE.
+>>
+>> qda_fastrpc.c / qda_fastrpc.h
+>>   Implements the FastRPC protocol layer: argument marshalling
+>>   (qda_fastrpc_invoke_pack), response unmarshalling
+>>   (qda_fastrpc_invoke_unpack), and invocation context lifecycle
+>>   management. Each invocation allocates a qda_fastrpc_invoke_ctx which
+>>   tracks buffer descriptors, GEM objects, and the completion used to
+>>   synchronise with the DSP response.
+>>
+>>   Buffer arguments are identified by GEM handles. Userspace imports any
+>>   DMA-BUF fd to a GEM handle with DRM_IOCTL_PRIME_FD_TO_HANDLE before
+>>   invoking; the driver never accepts DMA-BUF fds directly. Each argument
+>>   is described by its GEM handle, the user virtual address of the data
+>>   and its length, from which the driver derives the offset within the
+>>   buffer and the page-aligned range to describe to the DSP. Packing
+>>   several arguments into one buffer, and any overlap handling, is left
+>>   to user space.
+>>
+>> qda_rpmsg.c
+>>   Implements qda_rpmsg_send_msg() which sends the wire-format
+>>   fastrpc_msg (embedded as the first member of qda_msg) directly via
+>>   rpmsg_send(), and qda_rpmsg_wait_for_rsp() which blocks on the context
+>>   completion. The RPMsg callback dispatches responses to waiting
+>>   contexts via the ctx_xa XArray.
+>>
+>> qda_ioctl.c
+>>   qda_ioctl_invoke() drives the full invocation lifecycle: it builds the
+>>   invocation context from the user-supplied arguments, packs the
+>>   arguments into the message buffer, sends the message to the DSP, waits
+>>   for the response, unpacks the output arguments back to user space and
+>>   releases the context.
+>>
+>> include/uapi/drm/qda_accel.h
+>>   Adds DRM_IOCTL_QDA_REMOTE_INVOKE with struct drm_qda_invoke_args and
+>>   the per-argument descriptor struct drm_qda_fastrpc_invoke_args.
+>>
+>> Assisted-by: Claude:claude-sonnet-5
+>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Drop the DMA-BUF fd argument path. Buffer arguments are now identified
+>>   by GEM handles only; user space is responsible for importing fds to
+>>   GEM handles before invoking (Dmitry Baryshkov)
+>> - Leave argument packing and overlap handling to user space rather than
+>>   supporting several buffer-passing formats in the driver
+>>   (Dmitry Baryshkov)
+>> ---
+>>  drivers/accel/qda/Makefile      |   1 +
+>>  drivers/accel/qda/qda_drv.c     |   8 +
+>>  drivers/accel/qda/qda_drv.h     |   8 +
+>>  drivers/accel/qda/qda_fastrpc.c | 434 ++++++++++++++++++++++++++++++++++++++++
+>>  drivers/accel/qda/qda_fastrpc.h | 242 ++++++++++++++++++++++
+>>  drivers/accel/qda/qda_ioctl.c   |  83 ++++++++
+>>  drivers/accel/qda/qda_ioctl.h   |   1 +
+>>  drivers/accel/qda/qda_rpmsg.c   |  91 ++++++++-
+>>  drivers/accel/qda/qda_rpmsg.h   |  26 +++
+>>  include/uapi/drm/qda_accel.h    |  42 ++++
+>>  10 files changed, 934 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/accel/qda/Makefile b/drivers/accel/qda/Makefile
+>> index fb092e56d7f3..2d10420cd1ec 100644
+>> --- a/drivers/accel/qda/Makefile
+>> +++ b/drivers/accel/qda/Makefile
+>> @@ -8,6 +8,7 @@ obj-$(CONFIG_DRM_ACCEL_QDA)	:= qda.o
+>>  qda-y := \
+>>  	qda_cb.o \
+>>  	qda_drv.o \
+>> +	qda_fastrpc.o \
+>>  	qda_gem.o \
+>>  	qda_ioctl.o \
+>>  	qda_memory_dma.o \
+>> diff --git a/drivers/accel/qda/qda_drv.c b/drivers/accel/qda/qda_drv.c
+>> index a68a07d0ae56..f925bbcfa6e9 100644
+>> --- a/drivers/accel/qda/qda_drv.c
+>> +++ b/drivers/accel/qda/qda_drv.c
+>> @@ -25,6 +25,8 @@ static int qda_open(struct drm_device *dev, struct drm_file *file)
+>>  
+>>  	qda_file_priv->pid = current->pid;
+>>  	qda_file_priv->qda_dev = qda_dev_from_drm(dev);
+>> +	qda_file_priv->remote_session_id =
+>> +		atomic_inc_return(&qda_file_priv->qda_dev->remote_session_id_counter);
+> 
+> What happens on the wraparound? What if some of those sessions are still
+> alive?
+collision would require 2^31 opens without close, is this reachable?
+Should I add a comment here? Or some how address this?>
+>>  	file->driver_priv = qda_file_priv;
+>>  
+>>  	return 0;
+> 
+> [...]
+> 
+>> +
+>> +/*
+>> + * The driver only accepts GEM handles from user space; userspace imports
+>> + * DMA-BUF fds with DRM_IOCTL_PRIME_FD_TO_HANDLE before issuing any ioctl that
+>> + * carries a buffer reference.
+> 
+> What else can it accept?
+will remove the obvious statement here>
+>> + *
+>> + * The caller owns the returned reference and must drop it with
+>> + * drm_gem_object_put().
+>> + */
+>> +static int get_gem_obj_from_handle(struct qda_fastrpc_invoke_ctx *ctx, u32 handle,
+>> +				   struct drm_gem_object **gem_obj)
+>> +{
+>> +	*gem_obj = drm_gem_object_lookup(ctx->file_priv, handle);
+>> +	if (!*gem_obj)
+>> +		return -ENOENT;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +static void setup_pages_from_gem_obj(struct qda_gem_obj *qda_gem_obj,
+>> +				     struct fastrpc_phy_page *pages)
+>> +{
+>> +	pages->addr = qda_gem_obj->dma_addr;
+>> +	pages->size = qda_gem_obj->size;
+>> +}
+>> +
+>> +static u64 calculate_vma_offset(u64 user_ptr)
+>> +{
+>> +	struct vm_area_struct *vma;
+>> +	u64 vma_offset = 0;
+>> +
+>> +	mmap_read_lock(current->mm);
+>> +	vma = find_vma(current->mm, user_ptr);
+>> +	if (vma)
+>> +		vma_offset = (user_ptr & PAGE_MASK) - vma->vm_start;
+>> +	mmap_read_unlock(current->mm);
+>> +
+>> +	return vma_offset;
+>> +}
+>> +
+>> +static u64 calculate_page_aligned_size(u64 ptr, u64 len)
+>> +{
+>> +	u64 pg_start = (ptr & PAGE_MASK) >> PAGE_SHIFT;
+>> +	u64 pg_end = ((ptr + len - 1) & PAGE_MASK) >> PAGE_SHIFT;
+>> +
+>> +	return (pg_end - pg_start + 1) * PAGE_SIZE;
+>> +}
+>> +
+>> +static struct fastrpc_invoke_buf *fastrpc_invoke_buf_start(union fastrpc_remote_arg *pra, int len)
+>> +{
+>> +	return (struct fastrpc_invoke_buf *)(&pra[len]);
+> 
+> Ugh. Is it not start + len * sizeof(union fastrpc_remote_arg)? Can't you
+> just write it at the caller site?
+ack>
+>> +}
+>> +
+>> +static struct fastrpc_phy_page *fastrpc_phy_page_start(struct fastrpc_invoke_buf *buf, int len)
+>> +{
+>> +	return (struct fastrpc_phy_page *)(&buf[len]);
+>> +}
+>> +
+>> +static size_t fastrpc_get_meta_size(struct qda_fastrpc_invoke_ctx *ctx)
+>> +{
+>> +	return (sizeof(struct fastrpc_remote_buf) +
+> 
+> Just one buffer?
+I'll add a comment explaining this formulation like it was in fastrpc[1].
 
-Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
----
- drivers/media/i2c/Kconfig  |   12 +
- drivers/media/i2c/Makefile |    1 +
- drivers/media/i2c/ar0234.c | 1294 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 1307 insertions(+)
- create mode 100644 drivers/media/i2c/ar0234.c
+[1]
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/drivers/misc/fastrpc.c#n982>
 
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbe..febab9857cd5 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -51,6 +51,18 @@ config VIDEO_ALVIUM_CSI2
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called alvium-csi2.
- 
-+config VIDEO_AR0234
-+	tristate "onsemi AR0234 sensor support"
-+	depends on ACPI || OF || COMPILE_TEST
-+	select V4L2_CCI_I2C
-+	select VIDEO_CCS_PLL
-+	help
-+	  This is a Video4Linux2 sensor driver for the onsemi
-+	  AR0234 camera.
-+
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called ar0234.
-+
- config VIDEO_AR0521
- 	tristate "ON Semiconductor AR0521 sensor support"
- 	help
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552..8310db5c63b5 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -19,6 +19,7 @@ obj-$(CONFIG_VIDEO_AK7375) += ak7375.o
- obj-$(CONFIG_VIDEO_AK881X) += ak881x.o
- obj-$(CONFIG_VIDEO_ALVIUM_CSI2) += alvium-csi2.o
- obj-$(CONFIG_VIDEO_APTINA_PLL) += aptina-pll.o
-+obj-$(CONFIG_VIDEO_AR0234) += ar0234.o
- obj-$(CONFIG_VIDEO_AR0521) += ar0521.o
- obj-$(CONFIG_VIDEO_BT819) += bt819.o
- obj-$(CONFIG_VIDEO_BT856) += bt856.o
-diff --git a/drivers/media/i2c/ar0234.c b/drivers/media/i2c/ar0234.c
-new file mode 100644
-index 000000000000..3b1a6b09b043
---- /dev/null
-+++ b/drivers/media/i2c/ar0234.c
-@@ -0,0 +1,1294 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for the onsemi AR0234 camera sensor
-+ *
-+ * Copyright (C) 2026 Alexander Shiyan <eagle.alexander923@gmail.com>
-+ *
-+ * Some parts of code taken from Raspberry Pi driver ar0234.c by:
-+ * Copyright (C) 2021, Raspberry Pi (Trading) Ltd
-+ * Copyright (C) 2025-2026, UAB Kurokesu
-+ * Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
-+ * Author: Danius Kalvaitis <danius@kurokesu.com>
-+ *
-+ * Some parts of code taken from imx290.c by:
-+ * Copyright (C) 2019 FRAMOS GmbH.
-+ * Copyright (C) 2019 Linaro Ltd.
-+ * Author: Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>
-+ */
-+
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regulator/consumer.h>
-+#include <media/mipi-csi2.h>
-+#include <media/v4l2-cci.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-fwnode.h>
-+#include <media/v4l2-subdev.h>
-+
-+#include "ccs-pll.h"
-+
-+#define AR0234_NATIVE_WIDTH				1940U
-+#define AR0234_NATIVE_HEIGHT				1220U
-+#define AR0234_PIXEL_ARRAY_LEFT				8U
-+#define AR0234_PIXEL_ARRAY_TOP				8U
-+#define AR0234_PIXEL_ARRAY_WIDTH			1920U
-+#define AR0234_PIXEL_ARRAY_HEIGHT			1200U
-+#define AR0234_MIN_CROP_WIDTH				4U
-+#define AR0234_MIN_CROP_HEIGHT				2U
-+#define AR0234_CROP_WIDTH_STEP				4U
-+#define AR0234_CROP_HEIGHT_STEP				2U
-+
-+#define AR0234_REG_CHIP_VERSION				CCI_REG16(0x3000)
-+#	define AR0234_CHIP_ID				0x0a56
-+#	define AR0234_CHIP_ID_MONO			0x1a56
-+#define AR0234_REG_Y_ADDR_START				CCI_REG16(0x3002)
-+#define AR0234_REG_X_ADDR_START				CCI_REG16(0x3004)
-+#define AR0234_REG_Y_ADDR_END				CCI_REG16(0x3006)
-+#define AR0234_REG_X_ADDR_END				CCI_REG16(0x3008)
-+#define AR0234_REG_FRAME_LENGTH_LINES			CCI_REG16(0x300a)
-+#	define AR0234_FRAME_LENGTH_LINES_MIN		16
-+#	define AR0234_VBLANK_MIN			\
-+		(AR0234_FRAME_LENGTH_LINES_MIN + 5)
-+#	define AR0234_VBLANK_MAX			0xf000
-+#define AR0234_REG_LINE_LENGTH_PCK			CCI_REG16(0x300c)
-+#	define AR0234_LINE_LENGTH_PCK_MIN		612
-+#	define AR0234_HBLANK_MIN			\
-+		((AR0234_LINE_LENGTH_PCK_MIN - AR0234_PIXEL_ARRAY_WIDTH / 4) * 4)
-+#	define AR0234_HBLANK_MAX			0xf000
-+#define AR0234_REG_REVISION_NUMBER			CCI_REG16(0x300e)
-+#define AR0234_REG_COARSE_INTEGRATION_TIME		CCI_REG16(0x3012)
-+#	define AR0234_EXPOSURE_MIN			2
-+#	define AR0234_EXPOSURE_STEP			1
-+#define AR0234_REG_FINE_INTEGRATION_TIME		CCI_REG16(0x3014)
-+#define AR0234_REG_RESET				CCI_REG16(0x301a)
-+#define AR0234_REG_MODE_SELECT				CCI_REG8(0x301c)
-+#define AR0234_REG_IMAGE_ORIENTATION			CCI_REG8(0x301d)
-+#define AR0234_REG_DATA_PEDESTAL			CCI_REG16(0x301e)
-+#	define AR0234_DATA_PEDESTAL_MIN			0x0000
-+#	define AR0234_DATA_PEDESTAL_MAX			0x03ff
-+#	define AR0234_DATA_PEDESTAL_DEFAULT		0x002a
-+#define AR0234_REG_GROUPED_PARAMETER_HOLD		CCI_REG8(0x3022)
-+#define AR0234_REG_VT_PIX_CLK_DIV			CCI_REG16(0x302a)
-+#define AR0234_REG_VT_SYS_CLK_DIV			CCI_REG16(0x302c)
-+#define AR0234_REG_PRE_PLL_CLK_DIV			CCI_REG16(0x302e)
-+#define AR0234_REG_PLL_MULTIPLIER			CCI_REG16(0x3030)
-+#define AR0234_REG_OP_PIX_CLK_DIV			CCI_REG16(0x3036)
-+#define AR0234_REG_OP_SYS_CLK_DIV			CCI_REG16(0x3038)
-+#define AR0234_REG_BLUE_GAIN				CCI_REG16(0x3058)
-+#define AR0234_REG_RED_GAIN				CCI_REG16(0x305a)
-+#define AR0234_REG_GLOBAL_GAIN				CCI_REG16(0x305e)
-+#	define AR0234_GAIN_MIN				0x0080
-+#	define AR0234_GAIN_MAX				0x07ff
-+#	define AR0234_GAIN_DEFAULT			0x0080
-+#define AR0234_REG_ANALOG_GAIN				CCI_REG16(0x3060)
-+#	define AR0234_ANA_GAIN_MIN			0x0d
-+#	define AR0234_ANA_GAIN_MAX			0x40
-+#	define AR0234_ANA_GAIN_DEFAULT			0x0e
-+#define AR0234_REG_TEST_PATTERN_MODE			CCI_REG16(0x3070)
-+#	define AR0234_TEST_PATTERN_DISABLED		0
-+#	define AR0234_TEST_PATTERN_SOLID_COLOR		1
-+#	define AR0234_TEST_PATTERN_VERTICAL_COLOR_BARS	2
-+#	define AR0234_TEST_PATTERN_FADE_TO_GREY		3
-+#	define AR0234_TEST_PATTERN_WALKING_1S		256
-+#define AR0234_REG_TEST_DATA_RED			CCI_REG16(0x3072)
-+#define AR0234_REG_TEST_DATA_GREENR			CCI_REG16(0x3074)
-+#define AR0234_REG_TEST_DATA_BLUE			CCI_REG16(0x3076)
-+#define AR0234_REG_TEST_DATA_GREENB			CCI_REG16(0x3078)
-+#	define AR0234_TESTP_COLOUR_MIN			0
-+#	define AR0234_TESTP_COLOUR_MAX			0x3ff
-+#	define AR0234_TESTP_COLOUR_STEP			1
-+#define AR0234_REG_DIGITAL_TEST				CCI_REG16(0x30b0)
-+#	define DIGITAL_TEST_MONO_CHROME_OPERATION	BIT(7)
-+#define AR0234_REG_MFR_30BA				CCI_REG16(0x30ba)
-+#	define AR0234_MFR_30BA_GAIN_BITS(x)		(0x7620 | (x))
-+#define AR0234_REG_DATA_FORMAT_BITS			CCI_REG16(0x31ac)
-+#	define DATA_FORMAT_BITS(x, y)			(((x) << 8) | (y))
-+#define AR0234_REG_SERIAL_FORMAT			CCI_REG16(0x31ae)
-+#	define DATA_FORMAT_LANES(x)			(0x200 | (x))
-+#define AR0234_REG_COMPANDING				CCI_REG16(0x31d0)
-+#	define COMPANDING_DPCM_EN			BIT(0)
-+#define AR0234_REG_MIPI_CNTRL				CCI_REG16(0x3354)
-+
-+static const struct cci_reg_sequence ar0234_common_init[] = {
-+	{ AR0234_REG_FINE_INTEGRATION_TIME, 0x0000 },
-+	{ AR0234_REG_DIGITAL_TEST, 0x0028 },
-+};
-+
-+static const char *const ar0234_test_pattern_menu[] = {
-+	"Disabled",
-+	"Solid Color",
-+	"Vertical Color Bars",
-+	"Fade to Grey Vertical Color Bars",
-+	"Walking 1s",
-+};
-+
-+static const unsigned int ar0234_test_pattern_val[] = {
-+	AR0234_TEST_PATTERN_DISABLED,
-+	AR0234_TEST_PATTERN_SOLID_COLOR,
-+	AR0234_TEST_PATTERN_VERTICAL_COLOR_BARS,
-+	AR0234_TEST_PATTERN_FADE_TO_GREY,
-+	AR0234_TEST_PATTERN_WALKING_1S,
-+};
-+
-+static const char *const ar0234_supply_names[] = {
-+	"vaa",
-+	"vdd",
-+	"vddio",
-+};
-+
-+enum ar0234_colour_model {
-+	AR0234_MODEL_MONO,
-+	AR0234_MODEL_COLOUR,
-+	AR0234_MODEL_MAX
-+};
-+
-+static const enum ar0234_colour_model ar0234_model_mono = AR0234_MODEL_MONO;
-+static const enum ar0234_colour_model ar0234_model_colour = AR0234_MODEL_COLOUR;
-+
-+enum ar0234_link_freq_index {
-+	AR0234_LINK_FREQ_IDX_BPP_8,
-+	AR0234_LINK_FREQ_IDX_BPP_10,
-+	AR0234_LINK_FREQ_IDX_MAX
-+};
-+
-+struct ar0234_mode {
-+	u8 bpp_in;
-+	u8 bpp_out;
-+	u8 dpcm;
-+	u8 mipi_dt;
-+	int link_freq_index;
-+	u32 code[AR0234_MODEL_MAX];
-+};
-+
-+static const struct ar0234_mode ar0234_modes[] = {
-+	{
-+		.bpp_in = 8,
-+		.bpp_out = 8,
-+		.dpcm = 0,
-+		.mipi_dt = MIPI_CSI2_DT_RAW8,
-+		.link_freq_index = AR0234_LINK_FREQ_IDX_BPP_8,
-+		.code = {
-+			[AR0234_MODEL_MONO] = MEDIA_BUS_FMT_Y8_1X8,
-+			[AR0234_MODEL_COLOUR] = MEDIA_BUS_FMT_SGRBG8_1X8,
-+		},
-+	},
-+	{
-+		.bpp_in = 10,
-+		.bpp_out = 10,
-+		.dpcm = 0,
-+		.mipi_dt = MIPI_CSI2_DT_RAW10,
-+		.link_freq_index = AR0234_LINK_FREQ_IDX_BPP_10,
-+		.code = {
-+			[AR0234_MODEL_MONO] = MEDIA_BUS_FMT_Y10_1X10,
-+			[AR0234_MODEL_COLOUR] = MEDIA_BUS_FMT_SGRBG10_1X10,
-+		},
-+	},
-+	{
-+		.bpp_in = 10,
-+		.bpp_out = 8,
-+		.dpcm = COMPANDING_DPCM_EN,
-+		.mipi_dt = MIPI_CSI2_DT_RAW8,
-+		.link_freq_index = AR0234_LINK_FREQ_IDX_BPP_8,
-+		.code = {
-+			[AR0234_MODEL_COLOUR] = MEDIA_BUS_FMT_SGRBG10_DPCM8_1X8,
-+		},
-+	},
-+};
-+
-+struct ar0234 {
-+	struct clk *clk;
-+	struct regmap *regmap;
-+
-+	struct v4l2_subdev sd;
-+	struct media_pad pad;
-+
-+	struct regulator_bulk_data supplies[ARRAY_SIZE(ar0234_supply_names)];
-+	struct gpio_desc *reset;
-+
-+	struct v4l2_fwnode_endpoint ep_cfg;
-+
-+	u64 link_freqs[AR0234_LINK_FREQ_IDX_MAX];
-+
-+	enum ar0234_colour_model model;
-+
-+	struct ccs_pll pll;
-+
-+	struct v4l2_ctrl_handler ctrls;
-+
-+	struct v4l2_ctrl *pixel_rate;
-+	struct v4l2_ctrl *link_freq;
-+	struct v4l2_ctrl *hblank;
-+	struct v4l2_ctrl *vblank;
-+	struct v4l2_ctrl *exposure;
-+	struct {
-+		struct v4l2_ctrl *hflip;
-+		struct v4l2_ctrl *vflip;
-+	};
-+};
-+
-+static inline struct ar0234 *to_ar0234(struct v4l2_subdev *_sd)
-+{
-+	return container_of(_sd, struct ar0234, sd);
-+}
-+
-+static const struct ccs_pll_limits ar0234_pll_limits = {
-+	.min_ext_clk_freq_hz = 6000000,
-+	.max_ext_clk_freq_hz = 54000000,
-+	.vt_fr = {
-+		.min_pre_pll_clk_div = 1,
-+		.max_pre_pll_clk_div = 63,
-+		.min_pll_ip_clk_freq_hz = 6000000,
-+		.max_pll_ip_clk_freq_hz = 12000000,
-+		.min_pll_multiplier = 2,
-+		.max_pll_multiplier = 254,
-+		.min_pll_op_clk_freq_hz = 384000000,
-+		.max_pll_op_clk_freq_hz = 768000000,
-+	},
-+	.vt_bk = {
-+		.min_sys_clk_div = 1,
-+		.max_sys_clk_div = 31,
-+		.min_sys_clk_freq_hz = 6000000,
-+		.max_sys_clk_freq_hz = 768000000,
-+		.min_pix_clk_div = 1,
-+		.max_pix_clk_div = 31,
-+		.min_pix_clk_freq_hz = 6000000,
-+		.max_pix_clk_freq_hz = 90000000,
-+	},
-+	.op_bk = {
-+		.min_sys_clk_div = 1,
-+		.max_sys_clk_div = 31,
-+		.min_sys_clk_freq_hz = 6000000,
-+		.max_sys_clk_freq_hz = 768000000,
-+		.min_pix_clk_div = 1,
-+		.max_pix_clk_div = 31,
-+		.min_pix_clk_freq_hz = 6000000,
-+		.max_pix_clk_freq_hz = 90000000,
-+	},
-+};
-+
-+static int ar0234_calculate_pll(struct ar0234 *ar0234,
-+				const struct ar0234_mode *mode)
-+{
-+	unsigned int num_lanes = ar0234->ep_cfg.bus.mipi_csi2.num_data_lanes;
-+	struct ccs_pll pll = { 0 };
-+	int ret;
-+
-+	pll.bus_type = CCS_PLL_BUS_TYPE_CSI2_DPHY;
-+	pll.op_lanes = num_lanes;
-+	pll.vt_lanes = 1;
-+	pll.csi2.lanes = num_lanes;
-+	pll.binning_horizontal = 1;
-+	pll.binning_vertical = 1;
-+	pll.scale_m = 1;
-+	pll.scale_n = 1;
-+	pll.bits_per_pixel = mode->bpp_out;
-+	pll.flags = CCS_PLL_FLAG_LANE_SPEED_MODEL |
-+		    CCS_PLL_FLAG_EVEN_PLL_MULTIPLIER |
-+		    CCS_PLL_FLAG_FIFO_DERATING |
-+		    CCS_PLL_FLAG_FIFO_OVERRATING |
-+		    CCS_PLL_FLAG_EXT_IP_PLL_DIVIDER;
-+	pll.link_freq = ar0234->link_freqs[mode->link_freq_index] / 2;
-+	pll.ext_clk_freq_hz = clk_get_rate(ar0234->clk);
-+
-+	ret = ccs_pll_calculate(ar0234->sd.dev, &ar0234_pll_limits, &pll);
-+	if (!ret)
-+		ar0234->pll = pll;
-+
-+	return ret;
-+}
-+
-+static u8 ar0234_mfr_30ba_bits(u32 pixel_rate, u8 val)
-+{
-+	if (pixel_rate <= 22500000)
-+		return 6;
-+
-+	if (pixel_rate <= 45000000)
-+		return (val <= 0x34) ? 6 : 0;
-+
-+	return (((val >> 4) & 0x7) < 2) ? 2 : (val <= 0x38) ? 1 : 0;
-+}
-+
-+static int ar0234_set_mfr_30ba(struct ar0234 *ar0234, u32 val)
-+{
-+	u8 bits = ar0234_mfr_30ba_bits(ar0234->pll.pixel_rate_pixel_array, val);
-+	u16 mfr_30ba = AR0234_MFR_30BA_GAIN_BITS(bits);
-+
-+	return cci_write(ar0234->regmap, AR0234_REG_MFR_30BA, mfr_30ba, NULL);
-+}
-+
-+static int ar0234_set_analog_gain(struct ar0234 *ar0234, u32 val)
-+{
-+	int ret;
-+
-+	ret = cci_write(ar0234->regmap, AR0234_REG_GROUPED_PARAMETER_HOLD,
-+			1, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = ar0234_set_mfr_30ba(ar0234, val);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_ANALOG_GAIN, val, &ret);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_GROUPED_PARAMETER_HOLD, 0, NULL);
-+
-+	return ret;
-+}
-+
-+static void ar0234_update_exposure_limits(struct ar0234 *ar0234)
-+{
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_rect *crop;
-+	int exposure_max, exposure_val;
-+
-+	state = v4l2_subdev_get_locked_active_state(&ar0234->sd);
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+
-+	exposure_max = crop->height + ar0234->vblank->val - 1;
-+	exposure_val = clamp(ar0234->exposure->val, AR0234_EXPOSURE_MIN,
-+			     exposure_max);
-+	__v4l2_ctrl_modify_range(ar0234->exposure, AR0234_EXPOSURE_MIN,
-+				 exposure_max, AR0234_EXPOSURE_STEP,
-+				 exposure_val);
-+}
-+
-+static const struct ar0234_mode *ar0234_mode_from_code(struct ar0234 *ar0234,
-+						       u32 code, bool notempty)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < ARRAY_SIZE(ar0234_modes); i++) {
-+		if (!ar0234_modes[i].code[ar0234->model])
-+			continue;
-+
-+		if (ar0234_modes[i].code[ar0234->model] == code)
-+			return &ar0234_modes[i];
-+	}
-+
-+	return notempty ? &ar0234_modes[0] : NULL;
-+}
-+
-+static int ar0234_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct ar0234 *ar0234 = container_of(ctrl->handler,
-+					     struct ar0234, ctrls);
-+	struct v4l2_subdev *sd = &ar0234->sd;
-+	struct v4l2_subdev_state *state;
-+	struct v4l2_rect *crop;
-+	int ret = 0;
-+
-+	if (ctrl->flags & V4L2_CTRL_FLAG_READ_ONLY)
-+		return 0;
-+
-+	state = v4l2_subdev_get_locked_active_state(sd);
-+	crop = v4l2_subdev_state_get_crop(state, 0);
-+
-+	if (ctrl->id == V4L2_CID_VBLANK)
-+		ar0234_update_exposure_limits(ar0234);
-+
-+	if (v4l2_subdev_is_streaming(sd)) {
-+		switch (ctrl->id) {
-+		case V4L2_CID_HFLIP:
-+		case V4L2_CID_VFLIP:
-+			return -EBUSY;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	if (pm_runtime_get_if_active(sd->dev) <= 0)
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_HBLANK:
-+		cci_write(ar0234->regmap, AR0234_REG_LINE_LENGTH_PCK,
-+			  (crop->width + ctrl->val) / 4, &ret);
-+		break;
-+	case V4L2_CID_VBLANK:
-+		cci_write(ar0234->regmap, AR0234_REG_FRAME_LENGTH_LINES,
-+			  crop->height + ctrl->val - 5, &ret);
-+		if (ret)
-+			break;
-+		ctrl = ar0234->exposure;
-+		fallthrough;
-+	case V4L2_CID_EXPOSURE:
-+		cci_write(ar0234->regmap, AR0234_REG_COARSE_INTEGRATION_TIME,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_ANALOGUE_GAIN:
-+		ret = ar0234_set_analog_gain(ar0234, ctrl->val);
-+		break;
-+	case V4L2_CID_HFLIP:
-+	case V4L2_CID_VFLIP:
-+		cci_write(ar0234->regmap, AR0234_REG_IMAGE_ORIENTATION,
-+			  (ar0234->vflip->val << 1) | ar0234->hflip->val, &ret);
-+		break;
-+	case V4L2_CID_BLUE_BALANCE:
-+		cci_write(ar0234->regmap, AR0234_REG_BLUE_GAIN,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_RED_BALANCE:
-+		cci_write(ar0234->regmap, AR0234_REG_RED_GAIN,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_DIGITAL_GAIN:
-+		cci_write(ar0234->regmap, AR0234_REG_GLOBAL_GAIN,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_BRIGHTNESS:
-+		cci_write(ar0234->regmap, AR0234_REG_DATA_PEDESTAL,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN:
-+		cci_write(ar0234->regmap, AR0234_REG_TEST_PATTERN_MODE,
-+			  ar0234_test_pattern_val[ctrl->val], &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN_RED:
-+		cci_write(ar0234->regmap, AR0234_REG_TEST_DATA_RED,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN_GREENR:
-+		cci_write(ar0234->regmap, AR0234_REG_TEST_DATA_GREENR,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN_BLUE:
-+		cci_write(ar0234->regmap, AR0234_REG_TEST_DATA_BLUE,
-+			  ctrl->val, &ret);
-+		break;
-+	case V4L2_CID_TEST_PATTERN_GREENB:
-+		cci_write(ar0234->regmap, AR0234_REG_TEST_DATA_GREENB,
-+			  ctrl->val, &ret);
-+		break;
-+	default:
-+		dev_err(sd->dev, "Invalid control %d\n", ctrl->id);
-+		ret = -EINVAL;
-+		break;
-+	}
-+
-+	pm_runtime_put_autosuspend(sd->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops ar0234_ctrl_ops = {
-+	.s_ctrl = ar0234_set_ctrl,
-+};
-+
-+static int ar0234_enum_mbus_code(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+
-+	if (code->index >= ARRAY_SIZE(ar0234_modes))
-+		return -EINVAL;
-+
-+	if (!ar0234_modes[code->index].code[ar0234->model])
-+		return -EINVAL;
-+
-+	code->code = ar0234_modes[code->index].code[ar0234->model];
-+
-+	return 0;
-+}
-+
-+static int ar0234_enum_frame_size(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state,
-+				  struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+
-+	if (fse->index)
-+		return -EINVAL;
-+
-+	if (!ar0234_mode_from_code(ar0234, fse->code, false))
-+		return -EINVAL;
-+
-+	fse->min_width = AR0234_PIXEL_ARRAY_WIDTH;
-+	fse->max_width = fse->min_width;
-+	fse->min_height = AR0234_PIXEL_ARRAY_HEIGHT;
-+	fse->max_height = fse->min_height;
-+
-+	return 0;
-+}
-+
-+static void ar0234_set_link_limits(struct ar0234 *ar0234,
-+				   const struct ar0234_mode *mode)
-+{
-+	u64 pixel_rate = ar0234->link_freqs[mode->link_freq_index] * 2;
-+
-+	pixel_rate *= ar0234->ep_cfg.bus.mipi_csi2.num_data_lanes;
-+	do_div(pixel_rate, mode->bpp_out);
-+
-+	__v4l2_ctrl_s_ctrl_int64(ar0234->pixel_rate, pixel_rate);
-+
-+	__v4l2_ctrl_s_ctrl(ar0234->link_freq, mode->link_freq_index);
-+}
-+
-+static void ar0234_set_framing_limits(struct ar0234 *ar0234, u32 width)
-+{
-+	int hblank =
-+		max(AR0234_LINE_LENGTH_PCK_MIN * 4 - width, AR0234_HBLANK_MIN);
-+
-+	ar0234_update_exposure_limits(ar0234);
-+
-+	__v4l2_ctrl_modify_range(ar0234->hblank, AR0234_HBLANK_MIN,
-+				 AR0234_HBLANK_MAX, 4, hblank);
-+}
-+
-+static int ar0234_set_pad_format(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_format *fmt)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	struct v4l2_mbus_framefmt format;
-+	struct ar0234_mode const *mode;
-+	struct v4l2_rect *crop;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	mode = ar0234_mode_from_code(ar0234, fmt->format.code, true);
-+
-+	crop = v4l2_subdev_state_get_crop(state, fmt->pad);
-+
-+	format = fmt->format;
-+	format.width = crop->width;
-+	format.height = crop->height;
-+	format.code = mode->code[ar0234->model];
-+	format.field = V4L2_FIELD_NONE;
-+	format.colorspace = V4L2_COLORSPACE_RAW;
-+	format.ycbcr_enc = V4L2_YCBCR_ENC_DEFAULT;
-+	format.quantization = V4L2_QUANTIZATION_DEFAULT;
-+	format.xfer_func = V4L2_XFER_FUNC_NONE;
-+
-+	if (fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
-+		if (ar0234_calculate_pll(ar0234, mode))
-+			return -EINVAL;
-+
-+		ar0234_set_link_limits(ar0234, mode);
-+		ar0234_set_framing_limits(ar0234, crop->width);
-+	}
-+
-+	*v4l2_subdev_state_get_format(state, fmt->pad) = format;
-+	fmt->format = format;
-+
-+	return 0;
-+}
-+
-+static int ar0234_get_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	switch (sel->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sel->r = *v4l2_subdev_state_get_crop(state, sel->pad);
-+		break;
-+	case V4L2_SEL_TGT_CROP_DEFAULT:
-+	case V4L2_SEL_TGT_CROP_BOUNDS:
-+		sel->r.left = AR0234_PIXEL_ARRAY_LEFT;
-+		sel->r.top = AR0234_PIXEL_ARRAY_TOP;
-+		sel->r.width = AR0234_PIXEL_ARRAY_WIDTH;
-+		sel->r.height = AR0234_PIXEL_ARRAY_HEIGHT;
-+		break;
-+	case V4L2_SEL_TGT_NATIVE_SIZE:
-+		sel->r.top = 0;
-+		sel->r.left = 0;
-+		sel->r.width = AR0234_NATIVE_WIDTH;
-+		sel->r.height = AR0234_NATIVE_HEIGHT;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ar0234_set_selection(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_selection *sel)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	struct v4l2_rect *crop;
-+	struct v4l2_rect rect;
-+	u32 max_left, max_top;
-+
-+	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE &&
-+	    v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	if (sel->target != V4L2_SEL_TGT_CROP)
-+		return -EINVAL;
-+
-+	/* Align to sensor's cropping granularity */
-+	rect.left = round_up(sel->r.left, AR0234_CROP_WIDTH_STEP);
-+	rect.top = round_up(sel->r.top, AR0234_CROP_HEIGHT_STEP);
-+	rect.width = round_down(sel->r.width, AR0234_CROP_WIDTH_STEP);
-+	rect.height = round_down(sel->r.height, AR0234_CROP_HEIGHT_STEP);
-+
-+	/* First, clamp width/height to the array maximum */
-+	rect.width = min(rect.width, AR0234_PIXEL_ARRAY_WIDTH);
-+	rect.height = min(rect.height, AR0234_PIXEL_ARRAY_HEIGHT);
-+
-+	/*
-+	 * Adjust left/top so that the rectangle always stays inside the
-+	 * active pixel array and leaves at least the minimum crop size.
-+	 * Compute the maximum allowed left/top that still leaves room for
-+	 * the (possibly already reduced) width/height, but no less than
-+	 * the minimum crop size.
-+	 */
-+	max_left = AR0234_PIXEL_ARRAY_LEFT + AR0234_PIXEL_ARRAY_WIDTH -
-+		   max(rect.width, AR0234_MIN_CROP_WIDTH);
-+	max_top = AR0234_PIXEL_ARRAY_TOP + AR0234_PIXEL_ARRAY_HEIGHT -
-+		  max(rect.height, AR0234_MIN_CROP_HEIGHT);
-+
-+	rect.left = clamp_t(u32, rect.left, AR0234_PIXEL_ARRAY_LEFT, max_left);
-+	rect.top = clamp_t(u32, rect.top, AR0234_PIXEL_ARRAY_TOP, max_top);
-+
-+	/*
-+	 * Now recalculate width/height as the remaining space. This value
-+	 * is guaranteed to be >= AR0234_MIN_CROP_WIDTH/HEIGHT because we
-+	 * clamped left/top using the max() of the current size and the min.
-+	 */
-+	rect.width = min(rect.width, AR0234_PIXEL_ARRAY_LEFT +
-+			 AR0234_PIXEL_ARRAY_WIDTH - rect.left);
-+	rect.height = min(rect.height, AR0234_PIXEL_ARRAY_TOP +
-+			  AR0234_PIXEL_ARRAY_HEIGHT - rect.top);
-+
-+	crop = v4l2_subdev_state_get_crop(state, sel->pad);
-+
-+	if (rect.width != crop->width || rect.height != crop->height) {
-+		struct v4l2_mbus_framefmt *format;
-+
-+		format = v4l2_subdev_state_get_format(state, sel->pad);
-+		format->width = rect.width;
-+		format->height = rect.height;
-+	}
-+
-+	*crop = rect;
-+	sel->r = rect;
-+
-+	if (sel->which == V4L2_SUBDEV_FORMAT_ACTIVE)
-+		ar0234_set_framing_limits(ar0234, crop->width);
-+
-+	return 0;
-+}
-+
-+static int ar0234_init_state(struct v4l2_subdev *sd,
-+			     struct v4l2_subdev_state *state)
-+{
-+	struct v4l2_subdev_selection sel = {
-+		.target = V4L2_SEL_TGT_CROP,
-+		.which = V4L2_SUBDEV_FORMAT_TRY,
-+		.r.left = AR0234_PIXEL_ARRAY_LEFT,
-+		.r.top = AR0234_PIXEL_ARRAY_TOP,
-+		.r.width = AR0234_PIXEL_ARRAY_WIDTH,
-+		.r.height = AR0234_PIXEL_ARRAY_HEIGHT,
-+	};
-+	struct v4l2_subdev_format format = {
-+		.which = V4L2_SUBDEV_FORMAT_TRY,
-+		.format = {
-+			.width = AR0234_PIXEL_ARRAY_WIDTH,
-+			.height = AR0234_PIXEL_ARRAY_HEIGHT,
-+		},
-+	};
-+
-+	ar0234_set_selection(sd, state, &sel);
-+	ar0234_set_pad_format(sd, state, &format);
-+
-+	return 0;
-+}
-+
-+static int ar0234_enable_streams(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state, u32 pad,
-+				 u64 streams_mask)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	const struct v4l2_mbus_framefmt *fmt;
-+	const struct ar0234_mode *mode;
-+	const struct v4l2_rect *crop;
-+	int x_addr_start, x_addr_end, y_addr_start, y_addr_end, ret;
-+
-+	if (streams_mask != 1)
-+		return -EINVAL;
-+
-+	crop = v4l2_subdev_state_get_crop(state, pad);
-+	fmt = v4l2_subdev_state_get_format(state, pad);
-+	mode = ar0234_mode_from_code(ar0234, fmt->code, true);
-+
-+	ret = pm_runtime_resume_and_get(sd->dev);
-+	if (ret)
-+		return ret;
-+
-+	cci_write(ar0234->regmap, AR0234_REG_PRE_PLL_CLK_DIV,
-+		  ar0234->pll.vt_fr.pre_pll_clk_div, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_PLL_MULTIPLIER,
-+		  ar0234->pll.vt_fr.pll_multiplier, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_VT_SYS_CLK_DIV,
-+		  ar0234->pll.vt_bk.sys_clk_div, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_VT_PIX_CLK_DIV,
-+		  ar0234->pll.vt_bk.pix_clk_div, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_OP_SYS_CLK_DIV,
-+		  ar0234->pll.op_bk.sys_clk_div, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_OP_PIX_CLK_DIV,
-+		  ar0234->pll.op_bk.pix_clk_div, &ret);
-+
-+	cci_multi_reg_write(ar0234->regmap, ar0234_common_init,
-+			    ARRAY_SIZE(ar0234_common_init), &ret);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_COMPANDING, mode->dpcm, &ret);
-+
-+	cci_update_bits(ar0234->regmap, AR0234_REG_DIGITAL_TEST,
-+			DIGITAL_TEST_MONO_CHROME_OPERATION,
-+			ar0234->model == AR0234_MODEL_MONO ?
-+			DIGITAL_TEST_MONO_CHROME_OPERATION : 0, &ret);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_DATA_FORMAT_BITS,
-+		  DATA_FORMAT_BITS(mode->bpp_in, mode->bpp_out), &ret);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_SERIAL_FORMAT,
-+		  DATA_FORMAT_LANES(ar0234->ep_cfg.bus.mipi_csi2.num_data_lanes),
-+		  &ret);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_MIPI_CNTRL, mode->mipi_dt, &ret);
-+
-+	x_addr_start = crop->left;
-+	y_addr_start = crop->top;
-+	x_addr_end = crop->left + crop->width - 1;
-+	y_addr_end = crop->top + crop->height - 1;
-+
-+	cci_write(ar0234->regmap, AR0234_REG_X_ADDR_START, x_addr_start, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_Y_ADDR_START, y_addr_start, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_X_ADDR_END, x_addr_end, &ret);
-+	cci_write(ar0234->regmap, AR0234_REG_Y_ADDR_END, y_addr_end, &ret);
-+
-+	if (ret)
-+		goto start_err;
-+
-+	ret = __v4l2_ctrl_handler_setup(ar0234->sd.ctrl_handler);
-+
-+	cci_write(ar0234->regmap, AR0234_REG_MODE_SELECT, 1, &ret);
-+	if (!ret)
-+		return 0;
-+
-+start_err:
-+	pm_runtime_put_autosuspend(sd->dev);
-+
-+	dev_err(sd->dev, "Failed to setup sensor\n");
-+
-+	return ret;
-+}
-+
-+static int ar0234_disable_streams(struct v4l2_subdev *sd,
-+				  struct v4l2_subdev_state *state, u32 pad,
-+				  u64 streams_mask)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	int ret;
-+
-+	if (streams_mask != 1)
-+		return -EINVAL;
-+
-+	ret = cci_write(ar0234->regmap, AR0234_REG_MODE_SELECT, 0, NULL);
-+
-+	pm_runtime_put_autosuspend(sd->dev);
-+
-+	return ret;
-+}
-+
-+static int ar0234_g_mbus_config(struct v4l2_subdev *sd, unsigned int pad,
-+				struct v4l2_mbus_config *config)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+
-+	config->type = V4L2_MBUS_CSI2_DPHY;
-+	config->bus.mipi_csi2 = ar0234->ep_cfg.bus.mipi_csi2;
-+
-+	return 0;
-+}
-+
-+static int ar0234_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-+				 struct v4l2_mbus_frame_desc *fd)
-+{
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	const struct v4l2_mbus_framefmt *fmt;
-+	struct v4l2_subdev_state *state;
-+	const struct ar0234_mode *mode;
-+	u32 code;
-+
-+	state = v4l2_subdev_lock_and_get_active_state(&ar0234->sd);
-+	fmt = v4l2_subdev_state_get_format(state, pad);
-+	if (!fmt)
-+		return -EINVAL;
-+
-+	code = fmt->code;
-+	v4l2_subdev_unlock_state(state);
-+
-+	mode = ar0234_mode_from_code(ar0234, code, true);
-+
-+	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
-+	fd->num_entries = 1;
-+
-+	memset(fd->entry, 0, sizeof(fd->entry));
-+
-+	fd->entry[0].pixelcode = mode->code[ar0234->model];
-+	fd->entry[0].bus.csi2.dt = mode->mipi_dt;
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_video_ops ar0234_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_pad_ops ar0234_pad_ops = {
-+	.enum_mbus_code = ar0234_enum_mbus_code,
-+	.enum_frame_size = ar0234_enum_frame_size,
-+	.get_fmt = v4l2_subdev_get_fmt,
-+	.set_fmt = ar0234_set_pad_format,
-+	.get_selection = ar0234_get_selection,
-+	.set_selection = ar0234_set_selection,
-+	.enable_streams = ar0234_enable_streams,
-+	.disable_streams = ar0234_disable_streams,
-+	.get_mbus_config = ar0234_g_mbus_config,
-+	.get_frame_desc = ar0234_get_frame_desc,
-+};
-+
-+static const struct v4l2_subdev_ops ar0234_subdev_ops = {
-+	.video = &ar0234_video_ops,
-+	.pad = &ar0234_pad_ops,
-+};
-+
-+static const struct v4l2_subdev_internal_ops ar0234_internal_ops = {
-+	.init_state = ar0234_init_state,
-+};
-+
-+static const struct media_entity_operations ar0234_subdev_entity_ops = {
-+	.link_validate = v4l2_subdev_link_validate,
-+};
-+
-+static int ar0234_ctrls_init(struct ar0234 *ar0234)
-+{
-+	struct v4l2_fwnode_device_properties props;
-+	unsigned int i;
-+	int ret;
-+
-+	ret = v4l2_ctrl_handler_init(&ar0234->ctrls, 17 + 2);
-+	if (ret)
-+		return ret;
-+
-+	ar0234->pixel_rate = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					       V4L2_CID_PIXEL_RATE, 1,
-+					       INT_MAX, 1, 1);
-+
-+	ar0234->link_freq =
-+		v4l2_ctrl_new_int_menu(&ar0234->ctrls, &ar0234_ctrl_ops,
-+				       V4L2_CID_LINK_FREQ,
-+				       AR0234_LINK_FREQ_IDX_MAX - 1, 0,
-+				       ar0234->link_freqs);
-+	if (ar0234->link_freq)
-+		ar0234->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-+
-+	ar0234->hblank = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					   V4L2_CID_HBLANK, AR0234_HBLANK_MIN,
-+					   AR0234_HBLANK_MAX, 4,
-+					   AR0234_HBLANK_MIN);
-+
-+	ar0234->vblank = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					   V4L2_CID_VBLANK, AR0234_VBLANK_MIN,
-+					   AR0234_VBLANK_MAX, 1,
-+					   AR0234_VBLANK_MIN);
-+
-+	ar0234->exposure = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					     V4L2_CID_EXPOSURE,
-+					     AR0234_EXPOSURE_MIN, U16_MAX,
-+					     AR0234_EXPOSURE_STEP, 200);
-+
-+	v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+			  V4L2_CID_ANALOGUE_GAIN, AR0234_ANA_GAIN_MIN,
-+			  AR0234_ANA_GAIN_MAX, 1, AR0234_ANA_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops, V4L2_CID_BRIGHTNESS,
-+			  AR0234_DATA_PEDESTAL_MIN, AR0234_DATA_PEDESTAL_MAX, 1,
-+			  AR0234_DATA_PEDESTAL_DEFAULT);
-+
-+	ar0234->hflip = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					  V4L2_CID_HFLIP, 0, 1, 1, 0);
-+	ar0234->vflip = v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					  V4L2_CID_VFLIP, 0, 1, 1, 0);
-+	v4l2_ctrl_cluster(2, &ar0234->hflip);
-+
-+	v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+			  V4L2_CID_BLUE_BALANCE, AR0234_GAIN_MIN,
-+			  AR0234_GAIN_MAX, 1, AR0234_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+			  V4L2_CID_RED_BALANCE, AR0234_GAIN_MIN,
-+			  AR0234_GAIN_MAX, 1, AR0234_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+			  V4L2_CID_DIGITAL_GAIN, AR0234_GAIN_MIN,
-+			  AR0234_GAIN_MAX, 1, AR0234_GAIN_DEFAULT);
-+
-+	v4l2_ctrl_new_std_menu_items(&ar0234->ctrls, &ar0234_ctrl_ops,
-+				     V4L2_CID_TEST_PATTERN,
-+				     ARRAY_SIZE(ar0234_test_pattern_menu) - 1,
-+				     0, 0, ar0234_test_pattern_menu);
-+
-+	for (i = 0; i < 4; i++) {
-+		v4l2_ctrl_new_std(&ar0234->ctrls, &ar0234_ctrl_ops,
-+				  V4L2_CID_TEST_PATTERN_RED + i,
-+				  AR0234_TESTP_COLOUR_MIN,
-+				  AR0234_TESTP_COLOUR_MAX,
-+				  AR0234_TESTP_COLOUR_STEP,
-+				  AR0234_TESTP_COLOUR_MAX);
-+	}
-+
-+	ret = v4l2_fwnode_device_parse(ar0234->sd.dev, &props);
-+	if (ret)
-+		return ret;
-+
-+	ret = v4l2_ctrl_new_fwnode_properties(&ar0234->ctrls, &ar0234_ctrl_ops,
-+					      &props);
-+	if (ret)
-+		return ret;
-+
-+	ar0234->sd.ctrl_handler = &ar0234->ctrls;
-+
-+	mutex_lock(ar0234->ctrls.lock);
-+	ar0234_set_link_limits(ar0234, &ar0234_modes[0]);
-+	ar0234_set_framing_limits(ar0234, AR0234_PIXEL_ARRAY_WIDTH);
-+	mutex_unlock(ar0234->ctrls.lock);
-+
-+	return 0;
-+}
-+
-+static int ar0234_parse_hw_config(struct ar0234 *ar0234)
-+{
-+	struct v4l2_fwnode_endpoint *ep_cfg = &ar0234->ep_cfg;
-+	struct fwnode_handle *ep;
-+	unsigned int i, j;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(ar0234->supplies); i++)
-+		ar0234->supplies[i].supply = ar0234_supply_names[i];
-+
-+	ret = devm_regulator_bulk_get(ar0234->sd.dev,
-+				      ARRAY_SIZE(ar0234->supplies),
-+				      ar0234->supplies);
-+	if (ret)
-+		return dev_err_probe(ar0234->sd.dev, ret,
-+				     "Failed to get supplies\n");
-+
-+	ar0234->reset = devm_gpiod_get_optional(ar0234->sd.dev, "reset",
-+						GPIOD_OUT_HIGH);
-+	if (IS_ERR(ar0234->reset))
-+		return dev_err_probe(ar0234->sd.dev, PTR_ERR(ar0234->reset),
-+				     "Failed to get reset GPIO\n");
-+
-+	ar0234->clk = devm_v4l2_sensor_clk_get(ar0234->sd.dev, NULL);
-+	if (IS_ERR(ar0234->clk))
-+		return dev_err_probe(ar0234->sd.dev, PTR_ERR(ar0234->clk),
-+				     "Failed to get clock\n");
-+
-+	ep = fwnode_graph_get_next_endpoint(dev_fwnode(ar0234->sd.dev), NULL);
-+	if (!ep)
-+		return -ENXIO;
-+
-+	ep_cfg->bus_type = V4L2_MBUS_CSI2_DPHY;
-+
-+	ret = v4l2_fwnode_endpoint_alloc_parse(ep, ep_cfg);
-+	fwnode_handle_put(ep);
-+	if (ret)
-+		return ret;
-+
-+	switch (ep_cfg->bus.mipi_csi2.num_data_lanes) {
-+	case 2:
-+	case 4:
-+		break;
-+	default:
-+		ret = dev_err_probe(ar0234->sd.dev, -EINVAL,
-+				    "Invalid number of CSI2 data lanes %d\n",
-+				    ep_cfg->bus.mipi_csi2.num_data_lanes);
-+		goto done_endpoint_free;
-+	}
-+
-+	for (i = 0; i < AR0234_LINK_FREQ_IDX_MAX; i++) {
-+		for (j = 0; j < ep_cfg->nr_of_link_frequencies; j++) {
-+			s64 freq = ep_cfg->link_frequencies[j];
-+
-+			if (freq < 360000000LL || freq > 450000000LL) {
-+				dev_warn_probe(ar0234->sd.dev, -EINVAL,
-+					       "Link freq %lli out of bounds\n",
-+					       freq);
-+				continue;
-+			}
-+
-+			ar0234->link_freqs[i] = freq;
-+
-+			if (!ar0234_calculate_pll(ar0234, &ar0234_modes[i]))
-+				break;
-+
-+			ar0234->link_freqs[i] = 0;
-+		}
-+
-+		if (ar0234->link_freqs[i])
-+			continue;
-+
-+		ret = dev_err_probe(ar0234->sd.dev, -EINVAL,
-+				    "No valid freq found for mode idx %u\n", i);
-+		goto done_endpoint_free;
-+	}
-+
-+	return 0;
-+
-+done_endpoint_free:
-+	v4l2_fwnode_endpoint_free(ep_cfg);
-+
-+	return ret;
-+}
-+
-+static int ar0234_identify_module(struct ar0234 *ar0234)
-+{
-+	const enum ar0234_colour_model *forced;
-+	u64 id, rev;
-+	int ret;
-+
-+	ret = cci_read(ar0234->regmap, AR0234_REG_CHIP_VERSION, &id, NULL);
-+	ret = cci_read(ar0234->regmap, AR0234_REG_REVISION_NUMBER, &rev, &ret);
-+	if (ret)
-+		return dev_err_probe(ar0234->sd.dev, ret,
-+				     "Failed to read chip id\n");
-+
-+	if (id == AR0234_CHIP_ID_MONO)
-+		ar0234->model = AR0234_MODEL_MONO;
-+	else if (id == AR0234_CHIP_ID)
-+		ar0234->model = AR0234_MODEL_COLOUR;
-+	else
-+		return dev_err_probe(ar0234->sd.dev, -ENODEV,
-+				     "Invalid chip id: 0x%04x\n", (u16)id);
-+
-+	dev_info(ar0234->sd.dev, "Success reading chip id: 0x%04x, Rev.%lld\n",
-+		 (u16)id, (rev >> 12) & 0xf);
-+
-+	forced = device_get_match_data(ar0234->sd.dev);
-+
-+	if (forced && *forced != ar0234->model) {
-+		ar0234->model = *forced;
-+
-+		dev_warn(ar0234->sd.dev,
-+			 "Chip id does not match forced \"%s\" model\n",
-+			 *forced == AR0234_MODEL_MONO ? "mono" : "colour");
-+	}
-+
-+	return 0;
-+}
-+
-+static int ar0234_power_on(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+	unsigned long rate;
-+	int ret;
-+
-+	rate = clk_get_rate(ar0234->clk);
-+	if (WARN_ON(rate == 0))
-+		return -EINVAL;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ar0234->supplies),
-+				    ar0234->supplies);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable regulators\n");
-+		return ret;
-+	}
-+
-+	ret = clk_prepare_enable(ar0234->clk);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable clock\n");
-+		regulator_bulk_disable(ARRAY_SIZE(ar0234->supplies),
-+				       ar0234->supplies);
-+		return ret;
-+	}
-+
-+	gpiod_set_value_cansleep(ar0234->reset, 0);
-+
-+	/* ~160000 EXTCLKs */
-+	fsleep(DIV_ROUND_UP_ULL(160000ULL * 1000000, rate));
-+
-+	return 0;
-+}
-+
-+static int ar0234_power_off(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+
-+	gpiod_set_value_cansleep(ar0234->reset, 1);
-+
-+	clk_disable_unprepare(ar0234->clk);
-+
-+	regulator_bulk_disable(ARRAY_SIZE(ar0234->supplies), ar0234->supplies);
-+
-+	/* 100ms PwrDown until next PwrUp */
-+	fsleep(100000);
-+
-+	return 0;
-+}
-+
-+static void ar0234_subdev_cleanup(struct ar0234 *ar0234)
-+{
-+	v4l2_subdev_cleanup(&ar0234->sd);
-+	media_entity_cleanup(&ar0234->sd.entity);
-+	v4l2_ctrl_handler_free(&ar0234->ctrls);
-+}
-+
-+static int ar0234_soft_reset(struct ar0234 *ar0234)
-+{
-+	int ret;
-+
-+	ret = cci_write(ar0234->regmap, AR0234_REG_RESET, 0x0001, NULL);
-+	fsleep(2000);
-+	cci_write(ar0234->regmap, AR0234_REG_RESET, 0x2018, &ret);
-+	fsleep(2000);
-+
-+	return ret;
-+}
-+
-+static int ar0234_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct ar0234 *ar0234;
-+	int ret;
-+
-+	ar0234 = devm_kzalloc(dev, sizeof(*ar0234), GFP_KERNEL);
-+	if (!ar0234)
-+		return -ENOMEM;
-+
-+	ar0234->regmap = devm_cci_regmap_init_i2c(client, 16);
-+	if (IS_ERR(ar0234->regmap))
-+		return PTR_ERR(ar0234->regmap);
-+
-+	v4l2_i2c_subdev_init(&ar0234->sd, client, &ar0234_subdev_ops);
-+
-+	ret = ar0234_parse_hw_config(ar0234);
-+	if (ret)
-+		goto error_subdev;
-+
-+	ret = ar0234_power_on(dev);
-+	if (ret)
-+		goto error_ep;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_get_noresume(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_set_autosuspend_delay(dev, 1000);
-+	pm_runtime_use_autosuspend(dev);
-+
-+	ret = ar0234_soft_reset(ar0234);
-+	if (ret)
-+		goto error_pm;
-+
-+	ret = ar0234_identify_module(ar0234);
-+	if (ret)
-+		goto error_pm;
-+
-+	ar0234->sd.internal_ops = &ar0234_internal_ops;
-+	ar0234->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	ar0234->sd.entity.ops = &ar0234_subdev_entity_ops;
-+	ar0234->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-+
-+	ar0234->pad.flags = MEDIA_PAD_FL_SOURCE;
-+	ret = media_entity_pads_init(&ar0234->sd.entity, 1, &ar0234->pad);
-+	if (ret) {
-+		dev_err_probe(dev, ret, "Failed to init entity pads\n");
-+		goto error_pm;
-+	}
-+
-+	ret = v4l2_subdev_init_finalize(&ar0234->sd);
-+	if (ret)
-+		goto err_media;
-+
-+	ret = ar0234_ctrls_init(ar0234);
-+	if (ret)
-+		goto err_media;
-+
-+	ar0234->sd.state_lock = ar0234->ctrls.lock;
-+
-+	ret = v4l2_async_register_subdev_sensor(&ar0234->sd);
-+	if (ret) {
-+		dev_err_probe(dev, ret,
-+			      "Failed to register sensor sub-device\n");
-+		goto err_media;
-+	}
-+
-+	pm_runtime_put_autosuspend(dev);
-+
-+	return 0;
-+
-+err_media:
-+	media_entity_cleanup(&ar0234->sd.entity);
-+
-+error_pm:
-+	pm_runtime_disable(dev);
-+	pm_runtime_put_noidle(dev);
-+	ar0234_power_off(dev);
-+
-+error_ep:
-+	v4l2_fwnode_endpoint_free(&ar0234->ep_cfg);
-+
-+error_subdev:
-+	ar0234_subdev_cleanup(ar0234);
-+
-+	return ret;
-+}
-+
-+static void ar0234_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct ar0234 *ar0234 = to_ar0234(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	ar0234_subdev_cleanup(ar0234);
-+	v4l2_fwnode_endpoint_free(&ar0234->ep_cfg);
-+
-+	pm_runtime_disable(&client->dev);
-+	if (!pm_runtime_status_suspended(&client->dev))
-+		ar0234_power_off(&client->dev);
-+	pm_runtime_set_suspended(&client->dev);
-+}
-+
-+static const struct acpi_device_id ar0234_acpi_ids[] = {
-+	{ "INTC10C0" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(acpi, ar0234_acpi_ids);
-+
-+static const struct of_device_id ar0234_dt_ids[] = {
-+	{ .compatible = "onnn,ar0234cs", .data = NULL, },
-+	{ .compatible = "onnn,ar0234cssc", .data = &ar0234_model_colour, },
-+	{ .compatible = "onnn,ar0234cssm", .data = &ar0234_model_mono, },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ar0234_dt_ids);
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(ar0234_pm_ops, ar0234_power_off,
-+				 ar0234_power_on, NULL);
-+
-+static struct i2c_driver ar0234_i2c_driver = {
-+	.driver = {
-+		.name = "ar0234",
-+		.acpi_match_table = ACPI_PTR(ar0234_acpi_ids),
-+		.of_match_table	= of_match_ptr(ar0234_dt_ids),
-+		.pm = pm_ptr(&ar0234_pm_ops),
-+	},
-+	.probe = ar0234_probe,
-+	.remove = ar0234_remove,
-+};
-+module_i2c_driver(ar0234_i2c_driver);
-+
-+MODULE_DESCRIPTION("onsemi AR0234 Camera Sensor Driver");
-+MODULE_AUTHOR("Alexander Shiyan <eagle.alexander923@gmail.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.52.0
+>> +		sizeof(struct fastrpc_invoke_buf) +
+>> +		sizeof(struct fastrpc_phy_page)) * ctx->nscalars +
+>> +		sizeof(u64) * FASTRPC_MAX_HANDLELIST +
+>> +		sizeof(u32) * FASTRPC_MAX_CRCLIST;
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_cleanup_handlelist() - Release DMA handles the DSP no longer needs
+>> + * @ctx: Invocation context whose response buffer contains the handle list
+>> + *
+>> + * The DSP signals handle release by writing GEM handles into the handle list
+>> + * region of the response buffer. Walk the list and close each handle, which
+>> + * drops the GEM reference and tears down the IOMMU mapping. This must be called
+>> + * after dma_rmb() has made the DSP's writes visible.
+>> + */
+>> +void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx)
+>> +{
+>> +	u64 *handlelist;
+>> +	int i;
+>> +
+>> +	handlelist = (u64 *)(ctx->pages + ctx->nscalars);
+>> +	for (i = 0; i < FASTRPC_MAX_HANDLELIST; i++) {
+>> +		if (!handlelist[i])
+>> +			break;
+>> +		drm_gem_handle_delete(ctx->file_priv, (u32)handlelist[i]);
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_context_free() - Release an invocation context
+>> + * @ref: Reference counter embedded in the context
+>> + *
+>> + * Called when the last reference is dropped, which may be either the caller
+>> + * that issued the invocation or the response callback. The context is removed
+>> + * from the lookup table here so that a late response can never find a context
+>> + * that is already being destroyed.
+>> + *
+>> + * ctx->req, ctx->rsp, ctx->inbuf and ctx->input_pages point into kernel-owned
+>> + * GEM mappings and are released along with ctx->gem_objs[].
+>> + */
+>> +void qda_fastrpc_context_free(struct kref *ref)
+>> +{
+>> +	struct qda_fastrpc_invoke_ctx *ctx;
+>> +	int i;
+>> +
+>> +	ctx = container_of(ref, struct qda_fastrpc_invoke_ctx, refcount);
+>> +
+>> +	xa_erase(&ctx->qdev->ctx_xa, ctx->ctxid >> 4);
+>> +
+>> +	if (ctx->gem_objs) {
+>> +		for (i = 0; i < ctx->nscalars; ++i) {
+>> +			if (ctx->gem_objs[i])
+>> +				drm_gem_object_put(ctx->gem_objs[i]);
+>> +		}
+>> +		kfree(ctx->gem_objs);
+>> +	}
+>> +
+>> +	if (ctx->msg_gem_obj)
+>> +		drm_gem_object_put(&ctx->msg_gem_obj->base);
+>> +
+>> +	kfree(ctx->args);
+>> +	kfree(ctx);
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_flush_pending() - Fail every outstanding invocation
+>> + * @qdev: Device whose contexts should be flushed
+>> + *
+>> + * Called when the remote processor goes away. The DSP will never answer the
+>> + * in-flight invocations, so this stands in for the response callback: it wakes
+>> + * each waiter with an error and drops the reference the send path took for that
+>> + * callback. The waiter then tears the context down, releasing the GEM objects
+>> + * it pinned.
+>> + *
+>> + * Must run after drm_dev_unplug() has drained qda_rpmsg_cb(), so the real
+>> + * callback can no longer run and this is the only path completing a context.
+>> + */
+>> +void qda_fastrpc_flush_pending(struct qda_dev *qdev)
+>> +{
+>> +	struct qda_fastrpc_invoke_ctx *ctx;
+>> +	unsigned long idx;
+>> +
+>> +	xa_for_each(&qdev->ctx_xa, idx, ctx) {
+>> +		ctx->retval = -EPIPE;
+>> +		complete(&ctx->work);
+>> +		kref_put(&ctx->refcount, qda_fastrpc_context_free);
+>> +	}
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_context_alloc() - Allocate a FastRPC invocation context
+>> + * @qdev: Device whose lookup table the context is registered in
+>> + *
+>> + * Return: Pointer to the new context, or ERR_PTR on failure
+>> + */
+>> +struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev)
+>> +{
+>> +	struct qda_fastrpc_invoke_ctx *ctx;
+>> +	int ret;
+>> +	u32 id;
+>> +
+>> +	ctx = kzalloc_obj(*ctx);
+>> +	if (!ctx)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	INIT_LIST_HEAD(&ctx->node);
+>> +	init_completion(&ctx->work);
+>> +	kref_init(&ctx->refcount);
+>> +	ctx->qdev = qdev;
+>> +	ctx->retval = -1;
+>> +	ctx->pid = current->pid;
+>> +
+>> +	ret = xa_alloc(&qdev->ctx_xa, &id, ctx, xa_limit_32b, GFP_KERNEL);
+>> +	if (ret) {
+>> +		kfree(ctx);
+>> +		return ERR_PTR(ret);
+>> +	}
+>> +	ctx->ctxid = id << 4;
+>> +
+>> +	return ctx;
+>> +}
+>> +
+>> +/*
+>> + * Resolve the physical address of an in/out buffer argument.  The buffer is
+>> + * backed either by a kernel-owned GEM object already recorded in
+>> + * ctx->gem_objs[i], or by a user-supplied GEM handle in ctx->args[i].handle.
+>> + */
+>> +static int process_msg_buffer(struct qda_fastrpc_invoke_ctx *ctx, int i,
+>> +			      union fastrpc_remote_arg *rpra,
+>> +			      struct fastrpc_phy_page *pages)
+>> +{
+>> +	u64 len = ctx->args[i].length;
+>> +	struct qda_gem_obj *qda_gem_obj;
+>> +
+>> +	rpra[i].buf.pv = ctx->args[i].ptr;
+>> +
+>> +	if (ctx->gem_objs[i]) {
+>> +		u64 unaligned_addr, offset;
+>> +
+>> +		qda_gem_obj = to_qda_gem_obj(ctx->gem_objs[i]);
+>> +		offset = ctx->args[i].ptr - (u64)(uintptr_t)qda_gem_obj->virt;
+>> +
+>> +		unaligned_addr = qda_gem_obj->dma_addr + offset;
+>> +		pages[i].addr = unaligned_addr & PAGE_MASK;
+>> +		pages[i].size = calculate_page_aligned_size(unaligned_addr, len);
+>> +	} else if (ctx->args[i].handle) {
+>> +		struct drm_gem_object *gem_obj;
+>> +		int err;
+>> +
+>> +		err = get_gem_obj_from_handle(ctx, ctx->args[i].handle, &gem_obj);
+>> +		if (err)
+>> +			return err;
+>> +
+>> +		ctx->gem_objs[i] = gem_obj;
+>> +		qda_gem_obj = to_qda_gem_obj(gem_obj);
+>> +
+>> +		pages[i].addr = qda_gem_obj->dma_addr +
+>> +				calculate_vma_offset(ctx->args[i].ptr);
+>> +		pages[i].size = calculate_page_aligned_size(ctx->args[i].ptr, len);
+>> +	} else {
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/*
+>> + * Resolve a DMA-handle argument.  The kernel needs the physical page
+>> + * descriptor, while the DSP identifies the buffer by its GEM handle.
+>> + */
+>> +static int process_dma_handle(struct qda_fastrpc_invoke_ctx *ctx, int i,
+>> +			      union fastrpc_remote_arg *rpra,
+>> +			      struct fastrpc_phy_page *pages)
+>> +{
+>> +	struct drm_gem_object *gem_obj;
+>> +	int err;
+>> +
+>> +	if (!ctx->args[i].handle) {
+>> +		rpra[i].buf.pv = ctx->args[i].ptr;
+>> +		rpra[i].buf.len = ctx->args[i].length;
+>> +		return 0;
+>> +	}
+>> +
+>> +	err = get_gem_obj_from_handle(ctx, ctx->args[i].handle, &gem_obj);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	ctx->gem_objs[i] = gem_obj;
+>> +	setup_pages_from_gem_obj(to_qda_gem_obj(gem_obj), &pages[i]);
+>> +
+>> +	/* The DSP-facing offset and length fields are 32-bit by wire format */
+>> +	rpra[i].dma.handle = ctx->args[i].handle;
+>> +	rpra[i].dma.len = (u32)ctx->args[i].length;
+>> +	rpra[i].dma.offset = (u32)ctx->args[i].ptr;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_get_header_size() - Compute the FastRPC message header size
+>> + * @ctx: FastRPC invocation context
+>> + *
+>> + * Also caches the intermediate metadata and packet sizes in @ctx for the
+>> + * subsequent pack step.
+>> + *
+>> + * Return: Page-aligned size of the message payload buffer in bytes
+>> + */
+>> +size_t qda_fastrpc_get_header_size(struct qda_fastrpc_invoke_ctx *ctx)
+>> +{
+>> +	ctx->inbufs = REMOTE_SCALARS_INBUFS(ctx->sc);
+>> +	ctx->metalen = fastrpc_get_meta_size(ctx);
+>> +	ctx->pkt_size = ALIGN(ctx->metalen, FASTRPC_ALIGN);
+>> +	ctx->aligned_pkt_size = PAGE_ALIGN(ctx->pkt_size);
+>> +
+>> +	return ctx->aligned_pkt_size;
+>> +}
+>> +
+>> +static int qda_fastrpc_get_args(struct qda_fastrpc_invoke_ctx *ctx)
+>> +{
+>> +	struct fastrpc_invoke_buf *list;
+>> +	struct fastrpc_phy_page *pages;
+>> +	union fastrpc_remote_arg *rpra;
+>> +	int i, err;
+>> +
+>> +	ctx->msg->buf = ctx->msg_gem_obj->virt;
+>> +	ctx->msg->phys = ctx->msg_gem_obj->dma_addr;
+>> +	memset(ctx->msg->buf, 0, ctx->aligned_pkt_size);
+>> +
+>> +	rpra = ctx->msg->buf;
+>> +	list = fastrpc_invoke_buf_start(rpra, ctx->nscalars);
+>> +	pages = fastrpc_phy_page_start(list, ctx->nscalars);
+>> +	ctx->rpra = rpra;
+>> +	ctx->list = list;
+>> +	ctx->pages = pages;
+>> +
+>> +	for (i = 0; i < ctx->nbufs; ++i) {
+>> +		rpra[i].buf.pv = 0;
+>> +		rpra[i].buf.len = ctx->args[i].length;
+>> +		list[i].num = ctx->args[i].length ? 1 : 0;
+>> +		list[i].pgidx = i;
+>> +
+>> +		if (!ctx->args[i].length)
+>> +			continue;
+>> +
+>> +		err = process_msg_buffer(ctx, i, rpra, pages);
+>> +		if (err)
+>> +			return err;
+>> +	}
+>> +
+>> +	for (i = ctx->nbufs; i < ctx->nscalars; ++i) {
+>> +		list[i].num = ctx->args[i].length ? 1 : 0;
+>> +		list[i].pgidx = i;
+>> +
+>> +		err = process_dma_handle(ctx, i, rpra, pages);
+>> +		if (err)
+>> +			return err;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_invoke_pack() - Pack an invocation context into a QDA message
+>> + * @ctx: FastRPC invocation context
+>> + * @msg: QDA message to fill in
+>> + *
+>> + * Return: 0 on success, negative error code on failure
+>> + */
+>> +int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *msg)
+>> +{
+>> +	int err;
+>> +
+>> +	ctx->msg = msg;
+>> +
+>> +	err = qda_fastrpc_get_args(ctx);
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	/* Ensure the payload is visible to the DSP before the doorbell */
+>> +	dma_wmb();
+>> +
+>> +	if (ctx->handle == FASTRPC_INIT_HANDLE)
+>> +		msg->fastrpc.remote_session_id = 0;
+>> +	else
+>> +		msg->fastrpc.remote_session_id = ctx->remote_session_id;
+>> +
+>> +	msg->fastrpc.tid = ctx->pid;
+>> +	msg->fastrpc.ctx = ctx->ctxid | ctx->pd;
+>> +	msg->fastrpc.handle = ctx->handle;
+>> +	msg->fastrpc.sc = ctx->sc;
+>> +	msg->fastrpc.addr = msg->phys;
+>> +	msg->fastrpc.size = roundup(ctx->pkt_size, PAGE_SIZE);
+>> +	msg->fastrpc_ctx = ctx;
+>> +	msg->file_priv = ctx->file_priv;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/*
+>> + * INVOKE_DYNAMIC: the argument descriptors are supplied by user space, which
+>> + * is also responsible for having imported every buffer to a GEM handle.
+>> + */
+>> +static int qda_fastrpc_prepare_args_invoke(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+>> +{
+>> +	struct drm_qda_invoke_args *invoke_args = argp;
+>> +	struct drm_qda_fastrpc_invoke_args *args;
+>> +	u32 nscalars;
+>> +
+>> +	ctx->handle = invoke_args->handle;
+>> +	ctx->sc = invoke_args->sc;
+>> +
+>> +	nscalars = REMOTE_SCALARS_LENGTH(ctx->sc);
+>> +	if (!nscalars)
+>> +		return 0;
+>> +
+>> +	args = kzalloc_objs(*args, nscalars);
+>> +	if (!args)
+>> +		return -ENOMEM;
+>> +
+>> +	if (copy_from_user(args, u64_to_user_ptr(invoke_args->args),
+>> +			   nscalars * sizeof(*args))) {
+>> +		kfree(args);
+>> +		return -EFAULT;
+>> +	}
+>> +
+>> +	ctx->args = args;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +/**
+>> + * qda_fastrpc_prepare_args() - Prepare arguments for a FastRPC invocation
+>> + * @ctx: FastRPC invocation context
+>> + * @argp: Kernel-side ioctl argument buffer owned by the DRM core
+>> + *
+>> + * Return: 0 on success, negative error code on failure
+>> + */
+>> +int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx, void *argp)
+>> +{
+>> +	int err;
+>> +
+>> +	switch (ctx->type) {
+>> +	case FASTRPC_RMID_INVOKE_DYNAMIC:
+>> +		err = qda_fastrpc_prepare_args_invoke(ctx, argp);
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +	if (err)
+>> +		return err;
+>> +
+>> +	ctx->nscalars = REMOTE_SCALARS_LENGTH(ctx->sc);
+>> +	ctx->nbufs = REMOTE_SCALARS_INBUFS(ctx->sc) + REMOTE_SCALARS_OUTBUFS(ctx->sc);
+>> +
+>> +	if (ctx->nscalars && !ctx->gem_objs) {
+>> +		ctx->gem_objs = kzalloc_objs(*ctx->gem_objs, ctx->nscalars);
+>> +		if (!ctx->gem_objs)
+>> +			return -ENOMEM;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+>> diff --git a/drivers/accel/qda/qda_fastrpc.h b/drivers/accel/qda/qda_fastrpc.h
+>> new file mode 100644
+>> index 000000000000..a25818923a6e
+>> --- /dev/null
+>> +++ b/drivers/accel/qda/qda_fastrpc.h
+>> @@ -0,0 +1,242 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#ifndef __QDA_FASTRPC_H__
+>> +#define __QDA_FASTRPC_H__
+>> +
+>> +#include <linux/completion.h>
+>> +#include <linux/kref.h>
+>> +#include <linux/list.h>
+>> +#include <linux/types.h>
+>> +#include <drm/drm_drv.h>
+>> +#include <drm/drm_file.h>
+>> +#include <drm/qda_accel.h>
+>> +
+>> +struct qda_dev;
+>> +struct qda_gem_obj;
+>> +struct qda_msg;
+>> +
+>> +/*
+>> + * FastRPC scalar extraction macros
+>> + *
+>> + * These macros extract different fields from the scalar value that describes
+>> + * the arguments passed in a FastRPC invocation.
+>> + */
+>> +#define REMOTE_SCALARS_INBUFS(sc)	(((sc) >> 16) & 0x0ff)
+>> +#define REMOTE_SCALARS_OUTBUFS(sc)	(((sc) >> 8) & 0x0ff)
+>> +#define REMOTE_SCALARS_INHANDLES(sc)	(((sc) >> 4) & 0x0f)
+>> +#define REMOTE_SCALARS_OUTHANDLES(sc)	((sc) & 0x0f)
+>> +#define REMOTE_SCALARS_LENGTH(sc)	(REMOTE_SCALARS_INBUFS(sc) +   \
+>> +					 REMOTE_SCALARS_OUTBUFS(sc) +  \
+>> +					 REMOTE_SCALARS_INHANDLES(sc) + \
+>> +					 REMOTE_SCALARS_OUTHANDLES(sc))
+>> +
+>> +/* FastRPC configuration constants */
+>> +#define FASTRPC_ALIGN		128		/* Alignment requirement */
+>> +#define FASTRPC_MAX_HANDLELIST	16		/* Maximum handles the DSP can release */
+>> +#define FASTRPC_MAX_CRCLIST	64		/* Maximum CRC list entries */
+>> +
+>> +/*
+>> + * FastRPC scalar construction macros
+>> + *
+>> + * These macros build the scalar value that describes the arguments
+>> + * for a FastRPC invocation.
+>> + */
+>> +#define FASTRPC_BUILD_SCALARS(attr, method, in, out, oin, oout)		\
+>> +				(((attr & 0x07) << 29) |		\
+>> +				((method & 0x1f) << 24) |		\
+>> +				((in & 0xff) << 16) |			\
+>> +				((out & 0xff) <<  8) |			\
+>> +				((oin & 0x0f) <<  4) |			\
+>> +				(oout & 0x0f))
+>> +
+>> +#define FASTRPC_SCALARS(method, in, out) \
+>> +		FASTRPC_BUILD_SCALARS(0, method, in, out, 0, 0)
+>> +
+>> +/**
+>> + * struct fastrpc_remote_dmahandle - Remote DMA handle descriptor
+>> + */
+>> +struct fastrpc_remote_dmahandle {
+>> +	/** @handle: Handle of the buffer */
+>> +	s32 handle;
+>> +	/** @offset: Byte offset within the buffer object */
+>> +	u32 offset;
+>> +	/** @len: Length of the region in bytes */
+>> +	u32 len;
+>> +};
+>> +
+>> +/**
+>> + * struct fastrpc_remote_buf - Remote buffer descriptor
+>> + */
+>> +struct fastrpc_remote_buf {
+>> +	/** @pv: Buffer pointer (user virtual address) */
+>> +	u64 pv;
+> 
+> pv would mean physical something. Also, where do you validate the user's
+> address? Where do we check that it's ok to access the buffer, that it's
+> not a garbage?
+this is inherited from fastrpc(same is also used on DSP firmware) but I
+can rename it to something more meaningful like addr/va. This `pv` is
+used for offset calculation which eventually gives address of the page
+carrying the buffer. I can add checks when this calculation is done to
+ensure the pv is in proper range of the buffer passed by user.>
+>> +	/** @len: Length of the buffer in bytes */
+>> +	u64 len;
+>> +};
+>> +
+>> +/**
+>> + * union fastrpc_remote_arg - Remote argument (buffer or DMA handle)
+>> + */
+>> +union fastrpc_remote_arg {
+>> +	/** @buf: Inline buffer descriptor */
+>> +	struct fastrpc_remote_buf buf;
+>> +	/** @dma: DMA-BUF handle descriptor */
+>> +	struct fastrpc_remote_dmahandle dma;
+>> +};
+>> +
+>> +/**
+>> + * struct fastrpc_phy_page - Physical page descriptor
+>> + */
+>> +struct fastrpc_phy_page {
+>> +	/** @addr: Physical (IOMMU) address of the page */
+>> +	u64 addr;
+>> +	/** @size: Size of the contiguous region in bytes */
+>> +	u64 size;
+>> +};
+>> +
+>> +/**
+>> + * struct fastrpc_invoke_buf - Invoke buffer descriptor
+>> + */
+>> +struct fastrpc_invoke_buf {
+>> +	/** @num: Number of contiguous physical regions */
+>> +	u32 num;
+>> +	/** @pgidx: Index into the physical page array */
+>> +	u32 pgidx;
+>> +};
+>> +
+>> +/**
+>> + * struct fastrpc_msg - FastRPC wire message for remote invocations
+>> + *
+>> + * Sent to the remote processor via RPMsg. This is the exact layout
+>> + * the DSP expects; do not reorder or add fields without DSP firmware
+>> + * coordination.
+> 
+> __packed?
+I'll check more on this.>
+>> + */
+>> +struct fastrpc_msg {
+>> +	/** @remote_session_id: Session identifier on the remote processor */
+>> +	int remote_session_id;
+> 
+> Is it int or u32?
+This is again from fastrpc where it's a mix of int and s32. I'll keep it
+the to actual s32 here in QDA.>
+>> +	/** @tid: Thread ID of the invoking thread */
+>> +	int tid;
+>> +	/** @ctx: Context identifier for matching request/response */
+>> +	u64 ctx;
+>> +	/** @handle: Handle of the remote method to invoke */
+>> +	u32 handle;
+>> +	/** @sc: Scalars value encoding in/out buffer counts */
+>> +	u32 sc;
+>> +	/** @addr: Physical address of the message payload buffer */
+>> +	u64 addr;
+>> +	/** @size: Size of the message payload in bytes */
+>> +	u64 size;
+>> +};
+>> +
+>> +/**
+>> + * struct qda_fastrpc_invoke_ctx - Remote procedure call invocation context
+>> + *
+>> + * Maintains all state for a single remote procedure call, including buffer
+>> + * management, synchronisation, and result handling.
+>> + */
+>> +struct qda_fastrpc_invoke_ctx {
+>> +	/** @node: List node for linking contexts in a queue */
+>> +	struct list_head node;
+>> +	/** @qdev: Device owning the XArray this context is registered in */
+>> +	struct qda_dev *qdev;
+>> +	/** @ctxid: Unique context identifier (XArray key shifted left by 4) */
+> 
+> Why is it shifted by 4? Why not by 3?
+I'll add the PD encoding comment here.>
+>> +	u64 ctxid;
+>> +	/** @inbufs: Number of input buffers */
+>> +	int inbufs;
+>> +	/** @nscalars: Total number of scalar arguments */
+>> +	int nscalars;
+>> +	/** @nbufs: Total number of buffer arguments (inbufs + outbufs) */
+>> +	int nbufs;
+>> +	/** @pid: Process ID of the calling process */
+>> +	int pid;
+>> +	/** @retval: Status code reported by the DSP for this invocation */
+>> +	int retval;
+>> +	/** @remote_session_id: Session identifier on the remote processor */
+>> +	int remote_session_id;
+> 
+> is pid linked to remote_session_id?
+not really, remote_session_id is more of session specific, so in case of
+multi-session(same PID having multiple sessions) should have different
+remote_session_id.>
+>> +	/** @pd: Protection domain identifier encoded into the context ID */
+> 
+> If it's already encoded, why do you need it here?c
+it's stores so the packing step can use it, I'll document more on this.
+Or if I can have both msg->fastrpc.ctx and ctxid same, I'll check that
+also>
+>> +	int pd;
+>> +	/** @type: Invocation type (e.g. FASTRPC_RMID_INVOKE_DYNAMIC) */
+>> +	u32 type;
+> 
+> What other types can exist?
+I'll add all the types in document or just add FASTRPC_RMID_* and point
+to qda_fastrpc.h for more details.>
+>> +	/** @sc: Scalars value encoding in/out buffer counts */
+>> +	u32 sc;
+> 
+> Remove it and calculate from in/outbufs above?
+The source of sc is the auto-generated stub file which passes this to
+remote_handle_invoke() based on the method requested by the user. This
+as is as it is passed to DSP where this is used in auto-generated skel.
+
+I think the other way around(in/outbufs from sc) would make more sense.>
+>> +	/** @handle: Handle of the remote method being invoked */
+>> +	u32 handle;
+>> +	/** @metalen: Length of the FastRPC metadata header in bytes */
+>> +	size_t metalen;
+>> +	/** @pkt_size: Total payload size in bytes */
+>> +	u64 pkt_size;
+>> +	/** @aligned_pkt_size: Page-aligned payload size for GEM allocation */
+> 
+> ???
+I'll check and remove this.>
+>> +	u64 aligned_pkt_size;
+>> +	/** @list: Array of invoke buffer descriptors */
+>> +	struct fastrpc_invoke_buf *list;
+>> +	/** @pages: Array of physical page descriptors for all arguments */
+>> +	struct fastrpc_phy_page *pages;
+>> +	/** @input_pages: Array of physical page descriptors for input buffers */
+>> +	struct fastrpc_phy_page *input_pages;
+>> +	/** @work: Completion used to synchronise with the DSP response */
+>> +	struct completion work;
+>> +	/** @msg: Pointer to the QDA message structure for this invocation */
+>> +	struct qda_msg *msg;
+>> +	/** @rpra: Array of remote procedure arguments */
+>> +	union fastrpc_remote_arg *rpra;
+>> +	/** @gem_objs: Array of GEM objects imported for argument buffers */
+>> +	struct drm_gem_object **gem_objs;
+>> +	/** @args: Invoke argument descriptors */
+>> +	struct drm_qda_fastrpc_invoke_args *args;
+>> +	/** @refcount: Reference counter for context lifetime management */
+> 
+> What for?
+just to ensure that the context is not freed in case the
+wait_for_completion() is interrupted.>
+>> +	struct kref refcount;
+>> +	/** @msg_gem_obj: GEM object backing the message payload buffer */
+>> +	struct qda_gem_obj *msg_gem_obj;
+>> +	/** @file_priv: DRM file private data */
+>> +	struct drm_file *file_priv;
+>> +	/**
+>> +	 * @req: Request buffer for the internal init/map/unmap calls.  Points
+>> +	 * into a kernel-owned GEM mapping tracked by @gem_objs, so it must
+>> +	 * never be freed directly.
+>> +	 */
+>> +	void *req;
+> 
+> Why do you need separate pointers here? Can't you be getting them from
+> msm_gem_obj?
+These are typed pointers into different offsets of the kernel GEM
+mapping. I could compute them each time from `msg_gem_obj->virt +
+offset`, but caching them avoids repetitive casting. Let me see if
+removing this looks cleaner.>
+>> +	/** @rsp: Response buffer, same lifetime rules as @req */
+>> +	void *rsp;
+>> +	/** @inbuf: Process-create input buffer, same lifetime rules as @req */
+>> +	void *inbuf;
+>> +};
+>> +
+>> +/**
+>> + * struct qda_msg - FastRPC message with kernel-internal bookkeeping
+>> + */
+>> +struct qda_msg {
+>> +	/**
+>> +	 * @fastrpc: Wire-format message sent to the DSP via RPMsg.
+>> +	 * Must be the first member.
+>> +	 */
+>> +	struct fastrpc_msg fastrpc;
+>> +	/** @buf: Kernel virtual address of the payload buffer */
+>> +	void *buf;
+>> +	/** @phys: Physical/DMA address of the payload buffer */
+>> +	u64 phys;
+>> +	/** @ret: Return value from the remote processor */
+>> +	int ret;
+>> +	/** @fastrpc_ctx: Back-pointer to the owning invocation context */
+>> +	struct qda_fastrpc_invoke_ctx *fastrpc_ctx;
+>> +	/** @file_priv: DRM file private data for GEM object lookup */
+>> +	struct drm_file *file_priv;
+>> +};
+>> +
+>> +/* Remote Method ID table - identifies initialization and control operations */
+>> +#define FASTRPC_RMID_INVOKE_DYNAMIC	0xFFFFFFFFU	/* Dynamic method invocation */
+>> +
+>> +/* Common handle for initialization operations */
+>> +#define FASTRPC_INIT_HANDLE		0x1
+>> +
+>> +void qda_fastrpc_context_free(struct kref *ref);
+>> +void qda_fastrpc_cleanup_handlelist(struct qda_fastrpc_invoke_ctx *ctx);
+>> +void qda_fastrpc_flush_pending(struct qda_dev *qdev);
+>> +struct qda_fastrpc_invoke_ctx *qda_fastrpc_context_alloc(struct qda_dev *qdev);
+>> +int qda_fastrpc_prepare_args(struct qda_fastrpc_invoke_ctx *ctx, void *argp);
+>> +size_t qda_fastrpc_get_header_size(struct qda_fastrpc_invoke_ctx *ctx);
+>> +int qda_fastrpc_invoke_pack(struct qda_fastrpc_invoke_ctx *ctx, struct qda_msg *msg);
+>> +
+>> +#endif /* __QDA_FASTRPC_H__ */
+>> diff --git a/drivers/accel/qda/qda_ioctl.c b/drivers/accel/qda/qda_ioctl.c
+>> index f65325c80a12..b7ee4899ba74 100644
+>> --- a/drivers/accel/qda/qda_ioctl.c
+>> +++ b/drivers/accel/qda/qda_ioctl.c
+>> @@ -1,10 +1,13 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>>  #include <drm/drm_ioctl.h>
+>> +#include <drm/drm_print.h>
+>>  #include <drm/qda_accel.h>
+>>  #include "qda_drv.h"
+>> +#include "qda_fastrpc.h"
+>>  #include "qda_gem.h"
+>>  #include "qda_ioctl.h"
+>> +#include "qda_rpmsg.h"
+>>  
+>>  /**
+>>   * qda_ioctl_query() - Query DSP device information
+>> @@ -83,3 +86,83 @@ int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_fil
+>>  
+>>  	return drm_gem_dumb_map_offset(file_priv, dev, args->handle, &args->offset);
+>>  }
+>> +
+>> +static int qda_fastrpc_invoke(u32 type, struct drm_device *dev, void *data,
+>> +			      struct drm_file *file_priv)
+>> +{
+>> +	struct qda_file_priv *qda_file_priv = file_priv->driver_priv;
+>> +	struct qda_dev *qdev = qda_file_priv->qda_dev;
+>> +	struct qda_fastrpc_invoke_ctx *ctx;
+>> +	struct drm_gem_object *gem_obj;
+>> +	struct qda_msg msg;
+>> +	size_t hdr_size;
+>> +	int err;
+>> +
+>> +	ctx = qda_fastrpc_context_alloc(qdev);
+>> +	if (IS_ERR(ctx))
+>> +		return PTR_ERR(ctx);
+>> +
+>> +	ctx->type = type;
+>> +	ctx->file_priv = file_priv;
+>> +	ctx->remote_session_id = qda_file_priv->remote_session_id;
+>> +
+>> +	err = qda_fastrpc_prepare_args(ctx, data);
+>> +	if (err)
+>> +		goto err_context_free;
+>> +
+>> +	hdr_size = qda_fastrpc_get_header_size(ctx);
+>> +
+>> +	gem_obj = qda_gem_create_object(dev, qdev->iommu_mgr, hdr_size, file_priv);
+>> +	if (IS_ERR(gem_obj)) {
+>> +		err = PTR_ERR(gem_obj);
+>> +		goto err_context_free;
+>> +	}
+>> +
+>> +	ctx->msg_gem_obj = to_qda_gem_obj(gem_obj);
+>> +
+>> +	err = qda_fastrpc_invoke_pack(ctx, &msg);
+>> +	if (err)
+>> +		goto err_context_free;
+>> +
+>> +	err = qda_rpmsg_send_msg(qdev, &msg);
+>> +	if (err)
+>> +		goto err_context_free;
+>> +
+>> +	err = qda_rpmsg_wait_for_rsp(ctx);
+>> +	if (err)
+>> +		goto err_context_free;
+>> +
+>> +	/* Ensure the results written by the DSP are visible before reading */
+>> +	dma_rmb();
+>> +
+>> +	err = ctx->retval;
+>> +	if (err) {
+>> +		drm_dbg_driver(dev, "DSP returned status 0x%x for type %u\n",
+>> +			       ctx->retval, type);
+>> +		goto err_context_free;
+>> +	}
+>> +
+>> +	qda_fastrpc_cleanup_handlelist(ctx);
+>> +
+>> +	kref_put(&ctx->refcount, qda_fastrpc_context_free);
+>> +
+>> +	return 0;
+>> +
+>> +err_context_free:
+>> +	kref_put(&ctx->refcount, qda_fastrpc_context_free);
+>> +
+>> +	return err;
+>> +}
+>> +
+>> +/**
+>> + * qda_ioctl_invoke() - Perform a dynamic FastRPC method invocation
+>> + * @dev: DRM device structure
+>> + * @data: User-space data (struct qda_invoke_args)
+>> + * @file_priv: DRM file private data
+>> + *
+>> + * Return: 0 on success, negative error code on failure
+>> + */
+>> +int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv)
+>> +{
+>> +	return qda_fastrpc_invoke(FASTRPC_RMID_INVOKE_DYNAMIC, dev, data, file_priv);
+>> +}
+>> diff --git a/drivers/accel/qda/qda_ioctl.h b/drivers/accel/qda/qda_ioctl.h
+>> index d1cbbfb6d965..3bb9cfd98370 100644
+>> --- a/drivers/accel/qda/qda_ioctl.h
+>> +++ b/drivers/accel/qda/qda_ioctl.h
+>> @@ -11,5 +11,6 @@
+>>  int qda_ioctl_query(struct drm_device *dev, void *data, struct drm_file *file_priv);
+>>  int qda_ioctl_gem_create(struct drm_device *dev, void *data, struct drm_file *file_priv);
+>>  int qda_ioctl_gem_mmap_offset(struct drm_device *dev, void *data, struct drm_file *file_priv);
+>> +int qda_ioctl_invoke(struct drm_device *dev, void *data, struct drm_file *file_priv);
+>>  
+>>  #endif /* __QDA_IOCTL_H__ */
+>> diff --git a/drivers/accel/qda/qda_rpmsg.c b/drivers/accel/qda/qda_rpmsg.c
+>> index 64bf503106d9..7a5e0d3e20ca 100644
+>> --- a/drivers/accel/qda/qda_rpmsg.c
+>> +++ b/drivers/accel/qda/qda_rpmsg.c
+>> @@ -1,12 +1,17 @@
+>>  // SPDX-License-Identifier: GPL-2.0-only
+>>  // Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> +#include <linux/completion.h>
+>>  #include <linux/module.h>
+>>  #include <linux/of.h>
+>>  #include <linux/rpmsg.h>
+>> +#include <linux/sched.h>
+>> +#include <linux/wait.h>
+>>  #include <drm/drm_print.h>
+>>  
+>>  #include "qda_cb.h"
+>>  #include "qda_drv.h"
+>> +#include "qda_fastrpc.h"
+>> +#include "qda_rpmsg.h"
+>>  
+>>  static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
+>>  {
+>> @@ -23,11 +28,92 @@ static struct qda_dev *qda_rpmsg_alloc_and_init_qdev(struct rpmsg_device *rpdev)
+>>  	return qdev;
+>>  }
+>>  
+>> +/**
+>> + * qda_rpmsg_send_msg() - Send a packed invocation to the remote processor
+>> + * @qdev: QDA device structure
+>> + * @msg: Packed message to send
+>> + *
+>> + * Takes a reference on the invocation context on behalf of the response
+>> + * callback, which keeps the context alive until the DSP has replied.
+>> + *
+>> + * Return: 0 on success, negative error code on failure
+>> + */
+>> +int qda_rpmsg_send_msg(struct qda_dev *qdev, struct qda_msg *msg)
+>> +{
+>> +	struct qda_fastrpc_invoke_ctx *ctx = msg->fastrpc_ctx;
+>> +	int ret, idx;
+>> +
+>> +	if (!drm_dev_enter(&qdev->drm_dev, &idx))
+>> +		return -ENODEV;
+>> +
+>> +	if (!qdev->rpdev) {
+>> +		ret = -ENODEV;
+>> +		goto out_exit;
+>> +	}
+>> +
+>> +	kref_get(&ctx->refcount);
+>> +
+>> +	ret = rpmsg_send(qdev->rpdev->ept, &msg->fastrpc, sizeof(msg->fastrpc));
+>> +	if (ret) {
+>> +		drm_err_ratelimited(&qdev->drm_dev, "Failed to send rpmsg: %d\n", ret);
+>> +		kref_put(&ctx->refcount, qda_fastrpc_context_free);
+>> +	}
+>> +
+>> +out_exit:
+>> +	drm_dev_exit(idx);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +/**
+>> + * qda_rpmsg_wait_for_rsp() - Wait for the DSP to answer an invocation
+>> + * @ctx: FastRPC invocation context
+>> + *
+>> + * Return: 0 once the response arrived, or -ERESTARTSYS if a signal
+>> + * interrupted the wait
+>> + */
+>> +int qda_rpmsg_wait_for_rsp(struct qda_fastrpc_invoke_ctx *ctx)
+>> +{
+>> +	return wait_for_completion_interruptible(&ctx->work);
+>> +}
+>> +
+>>  static int qda_rpmsg_cb(struct rpmsg_device *rpdev, void *data, int len,
+>>  			void *priv, u32 src)
+>>  {
+>> -	/* Placeholder: responses will be dispatched here */
+>> -	return 0;
+>> +	struct qda_dev *qdev = dev_get_drvdata(&rpdev->dev);
+>> +	struct qda_invoke_rsp *resp_msg = data;
+>> +	struct qda_fastrpc_invoke_ctx *ctx;
+>> +	int ret = 0, idx;
+>> +
+>> +	if (!qdev)
+>> +		return -ENODEV;
+>> +
+>> +	if (!drm_dev_enter(&qdev->drm_dev, &idx))
+>> +		return -ENODEV;
+>> +
+>> +	if (len < sizeof(*resp_msg)) {
+>> +		ret = -EINVAL;
+>> +		goto out_exit;
+>> +	}
+>> +
+>> +	ctx = xa_load(&qdev->ctx_xa, resp_msg->ctx >> 4);
+>> +	if (!ctx) {
+>> +		drm_dbg_driver(&qdev->drm_dev, "No context matches response 0x%llx\n",
+>> +			       resp_msg->ctx);
+>> +		ret = -ENOENT;
+>> +		goto out_exit;
+>> +	}
+>> +
+>> +	ctx->retval = resp_msg->retval;
+>> +	complete(&ctx->work);
+>> +
+>> +	/* Release the reference taken by qda_rpmsg_send_msg() */
+>> +	kref_put(&ctx->refcount, qda_fastrpc_context_free);
+>> +
+>> +out_exit:
+>> +	drm_dev_exit(idx);
+>> +
+>> +	return ret;
+>>  }
+>>  
+>>  static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
+>> @@ -41,6 +127,7 @@ static void qda_rpmsg_remove(struct rpmsg_device *rpdev)
+>>  	 */
+>>  	drm_dev_unplug(&qdev->drm_dev);
+>>  	qdev->rpdev = NULL;
+>> +	qda_fastrpc_flush_pending(qdev);
+>>  	qda_cb_unpopulate(qdev);
+>>  	qda_deinit_device(qdev);
+>>  }
+>> diff --git a/drivers/accel/qda/qda_rpmsg.h b/drivers/accel/qda/qda_rpmsg.h
+>> new file mode 100644
+>> index 000000000000..a70f4a80808d
+>> --- /dev/null
+>> +++ b/drivers/accel/qda/qda_rpmsg.h
+>> @@ -0,0 +1,26 @@
+>> +/* SPDX-License-Identifier: GPL-2.0-only */
+>> +/*
+>> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+>> + */
+>> +
+>> +#ifndef __QDA_RPMSG_H__
+>> +#define __QDA_RPMSG_H__
+>> +
+>> +#include "qda_drv.h"
+>> +#include "qda_fastrpc.h"
+>> +
+>> +/**
+>> + * struct qda_invoke_rsp - Response structure for FastRPC invocations
+>> + */
+>> +struct qda_invoke_rsp {
+>> +	/** @ctx: Invoke caller context for matching request/response */
+>> +	u64 ctx;
+>> +	/** @retval: Return value from the remote invocation */
+>> +	int retval;
+>> +};
+>> +
+>> +/* RPMsg transport layer functions */
+>> +int qda_rpmsg_send_msg(struct qda_dev *qdev, struct qda_msg *msg);
+>> +int qda_rpmsg_wait_for_rsp(struct qda_fastrpc_invoke_ctx *ctx);
+>> +
+>> +#endif /* __QDA_RPMSG_H__ */
+>> diff --git a/include/uapi/drm/qda_accel.h b/include/uapi/drm/qda_accel.h
+>> index 1d699f00e7be..5cf0fec1d91c 100644
+>> --- a/include/uapi/drm/qda_accel.h
+>> +++ b/include/uapi/drm/qda_accel.h
+>> @@ -21,6 +21,8 @@ extern "C" {
+>>  #define DRM_QDA_QUERY		0x00
+>>  #define DRM_QDA_GEM_CREATE		0x01
+>>  #define DRM_QDA_GEM_MMAP_OFFSET	0x02
+>> +/* Command numbers 0x03-0x06 reserved for INIT_ATTACH, INIT_CREATE, MAP, MUNMAP */
+> 
+> WHY?
+I'll move away from this reserved idea in the next version and update it
+in order of IOCTLs that are getting enabled.>
+>> +#define DRM_QDA_REMOTE_INVOKE			0x07
+>>  
+>>  /*
+>>   * QDA IOCTL definitions
+>> @@ -35,6 +37,8 @@ extern "C" {
+>>  					  struct drm_qda_gem_create)
+>>  #define DRM_IOCTL_QDA_GEM_MMAP_OFFSET	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_GEM_MMAP_OFFSET, \
+>>  					  struct drm_qda_gem_mmap_offset)
+>> +#define DRM_IOCTL_QDA_REMOTE_INVOKE	DRM_IOWR(DRM_COMMAND_BASE + DRM_QDA_REMOTE_INVOKE, \
+>> +					  struct drm_qda_invoke_args)
+>>  
+>>  /* Query type definitions for drm_qda_query */
+>>  #define QDA_QUERY_DSP_NAME	1
+>> @@ -84,6 +88,44 @@ struct drm_qda_gem_mmap_offset {
+>>  	__u32 pad;
+>>  };
+>>  
+>> +/**
+>> + * struct drm_qda_fastrpc_invoke_args - FastRPC invocation argument descriptor
+>> + * @ptr: Pointer to argument data (user virtual address)
+> 
+> Why do you need it? Is handle + length not enough? If you want, specify
+> offset inside the GEM BO.
+The user VA (`ptr`) is needed because userspace mmaps the GEM BO and
+then passes pointers into it to the DSP. The kernel derives the offset
+within the BO from the VMA (via `calculate_vma_offset()`).
+
+I can check if just passing handle + offset + length works here but that
+might require some userspace change.
+> 
+>> + * @length: Length of the argument data in bytes
+>> + * @handle: GEM handle for buffer arguments; 0 for scalar arguments
+>> + * @attr: Argument attributes and flags
+>> + *
+>> + * This structure describes a single argument passed to a FastRPC invocation.
+>> + * Arguments can be either scalar values or buffer references (via GEM handle).
+>> + * Userspace must import any DMA-BUF fd to a GEM handle before populating
+>> + * this field; the driver never accepts DMA-BUF fds directly.
+>> + */
+>> +struct drm_qda_fastrpc_invoke_args {
+>> +	__u64 ptr;
+>> +	__u64 length;
+>> +	__u32 handle;
+>> +	__u32 attr;
+>> +};
+>> +
+>> +/**
+>> + * struct drm_qda_invoke_args - Dynamic FastRPC invocation parameters
+>> + * @handle: Remote handle to invoke on the DSP
+>> + * @sc: FastRPC scalars value encoding the number of in/out buffers
+>> + * @args: User-space pointer to array of drm_qda_fastrpc_invoke_args descriptors;
+>> + *        the handle field in each entry must be a GEM handle (or 0 for
+>> + *        inline scalar buffers). Userspace must import DMA-BUF fds to GEM
+> 
+> What is inline scalar buffer? I think, we agreed that everything is a
+> GEM BO.
+I missed updating this comment, The inline buffer logic is now removed.
+I'll fix this.>
+>> + *        handles before passing them here.
+> 
+> I'd say this is useless. It adds no information. If the driver only
+> accepts GEM handles, why do you need to speak about DMA BUFs here?
+ack, will update the details properly.>
+>> + *
+>> + * This structure is used with DRM_IOCTL_QDA_REMOTE_INVOKE to perform a
+>> + * dynamic remote procedure call on the DSP. The args pointer must reference
+>> + * an array of REMOTE_SCALARS_LENGTH(sc) drm_qda_fastrpc_invoke_args entries.
+> 
+> And how does the user know, what is REMOTE_SCALARS_LENGTH? Define it
+> here, please (and start with QDA).
+ack.>
+>> + */
+>> +struct drm_qda_invoke_args {
+>> +	__u32 handle;
+>> +	__u32 sc;
+> 
+> Can we place sc with __u8 inargs, __u8 outargs? Then there is no need to
+> play with the bytes and talk about REMOTE_SCALARS_LENGTH.
+Explained the source of `sc` above, I can correct the comments here.>
+>> +	__u64 args;
+> 
+> __u64 inargs, __u64 outargs?
+> 
+>> +};
+>> +
+>>  #if defined(__cplusplus)
+>>  }
+>>  #endif
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
