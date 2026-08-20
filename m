@@ -1,36 +1,35 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id DA3F437F00C;
-	Thu, 20 Aug 2026 17:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 0625137BE6F;
+	Thu, 20 Aug 2026 17:44:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787247266; cv=none; b=ZYTeq1xF3zF1Uc1q/TcaRfEWNyo+i5zI+AaEa+Ob99b9bAE3mrKifDbWg8LglkWLNr6C9mNwLYQ2RQYpeRTqarsfDBQaeX9XzWQW/6y5Vg6lLUDkXEKXlxpfmNQWjH/fk9ejZ7h0b3h8eD2ZmHwz+4c39wxlvp92vpQf7MyzEP8=
+	t=1787247891; cv=none; b=M8JHCYfPlHvo2R+IJrZ/QEGWqYGKssOASf/ERKrdQ3c6eca7Hgrbw2YCE11DZCurQKo/H9akNv5EvXj/3vXzpbWxzuOUl+EPBHitBtjlP/qUMWmAX61AFuniIx0if1x/Alx/qWD5G65lKpo5QodDLUk1ALcScYXmoaymMoke5WE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787247266; c=relaxed/simple;
-	bh=6d6trshcrhxKprGt8zElAF+25dO3pSF+3PnYMjOG1Yg=;
+	s=arc-20240116; t=1787247891; c=relaxed/simple;
+	bh=ZM9sg/RSerJOWxKjiA4PYnkNJoiYGKpyXA8LruZG+VE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G2rskfRuVVFAKacD4j2yOD994iiDNa+ZM9HL1wwKxXS+7sTyEa6xlkvlsQPWBk6O1YmzbQBt8O+N+xRUhCkUA5JhbSAf597YXUt1WffuUFJRuDWMGbkCnyR0isVooMAPtSBPoqil9ZP0Hv6XnHstblSzLLZz7aGX87UOlhGE6JQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=sxFv9IFT; arc=none smtp.client-ip=217.140.110.172
+	 Content-Type:Content-Disposition:In-Reply-To; b=QSTGDL9lhRFG3GHOoZwEM6JPiNFYEsBDpDphiwkVtSvDxVEABdFZjXXfwGqasUuaL/cdE5djhlrsOALgH1SNWfQpo45phGIFXKMBnxXNbbVwyyhtFD4TlAL7oxKnyVmixXHzKGinxZbIW3QRcIHD4U5sV7ehLLeezyV8OY6A83w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=M/XzHRre; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="sxFv9IFT"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="M/XzHRre"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 0B8F0153B;
-	Thu, 20 Aug 2026 10:34:20 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 74B511477;
+	Thu, 20 Aug 2026 10:44:44 -0700 (PDT)
 Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 572343F763;
-	Thu, 20 Aug 2026 10:34:21 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 0F9C43F763;
+	Thu, 20 Aug 2026 10:44:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787247263; bh=6d6trshcrhxKprGt8zElAF+25dO3pSF+3PnYMjOG1Yg=;
+	t=1787247888; bh=ZM9sg/RSerJOWxKjiA4PYnkNJoiYGKpyXA8LruZG+VE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=sxFv9IFTYkN8Xo1ymDdk2vtFJhiuGmQoQ157j2zvBhiI90N/E4mEHbkJRLpQWAsAK
-	 dS4Lm1AjLN/91wNStVmRGf6h0/geeaqGVlhxsrmWC0yj1v+h+5Ms/F4Rc6Roeoy24e
-	 lid5+NmZ0RNTNXX6NoYhH1Iow72w5iIdD3alcqk0=
-Date: Thu, 20 Aug 2026 18:34:18 +0100
+	b=M/XzHRrezBOqpp2QoYljfNsuWLo6QApmQ7ZiAInG4n0QLnmZo37eyq/egMLz0msZl
+	 NvS4zWlQ6NbWJC9JfVE+ouSxZwRdwNEuLGzeRKFCn8VoThkR+KDSRosyApkLL+ioKC
+	 dsNRj5IMAfcmFGkEgCzp4TzBgmXrt7Iu8sLowYm8=
+Date: Thu, 20 Aug 2026 18:44:43 +0100
 From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Steven Price <steven.price@arm.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+To: Steven Price <steven.price@arm.com>
+Cc: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
 	Marc Zyngier <maz@kernel.org>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
 	Thomas Gleixner <tglx@kernel.org>,
@@ -40,13 +39,16 @@ Cc: Steven Price <steven.price@arm.com>,
 	John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
 	linaro-mm-sig@lists.linaro.org,
 	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
+	linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
+	Jiri Pirko <jiri@resnulli.us>,
 	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [PATCH 0/2] Clear shared pages after private-to-shared conversion
-Message-ID: <aoc6mkzdqtqigv3n@arm.com>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820122048.GB18100@ziepe.ca>
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Jason Gunthorpe <jgg@nvidia.com>
+Subject: Re: [PATCH v2 1/4] irqchip/gic-v3-its: Zero shared pages after
+ conversion
+Message-ID: <aoc9CyxGPHPKFH1N@arm.com>
+References: <20260820150034.88729-1-steven.price@arm.com>
+ <20260820150034.88729-2-steven.price@arm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -55,45 +57,51 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260820122048.GB18100@ziepe.ca>
+In-Reply-To: <20260820150034.88729-2-steven.price@arm.com>
 
-On Thu, Aug 20, 2026 at 09:20:48AM -0300, Jason Gunthorpe wrote:
-> On Thu, Aug 20, 2026 at 11:50:23AM +0100, Steven Price wrote:
-> > Arm CCA includes "Memory Encryption Contexts" (MEC) which allows the
-> > private and shared data accessible to a guest to have different memory
-> > encryption keys. Consequently when converting memory to shared, the
-> > memory encryption key used to access the physical page will change.
-> > 
-> > Both the GICv3 ITS driver and the system_cc_shared dma-buf heap
-> > currently allocate memory with __GFP_ZERO and then decrypt it. With MEC
-> > the zeroing is done with the wrong encryption key and the data visible
-> > after decryption may be ciphertext. The RMM is required to scrub the
-> > data, but may perform this scrub with a different encryption key to the
-> > eventual key that will be used for shared access.
-> > 
-> > Fix these two sites by avoiding the __GFP_ZERO during the allocation and
-> > performing a clear_pages() call after the decryption.
-> 
-> Reviewed-by: Jason Gunthorpe <jgg@nvidia.com>
-> 
-> This whole set_memory_decrypted() API is awful. It really should be improved.
-> 
-> alloc_pages_decrypted() ?
+On Thu, Aug 20, 2026 at 04:00:30PM +0100, Steven Price wrote:
+> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
+> index 6f5811aae59c..a055837832bc 100644
+> --- a/drivers/irqchip/irq-gic-v3-its.c
+> +++ b/drivers/irqchip/irq-gic-v3-its.c
+> @@ -213,16 +213,18 @@ static gfp_t gfp_flags_quirk;
+>  static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  					 unsigned int order)
+>  {
+> +	bool want_zero = gfp & __GFP_ZERO;
+>  	struct page *page;
+>  	int ret = 0;
+>  
+> -	page = alloc_pages_node(node, gfp | gfp_flags_quirk, order);
+> +	page = alloc_pages_node(node, (gfp & ~__GFP_ZERO) | gfp_flags_quirk,
+> +				order);
 
-At some point I suggested GFP_DECRYPTED but if we don't want to
-interfere with the slab allocator, an alloc_pages_decrypted() would do:
+I don't think pKVM does any scrubbing on set_memory_decrypted(), so it
+potentially exposes confidential guest data before it reaches
+clear_pages() below.
 
-https://lore.kernel.org/all/ZmNJdSxSz-sYpVgI@arm.com/
-
-And we had a vmalloc_decrypted() proposal as well that paves the way for
-decrupted pages. I forgot what we concluded:
-
-https://lore.kernel.org/all/20260521205834.1012925-1-kameroncarr@linux.microsoft.com/
-
-Actually, this last series had a lot back and forth around __GFP_ZERO
-that's relevant to this series.
-
-I'll comment on v2, I see it posted already.
+>  
+>  	if (!page)
+>  		return NULL;
+>  
+>  	ret = set_memory_decrypted((unsigned long)page_address(page),
+> -				   1 << order);
+> +				   BIT(order));
+>  	/*
+>  	 * If set_memory_decrypted() fails then we don't know what state the
+>  	 * page is in, so we can't free it. Instead we leak it.
+> @@ -231,6 +233,9 @@ static struct page *its_alloc_pages_node(int node, gfp_t gfp,
+>  	if (ret)
+>  		return NULL;
+>  
+> +	if (want_zero)
+> +		clear_pages(page_address(page), BIT(order));
+> +
+>  	return page;
+>  }
+>  
+> -- 
+> 2.43.0
 
 -- 
 Catalin
