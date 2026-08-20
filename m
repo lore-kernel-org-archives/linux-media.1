@@ -1,169 +1,169 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f6.google.com (mail-oo2-f6.google.com [74.125.231.134])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AAF415B68;
-	Thu, 20 Aug 2026 16:02:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAD626ED37
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.134
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787241748; cv=none; b=CoSug5qJFNwTbfURbH6L1YsSs4f9y1uGEejxiFrb3kcR3q0miSke0gQMeAehjg3qiktLJzGAJR5dLkl9rY5y9hK6/CfizL08WHbEK4Z8p2tGOxR9Fk56H7tp5O6SY9KTPRuT9B3ZGRw0VB4uSiA23+Bz8dzu+rflomiYGrAd1YI=
+	t=1787241943; cv=none; b=Ze5gz62TkYPai+53GqHTX6+wULJ7EpsjU1joOzHDIEDGX99Nhli70+Ri8MJc3bTgEiqGTO3YrZ5t2pml0gQgp726EZ3xVjaiu3zNC76Dkm42gUIIReOhx86hcgpLho374U9W25OWqSunx0ECjsLIwiXyJCKonut4n79kRxXM1tc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787241748; c=relaxed/simple;
-	bh=NgH4cC1k4sPYlDBooHzRMAITIKBecBzHZ/fTd5G2PNk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=crT/J8RKBm7MFvtCUlybbs2b1efoYZv/eEwDk1borkR2qxAAHHQX8P2ZNBIbdMSRKBZxNrPOd3HqsQwZUirleiUnQfIAHf3+FHvRIrVbYk9MkqlOgaAK/nroql8YBvDzq/wXBDOqXIH6aThyjOu5lTl0P1YruIPlzJfs9efnYaw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DC6VOVdb; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DC6VOVdb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1787241744;
-	bh=NgH4cC1k4sPYlDBooHzRMAITIKBecBzHZ/fTd5G2PNk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=DC6VOVdbdADn3RntNzAknAEaFIbouGLxbmBetmcHMrmjSmOtxh4v/f+CMSrZrCsh4
-	 mSdTz1AFQlUlMIEmERp8xJX4dlSAQngCtsIxBPc563rbEJZyvBV225vH0vIb5gPG6G
-	 TTm65/KLjABNhPb1HsKXLUU8J7+cYI8CPLMax1AO4thv5DGfzBettTbdHrAp8Cl9CY
-	 8B2TFiUQmlSxGTTESwEcg7gb1kRw2xuXeofljxRtfabBiaz8b3seTeBBY3RdXxAXy9
-	 t1Z3OwWR8a/dxAxZHIvSnXDwjIcQ1vYZHJQmpbfZYM+swMz0bPGUhRqG5ScymWAFMF
-	 WCRpEZnboQQxQ==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 706FC17E0860;
-	Thu, 20 Aug 2026 18:02:22 +0200 (CEST)
-Message-ID: <61537689daa428a577e6bdab794d044f5405128e.camel@collabora.com>
-Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel	
- <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko
- Stuebner <heiko@sntech.de>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Andrzej Pietrasiewicz	
- <andrzej.p@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Chen-Yu Tsai
-	 <wenst@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lucas Sinn	
- <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>, 	linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	devicetree@vger.kernel.org
-Date: Thu, 20 Aug 2026 12:02:20 -0400
-In-Reply-To: <5436875c-9724-41f3-aaf9-76d43e05f0a8@pengutronix.de>
-References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
-	 <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
-	 <2816bd84651dcbfd0cd76bbc56e461bd409f9611.camel@collabora.com>
-	 <5436875c-9724-41f3-aaf9-76d43e05f0a8@pengutronix.de>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-Sh7xuFpFF+Uoq55bNVgI"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	s=arc-20240116; t=1787241943; c=relaxed/simple;
+	bh=5e7nHEM/cDlfbvo/6NNVswNFgQ2FsKRPmj7kvW8cfAc=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=IWR9kZ75EISm4X71CSehD/zgQ3x6R24OX6TE9qiLUsmpHtUExm/CTvo4UMVw3Fyq1D/iai5vNNqa1KWaQlIUTUTiRco6ePkTPbQcBxlHt0d3FS98/Vc9kB4mcQfFoJtgY5/BtF9Nu804Cdo3QKUYXW0LDz2fRLr7NMS/8Oit6ww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.134
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oo2-f6.google.com with SMTP id 006d021491bc7-6b132681374so17942eaf.1
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:05:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787241941; x=1787846741;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=60nhiiMCao6jsYmfg5q7r/1mx5JitrmG3naN6T23jUY=;
+        b=g/RfjER8vHSVe9N4Gsb8UHY+xbjK0X6zLM+xUn+JyDuuEhtXVLHOFITSE8TvEemdhW
+         6GeUKOm7H9C2x2ICabp7UE4y2NtsrSuDrCn4QRW92ndyLXkoTkzdwJNxzwm9iDEKqp1D
+         Y/Z9/WNgYiMbOrOq8coOl4LaQUMv/RJkLP+KiXwUBcrwJqPP140U+Us/uRRtMqa0DMIX
+         AJLfgXBS8zdxG6k4juvi79/yPC9pUjmUHTgXB6WUDd5u+xBvegUulTOCbQa+dXtLoyKu
+         MsWM2hl5IQp8+TQvHpwuZYPlagS8wepFZPxCM3z9aD4uuQCT2lf3oxHchZ0ezP0pZlN+
+         1Ajw==
+X-Forwarded-Encrypted: i=1; AHgh+RqsmTQPDo1GePZBDudqMNQwJNHa9HRXlEKBAnzHb5wU7kS+fPZtxjHuO2lHgqmfU6xF1zqLDyNzt2p49A==@vger.kernel.org
+X-Gm-Message-State: AOJu0YypuidDV1vnM/t+cgIY0Sq05gBmV77mo3+4usiMyX4bTkIdbNxs
+	mTr5ejQC7MQBySj/22MNifBt7A5XqOJl4JLSmmTtJBn9PqgnNYIlV5lQXMEH44ntNEs896BqniX
+	JSvzOi4K3nx104yYnJlXAq1ELM+PdTVj226pRFsD+qJUVE876RkjgoYSp/xM=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-
---=-Sh7xuFpFF+Uoq55bNVgI
+X-Received: by 2002:a05:6820:818e:b0:69e:b8:ffe4 with SMTP id
+ 006d021491bc7-6b13c65ceb9mr13338872eaf.32.1787241941142; Thu, 20 Aug 2026
+ 09:05:41 -0700 (PDT)
+Date: Thu, 20 Aug 2026 09:05:41 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8725d5.4d75e56a.c9a88.0043.GAE@google.com>
+Subject: [syzbot] [media?] KASAN: slab-use-after-free Read in
+ __vb2_queue_cancel (2)
+From: syzbot <syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	m.szyprowski@samsung.com, mchehab@kernel.org, syzkaller-bugs@googlegroups.com, 
+	tfiga@chromium.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Sascha,
+Hello,
 
-Le jeudi 20 ao=C3=BBt 2026 =C3=A0 10:03 +0000, Sascha Hauer a =C3=A9crit=C2=
-=A0:
-> On 2026-08-19 11:48, Nicolas Dufresne wrote:
-> > Hi Sascha,
-> >=20
-> > Le mercredi 19 ao=C3=BBt 2026 =C3=A0 12:37 +0200, Sascha Hauer a =C3=A9=
-crit=C2=A0:
-> > > +/* -----------------------------------------------------------------=
-- */
-> > > +/* Register byte offsets from dec_base=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 */
-> > > +/* -----------------------------------------------------------------=
-- */
-> > > +
-> > > +/* REG0: IP version / product ID */
-> > > +#define VDPU720_REG_VERSION		0x000
-> > > +#define VDPU720_PROD_NUM		GENMASK(31, 16)
-> > > +#define VDPU720_BIT_DEPTH		BIT(8)
-> >=20
-> > Can you share a dump and share these register reset values. Looking at =
-the
-> > layout, clearly its highly modified, but probably derived from VSI mult=
-i-codec,
-> > but I'm thinking perhaps we'll learn more from that. Its always nice to=
- justify
-> > when adding more chips that are not strictly VSI designs (or maybe it i=
-s) to the
-> > hantro dirver.
->=20
-> Here's a full register dump right after reset:
->=20
-> 00000000: db1f0005 00000004 00120000 00000000
+syzbot found the following issue on:
 
-I've look around as much as I could, and could not find any indication that=
- this
-is an IP from VSI or derived from a VSI core. It is entirely different from
-vdpu1 in mpp (proper G1, rk3288 and similar) and vdpu2 (modified G1 / VDPU1=
-21).
-In short, this is not a multi-codec core.
+HEAD commit:    f4cdf7ca9a1f Merge tag 'media/v7.3-1' of git://git.kernel...
+git tree:       upstream
+console+strace: https://syzkaller.appspot.com/x/log.txt?x=10a10e79580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=e4b57019f58edf16
+dashboard link: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=14a10e79580000
 
-So that ball is on your end to show that this driver belongs to hantro rath=
-er
-then its own driver. In absence of evidence, this driver should be part of
-rockchip vendor folder, not vsi. Don't read me wrong, I trust that you have
-tested what the LLM have chosen, but anything can be implement in Hantro re=
-ally,
-it does not mean it should be there.
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/865d16295f11/disk-f4cdf7ca.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/71f476ad78fc/vmlinux-f4cdf7ca.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/e19d5dbdc9b7/bzImage-f4cdf7ca.xz
 
-Nicolas
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
 
-> 00000010: 00004400 00000000 00000000 00000000
-> 00000020: 00000000 00000000 00000000 00000000
-> 00000030: 00000000 00000000 00000000 00000000
-> 00000040: 000000ff 00000000 00000000 00000000
-> 00000050: 00000000 00000000 00000000 00000000
-> 00000060: 00000000 00000000 00000000 00000000
-> 00000070: 00000000 00000000 000000a8 00000001
-> 00000080: 00200000 00080f06 00000000 00000000
-> 00000090: 00000000 00000000 00000000 00000000
-> 000000a0: 00040000 00001556 00000000 00000000
-> 000000b0: 00000000 00000000 00000000 00000000
-> ...
-> 000003f0: 00000000 00000000 00000000 00000000
->=20
-> Sascha
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000: 0000 [#1] SMP KASAN NOPTI
+KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+CPU: 1 UID: 0 PID: 30 Comm: kworker/1:2 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Workqueue: events request_module_async
+RIP: 0010:__wake_up_common+0x9b/0x1f0 kernel/sched/wait.c:104
+Code: 02 00 0f 85 5b 01 00 00 48 8b 5b 40 48 8d 43 e8 4c 39 fb 0f 84 b3 00 00 00 48 ba 00 00 00 00 00 fc ff df 48 89 d9 48 c1 e9 03 <80> 3c 11 00 0f 85 18 01 00 00 48 bd 00 00 00 00 00 fc ff df 4c 8b
+RSP: 0018:ffffc90000a679c0 EFLAGS: 00010056
+RAX: ffffffffffffffe8 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: dffffc0000000000 RSI: 0000000000000003 RDI: ffff8880283e5790
+RBP: ffff8880283e5790 R08: 0000000000000000 R09: fffff5200014cf2f
+R10: 0000000000000003 R11: 00000000000075ab R12: 0000000000000003
+R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880283e57d0
+FS:  0000000000000000(0000) GS:ffff888123ccc000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f764d56ae9c CR3: 000000002a6c6000 CR4: 0000000000350ef0
+Call Trace:
+ <TASK>
+ __wake_up_common_lock kernel/sched/wait.c:125 [inline]
+ __wake_up+0x31/0x60 kernel/sched/wait.c:146
+ __vb2_queue_cancel+0x348/0xe90 drivers/media/common/videobuf2/videobuf2-core.c:2244
+ vb2_core_queue_release+0x27/0x190 drivers/media/common/videobuf2/videobuf2-core.c:2677
+ vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
+ vb2_video_unregister_device drivers/media/common/videobuf2/videobuf2-v4l2.c:1279 [inline]
+ vb2_video_unregister_device+0x152/0x2e0 drivers/media/common/videobuf2/videobuf2-v4l2.c:1254
+ em28xx_v4l2_init.cold+0xe1a/0x3a18 drivers/media/usb/em28xx/em28xx-video.c:3097
+ em28xx_init_extension+0x13a/0x200 drivers/media/usb/em28xx/em28xx-core.c:1248
+ request_module_async+0x1e/0x30 drivers/media/usb/em28xx/em28xx-cards.c:3685
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:__wake_up_common+0x9b/0x1f0 kernel/sched/wait.c:104
+Code: 02 00 0f 85 5b 01 00 00 48 8b 5b 40 48 8d 43 e8 4c 39 fb 0f 84 b3 00 00 00 48 ba 00 00 00 00 00 fc ff df 48 89 d9 48 c1 e9 03 <80> 3c 11 00 0f 85 18 01 00 00 48 bd 00 00 00 00 00 fc ff df 4c 8b
+RSP: 0018:ffffc90000a679c0 EFLAGS: 00010056
+RAX: ffffffffffffffe8 RBX: 0000000000000000 RCX: 0000000000000000
+RDX: dffffc0000000000 RSI: 0000000000000003 RDI: ffff8880283e5790
+RBP: ffff8880283e5790 R08: 0000000000000000 R09: fffff5200014cf2f
+R10: 0000000000000003 R11: 00000000000075ab R12: 0000000000000003
+R13: 0000000000000000 R14: 0000000000000000 R15: ffff8880283e57d0
+FS:  0000000000000000(0000) GS:ffff888123ccc000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 00007f764d56ae9c CR3: 000000002a6c6000 CR4: 0000000000350ef0
+----------------
+Code disassembly (best guess):
+   0:	02 00                	add    (%rax),%al
+   2:	0f 85 5b 01 00 00    	jne    0x163
+   8:	48 8b 5b 40          	mov    0x40(%rbx),%rbx
+   c:	48 8d 43 e8          	lea    -0x18(%rbx),%rax
+  10:	4c 39 fb             	cmp    %r15,%rbx
+  13:	0f 84 b3 00 00 00    	je     0xcc
+  19:	48 ba 00 00 00 00 00 	movabs $0xdffffc0000000000,%rdx
+  20:	fc ff df
+  23:	48 89 d9             	mov    %rbx,%rcx
+  26:	48 c1 e9 03          	shr    $0x3,%rcx
+* 2a:	80 3c 11 00          	cmpb   $0x0,(%rcx,%rdx,1) <-- trapping instruction
+  2e:	0f 85 18 01 00 00    	jne    0x14c
+  34:	48 bd 00 00 00 00 00 	movabs $0xdffffc0000000000,%rbp
+  3b:	fc ff df
+  3e:	4c                   	rex.WR
+  3f:	8b                   	.byte 0x8b
 
---=-Sh7xuFpFF+Uoq55bNVgI
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
 
------BEGIN PGP SIGNATURE-----
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoclDAAKCRDZQZRRKWBy
-9J71AQDIPC+bWNjjlyxNCjQSdvKc/XKLnolosfjxhlZ4DMvNMQD/U+0qQgLG7T19
-Z4oo+bnV8HuZ4bzEtkpq2qUeEgaEiwk=
-=SqwL
------END PGP SIGNATURE-----
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
---=-Sh7xuFpFF+Uoq55bNVgI--
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
