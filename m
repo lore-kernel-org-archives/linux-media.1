@@ -1,159 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f43.google.com (mail-yx1-f43.google.com [74.125.224.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9425146D2DB;
-	Thu, 20 Aug 2026 13:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787232710; cv=none; b=i9edkzeG6efBfmg7nkI0Eg90wlg/PXAUNTj/RV2OtPi6z28VELdQqDV1S6LWCPy5pMyr94Po9DU8Q3pnigJwD67F6AV6ZIQceGwpKabUFtUb3L6MvQOaI3DOfYu/OdOlkIuDOj+l/hJ20310OfDVC6Pgjdq3quRq14GMLEarivA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787232710; c=relaxed/simple;
-	bh=IXH532W9nQe3iTd6yiQpJQVVtTqis60RHuj3w12JoIc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=AlzUawnFmhvBE+wqrhtRmIpC5zcLFAGH6RF7qa/0mUx5LXxGSmpRr5MqB89PB+jsi/M17Ho4Efttvb3LExHIh2//95OhZucUFe0Y9ZsuBG9CWchrYqtpqYDEtgl68SIlKiC+CsxIUjWq7XqFF7GdBYZWYoqKm9Zeb56BZVKemWg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ulo0GSHk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EEF2139C9
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787235336; cv=pass; b=UFcRh/XtzchQydkTFin4n8Q+D9obuJGkl8Ntf0bhtaCwoAsdnBwslB+N9qTmF6XMdeRpE4vQIkdkyMh77gkGenrlMV8LmwslKoQlZ9FgmTGhb64YhNQn0zgryFvlBYHS1g1Yu6RqmPL2UhYgvUVdQRrZuLoEIKVCybMvVq4y8LI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787235336; c=relaxed/simple;
+	bh=fVDI9qUr0qMP1TyCb6Rht+fdKuU++t9fRjNPPJhK6Gc=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=ZEuDGJw4WL8iXCU+2+ZAcq5Ln/sHdZw8kyL2504171DU7uXkk2748YxFeGe9EwCherVmg47q+xvA3wRMSd52s5XyqUw2+ZzI/vlEr+opUk5F3uGlRVmYXZWwmsbgvkHJfPIPoN8uhEAicsgA6PjRXJalLhgSrnRgxQxD+/nNKCU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNH5OuwE; arc=pass smtp.client-ip=74.125.224.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ulo0GSHk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399211F000E9;
-	Thu, 20 Aug 2026 13:31:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787232701;
-	bh=ulM9nrSrQt6FECJtLrk+YzsnAy0bZz7OONexKExTW14=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ulo0GSHkUqjgMYyzSRC5s33m4+ChuX6N3cRQUDz9P5Wffg+Iblb6lihFpLGkv67AS
-	 wPbIZ6/tWXPw5QXGHSsD7WtmFK2SC3J7hdx5j55bwPeja13VWh/0Tbc2ewqrw4bZcl
-	 sZiVYJoWo4h3+i+ct+KBoOSF1/4jO4dvcu2Rt6ZYH8nLJM5aQiLwJHzTfYJSXO4zfU
-	 ++uJdip1oiG6Tdzd50fJSxxwsHrfG+r5w9IKwQirGlpwavYNkqsiw2+/5F/mibutjI
-	 zozqDP5tqAz0Wh5ISNmd8/wiNfulwUpVIytMFkp62/9KX6exuMBwfSsRowxRX2WEai
-	 fugb4xiUNOayQ==
-Message-ID: <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
-Date: Thu, 20 Aug 2026 15:31:28 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNH5OuwE"
+Received: by mail-yx1-f43.google.com with SMTP id 956f58d0204a3-66ca4bdccfaso3646050d50.3
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 07:15:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787235333; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RI8QlAq2fZS4Lj8IX1b3mANFXqSBTPXllr37aQn9zcwmYZQOY5NuupICRdL5uoVBkE
+         A9jFefIj9Yhryauez6Nus/X/Pssewy4z0rP32fUgtRQYorIJKe4fbvDxgIhdaOoafaTz
+         bMLFAmVdZFYB8zvRszYhZjE3+PvRat1TSdbfun/a1siaXJXchKCFEV8AUOJ0z0c/3uXY
+         s1MeR7cEUJZKY7uHtrOnCMQIpPSlo6SeN9o3ykNA8zu3jpfijfYL6ag1XWNBEkY22a6r
+         xYDmpjOnSVh4pwb9mLtRQzDuDgXoFI3ZgYTLCy83Z3tjlp4cw/QgDziBOtPbrtlw3Kk2
+         cGkg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
+        fh=WpoetKQJPRBOk5Dbl/gAyGGMPpBUy8E3SWkNnXuJ7v4=;
+        b=i5plagO0WxRuFvgHpYp9KmZhKpxzr8zQ9TzC7dc158Zjrk0eRejNMyKa+GfBdR9H4v
+         6ZxkQGUidWmAXLNN1fJ6882TaJJKxgO/0zROb7NhaVXBgGtopOVPQyN15GWh8ahoxpWH
+         o7UTZPYyd8GV5v/beSLv71MWKPey9gTV/PTs43n+Ghq2rq6B2yrY6xTqvNnkwKdGtfGg
+         +KDUYdTBL/XpdMRF37arxTBSupL45O4OjqqCu2pj+54Y1Ll+7TJWfnDh0jjxqPaZApro
+         141UUlgev34h7qltVJTEyAmu9AWBmVH42kR8pEl/gkbRS7y9Pq8SdMjM2Ko6mxZi9ECy
+         Jrxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787235333; x=1787840133; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
+        b=oNH5OuwEhxoNJiPaeB2Po0VqggKwdKFysmkB1/52/sRK+L+pwvIAL+2/hdjbqM3eJ4
+         YERbWQw/gBRVzht0fuNypT14VZ3b/qqRCtQhHg8Ounw6ZJ37FEwoQb1K7r5JSolm1FLJ
+         W0MT44sSxqIjuwAjmr2K7SA/1Ciqxlrt3W5A3T8LcWUns8zKFxW2JqRaIOOdDTVh8Tsh
+         48taYUwW+Sl4F3KH+KIvRs3vn8aRKwdR/KrMrCxnPB+P9Lz+CvI99udzPoPsPfGKlSm9
+         cWfpmw2flf9OEKf3sxSzGrz9VjcwTpLAcnxvvzeTgkD/BiiC5nxjxa5TRkzJYGXn+4tu
+         UJaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787235333; x=1787840133;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=wiuRp2lMC99rGanQb9bvhIAM7kIXybnpz54iiNftrrA=;
+        b=lN3HQTcsi+RT7Wbh7vGOZN969bnoKggR+pmHj14NBpQANnYj8V57KDvbfe+WEDIgKI
+         NLtiFgciip3wL37TRYu8A4jSA9UgsBQEjUSpj7BEgdTxY6Ob2A8gcCsvXemc83pA/A5A
+         UXMuf73aQa29caXJzmnnCevK+npjO8ofoCDd7qM+tEjr8iv7e0O+0keIXmlfPEvtc5yU
+         kiWsIXlsODhxGE3UYhHjTCi/PSm0xd2/dFi9knxUXUdUa1c4XYUXAi3pASL8Cls+kQ+d
+         g2/2YPQlKyCpF4lOyAIHFLRN/rcSVidGe/kIMy5EttJKVXHfQdLqm+4Vv16+mNoDnWdK
+         IMqA==
+X-Gm-Message-State: AFuF++nl1J8XoF+qY4x9GchpsMzpJstTI5g2TzAddiO6RVtg4DnNBTjm
+	XQC1IVZNnp3w91DQ4pSmFxRVTEStM5QH5zPlbNM8nYfDroLND6y53LtlNU82UMLeJv2+xbiLMxO
+	TJcq5NCqBk1nbXcRgcCvmjy6yKoIQ7D4nZN2I
+X-Gm-Gg: AR+sD11S1oR0uUXOlr4fNqDz1uje9IML1tI1PMUi71QeIuN/FS1cQovm55oKUkN6Jgp
+	Rxmp1us90J4ouvcON68jsICFkbARzAOwYyqLc0TrayUyWpClZcKxrIQ305iqhOJLcNowHFtjNiX
+	qrRnINrp/B7uM+X6pHahTh8aXP49amyMS9eAnqxvGmyPPTV9NQzU1i9Ak4r4URatFTBbi6slfq8
+	FS/bPCDL9cfSThQdXG1hnff/jm6AugvlFJcD16n+/UlWqhJMbrQnRsxMeTB3SohsxPjv19NrCNA
+	jg6yGDVX3CqFFm3WytmEgs7RCUsXkI8Bgc0YH/meD28+S1qofUkJZoGy6qfBcCpIODHm+kDX7/b
+	z2MOLYmyd+hv0T0nk2gDqC4oqAQFwZYutNCDTg8my006jxlbxTNsfyBtxalPU5F0YYf/QpXby83
+	uP1UOKTFLxnvNQarE4H6Pg
+X-Received: by 2002:a05:690e:c4e:b0:667:a025:89a4 with SMTP id
+ 956f58d0204a3-66ccb618589mr4430455d50.18.1787235332559; Thu, 20 Aug 2026
+ 07:15:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
- driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
- <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
- Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
- <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Bharath Kumar <quic_bkumar@quicinc.com>,
- Chenna Kesava Raju <quic_chennak@quicinc.com>,
- srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
- <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
- <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
- <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
- <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
- <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
- <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Vasco Valadares Semana <vasco.valadaressemana@gmail.com>
+Date: Thu, 20 Aug 2026 16:15:19 +0200
+X-Gm-Features: AcwNN1V3xcTl-MOoxSGp4vh2Mp4wjKMjo1TJ1r8axgU9_lrZp3Rdm9iaNAIIASo
+Message-ID: <CADybn6f2E3Vqus5fxcPN-bKp7Em-jyzo1ph_AXRrW=c4wUe_3A@mail.gmail.com>
+Subject: [BUG] libdvbv5: dvbv5-scan hangs forever on a NIT with two versions
+ in the stream
+To: linux-media@vger.kernel.org
+Cc: mchehab@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 20/08/2026 12:07, Dmitry Baryshkov wrote:
-> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
->>>>>>
->>>>>> Device node with this compatible is already populated, so this looks
->>>>>> simply wrong or you are adding a duplicated driver.
->>>>>>
->>>>>> That's a no-go, you are supposed to work with existing drivers and grow
->>>>>> them.
->>>>> I'll bring the discussion again here, there was a discussion to move the
->>>>> driver to accel subsystem if we want to support new features/uAPI
->>>>> changes. Please read [1],[2] threads. The intention is to replace
->>>>> fastrpc driver with QDA eventually.
->>>>
->>>> None of them address the problem. You want to grow fastrpc into user of
->>>> dmabuf? So you move it from misc to here.
->>>
->>> It's not as easy and nice, so I think in this case it's better to repeat
->>
->> I disagree. The existing fastrpc driver is not that complicated. It's
->> actually moderate amount of code, much less than Venus was (~7 times less).
->>
->> It easily can grow to support two interfaces and the only difficulty is
->> how to manage these two interfaces simultaneously or exclusively, e.g.
->> opening first one disables the second.
-> 
-> I see the point here.
-> 
-> Would it be acceptable if we add QDA support only on the new platforms
-> (e.g. via the SoC-specific compat), provide QDA for those platforms,
-> and, once it reaches complete API and feature parity, we remove the old
-> fastrpc driver, migrati old platforms.
+Hello,
 
-The problem with this approach is that we have no guarantees that it
-will reach feature parity in respect of old interface, thus old driver
-might stay forever. If we agree for duplicated driver, contributors have
-no incentives to support old approach.
+dvbv5-scan hangs indefinitely on one of my DVB-S2 transponders. I can
+reproduce it every time and I have collected traces and a stream capture.
 
-Much better is to refine the old driver, gradually adding new features
-while maintaining old stuff. This is the only way we can force
-contributors to actively work on minimizing duplicate parts.
+I am a developer but new to this codebase, so the source reading in the
+second half is offered as a possible lead rather than a diagnosis. I used
+an AI assistant to help interpret the captures and find my way around the
+code, so it is worth checking the reasoning rather than taking it at face
+value. The observations in the first half are mine and reproducible.
 
-Best regards,
-Krzysztof
+Environment:
+
+  dvbv5-scan 1.22.1 (Debian bookworm, libdvbv5-0 1.22.1-5+b2)
+  TBS ECP3 card, DVB-S2
+  Turksat 42.0E, 12685 V (same on 12685 H and 12729 V)
+
+The code I ended up looking at appears unchanged in current master
+(95ad25f).
+
+
+What I can confirm
+==================
+
+Reproducer, single mux, no -F, no -T:
+
+  $ cat /tmp/one.conf
+  [T]
+  DELIVERY_SYSTEM = DVBS2
+  FREQUENCY = 12685000
+  POLARIZATION = VERTICAL
+  SYMBOL_RATE = 30000000
+  INNER_FEC = 2/3
+  INVERSION = AUTO
+  MODULATION = PSK/8
+  PILOT = AUTO
+  ROLLOFF = 35
+  STREAM_ID = 0
+
+  $ dvbv5-scan -a 1 -I DVBV5 -l EXTENDED -o /tmp/out.conf /tmp/one.conf
+  Using LNBf EXTENDED
+  [...]
+  Scanning frequency #1 12685000
+  Lock   (0x1f) C/N= 12,20dB
+  <never returns, killed after 5 minutes>
+
+Same with -l UNIVERSAL. The process sits in do_select on
+/dev/dvb/adapter1/demux0. strace shows the same 102 byte section being
+read every ~8 seconds, with the 10 second select window restarting each
+time:
+
+  12:36:56.853097 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
+      4096) = 102
+  12:36:56.853348 pselect6(1024, [4], NULL, NULL, {tv_sec=10, tv_nsec=0},
+      NULL) = 1 (in [4], left {tv_sec=1, tv_nsec=984464352})
+  12:37:04.869171 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
+      4096) = 102
+  12:37:04.869306 pselect6(1024, [4], NULL, NULL, {tv_sec=10, tv_nsec=0},
+      NULL) = 1 (in [4], left {tv_sec=2, tv_nsec=808841})
+  12:37:12.868722 read(4, "@\360c\4.\325\1\1\360\n@\10\5TURKSAT"...,
+      4096) = 102
+  [repeats indefinitely]
+
+  (lines folded for mail, they are single lines in the original)
+
+The mux itself looks healthy otherwise: it locks, carries about 55 Mbps,
+and PAT, SDT and the PMTs all parse fine. Other transponders on the same
+dish and adapter scan normally, so I do not think this is a reception or
+configuration problem on my side.
+
+Decoding PID 0x10 from a 15 second raw TS capture (dvbv5-zap -P -o) gives
+three distinct NIT section headers:
+
+  table_id=0x40 net_id=1070 ver=5   section=0/0
+  table_id=0x40 net_id=1070 ver=10  section=0/1
+  table_id=0x40 net_id=1070 ver=10  section=1/1
+
+Version 5 announces a single section table, version 10 announces two, and
+both are broadcast in a loop. My understanding is that this is not
+allowed, so the stream is at fault to begin with. Still, it seems like
+something the scanner should survive.
+
+For comparison, a transponder that scans fine (12458 V, same dish and
+adapter) shows a single NIT, version 10, section 0/0.
+
+
+What I am less sure about
+=========================
+
+Reading dvb-scan.c, struct dvb_table_filter_ext_priv keys extensions on
+ext_id and does not appear to carry a version number:
+
+  struct dvb_table_filter_ext_priv {
+          int last_section;
+          unsigned long is_read_bits[BITS_TO_LONGS(256)];
+          int ext_id;
+          int first_section;
+          int done;
+  };
+
+If I am reading it right, sections from both versions would then share one
+extension, and last_section is only assigned when the extension is created
+(dvb-scan.c:229 and :256) rather than revised afterwards. That would leave
+the completion test
+
+  is_all_bits_set(ext->last_section, ext->is_read_bits)
+
+comparing against whichever section count arrived first. I could not work
+out an arrival order for this stream that satisfies it, but I did not step
+through it under a debugger, so I may simply be missing the path. Repeated
+sections seem to take
+
+  if (test_bit(h.section_id, ext->is_read_bits))
+          return 0;
+
+which would keep dvb_parse_section() returning 0.
+
+Separately, in dvb_read_sections():
+
+  do {
+          do {
+                  available = dvb_poll(parms, dmx_fd, timeout);
+          } while (available < 0 && errno == EOVERFLOW);
+          /* ... */
+          if (available <= 0) {
+                  dvb_logerr(_("%s: no data read on section filter"),
+                             __func__);
+                  ret = -1;
+                  break;
+          }
+          /* ... */
+          ret = dvb_parse_section(parms, sect, buf, buf_length);
+  } while (!ret);
+
+timeout looks like it bounds each dvb_poll() rather than the loop as a
+whole, so an arriving section resets it. That would match the strace,
+where the available <= 0 exit is never reached because data keeps coming.
+
+
+What might help
+===============
+
+If version_number were tracked per extension and collection restarted when
+it changed, I would expect this stream to settle on one version and
+complete. And a bound on total time in dvb_read_sections() would stop any
+table that cannot be assembled from hanging the caller outright.
+
+I have not sent a patch. I would probably get the details wrong, and I do
+not know whether restarting on a version change causes problems for the
+gap tolerant paths (EIT, ts_id != -1).
+
+I can test patches against this transponder, it reproduces on demand, at
+least for now. I also still have the raw capture if a filtered PID 0x10
+extract would be useful.
+
+Thanks,
+Vasco Valadares Semana
