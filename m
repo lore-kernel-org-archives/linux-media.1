@@ -1,72 +1,72 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com [209.85.210.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89234390200
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 18:22:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D624391E7E
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 18:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787250133; cv=none; b=tHjtNm1hyQLmaWHaXfuo6hBOHGT1OuUvN2hUk3uBuaL59oZDuYREeT5RD6/VfSmnWD8sqFpstLzqus/q0gc8M2Tj0yN9j/3G/RGTb9Nye9rP5Fph8S1MNSip9PZBjMn88S/FtanNIHVraOljWNBtxCpdJcxGqPZHt7FB0Oc/es8=
+	t=1787250135; cv=none; b=GulDhFImW2rsh1cTRUtyfk0f4k7l2iLNYczKn0RK1PkNUghnzOUzLapdVm+ZuH/OaSJK8uMgtO2tG317qXrw4kCqCKw4twcRcTZNaZOIo49ErRcCdkoDB4BO1VO8cbUh2QBGoR1lKcmiKN9FwYTEIBj6cdks8xF3hDWJGINR9X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787250133; c=relaxed/simple;
-	bh=cghfAlaKcd/uhrDWKx7DLpRz7LxfFE6lrVCnUGAafNE=;
+	s=arc-20240116; t=1787250135; c=relaxed/simple;
+	bh=vFO8T5St9bHRfShOkdntWHdgKTvr0mMlitt92RbLqMI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HgZFjfkbVTpfzYvKMpNt4riFZ2TtXj8CiUaWWxsSeu6FHLNQBxQ4KhymTzD96udNHh7e33YqvtIY1ttUGoMfHM6gTUUnB78QuyV0fxpmX+bCXalsdX/NsfqWa0Np8pINcAD2IayXIBbwgfQhTfjOsB5znicjdgdPz/wYa5zAeT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C7qCb1kU; arc=none smtp.client-ip=209.85.210.180
+	 MIME-Version; b=rvFZA85ascJKNlFjy6lTecyLnmq9a5g4689nDKM/9JC+TQ9QD0WM6RMZyx7+BCd6oAj5tVqM9KSdFgWxQPn1HBGsdGflus+v7K8VmTpBsskSE3syVOGRaKI3y4lzbn/FPgTrmHaIuPqiokaAftyVBMX6cdZswucAUOUZY33p4Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j3nNNieI; arc=none smtp.client-ip=209.85.210.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C7qCb1kU"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8487214ad2bso161188b3a.1
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 11:22:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j3nNNieI"
+Received: by mail-pf1-f171.google.com with SMTP id d2e1a72fcca58-84a4d8fd6ecso133511b3a.1
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 11:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787250132; x=1787854932; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787250133; x=1787854933; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=o0pjwno30/VPREthOeV/FfuLHBxN0mxRR1HaGuVBAv0=;
-        b=C7qCb1kU4NsfXiCuDnreaYFMN33zXcRL16FyASqg9L1WlhVf2yUrg6QL+8EgvwcsIl
-         2qmIShUTmjdc2zB5fIM2sqWIQt+1OHtdP0R/4krv1AXMxP2SfyTJkEmWiD9i+/qju6J/
-         z4EYXyaUNWMurJlmBwdCRAksZmfx2skbqTvsihCQ8x5x49WBb5jwLKAEVDdjjFV40JAC
-         Mvwh6BPBs+LZxuZ6q0G8I5SvERC5x4l2WNRXA8Y76DC9SVFt090QkTh6Geo968lIzK3v
-         Sq6Qx2TgoVOn1yWjtrUJT8LKIgWQDyBCV7rRGVIumIES1w2tm5DB7TR/mc5Ew8PXhD3g
-         ORew==
+        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
+        b=j3nNNieI6K4yEhT1NSKudTuUjMfXlEAOW3lc++p5WRzz2WUc1lR7UMys/0Ir2Vjtxm
+         evLPKGkrejZTOebcAPbF6Om5GJ3feshMBfBlrBUU2mkTrrTJySygaHKreuRQc1GwmM62
+         p1NPyTM0BruyOs76k4jHQP/oYxHyEJMPReXV4/ZbHC85HYJB9M3RpsWY+RlTBI9/jOmZ
+         E2ih9LYy7xqoJ/mYKZd1kOOBVMG2vnO5VDOib8I7Wx8E/zEQf1LhV606hjUIMGmTE7xL
+         3PzJJ2649NraaB2wHFtndXH4Nftq0tKjw14aUvJ+D05EbF5JVviWW5MiXkC9SpiAx0+o
+         bVSA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787250132; x=1787854932;
+        d=1e100.net; s=20251104; t=1787250133; x=1787854933;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=o0pjwno30/VPREthOeV/FfuLHBxN0mxRR1HaGuVBAv0=;
-        b=GpnXkP2ORNxULJobX52mxD96OLvDe3d7wWl/YKQYPMO2vVVh2fOe1+0x0ZIqnWFGTW
-         3VYDEu+9KcHDuQWuULQkkGWzB+Ex0tpzSa9Gzp/JYlc9GmSMyyiVzn2oDDOKUBqjjBuY
-         6kFXuu1sFkCoFPV97RGuOqug2QTB6ZbCitifsv9EJ8q7O7x+CgynXr2QIZTpnZ11iskD
-         eS0C0EBIx23tP3cGplxT6GKAHq59resSEucH7eVTWEUvLYHMjMDlruxoA4d44fr5nmnZ
-         eQUSYobuKNAFWk1ieEidmRdCZV8AzPRKTg4mY35m/AS4qlO7lBbPiFek7GalmSSuAGsp
-         c9tA==
-X-Gm-Message-State: AOJu0YzekzLHqrHATPnNfLMHn5RYu5gujXX3fXZcdAXOXcknkvqEkCSU
-	uBUdcJZn5hxZSkYGwPbXTX2re68Q4poNkvoT6SwQjn6SDBGMs2pP/ILiZUAnonmkEWU=
-X-Gm-Gg: AR+sD12WF8LwVa3wK7xmtUwBj2ucB1e+I2UNeURhu82sBjCXQXD542REuHdKkXaJRKO
-	I/FbVhwYYwOziZuu8hOl5oEU378vp8eTxIakdWMHA0yN7qHf1yPZKuXoso62A3Xa4EgGKrIcnXq
-	uLxk4fIo2Auh5EELtn/dNaMge5VqB0d+sn/1h23byPQAGXLTYAG1BKSaIpmkmShAO1mVY6lrKfp
-	GUFNs2RRumhvQIv4jYOlnA6UCDAcTINp2YaGsEGHNUlHrfctF4fuU5J5akn/D1FfHPK0psvEk48
-	Wc4VNJl0zWuepkGUOZxK1dAK50Qv3mSPpXJYTE03wtUqLCkM2FP+hd9rUYlsXzNbM66zlyg9Gd4
-	ZLLuRW3G06RO2z793yeczbd2Htea7Ih38PUe1JPRMeH5p1R7gP/Vy3S5ewP6JgmQns5XTHmH5ro
-	LuMOL+F6mFjhHylEEynl9VQ/4Ez+w5DQS8FNcA8eq3TkC9vRVyknaTg5PyED5pLK4muEZNJWsd1
-	7S6BfgALzc/c//zDT4jgfdwfLqF3YdqLvsFYO0L30mkr4/OSQHFkA==
-X-Received: by 2002:a05:6a00:6ca2:b0:848:8715:c2d9 with SMTP id d2e1a72fcca58-851d383142dmr26225097b3a.2.1787250131478;
-        Thu, 20 Aug 2026 11:22:11 -0700 (PDT)
+        bh=4p9Nb8ebnBJPWlNwOosbnkR+LasQDJ4X2QwSqMP0inY=;
+        b=GuUtoXVM1ZRqqmljNGy8r1txnBznOxsIG0UJH21N1ilRzXHUiNoIxUmWkQfDd0BLJQ
+         jzZ0fLwONtiEhXUezTOx5D5fmSSLhP6exImDk35uFN2sAr41y4u5rWqr5E1ZL39iaq3w
+         rq44SENXn9RsWZj1imnnkvgAmsRhEJGcbxBe8PgChTywoetIWJDq5Fst+WxRVroTorRH
+         o5YcS0FCwdtGQCzgrisDOG/mM9S75dETkcJyQXcDK7CN4DCYljTxzJ2dwGwKGhQ39R3P
+         d8p/FB6nGGLYIW2jI/+9siFPLkGSRs+HA0YnxwELzu4G+APRIOmfTIRQhfaNxfVP6akT
+         MqMQ==
+X-Gm-Message-State: AOJu0Yy7QdFcUG620L8fCxfNfa9eaWQlYvdS061yWwLiLhc0Ww5dfYta
+	yokSSV+wpjDVQA6R02DntIa5LLRg1Dq1Z4r/lJ0QdH6QP2py3NRT+fsiQArg/Oy4t9E=
+X-Gm-Gg: AR+sD13QvcQ0uJxTQqwRNroLIr7K24JOlkICgNBoQxYiawQli8RUD0Pc/LX6GA7ZMwe
+	NxYgG8KOPCMWCw52qF/s6iHmIfWA8glpYznw3dQz//ovyoi/6pMX9X6ktNkXetZSDlKHMmZFQPA
+	ckZpmK5PX9NbmOuOX0ohxYbR0eEr3t64CzWhT6To/Tt8CYahp5APgkLNOOOwViF6NpmUu+APn8K
+	cbFAMSx33sCAEi7rucaRB4RI3olF8XCy6TW3fo7x5YamRadu5bj/wFB1GE2HiuI3WfoODBCzXtG
+	JFBjMMk6A52Fi5GhBlIih0FjmWALd7xjNW6THzm2W2vb4uvGCNfbnsDtux2bmoYbfXxmcZMD8gu
+	wY8JiQevPSSqr12ALEcFkgS1VqQMP4Kw+Vq32PQ28PobEwVLZ+nQyPr/kr4BewLrbYvvIiamJOE
+	cMnmYd3CyeKapQlARwFz906LfwY8ikxY5Tan+IzWbRnKT/PSCkgoBJwjLq3AniHRrS9D7EC45XP
+	qkwBwTSlgli266lqHhJmUBXGkesZdWwTeJF0hEJOsXu20HB2mvkaw==
+X-Received: by 2002:a05:6a00:4c84:b0:851:b03a:fcb with SMTP id d2e1a72fcca58-851d39405c0mr26924904b3a.14.1787250133099;
+        Thu, 20 Aug 2026 11:22:13 -0700 (PDT)
 Received: from desktop.local (97-115-106-59.ptld.qwest.net. [97.115.106.59])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d369a487sm2037829b3a.59.2026.08.20.11.22.10
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-851d369a487sm2037829b3a.59.2026.08.20.11.22.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 11:22:11 -0700 (PDT)
+        Thu, 20 Aug 2026 11:22:12 -0700 (PDT)
 From: Jack Flusche <jackflusche@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Jack Flusche <jackflusche@gmail.com>,
 	patrik.r.jakobsson@gmail.com,
 	sakari.ailus@linux.intel.com,
 	hverkuil@kernel.org
-Subject: [RESEND PATCH 2/5] facetimehd: add Kconfig and Makefile
-Date: Thu, 20 Aug 2026 11:21:51 -0700
-Message-ID: <20260820182156.18078-3-jackflusche@gmail.com>
+Subject: [RESEND PATCH 4/5] facetimehd: add firmware extraction script from patjak/facetimehd-firmware
+Date: Thu, 20 Aug 2026 11:21:53 -0700
+Message-ID: <20260820182156.18078-5-jackflusche@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260820182156.18078-1-jackflusche@gmail.com>
 References: <20260820182156.18078-1-jackflusche@gmail.com>
@@ -78,65 +78,98 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Added build files for the FacetimeHD driver
+Copy script from https://github.com/patjak/facetimehd-firmware to
+extract proprietary firmware for the FacetimeHD driver from an
+Apple OSX update file and add a FIRMWARE file to describe usage
 
 Signed-off-by: Jack Flusche <jackflusche@gmail.com>
 ---
- drivers/media/pci/Kconfig             |  1 +
- drivers/media/pci/Makefile            |  1 +
- drivers/media/pci/facetimehd/Kconfig  | 12 ++++++++++++
- drivers/media/pci/facetimehd/Makefile |  2 ++
- 4 files changed, 16 insertions(+)
- create mode 100644 drivers/media/pci/facetimehd/Kconfig
- create mode 100644 drivers/media/pci/facetimehd/Makefile
+ drivers/media/pci/facetimehd/FIRMWARE    |  6 +++
+ drivers/media/pci/facetimehd/firmware.sh | 61 ++++++++++++++++++++++++
+ 2 files changed, 67 insertions(+)
+ create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
+ create mode 100755 drivers/media/pci/facetimehd/firmware.sh
 
-diff --git a/drivers/media/pci/Kconfig b/drivers/media/pci/Kconfig
-index bfdb200f85a3..66f3d8b0ad6f 100644
---- a/drivers/media/pci/Kconfig
-+++ b/drivers/media/pci/Kconfig
-@@ -20,6 +20,7 @@ source "drivers/media/pci/tw5864/Kconfig"
- source "drivers/media/pci/tw68/Kconfig"
- source "drivers/media/pci/tw686x/Kconfig"
- source "drivers/media/pci/zoran/Kconfig"
-+source "drivers/media/pci/facetimehd/Kconfig"
- 
- endif
- 
-diff --git a/drivers/media/pci/Makefile b/drivers/media/pci/Makefile
-index c4508b6723a9..666099f23abd 100644
---- a/drivers/media/pci/Makefile
-+++ b/drivers/media/pci/Makefile
-@@ -39,3 +39,4 @@ obj-$(CONFIG_VIDEO_TW5864) += tw5864/
- obj-$(CONFIG_VIDEO_TW686X) += tw686x/
- obj-$(CONFIG_VIDEO_TW68) += tw68/
- obj-$(CONFIG_VIDEO_ZORAN) += zoran/
-+obj-$(CONFIG_VIDEO_FACETIMEHD) += facetimehd/
-diff --git a/drivers/media/pci/facetimehd/Kconfig b/drivers/media/pci/facetimehd/Kconfig
+diff --git a/drivers/media/pci/facetimehd/FIRMWARE b/drivers/media/pci/facetimehd/FIRMWARE
 new file mode 100644
-index 000000000000..34d3ba8999f4
+index 000000000000..ba9f37aa702f
 --- /dev/null
-+++ b/drivers/media/pci/facetimehd/Kconfig
-@@ -0,0 +1,12 @@
-+# SPDX-License-Identifier: GPL-2.0
-+#
-+# "Broadcom Facetime HD camera driver
-+#
-+config VIDEO_FACETIMEHD
-+	tristate "Broadcom Facetime HD camera"
-+	select VIDEOBUF2_CORE
-+	select VIDEOBUF2_DMA_SG
-+	select VIDEO_DEV
-+	help
-+	  This adds support for the Apple Facetime HD camera using the Broadcom
-+	  PCIe controller (14e4:1570) found on Macbooks from around 2013-2017.
-diff --git a/drivers/media/pci/facetimehd/Makefile b/drivers/media/pci/facetimehd/Makefile
-new file mode 100644
-index 000000000000..2dc42bbc8a8f
++++ b/drivers/media/pci/facetimehd/FIRMWARE
+@@ -0,0 +1,6 @@
++This driver uses proprietary Apple firmware. To obtain this firmware, use the
++included firmware.sh script (copied from patjak/facetimehd-firmware). This
++script will download and extract the firmware from a Mac update file found at
++https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
++The script extracts the firmware to /usr/lib/firmware or /lib/firmware,
++or to a folder specified using the first argument
+\ No newline at end of file
+diff --git a/drivers/media/pci/facetimehd/firmware.sh b/drivers/media/pci/facetimehd/firmware.sh
+new file mode 100755
+index 000000000000..fc6b67149390
 --- /dev/null
-+++ b/drivers/media/pci/facetimehd/Makefile
-@@ -0,0 +1,2 @@
-+facetimehd-objs := fthd_ddr.o fthd_hw.o fthd_drv.o fthd_ringbuf.o fthd_isp.o fthd_v4l2.o fthd_buffer.o fthd_debugfs.o
-+obj-$(CONFIG_VIDEO_FACETIMEHD) += facetimehd.o
++++ b/drivers/media/pci/facetimehd/firmware.sh
+@@ -0,0 +1,61 @@
++#!/bin/bash
++# SPDX-License-Identifier: GPL-2.0-only
++
++# This is a simplified version of the download/extract/install scripts
++# It is intended to be used by disto package installs (e.g. in %post stage)
++
++URL=https://updates.cdn-apple.com/2019/cert/041-88431-20191011-e7ee7d98-2878-4cd9-bc0a-d98b3a1e24b1/OSXUpd10.11.5.dmg
++RANGE=204909802-207733123
++OSX_DRV=AppleCameraInterface
++OSX_DRV_DIR=System/Library/Extensions/AppleCameraInterface.kext/Contents/MacOS
++FILE=$OSX_DRV_DIR/$OSX_DRV
++DRV_HASH=f56e68a880b65767335071531a1c75f3cfd4958adc6d871adf8dbf3b788e8ee1
++FW_HASH=e3e6034a67dfdaa27672dd547698bbc5b33f47f1fc7f5572a2fb68ea09d32d3d
++OFFSET=81920
++SIZE=603715
++
++if [[ "$EUID" != 0 ]]
++	then echo "Please run as root"
++	exit 1
++fi
++
++echo -e "FacetimeHD firmware download and installation script\n"
++
++echo -n "Downloading driver..."
++cd /tmp
++curl -s -L -r "$RANGE" "$URL" | xzcat -q  2> /dev/null | \
++	cpio --format odc -i -d "./$FILE" &> /dev/null
++mv $FILE .
++rm -R ./System
++echo "done"
++
++HASH=$(sha256sum $OSX_DRV | awk '{ print $1 }')
++if [[ "$HASH" != "$DRV_HASH" ]]; then
++	echo "Incorrect driver checksum. Aborting."
++	exit 1
++fi
++
++echo -n "Extracting firmware..."
++dd bs=1 skip=$OFFSET count=$SIZE if=./$OSX_DRV of=./firmware.bin.gz &> /dev/null
++rm ./$OSX_DRV
++gunzip ./firmware.bin.gz
++echo "done"
++HASH=$(sha256sum ./firmware.bin | awk '{ print $1 }')
++if [[ "$HASH" != "$FW_HASH" ]]; then
++	echo "Incorrect firmware checksum. Aborting."
++	exit 1
++fi
++
++echo -n "Installing firmware..."
++if [ -n "$1" ]; then
++    FW_DIR=$1
++elif [ -d "/usr/lib/firmware" ]; then
++	FW_DIR=/usr/lib/firmware/facetimehd
++else
++	FW_DIR=/lib/firmware/facetimehd
++fi
++
++install -dm755 $FW_DIR
++install -m644 firmware.bin $FW_DIR/firmware.bin
++rm firmware.bin
++echo "done"
 -- 
 2.55.0
 
