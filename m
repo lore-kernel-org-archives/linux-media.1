@@ -1,175 +1,115 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.mr.icloud.com (mr-2002c-snip4-5.eps.apple.com [57.103.68.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5363769F5
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 19:37:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787254645; cv=pass; b=LaicNjoMLYzQNvN4F+wqJVarGp3eWYjs8KMQZpNc0nn5+fzY9GiWFk9uLxmzGjfHotd3BSN+cA93Da+h/o4zqtaMZJ9GQn8TxCQ/QNdtr2EYTVw8b7pwGrogLloMWIF8v7wODmksIHSMi2B9LkmxPwgMeJH6T90i03AHYB7GJpM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787254645; c=relaxed/simple;
-	bh=sHuFaHCChNf5bEv8EWSDiOnMpRwfo2CG5X5jjJ0R/z4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=AW13+m5e92S9OPC3zZBSYqYPw/98BOMnyO2IzI5L4hL1L53+v8OkHVDwVOHmi51LJNj4BXpmlAz8j++qIUf856Uq77fwQQb6djd70XfzrycqczuCCb7UxyobcBc23heNcsYmxQpXqb9PjC7SpNDPU32GUrPEo4WaDEqkVxVzh8I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W5cw17ET; arc=pass smtp.client-ip=209.85.160.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AE78391E78
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 19:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.68.148
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787255646; cv=none; b=bGJjbvjberKYtqO1MN4nwGHrmFhM5pMc/F2GuK87N0iPR6KXMnbzJ9wXBvHqgV7Z82JYee5T2DEP1cOoZQuoC7+pNuRzGVuEGeMcgGhK8JHE2qnlIiIy//bMzD/zZn7RiDBjrzgwFGHZLRnAYn2yAMsNQKtNkqQlI5E7fml2JeM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787255646; c=relaxed/simple;
+	bh=s4xjx+A70ZAgbYTT/9Wh8ZqkJbeVku/EHADg7mJhaI4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZCm2ACykXhMENEsaAspzHSJLdRiwrnRRO8bA65GpGq3N3vIxAWGqxFxJjVkHI6cDELiWrLDBe1md/hoYa5cqy/yRzCNfP0OSR0PE5fTPNZntmVYgJ7dkb5EfuK1z7FEuGfNBBZmY3KeACjIWtYTd0R/fXEuuF3DOCKbeBq5qN/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com; spf=pass smtp.mailfrom=me.com; dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b=TUdzRSyM; arc=none smtp.client-ip=57.103.68.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=me.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=me.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W5cw17ET"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-462df62f872so1191238fac.0
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 12:37:23 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787254642; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GIGHdFHyRbe98y98yIPBViYkCGRCtgfId03PaKCo9pZJOJVlZHOWKMsBN1yST4i5PX
-         mdWlE8FwKNBJTm6LqsPc12CA7mfAflLYzw8bqbUfE+i6K5CpI1HJrW+6y+TdC3jToPjI
-         1ERYMa01KrlfqjyDv5SoEzyP4r/i9AtAU71FTucNTMWHU9VK6gtCDAIToEtWJ5CYPqPl
-         BVoOEd35Xrzn3TniBYrtqCs0S8GTS9WQmaD7xDxK3BpBsEl5e9BAuRQb5DPYpiM30w2y
-         FdDO3qzi0vTqgZDB6kDNVd3l3LyjHS0LSVmagW/On36KCVk0EYSbJULNQTWYqtLJhm16
-         LIeQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=XClN7d/hqsMBXSHQ5Mx+1doal3KrclX4NeyVHA6ZcPA=;
-        fh=9S8fetvmvhGe3iwNnWTBC6KmAvabHSpaM2ZXMHcqqo4=;
-        b=neCJGzRC4yZFSN/38qOAuog3wJ2luhZsIB81WRFyNRpk0DgZbyy9N68/BV47Pa0SYM
-         u23eoRm7m+nOsgMlvZAAw6V4NbYHWkdHJH942J+y43csw9wzQvBQ2RcjAFXLpFB/Wykt
-         mI0mnoZj6JJaGXs/7oKAISQOvdJTZqGMRbWrEiNq/eiUbyBrGl8+N8Ae1kZQMPUqr+Nm
-         5Skm5hf3ImadXN/nhLjYvMg9ySg7/o+pITjiyYn+9MZweXz+jk80ZTc/ikYaFb1cksxB
-         IVunxDoIx0jLKiZwPyUUbmXpis/wA2c7JDvPVFrrU5i0B/waGlrRsOdtWYXfQwYmw2m7
-         LKbQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787254642; x=1787859442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=XClN7d/hqsMBXSHQ5Mx+1doal3KrclX4NeyVHA6ZcPA=;
-        b=W5cw17ETPSnVPUrVSNA4gAPfkV0smhzpGZENROITO41wCzAp9C6bwQ0XtJvsLiS+Yl
-         id64CiACCCrwhj66nF72Spn9e+2kq3YpFZr7hQEqNL+oKE0bOJ02t/1BKBkD7lQp8mxn
-         hhZXVSG4bp4HTyIjDOOjvoDyU3YhGSpfRUJJ84xuVqVvm5AD1Np7v3+Q2gL4Llqjk0KR
-         0E7diXtTtqgXxwJGCCLjxOMnSTu0qJEZ4lwSZRU7C8rldulE+GRXk6d93bTPbgD4bVDp
-         B41iBecjK2X62xGORC66M2D/3brNl9I67ihK6s/VOLq9EY7OabaX2UKT8A/IdOM2By+0
-         h5Tg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787254642; x=1787859442;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XClN7d/hqsMBXSHQ5Mx+1doal3KrclX4NeyVHA6ZcPA=;
-        b=EVQSZzqKBPwlcgBUwhp54O8/dH19LUYEBK55Og123U88+TOJ0ifku8O6CCqprcX4mk
-         OJUhvrJcTqTbZrEplIBW5SGa1mAkhfml+QsKLMolHAHkhJyNR6ZVLmnhzYvHKUOR1Yuz
-         5BpNLk/xhm+Ry5Yr3f0ZFwTxsmZYrXm/baMdTz5plubNVkb2cZ4/AQ+74MX0FY6/f989
-         xwU5tE8XAsgr1afzwGjK8xdtdaSpNNci1QgnPPxQWqI+CUJncekCHZJfAM0qUs0CJU4q
-         1rmqAOK3oRSX/trpH1UekcOEunmfTqaDa3ypZLZXKppDwcw8cldrlu4ujl1kJ0DEVXOn
-         RScg==
-X-Gm-Message-State: AOJu0YyilqTSSHE3VGrFV1M3y1EtPgQFcBWRKgAykhQ06hIAFElH59bh
-	zzy8BePlNL/4J8WuiIOWenGlxqO/3qwsUp/RzhHGS1tJ+ctvGW3EWbXcRr5K8F8mf0jVOFMHDkp
-	c/KsQ5rPYIKvfQqe2F+ENjXaXaIXI+Wk=
-X-Gm-Gg: AR+sD10fpRbi1wofA+cpXdLJU/G6VomF3JVZlLBMl8LZIBr+KlvwNRM831LHPinDg1l
-	0sJFAvxyMDDsj+iId9CGs1z038aZucohXxpLM1IX+3GUIONRnzeH5z6a8l7W/KOsaTHn9vCNB+h
-	3gMrhtLIIViFeGV0VJR3bV8I3bfziaWjq3P9+o4I7HQGtzeIs90juQJaLnDmNgs0YL/SXj8gh/m
-	ZCnlIshgopqNsTWYz4xnu5MJcwd0rDmBNvJ8uOoM5d9aOX4XZ438y8Myf5DB3v/Sf+RDTBPP1mP
-	DOmMLSVfYayleYa8a4Ch+C1kxFmwBHcsrR8pDMuKddXO
-X-Received: by 2002:a05:6808:c1b8:b0:495:ca1b:7865 with SMTP id
- 5614622812f47-4b2cdcc4f55mr9061447b6e.11.1787254642209; Thu, 20 Aug 2026
- 12:37:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=me.com header.i=@me.com header.b="TUdzRSyM"
+Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPS id 837FB180014A;
+	Thu, 20 Aug 2026 19:54:01 +0000 (UTC)
+X-ICL-RepId: 01a020bc-d55f-72fa-8d52-624b1c13cf71
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhABkMAWBxBDkkdXwZfEhVdRVUIRRlTHhccRgxFGVswVB0dDlgGEhZdRV4IGQhdHRkKUFAAS1oVVRcOAkIfUB9MFldDWhkcGVoUXBhTRVEfVFhDGUVWaUELTx1dGVscQmRYVwkKBldeWhdeTVoCVk0FSgNfAVsKQglJClgEXgdeC08GWAZTH0EUHlYfRQpcXl0NUh9FAnIdXFZQAlpVEgRACFZQXgheH0wc
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=me.com; s=1a1hai; t=1787255643; x=1789847643; bh=s4xjx+A70ZAgbYTT/9Wh8ZqkJbeVku/EHADg7mJhaI4=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=TUdzRSyM79JcDrb+QqXG4rMg3KU8Xt8jx6WLpwA3N56ol6HYpoPI27USXFEh3cS4h4TGaEOYYk8lDPVy9FMdB21xM4J+jkL8gMrAw9VCKxiDp/rZEIXdeKvFSRNqv94LtQUY/atuJUghh6Pgcpmgl8lEPypqErQrEz1hPrWVcb894E3+o4Ltx9JaI3ewrZMIMXZ0rCVCGEZamSKW39fXyS8i81qAhvX6jZc2X5KlsluZBKjP+nXzU7FRN+B3Wg3/+PdqjxQDe2u6DZfZHNTKpQb9ASAX0zUji2eKIT5YT01U/VZGgV3uvF2XMb/0ntQx0ut2qVhL3KU1iOHMnnNjSA==
+Received: from ncore (unknown [17.156.200.36])
+	by p00-icloudmta-asmtp-us-west-2a-20-percent-1 (Postfix) with ESMTPSA id 41E691800153;
+	Thu, 20 Aug 2026 19:53:59 +0000 (UTC)
+From: Ferran Duarri <ferran.duarri@me.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Ferran Duarri <ferran.duarri@me.com>
+Subject: Re: [RFC PATCH] dma-buf: add a generic reclaim-priority hint
+Date: Thu, 20 Aug 2026 21:53:49 +0200
+Message-ID: <20260820195355.275518-1-ferran.duarri@me.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260820190838.221435-1-ferran.duarri@me.com>
+References: <20260820190838.221435-1-ferran.duarri@me.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820182156.18078-1-jackflusche@gmail.com>
-In-Reply-To: <20260820182156.18078-1-jackflusche@gmail.com>
-From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Date: Thu, 20 Aug 2026 21:37:11 +0200
-X-Gm-Features: AcwNN1Vmd-U08MnRda51kpwL3tKqtjgSO-WAu2E_PDdqrIM_Rj7SGX-K57PNVog
-Message-ID: <CAMeQTsYbeDqz-u8EsDpeYqH6P+KtBG9kDgrVC6PA5QrX4yxdHA@mail.gmail.com>
-Subject: Re: [RESEND PATCH 0/5] Add driver for Broadcom FacetimeHD camera
-To: Jack Flusche <jackflusche@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	hverkuil@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE0OSBTYWx0ZWRfX9Fytfga6a2xE
+ 5byOKqmdnCBFXAtHZEwtzL+NsFkiPMBOK1s2eaHmuFnR/30o7Nx7+D/HDAKPnQJafZrSjjr66PS
+ e6HcUt1WE3y2p1uRxIIVEaKBsvwLn15PV7tiqDmfMxzOPJzM1Djtp6srYYWwy6ry1HlcUAkanTR
+ yv7fH2igeJermJiGdOLnTEyTy5/S9MLRUdsaDqt5xxpggIEHOmwpDG224URBUhsRgqmioAbgxDD
+ 1Sh07aDnyMOq4L9SN/mySzK+bgW5OzLBZG9Z7yKDzEK7l8QkOncbss/B0YB8xH494IrVyrFZg6n
+ /byskiocRtgHTLPz7qB4UKwttYG8R6nBMqNl3Z8ks12Ep23LYKLhEH6xDumIWY=
+X-Authority-Info-Out: v=2.4 cv=KsZAGGWN c=1 sm=1 tr=0 ts=6a875b5a
+ cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
+ a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=Sv0fKeRqtYgA:10 a=x7bEGLp0ZPQA:10
+ a=B9nqV3Rn1-QA:10 a=VkNPw1HP01LnGYTKEx00:22 a=lr9Tj9Q4Saz2wyJ3neMA:9
+X-Proofpoint-ORIG-GUID: OxMEavY5Ztf53e8VtRZ7bFhmOm6Ck8b3
+X-Proofpoint-GUID: OxMEavY5Ztf53e8VtRZ7bFhmOm6Ck8b3
+X-JNJ: AAAAAAABNSxfYXv8hLDMYsWP+XCeA4yR6c1AahZWsnME1zi60SsWMtIB0XroiS+IrBzUY4muWiLKNje/+CXbcE3eQi7EDdgkZIFey0TBtjoH7mYWdHi4my+WGw9iyaAjdKCUzrFjFaiF3nFEwLxv2uP2RhA1GHpmKXzM5nk3L3WQkfk777l0ymNsn2qewYVyTG3XzxqC8KATtcSvF796TiOMI2McoJu4Tcqu+umXSzfMAA3/f3ZSAry5wakEGkRwiXDS1qnocfUMjJsseAN2rjQVtkjcMAKCkTNGVUFwq29Y2cIJNI6itYebAsSROg2rCjwnqYY1HD5JiIOsawfxg4EYj+UbTTRRL+/L4QdlAGChH9m7fzI4ZucVtHR4gOloJ7fCcGLbchE2ErHHIkZKm9zImNvlJj0dWpauOyhhT5JrnqbPPDrcgPmteNkYecH4KnM6KjUVrRN4OA0oXvsjZ1QNhPVQs+jtyAxQfMgB0nup17oXjKdrRfA91XmjVPm+CFYv0ttKMPY+V3/Cppz2ijq18Lnj1msU6FbyLEvOr64wc8wtKHbeN9CB83kuVfrp+C/PVLAOpQnPbl2ry4gS11KrQCRWGldY3RRBbg8P+lcy3YxbOmeLvkAQx10uphCYjHBPf54XfuJGSaJSNOivoRMeUy7/q+96N8OfUAgf4rPi9lg5+WC/e/R0K8pYZ6DVyDQz4tJR1CV5oF3gk6zwbuFMuTAoksENoEwKBP3MsrW5v8goZfxsQw1E/OHJqQd/KmXL15eZghY9+SdDPETTKlTWQ48bsqSMaq13rrSkKUk6QJw+AS0yIIteNjMUxHdK1vPtRZ2iT5JMvqM9v7czMXNeE3kEVY25gPmKZCJTwx0+ubscXkO2B9pjVKRmdNn2NhPNjXyQoEGjAA3WCpmnlcVlGyvjIWiaWcfVs5ICw5AyR1ffoOt9c50oc16ttAY+pwQ5m7LniH6Oz9UUFSNV31Ht6WbSrW3
+ BaYdy4UvaVFMnBWbxioscZ5ojEjPeCGNMlwLw7VAnNgRvTNSD/LMWENFu3RcQWlmt8hFWbgfLESAAkieafKUoP1BXWj0qXnKvjgtJjBwkMB4XJ3D1mRTtcOXiv+YQhpXCoF84Su6+DLCSfLlvzmsxj3920gOgpVITiK1a58CsEGXK2lxmnHiU0g8dbuiBQKaJmd7vdaLAjr7ulJ+m8r+cDFf+/zWKXznPSsW6r3HrZRYYItQ5soCpTY5j8s7U1VYdHx2Dd8qmRHFFCT9WqB2sFDqJxUHUo8Gb8E0vUUOG
 
-On Thu, Aug 20, 2026 at 8:22=E2=80=AFPM Jack Flusche <jackflusche@gmail.com=
-> wrote:
->
-> Merge Patrik Jakobsson's out-of-tree driver for the Broadcom FacetimeHD
-> camera on some Apple Macbooks using the Video4Linux 2 framework to add
-> in-tree support and remove the need to install a DKMS package
+Following up on my own patch to put its weak parts up front rather than
+have them found in review.
 
-Hi Jack,
-I'm fine with upstreaming this but here are some initial thoughts:
-- Should this be in staging instead? I defer that question to the
-media maintainers.
-- There are quite a few PRs pending on github. Perhaps I should merge
-them first and then we redo the submission with those included?
-- Perhaps we should have both the download and extraction scripts
-included? We've just updated the download script to grab a much newer
-version which adds support for new devices.
+The only consumer is out-of-tree, and it is mine. The commit message says
+"an out-of-tree memory tiering driver we've been using", which undersells
+the conflict of interest: the driver is greenboost.ko, I wrote it, and it
+is the only thing anywhere that reads dma_buf_get_priority(). Nothing
+in-tree constrains these semantics. Adding UAPI -- two ioctls, an fdinfo
+field, and a DMA_BUF_PRIORITY_* range -- with no in-tree user is normally
+declined, and I think that is the right default.
 
-Thanks
-Patrik
+One claim in the commit message is not supported and I withdraw it. "GPU
+drivers juggling foreground and background clients want it" -- I have no
+thread or maintainer statement to cite for that and should not have
+asserted it. What I can support is narrower: a driver that pins pages via
+FOLL_LONGTERM has nowhere generic to express relative reclaim preference,
+so it invents a private side channel. Mine did exactly that, a private
+ioctl plus a gaming_mode sysfs flag, before this patch existed.
 
->
-> Jack Flusche (5):
->   facetimehd: copy code from patjak/facetimehd
->   facetimehd: add Kconfig and Makefile
->   facetimehd: fix compile-time issues and formatting
->   facetimehd: add firmware extraction script from
->     patjak/facetimehd-firmware
->   facetimehd: add entry to MAINTAINERS
->
->  MAINTAINERS                                 |    7 +
->  drivers/media/pci/Kconfig                   |    1 +
->  drivers/media/pci/Makefile                  |    1 +
->  drivers/media/pci/facetimehd/FIRMWARE       |    6 +
->  drivers/media/pci/facetimehd/Kconfig        |   12 +
->  drivers/media/pci/facetimehd/Makefile       |    2 +
->  drivers/media/pci/facetimehd/firmware.sh    |   61 +
->  drivers/media/pci/facetimehd/fthd_buffer.c  |  126 ++
->  drivers/media/pci/facetimehd/fthd_buffer.h  |   73 +
->  drivers/media/pci/facetimehd/fthd_ddr.c     |  670 +++++++++
->  drivers/media/pci/facetimehd/fthd_ddr.h     |   33 +
->  drivers/media/pci/facetimehd/fthd_debugfs.c |  204 +++
->  drivers/media/pci/facetimehd/fthd_debugfs.h |   16 +
->  drivers/media/pci/facetimehd/fthd_drv.c     |  558 +++++++
->  drivers/media/pci/facetimehd/fthd_drv.h     |  124 ++
->  drivers/media/pci/facetimehd/fthd_hw.c      |  710 +++++++++
->  drivers/media/pci/facetimehd/fthd_hw.h      |  128 ++
->  drivers/media/pci/facetimehd/fthd_isp.c     | 1468 +++++++++++++++++++
->  drivers/media/pci/facetimehd/fthd_isp.h     |  770 ++++++++++
->  drivers/media/pci/facetimehd/fthd_reg.h     |  183 +++
->  drivers/media/pci/facetimehd/fthd_ringbuf.c |  133 ++
->  drivers/media/pci/facetimehd/fthd_ringbuf.h |   45 +
->  drivers/media/pci/facetimehd/fthd_v4l2.c    |  759 ++++++++++
->  drivers/media/pci/facetimehd/fthd_v4l2.h    |   34 +
->  24 files changed, 6124 insertions(+)
->  create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
->  create mode 100644 drivers/media/pci/facetimehd/Kconfig
->  create mode 100644 drivers/media/pci/facetimehd/Makefile
->  create mode 100755 drivers/media/pci/facetimehd/firmware.sh
->  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_reg.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.h
->  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.c
->  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.h
->
-> --
-> 2.55.0
->
+How the hint is actually consumed, so the semantics are judgeable rather
+than hypothetical: greenboost.ko tiers a model's working set across VRAM,
+system RAM and NVMe. Its T2 eviction sweep reads dma_buf_get_priority()
+as a skip-on-threshold check that re-orders which already-eligible
+buffers are reclaimed first. It never makes a buffer eligible that was
+not already, and it never overrides the invariant that KV-cache buffers
+are not evicted. The hint changes ordering within a set, not membership
+of it.
+
+A review bot on this thread has already found one thing that needs fixing,
+and it is right. DMA_BUF_IOCTL_GET_PRIORITY is _IOR and never copies the
+struct in from userspace, so the pad field that the UAPI documents as
+"must be zero, reserved for future use" is enforced on SET and not on GET.
+That makes the promise empty: nothing stops existing userspace leaving pad
+uninitialised, and a later kernel wanting to use it as an input flag would
+have to break them. v2 will make GET _IOWR, copy the struct in, and reject
+a non-zero pad exactly as SET does. This is worth settling now rather than
+later, because changing the direction bits changes the ioctl number, and
+that is only free while there are no users.
+
+I would rather hear the shape question below answered before posting that
+v2, so the two rounds do not collide.
+
+What I am asking for is a read on the shape, not a merge. If the answer
+is "come back with an in-tree user", that is a useful answer and I will
+take it. If the shape itself is wrong -- priority belongs on the
+attachment rather than the dma_buf, the range should be smaller, a hint
+with no in-core policy is the wrong abstraction -- that is more useful
+still, because it is cheaper to hear now than after something is built on
+it.
+
+Thanks,
+Ferran
