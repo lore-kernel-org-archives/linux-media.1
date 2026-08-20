@@ -1,161 +1,159 @@
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com [209.85.160.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD1144519BD
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 13:27:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9425146D2DB;
+	Thu, 20 Aug 2026 13:31:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787232460; cv=none; b=GRzdHuSgVU+l/kIQsM6cxlLiaxi7VWFJ73GvvoFwLERfqf2MwTH7Hflzh54eJ85Xr1naIYvzub1AzQoog+opJAxyr8hvcuPbjo6xDgo4G+gZyqibnIeNMbL76yTG+wpCUYuC2ODdfRwB96/9TfLVeezSCqyd6tatjrt4EbUcAfI=
+	t=1787232710; cv=none; b=i9edkzeG6efBfmg7nkI0Eg90wlg/PXAUNTj/RV2OtPi6z28VELdQqDV1S6LWCPy5pMyr94Po9DU8Q3pnigJwD67F6AV6ZIQceGwpKabUFtUb3L6MvQOaI3DOfYu/OdOlkIuDOj+l/hJ20310OfDVC6Pgjdq3quRq14GMLEarivA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787232460; c=relaxed/simple;
-	bh=+SdpdDD75Et7iUr1bfUimSJDvhfY48HkhbWpzMccHZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VTDgijGe7o5f4T9sepnp7DEPHd4mvuRvxHvN1rRtDCyme7V1f19M8vrFZm73Ts61NJRcBh+buH8jRkwA1nB1b/38cp0LDOmZSuYf6UtkRKRrehSgExs6yu0XdL90gKcJBxhjVeUrOuiNxXfWGGMN30C1O+Jg9MTnQRDLg+3skw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=QQwQnoBn; arc=none smtp.client-ip=209.85.160.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1787232710; c=relaxed/simple;
+	bh=IXH532W9nQe3iTd6yiQpJQVVtTqis60RHuj3w12JoIc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AlzUawnFmhvBE+wqrhtRmIpC5zcLFAGH6RF7qa/0mUx5LXxGSmpRr5MqB89PB+jsi/M17Ho4Efttvb3LExHIh2//95OhZucUFe0Y9ZsuBG9CWchrYqtpqYDEtgl68SIlKiC+CsxIUjWq7XqFF7GdBYZWYoqKm9Zeb56BZVKemWg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ulo0GSHk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="QQwQnoBn"
-Received: by mail-qt1-f170.google.com with SMTP id d75a77b69052e-52de50e77ffso5908891cf.2
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 06:27:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1787232457; x=1787837257; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+OWRyp1Na2XBrlQ7bIW9EaBkPnu+lSJuThzM8dmXiRw=;
-        b=QQwQnoBn3nyWbxn0oVjyrs3ySJm3X6IyxHdKtXCQ9+6+tdPI4qjSnYNuQwg6SUUId+
-         DFfFumvhymYu8YiXHLVRoKE0vD1lH+C7aC/fd9ez5bORRO13PG5XixMpGCyP4a2zCESG
-         v4Gaw7YgzEh9T2I37n6DTQL9JX7UV52Q113ZE1285BII/IuphdmN39EtEf8K4pwxwmcZ
-         RWIKyu0sADFKQKBP+Pc+gf4SQt6Ru6WglshvB07CN3O0Ckkl7ejaObiMinhQE9C131ya
-         2ZWZb+F06oVKpOVPR5Yz8vgvEXrEgSBfQziQ6T/Ucn9EMjsjcoGEcIb/zMvgo0rIoOC9
-         kUHQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787232457; x=1787837257;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+OWRyp1Na2XBrlQ7bIW9EaBkPnu+lSJuThzM8dmXiRw=;
-        b=rICP4/eyRvqHWQ5xOXgGzoLPn4QZw5P171mmDJAjcrHOY1PSgyGbdUy5ZJHKOm1skb
-         uoD0B9hc3+9zraiqpuCxmGqmTRGMT5hFwWd5ogxIAqXhekfEWNkGfiXRUkntPNqf0oSH
-         MnvXz4urFGJkkKsIR5f4evhhMGxgig03pwcS9DO+O7OL6NJwaQ09Lovh25zvJRHbuDpa
-         9xIv1+LdJCWXKAMZahDA8FiWulab/uzhuhpmvCTkoby/Uavno46SSHCm7EZoXa0qg7i7
-         edNkrmdE7bl2I6tdJriRTmxp/O2tsnFYMYz2QrCEqnvNW8ib6RcEKdwuiTMM3PSlJJI3
-         H0jw==
-X-Forwarded-Encrypted: i=1; AHgh+RppBzaky/4ZEGAfzO9OGsYYluaqsCH4zQsYF0/c90/Uulup+FrkRKwGp9t61as49tdMoQe8NvRQq+48qQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgnjwoLkCzWz3KW5iOWcFq1gNjbFJLL/mLt9o6GjKaGYP4uJ2u
-	ko4D7Y+xaYg2a0CUkFf/5oo/0F3BqySv7bOUzidqXHwG/X/6Q1jZ95nr5eSiV9bx1uQ=
-X-Gm-Gg: AR+sD10OMVCr3Rou/B40dBb43Ba0GbsWSkUA+y+aUPbf8tOQfMONSBU9W6VI2bIEeAs
-	mZjFRDZh9q48KQZLXQEb/KUlM180MxZwEccJgRFZrFzmrgJG7x351E+w/10THRCeiTSbKZp1Q4C
-	zyIB1LWsU931J/6ch6QVJ15TVqSJJZeyNoQ/28anPfftwuUYokkB4KnalY8XkYR2eeUCT8iCri7
-	MFO6PHrW35gqiKFTnERBw6XM1F3b1fK8hi5/KmSqJdXuBqdUSR5uiT8BLZrswjKjx2awGV4Dypz
-	AYGpoXa96rZf2cUphU6tiTK7oEFvLGWxmFa10/3KQ/Id46p7EGuptt5x6CN885OqPRz1+dno80H
-	SLJ93hC+pcF+GoCu1wx0R6FSW23pKBlxesZrQboTuhX36jWVpzvQWufMG+LrLkYahrTSWLyR4F9
-	WFF+NT35/cMzdjl1tCkIXG+1tOiXGV1XfTSWVb5y0CA4k0U2OhtyjFyDQVTScKOBFSxqdrS0E+L
-	EfomtAyFcZAJF1pwPWD3DHt/flXzV9LISrz+IhrAMLRKg==
-X-Received: by 2002:a05:622a:5149:b0:52d:ce86:1393 with SMTP id d75a77b69052e-52dd5cecc34mr115534681cf.37.1787232457641;
-        Thu, 20 Aug 2026 06:27:37 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-52dd857b6b1sm30570231cf.3.2026.08.20.06.27.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 06:27:37 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1wx2nw-00000003ikC-1Lb9;
-	Thu, 20 Aug 2026 10:27:36 -0300
-Date: Thu, 20 Aug 2026 10:27:36 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Marc Zyngier <maz@kernel.org>
-Cc: Steven Price <steven.price@arm.com>,
-	Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>, dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>
-Subject: Re: [PATCH 1/2] irqchip/gic-v3-its: Zero shared pages after
- conversion
-Message-ID: <20260820132736.GC18100@ziepe.ca>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820105026.53208-2-steven.price@arm.com>
- <87wltlnfay.wl-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ulo0GSHk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 399211F000E9;
+	Thu, 20 Aug 2026 13:31:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787232701;
+	bh=ulM9nrSrQt6FECJtLrk+YzsnAy0bZz7OONexKExTW14=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ulo0GSHkUqjgMYyzSRC5s33m4+ChuX6N3cRQUDz9P5Wffg+Iblb6lihFpLGkv67AS
+	 wPbIZ6/tWXPw5QXGHSsD7WtmFK2SC3J7hdx5j55bwPeja13VWh/0Tbc2ewqrw4bZcl
+	 sZiVYJoWo4h3+i+ct+KBoOSF1/4jO4dvcu2Rt6ZYH8nLJM5aQiLwJHzTfYJSXO4zfU
+	 ++uJdip1oiG6Tdzd50fJSxxwsHrfG+r5w9IKwQirGlpwavYNkqsiw2+/5F/mibutjI
+	 zozqDP5tqAz0Wh5ISNmd8/wiNfulwUpVIytMFkp62/9KX6exuMBwfSsRowxRX2WEai
+	 fugb4xiUNOayQ==
+Message-ID: <59aa182d-1b4c-4bdc-a1d5-e76cc9c88ed9@kernel.org>
+Date: Thu, 20 Aug 2026 15:31:28 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <87wltlnfay.wl-maz@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 03/15] accel/qda: Add initial QDA DRM accelerator
+ driver
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+ Robin Murphy <robin.murphy@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ Bharath Kumar <quic_bkumar@quicinc.com>,
+ Chenna Kesava Raju <quic_chennak@quicinc.com>,
+ srinivas.kandagatla@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev, iommu@lists.linux.dev,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <20260817-qda-v2-v2-3-69a02e9090d4@oss.qualcomm.com>
+ <81708487-89ce-4cd5-b39a-2989bdce6088@kernel.org>
+ <3476b5c3-7983-4994-a901-3d7d8bd75255@oss.qualcomm.com>
+ <4ef74e14-8433-4619-ac97-62868c8799d1@kernel.org>
+ <g5orcvzjbwww27vwcsxl3ehrek6lvznxptd7jutifoiuicjnm6@iqq2pus6omsl>
+ <a642833b-f22a-4bea-8a20-0debc47e1895@kernel.org>
+ <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <4xcyqqrqbvgxojfcmnpwbi2uqk5tvhts52l6sxetltcgb7mo75@lfsgfoq4npz3>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Thu, Aug 20, 2026 at 01:32:05PM +0100, Marc Zyngier wrote:
-> On Thu, 20 Aug 2026 11:50:24 +0100,
-> Steven Price <steven.price@arm.com> wrote:
-> > 
-> > its_alloc_pages_node() passes __GFP_ZERO to the page allocator before
-> > calling set_memory_decrypted(). This assumes that converting a page from
-> > private to shared preserves its contents.
-> > 
-> > For Arm CCA with MEC (Memory Encryption Contexts) the key used to access
-> > the page will change, and so by default the visible data will change.
-> > The host could ensure that it zeros the page, but rather than relying on
-> > the host's behaviour it's best if the guest simply zeros after the
-> > decryption rather than before. Specifically in this case the ITS tables
-> > are required to be zeroed.
+On 20/08/2026 12:07, Dmitry Baryshkov wrote:
+> On Thu, Aug 20, 2026 at 11:07:45AM +0200, Krzysztof Kozlowski wrote:
+>>>>>>
+>>>>>> Device node with this compatible is already populated, so this looks
+>>>>>> simply wrong or you are adding a duplicated driver.
+>>>>>>
+>>>>>> That's a no-go, you are supposed to work with existing drivers and grow
+>>>>>> them.
+>>>>> I'll bring the discussion again here, there was a discussion to move the
+>>>>> driver to accel subsystem if we want to support new features/uAPI
+>>>>> changes. Please read [1],[2] threads. The intention is to replace
+>>>>> fastrpc driver with QDA eventually.
+>>>>
+>>>> None of them address the problem. You want to grow fastrpc into user of
+>>>> dmabuf? So you move it from misc to here.
+>>>
+>>> It's not as easy and nice, so I think in this case it's better to repeat
+>>
+>> I disagree. The existing fastrpc driver is not that complicated. It's
+>> actually moderate amount of code, much less than Venus was (~7 times less).
+>>
+>> It easily can grow to support two interfaces and the only difficulty is
+>> how to manage these two interfaces simultaneously or exclusively, e.g.
+>> opening first one disables the second.
 > 
-> What are the guarantees that we want to enforce post decryption?  My
-> recollection is that the RME firmware cleans the caches to the PoPA,
-> making the data immediately visible to the hypervisor. Obviously, this
-> isn't the case anymore, since the zeroing comes after that, and I
-> don't see any CMO enforcing this.
+> I see the point here.
+> 
+> Would it be acceptable if we add QDA support only on the new platforms
+> (e.g. via the SoC-specific compat), provide QDA for those platforms,
+> and, once it reaches complete API and feature parity, we remove the old
+> fastrpc driver, migrati old platforms.
 
-I thought any CMO stuff was principally about cleaning things as part
-of the MEC change? Coherency after the memory is made shared should
-follow the normal cachable memory model rules, just like in a non-CC
-VM? We don't need further explicit CMOs for that.
+The problem with this approach is that we have no guarantees that it
+will reach feature parity in respect of old interface, thus old driver
+might stay forever. If we agree for duplicated driver, contributors have
+no incentives to support old approach.
 
-Post decryption I would expect from all architectures:
+Much better is to refine the old driver, gradually adding new features
+while maintaining old stuff. This is the only way we can force
+contributors to actively work on minimizing duplicate parts.
 
- 1) Neither the guest or host take a fault/error when accessing the
-    memory. ie the host may immediately pass this memory to an
-    O_DIRECT system call and have its kernel read from it.
-    It must not crash the kernel.
-
- 2) So long as the memory is mapped cachable it should follow the
-    normal memory model visibility rules. ie it works the same as
-    VM CPU memory prior to CC
-
- 3) Rules for actual DMA are the same as prior to CC, the VM is
-    expected to issue its own flushes prior to DMA if the platform
-    requires it.
-
-Given the requirements for #1, is there actually any case on any
-platform where the host doesn't *have* to fill the memory? Is there a
-platform with MEC that doesn't generate an error on reading with the
-wrong MEC? Without MEC it surely has to be zero'd in the RMM world,
-right?
-
-I've argued before that set_memory_decrypted() should be defined to
-return 0'd memory. I think there are real systems that *have* to zero
-the memory as part of the state change and this API is now
-forcing an extra zeroing.
-
-> I'm concerned that this relies on undocumented behaviours that may
-> hold today on some undisclosed combinations of HW and hypervisors, but
-> that are not guaranteed at all. set_memory_decrypted() doesn't really
-> say anything, and I have the feeling that we may want some hypervisor
-> specific hook to perform the correct CMO magic. I don't think this is
-> required right now, but I'm not excluding anything!
-
-I would expect any required CMOs to be part of the arch's
-implementation of set_memory_decrypted()?
-
-Jason
+Best regards,
+Krzysztof
