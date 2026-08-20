@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F368353A84
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:12:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10DDE353A77
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:31:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787199176; cv=none; b=JmKKdtoUTrxRPqZvZTtEaMaUVtJORxGJR/l46kc1+wZEoWEZhpYP9WTxbmdoNTaTHWxzVd4seHPR9WOHzDSk8fPnNGely65uldiCRVojK/RQ2DSwbUl6FdfA3JqYB6zF7IrG/G2k7uUMry/AUbvHnhCkJTrynZaQPWh2z7ZUllA=
+	t=1787200264; cv=none; b=VgBAHHfvDKuUumBL6EXBiPdZbw4ewfTPAMBVFFSsNPZZTVwZQBT3nApD032S1uOpax217EnpAxEG35b86NN3lE5Zr1X7LHZKisfGGyWObFYxtU/j2kVs/mcC8EWJCioGzU7jfU8+er0HQW18poPNVN/H5m3eVSLgv+9feHtBv2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787199176; c=relaxed/simple;
-	bh=gl53nmErgxNHnBhywqBf9y2uMEPF2VoEaOuh6BLQ358=;
+	s=arc-20240116; t=1787200264; c=relaxed/simple;
+	bh=ESbYeTT6UZoLxLRl60FYCX5yiloJI3i2RgClfxdS7DY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dEjA15GJ3bs8L0wDTKi/jpF6pCqoCTJSR/oHQJda9h28wKSqivj2PEW+AGw2F46Q+ZvcLkRylD17UBtnCA6wXsX0FyD8u+zazmC8cH10VBvmUURUkYZSL/CAZHq9NblzoRqNpZ9ES5Wtf3g82Ol+CJNMrqlBun/qy71P0lKzpZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cQgR9plk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Hu40D/bC; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=khQClelAVmRXRfJYUEoRMNvVA6JdaCr14gcS6y/bvUJYvVeDz4uW9IUP2Onr9+Sbj8UiEgtqiREzAORxTizSTlHvTtQoXf7zyPgYula44+hT+ZjJrcUGmxKq4BLV9vNacp7DnD0JgelI4RqSCsByRdXgzqkiHPf5XsSPa3b3g7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n2k9h9lD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LR64wqad; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cQgR9plk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Hu40D/bC"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL8KpC939908
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:12:53 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n2k9h9lD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LR64wqad"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67JL83081258524
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:31:01 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/So9S1KEAt5OvNBUFCqjrX+Y7R9w32tufku2nOhCX44=; b=cQgR9plkA7XTyz/x
-	f5xmgIfOnuBZAITDNXw+tp/xBCL7i5h3742aucSTz67ITEQ5pVQ4x7GlZpopD2ue
-	rY6S3YtJIkGI9E/vThBosMqht2uFYyF837f3tVULItgVkoDUAR4R/YQldZsRAjg3
-	fNaOBmcvmBuf6ZuxwMGJ/QzhHI4ZGfz/CFL3VoPXESuTblDWtaU8xQZqY+MwjT7N
-	gkKkqZjnUPBQTz4IzGUHtUIou0iJ/Ri9cQnXU4Zfprgw0zQTIeKiQd2Wh7MtWuPy
-	jL9pNN24O70HUA93grBVhLfx8C/OrP2WvJllP7HItMIgTiQsRHL70lboMin87WeN
-	V8s10A==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5e5d38ks-1
+	frKQRZUt2a/hKuf4txBejBfHQwTIXAlTZS5704pYNeE=; b=n2k9h9lD8Uzm61+4
+	sEva0nvpAsRJWrXOdr+J1+P4jqaOEnkCScuaGIqEAXJvb/EEi6FAH9i2yiYnR5Zo
+	krcJFAjEDYTyE4YFPNdttSK7THPJ6XvgM4XBtes0CCr7/7bYb8M9PKd5JtMhq9mt
+	zRyxa7CODZTBpr3aQl00AyNix7kM/tSLDfprx6AIKYuzJv9hG8IvfXmv9Nd6yKEB
+	S/8Hf2cJHBeZ92D64OkzYGTYyuBWcwWpN8mclw6xRkNohZq9QThOrtqGCE+saDF9
+	QvR+hBr2GDFHjTJKtaOgv15GEXffyaVOnyiB7+m1zpWGWGO9mLqKPlUEGa0YOWIp
+	WGmMAw==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5es631rd-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:12:53 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-381250979d5so2157123a91.0
-        for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 21:12:53 -0700 (PDT)
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 04:31:00 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2cacd6d37edso23919305ad.0
+        for <linux-media@vger.kernel.org>; Wed, 19 Aug 2026 21:31:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787199173; x=1787803973; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1787200260; x=1787805060; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=/So9S1KEAt5OvNBUFCqjrX+Y7R9w32tufku2nOhCX44=;
-        b=Hu40D/bCC8YAFixzFVG4IXF3u8YNievRXiKl3WkJCyGCmcnZLEfZ/JFJkpT/Pq1/1B
-         k0S3va/i5yvli+fpfx5HBAuklcwPMUEwgiK4V4Rvnwr5PUnsJbIC9VCX12UAm63wtdXh
-         my5kKhWbaE13rWn8x9rZefSiIWz+tXdrrxcU2Xvj9lSegu6SkxKrvsTucfaGgOYn5CAf
-         FRsnpKsaS8wGAlGIqQcLOHkwvU2+K3xAjwVI7fLiy2/2mxP6hExkvb8dQqHuH15oRoh0
-         AFDuA/puzvRSuM2lIsKo908rIoDP2RojdTrEJrMbOhmeiyj8sUIejRCPtzO84gClH3Fi
-         nXQQ==
+        bh=frKQRZUt2a/hKuf4txBejBfHQwTIXAlTZS5704pYNeE=;
+        b=LR64wqadqCUCjf9nZO5O17tUoet1Bsm6yuRw6Dzf6TkL+MJEiV3WJkBVfOLoyuKzol
+         g27gusStOcq9+CvHj0bmtnx1DC4s2gXCnR8V9J6qOWM1RMorE61rYFbhlgr4Nm6/QMMV
+         fw4HxhQUdJGtRaIHOfmJZt3T/FWbYexLdtZShJIeAUW+AEYp71RA5b8akRY6LJ/i1ZBA
+         IJokymyX0dnA8e8rWGyUXIyw3PYuLHHUbP19eRI9IZR/HSMGRNbKazrCI+Kn/EV4rI0/
+         oL78jbfcuZvRKi/hA34vo5aZ+7AhukJEbu/OZMT/ujr0QWJiP4CNDtx+wvJ739HKoouq
+         mtKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787199173; x=1787803973;
+        d=1e100.net; s=20251104; t=1787200260; x=1787805060;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/So9S1KEAt5OvNBUFCqjrX+Y7R9w32tufku2nOhCX44=;
-        b=ZiCSGrDQz9okmspDwHCbfFM5DIjnq8KDflrA2fdnUEB/saT1d3GKwqULPg16iM5RAy
-         i3S4IMK4qhKNQLZRc1FNC/e7sJG4ubzf7eBAtCnu4/XTTKZ+SOrk/TL1eGZNkng27ZeK
-         xPpUwE+mVbUs5Llad6OwkektAQTikAPOWMAGsuvZXftfHH/oS4/TK0tHTikV7b3cBRyz
-         E4BTIePuX+WDH1rEopahuxL7jGPqHM9C/HLNcve/FyEM0n5c8VAcZtfIct9HpnBNxSnj
-         CHSNKEHZc5kGmRWiZhFHX/DbgyY7TOKInKGARW/UVr+Sw278iIWKoesAXc9xFWGiP4wQ
-         Go7Q==
-X-Forwarded-Encrypted: i=1; AHgh+RpCgwqzn/P10tg3Fqjjo+ahgj/rckjw1id418RQhw0sZBaMKKynSiThJzdE04LHdcbAE9ixyNWtqOp1Vw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mAICszFn1g6YmCaU6lXOQk50+GODE1OnZlRecRkdsucjB9vavH
-	2+BJH5dLqBHrzSFrbGHsRVC2cr63qbZqAB00qFiZqwbcH5f3KNKQ2f73KfSVl+HTWhpSruKGMeI
-	ZhnQlgHdRB2Bl4+hPIOwi5MDQW//PXc6WqaVokExU9kMsl26mT2/39J8bZnSL3vMKGw==
-X-Gm-Gg: AR+sD13zSXSZk8NNp/8k3yGw4XoXbB/+rCoYMG+yqtP49zePwMOMnfH3im8L3S4+4pk
-	wfVqV+1Pl9d9uFdDAdzFWXSLxd/OwLhS76s0Fgdq78ihg0HtQdkol3TBOpdp+9sZ9MGgXMA+PfX
-	9W+taEP3ihAsa/HgojOT0cu36xkmuomf7dkE1gmVS1Zn+XOULt2a92Gfi6SjtgYgG5Nck+8vv7l
-	Idc+dLSuz2nBEe2rlXW8V+9yUY9RPKhC7iNfA01ewRjjtIF+ze18RZkDik9MJAvz/me6I8TKPvn
-	K5keeTE3G4ZWtFnHrw9u7rlH+N9aLZVlANUGwPh3oh2ccEnYQVQsC0Wr+UAgfFQ0FP3wvQ/tMrY
-	a26zhi7uz4tQhAhSwj5d5SvgTlYTRFA==
-X-Received: by 2002:a17:90b:5385:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-395812a872dmr18290528a91.5.1787199172843;
-        Wed, 19 Aug 2026 21:12:52 -0700 (PDT)
-X-Received: by 2002:a17:90b:5385:b0:38e:c232:9d3f with SMTP id 98e67ed59e1d1-395812a872dmr18290423a91.5.1787199172352;
-        Wed, 19 Aug 2026 21:12:52 -0700 (PDT)
+        bh=frKQRZUt2a/hKuf4txBejBfHQwTIXAlTZS5704pYNeE=;
+        b=MOmiruDsnhZQS7yNTYo5fXz1eT5ae+Yd7XRvkgy4PCX1Jvqvfk0/hN0anTZecCfFtT
+         u/NHqCMuaStxOYwniCVc7IuwLCdrCrTFQwaQXewXSjeCgF5P3Mncjd9lK3cI//xlF1AO
+         fKgTlTBGFS25sm1YCG5OcGN2oIYC8rGEdKciGyxqqrTAWDk6MhyCh3P0zEsxKZEPGmjR
+         EHijrO1lDDzKrBWlHbWt7j3uEP1KcqDRmc8NjpDLB99Hmo/RUG4lvcNk/JxU4FuKsUKJ
+         LMuscWJiM9xZdrQNM6mi+G/QS5x9ja8Ee6OQzl9Fdw3R2Cs5oAyIORUok3pj09V/sLCx
+         0v5w==
+X-Forwarded-Encrypted: i=1; AHgh+RqAtHcv8CCfQaFE/PM7L2X2kri28KAPsjohgBVA/IOOV6W3asq4Y5xF+e5hp+MySn1bJt5pxEU8Xo8DDQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mVBn123FALyA6ZyGQrWzog3qFGG0WXdCcB0EiYk+5xfhijC+eV
+	Ej98MGLHauOZnRn5cQbTJjwdKHH16IVEb7Cafq1NHu6ez+IpIuKqnGV6KCLTMB+lzaJ+TceQXmq
+	haOQRWNEqob9Hol8kcaJ1KVkv0352861ODAaoTSrEm6wTS66Cd7kBkx+12v2n6l1kTA==
+X-Gm-Gg: AR+sD10TqWzGrGteM/8lv395993jpiE0sZ0jHvaV7+6wDQ2A3dMr7g8bDS2rSfd3c00
+	LiBl+yJvJhhRjjTQhblEsktwqywE6I0fu9H+WJUWz7uGyBZOQTG7Cx+wS2burZ9sljUdP3wAvUs
+	HkNT4ghQX1ntksY6nKcVSWPcuNzmwkoSQqg1dt2zyPXKDfefIOebidWm/Y58B3hf9uNnCVQVCfa
+	588qRKeV0rEXrGjdREcF+XCeVLblZBUyKq5SsnC6wBqbDpY9MBeMEruO54CsdtnIIUgP19yK+oL
+	TigcoGQdMTVYs323CVOW1T4yTOAX3MMt43GNr1OqjLCytilnMeTHOSFbkbsl5zuMyhBTW0r1/Yr
+	p9Vuiv/SyexgmS243n3/lGq3vMKMECg==
+X-Received: by 2002:a17:902:fd8f:b0:2c9:df1b:e948 with SMTP id d9443c01a7336-2d5fd5cee10mr198915415ad.4.1787200259824;
+        Wed, 19 Aug 2026 21:30:59 -0700 (PDT)
+X-Received: by 2002:a17:902:fd8f:b0:2c9:df1b:e948 with SMTP id d9443c01a7336-2d5fd5cee10mr198914735ad.4.1787200259383;
+        Wed, 19 Aug 2026 21:30:59 -0700 (PDT)
 Received: from [10.219.56.166] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327bf15ff5dsm11842356eec.25.2026.08.19.21.12.43
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2d62d58a897sm1806855ad.27.2026.08.19.21.30.54
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 19 Aug 2026 21:12:51 -0700 (PDT)
-Message-ID: <4f11dfb3-9d92-450f-97e7-f04404c63250@oss.qualcomm.com>
-Date: Thu, 20 Aug 2026 09:42:41 +0530
+        Wed, 19 Aug 2026 21:30:58 -0700 (PDT)
+Message-ID: <7e025cc8-bdd8-4247-923d-821089a8457c@oss.qualcomm.com>
+Date: Thu, 20 Aug 2026 10:00:51 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,111 +89,75 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 01/15] MAINTAINERS: Add entry for Qualcomm DSP
- Accelerator (QDA) driver
-To: Krzysztof Kozlowski <krzk@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling
- <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+Subject: Re: [PATCH v3] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+To: Jianping Li <jianping.li@oss.qualcomm.com>,
+        Srinivas Kandagatla <srini@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
         Sumit Semwal <sumit.semwal@linaro.org>,
-        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        srinivas.kandagatla@oss.qualcomm.com,
-        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-1-69a02e9090d4@oss.qualcomm.com>
- <cc43a545-20a1-4f15-a7b9-ca48842bffca@kernel.org>
- <e0a25f11-5c7c-406f-a223-da29bf6e1401@oss.qualcomm.com>
- <f725955b-27aa-4b20-8a4b-84906782b921@kernel.org>
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Ling Xu <quic_lxu5@quicinc.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com,
+        stable@kernel.org
+References: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
 Content-Language: en-US
 From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <f725955b-27aa-4b20-8a4b-84906782b921@kernel.org>
+In-Reply-To: <20260805060940.41414-1-jianping.li@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAyNyBTYWx0ZWRfX2IRuYHfMIGyV
- dxY5cp0KiN0JAeXj1N6xLvn+1PzkCi7k/ZEvifSVZXVJuY5IIaG2YW/9v3y9ggrmo+1e8gTdZtT
- XYg6q64+/f0zsHc6CI0l5ngaDQ9/y+89pqpec/dKpQE1GH4ByO+ORChX+DkYrlR0uHexqovsjWb
- HU8rVpWPq+cSdvKTwZKuR3N1Jt1S5rc3bOw49rY1h5g1Zy5wBEUEOpfygEpAqLwMDz28r5aKBbG
- PBQ2SVd6QenBPXEN7nZA3SnONOovrfjxpwSldXy9IoYDfjQ6XNUBHC106pyAkV9ihBiPfj3OohA
- afei/pKlgU3KT9IyKjkyNtSgl2AYUh++Q8/IcNW1gcSs1f43wDEvLmZrEf3OkGimjO38jEAtYSf
- fc8bQe6Z6tH1BmUcVcbLYcHLwl+Wl6h/HqOEPOA6FqXGhadVfAtAcSAuSn/eXrFaVn/u+U8Aas7
- c8mT8K6XC0HfC2e4HMg==
-X-Authority-Analysis: v=2.4 cv=cuOrVV4i c=1 sm=1 tr=0 ts=6a867ec5 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+X-Authority-Analysis: v=2.4 cv=E5/9Y6dl c=1 sm=1 tr=0 ts=6a868304 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=e5mUnYsNAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=4Unm9NrEEcootba8-QIA:9
- a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: dlf3u0wZM6fZubhYiam1beJ9TJPGLr41
-X-Proofpoint-GUID: dlf3u0wZM6fZubhYiam1beJ9TJPGLr41
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAyNyBTYWx0ZWRfX5/ViGnMi1rao
- xS93R9Qyt5F31VCkzcpiWrx82+6JJyA3nMaqmrzGkeUljMcP5M/e1EXmOQL4aKmsDVyNCG7TVE2
- zfR5H8sVpksvGulZDuUF08Z/7jWlyp8=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=CeeczvWzjZu7FbgsozkA:9 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: ivQkFE6nWlDtrgYJv4C6OltLm7AzXrFu
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDAyOSBTYWx0ZWRfXzVJPCAw1XJdk
+ ftkDhEZRYzTvyQ9py7FR+UrnrHfekwYL910JbgFhTKaSoU9hwKPABiqVh4E+i9TQX62H0FPeEKN
+ lRvZMLNOgwWICc9UzUi7zYxI6C9c7meIqyIIRbfkq87LeVYFFHqXCc6lcG8nZ5rJi/cJBy7tqch
+ PHdqvkQ5ykUo3NSKVFjUekxZpK/vKYxHt3ssUkWIN6eKf31AmSDaTL6RB+s7v6j66F3v/kLCubf
+ uDiuWa0eVuv5oPeTYkeF02KA9QIxuJk1pryxQgEjf2WHU4O4IeguORlhNuJKWTVHkz/bNZpKtmB
+ Nz1E7Tzm1Q9f/unPzPDVU/i87gPNdQouesegY8Wvi6fTOVBNEXrxjYrp+WleHMyOKb6cluLS60B
+ XtC+KKA/kneUYN6dzPHFJ8lIrHvVDcVXyxnjfJybbKfGemWMTGe4Grj0mkAxTfO8vDonOxe6EZ3
+ FtpUR9DGI76al0Pjq9w==
+X-Proofpoint-ORIG-GUID: ivQkFE6nWlDtrgYJv4C6OltLm7AzXrFu
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDAyOSBTYWx0ZWRfXwxFZofpGxfMh
+ E4o2bNrb6ECCqHCS68EPRBx86BCKuz13v1/cXPhP9xZJ41u+aLVbrdLvSxd9TG6i+pPdMnnag1T
+ 8bRiOMTFofoQUSpylIOXuToKVxKeNnk=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-08-19_06,2026-08-19_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 malwarescore=0 suspectscore=0 phishscore=0
- clxscore=1015 lowpriorityscore=0 adultscore=0 spamscore=0 bulkscore=0
+ impostorscore=0 clxscore=1015 adultscore=0 priorityscore=1501 suspectscore=0
+ phishscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0 spamscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200027
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200029
 
-On 19-08-2026 19:46, Krzysztof Kozlowski wrote:
-> On 19/08/2026 15:05, Ekansh Gupta wrote:
->> On 19-08-2026 00:52, Krzysztof Kozlowski wrote:
->>> On 17/08/2026 06:47, Ekansh Gupta wrote:
->>>> Add a MAINTAINERS entry for the Qualcomm DSP Accelerator (QDA) driver,
->>>> covering the driver source under drivers/accel/qda, documentation under
->>>> Documentation/accel/qda, and the UAPI header
->>>> include/uapi/drm/qda_accel.h. The linux-arm-msm and dri-devel mailing
->>>> lists are listed as the relevant review lists.
->>>>
->>>> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->>>> ---
->>>>  MAINTAINERS | 11 +++++++++++
->>>>  1 file changed, 11 insertions(+)
->>>>
->>>> diff --git a/MAINTAINERS b/MAINTAINERS
->>>> index 912837dd4640..75fa90c137c7 100644
->>>> --- a/MAINTAINERS
->>>> +++ b/MAINTAINERS
->>>> @@ -22388,6 +22388,17 @@ S:	Supported
->>>>  F:	Documentation/devicetree/bindings/crypto/qcom-qce.yaml
->>>>  F:	drivers/crypto/qce/
->>>>  
->>>> +QUALCOMM DSP ACCELERATOR (QDA) DRIVER
->>>> +M:	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
->>>> +L:	linux-arm-msm@vger.kernel.org
->>>> +L:	dri-devel@lists.freedesktop.org
->>>> +S:	Supported
->>>> +T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
->>>> +F:	Documentation/accel/qda/
->>>
->>> There is no such directory.
->> the directory got added in a later patch, added this patch at the start
->> following the comment here[1].
->>
+On 05-08-2026 11:39, Jianping Li wrote:
+> DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+> to the same dma_buf fd as an input/output buffer argument. Taking an
+> extra reference for such DMA handle maps leads to duplicate mappings and
+> an unbalanced reference count, since DMA handle maps are released
+> separately when the DSP returns the fd through the fdlist.
 > 
-> This comment did not tell you to make it non-bisectable. This comment
-> asked you to add that parts in your first patch. Why did you move
-> patches instead of adding this into the first one?
-ah I misunderstood the comment, my bad. I'll fix this in next spin.>
-> Best regards,
-> Krzysztof
+> Fix this by not taking an extra reference for DMA handle arguments
+> (take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+> these maps are borrowed references, fastrpc_get_args() re-validates the
+> map via fastrpc_map_lookup() before dereferencing it, so it is not used
+> after being freed. fastrpc_put_args() only releases maps flagged as
+> FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+> exactly once.
+> 
+> Also reject FASTRPC_MAP_DMA_HANDLE in fastrpc_req_mem_map(), since such
+> handles are already mapped implicitly during the remote invoke call and
+> must not be mapped again through the explicit MEM_MAP path.
+> 
+> Fixes: 10df039834f84 ("misc: fastrpc: Skip reference for DMA handles")
+> Cc: stable@kernel.org
+> Signed-off-by: Jianping Li <jianping.li@oss.qualcomm.com>
 
+Reviewed-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
