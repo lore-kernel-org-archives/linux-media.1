@@ -1,170 +1,169 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8FF3C47F2FF;
-	Thu, 20 Aug 2026 15:46:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80AAF415B68;
+	Thu, 20 Aug 2026 16:02:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787240801; cv=none; b=F1qtr1rfVceyhUZQeelbaga9WR9u/E3ZY3Z/C9NsKeLZ6p81lwz0LLgibNfyTejRJmywBm4LBE/bp4UDZoBDEi099nR//UnNCBiCqF8PEpXH654Qbd+tegI1Mg51vXZzzUTK5SXzqtyYBvO4mufd2UTPGBAGb2JHoBezBcbn0nk=
+	t=1787241748; cv=none; b=CoSug5qJFNwTbfURbH6L1YsSs4f9y1uGEejxiFrb3kcR3q0miSke0gQMeAehjg3qiktLJzGAJR5dLkl9rY5y9hK6/CfizL08WHbEK4Z8p2tGOxR9Fk56H7tp5O6SY9KTPRuT9B3ZGRw0VB4uSiA23+Bz8dzu+rflomiYGrAd1YI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787240801; c=relaxed/simple;
-	bh=tizP7ZAWokMmTCHa05IgHIYRQP5Cvz/WFcQTr2EbS1s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JVGcTefPGd4XEHRV+12FltzNk5u3F//q9Bmg0YkP0oqnj5eT07D49omtZjSi7RoN7WiKrkD5KHXBD019FlMzGLUnobEAxHRzUOKdo4zw6g8BeJsR1NmDScb/7LBHwGqb9LmwXqMRs9uYdnOnG+xLaO3CBWk+IvRHbRmUnyCUcOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=bId47STG; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1787241748; c=relaxed/simple;
+	bh=NgH4cC1k4sPYlDBooHzRMAITIKBecBzHZ/fTd5G2PNk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=crT/J8RKBm7MFvtCUlybbs2b1efoYZv/eEwDk1borkR2qxAAHHQX8P2ZNBIbdMSRKBZxNrPOd3HqsQwZUirleiUnQfIAHf3+FHvRIrVbYk9MkqlOgaAK/nroql8YBvDzq/wXBDOqXIH6aThyjOu5lTl0P1YruIPlzJfs9efnYaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=DC6VOVdb; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="bId47STG"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DD998153B;
-	Thu, 20 Aug 2026 08:46:15 -0700 (PDT)
-Received: from [10.1.25.29] (e122027.cambridge.arm.com [10.1.25.29])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9E8093F763;
-	Thu, 20 Aug 2026 08:46:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1787240779; bh=tizP7ZAWokMmTCHa05IgHIYRQP5Cvz/WFcQTr2EbS1s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=bId47STGDLWIojqSJdvsJV3QfdP2sGWTntnl86S5P3JChqvbokbvJHFhew/3s6bQ6
-	 PQ+whQcNBfyu7Wmkw9Z1n3TJXAF69n5vS6RqcTAr89WRZ6ZWwep5+kkuyfmwjO+vuW
-	 OqBssSecBtzw6YMdUgx77Pwz3ImrC0vzeyHuYJ0A=
-Message-ID: <c25502d3-35c6-4281-a9ec-856f789fb1b4@arm.com>
-Date: Thu, 20 Aug 2026 16:46:14 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="DC6VOVdb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1787241744;
+	bh=NgH4cC1k4sPYlDBooHzRMAITIKBecBzHZ/fTd5G2PNk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=DC6VOVdbdADn3RntNzAknAEaFIbouGLxbmBetmcHMrmjSmOtxh4v/f+CMSrZrCsh4
+	 mSdTz1AFQlUlMIEmERp8xJX4dlSAQngCtsIxBPc563rbEJZyvBV225vH0vIb5gPG6G
+	 TTm65/KLjABNhPb1HsKXLUU8J7+cYI8CPLMax1AO4thv5DGfzBettTbdHrAp8Cl9CY
+	 8B2TFiUQmlSxGTTESwEcg7gb1kRw2xuXeofljxRtfabBiaz8b3seTeBBY3RdXxAXy9
+	 t1Z3OwWR8a/dxAxZHIvSnXDwjIcQ1vYZHJQmpbfZYM+swMz0bPGUhRqG5ScymWAFMF
+	 WCRpEZnboQQxQ==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: nicolas)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 706FC17E0860;
+	Thu, 20 Aug 2026 18:02:22 +0200 (CEST)
+Message-ID: <61537689daa428a577e6bdab794d044f5405128e.camel@collabora.com>
+Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel	
+ <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko
+ Stuebner <heiko@sntech.de>, Ezequiel Garcia
+ <ezequiel@vanguardiasur.com.ar>, Andrzej Pietrasiewicz	
+ <andrzej.p@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Chen-Yu Tsai
+	 <wenst@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lucas Sinn	
+ <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
+ <mchehab+huawei@kernel.org>, 	linux-media@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, 	linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, 	devicetree@vger.kernel.org
+Date: Thu, 20 Aug 2026 12:02:20 -0400
+In-Reply-To: <5436875c-9724-41f3-aaf9-76d43e05f0a8@pengutronix.de>
+References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
+	 <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
+	 <2816bd84651dcbfd0cd76bbc56e461bd409f9611.camel@collabora.com>
+	 <5436875c-9724-41f3-aaf9-76d43e05f0a8@pengutronix.de>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-Sh7xuFpFF+Uoq55bNVgI"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] irqchip/gic-v3-its: Allocate VPE tables from
- sleepable context
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- Marc Zyngier <maz@kernel.org>, Sumit Semwal <sumit.semwal@linaro.org>,
- Thomas Gleixner <tglx@kernel.org>
-Cc: "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-References: <20260820150034.88729-1-steven.price@arm.com>
- <20260820150034.88729-3-steven.price@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20260820150034.88729-3-steven.price@arm.com>
-Content-Type: text/plain; charset=UTF-8
+
+
+--=-Sh7xuFpFF+Uoq55bNVgI
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Hi Sascha,
+
+Le jeudi 20 ao=C3=BBt 2026 =C3=A0 10:03 +0000, Sascha Hauer a =C3=A9crit=C2=
+=A0:
+> On 2026-08-19 11:48, Nicolas Dufresne wrote:
+> > Hi Sascha,
+> >=20
+> > Le mercredi 19 ao=C3=BBt 2026 =C3=A0 12:37 +0200, Sascha Hauer a =C3=A9=
+crit=C2=A0:
+> > > +/* -----------------------------------------------------------------=
+- */
+> > > +/* Register byte offsets from dec_base=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 */
+> > > +/* -----------------------------------------------------------------=
+- */
+> > > +
+> > > +/* REG0: IP version / product ID */
+> > > +#define VDPU720_REG_VERSION		0x000
+> > > +#define VDPU720_PROD_NUM		GENMASK(31, 16)
+> > > +#define VDPU720_BIT_DEPTH		BIT(8)
+> >=20
+> > Can you share a dump and share these register reset values. Looking at =
+the
+> > layout, clearly its highly modified, but probably derived from VSI mult=
+i-codec,
+> > but I'm thinking perhaps we'll learn more from that. Its always nice to=
+ justify
+> > when adding more chips that are not strictly VSI designs (or maybe it i=
+s) to the
+> > hantro dirver.
+>=20
+> Here's a full register dump right after reset:
+>=20
+> 00000000: db1f0005 00000004 00120000 00000000
+
+I've look around as much as I could, and could not find any indication that=
+ this
+is an IP from VSI or derived from a VSI core. It is entirely different from
+vdpu1 in mpp (proper G1, rk3288 and similar) and vdpu2 (modified G1 / VDPU1=
+21).
+In short, this is not a multi-codec core.
+
+So that ball is on your end to show that this driver belongs to hantro rath=
+er
+then its own driver. In absence of evidence, this driver should be part of
+rockchip vendor folder, not vsi. Don't read me wrong, I trust that you have
+tested what the LLM have chosen, but anything can be implement in Hantro re=
+ally,
+it does not mean it should be there.
+
+Nicolas
+
+> 00000010: 00004400 00000000 00000000 00000000
+> 00000020: 00000000 00000000 00000000 00000000
+> 00000030: 00000000 00000000 00000000 00000000
+> 00000040: 000000ff 00000000 00000000 00000000
+> 00000050: 00000000 00000000 00000000 00000000
+> 00000060: 00000000 00000000 00000000 00000000
+> 00000070: 00000000 00000000 000000a8 00000001
+> 00000080: 00200000 00080f06 00000000 00000000
+> 00000090: 00000000 00000000 00000000 00000000
+> 000000a0: 00040000 00001556 00000000 00000000
+> 000000b0: 00000000 00000000 00000000 00000000
+> ...
+> 000003f0: 00000000 00000000 00000000 00000000
+>=20
+> Sascha
+
+--=-Sh7xuFpFF+Uoq55bNVgI
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 Content-Transfer-Encoding: 7bit
 
-On 20/08/2026 16:00, Steven Price wrote:
-> The VPE L1 table is allocated from the CPU-starting hotplug state,
-> where interrupts are disabled. Although the page allocation uses
-> GFP_ATOMIC, its_alloc_pages() subsequently calls
-> set_memory_decrypted(), which can sleep while splitting the arm64
-> linear map.
-> 
-> Move the allocation to the existing CPU-online callback, which runs in
-> sleepable context, and use GFP_KERNEL for both allocations performed
-> there. Register the callback even without EFI, since it is now also
-> responsible for VPE table allocation.
+-----BEGIN PGP SIGNATURE-----
 
-Ok, Sashiko pointed out this is bunk:
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaoclDAAKCRDZQZRRKWBy
+9J71AQDIPC+bWNjjlyxNCjQSdvKc/XKLnolosfjxhlZ4DMvNMQD/U+0qQgLG7T19
+Z4oo+bnV8HuZ4bzEtkpq2qUeEgaEiwk=
+=SqwL
+-----END PGP SIGNATURE-----
 
-> Does moving this allocation to the CPUHP_AP_ONLINE_DYN callback expose
-> uninitialized GICv4.1 redistributor state to concurrent VPE mappings?
-> 
-> The CPUHP_AP_ONLINE_DYN state runs for its_cpu_memreserve_lpi() in the hotplug
-> thread asynchronously after the CPU has already been marked online in
-> cpu_online_mask.
-> 
-> Could a concurrent process changing IRQ affinities (like irqbalance) observe
-> the CPU in cpu_online_mask and route a virtual interrupt to it via
-> its_vpe_set_affinity() before the hotplug thread has executed this table
-> allocation?
-> 
-> If a VMAPP command executes before allocate_vpe_l1_table() programs the
-> GICR_VPROPBASER, it appears the hardware could use stale or uninitialized
-> physical addresses, leading to unpredictable behavior or dropped interrupts.
-
-Please ignore this patch. I thought this was a bit too simple to fix :(
-I guess some sort of preallocation might be the solution.
-
-Thanks,
-Steve
-
-> Fixes: b08e2f42e86b ("irqchip/gic-v3-its: Share ITS tables with a non-trusted hypervisor")
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> ---
->  drivers/irqchip/irq-gic-v3-its.c | 30 +++++++++++++++---------------
->  1 file changed, 15 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/irqchip/irq-gic-v3-its.c b/drivers/irqchip/irq-gic-v3-its.c
-> index a055837832bc..71515dbff9ec 100644
-> --- a/drivers/irqchip/irq-gic-v3-its.c
-> +++ b/drivers/irqchip/irq-gic-v3-its.c
-> @@ -2932,7 +2932,7 @@ static int allocate_vpe_l1_table(void)
->  	if (val & GICR_VPROPBASER_4_1_VALID)
->  		goto out;
->  
-> -	gic_data_rdist()->vpe_table_mask = kzalloc_obj(cpumask_t, GFP_ATOMIC);
-> +	gic_data_rdist()->vpe_table_mask = kzalloc_obj(cpumask_t, GFP_KERNEL);
->  	if (!gic_data_rdist()->vpe_table_mask)
->  		return -ENOMEM;
->  
-> @@ -2999,7 +2999,7 @@ static int allocate_vpe_l1_table(void)
->  
->  	pr_debug("np = %d, npg = %lld, psz = %d, epp = %d, esz = %d\n",
->  		 np, npg, psz, epp, esz);
-> -	page = its_alloc_pages(GFP_ATOMIC | __GFP_ZERO, get_order(np * PAGE_SIZE));
-> +	page = its_alloc_pages(GFP_KERNEL | __GFP_ZERO, get_order(np * PAGE_SIZE));
->  	if (!page)
->  		return -ENOMEM;
->  
-> @@ -3268,16 +3268,6 @@ static void its_cpu_init_lpis(void)
->  		val = its_clear_vpend_valid(vlpi_base, 0, 0);
->  	}
->  
-> -	if (allocate_vpe_l1_table()) {
-> -		/*
-> -		 * If the allocation has failed, we're in massive trouble.
-> -		 * Disable direct injection, and pray that no VM was
-> -		 * already running...
-> -		 */
-> -		gic_rdists->has_rvpeid = false;
-> -		gic_rdists->has_vlpis = false;
-> -	}
-> -
->  	/* Make sure the GIC has seen the above */
->  	dsb(sy);
->  	gic_data_rdist()->flags |= RD_LOCAL_LPI_ENABLED;
-> @@ -5452,6 +5442,19 @@ static int its_cpu_memreserve_lpi(unsigned int cpu)
->  	if (gic_data_rdist()->flags & RD_LOCAL_MEMRESERVE_DONE)
->  		return 0;
->  
-> +	if (allocate_vpe_l1_table()) {
-> +		/*
-> +		 * If the allocation has failed, we're in massive trouble.
-> +		 * Disable direct injection, and pray that no VM was
-> +		 * already running...
-> +		 */
-> +		gic_rdists->has_rvpeid = false;
-> +		gic_rdists->has_vlpis = false;
-> +	}
-> +
-> +	if (!efi_enabled(EFI_CONFIG_TABLES))
-> +		goto out;
-> +
->  	pend_page = gic_data_rdist()->pend_page;
->  	if (WARN_ON(!pend_page)) {
->  		ret = -ENOMEM;
-> @@ -5793,9 +5796,6 @@ int __init its_lpi_memreserve_init(void)
->  {
->  	int state;
->  
-> -	if (!efi_enabled(EFI_CONFIG_TABLES))
-> -		return 0;
-> -
->  	if (list_empty(&its_nodes))
->  		return 0;
->  
-
+--=-Sh7xuFpFF+Uoq55bNVgI--
