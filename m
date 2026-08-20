@@ -1,80 +1,80 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B229747DD5D
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA06D47D930
+	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 16:51:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.171
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787244463; cv=pass; b=XB1kRsWKfIirt2uNape0AWJBvRj4k2e9BVTYTq3lr6KmaWV8RLy0wXCrRX7jb2barFUs6fdPrLMaRFoBQV4PI4ZmU5/P1DnFKX7ebwNtqprtMKE1hJQloYNXpRjpt9JPz3VgtMgKdvqhce1JPISl74KF3hu8cTgUWHwRqlR0lK4=
+	t=1787244721; cv=pass; b=A9AqEmJV6BtGWUq1DjvSzFQmy6Qz/YN8wzaqIg8YHdqtwum/xbA3KJPTnlV/CKL0Ias5tqv2gmRAGphachbPkdqb3EuE4cgeDkT89fJZC+ro19ifu1h7dxp2vLXBrZ1J9AJ6APKua2Xr3XNfkpl05Edxoi722kWlYnp8c9jihDA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787244463; c=relaxed/simple;
-	bh=Lkh0NNey+z7gSu2+vJpX+xdheboLYUVXXw+g2pUv6N4=;
+	s=arc-20240116; t=1787244721; c=relaxed/simple;
+	bh=yyOHGz7RXXVC57xoRkoaTFCBjwkuyt6at/OQqRYbakg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eEdjr2T0MTVXC3Xw8OE0dZgj5Q8RokDfKNBY25gOluJejwF0p1W3TVUZ2CFWCoirY+W07ovkHeoQDUJVuyO+T5nMlchGPVrfOoL+14TZKVEG7zOp86Ohwhu7B5rdJOTcw8mbg0jcl+4v/6kPTNxDUvceKTwyD+kxQAgNHOsZaMQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=BT1m5qau; arc=pass smtp.client-ip=74.125.224.50
+	 To:Cc:Content-Type; b=FlWsodfTUfRbu9LGb6LAN8bVsnC80lXeJ1Ek+ZvaYi8MZ+5WJ4/f6KhtDG+D6QhRko+uX6r3GkK/Fpq7CmYC/egaJlLDPPIhvaBM4wibwoXOdID7fTJWsqEFQsCfwelx7Ut0f/ThyeDn0fQuV8YbMIzo6/MSUH3HtT+dzQJlgJQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk; spf=pass smtp.mailfrom=kynesim.co.uk; dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b=XjUBKzmz; arc=pass smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kynesim.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="BT1m5qau"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-66c7127a73dso3023776d50.2
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:47:41 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787244460; cv=none;
+	dkim=pass (2048-bit key) header.d=kynesim.co.uk header.i=@kynesim.co.uk header.b="XjUBKzmz"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-836c8bdac50so1786287b3.0
+        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 09:51:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787244718; cv=none;
         d=google.com; s=arc-20260327;
-        b=YgHjtBc7S+ZqmlvpWSiSQX2T6E8sJl336Cy/D6ausIWdUCxnz6qgGg18VErepbwZD6
-         POPtIi5ivkx4jnGj9QqUVQ3w87LF4QfjMPH/+zwLFGQiLXo7/u+fryCmDUz3ZlGKDfEK
-         7+DqBJ84WfxfeoBmVysE9d60CjMi6fX7RbfbtRVgWo8lTRT4hRkNgl51xO0+bZhs2VOQ
-         asGdrE+/b38/kv6Iq4GARq1YeEFGeMYRsf+d8tgMypZPPbKIoeaW4TNt4KtOCkBm3p/E
-         1jSTKEpAfL8Avs7h5cn1O50Yzw2OVIUryVRblFAltVBbo2mqk9ILPsZiFxnle94yRBZu
-         s/6Q==
+        b=PglihK8nUEOuYkEf58XO6QmcMmVLCTIbiHHbwO+igyMEyr9Q3h40QID6pO89jxEf1z
+         aF3DAGXBsF9HI9Yd6l3C1zCBcasiGPXiDl2yI1lgtV0r7xy2ISnxgOvwOuBcZjB/ZYk+
+         /vpeb8/tHq+RiMX9EkzfvmYzk+kt5qXp2/CksOcwSmWXfCcUZVt/j/UtwYqTbiZ35iV7
+         okkXcuV97DhOzMqV7cxVFle98LUl8s2ILnUGr6eyBeXN5hB+Wlf4KXjhBxk19KC4vJKH
+         6+RHCt9mNaPVuo9Wel+hM7Y62jdzOBkse2QtezG2WRgxZ3pWyAJ87uFAtO5QITuVo2I6
+         O8cg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=cc:to:subject:message-id:date:from:reply-to:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=N8/7EJgXScxMsb8yLNOXdKHQST7x7f+prdDpaOJKJXg=;
-        fh=t9jGfxS4hk5rhQ/Nq4XZ5zUy2qxISK3K6zWHyhlXsDk=;
-        b=BpdG+t2qh8pamhvY/beFYx706z4iVMV1pUA7mkmumX+0t2GLAE/xlUGchqrJcGDQnb
-         r0nILK4HxbTAc26wnNp9B+nwOMs8Ux5QMDIoYMTJ383SrOgtz/IeCetAqyGr8CjKeWto
-         E2wUTfzY3md4okn+hBiM+tFGRGNsAa9i3bxBXBxhILT2aK8RRBn7lROrYyVAXCrrQESY
-         XznWlIMC5GwslHbXJqeP/v13qBgD92bXhbK/zfgBNtLa4gckXPVTr0e6shKGHyt5oRKi
-         A5S0KsFHlnsbcKSLBMrU1lNs+x4O71mvAXcngITcNJS4iIq12bRMCyX0n8l698qHbIe+
-         gVPw==;
+        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
+        fh=3v08Ty92Zsamfh4RsyoGhL6h2U/H4JAQBapWaAkpOEc=;
+        b=U01aeJnlP0UtvDnj9vrbD3lkCAivaBHhfZYA4yti4QqlpVqsA1L0WbhrFOkIX68Ny4
+         q5zk3c6JsMxPBLFyRrNxVWKPkPA5hCtmo8F4LTZzYa1KxFajtXn8W5iNL/h1hkSTU1Bl
+         Fg3Rws+EATlaCTBd/C3DlAxDiaNVMp/0jk4KH/7Hkwvv3XlWn6wYiGzMQd9Hc3lYclN/
+         Qisg2MRNP+gaact6/Iwpt6ch6DkUPyvuhovARCI8SrfT5n0sMMFo5rwBFVDYtXv2CKZa
+         4zx2bkTzcvYaUaAhW+tsmOBsCX4LibNJHfMM1RYNcdgVd3+o5io/uHj4tJxK//RKu1jq
+         0nPA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kynesim.co.uk; s=google; t=1787244460; x=1787849260; darn=vger.kernel.org;
+        d=kynesim.co.uk; s=google; t=1787244718; x=1787849518; darn=vger.kernel.org;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N8/7EJgXScxMsb8yLNOXdKHQST7x7f+prdDpaOJKJXg=;
-        b=BT1m5qauCA7gTnBTybVq1wSrgj8MwLkLLCWbLHFRL9ergUl1faffSly41PwVmpGyH2
-         93nLXI4kHktYvS3V75U4HIRf9U11pGyzcSj1B3P/ur5Y5Tt3tb/Y+tFtLW5E+BD/1cLR
-         /xFZ55splSurV+lQLHcrTbNFMMC4JOxDAuo6ZIXUDArkLlsCrPRtfB0F+e9M3VBgBuKS
-         YnFg7zx0/7WWgbLhMB2F4b8ST37hEhxezt4UsnGNih7+Pyv2+TOzzo2wLgP37uuxnsXs
-         XuULZWq6FN2an9sQ9IgepWzegzHMfJbm7WC4ZEARAmmib1n/M82sUSdoWO6YaENpA1IM
-         tJcw==
+        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
+        b=XjUBKzmzBtBfnto0Gvrxww3xU8fl4eB0gF5+mrdFpR09O4Ut19JsWlP3M/qbhibX3E
+         YadnlsJgEq6nGWzuxTyu1sWKWfxTWdWdRe11YpBBMtxMkZEECKd0Z0CxAAyxXSB1LUMz
+         1Qn7++JxcKZnC/t4wemZwNpA9H9W0585/N7fkzMOG6BrV6/1CoEV8p3AONDi++ltU/st
+         G0XJA3Ss7GZjxMaKXJDvKvQ3uIF1tg/7w4fxYSTQQGMFUwLMJnEfgvgC4eNMh9OVMZ1a
+         h0c1o4ks7zPxA0LsfS2VNzHfIeYsGnNmkmJNqJgf2/lABzZcR93L77wIFLfX0TSJUPBV
+         gNTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787244460; x=1787849260;
+        d=1e100.net; s=20251104; t=1787244718; x=1787849518;
         h=content-type:cc:to:subject:message-id:date:from:reply-to
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N8/7EJgXScxMsb8yLNOXdKHQST7x7f+prdDpaOJKJXg=;
-        b=FRANnvAnCTlBBOYdd/vGt2RaJxA8paiorfxI5XkSDxsPAxea7a6MY4PxEKaTYBSJDb
-         rLtlpVW1PklppMscx6RSQlxJWe/iHRdQy1FvEwUtgs3dKttrA+l4cmhZmOI9btb3By1H
-         fqccNXOCpnFjVuqtbQxzCcq+AJKUMXG1MI1bRPRTz1j228V9fdWGlaaAKn0URNYNhtdH
-         b10mztpUlANVBA5wkVmOfV9Dj2IL6N/2Pb8j2DHTnb317hOiRxc651tFLIxNoVz1zxKw
-         txfYBmCbIvFGXxN1FvQJUxpRJHIVSCrdnBnul6+X76W5sYAy7ZUcDYRD1RcNFqG8UAHV
-         9O8A==
-X-Forwarded-Encrypted: i=1; AHgh+RqSXXXJcXrr7/N0zb7zSGaM9pNmfRifXtearH7wPfhwxTm+HCFW5Y3USJZWRu8c1ikiZ6i/0HL/3OaWjw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kydJSskDOT6b7ld/jzscflKrQTjdWP9kHyn1ONCoYlehYLV69E
-	ZVTUKGTKkyoQULJNaX3IFAImgAOQODT/tZwcDj1vPDDoJkDLXQDlIpO/ePuoKcvaipr+G6qDXpa
-	Y+A58P0NWvyWysuKvtK7lKJHkD0TycjShoan/1VjnPg==
-X-Gm-Gg: AR+sD110/JZI42WiUseCH/xKkalob5yIenVAJQ6ELuPagAvOvt3XgCkLzF+FMNTVgPR
-	2BfJ7WKksP6fJ+Z6tgxrfD6YQBp9lEeYh8SZdayBGf+GZfhW6qXtf0KCP7zYPmZaCpVuHrdlR+g
-	FgDxf7DLvZAm5nmw8Omt9ic9MdfWTRa8yoDG8QgQeRoimPZSrzXT4u1ZvzEkIe6CVgkZaKid1vg
-	ezhNvXR8B/AyeRdSJpIbBeb6/1NRRfptL1IIUlkWH9QGKT5zIbRTUoCuOlYw4hbw8APX9DE6Nhh
-	LpdejJ8Z/vZuU3zkM7OoT7N45UQuSV8QZqIbXck0g80=
-X-Received: by 2002:a05:690e:dcf:b0:669:3e3e:d64a with SMTP id
- 956f58d0204a3-66ce49ed2c5mr65947d50.15.1787244460433; Thu, 20 Aug 2026
- 09:47:40 -0700 (PDT)
+        bh=akmJEAxXxvOvCDET//elsxAbX/pgqZ+J1NNSEmRTcEk=;
+        b=jkQWy96KqsWSOJM0EAyLF+xiU/VltKe4ZqtX64Imq1CkNPDynlfLEsX9Nqw9ce0OUO
+         kG4PMrk8qIbAPaBuh0KablLk/uJzLOQswPzjVpI6HxX1tLF/AV6GbN3AnOQviCHhEtKz
+         NrEeaLkdbsyywR3u8r8Z3DHW6h2OatCIuMRxAnrnDd7nePn1xpL8rJk3mLjvJKLriEsG
+         VfH2qCM4nmsnEpmWkHBKr6ZEyhXP428f0zfEfMogdVaM/b0zTZhxPA1jwL1So7bwr/GL
+         40TjjPmEEak7hn0fEZXsjKM0BtvBxmMidsxJYcN+2CPuH3koq8JnBtROKAv9ZpCUVSLJ
+         EYhQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrDxx5NV30b9qlnMSG4B95RALhmjq1T1Ji/hI1Vj6BLKKHFItuB9jQ1C3YNVKY4YZD0OwGSuyXJeEeVkA==@vger.kernel.org
+X-Gm-Message-State: AFuF++mc/qzwTagR7qXNODuT/8U12Wi5kXPt62JZxWEmBycVaooRBR8S
+	VIuwu6aq/sHuU0E4qLXsDpIL2uPVmNHj3awjzqhCOjlg80wMC42TaKzrOp9uNyjyALUG4v3u4Xc
+	O1kG+NxZo7x8xT0FNdRLo1qp2VkMLpzHeSAFV33EwNA==
+X-Gm-Gg: AR+sD10lPRAYjqfOqhcfpKnpaaR0Nzfm6VhmZOA6ia0B/YEyOt4o2/sPnpJ/8g/ISIj
+	/P7ffrH6SVCTsSaEDvnMqKhPG9M9sfrK/oIm1p/+ti5dr9u4wOxESifLpTVG64LUvOdKYpFdo8I
+	8JF2Sw25uRRsnK7Bg49HkJedfxOaf4VA3v70IivM6B37ygS5GspL8QJwTn2ECSrSCf7N0ocsBa5
+	gTyMxXNxjpvRDnU97RmuFeLWlue4tqDbemzDPmkWdAGXKaffEacXkrw3ATjUCWdwpIx6UEQYudm
+	F8WjccCq4dZmJOnDvofcmxRWFftPtkU0m3rJh1psvy3czLvUzLMi+g==
+X-Received: by 2002:a05:690c:60c3:b0:820:a7c:7495 with SMTP id
+ 00721157ae682-844dd143d1cmr56304437b3.3.1787244717686; Thu, 20 Aug 2026
+ 09:51:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,14 +82,14 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20250724-multicontext-mainline-2025-v2-0-c9b316773486@ideasonboard.com>
- <20250724-multicontext-mainline-2025-v2-12-c9b316773486@ideasonboard.com>
-In-Reply-To: <20250724-multicontext-mainline-2025-v2-12-c9b316773486@ideasonboard.com>
+ <20250724-multicontext-mainline-2025-v2-5-c9b316773486@ideasonboard.com>
+In-Reply-To: <20250724-multicontext-mainline-2025-v2-5-c9b316773486@ideasonboard.com>
 Reply-To: jc@kynesim.co.uk
 From: John Cox <jc@kynesim.co.uk>
-Date: Thu, 20 Aug 2026 17:47:27 +0100
-X-Gm-Features: AcwNN1Xnu7zppNIGQ2MdBufll4blyAkR6vOITHjuMugVUus8gLxrHEWDDpf2rnc
-Message-ID: <CAFyCYyOPESG6TJaUBdWE28BRxwems_EQsvhMP08LbN8D=sYAWw@mail.gmail.com>
-Subject: Re: [PATCH v2 12/27] media: v4l2-subdev: Introduce v4l2 subdev context
+Date: Thu, 20 Aug 2026 17:51:43 +0100
+X-Gm-Features: AcwNN1WwQTxs0WjtTh8s7fQQFsbKA65xSEl5vJQyrVwbh2jI5dFisjCf1lLZEIo
+Message-ID: <CAFyCYyM=WaDwVZY5yCYkpbF1psckzRLs_arJfWBu28sS8uy3GQ@mail.gmail.com>
+Subject: Re: [PATCH v2 05/27] media: v4l2-dev: Introduce video device context
 To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
@@ -104,36 +104,41 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
 Content-Type: text/plain; charset="UTF-8"
 
-> Introduce a new type in v4l2 subdev that represents a v4l2 subdevice
-> contex. It extends 'struct media_entity_context' and is intended to be
-> extended by drivers that can store driver-specific information
-> in their derived types.
+> Introduce a new type in video-device that represents a video device
+> context. It extends 'struct media_entity_context' to include
+> video-device specific data and configuration. The new type is intended
+> to be extended by drivers that can store driver-specific information
+> in their video device derived types.
+>
+> The next patch will introduce the VIDIOC_BIND_CONTEXT ioctl that allows
+> to create a video device context and uniquely associate it with a media
+> context.
 >
 > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
 > ---
->  drivers/media/v4l2-core/v4l2-subdev.c |  39 +++++++++++
->  include/media/v4l2-subdev.h           | 126 ++++++++++++++++++++++++++++++++++
->  2 files changed, 165 insertions(+)
+>  drivers/media/v4l2-core/v4l2-dev.c |  43 +++++++++++++
+>  include/media/v4l2-dev.h           | 126 +++++++++++++++++++++++++++++++++++++
+>  include/media/v4l2-fh.h            |   3 +
+>  3 files changed, 172 insertions(+)
 >
-> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> index 4fd25fea3b58477056729665706ddbacc436379c..7307f57439499c8d5360c89f492944828ac23973 100644
-> --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> @@ -1577,6 +1577,45 @@ bool v4l2_subdev_has_pad_interdep(struct media_entity *entity,
+> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
+> index c369235113d98ae26c30a1aa386e7d60d541a66e..c83c37843c9e7beb899a4b2bd176273c3dec381b 100644
+> --- a/drivers/media/v4l2-core/v4l2-dev.c
+> +++ b/drivers/media/v4l2-core/v4l2-dev.c
+> @@ -1200,6 +1200,49 @@ struct media_pipeline *video_device_pipeline(struct video_device *vdev)
 >  }
->  EXPORT_SYMBOL_GPL(v4l2_subdev_has_pad_interdep);
+>  EXPORT_SYMBOL_GPL(video_device_pipeline);
 >
-> +struct v4l2_subdev_context *
-> +v4l2_subdev_context_get(struct media_device_context *mdev_context,
-> +                       struct v4l2_subdev *sd)
+> +struct video_device_context *
+> +video_device_context_get(struct media_device_context *mdev_context,
+> +                        struct video_device *vdev)
 > +{
-> +       struct media_entity *entity = &sd->entity;
+> +       struct media_entity *entity = &vdev->entity;
 > +       struct media_entity_context *ctx =
-> +                media_device_get_entity_context(mdev_context, entity);
+> +               media_device_get_entity_context(mdev_context, entity);
 > +
 > +       if (!ctx)
-This needs to be "if (IS_ERR_OR_NULL(ctx))" as media_device_get_entity_context()
-can return an error pointer.
+Needs to be IS_ERR_OR_NULL(ctx)
 
 Regards
 
@@ -141,188 +146,213 @@ John Cox
 
 > +               return NULL;
 > +
-> +       return container_of(ctx, struct v4l2_subdev_context, base);
+> +       return container_of(ctx, struct video_device_context, base);
 > +}
-> +EXPORT_SYMBOL_GPL(v4l2_subdev_context_get);
+> +EXPORT_SYMBOL_GPL(video_device_context_get);
 > +
-> +void v4l2_subdev_context_put(struct v4l2_subdev_context *ctx)
+> +void video_device_context_put(struct video_device_context *ctx)
 > +{
 > +       if (!ctx)
 > +               return;
 > +
 > +       media_entity_context_put(&ctx->base);
 > +}
-> +EXPORT_SYMBOL_GPL(v4l2_subdev_context_put);
+> +EXPORT_SYMBOL_GPL(video_device_context_put);
 > +
-> +int v4l2_subdev_init_context(struct v4l2_subdev *sd,
-> +                            struct v4l2_subdev_context *context)
+> +int video_device_init_context(struct video_device *vdev,
+> +                             struct video_device_context *ctx)
 > +{
-> +       media_entity_init_context(&sd->entity, &context->base);
+> +       media_entity_init_context(&vdev->entity, &ctx->base);
+> +
+> +       ctx->vdev = vdev;
+> +       mutex_init(&ctx->queue_lock);
 > +
 > +       return 0;
 > +}
-> +EXPORT_SYMBOL_GPL(v4l2_subdev_init_context);
+> +EXPORT_SYMBOL_GPL(video_device_init_context);
 > +
-> +void v4l2_subdev_cleanup_context(struct v4l2_subdev_context *context)
+> +void video_device_cleanup_context(struct video_device_context *ctx)
 > +{
-> +       media_entity_cleanup_context(&context->base);
+> +       mutex_destroy(&ctx->queue_lock);
+> +       media_entity_cleanup_context(&ctx->base);
 > +}
-> +EXPORT_SYMBOL_GPL(v4l2_subdev_cleanup_context);
+> +EXPORT_SYMBOL_GPL(video_device_cleanup_context);
 > +
->  struct v4l2_subdev_state *
->  __v4l2_subdev_state_alloc(struct v4l2_subdev *sd, const char *lock_name,
->                           struct lock_class_key *lock_key)
-> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> index 5dcf4065708f32e7d3b5da003771810d5f7973b8..9d257b859acafb11cfe6976e906e7baabd0206f6 100644
-> --- a/include/media/v4l2-subdev.h
-> +++ b/include/media/v4l2-subdev.h
-> @@ -757,6 +757,78 @@ struct v4l2_subdev_state {
->         struct v4l2_subdev_stream_configs stream_configs;
->  };
+>  #endif /* CONFIG_MEDIA_CONTROLLER */
+>
+>  /*
+> diff --git a/include/media/v4l2-dev.h b/include/media/v4l2-dev.h
+> index a69801274800f4f9add723b51fe0a31331e88f97..9276e095fb17414a9eb7845db0aa81572c42ca45 100644
+> --- a/include/media/v4l2-dev.h
+> +++ b/include/media/v4l2-dev.h
+> @@ -18,6 +18,7 @@
+>  #include <linux/videodev2.h>
+>
+>  #include <media/media-entity.h>
+> +#include <media/videobuf2-core.h>
+>
+>  #define VIDEO_MAJOR    81
+>
+> @@ -660,6 +661,131 @@ __must_check int video_device_pipeline_alloc_start(struct video_device *vdev);
+>   */
+>  struct media_pipeline *video_device_pipeline(struct video_device *vdev);
 >
 > +/**
-> + * struct v4l2_subdev_context - The v4l2 subdevice context
+> + * struct video_device_context - The video device context
 > + * @base: The media entity context base class member
-> + * @state: The subdevice state associated with this context
+> + * @vdev: The video device this context belongs to
+> + * @queue_lock: Protects the vb2 queue
+> + * @queue: The vb2 queue
 > + *
-> + * This structure represents an isolated execution context of a subdevice.
+> + * This structure represents an isolated execution context of a video device.
 > + * This type 'derives' the base 'struct media_entity_context' type which
 > + * implements refcounting on our behalf and allows instances of this type to be
 > + * linked in the media_device_context contexts list.
 > + *
-> + * The subdevice context stores the subdev state in a per-file handle context,
-> + * userspace is allowed to multiplex the usage of a subdevice devnode by opening
-> + * it multiple times and by associating it with a media device context. This
-> + * operation is called 'bounding' and is performed using the
-> + * VIDIOC_SUBDEV_BIND_CONTEXT ioctl.
+> + * By storing the data and the configuration of a video device in a per-file
+> + * handle context, userspace is allowed to multiplex the usage of a single video
+> + * device devnode by opening it multiple times and by associating it with a
+> + * media device context. This operation is called 'bounding' and is performed
+> + * using the VIDIOC_BIND_CONTEXT ioctl.
 > + *
-> + * A subdevice context is created and stored in the v4l2_fh file handle
-> + * associated with an open file descriptor when a subdevice is 'bound' to a
+> + * A video device context is created and stored in the v4l2-fh file handle
+> + * associated with an open file descriptor when a video device is 'bound' to a
 > + * media device context. The 'bounding' operation realizes a permanent
-> + * association valid until the subdevice context is released.
+> + * association valid until the video device context is released.
 > + *
-> + * A subdevice can be bound to the same media device context once only.
-> + * Trying to bind the same subdevice to the same media device context a
+> + * A video device can be bound to the same media device context once only.
+> + * Trying to bind the same video device to the same media device context a
 > + * second time, without releasing the already established context by closing the
 > + * bound file descriptor first, will result in an error.
 > + *
-> + * To create a subdevice context userspace shall use the
-> + * VIDIOC_SUBDEV_BIND_CONTEXT ioctl that creates the subdevice context and
-> + * uniquely associates it with a media device file descriptor.
+> + * To create a video device context userspace shall use the VIDIOC_BIND_CONTEXT
+> + * ioctl that creates the video device context and uniquely associates it with a
+> + * media device file descriptor.
 > + *
-> + * Once a subdevice file descriptor has been bound to a media device context,
-> + * all the operations performed on the subdevice file descriptor will be
-> + * directed on the just created subdevice context. This means, in example, that
-> + * the subdevice state and configuration is isolated from the ones associated
-> + * with a different file descriptor obtained by opening again the same subdevice
-> + * devnode but bound to a different media device context.
+> + * Once a video device file descriptor has been bound to a media device context,
+> + * all the operations performed on the video device file descriptor will be
+> + * directed on the just created video device context. This means, in example,
+> + * that the video device format and the buffer queue are isolated from the ones
+> + * associated with a different file descriptor obtained by opening again the
+> + * same video device devnode but bound to a different media device context.
 > + *
 > + * Drivers that implement multiplexing support have to provide a valid
-> + * implementation of the context-related operations in the media entity
-> + * operations.
+> + * implementation of the context-related operations in the
+> + * media entity operations.
 > + *
-> + * Drivers are allowed to sub-class the v4l2_subdevice_context structure by
-> + * defining a driver-specific type which embeds a struct v4l2_subdevice_context
+> + * Drivers are allowed to sub-class the video_device_context structure by
+> + * defining a driver-specific type which embeds a struct video_device_context
 > + * instance as first member, and allocate the driver-specific structure size in
 > + * their implementation of the `alloc_context` operation.
 > + *
-> + * Subdevice contexts are ref-counted by embedding an instance of 'struct
+> + * Video device contexts are ref-counted by embedding an instance of 'struct
 > + * media_entity_context' and are freed once all the references to it are
 > + * released.
 > + *
-> + * A subdevice context ref-count is increased when:
+> + * A video device context ref-count is increased when:
 > + * - The context is created by bounding a video device to a media device context
-> + * - The media pipeline it is part of starts streaming
-> + * A subdevice context ref-count is decreased when:
+> + * - The media pipeline starts streaming
+> + * A video device context ref-count is decreased when:
 > + * - The associated file handle is closed
-> + * - The media pipeline it is part of stops streaming
+> + * - The media pipeline stops streaming
 > + *
-> + * The ref-count is increased by a call to v4l2_subdev_context_get() and is
+> + * The ref-count is increased by a call to video_device_context_get() and is
 > + * reponsibility of the caller to decrease the reference count with a call to
-> + * v4l2_subdev_context_put().
+> + * video_device_context_put().
 > + */
-> +struct v4l2_subdev_context {
+> +struct video_device_context {
 > +       struct media_entity_context base;
-> +       /*
-> +        * TODO: active_state should most likely be changed from a pointer to an
-> +        * embedded field. For the time being it's kept as a pointer to more
-> +        * easily catch uses of active_state in the cases where the driver
-> +        * doesn't support it.
-> +        */
-> +       struct v4l2_subdev_state *state;
+> +
+> +       struct video_device *vdev;
+> +       /* Protects the vb2 queue. */
+> +       struct mutex queue_lock;
+> +       struct vb2_queue queue;
 > +};
 > +
->  /**
->   * struct v4l2_subdev_pad_ops - v4l2-subdev pad level operations
->   *
-> @@ -1152,6 +1224,7 @@ struct v4l2_subdev_fh {
->         struct module *owner;
->  #if defined(CONFIG_VIDEO_V4L2_SUBDEV_API)
->         struct v4l2_subdev_state *state;
-> +       struct v4l2_subdev_context *context;
->         u64 client_caps;
->  #endif
->  };
-> @@ -1285,6 +1358,59 @@ int v4l2_subdev_link_validate(struct media_link *link);
->  bool v4l2_subdev_has_pad_interdep(struct media_entity *entity,
->                                   unsigned int pad0, unsigned int pad1);
->
 > +/**
-> + * v4l2_subdev_context_get - Helper to get a v4l2 subdev context from a
-> + *                          media device context
+> + * video_device_context_get - Helper to get a video device context from a
+> + *                           media device context
 > + *
 > + * @mdev_context: The media device context
-> + * @sd: The V4L2 subdevice the context refers to
+> + * @vdev: The video device the context refers to
 > + *
 > + * Helper function that wraps media_device_get_entity_context() and returns
-> + * the v4l2 subdevice context associated with a subdevice in a media device
+> + * the video device context associated with a video device in a media device
 > + * context.
 > + *
-> + * The reference count of the returned v4l2 subdevice context is increased.
+> + * The reference count of the returned video device context is increased.
 > + * Callers of this function are required to decrease the reference count of
-> + * the context reference with a call to v4l2_subdev_context_put().
+> + * the context reference with a call to video_device_context_put().
 > + */
-> +struct v4l2_subdev_context *
-> +v4l2_subdev_context_get(struct media_device_context *mdev_context,
-> +                       struct v4l2_subdev *sd);
+> +struct video_device_context *
+> +video_device_context_get(struct media_device_context *mdev_context,
+> +                        struct video_device *vdev);
 > +
 > +/**
-> + * v4l2_subdev_context_put - Helper to decrease a v4l2 subdevice context
-> + *                          reference count
+> + * video_device_context_put - Helper to decrease a video context reference
+> + *                           count
 > + *
-> + * @ctx: The v4l2 subdevice context to put
+> + * @ctx: The video context to release
 > + */
-> +void v4l2_subdev_context_put(struct v4l2_subdev_context *ctx);
+> +void video_device_context_put(struct video_device_context *ctx);
 > +
 > +/**
-> + * v4l2_subdev_init_context - Initialize the v4l2 subdevice context
+> + * video_device_init_context - Initialize the video device context
 > + *
-> + * @sd: The subdevice the context belongs to
+> + * @vdev: The video device this context belongs to
 > + * @ctx: The context to initialize
 > + *
-> + * Initialize the v4l2 subdevice context. The intended callers of this function
+> + * Initialize the video device context. The intended callers of this function
 > + * are driver-specific implementations of the media_entity_ops.alloc_context()
 > + * function that allocates their driver specific types that derive from
-> + * struct v4l2_subdev_context.
+> + * struct video_device_context.
 > + */
-> +int v4l2_subdev_init_context(struct v4l2_subdev *sd,
-> +                            struct v4l2_subdev_context *ctx);
+> +int video_device_init_context(struct video_device *vdev,
+> +                             struct video_device_context *ctx);
 > +
 > +/**
-> + * v4l2_subdev_cleanup_context - Cleanup the v4l2 subdevice context
+> + * video_device_cleanup_context - Cleanup the video device context
 > + *
 > + * @ctx: The context to cleanup.
 > + *
-> + * Cleanup the v4l2 subdevice context. The intended callers of this function are
+> + * Cleanup the video device context. The intended callers of this function are
 > + * driver specific implementation of the media_entity_ops.destroy_context()
 > + * function before releasing the memory previously allocated by
 > + * media_entity_ops.alloc_context().
 > + */
-> +void v4l2_subdev_cleanup_context(struct v4l2_subdev_context *ctx);
+> +void video_device_cleanup_context(struct video_device_context *ctx);
 > +
+>  #endif /* CONFIG_MEDIA_CONTROLLER */
+>
+>  #endif /* _V4L2_DEV_H */
+> diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
+> index b5b3e00c8e6a0b082d9cd8a0c972a5094adcb6f2..a8de8613a026589ede94dc3e70c8a49ae08f4582 100644
+> --- a/include/media/v4l2-fh.h
+> +++ b/include/media/v4l2-fh.h
+> @@ -20,6 +20,7 @@
+>
+>  struct video_device;
+>  struct v4l2_ctrl_handler;
+> +struct video_device_context;
+>
 >  /**
->   * __v4l2_subdev_state_alloc - allocate v4l2_subdev_state
+>   * struct v4l2_fh - Describes a V4L2 file handler
+> @@ -38,6 +39,7 @@ struct v4l2_ctrl_handler;
+>   * @sequence: event sequence number
 >   *
+>   * @m2m_ctx: pointer to &struct v4l2_m2m_ctx
+> + * @context: The video device context
+>   */
+>  struct v4l2_fh {
+>         struct list_head        list;
+> @@ -54,6 +56,7 @@ struct v4l2_fh {
+>         u32                     sequence;
+>
+>         struct v4l2_m2m_ctx     *m2m_ctx;
+> +       struct video_device_context *context;
+>  };
+>
+>  /**
 >
 > --
 > 2.49.0
