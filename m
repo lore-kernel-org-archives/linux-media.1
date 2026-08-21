@@ -1,115 +1,133 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3536F4457D7;
-	Fri, 21 Aug 2026 13:06:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9DD339A806;
+	Fri, 21 Aug 2026 13:41:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787317567; cv=none; b=Sk8Ujm6r/60/tZ4GoBEWgXh0LKZaUJfnKY5113F7gdI9WV1BwC4tYxWkz7INfl+sLllEt6R9GT04LpnmAFPdu5BoJMxcSSbRyaYgPN14OBEs2iuAJY6o6+ix7v9cQWuPI+rYnGZLvleUXicbYjmWkWrJaLSRgcxzDiNTrhc6bIA=
+	t=1787319708; cv=none; b=P6ojsE99votv/IBxFJU1F4LxwYGC8g8Km0j1x2Eii/TDyhw13q6UCaJihv+Drewb0tioWfyCN9V5Mm39KidNOLap9YrLSbIi43H3tZk565SKdbfNteXGl4pX4OdqGUZvqMwp1qnWk3wwxWXZa46LtMemh7TwQzzKhDwaCm2BGb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787317567; c=relaxed/simple;
-	bh=1oKZyEL1iFYFoci4IXHQCxEI6U5/P8tMDAAAIOgG5Z0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pH3e/c0tX4CGbBYp5ksrodsJmvhPUxijo5tGFAlyXsB+OGZYsXSSmy9KAdbdy5v3w23PyItVrw1wh+1MLz8Vn/8apPClApd3RkyDcSAlxOYCa3meVLnL0YWNurPdUMMT2qE0KdS/CLsO1XWH1liJboR42uH8XkIVhyslsBq+qic=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=jC8zUfnG; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="jC8zUfnG"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1787317562;
-	bh=1oKZyEL1iFYFoci4IXHQCxEI6U5/P8tMDAAAIOgG5Z0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=jC8zUfnGP7gSO/2/x9VfE+lhwoDDxQz9Dfv+WfKjkxZBOE5tU4ST2YHpWfTR+nbVf
-	 w39gTOMnUuo5TSPkTKpv/HV/GoR1RGO2//GsX0TVWJrkYbl4/gtsCnct+GviLUwfa/
-	 hxtxbH/Sj2mOWqIdp1C7vyb+i4Mo9eEu+ULVyJXqJzad4c/iHBJ4GDyaRrpZ8Q51Wa
-	 5l26bjb7mAhEv3C38cqwTkkCQKVsl2/EvIWJC1OUb6HEbuuDmsKQtxH19sSkidRPA1
-	 89xeIN+GcvbN04ajeFxO7FYiAOUCKz2GHxnHrmDcVNviP9l0LhppVJVUhQ+1eML4tA
-	 m22TB+4A6jrcg==
-Received: from [100.64.0.214] (unknown [100.64.0.214])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: nicolas)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 0937617E07F7;
-	Fri, 21 Aug 2026 15:05:59 +0200 (CEST)
-Message-ID: <c9ddec85a5de725af79d140132d46371a73d2519.camel@collabora.com>
-Subject: Re: [PATCH 5/7] media: verisilicon: Add Rockchip VPU720 JPEG decoder
-From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-To: Sascha Hauer <s.hauer@pengutronix.de>
-Cc: Benjamin Gaignard <benjamin.gaignard@collabora.com>, Philipp Zabel	
- <p.zabel@pengutronix.de>, Mauro Carvalho Chehab <mchehab@kernel.org>, Heiko
- Stuebner <heiko@sntech.de>, Ezequiel Garcia
- <ezequiel@vanguardiasur.com.ar>, Andrzej Pietrasiewicz	
- <andrzej.p@collabora.com>, Hans Verkuil <hverkuil@kernel.org>, Chen-Yu Tsai
-	 <wenst@chromium.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lucas Sinn	
- <lucas.sinn@wolfvision.net>, Mauro Carvalho Chehab
- <mchehab+huawei@kernel.org>, 	linux-media@vger.kernel.org,
- linux-rockchip@lists.infradead.org, 	linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, 	devicetree@vger.kernel.org
-Date: Fri, 21 Aug 2026 09:05:58 -0400
-In-Reply-To: <6947a89b-8fa0-499a-9be8-c48d9bb5e7a7@pengutronix.de>
-References: <20260819-rk3588-jpegdec-v1-0-33d74cdf369c@pengutronix.de>
-	 <20260819-rk3588-jpegdec-v1-5-33d74cdf369c@pengutronix.de>
-	 <2816bd84651dcbfd0cd76bbc56e461bd409f9611.camel@collabora.com>
-	 <5436875c-9724-41f3-aaf9-76d43e05f0a8@pengutronix.de>
-	 <61537689daa428a577e6bdab794d044f5405128e.camel@collabora.com>
-	 <6947a89b-8fa0-499a-9be8-c48d9bb5e7a7@pengutronix.de>
-Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Organization: Collabora Canada
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-tmfNo+9PGdky19ZZ2lcq"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	s=arc-20240116; t=1787319708; c=relaxed/simple;
+	bh=tq7keHs+/2Iz/8uisXvMgEzz/Nyl5t/AJC6Yi3EQ5fQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=WT9k6FGgZR1JcHfcyZt0UO+F+lHhxAC0f/HOGoKs13jaxpuqbSuX6n+3uT3qJt4gYt703FQHcGkPrlSHR2whcejcGlwS7jnIWTa47Z8y+tK31MqXBsVMgwitQmL4a6zGKTfEOXlXZtxAdkJdVXrAhdrwYo06X64mpLBiVE2z9Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [0.0.0.0] (ptz.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::77])
+	(Authenticated sender: spu@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 7E5D5201096;
+	Fri, 21 Aug 2026 15:41:41 +0200 (CEST)
+Message-ID: <de73432f-c843-49f0-854b-7f50546351b5@pengutronix.de>
+Date: Fri, 21 Aug 2026 15:41:41 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/5] media: v4l2-common: Convert v4l2_fill_pixfmt_mp()
+ to static inline wrapper
+To: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>,
+ jacopo.mondi@ideasonboard.com, tomm.merciai@gmail.com
+Cc: linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com,
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Nas Chung <nas.chung@chipsnmedia.com>,
+ Isaac Scott <isaac.scott@ideasonboard.com>,
+ Paul Cercueil <paul@crapouillou.net>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>, kernel@pengutronix.de
+References: <20260819102812.2592880-1-tommaso.merciai.xr@bp.renesas.com>
+ <20260819102812.2592880-2-tommaso.merciai.xr@bp.renesas.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Sven_P=C3=BCschel?= <s.pueschel@pengutronix.de>
+In-Reply-To: <20260819102812.2592880-2-tommaso.merciai.xr@bp.renesas.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+Hi Tommaso,
 
---=-tmfNo+9PGdky19ZZ2lcq
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hi,
-
-Le vendredi 21 ao=C3=BBt 2026 =C3=A0 06:28 +0000, Sascha Hauer a =C3=A9crit=
-=C2=A0:
-> Patches 1-3 could be useful on their own though, so you might want to
-> take them. They are untested on real Hantro hardware, but I could give
-> them a go on the JPEG encoder.
-
-Ack, they effectively address real issues. See my comment on the end_prepar=
-e()
-on error part.
-
-Nicolas
-
---=-tmfNo+9PGdky19ZZ2lcq
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-Content-Transfer-Encoding: 7bit
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaohNNgAKCRDZQZRRKWBy
-9M4sAP0b7XVB6+Qd0ltXyk6c44QXcTPZ8iEAaG+P6UwddRLm6wD9FUdFqv+G4kOa
-6UjQN7bqfdkvp02H7oxIJ5WO9A9mOgk=
-=et6H
------END PGP SIGNATURE-----
-
---=-tmfNo+9PGdky19ZZ2lcq--
+On 8/19/26 12:28, Tommaso Merciai wrote:
+> Convert v4l2_fill_pixfmt_mp() to static inline wrapper: drop the exported
+> v4l2_fill_pixfmt_mp() function from v4l2-common.c and replace it with
+> an equivalent static inline in the header that delegates to
+> v4l2_fill_pixfmt_mp_aligned() with stride_alignment=1.
+>
+> Reviewed-by: Jacopo Mondi <jacopo.mondi+renesas@ideasonboard.com>
+> Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+> ---
+> v5->v6:
+>   - No changes.
+>
+> v4->v5:
+>   - No changes.
+>
+> v3->v4:
+>   - Collected tag.
+>   - Removed "." at the end of the function's brief description
+>   - Removed "component" from @pixfmt->sizeimage line
+>   - Removed wrong tab
+>   - Fixed example (e.g NV12) -> (e.g. YUV420) into function description
+>
+> v2->v3:
+>   - No changes, just moved to from PATCH 3/4 to PATCH 2/4
+>
+> v1->v2:
+>   - Move v4l2_fill_pixfmt() into v4l2-common.h as inline wrapper
+>   - Add v4l2_fill_pixfmt_aligned() helper documentation.
+>
+>   drivers/media/v4l2-core/v4l2-common.c | 8 --------
+>   include/media/v4l2-common.h           | 9 +++++++--
+>   2 files changed, 7 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
+> index 65db7340ad38..54995ba8c20d 100644
+> --- a/drivers/media/v4l2-core/v4l2-common.c
+> +++ b/drivers/media/v4l2-core/v4l2-common.c
+> @@ -537,14 +537,6 @@ int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
+>   }
+>   EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp_aligned);
+>   
+> -int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+> -			u32 pixelformat, u32 width, u32 height)
+> -{
+> -	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat,
+> -					   width, height, 1);
+> -}
+> -EXPORT_SYMBOL_GPL(v4l2_fill_pixfmt_mp);
+> -
+>   int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+>   		     u32 width, u32 height)
+>   {
+> diff --git a/include/media/v4l2-common.h b/include/media/v4l2-common.h
+> index edd416178c33..749fe38c134e 100644
+> --- a/include/media/v4l2-common.h
+> +++ b/include/media/v4l2-common.h
+> @@ -556,13 +556,18 @@ void v4l2_apply_frmsize_constraints(u32 *width, u32 *height,
+>   				    const struct v4l2_frmsize_stepwise *frmsize);
+>   int v4l2_fill_pixfmt(struct v4l2_pix_format *pixfmt, u32 pixelformat,
+>   		     u32 width, u32 height);
+> -int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt, u32 pixelformat,
+> -			u32 width, u32 height);
+> +
+>   /* @stride_alignment is a power of 2 value in bytes */
+>   int v4l2_fill_pixfmt_mp_aligned(struct v4l2_pix_format_mplane *pixfmt,
+>   				u32 pixelformat, u32 width, u32 height,
+>   				u8 stride_alignment);
+>   
+> +static inline int v4l2_fill_pixfmt_mp(struct v4l2_pix_format_mplane *pixfmt,
+> +				      u32 pixelformat, u32 width, u32 height)
+> +{
+> +	return v4l2_fill_pixfmt_mp_aligned(pixfmt, pixelformat, width, height, 1);
+> +}
+> +
+>   /**
+>    * v4l2_get_link_freq - Get link rate from transmitter
+>    *
+Reviewed-by: Sven Püschel <s.pueschel@pengutronix.de>
