@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E71948C8A3
-	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:45:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 256F648C402
+	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:45:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787312710; cv=none; b=esGgvgwdeYLd7T6brR4DoujCXePMGqqoFnCX6Rx8KC2/tvU43R7gJTp9MSvcViX60ARHS4hxx4Ww2USnswMAjcOK4FHhYUH5hpVAktph9uaCT5NNSL2tmhHDbuBR1anHMtl9BsXtG4mcKLDBdXWX+unENRGm+pu+P1zF3yiuW74=
+	t=1787312711; cv=none; b=qiNTKPe+h61o17qSSGeppPDah4tyCLZTv9JyrTjE/y/yeKAEFBh8xyEsYpNQ8hh1xYLIZW2eZQYUiq7N1JccQY73ISlKkO5EwdsAs+j3zdXXtNpdppFuUoq3IF6FWCqmwWsXO26tkzAhvuIAUkPIJi7CQOXkLti8q0AD/nHTfjw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787312710; c=relaxed/simple;
-	bh=+MWGL4P0HP1zUfRKqo0T/BJKa+iSfJj6xZvMo/prAgA=;
+	s=arc-20240116; t=1787312711; c=relaxed/simple;
+	bh=zBGTynn29rKVEhYnGp2ddShTShMROqWcp73/q99rTZg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eoaKdCQDoCdSjvRU2arUrYxWNPhPZVE7THMJE2IqtOm1E0oF0+GfF/5YG/z/5OIZaPfaeByFJimdU43DA0lS4wr9bf8cvAzvb5oSIVbA4A/BWGHVglk0ovtUwPhn7D68xQafQoaJ8Sj4XqNqm7Fy8jh2nE6qCf/Y9ncGEkBLzjo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JN3kxlVU; arc=none smtp.client-ip=192.198.163.15
+	 MIME-Version; b=nHUD+KuP9OtWqfCHq6Apc7ajx13rKCZeO8hB2YpTwLkf+5m+eTurfeHQHFv9CE//Kx3f0smo6KdnqvZkkSPyEZID3O26zWiae+gexMTIqA0Lq6jFvL5zGSgaQd28JlajEx16oBVCns20P64X1f5W6X1OU6Lp4Q/dVQW3v4rQRb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dVUeyaEr; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JN3kxlVU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dVUeyaEr"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787312708; x=1818848708;
+  t=1787312710; x=1818848710;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+MWGL4P0HP1zUfRKqo0T/BJKa+iSfJj6xZvMo/prAgA=;
-  b=JN3kxlVUMm2FzsASlt8tdKxiw1obmkGYt6ohhGUG0/FvjZMOnp5Z0s7H
-   UDqDpWiUR/9sfBJuU3AmfAbis0A7gGxcPid1ivn12pYQaJVyBWbqLUmxr
-   I8hBq6sQix5zLr4mMYNQOSMDW8+0B7U+4Wu6oHORZVx4COgiQquBFcFwi
-   FcWOR0qxDrOBHR0+CBHCHG5Je4CAO/EGrgso9YCyRtIb2f/kPHt9VkBX0
-   LjtWzRzOpjCUMxgDOkkHLZAFQtX/Ec7MBvuftEIEncn3wVx6ItLeUcIhj
-   tOHdrnC36iHLmFP+67HH4yGzr6ff0qkedDN/LeIjW+f5wKOKOA/OLKUlf
+  bh=zBGTynn29rKVEhYnGp2ddShTShMROqWcp73/q99rTZg=;
+  b=dVUeyaErMtrmzXJp8nOcbY0eaAQLUVSNWtvgU3tniCtYecA3a+TVjZD2
+   Iz6nxcxoww7D9YulxkyQSXHubQiH3FHFJDHTy+6kba8kxZxpzb8nMzfHo
+   YShc0pL0mtET68KOyxXk9l/OZsK5fB89DcUm+4uigosFUmSgUcJDhNJuG
+   1RR8Ldf8u0CzsSndkYFD5sK0/9fQAaAEEj6/794VB8kL63/vO5tiGkMNJ
+   E38zilqR/G30C2uumznfXrlbs7I00J6wkVtyrVD/GWF409j2FpNJf1pB0
+   MdluqmdZRm3a8Oz+6d+5UQNIMAu2PsOlwA7EgUhARZbbt/YG2czD9qpN9
    g==;
-X-CSE-ConnectionGUID: 7OH4Ulf7TJWg6dF8XLUCDg==
-X-CSE-MsgGUID: 9XeL1nj2Rsi9WatNiKSMPg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989133"
+X-CSE-ConnectionGUID: FLKSYjS6SqmQIQOVbnsP6Q==
+X-CSE-MsgGUID: ZLd2bJieTlCql7gZT7ToZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989138"
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="87989133"
+   d="scan'208";a="87989138"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:45:08 -0700
-X-CSE-ConnectionGUID: q3Z5tbinRaK0VAzSwjpzSQ==
-X-CSE-MsgGUID: cl0pXwMcTSKaT7M+UUq5KA==
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:45:10 -0700
+X-CSE-ConnectionGUID: J8mHf0pmQ1WgWhw5Z18JPQ==
+X-CSE-MsgGUID: Jlcb8C3kR8m6BgBN4bYPLg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="291172467"
+   d="scan'208";a="291172478"
 Received: from mwiniars-mobl.ger.corp.intel.com (HELO alaakso-desk.kioski) ([10.245.246.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:45:05 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:45:08 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
@@ -50,9 +50,9 @@ To: linux-media@vger.kernel.org,
 Cc: daxing.li@intel.com,
 	ong.hock.yu@intel.com,
 	antti.laakso@linux.intel.com
-Subject: [PATCH v2 39/44] media: ipu6: Move isys fw mapping to pci_probe
-Date: Fri, 21 Aug 2026 14:42:57 +0300
-Message-ID: <20260821114302.365532-40-antti.laakso@linux.intel.com>
+Subject: [PATCH v2 40/44] media: ipu6: Map ipu7 firmware
+Date: Fri, 21 Aug 2026 14:42:58 +0300
+Message-ID: <20260821114302.365532-41-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821114302.365532-1-antti.laakso@linux.intel.com>
 References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
@@ -64,136 +64,86 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We are bout to add ipu7 firmware mapping. It is slightly different from
-ipu6. Handling this and possible errors is easier when both isys and
-psys mapping is in one place.
+Mapping of ipu7 firmware is slightly different compared to ipu6. Add
+helpers for it and call them similar to ipu6.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-bus.h  |  1 -
- drivers/media/pci/intel/ipu6/ipu6-isys.c | 29 -----------
- drivers/media/pci/intel/ipu6/ipu6.c      | 63 +++++++++++++++++++-----
- 3 files changed, 50 insertions(+), 43 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6.c | 75 ++++++++++++++++++++++++++---
+ drivers/media/pci/intel/ipu6/ipu6.h |  1 +
+ 2 files changed, 70 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.h b/drivers/media/pci/intel/ipu6/ipu6-bus.h
-index aef8e4a66c4a..d2f93eb03dea 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-bus.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-bus.h
-@@ -26,7 +26,6 @@ struct ipu6_bus_device {
- 	struct ipu6_mmu *mmu;
- 	struct ipu6_device *isp;
- 	const struct ipu6_buttress_ctrl *ctrl;
--	const struct firmware *fw;
- 	struct sg_table fw_sgt;
- 	u64 *pkg_dir;
- 	dma_addr_t pkg_dir_dma_addr;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 459121e6c1cb..3fb34d2d189c 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -995,7 +995,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
- 	const struct ipu6_isys_internal_csi2_pdata *csi2_pdata;
- 	struct ipu6_bus_device *adev = auxdev_to_adev(auxdev);
- 	struct ipu6_device *isp = adev->isp;
--	const struct firmware *fw;
- 	struct ipu6_isys *isys;
- 	unsigned int i;
- 	int ret;
-@@ -1040,18 +1039,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
- 
- 	isys_stream_init(isys);
- 
--	if (!isp->secure_mode) {
--		fw = isp->cpd_fw;
--		ret = ipu6_map_fw_region(adev, fw->data, fw->size,
--					 DMA_TO_DEVICE, 0);
--		if (ret)
--			goto release_firmware;
--
--		ret = ipu6_cpd_create_pkg_dir(adev, isp->cpd_fw->data);
--		if (ret)
--			goto remove_shared_buffer;
--	}
--
- 	cpu_latency_qos_add_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
- 
- 	ret = alloc_fw_msg_bufs(isys, 20);
-@@ -1079,14 +1066,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
- 	free_fw_msg_bufs(isys);
- out_remove_pkg_dir_shared_buffer:
- 	cpu_latency_qos_remove_request(&isys->pm_qos);
--	if (!isp->secure_mode)
--		ipu6_cpd_free_pkg_dir(adev);
--remove_shared_buffer:
--	if (!isp->secure_mode)
--		ipu6_unmap_fw_region(adev, DMA_TO_DEVICE);
--release_firmware:
--	if (!isp->secure_mode)
--		release_firmware(adev->fw);
- 
- 	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
- 		mutex_destroy(&isys->streams[i].mutex);
-@@ -1099,9 +1078,7 @@ static int isys_probe(struct auxiliary_device *auxdev,
- 
- static void isys_remove(struct auxiliary_device *auxdev)
- {
--	struct ipu6_bus_device *adev = auxdev_to_adev(auxdev);
- 	struct ipu6_isys *isys = dev_get_drvdata(&auxdev->dev);
--	struct ipu6_device *isp = adev->isp;
- 	unsigned int i;
- 
- 	free_fw_msg_bufs(isys);
-@@ -1111,12 +1088,6 @@ static void isys_remove(struct auxiliary_device *auxdev)
- 
- 	cpu_latency_qos_remove_request(&isys->pm_qos);
- 
--	if (!isp->secure_mode) {
--		ipu6_cpd_free_pkg_dir(adev);
--		ipu6_unmap_fw_region(adev, DMA_TO_DEVICE);
--		release_firmware(adev->fw);
--	}
--
- 	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
- 		mutex_destroy(&isys->streams[i].mutex);
- 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index af5581da7149..d27ffd7ac6f0 100644
+index d27ffd7ac6f0..93f28ec9a74d 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -480,6 +480,40 @@ static void ipu6_configure_vc_mechanism(struct ipu6_device *isp)
- 	writel(val, isp->base + BUTTRESS_REG_BTRS_CTRL);
+@@ -19,6 +19,7 @@
+ #include <linux/scatterlist.h>
+ #include <linux/slab.h>
+ #include <linux/types.h>
++#include <linux/vmalloc.h>
+ 
+ #include <media/ipu-bridge.h>
+ #include <media/ipu6-pci-table.h>
+@@ -27,6 +28,7 @@
+ #include "ipu6-bus.h"
+ #include "ipu6-buttress.h"
+ #include "ipu6-cpd.h"
++#include "ipu6-dma.h"
+ #include "ipu6-isys.h"
+ #include "ipu6-mmu.h"
+ #include "ipu6-platform-buttress-regs.h"
+@@ -514,6 +516,57 @@ static int ipu6_map_fw(struct ipu6_device *isp)
+ 	return 0;
  }
  
-+static int __ipu6_map_fw_by_sys(struct ipu6_device *isp, struct ipu6_bus_device *adev)
++static int __ipu7_map_fw_non_secure(struct ipu6_device *isp)
 +{
-+	int ret = ipu6_map_fw_region(adev, isp->cpd_fw->data, isp->cpd_fw->size,
-+				 DMA_TO_DEVICE, 0);
++	int ret;
 +
-+	if (ret) {
-+		dev_err_probe(&isp->pdev->dev, ret,
-+			      "Firmware mapping failed\n");
-+		return ret;
-+	}
++	/*
++	 * Allocate and map memory for running the firmware. Not
++	 * required in secure mode, in which firmware runs in IMR.
++	 */
++	isp->fw_code_region = vmalloc(IPU7_FW_CODE_REGION_SIZE);
++	if (!isp->fw_code_region)
++		return -ENOMEM;
 +
-+	ret = ipu6_cpd_create_pkg_dir(adev, isp->cpd_fw->data);
-+	if (ret) {
-+		dev_err_probe(&isp->pdev->dev, ret,
-+			      "failed to create pkg dir\n");
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ipu6_map_fw(struct ipu6_device *isp)
-+{
-+	int ret = __ipu6_map_fw_by_sys(isp, isp->psys);
-+
++	ret = ipu7_cpd_copy_binary(isp->cpd_fw->data, "isys",
++				   isp->fw_code_region, &isp->isys->fw_entry);
 +	if (ret)
 +		return ret;
 +
-+	if (!isp->secure_mode)
-+		return __ipu6_map_fw_by_sys(isp, isp->isys);
++	ret = ipu6_map_fw_region(isp->isys, isp->fw_code_region,
++				 IPU7_FW_CODE_REGION_SIZE, DMA_BIDIRECTIONAL,
++				 DMA_ATTR_RESERVE_REGION);
++	if (ret)
++		return ret;
++
++	ret = ipu7_cpd_copy_binary(isp->cpd_fw->data, "psys",
++				   isp->fw_code_region, &isp->psys->fw_entry);
++	if (ret)
++		return ret;
++
++	return ipu6_map_fw_region(isp->psys, isp->fw_code_region,
++				  IPU7_FW_CODE_REGION_SIZE, DMA_BIDIRECTIONAL,
++				  DMA_ATTR_RESERVE_REGION);
++}
++
++static int ipu7_map_fw(struct ipu6_device *isp)
++{
++	int ret;
++
++	ret = isp->secure_mode ?
++		ipu6_map_fw_region(isp->psys, isp->cpd_fw->data,
++				   isp->cpd_fw->size, DMA_BIDIRECTIONAL, 0) :
++		__ipu7_map_fw_non_secure(isp);
++
++	if (ret) {
++		dev_err_probe(&isp->pdev->dev, ret,
++			      "Failed to init ipu7 firmware region\n");
++		return ret;
++	}
 +
 +	return 0;
 +}
@@ -201,57 +151,84 @@ index af5581da7149..d27ffd7ac6f0 100644
  static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  {
  	const struct ipu6_buttress_ctrl *isys_ctrl, *psys_ctrl;
-@@ -624,19 +658,9 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+@@ -523,6 +576,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	struct ipu6_device *isp;
+ 	phys_addr_t phys;
+ 	u32 val, version, sku_id;
++	unsigned long dir;
+ 	int ret;
+ 
+ 	isp = devm_kzalloc(dev, sizeof(*isp), GFP_KERNEL);
+@@ -658,7 +712,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
  		goto out_ipu6_rpm_put;
  	}
  
--	ret = ipu6_map_fw_region(isp->psys, isp->cpd_fw->data,
--				 isp->cpd_fw->size, DMA_TO_DEVICE, 0);
--	if (ret) {
--		dev_err_probe(&isp->pdev->dev, ret, "failed to map fw image\n");
--		goto out_ipu6_rpm_put;
--	}
--
--	ret = ipu6_cpd_create_pkg_dir(isp->psys, isp->cpd_fw->data);
--	if (ret) {
--		dev_err_probe(&isp->pdev->dev, ret,
--			      "failed to create pkg dir\n");
-+	ret = ipu6_map_fw(isp);
-+	if (ret)
+-	ret = ipu6_map_fw(isp);
++	ret = IS_IPU7(isp) ? ipu7_map_fw(isp) : ipu6_map_fw(isp);
+ 	if (ret)
  		goto out_ipu6_rpm_put;
--	}
  
- 	ret = devm_request_threaded_irq(dev, pdev->irq, ipu6_buttress_isr,
- 					ipu6_buttress_isr_threaded,
-@@ -679,7 +703,13 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+@@ -701,15 +755,20 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ out_ipu6_rpm_put:
+ 	pm_runtime_put_sync(&isp->psys->auxdev.dev);
  out_ipu6_bus_del_devices:
++	dir = IS_IPU7(isp) ? DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
  	if (!IS_ERR_OR_NULL(isp->psys)) {
  		ipu6_cpd_free_pkg_dir(isp->psys);
--		ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
-+		if (isp->psys->fw_sgt.nents)
-+			ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
+ 		if (isp->psys->fw_sgt.nents)
+-			ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
++			ipu6_unmap_fw_region(isp->psys, dir);
+ 	}
+ 	if (!IS_ERR_OR_NULL(isp->isys)) {
+ 		ipu6_cpd_free_pkg_dir(isp->isys);
+ 		if (isp->isys->fw_sgt.nents)
+-			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
++			ipu6_unmap_fw_region(isp->isys, dir);
 +	}
-+	if (!IS_ERR_OR_NULL(isp->isys)) {
-+		ipu6_cpd_free_pkg_dir(isp->isys);
-+		if (isp->isys->fw_sgt.nents)
-+			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
++	if (isp->fw_code_region) {
++		vfree(isp->fw_code_region);
++		isp->fw_code_region = NULL;
  	}
  	if (!IS_ERR_OR_NULL(isp->psys) && !IS_ERR_OR_NULL(isp->psys->mmu))
  		ipu6_mmu_cleanup(isp->psys->mmu);
-@@ -703,6 +733,13 @@ static void ipu6_pci_remove(struct pci_dev *pdev)
- 	ipu6_cpd_free_pkg_dir(isp->psys);
+@@ -728,18 +787,22 @@ static void ipu6_pci_remove(struct pci_dev *pdev)
+ 	struct ipu6_device *isp = pci_get_drvdata(pdev);
+ 	struct ipu6_mmu *isys_mmu = isp->isys->mmu;
+ 	struct ipu6_mmu *psys_mmu = isp->psys->mmu;
++	unsigned long dir;
  
- 	ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
-+
-+	if (isp->isys) {
-+		ipu6_cpd_free_pkg_dir(isp->isys);
-+		if (isp->isys->fw_sgt.nents)
-+			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
-+	}
+ 	devm_free_irq(&pdev->dev, pdev->irq, isp);
+-	ipu6_cpd_free_pkg_dir(isp->psys);
+ 
+-	ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
++	dir = IS_IPU7(isp) ? DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
++	ipu6_cpd_free_pkg_dir(isp->psys);
++	ipu6_unmap_fw_region(isp->psys, dir);
+ 
+ 	if (isp->isys) {
+ 		ipu6_cpd_free_pkg_dir(isp->isys);
+ 		if (isp->isys->fw_sgt.nents)
+-			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
++			ipu6_unmap_fw_region(isp->isys, dir);
+ 	}
+ 
++	vfree(isp->fw_code_region);
 +
  	ipu6_buttress_exit(isp);
  
  	ipu6_bus_del_devices(pdev);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+index 6bef45a02c2b..a2992ffe8e3c 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.h
++++ b/drivers/media/pci/intel/ipu6/ipu6.h
+@@ -70,6 +70,7 @@ struct ipu6_device {
+ 	bool secure_mode;
+ 	u8 hw_ver;
+ 	bool bus_ready_to_probe;
++	u32 *fw_code_region;
+ };
+ 
+ #define IPU_PSYS	0
 -- 
 2.55.0
 
