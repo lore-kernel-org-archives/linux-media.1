@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F39C7488DB6
-	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:44:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A674489895
+	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:44:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787312651; cv=none; b=PSI8OvfE6djoYl6qFUG8ZMYkmTmnU0cqDhAS2/FvtmBc+PVKZnEPJANa49BYtgjcmiWK+FsBttlaiOjm7I71lPuAVhlL9rSyrpNRE0puL/o1L1mx4slrBEpdUzPpZPXz9n7Zu1QSvLoqyQON4cTBaq1EO3+0aAcCIBIjOLwjAFQ=
+	t=1787312654; cv=none; b=fVrlrNTE7fJNy+jqSY6mFhuufJPiSqB5YNus0Q7XW5VyvjcfhWEy2I8E4agfQdrXEaAKW2bbp/UXWazA2Y3YHXbl+Zx154liWsJLRU+wLR9Q5FEH5rHOzKkzL18N9jYWfUNnVx68AfMP4/4l5tvHrOf6GxwhgKbey263zSWuQlg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787312651; c=relaxed/simple;
-	bh=0rUNafB3b5VyyfhYlu/ZTCqiMg/sr1L/lZf/oM7x0a0=;
+	s=arc-20240116; t=1787312654; c=relaxed/simple;
+	bh=P7PJ1pzxcgV5nsYVf35M/ErqD8JYboWdHhk+xbmDOJo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MZYiv3CwUP03nXmrGLnUhZXe4+sLHfJLtJ6I4uPEmJbpcY5F+5AE8XC3mM0Y8tj82TRFbNJhc5zjUWLReXg3MF9cOh5e7jYKB87OOfh2Y3/7LOuAKJtA1t8wTdplgo9FeEtdUE2IFi+E1nEBbT1YnMjDKhIobTzYou1XNSC1N8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Zzhee2Te; arc=none smtp.client-ip=192.198.163.15
+	 MIME-Version; b=R4nn6h7CtIkuYV6zWaoROFHrhUGkIP1WAY9x21AF9q3oIoF3XApSuNViKUKKYUPo89JaKRwkD21AEoZWDfHoCnnCn5PeA9lMj9mYNPCqhjAABJuDSL7hldRwdPkNYx8A5VSA0Y4yl7XH3AGe3hspuu1XsVD1ZWKelf/++4nz220=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Ve120Stz; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Zzhee2Te"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Ve120Stz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787312648; x=1818848648;
+  t=1787312650; x=1818848650;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=0rUNafB3b5VyyfhYlu/ZTCqiMg/sr1L/lZf/oM7x0a0=;
-  b=Zzhee2TehcC3ApalyRcoqAZTbu/fPPINHDZy6Tj+pbTP2vsc8e3ZXw/g
-   mJI8y9QxJ3+gSNEgMoOE1yQqbj8onvfH5Pxs7cHUUVPRskcpWrkaICyoK
-   CMikfGAN1RWkVWsV0Li5Y3FazAF4Mt7m6XFxqCx7zTXthOvf9oUM9ReLg
-   NvX/sVWaZLZwt0lTIq8RxW1u9ibIMh59E7sRcIyfRGcLlFhmm1Ii5IagL
-   GLy9a/Pl4HNZpSzs7gV4Pa5KE86TlE4a66pEwEvqs5qw/PHAKmAb2fgVT
-   N0YwDWsvvThGqPm5IrhGd2w4CPVDUVpkoWg0V5/sklw5zm5yCFchwprA3
-   g==;
-X-CSE-ConnectionGUID: LLz6l+p6RYqN79UIo9R35g==
-X-CSE-MsgGUID: TQ2i9UTNTlySD9GSptD+hA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989053"
+  bh=P7PJ1pzxcgV5nsYVf35M/ErqD8JYboWdHhk+xbmDOJo=;
+  b=Ve120StzO9tltmRid0+aqaEtpGcrAll6wnl/v2XckLE+o0NGfKbFSVA3
+   idLbXSERMkOL2jS8xfckcpYCRiCkR/4Jw6/8MUuBQ1op8Yaho5Wz4TJMs
+   CQpq5MjImg6algd2I091lHuAZmo1iFMPbykGZVHzqD9FvZkuHs3HpyNZe
+   329694cUWYXH+qXVPqQ6WuN9Ss9LpSn+9XQXuaKNv+CAyrzYy+HCsmuGU
+   gWzD0ygGfPQqLz7r++5Jw+r/WacuXVtDbHUqJCHmSlvAPxprs74q6uvO6
+   DeRmq9EyipB8t8Y44tGgMfpUT7l07w6e/P7ACry+E8QOk/8EMGepfFky+
+   Q==;
+X-CSE-ConnectionGUID: Ve4SOyo8TFCJWPtPqExoUg==
+X-CSE-MsgGUID: Yxqf1GaBQvCuTwfUjjwQ9g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989055"
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="87989053"
+   d="scan'208";a="87989055"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:44:08 -0700
-X-CSE-ConnectionGUID: w0WFUlgsQ3yfidUC1/FhwA==
-X-CSE-MsgGUID: QIx1DTk0TrGlOv/9ml8bXw==
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:44:10 -0700
+X-CSE-ConnectionGUID: xn1DvgqQSbKymnCCHb9JzA==
+X-CSE-MsgGUID: OudzBg0gSm61Y9biPScJxw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="291172246"
+   d="scan'208";a="291172249"
 Received: from mwiniars-mobl.ger.corp.intel.com (HELO alaakso-desk.kioski) ([10.245.246.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:44:05 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:44:08 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
@@ -50,9 +50,9 @@ To: linux-media@vger.kernel.org,
 Cc: daxing.li@intel.com,
 	ong.hock.yu@intel.com,
 	antti.laakso@linux.intel.com
-Subject: [PATCH v2 12/44] media: ipu6: Add ipu7 buttress support
-Date: Fri, 21 Aug 2026 14:42:30 +0300
-Message-ID: <20260821114302.365532-13-antti.laakso@linux.intel.com>
+Subject: [PATCH v2 13/44] media: ipu6: Prepare mmu driver for hw variation
+Date: Fri, 21 Aug 2026 14:42:31 +0300
+Message-ID: <20260821114302.365532-14-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821114302.365532-1-antti.laakso@linux.intel.com>
 References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
@@ -64,713 +64,1034 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ipu7 differs from ipu6 e.g. in power management, authentication,
-interrupt handling and clock setup. Add support for ipu7 buttress.
+We are about to add support for ipu7 mmu. Split ipu6 mmu
+hardware specific and common code to separate files.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 292 +++++++++++++++---
- drivers/media/pci/intel/ipu6/ipu6-buttress.h  |   3 +
- .../intel/ipu6/ipu6-platform-buttress-regs.h  | 102 ++++++
- drivers/media/pci/intel/ipu6/ipu6.c           | 104 +++++--
- drivers/media/pci/intel/ipu6/ipu6.h           |   2 +
- include/media/ipu6-pci-table.h                |   2 +
- 6 files changed, 444 insertions(+), 61 deletions(-)
+ drivers/media/pci/intel/ipu6/Makefile      |   1 +
+ drivers/media/pci/intel/ipu6/ipu6-dma.c    |   4 +-
+ drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c | 296 +++++++++++++++++++++
+ drivers/media/pci/intel/ipu6/ipu6-mmu.c    | 120 +--------
+ drivers/media/pci/intel/ipu6/ipu6-mmu.h    | 149 ++++++++++-
+ drivers/media/pci/intel/ipu6/ipu6.c        | 125 +--------
+ drivers/media/pci/intel/ipu6/ipu6.h        | 132 +--------
+ 7 files changed, 456 insertions(+), 371 deletions(-)
+ create mode 100644 drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-index e77a569bb97e..13fd7a083b25 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-@@ -345,6 +345,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 	if (!active)
- 		return IRQ_NONE;
+diff --git a/drivers/media/pci/intel/ipu6/Makefile b/drivers/media/pci/intel/ipu6/Makefile
+index a821b0a1567f..2106ab84acde 100644
+--- a/drivers/media/pci/intel/ipu6/Makefile
++++ b/drivers/media/pci/intel/ipu6/Makefile
+@@ -4,6 +4,7 @@ intel-ipu6-y			:= ipu6.o \
+ 				ipu6-bus.o \
+ 				ipu6-dma.o \
+ 				ipu6-mmu.o \
++				ipu6-mmu-hw.o \
+ 				ipu6-buttress.o \
+ 				ipu6-cpd.o \
+ 				ipu6-fw-com.o
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-dma.c b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+index fdcdb15b073c..6e8295d9c3a3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-dma.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-dma.c
+@@ -286,7 +286,7 @@ void ipu6_dma_free(struct ipu6_bus_device *sys, size_t size, void *vaddr,
  
-+	if (IS_IPU7(isp)) {
-+		u32 pb_irq;
-+
-+		pb_irq = readl(isp->pb_base + IPU7_PB_INTERRUPT_STATUS);
-+		writel(pb_irq, isp->pb_base + IPU7_PB_INTERRUPT_STATUS);
-+	}
-+
- 	irq_status = readl(isp->base + regs->irq_status);
- 	if (irq_status == 0 || WARN_ON_ONCE(irq_status == 0xffffffffu)) {
- 		if (active > 0)
-@@ -442,28 +449,141 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
- 	return ret;
+ 	__free_buffer(pages, size, attrs);
+ 
+-	mmu->tlb_invalidate(mmu);
++	mmu->ops->tlb_invalidate(mmu);
+ 
+ 	__free_iova(&mmu->dmap->iovad, iova);
+ 
+@@ -366,7 +366,7 @@ void ipu6_dma_unmap_sg(struct ipu6_bus_device *sys, struct scatterlist *sglist,
+ 	ipu6_mmu_unmap(mmu->dmap->mmu_info, PFN_PHYS(iova->pfn_lo),
+ 		       PFN_PHYS(iova_size(iova)));
+ 
+-	mmu->tlb_invalidate(mmu);
++	mmu->ops->tlb_invalidate(mmu);
+ 	__free_iova(&mmu->dmap->iovad, iova);
  }
- 
--int ipu6_buttress_power(struct device *dev,
--			const struct ipu6_buttress_ctrl *ctrl, bool on)
-+static int ipu7_isys_d2d_power(struct ipu6_device *isp, bool on)
+ EXPORT_SYMBOL_NS_GPL(ipu6_dma_unmap_sg, "INTEL_IPU6");
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c b/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
+new file mode 100644
+index 000000000000..2b395fbd5969
+--- /dev/null
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
+@@ -0,0 +1,296 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Intel Corporation
++ */
++#include <asm/barrier.h>
++
++#include <linux/bits.h>
++#include <linux/gfp.h>
++#include <linux/io.h>
++#include <linux/slab.h>
++#include <linux/spinlock.h>
++#include <linux/types.h>
++
++#include "ipu6.h"
++#include "ipu6-dma.h"
++#include "ipu6-mmu.h"
++#include "ipu6-platform-regs.h"
++
++#define ISP_PAGE_SHIFT		12
++#define ISP_PAGE_SIZE		BIT(ISP_PAGE_SHIFT)
++#define ISP_PAGE_MASK		(~(ISP_PAGE_SIZE - 1))
++
++#define ISP_L1PT_SHIFT		22
++#define ISP_L1PT_MASK		(~((1U << ISP_L1PT_SHIFT) - 1))
++
++#define ISP_L2PT_SHIFT		12
++#define ISP_L2PT_MASK		(~(ISP_L1PT_MASK | (~(ISP_PAGE_MASK))))
++
++#define ISP_L1PT_PTES           1024
++#define ISP_L2PT_PTES           1024
++
++#define ISP_PADDR_SHIFT		12
++
++#define REG_TLB_INVALIDATE	0x0000
++
++#define REG_L1_PHYS		0x0004	/* 27-bit pfn */
++#define REG_INFO		0x0008
++
++#define TBL_PHYS_ADDR(a)	((phys_addr_t)(a) << ISP_PADDR_SHIFT)
++
++static struct ipu6_mmu_hw ipu6_isys_mmu_hwdata[] = {
++	{
++		.offset = IPU6_ISYS_IOMMU0_OFFSET,
++		.info_bits = IPU6_INFO_REQUEST_DESTINATION_IOSF,
++		.nr_l1streams = 16,
++		.l1_block_sz = {
++			3, 8, 2, 2, 2, 2, 2, 2, 1, 1,
++			1, 1, 1, 1, 1, 1
++		},
++		.nr_l2streams = 16,
++		.l2_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.insert_read_before_invalidate = false,
++		.l1_stream_id_reg_offset =
++		IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
++		.l2_stream_id_reg_offset =
++		IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
++	},
++	{
++		.offset = IPU6_ISYS_IOMMU1_OFFSET,
++		.info_bits = 0,
++		.nr_l1streams = 16,
++		.l1_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 1, 1, 4
++		},
++		.nr_l2streams = 16,
++		.l2_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.insert_read_before_invalidate = false,
++		.l1_stream_id_reg_offset =
++		IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
++		.l2_stream_id_reg_offset =
++		IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
++	},
++	{
++		.offset = IPU6_ISYS_IOMMUI_OFFSET,
++		.info_bits = 0,
++		.nr_l1streams = 0,
++		.nr_l2streams = 0,
++		.insert_read_before_invalidate = false,
++	},
++};
++
++static struct ipu6_mmu_hw ipu6_psys_mmu_hwdata[] = {
++	{
++		.offset = IPU6_PSYS_IOMMU0_OFFSET,
++		.info_bits =
++		IPU6_INFO_REQUEST_DESTINATION_IOSF,
++		.nr_l1streams = 16,
++		.l1_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.nr_l2streams = 16,
++		.l2_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.insert_read_before_invalidate = false,
++		.l1_stream_id_reg_offset =
++		IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
++		.l2_stream_id_reg_offset =
++		IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
++	},
++	{
++		.offset = IPU6_PSYS_IOMMU1_OFFSET,
++		.info_bits = 0,
++		.nr_l1streams = 32,
++		.l1_block_sz = {
++			1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 10,
++			5, 4, 14, 6, 4, 14, 6, 4, 8,
++			4, 2, 1, 1, 1, 1, 14
++		},
++		.nr_l2streams = 32,
++		.l2_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.insert_read_before_invalidate = false,
++		.l1_stream_id_reg_offset =
++		IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
++		.l2_stream_id_reg_offset =
++		IPU6_PSYS_MMU1W_L2_STREAM_ID_REG_OFFSET,
++	},
++	{
++		.offset = IPU6_PSYS_IOMMU1R_OFFSET,
++		.info_bits = 0,
++		.nr_l1streams = 16,
++		.l1_block_sz = {
++			1, 4, 4, 4, 4, 16, 8, 4, 32,
++			16, 16, 2, 2, 2, 1, 12
++		},
++		.nr_l2streams = 16,
++		.l2_block_sz = {
++			2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
++			2, 2, 2, 2, 2, 2
++		},
++		.insert_read_before_invalidate = false,
++		.l1_stream_id_reg_offset =
++		IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
++		.l2_stream_id_reg_offset =
++		IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
++	},
++	{
++		.offset = IPU6_PSYS_IOMMUI_OFFSET,
++		.info_bits = 0,
++		.nr_l1streams = 0,
++		.nr_l2streams = 0,
++		.insert_read_before_invalidate = false,
++	},
++};
++
++struct ipu6_mmu_hwdata {
++	struct ipu6_mmu_hw *hwdata;
++	unsigned int nr_mmus;
++};
++
++static const struct ipu6_mmu_hwdata ipu6_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
++	[IPU_PSYS] = {
++		.hwdata = ipu6_psys_mmu_hwdata,
++		.nr_mmus = ARRAY_SIZE(ipu6_psys_mmu_hwdata),
++	},
++	[IPU_ISYS] = {
++		.hwdata = ipu6_isys_mmu_hwdata,
++		.nr_mmus = ARRAY_SIZE(ipu6_isys_mmu_hwdata),
++	},
++};
++
++static void __ipu6_tlb_invalidate(struct ipu6_mmu *mmu)
 +{
-+	u32 target = on ? IPU7_BUTTRESS_D2D_PWR_ACK : 0U;
-+	u32 val;
-+	int ret;
++	struct ipu6_mmu_hw *mmu_hw = mmu->ipu6_mmu_hw;
++	unsigned long flags;
++	unsigned int i;
 +
-+	val = readl(isp->base + IPU7_BUTTRESS_REG_D2D_CTL);
-+	if ((val & IPU7_BUTTRESS_D2D_PWR_ACK) == target)
-+		return 0;
-+
-+	if (on)
-+		val |= IPU7_BUTTRESS_D2D_PWR_EN;
-+	else
-+		val &= ~IPU7_BUTTRESS_D2D_PWR_EN;
-+	writel(val, isp->base + IPU7_BUTTRESS_REG_D2D_CTL);
-+
-+	ret = readl_poll_timeout(isp->base + IPU7_BUTTRESS_REG_D2D_CTL, val,
-+				 (val & IPU7_BUTTRESS_D2D_PWR_ACK) == target,
-+				 100, BUTTRESS_POWER_TIMEOUT_US);
-+	if (ret)
-+		dev_err(&isp->pdev->dev, "D2D power %s timeout: 0x%x\n",
-+			on ? "up" : "down", val);
-+
-+	return ret;
-+}
-+
-+static void ipu7_nde_control(struct ipu6_device *isp, bool on)
-+{
-+	u32 val;
-+
-+	val = FIELD_PREP(IPU7_NDE_VAL_MASK,
-+			 on ? IPU7_NDE_VAL_ACTIVE : IPU7_NDE_VAL_DEFAULT) |
-+	      FIELD_PREP(IPU7_NDE_SCALE_MASK,
-+			 on ? IPU7_NDE_SCALE_ACTIVE : IPU7_NDE_SCALE_DEFAULT) |
-+	      FIELD_PREP(IPU7_NDE_VALID_MASK,
-+			 on ? IPU7_NDE_VALID_ACTIVE : IPU7_NDE_VALID_DEFAULT) |
-+	      FIELD_PREP(IPU7_NDE_RESVEC_MASK, IPU7_NDE_RESVEC);
-+	writel(val, isp->base + IPU7_BUTTRESS_REG_NDE_CONTROL);
-+}
-+
-+static int __ipu7_power_on(struct device *dev,
-+			   const struct ipu6_buttress_ctrl *ctrl)
-+{
-+	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
-+	bool is_isys = ctrl->subsys_id == IPU_ISYS;
-+	u32 pwr_sts, val, ovrd_clk, slp, own_clk_ack;
-+	int ret;
-+
-+	val = ctrl->ratio | (IPU7_FREQ_CTL_CDYN << IPU7_FREQ_CTL_CDYN_SHIFT);
-+	pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
-+
-+	if (is_isys) {
-+		ret = ipu7_isys_d2d_power(isp, true);
-+		if (ret)
-+			return ret;
-+
-+		ipu7_nde_control(isp, true);
++	spin_lock_irqsave(&mmu->ready_lock, flags);
++	if (!mmu->ready) {
++		spin_unlock_irqrestore(&mmu->ready_lock, flags);
++		return;
 +	}
 +
-+	/* Request clock ownership. */
-+	ovrd_clk = is_isys ? IPU7_BUTTRESS_OVERRIDE_IS_CLK :
-+			     IPU7_BUTTRESS_OVERRIDE_PS_CLK;
++	for (i = 0; i < mmu->nr_mmus; i++) {
++		/*
++		 * To avoid the HW bug induced dead lock in some of the IPU6
++		 * MMUs on successive invalidate calls, we need to first do a
++		 * read to the page table base before writing the invalidate
++		 * register. MMUs which need to implement this WA, will have
++		 * the insert_read_before_invalidate flags set as true.
++		 * Disregard the return value of the read.
++		 */
++		if (mmu_hw[i].insert_read_before_invalidate)
++			readl(mmu_hw[i].base + REG_L1_PHYS);
 +
-+	slp = readl(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
-+	writel(slp | ovrd_clk, isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
-+
-+	own_clk_ack = is_isys ? IPU7_BUTTRESS_OWN_ACK_IS_CLK :
-+				IPU7_BUTTRESS_OWN_ACK_PS_CLK;
-+	ret = readl_poll_timeout(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_STS,
-+				 slp, (slp & own_clk_ack),
-+				 100, BUTTRESS_POWER_TIMEOUT_US);
-+	if (ret)
-+		dev_warn(&isp->pdev->dev, "clock ownership timeout: 0x%x\n",
-+			 slp);
-+
-+	writel(val, isp->base + ctrl->freq_ctl);
-+
-+	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
-+				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
-+				 100, BUTTRESS_POWER_TIMEOUT_US);
-+	if (ret) {
-+		dev_err(&isp->pdev->dev,
-+			"Change power status timeout with 0x%x\n", val);
-+		return ret;
++		writel(0xffffffff, mmu_hw[i].base + REG_TLB_INVALIDATE);
++		/*
++		 * The TLB invalidation is a "single cycle" (IOMMU clock cycles)
++		 * When the actual MMIO write reaches the IPU6 TLB Invalidate
++		 * register, wmb() will force the TLB invalidate out if the CPU
++		 * attempts to update the IOMMU page table (or sooner).
++		 */
++		wmb();
 +	}
-+
-+	slp = readl(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
-+	writel(slp & ~ovrd_clk, isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
-+
-+	return 0;
++	spin_unlock_irqrestore(&mmu->ready_lock, flags);
 +}
 +
-+static int __ipu7_power_off(struct device *dev,
-+			    const struct ipu6_buttress_ctrl *ctrl)
- {
- 	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
- 	u32 pwr_sts, val;
- 	int ret;
- 
--	if (!ctrl)
--		return 0;
-+	writel(0x8U, isp->base + ctrl->freq_ctl);
- 
--	mutex_lock(&isp->buttress.power_mutex);
-+	pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
-+	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
-+				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
-+				 100, BUTTRESS_POWER_TIMEOUT_US);
-+	if (ret) {
-+		dev_err(&isp->pdev->dev,
-+			"Change power status timeout with 0x%x\n", val);
-+		return ret;
-+	}
-+
-+	if (ctrl->subsys_id == IPU_ISYS) {
-+		ipu7_isys_d2d_power(isp, false);
-+		ipu7_nde_control(isp, false);
-+	}
-+
-+	return 0;
-+}
-+
-+static int __ipu6_power(struct device *dev,
-+			const struct ipu6_buttress_ctrl *ctrl, bool on)
++static int __ipu6_mmu_hw_init(struct ipu6_mmu *mmu)
 +{
-+	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
-+	u32 pwr_sts, val;
-+	int ret;
- 
- 	if (!on) {
- 		val = 0;
- 		pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
- 	} else {
- 		val = BUTTRESS_FREQ_CTL_START |
--			FIELD_PREP(BUTTRESS_FREQ_CTL_RATIO_MASK,
--				   ctrl->ratio) |
--			FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
--				   ctrl->qos_floor) |
--			BUTTRESS_FREQ_CTL_ICCMAX_LEVEL;
-+		      FIELD_PREP(BUTTRESS_FREQ_CTL_RATIO_MASK, ctrl->ratio) |
-+		      FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
-+				 ctrl->qos_floor) |
-+		      BUTTRESS_FREQ_CTL_ICCMAX_LEVEL;
- 
- 		pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
- 	}
-@@ -477,6 +597,26 @@ int ipu6_buttress_power(struct device *dev,
- 		dev_err(&isp->pdev->dev,
- 			"Change power status timeout with 0x%x\n", val);
- 
-+	return ret;
-+}
++	struct ipu6_mmu_info *mmu_info = mmu->dmap->mmu_info;
++	struct ipu6_mmu_hw *mmu_hw = mmu->ipu6_mmu_hw;
 +
-+int ipu6_buttress_power(struct device *dev,
-+			const struct ipu6_buttress_ctrl *ctrl, bool on)
-+{
-+	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
-+	int ret;
++	/* Initialise the each MMU HW block */
++	for (unsigned int i = 0; i < mmu->nr_mmus; i++) {
++		unsigned int j;
++		u16 block_addr;
 +
-+	if (!ctrl)
-+		return 0;
++		/* Write page table address per MMU */
++		writel((phys_addr_t)mmu_info->l1_pt_dma,
++		       mmu_hw[i].base + REG_L1_PHYS);
 +
-+	mutex_lock(&isp->buttress.power_mutex);
++		/* Set info bits per MMU */
++		writel(mmu_hw[i].info_bits, mmu_hw[i].base + REG_INFO);
 +
-+	if (IS_IPU7(isp))
-+		ret = on ? __ipu7_power_on(dev, ctrl) :
-+			   __ipu7_power_off(dev, ctrl);
-+	else
-+		ret = __ipu6_power(dev, ctrl, on);
++		/* Configure MMU TLB stream configuration for L1 */
++		for (j = 0, block_addr = 0; j < mmu_hw[i].nr_l1streams;
++		     block_addr += mmu_hw[i].l1_block_sz[j], j++) {
++			if (block_addr > IPU6_MAX_LI_BLOCK_ADDR) {
++				dev_err(mmu->dev, "invalid L1 configuration\n");
++				return -EINVAL;
++			}
 +
- 	mutex_unlock(&isp->buttress.power_mutex);
- 
- 	return ret;
-@@ -634,11 +774,18 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
- 	 * Write address of FIT table to FW_SOURCE register
- 	 * Let's use fw address. I.e. not using FIT table yet
- 	 */
--	data = lower_32_bits(isp->psys->pkg_dir_dma_addr);
--	writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_LO);
-+	if (IS_IPU7(isp)) {
-+		writel(isp->cpd_fw->size,
-+		       isp->base + IPU7_BUTTRESS_REG_FW_SOURCE_SIZE);
-+		writel(sg_dma_address(isp->psys->fw_sgt.sgl),
-+		       isp->base + IPU7_BUTTRESS_REG_FW_SOURCE_BASE);
-+	} else {
-+		data = lower_32_bits(isp->psys->pkg_dir_dma_addr);
-+		writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_LO);
- 
--	data = upper_32_bits(isp->psys->pkg_dir_dma_addr);
--	writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_HI);
-+		data = upper_32_bits(isp->psys->pkg_dir_dma_addr);
-+		writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_HI);
-+	}
- 
- 	/*
- 	 * Write boot_load into IU2CSEDATA0
-@@ -674,8 +821,11 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
- 		goto out_unlock;
- 	}
- 
--	ret = readl_poll_timeout(psys_pdata->base + BOOTLOADER_STATUS_OFFSET,
--				 data, data == BOOTLOADER_MAGIC_KEY, 500,
-+	void __iomem *base = IS_IPU7(isp) ?
-+			     isp->base + IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7 :
-+			     psys_pdata->base + BOOTLOADER_STATUS_OFFSET;
-+
-+	ret = readl_poll_timeout(base, data, data == BOOTLOADER_MAGIC_KEY, 500,
- 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(&isp->pdev->dev, "Unexpected magic number 0x%x\n",
-@@ -815,12 +965,61 @@ u64 ipu6_buttress_tsc_ticks_to_ns(u64 ticks, const struct ipu6_device *isp)
- }
- EXPORT_SYMBOL_NS_GPL(ipu6_buttress_tsc_ticks_to_ns, "INTEL_IPU6");
- 
--void ipu6_buttress_restore(struct ipu6_device *isp)
-+/* trigger uc control to wakeup fw */
-+void ipu7_buttress_wakeup_isys(const struct ipu6_device *isp)
-+{
-+	u32 val;
-+
-+	val = readl(isp->base + IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS);
-+	val |= IPU7_UCX_CTL_WAKEUP;
-+	writel(val, isp->base + IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS);
-+}
-+EXPORT_SYMBOL_NS_GPL(ipu7_buttress_wakeup_isys, "INTEL_IPU6");
-+
-+u32 ipu7_buttress_get_isys_freq(struct ipu6_device *isp)
-+{
-+	u32 val;
-+
-+	val = readl(isp->base + IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ);
-+	val &= IPU7_BUTTRESS_IS_FREQ_CTL_RATIO_MASK;
-+
-+	return val * 50 / 3;
-+}
-+EXPORT_SYMBOL_NS_GPL(ipu7_buttress_get_isys_freq, "INTEL_IPU6");
-+
-+static void ipu7_buttress_setup(struct ipu6_device *isp)
- {
- 	struct ipu6_buttress *b = &isp->buttress;
-+	u32 val;
-+
-+	/* program PB BAR */
-+	writel(0, isp->pb_base + IPU7_GLOBAL_INTERRUPT_MASK);
-+	val = readl(isp->pb_base + IPU7_BAR2_MISC_CONFIG);
-+	val |= 0x100U;
-+
-+	writel(val, isp->pb_base + IPU7_BAR2_MISC_CONFIG);
-+
-+	writel(BIT(22), isp->pb_base + IPU7_TLBID_HASH_ENABLE_63_32);
-+	writel(BIT(1), isp->pb_base + IPU7_TLBID_HASH_ENABLE_127_96);
- 
- 	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
-+	writel(b->regs->irq_all, isp->base + IPU7_BUTTRESS_REG_IRQ_MASK);
- 	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
-+
-+	/* LNL SW workaround for PS PD hang when PS sub-domain during PD */
-+	writel(IPU7_BUTTRESS_CG_CTRL_PS_FSM_CG, isp->base + IPU7_BUTTRESS_REG_CG_CTRL_BITS);
-+}
-+
-+void ipu6_buttress_restore(struct ipu6_device *isp)
-+{
-+	struct ipu6_buttress *b = &isp->buttress;
-+
-+	if (IS_IPU7(isp)) {
-+		ipu7_buttress_setup(isp);
-+	} else {
-+		writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
-+		writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
-+	}
- 	writel(b->wdt_cached_value, isp->base + b->regs->wdt);
- }
- 
-@@ -838,37 +1037,44 @@ int ipu6_buttress_init(struct ipu6_device *isp)
- 	init_completion(&b->ipc.recv_complete);
- 
- 	INIT_LIST_HEAD(&b->constraints);
--
- 	isp->secure_mode = ipu6_buttress_get_secure_mode(isp);
--	dev_dbg(&isp->pdev->dev, "IPU6 in %s mode touch 0x%x mask 0x%x\n",
--		isp->secure_mode ? "secure" : "non-secure",
--		readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
--		readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
- 
--	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
--	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
--	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
-+	dev_dbg(&isp->pdev->dev, "IPU in %s mode\n",
-+		isp->secure_mode ? "secure" : "non-secure");
- 
--	/* get ref_clk frequency by reading the indication in btrs control */
--	val = readl(isp->base + b->regs->btrs_ctrl);
--	val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
--
--	switch (val) {
--	case 0x0:
--		b->ref_clk = 240;
--		break;
--	case 0x1:
--		b->ref_clk = 192;
--		break;
--	case 0x2:
-+	if (IS_IPU7(isp)) {
-+		ipu7_buttress_setup(isp);
- 		b->ref_clk = 384;
--		break;
--	default:
--		dev_warn(&isp->pdev->dev,
--			 "Unsupported ref clock, use 19.2Mhz by default.\n");
--		b->ref_clk = 192;
--		break;
-+	} else {
-+		dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
-+			readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
-+			readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
-+
-+		writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
-+		writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
-+
-+		/* get ref_clk frequency by reading the indication in btrs control */
-+		val = readl(isp->base + b->regs->btrs_ctrl);
-+		val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
-+
-+		switch (val) {
-+		case 0x0:
-+			b->ref_clk = 240;
-+			break;
-+		case 0x1:
-+			b->ref_clk = 192;
-+			break;
-+		case 0x2:
-+			b->ref_clk = 384;
-+			break;
-+		default:
-+			dev_warn(&isp->pdev->dev,
-+				 "Unsupported ref clock, use 19.2Mhz by default.\n");
-+			b->ref_clk = 192;
-+			break;
++			/* Write block start address for each streams */
++			writel(block_addr, mmu_hw[i].base +
++			       mmu_hw[i].l1_stream_id_reg_offset + 4 * j);
 +		}
- 	}
-+	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
++
++		/* Configure MMU TLB stream configuration for L2 */
++		for (j = 0, block_addr = 0; j < mmu_hw[i].nr_l2streams;
++		     block_addr += mmu_hw[i].l2_block_sz[j], j++) {
++			if (block_addr > IPU6_MAX_L2_BLOCK_ADDR) {
++				dev_err(mmu->dev, "invalid L2 configuration\n");
++				return -EINVAL;
++			}
++
++			writel(block_addr, mmu_hw[i].base +
++			       mmu_hw[i].l2_stream_id_reg_offset + 4 * j);
++		}
++	}
++
++	return 0;
++}
++
++static int __ipu6_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
++				   void __iomem *base)
++{
++	const struct ipu6_mmu_hwdata *lookup;
++	struct ipu6_mmu_hw *mmu_hw, *src;
++	unsigned int i, nr_mmus;
++
++	if (mmu->mmid >= IPU_SUBSYS_NUM)
++		return -EINVAL;
++
++	lookup = &ipu6_mmu_hwdata_lookup[mmu->mmid];
++	src = lookup->hwdata;
++	nr_mmus = lookup->nr_mmus;
++
++	mmu_hw = devm_kcalloc(dev, nr_mmus, sizeof(*mmu_hw), GFP_KERNEL);
++	if (!mmu_hw)
++		return -ENOMEM;
++
++	for (i = 0; i < nr_mmus; i++) {
++		if (src[i].nr_l1streams > IPU6_MMU_MAX_TLB_L1_STREAMS ||
++		    src[i].nr_l2streams > IPU6_MMU_MAX_TLB_L2_STREAMS)
++			return -EINVAL;
++
++		mmu_hw[i] = src[i];
++		mmu_hw[i].base = base + src[i].offset;
++	}
++
++	mmu->nr_mmus = nr_mmus;
++	mmu->ipu6_mmu_hw = mmu_hw;
++
++	return 0;
++}
++
++const struct ipu6_mmu_hw_ops ipu6_mmu_ops = {
++	.init_hw_data = __ipu6_mmu_init_hw_data,
++	.hw_init = __ipu6_mmu_hw_init,
++	.tlb_invalidate = __ipu6_tlb_invalidate,
++};
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.c b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
+index 6b1a49ebbcc2..98ac59d00b78 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-mmu.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.c
+@@ -5,7 +5,6 @@
+ #include <asm/barrier.h>
  
- 	/* Retry couple of times in case of CSE initialization is delayed */
- 	do {
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-index a3c23adede7b..af72de2b8729 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-@@ -26,6 +26,7 @@ struct ipu6_buttress_ctrl {
- 	u32 freq_ctl, pwr_sts_shift, pwr_sts_mask, pwr_sts_on, pwr_sts_off;
- 	unsigned int ratio;
- 	unsigned int qos_floor;
-+	int subsys_id;
+ #include <linux/align.h>
+-#include <linux/atomic.h>
+ #include <linux/bitops.h>
+ #include <linux/bits.h>
+ #include <linux/bug.h>
+@@ -13,10 +12,8 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/err.h>
+ #include <linux/gfp.h>
+-#include <linux/io.h>
+ #include <linux/iova.h>
+ #include <linux/math.h>
+-#include <linux/minmax.h>
+ #include <linux/mm.h>
+ #include <linux/pfn.h>
+ #include <linux/slab.h>
+@@ -51,42 +48,6 @@
+ 
+ #define TBL_PHYS_ADDR(a)	((phys_addr_t)(a) << ISP_PADDR_SHIFT)
+ 
+-static void tlb_invalidate(struct ipu6_mmu *mmu)
+-{
+-	unsigned long flags;
+-	unsigned int i;
+-
+-	spin_lock_irqsave(&mmu->ready_lock, flags);
+-	if (!mmu->ready) {
+-		spin_unlock_irqrestore(&mmu->ready_lock, flags);
+-		return;
+-	}
+-
+-	for (i = 0; i < mmu->nr_mmus; i++) {
+-		/*
+-		 * To avoid the HW bug induced dead lock in some of the IPU6
+-		 * MMUs on successive invalidate calls, we need to first do a
+-		 * read to the page table base before writing the invalidate
+-		 * register. MMUs which need to implement this WA, will have
+-		 * the insert_read_before_invalidate flags set as true.
+-		 * Disregard the return value of the read.
+-		 */
+-		if (mmu->mmu_hw[i].insert_read_before_invalidate)
+-			readl(mmu->mmu_hw[i].base + REG_L1_PHYS);
+-
+-		writel(0xffffffff, mmu->mmu_hw[i].base +
+-		       REG_TLB_INVALIDATE);
+-		/*
+-		 * The TLB invalidation is a "single cycle" (IOMMU clock cycles)
+-		 * When the actual MMIO write reaches the IPU6 TLB Invalidate
+-		 * register, wmb() will force the TLB invalidate out if the CPU
+-		 * attempts to update the IOMMU page table (or sooner).
+-		 */
+-		wmb();
+-	}
+-	spin_unlock_irqrestore(&mmu->ready_lock, flags);
+-}
+-
+ #ifdef DEBUG
+ static void page_table_dump(struct ipu6_mmu_info *mmu_info)
+ {
+@@ -472,55 +433,14 @@ static int allocate_trash_buffer(struct ipu6_mmu *mmu)
+ 
+ int ipu6_mmu_hw_init(struct ipu6_mmu *mmu)
+ {
+-	struct ipu6_mmu_info *mmu_info;
+ 	unsigned long flags;
+-	unsigned int i;
+-
+-	mmu_info = mmu->dmap->mmu_info;
+-
+-	/* Initialise the each MMU HW block */
+-	for (i = 0; i < mmu->nr_mmus; i++) {
+-		struct ipu6_mmu_hw *mmu_hw = &mmu->mmu_hw[i];
+-		unsigned int j;
+-		u16 block_addr;
+-
+-		/* Write page table address per MMU */
+-		writel((phys_addr_t)mmu_info->l1_pt_dma,
+-		       mmu->mmu_hw[i].base + REG_L1_PHYS);
+-
+-		/* Set info bits per MMU */
+-		writel(mmu->mmu_hw[i].info_bits,
+-		       mmu->mmu_hw[i].base + REG_INFO);
+-
+-		/* Configure MMU TLB stream configuration for L1 */
+-		for (j = 0, block_addr = 0; j < mmu_hw->nr_l1streams;
+-		     block_addr += mmu->mmu_hw[i].l1_block_sz[j], j++) {
+-			if (block_addr > IPU6_MAX_LI_BLOCK_ADDR) {
+-				dev_err(mmu->dev, "invalid L1 configuration\n");
+-				return -EINVAL;
+-			}
+-
+-			/* Write block start address for each streams */
+-			writel(block_addr, mmu_hw->base +
+-			       mmu_hw->l1_stream_id_reg_offset + 4 * j);
+-		}
+-
+-		/* Configure MMU TLB stream configuration for L2 */
+-		for (j = 0, block_addr = 0; j < mmu_hw->nr_l2streams;
+-		     block_addr += mmu->mmu_hw[i].l2_block_sz[j], j++) {
+-			if (block_addr > IPU6_MAX_L2_BLOCK_ADDR) {
+-				dev_err(mmu->dev, "invalid L2 configuration\n");
+-				return -EINVAL;
+-			}
++	int ret;
+ 
+-			writel(block_addr, mmu_hw->base +
+-			       mmu_hw->l2_stream_id_reg_offset + 4 * j);
+-		}
+-	}
++	ret = mmu->ops->hw_init(mmu);
++	if (ret)
++		return ret;
+ 
+ 	if (!mmu->trash_page) {
+-		int ret;
+-
+ 		mmu->trash_page = alloc_page(GFP_KERNEL);
+ 		if (!mmu->trash_page) {
+ 			dev_err(mmu->dev, "insufficient memory for trash buffer\n");
+@@ -746,44 +666,26 @@ static void ipu6_mmu_destroy(struct ipu6_mmu *mmu)
+ }
+ 
+ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
+-			       void __iomem *base, int mmid,
+-			       const struct ipu6_hw_variants *hw)
++			       void __iomem *base, int mmid)
+ {
+ 	struct ipu6_device *isp = pci_get_drvdata(to_pci_dev(dev));
+-	struct ipu6_mmu_hw *mmu_hw;
+ 	struct ipu6_mmu *mmu;
+-	unsigned int i;
+-
+-	if (hw->nr_mmus > IPU6_MMU_MAX_DEVICES)
+-		return ERR_PTR(-EINVAL);
+-
+-	mmu_hw = devm_kcalloc(dev, sizeof(*mmu_hw), hw->nr_mmus, GFP_KERNEL);
+-	if (!mmu_hw)
+-		return ERR_PTR(-ENOMEM);
+-
+-	for (i = 0; i < hw->nr_mmus; i++) {
+-		const struct ipu6_mmu_hw *src_mmu = &hw->mmu_hw[i];
+-
+-		if (src_mmu->nr_l1streams > IPU6_MMU_MAX_TLB_L1_STREAMS ||
+-		    src_mmu->nr_l2streams > IPU6_MMU_MAX_TLB_L2_STREAMS)
+-			return ERR_PTR(-EINVAL);
+-
+-		mmu_hw[i] = *src_mmu;
+-		mmu_hw[i].base = base + src_mmu->offset;
+-	}
++	int ret;
+ 
+ 	mmu = devm_kzalloc(dev, sizeof(*mmu), GFP_KERNEL);
+ 	if (!mmu)
+ 		return ERR_PTR(-ENOMEM);
+ 
++	mmu->ops = &ipu6_mmu_ops;
+ 	mmu->mmid = mmid;
+-	mmu->mmu_hw = mmu_hw;
+-	mmu->nr_mmus = hw->nr_mmus;
+-	mmu->tlb_invalidate = tlb_invalidate;
+ 	mmu->ready = false;
+ 	INIT_LIST_HEAD(&mmu->vma_list);
+ 	spin_lock_init(&mmu->ready_lock);
+ 
++	ret = mmu->ops->init_hw_data(mmu, dev, base);
++	if (ret)
++		return ERR_PTR(ret);
++
+ 	mmu->dmap = alloc_dma_mapping(isp);
+ 	if (!mmu->dmap) {
+ 		dev_err(dev, "can't alloc dma mapping\n");
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.h b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
+index 35cac80d2d4e..a741f1c0e284 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-mmu.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
+@@ -1,5 +1,5 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
+-/* Copyright (C) 2013--2024 Intel Corporation */
++/* Copyright (C) 2013--2026 Intel Corporation */
+ 
+ #ifndef IPU6_MMU_H
+ #define IPU6_MMU_H
+@@ -10,7 +10,6 @@
+ 
+ struct device;
+ struct page;
+-struct ipu6_hw_variants;
+ 
+ struct ipu6_mmu_info {
+ 	struct device *dev;
+@@ -32,10 +31,147 @@ struct ipu6_mmu_info {
+ 	struct ipu6_dma_mapping *dmap;
  };
  
- struct ipu6_buttress_ipc {
-@@ -104,4 +105,6 @@ void ipu6_buttress_exit(struct ipu6_device *isp);
- void ipu6_buttress_csi_port_config(struct ipu6_device *isp,
- 				   u32 legacy, u32 combo);
- void ipu6_buttress_restore(struct ipu6_device *isp);
-+void ipu7_buttress_wakeup_isys(const struct ipu6_device *isp);
-+u32 ipu7_buttress_get_isys_freq(struct ipu6_device *isp);
- #endif /* IPU6_BUTTRESS_H */
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-index 5006cce74b23..c4da72c6bd8f 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
-@@ -221,4 +221,106 @@ enum {
- #define BUTTRESS_EVENT		 (BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING | \
- 				  BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE |    \
- 				  BUTTRESS_ISR_SAI_VIOLATION)
++/*
++ * MMU Invalidation HW bug workaround by ZLW mechanism
++ *
++ * Old IPU6 MMUV2 has a bug in the invalidation mechanism which might result in
++ * wrong translation or replication of the translation. This will cause data
++ * corruption. So we cannot directly use the MMU V2 invalidation registers
++ * to invalidate the MMU. Instead, whenever an invalidate is called, we need to
++ * clear the TLB by evicting all the valid translations by filling it with trash
++ * buffer (which is guaranteed not to be used by any other processes). ZLW is
++ * used to fill the L1 and L2 caches with the trash buffer translations. ZLW
++ * or Zero length write, is pre-fetch mechanism to pre-fetch the pages in
++ * advance to the L1 and L2 caches without triggering any memory operations.
++ *
++ * In MMU V2, L1 -> 16 streams and 64 blocks, maximum 16 blocks per stream
++ * One L1 block has 16 entries, hence points to 16 * 4K pages
++ * L2 -> 16 streams and 32 blocks. 2 blocks per streams
++ * One L2 block maps to 1024 L1 entries, hence points to 4MB address range
++ * 2 blocks per L2 stream means, 1 stream points to 8MB range
++ *
++ * As we need to clear the caches and 8MB being the biggest cache size, we need
++ * to have trash buffer which points to 8MB address range. As these trash
++ * buffers are not used for any memory transactions, we need only the least
++ * amount of physical memory. So we reserve 8MB IOVA address range but only
++ * one page is reserved from physical memory. Each of this 8MB IOVA address
++ * range is then mapped to the same physical memory page.
++ */
++/* One L2 entry maps 1024 L1 entries and one L1 entry per page */
++#define IPU6_MMUV2_L2_RANGE		(1024 * PAGE_SIZE)
++/* Max L2 blocks per stream */
++#define IPU6_MMUV2_MAX_L2_BLOCKS	2
++/* Max L1 blocks per stream */
++#define IPU6_MMUV2_MAX_L1_BLOCKS	16
++#define IPU6_MMUV2_TRASH_RANGE	(IPU6_MMUV2_L2_RANGE * IPU6_MMUV2_MAX_L2_BLOCKS)
++/* Entries per L1 block */
++#define MMUV2_ENTRIES_PER_L1_BLOCK	16
++#define MMUV2_TRASH_L1_BLOCK_OFFSET	(MMUV2_ENTRIES_PER_L1_BLOCK * PAGE_SIZE)
++#define MMUV2_TRASH_L2_BLOCK_OFFSET	IPU6_MMUV2_L2_RANGE
 +
-+/* IPU7 */
++/*
++ * In some of the IPU6 MMUs, there is provision to configure L1 and L2 page
++ * table caches. Both these L1 and L2 caches are divided into multiple sections
++ * called streams. There is maximum 16 streams for both caches. Each of these
++ * sections are subdivided into multiple blocks. When nr_l1streams = 0 and
++ * nr_l2streams = 0, means the MMU is of type MMU_V1 and do not support
++ * L1/L2 page table caches.
++ *
++ * L1 stream per block sizes are configurable and varies per usecase.
++ * L2 has constant block sizes - 2 blocks per stream.
++ *
++ * MMU1 support pre-fetching of the pages to have less cache lookup misses. To
++ * enable the pre-fetching, MMU1 AT (Address Translator) device registers
++ * need to be configured.
++ *
++ * There are four types of memory accesses which requires ZLW configuration.
++ * ZLW(Zero Length Write) is a mechanism to enable VT-d pre-fetching on IOMMU.
++ *
++ * 1. Sequential Access or 1D mode
++ *	Set ZLW_EN -> 1
++ *	set ZLW_PAGE_CROSS_1D -> 1
++ *	Set ZLW_N to "N" pages so that ZLW will be inserte N pages ahead where
++ *		  N is pre-defined and hardcoded in the platform data
++ *	Set ZLW_2D -> 0
++ *
++ * 2. ZLW 2D mode
++ *	Set ZLW_EN -> 1
++ *	set ZLW_PAGE_CROSS_1D -> 1,
++ *	Set ZLW_N -> 0
++ *	Set ZLW_2D -> 1
++ *
++ * 3. ZLW Enable (no 1D or 2D mode)
++ *	Set ZLW_EN -> 1
++ *	set ZLW_PAGE_CROSS_1D -> 0,
++ *	Set ZLW_N -> 0
++ *	Set ZLW_2D -> 0
++ *
++ * 4. ZLW disable
++ *	Set ZLW_EN -> 0
++ *	set ZLW_PAGE_CROSS_1D -> 0,
++ *	Set ZLW_N -> 0
++ *	Set ZLW_2D -> 0
++ *
++ * To configure the ZLW for the above memory access, four registers are
++ * available. Hence to track these four settings, we have the following entries
++ * in the struct ipu6_mmu_hw. Each of these entries are per stream and
++ * available only for the L1 streams.
++ *
++ * a. l1_zlw_en -> To track zlw enabled per stream (ZLW_EN)
++ * b. l1_zlw_1d_mode -> Track 1D mode per stream. ZLW inserted at page boundary
++ * c. l1_ins_zlw_ahead_pages -> to track how advance the ZLW need to be inserted
++ *			Insert ZLW request N pages ahead address.
++ * d. l1_zlw_2d_mode -> To track 2D mode per stream (ZLW_2D)
++ *
++ *
++ * Currently L1/L2 streams, blocks, AT ZLW configurations etc. are pre-defined
++ * as per the usecase specific calculations. Any change to this pre-defined
++ * table has to happen in sync with IPU6 FW.
++ */
 +
-+/* IPU7 buttress register offsets */
-+#define IPU7_BUTTRESS_REG_SKU			0x3030
-+#define IPU7_BUTTRESS_REG_IRQ_STATUS		0x2000
-+#define IPU7_BUTTRESS_REG_IRQ_ENABLE		0x2008
-+#define IPU7_BUTTRESS_REG_IRQ_CLEAR		0x200c
-+#define IPU7_BUTTRESS_REG_IRQ_MASK		0x2010
-+#define IPU7_BUTTRESS_REG_TSC_CMD		0x2014
-+#define IPU7_BUTTRESS_REG_TSC_CTL		0x2018
-+#define IPU7_BUTTRESS_REG_TSC_LO		0x201c
-+#define IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ	0x2104
-+#define IPU7_BUTTRESS_REG_PS_WORKPOINT_REQ	0x2100
-+#define IPU7_BUTTRESS_REG_IDLE_WDT		0x218c
-+#define IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS	0x2200
-+#define IPU7_BUTTRESS_REG_ISYS_UCX_START_ADDR	0x2204
-+#define IPU7_BUTTRESS_REG_PSYS_UCX_CTRL_STATUS	0x2208
-+#define IPU7_BUTTRESS_REG_PSYS_UCX_START_ADDR	0x220c
-+#define IPU7_BUTTRESS_REG_SECURITY_CTL		0x2318
-+#define IPU7_BUTTRESS_REG_FW_RESET_CTL		0x2334
-+#define IPU7_BUTTRESS_REG_FW_SOURCE_SIZE	0x2338
-+#define IPU7_BUTTRESS_REG_FW_SOURCE_BASE	0x233c
-+#define IPU7_BUTTRESS_REG_CSE2IUDB0		0x2500
-+#define IPU7_BUTTRESS_REG_CSE2IUDATA0		0x2504
-+#define IPU7_BUTTRESS_REG_CSE2IUCSR		0x2508
-+#define IPU7_BUTTRESS_REG_IU2CSEDB0		0x250c
-+#define IPU7_BUTTRESS_REG_IU2CSEDATA0		0x2510
-+#define IPU7_BUTTRESS_REG_IU2CSECSR		0x2514
-+#define IPU7_BUTTRESS_REG_CG_CTRL_BITS		0x3014
-+#define IPU7_BUTTRESS_REG_FW_BOOT_PARAMS0	0x4000
-+#define IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7	0x401c
-+#define IPU7_BUTTRESS_REG_PWR_STATUS		0x2114
++struct ipu6_mmu_hw {
++	union {
++		unsigned long offset;
++		void __iomem *base;
++	};
++	u32 info_bits;
++	u8 nr_l1streams;
++	/*
++	 * L1 has variable blocks per stream - total of 64 blocks and maximum of
++	 * 16 blocks per stream. Configurable by using the block start address
++	 * per stream. Block start address is calculated from the block size
++	 */
++	u8 l1_block_sz[IPU6_MMU_MAX_TLB_L1_STREAMS];
++	/* Is ZLW is enabled in each stream */
++	bool l1_zlw_en[IPU6_MMU_MAX_TLB_L1_STREAMS];
++	bool l1_zlw_1d_mode[IPU6_MMU_MAX_TLB_L1_STREAMS];
++	u8 l1_ins_zlw_ahead_pages[IPU6_MMU_MAX_TLB_L1_STREAMS];
++	bool l1_zlw_2d_mode[IPU6_MMU_MAX_TLB_L1_STREAMS];
 +
-+#define IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE		BIT(0)
-+#define IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING	BIT(1)
-+#define IPU7_BUTTRESS_IRQ_CSE_CSR_SET			BIT(2)
-+#define IPU7_BUTTRESS_IRQ_SAI_VIOLATION			BIT(4)
-+#define IPU7_BUTTRESS_IRQ_IS_IRQ			BIT(30)
-+#define IPU7_BUTTRESS_IRQ_PS_IRQ			BIT(31)
++	u32 l1_stream_id_reg_offset;
++	u32 l2_stream_id_reg_offset;
 +
-+#define IPU7_BUTTRESS_IRQS	(IPU7_BUTTRESS_IRQ_IS_IRQ |		\
-+				 IPU7_BUTTRESS_IRQ_PS_IRQ |		\
-+				 IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING | \
-+				 IPU7_BUTTRESS_IRQ_CSE_CSR_SET |	\
-+				 IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE)
++	u8 nr_l2streams;
++	/*
++	 * L2 has fixed 2 blocks per stream. Block address is calculated
++	 * from the block size
++	 */
++	u8 l2_block_sz[IPU6_MMU_MAX_TLB_L2_STREAMS];
++	/* flag to track if WA is needed for successive invalidate HW bug */
++	bool insert_read_before_invalidate;
++};
 +
-+/* LNL SW workaround for PS PD hang */
-+#define IPU7_BUTTRESS_CG_CTRL_PS_FSM_CG		BIT(3)
++struct ipu6_mmu_hw_ops {
++	int (*init_hw_data)(struct ipu6_mmu *mmu, struct device *dev,
++			    void __iomem *base);
++	int (*hw_init)(struct ipu6_mmu *mmu);
++	void (*tlb_invalidate)(struct ipu6_mmu *mmu);
++};
 +
-+/* P-unit Bridge (PB) BAR registers */
-+#define IPU7_PB_INTERRUPT_STATUS		0x0
+ struct ipu6_mmu {
+ 	struct list_head node;
+ 
+-	struct ipu6_mmu_hw *mmu_hw;
++	struct ipu6_mmu_hw *ipu6_mmu_hw;
+ 	unsigned int nr_mmus;
+ 	unsigned int mmid;
+ 
+@@ -52,12 +188,13 @@ struct ipu6_mmu {
+ 	bool ready;
+ 	spinlock_t ready_lock;	/* Serialize access to bool ready */
+ 
+-	void (*tlb_invalidate)(struct ipu6_mmu *mmu);
++	const struct ipu6_mmu_hw_ops *ops;
+ };
+ 
++extern const struct ipu6_mmu_hw_ops ipu6_mmu_ops;
 +
-+/* Frequency control encoding */
-+#define IPU7_FREQ_CTL_CDYN			0x80
-+#define IPU7_FREQ_CTL_CDYN_SHIFT		8
-+#define IPU7_BUTTRESS_IS_FREQ_CTL_RATIO_MASK	GENMASK(7, 0)
-+#define IPU7_IS_FREQ_CTL_DEFAULT_RATIO		0x1b
-+#define IPU7_PS_FREQ_CTL_DEFAULT_RATIO		0x14
-+
-+/* D2D power control */
-+#define IPU7_BUTTRESS_REG_D2D_CTL		0x21d4
-+#define IPU7_BUTTRESS_D2D_PWR_EN		BIT(0)
-+#define IPU7_BUTTRESS_D2D_PWR_ACK		BIT(4)
-+
-+#define IPU7_BUTTRESS_PWR_STATE_IS_PWR_SHIFT	0
-+#define IPU7_BUTTRESS_PWR_STATE_IS_PWR_MASK	(0x3U << 0)
-+#define IPU7_BUTTRESS_PWR_STATE_PS_PWR_SHIFT	4
-+#define IPU7_BUTTRESS_PWR_STATE_PS_PWR_MASK	(0x3U << 4)
-+
-+/* NDE */
-+#define IPU7_BUTTRESS_REG_NDE_CONTROL		0x21a4
-+#define IPU7_NDE_VAL_MASK			GENMASK(9, 0)
-+#define IPU7_NDE_SCALE_MASK			GENMASK(12, 10)
-+#define IPU7_NDE_VALID_MASK			BIT(13)
-+#define IPU7_NDE_RESVEC_MASK			GENMASK(19, 16)
-+#define IPU7_NDE_VAL_ACTIVE			48
-+#define IPU7_NDE_SCALE_ACTIVE			2
-+#define IPU7_NDE_VALID_ACTIVE			1
-+#define IPU7_NDE_VAL_DEFAULT			1023
-+#define IPU7_NDE_SCALE_DEFAULT			2
-+#define IPU7_NDE_VALID_DEFAULT			0
-+#define IPU7_NDE_RESVEC				0xe
-+
-+/* IS UCX control */
-+#define IPU7_UCX_CTL_RESET			BIT(0)
-+#define IPU7_UCX_CTL_RUN			BIT(1)
-+#define IPU7_UCX_CTL_WAKEUP			BIT(2)
-+
-+#define IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG	0x21b0
-+#define IPU7_BUTTRESS_REG_SLEEP_LEVEL_STS	0x21b4
-+#define IPU7_BUTTRESS_OVERRIDE_IS_CLK		BIT(1)
-+#define IPU7_BUTTRESS_OWN_ACK_IS_CLK		BIT(9)
-+#define IPU7_BUTTRESS_OVERRIDE_PS_CLK		BIT(2)
-+#define IPU7_BUTTRESS_OWN_ACK_PS_CLK		BIT(10)
-+
-+/* PB registers */
-+#define IPU7_GLOBAL_INTERRUPT_MASK		0x8
-+#define IPU7_TLBID_HASH_ENABLE_63_32		0x34
-+#define IPU7_TLBID_HASH_ENABLE_127_96		0x3c
-+#define IPU7_BAR2_MISC_CONFIG			0x64
-+
- #endif /* IPU6_PLATFORM_BUTTRESS_REGS_H */
+ struct ipu6_mmu *ipu6_mmu_init(struct device *dev,
+-			       void __iomem *base, int mmid,
+-			       const struct ipu6_hw_variants *hw);
++			       void __iomem *base, int mmid);
+ void ipu6_mmu_cleanup(struct ipu6_mmu *mmu);
+ int ipu6_mmu_hw_init(struct ipu6_mmu *mmu);
+ void ipu6_mmu_hw_cleanup(struct ipu6_mmu *mmu);
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index c24e18520de6..4af0b068e759 100644
+index 4af0b068e759..51174cafb1b4 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -34,6 +34,7 @@
- #include "ipu6-platform-regs.h"
- 
- #define IPU6_PCI_BAR		0
-+#define IPU7_PCI_PBBAR		4
- 
- struct ipu6_cell_program {
- 	u32 magic_number;
-@@ -209,6 +210,7 @@ static struct ipu6_psys_internal_pdata psys_ipdata = {
+@@ -74,54 +74,6 @@ struct ipu6_cell_program {
+ static struct ipu6_isys_internal_pdata isys_ipdata = {
+ 	.hw_variant = {
+ 		.offset = IPU6_UNIFIED_OFFSET,
+-		.nr_mmus = 3,
+-		.mmu_hw = {
+-			{
+-				.offset = IPU6_ISYS_IOMMU0_OFFSET,
+-				.info_bits = IPU6_INFO_REQUEST_DESTINATION_IOSF,
+-				.nr_l1streams = 16,
+-				.l1_block_sz = {
+-					3, 8, 2, 2, 2, 2, 2, 2, 1, 1,
+-					1, 1, 1, 1, 1, 1
+-				},
+-				.nr_l2streams = 16,
+-				.l2_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.insert_read_before_invalidate = false,
+-				.l1_stream_id_reg_offset =
+-				IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
+-				.l2_stream_id_reg_offset =
+-				IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
+-			},
+-			{
+-				.offset = IPU6_ISYS_IOMMU1_OFFSET,
+-				.info_bits = 0,
+-				.nr_l1streams = 16,
+-				.l1_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 1, 1, 4
+-				},
+-				.nr_l2streams = 16,
+-				.l2_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.insert_read_before_invalidate = false,
+-				.l1_stream_id_reg_offset =
+-				IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
+-				.l2_stream_id_reg_offset =
+-				IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
+-			},
+-			{
+-				.offset = IPU6_ISYS_IOMMUI_OFFSET,
+-				.info_bits = 0,
+-				.nr_l1streams = 0,
+-				.nr_l2streams = 0,
+-				.insert_read_before_invalidate = false,
+-			},
+-		},
+ 		.cdc_fifos = 3,
+ 		.cdc_fifo_threshold = {6, 8, 2},
+ 		.dmem_offset = IPU6_ISYS_DMEM_OFFSET,
+@@ -133,78 +85,6 @@ static struct ipu6_isys_internal_pdata isys_ipdata = {
+ static struct ipu6_psys_internal_pdata psys_ipdata = {
+ 	.hw_variant = {
+ 		.offset = IPU6_UNIFIED_OFFSET,
+-		.nr_mmus = 4,
+-		.mmu_hw = {
+-			{
+-				.offset = IPU6_PSYS_IOMMU0_OFFSET,
+-				.info_bits =
+-				IPU6_INFO_REQUEST_DESTINATION_IOSF,
+-				.nr_l1streams = 16,
+-				.l1_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.nr_l2streams = 16,
+-				.l2_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.insert_read_before_invalidate = false,
+-				.l1_stream_id_reg_offset =
+-				IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
+-				.l2_stream_id_reg_offset =
+-				IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
+-			},
+-			{
+-				.offset = IPU6_PSYS_IOMMU1_OFFSET,
+-				.info_bits = 0,
+-				.nr_l1streams = 32,
+-				.l1_block_sz = {
+-					1, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 10,
+-					5, 4, 14, 6, 4, 14, 6, 4, 8,
+-					4, 2, 1, 1, 1, 1, 14
+-				},
+-				.nr_l2streams = 32,
+-				.l2_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.insert_read_before_invalidate = false,
+-				.l1_stream_id_reg_offset =
+-				IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
+-				.l2_stream_id_reg_offset =
+-				IPU6_PSYS_MMU1W_L2_STREAM_ID_REG_OFFSET,
+-			},
+-			{
+-				.offset = IPU6_PSYS_IOMMU1R_OFFSET,
+-				.info_bits = 0,
+-				.nr_l1streams = 16,
+-				.l1_block_sz = {
+-					1, 4, 4, 4, 4, 16, 8, 4, 32,
+-					16, 16, 2, 2, 2, 1, 12
+-				},
+-				.nr_l2streams = 16,
+-				.l2_block_sz = {
+-					2, 2, 2, 2, 2, 2, 2, 2, 2, 2,
+-					2, 2, 2, 2, 2, 2
+-				},
+-				.insert_read_before_invalidate = false,
+-				.l1_stream_id_reg_offset =
+-				IPU6_MMU_L1_STREAM_ID_REG_OFFSET,
+-				.l2_stream_id_reg_offset =
+-				IPU6_MMU_L2_STREAM_ID_REG_OFFSET,
+-			},
+-			{
+-				.offset = IPU6_PSYS_IOMMUI_OFFSET,
+-				.info_bits = 0,
+-				.nr_l1streams = 0,
+-				.nr_l2streams = 0,
+-				.insert_read_before_invalidate = false,
+-			},
+-		},
+ 		.dmem_offset = IPU6_PSYS_DMEM_OFFSET,
+ 	},
  };
- 
- static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
-+	.subsys_id = IPU_ISYS,
- 	.ratio = IPU6_IS_FREQ_CTL_DEFAULT_RATIO,
- 	.qos_floor = IPU6_IS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
- 	.freq_ctl = IPU6_BUTTRESS_REG_IS_FREQ_CTL,
-@@ -219,6 +221,7 @@ static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
- };
- 
- static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
-+	.subsys_id = IPU_PSYS,
- 	.ratio = IPU6_PS_FREQ_CTL_DEFAULT_RATIO,
- 	.qos_floor = IPU6_PS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
- 	.freq_ctl = IPU6_BUTTRESS_REG_PS_FREQ_CTL,
-@@ -228,6 +231,28 @@ static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
- 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
- };
- 
-+static const struct ipu6_buttress_ctrl ipu7_isys_buttress_ctrl = {
-+	.subsys_id = IPU_ISYS,
-+	.ratio = IPU7_IS_FREQ_CTL_DEFAULT_RATIO,
-+	.qos_floor = 0,
-+	.freq_ctl = IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ,
-+	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_IS_PWR_SHIFT,
-+	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_IS_PWR_MASK,
-+	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
-+	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
-+};
-+
-+static const struct ipu6_buttress_ctrl ipu7_psys_buttress_ctrl = {
-+	.subsys_id = IPU_PSYS,
-+	.ratio = IPU7_PS_FREQ_CTL_DEFAULT_RATIO,
-+	.qos_floor = 0,
-+	.freq_ctl = IPU7_BUTTRESS_REG_PS_WORKPOINT_REQ,
-+	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_PS_PWR_SHIFT,
-+	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_PS_PWR_MASK,
-+	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
-+	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
-+};
-+
- static const struct ipu6_buttress_registers ipu6_buttress_regs = {
- 	/* Registers */
- 	.irq_status	= BUTTRESS_REG_ISR_STATUS,
-@@ -258,6 +283,35 @@ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
- 	.irq_sai	= BUTTRESS_ISR_SAI_VIOLATION,
- };
- 
-+static const struct ipu6_buttress_registers ipu7_buttress_regs = {
-+	/* Registers */
-+	.irq_status	= IPU7_BUTTRESS_REG_IRQ_STATUS,
-+	.irq_clear	= IPU7_BUTTRESS_REG_IRQ_CLEAR,
-+	.irq_enable	= IPU7_BUTTRESS_REG_IRQ_ENABLE,
-+	.pwr_status	= IPU7_BUTTRESS_REG_PWR_STATUS,
-+	.security_ctl	= IPU7_BUTTRESS_REG_SECURITY_CTL,
-+	.fw_reset_ctl	= IPU7_BUTTRESS_REG_FW_RESET_CTL,
-+	.fabric_cmd	= IPU7_BUTTRESS_REG_TSC_CMD,
-+	.tsw_ctl	= IPU7_BUTTRESS_REG_TSC_CTL,
-+	.tsc_lo		= IPU7_BUTTRESS_REG_TSC_LO,
-+	.wdt		= IPU7_BUTTRESS_REG_IDLE_WDT,
-+	.csr_in		= IPU7_BUTTRESS_REG_CSE2IUCSR,
-+	.csr_out	= IPU7_BUTTRESS_REG_IU2CSECSR,
-+	.db0_in		= IPU7_BUTTRESS_REG_CSE2IUDB0,
-+	.db0_out	= IPU7_BUTTRESS_REG_IU2CSEDB0,
-+	.data0_in	= IPU7_BUTTRESS_REG_CSE2IUDATA0,
-+	.data0_out	= IPU7_BUTTRESS_REG_IU2CSEDATA0,
-+
-+	/* Bitmasks */
-+	.irq_is		= IPU7_BUTTRESS_IRQ_IS_IRQ,
-+	.irq_ps		= IPU7_BUTTRESS_IRQ_PS_IRQ,
-+	.irq_all	= IPU7_BUTTRESS_IRQS,
-+	.irq_events	= IPU7_BUTTRESS_IRQS,
-+	.irq_cse_ipc	= IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING,
-+	.irq_exec_done	= IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE,
-+	.irq_sai	= IPU7_BUTTRESS_IRQ_SAI_VIOLATION,
-+};
-+
- static void
- ipu6_pkg_dir_configure_spc(struct ipu6_device *isp,
- 			   const struct ipu6_hw_variants *hw_variant,
-@@ -532,24 +586,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	if (!isp)
- 		return -ENOMEM;
- 
--	isp->pdev = pdev;
--	INIT_LIST_HEAD(&isp->devices);
--
--	ret = pcim_enable_device(pdev);
--	if (ret)
--		return dev_err_probe(dev, ret, "Enable PCI device failed\n");
--
--	phys = pci_resource_start(pdev, IPU6_PCI_BAR);
--	dev_dbg(dev, "IPU6 PCI bar[%u] = %pa\n", IPU6_PCI_BAR, &phys);
--
--	isp->base = pcim_iomap_region(pdev, IPU6_PCI_BAR, IPU6_NAME);
--	if (IS_ERR(isp->base))
--		return dev_err_probe(dev, PTR_ERR(isp->base),
--				     "Failed to I/O mem remapping\n");
--
--	pci_set_drvdata(pdev, isp);
--	pci_set_master(pdev);
--
- 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
- 	isp->buttress.regs = &ipu6_buttress_regs;
- 
-@@ -577,12 +613,44 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 		isp->hw_ver = IPU_VERSION_6EP_MTL;
- 		isp->cpd_fw_name = IPU6EPMTL_FIRMWARE_NAME;
- 		break;
-+	case PCI_DEVICE_ID_INTEL_IPU7:
-+		isp->hw_ver = IPU_VERSION_7;
-+		isp->cpd_fw_name = IPU7_FIRMWARE_NAME;
-+		isp->buttress.regs = &ipu7_buttress_regs;
-+		break;
- 	default:
- 		return dev_err_probe(dev, -ENODEV,
- 				     "Unsupported IPU6 device %x\n",
- 				     id->device);
+@@ -478,7 +358,7 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
+ 				"ipu6_bus_initialize_device isys failed\n");
  	}
  
-+	isp->pdev = pdev;
-+	INIT_LIST_HEAD(&isp->devices);
-+
-+	ret = pcim_enable_device(pdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Enable PCI device failed\n");
-+
-+	phys = pci_resource_start(pdev, IPU6_PCI_BAR);
-+	dev_dbg(dev, "IPU6 PCI bar[%u] = %pa\n", IPU6_PCI_BAR, &phys);
-+
-+	isp->base = pcim_iomap_region(pdev, IPU6_PCI_BAR, IPU6_NAME);
-+	if (IS_ERR(isp->base))
-+		return dev_err_probe(dev, PTR_ERR(isp->base),
-+				     "Failed to I/O mem remapping\n");
-+
-+	if (IS_IPU7(isp)) {
-+		isp->pb_base = pcim_iomap_region(pdev, IPU7_PCI_PBBAR,
-+						 IPU6_NAME);
-+		if (IS_ERR(isp->pb_base))
-+			return dev_err_probe(dev, PTR_ERR(isp->pb_base),
-+					     "I/O remapping PB BAR %u failed\n",
-+					     IPU7_PCI_PBBAR);
-+	}
-+
-+	pci_set_drvdata(pdev, isp);
-+	pci_set_master(pdev);
-+
- 	ipu6_internal_pdata_init(isp);
+-	isys_adev->mmu = ipu6_mmu_init(dev, base, IPU_ISYS, &ipdata->hw_variant);
++	isys_adev->mmu = ipu6_mmu_init(dev, base, IPU_ISYS);
+ 	if (IS_ERR(isys_adev->mmu)) {
+ 		put_device(&isys_adev->auxdev.dev);
+ 		return dev_err_cast_probe(dev, isys_adev->mmu,
+@@ -518,8 +398,7 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
+ 				"ipu6_bus_initialize_device psys failed\n");
+ 	}
  
- 	isys_base = isp->base + isys_ipdata.hw_variant.offset;
+-	psys_adev->mmu = ipu6_mmu_init(&pdev->dev, base, IPU_PSYS,
+-				       &ipdata->hw_variant);
++	psys_adev->mmu = ipu6_mmu_init(&pdev->dev, base, IPU_PSYS);
+ 	if (IS_ERR(psys_adev->mmu)) {
+ 		put_device(&psys_adev->auxdev.dev);
+ 		return dev_err_cast_probe(&pdev->dev, psys_adev->mmu,
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
-index dc98a787612f..a14b067f169f 100644
+index a14b067f169f..debd571b6f6d 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6.h
-@@ -22,6 +22,7 @@ struct ipu6_bus_device;
- #define IPU6_FIRMWARE_NAME		"intel/ipu/ipu6_fw.bin"
- #define IPU6EPMTL_FIRMWARE_NAME		"intel/ipu/ipu6epmtl_fw.bin"
- #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
-+#define IPU7_FIRMWARE_NAME		"intel/ipu/ipu7_fw.bin"
+@@ -74,6 +74,7 @@ struct ipu6_device {
  
- #define IPU_VERSION_6		BIT(0) /* TGL */
- #define IPU_VERSION_6SE		BIT(1) /* JSL */
-@@ -64,6 +65,7 @@ struct ipu6_device {
- 	u32 cpd_metadata_cmpnt_size;
+ #define IPU_PSYS	0
+ #define IPU_ISYS	1
++#define IPU_SUBSYS_NUM	2
  
+ #define IPU6_ISYS_NAME "isys"
+ #define IPU6_PSYS_NAME "psys"
+@@ -121,135 +122,6 @@ struct ipu6_device {
+ #define IPU6_BTRS_ARB_STALL_MODE_VC1	\
+ 			IPU6_BTRS_ARB_MODE_TYPE_REARB
+ 
+-/*
+- * MMU Invalidation HW bug workaround by ZLW mechanism
+- *
+- * Old IPU6 MMUV2 has a bug in the invalidation mechanism which might result in
+- * wrong translation or replication of the translation. This will cause data
+- * corruption. So we cannot directly use the MMU V2 invalidation registers
+- * to invalidate the MMU. Instead, whenever an invalidate is called, we need to
+- * clear the TLB by evicting all the valid translations by filling it with trash
+- * buffer (which is guaranteed not to be used by any other processes). ZLW is
+- * used to fill the L1 and L2 caches with the trash buffer translations. ZLW
+- * or Zero length write, is pre-fetch mechanism to pre-fetch the pages in
+- * advance to the L1 and L2 caches without triggering any memory operations.
+- *
+- * In MMU V2, L1 -> 16 streams and 64 blocks, maximum 16 blocks per stream
+- * One L1 block has 16 entries, hence points to 16 * 4K pages
+- * L2 -> 16 streams and 32 blocks. 2 blocks per streams
+- * One L2 block maps to 1024 L1 entries, hence points to 4MB address range
+- * 2 blocks per L2 stream means, 1 stream points to 8MB range
+- *
+- * As we need to clear the caches and 8MB being the biggest cache size, we need
+- * to have trash buffer which points to 8MB address range. As these trash
+- * buffers are not used for any memory transactions, we need only the least
+- * amount of physical memory. So we reserve 8MB IOVA address range but only
+- * one page is reserved from physical memory. Each of this 8MB IOVA address
+- * range is then mapped to the same physical memory page.
+- */
+-/* One L2 entry maps 1024 L1 entries and one L1 entry per page */
+-#define IPU6_MMUV2_L2_RANGE		(1024 * PAGE_SIZE)
+-/* Max L2 blocks per stream */
+-#define IPU6_MMUV2_MAX_L2_BLOCKS	2
+-/* Max L1 blocks per stream */
+-#define IPU6_MMUV2_MAX_L1_BLOCKS	16
+-#define IPU6_MMUV2_TRASH_RANGE	(IPU6_MMUV2_L2_RANGE * IPU6_MMUV2_MAX_L2_BLOCKS)
+-/* Entries per L1 block */
+-#define MMUV2_ENTRIES_PER_L1_BLOCK	16
+-#define MMUV2_TRASH_L1_BLOCK_OFFSET	(MMUV2_ENTRIES_PER_L1_BLOCK * PAGE_SIZE)
+-#define MMUV2_TRASH_L2_BLOCK_OFFSET	IPU6_MMUV2_L2_RANGE
+-
+-/*
+- * In some of the IPU6 MMUs, there is provision to configure L1 and L2 page
+- * table caches. Both these L1 and L2 caches are divided into multiple sections
+- * called streams. There is maximum 16 streams for both caches. Each of these
+- * sections are subdivided into multiple blocks. When nr_l1streams = 0 and
+- * nr_l2streams = 0, means the MMU is of type MMU_V1 and do not support
+- * L1/L2 page table caches.
+- *
+- * L1 stream per block sizes are configurable and varies per usecase.
+- * L2 has constant block sizes - 2 blocks per stream.
+- *
+- * MMU1 support pre-fetching of the pages to have less cache lookup misses. To
+- * enable the pre-fetching, MMU1 AT (Address Translator) device registers
+- * need to be configured.
+- *
+- * There are four types of memory accesses which requires ZLW configuration.
+- * ZLW(Zero Length Write) is a mechanism to enable VT-d pre-fetching on IOMMU.
+- *
+- * 1. Sequential Access or 1D mode
+- *	Set ZLW_EN -> 1
+- *	set ZLW_PAGE_CROSS_1D -> 1
+- *	Set ZLW_N to "N" pages so that ZLW will be inserte N pages ahead where
+- *		  N is pre-defined and hardcoded in the platform data
+- *	Set ZLW_2D -> 0
+- *
+- * 2. ZLW 2D mode
+- *	Set ZLW_EN -> 1
+- *	set ZLW_PAGE_CROSS_1D -> 1,
+- *	Set ZLW_N -> 0
+- *	Set ZLW_2D -> 1
+- *
+- * 3. ZLW Enable (no 1D or 2D mode)
+- *	Set ZLW_EN -> 1
+- *	set ZLW_PAGE_CROSS_1D -> 0,
+- *	Set ZLW_N -> 0
+- *	Set ZLW_2D -> 0
+- *
+- * 4. ZLW disable
+- *	Set ZLW_EN -> 0
+- *	set ZLW_PAGE_CROSS_1D -> 0,
+- *	Set ZLW_N -> 0
+- *	Set ZLW_2D -> 0
+- *
+- * To configure the ZLW for the above memory access, four registers are
+- * available. Hence to track these four settings, we have the following entries
+- * in the struct ipu6_mmu_hw. Each of these entries are per stream and
+- * available only for the L1 streams.
+- *
+- * a. l1_zlw_en -> To track zlw enabled per stream (ZLW_EN)
+- * b. l1_zlw_1d_mode -> Track 1D mode per stream. ZLW inserted at page boundary
+- * c. l1_ins_zlw_ahead_pages -> to track how advance the ZLW need to be inserted
+- *			Insert ZLW request N pages ahead address.
+- * d. l1_zlw_2d_mode -> To track 2D mode per stream (ZLW_2D)
+- *
+- *
+- * Currently L1/L2 streams, blocks, AT ZLW configurations etc. are pre-defined
+- * as per the usecase specific calculations. Any change to this pre-defined
+- * table has to happen in sync with IPU6 FW.
+- */
+-struct ipu6_mmu_hw {
+-	union {
+-		unsigned long offset;
+-		void __iomem *base;
+-	};
+-	u32 info_bits;
+-	u8 nr_l1streams;
+-	/*
+-	 * L1 has variable blocks per stream - total of 64 blocks and maximum of
+-	 * 16 blocks per stream. Configurable by using the block start address
+-	 * per stream. Block start address is calculated from the block size
+-	 */
+-	u8 l1_block_sz[IPU6_MMU_MAX_TLB_L1_STREAMS];
+-	/* Is ZLW is enabled in each stream */
+-	bool l1_zlw_en[IPU6_MMU_MAX_TLB_L1_STREAMS];
+-	bool l1_zlw_1d_mode[IPU6_MMU_MAX_TLB_L1_STREAMS];
+-	u8 l1_ins_zlw_ahead_pages[IPU6_MMU_MAX_TLB_L1_STREAMS];
+-	bool l1_zlw_2d_mode[IPU6_MMU_MAX_TLB_L1_STREAMS];
+-
+-	u32 l1_stream_id_reg_offset;
+-	u32 l2_stream_id_reg_offset;
+-
+-	u8 nr_l2streams;
+-	/*
+-	 * L2 has fixed 2 blocks per stream. Block address is calculated
+-	 * from the block size
+-	 */
+-	u8 l2_block_sz[IPU6_MMU_MAX_TLB_L2_STREAMS];
+-	/* flag to track if WA is needed for successive invalidate HW bug */
+-	bool insert_read_before_invalidate;
+-};
+-
+ struct ipu6_isys_csi2_pdata {
  	void __iomem *base;
-+	void __iomem *pb_base;
- 	bool need_ipc_reset;
- 	bool secure_mode;
- 	u8 hw_ver;
-diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.h
-index 0899d9d2f978..cd5b941fb96c 100644
---- a/include/media/ipu6-pci-table.h
-+++ b/include/media/ipu6-pci-table.h
-@@ -14,6 +14,8 @@
- #define PCI_DEVICE_ID_INTEL_IPU6EP_ADLN		0x462e
- #define PCI_DEVICE_ID_INTEL_IPU6EP_RPLP		0xa75d
- #define PCI_DEVICE_ID_INTEL_IPU6EP_MTL		0x7d19
-+#define PCI_DEVICE_ID_INTEL_IPU7		0x645d
-+#define PCI_DEVICE_ID_INTEL_IPU7P5		0xb05d
+ };
+@@ -274,8 +146,6 @@ struct ipu6_isys_internal_tpg_pdata {
  
- static const struct pci_device_id ipu6_pci_tbl[] = {
- 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6) },
+ struct ipu6_hw_variants {
+ 	unsigned long offset;
+-	u32 nr_mmus;
+-	struct ipu6_mmu_hw mmu_hw[IPU6_MMU_MAX_DEVICES];
+ 	u8 cdc_fifos;
+ 	u8 cdc_fifo_threshold[IPU6_MAX_VC_IOSF_PORTS];
+ 	u32 dmem_offset;
 -- 
 2.55.0
 
