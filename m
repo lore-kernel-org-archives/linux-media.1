@@ -1,28 +1,28 @@
-Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011016.outbound.protection.outlook.com [52.101.65.16])
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012042.outbound.protection.outlook.com [52.101.66.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B034641BA83;
-	Fri, 21 Aug 2026 06:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01E4941D129;
+	Fri, 21 Aug 2026 06:38:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787294322; cv=fail; b=pI2czV0RrssCRoF5HhmfDfy8ujRGX4XJwiamazDg2GBwavqgfS7hGG7aHOM0gPScWSKDTx9wlwNSpKCrva9pSK5vvXZ2t315N9H8ASajzPtv3pNO79ny8AH7enQNXc5WbN7GDi4kSMZhlAPXSqIRIte6/kaTMvNzB8UCKvFScOQ=
+	t=1787294322; cv=fail; b=MUjk0hjAwI8TiExOa4lpHsWV+CtveP6IfMwceTIZhOzPQke6y7VAtsxyO/g7b+LqYeV9rSpmKyjfFsW5MHEJwRQA0kyV7DGGreNnt3WDWtXbbS9uyOTJtxlUZfE2qSe6rDEKuIQLLCtNXz795GzjC9GY097/a2Uw4CKRi8oKTwk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787294322; c=relaxed/simple;
-	bh=reF5MxB8KuLUSAWl7/hvDRJSu7jd+ltu42X6ajrxjMw=;
+	bh=2vqsuWI7+m1QxE+f2H/I11leeaeDI96p4iQOg+Y585A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=rJ4dJCvmtBOvq27jdNut/A5nVOWR9Mb0SFU2GCwVbhRcQezPQrI0AFhPRyMPUETFZcS8qb9lpjITSpCyLhdBMLZfVfjVWr3dPpBYblZFZsFi+jvupSlIcNEJ2C7rADqxEAby6WcyRssXDfTroAucDiqQsGPLcpx44PWnp9qUQHk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=al8VMIa3; arc=fail smtp.client-ip=52.101.65.16
+	 In-Reply-To:To:CC; b=iyvQ3SCoSpM+i8Y8mBwxRvWpZubC2P1KNF7f5EZLQPapy6Fit5r1X6nKoaAN/Gn3imJue1pGeBWuqgtlF/nTK6CKiFa9UaTddZi9bYjgogQ9Q9+DK/PlcO/bLpvoVrEp3NopS07aVd95cgEX0y2wRv6AO113NlYUeaAek7FlMDo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Fnlo11P/; arc=fail smtp.client-ip=52.101.66.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="al8VMIa3"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Fnlo11P/"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=JLHfhi4xr7zyeEOorg0dIalsXncB3jdtnRsVvhk5wHRTIXeEoK5B9IPHoJPOQAH1mDbw/8z7yppnXBqjZrTk1MtSQswLESAGn2vbdHSuNMb1diPQX6QtKix3h2cG3SylQVMBM4Z2xsnmsxDIueyqDsqTXXP3GliNy/QxC8WJyb1OsH7ku5r/N7E6I2vmn0mWeAgYFeLcNCAHElBsqnACVuV4BUDT34v0+7+rNWEXp1Oj/FdD20B9VhY6JRB5vzet2DYexEPzI291Hmuwo3Bdbq+7eq6JjOFBuGMADsfCUv+R3hjzesww5iybZCZnKdT4KObJHiu32+80u8oWXgtOPw==
+ b=HEy9mSRG0KPSpyAm65teMu6edXVoAWhZ4zIGPXMatFHCGm66RID70qLnGaJgvpz7Q1c7v89QIeNZUdwhns9P7Fwd+slM3jVvGhJTaQ6e/ftdGTRhrS47qFPR82c4AYfRcdUVvojEgRuMoPenjL3qnz67dcL1M3XL7u9bsZXcOXdy07UcA67DpRhFYwdjIrg/6R9UpNJ6BOWEqQLgOu+3Og7SaMlrydt91hwQzzcho4IWIAMxMgpO8CIA3acv6U5sd/3mCTxvOfjYYvJxS+QtPucE5NctuAv7Ld1akI9yN4uFfVPnFeyeWUwH/Oj2mtKERV8yf+YOWP29i3KnD2Cd/g==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qEnmxFCVEGEkykmWaP67rINmERbkOdovatriJdZBFoo=;
- b=TMQI/HI983oRqBRIJN369+vlIMTGqzJX+w3+ymBC3tcxH6aqMstZBk6VjR3pNvJ74JEjp9KAnBu7i3etzvCleDbIGxTVj9a5DzIatWKNu44qN5rPJCNS316GCVXPKRBoJA0w19eLhmHAedthExbsOAfy374PNUXhQCdAhVek9SnVMyaFvYmA5uEztY+erRp2OBF+MJvnew/+qpoKrGnLyBKT7ESwygjJFzSoocZIbjRIVFHjhhcv+gmK3wP15471fwRoLsU39gK4TGHs4ssMKE9DNS0K6AXfZhW44tA58uvecvbIjVmZ8803HLKOuCqMi45AlL3GulbI7CvpaG9KUQ==
+ bh=sL3mybwD8iwAhhFwx93bpSUy0vpP8I9PlCE8Q7OvOOA=;
+ b=dw5DvjR8Vql56XXvLoBGTqia8iSUE/0aNorDGKM7q395gpTwcDLs8AmVKdcyEHogHft8V0bzAIpGRPTcE94IZTpGI8GNFskkR00bU6VDdDa423d7y5O8HXqb34X6LmVkhqDnjvAXceeHMIPfsjZOAgmABJNidtBb7mWMrXtH4TbT+GCaAmW4sARBZHWPUDUO+6w8tarbWkFyawjXoIBPlindc4F7VkhpjQNJUhmkNxrMhSjszs8Svw+V4SbfzTOo6mTYatYIjLbJwqjFQNb/Pw3k4RwSR77461QI9e6f0h0Mb88pgWmD29H7ZU546qImuQ/DhE1ZamJVUUydC3GExQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.60) smtp.rcpttodomain=lists.infradead.org
  smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -30,16 +30,16 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=qEnmxFCVEGEkykmWaP67rINmERbkOdovatriJdZBFoo=;
- b=al8VMIa3RPb3lsgBWFREE7EmWUYtAOmxQmT7/3g23E9R8xsqUczdgCIi5wrmSClV+I1o455GLiUQlvZORduT72IHPM9z8jm0sBB/3THj8U2IxadVVIgxWEVloqWpcFd0MXTtAvx6oKLNyq48VpwBioe53NIeo0bZf/KzLQsmtsbNYd4zdQPgmCQS5YBXIK6V91KRmwVKriQSwmtl80VPg5yVBo9UH92CyXsPC79wpzSdRdpnI3EvUmnOaNB/wCl+XNF1QgazXuPRRDvKi2FTYs11txVjinDoYsWC4mZlfCvo3KSjPkeDQor5Itq5qi9i6zm4L70L/T1HdGmiP/V/8w==
-Received: from AS4P189CA0052.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:659::21)
- by AS2PR10MB6927.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:579::9) with
+ bh=sL3mybwD8iwAhhFwx93bpSUy0vpP8I9PlCE8Q7OvOOA=;
+ b=Fnlo11P/nXzF9mJnO3VLcIx3hpCKb8sLrCZo/z/FuDVrV9DipBBC7H9evShQ/Z/CVw54muZFedPArbrL3w8Q4rpPJqJl7XMos0GYAl+HTALJfoxe4jVJxIGJVvVo2U/7KRmTmMHmw4Ty7LA4D6nBKk96HS8Aj4w6VvLD7v1LzOLcoxnM+MC4kQsEPdrQxG04/OIk0rAO+ug35eOu0VOFOLtdVqD7mvux308vrvFEPRZ9pwdSIPmJdjOMqE9UEHvpIDcRa7Ci/TXYAw5yZbjH533l7/CnJztjxDjazYitFXVaGkMSjv3y6dTv8EuGuRfYoNcXsBRq6UkeYF9blJBObQ==
+Received: from AS4P189CA0062.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:659::9)
+ by PR3PR10MB4000.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:102:a0::15) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 06:38:30 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.8; Fri, 21 Aug
+ 2026 06:38:31 +0000
 Received: from AMS1EPF00000040.eurprd04.prod.outlook.com
- (2603:10a6:20b:659:cafe::85) by AS4P189CA0052.outlook.office365.com
- (2603:10a6:20b:659::21) with Microsoft SMTP Server (version=TLS1_3,
+ (2603:10a6:20b:659:cafe::6d) by AS4P189CA0062.outlook.office365.com
+ (2603:10a6:20b:659::9) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
  21 Aug 2026 06:38:30 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
@@ -51,19 +51,18 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
 Received: from smtpO365.st.com (164.130.1.60) by
  AMS1EPF00000040.mail.protection.outlook.com (10.167.16.37) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 06:38:29 +0000
+ 15.21.360.3 via Frontend Transport; Fri, 21 Aug 2026 06:38:30 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
  (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 08:43:29 +0200
+ 2026 08:43:30 +0200
 Received: from localhost (10.130.77.105) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 08:38:29 +0200
+ 2026 08:38:30 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Fri, 21 Aug 2026 08:38:13 +0200
-Subject: [PATCH v5 11/14] media: stm32: dcmipp: pixelproc: addition of
- dcmipp-pixelproc subdev
+Date: Fri, 21 Aug 2026 08:38:15 +0200
+Subject: [PATCH v5 13/14] media: stm32: dcmipp: rename bytecap into capture
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260821-stm32-dcmipp-pixel-pipes-support-v5-11-d140efb61d72@foss.st.com>
+Message-ID: <20260821-stm32-dcmipp-pixel-pipes-support-v5-13-d140efb61d72@foss.st.com>
 References: <20260821-stm32-dcmipp-pixel-pipes-support-v5-0-d140efb61d72@foss.st.com>
 In-Reply-To: <20260821-stm32-dcmipp-pixel-pipes-support-v5-0-d140efb61d72@foss.st.com>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, Hugues Fruchet
@@ -86,1020 +85,661 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF00000040:EE_|AS2PR10MB6927:EE_
-X-MS-Office365-Filtering-Correlation-Id: a507a0cc-3f92-4451-869b-08deff4ed039
+X-MS-TrafficTypeDiagnostic: AMS1EPF00000040:EE_|PR3PR10MB4000:EE_
+X-MS-Office365-Filtering-Correlation-Id: c87c76ff-ac8d-4637-1bd2-08deff4ed0d2
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|36860700016|82310400026|4022899009|23010399003|22082099003|18002099003|56012099006|10067099003|11063799006|6133799003;
+	BCL:0;ARA:13230040|23010399003|1800799024|82310400026|376014|36860700016|6133799003|56012099006|10067099003|22082099003|18002099003|11063799006;
 X-Microsoft-Antispam-Message-Info:
-	76lnU7rkvc3wz2FZJ5UWLZk9iV8xWEWh6DlYpgT0+L1bm4ClkhWUs4duu/77cwK5FTedPi/ysK4CRiJDL2euWFpN4X7eUeR2+hH+/1tsnFZ+7HaHKEfWBO1a9MXO1Ub2a4ZTlFdGJw1mo5NA6CgWm7o184Xrw1Bz0IEgYm5ouv0Lzt6o+XP1bgJSzgh0XL7EjOTuElUAcseulsEepY086MVbhhgO3De1E6SZMbl98ih1oBadfkDpzRp3YkM/2xnQgSA9aKebSjKk7bF9zP5HG5z8Ywt1TI3I08rc7PWEOMYvawp4fXAvmCEHWopULPU+pJldoxSyM7UdYcY1wOv2oCFCdr/Kkh2cdYFkT0A01s6hAUVMzdYPFaK2EYKwzbg7XLO6YZIaDPYskoP8waPPkbj/jiN6+367FlHo1CUWvOQwywwRwsmY9o6JZHPUiEqfzag0VRtl1ExocwS4HeDXulhlTjv4E74JMBo4J8tC3NkStPNo75qIZEqb37mpzfLGRwi7udjmnmhJIkrLZk7n+uFIUg4+zxoCgWvvIeaq5DRnufXjjdwnZxfBvt6GJPTfdQ8auE2qjmsjumHpnQ2xTkYmj6CSK4Wqmq7kUEkS7uIFeKZ8QjGyukY1a/95Dee+1zYIMq6fLQl1L/0Fbu73d5tLNbyrh8CjWEpeDhL+c/hvq5Yxof0svdnsXu8TYDHMEVMiQJMbatlFOIm5TvBdeQ==
+	K6hUVoWGhdHbKr5mIXbX/zEO4PsexWSKg97pDhMEHQcCKIgHJVswzUMcq+CLJTgPgCCevuIC6nPGhdq4kNoeRKe1HgrzuUQfqCEPHLv5QBjdN/nHmtPYpN9wvBWOqQr7MTdqJvqEPNTw2I8zohFgMohlh2h07q6k8M2IZ73HTCsKwSzCnBA8vRBLwarn58W5Isos4zK7jJ4aK2bOq6T4PEqZnkXXxIsywD1ANrfa4tYj9njtm0eU82XM9hhlXuzY4YbsRb60DftZxwFbkBrVj+seyRDBnkSBeTIKVUFCf8Ly7AuH4nh4YMYc0rdvS0CPR3JlY4gMdpevNNOvnHWHkecVu2cGvl7yaZCzg7XfzeQ1KXdFl3pGnava4cRozcPjF1rzccSh63Vx9AgNbRaSySStsDfTNGWLUbgcBTeC9b2uPcZ24qLWEDE7C8EJOBgdZ/CH9EPPUxT2J2VzwM4Fu7jkfvQEOxf2l7mFjF0qN6cV1VTsNhtp15D36gU9W4FaUOqnPRIXApbF4QKArzt1ndJ731HLiNGp1SndQ3MRhCrK6fg9G1URyO45ksUDhaKS2F3zPHTvdW/7JJOz1MSJprIJl8mE/S8BfrtpYxqgRrVXwYXsVqVginBFAQKJVPJfyK3PUT9OZeGZKatGTb1Q3xIesPdn3LlZfiAaDrDRHRzXPPESXkRjxh4FZYYb/DDwsvZXg0mYGAWLxlDsA/bzOw==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(36860700016)(82310400026)(4022899009)(23010399003)(22082099003)(18002099003)(56012099006)(10067099003)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(82310400026)(376014)(36860700016)(6133799003)(56012099006)(10067099003)(22082099003)(18002099003)(11063799006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	t7lmKDx+WCFsc67FBtent6zO3Svz3Loxj+2K33CFebfR2ufjsWq+SNDfeVSX3O4PxLtkEka7VB8idScBXyy0OmY8yjDwkcZxDP42ZlRbBsUC+7bcZVzLm4lb6grnabJtC7iioActWz/dgTY23/4Rmg6CXy0WXkPmkiS0LvC4L/QATlca825ELTUZrWDy12k4VUhrw3B2LETC26M9pHWWigHdSvV0cNAj/Ibs9rDSy6tnp347ZZ11aaf3rNGpRPC9/rqbKOw2vzJFh6YfM+/jZ2e2eYRTWX8zNo/PG3M/jA5BBx6T57xbVXRUU6DDynJe+cSxcVxhaOR5VCcJoCwfl0QPOh/dBIoibRKuMWZmSizbsPQOiTXTMFRe1pR8MEiKT1/1zgGsmGfwp1NHtLjKsA7yCO1DnAsbBWqcpQUNdtrZB0jEI/1ks6vQ15nPQKL7
+	m8cTpc4mDX8guqFBrMJO469PydsUfqvnjdSgrqQXIvoL8S8g+i7qPS7tpSAtJVvTi/jjXbnkCQoVPkKIDhQtFh+YCSvvwfx2hdbW6zWgeUc8kiGD9k8KOkk73Wy9rdrfm37eF8cBFE8WNzPvsM3CbGEW1B2UGriT3ddn6DeqVqiRj/eWOmvgA2FY0vI902MjUECkbbU1qRsp+Omd7SpDCqQdTpPbhwoQ2OqLpLipNqwkJQCWL8toukrQCZSeXzlJEpBgUAkVMinfPbIOq4guyV93fbiGE75He+dafG/RPAZiiey2Pr1iQnZU7VsyUUzHL5jjj19MuAqeI/wNMb9Y82yDJXt+2UA9lCaIj/dcL5UuduHgAbWrxsV1p8fE1ReiEiQZMUycHyu5n8mu5UKP/pLujXmzSSHjveCxPwAx0KRdGNNZZiZN1I+TjDza0aIN
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 06:38:29.8236
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 06:38:30.8262
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a507a0cc-3f92-4451-869b-08deff4ed039
+X-MS-Exchange-CrossTenant-Network-Message-Id: c87c76ff-ac8d-4637-1bd2-08deff4ed0d2
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
 	AMS1EPF00000040.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS2PR10MB6927
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PR3PR10MB4000
 
-Addition of the driver for dcmipp-pixelproc subdev.  This subdev is the
-last one before the capture device at the tail of both main and
-aux pipelines.
-
-It is in charge of:
-  - framerate adjustment
-  - downscale
-  - gamma correction
-  - color conversion
-  - pixel packing
+Since the bytecap video driver is now handling all
+capture (byte & pixel), rename the file and structs
+*into capture. This is done by:
+  - renaming of dcmipp-bytecap.c into dcmipp-capture.c
+  - replace of dcmipp_bytecap strings into dcmipp_capture
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
  .../media/platform/st/stm32/stm32-dcmipp/Makefile  |   2 +-
- .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |   4 +
- .../st/stm32/stm32-dcmipp/dcmipp-pixelproc.c       | 940 +++++++++++++++++++++
- 3 files changed, 945 insertions(+), 1 deletion(-)
+ .../{dcmipp-bytecap.c => dcmipp-capture.c}         | 188 ++++++++++-----------
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h |   4 +-
+ .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   |   8 +-
+ 4 files changed, 101 insertions(+), 101 deletions(-)
 
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile b/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
-index a708534a51af4..7178934bb116b 100644
+index 7178934bb116b..e35d45a0aca23 100644
 --- a/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/Makefile
 @@ -1,5 +1,5 @@
  # SPDX-License-Identifier: GPL-2.0
- stm32-dcmipp-y := dcmipp-core.o dcmipp-common.o dcmipp-input.o dcmipp-byteproc.o dcmipp-bytecap.o
--stm32-dcmipp-y += dcmipp-pixelcommon.o dcmipp-isp.o
-+stm32-dcmipp-y += dcmipp-pixelcommon.o dcmipp-isp.o dcmipp-pixelproc.o
+-stm32-dcmipp-y := dcmipp-core.o dcmipp-common.o dcmipp-input.o dcmipp-byteproc.o dcmipp-bytecap.o
++stm32-dcmipp-y := dcmipp-core.o dcmipp-common.o dcmipp-input.o dcmipp-byteproc.o dcmipp-capture.o
+ stm32-dcmipp-y += dcmipp-pixelcommon.o dcmipp-isp.o dcmipp-pixelproc.o
  
  obj-$(CONFIG_VIDEO_STM32_DCMIPP) += stm32-dcmipp.o
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-capture.c
+similarity index 85%
+rename from drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
+rename to drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-capture.c
+index 4a8976da576af..fe7767f908b7c 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-bytecap.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-capture.c
+@@ -94,7 +94,7 @@
+ 
+ #define DCMIPP_PxPPCR_SWAPRB		BIT(4)
+ 
+-struct dcmipp_bytecap_pix_map {
++struct dcmipp_capture_pix_map {
+ 	unsigned int code;
+ 	u32 pixelformat;
+ 	u32 plane_nb;
+@@ -108,7 +108,7 @@ struct dcmipp_bytecap_pix_map {
+ 		.pixelformat = V4L2_PIX_FMT_##fmt	\
+ 	}
+ 
+-static const struct dcmipp_bytecap_pix_map dcmipp_bytecap_dump_pix_map_list[] = {
++static const struct dcmipp_capture_pix_map dcmipp_capture_dump_pix_map_list[] = {
+ 	PIXMAP_MBUS_PFMT(RGB565_2X8_LE, RGB565),
+ 	PIXMAP_MBUS_PFMT(RGB565_1X16, RGB565),
+ 	PIXMAP_MBUS_PFMT(RGB888_1X24, RGB24),
+@@ -152,7 +152,7 @@ static const struct dcmipp_bytecap_pix_map dcmipp_bytecap_dump_pix_map_list[] =
+ 		.swap_uv = swap,			\
+ 	}
+ 
+-static const struct dcmipp_bytecap_pix_map dcmipp_bytecap_pixel_pix_map_list[] = {
++static const struct dcmipp_capture_pix_map dcmipp_capture_pixel_pix_map_list[] = {
+ 	/* Coplanar formats are supported on main & aux pipe */
+ 	PIXMAP_MBUS_PIXEL_PFMT(RGB888_1X24, RGB565, 1, DCMIPP_PxPPCR_FORMAT_RGB565, 0),
+ 	PIXMAP_MBUS_PIXEL_PFMT(YUV8_1X24, YUYV, 1, DCMIPP_PxPPCR_FORMAT_YUYV, 0),
+@@ -187,7 +187,7 @@ struct dcmipp_buf {
+ 	struct list_head	list;
+ };
+ 
+-struct dcmipp_bytecap_device {
++struct dcmipp_capture_device {
+ 	struct dcmipp_ent_device ved;
+ 	struct video_device vdev;
+ 	struct device *dev;
+@@ -219,7 +219,7 @@ struct dcmipp_bytecap_device {
+ 
+ 	int pipe_id;
+ 
+-	const struct dcmipp_bytecap_pix_map *pix_map;
++	const struct dcmipp_capture_pix_map *pix_map;
+ 	unsigned int pix_map_array_size;
+ 
+ 	u32 cmsr2;
+@@ -237,8 +237,8 @@ struct dcmipp_bytecap_device {
+ 	} count;
+ };
+ 
+-static const struct dcmipp_bytecap_pix_map *
+-dcmipp_bytecap_pix_map_by_pixelformat(struct dcmipp_bytecap_device *vcap,
++static const struct dcmipp_capture_pix_map *
++dcmipp_capture_pix_map_by_pixelformat(struct dcmipp_capture_device *vcap,
+ 				      u32 pixelformat)
+ {
+ 	for (unsigned int i = 0; i < vcap->pix_map_array_size; i++) {
+@@ -249,11 +249,11 @@ dcmipp_bytecap_pix_map_by_pixelformat(struct dcmipp_bytecap_device *vcap,
+ 	return NULL;
+ }
+ 
+-static bool dcmipp_bytecap_is_format_valid(struct dcmipp_bytecap_device *vcap,
++static bool dcmipp_capture_is_format_valid(struct dcmipp_capture_device *vcap,
+ 					   unsigned int pixelformat)
+ {
+-	const struct dcmipp_bytecap_pix_map *vpix =
+-		dcmipp_bytecap_pix_map_by_pixelformat(vcap, pixelformat);
++	const struct dcmipp_capture_pix_map *vpix =
++		dcmipp_capture_pix_map_by_pixelformat(vcap, pixelformat);
+ 
+ 	if (!vpix || (vpix->plane_nb > 1 && vcap->pipe_id != 1))
+ 		return false;
+@@ -341,7 +341,7 @@ static inline int frame_planes(dma_addr_t base_addr, dma_addr_t addrs[],
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_querycap(struct file *file, void *priv,
++static int dcmipp_capture_querycap(struct file *file, void *priv,
+ 				   struct v4l2_capability *cap)
+ {
+ 	strscpy(cap->driver, DCMIPP_PDEV_NAME, sizeof(cap->driver));
+@@ -350,25 +350,25 @@ static int dcmipp_bytecap_querycap(struct file *file, void *priv,
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_g_fmt_vid_cap(struct file *file, void *priv,
++static int dcmipp_capture_g_fmt_vid_cap(struct file *file, void *priv,
+ 					struct v4l2_format *f)
+ {
+-	struct dcmipp_bytecap_device *vcap = video_drvdata(file);
++	struct dcmipp_capture_device *vcap = video_drvdata(file);
+ 
+ 	f->fmt.pix = vcap->format;
+ 
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_try_fmt_vid_cap(struct file *file, void *priv,
++static int dcmipp_capture_try_fmt_vid_cap(struct file *file, void *priv,
+ 					  struct v4l2_format *f)
+ {
+-	struct dcmipp_bytecap_device *vcap = video_drvdata(file);
++	struct dcmipp_capture_device *vcap = video_drvdata(file);
+ 	struct v4l2_pix_format *format = &f->fmt.pix;
+ 	u32 in_w, in_h;
+ 
+ 	/* Don't accept a pixelformat that is not on the table */
+-	if (!dcmipp_bytecap_is_format_valid(vcap, format->pixelformat))
++	if (!dcmipp_capture_is_format_valid(vcap, format->pixelformat))
+ 		format->pixelformat = fmt_default.pixelformat;
+ 
+ 	/* Adjust width & height */
+@@ -403,17 +403,17 @@ static int dcmipp_bytecap_try_fmt_vid_cap(struct file *file, void *priv,
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_s_fmt_vid_cap(struct file *file, void *priv,
++static int dcmipp_capture_s_fmt_vid_cap(struct file *file, void *priv,
+ 					struct v4l2_format *f)
+ {
+-	struct dcmipp_bytecap_device *vcap = video_drvdata(file);
++	struct dcmipp_capture_device *vcap = video_drvdata(file);
+ 	int ret;
+ 
+ 	/* Do not change the format while stream is on */
+ 	if (vb2_is_busy(&vcap->queue))
+ 		return -EBUSY;
+ 
+-	ret = dcmipp_bytecap_try_fmt_vid_cap(file, priv, f);
++	ret = dcmipp_capture_try_fmt_vid_cap(file, priv, f);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -435,10 +435,10 @@ static int dcmipp_bytecap_s_fmt_vid_cap(struct file *file, void *priv,
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_enum_fmt_vid_cap(struct file *file, void *priv,
++static int dcmipp_capture_enum_fmt_vid_cap(struct file *file, void *priv,
+ 					   struct v4l2_fmtdesc *f)
+ {
+-	struct dcmipp_bytecap_device *vcap = video_drvdata(file);
++	struct dcmipp_capture_device *vcap = video_drvdata(file);
+ 	unsigned int index = f->index;
+ 	unsigned int i, prev_pixelformat = 0;
+ 
+@@ -476,17 +476,17 @@ static int dcmipp_bytecap_enum_fmt_vid_cap(struct file *file, void *priv,
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_enum_framesizes(struct file *file, void *fh,
++static int dcmipp_capture_enum_framesizes(struct file *file, void *fh,
+ 					  struct v4l2_frmsizeenum *fsize)
+ {
+-	struct dcmipp_bytecap_device *vcap = video_drvdata(file);
++	struct dcmipp_capture_device *vcap = video_drvdata(file);
+ 
+ 
+ 	if (fsize->index)
+ 		return -EINVAL;
+ 
+ 	/* Only accept code in the pix map table */
+-	if (!dcmipp_bytecap_is_format_valid(vcap, fsize->pixel_format))
++	if (!dcmipp_capture_is_format_valid(vcap, fsize->pixel_format))
+ 		return -EINVAL;
+ 
+ 	fsize->type = V4L2_FRMSIZE_TYPE_CONTINUOUS;
+@@ -500,7 +500,7 @@ static int dcmipp_bytecap_enum_framesizes(struct file *file, void *fh,
+ 	return 0;
+ }
+ 
+-static const struct v4l2_file_operations dcmipp_bytecap_fops = {
++static const struct v4l2_file_operations dcmipp_capture_fops = {
+ 	.owner		= THIS_MODULE,
+ 	.open		= v4l2_fh_open,
+ 	.release	= vb2_fop_release,
+@@ -510,14 +510,14 @@ static const struct v4l2_file_operations dcmipp_bytecap_fops = {
+ 	.mmap           = vb2_fop_mmap,
+ };
+ 
+-static const struct v4l2_ioctl_ops dcmipp_bytecap_ioctl_ops = {
+-	.vidioc_querycap = dcmipp_bytecap_querycap,
++static const struct v4l2_ioctl_ops dcmipp_capture_ioctl_ops = {
++	.vidioc_querycap = dcmipp_capture_querycap,
+ 
+-	.vidioc_g_fmt_vid_cap = dcmipp_bytecap_g_fmt_vid_cap,
+-	.vidioc_s_fmt_vid_cap = dcmipp_bytecap_s_fmt_vid_cap,
+-	.vidioc_try_fmt_vid_cap = dcmipp_bytecap_try_fmt_vid_cap,
+-	.vidioc_enum_fmt_vid_cap = dcmipp_bytecap_enum_fmt_vid_cap,
+-	.vidioc_enum_framesizes = dcmipp_bytecap_enum_framesizes,
++	.vidioc_g_fmt_vid_cap = dcmipp_capture_g_fmt_vid_cap,
++	.vidioc_s_fmt_vid_cap = dcmipp_capture_s_fmt_vid_cap,
++	.vidioc_try_fmt_vid_cap = dcmipp_capture_try_fmt_vid_cap,
++	.vidioc_enum_fmt_vid_cap = dcmipp_capture_enum_fmt_vid_cap,
++	.vidioc_enum_framesizes = dcmipp_capture_enum_framesizes,
+ 
+ 	.vidioc_reqbufs = vb2_ioctl_reqbufs,
+ 	.vidioc_create_bufs = vb2_ioctl_create_bufs,
+@@ -530,7 +530,7 @@ static const struct v4l2_ioctl_ops dcmipp_bytecap_ioctl_ops = {
+ 	.vidioc_streamoff = vb2_ioctl_streamoff,
+ };
+ 
+-static void dcmipp_start_capture(struct dcmipp_bytecap_device *vcap,
++static void dcmipp_start_capture(struct dcmipp_capture_device *vcap,
+ 				 struct dcmipp_buf *buf)
+ {
+ 	/* Set buffer address */
+@@ -557,7 +557,7 @@ static void dcmipp_start_capture(struct dcmipp_bytecap_device *vcap,
+ 	reg_set(vcap, DCMIPP_PxFCTCR(vcap->pipe_id), DCMIPP_PxFCTCR_CPTREQ);
+ }
+ 
+-static void dcmipp_bytecap_all_buffers_done(struct dcmipp_bytecap_device *vcap,
++static void dcmipp_capture_all_buffers_done(struct dcmipp_capture_device *vcap,
+ 					    enum vb2_buffer_state state)
+ {
+ 	struct dcmipp_buf *buf, *node;
+@@ -568,10 +568,10 @@ static void dcmipp_bytecap_all_buffers_done(struct dcmipp_bytecap_device *vcap,
+ 	}
+ }
+ 
+-static int dcmipp_bytecap_start_streaming(struct vb2_queue *vq,
++static int dcmipp_capture_start_streaming(struct vb2_queue *vq,
+ 					  unsigned int count)
+ {
+-	struct dcmipp_bytecap_device *vcap = vb2_get_drv_priv(vq);
++	struct dcmipp_capture_device *vcap = vb2_get_drv_priv(vq);
+ 	struct media_entity *entity = &vcap->vdev.entity;
+ 	struct dcmipp_buf *buf;
+ 	struct media_pad *pad;
+@@ -582,7 +582,7 @@ static int dcmipp_bytecap_start_streaming(struct vb2_queue *vq,
+ 
+ 	/*
+ 	 * Get source subdev - since link is IMMUTABLE, pointer is cached
+-	 * within the dcmipp_bytecap_device structure
++	 * within the dcmipp_capture_device structure
+ 	 */
+ 	if (!vcap->s_subdev) {
+ 		pad = media_pad_remote_pad_first(&vcap->vdev.entity.pads[0]);
+@@ -616,8 +616,8 @@ static int dcmipp_bytecap_start_streaming(struct vb2_queue *vq,
+ 	spin_lock_irq(&vcap->irqlock);
+ 
+ 	if (vcap->pipe_id != 0) {
+-		const struct dcmipp_bytecap_pix_map *vpix =
+-			dcmipp_bytecap_pix_map_by_pixelformat(vcap, vcap->format.pixelformat);
++		const struct dcmipp_capture_pix_map *vpix =
++			dcmipp_capture_pix_map_by_pixelformat(vcap, vcap->format.pixelformat);
+ 		unsigned int ppcr = 0;
+ 
+ 		/*
+@@ -666,14 +666,14 @@ static int dcmipp_bytecap_start_streaming(struct vb2_queue *vq,
+ 	 * Return all buffers to vb2 in QUEUED state.
+ 	 * This will give ownership back to userspace
+ 	 */
+-	dcmipp_bytecap_all_buffers_done(vcap, VB2_BUF_STATE_QUEUED);
++	dcmipp_capture_all_buffers_done(vcap, VB2_BUF_STATE_QUEUED);
+ 	vcap->active = NULL;
+ 	spin_unlock_irq(&vcap->irqlock);
+ 
+ 	return ret;
+ }
+ 
+-static void dcmipp_dump_status(struct dcmipp_bytecap_device *vcap)
++static void dcmipp_dump_status(struct dcmipp_capture_device *vcap)
+ {
+ 	struct device *dev = vcap->dev;
+ 
+@@ -689,9 +689,9 @@ static void dcmipp_dump_status(struct dcmipp_bytecap_device *vcap)
+  * Stop the stream engine. Any remaining buffers in the stream queue are
+  * dequeued and passed on to the vb2 framework marked as STATE_ERROR.
+  */
+-static void dcmipp_bytecap_stop_streaming(struct vb2_queue *vq)
++static void dcmipp_capture_stop_streaming(struct vb2_queue *vq)
+ {
+-	struct dcmipp_bytecap_device *vcap = vb2_get_drv_priv(vq);
++	struct dcmipp_capture_device *vcap = vb2_get_drv_priv(vq);
+ 	int ret;
+ 	u32 status;
+ 
+@@ -729,7 +729,7 @@ static void dcmipp_bytecap_stop_streaming(struct vb2_queue *vq)
+ 	spin_lock_irq(&vcap->irqlock);
+ 
+ 	/* Return all queued buffers to vb2 in ERROR state */
+-	dcmipp_bytecap_all_buffers_done(vcap, VB2_BUF_STATE_ERROR);
++	dcmipp_capture_all_buffers_done(vcap, VB2_BUF_STATE_ERROR);
+ 	INIT_LIST_HEAD(&vcap->buffers);
+ 
+ 	vcap->active = NULL;
+@@ -749,9 +749,9 @@ static void dcmipp_bytecap_stop_streaming(struct vb2_queue *vq)
+ 			 vcap->count.underrun, vcap->count.buffers);
+ }
+ 
+-static int dcmipp_bytecap_buf_prepare(struct vb2_buffer *vb)
++static int dcmipp_capture_buf_prepare(struct vb2_buffer *vb)
+ {
+-	struct dcmipp_bytecap_device *vcap =  vb2_get_drv_priv(vb->vb2_queue);
++	struct dcmipp_capture_device *vcap =  vb2_get_drv_priv(vb->vb2_queue);
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct dcmipp_buf *buf = container_of(vbuf, struct dcmipp_buf, vb);
+ 	struct v4l2_pix_format *format = &vcap->format;
+@@ -803,9 +803,9 @@ static int dcmipp_bytecap_buf_prepare(struct vb2_buffer *vb)
+ 	return 0;
+ }
+ 
+-static void dcmipp_bytecap_buf_queue(struct vb2_buffer *vb2_buf)
++static void dcmipp_capture_buf_queue(struct vb2_buffer *vb2_buf)
+ {
+-	struct dcmipp_bytecap_device *vcap =
++	struct dcmipp_capture_device *vcap =
+ 		vb2_get_drv_priv(vb2_buf->vb2_queue);
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb2_buf);
+ 	struct dcmipp_buf *buf = container_of(vbuf, struct dcmipp_buf, vb);
+@@ -829,13 +829,13 @@ static void dcmipp_bytecap_buf_queue(struct vb2_buffer *vb2_buf)
+ 	spin_unlock_irq(&vcap->irqlock);
+ }
+ 
+-static int dcmipp_bytecap_queue_setup(struct vb2_queue *vq,
++static int dcmipp_capture_queue_setup(struct vb2_queue *vq,
+ 				      unsigned int *nbuffers,
+ 				      unsigned int *nplanes,
+ 				      unsigned int sizes[],
+ 				      struct device *alloc_devs[])
+ {
+-	struct dcmipp_bytecap_device *vcap = vb2_get_drv_priv(vq);
++	struct dcmipp_capture_device *vcap = vb2_get_drv_priv(vq);
+ 	unsigned int size;
+ 
+ 	size = vcap->format.sizeimage;
+@@ -853,7 +853,7 @@ static int dcmipp_bytecap_queue_setup(struct vb2_queue *vq,
+ 	return 0;
+ }
+ 
+-static int dcmipp_bytecap_buf_init(struct vb2_buffer *vb)
++static int dcmipp_capture_buf_init(struct vb2_buffer *vb)
+ {
+ 	struct vb2_v4l2_buffer *vbuf = to_vb2_v4l2_buffer(vb);
+ 	struct dcmipp_buf *buf = container_of(vbuf, struct dcmipp_buf, vb);
+@@ -863,19 +863,19 @@ static int dcmipp_bytecap_buf_init(struct vb2_buffer *vb)
+ 	return 0;
+ }
+ 
+-static const struct vb2_ops dcmipp_bytecap_qops = {
+-	.start_streaming	= dcmipp_bytecap_start_streaming,
+-	.stop_streaming		= dcmipp_bytecap_stop_streaming,
+-	.buf_init		= dcmipp_bytecap_buf_init,
+-	.buf_prepare		= dcmipp_bytecap_buf_prepare,
+-	.buf_queue		= dcmipp_bytecap_buf_queue,
+-	.queue_setup		= dcmipp_bytecap_queue_setup,
++static const struct vb2_ops dcmipp_capture_qops = {
++	.start_streaming	= dcmipp_capture_start_streaming,
++	.stop_streaming		= dcmipp_capture_stop_streaming,
++	.buf_init		= dcmipp_capture_buf_init,
++	.buf_prepare		= dcmipp_capture_buf_prepare,
++	.buf_queue		= dcmipp_capture_buf_queue,
++	.queue_setup		= dcmipp_capture_queue_setup,
+ };
+ 
+-static void dcmipp_bytecap_release(struct video_device *vdev)
++static void dcmipp_capture_release(struct video_device *vdev)
+ {
+-	struct dcmipp_bytecap_device *vcap =
+-		container_of(vdev, struct dcmipp_bytecap_device, vdev);
++	struct dcmipp_capture_device *vcap =
++		container_of(vdev, struct dcmipp_capture_device, vdev);
+ 
+ 	dcmipp_pads_cleanup(vcap->ved.pads);
+ 	mutex_destroy(&vcap->lock);
+@@ -883,16 +883,16 @@ static void dcmipp_bytecap_release(struct video_device *vdev)
+ 	kfree(vcap);
+ }
+ 
+-void dcmipp_bytecap_ent_release(struct dcmipp_ent_device *ved)
++void dcmipp_capture_ent_release(struct dcmipp_ent_device *ved)
+ {
+-	struct dcmipp_bytecap_device *vcap =
+-		container_of(ved, struct dcmipp_bytecap_device, ved);
++	struct dcmipp_capture_device *vcap =
++		container_of(ved, struct dcmipp_capture_device, ved);
+ 
+ 	media_entity_cleanup(ved->ent);
+ 	vb2_video_unregister_device(&vcap->vdev);
+ }
+ 
+-static void dcmipp_buffer_done(struct dcmipp_bytecap_device *vcap,
++static void dcmipp_buffer_done(struct dcmipp_capture_device *vcap,
+ 			       struct dcmipp_buf *buf,
+ 			       size_t bytesused,
+ 			       int err)
+@@ -916,7 +916,7 @@ static void dcmipp_buffer_done(struct dcmipp_bytecap_device *vcap,
+ 
+ /* irqlock must be held */
+ static void
+-dcmipp_bytecap_set_next_frame_or_stop(struct dcmipp_bytecap_device *vcap)
++dcmipp_capture_set_next_frame_or_stop(struct dcmipp_capture_device *vcap)
+ {
+ 	if (!vcap->next && list_is_singular(&vcap->buffers)) {
+ 		/*
+@@ -954,7 +954,7 @@ dcmipp_bytecap_set_next_frame_or_stop(struct dcmipp_bytecap_device *vcap)
+ }
+ 
+ /* irqlock must be held */
+-static void dcmipp_bytecap_process_frame(struct dcmipp_bytecap_device *vcap,
++static void dcmipp_capture_process_frame(struct dcmipp_capture_device *vcap,
+ 					 size_t bytesused)
+ {
+ 	int err = 0;
+@@ -980,10 +980,10 @@ static void dcmipp_bytecap_process_frame(struct dcmipp_bytecap_device *vcap,
+ 	vcap->active = NULL;
+ }
+ 
+-static irqreturn_t dcmipp_bytecap_irq_thread(int irq, void *arg)
++static irqreturn_t dcmipp_capture_irq_thread(int irq, void *arg)
+ {
+-	struct dcmipp_bytecap_device *vcap =
+-			container_of(arg, struct dcmipp_bytecap_device, ved);
++	struct dcmipp_capture_device *vcap =
++			container_of(arg, struct dcmipp_capture_device, ved);
+ 	u32 cmsr2_pxframef;
+ 	u32 cmsr2_pxvsyncf;
+ 	u32 cmsr2_pxovrf;
+@@ -1013,7 +1013,7 @@ static irqreturn_t dcmipp_bytecap_irq_thread(int irq, void *arg)
+ 			bytesused = reg_read(vcap, DCMIPP_P0DCCNTR);
+ 		else
+ 			bytesused = vcap->format.sizeimage;
+-		dcmipp_bytecap_process_frame(vcap, bytesused);
++		dcmipp_capture_process_frame(vcap, bytesused);
+ 	}
+ 
+ 	if (vcap->cmsr2 & cmsr2_pxvsyncf) {
+@@ -1033,7 +1033,7 @@ static irqreturn_t dcmipp_bytecap_irq_thread(int irq, void *arg)
+ 		 * active (but not used) buffer and put it back into next.
+ 		 */
+ 		swap(vcap->active, vcap->next);
+-		dcmipp_bytecap_set_next_frame_or_stop(vcap);
++		dcmipp_capture_set_next_frame_or_stop(vcap);
+ 	}
+ 
+ out:
+@@ -1041,10 +1041,10 @@ static irqreturn_t dcmipp_bytecap_irq_thread(int irq, void *arg)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static irqreturn_t dcmipp_bytecap_irq_callback(int irq, void *arg)
++static irqreturn_t dcmipp_capture_irq_callback(int irq, void *arg)
+ {
+-	struct dcmipp_bytecap_device *vcap =
+-			container_of(arg, struct dcmipp_bytecap_device, ved);
++	struct dcmipp_capture_device *vcap =
++			container_of(arg, struct dcmipp_capture_device, ved);
+ 	struct dcmipp_ent_device *ved = arg;
+ 
+ 	/* Store interrupt status register */
+@@ -1059,12 +1059,12 @@ static irqreturn_t dcmipp_bytecap_irq_callback(int irq, void *arg)
+ 	return IRQ_WAKE_THREAD;
+ }
+ 
+-static int dcmipp_bytecap_link_validate(struct media_link *link)
++static int dcmipp_capture_link_validate(struct media_link *link)
+ {
+ 	struct media_entity *entity = link->sink->entity;
+ 	struct video_device *vd = media_entity_to_video_device(entity);
+-	struct dcmipp_bytecap_device *vcap = container_of(vd,
+-					struct dcmipp_bytecap_device, vdev);
++	struct dcmipp_capture_device *vcap = container_of(vd,
++					struct dcmipp_capture_device, vdev);
+ 	struct v4l2_subdev *source_sd =
+ 		media_entity_to_v4l2_subdev(link->source->entity);
+ 	struct v4l2_subdev_format source_fmt = {
+@@ -1113,8 +1113,8 @@ static int dcmipp_bytecap_link_validate(struct media_link *link)
+ 	return 0;
+ }
+ 
+-static const struct media_entity_operations dcmipp_bytecap_entity_ops = {
+-	.link_validate = dcmipp_bytecap_link_validate,
++static const struct media_entity_operations dcmipp_capture_entity_ops = {
++	.link_validate = dcmipp_capture_link_validate,
+ };
+ 
+ static int dcmipp_name_to_pipe_id(const char *name)
+@@ -1129,17 +1129,17 @@ static int dcmipp_name_to_pipe_id(const char *name)
+ 		return -EINVAL;
+ }
+ 
+-struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
++struct dcmipp_ent_device *dcmipp_capture_ent_init(const char *entity_name,
+ 						  struct dcmipp_device *dcmipp)
+ {
+-	struct dcmipp_bytecap_device *vcap;
++	struct dcmipp_capture_device *vcap;
+ 	struct device *dev = dcmipp->dev;
+ 	struct video_device *vdev;
+ 	struct vb2_queue *q;
+ 	const unsigned long pad_flag = MEDIA_PAD_FL_SINK;
+ 	int ret = 0;
+ 
+-	/* Allocate the dcmipp_bytecap_device struct */
++	/* Allocate the dcmipp_capture_device struct */
+ 	vcap = kzalloc_obj(*vcap);
+ 	if (!vcap)
+ 		return ERR_PTR(-ENOMEM);
+@@ -1154,11 +1154,11 @@ struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
+ 
+ 	/* Initialize supported format table format */
+ 	if (vcap->pipe_id == 0) {
+-		vcap->pix_map = dcmipp_bytecap_dump_pix_map_list;
+-		vcap->pix_map_array_size = ARRAY_SIZE(dcmipp_bytecap_dump_pix_map_list);
++		vcap->pix_map = dcmipp_capture_dump_pix_map_list;
++		vcap->pix_map_array_size = ARRAY_SIZE(dcmipp_capture_dump_pix_map_list);
+ 	} else {
+-		vcap->pix_map = dcmipp_bytecap_pixel_pix_map_list;
+-		vcap->pix_map_array_size = ARRAY_SIZE(dcmipp_bytecap_pixel_pix_map_list);
++		vcap->pix_map = dcmipp_capture_pixel_pix_map_list;
++		vcap->pix_map_array_size = ARRAY_SIZE(dcmipp_capture_pixel_pix_map_list);
+ 	}
+ 
+ 	/* Allocate the pads */
+@@ -1173,7 +1173,7 @@ struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
+ 	/* Initialize the media entity */
+ 	vcap->vdev.entity.name = entity_name;
+ 	vcap->vdev.entity.function = MEDIA_ENT_F_IO_V4L;
+-	vcap->vdev.entity.ops = &dcmipp_bytecap_entity_ops;
++	vcap->vdev.entity.ops = &dcmipp_capture_entity_ops;
+ 	ret = media_entity_pads_init(&vcap->vdev.entity, 1, vcap->ved.pads);
+ 	if (ret)
+ 		goto err_clean_pads;
+@@ -1188,7 +1188,7 @@ struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
+ 	q->lock = &vcap->lock;
+ 	q->drv_priv = vcap;
+ 	q->buf_struct_size = sizeof(struct dcmipp_buf);
+-	q->ops = &dcmipp_bytecap_qops;
++	q->ops = &dcmipp_capture_qops;
+ 	q->mem_ops = &vb2_dma_contig_memops;
+ 	q->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_MONOTONIC;
+ 	q->min_queued_buffers = 1;
+@@ -1217,8 +1217,8 @@ struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
+ 
+ 	/* Fill the dcmipp_ent_device struct */
+ 	vcap->ved.ent = &vcap->vdev.entity;
+-	vcap->ved.handler = dcmipp_bytecap_irq_callback;
+-	vcap->ved.thread_fn = dcmipp_bytecap_irq_thread;
++	vcap->ved.handler = dcmipp_capture_irq_callback;
++	vcap->ved.thread_fn = dcmipp_capture_irq_thread;
+ 	vcap->dev = dev;
+ 	vcap->regs = dcmipp->regs;
+ 
+@@ -1226,9 +1226,9 @@ struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
+ 	vdev = &vcap->vdev;
+ 	vdev->device_caps = V4L2_CAP_VIDEO_CAPTURE | V4L2_CAP_STREAMING |
+ 			    V4L2_CAP_IO_MC;
+-	vdev->release = dcmipp_bytecap_release;
+-	vdev->fops = &dcmipp_bytecap_fops;
+-	vdev->ioctl_ops = &dcmipp_bytecap_ioctl_ops;
++	vdev->release = dcmipp_capture_release;
++	vdev->fops = &dcmipp_capture_fops;
++	vdev->ioctl_ops = &dcmipp_capture_ioctl_ops;
+ 	vdev->lock = &vcap->lock;
+ 	vdev->queue = q;
+ 	vdev->v4l2_dev = &dcmipp->v4l2_dev;
 diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-index c699905ee6e8c..68766145d543c 100644
+index 68766145d543c..007912c3a7f8e 100644
 --- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
 +++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-@@ -286,5 +286,9 @@ void dcmipp_bytecap_ent_release(struct dcmipp_ent_device *ved);
+@@ -280,9 +280,9 @@ struct dcmipp_ent_device *
+ dcmipp_byteproc_ent_init(const char *entity_name,
+ 			 struct dcmipp_device *dcmipp);
+ void dcmipp_byteproc_ent_release(struct dcmipp_ent_device *ved);
+-struct dcmipp_ent_device *dcmipp_bytecap_ent_init(const char *entity_name,
++struct dcmipp_ent_device *dcmipp_capture_ent_init(const char *entity_name,
+ 						  struct dcmipp_device *dcmipp);
+-void dcmipp_bytecap_ent_release(struct dcmipp_ent_device *ved);
++void dcmipp_capture_ent_release(struct dcmipp_ent_device *ved);
  struct dcmipp_ent_device *dcmipp_isp_ent_init(const char *entity_name,
  					      struct dcmipp_device *dcmipp);
  void dcmipp_isp_ent_release(struct dcmipp_ent_device *ved);
-+struct dcmipp_ent_device *
-+dcmipp_pixelproc_ent_init(const char *entity_name,
-+			  struct dcmipp_device *dcmipp);
-+void dcmipp_pixelproc_ent_release(struct dcmipp_ent_device *ved);
+diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+index 9aba16096d289..a52b3b0e3c375 100644
+--- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
++++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
+@@ -50,8 +50,8 @@ static const struct dcmipp_ent_config stm32mp13_ent_config[] = {
+ 	},
+ 	{
+ 		.name = "dcmipp_dump_capture",
+-		.init = dcmipp_bytecap_ent_init,
+-		.release = dcmipp_bytecap_ent_release,
++		.init = dcmipp_capture_ent_init,
++		.release = dcmipp_capture_ent_release,
+ 	},
+ };
  
- #endif
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelproc.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelproc.c
-new file mode 100644
-index 0000000000000..d771b1b21bd21
---- /dev/null
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-pixelproc.c
-@@ -0,0 +1,940 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Driver for STM32 Digital Camera Memory Interface Pixel Processor
-+ *
-+ * Copyright (C) STMicroelectronics SA 2026
-+ * Authors: Hugues Fruchet <hugues.fruchet@foss.st.com>
-+ *          Alain Volmat <alain.volmat@foss.st.com>
-+ *          for STMicroelectronics.
-+ */
-+
-+#include <linux/pm_runtime.h>
-+#include <linux/v4l2-mediabus.h>
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-event.h>
-+#include <media/v4l2-rect.h>
-+#include <media/v4l2-subdev.h>
-+#include <uapi/linux/media/st/dcmipp_config.h>
-+
-+#include "dcmipp-common.h"
-+#include "dcmipp-pixelcommon.h"
-+
-+#define DCMIPP_P1CRSTR	0x904
-+#define DCMIPP_P2CRSTR	0xD04
-+#define DCMIPP_PxCRSTR(id) (((id) == 1) ? DCMIPP_P1CRSTR :\
-+			   DCMIPP_P2CRSTR)
-+#define DCMIPP_PxCRSTR_HSTART_SHIFT	0
-+#define DCMIPP_PxCRSTR_VSTART_SHIFT	16
-+#define DCMIPP_P1CRSZR	0x908
-+#define DCMIPP_P2CRSZR	0xD08
-+#define DCMIPP_PxCRSZR(id) (((id) == 1) ? DCMIPP_P1CRSZR :\
-+			   DCMIPP_P2CRSZR)
-+#define DCMIPP_PxCRSZR_ENABLE		BIT(31)
-+#define DCMIPP_PxCRSZR_HSIZE_SHIFT	0
-+#define DCMIPP_PxCRSZR_VSIZE_SHIFT	16
-+
-+#define DCMIPP_P1DCCR	0x90C
-+#define DCMIPP_P2DCCR	0xD0C
-+#define DCMIPP_PxDCCR(id) (((id) == 1) ? DCMIPP_P1DCCR :\
-+			   DCMIPP_P2DCCR)
-+#define DCMIPP_PxDCCR_ENABLE		BIT(0)
-+#define DCMIPP_PxDCCR_HDEC_SHIFT	1
-+#define DCMIPP_PxDCCR_VDEC_SHIFT	3
-+
-+#define DCMIPP_P1DSCR	0x910
-+#define DCMIPP_P2DSCR	0xD10
-+#define DCMIPP_PxDSCR(id) (((id) == 1) ? DCMIPP_P1DSCR :\
-+			   DCMIPP_P2DSCR)
-+#define DCMIPP_PxDSCR_HDIV_SHIFT	0
-+#define DCMIPP_PxDSCR_VDIV_SHIFT	16
-+#define DCMIPP_PxDSCR_ENABLE		BIT(31)
-+
-+#define DCMIPP_P1DSRTIOR	0x914
-+#define DCMIPP_P2DSRTIOR	0xD14
-+#define DCMIPP_PxDSRTIOR(id) (((id) == 1) ? DCMIPP_P1DSRTIOR :\
-+			   DCMIPP_P2DSRTIOR)
-+#define DCMIPP_PxDSRTIOR_HRATIO_SHIFT	0
-+#define DCMIPP_PxDSRTIOR_HRATIO_MASK	GENMASK(15, 0)
-+#define DCMIPP_PxDSRTIOR_VRATIO_SHIFT	16
-+#define DCMIPP_PxDSRTIOR_VRATIO_MASK	GENMASK(31, 16)
-+
-+#define DCMIPP_P1DSSZR	0x918
-+#define DCMIPP_P2DSSZR	0xD18
-+#define DCMIPP_PxDSSZR(id) (((id) == 1) ? DCMIPP_P1DSSZR :\
-+			   DCMIPP_P2DSSZR)
-+#define DCMIPP_PxDSSZR_HSIZE_SHIFT	0
-+#define DCMIPP_PxDSSZR_HSIZE_MASK	GENMASK(11, 0)
-+#define DCMIPP_PxDSSZR_VSIZE_SHIFT	16
-+#define DCMIPP_PxDSSZR_VSIZE_MASK	GENMASK(27, 16)
-+
-+#define DCMIPP_P1GMCR	0x970
-+#define DCMIPP_P2GMCR	0xD70
-+#define DCMIPP_PxGMCR(id) (((id) == 1) ? DCMIPP_P1GMCR :\
-+			   DCMIPP_P2GMCR)
-+#define DCMIPP_PxGMCR_ENABLE		BIT(0)
-+
-+#define DCMIPP_P1YUVCR	0x980
-+#define DCMIPP_P1YUVCR_ENABLE		BIT(0)
-+#define DCMIPP_P1YUVCR_TYPE_RGB		BIT(1)
-+#define DCMIPP_P1YUVCR_CLAMP		BIT(2)
-+#define DCMIPP_P1YUVRR1	0x984
-+#define DCMIPP_P1YUVRR2	0x988
-+#define DCMIPP_P1YUVGR1	0x98C
-+#define DCMIPP_P1YUVGR2	0x990
-+#define DCMIPP_P1YUVBR1	0x994
-+#define DCMIPP_P1YUVBR2	0x998
-+
-+#define PIXELPROC_MEDIA_BUS_FMT_DEFAULT MEDIA_BUS_FMT_RGB888_1X24
-+
-+/* Macro for negative coefficient, 11 bits coded */
-+#define N11(val) (((val) ^ 0x7ff) + 1)
-+/* Macro for added value, 10 bits coded */
-+#define N10(val) (((val) ^ 0x3ff) + 1)
-+
-+/* Macro to convert row matrix to DCMIPP PxCCCyy register value */
-+#define CCTBL(rr, rg, rb, ra, gr, gg, gb, ga, br, bg, bb, ba)		\
-+	.conv_matrix = {						\
-+		((rg) << 16 | (rr)), ((ra) << 16 | (rb)),		\
-+		((gg) << 16 | (gr)), ((ga) << 16 | (gb)),		\
-+		((bg) << 16 | (br)), ((ba) << 16 | (bb)) }
-+
-+struct dcmipp_colorconv_config {
-+	unsigned int conv_matrix[6];
-+	bool clamping;
-+	bool clamping_as_rgb;
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgbfull_to_yuv601full = {
-+	/*    R		G		B		Add */
-+	CCTBL(131,	N11(110),	N11(21),	128,	/* Cr */
-+	      77,	150,		29,		0,	/* Y */
-+	      N11(44),	N11(87),	131,		128),	/* Cb */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgbfull_to_yuv601lim = {
-+	/*	R	G		B		Add */
-+	CCTBL(112,	N11(94),	N11(18),	128,	/* Cr */
-+	      66,	129,		25,		16,	/* Y */
-+	      N11(38),	N11(74),	112,		128),	/* Cb */
-+	.clamping = true,
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgbfull_to_yuv709full = {
-+	/*    R		G		B		Add */
-+	CCTBL(131,	N11(119),	N11(12),	128,	/* Cr */
-+	      55,	183,		18,		0,	/* Y */
-+	      N11(30),	N11(101),	131,		128),	/* Cb */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgbfull_to_yuv709lim = {
-+	/*    R		G		B		Add */
-+	CCTBL(112,	N11(102),	N11(10),	128,	/* Cr */
-+	      47,	157,		16,		16,	/* Y */
-+	      N11(26),	N11(87),	112,		128),	/* Cb */
-+	.clamping = true,
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgblim_to_yuv601lim = {
-+	/*    R		G		B		Add */
-+	CCTBL(131,	N11(110),	N11(21),	128,	/* Cr */
-+	      77,	150,		29,		0,	/* Y */
-+	      N11(44),	N11(87),	131,		128),	/* Cb */
-+	.clamping = true,
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_rgblim_to_yuv709lim = {
-+	/*    R		G		B		Add */
-+	CCTBL(131,	N11(119),	N11(12),	128,	/* Cr */
-+	      55,	183,		18,		0,	/* Y */
-+	      N11(30),	N11(101),	131,		128),	/* Cb */
-+	.clamping = true,
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv601full_to_rgbfull = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(351,	256,	0,		N10(175),	/* R */
-+	      N11(179),	256,	N11(86),	132,		/* G */
-+	      0,	256,	443,		N10(222)),	/* B */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv601lim_to_rgbfull = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(409,	298,	0,		N10(223),	/* R */
-+	      N11(208),	298,	N11(100),	135,		/* G */
-+	      0,	298,	517,		N10(277)),	/* B */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv601lim_to_rgblim = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(351,	256,	0,		N10(175),	/* R */
-+	      N11(179),	256,	N11(86),	132,		/* G */
-+	      0,	256,	443,		N10(222)),	/* B */
-+	.clamping = true,
-+	.clamping_as_rgb = true,
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv709full_to_rgbfull = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(394,	256,	0,		N10(197),	/* R */
-+	      N11(118),	256,	N11(47),	82,		/* G */
-+	      0,	256,	456,		N10(232)),	/* B */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv709lim_to_rgbfull = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(459,	298,	0,		N10(248),	/* R */
-+	      N11(137),	298,	N11(55),	77,		/* G */
-+	      0,	298,	541,		N10(289)),	/* B */
-+};
-+
-+static const struct dcmipp_colorconv_config dcmipp_yuv709lim_to_rgblim = {
-+	/*    Cr	Y	Cb		Add */
-+	CCTBL(394,	256,	0,		N10(197),	/* R */
-+	      N11(118),	256,	N11(47),	82,		/* G */
-+	      0,	256,	465,		N10(232)),	/* B */
-+	.clamping = true,
-+	.clamping_as_rgb = true,
-+};
-+
-+/* cconv_matrices[src_fmt][src_range][sink_fmt][sink_range] */
-+static const struct dcmipp_colorconv_config *dcmipp_cconv_cfgs[3][2][3][2] = {
-+	/* RGB */
-+	{
-+		/* RGB full range */
-+		{
-+			/* RGB full range => RGB */
-+			{
-+				NULL, NULL,
-+			},
-+			/* RGB full range => YUV601 */
-+			{
-+				&dcmipp_rgbfull_to_yuv601full,
-+				&dcmipp_rgbfull_to_yuv601lim,
-+			},
-+			/* RGB full range => YUV709 */
-+			{
-+				&dcmipp_rgbfull_to_yuv709full,
-+				&dcmipp_rgbfull_to_yuv709lim,
-+			},
-+		},
-+		/* RGB limited range */
-+		{
-+			/* RGB limited range => RGB */
-+			{
-+				NULL, NULL,
-+			},
-+			/* RGB limited range => YUV601 */
-+			{
-+				NULL, &dcmipp_rgblim_to_yuv601lim,
-+			},
-+			/* RGB limited range => YUV709 */
-+			{
-+				NULL, &dcmipp_rgblim_to_yuv709lim,
-+			},
-+		},
-+	},
-+	/* YUV601 */
-+	{
-+		/* YUV601 full range */
-+		{
-+			/* YUV601 full range => RGB */
-+			{
-+				&dcmipp_yuv601full_to_rgbfull, NULL,
-+			},
-+			/* YUV601 full range => YUV601 */
-+			{
-+				NULL, NULL,
-+			},
-+			/* YUV601 full range => YUV709 */
-+			{
-+				NULL, NULL,
-+			},
-+		},
-+		/* YUV601 limited range */
-+		{
-+			/* YUV601 limited range => RGB */
-+			{
-+				&dcmipp_yuv601lim_to_rgbfull,
-+				&dcmipp_yuv601lim_to_rgblim,
-+			},
-+			/* YUV601 limited range => YUV601 */
-+			{
-+				NULL, NULL,
-+			},
-+			/* YUV601 limited range => YUV709 */
-+			{
-+				NULL, NULL,
-+			},
-+		},
-+	},
-+	/* YUV709 */
-+	{
-+		/* YUV709 full range */
-+		{
-+			/* YUV709 full range => RGB */
-+			{
-+				&dcmipp_yuv709full_to_rgbfull, NULL,
-+			},
-+			/* YUV709 full range => YUV601 */
-+			{
-+				NULL, NULL,
-+			},
-+			/* YUV709 full range => YUV709 */
-+			{
-+				NULL, NULL,
-+			},
-+		},
-+		/* YUV709 limited range */
-+		{
-+			/* YUV709 limited range => RGB */
-+			{
-+				&dcmipp_yuv709lim_to_rgbfull,
-+				&dcmipp_yuv709lim_to_rgblim,
-+			},
-+			/* YUV709 limited range => YUV601 */
-+			{
-+				NULL, NULL,
-+			},
-+			/* YUV709 limited range => YUV709 */
-+			{
-+				NULL, NULL,
-+			},
-+		},
-+	},
-+};
-+
-+enum dcmipp_cconv_fmt {
-+	FMT_RGB = 0,
-+	FMT_YUV601,
-+	FMT_YUV709
-+};
-+
-+static inline enum dcmipp_cconv_fmt to_cconv_fmt(struct v4l2_mbus_framefmt *fmt)
-+{
-+	/* YUV format codes are within the 0x2xxx */
-+	if (fmt->code >= MEDIA_BUS_FMT_Y8_1X8 &&
-+	    fmt->code < MEDIA_BUS_FMT_SBGGR8_1X8) {
-+		if (fmt->ycbcr_enc == V4L2_YCBCR_ENC_709)
-+			return FMT_YUV709;
-+		else
-+			return FMT_YUV601;
-+	}
-+
-+	/* All other formats are referred as RGB, indeed, demosaicing bloc
-+	 * generate RGB format
-+	 */
-+	return FMT_RGB;
-+};
-+
-+#define FMT_STR(f) ({					\
-+	typeof(f) __f = (f);				\
-+	(__f) == FMT_RGB ? "RGB" :			\
-+	(__f) == FMT_YUV601 ? "YUV601" :		\
-+	(__f) == FMT_YUV709 ? "YUV709" : "?"; })
-+
-+enum dcmipp_cconv_range {
-+	RANGE_FULL = 0,
-+	RANGE_LIMITED,
-+};
-+
-+static inline enum dcmipp_cconv_range
-+to_cconv_range(struct v4l2_mbus_framefmt *fmt)
-+{
-+	if (fmt->quantization == V4L2_QUANTIZATION_FULL_RANGE)
-+		return RANGE_FULL;
-+
-+	return RANGE_LIMITED;
-+};
-+
-+#define RANGE_STR(range) ((range) == RANGE_FULL ? "full" : "limited")
-+
-+struct dcmipp_pixelproc_device {
-+	struct dcmipp_ent_device ved;
-+	struct v4l2_subdev sd;
-+	struct device *dev;
-+	bool streaming;
-+
-+	void __iomem *regs;
-+	struct v4l2_ctrl_handler ctrls;
-+
-+	u32 pipe_id;
-+};
-+
-+static const struct v4l2_mbus_framefmt fmt_default = {
-+	.width = DCMIPP_FMT_WIDTH_DEFAULT,
-+	.height = DCMIPP_FMT_HEIGHT_DEFAULT,
-+	.code = PIXELPROC_MEDIA_BUS_FMT_DEFAULT,
-+	.field = V4L2_FIELD_NONE,
-+	.colorspace = DCMIPP_COLORSPACE_DEFAULT,
-+	.ycbcr_enc = DCMIPP_YCBCR_ENC_DEFAULT,
-+	.quantization = DCMIPP_QUANTIZATION_DEFAULT,
-+	.xfer_func = DCMIPP_XFER_FUNC_DEFAULT,
-+};
-+
-+static const struct v4l2_rect min_rect = {
-+	.width = DCMIPP_FRAME_MIN_WIDTH,
-+	.height = DCMIPP_FRAME_MIN_HEIGHT,
-+	.top = 0,
-+	.left = 0,
-+};
-+
-+/*
-+ * Downscale is a combination of both decimation block (1/2/4/8)
-+ * and downsize block (up to 8x) for a total of maximum downscale of 64
-+ */
-+#define DCMIPP_MAX_DECIMATION_RATIO	8
-+#define DCMIPP_MAX_DOWNSIZE_RATIO	8
-+#define DCMIPP_MAX_DOWNSCALE_RATIO	64
-+
-+/*
-+ * Functions handling controls
-+ */
-+static int dcmipp_pixelproc_s_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc =
-+		container_of(ctrl->handler,
-+			     struct dcmipp_pixelproc_device, ctrls);
-+
-+	if (!pm_runtime_get_if_in_use(pixelproc->dev))
-+		return 0;
-+
-+	switch (ctrl->id) {
-+	case V4L2_CID_DCMIPP_PIXELPROC_GAMMA_CORRECTION_ENABLE:
-+		reg_write(pixelproc, DCMIPP_PxGMCR(pixelproc->pipe_id),
-+			  (ctrl->val ? DCMIPP_PxGMCR_ENABLE : 0));
-+		break;
-+	}
-+
-+	pm_runtime_put(pixelproc->dev);
-+
-+	return 0;
-+};
-+
-+static const struct v4l2_ctrl_ops dcmipp_pixelproc_ctrl_ops = {
-+	.s_ctrl = dcmipp_pixelproc_s_ctrl,
-+};
-+
-+static const struct v4l2_ctrl_config dcmipp_pixelproc_ctrls[] = {
-+	{
-+		.ops		= &dcmipp_pixelproc_ctrl_ops,
-+		.id		= V4L2_CID_DCMIPP_PIXELPROC_GAMMA_CORRECTION_ENABLE,
-+		.type		= V4L2_CTRL_TYPE_BOOLEAN,
-+		.name		= "Gamma Correction Enable",
-+		.min = 0,
-+		.max = 1,
-+		.step = 1,
-+		.def = 0,
-+	}
-+};
-+
-+static void dcmipp_pixelproc_adjust_crop(struct v4l2_rect *r,
-+					 const struct v4l2_mbus_framefmt *fmt)
-+{
-+	struct v4l2_rect src_rect = {
-+		.top = 0,
-+		.left = 0,
-+		.width = fmt->width,
-+		.height = fmt->height,
-+	};
-+
-+	/* Disallow rectangles smaller than the minimal one. */
-+	v4l2_rect_set_min_size(r, &min_rect);
-+	v4l2_rect_map_inside(r, &src_rect);
-+}
-+
-+static void
-+dcmipp_pixelproc_adjust_fmt(struct dcmipp_pixelproc_device *pixelproc,
-+			    struct v4l2_mbus_framefmt *fmt, u32 pad)
-+{
-+	const struct dcmipp_pixelpipe_pix_map *vpix;
-+
-+	/* Only accept code in the pix map table */
-+	vpix = dcmipp_pixelpipe_pix_map_by_code(fmt->code,
-+						pixelproc->pipe_id == 1 ? DCMIPP_MAIN : DCMIPP_AUX,
-+						pad);
-+	if (!vpix)
-+		fmt->code = PIXELPROC_MEDIA_BUS_FMT_DEFAULT;
-+
-+	fmt->width = clamp_t(u32, fmt->width, DCMIPP_FRAME_MIN_WIDTH,
-+			     DCMIPP_FRAME_MAX_WIDTH);
-+	fmt->height = clamp_t(u32, fmt->height, DCMIPP_FRAME_MIN_HEIGHT,
-+			      DCMIPP_FRAME_MAX_HEIGHT);
-+
-+	if (fmt->field == V4L2_FIELD_ANY || fmt->field == V4L2_FIELD_ALTERNATE)
-+		fmt->field = V4L2_FIELD_NONE;
-+
-+	dcmipp_colorimetry_clamp(fmt);
-+}
-+
-+static int dcmipp_pixelproc_init_state(struct v4l2_subdev *sd,
-+				       struct v4l2_subdev_state *state)
-+{
-+	unsigned int i;
-+
-+	for (i = 0; i < sd->entity.num_pads; i++) {
-+		*v4l2_subdev_state_get_format(state, i) = fmt_default;
-+
-+		if (IS_SINK(i)) {
-+			struct v4l2_rect r = {
-+				.top = 0,
-+				.left = 0,
-+				.width = DCMIPP_FMT_WIDTH_DEFAULT,
-+				.height = DCMIPP_FMT_HEIGHT_DEFAULT,
-+			};
-+			*v4l2_subdev_state_get_crop(state, i) = r;
-+			*v4l2_subdev_state_get_compose(state, i) = r;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
-+static int
-+dcmipp_pixelproc_enum_mbus_code(struct v4l2_subdev *sd,
-+				struct v4l2_subdev_state *state,
-+				struct v4l2_subdev_mbus_code_enum *code)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+
-+	return dcmipp_pixelpipe_enum_mbus_code(pixelproc->pipe_id == 1 ? DCMIPP_MAIN : DCMIPP_AUX,
-+					       code);
-+}
-+
-+static int
-+dcmipp_pixelproc_enum_frame_size(struct v4l2_subdev *sd,
-+				 struct v4l2_subdev_state *state,
-+				 struct v4l2_subdev_frame_size_enum *fse)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+
-+	return dcmipp_pixelpipe_enum_frame_size(pixelproc->pipe_id == 1 ? DCMIPP_MAIN : DCMIPP_AUX,
-+						fse);
-+}
-+
-+static int dcmipp_pixelproc_set_fmt(struct v4l2_subdev *sd,
-+				    struct v4l2_subdev_state *state,
-+				    struct v4l2_subdev_format *fmt)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+
-+	if (v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	dcmipp_pixelproc_adjust_fmt(pixelproc, &fmt->format, fmt->pad);
-+
-+	if (IS_SINK(fmt->pad)) {
-+		struct v4l2_mbus_framefmt *src_fmt =
-+			v4l2_subdev_state_get_format(state, 1);
-+		struct v4l2_rect r = {
-+			.top = 0,
-+			.left = 0,
-+			.width = fmt->format.width,
-+			.height = fmt->format.height,
-+		};
-+
-+		/* Adjust SINK pad crop/compose */
-+		*v4l2_subdev_state_get_crop(state, 0) = r;
-+		*v4l2_subdev_state_get_compose(state, 0) = r;
-+
-+		/* Forward format to SRC pad */
-+		*src_fmt = fmt->format;
-+		src_fmt->code = dcmipp_pixelpipe_src_format(fmt->format.code);
-+	} else {
-+		struct v4l2_rect *compose =
-+			v4l2_subdev_state_get_compose(state, 0);
-+
-+		/* AUX (pipe_nb 2) cannot perform color conv */
-+		if (pixelproc->pipe_id == 2) {
-+			struct v4l2_mbus_framefmt *sink_fmt =
-+				v4l2_subdev_state_get_format(state, 0);
-+
-+			fmt->format = *sink_fmt;
-+			fmt->format.code =
-+				dcmipp_pixelpipe_src_format(fmt->format.code);
-+		}
-+
-+		fmt->format.width = compose->width;
-+		fmt->format.height = compose->height;
-+	}
-+
-+	/* Update the selected pad format */
-+	*v4l2_subdev_state_get_format(state, fmt->pad) = fmt->format;
-+
-+	return 0;
-+}
-+
-+static int dcmipp_pixelproc_set_selection(struct v4l2_subdev *sd,
-+					  struct v4l2_subdev_state *state,
-+					  struct v4l2_subdev_selection *s)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+	struct v4l2_mbus_framefmt *sink_fmt, *src_fmt;
-+	struct v4l2_rect *crop, *compose;
-+
-+	if (IS_SRC(s->pad))
-+		return -EINVAL;
-+
-+	if (v4l2_subdev_is_streaming(sd))
-+		return -EBUSY;
-+
-+	crop = v4l2_subdev_state_get_crop(state, s->pad);
-+	compose = v4l2_subdev_state_get_compose(state, s->pad);
-+
-+	switch (s->target) {
-+	case V4L2_SEL_TGT_CROP:
-+		sink_fmt = v4l2_subdev_state_get_format(state, s->pad);
-+		dcmipp_pixelproc_adjust_crop(&s->r, sink_fmt);
-+
-+		*crop = s->r;
-+		*compose = s->r;
-+
-+		dev_dbg(pixelproc->dev, "s_selection: crop (%d,%d)/%ux%u\n",
-+			crop->left, crop->top, crop->width, crop->height);
-+		break;
-+	case V4L2_SEL_TGT_COMPOSE:
-+		s->r.top = 0;
-+		s->r.left = 0;
-+		s->r.width = clamp_t(u32, s->r.width,
-+				     crop->width / DCMIPP_MAX_DOWNSCALE_RATIO,
-+				     crop->width);
-+		s->r.height = clamp_t(u32, s->r.height,
-+				      crop->height / DCMIPP_MAX_DOWNSCALE_RATIO,
-+				      crop->height);
-+		v4l2_rect_set_min_size(&s->r, &min_rect);
-+		*compose = s->r;
-+
-+		dev_dbg(pixelproc->dev, "s_selection: compose (%d,%d)/%ux%u\n",
-+			compose->left, compose->top,
-+			compose->width, compose->height);
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	/* Update the source pad size */
-+	src_fmt = v4l2_subdev_state_get_format(state, 1);
-+	src_fmt->width = s->r.width;
-+	src_fmt->height = s->r.height;
-+
-+	return 0;
-+}
-+
-+static int
-+dcmipp_pixelproc_colorconv_config(struct dcmipp_pixelproc_device *pixelproc,
-+				  struct v4l2_mbus_framefmt *sink,
-+				  struct v4l2_mbus_framefmt *src)
-+{
-+	const struct dcmipp_colorconv_config *cconv_cfg;
-+	enum dcmipp_cconv_fmt sink_fmt = to_cconv_fmt(sink);
-+	enum dcmipp_cconv_range sink_range = to_cconv_range(sink);
-+	enum dcmipp_cconv_fmt src_fmt = to_cconv_fmt(src);
-+	enum dcmipp_cconv_range src_range = to_cconv_range(src);
-+	unsigned int val = 0;
-+	int i;
-+
-+	/* Disable color conversion by default */
-+	reg_write(pixelproc, DCMIPP_P1YUVCR, 0);
-+
-+	if (sink_fmt == src_fmt && sink_range == src_range)
-+		return 0;
-+
-+	/* color conversion */
-+	cconv_cfg = dcmipp_cconv_cfgs[sink_fmt][sink_range][src_fmt][src_range];
-+	if (!cconv_cfg) {
-+		dev_err(pixelproc->dev,
-+			"Unsupported color conversion %s-%s => %s-%s\n",
-+			FMT_STR(sink_fmt), RANGE_STR(sink_range),
-+			FMT_STR(src_fmt), RANGE_STR(src_range));
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(pixelproc->dev, "color conversion %s-%s => %s-%s\n",
-+		FMT_STR(sink_fmt), RANGE_STR(sink_range),
-+		FMT_STR(src_fmt), RANGE_STR(src_range));
-+
-+	for (i = 0; i < 6; i++)
-+		reg_write(pixelproc, DCMIPP_P1YUVRR1 + (4 * i),
-+			  cconv_cfg->conv_matrix[i]);
-+
-+	if (cconv_cfg->clamping)
-+		val |= DCMIPP_P1YUVCR_CLAMP;
-+	if (cconv_cfg->clamping_as_rgb)
-+		val |= DCMIPP_P1YUVCR_TYPE_RGB;
-+	val |= DCMIPP_P1YUVCR_ENABLE;
-+
-+	reg_write(pixelproc, DCMIPP_P1YUVCR, val);
-+
-+	return 0;
-+}
-+
-+#define DCMIPP_PIXELPROC_HVRATIO_CONS	8192
-+#define DCMIPP_PIXELPROC_HVRATIO_MAX	65535
-+#define DCMIPP_PIXELPROC_HVDIV_CONS	1024
-+#define DCMIPP_PIXELPROC_HVDIV_MAX	1023
-+static void
-+dcmipp_pixelproc_set_crop_downscale(struct dcmipp_pixelproc_device *pixelproc,
-+				    struct v4l2_rect *compose,
-+				    struct v4l2_rect *crop)
-+{
-+	unsigned int hratio, vratio, hdiv, vdiv;
-+	unsigned int hdec = 0, vdec = 0;
-+	unsigned int h_post_dec = crop->width;
-+	unsigned int v_post_dec = crop->height;
-+
-+	/* Configure cropping */
-+	reg_write(pixelproc, DCMIPP_PxCRSTR(pixelproc->pipe_id),
-+		  (crop->top << DCMIPP_PxCRSTR_VSTART_SHIFT) |
-+		  (crop->left << DCMIPP_PxCRSTR_HSTART_SHIFT));
-+	reg_write(pixelproc, DCMIPP_PxCRSZR(pixelproc->pipe_id),
-+		  (crop->width << DCMIPP_PxCRSZR_HSIZE_SHIFT) |
-+		  (crop->height << DCMIPP_PxCRSZR_VSIZE_SHIFT) |
-+		  DCMIPP_PxCRSZR_ENABLE);
-+
-+	/* Compute decimation factors (HDEC/VDEC) */
-+	while (compose->width * DCMIPP_MAX_DOWNSIZE_RATIO < h_post_dec) {
-+		hdec++;
-+		h_post_dec /= 2;
-+	}
-+	while (compose->height * DCMIPP_MAX_DOWNSIZE_RATIO < v_post_dec) {
-+		vdec++;
-+		v_post_dec /= 2;
-+	}
-+
-+	/* Compute downsize factor */
-+	hratio = h_post_dec * DCMIPP_PIXELPROC_HVRATIO_CONS /
-+		 compose->width;
-+	if (hratio > DCMIPP_PIXELPROC_HVRATIO_MAX)
-+		hratio = DCMIPP_PIXELPROC_HVRATIO_MAX;
-+	vratio = v_post_dec * DCMIPP_PIXELPROC_HVRATIO_CONS /
-+		 compose->height;
-+	if (vratio > DCMIPP_PIXELPROC_HVRATIO_MAX)
-+		vratio = DCMIPP_PIXELPROC_HVRATIO_MAX;
-+	hdiv = (DCMIPP_PIXELPROC_HVDIV_CONS * compose->width) /
-+		h_post_dec;
-+	if (hdiv > DCMIPP_PIXELPROC_HVDIV_MAX)
-+		hdiv = DCMIPP_PIXELPROC_HVDIV_MAX;
-+	vdiv = (DCMIPP_PIXELPROC_HVDIV_CONS * compose->height) /
-+		v_post_dec;
-+	if (vdiv > DCMIPP_PIXELPROC_HVDIV_MAX)
-+		vdiv = DCMIPP_PIXELPROC_HVDIV_MAX;
-+
-+	dev_dbg(pixelproc->dev, "%s: decimation config: hdec: 0x%x, vdec: 0x%x\n",
-+		pixelproc->sd.name,
-+		hdec, vdec);
-+	dev_dbg(pixelproc->dev, "%s: downsize config: hratio: 0x%x, vratio: 0x%x, hdiv: 0x%x, vdiv: 0x%x\n",
-+		pixelproc->sd.name,
-+		hratio, vratio,
-+		hdiv, vdiv);
-+
-+	reg_clear(pixelproc, DCMIPP_PxDCCR(pixelproc->pipe_id),
-+		  DCMIPP_PxDCCR_ENABLE);
-+	if (hdec || vdec)
-+		reg_write(pixelproc, DCMIPP_PxDCCR(pixelproc->pipe_id),
-+			  (hdec << DCMIPP_PxDCCR_HDEC_SHIFT) |
-+			  (vdec << DCMIPP_PxDCCR_VDEC_SHIFT) |
-+			  DCMIPP_PxDCCR_ENABLE);
-+
-+	reg_clear(pixelproc, DCMIPP_PxDSCR(pixelproc->pipe_id),
-+		  DCMIPP_PxDSCR_ENABLE);
-+	reg_write(pixelproc, DCMIPP_PxDSRTIOR(pixelproc->pipe_id),
-+		  (hratio << DCMIPP_PxDSRTIOR_HRATIO_SHIFT) |
-+		  (vratio << DCMIPP_PxDSRTIOR_VRATIO_SHIFT));
-+	reg_write(pixelproc, DCMIPP_PxDSSZR(pixelproc->pipe_id),
-+		  (compose->width << DCMIPP_PxDSSZR_HSIZE_SHIFT) |
-+		  (compose->height << DCMIPP_PxDSSZR_VSIZE_SHIFT));
-+	reg_write(pixelproc, DCMIPP_PxDSCR(pixelproc->pipe_id),
-+		  (hdiv << DCMIPP_PxDSCR_HDIV_SHIFT) |
-+		  (vdiv << DCMIPP_PxDSCR_VDIV_SHIFT) |
-+		  DCMIPP_PxDSCR_ENABLE);
-+}
-+
-+static int dcmipp_pixelproc_enable_streams(struct v4l2_subdev *sd,
-+					   struct v4l2_subdev_state *state,
-+					   u32 pad, u64 streams_mask)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+	struct v4l2_subdev *s_subdev;
-+	struct media_pad *s_pad;
-+	int ret;
-+
-+	/* Get source subdev */
-+	s_pad = media_pad_remote_pad_first(&sd->entity.pads[0]);
-+	if (!s_pad || !is_media_entity_v4l2_subdev(s_pad->entity))
-+		return -EINVAL;
-+	s_subdev = media_entity_to_v4l2_subdev(s_pad->entity);
-+
-+	/* Configure crop/downscale */
-+	dcmipp_pixelproc_set_crop_downscale(pixelproc,
-+					    v4l2_subdev_state_get_compose(state, 0),
-+					    v4l2_subdev_state_get_crop(state, 0));
-+
-+	/* Configure YUV Conversion (if applicable) */
-+	if (pixelproc->pipe_id == 1) {
-+		ret = dcmipp_pixelproc_colorconv_config(pixelproc,
-+							v4l2_subdev_state_get_format(state, 0),
-+							v4l2_subdev_state_get_format(state, 1));
-+		if (ret)
-+			return ret;
-+	}
-+
-+	/* Apply customized values from user when stream starts. */
-+	ret =  v4l2_ctrl_handler_setup(pixelproc->sd.ctrl_handler);
-+	if (ret < 0) {
-+		dev_err(pixelproc->dev,
-+			"failed to start source subdev streaming (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	ret = v4l2_subdev_enable_streams(s_subdev, s_pad->index, BIT_ULL(0));
-+	if (ret < 0) {
-+		dev_err(pixelproc->dev,
-+			"failed to start source subdev streaming (%d)\n", ret);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int dcmipp_pixelproc_disable_streams(struct v4l2_subdev *sd,
-+					    struct v4l2_subdev_state *state,
-+					    u32 pad, u64 streams_mask)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+	struct v4l2_subdev *s_subdev;
-+	struct media_pad *s_pad;
-+	int ret;
-+
-+	/* Get source subdev */
-+	s_pad = media_pad_remote_pad_first(&sd->entity.pads[0]);
-+	if (!s_pad || !is_media_entity_v4l2_subdev(s_pad->entity))
-+		return -EINVAL;
-+	s_subdev = media_entity_to_v4l2_subdev(s_pad->entity);
-+
-+	ret = v4l2_subdev_disable_streams(s_subdev, s_pad->index, BIT_ULL(0));
-+	if (ret < 0)
-+		dev_err(pixelproc->dev,
-+			"failed to stop source subdev streaming (%d)\n",
-+			ret);
-+	return ret;
-+}
-+
-+static const struct v4l2_subdev_pad_ops dcmipp_pixelproc_pad_ops = {
-+	.enum_mbus_code		= dcmipp_pixelproc_enum_mbus_code,
-+	.enum_frame_size	= dcmipp_pixelproc_enum_frame_size,
-+	.get_fmt		= v4l2_subdev_get_fmt,
-+	.set_fmt		= dcmipp_pixelproc_set_fmt,
-+	.get_selection		= dcmipp_pixelpipe_get_selection,
-+	.set_selection		= dcmipp_pixelproc_set_selection,
-+	.enable_streams		= dcmipp_pixelproc_enable_streams,
-+	.disable_streams	= dcmipp_pixelproc_disable_streams,
-+};
-+
-+static const struct v4l2_subdev_core_ops dcmipp_pixelproc_core_ops = {
-+	.subscribe_event = v4l2_ctrl_subdev_subscribe_event,
-+	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
-+};
-+
-+static const struct v4l2_subdev_video_ops dcmipp_pixelproc_video_ops = {
-+	.s_stream = v4l2_subdev_s_stream_helper,
-+};
-+
-+static const struct v4l2_subdev_ops dcmipp_pixelproc_ops = {
-+	.core = &dcmipp_pixelproc_core_ops,
-+	.pad = &dcmipp_pixelproc_pad_ops,
-+	.video = &dcmipp_pixelproc_video_ops,
-+};
-+
-+static void dcmipp_pixelproc_release(struct v4l2_subdev *sd)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc = v4l2_get_subdevdata(sd);
-+
-+	v4l2_ctrl_handler_free(&pixelproc->ctrls);
-+	kfree(pixelproc);
-+}
-+
-+static const struct v4l2_subdev_internal_ops dcmipp_pixelproc_int_ops = {
-+	.init_state = dcmipp_pixelproc_init_state,
-+	.release = dcmipp_pixelproc_release,
-+};
-+
-+void dcmipp_pixelproc_ent_release(struct dcmipp_ent_device *ved)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc =
-+			container_of(ved, struct dcmipp_pixelproc_device, ved);
-+
-+	dcmipp_ent_sd_unregister(ved, &pixelproc->sd);
-+}
-+
-+static int dcmipp_name_to_pipe_id(const char *name)
-+{
-+	if (strstr(name, "main"))
-+		return 1;
-+	else if (strstr(name, "aux"))
-+		return 2;
-+	else
-+		return -EINVAL;
-+}
-+
-+struct dcmipp_ent_device *
-+dcmipp_pixelproc_ent_init(const char *entity_name,
-+			  struct dcmipp_device *dcmipp)
-+{
-+	struct dcmipp_pixelproc_device *pixelproc;
-+	const unsigned long pads_flag[] = {
-+		MEDIA_PAD_FL_SINK, MEDIA_PAD_FL_SOURCE,
-+	};
-+	int ret, i;
-+
-+	/* Allocate the pixelproc struct */
-+	pixelproc = kzalloc_obj(*pixelproc);
-+	if (!pixelproc)
-+		return ERR_PTR(-ENOMEM);
-+
-+	pixelproc->regs = dcmipp->regs;
-+	pixelproc->dev = dcmipp->dev;
-+
-+	/* Pipe identifier */
-+	pixelproc->pipe_id = dcmipp_name_to_pipe_id(entity_name);
-+	if (pixelproc->pipe_id != 1 && pixelproc->pipe_id != 2) {
-+		dev_err(pixelproc->dev, "failed to retrieve pipe_id\n");
-+		ret = -EIO;
-+		goto err_kfree;
-+	}
-+
-+	/* Initialize controls */
-+	v4l2_ctrl_handler_init(&pixelproc->ctrls,
-+			       ARRAY_SIZE(dcmipp_pixelproc_ctrls));
-+
-+	for (i = 0; i < ARRAY_SIZE(dcmipp_pixelproc_ctrls); i++)
-+		v4l2_ctrl_new_custom(&pixelproc->ctrls,
-+				     &dcmipp_pixelproc_ctrls[i], NULL);
-+
-+	pixelproc->sd.ctrl_handler = &pixelproc->ctrls;
-+	if (pixelproc->ctrls.error) {
-+		ret = pixelproc->ctrls.error;
-+		dev_err(pixelproc->dev, "control initialization error %d\n", ret);
-+		goto err_ctrl_handler_free;
-+	}
-+
-+	/* Initialize ved and sd */
-+	ret = dcmipp_ent_sd_register(&pixelproc->ved, &pixelproc->sd,
-+				     &dcmipp->v4l2_dev, entity_name,
-+				     MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER,
-+				     ARRAY_SIZE(pads_flag), pads_flag,
-+				     &dcmipp_pixelproc_int_ops,
-+				     &dcmipp_pixelproc_ops,
-+				     NULL, NULL);
-+	if (ret)
-+		goto err_ctrl_handler_free;
-+
-+	pixelproc->ved.dcmipp = dcmipp;
-+
-+	return &pixelproc->ved;
-+
-+err_ctrl_handler_free:
-+	v4l2_ctrl_handler_free(&pixelproc->ctrls);
-+err_kfree:
-+	kfree(pixelproc);
-+
-+	return ERR_PTR(ret);
-+}
+@@ -88,8 +88,8 @@ static const struct dcmipp_ent_config stm32mp25_ent_config[] = {
+ 	},
+ 	{
+ 		.name = "dcmipp_dump_capture",
+-		.init = dcmipp_bytecap_ent_init,
+-		.release = dcmipp_bytecap_ent_release,
++		.init = dcmipp_capture_ent_init,
++		.release = dcmipp_capture_ent_release,
+ 	},
+ };
+ 
 
 -- 
 2.34.1
