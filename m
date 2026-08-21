@@ -1,28 +1,28 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013025.outbound.protection.outlook.com [52.101.72.25])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011024.outbound.protection.outlook.com [52.101.70.24])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FA0D415B66;
-	Fri, 21 Aug 2026 06:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62600415F01;
+	Fri, 21 Aug 2026 06:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.24
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787294315; cv=fail; b=kEjVbjw2r8x4YCdzadAcRLyadNUtABrCcQchpSXtRPjjvod3G0h0FT1OUEheHdqApOyUNFFw0RK929ieddpFkNGhITtTD7wgVGsL/oNTWLnbMnoNOC2vlDupf0TiGoNOG8vej87LajM2I73uIrT1POJ329j51NwXyXHAS3K0uVY=
+	t=1787294315; cv=fail; b=BgPH1luvpP46zaq2MWV+OpO/1KAjgUc4v7HWwEPeo4Xct60ibKdXw353EsMxRzmnPqP/8WIxevVSk4hMdofdI3JrLozP9iWNp74LYXFISMUKjspWjqmZkUpxIocbcLtJTcXIIkk0jhaH5oqsxJ865DBwHqFxJP4U/rZhqIcacPM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787294315; c=relaxed/simple;
-	bh=G3UEG61iXLFvb777s+ENygOwwK+wdD5VfeQaPWn9Qqg=;
+	bh=VJNghmOUIDsiMxDL+UUiaD7jqWiCrvhPuPrrYXONGfE=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=myANh3GxzpFegbiKtU05iUGopvOUt8LnQjUUoU0z/yWzTgnBmZcqPnNibIxh+Cl2bKA8mCTBYWyOHr5M7Gzfs7q4dBl29n48t0I3AFxLBArwGmhgyMnhzkK5N31UexfegZfxrL12oqD3/88urRW1MDUObERXM2znyfKBcYjjJbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=PGpcGtvJ; arc=fail smtp.client-ip=52.101.72.25
+	 In-Reply-To:To:CC; b=Y1nM0YkmzT5ol4mXZUFl6G5BNtAiAiKeFZdKUI2uc1xH8uFjXaA0r0yxTNAfH4F7lPDQwp6uXuXbq6LSfFIaVPTpap6Lt0wmdcoojeidb3YOGJoNxgwIMuS7E+k8XCFNscAwc0k3etHmnJMsAi2NLjoCt1qlDeupPgV1JqtgxTE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=bbaUl10T; arc=fail smtp.client-ip=52.101.70.24
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="PGpcGtvJ"
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="bbaUl10T"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZPYglYf4aHzdt5H+An3JiwSVjnKr23R/IWZZ++sBJ00CC+eFfPD6uD9tXJxs6TmFTKKGW9m60/ht3No/ci1timBhiZry0RZhXF9d08A7ZXhL21jZn1NSpxLg0kYNZV7HAiV5s4gwDpkueHuRsbjH08o0095UQfwI8MtpHmJRCjAmdRqAXfoDdiQJUm91r2Kf0vbPa6XLhquNqGfoG8PKswBpfdAQDvzcQsoIYc8ToObUrfQOco6p1GiFpEqvNlRyvTmYJD/1oI2rZSQaDRcsR8/zFZUn2UBSi8m2vxfC12FS2GagU2OWCWzpC/r+3qWuINk9/cV+cLkfVGwU9LQ76g==
+ b=rEU+HsQVcHarU8wszQanGOM8OaR3i84NB3FjhEaxVZKFAk76ZXu0RQ7F1gvUOzJ1yQjBuIcQ3CqBaUTLn1Judmb8o03qsX631xs/vLdx66wCVM8b7dHm39ESzeIgg68sFPpo7mKkeW3KSq7QqdootMwNHbMSiFFzFX9/YBkwtnVahpH3ReKas6FARNPixMa+u1fWNLWJCJ9kg/FdL0uCwMVGdH0Jfw97OE7CAOWkp7yvwg3o52h3IX0snc0qRkRYahGiqKzu2cqpzmhsYzgnNd8559q+TJ/nuxVF7t4C582uikGbrAoxcPFRv5eZHq82jQzNNM32TGv9t3f2EzGdAw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gmfomjlf/mYSqU4Cx7H/3V1HW6lQZIMcbi2OlYO8BHk=;
- b=MEBgakA8AtrHIirg0XcYdzKkBGbjZF2XaoLn4r6sDte8NAZHyqPQdCwEp/i3VIEZ0XSNkm0k+IcMca58jI+/JB8BGLLZWQyXLIcrn7VTWUVemRDRUyQ7vpPcwTauktCcsMWoxgs4EgsIvLXZGWyP1TS31cZ6GMpy/7oHlhlSRJXmUAW39NwOvaXrhBuWwb4sHSww5leSaoP7WilgIKxkxdX9zjmRYqYjOzqzhClQhpdkoXq2BmwTzdnnWNxl5AMypCRcbwdjPOzZljLiMAuq4WRbvnmSu+byVvYSfXbT5PyZzQ2s488yUO7X750s0D4XHE32pZjIo1O+UY3JeBfWiw==
+ bh=gqkuI746oXPdPnrek59eVyr9+0fFaxDqzE6u3QjvO2k=;
+ b=h+PKCEkD1fBhv+kRfUvjwgsmCVXj8Lf4qg8v/K/YH2FCDCOWc12T8JhcYe8na7PVxJ0XQl7cUJ5e08uXaygrxncnhLXySXeCS6/bZvQDPsEQxRwOPIIWpkreRpPqzebcBJf2j7RZCus8/ctKz6+3bjssR3KNCZEzu6/7YpfYIvuwQYcc5LrCH9YVWE2RZeVbGuWialiMPC0Coh0bZNAirxBbc0MKxRMP3tEWOoappJxEUAsKNuR6IgrSiSG2Tz3cHTmmOjXuYPl9rQ0PpVroReUmtSQp6ds/31BU6TqEZ4V0sVAit8fvKscLANbutrWAnNV+cECO9TLoLNkF7lWmkQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
  164.130.1.59) smtp.rcpttodomain=lists.infradead.org
  smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
@@ -30,18 +30,18 @@ ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gmfomjlf/mYSqU4Cx7H/3V1HW6lQZIMcbi2OlYO8BHk=;
- b=PGpcGtvJKhcWwyHYNTrFg/E+LYq8avfRtiGao8qINxADk+FF5wftwfo4FSuxosOEsLYSm0srHXNsjjZn9KJQVClAvkwitBlWZj1T0l7OaIa4Wqus/LlVtO/1wq7oWtqujTG7K0LsVO6mZ8RUWRbVWsi0DkdTxTurzCf1PZIWWfhgz3VF+udyJj5I7Ez+35A5PRic16WkaGxpco6iYFRN314lS0VmuNubvSsnXG6gDh0K4ZapGlmN4IEdxhXIEMCfYbRX8PjoEdzn3PvlFUmn+HjZfG7xI9V6NNFqGPb8AnPd1xdieFTWtxN2T/tzXoXKn3C0M7+0ens6HiY1W9mrfw==
-Received: from PR1P264CA0070.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:2cc::10)
- by DB8PR10MB3209.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:115::15) with
+ bh=gqkuI746oXPdPnrek59eVyr9+0fFaxDqzE6u3QjvO2k=;
+ b=bbaUl10TIMEnvsBblcnsciLrzfTAFuXrSrFi7EU/Sl6D1a2kU/fcbOHguXZKaQ7W5mhjOAwtpcoymk9E4IRhmktLmYJbos1PtUAwltosiVWzCx9JUlGCE+vJz1Fa+KcbqIb8oMxKIFofC6KjKyJzDnBqYE9IetOUClIhHurvHSKFDlyqgR8Vi8re4AztxYr66f1Xmxia60Rx8vJWwSeFbt985McVPnCdNpSeRP6SrDjXZJux9F3mBN2YMuwma6Ijst1c9wN7OMSGLg4AIvOnkbkPXLVMB9RYdv5VI1IVHf46LAVc34ycKu+hBHxvxBQGtHXuU6nR9ipWFyTvk/lUhA==
+Received: from AS4P191CA0042.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:657::19)
+ by AS8PR10MB6841.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:5b9::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.10; Fri, 21 Aug
- 2026 06:38:25 +0000
-Received: from AM4PEPF00025F95.EURPRD83.prod.outlook.com
- (2603:10a6:102:2cc:cafe::3b) by PR1P264CA0070.outlook.office365.com
- (2603:10a6:102:2cc::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
+ 2026 06:38:29 +0000
+Received: from AM4PEPF00025F98.EURPRD83.prod.outlook.com
+ (2603:10a6:20b:657:cafe::81) by AS4P191CA0042.outlook.office365.com
+ (2603:10a6:20b:657::19) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.11 via Frontend Transport; Fri,
- 21 Aug 2026 06:38:25 +0000
+ 21 Aug 2026 06:38:29 +0000
 X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
  smtp.mailfrom=foss.st.com; dkim=none (message not signed)
  header.d=none;dmarc=fail action=none header.from=foss.st.com;
@@ -49,21 +49,20 @@ Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
  designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
  client-ip=164.130.1.59; helo=smtpO365.st.com;
 Received: from smtpO365.st.com (164.130.1.59) by
- AM4PEPF00025F95.mail.protection.outlook.com (10.167.16.4) with Microsoft SMTP
+ AM4PEPF00025F98.mail.protection.outlook.com (10.167.16.7) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.0 via Frontend Transport; Fri, 21 Aug 2026 06:38:25 +0000
+ 15.21.360.0 via Frontend Transport; Fri, 21 Aug 2026 06:38:28 +0000
 Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
  (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 08:44:00 +0200
+ 2026 08:44:04 +0200
 Received: from localhost (10.130.77.105) by STKDAG1NODE2.st.com
  (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 21 Aug
- 2026 08:38:24 +0200
+ 2026 08:38:28 +0200
 From: Alain Volmat <alain.volmat@foss.st.com>
-Date: Fri, 21 Aug 2026 08:38:06 +0200
-Subject: [PATCH v5 04/14] media: stm32: dcmipp: move common structures in
- dcmipp-common.h
+Date: Fri, 21 Aug 2026 08:38:12 +0200
+Subject: [PATCH v5 10/14] media: uapi: Add controls for ST DCMIPP Driver
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -72,7 +71,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20260821-stm32-dcmipp-pixel-pipes-support-v5-4-d140efb61d72@foss.st.com>
+Message-ID: <20260821-stm32-dcmipp-pixel-pipes-support-v5-10-d140efb61d72@foss.st.com>
 References: <20260821-stm32-dcmipp-pixel-pipes-support-v5-0-d140efb61d72@foss.st.com>
 In-Reply-To: <20260821-stm32-dcmipp-pixel-pipes-support-v5-0-d140efb61d72@foss.st.com>
 To: Hans Verkuil <hverkuil+cisco@kernel.org>, Hugues Fruchet
@@ -86,144 +85,114 @@ X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
  (10.75.128.133)
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM4PEPF00025F95:EE_|DB8PR10MB3209:EE_
-X-MS-Office365-Filtering-Correlation-Id: bb266963-1c35-475b-6886-08deff4ecd85
+X-MS-TrafficTypeDiagnostic: AM4PEPF00025F98:EE_|AS8PR10MB6841:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0a9aab17-e4c9-4e32-1388-08deff4ecfaf
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|23010399003|36860700016|1800799024|6133799003|22082099003|18002099003|56012099006|11063799006|10067099003;
+	BCL:0;ARA:13230040|376014|23010399003|36860700016|1800799024|82310400026|10067099003|11063799006|56012099006|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	TKosuVceWm9+/awPpP4LQQY7YjnFbYPOtHCFrsGKKJk4UNMEMpxgJFSW7+Hrh4eOUJaRNM5STgMA1E7wyF3QpnsjV/pwdGx9u0iFDYXKUwOwEtBh7SNSTvh36ZR0ZMrtVJvwyGdd18n+F5pqV3Xm7tD/PANYk6o7s5G/3NZDCcomefbmmN/Mr4zK0zy74K19jdJ11LAk+JuO7U4vUIAtSlKggrBLsA6L8jg3i7kTmcCdAAircNTz6Ksbq1Y+sm3BXpeHdDA68UTSrRBtQJUr1f36LG/iDbJ7D4wfo4y37k7ac8BkgUkly9ghQz0JCUG6k1mmZIY+xIyZL8WAmSPrpMRHPZ05/M4aZbyQJzA0dC/zKmNXnwO7imOyPiy+rl5XUQ4oRg04WhjuMK783TityOD6Xq6J1Mjmy4ZbkpQV08r6JTLz45P7kCeGSxdiKfsw1Olg+2BVam2fcLUl3cktMLuflertfujrhHo6arSTUczaWCvaeLJGEAr/vNDar3Mni9zpeZCkEx9AaHhkUhW6kC7wmP7XUjWhaZo/d1j1qtQ3Yp/GCaDAQrsre7McydiDMLaTbPFzldL9LvBlYbgGQBwxwiEOa0Kg3QUMZ+Mlk0fJK8yJmZNjp0ahjaB8hzpF8zXFsxK0SG8bLG+JFW6+4mOwkHQCG8hrmYV+VeMgeBAd9a1o/HLvVd2pg4vUrx60PeF4B+oPm9nPLYXl1rzlew==
+	3Mwh7HN+kuZ/45ruhiu6riTN0so+x7yUd4CcZG3EC+j/vtZVHvfVG8QVr2OxW6BeO2vLN2HfS6gm6edrhFFgAUg3vubMATp2URUgXvYzhadQWr8QhNtargD4oe71Eh+9iRpfisPq6xolQYo9skKhz+aF5cuDsrOpNqHp5ROcCir9I8aoMMi7mmya1jgWcF68uuFmuPwJVfF6h7NJgAEiPVqW4BPDJVqKagoI5i7YIWiGDl+cZFEc3NUi9dkqSkVkzmCigp7Nso4mTZSsWENz2E90iZG/bK494ijIKfHiyEL7O7tkL83CarUxRhVQw0n8Zb617QIsTPvfGfr+321szTA3EQFeEMGJubL8t/Yv2hsWkjIalDahfJz7u1ZPY1pCwbFObdvwC5wi5PlCdj9M61hN39Qp9GpG58jr6TV3ASw+O3VzTjlgXzz6W1YJV1PfElR+joy6kW5q00zocpToFYkDaRBuy86Gf+bb+nDO9nkxYPwO1OAX2tpiH/6BltUz26nch0/2/9lvc4JK9hKlfLLLqBgmF4TpEwQ8LL6Kubofr4U81fXMAz92f7I6dkTJIxXaPH4DHcWq1yFhLCxjwIOjC4NLRmA8UnLqFEkhriBlMtNYXf7zuYy4rhLTK/nkLiX/UGL2kEx6YYkw7/moxmcfuwV/T1ITalmQfg5SbBHaiUecXNvhAwiCCLwL+xvq5OH53ostlf99Tb1zuvKVTQ==
 X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(23010399003)(36860700016)(1800799024)(6133799003)(22082099003)(18002099003)(56012099006)(11063799006)(10067099003);DIR:OUT;SFP:1101;
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(36860700016)(1800799024)(82310400026)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	FXNHSUQkBpaR19XpOhnvGlcEgC9nRryLZydMYaP76uJxFZkbezbT71Vphv0UTX0dPimn8d9t1dnGaGo5rFch1QR2+oScEoYCKOZi1c3/3z8S0gszVsR0RSzct+5Xt/91WiJl2z2/duL6p98f/aIfJHRlPvC1wjag2A9qjbBFaNY6CMlxdMZmV9jv02dSBMtWnQfHiRyyqztJLJwGB8wjZ6r8gDnBY1Jhqw2Nq2hjF8ipYwjdSMBWaa/3tUWWnOJt4450FV8fU+g8qxcZYM/eMkqRatzJvNKa3b837HSkGV6NBlF0VHy8R9zzcw34r/VpX6Td8efE14IUcrEkxAWXG1cCxe3pwCxI9YjYWSJemlrZQMm67BVYAQTJvbHmZLREQxP3uKdPwX5SfMYCP1RFgkEUfuN6DneVXF5M2kD+JdygD7fB/HYKuE1z/oxeUTOI
+	Fzpc0FbEOIUBB9TcfxjlprNYz9bbyw/5kEsNja+w1ikP+5RK70+kpmwuc6TEM7fle5jJhDUssdZNajsyrSJc2lfDtZzTh5gsD426s7vyEPabo93/sE8Xb1SK8d+G0gDBC5rBjg8Vl4bLrgW6sLiLq+SkiGyL5uiP+rJswRKyndXos1miIOTrTadQyJg/CiuvU2VkK6UcXFZs/GkmyGlkfNzN1T1LwLJvKLIkNfABidF5WgJ6tp1ojNmLlhhMMidGDx5X+UqlhI+oqeEUil4/HX0fNyd63kPcOMtVOrP56ufV4mPY99pGuFiji2SsqFUgAxAabGXUSdjnvxBugSJ8bNa2mevT2Y16b2ejVV08lU8OwQXbTY0M0W1sn+tb3odENnQN+wWm9GVW0fz2J6xwj7FqqJIXSIj8fOfux6nbSuRinCm+K+oMhSuXJWXdQ0DO
 X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 06:38:25.2894
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 06:38:28.9223
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: bb266963-1c35-475b-6886-08deff4ecd85
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0a9aab17-e4c9-4e32-1388-08deff4ecfaf
 X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	AM4PEPF00025F95.EURPRD83.prod.outlook.com
+	AM4PEPF00025F98.EURPRD83.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR10MB3209
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR10MB6841
 
-Move the structure dcmipp_pipeline_config into dcmipp-common.h
-so that all subdeves can have access to the information of
-capabilities.
+Add definitions and documentation for the custom control provided
+by the DCMIPP driver in order to control the pixelproc gamma
+correction.
 
 Signed-off-by: Alain Volmat <alain.volmat@foss.st.com>
 ---
- .../platform/st/stm32/stm32-dcmipp/dcmipp-common.h | 37 ++++++++++++++++++++++
- .../platform/st/stm32/stm32-dcmipp/dcmipp-core.c   | 37 ----------------------
- 2 files changed, 37 insertions(+), 37 deletions(-)
+ Documentation/userspace-api/media/drivers/dcmipp.rst | 14 ++++++++++++++
+ Documentation/userspace-api/media/drivers/index.rst  |  1 +
+ include/uapi/linux/media/st/dcmipp_config.h          | 16 ++++++++++++++++
+ include/uapi/linux/v4l2-controls.h                   |  6 ++++++
+ 4 files changed, 37 insertions(+)
 
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-index adcd16664cf5d..b94a9c87f56e2 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-common.h
-@@ -83,6 +83,43 @@ struct dcmipp_device {
- 	struct v4l2_async_notifier	notifier;
- };
- 
-+#define DCMIPP_ENT_LINK(src, srcpad, sink, sinkpad, link_flags) {	\
-+	.src_ent = src,						\
-+	.src_pad = srcpad,					\
-+	.sink_ent = sink,					\
-+	.sink_pad = sinkpad,					\
-+	.flags = link_flags,					\
-+}
+diff --git a/Documentation/userspace-api/media/drivers/dcmipp.rst b/Documentation/userspace-api/media/drivers/dcmipp.rst
+new file mode 100644
+index 0000000000000..ed4272da4b68b
+--- /dev/null
++++ b/Documentation/userspace-api/media/drivers/dcmipp.rst
+@@ -0,0 +1,14 @@
++.. SPDX-License-Identifier: GPL-2.0-only
 +
-+/* Structure which describes individual configuration for each entity */
-+struct dcmipp_ent_config {
-+	const char *name;
-+	struct dcmipp_ent_device *(*init)
-+		(const char *entity_name,
-+		 struct dcmipp_device *dcmipp);
-+	void (*release)(struct dcmipp_ent_device *ved);
-+};
++ST DCMIPP driver
++================
 +
-+/* Structure which describes links between entities */
-+struct dcmipp_ent_link {
-+	unsigned int src_ent;
-+	u16 src_pad;
-+	unsigned int sink_ent;
-+	u16 sink_pad;
-+	u32 flags;
-+};
++The ST DCMIPP driver implements a driver specific control as part of its
++pixelproc subdev.
 +
-+/* Structure which describes the whole topology */
-+struct dcmipp_pipeline_config {
-+	const struct dcmipp_ent_config *ents;
-+	size_t num_ents;
-+	const struct dcmipp_ent_link *links;
-+	size_t num_links;
-+	u32 hw_revision;
-+	bool has_csi2;
-+	bool needs_mclk;
-+};
++``V4L2_CID_DCMIPP_PIXELPROC_GAMMA_CORRECTION_ENABLE (boolean)``
++    Enable / disable the gamma correction block.
 +
- /**
-  * struct dcmipp_ent_device - core struct that represents a node in the topology
-  *
-diff --git a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-index b06a4931ae951..3a0a4df410d8a 100644
---- a/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-+++ b/drivers/media/platform/st/stm32/stm32-dcmipp/dcmipp-core.c
-@@ -25,14 +25,6 @@
- 
- #define DCMIPP_MDEV_MODEL_NAME "DCMIPP MDEV"
- 
--#define DCMIPP_ENT_LINK(src, srcpad, sink, sinkpad, link_flags) {	\
--	.src_ent = src,						\
--	.src_pad = srcpad,					\
--	.sink_ent = sink,					\
--	.sink_pad = sinkpad,					\
--	.flags = link_flags,					\
--}
--
- #define DCMIPP_CMSR2	0x3f8
- 
- static inline struct dcmipp_device *
-@@ -41,35 +33,6 @@ notifier_to_dcmipp(struct v4l2_async_notifier *n)
- 	return container_of(n, struct dcmipp_device, notifier);
- }
- 
--/* Structure which describes individual configuration for each entity */
--struct dcmipp_ent_config {
--	const char *name;
--	struct dcmipp_ent_device *(*init)
--		(const char *entity_name,
--		 struct dcmipp_device *dcmipp);
--	void (*release)(struct dcmipp_ent_device *ved);
--};
--
--/* Structure which describes links between entities */
--struct dcmipp_ent_link {
--	unsigned int src_ent;
--	u16 src_pad;
--	unsigned int sink_ent;
--	u16 sink_pad;
--	u32 flags;
--};
--
--/* Structure which describes the whole topology */
--struct dcmipp_pipeline_config {
--	const struct dcmipp_ent_config *ents;
--	size_t num_ents;
--	const struct dcmipp_ent_link *links;
--	size_t num_links;
--	u32 hw_revision;
--	bool has_csi2;
--	bool needs_mclk;
--};
--
- /* --------------------------------------------------------------------------
-  * Topology Configuration
++    The DCMIPP PixelProc stage implements a gamma compression on each R, G, B
++    component, using a static gamma exponent 2.2.
++    The gamma is implemented as a 7-segment linear curve.
+diff --git a/Documentation/userspace-api/media/drivers/index.rst b/Documentation/userspace-api/media/drivers/index.rst
+index 02967c9b18d6e..8d2c489b8453e 100644
+--- a/Documentation/userspace-api/media/drivers/index.rst
++++ b/Documentation/userspace-api/media/drivers/index.rst
+@@ -30,6 +30,7 @@ For more details see the file COPYING in the source distribution of Linux.
+ 	camera-sensor
+ 	ccs
+ 	cx2341x-uapi
++	dcmipp
+ 	dw100
+ 	imx-uapi
+ 	mali-c55
+diff --git a/include/uapi/linux/media/st/dcmipp_config.h b/include/uapi/linux/media/st/dcmipp_config.h
+new file mode 100644
+index 0000000000000..ad8d146820eab
+--- /dev/null
++++ b/include/uapi/linux/media/st/dcmipp_config.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
++/*
++ * ST DCMIPP Driver - Userspace API
++ *
++ * Copyright (C) STMicroelectronics SA 2026
++ */
++
++#ifndef __UAPI_DCMIPP_CONFIG_H
++#define __UAPI_DCMIPP_CONFIG_H
++
++#include <linux/types.h>
++#include <linux/v4l2-controls.h>
++
++#define V4L2_CID_DCMIPP_PIXELPROC_GAMMA_CORRECTION_ENABLE	(V4L2_CID_USER_DCMIPP_BASE + 0x0)
++
++#endif /* __UAPI_DCMIPP_CONFIG_H */
+diff --git a/include/uapi/linux/v4l2-controls.h b/include/uapi/linux/v4l2-controls.h
+index affec0ab47815..42b4f82afeb8c 100644
+--- a/include/uapi/linux/v4l2-controls.h
++++ b/include/uapi/linux/v4l2-controls.h
+@@ -234,6 +234,12 @@ enum v4l2_colorfx {
   */
+ #define V4L2_CID_USER_MALI_C55_BASE		(V4L2_CID_USER_BASE + 0x1230)
+ 
++/*
++ * The base for the ST DCMIPP driver controls.
++ * We reserve 16 controls for this driver
++ */
++#define V4L2_CID_USER_DCMIPP_BASE		(V4L2_CID_USER_BASE + 0x1240)
++
+ /* MPEG-class control IDs */
+ /* The MPEG controls are applicable to all codec controls
+  * and the 'MPEG' part of the define is historical */
 
 -- 
 2.34.1
