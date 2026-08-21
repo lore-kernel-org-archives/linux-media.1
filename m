@@ -1,221 +1,320 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 346D748988E
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 21:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from invmail4.hynix.com (exvmail4.hynix.com [166.125.252.92])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 2793430D3FF;
+	Fri, 21 Aug 2026 04:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=166.125.252.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787261797; cv=none; b=tdcvIXngazGXtVfWaWgFkltR4tTJPG8xW7KUBl2j+wrx6EssOqom8GaDV4bVsA+ilmRqzAxTPh2k0HC6cQs7wLXMlJnirXha1zbPoyiMK5PpIxOXwN7OU0f0Zvig3j/8ajgiKEHseK8SZeYs7xo3LY6lfEkzlsOXMCl5DEKIFc0=
+	t=1787286116; cv=none; b=pC3rt5r0zWa5kqWG1eefw0EI3wgkhoqzquzTXXOWMTYumiqFkBJdYkIzVkIAVJVF0PsvdbLyCOUITbQdCEb0g0n/vXRKKmWXA0YwYxUgCqEYO2MjR8VaIBA93IQo0U0cOjDBnYXXSN/K+5PxSdsfwf9DyARU76oAUdKhOfopdvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787261797; c=relaxed/simple;
-	bh=I9AZnSwniSO5WvO64cAJZoIJY50IdEqvOl23FYfXQTI=;
+	s=arc-20240116; t=1787286116; c=relaxed/simple;
+	bh=I34vR31HpuX9yQf4CCCk//8sxnSuE5CwojFxgmCYmNA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IrZaEqmzgtkhQMOhyj86GXqJupK3kbj4vdrYJ4LCjR4e/MKfXOVoW51T1buir+R+1qDff+GX2pjjac1CLa9Sp2lSMP5PLSAPBh+SPjs744Gdu6HhMqcFXat9sGlMtQ+UhhQoqPqvvgf+3GPeHTrP8pBLz9bHMvQVPFjqGeVRbr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QedjWF6K; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=U0BdqM1x; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QedjWF6K";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="U0BdqM1x"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67KK8aju160944
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 21:36:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=j2rOjyvAIKkmvDQQNmbmzmu9
-	Qh82UJVg1SmbG+umGK4=; b=QedjWF6KVy0wtqNblnw42t55qhHEFlWxb8m8ZA2c
-	ZndgJ5XG91Nf/R+JyjbmYco/C4+UDZFewTuceR/s6PYf1jkZCsX7ow+VS2j+b7r+
-	A9R7zFpP7F8tRJKOsdxFxWNImLlCERfGNi4+xcejguZf4AOOJSO41nJ1iGy1wCM1
-	GSI4IfuWFEGWr/a7O2v2R7BgKdAfLFu1zwUWoi6lB2jC/MTijIeQ0w3WrY56V/Di
-	hHNlLLosuCnEqADY1BB0uiUoexXxIyigHINsARUZsh9lIIFLXBkbPOm7+8jx74mv
-	yqSPFwrh4+WsN/VEb9T6CXiH2A5y0T/yxCzn4sOXYcAS1Q==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g5xuk37m0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 21:36:30 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51c1d137a68so5372931cf.3
-        for <linux-media@vger.kernel.org>; Thu, 20 Aug 2026 14:36:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787261790; x=1787866590; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=j2rOjyvAIKkmvDQQNmbmzmu9Qh82UJVg1SmbG+umGK4=;
-        b=U0BdqM1xtjLePAaUd4YzL5/PejCYwsUUe7bHkI208yvkAFs8mKXPwm+7Rfk4cih+gO
-         UYKyMTvuUrkSHyZnGR2kykoBdu0XSfaJ2qoFoC7yjDx3D0bPKfh7ai1PRAhkzBYMGI94
-         fdyAh5pHo/4zFKhhSf48VluEtS7dmU+60qR1syP1BWuWO7Wcs8ML19tloR4p6VJFwZCw
-         Lat3NoM00NbcLa/1iNQzN1u+rWf5Ju/efvIwKvxgBIfAKSUnxdGOcGybsIDn1l+1aUHE
-         yw2vl1BdHBZBGhOc5EL1lIqnlkVijnLdD1ktdW+VQsYQRBO0HufCbZFVQlejFNx+6naw
-         DRxQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787261790; x=1787866590;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=j2rOjyvAIKkmvDQQNmbmzmu9Qh82UJVg1SmbG+umGK4=;
-        b=R5bcDUOujgozHhq/zVK4BtHhocCEyEyBtOCKYzztv3lzkg90qMDcFnPq2bPLatD7AD
-         yIcHw1HZv8rBZbzc5ohWXQsBKKCly8mOkdk4DdX2oCdbqjaSQQOtWPcJJCKD6WEa83U4
-         5HR5+KmOyX+IVJyfT7iJ5Tfwcv80ofnsw6ZGQ7ZvmxMICYabUKyYfDSsGnkCp8ncAr9h
-         P3Dta9tAMgYFTrXvgTFunFtoq+g4BUJXBn2+MS3kXCkW2rFYv9kxhoFBGt8Onm7QHAA7
-         Kw42oLLjwZD/qMyok6tdjVhsMADjyWyFhfo+47ALGwZugWI4GklF17X313Npe4uz470e
-         faxw==
-X-Forwarded-Encrypted: i=1; AHgh+Rr73iNTR0Qyz8PMUY/H6wlAO7OFzfy+JckE5JB3MC0EPEezFf8Nk2kQ7ot106kCT2z1dG4wPssurneWqQ==@vger.kernel.org
-X-Gm-Message-State: AOJu0YxLwb+fCU8Lw+cUyvIzJA4d24KyF6KI3141GnkpG3qoUm4j7KCu
-	HQqIAsACJi+y1oma+KnjBevaH1HQPh6AqdfRseaoS+3JTpV7BvUCxKWB3Zkm0v21LYHESukNF1Q
-	lOrzBES6265xYksFUvicLFkoTZAlg3xE/7jfJ6c/OTjVActLeA7FFzqHd+pmR0bpRDQ==
-X-Gm-Gg: AR+sD10x2FrZmLc20XPG8gM/TgAKw4hIpQV0gDdXz0SyBhlHixlg65/ULnPzz7QvaD/
-	PtTx3c+picP6aKNRLMV7bylr3i3gRuITUjMQ6TSxYsjl8M4SsraqJHiPYd8JPMboKR4nUDEep8y
-	w2J7NHzfyTmPRZdabM5AYllYSJIt76E9D/eKeA2yxMIU7tuH33ejRlMobpq7f3ecv21MJx04bsW
-	X7OR0+QqIeNCqGxCog890S198qqVxr615XEDIJihMlocueJTOjUR5sWQ2ZzCIM5lSRbhhDJpnmv
-	dgBXzI9Egtyk93O5xNCXQpLIFOhAnqTBR/FZ5qW7Q5NSqzOzX7tEtpWZTKOxlEVDg2m7nZ8CFyC
-	gEzliY6WVCb/o2HD6u2rke1yiOfYRcT7E5YCKIGowyIFkl+sR3Q97ogjdMALW02RPncBUftli3P
-	fzNq3tGmKffuk4
-X-Received: by 2002:a05:622a:5519:b0:52d:7b2a:93f with SMTP id d75a77b69052e-52df5665bebmr17193491cf.3.1787261790085;
-        Thu, 20 Aug 2026 14:36:30 -0700 (PDT)
-X-Received: by 2002:a05:622a:5519:b0:52d:7b2a:93f with SMTP id d75a77b69052e-52df5665bebmr17192991cf.3.1787261789651;
-        Thu, 20 Aug 2026 14:36:29 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b47885aafcsm1494400e87.18.2026.08.20.14.36.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 20 Aug 2026 14:36:28 -0700 (PDT)
-Date: Fri, 21 Aug 2026 00:36:26 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: "Gjorgji Rosikopulos (Consultant)" <gjorgji.rosikopulos@oss.qualcomm.com>
-Cc: Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
-        linux-media@vger.kernel.org, bod@kernel.org, mchehab@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org, loic.poulain@linaro.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sm8250: Add JPEG encoder node
-Message-ID: <4f7tyzvt2ojfmkneoaviegk3xbt2gegp3yoei57rzijcxkrlyp@b32nycxqybyj>
-References: <20260730150524.2659577-1-atanas.filipov@oss.qualcomm.com>
- <20260730150524.2659577-4-atanas.filipov@oss.qualcomm.com>
- <ln6tr2vwv6zmoo3kcivjjf3rqjxqm2fltwcpn4kk3iphc4rzlb@qdpop32fjm5l>
- <ce631db2-8e8b-4b97-8164-c701a1b0dc1c@oss.qualcomm.com>
- <2rtrk7tsquxekqhk7tsiomjnfzc3xfqg574cbw2m5b4ui4ovt6@2oxme5w4wsqy>
- <31db3de6-34a2-4ccb-af61-043f56d8f86b@oss.qualcomm.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=LoJHzDGHqZrcPIGWLDFgPR6CiXWwqEFTlTcwnp8yvED9zjCqTcUNmwqbweXu3Re5wVRKCR12WAiZcfURHdYNm7IEoUTq+quYXmPhPy8pCU5nBQxrUVXI6DQ+S4OygLCVCYTcNCryXiGQE+n7utRf19jSN/LWzGuyFKsnTXaTq50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com; spf=pass smtp.mailfrom=sk.com; arc=none smtp.client-ip=166.125.252.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=sk.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sk.com
+X-AuditID: a67dfc5b-c45ff70000001609-19-6a87d2571569
+Date: Fri, 21 Aug 2026 13:21:43 +0900
+From: Byungchul Park <byungchul@sk.com>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-kernel@vger.kernel.org, max.byungchul.park@gmail.com,
+	kernel_team@skhynix.com, torvalds@linux-foundation.org,
+	damien.lemoal@opensource.wdc.com, linux-ide@vger.kernel.org,
+	adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org, will@kernel.org,
+	tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
+	sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
+	johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+	willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
+	gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
+	akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
+	hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
+	jglisse@redhat.com, dennis@kernel.org, cl@linux.com,
+	penberg@kernel.org, rientjes@google.com, vbabka@suse.cz,
+	ngupta@vflare.org, linux-block@vger.kernel.org,
+	josef@toxicpanda.com, linux-fsdevel@vger.kernel.org, jack@suse.cz,
+	jlayton@kernel.org, dan.j.williams@intel.com, hch@infradead.org,
+	djwong@kernel.org, dri-devel@lists.freedesktop.org,
+	rodrigosiqueiramelo@gmail.com, melissa.srw@gmail.com,
+	hamohammed.sa@gmail.com, harry.yoo@oracle.com,
+	chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com,
+	boqun.feng@gmail.com, longman@redhat.com, yunseong.kim@ericsson.com,
+	ysk@kzalloc.com, yeoreum.yun@arm.com, netdev@vger.kernel.org,
+	matthew.brost@intel.com, her0gyugyu@gmail.com, corbet@lwn.net,
+	catalin.marinas@arm.com, bp@alien8.de, x86@kernel.org,
+	hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
+	gustavo@padovan.org, christian.koenig@amd.com,
+	andi.shyti@kernel.org, arnd@arndb.de, lorenzo.stoakes@oracle.com,
+	Liam.Howlett@oracle.com, rppt@kernel.org, surenb@google.com,
+	mcgrof@kernel.org, petr.pavlu@suse.com, da.gomez@kernel.org,
+	samitolvanen@google.com, paulmck@kernel.org, frederic@kernel.org,
+	neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+	josh@joshtriplett.org, urezki@gmail.com,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	chuck.lever@oracle.com, neil@brown.name, okorniev@redhat.com,
+	Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
+	anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
+	clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
+	kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
+	broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
+	shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+	yuzhao@google.com, baolin.wang@linux.alibaba.com,
+	usamaarif642@gmail.com, joel.granados@kernel.org,
+	richard.weiyang@gmail.com, geert+renesas@glider.be,
+	tim.c.chen@linux.intel.com, linux@treblig.org,
+	alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+	chenhuacai@kernel.org, francesco@valla.it,
+	guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
+	masahiroy@kernel.org, brauner@kernel.org,
+	thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
+	andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
+	rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
+	miguel.ojeda.sandonis@gmail.com, neilb@ownmail.net,
+	bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+	dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
+	alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+	lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+	tmgross@umich.edu, rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
+Message-ID: <20260821042143.GA40890@system.software.com>
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <31db3de6-34a2-4ccb-af61-043f56d8f86b@oss.qualcomm.com>
-X-Proofpoint-GUID: y4INBqtzMBN5clvHO2ocdDTebpVoi-HC
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODIwMDE2MSBTYWx0ZWRfXxAW+Qdbmygqq
- LXrhnFdmF4miKgdq9lwZnOR37rJ63L1qauVDXOehZ0PJ75SJqL1YoLvcag/JJA/sJg4aD1GocS4
- nil1vT0EK4RScUO8n7SAg3jsrroK7KU=
-X-Authority-Analysis: v=2.4 cv=T/O8ifKQ c=1 sm=1 tr=0 ts=6a87735e cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=EUspDBNiAAAA:8
- a=m53B41o1t5e8-q7OVZAA:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIwMDE2MSBTYWx0ZWRfXx5+shz6+cnYv
- 9zN/601AWfDK/55jzMnAdNKyFQrQTgHTv0ChkiusiDCVhGAYUXZVb+rzJWfh/k851QQYo0lMKdp
- BQk7tttVHmjPDeNGHMKC2dVIQFHowyIluNB0bZdnebOTLWxzSn32AS2RLwP5L0CRYOkRQet6nuU
- AmA8Sx+pFX22J8NPfyiwCuQws6yX0K+4a5Qw9l6eVQsIhspoYXClaf5E1B9CJaVboE+McCe/BbT
- 89CXGuZpfEkElPGxSktM/pjJP9TBE5roPZ8WnuKCaSmYiAbvM9XlBvpzUHRNGopL1NrR5Z+5Ng9
- m8TCgLFzpyt6YAuG6CH6Npp8SPa3VD0NL/C4sYfNraBU6J5WQocOlWU7l8W+ilWPbIc6oWRX1SM
- Sobe2curk5VBRW8pV/FMQskdevBSkrAFjefTzPR6d42aWxWmmwsfv+ygrMLiZPkFa+qMmhWQUT5
- Kq/SP5Cy5LBTimTZFLQ==
-X-Proofpoint-ORIG-GUID: y4INBqtzMBN5clvHO2ocdDTebpVoi-HC
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-20_02,2026-08-20_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
- spamscore=0 adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608200161
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Sa0xbZRjH857zngvdqoduc8c1UVNDTDBubE55NG7RxA/ngyZL+DCnWaSR
+	RroVmIWx4TShzpbKZcONDi0UkOm4dYWUcRmjg3WsXBIYA3Fnrh1FKpVoySyXQdtN2xIj337P
+	/588v+fDw5KybnoHq87OU2mzlRoFLcGSwOb6Vz6YKDqSMly0CdzTPgqqW600jNtaEEwvGxE8
+	PudiYGntPgMmHYJ/HC4E4ngfCX/eDCIwzfhoqJzXYQhMX6Ogtr6dhvDobRJ+mPGQEJz3Irji
+	eoDA3xFCMOl7CgJ3qglYaKNh7lcHARcsdgxXvT0MVI1OUuA5a8JgC9ymoKvQy4CxZxlDr2MY
+	g6v7NwIme6ppKG3roKDVLxIwbG7CMOMVKVg5Iwex/HcElxfqaTi/MIfgXuVfDEz01xGgu3ER
+	w9yUgYAmxygNTbUNCAyLTygYLOsn4Od71xAMtHYREPJ0UzASGiFAX7rGQMsdDKaIkYYq3RkE
+	JfoLGDpuPWKg7e8GGr52vwbh1eg1q22zFFiWdr/9jtDc3kkI+onHtGCtsSIhHDqHhKWfTpOC
+	vjw6hpanaMGxUoeFkXpeuGr2MEKd/bjQ3pgsXOydJwR78ze0sDA2xghD34XxgRc+lLyVodKo
+	81XaXfvTJZmz/rvMsVv7TjZWiEQhMu0qRgksz+3lA4uLZDFi49ynOxiLMZfEz84bcYxp7iVe
+	FNfIGG/lUnj/0FdEMZKwJNfyHF8xPcjEii1cKn/FXULHWMoBbwvdj7OMU/OWvha0nifyw9/7
+	4kvJ6NJIzUTcS3JyvuEJux4/z5/uqIq7Erj9/Gzxwzhv417k+zsHifWTgwn82vlT6/wsf6NR
+	xOUo0bzBYN5gMP9vMG8w1CHcjGTq7PwspVqzd2dmQbb65M5PcrLsKPrPl76MfNSNguNpTsSx
+	SLFZmvLAcERGKfNzC7KciGdJxVapzRiNpBnKgs9V2pyPtcc1qlwnkrNYsV26Z+VEhoz7VJmn
+	OqpSHVNp/2sJNmFHIUryrHaFreTNPLfhYEmnNdPPJD/jxSHy4b7UTXY5tqU/srjsU9cjjc6i
+	9jfSyswjklL3q+9v6X3v5ad/+cKbXB7MSR2NnFqqeDdpyF7bJa+sOVQ48KM5raIJl6V7tn1b
+	9qbvcq1G3Zpo0LvOrojbD8OA88Bn0j9w0LLM9O4Ze12BczOVu5NJba7yX+hS3TDLAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA02SbUxTVxjHc865Pb00q1xrpzeyuKRzMSER2aLxWXBmbjHezGj0w4ZhS2aV
+	m1He1NYxMNm0dJ2lugUbW7QVRZRqLCJrgY2ZDgIDYWoEVOgUKIRCR0BBVmSUt7WYZXw5+Z3/
+	8zy/53w4LFFY6WpWk31U1GarM1VUxsh2JxnWJ3ecTE+89mANmIzHodsfkECnvp6ByZCJgQu3
+	yinMOX6Wgsl9XgItXfkMtFW4EPgnTQimZhwEjLULDMxZmqUQmn4qBasewYK3GYGt3ULA11ZH
+	oLxKj+HvynkKI40TCKz9AQpFw3oGxpynEdiHHFIYbtoBz/y3JbDQE8TQ9XIUgTMwjyFQfxLB
+	nC0DLpV6IuO2cQoz9x8QKLK2Ibjc30NgYrgPQVVzL4JgdRiB93o+hcHCagIPA8vg0eQYhVbr
+	KQrP2i9geF5JoSTfK4H2eyMIih0WBENPvBgMV25RsBW7Gajt+1UK7SOzGLptFgwu9y7wO4cY
+	uFtYiiNvjnT9tAocRQYcOf7CYL15G3/gRMKU8UdGuOGpwYKxY44K5RfLkTATtiAhVGYggrEw
+	cm0cHSPCd56vhbK7o1QITz6mgvdlCSP8UcoLVwvCWDhzf71Qa++R7tmWItuSKmZqckTthq37
+	ZWkDwS7p4ab3c6+f9eETyLrBjFiW5zbydfpkM4phGe5tfmDYxESZcut4n2+aRFnJJfLBlnxs
+	RjKWcK41/Fn/HWm0sILbzFd1n6JRlnPAV4SfLrKC0/DFdS70Kl/Ot54PLEpJRDp7sYNE9xIu
+	jr82z76K3+QN1Y7FXTHcVn7APL7Ir3Nv8fU1d3AhWmZfYrIvMdn/N9mXmEoQcwMpNdk5WWpN
+	5qYEXUZaXrYmN+HgoSw3inxW5zezZ35BoYc7GhDHItVr8sTe79MVEnWOLi+rAfEsUSnlFaZI
+	JE9V5x0TtYe+0H6VKeoaUBzLqFbJP04W9yu4L9VHxQxRPCxq/6tiNmb1CaQekR9R/pCymaQ8
+	173ojB/d7hsvOLLTHJrX1aZubDwQ/LbrvbV9sZ+sdW3rv/JCGbviXNPlhgKPO6Z1i+nzeIXq
+	sz+f9ApJ3dvLht4tbdk7uG/itOq3jsrfafrYYPOHcf8sJIaKOh+/8em56eWKhKapWNmx4+59
+	nqAv6aOVuTXpN8db96oYXZr6nXii1an/BXiILQioAwAA
+X-CFilter-Loop: Reflected
 
-On Tue, Aug 04, 2026 at 08:48:13AM +0300, Gjorgji Rosikopulos (Consultant) wrote:
-> Hi Dmitry,
+On Thu, Aug 20, 2026 at 07:16:05PM +0200, David Hildenbrand (Arm) wrote:
+> On 7/6/26 08:18, Byungchul Park wrote:
+> > Hi Linus and folks,
 > 
-> On 8/3/2026 9:44 PM, Dmitry Baryshkov wrote:
-> > On Thu, Jul 30, 2026 at 09:02:26PM +0300, Atanas Filipov wrote:
-> >> On 7/30/2026 7:01 PM, Dmitry Baryshkov wrote:
-> >>> On Thu, Jul 30, 2026 at 06:05:24PM +0300, Atanas Filipov wrote:
-> >>>> Add the JPEG encoder hardware node to the SM8250 device tree so the
-> >>>> qcom-jpeg V4L2 encoder driver can bind and operate on this platform.
-> >>>>
-> >>>> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
-> >>>> ---
-> >>>>   arch/arm64/boot/dts/qcom/sm8250.dtsi | 72 ++++++++++++++++++++++++++++
-> >>>>   1 file changed, 72 insertions(+)
-> >>>>
-> >>>> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> >>>> index f11da2ca4181..d42b29419320 100644
-> >>>> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> >>>> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-> >>>> @@ -13,6 +13,7 @@
-> >>>>   #include <dt-bindings/firmware/qcom,scm.h>
-> >>>>   #include <dt-bindings/gpio/gpio.h>
-> >>>>   #include <dt-bindings/interconnect/qcom,osm-l3.h>
-> >>>> +#include <dt-bindings/interconnect/qcom,icc.h>
-> >>>>   #include <dt-bindings/interconnect/qcom,sm8250.h>
-> >>>>   #include <dt-bindings/mailbox/qcom-ipcc.h>
-> >>>>   #include <dt-bindings/phy/phy-qcom-qmp.h>
-> >>>> @@ -4486,6 +4487,77 @@ cci1_i2c1: i2c-bus@1 {
-> >>>>   			};
-> >>>>   		};
-> >>>> +		jpeg-encoder@ac53000 {
-> >>>> +			compatible = "qcom,sm8250-jpeg-enc";
-> >>>> +			status = "disabled";
-> >>>> +
-> >>>> +			reg = <0x0 0x0ac53000 0x0 0x1000>;
-> >>>> +
-> >>>> +			interrupts = <GIC_SPI 474 IRQ_TYPE_EDGE_RISING>;
-> >>>> +
-> >>>> +			power-domains = <&camcc TITAN_TOP_GDSC>,
-> >>>> +					<&rpmhpd RPMHPD_MMCX>,
-> >>>
-> >>> Is TITAN_TOP a part of the MMCX or CX domain? In the former case,
-> >>> please drop separate mmcx vote here and let it come through the
-> >>> titan_top (it might require camcc driver and node modifications).
-> >>>
-> >>
-> >> The change was requested by Brian, most likely in connection with upcoming
-> >> migrations. I think he would be able to explain the exact reasons. As far as
-> >> the facts are concerned, this is not currently necessary for the driver to
-> >> be functional.
-> > 
-> > There is no word _driver_ in the _dt bindings_. What is the actual
-> > hardware wrapping? What is being powered by which domain? Is MMCX
-> > directly powering something? Or is it gated by TITAN_TOP_GDSC? I assume
-> > that MX is powering on PLLs, correct?
+> Hi,
+
+Hi,
+
+> I think there was plenty of feedback from locking maintainers in the past. One
+> question and a comment below.
 > 
-> Yes i agree there is no word driver in the dt_bindings but you get my point,
-> with only TITAN_TOP_GDSC hw is fully functional there is no need of additional MMCX 
-> power domain. 
-
-This will be true if:
-- MMCX is a parent of the TITAN_TOP_GDSC (in Linux kernel)
-- the driver casts the vote on the TITAN_TOP_GDSC using the opp tables.
-
+> >
+> > DEPT(DEPendency Tracker) is a runtime deadlock detection framework that
+> > sees what lockdep cannot.
+> >
+> > I'm thrilled to share that DEPT has moved beyond theory and is now
+> > catching real deadlocks in the wild:
+> >
+> >    https://lore.kernel.org/lkml/6383cde5-cf4b-facf-6e07-1378a485657d@I-love.SAKURA.ne.jp/
+> >    https://lore.kernel.org/lkml/1674268856-31807-1-git-send-email-byungchul.park@lge.com/
+> >    https://lore.kernel.org/all/b6e00e77-4a8c-4e05-ab79-266bf05fcc2d@igalia.com/
+> >
+> > I've added comprehensive documentation explaining DEPT's design and usage.
+> > Getting started is as simple as enabling CONFIG_DEPT and watching dmesg.
+> >
+> > THE PROBLEM LOCKDEP CANNOT SOLVE
+> > --------------------------------
+> >
+> > Lockdep has been our trusted deadlock detector for two decades, but it
+> > has a fundamental blind spot: it tracks lock acquisition order, not the
+> > actual waits and events that cause deadlocks. This means lockdep misses:
+> >
+> >   * Deadlocks involving folio locks (not released within the context)
+> >   * Cross-context synchronization like wait_for_completion()/complete()
+> >   * DMA fence waits, RCU waits, and general waitqueue patterns
+> >   * Any synchronization primitive outside the classic lock/unlock model
+> >
+> > Consider this real deadlock pattern that lockdep cannot detect:
+> >
+> >    context X              context Y              context Z
+> >
+> >                           mutex_lock A
+> >    folio_lock B
+> >                           folio_lock B <- DEADLOCK
+> >                                                  mutex_lock A <- DEADLOCK
+> >                                                  folio_unlock B
+> >                           folio_unlock B
+> >                           mutex_unlock A
+> >                                                  mutex_unlock A
 > 
-> > 
-> >>>> +
-> >>>> +				opp-100000000 {
-> >>>> +					opp-hz = /bits/ 64 <400000000>,
-> >>>> +						 /bits/ 64 <100000000>;
-> >>>> +					required-opps = <&rpmhpd_opp_min_svs>;
-> >>>
-> >>> This looks a bit strange. Are you sure that PLL levels match the MMCX /
-> >>> internal clock levels? I think you need to vote on both domains.
-> > 
-> > This is not addressed / responded.
+> But that really just boils down to folio lock being implemented as a PG_lock +
+> some advanced wait mechanism. And we must do that because of lack of bits in
+> struct page.
 > 
-> Yes this need to be checked. I will get back when we get info for this...
+> Willy mentioned in a previous version [1]: "I don't think it makes sense to
+> track lock state in the page (nor folio).  Partly because there's just so many
+> of them, but also because the locking rules don't really apply to individual
+> folios so much as they do to the mappings (or anon_vmas) that contain folios."
 
-Checking the 4.19 kernel. cam_cc_jpeg_clk_src casts votes on the vdd_mm
-(MMCX) power domain, while its parents (pll0, pll2) cast votes on
-vdd_mx (MX) power domain. Note, that frequencies used by those clocks do
-not match, so we need separate entries at each of the corners.
+Exactly.  That's why we use classification e.g. lock class - DEPT also
+makes use of the concept.
 
--- 
-With best wishes
-Dmitry
+DEPT doesn't use a full map in each page but uses a minimum space for a
+timestamp in each to track when each starts to wait so as to use the
+recorded timestamp when the event occurs e.g. folio_unlock().
+
+> Given that lockdep is a debug feature, and we will at some point allocate struct
+> folio separately, I assume we could just squeeze a "struct lockdep_map" in there
+> in such debug configs and the world would not collapse.
+
+That's a good news for lockdep.  (And even for DEPT :)
+
+> Doing that today (one "struct lockdep_map" in each "struct page") wouldn't work
+> as mm_zero_struct_page() would not expect such large "struct page". But
+> conceptually, for a debug kernel with a special CONFIG_LOCKDEP_PAGE_LOCK, maybe
+> that would already be ok and we could just do that (and optimize it as we
+> allocate folios separately).
+
+Sounds great.
+
+> Not that it's ideal, but for a debug feature to at least check PG_lock, probably
+> an easier way to achieve it than some completely new infrastructure.
+
+I understand what you are going to tell.
+
+However, it's worth noting that lockdep tracks dependencies basically
+based on **lock acqusition orders** in the system.  To make it track
+even rwlock and general synchronization mechanism as well, lockdep has
+no choice but to get more complicated.
+
+Focusing on only the dependency checking, the most parts of lockdep are
+for the tricky things, so the reusable parts are not that big.
+
+> Now, Willy said "locking rules don't really apply to individual folios", I
+> wonder if that could just help to also let lockdep check PG_lock with less
+> metadata? (didn't fully wrap my head around the implications)
+
+That's what DEPT did and what brought external wgen introduced in DEPT.
+I was considering the exactly same thing :)
+
+Again, lockdep that tracks lock acquisition orders can't do that.
+
+> [1]
+> https://lore.kernel.org/all/aR3WHf9QZ_dizNun@casper.infradead.org/?utm_source=chatgpt.com
+> 
+> 
+> It's your guiding example, that's why I mention it. You do mention other wait
+> cases here, I don't know anything about them, but for folios it's really just
+> "we used a single bit so far" AFAIKs.
+
+It doesn't matter whether it's implemented using bit or not.  folio lock
+is quite special since it's allowed to be released other than the
+acquisition context that makes lockdep impossible to track them.
+
+> [...]
+> 
+> >
+> > Q. Why not build DEPT into lockdep?
+> >
+> > A. Lockdep is stable, battle-tested code. I chose separation because
+> >    while DEPT borrows BFS and hashing ideas, the wait/event model
+> >    requires rebuilding from scratch. Lockdep was designed for lock
+> >    acquisition order — retrofitting it would risk its stability.
+> 
+> Why can't this just be some configurable extension to lockdep
+> (CONFIG_LOCKDEP_XYZ) until the feature is stable and can unconditionally be
+> enabled along with it?
+
+Answered?
+
+> I don't quite buy the "would risk its stability" argument. A lot of stuff we do
+> "risks stability", every day :)
+
+That's awsome anyway :)
+
+> Is there another good reason (incompatible with X, dangerous with Y, cinfusing
+> Z) why this really must be a separate thing?
+
+Roughly:
+
+   1. Similar or less effort is needed for the new one - retrofitting
+      lockdep is not easy and big changes are required since the
+      reusable parts are not that big.
+
+   2. Even though you didn't agree, retrofitting it would risk its
+      stability.
+
+> >
+> > Q. Will DEPT replace lockdep?
+> >
+> > A. No. Lockdep validates correct lock usage — that's not going away.
+> >    DEPT supersedes only the dependency-checking logic when mature.
+> 
+> It's quite unfortunate that we'd end up with another similar-but-different
+> mechanism, that will just end up confusing people.
+
+I meant, at least dependency checking engine should be altered, but you
+make sense.  Worth thinking it more.
+
+> But I am not a locking maintainer. I think there was plenty of discussion in the
+> past, so I might just be raising points that were already discussed in the past,
+> but I really just read some random pieces of earlier discussions. (ideally
+> previous discussions would be summarized here)
+> 
+> Long story short: we are now in v19 and I think there was pushback in the past.
+> Did the opinion of locking maintainers change, or is there a way forward to
+> integrate this in a way that would make locking maintainers accept this?
+
+One of locking maintainers who I met in an LPC told me that he agrees
+with the direction of DEPT and supports DEPT, not officially tho.
+
+What he and other people are concerning w.r.t DEPT the most is, false
+positives, which is the most important issue for now.
+
+At the same time, I think the most important thing is to make DEPT
+useful in practice especially with folio locks involved.  Actually, I'm
+planning to share DEPT's true reports periodically to LKML and work with
+people who believe DEPT can make things better.
+
+Any advices will be welcome.  Thanks for your opinions.
+
+	Byungchul
+> --
+> Cheers,
+> 
+> David
