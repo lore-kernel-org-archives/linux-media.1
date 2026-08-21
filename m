@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06EE647126E
-	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:43:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBCAE489895
+	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:43:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787312638; cv=none; b=Hup/GdQvbmaTydxDb5eQCXEEMVlGbTKglZ5nuilc/wRANw8GRtd5pSpHQDUGomDFiKYCaPBrG5AY33PqKqc+D7Fc9mDRTKRYVsxy3I8cHJbZHdY068fTCL5jeR1z2j3BZi60edsA4MKQ3q7zGJA/Y2zyNijly/zgJBk3KZyhHcM=
+	t=1787312640; cv=none; b=p2w517Rsi9/8/KwucdMK66kBY2OpEhc8IqtL49OZpGTMJ7Ugz8eSPYXpR0/NGKdENd3lyALkkw9Hu040mjlH54rCz1h4AQ9ntIFdwz+9Zk0V+zUVWznLRJENnnKMm7B3HR44yYvZRyE0Fn33hbAYo/k3HP33ZQzsXqZ1ei7nt54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787312638; c=relaxed/simple;
-	bh=OfnoOW0PbpFT+xhqLI6Vfxu9w3vn2de7QI8eqDIbjF0=;
+	s=arc-20240116; t=1787312640; c=relaxed/simple;
+	bh=Pp6kmGmzjk68XWpC3Ku11F9henpFYWZHL4nFqtl6Q64=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pHalFRLiH3WoE/vGK1ZAkrx4cgKvs+64uweOL3zRj37/CQo/Y3wrziuV9K02pYTbAQa93Aw9EzfBn/6ZKw47tW++ThUgU+yZsXSkkOzAJXm9av7LjJLI4FlrxYEiKaRXsWpxQK67jE2ppg04vuRT4Vwxv+LEBUZ6abPrIzihrZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mRq+YWds; arc=none smtp.client-ip=192.198.163.15
+	 MIME-Version; b=CPaw1RX1M0dt+wCuCcOlvHZdibNZJIhcfxzWyE2RTuBQldh9/7XPr7u4IusAtFhhl8FFAYLyCLqb+J0fWEyR9r2qwFeJVlUvW40Eep0t3XyMIvwt+8+BjeJ0wO4Sk2/vpY9gqK0TEd/Rx4gtzMGxKUk51YZ322bpp8isfsJvEbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=PqQbQO9Y; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mRq+YWds"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="PqQbQO9Y"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787312637; x=1818848637;
+  t=1787312639; x=1818848639;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=OfnoOW0PbpFT+xhqLI6Vfxu9w3vn2de7QI8eqDIbjF0=;
-  b=mRq+YWds9OwmcYxM76amXJoh/u8JanH1XrpwrbvjD7p+W2i3PhvYySOX
-   gasrI/V7Ob3JE6MGPq+7VXVLQW9EG4RWzeZGmrrGCuDkkhZfRcmJMAEWB
-   7KCqxXJrwtKHfQBE0/+VXE0bzuFxYnTR9RH5pIEtRZYSBvHaeAM94JW8Z
-   6ydTlal7gSvp3+19FVwqZh0QOYAeXUUG4K7J3KIw0mVr0mVzjTmMhJ+8i
-   bKl4+DtVT3gTNaheUYPvwtobB/pDhwdDaS3tILGaMwklVoFKNIUrzioEY
-   JOfTL2C00SeuS4tETu9hBT31nzIzxq5y5wxDU8xxW8eYgwpWRg4sRmx0R
-   Q==;
-X-CSE-ConnectionGUID: bLt2h0FHTRaswJ/szd++gQ==
-X-CSE-MsgGUID: XKbJ7PprQneYKgJFti/7tQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989032"
+  bh=Pp6kmGmzjk68XWpC3Ku11F9henpFYWZHL4nFqtl6Q64=;
+  b=PqQbQO9YeHq+YAGQfqjL35bOe757szZuGmmgmTng4TL67M8kceYTCQI8
+   v4e96y1zRzLHCXw/DRYUwLOH9QXSCpU8dym33roxGt+WVSBTSzc7vIl1W
+   WQgXTcwAWovUUQAFZCT/S/vESv0QiDjdVMQET/pUf9BhDbbD7ySidHnZw
+   QPiS9snjofW0IlgdW0pSuZsaHnN5AYT+GczaFqGHUmGI7lus6PTxYgHfa
+   m1wVeTm61ji4SBpLrp1V4CETRv0gCCy2h68ZRNVpFcnzg14WkTRuU8dUl
+   R0uOhCKAZDT90+TpJP1uMUVOlmVSrTo0QkLdZH7jU4AeiIUNmmlZEIc5w
+   g==;
+X-CSE-ConnectionGUID: cnL/EOzoQk6W29xhSZ0kWg==
+X-CSE-MsgGUID: cLxoarRbRseVj0lcg3D3Eg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87989037"
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="87989032"
+   d="scan'208";a="87989037"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:56 -0700
-X-CSE-ConnectionGUID: NCgnXFKDREyGssakQAYlEA==
-X-CSE-MsgGUID: O0z1CCWQRtu1DVUHYa3G7w==
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:59 -0700
+X-CSE-ConnectionGUID: vgPshm+6SQeW7v7eUohfAg==
+X-CSE-MsgGUID: gCOLnGj7QNeRAdTHw89stw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="291172194"
+   d="scan'208";a="291172204"
 Received: from mwiniars-mobl.ger.corp.intel.com (HELO alaakso-desk.kioski) ([10.245.246.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:54 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:56 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
@@ -50,9 +50,9 @@ To: linux-media@vger.kernel.org,
 Cc: daxing.li@intel.com,
 	ong.hock.yu@intel.com,
 	antti.laakso@linux.intel.com
-Subject: [PATCH v2 07/44] media: ipu6: Simplify firmware com arguments
-Date: Fri, 21 Aug 2026 14:42:25 +0300
-Message-ID: <20260821114302.365532-8-antti.laakso@linux.intel.com>
+Subject: [PATCH v2 08/44] media: ipu6: Add helper to identify ipu7
+Date: Fri, 21 Aug 2026 14:42:26 +0300
+Message-ID: <20260821114302.365532-9-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260821114302.365532-1-antti.laakso@linux.intel.com>
 References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
@@ -64,74 +64,35 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We need only pointer to ipu6_isys struct, and queue number
-can be removed as it is always the same.
+The ipu7 comes in two flavors as of now, ipu7 and ipu7p5.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 8 ++++----
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.h | 4 ++--
- drivers/media/pci/intel/ipu6/ipu6-isys.c    | 4 ++--
- 3 files changed, 8 insertions(+), 8 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-index a65e9f1aa104..fc2f24c05de7 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
-@@ -366,14 +366,14 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
- }
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+index 874b377a2e9a..ebae876058ca 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.h
++++ b/drivers/media/pci/intel/ipu6/ipu6.h
+@@ -27,11 +27,17 @@ struct ipu6_bus_device;
+ #define IPU_VERSION_6SE		BIT(1) /* JSL */
+ #define IPU_VERSION_6EP		BIT(2) /* ADL/RPL */
+ #define IPU_VERSION_6EP_MTL	BIT(3) /* MTL */
++#define IPU_VERSION_7		BIT(4) /* LNL */
++#define IPU_VERSION_7P5		BIT(5) /* PTL */
  
- struct ipu6_fw_isys_resp_info_abi *
--ipu6_fw_isys_get_resp(void *context, unsigned int queue)
-+ipu6_fw_isys_get_resp(struct ipu6_isys *isys)
- {
--	return ipu6_recv_get_token(context, queue);
-+	return ipu6_recv_get_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
- }
+ #define IS_IPU6_TGL(isp)	((isp)->hw_ver & IPU_VERSION_6)
+ #define IS_IPU6SE(isp)		((isp)->hw_ver & IPU_VERSION_6SE)
+ #define IS_IPU6EP(isp)		((isp)->hw_ver & IPU_VERSION_6EP)
+ #define IS_IPU6EP_MTL(isp)	((isp)->hw_ver & IPU_VERSION_6EP_MTL)
++#define IS_IPU7(isp)		((isp)->hw_ver & \
++				 (IPU_VERSION_7 | IPU_VERSION_7P5))
++#define IS_IPU7_MTL(isp)	((isp)->hw_ver & IPU_VERSION_7)
++#define IS_IPU7P5(isp)		((isp)->hw_ver & IPU_VERSION_7P5)
  
--void ipu6_fw_isys_put_resp(void *context, unsigned int queue)
-+void ipu6_fw_isys_put_resp(struct ipu6_isys *isys)
- {
--	ipu6_recv_put_token(context, queue);
-+	ipu6_recv_put_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
- }
- 
- void ipu6_fw_isys_dump_stream_cfg(struct device *dev,
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-index 393245a633f4..15d4ae355f28 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-@@ -576,6 +576,6 @@ int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys,
- 				  unsigned int offset, u32 value);
- void ipu6_fw_isys_cleanup(struct ipu6_isys *isys);
- struct ipu6_fw_isys_resp_info_abi *
--ipu6_fw_isys_get_resp(void *context, unsigned int queue);
--void ipu6_fw_isys_put_resp(void *context, unsigned int queue);
-+ipu6_fw_isys_get_resp(struct ipu6_isys *isys);
-+void ipu6_fw_isys_put_resp(struct ipu6_isys *isys);
- #endif
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 180a53f3d7ab..8af891081bd3 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -1215,7 +1215,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
- 	if (!isys->fwctx)
- 		return 1;
- 
--	resp = ipu6_fw_isys_get_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
-+	resp = ipu6_fw_isys_get_resp(isys);
- 	if (!resp)
- 		return 1;
- 
-@@ -1324,7 +1324,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
- 
- 	ipu6_isys_put_stream(stream);
- leave:
--	ipu6_fw_isys_put_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
-+	ipu6_fw_isys_put_resp(isys);
- 	return 0;
- }
- 
+ /*
+  * ISYS DMA can overshoot. For higher resolutions over allocation is one line
 -- 
 2.55.0
 
