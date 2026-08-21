@@ -1,47 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4F13BBA04
-	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:43:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E779476044
+	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 11:43:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787312623; cv=none; b=k9yy2w+wOXYEW0F0gRd3mZyC+1ImpAt/IKfWAMXZo32ZgpqaSAtfjjeGl8weaVbBZ9vvyA/8W10Aj//AaxJzUCaBsrouCCvXEsNAfkk/+l1Inl2FKOFBD3KcTJwrlzcBdTSNKYrvf5Hq/wvMes/gRvcmXo65MJssI6wlLlrbo0M=
+	t=1787312625; cv=none; b=KlarkY20GG5OrPubAIV4nBpcDhJ+sTxzrDWCm51pzE+PccuKZYLF2+GuN9qLQF3fa7mFXF++Olex98qsZdIxxS1YzBewA6LmiLL3uRnt+1pExnpq/PKDCW5n5Hy2vawfCjTjWKkbcEMT3As3OwgflHrzgkH/Vpzh5dvO0ULGPxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787312623; c=relaxed/simple;
-	bh=hEFlAroSjyqHoDo8EmB4bYVylpcEkLerYJeR40UB/0c=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IkGoSoyXbNqeqZARfTms00RKEhUNbenz0u+lbpl1QHK1fONaTyzsU5PFpzX25i0/89bGC2od0Yts1BZIM9310bnL7h2o3DKnrdcKxez9i4B9p4LSbtIxLzGYd0wqT8Ff7nxA/WPVZL0Vy4a5AKNlclf5W8V2nN8pVGgNXhmzX+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=RLVa/aUI; arc=none smtp.client-ip=192.198.163.15
+	s=arc-20240116; t=1787312625; c=relaxed/simple;
+	bh=/ned6zzkzTfD4yaJOnDpfz6sROe5y0rzyUXxXnHL2RY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LBROpqySrOnrSDjjkufCmD7MXMI9dec27wiuscJF+VWqYT+REQCZdwQVuoZNJtFljCUlCJ+How2lqQU9PgatylwExNJUYBKEWtDSU1aMMjp7hwDpkbb9+vEk/Hm54v5zfjHinIH/MXSR3h4XMKnNLXOdIVLUUv+aVl4/V6fUnbM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jOheOa5n; arc=none smtp.client-ip=192.198.163.15
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="RLVa/aUI"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jOheOa5n"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787312622; x=1818848622;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=hEFlAroSjyqHoDo8EmB4bYVylpcEkLerYJeR40UB/0c=;
-  b=RLVa/aUIIjmNuyz9ODEhtaCp+eGVim8bFsutAAV7FMLguG1xamKUVhlH
-   HnyszCgbbNAtHyAv5PEOblV4ydoSJJKAlw7lQX2ru1k88yTM5p5zTQsgu
-   uGQ//IVohvC3Gi3R/wbYLVHb4HbqrMpBoaxawFRJIHYAmiXcNF/L7zuYm
-   Ec2A90Vi5tlgeWJjuO6I9E9D24YMHnhhO/csUfwJOM2aJeGR7GBgVrk1i
-   aDsA447L4haa3KexAnYWZ+dQBWDtJjgIn7nsxOhN3i1xJuFgHk2ClHFU/
-   zW6Hd2lN52YooY1eFM4zJsK75ouPNkVUI6prkWkNGO72pLKjOFeBbpxVj
+  t=1787312623; x=1818848623;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=/ned6zzkzTfD4yaJOnDpfz6sROe5y0rzyUXxXnHL2RY=;
+  b=jOheOa5n9S6i3DAaTwCGyh7h8/SDQGNtRawvIpne8722SRlhbUgxpfii
+   IMYaIVEnVYixonPu+shMtfgvJFDloCDsOuaxYCfgAv2josipsAaX6ZC4Q
+   VY5WMVz4CcilxrW2Oxs0UMKA03Cye8RhlslfOb9rwqtaPzxIm8yvfqxiV
+   TibWNZrhM9pXoWTi3FQHfVMuI9Fudu2mwFly9It7gsQ61KR3mpkc1uCC0
+   IZpSdtdO8M50byayFWI+Vbd33myj9n1FSkgRMH6XgQdQof5r26bAw1ycG
+   uPJ697c7aOKsu9YqJK8N2G8LZtbh6iZ/Wsu9KqtsKqHAMszQYsshuened
    A==;
-X-CSE-ConnectionGUID: 9PALqnMjSWyyyShWgAyVfA==
-X-CSE-MsgGUID: 8L1kARkrTn2BekelS4LnZw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87988993"
+X-CSE-ConnectionGUID: z9C8Y/lpSv+HMAkbrwVzLg==
+X-CSE-MsgGUID: PXMh94/tSkuLOeOtdtkMVw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11881"; a="87988995"
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="87988993"
+   d="scan'208";a="87988995"
 Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:41 -0700
-X-CSE-ConnectionGUID: myU2I57kSQWP+1VFR20ZSw==
-X-CSE-MsgGUID: yP1FuNtOQUu4xyxyFB7MKg==
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:43 -0700
+X-CSE-ConnectionGUID: JbHN33NoQ6WjKeImBRORUg==
+X-CSE-MsgGUID: uf8NiUQCTcClCJfQd1y/iQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
-   d="scan'208";a="291172114"
+   d="scan'208";a="291172127"
 Received: from mwiniars-mobl.ger.corp.intel.com (HELO alaakso-desk.kioski) ([10.245.246.151])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:39 -0700
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 04:43:41 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
@@ -49,10 +50,12 @@ To: linux-media@vger.kernel.org,
 Cc: daxing.li@intel.com,
 	ong.hock.yu@intel.com,
 	antti.laakso@linux.intel.com
-Subject: [PATCH v2 00/44] media: ipu6: Add support for ipu7 hardware
-Date: Fri, 21 Aug 2026 14:42:18 +0300
-Message-ID: <20260821114302.365532-1-antti.laakso@linux.intel.com>
+Subject: [PATCH v2 01/44] media: ipu6: Add helpers for IPU runtime variation
+Date: Fri, 21 Aug 2026 14:42:19 +0300
+Message-ID: <20260821114302.365532-2-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260821114302.365532-1-antti.laakso@linux.intel.com>
+References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -61,117 +64,187 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hello,
+And replace inline functions with defines.
 
-The 7th Gen Intel Imaging Processing Unit is a PCI device including
-input system and processing system. This set adds support for ISYS
-in IPU7 and IPU7.5.
+Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+---
+ drivers/media/pci/intel/ipu6/ipu6-isys.c |  4 +--
+ drivers/media/pci/intel/ipu6/ipu6.c      | 29 ++++++++--------
+ drivers/media/pci/intel/ipu6/ipu6.h      | 42 +++++-------------------
+ 3 files changed, 25 insertions(+), 50 deletions(-)
 
-Changes since v1:
-- Fixed review and checkpatch issues.
-- Fixed a bug in ipu6 fw communication.
-- Added missing bits for ipu7 CSI2 initialization.
-- Changed IPU runtime detection.
-- Added IPU7.5 support.
-
-Antti Laakso (44):
-  media: ipu6: Add helpers for IPU runtime variation
-  media: ipu6: Rename pointer to firmware context
-  media: ipu6: Rename buttress_ipc pointer
-  media: ipu6: Remove duplicate warnings in cpd validation
-  media: ipu6: Remove unused ipu6 firmware struct
-  media: ipu6: Cleanup ipu6_mmu_init()
-  media: ipu6: Simplify firmware com arguments
-  media: ipu6: Add helper to identify ipu7
-  media: ipu6: Prepare buttress for ipu7 support
-  media: ipu6: Use single struct for registers
-  media: ipu6: Rename IPU subsys ID
-  media: ipu6: Add ipu7 buttress support
-  media: ipu6: Prepare mmu driver for hw variation
-  media: ipu6: Add ipu7 mmu support
-  media: ipu6: Add ipu7 cpd handling
-  media: ipu6: Add check for pkg_dir before freeing
-  media: ipu6: Rename isys fw msg union
-  media: ipu6: Move isys isr handlers to fw file
-  media: ipu6: Move hw specific buffer handling down
-  media: ipu6: Isolate hw specific buffer handling
-  media: ipu6: Add isys firmware ops
-  media: ipu6: Add ipu7 fw start/stop functionality
-  media: ipu6: Add ipu7 fw com methods
-  media: ipu6: Add ipu7 fw isys ops
-  media: ipu6: Add ipu7 csi2 register definitions
-  media: ipu6: Add ipu7 isr handler
-  media: ipu6: Add ipu7 csi phy driver
-  media: ipu6: Split ipu6 csi2 stream enable/disable
-  media: ipu6: Add support for ipu7 csi2 receiver
-  media: ipu6: Parse bus type for ipu7
-  media: ipu6: Enable ipu7 isys interrupts
-  media: ipu6: Skip watermark configuration for ipu7
-  media: ipu6: The SPC init is valid only for ipu6
-  media: ipu6: The VC arbitration mechanism is ipu6 only
-  media: ipu6: Move buttress mem alloc out from probe
-  media: ipu6: Read correct SKU ID for ipu7
-  media: ipu6: Add support for fixed iova region
-  media: ipu6: Make fw mapping function reusable
-  media: ipu6: Move isys fw mapping to pci_probe
-  media: ipu6: Map ipu7 firmware
-  media: ipu6: Set model name for ipu7
-  media: ipu6: Add ipu7.5 buttress support
-  media: ipu6: Add ipu7.5 mmu initialization data
-  media: ipu6: Enable ipu7 and ipu7.5
-
- drivers/media/pci/intel/ipu6/Makefile         |   10 +-
- drivers/media/pci/intel/ipu6/ipu6-bus.h       |    6 +-
- drivers/media/pci/intel/ipu6/ipu6-buttress.c  |  568 +++++---
- drivers/media/pci/intel/ipu6/ipu6-buttress.h  |   50 +-
- drivers/media/pci/intel/ipu6/ipu6-cpd.c       |  195 ++-
- drivers/media/pci/intel/ipu6/ipu6-cpd.h       |   43 +
- drivers/media/pci/intel/ipu6/ipu6-dma.c       |   24 +-
- drivers/media/pci/intel/ipu6/ipu6-dma.h       |    2 +
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   |  589 +++++++-
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.h   |   48 +-
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.c |  207 ++-
- drivers/media/pci/intel/ipu6/ipu6-isys-csi2.h |    5 +
- .../media/pci/intel/ipu6/ipu6-isys-queue.c    |   87 +-
- .../media/pci/intel/ipu6/ipu6-isys-queue.h    |    6 +-
- .../media/pci/intel/ipu6/ipu6-isys-video.c    |  160 +--
- .../media/pci/intel/ipu6/ipu6-isys-video.h    |    1 +
- drivers/media/pci/intel/ipu6/ipu6-isys.c      |  397 ++----
- drivers/media/pci/intel/ipu6/ipu6-isys.h      |   55 +-
- drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c    |  296 ++++
- drivers/media/pci/intel/ipu6/ipu6-mmu.c       |  133 +-
- drivers/media/pci/intel/ipu6/ipu6-mmu.h       |  158 ++-
- .../intel/ipu6/ipu6-platform-buttress-regs.h  |  111 +-
- drivers/media/pci/intel/ipu6/ipu6.c           |  536 +++++---
- drivers/media/pci/intel/ipu6/ipu6.h           |  200 +--
- drivers/media/pci/intel/ipu6/ipu7-boot.c      |  405 ++++++
- drivers/media/pci/intel/ipu6/ipu7-boot.h      |   46 +
- drivers/media/pci/intel/ipu6/ipu7-fw-com.c    |   74 +
- drivers/media/pci/intel/ipu6/ipu7-fw-com.h    |   53 +
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.c   |  787 +++++++++++
- drivers/media/pci/intel/ipu6/ipu7-fw-isys.h   |  296 ++++
- .../media/pci/intel/ipu6/ipu7-isys-csi-phy.c  | 1072 +++++++++++++++
- .../media/pci/intel/ipu6/ipu7-isys-csi-phy.h  |   16 +
- .../pci/intel/ipu6/ipu7-isys-csi2-regs.h      | 1189 +++++++++++++++++
- drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c    |  858 ++++++++++++
- drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h    |  254 ++++
- .../media/pci/intel/ipu6/ipu7-platform-regs.h |   32 +
- include/media/ipu6-pci-table.h                |    4 +
- 37 files changed, 7596 insertions(+), 1377 deletions(-)
- create mode 100644 drivers/media/pci/intel/ipu6/ipu6-mmu-hw.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-boot.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-boot.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-fw-com.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-fw-com.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-fw-isys.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-fw-isys.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-isys-csi-phy.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-isys-csi-phy.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-isys-csi2-regs.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
- create mode 100644 drivers/media/pci/intel/ipu6/ipu7-platform-regs.h
-
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 24db2763de54..799e7b30e6a2 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -1104,9 +1104,9 @@ static int isys_probe(struct auxiliary_device *auxdev,
+ 
+ 	isys_iwake_watermark_init(isys);
+ 
+-	if (is_ipu6se(adev->isp->hw_ver))
++	if (IS_IPU6SE(adev->isp))
+ 		isys->phy_set_power = ipu6_isys_jsl_phy_set_power;
+-	else if (is_ipu6ep_mtl(adev->isp->hw_ver))
++	else if (IS_IPU6EP_MTL(adev->isp))
+ 		isys->phy_set_power = ipu6_isys_dwc_phy_set_power;
+ 	else
+ 		isys->phy_set_power = ipu6_isys_mcd_phy_set_power;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index 5449a2006bcc..6d3235352a1c 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -290,8 +290,6 @@ EXPORT_SYMBOL_NS_GPL(ipu6_configure_spc, "INTEL_IPU6");
+ 
+ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
+ {
+-	u8 hw_ver = isp->hw_ver;
+-
+ 	isys_ipdata.num_parallel_streams = IPU6_ISYS_NUM_STREAMS;
+ 	isys_ipdata.sram_gran_shift = IPU6_SRAM_GRANULARITY_SHIFT;
+ 	isys_ipdata.sram_gran_size = IPU6_SRAM_GRANULARITY_SIZE;
+@@ -314,19 +312,19 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
+ 		IPU6_REG_ISYS_CSI_TOP_CTRL0_IRQ_STATUS;
+ 	isys_ipdata.csi2.ctrl0_irq_lnp =
+ 		IPU6_REG_ISYS_CSI_TOP_CTRL0_IRQ_LEVEL_NOT_PULSE;
+-	isys_ipdata.enhanced_iwake = is_ipu6ep_mtl(hw_ver) || is_ipu6ep(hw_ver);
++	isys_ipdata.enhanced_iwake = IS_IPU6EP_MTL(isp) || IS_IPU6EP(isp);
+ 	psys_ipdata.hw_variant.spc_offset = IPU6_PSYS_SPC_OFFSET;
+ 	isys_ipdata.csi2.fw_access_port_ofs = CSI_REG_HUB_FW_ACCESS_PORT_OFS;
+ 
+-	if (is_ipu6ep(hw_ver)) {
++	if (IS_IPU6EP(isp)) {
+ 		isys_ipdata.ltr = IPU6EP_LTR_VALUE;
+ 		isys_ipdata.memopen_threshold = IPU6EP_MIN_MEMOPEN_TH;
+ 	}
+ 
+-	if (is_ipu6_tgl(hw_ver))
++	if (IS_IPU6_TGL(isp))
+ 		isys_ipdata.csi2.nports = IPU6_TGL_ISYS_CSI2_NPORTS;
+ 
+-	if (is_ipu6ep_mtl(hw_ver)) {
++	if (IS_IPU6EP_MTL(isp)) {
+ 		isys_ipdata.csi2.nports = IPU6EP_MTL_ISYS_CSI2_NPORTS;
+ 
+ 		isys_ipdata.csi2.ctrl0_irq_edge =
+@@ -347,7 +345,7 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
+ 		isys_ipdata.memopen_threshold = IPU6EP_MTL_MIN_MEMOPEN_TH;
+ 	}
+ 
+-	if (is_ipu6se(hw_ver)) {
++	if (IS_IPU6SE(isp)) {
+ 		isys_ipdata.csi2.nports = IPU6SE_ISYS_CSI2_NPORTS;
+ 		isys_ipdata.csi2.irq_mask = IPU6SE_CSI_RX_ERROR_IRQ_MASK;
+ 		isys_ipdata.num_parallel_streams = IPU6SE_ISYS_NUM_STREAMS;
+@@ -454,12 +452,13 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
+ 	return psys_adev;
+ }
+ 
+-static int ipu6_pci_config_setup(struct pci_dev *dev, u8 hw_ver)
++static int ipu6_pci_config_setup(struct pci_dev *dev)
+ {
++	struct ipu6_device *isp = pci_get_drvdata(dev);
+ 	int ret;
+ 
+ 	/* No PCI msi capability for IPU6EP */
+-	if (is_ipu6ep(hw_ver) || is_ipu6ep_mtl(hw_ver)) {
++	if (IS_IPU6EP(isp) || IS_IPU6EP_MTL(isp)) {
+ 		/* likely do nothing as msi not enabled by default */
+ 		pci_disable_msi(dev);
+ 		return 0;
+@@ -525,26 +524,26 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
+ 	switch (id->device) {
+ 	case PCI_DEVICE_ID_INTEL_IPU6:
+-		isp->hw_ver = IPU6_VER_6;
++		isp->hw_ver = IPU_VERSION_6;
+ 		isp->cpd_fw_name = IPU6_FIRMWARE_NAME;
+ 		break;
+ 	case PCI_DEVICE_ID_INTEL_IPU6SE:
+-		isp->hw_ver = IPU6_VER_6SE;
++		isp->hw_ver = IPU_VERSION_6SE;
+ 		isp->cpd_fw_name = IPU6SE_FIRMWARE_NAME;
+ 		isp->cpd_metadata_cmpnt_size =
+ 			sizeof(struct ipu6se_cpd_metadata_cmpnt);
+ 		break;
+ 	case PCI_DEVICE_ID_INTEL_IPU6EP_ADLP:
+ 	case PCI_DEVICE_ID_INTEL_IPU6EP_RPLP:
+-		isp->hw_ver = IPU6_VER_6EP;
++		isp->hw_ver = IPU_VERSION_6EP;
+ 		isp->cpd_fw_name = IPU6EP_FIRMWARE_NAME;
+ 		break;
+ 	case PCI_DEVICE_ID_INTEL_IPU6EP_ADLN:
+-		isp->hw_ver = IPU6_VER_6EP;
++		isp->hw_ver = IPU_VERSION_6EP;
+ 		isp->cpd_fw_name = IPU6EPADLN_FIRMWARE_NAME;
+ 		break;
+ 	case PCI_DEVICE_ID_INTEL_IPU6EP_MTL:
+-		isp->hw_ver = IPU6_VER_6EP_MTL;
++		isp->hw_ver = IPU_VERSION_6EP_MTL;
+ 		isp->cpd_fw_name = IPU6EPMTL_FIRMWARE_NAME;
+ 		break;
+ 	default:
+@@ -564,7 +563,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 
+ 	dma_set_max_seg_size(dev, UINT_MAX);
+ 
+-	ret = ipu6_pci_config_setup(pdev, isp->hw_ver);
++	ret = ipu6_pci_config_setup(pdev);
+ 	if (ret)
+ 		return ret;
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+index 92e3c3414c91..07ca59048f44 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.h
++++ b/drivers/media/pci/intel/ipu6/ipu6.h
+@@ -23,39 +23,15 @@ struct ipu6_bus_device;
+ #define IPU6EPMTL_FIRMWARE_NAME		"intel/ipu/ipu6epmtl_fw.bin"
+ #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
+ 
+-enum ipu6_version {
+-	IPU6_VER_INVALID = 0,
+-	IPU6_VER_6 = 1,
+-	IPU6_VER_6SE = 3,
+-	IPU6_VER_6EP = 5,
+-	IPU6_VER_6EP_MTL = 6,
+-};
+-
+-/*
+- * IPU6 - TGL
+- * IPU6SE - JSL
+- * IPU6EP - ADL/RPL
+- * IPU6EP_MTL - MTL
+- */
+-static inline bool is_ipu6se(u8 hw_ver)
+-{
+-	return hw_ver == IPU6_VER_6SE;
+-}
+-
+-static inline bool is_ipu6ep(u8 hw_ver)
+-{
+-	return hw_ver == IPU6_VER_6EP;
+-}
+-
+-static inline bool is_ipu6ep_mtl(u8 hw_ver)
+-{
+-	return hw_ver == IPU6_VER_6EP_MTL;
+-}
+-
+-static inline bool is_ipu6_tgl(u8 hw_ver)
+-{
+-	return hw_ver == IPU6_VER_6;
+-}
++#define IPU_VERSION_6		BIT(0) /* TGL */
++#define IPU_VERSION_6SE		BIT(1) /* JSL */
++#define IPU_VERSION_6EP		BIT(2) /* ADL/RPL */
++#define IPU_VERSION_6EP_MTL	BIT(3) /* MTL */
++
++#define IS_IPU6_TGL(isp)	((isp)->hw_ver & IPU_VERSION_6)
++#define IS_IPU6SE(isp)		((isp)->hw_ver & IPU_VERSION_6SE)
++#define IS_IPU6EP(isp)		((isp)->hw_ver & IPU_VERSION_6EP)
++#define IS_IPU6EP_MTL(isp)	((isp)->hw_ver & IPU_VERSION_6EP_MTL)
+ 
+ /*
+  * ISYS DMA can overshoot. For higher resolutions over allocation is one line
 -- 
 2.55.0
 
