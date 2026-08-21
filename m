@@ -1,201 +1,276 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013039.outbound.protection.outlook.com [40.107.159.39])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C77F64C8FFE;
-	Fri, 21 Aug 2026 15:15:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787325350; cv=fail; b=oRDH/RPgoxwvuf9E/tGS409jwBfbmUZiaGGVBu3UVCfbyL8PnfISpCpSKx+WbwgY/yqg/sQUVJ0P7ndLkzSuXtcjtTjMUdkBNurTHZmow1MVlCWpiIbrPNZUntsBJ/jCnieOrCd5zyy+RN+PFpNyS3/LxXH0p3wgyVkElNJj3uY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787325350; c=relaxed/simple;
-	bh=vspJoBRlHtg6PSIC1gqGJxQHO1OLFnS+x/wy6rkgpj4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=HDPSuCh/GLEskCEwKm8sSq6oLFTWcyzewA2GKsDScOBoAr5+EfOrOPx90tDafmrHhTvo1604f0tePy+2Lwi3DqvcwyXyQxx8CiIotOUOkPgIsHnVhKlYzaViVUTZPkft/xPSXuPiNYWosWF7tVMngbGkkp7kX1551I6AZnyD7SI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Tzs0mUK6; arc=fail smtp.client-ip=40.107.159.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14D381AA797
+	for <linux-media@vger.kernel.org>; Fri, 21 Aug 2026 18:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787336260; cv=none; b=GuqiWIslDtLUxMT/6CAk6EINk0wIElcRlsRd+G2lQr8j4EsEbWZSAV+ecLSED1BiDS0/H2GZY5c0QRS1uXdOQyiwfCTQgFb0B2me1JDYYv/BuDRr0tn2pv6DMDJxnZjrqXcuy5IJAfoGYN6JwC+gW6hqsbbj0mJwjwfJQ3oWaqQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787336260; c=relaxed/simple;
+	bh=/Ah/B4JHOkt9V137k0U9B9g6HgR+OHP+V+r6aCvK20w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cw6OT2KJRv7RKdkASi8TYQCmkj+nKod9STjG9zN7hvrxffAPuVmjrQiN2jlBx/0hg/yZ0UhIeuHFURWYE5x+YIX8GmnOi7KKpqmbJCktczI7aAnNRScXrREZLNgEo/0BV/Xrh/y9OsehoGivrfyMYCHV4uUa9Ii+gbHiFH7XsC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Y4Njmoz3; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Tzs0mUK6"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aIEYrWnKynLLrQGdKCWB4JOfNRorCrG9hkNj74NQMUCGV8M+N8XFOcon3Yzu6ILtTg2aCg829r9KWMygzHwgit3dR5XkGcXhHm5hxlBtxauTJ4dcIQ/6PPAmicGUaE9iAu1xEb/ykEuwnZQj3HGVFnz/oIA8ISB4c/b24MO4WvzrmW/yqLaYWIZatfodrBjh1yfDyEqgQUOfQCtPvYXQXJx8U2tXauMEFMiH+Y8Po6fLrdk5gmuIJBatjc9L/jkzbbAd4u0yrcx6Ne6LjzsFfo74o/EWBmj//wetliXoC+Pu51vwXN5r/U9iAbGc3xIiwHgh6SG+KOZ57OmYgV58cA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fudzCWYZCqhWnyRX8VAhAx9Pe9K2t+yDgpDseW7BBmU=;
- b=hpqeCDOaoCv1QpwPEbPC4cWQxp3fvsoWCLpSfgN7r+UlqtmpQpXLgqSX4y4t2FUBskrgU0kGCnSUD+nNUEyFG+50V3nsXOhbzWkdbiwwd6IUMrdhAON3H4O0jIFphmn9r2zgrFKbuMFKh/qqTFwjB5Xn4bQCeg9dXbrxiGK0o+40guoJ0BPPM3SNiNCgBWKxVLvLKjTFDpk47KfV+Pv0p78D/NdOjIwOCkAjo9YicbmS2lgCihRBjNq1gugnn87DtORvif6PLXsAynzhZDmVRYcIGrdDNudJ/EWMeVJJ11yEdX6qgEO9wKuiRL740xjVokEaHM+eiY+uYWezgsRW9Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fudzCWYZCqhWnyRX8VAhAx9Pe9K2t+yDgpDseW7BBmU=;
- b=Tzs0mUK6caHD5OQdzvpdFAJLaQG9nmCwr2YLzHXgwZtDq0jIQ5o3b/CgyVMegyyqiqK7xrxG09k+JJjtQB4wGSUNwdON/4DNi1FxbmTQSm+INeKlTORV0BCI2SNT6ptN5pDjC/sCN14/2lr5eIQy7Vys8jNRH+6DOCjlH4SoqESwNa9g8BMyws4PSljFvkhEobui9hXGhAu+MQqk5vxwxpimJicXMoQQyYB7PN19J6vKzxfrEOKckhrD/7sCUxh2AZQPjf+TF7b3pby/HVY10+rjezy3e1d9A3vshjhDg8G84mCWaBxPwPHEbGiKanjln6rpkEHXIvBEh1J0r8cOJQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB8897.eurprd04.prod.outlook.com (2603:10a6:20b:42c::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Fri, 21 Aug
- 2026 15:15:45 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.008; Fri, 21 Aug 2026
- 15:15:45 +0000
-Date: Fri, 21 Aug 2026 10:15:36 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Michail Tatas <michail.tatas@gmail.com>
-Cc: nicolas.dufresne@collabora.com, benjamin.gaignard@collabora.com,
-	p.zabel@pengutronix.de, mchehab@kernel.org, heiko@sntech.de,
-	linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: verisilicon: rockchip: Fix leaks in init
-Message-ID: <aohrmDgzhRxC6M_D@SMW015318>
-References: <aoV3LLy5hSoKL4QP@michalis-linux>
- <aoXgSKnkbWZVKRui@lizhi-Precision-Tower-5810>
- <aodup3TleCfdxcF3@michalis-linux>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aodup3TleCfdxcF3@michalis-linux>
-X-ClientProxiedBy: SA1P222CA0185.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:806:3c4::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Y4Njmoz3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787336258; x=1818872258;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=/Ah/B4JHOkt9V137k0U9B9g6HgR+OHP+V+r6aCvK20w=;
+  b=Y4Njmoz3eaJUGReVEUwMyjby0y7sC6N44MzWKi2UdxGDMQZxbODeEO6c
+   5zMq4kiwSpKaD70HU5tNF/6QIpeCe8bcTYHVK0qErALPjlNZ2sznrd57t
+   FknceS1RV5aiaw3g13TBtflSAyAwSd2eNFDIOirzYCRWLpJ1b52ocYcJs
+   Hpii1IvOytqzPLeCyBG3q0+Rpk+3LQWzUTnwJYfUUVEWf406zcBV8h0TS
+   0mKJrQQZqiYnYt080yN2s4pKXS5CwYNSJO7y5sKGJXBHD3Y0ek1MSh4Yg
+   kEnpUsRtrVN46JG66STpw5hXAAjLL/qkrUfC24o4b9ha1R9hA1MYP/wI6
+   A==;
+X-CSE-ConnectionGUID: 2bihw5IpQLmhYcfnGEv8GA==
+X-CSE-MsgGUID: nBumjXIqR0Klg3Mtwr+ezQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11882"; a="88093817"
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="88093817"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 11:17:37 -0700
+X-CSE-ConnectionGUID: dCSActDvQ6aZ5Wopc69smA==
+X-CSE-MsgGUID: /rvKeXM3QA211pYuSkeEJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,235,1779174000"; 
+   d="scan'208";a="269893503"
+Received: from klitkey1-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.37])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Aug 2026 11:17:36 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B55E1121BE2;
+	Fri, 21 Aug 2026 21:17:43 +0300 (EEST)
+Date: Fri, 21 Aug 2026 21:17:43 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Antti Laakso <antti.laakso@linux.intel.com>
+Cc: linux-media@vger.kernel.org, mchehab@kernel.org, daxing.li@intel.com,
+	ong.hock.yu@intel.com
+Subject: Re: [PATCH v2 39/44] media: ipu6: Move isys fw mapping to pci_probe
+Message-ID: <aoiWR5EVWPKguO8g@kekkonen.localdomain>
+References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
+ <20260821114302.365532-40-antti.laakso@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8897:EE_
-X-MS-Office365-Filtering-Correlation-Id: 4cd5efcd-29fc-46b5-2dc5-08deff9712c7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|19092799006|23010399003|1800799024|366016|56012099006|11063799006|4143699003|6133799003|22082099003|10067099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	mfMk5TSqaHGFIc+ww0X3iQx3ClujRsgX2COWP8xoQn2O/sHFeJSYd++NEjb8mPwF1HukC39e+FpHrxbA3SEerkwxYfeZNmw904vztG2ST04Zx7Wb9IQc79o01DypAAR+fdjjXDxkIPGlWwF71ERCKgYOe2SFs0Be8uWd/8f2NO1XuaJdgxRsSb+ELXjtv9TGvAAEMdnzsSVCXU4fBL2nQsXS90f4fOSI87DgZYGUnVbouLsUV1Q/lPwdXFXnafyD5cIKJULWxXfJCeq7AcZL3Rh5bDjwdQDP7/iM95aaCgr2LLhJKHxW4jM2UeC3LudDGG1rzG1Akd5F7/t8N4EEMtE4XHLdSvJm/XjA1Ue/zuzsr8do/xEUP7K6cX8tqLlpVHykjQrO9Y7ylFlJG3kAkryXVwNbverl0cTdtVvH5MYSivk2wBqUaNAxPdekgsfb9WP0hQmqmNv4oMK6uoFlBYv/+WQjByw+z3Za9N7OnCxz9DbzgFvuABzTGHTm8CbL2bQYEgMetyjtpyMINAPqNdVp/gDpSZ0UR2s7kEYUHdIRhDh9RbkSBrp9SbMmYYvIFYsCqwaye9A/Y6MkySONhRAi5MZvSlA/mbWXZedUvRZaK2ULCl/hsMBnarCdgKpi7W3aXQIChG2fgY0dPPlyiznDNOQhxpP5538MSabW70w=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(23010399003)(1800799024)(366016)(56012099006)(11063799006)(4143699003)(6133799003)(22082099003)(10067099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?Ov7/fZNTH9g+bkQbN1XySq0j8HQsDE5LG7imEJAYihvfrksOnS7cVn5AKmbm?=
- =?us-ascii?Q?92sNpjttALOHNz2KUHJu0kocJPkP0pFIGiBXTdXCasochzBE/6zqmB985mET?=
- =?us-ascii?Q?FYlgpwmhoOn94+NU7s+E34Fw1FfWZEk5orlrSLR3kVlcE5aNGvCGtNKT+eJV?=
- =?us-ascii?Q?YPlWrbHt1YehRFkmcAs3xLE5NhJlUxNuJv4y8kmD05AfkrygaXLXMGzXgn92?=
- =?us-ascii?Q?k17AbfEbfDSKOF7gHc1EcqRlpl2Jmp6P0F2OqdC3GSUYPaZzO6jP/jYfYdIC?=
- =?us-ascii?Q?KCI+tF79zJHZb7fKAHz0szHr1dZUaty6o+i4dDcZ/z5AFt7mp0U423QUpvOT?=
- =?us-ascii?Q?hcuRd28y0dGH5P1PI2t8Ti/Lcl/YXtbS++8kKzhkO42pl6CjWqR7mDt0oS1P?=
- =?us-ascii?Q?QaDfz2D1pvC2yb85YVdnDBgoC2lsD8NfroOQrJjhi2Jc2IwQqvK+HH1HlQSY?=
- =?us-ascii?Q?qbicXMqvHwrR3ok+0bAE8P6b5ss+6i3fun6bnnZpO5e8VZjUN0dE03GQh0Ol?=
- =?us-ascii?Q?VZkkPpT220zb4BVGbL54ZZms45FLppeE3s3+zCj3gunA5es5/2P0a3CJhACY?=
- =?us-ascii?Q?bJELUGoa6fP4ZK8ms5WHZtmR9b8LqJ0pFyKyveYCB0X1rTs+lTSEA+lG3cY4?=
- =?us-ascii?Q?rakOas2dTpMOWBBukUU349iSi7ORfhW2J1eRw9eHnpfSHCqVGd2J9687qvd8?=
- =?us-ascii?Q?/bULvO0LON6C018fm2oxmxj7YxoqIxyTjI49HLj7yvbD/rohTjKGdO5vVpbN?=
- =?us-ascii?Q?KlhTx94fuqF5GanHW8nhi1XbI24lhmZE10u1e8DekFV4YWMuvUv2B+fH7oBx?=
- =?us-ascii?Q?cUf5Ew19ig7vxCDYjmZR9SAbIIZqglKOAcCWz6rOdb2g3NuNLG6LGby+CBKR?=
- =?us-ascii?Q?hI7G8ZJ1fkwkDIzRKXgixxUXVLUFyceF4+/3hqON2/uniVDuGugvTL9Exd4P?=
- =?us-ascii?Q?BHPX4TLALbbBg0KH1aHEcwR8mvnj3Pqs0sbKiceF2r+8s9BsgUxFs4i1Ey+t?=
- =?us-ascii?Q?ITBli1+zTLLDdbzzzGOyZiiFOtBTCaj8Z3jxP/QPO8FjVpIQn2GNcb0OpCIR?=
- =?us-ascii?Q?KMy5qYYhmg1Thjv2Yv6U2oZBFEiC5xzePzv1XbwahPkryAcsaqMFowEm1Ek6?=
- =?us-ascii?Q?ghjE5BGPs13WLe5HM6by5TkH2SZlYZswCcovQgnmZ/wTf+wOv2bdGOFaiJi/?=
- =?us-ascii?Q?/smWFrzNPKjCGGQI1c9KkGAFemC9JvWMO0d3cEUbjKkkMLq6GXO9vIzMrgNK?=
- =?us-ascii?Q?49unwWB3rPvnHYU8ZxEhvUxNSWR/cGbIdGOymM8fexF6T5FQkWSmx+dEE6rs?=
- =?us-ascii?Q?wNNG1MxUjWdLju8j9CMnx59dg5Qf4B1437sGwSUZbzcJxFS8CIiKa6pTVb3y?=
- =?us-ascii?Q?06ILYNkxjcEoXAofPNT/bp/VGtegtKJZsURJwiCqRfPbhRaRDlqYG6KI2AEt?=
- =?us-ascii?Q?QLbpVkqClzwD/8/0qBstnPw33w5K9+5XHIrxOmGbc3SnXggsfQqg7OUw2fMd?=
- =?us-ascii?Q?2GngZEbeZuqKFgw1JtOd3UPz7bsBHModtv/lXMsNjgmffiMCP3h8uDkgQWgL?=
- =?us-ascii?Q?cL8db8eOwN6Mkdj+ZKz7OSPiD/oBlxHPTwZgY0HoJ6p6xreNcyPLGe4yRetL?=
- =?us-ascii?Q?FWxz37Vhr2lQPiA52KLlUjX9KucW2Txu/wwFC4ZtomMGi2Zex5wIZrouGtIm?=
- =?us-ascii?Q?eBoRDn00CRyVeyUZdPpTnFsvSLWfv0FmS23n4wwRQsmmQuxhw7xVxqGGd7IS?=
- =?us-ascii?Q?kv/GsbEXTliDzYsxP6y/miuH6txoY/fcqwV5cTnubcVtQwxEJQ1d?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 4cd5efcd-29fc-46b5-2dc5-08deff9712c7
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Aug 2026 15:15:45.6265
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: iKN68Tpbo7UzczTkD2ro9rXYNhJ4uV7KiaETNJpdOa184ZjhIykrxgW0Rd9CGgtBJQQ1hiKvYQDy4FBbVQpdSYjFl5VzUjhKE2Brh2W4cBUkxUJ/9OfiAqp8klLBko3f
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8897
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821114302.365532-40-antti.laakso@linux.intel.com>
 
-On Fri, Aug 21, 2026 at 12:16:23AM +0300, Michail Tatas wrote:
-> On Wed, Aug 19, 2026 at 12:56:40PM -0400, Frank Li wrote:
-> > On Wed, Aug 19, 2026 at 12:28:12PM +0300, Michail Tatas wrote:
-> > > if one of the dma_alloc_coherent in the init fucntion fails then
-> > > the previously allocated ones leak.
-> > >
-> > > Fix by freeing them in the error path.
-> > >
-> > > Fixes: 727a400686a2 ("media: verisilicon: Add Rockchip AV1 decoder")
-> > > Signed-off-by: Michail Tatas <michail.tatas@gmail.com>
-> > > ---
-> > >  .../verisilicon/rockchip_vpu981_hw_av1_dec.c  | 68 +++++++++++++++----
-> > >  1 file changed, 55 insertions(+), 13 deletions(-)
-> > >
-> > > diff --git a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> > > index e4e21ad37323..fa77fd402412 100644
-> > > --- a/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> > > +++ b/drivers/media/platform/verisilicon/rockchip_vpu981_hw_av1_dec.c
-> > > @@ -369,6 +369,7 @@ void rockchip_vpu981_av1_dec_exit(struct hantro_ctx *ctx)
-> > >
-> > >  int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx)
-> > >  {
-> > > +	int ret = 0;
-> > >  	struct hantro_dev *vpu = ctx->dev;
-> > >  	struct hantro_av1_dec_hw_ctx *av1_dec = &ctx->av1_dec;
-> > >
-> > > @@ -377,39 +378,54 @@ int rockchip_vpu981_av1_dec_init(struct hantro_ctx *ctx)
-> > >  	av1_dec->global_model.cpu = dma_alloc_coherent(vpu->dev, GLOBAL_MODEL_SIZE,
-> > >  						       &av1_dec->global_model.dma,
-> > >  						       GFP_KERNEL);
-> > > -	if (!av1_dec->global_model.cpu)
-> > > -		return -ENOMEM;
-> > > +	if (!av1_dec->global_model.cpu) {
-> > > +		ret = -ENOMEM;
-> > > +		goto global_model_cpu_err;
-> > > +	}
-> > > +
-> > >  	av1_dec->global_model.size = GLOBAL_MODEL_SIZE;
-> > >
-> > >  	av1_dec->tile_info.cpu = dma_alloc_coherent(vpu->dev, AV1_TILE_INFO_SIZE,
-> > >  						    &av1_dec->tile_info.dma,
-> > >  						    GFP_KERNEL);
-> > > -	if (!av1_dec->tile_info.cpu)
-> > > -		return -ENOMEM;
-> > > +	if (!av1_dec->tile_info.cpu) {
-> > > +		ret = -ENOMEM;
-> > > +		goto tile_info_cpu_err;
-> > > +	}
-> > > +
-> >
-> > This function is called by hantro_probe() if I am correct
-> >
-> > there are dmam_alloc_coherent(), use dmam_alloc_coherent() will simple
-> > error handle and tear down.
-> >
-> > Frank
->
-> Hello Frank,
->
-> I did not know about the dmam* functions thanks for letting me know.
-> I read some of the docs about them and they seem to not apply to
-> this particular case since this code is not called from the probe
-> function but rather the hantro_start_streaming function. Since
-> dmam_alloc_coherent() only releases memory at device removal,
-> it wouldn't free them when the stream ends and a new stream would
-> re-allocate while the old buffers lingered until detach.
-> So I think manual dma_free_coherent() error path is the correct
-> fit here.
+Moi,
 
-Okay, make sense.
+Thanks for the update!
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+On Fri, Aug 21, 2026 at 02:42:57PM +0300, Antti Laakso wrote:
+> We are bout to add ipu7 firmware mapping. It is slightly different from
 
-Frank
+s/bout/about/
 
->
-> Best regards,
-> Michail
+> ipu6. Handling this and possible errors is easier when both isys and
+> psys mapping is in one place.
+> 
+> Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+> ---
+>  drivers/media/pci/intel/ipu6/ipu6-bus.h  |  1 -
+>  drivers/media/pci/intel/ipu6/ipu6-isys.c | 29 -----------
+>  drivers/media/pci/intel/ipu6/ipu6.c      | 63 +++++++++++++++++++-----
+>  3 files changed, 50 insertions(+), 43 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-bus.h b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> index aef8e4a66c4a..d2f93eb03dea 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-bus.h
+> @@ -26,7 +26,6 @@ struct ipu6_bus_device {
+>  	struct ipu6_mmu *mmu;
+>  	struct ipu6_device *isp;
+>  	const struct ipu6_buttress_ctrl *ctrl;
+> -	const struct firmware *fw;
+>  	struct sg_table fw_sgt;
+>  	u64 *pkg_dir;
+>  	dma_addr_t pkg_dir_dma_addr;
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> index 459121e6c1cb..3fb34d2d189c 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+> @@ -995,7 +995,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
+>  	const struct ipu6_isys_internal_csi2_pdata *csi2_pdata;
+>  	struct ipu6_bus_device *adev = auxdev_to_adev(auxdev);
+>  	struct ipu6_device *isp = adev->isp;
+> -	const struct firmware *fw;
+>  	struct ipu6_isys *isys;
+>  	unsigned int i;
+>  	int ret;
+> @@ -1040,18 +1039,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
+>  
+>  	isys_stream_init(isys);
+>  
+> -	if (!isp->secure_mode) {
+> -		fw = isp->cpd_fw;
+> -		ret = ipu6_map_fw_region(adev, fw->data, fw->size,
+> -					 DMA_TO_DEVICE, 0);
+> -		if (ret)
+> -			goto release_firmware;
+> -
+> -		ret = ipu6_cpd_create_pkg_dir(adev, isp->cpd_fw->data);
+> -		if (ret)
+> -			goto remove_shared_buffer;
+> -	}
+> -
+>  	cpu_latency_qos_add_request(&isys->pm_qos, PM_QOS_DEFAULT_VALUE);
+>  
+>  	ret = alloc_fw_msg_bufs(isys, 20);
+> @@ -1079,14 +1066,6 @@ static int isys_probe(struct auxiliary_device *auxdev,
+>  	free_fw_msg_bufs(isys);
+>  out_remove_pkg_dir_shared_buffer:
+>  	cpu_latency_qos_remove_request(&isys->pm_qos);
+> -	if (!isp->secure_mode)
+> -		ipu6_cpd_free_pkg_dir(adev);
+> -remove_shared_buffer:
+> -	if (!isp->secure_mode)
+> -		ipu6_unmap_fw_region(adev, DMA_TO_DEVICE);
+> -release_firmware:
+> -	if (!isp->secure_mode)
+> -		release_firmware(adev->fw);
+>  
+>  	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
+>  		mutex_destroy(&isys->streams[i].mutex);
+> @@ -1099,9 +1078,7 @@ static int isys_probe(struct auxiliary_device *auxdev,
+>  
+>  static void isys_remove(struct auxiliary_device *auxdev)
+>  {
+> -	struct ipu6_bus_device *adev = auxdev_to_adev(auxdev);
+>  	struct ipu6_isys *isys = dev_get_drvdata(&auxdev->dev);
+> -	struct ipu6_device *isp = adev->isp;
+>  	unsigned int i;
+>  
+>  	free_fw_msg_bufs(isys);
+> @@ -1111,12 +1088,6 @@ static void isys_remove(struct auxiliary_device *auxdev)
+>  
+>  	cpu_latency_qos_remove_request(&isys->pm_qos);
+>  
+> -	if (!isp->secure_mode) {
+> -		ipu6_cpd_free_pkg_dir(adev);
+> -		ipu6_unmap_fw_region(adev, DMA_TO_DEVICE);
+> -		release_firmware(adev->fw);
+> -	}
+> -
+>  	for (i = 0; i < IPU6_ISYS_MAX_STREAMS; i++)
+>  		mutex_destroy(&isys->streams[i].mutex);
+>  
+> diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+> index af5581da7149..d27ffd7ac6f0 100644
+> --- a/drivers/media/pci/intel/ipu6/ipu6.c
+> +++ b/drivers/media/pci/intel/ipu6/ipu6.c
+> @@ -480,6 +480,40 @@ static void ipu6_configure_vc_mechanism(struct ipu6_device *isp)
+>  	writel(val, isp->base + BUTTRESS_REG_BTRS_CTRL);
+>  }
+>  
+> +static int __ipu6_map_fw_by_sys(struct ipu6_device *isp, struct ipu6_bus_device *adev)
+> +{
+> +	int ret = ipu6_map_fw_region(adev, isp->cpd_fw->data, isp->cpd_fw->size,
+
+Please avoid assigning variables in declaration block when there are errors
+to check.
+
+> +				 DMA_TO_DEVICE, 0);
+> +
+> +	if (ret) {
+> +		dev_err_probe(&isp->pdev->dev, ret,
+> +			      "Firmware mapping failed\n");
+> +		return ret;
+> +	}
+> +
+> +	ret = ipu6_cpd_create_pkg_dir(adev, isp->cpd_fw->data);
+> +	if (ret) {
+> +		dev_err_probe(&isp->pdev->dev, ret,
+> +			      "failed to create pkg dir\n");
+> +		return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +static int ipu6_map_fw(struct ipu6_device *isp)
+> +{
+> +	int ret = __ipu6_map_fw_by_sys(isp, isp->psys);
+
+Ditto.
+
+> +
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (!isp->secure_mode)
+> +		return __ipu6_map_fw_by_sys(isp, isp->isys);
+> +
+> +	return 0;
+> +}
+> +
+>  static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  {
+>  	const struct ipu6_buttress_ctrl *isys_ctrl, *psys_ctrl;
+> @@ -624,19 +658,9 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  		goto out_ipu6_rpm_put;
+>  	}
+>  
+> -	ret = ipu6_map_fw_region(isp->psys, isp->cpd_fw->data,
+> -				 isp->cpd_fw->size, DMA_TO_DEVICE, 0);
+> -	if (ret) {
+> -		dev_err_probe(&isp->pdev->dev, ret, "failed to map fw image\n");
+> -		goto out_ipu6_rpm_put;
+> -	}
+> -
+> -	ret = ipu6_cpd_create_pkg_dir(isp->psys, isp->cpd_fw->data);
+> -	if (ret) {
+> -		dev_err_probe(&isp->pdev->dev, ret,
+> -			      "failed to create pkg dir\n");
+> +	ret = ipu6_map_fw(isp);
+> +	if (ret)
+>  		goto out_ipu6_rpm_put;
+> -	}
+>  
+>  	ret = devm_request_threaded_irq(dev, pdev->irq, ipu6_buttress_isr,
+>  					ipu6_buttress_isr_threaded,
+> @@ -679,7 +703,13 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+>  out_ipu6_bus_del_devices:
+>  	if (!IS_ERR_OR_NULL(isp->psys)) {
+>  		ipu6_cpd_free_pkg_dir(isp->psys);
+> -		ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
+> +		if (isp->psys->fw_sgt.nents)
+> +			ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
+> +	}
+> +	if (!IS_ERR_OR_NULL(isp->isys)) {
+> +		ipu6_cpd_free_pkg_dir(isp->isys);
+> +		if (isp->isys->fw_sgt.nents)
+> +			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
+>  	}
+>  	if (!IS_ERR_OR_NULL(isp->psys) && !IS_ERR_OR_NULL(isp->psys->mmu))
+>  		ipu6_mmu_cleanup(isp->psys->mmu);
+> @@ -703,6 +733,13 @@ static void ipu6_pci_remove(struct pci_dev *pdev)
+>  	ipu6_cpd_free_pkg_dir(isp->psys);
+>  
+>  	ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
+> +
+> +	if (isp->isys) {
+> +		ipu6_cpd_free_pkg_dir(isp->isys);
+> +		if (isp->isys->fw_sgt.nents)
+> +			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
+> +	}
+> +
+>  	ipu6_buttress_exit(isp);
+>  
+>  	ipu6_bus_del_devices(pdev);
+
+-- 
+Terveisin,
+
+Sakari Ailus
