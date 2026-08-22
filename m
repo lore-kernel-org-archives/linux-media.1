@@ -1,273 +1,755 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com [209.85.167.206])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90A93264C2
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 07:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787384665; cv=pass; b=LoMSl0wLSP7Yuo84YVIkj3s4bJ41wLkNewdP5gw/BHHG66rAm0GqmD3Ckw9nrICxRw+oeTReGLBJUh1sPk3y7W7JR5p48B35TYLvlEOREcIxUYvlM2jH5dRl+XTjw+CV7dvg3b1uXTgyZljPg+TEqLMJZ4cMVqx/OK4c3sjQoFM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787384665; c=relaxed/simple;
-	bh=CdBP6Wojp9JlcP+aZx/uvuEZuB1wsUt2dvAwcNUbWb4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=edeQO3Oe9pnl50gB+Ymth11YEJFCNhW+cqAfJGhSk3D+prV1nyZyrrghukM8QzUGSstKtOhzQ9RNBGOw0ReRMr7VKsXeqsn8q5PZTDi/3ktE5JCOo6dPKXLuqGOmlJaZ3S4Lw40gRTxnWUBZBLl97UTdccJajR7epbbD/Uy++7w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=h/1v0MR6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=RQeIHqn0; arc=pass smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="h/1v0MR6";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="RQeIHqn0"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787384662;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kgeNozE6lMJZBSQ9gu8YC3JomU0Fj0+kEH9so0HbiXw=;
-	b=h/1v0MR6UzxM70/Tb30IkDpS6zmlJ8/PSm9nu1e4sSTHff+vjrvJlXXKnHWFC1uRBEFgEU
-	98sYmI8+2T2XkHrGDd1juu9bUnZzYIAF7h5vyJ9UnOvEap+fkoX0AsD4fL3wYHghdU9iJZ
-	FOulFElFXByRZK5kOA/jfWJDU2lIEFg=
-Received: from mail-oa1-f70.google.com (mail-oa1-f70.google.com
- [209.85.160.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-213-b6bSbrRyOjWMRmras9rfiw-1; Sat, 22 Aug 2026 03:44:21 -0400
-X-MC-Unique: b6bSbrRyOjWMRmras9rfiw-1
-X-Mimecast-MFC-AGG-ID: b6bSbrRyOjWMRmras9rfiw_1787384660
-Received: by mail-oa1-f70.google.com with SMTP id 586e51a60fabf-45a07949855so3135429fac.2
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 00:44:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787384660; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C0WNa5JcH7UGft4owspliKBZgJHy0ZCedeix1zHpaeJESlqJCScASpWauVBwtss+fE
-         yZ9Isis21UMn2YOcApR2xQNdPrlX4qv9aF8X+B6BVkRh6vLRR1p1NfiX/r6aucn/TEpW
-         Mn1vSguM3G+7OQRSkXXRdmFyDoA14UBYqw7DYSYiZPnUB8jaaWJctYyp+Af6DE1F2HkL
-         K8P5VItPW8dj5F15WYOnUN62MOtzM/eAOP9bNMdIbKsfqvx279ZIhc7zvtwXtqoigWaj
-         AANR/w6NXs+bt2bZP+ycakAEOR2JI9f4NMXPSwa52shpOS4GdXB5GN7lTTZIdlqa1UUc
-         fXWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=kgeNozE6lMJZBSQ9gu8YC3JomU0Fj0+kEH9so0HbiXw=;
-        fh=4QCx2uwWj3UycZYVuhRhJmWFUHNJTBQAhtQhzaJpotc=;
-        b=SCDoXBEVmKFp/OI+rtbvBr4/YFl7m/x3aoLUJZyu+1T0r8NFYz1gvBiVLekvSyjWNu
-         2X32Rs9e4YaL4lNN9ccdlBWXw9FQssZ2gqXUYBs9+H8IpcqW03ftOBgIlaTVBjPkr4Ru
-         uJerfByunOVvMfZfIv4gTJWS9cE3rHmuzvZNvJ7uh4rSLoCInwErwn97BxZfjDv5R2T/
-         9E3KjYyDuUCQcjS4rKdPAKEegMKc4aVXz/ADmorIzJ7IdJI9iSOa0ithAh8kpIgFkcvs
-         xKtGooJV7OuxHWlufM3PbLB4Fdit/UYmrMbs4ZvGEi35HPjmVUprEsnr0ZLpId5MkwYz
-         0jTA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787384660; x=1787989460; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=kgeNozE6lMJZBSQ9gu8YC3JomU0Fj0+kEH9so0HbiXw=;
-        b=RQeIHqn0uS/uqBqkMumvGxW4o7d8sT3P5aO+kvdeuU1cq46JZQuq2juWjYDZi2uxKS
-         6K8oSH/T2OjqUPdBfaqXTe6hWRk+hV2ncJp/bR+gYZ+g9QnOt2UNxeZ06/UvAyOwvpZD
-         xnMjeCfc4wdqbEGG6UyS/uH4tEED0Cq0PZv7iFvw7Zg3EwjI6gik7Ys9ggYHwzD4o16C
-         opQdnE6gHxdOMGxs1Lf53hDY8gn/sVPQafNF6iYG0yasoWqQ6GW+uuThjZph33+BtvqO
-         ZzYxw6S+fvJ7ULu6g8z9x2CTZNWufq14wLvA/knr4iQiw/bgEb6m5HcZ0Scm/0AZtP7W
-         9How==
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EA92E2DDD
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 07:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.206
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787385279; cv=none; b=Cb5y4vH6fKQ4rDgnqi60anzFMRxFNJCl6vzLDKNkZKKl47eDXvuXXDOv9mTqhlHz9/DGclX87DRq/vtiz7m8e+DOAlUWVKt70lhGYdFUOTXlO8pNvqAhx2JmNZHqp/Y4YweAmlSdymFOMblTfWtCwYEaswjs2UsorHLARaBOWzY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787385279; c=relaxed/simple;
+	bh=Mw2OpLHz702qrBACIrM6kPogMRHQ19+zXmcYMGH1XBk=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=URAnAzxu/tEtr3cgXgtbMETKeo7UHAz+EhAviYZg4Pl3SDz1yUUYU5mwNR0wvtZvBlD4dXCt2PaDsD30t4eaMffMNo5G2qviKqxBEGYKKiV10WOA9Wz+7fMDxUWEbiQki6zFyBb/RtE8O/yFllFwySQE6D6WDHEv1XRfMs1qmsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f206.google.com with SMTP id 5614622812f47-4a41f46d629so3363104b6e.3
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 00:54:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787384660; x=1787989460;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20251104; t=1787385276; x=1787990076;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=kgeNozE6lMJZBSQ9gu8YC3JomU0Fj0+kEH9so0HbiXw=;
-        b=WoA2w01thB1HGpdf/8w0TYdZBFfmfIezBriK/lHH6PCasS4yoz5ofO4GXhke47oPgV
-         wqQAKaE7Pgl62Z2V5jbN6xQRG2OjiZhabhkN2JmuNiTdheScoLf+lbBn5q2d2xsivsuO
-         yxqFmAlCbOisB4dqT/3ucQKXEh3dcZtf67xGEf0vFl4OeHB/1OHpoeVpzfJhRXPNkbAg
-         2ZaTnScV8pCW0+qRh6glejGyEAUAzm9vhHPg6Ej7b/HTXZbFPLMXfbcvmgJXrTAf9a2g
-         0X6ImK0O9STll0xE/yE7hSvNmkV5WDgOZgntjcaEPPczK2X5HUTO4UPbgT4YGK7czIqF
-         puJw==
-X-Gm-Message-State: AFuF++mLna1wmwtOqlNFjge5rZaL2kYhrGMcD2LpPsHNUzo8s/Une1nF
-	9ef0t4I/mm37fzZ7LIdA3vLbvb+A7cAUABhza7HkVHeXQDH57IJuGAcKWYlLBROyVTXQBKberta
-	6efBXNW8JxtFK+W5hbDkKxHxRbAJ4Yeee/PFDRmLGqELTSF2EPilbwi2lQSm4zMrzilQGh2U2XA
-	7scSnn7ta+o3xCp+BKvGMXjO5UcXnUzjz34W8AP2k=
-X-Gm-Gg: AR+sD13K0kh+oKELDRZ/DbMhrsOFlHUjN5fyqzFfr7EQcl5zzF24m8ytckVLkjBnP2u
-	dwaLfrm13f3BznYIhH54L7P7A/mZ/SCVDBtds6dLIFonGH09uP/aFlGL3s0UyNKtFmxUOOcdnuA
-	Muhy6EwOZn8TkaszeraiYy7vKmxzlDhGmyLwCLEKVOJLHP73eauXp1j2T9
-X-Received: by 2002:a05:6870:f28d:b0:459:f9c0:995a with SMTP id 586e51a60fabf-4638037888emr5038636fac.14.1787384660382;
-        Sat, 22 Aug 2026 00:44:20 -0700 (PDT)
-X-Received: by 2002:a05:6870:f28d:b0:459:f9c0:995a with SMTP id
- 586e51a60fabf-4638037888emr5038619fac.14.1787384659872; Sat, 22 Aug 2026
- 00:44:19 -0700 (PDT)
+        bh=o52GhPYpBcvfj7CuMxuj67kTNnugcNFrWrqXlT1IWTs=;
+        b=GlxfkmBNFC3aFrDA4c7SlVk08gid4w4LQdpeHDbOWg74CwaOvRjWgueqwGwBkNIpq0
+         Qtkgd7Em3lNyvxw5LiHau0UJeIz+M7ZDbUJNgC0N2PBopmELw4jKHCtNh4WFdNqGKex8
+         vOLfg+XYsPeHrc1af8xs9HGEZoFjIeU7/GqwSBDkrnJrmkV3K8AU0TIfoHtDiQNPN3Od
+         A2lgOf6xMqUBQglQbVAiagnkfhOhX6LglnDnPzaca7BZ3CdMfzwYJC50ajrAjHx5pApP
+         IgXf0GQMPhJZDq+R7npIQVxmf+wHn1VqG3nWe5eeK5sDSbTyFXe6rStF+oXL5zVNJKr2
+         2itA==
+X-Forwarded-Encrypted: i=1; AHgh+Rqlq1yjMms8d1MpT6+gLTCleTve7NSj3UpXYrRsSUOINjd6cLlGabYuAHVJajY11sDShryEaNTOWzyCHw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lfEgb1UukmoGyRAC2dM7phsz2wieDY44u4Aju4fgqvd8Kjjyqk
+	WVIFeJl33FYmFz/y3CrcfwsTXF4w7d9hMBegpw44fzhptoyLoED95XO7H7zq+2x76KKqwYLE9S4
+	m8t3tfEoTnCzEoCXQZT9ExOyXj0IRPCT4EkSmS7qJfjt4pZnzB4nOBnU1JE0=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816194259.151947-1-john.cronin@opcenter.com>
-In-Reply-To: <20260816194259.151947-1-john.cronin@opcenter.com>
-From: Kate Hsuan <hpa@redhat.com>
-Date: Sat, 22 Aug 2026 15:44:08 +0800
-X-Gm-Features: AcwNN1UIYi3Swv5f9_UY8UthJPS1ScSuL1XIW1ch_YszFTQgdlHH_RdxOlTwTvM
-Message-ID: <CAEth8oHv5r0xFfe_YZz8tO+6+DAaWvMQAf70ZCOZYbzvb-iUPw@mail.gmail.com>
-Subject: Re: [PATCH] media: i2c: imx471: return 0 for V4L2_SEL_TGT_CROP
-To: John Cronin <john@stromback.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	hansg@kernel.org, John Cronin <john.cronin@opcenter.com>
+X-Received: by 2002:a05:6808:152a:b0:4b2:9aae:3f71 with SMTP id
+ 5614622812f47-4b2ef378f40mr13325928b6e.15.1787385275767; Sat, 22 Aug 2026
+ 00:54:35 -0700 (PDT)
+Date: Sat, 22 Aug 2026 00:54:35 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8955bb.dbb3a75c.13dd47.002e.GAE@google.com>
+Subject: [syzbot] [media?] KASAN: slab-use-after-free Read in dvb_media_device_free
+From: syzbot <syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com>
+To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi John,
+Hello,
 
-Thank you for working on this.
+syzbot found the following issue on:
 
-On Mon, Aug 17, 2026 at 3:43=E2=80=AFAM John Cronin <john@stromback.com> wr=
-ote:
->
-> libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
-> 0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
-> rectangle then broke out of the switch and returned -EINVAL, so
-> libcamera logged:
->
->   Unable to get rectangle 0 on pad 0/0: Invalid argument
->   Failed to retrieve the sensor crop rectangle
->
-> Match imx219: return 0 after CROP. Also store the analog crop window
-> from X/Y_ADD_STA/END in the subdev state when the mode is selected, so
-> the CROP rectangle is not an uninitialized 0x0 box.
->
-> Analog crop for the 1928x1088 2x2-binned mode is the programmed analog
-> window 8,408 / 4640x2644 (native array coordinates).
->
-> Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7), Fedora 44
-> kernel 7.1.8-200.fc44. After loading this module:
->
->   VIDIOC_SUBDEV_G_SELECTION CROP         =E2=86=92 8,408 4640x2644
->   VIDIOC_SUBDEV_G_SELECTION CROP_BOUNDS  =E2=86=92 8,8 4656x3496
->   VIDIOC_SUBDEV_G_SELECTION NATIVE_SIZE  =E2=86=92 0,0 4672x3512
->
-> libcamera no longer logs "Unable to get rectangle 0 on pad 0/0".
->
-> Link: https://bugzilla.redhat.com/show_bug.cgi?id=3D2454119
-> Signed-off-by: John Cronin <john.cronin@opcenter.com>
-> ---
->  drivers/media/i2c/imx471.c | 13 ++++++++++++-
->  1 file changed, 12 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-> index ae0e4d4..18b81aa 100644
-> --- a/drivers/media/i2c/imx471.c
-> +++ b/drivers/media/i2c/imx471.c
-> @@ -131,6 +131,9 @@ struct imx471_mode {
->         /* H-timing */
->         u32 llp;
->
-> +       /* Analog crop window in native array coordinates */
-> +       struct v4l2_rect crop;
-The crop area can be dynamically calculated when setting the format so
-this can be dropped.
-and the reason is described below.
+HEAD commit:    26260251022f Merge tag 'livepatching-for-7.3' of git://git..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=11e10625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=54b0fd32feaa7e7d
+dashboard link: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
-> +
->         const struct cci_reg_sequence *default_mode_regs;
->         unsigned int default_mode_regs_length;
->  };
-> @@ -283,6 +286,13 @@ static const struct imx471_mode imx471_modes[] =3D {
->                 .fll_def =3D 1308,
->                 .fll_min =3D 1308,
->                 .llp =3D 2328,
-> +               /* X/Y_ADD_STA/END: 8..4647 x 408..3051 */
-> +               .crop =3D {
-> +                       .left =3D 8,
-> +                       .top =3D 408,
-> +                       .width =3D 4640,
-> +                       .height =3D 2644,
-> +               },
-If we want to calculate the crop dynamically, this can be dropped.
+Unfortunately, I don't have any reproducer for this issue yet.
 
->                 .default_mode_regs =3D mode_1928x1088_regs,
->                 .default_mode_regs_length =3D ARRAY_SIZE(mode_1928x1088_r=
-egs),
->         },
-> @@ -430,6 +440,7 @@ static int imx471_set_pad_format(struct v4l2_subdev *=
-sd,
->         imx471_update_pad_format(sensor, mode, fmt);
->
->         *v4l2_subdev_state_get_format(sd_state, fmt->pad) =3D fmt->format=
-;
-> +       *v4l2_subdev_state_get_crop(sd_state, fmt->pad) =3D mode->crop;
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/009830dc9804/disk-26260251.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/56e3e1e4edb1/vmlinux-26260251.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/3114315782db/bzImage-26260251.xz
 
-We can calculate the crop here similar to how it was handled in the
-IMX219. Since the IMX471 supports a binning mode with 2328x1748 (4:3)
-and 2328x1304 (16:9) image sizes, the maximum scaling ratio for width
-and height is 2, which should work for us.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
 
-u8 bin_h, bin_v, binning;
-struct v4l2_rect *crop;
-int h_blank, ret;
+==================================================================
+BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x589/0x650 drivers/media/dvb-core/dvbdev.c:210
+Read of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
 
-... skip
+CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ dvb_media_device_free+0x589/0x650 drivers/media/dvb-core/dvbdev.c:210
+ dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2f66f9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
+RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
+ </TASK>
 
-*v4l2_subdev_state_get_format(sd_state, fmt->pad) =3D fmt->format;
-crop =3D v4l2_subdev_state_get_crop(sd_state, fmt->pad);
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
+ dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
+ vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-bin_h =3D min(IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2U);
-bin_v =3D min(IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2U);
-binning =3D min(bin_h, bin_v);
-crop->width =3D fmt->format.width * binning;
-crop->height =3D fmt->format.height * binning;
-crop->left =3D (IMX471_NATIVE_WIDTH - crop->width) / 2;
-crop->top =3D (IMX471_NATIVE_HEIGHT - crop->height) / 2;
+Freed by task 19619:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
+ dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
+ dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
->
->         if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
->                 return 0;
-> @@ -461,7 +472,7 @@ static int imx471_get_selection(struct v4l2_subdev *s=
-d,
->         switch (sel->target) {
->         case V4L2_SEL_TGT_CROP:
->                 sel->r =3D *v4l2_subdev_state_get_crop(sd_state, sel->pad=
-);
-> -               break;
-> +               return 0;
->
->         case V4L2_SEL_TGT_NATIVE_SIZE:
->                 sel->r.top =3D 0;
+The buggy address belongs to the object at ffff88802d1dfa00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 176 bytes inside of
+ freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
 
-For the fix to the return value. It can be as follows:
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ usb_register_driver drivers/usb/core/driver.c:1078 [inline]
+ usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
 
-static int imx471_get_selection(struct v4l2_subdev *sd,
-                                struct v4l2_subdev_state *sd_state,
-                                struct v4l2_subdev_selection *sel)
-{
-        switch (sel->target) {
-        case V4L2_SEL_TGT_CROP:
-                sel->r =3D *v4l2_subdev_state_get_crop(sd_state, sel->pad);
-                break;
+Memory state around the buggy address:
+ ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                     ^
+ ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+==================================================================
+BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5d1/0x650 drivers/media/dvb-core/dvbdev.c:212
+Read of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
 
-        case V4L2_SEL_TGT_NATIVE_SIZE:
-                sel->r.top =3D 0;
-                sel->r.left =3D 0;
-                sel->r.width =3D IMX471_NATIVE_WIDTH;
-                sel->r.height =3D IMX471_NATIVE_HEIGHT;
-                break;
+CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ dvb_media_device_free+0x5d1/0x650 drivers/media/dvb-core/dvbdev.c:212
+ dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2f66f9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
+RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
+ </TASK>
 
-        case V4L2_SEL_TGT_CROP_DEFAULT:
-        case V4L2_SEL_TGT_CROP_BOUNDS:
-                sel->r.top =3D IMX471_PIXEL_ARRAY_TOP;
-                sel->r.left =3D IMX471_PIXEL_ARRAY_LEFT;
-                sel->r.width =3D IMX471_PIXEL_ARRAY_WIDTH;
-                sel->r.height =3D IMX471_PIXEL_ARRAY_HEIGHT;
-                break;
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
+ dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
+ vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
 
-        default:
-                return -EINVAL;
-        }
+Freed by task 19619:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
+ dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
+ dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
 
-        return 0;
-}
+The buggy address belongs to the object at ffff88802d1dfa00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 176 bytes inside of
+ freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
 
-> --
-> 2.55.0
->
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ usb_register_driver drivers/usb/core/driver.c:1078 [inline]
+ usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                     ^
+ ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+==================================================================
+BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5eb/0x650 drivers/media/dvb-core/dvbdev.c:213
+Read of size 8 at addr ffff88802d1dfac0 by task syz.4.4145/19619
+
+CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ dvb_media_device_free+0x5eb/0x650 drivers/media/dvb-core/dvbdev.c:213
+ dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2f66f9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
+RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
+ dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
+ vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 19619:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
+ dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
+ dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802d1dfa00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 192 bytes inside of
+ freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ usb_register_driver drivers/usb/core/driver.c:1078 [inline]
+ usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                           ^
+ ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
+==================================================================
+BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5de/0x650 drivers/media/dvb-core/dvbdev.c:214
+Write of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
+
+CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
+Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ dvb_media_device_free+0x5de/0x650 drivers/media/dvb-core/dvbdev.c:214
+ dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f2f66f9e0d9
+Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
+RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
+RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
+ dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
+ vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 19619:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
+ kref_put include/linux/kref.h:65 [inline]
+ dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
+ dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
+ dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
+ dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
+ dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
+ vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802d1dfa00
+ which belongs to the cache kmalloc-256 of size 256
+The buggy address is located 176 bytes inside of
+ freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
+head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
+head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
+head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ usb_register_driver drivers/usb/core/driver.c:1078 [inline]
+ usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                                     ^
+ ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+ ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
+==================================================================
 
 
---=20
-BR,
-Kate
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
