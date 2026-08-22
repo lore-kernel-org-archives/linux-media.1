@@ -1,755 +1,185 @@
-Received: from mail-oi1-f206.google.com (mail-oi1-f206.google.com [209.85.167.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7EA92E2DDD
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 07:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1664F33F383
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 08:49:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787385279; cv=none; b=Cb5y4vH6fKQ4rDgnqi60anzFMRxFNJCl6vzLDKNkZKKl47eDXvuXXDOv9mTqhlHz9/DGclX87DRq/vtiz7m8e+DOAlUWVKt70lhGYdFUOTXlO8pNvqAhx2JmNZHqp/Y4YweAmlSdymFOMblTfWtCwYEaswjs2UsorHLARaBOWzY=
+	t=1787388547; cv=none; b=hPRu9nqBOI+OdgnMNieQCwyPj7iuomOcrkvlc6odG97OyCGij6sb4iXvY39NXgrZE4lgk9m8d0nqDqeNukMUSrbIsfyN07DGd4ic7K+5yjn4ta2aYEVg8I2kie6rahAzWYEPUKp1dvNiFx8dhh3dBsP023NZ77qt8piy34AT6rY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787385279; c=relaxed/simple;
-	bh=Mw2OpLHz702qrBACIrM6kPogMRHQ19+zXmcYMGH1XBk=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=URAnAzxu/tEtr3cgXgtbMETKeo7UHAz+EhAviYZg4Pl3SDz1yUUYU5mwNR0wvtZvBlD4dXCt2PaDsD30t4eaMffMNo5G2qviKqxBEGYKKiV10WOA9Wz+7fMDxUWEbiQki6zFyBb/RtE8O/yFllFwySQE6D6WDHEv1XRfMs1qmsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f206.google.com with SMTP id 5614622812f47-4a41f46d629so3363104b6e.3
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 00:54:36 -0700 (PDT)
+	s=arc-20240116; t=1787388547; c=relaxed/simple;
+	bh=gOBJwEPeMtlwt03L/ZfhjBd5plqQgtTbCQTqt2MDjRI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=S8dD/yjy412SHaloPr4YADrPGhIE+37i+tmnvNeFBd+3ymW01bUeY0LkuppyiNlLuUJm3u/p8p7Ke3AZu+I4qSqwdDmQE3xcDlYMcRDnpJDINC26+IzmA7J6fx+Cmuu5mHTzP92L0RjvAvPbMsrmRB1hj0FxcfDcj/C7+VFZpLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Y1Dt1mrG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D9VgXNdQ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Y1Dt1mrG";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D9VgXNdQ"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67M7xa4B231060
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 08:49:05 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=NwPcLGIyQ2TcFXPWJo+/PU
+	HE35UurRlilrmlN7QREiM=; b=Y1Dt1mrG9ogBjzJJGRftXHIvZHi5mBTxfznDiL
+	vZGEhEsUhDDa7AgHpyk3Wo/2Mgsa4q8XCSpxTyg3LgOSwBJSe0sj22TOaqBa5WuI
+	CsV7UeOJV4hvoBF6mQECKphWcoLSKvHpVeR3XOILMhR8z6FstFu85FYijZtJ6WgP
+	b5p/qYh9PMWeBy7GfqQsRrzTuPtUP8gD5FZ+IoOSjH3oByfDejxNIsDc3xK2O9Jr
+	WtVwhQcCjTpa87Q6hNlkNsrf2BoEKGvcO2StqHWYhhugQFfLIRzMuxYb2QfJRGmb
+	YQx7OT7dIDqdBuGOUykDCNPK2QWz9Wph0lkz6pHkoVVAUbLQ==
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g74hcrmc3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 08:49:05 +0000 (GMT)
+Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9077b4c35c5so34437266d6.2
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 01:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787388544; x=1787993344; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NwPcLGIyQ2TcFXPWJo+/PUHE35UurRlilrmlN7QREiM=;
+        b=D9VgXNdQstzMwdDxZ0Y05Yd6NZILpRjag9wMMDys8u16ONmcsb8KCehzK4wQ6flR50
+         jfhqx3kjVRS5w3sQLcpDju0KaBs/jjoBQToRovmPoSU19U9dieoadBg4UuXdoiZ7eexW
+         WLxHYOJJDfe5IdCccwLW0Pnrq4eWTGVkFDl9QlZ08HxiRp3LzZo9CK8I/0G+yo8Vg3Y6
+         aeXE+hidzv0pxpsWuFA2Y1VWdu/IShBYkqOB2qAOzWgIROlChyHZo6eTDJ1qGOcl6/Py
+         GspGP+X6yZukQzZGYAV4u4WX451cOa9OiqxmkF6KFvpQmm82im8BOpVVZKpjIGLy8haB
+         fv+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787385276; x=1787990076;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o52GhPYpBcvfj7CuMxuj67kTNnugcNFrWrqXlT1IWTs=;
-        b=GlxfkmBNFC3aFrDA4c7SlVk08gid4w4LQdpeHDbOWg74CwaOvRjWgueqwGwBkNIpq0
-         Qtkgd7Em3lNyvxw5LiHau0UJeIz+M7ZDbUJNgC0N2PBopmELw4jKHCtNh4WFdNqGKex8
-         vOLfg+XYsPeHrc1af8xs9HGEZoFjIeU7/GqwSBDkrnJrmkV3K8AU0TIfoHtDiQNPN3Od
-         A2lgOf6xMqUBQglQbVAiagnkfhOhX6LglnDnPzaca7BZ3CdMfzwYJC50ajrAjHx5pApP
-         IgXf0GQMPhJZDq+R7npIQVxmf+wHn1VqG3nWe5eeK5sDSbTyFXe6rStF+oXL5zVNJKr2
-         2itA==
-X-Forwarded-Encrypted: i=1; AHgh+Rqlq1yjMms8d1MpT6+gLTCleTve7NSj3UpXYrRsSUOINjd6cLlGabYuAHVJajY11sDShryEaNTOWzyCHw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lfEgb1UukmoGyRAC2dM7phsz2wieDY44u4Aju4fgqvd8Kjjyqk
-	WVIFeJl33FYmFz/y3CrcfwsTXF4w7d9hMBegpw44fzhptoyLoED95XO7H7zq+2x76KKqwYLE9S4
-	m8t3tfEoTnCzEoCXQZT9ExOyXj0IRPCT4EkSmS7qJfjt4pZnzB4nOBnU1JE0=
+        d=1e100.net; s=20251104; t=1787388544; x=1787993344;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NwPcLGIyQ2TcFXPWJo+/PUHE35UurRlilrmlN7QREiM=;
+        b=prpkW6nG13IHlERNUdzRIv0WGSOb3YPoR+IKyvjhQB64OlYcz8jUCHuh7Wu8ba6aAG
+         pJe7YdmvTIhL4zxWOT0HbH5UnIyxFACuVGZn2HA/p31wzx/fw2jZwR7lBlbnqJ0QA6Ob
+         2omOVCbCkCsGE/LfCUCjHy8ufdaqu8RhWzeLm2eDIlgt/fSdOlHRZChx3leYE99butNW
+         0clRr998HU4kYcI2skFush3OkKXCLaIjLYwa6xAHdaEcS1k5vhGGxgtuT1p08LzAvuTd
+         n4rAlJUvkVAxc/stYGV7BV4tuEGhEhy3JJkd/wvbtAPOP59I+Uk1wvqnKZx+bjXeqyvJ
+         0i5Q==
+X-Forwarded-Encrypted: i=1; AHgh+Rq4bm/hY86Q0lSN59lCtVnKEtqApnKnBdWPuqfGGJ3/0bXzayoUW6TE9YJS8zIx2AgrE7mVfNCbUmy2Og==@vger.kernel.org
+X-Gm-Message-State: AFuF++n21yKpYJmcsnLFKcOTtinEMvBFmSUAbU3BBPloceyHX/JKW/9q
+	2rINWfljO870yst7UD3tyfD5Mupx4DoxOp8IsjzWao1KDo4xcRDnvDIeZlf645Xpm6Z0s/BNYR+
+	jSJQwu4t02qhPIlCkLtytLW7gRlcQ4B5B5z0Qr4TJQ6bLdH02ax0D+plZqe021aqc5Q==
+X-Gm-Gg: AR+sD11AP7JQ/JpYjQbw4KTso8a+Tptx8iVYGmWah9lA9m2VAyoBfuhzJf5ECG1H+OB
+	IMHn9b+n8Q2uE9WcluDL3bVT1U0AuWk2mlmAc6Yno7lPCMpfF7aNQQ3axs8lndVRMjC4WYq/ZJK
+	04NhjpdmqKgEatAjDC+QOsF2ccGSZRnYcBJg4cTKNmEKxOqPBRUvxvyB/unRXYIAMA2NC7KwERF
+	5iQN8bODUzIqE0Kr+coGs5jo2thuZbJJhAlms0Gs74WnIr4k2HL0lj0Rg9jzqoFLchHf5KNEvvc
+	x+Hs2h6iYVgLmjhCbtNTrP/ufFzchr0pjpwV6l9UtTPw/1ZwUCzGAQo060VL560E6HHuugw/VHm
+	WlLAPFRLomtiTPtlU9loAaqEA7KODWwEcppDDpuJA69jAhVRXNWXGfoA+lsKtQvp/gnWLgrsSZX
+	MkpY2YO2Bz1YYd
+X-Received: by 2002:a05:620a:172c:b0:92d:e54e:72d9 with SMTP id af79cd13be357-93746853dc0mr385202085a.1.1787388544185;
+        Sat, 22 Aug 2026 01:49:04 -0700 (PDT)
+X-Received: by 2002:a05:620a:172c:b0:92d:e54e:72d9 with SMTP id af79cd13be357-93746853dc0mr385198485a.1.1787388543783;
+        Sat, 22 Aug 2026 01:49:03 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a1c2fab887sm3066901fa.25.2026.08.22.01.49.01
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 01:49:02 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/2] drm/msm: fix dma-buf sharing on targets without
+ per-process pgtables
+Date: Sat, 22 Aug 2026 11:48:57 +0300
+Message-Id: <20260822-msm-fix-export-v1-0-917b3cbedd43@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:152a:b0:4b2:9aae:3f71 with SMTP id
- 5614622812f47-4b2ef378f40mr13325928b6e.15.1787385275767; Sat, 22 Aug 2026
- 00:54:35 -0700 (PDT)
-Date: Sat, 22 Aug 2026 00:54:35 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8955bb.dbb3a75c.13dd47.002e.GAE@google.com>
-Subject: [syzbot] [media?] KASAN: slab-use-after-free Read in dvb_media_device_free
-From: syzbot <syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHliiWoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDCyMj3dziXN20zArd1IqC/KIS3WSTRJPkFEsjY8u0ZCWgpoKiVKAs2MD
+ oWAi/uDQpKzW5BGSKUm0tACWndQxyAAAA
+X-Change-ID: 20260822-msm-fix-export-c4a4cd9239fc
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Antonino Maniscalco <antomani103@gmail.com>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+        linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1417;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=gOBJwEPeMtlwt03L/ZfhjBd5plqQgtTbCQTqt2MDjRI=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqiWJ8+rA9THoLWWDYiClPFjbEoXu+P6VcBYxRW
+ S/lXQCfckGJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaolifAAKCRCLPIo+Aiko
+ 1fdIB/4v+MAHJ7Mnaap20AO8FuUibmxnVbVSJejJoLD2Ge4r2qPuAFLIT+1bZB7hrNrwxr732Lu
+ rITiRoPqTLRegf56mc0sKiiTMhv8yJ+H57xTZYGd+qMcwoExVp7ccoLAA55wHppiDS5lZMgf4cI
+ Retr8aQ9A3frQQ/dLWPcW1TXXXtNR886sTGiCz7nuQP+Ik8Wo56K3EM6GCWKL/m7dEp03Np4qSY
+ y/o6oy+WSUqMrKZalsvXCBsfjmASuA04jD2ez6wZvv9ZSaJGupyljANEqtQwdQwoBbsycmHu+0m
+ UNVIHUdl5S2tMJ33IoP1DwET9GRXkMo6cg27jDMslCGS9d2x
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-ORIG-GUID: 27gJEqDuscc3ILNM6fnRwMRRz3zNqhQs
+X-Authority-Analysis: v=2.4 cv=U7iiy+ru c=1 sm=1 tr=0 ts=6a896281 cx=c_pps
+ a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=wJ2JNn2w0yijhvieVxkA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
+X-Proofpoint-GUID: 27gJEqDuscc3ILNM6fnRwMRRz3zNqhQs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODIyMDA3MCBTYWx0ZWRfXyTsR509QdRhT
+ sQVwNCJqeRmIi4Q35arHtpDv5onyTuXVbPUViB8y7l7ViSoKrZgEvsZhBis0qJYxVempWLk8tkM
+ vnw33WNVcacW9j3fsp8GpYxnPlrt1d4LLsNxlqux6okqOe6sbKRU7BJcSO+5/gdE4UJdtkIot03
+ Fh2/2RT7Upj+/7RtJRCkKNatqmqV9ZMMvPm+0P83fyKTe8cn0r3Cv5yHs1p5ZCyhZeyKp4O8GdJ
+ IJ7rycvOtn4x9i18Vqrqc3kpUhqXoUOO/Xf6ETVSqDP6Zy09fxmojv/YLU+eAGChEXyMb4vnycO
+ JyJRFt5L65ypSu1ZJjnWhasXTsLO5EAbVdHLTpE2nh/SLlwIXQfrI/Uwvv0vJ0nbmJ5Iti226YC
+ W/4m7h0K4NEjBZIEYeEwcvx0W06Vl0F/R2FYF7lgDT9OWC+tye3SHs84ZxwXZcH0yE47dWfbnBX
+ UmycZvdgTvEdBWjNpcQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODIyMDA3MCBTYWx0ZWRfX2ouCL41avAFu
+ uegFUoJDATKvwu81SDK1n/T7ahyYyPJ7XDWEsuCXyHit5QGHzJi2BT8ND9+9/xHvsX1V9alAyLp
+ p8yPvjc3EjS/G5NIWgTDWB/2ExQp8kc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-22_03,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 phishscore=0 adultscore=0 priorityscore=1501 bulkscore=0
+ lowpriorityscore=0 malwarescore=0 clxscore=1015 suspectscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
+ definitions=main-2608220070
 
-Hello,
+Targets without per-process pgtables -- everything pre-a6xx, plus a6xx
+parts where split pagetables are unavailable -- hand every DRM file the
+GPU's global VM.  The rest of the driver still treats a context VM as
+private to that context, so closing a handle tears down mappings other
+files are still using, and frees the iova for immediate reuse.
 
-syzbot found the following issue on:
+A dma-buf shared between two clients therefore keeps sampling an address
+that the next allocation has taken over.  On a530 this is every
+ext_image_dma_buf_import sampling test, reading back all zeros.
 
-HEAD commit:    26260251022f Merge tag 'livepatching-for-7.3' of git://git..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=11e10625580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=54b0fd32feaa7e7d
-dashboard link: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+A VM shared between contexts needs the lazy, refcounted teardown the
+driver already implements for kms->vm.  Rather than adding a second
+mechanism, the first patch makes that machinery reusable and the second
+one puts the shared GPU VM behind it.
 
-Unfortunately, I don't have any reproducer for this issue yet.
-
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/009830dc9804/disk-26260251.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/56e3e1e4edb1/vmlinux-26260251.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/3114315782db/bzImage-26260251.xz
-
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-
-==================================================================
-BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x589/0x650 drivers/media/dvb-core/dvbdev.c:210
-Read of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
-
-CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G             L      syzkaller #0 PREEMPT(full) 
-Tainted: [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- dvb_media_device_free+0x589/0x650 drivers/media/dvb-core/dvbdev.c:210
- dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2f66f9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
-RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
- </TASK>
-
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
- dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
- vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
- vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 19619:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
- kref_put include/linux/kref.h:65 [inline]
- dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
- dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
- dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802d1dfa00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 176 bytes inside of
- freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- usb_register_driver drivers/usb/core/driver.c:1078 [inline]
- usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                     ^
- ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-==================================================================
-BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5d1/0x650 drivers/media/dvb-core/dvbdev.c:212
-Read of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
-
-CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- dvb_media_device_free+0x5d1/0x650 drivers/media/dvb-core/dvbdev.c:212
- dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2f66f9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
-RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
- </TASK>
-
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
- dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
- vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
- vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 19619:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
- kref_put include/linux/kref.h:65 [inline]
- dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
- dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
- dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802d1dfa00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 176 bytes inside of
- freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- usb_register_driver drivers/usb/core/driver.c:1078 [inline]
- usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                     ^
- ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-==================================================================
-BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5eb/0x650 drivers/media/dvb-core/dvbdev.c:213
-Read of size 8 at addr ffff88802d1dfac0 by task syz.4.4145/19619
-
-CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- dvb_media_device_free+0x5eb/0x650 drivers/media/dvb-core/dvbdev.c:213
- dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2f66f9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
-RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
- </TASK>
-
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
- dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
- vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
- vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 19619:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
- kref_put include/linux/kref.h:65 [inline]
- dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
- dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
- dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802d1dfa00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 192 bytes inside of
- freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- usb_register_driver drivers/usb/core/driver.c:1078 [inline]
- usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                           ^
- ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-==================================================================
-BUG: KASAN: slab-use-after-free in dvb_media_device_free+0x5de/0x650 drivers/media/dvb-core/dvbdev.c:214
-Write of size 8 at addr ffff88802d1dfab0 by task syz.4.4145/19619
-
-CPU: 1 UID: 0 PID: 19619 Comm: syz.4.4145 Tainted: G    B        L      syzkaller #0 PREEMPT(full) 
-Tainted: [B]=BAD_PAGE, [L]=SOFTLOCKUP
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- dvb_media_device_free+0x5de/0x650 drivers/media/dvb-core/dvbdev.c:214
- dvb_remove_device.part.0+0xa4/0x270 drivers/media/dvb-core/dvbdev.c:604
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f2f66f9e0d9
-Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 e8 ff ff ff f7 d8 64 89 01 48
-RSP: 002b:00007f2f67e18028 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
-RAX: ffffffffffffffda RBX: 00007f2f67226090 RCX: 00007f2f66f9e0d9
-RDX: 0000000000000007 RSI: 0000200000000300 RDI: 0000000000000004
-RBP: 00007f2f67035024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f2f67226128 R14: 00007f2f67226090 R15: 00007ffd283e24d8
- </TASK>
-
-Allocated by task 1:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- dvb_register_device+0x1d6/0x1e20 drivers/media/dvb-core/dvbdev.c:472
- dvb_register_frontend+0x552/0x820 drivers/media/dvb-core/dvb_frontend.c:3074
- vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:438 [inline]
- vidtv_bridge_probe+0x44b/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
- platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 19619:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- dvb_free_device drivers/media/dvb-core/dvbdev.c:616 [inline]
- kref_put include/linux/kref.h:65 [inline]
- dvb_device_put.part.0+0x57/0x90 drivers/media/dvb-core/dvbdev.c:629
- dvb_device_put drivers/media/dvb-core/dvbdev.c:628 [inline]
- dvb_remove_device.part.0+0x90/0x270 drivers/media/dvb-core/dvbdev.c:601
- dvb_remove_device+0x1f/0x30 drivers/media/dvb-core/dvbdev.c:596
- dvb_unregister_frontend+0x7a/0x150 drivers/media/dvb-core/dvb_frontend.c:3103
- vidtv_bridge_remove+0x84/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:554
- platform_remove+0x5f/0x80 drivers/base/platform.c:1524
- device_remove+0xcb/0x180 drivers/base/dd.c:616
- __device_release_driver drivers/base/dd.c:1349 [inline]
- device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
- unbind_store+0xf8/0x110 drivers/base/bus.c:244
- drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
- sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
- kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
- new_sync_write fs/read_write.c:595 [inline]
- vfs_write+0x6af/0x1050 fs/read_write.c:687
- ksys_write+0x12a/0x250 fs/read_write.c:739
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-The buggy address belongs to the object at ffff88802d1dfa00
- which belongs to the cache kmalloc-256 of size 256
-The buggy address is located 176 bytes inside of
- freed 256-byte region [ffff88802d1dfa00, ffff88802d1dfb00)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2d1de
-head: order:1 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-raw: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000040 ffff88801c027b40 dead000000000100 dead000000000122
-head: 0000000000000000 0000000800100010 00000000f5000000 0000000000000000
-head: 00fff00000000001 ffffffffffffff81 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000002
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 1, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 17295453492
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- bus_add_driver+0x92/0x5b0 drivers/base/bus.c:747
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- usb_register_driver drivers/usb/core/driver.c:1078 [inline]
- usb_register_driver+0x21c/0x3e0 drivers/usb/core/driver.c:1060
- do_one_initcall+0x11c/0x6f0 init/main.c:1353
- do_initcall_level init/main.c:1415 [inline]
- do_initcalls init/main.c:1431 [inline]
- do_basic_setup init/main.c:1451 [inline]
- kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
- kernel_init+0x21/0x1e0 init/main.c:1556
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-page_owner free stack trace missing
-
-Memory state around the buggy address:
- ffff88802d1df980: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfa00: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
->ffff88802d1dfa80: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                                     ^
- ffff88802d1dfb00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff88802d1dfb80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
-==================================================================
-
-
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+Dmitry Baryshkov (2):
+      drm/msm: factor out a locking put_iova_spaces() wrapper
+      drm/msm: don't tear down shared VM mappings on handle close
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+ drivers/gpu/drm/msm/msm_gem.c | 45 ++++++++++++++++++++++++++++---------------
+ drivers/gpu/drm/msm/msm_gpu.c |  4 +++-
+ drivers/gpu/drm/msm/msm_gpu.h |  3 +++
+ 3 files changed, 36 insertions(+), 16 deletions(-)
+---
+base-commit: 6b8c8af514d739d0335f5579b585e02babe8a727
+change-id: 20260822-msm-fix-export-c4a4cd9239fc
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+Best regards,
+--  
+With best wishes
+Dmitry
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
