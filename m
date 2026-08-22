@@ -1,117 +1,165 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40C538DC43
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 16:27:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6A02DECA8
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 16:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787416030; cv=none; b=kbtCZsPBMtABqIXmBJ/EYNP9+y7ZPB/XFe0SOnMbCoUERDUJdZtflb6UzT3p9vOOH5ISQu52LOG1KywcsCrIuiWgx+6NotHB7ZJARzEWNLmlkDNas8E6+xvpafBpKDq+XmHN3GdqAG4Sz8aYOV7R7UW5XrTUBW4pYYIvpYEvWXI=
+	t=1787416435; cv=none; b=GfX04KGZGsgeoevEptLAy2oEIa0JDGFGx5Bsp3TB2ONkchxJssZi6sV2KgEp/JlNzd8si4eursEiKBqDpJ+Is1HP0HCnPwyCpGoY8gjkIytDPuIjFP7fCCw/7bFxxNTfXHJFTiYmm3GX4SZL56Fpz+drLjf/508tAA+l+qX15pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787416030; c=relaxed/simple;
-	bh=tVe2LYtwP7cmNVF6rqZqzLlc2/MlBW2liCa9ovPu6l4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=GYXqvkFykjxA0qXIJlmgEvqlvjJi9yTZLtdJ4hxZru3SaHL/wbyrPDhBLezVtUx0OmDcaTtejmEm9flfclDSZXIOwGe8l6/hnUR5AY2eueoQqzA7WoQg52LUBwsWiq5sq74S+cADs0Iw9UOhoIeGuqIXUfXFSpknpImzeVWOXEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=fvVKpGgN; arc=none smtp.client-ip=34.2.82.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1787416435; c=relaxed/simple;
+	bh=oGcc8VIcamFFepAD6IAmSlBLrLGFed7pvq5nIb+E4eY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WMgA28FgB/hYerW21JV5p9Dloq4lHJW98EUq51u1XLzoOGk5V5aBKb4CaMbpwgLawqifqWSQcHB2TatenBDFRrzpEZ48Ovxs2VLqTD4nqLaogHLDscyHzP7hHNt6Y/TajB/1kAfUdq1nm07jKaL0MOTniZ/zg16AMv96C2364A8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TsEKQzAO; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="fvVKpGgN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1787416025; bh=img4NbGaCHdQppkcgpoinvDkDNQGuhOZsw0nPuNdsvk=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=fvVKpGgNeS8Fts1+kbv3gXsfLpUjHlYEV8EjxDhU3vkvHHdFS0/HeahlDLAZrS2+auQQZtB9QbKQI1XJSvW08nqrMufhP/10MlR2SSgd0yKGP9FVGh4zROwPuMPirFYQG1Pb56d5ufchoJ/O/m9BnjXXv4XBfzD9/HqZr93kzj56IRt0zsqxVO6aWGcwmXEqq2Zziwyax2i6TklXRXd75IMB4uoGBgkmQ1CY+psb36iuTK3C3nMhC7bFAWVzj6L+XYE54VY5DRO7CDOsvj7mX570orkStjl07i59VNpzcbLdhGduWoNRhKX5MTWcPBRJiVU0pwZbDUVBmrBTwwL2ew==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787416025; bh=F15ZFLOsdlBFJ5brxVoIa7WNetZtAcSC7hN/wHxKMUB=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=jf83btCA4Yq6ePJcq7Xq7RQS6QFcv0RVSyQC/UB0a9Vd705BgYMusH22N3xIvt/u8MrjEk51vV7DiTTJuVorLKFfGaA0WHY4a+DlvC68vp2OT0CGlGnLYvQUHWxIfgu8VqZ7HeFuud/bzF454A7J1mn2ultcX/IXbMpUeh26F5TAgPn6w+LMLZr+xhoFUOoULiXR0bbHK3wjOsXkFp+U1BCDpmB5LPNH7jq0JJnVCTpdN0uzsv7+/8s5Xw3H21od+Ps7UOAngCtpLEqAkOKPEQ1keQCE0jZnlmBzFISXSvLIPTtWEpsubnI7FiHYehp1xA+IVRLox429ov3bUdVB1A==
-X-YMail-OSG: QIck2LoVM1mEX05nAOcRQJUOkJxS.lbXYaQrcBf1LRzivJU_oj4vXXSYcnemmsz
- KCAKiDDK1fOG27pe9RLIIjNKgnQP6siE7ZkAjl8tsNzawnMypY_yZ.HI.Dr_nPvR3dIOuS0JrrJO
- TyoXHy1c8Ww_VYPK0CAVtJ4x_1zANHsr6fRBUP6lk9HSI4hmrahkvrY3ihnX1MdgqSkVlMRsmIme
- fe6LFhyXBIQVf8ReV0aaBRv9PEVhEuQCbM9h.HL2PTqBPay3koZvMqD8IKVL2lZNipIDHjdqX08c
- 5Ztc1eOyiWF8mZ9bwvF76cYHvnwPiccdoo78yE2gNm2fbmX4T5AMOJKEnJWwyOZ9TqcWI3l0IEmn
- grRK0UseK0LBAFSVK14BS75bpeueuFMmDeyCWoYwiL5Q3Y94PhMqDanjJHN3Fs2QCt5_kdoqUtSm
- uKmIcGHT7rcLgNPlCph40Vedd4AZMddFRhSE87JtdLtIjxCN94STfXKCBCIfRNUgGDiJOMVY_dI6
- 5j5JRL8JDDpYnpoG05FVeKu.iYZKeXKlNZH47h8nbWVKTRgR68RBL1vtI.iALRxYm37eKJ7MXkFM
- Fj5M4wWdmxOFCJ96sdZa1ezEOA8VrnoKrdf41OjTnaczdct94JqyW1DpCyxvq.sKf.VYUGzCF0lT
- 4S1ZI9hB0wbo_mfLtMbh8upMeb.p.nosYwAiBbiJXtd9kkaJ8EN48Yv8SAkv4ZuW9sEoAvxz4brb
- dbJ1zRnEPRxHX1OTjd.llxTHuQrbOTNQyyG.AZPjyf99fRtNGNFodgCjlgP909iwRoD2aIxIiBaS
- 9uc_bAPxV9kWfg46yC09BxYtY1dViHcSBcvLQ5VToXmTNSQHBIUuB6SA1kHinnDR1.LK0mpHQAy3
- CnR_5I0OtD3mCzBcD9mDxgvUv10O7DacVpEODIAHzgU_eOiF8LYoSH93ogq3kJze19bPcGV6gear
- J7V3GgJWMM6E2rNCpgg9hb2jvZV5CJgH97SfLvMtYJAbGfl9baAVHKmnIe1vnSX1U33o26k8Fptf
- RLBH09S97JYA6S743TOnilYxcku45SOwN1wA8gliBnLpzoDwL0bTSu68a3.6JWJBWm38me6V9XPH
- VbrQh2k43wpFOTC7y4f9CFnX.zBeBrMqif6jOWv3rqZamCe.hXHD.OBKw_VoQ9RHC45PISM.SJn5
- U1Bn4._XwkOLeupViYHOlQwYzTLm.JOw2UqXvbW5SaiBf.JGwsyNdinWxCwE8N5gAY8AagOnVwu3
- x3XV0RrphDzM53_P2kwquiGPnMNpgfyqNWg6EcW5GxQDZ6Tng2aiisN_pQtywgFQSKc9.AloGD9k
- mv4Dujm6iDK29NzW.ntVmOa6ZdTEYhQl4NOGmAbJ8QqtjRcZJr91bkvqj5_g_t.vHsG9QCxN1hzi
- lfuhgnueQM3bUc71GSVIcCn5nJjG5bMhk8YmAp7S8L2rCcZCUbGK9WHTFuRYfVBBekvf599ROt8t
- _uV5hGt2JRo_dzhpLHiTmMi7OmGpmW9g_jpIsHUpg5_kdRst130Xi9H5JJol4Qao6DOgLQcpuMKC
- TxieaEBmdwfOFMAhHE1lScXqKOAayXSwZykqY5PcSX1kRtvafIhywUHRM_ktWsegvpWaZ7fCYMgZ
- TXunwQMztq7.itrlLEwfYlUbHO1oGVALef9PXalHTAjcVXM52_59S8cIsRJ5D0fdRXu3eZh1p3qm
- rTPVtVDFtxSEwcpQgYVh18zkXheu1BD_VCKx.XwSqQrTaTs_Mj8opb5WxJhs40kkguXTWDjlEy_h
- cnTnR5Wc.J93phtLgSVNLxkY5IUUcC78YyRhfgJr7ClMmft4fCXZq_0izAzDeuUAdx3ABQmqZ4VD
- a_u.E_8BxxZfs3a16FUaF1FX3gZQCLCZb7lYyplSWQSB2d439WcA0.Z1xgo27pcBflEKRcFRaBZK
- SI6hM2fa1.1DKhYQTsTgGeN2WThvFmFrTHQA77mOVEyEBVnCidRJPuB1heuNppjKdr_NVbPvsbpp
- y2v35yuA2EmuWkwVK0EITMl87eQNpyVXW
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: 748c7aad-ed97-4a41-9f58-f1cb89164332
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Sat, 22 Aug 2026 16:27:05 +0000
-Received: from dip7.lsn.ir2.yahoo.com ([87.248.99.16])
-          by hello (SMTP) with SMTP ID 75bde3effed4a57533d9170ba446886b;
-          Sat, 22 Aug 2026 16:27:01 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Sat, 22 Aug 2026 18:26:59 +0200
-Subject: [PATCH] staging: media: ipu7: fix typo in comment
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TsEKQzAO"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2676190a91.0
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 09:33:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787416433; x=1788021233; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=fmKmKrmPYkvkNLuKTmfz5lzhGrm9BSMn079ll2DIt4w=;
+        b=TsEKQzAOfACNXAKNx5AW07PtAdyvmTb+7L7P5MBypj/kjx4sTYojRkgPVUHVIdnAxV
+         Z2kqLIlUIeSIxTl28XCR1nFH+E83clPXgoAFFJl4O9iCoBfh5IUVvczkn7f8iTYd7R/S
+         t2Kmzmg/Dj0Fn+pFeq8MGZOYLsAEGrj3ukd61S9w/99B00wLQxNtuyu+noEqbR76drou
+         WvPCt7KjNdeklnKExsDLyFDS3bg5pCfnvaGqFnAJG1LdF/q5/nIZhTw2YzfXXr63IyZK
+         HgcBj3QhFMk/LbkHj6YDgpNoHmrvjwwITyly2YtCdyFzJK0kqbdrSY2YH2xIgke59xyy
+         3cFg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787416433; x=1788021233;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fmKmKrmPYkvkNLuKTmfz5lzhGrm9BSMn079ll2DIt4w=;
+        b=A060VGYAJVquzfG4nERsOMM5HyPgE6MQUhgbs+zuvljzbEuzia+TJZli6d3BpjbmKT
+         rjHqGH37jLUy4SEcwoZaM2iZwoeFg9qs74i+GpMD/fk4Mao6IA8RyI+6lSyFdBnVMr0Z
+         tFOcgE5l4qL4bArwVfFqKhkT9MNRYa8WDbPHzvscE5Eq7Ov/OMvyCfqbd73zL3f1Mnzr
+         V85ZP0RhyWaTxpY79qh7YDmOU4qhOMlhDsiygrOSgPeDGHhnPbndwcLoyXWjLxvh+vav
+         bxXn3dGZt6K76dINmC4K3w4gfV99rEqEw2zg1aUqMcmawbuSyv80VOMM2gocnzIIwm9t
+         qcVA==
+X-Forwarded-Encrypted: i=1; AHgh+Rpl3pUEyx6ef3CpRquInzUEE1q6OecO+DYjP48N2BDQSbBH8djk9Em0d8j0qr/ZTQN9gBpnItd1iODL3w==@vger.kernel.org
+X-Gm-Message-State: AFuF++lmFepXJqQxIjBTcuwEHJ1VD2M+cWbdkRNpiSuIWejK7dIF39Tu
+	2jH5Ur9bdoqTzAHk7PRfBqDfCn3z+P8G+6Zi4XQEchUetNatU47Kl4BS
+X-Gm-Gg: AR+sD12ItAaCNwBIcKbsBycBd5zOLQC+SaPQ4LJ/jRuX43mTOiAT8ymWv00/H2lO4qJ
+	86FnicKtMYdWr9+YrkfTMPmpQyTky0TiNUU8mP/6TQG8ni/QrDKX/8xzPpSSodGAZLKREVvnaCf
+	8xqTBvYVsaRHYlGha4KHWpCcswNHsmKhXFWhKZAS5ws1yJg++LjdcFuhDTndNH5A/Wf1JV5IjlK
+	hpt2OXL1jL/JowuM6i1fCR8eloYdIMMbXwcJzUADAsOnT7u/ISZd7GTGFwDSwz7cl0PSW1QOqhf
+	mo92m5fLajL5NMaStKiPRKGbLvyqtjQWj0ADHIjRVGmRfeCEMnmyoUhxwyRj/+CR4K6Zmep8HRj
+	hPS3CNvFpM4rqMnSEykd69IZgdULyit4wctlZHyaevfA++O6AzJLMnVE6BeBan2+Beykxvw4Bp1
+	9tWO4ds4VUpJj1+YDQ22bOCH3RZPFLecjsPhJOmqY35vCcN4Ruv/eHVEwZ1RqCH6hyV+qBftAkf
+	Vd6StGUWUtxJkBXDW/E1+I=
+X-Received: by 2002:a17:90b:4a81:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-395c34fed98mr22503172a91.4.1787416433248;
+        Sat, 22 Aug 2026 09:33:53 -0700 (PDT)
+Received: from niharika-QEMU-Virtual-Machine ([223.181.119.104])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d33dcsm10911996eec.18.2026.08.22.09.33.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 09:33:52 -0700 (PDT)
+Date: Sat, 22 Aug 2026 09:53:41 +0530
+From: Niharika Khare <niharikakhare2101@gmail.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+	syzkaller-bugs@googlegroups.com
+Subject: Re: [PATCH] media: mc: Remove spurious WARN_ON in
+ __media_pipeline_start
+Message-ID: <aokkTcorNSJOnJFj@niharika-QEMU-Virtual-Machine>
+References: <20260821165833.10042-1-niharikakhare2101@gmail.com>
+ <20260821193326.GI59206@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSwqDQBAFryK9ToM2wU+uIlk42qMtQYf5hETx7
- unosh6vaofAXjjAI9vB81uCrItCccugn7plZJRBGSinMq+JUFyqMMWXbF3UL8avW9HKB201GDJ
- 321DNoLrzrPOZbp8Xh2Rm7uO/B8fxA68fDgh8AAAA
-X-Change-ID: 20260822-ipu7-utlization-typo-fix-f7db2b4f928e
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bingbu Cao <bingbu.cao@intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
- linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787416020; l=1156;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=tVe2LYtwP7cmNVF6rqZqzLlc2/MlBW2liCa9ovPu6l4=;
- b=fLE/ENoASF+5NcZZ8m3y1tS6+mouN8eCG+KXf3h9XJveasjY4KhHaqdyM6G7T+NtTMUUZNx/N
- uOR9OssuXAGCl5CDGz1prlLj9dBYCbAZdyghx5VTFgDkdm7OkLQBqH3
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5.ref@yahoo.pl>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260821193326.GI59206@killaraus.ideasonboard.com>
 
-Fix a typo in a comment: "utlization" should be "utilization".
+On Fri, Aug 21, 2026 at 09:33:26PM +0200, Laurent Pinchart wrote:
+> On Fri, Aug 21, 2026 at 10:28:07PM +0530, Niharika Khare wrote:
+> > Vimc driver's entity topology has three capture nodes and two of
+> > those (Raw Capture 0 and RGB/YUV Capture) are reachable from each
+> > other via enabled links. The crash report and the C repro show that
+> > the two capture nodes attempt to invoke a STREAMON session one after
+> > the other, which resulted in the WARNING getting triggered by the
+> > media controller.
+> > 
+> >   vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
+> >   vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
+> >   origin->pipe && origin->pipe != pipe
+> >   WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x1add/0x22b0, CPU#1: syz.0.17/5912
+> > 
+> > The graph walk originating from Raw Capture 0 (first STREAMON in C
+> > repro on /dev/video0) reaches RGB/YUV Capture and marks its origin
+> > pad's pipe with its own pipe. When RGB/YUV Capture's graph walk starts
+> > (second STREAMON in C repro on /dev/video4), the pad is already
+> > claimed. This is a legitimate userspace request but not something that
+> 
+> No, that's not supposed to be a legitimate use case. The WARN_ON
+> indicates a driver bug.
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
----
-Verified with checkpatch.pl - no new warnings introduced by this change.
----
- drivers/staging/media/ipu7/ipu7.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks for the direction Laurent, I'll look into vimc's architecture to
+check on how the two capture nodes ended up starting the pipeline back
+to back.
 
-diff --git a/drivers/staging/media/ipu7/ipu7.h b/drivers/staging/media/ipu7/ipu7.h
-index ac8ac0689468..d045e16bbcf0 100644
---- a/drivers/staging/media/ipu7/ipu7.h
-+++ b/drivers/staging/media/ipu7/ipu7.h
-@@ -114,7 +114,7 @@ struct ipu7_device {
- #define IPU_UAO_PLANE_MAX_NUM		64U
- 
- /*
-- * To maximize the IOSF utlization, IPU need to send requests in bursts.
-+ * To maximize the IOSF utilization, IPU need to send requests in bursts.
-  * At the DMA interface with the buttress, there are CDC FIFOs with burst
-  * collection capability. CDC FIFO burst collectors have a configurable
-  * threshold and is configured based on the outcome of performance measurements.
+> > kernel should allow while the pad remains claimed. Hence, the kernel
+> > checks the pipe and returns -EBUSY instead of raising a bug, same as
+> > the other non-origin pads. The check on origin pad's pipe needs to stay
+> > otherwise the origin pad case would go through the increment on the
+> > start_count path, even though there exists a loop few lines below this
+> > block to check the pad and return -EBUSY. The check also provides early
+> > failure detection and prevents the complete graph walk.
+> > 
+> > Fixes: ae219872834a ("media: mc: entity: Rewrite media_pipeline_start()")
+> > Reported-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
+> > Closes: https://syzkaller.appspot.com/bug?extid=68e901d044baaea1f60c
+> > Tested-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
+> > Signed-off-by: Niharika Khare <niharikakhare2101@gmail.com>
+> > ---
+> >  drivers/media/mc/mc-entity.c | 18 ++++++++++++------
+> >  1 file changed, 12 insertions(+), 6 deletions(-)
+> > 
+> > diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
+> > index 3fa0bc687..7b4ef2c95 100644
+> > --- a/drivers/media/mc/mc-entity.c
+> > +++ b/drivers/media/mc/mc-entity.c
+> > @@ -778,12 +778,18 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
+> >  
+> >  	lockdep_assert_held(&mdev->graph_mutex);
+> >  
+> > -	/*
+> > -	 * If the pad is already part of a pipeline, that pipeline must be the
+> > -	 * same as the pipe given to media_pipeline_start().
+> > -	 */
+> > -	if (WARN_ON(origin->pipe && origin->pipe != pipe))
+> > -		return -EINVAL;
+> > +	/*
+> > +	 * If the pad is part of a different pipeline than the one passed on to
+> > +	 * media_pipeline_start(), the pad must wait for the ongoing session on
+> > +	 * this previous pipeline to complete before it starts a new session.
+> > +	 * The request for starting the pipeline, although valid, cannot be
+> > +	 * served until the ongoing request finishes.
+> > +	 */
+> > +	if (origin->pipe && origin->pipe != pipe) {
+> > +		dev_dbg(mdev->dev, "Failed to start pipeline: pad '%s':%u busy\n",
+> > +			origin->entity->name, origin->index);
+> > +		return -EBUSY;
+> > +	}
+> >  
+> >  	/*
+> >  	 * If the pipeline has already been started, it is guaranteed to be
+> 
+> -- 
+> Regards,
+> 
+> Laurent Pinchart
 
----
-base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
-change-id: 20260822-ipu7-utlization-typo-fix-f7db2b4f928e
+Regards,
 
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
-
+Niharika Khare
