@@ -1,74 +1,79 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5154D385516
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 09:06:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5193803F7
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 11:23:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787389618; cv=none; b=KKepuewA+zquIpc7B8YSsbio5jVL1MosWjNpfbTqOhrF1TKHBJY+YELPol2pR80XtAFiFuAchE2T1tdrBLtmiAiucjnt8EavfphFNFhp8TGE4hEiY0v7rgyXrITu9aQVE5JJ71PABZXAIO5wW43iOlbxn1jFbZo4R13ceA+vUCE=
+	t=1787397788; cv=none; b=tGIP92HTMSp8lHyO/2r2OPsfweVSniMobDsyqJ69IyDhLuV5lFm82FRRSrg30WA9mfYMF/Gs7zfhcHhMn9KYS+O+NZ1R8Ymt26U/AdmiGow3WN4vYK4n/AVMxw0PzOjFvNhtMFfYr39GVt4BtL6+mWBppdtebMKxEh6Gw7W1+6U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787389618; c=relaxed/simple;
-	bh=q4589WEFe1hSmKFlywJdsJ/lnUIFjIUMU1bqTMNIsJE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fhc8JkCZOZQc9c/jhYxXDysHRxEnJ/yTRHe3GpcXh2eOxK5R35v9roB9kkwkFIgBPEtEUxbAV60mIV2ioF/JsvsOgpKdC23EUkXxOQZVqNjLt3T+VskYttohtzOqlZjpSNqt+JzGqi9aSsrWYSecRvaW2xh0ddDdjFSQqkU2CzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sDxONb0G; arc=none smtp.client-ip=209.85.218.43
+	s=arc-20240116; t=1787397788; c=relaxed/simple;
+	bh=grxIq2GALNody6ADldH3f4NTn19FLgvS4ie78H73heI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U1weaRB56eO5joevQ1ymyZ2Fzcu8tDTbCfcMSLLL+BqWs732pXi7Yz9Nqr5x1uO9kdeb4C6sgyPRAmZznhI1yV5aXrqopgg6dgveZW96dj8xn7uFFBFrADYn6bwhDoyrvQYw4JqOKMev+kNVGcJ6ebmnyfPR79o39ClvbRKGtYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tobf+0C4; arc=none smtp.client-ip=209.85.208.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sDxONb0G"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c169ae1cb26so582855666b.1
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 02:06:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tobf+0C4"
+Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so2511784a12.1
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 04:23:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787389615; x=1787994415; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=N8IEVUeW9Tq92JMJ6TAdUA1Txue5G40TVIlynfVTyXk=;
-        b=sDxONb0G7lHz8aKZyVmPvttQ2hafzXMcVcfXDlI4ByVCgXM+mD2RcFlJGzcyQhVYF8
-         ecfzQJLGhOnZu2ICTUVZIiBFhWNmxmMdsKfcMowy8m9J8ysyP/6xBFW391WxujtJGeWn
-         00QPmj7u1mPGP3j8rMt/TyD8Mmjc/xUoWSRBJSavF7fSRgxqhITm+rVaD3zFO9IfvTDS
-         BVajel5OpouMsZ1KZ/HUT1IiOtksnxA/4FwJopjuL7R4UGoK+WuK22GArBBSwobBJINc
-         RH0VuhkaMxGavyl1MpghIhcadiVwd1RuATpouBCGFIxomy1wwzsTN35vHC7anBTXs7Aq
-         I2GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787389615; x=1787994415;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787397785; x=1788002585; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=N8IEVUeW9Tq92JMJ6TAdUA1Txue5G40TVIlynfVTyXk=;
-        b=JAYYMRuWYxVtSUEiQmNm5OJ69Eds5szH/BZvWSiqnP7lp6YHwu8IqNmfZBmcStU767
-         PJr6ahkd5WiUnzWOLasurprY2efZqC8WKn6juIvvrNIur113ykMCdJMx5tB8rVPt7sly
-         bEvaGOGKUnoLzIAV2jYJ3jDitNxj51K0PiLQ/GZyPgIBuEldQ6RS4lk5/vJBR11RkZo+
-         Jq0xohZPytu9xLv6gcw8PN2N2rizu1DuQWg6HcEg/DxrJP2+N2h8n3tUmqzitTP8kO6R
-         YdvcIqMBi5n9jTniZz7PhE9wN3PyXoQarMQ5lpIhfUYfRVhfIsQRmYVk9TM9BeUtEie4
-         wFqg==
-X-Forwarded-Encrypted: i=1; AHgh+RpeUNNisDiLTajAJBmnxWoUJgLyHi/vr+YCdEFkV7by8M0c13ZOCUyV/REn3S9mol0I+fKCHCCIWlr1Pg==@vger.kernel.org
-X-Gm-Message-State: AFuF++ngWq8TOMISbEKprlY0JBOvS2jYyL9E5MnBMIAOPWk7vycmr7Pc
-	RUNunBIsLFvLtm5p8RYfofVZyOegCI+fLHhJ89MKFgTPLBEvtd18bw0v
-X-Gm-Gg: AR+sD13tafPo/1dp5Ba2Mp/Ek19MappAke3La3zxCkTqL4OjWKE73DL648DjxzwzUX2
-	8XF7AJIvNdyxQAvJdYXppKqFweQoCgQ2H10uxfSCEgu3928E+sTYN88DboUB2yybY7OjZqU9a4y
-	XKwqzlhBgbrj/s/G0nP7YpxEiKIH/cZe9ctOmJOocYKW9JnlC/hDB23i06rIKAtZqYpQz7Kv6gx
-	l++1i7r9og9CU6HmDvcf3pAoFi8sJRAXYqx4H6pj8DbRZGR6dK569QqVJ8qx+MBzIn78i0cnlxr
-	5BS/ZMTVq0UiXhgb1tGfJ6bsGRmuNtyn6B4HoXam/q743p/XfsexksxbzozMnil+xrX1XQRJmsb
-	HGIQSz0kGLkfLM21HM4jqJ5XR4jXlNgI/yW0gWtd2aEk68rWqWbErbKNO3JX+NsaYDxgfC3wEuM
-	9xsIlOfZL6drpVsADUbdyAWKOWBAMbgYWSUDdGpXpi735NXB1pjL4zFY0/+MfUl4cINp+NDEbhg
-	82iLa2QgSUE4KdYf80T3FmJA6qGbEwzLNyS2Zk9BDnn25FXdguTDXjHgnaVeCxI3bzEGT0pKxEa
-	IoLKQduvTu9fZUV1N0jEDPbVbdxxYzEBdcu+CRxtwAUYvMLj7MG0Hb86NkQVZKAj3qMarcAm1w=
-	=
-X-Received: by 2002:a17:906:fe0e:b0:c15:c323:36e5 with SMTP id a640c23a62f3a-c244d7194bfmr1531056466b.10.1787389615375;
-        Sat, 22 Aug 2026 02:06:55 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-a0f5-8c01-3de3-cd62-aa6f-2fb0.310.pool.telefonica.de. [2a02:3100:a0f5:8c01:3de3:cd62:aa6f:2fb0])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a3ff17df84sm14576816a12.31.2026.08.22.02.06.54
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Sat, 22 Aug 2026 02:06:54 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Sylwester Nawrocki <s.nawrocki@samsung.com>,
-	linux-media@vger.kernel.org,
+        bh=7UZ9KRT6z8MHYQAiJ0+0SFhYkIAoxgeKdUrlJwQCpBQ=;
+        b=Tobf+0C4m9CrGszh8BY6jkjLp8Gimcv0zjnVfMF3bdZAp2TsH5ruP2UipbXj2uul3N
+         IfUodEGC1z35p4Xol/RjJyCxkA7mPWOz+o0Jc1LjQp2l/Q8k3v7cdg8WGbFbjKToQIHM
+         4h7/49T1q71RJ/MYnvmVb5KoFgGzMLsg3u8yTmIXxWnoLgjMzIcGCRxzqpLtzdntmnKu
+         8KOfuqrdnzj/pYK0Dq35uljZecaIfcARHt4poHsYkcFfvgUoIA2FY00BMReJ/SqSZ/LG
+         7W8GVI2iy3K4AGZX6Fpzvh5qLpJ7Z5iksUiyL1BNRL3BFlhq0Nv6i9M4ax0DVPHZynFy
+         kdSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787397785; x=1788002585;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7UZ9KRT6z8MHYQAiJ0+0SFhYkIAoxgeKdUrlJwQCpBQ=;
+        b=Yuw0O/1nDLW/e1AO1zf5iG+AfBi9b4KePaSBO2okof+h6eRz5OnWlI6DYgFwyTfO0s
+         KpFAonHDldr1Cf72ERMENEbWrqDLIo4opZ00UcNMU6Dmvyxhj6RRbCTDhrVrQVq47Kab
+         yV0D8msqP9+kn74JJDBMd3Gb2KFe5L3zCmNB1AdFfo7LAiqxvh5JV/7xmkVFiXlTUFHt
+         7HrebjFCexU1Z53H7aHntzFkalImAqFMAXl9eeJ8XBCRDdBlwrp55wwjARRsf+ZoWwJk
+         G3dd4SsBSmL6msR4oKWCxXUXp2DTN6QXvXint3pfugbfhteagCNxm72JwU2SfVlUl8Yz
+         6BdA==
+X-Gm-Message-State: AFuF++nXVrH8td6y3gEPq4ch0+gczuUcLlJVTG97j9S+wOMKtVRV7Dkx
+	NrwFQCAlSXsCLiMAAbkhCPDzx4RDzP1a1wJ3OV+h9XbIRBk+cc60d9WyYmbvR0ceq1Cxig==
+X-Gm-Gg: AR+sD13/Jr5ZxsIaP287Pm1z7fJwJRu0qapubYCkqyA2JHb4ZM9CnjjSEBviK4uMGIs
+	Pq4e/Hwjwo4gzlmsbuvmkLXaVXS65qoVQTG4HlPxKs3Oh8ICSmCqxwbJUdMvpZMqLpnUKbC186T
+	MHCrufoLEej+Iyf1sYxsG/pOAVkON1bE+0grpFUi4xUI3HdnZ3sRFfjzNg+eqnx/FSD7nXdRzqr
+	Z3EjZfITPvmeohMumjWBeJhE5/BWpq0NuqAt1iLxrw3TLM31odp/fuWqQmD60yiqqgisdIpcSz/
+	wOsisS5tdH5XpstaE+q7cJdLQtHN5cBbKB8HOK8DeLzLyYURLGer2N0AUwNSVcFNBoj7jzGP9Ju
+	erfTBcXXigTGiwkgf6P2J53macGR97CU+9aqSkyCmNzZ+G89wFY09viOt7FsGVQ4HK5MiqjlNzB
+	ovYEHCtH2s/pEIxhl7Xl8ngZ+TOzk9wddmtmgS/Mm+8/JzuDQWW/kpRkMIRuk3GNPU6vE2+5DQH
+	/4RSlOyyHyzVwtlxxd6R5BODOOkfVvECwZ0IMz27byaB3VimN/mPYa+A81gmW8YlH6ZvUoNNiao
+	9C/NGwoY9yFNTKLsz+o3WJpuifxM4ZLbvzfGUkKoCHTXoWPuV0EeK1GSZeH1eapujHx8qiNdM39
+	9WbLBExc8O0s1gGMiy7dLSM0xA/jzNOmtcO+MS85reg==
+X-Received: by 2002:a17:907:c20:b0:c15:f4bb:e663 with SMTP id a640c23a62f3a-c246a3ab3dfmr1375089466b.10.1787397785227;
+        Sat, 22 Aug 2026 04:23:05 -0700 (PDT)
+Received: from localhost.localdomain (host-213-45-168-79.retail.telecomitalia.it. [213.45.168.79])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606b4f1sm249568466b.3.2026.08.22.04.23.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 22 Aug 2026 04:23:04 -0700 (PDT)
+From: Nicola Fiorillo <nicfio@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Nicola Fiorillo <nicfio@gmail.com>,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	bingbu.cao@intel.com,
+	tian.shu.qiu@intel.com,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: docs: fimc: Update module build options
-Date: Sat, 22 Aug 2026 11:06:47 +0200
-Message-Id: <20260822090647.98016-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
+Subject: Re: [PATCH 0/3] media: Two oopses and a hang when unbinding a streaming sensor
+Date: Sat, 22 Aug 2026 13:22:54 +0200
+Message-ID: <20260822112258.7727-1-nicfio@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260812105305.32447-1-nicfio@gmail.com>
+References: <20260812105305.32447-1-nicfio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,37 +82,16 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Commit 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12
-FIMC-LITE") turned VIDEO_SAMSUNG_S5P_FIMC into a menu and moved the
-FIMC driver to the new VIDEO_S5P_FIMC option, but the build section
-of fimc.rst still names the old symbol.
+Gentle ping on this series, posted ten days ago:
 
-s5p-csis.ko has always been controlled separately by
-VIDEO_S5P_MIPI_CSIS, so building FIMC as a module does not produce
-both modules. Describe each module with its own option.
+  https://lore.kernel.org/linux-media/20260812105305.32447-1-nicfio@gmail.com/
 
-Fixes: 4af813108b88 ("[media] s5p-fimc: Add support for Exynos4x12 FIMC-LITE")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
----
- Documentation/admin-guide/media/fimc.rst | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+None of the three files it touches changed between v7.2-rc7 and v7.2, so it
+still applies unchanged.
 
-diff --git a/Documentation/admin-guide/media/fimc.rst b/Documentation/admin-guide/media/fimc.rst
-index 267ef52fe387a..9827367097daf 100644
---- a/Documentation/admin-guide/media/fimc.rst
-+++ b/Documentation/admin-guide/media/fimc.rst
-@@ -148,6 +148,7 @@ or retrieve the information from /dev/media? with help of the media-ctl tool:
- 7. Build
- --------
- 
--If the driver is built as a loadable kernel module (CONFIG_VIDEO_SAMSUNG_S5P_FIMC=m)
--two modules are created (in addition to the core v4l2 modules): s5p-fimc.ko and
--optional s5p-csis.ko (MIPI-CSI receiver subdev).
-+If the FIMC driver is built as a loadable kernel module
-+(CONFIG_VIDEO_S5P_FIMC=m), it is named s5p-fimc.ko.  The optional
-+MIPI-CSIS receiver is controlled separately by CONFIG_VIDEO_S5P_MIPI_CSIS
-+and is named s5p-csis.ko when built as a module.
--- 
-2.53.0
+I am aware the merge window is open and that this is not the quietest
+moment, so there is no hurry. If anything should be changed, or if it would
+help to have the reproducer script on the list, I am happy to do either.
 
+Thanks,
+Nicola
