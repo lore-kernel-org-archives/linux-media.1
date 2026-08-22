@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7282773E4;
-	Sat, 22 Aug 2026 05:15:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F6B2D7DD7;
+	Sat, 22 Aug 2026 05:15:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787375744; cv=none; b=bz9Zv0HXcTGVvEOkgzRlgnxVdmDLiSr/VsqHgaUlsf/79szpwjeQXEs97oGAQBIS8uEeKUmBxiLuYxfYD600wr94An25fkwv32+NijlipZCFzMWpoO3U5ehtSXOKr6o22FCpPy2JFLlFheV4MOhZ2x+D4MxMPqRWCD/yJMwX0jY=
+	t=1787375744; cv=none; b=dQ66TsJHpghYmQYZcUjiIIVXUBne+KH3pmQM/fpr27VehyztH5PqCBhsdYG0cC/U9QM737eS252k9/pdFWR0ToTijykiDlFqb7knYQqGtYUMOROSW0nPATK4FKqJ9v3PbTkxaZViAAQM/Jq7N862lSR0soiy884hA4KVG4Igkew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787375744; c=relaxed/simple;
-	bh=rDZ0z+Fi36+PCBmpbr4JERAVEoPyMBkS3zxYFagrmp0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Sx9qc53ViyfSQMlFE1Yf4Hf+GABP3wshbnJ9GlRvzH0D85NQraiX/5kjALo8mN9M+S9ctHiR5OP8iS/b6fUbycQzowoFdPmHrSY07KXzC1mTYSqH+dYzWbenb3rovhFefArYnx2Rd47udLQet/H5k5oFmSIvpXg5uaamT1ZZ44E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5NRwSx/; arc=none smtp.client-ip=10.30.226.201
+	bh=OWTXtyjeFMgy0pedbYElIbBJks0vaqgsTW1iYCsAdKo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Db2BMztyp8P9yvgPYh1InpB+WIlZ7BWFXBt6dICnUEh617J93Sb+ocExlcsm3CjgSrVV53qnp48/bW4F6nH2FhYYbSMFtFJCmNzH72Lq4/ykrBUdap+ZsNA+qzE1BEv4YI1q7XDlLLywf3eZ1n12p691XNuRDlBZ9Wh/+oCpVw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L235ytuR; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5NRwSx/"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9370AC2BCB8;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L235ytuR"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C0D40C2BCFB;
 	Sat, 22 Aug 2026 05:15:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1787375743;
-	bh=rDZ0z+Fi36+PCBmpbr4JERAVEoPyMBkS3zxYFagrmp0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=I5NRwSx/meMN8cdz97clsbIMVw5+ND8DHRqdHpTiIC9unvDKK0l+M+ZBp9p0pDdK8
-	 6Cez31xfxPd3cizXMAMp/UVOIyXvSTd+cxOmlPPENuF11PiL/CwGCRl7lw21QKQpq0
-	 jEives+TGTtB3r2NZQ82vIQbQyoLERxKR6DprnpGJZ9ybRPFINwp0eQCdJMmc69/mt
-	 XTeeLX5UZ60AX07+gR1HABsdOqSNfQlxajq6uq3w1bEi72eSypGWNVI67/7N9vpG/g
-	 lS11Yrg3QTWN9SMPnc06zum3l8i/RtfRO8LpPzYIecMxsZIeYgtJRyxuCInWGlv+1u
-	 61Xknt0613sng==
+	bh=OWTXtyjeFMgy0pedbYElIbBJks0vaqgsTW1iYCsAdKo=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=L235ytuRZR+xYkEiAb2REwcHOnViH69cR3GVrRvaAsdAh5+RFhV9U9wd8UoGF3lYb
+	 aSq1Mq9A2hg4hMDnqdTfUv31t8br41d4mZa55H826pvSPZ4ZsPKBF3pPZHLmUKbWNS
+	 bZIv7pHemqZ6Q/bcnHQmjJURSoO7xyj4itcMe+bJCBSe3nNKftMPuD/U5X8ToTgNBf
+	 ycsVBCU8iG3hYhz7kmgN4WdLcrtYIVscq+w+ADsbnaAPfB4Y2FFWtsDwfuPsvit4Lq
+	 fVtVpMNsUmKbfK07u6x2Ela8nX2fy9vBuNyc7M7/OpziN3Zz4o7mGsDVmXrO6ohujp
+	 vywH12viBetHQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 68472C5B572;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A2A8AC5DF97;
 	Sat, 22 Aug 2026 05:15:43 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Subject: [PATCH v5 0/3] Enable DW9714V camera focus coils on SHIFT 6MQ
-Date: Sat, 22 Aug 2026 07:15:15 +0200
-Message-Id: <20260822-dw9714v-v5-0-502bc7f43b8f@ixit.cz>
+Date: Sat, 22 Aug 2026 07:15:18 +0200
+Subject: [PATCH v5 3/3] arm64: dts: qcom: sdm845-shift-axolotl: Add
+ actuator for second rear camera
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -40,11 +41,9 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1XNTQ7CIBCG4asY1mKGgUJx5T2Mi8KMykZN2+Bfe
- ndpTWxdfhOel7fouE3cie3qLVrOqUvXSxnVeiXiubmcWCYqWyCgBaOspLt3ymRpKmuNrTiwI1F
- e31o+psdU2h/KPqeuv7bPKZzVeP02HPpfIysJUkfjfNDxWEfYpUfqN/ElxkLGhdIwKyyKKmqUZ
- xsthH+lZ1WDnpUuqmYF6GqKBPSvzEKpxV+mqAbRxaAIfVioYRg+Sj1DRj4BAAA=
-X-Change-ID: 20260416-dw9714v-4566465ebe7d
+Message-Id: <20260822-dw9714v-v5-3-502bc7f43b8f@ixit.cz>
+References: <20260822-dw9714v-v5-0-502bc7f43b8f@ixit.cz>
+In-Reply-To: <20260822-dw9714v-v5-0-502bc7f43b8f@ixit.cz>
 To: Alexander Martinz <amartinz@shiftphones.com>, 
  Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, 
@@ -54,107 +53,135 @@ To: Alexander Martinz <amartinz@shiftphones.com>,
 Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-media@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+ David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3375; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2564; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=rDZ0z+Fi36+PCBmpbr4JERAVEoPyMBkS3zxYFagrmp0=;
- b=kA0DAAgBYAI/xNNJIHIByyZiAGqJMH2gQ7EKfkcSwxDewI99sKXwOeSqLvVXISYoB6nFtwUIy
- okCMwQAAQgAHRYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJqiTB9AAoJEGACP8TTSSBy4WAQAMZY
- hFa25m3Qy40VX6BdSKEChcz3zeASRmVKmr446vCyGheQAqsm2jgPpNhhyawSIXE3LYelC7s6gt5
- Y/Esg2ACFXLcabzcds92fBr7AK8+wqx5NeNLFBf8mI2Gp+mht9grCpPzOHB35KmeXdRoeEdBQMF
- iPGGbqvNqxN09iOiGEE2DO9+F6aOSgMIB/yWsU7trZULAaoEz0xcZK7uqdgzp18dnaJy/DLsjPo
- 4uFta2r0RK4SzbmXr5RhVxPDoBETECpP9hGk/A+C6opYxRCI8IiWw2QP8pOUse6a33LXjBn7znI
- vrC63dRlCyiQX/0fKOl48kFrzXcupz6KTStI9R6M0w1gPeiUoWR6EI/eITt+nf0n/x48IUbVPqG
- 8HtjkHjTMh6NzEHCda7EY6W7GpA7aRSON+/zIDvGEBfavYdZoXxLEjLHEPeRVNbiMEiCOoiqzkd
- oG2F2qrHdIJd5JUBiruH9VNzLIrOOc3FLbFqO/XD3NUYka8/j8juffqrfpRtabNmIPAPx34Ko3C
- /VrYylRl7qA/6Rr1vg6kvtIrwoLVAgLpLoJYmyADpISXGV1pGbPgK9wg1j/76LSRiy+28kVBmIa
- r8h9oX+bGIwMbpnbT3ZyYG4h4rYgSLGOwKEOArRR++Xx/6drC54J9yzTfjmfYH43k5w+uzBElEv
- 1C8NC
+ bh=MkyskRm5zOC8VqbKWX20phVUAB1U8R05LT18kNWIUpM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqiTB+CyUjVppimaT5DUyiV2e9ZL4gfGthq6h9C
+ mUY+80SfqWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaokwfgAKCRBgAj/E00kg
+ csfCD/4/ps9N6J2gP7/hTbN7zynmdRUAlJZvBriMBvJpksogXr3sma8kirEKFGCo+zS1Ib/LsXM
+ dXCvxsf3ZEywTrFuHBibmXQ65kTuBl4hp8kmgvMSrmySESqQe8KA7SVp9e1ColXl+1J6YJKdEzx
+ C7k/CTt8ep4OM0z1baavJVsGQ6PduXlrrMCiMEU3OEK8fGcy3bntex4dFAM9XI986zpQ3huWzNo
+ TOrKjvIHvBYHKycWVxl3G8NagEEPz8piaraWaxvVnKKMZ/sqFoh7B6dd5rEnDkrgAihHkOrsCB9
+ UcntNKi2EHv8CeqsK7ALYAnffHbOY5sYa6FTlqQTZZXkcY1GalqRy3Ewvc0T1K04wq4BD1speyW
+ GvsE/cxL2h1+gh3gqk49Y7gHaQCFTvsWjGML6Rnl0BaVQpwhoebM3NGZEUFUGCVD5wfE92GH5vZ
+ +zk32BmMMAUuoqkKoaXnY9dxVcAspCmfzsD55qYlc2mjdK/025mH6XX3UYUDzXpQCwasE8ZYUVw
+ 4ZNHjM4O3LH3nEz/21i5Jb9GFA6+10+kXJ+VWmzNgbwzHHiLK/ue/k/YPUrHLoM+h0vrTh7WzTR
+ LXNPkoL5NdkhDERCJ9tTqZXM3e7xJtqTCx7qNZsrJzW2DCVc6Vi/tQouraFiQk8wzXRj6Tnn8QS
+ ylaoqhBaiimYiFg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
 Reply-To: david@ixit.cz
 
-Implements wiring for:
- - SGM2036 linear regulator used to turn on the focus coils [1]
- - Dongwoon 9714V focus coil used by IMX519 camera sensor [2]
- - Dongwoon 9714V focus coil used by S5K2X7SP camera sensor
+From: David Heidelberg <david@ixit.cz>
 
-[1] https://www.sg-micro.com/rect/assets/efa85993-263c-41aa-9274-b488f59f85d5/SGM2036.pdf
-[2] https://datasheet4u.com/pdf/1247146/DW9714V.pdf
-
-Open question for future work: modeling the I2C bus supply.
-
-Like many similar chips, the DW9714 has a single VDD supply, but its I2C
-lines go through a level shifter to a 1.8V rail, and there is currently no
-place in DT to describe that rail so it gets enabled during I2C access to
-the device. As a stopgap, this series models it as an always-on, see the
-comment in the vreg_lvs1a_1p8 node).
-
-Direction agreed with Rob Herring and Mark Brown on IRC:
-
- - Modeling the level shifter itself is overkill as long as it is just a
-   supply; modeling the connector would come first if needed.
- - Since each side of the shifter has its own supply, the proper solution
-   is a generic 'bus-supply' property valid in both the I2C controller and
-   device nodes.
- - Defining it per-device-schema would ideally use an I2C equivalent of
-   spi-peripheral-props.yaml, which does not exist yet. The pragmatic
-   interim is to define bus-supply in i2c-controller.yaml for both places
-   and add 'bus-supply: true' to schemas that need it now (dw9714),
-   deferring the peripheral-props question until more shared device
-   properties accumulate.
-
-Once bus-supply exists, the regulator-always-on workaround in this DTS can
-be dropped.
+The SHIFT 6MQ has a second rear (auxiliary) camera. Its autofocus
+actuator is a Dongwoon DW9714V.
 
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
-Changes in v5:
-- There is secondary rear camera with the same AF. Tested with the
-  camera (not upstreamed yet).
-- Verified the both rear cameras i2c addresses, added comment about it.
-- Link to v4: https://patch.msgid.link/20260810-dw9714v-v4-0-a227cb1d29bd@ixit.cz
+ arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts | 39 +++++++++++++++++++++++
+ 1 file changed, 39 insertions(+)
 
-Changes in v4:
-- Updated DT bindings commit description. (Sakari)
-- Link to v3: https://patch.msgid.link/20260803-dw9714v-v3-0-8e10278dcd0d@ixit.cz
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+index f14fe8e175e96..3cfc11127f5e1 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts
+@@ -99,16 +99,34 @@ cam_main_af_2p8: regulator-cam-main-af-2p8 {
+ 		enable-active-high;
+ 
+ 		pinctrl-0 = <&cam_main_af_default_state>;
+ 		pinctrl-names = "default";
+ 
+ 		vin-supply = <&vreg_bob>;
+ 	};
+ 
++	/* SGM2036-2.8YUDH4G/TR */
++	cam_rear2_af_2p8: regulator-cam-rear2-af-2p8 {
++		compatible = "regulator-fixed";
++
++		regulator-name = "cam_rear2_af_2p8";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		regulator-enable-ramp-delay = <100>;
++
++		gpio = <&tlmm 76 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++
++		pinctrl-0 = <&cam_rear2_af_default_state>;
++		pinctrl-names = "default";
++
++		vin-supply = <&vreg_bob>;
++	};
++
+ 	vph_pwr: vph-pwr-regulator {
+ 		compatible = "regulator-fixed";
+ 		regulator-name = "vph_pwr";
+ 		regulator-min-microvolt = <3700000>;
+ 		regulator-max-microvolt = <3700000>;
+ 	};
+ 
+ 	vreg_s4a_1p8: pm8998-smps4 {
+@@ -484,16 +502,30 @@ camera-lens@c {
+ 			     "dongwoon,dw9714a",
+ 			     "dongwoon,dw9714";
+ 		reg = <0x0c>;
+ 
+ 		vcc-supply = <&cam_main_af_2p8>;
+ 	};
+ };
+ 
++&cci_i2c1 {
++	/* samsung,s5k2x7sp @ 10 */
++
++	/* 2nd rear camera actuator */
++	camera-lens@c {
++		compatible = "dongwoon,dw9714v",
++			     "dongwoon,dw9714a",
++			     "dongwoon,dw9714";
++		reg = <0x0c>;
++
++		vcc-supply = <&cam_rear2_af_2p8>;
++	};
++};
++
+ &cdsp_pas {
+ 	firmware-name = "qcom/sdm845/SHIFT/axolotl/cdsp.mbn";
+ 
+ 	status = "okay";
+ };
+ 
+ &gcc {
+ 	protected-clocks = <GCC_QSPI_CORE_CLK>,
+@@ -749,16 +781,23 @@ &tlmm {
+ 
+ 	cam_main_af_default_state: cam-main-af-default-state {
+ 		pins = "gpio8";
+ 		function = "gpio";
+ 		drive-strength = <2>;
+ 		bias-disable;
+ 	};
+ 
++	cam_rear2_af_default_state: cam-rear2-af-default-state {
++		pins = "gpio76";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
+ 	sdc2_default_state: sdc2-default-state {
+ 		clk-pins {
+ 			pins = "sdc2_clk";
+ 			drive-strength = <16>;
+ 			bias-disable;
+ 		};
+ 
+ 		cmd-pins {
 
-Changes in v3:
-- Multiline compatible. (Konrad)
-- Dropped output-low from avdd_cam pinctrl. (Konrad)
-- Then dropped whole sleep pinctrl state, as it's same as default.
-- Reworded the TODO. (Konrad)
-- Dropped camss node. (claude)
-- Moved before cdsp_pas (sort)
-- Dropped unused regulator label.
-- Switched the i2c bus shifter with the regulator VDD, as previously it
-  was incorrectly wired and keep always-on on the i2c bus shifter.
-- Link to v2: https://patch.msgid.link/20260730-dw9714v-v2-0-d5da19e6c60b@ixit.cz
-
-Changes in v2:
-- Address Sashiko findings.
-- Link to v1: https://patch.msgid.link/20260729-dw9714v-v1-0-3c479b3cf8c0@ixit.cz
-
----
-David Heidelberg (3):
-      dt-bindings: media: i2c: dongwoon,dw9714: Document DW9714A and V variant
-      arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for main rear camera
-      arm64: dts: qcom: sdm845-shift-axolotl: Add actuator for second rear camera
-
- .../bindings/media/i2c/dongwoon,dw9714.yaml        | 14 +++-
- arch/arm64/boot/dts/qcom/sdm845-shift-axolotl.dts  | 89 ++++++++++++++++++++++
- 2 files changed, 100 insertions(+), 3 deletions(-)
----
-base-commit: 7079a12d7506b07fb53b54a664bfad5fa9b16d70
-change-id: 20260416-dw9714v-4566465ebe7d
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
+-- 
+2.55.0
 
 
