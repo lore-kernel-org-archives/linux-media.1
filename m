@@ -1,165 +1,162 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+Received: from mail-vs2-f1.google.com (mail-vs2-f1.google.com [74.125.227.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D6A02DECA8
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 16:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F4402DA768
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 17:42:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787416435; cv=none; b=GfX04KGZGsgeoevEptLAy2oEIa0JDGFGx5Bsp3TB2ONkchxJssZi6sV2KgEp/JlNzd8si4eursEiKBqDpJ+Is1HP0HCnPwyCpGoY8gjkIytDPuIjFP7fCCw/7bFxxNTfXHJFTiYmm3GX4SZL56Fpz+drLjf/508tAA+l+qX15pY=
+	t=1787420533; cv=none; b=BVgUund3C+wXnhUpF+eZ9/FNTdzxZWBU7811A72h42/4il2m/0Z+JNyNhYAZ4uIDAq69y8ASn5bRhEPsBPltn1JV74B5dMlas2/sw2SK/+rjJRTEjt5oJp4vp4XKP/TC4R//iOgM5dJPJ32wHUIJaU9XuG/I/OBzuut7TyXiSNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787416435; c=relaxed/simple;
-	bh=oGcc8VIcamFFepAD6IAmSlBLrLGFed7pvq5nIb+E4eY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WMgA28FgB/hYerW21JV5p9Dloq4lHJW98EUq51u1XLzoOGk5V5aBKb4CaMbpwgLawqifqWSQcHB2TatenBDFRrzpEZ48Ovxs2VLqTD4nqLaogHLDscyHzP7hHNt6Y/TajB/1kAfUdq1nm07jKaL0MOTniZ/zg16AMv96C2364A8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TsEKQzAO; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787420533; c=relaxed/simple;
+	bh=ctyBFFWV7LPzBp9MOwSa/JKry2KLdLIYnebNOP4Te9w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=avOMtT5aleZ2GO651I4uRtbPSM3d8rhR38lzf/Kzu5iZFonX4nMuYilxqHz/eUxs0AgNtll7q7Q/p3HnOjD727j0g7DbRAW4Gvw/oYoIyOZbHlME/7prOY8WGQfV0TcvgFQikve3L5pnvomq1iILibmQ1dsTxO54FsMmwyjtRXw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=wVfSfhvw; arc=none smtp.client-ip=74.125.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stromback.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TsEKQzAO"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so2676190a91.0
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 09:33:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="wVfSfhvw"
+Received: by mail-vs2-f1.google.com with SMTP id ada2fe7eead31-760c4e95660so413830137.1
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 10:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787416433; x=1788021233; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fmKmKrmPYkvkNLuKTmfz5lzhGrm9BSMn079ll2DIt4w=;
-        b=TsEKQzAOfACNXAKNx5AW07PtAdyvmTb+7L7P5MBypj/kjx4sTYojRkgPVUHVIdnAxV
-         Z2kqLIlUIeSIxTl28XCR1nFH+E83clPXgoAFFJl4O9iCoBfh5IUVvczkn7f8iTYd7R/S
-         t2Kmzmg/Dj0Fn+pFeq8MGZOYLsAEGrj3ukd61S9w/99B00wLQxNtuyu+noEqbR76drou
-         WvPCt7KjNdeklnKExsDLyFDS3bg5pCfnvaGqFnAJG1LdF/q5/nIZhTw2YzfXXr63IyZK
-         HgcBj3QhFMk/LbkHj6YDgpNoHmrvjwwITyly2YtCdyFzJK0kqbdrSY2YH2xIgke59xyy
-         3cFg==
+        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1787420530; x=1788025330; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ylP9yvvZ4VBkeFZCREVJRCP23pOO5RBRVT1bKhHvRGo=;
+        b=wVfSfhvw/7Onb3Lz0NIbPUzSu6Y6PV6M5bMxzmgQYIFSGfMajCB8Ch3HjJQuociLKo
+         S1jD1I/osuAjQATRnqIB+NVyRLcLzCY/fzIqaOuM6zdvw+25DlikQAjnbLfpkgPyb2Dq
+         7ubc4F5M3YOhpymRakxSO9DOptm1ZcuzjzD5NyXqUjvZfeUOFINauE4qX8Lz/38/ZCkb
+         i9zrSByPUrZypQu4VLQuJBzGQNdrbt5P7UGej2wKgqTYaozwkFyID1RGWSy2eeuA8WZx
+         INXBOHKzsUumoNwZeEOd3ehA97O/jItFNj6gr3eiVk8hsT66apkEFXR2OL9RD8bjjVVC
+         JAYg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787416433; x=1788021233;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fmKmKrmPYkvkNLuKTmfz5lzhGrm9BSMn079ll2DIt4w=;
-        b=A060VGYAJVquzfG4nERsOMM5HyPgE6MQUhgbs+zuvljzbEuzia+TJZli6d3BpjbmKT
-         rjHqGH37jLUy4SEcwoZaM2iZwoeFg9qs74i+GpMD/fk4Mao6IA8RyI+6lSyFdBnVMr0Z
-         tFOcgE5l4qL4bArwVfFqKhkT9MNRYa8WDbPHzvscE5Eq7Ov/OMvyCfqbd73zL3f1Mnzr
-         V85ZP0RhyWaTxpY79qh7YDmOU4qhOMlhDsiygrOSgPeDGHhnPbndwcLoyXWjLxvh+vav
-         bxXn3dGZt6K76dINmC4K3w4gfV99rEqEw2zg1aUqMcmawbuSyv80VOMM2gocnzIIwm9t
-         qcVA==
-X-Forwarded-Encrypted: i=1; AHgh+Rpl3pUEyx6ef3CpRquInzUEE1q6OecO+DYjP48N2BDQSbBH8djk9Em0d8j0qr/ZTQN9gBpnItd1iODL3w==@vger.kernel.org
-X-Gm-Message-State: AFuF++lmFepXJqQxIjBTcuwEHJ1VD2M+cWbdkRNpiSuIWejK7dIF39Tu
-	2jH5Ur9bdoqTzAHk7PRfBqDfCn3z+P8G+6Zi4XQEchUetNatU47Kl4BS
-X-Gm-Gg: AR+sD12ItAaCNwBIcKbsBycBd5zOLQC+SaPQ4LJ/jRuX43mTOiAT8ymWv00/H2lO4qJ
-	86FnicKtMYdWr9+YrkfTMPmpQyTky0TiNUU8mP/6TQG8ni/QrDKX/8xzPpSSodGAZLKREVvnaCf
-	8xqTBvYVsaRHYlGha4KHWpCcswNHsmKhXFWhKZAS5ws1yJg++LjdcFuhDTndNH5A/Wf1JV5IjlK
-	hpt2OXL1jL/JowuM6i1fCR8eloYdIMMbXwcJzUADAsOnT7u/ISZd7GTGFwDSwz7cl0PSW1QOqhf
-	mo92m5fLajL5NMaStKiPRKGbLvyqtjQWj0ADHIjRVGmRfeCEMnmyoUhxwyRj/+CR4K6Zmep8HRj
-	hPS3CNvFpM4rqMnSEykd69IZgdULyit4wctlZHyaevfA++O6AzJLMnVE6BeBan2+Beykxvw4Bp1
-	9tWO4ds4VUpJj1+YDQ22bOCH3RZPFLecjsPhJOmqY35vCcN4Ruv/eHVEwZ1RqCH6hyV+qBftAkf
-	Vd6StGUWUtxJkBXDW/E1+I=
-X-Received: by 2002:a17:90b:4a81:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-395c34fed98mr22503172a91.4.1787416433248;
-        Sat, 22 Aug 2026 09:33:53 -0700 (PDT)
-Received: from niharika-QEMU-Virtual-Machine ([223.181.119.104])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f91d33dcsm10911996eec.18.2026.08.22.09.33.51
+        d=1e100.net; s=20251104; t=1787420530; x=1788025330;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ylP9yvvZ4VBkeFZCREVJRCP23pOO5RBRVT1bKhHvRGo=;
+        b=s0d4CJfNgo8/i5ZbuVj1SXtmJ1D9Pfc7aXc4/6UFOM5kHaKNP3N9rDzZwsXV38O7we
+         tOGMRlmocHR4mP4e5Ir0r+FcjE5Tkm/psT7o++fcG/kzab3SjCmYX1+TpdHawmAewU6e
+         rqx1MpD7tow9IH8jrhErP8rSyYYRcd5L7DZlPY7KLEQiMPjm/koElioAhXhlmfWyp6p5
+         r1QnGGBy/ix9EO/9mUmcVKUYgie5jzTVRM1grs0P4GMw2tQf2ZGBt+lV5ZuZhrJVyido
+         0IQOizDFQ2K6XF3UtEe9ZHptIRv528DIhXVFgvFVxdFUFUK9O/Pe1iXmxcNwMA8TfR3j
+         cmmg==
+X-Gm-Message-State: AFuF++nG9kgwkOlvBTO2a48Pm6aRTmnlJn+k5uT/smY/96RKVoUA0oxE
+	gR4pFN73Q8rrvz9J4knzlaAddmWv9AdPAY7gQtUkwogfwKSmXYHdo4V0zVjz/LkpBA1S1v5f1+y
+	/oq6XapvyM3nxYAvjZQ==
+X-Gm-Gg: AR+sD11b/9IJufpNJkxIweDpVhi5jQLlCMrAL63kozrVBVplpC8xxBS6qLhVy1i2MDM
+	hs6PJuB//xi9Lffk3QB7lz3eCmp7GokVZKLqqubNz8O1aFa0zZgPfxgelqwNgCfmN0dyFf8YIDo
+	/5ugBtt3vpNVlvNua5nYQowORpjgdb3tBMBErdLC6sIiV2N2NNMBjvoi5D8lAbfXs01vQbXbkI+
+	A1pryzQWQhnqNJvZNmyzsY/dOVwSTXuFsYE6IWnFVWYOkfO2fTeDlgxAvQPCPUoYDIe/B4Gw6CQ
+	5xK3reJ4Fv8ArvdsTjV1fLzep9yIDxJr5zLAPuixutOiy0decSgCyoztcCaw+5CbDCL3hS+Wegh
+	TD6pHVbqtjn5kar3za12E7xHQhjAF77DTW08DJLNNKN0EeHrH530FVJcDimcED32be2/miE1zQe
+	d7S5W1SoUxTfBKNun3TrcBm/r7yc4M5ZRDvkvdwU7XCekNVaZP3uGCBuqHysjdVKQBsnIgd3sf6
+	RGo/NUB2DFWO1t8qSZokQHw8EDx7N9qfOLLNEOJIC3JqpxCHClTBgvktYWAr2L2djf5gwGnKYlw
+	wrsKG5dzFfYSM0ZIuQQ8SQZPWh1oFPj+0mLJX0AhUkJz/khhCvwCjqLHv4p5J9ubeQU39DLKFbS
+	dKGC2f8CjnOHmncGXgemqTXCQfD612u5GAJ/Eys4D0iDEiKhaODULnzUuaSJ1UZAgiqbCzzrMwg
+	==
+X-Received: by 2002:a05:6102:6a83:b0:778:459:f0cc with SMTP id ada2fe7eead31-77a62948509mr4333532137.4.1787420529599;
+        Sat, 22 Aug 2026 10:42:09 -0700 (PDT)
+Received: from customer.mmmiflx1.isp.starlink.com ([66.9.164.90])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-777dd4a7fb1sm12033447137.8.2026.08.22.10.42.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 09:33:52 -0700 (PDT)
-Date: Sat, 22 Aug 2026 09:53:41 +0530
-From: Niharika Khare <niharikakhare2101@gmail.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: sakari.ailus@linux.intel.com, mchehab@kernel.org,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	syzkaller-bugs@googlegroups.com
-Subject: Re: [PATCH] media: mc: Remove spurious WARN_ON in
- __media_pipeline_start
-Message-ID: <aokkTcorNSJOnJFj@niharika-QEMU-Virtual-Machine>
-References: <20260821165833.10042-1-niharikakhare2101@gmail.com>
- <20260821193326.GI59206@killaraus.ideasonboard.com>
+        Sat, 22 Aug 2026 10:42:08 -0700 (PDT)
+From: John Cronin <john@stromback.com>
+X-Google-Original-From: John Cronin <john.cronin@opcenter.com>
+To: linux-media@vger.kernel.org
+Cc: hpa@redhat.com,
+	sakari.ailus@linux.intel.com,
+	hansg@kernel.org,
+	John Cronin <john.cronin@opcenter.com>
+Subject: [PATCH v3] media: i2c: imx471: return 0 from get_selection after filling crop
+Date: Sat, 22 Aug 2026 13:42:05 -0400
+Message-ID: <20260822174205.4092670-1-john.cronin@opcenter.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260822112505.3493870-1-john.cronin@opcenter.com>
+References: <20260822112505.3493870-1-john.cronin@opcenter.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260821193326.GI59206@killaraus.ideasonboard.com>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 21, 2026 at 09:33:26PM +0200, Laurent Pinchart wrote:
-> On Fri, Aug 21, 2026 at 10:28:07PM +0530, Niharika Khare wrote:
-> > Vimc driver's entity topology has three capture nodes and two of
-> > those (Raw Capture 0 and RGB/YUV Capture) are reachable from each
-> > other via enabled links. The crash report and the C repro show that
-> > the two capture nodes attempt to invoke a STREAMON session one after
-> > the other, which resulted in the WARNING getting triggered by the
-> > media controller.
-> > 
-> >   vimc link validate: Sensor A:src:640x480 (0x42474752, 0, 0, 0, 0) Raw Capture 0:snk:640x480 (0x42474752, 8, 0, 0, 0)
-> >   vimc link validate: Scaler:src:640x480 (0x33424752, 8, 0, 0, 0) RGB/YUV Capture:snk:640x480 (0x33424752, 8, 0, 0, 0)
-> >   origin->pipe && origin->pipe != pipe
-> >   WARNING: drivers/media/mc/mc-entity.c:785 at __media_pipeline_start+0x1add/0x22b0, CPU#1: syz.0.17/5912
-> > 
-> > The graph walk originating from Raw Capture 0 (first STREAMON in C
-> > repro on /dev/video0) reaches RGB/YUV Capture and marks its origin
-> > pad's pipe with its own pipe. When RGB/YUV Capture's graph walk starts
-> > (second STREAMON in C repro on /dev/video4), the pad is already
-> > claimed. This is a legitimate userspace request but not something that
-> 
-> No, that's not supposed to be a legitimate use case. The WARN_ON
-> indicates a driver bug.
+libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
+0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
+rectangle then fell out of the switch and returned -EINVAL.
 
-Thanks for the direction Laurent, I'll look into vimc's architecture to
-check on how the two capture nodes ended up starting the pipeline back
-to back.
+Fill every supported target, break, and return 0 after the switch
+(default: -EINVAL), as Kate Hsuan suggested.
 
-> > kernel should allow while the pad remains claimed. Hence, the kernel
-> > checks the pipe and returns -EBUSY instead of raising a bug, same as
-> > the other non-origin pads. The check on origin pad's pipe needs to stay
-> > otherwise the origin pad case would go through the increment on the
-> > start_count path, even though there exists a loop few lines below this
-> > block to check the pad and return -EBUSY. The check also provides early
-> > failure detection and prevents the complete graph walk.
-> > 
-> > Fixes: ae219872834a ("media: mc: entity: Rewrite media_pipeline_start()")
-> > Reported-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
-> > Closes: https://syzkaller.appspot.com/bug?extid=68e901d044baaea1f60c
-> > Tested-by: syzbot+68e901d044baaea1f60c@syzkaller.appspotmail.com
-> > Signed-off-by: Niharika Khare <niharikakhare2101@gmail.com>
-> > ---
-> >  drivers/media/mc/mc-entity.c | 18 ++++++++++++------
-> >  1 file changed, 12 insertions(+), 6 deletions(-)
-> > 
-> > diff --git a/drivers/media/mc/mc-entity.c b/drivers/media/mc/mc-entity.c
-> > index 3fa0bc687..7b4ef2c95 100644
-> > --- a/drivers/media/mc/mc-entity.c
-> > +++ b/drivers/media/mc/mc-entity.c
-> > @@ -778,12 +778,18 @@ __must_check int __media_pipeline_start(struct media_pad *origin,
-> >  
-> >  	lockdep_assert_held(&mdev->graph_mutex);
-> >  
-> > -	/*
-> > -	 * If the pad is already part of a pipeline, that pipeline must be the
-> > -	 * same as the pipe given to media_pipeline_start().
-> > -	 */
-> > -	if (WARN_ON(origin->pipe && origin->pipe != pipe))
-> > -		return -EINVAL;
-> > +	/*
-> > +	 * If the pad is part of a different pipeline than the one passed on to
-> > +	 * media_pipeline_start(), the pad must wait for the ongoing session on
-> > +	 * this previous pipeline to complete before it starts a new session.
-> > +	 * The request for starting the pipeline, although valid, cannot be
-> > +	 * served until the ongoing request finishes.
-> > +	 */
-> > +	if (origin->pipe && origin->pipe != pipe) {
-> > +		dev_dbg(mdev->dev, "Failed to start pipeline: pad '%s':%u busy\n",
-> > +			origin->entity->name, origin->index);
-> > +		return -EBUSY;
-> > +	}
-> >  
-> >  	/*
-> >  	 * If the pipeline has already been started, it is guaranteed to be
-> 
-> -- 
-> Regards,
-> 
-> Laurent Pinchart
+Compute analog crop in set_pad_format: 2x binning, centered in the
+native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
+reports CROP as 3856x2176 centered in 4672x3512.
 
-Regards,
+Rebased onto media-committers next (4900cad020c0). v2 was against the
+Fedora tree and did not apply here.
 
-Niharika Khare
+Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7), Fedora 44
+kernel 7.1.8-200.fc44.
+
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
+Signed-off-by: John Cronin <john.cronin@opcenter.com>
+---
+ drivers/media/i2c/imx471.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84..96d96256d 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -431,6 +431,21 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+ 
+ 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+ 
++	/* Analog crop: 2x bin, centered in the native array (same idea as imx219). */
++	{
++		struct v4l2_rect *crop;
++		u8 bin_h, bin_v, binning;
++
++		crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
++		bin_h = min_t(u32, IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
++		bin_v = min_t(u32, IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
++		binning = min(bin_h, bin_v);
++		crop->width = fmt->format.width * binning;
++		crop->height = fmt->format.height * binning;
++		crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
++		crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
++	}
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+ 		return 0;
+ 
+@@ -468,7 +483,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = 0;
+ 		sel->r.width = IMX471_NATIVE_WIDTH;
+ 		sel->r.height = IMX471_NATIVE_HEIGHT;
+-		return 0;
++		break;
+ 
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:
+ 	case V4L2_SEL_TGT_CROP_BOUNDS:
+@@ -476,10 +491,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
+ 		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
+ 		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
+-		return 0;
++		break;
++
++	default:
++		return -EINVAL;
+ 	}
+ 
+-	return -EINVAL;
++	return 0;
+ }
+ 
+ static int imx471_init_state(struct v4l2_subdev *sd,
+-- 
+2.55.0
+
