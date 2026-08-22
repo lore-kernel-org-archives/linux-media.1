@@ -1,160 +1,117 @@
-Received: from mail-vs2-f1.google.com (mail-vs2-f1.google.com [74.125.227.1])
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 377693921F6
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 11:25:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C40C538DC43
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 16:27:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787397913; cv=none; b=qaXXlqvSAQLGPGRDYSln5GiPe89LsDIs/n0ZQQefWHUPwk8XRayU4/vVQh3eGhs4COnKEDc3kC2dhS+QZZYKS/XtGRRfdqD7CmU2/XYn+Gbxy4B/xPiuIp0ypaEGRamVVlKGhI26AXLhLuURzZBKPwzSI5Sspzlhe7wFUwwrBHY=
+	t=1787416030; cv=none; b=kbtCZsPBMtABqIXmBJ/EYNP9+y7ZPB/XFe0SOnMbCoUERDUJdZtflb6UzT3p9vOOH5ISQu52LOG1KywcsCrIuiWgx+6NotHB7ZJARzEWNLmlkDNas8E6+xvpafBpKDq+XmHN3GdqAG4Sz8aYOV7R7UW5XrTUBW4pYYIvpYEvWXI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787397913; c=relaxed/simple;
-	bh=Hbis/+CTDGpFkXzFogO7rGTeGe5kuXmq8DhWn3s1kBc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WZf4+1dpcb1Lj5GBBPhquOvGK1cjYgDJESYdN1MtMN/Kuy4aYFGRfZ29zqtzrYXHVFsed+ODB7igDtgE/G/PSnqmyH76JrKxtKidqmrstpIpuhpXYPMuiNT/MZ2Xn1jnh7FX1jk7/6NuulvJa+tN/lk+BDhq6eIBeEveEP2NfQ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=m247t8XY; arc=none smtp.client-ip=74.125.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stromback.com
+	s=arc-20240116; t=1787416030; c=relaxed/simple;
+	bh=tVe2LYtwP7cmNVF6rqZqzLlc2/MlBW2liCa9ovPu6l4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=GYXqvkFykjxA0qXIJlmgEvqlvjJi9yTZLtdJ4hxZru3SaHL/wbyrPDhBLezVtUx0OmDcaTtejmEm9flfclDSZXIOwGe8l6/hnUR5AY2eueoQqzA7WoQg52LUBwsWiq5sq74S+cADs0Iw9UOhoIeGuqIXUfXFSpknpImzeVWOXEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=fvVKpGgN; arc=none smtp.client-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="m247t8XY"
-Received: by mail-vs2-f1.google.com with SMTP id ada2fe7eead31-74acc945b83so1991109137.1
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 04:25:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1787397910; x=1788002710; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CY72CJ/Z5XC97BsJ2Sgr+g+L1Z5Xk6xMzRig/Sqcj0w=;
-        b=m247t8XYcDY/TzQB5qJQNzd7VFfQKt8CJSSH9ppzTfUSubaoFL1ql0vwewlYqLEvHb
-         gxJhZG7bJ1E7QWJsUxkqXUabOFkVAfVFpJBbBYAXGCP5yfZmS2orTW2Wy3N+jMpkbGaG
-         GWo9XOkiAOulwvcd3P+KPETbcRaaF6IAUv7oa3GCLZuDh50/nKxoK3dRWcE12Pj0FmLJ
-         HGrMuHT7MZRugVEG8llCoVxw8sz20YU/WCTl8iMFKYmQQHHP8OT+3O+p/iM5NNKaDx41
-         v9omsde10/WtNnUsgIyuMlHf6Boji/hOiPlTpIJ16z0EwHP/viAmu0ABULBGNDHUe+yJ
-         0tXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787397910; x=1788002710;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CY72CJ/Z5XC97BsJ2Sgr+g+L1Z5Xk6xMzRig/Sqcj0w=;
-        b=OeA2R9n+KLB9T2591xNZYtDfZ84YavuO69TNMYVFYCoG0KcASjTKzeuiHzJH49aS8Z
-         tNxVdpu3Tuay/A1j25WFWJMnn4lPpDoWbkoVGu9chjKjJZnJhIza4O/PvEf4sZ/v+290
-         xgD76hYUTpWaHHL7gvuscUsodBbyyr0RzNSyidzZ4LgoL/TiOSq5gQleDww0hEuf28mB
-         lQ1amFG2eijnNmeox51C2ZXe4U3IA6lPQ1q/yyhDFCP4Zj0VHLkB/rzuBH6D5sMsgr6R
-         EDn6pvzVNI9QfMJpH9DydAlOUjDZgkqqhPDIjnTmfj8MCFCubtXfK2q77buXeqdNNS0m
-         NzCA==
-X-Gm-Message-State: AFuF++ld734YRV8Ojbow/hNYcmqcQ9tuwFidoSrMEQFLx0XkU1OliFwo
-	2ledfYGOOLJQYGEiQRAzym0HGZL4tWKanjZviWSv1qMoS0AZjHERITmPgSokx3lvP3Ya8mbcESA
-	MgFGWHxOrDK8F/fBcNA==
-X-Gm-Gg: AR+sD13ZMqYogz/0Esj7Xj3cKqhoy/4+VhTf4gKOJqnRa2nkkozvZnYhLLx1RBbr8bD
-	h+YlhTm8es2+M1LU4Wwoeq+HS8+FEcKJE5y+H66cPB+7inZe2VgB4TsfMqH4LJGVx4pdEHU9w0u
-	6UHItNCpN0PnjCg43yn7TsM8fJ11rarYIWph2Zyb74/i83bBVrNXPpY8n1cNNjO7RVwptZbeREQ
-	rvYihEPi6sowo3sDzsQem+1Us2OX5DZO2Z8KrgD0gcMgwH8dHa8nZ9uX0V6lJZoYJJtZpbuP44U
-	e9SJMRy4rRLziaS5FYbDKfPk+nN2g6W5rrQ9f8yv9mGZnyKLyBgwxOpNfBNCCa4vgBNxG3AGBaT
-	nt+9qURGLlDuWrHJclePyb1ejQ+AK+BTMPw7LrE3yRMMgaKk5FryaUlkRiGp2/3IkY3cG+YEkVB
-	WCuUDtX8cL4PPDrxmz5q34jsVS62bV60qGpnR95yoVT94Yhq93YE5Z3EKRTwp0vibqZI0apPZHl
-	Zb4UZeaXEeBixeO2PXzOWRPhKEdRyD3XB75Togw5bVnfY9iFTm8j+j0F53NG9WHHeC+zrZbvuLu
-	qqkd5aAdZ+0B3yPwAYDYkFmf/N+LdKGvGiwrcgv2ybRpIze4JNzGDhCBHCJDa3mIgMSQJBYI9ko
-	tKyWd5JaokVre9lnNKfdWEEZlZPRvpAJq5Vf2sNlkl4JRnWRAxj53Kvzv9Net2yMePZw=
-X-Received: by 2002:a05:6102:2c88:b0:772:5acc:b849 with SMTP id ada2fe7eead31-77a636413f6mr5552344137.5.1787397909736;
-        Sat, 22 Aug 2026 04:25:09 -0700 (PDT)
-Received: from customer.mmmiflx1.isp.starlink.com ([2605:59c0:13a1:0:944a:ce13:a83e:cdc8])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-777d823dbe4sm11693233137.0.2026.08.22.04.25.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 04:25:08 -0700 (PDT)
-From: John Cronin <john@stromback.com>
-X-Google-Original-From: John Cronin <john.cronin@opcenter.com>
-To: linux-media@vger.kernel.org
-Cc: hpa@redhat.com,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	John Cronin <john.cronin@opcenter.com>
-Subject: [PATCH v2] media: i2c: imx471: return 0 from get_selection after filling crop
-Date: Sat, 22 Aug 2026 07:25:05 -0400
-Message-ID: <20260822112505.3493870-1-john.cronin@opcenter.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816194259.151947-1-john.cronin@opcenter.com>
-References: <20260816194259.151947-1-john.cronin@opcenter.com>
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="fvVKpGgN"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1787416025; bh=img4NbGaCHdQppkcgpoinvDkDNQGuhOZsw0nPuNdsvk=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=fvVKpGgNeS8Fts1+kbv3gXsfLpUjHlYEV8EjxDhU3vkvHHdFS0/HeahlDLAZrS2+auQQZtB9QbKQI1XJSvW08nqrMufhP/10MlR2SSgd0yKGP9FVGh4zROwPuMPirFYQG1Pb56d5ufchoJ/O/m9BnjXXv4XBfzD9/HqZr93kzj56IRt0zsqxVO6aWGcwmXEqq2Zziwyax2i6TklXRXd75IMB4uoGBgkmQ1CY+psb36iuTK3C3nMhC7bFAWVzj6L+XYE54VY5DRO7CDOsvj7mX570orkStjl07i59VNpzcbLdhGduWoNRhKX5MTWcPBRJiVU0pwZbDUVBmrBTwwL2ew==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787416025; bh=F15ZFLOsdlBFJ5brxVoIa7WNetZtAcSC7hN/wHxKMUB=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=jf83btCA4Yq6ePJcq7Xq7RQS6QFcv0RVSyQC/UB0a9Vd705BgYMusH22N3xIvt/u8MrjEk51vV7DiTTJuVorLKFfGaA0WHY4a+DlvC68vp2OT0CGlGnLYvQUHWxIfgu8VqZ7HeFuud/bzF454A7J1mn2ultcX/IXbMpUeh26F5TAgPn6w+LMLZr+xhoFUOoULiXR0bbHK3wjOsXkFp+U1BCDpmB5LPNH7jq0JJnVCTpdN0uzsv7+/8s5Xw3H21od+Ps7UOAngCtpLEqAkOKPEQ1keQCE0jZnlmBzFISXSvLIPTtWEpsubnI7FiHYehp1xA+IVRLox429ov3bUdVB1A==
+X-YMail-OSG: QIck2LoVM1mEX05nAOcRQJUOkJxS.lbXYaQrcBf1LRzivJU_oj4vXXSYcnemmsz
+ KCAKiDDK1fOG27pe9RLIIjNKgnQP6siE7ZkAjl8tsNzawnMypY_yZ.HI.Dr_nPvR3dIOuS0JrrJO
+ TyoXHy1c8Ww_VYPK0CAVtJ4x_1zANHsr6fRBUP6lk9HSI4hmrahkvrY3ihnX1MdgqSkVlMRsmIme
+ fe6LFhyXBIQVf8ReV0aaBRv9PEVhEuQCbM9h.HL2PTqBPay3koZvMqD8IKVL2lZNipIDHjdqX08c
+ 5Ztc1eOyiWF8mZ9bwvF76cYHvnwPiccdoo78yE2gNm2fbmX4T5AMOJKEnJWwyOZ9TqcWI3l0IEmn
+ grRK0UseK0LBAFSVK14BS75bpeueuFMmDeyCWoYwiL5Q3Y94PhMqDanjJHN3Fs2QCt5_kdoqUtSm
+ uKmIcGHT7rcLgNPlCph40Vedd4AZMddFRhSE87JtdLtIjxCN94STfXKCBCIfRNUgGDiJOMVY_dI6
+ 5j5JRL8JDDpYnpoG05FVeKu.iYZKeXKlNZH47h8nbWVKTRgR68RBL1vtI.iALRxYm37eKJ7MXkFM
+ Fj5M4wWdmxOFCJ96sdZa1ezEOA8VrnoKrdf41OjTnaczdct94JqyW1DpCyxvq.sKf.VYUGzCF0lT
+ 4S1ZI9hB0wbo_mfLtMbh8upMeb.p.nosYwAiBbiJXtd9kkaJ8EN48Yv8SAkv4ZuW9sEoAvxz4brb
+ dbJ1zRnEPRxHX1OTjd.llxTHuQrbOTNQyyG.AZPjyf99fRtNGNFodgCjlgP909iwRoD2aIxIiBaS
+ 9uc_bAPxV9kWfg46yC09BxYtY1dViHcSBcvLQ5VToXmTNSQHBIUuB6SA1kHinnDR1.LK0mpHQAy3
+ CnR_5I0OtD3mCzBcD9mDxgvUv10O7DacVpEODIAHzgU_eOiF8LYoSH93ogq3kJze19bPcGV6gear
+ J7V3GgJWMM6E2rNCpgg9hb2jvZV5CJgH97SfLvMtYJAbGfl9baAVHKmnIe1vnSX1U33o26k8Fptf
+ RLBH09S97JYA6S743TOnilYxcku45SOwN1wA8gliBnLpzoDwL0bTSu68a3.6JWJBWm38me6V9XPH
+ VbrQh2k43wpFOTC7y4f9CFnX.zBeBrMqif6jOWv3rqZamCe.hXHD.OBKw_VoQ9RHC45PISM.SJn5
+ U1Bn4._XwkOLeupViYHOlQwYzTLm.JOw2UqXvbW5SaiBf.JGwsyNdinWxCwE8N5gAY8AagOnVwu3
+ x3XV0RrphDzM53_P2kwquiGPnMNpgfyqNWg6EcW5GxQDZ6Tng2aiisN_pQtywgFQSKc9.AloGD9k
+ mv4Dujm6iDK29NzW.ntVmOa6ZdTEYhQl4NOGmAbJ8QqtjRcZJr91bkvqj5_g_t.vHsG9QCxN1hzi
+ lfuhgnueQM3bUc71GSVIcCn5nJjG5bMhk8YmAp7S8L2rCcZCUbGK9WHTFuRYfVBBekvf599ROt8t
+ _uV5hGt2JRo_dzhpLHiTmMi7OmGpmW9g_jpIsHUpg5_kdRst130Xi9H5JJol4Qao6DOgLQcpuMKC
+ TxieaEBmdwfOFMAhHE1lScXqKOAayXSwZykqY5PcSX1kRtvafIhywUHRM_ktWsegvpWaZ7fCYMgZ
+ TXunwQMztq7.itrlLEwfYlUbHO1oGVALef9PXalHTAjcVXM52_59S8cIsRJ5D0fdRXu3eZh1p3qm
+ rTPVtVDFtxSEwcpQgYVh18zkXheu1BD_VCKx.XwSqQrTaTs_Mj8opb5WxJhs40kkguXTWDjlEy_h
+ cnTnR5Wc.J93phtLgSVNLxkY5IUUcC78YyRhfgJr7ClMmft4fCXZq_0izAzDeuUAdx3ABQmqZ4VD
+ a_u.E_8BxxZfs3a16FUaF1FX3gZQCLCZb7lYyplSWQSB2d439WcA0.Z1xgo27pcBflEKRcFRaBZK
+ SI6hM2fa1.1DKhYQTsTgGeN2WThvFmFrTHQA77mOVEyEBVnCidRJPuB1heuNppjKdr_NVbPvsbpp
+ y2v35yuA2EmuWkwVK0EITMl87eQNpyVXW
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: 748c7aad-ed97-4a41-9f58-f1cb89164332
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Sat, 22 Aug 2026 16:27:05 +0000
+Received: from dip7.lsn.ir2.yahoo.com ([87.248.99.16])
+          by hello (SMTP) with SMTP ID 75bde3effed4a57533d9170ba446886b;
+          Sat, 22 Aug 2026 16:27:01 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sat, 22 Aug 2026 18:26:59 +0200
+Subject: [PATCH] staging: media: ipu7: fix typo in comment
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSwqDQBAFryK9ToM2wU+uIlk42qMtQYf5hETx7
+ unosh6vaofAXjjAI9vB81uCrItCccugn7plZJRBGSinMq+JUFyqMMWXbF3UL8avW9HKB201GDJ
+ 321DNoLrzrPOZbp8Xh2Rm7uO/B8fxA68fDgh8AAAA
+X-Change-ID: 20260822-ipu7-utlization-typo-fix-f7db2b4f928e
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Bingbu Cao <bingbu.cao@intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-media@vger.kernel.org, linux-staging@lists.linux.dev, 
+ linux-kernel@vger.kernel.org, Tomasz Unger <tomasz.unger@yahoo.pl>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787416020; l=1156;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=tVe2LYtwP7cmNVF6rqZqzLlc2/MlBW2liCa9ovPu6l4=;
+ b=fLE/ENoASF+5NcZZ8m3y1tS6+mouN8eCG+KXf3h9XJveasjY4KhHaqdyM6G7T+NtTMUUZNx/N
+ uOR9OssuXAGCl5CDGz1prlLj9dBYCbAZdyghx5VTFgDkdm7OkLQBqH3
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5.ref@yahoo.pl>
 
-libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
-0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
-rectangle then fell out of the switch and returned -EINVAL.
+Fix a typo in a comment: "utlization" should be "utilization".
 
-Fill every supported target, break, and return 0 after the switch
-(default: -EINVAL), as Kate Hsuan suggested.
-
-Compute analog crop in set_pad_format instead of storing a static
-window on the mode: 2x binning, centered in the native array, same
-idea as imx219. IMX471 2x2-binned 1928x1088 then reports CROP as
-3856x2176 centered in 4672x3512.
-
-Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7), Fedora 44
-kernel 7.1.8-200.fc44.
-
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
-Signed-off-by: John Cronin <john.cronin@opcenter.com>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
- drivers/media/i2c/imx471.c | 25 ++++++++++++++++++++++---
- 1 file changed, 22 insertions(+), 3 deletions(-)
+Verified with checkpatch.pl - no new warnings introduced by this change.
+---
+ drivers/staging/media/ipu7/ipu7.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index a0d7d7f..cab9797 100644
---- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -430,6 +430,22 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
- 	imx471_update_pad_format(sensor, mode, fmt);
+diff --git a/drivers/staging/media/ipu7/ipu7.h b/drivers/staging/media/ipu7/ipu7.h
+index ac8ac0689468..d045e16bbcf0 100644
+--- a/drivers/staging/media/ipu7/ipu7.h
++++ b/drivers/staging/media/ipu7/ipu7.h
+@@ -114,7 +114,7 @@ struct ipu7_device {
+ #define IPU_UAO_PLANE_MAX_NUM		64U
  
- 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
-+
-+	/* Analog crop: 2x bin, centered in the native array (same idea as imx219). */
-+	{
-+		struct v4l2_rect *crop;
-+		u8 bin_h, bin_v, binning;
-+
-+		crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
-+		bin_h = min_t(u32, IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
-+		bin_v = min_t(u32, IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
-+		binning = min(bin_h, bin_v);
-+		crop->width = fmt->format.width * binning;
-+		crop->height = fmt->format.height * binning;
-+		crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
-+		crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
-+	}
-+
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
- 		return 0;
- 
-@@ -467,7 +483,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
- 		sel->r.left = 0;
- 		sel->r.width = IMX471_NATIVE_WIDTH;
- 		sel->r.height = IMX471_NATIVE_HEIGHT;
--		return 0;
-+		break;
- 
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
-@@ -475,10 +491,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
- 		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
- 		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
- 		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
--		return 0;
-+		break;
-+
-+	default:
-+		return -EINVAL;
- 	}
- 
--	return -EINVAL;
-+	return 0;
- }
- 
- static int imx471_init_state(struct v4l2_subdev *sd,
--- 
-2.55.0
+ /*
+- * To maximize the IOSF utlization, IPU need to send requests in bursts.
++ * To maximize the IOSF utilization, IPU need to send requests in bursts.
+  * At the DMA interface with the buttress, there are CDC FIFOs with burst
+  * collection capability. CDC FIFO burst collectors have a configurable
+  * threshold and is configured based on the outcome of performance measurements.
+
+---
+base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
+change-id: 20260822-ipu7-utlization-typo-fix-f7db2b4f928e
+
+Best regards,
+--  
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
