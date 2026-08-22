@@ -1,79 +1,78 @@
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com [209.85.208.43])
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com [209.85.216.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D5193803F7
-	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 11:23:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430D6386C22
+	for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 11:23:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787397788; cv=none; b=tGIP92HTMSp8lHyO/2r2OPsfweVSniMobDsyqJ69IyDhLuV5lFm82FRRSrg30WA9mfYMF/Gs7zfhcHhMn9KYS+O+NZ1R8Ymt26U/AdmiGow3WN4vYK4n/AVMxw0PzOjFvNhtMFfYr39GVt4BtL6+mWBppdtebMKxEh6Gw7W1+6U=
+	t=1787397797; cv=none; b=ETjUeMYsZGGBHKmId16zYveCt9KAHYSUhY6G7dJqH8VBM9FN7b73jE+2G/smwrL6BTQVz8xNmaFuer9A0iZfG95MYH6v4r6qqefXztOH1zXL0oewMa3yaTsa2Qpoccd2NVm5XsJvw/vwXUwBKixdPQ96VWVZnbzr789767AELgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787397788; c=relaxed/simple;
-	bh=grxIq2GALNody6ADldH3f4NTn19FLgvS4ie78H73heI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=U1weaRB56eO5joevQ1ymyZ2Fzcu8tDTbCfcMSLLL+BqWs732pXi7Yz9Nqr5x1uO9kdeb4C6sgyPRAmZznhI1yV5aXrqopgg6dgveZW96dj8xn7uFFBFrADYn6bwhDoyrvQYw4JqOKMev+kNVGcJ6ebmnyfPR79o39ClvbRKGtYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tobf+0C4; arc=none smtp.client-ip=209.85.208.43
+	s=arc-20240116; t=1787397797; c=relaxed/simple;
+	bh=uJc74lO7WjucvgdI8DkhmeL+OgjdvyWd31lZCUuWJs0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=A7A7toNntAOTHcSMMrMQfoeXvQP1h4vaVisup+/b7UExyY+RoxGsKMN6mXcJWoPrDMBNA/ZcN6VR85XZgN1ioTQH+p2pwuduAv60pMe+tQxTXMj65eqwqkYJ+WJuYwbEaf6TGt77uV8yXPLhcrAmY0GDAhmhjcyZZV4wVugAXsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HSiDAYUF; arc=none smtp.client-ip=209.85.216.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tobf+0C4"
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so2511784a12.1
-        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 04:23:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HSiDAYUF"
+Received: by mail-pj1-f45.google.com with SMTP id 98e67ed59e1d1-38511175ad3so1691493a91.2
+        for <linux-media@vger.kernel.org>; Sat, 22 Aug 2026 04:23:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787397785; x=1788002585; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7UZ9KRT6z8MHYQAiJ0+0SFhYkIAoxgeKdUrlJwQCpBQ=;
-        b=Tobf+0C4m9CrGszh8BY6jkjLp8Gimcv0zjnVfMF3bdZAp2TsH5ruP2UipbXj2uul3N
-         IfUodEGC1z35p4Xol/RjJyCxkA7mPWOz+o0Jc1LjQp2l/Q8k3v7cdg8WGbFbjKToQIHM
-         4h7/49T1q71RJ/MYnvmVb5KoFgGzMLsg3u8yTmIXxWnoLgjMzIcGCRxzqpLtzdntmnKu
-         8KOfuqrdnzj/pYK0Dq35uljZecaIfcARHt4poHsYkcFfvgUoIA2FY00BMReJ/SqSZ/LG
-         7W8GVI2iy3K4AGZX6Fpzvh5qLpJ7Z5iksUiyL1BNRL3BFlhq0Nv6i9M4ax0DVPHZynFy
-         kdSA==
+        d=gmail.com; s=20251104; t=1787397795; x=1788002595; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=jkT+mJiPYkVs3Ps4IpYVCOf6FJxHOGfqjEwyUrIBblc=;
+        b=HSiDAYUFTgQK8I0Psv0bxIpdZWOzFdy6f+8CYtGJkGjtcSs9cP5ImAajEEYj3HUTgH
+         oNwF9l5tSBTqF8G8tchvUh0UHh81b6hCLtRF1KNkLVCF/hQqRI/UCIza/twIfizdNzzo
+         VJ5D/gEzjXKBW3XIGFIzYua8Ftsq7oGUezGZmFVPEgy503hLgHDO3ciBJgM8aVa5JzY2
+         YG9JCdnpTbQkxUVZ6ySXCj3xCCUod1ax+s65wVHj4Fqm4ax05UNXeIjvhy0N5yBnKS6D
+         7nUxmdoQJ6yCI9t8e1xljoO18+lqkoEEI5MqMch6KsLRSIg6QAPmyRbOqj/T9h93we/O
+         zfyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787397785; x=1788002585;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7UZ9KRT6z8MHYQAiJ0+0SFhYkIAoxgeKdUrlJwQCpBQ=;
-        b=Yuw0O/1nDLW/e1AO1zf5iG+AfBi9b4KePaSBO2okof+h6eRz5OnWlI6DYgFwyTfO0s
-         KpFAonHDldr1Cf72ERMENEbWrqDLIo4opZ00UcNMU6Dmvyxhj6RRbCTDhrVrQVq47Kab
-         yV0D8msqP9+kn74JJDBMd3Gb2KFe5L3zCmNB1AdFfo7LAiqxvh5JV/7xmkVFiXlTUFHt
-         7HrebjFCexU1Z53H7aHntzFkalImAqFMAXl9eeJ8XBCRDdBlwrp55wwjARRsf+ZoWwJk
-         G3dd4SsBSmL6msR4oKWCxXUXp2DTN6QXvXint3pfugbfhteagCNxm72JwU2SfVlUl8Yz
-         6BdA==
-X-Gm-Message-State: AFuF++nXVrH8td6y3gEPq4ch0+gczuUcLlJVTG97j9S+wOMKtVRV7Dkx
-	NrwFQCAlSXsCLiMAAbkhCPDzx4RDzP1a1wJ3OV+h9XbIRBk+cc60d9WyYmbvR0ceq1Cxig==
-X-Gm-Gg: AR+sD13/Jr5ZxsIaP287Pm1z7fJwJRu0qapubYCkqyA2JHb4ZM9CnjjSEBviK4uMGIs
-	Pq4e/Hwjwo4gzlmsbuvmkLXaVXS65qoVQTG4HlPxKs3Oh8ICSmCqxwbJUdMvpZMqLpnUKbC186T
-	MHCrufoLEej+Iyf1sYxsG/pOAVkON1bE+0grpFUi4xUI3HdnZ3sRFfjzNg+eqnx/FSD7nXdRzqr
-	Z3EjZfITPvmeohMumjWBeJhE5/BWpq0NuqAt1iLxrw3TLM31odp/fuWqQmD60yiqqgisdIpcSz/
-	wOsisS5tdH5XpstaE+q7cJdLQtHN5cBbKB8HOK8DeLzLyYURLGer2N0AUwNSVcFNBoj7jzGP9Ju
-	erfTBcXXigTGiwkgf6P2J53macGR97CU+9aqSkyCmNzZ+G89wFY09viOt7FsGVQ4HK5MiqjlNzB
-	ovYEHCtH2s/pEIxhl7Xl8ngZ+TOzk9wddmtmgS/Mm+8/JzuDQWW/kpRkMIRuk3GNPU6vE2+5DQH
-	/4RSlOyyHyzVwtlxxd6R5BODOOkfVvECwZ0IMz27byaB3VimN/mPYa+A81gmW8YlH6ZvUoNNiao
-	9C/NGwoY9yFNTKLsz+o3WJpuifxM4ZLbvzfGUkKoCHTXoWPuV0EeK1GSZeH1eapujHx8qiNdM39
-	9WbLBExc8O0s1gGMiy7dLSM0xA/jzNOmtcO+MS85reg==
-X-Received: by 2002:a17:907:c20:b0:c15:f4bb:e663 with SMTP id a640c23a62f3a-c246a3ab3dfmr1375089466b.10.1787397785227;
-        Sat, 22 Aug 2026 04:23:05 -0700 (PDT)
-Received: from localhost.localdomain (host-213-45-168-79.retail.telecomitalia.it. [213.45.168.79])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c249606b4f1sm249568466b.3.2026.08.22.04.23.03
+        d=1e100.net; s=20251104; t=1787397795; x=1788002595;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jkT+mJiPYkVs3Ps4IpYVCOf6FJxHOGfqjEwyUrIBblc=;
+        b=ksxj0B9ntPkYpsRPQLfvmz9nhYcJambGsE+OcTu4yCqwXe6pSVwLd00tsMKpDJOzZk
+         OKZ943Jlxzzrhbhb1yMCHNKQ6sw9447fT6NNv3VV61gqF92MwQBcbaGSygYgv/5IobBV
+         i+AyCF/WQURl6wTGd2gVxYxwSvT9f87RLwtm+pnIFUHjhjbJshJhMj/fScYyCn1JbWrc
+         TIfBpk5gOQQlMcX1/l0EMvVbOr2wnCTNxn6rawmkHexcty3l8+yhjHaIEc50j4sEP0vU
+         k4ie5UkjIwyZbv9WLcF4bK3AA3RPFEogdmTpzfc9hNkGCxDG+c7XSrQJoabLUMHRgsub
+         CBKg==
+X-Forwarded-Encrypted: i=1; AHgh+RoHPV3xtWc5awzyTxViimy3jHG651QnF8tAhQ8pXp6uKlhS0ozLILpNlUneVnDFQR5kx3aTuFzNyU741Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++mKL9JCcgAwFOlnMvRuHhP9IxE/eo9tsHSVs7MNzgC1W8coCFnw
+	YoDOfwI8CVrVHCs7WB2OapXKULmjl5PS1rjxrfFlyTC4CZNrJhUb/ZeZ
+X-Gm-Gg: AR+sD13ar6p8/aIAeZzdLEUa7gPw9oCKD8KXt1tcStbDrIUZKvB2Lq4XPWq0dLzWUbG
+	DoyBmaNFm18hzhSGQkcpYspS68mgNlmjQCjE7BH6OWce2pX3nVTQIfPaIRXmjAQo8dhf3oi90Jv
+	SMd6ROEH9J8w3foLEAeVCg8G04gzeGfw3QcR3RIpKDXjyfQCRqoDdSDpBJO4xEXqYCCKJIDPn9i
+	MHru6uwrCkEb+le5cUsElzfHMscDEQPbcDCRXcWXQ2R1z2tyXZdYjyupnQfmYD8EzuqJtsaz3Yj
+	W7dwByGH77EKQU7NlRYImevJtVwVFX39i8vxwGBXMIAIjSaKdHKt7i55zlZTwKRlyiSLvTv1FSx
+	EnFwKuS8xJD8EtjkFzF5VM0PFd2xCzX2Ycyq0oXtq4oSJbfNQ5Nplb7NDX53YiJ3Iio2EHv0BxE
+	1EAhWII8AS4YbJYO+omCYd5n0lXCunMIQFx9/4crfAPZ/EzOohTC0etBaDvXRmRDicH1IO86g+Q
+	w==
+X-Received: by 2002:a17:90b:4a81:b0:381:a766:efcb with SMTP id 98e67ed59e1d1-395c34fed98mr20373056a91.4.1787397795327;
+        Sat, 22 Aug 2026 04:23:15 -0700 (PDT)
+Received: from Default ([2409:40f4:101e:d886:7c8f:61d9:4c4d:7b7])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-327f909c6c9sm7100379eec.6.2026.08.22.04.23.08
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 22 Aug 2026 04:23:04 -0700 (PDT)
-From: Nicola Fiorillo <nicfio@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Nicola Fiorillo <nicfio@gmail.com>,
-	mchehab@kernel.org,
+        Sat, 22 Aug 2026 04:23:14 -0700 (PDT)
+From: Jeffin Philip <jeffinphilip14@gmail.com>
+To: mchehab@kernel.org
+Cc: kees@kernel.org,
+	hverkuil+cisco@kernel.org,
+	ribalda@chromium.org,
 	sakari.ailus@linux.intel.com,
-	bingbu.cao@intel.com,
-	tian.shu.qiu@intel.com,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] media: Two oopses and a hang when unbinding a streaming sensor
-Date: Sat, 22 Aug 2026 13:22:54 +0200
-Message-ID: <20260822112258.7727-1-nicfio@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260812105305.32447-1-nicfio@gmail.com>
-References: <20260812105305.32447-1-nicfio@gmail.com>
+	linma@zju.edu.cn,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
+Date: Sat, 22 Aug 2026 16:52:56 +0530
+Message-ID: <20260822112256.12346-1-jeffinphilip14@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,16 +81,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Gentle ping on this series, posted ten days ago:
+In dvb_remove_device(), dvb_media_device_free(), device_destroy()
+and list_del() all dereference dvbdev regardless of its refcount.
+Thus, if refcount for dvbdev is 1, it can be freed and we
+operate on freed memory causing a UAF. Fix this by moving
+dvb_device_put() at the end of dvb_remove_device() so dvbdev
+members can be safely freed and assigned NULL when dvbdev is alive.
 
-  https://lore.kernel.org/linux-media/20260812105305.32447-1-nicfio@gmail.com/
+Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
+Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+---
+ drivers/media/dvb-core/dvbdev.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-None of the three files it touches changed between v7.2-rc7 and v7.2, so it
-still applies unchanged.
+diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
+index d753d329502a..9aa4b8fd7379 100644
+--- a/drivers/media/dvb-core/dvbdev.c
++++ b/drivers/media/dvb-core/dvbdev.c
+@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
+ 
+ 	down_write(&minor_rwsem);
+ 	dvb_minors[dvbdev->minor] = NULL;
+-	dvb_device_put(dvbdev);
+ 	up_write(&minor_rwsem);
+ 
+ 	dvb_media_device_free(dvbdev);
+@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
+ 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
+ 
+ 	list_del(&dvbdev->list_head);
++
++	dvb_device_put(dvbdev);
+ }
+ EXPORT_SYMBOL(dvb_remove_device);
+ 
+-- 
+2.55.0
 
-I am aware the merge window is open and that this is not the quietest
-moment, so there is no hurry. If anything should be changed, or if it would
-help to have the reproducer script on the list, I am happy to do either.
-
-Thanks,
-Nicola
