@@ -1,118 +1,79 @@
-Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mxd.seznam.cz (mxd.seznam.cz [77.75.76.210])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA417364E9A
-	for <linux-media@vger.kernel.org>; Sun, 23 Aug 2026 10:18:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C4C4234973
+	for <linux-media@vger.kernel.org>; Sun, 23 Aug 2026 18:12:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.75.76.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787480318; cv=none; b=GLONZsc9et6f693bkRYa0s9xdyVOYHsPFMpAVNIH+hZR0C6LFJDUuWrWBy1GJGjmo0HCJVxIcmixDBoL1/20BHBBgZLiUQxK8bFZ8gImOby2FGhOmmW9OwsbA8Z1rXs4wTsh+cKzr8HUtAmfFCy/cu5B5A3EkcQCXdi0pCSosLg=
+	t=1787508748; cv=none; b=WNBnpLNDUwUXevTapj70cdcufbSglMC5CznLguOTsKipkowuCEeLNgzw8pXbpcW6HnCbRYLINLYi5Hp00lb7VHjqMqB5mEsyeLUV/9rhJG+4XPadrqSMna/rXftkem91VTMtH6RtrvEom09iZ+Rnr4JA1jUFsvVDPVctAPX9mt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787480318; c=relaxed/simple;
-	bh=g276pUyqZAjECU33DAGrzwCd6z0lbj4xBFUxYuKx2iw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
-	 References; b=hbloQzALWzoKCfCvCyHsYxelgWg5j6NJ22ypom4FKaCz6Om/aa0ujDAC806KcubINT8JNRNrIXMktx0Q85voyiVNiJWxMc+quMF4ncrxblMllP31dCq7Mkw9+K7HfXVk6gWYvn3XhDzbVVmA79tUZzMNEFAQTuj0GfJRDqYuil0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=CckAAgi7; arc=none smtp.client-ip=34.2.82.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
+	s=arc-20240116; t=1787508748; c=relaxed/simple;
+	bh=yT4hv0raBUjv6lAEEObzu+QtflldmZdO3JERLBCiaZM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IsQk0yeKwnTh8YMZ7ZBVMor7ObY5ae8N1iRZ5IucUny9CVZZZZg7rCtM0kxt8Upilg1JcoFIGm4dTz+CTkosbXNeBrhI7aElNWGPs0+xSPR0CS5qQWm+Nu+bt6gB9s1MFJPlK9cYQVV7atycLuU/9Kx3VXB8UZJdNoPgKRkV+gE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=post.cz; spf=pass smtp.mailfrom=post.cz; dkim=pass (2048-bit key) header.d=post.cz header.i=@post.cz header.b=hRWQY8tc; arc=none smtp.client-ip=77.75.76.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=post.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=post.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="CckAAgi7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1787480315; bh=awD/8u/OEK36pIMmelPOEXf66nP9cTIx6cTh7X87uKI=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=CckAAgi7xPdGEXqfNGDiLfrmgvGy1g3pS+NpE1vBIVlrEaNcHd3QqMfXWZhCgqbzltSSSbMQlpta8k0KiHcyDnN8orRmEqyRIx5rb+qOfRNMXJOpepOIZRj633zWRQP68hLWbE/aRF9uQehCXaB/xtZKfBstMgfwHlVeLOzw2jerUKakhCisuCg6aoN3t+5F7yrJYqROsR45yiF0GdDh1nkOqchlWBrorasPvCR3Ir0kdP0oYVpWWnov+Sv5ALs3cbgulXrKmujEC22I35FN2wtuWRgj9M8lVCVcfCV1xawL+MSH8IJKIiIfKcCHRGxkkW9r0LkGNpemgo7yzuM1rw==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787480315; bh=kHUfeofvhSiN+CKu4zEKd+83/T9v8zr6SCkVRflwHva=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=lNWy1szpAEZ2zV8SuZYAOjlIYkHxjKm3ly8Si+O4e0I+9z7YhggsODkxu0u1JEg6x8dua6wkrfMgP8/SuLg4epoIda++bw35Es2gMpRtSdhLx3heS6mLi3stOW6k1ctzUBFEJCbPoIVZ6fYBCtA9JgwMXC2G8LFlz8y8wmoegGbHuhhrF+nwsPTjc35hdIrdD0v2RyItkC7MT9zlFho3OOPesLJeNhNy9JDUzEgYozynWYptBUsXEtZBtN6ExgBG0NdYL2HO+uKd8Pj1lSIp+iz9G/8Ap5vpvb8TY3/nif5b/Jih+XjhDJU8MLE2i3HnlB7iCqnSa1a6aAu7xZ1+oA==
-X-YMail-OSG: UdDxVSgVM1m66LbSF6z0e1UavVsMdmOXWASCCj2zgPfnB93dNJ5dU09fLSsDdYP
- BJ4yYJKT7jjuRCaoteRmOXnuZsnebr7Cbn_r_oH_p7ce22lXosJVIQushBI21LsvVCZVfLtQ5EJV
- Ke.f99_2.OGNNOezZteQsnno_rd_HhkBaRGPxpqUNB3vOY9J28qGwAGqLZ.8ayp5kd5MV0v7GjE_
- XBxddgnymjLvvPXyEpZMn55_TwJFQZ.BHShGBjiaOP4TlV6oVktkAVh_jn7QMmhoI990m1InIUFk
- cDkvxCP1P0QHfEkfL6dRZcBPFD9NgaBtALhLYO2uEpcT3hYe4w5y7CvpT7bAKNcmyfOTgVTXn20t
- lrZz13n6J7YVrAc14uxTY_ESR4f.Ar2N..7P69Rk_7UKq8CYafhUXj7Hbcdz3gDknaHOzq0pjBPZ
- ggo4z_CcgdvwaO_5bV0Vhgryqmoatc2QChzXI_SeiuxTVXW9RSEBLgWztj3pP7nFGCNjlphX62KI
- Wkyc348Htcg0qJvPIwpflAFAMqM_OuB7_R6jpowrQo0BXX6wBgc0.PzNQ_U7sa3m6eahgJTrigvC
- i9jnVVgOoL6cAjV1qDGFqaxo6_to2I1PyTBLv2TMeDIoSreXMGdY4ibu4rPsUVioi1suO5Ck_4Jg
- ZGSGIFX7AlluaucDu7sDc_h17128N3NLrQmLlN8oOuF0s0Fzb.LPNjjo_JiY780e8NinzHpM1eoq
- 3JyefvZxLm00ywsacAzfQ2ovKBn.RZ.8L9q2LZauF6xrs9o0LUTp7R4hoddK7VSbx.mV0_JUr6wO
- DYwFRezgO5vwPNJuTTgry1Zzze3uL2J92Z5spJtddlc7Zxd7Y2to_51tBK7jgM3GnhapFuu7T0XI
- Tmwm7SC_Qrt0ApEuT.Nf5W4JHUArAr9n5L9olAzGVr_Y44Hj1TKj2VGm_blYcFslTRkdivRNhj_z
- aKJrxS53tDZGbzb..y73DCHiAWe0MHCwl1i0rGkEiRXXN1DnkVqHCW6zKh8582CpGpltMgrlQKrs
- UsauFxSXMJrI81eKeMMYOWzoNi1sTdsaZ4ENdCvEAtYOnf9S77r8na2k0SXVq3NQ1pZWmn4cIjuC
- WIeCn.8GKyJzablj_PT3QiyKTw6M4xKgGZy5YWuQOjT63c2OBkV_V7RnNY37UyTZQ2Lyq7L0.Tg6
- wd5E6HS26PVggUh6Bb_LqMqCGS.k9WWqG900aCj9nzkSHoi4M538zz5yLM4WuqZIZBV.Z9dy3Zdj
- MIUal761MaoP8_JqYLthn6BcTpoKNW_Pv3WA2FgiZ.5yrGWO6dffTbO8ZsHDQPEur7zEHBfMP5yW
- Sa1kJtndvQIchvFo2IKHmerWTRwg5nTjo2rDyXHz2mKP4kIBzHfjTZ0d7aHbm2cT_ONsmihBEtb_
- mwfUi8L4XX082D7wUkziTUFK.KA9Msb1s7phf6VMiGr1.nKJQyuy9N8YyQrgD6u9P_V6KSJ2bKwB
- hQbw5l2zlnT1k8voYQjodKHnKLm_rinAQplrOuqJj36hro2Lz_6IHaKNqQSxWbwLrT9Xqu2KL1TL
- 6MkiT8pOHur1kFq_X4CCIz9D8iM3PNC.dkNeRf0eSSeixg3SlRvze.22RiAXvMHCJr.Wr6vl8BuZ
- _DGexugVXjhEelTBstZfpbY6rL9g0jGskNmfjTffmxamjpr8lzjxbnuFp5LYSkh5Ud7MfNZUgj4I
- 9RGUa0hwy2LjfHU0qRVmS3pId_cVtF88U6bxT1DRJATX3TxwFjDJawZPsq7nYlabmxk2HMmDCUWu
- Erhn2VeWLDf7Kq7Ym.zcP7WZsehlTmNEzoO6JNi1sLewZcna0IZGRE8kHa.Aod4zY8ZjsYp..dF4
- 2zKQHJyQZt5WB01qrVAMf16dSWcIFn99aNuDgJlDdGxu8QpJgMmVsHVo.t5n9eF3BynVWtSn.Nez
- bAPsYfuejVXHlPDyLweD7zHqdQy6AkAhaLBBpyQgpFZsrHlj8rXIbTFVJl4aZe_T8KFg2zO.vSjn
- DVY4nY_yyfvgJHG0k51wOGRow9fuweJq5
-X-Sonic-MF: <tomasz.unger@yahoo.pl>
-X-Sonic-ID: c22a5d94-8396-4f64-9f4e-c4ea92700c6e
-Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Sun, 23 Aug 2026 10:18:35 +0000
-Received: from dip162.lsn.ir2.yahoo.com ([87.248.99.171])
-          by hello (SMTP) with SMTP ID 4cb6950c4cfda6384655f946b591cb65;
-          Sun, 23 Aug 2026 10:18:29 +0000 (UTC)
-From: Tomasz Unger <tomasz.unger@yahoo.pl>
-Date: Sun, 23 Aug 2026 12:18:28 +0200
-Subject: [PATCH] staging: media: ipu3: fix typo in comment
+	dkim=pass (2048-bit key) header.d=post.cz header.i=@post.cz header.b="hRWQY8tc"
+Received: from email.seznam.cz
+	by smtpc-mxd-fc6854d64-wssh9
+	(smtpc-mxd-fc6854d64-wssh9 [2a02:598:96:8a00::1200:701])
+	id 65a51f66c784453776df1209;
+	Sun, 23 Aug 2026 20:12:03 +0200 (CEST)
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed; d=post.cz; s=szn1;
+	t=1787508723; bh=p44p+3wFj3y0H8LSg0YLSfqEeayBrTa/HtbLimWYV4E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:
+	 Content-Transfer-Encoding;
+	b=hRWQY8tcwxv6/I+omYPVqcd+uaPFG8NDwUqaAoJheziGaiUD2ozXSn/XxDk4GO25S
+	 6Nkwlr7nabPfK9jTYZ5gOd/bge9Yqp9r7z93kjneFnpsVVcm8vrT6UjqJ1tgPfRIIz
+	 B7gBp3PajIg//5DLghKplAIUVYqWmcl/tE/kFAg5JfCRpIYLTrKUdhfs+pS0wvbiYB
+	 J0X9nIFQUzzeA8ztGQ1IVGBy4dD7NNkLdcE9xmFLCs6wS6aFvBiljQLbSmAzEMS+se
+	 Cuk61ho0lotaikmuBMBzQEBFVtAo0j95uT4dajSesoyoQR6BJk6fJplSWFNE81YMhT
+	 L3+OyknGocbmQ==
+Received: from raspberrypi.tailf05c2d.ts.net ([185.155.34.10])
+	by smtpd-relay-86c88674d5-79dbn (szn-email-smtpd/2.0.80) with ESMTPA
+	id 149242ff-bbcf-475e-9e11-728be5856f5c;
+	Sun, 23 Aug 2026 20:11:51 +0200
+From: Matthew <matthew-kernel@post.cz>
+To: gregkh@linuxfoundation.org
+Cc: hansg@kernel.org,
+	mchehab@kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	Matthew <matthew-kernel@post.cz>
+Subject: [PATCH] staging: media: atomisp: remove unnecessary void function return
+Date: Sun, 23 Aug 2026 20:11:41 +0200
+Message-Id: <20260823181141.265635-1-matthew-kernel@post.cz>
+X-Mailer: git-send-email 2.39.5
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260823-b4-ipu3-mmu-typo-fix-v1-1-3e5589232b18@yahoo.pl>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3Q5EMBCG4VuROTYJra2fWxEHZQcjQdOq7Ebcu
- +Lw+ZLvPcCRZXJQRQdY2tnxugSkcQTdqJeBkL/BIBKhkkJIbDNk4yXOs8ftb1bs+YdafJTUZZ6
- rooRwNZbC/GTr5rXz7UTddrfgPC8Pqn3KeAAAAA==
-X-Change-ID: 20260823-b4-ipu3-mmu-typo-fix-a2563a977689
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Tianshu Qiu <tian.shu.qiu@intel.com>, linux-media@vger.kernel.org, 
- linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
- Tomasz Unger <tomasz.unger@yahoo.pl>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787480308; l=1098;
- i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
- bh=g276pUyqZAjECU33DAGrzwCd6z0lbj4xBFUxYuKx2iw=;
- b=fFY9HMu4h6X2wyU2LtStRg313gPp6Q4RkFOgSCu0v91rk9jHsiUMl3AlUQ+oYcQ+VYQ4T5a56
- 9NqP67cpGPbBZvvYj1E/b2QkfrcIC/f0XPXc3YevQFH3hHewoioFCnz
-X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
- pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
-References: <20260823-b4-ipu3-mmu-typo-fix-v1-1-3e5589232b18.ref@yahoo.pl>
+Content-Transfer-Encoding: 8bit
 
-Fix a spelling mistake in a comment: "singlely" should be "singly".
-Found using codespell.
+Remove an unneeded return statement at the end of a void function
+in atomisp_cmd.c. This cleans up the code and fixes a checkpatch.pl
+warning: "void function return statements are not generally useful".
 
-Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+Signed-off-by: Matthew <matthew-kernel@post.cz>
 ---
-Verified with checkpatch.pl - no new warnings.
----
- drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/staging/media/atomisp/pci/atomisp_cmd.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
-index b196a5815903..4595e3749e7d 100644
---- a/drivers/staging/media/ipu3/ipu3-mmu.c
-+++ b/drivers/staging/media/ipu3/ipu3-mmu.c
-@@ -313,7 +313,7 @@ size_t imgu_mmu_map_sg(struct imgu_mmu_info *info, unsigned long iova,
- 		if (!IS_ALIGNED(s->offset, IPU3_PAGE_SIZE))
- 			goto out_err;
+diff --git a/drivers/staging/media/atomisp/pci/atomisp_cmd.c b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+index 6cd500d9fd26..81d0afae8041 100644
+--- a/drivers/staging/media/atomisp/pci/atomisp_cmd.c
++++ b/drivers/staging/media/atomisp/pci/atomisp_cmd.c
+@@ -1419,7 +1419,6 @@ static void atomisp_update_grid_info(struct atomisp_sub_device *asd,
  
--		/* must be IPU3_PAGE_SIZE aligned to be mapped singlely */
-+		/* must be IPU3_PAGE_SIZE aligned to be mapped singly */
- 		if (i == nents - 1 && !IS_ALIGNED(s->length, IPU3_PAGE_SIZE))
- 			s_length = PAGE_ALIGN(s->length);
+ err:
+ 	atomisp_css_free_stat_buffers(asd);
+-	return;
+ }
  
-
----
-base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
-change-id: 20260823-b4-ipu3-mmu-typo-fix-a2563a977689
-
-Best regards,
---  
-Tomasz Unger <tomasz.unger@yahoo.pl>
+ static void atomisp_curr_user_grid_info(struct atomisp_sub_device *asd,
+-- 
+2.39.5
 
