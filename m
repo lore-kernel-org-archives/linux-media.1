@@ -1,33 +1,60 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic.asd.mail.yahoo.com (sonic-euwe1-0017.asd.mail.yahoo.com [34.2.82.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1CC20D4E9;
-	Sun, 23 Aug 2026 06:27:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA417364E9A
+	for <linux-media@vger.kernel.org>; Sun, 23 Aug 2026 10:18:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=34.2.82.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787466441; cv=none; b=sfyxpL5i/YJZoL9WczPrsOhuSHO6zYHRpqkUnZfZ+nB/gjQmMhZAT13GUKp4RsTxio/HUubvkC57xGEjNMOYygkQ1YJMsyQR7KYUTMqbZzoOzPCXon4gO7IiiFq3GuG7milT51hKGIlSzcI8IgS26VOUgIKxBVYHGSeehR+yjjU=
+	t=1787480318; cv=none; b=GLONZsc9et6f693bkRYa0s9xdyVOYHsPFMpAVNIH+hZR0C6LFJDUuWrWBy1GJGjmo0HCJVxIcmixDBoL1/20BHBBgZLiUQxK8bFZ8gImOby2FGhOmmW9OwsbA8Z1rXs4wTsh+cKzr8HUtAmfFCy/cu5B5A3EkcQCXdi0pCSosLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787466441; c=relaxed/simple;
-	bh=6caN5GbikuqADZTPUPquRicuKp50Ix0df0KcUGo/32s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=luj1ifJozJvxD7/M3akEuNfGUJS+8iRnWkzeFW9AdXOx5VnbEc1bFjpl95wHI1QCJccueUZp9eUVi2CUMmLLMAfWLUoM9PnGvI2lmdciYkB3sQeszo+Oeu6P8HKWC4e9mDMJpLROTTETDeeRlzNcm2+o/Wf98mEQ04xnO99YI78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TGY2e4QO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787480318; c=relaxed/simple;
+	bh=g276pUyqZAjECU33DAGrzwCd6z0lbj4xBFUxYuKx2iw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 References; b=hbloQzALWzoKCfCvCyHsYxelgWg5j6NJ22ypom4FKaCz6Om/aa0ujDAC806KcubINT8JNRNrIXMktx0Q85voyiVNiJWxMc+quMF4ncrxblMllP31dCq7Mkw9+K7HfXVk6gWYvn3XhDzbVVmA79tUZzMNEFAQTuj0GfJRDqYuil0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl; spf=pass smtp.mailfrom=yahoo.pl; dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b=CckAAgi7; arc=none smtp.client-ip=34.2.82.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.pl
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.pl
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TGY2e4QO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D7F41F000E9;
-	Sun, 23 Aug 2026 06:27:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787466439;
-	bh=4zZ964UaOcqM6aIvLP+DeBwxQG6DN76Q94+laK2Fad4=;
-	h=From:Date:Subject:To:Cc;
-	b=TGY2e4QO+Z9kVs0AgtHsqhw1zDiHU3+6xDoMX2i6/dgHwFp4asR/MJX+1tPIeHn1p
-	 KAejm6pC0LKkWtENq3YrDesupEtH082B5QA0vuY+WAXFllVqTBdfW22ZzOKrw+aBFP
-	 JStGAXQFpg6SSYxSzAYO7akYvlk6l+B000SV6ORA3Xya/VloWGJ89Na8A0rVRfMGOe
-	 7Xv7p4uuDPCxNlj3oW/5alh5GMAsEdoPDLFw2I/ArasNwj4/7OyCbG4sQ8h+nxLl73
-	 ka/47JM8b01UE7cd2qv5m1uryg7Q+uurtxb/UQc8o1vTXqUIHPMyZGqm6Di7n5EoyR
-	 TmRW7V9ydbD6g==
-From: Eugen Hristev <ehristev@kernel.org>
-Date: Sun, 23 Aug 2026 09:27:09 +0300
-Subject: [PATCH v4] media: bcm2835-unicam: Fix log status runtime access
+	dkim=pass (2048-bit key) header.d=yahoo.pl header.i=@yahoo.pl header.b="CckAAgi7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.pl; s=s2048; t=1787480315; bh=awD/8u/OEK36pIMmelPOEXf66nP9cTIx6cTh7X87uKI=; h=From:Date:Subject:To:Cc:References:From:Subject:Reply-To; b=CckAAgi7xPdGEXqfNGDiLfrmgvGy1g3pS+NpE1vBIVlrEaNcHd3QqMfXWZhCgqbzltSSSbMQlpta8k0KiHcyDnN8orRmEqyRIx5rb+qOfRNMXJOpepOIZRj633zWRQP68hLWbE/aRF9uQehCXaB/xtZKfBstMgfwHlVeLOzw2jerUKakhCisuCg6aoN3t+5F7yrJYqROsR45yiF0GdDh1nkOqchlWBrorasPvCR3Ir0kdP0oYVpWWnov+Sv5ALs3cbgulXrKmujEC22I35FN2wtuWRgj9M8lVCVcfCV1xawL+MSH8IJKIiIfKcCHRGxkkW9r0LkGNpemgo7yzuM1rw==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1787480315; bh=kHUfeofvhSiN+CKu4zEKd+83/T9v8zr6SCkVRflwHva=; h=X-Sonic-MF:From:Date:Subject:To:From:Subject; b=lNWy1szpAEZ2zV8SuZYAOjlIYkHxjKm3ly8Si+O4e0I+9z7YhggsODkxu0u1JEg6x8dua6wkrfMgP8/SuLg4epoIda++bw35Es2gMpRtSdhLx3heS6mLi3stOW6k1ctzUBFEJCbPoIVZ6fYBCtA9JgwMXC2G8LFlz8y8wmoegGbHuhhrF+nwsPTjc35hdIrdD0v2RyItkC7MT9zlFho3OOPesLJeNhNy9JDUzEgYozynWYptBUsXEtZBtN6ExgBG0NdYL2HO+uKd8Pj1lSIp+iz9G/8Ap5vpvb8TY3/nif5b/Jih+XjhDJU8MLE2i3HnlB7iCqnSa1a6aAu7xZ1+oA==
+X-YMail-OSG: UdDxVSgVM1m66LbSF6z0e1UavVsMdmOXWASCCj2zgPfnB93dNJ5dU09fLSsDdYP
+ BJ4yYJKT7jjuRCaoteRmOXnuZsnebr7Cbn_r_oH_p7ce22lXosJVIQushBI21LsvVCZVfLtQ5EJV
+ Ke.f99_2.OGNNOezZteQsnno_rd_HhkBaRGPxpqUNB3vOY9J28qGwAGqLZ.8ayp5kd5MV0v7GjE_
+ XBxddgnymjLvvPXyEpZMn55_TwJFQZ.BHShGBjiaOP4TlV6oVktkAVh_jn7QMmhoI990m1InIUFk
+ cDkvxCP1P0QHfEkfL6dRZcBPFD9NgaBtALhLYO2uEpcT3hYe4w5y7CvpT7bAKNcmyfOTgVTXn20t
+ lrZz13n6J7YVrAc14uxTY_ESR4f.Ar2N..7P69Rk_7UKq8CYafhUXj7Hbcdz3gDknaHOzq0pjBPZ
+ ggo4z_CcgdvwaO_5bV0Vhgryqmoatc2QChzXI_SeiuxTVXW9RSEBLgWztj3pP7nFGCNjlphX62KI
+ Wkyc348Htcg0qJvPIwpflAFAMqM_OuB7_R6jpowrQo0BXX6wBgc0.PzNQ_U7sa3m6eahgJTrigvC
+ i9jnVVgOoL6cAjV1qDGFqaxo6_to2I1PyTBLv2TMeDIoSreXMGdY4ibu4rPsUVioi1suO5Ck_4Jg
+ ZGSGIFX7AlluaucDu7sDc_h17128N3NLrQmLlN8oOuF0s0Fzb.LPNjjo_JiY780e8NinzHpM1eoq
+ 3JyefvZxLm00ywsacAzfQ2ovKBn.RZ.8L9q2LZauF6xrs9o0LUTp7R4hoddK7VSbx.mV0_JUr6wO
+ DYwFRezgO5vwPNJuTTgry1Zzze3uL2J92Z5spJtddlc7Zxd7Y2to_51tBK7jgM3GnhapFuu7T0XI
+ Tmwm7SC_Qrt0ApEuT.Nf5W4JHUArAr9n5L9olAzGVr_Y44Hj1TKj2VGm_blYcFslTRkdivRNhj_z
+ aKJrxS53tDZGbzb..y73DCHiAWe0MHCwl1i0rGkEiRXXN1DnkVqHCW6zKh8582CpGpltMgrlQKrs
+ UsauFxSXMJrI81eKeMMYOWzoNi1sTdsaZ4ENdCvEAtYOnf9S77r8na2k0SXVq3NQ1pZWmn4cIjuC
+ WIeCn.8GKyJzablj_PT3QiyKTw6M4xKgGZy5YWuQOjT63c2OBkV_V7RnNY37UyTZQ2Lyq7L0.Tg6
+ wd5E6HS26PVggUh6Bb_LqMqCGS.k9WWqG900aCj9nzkSHoi4M538zz5yLM4WuqZIZBV.Z9dy3Zdj
+ MIUal761MaoP8_JqYLthn6BcTpoKNW_Pv3WA2FgiZ.5yrGWO6dffTbO8ZsHDQPEur7zEHBfMP5yW
+ Sa1kJtndvQIchvFo2IKHmerWTRwg5nTjo2rDyXHz2mKP4kIBzHfjTZ0d7aHbm2cT_ONsmihBEtb_
+ mwfUi8L4XX082D7wUkziTUFK.KA9Msb1s7phf6VMiGr1.nKJQyuy9N8YyQrgD6u9P_V6KSJ2bKwB
+ hQbw5l2zlnT1k8voYQjodKHnKLm_rinAQplrOuqJj36hro2Lz_6IHaKNqQSxWbwLrT9Xqu2KL1TL
+ 6MkiT8pOHur1kFq_X4CCIz9D8iM3PNC.dkNeRf0eSSeixg3SlRvze.22RiAXvMHCJr.Wr6vl8BuZ
+ _DGexugVXjhEelTBstZfpbY6rL9g0jGskNmfjTffmxamjpr8lzjxbnuFp5LYSkh5Ud7MfNZUgj4I
+ 9RGUa0hwy2LjfHU0qRVmS3pId_cVtF88U6bxT1DRJATX3TxwFjDJawZPsq7nYlabmxk2HMmDCUWu
+ Erhn2VeWLDf7Kq7Ym.zcP7WZsehlTmNEzoO6JNi1sLewZcna0IZGRE8kHa.Aod4zY8ZjsYp..dF4
+ 2zKQHJyQZt5WB01qrVAMf16dSWcIFn99aNuDgJlDdGxu8QpJgMmVsHVo.t5n9eF3BynVWtSn.Nez
+ bAPsYfuejVXHlPDyLweD7zHqdQy6AkAhaLBBpyQgpFZsrHlj8rXIbTFVJl4aZe_T8KFg2zO.vSjn
+ DVY4nY_yyfvgJHG0k51wOGRow9fuweJq5
+X-Sonic-MF: <tomasz.unger@yahoo.pl>
+X-Sonic-ID: c22a5d94-8396-4f64-9f4e-c4ea92700c6e
+Received: from sonic.gate.mail.ne1.yahoo.com by mail-asdoutdeli-p-cin-euwe1-prod-sonicconsumer-svc-102 with HTTP; Sun, 23 Aug 2026 10:18:35 +0000
+Received: from dip162.lsn.ir2.yahoo.com ([87.248.99.171])
+          by hello (SMTP) with SMTP ID 4cb6950c4cfda6384655f946b591cb65;
+          Sun, 23 Aug 2026 10:18:29 +0000 (UTC)
+From: Tomasz Unger <tomasz.unger@yahoo.pl>
+Date: Sun, 23 Aug 2026 12:18:28 +0200
+Subject: [PATCH] staging: media: ipu3: fix typo in comment
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -36,120 +63,56 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260823-bcmpipm-v4-1-faf20d9c3e2b@kernel.org>
-X-B4-Tracking: v=1; b=H4sIALySimoC/2XNyw7CIBQE0F8xrMXwaJG68j+MC7jcKmofgUo0T
- f9dqotqXE4yZ2YkEYPHSHarkQRMPvquzaFYrwicTXtC6l3ORDChWCk4tdD0vm+ognKrcSuFrID
- kdh+w9o/30uH4yfFuLwjDzOfG2cehC8/3VeJz7381ccqpRGu0dlqzotxfMbR423ThRObZJL6hW
- KDI0EhnlAILVc3+oFyg4l+PMkNQrHIGLBNV/QOnaXoBQfimiyMBAAA=
-X-Change-ID: 20260521-bcmpipm-6c578e73239c
-To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+Message-Id: <20260823-b4-ipu3-mmu-typo-fix-v1-1-3e5589232b18@yahoo.pl>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXM3Q5EMBCG4VuROTYJra2fWxEHZQcjQdOq7Ebcu
+ +Lw+ZLvPcCRZXJQRQdY2tnxugSkcQTdqJeBkL/BIBKhkkJIbDNk4yXOs8ftb1bs+YdafJTUZZ6
+ rooRwNZbC/GTr5rXz7UTddrfgPC8Pqn3KeAAAAA==
+X-Change-ID: 20260823-b4-ipu3-mmu-typo-fix-a2563a977689
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Hans Verkuil <hverkuil@kernel.org>, 
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-Cc: Naushir Patuck <naush@raspberrypi.com>, linux-media@vger.kernel.org, 
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Eugen Hristev <ehristev@kernel.org>
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Tianshu Qiu <tian.shu.qiu@intel.com>, linux-media@vger.kernel.org, 
+ linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Tomasz Unger <tomasz.unger@yahoo.pl>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3369; i=ehristev@kernel.org;
- h=from:subject:message-id; bh=6caN5GbikuqADZTPUPquRicuKp50Ix0df0KcUGo/32s=;
- b=owGbwMvMwCXWkjcnuXne3fmMp9WSGLK6Ju1XWH+w+K3IrHauEPFJx90dTcVjja/p7Ko9dHyv9
- LHyVUfMO0pZGMS4GGTFFFmqTf7VCvfvcD/paqkCM4eVCWQIAxenAEzEm53hf9WdrJ+/3+yelvz3
- xsU1Tdmn55tJb50/7VvTAa/uQmZHNk5Ghpd3L65K4Gppu39q0cc13ry8t3l+9B7RNq34//peGcP
- vfSwA
-X-Developer-Key: i=ehristev@kernel.org; a=openpgp;
- fpr=AB184498D27A77B65D7852C81EB31E020EAC2FC8
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787480308; l=1098;
+ i=tomasz.unger@yahoo.pl; s=20260311; h=from:subject:message-id;
+ bh=g276pUyqZAjECU33DAGrzwCd6z0lbj4xBFUxYuKx2iw=;
+ b=fFY9HMu4h6X2wyU2LtStRg313gPp6Q4RkFOgSCu0v91rk9jHsiUMl3AlUQ+oYcQ+VYQ4T5a56
+ 9NqP67cpGPbBZvvYj1E/b2QkfrcIC/f0XPXc3YevQFH3hHewoioFCnz
+X-Developer-Key: i=tomasz.unger@yahoo.pl; a=ed25519;
+ pk=EPPsO91uz/0J2cTQ6ol+dgxYaieEc9dKSXWUb51n46c=
+References: <20260823-b4-ipu3-mmu-typo-fix-v1-1-3e5589232b18.ref@yahoo.pl>
 
-When requesting log status, the block might be powered off, but registers
-are being read.
-Avoid reading the registers if the device is not resumed, thus also avoid
-powering up the device just for log status.
+Fix a spelling mistake in a comment: "singlely" should be "singly".
+Found using codespell.
 
-Fixes: 392cd78d495f ("media: bcm2835-unicam: Add support for CCP2/CSI2 camera interface")
-Signed-off-by: Eugen Hristev <ehristev@kernel.org>
+Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
 ---
-Changes in v4:
-- rebased on latest tree, no additional change.
-- Link to v3: https://patch.msgid.link/20260611-bcmpipm-v3-1-c609dacb029f@kernel.org
-
-Changes in v3:
-- Changed to check return value of pm_runtime_get_if_active() and only call
-  pm_runtime_put() if the device is active.
-- Link to v2: https://patch.msgid.link/20260522-bcmpipm-v2-1-a3da66cbc9f0@kernel.org
-
-Changes in v2:
-- changed to use pm_runtime_get_if_active()
-- add corresponding put()
-- Link to v1: https://patch.msgid.link/20260521-bcmpipm-v1-1-3eba88d88045@kernel.org
-
-To: Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-To: Florian Fainelli <florian.fainelli@broadcom.com>
-To: Ray Jui <rjui@broadcom.com>
-To: Scott Branden <sbranden@broadcom.com>
-To: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-To: Naushir Patuck <naush@raspberrypi.com>
-Cc: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: linux-media@vger.kernel.org
-Cc: linux-rpi-kernel@lists.infradead.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
+Verified with checkpatch.pl - no new warnings.
 ---
- drivers/media/platform/broadcom/bcm2835-unicam.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
-index 14bb916dd7b1..7745aee711cb 100644
---- a/drivers/media/platform/broadcom/bcm2835-unicam.c
-+++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
-@@ -2043,6 +2043,7 @@ static int unicam_log_status(struct file *file, void *fh)
- 	struct unicam_node *node = video_drvdata(file);
- 	struct unicam_device *unicam = node->dev;
- 	u32 reg;
-+	int pm_active;
+diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
+index b196a5815903..4595e3749e7d 100644
+--- a/drivers/staging/media/ipu3/ipu3-mmu.c
++++ b/drivers/staging/media/ipu3/ipu3-mmu.c
+@@ -313,7 +313,7 @@ size_t imgu_mmu_map_sg(struct imgu_mmu_info *info, unsigned long iova,
+ 		if (!IS_ALIGNED(s->offset, IPU3_PAGE_SIZE))
+ 			goto out_err;
  
- 	/* status for sub devices */
- 	v4l2_device_call_all(&unicam->v4l2_dev, 0, core, log_status);
-@@ -2052,6 +2053,14 @@ static int unicam_log_status(struct file *file, void *fh)
- 		 node->fmt.fmt.pix.width, node->fmt.fmt.pix.height);
- 	dev_info(unicam->dev, "V4L2 format:         %08x\n",
- 		 node->fmt.fmt.pix.pixelformat);
-+
-+	pm_active = pm_runtime_get_if_active(unicam->dev);
-+	if (!pm_active) {
-+		dev_info(unicam->dev,
-+			 "Live data N/A due to device inactive\n");
-+		return 0;
-+	}
-+
- 	reg = unicam_reg_read(unicam, UNICAM_IPIPE);
- 	dev_info(unicam->dev, "Unpacking/packing:   %u / %u\n",
- 		 unicam_get_field(reg, UNICAM_PUM_MASK),
-@@ -2065,6 +2074,9 @@ static int unicam_log_status(struct file *file, void *fh)
- 	dev_info(unicam->dev, "Write pointer:       %08x\n",
- 		 unicam_reg_read(unicam, UNICAM_IBWP));
- 
-+	if (pm_active == 1)
-+		pm_runtime_put(unicam->dev);
-+
- 	return 0;
- }
+-		/* must be IPU3_PAGE_SIZE aligned to be mapped singlely */
++		/* must be IPU3_PAGE_SIZE aligned to be mapped singly */
+ 		if (i == nents - 1 && !IS_ALIGNED(s->length, IPU3_PAGE_SIZE))
+ 			s_length = PAGE_ALIGN(s->length);
  
 
 ---
-base-commit: 903c1cf6dff9964e71eda98a39e2e5d442050472
-change-id: 20260521-bcmpipm-6c578e73239c
+base-commit: c6eb4dc5964fdf4086b73b7f0f5dc0d595fb5cf3
+change-id: 20260823-b4-ipu3-mmu-typo-fix-a2563a977689
 
 Best regards,
 --  
-Eugen Hristev <ehristev@kernel.org>
+Tomasz Unger <tomasz.unger@yahoo.pl>
 
