@@ -1,116 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1951AB6F1;
-	Mon, 24 Aug 2026 10:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4970413780
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787568785; cv=none; b=XIy7L/SbHHemHuzkOEJcx7BCZ+H0BYnHIUx4KOk5WANzAvpa2gs3X4I+zDBcs0AmziNqS2XnIWQTh6KiLFlvhyB4bVDHf6vI5Yq2V0mq4kTiF3wkQZ8eBr0mFoz8vo7u+og+gwq1EIm81nhh83z9t5IqkjddK2CrcL/6b9z9HKE=
+	t=1787573685; cv=none; b=NyMas9Atjj0kIC2acZldi1JC2P2HuHzWWfb0onyIZxM6owrzIX34UFYmi9sXufsUu6mYBo32Qivqw5e58+jVB0TokSq2q+IColWbCGG2XpMBE3xYDpulsnLGs+A2jFyWg/cFJ3YKrdSWszCc2U2fs8xW+TKrLrvxH1uVSjc2d7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787568785; c=relaxed/simple;
-	bh=O7i3s3Fhp86a2iVbit6t3AFFoAmUVQej1LXuUZS8/+s=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=EIlk1rrGnnTuEHp6G9PhToy3h3ta3iZl+XnnoQeDv530fDVJnnSCEpS3MefJH3wY39987omih+rgxKnLMH0u2fqMceQF/CMawJ3zSWcJwkmobfIOy0WtcEkxKjilnyocZ0diO68v1ykHS7GUhnpxnxVOu8RyebYhAFxd+iAuYms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aq68ML6L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787573685; c=relaxed/simple;
+	bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZzmyDvDlEjeCbb9oK1Vt7qY06ltnKNVGCJQXoYsArszu0qBAKceH1p9Tt2CNbznVq5JbjGtTpztRIdPiAjKbfM3Ymhe3+pEMKJrP87q2I6LNuvb8GjHaqvlQ0eI5M4WBlqQ5hI5U4CAB5F9Fl69rRXbkZDd95+fVDWsH4/k+gSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ceX+EoKm; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aq68ML6L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E0A1F000E9;
-	Mon, 24 Aug 2026 10:53:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787568783;
-	bh=fcd+vXPL1cf35aspIvOuzP59f2xpzJU2+HsZSxprbes=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Aq68ML6L4hwbv1yIcsrOqOO02erQtrajmRwHD1TjeJaWXgj7i5TiLsMPb8o0Fam7N
-	 kKB2CPq++jzPh1RJBsrQjmuM1oV63kDT9u4uqCz+yLDeQyrmuxYInfb1n/abkUqkIl
-	 bksM/JJcTxCG7xj1lxuu3dNil+EzXqv4laVvBUsm0DHCVxnHS+Wl/7D1shtQHzmoRj
-	 FDOdebV7RsxbVNygCW2WLHpcooo7eyMb66swqP1bf5qfHzn8/UvT/rgauUFVjQaYP4
-	 yljdNdxPOQpWLLl4/IStRWaF7fIS9qWzX+LNJc23QlOvkEehngpE4aQ1rF3qIVssIp
-	 RbC/08CWgDvbg==
-Message-ID: <9c763002-7fad-4319-93a8-90adf02eca20@kernel.org>
-Date: Mon, 24 Aug 2026 12:52:58 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ceX+EoKm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787573683; x=1819109683;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
+  b=ceX+EoKmLYQ3oh0uILMBj+J4qT0HTNMQ2HX37lgSo3+DjoH5P2eEXYM+
+   EjYfwY+RNc31Wsl0KD5UDRoTpRIu9WQMVCx8dYovNCBrZKpRKSvsPrkjN
+   gq82u5IUxRwznpurL6AqAX2QW4ZUdkMZXmxEUi6VDBr4GOz73Urc7gbSr
+   L+jWZ44GJmRoF6hRNHzATe6vz2IpTbtbcK1v7+5+CUTZOwp9QhdSMq7iB
+   RkE87cTsoHy3Hll6XLjQ7jNOwoT6LI+8JftRdAJXyn6XXz0kHo5ARBhkK
+   Q0y2KP3Z1UZhRNNOnYjxYliHUX8bECEc0PtDIL34CddtRrtMergpn39mw
+   A==;
+X-CSE-ConnectionGUID: oCGqBA58SIKNJrKnYqFGwQ==
+X-CSE-MsgGUID: Urc+whX2QAmtClKTpT5UoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036452"
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="88036452"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:43 -0700
+X-CSE-ConnectionGUID: lQAOqjUAQ7+LIGN3d1A/ng==
+X-CSE-MsgGUID: 2/2NGAqlTp2LhuvP+JiPQg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
+   d="scan'208";a="270787638"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:41 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5A2F4121C7B;
+	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1wyTZj-0000000E38m-232E;
+	Mon, 24 Aug 2026 15:14:51 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: [PATCH v3 04/29] media: v4l2-subdev: Allow releasing frame descriptors on return
+Date: Mon, 24 Aug 2026 15:14:26 +0300
+Message-ID: <20260824121451.3348583-5-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/5] arm64: dts: rockchip: add ISP nodes to rk3588
-To: Paul Elder <paul.elder@ideasonboard.com>,
- laurent.pinchart@ideasonboard.com
-Cc: Xu Hongfei <xuhf@rock-chips.com>, michael.riesch@collabora.com,
- stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
- linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Heiko Stuebner <heiko@sntech.de>
-References: <20260824090406.3695880-1-paul.elder@ideasonboard.com>
- <20260824090406.3695880-3-paul.elder@ideasonboard.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20260824090406.3695880-3-paul.elder@ideasonboard.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 24/08/2026 11:03, Paul Elder wrote:
-> From: Xu Hongfei <xuhf@rock-chips.com>
-> 
-> Add device tree nodes for the ISP and their iommus on the RK3588.
-> 
-> Signed-off-by: Xu Hongfei <xuhf@rock-chips.com>
-> Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
-> 
-> ---
-> No change in v2
-> ---
->  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 57 +++++++++++++++++++
->  1 file changed, 57 insertions(+)
-> 
+Use DEFINE_FREE() to allow using __free() to release frame descriptors
+using v4l2_subdev_free_frame_desc().
 
-Why is DTS in the middle of driver patches? Please organize your work
-correctly, see submitting patches in DT.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ include/media/v4l2-subdev.h | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-Best regards,
-Krzysztof
+diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+index e7127953ac22..c10ca3f5d979 100644
+--- a/include/media/v4l2-subdev.h
++++ b/include/media/v4l2-subdev.h
+@@ -1798,6 +1798,11 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+  * for each frame descriptor obtained by calling this function using
+  * v4l2_subdev_free_frame_desc().
+  *
++ * Use __free() to release the frame descriptor automatically::
++ *
++ *    struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
++ *            v4l2_subdev_get_frame_desc(sd, pad, desc);
++ *
+  * Return: The frame descriptor on success or a negative error code on failure.
+  */
+ struct v4l2_mbus_frame_desc *
+@@ -1812,6 +1817,10 @@ v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+  */
+ void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
+ 
++DEFINE_FREE(v4l2_subdev_free_frame_desc, struct v4l2_mbus_frame_desc *, \
++	    if (!IS_ERR_OR_NULL(_T))					\
++		    v4l2_subdev_free_frame_desc(_T))
++
+ #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+ 
+ #endif /* CONFIG_MEDIA_CONTROLLER */
+-- 
+2.47.3
+
