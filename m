@@ -1,226 +1,247 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D179B39DBE5;
-	Mon, 24 Aug 2026 07:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787557403; cv=none; b=f40o93+3Z5QVTsxLoHb7/raOgaITMbQIxvSACskaOXDuQVUxRxNRFa2qXliP/HeqJZmqXJjXEm6c5njakHd9yj8k9wSZ7/Q7CFpYm4AmqUUcL6QnUbzp+hzMHjoU9j03wNpJnL3iegVeW30VWgECPjEDvo8xxnNE1JcWzAFiikY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787557403; c=relaxed/simple;
-	bh=h+dm8yw0JQ65muZZq5b7KcXNZJpZYcFJTbQQm1nqoY4=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=NouG4+FHspHi5zLTQtVTwrsDv5MJSpdh2bsarATcwFHxdntJOzBMH7Yu79Ivq0y0ymCKRAXLwYgJNDMYfGuRPALyLLCkPpOjD0sgRXBri7XJ/JRx5A447qa9tHcnS3dsuZfV5oO1mHpNiGU6mcwDnBhq1ih3ig8A9H9gCkk1f6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BREeE3JO; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84BB24DD17
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 08:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787559515; cv=pass; b=ljxeOkjD/kJ5rpsdhPOIRYuCu3e8F9Hxqdx81N1ecz+5hbW3J9jmaCJfulT31aN+V0Svhcbzw9WDbKP1bEPHUu8UhPyv0PNTMQPh7xQpc65i7dgHkHrKLUe3eYKaw5QhawbcnEGIIqCk9hCaxcZJGmAB6vm8AtevY8e8PC+71sQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787559515; c=relaxed/simple;
+	bh=zHGIrUOgMl9pvt1X5w7oh9xLH6I0tvnUhyf/Mdyv0dI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=D704PWuLMesnOyhUtBFpybNGOsfZeURfITVsV32X4OwYnYPOLVjUUZy/7juIUxgibENvgAWSnZ2tAUJPhXVl+OLCKxD76oLQWrSDvsOUBCUwNuzhL9jvs50Bi9vvVezqOSZRIdwis7VgX3W92gpxxnzHZ9qT+acraYT1ibHUQ+M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LckdN2Jf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MEFZOBf7; arc=pass smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BREeE3JO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787557401; x=1819093401;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=h+dm8yw0JQ65muZZq5b7KcXNZJpZYcFJTbQQm1nqoY4=;
-  b=BREeE3JO7Qww6OaLKY4f53wJkFXqH7c4zlGxaRSK8GqPZRp+iqnXSHmf
-   cR+5Xq3eLEgMj6Mvzl869d1IIW6iKp8oP0UD7MnWNYQyXCGCoHtRGlDu+
-   74Qwj0C/9AzXrWspzRUr28+j+npPZ96kI95rH9DZinZndU7VGnqwPWUuJ
-   koJyUKxjUN1zsHUZOi+fHubwmJcugJiEqdontElXo62Q75JSP3YXOYw5S
-   j9OAL4TSyKwOULwpqpPJr3OEhglIzp2zG6WbdG+QRZobWBUXANmCOrDn2
-   FcxPMfoERDpsQ9bYoOPOEC74YoNp/hSfnanBmTw6+/y+P7meFn3ilf2CO
-   g==;
-X-CSE-ConnectionGUID: VjyGvePtTp2EV6ZK7KsSfw==
-X-CSE-MsgGUID: nRvK4Ks3Riu6MOs5yql6Sg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="99528074"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="99528074"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 00:43:18 -0700
-X-CSE-ConnectionGUID: MZ7rU8nWTS6BYGDJx1evKw==
-X-CSE-MsgGUID: gZOVje48SFePdjcn666+uA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="263649748"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.154])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 00:43:15 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Mon, 24 Aug 2026 10:43:12 +0300 (EEST)
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-cc: linux-media@vger.kernel.org, Daniel Scally <dan.scally@ideasonboard.com>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 2/2] platform/x86: int3472: Fix uninitialised variable
- warning
-In-Reply-To: <aoifU8ddCczzKHz4@kekkonen.localdomain>
-Message-ID: <c3a8ff50-2288-1117-d2af-c2485bffbb9c@linux.intel.com>
-References: <20260820205148.2910639-1-sakari.ailus@linux.intel.com> <20260820205148.2910639-3-sakari.ailus@linux.intel.com> <ca97b754-795e-e579-8705-9f2e3d66287b@linux.intel.com> <aoifU8ddCczzKHz4@kekkonen.localdomain>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LckdN2Jf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MEFZOBf7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1787559512;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
+	b=LckdN2JfIdfnqzag5gza6RVxS6NVXkbXi/Wy9UhM2knhIhO957ZZtXSiGUty5sU6ggKLvu
+	9Sog/1SjPiA8a6iYleUYvJW2G6X7KTeab7gbQEMK98vE+W7Kweu1SY8V8m5QAvf4UUNMDE
+	5r6msCC+EM5CiuzOtD6NzYYbhk0dOeY=
+Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
+ [209.85.160.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-540-z79sWFuHOWeTfz4WYE3DUA-1; Mon, 24 Aug 2026 04:18:30 -0400
+X-MC-Unique: z79sWFuHOWeTfz4WYE3DUA-1
+X-Mimecast-MFC-AGG-ID: z79sWFuHOWeTfz4WYE3DUA_1787559510
+Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-458326d2d9aso6359081fac.2
+        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 01:18:30 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787559510; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FiBJup+db479WM/4qqfOZK6Zx7TZEZfjC8Xf50DcAfn9W+WsSjkpccavPGydKKccvT
+         /FMGmdZzJfjfIFxao8DzxQdnITubjtoB4QhKlPJFMWpMtDM5ugT13Ko8h26BntUF5XTH
+         qhjPgbXBgZYwLO2jXaN7nX3Zndue4mUMnLHWVmixBj4y2EZ6IcdzrguG5D9koOrumq4L
+         mKQ96tajnRi5Z5Z9hcw02lRtR8Zl4ydeIZyMAyJJjuwVKXE05vNevtoFCYaul0CbrTRG
+         uSpfbEQUyNdB+9gHCEuGaQLm3DU/K8Sr5A0N4B2Xvz8z2VTWfi2bq463z5waVKB/32vy
+         uBgQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
+        fh=mv46L7sagTuVhWiVq6sjuhPMsdCGZg7nDrtDQvjLwQM=;
+        b=J70+ULO1O+z9JYl9l1YPuIBLXNOm47SXY+jgBlnTmAdLhNS2IAM7MFWy3AlYyQQ10M
+         asGHyrTEWXmcU3Y4W4zpsyi6HXmqX/dgF/8hElTaFA3alS7hhh/f3nw7NzhHHPZg2DPB
+         N4zMMq9TukIgzcjmwjPQ0IKipU8sB8fYE7v48d7J6x/wvwt0fNeNKBoGQsZNJDY9b/t/
+         HaHE2A9+5lDgGp2baLhwA/f/m8nRNFpV66NhNcLf2S3VVZiUaO7SgAQGukVbpPRWlzka
+         4KhS6WtrqXrmxiSUkv7AQiGnxE5PAguBIYTjbDOBr94tNzKlawhfVMPobIqcF1jttKGa
+         Y51w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1787559510; x=1788164310; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
+        b=MEFZOBf7wetTpqdxVqevdHHESFuyVX8BSNx/F+bYx2JbHGrYNk+8x8Xue+3eYEgVQN
+         F1XL0SQoMWRJInaDYPh8e6RKfERzh8R1U9Giwcg78M9YjSnwWMozYvTcpIQMAJ2D9EWZ
+         F9KsTM+h2/LLPIoeXRAveY9up2SI5Su1QHclerseEX6um5lajEL/itmhEWPcy51YD/tV
+         C2zlG5HD4d2uVXyFPMtW2XyOXrmjHycSyr4eTiFdYg0HOpcQuFzSBie9r7vH8LkMPFmT
+         +5PWwdmxKXFO4vKrBhADnBevxaI7YWwuYjoDijyE4+tjjqD2dR3p8xiWGdbZvzDgXeqp
+         cGpA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787559510; x=1788164310;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
+        b=i71yUYJjI9TovLAY40Q2r7j6h/wvn2yYAih/beRFvTOEtQXZGkhKiBy9kKBGfdEEXp
+         4ge6slvFcSmlwVixxnueA63O+tVrt0w3YHrc9E28YmMX3569shUgQ1k/rEa3jUk7ZNGY
+         ewptwH3YzxjOlnvCE1LthKqd1h2PAxFW8/pi+OyvLnjO78kiEEfFi3GlLyvHcLq2geDd
+         wfQf99EjiY0qauUhs1+H7D4/VskhbfCniMiXaj0LVDKYr+C9KN9p0HzM6YDsLRinwHHA
+         lM9hp0Owg8dtKjIOn4uhXxyaCsCXjEiYWQvSVhAi9AWTCHjhcp0bx2DIuH550VT6jTHG
+         ttBA==
+X-Gm-Message-State: AFuF++lMr4Vu8YNWA4TQgiFg8L4KuE7LFYpCHyaHmSxAMyrvTLzmWEsA
+	WZ8HwjLTHwLXrRiTQJV7rexszXK2vVfZUpS5tf2X+R7W1mkGgnR5ivvxxveAjt9BHw/UG+mLZUn
+	WXeVBBQl3U4NrPYpjdNJ3ZKo5J9XhqHRVLt1N1EL1NTblKpOu6/xxxl2XsdtUJgR/FgHXa8epQS
+	wMJgE/Drv6iQJw31jZ+RqWoL6ctX6F2YAAAzi3YypxPWZXTBoEZw==
+X-Gm-Gg: AR+sD10qxEKo3/JYN7FqFbrYj/uTbfjzMe1ofl6c9RFVzUV7yeFjs5PcKBXNB9+Bouj
+	AD6WtqB2LKBP357tAf+YTk+a9aSW19vb/MEm+BNiXOhCnTRHP1RXPzbeqYfja3Z1KsM4pOUdt/h
+	Im+sLvo9Vcb/+OWNOMl05VMaPQ/C3PGHuYHgAusaFda+JOyjM7Ab+o5lqd
+X-Received: by 2002:a05:6870:c2a9:b0:455:9a0a:f40f with SMTP id 586e51a60fabf-463514213bcmr21805365fac.12.1787559509794;
+        Mon, 24 Aug 2026 01:18:29 -0700 (PDT)
+X-Received: by 2002:a05:6870:c2a9:b0:455:9a0a:f40f with SMTP id
+ 586e51a60fabf-463514213bcmr21805330fac.12.1787559509273; Mon, 24 Aug 2026
+ 01:18:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1745258645-1787557392=:1164"
+References: <20260816194259.151947-1-john.cronin@opcenter.com> <20260822210311.165824-1-john.cronin@opcenter.com>
+In-Reply-To: <20260822210311.165824-1-john.cronin@opcenter.com>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Mon, 24 Aug 2026 16:18:17 +0800
+X-Gm-Features: AcwNN1UdbzV92ypwJkPEJJgsgLTXVWd-1N6SOdPkIwKUsMSju1vP93raBoDAj6k
+Message-ID: <CAEth8oHoAyuCwHXVJNo3Z=JQB63fJ+LtnNsYFrwtnkjTu-CPkA@mail.gmail.com>
+Subject: Re: [PATCH v4] media: i2c: imx471: return 0 from get_selection after
+ filling crop
+To: John Cronin <john@stromback.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	hansg@kernel.org, john.cronin@opcenter.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+Hi John,
 
---8323328-1745258645-1787557392=:1164
-Content-Type: text/plain; charset=iso-8859-1
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Thank you for the update.
 
-On Fri, 21 Aug 2026, Sakari Ailus wrote:
+Please also run
+ $ ./scripts/checkpatch.pl --strict --max-line-length=3D80
+to check the patch style and format.
 
-> Moi,
->=20
-> Thanks for the review.
->=20
-> On Fri, Aug 21, 2026 at 11:34:06AM +0300, Ilpo J=E4rvinen wrote:
-> > On Thu, 20 Aug 2026, Sakari Ailus wrote:
-> >=20
-> > > Fix a smatch warning about uninitialised err_msg variable, by printin=
-g the
-> > > error where it is handled.
-> > >=20
-> > > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> > > ---
-> > >  drivers/platform/x86/intel/int3472/discrete.c | 21 +++++++++--------=
---
-> > >  1 file changed, 10 insertions(+), 11 deletions(-)
-> > >=20
-> > > diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/=
-platform/x86/intel/int3472/discrete.c
-> > > index 6c729fcfce5d..cf8a58ef963b 100644
-> > > --- a/drivers/platform/x86/intel/int3472/discrete.c
-> > > +++ b/drivers/platform/x86/intel/int3472/discrete.c
-> > > @@ -329,7 +329,6 @@ static int skl_int3472_handle_gpio_resources(stru=
-ct acpi_resource *ares,
-> > >  =09unsigned long gpio_flags;
-> > >  =09union acpi_object *obj;
-> > >  =09struct gpio_desc *gpio;
-> > > -=09const char *err_msg;
-> > >  =09const char *con_id;
-> > >  =09int ret;
-> > > =20
-> > > @@ -375,7 +374,7 @@ static int skl_int3472_handle_gpio_resources(stru=
-ct acpi_resource *ares,
-> > >  =09case INT3472_GPIO_TYPE_HOTPLUG_DETECT:
-> > >  =09=09ret =3D skl_int3472_map_gpio_to_sensor(int3472, agpio, con_id,=
- gpio_flags);
-> > >  =09=09if (ret)
-> > > -=09=09=09err_msg =3D "Failed to map GPIO pin to sensor\n";
-> > > +=09=09=09dev_err(int3472->dev, "Failed to map GPIO pin to sensor\n")=
+On Sun, Aug 23, 2026 at 5:03=E2=80=AFAM John Cronin <john@stromback.com> wr=
+ote:
+>
+> libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
+> 0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
+> rectangle then fell out of the switch and returned -EINVAL.
+>
+
+
+> Fill every supported target, break, and return 0 after the switch
+> (default: -EINVAL), as Kate Hsuan suggested.
+This section can be moved to the changes description. We only put
+descriptions of fixes or new features in the commit message.
+
+>
+> Compute analog crop in set_pad_format: 2x binning, centered in the
+> native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
+> reports CROP as 3856x2176 centered in 4672x3512.
+>
+
+> Rebased onto media-committers next (4900cad020c0). v2 was against the
+> Fedora tree and did not apply here.
+And, here can be dropped.
+
+>
+> Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7), Fedora 44
+> kernel 7.1.8-200.fc44.
+You can test it against the upstream kernel :)
+
+>
+> Link: https://bugzilla.redhat.com/show_bug.cgi?id=3D2454119
+> Signed-off-by: John Cronin <john.cronin@opcenter.com>
+> Signed-off-by: John Cronin <john@stromback.com>
+
+> ---
+> v4: add Signed-off-by for john@stromback.com (Gmail From) so
+>     media-patchstyle matches the author Patchwork records
+
+Describe the changes of the revisions here.
+
+> v3: rebase on media-committers next
+> v2: compute analog crop in set_pad_format; return 0 after switch
+>
+>  drivers/media/i2c/imx471.c | 24 +++++++++++++++++++++---
+>  1 file changed, 21 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> index 4053aed84..96d96256d 100644
+> --- a/drivers/media/i2c/imx471.c
+> +++ b/drivers/media/i2c/imx471.c
+> @@ -431,6 +431,21 @@ static int imx471_set_pad_format(struct v4l2_subdev =
+*sd,
+>
+>         *v4l2_subdev_state_get_format(sd_state, fmt->pad) =3D fmt->format=
 ;
-> > > =20
-> > >  =09=09break;
-> > >  =09case INT3472_GPIO_TYPE_CLK_ENABLE:
-> > > @@ -387,7 +386,7 @@ static int skl_int3472_handle_gpio_resources(stru=
-ct acpi_resource *ares,
-> > >  =09=09gpio =3D skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio=
-, con_id, gpio_flags);
-> > >  =09=09if (IS_ERR(gpio)) {
-> > >  =09=09=09ret =3D PTR_ERR(gpio);
-> > > -=09=09=09err_msg =3D "Failed to get GPIO\n";
-> > > +=09=09=09dev_err(int3472->dev, "Failed to get GPIO\n");
-> > >  =09=09=09break;
-> > >  =09=09}
-> > > =20
-> >=20
-> > ssahiko is not happy about dev_err_probe() -> dev_err() conversion.
->=20
-> I was wondering, too, whether I should keep it, but then again returning
-> the error won't help here (as of now at least) and it is probably not
-> possible -EPROBE_DEFER would be returned in these cases. I can keep using
-> dev_err_probe() though if you prefer that.
 
-If sashiko is wrong and skl_int3472_gpiod_get_from_temp_lookup() cannot=20
-ever return -EPROBE_DEFER, then it doesn't matter. (But it seems=20
-reasonably good at tracking the callchains so you might want to check the=
-=20
-detailed log if it actually found how it can return that). If it does=20
-return -EPROBE_DEFER, dev_err_probe() should be kept.
+>
+
+> +       /* Analog crop: 2x bin, centered in the native array (same idea a=
+s imx219). */
+> +       {
+Drop the brace
+
+> +               struct v4l2_rect *crop;
+> +               u8 bin_h, bin_v, binning;
+and move the variable declaration to the beginning of the function and
+sort them by line length.
+
+> +
+> +               crop =3D v4l2_subdev_state_get_crop(sd_state, fmt->pad);
+> +               bin_h =3D min_t(u32, IMX471_PIXEL_ARRAY_WIDTH / fmt->form=
+at.width, 2);
+> +               bin_v =3D min_t(u32, IMX471_PIXEL_ARRAY_HEIGHT / fmt->for=
+mat.height, 2);
+> +               binning =3D min(bin_h, bin_v);
+> +               crop->width =3D fmt->format.width * binning;
+> +               crop->height =3D fmt->format.height * binning;
+> +               crop->left =3D (IMX471_NATIVE_WIDTH - crop->width) / 2;
+> +               crop->top =3D (IMX471_NATIVE_HEIGHT - crop->height) / 2;
+> +       }
+Drop the brace.
+
+> +
+>         if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
+>                 return 0;
+>
+> @@ -468,7 +483,7 @@ static int imx471_get_selection(struct v4l2_subdev *s=
+d,
+>                 sel->r.left =3D 0;
+>                 sel->r.width =3D IMX471_NATIVE_WIDTH;
+>                 sel->r.height =3D IMX471_NATIVE_HEIGHT;
+> -               return 0;
+> +               break;
+>
+>         case V4L2_SEL_TGT_CROP_DEFAULT:
+>         case V4L2_SEL_TGT_CROP_BOUNDS:
+> @@ -476,10 +491,13 @@ static int imx471_get_selection(struct v4l2_subdev =
+*sd,
+>                 sel->r.left =3D IMX471_PIXEL_ARRAY_LEFT;
+>                 sel->r.width =3D IMX471_PIXEL_ARRAY_WIDTH;
+>                 sel->r.height =3D IMX471_PIXEL_ARRAY_HEIGHT;
+> -               return 0;
+> +               break;
+> +
+> +       default:
+> +               return -EINVAL;
+>         }
+>
+> -       return -EINVAL;
+> +       return 0;
+>  }
+>
+>  static int imx471_init_state(struct v4l2_subdev *sd,
+> --
+> 2.55.0
+>
+
+One question. Do you send a new patch using the "git send-email" command?
+
 
 --=20
- i.
+BR,
+Kate
 
-> > > @@ -395,14 +394,14 @@ static int skl_int3472_handle_gpio_resources(st=
-ruct acpi_resource *ares,
-> > >  =09=09case INT3472_GPIO_TYPE_CLK_ENABLE:
-> > >  =09=09=09ret =3D skl_int3472_register_gpio_clock(int3472, gpio);
-> > >  =09=09=09if (ret)
-> > > -=09=09=09=09err_msg =3D "Failed to register clock\n";
-> > > +=09=09=09=09dev_err(int3472->dev, "Failed to register clock\n");
-> > > =20
-> > >  =09=09=09break;
-> > >  =09=09case INT3472_GPIO_TYPE_PRIVACY_LED:
-> > >  =09=09case INT3472_GPIO_TYPE_STROBE:
-> > >  =09=09=09ret =3D skl_int3472_register_led(int3472, gpio, con_id);
-> > >  =09=09=09if (ret)
-> > > -=09=09=09=09err_msg =3D "Failed to register LED\n";
-> > > +=09=09=09=09dev_err(int3472->dev, "Failed to register LED\n");
-> > > =20
-> > >  =09=09=09break;
-> > >  =09=09case INT3472_GPIO_TYPE_POWER_ENABLE:
-> > > @@ -413,7 +412,7 @@ static int skl_int3472_handle_gpio_resources(stru=
-ct acpi_resource *ares,
-> > >  =09=09=09ret =3D skl_int3472_register_regulator(int3472, gpio, enabl=
-e_time_us,
-> > >  =09=09=09=09=09=09=09     con_id, second_sensor);
-> > >  =09=09=09if (ret)
-> > > -=09=09=09=09err_msg =3D "Failed to register regulator\n";
-> > > +=09=09=09=09dev_err(int3472->dev, "Failed to register regulator\n");
-> > > =20
-> > >  =09=09=09break;
-> > >  =09=09default: /* Never reached */
-> > > @@ -436,11 +435,11 @@ static int skl_int3472_handle_gpio_resources(st=
-ruct acpi_resource *ares,
-> > >  =09int3472->ngpios++;
-> > >  =09ACPI_FREE(obj);
-> >=20
-> > As a general comment to logic in this function, it would be preferrable=
- to=20
-> > arrange code such that the error cases inside the switch could just ret=
-urn=20
-> > directly.
-> >=20
-> > To realize that, one would need to
-> >=20
-> > 1) use __free() for obj
-> >=20
-> > 2) handle that ngpios++ earlier; but I'm not even entire sure about ngp=
-ios=20
-> > correctness and function, it seems to be only used for indexing in
-> > acpi_evaluate_dsm_typed() (successive calls into=20
-> > skl_int3472_handle_gpio_resources()?) but then I don't understand why=
-=20
-> > the !obj early return does not increment ngpios too.
->=20
-> "ngpios" is in fact an iterator. In case of an error incrementing it
-> doesn't really matter and !obj signals the end.
->
-> I'll see how to refactor this a little in another patch. The intent here
-> was just to fix the smatch warning as we can't currently add int3472 to
-> Media CI because of it.
->=20
-> >=20
-> > > -=09if (ret < 0)
-> > > -=09=09return dev_err_probe(int3472->dev, ret, err_msg);
-> > > -
-> > > -=09/* Tell acpi_dev_get_resources() to not make a copy of the resour=
-ce */
-> > > -=09return 1;
-> > > +=09/*
-> > > +=09 * Either return an error or tell acpi_dev_get_resources() to not=
- make a
-> > > +=09 * copy of the resource.
-> > > +=09 */
-> > > +=09return ret < 0 ? ret : 1;
-> > >  }
-> > > =20
-> > >  int int3472_discrete_parse_crs(struct int3472_discrete_device *int34=
-72)
-> > >=20
-> >=20
->=20
->=20
-
---8323328-1745258645-1787557392=:1164--
