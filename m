@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D1274048B1;
-	Mon, 24 Aug 2026 10:52:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F1951AB6F1;
+	Mon, 24 Aug 2026 10:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787568753; cv=none; b=g2HSS6pHwBQE29eDsjcGsHQ8u10C3fueZczSQcmKcpv9P9mtWtp2ADLy+FxAk9eZCz0S01vncEjNhk4WtAdDeeoe/Mc6B2QJKxYDK3MoYWxxQ2C09Y7TYhZa4foxCr2Px6z3m1Bf1CthAD7Dd4Tbpg6z/8SyfxVpl/jZLYp88sU=
+	t=1787568785; cv=none; b=XIy7L/SbHHemHuzkOEJcx7BCZ+H0BYnHIUx4KOk5WANzAvpa2gs3X4I+zDBcs0AmziNqS2XnIWQTh6KiLFlvhyB4bVDHf6vI5Yq2V0mq4kTiF3wkQZ8eBr0mFoz8vo7u+og+gwq1EIm81nhh83z9t5IqkjddK2CrcL/6b9z9HKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787568753; c=relaxed/simple;
-	bh=RdlB10h8cmKKgG+bmZaAdKFLtQtFl2bQ0ZHVt9Wl0NA=;
+	s=arc-20240116; t=1787568785; c=relaxed/simple;
+	bh=O7i3s3Fhp86a2iVbit6t3AFFoAmUVQej1LXuUZS8/+s=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uPVFeIgfCJs1UUNaDFGzRIgE0evyihn4FWoyhoOvxMSjXEuHglLsrDrufsP3NaJ2kYpjFClmWZf8xikJst6HtK/pfwfQ38WIB5D5lew8jg5ONK7By/78swbTBObjTceeb37JDil9kWLR+M4C0bxzBgC2ST3DRz3JRrZ88P5AfdY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGFVYM5W; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=EIlk1rrGnnTuEHp6G9PhToy3h3ta3iZl+XnnoQeDv530fDVJnnSCEpS3MefJH3wY39987omih+rgxKnLMH0u2fqMceQF/CMawJ3zSWcJwkmobfIOy0WtcEkxKjilnyocZ0diO68v1ykHS7GUhnpxnxVOu8RyebYhAFxd+iAuYms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aq68ML6L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGFVYM5W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7DED1F00A3A;
-	Mon, 24 Aug 2026 10:52:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aq68ML6L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93E0A1F000E9;
+	Mon, 24 Aug 2026 10:53:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787568752;
-	bh=JasxvAxgDwF6PHb0Xon1M2J++7S8J/Lp3ZKYpbJenO4=;
+	s=k20260515; t=1787568783;
+	bh=fcd+vXPL1cf35aspIvOuzP59f2xpzJU2+HsZSxprbes=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=EGFVYM5WJQO2tQJILlSpoGHkXAia65eM4tCgcRJG+M4QdrTD6aWy/u7fKoExDH9QU
-	 r4SdbTCcr/5mdVQAt7GSqfclkGfAgt7RyfdAwT+Qy7exfeCpK/IKdhjvhAokcXsHzd
-	 iybruUvkIdYEzzy58yDhrGXih/IOhCSvfoPgDSizFaARTEXf5BFw/bX15GbCIPSUt3
-	 HowxxxxmEf+a8DqFmouReIydakHs2ZAP1vnTk0bG+jB0lEedx+3viDsNK9GIlexn4w
-	 8JWJPuW6MdG+Ndzo2w4OJxZXnXFcPnpV8JqghfdI/UVL7jwZjl5LH3+04SY+Kqxefw
-	 ZYqnjfUjhFH/g==
-Message-ID: <c2ed44e5-ed5c-41f7-a782-57c82968495e@kernel.org>
-Date: Mon, 24 Aug 2026 12:52:26 +0200
+	b=Aq68ML6L4hwbv1yIcsrOqOO02erQtrajmRwHD1TjeJaWXgj7i5TiLsMPb8o0Fam7N
+	 kKB2CPq++jzPh1RJBsrQjmuM1oV63kDT9u4uqCz+yLDeQyrmuxYInfb1n/abkUqkIl
+	 bksM/JJcTxCG7xj1lxuu3dNil+EzXqv4laVvBUsm0DHCVxnHS+Wl/7D1shtQHzmoRj
+	 FDOdebV7RsxbVNygCW2WLHpcooo7eyMb66swqP1bf5qfHzn8/UvT/rgauUFVjQaYP4
+	 yljdNdxPOQpWLLl4/IStRWaF7fIS9qWzX+LNJc23QlOvkEehngpE4aQ1rF3qIVssIp
+	 RbC/08CWgDvbg==
+Message-ID: <9c763002-7fad-4319-93a8-90adf02eca20@kernel.org>
+Date: Mon, 24 Aug 2026 12:52:58 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,16 +35,16 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/5] media: dt-bindings: Add rockchip rkisp2 bindings
+Subject: Re: [PATCH v2 2/5] arm64: dts: rockchip: add ISP nodes to rk3588
 To: Paul Elder <paul.elder@ideasonboard.com>,
  laurent.pinchart@ideasonboard.com
-Cc: michael.riesch@collabora.com, xuhf@rock-chips.com,
+Cc: Xu Hongfei <xuhf@rock-chips.com>, michael.riesch@collabora.com,
  stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com,
  linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
  Heiko Stuebner <heiko@sntech.de>
 References: <20260824090406.3695880-1-paul.elder@ideasonboard.com>
- <20260824090406.3695880-2-paul.elder@ideasonboard.com>
+ <20260824090406.3695880-3-paul.elder@ideasonboard.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,43 +90,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260824090406.3695880-2-paul.elder@ideasonboard.com>
+In-Reply-To: <20260824090406.3695880-3-paul.elder@ideasonboard.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 24/08/2026 11:03, Paul Elder wrote:
-> Add documentation for the Rockchip rkisp2 bindings. This is meant to
-> support multiple versions of Rockchip ISPs going forward, including the
-> 2.x series and 3.x series. The current version only adds the compatible
-> for the RK3588, which is a 3.0.
+> From: Xu Hongfei <xuhf@rock-chips.com>
 > 
+> Add device tree nodes for the ISP and their iommus on the RK3588.
+> 
+> Signed-off-by: Xu Hongfei <xuhf@rock-chips.com>
 > Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
+> 
+> ---
+> No change in v2
+> ---
+>  arch/arm64/boot/dts/rockchip/rk3588-base.dtsi | 57 +++++++++++++++++++
+>  1 file changed, 57 insertions(+)
+> 
 
-Testing is disabled for some time but it's not really a reason to opt out.
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC. It might happen, that command when run on an older
-kernel, gives you outdated entries. Therefore please be sure you base
-your patches on recent Linux kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-You missed at least devicetree list (maybe more), so this won't be
-tested by automated tooling. Performing review on untested code might be
-a waste of time.
-
-Please kindly resend and include all necessary To/Cc entries.
-
-A nit, subject: drop second/last, redundant "bindings". The
-"dt-bindings" prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
-
+Why is DTS in the middle of driver patches? Please organize your work
+correctly, see submitting patches in DT.
 
 Best regards,
 Krzysztof
