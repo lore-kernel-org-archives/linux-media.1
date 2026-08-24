@@ -1,71 +1,80 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f1.google.com (mail-vs2-f1.google.com [74.125.227.1])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E93B841A564
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:15:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690D841837E
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:33:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573702; cv=none; b=i2vqNQ03ltMUZ/YQ4TyS5fcw+jsyPCACfD6kH79iwaibT2wqqHB7oOoIHT+yHZggfscPAFa/hvs9J/WASjXOcAQf5ETdeuGMb/dzWAUNTQPGau3k5xkIOgZaul5aw06J1mFElMOKXfo7v6R02x4hk6mKOqiYL674ij5drJx5HIE=
+	t=1787574835; cv=none; b=ZJ0vsww1sZ8Sg3858Nzoy1a6T8yvG/SKGjdkc6WHdT5vFqUqs9HKlsVUvdQ9jUEvBlhz1Sl0weCQZXKsgHQdHSdEDIRRWGdAtrwQooynglNISJMafERL694zGPz+r5JQt6VL3Jrmuqt3GGVRaThJvjChZTF4j6myZJsSgY/+fp4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573702; c=relaxed/simple;
-	bh=bfFIDkRQ1fggnV5w5Zyt/HOQAHOzrAT7yaeh6vd2jqU=;
+	s=arc-20240116; t=1787574835; c=relaxed/simple;
+	bh=mWpgqaMLVdNvQ2B3v8Q4neGT8ctPXaZcrlTsdG2yvw0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=REoTz59hCUlOQSj7My72Qw03ySWiwWsI53D1wxt74r6UUqech64leIM9nTGKAJoUzXRSwqhFecMXcw/TY8R/voAWO+wbwz6YuMrhr3E59zEaqWcaudkreNvsUtuaImOVStCZy7AC3ILsd0S4b3xHQ/Vd0gA7JoNVeNs2bkvxKAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MVnD1JTo; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 MIME-Version; b=CO/672R/9qzjjMvnDIZbn38jNSBy4CJLWWQGmzBsMOc2MKQ6dcmtUwDCfS5iSWdVFquwKMpATip93Fvyvi6H+zRn26W7pUsRxBGHIM8vkqF7wMEoPCJBwAZ+zYe2TegniWEHt6JuAbyzfGeV/L3qILRGQqUjbggvK+zkuvTP5e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=EQf0PESi; arc=none smtp.client-ip=74.125.227.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stromback.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MVnD1JTo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787573701; x=1819109701;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=bfFIDkRQ1fggnV5w5Zyt/HOQAHOzrAT7yaeh6vd2jqU=;
-  b=MVnD1JToFkVTUkTK6+0YJ+5upu+jE/dQ57lVNGHavMSaPitsxdV9e/cD
-   TXFMudLbDmNZGsRttCSgHU+7O9NY9HA0XI0dmvKecVJg6N//NRPirGhXV
-   rf3u9jaCOYvroR8bPz+TCE2yl78DxWCkLi/IiWdlV6uVEQa+bOHBzZoWm
-   XFx6p0DUqxMJwnjZCGAZNZI+8HB9WjVba3SjkkImMwh1LJazI9/GHngwN
-   lIvGyqZeglc0iW4mEiG9lCkZlUo7MpgTuWioCYnSEeAZ0feHhfC8Ev/7C
-   RcraY5jxQzU1HQFnAYsrJSo0JDCqdi4AXUgdhebkYnL4l+QymcsAoEBi5
-   w==;
-X-CSE-ConnectionGUID: NOIgCaQ7TLCkNISE/vl0LA==
-X-CSE-MsgGUID: HksKWB8CQSm672vU0nflfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036600"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88036600"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:52 -0700
-X-CSE-ConnectionGUID: JKo5EzMaQIOsNh90QBN4MA==
-X-CSE-MsgGUID: CLCCabN+S2aA0kfiPPHWBw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270787669"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:50 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9B848122A3B;
-	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wyTZj-0000000E3AP-3ErE;
-	Mon, 24 Aug 2026 15:14:51 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="EQf0PESi"
+Received: by mail-vs2-f1.google.com with SMTP id ada2fe7eead31-76b25485ad2so3469581137.0
+        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 05:33:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1787574832; x=1788179632; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Vy3utfX9ByqYEMM3pMYn0qisP+l1r21CJwxU5HY/mK8=;
+        b=EQf0PESiXOHaZd09PCisBxfK5xBhtrJje6lW+wuIx6xaGsV1Iz66FAPUvqs97KRZij
+         5hUgyjercM27zvjEWM63oQoy6zQt+rwzB4czMGgKb0ateTqRdJILulH4IVZnyjLr+CMn
+         i1OY4dfOxsRxKeYwr1UF4npx0SUvWbrcTI25hy6bM2xvoUpaJhbXcEPTElmjJQEBJ6ob
+         0D4gdZ0Eqgg0peBoPNtxiJfFNJ+6iN8JcbzQgsv/LGgpuH60UBOWQCwo+y+WaW9AULMk
+         WUobreIJUyOiUFZ9BDfKCAvaW36Vy3GojJpRHNrPDgk0urhVRMxc+yXZSCj8M7aC/umA
+         GcgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787574832; x=1788179632;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Vy3utfX9ByqYEMM3pMYn0qisP+l1r21CJwxU5HY/mK8=;
+        b=MKERGfpDSFyvplnrzNeexrtlajNLuWdYm8kPh2kxes0c5b4XNvKcanna8/tEvMz/jC
+         TPXRV5zpWwd9IEJq436m5u3O6trm91PPpFHjuxPEpiqlxoMV6J0I3rOmlmO4IchWgEy0
+         5NxqX06Va+6pvB9/aSn/QzB/fLhbzU/F7HHU0fCd8HrOoRFNt4Le54F1+aOu3UU7zD49
+         6/e5H1/ReHwOVfXWaSSUOUq8o3dGXXZgpRUyddMgqCMbirmY3x2KKVfIc6zIL7qO3YCl
+         Cv8CZgj70rCoTpszjjA9eE2llWNKqE0ghXFiWWmgninvMTvcZsZNmdfoCKYpts+YeqTP
+         Uw0w==
+X-Gm-Message-State: AFuF++megb3j3OLLpsch16G+AEn+9msDzUd3TuHbFS6zsdj+CM+dJ7Qm
+	UBSiKQUgkEd5uJTSkEsdYOYX1rcGwlQP4mTMGkGtplXORUYFkfjouyVBlx6STn5q/pHweSEnNhZ
+	yAAePHSyGPRStqWMXlQ==
+X-Gm-Gg: AR+sD10Ti/TjD5066YCkF39Wkp7oCWtiGLISPHuoEY8YBgfbl+YNLKZZdw+8jnEKRWE
+	i4N5SgXhQkZba2Xazyogo9Q3HakrF+CC6dRZk6iYU84Md5bgpR1xUfJzP/xoVsETdbsp4z/Iev4
+	zt3n02ybEUKpixAAY4QdNYAk7QDcL98kGsCv7HrxDOKXtQ97QMtGjoKte7BnpucM7sQ2rnKvmWl
+	hzp68bNTpPGtOc0M3uRCgfsvj5sLe8sLquv86cBl6Vs7v+04WIrHIGtesjLgm+g/jjU1th/hYw9
+	URKfpthhBmdjdCvTFvwQ/KbFD/JIQEgKz6UZtvjXYyk3vHJk2rsMB/iaw9JsSsHAyeEjHMyeZgw
+	MP4W1OR/WAt8X0WpKV6LG1nvtv+AiI2i65IGQ5A/KkyIULVFp8nx9YzoHRcGQgHA6QC5aoA+r/3
+	MPRVOMu5RrkJco0Ti0DhqBCNK0deAPVHLW26sIOsa54r0jaaeYPhVMbTtbMY/c6mlmqUcvJdVy/
+	bAyB16OGQE2c+dY/vjGgL4rnS75mT3zKcn2WlNJj4nXJrGM/MpisahM+MHKgBC2lPGHhHfzZ8fp
+	/GdlcVLJfKMoHlkHvt9l8BZ9E9d0d3naGQUcVpqZ1O2N7jI9btmqjxBGRAG3/+gvkk0IORrnekK
+	4HvBssRd548zc1w2K1hZmOQM3MjUoHUXkYxbfGaQEv6DT9iRWQ5r3wlSEOa1yD4M=
+X-Received: by 2002:a05:6122:1792:b0:567:4e8a:fb13 with SMTP id 71dfb90a1353d-5c5ff772c86mr10140109e0c.8.1787574832240;
+        Mon, 24 Aug 2026 05:33:52 -0700 (PDT)
+Received: from customer.mmmiflx1.isp.starlink.com ([66.9.164.90])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c623f3ea39sm3461367e0c.18.2026.08.24.05.33.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 24 Aug 2026 05:33:51 -0700 (PDT)
+From: John Cronin <john@stromback.com>
+X-Google-Original-From: John Cronin <john.cronin@opcenter.com>
 To: linux-media@vger.kernel.org
-Cc: laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v3 24/29] media: ti: cal: Use v4l2_subdev_get_frame_desc()
-Date: Mon, 24 Aug 2026 15:14:46 +0300
-Message-ID: <20260824121451.3348583-25-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+Cc: hpa@redhat.com,
+	sakari.ailus@linux.intel.com,
+	hansg@kernel.org,
+	john.cronin@opcenter.com,
+	John Cronin <john@stromback.com>
+Subject: [PATCH v5] media: i2c: imx471: return 0 from get_selection after filling crop
+Date: Mon, 24 Aug 2026 08:33:48 -0400
+Message-ID: <20260824123348.3761049-1-john.cronin@opcenter.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260816194259.151947-1-john.cronin@opcenter.com>
+References: <20260816194259.151947-1-john.cronin@opcenter.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,154 +83,86 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
-preferred over calling the get_frame_desc() pad operation directly.
+libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
+0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
+rectangle then fell out of the switch and returned -EINVAL.
 
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Compute analog crop in set_pad_format: 2x binning, centered in the
+native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
+reports CROP as 3856x2176 centered in 4672x3512.
+
+Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7).
+
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
+Signed-off-by: John Cronin <john.cronin@opcenter.com>
+Signed-off-by: John Cronin <john@stromback.com>
 ---
- drivers/media/platform/ti/cal/cal-camerarx.c | 26 +++++------
- drivers/media/platform/ti/cal/cal.c          | 49 ++++++--------------
- 2 files changed, 27 insertions(+), 48 deletions(-)
+v5: drop extra braces; declare crop/bin vars at start of
+    set_pad_format (sorted by line length); wrap to 80 cols;
+    keep only the bug/feature in the commit log
+v4: add Signed-off-by for john@stromback.com
+v3: rebase on media-committers next
+v2: compute analog crop in set_pad_format; return 0 after switch
 
-diff --git a/drivers/media/platform/ti/cal/cal-camerarx.c b/drivers/media/platform/ti/cal/cal-camerarx.c
-index 00a71dac0ff4..9ea1f3551d22 100644
---- a/drivers/media/platform/ti/cal/cal-camerarx.c
-+++ b/drivers/media/platform/ti/cal/cal-camerarx.c
-@@ -9,6 +9,7 @@
-  *	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/mfd/syscon.h>
-@@ -872,7 +873,8 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
- 				       struct v4l2_mbus_frame_desc *fd)
+ drivers/media/i2c/imx471.c | 23 ++++++++++++++++++++---
+ 1 file changed, 20 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84..0ea18fbb9 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -421,6 +421,8 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
  {
- 	struct cal_camerarx *phy = to_cal_camerarx(sd);
--	struct v4l2_mbus_frame_desc remote_desc;
-+	struct v4l2_mbus_frame_desc *remote_desc
-+		__free(v4l2_subdev_free_frame_desc) = NULL;
- 	const struct media_pad *remote_pad;
- 	struct v4l2_subdev_state *state;
- 	u32 sink_stream;
-@@ -893,24 +895,20 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
- 		goto out_unlock;
+ 	struct imx471 *sensor = to_imx471(sd);
+ 	const struct imx471_mode *mode;
++	u8 bin_h, bin_v, binning;
++	struct v4l2_rect *crop;
+ 	int h_blank, ret;
+ 
+ 	mode = v4l2_find_nearest_size(imx471_modes, ARRAY_SIZE(imx471_modes),
+@@ -431,6 +433,18 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
+ 
+ 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
+ 
++	/* Analog crop: 2x bin, centered in native array (imx219). */
++	crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
++	bin_h = min_t(u32,
++		      IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
++	bin_v = min_t(u32,
++		      IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
++	binning = min(bin_h, bin_v);
++	crop->width = fmt->format.width * binning;
++	crop->height = fmt->format.height * binning;
++	crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
++	crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
++
+ 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
+ 		return 0;
+ 
+@@ -468,7 +482,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = 0;
+ 		sel->r.width = IMX471_NATIVE_WIDTH;
+ 		sel->r.height = IMX471_NATIVE_HEIGHT;
+-		return 0;
++		break;
+ 
+ 	case V4L2_SEL_TGT_CROP_DEFAULT:
+ 	case V4L2_SEL_TGT_CROP_BOUNDS:
+@@ -476,10 +490,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
+ 		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
+ 		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
+ 		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
+-		return 0;
++		break;
++
++	default:
++		return -EINVAL;
  	}
  
--	ret = v4l2_subdev_call(phy->source, pad, get_frame_desc,
--			       remote_pad->index, &remote_desc);
--	if (ret)
--		goto out_unlock;
--
--	if (remote_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
--		cal_err(phy->cal,
--			"Frame descriptor does not describe CSI-2 link");
--		ret = -EINVAL;
-+	remote_desc =
-+		v4l2_subdev_get_frame_desc(phy->source, remote_pad->index,
-+					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
-+	if (IS_ERR(remote_desc)) {
-+		ret = PTR_ERR(remote_desc);
- 		goto out_unlock;
- 	}
- 
--	for (i = 0; i < remote_desc.num_entries; i++) {
--		if (remote_desc.entry[i].stream == sink_stream)
-+	for (i = 0; i < remote_desc->num_entries; i++) {
-+		if (remote_desc->entry[i].stream == sink_stream)
- 			break;
- 	}
- 
--	if (i == remote_desc.num_entries) {
-+	if (i == remote_desc->num_entries) {
- 		cal_err(phy->cal, "Stream %u not found in remote frame desc\n",
- 			sink_stream);
- 		ret = -EINVAL;
-@@ -919,7 +917,7 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
- 
- 	fd->type = V4L2_MBUS_FRAME_DESC_TYPE_CSI2;
- 	fd->num_entries = 1;
--	fd->entry[0] = remote_desc.entry[i];
-+	fd->entry[0] = remote_desc->entry[i];
- 
- out_unlock:
- 	v4l2_subdev_unlock_state(state);
-diff --git a/drivers/media/platform/ti/cal/cal.c b/drivers/media/platform/ti/cal/cal.c
-index b7e77b6b8950..20192f90d5b3 100644
---- a/drivers/media/platform/ti/cal/cal.c
-+++ b/drivers/media/platform/ti/cal/cal.c
-@@ -445,55 +445,36 @@ static bool cal_ctx_wr_dma_stopped(struct cal_ctx *ctx)
- 	return stopped;
+-	return -EINVAL;
++	return 0;
  }
  
--static int
--cal_get_remote_frame_desc_entry(struct cal_ctx *ctx,
--				struct v4l2_mbus_frame_desc_entry *entry)
-+int cal_ctx_prepare(struct cal_ctx *ctx)
- {
--	struct v4l2_mbus_frame_desc fd;
- 	struct media_pad *phy_source_pad;
--	int ret;
- 
- 	phy_source_pad = media_pad_remote_pad_first(&ctx->pad);
- 	if (!phy_source_pad)
- 		return -ENODEV;
- 
--	ret = v4l2_subdev_call(&ctx->phy->subdev, pad, get_frame_desc,
--			       phy_source_pad->index, &fd);
--	if (ret)
--		return ret;
-+	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
-+		v4l2_subdev_get_frame_desc(&ctx->phy->subdev,
-+					   phy_source_pad->index,
-+					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
-+	if (IS_ERR(fd))
-+		return PTR_ERR(fd);
- 
--	if (fd.num_entries != 1)
-+	if (fd->num_entries != 1)
- 		return -EINVAL;
- 
--	*entry = fd.entry[0];
-+	ctx_dbg(2, ctx, "Framedesc: stream %u, len %u, vc %u, dt %#x\n",
-+		fd->entry[0].stream, fd->entry[0].length,
-+		fd->entry[0].bus.csi2.vc, fd->entry[0].bus.csi2.dt);
- 
--	return 0;
--}
--
--int cal_ctx_prepare(struct cal_ctx *ctx)
--{
--	struct v4l2_mbus_frame_desc_entry entry;
--	int ret;
--
--	ret = cal_get_remote_frame_desc_entry(ctx, &entry);
--
--	if (ret == -ENOIOCTLCMD) {
--		ctx->vc = 0;
--		ctx->datatype = CAL_CSI2_CTX_DT_ANY;
--	} else if (!ret) {
--		ctx_dbg(2, ctx, "Framedesc: stream %u, len %u, vc %u, dt %#x\n",
--			entry.stream, entry.length, entry.bus.csi2.vc,
--			entry.bus.csi2.dt);
--
--		ctx->vc = entry.bus.csi2.vc;
--		ctx->datatype = entry.bus.csi2.dt;
--	} else {
--		return ret;
--	}
-+	ctx->vc = fd->entry[0].bus.csi2.vc;
-+	ctx->datatype = fd->entry[0].bus.csi2.dt;
- 
- 	ctx->use_pix_proc = ctx->vb_vidq.type == V4L2_BUF_TYPE_VIDEO_CAPTURE;
- 
- 	if (ctx->use_pix_proc) {
-+		int ret;
-+
- 		ret = cal_reserve_pix_proc(ctx->cal);
- 		if (ret < 0) {
- 			ctx_err(ctx, "Failed to reserve pix proc: %d\n", ret);
+ static int imx471_init_state(struct v4l2_subdev *sd,
 -- 
-2.47.3
-
+2.55.0
