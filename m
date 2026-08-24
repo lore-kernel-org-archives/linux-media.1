@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4970413780
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BCEE414A21
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573685; cv=none; b=NyMas9Atjj0kIC2acZldi1JC2P2HuHzWWfb0onyIZxM6owrzIX34UFYmi9sXufsUu6mYBo32Qivqw5e58+jVB0TokSq2q+IColWbCGG2XpMBE3xYDpulsnLGs+A2jFyWg/cFJ3YKrdSWszCc2U2fs8xW+TKrLrvxH1uVSjc2d7Y=
+	t=1787573687; cv=none; b=QC60Kib0piVcUhI2IVaIOFNHXqQHmQjWM9frBK19RaBs6522Sg1bgEU/ePdTxtymWePXbg819MIr7eo4/lXVYlRVgkWagDOylXJkR+g2fYJG9OlXZYoJ560rtBmGklzQAAFwKhCrab2CxLz9GwdqDf+WgHx0k2dW38DNoHv8HVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573685; c=relaxed/simple;
-	bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
+	s=arc-20240116; t=1787573687; c=relaxed/simple;
+	bh=dvYXniDQJhFBVnItMK+44HIXt1UXi0Dbp5sNvOdfso8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZzmyDvDlEjeCbb9oK1Vt7qY06ltnKNVGCJQXoYsArszu0qBAKceH1p9Tt2CNbznVq5JbjGtTpztRIdPiAjKbfM3Ymhe3+pEMKJrP87q2I6LNuvb8GjHaqvlQ0eI5M4WBlqQ5hI5U4CAB5F9Fl69rRXbkZDd95+fVDWsH4/k+gSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ceX+EoKm; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=CMi1eA0kswx7S2Bw9pj2vLbRMzMhFXL+e15OGEGNAjzsUEgq6V3RwBjvN8j03UULIgdq+w3Wrc74QQiwjY2xZgMOC6iIBV8QijfvlmDwmBs6Bb6FuW4fXq5SvjeyF9s4jbwOIEjbT+XWMYakLUTBQSK2LACQ0wve5JG133Xy56g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dELSMB0T; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ceX+EoKm"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dELSMB0T"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787573683; x=1819109683;
+  t=1787573685; x=1819109685;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=RNmY1aDFRPojv5boQNhCgkgGzwJtCgJdvgaBWaKjuOk=;
-  b=ceX+EoKmLYQ3oh0uILMBj+J4qT0HTNMQ2HX37lgSo3+DjoH5P2eEXYM+
-   EjYfwY+RNc31Wsl0KD5UDRoTpRIu9WQMVCx8dYovNCBrZKpRKSvsPrkjN
-   gq82u5IUxRwznpurL6AqAX2QW4ZUdkMZXmxEUi6VDBr4GOz73Urc7gbSr
-   L+jWZ44GJmRoF6hRNHzATe6vz2IpTbtbcK1v7+5+CUTZOwp9QhdSMq7iB
-   RkE87cTsoHy3Hll6XLjQ7jNOwoT6LI+8JftRdAJXyn6XXz0kHo5ARBhkK
-   Q0y2KP3Z1UZhRNNOnYjxYliHUX8bECEc0PtDIL34CddtRrtMergpn39mw
-   A==;
-X-CSE-ConnectionGUID: oCGqBA58SIKNJrKnYqFGwQ==
-X-CSE-MsgGUID: Urc+whX2QAmtClKTpT5UoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036452"
+  bh=dvYXniDQJhFBVnItMK+44HIXt1UXi0Dbp5sNvOdfso8=;
+  b=dELSMB0TuxVg3ZZROrmVn5HHpWMqoO6C4Ho3DjZe1fJGhHTxNR/vGg/l
+   UFB5Mbd3BKrYyvkqN06CIUbV5p2sCh2dyt2xjfeL8BcFwEhx9xV7B5KIQ
+   ptfvOaf1oklrJmu4ee1ZsjRWRBprQPdL9rYO7mbB4HFNJqbo0M3Wo2KPl
+   sgkNlODeWyqOdwkkDkaSakMLFtJ60BlbQkB76znpy8UwNDrZsIcJwsBTV
+   Uoijkpo7avXUJd7++6/DBL4iLd8zt5wMiZO/yXnIgW9c3MRGKE3BFK5Yv
+   Ixhs/ncyeSTRuLJH5vxiX6zgC7FnDDq5/rnliiLRe9LgKQibjWaKmD8If
+   Q==;
+X-CSE-ConnectionGUID: oxfN3pDHRN6AeyQ8ZH3acA==
+X-CSE-MsgGUID: 1Ay7q57iQuyRv7lfWljf+w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036455"
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88036452"
+   d="scan'208";a="88036455"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:43 -0700
-X-CSE-ConnectionGUID: lQAOqjUAQ7+LIGN3d1A/ng==
-X-CSE-MsgGUID: 2/2NGAqlTp2LhuvP+JiPQg==
+X-CSE-ConnectionGUID: eBywm3WwQ0a0FBSnC4y7mw==
+X-CSE-MsgGUID: UoTW29CpRtSB63BQsHUjkA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270787638"
+   d="scan'208";a="270787639"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:41 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5A2F4121C7B;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 56C45121C42;
 	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wyTZj-0000000E38m-232E;
+	id 1wyTZj-0000000E38e-1u7w;
 	Mon, 24 Aug 2026 15:14:51 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v3 04/29] media: v4l2-subdev: Allow releasing frame descriptors on return
-Date: Mon, 24 Aug 2026 15:14:26 +0300
-Message-ID: <20260824121451.3348583-5-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 02/29] media: v4l2-subdev: Align frame descriptor error codes with routing
+Date: Mon, 24 Aug 2026 15:14:24 +0300
+Message-ID: <20260824121451.3348583-3-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
@@ -74,41 +74,32 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Use DEFINE_FREE() to allow using __free() to release frame descriptors
-using v4l2_subdev_free_frame_desc().
+__v4l2_subdev_get_frame_desc_passthrough() returns -ENOSPC when there are
+too many routes. There's a subtle difference when compared to -E2BIG, but
+-E2BIG can be used in this case as well. In practice this was unlikely to
+having been ever returned from the kernel as things currently stand.
+
+Align the error codes with the routing IOCTLs.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
 ---
- include/media/v4l2-subdev.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ drivers/media/v4l2-core/v4l2-subdev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-index e7127953ac22..c10ca3f5d979 100644
---- a/include/media/v4l2-subdev.h
-+++ b/include/media/v4l2-subdev.h
-@@ -1798,6 +1798,11 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-  * for each frame descriptor obtained by calling this function using
-  * v4l2_subdev_free_frame_desc().
-  *
-+ * Use __free() to release the frame descriptor automatically::
-+ *
-+ *    struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
-+ *            v4l2_subdev_get_frame_desc(sd, pad, desc);
-+ *
-  * Return: The frame descriptor on success or a negative error code on failure.
-  */
- struct v4l2_mbus_frame_desc *
-@@ -1812,6 +1817,10 @@ v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-  */
- void v4l2_subdev_free_frame_desc(struct v4l2_mbus_frame_desc *desc);
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index e9f81b9be9e2..d93ed50255ed 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -2639,7 +2639,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
  
-+DEFINE_FREE(v4l2_subdev_free_frame_desc, struct v4l2_mbus_frame_desc *, \
-+	    if (!IS_ERR_OR_NULL(_T))					\
-+		    v4l2_subdev_free_frame_desc(_T))
-+
- #endif /* CONFIG_VIDEO_V4L2_SUBDEV_API */
+ 			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_MAX) {
+ 				dev_dbg(dev, "Frame desc entry limit reached\n");
+-				return -ENOSPC;
++				return -E2BIG;
+ 			}
  
- #endif /* CONFIG_MEDIA_CONTROLLER */
+ 			fd->entry[fd->num_entries] = *source_entry;
 -- 
 2.47.3
 
