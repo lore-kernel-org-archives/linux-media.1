@@ -1,185 +1,248 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012053.outbound.protection.outlook.com [40.107.200.53])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3C174611EE;
-	Mon, 24 Aug 2026 16:08:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787587705; cv=fail; b=FD3PuoEw7HEWGtDEVLmVX6/oNj55PTtG5I9+juyLW1a9muqZAygz2qu4FoDHsIzNX5Jof4Ke7qHV3nNBiWKtE4aToYoyjZKxskNM29dERAZc7SV2jv9wu3s27rj/QrV9O4HjgKVhs7xcobpOX8jpU22BQAUgCbfv89zcJvuhCeg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787587705; c=relaxed/simple;
-	bh=/VaTejPf3YpVySoCAMxyVxpcFaSXc8dPdOBKraEYi2c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=b6clP02G39hDETUdRk2x2uEyDNrGvqYaYPHQvRjkYUcmXm4sAhfZh9BcsyNR9XIBwk896DxttClxSshmTrFuuisQ/xX4MSJ+pEkJIK8mmeA/Y9U9RrxkFfaV5ynvYwoPA285PWcbTBhIxp8eKQYUb0bsCLsSVg+AqUUJIpKT6Pc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=p1Bzj6Am; arc=fail smtp.client-ip=40.107.200.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547BA376BCD;
+	Mon, 24 Aug 2026 16:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787589318; cv=none; b=c/84q6JiBWxmfhXDQRN702J6EHRzI98nrVlRE2r0SQ3wy03Bzuwu2L1+UJVJtM4EltSwcRSllXuo2aPv+dE8a2Nt/mP2A3VNQT+fKaSsR9ylidQSCh9mowDLWFrBy1ve5xxn5tdyNeJAGFUFr/71H8JOcSuhHO+Ab9DPF9N74AA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787589318; c=relaxed/simple;
+	bh=3i7VLsUcKl63D6iIk/4oOmdYSs4dcuYHB0SXbr4vg2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Mfp8Sr1VGgE8cectKe9mSOTo0BmIRMAQfGECP0Q75jwjVDkd0BfBD9p4kaZtS0yRMDylQrxeta9SLZMg1sHUlTbJMG43LplIzEWQDtJiJOQvmXmtfECl1McxNa3DBKlyywPUNJUejPpAcPFiRMLqkKHUoxOObis0jNjbfDwsKyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SlMAvK86; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="p1Bzj6Am"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=qY26qbpfForgG9gbqPZj0vNPJPGDeKcZAojib8XOq9jnk0qJTM7tlSTImA/UzHzs6uTd0FwOvA3b/o6ZcvM9ZiYFi5tDoxA++FHgFqDwzYQFwR6AkvXj3PIu3O6rlCn2WRx45Y10YHZPG4HbiltrJSpc2wCwH+f/w4JZpCqoYXpQN+PXWXBBR6V++THTDtvUC09gnTBYJCWpBBqI6lrwkOAAPW/wAi68Povqqwjt6hluDFEiws+fB6lugDN6vYeaEsag/ZxIkXs8PCxeE6d+VrFNIj8fkXc3hpDw717+yoOxuate+Ls5WboZZan1BMKhaCDOf+GWH1G8t1/t5tv9/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=GoTrOkb2s6Ak9ZZ9TVuiyor5gEhRT9imG9Uw5QLEWCM=;
- b=HrXqGPnPySwBgEAEMXORuzU2gF8X29tjgPRQJ0GrS+lmD7SiuMBLolYQzQjBqUbXNgvuK3F3Hbu1/zZhAiXSCh+0r+ebYxQ6NsTeMxSFEU19K6+y9akxesZdhxh9Ol4HsejanHJeuX53UZXMdJ3TwLIfT0OfILYl2dGzgZxMWPP1c+c0o8z2GANWHkkASyeJ0V8djmp7XyKZI6JqR6XKXwkWIujAQpUuYQWd/qLirwu0RAUS+wYzcW2vpTlMRpWzpE6G+LeQbBC8Uzuots1WvPxkPw9VI4GkhYxGAUpdRxPhmbhqlvDZUmLl4WchAjV3nmteE1ndFNwg5vYsDGUUTA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=GoTrOkb2s6Ak9ZZ9TVuiyor5gEhRT9imG9Uw5QLEWCM=;
- b=p1Bzj6Amp/J2p/aYDclP6Vwlct47zC4bVsEU89B9BJrET1YIafJihJMKeWvXF4I3kiaZsTrGkcJgxn+3V4eItJkZ4YYZ8UaBQlH/whgL2zGYKx52N2r8GcF9dEjBvY0aTjuC/CMWz3stjxHjWxN+4kM1hbusU6ez06KDtPfkB2s=
-Received: from SJ0PR03CA0352.namprd03.prod.outlook.com (2603:10b6:a03:39c::27)
- by DS0PR12MB7748.namprd12.prod.outlook.com (2603:10b6:8:130::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 16:08:10 +0000
-Received: from SJ5PEPF00000203.namprd05.prod.outlook.com
- (2603:10b6:a03:39c:cafe::4e) by SJ0PR03CA0352.outlook.office365.com
- (2603:10b6:a03:39c::27) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.339.12 via Frontend Transport; Mon,
- 24 Aug 2026 16:08:10 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ5PEPF00000203.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.360.3 via Frontend Transport; Mon, 24 Aug 2026 16:08:09 +0000
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 24 Aug
- 2026 11:08:09 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.45 via Frontend
- Transport; Mon, 24 Aug 2026 11:08:08 -0500
-Message-ID: <a782e2ad-d12a-66c8-447c-725d8e66593d@amd.com>
-Date: Mon, 24 Aug 2026 09:08:03 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SlMAvK86"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B6EC01F000E9;
+	Mon, 24 Aug 2026 16:35:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787589317;
+	bh=LsN6r+XHq2tUXaU1o8naYTcnZwkNiVXqQQcfnGVlCVQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SlMAvK86ekfFp2PUkUJvGGka6XM+LeLqKrYR0Ky19TleUoL98Ny58NtZo3q7LzX7S
+	 +PvftoN9NZjQDgQypOBDVWbdkQGKZ+H43eckcFpYxQQ7djPZWG9CBYV6J730QoXfSw
+	 UNHIloP6z1sWbkBdJ2wLuLv27QeN+ghyOcbKfTMcFpSY0a06NzArDi6koU4ElmN2qb
+	 I62Jr70zgLuN/O+TJfadqgCwV2iim12I+xudMOxebalyzfDzjc2UTTDFnmIUonGNaR
+	 z7vxOx2tL20TcXvAy0K91Y4sBcOfz2Gd/la73FXncfMyURr8eCM8ScXcPHOYCh2IFL
+	 vrzUT1n8TAvlA==
+Date: Mon, 24 Aug 2026 17:35:12 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Sascha Hauer <s.hauer@pengutronix.de>
+Cc: Lucas Sinn <lucas.sinn@wolfvision.net>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org,
+	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+Message-ID: <20260824-catlike-human-502f2aa3150b@spud>
+References: <20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de>
+ <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
- imported BO
-Content-Language: en-US
-To: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, "Taimuraz
- Kaitmazov" <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>, Oded Gabbay
-	<ogabbay@kernel.org>
-CC: Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
-	"Sonal Santan" <sonal.santan@amd.com>, <dri-devel@lists.freedesktop.org>,
-	<linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>,
-	<linaro-mm-sig@lists.linaro.org>
-References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
- <20260813164700.43960-2-taimuraz@kaitmazov.com>
- <5933effe-ef28-9838-1dd5-dc904be0a3bd@amd.com>
- <87c9bb85-2514-44ac-a976-e24526c7f76e@amd.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <87c9bb85-2514-44ac-a976-e24526c7f76e@amd.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ5PEPF00000203:EE_|DS0PR12MB7748:EE_
-X-MS-Office365-Filtering-Correlation-Id: cdef32c0-d9af-4d37-db4a-08df01f9e480
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|23010399003|1800799024|10067099003|56012099006|11063799006|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	oGKK1fd5yJawePR8mwwg/tFuRmO+IfgC1E9sYqJHD16jxYuI28O8+FuacDCcj2TX+03NXR0siR3pZHPuyfoNp+13XLmPPDxZNEwzvHFyLKgJN2jLG98OaKqaUXp9FXsBH9vlNPZAsc8t7Cb+vMJiL17LTNwPqW+umR1orNm7p0dq97sRX/RUkWnz0suqrXpZ9vwOFrdYeSHCiY/z1SO2qOvN8SQMUlRSeXbqKxMFKFKLEnyW1XURHh/DiyrKa9s1T5Uvrc4Hw9qa/3XjsaeZd9YgBtgQhMl01RShjxWr1ShkfzWmLEkQxC+f2r36t/fS/sqSfD3ZstXmApMsZW7546OIg/kYv0M2TLpkIWnw+S8/j9mn3YZtS8F0nWjnv3CGvTLuUCsQfkfHfexwK+hBzSQwQOkg6DMQD/oZBm4ql16A5l44ZJMd+Y1ImbUZzIvinWmOhAwSg7alIl8q6S1EmwW+QUAXIt1UQaJrWKqt6EJ7zd1prWnwHjdTwxyswfWbaXkxt6ru2zcVJezES83ASX9NOIvseHngMXeMUtdxvKQKy0PptZ/eLhfY31Bh1LY3whAIWU5leTmzFk5zQT5IqdOWfxwR6A4MUlT0tSF7toqgu9Xbjdymbi4kCviod5KfHeJsKFwyPnS82U8R0zMyj/OdV8LD4RpyvJ3AKjxHK4GVcbfOH2mrdh6GWASmpBdFRq01wPnSFMqsyk+0Q5TVwQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7fZqTkIKwVn7TGYtW5G0aWE8oqfpjv4XzDLyDM/YodMfVBkmBLydf3f78lgOyaEAFsDqM57ZHqA2TxRTBS2lzqDSOp/dvb8pQRGD4x090BaV+InG9nPfQ3CcBLkW9rBmJ4iVEBrbrWlD3DzBQ06u1g0dlQpvEiGZ5HS0VGVLK5Kwkohz+3rMDhJbeUx50UHhoIOCjDky6kOWWfoJhcQY0Gle0sEEGFvNb0lljAeI5EPQrcGFxunEdSoQIOJZBePWPHf4xC6XOyCkHeryjP2oLJJaGUtcbzU2DagFaJM0o6Z8q8CJyXnVU56iT+V/o/h/bB/j/p3dn4HrhcLdezOeCNvwTEILYckpyTaGWYfKypWbqLys+s+B+U+MBVwjI42AWWj0x/ig7cthWiB/r4HecIZX+PcyiPlGjbPUzevJrYr1wuJx72UVTqoirpgLw3Yn
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 16:08:09.9564
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: cdef32c0-d9af-4d37-db4a-08df01f9e480
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ5PEPF00000203.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB7748
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v039y6vQKSu44Jxg"
+Content-Disposition: inline
+In-Reply-To: <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
 
+--v039y6vQKSu44Jxg
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 8/24/26 07:06, Christian König wrote:
-> On 8/17/26 19:53, Lizhi Hou wrote:
->> On 8/13/26 09:46, Taimuraz Kaitmazov wrote:
->>> amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
->>> rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
->>> exporter answering with an I/O mapping leaves a void __iomem pointer in
->>> abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
->>>
->>> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
->>> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
->>> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
->>> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
->>> object, so an NPU paired with nouveau or radeon does.
->>>
->>> Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
->>> path is reachable from an unprivileged ioctl, so it does not warn.
->>>
->>> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
->>> ---
->>>    drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
->>>    1 file changed, 8 insertions(+), 2 deletions(-)
->>>
->>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
->>> index 1f190b319bb..b66ec9e4828 100644
->>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->>> @@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
->>>          dma_resv_assert_held(obj->resv);
->>>    -    if (is_import_bo(abo))
->>> +    if (is_import_bo(abo)) {
->>>            ret = dma_buf_vmap(abo->dma_buf, map);
-> Mhm, why does amdxdna a vmap in the first place? For some workaround?
+On Mon, Aug 24, 2026 at 09:01:09AM +0200, Sascha Hauer wrote:
+> Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+> integrates into a number of its SoCs.  Documents the single register
+> window (task registers plus the LLP link-table block at offset 0x300),
+> the decode interrupt, the aclk/hclk clocks, the AXI/AHB resets, the IOMMU
+> and the power domain.
+>=20
+> The core is not tied to one SoC.  Downstream it is known as the VDPU720
+> and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
+> RV1126B, with only the clocks, the resets and the power domain differing,
+> none of which this schema constrains.  A compatible per SoC is all it
+> takes to cover them; the RK3568 and the RK3588 are the two that have been
+> tested and are enabled here.
+>=20
+> The resets and the power domain are required.  The block cannot be
+> reached with its domain off, and the driver falls back to pulsing the
+> reset lines when a frame times out and the in-block soft reset does not
+> complete, which a node without them would leave with no way to recover.
+>=20
+> The IOMMU stays optional.  The driver never refers to it, it is a platform
+> integration detail, and rockchip-vpu.yaml does not require it for the
+> other codec blocks on these SoCs either.
+>=20
+> Assisted-by: Claude:claude-opus-5
 
-This is used for flushing the imported BO before. Based on our 
-discussion before, the driver should not flush imported BO, so this 
-becomes a invalid case.
+Missing signoff.
 
-On the other hand, vmap on a io_mem should not happen. So I suggested to 
-move the check to amdxdna_gem_vmap() for an extra check.
+> ---
+>  .../bindings/media/rockchip,jpeg-decoder.yaml      | 92 ++++++++++++++++=
+++++++
+>  MAINTAINERS                                        |  8 ++
+>  2 files changed, 100 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,jpeg-decode=
+r.yaml b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> new file mode 100644
+> index 0000000000000..e20c1bf43ef3e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
 
+Filename matching compatible please.
+
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/rockchip,jpeg-decoder.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rockchip JPEG Decoder
+> +
+> +maintainers:
+> +  - Lucas Sinn <lucas.sinn@wolfvision.net>
+> +  - Sascha Hauer <s.hauer@pengutronix.de>
+> +
+> +description:
+> +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as t=
+he
+> +  VDPU720.  The same core is integrated into a number of Rockchip SoCs, =
+which
+> +  differ only in the clocks, resets and power domain they are wired to. =
+ A
+> +  dedicated Link List Processor (LLP) register block, located at offset =
+0x300
+> +  within the same register window, allows the hardware to decode a chain=
+ of
+> +  frames autonomously ("link mode").
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - rockchip,rk3568-jpegd
+> +      - rockchip,rk3588-jpegd
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description:
+> +      The decoder register window.  It covers both the task (function)
+> +      registers at offset 0x000 and the LLP (link table) registers at
+> +      offset 0x300.
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    items:
+> +      - description: AXI clock
+> +      - description: AHB clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: aclk
+> +      - const: hclk
+
+IMO, match resets and drop the obvious "clk" from here.
+
+Fine otherwise.
+
+pw-bot: changes-requested
 
 Thanks,
+Conor.
 
-Lizhi
+> +
+> +  resets:
+> +    items:
+> +      - description: AXI reset line
+> +      - description: AHB reset line
+> +
+> +  reset-names:
+> +    items:
+> +      - const: axi
+> +      - const: ahb
+> +
+> +  power-domains:
+> +    maxItems: 1
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - resets
+> +  - reset-names
+> +  - power-domains
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/rockchip,rk3588-cru.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/rk3588-power.h>
+> +    #include <dt-bindings/reset/rockchip,rk3588-cru.h>
+> +
+> +    video-codec@fdb90000 {
+> +        compatible =3D "rockchip,rk3588-jpegd";
+> +        reg =3D <0xfdb90000 0x400>;
+> +        interrupts =3D <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH 0>;
+> +        clocks =3D <&cru ACLK_JPEG_DECODER>, <&cru HCLK_JPEG_DECODER>;
+> +        clock-names =3D "aclk", "hclk";
+> +        resets =3D <&cru SRST_A_JPEG_DECODER>, <&cru SRST_H_JPEG_DECODER=
+>;
+> +        reset-names =3D "axi", "ahb";
+> +        iommus =3D <&jpegd_mmu>;
+> +        power-domains =3D <&power RK3588_PD_VDPU>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 8014b9f8253ed..baea7e42663a7 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23424,6 +23424,14 @@ F:	Documentation/userspace-api/media/v4l/metafmt=
+-rkisp1.rst
+>  F:	drivers/media/platform/rockchip/rkisp1
+>  F:	include/uapi/linux/rkisp1-config.h
+> =20
+> +ROCKCHIP JPEG DECODER DRIVER
+> +M:	Lucas Sinn <lucas.sinn@wolfvision.net>
+> +M:	Sascha Hauer <s.hauer@pengutronix.de>
+> +L:	linux-media@vger.kernel.org
+> +L:	linux-rockchip@lists.infradead.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> +
+>  ROCKCHIP RK3568 RANDOM NUMBER GENERATOR SUPPORT
+>  M:	Daniel Golle <daniel@makrotopia.org>
+>  M:	Aurelien Jarno <aurelien@aurel32.net>
+>=20
+> --=20
+> 2.47.3
+>=20
 
->
-> Usually DMA-buf only provides that framebuffer emulation scanout inside the kernel.
->
-> On the other hand as far as I can see that here should work correctly.
->
-> Regards,
-> Christian.
->
->>> -    else
->>> +        /* Callers use mem.kva as an ordinary kernel address. */
->>> +        if (!ret && map->is_iomem) {
->>> +            dma_buf_vunmap(abo->dma_buf, map);
->>> +            return -EOPNOTSUPP;
->>> +        }
->> Thanks for the fix. The 'is_iomem' check should be moved to amdxdna_gem_vmap() to cover all the cases.
->>
->> Lizhi
->>
->>> +    } else {
->>>            ret = drm_gem_shmem_object_vmap(obj, map);
->>> +    }
->>>        if (ret)
->>>            return ret;
->>>        if (!map->vaddr)
+--v039y6vQKSu44Jxg
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaoxywAAKCRB4tDGHoIJi
+0uI+AP9QJvwoXyh861YEwC7CW0JzDZYhu7BuaOpeqFXqgxGk3AD/fgA+IylNAek4
+QTBa/u9fTgTQqCkl77phwbNHimCCJQg=
+=UcLW
+-----END PGP SIGNATURE-----
+
+--v039y6vQKSu44Jxg--
