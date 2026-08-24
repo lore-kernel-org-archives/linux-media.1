@@ -1,240 +1,260 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-oa1-f77.google.com (mail-oa1-f77.google.com [209.85.160.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D22341E6D9
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 13:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D339423764
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 13:20:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787576853; cv=none; b=ts62IinBPQhFvlIhpRNYWns4XxWghfZuElAmTDUjrlAqE9Czk4fvedy6hzI6/qLYNLVTjnYKcJ5v2Sd4EcE6/6MGRdh+UF49ap2ihYFZNcWl0B6sMOBJTcjOCSL0eqJzzd2KMEVWX6qFxeRInlNsTxszST0uvTkFlQuqkukSYvg=
+	t=1787577631; cv=none; b=L5AtejrPazaM4kkWc1cXl/soQDM2ZzaLC3B9vR74xnoOMaERwt2CF6kAzSz0c8xLVdHck6Bwp3A7mChOgNRSsPavM2jJXjLrJdYC5vNWfk7V43+3I8xOpq+AB6TYJ7nFWM/JmXOpyMH+RTaqpMhumZyeqHVatNtkmG5ksTAQReI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787576853; c=relaxed/simple;
-	bh=u5ihNkizXxWzyF5GSE/VjUlcZrXmF+6zr4JEzwJ38CA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tr09R+3Yp4+U2TcCtAKSaH/MWkskNN2pthPwDtZwHFitrUUggAtYxdg7aXPT/ukrxOckyJ4ZwuH4NO8xe2jshWE0Bjm3Q/PHl0LDEph3RoQK1BokpGJM/Gc/ueSWEFnPwJRkFTKqZuSDGv771IoVzwdTfhvd5NlpyKa5/woFtP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=VasDoPJ+; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="VasDoPJ+"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4957eefd361so20892525e9.1
-        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 06:07:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1787576849; x=1788181649; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
-        b=VasDoPJ+9W3n6kop+crjHXP7TptzbDGsgfbm9Uk4NKXGd6OGSugla7VlitMZw98TK9
-         NVgdy1g8rya6Yqv+lAwmQAA7dqQjHTRt75BtuIha0W9mgx+ggKWWMmmUisJSlAMrinEf
-         e3/R/ELvI9YYRlq7rCg1cATN/Ub4gE0rcWwcfO9hgfAQupcKHPbzKdmaIZZ0D9++h+oY
-         dgvGtWeYGOvPvZVQeL6A7w6M0zsypu09XmYrqR3Iwv/cCfnEnCvT+xc+/+KUwzYHtU8o
-         EpfP/3KzoKSiw0GhTSCSkj4lZZjidkJLF+3SH2bAzDuzawyPRDr7Y4fQ0iJXmjmixqg9
-         8Dog==
+	s=arc-20240116; t=1787577631; c=relaxed/simple;
+	bh=3P24vNIm1EAWOEITUomUFsmr4YhRnM5RHOINGCEBU34=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=kdkht3z3tW9tK5Oh0AOVw2su6wd2DSbE1Fyrx/N7lEgMApInvFBYErVVSBUk/ybQ0zsFSnOc0vBL8hazDdN/urzcclaoN8TB0/toQkxoMUppDlZM7w/c2quVEnUIRKqyDwqnTrQgxG1hG/pM2+WBJsr78k6sXu8G4aTInyNr/bM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oa1-f77.google.com with SMTP id 586e51a60fabf-458326d2d9aso6845330fac.2
+        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 06:20:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787576849; x=1788181649;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20251104; t=1787577628; x=1788182428;
+        h=content-type:to:from:subject:message-id:date:mime-version
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=II0EHdpiWVifHn+uIz31c6Jp5mdC3hunRFCnEAwNy/g=;
-        b=UlN8usncc+tpURy3t4bT85fjL904VlX8mTaHuTIugeTU2E68y/a/qOr8PHVLK7Q06t
-         9QaQLE2ammOb3sru9WvTJtTCD4yZzs8IxAYByLeXGPzj4V3nsvwXwG3oxLIEltvTYPkJ
-         RBrzcixq67C93XBM2k5NQCvlAionr8+8lgzyM+S+GVV8dgEwhM6jX7xWu5Deh0ZPXP24
-         VDFgAdEpSR3wAFKFzjQYHquNggg2Dh54IQXrYJhna45IBV3RP6H4eSzTi3NXN5JDLIiL
-         R7wDZuDHAnp9irTOUYeSKuFDq0RBDNdrF6CoeuB06Jv6yz/gBD+roe9ac3yKyhKOE2Wx
-         3nuA==
-X-Forwarded-Encrypted: i=1; AHgh+Rr+uuYYRrXkTob0PyPb2zoKXLqpOYHo+xzHl0GmbAdSgrvyWVvrToLcF1YR9ld1mNFLMbKU6lqN8DgqVA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nkFl/eBHUUSWnxXTHT/XdQ4cf2sHZpMfkOTATrX/MS+KGPmQOb
-	Rq8CAGIqxp8dkBhvYiRzM3or2z9iT4gKBlNLYzwPT6vudVVqo2Uy3cvVNt279vYc4w==
-X-Gm-Gg: AR+sD110LNvyHnrSGZA5TSQ/rbvuEffGPfF0BY3U7mcP8kjGh5i9Di7DR2SlGsOQBJm
-	Suu52bRZQ5hJ5O/27dUURKukNmOc2meoN7snGNSqdDTiCO2rtsNspWDfcEHPyaNkGWlLn/lq+iD
-	9gw9ue1nOKn4t6y02EoLzkT1fpXq4H7dJO0QlrI04RtR0FrHdjxQkX/DEe+maDJMgxuHuZSuT5w
-	gYMVC7Klt3fW9ixvkyW3WK27BdLkJFs4KGPHCXJwdZDHGKnb1BZ0SaJjC5GcBQSMjhOHoS2imfX
-	H6SO2QA2bZn87YM65cfkzvIVvj0f/QUbkC2LE6UH3sigEFKSgptauWZqSO1FP+KS7mU/vDksRJj
-	qWDiGWZWr4bgpTvw6UWVfxF8bDf2MzGImVWK3n0UFyhyxjUdJ8mJS5sZc//bBKC0IMZXCMcokPO
-	iPnXNiJ6cK/gnTdamY9VWsKtjV7QnGjQfx8Ghamnk9oohDhPHFyaLv/Xa8da7NM4j9AinJ8HhI1
-	7rxxrKSvRDHisx3Bof07BHM9uNJKLXT
-X-Received: by 2002:a05:600c:8b76:b0:499:8c68:a3aa with SMTP id 5b1f17b1804b1-499b8475133mr350361245e9.13.1787576848494;
-        Mon, 24 Aug 2026 06:07:28 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-499c355e1ddsm85389525e9.5.2026.08.24.06.07.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 06:07:27 -0700 (PDT)
-Date: Mon, 24 Aug 2026 14:07:23 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Sowjanya Komatineni <skomatineni@nvidia.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Yury Norov <yury.norov@gmail.com>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Christian Borntraeger <borntraeger@linux.ibm.com>,
-	Sven Schnelle <svens@linux.ibm.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	David Hildenbrand <david@kernel.org>,
-	Lorenzo Stoakes <ljs@kernel.org>,
-	"Liam R. Howlett" <liam@infradead.org>,
-	Vlastimil Babka <vbabka@kernel.org>,
-	Mike Rapoport <rppt@kernel.org>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Michal Hocko <mhocko@suse.com>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Sumit Semwal <sumit.semwal@linaro.org>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Brian Starkey <Brian.Starkey@arm.com>,
-	John Stultz <jstultz@google.com>,
-	"T.J. Mercier" <tjmercier@google.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Chun Ng <chunn@nvidia.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-s390@vger.kernel.org, linux-mm@kvack.org,
-	iommu@lists.linux.dev, linaro-mm-sig@lists.linaro.org,
-	linux-trace-kernel@vger.kernel.org,
-	Thierry Reding <treding@nvidia.com>, pavan.kondeti@oss.qualcomm.com
-Subject: Re: [PATCH v4 07/10] dma-buf: heaps: Add support for Tegra VPR
-Message-ID: <aoxCC1yPFdutU5vB@google.com>
-References: <20260807-tegra-vpr-v4-0-5510d16af89e@nvidia.com>
- <20260807-tegra-vpr-v4-7-5510d16af89e@nvidia.com>
- <an4MEI7lkc2p3nKI@google.com>
- <an8K2gb1pIqbDj6-@orome>
- <aoNDRTKCUkzd2n5G@google.com>
- <aoQ1lhZojzsSkWHQ@orome>
- <aoVy8dj8f3ll5-M4@google.com>
- <aobOs0ZidWzgoHut@orome>
- <aoi4wZJIutMWu9Ux@google.com>
+        bh=Gs8s8TTblI1BhSFxrDz9WluSSaE52+G83FVkACX7LoE=;
+        b=arnGTn4X1adWMk+Fb0r8LeXT+qrhEn0w0IJ2NXvNPMQ743gymopUSTVrV+ieZ4b04E
+         fUmXQtbAVONiKiQ4w1des0FZ7PVCXKRDVNxsTPh9tJsuYQowq5c5VmbDOhc7VPb07TLH
+         e6f7J+FCN+WL8iY3mEe4kSMXEZmcJV/opVI5dh+oE4eSXbFnXRgw/kMA8RNrYepKe+p3
+         X8rKFcCm4ByUJHyV/hSieH2GSLIMyZHzaSUZ8h3bhIb2Yc99ojOxMvYC9shaNJd8nuka
+         N2woEHs4gtalUeXEQaojqc2ufV7yS/+qGudus8Z/Y65w3jL6E5AyL9e/O1WCBAWpx88h
+         tetg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3+jlNNZtSY/qFJowXmkhVM5MCvg9KlStbac8JYcKqYPFD26MNCWLdzWQgWT38I8THJiU+usrK0t/Caw==@vger.kernel.org
+X-Gm-Message-State: AFuF++nLXqaOOjJ3+i27ARiRhyOUthW2QYlWA4LNPoXv0KaEXiV7iYRp
+	vRaX21YYQ1sa48zFjLO3PwhGgCASIlZPZsL6dDY/J4lGzVTyWgsT2t2eFLmcWWQjeAP2TkYrubv
+	c3uJD8N/o17pJT5UxaI2yH0EXYEt7XFRFOHJTKmwybHWMJoAPFfPUApcazK0=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoi4wZJIutMWu9Ux@google.com>
+X-Received: by 2002:a05:6820:341a:20b0:6aa:e176:bcb5 with SMTP id
+ 006d021491bc7-6b15925da2fmr18341893eaf.14.1787577628188; Mon, 24 Aug 2026
+ 06:20:28 -0700 (PDT)
+Date: Mon, 24 Aug 2026 06:20:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8c451c.dbb3a75c.7844.0004.GAE@google.com>
+Subject: [syzbot] [media?] KASAN: slab-use-after-free Read in vidtv_bridge_on_new_pkts_avail
+From: syzbot <syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Aug 21, 2026 at 09:44:49PM +0100, Vincent Donnefort wrote:
-> [...]
-> 
-> > > > Interesting. I had been thinking more along the lines of adding this
-> > > > directly into memblock using a new entry in enum memblock_flags. None of
-> > > > the existing ones seem to do what we need here, though some are closely
-> > > > related. MEMBLOCK_SECURE or MEMBLOCK_PROTECTED are quite specific and
-> > > > don't necessarily mean that we need the mapping to be page-granular, so
-> > > > MEMBLOCK_PAGE_GRANULAR is perhaps clearer.
-> > > 
-> > > I thought it would be interesting to not have to modify memblock since it is
-> > > used for all architectures, while the DT is at least slightly less widespread.
-> > 
-> > This isn't something that is DT specific. On the Tegra side, I suspect
-> > we might need this on ACPI platforms eventually, too. And it's not an
-> > ARM specific feature either. Other platforms could use shared carveouts,
-> > too.
-> 
-> Agreed, and actually I have tried the memblock version and it looks quite neat!
-> 
-> I will share what I have after the merge-window.
-> 
-> > 
-> > > Also, cma_init_reserved_mem() could use an order 9. In that case PTE-level isn't
-> > > necessary and we could just use PMD-level. Extending that support would be more
-> > > cumbersome with a memblock flag than with a callback.
-> > > 
-> > > rmem_cma_setup() hardcoding an order 0, perhaps this isn't really a problem at
-> > > the moment?
-> > 
-> > How so? memblock is really just used as a way of backing the CMA. How
-> > CMA subdivides it doesn't really matter, right?
-> > 
-> > Or are you suggesting that if we use an entire PMD as granularity, we
-> > could equally well remove the entire PMD from the linear mapping instead
-> > of doing it page-by-page? I think that'd work really well for at least
-> > VPR, since it is 1 MiB aligned anyway. Using a granularity of 2 MiB is
-> > easily doable.
-> 
-> Yes, that is what I meant. We could easily force a PMD-level mapping instead of
-> PTE-level one. But then that means declaring another memblock flag. 
-> 
-> > 
-> > For anything that doesn't require a single contiguous area to be
-> > protected this might be a bit more challenging since it potentially
-> > wastes a lot of memory. On the other hand, a lot of this is heavily
-> > custom code anyway, so the entire stack could be modified to make
-> > efficient use of this (i.e. userspace could allocate a larger chunk
-> > for a pool of buffers, etc.).
-> > 
-> > > But yeah, the alternative is to create a "memblock_mark_forcepte" (it seems
-> > > memblock_setclr_flag does split memblocks) and let of_reserved_mem call that
-> > > function. Finally the arm64 mmu code can simply check for the flag before
-> > > calling __map_memblock. Perhaps it isn't that bad in the end?
-> > 
-> > It sounds like the right level of abstraction to me. But I'm not too
-> > familiar with this code, so it'd be good to hear from the MM and/or ARM
-> > maintainers what they think about this.
-> > 
-> > [...]
-> > > I had in mind to extend "shared-dma-pool" to handle
-> > > set_direct_map_invalid_noflush()/set_direct_map_default_noflush() based on an
-> > > option. But perhaps it is better to create another separate driver. And VPR
-> > > needing a specific dma-heap driver anyway, it could call the direct-map
-> > > functions there too without relying on CMA to do anything?
-> > 
-> > I think it'd be nice to have separate APIs for this case where we know
-> > the memory region is already page-granular (or, I suppose, PMD granular)
-> > and removing from (or adding back to) the linear mapping is safe. That
-> > way we could avoid the checks for can_set_direct_map() for each page.
-> > 
-> > It'd also be nice to have a version that can update the protection bits
-> > for a range of pages (would map directly to update_range_prot()) instead
-> > of having to manually iterate over each page in a range.
-> >
-> 
-> How about?
-> 
->   /* True if can_set_direct_map() or [start, end) is mapped at PTE-level */
->   can_set_direct_map_range(phys_addr_t start, phys_addr_t end); 
-> 
->   /* Must check can_set_direct_map() or can_set_direct_map_range() first */
->   __set_direct_map_invalid_noflush(phys_addr_t start, phys_addr_t end)
->   __set_direct_map_default_noflush(phys_addr_t start, phys_addr_t end)
-> 
-> > A good middle-ground might be to have helpers that do the grunt work and
-> > they can then be called from VPR and the shared-dma-pool drivers to have
-> > pages removed from the linear mapping. VPR and similar can then perform
-> > the hardware protection bits on top of that.
-> 
-> I believe between the reserved-memory attribute to force the last-level mappings
-> and the direct map functions above, there's enough for the VPR driver?
-> 
-> -- 
-> Vincent
-> 
-> > 
-> > Thierry
+Hello,
 
-I have pushed a first version here [1]. I am waiting for the merge window to end
-before posting anything on the list, but let me know if you have any comment.
+syzbot found the following issue on:
 
-[1] https://android-kvm.googlesource.com/linux/+/refs/heads/vdonnefort/ffa-lend-pool
+HEAD commit:    a4ff2be345d0 Merge tag 'v7.3-p1' of git://git.kernel.org/p..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=148d7a25580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=29686c02180e4e86
+dashboard link: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
 
--- 
-Vincent
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image: https://storage.googleapis.com/syzbot-assets/4d9954692e65/disk-a4ff2be3.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/7c863580607c/vmlinux-a4ff2be3.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/9ce6174eaf8d/bzImage-a4ff2be3.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+
+==================================================================
+BUG: KASAN: slab-use-after-free in vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+BUG: KASAN: slab-use-after-free in vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+Read of size 8 at addr ffff88802dc67118 by task kworker/1:12/13368
+
+CPU: 1 UID: 0 PID: 13368 Comm: kworker/1:12 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/16/2026
+Workqueue: events vidtv_mux_tick
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+ vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+ vidtv_mux_tick+0xb95/0x1460 drivers/media/test-drivers/vidtv/vidtv_mux.c:426
+ process_one_work+0xa23/0x1940 kernel/workqueue.c:3322
+ process_scheduled_works kernel/workqueue.c:3405 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3486
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5489
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ vidtv_demod_i2c_probe+0x6e/0x8a0 drivers/media/test-drivers/vidtv/vidtv_demod.c:421
+ i2c_device_probe+0x658/0xd10 drivers/i2c/i2c-core-base.c:593
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3776
+ i2c_new_client_device+0x660/0xd30 drivers/i2c/i2c-core-base.c:1020
+ dvb_module_probe+0x165/0x310 drivers/media/dvb-core/dvbdev.c:1039
+ vidtv_bridge_probe_demod drivers/media/test-drivers/vidtv/vidtv_bridge.c:354 [inline]
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:430 [inline]
+ vidtv_bridge_probe+0x370/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 20213:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2677 [inline]
+ slab_free mm/slub.c:6377 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6692
+ i2c_device_remove+0x81/0x280 drivers/i2c/i2c-core-base.c:632
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ device_unregister+0x1d/0xe0 drivers/base/core.c:4006
+ i2c_unregister_device+0xf5/0x270 drivers/i2c/i2c-core-base.c:1076
+ dvb_module_release drivers/media/dvb-core/dvbdev.c:1061 [inline]
+ dvb_module_release+0x69/0x90 drivers/media/dvb-core/dvbdev.c:1055
+ vidtv_bridge_remove+0xd8/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:556
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802dc67000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 280 bytes inside of
+ freed 2048-byte region [ffff88802dc67000, ffff88802dc67800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x2dc60
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000040(head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000040 ffff88801c022000 dead000000000100 dead000000000122
+raw: 0000000000000000 0000000800080008 00000000f5000000 0000000000000000
+head: 00fff00000000040 ffff88801c022000 dead000000000100 dead000000000122
+head: 0000000000000000 0000000800080008 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1210, tgid 1210 (kworker/1:2), ts 13830241599, free_ts 0
+ set_page_owner include/linux/page_owner.h:32 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1859
+ prep_new_page mm/page_alloc.c:1867 [inline]
+ get_page_from_freelist+0xf46/0x3500 mm/page_alloc.c:3946
+ __alloc_frozen_pages_noprof+0x299/0x2dc0 mm/page_alloc.c:5304
+ alloc_slab_page mm/slub.c:3266 [inline]
+ allocate_slab mm/slub.c:3380 [inline]
+ new_slab+0xa2/0x660 mm/slub.c:3426
+ refill_objects+0xe3/0x410 mm/slub.c:7310
+ refill_sheaf mm/slub.c:2804 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4675
+ alloc_from_pcs mm/slub.c:4773 [inline]
+ slab_alloc_node mm/slub.c:4905 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5485
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ mousedev_create+0x95/0xb40 drivers/input/mousedev.c:856
+ mousedev_connect+0x26/0x310 drivers/input/mousedev.c:981
+ input_attach_handler.isra.0+0x177/0x1e0 drivers/input/input.c:1074
+ input_register_device.cold+0x139/0x375 drivers/input/input.c:2451
+ psmouse_connect+0x772/0xf50 drivers/input/mouse/psmouse-base.c:1608
+ serio_connect_driver drivers/input/serio/serio.c:44 [inline]
+ serio_driver_probe+0x77/0xa0 drivers/input/serio/serio.c:748
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+page_owner free stack trace missing
+
+Memory state around the buggy address:
+ ffff88802dc67000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802dc67080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802dc67100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                            ^
+ ffff88802dc67180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802dc67200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
+
+---
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
+
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
