@@ -1,158 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 138023B19AC;
-	Mon, 24 Aug 2026 09:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98B963F65EB
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 09:46:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787563332; cv=none; b=WeLPOD/FIhcnSWn/wonXkMkFoAYSU/I4vQHK4ocSBCUg3M/M9kji+HAEZ2LNH0q4BpsAiqXCpkLw4z3GhyqBM2gH8l4zAR5VSIJKLWdA9hIaQQ9K5mSuqt96lPioJawD3rszBCu/CEObpATXLlxSvBbCPC9IARBqP/F/OmAfNxU=
+	t=1787564773; cv=none; b=kXICGV/d+WG31CMiD2F1lruenUfhsSZ8mMu/Okd+Ce6ViuRbAzzBDa9f9Nn6CbH85+GiW9EmA88gYmqaqD06eiCVHBbcfeGSgNLAcGCMNeWNcwrCDJybCqohMbFhyLFiyLFa+5xBihZQdAnqP6n0NNUDVsyROc84XaiTMqCPhbQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787563332; c=relaxed/simple;
-	bh=wmP/P/JIIfDo+n8WgGT1DZp+NSjwaH7/L3MM6bSEKUo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a5Y5k7+AJ0Prw3W63LYisRlbTkIFX3geDlZPvECt6mj5P65SfZ9DdipUGNIxOdmt/UaNJq0eOr8yBoeNWW4XAxXnleXLuhFQ+S9bp3trCv2nOEcTguAyFt/n5x8c2o5obwit9BrF+v54000Ol0N1Bz+AxMvPwTV2o3bK+nKo9xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U7bBrByn; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787564773; c=relaxed/simple;
+	bh=/RGfyliEUANaO658nqDO6+n5k5sqCSVWjr4Ade1cf7g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Mvz7Vih/GntLXtaqYxW0tR88lpcQdnUxtPx4u2u8Z5Z4tbq5Aulkp9orMC9K1nD2GlAJrjkSLk5ImtcDe3aFjCSwB66RFrLuIvXQq4nWeB6use1PBqdndLnr63BiItjT8FzaoJfwhMPTKkJ6wKvpn8lSmWtQU7MZLlfsgFZC9J8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kvR8/Ayg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=efub97+C; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U7bBrByn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787563329; x=1819099329;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wmP/P/JIIfDo+n8WgGT1DZp+NSjwaH7/L3MM6bSEKUo=;
-  b=U7bBrBynW82ypgeXCgVxLuMqaZ+QEIQ9snnJgqwb03lTK/VdAv0MRKne
-   TdZKOjMaj/YWF9NVKWvEh5dN7GlEGBIwEqwOUXRxK7w3TzlUNkBOCvV83
-   lyqia4q7FfHzEoFFwnjJ3bHA5KIwgW+S2qkHN/DlJSWs3a2RlpVQM8p5c
-   1LTyrodYjOXB8B39xqjxNl01qZYtod54EhgCxf+P6hl5YIbDavTY2ue+E
-   IFZyz+ZaK2YHsnpfyHFUp4wEiCD+jTDMqxSAjgGqvbMs7Pb/X0ZlLziX0
-   fXjxXswFfYmKVuxtp6UOpyvlx+i+BPAfwFON6OiDhIUdj3FroIdrzKQpu
-   w==;
-X-CSE-ConnectionGUID: hBMtJKOzTZqYPYcD3j5JbA==
-X-CSE-MsgGUID: 1fgNr23vTA6f4/Pc4Q0YGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="99362541"
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="99362541"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 02:22:04 -0700
-X-CSE-ConnectionGUID: Ts8OLIVHTMq8J0nZH6v7Wg==
-X-CSE-MsgGUID: giFmQoFwTqya8lXTYXQEzA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="296849086"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.130])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 02:22:01 -0700
-Date: Mon, 24 Aug 2026 12:21:58 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v7 2/5] platform/x86: int3472: tps68470: fix clock
- consumer registration for Dell Latitude 5285
-Message-ID: <aowNNqerHj2iUi_b@ashevche-desk.local>
-References: <ae8U0JBdSaPgU-Zl@kekkonen.localdomain>
- <20260819140107.1329091-1-tchatard@gmail.com>
- <20260819140107.1329091-3-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kvR8/Ayg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="efub97+C"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67O992Dh2448604
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 09:46:06 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jPkYMwpH3T9LJMuYXSpWS/SaNpZEHk1LI9FfTb8V1Uk=; b=kvR8/AygV9gO21y2
+	I2R8CqukLcGRVPn8I8EPKndDknVeGi+gtNr3GYKYzJrzj7AUHcBKrRxgiqewy7vK
+	h9hnbSxjYrnXCrZwRw9YMf9/u2XSLkH5hzwhpEQhXjEnEp9Uffzx/YO3Da9ETGQ5
+	Ht5Ce6EKFDjAgk9rMhs5ztNKwVHFa8zu/V6eGHOw9Dp0pQGwbMA54qbbBMoJ9+T7
+	MH9kJZrGmV10HAMfenQCxOnVVchza1CN/j6juESLcGz/YTEF39rol8hSbNtBhDt0
+	UkE5noOHlgeEe5pc/wfnXRxW25YF2xWxpMmluI4SWmCwBJfnrpRXFnnOJdv7dBxb
+	m8/17Q==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g8j7r0ft1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 09:46:06 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-936cf9b6f32so22207885a.1
+        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 02:46:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787564766; x=1788169566; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jPkYMwpH3T9LJMuYXSpWS/SaNpZEHk1LI9FfTb8V1Uk=;
+        b=efub97+CpVsxwKMZy0dlyDtABIJod4YVEHM1TprbHjNIYsDyhx5P90iBHmk/AL54IK
+         ewzSnu0TS0vhmIV0w3cx1tSTjOCkEw6EBGz/M4pHE7xBFtDY6GVdjJ5VNPxQrg1ZffOZ
+         TVfG87SzJteRUQShiaL4NFfxDcnU70+WPJmsFQUIkqh3z6z2sqy95qlrligLalfozjRv
+         EaKNJqzjKi61En8grCiniPvjw0amu5+72SPQIyP0q9Pttp4meWl1olEJSZfPocY62Eku
+         E5gPP2ctcwJikUR9d/yrIZi3bfW7XyJDpNPejuk3Q1hykiZAHZAjW/+yqeC9ZJkt0xEI
+         oLkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787564766; x=1788169566;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jPkYMwpH3T9LJMuYXSpWS/SaNpZEHk1LI9FfTb8V1Uk=;
+        b=cpWBVEANrDIT71j4TGR6dRhghpKeAetCvYss1r/YweUPsRhHfeoA0ZawfAbEKNzEKv
+         GZJg0bM3akikhypxfbT2R00CCWklGnkbXCxwpHzok3fSWPQ0FcvBQTdVETDbtrVQrTYW
+         wIq7uzpRzm1H+8nj7GHwQtbpBz84cQOzD96T/ZQbBEQrqT6C8GW8p2hQfqVtnpeHsHoj
+         fnMVltDv/TVfitcQP3t6+w2n4p8el6kW1oSMxKN4r5LoCEyxiNpQBzzXnpfRrfwKXqQm
+         EKbXHADnXTaa9niuAfFn4TouC4lC/To4rv1gL6gjuftFqTlEfo4ZltlNOPlGTa+V04og
+         Iw8g==
+X-Forwarded-Encrypted: i=1; AHgh+RrY8VBHRrpGQk+V7ziBLMeWudE6Df0z2E9AbooT3AbJ7LrwffOnDiv/dU8AI68nAkbz/RUIa5L3oUjA3A==@vger.kernel.org
+X-Gm-Message-State: AFuF++lyaYmPiPSNNhJLM8QLyUTIu+0LBaQpirhr3RxrBLd/dTmT618z
+	9nc3scb2LWyQj4qbbuWZ/4h2ZbZfqIqmSc+U2JfTUgVR4CmHGJqaP1vF/qjFKoyqDcy4LIDUmC+
+	n7s7oIGAmp7y8U6RyE5iH5OFzVr7MfP4hClJYJICIznoAmcsGOzSk0NYz+S8i/KbfgQ==
+X-Gm-Gg: AR+sD13DsAPVROrR5H9Lg3tEHE5PxotjXW2ma4+fY8SwLGfV1Onm2j4yW85Edi1+410
+	j2IGXUrYzqwVJzmYqA6RaFPK0WVw4o6iVmSq+nu6+hiyXJxzs+YkpWpbHzDtttKWKzhuDbHqlpC
+	ugT2b3IntSDdUNrhg3edIUIBY1AqmMnUmfX2DoseTVcoeJ0Kt0PfteuCwV3LAXK3mkgWZPzcoj/
+	E4uZj6L45aVNd29sW5wrcYBvUfFYSIEdCKAxMxSo8QZqlaBFz4+d5mULFYnggRcmS7+fssD2KkV
+	vpyJzf+qcaCgxhwSsWpwlUindKV+zgPHLtsg58DP36XWST26t2mYf8wfQb4o2mig2TiCqJvqEWE
+	Zz/WFgU463+p/43zOIaL18uk3
+X-Received: by 2002:a05:620a:4728:b0:934:95d9:85fe with SMTP id af79cd13be357-9373957a356mr1703823685a.3.1787564765808;
+        Mon, 24 Aug 2026 02:46:05 -0700 (PDT)
+X-Received: by 2002:a05:620a:4728:b0:934:95d9:85fe with SMTP id af79cd13be357-9373957a356mr1703820785a.3.1787564765402;
+        Mon, 24 Aug 2026 02:46:05 -0700 (PDT)
+Received: from [192.168.120.193] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24966fa8aasm1256229366b.34.2026.08.24.02.46.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 24 Aug 2026 02:46:04 -0700 (PDT)
+Message-ID: <2aa0e4b8-c22d-4dd9-bd05-00bcf9cbe736@oss.qualcomm.com>
+Date: Mon, 24 Aug 2026 11:46:01 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260819140107.1329091-3-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/3] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony
+ IMX576 front camera support
+To: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+        sakari.ailus@linux.intel.com
+Cc: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Hans de Goede <johannes.goede@oss.qualcomm.com>,
+        Tarang Raval <tarang.raval@siliconsignals.io>,
+        Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>,
+        Kate Hsuan <hpa@redhat.com>, Xiaolei Wang <xiaolei.wang@windriver.com>,
+        Walter Werner Schneider <contact@schnwalter.eu>,
+        Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Mehdi Djait <mehdi.djait@linux.intel.com>,
+        Miguel Vadillo <miguel.vadillo@intel.com>, linux-media@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org
+References: <20260806120216.24145-1-himanshu.bhavani@siliconsignals.io>
+ <20260806120216.24145-4-himanshu.bhavani@siliconsignals.io>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260806120216.24145-4-himanshu.bhavani@siliconsignals.io>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI0MDA4NCBTYWx0ZWRfX/pz6XdOALy/W
+ OnNo/c52DReGtPmL8j96vvq0dcjSQlPGXQBHym+KSpRF6+NhnCkMTu6jiYoz/NES+tGkH3lfwRi
+ 0W54dnty0KvIXgGxL4NiFOofJdXYI8I4GX9apxAf18PTX/MUlxJB7BOePEzFMse+ijk0PZskpdE
+ 7jcxbnsvbc5w7rKLSuyezBnxSgUcROU5TD6gLff5mR6mx1jJ3Iyv8h7qGimCDFsbLoQw0KtPeb5
+ Pyk5HkbEw2m9WppbDVat5FKIUxUW+4OUsnkI2fbtPv+uGsV+rbbIPlrFBA2YbdfSo2HeGDIOVKl
+ 42htPI7g/rJ+WJ6o6JYjGHPs76NMWgeFuXP3hieDUnyxC/ktOTABbL1RHCBuC80+/9+A2nJhVQW
+ Rvx0ey/zpODVi91D6OdVGltWumRQBKAKDuQwJNbf4C2lmDrZIvFrTyVoXJjf9plxCFDUox62okt
+ 1BuHo4GDZzzivpl2t3w==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI0MDA4NCBTYWx0ZWRfX8e6wMVCKEl3/
+ WlIeuwuvHVxGINWNI0YhdomtODWohFpDUNguEbEHxPcxDkpJkcMPN46DUO0e9dEz+m4U6WgfJiP
+ CdbjAlWujtU1kPMEFNuT2mH1GnSX//M=
+X-Proofpoint-GUID: kaAN24rBzS_rlfShNdKrumh_r1N0w2WF
+X-Authority-Analysis: v=2.4 cv=IL8yzAvG c=1 sm=1 tr=0 ts=6a8c12de cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=_fYl8KkWePwGJAbRzmcA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: kaAN24rBzS_rlfShNdKrumh_r1N0w2WF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-24_03,2026-08-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 phishscore=0 priorityscore=1501 suspectscore=0
+ spamscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608240084
 
-On Wed, Aug 19, 2026 at 04:01:04PM +0200, Thierry Chatard wrote:
-> The BIOS on the Dell Latitude 5285 leaves GNVS field C0TP at zero.
-> With C0TP=0 the ACPI _DEP method on INT3479 (OV5670, front camera)
-> resolves to PCI0 instead of the INT3472 (TPS68470 PMIC) device.
+On 8/6/26 2:02 PM, Himanshu Bhavani wrote:
+> From: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
 > 
-> Because for_each_acpi_consumer_dev() walks the _DEP reverse-mapping,
-> INT3479 is invisible to it: the clock consumer lookup entry for the
-> front camera is never registered with the tps68470-clk driver, and
-> the OV5670 sensor driver cannot acquire its MCLK.
-
-> Fix this without touching ACPI tables by adding optional static clock
-> consumer fields to struct int3472_tps68470_board_data:
+> Add device tree support for the Sony IMX576 front camera
+> sensor and connect it to CAMSS via CSIPHY3.
 > 
->   unsigned int n_clk_consumers;
->   const struct tps68470_clk_consumer *clk_consumers;
+> Signed-off-by: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+> Signed-off-by: Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>
+> ---
 
-No need to repeat what we may read in the code.
-Is this message constructed with a help of AI?
-The rule of thumb: use AI as a tool, do not blindly
-copy'n'paste what it pukes.
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 
-> When board data is present and n_clk_consumers is non-zero, probe uses
-> the static list instead of for_each_acpi_consumer_dev() to populate
-> tps68470-clk platform data.  Platforms that do not set these fields
-> continue to use the existing ACPI traversal path unchanged.
-
-...
-
-> +	struct gpiod_lookup_table * const *tables;
-
-Okay, you want the outer pointer to be const, that's probably fine, but in any
-case the GPIOLIB modifies the given tables.
-
->  	int n_consumers;
->  	int device_type;
->  	int ret;
-> -	int i;
-> +	unsigned int i;
-
-Keep the reversed xmas tree ordering.
-
-...
-
-> +	/*
-> +	 * The order of the cells matters here! The clk must be first
-> +	 * because the regulator depends on it. The gpios must be last,
-> +	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
-> +	 * the clk + regulators must be ready when this happens.
-> +	 */
-> +	cells[0].name = "tps68470-clk";
-> +	cells[0].platform_data = clk_pdata;
-> +	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
-> +	cells[1].name = "tps68470-regulator";
-> +	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
-> +	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
-> +	cells[2].name = "tps68470-gpio";
-> +
-> +	tables = board_data->tps68470_gpio_lookup_tables;
-> +	for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +		gpiod_add_lookup_table(tables[i]);
-
-I'm wondering if we can / want to use gpiod_add_lookup_tables().
-
-> +	ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
-> +				   cells, TPS68470_WIN_MFD_CELL_COUNT,
-> +				   NULL, 0, NULL);
-> +	kfree(cells);
-> +
-> +	if (ret) {
-> +		for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +			gpiod_remove_lookup_table(tables[i]);
-> +	}
-
-...
-
->  	const struct int3472_tps68470_board_data *board_data;
-> -	int i;
-> +	unsigned int i;
-
-This change along with the similar above deserves a separate patch.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Konrad
