@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA8074195DA
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273CE419FC5
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573699; cv=none; b=HiRIrmLX98JKQ1LcFkSpx8y7M1Ss0WmPqDHCkvSiR3+VUmg/aOGi++xYKz/XZcWXfjazAQ3UKy3NMjfEIrwTDo8f0XgVy3ylx8CggIcoToYRAMS+VGGG/V7E3zbfrJyxAo0DD6dWCg++5ZErpPUQ7slz8+fYlJ06THFuK0MlEKQ=
+	t=1787573699; cv=none; b=SB/5+RSkdV6y00hmSYYzQ6pmAyk+0ASgO/MlQgg/ifzhkz4tYdgXEncQB9JFOMhFlGSPebd0HyZ63EVnO+fld+4gIyXFSCglGU8GZSZG8PyjTsScIra3f1xanKBg1b+uCGBgoer+oBkeNpuJKOr5I/KLsZSaBePbCXYSGPJcrkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787573699; c=relaxed/simple;
-	bh=MdI9afDHcbtUL/z1q3eqRA5hCpy0rlrMdoF2kAJuk6k=;
+	bh=+5ysEBYePwxoCQMQNv3vK/miPxqepgMu/PzqkdN0ugE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KC4aVqbEs7V7/ha2edNYOSJzQ0yWhoEoGwdc7w1d4OZ1J7WDZqDmAX8sA0Qd6tnapM1E26jQGlv88x8mW9ebLddlHHS8ZLuxlK+ccWsvyJw5x9aUiQREB2uzB0nWWrpPCEKrqHd0C3RmrBXAytHQi9Dew/Go3dYf20xLhOSYhvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dHknBb7z; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=qokpsu8jGEdjAgZkGpavLTQY2JmgSX9CkYE+WGlVqGNrn6hWFdpBdlBpIfmytCMP4tMdAaYJdibSXutXwf/bHEZFfrLMW6ena3YF+4BrzPAMwUk3l37s50RpTIBzSJqP/d0UHlnjyrZW0ZuXeTxist827uve4BvUDgDFlgrXpJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iglHfU8/; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dHknBb7z"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iglHfU8/"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787573697; x=1819109697;
+  t=1787573698; x=1819109698;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=MdI9afDHcbtUL/z1q3eqRA5hCpy0rlrMdoF2kAJuk6k=;
-  b=dHknBb7zZqEoIGxPgU1OjKLXNeoCeCSlwVya+nQc1Bwqh3qJJUpNFdO3
-   RQWO2V81XlRHODkuOCYt5otP9p0qN7Qe5aP4Pf+/Uk9LDrDkmTOGxSLnP
-   BxbrS+kv+tfaB7nQGzmDLuY/apGN9PCEe5z1/Xt05EpJta4j9plclnn3C
-   Aee3qLM9GQHQzIApryaW5bvUhBJUQ73WgfiY14Xw/PhtWDYICnsWJ0LbC
-   +MTt7mHJ/e6wF7OP38vh/igbNtQRpESs0y2JVqI7BvlPgjtzfbZfMfhWG
-   SKbyj2bVaNZbXT9JyAOYGXna2Rxszts/WcEq2bYpCTedWFLm8ZnZywFqG
+  bh=+5ysEBYePwxoCQMQNv3vK/miPxqepgMu/PzqkdN0ugE=;
+  b=iglHfU8/VwZwlAiAbUCDEv1od/eA7/rMeONkoy5tms6lNvW9ndlrSQWq
+   6n4HAxvOAR9dm98ZosZnfahdZptPjrt4OI2QryLBDcwKGlXhNUGG/ztAh
+   CCkyADoxViGJt6YzgizwoX54QFHBajgSrDWpP+r8Gz+0hZXAEhmMWCOlf
+   lr/e8lNBOEZyvb9vvtSQsURyOK1pmJ/VU+f7dXIln+LeQHx9CyKAR3P7f
+   FhlZ3zEmnLQQzn/HC5DBnqNOhaiKc22mQ7VUWOxPxgE+lxs74Be0Bl+Vr
+   PkJ1dbxQnGfbAAx6uax8xfkcFTGJN+C0miqSUm6Uv32AA+pLO054d6efZ
    w==;
-X-CSE-ConnectionGUID: q/k/tEBpS+axbh2NmtHVtQ==
-X-CSE-MsgGUID: v7iEcRqPQpSZ72tXvLLrng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036587"
+X-CSE-ConnectionGUID: kJYyGTivTUq0gLm04LQiZg==
+X-CSE-MsgGUID: 9q7xHZZSRtqzjhPZcPaA0g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036578"
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88036587"
+   d="scan'208";a="88036578"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:52 -0700
-X-CSE-ConnectionGUID: H5S6DcOvSI+iLvabIccA5w==
-X-CSE-MsgGUID: sJmQ2cM1Ty6YzqsSRGN0Aw==
+X-CSE-ConnectionGUID: b5sJwCueTpK9+QxP66WHsw==
+X-CSE-MsgGUID: VrQjU2vASUOJ60fjK3goBA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270787672"
+   d="scan'208";a="270787666"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
   by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:50 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id A4E59122A41;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7D077121F29;
 	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wyTZj-0000000E3Ad-3OaD;
+	id 1wyTZj-0000000E39f-2iLT;
 	Mon, 24 Aug 2026 15:14:51 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v3 27/29] media: cdns-csi2rc: Use v4l2_subdev_get_frame_desc()
-Date: Mon, 24 Aug 2026 15:14:49 +0300
-Message-ID: <20260824121451.3348583-28-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically allocated pass-through routes
+Date: Mon, 24 Aug 2026 15:14:37 +0300
+Message-ID: <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
@@ -74,77 +74,133 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
-preferred over calling the get_frame_desc() pad operation directly.
+Count the number of pass-through routes, allocate memory and then return
+the full table to the caller.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/platform/cadence/cdns-csi2rx.c | 24 ++++++++++----------
- 1 file changed, 12 insertions(+), 12 deletions(-)
+ drivers/media/v4l2-core/v4l2-subdev.c | 61 +++++++++++++++++++++++----
+ 1 file changed, 52 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/media/platform/cadence/cdns-csi2rx.c b/drivers/media/platform/cadence/cdns-csi2rx.c
-index e31cdcd9ce8e..a1f4bf5fbc93 100644
---- a/drivers/media/platform/cadence/cdns-csi2rx.c
-+++ b/drivers/media/platform/cadence/cdns-csi2rx.c
-@@ -230,19 +230,20 @@ static const struct csi2rx_fmt *csi2rx_get_fmt_by_code(u32 code)
- 	return NULL;
- }
- 
--static int csi2rx_get_frame_desc_from_source(struct csi2rx_priv *csi2rx,
--					     struct v4l2_mbus_frame_desc *fd)
-+static struct v4l2_mbus_frame_desc *
-+csi2rx_get_frame_desc_from_source(struct csi2rx_priv *csi2rx)
- {
- 	struct media_pad *remote_pad;
- 
- 	remote_pad = media_entity_remote_source_pad_unique(&csi2rx->subdev.entity);
- 	if (IS_ERR(remote_pad)) {
- 		dev_err(csi2rx->dev, "No remote pad found for sink\n");
--		return PTR_ERR(remote_pad);
-+		return ERR_CAST(remote_pad);
- 	}
- 
--	return v4l2_subdev_call(csi2rx->source_subdev, pad, get_frame_desc,
--				remote_pad->index, fd);
-+	return v4l2_subdev_get_frame_desc(csi2rx->source_subdev,
-+					  remote_pad->index,
-+					  V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
- }
- 
- static inline
-@@ -459,13 +460,12 @@ static int csi2rx_log_status(struct v4l2_subdev *sd)
- static void csi2rx_update_vc_select(struct csi2rx_priv *csi2rx,
- 				    struct v4l2_subdev_state *state)
- {
--	struct v4l2_mbus_frame_desc fd = {0};
+diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
+index c9f38b0313eb..d34704aad88e 100644
+--- a/drivers/media/v4l2-core/v4l2-subdev.c
++++ b/drivers/media/v4l2-core/v4l2-subdev.c
+@@ -2561,13 +2561,42 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 	struct media_pad *local_sink_pad;
  	struct v4l2_subdev_route *route;
- 	unsigned int i;
--	int ret;
+ 	struct device *dev = sd->dev;
+-	int ret = 0;
++	unsigned int num_entries = 0;
++	int ret;
  
--	ret = csi2rx_get_frame_desc_from_source(csi2rx, &fd);
--	if (ret || fd.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
-+	struct v4l2_mbus_frame_desc __free(v4l2_subdev_free_frame_desc) *fd =
-+		csi2rx_get_frame_desc_from_source(csi2rx);
-+	if (IS_ERR(fd) || fd->type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
- 		dev_dbg(csi2rx->dev,
- 			"Failed to get source frame desc, allowing only VC=0\n");
- 		for (i = 0; i < CSI2RX_STREAMS_MAX; i++)
-@@ -479,12 +479,12 @@ static void csi2rx_update_vc_select(struct csi2rx_priv *csi2rx,
- 	for_each_active_route(&state->routing, route) {
- 		u32 cdns_stream = route->source_pad - CSI2RX_PAD_SOURCE_STREAM0;
+ 	lockdep_assert_held(state->lock);
  
--		for (i = 0; i < fd.num_entries; i++) {
--			if (fd.entry[i].stream != route->sink_stream)
-+		for (i = 0; i < fd->num_entries; i++) {
-+			if (fd->entry[i].stream != route->sink_stream)
- 				continue;
+ 	if (WARN_ON(!(sd->entity.pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
+ 		return -EINVAL;
  
- 			csi2rx->vc_select[cdns_stream] |=
--				CSI2RX_STREAM_DATA_CFG_VC_SELECT(fd.entry[i].bus.csi2.vc);
-+				CSI2RX_STREAM_DATA_CFG_VC_SELECT(fd->entry[i].bus.csi2.vc);
- 		}
++	/* Count the number of entries first */
++	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
++		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
++			continue;
++
++		for_each_active_route(&state->routing, route) {
++			if (route->source_pad != pad ||
++			    route->sink_pad != local_sink_pad->index)
++				continue;
++
++			num_entries++;
++
++			if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
++				return -E2BIG;
++		}
++	}
++
++	if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
++		return -E2BIG;
++
++	if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
++		fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
++		if (!fd->entry)
++			return -ENOMEM;
++
++		fd->len_entries = num_entries;
++	}
++
+ 	/* Iterate over sink pads */
+ 	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
+ 		struct v4l2_mbus_frame_desc source_fd;
+@@ -2594,12 +2623,15 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 				if (IS_ERR(remote_source_pad)) {
+ 					dev_dbg(dev, "Failed to find remote pad for sink pad %u\n",
+ 						local_sink_pad->index);
+-					return PTR_ERR(remote_source_pad);
++					ret = PTR_ERR(remote_source_pad);
++					goto err_free;
+ 				}
+ 
+ 				remote_sd = media_entity_to_v4l2_subdev(remote_source_pad->entity);
+-				if (!remote_sd)
+-					return -EINVAL;
++				if (!remote_sd) {
++					ret = -EINVAL;
++					goto err_free;
++				}
+ 
+ 				ret = v4l2_subdev_call(remote_sd, pad,
+ 						       get_frame_desc,
+@@ -2609,7 +2641,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 					dev_err(dev,
+ 						"Failed to get frame desc from remote subdev %s\n",
+ 						remote_sd->name);
+-					return ret;
++					goto err_free;
+ 				}
+ 
+ 				have_source_fd = true;
+@@ -2620,7 +2652,8 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 					dev_err(dev,
+ 						"Frame desc type mismatch: %u != %u\n",
+ 						fd->type, source_fd.type);
+-					return -EPIPE;
++					ret = -EPIPE;
++					goto err_free;
+ 				}
+ 			}
+ 
+@@ -2635,12 +2668,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+ 				dev_dbg(dev,
+ 					"Failed to find stream %u from source frame desc\n",
+ 					route->sink_stream);
+-				return -EPIPE;
++				ret = -EPIPE;
++				goto err_free;
+ 			}
+ 
+-			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_PREALLOC) {
++			if (fd->num_entries >= fd->len_entries) {
+ 				dev_dbg(dev, "Frame desc entry limit reached\n");
+-				return -E2BIG;
++				ret = -E2BIG;
++				goto err_free;
+ 			}
+ 
+ 			fd->entry[fd->num_entries] = *source_entry;
+@@ -2652,6 +2687,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
  	}
+ 
+ 	return 0;
++
++err_free:
++	kfree(fd->entry);
++	fd->entry = fd->entry_mem;
++	fd->num_entries = 0;
++	fd->len_entries = V4L2_FRAME_DESC_ENTRY_PREALLOC;
++
++	return ret;
  }
+ EXPORT_SYMBOL_GPL(__v4l2_subdev_get_frame_desc_passthrough);
+ 
 -- 
 2.47.3
 
