@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273CE419FC5
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3247E415F22
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573699; cv=none; b=SB/5+RSkdV6y00hmSYYzQ6pmAyk+0ASgO/MlQgg/ifzhkz4tYdgXEncQB9JFOMhFlGSPebd0HyZ63EVnO+fld+4gIyXFSCglGU8GZSZG8PyjTsScIra3f1xanKBg1b+uCGBgoer+oBkeNpuJKOr5I/KLsZSaBePbCXYSGPJcrkM=
+	t=1787573700; cv=none; b=KxwnOAcuGwx7QC88NHoxTvEMLDWzPR6A98VyCgzGx3R+gVqDmXABp68xvXEHoXtDh56lwokKFmAw2zz/pG5mZr+hMkIW4aISqTrUmdZpwOUzPp4MD6BxlOPWXBfBqXctkhltvtXU0tQnMrshUuqx8NMA+1aKufwth0owFECZWt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787573699; c=relaxed/simple;
-	bh=+5ysEBYePwxoCQMQNv3vK/miPxqepgMu/PzqkdN0ugE=;
+	s=arc-20240116; t=1787573700; c=relaxed/simple;
+	bh=Y3O95Ec8NG6W4v8nsNuLZfUD4S62gsn1uN5O/8xlBKg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qokpsu8jGEdjAgZkGpavLTQY2JmgSX9CkYE+WGlVqGNrn6hWFdpBdlBpIfmytCMP4tMdAaYJdibSXutXwf/bHEZFfrLMW6ena3YF+4BrzPAMwUk3l37s50RpTIBzSJqP/d0UHlnjyrZW0ZuXeTxist827uve4BvUDgDFlgrXpJc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iglHfU8/; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=j9JfVStr9hwWI6cwkPYBhqh4HN5ICTAn+z66qSafTb93N5rat3uO6NKJqzVyzXL9AZL1L8AJpesXT62y1p8/OKB+NuL1LkCn+0/JPuOdT67CLuCLhSpasWyghSSo98wHaDxxmMHfTaC/xkql7d+eAEkV0ez8Otx2fJwc/pFzs48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NoyzH70a; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iglHfU8/"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NoyzH70a"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787573698; x=1819109698;
+  t=1787573699; x=1819109699;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=+5ysEBYePwxoCQMQNv3vK/miPxqepgMu/PzqkdN0ugE=;
-  b=iglHfU8/VwZwlAiAbUCDEv1od/eA7/rMeONkoy5tms6lNvW9ndlrSQWq
-   6n4HAxvOAR9dm98ZosZnfahdZptPjrt4OI2QryLBDcwKGlXhNUGG/ztAh
-   CCkyADoxViGJt6YzgizwoX54QFHBajgSrDWpP+r8Gz+0hZXAEhmMWCOlf
-   lr/e8lNBOEZyvb9vvtSQsURyOK1pmJ/VU+f7dXIln+LeQHx9CyKAR3P7f
-   FhlZ3zEmnLQQzn/HC5DBnqNOhaiKc22mQ7VUWOxPxgE+lxs74Be0Bl+Vr
-   PkJ1dbxQnGfbAAx6uax8xfkcFTGJN+C0miqSUm6Uv32AA+pLO054d6efZ
+  bh=Y3O95Ec8NG6W4v8nsNuLZfUD4S62gsn1uN5O/8xlBKg=;
+  b=NoyzH70aL4zOirB+iWq0MJ3xzYCW3rWN8nJhMBkWPYOdY9cGoNlQJGFM
+   8F6kRZmrGGty9YgZlkqEZq6EtrYbB3CWdiJRurUxMpa/o76P/WYivFjEF
+   8UI3wJ5QrSFx/+wWRScvizQ2L6793NgqJolCxcfExUI19rs3u/DdNqK6t
+   IFaIGM/tduFrFQPt4TWpg6dNGryWJQZoRoPU5XriB6eQVeQ1TsOgMrHbJ
+   BjvMQXOnCFUMXLNY44rjRAWfd3oANkePD+v6t8TotCaibXcCRodDCt8Du
+   NbkWFIUHLclY6FYSr9d6iWnanNsJ6XRNi0uFRLxfuWq3tJLxinq8chfoU
    w==;
-X-CSE-ConnectionGUID: kJYyGTivTUq0gLm04LQiZg==
-X-CSE-MsgGUID: 9q7xHZZSRtqzjhPZcPaA0g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036578"
+X-CSE-ConnectionGUID: O6F7qsKwTFa1+Fl1HknufQ==
+X-CSE-MsgGUID: 3c3FRhuLRq6LDHXzxp1sbA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036594"
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88036578"
+   d="scan'208";a="88036594"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:52 -0700
-X-CSE-ConnectionGUID: b5sJwCueTpK9+QxP66WHsw==
-X-CSE-MsgGUID: VrQjU2vASUOJ60fjK3goBA==
+X-CSE-ConnectionGUID: rkV27f6BRSKzG4vyNJU2KA==
+X-CSE-MsgGUID: jo5nt7+mRx+sAwbDpH+CHw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270787666"
+   d="scan'208";a="270787664"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:50 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:49 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7D077121F29;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id A1917122A3D;
 	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wyTZj-0000000E39f-2iLT;
+	id 1wyTZj-0000000E3AZ-3LX2;
 	Mon, 24 Aug 2026 15:14:51 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically allocated pass-through routes
-Date: Mon, 24 Aug 2026 15:14:37 +0300
-Message-ID: <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 26/29] staging: media: ipu7: Use v4l2_subdev_get_frame_desc()
+Date: Mon, 24 Aug 2026 15:14:48 +0300
+Message-ID: <20260824121451.3348583-27-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
@@ -74,132 +74,121 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Count the number of pass-through routes, allocate memory and then return
-the full table to the caller.
+Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/v4l2-core/v4l2-subdev.c | 61 +++++++++++++++++++++++----
- 1 file changed, 52 insertions(+), 9 deletions(-)
+ .../staging/media/ipu7/ipu7-isys-csi-phy.c    | 19 ++++++--------
+ drivers/staging/media/ipu7/ipu7-isys-csi2.c   | 26 ++++++++-----------
+ 2 files changed, 19 insertions(+), 26 deletions(-)
 
-diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-index c9f38b0313eb..d34704aad88e 100644
---- a/drivers/media/v4l2-core/v4l2-subdev.c
-+++ b/drivers/media/v4l2-core/v4l2-subdev.c
-@@ -2561,13 +2561,42 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 	struct media_pad *local_sink_pad;
- 	struct v4l2_subdev_route *route;
- 	struct device *dev = sd->dev;
--	int ret = 0;
-+	unsigned int num_entries = 0;
-+	int ret;
+diff --git a/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c b/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
+index 3f15af3b4c79..70f8a55e3bce 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
++++ b/drivers/staging/media/ipu7/ipu7-isys-csi-phy.c
+@@ -5,6 +5,7 @@
  
- 	lockdep_assert_held(state->lock);
+ #include <linux/bitmap.h>
+ #include <linux/bug.h>
++#include <linux/cleanup.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/iopoll.h>
+@@ -300,7 +301,6 @@ static int ipu7_isys_csi_ctrl_dids_config(struct ipu7_isys_csi2 *csi2, u32 id)
+ {
+ 	struct v4l2_mbus_frame_desc_entry *desc_entry = NULL;
+ 	struct device *dev = &csi2->isys->adev->auxdev.dev;
+-	struct v4l2_mbus_frame_desc desc;
+ 	struct v4l2_subdev *ext_sd;
+ 	struct media_pad *pad;
+ 	unsigned int i;
+@@ -318,17 +318,14 @@ static int ipu7_isys_csi_ctrl_dids_config(struct ipu7_isys_csi2 *csi2, u32 id)
+ 		 pad->entity->name))
+ 		return -ENODEV;
  
- 	if (WARN_ON(!(sd->entity.pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
- 		return -EINVAL;
+-	ret = v4l2_subdev_call(ext_sd, pad, get_frame_desc, pad->index, &desc);
+-	if (ret)
+-		return ret;
+-
+-	if (desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+-		dev_warn(dev, "Unsupported frame descriptor type\n");
+-		return -EINVAL;
+-	}
++	struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
++		v4l2_subdev_get_frame_desc(ext_sd, pad->index,
++					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
++	if (IS_ERR(desc))
++		return PTR_ERR(desc);
  
-+	/* Count the number of entries first */
-+	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
-+		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
-+			continue;
-+
-+		for_each_active_route(&state->routing, route) {
-+			if (route->source_pad != pad ||
-+			    route->sink_pad != local_sink_pad->index)
-+				continue;
-+
-+			num_entries++;
-+
-+			if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-+				return -E2BIG;
-+		}
-+	}
-+
-+	if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-+		return -E2BIG;
-+
-+	if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-+		fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
-+		if (!fd->entry)
-+			return -ENOMEM;
-+
-+		fd->len_entries = num_entries;
-+	}
-+
- 	/* Iterate over sink pads */
- 	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
- 		struct v4l2_mbus_frame_desc source_fd;
-@@ -2594,12 +2623,15 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 				if (IS_ERR(remote_source_pad)) {
- 					dev_dbg(dev, "Failed to find remote pad for sink pad %u\n",
- 						local_sink_pad->index);
--					return PTR_ERR(remote_source_pad);
-+					ret = PTR_ERR(remote_source_pad);
-+					goto err_free;
- 				}
+-	for (i = 0; i < desc.num_entries; i++) {
+-		desc_entry = &desc.entry[i];
++	for (i = 0; i < desc->num_entries; i++) {
++		desc_entry = &desc->entry[i];
+ 		if (desc_entry->bus.csi2.vc < IPU7_NR_OF_CSI2_VC) {
+ 			ret = __dids_config(csi2, id, desc_entry->bus.csi2.vc,
+ 					    desc_entry->bus.csi2.dt);
+diff --git a/drivers/staging/media/ipu7/ipu7-isys-csi2.c b/drivers/staging/media/ipu7/ipu7-isys-csi2.c
+index f34eabfe8a98..08f4ca1e0289 100644
+--- a/drivers/staging/media/ipu7/ipu7-isys-csi2.c
++++ b/drivers/staging/media/ipu7/ipu7-isys-csi2.c
+@@ -6,6 +6,7 @@
+ #include <linux/atomic.h>
+ #include <linux/bits.h>
+ #include <linux/bug.h>
++#include <linux/cleanup.h>
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/io.h>
+@@ -491,11 +492,9 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
+ {
+ 	struct v4l2_mbus_frame_desc_entry *desc_entry = NULL;
+ 	struct device *dev = &csi2->isys->adev->auxdev.dev;
+-	struct v4l2_mbus_frame_desc desc;
+ 	struct v4l2_subdev *source;
+ 	struct media_pad *pad;
+ 	unsigned int i;
+-	int ret;
  
- 				remote_sd = media_entity_to_v4l2_subdev(remote_source_pad->entity);
--				if (!remote_sd)
--					return -EINVAL;
-+				if (!remote_sd) {
-+					ret = -EINVAL;
-+					goto err_free;
-+				}
+ 	source = media_entity_to_v4l2_subdev(source_entity);
+ 	if (!source)
+@@ -505,18 +504,15 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
+ 	if (!pad)
+ 		return -EPIPE;
  
- 				ret = v4l2_subdev_call(remote_sd, pad,
- 						       get_frame_desc,
-@@ -2609,7 +2641,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 					dev_err(dev,
- 						"Failed to get frame desc from remote subdev %s\n",
- 						remote_sd->name);
--					return ret;
-+					goto err_free;
- 				}
+-	ret = v4l2_subdev_call(source, pad, get_frame_desc, pad->index, &desc);
+-	if (ret)
+-		return ret;
+-
+-	if (desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+-		dev_err(dev, "Unsupported frame descriptor type\n");
+-		return -EINVAL;
+-	}
++	struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
++		v4l2_subdev_get_frame_desc(source, pad->index,
++					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
++	if (IS_ERR(desc))
++		return PTR_ERR(desc);
  
- 				have_source_fd = true;
-@@ -2620,7 +2652,8 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 					dev_err(dev,
- 						"Frame desc type mismatch: %u != %u\n",
- 						fd->type, source_fd.type);
--					return -EPIPE;
-+					ret = -EPIPE;
-+					goto err_free;
- 				}
- 			}
- 
-@@ -2635,12 +2668,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
- 				dev_dbg(dev,
- 					"Failed to find stream %u from source frame desc\n",
- 					route->sink_stream);
--				return -EPIPE;
-+				ret = -EPIPE;
-+				goto err_free;
- 			}
- 
--			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-+			if (fd->num_entries >= fd->len_entries) {
- 				dev_dbg(dev, "Frame desc entry limit reached\n");
--				return -E2BIG;
-+				ret = -E2BIG;
-+				goto err_free;
- 			}
- 
- 			fd->entry[fd->num_entries] = *source_entry;
-@@ -2652,6 +2687,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+-	for (i = 0; i < desc.num_entries; i++) {
+-		if (source_stream == desc.entry[i].stream) {
+-			desc_entry = &desc.entry[i];
++	for (i = 0; i < desc->num_entries; i++) {
++		if (source_stream == desc->entry[i].stream) {
++			desc_entry = &desc->entry[i];
+ 			break;
+ 		}
  	}
+@@ -534,8 +530,8 @@ int ipu7_isys_csi2_get_remote_desc(u32 source_stream,
  
- 	return 0;
-+
-+err_free:
-+	kfree(fd->entry);
-+	fd->entry = fd->entry_mem;
-+	fd->num_entries = 0;
-+	fd->len_entries = V4L2_FRAME_DESC_ENTRY_PREALLOC;
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(__v4l2_subdev_get_frame_desc_passthrough);
+ 	*entry = *desc_entry;
+ 
+-	for (i = 0; i < desc.num_entries; i++) {
+-		if (desc_entry->bus.csi2.vc == desc.entry[i].bus.csi2.vc)
++	for (i = 0; i < desc->num_entries; i++) {
++		if (desc_entry->bus.csi2.vc == desc->entry[i].bus.csi2.vc)
+ 			(*nr_queues)++;
+ 	}
  
 -- 
 2.47.3
