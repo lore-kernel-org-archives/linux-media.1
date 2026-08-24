@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4286C412C1A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6012341686A
 	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:14:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787573697; cv=none; b=QuqWO7Eh2X8AoEWYWbRTG3PGaZBKmmTprDIF3BlofAGA+bVDD5FKk3wDnsudMJlJdrE9DpSaeHB1J9GSJVzzIAVDgZV/etAuvcfgt0ByhA0l/cp2TH3vpupglNW/zMxTqy8Kt/48GxR/GmAYOrP5DWrtY2hXhniq4IPM2c0tHXw=
+	t=1787573697; cv=none; b=TtfZt6vOm3oq3EWxT9y+O0ELq8cgQHN+hYfVluOQFUhVwy6yUJ7Y6m/4TGD7FivDnUlvrDKeXygdxF+YiBBz32zJUSkCMnVQRqQ6U7EOQHZzjk9MBe+9TlvvVGNpwXH5RJVztNyNVrwlnGeHtgvGh2VX9iY+U+UE5KE2Mb38mss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1787573697; c=relaxed/simple;
-	bh=v7w70+MpHWQdvK3UqgOg8FD+ZRbuehYVKDcXgjwIXwk=;
+	bh=Vu8PIyW3nH+fYtJGNneseUrOObAhdGFmhAUEoYUlo2c=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K1g6lD8XvA34k7Uem+gCpoe2SN7iya73skCwdvx6DtTK+Ilwmp8VQNzD0SNkvKa1KpwMYcdgrvDlTrjKO+R7NZaEu0PrYFuCdtt3mSbNFZEjwzHqNICn4Hl9is48Pga4LBCaDzY4vBI4R3C/LdzmZC4xTuBj2NUshDXLXR6gg5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uuyonnm+; arc=none smtp.client-ip=198.175.65.17
+	 MIME-Version; b=WaaszcrZtfkYMnsY0EkXupB2UHS1cPE0eX1EHmvEj5zkgkOSrxs9Ec0EHhOUOEhkCSPBjT0QXJ7gWx8Z2yr8SKDt5jgMHTzR7wukBWmEjQKbgcGvIu9O3nxCQcYXwRgUbeQlIyrE6mr4VVg7iIX0Dcll4ibdOWa6/4vhR9WSEG8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bgNl3Grf; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uuyonnm+"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bgNl3Grf"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1787573696; x=1819109696;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=v7w70+MpHWQdvK3UqgOg8FD+ZRbuehYVKDcXgjwIXwk=;
-  b=Uuyonnm+0++F3NrzKTjghPa1xR2b/mqLWFQPGbYY7RToyKvsj5bLPbhz
-   +VFJQeIHYDL7faoTXdj3amkYx7MjGCa8EL6A4Ld/JK3VjDbmkkl0098ry
-   STxNDScP3Ep8JJ3GlloC9Q07R9Lnw3GRq5mTrhjyUh2xSm6fCAmorm0zH
-   FhpTTyH/BcAoEqRSI1TaRuvRtSKNPzrKQ+7QolRL/MUtrhIG1uYSPZh00
-   H2/U8EOZh2DE1P+ZKsQ9CBwR690wEJFaJofs1rwimom1Bl/X811FZ8V1O
-   xj5kjRjVqA3Xp2m4e9LiL5AyrYgIUrYEbxA9gj2mEk8GcJh9UJr1TxzDR
-   Q==;
-X-CSE-ConnectionGUID: GicbuWeuTsGhbGXmQw8ZWg==
-X-CSE-MsgGUID: FIl+/zYvSXCZBbrG5CFMJQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036562"
+  bh=Vu8PIyW3nH+fYtJGNneseUrOObAhdGFmhAUEoYUlo2c=;
+  b=bgNl3GrfJ0feHlvkhHdQV22TdD9dUcPuzdGpls0AJkTqjhIdOPiAFuWw
+   DT9e+Nm7Hz56lvdN3C9SdMcwOINaZaUhQN6XQD4ayx/edoAU0e05d9U7E
+   u6K9FDVhZ75IqOvh3xZbd7F0OhMBt46zfWZEqVHYQowmBtM3VAF1CwuEr
+   ieWxOzz8t/QVttU0zzIDOjC6VUJAFjUTCcg2sAxZLPDYqgi4YjrZD7oSl
+   SVD3IIw7deobxLlMwTt/PfvYAUssDqbj1pPW/N03xru80OI8YyCcbl3d0
+   Mub8fW7AoavYfGfXBVhqsRiwDi1hRSj5dCg9yUK7AyVrzKG052zwoqGVN
+   w==;
+X-CSE-ConnectionGUID: d8WcmUicRy21dcdwPxzObA==
+X-CSE-MsgGUID: mrKa2vnsQv2HRyCapRbZrQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11884"; a="88036572"
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="88036562"
+   d="scan'208";a="88036572"
 Received: from orviesa004.jf.intel.com ([10.64.159.144])
   by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:51 -0700
-X-CSE-ConnectionGUID: pAb9nhw/QayCCgf1VaqovQ==
-X-CSE-MsgGUID: KAHtfIA4S9aPuL8FI/vo9Q==
+X-CSE-ConnectionGUID: KZ0ZqtNTTA+AcF3+x/UlyA==
+X-CSE-MsgGUID: RLJ5JIDcSnyNY29rluOsuQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,240,1779174000"; 
-   d="scan'208";a="270787663"
+   d="scan'208";a="270787665"
 Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.180])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:49 -0700
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 05:14:50 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 88988122304;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 92B2712265F;
 	Mon, 24 Aug 2026 15:14:51 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1wyTZj-0000000E39v-2teK;
+	id 1wyTZj-0000000E3AA-34Pp;
 	Mon, 24 Aug 2026 15:14:51 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -60,9 +60,9 @@ Cc: laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: [PATCH v3 18/29] media: bcm2835-unicam: Remove frame descriptor workaround
-Date: Mon, 24 Aug 2026 15:14:40 +0300
-Message-ID: <20260824121451.3348583-19-sakari.ailus@linux.intel.com>
+Subject: [PATCH v3 21/29] media: rzg2l-cru: Use v4l2_subdev_get_frame_desc()
+Date: Mon, 24 Aug 2026 15:14:43 +0300
+Message-ID: <20260824121451.3348583-22-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
@@ -74,81 +74,64 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-As the v4l2_subdev_get_frame_desc() either returns a frame descriptor or
-returns an error, remove the workaround for drivers that didn't implement
-the get_frame_desc() pad op. Also handle v4l2_subdev_get_frame_desc()
-errors.
+Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+preferred over calling the get_frame_desc() pad operation directly.
 
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- .../media/platform/broadcom/bcm2835-unicam.c  | 26 +++++++++----------
- 1 file changed, 12 insertions(+), 14 deletions(-)
+ .../platform/renesas/rzg2l-cru/rzg2l-video.c  | 27 +++++--------------
+ 1 file changed, 7 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
-index 2322d3df3915..ba613966c333 100644
---- a/drivers/media/platform/broadcom/bcm2835-unicam.c
-+++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
-@@ -918,8 +918,8 @@ static int unicam_get_image_vc_dt(struct unicam_device *unicam,
- 	return -EINVAL;
- }
+diff --git a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+index 91eda5034248..90c074527e01 100644
+--- a/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
++++ b/drivers/media/platform/renesas/rzg2l-cru/rzg2l-video.c
+@@ -11,6 +11,7 @@
+  * Copyright (C) 2008 Magnus Damm
+  */
  
--static void unicam_start_rx(struct unicam_device *unicam,
--			    struct v4l2_subdev_state *state)
-+static int unicam_start_rx(struct unicam_device *unicam,
-+			   struct v4l2_subdev_state *state)
++#include <linux/cleanup.h>
+ #include <linux/clk.h>
+ #include <linux/delay.h>
+ #include <linux/pm_runtime.h>
+@@ -438,31 +439,17 @@ void rzg2l_cru_stop_image_processing(struct rzg2l_cru_dev *cru)
+ 
+ static int rzg2l_cru_get_virtual_channel(struct rzg2l_cru_dev *cru)
  {
- 	struct unicam_node *node = &unicam->node[UNICAM_IMAGE_NODE];
- 	const struct unicam_format_info *fmtinfo;
-@@ -933,7 +933,11 @@ static void unicam_start_rx(struct unicam_device *unicam,
- 	fmtinfo = unicam_find_format_by_code(fmt->code,
- 					     UNICAM_SD_PAD_SOURCE_IMAGE);
- 	if (WARN_ON(!fmtinfo))
--		return;
-+		return -EINVAL;
-+
-+	ret = unicam_get_image_vc_dt(unicam, state, &vc, &dt);
-+	if (ret)
-+		return ret;
+-	struct v4l2_mbus_frame_desc fd = { };
+ 	struct media_pad *remote_pad;
+-	int ret;
  
- 	/*
- 	 * Enable lane clocks. The register is structured as follows:
-@@ -1090,16 +1094,6 @@ static void unicam_start_rx(struct unicam_device *unicam,
- 	unicam_wr_dma_addr(node, node->cur_frm);
- 	unicam_set_packing_config(unicam, fmtinfo);
+ 	remote_pad = media_pad_remote_pad_unique(&cru->ip.pads[RZG2L_CRU_IP_SINK]);
+-	ret = v4l2_subdev_call(cru->ip.remote, pad, get_frame_desc, remote_pad->index, &fd);
+-	if (ret < 0 && ret != -ENOIOCTLCMD) {
+-		dev_err(cru->dev, "get_frame_desc failed on IP remote subdev\n");
+-		return ret;
+-	}
+-	/* If remote subdev does not implement .get_frame_desc default to VC0. */
+-	if (ret == -ENOIOCTLCMD)
+-		return 0;
  
--	ret = unicam_get_image_vc_dt(unicam, state, &vc, &dt);
--	if (ret) {
--		/*
--		 * If the source doesn't support frame descriptors, default to
--		 * VC 0 and use the DT corresponding to the format.
--		 */
--		vc = 0;
--		dt = fmtinfo->csi_dt;
+-	if (fd.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+-		dev_err(cru->dev, "get_frame_desc returned invalid bus type %d\n", fd.type);
+-		return -EINVAL;
 -	}
 -
- 	unicam_cfg_image_id(unicam, vc, dt);
+-	if (!fd.num_entries) {
+-		dev_err(cru->dev, "get_frame_desc returned zero entries\n");
+-		return -EINVAL;
+-	}
++	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
++		v4l2_subdev_get_frame_desc(cru->ip.remote, remote_pad->index,
++					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
++	if (IS_ERR(fd))
++		return PTR_ERR(fd);
  
- 	val = unicam_reg_read(unicam, UNICAM_MISC);
-@@ -1118,6 +1112,8 @@ static void unicam_start_rx(struct unicam_device *unicam,
- 	 * sync correctly to the FS from the source.
- 	 */
- 	unicam_reg_write_field(unicam, UNICAM_ICTL, 1, UNICAM_TFC);
-+
-+	return 0;
+-	return fd.entry[0].bus.csi2.vc;
++	return fd->entry[0].bus.csi2.vc;
  }
  
- static void unicam_start_metadata(struct unicam_device *unicam)
-@@ -1427,7 +1423,9 @@ static int unicam_sd_enable_streams(struct v4l2_subdev *sd,
- 			unicam_start_metadata(unicam);
- 
- 		unicam->frame_started = false;
--		unicam_start_rx(unicam, state);
-+		ret = unicam_start_rx(unicam, state);
-+		if (ret)
-+			return ret;
- 	}
- 
- 	ret = v4l2_subdev_routing_find_opposite_end(&state->routing, pad, 0,
+ void rzg3e_cru_enable_interrupts(struct rzg2l_cru_dev *cru)
 -- 
 2.47.3
 
