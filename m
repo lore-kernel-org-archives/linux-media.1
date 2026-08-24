@@ -1,97 +1,89 @@
-Received: from sg-2-2.ptr.blmpb.com (sg-2-2.ptr.blmpb.com [71.18.227.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83F1389E1A
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 19:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D526121ABD7;
+	Mon, 24 Aug 2026 20:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787600093; cv=none; b=Fi5SnVNtQcVkmQE79kvODFi2yJmgCOkseqssQZJD+hhrQ8hWGkJWM+3gEpRtLxEXon4Wb2vQHNwyRS3cJly4VVU+aetlDK0vKU5KaSppUlUz3EJbRrJMLDKQiDyiNRZLUNCSB3dMFLdBhRAWpG6F1uSexbYko2rvyFDSp0csScE=
+	t=1787603054; cv=none; b=EzpG7KYiwslhMdopxhhwfAd/FgJ71tyaXX9ZB5I+tniL3ETZrkWTHzhz1xz66p6l6/ggg3394kwLA8ZZKO9XZy1adXXUSEfTypjMZBbEC39FFpkwqz+DuvPW60SYrhw98Nzypsiqh2xKDvyv4ZLqo6HlmwLk+BQcxs+NloCEZZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787600093; c=relaxed/simple;
-	bh=pUr/RzP8PrIVp2HGeIHnmeB+XC/oPKLT4+Ch5dMduns=;
-	h=References:Date:Cc:From:Content-Type:To:Message-Id:Mime-Version:
-	 In-Reply-To:Subject; b=Vb43Faaf+KbGyDpbAdDj3CHaRkODkWfQj3hbGgC9L/SuE3uIXJkPhEfgmQCDuYtT4onVVh2PdK68HsOy19JZPZj5NnXm6kOVwg7fdZBDFVv48s3c18ZeIMNeKT27EU3kvH1Yj4v4kmFlPh0noK6qzshZcys1qHhSq1TohmUJ45A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=oCGKsyWf; arc=none smtp.client-ip=71.18.227.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787603054; c=relaxed/simple;
+	bh=fiSs8oR/D4/BitaupT5YHmHxn1SU7YiJrGwTZoQ2YCI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=I+G+lAq2kh9MQxdbKzftmrgn1+rQujR3vB17+qarAxIdrkbHmB50dzwzmz7g3xecrOvDtYp9fYQ2jZ0iBO1D6pjTxZ32cXfQjGroSZ1lUkiCJmIiyHm48ulgGynFa21Vpq5tj7iG3RFF19DSd1sTD/IJUr9/yU9ZzdITP0MtJPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WMo8OSdx; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="oCGKsyWf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787600084; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=NQpiRTqyDmsFHrQhXSOP3qjTy3lJ+JjfdqVFx2AjjoM=;
- b=oCGKsyWfAUBYis17BXo7stZKB8sy5L9MG9snJ4/4Ss4RRDngkdD5zfiTJ8DfKSnm6tj6Y5
- WEvu/UMYlcvKM5TtX06gKvEyhpqGxA3ROxWUiHkAtqRUh+E5nX8KJICb8pUNMe+MfmaCcQ
- iVt5fjeLoNHe2CsPQG7QNYSmlcfWoi6BpoRi3pLI4pmtTE6XoCi2okw8FyVlP/fltyPXTT
- 81hAMnGuAtVtXo3zwT8ofxEwvuH+8yT0P/q0lPI07SBRIdT81Kni5qfImpbfvezrfDZgpL
- kxF3bt7xrVXWwvL8pjEvDZdYWymVGvUnscfIWCwFQ4whPhe/5Oom1VE7ShpKbw==
-References: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
-X-Mailer: b4 0.14.2
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Lms-Return-Path: <lba+26a8c9cd2+4b5e00+vger.kernel.org+me@cherr.cc>
-Date: Tue, 25 Aug 2026 03:34:32 +0800
-Cc: <imx@lists.linux.dev>, <linux-media@vger.kernel.org>, 
-	<linux-arm-kernel@lists.infradead.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-From: "Shengzhuo Wei" <me@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Tue, 25 Aug 2026 03:34:41 +0800
-Content-Type: text/plain; charset=UTF-8
-To: "Mirela Rabulea" <mirela.rabulea@nxp.com>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Frank Li" <Frank.Li@nxp.com>, "Sascha Hauer" <s.hauer@pengutronix.de>, 
-	"Pengutronix Kernel Team" <kernel@pengutronix.de>, 
-	"Fabio Estevam" <festevam@gmail.com>, 
-	"Hans Verkuil" <hverkuil@kernel.org>, "Ming Qian" <ming.qian@nxp.com>, 
-	"Nicolas Dufresne" <nicolas.dufresne@collabora.com>, 
-	"Benjamin Gaignard" <benjamin.gaignard@collabora.com>, 
-	"Philipp Zabel" <p.zabel@pengutronix.de>, 
-	"Ezequiel Garcia" <ezequiel@vanguardiasur.com.ar>, 
-	"Bin Liu" <bin.liu@mediatek.com>, 
-	"Matthias Brugger" <matthias.bgg@gmail.com>, 
-	"AngeloGioacchino Del Regno" <angelogioacchino.delregno@collabora.com>, 
-	"irui wang" <irui.wang@mediatek.com>, "kyrie wu" <kyrie.wu@mediatek.com>
-Message-Id: <20260825-media-timeout-work-v1-3-ebfebbeb6c31@cherr.cc>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WMo8OSdx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787603053; x=1819139053;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fiSs8oR/D4/BitaupT5YHmHxn1SU7YiJrGwTZoQ2YCI=;
+  b=WMo8OSdx0IqoY4HHgo1k62PkKzD5KyzESI8X7GGthzGrqYBK+1QJ/UIQ
+   fA+JnOi/G7QmcKqoCj5BgR8kS6LsIVhsuG8FZQjuyx52UuZ2kBDiIe4P6
+   txH6XuOzRcexdZFm9Ff5wkqJCvWzCcdkHo2frTq0jsOIdc9xoScsex7RK
+   1U5yDmtJ4kjkBPEZc1AtvdGvlZDQENmLULCjyoh18nvqurOLGpXCKz91p
+   nnlqAMWZeQo+qu1qwRuIp3WvuCmmnTvMgGfET5Q3ACxhqi8ZzLIFs2O22
+   crcnsgpB18Vb9vta7q+6/t/rfVt1z3j6MG6oI6qyousHNHT4/LOWA+jle
+   g==;
+X-CSE-ConnectionGUID: JXOf+Zo8QuiYEkmFfJoVEA==
+X-CSE-MsgGUID: IlmWhIcWS6mX4zB7ri6hjg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87187994"
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="87187994"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 13:24:12 -0700
+X-CSE-ConnectionGUID: SAuD+I38T5Win4cxeXdb4Q==
+X-CSE-MsgGUID: uK66tTaLSECWNb/QbHG+0Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="291948245"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.9])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 13:24:10 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 3C2FC11FC35;
+	Mon, 24 Aug 2026 23:24:21 +0300 (EEST)
+Date: Mon, 24 Aug 2026 23:24:21 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Tomasz Unger <tomasz.unger@yahoo.pl>
+Cc: Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] staging: media: ipu7: fix typo in comment
+Message-ID: <aoyodTb0CsV5D1zt@kekkonen.localdomain>
+References: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5.ref@yahoo.pl>
+ <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5@yahoo.pl>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-In-Reply-To: <20260825-media-timeout-work-v1-0-ebfebbeb6c31@cherr.cc>
-Content-Transfer-Encoding: 7bit
-Subject: [PATCH 3/3] media: mediatek: jpeg: cancel job timeout work before m2m release
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260822-ipu7-utlization-typo-fix-v1-1-d1e551420be5@yahoo.pl>
 
-Each job arms jpeg->job_timeout_work, cancelled only by the IRQ
-completion path. If a job stalls, mtk_jpeg_remove() frees
-jpeg->m2m_dev via v4l2_m2m_release() with the timeout still pending,
-and mtk_jpeg_job_timeout_work() then dereferences the freed m2m_dev
-and the stale ctx it returns -- a use-after-free.
+Hi Tomasz,
 
-Drain the work before the m2m device is released. The device-level
-job_timeout_work was missed by the earlier fix for ctx->jpeg_work.
+On Sat, Aug 22, 2026 at 06:26:59PM +0200, Tomasz Unger wrote:
+> Fix a typo in a comment: "utlization" should be "utilization".
+> 
+> Signed-off-by: Tomasz Unger <tomasz.unger@yahoo.pl>
+> ---
+> Verified with checkpatch.pl - no new warnings introduced by this change.
 
-Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
-Fixes: dedc21500334 ("media: mtk-jpegdec: add jpeg decode worker interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
----
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 1 +
- 1 file changed, 1 insertion(+)
+The patch is fine but we're about to remove this driver. Therefore I'm not
+applying it.
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index d147ec48308110ae8520662e182dc0445447d8d0..f0fe14e83d515f5011cbfe051abbf565568013d0 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1405,6 +1405,7 @@ static void mtk_jpeg_remove(struct platform_device *pdev)
- 
- 	pm_runtime_disable(&pdev->dev);
- 	video_unregister_device(jpeg->vdev);
-+	cancel_delayed_work_sync(&jpeg->job_timeout_work);
- 	v4l2_m2m_release(jpeg->m2m_dev);
- 	v4l2_device_unregister(&jpeg->v4l2_dev);
- }
+Thanks.
 
 -- 
-2.47.3
+Kind regards,
+
+Sakari Ailus
