@@ -1,48 +1,48 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013003.outbound.protection.outlook.com [52.101.72.3])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011034.outbound.protection.outlook.com [40.107.130.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE45C33A9FE
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 21:00:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C028F246781
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 21:07:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.34
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787605229; cv=fail; b=JnmQL6TOJBsdJGoyjZztmDqeMIhJOlh0qKRE3sVT6VAtOFiSJbpt+GLhxz/4hdTHUQfDgAReuKSscng/VOPUHkl+1+FwtBWMgqlY1VqDz13Pg6kMBSWNe0R8tlY5ritHXBVQv7HDbMcXcS57t4A8ON/BYT8/xrnY2bjf4XqypY4=
+	t=1787605678; cv=fail; b=lXgLY1ZM64pPjqyhzqjP3vhQGUlfJkhvdi9T7RavdLzpvJHvq9ZnfoQndEqXSnM2csWQcQAHbNPvcYhEKApEN5OLSOgP/ziTNgl5w972Sz6fVFoHC9wR3ZpgdSOdiS3rwpGer/Yz7xgEUTSm4Fr7xuznpNFjrDDJOq9B0n1tsIk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787605229; c=relaxed/simple;
-	bh=n0crmm26AKwdRKSyerRRSBFNuFvlLltXQRygNQP7w+M=;
+	s=arc-20240116; t=1787605678; c=relaxed/simple;
+	bh=VWQgdfw9753dST+o/l1WBYHNwcFEKZXzYYp9KuPQ+bw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=Rhzh1Ksxx4Ajo7CP9eJ1hjFfac8MBrNNIJBO6gkTHqd+ltAxbs4XltRPvC2YmPd/vkLOLZoW/vlwJ9x/y2ZGOXFFeNcoVJekXXOEJdEd5H2RRlgj7+lxMgJn2+twv7IREXZzMwnsmK0HiP/yplRPKgJ5PgteVb5XHIaMn5eNBrY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=EZLqbD3s; arc=fail smtp.client-ip=52.101.72.3
+	 Content-Disposition:In-Reply-To:MIME-Version; b=k1ftgybqStvi6nUn0wYudB5jiarHBHxWJSPdUwC63qAZXZyK3VAmboEN08qSibl/z2fpPWQov4X8W6p90W19UQwBOYWxXyo88vMD5Y6irq4rHAvhs3mkXN30rBvVxtPXYyZimnIpoODpIzIIp86m7FHhWCJSBlDFXjzHbyvU9hY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=H5mgo6+O; arc=fail smtp.client-ip=40.107.130.34
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="EZLqbD3s"
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="H5mgo6+O"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cwX+JCCjoHLF7R7nt+l7PjKOpoBT0wLyfktZ366m7tHnxtmE1X5XnrazCl5yNojTB6mkCepTkqGUfOQiLTcJj6vL+65NcYAj3TFzarmJY6jDxHGF9GzsFx9PY505xtt36KRRK3bS4xkzzGHxtYVCfBoF6EFsMWPC/90KWIFv74OiZDQjbzS6btLVjb2SRWLHGd244A86p37M8uFitZE9x/IMSbs33tffc8ieqkBhoE2RvtxGN5KxudoZpMIeAGePz2W54tNCCmfP6zUzXFRO3+w2P1msoekNsy6K51RD7/XiE5iikvdwcbIlsbuJpIovBF8pZjWdgh8IMNX7YkM0Sg==
+ b=jg25mWkE/+aRlV/+uv3nbDREC5ouyWl4zMk2acYF7NrI0nsPCct3LuvnBox7Vz9Nml4J1TVoxnJcx4r4p0wUUw6UzxQE0m+jZONQKZ7pEwJ5MI8Kjs0i7u637E2fFCBhUEKXzN6KufkLADZ/fXQRKqUmQ/OJW/O/eXopYkDV1PKOvwxivJAh80flhnnYQv/bKClRHGNKHXm+xtzlFM4wCvokQ6Zs6a4vDwBSjDwDmPplHMo+TftZ4ntXEoAuKDLl6S370uBU38lpuInUJBCZKvi2GdRMRYwBZyrKilM/gk0bqqU7+Z27+YOiltbbgPx0wXQUWt51SpSikaxZbBwIKA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Cc10RPBZ+V91jgpzCtks0KItk9trV5bY19R6PandySo=;
- b=nXrS+RUQwsL6zKdb/JD+qLLn40EhSSiXy3gkUuCW58gmh4OWVjgFcRXb1RlDVHTo7TkkmccpDyzNBBiBzkDzhmzAFLzwUcQ6/V8ksZu3YO7pz8s3HoQ8hc4hyFlpDGl9KnyaY/JSVdW8PYURoMnJcf0EU2O5DA8PuVSD0R80ScCsE1mwFPczMpMe9rpTZCYOlFozsYuCxHsrZ6LsIR3IRg9LMGN7mRTihxyiKTih+kVXeLISHOXzT0KKrj5nq0hLv69vbTQDY1BsTwWfVBB1p7mqdZHH+YlTutVjEadkCO8LlYKd0TtZixWyT2E5c9QR7hV+ASVmqW6MEf9lOQEszA==
+ bh=mqeKeM64QL7VRlbxwH65GpyQc3VXoRjfC2dCehRRoCY=;
+ b=ulVBW9Bk6SKQR6V8gDgQ7t8wTHEYVpjQ/I6DMGJYcDg/8egG7Fsv5i7D5ZM/UluYlLy55TxRjoMvGcYAzWyQzQaySBTOqvlygqL62LhhRs+brR7cRtsu/Y8wLCdmRXoO3AD45PuCduYNIAqUjO0urFIvT3oKLcD1lvwWGhwwzwGs47cAM/wFz6rPikuLVTroM//QYRvpx542TwH+4ltowP4S6v9Jgia9gDxuJjTmwPcUFNphzf0HJg2MtYHFNmPWZGNcx6YV5wh6XC5EFFIlMwhQd81WLiTnPuhCXCCZ6GKr99tHm0+lfb0KfBhBIa8psoOy/n92JpqRjthVe+Rm3Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
  dkim=pass header.d=oss.nxp.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
  s=selector1-NXP1-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Cc10RPBZ+V91jgpzCtks0KItk9trV5bY19R6PandySo=;
- b=EZLqbD3sAg+F3aMDYvQWYTNaTe6aNuVHWk82J/Q74RRwLgMwLzkfL7YrrfIEnUkU301xeJk0bXWEi1daZ5EzVqZnLnkeG/YwlmYO6GMV8qmK80lh1nYg9gMPU23CJCCMayDBh9sE2Ogr17ABkCLLI/lpFylQ1VxHF2pBc02qltt6aJ7yBfYgeVGOjo8nOysiApOG6Cl3YA8kLpXu+2xGvIVMJAbiQZ9D208f3Q0RMuCntkgHukoZzilezfDgsEc63OrQYeRB6tqnjsrMxmncackzLEVwcI5/AfJp7+YJ1E/SUulE1tVhPh7dX291mO4qr0HRRYQViFQ2tsihQ8NMFg==
+ bh=mqeKeM64QL7VRlbxwH65GpyQc3VXoRjfC2dCehRRoCY=;
+ b=H5mgo6+OoCDmPQg2+zId8M8fYrbYb+SNRFnjrqKh48UINZLoOHPh76rsA9GqDOFdCOxYI/ggyeDMKjPapyZWdRXcvG+7jSlxCHpsI0djuSCkVKEdirJldZ4JB8upb+oCfvE9powj1D+7eBQ1IXBrmZu1HxezEVKHQK6OrTdBGGZeuibDhQGoWQGj/oXmRzCYl0S35LOR1JSJWCAomwoAc9w4GzT0CzNNfdvbkT/ekWhBha3h7+C8MKD6Syrw7URycJMSAvYjTGUxDzWXMcLJtOaSNvDg/O86pnnFpWA94WjaeZmQY/NRClHwtMlhgPd6cVOpFwXVV/Mobd9mq6tLQQ==
 Authentication-Results: dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=oss.nxp.com;
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AS8PR04MB7607.eurprd04.prod.outlook.com (2603:10a6:20b:294::22) with
+ by AS8PR04MB8962.eurprd04.prod.outlook.com (2603:10a6:20b:42d::13) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 21:00:24 +0000
+ 2026 21:07:53 +0000
 Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
  ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0339.012; Mon, 24 Aug 2026
- 21:00:24 +0000
-Date: Mon, 24 Aug 2026 17:00:16 -0400
+ 21:07:53 +0000
+Date: Mon, 24 Aug 2026 17:07:46 -0400
 From: Frank Li <Frank.li@oss.nxp.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
@@ -52,16 +52,16 @@ Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically
- allocated pass-through routes
-Message-ID: <aoyw4BDB21IgUc3V@lizhi-Precision-Tower-5810>
+Subject: Re: [PATCH v3 17/29] media: bcm2835-unicam: Use
+ v4l2_subdev_get_frame_desc()
+Message-ID: <aoyyogifML-mDfYJ@lizhi-Precision-Tower-5810>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-18-sakari.ailus@linux.intel.com>
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
-X-ClientProxiedBy: PH7PR10CA0005.namprd10.prod.outlook.com
- (2603:10b6:510:23d::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+In-Reply-To: <20260824121451.3348583-18-sakari.ailus@linux.intel.com>
+X-ClientProxiedBy: SA1PR02CA0018.namprd02.prod.outlook.com
+ (2603:10b6:806:2cf::26) To GV2PR04MB11799.eurprd04.prod.outlook.com
  (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -70,199 +70,131 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB7607:EE_
-X-MS-Office365-Filtering-Correlation-Id: e9a4951e-1db6-4a84-cd6c-08df0222b75f
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AS8PR04MB8962:EE_
+X-MS-Office365-Filtering-Correlation-Id: f21fce1c-8846-46ee-2151-08df0223c2da
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|10067099003|56012099006|22082099003|18002099003|4143699003|11063799006;
+	BCL:0;ARA:13230040|23010399003|19092799006|376014|366016|1800799024|10067099003|11063799006|4143699003|56012099006|3023799007|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	+MNglnymCJBveTuLQmdOiTKlBoHEKttbnKJgHkaEDZNoPc14vKdaKAF4ZnB7b0mkvHznGZ+c2JoJSY2x/xdB3NyMEfzpfFqle8yhAoQSDrvuw0K2RL2cW2Wq63UbqXLFI7UtYNAjNiVgtqKzHL3iPUxbjAjl36nMFq55PX4iUKFKmyJLL2M6VlZlrsHJBREXIYkI/Ars2HH/8Pcg8wFxc93ugRR3rxihoW4Y6WrDzAbuN87w4xLlCavIvDtqYIyR9ELFADjHk9KmD5QJgpAIolzKmO4AvgVZbvKLUbYihn+mMJPXSaY5OnXIYfFHUtB4nSd5xmCHA2kcgCaDeOHLdzeafGVDRIvPdT23acY/i1X8rGJcj699D5w2qQhmg6gxUxOxcp5u40QTE0AC/fdgmKbDGygDi1KWGduKu2X6rzcLQhfrw0RUkTCSlLFM0lAykvrTtECerHcKfXCRvEKEaGMuwIX8BiF9AOifIir+67sRyRgsPd2XCxpGNjoNQgW/POOrr0YWvtMWBxzHkRct2J8cSfIFYaz1T6JKi6vEPeMsn8SHWuy+tTm8fB+xWhbCgEoYxyQu626Q1crO46u5bi5qLiWcwAtkWh/1ndpLMUlpR0D+1G4wHznjQToqo+j+xRb9RVinngMkTASbvpacNFWNMJiXJY87wKaZIgK1p+I=
+	Sg1RsYTkKqEuqr+hVnvZCMfiFtFTTaz6NgoQwh/BCLWes8aDXLIrt6CdvpA6YI4DCzQXVxRYnAJaALItyCYnsqJN+UZY3Kan2F1iZwBm0elmwkyzqAmoL+kRJZivAZuMY3FRvQUNigDgSD7DG+r3KCYla9XntFG8O9jDv13m7zaIWMjcVMbTfjc4RJgCBCfIjDh8UUTB3F28kgKbiD4If867URdYvBe6Lkhh/qNMBgF/SYesleEwRGyWkWP6Y+uIPLLGU/I2AZfLGDYpCFbOvHpros77Dthp5c9gxxApzn6+91Lxz6VrBJMTvjFayB+8N2hUeBsOZYMP5Z+XaAIWIyd2LNnMynzNjNFQbO9oDG1nZtZK+jv+z8Y42Mbm4FFnFeZrZ2nSilexJfiqAGzykHV9zjtdf2gOKJy1MEDrwDQoYuEEAIEAmmKh9L6D4SdY5HbpSdewdn5em3Go4w9FmR5FpcAz/ncvEwriPqEUUkcVlxdcBfccGZyfGdlwRJZzWT13NTvlYKS4AaXlM9tLIyNep0L2qSy2eEK3/T25VhorW4KPY0maGqoJRHXmOOUv9zEyGd9tN/SgvKCEKnws1FMMcpQrV6zdVu3Xn8mWQHE5p2alhwV9bO3RCgYEDjU/mWELrp8npaxOdyPWljw+jG7ql/9xQdqq1obu6lShkTE=
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(10067099003)(56012099006)(22082099003)(18002099003)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(376014)(366016)(1800799024)(10067099003)(11063799006)(4143699003)(56012099006)(3023799007)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?ghG/jz6JEoT9sEr+e6wPBvpsGGzHZOBvC6G+bt0PEFFdwKFn1ruHXrFWt6G3?=
- =?us-ascii?Q?PAr2fCIAnNKmXmPkrMhEsTDS8o+mQ1zLXoY0IxTekRyhVuIvDjLJKJukTWsr?=
- =?us-ascii?Q?zEb48jnsir04O2pIWlLcSD7dImXBk1ELsZllreojwnO9mX8Md2n17QqyUuYw?=
- =?us-ascii?Q?wf1SXS8AVqOm2QHrnjWYXF/j1zLNNctqN+vgiDQw5G8xRoO1o8/kv4GUz+Ej?=
- =?us-ascii?Q?6q1b2sLaoWZnBkJJlVvsHZ7z+a8I5Kb8pGvZ8jXvcN0K3L7X0fioea9T6r0z?=
- =?us-ascii?Q?SQPsqNF5Trc18w8KhEFB+Gb20Fy2LzDquT+OoqMfJAVKPBVnxJd7Rn62V6qZ?=
- =?us-ascii?Q?ZW/oDKk6FFLlqQfwXc1hvx6TWrqcXtK+EhUG7VNUuCjkYJd83BdGr2D6RABn?=
- =?us-ascii?Q?1xewtq4GPaWRo8nX6umUd/PCuszGdBwlCKnzjd9YP2trUeNqEu9YjSm2pQ7A?=
- =?us-ascii?Q?qITG9JXQFraJ+Qsz0m7Egu6ZyYR3H/QG0RBp7uMz2c6o7YDwUsJNjvMBWJiu?=
- =?us-ascii?Q?dcWCmkh6+QJrTbE/0jTDh2J82+luFWe10fz+QAo68IOdOBUdkQrnd/WqDaDr?=
- =?us-ascii?Q?0WttyVPrzsv5sphe2ftzLATTE6fuV/NSbyOzayEqz8hs4fkh4QuKBvo8V3mf?=
- =?us-ascii?Q?qb3CRLIR3eUY/hQ3+lHvZOf4JV8fN36H4vckIE3Mcztk8QPH0J5G9hSYe4i9?=
- =?us-ascii?Q?1dxaHXKxxvZ4qv0gVKDsRHoezj0gjLwLa0CCMKDq7i+KIUZVibWf0x6YNIZl?=
- =?us-ascii?Q?uAOfF9xaT1BQg3NW0DBSZJyjWv7h6HSC3MfrtVf+13BvIkLHZ+mu51+sNhlT?=
- =?us-ascii?Q?S9OWo9sWViVegN+PIy/FsQqA1ixV+5sbnXZ5LHD7g55vB8M+7H6f24ClZitT?=
- =?us-ascii?Q?IwcwFdQuPihHiCdonrrU6J0vIQv064sAQLoqxdmLLnhx/CZ5axsg0jjIRAY/?=
- =?us-ascii?Q?PFEO/pr2MY2/1WLJBR+/qdbOBy92WzMlIkWnZOeHAq83UJBLfo886Gw9L4O/?=
- =?us-ascii?Q?LOmxvIMZ1dzvqjb8wtVLKHTgl+tYgpoUckzAhZ0HBMFtnqD4xwpGXkH5nQ4l?=
- =?us-ascii?Q?4yyYtRv+M4NA58Km4SHcIOTa4R4yrkO5llMKQnhsHYU03qD31vMD68JByxMa?=
- =?us-ascii?Q?mXfRIOoxA7H/ox0nhlML59iuShIC85WRlOMRvrDTtpk0iip2LMiSoG1IndwJ?=
- =?us-ascii?Q?Yy540WDtXvORJGxphyNbJn8upPx75cDl3gHYfBP5IknjWIzcW/YToeHA3aIB?=
- =?us-ascii?Q?xE4CpzwB4YNa310bxmtzHW/xNhUF7zcMCnBaDIgbWIc+7NnpeCVCgggDtHoB?=
- =?us-ascii?Q?V1lfNmF92T+9yHBVEIvsvJ/kP3q6Mrig/wud7NCkTkF+2Kjp4qT301DXDSma?=
- =?us-ascii?Q?RjKgiCDL7NHrxZemaW5bqI8FCi+/81qSBIR8WwPHkidtdcaemLgxs8NSo0QU?=
- =?us-ascii?Q?zNoFA8BfSW6xe6IaE/4OPs1leoouQp42rRhwh9IZHTO7E418EX66Js7pwg0x?=
- =?us-ascii?Q?PES41V3JcMA3OJLo2XiClSCfxIDVUuatkAOkv60zeX5gWfJGY2xUx5HCz4rt?=
- =?us-ascii?Q?wkvAxEYGWIL9mzWwByUvg+1H6wCGqWF6A01FdFPBfvZYCz3B5NkKtfgSmeWG?=
- =?us-ascii?Q?tngBV4937yV9CazJtS0Ju5SNfHHRFnNMbsKHrhXYWev+Kan/fkfaDezS4Z54?=
- =?us-ascii?Q?3DR9XxUShuzFXqrhY0cv9+GL3kOvstLMGZ9dz/BmLUg/C3A2ov04cCEFea2y?=
- =?us-ascii?Q?GtEOJP1m0//zBTyejtTQGtjoP2iviuBJYp8QzntagQbojORXaz3u?=
+	=?us-ascii?Q?ZQEEqPmDkiIppOw6diJzEqmG8PhAIe/0ShWOidW5BBLukoZ8V1i4XG/h/zbg?=
+ =?us-ascii?Q?+prO6CwmTF9k0/rgaFIKfrqEBEFz1ndM0Ul9uPLwhrGO3LfAvcDsrhtear35?=
+ =?us-ascii?Q?pmtfXzgIxZvWC8bf8HRz3HVfPSe2Hv97Uhi1eeT6qh3aUYIuRHbD88knJOu3?=
+ =?us-ascii?Q?lUWun2PdjOLvbp5Tun8BrB5m+pZRHerH3t8jkoshzOz1wAQp+B3Urliit4RT?=
+ =?us-ascii?Q?YrxhRpft4XOaue8RxIrQQ0YjG5ohhbHfuGMCSTRKU3/3ySkvkV3x5QxqfMNX?=
+ =?us-ascii?Q?hAOxDfTrCKyzbyetWmJvRTGBIM4/hpQf0lV9aYMmp+ND6L9zVAoLLSuhJkeu?=
+ =?us-ascii?Q?5pFW3iQzhPfaENxCbJp9i1Pdfz3ZTj6EpeuQyUCRpNlxDu7smx4a1Jw7Siq/?=
+ =?us-ascii?Q?NPqtetLqPPOQVhYXQcAbbXnTFDKoaM+caNwIIwpWG4u7tXGE3EDM9znWpnXV?=
+ =?us-ascii?Q?q4VI+HNv3r9Lai6T9kKoTlGAv71b8vALgqqns7MVfMyJr3MENiO7Ovs4Pcsc?=
+ =?us-ascii?Q?lzlHPNEnkhll3mxKGLAPDgFdUfINgQ9Ul8yTwJqeffd9pSr4pNTi0/zF74M7?=
+ =?us-ascii?Q?kYmpOgGi4umdkX7BYkY4bVOfpPeqnf2nwefq2JS9PnpL0NNhF6WYJ0eleer8?=
+ =?us-ascii?Q?+s0eY0n+y/9MAwZd70wdxEXZw4DzpJ8JO1xYNkW+0QfSyckGIgM8paegbP+S?=
+ =?us-ascii?Q?M9wlolF7YIQuMHp7wXGV/tjD6HRIH738RD3uJMEAFlbFfY0PjrMmv22CUyqY?=
+ =?us-ascii?Q?MswbJQ4Xum3gYPVwWT2uBW9ifwv6zBWmFsvr+avddvXghSe4MsPKme7EwKpj?=
+ =?us-ascii?Q?CHxgxA9r7I48c38Pv1Sjn2KYiCQAuwF5Uke0C6dKABS474E9qZMJOhrI5msI?=
+ =?us-ascii?Q?7gbngpB/VzVYWPcmo22e9iKU25ot0R4vyO59PDHil404EJHjkTl82Hm4vLnr?=
+ =?us-ascii?Q?epRzNCAvelDq+223VomULZEXppK9O0VGzzPDm5/k0s3qXwvhdkAwClCUSDJ7?=
+ =?us-ascii?Q?xPbLzEFtAdfjUWWa9KIjzAr5baNBDUahR0IjrannARPb+rYYgqe/jTWxFTnG?=
+ =?us-ascii?Q?Y81od/lwUMh2niYWw1E8EKnSjzuQ+PTEBlvtTA+BoG4KG+VayKvdI336wdQI?=
+ =?us-ascii?Q?IYZyiDQJo9rokzSHfPLP3X6MXgtt0gfNSJRCtbqFvSbTdIYW8W6dctj/3cIo?=
+ =?us-ascii?Q?/90AX/jGM/XaKsRLsD7q7ct3K+VZb47zRlilDTqeBLe2a5d4hE0sZq9bXYjn?=
+ =?us-ascii?Q?OfRFCmyVfnNjTuZVyVJ3eMSLV9QViYZ3g/0DXs8FKZG/T9YHUKShYsPJYGar?=
+ =?us-ascii?Q?RmvyX0Zj4EJXbyefQtwmkeFp8mtkR87CFXnxYHq93eS9T02s6ZNOWhTjFrxZ?=
+ =?us-ascii?Q?xQLSim1UhNQSF6cCMygnZxyBPTSkavfgdBvFAhq6dKZv4sw2Qqdbp+1r/OtI?=
+ =?us-ascii?Q?a+xI9EMqOUst5IdWpa0octyHxwcYdBp49CBCzQTD+KXujI7T6bFmB+3qFCNL?=
+ =?us-ascii?Q?Xn8K05prkUBl7oSHRZs/2/Q0/TKWjVG7F8n4m4bxiEoaVPPQB9zWFzTmu8Rx?=
+ =?us-ascii?Q?p/WNBseNErCCYYyfqR4ley2icrz1W8w1J240YuM2YJakN8qxBSLidAU/1kQ2?=
+ =?us-ascii?Q?bERrMP2xiWNzSMoC9P3Z4iqiKQ8Xrqu3thhQqFhebD+CsvyQxOWfrukKE7ia?=
+ =?us-ascii?Q?WIXxv9zYfb07yycUoVwC8MrdW6tajGdsL7V4IyDrfG6r/t6vU0SLg2SjAHJs?=
+ =?us-ascii?Q?m1xmXSNwE3eUdAw4vnm21uEUDFUDjep0fFuuMwsGPKFsHDLPEM8w?=
 X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9a4951e-1db6-4a84-cd6c-08df0222b75f
+X-MS-Exchange-CrossTenant-Network-Message-Id: f21fce1c-8846-46ee-2151-08df0223c2da
 X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 21:00:24.0135
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 21:07:52.9351
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FSFYcameXQ1u7AHZCYJa4lPVEzbL08f1igHbqUgT0u8A33866Q7NaB7zLhRqOsZOtv/rtF4K+GnAgmQjIjiyMb9H8AXynxPbU3zRvtTsZtc9oWVp3E1s+tcWc0YfBMMt
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7607
+X-MS-Exchange-CrossTenant-UserPrincipalName: OkSGDNkEWF5mDR/V2xlDP00S34AEE+qaVKAvTLFdwa0TZppIrCgI5qWNX3n/DOX6I3lUOHMHRLoSAAfr39JDLvbCF153WkFiPLKcGTTZhmIs4fkL1uCWwFE/6Yj3BXdj
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB8962
 
-On Mon, Aug 24, 2026 at 03:14:37PM +0300, Sakari Ailus wrote:
-> Count the number of pass-through routes, allocate memory and then return
-> the full table to the caller.
+On Mon, Aug 24, 2026 at 03:14:39PM +0300, Sakari Ailus wrote:
+> Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+> preferred over calling the get_frame_desc() pad operation directly.
 >
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 > ---
->  drivers/media/v4l2-core/v4l2-subdev.c | 61 +++++++++++++++++++++++----
->  1 file changed, 52 insertions(+), 9 deletions(-)
+>  .../media/platform/broadcom/bcm2835-unicam.c  | 22 +++++++++----------
+>  1 file changed, 10 insertions(+), 12 deletions(-)
 >
-> diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> index c9f38b0313eb..d34704aad88e 100644
-> --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> @@ -2561,13 +2561,42 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  	struct media_pad *local_sink_pad;
->  	struct v4l2_subdev_route *route;
->  	struct device *dev = sd->dev;
-> -	int ret = 0;
-> +	unsigned int num_entries = 0;
-> +	int ret;
+> diff --git a/drivers/media/platform/broadcom/bcm2835-unicam.c b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> index 14bb916dd7b1..2322d3df3915 100644
+> --- a/drivers/media/platform/broadcom/bcm2835-unicam.c
+> +++ b/drivers/media/platform/broadcom/bcm2835-unicam.c
+> @@ -27,6 +27,7 @@
+>   * output interface and V4L2 subdevice driver.
+>   */
 >
->  	lockdep_assert_held(state->lock);
+> +#include <linux/cleanup.h>
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/device.h>
+> @@ -888,7 +889,6 @@ static int unicam_get_image_vc_dt(struct unicam_device *unicam,
+>  				  struct v4l2_subdev_state *state,
+>  				  u8 *vc, u8 *dt)
+>  {
+> -	struct v4l2_mbus_frame_desc fd;
+>  	u32 stream;
+>  	int ret;
 >
->  	if (WARN_ON(!(sd->entity.pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
->  		return -EINVAL;
+> @@ -898,17 +898,15 @@ static int unicam_get_image_vc_dt(struct unicam_device *unicam,
+>  	if (ret)
+>  		return ret;
 >
-> +	/* Count the number of entries first */
-> +	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
-> +		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
-> +			continue;
-> +
-> +		for_each_active_route(&state->routing, route) {
-> +			if (route->source_pad != pad ||
-> +			    route->sink_pad != local_sink_pad->index)
-> +				continue;
-> +
-> +			num_entries++;
-> +
-> +			if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-> +				return -E2BIG;
-> +		}
-> +	}
-> +
-> +	if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-> +		return -E2BIG;
-> +
-> +	if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> +		fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
+> -	ret = v4l2_subdev_call(unicam->sensor.subdev, pad, get_frame_desc,
+> -			       unicam->sensor.pad->index, &fd);
+> -	if (ret)
+> -		return ret;
+> -
+> -	/* Only CSI-2 supports DTs. */
+> -	if (fd.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
+> -		return -EINVAL;
+> +	struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
+> +		v4l2_subdev_get_frame_desc(unicam->sensor.subdev,
+> +					   unicam->sensor.pad->index,
+> +					   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
+> +	if (IS_ERR(fd))
+> +		return PTR_ERR(fd);
+>
+> -	for (unsigned int i = 0; i < fd.num_entries; ++i) {
+> -		const struct v4l2_mbus_frame_desc_entry *fde = &fd.entry[i];
+> +	for (unsigned int i = 0; i < fd->num_entries; ++i) {
+> +		const struct v4l2_mbus_frame_desc_entry *fde = &fd->entry[i];
+>
+>  		if (fde->stream == stream) {
+>  			*vc = fde->bus.csi2.vc;
+> @@ -927,7 +925,7 @@ static void unicam_start_rx(struct unicam_device *unicam,
+>  	const struct unicam_format_info *fmtinfo;
+>  	const struct v4l2_mbus_framefmt *fmt;
+>  	unsigned int line_int_freq;
+> -	u8 vc, dt;
+> +	u8 vc = 0, dt = 0;
 
-nit: Default should be GFP_KERNEL, needn't GFP_KERNEL when call kzalloc_objs()
+not sure why need here,
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+if unicam_get_image_vc_dt() return failure, vc will be set to 0
+if unicam_get_image_vc_dt() return success, vc will be expected value.
 
-> +		if (!fd->entry)
-> +			return -ENOMEM;
-> +
-> +		fd->len_entries = num_entries;
-> +	}
-> +
->  	/* Iterate over sink pads */
->  	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
->  		struct v4l2_mbus_frame_desc source_fd;
-> @@ -2594,12 +2623,15 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  				if (IS_ERR(remote_source_pad)) {
->  					dev_dbg(dev, "Failed to find remote pad for sink pad %u\n",
->  						local_sink_pad->index);
-> -					return PTR_ERR(remote_source_pad);
-> +					ret = PTR_ERR(remote_source_pad);
-> +					goto err_free;
->  				}
->
->  				remote_sd = media_entity_to_v4l2_subdev(remote_source_pad->entity);
-> -				if (!remote_sd)
-> -					return -EINVAL;
-> +				if (!remote_sd) {
-> +					ret = -EINVAL;
-> +					goto err_free;
-> +				}
->
->  				ret = v4l2_subdev_call(remote_sd, pad,
->  						       get_frame_desc,
-> @@ -2609,7 +2641,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  					dev_err(dev,
->  						"Failed to get frame desc from remote subdev %s\n",
->  						remote_sd->name);
-> -					return ret;
-> +					goto err_free;
->  				}
->
->  				have_source_fd = true;
-> @@ -2620,7 +2652,8 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  					dev_err(dev,
->  						"Frame desc type mismatch: %u != %u\n",
->  						fd->type, source_fd.type);
-> -					return -EPIPE;
-> +					ret = -EPIPE;
-> +					goto err_free;
->  				}
->  			}
->
-> @@ -2635,12 +2668,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  				dev_dbg(dev,
->  					"Failed to find stream %u from source frame desc\n",
->  					route->sink_stream);
-> -				return -EPIPE;
-> +				ret = -EPIPE;
-> +				goto err_free;
->  			}
->
-> -			if (fd->num_entries >= V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> +			if (fd->num_entries >= fd->len_entries) {
->  				dev_dbg(dev, "Frame desc entry limit reached\n");
-> -				return -E2BIG;
-> +				ret = -E2BIG;
-> +				goto err_free;
->  			}
->
->  			fd->entry[fd->num_entries] = *source_entry;
-> @@ -2652,6 +2687,14 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
->  	}
+Frank
 
-Is it simpler if
-
-	__free(kfree) *p = kzalloc_objs(*fd->entry, num_entries);
-
-	fd->entry = no_free_ptr(p);
-	fd->num_entries =
->
->  	return 0;
-> +
-> +err_free:
-> +	kfree(fd->entry);
-> +	fd->entry = fd->entry_mem;
-> +	fd->num_entries = 0;
-> +	fd->len_entries = V4L2_FRAME_DESC_ENTRY_PREALLOC;
-> +
-> +	return ret;
->  }
->  EXPORT_SYMBOL_GPL(__v4l2_subdev_get_frame_desc_passthrough);
+>  	u32 val;
+>  	int ret;
 >
 > --
 > 2.47.3
