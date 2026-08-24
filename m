@@ -1,168 +1,121 @@
-Received: from mail-vs2-f1.google.com (mail-vs2-f1.google.com [74.125.227.1])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 690D841837E
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.1
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787574835; cv=none; b=ZJ0vsww1sZ8Sg3858Nzoy1a6T8yvG/SKGjdkc6WHdT5vFqUqs9HKlsVUvdQ9jUEvBlhz1Sl0weCQZXKsgHQdHSdEDIRRWGdAtrwQooynglNISJMafERL694zGPz+r5JQt6VL3Jrmuqt3GGVRaThJvjChZTF4j6myZJsSgY/+fp4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787574835; c=relaxed/simple;
-	bh=mWpgqaMLVdNvQ2B3v8Q4neGT8ctPXaZcrlTsdG2yvw0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CO/672R/9qzjjMvnDIZbn38jNSBy4CJLWWQGmzBsMOc2MKQ6dcmtUwDCfS5iSWdVFquwKMpATip93Fvyvi6H+zRn26W7pUsRxBGHIM8vkqF7wMEoPCJBwAZ+zYe2TegniWEHt6JuAbyzfGeV/L3qILRGQqUjbggvK+zkuvTP5e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=EQf0PESi; arc=none smtp.client-ip=74.125.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38887288C2D
+	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 12:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787574849; cv=pass; b=EcVYU06beSx6WitBgI9wVsspg7VU1ZfU1CxZjs8AWZOlR9PRrpodSNa7bI+b3HKIEMEAkaBAwfo51KSi64q88aiJb0inUypA1aQ/mvSGNlk+Lr6uYmtMW+ehRy2OyfSS+tnaUXYObXbZG8F9XTPwIrZ+FgF8p+LxA9uI9j9j1r0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787574849; c=relaxed/simple;
+	bh=tskT+ZP9F4DGhzZmWZFu+9eOA4lqekEJvBP1dR5VYdg=;
+	h=MIME-Version:In-Reply-To:References:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WQcKE/o35vLkT69h3WJ/3HhBJhRoLH9H2ZQaPqzo9cULlF3fxpXqo+GKg6TSTje8hyBfI9lcH/U13VpF+6Rcd4gQ5SLZQzO4CH63U2J/gUp2Dd2FQyajAp7hkAnqtkpbuTyMZZ3XlGaNXCo2d672KJTxooqZQ+F2u2a7ao0rc2Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com; spf=none smtp.mailfrom=stromback.com; dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b=WM3sKtDW; arc=pass smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=stromback.com
 Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=stromback.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="EQf0PESi"
-Received: by mail-vs2-f1.google.com with SMTP id ada2fe7eead31-76b25485ad2so3469581137.0
-        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 05:33:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=stromback-com.20251104.gappssmtp.com header.i=@stromback-com.20251104.gappssmtp.com header.b="WM3sKtDW"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66c70f69d3fso3645701d50.1
+        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 05:34:06 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787574845; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OnEM8emJgsZfvpewmheND3C2opO90vnde3F8q6fKuyi+oh/CedV6dRB64KPFgTAVFd
+         bsYmLL/VI8/KhpQhkBLKjXJyKVc4D+TRq6CSh6KRQtdkZh9hwkDMGqxaG6DMbAk3kpae
+         Fu5AnV01j9Evu2Uj2Jm4zPZc4caXvLze6IrcFnx4roJBfa3LuXzC9asC66jd/jPgb4xo
+         ufJlSKY4G5q92k8bLVnB1Yawv0MH8Du2C9I0bzl+/2qV8bL1W4XPjEFcTnvRTyDyz0a1
+         ulS/CZK4ACWIPBznFtdtg7xFa97U7iO1jiAtvLCwZRc4ZpkxlRGYUSmywadR+9q1nOzM
+         E7EA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :references:in-reply-to:mime-version:dkim-signature;
+        bh=jqeK0Jxd2AMplwAkH2EQeU2YIUtMSat/iw/5as7CV3s=;
+        fh=hx0CgVrXqndxux1WMwMI3FTNXFa++Xiwid3I+SC97So=;
+        b=m8YWztsoSsnD6ulmDRfTcYmlGZcEhK+4rqw0QvTIcOdpPvrxmhjtU6R4K5cR+3xhT9
+         f3/xeGvTGFShkWE/p0rePGlMXASZs4P2OoKQEQgINvPVTRDBnJOWTI0MCfGxkV7XSDcB
+         FRr51q0jZaor1NKqmVK07D5k74x6ANuaZDDEAbcgHkFUzhaReyAs0zcUyfcpVYzoHZK5
+         2SfwZLb54qwoXULC6HAFDKFR8DZHtOA56i9yv2yUsM6Ns+Mhz3p3vqt1ctNKc0UH7uye
+         NGBCnTJbtMA+IPR5Gbbx9lzc/FeyOg66B/fPw7VFsyxzdJj7vBnTPGZpPmQTGN7l8fUI
+         iyQA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1787574832; x=1788179632; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Vy3utfX9ByqYEMM3pMYn0qisP+l1r21CJwxU5HY/mK8=;
-        b=EQf0PESiXOHaZd09PCisBxfK5xBhtrJje6lW+wuIx6xaGsV1Iz66FAPUvqs97KRZij
-         5hUgyjercM27zvjEWM63oQoy6zQt+rwzB4czMGgKb0ateTqRdJILulH4IVZnyjLr+CMn
-         i1OY4dfOxsRxKeYwr1UF4npx0SUvWbrcTI25hy6bM2xvoUpaJhbXcEPTElmjJQEBJ6ob
-         0D4gdZ0Eqgg0peBoPNtxiJfFNJ+6iN8JcbzQgsv/LGgpuH60UBOWQCwo+y+WaW9AULMk
-         WUobreIJUyOiUFZ9BDfKCAvaW36Vy3GojJpRHNrPDgk0urhVRMxc+yXZSCj8M7aC/umA
-         GcgQ==
+        d=stromback-com.20251104.gappssmtp.com; s=20251104; t=1787574845; x=1788179645; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:references:in-reply-to:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=jqeK0Jxd2AMplwAkH2EQeU2YIUtMSat/iw/5as7CV3s=;
+        b=WM3sKtDWWKe5+ppP1acFOCmU3M7ZL3s5iaIxSK+7UDt2SkrYoMP4Vy0nKBnZ9r8aDP
+         8AVASgfdnZ/X+nZb/+Ho8TDMj6CcAgokuP8mNv7sBJQ5Uhgk3xBH/Qxb5rOA1RqEfXkk
+         0ngP+FIhWG62fY0jv5XOcqBhkvidR5Cg2Z44W3ul2yPFnfRNQZHW9Sc1Tj1t27TgEY5H
+         13E03xIVLJIZo90x0eKCBzWjxnkgrrAFqZjsX3xwmQgHhrKrOfN+63n4Uu9z9DYaZGFu
+         bzwZx8ozgSUyOYnxCV3K+eiZuw50CCh+nyS7Tg7vROtOmgIQCqwx1AdUk5KVsu3/x7/M
+         cF0Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787574832; x=1788179632;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Vy3utfX9ByqYEMM3pMYn0qisP+l1r21CJwxU5HY/mK8=;
-        b=MKERGfpDSFyvplnrzNeexrtlajNLuWdYm8kPh2kxes0c5b4XNvKcanna8/tEvMz/jC
-         TPXRV5zpWwd9IEJq436m5u3O6trm91PPpFHjuxPEpiqlxoMV6J0I3rOmlmO4IchWgEy0
-         5NxqX06Va+6pvB9/aSn/QzB/fLhbzU/F7HHU0fCd8HrOoRFNt4Le54F1+aOu3UU7zD49
-         6/e5H1/ReHwOVfXWaSSUOUq8o3dGXXZgpRUyddMgqCMbirmY3x2KKVfIc6zIL7qO3YCl
-         Cv8CZgj70rCoTpszjjA9eE2llWNKqE0ghXFiWWmgninvMTvcZsZNmdfoCKYpts+YeqTP
-         Uw0w==
-X-Gm-Message-State: AFuF++megb3j3OLLpsch16G+AEn+9msDzUd3TuHbFS6zsdj+CM+dJ7Qm
-	UBSiKQUgkEd5uJTSkEsdYOYX1rcGwlQP4mTMGkGtplXORUYFkfjouyVBlx6STn5q/pHweSEnNhZ
-	yAAePHSyGPRStqWMXlQ==
-X-Gm-Gg: AR+sD10Ti/TjD5066YCkF39Wkp7oCWtiGLISPHuoEY8YBgfbl+YNLKZZdw+8jnEKRWE
-	i4N5SgXhQkZba2Xazyogo9Q3HakrF+CC6dRZk6iYU84Md5bgpR1xUfJzP/xoVsETdbsp4z/Iev4
-	zt3n02ybEUKpixAAY4QdNYAk7QDcL98kGsCv7HrxDOKXtQ97QMtGjoKte7BnpucM7sQ2rnKvmWl
-	hzp68bNTpPGtOc0M3uRCgfsvj5sLe8sLquv86cBl6Vs7v+04WIrHIGtesjLgm+g/jjU1th/hYw9
-	URKfpthhBmdjdCvTFvwQ/KbFD/JIQEgKz6UZtvjXYyk3vHJk2rsMB/iaw9JsSsHAyeEjHMyeZgw
-	MP4W1OR/WAt8X0WpKV6LG1nvtv+AiI2i65IGQ5A/KkyIULVFp8nx9YzoHRcGQgHA6QC5aoA+r/3
-	MPRVOMu5RrkJco0Ti0DhqBCNK0deAPVHLW26sIOsa54r0jaaeYPhVMbTtbMY/c6mlmqUcvJdVy/
-	bAyB16OGQE2c+dY/vjGgL4rnS75mT3zKcn2WlNJj4nXJrGM/MpisahM+MHKgBC2lPGHhHfzZ8fp
-	/GdlcVLJfKMoHlkHvt9l8BZ9E9d0d3naGQUcVpqZ1O2N7jI9btmqjxBGRAG3/+gvkk0IORrnekK
-	4HvBssRd548zc1w2K1hZmOQM3MjUoHUXkYxbfGaQEv6DT9iRWQ5r3wlSEOa1yD4M=
-X-Received: by 2002:a05:6122:1792:b0:567:4e8a:fb13 with SMTP id 71dfb90a1353d-5c5ff772c86mr10140109e0c.8.1787574832240;
-        Mon, 24 Aug 2026 05:33:52 -0700 (PDT)
-Received: from customer.mmmiflx1.isp.starlink.com ([66.9.164.90])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c623f3ea39sm3461367e0c.18.2026.08.24.05.33.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 05:33:51 -0700 (PDT)
-From: John Cronin <john@stromback.com>
-X-Google-Original-From: John Cronin <john.cronin@opcenter.com>
-To: linux-media@vger.kernel.org
-Cc: hpa@redhat.com,
-	sakari.ailus@linux.intel.com,
-	hansg@kernel.org,
-	john.cronin@opcenter.com,
-	John Cronin <john@stromback.com>
-Subject: [PATCH v5] media: i2c: imx471: return 0 from get_selection after filling crop
-Date: Mon, 24 Aug 2026 08:33:48 -0400
-Message-ID: <20260824123348.3761049-1-john.cronin@opcenter.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260816194259.151947-1-john.cronin@opcenter.com>
-References: <20260816194259.151947-1-john.cronin@opcenter.com>
+        d=1e100.net; s=20251104; t=1787574845; x=1788179645;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:references:in-reply-to:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jqeK0Jxd2AMplwAkH2EQeU2YIUtMSat/iw/5as7CV3s=;
+        b=kCNuLCCbd8I5KNY7HlRMM4XmZ2aRnWayuS7YR+0HCAwleEqFkbbCXn4A2v6tcdGNEJ
+         DFTQEMIiSSNU1TK/02Cf5wmF2Re2q2b4UwlEKV4xN9ttoloTHvKHPEDSJXcXARt4r4i0
+         W8t/3h7Y4ryDOvP2R6tcRoO6EcC2UQewN3/kftTYTbEhpvBc2F3XmaSild5TR9ivA2ck
+         rrI0NvyGCXJq3qdA7zV65LujMq0w5PtnELSMibebbe72xuBIO6cVT2maGP2Y/G4ZpkD3
+         YKSKf3PQ1R8McNVsxR1AbGKOxp2RtFrv7kzQ2RllcIUBI8e7HDtqlkblrfM4EmTSgFRd
+         vwoQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrBQpJ6XrbpyGdqMxvlnZiA3/pLtpj2WK7wccYImBPpt82gwFuxxHh1BsFL1mfiOoFRO2cfccTt15Arew==@vger.kernel.org
+X-Gm-Message-State: AFuF++lWgGiXrBT7tvO+pAXIP7GKbMyRCNVofr7g44MWdBipuE/9RV5U
+	4DqAwspX64LXCmNwRJuI9YZnl9d9+rAl36etZ2FP6Cvtv65mH7p8n+SEq9jBoF8JOuST1cU3VrP
+	kgalzgqBgA3uXaXASVaki9yZBDHxo5R01Gu65dVYBow==
+X-Gm-Gg: AR+sD1065f1zJhRqPRW12ihFApCaBtrh5IEsh2qIp0Px7pi+IbNTK+LO+hTjIsL3xdI
+	u0BDu5rx4xQM5MMk1TG6sYM1rX2aZ0NN7M/zkOmgz/ulSgdu8/2b07Xf5oZTdf36TqscFnZ+ppo
+	Dc8tyu1zwoQeZTy5ZpT56u9f1zCFUSgJ20LOOVh14RGxSWM26k+NbAEYN4rj+zo7m2vRo1cSUKe
+	cWlxBIEmtB24x9DBFvXY7lZBw84QglC95glHAV9agisKIGLElqgP9BZ28eEo+S+qajEjYW4wNAI
+	ySs9EbX0x9g6IjqnKh/GL0AKj0MIZ0zgQA0vJdSIQWgcHsloz8PVDgoyZ4OCO0MI1PZe58mhHeI
+	yLNuiwJinx4ALLMJvPCeCTAFFqLftYDvkSSLp9i83Vf5OfoTT5qfg1IMfXdFI8sbL7kIVV7s777
+	bTktlwBubivOPbvKgXgrDosBN0FnWwCfeVkAm7AJDRbJGm8M0Jg9ewdI6g+qpbAb/RBf4zedRNJ
+	LbqFF/flCVhCJnzZ6b1YTsahitNEQs1bQG7tMX9BtA8lBqAmHao
+X-Received: by 2002:a05:690e:4889:10b0:66c:f151:4748 with SMTP id
+ 956f58d0204a3-66cf1514b13mr3961134d50.34.1787574844867; Mon, 24 Aug 2026
+ 05:34:04 -0700 (PDT)
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 24 Aug 2026 05:34:03 -0700
+Received: from 313336824172 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 24 Aug 2026 05:34:03 -0700
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAEth8oHoAyuCwHXVJNo3Z=JQB63fJ+LtnNsYFrwtnkjTu-CPkA@mail.gmail.com>
+References: <CAEth8oHoAyuCwHXVJNo3Z=JQB63fJ+LtnNsYFrwtnkjTu-CPkA@mail.gmail.com>
+From: John Cronin <john@stromback.com>
+Date: Mon, 24 Aug 2026 05:34:03 -0700
+X-Gm-Features: AcwNN1XSCx1Zhsv_edTT1gPD_cfe1fD0OBrn--dRWbyCS3KJLXmcXP620vlCNuk
+Message-ID: <CALr1FG-K_Zade01g33UquDh-d_ZDMej3QsPXG3-8eiB_GNW2nQ@mail.gmail.com>
+Subject: Re: [PATCH v4] media: i2c: imx471: return 0 from get_selection after
+ filling crop
+To: hpa@redhat.com, linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com, hansg@kernel.org, john.cronin@opcenter.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
-0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
-rectangle then fell out of the switch and returned -EINVAL.
+Hi Kate,
 
-Compute analog crop in set_pad_format: 2x binning, centered in the
-native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
-reports CROP as 3856x2176 centered in 4672x3512.
+Thanks. v5 drops the extra braces, moves the crop/bin locals to the
+top of set_pad_format (sorted by line length), wraps to 80 columns,
+and keeps only the bug/feature in the commit log.
 
-Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7).
+checkpatch.pl --strict --max-line-length=3D80 is clean on v5.
 
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2454119
-Signed-off-by: John Cronin <john.cronin@opcenter.com>
-Signed-off-by: John Cronin <john@stromback.com>
----
-v5: drop extra braces; declare crop/bin vars at start of
-    set_pad_format (sorted by line length); wrap to 80 cols;
-    keep only the bug/feature in the commit log
-v4: add Signed-off-by for john@stromback.com
-v3: rebase on media-committers next
-v2: compute analog crop in set_pad_format; return 0 after switch
+Yes =E2=80=94 v2 through v5 were sent with git send-email (SMTP via Gmail).
+Gmail rewrote From to john@stromback.com, which is why v4/v5 have both
+Signed-off-by lines.
 
- drivers/media/i2c/imx471.c | 23 ++++++++++++++++++++---
- 1 file changed, 20 insertions(+), 3 deletions(-)
+  [PATCH v5] media: i2c: imx471: return 0 from get_selection after filling =
+crop
+  Message-ID: <20260824123348.3761049-1-john.cronin@opcenter.com>
 
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index 4053aed84..0ea18fbb9 100644
---- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -421,6 +421,8 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
- {
- 	struct imx471 *sensor = to_imx471(sd);
- 	const struct imx471_mode *mode;
-+	u8 bin_h, bin_v, binning;
-+	struct v4l2_rect *crop;
- 	int h_blank, ret;
- 
- 	mode = v4l2_find_nearest_size(imx471_modes, ARRAY_SIZE(imx471_modes),
-@@ -431,6 +433,18 @@ static int imx471_set_pad_format(struct v4l2_subdev *sd,
- 
- 	*v4l2_subdev_state_get_format(sd_state, fmt->pad) = fmt->format;
- 
-+	/* Analog crop: 2x bin, centered in native array (imx219). */
-+	crop = v4l2_subdev_state_get_crop(sd_state, fmt->pad);
-+	bin_h = min_t(u32,
-+		      IMX471_PIXEL_ARRAY_WIDTH / fmt->format.width, 2);
-+	bin_v = min_t(u32,
-+		      IMX471_PIXEL_ARRAY_HEIGHT / fmt->format.height, 2);
-+	binning = min(bin_h, bin_v);
-+	crop->width = fmt->format.width * binning;
-+	crop->height = fmt->format.height * binning;
-+	crop->left = (IMX471_NATIVE_WIDTH - crop->width) / 2;
-+	crop->top = (IMX471_NATIVE_HEIGHT - crop->height) / 2;
-+
- 	if (fmt->which == V4L2_SUBDEV_FORMAT_TRY)
- 		return 0;
- 
-@@ -468,7 +482,7 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
- 		sel->r.left = 0;
- 		sel->r.width = IMX471_NATIVE_WIDTH;
- 		sel->r.height = IMX471_NATIVE_HEIGHT;
--		return 0;
-+		break;
- 
- 	case V4L2_SEL_TGT_CROP_DEFAULT:
- 	case V4L2_SEL_TGT_CROP_BOUNDS:
-@@ -476,10 +490,13 @@ static int imx471_get_selection(struct v4l2_subdev *sd,
- 		sel->r.left = IMX471_PIXEL_ARRAY_LEFT;
- 		sel->r.width = IMX471_PIXEL_ARRAY_WIDTH;
- 		sel->r.height = IMX471_PIXEL_ARRAY_HEIGHT;
--		return 0;
-+		break;
-+
-+	default:
-+		return -EINVAL;
- 	}
- 
--	return -EINVAL;
-+	return 0;
- }
- 
- static int imx471_init_state(struct v4l2_subdev *sd,
--- 
-2.55.0
+John
