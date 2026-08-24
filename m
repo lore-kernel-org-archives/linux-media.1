@@ -1,247 +1,188 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012015.outbound.protection.outlook.com [52.101.53.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C84BB24DD17
-	for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 08:18:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B29A53AAF46;
+	Mon, 24 Aug 2026 08:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.15
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787559515; cv=pass; b=ljxeOkjD/kJ5rpsdhPOIRYuCu3e8F9Hxqdx81N1ecz+5hbW3J9jmaCJfulT31aN+V0Svhcbzw9WDbKP1bEPHUu8UhPyv0PNTMQPh7xQpc65i7dgHkHrKLUe3eYKaw5QhawbcnEGIIqCk9hCaxcZJGmAB6vm8AtevY8e8PC+71sQ=
+	t=1787561426; cv=fail; b=iybwobs9+piOTpMkUNbNYH9RKIdP+sBfFGY2kmpeKiqXYs4ePqdxmpcDnYTmQUDUYuw3KCaIarxdQQOBhw3OfcKH7wT9xu4n70uZ5wLByOQSWN1qTnkPKN5MfAZmuU2TLivJPhLfLiZ4WjG/tVbir/Oetz7EsC3oz5k5hEfzUdU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787559515; c=relaxed/simple;
-	bh=zHGIrUOgMl9pvt1X5w7oh9xLH6I0tvnUhyf/Mdyv0dI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=D704PWuLMesnOyhUtBFpybNGOsfZeURfITVsV32X4OwYnYPOLVjUUZy/7juIUxgibENvgAWSnZ2tAUJPhXVl+OLCKxD76oLQWrSDvsOUBCUwNuzhL9jvs50Bi9vvVezqOSZRIdwis7VgX3W92gpxxnzHZ9qT+acraYT1ibHUQ+M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=LckdN2Jf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=MEFZOBf7; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1787561426; c=relaxed/simple;
+	bh=Tx5viJIC2o/XWa4sDI/9gbu8JYf0p4MGuRWVehF1jPg=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=ebwrYLWIcNVHPSHTib/HW6+NAemVJCb6fny5pRdDZmqwLt1lf3SkU5Bt92h/b8OoDPSktv2dCQxEmKpiTZJDIEO9JXwA4Hq4xUl2aMG0WoFelZocSGmPv8zNSdV2EKnAt74zfYkvwIBDSpO+ODk8eXg8rTxwq0ZUAU2WwWP7hZ8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=YNA5GZcH; arc=fail smtp.client-ip=52.101.53.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="LckdN2Jf";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="MEFZOBf7"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1787559512;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
-	b=LckdN2JfIdfnqzag5gza6RVxS6NVXkbXi/Wy9UhM2knhIhO957ZZtXSiGUty5sU6ggKLvu
-	9Sog/1SjPiA8a6iYleUYvJW2G6X7KTeab7gbQEMK98vE+W7Kweu1SY8V8m5QAvf4UUNMDE
-	5r6msCC+EM5CiuzOtD6NzYYbhk0dOeY=
-Received: from mail-oa1-f71.google.com (mail-oa1-f71.google.com
- [209.85.160.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-540-z79sWFuHOWeTfz4WYE3DUA-1; Mon, 24 Aug 2026 04:18:30 -0400
-X-MC-Unique: z79sWFuHOWeTfz4WYE3DUA-1
-X-Mimecast-MFC-AGG-ID: z79sWFuHOWeTfz4WYE3DUA_1787559510
-Received: by mail-oa1-f71.google.com with SMTP id 586e51a60fabf-458326d2d9aso6359081fac.2
-        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 01:18:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787559510; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FiBJup+db479WM/4qqfOZK6Zx7TZEZfjC8Xf50DcAfn9W+WsSjkpccavPGydKKccvT
-         /FMGmdZzJfjfIFxao8DzxQdnITubjtoB4QhKlPJFMWpMtDM5ugT13Ko8h26BntUF5XTH
-         qhjPgbXBgZYwLO2jXaN7nX3Zndue4mUMnLHWVmixBj4y2EZ6IcdzrguG5D9koOrumq4L
-         mKQ96tajnRi5Z5Z9hcw02lRtR8Zl4ydeIZyMAyJJjuwVKXE05vNevtoFCYaul0CbrTRG
-         uSpfbEQUyNdB+9gHCEuGaQLm3DU/K8Sr5A0N4B2Xvz8z2VTWfi2bq463z5waVKB/32vy
-         uBgQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
-        fh=mv46L7sagTuVhWiVq6sjuhPMsdCGZg7nDrtDQvjLwQM=;
-        b=J70+ULO1O+z9JYl9l1YPuIBLXNOm47SXY+jgBlnTmAdLhNS2IAM7MFWy3AlYyQQ10M
-         asGHyrTEWXmcU3Y4W4zpsyi6HXmqX/dgF/8hElTaFA3alS7hhh/f3nw7NzhHHPZg2DPB
-         N4zMMq9TukIgzcjmwjPQ0IKipU8sB8fYE7v48d7J6x/wvwt0fNeNKBoGQsZNJDY9b/t/
-         HaHE2A9+5lDgGp2baLhwA/f/m8nRNFpV66NhNcLf2S3VVZiUaO7SgAQGukVbpPRWlzka
-         4KhS6WtrqXrmxiSUkv7AQiGnxE5PAguBIYTjbDOBr94tNzKlawhfVMPobIqcF1jttKGa
-         Y51w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1787559510; x=1788164310; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
-        b=MEFZOBf7wetTpqdxVqevdHHESFuyVX8BSNx/F+bYx2JbHGrYNk+8x8Xue+3eYEgVQN
-         F1XL0SQoMWRJInaDYPh8e6RKfERzh8R1U9Giwcg78M9YjSnwWMozYvTcpIQMAJ2D9EWZ
-         F9KsTM+h2/LLPIoeXRAveY9up2SI5Su1QHclerseEX6um5lajEL/itmhEWPcy51YD/tV
-         C2zlG5HD4d2uVXyFPMtW2XyOXrmjHycSyr4eTiFdYg0HOpcQuFzSBie9r7vH8LkMPFmT
-         +5PWwdmxKXFO4vKrBhADnBevxaI7YWwuYjoDijyE4+tjjqD2dR3p8xiWGdbZvzDgXeqp
-         cGpA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787559510; x=1788164310;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WncDdF1jpdigsWE31OFBM1tI0y3SDgAOiTJstupRN0c=;
-        b=i71yUYJjI9TovLAY40Q2r7j6h/wvn2yYAih/beRFvTOEtQXZGkhKiBy9kKBGfdEEXp
-         4ge6slvFcSmlwVixxnueA63O+tVrt0w3YHrc9E28YmMX3569shUgQ1k/rEa3jUk7ZNGY
-         ewptwH3YzxjOlnvCE1LthKqd1h2PAxFW8/pi+OyvLnjO78kiEEfFi3GlLyvHcLq2geDd
-         wfQf99EjiY0qauUhs1+H7D4/VskhbfCniMiXaj0LVDKYr+C9KN9p0HzM6YDsLRinwHHA
-         lM9hp0Owg8dtKjIOn4uhXxyaCsCXjEiYWQvSVhAi9AWTCHjhcp0bx2DIuH550VT6jTHG
-         ttBA==
-X-Gm-Message-State: AFuF++lMr4Vu8YNWA4TQgiFg8L4KuE7LFYpCHyaHmSxAMyrvTLzmWEsA
-	WZ8HwjLTHwLXrRiTQJV7rexszXK2vVfZUpS5tf2X+R7W1mkGgnR5ivvxxveAjt9BHw/UG+mLZUn
-	WXeVBBQl3U4NrPYpjdNJ3ZKo5J9XhqHRVLt1N1EL1NTblKpOu6/xxxl2XsdtUJgR/FgHXa8epQS
-	wMJgE/Drv6iQJw31jZ+RqWoL6ctX6F2YAAAzi3YypxPWZXTBoEZw==
-X-Gm-Gg: AR+sD10qxEKo3/JYN7FqFbrYj/uTbfjzMe1ofl6c9RFVzUV7yeFjs5PcKBXNB9+Bouj
-	AD6WtqB2LKBP357tAf+YTk+a9aSW19vb/MEm+BNiXOhCnTRHP1RXPzbeqYfja3Z1KsM4pOUdt/h
-	Im+sLvo9Vcb/+OWNOMl05VMaPQ/C3PGHuYHgAusaFda+JOyjM7Ab+o5lqd
-X-Received: by 2002:a05:6870:c2a9:b0:455:9a0a:f40f with SMTP id 586e51a60fabf-463514213bcmr21805365fac.12.1787559509794;
-        Mon, 24 Aug 2026 01:18:29 -0700 (PDT)
-X-Received: by 2002:a05:6870:c2a9:b0:455:9a0a:f40f with SMTP id
- 586e51a60fabf-463514213bcmr21805330fac.12.1787559509273; Mon, 24 Aug 2026
- 01:18:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="YNA5GZcH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eq6Ick2Nng4mdynqiEqIUlmif2yxj5P0eQdt29yEogKumxzIy9Z7dR9ljW6fAvnFrXqCi2UXGI6p7kPyrhUM1vxuOZyPzsQkUQb2K9oESqfgk4k3+yyBScVc6lKw9ij9T474pnnih/hwbWudTR36pHnSyO7wRECjw28hxLkLkfIWQKpBaPVM/iLPKxLTr/9LwCaq4gLNiSg4b5l9QgAiItEaoKk3qj+ktWmJFVgInrBiTgDmVLszga0FHLOr5MQE7lhp+di+HeyAxVOZEmjd/DmE7fG26gZtXM3FVjAFjmvuEaEeQJNkLTShG9Y7haXBwM5BI7pxqUsbmmPNyDM7/Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rLiXbPHRLIL1JGDEu1y/Nj3y3/wgKnsjMCNdR5dt22k=;
+ b=qAEs0M2QpqMKeQOOnB+RzBe0tcZzrkEVtW35k9boEdStsN4HELcbW2ljMooP2KD2mnAZWthe8ej1MZTZpKaozy/swSfCyilnmX0pCsak/4xsC9qsB3NVr1oaVqITpZB6pDbyeHfFUeAMxB+mnC5/57MEw3B/dC2jMB8e9ee+Wt7mswhnZ3jubOjSLX6QUadfIPsuUzibkzur88l7rJT2bVctWmSe5Su3ErSlee+H/otJBj9zg1uUTCIezGw3B8WP1Lyz6kDz4aH5kWMyZ1uNe0kB8QZ1Owk2NBKws6MxNbGnMmePJImDk+AI0j+dS0lWjKB5L0z7scuMJw062jPoGA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rLiXbPHRLIL1JGDEu1y/Nj3y3/wgKnsjMCNdR5dt22k=;
+ b=YNA5GZcHEsn08c3S8UNqlUZWhuwuou9Q+YZqSmh6m0Q7A7LyJEMOzCQ1LjLflqh9pRhtatBWr/Y5+ORKEQGhKUO/WqsYeBfxTIo57SUU8Dv9QVR/qAzbxg3GpD0ayf1kyOgLDjjb4Ll6uZyndRWQvsFNusQtEUjkHMHrnS42WOg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by DS2PR12MB9774.namprd12.prod.outlook.com (2603:10b6:8:270::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.11; Mon, 24 Aug
+ 2026 08:50:20 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 24 Aug 2026
+ 08:50:19 +0000
+Message-ID: <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
+Date: Mon, 24 Aug 2026 10:50:10 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] fpga: add dma-buf based FPGA programming interface
+To: Aravind Thokala <aravind.thokala@amd.com>, mdf@kernel.org,
+ yilun.xu@intel.com, trix@redhat.com, sumit.semwal@linaro.org
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-fpga@vger.kernel.org, linux-media@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
+ linux-doc@vger.kernel.org, git@amd.com, nava.kishore.manne@amd.com
+References: <20260816150734.2092802-1-aravind.thokala@amd.com>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260816150734.2092802-1-aravind.thokala@amd.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: FR4P281CA0352.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:f4::6) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260816194259.151947-1-john.cronin@opcenter.com> <20260822210311.165824-1-john.cronin@opcenter.com>
-In-Reply-To: <20260822210311.165824-1-john.cronin@opcenter.com>
-From: Kate Hsuan <hpa@redhat.com>
-Date: Mon, 24 Aug 2026 16:18:17 +0800
-X-Gm-Features: AcwNN1UdbzV92ypwJkPEJJgsgLTXVWd-1N6SOdPkIwKUsMSju1vP93raBoDAj6k
-Message-ID: <CAEth8oHoAyuCwHXVJNo3Z=JQB63fJ+LtnNsYFrwtnkjTu-CPkA@mail.gmail.com>
-Subject: Re: [PATCH v4] media: i2c: imx471: return 0 from get_selection after
- filling crop
-To: John Cronin <john@stromback.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	hansg@kernel.org, john.cronin@opcenter.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|DS2PR12MB9774:EE_
+X-MS-Office365-Filtering-Correlation-Id: cc3eb5b5-f78c-4eb9-33cd-08df01bcba17
+X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|10067099003|11063799006|5023799004|3023799007|56012099006|6133799003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	77mFSWByfU5SH/Ya8EdOtDmgxtXsAZqVpwC9f3e8jukgqZDHjzM1VOHxpI5DONvj7TbJj15UNdQKMoNnqcZ88o4CRgR0BS2OTKmMMfc3T56/Q0xOvodZSiQHy+bUPzlHNXZbzsQ5On1zXJitq7CYEWmXH2+vDxmIJ2AAQbbrVYmv1IZit/jQvWJ242rpPDNrYWG9PB2snOPJY8YLwcfNhJkljJ+xtrhcoMwqdzt2k+SSsnOyYwAg2UuCLMFYEP0odt05yfkb3ITDj96G3oOlH/4Q9Pu9dv7yTxe/OXSkhF/8ig9TidTOcZs6292V/oCSQhislz60lXlCYAohNhF0q9+Bgpweqt6zX9vwVeS+FZt9q/quPnhDWs2pfCkYR886/qoMJGbd6KBoaIxOQ4TJNgsm3qexxwzj11TbcHI84scRK7ohz6ArMtmQItcI6nFEKXtgZq//U9xi3bkI5J/5zV40XpNqlIoM1Wdh8GCN80yvC+OIAg6/15nUDVo7LKe14li6k6chLU3sCBce1pBFcsLRwHQB/soZbpSl2qFEmoXXzshj2qyKc7joWx1g9ZWscF71qC0MFe9pJKegdHr8l4gHdlrQjyp9BP0owi3PPIlQWrzGqk+C8S9i0Pe9ECkVJvr9qgUr81rGSyy6CLx8pHvYk7l3dsBeCIfO/7xLpss=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(10067099003)(11063799006)(5023799004)(3023799007)(56012099006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?dU5NQjhsTXJFMC8zdlJuVjN2WUhEbTNqZWVqaHZJaXNvbm5wUWhBalNPZUs2?=
+ =?utf-8?B?U0E3MWJJNTZCeGdINytqUy9oME01dDdnLzZaVzVNYzFPWkxicktIRHVZclJ4?=
+ =?utf-8?B?RWJSRFBhU0lJanlMay92S0NvOS9lSkFyM01aS0tUVWZjOEsxdFVIOFZDVDNN?=
+ =?utf-8?B?NTZTdWh1eW5kUnhROFRQREpEVlB0ZjllaXd1WHByZzF0M2YxNTdZNnhqc0tK?=
+ =?utf-8?B?YnM4elFKN0p4MXhtMFluMHpsOGQ0NTJMOHYvWWx1RFpJL1hRbnN5U0UzTjVZ?=
+ =?utf-8?B?SnNGMWtpTFpvRUE3S2lDNWNKWk1VUEQ2bjF6WG0zZHpSUVkvVHhLK2QwNHU1?=
+ =?utf-8?B?MkV0czV5RkR6NUJjL0gvMFNONEFkS3FvQ0pManM4NmJXb1ZzV2FxVFFjL3BC?=
+ =?utf-8?B?NlRsenYwUGVkQlM0YS9MQjk5VVRIVnNiY2gxZTJPSFhGMTBWQTZlNnk1eFVk?=
+ =?utf-8?B?Uis4SW16QlJTeWxzNkpZVnhsOTNZK2RFMlY4b2pQMHNQK3ZQTkNXNGgyNlM4?=
+ =?utf-8?B?dldIVTlUT2Jud0lNTHQ5VldZVXg0OUhKNmovR2xqZk9PNGZNaDBLNWllM3Bs?=
+ =?utf-8?B?TGRMcEwrcEZ3bFdXUEFycFJzNWVxMkJMQmdHNldPb0lWY2J2QjRMNVY5YzN4?=
+ =?utf-8?B?OVYwbElFdmNQYzVKR1U5MUp3MUpnZE5LV3Uwcnk4bHZSSlBhalJWSnZzcmNV?=
+ =?utf-8?B?RDJCczZyTDlqb0J3bVlnRGtlM3NHbkgvQUtzNjdBcFYrUi8reTUwMk8raURC?=
+ =?utf-8?B?d3FobUc2VE9XcEJmaGppRS9BVzNZNzJ2WWNRa0RpUVVVTGNBTVkxbk9OM3B4?=
+ =?utf-8?B?ZStIYWVxRkZtaTdCcTIrMFA4ZTRQcXEyU2ZEVW05UFlTMHFQM2dYNk81VURT?=
+ =?utf-8?B?TjlRTzUraHFTUE91bUxvWFplemNKTFNoQkw0NU12bHBGREUyRysvYytNSzJa?=
+ =?utf-8?B?TEZkK3VYeTI1NlNldytBTmFmZnZBSmJRZGRUb2lFbGgrbXk1QnZvcDFrTmJ2?=
+ =?utf-8?B?TUhsZGlIS2dUWHUxQ2RyWDloVFQ3d2ZYZkZjbDVILytxN21wMWloMDRJcTUw?=
+ =?utf-8?B?ZkFtZW80QVBPT2V2anp0MVZOSzB1ODZtRlNVTGFaeGg0UXVRU05rS0pVNXZt?=
+ =?utf-8?B?QUR1ZE1INzJCUEpTQ01yWmZZeUpmOTZGQi9MRUJBcVBMWE11SWU5cjdFdDNX?=
+ =?utf-8?B?WndLSGJMQnNnM29qN0pzcms4OWJnc1FCdGtNR1hnZGpUT1BpSXNjbzc3YWUr?=
+ =?utf-8?B?ZUVxMDh1N1VmODFVOWFYamQrU09uQWE1eUJqOG1VdXpubnRFK1pjaEN3L2hv?=
+ =?utf-8?B?RmFZOWFva21CSGxjSmdjRWUyenhETDlLMWtNSzY2UW00TEp2dlhZQjhUem02?=
+ =?utf-8?B?ZXRpekU4VDc0RlFONXZjQm9sYzJISXh2dmthdk9XcHhEOW8yNCtTblp6K1dr?=
+ =?utf-8?B?WU5lRmJuamVSaUVTYi9Cb0xyWXAyZHJLWmt2aGhqSTMxL0lXbHdTa2ViWWlL?=
+ =?utf-8?B?TzloVm8xRmR3d0ozV2ZuNmU2bEkrNG1xcml2VkdEbkR0SEl3MmhtQ05hMVZz?=
+ =?utf-8?B?U0VlUEZ3Tks4RjJsenlpT0RrNzJXU1BndG9NK3pBa3F3Q2ZnaEN1a0NXdzZ1?=
+ =?utf-8?B?RWJMMlpiUFJsVkNVdVRGeFozZHhUeFB3d2xCRHJ1UGxsTHF0TEJZaWdDM2c0?=
+ =?utf-8?B?a0p6cCtsZmlibGN6MkkyRFoyR3hpRnA4NEpGNmFlUGxFTmEwRllWUEV0VVh4?=
+ =?utf-8?B?WEN2bzZuT2l5b01yenZxVTVQWFFFQWoyRzdyMlRVV09lUE1QY2FJU2wrZTht?=
+ =?utf-8?B?SUhoU1dWZjhmMXpVcFA0QzBwRGp6UlBIS3I4QTlaNmt3TGVvS1ZMRE1KQ21G?=
+ =?utf-8?B?MW52bTJ2WmhsN2ZSWFRjV08zYjE5aU5uUWxOdkFlMjdKS1VjUk9QV2xpeEFp?=
+ =?utf-8?B?azN1K1JTU1c0cld2cUxaeDhJUURoZWJsdEtPSGlGYTY2T3U5UEZtUU1ZT0tj?=
+ =?utf-8?B?ZmgrN3M5RnVQVTFRM3lDVU8zSmFRZUx1VDQ0R2NhSDJBSTcxQldia1Bsb1Vz?=
+ =?utf-8?B?RWN4a0JCNEdRbjJpWFFQK0dqSGZ1R1VtaDlLVmtJMmdtZVd2VTU1Nk5ZMHFE?=
+ =?utf-8?B?Q3RxUHErUXM0Y1JNdUNGdjZUTHo5NWNpWW53WlJuRE1wbmtiUkt0L2pDQlE5?=
+ =?utf-8?B?Q01ybzB5bHFvT3FKSXd5dStCVHVOVVUvM003K2JUQXlWTlg2cFhMdFE1Rjdt?=
+ =?utf-8?B?b3M1d25KRisycUNMTExlYUxmMVRuSHF6bWZseWpTZTI1aEJTU1RjR0R2cXBr?=
+ =?utf-8?Q?DKsIG7shnXNQyqbxWu?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cc3eb5b5-f78c-4eb9-33cd-08df01bcba17
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 08:50:19.9061
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: +Fjh/nIqscTUIEYmV5HpFsfbOZ+deSaPG+AJsrWVwoylYkdeT1aABVAxvYe5zuQI
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9774
 
-Hi John,
+On 8/16/26 17:07, Aravind Thokala wrote:
+> Some systems need to load large FPGA configuration images. The FPGA
+> subsystem allows loading images from the filesystem, but this requires
+> the entire image to be loaded into kernel memory first. For drivers
+> that need a DMA-capable buffer for programming, the data is then
+> copied again into DMA memory. This creates needless memory pressure
+> and delays due to the extra copy.
+> 
+> This series adds dma-buf support that allows userspace to allocate a
+> buffer directly from a DMA heap, write the FPGA image into it, and
+> pass the file descriptor to the kernel via ioctl — skipping the
+> intermediate kernel buffer entirely.
 
-Thank you for the update.
+Well when you have a device with limited DMA capabilitiesthen DMA buf heaps doesn't allocate DMA-capable memory for that device either.
 
-Please also run
- $ ./scripts/checkpatch.pl --strict --max-line-length=3D80
-to check the patch style and format.
+So the explanation you give above why this interface might be useful is clearly not correct. The DMA subsystem will still do an additional copy when you try to import the DMA-buf allocated from the heap into this device.
 
-On Sun, Aug 23, 2026 at 5:03=E2=80=AFAM John Cronin <john@stromback.com> wr=
-ote:
->
-> libcamera issues VIDIOC_SUBDEV_G_SELECTION with target CROP (rectangle
-> 0) during CameraSensorLegacy bring-up. imx471_get_selection filled the
-> rectangle then fell out of the switch and returned -EINVAL.
->
+Either you need to define a heap with specific allocation restrictions (e.g. GFP_DMA32) or you allocate the DMA-buf through your fpga device so that dma_alloc_attrs() knows that a certain device needs to access the pages beforehand.
 
+Regards,
+Christian.
 
-> Fill every supported target, break, and return 0 after the switch
-> (default: -EINVAL), as Kate Hsuan suggested.
-This section can be moved to the changes description. We only put
-descriptions of fixes or new features in the commit message.
-
->
-> Compute analog crop in set_pad_format: 2x binning, centered in the
-> native array, same idea as imx219. IMX471 2x2-binned 1928x1088 then
-> reports CROP as 3856x2176 centered in 4672x3512.
->
-
-> Rebased onto media-committers next (4900cad020c0). v2 was against the
-> Fedora tree and did not apply here.
-And, here can be dropped.
-
->
-> Tested on ThinkPad X9-15 Gen 1 (SONY471A / IPU7), Fedora 44
-> kernel 7.1.8-200.fc44.
-You can test it against the upstream kernel :)
-
->
-> Link: https://bugzilla.redhat.com/show_bug.cgi?id=3D2454119
-> Signed-off-by: John Cronin <john.cronin@opcenter.com>
-> Signed-off-by: John Cronin <john@stromback.com>
-
+> 
+> Userspace flow:
+>   1. Allocate buffer from /dev/dma_heap/ (e.g., CMA heap)
+>   2. mmap the buffer and write the FPGA image into it
+>   3. ioctl(/dev/fpgaX, FPGA_IOCTL_LOAD_DMA_BUF, &dmabuf_fd)
+> 
+> The dma-buf logic is implemented as a separate layer on top of the
+> FPGA manager, keeping buffer management separate from the write path.
+> Individual FPGA drivers opt in by calling fpga_dmabuf_register().
 > ---
-> v4: add Signed-off-by for john@stromback.com (Gmail From) so
->     media-patchstyle matches the author Patchwork records
-
-Describe the changes of the revisions here.
-
-> v3: rebase on media-committers next
-> v2: compute analog crop in set_pad_format; return 0 after switch
->
->  drivers/media/i2c/imx471.c | 24 +++++++++++++++++++++---
->  1 file changed, 21 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-> index 4053aed84..96d96256d 100644
-> --- a/drivers/media/i2c/imx471.c
-> +++ b/drivers/media/i2c/imx471.c
-> @@ -431,6 +431,21 @@ static int imx471_set_pad_format(struct v4l2_subdev =
-*sd,
->
->         *v4l2_subdev_state_get_format(sd_state, fmt->pad) =3D fmt->format=
-;
-
->
-
-> +       /* Analog crop: 2x bin, centered in the native array (same idea a=
-s imx219). */
-> +       {
-Drop the brace
-
-> +               struct v4l2_rect *crop;
-> +               u8 bin_h, bin_v, binning;
-and move the variable declaration to the beginning of the function and
-sort them by line length.
-
-> +
-> +               crop =3D v4l2_subdev_state_get_crop(sd_state, fmt->pad);
-> +               bin_h =3D min_t(u32, IMX471_PIXEL_ARRAY_WIDTH / fmt->form=
-at.width, 2);
-> +               bin_v =3D min_t(u32, IMX471_PIXEL_ARRAY_HEIGHT / fmt->for=
-mat.height, 2);
-> +               binning =3D min(bin_h, bin_v);
-> +               crop->width =3D fmt->format.width * binning;
-> +               crop->height =3D fmt->format.height * binning;
-> +               crop->left =3D (IMX471_NATIVE_WIDTH - crop->width) / 2;
-> +               crop->top =3D (IMX471_NATIVE_HEIGHT - crop->height) / 2;
-> +       }
-Drop the brace.
-
-> +
->         if (fmt->which =3D=3D V4L2_SUBDEV_FORMAT_TRY)
->                 return 0;
->
-> @@ -468,7 +483,7 @@ static int imx471_get_selection(struct v4l2_subdev *s=
-d,
->                 sel->r.left =3D 0;
->                 sel->r.width =3D IMX471_NATIVE_WIDTH;
->                 sel->r.height =3D IMX471_NATIVE_HEIGHT;
-> -               return 0;
-> +               break;
->
->         case V4L2_SEL_TGT_CROP_DEFAULT:
->         case V4L2_SEL_TGT_CROP_BOUNDS:
-> @@ -476,10 +491,13 @@ static int imx471_get_selection(struct v4l2_subdev =
-*sd,
->                 sel->r.left =3D IMX471_PIXEL_ARRAY_LEFT;
->                 sel->r.width =3D IMX471_PIXEL_ARRAY_WIDTH;
->                 sel->r.height =3D IMX471_PIXEL_ARRAY_HEIGHT;
-> -               return 0;
-> +               break;
-> +
-> +       default:
-> +               return -EINVAL;
->         }
->
-> -       return -EINVAL;
-> +       return 0;
->  }
->
->  static int imx471_init_state(struct v4l2_subdev *sd,
-> --
-> 2.55.0
->
-
-One question. Do you send a new patch using the "git send-email" command?
-
-
---=20
-BR,
-Kate
+> This work is based on the approach discussed in [1].
+> 
+> [1] https://lore.kernel.org/all/20231122053035.3758124-1-nava.kishore.manne@amd.com/
+> ---
+> Aravind Thokala (2):
+>   fpga: Add dma-buf interface for FPGA programming
+>   fpga: versal: add dma-buf programming support
+> 
+>  .../userspace-api/ioctl/ioctl-number.rst      |   1 +
+>  MAINTAINERS                                   |   1 +
+>  drivers/fpga/Kconfig                          |   9 +
+>  drivers/fpga/Makefile                         |   2 +
+>  drivers/fpga/fpga-dmabuf.c                    | 198 ++++++++++++++++++
+>  drivers/fpga/versal-fpga.c                    |  33 ++-
+>  include/linux/fpga/fpga-dmabuf.h              |  22 ++
+>  include/linux/fpga/fpga-mgr.h                 |   1 +
+>  include/uapi/linux/fpga.h                     |  15 ++
+>  9 files changed, 281 insertions(+), 1 deletion(-)
+>  create mode 100644 drivers/fpga/fpga-dmabuf.c
+>  create mode 100644 include/linux/fpga/fpga-dmabuf.h
+>  create mode 100644 include/uapi/linux/fpga.h
+> 
 
