@@ -1,195 +1,220 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010020.outbound.protection.outlook.com [52.101.56.20])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3C6A438034;
-	Mon, 24 Aug 2026 14:06:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787580400; cv=fail; b=k3s+ZgQHWIhslRPd69CyTq9s4jzJPnDOvUTZBskQpfMAOA66nvJCZvGBYG3G1yRI/eq8xmOmkPITD0u+XFrqSVCqpuzSRtvnNn3/u+379xRjcLihK5Y8gnH3nwcuUwUoVyOyGMbo6TdquQCRqxWmc/3++2JnjuozhhMNHPNyyJw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787580400; c=relaxed/simple;
-	bh=xDxJA0oJ7K15aw3eJWUm3jtAY8dYLUfaXB+DLrXOClU=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=dmMquavKgrkrHKepL0+bxUlXAHgw/9AWQFaJPf3eK0P5bsP4Y1wpHmbEQsY0oxW0Qb0M/3Ddu9QHR0NB5jDAZe5jyLaX7aZl7ZWnPgOxOOtHrVnBV7yMeo3kKoL6S1M0apL5pmLVttQ6tYUbUysJrF3aoM4XBpFsHBAjcGiJwIY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=i/LotkSo; arc=fail smtp.client-ip=52.101.56.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68525412276;
+	Mon, 24 Aug 2026 14:13:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787580798; cv=none; b=GHBhVo3o5nDKcHiEEET+HJ4k8Da3Rrpf7SXeIAJQn0DykPfPzZo8tDQtsfyPgkoEHSsh8C6neUUBwZR7JhDcSL/pCWPAu1F0D0VKNG89TcY8p/oMZBVG5fyaKLiwVBbyh/eVqAPm42D8Gp35Qn1HO7NbbeWlKyA8dflPrPdPZRE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787580798; c=relaxed/simple;
+	bh=5H0nEc59Q986HZLlpGguY+/gdQ4VjP7DPXfE8/3QAyQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IAYmEdBjYaEHeOX5D1ANvN/9yzRV6J502Tc7FuhLvNAm0hGfP1f5FoOWkTQVIP4paZcJSemOG7oy+f2LQSF+VN3EUOpWN1hoveAukDuW/P6KtZOotn8ns1eo8dUNf04zWQ3H9YxgL64tul/1cqk0cl0si+xQCaMiSm462OipKhA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtElHEPw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="i/LotkSo"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FfQGydBMPkUnUXL4B5eJGC03NuZgoNYgpzcUxXvqMi4TZjdxhj55iQ94C6xQvSmTPlEFiKbZo/pj1+xR6i1Thby94wJ7hJwY7927ns/Dy8ihglWxMKSWOCOv40qEtgQ4edLsR1isIwnuxhjDil6dVye8ssl+bafleh7/TePf5O4aQNzGZTTxDbLITvwmKY4CAaCZTZlox7zjCvJ6+sQZ43TW2nQE6r/qeoXqhBRf0Lcmwk/e2z3I8LQPujSj49h4bgkAMwkOq6NIzRSLCk+jBG7/p2gcNDhLU6hx29viXcuCjZK7EiF+rcT93ugZoNoYYgkD05/Wn93Q+K/0+0mF5w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=no52cbTfJUrEFRNOjk3OBncjkA2zFX5K/KALQ9gMalE=;
- b=vqZX/56YE1i1UuT/aZZpj5loGZHNjmv0F11AIobfNOD/GwsfM5cJkH6c+yK0BecarHxOLRh1QNDOwBsUdXO8UJOseYzK6VRMbNWMWTVgLm8uhbo1SNDSKalqQfrSOIAzz8ITk4cT32fCE3bu4bP+IDbRWeasetkXMRdzuW24VJ4ZTmGSSOO7pVut0l0qt5BduOctP+nJnH4upQxXBS/ifJJoTnp/jsXu4utct9dHQbFzBrR43p1TWqp8oiWd2xuTVV9DQugReMqy6b0N47ILmMgHt0BbfnMB/09IzFR/IOSDMkLK0ThkMFRLWwBBBMw3HCMTacxKvbMERqQmWq9EYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=no52cbTfJUrEFRNOjk3OBncjkA2zFX5K/KALQ9gMalE=;
- b=i/LotkSooJZHKoUUQ7yjbLxvW8qDFp/VedLWscC2TAJ3Oqs65S8y2i0bXGCgx88r/dMJuKAVmk0eXhhS7u3WgHnt7MvKVu7XjCA3lsa6HVBZHOASFQfogeSp9oQcky8M4vDFqGbMzAJ3qeR092nkccXzs8/hrYXKWxR/YIh/bZY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA1PR12MB8141.namprd12.prod.outlook.com (2603:10b6:806:339::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Mon, 24 Aug
- 2026 14:06:26 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Mon, 24 Aug 2026
- 14:06:24 +0000
-Message-ID: <87c9bb85-2514-44ac-a976-e24526c7f76e@amd.com>
-Date: Mon, 24 Aug 2026 16:06:19 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
- imported BO
-To: Lizhi Hou <lizhi.hou@amd.com>, Taimuraz Kaitmazov
- <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
- Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
- <20260813164700.43960-2-taimuraz@kaitmazov.com>
- <5933effe-ef28-9838-1dd5-dc904be0a3bd@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <5933effe-ef28-9838-1dd5-dc904be0a3bd@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR0P281CA0119.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:a8::17) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtElHEPw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A325F1F000E9;
+	Mon, 24 Aug 2026 14:12:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787580797;
+	bh=UwPdrh+01Xqj47dnasafGAdC09bKCXp4sZUyzRQNWvc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=dtElHEPwNBnUAjSebU6MFkk5JZ7wdxDH0pEu5d85rPPv2hTujo2yfk9UH2/+wIjqv
+	 MjTyMq9G4xqDacg2PwrjhRfrpgSvPAVrvTLPSoTjD4e3MFiZ6KKWsUoDlwnlRvbvzf
+	 dQ8AECA2WmANRDlw6APiZmu5Lo8JRraWXZz55CqnDE6bKhO5zrB+OU68b7V1rfaOLr
+	 2CyCTmXc4Dz7bwNos8WCzsX6/iElz8tZUBUWB9J+widR5o/CBGoZLI9IOm8CpTT7OR
+	 ZUk5UYSBeF2a9pXwVwIimwiupWnRbUcKZmhqo1P5zkLpkRrtaATyfoxZScTMsgfy+X
+	 rqC2jWaDhsoIA==
+Message-ID: <3d58eb3c-7a9d-4183-907b-46172664631c@kernel.org>
+Date: Mon, 24 Aug 2026 16:12:29 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA1PR12MB8141:EE_
-X-MS-Office365-Filtering-Correlation-Id: f258b144-f365-4600-127a-08df01e8e203
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|366016|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	7I4tge2V7e1GhaT+7Zq5yn48XTeBYgcmaaVvHS4b3sm5157K3rIRkgG81lm5uR/YhhEo7fhPFe6PRwU304tIV3onZRUp/JpU32DuymQo7yopYLB1e4wTxZVzPhY+kXwlhwoYvvswafyVqKV4QDfK6OVrM3O2knwnUedWGpL5vHZZskCSarymXAmpA+2EBaFZlYuFjRBQPYDjy76r9lhZ0MOORZOl64PS9DWn5pyA6dauKkv3uRR9BPc4kbM2NuAlSo8pWmfCS+fqdPc4VD03CEYlmyXkKvN3lbWDFU7AyuncuI4aW5nrT143WlvUzbyBZiWkl1wY1GvL0eN2n85HL6onq4M2Y6r5gYYlgC29YoRAijcd+9QlyTItcp6816aKc5AMlpKoHRLX6IlqN9zhxafgVyw66kc3RBjTu3r0uJMOreUXm0jQYDYk6e3DGbkRuISGeF58zr3C1ravPuClltUCbpTgJ3WdczWO75QnsiLeG7fLLu7myOfgalvwlNLZn7Y3sO+9qNt1ewq4PgahUuHEnImQZRL/jkPTX3SGSvixlBzIQeBbHm+jIbdJunQhJRxt4CxlicNCy87qbmtdlg0C2WXFHSwzypo4lyi7kZ/eqcTPbOsm572VMEJbtJt7L0pHfRnc7Kbn1Qy6OUOzVplRc+/XvL0uFbdHsJrwQn4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?a0l0NFd5NVJoWkJBdkc3UFJrQTM2TnRFNU9UM0xmU0xsRHNyZlB2bkpGZm9a?=
- =?utf-8?B?eklPcDBQRGpTSmxBazd3SE1nV1dvS1o0RllJSlFtaEJsZVM3anpWTVZzL3ZI?=
- =?utf-8?B?MktCWVdocS9mUWROdmRQbCtVSWpld3h1NVVrZjBYckQ5Wm1BT3FFOEhieVds?=
- =?utf-8?B?R2k3elVlZHduQmZNckM5WXdzWlI1aWd1M2w5Smh1aG9LLzBWUGRPaUlJM0dJ?=
- =?utf-8?B?MjN1aU9rdUg3dkltSTE4MUdRSitrZXFRbXlVZzQ4S2VPNExZTGtpYUIxT3ZV?=
- =?utf-8?B?RTg2R0FqeDlrNm4xY3BFWC8yUmN5d1BoeGlIZFhKQWVuVjh4N2syeXFMbjZU?=
- =?utf-8?B?bDd6RDJCNlh1Q2RTYVUyMVFKUjAxK04rUnBDaVFrV0MxTDlYdUJPTktCcHc2?=
- =?utf-8?B?dXVJV3JUT3FoaW9nTnFOOHZ4b2JMVGxKWGsyenQvdDY0SWtGOHBrMlBhMGRP?=
- =?utf-8?B?d0FRM3RLT25ra2JiRE9lTnArZ1RzZGt1RlBLME5oSmthNGtlT0hOc1dzWmww?=
- =?utf-8?B?UytQQjh4cytONjhOdUNvaTFKM2hwc3lzUkZ0NEhtUlU0b0NZeEY3VC9jYWw3?=
- =?utf-8?B?NnJDZU9rN000T2hoMFJ1ZUFpWlVGS2RCcEQzc2ZOYWt0R2k4b3pkVlZ0MFJp?=
- =?utf-8?B?K0VZbVFpL216SXZNc21LSDhyRW4vZkxPdjNJT2dVUEhNdzM0Y0dTeDBkOE53?=
- =?utf-8?B?VFVCVWlQQTdIZG90QmlHRnRtZGVWbmh0a0YrZHFFZGNCdGdUVmpidFR0SER1?=
- =?utf-8?B?UFU5ZGtjSGZzeW45MDMxcVBsMTZQdnVQZzNIRWFFWWY4QlVyYkE0dWw0Nzdr?=
- =?utf-8?B?TzlGdVlkQlBHd0h4U1pldGU0N3pseThUYTh1cEFlblZ1V1NKb1NTUnhXdUNX?=
- =?utf-8?B?UEhLcWk5YlZ2NGhQakRQa05mOUttcjdrb2xvNzdzZklLUWFSUUtCSHA2cUhK?=
- =?utf-8?B?cjJLY0RpSkZIM1FmUkpsWUJ5K28waE5LVWN3TzE5dUZ5K2ZyRExPQzE0OWt1?=
- =?utf-8?B?cUp4TkFKeFc5MXBPV2wzMDV5WFdHV0FkOHAyK3Fkd1k2M2F5enlDTDR4RFgw?=
- =?utf-8?B?NGFPSDhTdDFOc3JnYjN1SkdnTTNGK3RpdUpuMlNTZ1dJek93ZFhENGxjOFFi?=
- =?utf-8?B?Q3pIUU9tcVR0aC9GcCtPNE0zNlVjam9kOURxUzhJU1pjc1dQMzd0QzB0aGRM?=
- =?utf-8?B?UXlmcXk2YXJ5RTVpdm9GWXVlcFJFQkU0cmtOd3dNd2hYc3g5akdvTlVnNUp3?=
- =?utf-8?B?TmtTUmJLcDB6SnBVNkZpMFVwL1RlSVd0bUZndk1FbzEzTVltc1I0Z0NmSHRL?=
- =?utf-8?B?SXdVejhUZmdpNmc4bjJRYWVSRWN4RWdnVE51Z0FiRGtwd0x3MS8xa1JXNTJN?=
- =?utf-8?B?dnZHQXZGazZMc2tva242SzNldU83K0hWaklHc2RVSVJiNGR0cEtmUW1IQlA5?=
- =?utf-8?B?aWpEUXRyN1hLcDVOdnBKKzdySkEwdXNCSFk3eHR3UzhSUjNFRGRjTDhOcm54?=
- =?utf-8?B?Z0VsWXZ5b0o3UUlxRXJ3N3N0bUdtdkw3UHJRdFRyNTRDNjlZTmllYU9hejMy?=
- =?utf-8?B?djlMQ1R3VWl6RllxeVZsYUdILzVaTXNFQlNnSVZ6dFFzT01CZ2M1dE1VeGg4?=
- =?utf-8?B?R0ZtNC9DbTRuZXd0MXFjU1hRRVRkWjJScTFhTC9tN2dNMUtUQUxpNGpsZ2tn?=
- =?utf-8?B?eEI5WmpNQ3ZaU1lxREVWL2ZjVkpRMjBxd0grLyt1U3o1QTBobVVUWTNaSEx6?=
- =?utf-8?B?aHhyeGRJMm1BRnRjU1F1dzU3dHdXYkw1cTlKN1VKVGE0REwvSy96U29zQzg1?=
- =?utf-8?B?TVpPN2VNZDh4eFFXbVRnYjBIeFR4WUM3SnZXaEp3Wk1TS2lyc09Eemd4a0w1?=
- =?utf-8?B?ekVoK3FjNkFFTDhNenVPcmNZYUEwSURtR3lPdUVTY3ZZTzRDUFdwK004ZldV?=
- =?utf-8?B?ZHlFV3ZIL0xQd2RRQUlNMjlxY1JHenM5eTgweWtGYkEyMEVINmhqVFZqS1NM?=
- =?utf-8?B?RjREVjB6dWRKbU1rZzdjOHhlSjl6OVBsUmtSMlE0ZVdIU0x1QStTNEVMaE9E?=
- =?utf-8?B?SGFoM053UWRmWTloMlYwdjdGQWNCNytxVlUzVVJUS0hmL05tK0dxdTMvTG5N?=
- =?utf-8?B?V2ErcDAxODJpV21zQTNtOWt6eGwyRml0N0pSSm0zelhicW9HY0hWcm90SjZk?=
- =?utf-8?B?TnVZL2ZobnY1KzRaL3dQZERnRll3VVNYVFZ2Z3JGc0F5TnNKR3I5d0ZXSEFB?=
- =?utf-8?B?L3VDTTcrVWZRQlprcGhnanZ5UUlZVHhVWXhEbHIvWnVRaThlU0huMVErcHNl?=
- =?utf-8?Q?K5vsoenWpsS1nGHFxx?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f258b144-f365-4600-127a-08df01e8e203
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Aug 2026 14:06:24.7467
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: p01eQj0qIMat9cphecnOxjE1EWNb6h+KhypOuvJkKiWJjtuGgOjosCo9bpwhv0u2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB8141
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
+To: NeilBrown <neil@brown.name>
+Cc: Byungchul Park <byungchul@sk.com>, linux-kernel@vger.kernel.org,
+ max.byungchul.park@gmail.com, kernel_team@skhynix.com,
+ torvalds@linux-foundation.org, damien.lemoal@opensource.wdc.com,
+ linux-ide@vger.kernel.org, adilger.kernel@dilger.ca,
+ linux-ext4@vger.kernel.org, mingo@redhat.com, peterz@infradead.org,
+ will@kernel.org, tglx@linutronix.de, rostedt@goodmis.org,
+ joel@joelfernandes.org, sashal@kernel.org, daniel.vetter@ffwll.ch,
+ duyuyang@gmail.com, johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+ willy@infradead.org, david@fromorbit.com, amir73il@gmail.com,
+ gregkh@linuxfoundation.org, kernel-team@lge.com, linux-mm@kvack.org,
+ akpm@linux-foundation.org, mhocko@kernel.org, minchan@kernel.org,
+ hannes@cmpxchg.org, vdavydov.dev@gmail.com, sj@kernel.org,
+ jglisse@redhat.com, dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+ rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+ linux-block@vger.kernel.org, josef@toxicpanda.com,
+ linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+ dan.j.williams@intel.com, hch@infradead.org, djwong@kernel.org,
+ dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+ melissa.srw@gmail.com, hamohammed.sa@gmail.com, harry.yoo@oracle.com,
+ chris.p.wilson@intel.com, gwan-gyeong.mun@intel.com, boqun.feng@gmail.com,
+ longman@redhat.com, yunseong.kim@ericsson.com, ysk@kzalloc.com,
+ yeoreum.yun@arm.com, netdev@vger.kernel.org, matthew.brost@intel.com,
+ her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com, bp@alien8.de,
+ x86@kernel.org, hpa@zytor.com, luto@kernel.org, sumit.semwal@linaro.org,
+ gustavo@padovan.org, christian.koenig@amd.com, andi.shyti@kernel.org,
+ arnd@arndb.de, lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
+ rppt@kernel.org, surenb@google.com, mcgrof@kernel.org, petr.pavlu@suse.com,
+ da.gomez@kernel.org, samitolvanen@google.com, paulmck@kernel.org,
+ frederic@kernel.org, neeraj.upadhyay@kernel.org, joelagnelf@nvidia.com,
+ josh@joshtriplett.org, urezki@gmail.com, mathieu.desnoyers@efficios.com,
+ jiangshanlai@gmail.com, qiang.zhang@linux.dev, juri.lelli@redhat.com,
+ vincent.guittot@linaro.org, dietmar.eggemann@arm.com, bsegall@google.com,
+ mgorman@suse.de, vschneid@redhat.com, chuck.lever@oracle.com,
+ okorniev@redhat.com, Dai.Ngo@oracle.com, tom@talpey.com, trondmy@kernel.org,
+ anna@kernel.org, kees@kernel.org, bigeasy@linutronix.de,
+ clrkwllms@kernel.org, mark.rutland@arm.com, ada.coupriediaz@arm.com,
+ kristina.martsenko@arm.com, wangkefeng.wang@huawei.com, broonie@kernel.org,
+ kevin.brodsky@arm.com, dwmw@amazon.co.uk, shakeel.butt@linux.dev,
+ ast@kernel.org, ziy@nvidia.com, yuzhao@google.com,
+ baolin.wang@linux.alibaba.com, usamaarif642@gmail.com,
+ joel.granados@kernel.org, richard.weiyang@gmail.com,
+ geert+renesas@glider.be, tim.c.chen@linux.intel.com, linux@treblig.org,
+ alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+ chenhuacai@kernel.org, francesco@valla.it, guoweikang.kernel@gmail.com,
+ link@vivo.com, jpoimboe@kernel.org, masahiroy@kernel.org,
+ brauner@kernel.org, thomas.weissschuh@linutronix.de, oleg@redhat.com,
+ mjguzik@gmail.com, andrii@kernel.org, wangfushuai@baidu.com,
+ linux-doc@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-i2c@vger.kernel.org, linux-arch@vger.kernel.org,
+ linux-modules@vger.kernel.org, rcu@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-rt-devel@lists.linux.dev,
+ 2407018371@qq.com, dakr@kernel.org, miguel.ojeda.sandonis@gmail.com,
+ bagasdotme@gmail.com, wsa+renesas@sang-engineering.com,
+ dave.hansen@intel.com, geert@linux-m68k.org, ojeda@kernel.org,
+ alex.gaynor@gmail.com, gary@garyguo.net, bjorn3_gh@protonmail.com,
+ lossin@kernel.org, a.hindborg@kernel.org, aliceryhl@google.com,
+ tmgross@umich.edu, rust-for-linux@vger.kernel.org
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
+ <20260821042143.GA40890@system.software.com>
+ <825134a8-ceae-430c-b2fc-d1d0c7240f39@kernel.org>
+ <178730572084.2852630.7732425311008244683@noble.neil.brown.name>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <178730572084.2852630.7732425311008244683@noble.neil.brown.name>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On 8/17/26 19:53, Lizhi Hou wrote:
-> 
-> On 8/13/26 09:46, Taimuraz Kaitmazov wrote:
->> amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
->> rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
->> exporter answering with an I/O mapping leaves a void __iomem pointer in
->> abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
+Hi!
+
+>>>
+>>> That's a good news for lockdep.  (And even for DEPT :)
 >>
->> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
->> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
->> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
->> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
->> object, so an NPU paired with nouveau or radeon does.
->>
->> Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
->> path is reachable from an unprivileged ioctl, so it does not warn.
->>
->> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
->> ---
->>   drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
->>   1 file changed, 8 insertions(+), 2 deletions(-)
->>
->> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
->> index 1f190b319bb..b66ec9e4828 100644
->> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->> @@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
->>         dma_resv_assert_held(obj->resv);
->>   -    if (is_import_bo(abo))
->> +    if (is_import_bo(abo)) {
->>           ret = dma_buf_vmap(abo->dma_buf, map);
-
-Mhm, why does amdxdna a vmap in the first place? For some workaround?
-
-Usually DMA-buf only provides that framebuffer emulation scanout inside the kernel.
-
-On the other hand as far as I can see that here should work correctly.
-
-Regards,
-Christian.
-
->> -    else
->> +        /* Callers use mem.kva as an ordinary kernel address. */
->> +        if (!ret && map->is_iomem) {
->> +            dma_buf_vunmap(abo->dma_buf, map);
->> +            return -EOPNOTSUPP;
->> +        }
+>> He :) Where do you currently store the additional per-page information?
 > 
-> Thanks for the fix. The 'is_iomem' check should be moved to amdxdna_gem_vmap() to cover all the cases.
-> 
-> Lizhi
-> 
->> +    } else {
->>           ret = drm_gem_shmem_object_vmap(obj, map);
->> +    }
->>       if (ret)
->>           return ret;
->>       if (!map->vaddr)
+> lockdep doesn't need to store per-page information.  Possibly DEPT
+> doesn't either.
 
+That would be even better.
+
+[...]
+
+> 
+> maybe you put the folio which is locked on a queue or an lru or
+> whatever.
+
+For readahead, I think that queues / lru are not involved. We submit the I/O,
+and once the I/O is done, we unlock the folio from interrupt context.
+
+end_buffer_async_read() / iomap_finish_folio_read() end up calling
+folio_end_read(), where we do the magic
+
+	folio_wake_bit(folio, PG_locked);
+
+It's interesting, that for writeback we never unlock the folio on the I/O path,
+but instead have the dedicated page flag to tell us when writeback is complete.
+
+> 
+> There is no way to say "that queue owns this lock".  Maybe that could
+> usefully be added - assuming coherent semantics can be designed.
+> 
+> Somewhere else some other task takes responsibility for that folio and
+> the lock.  maybe it dequeues a page, or maybe an lru callback gives the
+> locked page to some code.
+> That code then calls
+>    lock_map_acquire_try(&the_lock_map)
+
+I'd assume that's what the unlock path would do from interrupt context.
+
+> 
+> This says "this task is now holding this lock" (or more accurately "now
+> holding a lock of this class").
+> Note the "_try" - that says that the task didn't have to wait for the
+> lock, it just got it for free, which in fact it did.
+> 
+> Now if that task takes some other lock, lockdep will see a dependency
+> between the page lock and the new lock, and will accept or reject it as
+> you would expect.
+
+I guess on the interrupt path, we primarily unlock the folio lock only. But we
+might take some other spinlocks temporarily indeed, like
+iomap_finish_folio_read() does.
+
+
+>  But I'd like to see a coherent
+> explanation of how the functionality offered by DEPT is clearly better.
+
+Yes, that's also what I am missing.
+
+Stating that lockdep is stable and should not be destabilized is not really a
+good argument.
+
+-- 
+Cheers,
+
+David
