@@ -1,70 +1,74 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-yw1-f171.google.com (mail-yw1-f171.google.com [209.85.128.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D4A3B5301
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 19:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD1173BD649
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 19:16:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787685407; cv=none; b=Lm4ijrBtF5R5K79ssI7ZYFeBtOVpYxOtWNQIQhc6P3DEsKNdT6p+0oeuNkQU78kzMNNO/y/3fBOOhoTrrlCjXNCkvJc+ylGndIIPB3RLAU1C0BiZBLNrn7n3tj3TTbOuZLGI1itXVeHBQwycc+fU1OmRF1xPJgZOzEk4vTelDkU=
+	t=1787685409; cv=none; b=lL+mMeUUQXkGB14VSeeDbjc2qcJspbmwPmoEvEkIXHv1cRN5ob1PS7MfPIoKQC8gGFzQFmcF2XeDfZn54pMOiGFJ/NxLAliq1GuCQmoqH87xQxsCutQDKsjhnLAnSYjKGWumgm7fKNvsInVJO0QVPf2y5UfHtl9SWh6w3SIfW10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787685407; c=relaxed/simple;
-	bh=Jg0XKCpCYyIZxGkFuKwuHdy8ZY3Iu94h/9vvihBG5NQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rNASx5SpDXB/948ag3aeADbMsZ+NpW7IoQPtQp3gv2IGbREbBpQATHJ1/lQ5p3m2KACa9B3xDpjKe+l+aO4sYd2gK3QQFW7a6EERMhkZKgPiUPujXM+f8Y9pPW0+PBo9UiLw+qKYHc/DIcnQqwTZlcq8ygc8BQEZqeYBVrFpgus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=So2Wwjt3; arc=none smtp.client-ip=209.85.128.181
+	s=arc-20240116; t=1787685409; c=relaxed/simple;
+	bh=JF+Ug5E7sBl4C9kFEjZ3TL6C1lLbQgDAdYYCziFZjjM=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HPlQZMVg4458jaY8cfTPOb56xstVsInQ4re8jfvLfcd4j5BKA254PUIK78+KwzZkRC9AcEoiTADwCVPebyvlaE4bjGh6fFdfnwgrnWptrql/UYGoshotZDqE4iJ/sPFbnKDZJdOIT0vd9KAMw4O7qq+LqH93EcqBpXJqL3Q6M7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc; spf=pass smtp.mailfrom=nextdimension.cc; dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b=QuD1EOH8; arc=none smtp.client-ip=209.85.128.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nextdimension.cc
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nextdimension.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="So2Wwjt3"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-81f3b227a4aso1241687b3.1
-        for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 12:16:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=nextdimension.cc header.i=@nextdimension.cc header.b="QuD1EOH8"
+Received: by mail-yw1-f171.google.com with SMTP id 00721157ae682-836ce6cbe1eso925627b3.1
+        for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 12:16:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=nextdimension.cc; s=google; t=1787685405; x=1788290205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qrKIvtEsv8sRK3OQk9pYABtMjl70C2XTxwnd81XZ1RM=;
-        b=So2Wwjt3lcF/MpH69Azcqnun4ci4HcOQO8HlvIF6Sj+9Vdq7wWQFFra9C3G+ucDAvE
-         bnpzavNTnQ74KhO2edUaEBuJkEX6IEDA+7twoZs1MgSzhC4rk+nO+TXZhFJfFrrUOd1i
-         yHdzHZjk6nuM9WbPaq4+eulnbmo/2bqo+ZnCxPDnHyXjeT1Jix/2lFYjVg6XlmNjtjQ0
-         j1etNvlOSKv1w0puK6HgF4eNS0T8KQg4W2g/R0Jw3ZNveR/9YuMTZJFlTkLCtY8/aZXV
-         sIJsFZqhkJL/5hdsfYqKrW511+/t8qP/+/SHwZ+xf5SfWjBC7tt7Klrh5Z/5yM3r77ek
-         Td1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787685405; x=1788290205;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=nextdimension.cc; s=google; t=1787685407; x=1788290207; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=qrKIvtEsv8sRK3OQk9pYABtMjl70C2XTxwnd81XZ1RM=;
-        b=WElRNvRwcpRK1OFIzBvza/F6NalGg2t9TF7CWOO2k8Ax+9++T4KQpyWDrq0LrPVW5K
-         QCiJJHdmbdRdBfiPxUGbqleHs3xEVocL2TdD0zbkVa0zz9X2OiKUp+zs7/jYO340myZo
-         AGq7d3u2hzXgCvDdEg9K/mpCUvuJI5F3hRTpCbH7ATxFKvD3ZTCpcbJPcpz5WXvpIHFX
-         oJhJrQVDeS8COQpgzDNPj6i/5GQgAdibeWTTBnJdG/X0RN4Zgov5yta8pTCm3B3jAjWm
-         Cq7VjkqufEvi5Fko3xT1Vdygo5N7FnJoXdeQmi5MB0WpHYbdWDXi0Ne5LXBqUGMX0UKI
-         3caw==
-X-Gm-Message-State: AFuF++mLNEHcc1OZDK6wgdEIStgNuwnqhZE+jAVlPe+r/NwPCPAjKPUL
-	0De4jq7PSnqRmFL//OI99Nsqm6rrqWUD+bUlKOjtoptw8VB/z/T5XYO3eG2f4/ykpYMkIFxdY6B
-	6q9yjV6s=
-X-Gm-Gg: AR+sD12qqaCjSmX5ephVUVstW8U2eNyDYuawNS5FylaR71UFPqVYJY7ZUhliFa7xXqt
-	O8F1VC/IFPsTWZIkTqpDanjYuSHOK0ftDcpZ+td4ABorrETVdiRuLKXA8Hy3fDb2fs6SdSM8scu
-	t90IEla5QjMhYP/dyNrMlV0M5hMSIX0s3nnnFABhukPyqW2eqZ0usePeiKZehmbz7OKb9hdq/gN
-	xKm6TvF7j7WRkGYFavpDMl82oNyay/ZgwIWzpaVAbwpm94o2H+B52t5CO/5d0Y9tMtOMrMjk7Bx
-	RmgbjtiA250EwSXrBBXtsEghq0YORs7TNIQ9wicFATZKLonK4G9IIdRPFfuwjmCqZ29So8jyRTY
-	BCxYsPRmqbPMghYoFqiZGGesWrY419YylhSDYQd3nWJ8WB5qnjncIlETJ5aJgEXtgaLvbqLMiSE
-	vSs3aWK9dTcfiMUyiA6tfvVGBUiDcTb+1Vu6RS4ZshvsgPF5JqIYzGunXUIiONGnR1N9AV0DCd2
-	Li99bdweqrsoRHpcr3P14AuJco/s0xEnOsPfjuanXPi9DzAFXp1MpUj
-X-Received: by 2002:a05:690c:e111:b0:81e:bbcd:f5c3 with SMTP id 00721157ae682-85741b102a6mr4407467b3.36.1787685405171;
-        Tue, 25 Aug 2026 12:16:45 -0700 (PDT)
+        bh=RwLBp5wQtTqQUXrfprG7ZEhj0j89v6z81b3e8Yi+OJU=;
+        b=QuD1EOH8o8ebRK5mVDwijM9NllH6N9iqeYRbhcEGsb/H2JCX8v/HNaEkSYLDfhfKUv
+         taipRH/mckbvp1LVU8Li1OE7Y8rGTBDeB+/lk8ejJxkzoaZrIB06QDWmv83JFKo34Hnr
+         jBLAElqv4PCO58snnltp5Igu/72WUDrP+2ZFGH3OPx085BjGf8Cf7e526x5/jaewf6+k
+         Pdr/nauljb7uHMak2BwngJtPKQnlmgrZ2Br0gYUcZEXXpF3WxFtG8YOMYdNymVltFVOc
+         tT4r6bTbYQbFsCzgeJzKrkaIFSBFZQXaGom2HGUT5vQ5NMIcnsVHxiQbrDFIMn+9YHa/
+         P4uQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787685407; x=1788290207;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RwLBp5wQtTqQUXrfprG7ZEhj0j89v6z81b3e8Yi+OJU=;
+        b=nDbBjU+jWlBTcspr6hdtXinA80opkW5o3B8nxzUlxmQwjKqR1P4Ue3KJSLbO/ARete
+         ZS6NSTI9PwS6MRpA5s5oSzBd0HJlNQgmTZ+SAjyZUC8EG+pMJo+/S3jbyksftgPaVIpE
+         e6YyQGWJbGYV3hapmcF8wJT9+SBFRhBRlEgbLqayyg1Ev6JQW5GPUQh+8wcjYh0UYa62
+         Idtw7nqfJHJp8lGQJzB145ah89p0g5qQagef/tQ1RFS0kcU+TNbg3I0Nqlma0E1g4KCS
+         yBZ9/tUV7hf2JKxUM4DQpn77tp9ZUPF/6D0hViOw4jbwtb1f40awfYqr1l3212HmJ4Ik
+         4cqg==
+X-Gm-Message-State: AFuF++n0SKQyWKUibf8EHhBfwqM5xGKcWRp78RMJ6QjDELrakZy8yzNz
+	5zbj4TyDUaJoBdTHZAj4v6h9FVRIHtjyuqp3oOD+DeZgs5HDvC2XERjzC/I5NfGt3GMckantfap
+	mSvovrnw=
+X-Gm-Gg: AR+sD13koS5bJjQZcq2SB4MPHuQgV9+8PbNFWw8Etw2WNIBJuuGOcqg5KYaGg6SZNYs
+	52epWEDW/yadCczKrTCM5eogtKQBenF/9/DK4P25BeGaLKS9FYmOEXWwrZ7TdAogMafRNf3kqzQ
+	piuT8ldkHQfPFw1b+Jgf+FR0E5O759nRPX31Q5LKmugEY6EaKXOSHhMn1iV2N1rJiNDJ8SBfGho
+	pLQL1ZJSoagywXgvWhVc+npwvTzEbkz7nLcz72kZgFWmq0JAr+c73uDSdZPoKlnqnMiVGGg5vaz
+	C/Ke/OUWBv5GQKjgpesCexifwrGQOqGUG5h5aqwpAOHDdBD6sYHUxMEfAOxz21j01xxTnPANmiX
+	Pw5W/FiBVybwvIXu41RQhUwFKj3WNqK5wSkjEeW2RFCQOh3Ip8SDYLkxl3u2nmjlNsKxzYfBy4H
+	/Ti0btvxVYt/IwQ5dP8ZHbTIUUc+9Z6PLYCzbY0r3xzwUa9Ety7W6+xVyBrgUJiiR0nSxDv7pwm
+	fRi2oxYPCJS61rhIWN+BaWBJUIgUsR8wKfDF953PryMM+47TN747Nd5
+X-Received: by 2002:a05:690c:7483:b0:81d:6af3:b9b5 with SMTP id 00721157ae682-8573c5ed07dmr6434127b3.9.1787685406730;
+        Tue, 25 Aug 2026 12:16:46 -0700 (PDT)
 Received: from localhost.localdomain (108-207-243-35.lightspeed.austtx.sbcglobal.net. [108.207.243.35])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570d04e004sm4520427b3.36.2026.08.25.12.16.44
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8570d04e004sm4520427b3.36.2026.08.25.12.16.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 25 Aug 2026 12:16:44 -0700 (PDT)
+        Tue, 25 Aug 2026 12:16:46 -0700 (PDT)
 From: Bradford Love <brad@nextdimension.cc>
 To: linux-media@vger.kernel.org,
 	hverkuil+cisco@kernel.org
 Cc: Bradford Love <brad@nextdimension.cc>
-Subject: [PATCH 0/1] em28xx: Fix em2828x PAL TV colours
-Date: Tue, 25 Aug 2026 14:16:38 -0500
-Message-Id: <20260825191639.755480-1-brad@nextdimension.cc>
+Subject: [PATCH 1/1] em28xx: Fix PAL analog TV colours
+Date: Tue, 25 Aug 2026 14:16:39 -0500
+Message-Id: <20260825191639.755480-2-brad@nextdimension.cc>
 X-Mailer: git-send-email 2.35.1
+In-Reply-To: <20260825191639.755480-1-brad@nextdimension.cc>
+References: <20260825191639.755480-1-brad@nextdimension.cc>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -73,15 +77,27 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-I missed a register in the setup for analog TV on PAL,
-causing red and blue chroma channels to be swapped.
+Red/Blue chroma are swapped on PAL analog TV due to register 0x7A07
+missing in the configuration block for PAL. Copying in the setting for
+composite fixes the issue and everything decodes properly.
 
-Bradford Love (1):
-  em28xx: Fix PAL analog TV colours
-
+Signed-off-by: Bradford Love <brad@nextdimension.cc>
+---
  drivers/media/usb/em28xx/em28xx-video.c | 1 +
  1 file changed, 1 insertion(+)
 
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index c418add65bb5..864bab86ef69 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -431,6 +431,7 @@ static void em2828X_decoder_set_std(struct em28xx *dev, v4l2_std_id norm)
+ 		} else if (INPUT(dev->ctl_input)->vmux == EM2828X_TELEVISION) {
+ 			em28xx_write_reg(dev, 0x7A00, 0x32);
+ 			em28xx_write_reg(dev, 0x7A03, 0x09);
++			em28xx_write_reg(dev, 0x7A07, 0x2f);
+ 			em28xx_write_reg(dev, 0x7A30, 0x2a);
+ 			em28xx_write_reg(dev, 0x7A80, 0x03);
+ 			em28xx_write_reg(dev, 0x7A20, 0x35);
 -- 
 2.35.1
 
