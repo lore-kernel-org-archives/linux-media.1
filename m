@@ -1,121 +1,88 @@
-Received: from forward103b.mail.yandex.net (forward103b.mail.yandex.net [178.154.239.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D858E3F211A
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 11:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059503F4854
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 11:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656056; cv=none; b=j7cdb3r+PesN0k/ncde3pB3mKytRxjH5aWrXU0qFYg+on+IoDxEhXWjX9sgHu5xKVVvcpvhAQn+Z+s8xiEVtLeA89xq5zeNyRk3OsClm98Pagclqf/mqwM6ETvkgnK5KQvivCj7ZBoBzuyuJAdxsAJ3Q6SwJ1d83Dz0IymlX2Xc=
+	t=1787658726; cv=none; b=iMdPHq8emQWfKLlMwpklGtRqO99fxaPZ6ai0FYITh7gDKfEyVQUP/+z3gS3VppDOt048VFuT/HJacR90OHbOMImwHf0PCMPIWEGFjKkGPqBl0xcEOJ5T13BiFSDteDJeYU9BQhDLTCbGJ9YFSKgXeq5i9yIPtYLEU0o0drWWyw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656056; c=relaxed/simple;
-	bh=qoKzUsFbu9X8lrxwnWW83mkhtuAsPJZNFKaHs+zPWuE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EmUg2UuAMc+Kfk9OxEf1JwkbYcuGAuz8hRMeWipdj4HUAofVQGQytIV0VM7viDhnDaS8ptasmDHPYaDpQjK8sqIeQ3OIQonAG5ylLozrV+WeB7LllkHOfdCFbCc1rKKKPdQNQ06Pmv7tx8b58VZLzYEZCuF+n1n2R2gl0ne2FkA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=aapzlBnq; arc=none smtp.client-ip=178.154.239.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
+	s=arc-20240116; t=1787658726; c=relaxed/simple;
+	bh=u6ZaqZIVVxWITzZ6dNJnGJDf5hZ9ZdjFyNa1HMurX3g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Zp7DKfHnVa+chGnBKxtg0spjq2cWLEuf4uVL9AWYkEQydO0sJ8XBi3YmkFQm0UZeOdLCx5Ktv54ve4s6EM0eXlGpbDp80tAKLlhxvExGzt5MLr9n4FOSh+ybfk7pKRx3mlo5cPtXF/7e6OEEdfJ6aTrGgoiV8GMmysgjSwz43h0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOTW1zea; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="aapzlBnq"
-Received: from mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:8b0f:0:640:dbc5:0])
-	by forward103b.mail.yandex.net (postfix) with ESMTPS id D34A6C00A1;
-	Tue, 25 Aug 2026 14:07:22 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net (smtp) with ESMTPSA id K7aX4wofBCg0-ob3n63JL;
-	Tue, 25 Aug 2026 14:07:22 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1787656042; bh=ueAK44nopVgVSAtWpxtv5WyiTJvi3+FpeyRGOHDLyrQ=;
-	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
-	b=aapzlBnqXenFhpIWUwtDeOzX+m+LKrwP9X5yg4SXOIac3c4k2v9BGT4qeFSXVVq8A
-	 XZIY03TrOBtoAMMXV5JdiDE2NbKZ8Ic7zAU6dnytA0BT9MO1h1XD0Ozt/62kUG7CcK
-	 kUg5JXxJu74GXAlCJd5CB9/RWxKRbFFMlEXH0qxo=
-Authentication-Results: mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
-From: Dmitry Antipov <dmantipov@yandex.ru>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Dmitry Antipov <dmantipov@yandex.ru>,
-	syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
-Subject: [PATCH 2/2] media: em28xx: fix race between em28xx_free_v4l2() and em28xx_v4l2_fini()
-Date: Tue, 25 Aug 2026 14:07:19 +0300
-Message-ID: <20260825110719.752093-2-dmantipov@yandex.ru>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260825110719.752093-1-dmantipov@yandex.ru>
-References: <20260825110719.752093-1-dmantipov@yandex.ru>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOTW1zea"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFDCB1F00ADB
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 11:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787658724;
+	bh=MdTFYMfZNi9DitIjw0OlwVsDaq5C/HggGQP9M9G/fA8=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JOTW1zeagCzR4rAm9C1ksvZ5lLiVLrHG9PhJCwTE2hv8oAPtZTfGeoij/A1DcR3ho
+	 kkSwGe42KPJpjzatSocz6OzfZ2jJ2XkTdhd5ftzIc6TyjprmcqBj2p8Lc6cY2MPgCa
+	 WJfzR4d626OKCAdp1d6Vkzpv/2n9S6aRaNz1kqPxMJbmrEIe8HClQS3eU2q0x/LUW4
+	 nzl3d4rmnZxRnVK966J+FnOEpiy9NxgEr44aAusVX/WlISU+ah3+J+TrN9602Ahbvc
+	 q5X9lcWs/NlJB2FkEARTUNrCxpWfU4msQqo0ZHe1FExiCHXd6GnRWT1XwjF0pn9fu2
+	 A86zUGP95PfCw==
+Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5b013aa02b2so914296e87.0
+        for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 04:52:04 -0700 (PDT)
+X-Gm-Message-State: AFuF++mtNba3/Utc9esB0xBUi7isd6+noq3OXrUQyxGKNtwjIdYMrVt9
+	35/ZeXyKhW+9UMZpHpr+c11EiORNRyXY48CBF5DrmnypWFwZoaxZt6DqfUBYy7BkeCq8VWSDVuP
+	z5skBRHOeBWlzC21W+sf6xISPXc4Qhy0=
+X-Received: by 2002:a05:651c:1446:b0:3a1:6a25:1780 with SMTP id
+ 38308e7fff4ca-3a1edb6f906mr11595111fa.9.1787658723062; Tue, 25 Aug 2026
+ 04:52:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824211338.3583976-1-sakari.ailus@linux.intel.com> <20260824211338.3583976-4-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824211338.3583976-4-sakari.ailus@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Tue, 25 Aug 2026 13:51:18 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com>
+X-Gm-Features: AcwNN1XjcteE35qEbjNvlHLscZXu_ibG4GTIbtB83ieE1mQzAKulTON4rfpobPE
+Message-ID: <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] ACPI: Support __free() from cleanup.h for ACPI objects
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	linux-acpi@vger.kernel.org, Len Brown <lenb@kernel.org>, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Take device (an instance of 'struct em28xx') lock in 'em28xx_free_v4l2()'
-and do the same early in 'em28xx_v4l2_fini()' to avoid UaF-triggering
-racy access to 'v4l2' member.
+On Mon, Aug 24, 2026 at 11:13=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+>
+> Use DEFINE_FREE() to allow ACPI objects to be released automatically.
 
-Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
-Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
----
- drivers/media/usb/em28xx/em28xx-video.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+But at least some of them are allocated by ACPICA functions like
+acpi_evaluate_object() and so they have no proper constructors.
 
-diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index 324855ff5e86..3b8766d00897 100644
---- a/drivers/media/usb/em28xx/em28xx-video.c
-+++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2305,9 +2305,14 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
- 		container_of(v4l2_dev, struct em28xx_v4l2, v4l2_dev);
- 	struct em28xx *dev = v4l2->dev;
- 
-+	mutex_lock(&dev->lock);
-+
- 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
- 	v4l2_device_unregister(v4l2_dev);
- 	dev->v4l2 = NULL;
-+
-+	mutex_unlock(&dev->lock);
-+
- 	kfree(v4l2);
- 	kref_put(&dev->ref, em28xx_free_device);
- }
-@@ -2388,25 +2393,24 @@ static int em28xx_v4l2_open(struct file *filp)
-  */
- static int em28xx_v4l2_fini(struct em28xx *dev)
- {
--	struct em28xx_v4l2 *v4l2 = dev->v4l2;
-+	struct em28xx_v4l2 *v4l2;
- 
--	if (dev->is_audio_only) {
--		/* Shouldn't initialize IR for this interface */
--		return 0;
--	}
-+	mutex_lock(&dev->lock);
- 
--	if (!dev->has_video) {
--		/* This device does not support the v4l2 extension */
-+	if (dev->is_audio_only || /* Shouldn't initialize IR for this interface */
-+	    !dev->has_video) {    /* This device does not support the v4l2 extension */
-+		mutex_unlock(&dev->lock);
- 		return 0;
- 	}
- 
--	if (!v4l2)
-+	v4l2 = dev->v4l2;
-+	if (!v4l2) {
-+		mutex_unlock(&dev->lock);
- 		return 0;
-+	}
- 
- 	dev_info(&dev->intf->dev, "Closing video extension\n");
- 
--	mutex_lock(&dev->lock);
--
- 	v4l2_device_disconnect(&v4l2->v4l2_dev);
- 
- 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
--- 
-2.55.0
-
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> ---
+>  include/linux/acpi.h | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/include/linux/acpi.h b/include/linux/acpi.h
+> index 10d6c6c11bdf..c89390ac6287 100644
+> --- a/include/linux/acpi.h
+> +++ b/include/linux/acpi.h
+> @@ -62,6 +62,8 @@ static inline acpi_handle acpi_device_handle(struct acp=
+i_device *adev)
+>  #define ACPI_HANDLE_FWNODE(fwnode)     \
+>                                 acpi_device_handle(to_acpi_device_node(fw=
+node))
+>
+> +DEFINE_FREE(ACPI_FREE, void *, ACPI_FREE(_T))
+> +
+>  static inline struct fwnode_handle *acpi_alloc_fwnode_static(void)
+>  {
+>         struct fwnode_handle *fwnode;
+> --
