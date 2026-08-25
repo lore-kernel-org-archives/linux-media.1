@@ -1,151 +1,105 @@
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com [209.85.219.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6D323D281
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 00:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1602726B95B
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 00:38:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787617409; cv=none; b=ogx33ZngjZnU7OZZ4+KvZuIaVRo2LbdXZd0tWxZ9q9Y6Kkh1dIRFlnQ+gMgJtpz/ARuTcuReHbJ9dbEXeu/Po9gCMZimb5XLM4Zjw7DB6kR4hUtLRutyGXvKSr/1E9U2XCYbDZC3wmqKsHXQ6gG9G4JhzZIZKXD8aieRiAnuqI4=
+	t=1787618313; cv=none; b=aVq8sS40Z4klBuVPnTucE5PH0yVEX0IZFW30uU5bCoX4ysoXnzX+bduDF+JLiLZvitkM/Xx6rYekuYXPBDYuTjqYL/IQbsdSEfuK3rV98F2s9RQqa+KscTOTMLhJjnW/xr6Cf9z+LK+bF64nXbfHT/De4TdiwUrcKSVEx5eYEV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787617409; c=relaxed/simple;
-	bh=8Ohuk7SxaRMgNRAI2QDndqerJtURHkZBt819Ep/HNF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=p89+ElC4HxgsZkTew8aoyYm7BG6IakdpPvPTyHqReVr/qrOGqmC+IFR5JELwq2mj5GaaR9e0SG2xKahPWdRAPxL/foKG5piCMWlDzoG+Bov/ITsbBlpc5rP26pOtG7wQa87IhDhmhaRue9wY4lUCU1N02RQpgTVgHiXqkLi0izY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EKQ+GwR/; arc=none smtp.client-ip=209.85.219.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787618313; c=relaxed/simple;
+	bh=jkLrQH2YdRzrfuVQZKHnylKxApbVGDdY6Gv0bGO/rk8=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=U5quSnBC6cOCvZVxHNnlpClXgPoE5QatAqeDu0inrDan9o6Hi2XPy+bo9fQs87tlxtn9AdJ2recVmWWDg/8zXmlXwWGiwwNPnZ/D2Ui4DIExLqxEAz87924iXLeH3AnLpmdZw1iM7pPWSTpQ0Ch/mAJux42sz+A5D/e75tJiPs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hCSACA/q; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EKQ+GwR/"
-Received: by mail-qv1-f42.google.com with SMTP id 6a1803df08f44-8ef1dc934d1so1709336d6.0
-        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 17:23:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787617407; x=1788222207; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GzzrJDRo8J+Bn9++DveRDK7yY0YpRf8r1a0n6rrhbsk=;
-        b=EKQ+GwR/7Pw4+CKVLeQhQulKeuiZyEk+T/CaoXedKkU+p/cyU6U7Y8RQ5I6nLgpSqK
-         VcpBszktgAbJkP+f8xmkiaklTO3ur5VX1isG4vAYp4xjLLEwkYDO2cFT0rDRufcJGH18
-         MqbczcH2KO3fDwAv6Edzu2q8LdJ819APeTgj5imm6l08BYXFwy+tBX8RRUUqW7Q6D1r9
-         n2w9RUaRqSUqN0gQ6ggrUB7GZ5QNkVvYmqiCB0/lNnFCl1wVCQlsLjg14FSTGqPLeqLz
-         /5C2g5LLTwu9LibX193CoWzpB1q0RsOpPcnrSVKWCYO/br4tEZu464W24icFCofHYbU+
-         Vrgw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787617407; x=1788222207;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GzzrJDRo8J+Bn9++DveRDK7yY0YpRf8r1a0n6rrhbsk=;
-        b=qmFi5fH7qaARarFAO140JXkDUYq2HdPK3fpE+Y3eaJPvFfVWQcN/jfw7S+026lGz7v
-         M9srb7P/CIbdA8e7Hxkrg0po1KwNn2yG3jgbgAiQPnNGPE1qK+NIZsTL2ChX3q85gWoO
-         OMxxeP1/dJjgkSi5tPROICw5uDMGBKXwQtj1V+muP4BCaKjjtQUQAyfaUF6nRMPOdVPk
-         xPz+4/WTxz12ObncAIK9EM3w/7d2XUEGt5AP8qT+G1ae3oGm+QUczophQmVWV5QrWK3I
-         x/MLHOish5ud952b64narJlMOXBe9ieDPlxEbanRJP3EKFaxWMHsPV5S9rdeO14NjN8e
-         YCvA==
-X-Gm-Message-State: AFuF++lPUVUqTVNsbyEGE2+IS5Jx/QXPf9Xq1W8g+JSGFwF0+gHqkYUb
-	GwQ7QhPYUAFQMBuyryqrhOgTKvQpwju0IQduE/gEe+i8hn/kqghIL23Y
-X-Gm-Gg: AR+sD13Dno6wVIA5GHLxGsdnmMIU/rSxSgpJP8O9TLgJtNMqpshgw9SQXiz9n1RzM7+
-	gBxHXWdOR0VIJh9Hfp2k6PfuFQ5qX2SAZ6k/OU9a23+ayqT0Uc5RF/eBl1RiHpiyRn66JxmeawW
-	q8sAzy/eDuyc6GW0TwwRU31MLoUdDi1E6lGc0SpY5TosJjUgNjT2zW0k2qYmETIXQA2lWLfOtOi
-	HzEjJ8PvHo3tXfy32SgrkTTb6e7PoekYvfIenusRKADVc5p3jlWTa2+s9/v2mEM9j0E2OkNA/7X
-	4Xw8sVJ5mV7hLk1IaLza7EC3/Fz6bgCICrQ7hGkto3g/h55qSiDlTsmUqTcax1WdtbJw4NxHvq3
-	bUQ6t9aaWsE2uOX4QIXGCuCVrvmFokpdIxDEWGJekHbtuuJ1SUAhGqZLB26CHf4WyY/akXAkjlQ
-	qPlP0FwM4HpC1NsaIcdw1ai7mLi8AgBVz2+q+jtq3v/Bkub5bdfVKELJ2zbhFDUvscWH738udpI
-	1W353xdhhyGriSjUPIXSaJck+NxO3QU3uuNHt5eRN8QIPfaCdtcXXRHVVQolrYXo4QWR4KLdWFc
-	kJkrYKVwiaXDTfDhqeXQzEhP
-X-Received: by 2002:a05:6214:390e:b0:908:598a:91d4 with SMTP id 6a1803df08f44-90cb6051637mr38214346d6.8.1787617407082;
-        Mon, 24 Aug 2026 17:23:27 -0700 (PDT)
-Received: from zaina.mynetworksettings.com (pool-173-48-203-201.bstnma.fios.verizon.net. [173.48.203.201])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90c935e2423sm76625346d6.6.2026.08.24.17.23.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 17:23:26 -0700 (PDT)
-From: Zain Aboobacker <zainaboobacker33@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Zain Aboobacker <zainaboobacker33@gmail.com>
-Subject: [PATCH] media: saa7164: remove register dump debugging helper
-Date: Mon, 24 Aug 2026 20:22:40 -0400
-Message-ID: <20260825002241.12074-1-zainaboobacker33@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hCSACA/q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787618312; x=1819154312;
+  h=date:from:to:cc:subject:message-id;
+  bh=jkLrQH2YdRzrfuVQZKHnylKxApbVGDdY6Gv0bGO/rk8=;
+  b=hCSACA/qRFIfJ7UApkRrmaGql0nvvmSFBk/5aKUWthbam1UbQ8ACq87L
+   BdTdeV6vdsLW/w1c94QcRkyZWCt270kxVyPXye5VZ3NuoF/WpkKGXH0ND
+   mfsvLX/JZF0Osi2jDA8biq9tC3YZVkngFVdLHAUL6rYjW52+ooZAYsVtD
+   9oa/R4UUn1DpRMcn3WnGXrJw3F52MCLhQzRYyP5NHrASZJ3bqmklw3PR9
+   ZcRaA1tXG4dUzm6ZqQUI+n3DhaauMrCFeR+RnBitE25U23fv2+0F3fHgb
+   heOL7t+RwQnZOmGEkqyXmgHvlHJ6dyoRZKfuQ96I39g9goURN9d/XX9r1
+   A==;
+X-CSE-ConnectionGUID: C8wD/uQIQ1e5oDJzU52NiQ==
+X-CSE-MsgGUID: 20YjgovbTAavO2E7SVqMfA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="110864992"
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="110864992"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 17:38:31 -0700
+X-CSE-ConnectionGUID: zls3svFTRxi4p9mOvOWI7w==
+X-CSE-MsgGUID: 7SUtnNs/T02Q9fs9Vf0Zdw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,241,1779174000"; 
+   d="scan'208";a="305385308"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa001.jf.intel.com with ESMTP; 24 Aug 2026 17:38:31 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wyfBG-000000004gz-1zHr;
+	Tue, 25 Aug 2026 00:38:23 +0000
+Date: Tue, 25 Aug 2026 08:37:54 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Subject: [sailus-media-tree:frame-desc] BUILD SUCCESS WITH WARNING
+ 7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04
+Message-ID: <202608250840.0IWsSMuv-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-saa7164_dumpregs() dumps device register contents during initialization
-for debugging purposes. The helper has a single caller and is explicitly
-marked for removal.
+tree/branch: git://linuxtv.org/sailus/media_tree.git frame-desc
+branch HEAD: 7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04  media: j721e-csi2rx: Use v4l2_subdev_get_frame_desc()
 
-Remove the call, helper, and declaration.
+Warning (recently discovered and may have been fixed):
 
-Signed-off-by: Zain Aboobacker <zainaboobacker33@gmail.com>
----
- drivers/media/pci/saa7164/saa7164-core.c | 30 ------------------------
- drivers/media/pci/saa7164/saa7164.h      |  1 -
- 2 files changed, 31 deletions(-)
+    https://lore.kernel.org/oe-kbuild-all/202608242201.UypJNTA2-lkp@intel.com
+    https://lore.kernel.org/oe-kbuild-all/202608242231.UUc2L5th-lkp@intel.com
 
-diff --git a/drivers/media/pci/saa7164/saa7164-core.c b/drivers/media/pci/saa7164/saa7164-core.c
-index ac5eb6b923e2..8c587d31ffec 100644
---- a/drivers/media/pci/saa7164/saa7164-core.c
-+++ b/drivers/media/pci/saa7164/saa7164-core.c
-@@ -742,35 +742,6 @@ u32 saa7164_getcurrentfirmwareversion(struct saa7164_dev *dev)
- 	return reg;
- }
- 
--/* TODO: Debugging func, remove */
--void saa7164_dumpregs(struct saa7164_dev *dev, u32 addr)
--{
--	int i;
--
--	dprintk(1, "--------------------> 00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f\n");
--
--	for (i = 0; i < 0x100; i += 16)
--		dprintk(1, "region0[0x%08x] = %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
--			i,
--			(u8)saa7164_readb(addr + i + 0),
--			(u8)saa7164_readb(addr + i + 1),
--			(u8)saa7164_readb(addr + i + 2),
--			(u8)saa7164_readb(addr + i + 3),
--			(u8)saa7164_readb(addr + i + 4),
--			(u8)saa7164_readb(addr + i + 5),
--			(u8)saa7164_readb(addr + i + 6),
--			(u8)saa7164_readb(addr + i + 7),
--			(u8)saa7164_readb(addr + i + 8),
--			(u8)saa7164_readb(addr + i + 9),
--			(u8)saa7164_readb(addr + i + 10),
--			(u8)saa7164_readb(addr + i + 11),
--			(u8)saa7164_readb(addr + i + 12),
--			(u8)saa7164_readb(addr + i + 13),
--			(u8)saa7164_readb(addr + i + 14),
--			(u8)saa7164_readb(addr + i + 15)
--			);
--}
--
- static void saa7164_dump_hwdesc(struct saa7164_dev *dev)
- {
- 	dprintk(1, "@0x%p hwdesc sizeof(struct tmComResHWDescr) = %d bytes\n",
-@@ -1344,7 +1315,6 @@ static int saa7164_initdev(struct pci_dev *pci_dev,
- 		}
- 
- 		saa7164_get_descriptors(dev);
--		saa7164_dumpregs(dev, 0);
- 		saa7164_getcurrentfirmwareversion(dev);
- 		saa7164_getfirmwarestatus(dev);
- 		err = saa7164_bus_setup(dev);
-diff --git a/drivers/media/pci/saa7164/saa7164.h b/drivers/media/pci/saa7164/saa7164.h
-index 94e987e7b5e5..53ef9c3343ba 100644
---- a/drivers/media/pci/saa7164/saa7164.h
-+++ b/drivers/media/pci/saa7164/saa7164.h
-@@ -490,7 +490,6 @@ extern unsigned int vbi_buffers;
- 
- /* ----------------------------------------------------------- */
- /* saa7164-core.c                                              */
--void saa7164_dumpregs(struct saa7164_dev *dev, u32 addr);
- void saa7164_getfirmwarestatus(struct saa7164_dev *dev);
- u32 saa7164_getcurrentfirmwareversion(struct saa7164_dev *dev);
- void saa7164_histogram_update(struct saa7164_histogram *hg, u32 val);
--- 
-2.53.0
+    drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c:51:25: warning: format '%p' expects argument of type 'void *', but argument 5 has type 'long int' [-Wformat=]
+    drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c:109:25: warning: format '%p' expects argument of type 'void *', but argument 5 has type 'long int' [-Wformat=]
 
+Warning ids grouped by kconfigs:
+
+recent_errors
+|-- arc-allmodconfig
+|   `-- drivers-media-platform-nxp-imx8-isi-imx8-isi-crossbar.c:warning:format-p-expects-argument-of-type-void-but-argument-has-type-long-int
+`-- parisc-allmodconfig
+    `-- drivers-media-platform-rockchip-rkisp1-rkisp1-isp.c:warning:format-p-expects-argument-of-type-void-but-argument-has-type-long-int
+
+elapsed time: 775m
+
+configs tested: 15
+configs skipped: 1
+
+tested configs:
+alpha               allnoconfig    gcc-16.1.0
+alpha              allyesconfig    gcc-16.1.0
+alpha                 defconfig    gcc-16.1.0
+arc                allmodconfig    gcc-16.1.0
+arc                allyesconfig    gcc-16.1.0
+csky               allmodconfig    gcc-16.1.0
+i386               allmodconfig    gcc-14
+loongarch             defconfig    clang-24
+loongarch  loongson32_defconfig    clang-18
+nios2              allmodconfig    gcc-11.5.0
+nios2               allnoconfig    gcc-11.5.0
+parisc             allmodconfig    gcc-16.1.0
+parisc             allyesconfig    gcc-16.1.0
+parisc                defconfig    gcc-16.1.0
+sh                    defconfig    gcc-16.1.0
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
