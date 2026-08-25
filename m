@@ -1,80 +1,176 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0503678C9C;
-	Tue, 25 Aug 2026 02:26:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F0925A640;
+	Tue, 25 Aug 2026 02:40:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787624792; cv=none; b=ArHuQemutb2B80lnOE7t7AxTzb3EhdGXvnBMkVgwJZB0m8UaetXnmzKjrenGJiwnfzf/T1fqOFZNv9s+XJOBLZfU8sxW9ZbhK8JaaIYVRgLf2SEVfhWi0QduMp5pn60zDVDlocfZvzY53hrJ6eONVTJw3p5lOETZ0bXWAyVcioA=
+	t=1787625641; cv=none; b=Xm6mkBjRJ6tuuHOTva0Lqw+k1HWKjkRaZSkos067FCuNl1ZofVFhQbQAdIKREzhqvPZv65Rn7rU1cZRIF2+vYzb309xXXfFiw9cZ2bU17NZo6mAXnCEnu5O0NzzXUfYLk77WDuEddqB6r8IxR+brS3lNhPGIiicXxXXvKWcbWFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787624792; c=relaxed/simple;
-	bh=qkrz96l5Ep1kDmtx3oeF2NnY1g9FLF6WhIrQvmBaV5o=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cL/aEDjMw+AOTmdVKWZb3TfUPdUdDRn5DAepCar0sQm0N5mCTgjb2WM57ey/GZvtx+yUMXHnhb6JVWX6YYuo93rn0stR+GyqU6fUslRgohMzMr3dmGB9nFBDtJw2Nsvq2EkKJsYhYCJ99TOAkxxMAhIR0sKB4/ryJOcXVgiTBC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 5c816606a02c11f19a56ed5b684f684d-20260825
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0bacf5b3-bed0-4233-9109-3aa62ce3a5ae,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:7619e05441767de276e0f1776701b04e,BulkI
-	D:nil,BulkQuantity:0,SF:102|850|865|898,TC:nil,Content:0|15|50,EDM:-3,IP:n
-	il,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LE
-	S:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 5c816606a02c11f19a56ed5b684f684d-20260825
-X-User: gonglinkai@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <gonglinkai@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 565875025; Tue, 25 Aug 2026 10:26:21 +0800
-From: Linkai Gong <gonglinkai@kylinos.cn>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Mats Randgaard <matrandg@cisco.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	gonglinkai@kylinos.cn
-Subject: [PATCH] media: i2c: tc358743: add missing color-space strings
-Date: Tue, 25 Aug 2026 10:26:16 +0800
-Message-Id: <20260825022616.1133967-1-gonglinkai@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787625641; c=relaxed/simple;
+	bh=grmr8ShzbmokeeZM8GJP7va3jRxjvHZ4u/qI8TrYDQ0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=r0GvZ4K+sWj+29sHFYdaDzrHKzkBQB/Hwvl+qDGQA2gA5zfwWU+Vq2VmlLsVB/g1b+JKSQITlE80D1sdjAyOmHi+SeG5lUIbzMw7LcRskG6WvPSvYlBdOzTBYdA+/lpE3zLpahIkiwtviCBx1ZwyQefUSuZ+VyWj+UmtE9+fO5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=hzGqzCFd; arc=none smtp.client-ip=90.155.50.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="hzGqzCFd"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=cMhE1zLIBEfW8ce0tgca2Z8WQ504QioXQyvOVgDlw9s=; b=hzGqzCFd/Zil7siDD7txgS0PkI
+	0btYf2KcGF4Jt5LTpvtm3rcvqgdEJSmZrUdBF9aqMpMYUh9Wx2DIzUj8xdR3ux2f0ydIJjgu6/GP/
+	GCGCI2Cu8TlWQosSPGxvlQtgSVvTwAmUUZIpR/2u1oLk4ZJts6jT8AMgHc7WKf4EmDelDxaZNwldB
+	bwuBAzBiHPtS2yBO9dgBLMH1854Fm9Yq579Rygv7X8gtmLlRanmAfRNHAJH+8I1bkHkoV2E7aBA/w
+	Rmforme87QTE7Bp3x5xKUtL/ppwt4PjCQFG+iz4NzVNJh7Q9S88tpLt+noBixClVZE+hH5oiywcdZ
+	NRPAIH+Q==;
+Received: from willy by casper.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1wyh57-00000008BRG-20Ss;
+	Tue, 25 Aug 2026 02:40:09 +0000
+Date: Tue, 25 Aug 2026 03:40:09 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: NeilBrown <neil@brown.name>
+Cc: "David Hildenbrand (Arm)" <david@kernel.org>,
+	Byungchul Park <byungchul@sk.com>, linux-kernel@vger.kernel.org,
+	max.byungchul.park@gmail.com, kernel_team@skhynix.com,
+	torvalds@linux-foundation.org, linux-ide@vger.kernel.org,
+	adilger.kernel@dilger.ca, linux-ext4@vger.kernel.org,
+	mingo@redhat.com, peterz@infradead.org, will@kernel.org,
+	tglx@linutronix.de, rostedt@goodmis.org, joel@joelfernandes.org,
+	sashal@kernel.org, daniel.vetter@ffwll.ch, duyuyang@gmail.com,
+	johannes.berg@intel.com, tj@kernel.org, tytso@mit.edu,
+	david@fromorbit.com, amir73il@gmail.com, gregkh@linuxfoundation.org,
+	kernel-team@lge.com, linux-mm@kvack.org, akpm@linux-foundation.org,
+	mhocko@kernel.org, minchan@kernel.org, hannes@cmpxchg.org,
+	vdavydov.dev@gmail.com, sj@kernel.org, jglisse@redhat.com,
+	dennis@kernel.org, cl@linux.com, penberg@kernel.org,
+	rientjes@google.com, vbabka@suse.cz, ngupta@vflare.org,
+	linux-block@vger.kernel.org, josef@toxicpanda.com,
+	linux-fsdevel@vger.kernel.org, jack@suse.cz, jlayton@kernel.org,
+	hch@infradead.org, djwong@kernel.org,
+	dri-devel@lists.freedesktop.org, rodrigosiqueiramelo@gmail.com,
+	melissa.srw@gmail.com, hamohammed.sa@gmail.com,
+	harry.yoo@oracle.com, chris.p.wilson@intel.com,
+	gwan-gyeong.mun@intel.com, boqun.feng@gmail.com, longman@redhat.com,
+	yunseong.kim@ericsson.com, ysk@kzalloc.com, yeoreum.yun@arm.com,
+	netdev@vger.kernel.org, matthew.brost@intel.com,
+	her0gyugyu@gmail.com, corbet@lwn.net, catalin.marinas@arm.com,
+	bp@alien8.de, x86@kernel.org, hpa@zytor.com, luto@kernel.org,
+	sumit.semwal@linaro.org, gustavo@padovan.org,
+	christian.koenig@amd.com, andi.shyti@kernel.org, arnd@arndb.de,
+	lorenzo.stoakes@oracle.com, Liam.Howlett@oracle.com,
+	rppt@kernel.org, surenb@google.com, mcgrof@kernel.org,
+	petr.pavlu@suse.com, da.gomez@kernel.org, samitolvanen@google.com,
+	paulmck@kernel.org, frederic@kernel.org, neeraj.upadhyay@kernel.org,
+	joelagnelf@nvidia.com, josh@joshtriplett.org, urezki@gmail.com,
+	mathieu.desnoyers@efficios.com, jiangshanlai@gmail.com,
+	qiang.zhang@linux.dev, juri.lelli@redhat.com,
+	vincent.guittot@linaro.org, dietmar.eggemann@arm.com,
+	bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
+	chuck.lever@oracle.com, okorniev@redhat.com, Dai.Ngo@oracle.com,
+	tom@talpey.com, trondmy@kernel.org, anna@kernel.org,
+	kees@kernel.org, bigeasy@linutronix.de, clrkwllms@kernel.org,
+	mark.rutland@arm.com, ada.coupriediaz@arm.com,
+	kristina.martsenko@arm.com, wangkefeng.wang@huawei.com,
+	broonie@kernel.org, kevin.brodsky@arm.com, dwmw@amazon.co.uk,
+	shakeel.butt@linux.dev, ast@kernel.org, ziy@nvidia.com,
+	yuzhao@google.com, baolin.wang@linux.alibaba.com,
+	usamaarif642@gmail.com, joel.granados@kernel.org,
+	richard.weiyang@gmail.com, geert+renesas@glider.be,
+	tim.c.chen@linux.intel.com, linux@treblig.org,
+	alexander.shishkin@linux.intel.com, lillian@star-ark.net,
+	chenhuacai@kernel.org, francesco@valla.it,
+	guoweikang.kernel@gmail.com, link@vivo.com, jpoimboe@kernel.org,
+	masahiroy@kernel.org, brauner@kernel.org,
+	thomas.weissschuh@linutronix.de, oleg@redhat.com, mjguzik@gmail.com,
+	andrii@kernel.org, wangfushuai@baidu.com, linux-doc@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org, linux-i2c@vger.kernel.org,
+	linux-arch@vger.kernel.org, linux-modules@vger.kernel.org,
+	rcu@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-rt-devel@lists.linux.dev, 2407018371@qq.com, dakr@kernel.org,
+	miguel.ojeda.sandonis@gmail.com, bagasdotme@gmail.com,
+	wsa+renesas@sang-engineering.com, dave.hansen@intel.com,
+	geert@linux-m68k.org, ojeda@kernel.org, alex.gaynor@gmail.com,
+	gary@garyguo.net, bjorn3_gh@protonmail.com, lossin@kernel.org,
+	a.hindborg@kernel.org, aliceryhl@google.com, tmgross@umich.edu,
+	rust-for-linux@vger.kernel.org
+Subject: Re: [PATCH v19 00/40] DEPT(DEPendency Tracker)
+Message-ID: <ao0AieB7zg5FKD39@casper.infradead.org>
+References: <20260706061928.66713-1-byungchul@sk.com>
+ <359ea967-9b97-4584-88e6-bddb4044de2e@kernel.org>
+ <20260821042143.GA40890@system.software.com>
+ <825134a8-ceae-430c-b2fc-d1d0c7240f39@kernel.org>
+ <178730572084.2852630.7732425311008244683@noble.neil.brown.name>
+ <3d58eb3c-7a9d-4183-907b-46172664631c@kernel.org>
+ <178761465493.3510150.12380729360578969391@noble.neil.brown.name>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178761465493.3510150.12380729360578969391@noble.neil.brown.name>
 
-VI_STATUS3 S_V_COLOR is four bits, so the index after the shift
-is 0-15. input_color_space[] only has 14 entries. Add the two
-reserved values so log_status() cannot walk off the table.
+On Tue, Aug 25, 2026 at 09:37:34AM +1000, NeilBrown wrote:
+> > For readahead, I think that queues / lru are not involved. We submit the I/O,
+> > and once the I/O is done, we unlock the folio from interrupt context.
+> 
+> "submit the I/O" means "attach the page to a "struct bio" (or similar)
+> and attach the struct bio to a transmit queue for the device (or
+> similar).  So there really is a queue.
+> 
+> > 
+> > end_buffer_async_read() / iomap_finish_folio_read() end up calling
+> > folio_end_read(), where we do the magic
+> > 
+> > 	folio_wake_bit(folio, PG_locked);
+> 
+> Exactly where the lock ownership should be reclaimed is not immediately
+> clear to me.  bio_endio() might be early enough but there are probably
+> better points.
+> 
+> A small difficulty here is that a bio has multiple folios and they are
+> all locked.  I cannot see that lockdep has a concept of holding an
+> arbitrarily large set of related locks.
+> We could just tell lockdep 
+>   "I have some folios locked" 
+> or maybe enhance lockdep to allow
+>   "I have N folios locked"
+> or even
+>   "I have N folios in address-space A with the highest offset being O".
+> 
+> This would allow lockdep to check the validity of locking another folio
+> - only allowed if the address space is the same and the offset is larger
+> than the previous largest.
 
-Fixes: d32d98642de6 ("[media] Driver for Toshiba TC358743 HDMI to CSI-2 bridge")
-Signed-off-by: Linkai Gong <gonglinkai@kylinos.cn>
----
- drivers/media/i2c/tc358743.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+It's more complex than that; see my other emails on the subject.
 
-diff --git a/drivers/media/i2c/tc358743.c b/drivers/media/i2c/tc358743.c
-index fbd38bbfee03..ce75812cbf72 100644
---- a/drivers/media/i2c/tc358743.c
-+++ b/drivers/media/i2c/tc358743.c
-@@ -1373,7 +1373,8 @@ static int tc358743_log_status(struct v4l2_subdev *sd)
- 	static const char * const input_color_space[] = {
- 		"RGB", "YCbCr 601", "opRGB", "YCbCr 709", "NA (4)",
- 		"xvYCC 601", "NA(6)", "xvYCC 709", "NA(8)", "sYCC601",
--		"NA(10)", "NA(11)", "NA(12)", "opYCC 601"};
-+		"NA(10)", "NA(11)", "NA(12)", "opYCC 601", "NA(14)",
-+		"NA(15)"};
- 
- 	v4l2_info(sd, "-----Chip status-----\n");
- 	v4l2_info(sd, "Chip ID: 0x%02x\n",
--- 
-2.25.1
+I think we need the ability for lockdep to call a function which says "I
+hold this lock, is that lock OK to acquire".  But the devil is in the
+details.
+
+> > 
+> > It's interesting, that for writeback we never unlock the folio on the I/O path,
+> > but instead have the dedicated page flag to tell us when writeback is complete.
+> 
+> PG_locked and PG_writeback are two different lock-bits with two
+> different meanings.
+> When a folio is PG_locked the content is invalid and shouldn't be accessed.
+> When a folio is in PG_writeback its data is not safe even though
+> PG_dirty has been cleared (if I remember correctly).
+> 
+> So these are two separate, though related, lock bits that would both
+> need to be tracked.  lockdep would detect how they are related.
+
+Some history ... before we had PG_writeback, we held PG_locked
+throughout the writeback process.  People argued convincingly that it
+was fine to map a page into a process's address space (which requires
+PG_locked) while it was being written back.  And so PG_locked was
+split.  Now we take PG_locked at the beginning of the writeback process
+and downgrade to PG_writeback at some point.
 
