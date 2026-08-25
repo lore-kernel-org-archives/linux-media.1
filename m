@@ -1,157 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C208D3242B8
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 05:22:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4432D3B1009;
+	Tue, 25 Aug 2026 06:05:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787635348; cv=none; b=K4Jn1UWPPpGodNybIL8eVmai4+JOVeLpHsY52L0KyV+F251tMGNPGbdXbmmv+FBxuWVWDo68TEhp8lqtjoZRo7G4z4NQlby7SQB4INfHQPh5uUiwKjXdYFV2ut9C7yWG3vBsiQiYqUl5qyBmaT4iexjsn+bkLhn865yZ3/wx4oY=
+	t=1787637927; cv=none; b=H2eHmZJfr5ESd88j4w/wK7oc2Y2JgZrobZAZsvO489ZZ7J0B/sZzw/ce3TKe8oSEbzBwUSyJp2/FSqcSzNOGowIt9FXpfIzw5wsP315KAduTYongYIT2tzo9H+YaIdX9cBU+I9rOxcckIJggre5u43ybNO493edQT45f8nMJedA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787635348; c=relaxed/simple;
-	bh=sMDE4lBFlF7cb2OuWanRnclvqhT/MVLWElxZHRbI60w=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ErVVcc44uZBGWQIQibhVG03XDVnefHSUGrMkdOwCw+83/RT6xEdILVvQad2LvAkqm8Fs4n8T+ZA4rcu3kWQ0ToSXUGJnKC+GwfuFqJPgInG98EjGsFf+632bEMMFtzJb5TzymUbzEdb3fQkXb/aH3445mdaspgDM9QQKgyIjvPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CuYJZup5; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787637927; c=relaxed/simple;
+	bh=5SX3XLtrazkTuCQ/ilBaxmWP2RaJblskG7NlcD6dvfo=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=nImvrMZ9mPQfjmbi4xaG4lBvOdSlK5Kqv9t0U8wZxP+dO1mwyFTFMvmRi0Q8IYMa0DFi0UOQFkPn9tiC76nkGwJ+W5SbQbD4US6/3fIErzKKNBKcCu56SW+r6LC0N26z4grQwuMzfKZ6gk6/ajoTDPgIOYgzZNi8ebXPFnddlVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=mXM4HMQ0; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CuYJZup5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787635345; x=1819171345;
-  h=date:from:to:cc:subject:message-id;
-  bh=sMDE4lBFlF7cb2OuWanRnclvqhT/MVLWElxZHRbI60w=;
-  b=CuYJZup5lXHHADaA38JUckUCisgQUCF1Jonb9PEVHf0xUbRjt5h5Akl0
-   aSNa9tjDV+ppnS2vmiJVkkWmOxiWXTZ8Xc8HC2EeI2EKuupJLDG9F3XOV
-   E6S9O39/LLO3Mh+ml/FPSSnGD5fQhyx5+gdbRGo8kpqeTA86OleA6NPZd
-   2rIaBPIinRKVBw7Ss8bNVvkOprOwbrhLDABAAe/JInWGiLpAa+s12zpWK
-   /ax3JVcvh43QbYLe/UMTWnOop2MtAe7brRN+xs3t3572a+kW4S5qoIBaA
-   8seOVXVD5LcsNyykun1ZOTLg93AwazH1DqZ4ydWPGnKI2d5ECmtvimw5r
-   Q==;
-X-CSE-ConnectionGUID: Sh4hRJuOTeCcjeKBO1f5XQ==
-X-CSE-MsgGUID: JQna3e8HR2q4zGkPnFZ2ag==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88109100"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="88109100"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 22:22:25 -0700
-X-CSE-ConnectionGUID: kOdTLFxzTPWHDMpqhSmmQQ==
-X-CSE-MsgGUID: hG/+fHktQn2JbTC0oSNPpA==
-X-ExtLoop1: 1
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by fmviesa003.fm.intel.com with ESMTP; 24 Aug 2026 22:22:23 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wyjc4-00000000520-27nU;
-	Tue, 25 Aug 2026 05:22:20 +0000
-Date: Tue, 25 Aug 2026 13:21:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org
-Subject: [sailus-media-tree:frame-desc 31/38]
- drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c:110:24: warning: format
- specifies type 'void *' but the argument has type 'long'
-Message-ID: <202608251350.1jKfLPih-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="mXM4HMQ0"
+Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:c31d:3341:ef05:614a])
+	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id 5363F2EC;
+	Tue, 25 Aug 2026 08:03:57 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787637837;
+	bh=5SX3XLtrazkTuCQ/ilBaxmWP2RaJblskG7NlcD6dvfo=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=mXM4HMQ0bmP4BxzGxcvQ5bzXkBDgV6ANdQeKF6Xv0flXww8U5mX+isjVZIhXgaPqJ
+	 5hRy5al5QzHjy/Zxjc0XUakNZhTNC9fHuLxfEMqb+HcOffX2jiUlst2mnAXqABZUSu
+	 AuS2shD/vBUc6OO7gN9x874A3sUuITWBDdBom3rY=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <c2ed44e5-ed5c-41f7-a782-57c82968495e@kernel.org>
+References: <20260824090406.3695880-1-paul.elder@ideasonboard.com> <20260824090406.3695880-2-paul.elder@ideasonboard.com> <c2ed44e5-ed5c-41f7-a782-57c82968495e@kernel.org>
+Subject: Re: [PATCH v2 1/5] media: dt-bindings: Add rockchip rkisp2 bindings
+From: Paul Elder <paul.elder@ideasonboard.com>
+Cc: michael.riesch@collabora.com, xuhf@rock-chips.com, stefan.klug@ideasonboard.com, mehdi.djait@linux.intel.com, linux-media@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
+To: Krzysztof Kozlowski <krzk@kernel.org>, laurent.pinchart@ideasonboard.com
+Date: Tue, 25 Aug 2026 15:05:17 +0900
+Message-ID: <178763791744.3620719.5831445737928843099@neptunite.rasen.tech>
+User-Agent: alot/0.0.0
 
-tree:   git://linuxtv.org/sailus/media_tree.git frame-desc
-head:   7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04
-commit: 212ff03f220ab9cdff207d0ff3c6a459e1f1e1d5 [31/38] media: rkisp1: Use v4l2_subdev_get_frame_desc()
-config: i386-buildonly-randconfig-004-20260825 (https://download.01.org/0day-ci/archive/20260825/202608251350.1jKfLPih-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608251350.1jKfLPih-lkp@intel.com/reproduce)
+Hi Krzysztof,
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608251350.1jKfLPih-lkp@intel.com/
+Quoting Krzysztof Kozlowski (2026-08-24 19:52:26)
+> On 24/08/2026 11:03, Paul Elder wrote:
+> > Add documentation for the Rockchip rkisp2 bindings. This is meant to
+> > support multiple versions of Rockchip ISPs going forward, including the
+> > 2.x series and 3.x series. The current version only adds the compatible
+> > for the RK3588, which is a 3.0.
+> >=20
+> > Signed-off-by: Paul Elder <paul.elder@ideasonboard.com>
+>=20
+> Testing is disabled for some time but it's not really a reason to opt out.
+>=20
+> Please use scripts/get_maintainers.pl to get a list of necessary people
+> and lists to CC. It might happen, that command when run on an older
+> kernel, gives you outdated entries. Therefore please be sure you base
+> your patches on recent Linux kernel.
+>=20
+> Tools like b4 or scripts/get_maintainer.pl provide you proper list of
+> people, so fix your workflow. Tools might also fail if you work on some
+> ancient tree (don't, instead use mainline) or work on fork of kernel
+> (don't, instead use mainline). Just use b4 and everything should be
+> fine, although remember about `b4 prep --auto-to-cc` if you added new
+> patches to the patchset.
 
-All warnings (new ones prefixed by >>):
+I did not use b4 but I did use scripts/get_maintainer.pl via --cc-cmd on git
+send-email. Is that not expected to work?
 
->> drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c:110:24: warning: format specifies type 'void *' but the argument has type 'long' [-Wformat]
-     109 |                         "failed to get frame descriptor from '%s':%u: %pe\n",
-         |                                                                       ~~
-         |                                                                       %ld
-     110 |                         source_sd->name, 0, PTR_ERR(fd));
-         |                                             ^~~~~~~~~~~
-   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
-     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                                ~~~     ^~~~~~~~~~~
-   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ~~~    ^~~~~~~~~~~
-   1 warning generated.
+> You missed at least devicetree list (maybe more), so this won't be
+> tested by automated tooling. Performing review on untested code might be
+> a waste of time.
+>=20
+> Please kindly resend and include all necessary To/Cc entries.
+>=20
+> A nit, subject: drop second/last, redundant "bindings". The
+> "dt-bindings" prefix is already stating that these are bindings.
+> See also:
+> https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree=
+/bindings/submitting-patches.rst#L23
+
+Indeed I missed that, my bad.
 
 
-vim +110 drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+Paul
 
-    86	
-    87	static int rkisp1_gasket_enable(struct rkisp1_device *rkisp1,
-    88					struct media_pad *source)
-    89	{
-    90		struct v4l2_subdev *source_sd;
-    91		unsigned int dt;
-    92		u32 mask;
-    93		u32 val;
-    94	
-    95		/*
-    96		 * Configure and enable the gasket with the CSI-2 data type. Set the
-    97		 * vsync polarity as active high, as that is what the ISP is configured
-    98		 * to expect in ISP_ACQ_PROP. Enable left justification, as the i.MX8MP
-    99		 * ISP has a 16-bit wide input and expects data to be left-aligned.
-   100		 */
-   101	
-   102		source_sd = media_entity_to_v4l2_subdev(source->entity);
-   103	
-   104		struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
-   105			v4l2_subdev_get_frame_desc(source_sd, source->index,
-   106						   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
-   107		if (IS_ERR(fd)) {
-   108			dev_err(rkisp1->dev,
-   109				"failed to get frame descriptor from '%s':%u: %pe\n",
- > 110				source_sd->name, 0, PTR_ERR(fd));
-   111			return PTR_ERR(fd);
-   112		}
-   113	
-   114		if (fd->num_entries != 1) {
-   115			dev_err(rkisp1->dev, "invalid frame descriptor for '%s':%u\n",
-   116				source_sd->name, 0);
-   117			return -EINVAL;
-   118		}
-   119	
-   120		dt = fd->entry[0].bus.csi2.dt;
-   121	
-   122		if (rkisp1->gasket_id == 0) {
-   123			mask = ISP_DEWARP_CONTROL_MIPI_CSI1_HS_POLARITY
-   124			     | ISP_DEWARP_CONTROL_MIPI_CSI1_VS_SEL_MASK
-   125			     | ISP_DEWARP_CONTROL_MIPI_ISP1_LEFT_JUST_MODE
-   126			     | ISP_DEWARP_CONTROL_MIPI_ISP1_DATA_TYPE_MASK
-   127			     | ISP_DEWARP_CONTROL_GPR_ISP_0_DISABLE;
-   128			val = ISP_DEWARP_CONTROL_MIPI_CSI1_VS_SEL_POSITIVE
-   129			    | ISP_DEWARP_CONTROL_MIPI_ISP1_LEFT_JUST_MODE
-   130			    | ISP_DEWARP_CONTROL_MIPI_ISP1_DATA_TYPE(dt);
-   131		} else {
-   132			mask = ISP_DEWARP_CONTROL_MIPI_CSI2_HS_POLARITY
-   133			     | ISP_DEWARP_CONTROL_MIPI_CSI2_VS_SEL_MASK
-   134			     | ISP_DEWARP_CONTROL_MIPI_ISP2_LEFT_JUST_MODE
-   135			     | ISP_DEWARP_CONTROL_MIPI_ISP2_DATA_TYPE_MASK
-   136			     | ISP_DEWARP_CONTROL_GPR_ISP_1_DISABLE;
-   137			val = ISP_DEWARP_CONTROL_MIPI_CSI2_VS_SEL_POSITIVE
-   138			    | ISP_DEWARP_CONTROL_MIPI_ISP2_LEFT_JUST_MODE
-   139			    | ISP_DEWARP_CONTROL_MIPI_ISP2_DATA_TYPE(dt);
-   140		}
-   141	
-   142		regmap_update_bits(rkisp1->gasket, ISP_DEWARP_CONTROL, mask, val);
-   143	
-   144		return 0;
-   145	}
-   146	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+>=20
+>=20
+> Best regards,
+> Krzysztof
