@@ -1,215 +1,147 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011021.outbound.protection.outlook.com [52.101.57.21])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B28CD3D6473;
-	Tue, 25 Aug 2026 07:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.21
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787643819; cv=fail; b=Tk2UI5hgP/ZjfDBd4+OOTWLhq9TFSJXw7jdMLUA60bAD0+pPefrEQUOg2stMUpc4jVk3o/YE3J56+6Dr11RY52ze8G+/hkzJz4ipgDKJN/BFU89PHpTvL9z9CjuI5UVw3u/X853lIMbn1GYaIxsXd7hwz7LfLf4l2DMJw5bZMFE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787643819; c=relaxed/simple;
-	bh=BSv1CkBoseNWYUemSHp8v9v/9tlIrlu8c5qJcBIBREw=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=G2sVajGYhml/IHQwYwEL1tsMtKUrcqI5hlPxx+mkLtqYpYEQRQJ9qpsHRfIMC+15YUz/fzznddYsmjjjusgippWS09pf9KosmijBGxfsc4axfEAbLx6kAkO371FNhHPQLJ2hg+RjBN4pWX6omoyAWL5M+S0v4INxz/BpCH/BbVs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=S5dlJUSQ; arc=fail smtp.client-ip=52.101.57.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 739853D8907
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 08:05:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787645105; cv=none; b=CKCCjP92zG6e5lGJSYkRWY7j4EVykTxukX4HiIvX6azRiKVZ7fu7BwAqaV9i6NICilIwLU6Xq4vHrwnR83PbB3o/AXnd4wnzjpsh9WRvLwESYZrHNXSP1WkJ3z0o8oL0rkusmOCmMzmE8Ev297KReUdtj88TRdR7yR98qS/O6kE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787645105; c=relaxed/simple;
+	bh=jpG3f7FdK9mBot409pWSt/cfek3Jfqvt2r598jhIzyY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pBTG/cl/5IrAnPzaKwP3bvKhFzoMRKyyOGpKpxSaieqL3HDbn6v/Xrd5P47sNAdRKLnPiIKwVOEyaGJbxQDEd/hR4/XsaD652ytVUJxXQpXYnJXTsSHgIB7dmgwpVgv2QWaMPWhvdkvGx6ElnezvI52kJuEPwh3jB/12KS5FCfk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iWIk6qYg; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="S5dlJUSQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vBnpgCMCtQz/aeTCgJMfWn+lpCMhUdOM76Upwem7bHr4TxwVrd1b1ud5V0XbvTKzeehSq/TBqadZuZzDZXLSQKArgMltV/g1Lt4H7iZenGLy7rStwZRh1e/KFVxS3gjQPAhe2gZyKPTU7VGIYCoG1na5nl+zzP8b1ieIE8Ut0ZeUODmxkGKn2gjRVZh+ibkyOTJSbE+asWtpIq+Mu0XyeVjjsCwCKXmqK5dX59jXRPiBrF8qO5Lkqa9DJoqh/cijmxR7F2gJNQt/zSifEs/nEyvMd1z04chRPlsb3nfvVYBmcZ1GPP9zwlxle9KsvJ9NxckjXhPYrC8iY7eBPMutNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rIPvn/PlqSF4wDTGBXPsTpvZyADG7nqLeaQtSDlbDXM=;
- b=KvTpKT5Jg2ft0N5P09jXTOGUz1a10OEmYRI3ezV3AYqF9gohH9KFZSKxYoWGz1JWmlUguaMej45xLxo7JpOXU8WTaEEJaSMiWRAB0x2z+GDLQHO7qf6l1RObCTopz0oR8pOIJ+7mLBPsdRE7+ce/21gLIRTYcnQ7mBGnEXv/EEbzFa70iYe9+WAm3PJ9q8zqrST/PnctxijenftalYMN3m0uU0r6jMDUwLfDgCriRlKELVPmGbvvPjzpdb+5iVtc3cwkwNUi6WP5lA0hCe2MPhTrsBIyonqnTH1izF9FAflOiBfvkV/sMET4xIbzTyRg2dC62XYCNoFJz/1yKx75LQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rIPvn/PlqSF4wDTGBXPsTpvZyADG7nqLeaQtSDlbDXM=;
- b=S5dlJUSQCeu4UEaMihgat18/1Eh/9BQF21mEV9NSJ/EA+Jd8sqVhbvVUP4SHxM1IpatGWwc6nnp2tnPIu7HFNyCu7E2Em1/DJqgwQ/fjygbw5yKs1daPdBj8buGp1xYh7pFyauFKMfI21U7cuFEh7pZa0VK86iJtSdRPQLKH2EY=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by MN0PR12MB6272.namprd12.prod.outlook.com (2603:10b6:208:3c0::22) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.339.12; Tue, 25 Aug
- 2026 07:43:34 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Tue, 25 Aug 2026
- 07:43:34 +0000
-Message-ID: <e9e3314c-288e-4e32-9c88-8460d7a43872@amd.com>
-Date: Tue, 25 Aug 2026 09:43:28 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dma-buf: heaps: Zero system shared heap pages after
- conversion
-To: Steven Price <steven.price@arm.com>, Marc Zyngier <maz@kernel.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, Thomas Gleixner <tglx@kernel.org>
-Cc: "T.J. Mercier" <tjmercier@google.com>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, Jason Gunthorpe <jgg@ziepe.ca>,
- Jiri Pirko <jiri@resnulli.us>, Marek Szyprowski <m.szyprowski@samsung.com>,
- Suzuki K Poulose <suzuki.poulose@arm.com>
-References: <20260820105026.53208-1-steven.price@arm.com>
- <20260820105026.53208-3-steven.price@arm.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260820105026.53208-3-steven.price@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR4P281CA0382.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f7::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iWIk6qYg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787645101; x=1819181101;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=jpG3f7FdK9mBot409pWSt/cfek3Jfqvt2r598jhIzyY=;
+  b=iWIk6qYgXewKGo+4j8/Gji2qgiF4IFqhtuus4m/tiSvlBy2oG5lFy1Nm
+   3ke+GqPuO1bcqG/gBaHdP14NScJqkSV+KKFPVurq4eTE5/cDHvNENhXyD
+   8ATeKd7CVGInCVIL6gGKPKiuXgXFTJNegI9JrM4SKssoIqYJqKHEDT+Jf
+   r2xw2Fc2h1k3YBdBMd8WSaznZpvBFNlachQB1yiPaqd0iRD8GHOEO1B23
+   mOQiajIGLjhmK2TbiGsWdw2dxzsEDv34zTiCXuTZLV8Tz6Hpg2DYES4wk
+   MVDUf0ZCbKtuL6QkwH4/He4gZY+YPW6g4Gp1b71YxjlbZRAGCIf4w3CMg
+   g==;
+X-CSE-ConnectionGUID: 322PKGgKSKKE4JmujuMaDA==
+X-CSE-MsgGUID: MgspmjnlSlC7w1S2rIB+7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="87966160"
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
+   d="scan'208";a="87966160"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 01:04:56 -0700
+X-CSE-ConnectionGUID: 2wgyfazETNWAf9szYqVz6w==
+X-CSE-MsgGUID: BOFicGuRTCqC+L/Zxm3ivA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
+   d="scan'208";a="266670675"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.50])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 01:04:53 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id B2CE712033D;
+	Tue, 25 Aug 2026 11:05:04 +0300 (EEST)
+Date: Tue, 25 Aug 2026 11:05:04 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 24/29] media: ti: cal: Use v4l2_subdev_get_frame_desc()
+Message-ID: <ao1MsDAIOk_O8-lL@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-25-sakari.ailus@linux.intel.com>
+ <aoy27PL0_Ispirl4@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MN0PR12MB6272:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0c19030b-1dcf-4bd8-a477-08df027c911b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|10067099003|56012099006|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	n4VXQW43vwolSZmM9GVxfxZjkj3sxmxCa23KZCkk9sj+qKONaxrzPFZzdhrT5YNwBc+dZI+vvWroM1EZWoVFL4YybKpxQRjYlNk3IMWmYsRt1WteP+dzaSs15MoXU3PDM1oPt+PRoO+Z/b5gV6OARlTHMc9MjGBF8AE5SOsjds6n+4iROHlHYCOVCNmRcBUs4EdqTFLBoyd8OREgAu7M9t3BRHl8wGufGm8HLm/oWOpR+yEI9cE9Ecp0Hc+LBDa1tefa8dFaLzzopiB8nNosejbJWxzNAPkkT4M1cUpPBci822Watv2kqmiJIVo4eW/qVZKIq/m/OM5YCXuLAXwXJx/O91N4SViywyaFR5LP9iyl6+bX1vin0wItJ6kK2Fdw0ubYOBCYeN/PmrWe+fYEgXdVHFwcmaRH8D+S9DiZS0Kldln2hlGT/fK3YPtdqLeIpEswctiCRNQrzYeU7U3UaMZ2WTTbdTiWOyCV1/4HuLN28IJngvqurXPoWUOYllIrglWB8lIrAdW3thNDqEfoA9wqgFs4qrP9REkNoUDB4LKs9raF9FIZ5PnlhddBt00ITlBoQrZpRjHVDdxn1DJcMUOMnG3AQcByPyMVbYlAcq/QwhjUhNeEuo5YXVueTjl+1spnUBgChSTkSTPlu+wesXimK6T4k5iiBXw6btHwk7M=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(10067099003)(56012099006)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?VmZZbVlxbWdGNXlCNW1pc2RBR3pXVUh1VUlrcTYxTzY2QVFBZ3p1RWFmdCsr?=
- =?utf-8?B?UWhDQlQzZEdwN3NkemIyUTZUNWZkRzRQak44S0dmbm1VMlh4R3Z3aEo4MHZ1?=
- =?utf-8?B?VCtqRGZONkxUWWRmUlUyNEZ0dzdCbVMwWjV3T2RUTWdVRm9FZWE2bjIrUWNZ?=
- =?utf-8?B?eWtLYVQybVV3VE9IektZb1V5MCtkTEwwaXB2c3U0ZVdnMXNrTWZ2NjlHVFJ4?=
- =?utf-8?B?MVkydWY1Tm5STW8vSnNMQWlTSlNMaUFQN3NBZFpzME8xdnB1dndmZ1Rvcitw?=
- =?utf-8?B?RXRkMlVCa1BzQ0hZVk5PdXNLR0dMZ0NtR3ZPbG5Jb1Z4RlZHaWJvRmR2TUdI?=
- =?utf-8?B?SVJDd3N6aGtrdEVNcnY0ZkUxcFppOXU4Z0VCWERDTGlGNTBiTFVJd3F3RTZL?=
- =?utf-8?B?SE9TdEMwQXdQMDNxMThtYjZ0UGZlYlN2di9NSDJ2VzJWaVpMY1dtaEJsS0dx?=
- =?utf-8?B?NjRRdDB1YUkzYndYeHdLYWtOOW1NSW9IUXNyS3BXc1JFNE1ZS2JxRDZrcjNz?=
- =?utf-8?B?Q1FubnljNWYvYk1heFNKUmdQTDJkRU1iNDUzTCt0bVBKTldvSDlHcW9FOURm?=
- =?utf-8?B?a1FsVk9jVFRlbVFPRHJHOWFKaG5IOGcwTElOSGZtR3kwVTVLVTNma3BRSCt4?=
- =?utf-8?B?MjdSdTJYMkVUdG52RlFTWHRvd21JZWVTeWcrU0lSdDA0ajkycm1VMHNRcjhM?=
- =?utf-8?B?VUNpVi9wK0ZhTDdUUUQ5VmNXK0hPWFI4VExMTUpweEowbFdxakFOR3JrRnZH?=
- =?utf-8?B?UmdkUHNVREdpN2dRNTVLbTJCVmtDdytVSExab1N1bEZpVmlkWUFqR0o3QXF4?=
- =?utf-8?B?bFBRb3BGWUdyZXZ3bG8yTFRpRURkcnhFSE8zb0dyOHVrUWh5aFRiY2xyMnoz?=
- =?utf-8?B?c0tValBmOW5EQ3VVMmt3NVA1RnRFcG96blcreXV1cGtrcXVBV3BmVVBxWU8y?=
- =?utf-8?B?Q1dZYWs3K1A0eW9nK3A0TVZvRDE3d2k4SVplU1dlZmhhUjkzMUZPYTY0cTd4?=
- =?utf-8?B?ZzNhYXQwM0NDYnVXVHNOdVRUN09nNENGUUxRVnArTmUwY2tYVngzLzZSeHpa?=
- =?utf-8?B?UkFzcXUybHBHcEV1amR0OFRoUXdOTnY1ZThPNzlGV2FxY0JkeHRBaFd2QlNC?=
- =?utf-8?B?TkhGTWVCMUF1SHRTVFBWaWpTRE4yZGxNV056R1RYSGZLK3l0ZjZZMFdDOC83?=
- =?utf-8?B?c3AvSDdiMWVsZmVXNEZsODRZMVRuZzhvR3V6clI2TUZrSjF0MTM2cmxPa2la?=
- =?utf-8?B?QVRPcXhwc3QvQzZqOXlOU0lxR3FqRUJKSkwwd2lBd1dISnZLSW5PdmN0MFRV?=
- =?utf-8?B?dUc5c3dPck41aXRTK1drWncxdytkbFdURjliQjNvQVdGaTFPRHVMUFpiZ2gw?=
- =?utf-8?B?dEFFd0dTOTV0NFQzcGlzemRWV2ZjQWdCSWt3aW5BVlZNYXV5N0NoSlU3TjZ6?=
- =?utf-8?B?WVhFOWJnVWljYjgxRzBUZVY4ZXMvaFZCenBXMkVBUUVwUStjUnl4L2FJR3JG?=
- =?utf-8?B?U0s5bGo0VmIzNDlEWGEyZkdEQUlrU0VMRFhVNTBiRmhZM1ZLemxmNnBJUUU2?=
- =?utf-8?B?RXNOQitoQUJvU1ByZmlmWXBYVkZaM2ZucWw2a21hVDV5NUFkOWRMdk91R2Mx?=
- =?utf-8?B?eEVWT1BxVHVTUzdjM1JraFpoa3FXZDBiTjlGeG5pMHdUY3Y4MjNPcXJCaWc3?=
- =?utf-8?B?YW4zakUxaEU3NFArWE1PMGE0cEJkSlZ6Yi95TCsyMVJxVm5yNHBUbWpJbTAy?=
- =?utf-8?B?VjVvb2ljRlg4b3BqRjA0Wk5KNUUyejhLY25JMk96SllpU29aNVQxY0U2OGo2?=
- =?utf-8?B?N3JObS90STV5MjlPeGxESzJlV2xWMUxEZkhjUmQzbG1ENm5aSXgxQjNYbUI2?=
- =?utf-8?B?bEQ2cWExNU9mQWxkdld0TG9tVVdJZGZHclljMkdCVlJCR2RIbmc4WG10dHJG?=
- =?utf-8?B?elNyZW85aUcySk9pd2dnYWtoL0pWM1JlRWVCbko0VTFlN2RFL3lSYzAvWTN4?=
- =?utf-8?B?SDYraFpmYTVvMFdQb2JzTTJFUjJLM3cyMEFCNGY3VDRTZy9xYWRjbkJzY2th?=
- =?utf-8?B?c2ZJVzZOTDN4UXNmbEhVeE11a0IwMm5reWJlVmdjWUZqaXVUT20vbmM3U3Ru?=
- =?utf-8?B?MWFRWTduWGw4MUtoLzZyWlBjSnd5TmJqNlIxNVJETVp3aHBYTVZITk01NjNZ?=
- =?utf-8?B?ZiswN1Z1VTZDTWgzSjcwbWR5ZmE3aENpMUpwWk1Bdy9BTExvbkZVa09rY3dD?=
- =?utf-8?B?VTdPTE1qVmNxaHFZVVp0QUxJQlhPNGJhVFZSSSt0emNWb2IvYW4yNmQxMDJl?=
- =?utf-8?Q?6UAUIWtzkWz22yWxGa?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0c19030b-1dcf-4bd8-a477-08df027c911b
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Aug 2026 07:43:34.5196
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: CYuomubMPYHgSzv4H28HFCUw7l4VLe8pv68QTIe0Qf5PJrDNyvmg7CYmwmFS7IiG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6272
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aoy27PL0_Ispirl4@lizhi-Precision-Tower-5810>
 
-On 8/20/26 12:50, Steven Price wrote:
-> The system_cc_shared heap allocates pages with __GFP_ZERO before converting
-> them from private to shared with set_memory_decrypted(). This assumes that
-> the conversion preserves the contents of the pages.
+Hi Frank,
+
+On Mon, Aug 24, 2026 at 05:26:04PM -0400, Frank Li wrote:
+> On Mon, Aug 24, 2026 at 03:14:46PM +0300, Sakari Ailus wrote:
+> > Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+> > preferred over calling the get_frame_desc() pad operation directly.
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > ---
+> >  drivers/media/platform/ti/cal/cal-camerarx.c | 26 +++++------
+> >  drivers/media/platform/ti/cal/cal.c          | 49 ++++++--------------
+> >  2 files changed, 27 insertions(+), 48 deletions(-)
+> >
+> > diff --git a/drivers/media/platform/ti/cal/cal-camerarx.c b/drivers/media/platform/ti/cal/cal-camerarx.c
+> > index 00a71dac0ff4..9ea1f3551d22 100644
+> > --- a/drivers/media/platform/ti/cal/cal-camerarx.c
+> > +++ b/drivers/media/platform/ti/cal/cal-camerarx.c
+> > @@ -9,6 +9,7 @@
+> >   *	Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+> >   */
+> >
+> > +#include <linux/cleanup.h>
+> >  #include <linux/clk.h>
+> >  #include <linux/delay.h>
+> >  #include <linux/mfd/syscon.h>
+> > @@ -872,7 +873,8 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  				       struct v4l2_mbus_frame_desc *fd)
+> >  {
+> >  	struct cal_camerarx *phy = to_cal_camerarx(sd);
+> > -	struct v4l2_mbus_frame_desc remote_desc;
+> > +	struct v4l2_mbus_frame_desc *remote_desc
+> > +		__free(v4l2_subdev_free_frame_desc) = NULL;
+> >  	const struct media_pad *remote_pad;
+> >  	struct v4l2_subdev_state *state;
+> >  	u32 sink_stream;
+> > @@ -893,24 +895,20 @@ static int cal_camerarx_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> >  		goto out_unlock;
+> >  	}
+> >
+> > -	ret = v4l2_subdev_call(phy->source, pad, get_frame_desc,
+> > -			       remote_pad->index, &remote_desc);
+> > -	if (ret)
+> > -		goto out_unlock;
+> > -
+> > -	if (remote_desc.type != V4L2_MBUS_FRAME_DESC_TYPE_CSI2) {
+> > -		cal_err(phy->cal,
+> > -			"Frame descriptor does not describe CSI-2 link");
+> > -		ret = -EINVAL;
+> > +	remote_desc =
 > 
-> For Arm CCA with MEC (Memory Encryption Contexts) the key used to access
-> the page will change, and so by default the visible data will change.
-> The host could ensure that it zeros the page after decryption, but
-> rather than relying on the host's behaviour it's best if the guest
-> simply zeros after the decryption rather than before.
-> 
-> For CC shared buffers, defer zeroing until each page has been converted
-> successfully. For other buffers keep the existing behaviour.
-> 
-> Fixes: 78b30c50a7ac ("dma-buf: heaps: system: add system_cc_shared heap for explicitly shared memory")
-> Signed-off-by: Steven Price <steven.price@arm.com>
-> ---
->  drivers/dma-buf/heaps/system_heap.c | 14 +++++++++++---
->  1 file changed, 11 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
-> index c8959eadc71d..f14930904089 100644
-> --- a/drivers/dma-buf/heaps/system_heap.c
-> +++ b/drivers/dma-buf/heaps/system_heap.c
-> @@ -376,7 +376,8 @@ static const struct dma_buf_ops system_heap_buf_ops = {
->  };
->  
->  static struct page *alloc_largest_available(unsigned long size,
-> -					    unsigned int max_order)
-> +					    unsigned int max_order,
-> +					    bool defer_zero)
->  {
->  	struct page *page;
->  	int i;
-> @@ -388,6 +389,9 @@ static struct page *alloc_largest_available(unsigned long size,
->  		if (max_order < orders[i])
->  			continue;
->  		flags = order_flags[i];
-> +		/* Decryption can change the contents, so clear it afterwards. */
-> +		if (defer_zero)
-> +			flags &= ~__GFP_ZERO;
->  		if (mem_accounting)
->  			flags |= __GFP_ACCOUNT;
->  		page = alloc_pages(flags, orders[i]);
-> @@ -438,7 +442,8 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->  			goto free_buffer;
->  		}
->  
-> -		page = alloc_largest_available(size_remaining, max_order);
-> +		page = alloc_largest_available(size_remaining, max_order,
-> +					       cc_shared_buffer(buffer));
->  		if (!page)
->  			goto free_buffer;
->  
-> @@ -461,9 +466,12 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
->  
->  	if (cc_shared_buffer(buffer)) {
->  		for_each_sgtable_sg(table, sg, i) {
-> -			ret = system_heap_set_page_decrypted(sg_page(sg));
-> +			page = sg_page(sg);
-> +			ret = system_heap_set_page_decrypted(page);
->  			if (ret)
->  				goto free_pages;
-> +
-> +			clear_pages(page_address(page), 1 << compound_order(page));
+> cleanup prefer declean variable here
+> 	struct v4l2_mbus_frame_desc *remote_desc __free(v4l2_subdev_free_frame_desc)
+> 		=
 
-To be honest that looks horrible.
+Interestingly, that produces the following warning:
 
-If you need to backport that fine by me, but in the long term we clearly should have that in the initial allocation somehow.
+In file included from ./include/linux/cleanup.h:6,
+                 from drivers/media/platform/ti/cal/cal-camerarx.c:12:
+In function ‘IS_ERR_OR_NULL’,
+    inlined from ‘__free_v4l2_subdev_free_frame_desc’ at ./include/media/v4l2-subdev.h:1867:1,
+    inlined from ‘cal_camerarx_get_frame_desc’ at drivers/media/platform/ti/cal/cal-camerarx.c:896:31:
+./include/linux/err.h:92:31: warning: ‘remote_desc’ may be used uninitialized [-Wmaybe-uninitialized]
+   92 |         return unlikely(!ptr) || IS_ERR_VALUE((unsigned long)ptr);
+drivers/media/platform/ti/cal/cal-camerarx.c: In function ‘cal_camerarx_get_frame_desc’:
+drivers/media/platform/ti/cal/cal-camerarx.c:896:38: note: ‘remote_desc’ was declared here
+  896 |         struct v4l2_mbus_frame_desc *remote_desc
+      |                                      ^~~~~~~~~~~
 
-Regards,
-Christian.
+My guess is that the gotos before the assignment that are the problem.
 
->  		}
->  	}
->  
-
+-- 
+Sakari Ailus
