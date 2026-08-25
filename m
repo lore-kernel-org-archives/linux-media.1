@@ -1,32 +1,33 @@
-Received: from forward103d.mail.yandex.net (forward103d.mail.yandex.net [178.154.239.214])
+Received: from forward103b.mail.yandex.net (forward103b.mail.yandex.net [178.154.239.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 079CB3E16A9
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 11:07:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.214
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D858E3F211A
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 11:07:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787656054; cv=none; b=CFIMiHj3qHLLKxiXmwBDkvrIGh1x8n23uEB2e3WtRG/Oj9PMFp2hQaI2oQsPpLGjtrwx2hgTN/249CgmYCxlHSdwqXeZYTkn+R5pHfA+i08Z5LdQrtDTqO1RBhV4qwXdvOQzCz9dKPKtcV7FlpsC4ft3DskMQfQ51GOa3Q1U/mc=
+	t=1787656056; cv=none; b=j7cdb3r+PesN0k/ncde3pB3mKytRxjH5aWrXU0qFYg+on+IoDxEhXWjX9sgHu5xKVVvcpvhAQn+Z+s8xiEVtLeA89xq5zeNyRk3OsClm98Pagclqf/mqwM6ETvkgnK5KQvivCj7ZBoBzuyuJAdxsAJ3Q6SwJ1d83Dz0IymlX2Xc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787656054; c=relaxed/simple;
-	bh=O4YrfeEuUX9KV9FPV2rmxB2V4nezjoKok4Ekb3X3Qtg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Bugx4JrMDAzIN5klh6ilSgYeduxzRdl0TF9TFJ4Zpb3OCD1f7kZNXChsy9AZ0H7ME/IAIVML0V9n6NpdiP6tsf7qF1e3orWzvMY+iUizSHLpa7icq3UU34Wyi8FoRU+3wsweemwvrxcis6dZoko4Yz5W8gNERFcewOuSfSE/1s0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=OwKlk6uq; arc=none smtp.client-ip=178.154.239.214
+	s=arc-20240116; t=1787656056; c=relaxed/simple;
+	bh=qoKzUsFbu9X8lrxwnWW83mkhtuAsPJZNFKaHs+zPWuE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EmUg2UuAMc+Kfk9OxEf1JwkbYcuGAuz8hRMeWipdj4HUAofVQGQytIV0VM7viDhnDaS8ptasmDHPYaDpQjK8sqIeQ3OIQonAG5ylLozrV+WeB7LllkHOfdCFbCc1rKKKPdQNQ06Pmv7tx8b58VZLzYEZCuF+n1n2R2gl0ne2FkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=aapzlBnq; arc=none smtp.client-ip=178.154.239.150
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="OwKlk6uq"
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="aapzlBnq"
 Received: from mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net [IPv6:2a02:6b8:c0c:8b0f:0:640:dbc5:0])
-	by forward103d.mail.yandex.net (postfix) with ESMTPS id 0819AC0058;
+	by forward103b.mail.yandex.net (postfix) with ESMTPS id D34A6C00A1;
 	Tue, 25 Aug 2026 14:07:22 +0300 (MSK)
-Received: by mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net (smtp) with ESMTPSA id K7aX4wofBCg0-zOHkIRs3;
-	Tue, 25 Aug 2026 14:07:21 +0300
+Received: by mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net (smtp) with ESMTPSA id K7aX4wofBCg0-ob3n63JL;
+	Tue, 25 Aug 2026 14:07:22 +0300
 X-Yandex-Fwd: 1
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
-	t=1787656041; bh=qr43rbfRQIasXEIQ3kOKkgeIBQAgFK/XX+Fzt0nV0/E=;
-	h=Message-ID:Date:Cc:Subject:To:From;
-	b=OwKlk6uqqzVxqEx9jHkeHeSWMTZKOt4mhn/4j7FSH9j3VpAtSBZ0aFhl88hh6RHj7
-	 lOaxavtGoC34qPMfXoYMjoOWwJPgvlJmZ1a/E91vg+l5flQ5oAHHeagpFTQx5M6MZa
-	 gEpRjY9+JPpyoDvrOuMMiSfmw/e1VPpBkfeL6ubw=
+	t=1787656042; bh=ueAK44nopVgVSAtWpxtv5WyiTJvi3+FpeyRGOHDLyrQ=;
+	h=Message-ID:Date:In-Reply-To:Cc:Subject:References:To:From;
+	b=aapzlBnqXenFhpIWUwtDeOzX+m+LKrwP9X5yg4SXOIac3c4k2v9BGT4qeFSXVVq8A
+	 XZIY03TrOBtoAMMXV5JdiDE2NbKZ8Ic7zAU6dnytA0BT9MO1h1XD0Ozt/62kUG7CcK
+	 kUg5JXxJu74GXAlCJd5CB9/RWxKRbFFMlEXH0qxo=
 Authentication-Results: mail-nwsmtp-smtp-production-main-58.iva.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
 From: Dmitry Antipov <dmantipov@yandex.ru>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -35,10 +36,12 @@ Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
 	lvc-project@linuxtesting.org,
 	Dmitry Antipov <dmantipov@yandex.ru>,
 	syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
-Subject: [PATCH 1/2] media: em28xx: adjust initialization order in em28xx_v4l2_init()
-Date: Tue, 25 Aug 2026 14:07:18 +0300
-Message-ID: <20260825110719.752093-1-dmantipov@yandex.ru>
+Subject: [PATCH 2/2] media: em28xx: fix race between em28xx_free_v4l2() and em28xx_v4l2_fini()
+Date: Tue, 25 Aug 2026 14:07:19 +0300
+Message-ID: <20260825110719.752093-2-dmantipov@yandex.ru>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260825110719.752093-1-dmantipov@yandex.ru>
+References: <20260825110719.752093-1-dmantipov@yandex.ru>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -47,56 +50,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In 'em28xx_v4l2_init()', call to 'vb2_video_unregister_device()' during
-'unregister_dev' cleanup assumes that queues of the corresponding 'struct
-video_device' instance (i.e. 'vdev' of 'struct em28xx_v4l2')  are properly
-initialized, triggering an undefined behavior otherwise. So call
-'em28xx_vb2_setup()' immediately after 'video_register_device()' and,
-since the former is actually non-void, do not ignore the value returned.
+Take device (an instance of 'struct em28xx') lock in 'em28xx_free_v4l2()'
+and do the same early in 'em28xx_v4l2_fini()' to avoid UaF-triggering
+racy access to 'v4l2' member.
 
 Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
 Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
-Fixes: 37ecc7b1278f ("[media] em28xx: add media controller support")
+Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
 Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
 ---
- drivers/media/usb/em28xx/em28xx-video.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/media/usb/em28xx/em28xx-video.c | 24 ++++++++++++++----------
+ 1 file changed, 14 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
-index c418add65bb5..324855ff5e86 100644
+index 324855ff5e86..3b8766d00897 100644
 --- a/drivers/media/usb/em28xx/em28xx-video.c
 +++ b/drivers/media/usb/em28xx/em28xx-video.c
-@@ -2992,13 +2992,19 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 		goto unregister_dev;
+@@ -2305,9 +2305,14 @@ static void em28xx_free_v4l2(struct v4l2_device *v4l2_dev)
+ 		container_of(v4l2_dev, struct em28xx_v4l2, v4l2_dev);
+ 	struct em28xx *dev = v4l2->dev;
+ 
++	mutex_lock(&dev->lock);
++
+ 	v4l2_ctrl_handler_free(&v4l2->ctrl_handler);
+ 	v4l2_device_unregister(v4l2_dev);
+ 	dev->v4l2 = NULL;
++
++	mutex_unlock(&dev->lock);
++
+ 	kfree(v4l2);
+ 	kref_put(&dev->ref, em28xx_free_device);
+ }
+@@ -2388,25 +2393,24 @@ static int em28xx_v4l2_open(struct file *filp)
+  */
+ static int em28xx_v4l2_fini(struct em28xx *dev)
+ {
+-	struct em28xx_v4l2 *v4l2 = dev->v4l2;
++	struct em28xx_v4l2 *v4l2;
+ 
+-	if (dev->is_audio_only) {
+-		/* Shouldn't initialize IR for this interface */
+-		return 0;
+-	}
++	mutex_lock(&dev->lock);
+ 
+-	if (!dev->has_video) {
+-		/* This device does not support the v4l2 extension */
++	if (dev->is_audio_only || /* Shouldn't initialize IR for this interface */
++	    !dev->has_video) {    /* This device does not support the v4l2 extension */
++		mutex_unlock(&dev->lock);
+ 		return 0;
  	}
  
-+	v4l2->vb_vbiq.lock = &v4l2->vb_vbi_queue_lock;
-+	ret = em28xx_vb2_setup(dev);
-+	if (ret) {
-+		dev_err(&dev->intf->dev, "unable to setup device queues, error %d\n", ret);
-+		goto unregister_dev;
+-	if (!v4l2)
++	v4l2 = dev->v4l2;
++	if (!v4l2) {
++		mutex_unlock(&dev->lock);
+ 		return 0;
 +	}
-+
- 	/* Allocate and fill vbi video_device struct */
- 	if (em28xx_vbi_supported(dev) == 1) {
- 		em28xx_vdev_init(dev, &v4l2->vbi_dev, &em28xx_video_template,
- 				 "vbi");
  
- 		v4l2->vbi_dev.queue = &v4l2->vb_vbiq;
--		v4l2->vbi_dev.queue->lock = &v4l2->vb_vbi_queue_lock;
- 		v4l2->vbi_dev.device_caps = V4L2_CAP_STREAMING |
- 			V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
- 		if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) == 0)
-@@ -3068,9 +3074,6 @@ static int em28xx_v4l2_init(struct em28xx *dev)
- 	/* Save some power by putting tuner to sleep */
- 	v4l2_device_call_all(&v4l2->v4l2_dev, 0, tuner, standby);
+ 	dev_info(&dev->intf->dev, "Closing video extension\n");
  
--	/* initialize videobuf2 stuff */
--	em28xx_vb2_setup(dev);
+-	mutex_lock(&dev->lock);
 -
- 	dev_info(&dev->intf->dev,
- 		 "V4L2 extension successfully initialized\n");
+ 	v4l2_device_disconnect(&v4l2->v4l2_dev);
  
+ 	em28xx_uninit_usb_xfer(dev, EM28XX_ANALOG_MODE);
 -- 
 2.55.0
 
