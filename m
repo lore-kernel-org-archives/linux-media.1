@@ -1,140 +1,141 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932E3D3CE2
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 07:35:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0FBC3D45F7;
+	Tue, 25 Aug 2026 07:39:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787643355; cv=none; b=fS1LUEAumPv+e3EnVDq1gG72liTdsar6fQJIqLU8pbcLF6OxaVY7B7cBEO2/wQxhtFAptOa8Fp5VQXqu5QdSny/NsVP3B6bTmcrfQrP5DSo7EqRVaR+WZMv8mKFyLzyztjLlYulELRDIdZxFT4cqqjISZQPR8InurTIYSpozY/c=
+	t=1787643577; cv=none; b=q5ASW3Gx4pZA++ma/TpWicGob9r9ui+Edi8yA65o/iZquHlJJLykYZ1CXA7nHYi3bvgEgc3HxpCvU++p8b3QtFRjDlloQlnqxBtvZ69FPROMqo+j67QURSwa/4HSP7zjmHXrv+jQkKfBRwEH65ESRvjm6w8MNOaW+Rafq5wF9Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787643355; c=relaxed/simple;
-	bh=xXs48YmoUEJ/R7OZvNKIGzQomAC+YgOnaTpQbhhjLBU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yc09tGl4JgnPv7JxA0LXY9vpknodMoSMu7muxNcLc592e3MUpRKuLCuVVL7RcMh2eCN4F5ZJ/TGCJYhR/SK8e6Q7FPSfoisBq451GQV9s9G2ZYw1p6UQufg0UIw5MBUc8exJ9E951MRWVJmA769hBODSDj950umBV8llF4CFihQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XTysDP+L; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XTysDP+L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787643353; x=1819179353;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=xXs48YmoUEJ/R7OZvNKIGzQomAC+YgOnaTpQbhhjLBU=;
-  b=XTysDP+LO9JDWPwA135dtS5rPNLhAdZ/Gi9O1zepW3LeSwipmKRsieNz
-   kwW0ABimIszQiEaMJ+PEyrXCGb0XEFxpORGTkX/xqt7igy8Zdc43ScCer
-   ZZeau87OT/ZB17gtx+mC6YNx/AGd6tL5Nm9KstoyZggZ/xbMoXt8oa/19
-   kKYNBZssU4l4EK4Bao20zFnlR6frjjTpihgYvbFrf6WVPdr7ygGlkVi7l
-   vMTq+lFRnDy27EYqqpQT1HR3GTwERgMB88zdbynsNEuMDnjnIy89LVDCi
-   8CEwAGM+5JS7BRToxDQWa0nvVtOU07tlWvEdxYAWycRRO4jixrQCA1FXr
-   w==;
-X-CSE-ConnectionGUID: BilXO3R3Rb6Yk76PW1L5oA==
-X-CSE-MsgGUID: X5nkL9FmQhifsSH/oYO/zQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="105633777"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="105633777"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:35:51 -0700
-X-CSE-ConnectionGUID: 9J3VVumCT+ST7GwoXYsdHQ==
-X-CSE-MsgGUID: RfhdvC5xSTeE1l/T6Ei88g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="266667539"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.50])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:35:49 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B4B7412033D;
-	Tue, 25 Aug 2026 10:36:00 +0300 (EEST)
-Date: Tue, 25 Aug 2026 10:36:00 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically
- allocated pass-through routes
-Message-ID: <ao1F4LMQ9FjCl7-z@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
- <aoyw4BDB21IgUc3V@lizhi-Precision-Tower-5810>
+	s=arc-20240116; t=1787643577; c=relaxed/simple;
+	bh=IBCfT9UL3b5gFyLRZkCHNzB+iqK8+GtxFwSmFEm5++4=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=Z4HdsBMcw+NQsFoOebKvF0cGXHtNPtSKLaYEh0E1xytXj6Ic1URkwX7ToA6XYLpLucs5m684x8HWSFT7ZvwHuCylAwVwswKK5ibqf9KPMLQY3D/37RSaz9U+oVUGku5UIjAnJTJAbZHr0C1KDh754LB7VuJzj+X6VMXXvudAUvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [127.0.0.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 6E604201021;
+	Tue, 25 Aug 2026 09:39:31 +0200 (CEST)
+Message-ID: <1048ee70-54b2-4e42-ab67-22384961f094@pengutronix.de>
+From: "Sascha Hauer" <s.hauer@pengutronix.de>
+Subject: Re: [PATCH 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: "Sascha Hauer" <s.hauer@pengutronix.de>, "Lucas Sinn" <lucas.sinn@wolfvision.net>, "Mauro
+ Carvalho Chehab" <mchehab@kernel.org>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Heiko
+ Stuebner" <heiko@sntech.de>, "Philipp Zabel" <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+In-Reply-To: <d24d59bb-2330-41c9-a6cc-a4c7053f8526@kernel.org>
+References: <20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de>
+ <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
+ <d24d59bb-2330-41c9-a6cc-a4c7053f8526@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 25 Aug 2026 07:39:30 +0000
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aoyw4BDB21IgUc3V@lizhi-Precision-Tower-5810>
 
-Hi Frank,
-
-On Mon, Aug 24, 2026 at 05:00:16PM -0400, Frank Li wrote:
-> On Mon, Aug 24, 2026 at 03:14:37PM +0300, Sakari Ailus wrote:
-> > Count the number of pass-through routes, allocate memory and then return
-> > the full table to the caller.
-> >
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+On 2026-08-25 09:21, Krzysztof Kozlowski wrote:
+> On 24/08/2026 09:01, Sascha Hauer wrote:
+> > Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+> > integrates into a number of its SoCs.  Documents the single register
+> > window (task registers plus the LLP link-table block at offset 0x300),
+> > the decode interrupt, the aclk/hclk clocks, the AXI/AHB resets, the IOM=
+MU
+> > and the power domain.
+> >=20
+> > The core is not tied to one SoC.  Downstream it is known as the VDPU720
+> > and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 a=
+nd
+> > RV1126B, with only the clocks, the resets and the power domain differin=
+g,
+> > none of which this schema constrains.  A compatible per SoC is all it
+> > takes to cover them; the RK3568 and the RK3588 are the two that have be=
+en
+> > tested and are enabled here.
+> >=20
+> > The resets and the power domain are required.  The block cannot be
+> > reached with its domain off, and the driver falls back to pulsing the
+> > reset lines when a frame times out and the in-block soft reset does not
+> > complete, which a node without them would leave with no way to recover.
+> >=20
+> > The IOMMU stays optional.  The driver never refers to it, it is a platf=
+orm
+> > integration detail, and rockchip-vpu.yaml does not require it for the
+> > other codec blocks on these SoCs either.
+> >=20
+> > Assisted-by: Claude:claude-opus-5
 > > ---
-> >  drivers/media/v4l2-core/v4l2-subdev.c | 61 +++++++++++++++++++++++----
-> >  1 file changed, 52 insertions(+), 9 deletions(-)
-> >
-> > diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> > index c9f38b0313eb..d34704aad88e 100644
-> > --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> > +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> > @@ -2561,13 +2561,42 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> >  	struct media_pad *local_sink_pad;
-> >  	struct v4l2_subdev_route *route;
-> >  	struct device *dev = sd->dev;
-> > -	int ret = 0;
-> > +	unsigned int num_entries = 0;
-> > +	int ret;
-> >
-> >  	lockdep_assert_held(state->lock);
-> >
-> >  	if (WARN_ON(!(sd->entity.pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
-> >  		return -EINVAL;
-> >
-> > +	/* Count the number of entries first */
-> > +	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
-> > +		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
-> > +			continue;
+> >  .../bindings/media/rockchip,jpeg-decoder.yaml      | 92 ++++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |  8 ++
+> >  2 files changed, 100 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/media/rockchip,jpeg-deco=
+der.yaml b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.ya=
+ml
+> > new file mode 100644
+> > index 0000000000000..e20c1bf43ef3e
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> > @@ -0,0 +1,92 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/media/rockchip,jpeg-decoder.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > > +
-> > +		for_each_active_route(&state->routing, route) {
-> > +			if (route->source_pad != pad ||
-> > +			    route->sink_pad != local_sink_pad->index)
-> > +				continue;
+> > +title: Rockchip JPEG Decoder
 > > +
-> > +			num_entries++;
+> > +maintainers:
+> > +  - Lucas Sinn <lucas.sinn@wolfvision.net>
+> > +  - Sascha Hauer <s.hauer@pengutronix.de>
 > > +
-> > +			if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-> > +				return -E2BIG;
-> > +		}
-> > +	}
+> > +description:
+> > +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as=
+ the
+> > +  VDPU720.  The same core is integrated into a number of Rockchip SoCs=
+, which
+> > +  differ only in the clocks, resets and power domain they are wired to=
+.  A
+> > +  dedicated Link List Processor (LLP) register block, located at offse=
+t 0x300
+> > +  within the same register window, allows the hardware to decode a cha=
+in of
+> > +  frames autonomously ("link mode").
 > > +
-> > +	if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
-> > +		return -E2BIG;
-> > +
-> > +	if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> > +		fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
-> 
-> nit: Default should be GFP_KERNEL, needn't GFP_KERNEL when call kzalloc_objs()
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - rockchip,rk3568-jpegd
+> > +      - rockchip,rk3588-jpegd
+>=20
+> How this can be v1 if you send VPU720 for rk3588 already?
+>=20
+> https://lore.kernel.org/all/20260819-rk3588-jpegdec-v1-4-33d74cdf369c@pen=
+gutronix.de/
 
-I'll drop that in v4.
+The above has the JPEG decoder driver integrated into the hantro driver
+which turned out to be the wrong abstraction, so I had to split this
+series up into two, one for the Hantro fixes and one for the now
+standalone JPEG decoder driver which is this series. I decided to start
+freshly for both series instead of treating one as continuation of the
+other.
 
-> 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+>=20
+> Were there more versions?
 
-Thank you.
+No.
 
--- 
-Regards,
+Sascha
 
-Sakari Ailus
+--
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | http://www.pengutronix.de/  |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-5555 |
+
