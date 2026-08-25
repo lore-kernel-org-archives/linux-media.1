@@ -1,286 +1,157 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202AF348C6D
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 04:25:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C208D3242B8
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 05:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787631926; cv=none; b=Icmh2eDJlXjKoxVuY/fNKMR2do5ftpapLxhWaQb1WX78Hzs6iM52dq6CyZmM1aADx1hxVIQlrkt+Ecmy6huQP3c3O2zRslzFoCYTcaeYU6mLL1MXp4v8I9F+Chcemsk9l73X2tqREm+MiNJdcH+qLI4YoHExknFBwU2B4UCgJV8=
+	t=1787635348; cv=none; b=K4Jn1UWPPpGodNybIL8eVmai4+JOVeLpHsY52L0KyV+F251tMGNPGbdXbmmv+FBxuWVWDo68TEhp8lqtjoZRo7G4z4NQlby7SQB4INfHQPh5uUiwKjXdYFV2ut9C7yWG3vBsiQiYqUl5qyBmaT4iexjsn+bkLhn865yZ3/wx4oY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787631926; c=relaxed/simple;
-	bh=n/uMfSP1xSyH47DULFXVqX+H3Mf+6t22inoXlz0tRqY=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z/HGtux4svQhFodA0EXp56TgCm0QVmBUrKB9wiEFUSLIc0bhZPJP7GplD90BGS6151GL3SzrMhl1knrBrPftcdMLeFpqB+Kh9XwZzBF/XE0qBvpoiIqS4gG0lK2Nz9qoUGKX1GxnwSFQx0fC+t44dvobaiXmSLlUdgb2lSlBjc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oorXWzfm; arc=none smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787635348; c=relaxed/simple;
+	bh=sMDE4lBFlF7cb2OuWanRnclvqhT/MVLWElxZHRbI60w=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ErVVcc44uZBGWQIQibhVG03XDVnefHSUGrMkdOwCw+83/RT6xEdILVvQad2LvAkqm8Fs4n8T+ZA4rcu3kWQ0ToSXUGJnKC+GwfuFqJPgInG98EjGsFf+632bEMMFtzJb5TzymUbzEdb3fQkXb/aH3445mdaspgDM9QQKgyIjvPU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CuYJZup5; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oorXWzfm"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c15f020a223so630269166b.1
-        for <linux-media@vger.kernel.org>; Mon, 24 Aug 2026 21:25:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787631923; x=1788236723; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rqinpz80rOc9J60aO+v13W0C1SlYigYKiNfIW8F1Xus=;
-        b=oorXWzfm+ij8k2mT4Q8yCcYZ464yTwo/kFjc3OWmP8BITqxoGgZsXZwX06cUj7ecUx
-         lo//UFM1TEZAcAVZMorkLHc0KmlWm83hYdG0l3aTwb50WM7EdGBSdZAj2yxq0ZNQVMh4
-         DLTAjG+wkWQO2LfKmGFu6Wf7JLksv7B/M+cRr1OO8IgBlgLnuTXExcO3m3PfwZd09j/y
-         wDSeTMbL5RZN6PWflfMHaSvr1SkZcYSoIhmvzXRzu1Yi6C3+VPZf3Km2JNSZQ3QUkEa6
-         ZL81mFlvbY6EXibnchLumspU3/lA1pasFt5lmwJAy5v517XA5S7aIsgyCUBHmlj/Vqc/
-         3pBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787631923; x=1788236723;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rqinpz80rOc9J60aO+v13W0C1SlYigYKiNfIW8F1Xus=;
-        b=tY9V7LhArXdNWPx+GupRUd2Dqhg4Bxlx5H9+2OIsgSejvZbgFyivF9lIVj5Z4SeplM
-         xkWvxzgOGcWl+D2KmK9OXC22X6Flxy9pQlv8PBjt1nw+3LkPSLuMdDAyIvYpfdG9H0iB
-         9z2ujgtGo82AOSf3YxLaHQVdBtiu4+8smvFEeaNcduygqqKLztIhd22lt9WGlA6DA9KQ
-         +0il1U/Q1Bh9DRbQzIRw9Xqb+3EpSnW8rmk1EklkhzEDecPdPb7sCQCAUknqLhr8KFuE
-         dtEpCuYsQLU1004OlcbX+/8lmAlLavBW2O5IOgVGmolKrjG+m12UuOWW8VQA8UlX9600
-         ncIQ==
-X-Gm-Message-State: AFuF++m9XAhkPADF4MYTAQqG88sY3TrNctD6i7jviCJ4Zr5iGAkKGmpA
-	FY2E5NK1R3ceAT1OORo8yJhEV6Yn9j0CGti1Sol94B4OWW2DwWDxLp6ihWa6K/teTFrzeDlh
-X-Gm-Gg: AR+sD13B6Crk/Wf4bYXslViefyOCT9sCslXF01TTrZmeUbm8tZ0EfP92VG4tSlc4lv1
-	zOp96VKiLy5V9GuwvJCoJHIQfniK1ACX00iyagxUQ92aX3X91MZMnbLWn36Y5ezD9BhV+GOE6xh
-	LTC0uhQBI/oMOYWIO4J8Cvu8/K51TFy+lB+0SUVbSsgW6rb5c8O6obMt9gfntQI6S0LsUYUqM0Q
-	kYUOmpnXKCtV7tb+SNGHP1487jQceXmvtgBivTD19EruyV0v62fE5LE09BmzOqGHvMkZhc8OBRS
-	4dxquj7jC6E3kWVxbuGK/ylKIDKXcLEF7s09fP/nXio6qjmvjJeEq1Z6U4B457BwrRGF86S5K5N
-	RUjk0SXJqRRJ/41C+ktr9ILOvycX2cZ00vX0YLT5hxq8CZ7u9cVJlgvZ5fkmKXwSIerZu2T+QhN
-	Ta2tJcbB+0tA9oQR3F315MrUUkXpdgUiiBT0hCPIFT9rP8E9gFUEcmeekqpl80ATaiX9GQ6cAnu
-	9uyvvMogXaSeCfiJGS0BKw=
-X-Received: by 2002:a17:906:f588:b0:c24:c0f4:899d with SMTP id a640c23a62f3a-c24c0f48bd5mr1326605566b.22.1787631922954;
-        Mon, 24 Aug 2026 21:25:22 -0700 (PDT)
-Received: from localhost ([77.237.185.213])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24968a2183sm1544091666b.58.2026.08.24.21.25.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 24 Aug 2026 21:25:22 -0700 (PDT)
-From: Ali Nasrollahi <a.nasrolahi01@gmail.com>
-X-Google-Original-From: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-Date: Tue, 25 Aug 2026 07:55:15 +0330
-To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: mchehab@kernel.org, laurent.pinchart@ideasonboard.com, 
-	Frank.Li@nxp.com, hverkuil+cisco@kernel.org, guoniu.zhou@oss.nxp.com
-Subject: Re: [PATCH] media: v4l2-core: make number of video devices
- configurable
-Message-ID: <ao0YLJ6sPrNkUPwK@zephyr>
-References: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CuYJZup5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787635345; x=1819171345;
+  h=date:from:to:cc:subject:message-id;
+  bh=sMDE4lBFlF7cb2OuWanRnclvqhT/MVLWElxZHRbI60w=;
+  b=CuYJZup5lXHHADaA38JUckUCisgQUCF1Jonb9PEVHf0xUbRjt5h5Akl0
+   aSNa9tjDV+ppnS2vmiJVkkWmOxiWXTZ8Xc8HC2EeI2EKuupJLDG9F3XOV
+   E6S9O39/LLO3Mh+ml/FPSSnGD5fQhyx5+gdbRGo8kpqeTA86OleA6NPZd
+   2rIaBPIinRKVBw7Ss8bNVvkOprOwbrhLDABAAe/JInWGiLpAa+s12zpWK
+   /ax3JVcvh43QbYLe/UMTWnOop2MtAe7brRN+xs3t3572a+kW4S5qoIBaA
+   8seOVXVD5LcsNyykun1ZOTLg93AwazH1DqZ4ydWPGnKI2d5ECmtvimw5r
+   Q==;
+X-CSE-ConnectionGUID: Sh4hRJuOTeCcjeKBO1f5XQ==
+X-CSE-MsgGUID: JQna3e8HR2q4zGkPnFZ2ag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88109100"
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
+   d="scan'208";a="88109100"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 24 Aug 2026 22:22:25 -0700
+X-CSE-ConnectionGUID: kOdTLFxzTPWHDMpqhSmmQQ==
+X-CSE-MsgGUID: hG/+fHktQn2JbTC0oSNPpA==
+X-ExtLoop1: 1
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by fmviesa003.fm.intel.com with ESMTP; 24 Aug 2026 22:22:23 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wyjc4-00000000520-27nU;
+	Tue, 25 Aug 2026 05:22:20 +0000
+Date: Tue, 25 Aug 2026 13:21:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org
+Subject: [sailus-media-tree:frame-desc 31/38]
+ drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c:110:24: warning: format
+ specifies type 'void *' but the argument has type 'long'
+Message-ID: <202608251350.1jKfLPih-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260810162406.118981-2-A.Nasrolahi01@gmail.com>
 
-On 26/08/10 07:54PM, Ali Nasrollahi wrote:
-> The V4L2 core currently limits the number of registered video devices to
-> 256. This can become a restriction for workloads that create a large
-> number of virtual video devices, such as v4l2loopback instances.
-> 
-> Make the maximum number of video devices configurable through a module
-> parameter. The default and minimum remain at the existing limit of 256,
-> while the maximum is capped at 4096.
-> 
-> The parameter is only available when CONFIG_VIDEO_FIXED_MINOR_RANGES is
-> disabled, as the fixed minor allocation scheme relies on the existing
-> minor ranges.
-> 
-> The device array is allocated according to the configured limit, while
-> the allocation bitmaps remain statically sized to the maximum supported
-> limit of 4096.
-> 
-> Signed-off-by: Ali Nasrollahi <A.Nasrolahi01@gmail.com>
-> ---
->  drivers/media/v4l2-core/v4l2-dev.c | 70 +++++++++++++++++++++++-------
->  1 file changed, 55 insertions(+), 15 deletions(-)
-> 
-> diff --git a/drivers/media/v4l2-core/v4l2-dev.c b/drivers/media/v4l2-core/v4l2-dev.c
-> index fd267fb74905..5a526b577970 100644
-> --- a/drivers/media/v4l2-core/v4l2-dev.c
-> +++ b/drivers/media/v4l2-core/v4l2-dev.c
-> @@ -31,7 +31,8 @@
->  #include <media/v4l2-ioctl.h>
->  #include <media/v4l2-event.h>
->  
-> -#define VIDEO_NUM_DEVICES	256
-> +#define VIDEO_MIN_NUM_DEVICES	256
-> +#define VIDEO_MAX_NUM_DEVICES	4096
->  #define VIDEO_NAME              "video4linux"
->  
->  #define dprintk(fmt, arg...) do {					\
-> @@ -39,6 +40,27 @@
->  		       __func__, ##arg);				\
->  } while (0)
->  
-> +static unsigned int video_nr_devices = VIDEO_MIN_NUM_DEVICES;
-> +
-> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> +static int param_set_video_nr_devices(const char *val,
-> +				      const struct kernel_param *kp)
-> +{
-> +	return param_set_uint_minmax(val, kp, VIDEO_MIN_NUM_DEVICES,
-> +				     VIDEO_MAX_NUM_DEVICES);
-> +}
-> +
-> +static const struct kernel_param_ops param_ops_video_nr_devices = {
-> +	.set = param_set_video_nr_devices,
-> +	.get = param_get_uint,
-> +};
-> +
-> +module_param_cb(video_nr_devices, &param_ops_video_nr_devices,
-> +		&video_nr_devices, 0444);
-> +
-> +MODULE_PARM_DESC(video_nr_devices, "Maximum number of V4L2 devices (256-4096)");
-> +#endif
-> +
->  /*
->   *	sysfs stuff
->   */
-> @@ -98,9 +120,14 @@ static struct dentry *v4l2_debugfs_root_dir;
->  /*
->   *	Active devices
->   */
-> -static struct video_device *video_devices[VIDEO_NUM_DEVICES];
-> +#ifdef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> +static struct video_device *video_devices[VIDEO_MIN_NUM_DEVICES];
-> +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MIN_NUM_DEVICES);
-> +#else
-> +static struct video_device **video_devices;
-> +static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_MAX_NUM_DEVICES);
-> +#endif
->  static DEFINE_MUTEX(videodev_lock);
-> -static DECLARE_BITMAP(devnode_nums[VFL_TYPE_MAX], VIDEO_NUM_DEVICES);
->  
->  /* Device node utility functions */
->  
-> @@ -504,7 +531,7 @@ static const struct file_operations v4l2_fops = {
->   * in the video_device array, but it was able to obtain a minor number.
->   *
->   * This means that we can always obtain a free stream index number since
-> - * the worst case scenario is that there are VIDEO_NUM_DEVICES - 1 slots in
-> + * the worst case scenario is that there are video_nr_devices - 1 slots in
->   * use of the video_device array.
->   *
->   * Returns a free index number.
-> @@ -513,19 +540,19 @@ static int get_index(struct video_device *vdev)
->  {
->  	/* This can be static since this function is called with the global
->  	   videodev_lock held. */
-> -	static DECLARE_BITMAP(used, VIDEO_NUM_DEVICES);
-> +	static DECLARE_BITMAP(used, VIDEO_MAX_NUM_DEVICES);
->  	int i;
->  
-> -	bitmap_zero(used, VIDEO_NUM_DEVICES);
-> +	bitmap_zero(used, VIDEO_MAX_NUM_DEVICES);
->  
-> -	for (i = 0; i < VIDEO_NUM_DEVICES; i++) {
-> +	for (i = 0; i < video_nr_devices; i++) {
->  		if (video_devices[i] != NULL &&
->  		    video_devices[i]->v4l2_dev == vdev->v4l2_dev) {
->  			__set_bit(video_devices[i]->index, used);
->  		}
->  	}
->  
-> -	return find_first_zero_bit(used, VIDEO_NUM_DEVICES);
-> +	return find_first_zero_bit(used, video_nr_devices);
->  }
->  
->  #define SET_VALID_IOCTL(ops, cmd, op) \
-> @@ -915,7 +942,7 @@ int __video_register_device(struct video_device *vdev,
->  	int i = 0;
->  	int ret;
->  	int minor_offset = 0;
-> -	int minor_cnt = VIDEO_NUM_DEVICES;
-> +	int minor_cnt = video_nr_devices;
->  	const char *name_base;
->  
->  	/* A minor value of -1 marks this video device as never
-> @@ -1020,10 +1047,10 @@ int __video_register_device(struct video_device *vdev,
->  #else
->  	/* The device node number and minor numbers are independent, so
->  	   we just find the first free minor number. */
-> -	for (i = 0; i < VIDEO_NUM_DEVICES; i++)
-> +	for (i = 0; i < video_nr_devices; i++)
->  		if (video_devices[i] == NULL)
->  			break;
-> -	if (i == VIDEO_NUM_DEVICES) {
-> +	if (i == video_nr_devices) {
->  		mutex_unlock(&videodev_lock);
->  		pr_err("could not get a free minor\n");
->  		return -ENFILE;
-> @@ -1032,7 +1059,7 @@ int __video_register_device(struct video_device *vdev,
->  	vdev->minor = i + minor_offset;
->  	vdev->num = nr;
->  
-> -	if (WARN_ON(vdev->minor >= VIDEO_NUM_DEVICES)) {
-> +	if (WARN_ON(vdev->minor >= video_nr_devices)) {
->  		mutex_unlock(&videodev_lock);
->  		return -EINVAL;
->  	}
-> @@ -1241,7 +1268,7 @@ static int __init videodev_init(void)
->  	int ret;
->  
->  	pr_info("Linux video capture interface: v2.00\n");
-> -	ret = register_chrdev_region(dev, VIDEO_NUM_DEVICES, VIDEO_NAME);
-> +	ret = register_chrdev_region(dev, video_nr_devices, VIDEO_NAME);
->  	if (ret < 0) {
->  		pr_warn("videodev: unable to get major %d\n",
->  				VIDEO_MAJOR);
-> @@ -1250,11 +1277,21 @@ static int __init videodev_init(void)
->  
->  	ret = class_register(&video_class);
->  	if (ret < 0) {
-> -		unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> +		unregister_chrdev_region(dev, video_nr_devices);
->  		pr_warn("video_dev: class_register failed\n");
->  		return -EIO;
->  	}
->  
-> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> +	video_devices = kzalloc_objs(*video_devices, video_nr_devices);
-> +	if (!video_devices) {
-> +		class_unregister(&video_class);
-> +		unregister_chrdev_region(dev, video_nr_devices);
-> +		pr_warn("video_dev: failed to allocate video_devices\n");
-> +		return -ENOMEM;
-> +	}
-> +#endif
-> +
->  	return 0;
->  }
->  
-> @@ -1262,8 +1299,11 @@ static void __exit videodev_exit(void)
->  {
->  	dev_t dev = MKDEV(VIDEO_MAJOR, 0);
->  
-> +#ifndef CONFIG_VIDEO_FIXED_MINOR_RANGES
-> +	kvfree(video_devices);
-> +#endif
->  	class_unregister(&video_class);
-> -	unregister_chrdev_region(dev, VIDEO_NUM_DEVICES);
-> +	unregister_chrdev_region(dev, video_nr_devices);
->  	debugfs_remove_recursive(v4l2_debugfs_root_dir);
->  	v4l2_debugfs_root_dir = NULL;
->  }
-> -- 
-> 2.55.0
-> 
+tree:   git://linuxtv.org/sailus/media_tree.git frame-desc
+head:   7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04
+commit: 212ff03f220ab9cdff207d0ff3c6a459e1f1e1d5 [31/38] media: rkisp1: Use v4l2_subdev_get_frame_desc()
+config: i386-buildonly-randconfig-004-20260825 (https://download.01.org/0day-ci/archive/20260825/202608251350.1jKfLPih-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608251350.1jKfLPih-lkp@intel.com/reproduce)
 
-Hi,
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608251350.1jKfLPih-lkp@intel.com/
 
-Just following up on this patch.
-If there is any feedback on the proposed approach, I would appreciate it.
-If this is not aligned with the direction of the media subsystem or is
-otherwise not suitable for upstream, that's also completely fine; I'd just
-appreciate knowing so I can adjust my approach accordingly.
+All warnings (new ones prefixed by >>):
 
-Regards,
-Ali
+>> drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c:110:24: warning: format specifies type 'void *' but the argument has type 'long' [-Wformat]
+     109 |                         "failed to get frame descriptor from '%s':%u: %pe\n",
+         |                                                                       ~~
+         |                                                                       %ld
+     110 |                         source_sd->name, 0, PTR_ERR(fd));
+         |                                             ^~~~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   1 warning generated.
 
+
+vim +110 drivers/media/platform/rockchip/rkisp1/rkisp1-isp.c
+
+    86	
+    87	static int rkisp1_gasket_enable(struct rkisp1_device *rkisp1,
+    88					struct media_pad *source)
+    89	{
+    90		struct v4l2_subdev *source_sd;
+    91		unsigned int dt;
+    92		u32 mask;
+    93		u32 val;
+    94	
+    95		/*
+    96		 * Configure and enable the gasket with the CSI-2 data type. Set the
+    97		 * vsync polarity as active high, as that is what the ISP is configured
+    98		 * to expect in ISP_ACQ_PROP. Enable left justification, as the i.MX8MP
+    99		 * ISP has a 16-bit wide input and expects data to be left-aligned.
+   100		 */
+   101	
+   102		source_sd = media_entity_to_v4l2_subdev(source->entity);
+   103	
+   104		struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
+   105			v4l2_subdev_get_frame_desc(source_sd, source->index,
+   106						   V4L2_MBUS_FRAME_DESC_TYPE_CSI2);
+   107		if (IS_ERR(fd)) {
+   108			dev_err(rkisp1->dev,
+   109				"failed to get frame descriptor from '%s':%u: %pe\n",
+ > 110				source_sd->name, 0, PTR_ERR(fd));
+   111			return PTR_ERR(fd);
+   112		}
+   113	
+   114		if (fd->num_entries != 1) {
+   115			dev_err(rkisp1->dev, "invalid frame descriptor for '%s':%u\n",
+   116				source_sd->name, 0);
+   117			return -EINVAL;
+   118		}
+   119	
+   120		dt = fd->entry[0].bus.csi2.dt;
+   121	
+   122		if (rkisp1->gasket_id == 0) {
+   123			mask = ISP_DEWARP_CONTROL_MIPI_CSI1_HS_POLARITY
+   124			     | ISP_DEWARP_CONTROL_MIPI_CSI1_VS_SEL_MASK
+   125			     | ISP_DEWARP_CONTROL_MIPI_ISP1_LEFT_JUST_MODE
+   126			     | ISP_DEWARP_CONTROL_MIPI_ISP1_DATA_TYPE_MASK
+   127			     | ISP_DEWARP_CONTROL_GPR_ISP_0_DISABLE;
+   128			val = ISP_DEWARP_CONTROL_MIPI_CSI1_VS_SEL_POSITIVE
+   129			    | ISP_DEWARP_CONTROL_MIPI_ISP1_LEFT_JUST_MODE
+   130			    | ISP_DEWARP_CONTROL_MIPI_ISP1_DATA_TYPE(dt);
+   131		} else {
+   132			mask = ISP_DEWARP_CONTROL_MIPI_CSI2_HS_POLARITY
+   133			     | ISP_DEWARP_CONTROL_MIPI_CSI2_VS_SEL_MASK
+   134			     | ISP_DEWARP_CONTROL_MIPI_ISP2_LEFT_JUST_MODE
+   135			     | ISP_DEWARP_CONTROL_MIPI_ISP2_DATA_TYPE_MASK
+   136			     | ISP_DEWARP_CONTROL_GPR_ISP_1_DISABLE;
+   137			val = ISP_DEWARP_CONTROL_MIPI_CSI2_VS_SEL_POSITIVE
+   138			    | ISP_DEWARP_CONTROL_MIPI_ISP2_LEFT_JUST_MODE
+   139			    | ISP_DEWARP_CONTROL_MIPI_ISP2_DATA_TYPE(dt);
+   140		}
+   141	
+   142		regmap_update_bits(rkisp1->gasket, ISP_DEWARP_CONTROL, mask, val);
+   143	
+   144		return 0;
+   145	}
+   146	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
