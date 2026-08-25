@@ -1,52 +1,52 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F2134404E
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 07:34:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C932E3D3CE2
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 07:35:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787643245; cv=none; b=t7BFEZXfAnZufyrG6Qx+9vo3jBTifU6AoSAwr4z68lNCTVE+Itb4jHLJZmW1iHP/hCyaYIa/OHe8ioHrF+1uNskgxAIf+QCixFTnjWQHRWjgSMr1vbCiuugtthNSDiu1E7GfX8OobfLr1TOdYuwMqy5/9R63aCgPAw7SL6qa/VE=
+	t=1787643355; cv=none; b=fS1LUEAumPv+e3EnVDq1gG72liTdsar6fQJIqLU8pbcLF6OxaVY7B7cBEO2/wQxhtFAptOa8Fp5VQXqu5QdSny/NsVP3B6bTmcrfQrP5DSo7EqRVaR+WZMv8mKFyLzyztjLlYulELRDIdZxFT4cqqjISZQPR8InurTIYSpozY/c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787643245; c=relaxed/simple;
-	bh=Sal6T08EbwzV4/LeEzfhekoVfNtkaAYnfyB01YeUK6g=;
+	s=arc-20240116; t=1787643355; c=relaxed/simple;
+	bh=xXs48YmoUEJ/R7OZvNKIGzQomAC+YgOnaTpQbhhjLBU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tPdq6T75n1tlSL5qBb5toOk2jhHdxVbmEVsUcwqNdxJX9SSX9/DPhdZ98m2Rdn2Xq0qEqX453nNRBoL16mmM6XEcD9Q5psPI4ONy0FLxz7FqoQi9jSXaD7rKmdg0e7JXN0hM/pZwWb9dK5TZKjsJ1STBZc92GgosMelnQajUJsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GhAePQ4i; arc=none smtp.client-ip=198.175.65.10
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yc09tGl4JgnPv7JxA0LXY9vpknodMoSMu7muxNcLc592e3MUpRKuLCuVVL7RcMh2eCN4F5ZJ/TGCJYhR/SK8e6Q7FPSfoisBq451GQV9s9G2ZYw1p6UQufg0UIw5MBUc8exJ9E951MRWVJmA769hBODSDj950umBV8llF4CFihQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XTysDP+L; arc=none smtp.client-ip=192.198.163.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GhAePQ4i"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XTysDP+L"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787643244; x=1819179244;
+  t=1787643353; x=1819179353;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=Sal6T08EbwzV4/LeEzfhekoVfNtkaAYnfyB01YeUK6g=;
-  b=GhAePQ4iGM7yF65SpAPHjX3OUWOTtEHlQUid0QcFgSkpkx4gBApNHcjV
-   +vV+5POa7BdE8p8vjVH9e1EizsXnaFU7rVSWrIzhFNstqtbohgV24jd0C
-   rYIcjBVkiUox21D4U90Z3lxbKOhfoPnEQrEBEUf0//8qit+w7OWgr5yHJ
-   Euv0T+0UFq1dmfbioiV/pPdCV3HKuaRuad6sgD5jfu1M+o9PUPz5+7Zc6
-   akyLuMCNDoKv/hx8qCeAL9KPsnE7uK8W638CS9cvZ42zYBBwUyzMChtWu
-   CVvwBpRwZP3hdudXHBVZsYt+2nmkO22cB9XVMElMBxd/dB238BHCXnXQw
-   g==;
-X-CSE-ConnectionGUID: PeQm8F6ETeO5wPLFISrA2Q==
-X-CSE-MsgGUID: AnPh01IaT+21PhHbhqGVHw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="105483944"
+  bh=xXs48YmoUEJ/R7OZvNKIGzQomAC+YgOnaTpQbhhjLBU=;
+  b=XTysDP+LO9JDWPwA135dtS5rPNLhAdZ/Gi9O1zepW3LeSwipmKRsieNz
+   kwW0ABimIszQiEaMJ+PEyrXCGb0XEFxpORGTkX/xqt7igy8Zdc43ScCer
+   ZZeau87OT/ZB17gtx+mC6YNx/AGd6tL5Nm9KstoyZggZ/xbMoXt8oa/19
+   kKYNBZssU4l4EK4Bao20zFnlR6frjjTpihgYvbFrf6WVPdr7ygGlkVi7l
+   vMTq+lFRnDy27EYqqpQT1HR3GTwERgMB88zdbynsNEuMDnjnIy89LVDCi
+   8CEwAGM+5JS7BRToxDQWa0nvVtOU07tlWvEdxYAWycRRO4jixrQCA1FXr
+   w==;
+X-CSE-ConnectionGUID: BilXO3R3Rb6Yk76PW1L5oA==
+X-CSE-MsgGUID: X5nkL9FmQhifsSH/oYO/zQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="105633777"
 X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="105483944"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:34:03 -0700
-X-CSE-ConnectionGUID: RkqWjf+sQjiXpLS00Z0/BA==
-X-CSE-MsgGUID: ji+5n5t/QSqF5YrESmHsoQ==
+   d="scan'208";a="105633777"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:35:51 -0700
+X-CSE-ConnectionGUID: 9J3VVumCT+ST7GwoXYsdHQ==
+X-CSE-MsgGUID: RfhdvC5xSTeE1l/T6Ei88g==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="290741016"
+   d="scan'208";a="266667539"
 Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.50])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:34:01 -0700
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:35:49 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5C6CE12033D;
-	Tue, 25 Aug 2026 10:34:12 +0300 (EEST)
-Date: Tue, 25 Aug 2026 10:34:12 +0300
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B4B7412033D;
+	Tue, 25 Aug 2026 10:36:00 +0300 (EEST)
+Date: Tue, 25 Aug 2026 10:36:00 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
 To: Frank Li <Frank.li@oss.nxp.com>
@@ -57,12 +57,12 @@ Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
 	Mehdi Djait <mehdi.djait@linux.intel.com>,
 	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 28/29] media: v4l2-subdev: Use
- v4l2_subdev_get_frame_desc() for passthrough
-Message-ID: <ao1FdDPwuOOb0sPY@kekkonen.localdomain>
+Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically
+ allocated pass-through routes
+Message-ID: <ao1F4LMQ9FjCl7-z@kekkonen.localdomain>
 References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-29-sakari.ailus@linux.intel.com>
- <aoy5oEnNS7z_Dcby@lizhi-Precision-Tower-5810>
+ <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
+ <aoyw4BDB21IgUc3V@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,43 +71,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <aoy5oEnNS7z_Dcby@lizhi-Precision-Tower-5810>
+In-Reply-To: <aoyw4BDB21IgUc3V@lizhi-Precision-Tower-5810>
 
 Hi Frank,
 
-Thank you for the review.
-
-On Mon, Aug 24, 2026 at 05:37:36PM -0400, Frank Li wrote:
-> On Mon, Aug 24, 2026 at 03:14:50PM +0300, Sakari Ailus wrote:
-> > Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor in
-> > __v4l2_subdev_get_frame_desc_passthrough(). This is preferred over calling
-> > the get_frame_desc() pad operation directly.
+On Mon, Aug 24, 2026 at 05:00:16PM -0400, Frank Li wrote:
+> On Mon, Aug 24, 2026 at 03:14:37PM +0300, Sakari Ailus wrote:
+> > Count the number of pass-through routes, allocate memory and then return
+> > the full table to the caller.
 > >
 > > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 > > ---
-> >  drivers/media/v4l2-core/v4l2-subdev.c | 34 +++++++++++++--------------
-> >  1 file changed, 17 insertions(+), 17 deletions(-)
+> >  drivers/media/v4l2-core/v4l2-subdev.c | 61 +++++++++++++++++++++++----
+> >  1 file changed, 52 insertions(+), 9 deletions(-)
 > >
 > > diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> > index 8c3c5b6e4ee8..2172bb8313ec 100644
+> > index c9f38b0313eb..d34704aad88e 100644
 > > --- a/drivers/media/v4l2-core/v4l2-subdev.c
 > > +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> > @@ -2558,6 +2558,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> >  					     unsigned int pad,
-> >  					     struct v4l2_mbus_frame_desc *fd)
-> >  {
-> > +	struct v4l2_mbus_frame_desc *source_fd = NULL;
+> > @@ -2561,13 +2561,42 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+> >  	struct media_pad *local_sink_pad;
+> >  	struct v4l2_subdev_route *route;
+> >  	struct device *dev = sd->dev;
+> > -	int ret = 0;
+> > +	unsigned int num_entries = 0;
+> > +	int ret;
+> >
+> >  	lockdep_assert_held(state->lock);
+> >
+> >  	if (WARN_ON(!(sd->entity.pads[pad].flags & MEDIA_PAD_FL_SOURCE)))
+> >  		return -EINVAL;
+> >
+> > +	/* Count the number of entries first */
+> > +	media_entity_for_each_pad(&sd->entity, local_sink_pad) {
+> > +		if (!(local_sink_pad->flags & MEDIA_PAD_FL_SINK))
+> > +			continue;
+> > +
+> > +		for_each_active_route(&state->routing, route) {
+> > +			if (route->source_pad != pad ||
+> > +			    route->sink_pad != local_sink_pad->index)
+> > +				continue;
+> > +
+> > +			num_entries++;
+> > +
+> > +			if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
+> > +				return -E2BIG;
+> > +		}
+> > +	}
+> > +
+> > +	if (num_entries > V4L2_FRAME_DESC_ENTRY_MAX)
+> > +		return -E2BIG;
+> > +
+> > +	if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
+> > +		fd->entry = kzalloc_objs(*fd->entry, num_entries, GFP_KERNEL);
 > 
-> why not use auto cleanup like other patches? look like only use in loop
-> media_entity_for_each_pad()
+> nit: Default should be GFP_KERNEL, needn't GFP_KERNEL when call kzalloc_objs()
 
-That would be doable but I think it's cleaner this way. The recommended
-usage of __free() is to declare the variable to be __free()'d to a non-NULL
-value where it is needed and we can't do that here as we only find out from
-routing whether we need to obtain any frame descriptors (or we could, but
-that would involve going through routes twice).
+I'll drop that in v4.
+
+> 
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+
+Thank you.
 
 -- 
-Kind regards,
+Regards,
 
 Sakari Ailus
