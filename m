@@ -1,92 +1,141 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F113C1ACED5
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 06:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379793CFF56
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 07:12:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787640511; cv=none; b=Pq9H9aaOwlq8Wsc8Fynb+q159RHhQw/TvcBwPQQ4kkntkViLEEatxPNSq2AWCY7POgRWCC75TlaQgv3R39qp8XpgAaLF4Ydo2XvqkJld/oaX9UIdM0mJRNR3yIc8LQLRj7F16wNfY0C8efvcX8W1U5EC+yiL9vEfqdAn/s8kM5E=
+	t=1787641970; cv=none; b=W3QEegEpZ0rIR8Zg7YsIs5pfwKESLkQETDRjUJagAdNO/0htug32BYV8nHtyzAKfgVuV5BdMWuC1m+BzbxCCEPBMRpqZZLPNqf4pL6zeCPEDF1DTeWbdmYyTItm1BBMdsYbqFTwhSwVi8cknk1XC2l63rtsz8HDCvolk3DNPgyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787640511; c=relaxed/simple;
-	bh=LvQb9X5RgIvOZR+GB6sX2HCVsUnZnUG/CxvF68tlPK0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RJGaF0A8LeieLcDp4iauKXgONWQ/5eEU5DeB6p+J8TCCeGlEY943av0On+mPdGsUCVJELhVHyAi3di0mssAe9Nq2jvlE6CCz8dm3KKqQ7x609L7EFN83Yl9vBolwQTQJhb4K/qtc0vfQ6RVhEnlDRhf6jYv8NXgV+9BA60okIVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
-X-CTIC-Tags:
-	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
-	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
-	HR_DATE_ZONE, HR_FROM_NAME, HR_SJ_LANG, HR_SJ_LEN, HR_SJ_LETTER
-	HR_SJ_NOR_SYM, HR_SJ_PHRASE, HR_SJ_PHRASE_LEN, HR_SJ_WS, HR_TO_CHARSET
-	HR_TO_CHARSET_NUM, HR_TO_COUNT, HR_TO_DOMAIN_COUNT, HR_TO_NAME, IP_UNTRUSTED
-	SRC_UNTRUSTED, IP_UNFAMILIAR, SRC_UNFAMILIAR, DN_TRUSTED, SRC_TRUSTED
-	SA_EXISTED, SN_UNTRUSTED, SN_LOWREP, SN_EXISTED, SPF_NOPASS
-	DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN
-	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8,IP:10,
-	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
-	N:release,TS:5
-X-CID-INFO: VERSION:1.3.19,REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:5
-X-CID-META: VersionHash:7db8b62,CLOUDID:c3e46c1cf2c82a3bb5de4a970c6e606f,BulkI
-	D:260825144824CR8KV65X,BulkQuantity:0,SF:19|38|66|72|78|102|127|850|865|89
-	8,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
-	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
-	0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
-X-User: lihaojie@kylinos.cn
-Received: from localhost.localdomain [(39.144.194.152)] by mailgw.kylinos.cn
-	(envelope-from <lihaojie@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1786909968; Tue, 25 Aug 2026 14:48:20 +0800
-From: Haojie Li <lihaojie@kylinos.cn>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Haojie Li <lihaojie@kylinos.cn>
-Subject: [PATCH] dma-buf: fix coding style in dma_resv_get_singleton
-Date: Tue, 25 Aug 2026 14:48:15 +0800
-Message-Id: <20260825064815.331653-1-lihaojie@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1787641970; c=relaxed/simple;
+	bh=wAJFSNQPmnCBjZ28cGYqTUCHCunQXd+/We0PP3JkjjE=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=ZLPJnQpx19WoY9b7DEQIcFG0WimHL2oi0V/kFMAAwpGhXVrWY+TFzxEMomqunlhtYmWE161QGSRk0zCwD0yWL5pvHAEOU0VJjrKOPYDcZ94a+jUMlhF4ev5ay7AVfp/hleaCc73pwu1n79x9X4jJwh4bTzlI8g35znGujMlXPVE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=beJa2YUm; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="beJa2YUm"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787641968; x=1819177968;
+  h=date:from:to:cc:subject:message-id;
+  bh=wAJFSNQPmnCBjZ28cGYqTUCHCunQXd+/We0PP3JkjjE=;
+  b=beJa2YUm/I02kmxNrsIMU/+DXVnY2QE0aZDAppBQEbOcYltLdwCAFQ6/
+   a3zo133cipjibG68+TsLH1+gKJmAdF7odA8gHi223tDPiMX/n6LhMrAwM
+   Q2W4J2Idkhr3MrQllcehwK9jrQ+8Z2tb8aeskGy53w3miE6tIlbcnfIm9
+   93cZwy3FtltycJq2Gib9/gjzLIVFBJPpwJRJNQr1tyePI2RUZyNKAIDJf
+   LV1erlG+sWr9y2RZH9sh/I8Y4QIvn/+1I6rS9K1ok5tValYbXVYMADRL9
+   FfxFJJJlZ25oeT30ENauOw+iizmJ9sFdDRym3ZZ76EYfxQvUntHgKaiNb
+   w==;
+X-CSE-ConnectionGUID: G8gm18Q8Qc+8V77Yhvt7KQ==
+X-CSE-MsgGUID: jbxWNqP1R3irz5ma2S1YEg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="98437657"
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
+   d="scan'208";a="98437657"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:12:44 -0700
+X-CSE-ConnectionGUID: aJu6lp8wT4u4WZuGcctW3g==
+X-CSE-MsgGUID: ipfZARNLSjCqczqiSW15ig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
+   d="scan'208";a="265892772"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa010.jf.intel.com with ESMTP; 25 Aug 2026 00:12:43 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1wylKq-000000005CZ-3AYW;
+	Tue, 25 Aug 2026 07:12:40 +0000
+Date: Tue, 25 Aug 2026 15:12:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ linux-media@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
+Subject: [sailus-media-tree:frame-desc 28/38]
+ drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c:52:33: warning:
+ format specifies type 'void *' but the argument has type 'long'
+Message-ID: <202608251501.bsoTG84r-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The conditional "if (r)" following the dma_resv_get_fences() call was
-indented with spaces instead of a tab, violating the kernel coding
-style. Fix it to use a single tab for consistency with the rest of
-the function.
+tree:   git://linuxtv.org/sailus/media_tree.git frame-desc
+head:   7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04
+commit: d4fcc2fd2e12bdb46cd8a49eff24056dd12ad846 [28/38] media: nxp: imx8-isi: Use v4l2_subdev_get_frame_desc()
+config: arm64-randconfig-002-20260825 (https://download.01.org/0day-ci/archive/20260825/202608251501.bsoTG84r-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 935bfc708590c60147a79c7df145bb6e68b1d388)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608251501.bsoTG84r-lkp@intel.com/reproduce)
 
-Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
----
- drivers/dma-buf/dma-resv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202608251501.bsoTG84r-lkp@intel.com/
 
-diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
-index 39a92d9f2413..2365a6d8ca15 100644
---- a/drivers/dma-buf/dma-resv.c
-+++ b/drivers/dma-buf/dma-resv.c
-@@ -633,7 +633,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
- 	int r;
- 
- 	r = dma_resv_get_fences(obj, usage, &count, &fences);
--        if (r)
-+	if (r)
- 		return r;
- 
- 	if (count == 0) {
--- 
-2.25.1
+All warnings (new ones prefixed by >>):
 
+>> drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c:52:33: warning: format specifies type 'void *' but the argument has type 'long' [-Wformat]
+      51 |                         "failed to get frame descriptor from '%s':%u: %pe\n",
+         |                                                                       ~~
+         |                                                                       %ld
+      52 |                         remote_sd->name, remote_pad, PTR_ERR(fd));
+         |                                                      ^~~~~~~~~~~
+   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
+     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
+         |                                                                ~~~     ^~~~~~~~~~~
+   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
+     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
+         |                              ~~~    ^~~~~~~~~~~
+   1 warning generated.
+
+
+vim +52 drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
+
+    27	
+    28	static int mxc_isi_crossbar_gasket_enable(struct mxc_isi_crossbar *xbar,
+    29						  struct v4l2_subdev_state *state,
+    30						  struct v4l2_subdev *remote_sd,
+    31						  u32 remote_pad, unsigned int port)
+    32	{
+    33		struct mxc_isi_dev *isi = xbar->isi;
+    34		const struct mxc_gasket_ops *gasket_ops = isi->pdata->gasket_ops;
+    35		const struct v4l2_mbus_framefmt *fmt;
+    36	
+    37		if (!gasket_ops)
+    38			return 0;
+    39	
+    40		/*
+    41		 * Configure and enable the gasket with the frame size and CSI-2 data
+    42		 * type. For YUV422 8-bit, enable dual component mode unconditionally,
+    43		 * to match the configuration of the CSIS.
+    44		 */
+    45	
+    46		struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
+    47			v4l2_subdev_get_frame_desc(remote_sd, remote_pad,
+    48						   V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL);
+    49		if (IS_ERR(fd)) {
+    50			dev_err(isi->dev,
+    51				"failed to get frame descriptor from '%s':%u: %pe\n",
+  > 52				remote_sd->name, remote_pad, PTR_ERR(fd));
+    53			return PTR_ERR(fd);
+    54		}
+    55	
+    56		if (fd->num_entries != 1) {
+    57			dev_err(isi->dev, "invalid frame descriptor for '%s':%u\n",
+    58				remote_sd->name, remote_pad);
+    59			return -EINVAL;
+    60		}
+    61	
+    62		fmt = v4l2_subdev_state_get_format(state, port, 0);
+    63		if (!fmt)
+    64			return -EINVAL;
+    65	
+    66		gasket_ops->enable(isi, fd, fmt, port);
+    67		return 0;
+    68	}
+    69	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
