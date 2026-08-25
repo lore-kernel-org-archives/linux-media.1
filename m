@@ -1,19 +1,19 @@
 Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 927CA3CCFB4
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 06:40:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F113C1ACED5
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 06:48:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787640059; cv=none; b=Puas/d1/mLP+/afCQN6Jnr5ZeN90vjm6NnRApjHVhpbVSat0lhGNYDw9To6KaW5bAaD7k5YGvmHUAc/337dt1GR356qVlgV7IEt6cMcUCQQ+VCi5eRq4TnE00zkDUq9qWx57J5GqnBndr6iAi04gPeKuEmerY0PB3zYIJWMDfdo=
+	t=1787640511; cv=none; b=Pq9H9aaOwlq8Wsc8Fynb+q159RHhQw/TvcBwPQQ4kkntkViLEEatxPNSq2AWCY7POgRWCC75TlaQgv3R39qp8XpgAaLF4Ydo2XvqkJld/oaX9UIdM0mJRNR3yIc8LQLRj7F16wNfY0C8efvcX8W1U5EC+yiL9vEfqdAn/s8kM5E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787640059; c=relaxed/simple;
-	bh=YrCLIVIlkcpHfnHwCQcXK/+RM3szzKqkXKnx7EfESFg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=A0D7NTxJq5IX5GM0SRvp7aru5jnkXhzndCWHJbMoFR8M39Cmcua21zX0WZP5sJ9XhSjiOJT81FG1utMSVXtJ5jj2q4Mc908WN0LYJ23OnQcUcSLyUrv6ZnFkA/OJoVHFJQpC4YDDGYtkRcCmbBEUUdkO8LRzzEm/gjV8zK9Vnd4=
+	s=arc-20240116; t=1787640511; c=relaxed/simple;
+	bh=LvQb9X5RgIvOZR+GB6sX2HCVsUnZnUG/CxvF68tlPK0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RJGaF0A8LeieLcDp4iauKXgONWQ/5eEU5DeB6p+J8TCCeGlEY943av0On+mPdGsUCVJELhVHyAi3di0mssAe9Nq2jvlE6CCz8dm3KKqQ7x609L7EFN83Yl9vBolwQTQJhb4K/qtc0vfQ6RVhEnlDRhf6jYv8NXgV+9BA60okIVY=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: e78ab7caa04f11f19a56ed5b684f684d-20260825
+X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
 X-CTIC-Tags:
 	HR_CC_COUNT, HR_CC_DOMAIN_COUNT, HR_CC_NAME, HR_CC_NO_NAME, HR_CHARSET
 	HR_CHARSET_NUM, HR_CTE_8B, HR_CTT_MISS, HR_DATE_H, HR_DATE_WKD
@@ -25,36 +25,36 @@ X-CTIC-Tags:
 	DKIM_NOPASS, DMARC_NOPASS, CIE_BAD, CIE_GOOD_SPF, CIE_UNKNOWN
 	GTI_FG_BS, GTI_RG_INFO, GTI_C_BU, AMN_GOOD, ABX_MISS_RDNS
 X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:0d4add6c-27b6-4099-b782-63db9ee9aa37,IP:10,
-	URL:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTI
-	ON:release,TS:30
-X-CID-INFO: VERSION:1.3.19,REQID:0d4add6c-27b6-4099-b782-63db9ee9aa37,IP:10,UR
-	L:0,TC:0,Content:-5,EDM:25,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:30
-X-CID-META: VersionHash:7db8b62,CLOUDID:52b52c48527d04a9a0a55fc01bd7232e,BulkI
-	D:2608251440512QIFWYIK,BulkQuantity:0,SF:19|38|66|72|78|102|127|136|850|86
-	5|898,TC:nil,Content:0|15|50,EDM:5|-100,IP:-2,URL:0,File:nil,RT:nil,Bulk:n
-	il,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BR
-	E:0,ARC:0
+X-CID-O-INFO: VERSION:1.3.19,REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8,IP:10,
+	URL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTIO
+	N:release,TS:5
+X-CID-INFO: VERSION:1.3.19,REQID:6d8ea21a-811b-45cd-bbdd-64524ccf41e8,IP:10,UR
+	L:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:5
+X-CID-META: VersionHash:7db8b62,CLOUDID:c3e46c1cf2c82a3bb5de4a970c6e606f,BulkI
+	D:260825144824CR8KV65X,BulkQuantity:0,SF:19|38|66|72|78|102|127|850|865|89
+	8,TC:nil,Content:0|15|50,EDM:-3,IP:-2,URL:0,File:nil,RT:nil,Bulk:nil,QS:ni
+	l,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:
+	0
 X-CID-BVR: 2,SSN|SDN
 X-CID-BAS: 2,SSN|SDN,0,_
 X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_FSD
 X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: e78ab7caa04f11f19a56ed5b684f684d-20260825
+X-UUID: f56db44aa05011f19a56ed5b684f684d-20260825
 X-User: lihaojie@kylinos.cn
 Received: from localhost.localdomain [(39.144.194.152)] by mailgw.kylinos.cn
 	(envelope-from <lihaojie@kylinos.cn>)
 	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 72568527; Tue, 25 Aug 2026 14:40:47 +0800
+	with ESMTP id 1786909968; Tue, 25 Aug 2026 14:48:20 +0800
 From: Haojie Li <lihaojie@kylinos.cn>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
 	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
 Cc: linux-media@vger.kernel.org,
 	dri-devel@lists.freedesktop.org,
 	Haojie Li <lihaojie@kylinos.cn>
-Subject: [PATCH] dma-buf: fix comment in dma_buf_llseek to match implementation
-Date: Tue, 25 Aug 2026 14:40:41 +0800
-Message-Id: <20260825064041.328640-1-lihaojie@kylinos.cn>
+Subject: [PATCH] dma-buf: fix coding style in dma_resv_get_singleton
+Date: Tue, 25 Aug 2026 14:48:15 +0800
+Message-Id: <20260825064815.331653-1-lihaojie@kylinos.cn>
 X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -64,31 +64,29 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The comment in dma_buf_llseek() referenced a "SEEK_END(0), SEEK_CUR(0)
-pattern", but the implementation does not support SEEK_CUR - it only
-handles SEEK_END and SEEK_SET, returning -EINVAL for anything else.
-
-Replace SEEK_CUR with SEEK_SET in the comment so that it accurately
-describes the supported idiomatic pattern.
+The conditional "if (r)" following the dma_resv_get_fences() call was
+indented with spaces instead of a tab, violating the kernel coding
+style. Fix it to use a single tab for consistency with the rest of
+the function.
 
 Signed-off-by: Haojie Li <lihaojie@kylinos.cn>
 ---
- drivers/dma-buf/dma-buf.c | 2 +-
+ drivers/dma-buf/dma-resv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc29..60571a2ecc23 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -260,7 +260,7 @@ static loff_t dma_buf_llseek(struct file *file, loff_t offset, int whence)
+diff --git a/drivers/dma-buf/dma-resv.c b/drivers/dma-buf/dma-resv.c
+index 39a92d9f2413..2365a6d8ca15 100644
+--- a/drivers/dma-buf/dma-resv.c
++++ b/drivers/dma-buf/dma-resv.c
+@@ -633,7 +633,7 @@ int dma_resv_get_singleton(struct dma_resv *obj, enum dma_resv_usage usage,
+ 	int r;
  
- 	/* only support discovering the end of the buffer,
- 	 * but also allow SEEK_SET to maintain the idiomatic
--	 * SEEK_END(0), SEEK_CUR(0) pattern.
-+	 * SEEK_END(0), SEEK_SET(0) pattern.
- 	 */
- 	if (whence == SEEK_END)
- 		base = dmabuf->size;
+ 	r = dma_resv_get_fences(obj, usage, &count, &fences);
+-        if (r)
++	if (r)
+ 		return r;
+ 
+ 	if (count == 0) {
 -- 
 2.25.1
 
