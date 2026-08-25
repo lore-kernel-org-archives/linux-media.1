@@ -1,141 +1,167 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 379793CFF56
-	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 07:12:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862483CEBBB;
+	Tue, 25 Aug 2026 07:21:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787641970; cv=none; b=W3QEegEpZ0rIR8Zg7YsIs5pfwKESLkQETDRjUJagAdNO/0htug32BYV8nHtyzAKfgVuV5BdMWuC1m+BzbxCCEPBMRpqZZLPNqf4pL6zeCPEDF1DTeWbdmYyTItm1BBMdsYbqFTwhSwVi8cknk1XC2l63rtsz8HDCvolk3DNPgyA=
+	t=1787642501; cv=none; b=CbLWiqsljlGMX9F15sEA+yhkSy8GwN+lL72ROKSzZ2kFUcg7tNinzlIksi8jwwjnMheT6+bvtdhO7LzFqvOFFHoLFCmAb6Hs2lh5zvtvN1D5+pp/rOmChr+l1oojikme3phbbBRBqNIK3mjJTHFIV0bOTkXuiNojdFo1oAEBMeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787641970; c=relaxed/simple;
-	bh=wAJFSNQPmnCBjZ28cGYqTUCHCunQXd+/We0PP3JkjjE=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=ZLPJnQpx19WoY9b7DEQIcFG0WimHL2oi0V/kFMAAwpGhXVrWY+TFzxEMomqunlhtYmWE161QGSRk0zCwD0yWL5pvHAEOU0VJjrKOPYDcZ94a+jUMlhF4ev5ay7AVfp/hleaCc73pwu1n79x9X4jJwh4bTzlI8g35znGujMlXPVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=beJa2YUm; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787642501; c=relaxed/simple;
+	bh=HYlImQsUiycttBRc9q8I68WzOfPR90j1mrb7B9SGsHU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cmyz1DS76urxGp+c5wLHRcZPErZepN8mhnuegaoOGxfoindky8MvPzHbEPsUdDtzDhy9ntKh2Od0RDeigZXr7GgNrprxXR1XWl5hB4oiBEXTnL5F9yHiE282h6HgDBCcqJ3PDwJam6MSkPKHQGZEPYE0IM5IipmfoZcFUtH6yUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5uKnFVN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="beJa2YUm"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787641968; x=1819177968;
-  h=date:from:to:cc:subject:message-id;
-  bh=wAJFSNQPmnCBjZ28cGYqTUCHCunQXd+/We0PP3JkjjE=;
-  b=beJa2YUm/I02kmxNrsIMU/+DXVnY2QE0aZDAppBQEbOcYltLdwCAFQ6/
-   a3zo133cipjibG68+TsLH1+gKJmAdF7odA8gHi223tDPiMX/n6LhMrAwM
-   Q2W4J2Idkhr3MrQllcehwK9jrQ+8Z2tb8aeskGy53w3miE6tIlbcnfIm9
-   93cZwy3FtltycJq2Gib9/gjzLIVFBJPpwJRJNQr1tyePI2RUZyNKAIDJf
-   LV1erlG+sWr9y2RZH9sh/I8Y4QIvn/+1I6rS9K1ok5tValYbXVYMADRL9
-   FfxFJJJlZ25oeT30ENauOw+iizmJ9sFdDRym3ZZ76EYfxQvUntHgKaiNb
-   w==;
-X-CSE-ConnectionGUID: G8gm18Q8Qc+8V77Yhvt7KQ==
-X-CSE-MsgGUID: jbxWNqP1R3irz5ma2S1YEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="98437657"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="98437657"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 00:12:44 -0700
-X-CSE-ConnectionGUID: aJu6lp8wT4u4WZuGcctW3g==
-X-CSE-MsgGUID: ipfZARNLSjCqczqiSW15ig==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="265892772"
-Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
-  by orviesa010.jf.intel.com with ESMTP; 25 Aug 2026 00:12:43 -0700
-Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1wylKq-000000005CZ-3AYW;
-	Tue, 25 Aug 2026 07:12:40 +0000
-Date: Tue, 25 Aug 2026 15:12:23 +0800
-From: kernel test robot <lkp@intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-media@vger.kernel.org, Frank Li <Frank.Li@nxp.com>
-Subject: [sailus-media-tree:frame-desc 28/38]
- drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c:52:33: warning:
- format specifies type 'void *' but the argument has type 'long'
-Message-ID: <202608251501.bsoTG84r-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5uKnFVN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54B6A1F000E9;
+	Tue, 25 Aug 2026 07:21:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787642500;
+	bh=rYTDFbaE1JJfaMo+4gmChPHhIQlrt73MEiayTTjME6k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=L5uKnFVN6U7JlDpZjykUYsM31mRreDBUSIQQxhl6O0emTFTI0MCN5iu57fN5BLwsY
+	 clMRmla9IT/J2d4ZtzQkQMz64gKEL7j+jJI4AO7krfKlUj3p3t8nTnI4RUG1dthoIy
+	 yjfFJpTJq3h71mEBqLe51I6RCD3NLSbg8E3K80luAGV1qOEPXwuSMBbwDDIOvILkQj
+	 2Xryd1YQ6/+UlWjX+jTQAUnVzN+56Zu1uB/bcHQxvVaHTLuU7VygGRMRDJ0ZUktl7l
+	 OXg6A4BlxLOq0jhKVFXXk06vroD1BwrvR8kaiEeTwfChjcv/OVzJL3Qkcxpa+d1DXi
+	 9KLhSCW+m64jg==
+Message-ID: <d24d59bb-2330-41c9-a6cc-a4c7053f8526@kernel.org>
+Date: Tue, 25 Aug 2026 09:21:33 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] media: dt-bindings: Add Rockchip JPEG decoder
+To: Sascha Hauer <s.hauer@pengutronix.de>,
+ Lucas Sinn <lucas.sinn@wolfvision.net>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-media@vger.kernel.org, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260824-rockchip-jpegdec-v1-0-8011822bf500@pengutronix.de>
+ <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260824-rockchip-jpegdec-v1-1-8011822bf500@pengutronix.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-tree:   git://linuxtv.org/sailus/media_tree.git frame-desc
-head:   7c1e8e3f907ccd6c51f2c23e1a4ac09b6d4b1f04
-commit: d4fcc2fd2e12bdb46cd8a49eff24056dd12ad846 [28/38] media: nxp: imx8-isi: Use v4l2_subdev_get_frame_desc()
-config: arm64-randconfig-002-20260825 (https://download.01.org/0day-ci/archive/20260825/202608251501.bsoTG84r-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 935bfc708590c60147a79c7df145bb6e68b1d388)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260825/202608251501.bsoTG84r-lkp@intel.com/reproduce)
+On 24/08/2026 09:01, Sascha Hauer wrote:
+> Add a devicetree binding schema for the JPEG hardware decoder Rockchip
+> integrates into a number of its SoCs.  Documents the single register
+> window (task registers plus the LLP link-table block at offset 0x300),
+> the decode interrupt, the aclk/hclk clocks, the AXI/AHB resets, the IOMMU
+> and the power domain.
+> 
+> The core is not tied to one SoC.  Downstream it is known as the VDPU720
+> and the same block sits on the RK3528, RK3562, RK356x, RK3576, RK3588 and
+> RV1126B, with only the clocks, the resets and the power domain differing,
+> none of which this schema constrains.  A compatible per SoC is all it
+> takes to cover them; the RK3568 and the RK3588 are the two that have been
+> tested and are enabled here.
+> 
+> The resets and the power domain are required.  The block cannot be
+> reached with its domain off, and the driver falls back to pulsing the
+> reset lines when a frame times out and the in-block soft reset does not
+> complete, which a node without them would leave with no way to recover.
+> 
+> The IOMMU stays optional.  The driver never refers to it, it is a platform
+> integration detail, and rockchip-vpu.yaml does not require it for the
+> other codec blocks on these SoCs either.
+> 
+> Assisted-by: Claude:claude-opus-5
+> ---
+>  .../bindings/media/rockchip,jpeg-decoder.yaml      | 92 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  8 ++
+>  2 files changed, 100 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> new file mode 100644
+> index 0000000000000..e20c1bf43ef3e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/rockchip,jpeg-decoder.yaml
+> @@ -0,0 +1,92 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/rockchip,jpeg-decoder.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Rockchip JPEG Decoder
+> +
+> +maintainers:
+> +  - Lucas Sinn <lucas.sinn@wolfvision.net>
+> +  - Sascha Hauer <s.hauer@pengutronix.de>
+> +
+> +description:
+> +  Rockchip's in-house JPEG/MJPEG hardware decoder, known downstream as the
+> +  VDPU720.  The same core is integrated into a number of Rockchip SoCs, which
+> +  differ only in the clocks, resets and power domain they are wired to.  A
+> +  dedicated Link List Processor (LLP) register block, located at offset 0x300
+> +  within the same register window, allows the hardware to decode a chain of
+> +  frames autonomously ("link mode").
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - rockchip,rk3568-jpegd
+> +      - rockchip,rk3588-jpegd
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202608251501.bsoTG84r-lkp@intel.com/
+How this can be v1 if you send VPU720 for rk3588 already?
 
-All warnings (new ones prefixed by >>):
+https://lore.kernel.org/all/20260819-rk3588-jpegdec-v1-4-33d74cdf369c@pengutronix.de/
 
->> drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c:52:33: warning: format specifies type 'void *' but the argument has type 'long' [-Wformat]
-      51 |                         "failed to get frame descriptor from '%s':%u: %pe\n",
-         |                                                                       ~~
-         |                                                                       %ld
-      52 |                         remote_sd->name, remote_pad, PTR_ERR(fd));
-         |                                                      ^~~~~~~~~~~
-   include/linux/dev_printk.h:154:65: note: expanded from macro 'dev_err'
-     154 |         dev_printk_index_wrap(_dev_err, KERN_ERR, dev, dev_fmt(fmt), ##__VA_ARGS__)
-         |                                                                ~~~     ^~~~~~~~~~~
-   include/linux/dev_printk.h:110:23: note: expanded from macro 'dev_printk_index_wrap'
-     110 |                 _p_func(dev, fmt, ##__VA_ARGS__);                       \
-         |                              ~~~    ^~~~~~~~~~~
-   1 warning generated.
+Were there more versions?
 
-
-vim +52 drivers/media/platform/nxp/imx8-isi/imx8-isi-crossbar.c
-
-    27	
-    28	static int mxc_isi_crossbar_gasket_enable(struct mxc_isi_crossbar *xbar,
-    29						  struct v4l2_subdev_state *state,
-    30						  struct v4l2_subdev *remote_sd,
-    31						  u32 remote_pad, unsigned int port)
-    32	{
-    33		struct mxc_isi_dev *isi = xbar->isi;
-    34		const struct mxc_gasket_ops *gasket_ops = isi->pdata->gasket_ops;
-    35		const struct v4l2_mbus_framefmt *fmt;
-    36	
-    37		if (!gasket_ops)
-    38			return 0;
-    39	
-    40		/*
-    41		 * Configure and enable the gasket with the frame size and CSI-2 data
-    42		 * type. For YUV422 8-bit, enable dual component mode unconditionally,
-    43		 * to match the configuration of the CSIS.
-    44		 */
-    45	
-    46		struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_desc) =
-    47			v4l2_subdev_get_frame_desc(remote_sd, remote_pad,
-    48						   V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL);
-    49		if (IS_ERR(fd)) {
-    50			dev_err(isi->dev,
-    51				"failed to get frame descriptor from '%s':%u: %pe\n",
-  > 52				remote_sd->name, remote_pad, PTR_ERR(fd));
-    53			return PTR_ERR(fd);
-    54		}
-    55	
-    56		if (fd->num_entries != 1) {
-    57			dev_err(isi->dev, "invalid frame descriptor for '%s':%u\n",
-    58				remote_sd->name, remote_pad);
-    59			return -EINVAL;
-    60		}
-    61	
-    62		fmt = v4l2_subdev_state_get_format(state, port, 0);
-    63		if (!fmt)
-    64			return -EINVAL;
-    65	
-    66		gasket_ops->enable(isi, fd, fmt, port);
-    67		return 0;
-    68	}
-    69	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+Krzysztof
