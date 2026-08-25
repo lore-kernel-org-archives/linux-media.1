@@ -1,193 +1,91 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C935545A287;
-	Tue, 25 Aug 2026 13:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54A33470421
+	for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 13:54:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787665879; cv=none; b=VOJDyIMOpqTdJlZrvGYlB2ZmzzOJJGzRqGykFN7TbfmSsNY8O2igS+LP2pVpvx12gyf6wzUxi4pWC2lx8y68zTFrCbKkTsQYjDiR2ZftQ7yyF4FnftVXgn7NXucq7IPVZSIS6G07JEvxW0lKJgjiQIf3CzQl1m9d5br5Lby3qRc=
+	t=1787666082; cv=none; b=ZEbBhn6XfaGd6xPKWKzEesjgr9bhYp6pTt04ZWEYUSC/OfV5dL2YCbwh9YPx8dKb62R/+meJxfbOzcK2mdmtKDQOBUfpMhA9nOqx5Y3PUpxpRLiM+KCZim8w/fmQJNBHxLk9QV2whnRJIS1uSem/XGgnVupfO+bBPAH0kxNZUpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787665879; c=relaxed/simple;
-	bh=tJND6aND2PywHJERPckQQl5cRba0RNyWcv7GeD802pM=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=oanWF5pTm+uUl4SKwq1pD80ztb0CUoFIhx6JyG7eXgnjC//LauArwPK4eAn8jQhbHbpIQSqLEQ/WoscBNHj4rb6g2cm6echkTe4NfcUk1++mvHpHn50yrHfmxy/KbARFk5EcBd0zMZDCsT8yLMEI6fm4lvXTRB1tVa247FWyfMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=O/QQ4hzj; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787666082; c=relaxed/simple;
+	bh=HeWcAvcHoVCngDKxWDwcs8lqQkIX1yBSlztDKTCfC4A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=ThhGP7yF2iq2YkdZ5liVTUWRL71kAEiwlRh/3HM1axdRm5BIEg81+wVAkhjGlzj1+KWolB5e1Lkq9a8uXBga3a7y7a+uDf+FPkxwpzG/KWEZu69bNHF694F4bTwBASE4pH4c10spzEZehGpr4j7ZpfyyeF5hGkpcnuTq2tKAhbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com; spf=pass smtp.mailfrom=konsulko.com; dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b=I8dlSs5e; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=konsulko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=konsulko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="O/QQ4hzj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787665877; x=1819201877;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=tJND6aND2PywHJERPckQQl5cRba0RNyWcv7GeD802pM=;
-  b=O/QQ4hzjS+3dOKZCSORo8SjX662og8VSVHFJhk2HCSoTc5RLdrbcUsGb
-   QXsv1wKeqlnPPAVor9Oqm2LOVDLNkcpaR6os+AJ+QGngVm/qi+j19nAEe
-   HwqeouZMV3PeVRNcCetH0IQu9T8QqLdynkxF3wuU9WPyWEIcqOnhAfdt2
-   VDxsF/PHoAIFQntI6jLNScdjBKmMHnxmWXWiOu6OK38aCp3PtBcjqVRQL
-   Q8hcw/bH5fYZb3jjD5fbGCdG1qbLbiwJBW9ibfY5cQQmAxtZRyx6T0ElO
-   zlEr2yQ0z3NNdXPVpVZxN4HRDXJVe0PiTec8mxipAmC+yBoZ7D0ENZh2A
-   Q==;
-X-CSE-ConnectionGUID: bFKdu2qbSS6Df6L3Yba2cg==
-X-CSE-MsgGUID: IEeUizN2Q72AqGnNmPk8Xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11885"; a="88187312"
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="88187312"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 06:51:16 -0700
-X-CSE-ConnectionGUID: j/Lmqp7hTqGhtLaJQwVWtA==
-X-CSE-MsgGUID: Ls8fAcFGSdaQz/8xY15nYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,242,1779174000"; 
-   d="scan'208";a="271495174"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.99])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 06:51:14 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 25 Aug 2026 16:51:10 +0300 (EEST)
-To: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-cc: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org, 
-    linux-acpi@vger.kernel.org, Daniel Scally <dan.scally@ideasonboard.com>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] ACPI: Support __free() from cleanup.h for ACPI
- objects
-In-Reply-To: <CAJZ5v0ggPGEu8YQTpeTC6=tVNr1zponkCbs+UQPieAH5k6ngUg@mail.gmail.com>
-Message-ID: <831afa75-ab9f-b54e-a5a5-6b46f4fe26cc@linux.intel.com>
-References: <20260824211338.3583976-1-sakari.ailus@linux.intel.com> <20260824211338.3583976-4-sakari.ailus@linux.intel.com> <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com> <ao2FmNRFjSJVxhrL@kekkonen.localdomain>
- <CAJZ5v0gQVFxSkkjPbRf6bsKdgUBGduZV0M5SWrHoeB246ZLqew@mail.gmail.com> <134e9566-7913-86d7-1e8b-b2ca9ebec55c@linux.intel.com> <CAJZ5v0h4KD6Q1DeuwbFQ83U1=wKORMWUQNA2BwnFtsYAyzz_Ow@mail.gmail.com>
- <CAJZ5v0ggPGEu8YQTpeTC6=tVNr1zponkCbs+UQPieAH5k6ngUg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=konsulko.com header.i=@konsulko.com header.b="I8dlSs5e"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c15d3cd51b2so732639766b.3
+        for <linux-media@vger.kernel.org>; Tue, 25 Aug 2026 06:54:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=konsulko.com; s=google; t=1787666079; x=1788270879; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Jv3tIOWEnK/99KAUgJnbIDJX1kKr30Yc7XPU554aBtU=;
+        b=I8dlSs5eoufT+UgeE5PprGNT4tsU3l1O1jIMMaIQCPQxSJ/P7AAIc0/aC7juf9sQYn
+         o6V1rUXY6uFrwuONYBpIIZ37Y018hIJrRLAeEQv9GSftd9Tf3xKQYtEObQllGvi077zy
+         bWu5r5JHg3Adczoji67vXNMp4vzmheQcdEk0A=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787666079; x=1788270879;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Jv3tIOWEnK/99KAUgJnbIDJX1kKr30Yc7XPU554aBtU=;
+        b=R2TE3AxTRMAmzqlR+xNcVtVbFrJYJ4WjNIRXCP4Ln3XkgkcwczAyb9LeO6E9xgeCI8
+         M6XyTBnALomJgzAfx+3g0mQ3k3RXanngtGs1bB9uV5LX+SbI7BDEBbgz0s97cDhntAdu
+         YWr5m2nLulWC4nl4Ib4lcwNXFNjmHbtL2pSBAV3AqXTzeq8aTJnNcrGjjBMfNCIRCtT9
+         cMgeIknaB/Cg0eJh1L7HaJUNs4ECqYgfUHk3VeRnLj71kwYH4/ktmP9O00+Aw5PUZvws
+         o6QQWqZH2BWEdE/3B12lwJEy9GZ4HP5ojCfJVGm38Mx+bPmkx51UEVP+6f/q0tPJlHmu
+         FR1A==
+X-Gm-Message-State: AFuF++kPVPBw9CAsChYSllBSsVD7HWkPFkjF6VUMEhtWEvY2pxaFIgeC
+	qyzAj6ARD/bx9MGo07XuGgG1ZkfiHlRDaWG20i/nlPLYHrm2JyAcBkqabaHDq0zexcxoD6JJkF5
+	iHr07
+X-Gm-Gg: AR+sD12bgE2gPpf2NeiT0r+VvoYM+hiXqYGDlTU7glIaY+Nbfb2jNk9sM+YJ87GaPcb
+	/+bb+1ScQeDTbZocIqu1lxExZXMP+JMhEbgKkuldbgYN6rI/aFHSyfbMPZhPhdRJJaI8FRvcHSr
+	BhQ3wWiP6rjYhSZuFGv51FsRHLyY8bFJ84AwjjO9nV51CcoMQaEfvgUspFwM06yatXmAuas9qP+
+	414p4GotbRCiuZXxgK2FJdwcK2GEbYtfO7JISnT2ifJQXu9bKGFopohLQwVQ5PHgdBAmpjp/Bcy
+	eLaUx/queDZPYhdWF462dO7a2uIlkZ0iPjkXG19JpZjF05rcEkkziEvakXNyOewyELSr2k1Auzm
+	dH4gLZzjsbOccTdf05vbaZBGK77yaBsQBVKQQjsPX43Bd/g4Q4IHVI+Dy9IEJKNrAlfCLjfW0Jx
+	/erTlbKG4cE7lR72lsX3+stRJnq1O1zvRhZeUN33TW7yrn+55+he9h+xNLorqqBSxq/IIlfp4Lk
+	9pp3w==
+X-Received: by 2002:a17:907:a089:b0:c21:450d:cd88 with SMTP id a640c23a62f3a-c24924b8000mr2955242766b.6.1787666079439;
+        Tue, 25 Aug 2026 06:54:39 -0700 (PDT)
+Received: from tone.k.g (lan.nucleusys.com. [92.247.61.126])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c24968a336fsm1819330866b.60.2026.08.25.06.54.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 25 Aug 2026 06:54:38 -0700 (PDT)
+From: Petko Manolov <petko.manolov@konsulko.com>
+To: linux-media@vger.kernel.org
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Petko Manolov <petko.manolov@konsulko.com>
+Subject: [PATCH v1 0/1] ARM: dts: draeger: Add devicetrees for Draeger's M48 board.
+Date: Tue, 25 Aug 2026 16:54:24 +0300
+Message-ID: <20260825135426.3967333-1-petko.manolov@konsulko.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-58132523-1787665870=:1165"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-58132523-1787665870=:1165
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 8bit
 
-On Tue, 25 Aug 2026, Rafael J. Wysocki (Intel) wrote:
+Adding the device trees for “Dräger M48 on NXP i.MX6 (Q) and Intel/Altera
+SoCFPGA Cyclone V” board variant.  It has both (the SoC and FPGA) on the same
+carrier and they are cross-monitoring each other.
 
-> On Tue, Aug 25, 2026 at 3:02=E2=80=AFPM Rafael J. Wysocki (Intel)
-> <rafael@kernel.org> wrote:
-> >
-> > On Tue, Aug 25, 2026 at 2:32=E2=80=AFPM Ilpo J=C3=A4rvinen
-> > <ilpo.jarvinen@linux.intel.com> wrote:
-> > >
-> > > On Tue, 25 Aug 2026, Rafael J. Wysocki (Intel) wrote:
-> > >
-> > > > On Tue, Aug 25, 2026 at 2:07=E2=80=AFPM Sakari Ailus
-> > > > <sakari.ailus@linux.intel.com> wrote:
-> > > > >
-> > > > > Hi Rafael,
-> > > > >
-> > > > > On Tue, Aug 25, 2026 at 01:51:18PM +0200, Rafael J. Wysocki (Inte=
-l) wrote:
-> > > > > > On Mon, Aug 24, 2026 at 11:13=E2=80=AFPM Sakari Ailus
-> > > > > > <sakari.ailus@linux.intel.com> wrote:
-> > > > > > >
-> > > > > > > Use DEFINE_FREE() to allow ACPI objects to be released automa=
-tically.
-> > > > > >
-> > > > > > But at least some of them are allocated by ACPICA functions lik=
-e
-> > > > > > acpi_evaluate_object() and so they have no proper constructors.
-> > > > >
-> > > > > You could still assign the return buffer to a local variable. It'=
-s not
-> > > > > ideal API-wise though.
-> > > >
-> > > > Exactly.
-> > > >
-> > > > > I'm not quite sure what was the point you wanted to make but I re=
-ckon this
-> > > > > wasn't an ack. :-)
-> > > >
-> > > > Using the _FREE with variables that are not initialized through a
-> > > > constructor is questionable, so this is generally not particularly
-> > > > clean.
-> > >
-> > > The driver does call ACPI_FREE() for that pointer so clearly it's alr=
-eady
-> > > using something ending with "_FREE" already. So unless Rafael is
-> > > suggesting ACPI_FREE() should be renamed, I'm a bit lost what that
-> > > even means on concrete terms.
-> >
-> > Sorry for the confusion.
-> >
-> > I just don't want people to do things like this:
-> >
-> >     struct acpi_buffer output =3D { ACPI_ALLOCATE_BUFFER };
-> >     union acpi_object *out_obj __free(ACPI_FREE);
-> >     acpi_status status;
-> >
-> >     status =3D acpi_evaluate_object(handle, METHOD_NAME, NULL, &output)=
-;
-> >     if (ACPI_FAILURE(status))
-> >         return AN_ERROR;
-> >
-> >    out_obj =3D output.pointer;
-> >
-> > > > There is no cleanup.h in ACPICA that is a more traditional C code
-> > > > base, so mixing up ACPICA code, which ACPI_FREE() is strictly
-> > > > speaking, with cleanup.h stuff is not particularly straightforward
-> > > > IMV.  I'd rather not do it.
-> > >
-> > > Perhaps add the DEFINE_FREE() into int3472 driver then, it seems to b=
-e
-> > > what intel/pmc is already doing (I don't seem to anymore recall why i=
-t was
-> > > added there). Using cleanup.h for that variable it clearly simplifies=
- the
-> > > code flow.
-> >
-> > Well, fair enough, but as I said elsewhere, the code flow
-> > simplification can also be achieved in a different way.
-> >
-> > > It feels a bit stupid to duplicate it there but I guess we'll
-> > > just have to live with that if there's no place in any acpi related
-> > > headers for cleanup.h.
-> >
-> > If there is a cleanup.h "free" that can only be used with objects
-> > returned by acpi_evaluate_dsm_typed(), I'll be fine with that.
-> >
-> > Or if everyone agrees that doing
-> >
-> >     union acpi_object *out_obj __free(ACPI_FREE) =3D NULL;
-> >
-> > is not confusing and fine, I may just say "Hey, I don't care that much"=
-=2E
->=20
-> And particularly there is this paragraph in a comment in cleanup.h:
->=20
->  * Given that the "__free(...) =3D NULL" pattern for variables defined at
->  * the top of the function poses this potential interdependency problem
->  * the recommendation is to always define and assign variables in one
->  * statement and not group variable definitions at the top of the
->  * function when __free() is used.
->=20
-> regarding a broken code example, so I would think that this is not a
-> made-up concern.
+Petko Manolov (1):
+  ARM: dts: draeger: Add devicetree files for M48 Intel/Altera SoCFPGA
+    Cyclone
 
-That comment relates to how defining the variables at the start of=20
-functions may result in wrong/unexpected cleanup order. More imporantly,=20
-the comment is not an argument for not using __free() but an instruction=20
-on what is the correct pattern to use it so those ordering issues do not=20
-occur.
+ arch/arm/boot/dts/intel/socfpga/Makefile      |   1 +
+ .../socfpga/socfpga_cyclone5_draeger_m48.dts  | 132 ++++++++++++++++++
+ 2 files changed, 133 insertions(+)
+ create mode 100644 arch/arm/boot/dts/intel/socfpga/socfpga_cyclone5_draeger_m48.dts
 
-The cleanups will execute in reverse order the variables where defined so=
-=20
-a variable defined at start may be cleaned up only after releasing a lock=
-=20
-that was taken mid-function (which often is safe but one can easily=20
-envision cases where the lock should be still held when the cleanup runs).
+-- 
+2.47.3
 
---=20
- i.
-
---8323328-58132523-1787665870=:1165--
