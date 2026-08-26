@@ -1,123 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D83F63D4127
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 09:59:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4D2345CDA
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787738343; cv=none; b=J/oy1++qHOHC/ZRuipiPcD1uRB2wiTsl2k79Nfe6zhLJvdy5bAN/VQ4U3K6ARr/VigWQQ8Qxs5oF5drfzQNq9oXGjzOidLJCmos74IWb4rT9SkpzL0TPkpZO7BRUhAWqK61l2aAGPhbM8kgxDuxde9KWZvENOp4/vca2QGnXiak=
+	t=1787739102; cv=none; b=bc76+erSH74tMaWIBtbaBsfJ+p3vumhD60bXTjY8+zKES+o/TDCxAHRwRXIniPDnuKrPnolXUOzNvYLxk8Uoq/97hI+Jsz6TC4ix8lis6mA0UmddUwEp/45BflATTF1omTwsp5sARzNI3TgWEb58HySaO6OGJOwYyjHvWFXW6q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787738343; c=relaxed/simple;
-	bh=ovVNX/08pIZqmRo2Y2mM+dXkdSFggvGn/D2SUWuzYBw=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pKlEfeoaGKIXrxxID5h5wYUJeC/daNYofMDhxBFYYY5z51vd+/Vp9BST7yj/aPTmfR9BRAKWOBU9c/eX/wffPuV/ScyitPKncwwIzED8Oyo+zLiYESO3SEaSR3dxYJlueH1iV/ZRiDapRZGhz14yJGgLHiljw0R5F6ctMICm6uI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wkn6w0Dg; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wkn6w0Dg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 095141F000E9;
-	Wed, 26 Aug 2026 09:58:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787738339;
-	bh=CMxYOD92DmIA30IIGjsmw003IQA+bC+cS8i2c1KCbEU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=Wkn6w0DgJAziz3Im9HnXCCIhDGX1KvVxnt5pg2OiLDyw3ie8sao2TUYezBADAcQTi
-	 Bfy/SAa7lD24Pts1XhUzUkTHvSG0UraPyZvh6mFi/e41l6XV+S0FeVWI6Z9F8qRX28
-	 OpAvotzsFiD/6+y45OfXfDsbeIqQKeCYPn5J/IdgMDjfHXxgQnpxEfTKneCiHcLisj
-	 07btCS5T/KzhCUgkDBI5d45e0phGSh/kaJsJ0sTBhAsNz/5yTlTTLMK67e32jzQNG/
-	 dyw/nxH8edafJB9w8RkLvu6YqAXUUO3niiyIo1zg8WcGKltyNXm4DLRV91XuljGj9m
-	 cU8oHi1ngZ+TQ==
-From: Mattijs Korpershoek <mkorpershoek@kernel.org>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Cc: laurent.pinchart@ideasonboard.com, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Jacopo Mondi
- <jacopo.mondi@ideasonboard.com>, Tomi Valkeinen
- <tomi.valkeinen@ideasonboard.com>, Jai Luthra
- <jai.luthra@ideasonboard.com>, Mehdi Djait <mehdi.djait@linux.intel.com>
-Subject: Re: [PATCH v3 00/29] Rework frame descriptors
-In-Reply-To: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
-Date: Wed, 26 Aug 2026 11:58:56 +0200
-Message-ID: <8733w1nqxr.fsf@kernel.org>
+	s=arc-20240116; t=1787739102; c=relaxed/simple;
+	bh=esIJ7TuLHWOpyYxR08AX7g7Z9a+Q7Fqvw7u9e4JXb4U=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=d/vxh6eyRblBUw4hME1l8zC0vkTG13NyWdz3MKPvOEASTqt58aIVBIRpWILoLifsIY1cVvS1Z7Y3phCGQkLWgNMwyi1zzdDaoK7UN5qwS34yv4yfg9OA/hzGakkSG7qbXMBGACoOgVbd3c56KAQHlK74csuK4JDjXuCYhGJ00Cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a41b6fb855so367033b6e.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 03:11:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787739099; x=1788343899;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GNnE9+FHY9grYCLAVfeJIofAqZ8q2PbidJMhK+jFRzw=;
+        b=d3D0IV1BxAqLPXB71m7txkAqwT3NQOBK15Vn8VWZ7WobLfRnWiRONH03u+psYjbmiY
+         LJKT+sCZTaqfjiXr20unI2iwIdTdBLqmkGTXRw051kHnaow9D179kNsMx8JD7CUfzhcB
+         K3Czw0DIT12VvmcwLJz3Wxzeeb6aie9Q5mRkJ21znhhO/8KJYHFxUNUda9id6mJ4nG/X
+         KHSH+02LtB1hy0woyI4mcCJgCA6ttHXRUXSnB3Yi5jfOhjubZ9FoIvlWUm3VmCwo33hl
+         uavCfiwnWUtvIYVHVGQCqeOM12ZVboluXFAhdpxHmhttpUkW8Eut02VA0bq0fNKj+a30
+         wl/A==
+X-Forwarded-Encrypted: i=1; AHgh+RrAnCuNqK6nM0m8Fb5s095MZ4HVljlkTxfjZSLY2YwWp7v6wh/kg8E54HMCrGiB5fVVa7rpBUfNWHLCaQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++k/grV0LHhm9pgbko4MM+AHgWe3UbOFvssC82OuV/aYgrasDIkE
+	CUIbnysLyy11cciiBL/Ihq0BBnhdx8I5FzHsnAmFaVLeTZFhsHaEIMnLRgatmTnsDZqF1xqlVfE
+	0K0qTDQgmxNgyu0qZReeARkuM1lLt6z3vHK8gH01S8CGqL6R2H/Qx9lfRmJw=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+X-Received: by 2002:a05:6808:5185:b0:4b2:67f1:11d7 with SMTP id
+ 5614622812f47-4b366b70521mr5757753b6e.17.1787739099679; Wed, 26 Aug 2026
+ 03:11:39 -0700 (PDT)
+Date: Wed, 26 Aug 2026 03:11:39 -0700
+In-Reply-To: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a8ebbdb.1d9ded08.62e62.00a1.GAE@google.com>
+Subject: Re: [syzbot] [media?] [dri?] WARNING in udmabuf_create
+From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
+To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
+	kraxel@redhat.com, linaro-mm-sig-bounces@lists.linaro.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
+	syzkaller-bugs@googlegroups.com, vivek.kasireddy@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Sakari,
+syzbot has found a reproducer for the following issue on:
 
-Thank you for the series.
+HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=12dff979580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=8d423d3e91ba4f47
+dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16d50d49580000
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11296979580000
 
-On Mon, Aug 24, 2026 at 15:14, Sakari Ailus <sakari.ailus@linux.intel.com> wrote:
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-73ae59e9.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/2edc303b5fba/vmlinux-73ae59e9.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/2624d8e0a8af/bzImage-73ae59e9.xz
 
-> Hi folks,
->
-> This smallish set makes frame descriptors dynamically allocated and
-> implements a single-entry frame descriptor based on the device's format,
-> using a new helper called v4l2_subdev_get_frame_desc(). All drivers that
-> do not obtain their frame descriptor from upstream are converted. The
-> helper also obtains a frame descriptor for the desired type (parallel or
-> CSI-2) and checks there's at least one entry there. These checks are
-> removed from drivers that currently perform them. (Some drivers also check
-> there's exactly a single frame descriptor entry but I think in most cases
-> this check could be loosened. That could be done after this set.)
->
-> More formats can be added to df-to-mbus conversion as needed. These are
-> meant to be initial formats that are enough for typical raw sensors (and
-> one RGB format, too).
->
-> In the long run this information should probably reside in sub-device
-> state. This set however avoids having all receiver drivers to work with
-> sub-device drivers (~ 100 of such exist) that have a single stream and so
-> do not implement get_frame_desc() op.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
 
-With this series, I could sucessfully run a capture using a TI AM69-SK
-with the Arducam FPD V3Link[1] using the following device tree overlays:
-    ti/k3-am68-sk-v3link-fusion.dtbo ti/k3-v3link-imx219-0-0.dtbo
+------------[ cut here ]------------
+!(flags & __GFP_NOWARN)
+WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013, CPU#2: syz.0.17/5920
+Modules linked in:
+CPU: 2 UID: 0 PID: 5920 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013
+Code: c1 e8 2e 07 ff ff 4d 85 f6 0f 85 b6 fd ff ff 48 81 fb ff ff ff 7f 0f 86 4d fd ff ff 41 81 e4 00 20 00 00 0f 85 9c fd ff ff 90 <0f> 0b 90 e9 93 fd ff ff 41 be 10 00 00 00 e9 88 fd ff ff be 42 01
+RSP: 0018:ffffc90003d8fb50 EFLAGS: 00010246
+RAX: 0000000000000001 RBX: 0000008000800018 RCX: 0000010000000000
+RDX: 0000000000000000 RSI: ffffffff8c61e200 RDI: ffffffff8e6ad930
+RBP: 0000000008000800 R08: 00000000000028c0 R09: 00000000ffffffff
+R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
+R13: 00000000000028c0 R14: 0000000000000000 R15: 00000000ffffffff
+FS:  0000000000000000(0000) GS:ffff888096b76000(0063) knlGS:00000000579e1480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f7113140 CR3: 00000000542cb000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ init_udmabuf drivers/dma-buf/udmabuf.c:193 [inline]
+ udmabuf_create+0x2e8/0x12a0 drivers/dma-buf/udmabuf.c:386
+ udmabuf_ioctl_create_list drivers/dma-buf/udmabuf.c:484 [inline]
+ udmabuf_ioctl+0x2b2/0x300 drivers/dma-buf/udmabuf.c:499
+ __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
+ __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
+ __ia32_compat_sys_ioctl+0x2cf/0x360 fs/ioctl.c:638
+ do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
+ __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf7f03fec
+Code: Unable to access opcode bytes at 0xf7f03fc2.
+RSP: 002b:00000000ffe2d40c EFLAGS: 00000292 ORIG_RAX: 0000000000000036
+RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000040087543
+RDX: 0000000080000100 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
 
-(See TI's doc [2] for the device tree overlays)
 
-root@am69-sk:~# yavta --capture=10 --file='capture-#-srggb8.bin' --size 1920x1080 --format SRGGB8 /dev/video4
-Device /dev/video4 opened.
-Device `j721e-csi2rx' on `platform:4500000.ticsi2rx' (driver 'j721e-csi2rx') supports video, capture, without mplanes.
-Video format set: SRGGB8 (42474752) 1920x1080 (stride 1920) field none buffer size 2073600
-Video format: SRGGB8 (42474752) 1920x1080 (stride 1920) field none buffer size 2073600
-8 buffers requested.
-length: 2073600 offset: 0 timestamp type/source: mono/EoF
-Buffer 0/0 mapped at address 0xffff86a55000.
-length: 2073600 offset: 32768 timestamp type/source: mono/EoF
-Buffer 1/0 mapped at address 0xffff8685a000.
-length: 2073600 offset: 65536 timestamp type/source: mono/EoF
-Buffer 2/0 mapped at address 0xffff8665f000.
-length: 2073600 offset: 98304 timestamp type/source: mono/EoF
-Buffer 3/0 mapped at address 0xffff86464000.
-length: 2073600 offset: 131072 timestamp type/source: mono/EoF
-Buffer 4/0 mapped at address 0xffff86269000.
-length: 2073600 offset: 163840 timestamp type/source: mono/EoF
-Buffer 5/0 mapped at address 0xffff8606e000.
-length: 2073600 offset: 196608 timestamp type/source: mono/EoF
-Buffer 6/0 mapped at address 0xffff85e73000.
-length: 2073600 offset: 229376 timestamp type/source: mono/EoF
-Buffer 7/0 mapped at address 0xffff85c78000.
-0 (0) [-] any 0 2073600 B 105.308050 105.308081 11.612 fps ts mono/EoF
-1 (1) [-] any 1 2073600 B 105.341380 105.341435 30.003 fps ts mono/EoF
-2 (2) [-] any 2 2073600 B 105.374708 105.374764 30.005 fps ts mono/EoF
-3 (3) [-] any 3 2073600 B 105.408031 105.408079 30.009 fps ts mono/EoF
-4 (4) [-] any 4 2073600 B 105.441357 105.441394 30.007 fps ts mono/EoF
-5 (5) [-] any 5 2073600 B 105.474683 105.474721 30.007 fps ts mono/EoF
-6 (6) [-] any 6 2073600 B 105.508009 105.508037 30.007 fps ts mono/EoF
-7 (7) [-] any 7 2073600 B 105.541334 105.541368 30.008 fps ts mono/EoF
-8 (0) [-] any 8 2073600 B 105.574664 105.574707 30.003 fps ts mono/EoF
-9 (1) [-] any 9 2073600 B 105.607990 105.608044 30.007 fps ts mono/EoF
-Captured 10 frames in 0.386114 seconds (25.899081 fps, 53704334.562154 B/s).
-8 buffers released.
-
-Base: commit 56c29fa3ee66 ("media: rzg2l-cru: Align bytesperline to hardware DMA stride requirement")
-
-Tested-by: Mattijs Korpershoek <mkorpershoek@kernel.org> # am69-sk
-
-[1] https://www.arducam.com/arducam-v3link-camera-kit-for-ti-development-boards.html
-[2] https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am69/11_00_10_01/exports/docs/linux/Foundational_Components/Kernel/Kernel_Drivers/Camera/CSI2RX.html
-
+---
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
