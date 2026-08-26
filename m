@@ -1,214 +1,132 @@
-Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012006.outbound.protection.outlook.com [52.101.43.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED7313B8959;
-	Wed, 26 Aug 2026 08:37:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787733464; cv=fail; b=OlT1bx6Pz9NtpEKS1SoZNGcG7k1KsJmjsec6kClUZdpniMRolOH0LvilGYQrftDKYE06ArI1bQom4LZc/QBQV4c/0g8VGglHws2yV+C3bbXEjBkqIWcAqK8DopX7UBEqGHoln0/MaS8yVKVT0RZru2E+kh/CNHIp/BRo5158ym4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787733464; c=relaxed/simple;
-	bh=GFaEximaz3Qiotc9z5/aq+JQV5hh6eGXvqitji42uc8=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=lAawy6se8BaXmFC27cx8V54aBvr7dDsQvWn9NuJLO9Clwo7J+trqQHoSr/YiWq6T3dcNW7RfbvLo7MGI0eWs/PIf9KZlUWfwJ3c4KBn3JY/v07jOSy2CG+7ZRUi0UgvVx0MJ6vLf3d6J+C+cRCLZNl7T5VTIomoVN9LSc/4n4iE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JYar7Lm2; arc=fail smtp.client-ip=52.101.43.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CE839280A
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 08:55:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787734550; cv=none; b=ExT7xCjicigTlSUioRN+KXgR17UoG+L+IGTgSaJLEOCvRDYulXBSvngtFml1ghbJd59h5DTN24/1Crd2DTyjesD2czRSJ+U3/G8fX4kdGqoa4+OSSqAJIt1YLo/W9f7toOo90kmXsmfSIj0VuKSG8jIodS9NN9HT2T48JFmn/rw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787734550; c=relaxed/simple;
+	bh=yEcp+Me78OHhlWQ5vW9tmGdDjUC7jxU3fU+l4qhE+IE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rjsgAlqZCwysX3PUiKuoc+Pgqs333UWfkypGfUbaUtK1Ztq5sJY5hFio5D6hBphSs1QcyImSfyRB7MK1AdiZcb0srFpIzFFxFZWnrIGOB+tPkXmvYmdMm1EKonPQQC8L5ANllhKSXtZVRKXkmXaI87OS6Z1+YfEWHqNEgDoDmw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VLGn7iOX; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JYar7Lm2"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=NZx8Nb9NLEouNkNodAYp/UP1i+PapZdGQyAoW5GMs3W/xxeeHzJDFrD63dXgzfTpKkYCDIDuyndrt8qB8bSCXPaMnytNj3u+j0T6X+FWmv8ufBdyAxs0zqTTqro6VOACIZYLMaaAQn2Ag3n8mLG85B38UEvlP9t3FQZBRqaQlQq5alZZtuYhNuRAjoizGSs9PXyH+CuO31Usaz62CBz16cq63PLCVQ2u55YzDeQR4YO8h1bmJMuGjp5djym6wirgdLByVFYqxkSoOIwS5Kt6iO0TSYOA4cN6KC2km5Q7QwDfaDXF6L+JSvLj4NUyDEwgS2rbT4vQ3MF4qU0D8bwgzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kEbdQ6fUxRHe4Pma5TEaDLk3pHhBx+ccjaxwMZ1W1rI=;
- b=LxvmeSVr2jyhbZ+DlN8mMWIBQBhQhxO+XeASYBFvyZOU/l50/5x4vwe74ntHUHxFeCwcQ5tlwyIH+mN4BjcalpTmKHLHOkrlZumiDEjHWQ8YU6x8EJRidtJCCoe5MWjPreSDzhf6NAhI+3mm2ZbPplHbvUV58+FhSKP3uq8xztkk2m/bF32VqPWVj4GbqBnFfBYkAJjnVIJODYxjRvc1QA9mvYkA3bq1zRJLT7oXZXjULicf7u8fpiFO399lTC9NKS13yYVC1qz1Gtm2tdgE/TVzIK8g2z5e6oJO6wvP7T3BpgFhVYa1v5yFme6XCreXOLqsXT5oqm4ceelVtLbq4w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=kEbdQ6fUxRHe4Pma5TEaDLk3pHhBx+ccjaxwMZ1W1rI=;
- b=JYar7Lm2Z3sERWCAlpkNjJpO38SGwLqzEUDoMJPB/EUSJLxPwAVqxBjyV6wXXV0XY4gPa+RWOuPi8WbmsT74fYD5i6t/m4j079FS5IVo6crBDdPdBrGeNmhhCxk9m7LrN1YgYS6jDeja47uCrbVSJ8DdmezmwBtynzRCjNQ7g1A=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY5PR12MB6453.namprd12.prod.outlook.com (2603:10b6:930:37::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.7; Wed, 26 Aug
- 2026 08:37:39 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 26 Aug 2026
- 08:37:39 +0000
-Message-ID: <4aaae413-ea6d-4865-be67-f352ee23aa4b@amd.com>
-Date: Wed, 26 Aug 2026 10:37:35 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] accel/amdxdna: refuse an I/O memory mapping of an
- imported BO
-To: Lizhi Hou <lizhi.hou@amd.com>, Taimuraz Kaitmazov
- <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
- Oded Gabbay <ogabbay@kernel.org>
-Cc: Sumit Semwal <sumit.semwal@linaro.org>, Max Zhen <max.zhen@amd.com>,
- Sonal Santan <sonal.santan@amd.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260813164700.43960-1-taimuraz@kaitmazov.com>
- <20260813164700.43960-2-taimuraz@kaitmazov.com>
- <5933effe-ef28-9838-1dd5-dc904be0a3bd@amd.com>
- <87c9bb85-2514-44ac-a976-e24526c7f76e@amd.com>
- <a782e2ad-d12a-66c8-447c-725d8e66593d@amd.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <a782e2ad-d12a-66c8-447c-725d8e66593d@amd.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0305.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:f6::14) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VLGn7iOX"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1054245a91.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 01:55:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787734548; x=1788339348; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bRNOe+tkDpyEAFO3nF0rYQvCgufKo2ppV32jtzFTGPk=;
+        b=VLGn7iOXRYbxHQ28i73TLsWHuUi8WOpu/VoQmvEF8OkqbW3S1OvqViT5y8LkmCNW0d
+         dO9qJdvBfNYp0OR8CklXdUOORD5q1PXrrdt0v9RlyKdm2NROw/OHbGfK8jawXI0NE2E7
+         6hk9J2QMVzI727ms1D9CaU629M73vbej4hiBpvRNLyEBRxfwqNL6qmXqITwy5GBbTMH6
+         3Ey2y0RPpHwBLET/j1RgFG8bWIyj854LIpWkgeiDEXQrLj/akA4bUA35BZuB213aw7Yr
+         DGwgXvcoFFS9R2VYMp0HOU6CYbFE/4+MO7Y3szLchhE/CWlY6Ku5akjeRM4O4B5C+QQA
+         G0BQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787734548; x=1788339348;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bRNOe+tkDpyEAFO3nF0rYQvCgufKo2ppV32jtzFTGPk=;
+        b=IZDOzJupN0s9SyAR+7EmAsWINqkSZFkHpGF/jD1NukaWDilvAcF+lXo5W1MmJhVLwT
+         kYhg4gG2fh4zciBij1RzHlhDX/90yU4v8a4qeYh2BO9h/leegZsN4465SW2+NTp57nWX
+         K2h2wupkIBupDj+jwLfzAB4hcHnzSRsyNuUHzbqP5aR8HU/vysyC04SV4pG7Ckly5300
+         ItNf1EdmjPHg/KJB4c02+5jAZz6SGaRRiEel1mOitvdS0Ax7RxYv3RyUNdlMA020oIEt
+         nYVBd2gmKakaZNbVhUMelKtnU4UO6iHdQ1T/X5xj2CXtjflUXQo/c+iHzodIlvwCPSKf
+         zjXA==
+X-Gm-Message-State: AFuF++myC3cW4x8YeahV+J3WJTdZfGVbT/092Pa4Ndm757WEGs0Y45N3
+	lfo7auTKppSNnU19h2X2oIMx1qPtXbn51frYXQHB01wErGPRDnIw0u1q
+X-Gm-Gg: AR+sD1117l0JJj3xX5zvAxWwAVN0OqlpvofP/oHHH0cM6mPIdRJE+i9famhDdYg8LNr
+	1r+dk/Uj0seIsfrcmKJZxIRQVSuLNTJDTcrqqQNpSOE3HULKT+BI5T9uAL/EceH+LbBMnCV00/o
+	GzmQrGIR/RgB/71dEAbOnL0W/ZOA/ew963cs6kYUM0ak8AL+DKLh1cCSJuZntxD5nQEbXrh5RrH
+	Sk8+tHDxArOmduaaEyyvC8wslmqcDgQA2jyhMkeP5RuBiziLggNTEWxY0mJJY9qlWHTcRJBPMZC
+	9mSfgC4PNDbtx7agDmmxWLSvFv+CDG3MpsWVLaKOTG4soVuKiwsnw/4XTLRPAhFT2Xeskxyy93V
+	0yaeIcSjvCgv6PVybrEKUO+tIgZokrSNI4a/6qRslMSfcivcdUnl5knuVFTLjOxGaWvTe/6gh/A
+	jo+wBJT/sYple50jo9EpppagXsss7jROa7o3oI+EPKC49FxscSFKfQZqNxpnHgP25lqMjyopXgn
+	eE=
+X-Received: by 2002:a17:90b:4b8b:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-3966d3d9581mr10830231a91.6.1787734547576;
+        Wed, 26 Aug 2026 01:55:47 -0700 (PDT)
+Received: from fa283618c643.. ([106.37.147.127])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645d993d1sm6985362a91.15.2026.08.26.01.55.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 26 Aug 2026 01:55:47 -0700 (PDT)
+From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+To: hverkuil+cisco@kernel.org,
+	sakari.ailus@linux.intel.com,
+	mehdi.djait@linux.intel.com,
+	u.kleine-koenig@baylibre.com,
+	laurent.pinchart@ideasonboard.com,
+	jacopo@jmondi.org,
+	p.zabel@pengutronix.de,
+	ezequiel@vanguardiasur.com.ar,
+	mchehab+samsung@kernel.org,
+	festevam@gmail.com,
+	xiaoleiwangxiaolei@gmail.com
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after init sequence
+Date: Wed, 26 Aug 2026 08:54:32 +0000
+Message-Id: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY5PR12MB6453:EE_
-X-MS-Office365-Filtering-Correlation-Id: 11b0b6d8-e131-4581-bf28-08df034d49c9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|23010399003|1800799024|10067099003|56012099006|5023799004|11063799006|4143699003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	zjAzUlaI+EOJf9zPVw7VcDYFcw/+cgEXcLJTjP+P8F2d5psUvDRPzRL2i7BavsGT9w2HHuXBnb++VdD+LAHVeE/bETOiH3Dy3MpWbaq0sY3O/fffeoyQLVBnsyfU9VrijJfBEblnNJXlUZSRQQpMW1ZjyRbhTgcDSrJYbrn5sdZRZ/GwSkD5qFKe89hlcZT00ZhadrVTt326udAv4hKVGc3/VFpFM1/5DXWg9TVViWVBfHVimnfcT0ntT2CHFOyNOZauySh6iEt6Po6JrqcTCa5WB3hSTt+AyzV9dbTdMwUJnJVIC42BW/W3Vt7u0THpzT8aUGVSKEpLZQbe/Scgsw8VHo3/KD9eRnWYJAUJ3nHG1DcQhac6EGDiHmgTJs1IsCC+uu8irkLc6rlYRSOu5jCI6bykmsi92vFpHfAFg5nnBB1e+dp7K+KUdMWixoPupl6THrYB1WdxwjY5A9PeIAaZaIjv4sf+Hm43DguhCDvzj+xSZx+42UH7wuweqBcsAfSGvep3myq1NGpxkd72HX1J+IeeCF3DYSuINaLy1wnADq3Op7EwY/BIQdLIso62U25HgVbiiEpZucLCl4IZ2dkxzZho2gRoP7KrrXy+mNJ7L4OqD0vjeFQ6FcCIR4HakLPNLJrIE9rF2nU15XoLGSLv3S1eKKtxf3YoQjQN5uQ=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(23010399003)(1800799024)(10067099003)(56012099006)(5023799004)(11063799006)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Z0xaQnE1VjZoUHRXQTVoSEp4Y3Y0ZG1McmVDeDJha1RuVHZ3NDJpQWNkWVhS?=
- =?utf-8?B?SVJSQXp1cmYxQllubFRJckJCNWdrM2VBOWc4VnFxcHBzUkt4TTc5VUc2cWND?=
- =?utf-8?B?aFkvNGlFQlNWRURpQ2wwUEJLU0ljNmpGK3QzQXpVck5GU2ZjankrRmtOZVpL?=
- =?utf-8?B?OTV2ejFlejZ1TDk1cnZBL2xRK0JpZWpPOWdOZ2htUTEzekhpa3dTYVNiMWRF?=
- =?utf-8?B?STlKRnBkMnRuRUtTdUVadGtGT2FzTnZYZGFjaUR2WGtKNWNxY0lHbldJTStt?=
- =?utf-8?B?MmpEZ2h1VEwzLzh5WklpUzhpeVlHM3lxdW9GaUxaSmNIQmpBa0lycUlhUDlO?=
- =?utf-8?B?MHRSYlgwcEhCNEtRaWhIQWZQOWNNWkVCelMyMDBqL1hnVjBxMlV2d1lzZUJT?=
- =?utf-8?B?RXJOTWJteGJVNkVMUWZDcklYeW5ZRldJeUNURjl3Q1VyL0JwZ3FIV052UFlR?=
- =?utf-8?B?UTg2T3NYT3lYSkt3aFNIeVdaN01YQ0JhYzROYkFWY2MveGVpemtlVnVqUFBT?=
- =?utf-8?B?RjhoekZkdktIRzlDVjRpSDBQL0FwRnQrSzAwZXR1ai9jTlI2SE9YQ2VUdXgr?=
- =?utf-8?B?cllxRlFlMXBieGpOb1hpS0tqTkUrclJOdDlIaGkxTXdxRVJ6RmhMWmJYekhs?=
- =?utf-8?B?aytxdXlvRS9oN3prYW1PajRVZUU1Tk11K0J4UGYxUk1odDc2WWVUOUd6R1ZI?=
- =?utf-8?B?YTRXTVJlelg2aSttMUhyS1ZmMUtkQ1I4aktVeTQ2ZWR3V3dIa2pXcHdsMDZD?=
- =?utf-8?B?V1paVStrQktJNzA4Qzk5Nlo4WkFpd09vTFVqaENqcXV1S3kwY3FTbE55clp2?=
- =?utf-8?B?NVBaaURjVFZnQ05qc21EN1N0OUNoNXRQS0gyOUxuRW8xMkZZdStEVXltSzl4?=
- =?utf-8?B?OGlIWUl6czZtOEZQU09tL3BnczB0aEIrbWM4RlNjYzc1VldhWXZxQVp3SWlF?=
- =?utf-8?B?aTJneEw0NzNKNGx1WVNORUpBV29GNTN2aUJvc0xIM0orU1RKVE5HTzBheGh6?=
- =?utf-8?B?M2tQTlBrZW5aWEk0dkZyQnU2VHZ5NmQzbmIyM21yUlBtMVhpbXFJa0RSQTd2?=
- =?utf-8?B?eWlIY3FxUElCZHBNN3lJUWlzWE1FWGs5UWhtZXcyZ1RPVHdLU2k0bkRubUpo?=
- =?utf-8?B?RXFSMUxvTDVHb2R2bGwyOC9SZTh1TjZEWVQyb2FuNHp3NEtaV2pWUHBGS2N4?=
- =?utf-8?B?aUdnOWFaOEk0elVIaUJlQmh6Z2owSFFIWkUvYUNXL1dwRFNCdjR5QjViMW5p?=
- =?utf-8?B?NnNWRDIwNHNpVTFxbWZJaTBpTmJreVNNL0FJQXRjNUd3NkVHQTlmdlN0TWFq?=
- =?utf-8?B?OHlIbGRSc2ZUVXJTR0dkL3RBTERRWVVhejAwTDRLemNBOXBHaTFRd1ByTGE4?=
- =?utf-8?B?cDBKbmFMdGVMc25MUlNjZ0VHOWt6R0ovbDM2T0ZZeTRKRGdyeUJBd1ROeGpY?=
- =?utf-8?B?VXBJaU5ma0ZtRTJDSGFFMmpzWW5DbHlzOTBQajBPVEx3cHdyKzY4WVJzdFNK?=
- =?utf-8?B?T2xYWTNSMVljMG52UWVrOTBBQUlQd01QaFd1S3hubzRvcXk3OG9VTHFqbnAx?=
- =?utf-8?B?NXA4S0lmY2N2NHUreEZ1WnFCbnk5WkE3cis1OCtuRjlJV3FtbXJLMXRxcWtj?=
- =?utf-8?B?dG9KM2hyRTRjSnRhNGF5TDAyR0lISFEyekRFMjJlaW96VmdwYml0RU8zbXlX?=
- =?utf-8?B?WWNNTmJLcHc1K3ljZWZrS1ZxWXFCVnYzZmVRdHRLT2k0clhubW0yZHE4aEVl?=
- =?utf-8?B?ZFRBa2JPKzIvWS9wSXZ3bWRCZUw3eEpCeVZRQTZ5YjV0MWtjM2N2WVA2b3U1?=
- =?utf-8?B?ellUVjc1Wm5yNk1xYlhVdmlrSnZCQUdjU042SHJWQkVlWW5leGZOeEo2dkUr?=
- =?utf-8?B?aXJyUUo4bkk2Q2ZUb1RsSHVxd1dKM2Foa0ZpVk5za3RjY0xueTFlQmRyTktW?=
- =?utf-8?B?b3ZHS3BnTUVZZ2dTYW5wSHZuUG1oSHR6MTNKTCtPY2gvcy9uWVk3QjQxUFVR?=
- =?utf-8?B?R3RGaDBaN29VWWlhbloxQXNJL2R3d2ZUSnBxVWw3ckQyRnBWUjF4Y2NxUUhH?=
- =?utf-8?B?dFR3ZkhSTlJKa0puY245ZzVkdUJiQi9xeEYvK1VnTnhJNkVXaVo5T05YRlFu?=
- =?utf-8?B?ZFZXUWFNUnFrUUZ6UFZ6dk8vK21GdUdTN3pFSjR4Y1BzTUpDa0pldVkrV29t?=
- =?utf-8?B?cWE1UFJ1aWNFSjI2OWZJa3h6emdTeVdLQ3g2VFJDZFg2TlhrbEF4Wkxrb3Iy?=
- =?utf-8?B?aDQyMzRaY2RiYVB6bW9VVm91UnRKSkFpcmZLYTRMVGF6akRNRzlwd0pqOVp0?=
- =?utf-8?Q?FpgOqn4g3MMnU+l9NF?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 11b0b6d8-e131-4581-bf28-08df034d49c9
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 08:37:39.7364
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rD+CpCp1UwdYQCWCwmW/gCSDnx4zB1UmLKwKiBIW6zHEhnJhVZqeZ8xfve4EbPJH
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6453
+Content-Transfer-Encoding: 8bit
 
-On 8/24/26 18:08, Lizhi Hou wrote:
-> On 8/24/26 07:06, Christian König wrote:
->> On 8/17/26 19:53, Lizhi Hou wrote:
->>> On 8/13/26 09:46, Taimuraz Kaitmazov wrote:
->>>> amdxdna_gem_obj_vmap() takes whatever dma_buf_vmap() returns and only
->>>> rejects a NULL vaddr. iosys_map is discriminated by is_iomem, so an
->>>> exporter answering with an I/O mapping leaves a void __iomem pointer in
->>>> abo->mem.kva, which amdxdna_cmd_set_error() memsets and memcpys through.
->>>>
->>>> amdxdna_drm_va_tbl takes a dmabuf_fd, so such a BO can be any exporter's
->>>> buffer. amdgpu cannot reach this: its .pin forces GTT for a non peer to
->>>> peer attachment like ours. An exporter on drm_gem_prime_dmabuf_ops has
->>>> no .pin, and drm_gem_ttm_vmap() answers iomem for a VRAM resident
->>>> object, so an NPU paired with nouveau or radeon does.
->>>>
->>>> Refuse the mapping. vmw_gem_vmap() does the same; unlike that one this
->>>> path is reachable from an unprivileged ioctl, so it does not warn.
->>>>
->>>> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
->>>> ---
->>>>    drivers/accel/amdxdna/amdxdna_gem.c | 10 ++++++++--
->>>>    1 file changed, 8 insertions(+), 2 deletions(-)
->>>>
->>>> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> index 1f190b319bb..b66ec9e4828 100644
->>>> --- a/drivers/accel/amdxdna/amdxdna_gem.c
->>>> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
->>>> @@ -683,10 +683,16 @@ static int amdxdna_gem_obj_vmap(struct drm_gem_object *obj, struct iosys_map *ma
->>>>          dma_resv_assert_held(obj->resv);
->>>>    -    if (is_import_bo(abo))
->>>> +    if (is_import_bo(abo)) {
->>>>            ret = dma_buf_vmap(abo->dma_buf, map);
->> Mhm, why does amdxdna a vmap in the first place? For some workaround?
-> 
-> This is used for flushing the imported BO before. Based on our discussion before, the driver should not flush imported BO, so this becomes a invalid case.
-> 
-> On the other hand, vmap on a io_mem should not happen. So I suggested to move the check to amdxdna_gem_vmap() for an extra check.
+On the RK3576 platform, after ov5645_global_init_setting completes and
+before stream on, the CSI host reports a high rate of CRC errors:
 
-Oh my, you should not use a vmap to flush CPU caches even if you own that GEM buffer! That is as buggy as it can be and most likely doesn't work 100% reliable.
+  MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
 
-What is the complete command submission flow here?
+These errors occur exclusively in the window between init completion and
+stream on. Once preview starts and the sensor outputs valid HS data, no
+further CRC errors are observed.
 
-Regards,
-Christian.
+Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
+the power sequence to properly enter LP-11 during power-up. As part of
+this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
+with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
+0x02) from init through to s_stream. Reverting this commit resolves the
+CRC errors, confirming it as the triggering change.
 
-> 
-> 
-> Thanks,
-> 
-> Lizhi
-> 
->>
->> Usually DMA-buf only provides that framebuffer emulation scanout inside the kernel.
->>
->> On the other hand as far as I can see that here should work correctly.
->>
->> Regards,
->> Christian.
->>
->>>> -    else
->>>> +        /* Callers use mem.kva as an ordinary kernel address. */
->>>> +        if (!ret && map->is_iomem) {
->>>> +            dma_buf_vunmap(abo->dma_buf, map);
->>>> +            return -EOPNOTSUPP;
->>>> +        }
->>> Thanks for the fix. The 'is_iomem' check should be moved to amdxdna_gem_vmap() to cover all the cases.
->>>
->>> Lizhi
->>>
->>>> +    } else {
->>>>            ret = drm_gem_shmem_object_vmap(obj, map);
->>>> +    }
->>>>        if (ret)
->>>>            return ret;
->>>>        if (!map->vaddr)
+Restore the power-down state after init by appending { 0x3008, 0x42 } to
+the end of ov5645_global_init_setting[]. This powers down the sensor core
+after MIPI configuration is complete, while keeping the MIPI PHY active in
+LP-11. The sensor is then woken up only at s_stream time.
+
+This preserves all LP-11 compliance improvements from
+commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
+eliminating the CRC errors on RK3576.
+
+Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
+Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
+---
+ drivers/media/i2c/ov5645.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
+index c772ef6e51d2..be85e0155b81 100644
+--- a/drivers/media/i2c/ov5645.c
++++ b/drivers/media/i2c/ov5645.c
+@@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
+ 	{ 0x3008, 0x02 },
+ 	{ OV5645_IO_MIPI_CTRL00, 0x40 },
+ 	{ OV5645_MIPI_CTRL00, 0x24 },
+-	{ OV5645_PAD_OUTPUT00, 0x70 }
++	{ OV5645_PAD_OUTPUT00, 0x70 },
++	{ 0x3008, 0x42 }
+ };
+ 
+ static const struct reg_value ov5645_setting_sxga[] = {
+-- 
+2.34.1
 
