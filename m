@@ -1,45 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88D9F1A9FA8;
-	Wed, 26 Aug 2026 16:13:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAAEA361949;
+	Wed, 26 Aug 2026 16:18:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787760812; cv=none; b=TGru/GpmuC8IHVRi+BpJD20hSx8dvXWL7v+tLJIkUROc4FYWbcz7k4FtugT7XdbyEv9VOJQIdaBzUR/khnDB9D4BILL5/nunbOn2VMEZrEQ3fskulkFwn/chSPmsPvvMJKw2OfHuzHbgnZxZk6bwZV9j1iL4iWO8hxXOwZt9h1o=
+	t=1787761111; cv=none; b=OC8jd6nG5z0dngc0Kxv2rU1wJBOVGP0jZKqeJ4zbL25FlmvVwqS5hZIjXBA+rB2X02i2OBYSj90KyJ3ORBHSdN61uCsJhKyxg4xlPI+9hPC78w3vDzPF3CqNfiw98ymxnZUqhC6jpxtF8o6VdLOsphiOTzj1miMwLI4CewL7zJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787760812; c=relaxed/simple;
-	bh=Rt5AjpXjn8Oaeq5rNo81Ui8//83g/8MkVMEPaY95O0w=;
+	s=arc-20240116; t=1787761111; c=relaxed/simple;
+	bh=JgCmNmmEdknMixBAGzqfFbseRYn3Sgy2kyIz7jMT1cQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NWPWAF99QdpBqcEQDDZADnb6206DIpReImoOcoUdnvKphko9AcqcE4Yxrj1kqxZ/zFZamkNJJKtLDZ/wFhjYSZJ7r7xLMomvMNDcJht7mN2nMQMNkupKnuwQRIXW9PxM9P7erZoMq4QeOfoXQmBE3BQH4zcdk9KmgdGk5K6R7jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SINzj0Oa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hQz78iwh2F5RKhcqbhKkdFzHlJRuOmE0w/Waj8f4y1hUsE4CSnAdQw4erPn8ExPkCQzQ6jMSGXhC7AHVlKQWd7eNyAa8l+DlU/18G1z+eK3GPTbnRUQ/A2j/nX/lFYQXwFA2R7ML0tZb2lve/PA4busCKTrYwDC7h+1dBr1c0lY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jz/0/H0P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SINzj0Oa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA0F1F000E9;
-	Wed, 26 Aug 2026 16:13:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jz/0/H0P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 389F71F000E9;
+	Wed, 26 Aug 2026 16:18:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787760811;
-	bh=9jPHgzZ/feJfTFPZntk7Cg2BcFsrZloAZmeFOqXv5HU=;
+	s=k20260515; t=1787761107;
+	bh=TeZaduVBoWJpFnE0cLOMjmAhuCR7ZmaFxmj807ebBEU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SINzj0Oae8vv3CXe2hG6cmeqxzIIxUr82SEpbsLNxPV2Tn9HoFlWlcR3ZDFcOR5FS
-	 ft8uuHmFO6p02icrAIUX4Hp1TcV+367QQKGWmbyABYdk1lRoZ5TcihToqQLaQoVuWJ
-	 sILhFX5MvEFewx+TKGyEAnxJZ0q/FMhFpyQlkhc3qBJJl1muhC+VMRcs8TbooyXmuF
-	 BxI3EPCq8NKHm3Rd8ReQHLY4lRIRDkjfF07CnhhpGnysuk66dAb9+P1HHUDg2RkVUx
-	 IQTY7TzIHnCUO3I1KGg8jXrX8vVPk4PuSoHBJ6cPgdbmFuTNcEyt5L4LXuvgo4RVRl
-	 cQB3VVz/zmgEg==
-Date: Wed, 26 Aug 2026 17:13:27 +0100
+	b=jz/0/H0PsmNhBHeE2PMFfKMXNUrMSuW1LQgYn1GLuoD2NqhIN8OR/ZEb72pAtR4vI
+	 xSJNCATWSqkBzLOc6zp7s0g9zYWI2BKEgbzYAbKEWcATVHv1jvdmKqlDIOcTvIo1Dg
+	 RSJ4c4xdGI45S/qd3NQjnbmdrInNyafc2Q10Coypu/ePQDnAsI0lm/cDou7OELyRhG
+	 4MLT4g1SR2xWMSYbos+bCMmZUUBPouFFxAX/X4scmiSGoJuimto7Q11n5F5K+cKPZW
+	 r7D8TYD+Q90ASuVksE/anFT36eFIKm+NT3g3qDV1lWbYROikZA3biu72LaRy5ATnl/
+	 rf6kxhrBOUBsA==
+Date: Wed, 26 Aug 2026 17:18:22 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Robert Bozik <robertbozik@gmail.com>
-Cc: linux-media@vger.kernel.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Frank Li <Frank.Li@nxp.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Message-ID: <20260826-copy-arise-bb7e9eb5e908@spud>
-References: <20260826072002.14357-1-robertbozik@gmail.com>
- <20260826072002.14357-2-robertbozik@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	linux-media@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 4/5] media: nxp: imx8-isi: Add i.MX952 ISI support
+Message-ID: <20260826-maverick-economy-3727a959a776@spud>
+References: <20260826-isi_imx952-v1-0-cbfaaa3f0000@oss.nxp.com>
+ <20260826-isi_imx952-v1-4-cbfaaa3f0000@oss.nxp.com>
+ <ao8PoOqPX7gwlm3L@SMW015318>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -47,180 +54,80 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kxXNyVDynmDP1OhS"
+	protocol="application/pgp-signature"; boundary="lLXwz6jAJ9Z240OI"
 Content-Disposition: inline
-In-Reply-To: <20260826072002.14357-2-robertbozik@gmail.com>
+In-Reply-To: <ao8PoOqPX7gwlm3L@SMW015318>
 
---kxXNyVDynmDP1OhS
+--lLXwz6jAJ9Z240OI
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Aug 26, 2026 at 09:20:00AM +0200, Robert Bozik wrote:
-> Add a binding for the OmniVision OV32C4, a 32 megapixel RGBC CMOS image
-> sensor with on-chip 4-cell fusion, a 4-lane MIPI CSI-2 D-PHY transmitter
-> and the standard SCCB command interface.
+On Wed, Aug 26, 2026 at 11:09:04AM -0500, Frank Li wrote:
+> On Wed, Aug 26, 2026 at 12:55:45PM +0800, Guoniu Zhou wrote:
+> > The i.MX952 ISI is reused from the i.MX95 ISI with a minor silicon
+> > revision. It can process up to 8 image sources simultaneously and
+> > obtain image data from up to 4 pixel link sources.
+> >
+> > Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> > ---
+> >  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c | 14 ++++++++++++++
+> >  drivers/media/platform/nxp/imx8-isi/imx8-isi-core.h |  1 +
+> >  drivers/media/platform/nxp/imx8-isi/imx8-isi-regs.h |  2 +-
+> >  3 files changed, 16 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c b/driv=
+ers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> > index c1c16dbc1539..5b19b581b38e 100644
+> > --- a/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> > +++ b/drivers/media/platform/nxp/imx8-isi/imx8-isi-core.c
+> > @@ -392,6 +392,19 @@ static const struct mxc_isi_plat_data mxc_imx95_da=
+ta =3D {
+> >  	.has_36bit_dma		=3D true,
+> >  };
+> >
+> > +static const struct mxc_isi_plat_data mxc_imx952_data =3D {
+> > +	.model			=3D MXC_ISI_IMX952,
+> > +	.num_ports		=3D 4,
+> > +	.num_channels		=3D 8,
+> > +	.num_vc			=3D 8,
+> > +	.reg_offset		=3D 0x10000,
+> > +	.ier_reg		=3D &mxc_imx8_isi_ier_v2,
+> > +	.set_thd		=3D &mxc_imx8_isi_thd_v1,
+> > +	.format_mask		=3D GENMASK(30, 24),
+> > +	.buf_active_reverse	=3D true,
+> > +	.has_36bit_dma		=3D true,
+> > +};
+> > +
+> >  /* -------------------------------------------------------------------=
+----------
+> >   * Power management
+> >   */
+> > @@ -582,6 +595,7 @@ static const struct of_device_id mxc_isi_of_match[]=
+ =3D {
+> >  	{ .compatible =3D "fsl,imx91-isi", .data =3D &mxc_imx91_data },
+> >  	{ .compatible =3D "fsl,imx93-isi", .data =3D &mxc_imx93_data },
+> >  	{ .compatible =3D "fsl,imx95-isi", .data =3D &mxc_imx95_data },
+> > +	{ .compatible =3D "fsl,imx952-isi", .data =3D &mxc_imx952_data },
 >=20
-> The sensor ships in laptops as an under-display camera, where it is
-> described by ACPI; the binding follows ovti,ov08x40.yaml, which covers
-> the closest relative already in tree.
+> It is the almost same as imx95 except model, I am not sure if model is
+> used in code.
 >=20
-> Signed-off-by: Robert Bozik <robertbozik@gmail.com>
-> Assisted-by: Claude:claude-opus-5 sparse
-> Assisted-by: Claude:claude-fable-5 sparse
-> ---
->  .../bindings/media/i2c/ovti,ov32c4.yaml       | 109 ++++++++++++++++++
->  1 file changed, 109 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32=
-c4.yaml
+> why not fallback to fsl,imx95-isi.
 >=20
-> diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml=
- b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-> new file mode 100644
-> index 000000000..be6067c75
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
-> @@ -0,0 +1,109 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/i2c/ovti,ov32c4.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: OmniVision OV32C4 Image Sensor
-> +
-> +maintainers:
-> +  - Robert Bozik <robertbozik@gmail.com>
-> +
-> +description:
-> +  The OmniVision OV32C4 is a 32 megapixel RGBC (red, green, blue and cle=
-ar)
-> +  CMOS image sensor in a 4-cell arrangement, with on-chip 4-cell fusion =
-and
-> +  binning. It has a 6528x4896 active pixel array, a 4-lane MIPI CSI-2 D-=
-PHY
-> +  transmitter and the standard SCCB command interface. The driver suppor=
-ts
-> +  3264x1840 at 30 fps, 10-bit Bayer, at a link frequency of 400 MHz.
-> +
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ovti,ov32c4
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: Input clock (XVCLK), 19.2 MHz.
+> compatible =3D "fsl,imx952-isi", "fsl,imx952-isi";
 
-Where do this name and frequency come from? pin name I presume for the
-former? Is 19.2 MHz a mandatory frequency?
+Typo here, but I agree - fallback to imx95-isi would be nice.
 
-> +
-> +  avdd-supply:
-> +    description: Analogue circuit voltage supply.
-> +
-> +  dovdd-supply:
-> +    description: I/O circuit voltage supply.
-> +
-> +  dvdd-supply:
-> +    description: Digital core voltage supply.
-
-These 3 can just be :true, what they do should be obvious, provided they
-match the pin names of the device.
-
-Generally this looks fine to me though..
-
-Cheers,
-Conor.
-
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: Active low GPIO connected to the XSHUTDOWN pad of the s=
-ensor.
-> +
-> +  port:
-> +    $ref: /schemas/graph.yaml#/$defs/port-base
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      endpoint:
-> +        $ref: /schemas/media/video-interfaces.yaml#
-> +        additionalProperties: false
-> +
-> +        properties:
-> +          data-lanes:
-> +            items:
-> +              - const: 1
-> +              - const: 2
-> +              - const: 3
-> +              - const: 4
-> +          link-frequencies: true
-> +          remote-endpoint: true
-> +
-> +        required:
-> +          - data-lanes
-> +          - link-frequencies
-> +          - remote-endpoint
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - port
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        camera@36 {
-> +            compatible =3D "ovti,ov32c4";
-> +            reg =3D <0x36>;
-> +
-> +            clocks =3D <&ov32c4_clk>;
-> +            assigned-clocks =3D <&ov32c4_clk>;
-> +            assigned-clock-rates =3D <19200000>;
-> +
-> +            avdd-supply =3D <&vreg_2p8>;
-> +            dovdd-supply =3D <&vreg_1p8>;
-> +            dvdd-supply =3D <&vreg_1p1>;
-> +
-> +            reset-gpios =3D <&tlmm 111 GPIO_ACTIVE_LOW>;
-> +
-> +            port {
-> +                ov32c4_ep: endpoint {
-> +                    remote-endpoint =3D <&csiphy0_ep>;
-> +                    data-lanes =3D <1 2 3 4>;
-> +                    link-frequencies =3D /bits/ 64 <400000000>;
-> +                };
-> +            };
-> +        };
-> +    };
-> +...
-> --=20
-> 2.53.0
->=20
-
---kxXNyVDynmDP1OhS
+--lLXwz6jAJ9Z240OI
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8QpwAKCRB4tDGHoIJi
-0iWBAP0QpirlOm1Zi9Ck06wZX4Ny95SO2I8AYGzN13TH4lOVMQEAqGeXn4d8KZuR
-jYFF0lTKy7fNc98bishEzRXGBIoOEQk=
-=RiMD
+iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao8RzgAKCRB4tDGHoIJi
+0hZmAQDIhGvqiGWzfAZlp7K0I6uuR31QzcGxd8YiqNs+dGB07AD49UEqj2Wt2UNU
+8Lg+xrgS/YYcnJjXmm0q4ywsQ9pwBQ==
+=JtDY
 -----END PGP SIGNATURE-----
 
---kxXNyVDynmDP1OhS--
+--lLXwz6jAJ9Z240OI--
