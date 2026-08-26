@@ -1,63 +1,63 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+Received: from mail-ed1-f53.google.com (mail-ed1-f53.google.com [209.85.208.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22EB42A149
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:23:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E05DE42AFB7
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:23:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750600; cv=none; b=A0MIfNUHzcxXKrcoqX/XoRiope9rb0PBSCkGU8Skk3QfCJ/7UM9G5IFBvqQeoFTjbFrMbKoDbwcaDsA08HwXuDD5QEBubuC8WzqW6wffSLCABKmqk+gQ330HtnBncjdgThKprRaRAk8+mI9xgsJc+jN7LVQaDL2IJkUDydPzAwk=
+	t=1787750602; cv=none; b=b3BHlKuV7O+E5USOI2eGlfJoL+zvfdRqSfkocOWbNeFes6vCKcBhzTjK1/Jhyi6nXVYnnF5X03+qQW4pWLn3Sdrn40NjMwHfAojWbadr1igbDy/pmgL/3yrt4ok2B3R1yFKO9AvWhVN0tUyhGXVAgY4v/CZshYUlofSom7dKGtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750600; c=relaxed/simple;
-	bh=LyLoXF6tXMwCiKPgithzn41UgyMWaC02Owk4FkJ0mXk=;
+	s=arc-20240116; t=1787750602; c=relaxed/simple;
+	bh=THMn0luMX4cku0CmD3upSa4VhiQXQXukK48ACXoBa6o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eOTkbmNAau1JeqfdHimjroeXMr1y/DHO9T691e07ubI7dr1pX0hMdKju2CJrL1MhT6uMDbn/P0LJiH+zJeRBZV1EjG6z1Kx8swIguDSxk+FiiRYNKy+lhM09NCLdzHE+r2vOjB0+0eUUAINFx2k0vdQpR7z+2Ag26D/Th8fSFRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoQA1+hG; arc=none smtp.client-ip=209.85.208.48
+	 MIME-Version; b=QUmUlPLLGS0hNHGo5wGk4g6Q2ryFLIFjOv5CKyQZofSzS6f05eItQZMAfTyZIKvpvnVB0QWCVeYpL0v8Rvcdhh/uv624g9Lnu5XDspyR+UWxm9Akmd0anBrCDMFLrBlQvNan0+4DNoxaTYNzX3nG92q/IoHBXURih+knbppfhJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ECx4eLn0; arc=none smtp.client-ip=209.85.208.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoQA1+hG"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6a422090b2fso1312511a12.0
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:23:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ECx4eLn0"
+Received: by mail-ed1-f53.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so1188436a12.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:23:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750594; x=1788355394; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787750596; x=1788355396; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=7hUd20GpxQCc4d41YDgQHUkh4hezfHFKYEHRgbx10eE=;
-        b=RoQA1+hGFsL/agJo8NFL1ldYJKMGSQExZRPn+u10B8n5mBXY8+6qutKz7/A1S24W9Y
-         LfE+TIiUIoTx8UaywPrJhGNeKQ3d3CFFQbO2HzTcZpDBEgp0oCi4YvqFSrAAxeX/P4j9
-         otxVkKp/5WTqn3qrjhOl7TzVB7biq1kHRVVfnme6JK49kSVvIYZx3xuaFHnZNFziVI2w
-         itH9UPwFKncj3Jam5mF10I78dcczPHe6Oeuba0ivh8k1y9mgrtF3xi6AbB6LiTMiJ01+
-         uD7LmYw+W0h/Sk+Xn87bfdlni+Fxh7Q/zs+w7kiDxNDP873Fx6U85S1+5sCSYDMfHYOL
-         RLfQ==
+        bh=1BJDJIpJZRxZ10l5Jed80WVNk6QVcCkQrV78n6UBbUM=;
+        b=ECx4eLn0xDhrWwHqvDK1V4AD0X2kjhnDdhXoJf19m69heNvGJJCjkri39Qza/Qe+T1
+         oxjFfSJXNPQbM4HEw9KPHFHdpvzGXpBMSEdlAUvcki2nznzB0EEbxZPdrjEuih45R0lW
+         HbjJ11lNOBJo3AjM7CHdeEHyWGxu3DOEALt0CN5bMNchZviyjh3zYKcyD0jPTCz+SoQ0
+         HjiBLSdyOXrU4n20gXekw2DHqz3w+zT+r/JH5N2cElsrRKUri+s1mFiAfaguEx6Kidlc
+         nCG2SzKE/VJ56szqSmq+W+ducqMtzALXLuF6nwOGvU6dGCJbqdnObRviVVTB4p1pAIR9
+         /Scg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750594; x=1788355394;
+        d=1e100.net; s=20251104; t=1787750596; x=1788355396;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7hUd20GpxQCc4d41YDgQHUkh4hezfHFKYEHRgbx10eE=;
-        b=EOUIgSPWC1yJuoPUuj6W5dB0NfCLWi5wS6fV14Kp7SGuKIW0LG0GMGHBuHuXRN0J2P
-         oj8qIjR3qfpNvrIC2qL5v4UV6+tohSFZAC0F0ijkfzptxP2IaE1oH5iezWqK1LvCk7kp
-         Aqn+9oG1vJihEwG+rzVMJoMAe0fanmzdzUEAEOSGyemPrvVn0dscy+eU5ToLhZg+L4S1
-         E1tLCSBdnPuZeE1IO76koM9A7bkGgj/DHKXPnezTGs6CJN42NO/7OuKufAfIgcayp3y7
-         e3lbZczDBPo67ywZYUeX8rDTQiXWLCW0mgtTcG9ZBJSdqv/JnFCNhVfONjAs7B4ZGa5o
-         D28g==
-X-Gm-Message-State: AFuF++mGaSx9TFgfbZ8CMM5mlIqz1ghzkro6t8A/OPoOQTdRhDOYGmST
-	KvJ3gTXQkodsEnHUrM+T7KSnI453dDmKjGKX4jd6cb6ts38neU3lfxILaS/hR8G4
-X-Gm-Gg: AR+sD11Fcrec4U9nIyxN9KVfClW2uT+Aksl77Uph223cbAJXnj3gjYgWc5SKDR1isMT
-	R6obbmHG+ezizUOr1oy6NoCHid5/et1mm7HT0gk25SvkSOcuhYt4lpFhjtEsXJAsCYnTovTpEI6
-	zA5miYOwUNWd4i+QKeEmC6OSsMycGhBrkQg0EFutenxkfCPaVAsIJyicRuiWgTfDVWqpM6jkGPi
-	W+7EV9PujJXnR3OclI8hc4YM0u3Tn4JwIlW7uMsx59OXJJFQc6WEW/BVdywXR8Jful8gOrrzsz4
-	VYVZ+78JcAuIi+06HadsIH3OEE8VqmwJ9K9YI3m3QVNKX7E0IAonrW/K2i1FdaVnrzF7mzkeJcY
-	dJ6InwdY8X0CFwzY5VNfK1B6dLAK592JS++mXvYxVt5M1GWy9hvgVLxLKB3/hlZ53B5UzSQLPj+
-	IbAImHM28p4Zovnl/nFdCBf+9ouW4ZHOMpxxu/PAdQGGK2keQ4eSQAHdnTPeyiOMWMVrLVIrSPU
-	KtGUxAFjtSIHUVL54u3V9bXjKwJoPMLnXXZIWKRK0q7X57N1YuB8A==
-X-Received: by 2002:a05:6402:2742:b0:6a1:4fc7:94b3 with SMTP id 4fb4d7f45d1cf-6a5df5b04b8mr8718503a12.1.1787750594285;
-        Wed, 26 Aug 2026 06:23:14 -0700 (PDT)
+        bh=1BJDJIpJZRxZ10l5Jed80WVNk6QVcCkQrV78n6UBbUM=;
+        b=gKHDX0p+mV1hUnwY2JwwBaT2vezHCHXa6QTzWLymIGHNRBnOVlU2hK63u8jdReV+wr
+         ViCGgcvansqkZm7GEIpm8Y3Bu89/V4zo/L9ryqkhbX6qf8WuqmWX4ctLHWMWznyJzXrh
+         Np4HJ2eDqIK6M3JL0iBs7tjnOWN9Gs/NOJvxwQuFKZJGI18dwRxNHe2Ct19KtngSZbME
+         DC9XbXCKwoPvBxpEtl5rkTdAQKQSWXjkIF8sYEmEBDxZ6z3nbzZP/OcGd6Z0C67drYko
+         yWUd8rDU0w8B8mgcEZhNmSDRXaZ4NHdWLvmP9d40Lw9NSAuW60P84S1eNtvhy7dJIYAT
+         yoSQ==
+X-Gm-Message-State: AFuF++ng0ScydqaSoqzBKEsfYWi0SLy2CBkVIHS+R9PkeIs2oN1kLCzz
+	1FnpEU8SVrOgiesaxjzFXEBRdyRG/s8b3WgK1lFbHjuLe+P+26zwMdbI3b8hdQMh
+X-Gm-Gg: AR+sD13CT/TorFMj1XDC8HFpJ/jup4fckC1ezl5iWdgrZsfGKzbGMYrnWMA7LlqgprD
+	mOleTkny0s1l23j0d4sdQ7wYqR0X0eF9iN/4xNLacySNrRZ2RpXfjZbIiZ1HdTTqyQZkulEXjIn
+	Ne9i9AGYCUQX3il3Ou0ktxhZB4nU39SpXVIhwFRaSaNFp9lte6JO2ulhKqLAd8WmxL/6PWM2u8U
+	u5A2716m9bpSLgXIYzW5wbwe6fK18qSvpt3o0MLnxeHnK4Th6eLiyk3bjIncoFKToxWo9bDjo6j
+	c7Fmc8R9B+1GXGBuIigSZs+qBo4H95DVkiuuQNE+9OE76V7bRj298XtvjWrE9s2Cr9NszPiGr81
+	OIct2apLD345U8Qz+8W52OP1m0V0cqeLsKGxwosFnArIZXzYEUAzL29aRbEiRkbD71ORPN3RF+W
+	NUqZS3WqXP64bshgwFi9bQUj/cg3nDtZUg5EEyTE1+H1qOqdZsMvtGxGSqypWjLWePaab87/plm
+	5TsvbEG21pxBm82ohwoIzGDXuqI/S0gjPMHpUf2LKs=
+X-Received: by 2002:a05:6402:538b:b0:698:ecf:d18a with SMTP id 4fb4d7f45d1cf-6a5df6535f1mr9483609a12.9.1787750596381;
+        Wed, 26 Aug 2026 06:23:16 -0700 (PDT)
 Received: from 1Z10 ([37.163.238.51])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a30sm3633147a12.15.2026.08.26.06.23.12
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a30sm3633147a12.15.2026.08.26.06.23.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:23:13 -0700 (PDT)
+        Wed, 26 Aug 2026 06:23:15 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -72,9 +72,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH 5/8] media: atomisp: support the Yoga Book OV2740 link
-Date: Wed, 26 Aug 2026 15:22:53 +0200
-Message-ID: <20260826132256.3343451-6-mauriziocasciano7@gmail.com>
+Subject: [PATCH 6/8] media: ov2740: add manual white balance controls
+Date: Wed, 26 Aug 2026 15:22:54 +0200
+Message-ID: <20260826132256.3343451-7-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
 References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
@@ -86,436 +86,147 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The YB1-X91L firmware does not describe the complete camera link. Its
-front OV2740 uses two CSI-2 lanes at a 288 MHz link frequency and sends
-a 1932x1092 BGGR transport frame with 12 pixels of horizontal and
-vertical padding around the 1920x1080 image.
+The sensor has separate red, green and blue manual white-balance gain
+registers, but the driver currently writes the same digital-gain value
+to all three channels. This prevents userspace from correcting the
+strong color cast of raw Bayer capture.
 
-Allow the AtomISP bridge to provide per-sensor link frequencies and
-padding, add the matching OV2740 mode, and derive ISP2401 D-PHY timing
-from the sensor link-frequency control.
+Expose red- and blue-balance controls relative to the digital gain,
+update all three channels under group hold, and always release and
+launch the group even when a channel write fails.
 
-The register values are hardware configuration facts checked against
-the Lenovo YB1-X91L configuration and physical captures; no proprietary
-driver code or tuning binary is included.
-
-Tested on a Lenovo Yoga Book YB1-X91L with continuous front-camera raw
+Tested on the Yoga Book OV2740 with live gain changes and continuous raw
 capture.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 Assisted-by: Codex:gpt-5.6-sol sparse
 ---
- drivers/media/i2c/ov2740.c                    | 98 ++++++++++++++++++-
- drivers/media/pci/intel/ipu-bridge.c          | 15 ++-
- .../staging/media/atomisp/pci/atomisp_csi2.c  | 17 +++-
- .../staging/media/atomisp/pci/atomisp_csi2.h  |  2 +
- .../media/atomisp/pci/atomisp_csi2_bridge.c   | 65 ++++++++++++
- include/media/ipu-bridge.h                    |  2 +
- 6 files changed, 186 insertions(+), 13 deletions(-)
+ drivers/media/i2c/ov2740.c | 71 +++++++++++++++++++++++++++-----------
+ 1 file changed, 50 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-index d85d83bdd203..b760d4dc0e68 100644
+index b760d4dc0e68..7651443b28c1 100644
 --- a/drivers/media/i2c/ov2740.c
 +++ b/drivers/media/i2c/ov2740.c
-@@ -17,6 +17,7 @@
- #include <media/v4l2-fwnode.h>
+@@ -607,6 +607,9 @@ struct ov2740 {
+ 	struct v4l2_ctrl *vblank;
+ 	struct v4l2_ctrl *hblank;
+ 	struct v4l2_ctrl *exposure;
++	struct v4l2_ctrl *digital_gain;
++	struct v4l2_ctrl *red_balance;
++	struct v4l2_ctrl *blue_balance;
  
- #define OV2740_LINK_FREQ_360MHZ		360000000ULL
-+#define OV2740_LINK_FREQ_288MHZ		288000000ULL
- #define OV2740_LINK_FREQ_180MHZ		180000000ULL
- #define OV2740_SCLK			72000000LL
- #define OV2740_MCLK			19200000
-@@ -91,6 +92,7 @@ struct nvm_data {
- 
- enum {
- 	OV2740_LINK_FREQ_360MHZ_INDEX,
-+	OV2740_LINK_FREQ_288MHZ_INDEX,
- 	OV2740_LINK_FREQ_180MHZ_INDEX,
- };
- 
-@@ -130,8 +132,14 @@ struct ov2740_mode {
- 	/* Link frequency needed for this resolution */
- 	u32 link_freq_index;
- 
-+	/* Optional common settings applied before the mode-specific settings */
-+	const struct ov2740_reg_list init_reg_list;
-+
- 	/* Sensor register settings for this resolution */
- 	const struct ov2740_reg_list reg_list;
-+
-+	/* Bayer order produced by this mode */
-+	u32 code;
- };
- 
- static const struct ov2740_reg mipi_data_rate_720mbps[] = {
-@@ -142,6 +150,14 @@ static const struct ov2740_reg mipi_data_rate_720mbps[] = {
- 	{0x0312, 0x11},
- };
- 
-+static const struct ov2740_reg mipi_data_rate_576mbps[] = {
-+	{0x0302, 0x1e},
-+	{0x0303, 0x00},
-+	{0x030d, 0x1e},
-+	{0x030e, 0x02},
-+	{0x0312, 0x01},
-+};
-+
- static const struct ov2740_reg mipi_data_rate_360mbps[] = {
- 	{0x0302, 0x4b},
- 	{0x0303, 0x01},
-@@ -458,6 +474,36 @@ static const struct ov2740_reg mode_1932x1092_regs_180mhz[] = {
- 	{0x4003, 0x40},	/* set Black level to 0x40 */
- };
- 
-+/*
-+ * Lenovo's Yoga Book vendor driver uses the generic initialization settings
-+ * above followed by these mode overrides.  Unlike the generic 720 Mbps mode,
-+ * this is a 576 Mbps two-lane mode with BGGR output from the optical array.
-+ */
-+static const struct ov2740_reg mode_1932x1092_regs_288mhz[] = {
-+	{0x0302, 0x1e},
-+	{0x0303, 0x00},
-+	{0x030d, 0x1e},
-+	{0x030e, 0x02},
-+	{0x0312, 0x01},
-+	{0x3808, 0x07},
-+	{0x3809, 0x8c},
-+	{0x380a, 0x04},
-+	{0x380b, 0x44},
-+	{0x380c, 0x04},
-+	{0x380d, 0x38},
-+	{0x380e, 0x06},
-+	{0x380f, 0xf0},
-+	{0x3810, 0x00},
-+	{0x3811, 0x02},
-+	{0x3812, 0x00},
-+	{0x3813, 0x02},
-+	{0x481f, 0x29},
-+	{0x4820, 0x01},
-+	{0x4837, 0x1b},
-+	{0x5000, 0x7f},
-+	{0x58f4, 0x32},
-+};
-+
- static const char * const ov2740_test_pattern_menu[] = {
- 	"Disabled",
- 	"Color Bar",
-@@ -468,6 +514,7 @@ static const char * const ov2740_test_pattern_menu[] = {
- 
- static const s64 link_freq_menu_items[] = {
- 	OV2740_LINK_FREQ_360MHZ,
-+	OV2740_LINK_FREQ_288MHZ,
- 	OV2740_LINK_FREQ_180MHZ,
- };
- 
-@@ -478,6 +525,12 @@ static const struct ov2740_link_freq_config link_freq_configs[] = {
- 			.regs = mipi_data_rate_720mbps,
- 		}
- 	},
-+	[OV2740_LINK_FREQ_288MHZ_INDEX] = {
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mipi_data_rate_576mbps),
-+			.regs = mipi_data_rate_576mbps,
-+		}
-+	},
- 	[OV2740_LINK_FREQ_180MHZ_INDEX] = {
- 		.reg_list = {
- 			.num_of_regs = ARRAY_SIZE(mipi_data_rate_360mbps),
-@@ -499,6 +552,28 @@ static const struct ov2740_mode supported_modes_360mhz[] = {
- 			.regs = mode_1932x1092_regs_360mhz,
- 		},
- 		.link_freq_index = OV2740_LINK_FREQ_360MHZ_INDEX,
-+		.code = MEDIA_BUS_FMT_SGRBG10_1X10,
-+	},
-+};
-+
-+static const struct ov2740_mode supported_modes_288mhz[] = {
-+	{
-+		.width = 1932,
-+		.height = 1092,
-+		.hts = 2160,
-+		.vts_min = 1776,
-+		.vts_def = 1776,
-+		.vts_max = 32767,
-+		.init_reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_1932x1092_regs_360mhz),
-+			.regs = mode_1932x1092_regs_360mhz,
-+		},
-+		.reg_list = {
-+			.num_of_regs = ARRAY_SIZE(mode_1932x1092_regs_288mhz),
-+			.regs = mode_1932x1092_regs_288mhz,
-+		},
-+		.link_freq_index = OV2740_LINK_FREQ_288MHZ_INDEX,
-+		.code = MEDIA_BUS_FMT_SBGGR10_1X10,
- 	},
- };
- 
-@@ -515,6 +590,7 @@ static const struct ov2740_mode supported_modes_180mhz[] = {
- 			.regs = mode_1932x1092_regs_180mhz,
- 		},
- 		.link_freq_index = OV2740_LINK_FREQ_180MHZ_INDEX,
-+		.code = MEDIA_BUS_FMT_SGRBG10_1X10,
- 	},
- };
- 
-@@ -842,7 +918,7 @@ static void ov2740_update_pad_format(const struct ov2740_mode *mode,
- {
- 	fmt->width = mode->width;
- 	fmt->height = mode->height;
--	fmt->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	fmt->code = mode->code;
- 	fmt->field = V4L2_FIELD_NONE;
- }
- 
-@@ -966,6 +1042,15 @@ static int ov2740_start_streaming(struct ov2740 *ov2740)
- 		return ret;
- 	}
- 
-+	if (ov2740->cur_mode->init_reg_list.num_of_regs) {
-+		reg_list = &ov2740->cur_mode->init_reg_list;
-+		ret = ov2740_write_reg_list(ov2740, reg_list);
-+		if (ret) {
-+			dev_err(ov2740->dev, "failed to set common mode registers\n");
-+			return ret;
-+		}
-+	}
-+
- 	reg_list = &ov2740->cur_mode->reg_list;
- 	ret = ov2740_write_reg_list(ov2740, reg_list);
- 	if (ret) {
-@@ -1062,10 +1147,12 @@ static int ov2740_enum_mbus_code(struct v4l2_subdev *sd,
- 				 struct v4l2_subdev_state *sd_state,
- 				 struct v4l2_subdev_mbus_code_enum *code)
- {
-+	struct ov2740 *ov2740 = to_ov2740(sd);
-+
- 	if (code->index > 0)
- 		return -EINVAL;
- 
--	code->code = MEDIA_BUS_FMT_SGRBG10_1X10;
-+	code->code = ov2740->supported_modes[0].code;
- 
+ 	/* GPIOs, clocks, regulators */
+ 	struct gpio_desc *reset_gpio;
+@@ -736,35 +739,46 @@ static int ov2740_identify_module(struct ov2740 *ov2740)
  	return 0;
  }
-@@ -1080,7 +1167,7 @@ static int ov2740_enum_frame_size(struct v4l2_subdev *sd,
- 	if (fse->index >= ov2740->supported_modes_count)
- 		return -EINVAL;
  
--	if (fse->code != MEDIA_BUS_FMT_SGRBG10_1X10)
-+	if (fse->code != supported_modes[0].code)
- 		return -EINVAL;
- 
- 	fse->min_width = supported_modes[fse->index].width;
-@@ -1178,6 +1265,11 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
- 			ov2740->supported_modes_count =
- 				ARRAY_SIZE(supported_modes_360mhz);
- 			break;
-+		case OV2740_LINK_FREQ_288MHZ_INDEX:
-+			ov2740->supported_modes = supported_modes_288mhz;
-+			ov2740->supported_modes_count =
-+				ARRAY_SIZE(supported_modes_288mhz);
-+			break;
- 		case OV2740_LINK_FREQ_180MHZ_INDEX:
- 			ov2740->supported_modes = supported_modes_180mhz;
- 			ov2740->supported_modes_count =
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 47317c423fad..5730a95767a2 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -520,11 +520,16 @@ static void ipu_bridge_create_fwnode_properties(
- 					sensor->prop_names.remote_endpoint,
- 					sensor->local_ref);
- 
--	if (cfg->nr_link_freqs > 0)
--		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
--			sensor->prop_names.link_frequencies,
--			cfg->link_freqs,
--			cfg->nr_link_freqs);
-+	if (sensor->nr_link_freqs > 0)
-+		sensor->ep_properties[3] =
-+			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-+						     sensor->link_freqs,
-+						     sensor->nr_link_freqs);
-+	else if (cfg->nr_link_freqs > 0)
-+		sensor->ep_properties[3] =
-+			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-+						     cfg->link_freqs,
-+						     cfg->nr_link_freqs);
- 
- 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
- 					sensor->prop_names.data_lanes,
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2.c b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
-index 95b9113d75e9..035f1addeaae 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.c
-@@ -5,6 +5,7 @@
-  * Copyright (c) 2010 Intel Corporation. All Rights Reserved.
-  */
- 
-+#include <media/v4l2-common.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-mediabus.h>
- #include "atomisp_cmd.h"
-@@ -288,18 +289,19 @@ static void atomisp_csi2_configure_isp2401(struct atomisp_sub_device *asd)
- 	int dat_termen;
- 	int dat_settle;
- 
--	struct v4l2_control ctrl;
- 	struct atomisp_device *isp = asd->isp;
-+	struct v4l2_subdev *sensor;
-+	s64 link_freq;
- 	int mipi_freq = 0;
- 	enum atomisp_camera_port port;
- 	int n;
- 
- 	port = isp->inputs[asd->input_curr].port;
- 
--	ctrl.id = V4L2_CID_LINK_FREQ;
--	if (v4l2_g_ctrl
--	    (isp->inputs[asd->input_curr].sensor->ctrl_handler, &ctrl) == 0)
--		mipi_freq = ctrl.value;
-+	sensor = isp->inputs[asd->input_curr].sensor;
-+	link_freq = v4l2_get_link_freq(&sensor->entity.pads[0], 0, 0);
-+	if (link_freq > 0 && link_freq <= S32_MAX)
-+		mipi_freq = link_freq;
- 
- 	clk_termen = atomisp_csi2_configure_calc(coeff_clk_termen, mipi_freq,
- 						 TERMEN_DEFAULT);
-@@ -310,6 +312,11 @@ static void atomisp_csi2_configure_isp2401(struct atomisp_sub_device *asd)
- 	dat_settle = atomisp_csi2_configure_calc(coeff_dat_settle, mipi_freq,
- 						 SETTLE_DEFAULT);
- 
-+	dev_dbg(isp->dev,
-+		"CSI port %u link frequency %d Hz, clk timing %d/%d, data timing %d/%d\n",
-+		port, mipi_freq, clk_termen, clk_settle,
-+		dat_termen, dat_settle);
-+
- 	for (n = 0; n < csi2_port_lanes[port] + 1; n++) {
- 		hrt_address base = csi2_port_base[port] + csi2_lane_base[n];
- 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2.h b/drivers/staging/media/atomisp/pci/atomisp_csi2.h
-index ec762f8fb922..dd36659e7984 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2.h
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.h
-@@ -45,6 +45,8 @@ int atomisp_mipi_csi2_register_entities(struct atomisp_mipi_csi2_device *csi2,
- 					struct v4l2_device *vdev);
- int atomisp_csi2_bridge_init(struct atomisp_device *isp);
- int atomisp_csi2_bridge_parse_firmware(struct atomisp_device *isp);
-+bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
-+				     u32 *padding_h);
- 
- void atomisp_csi2_configure(struct atomisp_sub_device *asd);
- 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index 207ab69385b5..0b9577ffb98c 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -77,6 +77,11 @@ static struct gmin_cfg_var lenovo_ideapad_miix_310_vars[] = {
- static struct gmin_cfg_var lenovo_yogabook_x91_vars[] = {
- 	/* The vendor driver and sensor modes use two CSI data lanes. */
- 	{ "OVTI2740:00", "CsiLanes", "2" },
-+	/* The vendor 1932x1092 mode uses a 576 Mbps two-lane link. */
-+	{ "OVTI2740:00", "CsiLinkFreq", "288000000" },
-+	/* Crop the vendor mode's 1932x1092 transport frame to 1920x1080. */
-+	{ "OVTI2740:00", "CsiPaddingWidth", "12" },
-+	{ "OVTI2740:00", "CsiPaddingHeight", "12" },
- 	{}
- };
- 
-@@ -207,6 +212,49 @@ static int gmin_cfg_get_int(struct acpi_device *adev, const char *key, int defau
- 	return default_val;
- }
- 
-+bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
-+				     u32 *padding_h)
-+{
-+	struct acpi_device *adev = ACPI_COMPANION(dev);
-+	bool override = false;
-+	char *str_val;
-+	unsigned int val;
-+
-+	*padding_w = pad_w;
-+	*padding_h = pad_h;
-+
-+	if (!adev)
-+		return false;
-+
-+	str_val = gmin_cfg_get(adev, "CsiPaddingWidth");
-+	if (str_val) {
-+		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
-+			*padding_w = val;
-+			override = true;
-+		} else {
-+			acpi_handle_warn(adev->handle,
-+					 "%s: Invalid CSI padding width %s\n",
-+					 dev_name(dev), str_val);
-+		}
-+		kfree(str_val);
-+	}
-+
-+	str_val = gmin_cfg_get(adev, "CsiPaddingHeight");
-+	if (str_val) {
-+		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
-+			*padding_h = val;
-+			override = true;
-+		} else {
-+			acpi_handle_warn(adev->handle,
-+					 "%s: Invalid CSI padding height %s\n",
-+					 dev_name(dev), str_val);
-+		}
-+		kfree(str_val);
-+	}
-+
-+	return override;
-+}
-+
- static int atomisp_csi2_get_pmc_clk_nr_from_acpi_pr0(struct acpi_device *adev)
+-static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
++static int ov2740_update_mwb_gains(struct ov2740 *ov2740)
  {
- 	/* ACPI_PATH_SEGMENT_LENGTH is guaranteed to be big enough for name + 0 term. */
-@@ -383,6 +431,8 @@ static int atomisp_csi2_parse_sensor_fwnode(struct acpi_device *adev,
- 					    struct ipu_sensor *sensor)
- {
- 	const struct acpi_device_id *id;
-+	char *link_freq_str;
-+	unsigned long long link_freq;
- 	int ret, clock_num;
- 	bool vcm = false;
- 	int lanes = 1;
-@@ -422,6 +472,21 @@ static int atomisp_csi2_parse_sensor_fwnode(struct acpi_device *adev,
- 		return -EINVAL;
- 	}
+-	int ret;
++	u32 green_gain = ov2740->digital_gain->val;
++	u32 red_gain, blue_gain;
++	int end_ret, launch_ret, ret;
++
++	/* Balance controls use 1024 as unity relative to the digital gain. */
++	red_gain = min_t(u64,
++			 DIV_ROUND_CLOSEST_ULL((u64)green_gain *
++					       ov2740->red_balance->val,
++					       OV2740_DGTL_GAIN_DEFAULT),
++			 OV2740_DGTL_GAIN_MAX);
++	blue_gain = min_t(u64,
++			  DIV_ROUND_CLOSEST_ULL((u64)green_gain *
++						ov2740->blue_balance->val,
++						OV2740_DGTL_GAIN_DEFAULT),
++			  OV2740_DGTL_GAIN_MAX);
  
-+	link_freq_str = gmin_cfg_get(adev, "CsiLinkFreq");
-+	if (link_freq_str) {
-+		ret = kstrtoull(link_freq_str, 0, &link_freq);
-+		kfree(link_freq_str);
-+		if (ret || !link_freq) {
-+			acpi_handle_err(adev->handle,
-+					"%s: Invalid CSI link frequency\n",
-+					dev_name(&adev->dev));
-+			return ret ?: -EINVAL;
-+		}
-+
-+		sensor->link_freqs[0] = link_freq;
-+		sensor->nr_link_freqs = 1;
-+	}
-+
- 	ret = atomisp_csi2_add_gpio_mappings(adev);
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+ 			       OV2740_GROUP_HOLD_START);
  	if (ret)
  		return ret;
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index 16fac765456e..633ef0c4cf59 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -135,6 +135,8 @@ struct ipu_sensor {
  
- 	u8 link;
- 	u8 lanes;
-+	u8 nr_link_freqs;
-+	u64 link_freqs[MAX_NUM_LINK_FREQS];
- 	u32 mclkspeed;
- 	u32 rotation;
- 	enum v4l2_fwnode_orientation orientation;
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, d_gain);
++	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, red_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, d_gain);
++	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, green_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, d_gain);
+-	if (ret)
+-		return ret;
++	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, blue_gain);
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_END);
+-	if (ret)
+-		return ret;
++release_group:
++	end_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				   OV2740_GROUP_HOLD_END);
++	launch_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				      OV2740_GROUP_HOLD_LAUNCH);
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_LAUNCH);
+-	return ret;
++	return ret ?: end_ret ?: launch_ret;
+ }
+ 
+ static int ov2740_test_pattern(struct ov2740 *ov2740, u32 pattern)
+@@ -805,7 +819,9 @@ static int ov2740_set_ctrl(struct v4l2_ctrl *ctrl)
+ 		break;
+ 
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		ret = ov2740_update_digital_gain(ov2740, ctrl->val);
++	case V4L2_CID_RED_BALANCE:
++	case V4L2_CID_BLUE_BALANCE:
++		ret = ov2740_update_mwb_gains(ov2740);
+ 		break;
+ 
+ 	case V4L2_CID_EXPOSURE:
+@@ -846,7 +862,7 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	int ret;
+ 
+ 	ctrl_hdlr = &ov2740->ctrl_handler;
+-	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 10);
++	ret = v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -881,9 +897,22 @@ static int ov2740_init_controls(struct ov2740 *ov2740)
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops, V4L2_CID_ANALOGUE_GAIN,
+ 			  OV2740_ANAL_GAIN_MIN, OV2740_ANAL_GAIN_MAX,
+ 			  OV2740_ANAL_GAIN_STEP, OV2740_ANAL_GAIN_MIN);
+-	v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
+-			  OV2740_DGTL_GAIN_MIN, OV2740_DGTL_GAIN_MAX,
+-			  OV2740_DGTL_GAIN_STEP, OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->digital_gain =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_DIGITAL_GAIN,
++				  OV2740_DGTL_GAIN_MIN, OV2740_DGTL_GAIN_MAX,
++				  OV2740_DGTL_GAIN_STEP,
++				  OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->red_balance =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_RED_BALANCE,
++				  1, OV2740_DGTL_GAIN_MAX, 1,
++				  OV2740_DGTL_GAIN_DEFAULT);
++	ov2740->blue_balance =
++		v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
++				  V4L2_CID_BLUE_BALANCE,
++				  1, OV2740_DGTL_GAIN_MAX, 1,
++				  OV2740_DGTL_GAIN_DEFAULT);
+ 	exposure_max = ov2740->cur_mode->vts_def - OV2740_EXPOSURE_MAX_MARGIN;
+ 	ov2740->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &ov2740_ctrl_ops,
+ 					     V4L2_CID_EXPOSURE,
 -- 
 2.53.0
 
