@@ -1,106 +1,156 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791053B840F;
-	Wed, 26 Aug 2026 10:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DDDF346ADC
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:18:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787739313; cv=none; b=SvNPdsj1gMyNl4ThMpLfNZ6mJbKKC4vZcbtzXUCOCqxk5k2nNZmrhpDk4XrJOznzap9GK1VxDSiQzuCUa2J1KIKEcLE/oxXtq1T54/0cxiJ194v7f+Wgrv4wZmG4mdTXg3BKMqn6+dtWko3KZEgMyxhNDewWqNdOLscpLlFt3Zg=
+	t=1787739493; cv=none; b=BDNIkxVylWWwq+IhemUS2lOClULCqIo5Ylg6uQb0PxQyVo/vFdGm/OWGR+knhjgy9CXzoVJGjJmIuwZZZ6nCSTVsd0kc7L2rVQXP+u877rj/KFY+duvhB7q2YH0YZ2FUfcE0inuJJzn31WLyH4KOUTzh3FT4J5jr+0aIAuQAGzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787739313; c=relaxed/simple;
-	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hziNNS9cHp/BfmqBYeJvgY3EH2lq1e91GCDfwmly18HeUttlPUeuqSLK3NPqCvQ+B5XBi1V/y+dRQTXYoL/pbpod2YZpGwOD27Gu+bJCp1HiLp1wqwouPoF+irDIVWzBtnapIJmyuiLM/vkSC0ewydZRjYm/8fmldnd4akBHerk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YGtPOTFw; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1787739493; c=relaxed/simple;
+	bh=sqL24K0KfJdbx0vHEs3vDO0I9peitKLJ5huBhDqLg/Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=So3Iec1ypFNFGv/dFUSUavv8eJQMC4im4d3cEIHyO0PpBUaRZ2Nybmu3m199A+UqsmdVvsvCmD6i4Tp/vkdOjr5bvhnM7PNA2SWSaYupBih3cndewcv2wL+KHIWzxQ8x6fTjjoDerZSW2DTR5GB7fV0EkqnWC/ujUpWCtj3fY0s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEYJ0QiP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YGtPOTFw"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C77FD19C;
-	Wed, 26 Aug 2026 12:13:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787739221;
-	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YGtPOTFwZw41YbmWfHk17StA48t6cYc51KF8Dv++tFv1R6cB/Sai79pf3bxqTGY70
-	 5itE0iTZ/ymVMUezH57ZumhpxEMX14xYXQxd8LVjtwE2VWXWurfKESQ0S4JUh5Koe5
-	 xYp/0hfhf1x7YXyRrT88G2JFpXkq+l1wIOiA/WeU=
-Message-ID: <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
-Date: Wed, 26 Aug 2026 13:15:03 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEYJ0QiP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 103191F00AC4
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:18:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787739492;
+	bh=mDV5gdsC6yguzGKpIGUB6MMAjCOyqIfbyxfQVnSthAw=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=WEYJ0QiPsNz/hfSPDfjvjPu8n3hqjXwZNZvTlaejmuycz+nSglf5e425z6K8VtWCA
+	 8e6IlIR4tv4OdCBmVs1wtRiGE1c268+VscF/ztbKnZawYk8E8RX2Zn8BZV5lx0pIpx
+	 qB7mhhpgEBgQFNs8SaouLWV1Uo4loeSEKxBKDGUBUQHLVKPQLVdwqsjnwZHgvlgsov
+	 IIjlNvBrI3XA5c13p43a+if6kDPffd1PeYjkxe/rjRU6mF9Z8Om74N5NwbZzU9X5W/
+	 D0j2jTYXElRy+eXLnzSnfU3FlsgCxOt45gqzsaVw5oucoSCvUO/6cUCbfQea7d8y6+
+	 0TP6AIixhaM0g==
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a12ffc112cso16330721fa.0
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 03:18:11 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+RrhuRfMCH+lHKyPh9vkr8w5LwQWPVld4cnZRaRVEHy5CQuON+a6uk3rHFYkBOKiE4TE4AeFHn47wJfYwA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nE/f1aVtLqLOMy6rDH7FlA9chUBXGsWrx7aohETUpCt3C0UExH
+	UdOdjUoO0Peb9BZNvwhm77icTPtNLnz7sVewBWRXFGds+khUvjOlVsanUjSvA2N71RlZKzfRkVk
+	a9ZQ9TBPRUeNo9mMCB5FBMk+K2YAv8Fc=
+X-Received: by 2002:a2e:b8cd:0:b0:3a1:8dd6:aada with SMTP id
+ 38308e7fff4ca-3a1fbb66ed5mr9694031fa.4.1787739490431; Wed, 26 Aug 2026
+ 03:18:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: dumitru.ceclan@analog.com
-Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
- Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
- <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
- Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260824211338.3583976-1-sakari.ailus@linux.intel.com>
+ <20260824211338.3583976-4-sakari.ailus@linux.intel.com> <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com>
+ <ao2FmNRFjSJVxhrL@kekkonen.localdomain> <CAJZ5v0gQVFxSkkjPbRf6bsKdgUBGduZV0M5SWrHoeB246ZLqew@mail.gmail.com>
+ <134e9566-7913-86d7-1e8b-b2ca9ebec55c@linux.intel.com> <CAJZ5v0h4KD6Q1DeuwbFQ83U1=wKORMWUQNA2BwnFtsYAyzz_Ow@mail.gmail.com>
+ <CAJZ5v0ggPGEu8YQTpeTC6=tVNr1zponkCbs+UQPieAH5k6ngUg@mail.gmail.com>
+ <ao3uh2xos_1uwAgJ@kekkonen.localdomain> <762e0630-1b04-6a82-69b6-ca5148e74cff@linux.intel.com>
+In-Reply-To: <762e0630-1b04-6a82-69b6-ca5148e74cff@linux.intel.com>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Wed, 26 Aug 2026 12:17:26 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0g+82WhVmdK=MT8oyuZ=d=Lb7adwEepmTx4JKebh-bqRg@mail.gmail.com>
+X-Gm-Features: AcwNN1XVhFh3nFaaB5EpSZughSsqDc3uvAx5MZLQaiHg6Md-aDFOcSXi5vYryYg
+Message-ID: <CAJZ5v0g+82WhVmdK=MT8oyuZ=d=Lb7adwEepmTx4JKebh-bqRg@mail.gmail.com>
+Subject: Re: [PATCH v2 3/5] ACPI: Support __free() from cleanup.h for ACPI objects
+To: =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	"Rafael J. Wysocki (Intel)" <rafael@kernel.org>, linux-media@vger.kernel.org, linux-acpi@vger.kernel.org, 
+	Daniel Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	platform-driver-x86@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Wed, Aug 26, 2026 at 11:04=E2=80=AFAM Ilpo J=C3=A4rvinen
+<ilpo.jarvinen@linux.intel.com> wrote:
+>
+> On Tue, 25 Aug 2026, Sakari Ailus wrote:
+>
+> > Hi Rafael, Ilpo,
+> >
+> > On Tue, Aug 25, 2026 at 03:08:07PM +0200, Rafael J. Wysocki (Intel) wro=
+te:
+> > > > If there is a cleanup.h "free" that can only be used with objects
+> > > > returned by acpi_evaluate_dsm_typed(), I'll be fine with that.
+> > > >
+> > > > Or if everyone agrees that doing
+> > > >
+> > > >     union acpi_object *out_obj __free(ACPI_FREE) =3D NULL;
+> > > >
+> > > > is not confusing and fine, I may just say "Hey, I don't care that m=
+uch".
+> > >
+> > > And particularly there is this paragraph in a comment in cleanup.h:
+> > >
+> > >  * Given that the "__free(...) =3D NULL" pattern for variables define=
+d at
+> > >  * the top of the function poses this potential interdependency probl=
+em
+> > >  * the recommendation is to always define and assign variables in one
+> > >  * statement and not group variable definitions at the top of the
+> > >  * function when __free() is used.
+> > >
+> > > regarding a broken code example, so I would think that this is not a
+> > > made-up concern.
+> >
+> > That's indeed a valid concern, still quite unlikely in practice but
+> > probably hard to find when it happens, so avoiding that is definitely
+> > preferred. That being said, the biggest trap in cleanup.h is probably i=
+n
+> > scoped_guard(), and doing __free() =3D NULL somewhere doesn't matter mu=
+ch in
+> > the end.
+>
+> __free() =3D NULL is not that hard to catch during review (or even in
+> code already in-tree), have done that dozens of times myself by now.
+> Checkpatch, too, should be able to catch that easily, if it doesn't
+> already.
+>
+> None of those cases I've commented on had a bug, so it was just for
+> teaching submitters & readers of that code the correct __free() pattern.
+> I think the concern is largely overblown given how rare actual bugs are
+> even if the wrong pattern is used. Put that to contrast to memleaks found
+> on our rollback paths, __free() looks a clear win despite very rare to
+> occur caveats.
+>
+> Given what I've seen, I'd say on dangerous level __free() =3D NULL is
+> somewhere around using MAGIC_SIZE_DEFINE instead sizeof(*obj) when doing
+> mem allocs. It usually isn't buggy even if we don't want to teach people
+> to use it.
+>
+> Besides, it was actually Rafael himself who brought the unsafe pattern
+> into this discussion (I immediately noticed the problem but since it was
+> not an actual patch, I didn't raise a concern). Sakari's patch did use th=
+e
+> correct pattern (and if it wouldn't have done so, there would have been a
+> review comment from me ;-)). In my reply to Rafael, I intentionally left
+> the right side open with "=3D ..." to not place that NULL there.
+>
+> > In this case I'll just call ACPI_FREE() sooner.
+>
+> That works too in this case, yes.
 
-On 07/08/2026 16:02, Dumitru Ceclan via B4 Relay wrote:
-> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
-> replacing the few GMSL2 drivers already in upstream, and introducing a
-> common framework that can be used to implement such GMSL chips, which
-> avoids code duplication while also adding support for previously
-> unsupported features.
-If you send a series, it needs your Signed-off-by.
+So overall, something like this can be defined
 
-This series also depends on the internal pad, which is not upstream and 
-is not just a straightforward add-a-define case. Sakari's "[PATCH v12 
-00/86] Generic line based metadata support, internal pads" has it, and 
-additional patches around it. For the time being, I think the internal 
-pad unfortunately blocks merging this.
+static inline void free_acpi_object(union acpi_object *obj)
+{
+        ACPI_FREE(obj);
+}
 
-However, (correct me if I'm wrong) the internal pad is only required for 
-TPG. An option would be to remove the TPG support (or at least the parts 
-that make it visible, i.e. you could keep the internal functionality), 
-thus removing the blocker. The TPG could be added later on top.
+DEFINE_FREE(acpi_object_free, union acpi_object *, free_acpi_object(_T))
 
-I tested the series on Xilinx Kria KV260 and on TI AM62A SK, both with
-max96716 deserializer and two max96717 serializers with imx219. On 
-Xilinx I used RAW8, with and without embedded data. On AM62A I used RAW8 
-and RAW10.
+and used along with acpi_evaluate_dsm*().
 
-The deserializer TPG gives me no frames at all. I recall the clocking 
-for the TPG was quite a challenge on at least some max96 serializers, so 
-maybe it's related to that.
+Moreover, a wrapper around acpi_evaluate_object() returning a pointer
+to union acpi_object on success and NULL on failure can be defined and
+used along with the above.
 
-The serializer TPG worked, although I think there's something funny with 
-it: the initial frames (maybe just the first one) seem to be truncated a 
-bit, there's black at the bottom. Another, a bit more unclear, is that 
-sometimes ser tpg stops working. If I'm not mistaken, what I did was run 
-cam0-tpg + cam1-tpg. Then I tried des tpg. Then cam0-tpg, but it gives 
-me nothing. Streaming with cam0+cam1 video "resets" things and it all 
-works again. I've seen this a few times, but there seems to be some 
-randomness so I haven't been able to pinpoint it, but feels like there's 
-some extra state that's left behind into the HW.
+IMV that would be way cleaner than wrapping a raw cleanup macro around
+ACPI_FREE().
 
-All in all, the normal case (non-tpg) works ok for me:
+I generally think that there needs to be a wrapper layer around the
+ACPICA API, so drivers don't need to call functions returning
+acpi_status directly, for instance.
 
-Tested-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-
-  Tomi
-
+Someday we'll get there.
