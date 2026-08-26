@@ -1,118 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70A1B3AA1A9
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06BDD2882D6;
+	Wed, 26 Aug 2026 07:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787727440; cv=none; b=TsZHQfSlZMkoEQYiHdUHxemtSTRbZufH72Qzw0qNvM5ftEUzxfad4UBD3ssAgX5Lq/fk5veAG79rnAq9BqLaNqU1C6xfPGU923HCC9cFvmgF7xV0lWhCr4ifFiayJ2M9CroQsp9HZKHGqm8pcKBH3w9NIlHm0UNSfD8JV7JMcrQ=
+	t=1787727848; cv=none; b=CIVBn8rzTi9TxbiE1hvobzosF9AFO/K3cZOkQAxP1lDBdvSpSbsxsmLg256pKPWlfT5d2c2CbYQCdsED4Drfm8WwvSJQMeKEpQU3j6IMXYFxZ3ourZ6or52hpZRNknwjgbARTbEV2wALHdydqIPQbf9Mc85cb9M4zvzQCDycp+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787727440; c=relaxed/simple;
-	bh=Z8Y8EqxmGYmU3EQyNqx33XwH+Qpm+fIhw+VzKYdzPRA=;
+	s=arc-20240116; t=1787727848; c=relaxed/simple;
+	bh=22JDLPCvqO9mQwJ1JEhz+5Eo1o/r95PMdiTc+1EfyKM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZghnBBQJ1PuGuMksRSse5mxj71LFQtEm1TgRNsRQ8BVPD0pYnOxpqweXQt2gmycinZfmUh/jfbkGrPhEpg7Jb1yG8bxdASSxK7zGJ3+gpf9pdZx/6nPNejnkc4bU21Qa2L6WtbDDXvOq/hXEMQnPdIDwHBaPA4ThKCaVetSXz4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VrAd3rt2; arc=none smtp.client-ip=198.175.65.12
+	 Content-Type:Content-Disposition:In-Reply-To; b=r4sXKDfLq70RcYqxbRRAJsaQgJbr+pX9cvls0mBTNusSXluhF1gjCsH8EA81rvk6iHfWgU4FVSYTmh3/55cObsa1BPXZq3Y6Iblu8i8N9YaoeNw40mhFmuwHLwVmgNZLqdiMCMpsvgrwb4pkCVjefODNFKRhUv0BlKNf/ZEavAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QTcVUh0h; arc=none smtp.client-ip=192.198.163.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VrAd3rt2"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QTcVUh0h"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787727438; x=1819263438;
+  t=1787727847; x=1819263847;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Z8Y8EqxmGYmU3EQyNqx33XwH+Qpm+fIhw+VzKYdzPRA=;
-  b=VrAd3rt2hfJ0XvM5w2yzqjXVRApVYJq/DaQDrdPDKdQWFiwRpJj5ZGRZ
-   vm6VYJKN4MqowOoMDKCW0zCTlmaFs90glQWT2RKgKmW2EB9r2aS1MsNsI
-   Pqqx0A5S0DxOhay0unCgi2V/KesoJM0gf9Q0ZIUt+hd7R6KsYafxzJfB6
-   A9b1j9wex3gMJXZ0AzR3vSfyN9KYtx17FMa66M6tX3r3xEw/ApFgFv6vg
-   2EK94jJRZDLRqzpgDrElBwPNhMl2IRbdWzPVOTeuDm4nGC6NmLjlWWVVY
-   jdZ7/MEZa3aExcsoDsm30uht2YJ8QRF10w57L/Ecrl+DyFybych88PUDw
-   A==;
-X-CSE-ConnectionGUID: x7ZOqc5+SW2aCCUmZd5vzw==
-X-CSE-MsgGUID: fXi9asNQR+qMjynrPzfT7A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="99725540"
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=22JDLPCvqO9mQwJ1JEhz+5Eo1o/r95PMdiTc+1EfyKM=;
+  b=QTcVUh0hVCQjOp1jCFZezX5J1jLer47loBEneXc6PePWmGbGGzerJWrx
+   OdbCBVAiaCpLxyT7T4zB3z109eKRcfKfC9Z5ETCD3T1LfsI1IOMBPNR6J
+   AwpXAPOetrgySYIL7EMXM3FD0Tjs9bF23LoEXAcre/sVOAatBLfvdb/lP
+   QbgahVtsC+m56nqQbaAXK47dRhbUkgEUTTKjDfJKzXXDNvyOwYl93Z2iN
+   QIWi1Z3QD1RoWDlmSPzrZpY9zlkv7sGf0xmmvWJ2y07nHBYTKxuHNm5wC
+   JQ7J9hTYDDcieaYurm6iEICAhc2PGbO932jmx97++ImQqR4Vg7w9lafZG
+   Q==;
+X-CSE-ConnectionGUID: 0SkBbaknQbejaX0AIPgZuQ==
+X-CSE-MsgGUID: IEto+oa5Rz6iIeISz91Mag==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="105728439"
 X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="99725540"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 23:56:12 -0700
-X-CSE-ConnectionGUID: lgWrqJdxR4KoVPGwasHPgg==
-X-CSE-MsgGUID: LUovogiPTruPH/G9wVoAJw==
+   d="scan'208";a="105728439"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:04:06 -0700
+X-CSE-ConnectionGUID: Nju8ON1tQA6WA8wt0VPP3w==
+X-CSE-MsgGUID: g9fkz5xIRbWsjJ6Taqn7xg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="264238255"
-Received: from wgawrons-mobl1.ger.corp.intel.com (HELO alaakso-desk) ([10.245.246.23])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 Aug 2026 23:56:09 -0700
-Date: Wed, 26 Aug 2026 09:56:05 +0300
-From: Antti Laakso <antti.laakso@linux.intel.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, mchehab@kernel.org, daxing.li@intel.com,
-	ong.hock.yu@intel.com
-Subject: Re: [PATCH v2 40/44] media: ipu6: Map ipu7 firmware
-Message-ID: <ao6OBTIeSlWACg2W@alaakso-desk>
-References: <20260821114302.365532-1-antti.laakso@linux.intel.com>
- <20260821114302.365532-41-antti.laakso@linux.intel.com>
- <aoiXpNR2Zoa9EEDu@kekkonen.localdomain>
+   d="scan'208";a="264901564"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.215])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 00:04:04 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id E7EB611F961;
+	Wed, 26 Aug 2026 10:04:16 +0300 (EEST)
+Date: Wed, 26 Aug 2026 10:04:16 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Ricardo Ribalda Delgado <ricardo.ribalda@gmail.com>
+Cc: linux-media@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>,
+	linux-acpi@vger.kernel.org, Len Brown <lenb@kernel.org>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] platform/x86: int3472: Fix uninitialised variable
+ warning
+Message-ID: <ao6P8POpBLSDOZSI@kekkonen.localdomain>
+References: <20260825203553.3725132-1-sakari.ailus@linux.intel.com>
+ <20260825203553.3725132-3-sakari.ailus@linux.intel.com>
+ <CAPybu_1J4z2Z0Xv1PyHZa2U+PFsTWPVyifJr2p8DgkQRTJm6YQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aoiXpNR2Zoa9EEDu@kekkonen.localdomain>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPybu_1J4z2Z0Xv1PyHZa2U+PFsTWPVyifJr2p8DgkQRTJm6YQ@mail.gmail.com>
 
-Moi,
-On Fri, Aug 21, 2026 at 09:23:32PM +0300, Sakari Ailus wrote:
-> > @@ -728,18 +787,22 @@ static void ipu6_pci_remove(struct pci_dev *pdev)
-> >  	struct ipu6_device *isp = pci_get_drvdata(pdev);
-> >  	struct ipu6_mmu *isys_mmu = isp->isys->mmu;
-> >  	struct ipu6_mmu *psys_mmu = isp->psys->mmu;
-> > +	unsigned long dir;
-> >  
-> >  	devm_free_irq(&pdev->dev, pdev->irq, isp);
-> > -	ipu6_cpd_free_pkg_dir(isp->psys);
-> >  
-> > -	ipu6_unmap_fw_region(isp->psys, DMA_TO_DEVICE);
-> > +	dir = IS_IPU7(isp) ? DMA_BIDIRECTIONAL : DMA_TO_DEVICE;
-> 
-> Why is there a need for a bi-directional mapping for ipu7?
-> 
-In un-secure mode the mapped area includes firmware data window, thus
-bi-directional. In secure mode the firmware can be read-only. I'll
-adjust and limit the bi-directional mapping to un-secure mode only.
+Hi Ricardo,
 
-> > +	ipu6_cpd_free_pkg_dir(isp->psys);
-> > +	ipu6_unmap_fw_region(isp->psys, dir);
-> >  
-> >  	if (isp->isys) {
-> >  		ipu6_cpd_free_pkg_dir(isp->isys);
-> >  		if (isp->isys->fw_sgt.nents)
-> > -			ipu6_unmap_fw_region(isp->isys, DMA_TO_DEVICE);
-> > +			ipu6_unmap_fw_region(isp->isys, dir);
-> >  	}
-> >  
-> > +	vfree(isp->fw_code_region);
-> > +
-> >  	ipu6_buttress_exit(isp);
-> >  
-> >  	ipu6_bus_del_devices(pdev);
-> > diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
-> > index 6bef45a02c2b..a2992ffe8e3c 100644
-> > --- a/drivers/media/pci/intel/ipu6/ipu6.h
-> > +++ b/drivers/media/pci/intel/ipu6/ipu6.h
-> > @@ -70,6 +70,7 @@ struct ipu6_device {
-> >  	bool secure_mode;
-> >  	u8 hw_ver;
-> >  	bool bus_ready_to_probe;
-> > +	u32 *fw_code_region;
-> >  };
-> >  
-> >  #define IPU_PSYS	0
+Thanks for the review.
+
+On Tue, Aug 25, 2026 at 11:04:51PM +0200, Ricardo Ribalda Delgado wrote:
+> nits:
 > 
-> -- 
-> Terveisin,
+> It would be nice to have the error message that it is fixed in the
+> commit message (also for 1/3)
+
+There's actually a compiler warning on this, too. I'll reword this being:
+
+Fix a compiler warning about an uninitialised err_msg variable by printing
+the error where it is handled:
+
+drivers/platform/x86/intel/int3472/discrete.c:440:24: warning: ‘err_msg’ may be used uninitialized [-Wmaybe-uninitialized]
+  440 |                 return dev_err_probe(int3472->dev, ret, err_msg);
+
 > 
-> Sakari Ailus
-> 
+> Would you consider adding a Fixes? This patch fixes a compilation
+> error (with the right kernel config)
+
+Fixes: 5de691bffe57 ("platform/x86: Add intel_skl_int3472 driver")
+Cc: stable
+
+It seems it's always been there but I think it's a false positive: the
+compiler probably just can't figure out err_msg is unused if ret is
+non-zero.
+
+-- 
+Regards,
+
+Sakari Ailus
