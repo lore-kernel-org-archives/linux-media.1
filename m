@@ -1,132 +1,129 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CE839280A
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 08:55:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB5E3542D4;
+	Wed, 26 Aug 2026 09:04:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787734550; cv=none; b=ExT7xCjicigTlSUioRN+KXgR17UoG+L+IGTgSaJLEOCvRDYulXBSvngtFml1ghbJd59h5DTN24/1Crd2DTyjesD2czRSJ+U3/G8fX4kdGqoa4+OSSqAJIt1YLo/W9f7toOo90kmXsmfSIj0VuKSG8jIodS9NN9HT2T48JFmn/rw=
+	t=1787735084; cv=none; b=hBxDDf2k74bNt0n6pjzURD6dsj4zZzRwH2R7PEkbO5wnXS2OP7E28DNknfnlC0bKCs1GDvlvIEpJYnMgEGU0NS9QF9Qc5EOtfrtoJpRqQEvRDd09xx5dJWvbxScW5zE8zfGE/hv7ao1phz970VgdcEFGsvNne+fA+sPlfnB/Oa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787734550; c=relaxed/simple;
-	bh=yEcp+Me78OHhlWQ5vW9tmGdDjUC7jxU3fU+l4qhE+IE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rjsgAlqZCwysX3PUiKuoc+Pgqs333UWfkypGfUbaUtK1Ztq5sJY5hFio5D6hBphSs1QcyImSfyRB7MK1AdiZcb0srFpIzFFxFZWnrIGOB+tPkXmvYmdMm1EKonPQQC8L5ANllhKSXtZVRKXkmXaI87OS6Z1+YfEWHqNEgDoDmw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VLGn7iOX; arc=none smtp.client-ip=209.85.216.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787735084; c=relaxed/simple;
+	bh=IfXNrmMA/cv+Wpzmni7v9jr3O3VipieGv6mDQHETTFU=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=PDNN2Ftr7YuT/xT2CU2X0eKfmW+WFYrm3TJqfXGdtpZW2HqVopl8JNSKOlaJK4JIBBbd5pcFvt3j1olbURSQqJtHVk5iJNuRqlNr8b9q6MxCeCJdu1UX1wOF/Sv4ikJl/0DPtMEXvjYzsmE7HiUZlGVUFl2xI8hPwU1F35pG1jk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dNwUlUeU; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VLGn7iOX"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-382ef647e20so1054245a91.1
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 01:55:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787734548; x=1788339348; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bRNOe+tkDpyEAFO3nF0rYQvCgufKo2ppV32jtzFTGPk=;
-        b=VLGn7iOXRYbxHQ28i73TLsWHuUi8WOpu/VoQmvEF8OkqbW3S1OvqViT5y8LkmCNW0d
-         dO9qJdvBfNYp0OR8CklXdUOORD5q1PXrrdt0v9RlyKdm2NROw/OHbGfK8jawXI0NE2E7
-         6hk9J2QMVzI727ms1D9CaU629M73vbej4hiBpvRNLyEBRxfwqNL6qmXqITwy5GBbTMH6
-         3Ey2y0RPpHwBLET/j1RgFG8bWIyj854LIpWkgeiDEXQrLj/akA4bUA35BZuB213aw7Yr
-         DGwgXvcoFFS9R2VYMp0HOU6CYbFE/4+MO7Y3szLchhE/CWlY6Ku5akjeRM4O4B5C+QQA
-         G0BQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787734548; x=1788339348;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bRNOe+tkDpyEAFO3nF0rYQvCgufKo2ppV32jtzFTGPk=;
-        b=IZDOzJupN0s9SyAR+7EmAsWINqkSZFkHpGF/jD1NukaWDilvAcF+lXo5W1MmJhVLwT
-         kYhg4gG2fh4zciBij1RzHlhDX/90yU4v8a4qeYh2BO9h/leegZsN4465SW2+NTp57nWX
-         K2h2wupkIBupDj+jwLfzAB4hcHnzSRsyNuUHzbqP5aR8HU/vysyC04SV4pG7Ckly5300
-         ItNf1EdmjPHg/KJB4c02+5jAZz6SGaRRiEel1mOitvdS0Ax7RxYv3RyUNdlMA020oIEt
-         nYVBd2gmKakaZNbVhUMelKtnU4UO6iHdQ1T/X5xj2CXtjflUXQo/c+iHzodIlvwCPSKf
-         zjXA==
-X-Gm-Message-State: AFuF++myC3cW4x8YeahV+J3WJTdZfGVbT/092Pa4Ndm757WEGs0Y45N3
-	lfo7auTKppSNnU19h2X2oIMx1qPtXbn51frYXQHB01wErGPRDnIw0u1q
-X-Gm-Gg: AR+sD1117l0JJj3xX5zvAxWwAVN0OqlpvofP/oHHH0cM6mPIdRJE+i9famhDdYg8LNr
-	1r+dk/Uj0seIsfrcmKJZxIRQVSuLNTJDTcrqqQNpSOE3HULKT+BI5T9uAL/EceH+LbBMnCV00/o
-	GzmQrGIR/RgB/71dEAbOnL0W/ZOA/ew963cs6kYUM0ak8AL+DKLh1cCSJuZntxD5nQEbXrh5RrH
-	Sk8+tHDxArOmduaaEyyvC8wslmqcDgQA2jyhMkeP5RuBiziLggNTEWxY0mJJY9qlWHTcRJBPMZC
-	9mSfgC4PNDbtx7agDmmxWLSvFv+CDG3MpsWVLaKOTG4soVuKiwsnw/4XTLRPAhFT2Xeskxyy93V
-	0yaeIcSjvCgv6PVybrEKUO+tIgZokrSNI4a/6qRslMSfcivcdUnl5knuVFTLjOxGaWvTe/6gh/A
-	jo+wBJT/sYple50jo9EpppagXsss7jROa7o3oI+EPKC49FxscSFKfQZqNxpnHgP25lqMjyopXgn
-	eE=
-X-Received: by 2002:a17:90b:4b8b:b0:38e:67e1:15b with SMTP id 98e67ed59e1d1-3966d3d9581mr10830231a91.6.1787734547576;
-        Wed, 26 Aug 2026 01:55:47 -0700 (PDT)
-Received: from fa283618c643.. ([106.37.147.127])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39645d993d1sm6985362a91.15.2026.08.26.01.55.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 01:55:47 -0700 (PDT)
-From: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
-To: hverkuil+cisco@kernel.org,
-	sakari.ailus@linux.intel.com,
-	mehdi.djait@linux.intel.com,
-	u.kleine-koenig@baylibre.com,
-	laurent.pinchart@ideasonboard.com,
-	jacopo@jmondi.org,
-	p.zabel@pengutronix.de,
-	ezequiel@vanguardiasur.com.ar,
-	mchehab+samsung@kernel.org,
-	festevam@gmail.com,
-	xiaoleiwangxiaolei@gmail.com
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: i2c: ov5645: Fix CSI-2 CRC errors on RK3576 after init sequence
-Date: Wed, 26 Aug 2026 08:54:32 +0000
-Message-Id: <20260826085432.1482348-1-xiaoleiwangxiaolei@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dNwUlUeU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787735082; x=1819271082;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=IfXNrmMA/cv+Wpzmni7v9jr3O3VipieGv6mDQHETTFU=;
+  b=dNwUlUeUXeOn8R0n/qVqp9xzcg3N9cwVn9tXjlzIAYJLJHJ2zCHcXiZO
+   /ntAL92xQBgkvbGnby1WsfZEBsyQftxgeTF3nuh50bUNnGB6vHwV0uy9F
+   3Zb5YerymucTA5LbFiWxWz8Gbyi5L0LtUue0FvgqPOTkCdGKi5fu7aqBw
+   01qbPhTfDaIS55B32JPrGDx/VphAQJHANTfbHENwS0LmVL7EnEEdRDnid
+   yu01y7r9JPm8FZFq92x0TtTn9+bitALwiM2BtIDhxLXda1MzoxDot2wiI
+   zjBPL+hZjhcrlCS1RvKlUIQcdI+ylXGl5ZP4sLheir3ptOSPfGSn8Ss0i
+   A==;
+X-CSE-ConnectionGUID: 1d7VDQk+Qq+p2TY58y9jKQ==
+X-CSE-MsgGUID: +mMXgdbMRrigTedrjMVu8g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="105735840"
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="105735840"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 02:04:41 -0700
+X-CSE-ConnectionGUID: lSKGzLEPSXuaMgYNPyd0+Q==
+X-CSE-MsgGUID: D1VVjkgZSjq8j5B0QQ+cGg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
+   d="scan'208";a="261389778"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 02:04:38 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Wed, 26 Aug 2026 12:04:34 +0300 (EEST)
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
+    linux-media@vger.kernel.org, linux-acpi@vger.kernel.org, 
+    Daniel Scally <dan.scally@ideasonboard.com>, 
+    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2 3/5] ACPI: Support __free() from cleanup.h for ACPI
+ objects
+In-Reply-To: <ao3uh2xos_1uwAgJ@kekkonen.localdomain>
+Message-ID: <762e0630-1b04-6a82-69b6-ca5148e74cff@linux.intel.com>
+References: <20260824211338.3583976-1-sakari.ailus@linux.intel.com> <20260824211338.3583976-4-sakari.ailus@linux.intel.com> <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com> <ao2FmNRFjSJVxhrL@kekkonen.localdomain>
+ <CAJZ5v0gQVFxSkkjPbRf6bsKdgUBGduZV0M5SWrHoeB246ZLqew@mail.gmail.com> <134e9566-7913-86d7-1e8b-b2ca9ebec55c@linux.intel.com> <CAJZ5v0h4KD6Q1DeuwbFQ83U1=wKORMWUQNA2BwnFtsYAyzz_Ow@mail.gmail.com> <CAJZ5v0ggPGEu8YQTpeTC6=tVNr1zponkCbs+UQPieAH5k6ngUg@mail.gmail.com>
+ <ao3uh2xos_1uwAgJ@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-On the RK3576 platform, after ov5645_global_init_setting completes and
-before stream on, the CSI host reports a high rate of CRC errors:
+On Tue, 25 Aug 2026, Sakari Ailus wrote:
 
-  MIPI_CSI2 ERR1:0x1000000 (crc,vc: 0)
+> Hi Rafael, Ilpo,
+> 
+> On Tue, Aug 25, 2026 at 03:08:07PM +0200, Rafael J. Wysocki (Intel) wrote:
+> > > If there is a cleanup.h "free" that can only be used with objects
+> > > returned by acpi_evaluate_dsm_typed(), I'll be fine with that.
+> > >
+> > > Or if everyone agrees that doing
+> > >
+> > >     union acpi_object *out_obj __free(ACPI_FREE) = NULL;
+> > >
+> > > is not confusing and fine, I may just say "Hey, I don't care that much".
+> > 
+> > And particularly there is this paragraph in a comment in cleanup.h:
+> > 
+> >  * Given that the "__free(...) = NULL" pattern for variables defined at
+> >  * the top of the function poses this potential interdependency problem
+> >  * the recommendation is to always define and assign variables in one
+> >  * statement and not group variable definitions at the top of the
+> >  * function when __free() is used.
+> > 
+> > regarding a broken code example, so I would think that this is not a
+> > made-up concern.
+> 
+> That's indeed a valid concern, still quite unlikely in practice but
+> probably hard to find when it happens, so avoiding that is definitely
+> preferred. That being said, the biggest trap in cleanup.h is probably in
+> scoped_guard(), and doing __free() = NULL somewhere doesn't matter much in
+> the end.
 
-These errors occur exclusively in the window between init completion and
-stream on. Once preview starts and the sensor outputs valid HS data, no
-further CRC errors are observed.
+__free() = NULL is not that hard to catch during review (or even in
+code already in-tree), have done that dozens of times myself by now.
+Checkpatch, too, should be able to catch that easily, if it doesn't 
+already.
 
-Commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") reworked
-the power sequence to properly enter LP-11 during power-up. As part of
-this change, the SYSTEM_CTRL0_STOP (0x42) write in s_power() was replaced
-with usleep_range(500, 1000), leaving the sensor in wake state (0x3008 =
-0x02) from init through to s_stream. Reverting this commit resolves the
-CRC errors, confirming it as the triggering change.
+None of those cases I've commented on had a bug, so it was just for 
+teaching submitters & readers of that code the correct __free() pattern.
+I think the concern is largely overblown given how rare actual bugs are 
+even if the wrong pattern is used. Put that to contrast to memleaks found 
+on our rollback paths, __free() looks a clear win despite very rare to 
+occur caveats.
 
-Restore the power-down state after init by appending { 0x3008, 0x42 } to
-the end of ov5645_global_init_setting[]. This powers down the sensor core
-after MIPI configuration is complete, while keeping the MIPI PHY active in
-LP-11. The sensor is then woken up only at s_stream time.
+Given what I've seen, I'd say on dangerous level __free() = NULL is 
+somewhere around using MAGIC_SIZE_DEFINE instead sizeof(*obj) when doing 
+mem allocs. It usually isn't buggy even if we don't want to teach people 
+to use it.
 
-This preserves all LP-11 compliance improvements from
-commit 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence") while
-eliminating the CRC errors on RK3576.
+Besides, it was actually Rafael himself who brought the unsafe pattern 
+into this discussion (I immediately noticed the problem but since it was 
+not an actual patch, I didn't raise a concern). Sakari's patch did use the 
+correct pattern (and if it wouldn't have done so, there would have been a 
+review comment from me ;-)). In my reply to Rafael, I intentionally left 
+the right side open with "= ..." to not place that NULL there.
 
-Fixes: 092e8eb90a7d ("media: i2c: ov5645: Fix power sequence")
-Signed-off-by: Xiaolei Wang <xiaoleiwangxiaolei@gmail.com>
----
- drivers/media/i2c/ov5645.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+> In this case I'll just call ACPI_FREE() sooner.
 
-diff --git a/drivers/media/i2c/ov5645.c b/drivers/media/i2c/ov5645.c
-index c772ef6e51d2..be85e0155b81 100644
---- a/drivers/media/i2c/ov5645.c
-+++ b/drivers/media/i2c/ov5645.c
-@@ -351,7 +351,8 @@ static const struct reg_value ov5645_global_init_setting[] = {
- 	{ 0x3008, 0x02 },
- 	{ OV5645_IO_MIPI_CTRL00, 0x40 },
- 	{ OV5645_MIPI_CTRL00, 0x24 },
--	{ OV5645_PAD_OUTPUT00, 0x70 }
-+	{ OV5645_PAD_OUTPUT00, 0x70 },
-+	{ 0x3008, 0x42 }
- };
- 
- static const struct reg_value ov5645_setting_sxga[] = {
+That works too in this case, yes.
+
 -- 
-2.34.1
+ i.
 
