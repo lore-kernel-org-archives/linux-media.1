@@ -1,351 +1,251 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011004.outbound.protection.outlook.com [52.101.57.4])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C64B934F49F;
-	Wed, 26 Aug 2026 13:06:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.4
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787749586; cv=fail; b=QNZ/TCVRGhOJoVWYlccxSP8BYLIM53brFF0nnEdItOAhDWDXnB5WhpK+0qlvVTlaE1C5sF47wSYqGCDCCsjxaQcn2fz6VEJeg7lf/125OjKBTkzBsp8pnFCdBGrvc9BGO/Sc/ML3x/ScVvvUc9eYyzvhD08gDzXnSttiFmQz+4s=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787749586; c=relaxed/simple;
-	bh=pdOlgsYXf9p9myNjCB7ChTzl0tsJzeilyXwhaKGZxrM=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=DYXHsRcM0wc3d2bqaF6Y3/Pq+3UnqUsGRLeyQfbfM/ecoy259d4ILM6A/4kRQthSDj1Gq5ckWeWdGL6sZv7+wOjSci4FobYFm9dmmFmB3Ko8xrnVataiWY75gQSfwEU9P1NmPwKMKAW4sRKx7XJvWXEfJgCxfqEzxJPls0Eleow=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Sbn+FDJf; arc=fail smtp.client-ip=52.101.57.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BCE3DA7C0
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:07:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787749635; cv=none; b=stXrZ/im6a2B2Dc53Av/EGxOkDRDsayanCgitB/eohcfLyp+r1y6rDzmCxlK3vWA3UT5rrc50kOx9JccGoOPglSG8T2SYSoVmwaJeT1pEzCqXOyWroJXSBVj1WNFawuUwNs/Eewe3y1oeo/zHoCWje19xWIky0hTlA5KYTLAtcs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787749635; c=relaxed/simple;
+	bh=LiZoxw5u7OkTtmxFcQ5+LUeZikX3PH8TbD4TDRPPn34=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RnI2q8kFabl3pDkXGOY1KbN4dRAFtNr6KBP1lxrDVr4LjMQ42eKkK13ZvlLfxl2exTssx2PRzn5SDFe5lljRYhcHopRYZ7RzKz7n/HxRaOqMMhX5Ae9ShoPsRhyEFfujjtdqoCnvlUyT2cW+3nXHiHd37Cfmq47zkSI11ZC6Qyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=cVbTFTRA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bGCwPnmt; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Sbn+FDJf"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=x42XgTfZCxbCDM8VxtQjgHloC9Ti51+gxbSStoeCdJyISoeCXN4OgE9enNoABasut+4Z9QrE7/8/WSQomtS1H7AImQsw1HTf3Y40SSiP6q5IeKuteJTcW5mhZGKRbuTogl6BOvschc79W8hzIBlmigWtJ7/3VfU8kl4c4Uje94cxN2PAkzddQ+hHWJyiPGCOg2O6zKqL/C6TrRXb4B2pYX+QDEnd4prVsfLMF2Stw06aP4oIgt4l1PZfKPR90hx4QVMdg5zxh5I/ncnwNpyonb7SCVbNSnUlUWUcJoS8m2nq/HiLONbwRFnXjxmjsleeRIQZumyBhbytQU/mmZ+pZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=3CiDIPAscQJXANJ1mByZXeXQHma/xopfZkzD0pbLT2c=;
- b=zIykh1kfVDtvdgJi7ouI/okpU+DxxShikKnTrLIH6OgbNpL5bpibHuC4zgPObWLDp0Kfsbw8tEb5nddLXxUhBantts1gkI9Rs9o1HWJUnOZ3YnX6JhzLvurTYnjQ8UZisVdU6XUtOSqhZwtOz+skDFFbfbzKnNppPzIRQxxSa/XA8lGsEmRUVCAmgE1D7GBpzwAJIrpjydURfepyHPHl/TaPsbPKnAshtPxkqsRkgsfPfhHuaolD5wPJisKedV5RwYgQFLvrPL4v6aolGHW4wKtYJSj3PzbUo08vtp1RdMJp+PnDmIm4vmwSm+HC8crpq9Juq94aCNJEn0u13pG7Cg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=3CiDIPAscQJXANJ1mByZXeXQHma/xopfZkzD0pbLT2c=;
- b=Sbn+FDJf/8mAW4arg+tLfeUxcR25cFYSjfrqddxcwmK9UoWqdYRww/u4/XTvHdRm4Mp3AnJW40pfGL5atUrhrDalTZEc/nITbqVNUZRvwagbmd0BG+yo4xTTcB3Ba7nPDgpfuwLUK9D5D8gbTSoGUImxHdJ+3gbZyWM7DfHAV2U=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by SA5PPFCB4F033D6.namprd12.prod.outlook.com (2603:10b6:80f:fc04::8e2) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Wed, 26 Aug
- 2026 13:06:10 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 26 Aug 2026
- 13:06:09 +0000
-Message-ID: <39dc2f46-08c8-4eff-aa22-a7c67b5c7040@amd.com>
-Date: Wed, 26 Aug 2026 15:06:04 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] dma-buf: Document how exporters and importers agree
- on mapping lifetime
-To: Leon Romanovsky <leon@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, Logan Gunthorpe
- <logang@deltatee.com>, Jonathan Corbet <corbet@lwn.net>,
- Shuah Khan <skhan@linuxfoundation.org>,
- Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linaro-mm-sig@lists.linaro.org
-References: <20260825-document-dma-buf-v1-0-5ecfb3e1371c@nvidia.com>
- <20260825-document-dma-buf-v1-2-5ecfb3e1371c@nvidia.com>
- <2776f9b0-c299-45ff-bf82-89b95e73fd60@amd.com>
- <20260826124341.GD42790@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260826124341.GD42790@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: FR4P281CA0174.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:b7::20) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="cVbTFTRA";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bGCwPnmt"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCBq4W3898934
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:07:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	z8ZCL6UB+xi0N5gctLw16/d9ULv3ZvLsxlJFre/dyo4=; b=cVbTFTRA/0lJJsRz
+	1IV7KZRvSOcP707QMxiFBDWZD+bzVxbypuiePC1uTTRkmKqETUDEwn9XxGilb6pY
+	nRuU9fKpMbKGrcjVsVzzh643jTiVHuUF16XEVgFG4M94fzO4W6GBwUnRmEhruP0w
+	PZtGHsyaaFb15Pd8eG1wAoQa8Mj162q4fAXkPWdGWNIbNJXYfT7HDSkKPq5REeDD
+	yhFKk8BUoueF/HzJ9yKMbqs+3FAjLLq8jJMx5yqfj7auX0FamTYxWUHuusLNwd4+
+	b3b7eFpusiLHNVzlA6RQFl3DBqwbkLpvjIhmoDRvwt5aEX6drirvxoQp6ujPpWhC
+	EHsyFQ==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9uths8kx-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:07:12 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-848568a6f62so1032422b3a.0
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:07:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1787749631; x=1788354431; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=z8ZCL6UB+xi0N5gctLw16/d9ULv3ZvLsxlJFre/dyo4=;
+        b=bGCwPnmtiqaBiqXoiYADKtbeuz71hizGVlwLXL9FWM2C5rSOL/FS2LwI1C+fCpY4V8
+         DlSqCeU/TnC2XaNnwPVsaAwSRPXOkzsjwf7DbfKfJkh6IEdI+9Ec+7pjTU2NG77mk/7J
+         33uwfe/h6zYgCdAftV59rfb7Z4AC0Z5mMhTWj4Wf9SMwGMtIcNpOaQPBNqCdBrjBUoAl
+         HwPDkBsSoxQVKJTKqnjRTDv3WfthtpCB98YaBTsefWXKIvyl4YKiZ31grdsfbSpWyh8y
+         B50RwV8HRCLBZ4W8nmPvx2ZuyEKr8ZYnh/F3FtKlxhOaZJuyCzT4LrC0U1bBtTHIDU02
+         yLjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787749631; x=1788354431;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=z8ZCL6UB+xi0N5gctLw16/d9ULv3ZvLsxlJFre/dyo4=;
+        b=gqqb9D5x5SSIrjHKx3da1d0Cs0v5X+1UWMrBG4Z/qBgTlLVDBOP/rTGxrGFqWPTNy3
+         EyCQo7igDYwhFkBlyMGakG5wFqM60GlFK+VDCHgNkrRN3K7bJcNgs7WUWJQfVpcShhi+
+         7swLNJjHuvQTwjqhPFkTgFOx+/SsE10/3rWzFHuioCBhZ5VDzWghpjQ10Awc5ITgOkfg
+         5679j1Q5jgHrhJaYv0U9VlaUJXTniyu5896irw/+UMgQntcGefoMoUJw7PbbUNXO+HEm
+         x6A5WQuHIAVrssVocBYB4yypTw5Ml82FtCbxQcejSCvKz1dGw89gZ97L0f74ZkFsmxmp
+         2MYg==
+X-Forwarded-Encrypted: i=1; AHgh+RqPhCLv/hYIBnwnReaWpX77Iq1V6sbfzDrxVF3lLtFnOYxzP1mPauYaZZPi7c+PupMNQtnJ/0aYn4EY3A==@vger.kernel.org
+X-Gm-Message-State: AFuF++lYgMwsyi4hoXdv4mQy2ITl1+Skm0KcPFeBNNTl+7czgZo1DNLA
+	5j/fjtnOe4HW/KNEF4iF3YI1C8DrW5/mhonaKXU/5aMQ9oMA9B9eF1ThztFHC7iQCzbdL0jlOnf
+	BuZ187h1KctIayD46AGEQ4hojVgzulnucUMrhbM/y3rSD8+ZtLJAyw9CNYvWJ+wiekQ==
+X-Gm-Gg: AR+sD13az86q1NnYUa6tw6JVRZsloJ2kxKui/cY4LU5xN5BBeLn3W4ynxGz3bfVtL7+
+	RBtBqAsBggKOZOcqk5uIv+fRm6ZZsqAyFqcGqVdhOlP4IN3Z+VBM2WrPWrwM60b5LYJ7hz4KFqO
+	OF1RGA9wRkK2pLpv3+DiNzgbPEd4tJjHjGudLX+MrDN33GO4WNDzyy2xPhtEf0PLGhlhWzDHFtU
+	Qd2uFss2h4t/5udD+AS7EB4+R8HEldM08S+gUti5jIKKXsezBLMZvIUmTE0w4cVEM7hnqKmQeX7
+	E+0LI3XNYBeExD4IJC76d0dk+Ayn8o/s+AQnn6pZ6umO99E4hAFP3+VJTmgr+MJfQ4slyxjCklC
+	MSOqK5f542ctyJcUOLTq3McFaqJMyGQ==
+X-Received: by 2002:a05:6a00:c96:b0:845:ce5f:c926 with SMTP id d2e1a72fcca58-85372ea6666mr12573112b3a.1.1787749630948;
+        Wed, 26 Aug 2026 06:07:10 -0700 (PDT)
+X-Received: by 2002:a05:6a00:c96:b0:845:ce5f:c926 with SMTP id d2e1a72fcca58-85372ea6666mr12572918b3a.1.1787749630363;
+        Wed, 26 Aug 2026 06:07:10 -0700 (PDT)
+Received: from [10.219.57.226] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85359cdfeebsm917003b3a.4.2026.08.26.06.07.01
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 26 Aug 2026 06:07:09 -0700 (PDT)
+Message-ID: <23e31249-cce2-421e-88f7-1a2af66e34b6@oss.qualcomm.com>
+Date: Wed, 26 Aug 2026 18:37:00 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|SA5PPFCB4F033D6:EE_
-X-MS-Office365-Filtering-Correlation-Id: 742b891e-36db-4179-7864-08df0372cbfe
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|1800799024|23010399003|366016|6133799003|56012099006|10067099003|11063799006|5023799004|4143699003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	HUgRAM+M0ewS3c4G7epsW90lphbcJKlSltWWsuvHu3rfg9qUTAe/KYhJH0KlrsceepNlFRVe37wPw+Gzdj+RK+5aIqlQSN0G8lGkycGr3qQuLd4jEAFwMYmOdHE661wRlxcUkZ2fn4bwCmupCw7CmHicYHc1t67Ru3WLQgaIlf0xJTlBZWtquBKNRMAc/mTPx9R6U+f3jNH4PyqyYhwR4TAMSkORBu0a/TiSCU7ZmYtTsWr2d1uR4uLJ/xNq8PF4b0TUzOU3UeuWvGVSAR2D1teVQ7wDDiws4c9PcXKJyh7fHm16ZU6rPzaGIRUbTa9yjV0Qg7w3lxLCU7kVnxYJpIqkk6yuRzvW/L3foZAn9jEY9A/UW4YaK2g3wjzHqGqWvcwktjMQwyTZiSw+SbOK0X5Z+Ls39qmAyGUBuVTa6tC49tc+S7QBXK1TadpKfLwGgJvr4rcaM8VBerJZ8TjLgVO0AOMUxg9OWPid14LNLzze5AKER5af4bByNzXfjvzgZMHSGwD9jc0n0MBbF2ajELGS8XpXCI3fQXGWCGMpUwltLg0jvTQvg4b2JoHKbE5HqsErK8SCtdqLejn64EJneCoZtbp2k/7iJ7MH23aXxLRdETwJXiHr0ZrtTSks9xnIuizWSC0TX+KmU0tIR2mPvoEzC3emomQSpZv2RMHm0l8=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(56012099006)(10067099003)(11063799006)(5023799004)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?amlLZTlnSVJveGlUQUhyQ09tV3o1ZjQzL0duR2Z5NkF1V1dlNjlpZndYTWJT?=
- =?utf-8?B?R1hKS3lRQWtwQWtuVkh5VWwwck1KbEtSbDBNSkZWTFprRFNPNzErRmU5ZWRW?=
- =?utf-8?B?WXhSY0xQSDdWZEpQNHh3enBWVTg0dlExMDZJVW0vaEFLUE9qc0RjRCtydmRP?=
- =?utf-8?B?QnJ6dDlndGVMenVucXVFcTdiZmxwZ2kxN2d1bERzSmc4T29NOEFxd01hc1R5?=
- =?utf-8?B?ci8yYnYvN0VKcENla3B6KzN3ZkRUNUQ2QkI0ck95YXluQWszTnZtR2gyZWg3?=
- =?utf-8?B?N3ZGMncxQW4wWVNHSktkR3JCQk1IRWdUaE83cTlZZHFVQmpKMU1ZazRCL0lF?=
- =?utf-8?B?SXNMaXdOM1pEUDlvcHBjV2drRU9lZkJDcEhmRnpyL1UxUDJzU3pSclQ3ZTNN?=
- =?utf-8?B?SnFrU25hK0lvb0VRV2JtWk9qN29aWEViZWRRbDkwcnBoNmV2U3ZOYWpob3VX?=
- =?utf-8?B?ZjhERzViOFJCSC9yMSswZzl6RHBvaWtmSXZNMVViLzNMZHY0ZWN6eGJRMTVp?=
- =?utf-8?B?K2h4S0diaklVRG50Z3hsRDJSYW8xRENsNktPYlMvWkpwYlNoSklFN0ZSQVdk?=
- =?utf-8?B?UVM3cmhOVS9MbFJwWjRGa0lIM1BLN2toRFU5MnJ3UUtTZVM2bjBJbk45Z2hK?=
- =?utf-8?B?WGV6NW1SeGN6TitqZmcreUhKZ2ZpWDZaMTg2Um55OWZLKzlpUkJHdng1SVdW?=
- =?utf-8?B?RGY2dkFuOC83RWk0NitsV3AxOHJyZWxlUzNzT1orb09wQW0yNElHTTJ5eUJD?=
- =?utf-8?B?dmRWWjB6eDh0WS9zaFZDRVVSVHQrZ2Z3a1U1UitFNktnRVJiMWFhUkk3UlB1?=
- =?utf-8?B?RjJRZjFsMjQ3U2xwRzlPR3A4bWNkZUltaWEvcUtzejRhVHVNRGJIaDBJekE0?=
- =?utf-8?B?eDQzVmhLdHZOdUt1RTVma3BPYlZGL2hBUHFCU0lqK0VILzB0ZC9yQVJ3emw5?=
- =?utf-8?B?VmsvajRaakp4R3Nrd0t3UnVVeEVHbEpXMjlVMkpFaXRueGdwWm9lSStOUzgx?=
- =?utf-8?B?cUF2QjM1TUlTclcrRmdPdTZudytLb3p6RVlaWk44eEZtS2Z0VmVMd2J2L0JN?=
- =?utf-8?B?N3Y3OG9EZ0NWRVJTc01Da1UyTlFJOTVwYW5GSENpMnIrYm5QMk1vWUx5WlRt?=
- =?utf-8?B?c201TDYxWUVRVmUzb0tyK0NVQXdGZXU3MWVYSmVpYU9xbHlFcXBjdUVlREJM?=
- =?utf-8?B?alFDcEZUcTVJMWRoMWhJbHZXVDdaQzVlTlJvZE9QYmdIWDZXamRNd0dSMXFU?=
- =?utf-8?B?eCtBUnpYVFllSERaVVZqb1YyR2ZOaVlCY3g2WmEvSmljZkZNU0lQN04xNGx4?=
- =?utf-8?B?bUJpbDUrNW9MWTJuaExwNG9Fd2d2R0FQaHUwSUUydVl5UEl5OTBlTmlrUThk?=
- =?utf-8?B?Z2h3dGtLdWhCbXFZa0trNWNXdyszWUx0MlpRblNSM2ZDUjNoSkJRdGQ2eW5x?=
- =?utf-8?B?MnJwVjE2UlBVbzVVZjk5VFVmd05iWGxPdlNoN1pncU1OeVRxaEhJamJkS2tP?=
- =?utf-8?B?K3BwZkdlVDBqRXBQb3Zxb2d3bHdnT0tXdnBMTEhmZzlJb200ak45alh6Rlcr?=
- =?utf-8?B?Vkk5c0hqbitPNTFQRjVUVHZ5cGI0YlBzcEdUUUFuV1ZpNUg1Mkt6akFPcGFB?=
- =?utf-8?B?akcyYXRtOGQ1cWYrbVF2cE5CaVRpY01QZjB4a3E4RGw3MDQwQm90bnZld3dQ?=
- =?utf-8?B?akFhaFFjeFNUa3IzNm1JOHArQVlJcm1sUll1L3l6aW1HVG9hNFdQbndlK0Zz?=
- =?utf-8?B?N2NJbW5EQmwvZ01aQytGNnlxcW5sRWVFUGFrRndQVTNBeXBwUG1DQnFvZGFF?=
- =?utf-8?B?TkxnUVkxeWczSFA4MFlVZ1draUIwQ0k0UEsxVzZyc3diZkFGZmpPOXM4Tjh2?=
- =?utf-8?B?Zi9raXRYaTFuZVp4ZlJqUXlCRUZmMlM3V3pHVzhBY3RJNE1Oazkxa3JQSThD?=
- =?utf-8?B?NW9xS3RwQlJyZitiVzBMbmtCWnpLbEE0VlNiakRmOG9RSVhZM2NMWXVsQWF4?=
- =?utf-8?B?bkRnM0s3T2RsTTE4WWxPUnhVYzFKeTRKSEU5U3A3ZDlvMXoybzdtWkpkbWF4?=
- =?utf-8?B?ajk0czNTeWpQRk5sWXRITnNuTFRZOHRqbWN4Y3VLOUxjNUt3LzdnNStoWktT?=
- =?utf-8?B?VVZEckJpM3U3NTFoWDl6eHpLU0RmV2p0ei8wV2lRc1pmUlFhQ0R2MHRTeExr?=
- =?utf-8?B?WDNJTkhXRVVQZ0RjSmprN3IwSEg2aWxnK2FtaHI2ZVdGRXNjUTF2RXhiS0RR?=
- =?utf-8?B?a3poOTdWVEFRV0h2ZldlUnNJRVoxZkRmZFFnYzAyc0R6YTZab3NEazdRV2hP?=
- =?utf-8?Q?TEFYOsZNLQAemAczGD?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 742b891e-36db-4179-7864-08df0372cbfe
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 13:06:09.4867
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3ZSbZBFroCz9KPVWnVWm3EQNOiKDl2+J8JFGL8YPTg99xbvUhMjR7uMcT6k9b11t
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA5PPFCB4F033D6
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 00/15] accel/qda: Qualcomm DSP Accelerator driver
+To: rob.clark@oss.qualcomm.com, Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>,
+        Randy Dunlap
+ <rdunlap@infradead.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        Bill Wendling
+ <morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sumit Semwal <sumit.semwal@linaro.org>,
+        =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+        Bharath Kumar <quic_bkumar@quicinc.com>,
+        Chenna Kesava Raju <quic_chennak@quicinc.com>,
+        srinivas.kandagatla@oss.qualcomm.com,
+        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
+        iommu@lists.linux.dev, linux-media@vger.kernel.org,
+        linaro-mm-sig@lists.linaro.org,
+        Anandu Krishnan E <anandu.e@oss.qualcomm.com>
+References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
+ <3322b42b-3755-45ec-ad55-345125f0d488@kernel.org>
+ <10349e29-b583-403f-a89a-9a00c73666bc@oss.qualcomm.com>
+ <87dca76c-851e-4cc3-ab91-68949d283b79@kernel.org>
+ <CACSVV01eYr6FyA6XBG0xw0yv2dydvTEhcY-WUy07mxM8WwkZcg@mail.gmail.com>
+ <318f14c2-0e87-4e07-8173-1511dca67d78@kernel.org>
+ <CACSVV01T=ytVJKM7NRoBTAJm7vH+JPJNT9Tftu5X9YskGXerwg@mail.gmail.com>
+ <e7b4eceb-cb3a-49ea-bed9-728c958594b0@kernel.org>
+ <CACSVV03ypjBYkhRpt=TyDwOKhejKKke3x=Fi_TvxXN-5U_rCsw@mail.gmail.com>
+ <fb834ae5-7113-4a86-bb84-ca5115c8d7ff@kernel.org>
+ <CACSVV018jB4WRRJ_CUHQmkHXZcqauWJXWGgrzY_HA6cFQ+Q3Xw@mail.gmail.com>
+ <dd3da35b-1db6-43a4-ae1f-35620692f51f@kernel.org>
+ <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+Content-Language: en-US
+From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+In-Reply-To: <CACSVV01o_XYuSzaYGbo9pY=459qiA_fgL_KRHVJH+LH4RYcMzQ@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=EMA2FVZC c=1 sm=1 tr=0 ts=6a8ee500 cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=HVFQHpX-XFYh-alqn_4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-ORIG-GUID: ODoQL8_7D8h3R5GJRLbkLn1ADkhiChsY
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDEwOCBTYWx0ZWRfXxRSk9wLyPKJU
+ fYvML9YSXeaoPoiBRXXZWq0ythBBh5XScRkajoYBKKfp3ZVSbQvz/LSGl581zwfaY3PIBkdLARy
+ vs/1lLmn1U9NizJU9B8/i3XWBj5oJZRcU4zpRMeeOTf4szbMSnyb6bhL+ltHWxx9JFXC/bvZjRa
+ vETDHlIuAGqpHey6C4oEG6XQsYAlV2bRAbtfhpsXU1jBbK2JW4VctDTfLAXJ/kRk5Sg9UIqnCP1
+ H4zmi8IlfOPuWwsblwOfQ0BM2iTNM71s/luQv0ePbPVIVs0J1uI2r20d0i91qbqJUAssIOM1GNq
+ H0NuiIL8Re/twgRRUFd1TRgJqDGgSUPxsgCh/kW/LCagNcCv1cE6iNNRiTPd00zu+V4k/udxxjZ
+ Urb1N03ylH36oHQWkHl8QAe5O3sANYp0lYKlZ2po4/Wx54hh/QdZcxuUZd+d4SMDKKyM75SeKTr
+ 3r1AainUtdrcqKt2XZQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDEwOCBTYWx0ZWRfXxNox8nlNx80R
+ SISTadumbswvy70gmkfrvhG8xDVKirDb5QQwkPUou6V5UOV72SVf3cyKv5YxTvPDD/c0E6Fg9Rt
+ M/JUHZiF/HbAHpO1dFpXA25llJnyNcY=
+X-Proofpoint-GUID: ODoQL8_7D8h3R5GJRLbkLn1ADkhiChsY
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 spamscore=0 adultscore=0 malwarescore=0
+ clxscore=1015 phishscore=0 priorityscore=1501 suspectscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2608260108
 
-On 8/26/26 14:43, Leon Romanovsky wrote:
-> On Wed, Aug 26, 2026 at 01:41:51PM +0200, Christian König wrote:
->> On 8/25/26 08:28, Leon Romanovsky wrote:
->>> From: Leon Romanovsky <leonro@nvidia.com>
+On 20-08-2026 20:17, Rob Clark wrote:
+> On Wed, Aug 19, 2026 at 11:15 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>
+>> On 19/08/2026 17:48, Rob Clark wrote:
+>>> On Wed, Aug 19, 2026 at 8:27 AM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>> The rule of usptream development is that we do not accept duplicated
+>>>> code, just because a vendor wants to write something new. This is
+>>>> basically the concept applied all over the drivers tree, where we pushed
+>>>> back against all sorts of duplications all over the vendors.
+>>>>
+>>>> What I miss in this thread is why would there be any exception here. We
+>>>> do not grant exceptions from standard practices on "I want" reasons.
 >>>
->>> Pinned, revoked and movable mappings are selected by which optional
->>> callbacks each side implements and by whether dma_buf_pin() succeeds,
->>> not by any flag or enum. Nothing in Documentation/ says so, and the
->>> rules are spread over the kdoc of dma_buf_ops.pin,
->>> dma_buf_attach_ops.invalidate_mappings and dma_buf_invalidate_mappings(),
->>> so a driver author has to know the symbol names before finding them.
+>>> I agree that we should not have duplicated drivers just for vendor
+>>> lolz.  But when it comes to adopting common frameworks and integrating
+>>> better into the ecosystem, this doesn't seem like something we should
+>>> actively discourage.  I don't think this is a case of vendor lolz, but
+>>
+>> No one discourages it. Following standard Linux kernel practices and
+>> requirements is not discouraging, do not twist the narrative here.
+>> Again, it is standard upstream review telling that we do not duplicate
+>> drivers. Ever, unless there is serious exception needed.
+> 
+> I wasn't trying to twist the narrative, just trying to come up with a
+> path forward that isn't "no" or "improve existing driver", since
+> neither of those gets us towards a future using common frameworks.
+> 
+>> I asked why there should be an exception granted? Is the reason for
+>> exception following:
+>> "We want to adopt common framework"
+>> ?
+> 
+> Possibly?  But I don't think we want two drivers to be any sort of
+> long term solution.  (Ie. as long as venus/iris have co-exist.)
+> 
+>>
+>>> rather reacting to drm/accel emerging as the standard framework for
+>>> this sort of driver.
 >>>
->>> Name, per flow, the callbacks both sides have to implement to end up in
->>> it, describe dma_buf_pin() as the runtime negotiation, and record that
->>> the pin is what tells a revoke from a move.
->>>
->>> Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
->>> ---
->>>  Documentation/driver-api/dma-buf.rst |  6 +++
->>>  drivers/dma-buf/dma-buf.c            | 85 +++++++++++++++++++++++++++++++++++-
->>>  2 files changed, 90 insertions(+), 1 deletion(-)
->>>
->>> diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-api/dma-buf.rst
->>> index 2f36c21d9948..39c201f38aa6 100644
->>> --- a/Documentation/driver-api/dma-buf.rst
->>> +++ b/Documentation/driver-api/dma-buf.rst
->>> @@ -113,6 +113,12 @@ Basic Operation and Device DMA Access
->>>  .. kernel-doc:: drivers/dma-buf/dma-buf.c
->>>     :doc: dma buf device access
->>>  
->>> +Mapping Lifetime Negotiation
->>> +~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>> +
->>> +.. kernel-doc:: drivers/dma-buf/dma-buf.c
->>> +   :doc: mapping lifetime negotiation
->>> +
->>>  CPU Access to DMA Buffer Objects
->>>  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
->>>  
->>> diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
->>> index d504c636dc29..30afec7365bc 100644
->>> --- a/drivers/dma-buf/dma-buf.c
->>> +++ b/drivers/dma-buf/dma-buf.c
->>> @@ -684,7 +684,90 @@ static struct file *dma_buf_getfile(size_t size, int flags)
->>>   *    reference acquired with dma_buf_get() by calling dma_buf_put().
->>>   *
->>>   * For the detailed semantics exporters are expected to implement see
->>> - * &dma_buf_ops.
->>> + * &dma_buf_ops. Whether the exporter may still move or destroy the backing
->>> + * storage after step 3 depends on what exporter and importer implement, see
->>> + * the mapping lifetime negotiation section below.
->>> + */
->>> +
->>> +/**
->>> + * DOC: mapping lifetime negotiation
->>> + *
->>> + * No flag or enum says whether the exporter may move or take away the backing
->>> + * storage while an importer holds a mapping. Each side implements a set of
->>> + * optional callbacks, and dma_buf_pin() settles the result at runtime. Three
->>> + * flows come out of it:
->>> + *
->>> + * - Pinned: the storage never moves and is never taken away.
+>>> So how do we get from here to there?
 >>
->> That's not quite correct. The backing store can still disappear if the exporter is physically hot removed.
->>
->> In that case the exporter will still try to invalidate the mapping even if it is pinned. A NULL invalidate_mapping callback is of course still never called and so still optional.
+>> What is wrong with my proposal?
 > 
-> But what does this mean for an importer that has no idea the exporter no
-> longer exists? Will it crash? I think the revoke flow actually fixes this hot-remove case.
-
-No, that used to work even before we had the invalidation callback.
-
-What happens on a hot remove is that the exporter goes away but the driver stack keeps PCIe BARs or system memory resources allocated until all importers have destroyed their mappings.
-
-See the invalidation callback is only optional, importers can implement it to speed thing up on teardown but they don't have to. A NULL invalidation callback is perfectly valid.
-
->>
->>> + * - Revoked: the storage never moves, but the exporter may take it away.
->>> + * - Movable: the exporter may relocate the storage at any time.
->>> + *
->>
->>> + * Every exporter implements &dma_buf_ops.map_dma_buf,
->>> + * &dma_buf_ops.unmap_dma_buf and &dma_buf_ops.release. dma_buf_export()
->>> + * rejects an exporter missing any of them.
->>
->> I think that this is superfluous, the check in dma_buf_export() should make sure that all exporters follow that.
+> Maybe I missed something, my understanding was your proposal was
+> "Grow/replace/improve existing driver instead of coming with a
+> duplicate"..  grow or improve doesn't move us toward common
+> frameworks.  Maybe "replace" is a valid option.  If there is something
+> I missed, then I apologize.
 > 
-> Sure, will change.
+> Options I can think of are:
 > 
->>
->>> + *
->>> + * An importer reaches its flow like this:
->>> + *
->>> + * 1. Attach with dma_buf_dynamic_attach(). Leaving
->>> + *    &dma_buf_attach_ops.invalidate_mappings NULL rules out everything but the
->>> + *    pinned flow, because the importer can then never be told anything.
->>
->> I would rather write "Leaving out the optional dma_buf_attach_ops.invalidate_mappings callback pins the buffer while the attachment is present".
->>
->>> + * 2. Call dma_buf_pin() under the reservation lock.
->>> + * 3. On failure run the movable flow, or give up.
->>> + * 4. On success the storage stays put. Whether the exporter may still take it
->>> + *    away, which makes this the revoked flow instead of the pinned one, is the
->>> + *    exporter's choice and is not reported back.
->>
->> That sentence sounds not really readable.
+> 1. Hardware cutoff.. new hw gets new driver, existing hw gets existing
+>    driver
+> 2. Backwards compat chardev registered by new driver, providing existing
+>    UABI.  I'm not 100% sure about the feasibility/drawbacks of this..
+>    AFAIU the fastrpc folks where planning a backwards compat layer in
+>    userspace, so maybe it is possible.
+> 3. exception?
 > 
-> I will try to rephrase in next version.
+> I'd like to know what the feasibility of #2 is, since at a high level
+> that sounds like the best option.  Possibly limit exposure of legacy
+> UABI to existing hw so we don't get into a place of needing to extend
+> the legacy UABI for new hw?
 > 
->>
->>> + *
->>> + * dma_buf_attach() is the shorthand for an importer which only ever wants the
->>> + * pinned flow. It passes no &dma_buf_attach_ops, and DMA-buf then pins around
->>> + * every dma_buf_map_attachment() and waits for the DMA_RESV_USAGE_KERNEL
->>> + * fences on the importer's behalf. Peer to peer needs
->>> + * dma_buf_dynamic_attach(), because &dma_buf_attach_ops.allow_peer2peer lives
->>> + * in the attach ops.
->>
->> That's also superfluous.
+> But #1 sounds like a non-controversial place to start regardless.
+> Possibly with #2 coming as followup and necessary step before eventual
+> migration to new driver for existing hw?
 > 
-> Will change.
+> Even if we start with #2, how do we handle first-merge-window
+> bugs/regressions without reverting addition of new driver and removal
+> of old?  It seems like we'd need a window of a couple release cycles
+> where both drivers exist?
 > 
->>
->>> + *
->>> + * Pinned flow:
->>> + *
->>> + * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold the
->>> + *   storage still on request. An exporter whose storage never moves implements
->>> + *   neither, and dma_buf_pin() then succeeds on its own. An exporter which
->>> + *   refuses to be pinned implements &dma_buf_ops.pin and fails it.
->>> + * - Importer: nothing more. The mapping stays valid until it unmaps.
->>> + *
->>> + * Revoked flow:
->>> + *
->>> + * - Exporter: answer dma_buf_pin() as above. Call
->>> + *   dma_buf_invalidate_mappings() when the storage goes away and fail
->>> + *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which complete a
->>> + *   revocation are described in dma_buf_invalidate_mappings().
->>> + * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within
->>> + *   bounded time and drop the pin.
->>> + *
->>> + * Movable flow:
->>> + *
->>> + * - Exporter: call dma_buf_invalidate_mappings() before each move, then wait
->>> + *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin play
->>> + *   no part here.
->>> + * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops the
->>> + *   cached mapping and has to lead to dma_buf_unmap_attachment() within
->>> + *   bounded time. It need not stop the hardware, because access runs until the
->>> + *   importer's &dma_buf.resv fences retire. Map again before the next DMA.
->>
->> That is also not really correct. Those flows are not separated like this.
-> 
-> How will you split them?
+> Maybe others have other/better options in mind?
+To all, I'm seeking on the approach I should follow to go ahead here. I
+can work on implementing #1(as per Rob's list) with hw specific
+compatible for v4 if it's acceptable.
 
-Well you don't. Exporters and importers can have a much wider variety of use cases.
+#2(compat driver) is something that we are still exploring as we
+couldn't find any standard way to achieve it. We might start a separate
+discussion for that once we have few possible designs with us.
 
-When the importer doesn't give an invalidation callback the framework will call pin/unpin when the attachment is mapped/unmapped. That is just a service of the framework to make importers simpler.
-
-But it is perfectly possible that an importer which implements the invalidation callback calls pin/unpin manually later on. This for example happens on display scanout when an invalidation would cause garbage on the screen when the buffer is moved.
-
-But even after an importer called pin it is possible that the invalidation callback is called in case of a hot remove. Using our example of display scanout once more it is probably better to stop displaying anything then keeping the resources allocated until userspace realizes that the export is not there any more.
-
-The revoke flow is then basically just a special case of hot remove. The only difference is that userspace invokes it instead of an user pulling a cable.
->>
->>> + *
->>> + * The pin tells a revoke from a move.
->>> + * &dma_buf_attach_ops.invalidate_mappings carries no reason, and both flows
->>> + * ask for the same unmap. An importer holding a pin can only be seeing a
->>> + * revoke, because the exporter promised not to move. An importer without a pin
->>> + * treats every call as a move and maps again.
->>> + *
->>> + * A revoke need not be forever. An exporter revoking around a temporary loss
->>> + * of access takes mappings again afterwards. Giving up for good is the
->>> + * importer's own choice, so an exporter must not wait for one to come back.
->>> + *
->>
->>> + * &dma_buf_ops.attach is the only place where an exporter can turn an importer
->>> + * away. An exporter which revokes rejects the importers for which
->>> + * dma_buf_attach_revocable() returns false. An exporter of memory without
->>> + * struct page rejects the importers which left
->>> + * &dma_buf_attach_ops.allow_peer2peer clear.
->>
->> That is also not correct. A mapping can be rejected later on as well.
-> 
-> In API level yes, but I'm not sure that failure in map_dma_buf is equal
-> logically to failure in attach. So, I won't call it "rejected later".
-
-No, exactly that is wrong.
-
-See failure on attachment means that the two device can't talk with each other at all. But that is relatively rare, the dma_buf_attach_revocable() case is the only use case which comes to my mind.
-
-The more common case is that while mapping the attachment we find that the buffer location is not accessible (any more) by the attachment because of hot plug or simply resource contention.
-
-IIRC -EBUSY is even documented as perfectly valid reason to fail a mapping.
-
-Regards,
-Christian.
-
-> 
->>
->> Regards,
->> Christian.
->>
->>> + *
->>> + * Userspace sees none of this. The two drivers negotiate the flow between
->>> + * themselves, and the DMA-buf file descriptor shows no trace of the result.
->>>   */
->>>  
->>>  /**
->>>
->>
+Happy to take any other suggestion also.>
+> BR,
+> -R
 
