@@ -1,122 +1,106 @@
-Received: from mail-oi2-f0.google.com (mail-oi2-f0.google.com [74.125.231.192])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4D2345CDA
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:11:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 791053B840F;
+	Wed, 26 Aug 2026 10:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787739102; cv=none; b=bc76+erSH74tMaWIBtbaBsfJ+p3vumhD60bXTjY8+zKES+o/TDCxAHRwRXIniPDnuKrPnolXUOzNvYLxk8Uoq/97hI+Jsz6TC4ix8lis6mA0UmddUwEp/45BflATTF1omTwsp5sARzNI3TgWEb58HySaO6OGJOwYyjHvWFXW6q0=
+	t=1787739313; cv=none; b=SvNPdsj1gMyNl4ThMpLfNZ6mJbKKC4vZcbtzXUCOCqxk5k2nNZmrhpDk4XrJOznzap9GK1VxDSiQzuCUa2J1KIKEcLE/oxXtq1T54/0cxiJ194v7f+Wgrv4wZmG4mdTXg3BKMqn6+dtWko3KZEgMyxhNDewWqNdOLscpLlFt3Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787739102; c=relaxed/simple;
-	bh=esIJ7TuLHWOpyYxR08AX7g7Z9a+Q7Fqvw7u9e4JXb4U=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=d/vxh6eyRblBUw4hME1l8zC0vkTG13NyWdz3MKPvOEASTqt58aIVBIRpWILoLifsIY1cVvS1Z7Y3phCGQkLWgNMwyi1zzdDaoK7UN5qwS34yv4yfg9OA/hzGakkSG7qbXMBGACoOgVbd3c56KAQHlK74csuK4JDjXuCYhGJ00Cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f0.google.com with SMTP id 5614622812f47-4a41b6fb855so367033b6e.1
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 03:11:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787739099; x=1788343899;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GNnE9+FHY9grYCLAVfeJIofAqZ8q2PbidJMhK+jFRzw=;
-        b=d3D0IV1BxAqLPXB71m7txkAqwT3NQOBK15Vn8VWZ7WobLfRnWiRONH03u+psYjbmiY
-         LJKT+sCZTaqfjiXr20unI2iwIdTdBLqmkGTXRw051kHnaow9D179kNsMx8JD7CUfzhcB
-         K3Czw0DIT12VvmcwLJz3Wxzeeb6aie9Q5mRkJ21znhhO/8KJYHFxUNUda9id6mJ4nG/X
-         KHSH+02LtB1hy0woyI4mcCJgCA6ttHXRUXSnB3Yi5jfOhjubZ9FoIvlWUm3VmCwo33hl
-         uavCfiwnWUtvIYVHVGQCqeOM12ZVboluXFAhdpxHmhttpUkW8Eut02VA0bq0fNKj+a30
-         wl/A==
-X-Forwarded-Encrypted: i=1; AHgh+RrAnCuNqK6nM0m8Fb5s095MZ4HVljlkTxfjZSLY2YwWp7v6wh/kg8E54HMCrGiB5fVVa7rpBUfNWHLCaQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++k/grV0LHhm9pgbko4MM+AHgWe3UbOFvssC82OuV/aYgrasDIkE
-	CUIbnysLyy11cciiBL/Ihq0BBnhdx8I5FzHsnAmFaVLeTZFhsHaEIMnLRgatmTnsDZqF1xqlVfE
-	0K0qTDQgmxNgyu0qZReeARkuM1lLt6z3vHK8gH01S8CGqL6R2H/Qx9lfRmJw=
+	s=arc-20240116; t=1787739313; c=relaxed/simple;
+	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hziNNS9cHp/BfmqBYeJvgY3EH2lq1e91GCDfwmly18HeUttlPUeuqSLK3NPqCvQ+B5XBi1V/y+dRQTXYoL/pbpod2YZpGwOD27Gu+bJCp1HiLp1wqwouPoF+irDIVWzBtnapIJmyuiLM/vkSC0ewydZRjYm/8fmldnd4akBHerk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YGtPOTFw; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YGtPOTFw"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C77FD19C;
+	Wed, 26 Aug 2026 12:13:40 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1787739221;
+	bh=vM5HfCdIN0W+FC2oAjmuQ7NPe4fDOvQMnI7qeQBPfDQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=YGtPOTFwZw41YbmWfHk17StA48t6cYc51KF8Dv++tFv1R6cB/Sai79pf3bxqTGY70
+	 5itE0iTZ/ymVMUezH57ZumhpxEMX14xYXQxd8LVjtwE2VWXWurfKESQ0S4JUh5Koe5
+	 xYp/0hfhf1x7YXyRrT88G2JFpXkq+l1wIOiA/WeU=
+Message-ID: <d0537d7f-6e74-4cca-93ae-398530c5cd51@ideasonboard.com>
+Date: Wed, 26 Aug 2026 13:15:03 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:5185:b0:4b2:67f1:11d7 with SMTP id
- 5614622812f47-4b366b70521mr5757753b6e.17.1787739099679; Wed, 26 Aug 2026
- 03:11:39 -0700 (PDT)
-Date: Wed, 26 Aug 2026 03:11:39 -0700
-In-Reply-To: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a8ebbdb.1d9ded08.62e62.00a1.GAE@google.com>
-Subject: Re: [syzbot] [media?] [dri?] WARNING in udmabuf_create
-From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
-To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
-	kraxel@redhat.com, linaro-mm-sig-bounces@lists.linaro.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, sumit.semwal@linaro.org, 
-	syzkaller-bugs@googlegroups.com, vivek.kasireddy@intel.com
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v15 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: dumitru.ceclan@analog.com
+Cc: mitrutzceclan@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+ Martin Hecht <Martin.Hecht@avnet.eu>, Andrian Suciu
+ <Adrian.Suciu@analog.com>, Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+References: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260807-gmsl2-3_serdes-v15-0-7212e9e5156a@analog.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-syzbot has found a reproducer for the following issue on:
+Hi,
 
-HEAD commit:    73ae59e97596 Merge tag 'erofs-for-7.3-rc1-2' of git://git...
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=12dff979580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8d423d3e91ba4f47
-dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-userspace arch: i386
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16d50d49580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=11296979580000
+On 07/08/2026 16:02, Dumitru Ceclan via B4 Relay wrote:
+> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+> replacing the few GMSL2 drivers already in upstream, and introducing a
+> common framework that can be used to implement such GMSL chips, which
+> avoids code duplication while also adding support for previously
+> unsupported features.
+If you send a series, it needs your Signed-off-by.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-73ae59e9.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/2edc303b5fba/vmlinux-73ae59e9.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/2624d8e0a8af/bzImage-73ae59e9.xz
+This series also depends on the internal pad, which is not upstream and 
+is not just a straightforward add-a-define case. Sakari's "[PATCH v12 
+00/86] Generic line based metadata support, internal pads" has it, and 
+additional patches around it. For the time being, I think the internal 
+pad unfortunately blocks merging this.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
+However, (correct me if I'm wrong) the internal pad is only required for 
+TPG. An option would be to remove the TPG support (or at least the parts 
+that make it visible, i.e. you could keep the internal functionality), 
+thus removing the blocker. The TPG could be added later on top.
 
-------------[ cut here ]------------
-!(flags & __GFP_NOWARN)
-WARNING: mm/slub.c:7013 at __kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013, CPU#2: syz.0.17/5920
-Modules linked in:
-CPU: 2 UID: 0 PID: 5920 Comm: syz.0.17 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:__kvmalloc_node_noprof+0x646/0x9b0 mm/slub.c:7013
-Code: c1 e8 2e 07 ff ff 4d 85 f6 0f 85 b6 fd ff ff 48 81 fb ff ff ff 7f 0f 86 4d fd ff ff 41 81 e4 00 20 00 00 0f 85 9c fd ff ff 90 <0f> 0b 90 e9 93 fd ff ff 41 be 10 00 00 00 e9 88 fd ff ff be 42 01
-RSP: 0018:ffffc90003d8fb50 EFLAGS: 00010246
-RAX: 0000000000000001 RBX: 0000008000800018 RCX: 0000010000000000
-RDX: 0000000000000000 RSI: ffffffff8c61e200 RDI: ffffffff8e6ad930
-RBP: 0000000008000800 R08: 00000000000028c0 R09: 00000000ffffffff
-R10: 0000000000000001 R11: 0000000000000000 R12: 0000000000000000
-R13: 00000000000028c0 R14: 0000000000000000 R15: 00000000ffffffff
-FS:  0000000000000000(0000) GS:ffff888096b76000(0063) knlGS:00000000579e1480
-CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
-CR2: 00000000f7113140 CR3: 00000000542cb000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- init_udmabuf drivers/dma-buf/udmabuf.c:193 [inline]
- udmabuf_create+0x2e8/0x12a0 drivers/dma-buf/udmabuf.c:386
- udmabuf_ioctl_create_list drivers/dma-buf/udmabuf.c:484 [inline]
- udmabuf_ioctl+0x2b2/0x300 drivers/dma-buf/udmabuf.c:499
- __do_compat_sys_ioctl fs/ioctl.c:695 [inline]
- __se_compat_sys_ioctl fs/ioctl.c:638 [inline]
- __ia32_compat_sys_ioctl+0x2cf/0x360 fs/ioctl.c:638
- do_syscall_32_irqs_on arch/x86/entry/syscall_32.c:79 [inline]
- __do_fast_syscall_32+0x13a/0x8b0 arch/x86/entry/syscall_32.c:291
- do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
- entry_SYSENTER_compat_after_hwframe+0x84/0x8e
-RIP: 0023:0xf7f03fec
-Code: Unable to access opcode bytes at 0xf7f03fc2.
-RSP: 002b:00000000ffe2d40c EFLAGS: 00000292 ORIG_RAX: 0000000000000036
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 0000000040087543
-RDX: 0000000080000100 RSI: 0000000000000000 RDI: 0000000000000000
-RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
- </TASK>
+I tested the series on Xilinx Kria KV260 and on TI AM62A SK, both with
+max96716 deserializer and two max96717 serializers with imx219. On 
+Xilinx I used RAW8, with and without embedded data. On AM62A I used RAW8 
+and RAW10.
 
+The deserializer TPG gives me no frames at all. I recall the clocking 
+for the TPG was quite a challenge on at least some max96 serializers, so 
+maybe it's related to that.
 
----
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+The serializer TPG worked, although I think there's something funny with 
+it: the initial frames (maybe just the first one) seem to be truncated a 
+bit, there's black at the bottom. Another, a bit more unclear, is that 
+sometimes ser tpg stops working. If I'm not mistaken, what I did was run 
+cam0-tpg + cam1-tpg. Then I tried des tpg. Then cam0-tpg, but it gives 
+me nothing. Streaming with cam0+cam1 video "resets" things and it all 
+works again. I've seen this a few times, but there seems to be some 
+randomness so I haven't been able to pinpoint it, but feels like there's 
+some extra state that's left behind into the HW.
+
+All in all, the normal case (non-tpg) works ok for me:
+
+Tested-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
+  Tomi
+
