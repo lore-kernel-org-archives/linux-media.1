@@ -1,129 +1,169 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from SY5PR01CU010.outbound.protection.outlook.com (mail-australiaeastazolkn19012071.outbound.protection.outlook.com [52.103.72.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB5E3542D4;
-	Wed, 26 Aug 2026 09:04:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787735084; cv=none; b=hBxDDf2k74bNt0n6pjzURD6dsj4zZzRwH2R7PEkbO5wnXS2OP7E28DNknfnlC0bKCs1GDvlvIEpJYnMgEGU0NS9QF9Qc5EOtfrtoJpRqQEvRDd09xx5dJWvbxScW5zE8zfGE/hv7ao1phz970VgdcEFGsvNne+fA+sPlfnB/Oa4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787735084; c=relaxed/simple;
-	bh=IfXNrmMA/cv+Wpzmni7v9jr3O3VipieGv6mDQHETTFU=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=PDNN2Ftr7YuT/xT2CU2X0eKfmW+WFYrm3TJqfXGdtpZW2HqVopl8JNSKOlaJK4JIBBbd5pcFvt3j1olbURSQqJtHVk5iJNuRqlNr8b9q6MxCeCJdu1UX1wOF/Sv4ikJl/0DPtMEXvjYzsmE7HiUZlGVUFl2xI8hPwU1F35pG1jk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dNwUlUeU; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CAC345EA9
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 09:36:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.72.71
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787737017; cv=fail; b=VDgaicu8rUNRPFSJi41VRwxCIfrDZaEw0NWlhqqIVCQ0nu/pG2HCfEYQCEis0WUbIjgAfnPoyF1AR+qVJ8GlqLDW3PBpprVkLZBBKYzh/bkCVKI/Z9rxg4jUpBqfRoM+iiMRoTa98cKsYgAoYV6eRQdHWYkqMgB/+4asl6GnkH0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787737017; c=relaxed/simple;
+	bh=ACdmvepgFLi3OpnNil3JoyjeyckRH2C1UwCGLRvczA4=;
+	h=Message-ID:Date:To:Cc:From:Subject:Content-Type:MIME-Version; b=KPM472Qb2zMB5VDjNnBgY9s73K4y+454LMyeyRAu7opSqpT+k0Yb7+fpVdQmleOz0uJhGn1+LV6uKlUaw//88eihCgd+bPbKHAGEb6jnJNY5V7YQATBhqv2bhZIFe+oQnYm+Wwy2lRRqQzwvPjCE4MGtu+W6xUQHW25ERyXDlHA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=Pf8KzktR; arc=fail smtp.client-ip=52.103.72.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dNwUlUeU"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787735082; x=1819271082;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=IfXNrmMA/cv+Wpzmni7v9jr3O3VipieGv6mDQHETTFU=;
-  b=dNwUlUeUXeOn8R0n/qVqp9xzcg3N9cwVn9tXjlzIAYJLJHJ2zCHcXiZO
-   /ntAL92xQBgkvbGnby1WsfZEBsyQftxgeTF3nuh50bUNnGB6vHwV0uy9F
-   3Zb5YerymucTA5LbFiWxWz8Gbyi5L0LtUue0FvgqPOTkCdGKi5fu7aqBw
-   01qbPhTfDaIS55B32JPrGDx/VphAQJHANTfbHENwS0LmVL7EnEEdRDnid
-   yu01y7r9JPm8FZFq92x0TtTn9+bitALwiM2BtIDhxLXda1MzoxDot2wiI
-   zjBPL+hZjhcrlCS1RvKlUIQcdI+ylXGl5ZP4sLheir3ptOSPfGSn8Ss0i
-   A==;
-X-CSE-ConnectionGUID: 1d7VDQk+Qq+p2TY58y9jKQ==
-X-CSE-MsgGUID: +mMXgdbMRrigTedrjMVu8g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11886"; a="105735840"
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="105735840"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 02:04:41 -0700
-X-CSE-ConnectionGUID: lSKGzLEPSXuaMgYNPyd0+Q==
-X-CSE-MsgGUID: D1VVjkgZSjq8j5B0QQ+cGg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,244,1779174000"; 
-   d="scan'208";a="261389778"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.247])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 26 Aug 2026 02:04:38 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Wed, 26 Aug 2026 12:04:34 +0300 (EEST)
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, 
-    linux-media@vger.kernel.org, linux-acpi@vger.kernel.org, 
-    Daniel Scally <dan.scally@ideasonboard.com>, 
-    Hans de Goede <hansg@kernel.org>, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH v2 3/5] ACPI: Support __free() from cleanup.h for ACPI
- objects
-In-Reply-To: <ao3uh2xos_1uwAgJ@kekkonen.localdomain>
-Message-ID: <762e0630-1b04-6a82-69b6-ca5148e74cff@linux.intel.com>
-References: <20260824211338.3583976-1-sakari.ailus@linux.intel.com> <20260824211338.3583976-4-sakari.ailus@linux.intel.com> <CAJZ5v0ieb2FcANOt0MRMsTrwtbLiUF48W_c=3z3OpNH92d=7vg@mail.gmail.com> <ao2FmNRFjSJVxhrL@kekkonen.localdomain>
- <CAJZ5v0gQVFxSkkjPbRf6bsKdgUBGduZV0M5SWrHoeB246ZLqew@mail.gmail.com> <134e9566-7913-86d7-1e8b-b2ca9ebec55c@linux.intel.com> <CAJZ5v0h4KD6Q1DeuwbFQ83U1=wKORMWUQNA2BwnFtsYAyzz_Ow@mail.gmail.com> <CAJZ5v0ggPGEu8YQTpeTC6=tVNr1zponkCbs+UQPieAH5k6ngUg@mail.gmail.com>
- <ao3uh2xos_1uwAgJ@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="Pf8KzktR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YRP54mEhxqpf4Yeteu3dv4DMnDtALxkJpWgj96KgmcvQhHi3OD3lAjO022LJwPtI5Zh9smb5mmdyoJeoPfJT2Y7TJQDOdp4wDuY0GGJGgja5oFVtcYi/r5pEBiGt4B2FtTMjstSdFxXvnz6onjPqQ7BPZqwMftLrJFsut2+nYyo93itxw45hYg4f7IRGKNONslUhDE6xYKmmc+iJEdwY2e1cHLIYD59YsRNaDKNMvnWN1LXMKLFXtATxAQRPIgbbQ3pOaMsdUtfV7kN3173N20sqgPqMjneDTUf5DNYLZWq32vyUKnK+5dOEzD2fcEWsiO9MScUJNDSOcnjmpk257w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=klcIVQ79Z9xq9DiQkumlQwG2QvauCpU3M65HxK2ttxI=;
+ b=u7oCjft3Z6P9SYLzs+4SaZzsyMZgo1/XAGdht62+tjekXYc6y2uysczQXaQ/h2D5AoZwi9PeKbYOcg4Tt9O9faknRRpwWVJ1vCR172wjkaEpY9XA/ZzlLYJHveGSfRdqY3oPlT8wy6YT07iIKbWJ4t6opMNW+ieidrZAORAi/Ihb6yW0vfv3OQvH+sCNDGhL1FJnYauPAfy40Nz0WbbYNzadhfVG4zYMlFpLAUAPIWPODhjiUDfzzLFhgMeID2R8yYk7Fkb6bnQHlPGqRtUq9O45rsDp47/JsU7BE/Ug+46y0vN/6wTISRjtjpr9cgetCv05VPw0NYjBjYITpiGK0A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=klcIVQ79Z9xq9DiQkumlQwG2QvauCpU3M65HxK2ttxI=;
+ b=Pf8KzktRIa44MBfjnxjQScxSvpav+9cCc3Fb/OOtBUlPxApjUvRnKVPjfhbV+6v24EouBTdlb4UTvUs9DRdlKqFNF3NtZ9q5OH/EnwwidTfsW8pQD94h7EpVItGx+GSJ1f3QeG2D7ORdLbw63Yc162kmVRt/zpOYt/BbLm2fYca9xnjJ7FkauMsJd3JjMBHdBa+jdZac3H6YaboLdbQLA3nNO2zdIVNOtj0lK5CVHz9fh0oKS/aHsk7kgRp69fOoGs7Uk7bCHC2wlah8uYxwX47ul8B579nHyWT3nIJcwC9ULPxOWioKK+fkmUHlw3aWUufaYCNZLzQOHNFJzPEKaA==
+Received: from ME6PR01MB10716.ausprd01.prod.outlook.com
+ (2603:10c6:220:25c::10) by SY4PR01MB6380.ausprd01.prod.outlook.com
+ (2603:10c6:10:10e::14) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.8; Wed, 26 Aug
+ 2026 09:36:52 +0000
+Received: from ME6PR01MB10716.ausprd01.prod.outlook.com
+ ([fe80::8784:27a1:988b:bc6f]) by ME6PR01MB10716.ausprd01.prod.outlook.com
+ ([fe80::8784:27a1:988b:bc6f%5]) with mapi id 15.21.0360.006; Wed, 26 Aug 2026
+ 09:36:52 +0000
+Message-ID:
+ <ME6PR01MB10716F138AFAF015ED70D3AFAF4AE2@ME6PR01MB10716.ausprd01.prod.outlook.com>
+Date: Wed, 26 Aug 2026 17:36:49 +0800
+User-Agent: Mozilla Thunderbird
+Content-Language: en-US
+To: dave.stevenson@raspberrypi.com
+Cc: linux-media@vger.kernel.org
+From: eee <D_0000000000@hotmail.com>
+Subject: OV9282 driver may not set correct value for VBLANK and HBLANK
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SE2P216CA0024.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:114::14) To ME6PR01MB10716.ausprd01.prod.outlook.com
+ (2603:10c6:220:25c::10)
+X-Microsoft-Original-Message-ID:
+ <d85376c2-4148-4c42-a74b-4dea6801f52d@hotmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ME6PR01MB10716:EE_|SY4PR01MB6380:EE_
+X-MS-Office365-Filtering-Correlation-Id: b331ec99-de1e-4229-44ea-08df03558efe
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|5072599009|8060799015|6090799003|39105399006|19110799012|24021099003|4140399003|25010399006|20031999006|15080799012|12121999013|23021999003|40105399003|2607281247196008|440099028|26104999009|3412199025;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?VnNvVmZqQXF5alJUVGI2Z3h6RzBMOThjZWgxNXByMFpDZnVubG1BOTc4cUZY?=
+ =?utf-8?B?aldydHFsNTNiSlN5K1NZVE1XaWx4R2c3cHhLTHk2ckNZaU8rZHhCVXBoVFRU?=
+ =?utf-8?B?NTV6WmlCYlRtR3FGWExQK0ZkSitsQzgwbDZVUnREOEtlUXZzSXhIRnlUL2tG?=
+ =?utf-8?B?T1k4WEJqMnNIUWN6eDdCbHZ6ZVd1YU1IZkZZM0N5TDV1WGhzRVFvN2QrdGpC?=
+ =?utf-8?B?d1BkSU44dG9sL2hlNU9ZeG1pcS8wWFZkMEw2SzRvOHo0bGdMcXB0bmFEWXNi?=
+ =?utf-8?B?RkhVWXNOblJWMHZkM1F5UVpuSlhaaDVSSk9DM2pNVUNyMkYzNGFrR1BLU1Aw?=
+ =?utf-8?B?bFJ2QjEyenk4QUN1RUxyYStKbkx3N0dHYzRHb1I1ckV4SEVzNUJINE43K044?=
+ =?utf-8?B?MVJYdjZ3SzJISEVxQTNoWm1GMmxScTRLdW9EWXNnZjNRVGpuaUlmbzBzRW4w?=
+ =?utf-8?B?MExTaVIycTlRTXFCZkIvUjN5NlFnK1pMaGFGM2ZtT01GY2dzVHRsd3FkZWpY?=
+ =?utf-8?B?UUw3b0xveVhrTXB2QllJdnpJYng3ZGorajJUeGdvT29wN3hhU0FTaHpHZjM2?=
+ =?utf-8?B?VTF6TTJjRkp3ZHNZWUp6RDZjOGpIZHB1RlBhOHExS0xxTUZUK2J4bU1BRUxr?=
+ =?utf-8?B?SWJ4aWZqNXM5REZIWlZ5NlU0QnFJVzJ5MlJKK25lc09TVlNvYTVOMXp3UVVR?=
+ =?utf-8?B?QmxBQm1FV01LNy80Y2IwR2JvaWs4VDZmcldyd3NvakJCazFnZkgrZFZYSHRV?=
+ =?utf-8?B?OGhELzdWVzlQb1VLcnRGTWxkdU9kT0JHSXo3UEN2cS9iYks0aWhIOGI0OE5J?=
+ =?utf-8?B?U25Db05iMHZ1aUdocnZSOUE4RlRCd0c5TEY2TDR0RXlRdmhiRmRWbHRBcnV2?=
+ =?utf-8?B?N2NJa3p0eDNxY3lmdTBuQWZwTFpxS2habW9aUTdvQ09TcDdYTGxDYWRkc1J2?=
+ =?utf-8?B?WXlqSWFPeGV6M3pPZFFDYWR6S3pUdkorKzBpVmtCaDhUdUpoWUlGSDZSMkp3?=
+ =?utf-8?B?U0ZwaW84YkJGNDE2emlxTXZ0Zm9hWGhoQnQ5bEsvZSt4RDlwSGExcGFaMFJJ?=
+ =?utf-8?B?RHFZK3lKMG1IM29CZjF1NGs3UmtqU29SU0tRQVlWUlN6cnFlSnRvSTVqc1Fu?=
+ =?utf-8?B?UmNrM2ZzaUlVM2lFR1BZN3psQ0N5UjRJUlN2LzNzRnF1Mjd4YXFpaGlHZng0?=
+ =?utf-8?B?NnYrOE8vYklZZ2pzS0dlYlMwZHRNTVhmaVczdEk5SGRCQnhWYnJyc091TVdy?=
+ =?utf-8?B?WE45a2FIb1RMMmUwQWlSMFd5TUptNnhmNkNBbzRxUEtqM3NVTU5SejQ4eS9S?=
+ =?utf-8?B?NGdVTVlRWDVKZzRQenQ4NW9JUTVkRlhUaHJWcUV5eUc2cTNjbUVhRElqSG5F?=
+ =?utf-8?Q?3SDGcM+Q+VfOitbllnUqmYg7kiQG2iZA=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?OFZvdWRtYkFNREZrdXZOWW50YVpVdU5sZ0xDbnB5YzduU213QWFpOWJHd2lU?=
+ =?utf-8?B?cWN0MUFsbjQxWFJmWEdWc1NkbHlFdTdONnUrYTU3VVptb2E5YlpuYXBqWVpZ?=
+ =?utf-8?B?NjBoSnU0Z0tUK0ZxaGZscFhsS2ZtSWIvUkMvNCtaa0FpTjJtcmdFQk8xbmdL?=
+ =?utf-8?B?cDlJeVgwdldhM2h1NDdvcUh2bXUyYVhuY3k2K2tZeEFUK3RRbW5vd3FpWGtS?=
+ =?utf-8?B?YmxOeEJMdWxTT2Z1NGdvK1lKeXN5UDNyeHV3S2diMDB4RWdWZ3p5aVVQanFr?=
+ =?utf-8?B?ZmtPTVc2R2c4bURGNmpXT210SEVLM2ZRZy9EU1dPQzRKcjU2bDhUYlc5Nlc1?=
+ =?utf-8?B?b3dqUXRGelRPKzZrRzJ5UDFRSGVUS094T3FMemhSVnQ2T3FxQ2ZoRzdYcWY3?=
+ =?utf-8?B?WlJLQTUwSDlsMHduSnJMSGRla3FKM3JRM2FsOVhQOHNZK0dmN1kyL1M2R1lt?=
+ =?utf-8?B?ckhuVXh0V09qTDJZWVJyM2l3Y3k0MDdzSW5IRFRPd2JsQUh5OHp2SUsvTEtF?=
+ =?utf-8?B?d0FyU3BFenY2ZlhGRExLdktpcHgxOXd6dnBMQ0FTazlKQVFPWFM5cjQwYzZr?=
+ =?utf-8?B?bzJCc3BNU3FpUlZETWUza2ZZaWRPR2FOR09Ia1JEbTJMQ2pEMlRBRzRwNmpi?=
+ =?utf-8?B?cW52UytZNi9keUFEcHJIK3ZNdlpQWGFRQWg4dkNZamY5Vm5mL0hvTlpFMjEz?=
+ =?utf-8?B?MDVoNi9RV3p5SWllMEVFMkdLQVVHMVAwOHB6N0VxcWxyVVVnaUptNm82WVp6?=
+ =?utf-8?B?MzhEUUl1aDQyREUxS3JOR1V6akxYQjMxRk9mbUFJMFluSEhuOTY2cUc3NG04?=
+ =?utf-8?B?WGVTOU1ZWmxIUndhS1JoUDFKRzJSSmRTaWlET3VWZ1Y4a25WMUpZb0VvL0k1?=
+ =?utf-8?B?MnEwRFVEcERIdDk4M1ByY3ArK1QydEswTUJyekNJeG9BTCtTR2VnMkxKS0ZE?=
+ =?utf-8?B?Yk5oM1JmMzRvRXBxQTVFNndNekk3VXdld0V5bXJNYWhSUmQyWGNOdzlJMFQy?=
+ =?utf-8?B?SEtRVzEwaElFZ214eFlORE00ZXQxOHpWQk1VYXgzSmwyTnpPbkV4ZDNOc3Z2?=
+ =?utf-8?B?TW1tRTIwWEVXTXdGVTdqUU5nZGVldHY5RkpEQ3J2NHZRWUZxV1hGanJpV0gv?=
+ =?utf-8?B?UG5VeHVkS3VPVEh0M0V5cHVNNGZyMHVETWRPS1pETG9KMkwyLzB1enlGRHNP?=
+ =?utf-8?B?QXQvaXR2RHdKY1hlR3pxZmtXZlZHd25BL2cydjYwSU5iWnM5aVdTTU1jNWdG?=
+ =?utf-8?B?cXEvaTZUaTY5WGNzSW1uK05jWkZRREw4UEhyZzVnUW5rYW5rOXBmODRIZmdw?=
+ =?utf-8?B?TGphN3I0SW1PUE9DSEpIZFU5N01UNnJWRXZYcWtwTk5Rc2FsN1ZSRWZxSXJ5?=
+ =?utf-8?B?dW1keVlRbEQvSUNvQ0tGc3g5azlIZ0JNKzVXb3RoTmJaZzNxK0ttZk1YQW5a?=
+ =?utf-8?B?Ymp2Z1REa2t0azh5RUUyeTNMMnRZWGs1WWVMd3l3aFRTT21XVEFjYzU1UjE3?=
+ =?utf-8?B?NzZVMEFLY296THhVSHBUUjA5RXRHRXpNWUdqVFF3SWx5V0c4bEtMRVdTQ1dY?=
+ =?utf-8?B?QTF6UGRvOGFUM2VOa3ozN0ZPclQyejZaUHltTUQzL0Z2VGs4azZNUHIrK0Vr?=
+ =?utf-8?B?b3BZRnZ6NHRZaDlPeEVnT3d2YWpUQ2ZjTmRUZ3BpbE45NUU4cW5naUhHZmhV?=
+ =?utf-8?B?SnRVWFVTOTJZNXduNTkwSUF6Z2VRcEdQb2YxV0Fza0U1TVRQTkluZ0tzc0hG?=
+ =?utf-8?B?eWJjeHZreWk0bStScWZFbFdUajhLTTBaZytIUW1VRytKSm5WYWRlSWVhMlZS?=
+ =?utf-8?B?b09ZOXI0NXRBMVNvYy9mM2dLeGd1amFwQWFVTjRITjlvOEtFQzBYby9FSVRL?=
+ =?utf-8?B?bnVmdkFEakxqN1JsU2pscDlMa2hVejFCcFY3aGpxTEhLUWxPRHJsbmtCS1hu?=
+ =?utf-8?Q?C59qypqA1Xw=3D?=
+X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-feddd.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: b331ec99-de1e-4229-44ea-08df03558efe
+X-MS-Exchange-CrossTenant-AuthSource: ME6PR01MB10716.ausprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Aug 2026 09:36:51.9173
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SY4PR01MB6380
 
-On Tue, 25 Aug 2026, Sakari Ailus wrote:
+Hello
 
-> Hi Rafael, Ilpo,
-> 
-> On Tue, Aug 25, 2026 at 03:08:07PM +0200, Rafael J. Wysocki (Intel) wrote:
-> > > If there is a cleanup.h "free" that can only be used with objects
-> > > returned by acpi_evaluate_dsm_typed(), I'll be fine with that.
-> > >
-> > > Or if everyone agrees that doing
-> > >
-> > >     union acpi_object *out_obj __free(ACPI_FREE) = NULL;
-> > >
-> > > is not confusing and fine, I may just say "Hey, I don't care that much".
-> > 
-> > And particularly there is this paragraph in a comment in cleanup.h:
-> > 
-> >  * Given that the "__free(...) = NULL" pattern for variables defined at
-> >  * the top of the function poses this potential interdependency problem
-> >  * the recommendation is to always define and assign variables in one
-> >  * statement and not group variable definitions at the top of the
-> >  * function when __free() is used.
-> > 
-> > regarding a broken code example, so I would think that this is not a
-> > made-up concern.
-> 
-> That's indeed a valid concern, still quite unlikely in practice but
-> probably hard to find when it happens, so avoiding that is definitely
-> preferred. That being said, the biggest trap in cleanup.h is probably in
-> scoped_guard(), and doing __free() = NULL somewhere doesn't matter much in
-> the end.
+     I am trying to get an  OV9281 sensor running on a rockchip RK3576 
+single board shipped with a vendor-customized 6.1 kernel. Sensor can 
+only run at 1280x800@30FPS, not 1280x800@120FPS as product brief said.  
+I downloaded a OV9281 datasheet (definitely not compatible with GPL 
+license) and checked register tables. I found that driver may not set 
+correct value on VBLANK and HBLANK. Since OV9281 and OV9282 use the same 
+driver in mainline kernel and both kernel set the same value, mainline 
+kernel may have the same issue.
 
-__free() = NULL is not that hard to catch during review (or even in
-code already in-tree), have done that dozens of times myself by now.
-Checkpatch, too, should be able to catch that easily, if it doesn't 
-already.
+    There is no relationship between VBLANK/HBLANK and VTS/HTS. LPFR 
+(line per frame) in OV9282 driver is not VTS in OV9281 datasheet. The 
+only requirement is VTS x HTS * FPS == SYS_CLK. For default settings VTS 
+is 0x038E HTS is 0x02D8 SYS_CLK is 80MHz and FPS is 120. Maximum image 
+transfer rate can be reached.  For those settings resolution can be 
+1280x800 which is greater than VTS and HTS. OV9282 driver set VTS to 
+VBLANK + HEIGHT. I think driver may set wrong HTS and VTS.
 
-None of those cases I've commented on had a bug, so it was just for 
-teaching submitters & readers of that code the correct __free() pattern.
-I think the concern is largely overblown given how rare actual bugs are 
-even if the wrong pattern is used. Put that to contrast to memleaks found 
-on our rollback paths, __free() looks a clear win despite very rare to 
-occur caveats.
+     I patched vendor-customized kernel and my OV9281 sensor can 
+reached 1280x800@120FPS and work normally. Mainline kernel 
+and vendor-customized kernel use same value, mainline kernel could have 
+the same issue. Unfortunately I may not be able to provide a patch for 
+mainline due to my work, but I think I can provide my patch for 
+rockchip-customized kernel. As OV9281 and OV9282 drivers are almost the 
+same, I think it does not violate rockchip's license.
 
-Given what I've seen, I'd say on dangerous level __free() = NULL is 
-somewhere around using MAGIC_SIZE_DEFINE instead sizeof(*obj) when doing 
-mem allocs. It usually isn't buggy even if we don't want to teach people 
-to use it.
-
-Besides, it was actually Rafael himself who brought the unsafe pattern 
-into this discussion (I immediately noticed the problem but since it was 
-not an actual patch, I didn't raise a concern). Sakari's patch did use the 
-correct pattern (and if it wouldn't have done so, there would have been a 
-review comment from me ;-)). In my reply to Rafael, I intentionally left 
-the right side open with "= ..." to not place that NULL there.
-
-> In this case I'll just call ACPI_FREE() sooner.
-
-That works too in this case, yes.
-
--- 
- i.
+     Please let me know if further information is needed.
 
