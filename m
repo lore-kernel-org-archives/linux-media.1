@@ -1,142 +1,94 @@
-Received: from sg-2-5.ptr.blmpb.com (sg-2-5.ptr.blmpb.com [71.18.227.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E564148551A
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 21:20:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5739448665E;
+	Wed, 26 Aug 2026 22:47:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787779205; cv=none; b=Rd7uPeLQIgroXMmZ5g9utHxaWp3IZpKOGApONa1wfMmYr/pWa5DubsPkh0cByTNpZgsBHN1kqH25VlIuJSbkKj9Jm4L4bfqldiYa5gGcDzJ2YhOIt8S/cpQiljWEzgZQ5v3GYuZ/c/lpxBPksN8DnXk859YD3QQSaBpAGhADJWo=
+	t=1787784451; cv=none; b=t7+rpWjQH3uUE9a7wv09SjJrHB6KP1qFn3fJwSYRBKFaWzCCg6Oul0wEykygZ08RTYmpNwWNor8zGe684KExPQJBzrrXqdmemJB5qfAcjvKryGifzYj5+IofUmHajfORUeBq4W2WSACYDymV+qm5AZTdQjQSU8S+qAR6XZMb0fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787779205; c=relaxed/simple;
-	bh=PlY/IwlxoPLKIeXOhG+KaL1+BexmzdmpRVPxFH8QRtM=;
-	h=From:Subject:Mime-Version:Content-Type:To:Cc:Date:Message-Id; b=FNwpGYvguhHotUs9NpHMsuIZTg6rgNbsURQ+o3DJ/ULVtEg8iXzOS/sjZm5a/BTmLmz7LqMh1IbCvqRKfDLS/iNP3BDUCMTHmfFTivb1PRwRvEKCAcAGd38jQc76f8KU2Wc5esSsPLVfF+lJgpgn3CrpmMk2ZRV8ll8tbgCs0pE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=sCLIQJ6f; arc=none smtp.client-ip=71.18.227.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787784451; c=relaxed/simple;
+	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HXY5o9o0rsRkC8eU3TM3lNq+DIMAI5g2G10iK5HEHbyz2S0H+Z4KO58abcqUu8MweCtpTbrKW3M72z71PUW17T2tmfm9szbAecO4fiFs+qTHqY/XffX/PHGnt9CMskyff/+JtVKSq5iRfgy2JiPa+c9hJfLQrr3i3CM3YeiRbbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cicfke3W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="sCLIQJ6f"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787779196; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=r7BKRwXvzFtHb2KAPCA0wNa9kxnwbggrfjVXuEj0jRY=;
- b=sCLIQJ6fbmDBicsC7ZpTdqVtJkE6lxys2I7TuV/qMJet2sWWnSaVK24TAooNpTzUQ1a6re
- s4Q8UexI9yT/YOTb9APtRbSZ5nS8MRH7ExwKMG6itoq7vNueoGdzaVI/9lUtoB1tINSYpQ
- 0+0D07C2lUt64eXpMWkM29AjZ3iCiBO7ZPLsTrwWhY41zHwqzm27R6q+wlEaXpxWKpPG0O
- 7SrMQmpOTn0ycduosRucS3+TZ8P3HErgE94V0OJEN+6ccRHVu1VO9f6oxj6FJlS2oUvbTk
- ntxCE9Kjak1XE065ylP8F9P3fwVY3lu+kUQmAjcrq85jIcCb7DJwQiiw669X5g==
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIAHJYj2oC/yXMQQ6CMBBA0auQWTtJaZGiVyEsSpnqGENNR4GEc HeKLN/i/xWEEpPAvVgh0cTCccwoLwX4pxsfhDxkg1a6Vo226KRUGsOMcaIU3nHGytvrcLNGNcZ B7j6JAi//Z9udll//Iv89RrBtO4Wz5V91AAAA
-Subject: [PATCH] media: as102: bound firmware hex-line parsing by buffer and data sizes
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cicfke3W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB87D1F000E9;
+	Wed, 26 Aug 2026 22:47:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787784448;
+	bh=FRwQPG9DE7JxfoQ3ufmKEg/UDWvmWPSLdquxMxfgp+k=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cicfke3WmAqQJ8y+V2HyotTup8sFctk1CxQcgHVnzbNpVUsHsUsqNdFLKOxrByERK
+	 5rajg32WABXUJwNv5c+y/RPal+qbjWe+Wq9cBlIL8JGQBBooDxIWOs9DXaG9hotELY
+	 qZbYTRoaEDmxEzMeD/9pLmbSzX22hkFaGfRbi7JKNc0Ms+xmWER36xQehRE/jOjZLZ
+	 80QTAkln6bAqL8OfmthzqjkroUvbTVLKHgip4alVu2P1ESJPy1nSrvEUdj2m0+ZbkP
+	 ly+JAsd5j+FkX97E+Gi2FHOi7FGXKkjkgMZt7+oTtYXRplbGne+fkDDSs9KzbkSS64
+	 YZeaEaVj4sF3g==
+Date: Wed, 26 Aug 2026 23:47:24 +0100
+From: Conor Dooley <conor@kernel.org>
+To: =?utf-8?B?UsOzYmVydCBCb8W+aWs=?= <robertbozik@gmail.com>
+Cc: linux-media@vger.kernel.org,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
+Message-ID: <20260826-prowling-jimmy-61f30fb50d03@spud>
+References: <20260826072002.14357-1-robertbozik@gmail.com>
+ <20260826072002.14357-2-robertbozik@gmail.com>
+ <20260826-copy-arise-bb7e9eb5e908@spud>
+ <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Lms-Return-Path: <lba+26a8f587b+d913b0+vger.kernel.org+me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-Received: from [192.168.9.107] ([111.42.148.52]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 05:19:54 +0800
-X-Mailer: b4 0.16.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-X-Change-Id: 20260827-as102-fw-overflow-4c75d973083a
-To: "Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Sylwester Nawrocki" <snjw23@gmail.com>, 
-	"Piotr Chmura" <chmooreck@poczta.onet.pl>, 
-	"Pierrick Hascoet" <pierrick.hascoet@abilis.com>, 
-	"Devin Heitmueller" <dheitmueller@kernellabs.com>
-Cc: "Kees Cook" <kees@kernel.org>, <linux-media@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 27 Aug 2026 05:19:47 +0800
-Message-Id: <20260827-as102-fw-overflow-v1-1-ff28890fec02@cherr.cc>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="erYPw3LhD8tke5dL"
+Content-Disposition: inline
+In-Reply-To: <CALSBEvTvrhniBrM29Y7sery15W-onz7t_8ZQhg1TW8nBDgYKxg@mail.gmail.com>
 
-parse_hex_line() walks the Intel HEX firmware image two characters at a
-time until the next '\n', writing every decoded byte past the sixth pair
-into fw_pkt->raw.data[], a 58-byte array inside a 64-byte heap object.
-Nothing bounds the line length: a firmware file with a hex line longer
-than 64 data bytes writes past the end of the kmalloc-64 object, byte by
-byte, with fully controlled contents. A file without a trailing newline
-additionally makes the walk run past the end of the firmware buffer
-itself. A malformed or replaced firmware file can thus corrupt adjacent
-heap memory during device probe.
+--erYPw3LhD8tke5dL
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Bound the walk by the remaining firmware size and reject lines whose
-payload does not fit in data[]. Verified with a KASAN reproducer of the
-loop: the overflow disappears and the oversized line is rejected with
--EFAULT.
+On Wed, Aug 26, 2026 at 08:34:01PM +0200, R=C3=B3bert Bo=C5=BEik wrote:
+> Hi Conor,
+>=20
+> > Where do this name and frequency come from? pin name I presume for the
+> > former? Is 19.2 MHz a mandatory frequency?
 
-Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
----
-parse_hex_line() has no bound on the hex-line length it walks in the
-firmware image: every decoded byte pair past the sixth is written into
-fw_pkt->raw.data[], a 58-byte array in a 64-byte heap object. An
-oversized line (or a firmware file with no trailing newline) writes
-past the object / reads past the firmware buffer during probe.
+Please do normal inline replies, instead of this which removes some
+context.
 
-Verified with a KASAN reproducer of the loop (write of size 1,
-slab-out-of-bounds on kmalloc-64); silenced by the fix.
----
- drivers/media/usb/as102/as102_fw.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+> The name is the sensor's input clock pin (XVCLK), as in the other
+> OmniVision bindings. 19.2 MHz is not a requirement of the sensor but of
+> the driver: it comes from the platform (the ACPI SSDB of the laptop this
+> was developed on provides 19.2 MHz) and the register tables in the
+> driver are computed for it (the internal 96 MHz clock the timing
+> registers count in is 5 x 19.2 MHz). The driver refuses other rates
+> because I have no verified PLL settings for them. I'll drop the
+> frequency from the description and keep it only in the example and in
+> the driver. I've also dropped the sentence about what the driver
+> supports from the description, that doesn't describe the hardware.
 
-diff --git a/drivers/media/usb/as102/as102_fw.c b/drivers/media/usb/as102/as102_fw.c
-index d2d432789f55..0cba1ac7fb05 100644
---- a/drivers/media/usb/as102/as102_fw.c
-+++ b/drivers/media/usb/as102/as102_fw.c
-@@ -37,20 +37,28 @@ static unsigned char atohx(unsigned char *dst, char *src)
- /*
-  * Parse INTEL HEX firmware file to extract address and data.
-  */
--static int parse_hex_line(unsigned char *fw_data, unsigned char *addr,
--			  unsigned char *data, int *dataLength,
--			  unsigned char *addr_has_changed) {
-+static int parse_hex_line(unsigned char *fw_data, size_t fw_size,
-+			  unsigned char *addr, unsigned char *data,
-+			  size_t data_size, int *dataLength,
-+			  unsigned char *addr_has_changed)
-+{
- 
- 	int count = 0;
- 	unsigned char *src, dst;
- 
--	if (*fw_data++ != ':') {
-+	if (fw_size < 1 || *fw_data++ != ':') {
- 		pr_err("invalid firmware file\n");
- 		return -EFAULT;
- 	}
-+	fw_size--;
- 
- 	/* locate end of line */
- 	for (src = fw_data; *src != '\n'; src += 2) {
-+		if (src + 1 >= fw_data + fw_size ||
-+		    count >= 4 + (int)data_size) {
-+			pr_err("invalid firmware file\n");
-+			return -EFAULT;
-+		}
- 		atohx(&dst, src);
- 		/* parse line to split addr / data */
- 		switch (count) {
-@@ -107,8 +115,9 @@ static int as102_firmware_upload(struct as10x_bus_adapter_t *bus_adap,
- 		/* parse intel hex line */
- 		read_bytes = parse_hex_line(
- 				(u8 *) (firmware->data + total_read_bytes),
-+				firmware->size - total_read_bytes,
- 				fw_pkt->raw.address,
--				fw_pkt->raw.data,
-+				fw_pkt->raw.data, sizeof(fw_pkt->raw.data),
- 				&data_len,
- 				&addr_has_changed);
- 
+Great, sounds good to me. Thanks.
 
----
-base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
-change-id: 20260827-as102-fw-overflow-4c75d973083a
+--erYPw3LhD8tke5dL
+Content-Type: application/pgp-signature; name=signature.asc
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCao9s/AAKCRB4tDGHoIJi
+0n7/AQCW3Wl/KiqLkWSHU0BIKI58DZpmLW0ujhTry4N3PJy/5wD/clr9823jQ9mN
++/jvrNrd9wwdGl/RlmxnIQorECGmNww=
+=9zyL
+-----END PGP SIGNATURE-----
+
+--erYPw3LhD8tke5dL--
