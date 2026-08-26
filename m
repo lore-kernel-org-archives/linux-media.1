@@ -1,63 +1,63 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04413DDB08
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 11:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8CA3F412D
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 11:26:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787743565; cv=none; b=huyn8MRijO9SdvGgovbRiDLyw8BywrSVqmPLV/Ptj5+jZRxioZDNpWhpi7uSV9g7pwM81Y0cjp3Dfmki1SsiRXulNaIC40nILjOuVXBVHkh36q6SK41dzF67ep5Z8cC3xazLR83yQaQ3wuUlGzpzxQmYIN0/wkhJ6APGEq46ewI=
+	t=1787743566; cv=none; b=KBcrCn8zw9yYwUhdpQfcVB6hu1HsraUXic2FajUYDhV+WokCo1NW/9V4chlIl85gq3Xp7q3jkbxgI5DG/hsWl31+JR4X4VBl4/BG0HdioYKr9frDIlpH7z36Ej4/KRcIsAS0iyyC//iXlsqwLbLxx4b4qNrmbUua5uakCRbkgfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787743565; c=relaxed/simple;
-	bh=0gD5BmUMaYyCDEhRh9T6gAk4MMNoJ01ORH4Z2PV7oRE=;
+	s=arc-20240116; t=1787743566; c=relaxed/simple;
+	bh=eEgpaClffVrKnbl8QivNz86iFYVr5r5dBokF6FDLlLw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Jrl2R4pjWXxdueyOpOhPQjWqISGTdR8p1uHREJyt9m5jXAFZtV5HVx4quvJj4bmKm1nH0Fr98VgmneHZv1Nkzjmj9hJbvhHCleDHQR4R6Cc8MrtggZtdAtIFaK4qrtP1WQfdxdeiEeXaPbAnMjJZghyZ8kMB17ugKQnsLi7USzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p2N11Sb4; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=rOlEYR6mJ75spVblBbySz0TEvoN0rN/lwXgx7xI7W2+Pw+x9gmR0JJBisWjZljSO6REwCY77kEQorVMKR4MywINuEi3RrWLFeCGVZgW6JbX6T1o7mw8mfNJO+hQJ1ZiaBo68gHiIBAIJQXlTb7l1ZnwtRXwg8mLF/liUtSnOHoc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IQ8lKO3m; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p2N11Sb4"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-482db627cd8so225623f8f.1
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 04:26:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IQ8lKO3m"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482dbc9a00bso943996f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 04:26:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787743560; x=1788348360; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787743563; x=1788348363; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eC0YCYSe1tWmFefmlTdOkwZfGmFm+8DqJsofGqwxQ3c=;
-        b=p2N11Sb4swLjFtbELmjMc0BShN/e3VlTv177TZ/5lfpjwLd8hlsj+dj5fVOV6YPknT
-         FCchgHqV47bThg0swwml10JIUaXorId5lVC636hki315gbF4ZrFM4hj4jDzrimYtUdFe
-         5JjJsJs2OY4OatJ/ibny76yOT9wYarhNmRne/yEk0/Q0R0TUju/3J8ZSrCb7wfW4wR7Z
-         dwQlhAW/4M7z+TKyNcpYW7/O3q+I4sF7oD57jsRyoC6cV6dksG9v8oxCewEjJ7yycpTJ
-         k7FkBzTCfa9LqkA10Bqz8ru38iqUIhSgoRgNP8YLygezgPfnh/yHvrPwOfey3Uomuf1G
-         D7lg==
+        bh=NYiYddQzsC9fBru2MSOJ2EoKWlTSTEPRQUEf7Ju5SIo=;
+        b=IQ8lKO3mEQyq3prJ+7JZgcMTNXv6i/RJeXHFf59F54k0A7X5FLlfh2oTw3YXfW4I3d
+         qy4KUuAiPc0HafG2bp7acFMYw6bmxn2ZChk+SBEgPXvo2bG3WloGRbE52JPFeLv3VN2A
+         i4y7H1D6oLOc+sFoK9FM894c7riuO2BitrPdVDD2Zugb8n8ZvnpjBjZ8Ftt6UK7t5kZr
+         ToGZCdn8cFxSnzvUVBpRMuqcmC+AN03/rU2DEM2Uh5d03KkLxgUialTcRbmqzJ8B3HWl
+         ZauD9u3XfXQrRxvc/8ex6ZwRn2q+iuRln48TE/ZqBLuRHgAkpkLI9klYGkPZzB4zOKG5
+         I2lA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787743560; x=1788348360;
+        d=1e100.net; s=20251104; t=1787743563; x=1788348363;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eC0YCYSe1tWmFefmlTdOkwZfGmFm+8DqJsofGqwxQ3c=;
-        b=rnep4/PIAMhCSwolrq1xiSrEEvW5ruHhgitpU5oAnbXa9li8Z5ynMCXpJuGoyd2Hgy
-         GoVVMCsgsFgyiWEJGWoODvEeNzKeurzzZPhNKu7MwRrw3LMINjqtzfId2JrrUTdo6aW7
-         HLMhXbLD56cQKvAgj4QSe3H//e4RAhtkJMuAQOIwcux9Wf7LwhaMRU8HYpNxDQZ6/41s
-         cMOIqUYRmH1PE8fV5h0A/8ukJz6Dq52EwOnyKZw3KF5DYA3B7yI3b+Jj6Nbo3QdCcAFM
-         tOwxfjjAexyYurh2/RLddy4exogAIW+mppcqR6VDEnSIrDieqHlYBWd1Zra0Z9VH3TBg
-         itww==
-X-Forwarded-Encrypted: i=1; AHgh+RpQxypIjsfqjoQfld7an/xijiVX7dMPSI8nf+oY/2yGbB7p1JSZQg8EjD/wiRUGlixR8HbiyrPOwpClBA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mhX2YEvok6+/lywMKbCP4mbQ/djygQR+6n4v9XrZDdVxcDvCpY
-	L+25DgpnARakHNIuAQkXQBoi6KFGqiHm3Wqfltvd/fLQjcWQof7Ib+No
-X-Gm-Gg: AR+sD11PB2cauUy35R5PN2micI6maml6LPMfVye5wg9zDiqq5bm8R4g0JsgnE/aaJpP
-	RS/47o9uTxb9YU5c5kwvUWHYOYq8/2mLi9IQ8fs3w5rRihSG3b0K2lh/P1ztkly9O+UFXtru0u3
-	VLMXCUlgFSuDm1afn5B4iF1X4MejDltDFbVV5ti7XEJvNq8kjxkntSi4tfBcuvD2ig1nX+dYu1B
-	WypWOL9meVA+B8A+HZDtux1NhuIl1roc6cni12A5Upr6BUth5RrCKdUxbDOxKjLXIX3dr7Kq807
-	62QGtdPVX6jlImhOwXLJnGysjQzBK3lhDmM7/6IS66J5a/akP18WWveBumsawTnHj83ikt2ONQR
-	ZpD1qJ2KLJjiQb/c++Qx/Pki2FXubCJadmCQcIkYWzVa30Fe78OiD1shi6BSxgMwIWj71e9g5o6
-	SsujMfZW3K5pnM1yJfrQzh0zpXoVDu9Vg0CWZLGdi4qpSjXzlTEhYB5XeTN+r0YwZxPus=
-X-Received: by 2002:a05:6000:4910:b0:47f:96e6:70a with SMTP id ffacd0b85a97d-482e2628cd2mr5983064f8f.0.1787743560402;
-        Wed, 26 Aug 2026 04:26:00 -0700 (PDT)
+        bh=NYiYddQzsC9fBru2MSOJ2EoKWlTSTEPRQUEf7Ju5SIo=;
+        b=nw4l41b+nnAJ94mGAdiz1Ygz71n+/rUCMYsQGlSt+sGdUvAP+gk6f6T2NMQoG9dKn7
+         DHUgCXURZljYKGWPFN4VCUkCWL/Sii3xywwBpY/v2ByQYwUy8CRtazLKeTxgAsRshy0O
+         zh6SWohCVpRi7elu/1yt8xR9Jr9AixIsXpe0wdJ3rK0uoI4kaiByz/jH/vfbAqOkI9YA
+         ciwIWMfwQmG4+FPxKuNh9WTMbAxylGNkAEyz7M3ZQ3OqzpE91sBgchK9KBGcOi1y3fcm
+         5WZtcjsr0bn0sb9S84gBA+ZXtbxocpXQCTgGC0bCuIoG/c5DXEJkS3Dv0TnqLsTE3HAL
+         dqBA==
+X-Forwarded-Encrypted: i=1; AHgh+RrZKHOsQ2Ad1Mt18TsYMRetI3TkTMyLV7AqIVYWJsviJ8PMBCEwH0lpwDD5VVgg/Fbbe3G87smAIxdJvg==@vger.kernel.org
+X-Gm-Message-State: AFuF++mTOv2vptSTKtT3HGR0tik4h4AyzBbl3ENhnJXGvc1nNzQbLl2E
+	JdANck5//ChRJ50kaTobEyB60dwfvPWHjt9IXwCkB4ESaBAewz/YUMSw
+X-Gm-Gg: AR+sD107HUL5GaHCibXbkdvm3ZGqEPQ0PkLvyHOzql/00pZxxixHRXkX6cXO8GaL/V9
+	45I99bX9XMxY2saLYPBfu3aDdqp3V9yPPkFF/5LiSY6mvBRlVa0J8I1Mq6Dq1xieNFj+iw3Yd3O
+	xdEj2gdjX3DGpaspkB9kMbp+kXBT6ORu0xw88ATSTwqDFVzIZM6suaXWTO3jyMsqF06cjYPVPfN
+	OcQOCWM9EOxeoCCqEnd+Je0owJChjg28gua3iFfXVDb9Yeg3wNPEI/d45EQrGLvjoBjcR3JYUji
+	+mv72fDRZ1jyEs0jrgMh2GvnI+hAOP8Mo68xLAuAnGMHILRV+R+kYoWdS5APpvKjWxdTy4WbfGW
+	cickoJWoUL0bBTgddKP2+yB1ESL2X6j6VVooqhAbgLdOQYGf0nczcXzky+lN+coFXnzPkR68v+G
+	atOAJYh1TEB2xgF+FegZ3FIu+erBe0ay3dKZxcL8hYCgOMEgt6CgtS0osp
+X-Received: by 2002:a05:6000:610:b0:47f:e7f7:370f with SMTP id ffacd0b85a97d-482d9960f57mr15661034f8f.10.1787743562429;
+        Wed, 26 Aug 2026 04:26:02 -0700 (PDT)
 Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:6b23:b1a3:f913:3d0b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6119sm2442098f8f.34.2026.08.26.04.25.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6119sm2442098f8f.34.2026.08.26.04.26.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:26:00 -0700 (PDT)
+        Wed, 26 Aug 2026 04:26:02 -0700 (PDT)
 From: Thierry Chatard <tchatard@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: hansg@kernel.org,
@@ -72,10 +72,11 @@ Cc: hansg@kernel.org,
 	nicholas@rothemail.net,
 	andriy.shevchenko@intel.com,
 	v.vitovt@gmail.com,
-	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v8 1/6] platform/x86: intel_lpss: add resource conflict quirk for Dell Latitude 5285
-Date: Wed, 26 Aug 2026 13:24:46 +0200
-Message-ID: <20260826112452.13539-2-tchatard@gmail.com>
+	Thierry Chatard <tchatard@gmail.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Subject: [PATCH v8 2/6] platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop counters
+Date: Wed, 26 Aug 2026 13:24:47 +0200
+Message-ID: <20260826112452.13539-3-tchatard@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260826112452.13539-1-tchatard@gmail.com>
 References: <20260826112452.13539-1-tchatard@gmail.com>
@@ -87,80 +88,40 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Dell Latitude 5285 2-in-1 has a BIOS bug where the ACPI GEXP device
-and the I2C4 controller (INT3446) both claim the same MMIO region via the
-shared SB04 variable. This causes intel_lpss_acpi to fail binding to I2C4
-with -EBUSY, preventing the front camera (OV5670) sensor from being
-registered.
+The GPIO lookup table loops in the probe and remove paths iterate up to
+board_data->n_gpiod_lookups, which is unsigned int. Use unsigned int for
+the loop counters to match and avoid a signed/unsigned comparison.
 
-Match the affected machine by DMI and the affected device by ACPI ID,
-carrying QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data and
-applying it to the per-device info in probe. This follows the quirk
-organisation used by the PCI counterpart.
+No functional change.
 
+Suggested-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 Signed-off-by: Thierry Chatard <tchatard@gmail.com>
 ---
- drivers/mfd/intel-lpss-acpi.c | 32 ++++++++++++++++++++++++++++++++
- 1 file changed, 32 insertions(+)
+ drivers/platform/x86/intel/int3472/tps68470.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/mfd/intel-lpss-acpi.c b/drivers/mfd/intel-lpss-acpi.c
-index 63406026d..1ac1dcc41 100644
---- a/drivers/mfd/intel-lpss-acpi.c
-+++ b/drivers/mfd/intel-lpss-acpi.c
-@@ -8,7 +8,9 @@
-  *          Mika Westerberg <mika.westerberg@linux.intel.com>
-  */
+diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
+index a496075c0..828ae208e 100644
+--- a/drivers/platform/x86/intel/int3472/tps68470.c
++++ b/drivers/platform/x86/intel/int3472/tps68470.c
+@@ -150,7 +150,7 @@ static int skl_int3472_tps68470_probe(struct i2c_client *client)
+ 	int n_consumers;
+ 	int device_type;
+ 	int ret;
+-	int i;
++	unsigned int i;
  
-+#include <linux/acpi.h>
- #include <linux/device.h>
-+#include <linux/dmi.h>
- #include <linux/gfp_types.h>
- #include <linux/ioport.h>
- #include <linux/mod_devicetable.h>
-@@ -172,6 +174,27 @@ static const struct acpi_device_id intel_lpss_acpi_ids[] = {
- };
- MODULE_DEVICE_TABLE(acpi, intel_lpss_acpi_ids);
- 
-+/*
-+ * Devices that need a quirk applied only on the machines matched by
-+ * intel_lpss_quirk_dmi[] below. The quirk to apply is carried in the
-+ * matching entry's driver_data.
-+ */
-+static const struct acpi_device_id intel_lpss_acpi_quirk_ids[] = {
-+	/* Dell Latitude 5285: ACPI GEXP device conflicts with I2C4 (INT3446) */
-+	{ "INT3446", QUIRK_IGNORE_RESOURCE_CONFLICTS },
-+	{ }
-+};
-+
-+static const struct dmi_system_id intel_lpss_quirk_dmi[] = {
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Latitude 5285"),
-+		},
-+	},
-+	{ }
-+};
-+
- static int intel_lpss_acpi_probe(struct platform_device *pdev)
+ 	if (!adev)
+ 		return -ENODEV;
+@@ -233,7 +233,7 @@ static int skl_int3472_tps68470_probe(struct i2c_client *client)
+ static void skl_int3472_tps68470_remove(struct i2c_client *client)
  {
- 	const struct intel_lpss_platform_info *data;
-@@ -186,6 +209,15 @@ static int intel_lpss_acpi_probe(struct platform_device *pdev)
- 	if (!info)
- 		return -ENOMEM;
+ 	const struct int3472_tps68470_board_data *board_data;
+-	int i;
++	unsigned int i;
  
-+	/* Apply per-device quirks that are only needed on certain machines */
-+	if (dmi_check_system(intel_lpss_quirk_dmi)) {
-+		const struct acpi_device_id *id;
-+
-+		id = acpi_match_device(intel_lpss_acpi_quirk_ids, &pdev->dev);
-+		if (id)
-+			info->quirks |= id->driver_data;
-+	}
-+
- 	/* No need to check mem and irq here as intel_lpss_probe() does it for us */
- 	info->mem = platform_get_resource(pdev, IORESOURCE_MEM, 0);
- 	info->irq = platform_get_irq(pdev, 0);
+ 	board_data = int3472_tps68470_get_board_data(dev_name(&client->dev));
+ 	if (board_data) {
 -- 
 2.53.0
 
