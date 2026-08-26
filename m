@@ -1,83 +1,82 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FE32429CEE
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:23:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FF923D9DC4
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:45:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787750608; cv=none; b=RDgB2WpgKug2o+bRrpKdhASsS4aqoSq6MlCWV+w3KxbGs4OMGeSPr1fajbwa2S8qUl9Rcq3kxixFIcX9BGOTvqltKTBfoCvcgRBEWMLe7LCgJapt/6ESjtFvYx9n05lG09xUh75lS146Rv3KHB2ZUzh4oI7t/iWnT1yQXKsJwW0=
+	t=1787751915; cv=none; b=cLq+PxcNxkNEJyPiJoyZhR6NA7SbBqESA9HmjrjXNMGVmyNoIHZaF7CEfdkGKylgyImltSqzvUSYzNWxZWfdC2OFaadnX3lCo8A/If4nEXIX5OD/fgMv3axnVSJImBKOLu6tLFr6lLMbydMsxTrVvyPtdy54dwgkvsmcgr+cOpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787750608; c=relaxed/simple;
-	bh=XRXlwQynmoDkSnN+1aeMbXNgIHZRxzQz4EGF3JDpdMk=;
+	s=arc-20240116; t=1787751915; c=relaxed/simple;
+	bh=vuGhCPpXhEKiyjkY2Zl3bS9XBYK46CjoNqSao+yAVu8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J4lvDLIAdVjxHitVMuH4s+YcclRe3Hyjg0Flk+bwN5h0Jp87LGi98/nkaZhnc4d2JIwL/4x9A0Sg9SES/w6NyNQLhHVVrtKWAEgOWtlr6YswakanX5pzhDxYfW/kTvILvZ+J72btu9VYOyCY8itFZ6f+rcGfG6aq6uV3gNTM1wI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jp9GYdb0; arc=none smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 MIME-Version; b=ovjOJ/X1OkV883WdCpIC8JiyY2LNuDVFD6t8EwEQApohZnNHhGIP6VC+0ZHtYRgLwkGQ6zS7lFa6hJNq5TgyZyAJsnVizJqQpdNBqn9ONywmue/xzQReHnR+UlSwe9Q1BoFr1JXYKolNdWW9MFGwPyFr+l12kR4vs/hIKmM8YXg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jphein.com; spf=pass smtp.mailfrom=jphein.com; dkim=pass (2048-bit key) header.d=jphein.com header.i=@jphein.com header.b=wtWd7BXq; arc=none smtp.client-ip=209.85.214.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=jphein.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jphein.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jp9GYdb0"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so1188585a12.1
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:23:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=jphein.com header.i=@jphein.com header.b="wtWd7BXq"
+Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2caed617615so10754925ad.3
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:45:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787750600; x=1788355400; darn=vger.kernel.org;
+        d=jphein.com; s=google; t=1787751904; x=1788356704; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AKB/xr2aOCbOg329ehvyXjbYABzeMuLJuajYHAFNU6k=;
-        b=Jp9GYdb08aUSX5x7TKPUDAwhR6Yd/eB6eBPK84TVefqLGFH4VgR1a+2+x7nW1EvkE3
-         zXYXlzbbpbI6jC/3gzBnXJ/vWwzHe60NunDeZgRxDQfWnjNgHgQ/TZHRF7C3COfaWCrL
-         KQOQw1pDfQXMp14nnt3WZttBbCtXYCuOjH7OYGJluewyg8qv097yrWEu1vRrIMzD7OT0
-         WQ1+3rjUuTQtPWhnEr7Gx881nbejKn7FiUjTjHW3XKOzONlFFG07hCowKmmEOXibIqWp
-         ydSQKxhPq/lSzCgN6FQGWSs9GUwPdMg2EP8dzx6hxcSFaDQ7Qx2yEe70yXLCZa4wlbLT
-         hBIw==
+        bh=L7hvoCmTHP0bqd1CBKEjrUbKs431WZODQPlvf5quuUI=;
+        b=wtWd7BXqhwkGy78fxUY8cme46V0g1zj670eyV6qDzLqQlqmMvc8uYL5sDFZEaXV265
+         /AhX89YkuAJ7Zc2KsvP2OptVaPmUK0cDtTJS4M1VbdnuH1QkrfRQJkjrvNoTTFVffQTP
+         puSao9vfdcN8if1Jk2ENQ/bKLrWy57yAedfRv4gjseForU/WCtGnesAvSehnyDTRNvti
+         UF4LaXEPxklCF7jdFF7Ip7mpqs9L/XuQuqo6msGTQsI+qnQwwEVy7E9fQo+g2QPRMBcZ
+         OtykHFOdVsCuT/tKOyKcA06U2NxAJap3pvjabAzVvJ1pY3P+EuiWl6laHu5PTDziK87A
+         0GRA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787750600; x=1788355400;
+        d=1e100.net; s=20251104; t=1787751904; x=1788356704;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AKB/xr2aOCbOg329ehvyXjbYABzeMuLJuajYHAFNU6k=;
-        b=gJDtPxTwn5D84hrnaHB0tphlQkk32fWp87gsli1SCM1RlbTg5vmjuqq8OBlYrLiuGn
-         dOrlwxr9g9T2vfapAw+xrIB0iN7qVhaP+gMEUePQxRqQiK226z86xheaSAOJFtOul34s
-         BvGuEJZDXFNLO5KfV8oOa3cd4hBHfwfk+xrYp5qZ3BijZic3FEl4YqU022EZXX3u9E98
-         Q25HBip9+Wt8EX2qdchZOEajEgV838v8vxUEBrqagfaT8d5qppoClBCXkQtrquBwJ/vA
-         Q4ZuWFdNEy5zSRWJ3xhrM/5VtHaA8iQ/Tou87kd1SfncHWqZqXJWhJsL60U/DbmlNzKK
-         U4lw==
-X-Gm-Message-State: AFuF++myUFvKx8bW7Ht8CedTx68+3IQ3Qld3fI/vGs3U8o4ogRyvDgdb
-	JPd20uOCkJAMfgVWTfZbJHzLfMpENHgM/hzfXmNQ/akpC5Ldd7GBHjpb2ko1EPy+
-X-Gm-Gg: AR+sD11SJ9IOjaefNMb2Bfb1NdCylXtbh11JVzYSYgI01PiyV7O8BEOl1c9y8i/Q1Uf
-	CuS3ylCSlNTt+ZQTGaPoSIXItMytgjk8n9t3SdS/6ICLbm9FjEVePyKbye6/bNlyuYkiR4TOFZS
-	7pJ9+4kXQimpB4IswKhbM9arli9yf9GeyPgNF1sdhjZd9DsOdoKaXhe2MSUCXOrHPgG9XNlPlYg
-	pZuNK/WSzbYcaSUvhKYt0/q9dm0ituT2ekqgOqRWj+2Ieei+tunIXG0RIrOnsGrhg/LOJrTACR1
-	EWFobuJXBrn9G6ZA+gGHIDjH7O5FPEyP1Pdq6krHzVJf6cwBcJtV/UjKdAwi9QC5ysxrmRRxnfC
-	cTDAFiabPZSsmBOV9PCeFUOrtcqAcuLWFM0GqCbee4Qu0Rl7LPEghnUbMOULNLC0nNZPspZ1RHC
-	rk4NRkPlNqMQtCGB2AcUXx5QMbbRbnEWbJXboUGLLbaK5sv8az8NGtdIsAlEaO9NMuBn8QgN4Id
-	ETHJKUnQ8Pp2ligem7WvrhjQzbvGv/TxoPNt3DmekE=
-X-Received: by 2002:a05:6402:3245:b0:698:c13e:179a with SMTP id 4fb4d7f45d1cf-6a5df653615mr8508421a12.10.1787750600453;
-        Wed, 26 Aug 2026 06:23:20 -0700 (PDT)
-Received: from 1Z10 ([37.163.238.51])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a5dea83a30sm3633147a12.15.2026.08.26.06.23.18
+        bh=L7hvoCmTHP0bqd1CBKEjrUbKs431WZODQPlvf5quuUI=;
+        b=CJOu2gSzd5L+nkc0WECytqicqkLPSeDkBzqCnnjSid1nWjKwokRDk0o+hRvILdLiZK
+         CTO5dZHVTCoAjuQ1qxGmtcf497ErK99NZIMFHP8Ec3SWVE7OrvRUpnrXszePkn0JbazT
+         M2+kfhVaJ8ECEqO9gO9cNKs/MoM72PIEqsH/MRO4wkprUk7GstEZTp0Xk7Ha6p+16UoR
+         r198l2+/8T6z1kFsoN1skIHrOAzs4i2arlDwqKlIu78EeODGup54dIosu+VwAWby1Sg3
+         Xf+5Hm//G5osJQn5S8jTSir7FWy8UOGvrdv1CHjfttVYRx0k3mHLm+DmtMVMNL+vWibP
+         mDgQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrxpB8eMOWneG+jnf1mNfXQRyu5W8Ebg4A7tXs90IPLl5jChcGorGGj3sl6Eq7tN48exonMNMgv6lb8Sw==@vger.kernel.org
+X-Gm-Message-State: AFuF++k4z86rcYIpb4PlxZcM55JWNUHk6uYaU8S8yl8s9CMWVU1fXtzK
+	g74pOV+zKedzjXkgprebemzc5GhB1/nO5B55ENcadErEKzoeqJ7SA44krL4XpoKiEg==
+X-Gm-Gg: AR+sD107gEhYsE9NNvwR0k2mXLACxpq2mabMHsZIxK5AScudRSUolWcJGnAO1FzCWnl
+	M8QRvEtFBmlIU+hkPnRSqgZAo/iBCe3ItvUgzie6OEubYHbSUtMRt0kDn+PEMzt7sbaVogw4ZN2
+	Nc4zxAcesfi5iZr9dsKyIlD9pAUBLMkm89BtWF1QnBrSYBhvSK9m/+9pjymuX80RTE4s6JTEKMX
+	2W8dYTHl3+CabVrWorSH6Jqf7p/1AR1Y/X28st7jLKcTyLRfXiQsLnvPd8UVGuEkqIoyOS73xg5
+	uDe65cQET7Sqc2Y62ufNaFAAfTlxQvciJGm3VulYkq4VNFXxpD31WihnUi5eMBDTqXRHTF8Y2wK
+	KLp6fl6CgUDFJEtxccF6jqX4xKE0QvacEli/S0IhgB9VMipqM0r8hMB5P4nlqDg7mFpNTipsMKS
+	0rhoz0GzZRFMu/t9uEWAsmdOcyiK0W90FJD6fIndCqx04vl5FcIwFoht/xEpIg/Gq3y7RQG5k2r
+	BT6KLPcoh/Xa6qzIgEjqAdbj7nj28lK4yldFa0ynLW8pe3FuFX4DxLwe75Eqwc0NvqwvZBOcQgA
+	0SUZ
+X-Received: by 2002:a17:903:1b08:b0:2d0:cc92:f7af with SMTP id d9443c01a7336-2d707b7f5bemr132617665ad.9.1787751903533;
+        Wed, 26 Aug 2026 06:45:03 -0700 (PDT)
+Received: from katana.lan ([108.74.4.89])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60b539sm8356719eec.1.2026.08.26.06.45.02
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 06:23:19 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>,
+        Wed, 26 Aug 2026 06:45:03 -0700 (PDT)
+From: JP Hein <jp@jphein.com>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: JP Hein <jp@jphein.com>,
+	Mathias Nyman <mathias.nyman@linux.intel.com>,
+	Ricardo Ribalda <ribalda@chromium.org>,
+	Alan Stern <stern@rowland.harvard.edu>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH 8/8] media: i2c: Add WV517S lens actuator driver
-Date: Wed, 26 Aug 2026 15:22:56 +0200
-Message-ID: <20260826132256.3343451-9-mauriziocasciano7@gmail.com>
+	linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] media: uvcvideo: add UVC_QUIRK_CTRL_THROTTLE for fragile firmware
+Date: Wed, 26 Aug 2026 06:45:01 -0700
+Message-ID: <20260826134501.1726230-1-jp@jphein.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+In-Reply-To: <20260427083553.36ff4731.michal.pecio@gmail.com>
+References: <20260331003806.212565-1-jp@jphein.com> <20260427083553.36ff4731.michal.pecio@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -86,275 +85,119 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S
-voice-coil actuator. Add a V4L2 lens subdevice exposing the standard
-10-bit FOCUS_ABSOLUTE control and the device ringing-control mode.
+Hi Michal,
 
-Tie register access to runtime PM so the IPU bridge sensor link keeps
-shared power resources active. Propagate PM acquisition failures and
-restore the drive mode and requested focus position after resume.
+Three updates: the stock reproduction I owed you, a correction to my own
+endpoint labeling that touches earlier mails, and what looks like a separate
+usb-core regression on 7.x that you (or Greg's list) should probably see.
 
-The register addresses and drive-mode value are derived from Intel's
-GPL-2.0 WV517 driver. Retain its copyright notice.
+--- 1. Stock-kernel reproduction, full usbmon (2026-08-25) ---
 
-Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
+Ubuntu kernel 7.0.0-30 (upstream 7.0.12 uvcvideo), no out-of-tree module of
+any kind, camera on a 20-minute-old enumeration, video + microphone both
+streaming in a WebRTC call. The controller died mid-call. usbmon was running
+on the bus for the whole call (168MB, preserved).
 
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Assisted-by: Codex:gpt-5.6-sol sparse
----
- MAINTAINERS                |   1 +
- drivers/media/i2c/Kconfig  |   8 ++
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/wv517s.c | 199 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 209 insertions(+)
- create mode 100644 drivers/media/i2c/wv517s.c
+Wire sequence, same two-phase lock I described on 06-13, now on stock:
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 3785b8c1de0a..205a42646a7d 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28268,6 +28268,7 @@ S:	Maintained
- F:	drivers/media/i2c/ak*
- F:	drivers/media/i2c/dw*
- F:	drivers/media/i2c/lm*
-+F:	drivers/media/i2c/wv517s.c
- 
- V4L2 CAMERA SENSOR DRIVERS
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbe..c488452c1b38 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -949,6 +949,14 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_WV517S
-+	tristate "WV517S lens voice coil support"
-+	help
-+	  This is a driver for the WV517S camera lens voice coil. It supports
-+	  the 10-bit focus control used by the Lenovo Yoga Book rear camera.
-+	  The driver exposes the actuator through the standard V4L2 lens
-+	  sub-device interface.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552..e480932a9540 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -173,4 +173,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
- obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
- obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
- obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
-+obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
- obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
-diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
-new file mode 100644
-index 000000000000..43d15aadea30
---- /dev/null
-+++ b/drivers/media/i2c/wv517s.c
-@@ -0,0 +1,199 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * WV517S voice-coil motor driver
-+ *
-+ * Copyright (c) 2014 Intel Corporation.
-+ *
-+ * On the Lenovo Yoga Book the IPU bridge instantiates this actuator as a
-+ * secondary I2C client of the rear camera.  The bridge holds the sensor's
-+ * shared power resources on while probing the actuator and adds a runtime-PM
-+ * device link for subsequent accesses.
-+ */
-+
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+
-+#define WV517S_MAX_FOCUS_POSITION	1023
-+#define WV517S_DEFAULT_FOCUS_POSITION	300
-+
-+#define WV517S_REG_FOCUS		0x41
-+#define WV517S_REG_DRIVE_MODE		0x43
-+#define WV517S_DRIVE_MODE_12_6_MS	0x0211
-+
-+struct wv517s_device {
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_subdev sd;
-+	struct v4l2_ctrl *focus;
-+};
-+
-+static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct wv517s_device, sd);
-+}
-+
-+static int wv517s_write(struct i2c_client *client, u8 reg, u16 value)
-+{
-+	u8 buf[] = { reg, value >> 8, value };
-+	int ret;
-+
-+	ret = i2c_master_send(client, buf, sizeof(buf));
-+	if (ret < 0)
-+		return ret;
-+
-+	return ret == sizeof(buf) ? 0 : -EIO;
-+}
-+
-+static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct wv517s_device *wv517s = container_of(ctrl->handler,
-+						      struct wv517s_device,
-+						      ctrl_handler);
-+	struct i2c_client *client = v4l2_get_subdevdata(&wv517s->sd);
-+	int ret;
-+
-+	ret = pm_runtime_get_if_in_use(&client->dev);
-+	if (ret <= 0)
-+		return ret;
-+
-+	if (ctrl->id == V4L2_CID_FOCUS_ABSOLUTE)
-+		ret = wv517s_write(client, WV517S_REG_FOCUS, ctrl->val);
-+	else
-+		ret = -EINVAL;
-+
-+	pm_runtime_put(&client->dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
-+	.s_ctrl = wv517s_set_ctrl,
-+};
-+
-+static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	return pm_runtime_resume_and_get(sd->dev);
-+}
-+
-+static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	pm_runtime_put(sd->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
-+	.open = wv517s_open,
-+	.close = wv517s_close,
-+};
-+
-+static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
-+
-+static int wv517s_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+	struct i2c_client *client = to_i2c_client(dev);
-+	int ret;
-+
-+	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
-+	ret = wv517s_write(client, WV517S_REG_DRIVE_MODE,
-+			   WV517S_DRIVE_MODE_12_6_MS);
-+	if (ret)
-+		return ret;
-+
-+	return wv517s_write(client, WV517S_REG_FOCUS, wv517s->focus->val);
-+}
-+
-+static int wv517s_probe(struct i2c_client *client)
-+{
-+	struct wv517s_device *wv517s;
-+	int ret;
-+
-+	wv517s = devm_kzalloc(&client->dev, sizeof(*wv517s), GFP_KERNEL);
-+	if (!wv517s)
-+		return -ENOMEM;
-+
-+	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
-+	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	wv517s->sd.internal_ops = &wv517s_internal_ops;
-+	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
-+
-+	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
-+	wv517s->focus = v4l2_ctrl_new_std(&wv517s->ctrl_handler,
-+					  &wv517s_ctrl_ops,
-+					  V4L2_CID_FOCUS_ABSOLUTE, 0,
-+					  WV517S_MAX_FOCUS_POSITION, 1,
-+					  WV517S_DEFAULT_FOCUS_POSITION);
-+	if (wv517s->ctrl_handler.error) {
-+		ret = wv517s->ctrl_handler.error;
-+		goto err_free_ctrl_handler;
-+	}
-+	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
-+
-+	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err_free_ctrl_handler;
-+
-+	ret = wv517s_resume(&client->dev);
-+	if (ret)
-+		goto err_cleanup_entity;
-+
-+	pm_runtime_set_active(&client->dev);
-+	pm_runtime_enable(&client->dev);
-+
-+	ret = v4l2_async_register_subdev(&wv517s->sd);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	pm_runtime_idle(&client->dev);
-+
-+	return 0;
-+
-+err_disable_pm:
-+	pm_runtime_disable(&client->dev);
-+err_cleanup_entity:
-+	media_entity_cleanup(&wv517s->sd.entity);
-+err_free_ctrl_handler:
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static void wv517s_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	pm_runtime_disable(&client->dev);
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id wv517s_id_table[] = {
-+	{ "wv517s" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
-+
-+static struct i2c_driver wv517s_i2c_driver = {
-+	.driver = {
-+		.name = "wv517s",
-+		.pm = pm_ptr(&wv517s_pm_ops),
-+	},
-+	.probe = wv517s_probe,
-+	.remove = wv517s_remove,
-+	.id_table = wv517s_id_table,
-+};
-+module_i2c_driver(wv517s_i2c_driver);
-+
-+MODULE_AUTHOR("Maurizio Casciano");
-+MODULE_DESCRIPTION("WV517S VCM driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+  t0        app stops the stream; video URBs unlink cleanly (last frame
+            completes status 0)
+  t0+1ms    SET_INTERFACE alt0 (iface 1) submitted        -- Phase 1
+  t0+5.16s  still unanswered; driver unlinks it (-2)
+            (06-13 measured 5.4s; 05-30 measured 5.1-5.5s. Same number.)
+  t0+5.16s  COMMIT_CONTROL SET_CUR submitted              -- Phase 2
+  ...       COMMIT never completes. dmesg shows the escalation:
+            "Timeout while waiting for evaluate context command"
+            "Abort failed to stop command ring: -110"
+            "xHCI host controller not responding, assume dead" -> HC died
+  t0+23.6s  everything on the bus reaps -108/-2; the hung COMMIT
+            error-completes and prints the familiar
+            "Failed to set UVC commit control : -110" post-mortem.
 
+Through Phase 1 and Phase 2 the microphone's iso endpoint streamed
+healthily to within a few ms of HC death (sequence numbers advancing,
+status 0). Control plane dead, data plane flowing -- consistent with
+everything since 05-30.
+
+Same afternoon, two more commit-control stalls on fresh enumerations were
+caught early by my userspace watchdog (camera-only port cycle, no HC
+death), also captured. So: the lock reproduces on stock, and -110/-32
+remain "who reaped the hung COMMIT first", as before.
+
+One honesty note on that day: the machine was concurrently in a CPU/memory
+saturation incident (order-9 allocation fallbacks in uvc_alloc_urb_buffers
+in the same window). I don't think it changes the mechanism -- the wire
+signature is identical to the June captures taken at normal load -- but
+the unusual event *frequency* that day shouldn't be read as clean data.
+
+--- 2. Correction: EP 0x82 is the microphone, not video ---
+
+I mislabeled an endpoint in my 06-06 and 06-13 mails and want it on the
+record straight. From the descriptors and the wire:
+
+  0x81  iso, wMaxPacketSize 0x400, 32 packets/URB, ~1MB buffers  = VIDEO
+  0x82  iso, wMaxPacketSize 0x0c4 (196), 1 packet/URB @1ms       = AUDIO
+        (196B payloads are plainly 48kHz S16 stereo PCM on the wire)
+  0x85  interrupt, the wBytesPerInterval 8-vs-64 descriptor case = STATUS
+
+So in my earlier mails: the "healthy iso video streaming through the
+control stall" was the *microphone*; and the 06-06 "timeout: still 12
+active urbs on EP #82" hang was the *microphone* endpoint, which also
+means the mic was in active use in that crash. The two-phase structure
+and ordering are unchanged (control plane leads, data follows), but any
+reasoning that leaned on "video specifically wedges" should be discarded
+-- in the 08-25 stock capture, video had already stopped cleanly before
+Phase 1, and audio was the surviving stream.
+
+--- 3. EP5 on stock: still no flood ---
+
+The 08-25 stock capture has EP 0x85 at 5 events total across the whole
+call -- every one a teardown artifact (2x ENOENT unlink, ESHUTDOWN at HC
+death). Zero short-packet completions. That closes the loop from 06-13:
+the absence of an EP5 COMP_SHORT_PACKET flood is now demonstrated on
+stock as well, so hypothesis A (EP5 underallocation -> ring congestion)
+is out on both driver variants. The lock is (B): a device/controller
+reconfiguration hang independent of the EP5 descriptor bug.
+
+--- 4. Separate finding: NO_LPM quirk not applied on 7.x ---
+
+While investigating I found the merged quirk from patch 1 of my series
+(usb-core quirks table entry for 1532:0e05, USB_QUIRK_NO_LPM) does not
+take effect on the 7.0 kernels I can test:
+
+  - the entry is present in 7.0 sources (drivers/usb/core/quirks.c), and
+    'k' still maps to USB_QUIRK_NO_LPM in the dynamic-quirk parser;
+  - I additionally boot with usbcore.quirks=1532:0e05:k (verified live in
+    /sys/module/usbcore/parameters/quirks);
+  - yet after every enumeration the device shows
+    power/usb3_hardware_lpm_u1 = enabled, and the sysfs quirks attribute
+    reads 0x10 only (the RESET quirk my udev rule adds) -- no 0x100.
+
+So this camera -- quirked upstream precisely because LPM destabilises its
+firmware -- has been running with U1 active on every 7.x kernel here. I
+can't yet say whether that raised the lock's frequency (see the load
+caveat above), but a merged NO_LPM quirk silently not applying seems
+worth a report to linux-usb regardless of this camera; I intend to send
+one after bisecting whether it's the static table, the dynamic parser, or
+the application point in hub.c that regressed. If you've seen anything
+like this on 7.x I'd be glad of a pointer. As a stopgap I now call
+usb_disable_lpm() from a local uvcvideo build's probe for this device,
+and the device then holds u1/u2 disabled.
+
+--- Still owed ---
+
+Item 3 from my last mail (A/B on your 6.17-xhci-test branch) is still
+open, with a wrinkle: my stock baseline has moved to 7.0, so a 6.17 A/B
+would no longer be apples-to-apples. If you have (or want) a 7.x rebase
+of the test patch I'll run it; otherwise I can boot the old 6.17 pair and
+accept the version skew for the comparison.
+
+Captures + analysis: https://github.com/jphein/kiyo-xhci-fix
+  crash-evidence/auto-captures/CRASH-20260825T212701Z-4events.txt.gz
+      (stock HC death, full call, 168MB raw / 34MB gz)
+  crash-evidence/auto-captures/CRASH-20260825T213016Z-*.gz, -213154Z-*.gz,
+      -220834Z-*.gz  (same-day precursor stalls, incl. one on the local
+      LPM-workaround build)
+  crash-evidence/2026-08-25-stock-hc-crash/  (watchdog dump + notes)
+
+JP
