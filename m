@@ -1,220 +1,116 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1775C42E8E6
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF2393F6C59
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:53:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787751929; cv=none; b=iuWm0L+YhZ3m3k6z80D/uqsKZOi20t1XSdu5NV8Ir8inLb+UWq46jBvuvnc6On2AOn75+aLS8bGHQ4PKOJw6ntaF7iWyA3muJb8TqeXGmd4XN1TtxetDbOB80Oq2DEEQ9zY7m/BEtALwFztL8M+eGAnsHWqdhBLElAYbbsmWVo4=
+	t=1787752447; cv=none; b=CmzXIPpJqRG+9M7qmZUK1jOGXJ7q0Xh51n1kaZg88IQknw4qPPY+xVs0FHPHLhff3C3/h86ib9ivD+ynAHeKjbfvlp6nv6wAVKS2N+Mng96M4gN5W58nHM32TbkCt+qJSqsenhyGe/0fQXIHm71torBeP4LyfZ11Ngvx8ckweIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787751929; c=relaxed/simple;
-	bh=b3TbOLaOaVdbEoxxuz1CQtZAQmDctOUjkFHF9gAxpXw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F+w6MqsFDebDxilUUJXbJijv2az8xnntYV5grBEiASEiTm7gXbKd8eD1VmS62hp2p0no0QD8TrTH6CgFlCOJ4UbXbtxjfXwm8cFxk8pcZWGiPffPerAN3sR4QYxefiPd8HiuHvz0hoZDeSaWSswhKff1D+kj9upRsMQtvaE6Q8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hlNd3RgX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jC/h2+QP; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1787752447; c=relaxed/simple;
+	bh=8rTH+kcGVVWC4O9UYd+nHgJzRkDuUmS9WFz7klp3z7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fFcdp7PfvWgx0mNzXzcMhi4sxkxVnQTFNwserOjsNxOcJMCZ23B+SMWpeB350Se6r0V+5hW9hvql4RmO3EQa/0+iAvN3lylGC73cuTqdZRu+YZBPxU8YhIo0kGuwWn2KxHnY3uD0SD6tE9dXMTh3W10PidvLwCPeJQuOaArQU8A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eyNITQnS; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hlNd3RgX";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jC/h2+QP"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 67QCC7XK768964
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:45:20 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=; b=hlNd3RgXSWmiQxeY
-	bbtdV+I8fqLURJiyTIgClpz0Tr8jUPb/86Dv5BytCuvpCkSiYE7mnx38abo6bJMq
-	GjE9WG8+JKCJkKlYb0RJS8sWBugJ4FbAMqRouy5blxcv1fQmCGIbm1oml9W6uyTH
-	ef8Pna7IoNIgndJZ1ObAEwbaU9/pb0zYQD3t3Y2UWWqkWOu4IwJFSUPGu1aLnhYm
-	214P6eaLNfyjtRKPHkvmniCr8A9BwTWFvK0eJ42ay9hv8UG22ttXfiGKG53RNmSF
-	MQhJEe/Hv4GgzNS9dwjZUsGE8AREGlMrUpU85qt8eCx75ccDuh9q7j208avufXzG
-	pstV8A==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4g9x2n0tr3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 13:45:19 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-381250979d5so1428567a91.0
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:45:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eyNITQnS"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-4815bce4652so571579f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 06:53:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1787751919; x=1788356719; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
-        b=jC/h2+QPo8hl2x48C929uxKU8JrlPlct4SnuE4LHjlW4kcFzkTFku/edZ2f4oYQrqy
-         FiEt+02bWDEF9s0rgh64D79/lXAag3LEJvdOWOg1SWhrIBNDa26+2tTNw2LskWsLc/v8
-         SoOM//gp7Nwm6FsCOBqIp2FiWm7qqtLOu9WEEKV2dcWLAAdDrg9gG3sXhKdNbx2D1hoC
-         lCEbzAKHnTwOFRXSEWH5lGPyIRVJoFfqvLlNWQdNooazrMzaqctpQSo3HeuzfEIOSQ0O
-         QDzsOyM1camRcV98ZzsMHI0+n8xTJfUPPZW4i6sFmPZEjVSYZCrEBdiTu2bufnUdQfRu
-         CDjw==
+        d=gmail.com; s=20251104; t=1787752436; x=1788357236; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KEVG8kAFLJoKx+jDc12PPtT6k0cGqduvqfafakCoXeE=;
+        b=eyNITQnSuYoDtewnJW8wIH7JJk+f2FayOBNMqG1PV3+/nWIGobSSA5rNxl9uvAx5LC
+         8JgOH9qTe6EiDF2AnrJmUaLJtaMiBN1P+LUARybeUmvmlpyA6TWVleEnO1JyyyRNnmyi
+         yCn8j7a5eqEsepbeLOjqJkFkueJfXSEb4FkWQC/i+93z7tJGMs558yNg3ABwQ/l1T8uy
+         zEpOVMOgB82Wbm0ve/zIzBP8j9U8N0HmT7IPQoZpPt0SLiIm4wXe/QuG2I+ATEtdAtJD
+         tnaSJ+ejI1sq2GPY24YFK3nhytTTep72/mmk+SeeVTyiOPwqWV05BQlPBENIvdfPumcZ
+         yxsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787751919; x=1788356719;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1787752436; x=1788357236;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4jnYIpJgtFEZlWrcRFiUwalcwxZjoeOSevlSYM3+k2M=;
-        b=YBU2G7kjOdLqD0vl/x4Lp3I4Gg9EPbVPTFUXuVL4n1dInToXwM0vVwKljruHkm8UBm
-         WyVHKZxuiXmGcnnzAA7RznZhccsUEq61LIpPRtY56PBYYtrrqe4tL5QVPAU8qcmKXziU
-         RJXRjuCxUnnMuAqMvtEk8RWiJlVKLw/F0dRc7wyKZBavEkwBboPN9ycCVIbr1KWpVetG
-         qPyjfJPhL6AdH75UcuBas+zirkiMLXXT31VhrvrqiwbGx/K5mhe+zIuWQFfddY8r9xee
-         Ebig1T5nntFL14DxeWAmgyDMZLLsqKppb3TLvTt7TrZ0klL01qbzbnNuuJFQiO0epnD1
-         FYYw==
-X-Forwarded-Encrypted: i=1; AHgh+RqWl7qeu3rLVZALMFaahESuFTrWHdW/cBYFDPPK17zcz6O1OpCVCz1NhCCYa56UzsS0473OCl0f0MDmAA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nU5OLpcJ7vxQqybdhECpHImG3ctcdhoXYa6WaqwRrM6pOLzTwl
-	atLhrQbFrS2UCF3+FAIv4oNJLmsjMKihS+g08qzb8xhVEq9PrMSyBcRQ9gdULzPQtf7eAZrXumj
-	0ZscTh1JlWtEGYBs85NdNYCfzjF7KuQGq6BATVDxThhDqDk2eezbVdfqqW5wYaUnOrA==
-X-Gm-Gg: AR+sD10UiunBDcicjEWivFxv4+bgQ58h/lidKYd/ZZDf3UnPXIP/x3RWMU1sIVMth6F
-	6nn/ZIow9n0O19Nuh36dqE0clIz4PRtBnv+Q7MnECbf6vpQR+Ouu41GDsSFSVzn6ALOPFm7eHGc
-	5WkF2JF87STFlfq9cijvTvqselIyTpCap6n0JamG+LMiw7T17PFlYkekBkCuqyxx44+UdmMIxU0
-	YhD0ACtUU0wRkv9ZaMhh7HIHmNbB1Q+KS0+VL4hr8EreXk/Pm2JLX14KoCAqeLJZ7bF2XSxtY3W
-	fKSynauVJDmiyRki8JnciVrChOVN0Xpb3tG0jyUaKt2bub1CFx7qN6Nl7xjjnoPjKttJrpMSy8a
-	2pNi7v9lb9IoFaSBW0IRaliJWSr8lfg==
-X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-3966d3dafb9mr15825940a91.11.1787751918696;
-        Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
-X-Received: by 2002:a17:90a:d2c6:b0:38e:5c6:4db9 with SMTP id 98e67ed59e1d1-3966d3dafb9mr15825822a91.11.1787751918186;
-        Wed, 26 Aug 2026 06:45:18 -0700 (PDT)
-Received: from [10.219.57.226] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a8f20036sm13571333c88.5.2026.08.26.06.45.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 26 Aug 2026 06:45:17 -0700 (PDT)
-Message-ID: <2febead3-0f0c-4e0d-b11a-8c61ec027f44@oss.qualcomm.com>
-Date: Wed, 26 Aug 2026 19:15:07 +0530
+        bh=KEVG8kAFLJoKx+jDc12PPtT6k0cGqduvqfafakCoXeE=;
+        b=J5AmMP6baRYDbPK3TuzOVKdBKaLwyqdtxJxxlWQcAX3ffddITmQb59RCgleyi8YnEA
+         dl5UKjaZI0HBJxS2n8WCW0JW/Aow3h0UVUBjSFeLXoAUBWbMXCfjEE09aiqGWic6L2rD
+         pgk73zlv4Fn46ARcbbi8QmfNQnaWMZ56j3vhNjR3gRH4s7gN1Y4nc3tzEZ2aKk/ran6t
+         auqqr0wHLRlRctjRuzRPrOtCZUoUzUOO5BkSlnu412wMorLbauBk9cuPsyag4jGgt/Od
+         NS1xrOBuF2KJbAKGSZQVRHdiu+iFiiRGIdNw1wsekfs6HUhA3LcE9VTWew91gWuSIXKn
+         Y16Q==
+X-Gm-Message-State: AFuF++lx70QIeJIGlxcJBHwsrarjsQBA/qOojt9xWHIOnq+pRF/wZSCZ
+	mVXVa9TjqHVF6MgOYojxLcp0Sj4xsqqtyhBzpYbeQTvWUa/Ab79pGbS4
+X-Gm-Gg: AR+sD135RqDec9kvM6XSwm6o6Hy8sLrjJ4/H0QU4qg0wDPWyysigVG0ZzgiMEr4pSKF
+	WcUXkY+lc8JyQ8kesxgl/kV4Gs08A7h7w2wKBQm3jOP3EzOzA5Jn4Cf4mWij94IJcjaTtlpCA+P
+	a5QWgwbOClyre5KibH5LHnAn9QVBVgFkJK8NsxyRzLlfC9d1htVTjxt7M8yKYLl62m4+kJIcPJ+
+	9hxbEDIeE6FMzusEcRTiq4Ewq1uuNeRphAfeZL1xJSv/ISo5VIka2LV6f++ub3+5Jp2PT5Z2okK
+	Vto9LcDRrpHgvMKBPBKtmhqRe0spfxcNa3TLeNZCHjx/dLpyqQVBvo/iAxfegS2OnASEUXzIZ3F
+	CJBZL+SvlneXEn5NSBbLn6bR+SKEJGjbiF6pMi8km/vDeCmwYJqkq5DjSg4knRBeOzv4vTUhsZV
+	OpVoPtRPTxlMLoo9dbQzcxOzOC1Hb0ZLp7Iq6Ab39T03WDnjXNu6EwUCHLhcXIquxglK7GGlXVn
+	6dZklN5PD6Pc4TeTYLZ+H4lkvH5zQ==
+X-Received: by 2002:a05:6000:2c09:b0:482:ea47:4488 with SMTP id ffacd0b85a97d-482ea47452dmr482725f8f.8.1787752436403;
+        Wed, 26 Aug 2026 06:53:56 -0700 (PDT)
+Received: from MacBookPro.lan ([2001:861:3dd1:ccb0:7ca4:98b:a443:98d8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eef5sm2845154f8f.1.2026.08.26.06.53.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 26 Aug 2026 06:53:55 -0700 (PDT)
+From: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+To: mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+Subject: [v2] media: ngene: Remove all unused headers in the ngene-i2c.c files.
+Date: Wed, 26 Aug 2026 15:53:51 +0200
+Message-ID: <20260826135351.7473-1-elouandacostapeixoto@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/15] accel/qda: Add DMA-backed GEM objects and memory
- manager integration
-To: rob.clark@oss.qualcomm.com,
-        =?UTF-8?Q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>
-Cc: Oded Gabbay <ogabbay@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap
- <rdunlap@infradead.org>,
-        Nathan Chancellor <nathan@kernel.org>,
-        Nick Desaulniers <ndesaulniers@google.com>,
-        Bill Wendling
- <morbo@google.com>,
-        Justin Stitt <justinstitt@google.com>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sumit Semwal <sumit.semwal@linaro.org>,
-        Bharath Kumar <quic_bkumar@quicinc.com>,
-        Chenna Kesava Raju <quic_chennak@quicinc.com>,
-        srinivas.kandagatla@oss.qualcomm.com,
-        dmitry.baryshkov@oss.qualcomm.com, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, llvm@lists.linux.dev,
-        iommu@lists.linux.dev, linux-media@vger.kernel.org,
-        linaro-mm-sig@lists.linaro.org
-References: <20260817-qda-v2-v2-0-69a02e9090d4@oss.qualcomm.com>
- <20260817-qda-v2-v2-9-69a02e9090d4@oss.qualcomm.com>
- <7030a8f8-f320-4b09-b2de-2c8e897409f8@amd.com>
- <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
-Content-Language: en-US
-From: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-In-Reply-To: <CACSVV00MubttbkVJgMommPMorf67yqn7D1kfwpxVUZ0t-6au8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: NBZc2O_4Xjq_-0UO6mvu8xsysaLz3ztA
-X-Proofpoint-Spam-Info: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfXyfo47O7yJwP6
- ma3fuHMVYwi+tvGjVLSNF6tGBKV5qsBJMeaqT+r+mrOl9YMjzclpNiP/LHU/Ay7YL6pms2Z8nk4
- hmHKuc5otcrO8uU77vhoh8sCT8+HpYY=
-X-Proofpoint-GUID: NBZc2O_4Xjq_-0UO6mvu8xsysaLz3ztA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODI2MDExMyBTYWx0ZWRfX0UwLy16TfQ6Y
- 4BlPgeT14l6pnw/MsDkKjutau5MyfoZabKBItPDGTBLrLwmwdb2Y++fzorg/CZ/CaDQ3grQGfRb
- GQInHqcSd4C5S02cN961bupvXljb1FNZn/mVUnNloXpCDvsrBNfu+NBaOlWBFGjNa0JZJrXfCbW
- o/KyWp3EnTDx/4/2mb//RgWEFffwUaRLgRJHsRVqq6wKFdjTL1y1LG6g6cnnpXOGHtSm9DgOZBv
- S8VeJScU31WIPmbjS726IsiI/FNlI0rD1haqJYFHUro4xI+UCSuH4cwIuEmZ2UUUdShAr4zSTHX
- BAKr5PYxbctOog91OILfR6bIJmonVWxbBuzT7xg61NE6YjQOpn+WjqDi8ikUfLlTBVTNpJP/sH0
- 64RHCBvnc7SVhbxm+oz1p47LTEIFBEgRVJtgd7KOQ3ripDB3hdzoJ4IobkX/sbTEnX+HleiSb2n
- DgOz19eMHKbzuuwUXyA==
-X-Authority-Analysis: v=2.4 cv=PPQ/P/qC c=1 sm=1 tr=0 ts=6a8eedef cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=Sv0fKeRqtYgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=sLzL-2GVjjNmCx-rav0A:9 a=QEXdDO2ut3YA:10 a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-08-26_03,2026-08-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 lowpriorityscore=0
- clxscore=1015 suspectscore=0 impostorscore=0 spamscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2606150000
- definitions=main-2608260113
+Content-Transfer-Encoding: 8bit
 
-On 24-08-2026 20:37, Rob Clark wrote:
->>> qda_memory_dma.c / qda_memory_dma.h
->>>   DMA coherent allocation backend. qda_dma_alloc() calls
->>>   dma_alloc_coherent() on the CB device and encodes the stream ID
->>>   (SID) in the upper 32 bits of the returned DMA address, following
->>>   the Qualcomm FastRPC convention for IOMMU address space tagging.
->>>   qda_dma_free() strips the SID prefix before calling
->>>   dma_free_coherent().
->>>
->>> qda_memory_manager.c
->>>   Adds process-to-device assignment: each DRM file (process) is
->>>   assigned one IOMMU context bank device for the lifetime of the
->>>   session. qda_memory_manager_assign_device() first checks whether
->>>   the process already has a device (reusing it with a refcount
->>>   increment), then falls back to claiming an unassigned device.
->>>   qda_memory_manager_alloc() and qda_memory_manager_free() delegate
->>>   to the DMA backend after resolving the correct CB device for the
->>>   calling process.
->> Oh, stuff like that is usually a pretty big NO-GO now.
->>
->> AMD has made the same mistake with KFD and it resulted in a massive chaos.
->>
->> The DRM file is the driver context your process uses and even if there are multiple DRM files for the same PID you should absolute *NOT* share anything between them.
->>
->> The general rule of thumb is to not attach anything to the process using the DRM file descriptor.
-> A couple other things to keep in mind:
-> 
-> 1. drm device fd can be passed across processes
-> 2. virtgpu/virglrenderer drm native ctx is a single process that opens
-> the drm device file N times on behalf of N guest userspace processes.
-> 
-> All that to say, Christian is right here.. drm_file is your context,
-> pgtables should be attached to the drm_file (potentially via
-> drm_gpuvm.. which you perhaps want to use).
-> 
-> BR,
-> -R
-> 
->> Regards,
->> Christian.
->>
+Check all headers individualy to see if the driver compiled.
+Check if some symbols from those headers where used directly by the file
+using grep.
+Use the script scripts/checkincludes.pl
 
-Hi Christian, Rob,
+Signed-off-by: Elouan Da Costa Peixoto <elouandacostapeixoto@gmail.com>
+---
+ drivers/media/pci/ngene/ngene-i2c.c | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-Thank you for highlighting this.
+diff --git a/drivers/media/pci/ngene/ngene-i2c.c b/drivers/media/pci/ngene/ngene-i2c.c
+index 2e9e9774dc6f..038bab38db36 100644
+--- a/drivers/media/pci/ngene/ngene-i2c.c
++++ b/drivers/media/pci/ngene/ngene-i2c.c
+@@ -10,21 +10,6 @@
+  *                         support for new dual DVB-S2 card prototype
+  */
+ 
+-/* FIXME - some of these can probably be removed */
+-#include <linux/module.h>
+-#include <linux/init.h>
+-#include <linux/delay.h>
+-#include <linux/slab.h>
+-#include <linux/poll.h>
+-#include <linux/io.h>
+-#include <asm/div64.h>
+-#include <linux/pci.h>
+-#include <linux/pci_ids.h>
+-#include <linux/timer.h>
+-#include <linux/byteorder/generic.h>
+-#include <linux/firmware.h>
+-#include <linux/vmalloc.h>
+-
+ #include "ngene.h"
+ 
+ /* Firmware command for i2c operations */
 
-I'll rework the CB assignment to be per-drm_file. Each open() will get a
-CB assigned from the available pool (find-first-available, not
-find-by-PID). The assigned_pid field and PID-matching logic will be
-removed entirely.
-
-The hardware has a limited number of context banks that serve many
-sessions (on fastrpc, via the DT "qcom,nsessions" property), so multiple
-drm_files may end up sharing the same underlying CB due to hardware
-constraints, but while implementing that also, I'll ensure that the
-association goes through drm_file->driver_priv, never through a PID scan.
-
-I'll also look into drm_gpuvm for the longer-term address space
-management as Rob suggested.
-
-Thanks,
-Ekansh
+base-commit: 45c13f3f9e3bb15fd89ff2864c6f627a3b4b4229
+-- 
+2.55.0
 
