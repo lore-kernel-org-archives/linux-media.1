@@ -1,96 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3D5E3C942B
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:41:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8CCD3DA5A7;
+	Wed, 26 Aug 2026 10:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787740910; cv=none; b=P24GovcT89uH9mH5dlyowbWPMp5g3mGwRHakgaMfVT9+IOr8Vcsu3uRXeQirVkZA1dWDQatHBg8AUuNmV0C/a3/VkJC0nvb/5aqF6t+kFzFrcGg32oUolGdeWWQN+qFkaWk3ILxgdU8dZ0pfUiT/uQ4DnmROPD6jsDPz5ZMQyX8=
+	t=1787741322; cv=none; b=p+mnZ/NI3Oj+QPESbuQKeLLQkNwpllvY0zp0I6M3ICmGTiX60VEjCT3b/MmcNT5FzTC1uq3UZtt7zLrzfL16/f1ePWVYya0Ynb///W0KGxlCsAblx8C7AI8PaQ2fmKmAR4kvIMYRRPlkwjYEjKrMiBVMOeADE3oHB7K7TL0QsVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787740910; c=relaxed/simple;
-	bh=VqRBMoZNcNZ2C/wdFD7vSU2Xs5RrPpT+CvL3sh2NTpk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fjzvQJ0ti+//g9A0oOh/YhDYTBOxLzPV4Ze1RCJx4FhwYmdCNBpl4kQ7I0VCXmrUqx/2ThQjzhq8ScAPtFcmvPc0UyTMzrE0qzTbLQngblDIF8lUloj5monR7u0liO3IE8P1/pcjILHYRMBSQ4l9qIfJE/lvIWy32SInlrxsj5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bjm3hlym; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787741322; c=relaxed/simple;
+	bh=dp2d4GT6xfse/AjmR5CCihdRxLdkONQ6FKx99trQjQY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ot28dRxO0gSwknRmaMHEZyxq1OCo/8pdE2YOiXcRG4EKyVwKXvP00o1peb2sowQyaoiSzz4MtcRPx/rKzAfm9FcqQ/jFhu/GT6p5bLlZf6zhvc7m8rjr0ZwXT9OMHbWKqpEv59LKdsOvJgG3XFZdx0QhkPU4bwtmKgE4laQWUFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CbC9eXOZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bjm3hlym"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F46A1F000E9
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 10:41:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CbC9eXOZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58DB71F000E9;
+	Wed, 26 Aug 2026 10:48:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787740906;
-	bh=GOKm8u/Zj+T/6ykjQWpA7SjgKqZgQpDgrtISmnOCjrc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Bjm3hlym2PpI2CWmz9w/494AvHsc+sk3IUFGIjAVS+IekEc01OEe6yNPx0fySWP/6
-	 xpizdEr4n+YpXDPrQEqnSHi0QIJ2G3TFyOww6c3B/WcTuxACSncHn5bnmeQQfXQYRK
-	 tZcn0O5eWswInuKKsMx9Crtq/HYbEihzvpBGLSvnuo6lEblmpJ5tVfRWj+QOR/KHWL
-	 dwKSQYcFkQdZZwJFOL2iK7YwK8+6JT/dKF2fUviXD7Dzil+HInzqEkfDYZTEf2ACVY
-	 NQ84+svA9912SbOolWnAwvnU3fC7OJrO0aOML9tSLB1Kce5p6EMDBO+shhdlVTM+SX
-	 bdCitujMPVUhg==
-Received: by mail-lj1-f170.google.com with SMTP id 38308e7fff4ca-39c9bb9d2fbso5759551fa.2
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 03:41:46 -0700 (PDT)
-X-Gm-Message-State: AFuF++n5D//MkWJBaZC3rr6PgvVA6c4wnEhtb1escDwcrx4Ie8tkPBmv
-	NMS3LZs7yGWpeGgBd/zcVmVboEcfNwkUDR6yDZwdTpL2VbWK8AUiCD8ZlZrzCSWuLS2XWLj4ekU
-	VJZPO2Rr04/gEkQx+ybUeom28ej21ZIw=
-X-Received: by 2002:a2e:be2b:0:b0:394:635:70b1 with SMTP id
- 38308e7fff4ca-3a1fd443cb6mr13763521fa.3.1787740904782; Wed, 26 Aug 2026
- 03:41:44 -0700 (PDT)
+	s=k20260515; t=1787741295;
+	bh=2PBENmYs6fiknMrazp/50bVkNc1sBGJoebvvjy0eKx4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CbC9eXOZ2dL6OuBJ1bWchF5seeE8ifsrT8Yw/a4Qo3Y5Rs2etS57xSuEdgQns99ei
+	 QVPl74HmDPUGNZBf7+WL1hBpXywRwssYdENv9y3V+JkVXQ3w8kTmaN2R7sWY+TBwJt
+	 rpd+iGj4akwD2mqMk+XymnQmIxApZFfAWUutiB9ezEi8bwZpp00uztIbITa3g+1Fx7
+	 es9x6uOFAGNXG4NWRTnEbcER/UYbhW9caRHYj7iJhyEeIyDfIV9wtbDJ2QbkvyWlx0
+	 dpH+wik6piKWJNDJwpfLl9XKfDWmEHKEB04XxOxRSgTnJpeatCCyZiHCa7kSHWZp/A
+	 Z2tQRT+7IaTNA==
+Date: Wed, 26 Aug 2026 11:47:59 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Michal Simek <michal.simek@amd.com>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, Lee Jones <lee@kernel.org>,
+	Xiaowei Song <songxiaowei@hisilicon.com>,
+	Binghui Wang <wangbinghui@hisilicon.com>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
+	Linus Walleij <linusw@kernel.org>,
+	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
+	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Ryan Chen <ryan_chen@aspeedtech.com>,
+	Billy Tsai <billy_tsai@aspeedtech.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
+	Olof Johansson <olof@lixom.net>,
+	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
+	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
+	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
+	imx@lists.linux.dev, linux-media@vger.kernel.org,
+	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
+	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
+ <>
+Message-ID: <92dfaa64-18c6-4ac0-8b17-f0a202dcf737@sirena.org.uk>
+References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260825203553.3725132-1-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260825203553.3725132-1-sakari.ailus@linux.intel.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Wed, 26 Aug 2026 12:41:00 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iavt9xmvRufb7jq2F+gdgQCbuf2kyNcs5EpUfh5nwA1A@mail.gmail.com>
-X-Gm-Features: AcwNN1VdT4w-4BQ_0pgSu359vH0Qde0rXBkD0-3VkoCMWpmn4TvguORewpTXLYs
-Message-ID: <CAJZ5v0iavt9xmvRufb7jq2F+gdgQCbuf2kyNcs5EpUfh5nwA1A@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] Fix static analyser and compiler warnings in int3472
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	linux-acpi@vger.kernel.org, Len Brown <lenb@kernel.org>, 
-	Daniel Scally <dan.scally@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	platform-driver-x86@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hP4PYOBKxN+fM2z6"
+Content-Disposition: inline
+In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+X-Cookie: Obey all traffic laws.
 
-On Tue, Aug 25, 2026 at 10:35=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
->
-> Hi folks,
->
-> The two first patches address smatch and compiler warnings in int3472. Th=
-e
-> third patch clean up GPIO parsing in the int3472 driver.
->
-> since v2:
->
-> - Drop the __free(ACPI_FREE) change.
->
-> - Move ACPI_FREE() earlier in the function and save the object's integer
->   value into a local variable.
->
-> - Fix return values -- 0 was returned by v2 in some cases where 1 was the
->   right value.
->
-> Sakari Ailus (3):
->   platform/x86: int3472: Address Coccinelle warning on an error print
->   platform/x86: int3472: Fix uninitialised variable warning
->   platform/x86: int3472: Clean up GPIO parsing
->
->  drivers/platform/x86/intel/int3472/discrete.c | 51 +++++++++----------
->  drivers/platform/x86/intel/int3472/tps68470.c |  2 +-
->  2 files changed, 25 insertions(+), 28 deletions(-)
->
->
-> base-commit: 56c29fa3ee666197516a231e75aed789ae9c530d
-> --
 
-Acked-by: Rafael J. Wysocki (Intel) <rafael@kernel.org>
+--hP4PYOBKxN+fM2z6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-for the series.
+On Wed, Aug 26, 2026 at 12:20:45PM +0200, Krzysztof Kozlowski wrote:
+> Correct a few white-space issues around <>, which will be flagged by
+> dt-check-style.  No functional changes.
 
-Thanks!
+Acked-by: Mark Brown <broonie@kernel.org>
+
+--hP4PYOBKxN+fM2z6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqOxF4ACgkQJNaLcl1U
+h9Bdwwf+L6MG9Bumzzk/fUvAIBXVI/dikPCxxDKcuqi5O/yVCeQWiMHK4Kp/ca3l
+imB6hoNyz9NRQmnZ45EXJhpRnz1LbTO357uK3N4zx/bi7V88563ixNa8HQIJZiCi
+yBPtE5ToKgi349/KXca5/vSKWGfyCnD8DRL3icILcg9GwxUC14PEo2WFYcGR4/JP
+ZmD11XU7MLSAhan3AUqcBiK9d+baT2FfEwmxCk4tm3wswPG29CNeUWP8OU145Yuq
+YcOeBmOpgMeDFyqxfCLMwJTToaxX8FcAn5HDjE+mJ+/pTLge8S8d85cmy7dJrUoU
+IMs1ngofm5Q82f4e9E8pPeXEh4y1iQ==
+=ZN0I
+-----END PGP SIGNATURE-----
+
+--hP4PYOBKxN+fM2z6--
