@@ -1,71 +1,80 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7B33E49F2
-	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 11:14:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C278F3C3C16
+	for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 11:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787742863; cv=none; b=VQyeeoCeaioyJ0AR21JCRH0BugahMPI8uA8i87S/6BUq4K8zj3vnzTn5USSpmf8twkP/jsCU22sFZ1/C/kr3uDGcud+7JAsrzIRAD2uXf7zbjBuMwMzJHCNHRObssLvzZllui+kc5Wbj8NIA2FNj7Vde551HDsKHmt4IQ8nMxsI=
+	t=1787743563; cv=none; b=uemQhTTjZ95cJnYqEzHdGZ0x1IZqk/4lNgI/+j5xCw+WcwOBPwASd9lKf3r/HHLwxKaI+vkdMCzzlhjcJH6vyTl/ARQpwlnvlEs19TW63iRJnPgcDkqd+hAFVQrlljpZWc5mcC7NDKtkyWTXjZCN4hpfKf9neevWuXH7DlevuqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787742863; c=relaxed/simple;
-	bh=yEwWLv05DrF9MgTuePjvN8u+YF5aUxxpn+QHoLZw6aU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=WZWqYXvmw1HOvsQD0LufVkVvjv2vsBYVERnbgvBnciyd4wGxYPgTYUtardjZQ6o0lmLlWZzBf3v785PfSeKZgSS/Kyzxng7YhKd5qVfF283YKeLk+pPHYF3t2bn43H8ojc/MzeWPqa6SyUwuyvq2CcdQjC/MfoG0Z4EqvSYkFfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VMeWOvAL; arc=none smtp.client-ip=209.85.215.169
+	s=arc-20240116; t=1787743563; c=relaxed/simple;
+	bh=7BqKG7UiVkdBPu4leBjvfoeJEM/OjD3mE3MOq1woPE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CJ7/V1Hf75Bc21BzoydfGYWuYxhFNKdp5+qwEvK/Td8920WnNQ47BylHD81jY4p8lvQ7degCEibjgV+9zPHCq8q9FfV3HM3Ah2GvAH7Fy2uTCyna2cmC/Zvbx3HbIbYc447d0RMxJ1llsFeY0j7sOUFe/r3r+auWkxckAJFICVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OZGS33zd; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VMeWOvAL"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc1bc88a20eso961692a12.3
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 04:14:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OZGS33zd"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-482dbc9a00bso943950f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 04:25:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787742851; x=1788347651; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787743558; x=1788348358; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=idBsAYohvhobxaclJcasJ4HiPtq7OOPdHTu6I6ld/zw=;
-        b=VMeWOvALCLNHa5T3FZ4bbtdegQwP7+++kPLC+8T9OtanVlWdOZ04bHNtFRaskSevg0
-         S5Xyg+NVDCYzTvcutg6x/j8YmD+G15IEHxEDkfrn2cWAz0qooRW/T+I4EhkkcAW5kE8a
-         GbSsXWM7geX6Wuilc0QUvyzuwg4lzo7lTCnafZlFUgXT8Wwhd3+eqhernI+5qbngR9Bt
-         FI2QK+F6xGLsBqf5FUyTePGtgrwbnjJYfYj6BO0pgEU6CMYiKlYzDDzH/uJF5/My9tNo
-         vORZkjll8vcAkJ0CH7ZElLhdh4sKzW69hwMeX7Y29HZzKvXFBgBipL6APbZ4xDVIHlaR
-         eA1Q==
+        bh=UJ6gIRxKV4tPAnIKrYL+EnKWhihLd/yRb7gXeIxetG8=;
+        b=OZGS33zd+XQV0XwOAT1yWKV0LO+MOOn9RJ8LCEJmgGH+gDXFJ3T3m2KzMHxuJnIeX1
+         JaNJORSq8uT0jT5BAnJnkfHUF5PNJ9QJDe/JOqhU+clQqCqJaZ9f7lcYOGUEcEztlkUz
+         4avxet3Kur3/0E1qupBZSSK3BWtdNXX2dh2W1JMkhjDngFsfDvvDM7xnbMo/bFmdzDl6
+         Q3EOblkBSahOYZu/404IAlO9RlH+1Meukac/h3Tht24725bKIDM7YwDuT2inQ+l6vl2X
+         62+hlxgrwZBrmcTrL8xE96/k9GG5SObkZfQKudWS1WxYxS6fiTZXqVtW2LZTCSz6L8Z0
+         CvKA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787742851; x=1788347651;
+        d=1e100.net; s=20251104; t=1787743558; x=1788348358;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=idBsAYohvhobxaclJcasJ4HiPtq7OOPdHTu6I6ld/zw=;
-        b=lQk3IEuNe5fMghD3ktt+NqGJPOBB4ikonNu86bzAXeXjvvLSMNKV2sD4g7Kp32RorY
-         7vMMJkANIj195X1AnWUWibPwJf7x44SBitVEIyioyrI5X3w+Q65eejV356TixnWIhJnQ
-         8miDwk8TrFrPH23wEioDjwtAgHg/iL2q1SYomTR7sy54Qkl9m67vUB++NXWU7B1Q2IGx
-         h2nYbzL3AqbXEKYf1T1B69mTZMDw+O4ogyBzafrVh8Td5KeFK/jmOWgKxLx6mX8JXRuO
-         0wcMxiXW3K8K20tdm0GoZKKy9QUvb87ozc37s93FXJzr1RQDDi1Radhfos8VQGicYGWF
-         AZqA==
-X-Gm-Message-State: AFuF++mXY9U16v5s3zlNb+jLM7B0NgXLnCT1gEN8sVmB+nzNLJM8vdPm
-	btTRmn4CQ251Bcn01SlPEWvDNJuzOPz8LEoAdMwCFs22519uxH0zqQiKKtM8GrUvx6yLPQ==
-X-Gm-Gg: AR+sD110yJPUmdfh6OYGzPfYNJFrzQsJowNoJ2MD4NAEVymX7A8mqb02k4vlDZKyEaz
-	OhHac71e3n+v5oFf5I81dx8LnywoaSzoNMZV+yvs39J/u650TjpfYSYjBXlBlJ3FWU/VSWDl8pq
-	lcyAz/DRHv1otcokjBCr1cspsWRJBmvSg1q06DDZlUPHSi6xlm784mlZ7FBlm8pC6WwTCyHI1qT
-	qR3vSXUO9bl0A/cr5cwRyHD0m4I4QkTi2iZgI5zTPaH9Kv5PeN6pF9W5EvCeva3Nr8jCy9iNkf2
-	Koy2hVzTJw4ZvYh+pAqavffbjG7VOnr8fc2Bg3MdV6uacdbmBGJOBOfCFUYcji24lZVXgipbqxY
-	Xa9Iy+Uklwbr/SOz/SXkuw98QWgavCyeckGOfrVnzG5FMOO5dYc+9NHEi0SekV2zfaW66BfQI99
-	EHzi/ANHrQNxI0r+5vMz3eDSoOdwZO6K5srJwwmvECSbyyHtaZ8EqkwaiF15gzxfQMP64boCImv
-	uoHQbTw+r2jJgRu
-X-Received: by 2002:a17:90b:1fd0:b0:38e:70d5:b12d with SMTP id 98e67ed59e1d1-3966d3ed042mr13867023a91.6.1787742851057;
-        Wed, 26 Aug 2026 04:14:11 -0700 (PDT)
-Received: from bhoomika.iiitdmj.ac.in ([2401:4900:51d9:f633:eefe:6534:6503:b925])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283fa89e8fsm11529933eec.8.2026.08.26.04.14.07
+        bh=UJ6gIRxKV4tPAnIKrYL+EnKWhihLd/yRb7gXeIxetG8=;
+        b=nWWFnNQcW/wj53+ZtE18XTvlf6QB1DQzyAQB5DH2Fqr97wSbigeXLxn8rNJwaXvOA8
+         yJ2G/ZMMvdrCFaLkJyHFcmwvOyU75xjfOM0t7z+dOSsbOxHO3JG72odDM3umQsS+zG7r
+         tJAJDmfn93M+O+gDat18MsGsG5huY6wyt3VZTg71Hbtu55BArhm21tp6rTHTGzxesFV6
+         DrBIQ14RtUfVVhfQ7yFttaowauTTA02hdr7YOhyWdLafAhgyZDR4ToLlJhHuNADqZZeV
+         Oh9a93MMUyyTMbUlvofSA8DmwuB7fi4n2pr+RogHxl2GDNZL4rSb7NA8Nqh5K7p6DeCz
+         43LQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqUb/2gmQ9pvQta8JTSsCqSUN1BHcceogaAdHc7z8HqG70P6kzmo8LzN59PlH+YY0Mige5tKjwtF7hn3Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++nMWIZVQWisLmiy6QZ7qSQk/a6hhxeo9nsVSVemOCZdqa5sFGCM
+	NiAxkWwh6y8Eyi04WXaluWWanDN7h/HZjdrh4r8PqUjlJwkrQ7W1Gsn6
+X-Gm-Gg: AR+sD13L6pN1Is0lwFhDj4S7+UXM+4njHgdO3gX4p2jZ0JYPUHZA+28QsDsQOEOYux4
+	Wnz0JhOondPUb0R/z6fg3J0QbGcVturnhmXYpj+rSWED2ppm3s4sQtsBIc/1Mu61+V1rEqpq8XP
+	anmlZJLuVgbumSeh9waDug//5BMUabufsfJkRvBWHLQ5Rni9AEV4FiY1D7bN2HakjL6i5Z+Mbll
+	giGRyrSet3gRLaMNqu6F+W150WPGCytaGnOBbWJImXjakxU0kf/7Bm+se0I5WnOj2PUhHEN4kTo
+	rNAQQ1QWOalOXGCzedZE4ORF+77m2ZEVV4lmML4lR3EkJtohXjye1c64zGb3goejkkTVgXpsHwA
+	0mlc6nx2voFtgtCfOFR+HUXDQsz+wsOMZ7ypEyEZH1nW321mfBrienCzWOcAbsyujEVrCxAcI0M
+	Y+5Ukb490zVNlWWQc6nGLSPYc+CuClBy5iTXkINxKxveDDC4O0jsEqbp+BFgjf+rm7FhY=
+X-Received: by 2002:a05:6000:991:b0:482:e658:7a39 with SMTP id ffacd0b85a97d-482e6587fc4mr2813711f8f.11.1787743557842;
+        Wed, 26 Aug 2026 04:25:57 -0700 (PDT)
+Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:6b23:b1a3:f913:3d0b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e28f6119sm2442098f8f.34.2026.08.26.04.25.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 04:14:10 -0700 (PDT)
-From: Bhoomika Hardwani <bhoomika.hardwani@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Bhoomika Hardwani <bhoomika.hardwani@gmail.com>
-Subject: [PATCH] media: radio: si4713: replace msleep() with usleep_range() for delays less than 20ms
-Date: Wed, 26 Aug 2026 16:42:45 +0530
-Message-Id: <20260826111245.1001693-1-bhoomika.hardwani@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        Wed, 26 Aug 2026 04:25:57 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: hansg@kernel.org,
+	lee@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v8 0/6] Enable cameras on Dell Latitude 5285 2-in-1
+Date: Wed, 26 Aug 2026 13:24:45 +0200
+Message-ID: <20260826112452.13539-1-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,39 +83,54 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-msleep() isn't precise for delays under 20ms and relies on jiffies, which
-can lead to sleeps longer than requested, depending on the system's HZ
-configurations.
-Replace msleep(3) with usleep_range(3000, 4000) to use high-resolution
-timers, without forcing the system to wait unnecessarily.
+This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
+cameras on the Dell Latitude 5285 2-in-1 under Linux.
 
-Signed-off-by: Bhoomika Hardwani <bhoomika.hardwani@gmail.com>
----
- drivers/media/radio/si4713/radio-usb-si4713.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Per Documentation/process/coding-assistants.rst: this work was developed
+with significant help from an AI coding assistant (Claude Code, by
+Anthropic). I used it to help reverse-engineer the ACPI/TPS68470 bring-up,
+iterate on the board data, and draft these patches. I have reviewed and
+tested all of it on the actual hardware and take full responsibility for
+the result.
 
-diff --git a/drivers/media/radio/si4713/radio-usb-si4713.c b/drivers/media/radio/si4713/radio-usb-si4713.c
-index 6e6764143e21..62877980fc04 100644
---- a/drivers/media/radio/si4713/radio-usb-si4713.c
-+++ b/drivers/media/radio/si4713/radio-usb-si4713.c
-@@ -192,7 +192,7 @@ static int si4713_send_startup_command(struct si4713_usb_device *radio)
- 		}
- 		if (time_is_before_jiffies(until_jiffies))
- 			return -EIO;
--		msleep(3);
-+		usleep_range(3000, 4000);
- 	}
- 
- 	return retval;
-@@ -339,7 +339,7 @@ static int si4713_i2c_read(struct si4713_usb_device *radio, char *data, int len)
- 			data[0] = 0;
- 			return 0;
- 		}
--		msleep(3);
-+		usleep_range(3000, 4000);
- 	}
- }
- 
--- 
-2.34.1
+The series spans two trees: patches 1-4 target platform-drivers-x86 and
+patches 5-6 target linux-media. All six are needed for a working system.
 
+Changes since v7 (addressing Andy Shevchenko's review):
+- Patch 1 (intel_lpss): rework the quirk to be data-driven. Match the
+  machine by DMI and the device (INT3446) by ACPI ID, carry
+  QUIRK_IGNORE_RESOURCE_CONFLICTS in the ACPI match data, and apply it to
+  the per-device info in probe, mirroring the PCI counterpart. Drop the
+  duplicate spt_i2c_info_ignore_conflicts struct and the machine-specific
+  dev_info(). Fix the include ordering.
+- New patch 2 (int3472: tps68470): split the int -> unsigned int loop
+  counter change out of the clock-consumer patch into its own cleanup.
+- Patch 3 (int3472: tps68470, was patch 2): trim the commit message; no
+  code change beyond the counter split above.
+- Patch 6 (ov8858, was patch 5): use a C99 initialiser for the ACPI match
+  entry and drop the comma after the sentinel.
+
+On the open question from the review: I kept the per-table
+gpiod_add_lookup_table() loop rather than switching to
+gpiod_add_lookup_tables(). There is no gpiod_remove_lookup_tables()
+counterpart for the error-unwind path, the board data uses a counted (not
+NULL-terminated) array, and the singular form is what the rest of the tree
+uses, including int3472/discrete.c.
+
+Earlier changelogs (v2-v7) are in the v7 posting:
+  https://lore.kernel.org/all/20260819140107.1329091-1-tchatard@gmail.com/
+
+Tested on Ubuntu 25.10 (kernel 6.17.0-22-generic) and Ubuntu 26.04
+(kernel 7.0.0-30-generic). Both cameras working in Zoom, Chrome, and GNOME
+Camera via PipeWire. Also independently tested on the closely-related Dell
+Latitude 5290 2-in-1 (same IPU3/TPS68470/OV5670/OV8858/DW9714 stack) by
+Vitalii Tytskyi:
+  https://github.com/vitovt/dell-5290-camera-kernel/tree/master/patches
+
+Thierry Chatard (6):
+  platform/x86: intel_lpss: add resource conflict quirk for Dell Latitude 5285
+  platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop counters
+  platform/x86: int3472: tps68470: fix clock consumer registration for Dell Latitude 5285
+  platform/x86: int3472: tps68470: add board data for Dell Latitude 5285
+  media: ipu-bridge: add sensor configuration for OV8858 (INT3477)
+  media: ov8858: add ACPI device ID INT3477
