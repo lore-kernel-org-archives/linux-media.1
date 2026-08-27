@@ -1,94 +1,64 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F89147604A;
-	Thu, 27 Aug 2026 14:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9235447989F;
+	Thu, 27 Aug 2026 14:26:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787840072; cv=none; b=Ys9kQTjJV4UR5bn61Tb0U1XALc+2BU2LaWzn3uHUEOBNCP+Cc+J6EvIq0nwf3n7IjkentsUuVdOBbyJBpi2bN5FF1cqm6jiZFJ5DvnHjv7M2dl3rqPRdalr0bgX4vbIDXIv0pFTTu0A9OeJ4KyfEQGkdfZsCMWfaaVT1G4txubQ=
+	t=1787840807; cv=none; b=TDuMMM7j+QEbBEasyXC9KsmlJH6QGV28Fi/9fdzdluLXUK4J0x+HqJ7goYh/sQcwEzmRpylcr7RIMLyZ1pcX7kcwV1knBVaJHvSjtl+OMGc8yLI+rgcUJMHxYm6QMoplWPDCgWSXRo/R9kyUFYxvZMIUIKoOC06ZI5KVYLuewSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787840072; c=relaxed/simple;
-	bh=yfm0l6U2JD7vyXzu8CeyNZgRDWe8o3K63SYpJUx897M=;
+	s=arc-20240116; t=1787840807; c=relaxed/simple;
+	bh=Ru0l4PHF29l4rw7OpPV0iZi7pIsMNwPPPjv9m9TfRP8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j9wczCrrsS8DgU0VVEccJAIxQEicVja2P5r90YvbzJWLDtl/iSXe1sfl28xriFHEI2Ffw1WoKfnejy3If/aDkeaeTiJO04WEsEjspKGAU6lnkH+z9Mf2xxpoqB0Zry+LejWMVFF8DBmYLALQqx6B38segnREEfp77hr5zERGzjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/mf54W+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LroYVHSd62kdImubGG/CydeM0zmA7vpipb1+knuPHtFsxP+R00Qa5ToZEfY1o1OP7hv/QUdwuV8p9/k/0BMkDPRZwJJszvSyPqNfCaKVdeBi+Nh2I2otRfHYAhNdhFEc7/wEQBHdqPtV0a2DDeQhAjHVB0h4ohb9NZzwY7l7l50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HVCPfSYR; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/mf54W+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E6D41F00A3F;
-	Thu, 27 Aug 2026 14:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787840067;
-	bh=iPd05vfVGTTXMu8o+Kz/ydj1//S090ZmEizU6uZMvXQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=H/mf54W+MN//hu47JmgAU9exTPmvl0LBHB5ZzKhGEwexbRuvTYIkxj4GXgA835qnR
-	 9UEt8YKMOrQNOLAFi3nx7pgRQfY25zqX+764+u84p08c1ffcviu+w56HZl/bCUCG0L
-	 ihHFnT+8mC7h+ynswLMu1pkSIvecp+7uEK09sDoYo898fL5w+AT7uAHCJEisDnTdGu
-	 nqenwjGFq5F6mhrGpgDFQqyTszGxV2iYC0cv81MuAExmXpeZ0TN/UNxfU3/4Szp6vv
-	 o+MTXUDPIFfzalBFoZ+PepIPsLWVL0VjVaXlf2cPUDNh52Tp26khuu1cNEKxWPj+FD
-	 a0defbS1Qxr8A==
-Date: Thu, 27 Aug 2026 09:14:26 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Billy Tsai <billy_tsai@aspeedtech.com>, Mark Brown <broonie@kernel.org>,
-	imx@lists.linux.dev, mfd@lists.linux.dev,
-	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
-	Lee Jones <lee@kernel.org>, linux-kernel@vger.kernel.org,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-pm@vger.kernel.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	linux-aspeed@lists.ozlabs.org, Wells Lu <wellslutw@gmail.com>,
-	Andrzej Hajda <andrzej.hajda@intel.com>, linux-pci@vger.kernel.org,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Conor Dooley <conor+dt@kernel.org>, Simona Vetter <simona@ffwll.ch>,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	Dvorkin Dmitry <dvorkin@tibbo.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-spi@vger.kernel.org,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	linux-iio@vger.kernel.org, Robert Foss <rfoss@kernel.org>,
-	Joel Stanley <joel@jms.id.au>, Olof Johansson <olof@lixom.net>,
-	coresight@lists.linaro.org, linux-input@vger.kernel.org,
-	linux-media@vger.kernel.org, Leo Yan <leo.yan@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Boris Brezillon <bbrezillon@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Fabio Estevam <festevam@gmail.com>, Mike Leach <mike.leach@arm.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Binghui Wang <wangbinghui@hisilicon.com>,
-	Zhang Rui <rui.zhang@intel.com>,
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	David Airlie <airlied@gmail.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	linux-i2c@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, openbmc@lists.ozlabs.org,
-	James Clark <james.clark@linaro.org>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Frank Li <Frank.Li@nxp.com>, devicetree@vger.kernel.org,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Xiaowei Song <songxiaowei@hisilicon.com>, info@mocean-labs.com
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <178784006582.3145716.1041886875556731621.robh@kernel.org>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HVCPfSYR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787840804; x=1819376804;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Ru0l4PHF29l4rw7OpPV0iZi7pIsMNwPPPjv9m9TfRP8=;
+  b=HVCPfSYRXj7nD4pC4wm1ujRw12UfdRcCNf9lghZLfRjHKJdL2AHIW19N
+   K/PMojp8BKwmF1Nsy6PZxBSHOZRQFTAVDdBjf4A1I1/jkm9XkInFjXPhT
+   wuWFIJcsKkbzEFF47V/SpH9tLBDApVeIadIaSxHlxQqcTwvw7m9qypEba
+   l9xWDqnxVcGsdUDByk4H4b5KodfBqAlAbzfnlQzOUHxiwWnDj9zN/j7d2
+   pZS+B3ftBMitxsNrky/Z9igygEJEQ0sI7cJwIMMvYGE2xpvImhf2JLYUM
+   D1c8SuYPZUei6GJwFmaf8rQqw3lIgnEQfUfG7wNZmzEG3XYIkBJurXI71
+   Q==;
+X-CSE-ConnectionGUID: tWAZJASkTOK3tAbibrHUYA==
+X-CSE-MsgGUID: 91QHePESRTi2kOSMjFZgTA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105715805"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="105715805"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:26:42 -0700
+X-CSE-ConnectionGUID: 0vje0uXgSgy3e1cb8o6J7Q==
+X-CSE-MsgGUID: X/IGFMJLQuGDU+4330Sx0A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="265302616"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:26:39 -0700
+Date: Thu, 27 Aug 2026 17:26:36 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/8] media: atomisp: support the Yoga Book OV2740 link
+Message-ID: <apBJHHhAPowUs8Kj@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-6-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -97,33 +67,191 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260826132256.3343451-6-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
+On Wed, Aug 26, 2026 at 03:22:53PM +0200, Maurizio Casciano wrote:
+> The YB1-X91L firmware does not describe the complete camera link. Its
+> front OV2740 uses two CSI-2 lanes at a 288 MHz link frequency and sends
+> a 1932x1092 BGGR transport frame with 12 pixels of horizontal and
+> vertical padding around the 1920x1080 image.
+> 
+> Allow the AtomISP bridge to provide per-sensor link frequencies and
+> padding, add the matching OV2740 mode, and derive ISP2401 D-PHY timing
+> from the sensor link-frequency control.
+> 
+> The register values are hardware configuration facts checked against
+> the Lenovo YB1-X91L configuration and physical captures; no proprietary
+> driver code or tuning binary is included.
+> 
+> Tested on a Lenovo Yoga Book YB1-X91L with continuous front-camera raw
+> capture.
 
-On Wed, 26 Aug 2026 12:20:45 +0200, Krzysztof Kozlowski wrote:
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Rob, Can you take it directly?
-> ---
->  .../bindings/arm/arm,coresight-cti.yaml       |  2 +-
->  .../bindings/display/bridge/sil,sii9022.yaml  |  2 +-
->  .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml     |  4 ++--
->  .../bindings/iio/light/upisemi,us5182.yaml    |  2 +-
->  .../bindings/input/matrix-keymap.yaml         |  3 +--
->  .../devicetree/bindings/input/ti,tca8418.yaml | 21 +++++++++----------
->  .../bindings/media/nxp,imx8-jpeg.yaml         |  4 ++--
->  .../devicetree/bindings/mfd/ti,tps65910.yaml  |  2 +-
->  .../bindings/pci/hisilicon,kirin-pcie.yaml    |  4 ++--
->  .../pinctrl/sunplus,sp7021-pinctrl.yaml       |  2 +-
->  .../bindings/spi/aspeed,ast2600-fmc.yaml      |  6 +++---
->  .../bindings/thermal/thermal-idle.yaml        |  2 +-
->  12 files changed, 26 insertions(+), 28 deletions(-)
-> 
+...
 
-Applied, thanks!
+>  #define OV2740_LINK_FREQ_360MHZ		360000000ULL
+> +#define OV2740_LINK_FREQ_288MHZ		288000000ULL
+>  #define OV2740_LINK_FREQ_180MHZ		180000000ULL
+
+At some point would be good to use HZ_PER_MHZ multiplier from units.h.
+
+...
+
+> struct ov2740_mode {
+
+>  	/* Link frequency needed for this resolution */
+>  	u32 link_freq_index;
+>  
+> +	/* Optional common settings applied before the mode-specific settings */
+> +	const struct ov2740_reg_list init_reg_list;
+> +
+>  	/* Sensor register settings for this resolution */
+>  	const struct ov2740_reg_list reg_list;
+> +
+> +	/* Bayer order produced by this mode */
+> +	u32 code;
+
+Check with `pahole`.
+
+>  };
+
+...
+
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -520,11 +520,16 @@ static void ipu_bridge_create_fwnode_properties(
+>  					sensor->prop_names.remote_endpoint,
+>  					sensor->local_ref);
+>  
+> -	if (cfg->nr_link_freqs > 0)
+> -		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
+> -			sensor->prop_names.link_frequencies,
+> -			cfg->link_freqs,
+> -			cfg->nr_link_freqs);
+> +	if (sensor->nr_link_freqs > 0)
+> +		sensor->ep_properties[3] =
+> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
+> +						     sensor->link_freqs,
+> +						     sensor->nr_link_freqs);
+> +	else if (cfg->nr_link_freqs > 0)
+> +		sensor->ep_properties[3] =
+> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
+> +						     cfg->link_freqs,
+> +						     cfg->nr_link_freqs);
+
+Why do we need this? The sensors are listed in the supported ones in the IPU
+bridge code. Also, if required, some data can be altered by using driver_data
+field in ACPI ID table.
+
+...
+
+> +++ b/drivers/staging/media/atomisp/pci/atomisp_csi2.h
+
+>  int atomisp_csi2_bridge_init(struct atomisp_device *isp);
+>  int atomisp_csi2_bridge_parse_firmware(struct atomisp_device *isp);
+> +bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
+> +				     u32 *padding_h);
+
+Better to split logically.
+
+bool atomisp_csi2_get_sensor_padding(struct device *dev,
+				     u32 *padding_w, u32 *padding_h);
+
+>  void atomisp_csi2_configure(struct atomisp_sub_device *asd);
+
+...
+
+> +bool atomisp_csi2_get_sensor_padding(struct device *dev, u32 *padding_w,
+> +				     u32 *padding_h)
+> +{
+
+Ditto.
+
+> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+
+Split the assignment. The current way is prone to subtle mistakes in the
+future.
+
+> +	bool override = false;
+> +	char *str_val;
+> +	unsigned int val;
+
+Try to use reversed xmas tree order.
+
+> +	*padding_w = pad_w;
+> +	*padding_h = pad_h;
+
+	adev = ACPI_COMPANION(dev);
+
+> +	if (!adev)
+> +		return false;
+> +
+> +	str_val = gmin_cfg_get(adev, "CsiPaddingWidth");
+> +	if (str_val) {
+> +		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
+> +			*padding_w = val;
+> +			override = true;
+> +		} else {
+> +			acpi_handle_warn(adev->handle,
+> +					 "%s: Invalid CSI padding width %s\n",
+> +					 dev_name(dev), str_val);
+> +		}
+> +		kfree(str_val);
+> +	}
+> +
+> +	str_val = gmin_cfg_get(adev, "CsiPaddingHeight");
+> +	if (str_val) {
+> +		if (!kstrtouint(str_val, 0, &val) && val <= 64 && !(val & 1)) {
+> +			*padding_h = val;
+> +			override = true;
+> +		} else {
+> +			acpi_handle_warn(adev->handle,
+> +					 "%s: Invalid CSI padding height %s\n",
+> +					 dev_name(dev), str_val);
+> +		}
+> +		kfree(str_val);
+> +	}
+
+This is dup of the code, please create a helper to deduplicate these.
+Also, what's wrong with gmin_cfg_get_int()?
+
+> +	return override;
+> +}
+
+...
+
+>  {
+>  	const struct acpi_device_id *id;
+> +	char *link_freq_str;
+> +	unsigned long long link_freq;
+
+Reversed xmas tree order.
+
+>  	int ret, clock_num;
+>  	bool vcm = false;
+>  	int lanes = 1;
+
+...
+
+> +	link_freq_str = gmin_cfg_get(adev, "CsiLinkFreq");
+> +	if (link_freq_str) {
+> +		ret = kstrtoull(link_freq_str, 0, &link_freq);
+> +		kfree(link_freq_str);
+> +		if (ret || !link_freq) {
+> +			acpi_handle_err(adev->handle,
+> +					"%s: Invalid CSI link frequency\n",
+> +					dev_name(&adev->dev));
+> +			return ret ?: -EINVAL;
+> +		}
+
+gmin_cfg_get_int()
+
+> +		sensor->link_freqs[0] = link_freq;
+> +		sensor->nr_link_freqs = 1;
+> +	}
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
