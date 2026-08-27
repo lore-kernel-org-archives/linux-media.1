@@ -1,182 +1,129 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C3C360EFC;
-	Thu, 27 Aug 2026 20:35:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87423CBE74
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787862951; cv=none; b=V9UwlNfZtJ0jGXoWmWU3hIONsDtDRFCVUiFz8fWLCwMDhA9heGilEbiwCS4bEt7Mls7RZPmtChC2eB6xt43roWkXAcBKE0OnFXuj8sma0MOhucPvG3eXr+zPDceiNdRBJj/gpNY4BAniSAHDWdAWDeYCAAt9/WA6NumaCxRyY6Q=
+	t=1787869793; cv=none; b=tg9LuWMnWOsmnwbt6ZsisCYji/TaY/7IRiB6mCWrbYyI9FZnbnD4Kd9J/GT4BepKj3lJhmatmWaL0BclBhu2pxf0C9078F9xwmpwG9UnneVAbxoXJLYJP8pC4GwRffZUNyknV9Ah+Rnn1KSXDruP8dKn4N+G2d8LZDBxih+xpgA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787862951; c=relaxed/simple;
-	bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hi2DDhVFIYUuPYejd8MhLRdpJRZNOOWNyEi4U4t8/Cd0CO59ZCkk2206sXMU+9E0U2UDBdSKxTSwZegRWk2D5jekbuXzL6HE3HVttwcgnKZbxYDlo5VqW4PMaVFPplg4vDmB68uJOPh2aPpKuFRcCj2rZut2NzM6b8xthjOiFRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=hSa60bDg; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787869793; c=relaxed/simple;
+	bh=TnqqFYpXbfSvwBbRODD1mhaJAl/yxdEsp0GQjz864TY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B5gfXWOwpAaK6T8Q2ughJJxD83q9RbYgjrwflvevMhQDnNELb1a7CFP2+BQzZDKUYyBKpOrHNtubdhwYO4IpCAyvlOBxSQfms+HAMdzxoRvyma87f8RzHKXI7bRcXf+ZXagnW1gftzH4/FO33m7uMrL8NEgpYVxWfG8+7Ze+urE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eRp4ASCT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="hSa60bDg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787862947; x=1819398947;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PxQCY1jfbF8EOAuJZqRKxtm3dvxwia6O/a/ZZ9DApj0=;
-  b=hSa60bDgyhYXXLLbHEP8hpiBpuOVkYQ5T59kaN1v4513kGe2g5ejqnZw
-   kBwAnDwP0QwOb0ETDCuc+4+byq5ei1ghyogSg+kj+CPF/iCZW1RmwWXTA
-   ZOGhnTmcx59vA9yAdGccX/PzDnqdrvK3RLgvFeZyhExV2gq2vPnkzQXOm
-   xQQyWlYKhCLm3zpbniALgChbELvppjhYzLBaklzhJ/y/I8Cc+pN7GdBg3
-   OM37nQxAlT2UBV+30MYymm9BbgCrP3tNbRuBOKeOX8CZvQOTHJ+FEIjCM
-   n+bZas6RlzY7m4UL/4GWW5gmR5fDSE20w31x7O/l3/VRJFdvkUF/ULgbA
-   w==;
-X-CSE-ConnectionGUID: S9Ye/XdnQdKEyx5OPemQzw==
-X-CSE-MsgGUID: gOgd5ppfQTO50Mx46gqWwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88248928"
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="88248928"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:44 -0700
-X-CSE-ConnectionGUID: LuCavyYhReqzqLj8SdY7cA==
-X-CSE-MsgGUID: N+PM9AHaSem5Dc2Ha0IxcA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
-   d="scan'208";a="273230951"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 13:35:41 -0700
-Date: Thu, 27 Aug 2026 23:35:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Thierry Chatard <tchatard@gmail.com>
-Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
-	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
-	djrscally@gmail.com, linux-media@vger.kernel.org,
-	mchehab@kernel.org, sakari.ailus@linux.intel.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	v.vitovt@gmail.com
-Subject: Re: [PATCH v9 3/6] platform/x86: int3472: tps68470: fix clock
- consumer registration for Dell Latitude 5285
-Message-ID: <apCfmoIBKLhjexav@ashevche-desk.local>
-References: <20260827201611.99825-1-tchatard@gmail.com>
- <20260827201611.99825-4-tchatard@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eRp4ASCT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E525D1F000E9
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:29:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1787869790;
+	bh=s1DAy5lHxL1jh6qjbsn4buXuy7blPMbcGLyJ4nQCRHM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eRp4ASCTMQz9osVboo0L4poHe11JOABpZcb6weM3XQxdwM2za+b6vbNorxbgmS+AH
+	 4z6rIYKQh7MwjiSAZwacJmKydsZwLiY4jVjIidBsQ1eSSvxIwvmhrXJKYQvPqlJdPC
+	 XmWef7ivNhMmg7ZOz9oH04Uqu4IaZPcABsJkyB8umZyZ0y5ZClMaNjlUpgoXXExq6b
+	 eW9LuqbOCsLzmA3FprTYMuxi3ezqKwN27Ii6zYcXks63CKSRtq1epaaG7jDypw8PzS
+	 v0qUoudX80nn5yQiVtLVJT9jhSBBinuKkLpYPF9NJOPQXiSN+U/dTor466VXbRcyhd
+	 ysnOpvD+q3Glw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aeb98460c6so363552e87.2
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 15:29:50 -0700 (PDT)
+X-Gm-Message-State: AFuF++nKm5arfdbBM0XaspQR/ke2TkURUy67CiHSvqle6Aae4jU4PzU8
+	Bo5tVLlHdCRSvcIR9J/ZCBPvSJUbU5zB0l/0Whg0WXtGKz0t935siBCHlGim4f7v0IP99Ys8vul
+	VuMSgN/HGeFCeqEAiTdYbHBmjD4WHFfs=
+X-Received: by 2002:a05:6512:33d5:b0:5b5:e316:c9ae with SMTP id
+ 2adb3069b0e04-5b5e6afa49bmr512972e87.20.1787869789662; Thu, 27 Aug 2026
+ 15:29:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827201611.99825-4-tchatard@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-2-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-2-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 28 Aug 2026 00:29:36 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=kHg-rMyQJ5_Rb0RKMq8dM4yt4HRkMG5qZ5A2J=wAQLw@mail.gmail.com>
+X-Gm-Features: AcwNN1XeHjI1y2u6mrosLqsmLj3oEPl5wgNG-QSzCsgcLs0hP7YIEUwLbjLXpN4
+Message-ID: <CAD++jL=kHg-rMyQJ5_Rb0RKMq8dM4yt4HRkMG5qZ5A2J=wAQLw@mail.gmail.com>
+Subject: Re: [PATCH v3 01/29] media: v4l2-common: Add helper function media_bus_fmt_to_csi2_(bpp|dt)()
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Aug 27, 2026 at 10:16:08PM +0200, Thierry Chatard wrote:
-> The BIOS on the Dell Latitude 5285 leaves GNVS field C0TP at zero.
-> With C0TP=0 the ACPI _DEP method on INT3479 (OV5670, front camera)
-> resolves to PCI0 instead of the INT3472 (TPS68470 PMIC) device.
-> 
-> Because for_each_acpi_consumer_dev() walks the _DEP reverse-mapping,
-> INT3479 is invisible to it: the clock consumer lookup entry for the
-> front camera is never registered with the tps68470-clk driver, and the
-> OV5670 sensor driver cannot acquire its MCLK.
-> 
-> Add optional static clock consumer fields to the board data so probe can
-> register the consumers directly, bypassing the broken _DEP traversal.
-> Platforms that do not set these fields keep using the existing ACPI
-> traversal path unchanged.
+Hi Sakari/Frank,
 
-Are your patches assisted by AI?
+one more thing which might be a rookie mistake on my side though:
 
-...
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
->  static int skl_int3472_tps68470_probe(struct i2c_client *client)
->  {
-> -	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
-> +	struct device *dev = &client->dev;
+In this example:
 
-> +	struct acpi_device *adev = ACPI_COMPANION(dev);
+> CSI2 data type is defined by MIPI Camera Serial Interface 2 Spec Ver4.1.
+> See section 9.4.
+>
+> Add helper function media_bus_fmt_to_csi2_dt() to convert media bus fmt t=
+o
+> MIPI defined data type and avoid below duplicated static array in each CS=
+I2
+> drivers.
+>
+>         {
+>                 .code =3D MEDIA_BUS_FMT_UYVY8_1X16,
+>                 .data_type =3D MIPI_CSI2_DT_YUV422_8B,
+>         }
 
-Split the assignment at the same time...
+The way I read the CSI-2 spec YUV422 8bit has this byte order: U Y V Y
+(this is in section 11.2.4 in my copy of the spec, figure and all)
+so this looks correct if you just look at that string: UYVY no problem.
 
->  	const struct int3472_tps68470_board_data *board_data;
->  	struct tps68470_clk_platform_data *clk_pdata;
-> +	struct gpiod_lookup_table * const *tables;
->  	struct mfd_cell *cells;
->  	struct regmap *regmap;
->  	int n_consumers;
+I tried to understand the MEDIA_BUS_FMT_* conventions...
+I looked here:
+https://docs.kernel.org/next/userspace-api/media/v4l/subdev-formats.html
 
-...and put it here.
+And in the table in the docs:
 
->  	if (!adev)
->  		return -ENODEV;
+Word 1: bit 15..8 is U, bits 7..0 is Y
+Word 2: bit 15..8 is V, bits 7..0 is Y
 
-> +	board_data = int3472_tps68470_get_board_data(dev_name(dev));
-> +	if (!board_data)
-> +		return dev_err_probe(dev, -ENODATA,
-> +				     "No board-data found for this model\n");
-> +
-> +	if (board_data->n_clk_consumers) {
-> +		clk_pdata = devm_kzalloc(dev,
-> +					 struct_size(clk_pdata, consumers,
-> +						     board_data->n_clk_consumers),
-> +					 GFP_KERNEL);
-> +		if (!clk_pdata)
-> +			return -ENOMEM;
-> +		clk_pdata->n_consumers = board_data->n_clk_consumers;
-> +		for (i = 0; i < board_data->n_clk_consumers; i++)
-> +			clk_pdata->consumers[i] = board_data->clk_consumers[i];
-> +		n_consumers = board_data->n_clk_consumers;
-> +	} else {
-> +		n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
-> +		if (n_consumers < 0)
-> +			return n_consumers;
-> +	}
-> +
-> +	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
-> +	if (!cells)
-> +		return -ENOMEM;
-> +
-> +	/*
-> +	 * The order of the cells matters here! The clk must be first
-> +	 * because the regulator depends on it. The gpios must be last,
-> +	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
-> +	 * the clk + regulators must be ready when this happens.
-> +	 */
-> +	cells[0].name = "tps68470-clk";
-> +	cells[0].platform_data = clk_pdata;
-> +	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
-> +	cells[1].name = "tps68470-regulator";
-> +	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
-> +	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
-> +	cells[2].name = "tps68470-gpio";
-> +
-> +	tables = board_data->tps68470_gpio_lookup_tables;
-> +	for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +		gpiod_add_lookup_table(tables[i]);
-> +
-> +	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-> +				   cells, TPS68470_WIN_MFD_CELL_COUNT,
-> +				   NULL, 0, NULL);
-> +	kfree(cells);
-> +
-> +	if (ret) {
-> +		for (i = 0; i < board_data->n_gpiod_lookups; i++)
-> +			gpiod_remove_lookup_table(tables[i]);
-> +	}
-> +
+I *think* 1X16 should be understood as 2x16bit words (samples?) where
+each 16bit word is in LSB, MSB ("little endian") order, i.. bits 7..0 (Y)
+are transmitted *first* then bits 15..8 (U) correct me
+if I misunderstood!
 
-...
+Then UYVY8_1X16 becomes the *byte* order Y U Y V.
 
-> +++ b/drivers/platform/x86/intel/int3472/tps68470.h
+But YUYV on the other hand becomes U Y V Y !
 
->  struct gpiod_lookup_table;
+Isn't this then MEDIA_BUS_FMT_YUYV8_1X16 ?
 
-+ blank line to separate generic and local groups of forward declarations.
+I'm reading the spec and Linux format codes until my eyes fall out...
 
-> +struct tps68470_clk_consumer;
->  struct tps68470_regulator_platform_data;
+It's there in the code though:
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +       { .code =3D MEDIA_BUS_FMT_UYVY8_1X16, .dt =3D MIPI_CSI2_DT_YUV422=
+_8B, .bpp =3D 16 },
+> +       { .code =3D MEDIA_BUS_FMT_VYUY8_1X16, .dt =3D MIPI_CSI2_DT_YUV422=
+_8B, .bpp =3D 16 },
+> +       { .code =3D MEDIA_BUS_FMT_YUYV8_1X16, .dt =3D MIPI_CSI2_DT_YUV422=
+_8B, .bpp =3D 16 },
+> +       { .code =3D MEDIA_BUS_FMT_YVYU8_1X16, .dt =3D MIPI_CSI2_DT_YUV422=
+_8B, .bpp =3D 16 },
 
+all four of the related encodings, I don't know if this works in practice
+but it seems off. Three of them must be wrong since MIPI_CSI2_DT_YUV422_8B
+is very determined?
 
+Obviously I didn't check the entire table like this, but if there is someth=
+ing
+to what I'm saying then we have to...
+
+Yours,
+Linus Walleij
