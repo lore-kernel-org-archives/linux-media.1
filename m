@@ -1,108 +1,208 @@
-Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011041.outbound.protection.outlook.com [52.101.62.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DD44766A9
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 14:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787842771; cv=none; b=M6CUlvJJO6PtFDZHb/+BdV8bDaOTjqwmmAo92kJUdLnsfxDLxI5/GwjGihxuXyThpsB7RKa0QYSVVRL8xA0l/bDIpWh8Yrs8JuBAnoi7I6avnWAfipS+g65PypMNl/jvRb0PWoqhiVRzC10QUGoN6SQjDJxfJhUGBVPqzvGUcDY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787842771; c=relaxed/simple;
-	bh=uJqwj486hWxLAALuJR7oWC34BqTBbz7uaJxgRsqpTIY=;
-	h=From:Message-Id:Subject:Date:Content-Type:To:Cc:Mime-Version; b=gj9ZFDk93TgpUnTRG48bmIQkn8BMd40c9lhIUXwN205ToPiLR/DbCUzPUE37SG9lG6EC0GgDMCZx0u0qp6Ov4eS96qbXjF8SXrDFmnRisfHh3pwwl8Wl+YYJras+SvuWLmWzKdWfHiKfSIealtK26d8cdipLMCMJXUL1cLJhwTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=jb6S7Wkf; arc=none smtp.client-ip=71.18.227.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E126743B4B8;
+	Thu, 27 Aug 2026 15:20:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787844025; cv=fail; b=Qa+QVhqVtfsvwK1Tj0cwWFUW+z8I5j1NNQ8dUhG3iaxHPySgcOynpnwbwlVeJl2nZG37nndcUqIXU2+A6b+CQt6gaeVeI32KKSLcommygbEfGxDBtLzNB+Lf4MGbfWXUkS9Nn7x1IcTQqTJqsh7azlb/LF7LWILYJq4/IdEODj4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787844025; c=relaxed/simple;
+	bh=wzT6t/YeXy1ULA8991PXP1hwuuCqZsM6RaLQSjRrZa4=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tEv7YhhsPiBY+EX1K7XWaoQp68//wCFtZdkpvEdaodXaV/MQh+/wnPBXnavhw63aLRKtlrNvHWjWpASZncD+TBMwDzKVVcp+9r2ibYdyyo+4ACdMiffdLfNqqQTiqvqrUcXFz3rfgjT+sRQGiXRjCPzq4DWTDprRcK/12WGREbw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ldA2LI+s; arc=fail smtp.client-ip=52.101.62.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="jb6S7Wkf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787842756; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jvHVGXLRnB/myR7QpYOFvo9mljYI+Hq1VtE6Y8mURT8=;
- b=jb6S7WkfQpSCK9yBnW3/+Em4FtbZmkwoZs7ODGIRwldP2sGfN5l5hMc6q0l1TLfWFdJoMo
- VA0ggLye3QfPAdR0EIsKK77aONYXHehIkVBeawNxS+aXtlqGOcnEX5Jq1CmBUQv6nsYVtv
- q7hD17nwqQ++jHSU6XG45MTZT5eGqs0AIrliEIidoWiTQ2H6zzvdTvonVkK4FoHsyDSVhb
- P+Ditwn80FpT9rNRxMf9cK+cqspMgpzn1RN6oF/ZDyVxk+Ab6CADAUphnPZN+KUQcSi7vz
- UOtqOpKGlHfSZzJjUbeYZu0eE45u8zZLcWW3BNO2zuVOzo0mPr9vdh3UG279Vg==
-From: "Shengzhuo Wei" <me@cherr.cc>
-Message-Id: <20260827-go7007-i2c-buf-bound-v2-1-82b185f9cb82@cherr.cc>
-Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 22:59:14 +0800
-X-Lms-Return-Path: <lba+26a9050c2+fa4d82+vger.kernel.org+me@cherr.cc>
-Content-Transfer-Encoding: 7bit
-X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-Subject: [PATCH v2] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
-Date: Thu, 27 Aug 2026 22:59:10 +0800
-X-Mailer: b4 0.16.0
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-To: "Hans Verkuil" <hverkuil@kernel.org>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Greg Kroah-Hartman" <gregkh@suse.de>
-Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ldA2LI+s"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j/SSFnY0ArV6yrKQyQoAu1S5he2t0app6Ex1/nhWxfvcZGYekLNSv0Lkfnzw1UBbYodc0r2TFjGulH0HWLqlCTElirvRcxgfWcdbCWntFe+/k+4LTYHYIxzC6zRX/4AKG6UP8apH356IcD+ONhS36nE6gtOVEJ4z7xcwfOa8l8TRKO53CiEflvQRYzdc3Ys7+ZzlvsZ0Hr6fYx5YVucXNbEF2XDnRjfuGAyw10+eVMrWmH1Ob3D3XcAzCBax6vuRdgYjdeGwt97mQ6HU7NXPEf/5wiqeDEMlTMaYFT9nmRbC3bR3AsLOInCbiCkgGtA5pdYyEm85lEZYYe/Ti1KfyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=otXZg+y/KlBPsSRjIost2p2NeVCp3AlBrtNxq90nhzY=;
+ b=qqChhQZhfZYUbyfDovGqoGSWhYENcJEQgylNw684B1zj1r5IOsTOIsax8Ot3LkdjJXTEPqs+xrwvRtNpohsyR2ePWR6OSK2Uqx2MAfhg1VSH2oK7kn+/SxA8Af8xyjXlhOWwdHFSShCiUu2znktfd8oDB7XRqTtqve+EAz6SRfK+8oJf88fNVlq3i746pcH/TC0LwcXsJtxpGAyA2oyUdACmjIKSODQQJqv4l/mRXnVN6COR//jvO0yX0cJFszZMdKBtt+uf3EAXEI5rHzWikbCuJHr7/IueYUzggIiAHc/E2Sm9HVo7rob6Jy9xctYCHNO4EO1My2k4R7A3A50coA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=intel.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=otXZg+y/KlBPsSRjIost2p2NeVCp3AlBrtNxq90nhzY=;
+ b=ldA2LI+s3d+xHwllZL7sYqqw3gQAzjF47qG05bdG81xOEb9UlXE9Pf0jS02JFHu0QHerA5pvS2rZJB1w98Hp+0aSqYD9lQnA61wkqlnfArn5rakF4dOwamSnF/RmJiymTOS4lSkqliXrojzbjZoyqClBFyKXk7dn+p4xr+i+2/o=
+Received: from SA9PR13CA0014.namprd13.prod.outlook.com (2603:10b6:806:21::19)
+ by PH7PR12MB7138.namprd12.prod.outlook.com (2603:10b6:510:1ee::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 15:20:12 +0000
+Received: from SN1PEPF000397B2.namprd05.prod.outlook.com
+ (2603:10b6:806:21:cafe::ac) by SA9PR13CA0014.outlook.office365.com
+ (2603:10b6:806:21::19) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.360.7 via Frontend Transport; Thu, 27
+ Aug 2026 15:20:12 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SN1PEPF000397B2.mail.protection.outlook.com (10.167.248.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.360.3 via Frontend Transport; Thu, 27 Aug 2026 15:20:11 +0000
+Received: from srishanm-Cloudripper.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 27 Aug 2026 10:20:05 -0500
+From: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>
+To: <matthew.brost@intel.com>
+CC: Srinivasan Shanmugam <srinivasan.shanmugam@amd.com>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Alex Deucher
+	<alexander.deucher@amd.com>, Mika Kuoppala <mika.kuoppala@linux.intel.com>,
+	=?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>,
+	<dri-devel@lists.freedesktop.org>, <intel-xe@lists.freedesktop.org>,
+	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>,
+	<linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
+Subject: [PATCH v3 0/2] drm: Add Common drm_user_fence helper and Convert XE
+Date: Thu, 27 Aug 2026 20:49:48 +0530
+Message-ID: <20260827151950.4080674-1-srinivasan.shanmugam@amd.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIAL1QkGoC/4WNQQ6CMBBFr0Jm7ZhSC1VX3sOwoNMBxgUlLRAN4 e4CHsDlS95/f4HEUTjBPVsg8ixJQr+BPmVAXd23jOI3Bq10qa7aYhusUhZFE7qpQRem3qM3jWO ja1PbG2zTIXIj7yP7rH6cJvdiGvfWbnSSxhA/x++c796fiznHHE1RFEQXr0xpHtRxjGciqNZ1/ QJ5d9kqyQAAAA==
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN1PEPF000397B2:EE_|PH7PR12MB7138:EE_
+X-MS-Office365-Filtering-Correlation-Id: fbff7a2c-d6e0-4c53-49a9-08df044eb037
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|82310400026|23010399003|36860700016|10067099003|6133799003|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	T0ZXqYoxWSpVzYUsrnIWNSJ+AhHduXOsDNNZFpLAi1m68lQCrvcKfViqKykFepLsjtJlhT8ZG1pHupUGzvnUvmNcDjso6PMqTHVwQrL6NLiKDET5X4LBgRkS483aKkM6GJ4Ml2vSOp5/Jk1Mas58h0NMzZgvjaWn2EkHEaeiWjO3sYCgTxgZHX8JYQ23plLCwY9UHX3RDvxbL1VoB3SReH6RZwINq81imBzUVZ8yxCH0PY6PEas8ibb8/ZAQ5kPVtAx7x+NdhbQuD4MyVdcng5g2yz0gJ4VkOx1HbBABpUIQVyh4EjtRBuJOj4Ez+W48bKe3X3FAIXnyJoKLtMwzXQM36yNuCGUtLgOoIOiA2jASQExnnLkOHh0+Gw8sgj/Y/p7MXG/N7alGWzls677MmdX1sGYiG5OmhWe4Zy13a8AT6qky5lzKRg7+RhTSK5ZwIqg0T4qhMWj/dgQ10m/7o3UtA7ANDHGozCez4jivQQGsHg9tv7iYVwf1TcCezQ/LtwFgBlLVgznHNCZO62d70/+TyscOKmf12MNX8fwGNHY+bNZ+XF0QnruTSzjFg1xlfNs4Hf/cM7qI6ddnPevs/Zxh3aoRxrCPPfzcba8yhvAd7Bz/EJjVyp9hwg4NZALq3oDDDnGdXjWyq6+TwiqMKfFYZvFjC3ArGokkJuVZrVsGbgp5NORHCmUleJpgpVy7XtGMoEEaR2f9Rp1Di0IVtg==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(82310400026)(23010399003)(36860700016)(10067099003)(6133799003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	W4ooUo8KIlnXtQUxMWbSd04i+dMh+IPxcY2i0Bd3NjZ0JzR0mYq0KmznngyqxpnQJJiUDsvFJvpTAyv5MutGzjVPYSRHH/y9DigXO/15e1TW5SlbgW6+BPVsYaASoFpKh76/5+XhuWD6OqgqW4nqsPA/T4eWQrF0y8ZhXFdHpEW3eYOhKipjwiCWIQ7+G8OHQ6+U9XpqdGrSkMjxxTPBSpSKeGliVqInU15ZBPhWllBAjGBK/5P47D1eukCWrOt3khHrAhclKz0DcLVHBHCi7IR76mcesO4it/rkEhENnPj96+rqOHvZsc+rccDgkS3BMJ5nnG8iK5igsJBhAfUD5DbPXx4PQUukbOP50VeLNA40Zu0Gha2YA7NSLVZygBgVFIfyijwvt62ACkTvcFKJ3RXGVZ1AXNa9S0E1ImhfEiEsURlz8l3lRBJ/vDXyoBn6
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 15:20:11.9624
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: fbff7a2c-d6e0-4c53-49a9-08df044eb037
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SN1PEPF000397B2.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB7138
 
-go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
-a 16-byte buffer embedded in struct go7007, without any length check.
-The adapter declares no transfer limits, so an SMBus block transfer
-issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
-the struct fields that follow the buffer.
+When a GPU dma-fence signals, drivers often need to access userspace
+memory from a kthread context — either to write a fence completion
+value to a userspace VA (XE) or to signal a per-queue eventfd (AMDGPU).
+Both require borrowing the process MM via kthread_use_mm(), and both
+use the same kref-managed dma-fence-callback-to-workqueue pattern.
 
-Bound the transfer size with i2c_adapter_quirks so the I2C core
-rejects oversized messages before they reach the driver.
+Extracting this pattern into a shared DRM helper allows both XE and
+AMDGPU to use it instead of maintaining independent open-coded
+implementations.
 
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
-Assisted-by: GLM:5.3
----
-The EZ-USB I2C adapter in the go7007 driver copies message payloads
-into the 16-byte usb_buf embedded in the go7007 device struct without
-any length limit, so an SMBus block transfer through /dev/i2c-N can
-write past the buffer and corrupt the struct fields that follow it.
-Bound the transfer size through i2c_adapter_quirks.
----
-Changes in v2:
-- Drop the Cc: tag for the maintainer from the commit message; the
-  recipient is already covered by the Cc email header.
-- Link to v1: https://patch.msgid.link/20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc
----
- drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+This series does that:
 
-diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
-index c0cb92fa6ab9..867548d655b3 100644
---- a/drivers/media/usb/go7007/go7007-usb.c
-+++ b/drivers/media/usb/go7007/go7007-usb.c
-@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
- 	.functionality	= go7007_usb_functionality,
- };
- 
-+static const struct i2c_adapter_quirks go7007_usb_quirks = {
-+	.max_write_len	= 12,
-+	.max_read_len	= 15,
-+};
-+
- static struct i2c_adapter go7007_usb_adap_templ = {
- 	.owner			= THIS_MODULE,
- 	.name			= "WIS GO7007SB EZ-USB",
- 	.algo			= &go7007_usb_algo,
-+	.quirks			= &go7007_usb_quirks,
- };
- 
- /********************* USB add/remove functions *********************/
+Patch 1 introduces drm_user_fence — an embeddable base structure with
+driver-supplied worker/destroy callbacks. The common code handles:
+ - process MM grab at init (mmgrab)
+ - dma-fence callback registration
+ - workqueue dispatch on fence signal
+ - mmget_not_zero/kthread_use_mm/mmput in the worker
+ - kref lifetime management
+ - cancellation via drm_user_fence_cancel_sync() for safe driver teardown
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Patch 2 converts XE to use the new helper. struct xe_user_fence embeds
+struct drm_user_fence as its base. XE-specific fields (xe_device pointer
+for ufence_wq wake-up, userspace VA, expected value, signalled flag)
+remain in the wrapper. No behavioral change is intended.
+A follow-on patch (not in this series) will wire AMDGPU's render-node
+EOP eventfd signaling path to the same helper.
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+v3:
+ - Store fence reference inside drm_user_fence during add_callback so
+   drm_user_fence_cancel() can be called safely without the caller
+   holding a separate fence reference, fixing a potential UAF when a
+   foreign dma-fence signals after driver teardown. (Sashiko review)
+ - Fix contradictory kernel-doc for drm_user_fence_cancel() which
+   incorrectly instructed callers to put references that the function
+   already puts internally. (Sashiko review)
+ - Add drm_user_fence_cancel_sync() to guarantee the worker has fully
+   completed before returning. Wire into xe_sync_entry_cleanup() and
+   xe_vma_destroy_late() for safe XE teardown. (Sashiko review)
+ - Add xe_sync_ufence_cancel_sync() wrapper in xe_sync.c so xe_vm.c
+   does not need to include drm_user_fence.h or access struct
+   xe_user_fence internals directly.
+ - Add smp_wmb() in xe_ufence_worker() between WRITE_ONCE(signalled)
+   and copy_to_user() to prevent store reordering on weakly-ordered
+   architectures such as ARM64. (Sashiko review)
+ - Replace XE_WARN_ON() on copy_to_user() failure with drm_dbg() to
+   prevent unprivileged userspace from triggering a kernel warning by
+   unmapping the user fence memory before it signals. (Sashiko review)
+v2:
+ - Move INIT_WORK() to drm_user_fence_init() fixing lockdep class
+   divergence caused by two different INIT_WORK() call sites.
+   (Sashiko review)
+ - drm_user_fence_add_callback() now consumes the fence reference in
+   all paths: transferred to the callback on success, put immediately
+   on the already-signaled and error paths. (Sashiko review)
+ - Add drm_user_fence_cancel() to allow drivers to safely detach a
+   pending callback before context teardown. (Sashiko review)
+ - Fix premature dma_fence_put() after drm_user_fence_add_callback()
+   in xe_sync_entry_signal(). (Sashiko review)
+ - Fix missing newline at end of new files.
+
+Suggested-by: Christian König <christian.koenig@amd.com>
+Cc: Alex Deucher <alexander.deucher@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Mika Kuoppala <mika.kuoppala@linux.intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Cc: Maxime Ripard <mripard@kernel.org>
+Cc: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: David Airlie <airlied@gmail.com>
+Cc: Simona Vetter <simona@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: dri-devel@lists.freedesktop.org
+Cc: intel-xe@lists.freedesktop.org
+Cc: linux-media@vger.kernel.org
+Cc: linaro-mm-sig@lists.linaro.org
+Cc: linux-kernel@vger.kernel.org
+Cc: amd-gfx@lists.freedesktop.org
+
+Srinivasan Shanmugam (2):
+  drm: Add common drm_user_fence helper
+  drm/xe: Convert xe_user_fence to drm_user_fence
+
+ drivers/gpu/drm/Makefile           |   1 +
+ drivers/gpu/drm/drm_user_fence.c   | 210 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/xe/xe_sync.c       | 140 +++++++++----------
+ drivers/gpu/drm/xe/xe_sync.h       |   1 +
+ drivers/gpu/drm/xe/xe_sync_types.h |   3 +-
+ drivers/gpu/drm/xe/xe_vm.c         |   1 +
+ include/drm/drm_user_fence.h       |  76 +++++++++++
+ 7 files changed, 360 insertions(+), 72 deletions(-)
+ create mode 100644 drivers/gpu/drm/drm_user_fence.c
+ create mode 100644 include/drm/drm_user_fence.h
+
+-- 
+2.34.1
+
