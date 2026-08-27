@@ -1,188 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sg-2-4.ptr.blmpb.com (sg-2-4.ptr.blmpb.com [71.18.227.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8D63955CA;
-	Thu, 27 Aug 2026 14:43:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49DD44766A9
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 14:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787841797; cv=none; b=Nb1wlHXtvmY7cbiaFo/WbBQc2dQCsuXCdFknqMErhoqVYQw36iz7wok6f4TGFz081C2t0ejDW1Q9PKS28tBJsZTsudw5A42I9Il4V3msnELSEG05Dw7JEAukSdYmLPYoA4h0v2xLBqxUTqe04m2HMdzDr5/22LyditnkPI4wsAM=
+	t=1787842771; cv=none; b=M6CUlvJJO6PtFDZHb/+BdV8bDaOTjqwmmAo92kJUdLnsfxDLxI5/GwjGihxuXyThpsB7RKa0QYSVVRL8xA0l/bDIpWh8Yrs8JuBAnoi7I6avnWAfipS+g65PypMNl/jvRb0PWoqhiVRzC10QUGoN6SQjDJxfJhUGBVPqzvGUcDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787841797; c=relaxed/simple;
-	bh=85lSA4egJYDDfc9Gc1dIksNdWPK6UdxCiBDoQ/skJR4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uCypf/k4i7WLQdT5ZhLPTvpb094vBFOzYnUDcMwvKvYlVR88YM3YMABXjUc5lPalL5AECRYZmeZ2wBZYu37FAZXEK3B2LUBUagpNUTMt1N0ZAdZOp0doVb2w4IwkV9iDMCCFkW6fRDNAwpgyZXi0U6rtzXCxIrh93CSrD2Aj4kI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IBhQnVyh; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1787842771; c=relaxed/simple;
+	bh=uJqwj486hWxLAALuJR7oWC34BqTBbz7uaJxgRsqpTIY=;
+	h=From:Message-Id:Subject:Date:Content-Type:To:Cc:Mime-Version; b=gj9ZFDk93TgpUnTRG48bmIQkn8BMd40c9lhIUXwN205ToPiLR/DbCUzPUE37SG9lG6EC0GgDMCZx0u0qp6Ov4eS96qbXjF8SXrDFmnRisfHh3pwwl8Wl+YYJras+SvuWLmWzKdWfHiKfSIealtK26d8cdipLMCMJXUL1cLJhwTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=jb6S7Wkf; arc=none smtp.client-ip=71.18.227.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IBhQnVyh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787841795; x=1819377795;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=85lSA4egJYDDfc9Gc1dIksNdWPK6UdxCiBDoQ/skJR4=;
-  b=IBhQnVyhgyl2zfqLf9NPr9VjJD9MDisW/oqLCQ0qmtSkc30S2dED/qQ/
-   /TJ+KSIqlH1JllSaQ75MfHE2FBs+t7GajEDRl0nuNI19mwfCre1jcivle
-   dxFxvNg5ETcEkqM6cmGLax+ng8xejLafDQ3KP4QBVA0Yc6dVCQ9h8ec0Y
-   uXBsvrs1dfUZl1wjDJy1Qw6SzJCUVr6hAj4kICLx+nG6ZcxZL+q7RfOjA
-   ilXznxqIROZ/GCj3cxI38WtRcu6VCIPNis9+TZbSyzRdwyxyZu+4K3c+V
-   u4r5WzI1tpkflqjL89XHAqdt2GcQ0otgs38Bzwjm6UFrDHbks/VBS493H
-   A==;
-X-CSE-ConnectionGUID: 09h/TtcmTa6y4iUKAcyyWw==
-X-CSE-MsgGUID: DlmiwTGqQf+2kqu4rjuBLw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="99861134"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="99861134"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:43:15 -0700
-X-CSE-ConnectionGUID: zqbfjTjlRiaVGnjSMwgsJw==
-X-CSE-MsgGUID: Ard5BamOQXaxnW8f2ZI3jg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="291389341"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 07:43:11 -0700
-Date: Thu, 27 Aug 2026 17:43:08 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 7/8] media: atomisp: allow opt-in raw Bayer capture
-Message-ID: <apBM_BTkHcTgM8m_@ashevche-desk.local>
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260826132256.3343451-8-mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="jb6S7Wkf"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=feishu2604220257; d=cherr.cc; t=1787842756; h=from:subject:
+ mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
+ mime-version:in-reply-to:message-id;
+ bh=jvHVGXLRnB/myR7QpYOFvo9mljYI+Hq1VtE6Y8mURT8=;
+ b=jb6S7WkfQpSCK9yBnW3/+Em4FtbZmkwoZs7ODGIRwldP2sGfN5l5hMc6q0l1TLfWFdJoMo
+ VA0ggLye3QfPAdR0EIsKK77aONYXHehIkVBeawNxS+aXtlqGOcnEX5Jq1CmBUQv6nsYVtv
+ q7hD17nwqQ++jHSU6XG45MTZT5eGqs0AIrliEIidoWiTQ2H6zzvdTvonVkK4FoHsyDSVhb
+ P+Ditwn80FpT9rNRxMf9cK+cqspMgpzn1RN6oF/ZDyVxk+Ab6CADAUphnPZN+KUQcSi7vz
+ UOtqOpKGlHfSZzJjUbeYZu0eE45u8zZLcWW3BNO2zuVOzo0mPr9vdh3UG279Vg==
+From: "Shengzhuo Wei" <me@cherr.cc>
+Message-Id: <20260827-go7007-i2c-buf-bound-v2-1-82b185f9cb82@cherr.cc>
+Received: from [192.168.9.107] ([111.42.148.163]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 22:59:14 +0800
+X-Lms-Return-Path: <lba+26a9050c2+fa4d82+vger.kernel.org+me@cherr.cc>
+Content-Transfer-Encoding: 7bit
+X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+Subject: [PATCH v2] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
+Date: Thu, 27 Aug 2026 22:59:10 +0800
+X-Mailer: b4 0.16.0
+X-Original-From: Shengzhuo Wei <me@cherr.cc>
+Content-Type: text/plain; charset=UTF-8
+To: "Hans Verkuil" <hverkuil@kernel.org>, 
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	"Greg Kroah-Hartman" <gregkh@suse.de>
+Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
+	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826132256.3343451-8-mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Mime-Version: 1.0
+X-B4-Tracking: v=1; b=H4sIAL1QkGoC/4WNQQ6CMBBFr0Jm7ZhSC1VX3sOwoNMBxgUlLRAN4 e4CHsDlS95/f4HEUTjBPVsg8ixJQr+BPmVAXd23jOI3Bq10qa7aYhusUhZFE7qpQRem3qM3jWO ja1PbG2zTIXIj7yP7rH6cJvdiGvfWbnSSxhA/x++c796fiznHHE1RFEQXr0xpHtRxjGciqNZ1/ QJ5d9kqyQAAAA==
 
-On Wed, Aug 26, 2026 at 03:22:55PM +0200, Maurizio Casciano wrote:
-> AtomISP currently rejects all raw formats and silently substitutes
-> YUV420. This prevents userspace camera processing stacks from obtaining
-> unprocessed sensor frames.
-> 
-> Add an allow_raw_output module parameter, disabled by default. When it is
-> enabled, enumerate only the raw format matching the sensor media-bus code
-> and reconcile raw format requests with the code selected by the sensor.
-> 
-> Also apply the per-sensor padding discovered by the CSI-2 bridge when
-> enumerating and negotiating frame sizes. Existing systems retain the
-> global padding and raw-output defaults.
-> 
-> Tested on a Lenovo Yoga Book YB1-X91L with raw capture from its OV2740
-> and OV8858 sensors.
+go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
+a 16-byte buffer embedded in struct go7007, without any length check.
+The adapter declares no transfer limits, so an SMBus block transfer
+issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
+the struct fields that follow the buffer.
 
-...
+Bound the transfer size with i2c_adapter_quirks so the I2C core
+rejects oversized messages before they reach the driver.
 
->  	u32 min_pad_w = ISP2400_MIN_PAD_W;
->  	u32 min_pad_h = ISP2400_MIN_PAD_H;
->  	struct v4l2_mbus_framefmt *sink;
-> +	u32 input_padding_w = input->padding_override ?
-> +			      input->padding_w : pad_w;
-> +	u32 input_padding_h = input->padding_override ?
-> +			      input->padding_h : pad_h;
+Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shengzhuo Wei <me@cherr.cc>
+Assisted-by: GLM:5.3
+---
+The EZ-USB I2C adapter in the go7007 driver copies message payloads
+into the 16-byte usb_buf embedded in the go7007 device struct without
+any length limit, so an SMBus block transfer through /dev/i2c-N can
+write past the buffer and corrupt the struct fields that follow it.
+Bound the transfer size through i2c_adapter_quirks.
+---
+Changes in v2:
+- Drop the Cc: tag for the maintainer from the commit message; the
+  recipient is already covered by the Cc email header.
+- Link to v1: https://patch.msgid.link/20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc
+---
+ drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-It's the same condition, split to if-else.
+diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
+index c0cb92fa6ab9..867548d655b3 100644
+--- a/drivers/media/usb/go7007/go7007-usb.c
++++ b/drivers/media/usb/go7007/go7007-usb.c
+@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
+ 	.functionality	= go7007_usb_functionality,
+ };
+ 
++static const struct i2c_adapter_quirks go7007_usb_quirks = {
++	.max_write_len	= 12,
++	.max_read_len	= 15,
++};
++
+ static struct i2c_adapter go7007_usb_adap_templ = {
+ 	.owner			= THIS_MODULE,
+ 	.name			= "WIS GO7007SB EZ-USB",
+ 	.algo			= &go7007_usb_algo,
++	.quirks			= &go7007_usb_quirks,
+ };
+ 
+ /********************* USB add/remove functions *********************/
 
-	if (input->padding_override) {
-		input_padding_w = input->padding_w;
-		input_padding_h = input->padding_h;
-	} else {
-		input_padding_w = pad_w;
-		input_padding_h = pad_h;
-	}
+---
+base-commit: 075b74841bd0065a3bda3440873c747938e69b68
+change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
 
->  	if (!input->crop_support) {
-> -		*padding_w = pad_w;
-> -		*padding_h = pad_h;
-> +		*padding_w = input_padding_w;
-> +		*padding_h = input_padding_h;
->  		return;
->  	}
-
-Or maybe you can update pad_w and pad_h instead and leave this and might be
-other code alone?
-
-...
-
-> +++ b/drivers/staging/media/atomisp/pci/atomisp_internal.h
-
->  #define ATOMISP_CSS_SUPPORT_YUVPP     1
->  
->  #define ATOMISP_CSS_OUTPUT_SECOND_INDEX     1
-> +
-> +extern bool atomisp_allow_raw_output;
-> +
-
-Location of this doesn't look right. Find a better one.
-
->  #define ATOMISP_CSS_OUTPUT_DEFAULT_INDEX    0
-
-...
-
->  struct atomisp_input_subdev {
-
->  	enum atomisp_camera_port port;
->  	u32 code; /* MEDIA_BUS_FMT_* */
-
-> +	u32 padding_w;
-> +	u32 padding_h;
-
-Why not struct v4l2_area?
-
-> +	bool padding_override;
->  	bool binning_support;
->  	bool crop_support;
->  	bool sensor_on;
-
-...
-
-> -		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW)
-> -			continue;
-> +		if (format->sh_fmt == IA_CSS_FRAME_FORMAT_RAW) {
-> +			if (!atomisp_allow_raw_output ||
-> +			    format->mbus_code != code.code)
-> +				continue;
-> +		}
-
-  if (a) { if (b) { ... }} is equivalent to if (a && b) { ... }.
-
-...
-
-> +bool atomisp_allow_raw_output;
-> +module_param_named(allow_raw_output, atomisp_allow_raw_output, bool, 0644);
-> +MODULE_PARM_DESC(allow_raw_output,
-> +		 "allow experimental raw Bayer output (default:false)");
-
-Why do we need this? Can it be enabled a run-time via IOCTL or other means
-of ABI?
-
-...
-
-> +	input->padding_override =
-> +		atomisp_csi2_get_sensor_padding(input->sensor->dev,
-> +						&input->padding_w,
-> +						&input->padding_h);
-
-Make a pointer to a struct v4l2_area to be filled by this function.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+--  
+Shengzhuo Wei <me@cherr.cc>
