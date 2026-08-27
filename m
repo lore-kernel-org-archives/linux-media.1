@@ -1,186 +1,131 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1989938D6B5;
-	Thu, 27 Aug 2026 09:21:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72543F2118
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 09:24:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822472; cv=none; b=T8bWHJLF/HPH/RUhEXPCWoBNen79T+vknEp+llrDh6pqUpx9HmKo45leKMBwunijCuGQ+NVJvHvrnJK//9/jOlgyW8TGMpzu37nLUqnyzYWKlyCPQESNiMHLAteGMYtJeSjXWb17kDetKVRLmKaczUvfjV8pMQBOpY+uKdtnZes=
+	t=1787822694; cv=none; b=HIqKn9FPbtzcwm3wHo3sC5cX6tchUilshFEKsaHUxwihVL6SaUkFnEFNsE1A+6Et0hXEBu3MAT/twNFm1a813Jgn+nf7QhAJvv7IC9anJ7BuXrRtSlDxglguuOn95hNm4TQAwU243svtVuwqBQ0tAmYmSa1fj4XwXmPOWTtI42w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822472; c=relaxed/simple;
-	bh=WSdt2tsyHAa5JFOp0JQT8C+WLq/BfAWYCNKF8klKlGw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=a2rLhWVAhnS4Sx6aMg5gBu7VdX2KQXhJzVSMkIhIDlKEeve5TXRQsbcg/8g8cxt4rw8nuxLbrUWcmlGo5gZSulLRW71PwnpOrbNpour09LPH6wRVcy39SR8s/oTaSJAnRJIrkWflDXFv1I4ZDavfMoMLi2HsE5FXvtSX/3nIh0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=kz7bH0oV; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1787822694; c=relaxed/simple;
+	bh=z2EWH7FeUM9/TSo6TLuCtDRJcE5vWDUMPiY/p4fGhXg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ow4VYmP98f/AcRGBWGkjsmxxq8bJQF12VFW7uiJpdWc2gCrFwMk38Y+mHizFCicvQzye72SWDrwPw1doivrd8Z2aVP0nbJ30YmUAud36IUqpVz8cW6eNBZxv+kQRrVzWV3mkQidMJVW5fhaOlWDT0NkSfAeYrVenUcZ4yybREpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RkUuzXtT; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="kz7bH0oV"
-Received: from [10.0.0.94] (unknown [79.142.128.251])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 267AE5340789;
-	Thu, 27 Aug 2026 11:21:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1787822461;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=QLJaUAOjKhzMPiVbviAnkyKdfqksMQk35UVALf0VbU4=;
-	b=kz7bH0oV0Qfol3XlCFHCPncD1E7Sd3QUhoAPd/c+qkiTx1YZYtBsKafU4gJz1uc9z4nSYQ
-	TXgMpyqHWUroQxi3ntyIY/pcnnz1aqQ2fQYZcfHUslupE4NpVwo0KgvQDfDDmCn0Hp/dfb
-	u0f/W5uXWsr9Li5J/N17zNNGuY7dHB8=
-Message-ID: <e03b34d6-e61f-48bd-9e13-970d7034c379@ixit.cz>
-Date: Thu, 27 Aug 2026 11:21:00 +0200
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RkUuzXtT"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1786664a91.0
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 02:24:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1787822692; x=1788427492; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=8+qDMS5fgezJeERP2RJ6v2fuoUWu61bf471m73GBDqg=;
+        b=RkUuzXtTqYrKcyF/yN+mqxpYFyvLVdDI0kjijffQmkuiqAT1Bl/BftRduAlVLXRt7Z
+         QoaVC/iv61DeIXQptzeWZF2MOkT+gHJWWR6vaFqrBS0ctGkx1nM48jHhUo4Aytjt+Hui
+         5uxgQrDKPvkpQL1N7n5nBSzT7Sy0ZKPxaI+kU=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787822692; x=1788427492;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=8+qDMS5fgezJeERP2RJ6v2fuoUWu61bf471m73GBDqg=;
+        b=VGlMmtdIUkiJcFaEG0jv6oTi3yvWUXYfj36mkEUZPnn2nMr7jfB/5BXvD6PEA7NinE
+         n6bs8KRRR08/7K5LZpmAh7+xXWu+Rnu/F/Nj25viYQ7fYyqZHyvxuuMceumtbzS+4QLx
+         O1afi4xRvIGUFbeMPQptNTC2dPKuKDNz77xusi5bw5ZUHLQCJXyrznGZGtOxsr0M5z2F
+         ax2LELG75dtBTM3CYTKMipltktyPC4H0o+7f+iVTOFYmyroVCvHUzMa115PvJboC1wjY
+         +ReVW4pfUVfY7JTmFUaxGvRSPLeaECjuPA+OtNlSq9AsOwP1zg41NCVdHeHD2rmZHD1I
+         E6WQ==
+X-Forwarded-Encrypted: i=1; AHgh+RrXJuTLYPH6KgoaTjr0KS2z6lAvdHbazuEFAS61SS6w9xo278FrxiRD6ih52Is15ojXhpWhGQDCFXKQoQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++lNND+F7u8bzXEQsiCtvmQR9DzkU8oMu458bxguXm/A0nAJW1i6
+	xfk3vtRZBTRQmLpNRlsZsz5FkXue94CTToibcIpjRa6BylITBH2m0NMfZZsP4Rw1BbqJ76740A7
+	cfEOHdA==
+X-Gm-Gg: AR+sD113CAdI04bC6Vl/XyuEevw4aYzg/Dno+hAwR+lrTnaETHggkELSHu5WaV14tYs
+	71NvWgGz+3glWmOoRKhCIyqryrAOIpOW6/kOFk8OPuMzC8akTwN2VELx7UVNtGvOgR6OT6Mkspa
+	SzpWd3PA/p48YvBMvwS6uo21yybqUyJTxexcvaHOiFnfut0y2GkE4Wo4eL0I3Q2wf3WxK9l39ZA
+	hYBWIj6CBYcKG0RknT3lrTCMd9tW+6uqzRZ7nRSBQwg94dxAsLQFx/g5Ydw6E5TuZC+VnEVkfCg
+	1n9R9ot6z+HhdkT5MWDU96bLcpQ5bb8FgwELWGObt2SmpGOgV33sg7ScZug2+b6rkF+blKACvlA
+	do460TcT2Nca+BHa1CONkEeMqvJe2xyLWdMV6a7rxTqeUFN0mwrRSy7nNCzD8u3L8nH5GpVkFFs
+	BLt8pReg73/xAJ6RWffOwKlQ/BBGYKLl9GRu2RDWCik8y6/1CGjxj+udRBka0paKQMKzcXGissq
+	DVpx3j9cNFagpiB09qAkfq0i3YrFg==
+X-Received: by 2002:a17:90b:164b:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-3966cdf6813mr25497996a91.0.1787822692119;
+        Thu, 27 Aug 2026 02:24:52 -0700 (PDT)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com. [209.85.215.170])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ead6a5sm2122505a91.8.2026.08.27.02.24.49
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 27 Aug 2026 02:24:50 -0700 (PDT)
+Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1197087a12.1
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 02:24:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AHgh+Rq5W9dptafPxqheMzDJzUTKuikGQDMl0ym5uExifEGcaJHbA4f8CFrqLXppWOMOYTPozVbaqU/W45rP2w==@vger.kernel.org
+X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id
+ 98e67ed59e1d1-3966d4931a0mr28301374a91.15.1787822688301; Thu, 27 Aug 2026
+ 02:24:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC] media: imx355: reuse existing CCS defines
-To: Jai Luthra <jai.luthra@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz>
- <178772520896.9142.15892216055046447878@freya>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
- 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
- lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
- 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
- dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
- F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
- NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
- 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
- AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
- k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
- ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
- AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
- AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
- afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
- loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
- jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
- ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
- VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
- W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
- zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
- QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
- UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
- zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
- 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
- IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
- jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
- FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
- aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
- NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
- AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
- hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
- rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
- qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
- 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
- 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
- 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
- NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
- GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
- yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
- zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
- fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
- ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
-In-Reply-To: <178772520896.9142.15892216055046447878@freya>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260820201128.35669-1-s.shtylyov@auroraos.dev>
+In-Reply-To: <20260820201128.35669-1-s.shtylyov@auroraos.dev>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Thu, 27 Aug 2026 11:24:33 +0200
+X-Gmail-Original-Message-ID: <CANiDSCuWc8oUhFgqVMH+4+nzStuPfA5b2Vz+2woXqEu6ob1yOA@mail.gmail.com>
+X-Gm-Features: AcwNN1UG46EBFDQ4VlRpNyOCywXSGf3IqhbOtZIqZIMzPrkHbtNO4T67HlZRs5w
+Message-ID: <CANiDSCuWc8oUhFgqVMH+4+nzStuPfA5b2Vz+2woXqEu6ob1yOA@mail.gmail.com>
+Subject: Re: [PATCH] media: uvcvideo: drop useless assignment in uvc_parse_format()
+To: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 26/08/2026 08:20, Jai Luthra wrote:
-> Hi David,
-> 
-> Quoting David Heidelberg via B4 Relay (2026-08-20 01:47:08)
->> From: David Heidelberg <david@ixit.cz>
->>
->> The driver may not be MIPU CCS compliant, but does use same address and
->> often set same values as compliant drivers. Do not define for every Sony
->> imx* driver registers we already know and are standard.
->>
->> Signed-off-by: David Heidelberg <david@ixit.cz>
->> ---
->> I'm sending this as RFC, because we'll need to upstream at least 4 - 6
->> drivers, which aren't compliant with MIPI CCS. Quirking these drivers in
->> mipi-ccs would be pointless, thou we could at least simplify and unify
->> what needs to be separate.
->>
-> 
-> Indeed, while working on IMX708 I realized it was in the same bucket, and
-> ended up implementing a similar approach (of reusing register defines and
-> helpers from CCS).
-> 
->> Thanks for the feedback, just did few lines for the idea how the final
->> changes will look like. Anything ambiguous will be left as is.
->> ---
->>   drivers/media/i2c/imx355.c | 46 +++++++++++++++-------------------------------
->>   1 file changed, 15 insertions(+), 31 deletions(-)
->>
->> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
->> index 8eb8588cb71bb..57f7c70d18453 100644
->> --- a/drivers/media/i2c/imx355.c
->> +++ b/drivers/media/i2c/imx355.c
->> @@ -14,50 +14,34 @@
->>   #include <linux/unaligned.h>
->>   
->>   #include <media/v4l2-cci.h>
->>   #include <media/v4l2-ctrls.h>
->>   #include <media/v4l2-device.h>
->>   #include <media/v4l2-event.h>
->>   #include <media/v4l2-fwnode.h>
->>   
->> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
->> -#define IMX355_MODE_STANDBY            0x00
->> -#define IMX355_MODE_STREAMING          0x01
->> +#include "ccs/ccs-regs.h"
->>   
->> -/* Chip ID */
->> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
->>   #define IMX355_CHIP_ID                 0x0355
->>   
->> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
->> -
->>   /* PLL registers that depend on the external clock frequency */
->>   #define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
->>   #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
->> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
->>   #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
->>   #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
-> 
-> I think rest of the PLL registers could also be reused here?
-> 
-> While they are defined as CCI_REG16, I think writing just a byte to it
-> should work okay.
+Hi Sergey
 
-It could work, but I wouldn't risk some undefined behavior. The datasheet define 
-it as is, so I would go against it (at least without seeing bigger benefit).
+On Thu, 20 Aug 2026 at 22:12, Sergey Shtylyov <s.shtylyov@auroraos.dev> wrote:
+>
+> Close to the end of uvc_parse_format(), the parameter buflen is decremented
+> (again) but that statement seems pointless as buflen isn't used afterwards.
+> Drop the useless assignment (gcc doesn't generate any code for it anyways).
 
-> 
-> You could also reuse the CCS PLL calculation helpers instead of hardcoding
-> the values.
+The patch is correct, although I do not see a great benefit in
+removing it. As you say, the compiler will remove it anyway. If we
+modify the function to add logging or continue parsing the left over
+buffer, it is going to come back to haunt us....
 
-I tried, but I would skip it for now, so we keep the verified configurations 
-against datasheet. Maybe in the future if there is need for it and we can 
-validate against more configurations.
+I leave it to Laurent or HansG to decide if they want to merge it.
 
-I'm sending v2 cleaning the driver up with the basic scope :)
+Thanks!
 
-Thank you
-David
 
-> 
-> [snip]
-> 
-> Thanks,
->      Jai
+>
+> Found by Linux Verification Center (linuxtesting.org) with the Svace static
+> analysis tool.
+>
+> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
+> ---
+>  drivers/media/usb/uvc/uvc_driver.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+> index e289cc71ba98..0e78e8bcd320 100644
+> --- a/drivers/media/usb/uvc/uvc_driver.c
+> +++ b/drivers/media/usb/uvc/uvc_driver.c
+> @@ -520,7 +520,6 @@ static int uvc_parse_format(struct uvc_device *dev,
+>                 format->xfer_func = uvc_xfer_func(buffer[4]);
+>                 format->ycbcr_enc = uvc_ycbcr_enc(buffer[5]);
+>
+> -               buflen -= buffer[0];
+>                 buffer += buffer[0];
+>         } else {
+>                 format->colorspace = V4L2_COLORSPACE_SRGB;
+> --
+> 2.55.0
+>
 
+
+--
+Ricardo Ribalda
