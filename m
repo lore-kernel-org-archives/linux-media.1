@@ -1,131 +1,354 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D72543F2118
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 09:24:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF633F2118;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822694; cv=none; b=HIqKn9FPbtzcwm3wHo3sC5cX6tchUilshFEKsaHUxwihVL6SaUkFnEFNsE1A+6Et0hXEBu3MAT/twNFm1a813Jgn+nf7QhAJvv7IC9anJ7BuXrRtSlDxglguuOn95hNm4TQAwU243svtVuwqBQ0tAmYmSa1fj4XwXmPOWTtI42w=
+	t=1787822814; cv=none; b=XAQGSJYDSzlPPQznk1oHFa0q+iKnw0IKYGCVFWEm/IZ45SG1JFkhB+/kcawMhgwEPgzVei+Gqh88h1mUcilpevOZ2Y4/XUCfQMYVP88RXzRhhtM1PgJYl8ZtPFUQazOtvNOO1A2NtZG3k77LU404VOf07Y3p8Txig7A7oF8XcuU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822694; c=relaxed/simple;
-	bh=z2EWH7FeUM9/TSo6TLuCtDRJcE5vWDUMPiY/p4fGhXg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ow4VYmP98f/AcRGBWGkjsmxxq8bJQF12VFW7uiJpdWc2gCrFwMk38Y+mHizFCicvQzye72SWDrwPw1doivrd8Z2aVP0nbJ30YmUAud36IUqpVz8cW6eNBZxv+kQRrVzWV3mkQidMJVW5fhaOlWDT0NkSfAeYrVenUcZ4yybREpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=RkUuzXtT; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1787822814; c=relaxed/simple;
+	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d9qriEQnd9BK583qzArjHSl34D+fbztDFkF9GH4PMBaaaU7uskg76ESkb7nTvw6RGIkilBzlxbg5Ij1rFH/d0mly7F9TNj10M0Vx2l4wmpenopSzH6tQujj5O0XxseMlGsZHTcTkimkdFivF9pDsu9iL9D0szGLERLjJTW7D1iA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWY6CLF4; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="RkUuzXtT"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so1786664a91.0
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 02:24:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1787822692; x=1788427492; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8+qDMS5fgezJeERP2RJ6v2fuoUWu61bf471m73GBDqg=;
-        b=RkUuzXtTqYrKcyF/yN+mqxpYFyvLVdDI0kjijffQmkuiqAT1Bl/BftRduAlVLXRt7Z
-         QoaVC/iv61DeIXQptzeWZF2MOkT+gHJWWR6vaFqrBS0ctGkx1nM48jHhUo4Aytjt+Hui
-         5uxgQrDKPvkpQL1N7n5nBSzT7Sy0ZKPxaI+kU=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787822692; x=1788427492;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8+qDMS5fgezJeERP2RJ6v2fuoUWu61bf471m73GBDqg=;
-        b=VGlMmtdIUkiJcFaEG0jv6oTi3yvWUXYfj36mkEUZPnn2nMr7jfB/5BXvD6PEA7NinE
-         n6bs8KRRR08/7K5LZpmAh7+xXWu+Rnu/F/Nj25viYQ7fYyqZHyvxuuMceumtbzS+4QLx
-         O1afi4xRvIGUFbeMPQptNTC2dPKuKDNz77xusi5bw5ZUHLQCJXyrznGZGtOxsr0M5z2F
-         ax2LELG75dtBTM3CYTKMipltktyPC4H0o+7f+iVTOFYmyroVCvHUzMa115PvJboC1wjY
-         +ReVW4pfUVfY7JTmFUaxGvRSPLeaECjuPA+OtNlSq9AsOwP1zg41NCVdHeHD2rmZHD1I
-         E6WQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrXJuTLYPH6KgoaTjr0KS2z6lAvdHbazuEFAS61SS6w9xo278FrxiRD6ih52Is15ojXhpWhGQDCFXKQoQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lNND+F7u8bzXEQsiCtvmQR9DzkU8oMu458bxguXm/A0nAJW1i6
-	xfk3vtRZBTRQmLpNRlsZsz5FkXue94CTToibcIpjRa6BylITBH2m0NMfZZsP4Rw1BbqJ76740A7
-	cfEOHdA==
-X-Gm-Gg: AR+sD113CAdI04bC6Vl/XyuEevw4aYzg/Dno+hAwR+lrTnaETHggkELSHu5WaV14tYs
-	71NvWgGz+3glWmOoRKhCIyqryrAOIpOW6/kOFk8OPuMzC8akTwN2VELx7UVNtGvOgR6OT6Mkspa
-	SzpWd3PA/p48YvBMvwS6uo21yybqUyJTxexcvaHOiFnfut0y2GkE4Wo4eL0I3Q2wf3WxK9l39ZA
-	hYBWIj6CBYcKG0RknT3lrTCMd9tW+6uqzRZ7nRSBQwg94dxAsLQFx/g5Ydw6E5TuZC+VnEVkfCg
-	1n9R9ot6z+HhdkT5MWDU96bLcpQ5bb8FgwELWGObt2SmpGOgV33sg7ScZug2+b6rkF+blKACvlA
-	do460TcT2Nca+BHa1CONkEeMqvJe2xyLWdMV6a7rxTqeUFN0mwrRSy7nNCzD8u3L8nH5GpVkFFs
-	BLt8pReg73/xAJ6RWffOwKlQ/BBGYKLl9GRu2RDWCik8y6/1CGjxj+udRBka0paKQMKzcXGissq
-	DVpx3j9cNFagpiB09qAkfq0i3YrFg==
-X-Received: by 2002:a17:90b:164b:b0:38e:6a44:671b with SMTP id 98e67ed59e1d1-3966cdf6813mr25497996a91.0.1787822692119;
-        Thu, 27 Aug 2026 02:24:52 -0700 (PDT)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com. [209.85.215.170])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396b0ead6a5sm2122505a91.8.2026.08.27.02.24.49
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 27 Aug 2026 02:24:50 -0700 (PDT)
-Received: by mail-pg1-f170.google.com with SMTP id 41be03b00d2f7-cc1c73645a1so1197087a12.1
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 02:24:49 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AHgh+Rq5W9dptafPxqheMzDJzUTKuikGQDMl0ym5uExifEGcaJHbA4f8CFrqLXppWOMOYTPozVbaqU/W45rP2w==@vger.kernel.org
-X-Received: by 2002:a17:90b:560c:b0:396:67ed:da2d with SMTP id
- 98e67ed59e1d1-3966d4931a0mr28301374a91.15.1787822688301; Thu, 27 Aug 2026
- 02:24:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWY6CLF4"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D71DC19425;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787822814;
+	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ZWY6CLF4rTX2tZ1AomGcBeZkxS/t5sE1A0ly+VRHUkUUZSBj84Vux+n5gO7OU/QU6
+	 unsKJ3x8EmBxpMZ1ZfBWNryc/R2Rb4zHbaeHuOAmKAjKScg/W9z6gw0nvIkGzIHkMc
+	 MZIFptOZM3EA8cs9o7VE9dIOWGyikFoFc9FHftrcUm56j4MVe17Pj/Esu/kl3gcraj
+	 /L04X9d1iQwe4M8n0y+G4ntvdEOfHbtMbluemLO8BeJAvscIWpfjLkABwPom8Pb2Ke
+	 niJdzpH4lwxkzNvGgFuhayUFMbtVa1hvgpaHNuzklv3Me4e160cMSVu24iOKkT8eAP
+	 886yOOM3MxqLA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B084C61DC7;
+	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Thu, 27 Aug 2026 11:26:53 +0200
+Subject: [PATCH v2] media: imx355: reuse existing CCS defines
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260820201128.35669-1-s.shtylyov@auroraos.dev>
-In-Reply-To: <20260820201128.35669-1-s.shtylyov@auroraos.dev>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Thu, 27 Aug 2026 11:24:33 +0200
-X-Gmail-Original-Message-ID: <CANiDSCuWc8oUhFgqVMH+4+nzStuPfA5b2Vz+2woXqEu6ob1yOA@mail.gmail.com>
-X-Gm-Features: AcwNN1UG46EBFDQ4VlRpNyOCywXSGf3IqhbOtZIqZIMzPrkHbtNO4T67HlZRs5w
-Message-ID: <CANiDSCuWc8oUhFgqVMH+4+nzStuPfA5b2Vz+2woXqEu6ob1yOA@mail.gmail.com>
-Subject: Re: [PATCH] media: uvcvideo: drop useless assignment in uvc_parse_format()
-To: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU1bLKAr72FYyDiVMRFMWwlIe
+ ndbXLt8yfvvr+DJMXk4FSs4mtjzOCTQuwKwvw53EnxLDFrqSjbqKPg5l8YIRM92EY2psDHS1MY
+ qSJuXI8vz1ru0P/bv7kEYciQbPfswumU7nFT2/rUnJZSQXYVk65rKgzzzzGGPH2hjjF+O9wQSu
+ gAAAA==
+X-Change-ID: 20260819-imx355-ccsify-856c850575f1
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=10030; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=8fjmIEf2Uou5I7hSyXj2MRgsHK14tG7lVR5oqFFpIqQ=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkALdaU7SCL9MD2CLhpq7GVVTKytztNX37egim
+ 9gfQ5I8Ra+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapAC3QAKCRBgAj/E00kg
+ civREADP0/akWHg818ryfVEvANU5flZiBcQagxj5ESZ0pvy8+1sEi6Hka/aUUrj0Un6SO/32xcQ
+ fyFHIv5g5OrQKCpIy/0q4ro6AclzE9iu7R3TGAACipS4DXcFm8Z6XP5SDikO47kIRDOJe+26ai0
+ 5iQcKkQsvXj9iJb6mc/mdNDKQekGMnmVQ45x8EYI3rfiZ+H3cjWNbSOFyHkzUXL9B8IGRkm6+kY
+ RezZxNT2gxHmHQW8+l44SILcJVLIrl4zAmm0Bl06ysMnTJnZ50n31FaMcg4mldUjkNAZFDOpZdq
+ EMst8ev6O/pp+XpgSLlyavKZlqsQyaZGcHrHWM8U2CKqkki8NoooVOU+kIfVacEfsOH3ivybDJm
+ C29JH3BmIa+ROq/IijFZkXwiDHiqG7Xa75LygU8smIY1NVK+JomSj7W+dHt88haqtagKhyZbHp7
+ cWuNnKCYJS4cGtxKOM+Q9lvzQdBjjl7n6xSMNaKj/1e6oel92AtW7WPuuNEggMdsXWgkac38Inq
+ 2q9NKWuRGFYC8PU/pBN6vaKrxNVPwPn/k1E8ErZ3vYIjC5QuWIMv9M3JrqV6Cy3k/jtTsz6TEuv
+ MHFvMh4xoosKFv+7s34g9WUWfjFVGPnKx2mmbA0UMnt7jiGOHeKSn/j4cvMD3/FR8wi+2m5cdCi
+ us5zaHndb613qgw==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-Hi Sergey
+From: David Heidelberg <david@ixit.cz>
 
-On Thu, 20 Aug 2026 at 22:12, Sergey Shtylyov <s.shtylyov@auroraos.dev> wrote:
->
-> Close to the end of uvc_parse_format(), the parameter buflen is decremented
-> (again) but that statement seems pointless as buflen isn't used afterwards.
-> Drop the useless assignment (gcc doesn't generate any code for it anyways).
+The driver may not be MIPI CCS compliant, but does use same address and
+often set same values as compliant drivers. Do not redefine registers we
+already know and are standard.
 
-The patch is correct, although I do not see a great benefit in
-removing it. As you say, the compiler will remove it anyway. If we
-modify the function to add logging or continue parsing the left over
-buffer, it is going to come back to haunt us....
+No functional changes.
 
-I leave it to Laurent or HansG to decide if they want to merge it.
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+Changes in v2:
+- Replaced all occurences with CCS ones.
+- Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
+---
+ drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
+ 1 file changed, 25 insertions(+), 59 deletions(-)
 
-Thanks!
+diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+index 8eb8588cb71bb..2c845b7b3df4f 100644
+--- a/drivers/media/i2c/imx355.c
++++ b/drivers/media/i2c/imx355.c
+@@ -14,89 +14,55 @@
+ #include <linux/unaligned.h>
+ 
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
+ 
+-#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
+-#define IMX355_MODE_STANDBY		0x00
+-#define IMX355_MODE_STREAMING		0x01
++#include "ccs/ccs-regs.h"
+ 
+-/* Chip ID */
+-#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
+ #define IMX355_CHIP_ID			0x0355
+ 
+-#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
+-
+ /* PLL registers that depend on the external clock frequency */
+-#define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
+ #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
+-#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
+ #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
+ #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
+ #define IMX355_PLL_OP_PREDIV		2
+ #define IMX355_PLL_IVT_PCK_DIV		5
+ 
+ /* V_TIMING internal */
+-#define IMX355_REG_FLL			CCI_REG16(0x0340)
+ #define IMX355_FLL_MAX			0xffff
+ #define IMX355_VBLANK_MIN		20
+ 
+-#define IMX355_REG_LLP			CCI_REG16(0x0342)
+ #define IMX355_LLP_MAX			0xffff
+ 
+-#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
+-#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
+-#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
+-#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
+-#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
+-#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
+-
+ /* Exposure control */
+-#define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
+ #define IMX355_EXPOSURE_MIN		1
+ #define IMX355_EXPOSURE_STEP		1
+ #define IMX355_EXPOSURE_DEFAULT		0x0282
+ #define IMX355_EXPOSURE_OFFSET		10
+ 
+ /* Analog gain control */
+-#define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
+ #define IMX355_ANA_GAIN_MIN		0
+ #define IMX355_ANA_GAIN_MAX		960
+ #define IMX355_ANA_GAIN_STEP		1
+ #define IMX355_ANA_GAIN_DEFAULT		0
+ 
+ /* Digital gain control */
+ #define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
+-#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
+ #define IMX355_DGTL_GAIN_MIN		256
+ #define IMX355_DGTL_GAIN_MAX		4095
+ #define IMX355_DGTL_GAIN_STEP		1
+ #define IMX355_DGTL_GAIN_DEFAULT	256
+ 
+-/* Test Pattern Control */
+-#define IMX355_REG_TEST_PATTERN		CCI_REG16(0x0600)
+-#define IMX355_TEST_PATTERN_DISABLED		0
+-#define IMX355_TEST_PATTERN_SOLID_COLOR		1
+-#define IMX355_TEST_PATTERN_COLOR_BARS		2
+-#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
+-#define IMX355_TEST_PATTERN_PN9			4
+-
++/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
+ #define IMX355_REG_REQ_LINK_BIT_RATE	CCI_REG16(0x0820)
+ 
+-#define IMX355_REG_BINNING_MODE		CCI_REG8(0x0900)
+-#define IMX355_REG_BINNING_TYPE		CCI_REG8(0x0901)
+-#define IMX355_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
+-
+-/* Flip Control */
+-#define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
+-
+ #define IMX355_PIXEL_ARRAY_TOP		0
+ #define IMX355_PIXEL_ARRAY_LEFT		0
+ #define IMX355_PIXEL_ARRAY_WIDTH	3280
+ #define IMX355_PIXEL_ARRAY_HEIGHT	2464
+ 
+ struct imx355_reg_list {
+ 	u32 num_of_regs;
+ 	const struct cci_reg_sequence *regs;
+@@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	 * when power is up for streaming
+ 	 */
+ 	if (!pm_runtime_get_if_in_use(imx355->dev))
+ 		return 0;
+ 
+ 	switch (ctrl->id) {
+ 	case V4L2_CID_ANALOGUE_GAIN:
+ 		/* Analog gain = 1024/(1024 - ctrl->val) times */
+-		ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
++		ret = cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
++		ret = cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOBAL,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_EXPOSURE:
+-		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
++		ret = cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATION_TIME,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		/* Update FLL that meets expected vertical blanking */
+-		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
++		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
+ 				format->height + ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_TEST_PATTERN:
+-		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
++		ret = cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
+ 				ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_HFLIP:
+ 	case V4L2_CID_VFLIP:
+-		ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
++		ret = cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
+ 				imx355->hflip->val | imx355->vflip->val << 1,
+ 				NULL);
+ 		break;
+ 	default:
+ 		ret = -EINVAL;
+ 		dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
+ 			 ctrl->id, ctrl->val);
+ 		break;
+@@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
+ 	crop = v4l2_subdev_state_get_crop(state, 0);
+ 	mode = v4l2_find_nearest_size(supported_modes,
+ 				      ARRAY_SIZE(supported_modes),
+ 				      width, height, fmt->width, fmt->height);
+ 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+ 			    mode->reg_list.num_of_regs, &ret);
+ 
+ 	/* Set readout crop and size registers  */
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
++	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+ 		  &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
++	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+ 		  crop->width + crop->left - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
++	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+ 		  crop->height + crop->top - 1, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
++	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
++	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
+ 
+ 	binning_mode = ((crop->width / fmt->width) << 4) |
+ 			(crop->height / fmt->height);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
++	cci_write(imx355->regmap, CCS_R_BINNING_MODE,
+ 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
++	cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
++	cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
+ 
+ 	/* Set PLL registers for the external clock frequency */
+-	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
++	cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
+ 		  imx355->clk_params->extclk_freq, &ret);
+-	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
++	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+ 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+ 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+ 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+ 		  lane_idx ? 2 : 1, &ret);
+ 
+ 	/* Set MIPI configuration */
+-	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
++	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+ 		  imx355->hwcfg->num_lanes - 1, &ret);
+ 
+ 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
+ 		       imx355->hwcfg->num_lanes * 2;
+ 	do_div(link_bitrate, 1000000);
+ 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
+ 		  &ret);
+ 
+ 	/* set digital gain control to all color mode */
+ 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
+ 
+ 	/* set line length */
+-	cci_write(imx355->regmap, IMX355_REG_LLP,
++	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+ 		  imx355->hblank->val + fmt->width, &ret);
+ 
+ 	/* Apply customized values from user */
+ 	if (!ret)
+ 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
+ 
+-	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
++	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
+ 		  &ret);
+ 
+ 	return ret;
+ }
+ 
+ /* Stop streaming */
+ static int imx355_stop_streaming(struct imx355 *imx355)
+ {
+-	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+-			 IMX355_MODE_STANDBY, NULL);
++	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
++			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+ }
+ 
+ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ {
+ 	struct imx355 *imx355 = to_imx355(sd);
+ 	struct v4l2_subdev_state *state;
+ 	int ret = 0;
+ 
+@@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+ }
+ 
+ /* Verify chip ID */
+ static int imx355_identify_module(struct imx355 *imx355)
+ {
+ 	int ret;
+ 	u64 val;
+ 
+-	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
++	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
+ 	if (ret)
+ 		return ret;
+ 
+ 	if (val != IMX355_CHIP_ID) {
+ 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
+ 			IMX355_CHIP_ID, val);
+ 		return -EIO;
+ 	}
+
+---
+base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+change-id: 20260819-imx355-ccsify-856c850575f1
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
->
-> Found by Linux Verification Center (linuxtesting.org) with the Svace static
-> analysis tool.
->
-> Signed-off-by: Sergey Shtylyov <s.shtylyov@auroraos.dev>
-> ---
->  drivers/media/usb/uvc/uvc_driver.c | 1 -
->  1 file changed, 1 deletion(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
-> index e289cc71ba98..0e78e8bcd320 100644
-> --- a/drivers/media/usb/uvc/uvc_driver.c
-> +++ b/drivers/media/usb/uvc/uvc_driver.c
-> @@ -520,7 +520,6 @@ static int uvc_parse_format(struct uvc_device *dev,
->                 format->xfer_func = uvc_xfer_func(buffer[4]);
->                 format->ycbcr_enc = uvc_ycbcr_enc(buffer[5]);
->
-> -               buflen -= buffer[0];
->                 buffer += buffer[0];
->         } else {
->                 format->colorspace = V4L2_COLORSPACE_SRGB;
-> --
-> 2.55.0
->
-
-
---
-Ricardo Ribalda
