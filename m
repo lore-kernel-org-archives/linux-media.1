@@ -1,133 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D477934D385;
-	Thu, 27 Aug 2026 12:53:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68B0F340A47
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 13:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787835198; cv=none; b=ZmRGS66Q/Jn0Bp0IhUOcGXFzbXyp4JgxeN/JoBctyHamzGad7X5hzjcA5XUH3zjjx84PaWg6Dn9JoJ2RQD/EY88DMVAf7KT3aI6WQ9QfrhUkUZdSBNCvCm6k/nJWxhXuQ9hjErgr2EXgIfjb5fhtZM4u4PHUrjeSLpvSTTBpmiw=
+	t=1787835770; cv=none; b=cQqdn/5MElXRmY8YSRKCxawo86lLTZwzW6gJQA0ZL1Pw5KI1hdY6c3DXUw6kYRD3FIJhe9xLROfyxl3B9IkJ5Z6gLXj8Q/IwkWAhHiLKOrz7JHiOPoieaPlu8wO3K3k6yPX6fP46HAXGcH+7WbtOZlvlI3MJrGvVa+UJhkBbNOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787835198; c=relaxed/simple;
-	bh=hB8J5rKgHQgIo8h/hxjtzyLJpP/TdCQHWkST/p7ZR6U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Rv4xmEiTYrTgU/gXfH+2ut322wUyrib5th3dklbwaAO2iGyBkjZVBTTJrrdYEWMTzD4aZLmsucM56sC9OTEUQ1xKs1lY4SQat9DHsWyIvm9dwRzBLJFfbpuYbFdIlE58REGCFohNvwwaPRsJJf1EWYOgQm1QSYE6bO1VvC1Z7Kg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HpxQ/he4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787835770; c=relaxed/simple;
+	bh=5o6ANdOnsEwvHNkc68cYshSKpXo+cUGt41qHOl1Tkjw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YTpKIYXZeNQMhxdh1UF7vCNKgz/wcS7vBOQ0YAZrkpJb73WvQmQV3T0dpmM6B9qXOGrTtrJcQYSY8xK+co7UNeIMfCOq12A0svzLwZUMNNLbEptE/JGrmH5kysa9Q7giZbq7VLZkI+E9MaVcGsiTo/+CGMOyp3cnw5S3Ey2BOqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aJsnhU/m; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HpxQ/he4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 931B61F000E9;
-	Thu, 27 Aug 2026 12:52:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787835181;
-	bh=Jv30IeE2s+n2A5GRghn5mbNA+ntwEskVEvnsJS/gqNQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HpxQ/he4c1l/67bjg6zHCWSh7AxGIRhKnrX19FKhID1R0BcbkibPRl+2xW0tbC0ak
-	 hJFvx1qCJqhl53iZGTG/JR7u301HQSljASB0swdFEdVZiKibGOnJN2iCVJHXEYbnTf
-	 GTCBUKdpsBjmlMtHpvbarSgA6dZyeIoEjTP+/Oeo1lq7Q8tVwMRTyOl2wZZNfvhYA1
-	 9RM2gDKmt7oe1am3axpJpa781gtZmH8OBSvfT08Xeg0hRghVLZPfZNQDoRaVSKZks6
-	 UT3rnJOuGjx34CvvC3Nvte8iWDqvxO3jI9R1oIEGE2wOgx6fk6r/6aGuzyfLhzB/cZ
-	 qVz1y3R5ubGhg==
-Date: Thu, 27 Aug 2026 13:52:45 +0100
-From: Lee Jones <lee@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>, Leo Yan <leo.yan@arm.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Michal Simek <michal.simek@amd.com>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Mirela Rabulea <mirela.rabulea@nxp.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Xiaowei Song <songxiaowei@hisilicon.com>,
-	Binghui Wang <wangbinghui@hisilicon.com>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Dvorkin Dmitry <dvorkin@tibbo.com>, Wells Lu <wellslutw@gmail.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Chin-Ting Kuo <chin-ting_kuo@aspeedtech.com>,
-	=?iso-8859-1?Q?C=E9dric?= Le Goater <clg@kaod.org>,
-	Mark Brown <broonie@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Ryan Chen <ryan_chen@aspeedtech.com>,
-	Billy Tsai <billy_tsai@aspeedtech.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Boris Brezillon <bbrezillon@kernel.org>, info@mocean-labs.com,
-	Olof Johansson <olof@lixom.net>,
-	Shree Ramamoorthy <s-ramamoorthy@ti.com>,
-	coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, linux-i2c@vger.kernel.org,
-	linux-iio@vger.kernel.org, linux-input@vger.kernel.org,
-	imx@lists.linux.dev, linux-media@vger.kernel.org,
-	mfd@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
-	openbmc@lists.ozlabs.org, linux-spi@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: Drop redundant white-space around values in
- <>
-Message-ID: <20260827125245.GI770273@google.com>
-References: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aJsnhU/m"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7eb34c17b96so2518761a34.2
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 06:02:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787835756; x=1788440556; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+YbfpkMbK/g+UAyxQUtADUS+ulixTWRPAVGbjBEwn60=;
+        b=aJsnhU/mWHFN0gredSJKoQhgBZ/rL9W4AWSF5ne0MH5cB7Ux8HQ69+zjpUMCFK9QqE
+         mSEf0jtrCnRRk3gSqymNEd5Yb5Oh5/uH09ryRBaAwev8UCP2ol9zcltMcFGy+Y0iYxg7
+         I+KVm0c2F+cHhYv/J3kqjl0CzuA6/eXhycTdVmJPBt/cbojLqmPJbho8A7j4xQFKMpK0
+         zfW5QpOdQvAoL/cMOwaEYDF37lXqAK7HBUmsbamoezVPr4lF8unD0iNMUwjEJs4Tw4sZ
+         rZS2uYR44gFTzqa2lol/egznT4HIhsagkvdqmmDsuN/nULRHGv8Fuz9qh5ja5TCgwabZ
+         zvjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787835756; x=1788440556;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+YbfpkMbK/g+UAyxQUtADUS+ulixTWRPAVGbjBEwn60=;
+        b=A5j/pmPv3rzstXsB5gSXEAyCq6kDlYPQjKlh2EgHwlQvdEtdnlSCkTyp3p6ZYc9KVe
+         BjhwTCR5h/jeMrkjxGB0wI21RnKux9OQ54Ejvo5MEKtkEIHautPoulsbzDEPI6TkrN59
+         Knl+ibQOOROPo/ONHKJyJcwGEgue+1UGmMMyll6fUeJaowckFQdwQXpPlCsFSa9YerRH
+         R6zMOB5LIKazOGkvYKaVjabdnT5BxSUsyTIBUztJvWPuzMcZpk1QstKwBLO7lnTIDnSI
+         seJAmdtAJh7GEdpfAA5sfjlC3eFPvnHP4nkXgx93BvZxLDycS9U99/9bfd56INXvBiBW
+         rz9g==
+X-Gm-Message-State: AFuF++lelTsFPej84o69+37Jjo/tXhG9h9yYC7WGG2JRZSZfYbUaSXmH
+	v2HCLaXjdruEJ2BedLMRKmuejVA5Eft/HT1wj+KqiQTLK/OgcdltmlWtCMZSDSktNcc=
+X-Gm-Gg: AR+sD11N9q2BBHzLsYmbZrXA5pXx8TcIMD7e8vV3VCw/Ue5KkvsYpTCQ6zwlbKnRqjg
+	jte9ejYDDh0HoYCxwyAr2OFzSFs7KscvgIDmuIhnUdc2D86yT5yYc+CwmjLqxpbO7psNGL1ng9j
+	ivq2AdeAZ3laTSlHHnUxLDqP0B5YwZOCtJxb7SYQGDhGRRhCxYjvh5uptIkq9qrD/aJOqoT8P6D
+	r00NVk1xTzS5cNhaiLbwmccFr2v//+95kIXO1UGGpbeTsI3YwQ40Nyy7dycHL0ZmSasEDlpNAOn
+	qHSb2mibloUaG8QW+hGjMEeBtUuSUN5m1r7V4tDIf08p+8CzGI961JpKodaBa+QUN7uZikOahgA
+	Csb07RT34p4WP5/lOPkpsnDery+/11b/4KkaVlwOEd2wx8SsV/qfR4/9Uik9B1A0hSHsxfYBwG+
+	RzTOfHwGxHlGUssASq6Oj26lw+8OXgzta9lghElkUjMUvZFSFX6qobcoIeYTyz
+X-Received: by 2002:a05:6820:4c0f:b0:6b1:afdf:a01 with SMTP id 006d021491bc7-6b1afdf50c4mr7622702eaf.18.1787835746080;
+        Thu, 27 Aug 2026 06:02:26 -0700 (PDT)
+Received: from machine ([182.69.183.109])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a9035ff1sm15598089c88.11.2026.08.27.06.02.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 06:02:25 -0700 (PDT)
+From: Kartik Panesar <kartikpanesar@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Kartik Panesar <kartikpanesar@gmail.com>
+Subject: [PATCH v1] staging: media: ipu3: remove unnecessary dev_dbg function trace
+Date: Thu, 27 Aug 2026 18:30:40 +0530
+Message-ID: <20260827130040.117697-1-kartikpanesar@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260826102044.142986-2-krzysztof.kozlowski@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, 26 Aug 2026, Krzysztof Kozlowski wrote:
+Remove a dev_dbg() call that only logs function entry via __func__,
+flagged by checkpatch.pl as unnecessary ftrace-like logging .
 
-> Correct a few white-space issues around <>, which will be flagged by
-> dt-check-style.  No functional changes.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> 
-> ---
-> 
-> Rob, Can you take it directly?
-> ---
->  .../bindings/arm/arm,coresight-cti.yaml       |  2 +-
->  .../bindings/display/bridge/sil,sii9022.yaml  |  2 +-
->  .../bindings/i2c/xlnx,xps-iic-2.00.a.yaml     |  4 ++--
->  .../bindings/iio/light/upisemi,us5182.yaml    |  2 +-
->  .../bindings/input/matrix-keymap.yaml         |  3 +--
->  .../devicetree/bindings/input/ti,tca8418.yaml | 21 +++++++++----------
->  .../bindings/media/nxp,imx8-jpeg.yaml         |  4 ++--
->  .../devicetree/bindings/mfd/ti,tps65910.yaml  |  2 +-
+Function entry/exit is already available through ftrace's function
+and function_graph tracers making this redundant.
 
-Acked-by: Lee Jones <lee@kernel.org>
+Signed-off-by: Kartik Panesar <kartikpanesar@gmail.com>
+---
+ drivers/staging/media/ipu3/ipu3-css.c | 1 -
+ 1 file changed, 1 deletion(-)
 
->  .../bindings/pci/hisilicon,kirin-pcie.yaml    |  4 ++--
->  .../pinctrl/sunplus,sp7021-pinctrl.yaml       |  2 +-
->  .../bindings/spi/aspeed,ast2600-fmc.yaml      |  6 +++---
->  .../bindings/thermal/thermal-idle.yaml        |  2 +-
->  12 files changed, 26 insertions(+), 28 deletions(-)
-
+diff --git a/drivers/staging/media/ipu3/ipu3-css.c b/drivers/staging/media/ipu3/ipu3-css.c
+index 8063401246fb..b2c8fb7d6813 100644
+--- a/drivers/staging/media/ipu3/ipu3-css.c
++++ b/drivers/staging/media/ipu3/ipu3-css.c
+@@ -290,7 +290,6 @@ int imgu_css_set_powerup(struct device *dev, void __iomem *base,
+ 
+ void imgu_css_set_powerdown(struct device *dev, void __iomem *base)
+ {
+-	dev_dbg(dev, "%s\n", __func__);
+ 	/* wait for cio idle signal */
+ 	if (imgu_hw_wait(base, IMGU_REG_CIO_GATE_BURST_STATE,
+ 			 IMGU_CIO_GATE_BURST_MASK, 0))
 -- 
-Lee Jones
+2.55.0
+
