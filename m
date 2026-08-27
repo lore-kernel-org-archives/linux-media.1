@@ -1,221 +1,307 @@
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
+Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013011.outbound.protection.outlook.com [40.107.159.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E86146E00B;
-	Thu, 27 Aug 2026 16:01:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.47
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787846495; cv=none; b=OSjl+mekfU05W2V0PWq/aDVKNoWfY12rr0Ajtkab+fVYdAPA675BCw6zAJl5XAMB+jgDfHHODRuCqwBN15GIBrPSoVONOjaMmsNtJS0detWkq6vV/8pasMJ/Q+n58/HafBN49k9iEB+wls3M5T84V77fmhMOzxjnghguyGP9ho0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787846495; c=relaxed/simple;
-	bh=psvcIENqM3ib+o9exTVqDBxYfUhIqT3+CN4Bgi8xBwI=;
-	h=Message-ID:From:To:Cc:Subject; b=MJlmtgN5FVfPBzq6MPAiaf7NUgLKLNvLm9lPdgbbH6YNb/t5Z+96bMPh0ApxaaDTdxAbxvNG9brC0//Zla4bYzmDR1S3QeYbw8suf3KBx0x2nreT8ApNDGzgxTX4RxyCa+CFXRX79/gYxenBkdX//JoiTMEj7iTVQX9tjq3mLBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=ZG4LIFcb; arc=none smtp.client-ip=43.163.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF1E61E1A3D;
+	Thu, 27 Aug 2026 16:03:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787846611; cv=fail; b=Yc6RsX5YiGgK9+0uzVRtyaAGmfvUydrxtu5ygBQpaMadp94VTvaEgK9xs3GHZKxx8aiNbNYgjhWKQAOfgWrnImdwWSmTNV96fHdt1pdPCWPkVtha90FWjxTB36RQlRv1M65fg6OKWtTiqWSeECRBajtZV16tV/WPbsBIkxuHXEk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787846611; c=relaxed/simple;
+	bh=vP1tsGBTLDsY16WfZTUqpuROL4qcK4OrgY5ozMBceQs=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=bRQVzgfMNlBcTXBPJkiByvOgqr/HZrOUaD39do2A740uvXZRBWC5wNec8JgoTFangJr8xPqETRBrxYtlTmFXy6AWdZ6C3v7t0CnLSBcvtAvQWEz2RtasaoRkFJiTkyiEe7i23nboLtUX2snWDWVTvxSvkNANKHMJu/rB3o+ZzLk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=gRzBU7VM; arc=fail smtp.client-ip=40.107.159.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="ZG4LIFcb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1787846481; bh=iSbbXSsZIEmVykoYpmduKfIhXEaTKa33hYcHeHMV02U=;
-	h=From:To:Cc:Subject;
-	b=ZG4LIFcbrElozzORC/y/zC60y3pGqa5Vk2yhgsQLN+ZVPH3bGK0fNh27PFtKda7iu
-	 lgCHxhTg5FFiEPdTqce6RGLgaCQrQnqgpPqJ2+z0NmIQ6I/eOSdicgKg2tzZvqqwa/
-	 y+s+E9wqLoSZBScGhWcYs66Ig6A52RFdVl3/w900=
-Received: from localhost ([59.67.37.28])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 5192C71; Fri, 28 Aug 2026 00:01:17 +0800
-X-QQ-mid: xmsmtpt1787846477tfv1z6p55
-Message-ID: <tencent_72A978D4934F50D46D2ACFF7D70896938806@qq.com>
-X-QQ-XMAILINFO: NmRjDopJZVxOX2ndgblU9/Z/Q9ob2FaUDyunUQPbYNYzdcpDVGtq/hc4aXPamk
-	 EFMMz2aF0s2geYGzP6MuJqCNAJtRZ2Q235ZLNB/UY9h7SgLs5FABEkaVRQtDeaJ1krU1+MrJlTVG
-	 s26QtvxMQzm7DXM86xMynSgA0/6HDXbXZADkQHqqg467q69suICaY+gafdmlGbMqxwjJposTOGZ9
-	 Uij4Qi3wodf3Nr8xeB2Cyt0c8dDBluYX92NYLoTeDJV+kqErHyTUC5gSL+MbJiGpteGNbWCgUHpY
-	 QjA22m5AS46TOIj7IBGSKYbDfBVf5IEz/7Gvqlvw0lb7gEq8S27GbuA9Wjg+q/ln4gh/txFJl8Bf
-	 OCyurEiDlP9C1HXVXhYEloFr1ndf/nvLSDxiLi1Qx0Txb7YHWOYmt+qEVOqXK02u9vDCqk+Bqzir
-	 MwTPUeS3OXWeoL8NgmGBQCcGpy1fmPBvWGNzNOERkkHutFIRy7lG85s+80msbYat4/wv4PX+OtJM
-	 vlvcrO0aZs8sMtkU8xkOM5XLgHY8EOhsDvoz660YJi9v/Ir418JB3EBsqDae9scwzHFcXoCRX6IT
-	 TnaMNyN06XBeqi740Q5tlEF0BDYsS8vMu+QrG18hY5fShCfnKxIHEhtG4xxQ6XwGrZ9OJHvzrWhN
-	 TjgMoTKl86w/RDYmfz5ftF/6G7etThJRHkQfpbB1EO8+cmx3+07sC3tPa7cs+qewGGUCwhJPNqyR
-	 CB2IaVdPss23/Dyo7o2jQC2Fe/bTM4+KR2sOUDhe8FbE7ZNdOgNbG+M8HbFq6UgYnCgcyHRX7jcY
-	 uH3Yh/C6QsvXKrBJr595t/5d3X0XeZDgeLEWlrBFVv6S3Y0BO94c0Ekb8I+gUxfRrbZWIfm0Kjj7
-	 L+08SMr47z316W8q0nGGUKO0rYE8QvZsgtVMaAR/dAYSMLFXr2177oXJM/G+zNPaVeSm9IYD1Mg3
-	 H3VaZYy1assdRkXxqaRletcDlZgXaU+tuANjdu8+2mfpnmgkFsKEHEdWDYjvsvQAs9dcrw8dOBv6
-	 4EX7s3We9+peTdnAV/PTo2dhEJlEA=
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guikun Yang <2855020996@qq.com>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="gRzBU7VM"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qAE6qF9jQjw2dvY4kuvc1dspD78JSwXAykh3U6owSN4OCiGBiGrTti0tlBuxQBY9gXQWPCy4yIu+5mv+r7gUEwk45V8NIlL5Im7lLqLvA91CaJbkdMCJECoDbkcsydp/s8EKQqjgy8P/6MYTewNTieq4MdaD7hdJw8X8dBfYjx4eWiQKaaC6ALRHNwv0uMQHYfVuT+7340Kj0yu2vJu830p22GjMwxD5OmDYGhZXIiPbjOk2cVRIxM0lhiovRyRtZ0ramuMP4DeZprMZWdvsFYTnrhcLr/qfLLgNUu9RsW9B31ia9nX/C66lUJ/Biu3ccKsG7Z1SVt7yBhxcBcLEwQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cKNjK52vYZgD5oUPy99FkvuX4ZAhDME6ywfveYU7b/g=;
+ b=yF1jcF5wQeCh7nrntCHO64ahOEYpHUW+VDeJ4S+nOtmhQUB1fjeFZPlnB+r+efYYQ4ngOwmaCMtgz5Uqv2BhqTm1iGyDArsYm/dff1wk78w7J1Gp8655JD4VGTsmK2DJegL9IpPiwCgHTHzN/5kthf/R+UOmOKG5eaqH2x3wT1vZczt3T2hDfhS4K0vYnO94NQqzqSwgTyvZFNS0vAF5YhYrfmwm/2UxBCrmR5x3J3P99dcTuIHHzCgpPrvHBGHERAfX9ergZpr1RtfCPQ9KMtl1rcJPCLbWuha5q2gzBgdtmm6c/Ovb3LxWHf20nyhXqk/25UQ/IudXumap3QcQWQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cKNjK52vYZgD5oUPy99FkvuX4ZAhDME6ywfveYU7b/g=;
+ b=gRzBU7VMYJSjfeFTllN+hkT8yyak4zXqZgmQr7Bgw5pKB8ohgENuFaP0FrK6NcW1GkPRpG11Gc9P7tOMpchqnjbEoGu/2ktK4PbwBqpdNcQt+EEN6Z5aJq5iAExedwlCJuVxok9uOBEXzKrPXmuMwRs5FAoZrtAxrYjangy5VSyWAc6qdSgaWnUn7aTHgvdLP97yCDnzI5Ah22zmqaEV8xIy8RKRzITdF4jUjKHkP8SbYAlcLQyvTVKUyklbkIGCFcCu+Jo7wzGRtJUq0jmelXUyqGBGH+aO5Vc8fLTuZ51nuhJ/X79wyYz1Pxr/gg4v3lhHizuFBPlPu4UJGdWq2g==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by PA1PR04MB11407.eurprd04.prod.outlook.com (2603:10a6:102:4f7::5) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.10; Thu, 27 Aug
+ 2026 16:03:26 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0360.008; Thu, 27 Aug 2026
+ 16:03:25 +0000
+From: Frank.Li@oss.nxp.com
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-    Hans Verkuil <hverkuil+cisco@kernel.org>,
-    linux-media@vger.kernel.org
-Cc: Yun Zhou <yun.zhou@windriver.com>,
-    Yousef Alhouseen <alhouseenyousef@gmail.com>,
-    Edward Adam Davis <eadavis@qq.com>,
-    Dan Carpenter <error27@gmail.com>,
-    Kees Cook <kees@kernel.org>,
-    Ricardo Ribalda <ribalda@chromium.org>,
-    linux-kernel@vger.kernel.org,
-    syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
-Subject: Re: [PATCH v3] media: dvb-core: fix use-after-free in dvb_frontend_open
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	linux-media@vger.kernel.org (open list:MEDIA INPUT INFRASTRUCTURE (V4L/DVB)),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v1 1/1] media: dt-bindings: tc358743: Convert to YAML
+Date: Thu, 27 Aug 2026 12:03:07 -0400
+Message-ID: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: PH7PR10CA0002.namprd10.prod.outlook.com
+ (2603:10b6:510:23d::28) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB11407:EE_
+X-MS-Office365-Filtering-Correlation-Id: f7a76bfc-c542-4615-401c-08df0454ba0e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|19092799006|366016|23010399003|1800799024|376014|10067099003|3023799007|18002099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	8PVFmT0qJi+EhV4AbzuGTObY/wkknwKkXUcvlLjZZtJ1/R39kTJSamKYsasNh3qGK4K+4d2WHpV6v9639xdYYp54Ow5V5bE6PI+wCViSMaIPoRPsFOWs0o753wccd2LHMzGXOZcXIC4uTnB+WEEivIM2PVVo1ld6omd4YuLSNGLI273OIcQrrl02iIWkZt7aUi8fTT1OadD1HTkGA/fHUqLVd/+9Ej6AsNb6Gbru1RaQkBcKCtM5Z7ItjtLY6rwlxhmepu0NeC1CKjOy1RQeGI3zIjjhLCA3OT5hy1Z1c8PXey4zt9O9ls4M4rr3e8TWPEL0CUrLuwyxak512T/w27ArzGvSbPKBUaNccDTgRYkMlWflFtatqphfTMJL2+NyGfxNY5xl3Rfg0Z4w2PIv0fUZkO4BtKX6EjBXj+oYPMMeHYgl9WyzvFAQStBl3yrXNuTj35ZBn3KYKDEDYkGA4zosy6wR3T6aCsmkXZI8LVz5yRwTpyWShblB+rzE/B93PSiVz95SodQIhWTI77APWED/n/kPlGPPPzWXfM9oboOX/WH87VqayUeFHOaSMHQLfMeA2Pyj37DexDIYPmwmBvhLIUMQc/PvKxY5cVWCBejL9VMfRLGHYpiNUcuLgqkh
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(23010399003)(1800799024)(376014)(10067099003)(3023799007)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?y9ba/DnDSpSOdhB8efU0qND+Lzf1Y4Blo8Xe/GnuBm1qL+ewFfuSObKIjBgH?=
+ =?us-ascii?Q?dlGH6EfXXKJVA2pBEJ0mOrBvlrpFoof+eEt6i/ia31sN+vnxut6spxulekI7?=
+ =?us-ascii?Q?MDWRmCasH652O2Ent02WTFf5Z+HU9bQJsoNkQgHDtPRWzwfPFtTk0BB+w6bE?=
+ =?us-ascii?Q?jTkew0gyRAAIZAlzUsaDDU5eS3KiU911+NLfKuocNnpqN+ntD6dndsmwxqI9?=
+ =?us-ascii?Q?48H2aFpxRxw7jBkY1ByNGNH64rE9zkLcQ+7irky0/x6Ah+VSGxgFs2AdbT9L?=
+ =?us-ascii?Q?6kgJTBxbre/T0w3S6yq2LL2AfgViDfp3DLUpYbED9nrj9PvBqhEYoBTnyI4V?=
+ =?us-ascii?Q?qE+9KpgvMFN62XWKt7ePXzFM1IL7vocv7J522pABPofpqlx3VGqTB2GrTkQr?=
+ =?us-ascii?Q?xo8w+5Fhz+2t+x+ctv5bsmvpLwUbqC/JB6ckHX1gXXDXmtPltHbRiVBHGVFk?=
+ =?us-ascii?Q?pEj1+JlbmMbjngmlFjrWAqsL8h9NN0XwgDwef5+Osd6iYDbIEDAaR2VTo4WQ?=
+ =?us-ascii?Q?FqBGIFiPO9BjYYa7MQTDd8SXaE/mBJG47nx6jMtpFKKjosqYtwrj1kpt7KZa?=
+ =?us-ascii?Q?BpFqjRWf7qzJ3Yw/XTfkEyGmASnPHYJpNqPpR03Wczo/oGKhsKN5r4usS9IF?=
+ =?us-ascii?Q?3yjEzhVOwH3l6WPNQT04mR70sYb43i7W5ux1NHHaF2tKuu7D4P2B3KhOePLw?=
+ =?us-ascii?Q?QTiCFW2Y41xZo9sLWwYGGtE7tbm4rNuXJ5Id9IMZ2/3tWhIOiqN4f0mP16c3?=
+ =?us-ascii?Q?hIjCdKiZRFDWnH8xq83SvESXevoX5IvmsmwphYQu3/4ssSuxy4GknMBcvdua?=
+ =?us-ascii?Q?NgRKPDvr87evZJamFJgdnknPwtAzrjeN8ObLs70b1015HQcRDW1vzgrxXsxH?=
+ =?us-ascii?Q?wzm5Ux/WH9Q/eDHTJq5tQFReL2X9n/BXsdQtZQ6TWI+438+zr/31yJpMIURF?=
+ =?us-ascii?Q?OQm7n6Xr8vjvmVHaDESElBIS6gbiKQYZI054HvjLcV+4NWcJgggYMrfvuJbt?=
+ =?us-ascii?Q?aB8K3uKBNPUnEcYNaCKzAIcOCooQsPjK9c6bkkzjtriPjtgT55JRB4Yzi2z+?=
+ =?us-ascii?Q?9pUoOjuRz+OTUdJkaWVVKpo7jVYQS2UZM2dkezWjRwqujmW0aSmqpQXwpa9G?=
+ =?us-ascii?Q?4DgHeYsySjpRL4mJxhOP4s02FSHGSbcABHRgYI9oGq0tgdjouEr818YWYUwy?=
+ =?us-ascii?Q?nQWytM3/eav3I1p8jFtdivc2PxVzPqNCKMtKnC83X2K3oggoLlqBRvDWKpWe?=
+ =?us-ascii?Q?OazGeQviVGkZ0XlkYG3Lw8bvusBCUoGkvfkwiwJJoDGNNhAuKiXtOfe847t9?=
+ =?us-ascii?Q?aJQw4BmChXOasN9M+TcAFmuX9EthuC2CBbE5nDN6+ZuCfStfO2X914gu8Hyc?=
+ =?us-ascii?Q?eefiArJBL/IpjLe4cd5BKsVjDwXZkRTGzjP7Va9ihrg9wV5ehHubrHdlHDKr?=
+ =?us-ascii?Q?oB2n8UqRsl1pbLfsgkMgnlkx7dPGCiUzyt0fXydO+RSUqLCez0rcJ8YJydi1?=
+ =?us-ascii?Q?yFIcumf/396yJRBpPXEbciHvQH1OxvKres5gRtgIJQEpMqOU260DeJEZhpCN?=
+ =?us-ascii?Q?EEBuO+TkIROZsa0tF5j7WWIRqhTVIWtMTB3XjZlsu8so0y3plYUXFzglxAJN?=
+ =?us-ascii?Q?X8nsehY4xTuQVr0wk2pmsqO7zprtT7eSk8dpstpNjVNvS1Z8hOrpBB4FxvIZ?=
+ =?us-ascii?Q?AdJ7d6MgPfy3Rz0F07nI3eA+PIaUsQLg1sf6dKnPUoaVZfNZK1EQc1T3tPpP?=
+ =?us-ascii?Q?4CpcIJX1tZHpeAGpX1xubW96prUGICM=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f7a76bfc-c542-4615-401c-08df0454ba0e
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Aug 2026 16:03:25.6859
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: mz5GG5V5eu7V7ZDD7AO3MXDlfQB30UHRH2LzFMQ+O4NSHK+QNXgfU7YnZCBBTpooio0giC5WYq5AirbB0CST81kAHf8VYhNIPNbT445BkHI6ZqCT6F8GlT6tKGbRQCcV
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB11407
 
-In-Reply-To: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
-References: <1c0aa133-b44b-4cca-91cd-82a80769b494@windriver.com>
+From: Frank Li <Frank.Li@nxp.com>
 
-Hi Yun, all,
+Convert the Toshiba TC358743 HDMI-RX to MIPI CSI2-TX bridge device
+tree binding from txt to YAML format.
 
-Continuing this thread: the v3 series (and the related "avoid dropping
-device ref" / "pin frontend device" attempts from June) has not been
-merged as of v7.3-rc1 -- I confirmed dvb_frontend_open() still calls
-dvb_generic_release() on its err2 path in mainline today, and the
-underlying bug is still live (syzbot hit it again on 2026/08).
-
-I'd like to propose an alternative fix that I believe is more robust,
-with fault-injection reproduction on 7.2-rc7 / 7.3-rc1.
-
-Root cause
-----------
-dvb_device_open() takes one device reference for the file and drops it
-itself when ->open() fails (a2dd235df435).  dvb_frontend_open() undoes
-the users/readers/writers accounting of dvb_generic_open() on its error
-paths by calling dvb_generic_release().  But dvb_generic_release() also
-drops the file's device reference, so on a frontend open failure the
-same reference is dropped twice:
-
-  dvb_device_open()                dvb_frontend_open()
-  ------------------------------   ---------------------------------
-  dvb_device_get()          ref+1
-  file->f_op->open()
-                                   dvb_generic_open()
-                                   err3: dvb_frontend_start() fails
-                                         (e.g. -ENOMEM)
-                                   err2: dvb_generic_release()  ref-1
-  err != 0
-  dvb_device_put()          ref-1
-
-The extra put can drop the last reference and free the device while it
-is still registered in dvb_minors[], so a subsequent open() dereferences
-freed memory (KASAN: slab-use-after-free in dvb_device_open, syzbot
-extid 1eb177ecc3943b883f0a, first reported 2024/12).
-
-Why a different approach
-------------------------
-Previous proposals (v1-v3 in this thread, plus the June patches)
-balance the counters around dvb_generic_release() -- e.g. incrementing
-the refcount before the call so the put inside it nets out, or restoring
-users/writers/readers by hand.  That works, but it keeps the subtle
-coupling: dvb_generic_release() still has the side effect of dropping
-the device reference, which is only correct on a successful open.
-
-This patch instead splits that single responsibility out: the counter
-restore becomes dvb_generic_open_undo(), which does NOT touch the
-device reference, and dvb_frontend_open() uses it on its error paths.
-The reference remains owned and released by dvb_device_open().  This
-makes the ownership explicit and removes the class of double-put bugs
-for every future ->open implementation, not just the frontend.
-
-Verification
-------------
-syzbot reproducer (open of /dev/dvb/adapter0/frontend0 with fail_nth: 8,
-failing the kthread allocation in dvb_frontend_start()):
-  * unpatched 7.2-rc7: reproduces the KASAN UAF within seconds
-  * patched: survives 90s of continuous fault-injected opens, zero
-    KASAN / refcount warnings; FAULT_INJECTION traces confirm the error
-    path is exercised each time
-
-Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
-Cc: stable@vger.kernel.org
-Reported-by: syzbot+1eb177ecc3943b883f0a@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=1eb177ecc3943b883f0a
-Tested-by: Guikun Yang <2855020996@qq.com>
-Signed-off-by: Guikun Yang <2855020996@qq.com>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
 ---
- drivers/media/dvb-core/dvb_frontend.c |  6 +++++-
- drivers/media/dvb-core/dvbdev.c       | 29 +++++++++++++++++++++++++++++
- include/media/dvbdev.h                | 11 +++++++++++
- 3 files changed, 45 insertions(+), 1 deletion(-)
+ .../bindings/media/i2c/toshiba,tc358743.txt   | 48 ----------
+ .../bindings/media/i2c/toshiba,tc358743.yaml  | 93 +++++++++++++++++++
+ MAINTAINERS                                   |  2 +-
+ 3 files changed, 94 insertions(+), 49 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
 
-diff --git a/drivers/media/dvb-core/dvb_frontend.c b/drivers/media/dvb-core/dvb_frontend.c
-index d082b6c57c76..5ef7756c3413 100644
---- a/drivers/media/dvb-core/dvb_frontend.c
-+++ b/drivers/media/dvb-core/dvb_frontend.c
-@@ -2887,7 +2887,11 @@ static int dvb_frontend_open(struct inode *inode, struct file *file)
- 	mutex_unlock(&fe->dvb->mdev_lock);
- err2:
- #endif
--	dvb_generic_release(inode, file);
-+	/*
-+	 * Undo dvb_generic_open() only: the file's device reference is
-+	 * dropped by dvb_device_open() when this open fails.
-+	 */
-+	dvb_generic_open_undo(file);
- err1:
- 	if (dvbdev->users == -1 && fe->ops.ts_bus_ctrl)
- 		fe->ops.ts_bus_ctrl(fe, 0);
-diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
-index d753d329502a..8623df718ea0 100644
---- a/drivers/media/dvb-core/dvbdev.c
-+++ b/drivers/media/dvb-core/dvbdev.c
-@@ -172,6 +172,35 @@ int dvb_generic_release(struct inode *inode, struct file *file)
- }
- EXPORT_SYMBOL(dvb_generic_release);
+diff --git a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
+deleted file mode 100644
+index 59102edcf01ea..0000000000000
+--- a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
++++ /dev/null
+@@ -1,48 +0,0 @@
+-* Toshiba TC358743 HDMI-RX to MIPI CSI2-TX Bridge
+-
+-The Toshiba TC358743 HDMI-RX to MIPI CSI2-TX (H2C) is a bridge that converts
+-a HDMI stream to MIPI CSI-2 TX. It is programmable through I2C.
+-
+-Required Properties:
+-
+-- compatible: value should be "toshiba,tc358743"
+-- clocks, clock-names: should contain a phandle link to the reference clock
+-		       source, the clock input is named "refclk".
+-
+-Optional Properties:
+-
+-- reset-gpios: gpio phandle GPIO connected to the reset pin
+-- interrupts: GPIO connected to the interrupt pin
+-- data-lanes: should be <1 2 3 4> for four-lane operation,
+-	      or <1 2> for two-lane operation
+-- clock-lanes: should be <0>
+-- clock-noncontinuous: Presence of this boolean property decides whether the
+-		       MIPI CSI-2 clock is continuous or non-continuous.
+-- link-frequencies: List of allowed link frequencies in Hz. Each frequency is
+-		    expressed as a 64-bit big-endian integer. The frequency
+-		    is half of the bps per lane due to DDR transmission.
+-
+-For further information on the MIPI CSI-2 endpoint node properties, see
+-Documentation/devicetree/bindings/media/video-interfaces.txt.
+-
+-Example:
+-
+-	tc358743@f {
+-		compatible = "toshiba,tc358743";
+-		reg = <0x0f>;
+-		clocks = <&hdmi_osc>;
+-		clock-names = "refclk";
+-		reset-gpios = <&gpio6 9 GPIO_ACTIVE_LOW>;
+-		interrupt-parent = <&gpio2>;
+-		interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		port {
+-			tc358743_out: endpoint {
+-				remote-endpoint = <&mipi_csi2_in>;
+-				data-lanes = <1 2 3 4>;
+-				clock-lanes = <0>;
+-				clock-noncontinuous;
+-				link-frequencies = /bits/ 64 <297000000>;
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+new file mode 100644
+index 0000000000000..29dd1d58f766f
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+@@ -0,0 +1,93 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/toshiba,tc358743.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Toshiba TC358743 HDMI-RX to MIPI CSI2-TX Bridge
++
++maintainers:
++  - Hans Verkuil <hverkuil@kernel.org>
++
++description:
++  The Toshiba TC358743 HDMI-RX to MIPI CSI2-TX (H2C) is a bridge that converts
++  a HDMI stream to MIPI CSI-2 TX. It is programmable through I2C.
++
++properties:
++  compatible:
++    const: toshiba,tc358743
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  clock-names:
++    const: refclk
++
++  reset-gpios:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    unevaluatedProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        unevaluatedProperties: false
++
++        properties:
++          data-lanes:
++            oneOf:
++              - items:
++                  - const: 1
++                  - const: 2
++              - items:
++                  - const: 1
++                  - const: 2
++                  - const: 3
++                  - const: 4
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
++  - port
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        bridge@f {
++            compatible = "toshiba,tc358743";
++            reg = <0x0f>;
++            clocks = <&hdmi_osc>;
++            clock-names = "refclk";
++            reset-gpios = <&gpio6 9 GPIO_ACTIVE_LOW>;
++            interrupt-parent = <&gpio2>;
++            interrupts = <5 IRQ_TYPE_LEVEL_HIGH>;
++
++            port {
++                 endpoint {
++                     remote-endpoint = <&mipi_csi2_in>;
++                     data-lanes = <1 2 3 4>;
++                     clock-lanes = <0>;
++                     clock-noncontinuous;
++                     link-frequencies = /bits/ 64 <297000000>;
++                 };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index fe10d29b7657b..9abeaa3f31ca8 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -27673,7 +27673,7 @@ TOSHIBA TC358743 DRIVER
+ M:	Hans Verkuil <hverkuil@kernel.org>
+ L:	linux-media@vger.kernel.org
+ S:	Maintained
+-F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
++F:	Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
+ F:	drivers/media/i2c/tc358743*
+ F:	include/media/i2c/tc358743.h
  
-+/**
-+ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
-+ *
-+ * @file: pointer to &struct file.
-+ *
-+ * Restores the users/readers/writers accounting done by
-+ * dvb_generic_open(), without dropping the file's device reference:
-+ * that reference is taken by dvb_device_open(), which also releases
-+ * it when ->open fails.  Using dvb_generic_release() on an error path
-+ * of an ->open implementation would therefore drop the reference
-+ * twice and could free a device that is still registered in
-+ * dvb_minors[].
-+ */
-+void dvb_generic_open_undo(struct file *file)
-+{
-+	struct dvb_device *dvbdev = file->private_data;
-+
-+	if (!dvbdev)
-+		return;
-+
-+	if ((file->f_flags & O_ACCMODE) == O_RDONLY)
-+		dvbdev->readers++;
-+	else
-+		dvbdev->writers++;
-+
-+	dvbdev->users++;
-+}
-+EXPORT_SYMBOL(dvb_generic_open_undo);
-+
- long dvb_generic_ioctl(struct file *file,
- 		       unsigned int cmd, unsigned long arg)
- {
-diff --git a/include/media/dvbdev.h b/include/media/dvbdev.h
-index e5a00d126612..a32998afd804 100644
---- a/include/media/dvbdev.h
-+++ b/include/media/dvbdev.h
-@@ -354,6 +354,17 @@ int dvb_generic_open(struct inode *inode, struct file *file);
-  */
- int dvb_generic_release(struct inode *inode, struct file *file);
- 
-+/**
-+ * dvb_generic_open_undo - undo dvb_generic_open() on a failed ->open
-+ *
-+ * @file: pointer to &struct file.
-+ *
-+ * Restores the users/readers/writers accounting done by
-+ * dvb_generic_open() without dropping the file's device reference,
-+ * which dvb_device_open() releases itself when ->open fails.
-+ */
-+void dvb_generic_open_undo(struct file *file);
-+
- /**
-  * dvb_generic_ioctl - Digital TV close function, used by DVB devices
-  *
 -- 
-2.0.0
+2.43.0
 
