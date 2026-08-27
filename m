@@ -1,179 +1,108 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C97DD43F0AA;
-	Thu, 27 Aug 2026 11:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B190C3644A4;
+	Thu, 27 Aug 2026 11:59:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787830793; cv=none; b=Ci3XN5ngrca0nDxlU6Ff9HfVIyKfAv8cPQbyAOUsBZ42T7DhF/CuMIhCYRhSqFdng8aK/CPiEa8T9GJU5Oh3JotmuwIkN289/IY22uw4AT95G6odYG+JVflImIYgfTn1Nz/9Wia4AbMGPxqNqcOlQlfWsqanx3A/xUc0DNgtafk=
+	t=1787831955; cv=none; b=NXRmSDGfjtQyWfQDnIdDp93VKbYs5DLM6sew3dkimkE/2hYAdUw73r0/QvL3GL/9cKJ8hS84MJuq7ENPKKZ1UrkfN1/cUlwgIe0k/+axfy47V+jTQoSiVyjnaFaB6p/3u+uUH2oK3aZW+uXMCoozA4D6knal+w3+BjNSjutduFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787830793; c=relaxed/simple;
-	bh=XULJagCawLGGMzu4v5oVG+lE3/xVT1oj3u8TI7aSukc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dPWywdPAwK1sGTldDXkKaJgal6vrI+wsXI8aoCKQ2fu9ZbCuGwIrHTYDaTVZUVM3cXtDzz0NNU6PMHyp0i0Lno+GKslH1UZ3FQoEZTV0fZjYPqRldjHM2aR/s+v3FNKT/O7xdJeTThSeCgLnYOMzkOo6ck8BmD7RVbreHCVEYSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rPCOCNsf; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1787831955; c=relaxed/simple;
+	bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pk8OETrGbV6KdnTBWiI/SWcviIrUh6F9Cqc2NFgTPjLV/L1brK9lDR8VERenNc9lNeE9iK27GF6H4+DOyxEjuuJXkrOFgdAgL4ih1vnUJw3UkaVessM0ZSwnEvh6I8v+2BCeP5FewfKKn7pr+GGNG7xx5nYRHEr/dWB9psNlxDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mMCare4E; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rPCOCNsf"
-Received: from [192.168.68.124] (unknown [149.106.186.222])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 99FAA512;
-	Thu, 27 Aug 2026 13:38:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1787830702;
-	bh=XULJagCawLGGMzu4v5oVG+lE3/xVT1oj3u8TI7aSukc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=rPCOCNsfjuz9ZCpgYLpWlL21TlzT5IgK5QDbrbOkbWGBYi2Wf/g3gqsv+n8Csttt/
-	 wVCxqLvBffb3J98fV5/q/Xuti5rhWBFhhwMHcNBqyDeZy2+LCK+LQP3q33ocSq9uCK
-	 hZpTfKA1q8yIj3VIqmdb2pVCc5QePgrpVmM1JRgY=
-Message-ID: <e8175f36-eeee-4c24-99ea-de25bd698fe2@ideasonboard.com>
-Date: Thu, 27 Aug 2026 12:39:45 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mMCare4E"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787831954; x=1819367954;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=gl7Ypggdt6+OInYK5seGvYHZ3ns4wQAaeLb/KQCSOfw=;
+  b=mMCare4E9c8zGSJW0bzv6f3tESo0YDlEOgs+PpKt9Vg7PXK6xLIgePMg
+   CB3UQNFnPM+J1FrhqFxEA6ekTSlsd+D657J+2YsxbPdDDWZ0w2jVK9Ksd
+   wM+2R+2cLC7gmVwPUiJKvFdE4M/htAQTf904ix/rLBBDoWrU3m1ZSJagI
+   uqMPIZYAhK7mH1qEAWvE+KLZ/hhud43EpwaEGaY7eqHvgktpUIEVKyH8C
+   EUxyACMOEF6bEMH+rs35LEKz2PFEuEcwCz477vRDLS7jt8xqmerwlifSm
+   VrqjM0AVDWh0y01jE3BttcPFKfl/x8CWT8PE0o3hph48RSgph95j4CcWA
+   A==;
+X-CSE-ConnectionGUID: ufvTOtf9RCmNxgJxhrDbVw==
+X-CSE-MsgGUID: KO58nqLlRYOR19eg5CeztQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="105704515"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="105704515"
+Received: from orviesa004.jf.intel.com ([10.64.159.144])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:14 -0700
+X-CSE-ConnectionGUID: T5mZF9iCT9KzrcrE8fY1yQ==
+X-CSE-MsgGUID: eAYSQsFJQgm/QV5Io8v0Lw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="271652792"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 04:59:10 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id F28C7120DF1;
+	Thu, 27 Aug 2026 14:59:06 +0300 (EEST)
+Date: Thu, 27 Aug 2026 14:59:06 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/8] media: ov8858: support 19.2 MHz clock and CHT gain
+ setup
+Message-ID: <apAmisduSqFoTrpG@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-2-mauriziocasciano7@gmail.com>
+ <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/3] platform/x86: int3472: Clean up GPIO parsing
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, linux-media@vger.kernel.org
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, linux-acpi@vger.kernel.org,
- Len Brown <lenb@kernel.org>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- platform-driver-x86@vger.kernel.org
-References: <20260825203553.3725132-1-sakari.ailus@linux.intel.com>
- <20260825203553.3725132-4-sakari.ailus@linux.intel.com>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260825203553.3725132-4-sakari.ailus@linux.intel.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apAGGD27ZUFHQ6Aa@ashevche-desk.local>
 
-Hi Sakari, thanks for the patch
-
-On 25/08/2026 21:35, Sakari Ailus wrote:
-> In skl_int3472_handle_gpio_resources(), only a single integer value from
-> the ACPI object is used so release it early and avoid having to call
-> ACPI_FREE() on it later on. This makes it possible to return an error
-> where it happens, except when we're holding a reference to a GPIO. ngpios
-> is also incremented earlier on but that does not introduce a functional
-> change.
+On Thu, Aug 27, 2026 at 12:40:40PM +0300, Andy Shevchenko wrote:
+> > static int ov8858_init_ctrls(struct ov8858 *ov8858)
 > 
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> ---
-
-Looks good to me:
-
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
-
->   drivers/platform/x86/intel/int3472/discrete.c | 42 ++++++++-----------
->   1 file changed, 18 insertions(+), 24 deletions(-)
+> >  	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
+> >  	const struct ov8858_mode *mode = &ov8858_modes[0];
+> >  	struct v4l2_fwnode_device_properties props;
+> > +	u32 digital_gain_default = OV8858_LONG_DIGIGAIN_DEFAULT;
+> > +	u32 digital_gain_max = OV8858_LONG_DIGIGAIN_MAX;
+> > +	u32 digital_gain_min = OV8858_LONG_DIGIGAIN_MIN;
+> >  	s64 exposure_max, vblank_def;
+> >  	unsigned int pixel_rate;
+> >  	struct v4l2_ctrl *ctrl;
 > 
-> diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-> index 9cd4f78875ab..1f8751a7db0c 100644
-> --- a/drivers/platform/x86/intel/int3472/discrete.c
-> +++ b/drivers/platform/x86/intel/int3472/discrete.c
-> @@ -328,6 +328,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->   	u8 active_value, pin, type;
->   	unsigned long gpio_flags;
->   	union acpi_object *obj;
-> +	unsigned int obj_value;
->   	struct gpio_desc *gpio;
->   	const char *con_id;
->   	int ret;
-> @@ -343,24 +344,27 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->   				      &int3472_gpio_guid, 0x00,
->   				      int3472->ngpios + 2,
->   				      NULL, ACPI_TYPE_INTEGER);
-> -
->   	if (!obj) {
->   		dev_warn(int3472->dev, "No _DSM entry for GPIO pin %u\n",
->   			 agpio->pin_table[0]);
->   		return 1;
->   	}
->   
-> -	type = FIELD_GET(INT3472_GPIO_DSM_TYPE, obj->integer.value);
-> +	obj_value = obj->integer.value;
-> +
-> +	ACPI_FREE(obj);
-> +
-> +	type = FIELD_GET(INT3472_GPIO_DSM_TYPE, obj_value);
->   
->   	int3472_get_con_id_and_polarity(int3472, &type, &con_id, &gpio_flags, &enable_time_us);
->   
-> -	pin = FIELD_GET(INT3472_GPIO_DSM_PIN, obj->integer.value);
-> +	pin = FIELD_GET(INT3472_GPIO_DSM_PIN, obj_value);
->   	/* Pin field is not really used under Windows and wraps around at 8 bits */
->   	if (pin != (agpio->pin_table[0] & 0xff))
->   		dev_dbg(int3472->dev, FW_BUG "%s %s pin number mismatch _DSM %d resource %d\n",
->   			con_id, agpio->resource_source.string_ptr, pin, agpio->pin_table[0]);
->   
-> -	active_value = FIELD_GET(INT3472_GPIO_DSM_SENSOR_ON_VAL, obj->integer.value);
-> +	active_value = FIELD_GET(INT3472_GPIO_DSM_SENSOR_ON_VAL, obj_value);
->   	if (!active_value)
->   		gpio_flags ^= GPIO_ACTIVE_LOW;
->   
-> @@ -368,16 +372,18 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->   		agpio->resource_source.string_ptr, agpio->pin_table[0],
->   		str_high_low(gpio_flags == GPIO_ACTIVE_HIGH));
->   
-> +	int3472->ngpios++;
-> +
->   	switch (type) {
->   	case INT3472_GPIO_TYPE_RESET:
->   	case INT3472_GPIO_TYPE_POWERDOWN:
->   	case INT3472_GPIO_TYPE_HOTPLUG_DETECT:
->   		ret = skl_int3472_map_gpio_to_sensor(int3472, agpio, con_id, gpio_flags);
->   		if (ret)
-> -			dev_err_probe(int3472->dev, ret,
-> -				      "Failed to map GPIO pin to sensor\n");
-> +			return dev_err_probe(int3472->dev, ret,
-> +					     "Failed to map GPIO pin to sensor\n");
->   
-> -		break;
-> +		return 1;
->   	case INT3472_GPIO_TYPE_CLK_ENABLE:
->   	case INT3472_GPIO_TYPE_PRIVACY_LED:
->   	case INT3472_GPIO_TYPE_STROBE:
-> @@ -385,11 +391,9 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->   	case INT3472_GPIO_TYPE_DOVDD:
->   	case INT3472_GPIO_TYPE_HANDSHAKE:
->   		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
-> -		if (IS_ERR(gpio)) {
-> -			ret = PTR_ERR(gpio);
-> -			dev_err_probe(int3472->dev, ret, "Failed to get GPIO\n");
-> -			break;
-> -		}
-> +		if (IS_ERR(gpio))
-> +			return dev_err_probe(int3472->dev, PTR_ERR(gpio),
-> +					     "Failed to get GPIO\n");
->   
->   		switch (type) {
->   		case INT3472_GPIO_TYPE_CLK_ENABLE:
-> @@ -427,23 +431,13 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
->   		if (ret)
->   			gpiod_put(gpio);
->   
-> -		break;
-> +		return ret < 0 ? ret : 1;
->   	default:
->   		dev_warn(int3472->dev,
->   			 "GPIO type 0x%02x unknown; the sensor may not work\n",
->   			 type);
-> -		ret = 1;
-> -		break;
-> +		return 1;
->   	}
-> -
-> -	int3472->ngpios++;
-> -	ACPI_FREE(obj);
-> -
-> -	/*
-> -	 * Either return an error or tell acpi_dev_get_resources() to not make a
-> -	 * copy of the resource.
-> -	 */
-> -	return ret < 0 ? ret : 1;
->   }
->   
->   int int3472_discrete_parse_crs(struct int3472_discrete_device *int3472)
+> >  			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
+> >  			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
+> >  
+> > +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
+> > +		digital_gain_min = OV8858_MWB_GAIN_MIN;
+> > +		digital_gain_max = OV8858_MWB_GAIN_MAX;
+> > +		digital_gain_default = OV8858_MWB_GAIN_DEFAULT;
+> > +	}
+> 
+> Instead, use 'else' branch so all assignments are close to each other.
+> Also possible to avoid adding local variables.
 
+Or better yet, put them into an array and pick and index based on the
+frequency of the clock.
+
+-- 
+Sakari Ailus
