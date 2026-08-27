@@ -1,199 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DCC4A33E6;
-	Thu, 27 Aug 2026 17:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEDA446A5E8
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 18:18:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787852716; cv=none; b=c83886W7Mwc2yF61Bw9WpqbPxsnpsysuUkNbjFLB2PW6vYv0Nyl/DAV+5H3tvCmbD9RjX34ACaXEXD1GO9nR3hDdd5G/9XsKHNWPV7oBAXFiNwWfTw05Cpm2q9Rl+g+xWp2aY0oBsl2gZfrE44jFisupXYK2TDGpvks0bHNu9gY=
+	t=1787854683; cv=none; b=Q4am8qig7MtnZnT7FNf/gpjzemt/wxz5oPerbGMxLcGqUtirxFqPHYmzV2yghZJl8UpTWs8Uwfs767VrDZSkMdNMYDuhpPcVnaFxRZH6CsYwPjh7C/yXeAN3W1Tx8XttiXvyHNmSTsBgbdhazlzo/KGjdUVIc01N6zbU4dE07cQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787852716; c=relaxed/simple;
-	bh=XHM40DblLd0zIUb9AIb+d0er/7ZzbUhvpS2O6PBcn5A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZtBptL6gIi71urMql5BrBd58eC4nnQrpURQjxYvdJezqpu3z7dhILiAWkckMGscEl98xjMYU6wPfRGttsd55dj8+4zGkvfK3HzvhQuZDkcM9LjslXVn1pE+Qbc5YZIox64jMh6An8n8BKefmxq1Pni1/sTCmZ6Y2Gci2vyGDZ0A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/Zl48jy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787854683; c=relaxed/simple;
+	bh=T30D1wvUSixkGvwIe3DyjGQp2AZkfbUUBHerBjx/GDE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WRj9GejHRcMj++WWW10HBZbatjXqVG75vR4FtFvf/NQGgzbtgMHm9ykLrU3xcym+ATu/i70J2eAcfqrSGoDtaHrHiQanPhgc4ksVGHTLPV/e2wY2XOql1mX6ivFdaWX3i+ZiAK3ARK+jjEQ4qtbDC2xEIjSLNoFW7QN3dWre4Ms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A38CYH63; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/Zl48jy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5F518C2BCFB;
-	Thu, 27 Aug 2026 17:45:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787852715;
-	bh=XHM40DblLd0zIUb9AIb+d0er/7ZzbUhvpS2O6PBcn5A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=j/Zl48jye6zuxdh5fPNeqvDSbAKwSV7qgX3qT6tfKT4QwiyTw+j/EZyafzrBxiXaZ
-	 Nv4p/C+r/6zqgaeUSgo7Iy9/vOo22Qjo54BRgokTFlihUBCTSitU6lojXhnY1LJ9ck
-	 c/pCxB3cWD7Kd7jVVaoiBXPx1GEaBK5mxhOy4MJZcuU+h+COn/PyqrwgWNej6Lhrxt
-	 5yTIXs7k0iNtnN5iXdFU0Dgqj5hlas34NG7xlpo2rdvfK0pyS8/08TV/XItx6zRxCp
-	 aokUUsmh0/SVgj913frcapUll8RC0NVjzI7fsFvWJ6K7/sGErxkytqoA+M2zqqTd4y
-	 vLSW5lZMWRcQw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 4D368C61DCD;
-	Thu, 27 Aug 2026 17:45:15 +0000 (UTC)
-From: Nick Faro via B4 Relay <devnull+yux50000.hotmail.com@kernel.org>
-Date: Thu, 27 Aug 2026 19:44:15 +0200
-Subject: [PATCH 5/6] media: cx231xx: always unregister nodes on USB
- disconnect
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A38CYH63"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-499840a2575so236995e9.3
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 11:18:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787854680; x=1788459480; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=X4ynh5dHuPHo6fo2Nwcxj54fhBTBYTbBjdw22iNWn8o=;
+        b=A38CYH63hu73u7OGOQyx1cmM1s6F2PoMuAceDY16XIMuoUtNaBjMM+LrjHH/aR5tL0
+         KbW+uVTpJ6hCGT+xzTsrWMFJWttVSvFoYVd1OnEiuF/G3kZm6GsAE1w5T7Ai24BVTZPg
+         4xW8/vW0H/JSLEbBKjFT1BRU5Ta4L5pwxQKmQVNPOyI9vdei8uBu4BzzwfOqAnPN9RNz
+         43fWLe+uhVreyKIOF3FinGTg12bRGPPp9xLiLxvLs3dt/7hoabVZbOpQWDjYjuRd06AU
+         u+eWvQMs1GiBefbqiBflzvjuExULhq+8OPEPB4RgNdfrlGWUtCKbp00PC1NicwUAMhfn
+         +edQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787854680; x=1788459480;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=X4ynh5dHuPHo6fo2Nwcxj54fhBTBYTbBjdw22iNWn8o=;
+        b=AnO3BXFZcRfIM3Eu2+W+oEUoJcC8ebKHOUgolBg3elSu9U11fWu99dP2xgTBOd1RbL
+         707oFI+83jsDp8V99RFOM5CK/Tnnhf2suwqb+DPLkXiqCK0Sihw7Ae/2wOw2mmmsnsTM
+         ZI6e/ivXsGucVN9AL62jmLgTrPZNdqdlYTheac3U97dLbRUUXL/nh3h81J3N3m8yIhYu
+         yOHrOxitmYxE5rcNpv+LR8ZC4mP2YiwKrNQy1yWflxi/uG2d9CBHwPfn49K8VtRhZlyY
+         ERObJA4BpgiT5pqhFo8MdZPLbbhkgBub6d5KYftvNqTtX/5ruERUnvuGkHWYGCV6jNT9
+         LeVw==
+X-Gm-Message-State: AFuF++nOb0dQkQ/AVP+ngm9XJ4SYmbsOQgvp/N3H6Nb+o3gjXIXHLEx2
+	Ry2HWFpchMxsDLqVenjSEo3SAz1lR6d1GcBI6dmD34YBaKmxuCxDyG71IjoHNrMl
+X-Gm-Gg: AR+sD10/NN+0MGSIxbDpPuDvdPe6P4tOFhvEm1wRAbcwSIM7QjfxeNfn/V4woUmaWse
+	Md+McIZLd12AEvP8t7CLFl3uaCrFIdwk9xD9Zr+o35RWs8EGUyHkf5TdyiURFCKffKyBw0ujXSW
+	6/1mAPRMFq/92idCpiL5Dc6kpxr8wtMIu2KnSvJrRaLb5/6dfAwhBnMFoBvrCwJRNb2+jtRYNWd
+	p31d92tk2C9XTJoa0BAUxzJniVIMxGHg5ho3NEhbW1hFh4PM6bnHEKFIG3KcIb0Rm4j7mgJus30
+	g8+YwGeLGgVOQAXcxYcLafAFHs2a0yjQDZlphDLuHHp2FoxxQn3tIRf91/6GEhy8HMQ2Ss1e26A
+	jiWNoLc56C0M/nmTehhpU8zwRLNqQG7pQu0jRPF4LwZ6Nh7rckW8YKeBdzh+WkFwDikvFoA7ZeE
+	9wDCXLY8nOlsN7syg1LHbS/98G/BVjipYb8IeZTh7MElRYM8L4PO3PSSxz2COMjCXx5VCxlmVBI
+	N0fwrvYHa7sFClkQzHOmWvTtpQCZNpR/dfFlENyXAhWm2bpzTvnELs=
+X-Received: by 2002:a05:600c:5288:b0:499:84fe:5f3e with SMTP id 5b1f17b1804b1-49b91c41014mr14112725e9.9.1787854679987;
+        Thu, 27 Aug 2026 11:17:59 -0700 (PDT)
+Received: from 1Z10 ([78.213.170.242])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b497fa9c5sm66270655e9.4.2026.08.27.11.17.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 27 Aug 2026 11:17:59 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v2 00/11] media: Add Lenovo Yoga Book YB1-X91 camera support
+Date: Thu, 27 Aug 2026 20:17:45 +0200
+Message-ID: <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-cx231xx-disconnect-lifetime-v1-5-7bbf946bbd36@hotmail.com>
-References: <20260827-cx231xx-disconnect-lifetime-v1-0-7bbf946bbd36@hotmail.com>
-In-Reply-To: <20260827-cx231xx-disconnect-lifetime-v1-0-7bbf946bbd36@hotmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nick Faro <yux50000@hotmail.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787852712; l=5250;
- i=yux50000@hotmail.com; s=20260827; h=from:subject:message-id;
- bh=lfYMdUVPkBvAiiFLQfWpvqyr8TfO0f8rtCgH5KZb5Kk=;
- b=QcsLRD7jwBhZLD3x9enMGFZKq90mt713EljTrvGk0P4MwqGVCBZViLyEhidR+GLnjZieYsSA0
- 1WoRYO08rwyDwEOkDm+Nh7ZfKcXMcsMWehf4Rb9Hf1g/K7OpFaENMeE
-X-Developer-Key: i=yux50000@hotmail.com; a=ed25519;
- pk=FMSCCFHmUW8ylFpPOeaegUBqrRhzdMS2snqX/kNbLtM=
-X-Endpoint-Received: by B4 Relay for yux50000@hotmail.com/20260827 with
- auth_id=979
-X-Original-From: Nick Faro <yux50000@hotmail.com>
-Reply-To: yux50000@hotmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Nick Faro <yux50000@hotmail.com>
+The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
+OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
+not provide enough information for the existing sensor and IPU bridge
+drivers to construct the complete camera links.
 
-The disconnect path skips cx231xx_release_resources() whenever an analog
-video file is open. No close path performs the deferred teardown, so the
-V4L2 nodes and I2C adapters remain registered and a later probe collides
-with the stale instance. The users counter also does not cover MPEG, ALSA
-or other framework references.
+Add the ACPI IDs and bridge data, describe both AtomISP camera links,
+support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
+add per-channel white-balance controls, and add the WV517S rear-camera
+lens actuator.
 
-Always unregister every device node and subsystem during disconnect. Use
-the VB2 unregister helper for queue-backed nodes so active streams are
-stopped, and serialize disconnection against in-flight file operations.
-The v4l2_device references now keep the backing memory alive until old
-file handles close.
+Raw capture is selected through the normal V4L2 raw pixel formats. There
+is no module parameter or separate private ABI. Processed formats retain
+the existing behavior, while raw formats expose the complete CSI-2
+transport frames required by the ISP2401 copy pipeline.
 
-Fixes: e0d3bafd0258 ("V4L/DVB (10954): Add cx231xx USB driver")
-Assisted-by: Codex:gpt-5.6-sol
-Signed-off-by: Nick Faro <yux50000@hotmail.com>
----
- drivers/media/usb/cx231xx/cx231xx-417.c   |  2 +-
- drivers/media/usb/cx231xx/cx231xx-cards.c | 11 +++++------
- drivers/media/usb/cx231xx/cx231xx-video.c | 10 +++++-----
- drivers/media/usb/cx231xx/cx231xx.h       |  1 +
- 4 files changed, 12 insertions(+), 12 deletions(-)
+Changes since v1:
 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-417.c b/drivers/media/usb/cx231xx/cx231xx-417.c
-index 3a509e55f61d..9bda68666b05 100644
---- a/drivers/media/usb/cx231xx/cx231xx-417.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-417.c
-@@ -1672,7 +1672,7 @@ void cx231xx_417_unregister(struct cx231xx *dev)
- 	dprintk(3, "%s()\n", __func__);
- 
- 	if (video_is_registered(&dev->v4l_device)) {
--		video_unregister_device(&dev->v4l_device);
-+		vb2_video_unregister_device(&dev->v4l_device);
- 	}
- }
- 
-diff --git a/drivers/media/usb/cx231xx/cx231xx-cards.c b/drivers/media/usb/cx231xx/cx231xx-cards.c
-index 1b1e7bca4c6d..8e23de4cddf8 100644
---- a/drivers/media/usb/cx231xx/cx231xx-cards.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-cards.c
-@@ -1946,7 +1946,6 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
- 	cx231xx_close_extension(dev);
- 	cx231xx_ir_exit(dev);
- 	cx231xx_release_analog_resources(dev);
--	cx231xx_417_unregister(dev);
- 	cx231xx_remove_from_devlist(dev);
- 	cx231xx_dev_uninit(dev);
- err_init:
-@@ -1970,7 +1969,8 @@ static int cx231xx_usb_probe(struct usb_interface *interface,
- /*
-  * cx231xx_usb_disconnect()
-  * called when the device gets disconnected
-- * video device will be unregistered on v4l2_close in case it is still open
-+ * Device nodes are unregistered immediately. Their backing memory remains
-+ * alive until the last open file descriptor is closed.
-  */
- static void cx231xx_usb_disconnect(struct usb_interface *interface)
- {
-@@ -1997,7 +1997,7 @@ static void cx231xx_usb_disconnect(struct usb_interface *interface)
- 
- 	if (dev->users) {
- 		dev_warn(dev->dev,
--			 "device %s is open! Deregistration and memory deallocation are deferred on close.\n",
-+			 "device %s is open; disconnecting it now\n",
- 			 video_device_node_name(&dev->vdev));
- 
- 		/* Even having users, it is safe to remove the RC i2c driver */
-@@ -2007,17 +2007,16 @@ static void cx231xx_usb_disconnect(struct usb_interface *interface)
- 			cx231xx_uninit_isoc(dev);
- 		else
- 			cx231xx_uninit_bulk(dev);
-+		cx231xx_uninit_vbi_isoc(dev);
- 		wake_up_interruptible(&dev->wait_frame);
- 		wake_up_interruptible(&dev->wait_stream);
--	} else {
- 	}
- 
- 	cx231xx_close_extension(dev);
- 
- 	mutex_unlock(&dev->lock);
- 
--	if (!dev->users)
--		cx231xx_release_resources(dev);
-+	cx231xx_release_resources(dev);
- }
- 
- static struct usb_driver cx231xx_usb_driver = {
-diff --git a/drivers/media/usb/cx231xx/cx231xx-video.c b/drivers/media/usb/cx231xx/cx231xx-video.c
-index 154bb4300392..c8c460da2b9a 100644
---- a/drivers/media/usb/cx231xx/cx231xx-video.c
-+++ b/drivers/media/usb/cx231xx/cx231xx-video.c
-@@ -1561,21 +1561,21 @@ void cx231xx_release_analog_resources(struct cx231xx *dev)
- 
- 	/*FIXME: I2C IR should be disconnected */
- 
-+	if (dev->board.has_417)
-+		cx231xx_417_unregister(dev);
-+
- 	if (video_is_registered(&dev->radio_dev))
- 		video_unregister_device(&dev->radio_dev);
- 	if (video_is_registered(&dev->vbi_dev)) {
- 		dev_info(dev->dev, "V4L2 device %s deregistered\n",
- 			video_device_node_name(&dev->vbi_dev));
--		video_unregister_device(&dev->vbi_dev);
-+		vb2_video_unregister_device(&dev->vbi_dev);
- 	}
- 	if (video_is_registered(&dev->vdev)) {
- 		dev_info(dev->dev, "V4L2 device %s deregistered\n",
- 			video_device_node_name(&dev->vdev));
- 
--		if (dev->board.has_417)
--			cx231xx_417_unregister(dev);
--
--		video_unregister_device(&dev->vdev);
-+		vb2_video_unregister_device(&dev->vdev);
- 	}
- }
- 
-diff --git a/drivers/media/usb/cx231xx/cx231xx.h b/drivers/media/usb/cx231xx/cx231xx.h
-index 19f5036a78d7..8fb1eb9d600e 100644
---- a/drivers/media/usb/cx231xx/cx231xx.h
-+++ b/drivers/media/usb/cx231xx/cx231xx.h
-@@ -873,6 +873,7 @@ void cx231xx_stop_TS1(struct cx231xx *dev);
- void cx231xx_start_TS1(struct cx231xx *dev);
- void cx231xx_uninit_isoc(struct cx231xx *dev);
- void cx231xx_uninit_bulk(struct cx231xx *dev);
-+void cx231xx_uninit_vbi_isoc(struct cx231xx *dev);
- int cx231xx_set_mode(struct cx231xx *dev, enum cx231xx_mode set_mode);
- int cx231xx_unmute_audio(struct cx231xx *dev);
- int cx231xx_ep5_bulkout(struct cx231xx *dev, u8 *firmware, u16 size);
+- split the sensor ACPI IDs into one patch per driver, add a preparatory
+  C99-initializer cleanup, avoid ACPI_PTR, and retain the existing acpi.h
+  include because ov2740 already calls acpi_dev_state_d0();
+- split the existing OV8858 digital-gain programming into a preparatory
+  patch and simplify the 19.2 MHz clock/gain changes;
+- use standard frequency units, cleaner declaration ordering and bridge
+  quirk data instead of duplicated firmware-string parsing;
+- remove the allow_raw_output module parameter and use normal VIDIOC_S_FMT
+  raw-format selection;
+- represent sensor padding with struct v4l2_area, simplify the raw-format
+  conditions, and expose full raw transport dimensions;
+- simplify the OV2740 white-balance arithmetic, cluster the three gain
+  controls, and apply them together during runtime resume; and
+- convert WV517S register access to regmap, correct runtime-PM handling,
+  restore controls on resume, and clarify copyright and board comments.
 
+The series is based on mainline at 73e3f0710014. All patches pass strict
+checkpatch with no errors, warnings or checks. Pahole reports a 64-byte
+ov2740_mode with no holes and a 792-byte ov8858 with the new clock-rate
+field naturally aligned. A clean 20-job bindeb-pkg build containing the
+same final source state completed successfully.
+
+Runtime testing used a Lenovo Yoga Book YB1-X91L. Both sensors, AtomISP
+and WV517S bound. Focus position 300 was accepted. Captures passed with:
+
+- front raw BG10: 1932x1092, 4472832 bytes;
+- rear raw BG10: 3264x2448, 16293888 bytes;
+- front processed YU12: 1920x1080; and
+- rear processed JPEG: 3248x2432, 1530647 bytes.
+
+The raw format was selected and streamed in the same v4l2-ctl invocation,
+as reopening the video node restores its default format. Both raw files
+were non-empty and distinct, and the rear full-resolution JPEG completed
+without AtomISP, sensor or runtime-PM errors.
+
+Maurizio Casciano (11):
+  media: ov8858: Extract digital gain programming
+  media: ov8858: support 19.2 MHz clock and CHT gain setup
+  media: ov2740: Use C99 initializers for ACPI IDs
+  media: ov2740: Add OVTI2740 ACPI ID
+  media: ov8858: Add INT3477 ACPI ID
+  media: intel: ipu-bridge: Add Yoga Book camera sensors
+  media: atomisp: Add Yoga Book camera configuration
+  media: atomisp: support the Yoga Book OV2740 link
+  media: ov2740: add manual white balance controls
+  media: atomisp: allow raw Bayer capture
+  media: i2c: Add WV517S lens actuator driver
+
+ MAINTAINERS                                   |   1 +
+ drivers/media/i2c/Kconfig                     |  11 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/ov2740.c                    | 177 ++++++++++++---
+ drivers/media/i2c/ov8858.c                    | 156 ++++++++++++--
+ drivers/media/i2c/wv517s.c                    | 204 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |  19 +-
+ .../staging/media/atomisp/pci/atomisp_cmd.c   |  33 ++-
+ .../staging/media/atomisp/pci/atomisp_csi2.c  |  17 +-
+ .../staging/media/atomisp/pci/atomisp_csi2.h  |   2 +
+ .../media/atomisp/pci/atomisp_csi2_bridge.c   |  65 +++++-
+ .../media/atomisp/pci/atomisp_internal.h      |   3 +
+ .../staging/media/atomisp/pci/atomisp_ioctl.c |  22 +-
+ .../staging/media/atomisp/pci/atomisp_v4l2.c  |   9 +
+ include/media/ipu-bridge.h                    |   2 +
+ 15 files changed, 648 insertions(+), 74 deletions(-)
+ create mode 100644 drivers/media/i2c/wv517s.c
+
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 -- 
-2.43.0
-
-
+2.53.0
