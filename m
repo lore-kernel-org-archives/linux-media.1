@@ -1,71 +1,68 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787554C77BB
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 18:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B035F4C0425
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 18:19:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787854760; cv=none; b=QrkiuQxsf5mIW+/yM3I9D2yk+TYgQgeQ6c7v+b1GTrS7I+1zcCu9OzCwBzPWqo6x9pCwqGIHfYxOL+YEO09dAzBGEhuTVIApw+Obvk6IzcVEqj5pKj0MGsN7X660jONCBUvv4bfRTyJao6j2ZnEJXSRw1tILJN68ln9/XXG0Ee8=
+	t=1787854775; cv=none; b=VowCpbSzr3VpadX5P3A2E5LWREEDjdiYxwDiOE5836qnxcG8mQv9ytAF4NRKNK+1NJ/M4xkQcWwI6Opll6U4kmzYMrCHmMFIGk7W+H6lW37WX9kEMx2FWurs6sZPGPS9ALLv4RrBjMUy+er7LGG5nqizWSQE9UZwQUwDGEdDhR4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787854760; c=relaxed/simple;
-	bh=laeJaCvRd81udZfwhlzLQ/pBiNLkEyq18mqwuNA0OIU=;
+	s=arc-20240116; t=1787854775; c=relaxed/simple;
+	bh=b00El0lY+1vglMoXPEaunV+c5xkWsWC2fZx+ObgptIY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ewqN0lmiqoQJI+EDyUU0j/5+V6kpBT3zLUmIqMhOy7+8TlNSCbJoDk9x5m1E60l7M+sbq/8/w4i/BW7JGxB/vBx0vNBBRtrm5MK+mWh1Y0+xRvdyj7NyI6G1LAxHuEJYOPLkSfkJ0hETGPnzxTAlXmo1/KNJtlyNZx5VZKQNZx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vm1wiD4x; arc=none smtp.client-ip=209.85.221.44
+	 MIME-Version; b=fd6wLSJuB9mOsgqHBo4XF9F1XdgUjXOF3tOvxSgPe+UEWnlGaAzJ2IUrsuzOlmnvYiXpFq+5NvI5hmZSWA8AWsQSvx8b0nsTGwG/G285Ddt1Mf88Mga98fsVBTRlJxSDD9pxbLK85AOPYpXfRfU2ZmIIQftoL1DMvam33GA7MYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQZ+nTe7; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vm1wiD4x"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-4815bce4652so115342f8f.1
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 11:19:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQZ+nTe7"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-47db714766aso986762f8f.0
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 11:19:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787854754; x=1788459554; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787854766; x=1788459566; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eXazbZDjHYS7TxQMC+6npHdpPuAZoywDenkIT58mmgM=;
-        b=Vm1wiD4xngdmdbJ7Q724KkCQ1P5WGn9HhNe3L4kwzcy3WbT/9exNwEYu4Rw3knE2VQ
-         sXsHrSMMDPG7X53ZEo5pq2UcEBz2QMOnAmcF4DK8o2WwurY0qeAdLv/LGbFodfaOvZOv
-         uPyoznno1BLNBLt1+g8U//pSNKClwAIMNJw/2VVUZMuIHPsIV+Z2b53bsRQWNUIIHj4N
-         2ZxKjbNGuS8fuQcohQhVUnD9DIrc28ECG2ayBfIM71UUSkcU5OTZVWcKkUYSEHQ7yc3k
-         eqypMr0QFNOzPwIJ6ukV4Td2HvMhLw+r2YVyDsEORuEl+4cHt2aQzpgF0ry83oLjhY6o
-         BQfA==
+        bh=K0N7A4g9Z6siCzGcIeQCrf9aJnqqFTqpG+UHLQb2Qlo=;
+        b=KQZ+nTe7VVHpraq5U4Ajuk8jONMqyC/1Nc6BXYEY/UoWyqZuC0c+Ur2iO/S7uaQ+ws
+         +MzmtGk1OfgaYtFv36TiQiQtiyuVpcqtoWfKdaxFVEzMvFazOik4DKpkmibnmNlXT8iN
+         DfMUOt8UtZxj+FNQgJUTkSb6r+CMCKQYhFbTb3DZQDpfXhfmMtDbZc7tjxMu37XNOc/P
+         8LuA4cORat24/HyBbR7LNufYHSGDa/HM20QSkydxBuVjdoeuYs63gJVdDrsk/pIbDpfZ
+         5Ol4w7VIkVy6hAXo37z9J/LwkPUXZX1UIaAHY8GGW78wG/PcftUYgFQEqcVWi2SoLTvA
+         /MtA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787854754; x=1788459554;
+        d=1e100.net; s=20251104; t=1787854766; x=1788459566;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eXazbZDjHYS7TxQMC+6npHdpPuAZoywDenkIT58mmgM=;
-        b=nBmMZ+D+x5foQCN2ORSkD8HyXnEePAPKzbtMU6kmWWExX6BCk9JGM5fVOfOmr6+eoE
-         lx6/ljzoR+In+gMYaqwo98jbjz+LFX3YKlBpjrWxtDEZT3uPMkfOlQz3D5XpdmG3I/K9
-         dq6imk11iiF+O6y/nTbPLCy7vQZTLlUQrm+Z+PUwY1jb2OsQKP8Qnjs2I06T8dlojeFH
-         +CW9N4YbTBs6zSGAQw8hkC4MRasX4h5Gfk2V9leND0tYMVMHGpd5hFO05xg1qEXy9Afx
-         ZjyfVSWMNg/XKGSCKXpsaniBD51HcN6SPF15M+b1JX3BrYMD6lTpSmVraLIblWsjCI36
-         6geQ==
-X-Forwarded-Encrypted: i=1; AHgh+RoR7wv3Vu1/2qDP+1QdWajWed59B58yboGAvAXtOEOaz+U/wmb2U9XgAzpvbXZnyTUQDkZQtKmGw1M/eQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++k5yL05auS2Z+yFBapu1uXbNEHuyc/mqdAtINrpxEDYhDNV4+wT
-	vH3piGMe+IFM4m8Wo46uvWMs35BYH9wO9bZSQygt/xi432p9AVVwte+B
-X-Gm-Gg: AR+sD11LJBBn2lup/iO9gWxcaxwvwPzXfOLlQSlgjeyPd6fzPGmNMoMKNlgNBhZqOGw
-	gxbvNwzootnmAMKuTC+nPYT838/8aHJbou1Hx1ygMaxOVVeXzNYYz4xt2xROt9sGDb+EvyGoatU
-	Mdn+PjLXkmEpF9Ycg3mxahwlz44ghBCXT7B3JTU8kKfKJXU6fK0bBZsd0aiQPxTkUffm9od43bt
-	1p5nkDyrixdzYVhr5GW6txsB/TXsbzf6RgJFN9EQp3Np4fJyKkGNwrllx29L2fj37hn9U8rzNBb
-	HxgZFSdSZH4YY1quIT2jAEYU0lrCFEvc21c4zMKo36BRlWBo/VMMaRnkNgH0v8PUuEr3sCzqUy+
-	YcZxRc9ghc3WqYdm41PmpaYUKJCVU+gsURVQCvGawZnn4wntQ6dXScJUM7RRsjkFOUXl3jT9ng6
-	zrMrGILOsZSUM7QVPR6q2Lp49W++Kyc9/MUeNo0FEEREIkEACZgWtAC6NC12IpHbLOc9M2FyCbw
-	Etr1jiepqwi/Yv/RhC6FidsYb+c4g1eDWDxqaKkFv6y
-X-Received: by 2002:a05:6000:2388:b0:47f:5369:bba with SMTP id ffacd0b85a97d-482f79d7637mr707984f8f.15.1787854753934;
-        Thu, 27 Aug 2026 11:19:13 -0700 (PDT)
+        bh=K0N7A4g9Z6siCzGcIeQCrf9aJnqqFTqpG+UHLQb2Qlo=;
+        b=MOTmFXyUtlvZ/aWL5EDchprEpOziGNv6wAWIXRz92mKBNgGF+nuujPiLxP0Zgzjwfj
+         i7iWJLlvSuEQzZ42qYNWOrn2FwpHR+cVdQp6jjlO9gWh24lK1uGu538VBC2Ftqb1EzYj
+         HAxBaO/N276DdvqZMM6h0UW8vKYQRA4Am9pvdbRdTWAukHdBfHVvJsrHoIvdFJKNCc5Y
+         YPZZvRwlgI12eb6dfc+TX9xEyvjRQlWDY7xsn0djj7H78bpmis4zriu74psCAQFTS6uP
+         7s8UUYPQvpv8y/5fVQSNXUYbS//m0QJ4cZLHRaFMlaoqzl15JC9KXIQ7ISELxu8LNyKs
+         XaXA==
+X-Gm-Message-State: AFuF++kw7pWjkK4DBiMG0wYmMU6fm9U21gNwgfRI8QSYyFVplkFLixa1
+	pa+00B8PUfB/lTIQmv7TIG9lv+W+sIWk4psOyUMrdeunjLunt5fglt36
+X-Gm-Gg: AR+sD13kqx9Tu+E2zund9MKvTKfnOOB+yLAdSt9LXeHQxRFjFLI/Po0u4Rp7nq1yXIR
+	XVMfjA+UR8Qr5pRcjO0NVfThhbTUGmFnuCzdVwv3zIZsE/gW2pPuzRyh4yEcw8Xa1KDyqKwe4iQ
+	+2FkJcBCxY3dJq86DIMYDE2AVXBHEH0aNzA/Nc52qVa6t3+7EeBbVRSaXjlagxmmr+5bMHU1Ab4
+	SFRsK9RiCRvIjqs0vTjzscXmCePlvjbJ7c0SzMdMP44vkFphkzhkm6CGn1vsppt08Be1um5PlGb
+	UjD3EP0nvQV6HLBAbmkT5+GstV9JZAxdvyR0NlQJD8p5u7R5/26omyXB2XS2Vc7Vc70Z1FM5bMs
+	iTIWJ841bLGY1SP6XnPTUJvFc5So6aEofId17XptmVjcT526jHSzACVqlogM2nNBI9moPDUTznc
+	Jqhavj0Q9Wq00udhEzaHF4RwzZN+fIMu+yes31JjuLkyD/SU2ywhAHnFhwk8nvQ0LiQXvWCuO/1
+	m0xKfMSa+LevBmAZQqYkig8wkRdT/Y1h7s6uanfQuod
+X-Received: by 2002:a05:6000:4a1b:b0:482:e4bc:51a9 with SMTP id ffacd0b85a97d-482f75789a7mr1643068f8f.4.1787854766117;
+        Thu, 27 Aug 2026 11:19:26 -0700 (PDT)
 Received: from 1Z10 ([78.213.170.242])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e279eef5sm10428350f8f.1.2026.08.27.11.19.11
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482e27ab1f3sm11158603f8f.11.2026.08.27.11.19.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 11:19:13 -0700 (PDT)
+        Thu, 27 Aug 2026 11:19:25 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-media@vger.kernel.org,
+To: Bingbu Cao <bingbu.cao@amd.com>
+Cc: linux-media@vger.kernel.org,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Nicholas Roth <nicholas@rothemail.net>,
 	Andy Shevchenko <andy@kernel.org>,
@@ -75,12 +72,12 @@ Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: Re: [PATCH 2/8] media: i2c: Add Yoga Book camera ACPI IDs
-Date: Thu, 27 Aug 2026 20:19:10 +0200
-Message-ID: <20260827181910.2431826-1-mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH 6/8] media: ov2740: add manual white balance controls
+Date: Thu, 27 Aug 2026 20:19:22 +0200
+Message-ID: <20260827181922.2432231-1-mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <apAKR_wiAUhI0ZQn@ashevche-desk.local>
-References: <apAKR_wiAUhI0ZQn@ashevche-desk.local>
+In-Reply-To: <BN3PR12MB95696150D1DC736824104D2D8BAD2@BN3PR12MB9569.namprd12.prod.outlook.com>
+References: <BN3PR12MB95696150D1DC736824104D2D8BAD2@BN3PR12MB9569.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -89,25 +86,14 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Here is the requested excerpt from the YB1-X91L DSDT. Both devices are under
-\\_SB.PCI0.I2C3:
+Yes, the three controls need to be updated together. v2 clusters digital
+gain, red balance and blue balance with:
 
-    Device (CA11)
-    {
-        Name (_HID, "INT3477")
-        Name (_CID, "OVTI8858")
-        Name (_DDN, "OV8858")
-    }
+    v4l2_ctrl_cluster(3, &ov2740->digital_gain);
 
-    Device (CA01)
-    {
-        Name (_HID, "OVTI2740")
-        Name (_CID, "OVTI2740")
-        Name (_DDN, "OV2740")
-    }
+The runtime-resume path also applies the clustered controls after the sensor
+is powered and initialized.
 
-The corresponding runtime ACPI paths are \\_SB.PCI0.I2C3.CA11 and
-\\_SB.PCI0.I2C3.CA01. In v2 the ID additions are split into one patch per
-driver and preceded by the requested C99-initializer cleanup.
+Thank you.
 
 Maurizio
