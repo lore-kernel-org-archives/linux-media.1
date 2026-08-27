@@ -1,285 +1,122 @@
-Received: from mail-oi2-f11.google.com (mail-oi2-f11.google.com [74.125.231.203])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F8147CC80
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 18:53:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.203
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E58FE4DB575;
+	Thu, 27 Aug 2026 18:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787856818; cv=none; b=VDhRZSmn51q81rqU6xeAWzOjHORzp5+fFJapjFAfEruMX0nlbyGcx1pKnel8YxoYQ0Th+xWkKjMzNu6vLNHb7kOzVP2qPyCM94/g55l3Sgwpw3UKN84qjn4MN9+Wyjh4sFazw4DwXCKgnrKlqXOtePVi6YZWUPLq+ts1Hp9Atho=
+	t=1787857102; cv=none; b=DaeDW+QZZ3VnMSiqYGOtIGypQpa686+9cENiLwJNWzSkJ/23sQAxoNpPRabRUohqRYY303dMGL5IiYUXKy8urMOki1mVXicDrCyb1QuBjPf4qKbVFUwefynq00qG/sioAXjHQoAAijcFa+c0IM4Xbd8NCYWFxXjaVSu4Yu9Gsfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787856818; c=relaxed/simple;
-	bh=iaN/4u6361qQxz+55/dYN/c/M2gbiI8ALO9x2zvxqHQ=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=aYlJC1MeisnGC4JcB524pBzUQDYl919LxazFAX+W0yopshqx6E0WPiMEt1EpBOq3hvUcj8Qdmbx1lfIN6cSsk3dalLD45mvBgkdTPWPdIgp+LfizxBrV9nSPEGSm/1pqvP0viAqy34GdyISwOif2UBAYoxtChDkM+OXsgulGTeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.203
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi2-f11.google.com with SMTP id 5614622812f47-4af7193adb7so125427b6e.0
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 11:53:26 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787856804; x=1788461604;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=a6dn4f5aEIwbpKJdwOuExKeoWNlh36i9YANW9BkFg7w=;
-        b=lOfv1nq4UgZAD7prJF1cA4/71nADFx2N5TaqIKrpcNOLBjny7X2DsF7vQpGlij1gAX
-         Gyyd9xrWOrwdFtWzIzQtgkgq0XWotsDXBg8xP2w4FZXh3RP3zjoWDqSKzitSGUNj24De
-         c6H6a0EUEK7mtYoxGXTaOYBOzLICQcbKMMrPDVKlTycLD7rdwLdvPcg3Ck1g7n7RBGlR
-         kXcDsYpipzn52uGwSudXNNMz/13gWBvkEVzp274AxxUFhbRd1v+9miuJZTreOgJVi8F8
-         LIFFjECxHjrmnOgDCJ0WPea4O3JVNJy45qOxqp8bWJeR812dOvNn0A+9iN0ayyrpF0rY
-         Qx5w==
-X-Forwarded-Encrypted: i=1; AHgh+RoKORiHUABcRkifW3Y6knjMzEFZ64bjuHwO3J9xKq75w/CjvXv3gzg/IEQmEySH2AGy5cUWPNBuecVtJw==@vger.kernel.org
-X-Gm-Message-State: AFuF++l61TXJkr6gzq0zrU9z37RKxMGrdle3SriVetJBEiFRfZUw4ubd
-	Lk+vpyGrNuKAf1vu8kC4B2g/mxvcaTSekJ8GPkR1xDFIm9o44jFPmAqW3Ov03Sfm5+k4D9/4GUB
-	w6IvS8oXTBUb5WaX+WflAp1hciLNgLCJiU3rlSiYg5VXwImdVwBM/6YeWWL4=
+	s=arc-20240116; t=1787857102; c=relaxed/simple;
+	bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZpXcZm0h5lYw+l5V7vHR2Nd13/Bl9e6zsQuicOecFNQqzKbjtqlYqpg/saXus/sR1BJueoTv4u7WrZvW2M3Hn7UcCKarxd4D6uWqdxzWcpGn0fdgnibUk9NAC1Vvl0uAJfugNiEGcTXM4M8KvIrmO1/On+4t0HHdVUfhJS4LQJQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BX7MBw0A; arc=none smtp.client-ip=192.198.163.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BX7MBw0A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787857092; x=1819393092;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4zcrTddowpSxiYhcSYOL05EQdrvjbZcH9gttjFlk72U=;
+  b=BX7MBw0Agz/7wECjgjiuUSscGzNty2/h8PyNsO1XwmbVWuAY+wMW2AEj
+   u4E4s332QjvhQNWS+7DQO8IKf7tvwa0f7q/Qo0eM1ytm0jxwh7kwdjyDk
+   Wv533reo4T3G5ptLmsnNMyOZsTWslE5lZLUVqOzEUHgtpnAJC/4jviM4Y
+   d4d9RWD/2EsJyW9jetkSZq9sqqFmeXIPmw3bdiWmWLB016S67Sb35yuZy
+   9E0dPLPGyt5llitrjvwZMiU3tWCuFljlMfgb9iMfJ+euUj7c3t70Mc4UB
+   Yy216Q4FJ6s/eBOQ6DLrm0CBPytSZ2BFxXXpcJDzu+tKZGd6Xv+f9MOlx
+   w==;
+X-CSE-ConnectionGUID: PMDnzm/TRoS32hcPrIORKw==
+X-CSE-MsgGUID: WAZSE4fpTkm5a6SmF20X3w==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="98965360"
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="98965360"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:08 -0700
+X-CSE-ConnectionGUID: FVVv0PTfRDSMYeYN1XYNCA==
+X-CSE-MsgGUID: e4HhexLHSEK495d7uilDEA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,247,1779174000"; 
+   d="scan'208";a="297850150"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.125])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 11:58:04 -0700
+Date: Thu, 27 Aug 2026 21:58:02 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 00/11] media: Add Lenovo Yoga Book YB1-X91 camera
+ support
+Message-ID: <apCIuhDu9jI9ZbJl@ashevche-desk.local>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:1c0e:b0:486:8a11:6e8b with SMTP id
- 5614622812f47-4b397f9f538mr1447947b6e.2.1787856804474; Thu, 27 Aug 2026
- 11:53:24 -0700 (PDT)
-Date: Thu, 27 Aug 2026 11:53:24 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9087a4.4d659fcc.734b4.0014.GAE@google.com>
-Subject: [syzbot] [media?] [usb?] KASAN: slab-use-after-free Read in sd_stopN
-From: syzbot <syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com>
-To: hverkuil@kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-usb@vger.kernel.org, mchehab@kernel.org, 
-	syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hello,
+On Thu, Aug 27, 2026 at 08:17:45PM +0200, Maurizio Casciano wrote:
+> The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
+> OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
+> not provide enough information for the existing sensor and IPU bridge
+> drivers to construct the complete camera links.
+> 
+> Add the ACPI IDs and bridge data, describe both AtomISP camera links,
+> support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
+> add per-channel white-balance controls, and add the WV517S rear-camera
+> lens actuator.
+> 
+> Raw capture is selected through the normal V4L2 raw pixel formats. There
+> is no module parameter or separate private ABI. Processed formats retain
+> the existing behavior, while raw formats expose the complete CSI-2
+> transport frames required by the ISP2401 copy pipeline.
 
-syzbot found the following issue on:
+Do not start new version in the email thread of the previous one!
 
-HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
-git tree:       upstream
-console output: https://syzkaller.appspot.com/x/log.txt?x=13fff549580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
-dashboard link: https://syzkaller.appspot.com/bug?extid=537b5eb78cebbff5ea70
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=10b2f979580000
+> The series is based on mainline at 73e3f0710014.
 
-Downloadable assets:
-disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-818bebeb.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/6e4100526b12/vmlinux-818bebeb.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/723c4783ee96/bzImage-818bebeb.xz
+Unneeded statement, the --base puts data (and it did) in the cover letter.
+Tools know about it.
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
+> All patches pass strict
+> checkpatch with no errors, warnings or checks. Pahole reports a 64-byte
+> ov2740_mode with no holes and a 792-byte ov8858 with the new clock-rate
+> field naturally aligned. A clean 20-job bindeb-pkg build containing the
+> same final source state completed successfully.
+> 
+> Runtime testing used a Lenovo Yoga Book YB1-X91L. Both sensors, AtomISP
+> and WV517S bound. Focus position 300 was accepted. Captures passed with:
+> 
+> - front raw BG10: 1932x1092, 4472832 bytes;
+> - rear raw BG10: 3264x2448, 16293888 bytes;
+> - front processed YU12: 1920x1080; and
+> - rear processed JPEG: 3248x2432, 1530647 bytes.
+> 
+> The raw format was selected and streamed in the same v4l2-ctl invocation,
+> as reopening the video node restores its default format. Both raw files
+> were non-empty and distinct, and the rear full-resolution JPEG completed
+> without AtomISP, sensor or runtime-PM errors.
 
-==================================================================
-BUG: KASAN: slab-use-after-free in sd_stopN+0xaf/0xc0 drivers/media/usb/gspca/ov534_9.c:1615
-Read of size 4 at addr ffff8880582fc000 by task syz.2.154/6638
-
-CPU: 1 UID: 0 PID: 6638 Comm: syz.2.154 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-Call Trace:
- <TASK>
- __dump_stack lib/dump_stack.c:94 [inline]
- dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
- print_address_description mm/kasan/report.c:378 [inline]
- print_report+0x13d/0x4b0 mm/kasan/report.c:482
- kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
- sd_stopN+0xaf/0xc0 drivers/media/usb/gspca/ov534_9.c:1615
- gspca_stream_off+0xd5/0x470 drivers/media/usb/gspca/gspca.c:737
- gspca_stop_streaming+0x34/0x50 drivers/media/usb/gspca/gspca.c:1365
- __vb2_queue_cancel+0xb8/0xe90 drivers/media/common/videobuf2/videobuf2-core.c:2199
- vb2_core_streamoff+0x5e/0x140 drivers/media/common/videobuf2/videobuf2-core.c:2376
- __vb2_cleanup_fileio.isra.0+0x6e/0x160 drivers/media/common/videobuf2/videobuf2-core.c:2974
- vb2_core_queue_release+0x1f/0x190 drivers/media/common/videobuf2/videobuf2-core.c:2676
- vb2_queue_release drivers/media/common/videobuf2/videobuf2-v4l2.c:943 [inline]
- _vb2_fop_release+0xe8/0x280 drivers/media/common/videobuf2/videobuf2-v4l2.c:1146
- v4l2_release+0x280/0x390 drivers/media/v4l2-core/v4l2-dev.c:471
- __fput+0x3ff/0xb50 fs/file_table.c:512
- task_work_run+0x150/0x240 kernel/task_work.c:233
- exit_task_work include/linux/task_work.h:40 [inline]
- do_exit+0x951/0x2ae0 kernel/exit.c:1008
- do_group_exit+0xd5/0x2a0 kernel/exit.c:1151
- get_signal+0x1ec7/0x21e0 kernel/signal.c:3046
- arch_do_signal_or_restart+0x91/0x7e0 arch/x86/kernel/signal.c:337
- __exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
- exit_to_user_mode_loop+0x139/0x700 kernel/entry/common.c:101
- __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
- syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
- syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
- do_syscall_64+0x661/0x790 arch/x86/entry/syscall_64.c:89
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f0daab9e0d9
-Code: Unable to access opcode bytes at 0x7f0daab9e0af.
-RSP: 002b:00007f0daba48028 EFLAGS: 00000246 ORIG_RAX: 0000000000000000
-RAX: fffffffffffffe00 RBX: 00007f0daae26090 RCX: 00007f0daab9e0d9
-RDX: 0000000000001000 RSI: 0000200000000600 RDI: 0000000000000005
-RBP: 00007f0daac35024 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-R13: 00007f0daae26128 R14: 00007f0daae26090 R15: 00007ffd25d699f8
- </TASK>
-
-Allocated by task 2317:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
- __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
- kasan_kmalloc include/linux/kasan.h:263 [inline]
- __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- _kzalloc_noprof include/linux/slab.h:1309 [inline]
- usb_alloc_dev+0x55/0x1090 drivers/usb/core/usb.c:651
- hub_port_connect drivers/usb/core/hub.c:5478 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5715 [inline]
- port_event drivers/usb/core/hub.c:5879 [inline]
- hub_event+0x2b93/0x4420 drivers/usb/core/hub.c:5961
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-Freed by task 2317:
- kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
- kasan_save_track+0x14/0x30 mm/kasan/common.c:78
- kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
- poison_slab_object mm/kasan/common.c:253 [inline]
- __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
- kasan_slab_free include/linux/kasan.h:235 [inline]
- slab_free_hook mm/slub.c:2678 [inline]
- slab_free mm/slub.c:6372 [inline]
- kfree+0x22b/0x6c0 mm/slub.c:6687
- device_release+0xd2/0x270 drivers/base/core.c:2640
- kobject_cleanup lib/kobject.c:689 [inline]
- kobject_release lib/kobject.c:720 [inline]
- kref_put include/linux/kref.h:65 [inline]
- kobject_put+0x1f7/0x640 lib/kobject.c:737
- put_device+0x1f/0x30 drivers/base/core.c:3884
- hub_port_connect drivers/usb/core/hub.c:5415 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5715 [inline]
- port_event drivers/usb/core/hub.c:5879 [inline]
- hub_event+0x1bb1/0x4420 drivers/usb/core/hub.c:5961
- process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
- process_scheduled_works kernel/workqueue.c:3470 [inline]
- worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
- kthread+0x373/0x450 kernel/kthread.c:436
- ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
-
-The buggy address belongs to the object at ffff8880582fc000
- which belongs to the cache kmalloc-2k of size 2048
-The buggy address is located 0 bytes inside of
- freed 2048-byte region [ffff8880582fc000, ffff8880582fc800)
-
-The buggy address belongs to the physical page:
-page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff8880582fa000 pfn:0x582f8
-head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
-flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
-page_type: f5(slab)
-raw: 00fff00000000240 ffff88801c042f00 ffffea0000d28010 ffffea0001636a10
-raw: ffff8880582fa000 0000000800080006 00000000f5000000 0000000000000000
-head: 00fff00000000240 ffff88801c042f00 ffffea0000d28010 ffffea0001636a10
-head: ffff8880582fa000 0000000800080006 00000000f5000000 0000000000000000
-head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
-head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
-page dumped because: kasan: bad access detected
-page_owner tracks the page as allocated
-page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 5872, tgid 5872 (syz-executor), ts 140556794415
- set_page_owner include/linux/page_owner.h:33 [inline]
- post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
- prep_new_page mm/page_alloc.c:1879 [inline]
- get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
- __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
- alloc_slab_page mm/slub.c:3267 [inline]
- allocate_slab mm/slub.c:3382 [inline]
- new_slab+0xa5/0x640 mm/slub.c:3428
- refill_objects+0xe3/0x410 mm/slub.c:7305
- refill_sheaf mm/slub.c:2805 [inline]
- __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
- alloc_from_pcs mm/slub.c:4775 [inline]
- slab_alloc_node mm/slub.c:4907 [inline]
- __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
- _kmalloc_noprof include/linux/slab.h:988 [inline]
- rtnl_newlink+0x139/0x2620 net/core/rtnetlink.c:4113
- rtnetlink_rcv_msg+0x95e/0xe90 net/core/rtnetlink.c:7132
- netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:815 [inline]
- __sys_sendto+0x48b/0x4e0 net/socket.c:2281
- __do_sys_sendto net/socket.c:2288 [inline]
- __se_sys_sendto net/socket.c:2284 [inline]
- __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-page last free pid 5872 tgid 5872 ts 140543763839 stack trace:
- reset_page_owner include/linux/page_owner.h:26 [inline]
- __free_pages_prepare mm/page_alloc.c:1418 [inline]
- __free_frozen_pages+0x79f/0x10f0 mm/page_alloc.c:2962
- qlink_free mm/kasan/quarantine.c:163 [inline]
- qlist_free_all+0x47/0xf0 mm/kasan/quarantine.c:179
- kasan_quarantine_reduce+0x1a0/0x1f0 mm/kasan/quarantine.c:286
- __kasan_slab_alloc+0x69/0x90 mm/kasan/common.c:350
- kasan_slab_alloc include/linux/kasan.h:253 [inline]
- slab_post_alloc_hook mm/slub.c:4586 [inline]
- slab_alloc_node mm/slub.c:4919 [inline]
- __do_kmalloc_node mm/slub.c:5336 [inline]
- __kvmalloc_node_noprof+0x2ed/0x970 mm/slub.c:6900
- netif_alloc_netdev_queues net/core/dev.c:11291 [inline]
- alloc_netdev_mqs+0xb4e/0x15c0 net/core/dev.c:12187
- rtnl_create_link+0xc13/0xf80 net/core/rtnetlink.c:3777
- rtnl_newlink_create net/core/rtnetlink.c:3959 [inline]
- __rtnl_newlink net/core/rtnetlink.c:4098 [inline]
- rtnl_newlink+0x15bc/0x2620 net/core/rtnetlink.c:4215
- rtnetlink_rcv_msg+0x95e/0xe90 net/core/rtnetlink.c:7132
- netlink_rcv_skb+0x159/0x420 net/netlink/af_netlink.c:2556
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x585/0x850 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x8b0/0xda0 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec net/socket.c:800 [inline]
- __sock_sendmsg net/socket.c:815 [inline]
- __sys_sendto+0x48b/0x4e0 net/socket.c:2281
- __do_sys_sendto net/socket.c:2288 [inline]
- __se_sys_sendto net/socket.c:2284 [inline]
- __x64_sys_sendto+0xe0/0x1c0 net/socket.c:2284
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-
-Memory state around the buggy address:
- ffff8880582fbf00: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
- ffff8880582fbf80: fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc fc
->ffff8880582fc000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-                   ^
- ffff8880582fc080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
- ffff8880582fc100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
-==================================================================
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
-
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
-
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
-
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
-
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
-
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
-
-If you want to undo deduplication, reply with:
-#syz undup
