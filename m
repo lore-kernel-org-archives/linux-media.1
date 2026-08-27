@@ -1,156 +1,186 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from ixit.cz (ixit.cz [84.42.129.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85EC3C870E
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 08:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1989938D6B5;
+	Thu, 27 Aug 2026 09:21:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787820667; cv=none; b=h2EQjc9gJQNqWo/sQGqLo9T7W2GwH9BZhP2SDg7tWEJ4ekU+hg5LVX7z63Cv9aGo6h5a5MFqGGiwEsIw40/eAdGQTUfM54yVgdfye+hwEcl5xklcM/8wQ0ZwTRN7oAZjc6oui4hLyNsCli+zch6r6SVCopLywJP9LlsRVwbM+jM=
+	t=1787822472; cv=none; b=T8bWHJLF/HPH/RUhEXPCWoBNen79T+vknEp+llrDh6pqUpx9HmKo45leKMBwunijCuGQ+NVJvHvrnJK//9/jOlgyW8TGMpzu37nLUqnyzYWKlyCPQESNiMHLAteGMYtJeSjXWb17kDetKVRLmKaczUvfjV8pMQBOpY+uKdtnZes=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787820667; c=relaxed/simple;
-	bh=M/mnoZ2ovcWwqI/5BfOqx/x+LKHWlardQrJHJaygrmI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GvZZ2hI+HBLuMF2PlzcGy3jRq86jDmfBaJiATPQuiKbbYirYvN+MBbYc8xiBppAsmMWkRWtrhDwzCl1+1d640SgQI6UGtstX5NdSugTh4JPbAxOafbMgLX/4rgqizAc0yNkiYMuLuqRe4aW7ujo+ZgfJoXw8YMgAIAbLy1NK1fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OtpgT9hc; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787822472; c=relaxed/simple;
+	bh=WSdt2tsyHAa5JFOp0JQT8C+WLq/BfAWYCNKF8klKlGw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=a2rLhWVAhnS4Sx6aMg5gBu7VdX2KQXhJzVSMkIhIDlKEeve5TXRQsbcg/8g8cxt4rw8nuxLbrUWcmlGo5gZSulLRW71PwnpOrbNpour09LPH6wRVcy39SR8s/oTaSJAnRJIrkWflDXFv1I4ZDavfMoMLi2HsE5FXvtSX/3nIh0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=kz7bH0oV; arc=none smtp.client-ip=84.42.129.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OtpgT9hc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787820666; x=1819356666;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=M/mnoZ2ovcWwqI/5BfOqx/x+LKHWlardQrJHJaygrmI=;
-  b=OtpgT9hccMIo2ZBLGZbNgUzoMOiytdLyieyZtrSD9G2/tSKTML5DepWB
-   sQHXB1crLuL4aksnv6gzeU1fAWbZPI3dT2rrO3OYTLBbebEFZ29WxGRfp
-   J/KEVV6m/yaz0Erl+8WzRkzmMHbDmig/86jvKbHUsFWLJMM+Sj83Dcnv0
-   KfJIXhaaR6N2MJ8mie58jFbIuxwc15FEaO38d5KBX+D6lbCoYL7FbeOZA
-   pdCi9wnFp6cVJJizp8pXGJkF1NxRqEXVdn7xOGkS872rGzPydRLYcUUN0
-   ejIrX9SeLso/o3pMjxxtC1nh8OVT6+X2n/+sv7DYean5c2d1hNRo2yCyM
-   w==;
-X-CSE-ConnectionGUID: TwiiQcshQRaaEOV63r8ECA==
-X-CSE-MsgGUID: Xi6PgUJ8RGCz5fsdZL99RA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="75856417"
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="75856417"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:51:05 -0700
-X-CSE-ConnectionGUID: VUv8DdzdSWqaBTOCwiv41w==
-X-CSE-MsgGUID: y4ZmisNNRki+5Kc6mN44bw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="266514478"
-Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 01:51:02 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0DCDA120C1D;
-	Thu, 27 Aug 2026 11:51:00 +0300 (EEST)
-Date: Thu, 27 Aug 2026 11:50:59 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 01/29] media: v4l2-common: Add helper function
- media_bus_fmt_to_csi2_(bpp|dt)()
-Message-ID: <ao_6cyEi6P3R3Z6D@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-2-sakari.ailus@linux.intel.com>
- <CAD++jLkMt3ztAHZta58coseqnjpHxLys1sjcR0fRmtC=-m97hA@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="kz7bH0oV"
+Received: from [10.0.0.94] (unknown [79.142.128.251])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by ixit.cz (Postfix) with ESMTPSA id 267AE5340789;
+	Thu, 27 Aug 2026 11:21:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+	t=1787822461;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+	bh=QLJaUAOjKhzMPiVbviAnkyKdfqksMQk35UVALf0VbU4=;
+	b=kz7bH0oV0Qfol3XlCFHCPncD1E7Sd3QUhoAPd/c+qkiTx1YZYtBsKafU4gJz1uc9z4nSYQ
+	TXgMpyqHWUroQxi3ntyIY/pcnnz1aqQ2fQYZcfHUslupE4NpVwo0KgvQDfDDmCn0Hp/dfb
+	u0f/W5uXWsr9Li5J/N17zNNGuY7dHB8=
+Message-ID: <e03b34d6-e61f-48bd-9e13-970d7034c379@ixit.cz>
+Date: Thu, 27 Aug 2026 11:21:00 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLkMt3ztAHZta58coseqnjpHxLys1sjcR0fRmtC=-m97hA@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC] media: imx355: reuse existing CCS defines
+To: Jai Luthra <jai.luthra@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz>
+ <178772520896.9142.15892216055046447878@freya>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ xsFNBF5v1x4BEADS3EddwsNsvVAI1XF8uQKbdYPY/GhjaSLziwVnbwv5BGwqB1tfXoHnccoA
+ 9kTgKAbiXG/CiZFhD6l4WCIskQDKzyQN3JhCUIxh16Xyw0lECI7iqoW9LmMoN1dNKcUmCO9g
+ lZxQaOl+1bY/7ttd7DapLh9rmBXJ2lKiMEaIpUwb/Nw0d7Enp4Jy2TpkhPywIpUn8CoJCv3/
+ 61qbvI9y5utB/UhfMAUXsaAgwEJyGPAqHlC0YZjaTwOu+YQUE3AFzhCbksq95CwDz4U4gdls
+ dmv9tkATfu2OmzERZQ6vJTehK0Pu4l5KmCAzYg42I9Dy4E6b17x6NncKbcByQFOXMtG0qVUk
+ F1yeeOQUHwu+8t3ZDMBUhCkRL/juuoqLmyDWKMc0hKNNeZ9BNXgB8fXkRLWEUfgDXsFyEkKp
+ NxUy5bDRlivf6XfExnikk5kj9l2gGlNQwqROti/46bfbmlmc/a2GM4k8ZyalHNEAdwtXYSpP
+ 8JJmlbQ7hNTLkc3HQLRsIocN5th/ur7pPMz1Beyp0gbE9GcOceqmdZQB80vJ01XDyCAihf6l
+ AMnzwpXZsjqIqH9r7T7tM6tVEVbPSwPt4eZYXSoJijEBC/43TBbmxDX+5+3txRaSCRQrG9dY
+ k3mMGM3xJLCps2KnaqMcgUnvb1KdTgEFUZQaItw7HyRd6RppewARAQABzSBEYXZpZCBIZWlk
+ ZWxiZXJnIDxkYXZpZEBpeGl0LmN6PsLBlAQTAQgAPgIbAwULCQgHAgYVCgkICwIEFgIDAQIe
+ AQIXgBYhBNd6Cc/u3Cu9U6cEdGACP8TTSSByBQJl+KksBQkPDaAOAAoJEGACP8TTSSBy6IAQ
+ AMqFqVi9LLxCEcUWBn82ssQGiVSDniKpFE/tp7lMXflwhjD5xoftoWOmMYkiWE86t5x5Fsp7
+ afALx7SEDz599F1K1bLnaga+budu55JEAYGudD2WwpLJ0kPzRhqBwGFIx8k6F+goZJzxPDsf
+ loAtXQE62UvEKa4KRRcZmF0GGoRsgA7vE7OnV8LMeocdD3eb2CuXLzauHAfdvqF50IfPH/sE
+ jbzROiAZU+WgrwU946aOzrN8jVU+Cy8XAccGAZxsmPBfhTY5f2VN1IqvfaRdkKKlmWVJWGw+
+ ycFpAEJKFRdfcc5PSjUJcALn5C+hxzL2hBpIZJdfdfStn+DWHXNgBeRDiZj1x6vvyaC43RAb
+ VXvRzOQfG4EaMVMIOvBjBA/FtIpb1gtXA42ewhvPnd5RVCqD9YYUxsVpJ9d+XsAy7uib3BsV
+ W2idAEsPtoqhVhq8bCUs/G4sC2DdyGZK8MRFDJqciJSUbqA+5z1ZCuE8UOPDpZKiW6H/OuOM
+ zDcjh0lOzr4p+/1TSg1PbUh7fQ+nbMuiT044sC1lLtJK0+Zyn0GwhR82oNM4fldNsaHRW42w
+ QGD35+eNo5Pvb3We5XRMlBdhFnj7Siggp4J8/PJ6MJvRyC+RIJPGtbdMB2/RxWunFLn87e5w
+ UgwR9jPMHAstuTR1yR23c4SIYoQ2fzkrRzuazsFNBF5v1x4BEADnlrbta2WL87BlEOotZUh0
+ zXANMrNV15WxexsirLetfqbs0AGCaTRNj+uWlTUDJRXOVIwzmF76Us3I2796+Od2ocNpLheZ
+ 7EIkq8budtLVd1c06qJ+GMraz51zfgSIazVInNMPk9T6fz0lembji5yEcNPNNBA4sHiFmXfo
+ IhepHFOBApjS0CiOPqowYxSTPe/DLcJ/LDwWpTi37doKPhBwlHev1BwVCbrLEIFjY0MLM0aT
+ jiBBlyLJaTqvE48gblonu2SGaNmGtkC3VoQUQFcVYDXtlL9CVbNo7BAt5gwPcNqEqkUL60Jh
+ FtvVSKyQh6gn7HHsyMtgltjZ3NKjv8S3yQd7zxvCn79tCKwoeNevsvoMq/bzlKxc9QiKaRPO
+ aDj3FtW7R/3XoKJBY8Hckyug6uc2qYWRpnuXc0as6S0wfek6gauExUttBKrtSbPPHiuTeNHt
+ NsT4+dyvaJtQKPBTbPHkXpTO8e1+YAg7kPj3aKFToE/dakIh8iqUHLNxywDAamRVn8Ha67WO
+ AEAA3iklJ49QQk2ZyS1RJ2Ul28ePFDZ3QSr9LoJiOBZv9XkbhXS164iRB7rBZk6ZRVgCz3V6
+ hhhjkipYvpJ/fpjXNsVL8jvel1mYNf0a46T4QQDQx4KQj0zXJbC2fFikAtu1AULktF4iEXEI
+ rSjFoqhd4euZ+QARAQABwsF8BBgBCAAmAhsMFiEE13oJz+7cK71TpwR0YAI/xNNJIHIFAmX4
+ qVAFCQ8NoDIACgkQYAI/xNNJIHKN4A/+Ine2Ii7JiuGITjJkcV6pgKlfwYdEs4eFD1pTRb/K
+ 5dprUz3QSLP41u9OJQ23HnESMvn31UENk9ffebNoW7WxZ/8cTQY0JY/cgTTrlNXtyAlGbR3/
+ 3Q/VBJptf04Er7I6TaKAmqWzdVeKTw33LljpkHp02vrbOdylb4JQG/SginLV9purGAFptYRO
+ 8JNa2J4FAQtQTrfOUjulOWMxy7XRkqK3QqLcPW79/CFn7q1yxamPkpoXUJq9/fVjlhk7P+da
+ NYQpe4WQQnktBY29SkFnvfIAwqIVU8ix5Oz8rghuCcAdR7lEJ7hCX9bR0EE05FOXdZy5FWL9
+ GHvFa/Opkq3DPmFl/0nt4HJqq1Nwrr+WR6d0414oo1n2hPEllge/6iD3ZYwptTvOFKEw/v0A
+ yqOoYSiKX9F7Ko7QO+VnYeVDsDDevKic2T/4GDpcSVd9ipiKxCQvUAzKUH7RUpqDTa+rYurm
+ zRKcgRumz2Tc1ouHj6qINlzEe3a5ldctIn/dvR1l2Ko7GBTG+VGp9U5NOAEkGpxHG9yg6eeY
+ fFYnMme51H/HKiyUlFiE3yd5LSmv8Dhbf+vsI4x6BOOOq4Iyop/Exavj1owGxW0hpdUGcCl1
+ ovlwVPO/6l/XLAmSGwdnGqok5eGZQzSst0tj9RC9O0dXO1TZocOsf0tJ8dR2egX4kxM=
+In-Reply-To: <178772520896.9142.15892216055046447878@freya>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+On 26/08/2026 08:20, Jai Luthra wrote:
+> Hi David,
+> 
+> Quoting David Heidelberg via B4 Relay (2026-08-20 01:47:08)
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> The driver may not be MIPU CCS compliant, but does use same address and
+>> often set same values as compliant drivers. Do not define for every Sony
+>> imx* driver registers we already know and are standard.
+>>
+>> Signed-off-by: David Heidelberg <david@ixit.cz>
+>> ---
+>> I'm sending this as RFC, because we'll need to upstream at least 4 - 6
+>> drivers, which aren't compliant with MIPI CCS. Quirking these drivers in
+>> mipi-ccs would be pointless, thou we could at least simplify and unify
+>> what needs to be separate.
+>>
+> 
+> Indeed, while working on IMX708 I realized it was in the same bucket, and
+> ended up implementing a similar approach (of reusing register defines and
+> helpers from CCS).
+> 
+>> Thanks for the feedback, just did few lines for the idea how the final
+>> changes will look like. Anything ambiguous will be left as is.
+>> ---
+>>   drivers/media/i2c/imx355.c | 46 +++++++++++++++-------------------------------
+>>   1 file changed, 15 insertions(+), 31 deletions(-)
+>>
+>> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+>> index 8eb8588cb71bb..57f7c70d18453 100644
+>> --- a/drivers/media/i2c/imx355.c
+>> +++ b/drivers/media/i2c/imx355.c
+>> @@ -14,50 +14,34 @@
+>>   #include <linux/unaligned.h>
+>>   
+>>   #include <media/v4l2-cci.h>
+>>   #include <media/v4l2-ctrls.h>
+>>   #include <media/v4l2-device.h>
+>>   #include <media/v4l2-event.h>
+>>   #include <media/v4l2-fwnode.h>
+>>   
+>> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
+>> -#define IMX355_MODE_STANDBY            0x00
+>> -#define IMX355_MODE_STREAMING          0x01
+>> +#include "ccs/ccs-regs.h"
+>>   
+>> -/* Chip ID */
+>> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
+>>   #define IMX355_CHIP_ID                 0x0355
+>>   
+>> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
+>> -
+>>   /* PLL registers that depend on the external clock frequency */
+>>   #define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
+>>   #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
+>> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
+>>   #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
+>>   #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
+> 
+> I think rest of the PLL registers could also be reused here?
+> 
+> While they are defined as CCI_REG16, I think writing just a byte to it
+> should work okay.
 
-On Wed, Aug 26, 2026 at 03:18:11PM +0200, Linus Walleij wrote:
-> Hi Sakari,
-> 
-> (long time no see!)
-
-Indeed!
+It could work, but I wouldn't risk some undefined behavior. The datasheet define 
+it as is, so I would go against it (at least without seeing bigger benefit).
 
 > 
-> thanks for your patch!
+> You could also reuse the CCS PLL calculation helpers instead of hardcoding
+> the values.
 
-And thank you for the review! :-)
+I tried, but I would skip it for now, so we keep the verified configurations 
+against datasheet. Maybe in the future if there is need for it and we can 
+validate against more configurations.
 
-> 
-> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> 
-> 
-> > +struct media_bus_fmt_info {
-> > +       u32 code;
-> 
-> Nit: maybe call this .bus_fmt instead?
+I'm sending v2 cleaning the driver up with the basic scope :)
 
-Good question. The pixel codes are indeed called codes, not formats in this
-context, but the struct name contains "fmt" which implies size as well as
-other information could be included but there isn't any.
-
-Instead I think I'd call this media_bus_code_info in fact.
+Thank you
+David
 
 > 
-> > +       u8 dt;
-> > +       u8 bpp;
-> > +};
-> (...)
-> > +       { .code = MEDIA_BUS_FMT_RGB444_1X12, .bpp = 12 },
+> [snip]
 > 
-> Some of these are just code + bpp
-> 
-> > +       { .code = MEDIA_BUS_FMT_RGB565_1X16, .dt = MIPI_CSI2_DT_RGB565, .bpp = 16 },
-> 
-> and some also have data type (dt)
-> 
-> So here:
-> 
-> > +int media_bus_fmt_to_csi2_dt(u32 bus_fmt)
-> > +{
-> > +       const struct media_bus_fmt_info *info = media_bus_fmt_info_get(bus_fmt);
-> 
-> This will find entries as long as we find the bus format .code
-> 
-> > +       if (!info)
-> > +               return -EINVAL;
-> 
-> and bail out if it doesn't, but:
-> 
-> > +       /* Check bpp because 0 (MIPI_CSI2_DT_FS) is a valid data type code */
-> > +       return info->bpp ? info->dt : -EINVAL;
-> 
-> 
-> As long as it's found, it will return info->dt even for e.g.:
-> 
-> { .code = MEDIA_BUS_FMT_RGB444_1X12, .bpp = 12 },
-> 
-> this will result in the zero-initialized data type 0x00
-> which is (I think) frame start?
-> 
-> So maybe
-> 
-> if (!info || !info->dt)
->     return NULL;
+> Thanks,
+>      Jai
 
-The check indeed should be for info->dt, not info->bpp. The FS (frame
-start) packet is a short packet and short packets aren't associated with
-mbus codes so that's a non-issue.
-
--- 
-Kind regards,
-
-Sakari Ailus
