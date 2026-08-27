@@ -1,103 +1,98 @@
-Received: from sg-2-1.ptr.blmpb.com (sg-2-1.ptr.blmpb.com [71.18.227.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 390714457BD
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 12:02:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=71.18.227.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03E1844682F;
+	Thu, 27 Aug 2026 12:13:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787832145; cv=none; b=k7GwfWBSkDLd14lk3ytHgyNH9ajpvEFlTgxoOUbeJMRIzBrdsWCiRQGi8UpahxfSWi51oPHUWFsSsIUQc1lmeiw1sCfaB6DXzOJJnIsxyipPoLD7ijTsiSkGH5f29XKiNlp0H81k8KQJkmdU9PcfSThXxLVV1+UvfSLek11Tnyc=
+	t=1787832790; cv=none; b=ggeRH5peKULD3SxbXNyY+PNvPEYfmGNp4EayMh/d6na+bqI6j+m31scu88WyXtl1lGoISsSp0qJNXrnRrookvNGUOCTVWrf9Ip/97b5rk3F6s7mUQO8Mw3xrNsiTuQfSmUSFHp7LKO0FuCEQn05LHw1oc8ont3wDduCMGraza0A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787832145; c=relaxed/simple;
-	bh=jbkWxXQHrVMLMxBZ+dP2Rs/rmyCOkzm7VYJsPlAsWks=;
-	h=Message-Id:Content-Type:To:Subject:Mime-Version:From:Cc:Date; b=lrjAUq++z9nGYBhVISnPFgH+dOmTOP0ijIUJBHgLsQCNET4rTbj+7Z4yPbAKrfpe60ralEuln658hfSR/iTKPmeQIldp1/bbSOGufnJ/WT+8Rp/8gWdvsQp+mKp2lomq6sOcvNLAzl2m4ITB0cRBEB1vKGS4UO3LgIoljruvel8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc; spf=pass smtp.mailfrom=cherr.cc; dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b=zkM0RHiU; arc=none smtp.client-ip=71.18.227.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cherr.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cherr.cc
+	s=arc-20240116; t=1787832790; c=relaxed/simple;
+	bh=fdo2s9XGyXvtpwE9ycsOJ89ZJGa5LDXmxDbSXQ/Ly3I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e5o9/AYq/CF8JYyZ1USg175hZwxpcbhxmjFZXSA9hY7bWvE4sGldcXtY3+ZXQWSFixtB6n9K/H8wKhkP/NUloxm1PjBCu9NT1gnvTY7mNrf9Fd/xOp5QOyUQVr3D7kYQ5pWOt94TqO0HDXEuyHUusB1SwOZyoQQYldYPCK8bdQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fwb8maPS; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cherr.cc header.i=@cherr.cc header.b="zkM0RHiU"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=feishu2604220257; d=cherr.cc; t=1787832135; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=HYI4526PYKexYfh8uePtoxBT5q11xKZ7dZyYzPC/mxU=;
- b=zkM0RHiUKAIHO2B6qvlHCAwdrvtgcdNTX7Wh4OJyYfGUxU24IQ23km763sEhTDffYonycP
- vFmpo3ueIaDfYpVIReqeFmQz9I1+BnEYFnkkXEX+KlWHLM9rIKQMqGc1KkQuiS+XltZz7F
- p9kXjGWR66BLYu/xIMzsx1NYR+dlaRyNoGGJ4tzQPwZTbTpIV9L+BAnF6utZYXHCzFyESN
- 1YVRUA22OW1xcn2v3/VQTrcdbrubCAXUZZQX+KjkEnLES7nuCxdNsKID4Mr+b9mXYpq06U
- 8WuPtywb4XGKdszaRfakiHqVvHYizMpgwkLtA6399CUk8p34uTMEFrucu9x71g==
-X-Lms-Return-Path: <lba+26a902745+2f3288+vger.kernel.org+me@cherr.cc>
-Message-Id: <20260827-go7007-i2c-buf-bound-v1-1-4555cc3d0464@cherr.cc>
-Content-Type: text/plain; charset=UTF-8
-X-Change-Id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
-Received: from [192.168.9.107] ([111.42.148.29]) by smtp.feishu.cn with ESMTPS; Thu, 27 Aug 2026 20:02:12 +0800
-To: "Hans Verkuil" <hverkuil@kernel.org>, 
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>, 
-	"Greg Kroah-Hartman" <gregkh@suse.de>
-Subject: [PATCH] media: go7007: bound EZ-USB I2C transfers to the usb_buf size
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fwb8maPS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787832790; x=1819368790;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=fdo2s9XGyXvtpwE9ycsOJ89ZJGa5LDXmxDbSXQ/Ly3I=;
+  b=Fwb8maPSHI35ij7mf2uPsFF59CDPIPKiODY5LjshJvTbkZUdcbVjJyWF
+   IIu6k+QwB+n2OGdTWwCzCRmkksKnfr+a53gmspjM5ivP5XCjdmXvrzOSo
+   G6FqKTyUYM9hMXi5hfXJXMz5vYOjzCz/AW090UvVhfPvsfqTQFzea6/Qr
+   INPcHAf22L25+SDbDz3E09jht4Zh+pfJrAie/iYWZuxsMMzR9vAtW37Cc
+   AsZt1NTfnDBwgCl16WcXKAGyeNAwt/pN26ziqYIFzMZDMyQ59wZ4nt58H
+   SsB9E5/zjtwZpdW78Qn7ULSdw9+IeIc2TwNNjaU2hzqGLma0g1zXTNO4B
+   w==;
+X-CSE-ConnectionGUID: M8vOUhiqTYuaWNUCoUuudQ==
+X-CSE-MsgGUID: dq7wqbrvTWK14p5PLnIpoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="111113644"
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="111113644"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:13:09 -0700
+X-CSE-ConnectionGUID: IINibmaPSI+uWTXXLODgrw==
+X-CSE-MsgGUID: kYbk+smzSI6pA0J1YAe0Ig==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
+   d="scan'208";a="292694497"
+Received: from amilburn-desk.amilburn-desk (HELO kekkonen.fi.intel.com) ([10.245.244.174])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:13:05 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id C6C83120DF1;
+	Thu, 27 Aug 2026 15:13:02 +0300 (EEST)
+Date: Thu, 27 Aug 2026 15:13:02 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/8] media: i2c: Add Yoga Book camera ACPI IDs
+Message-ID: <apApzsTjVmiWWc-w@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
-From: "Shengzhuo Wei" <me@cherr.cc>
-X-B4-Tracking: v=1; b=H4sIADsnkGoC/yXMTQ7CIBBA4as0s3YSOiGlehXjgp+hThfQgBiTp ncX6/JbvLdD5SJc4TbsUPgtVXLqGC8D+KdNC6OEbiBFk5rJ4JKNUgaFPLoW0eWWAgYdHWuy2po r9HQrHOVzbu+Pv2tzK/vX7wXH8QXT0grmeAAAAA==
-X-Original-From: Shengzhuo Wei <me@cherr.cc>
-Cc: <linux-media@vger.kernel.org>, <linux-kernel@vger.kernel.org>, 
-	<stable@vger.kernel.org>, "Shengzhuo Wei" <me@cherr.cc>
-Date: Thu, 27 Aug 2026 20:02:04 +0800
-X-Mailer: b4 0.16.0
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260826132256.3343451-3-mauriziocasciano7@gmail.com>
 
-go7007_usb_i2c_master_xfer() copies msgs[i].len bytes into go->usb_buf,
-a 16-byte buffer embedded in struct go7007, without any length check.
-The adapter declares no transfer limits, so an SMBus block transfer
-issued through /dev/i2c-N can write up to 34 bytes into it and corrupt
-the struct fields that follow the buffer.
+Hi Maurizio,
 
-Bound the transfer size with i2c_adapter_quirks so the I2C core
-rejects oversized messages before they reach the driver.
+Thank you for the set.
 
-Fixes: 7955f03d18d1 ("[media] go7007: move out of staging into drivers/media/usb.")
-Cc: stable@vger.kernel.org
-Cc: Hans Verkuil <hverkuil@kernel.org>
-Signed-off-by: Shengzhuo Wei <me@cherr.cc>
----
-The EZ-USB I2C adapter in the go7007 driver copies message payloads
-into the 16-byte usb_buf embedded in the go7007 device struct without
-any length limit, so an SMBus block transfer through /dev/i2c-N can
-write past the buffer and corrupt the struct fields that follow it.
-Bound the transfer size through i2c_adapter_quirks.
----
- drivers/media/usb/go7007/go7007-usb.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+On Wed, Aug 26, 2026 at 03:22:50PM +0200, Maurizio Casciano wrote:
+> The Lenovo Yoga Book YB1-X91 firmware enumerates the front OV2740 as
+> OVTI2740 and the rear OV8858 as INT3477. Neither ID currently matches
+> its sensor driver, so both I2C devices remain unbound.
+> 
+> Add the IDs to the corresponding ACPI match tables. Sensor
+> configuration and CSI lane quirks are kept in later patches.
+> 
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> Assisted-by: Codex:gpt-5.6-sol sparse
 
-diff --git a/drivers/media/usb/go7007/go7007-usb.c b/drivers/media/usb/go7007/go7007-usb.c
-index c0cb92fa6ab9..867548d655b3 100644
---- a/drivers/media/usb/go7007/go7007-usb.c
-+++ b/drivers/media/usb/go7007/go7007-usb.c
-@@ -1029,10 +1029,16 @@ static const struct i2c_algorithm go7007_usb_algo = {
- 	.functionality	= go7007_usb_functionality,
- };
- 
-+static const struct i2c_adapter_quirks go7007_usb_quirks = {
-+	.max_write_len	= 12,
-+	.max_read_len	= 15,
-+};
-+
- static struct i2c_adapter go7007_usb_adap_templ = {
- 	.owner			= THIS_MODULE,
- 	.name			= "WIS GO7007SB EZ-USB",
- 	.algo			= &go7007_usb_algo,
-+	.quirks			= &go7007_usb_quirks,
- };
- 
- /********************* USB add/remove functions *********************/
+Please split this into two, a patch per driver.
 
----
-base-commit: 075b74841bd0065a3bda3440873c747938e69b68
-change-id: 20260827-go7007-i2c-buf-bound-d4fbe42a4a79
+What is relevant here that ACPI IDs are added, not so much where these IDs
+are being used (that goes to the cover letter).
 
-Best regards,
---  
-Shengzhuo Wei <me@cherr.cc>
+-- 
+Regards,
+
+Sakari Ailus
