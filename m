@@ -1,82 +1,73 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com [209.85.214.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6102821CA03
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 03:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95562226D18
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 04:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787802735; cv=none; b=Q5+4f047EVqgipURRXPOVB2SyjPCrPfIlMBAhM4cBUrWViob+hcC9pDCgBdWMeTahNxfgq+PquPlm4tOuJ/ftak2908iH8iLbM6f9qFvbWGF0FyQqoBQC7xX9i5VNdpXKaM0+LY01ewFsJuH7CdviFyFhgk4fEg95QGcMLI6LlA=
+	t=1787804577; cv=none; b=b6DhP1jmYv5UoOjfMoL3I8LVfA2lUsVt7iVioacEIRVK1N/fKkOYHYDQApo4TDQGFpyPim7qe8nZJ6vgDqzyZVDrd9YS1Bj4MpAqIbEMfWykCR1BWnYRsHP0GMcnIpax6FtljVikuikCfK1shK4szTIcmMlYpIn3j1FkEGiKNoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787802735; c=relaxed/simple;
-	bh=wqAOpz+o/OmBXLvAWwJjaJJz1u7kCcgSqoUoQrl5Sbc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=mkKFRrLwnZu/WYMoKRAemEEbTlzL5YFyYPXhZaafAGQId0wg8GOmS2oSrPDdJc2eRTfnz+iaI5mOkM4aPinaScx5EgqDENVs1aKItKP8ozZ5VWF3P8HROfD5otv4/FDv8xniVycKqlWnizdCmtcO7S97flIUvM/Fm9/d0YsChP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m8e7AZIs; arc=none smtp.client-ip=209.85.216.54
+	s=arc-20240116; t=1787804577; c=relaxed/simple;
+	bh=i5j4N3jc9IGaXr4Y8SA04YnztwfrViAVW8ve5zNs9Go=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Xt2PuJR8ysvXThs86HxLGchji3WwSWrekzP1NlVUhhhBmmK6hlpvH5wKdGuAeMjRYog8HnulgjqcGpUhpWyxrZxoT23WDd7mCvautw5xsY8acaZBrgq6ozm1HSCqS4v0gb7/AlVkQjcdUT4tUFPtSuAKXd8HSKR8Ju1OOBWzduo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JPEiYx8t; arc=none smtp.client-ip=209.85.214.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m8e7AZIs"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-38511175ad3so287308a91.2
-        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 20:52:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JPEiYx8t"
+Received: by mail-pl1-f170.google.com with SMTP id d9443c01a7336-2caed617615so18639875ad.3
+        for <linux-media@vger.kernel.org>; Wed, 26 Aug 2026 21:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787802733; x=1788407533; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=m8e7AZIsD7kdqLgeokh8eqNjcdbuW+SWyNNlOIq2Id//PyKBds3Af0j19qHjQ2YWvH
-         QMnEECy6gj6wnO4kNrer746kaCvGAz419/bWKL016PF0scpROiPolCW2+RFGx7dSvBbl
-         IArOfoFr79l83SZQs4tVIoZ7/hhs8ESe/ThAD9+sMa5LhBTrdPYxYSsStpATxr0ZAPwe
-         eyUzoP3yeszLkDw0jpSiGX1IH18mD4LOxoq0qoXjBmA04RFG7wRDv2l0i5w7MHrMPlc3
-         MoCfeBeG/w3sAry88pKSdEp+rIf3IdGl2w/OVWo2SkASkgcPpCYrhoia8OwBkdsM1tXj
-         2+eg==
+        d=gmail.com; s=20251104; t=1787804575; x=1788409375; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7U1BnFeXoGQfM9V4KkXP+ZPWf072nK5WtXag0RShRII=;
+        b=JPEiYx8t50DXnUk7PJlui5zwWPbxoKKJbKF9HnYBMEJWch61cnAHjw9A9F6R59ODle
+         /6ycmoQ7IxQr/JvIGoSYL0B/rY2dOjFJRLrrFehQYpxA9zFPJw8YohJ20lkJMojeK1v8
+         M/gBa+NsGH99tbOIUdQgpibMw1LPhEGaqFfovYo+VKp/X6kv1+deCcmf4hIJYHV5AMlj
+         RGN6iS9s5bF2sPpeEzGsakGoPgtzxNMPJhOskQhJXzUpl4/4oyjuYutUD/6lwf7s7EHh
+         0QA55NjCeGenkUYiQvB5P8vgE8YgCbo59QYohSirur3vkdbAhRq4Iz6vyFtI+yB9QlKT
+         Qq4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787802733; x=1788407533;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cJfrPdFq+EA9k3+W6F0OPeNTLDq5MohHxFERw6Hx1bo=;
-        b=nvRqnBxj9/PaBz6R42EwO8nLi+CMjd6Ef3WxLGb8K02kAeUB/Vb47y2aQ/XRDPEkJH
-         FLLihNJUmpw4azungaEUZ72V3ah/8miiqY0lNF488dAflGkkzfufHw9Xu23AR4QRKelH
-         QCxHQR2cxxoHs+aGbFMotbtR4Mr8WhmYiEX/5w3C3GQubzGREX7C+eNs7qBWTd4oaaZ5
-         FYpxnhdDwlAmU3KwyuGI5iV+6IQQAMNGgUawq03MZRnFO1Q62JP0L1lB1yNlCZwc+3m1
-         915DLXPUU0IsBeOeXKQgI04KL/DjgtLbDNq3KRzZSbYe2RD6IIAGctttFS5KgfCFgtTP
-         Ur4g==
-X-Forwarded-Encrypted: i=1; AHgh+RqqwJAmaJwc0WBmpHc4J5NnINO49ab+TUXp88Nt1ERmIX69EFL2Uv3jkiLtiVvWqrnkowk5MwSZ3TONxw==@vger.kernel.org
-X-Gm-Message-State: AFuF++n+wC+tDFdvcsAB5gcy1XBHWz53pjpZ4BYlQeaDNlWNbFeix/Cv
-	+9XNDO33R/euKN/oDdcnuc8cZybKkr1TSieY5ZU3KyPnfrnmXORmi48W
-X-Gm-Gg: AR+sD12QObp0JDdUGvYkWNEcRu8SA+BHd+6sBhj8A8xQUqWlY5CPWhwXKZj4V27am5n
-	7mGUqzAV/+hqi/1QlgFniEGvKyUjvDHdbj/ItEym1LNxwosPYHHGYfLq0IVtM2udATEZU2Yh4Jm
-	Rx+3cINiyXb3WV5ZAy+KBSVjNtCXx+PshiI57SJEIElIAqUiwYPQOHMvBUj50j+a7XHqpSck4GT
-	lQQXe3LOdSawzO2McwEhgYEn7W4JGSs35Wr3vf4Q0BXmyQzsJzCdXhQoX6XAY5A0TxxpCRm8MLC
-	ez4TCgLUE1sb2KtZ/n0rJb9vvoIyNv5DTIr6+KrkijRsdbzL8jNv0i2HEx0SSXb1HhA7nnkDH9m
-	UNp6AewBjvKl6OEFA62T99J434o9oPJ4KG5xFHrEwDokuZ5N03HQ8rY8oyAk1/67nowpKJJ2ajd
-	eeyYOVoNuU1QKAcmFCqqLchnlIZhThsdadVx1vkHRcZ/A0CJZp+IDJBum66PVEqBHOvRrAOJCuI
-	KT/Uw==
-X-Received: by 2002:a17:90a:d2ce:b0:393:1d92:db5 with SMTP id 98e67ed59e1d1-3966d3dc5ecmr25814435a91.10.1787802732642;
-        Wed, 26 Aug 2026 20:52:12 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1787804575; x=1788409375;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7U1BnFeXoGQfM9V4KkXP+ZPWf072nK5WtXag0RShRII=;
+        b=bL5o5PCsadkelL4QF1eYym3Ikb3djHqHO4M2/TSZRCCpZHd4IeTQpyyCsf2dUV9bZI
+         NrwlKs4CI8kbQbnAkzlMvU4rWnBp+lAPz19+Bk6KWXj4MTAPPxulFtL/AKr4oFuat+YI
+         oU4bG/Aw++Wz3vvUfupf2KIsBKIXztPr8pQ1GqLIWFtACWb+q6Czy1DKmqSmzRUs/+lp
+         H0nyI3xnXnWO9ObsBG9bXXZ8Gjp7MoYkxhzWkukPR2ysxXUl3BimHTDotoJV0VTyY7+Z
+         M77B/HHdR2uF4zVVSRMh4GFSmtMV29yqERuk6eQzf0SghqrursOsUUpVuSIj9Bw/Yd5q
+         9+kQ==
+X-Forwarded-Encrypted: i=1; AHgh+RqBByog8nMeU9eWnOJEf+cFgukyib6ePKkBG7/QzJlYPhOmI6DkmkVOo7qAFa0kRsc9AH0MYtFe7g3MUQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++na5bvQtmXR3bcp8M0PvE3cnBjk85lAYKMYnt3y2QjwZd7zANFq
+	IclAYrIC7qB1bVk3CG6XUzU6o99KsUcO4QA9nA9+wbWSHQ0WwsuNQ6q9
+X-Gm-Gg: AR+sD10CK5eEv+kzVHLcz65p7f6hKI+t/v4HtPnlqoTI247GR9EGZ80iOUOrUxfPnZb
+	wtfDdBi/bNGO55Mxo8jiUVBnBlgpun0Fbzw2HuoCKA01LpDJyivD8H80th80clpo6UAX6/ZZRsN
+	EzrGMeA1aWvxkkJDg1W3dHYg4w7Epam1t6D7ISllsuTjF/lMGW4S7UWkNpByjEIqW8SvleDCfRG
+	qUWh4qJO9oSs4DjTaMwiLG2RScSAlSiGtiXQ/wRyXytgLqL9+bA7FTPyuZY1aJlMIsa+u9kuXJN
+	Uw/JQ8S06kFdjUv6qQsjzxW0i8QmuVcMufpqxQjtZpjL892dGdTmDu6MdX5AG4ySesfz0xxaxQ5
+	i45q4W1MUryXdGUgrFvpgTMv6BGQ8e75yQJfehdEbEln/iEFCLuyhbDEWMvXWaQuapO5J2JhJur
+	kLL67Uu6vdfxP7AFT7kZX5cIXMZvFCT5Xjz4Zvn1TbcI4wt4wPlifZWY8UvYHk8WWuxA==
+X-Received: by 2002:a17:90a:e70f:b0:38e:11ba:992c with SMTP id 98e67ed59e1d1-3966d4587b7mr25543337a91.12.1787804573880;
+        Wed, 26 Aug 2026 21:22:53 -0700 (PDT)
 Received: from Default ([2409:40f4:1012:4330:756d:2890:a615:2db9])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3283d60c2b4sm20222630eec.5.2026.08.26.20.52.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-141a905cf38sm19697942c88.12.2026.08.26.21.22.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 26 Aug 2026 20:52:11 -0700 (PDT)
+        Wed, 26 Aug 2026 21:22:53 -0700 (PDT)
 From: Jeffin Philip <jeffinphilip14@gmail.com>
-To: jeffinphilip14@gmail.com
-Cc: hverkuil+cisco@kernel.org,
-	kees@kernel.org,
-	linma@zju.edu.cn,
-	linux-kernel@vger.kernel.org,
+To: dwlsalmeida@gmail.com
+Cc: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	ribalda@chromium.org,
-	sakari.ailus@linux.intel.com,
-	stable@vger.kernel.org,
-	syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
-Subject: Re: [PATCH] media: dvbdev: fix uaf in dvb_remove_device()
-Date: Thu, 27 Aug 2026 09:21:55 +0530
-Message-ID: <20260827035155.10725-1-jeffinphilip14@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Jeffin Philip <jeffinphilip14@gmail.com>,
+	syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [RFC PATCH] media: vidtv: fix uaf in vidtv_bridge_on_new_pkts_avail
+Date: Thu, 27 Aug 2026 09:52:29 +0530
+Message-ID: <20260827042229.12561-1-jeffinphilip14@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260822112256.12346-1-jeffinphilip14@gmail.com>
-References: <20260822112256.12346-1-jeffinphilip14@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -85,47 +76,39 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sat, 22 Aug 2026 16:52:56 +0530, Jeffin Philip wrote:
->In dvb_remove_device(), dvb_media_device_free(), device_destroy()
->and list_del() all dereference dvbdev regardless of its refcount.
->Thus, if refcount for dvbdev is 1, it can be freed and we
->operate on freed memory causing a UAF. Fix this by moving
->dvb_device_put() at the end of dvb_remove_device() so dvbdev
->members can be safely freed and assigned NULL when dvbdev is alive.
->
->Reported-by: syzbot+37578f730d38898f4b74@syzkaller.appspotmail.com
->Closes: https://syzkaller.appspot.com/bug?extid=37578f730d38898f4b74
->Fixes: 0fc044b2b5e2 ("media: dvbdev: adopts refcnt to avoid UAF")
->Cc: stable@vger.kernel.org
->Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
->---
-> drivers/media/dvb-core/dvbdev.c | 3 ++-
-> 1 file changed, 2 insertions(+), 1 deletion(-)
->
->diff --git a/drivers/media/dvb-core/dvbdev.c b/drivers/media/dvb-core/dvbdev.c
->index d753d329502a..9aa4b8fd7379 100644
->--- a/drivers/media/dvb-core/dvbdev.c
->+++ b/drivers/media/dvb-core/dvbdev.c
->@@ -598,7 +598,6 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 
-> 	down_write(&minor_rwsem);
-> 	dvb_minors[dvbdev->minor] = NULL;
->-	dvb_device_put(dvbdev);
-> 	up_write(&minor_rwsem);
-> 
-> 	dvb_media_device_free(dvbdev);
->@@ -606,6 +605,8 @@ void dvb_remove_device(struct dvb_device *dvbdev)
-> 	device_destroy(dvb_class, MKDEV(DVB_MAJOR, dvbdev->minor));
-> 
-> 	list_del(&dvbdev->list_head);
->+
->+	dvb_device_put(dvbdev);
-> }
-> EXPORT_SYMBOL(dvb_remove_device);
-> 
->-- 
+Attempting to unbind a dvbdevice that is in the process of feeding
+data causes a UAF as we free the underlying device without
+stopping the feed first. Fix this by stopping the stream first using
+vidtv_stop_streaming(). However, our codepath in the reproducer
+(mentioned in the below reply) does not decrement our users
+(dmxdev->dvr_dvbdev->users) to 1 after it has been incremented to 2
+by our read() in the reproducer, that is only possible on .release.
+This can cause a task hang as dvb_dmxdev_release() uses wait_event()
+in the wait_queue unless we use a close(fd)(in the reproducer).
+Is this a problem? Please advise.
 
-Friendly ping, let me know if you want me to fix anything.
+Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
+Fixes: f90cf6079bf6 ("media: vidtv: add a bridge driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jeffin Philip <jeffinphilip14@gmail.com>
+---
+ drivers/media/test-drivers/vidtv/vidtv_bridge.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks,
-Jeffin.
+diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+index fd69b4ee16f4..98d918c7f0ff 100644
+--- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
++++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+@@ -550,6 +550,8 @@ static void vidtv_bridge_remove(struct platform_device *pdev)
+ 
+ 	mutex_destroy(&dvb->feed_lock);
+ 
++	vidtv_stop_streaming(dvb);
++
+ 	for (i = 0; i < NUM_FE; ++i) {
+ 		dvb_unregister_frontend(dvb->fe[i]);
+ 		dvb_module_release(dvb->i2c_client_tuner[i]);
+-- 
+2.55.0
+
