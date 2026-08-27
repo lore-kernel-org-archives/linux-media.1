@@ -1,354 +1,254 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f200.google.com (mail-oi1-f200.google.com [209.85.167.200])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF633F2118;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEA2420888
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 09:31:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.200
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787822814; cv=none; b=XAQGSJYDSzlPPQznk1oHFa0q+iKnw0IKYGCVFWEm/IZ45SG1JFkhB+/kcawMhgwEPgzVei+Gqh88h1mUcilpevOZ2Y4/XUCfQMYVP88RXzRhhtM1PgJYl8ZtPFUQazOtvNOO1A2NtZG3k77LU404VOf07Y3p8Txig7A7oF8XcuU=
+	t=1787823102; cv=none; b=GPQwJGSs5fQ2ybpyEUfHhDIQaEDDhN3OpLRSD7U6gxe9eM4ng9QRdZuajkncqhMAuzCEzG/erVB4E5N14Dw6XbRkQfg1yFBpq0ZrkxrSizh2/t6W0y9sFjR5vY5pZRpRJUc/jXHeOovu1oPSL2HKaoIxUGW18jne06Z5ofqtAoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787822814; c=relaxed/simple;
-	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d9qriEQnd9BK583qzArjHSl34D+fbztDFkF9GH4PMBaaaU7uskg76ESkb7nTvw6RGIkilBzlxbg5Ij1rFH/d0mly7F9TNj10M0Vx2l4wmpenopSzH6tQujj5O0XxseMlGsZHTcTkimkdFivF9pDsu9iL9D0szGLERLjJTW7D1iA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZWY6CLF4; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZWY6CLF4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2D71DC19425;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787822814;
-	bh=jLzvZjqDnxlyZd2/yg5KilJ6gkcPsBkyU3U//aFt+Z0=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=ZWY6CLF4rTX2tZ1AomGcBeZkxS/t5sE1A0ly+VRHUkUUZSBj84Vux+n5gO7OU/QU6
-	 unsKJ3x8EmBxpMZ1ZfBWNryc/R2Rb4zHbaeHuOAmKAjKScg/W9z6gw0nvIkGzIHkMc
-	 MZIFptOZM3EA8cs9o7VE9dIOWGyikFoFc9FHftrcUm56j4MVe17Pj/Esu/kl3gcraj
-	 /L04X9d1iQwe4M8n0y+G4ntvdEOfHbtMbluemLO8BeJAvscIWpfjLkABwPom8Pb2Ke
-	 niJdzpH4lwxkzNvGgFuhayUFMbtVa1hvgpaHNuzklv3Me4e160cMSVu24iOKkT8eAP
-	 886yOOM3MxqLA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0B084C61DC7;
-	Thu, 27 Aug 2026 09:26:54 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Thu, 27 Aug 2026 11:26:53 +0200
-Subject: [PATCH v2] media: imx355: reuse existing CCS defines
+	s=arc-20240116; t=1787823102; c=relaxed/simple;
+	bh=P3fpSl01EL+JlZZ7pcW5UeLGCEoiQ5sAzTvO6JoKySg=;
+	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
+	 Content-Type; b=D7xxoGVZcnWlCe3myTMLbe2iFjyMUqvW4a0Lz9avzy0ysi5IPR+TCQlEEp4v1ncLzpPnIVyUyixsrogH4pDn5VTEeZGLnrYC/oseB+NSngma9r2GW+7fo+B2QIk122fsZK9a75G6V6ESJqxIRUDb5/F+pP/gWO28/kavMj+vjuc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.200
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi1-f200.google.com with SMTP id 5614622812f47-4ab4dd46ddeso1666825b6e.3
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 02:31:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787823097; x=1788427897;
+        h=content-type:to:from:subject:message-id:in-reply-to:date
+         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=BJoli19LrMNg//Htjj7MlH5QuL1/UfWbHFfI+Ddim1M=;
+        b=PW0CGDEpwZXt2mdlhYUyTsphOP2uuZWXXwNMSLOx6yhk25LUNaTn0Y3nc+IDiQe/xp
+         k9HHuAtSLaeb/lF1TFwnx6221ae4fID2/eUcx0GFQVzydSKgBD9Y7yAp08YcYd8hXJi3
+         TnIDkAHhYbfR7L8m5SJ+h6GOvucw5O/YHbMB7vxu1J0gYM1AAdfApM+imrVOMd6GLyIi
+         Wwlse1nuqfLVnsAJbe6+0X7w8NaJ3tYvyEJzCP10lC2xU81+NNkINyOZKeQXm6YpaNG6
+         yOZJ6coFuM6IW131jdFCE1cn+VAh758bdTVzT3Xs5B935zhtbqJYLqAApvvAO0GQFLhm
+         /V4g==
+X-Forwarded-Encrypted: i=1; AHgh+RpqpB12a8JLDLENRHCTyd+cVOUKTVPNvb6YJZQ1Dsl8W46qQ1dxow0ibwLMWHticpDuq1wPS4IL4AIQPQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++m7mUvqvDFQf6vLaADb14QhFlGdBflvgDw/WwBJfzlsIylGO+Cl
+	ROHTOnQdcI/3WkF8bm4Rsj2XR9IOkCUD0cy7MqcuFhKCBphDfqUphtmJZCX7gHdVOQFhsjceXez
+	ZfDHP0bE/SUhqsqV6+KR3k1q86Ge9h93nzC+KJUQnF/o6S//TL899+qOSZxU=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNQQ6CMBBFr0JmbU1bLKAr72FYyDiVMRFMWwlIe
- ndbXLt8yfvvr+DJMXk4FSs4mtjzOCTQuwKwvw53EnxLDFrqSjbqKPg5l8YIRM92EY2psDHS1MY
- qSJuXI8vz1ru0P/bv7kEYciQbPfswumU7nFT2/rUnJZSQXYVk65rKgzzzzGGPH2hjjF+O9wQSu
- gAAAA==
-X-Change-ID: 20260819-imx355-ccsify-856c850575f1
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Dave Stevenson <dave.stevenson@raspberrypi.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10030; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=8fjmIEf2Uou5I7hSyXj2MRgsHK14tG7lVR5oqFFpIqQ=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqkALdaU7SCL9MD2CLhpq7GVVTKytztNX37egim
- 9gfQ5I8Ra+JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCapAC3QAKCRBgAj/E00kg
- civREADP0/akWHg818ryfVEvANU5flZiBcQagxj5ESZ0pvy8+1sEi6Hka/aUUrj0Un6SO/32xcQ
- fyFHIv5g5OrQKCpIy/0q4ro6AclzE9iu7R3TGAACipS4DXcFm8Z6XP5SDikO47kIRDOJe+26ai0
- 5iQcKkQsvXj9iJb6mc/mdNDKQekGMnmVQ45x8EYI3rfiZ+H3cjWNbSOFyHkzUXL9B8IGRkm6+kY
- RezZxNT2gxHmHQW8+l44SILcJVLIrl4zAmm0Bl06ysMnTJnZ50n31FaMcg4mldUjkNAZFDOpZdq
- EMst8ev6O/pp+XpgSLlyavKZlqsQyaZGcHrHWM8U2CKqkki8NoooVOU+kIfVacEfsOH3ivybDJm
- C29JH3BmIa+ROq/IijFZkXwiDHiqG7Xa75LygU8smIY1NVK+JomSj7W+dHt88haqtagKhyZbHp7
- cWuNnKCYJS4cGtxKOM+Q9lvzQdBjjl7n6xSMNaKj/1e6oel92AtW7WPuuNEggMdsXWgkac38Inq
- 2q9NKWuRGFYC8PU/pBN6vaKrxNVPwPn/k1E8ErZ3vYIjC5QuWIMv9M3JrqV6Cy3k/jtTsz6TEuv
- MHFvMh4xoosKFv+7s34g9WUWfjFVGPnKx2mmbA0UMnt7jiGOHeKSn/j4cvMD3/FR8wi+2m5cdCi
- us5zaHndb613qgw==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+X-Received: by 2002:a05:6808:3505:b0:493:a860:5809 with SMTP id
+ 5614622812f47-4b3668b1451mr14124640b6e.4.1787823097520; Thu, 27 Aug 2026
+ 02:31:37 -0700 (PDT)
+Date: Thu, 27 Aug 2026 02:31:37 -0700
+In-Reply-To: <6a8c451c.dbb3a75c.7844.0004.GAE@google.com>
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a9003f9.27659fcc.2ceef7.0012.GAE@google.com>
+Subject: Re: [syzbot] [media?] KASAN: slab-use-after-free Read in vidtv_bridge_on_new_pkts_avail
+From: syzbot <syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, gregkh@linuxfoundation.org, 
+	jeffinphilip14@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, stable@vger.kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-From: David Heidelberg <david@ixit.cz>
+syzbot has found a reproducer for the following issue on:
 
-The driver may not be MIPI CCS compliant, but does use same address and
-often set same values as compliant drivers. Do not redefine registers we
-already know and are standard.
+HEAD commit:    818bebeb63dd drm/xe: Don't hand out the flat CCS storage a..
+git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+console output: https://syzkaller.appspot.com/x/log.txt?x=14fb5625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=ccca94d2c01b9e78
+dashboard link: https://syzkaller.appspot.com/bug?extid=c7fc4794e59786f5b4dc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=1033b415580000
 
-No functional changes.
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+c7fc4794e59786f5b4dc@syzkaller.appspotmail.com
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
-Changes in v2:
-- Replaced all occurences with CCS ones.
-- Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef77e340@ixit.cz
----
- drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------------
- 1 file changed, 25 insertions(+), 59 deletions(-)
+==================================================================
+BUG: KASAN: slab-use-after-free in vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+BUG: KASAN: slab-use-after-free in vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+Read of size 8 at addr ffff88802e860118 by task kworker/2:3/5832
 
-diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-index 8eb8588cb71bb..2c845b7b3df4f 100644
---- a/drivers/media/i2c/imx355.c
-+++ b/drivers/media/i2c/imx355.c
-@@ -14,89 +14,55 @@
- #include <linux/unaligned.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
- #include <media/v4l2-device.h>
- #include <media/v4l2-event.h>
- #include <media/v4l2-fwnode.h>
- 
--#define IMX355_REG_MODE_SELECT		CCI_REG8(0x0100)
--#define IMX355_MODE_STANDBY		0x00
--#define IMX355_MODE_STREAMING		0x01
-+#include "ccs/ccs-regs.h"
- 
--/* Chip ID */
--#define IMX355_REG_CHIP_ID		CCI_REG16(0x0016)
- #define IMX355_CHIP_ID			0x0355
- 
--#define IMX355_REG_LANE_SEL		CCI_REG8(0x0114)
--
- /* PLL registers that depend on the external clock frequency */
--#define IMX355_REG_EXTCLK_FREQ		CCI_REG16(0x0136)
- #define IMX355_REG_PLL_OP_PREDIV	CCI_REG8(0x030d)
--#define IMX355_REG_PLL_OP_MUL		CCI_REG16(0x030e)
- #define IMX355_REG_PLL_IVT_PCK_DIV	CCI_REG8(0x0301)
- #define IMX355_REG_PLL_IVT_SYSCK_DIV	CCI_REG8(0x0303)
- #define IMX355_PLL_OP_PREDIV		2
- #define IMX355_PLL_IVT_PCK_DIV		5
- 
- /* V_TIMING internal */
--#define IMX355_REG_FLL			CCI_REG16(0x0340)
- #define IMX355_FLL_MAX			0xffff
- #define IMX355_VBLANK_MIN		20
- 
--#define IMX355_REG_LLP			CCI_REG16(0x0342)
- #define IMX355_LLP_MAX			0xffff
- 
--#define IMX355_REG_X_ADD_START		CCI_REG16(0x0344)
--#define IMX355_REG_Y_ADD_START		CCI_REG16(0x0346)
--#define IMX355_REG_X_ADD_END		CCI_REG16(0x0348)
--#define IMX355_REG_Y_ADD_END		CCI_REG16(0x034a)
--#define IMX355_REG_X_OUT_SIZE		CCI_REG16(0x034c)
--#define IMX355_REG_Y_OUT_SIZE		CCI_REG16(0x034e)
--
- /* Exposure control */
--#define IMX355_REG_EXPOSURE		CCI_REG16(0x0202)
- #define IMX355_EXPOSURE_MIN		1
- #define IMX355_EXPOSURE_STEP		1
- #define IMX355_EXPOSURE_DEFAULT		0x0282
- #define IMX355_EXPOSURE_OFFSET		10
- 
- /* Analog gain control */
--#define IMX355_REG_ANALOG_GAIN		CCI_REG16(0x0204)
- #define IMX355_ANA_GAIN_MIN		0
- #define IMX355_ANA_GAIN_MAX		960
- #define IMX355_ANA_GAIN_STEP		1
- #define IMX355_ANA_GAIN_DEFAULT		0
- 
- /* Digital gain control */
- #define IMX355_REG_DPGA_USE_GLOBAL_GAIN	CCI_REG8(0x3070)
--#define IMX355_REG_DIG_GAIN_GLOBAL	CCI_REG16(0x020e)
- #define IMX355_DGTL_GAIN_MIN		256
- #define IMX355_DGTL_GAIN_MAX		4095
- #define IMX355_DGTL_GAIN_STEP		1
- #define IMX355_DGTL_GAIN_DEFAULT	256
- 
--/* Test Pattern Control */
--#define IMX355_REG_TEST_PATTERN		CCI_REG16(0x0600)
--#define IMX355_TEST_PATTERN_DISABLED		0
--#define IMX355_TEST_PATTERN_SOLID_COLOR		1
--#define IMX355_TEST_PATTERN_COLOR_BARS		2
--#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS	3
--#define IMX355_TEST_PATTERN_PN9			4
--
-+/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
- #define IMX355_REG_REQ_LINK_BIT_RATE	CCI_REG16(0x0820)
- 
--#define IMX355_REG_BINNING_MODE		CCI_REG8(0x0900)
--#define IMX355_REG_BINNING_TYPE		CCI_REG8(0x0901)
--#define IMX355_REG_BINNING_WEIGHTING	CCI_REG8(0x0902)
--
--/* Flip Control */
--#define IMX355_REG_ORIENTATION		CCI_REG8(0x0101)
--
- #define IMX355_PIXEL_ARRAY_TOP		0
- #define IMX355_PIXEL_ARRAY_LEFT		0
- #define IMX355_PIXEL_ARRAY_WIDTH	3280
- #define IMX355_PIXEL_ARRAY_HEIGHT	2464
- 
- struct imx355_reg_list {
- 	u32 num_of_regs;
- 	const struct cci_reg_sequence *regs;
-@@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
- 	 * when power is up for streaming
- 	 */
- 	if (!pm_runtime_get_if_in_use(imx355->dev))
- 		return 0;
- 
- 	switch (ctrl->id) {
- 	case V4L2_CID_ANALOGUE_GAIN:
- 		/* Analog gain = 1024/(1024 - ctrl->val) times */
--		ret = cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
-+		ret = cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_GLOBAL,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
--		ret = cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLOBAL,
-+		ret = cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOBAL,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_EXPOSURE:
--		ret = cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
-+		ret = cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATION_TIME,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		/* Update FLL that meets expected vertical blanking */
--		ret = cci_write(imx355->regmap, IMX355_REG_FLL,
-+		ret = cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINES,
- 				format->height + ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_TEST_PATTERN:
--		ret = cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
-+		ret = cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
- 				ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_HFLIP:
- 	case V4L2_CID_VFLIP:
--		ret = cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
-+		ret = cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
- 				imx355->hflip->val | imx355->vflip->val << 1,
- 				NULL);
- 		break;
- 	default:
- 		ret = -EINVAL;
- 		dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not handled",
- 			 ctrl->id, ctrl->val);
- 		break;
-@@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *imx355)
- 	crop = v4l2_subdev_state_get_crop(state, 0);
- 	mode = v4l2_find_nearest_size(supported_modes,
- 				      ARRAY_SIZE(supported_modes),
- 				      width, height, fmt->width, fmt->height);
- 	cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
- 			    mode->reg_list.num_of_regs, &ret);
- 
- 	/* Set readout crop and size registers  */
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
- 		  &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_ADDR_END,
- 		  crop->width + crop->left - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
-+	cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
- 		  crop->height + crop->top - 1, &ret);
--	cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret);
--	cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &ret);
-+	cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
-+	cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
- 
- 	binning_mode = ((crop->width / fmt->width) << 4) |
- 			(crop->height / fmt->height);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
-+	cci_write(imx355->regmap, CCS_R_BINNING_MODE,
- 		  binning_mode == 0x11 ? 0x00 : 0x01, &ret);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, &ret);
--	cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &ret);
-+	cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
-+	cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
- 
- 	/* Set PLL registers for the external clock frequency */
--	cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
-+	cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
- 		  imx355->clk_params->extclk_freq, &ret);
--	cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
-+	cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
- 		  imx355->clk_params->pll_op_mpy[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
- 		  imx355->clk_params->pll_op_prediv[lane_idx], &ret);
- 	cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
- 		  lane_idx ? 2 : 1, &ret);
- 
- 	/* Set MIPI configuration */
--	cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
-+	cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
- 		  imx355->hwcfg->num_lanes - 1, &ret);
- 
- 	link_bitrate = imx355->link_freq->qmenu_int[imx355->link_freq->val] *
- 		       imx355->hwcfg->num_lanes * 2;
- 	do_div(link_bitrate, 1000000);
- 	cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitrate,
- 		  &ret);
- 
- 	/* set digital gain control to all color mode */
- 	cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &ret);
- 
- 	/* set line length */
--	cci_write(imx355->regmap, IMX355_REG_LLP,
-+	cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
- 		  imx355->hblank->val + fmt->width, &ret);
- 
- 	/* Apply customized values from user */
- 	if (!ret)
- 		ret = __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler);
- 
--	cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STREAMING,
-+	cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STREAMING,
- 		  &ret);
- 
- 	return ret;
- }
- 
- /* Stop streaming */
- static int imx355_stop_streaming(struct imx355 *imx355)
- {
--	return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
--			 IMX355_MODE_STANDBY, NULL);
-+	return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
-+			 CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
- }
- 
- static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- {
- 	struct imx355 *imx355 = to_imx355(sd);
- 	struct v4l2_subdev_state *state;
- 	int ret = 0;
- 
-@@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
- }
- 
- /* Verify chip ID */
- static int imx355_identify_module(struct imx355 *imx355)
- {
- 	int ret;
- 	u64 val;
- 
--	ret = cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
-+	ret = cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NULL);
- 	if (ret)
- 		return ret;
- 
- 	if (val != IMX355_CHIP_ID) {
- 		dev_err(imx355->dev, "chip id mismatch: %x!=%llx",
- 			IMX355_CHIP_ID, val);
- 		return -EIO;
- 	}
+CPU: 2 UID: 0 PID: 5832 Comm: kworker/2:3 Not tainted syzkaller #0 PREEMPT(full) 
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+Workqueue: events vidtv_mux_tick
+Call Trace:
+ <TASK>
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0x13d/0x4b0 mm/kasan/report.c:482
+ kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+ vidtv_bridge_check_demod_lock drivers/media/test-drivers/vidtv/vidtv_bridge.c:145 [inline]
+ vidtv_bridge_on_new_pkts_avail+0x126/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:162
+ vidtv_mux_tick+0xb95/0x1460 drivers/media/test-drivers/vidtv/vidtv_mux.c:426
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+ </TASK>
+
+Allocated by task 1:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+ __kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+ kasan_kmalloc include/linux/kasan.h:263 [inline]
+ __kmalloc_cache_noprof+0x2e7/0x6b0 mm/slub.c:5484
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ vidtv_demod_i2c_probe+0x6e/0x8a0 drivers/media/test-drivers/vidtv/vidtv_demod.c:421
+ i2c_device_probe+0x658/0xd10 drivers/i2c/i2c-core-base.c:593
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __device_attach_driver+0x1df/0x320 drivers/base/dd.c:1026
+ bus_for_each_drv+0x159/0x1e0 drivers/base/bus.c:500
+ __device_attach+0x1e4/0x4d0 drivers/base/dd.c:1098
+ device_initial_probe+0xaf/0xd0 drivers/base/dd.c:1153
+ bus_probe_device+0x64/0x160 drivers/base/bus.c:620
+ device_add+0x121d/0x1970 drivers/base/core.c:3776
+ i2c_new_client_device+0x660/0xd30 drivers/i2c/i2c-core-base.c:1020
+ dvb_module_probe+0x165/0x310 drivers/media/dvb-core/dvbdev.c:1039
+ vidtv_bridge_probe_demod drivers/media/test-drivers/vidtv/vidtv_bridge.c:354 [inline]
+ vidtv_bridge_dvb_init drivers/media/test-drivers/vidtv/vidtv_bridge.c:430 [inline]
+ vidtv_bridge_probe+0x370/0xa30 drivers/media/test-drivers/vidtv/vidtv_bridge.c:510
+ platform_probe+0x106/0x1d0 drivers/base/platform.c:1507
+ call_driver_probe drivers/base/dd.c:628 [inline]
+ really_probe+0x241/0xa60 drivers/base/dd.c:706
+ __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
+ driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
+ __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
+ bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
+ bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
+ driver_register+0x1e2/0x360 drivers/base/driver.c:174
+ vidtv_bridge_init+0x52/0x80 drivers/media/test-drivers/vidtv/vidtv_bridge.c:602
+ do_one_initcall+0x11c/0x6f0 init/main.c:1353
+ do_initcall_level init/main.c:1415 [inline]
+ do_initcalls init/main.c:1431 [inline]
+ do_basic_setup init/main.c:1451 [inline]
+ kernel_init_freeable+0x6ea/0x7b0 init/main.c:1666
+ kernel_init+0x21/0x1e0 init/main.c:1556
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Freed by task 6035:
+ kasan_save_stack+0x30/0x50 mm/kasan/common.c:57
+ kasan_save_track+0x14/0x30 mm/kasan/common.c:78
+ kasan_save_free_info+0x3b/0x70 mm/kasan/generic.c:584
+ poison_slab_object mm/kasan/common.c:253 [inline]
+ __kasan_slab_free+0x5f/0x80 mm/kasan/common.c:285
+ kasan_slab_free include/linux/kasan.h:235 [inline]
+ slab_free_hook mm/slub.c:2678 [inline]
+ slab_free mm/slub.c:6372 [inline]
+ kfree+0x22b/0x6c0 mm/slub.c:6687
+ i2c_device_remove+0x81/0x280 drivers/i2c/i2c-core-base.c:632
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ bus_remove_device+0x2bc/0x560 drivers/base/bus.c:664
+ device_del+0x376/0x9b0 drivers/base/core.c:3965
+ device_unregister+0x1d/0xe0 drivers/base/core.c:4006
+ i2c_unregister_device+0xf5/0x270 drivers/i2c/i2c-core-base.c:1076
+ dvb_module_release drivers/media/dvb-core/dvbdev.c:1061 [inline]
+ dvb_module_release+0x69/0x90 drivers/media/dvb-core/dvbdev.c:1055
+ vidtv_bridge_remove+0xd8/0x140 drivers/media/test-drivers/vidtv/vidtv_bridge.c:556
+ platform_remove+0x5f/0x80 drivers/base/platform.c:1524
+ device_remove+0xcb/0x180 drivers/base/dd.c:616
+ __device_release_driver drivers/base/dd.c:1349 [inline]
+ device_release_driver_internal+0x44e/0x620 drivers/base/dd.c:1372
+ unbind_store+0xf8/0x110 drivers/base/bus.c:244
+ drv_attr_store+0x74/0xb0 drivers/base/bus.c:125
+ sysfs_kf_write+0xf2/0x150 fs/sysfs/file.c:145
+ kernfs_fop_write_iter+0x3e0/0x5f0 fs/kernfs/file.c:345
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x6af/0x1050 fs/read_write.c:687
+ ksys_write+0x12a/0x250 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+The buggy address belongs to the object at ffff88802e860000
+ which belongs to the cache kmalloc-2k of size 2048
+The buggy address is located 280 bytes inside of
+ freed 2048-byte region [ffff88802e860000, ffff88802e860800)
+
+The buggy address belongs to the physical page:
+page: refcount:0 mapcount:0 mapping:0000000000000000 index:0xffff88802e864000 pfn:0x2e860
+head: order:3 mapcount:0 entire_mapcount:0 nr_pages_mapped:0 pincount:0
+flags: 0xfff00000000240(workingset|head|node=0|zone=1|lastcpupid=0x7ff)
+page_type: f5(slab)
+raw: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
+raw: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
+head: 00fff00000000240 ffff88801c042f00 ffffea000071b010 ffffea0000993a10
+head: ffff88802e864000 0000000800080007 00000000f5000000 0000000000000000
+head: 00fff00000000003 fffffffffffffe01 00000000ffffffff 00000000ffffffff
+head: ffffffffffffffff 0000000000000000 00000000ffffffff 0000000000000008
+page dumped because: kasan: bad access detected
+page_owner tracks the page as allocated
+page last allocated via order 3, migratetype Unmovable, gfp_mask 0xd20c0(__GFP_IO|__GFP_FS|__GFP_NOWARN|__GFP_NORETRY|__GFP_COMP|__GFP_NOMEMALLOC), pid 1, tgid 1 (swapper/0), ts 15032077504
+ set_page_owner include/linux/page_owner.h:33 [inline]
+ post_alloc_hook+0xfd/0x120 mm/page_alloc.c:1871
+ prep_new_page mm/page_alloc.c:1879 [inline]
+ get_page_from_freelist+0x110d/0x35b0 mm/page_alloc.c:3943
+ __alloc_frozen_pages_noprof+0x2eb/0x3300 mm/page_alloc.c:5436
+ alloc_slab_page mm/slub.c:3267 [inline]
+ allocate_slab mm/slub.c:3382 [inline]
+ new_slab+0xa5/0x640 mm/slub.c:3428
+ refill_objects+0xe3/0x410 mm/slub.c:7305
+ refill_sheaf mm/slub.c:2805 [inline]
+ __pcs_replace_empty_main+0x372/0x680 mm/slub.c:4677
+ alloc_from_pcs mm/slub.c:4775 [inline]
+ slab_alloc_node mm/slub.c:4907 [inline]
+ __kmalloc_cache_noprof+0x47b/0x6b0 mm/slub.c:5480
+ _kmalloc_noprof include/linux/slab.h:988 [inline]
+ _kzalloc_noprof include/linux/slab.h:1309 [inline]
+ wakeup_source_device_create+0x46/0x2e0 drivers/base/power/wakeup_stats.c:144
+ wakeup_source_sysfs_add+0x1c/0x90 drivers/base/power/wakeup_stats.c:183
+ wakeup_source_register+0x154/0x3e0 drivers/base/power/wakeup.c:218
+ device_wakeup_enable+0xce/0x2e0 drivers/base/power/wakeup.c:336
+ device_init_wakeup include/linux/pm_wakeup.h:238 [inline]
+ alarmtimer_rtc_add_device+0x1da/0x320 kernel/time/alarmtimer.c:99
+ device_add+0x13cc/0x1970 drivers/base/core.c:3799
+ cdev_device_add+0x12b/0x270 fs/char_dev.c:553
+ __devm_rtc_register_device+0x456/0x8d0 drivers/rtc/class.c:418
+ cmos_do_probe drivers/rtc/rtc-cmos.c:1112 [inline]
+ cmos_platform_probe+0xe3b/0x1100 drivers/rtc/rtc-cmos.c:1451
+page last free pid 24 tgid 24 ts 14981723256 stack trace:
+ reset_page_owner include/linux/page_owner.h:26 [inline]
+ __free_pages_prepare mm/page_alloc.c:1418 [inline]
+ free_pages_prepare+0x586/0xe00 mm/page_alloc.c:1463
+ __free_contig_range_common+0x14f/0x250 mm/page_alloc.c:7060
+ __free_contig_range mm/page_alloc.c:7105 [inline]
+ free_pages_bulk+0x12a/0x200 mm/page_alloc.c:5322
+ vm_area_free_pages+0xad/0x2b0 mm/vmalloc.c:3462
+ vfree mm/vmalloc.c:3511 [inline]
+ vfree+0x108/0x730 mm/vmalloc.c:3485
+ delayed_vfree_work+0x56/0x80 mm/vmalloc.c:3415
+ process_one_work+0xac7/0x1b10 kernel/workqueue.c:3387
+ process_scheduled_works kernel/workqueue.c:3470 [inline]
+ worker_thread+0x5ef/0xe50 kernel/workqueue.c:3551
+ kthread+0x373/0x450 kernel/kthread.c:436
+ ret_from_fork+0x730/0xd60 arch/x86/kernel/process.c:158
+ ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
+
+Memory state around the buggy address:
+ ffff88802e860000: fa fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802e860080: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+>ffff88802e860100: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+                            ^
+ ffff88802e860180: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+ ffff88802e860200: fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb fb
+==================================================================
+
 
 ---
-base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
-change-id: 20260819-imx355-ccsify-856c850575f1
-
-Best regards,
---  
-David Heidelberg <david@ixit.cz>
-
-
+If you want syzbot to run the reproducer, reply with:
+#syz test: git://repo/address.git branch-or-commit-hash
+If you attach or paste a git patch, syzbot will apply it before testing.
