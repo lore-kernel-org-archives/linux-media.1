@@ -1,48 +1,48 @@
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C983521A434
-	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 12:34:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51E7D2848A7
+	for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 12:34:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787834052; cv=none; b=ULrEDPZwC64A6UT29jwaR4QqZQjtPsyEJpEExaGCtpyw8qzuzeYSYTrlwCLwUgvfA7LrGjgWfMVo2Z4dU6xR1lCoNqKi15jKwudSoi0+jHLecLtYSjcpilkMkvbkSbtYd+C4Xer0FVa9BiBUHMCY9koCziF95I4ICb2z6EAGEms=
+	t=1787834058; cv=none; b=OyGDRc6zfVlCEcuv0973CzF6A15y3Zj1PL3ohVNXrN85GDPCDamk/0k9r4nVVgUFi1RVBaFYO2ylN7D+grHJvtlXJUbuWx9C1P37O7Erinly7h2LD2/A8xuJryR1i8YfYG1vof21g5CSa1h+blMRfEUl8QuKTLDW/W4BRuOmvbg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787834052; c=relaxed/simple;
-	bh=n2N4LtDTQ+SyEJbKHTZYekwFYPHaZKMehf5ZJ+F/N8Y=;
+	s=arc-20240116; t=1787834058; c=relaxed/simple;
+	bh=0rUNafB3b5VyyfhYlu/ZTCqiMg/sr1L/lZf/oM7x0a0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V48UCVw0IGkjhuW5R5hZvR67EEFGsz1Qma5eX49cF9nWjY6QH345PgUbBU0V8dZslMuF8sb6jVmmXxBD3UmQ2dtRLWqEqaQ5xrc2usbrNb+qVRy6F+l5WF3MDwl91rwK1sbVmBcjlJnwMJida22MZKz1NmZ2ctSf0e2vNFGGo6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=f40WOfCK; arc=none smtp.client-ip=198.175.65.21
+	 MIME-Version; b=IoEONss1HsH2xpvMb+FmWua4K+utz5f8Ocbj+APXRjt2TavitK1gxLm/4jFGGdH3xEpJGfFFqC6/8UiWTcTiz0f37VGoIoMzbT0MU+F1SIELeK7W0/4efoU8FcsNBdRrPHUHwRktwExAwgD4Jvneypt5J+t0BkVP0APXZUzt55c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZMLUCeL1; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="f40WOfCK"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZMLUCeL1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787834051; x=1819370051;
+  t=1787834054; x=1819370054;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=n2N4LtDTQ+SyEJbKHTZYekwFYPHaZKMehf5ZJ+F/N8Y=;
-  b=f40WOfCK2/X+WOPfMeBdtRGpW6J0yZB+JCEEiJ37uZyvNR+PjLDdV5nm
-   V9ZfqtGssE96kNFmGnOHyv70E4ZRkrdzm8A01rC65eOzP3sQzwSunjHiN
-   8PcMHLPwUT6ScsKsHlnxEzOVXheuTcKbiUYOmO1a0K/GcAaLc6KSAi470
-   by+R0Dv2b7Ih8G1WSrZx3cJDmg20ggnLe2Ddbpm1tatUeMNlm0380bysx
-   BNWMvDG6swIyT2ymtQfFU3IXsN4QyhVo3pz06sGZE71csjQBuSLfaFe85
-   +LQIQgy0t79hTGHFoZaKYHetQ6YN6URgQ008LB+BJ6N82RbSZWZHW3vp3
-   Q==;
-X-CSE-ConnectionGUID: L66wkULDRf2fGNwJAiDMzA==
-X-CSE-MsgGUID: IOnsJS+nSYuZ/63GbrwNgw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88188584"
+  bh=0rUNafB3b5VyyfhYlu/ZTCqiMg/sr1L/lZf/oM7x0a0=;
+  b=ZMLUCeL1w1/GmFV02FK+x0ZGUDE7LqQdvluwrELw+UrRClUmRVbF34G1
+   OGLG2QWAq4WK7KTRPEUpUVw0/b2ik7Rs66S6/JNtgHVEwizYjUweJwGVe
+   LqngJmKst/RmQJ2u0GjnFuuYigknYtCrX3GaWl/S4CVxDKZS5U/vTBA3c
+   ahpylerr7jtLR+3yGz+Ejr1dw5smaESifrszTXKjAY//4UAJ7uCC7cFjK
+   wXchNuShn4DfwZ/C0nvz/nBZtDSDCZZ1Sn4n9nAaVY1NixDh5ZlKYG5S0
+   0tfRkwNkLlmAL7MIioLsM5Kv5INGwgYYgsxrL5t9NjIkloqW42vu+1Q3k
+   A==;
+X-CSE-ConnectionGUID: g05MwajWQEyky3DJI/NYFA==
+X-CSE-MsgGUID: FSSqT9QHTfaWyqMfFKGGFA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11887"; a="88188587"
 X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="88188584"
+   d="scan'208";a="88188587"
 Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:34:10 -0700
-X-CSE-ConnectionGUID: J33ONLr5SH+coUgFEIpEmw==
-X-CSE-MsgGUID: Ngso+hqHTHytp3slV3nDsA==
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:34:13 -0700
+X-CSE-ConnectionGUID: YgQXoOqQQtOzRtsJaNoh0w==
+X-CSE-MsgGUID: kD1p9h/6RIyqe+jIqh24Cg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,246,1779174000"; 
-   d="scan'208";a="271384350"
+   d="scan'208";a="271384359"
 Received: from sghuge-mobl2.amr.corp.intel.com (HELO alaakso-desk.kioski) ([10.125.109.104])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:34:09 -0700
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 Aug 2026 05:34:11 -0700
 From: Antti Laakso <antti.laakso@linux.intel.com>
 To: linux-media@vger.kernel.org,
 	mchehab@kernel.org,
@@ -51,9 +51,9 @@ To: linux-media@vger.kernel.org,
 Cc: daxing.li@intel.com,
 	ong.hock.yu@intel.com,
 	antti.laakso@linux.intel.com
-Subject: [PATCH v3 11/44] media: ipu6: Rename IPU subsys ID
-Date: Thu, 27 Aug 2026 15:33:03 +0300
-Message-ID: <20260827123336.2219048-12-antti.laakso@linux.intel.com>
+Subject: [PATCH v3 12/44] media: ipu6: Add ipu7 buttress support
+Date: Thu, 27 Aug 2026 15:33:04 +0300
+Message-ID: <20260827123336.2219048-13-antti.laakso@linux.intel.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260827123336.2219048-1-antti.laakso@linux.intel.com>
 References: <20260827123336.2219048-1-antti.laakso@linux.intel.com>
@@ -65,67 +65,713 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-We will need subsys ID later elsewhere, so move it to
-common header too.
+The ipu7 differs from ipu6 e.g. in power management, authentication,
+interrupt handling and clock setup. Add support for ipu7 buttress.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-mmu.h | 3 ---
- drivers/media/pci/intel/ipu6/ipu6.c     | 5 ++---
- drivers/media/pci/intel/ipu6/ipu6.h     | 3 +++
- 3 files changed, 5 insertions(+), 6 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 292 +++++++++++++++---
+ drivers/media/pci/intel/ipu6/ipu6-buttress.h  |   3 +
+ .../intel/ipu6/ipu6-platform-buttress-regs.h  | 102 ++++++
+ drivers/media/pci/intel/ipu6/ipu6.c           | 104 +++++--
+ drivers/media/pci/intel/ipu6/ipu6.h           |   2 +
+ include/media/ipu6-pci-table.h                |   2 +
+ 6 files changed, 444 insertions(+), 61 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-mmu.h b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-index 8e40b4a66d7d..35cac80d2d4e 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-mmu.h
-@@ -4,9 +4,6 @@
- #ifndef IPU6_MMU_H
- #define IPU6_MMU_H
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+index e77a569bb97e..13fd7a083b25 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
+@@ -345,6 +345,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ 	if (!active)
+ 		return IRQ_NONE;
  
--#define ISYS_MMID 1
--#define PSYS_MMID 0
++	if (IS_IPU7(isp)) {
++		u32 pb_irq;
++
++		pb_irq = readl(isp->pb_base + IPU7_PB_INTERRUPT_STATUS);
++		writel(pb_irq, isp->pb_base + IPU7_PB_INTERRUPT_STATUS);
++	}
++
+ 	irq_status = readl(isp->base + regs->irq_status);
+ 	if (irq_status == 0 || WARN_ON_ONCE(irq_status == 0xffffffffu)) {
+ 		if (active > 0)
+@@ -442,28 +449,141 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
+ 	return ret;
+ }
+ 
+-int ipu6_buttress_power(struct device *dev,
+-			const struct ipu6_buttress_ctrl *ctrl, bool on)
++static int ipu7_isys_d2d_power(struct ipu6_device *isp, bool on)
++{
++	u32 target = on ? IPU7_BUTTRESS_D2D_PWR_ACK : 0U;
++	u32 val;
++	int ret;
++
++	val = readl(isp->base + IPU7_BUTTRESS_REG_D2D_CTL);
++	if ((val & IPU7_BUTTRESS_D2D_PWR_ACK) == target)
++		return 0;
++
++	if (on)
++		val |= IPU7_BUTTRESS_D2D_PWR_EN;
++	else
++		val &= ~IPU7_BUTTRESS_D2D_PWR_EN;
++	writel(val, isp->base + IPU7_BUTTRESS_REG_D2D_CTL);
++
++	ret = readl_poll_timeout(isp->base + IPU7_BUTTRESS_REG_D2D_CTL, val,
++				 (val & IPU7_BUTTRESS_D2D_PWR_ACK) == target,
++				 100, BUTTRESS_POWER_TIMEOUT_US);
++	if (ret)
++		dev_err(&isp->pdev->dev, "D2D power %s timeout: 0x%x\n",
++			on ? "up" : "down", val);
++
++	return ret;
++}
++
++static void ipu7_nde_control(struct ipu6_device *isp, bool on)
++{
++	u32 val;
++
++	val = FIELD_PREP(IPU7_NDE_VAL_MASK,
++			 on ? IPU7_NDE_VAL_ACTIVE : IPU7_NDE_VAL_DEFAULT) |
++	      FIELD_PREP(IPU7_NDE_SCALE_MASK,
++			 on ? IPU7_NDE_SCALE_ACTIVE : IPU7_NDE_SCALE_DEFAULT) |
++	      FIELD_PREP(IPU7_NDE_VALID_MASK,
++			 on ? IPU7_NDE_VALID_ACTIVE : IPU7_NDE_VALID_DEFAULT) |
++	      FIELD_PREP(IPU7_NDE_RESVEC_MASK, IPU7_NDE_RESVEC);
++	writel(val, isp->base + IPU7_BUTTRESS_REG_NDE_CONTROL);
++}
++
++static int __ipu7_power_on(struct device *dev,
++			   const struct ipu6_buttress_ctrl *ctrl)
++{
++	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
++	bool is_isys = ctrl->subsys_id == IPU_ISYS;
++	u32 pwr_sts, val, ovrd_clk, slp, own_clk_ack;
++	int ret;
++
++	val = ctrl->ratio | (IPU7_FREQ_CTL_CDYN << IPU7_FREQ_CTL_CDYN_SHIFT);
++	pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
++
++	if (is_isys) {
++		ret = ipu7_isys_d2d_power(isp, true);
++		if (ret)
++			return ret;
++
++		ipu7_nde_control(isp, true);
++	}
++
++	/* Request clock ownership. */
++	ovrd_clk = is_isys ? IPU7_BUTTRESS_OVERRIDE_IS_CLK :
++			     IPU7_BUTTRESS_OVERRIDE_PS_CLK;
++
++	slp = readl(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
++	writel(slp | ovrd_clk, isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
++
++	own_clk_ack = is_isys ? IPU7_BUTTRESS_OWN_ACK_IS_CLK :
++				IPU7_BUTTRESS_OWN_ACK_PS_CLK;
++	ret = readl_poll_timeout(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_STS,
++				 slp, (slp & own_clk_ack),
++				 100, BUTTRESS_POWER_TIMEOUT_US);
++	if (ret)
++		dev_warn(&isp->pdev->dev, "clock ownership timeout: 0x%x\n",
++			 slp);
++
++	writel(val, isp->base + ctrl->freq_ctl);
++
++	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
++				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
++				 100, BUTTRESS_POWER_TIMEOUT_US);
++	if (ret) {
++		dev_err(&isp->pdev->dev,
++			"Change power status timeout with 0x%x\n", val);
++		return ret;
++	}
++
++	slp = readl(isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
++	writel(slp & ~ovrd_clk, isp->base + IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG);
++
++	return 0;
++}
++
++static int __ipu7_power_off(struct device *dev,
++			    const struct ipu6_buttress_ctrl *ctrl)
+ {
+ 	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
+ 	u32 pwr_sts, val;
+ 	int ret;
+ 
+-	if (!ctrl)
+-		return 0;
++	writel(0x8U, isp->base + ctrl->freq_ctl);
+ 
+-	mutex_lock(&isp->buttress.power_mutex);
++	pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
++	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
++				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
++				 100, BUTTRESS_POWER_TIMEOUT_US);
++	if (ret) {
++		dev_err(&isp->pdev->dev,
++			"Change power status timeout with 0x%x\n", val);
++		return ret;
++	}
++
++	if (ctrl->subsys_id == IPU_ISYS) {
++		ipu7_isys_d2d_power(isp, false);
++		ipu7_nde_control(isp, false);
++	}
++
++	return 0;
++}
++
++static int __ipu6_power(struct device *dev,
++			const struct ipu6_buttress_ctrl *ctrl, bool on)
++{
++	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
++	u32 pwr_sts, val;
++	int ret;
+ 
+ 	if (!on) {
+ 		val = 0;
+ 		pwr_sts = ctrl->pwr_sts_off << ctrl->pwr_sts_shift;
+ 	} else {
+ 		val = BUTTRESS_FREQ_CTL_START |
+-			FIELD_PREP(BUTTRESS_FREQ_CTL_RATIO_MASK,
+-				   ctrl->ratio) |
+-			FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
+-				   ctrl->qos_floor) |
+-			BUTTRESS_FREQ_CTL_ICCMAX_LEVEL;
++		      FIELD_PREP(BUTTRESS_FREQ_CTL_RATIO_MASK, ctrl->ratio) |
++		      FIELD_PREP(BUTTRESS_FREQ_CTL_QOS_FLOOR_MASK,
++				 ctrl->qos_floor) |
++		      BUTTRESS_FREQ_CTL_ICCMAX_LEVEL;
+ 
+ 		pwr_sts = ctrl->pwr_sts_on << ctrl->pwr_sts_shift;
+ 	}
+@@ -477,6 +597,26 @@ int ipu6_buttress_power(struct device *dev,
+ 		dev_err(&isp->pdev->dev,
+ 			"Change power status timeout with 0x%x\n", val);
+ 
++	return ret;
++}
++
++int ipu6_buttress_power(struct device *dev,
++			const struct ipu6_buttress_ctrl *ctrl, bool on)
++{
++	struct ipu6_device *isp = to_ipu6_bus_device(dev)->isp;
++	int ret;
++
++	if (!ctrl)
++		return 0;
++
++	mutex_lock(&isp->buttress.power_mutex);
++
++	if (IS_IPU7(isp))
++		ret = on ? __ipu7_power_on(dev, ctrl) :
++			   __ipu7_power_off(dev, ctrl);
++	else
++		ret = __ipu6_power(dev, ctrl, on);
++
+ 	mutex_unlock(&isp->buttress.power_mutex);
+ 
+ 	return ret;
+@@ -634,11 +774,18 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ 	 * Write address of FIT table to FW_SOURCE register
+ 	 * Let's use fw address. I.e. not using FIT table yet
+ 	 */
+-	data = lower_32_bits(isp->psys->pkg_dir_dma_addr);
+-	writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_LO);
++	if (IS_IPU7(isp)) {
++		writel(isp->cpd_fw->size,
++		       isp->base + IPU7_BUTTRESS_REG_FW_SOURCE_SIZE);
++		writel(sg_dma_address(isp->psys->fw_sgt.sgl),
++		       isp->base + IPU7_BUTTRESS_REG_FW_SOURCE_BASE);
++	} else {
++		data = lower_32_bits(isp->psys->pkg_dir_dma_addr);
++		writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_LO);
+ 
+-	data = upper_32_bits(isp->psys->pkg_dir_dma_addr);
+-	writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_HI);
++		data = upper_32_bits(isp->psys->pkg_dir_dma_addr);
++		writel(data, isp->base + BUTTRESS_REG_FW_SOURCE_BASE_HI);
++	}
+ 
+ 	/*
+ 	 * Write boot_load into IU2CSEDATA0
+@@ -674,8 +821,11 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ 		goto out_unlock;
+ 	}
+ 
+-	ret = readl_poll_timeout(psys_pdata->base + BOOTLOADER_STATUS_OFFSET,
+-				 data, data == BOOTLOADER_MAGIC_KEY, 500,
++	void __iomem *base = IS_IPU7(isp) ?
++			     isp->base + IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7 :
++			     psys_pdata->base + BOOTLOADER_STATUS_OFFSET;
++
++	ret = readl_poll_timeout(base, data, data == BOOTLOADER_MAGIC_KEY, 500,
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(&isp->pdev->dev, "Unexpected magic number 0x%x\n",
+@@ -815,12 +965,61 @@ u64 ipu6_buttress_tsc_ticks_to_ns(u64 ticks, const struct ipu6_device *isp)
+ }
+ EXPORT_SYMBOL_NS_GPL(ipu6_buttress_tsc_ticks_to_ns, "INTEL_IPU6");
+ 
+-void ipu6_buttress_restore(struct ipu6_device *isp)
++/* trigger uc control to wakeup fw */
++void ipu7_buttress_wakeup_isys(const struct ipu6_device *isp)
++{
++	u32 val;
++
++	val = readl(isp->base + IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS);
++	val |= IPU7_UCX_CTL_WAKEUP;
++	writel(val, isp->base + IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS);
++}
++EXPORT_SYMBOL_NS_GPL(ipu7_buttress_wakeup_isys, "INTEL_IPU6");
++
++u32 ipu7_buttress_get_isys_freq(struct ipu6_device *isp)
++{
++	u32 val;
++
++	val = readl(isp->base + IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ);
++	val &= IPU7_BUTTRESS_IS_FREQ_CTL_RATIO_MASK;
++
++	return val * 50 / 3;
++}
++EXPORT_SYMBOL_NS_GPL(ipu7_buttress_get_isys_freq, "INTEL_IPU6");
++
++static void ipu7_buttress_setup(struct ipu6_device *isp)
+ {
+ 	struct ipu6_buttress *b = &isp->buttress;
++	u32 val;
++
++	/* program PB BAR */
++	writel(0, isp->pb_base + IPU7_GLOBAL_INTERRUPT_MASK);
++	val = readl(isp->pb_base + IPU7_BAR2_MISC_CONFIG);
++	val |= 0x100U;
++
++	writel(val, isp->pb_base + IPU7_BAR2_MISC_CONFIG);
++
++	writel(BIT(22), isp->pb_base + IPU7_TLBID_HASH_ENABLE_63_32);
++	writel(BIT(1), isp->pb_base + IPU7_TLBID_HASH_ENABLE_127_96);
+ 
+ 	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
++	writel(b->regs->irq_all, isp->base + IPU7_BUTTRESS_REG_IRQ_MASK);
+ 	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
++
++	/* LNL SW workaround for PS PD hang when PS sub-domain during PD */
++	writel(IPU7_BUTTRESS_CG_CTRL_PS_FSM_CG, isp->base + IPU7_BUTTRESS_REG_CG_CTRL_BITS);
++}
++
++void ipu6_buttress_restore(struct ipu6_device *isp)
++{
++	struct ipu6_buttress *b = &isp->buttress;
++
++	if (IS_IPU7(isp)) {
++		ipu7_buttress_setup(isp);
++	} else {
++		writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
++		writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
++	}
+ 	writel(b->wdt_cached_value, isp->base + b->regs->wdt);
+ }
+ 
+@@ -838,37 +1037,44 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+ 	init_completion(&b->ipc.recv_complete);
+ 
+ 	INIT_LIST_HEAD(&b->constraints);
 -
- #include <linux/list.h>
- #include <linux/spinlock_types.h>
- #include <linux/types.h>
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 7ac9c92744c0..c24e18520de6 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -424,8 +424,7 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
- 				"ipu6_bus_initialize_device isys failed\n");
- 	}
+ 	isp->secure_mode = ipu6_buttress_get_secure_mode(isp);
+-	dev_dbg(&isp->pdev->dev, "IPU6 in %s mode touch 0x%x mask 0x%x\n",
+-		isp->secure_mode ? "secure" : "non-secure",
+-		readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
+-		readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
  
--	isys_adev->mmu = ipu6_mmu_init(dev, base, ISYS_MMID,
--				       &ipdata->hw_variant);
-+	isys_adev->mmu = ipu6_mmu_init(dev, base, IPU_ISYS, &ipdata->hw_variant);
- 	if (IS_ERR(isys_adev->mmu)) {
- 		put_device(&isys_adev->auxdev.dev);
- 		return dev_err_cast_probe(dev, isys_adev->mmu,
-@@ -465,7 +464,7 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
- 				"ipu6_bus_initialize_device psys failed\n");
- 	}
+-	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
+-	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
+-	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
++	dev_dbg(&isp->pdev->dev, "IPU in %s mode\n",
++		isp->secure_mode ? "secure" : "non-secure");
  
--	psys_adev->mmu = ipu6_mmu_init(&pdev->dev, base, PSYS_MMID,
-+	psys_adev->mmu = ipu6_mmu_init(&pdev->dev, base, IPU_PSYS,
- 				       &ipdata->hw_variant);
- 	if (IS_ERR(psys_adev->mmu)) {
- 		put_device(&psys_adev->auxdev.dev);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
-index ebae876058ca..dc98a787612f 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6.h
-@@ -70,6 +70,9 @@ struct ipu6_device {
- 	bool bus_ready_to_probe;
+-	/* get ref_clk frequency by reading the indication in btrs control */
+-	val = readl(isp->base + b->regs->btrs_ctrl);
+-	val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
+-
+-	switch (val) {
+-	case 0x0:
+-		b->ref_clk = 240;
+-		break;
+-	case 0x1:
+-		b->ref_clk = 192;
+-		break;
+-	case 0x2:
++	if (IS_IPU7(isp)) {
++		ipu7_buttress_setup(isp);
+ 		b->ref_clk = 384;
+-		break;
+-	default:
+-		dev_warn(&isp->pdev->dev,
+-			 "Unsupported ref clock, use 19.2Mhz by default.\n");
+-		b->ref_clk = 192;
+-		break;
++	} else {
++		dev_dbg(&isp->pdev->dev, "IPU6 touch 0x%x mask 0x%x\n",
++			readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
++			readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
++
++		writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
++		writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
++
++		/* get ref_clk frequency by reading the indication in btrs control */
++		val = readl(isp->base + b->regs->btrs_ctrl);
++		val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
++
++		switch (val) {
++		case 0x0:
++			b->ref_clk = 240;
++			break;
++		case 0x1:
++			b->ref_clk = 192;
++			break;
++		case 0x2:
++			b->ref_clk = 384;
++			break;
++		default:
++			dev_warn(&isp->pdev->dev,
++				 "Unsupported ref clock, use 19.2Mhz by default.\n");
++			b->ref_clk = 192;
++			break;
++		}
+ 	}
++	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
+ 
+ 	/* Retry couple of times in case of CSE initialization is delayed */
+ 	do {
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+index a3c23adede7b..af72de2b8729 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+@@ -26,6 +26,7 @@ struct ipu6_buttress_ctrl {
+ 	u32 freq_ctl, pwr_sts_shift, pwr_sts_mask, pwr_sts_on, pwr_sts_off;
+ 	unsigned int ratio;
+ 	unsigned int qos_floor;
++	int subsys_id;
  };
  
-+#define IPU_PSYS	0
-+#define IPU_ISYS	1
+ struct ipu6_buttress_ipc {
+@@ -104,4 +105,6 @@ void ipu6_buttress_exit(struct ipu6_device *isp);
+ void ipu6_buttress_csi_port_config(struct ipu6_device *isp,
+ 				   u32 legacy, u32 combo);
+ void ipu6_buttress_restore(struct ipu6_device *isp);
++void ipu7_buttress_wakeup_isys(const struct ipu6_device *isp);
++u32 ipu7_buttress_get_isys_freq(struct ipu6_device *isp);
+ #endif /* IPU6_BUTTRESS_H */
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+index 5006cce74b23..c4da72c6bd8f 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+@@ -221,4 +221,106 @@ enum {
+ #define BUTTRESS_EVENT		 (BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING | \
+ 				  BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE |    \
+ 				  BUTTRESS_ISR_SAI_VIOLATION)
 +
- #define IPU6_ISYS_NAME "isys"
- #define IPU6_PSYS_NAME "psys"
++/* IPU7 */
++
++/* IPU7 buttress register offsets */
++#define IPU7_BUTTRESS_REG_SKU			0x3030
++#define IPU7_BUTTRESS_REG_IRQ_STATUS		0x2000
++#define IPU7_BUTTRESS_REG_IRQ_ENABLE		0x2008
++#define IPU7_BUTTRESS_REG_IRQ_CLEAR		0x200c
++#define IPU7_BUTTRESS_REG_IRQ_MASK		0x2010
++#define IPU7_BUTTRESS_REG_TSC_CMD		0x2014
++#define IPU7_BUTTRESS_REG_TSC_CTL		0x2018
++#define IPU7_BUTTRESS_REG_TSC_LO		0x201c
++#define IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ	0x2104
++#define IPU7_BUTTRESS_REG_PS_WORKPOINT_REQ	0x2100
++#define IPU7_BUTTRESS_REG_IDLE_WDT		0x218c
++#define IPU7_BUTTRESS_REG_ISYS_UCX_CTRL_STATUS	0x2200
++#define IPU7_BUTTRESS_REG_ISYS_UCX_START_ADDR	0x2204
++#define IPU7_BUTTRESS_REG_PSYS_UCX_CTRL_STATUS	0x2208
++#define IPU7_BUTTRESS_REG_PSYS_UCX_START_ADDR	0x220c
++#define IPU7_BUTTRESS_REG_SECURITY_CTL		0x2318
++#define IPU7_BUTTRESS_REG_FW_RESET_CTL		0x2334
++#define IPU7_BUTTRESS_REG_FW_SOURCE_SIZE	0x2338
++#define IPU7_BUTTRESS_REG_FW_SOURCE_BASE	0x233c
++#define IPU7_BUTTRESS_REG_CSE2IUDB0		0x2500
++#define IPU7_BUTTRESS_REG_CSE2IUDATA0		0x2504
++#define IPU7_BUTTRESS_REG_CSE2IUCSR		0x2508
++#define IPU7_BUTTRESS_REG_IU2CSEDB0		0x250c
++#define IPU7_BUTTRESS_REG_IU2CSEDATA0		0x2510
++#define IPU7_BUTTRESS_REG_IU2CSECSR		0x2514
++#define IPU7_BUTTRESS_REG_CG_CTRL_BITS		0x3014
++#define IPU7_BUTTRESS_REG_FW_BOOT_PARAMS0	0x4000
++#define IPU7_BUTTRESS_REG_FW_BOOT_PARAMS7	0x401c
++#define IPU7_BUTTRESS_REG_PWR_STATUS		0x2114
++
++#define IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE		BIT(0)
++#define IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING	BIT(1)
++#define IPU7_BUTTRESS_IRQ_CSE_CSR_SET			BIT(2)
++#define IPU7_BUTTRESS_IRQ_SAI_VIOLATION			BIT(4)
++#define IPU7_BUTTRESS_IRQ_IS_IRQ			BIT(30)
++#define IPU7_BUTTRESS_IRQ_PS_IRQ			BIT(31)
++
++#define IPU7_BUTTRESS_IRQS	(IPU7_BUTTRESS_IRQ_IS_IRQ |		\
++				 IPU7_BUTTRESS_IRQ_PS_IRQ |		\
++				 IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING | \
++				 IPU7_BUTTRESS_IRQ_CSE_CSR_SET |	\
++				 IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE)
++
++/* LNL SW workaround for PS PD hang */
++#define IPU7_BUTTRESS_CG_CTRL_PS_FSM_CG		BIT(3)
++
++/* P-unit Bridge (PB) BAR registers */
++#define IPU7_PB_INTERRUPT_STATUS		0x0
++
++/* Frequency control encoding */
++#define IPU7_FREQ_CTL_CDYN			0x80
++#define IPU7_FREQ_CTL_CDYN_SHIFT		8
++#define IPU7_BUTTRESS_IS_FREQ_CTL_RATIO_MASK	GENMASK(7, 0)
++#define IPU7_IS_FREQ_CTL_DEFAULT_RATIO		0x1b
++#define IPU7_PS_FREQ_CTL_DEFAULT_RATIO		0x14
++
++/* D2D power control */
++#define IPU7_BUTTRESS_REG_D2D_CTL		0x21d4
++#define IPU7_BUTTRESS_D2D_PWR_EN		BIT(0)
++#define IPU7_BUTTRESS_D2D_PWR_ACK		BIT(4)
++
++#define IPU7_BUTTRESS_PWR_STATE_IS_PWR_SHIFT	0
++#define IPU7_BUTTRESS_PWR_STATE_IS_PWR_MASK	(0x3U << 0)
++#define IPU7_BUTTRESS_PWR_STATE_PS_PWR_SHIFT	4
++#define IPU7_BUTTRESS_PWR_STATE_PS_PWR_MASK	(0x3U << 4)
++
++/* NDE */
++#define IPU7_BUTTRESS_REG_NDE_CONTROL		0x21a4
++#define IPU7_NDE_VAL_MASK			GENMASK(9, 0)
++#define IPU7_NDE_SCALE_MASK			GENMASK(12, 10)
++#define IPU7_NDE_VALID_MASK			BIT(13)
++#define IPU7_NDE_RESVEC_MASK			GENMASK(19, 16)
++#define IPU7_NDE_VAL_ACTIVE			48
++#define IPU7_NDE_SCALE_ACTIVE			2
++#define IPU7_NDE_VALID_ACTIVE			1
++#define IPU7_NDE_VAL_DEFAULT			1023
++#define IPU7_NDE_SCALE_DEFAULT			2
++#define IPU7_NDE_VALID_DEFAULT			0
++#define IPU7_NDE_RESVEC				0xe
++
++/* IS UCX control */
++#define IPU7_UCX_CTL_RESET			BIT(0)
++#define IPU7_UCX_CTL_RUN			BIT(1)
++#define IPU7_UCX_CTL_WAKEUP			BIT(2)
++
++#define IPU7_BUTTRESS_REG_SLEEP_LEVEL_CFG	0x21b0
++#define IPU7_BUTTRESS_REG_SLEEP_LEVEL_STS	0x21b4
++#define IPU7_BUTTRESS_OVERRIDE_IS_CLK		BIT(1)
++#define IPU7_BUTTRESS_OWN_ACK_IS_CLK		BIT(9)
++#define IPU7_BUTTRESS_OVERRIDE_PS_CLK		BIT(2)
++#define IPU7_BUTTRESS_OWN_ACK_PS_CLK		BIT(10)
++
++/* PB registers */
++#define IPU7_GLOBAL_INTERRUPT_MASK		0x8
++#define IPU7_TLBID_HASH_ENABLE_63_32		0x34
++#define IPU7_TLBID_HASH_ENABLE_127_96		0x3c
++#define IPU7_BAR2_MISC_CONFIG			0x64
++
+ #endif /* IPU6_PLATFORM_BUTTRESS_REGS_H */
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index c24e18520de6..4af0b068e759 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -34,6 +34,7 @@
+ #include "ipu6-platform-regs.h"
  
+ #define IPU6_PCI_BAR		0
++#define IPU7_PCI_PBBAR		4
+ 
+ struct ipu6_cell_program {
+ 	u32 magic_number;
+@@ -209,6 +210,7 @@ static struct ipu6_psys_internal_pdata psys_ipdata = {
+ };
+ 
+ static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
++	.subsys_id = IPU_ISYS,
+ 	.ratio = IPU6_IS_FREQ_CTL_DEFAULT_RATIO,
+ 	.qos_floor = IPU6_IS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
+ 	.freq_ctl = IPU6_BUTTRESS_REG_IS_FREQ_CTL,
+@@ -219,6 +221,7 @@ static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
+ };
+ 
+ static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
++	.subsys_id = IPU_PSYS,
+ 	.ratio = IPU6_PS_FREQ_CTL_DEFAULT_RATIO,
+ 	.qos_floor = IPU6_PS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
+ 	.freq_ctl = IPU6_BUTTRESS_REG_PS_FREQ_CTL,
+@@ -228,6 +231,28 @@ static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
+ 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
+ };
+ 
++static const struct ipu6_buttress_ctrl ipu7_isys_buttress_ctrl = {
++	.subsys_id = IPU_ISYS,
++	.ratio = IPU7_IS_FREQ_CTL_DEFAULT_RATIO,
++	.qos_floor = 0,
++	.freq_ctl = IPU7_BUTTRESS_REG_IS_WORKPOINT_REQ,
++	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_IS_PWR_SHIFT,
++	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_IS_PWR_MASK,
++	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
++	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
++};
++
++static const struct ipu6_buttress_ctrl ipu7_psys_buttress_ctrl = {
++	.subsys_id = IPU_PSYS,
++	.ratio = IPU7_PS_FREQ_CTL_DEFAULT_RATIO,
++	.qos_floor = 0,
++	.freq_ctl = IPU7_BUTTRESS_REG_PS_WORKPOINT_REQ,
++	.pwr_sts_shift = IPU7_BUTTRESS_PWR_STATE_PS_PWR_SHIFT,
++	.pwr_sts_mask = IPU7_BUTTRESS_PWR_STATE_PS_PWR_MASK,
++	.pwr_sts_on = IPU6_BUTTRESS_PWR_STATE_UP_DONE,
++	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
++};
++
+ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
+ 	/* Registers */
+ 	.irq_status	= BUTTRESS_REG_ISR_STATUS,
+@@ -258,6 +283,35 @@ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
+ 	.irq_sai	= BUTTRESS_ISR_SAI_VIOLATION,
+ };
+ 
++static const struct ipu6_buttress_registers ipu7_buttress_regs = {
++	/* Registers */
++	.irq_status	= IPU7_BUTTRESS_REG_IRQ_STATUS,
++	.irq_clear	= IPU7_BUTTRESS_REG_IRQ_CLEAR,
++	.irq_enable	= IPU7_BUTTRESS_REG_IRQ_ENABLE,
++	.pwr_status	= IPU7_BUTTRESS_REG_PWR_STATUS,
++	.security_ctl	= IPU7_BUTTRESS_REG_SECURITY_CTL,
++	.fw_reset_ctl	= IPU7_BUTTRESS_REG_FW_RESET_CTL,
++	.fabric_cmd	= IPU7_BUTTRESS_REG_TSC_CMD,
++	.tsw_ctl	= IPU7_BUTTRESS_REG_TSC_CTL,
++	.tsc_lo		= IPU7_BUTTRESS_REG_TSC_LO,
++	.wdt		= IPU7_BUTTRESS_REG_IDLE_WDT,
++	.csr_in		= IPU7_BUTTRESS_REG_CSE2IUCSR,
++	.csr_out	= IPU7_BUTTRESS_REG_IU2CSECSR,
++	.db0_in		= IPU7_BUTTRESS_REG_CSE2IUDB0,
++	.db0_out	= IPU7_BUTTRESS_REG_IU2CSEDB0,
++	.data0_in	= IPU7_BUTTRESS_REG_CSE2IUDATA0,
++	.data0_out	= IPU7_BUTTRESS_REG_IU2CSEDATA0,
++
++	/* Bitmasks */
++	.irq_is		= IPU7_BUTTRESS_IRQ_IS_IRQ,
++	.irq_ps		= IPU7_BUTTRESS_IRQ_PS_IRQ,
++	.irq_all	= IPU7_BUTTRESS_IRQS,
++	.irq_events	= IPU7_BUTTRESS_IRQS,
++	.irq_cse_ipc	= IPU7_BUTTRESS_IRQ_IPC_FROM_CSE_IS_WAITING,
++	.irq_exec_done	= IPU7_BUTTRESS_IRQ_IPC_EXEC_DONE_BY_CSE,
++	.irq_sai	= IPU7_BUTTRESS_IRQ_SAI_VIOLATION,
++};
++
+ static void
+ ipu6_pkg_dir_configure_spc(struct ipu6_device *isp,
+ 			   const struct ipu6_hw_variants *hw_variant,
+@@ -532,24 +586,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	if (!isp)
+ 		return -ENOMEM;
+ 
+-	isp->pdev = pdev;
+-	INIT_LIST_HEAD(&isp->devices);
+-
+-	ret = pcim_enable_device(pdev);
+-	if (ret)
+-		return dev_err_probe(dev, ret, "Enable PCI device failed\n");
+-
+-	phys = pci_resource_start(pdev, IPU6_PCI_BAR);
+-	dev_dbg(dev, "IPU6 PCI bar[%u] = %pa\n", IPU6_PCI_BAR, &phys);
+-
+-	isp->base = pcim_iomap_region(pdev, IPU6_PCI_BAR, IPU6_NAME);
+-	if (IS_ERR(isp->base))
+-		return dev_err_probe(dev, PTR_ERR(isp->base),
+-				     "Failed to I/O mem remapping\n");
+-
+-	pci_set_drvdata(pdev, isp);
+-	pci_set_master(pdev);
+-
+ 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
+ 	isp->buttress.regs = &ipu6_buttress_regs;
+ 
+@@ -577,12 +613,44 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		isp->hw_ver = IPU_VERSION_6EP_MTL;
+ 		isp->cpd_fw_name = IPU6EPMTL_FIRMWARE_NAME;
+ 		break;
++	case PCI_DEVICE_ID_INTEL_IPU7:
++		isp->hw_ver = IPU_VERSION_7;
++		isp->cpd_fw_name = IPU7_FIRMWARE_NAME;
++		isp->buttress.regs = &ipu7_buttress_regs;
++		break;
+ 	default:
+ 		return dev_err_probe(dev, -ENODEV,
+ 				     "Unsupported IPU6 device %x\n",
+ 				     id->device);
+ 	}
+ 
++	isp->pdev = pdev;
++	INIT_LIST_HEAD(&isp->devices);
++
++	ret = pcim_enable_device(pdev);
++	if (ret)
++		return dev_err_probe(dev, ret, "Enable PCI device failed\n");
++
++	phys = pci_resource_start(pdev, IPU6_PCI_BAR);
++	dev_dbg(dev, "IPU6 PCI bar[%u] = %pa\n", IPU6_PCI_BAR, &phys);
++
++	isp->base = pcim_iomap_region(pdev, IPU6_PCI_BAR, IPU6_NAME);
++	if (IS_ERR(isp->base))
++		return dev_err_probe(dev, PTR_ERR(isp->base),
++				     "Failed to I/O mem remapping\n");
++
++	if (IS_IPU7(isp)) {
++		isp->pb_base = pcim_iomap_region(pdev, IPU7_PCI_PBBAR,
++						 IPU6_NAME);
++		if (IS_ERR(isp->pb_base))
++			return dev_err_probe(dev, PTR_ERR(isp->pb_base),
++					     "I/O remapping PB BAR %u failed\n",
++					     IPU7_PCI_PBBAR);
++	}
++
++	pci_set_drvdata(pdev, isp);
++	pci_set_master(pdev);
++
+ 	ipu6_internal_pdata_init(isp);
+ 
+ 	isys_base = isp->base + isys_ipdata.hw_variant.offset;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
+index dc98a787612f..a14b067f169f 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.h
++++ b/drivers/media/pci/intel/ipu6/ipu6.h
+@@ -22,6 +22,7 @@ struct ipu6_bus_device;
+ #define IPU6_FIRMWARE_NAME		"intel/ipu/ipu6_fw.bin"
+ #define IPU6EPMTL_FIRMWARE_NAME		"intel/ipu/ipu6epmtl_fw.bin"
+ #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
++#define IPU7_FIRMWARE_NAME		"intel/ipu/ipu7_fw.bin"
+ 
+ #define IPU_VERSION_6		BIT(0) /* TGL */
+ #define IPU_VERSION_6SE		BIT(1) /* JSL */
+@@ -64,6 +65,7 @@ struct ipu6_device {
+ 	u32 cpd_metadata_cmpnt_size;
+ 
+ 	void __iomem *base;
++	void __iomem *pb_base;
+ 	bool need_ipc_reset;
+ 	bool secure_mode;
+ 	u8 hw_ver;
+diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.h
+index 0899d9d2f978..cd5b941fb96c 100644
+--- a/include/media/ipu6-pci-table.h
++++ b/include/media/ipu6-pci-table.h
+@@ -14,6 +14,8 @@
+ #define PCI_DEVICE_ID_INTEL_IPU6EP_ADLN		0x462e
+ #define PCI_DEVICE_ID_INTEL_IPU6EP_RPLP		0xa75d
+ #define PCI_DEVICE_ID_INTEL_IPU6EP_MTL		0x7d19
++#define PCI_DEVICE_ID_INTEL_IPU7		0x645d
++#define PCI_DEVICE_ID_INTEL_IPU7P5		0xb05d
+ 
+ static const struct pci_device_id ipu6_pci_tbl[] = {
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6) },
 -- 
 2.55.0
 
