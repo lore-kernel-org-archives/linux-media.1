@@ -1,63 +1,63 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA4E38839E
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39E7437F011
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:15:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933710; cv=none; b=VWFfTTrjGaO4kWy8mOKalm2HWEVUA17kFITxs+QwYQad1Y4Fuw5bKFVCuSS+KWxM9IdPkuC/KL8LTRtsCA5z15Lk6IzWXRArGKzlIwdkt/LjBHyyWkxiiaZOydWM/yvP8NHOZMA40a+HKYRQrLBi72uTrFrNTG9eAxcMiif1NZU=
+	t=1787933711; cv=none; b=oRTLPJw9bd1XaP0rN/iPZE5Zpi4sn3fuJiFVPYt/QcanxU0Ft6D2SYpnhoFm2CaF19phnbFrEXxS324+Ox4Ajw/YA2dDBr52UPN7Fwavd1CpzwwNhD2AjbOKAWHDKAp/oIyecJJxu3XQbud4yeby93LhjlzEsNWy16vYQ2FXcSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933710; c=relaxed/simple;
-	bh=vQSykYWKjwyy3GpEXKnyMhG1dxWdIduVo3u0cWZYNew=;
+	s=arc-20240116; t=1787933711; c=relaxed/simple;
+	bh=P2vAhkjwfZLpGHwPw59L73KMSOIBIbwxnRr5PopVIrE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ptWxJp7oCdTvhomQP6O1tbTgpLyiHhm07yIqNb3xSGW3LqrMcgJ4Ptuyk9Clza0/JJGXyGBjw/Twv63UnFFV7Hkbj7DhN2GECowQ4hus1rKcy7RvhF6x4Ei0siKjm33c1BcO1YPEVuPYRg8E2YTTUfOTtxky925KbMcbZII2uyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=J8zF/F+a; arc=none smtp.client-ip=209.85.128.54
+	 MIME-Version; b=GflOaSU3rdjm3nnuFT24UwoMq5HRNRTPr6TWUJUOthfIi765ZLkIF/C3T7dYjmUZ+x4Nn0lRcMeAfSxhTTki0NfjokJbGxfYpP65VQ3ioa0/K9cmMdJxMTyD639/nz8olE6MZQ0ZZFKSyzz4emy62WtAoOqb75K6SsLfdSMZFmk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r21O2EBG; arc=none smtp.client-ip=209.85.221.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="J8zF/F+a"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49554ebb87dso13804775e9.3
-        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 09:15:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r21O2EBG"
+Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-47f96c5b722so748035f8f.0
+        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 09:15:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787933706; x=1788538506; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787933708; x=1788538508; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RUfAoBg4/XBI4pqtt0b3wPDxb0rk1uC5WDFTikKcDuc=;
-        b=J8zF/F+aAtX8eqSUzLMXGyf3pDQ54S7MYdrDhMs9slyaIut6SYPOpMz1GLSS9j9kqy
-         mvsfV6cRC/pDLu2z/sijzE60INZaJQclwNQ20J3J5VFMnL4UVe78s6ChiHP+dZuctY+x
-         et7+hnAqv0NWRfIMp/RorXWCdPYYzpcgbhpwh5FKpZ7xmmH+MSvzUzEKyGhGliJIH5iJ
-         JDRNbjEWcSh9yfE2UA4Chl+SvBvo1MSVEnkvJe/DYZLwd/47SWemplEcXSFwF4zyN6oM
-         YT+SzP22bpQ2LmKWryB5WpirC5CJrNA2+t0HHaa9SuuVXOfZyNXI44u94RycU7z5/Ybw
-         XKHw==
+        bh=2/Z0cnaeaBdqm8px1bR7dodj1ScgQOWcRfeLIXj+wSQ=;
+        b=r21O2EBGZjHGNgjqx4UYfUg3GnrXV9mUa01fpFTRdXhOCRKyV/Y7BOtnKDkoRGwGGl
+         zBJNVHg9lFA8gjAoFKXiWikdPMV7Va4ePZRzwZIRJfwxH9pLbuw4mSzx6zakZhHiIEkU
+         pAs/MJw4eS/HbnmaXXYEbat/U950U37VK8tNGfEOKwQkA5r65r6T0riA4YOgvH4KUWM6
+         mDQyUnhZPTwSJb+T+5WW8hwOCTTve7rcuEvMp2xm6g5My+FLCkKufHV+RUI8gnUAvm64
+         +F4IPoQxJ7y23GQBOkI11DxWJ5hp7f3pR4YosqEQFcCXlts3ApGaU+ko8qHXGmRPFOOh
+         APDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787933706; x=1788538506;
+        d=1e100.net; s=20251104; t=1787933708; x=1788538508;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RUfAoBg4/XBI4pqtt0b3wPDxb0rk1uC5WDFTikKcDuc=;
-        b=n1dSNgtcvQUKmL5ehJQ3H8+F5hjCic7xX+yNFLeplQAjlQRmjuOtUkX9OvvYhUXslm
-         v0PbfHq7NSZvIsfCFo+NRcKMpFUcfo6AHUKU6SfuQl7hcx5xKGgq6pPDEcYFaejjA24b
-         MNFbSCFkvboksP35RYT4Z9q4ql7urxIA8cc4IOeFqDtRUWHzH4VlHEDou4y+Oe7E+sfR
-         IfgHUK14aoqlviafSQvVYJ/KDD11TGtGbbomAdS6xdDzbwKI8vxmUcROAczojx7qQUcL
-         t4fZriyWsxixqyspYywTK0ZoVD034xzUJAxrGoqxOtTO82zSIEdJX3SpvKq91UDpJZtZ
-         foEQ==
-X-Gm-Message-State: AFuF++kanPFxnZfKhAHlxF2yXadWw/Ab3vMJPWCNwEL1y3ezDpVdIZe7
-	QJcO/OJCLsYbD6G/5gDS4rvCo+Muw+G4ja4upxVn+zV8lvi0gq+evlCx5gJ+MmO5
-X-Gm-Gg: AR+sD11guVrEN1gBXXuUN7JGenXeu6E+adZdlCCM/kRuiWYs2cj6UrjON9YKyI8p98S
-	IYeEsrxfnT737tv7JG87KpXr5HBqG23OiyFEY6N0pkDkqTIidp7Vqkx+XbV0J0wQiP5+dwKBBGE
-	R+I2bie5+0rhY/tbs/VfVdCVcjg355HZvgw7/yKDSc2tySkNefUJ2tCmrSJRlHNm1BtiqnkGfPc
-	GjhRmPh8CqEottfgAfpA1ZC08nxkeZ0VksQlu9xyvsM8cbLGaK3SbxijetMeCzMq52+paAz7gI6
-	OylBhY46khmvDPYm73jB/CkdsC8/+AS7YmkhrFnYxDpSfJPA2c1sOm6Zi5pvpDrQy7KNd0fbfEX
-	aleHDFixAQZbXGHDKEiSwyEmSMPKC4mKsToxdqyr4nb8qvuayw8TWrsbMJFalvwtl97ybenE1OK
-	B48eEyCvF4ckmugkFAf0vBlDFcuoNmmqqHlaAbBwuKaoSqc6F2oiuKzK4WvcWL7CRuvMCDkoktr
-	GtF45CoTDVc/ulVaJx1kdPyeJBeAHByhmPtmB6mvg==
-X-Received: by 2002:a05:600c:4585:b0:499:b402:6c0 with SMTP id 5b1f17b1804b1-49b91c265d7mr117004985e9.3.1787933706082;
-        Fri, 28 Aug 2026 09:15:06 -0700 (PDT)
+        bh=2/Z0cnaeaBdqm8px1bR7dodj1ScgQOWcRfeLIXj+wSQ=;
+        b=raXlm2Di+RwRD8bO/D3au0jdk47k55YLKjHUw9O0YEUQwXx+BDPXyG5726wLalLfXM
+         CZXscBwzagB8uTGmzgxGGy+hcaU/bgwmcqL4bUn5hygxD9HZx6xbsEmsLvgjReEHOolj
+         ybvQKO4PbxJkMn+rgsj8ZnjSyhZ8NIrj0xW+PFPtBB9TZIveOwBbQwvjPWDyBR41TFQK
+         9snytdQbyC2o5zWRZ+6dv0H0mgQXKxOlvBeAsxxCrIrzkBOUiJKkgQyrIu487WXciVGp
+         /pcBh1L5vYl7g7mhOBZG6eT3Jq99ZZNlBYkcMgvcPmZKTr26jsEe1/MCL1Irw1NjyAV0
+         bffA==
+X-Gm-Message-State: AFuF++n7Bp4+236ZTsZxf3RrqQ0AmbOiZatlXX77Fk3oTCZX239S9b3n
+	FUpElRKxziPcfjSEJNXwwqzwLTOqvYnpz/0W8Jv0KFWen4e+pMVfLlolCzSjn7Af
+X-Gm-Gg: AR+sD10R4lRJydhJzj/rSwUjthYQgVGMJCkoE6G1mk2JeO0lopCjyA52OvEJLCisrpD
+	rjmanlSYDdkzLL2bWLIcxTIQ5yb0zrJJu30AdGeXiox6SG38aYGs6J2VqtlR/IhKYwJazk2bBhP
+	An30tuOAo5bGh7viW4iBuz67qc4Wdysi5+8xdjUVhBWkyjVIzvhsQa0GLFws8HchDeh+PyIcjHf
+	kRdlRqlrsarPsnRFKrUbG5lHvZLm6toFnHvdgJncAbTuP/t2gn/3Uq82GymbUWkWTGyQSjOPfHQ
+	cclIq3V8+BuS5QGJWTbpynWRw3oMXi1GgtJUVMjQjacnH+tdifLwpV5RTWwYzD9cXDpr9PWkLII
+	kMGaQgLhD5NysyU+75poQflsMwNxTKd3IQZ+4Mlrz3EP0Y6oxv6SKHnTqA7f1ZCDjh4dweuG+qw
+	qZudJcFWzggqOHmetCqEz2mixh1UmLDO/Z6qgZ9dCqTPGa80hEmUrKTx39Xtb5n8ajgbwOlta+T
+	bIa/RZB3ubODwlggQqllg5HxzO+f6/Egjd+hpq1bQ==
+X-Received: by 2002:a05:6000:41d1:b0:47f:b51d:f0ec with SMTP id ffacd0b85a97d-482f79cd0d2mr14102631f8f.15.1787933708396;
+        Fri, 28 Aug 2026 09:15:08 -0700 (PDT)
 Received: from 1Z10 ([78.213.5.213])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.15.03
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.15.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 09:15:05 -0700 (PDT)
+        Fri, 28 Aug 2026 09:15:07 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -74,9 +74,9 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v4 02/15] media: ov8858: support 19.2 MHz clock and CHT gain setup
-Date: Fri, 28 Aug 2026 18:14:44 +0200
-Message-ID: <017d1719d7fe132273f818cf7e20d93ce3e2c9c9.1787933456.git.mauriziocasciano7@gmail.com>
+Subject: [PATCH v4 03/15] media: ov2740: Use C99 initializers for ACPI IDs
+Date: Fri, 28 Aug 2026 18:14:45 +0200
+Message-ID: <938b7c91985b4bf4b20dc9722453c44a4917a31f.1787933456.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1787933456.git.mauriziocasciano7@gmail.com>
 References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
@@ -88,280 +88,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
-the existing mode tables program the sensor PLL for 24 MHz. Reusing
-those settings produces incorrect internal and CSI-2 clocks.
+Use designated initializers and the standard empty sentinel style
+before adding firmware IDs.
 
-Accept both input rates and use the actual rate for the reset delay. For
-19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
-the generic mode table.
-
-The 19.2 MHz platform uses the per-channel manual white-balance
-registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
-and expose their 1x-to-4x range, while retaining the existing
-long-exposure gain block for 24 MHz systems.
-
-The manual white-balance register definitions and programming follow
-the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
-notice in this file. No proprietary source or tuning binary is included.
-
-Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
-and real 10-bit Bayer frames.
-
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 Assisted-by: Codex:gpt-5.6-sol sparse
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 ---
- drivers/media/i2c/ov8858.c | 133 +++++++++++++++++++++++++++++++++----
- 1 file changed, 120 insertions(+), 13 deletions(-)
+ drivers/media/i2c/ov2740.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-index d95f034de752..9b3e6eaca665 100644
---- a/drivers/media/i2c/ov8858.c
-+++ b/drivers/media/i2c/ov8858.c
-@@ -3,10 +3,9 @@
-  * Copyright (C) 2023 Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-  * Copyright (C) 2022 Nicholas Roth <nicholas@rothemail.net>
-  * Copyright (C) 2017 Fuzhou Rockchip Electronics Co., Ltd.
-+ * Copyright (c) 2017 Intel Corporation.
-  */
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index 39003c1632ad..8f0ad5dbb245 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -1461,10 +1461,9 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ov2740_pm_ops, ov2740_suspend, ov2740_resume,
+ 				 NULL);
  
--#include <linux/unaligned.h>
--
- #include <linux/clk.h>
- #include <linux/delay.h>
- #include <linux/device.h>
-@@ -18,6 +17,8 @@
- #include <linux/property.h>
- #include <linux/regulator/consumer.h>
- #include <linux/slab.h>
-+#include <linux/unaligned.h>
-+#include <linux/units.h>
- 
- #include <media/media-entity.h>
- #include <media/v4l2-async.h>
-@@ -28,8 +29,9 @@
- #include <media/v4l2-mediabus.h>
- #include <media/v4l2-subdev.h>
- 
--#define OV8858_LINK_FREQ		360000000U
--#define OV8858_XVCLK_FREQ		24000000
-+#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
-+#define OV8858_XVCLK_FREQ_19_2MHZ	(192 * HZ_PER_MHZ / 10)
-+#define OV8858_XVCLK_FREQ_24MHZ		(24 * HZ_PER_MHZ)
- 
- #define OV8858_REG_SIZE_SHIFT		16
- #define OV8858_REG_ADDR_MASK		0xffff
-@@ -59,6 +61,14 @@
- #define OV8858_LONG_GAIN_STEP		1
- #define OV8858_LONG_GAIN_DEFAULT	0x80
- 
-+#define OV8858_REG_MWB_RED_GAIN		OV8858_REG_16BIT(0x5032)
-+#define OV8858_REG_MWB_GREEN_GAIN	OV8858_REG_16BIT(0x5034)
-+#define OV8858_REG_MWB_BLUE_GAIN	OV8858_REG_16BIT(0x5036)
-+#define OV8858_MWB_GAIN_MIN		0x400
-+#define OV8858_MWB_GAIN_MAX		0xfff
-+#define OV8858_MWB_GAIN_STEP		1
-+#define OV8858_MWB_GAIN_DEFAULT		0x400
-+
- #define OV8858_REG_LONG_DIGIGAIN	OV8858_REG_16BIT(0x350a)
- #define OV8858_LONG_DIGIGAIN_H_MASK	0x3fc0
- #define OV8858_LONG_DIGIGAIN_L_MASK	0x3f
-@@ -93,6 +103,33 @@ struct regval_modes {
- 	const struct regval *mode_4lanes;
+ static const struct acpi_device_id ov2740_acpi_ids[] = {
+-	{"INT3474"},
+-	{}
++	{ .id = "INT3474" },
++	{ }
  };
- 
-+struct ov8858_gain_range {
-+	u32 min;
-+	u32 max;
-+	u32 step;
-+	u32 def;
-+};
-+
-+enum ov8858_xvclk_index {
-+	OV8858_XVCLK_24MHZ,
-+	OV8858_XVCLK_19_2MHZ,
-+};
-+
-+static const struct ov8858_gain_range ov8858_digital_gain_ranges[] = {
-+	[OV8858_XVCLK_24MHZ] = {
-+		.min = OV8858_LONG_DIGIGAIN_MIN,
-+		.max = OV8858_LONG_DIGIGAIN_MAX,
-+		.step = OV8858_LONG_DIGIGAIN_STEP,
-+		.def = OV8858_LONG_DIGIGAIN_DEFAULT,
-+	},
-+	[OV8858_XVCLK_19_2MHZ] = {
-+		.min = OV8858_MWB_GAIN_MIN,
-+		.max = OV8858_MWB_GAIN_MAX,
-+		.step = OV8858_MWB_GAIN_STEP,
-+		.def = OV8858_MWB_GAIN_DEFAULT,
-+	},
-+};
-+
- struct ov8858_mode {
- 	u32 width;
- 	u32 height;
-@@ -104,6 +141,7 @@ struct ov8858_mode {
- 
- struct ov8858 {
- 	struct clk		*xvclk;
-+	unsigned long		xvclk_rate;
- 	struct gpio_desc	*reset_gpio;
- 	struct gpio_desc	*pwdn_gpio;
- 	struct regulator_bulk_data supplies[ARRAY_SIZE(ov8858_supply_names)];
-@@ -121,6 +159,41 @@ struct ov8858 {
- 	unsigned int		num_lanes;
- };
- 
-+/*
-+ * Cherry Trail MRD production settings for a 19.2 MHz input and 360 MHz
-+ * CSI-2 link. Apply these after the otherwise reusable 24 MHz mode table.
-+ *
-+ * Besides the corrected sensor/MIPI PLL divisors, keep the final common
-+ * black-level settings here. The per-mode tables retain their resolution
-+ * dependent black-column anchors and window sizes.
-+ */
-+static const struct regval ov8858_cht_mrd_19_2mhz[] = {
-+	{0x0300, 0x00},
-+	{0x0302, 0x27},
-+	{0x0303, 0x00},
-+	{0x0304, 0x03},
-+	{0x030b, 0x00},
-+	{0x030d, 0x27},
-+	{0x030e, 0x00},
-+	{0x030f, 0x04},
-+	{0x0312, 0x01},
-+	{0x031e, 0x0c},
-+	{0x3f08, 0x08},
-+	{0x400a, 0x01},
-+	{0x400d, 0x10},
-+	{0x4011, 0x20},
-+	{0x403e, 0x08},
-+	{0x4040, 0x07},
-+	{0x4041, 0xc6},
-+	{0x4202, 0x00},
-+	{0x4500, 0x58},
-+	{0x470b, 0x28},
-+	{0x4837, 0x15},
-+	{0x58f4, 0x32},
-+	{0x58f8, 0x3d},
-+	{REG_NULL, 0x00},
-+};
-+
- static inline struct ov8858 *sd_to_ov8858(struct v4l2_subdev *sd)
- {
- 	return container_of(sd, struct ov8858, subdev);
-@@ -1345,6 +1418,13 @@ static int ov8858_start_stream(struct ov8858 *ov8858,
- 	if (ret)
- 		return ret;
- 
-+	/* The mode tables contain PLL settings for a 24 MHz input clock. */
-+	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
-+		ret = ov8858_write_array(ov8858, ov8858_cht_mrd_19_2mhz);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* 200 usec max to let PLL stabilize. */
- 	fsleep(200);
- 
-@@ -1537,7 +1617,23 @@ static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
- 		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
- 		     OV8858_LONG_DIGIGAIN_H_SHIFT);
- 
--	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
-+	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
-+			    long_gain, NULL);
-+}
-+
-+static int ov8858_set_mwb_digital_gain(struct ov8858 *ov8858, u32 gain)
-+{
-+	int ret;
-+
-+	ret = ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN, gain, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = ov8858_write(ov8858, OV8858_REG_MWB_GREEN_GAIN, gain, NULL);
-+	if (ret)
-+		return ret;
-+
-+	return ov8858_write(ov8858, OV8858_REG_MWB_BLUE_GAIN, gain, NULL);
- }
- 
- static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
-@@ -1586,7 +1682,10 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
- 				   ctrl->val, NULL);
- 		break;
- 	case V4L2_CID_DIGITAL_GAIN:
--		ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
-+		if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ)
-+			ret = ov8858_set_mwb_digital_gain(ov8858, ctrl->val);
-+		else
-+			ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
- 		break;
- 	case V4L2_CID_VBLANK:
- 		ret = ov8858_write(ov8858, OV8858_REG_VTS,
-@@ -1622,9 +1721,6 @@ static int ov8858_power_on(struct ov8858 *ov8858)
- 	unsigned long delay_us;
- 	int ret;
- 
--	if (clk_get_rate(ov8858->xvclk) != OV8858_XVCLK_FREQ)
--		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
 -
- 	ret = clk_prepare_enable(ov8858->xvclk);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to enable xvclk\n");
-@@ -1643,7 +1739,7 @@ static int ov8858_power_on(struct ov8858 *ov8858)
- 	 * transaction, but a double sleep between the release of gpios
- 	 * helps with sporadic failures observed at probe time.
- 	 */
--	delay_us = DIV_ROUND_UP(8192, OV8858_XVCLK_FREQ / 1000 / 1000);
-+	delay_us = DIV_ROUND_UP(8192, ov8858->xvclk_rate / HZ_PER_MHZ);
+ MODULE_DEVICE_TABLE(acpi, ov2740_acpi_ids);
  
- 	gpiod_set_value_cansleep(ov8858->reset_gpio, 0);
- 	fsleep(delay_us);
-@@ -1701,9 +1797,11 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
- {
- 	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
- 	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
-+	const struct ov8858_gain_range *digital_gain_range;
- 	const struct ov8858_mode *mode = &ov8858_modes[0];
- 	struct v4l2_fwnode_device_properties props;
- 	s64 exposure_max, vblank_def;
-+	unsigned int xvclk_index;
- 	unsigned int pixel_rate;
- 	struct v4l2_ctrl *ctrl;
- 	u32 h_blank;
-@@ -1746,10 +1844,12 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
- 			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
- 			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
- 
-+	xvclk_index = ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ ?
-+		OV8858_XVCLK_19_2MHZ : OV8858_XVCLK_24MHZ;
-+	digital_gain_range = &ov8858_digital_gain_ranges[xvclk_index];
- 	v4l2_ctrl_new_std(handler, &ov8858_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
--			  OV8858_LONG_DIGIGAIN_MIN, OV8858_LONG_DIGIGAIN_MAX,
--			  OV8858_LONG_DIGIGAIN_STEP,
--			  OV8858_LONG_DIGIGAIN_DEFAULT);
-+			  digital_gain_range->min, digital_gain_range->max,
-+			  digital_gain_range->step, digital_gain_range->def);
- 
- 	v4l2_ctrl_new_std_menu_items(handler, &ov8858_ctrl_ops,
- 				     V4L2_CID_TEST_PATTERN,
-@@ -1887,6 +1987,13 @@ static int ov8858_probe(struct i2c_client *client)
- 		return dev_err_probe(dev, PTR_ERR(ov8858->xvclk),
- 				     "Failed to get xvclk\n");
- 
-+	ov8858->xvclk_rate = clk_get_rate(ov8858->xvclk);
-+	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ &&
-+	    ov8858->xvclk_rate != OV8858_XVCLK_FREQ_24MHZ)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "Unsupported xvclk rate %lu Hz\n",
-+				     ov8858->xvclk_rate);
-+
- 	ov8858->reset_gpio = devm_gpiod_get_optional(dev, "reset",
- 						     GPIOD_OUT_HIGH);
- 	if (IS_ERR(ov8858->reset_gpio))
+ static struct i2c_driver ov2740_i2c_driver = {
 -- 
 2.53.0
 
