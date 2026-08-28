@@ -1,74 +1,36 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA843E0090;
-	Fri, 28 Aug 2026 10:38:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A8B38A701;
+	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787913488; cv=none; b=k7w9zR/Qld23DaK04HzFdfzB4jgzpwpxyLQV/+MRM8+uuavaPfvL4RyT6ofkIU5pmxUwc4aj2K9FOqISi/E6c+DrRUv+NOaON0dn9IHFeFmTA7jj1VVE3GCEMZ7T4HV9ssGr+HcuSMeoLFAEpNMqT7OY4rrcBwYA4RpJhQp053A=
+	t=1787914325; cv=none; b=BPVFeYc4QOsssRILRvqzquOG88JuGaRdfenXWnKOxCcl3126GWdV5FVKNFkeXvD0uFwaqgxkV0Ioy4qxfidc9m+McEx4Bq2tMIqHmMTb1HCrtlz8hFENR3aECK1mriXGKIB7fD7RSBtFIjg0IOYzCPaaaoxV1vWmR+m41UIs/s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787913488; c=relaxed/simple;
-	bh=zb6aakf2219BRtDcoxOwR7gMo+t4rKIYgKOy5NGa0lY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=FznpgHFLsk5cKd3Y7Cual49kKU3LcVKD0ntP3W1ycnUmcYJYvxXpJp9berinEwJPyYWJ5gs9nV496Fj+VCiuZjE25+UJNRmKQ1+cEwMzs4K6MrsWKGyAE1HXHlUqBj+Ibd2yIv1aOJ0kwyoc2OewFAvuE9H7jx4JJjJvx7Nt4eo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=hVMcwYP3; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fzYpZfw2; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1787914325; c=relaxed/simple;
+	bh=5d1Etmt2K6uzSY/M4S6CODDgPVrnRfzbP2pC3gqthBM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h+/HfRLOVg0OPBWnb+lp07dLtxlz7xg78r5cukSUZYSaWamgilOhEc89WI/g1miNO72ik7jV62lOlNqu8x4qwfA3as/JiSRTbsaEpNzsxSdE+J3c9fQZ53DLf+Tkg6qo4Y2OqbqQeRsV+GdNq3IZvykpj+Bl6k1CJoImS3E54mk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIOnouq6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="hVMcwYP3";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fzYpZfw2"
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id A57357A0129;
-	Fri, 28 Aug 2026 06:38:04 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-01.internal (MEProxy); Fri, 28 Aug 2026 06:38:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:message-id:mime-version:reply-to
-	:subject:subject:to:to; s=fm2; t=1787913484; x=1787999884; bh=zN
-	0t7D1RXFxbiQhtfsfU+yV7UdHvJxCBj/hwXUiXUEc=; b=hVMcwYP3ZwlQXkqSLq
-	U4UgqQ0fcEirNCqaI8peMuIh++9toVUb0Hg0UZlzv2a+l00Mizl6pqr1SkBU8okK
-	rSEfwDn1F8S6T/noLx+28o7v7PR8szCcHvfUPQLniBg6OuGOxFVqTfsk6hpazL6C
-	RBuYBA+wHQetsi41M+o1SgA4XdZg+m3ACpB8dPYeia1RlR8T5ZCwKIInkkzn+yPw
-	tBFlpRj1J/DKSFfEN9+nn98oXwGIst2pardrCtxJwcCl+OmjKQ8xYzH8lHLO5Oe9
-	jq2md/y9i/lpNXwZ2blaFYrJYcKlxtUIEfqnKIlWfd7NTMpB0Pbj6kqKZy8EQzs7
-	AnJA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:message-id:mime-version:reply-to:subject
-	:subject:to:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
-	fm3; t=1787913484; x=1787999884; bh=zN0t7D1RXFxbiQhtfsfU+yV7UdHv
-	JxCBj/hwXUiXUEc=; b=fzYpZfw21UGCs/e0nhmJi5JvEgBEdrPiKFqtGn9p5BEx
-	QhkQfPyR3bDFgW8GrgbJlEiJE5NqeditG5d+vGVU4W8KLVhrARgI0FJswQXot8wY
-	oJcJ/U9HeU8lLqWaQl7earZNaacNtRS+vIV9YQL2TUloniE1Nwc3BJyodAaguxH8
-	+kwLsN/VO1D/oqM3WoSy+xPkCcV0U8DzLyp/mp7MshN+yAI+E019JXXFL+lo/4vg
-	Q98NGxP0g42RvZnnOta902/htPH7OxzC2brLLeCVKTZlNG3z5UBk9b3vSC4+JOGK
-	dMZDftlwdSx4BKBRsIIfY7DEegrY4+nOvvtQHMlyjQ==
-X-ME-Sender: <xms:DGWRasTsmIxM2edtjHD2UtgH7aI5p9vNXJeiKXWY2bvJ38zV6UMf8A>
-    <xme:DGWRalzlPF9ZJm7nNO5BN8C4aei4cO1iB-Zsjve5EBZNAnO02BK2n1xA3p-hhBZYc
-    tFF_xhxdPT4QP2FJ7B1ElyRCLcQlI4tjDbnoJEauxOFSJLaGF19AuNf>
-X-ME-Received: <xmr:DGWRasCgkf4fsCZCNRuMbBSc2J347QQ54fzWm-kWkbwDI5XPp5XMjE0Qgny9I8iQ06HULdSq_b-xnjwpomybDOX78I_11uc>
-X-ME-Proxy-Cause: dmFkZTEO3A7XOX9dyG2sBT83eTYRmxQ3uYTJQDKJfwuGBxXxyUJlxsZk7YIhJ81NT+OsVy
-    QgbHr/+QXdCX25GmtUSFAu90dZSNzzwzpa8LaJ4+ZWqA9H/204YuJZhgkFofFA4Xc7Xpuy
-    +lBv5foUuY5Zyf8HojpNATyHx0tCfULBV0sAiHGspUrSZEXS5Vv/Cb4I7PFZcqZfUzlVv6
-    2o24yz0u6s3KVgWNIWY63pgyLa3KLCOcvCypNWOw/IhTxpmVCVAHU4MClx+BVpCd+n9u5F
-    wDaamAjTNy6/9rw/6Jpy89FzXyakFpPl0o6OV2aY9PPajBuV3hLdNhrEFE0OmoLWlGmPRJ
-    IdlFTIvvkeqt4c41cMvIYT1JlPZmdWmfLqO0At9UuIpS0rsX0B4rCWn9vEXAlK4/aOUDf5
-    ic2TQuVZnYHnYvvoadtEq7N2/Cf7CreLvYFBZCtM1temBlQd0ckQzfw+2JZIYnm/yiw7f3
-    IEaXO55QfK2Pts0pPic2qRAi538ylhEUhw2Ips0Y3AMUnfUkoPXkyGqKg27x8/9+OMy4uI
-    Jq7y/iRsaHCQiGNGI3dC2e1nJKG1CXj7v8w+hyP6LsWQBXqJG0ARPFNB1KMnbghWsFt8B8
-    dtH3KFdOIjTMlaUcALDedm1dHNqMurrFIYxOl6TEL1681rjeTYCa4VRx4vNA
-X-ME-Proxy: <xmx:DGWRahHSIR5YzGSinn86ZO6mMXoArk0IF135wIl9Lp8zm-4kLpw59A>
-    <xmx:DGWRajOM6yOVDL134ikeBpojst_ar_wwJUHK6KASS1G0efjf1tTh_g>
-    <xmx:DGWRai450XHZ83Lsw5WfHv3RjSruitd_7jMDBcUbUSKTB0JRGDaMOQ>
-    <xmx:DGWRamjcXIvH8JMNAnxWvFc2Wd2zxUCfSM747Rck3sY-Omv0uZTsOA>
-    <xmx:DGWRam30g_v2Qj15lx4A9qB98tpiNJo7TTGTOQl-9dQrlkPP9Hs7LDus>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 28 Aug 2026 06:38:03 -0400 (EDT)
-From: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Date: Fri, 28 Aug 2026 12:37:44 +0200
-Subject: [PATCH] media: rcar-vin: Return unused buffers correctly
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIOnouq6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D26EC2BCC7;
+	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1787914324;
+	bh=5d1Etmt2K6uzSY/M4S6CODDgPVrnRfzbP2pC3gqthBM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LIOnouq6FGynX7KjmaaTxYHknk112ECAHpmONkaueCgLzUH3/TSlLIdouFNnnauJC
+	 QkNih4NJgh/IuAaVnNlPzp7GLff+dpsVuo+lOzWlsCtgstJY/ol73CeI7BaJPGnzMr
+	 ioT/VUQ/knYDwsvfYx0AfbDuKPYCAVLkq6fPnxXbIdUtn+hxUyfXJ0vKTdmerGp936
+	 mwU9JF0Kx5/zxlS3YVZo7TRLAc2AJ5pqfhLc65bJR06sATHmPSKz93TFlGp5FD1lVg
+	 NVpnC0DHJBBXjZzmQq4YiLE/FXmjr/piBNuvSIYXjo3UXlhmCraqg2FXcNIQHOOF3C
+	 bx8buchtiDgoQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 48CDCC61DCB;
+	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Fri, 28 Aug 2026 13:51:47 +0300
+Subject: [PATCH] media: i2c: imx258: Add reset-gpio support
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -76,65 +38,120 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260828-vin-fix-vb2-v1-1-97eb1f4f75c9@ragnatech.se>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQqAIBCF4avErBvIIUK6SrRIm2paWGhJEN49q
- +XH4/03BPbCAdriBs9RgmwuQ5UF2GVwM6OM2UAVNZUmjVEcTnJhNISkWRlD9dAoDfmxe87TV+v
- 63+E0K9vjTUBKD3te6wdvAAAA
-X-Change-ID: 20260828-vin-fix-vb2-28e1bb24a618
-To: =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1069; i=niklas.soderlund+renesas@ragnatech.se;
- h=from:subject:message-id;
- bh=zb6aakf2219BRtDcoxOwR7gMo+t4rKIYgKOy5NGa0lY=;
- b=owEBbQKS/ZANAwAKAQm0/3kE+U0kAcsmYgBqkWUJqk3KEDk+9yXsYWwm9SYj6fkG0o1SOfIQu
- DI2rWLG4/yJAjMEAAEKAB0WIQRwy9J0OLNPX3a0+3gJtP95BPlNJAUCapFlCQAKCRAJtP95BPlN
- JCelEACQbQdNL+s+XuPaFEzmkN03cF4ILU/YOe1lUqbMINdfa0RRubPqRplWFAwJB43VnajKv/1
- XBQBbwQPjdNwmnCYQTcSHDrmF3BAnNdEnxarLrxAogfwvNR4R7/V+T40IttMEWbcTSYMbXNX9RC
- w1ifjxwhwhlMj0pGEBsZXRVlck/XV59y3vBnVDeBa+orC3rn3mC+k91f2NI4ysamYFdForc8H11
- Aq6Zq9uqrAHPJdO6xqz7zcf1aJeW44iGIHw4lCOHF0DNTiBjvvE0BEF+IYJrmvJ3FDoVP02KdEO
- uHanMOt1eONNq2MXod6NO6oBwQ9JsZ5rizQic4l2yevOA7GEdETqrja7VvOXpwS8e03O+KiFKEk
- mtBbZuG3OWWEDL08lNqJAkU9AzlbI0UDtxP/T41Y9FCbrs4vwyoj4m3kRbAWYE8utB+lFzTy6jC
- iRJ8xBi42fSUP1RItbBXk7ikclD+cwSlJBvSiLuNE7xwLou2bAdA7es/dSRJmui0oYEgMbm3dpA
- 47awgrvN2p4BukEmK/gH1KHhw/frDC1IT0/JsGb050EYvX6WRgOvS3v2wA3t2kT/QYE6Yh6/2fX
- TBgXV1TIRyYKZu474uPQQPtUQJf2EGjAmBYK+t2c/fEAXFPu2UsZurkcDOAckwQyAuwSUnJ4yw+
- yyqMaBc78Uh2PqA==
-X-Developer-Key: i=niklas.soderlund+renesas@ragnatech.se; a=openpgp;
- fpr=9976695FE98693307BF360A2F1591ABD9588DA5F
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQ5AMAwA0F+RnjVhTMaviMPSFj1g2UQk4t8tj
+ u/yHkgSVRIMxQNRLk167Bl1WQCtfl8ElbPBVKarnLGo222sQ8+MUZKcuAQ9MPiTVqS2ccyNnXs
+ iyEOIMuv97+P0vh/hRW3qbQAAAA==
+X-Change-ID: 20260825-imx258-add-reset-gpio-patch-c438dd35f9cc
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com, 
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787914322; l=3095;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=K0S+hjXRamfbzSLaocvKAIe3EyDCb1YJZikydR5BEuc=;
+ b=mjwp5RpdIhMaH1pNMCJ5xaW0CERNyBgRwYlJG2z3+TccO462CU5jd3zCCEWTr3EzakaORCNEx
+ 6IBnSq136srDLxgZiUy0s/fEBaI2XemBZih+Mkgl2SXHumI/QKC0ORB
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
-Unused VB2 buffers should be returned with state DONE not ERROR when
-stopping.
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+reset-gpio is already documented in dt-bindings but never implemented
+in the driver.
+Reset deassert delay comes from Luis Garcia's and Ondrej Jirman's patch.
+
+Link: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
 ---
- drivers/media/platform/renesas/rcar-vin/rcar-dma.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+I have a device that is not upstreamed yet (General Mobile Shamrock)
+whose camera needs reset gpio to probe, it is documented for
+dts check but not implemented for some reason.
+With adding it rear camera on the device probes correctly.
 
-diff --git a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-index 73cda0e2d45a..f3003dd61890 100644
---- a/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-+++ b/drivers/media/platform/renesas/rcar-vin/rcar-dma.c
-@@ -1449,7 +1449,7 @@ static void rvin_stop_streaming_vq(struct vb2_queue *vq)
- 	dma_free_coherent(vin->dev, vin->format.sizeimage, vin->scratch,
- 			  vin->scratch_phys);
+I created this patch without knowing the older one that submitted
+before: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com/
+
+I don't fully know the correct reset timing so I was using a random wait before,
+after I discovered existing patch I reused previous work for delay time after reset.
+---
+ drivers/media/i2c/imx258.c | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
+
+diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
+index bc9ee449a87c..af3f12c7452a 100644
+--- a/drivers/media/i2c/imx258.c
++++ b/drivers/media/i2c/imx258.c
+@@ -9,6 +9,7 @@
+ #include <linux/pm_runtime.h>
+ #include <linux/regulator/consumer.h>
+ #include <linux/unaligned.h>
++#include <linux/gpio/consumer.h>
  
--	return_unused_buffers(vin, VB2_BUF_STATE_ERROR);
-+	return_unused_buffers(vin, VB2_BUF_STATE_DONE);
- }
+ #include <media/v4l2-cci.h>
+ #include <media/v4l2-ctrls.h>
+@@ -681,6 +682,7 @@ struct imx258 {
  
- static const struct vb2_ops rvin_qops = {
+ 	struct clk *clk;
+ 	struct regulator_bulk_data supplies[IMX258_NUM_SUPPLIES];
++	struct gpio_desc *reset_gpio;
+ };
+ 
+ static inline struct imx258 *to_imx258(struct v4l2_subdev *_sd)
+@@ -1128,6 +1130,18 @@ static int imx258_power_on(struct device *dev)
+ 	if (ret) {
+ 		dev_err(dev, "failed to enable clock\n");
+ 		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
++		return ret;
++	}
++
++	if (imx258->reset_gpio) {
++		ret = gpiod_set_value_cansleep(imx258->reset_gpio, 0);
++		if (ret) {
++			dev_err(dev, "failed to deassert reset\n");
++			clk_disable_unprepare(imx258->clk);
++			regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
++			return ret;
++		}
++		usleep_range(400, 500);
+ 	}
+ 
+ 	return ret;
+@@ -1138,6 +1152,7 @@ static int imx258_power_off(struct device *dev)
+ 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
+ 	struct imx258 *imx258 = to_imx258(sd);
+ 
++	gpiod_set_value_cansleep(imx258->reset_gpio, 1);
+ 	clk_disable_unprepare(imx258->clk);
+ 	regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
+ 
+@@ -1382,6 +1397,11 @@ static int imx258_probe(struct i2c_client *client)
+ 		return ret;
+ 	}
+ 
++	imx258->reset_gpio = devm_gpiod_get_optional(imx258->dev, "reset", GPIOD_OUT_HIGH);
++	if (IS_ERR(imx258->reset_gpio))
++		return dev_err_probe(imx258->dev, PTR_ERR(imx258->reset_gpio),
++				     "Failed to get reset-gpios\n");
++
+ 	ret = imx258_get_regulators(imx258);
+ 	if (ret)
+ 		return dev_err_probe(imx258->dev, ret,
 
 ---
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
-change-id: 20260828-vin-fix-vb2-28e1bb24a618
+base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
+change-id: 20260825-imx258-add-reset-gpio-patch-c438dd35f9cc
 
 Best regards,
---  
-Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+-- 
+Muzaffer Kadir <muzafferkadir@mainlining.org>
+
 
