@@ -1,69 +1,83 @@
-Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469EA3C2782
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 05:29:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787894947; cv=none; b=PpV9DmN8ZpOmb0UjO1Nijrj+L0CixNpCaPEa7l5rFGfnnfeCBz8dlLaBuyYoaFM2ocJ8IBmttF7jJe7e6gcWDERYqllvQ4zfWV4kuMwx23njawIw/8Yp0nly3VNvz2449vqwuyZVHbqGhtwkQZEecH3yQoSDtH7rK2WyZNebOeM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787894947; c=relaxed/simple;
-	bh=wKKtsaBghx9mUO9q+l+PL9vL/BhJSMvjpEJOAIYYSZs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OwPqkKBt6Y40m1flbWif+zIsi2JJYrTJAm9oDBbWb3tV2P8pKJcdwvAd17KqP1IEH2DCPCHfwojQDaCR8YIyRUpGmSynJdnT15Ajgf8IPqTUfa3Ev1iSI4DI+/OcRIFMvYVf3rU6PBITTudVsaK+9RTJkWkp3XtVUHdWUwS/nZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GvK4Nt6J; arc=none smtp.client-ip=209.85.214.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E2323AE713
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 05:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787895117; cv=pass; b=vEoBPMnnjl5NZJaULYwQPQaPbGpRhBvHo6d68ARyT8MfK1jm2Ufi6KV8496RAuSs7P0imHHs8FRY8avKxSWQS40SwujNeIGc4dofrI+yMRp55FU4gt817xq9ZECwEYTMdhMCzzi3SdTCXmKtEDLtLl5QOMH4+fa02XwGV6D8PMM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787895117; c=relaxed/simple;
+	bh=yxuunkrMCzjhTG9xtHvbfv5boTd3Y3kfwiIMXc+VbsA=;
+	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=jeIsaa65EXWGcgV/yZrJsqiucoTJahT0Szqj0xTuXoZWHLHAXiKpt/Ne57x8gA3KGpeMK/G0/QtXeYjFg1A2pKjU7HzlJpMhEVBOCwF6X2RBaBb7Wb/WysXfBEDZJbX5PaYzcbZgYmG5991KM2pySkc0SQzAl0rb2G/m4T1BvT4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=alhwy+W3; arc=pass smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GvK4Nt6J"
-Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d712281f8bso7329195ad.1
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:29:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="alhwy+W3"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d7200b2e15so7154335ad.3
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:31:55 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787895115; cv=none;
+        d=google.com; s=arc-20260327;
+        b=RgSByVYzXuJhzthF5b05UYiomMkvhjqpyu/9BVcJMauyTYowOi68ZYeUOawTBkXCbn
+         mjdL+xVAXQEJpMd0BkLG2p6HKlx3oo/hMjX9ChDb2KoTFyn33JxU5PonKeQWMIgob1NG
+         cRs7uZxUbm5D7sncYWumS5bgKVF46BR+jHCqQkZMa0v2bqZ5gPoXvpqdUJiujAQ/X5fV
+         62TCr9/YBOCwgIEpTfUTYVBtFJNOVYYtW6ukTQr+tsfgG9U4w+QJgeb5RCLHjCeK3qx6
+         8y7VB68TBZHiLIIzXgLeRm5cZBH6pQe8+EVfZR06b7s0X6azzuR7e1Gc5WHWhMZ7psxf
+         YCog==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
+        bh=/rV5wL5QxIwuoSfzmLGFHVm670pUqzdREIV4+LvHIJE=;
+        fh=8JZNveNk3VrtqURq97l7sgw7yhaAwRoBAPTjV25C/Oo=;
+        b=CPaVIe8KXDO7eN7qLD0Moh296H2meG7XhJDt43+nBzZ+bSbCwuta54SCLr0I7dRtki
+         gDKcluvqlkHAXeaQTb8bZ+/npG/nym6IUMccyaBhoVsJZ+N1jR19JBaklA8J+46y8lk+
+         aY/WnckV8O+HSm4BjRrY6JMH8fTTEkgzu5U1sL2C35zzL8LiG/BNLRWpJOajT79zwb7V
+         nkJ41EECRuNacfZpaOU+rHgKuG028uzBo+jd2DIhYTrHDiV26AcQDwpBDusQfORK5PG0
+         b5RTL+dOrce5ISgxLO/jsxaZHUTJ4+6yuccZeFLaI0fYfHWRWLwzRE0An17kfd7+z3/T
+         nSVg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787894945; x=1788499745; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vShHEoFxeJdHMF1BmMYjqhuL+4mZo5/13uAzSfeknUQ=;
-        b=GvK4Nt6J1MXsURKTrH/4CvS2YEa51CZLkv66FPIrBXV0udvDK25c6KhVScTMebca7B
-         oX2By5E914t345OCz55OVpTaJWrAg7G7lhHdIIp88OVSqMSBljnlaS8Y2s81LbrmYj42
-         js3Pe5DFbR0XvAYT1Pu8ig7Jz7ordLJYD0vsJ/8vW8PqxmFSQ3j5kRg37lYLlF0wdh0x
-         JASHoQipeg3ihcACM20RZ4qIZ9E9g+Ifi+tpjWcoFJm/W+iawhnnQz8UkGy7LOFWlm9B
-         dXPNqfQwfW1Aw6duvrlfoFpHilEp925Jl+peaCDOr++R4BnH2CqLLNMp1f3Y5ynzt6JL
-         pjJA==
+        d=berkeley.edu; s=google; t=1787895115; x=1788499915; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/rV5wL5QxIwuoSfzmLGFHVm670pUqzdREIV4+LvHIJE=;
+        b=alhwy+W3ftc9xn9s6E10MK9HZ22MbFX7e9MDgORH2PaEp61YUGe6QnD+Z7XtLGqOz8
+         MtxPkTxmQXEAxQqqGsfbwTfvKpnrDWhNKyGzSzHdpZlSLR3Ej8Tk7Mj7SLPs2HWfU6M0
+         BgdJSwu1OBY/JRaxFhC65Rz8fs/bgg3K6OEXqAJeVnRhEExasMmdmRLVJAPHxyBfrOUF
+         t+62fCdPnLMduI4YA8U+HjtkCWzxj2F+i9F/YThRcIIv/aHHQydzIyQ0Wybd7ED/gFgo
+         Jl1HEuwZRcegibZMTOeyOp+84tj716f8ISRUz2F3bFgKdH7PUk3wIFH9pAGp+VBCm5z1
+         VWhg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787894945; x=1788499745;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vShHEoFxeJdHMF1BmMYjqhuL+4mZo5/13uAzSfeknUQ=;
-        b=hIzUra7enzqL3t1EW7AgYki0E2Tx4ug2CX6epn+Y74aOGIC1nEUrH+WY8+/Qm+qzLq
-         CSq6ohZkSdxrBmaltvX8IYfChJYzxWPMuWwwtm4oFKLT0X7qAjWsNueKGY6v8UYQxKqB
-         BPlP44r9qkChT2OJQgVjX/vB+WQCUjHEWpeCMlRAN76T7ICYIrFZz22y7psrdPbN6ktV
-         hW7Eyuvl5g2TZXGlPUpoUVYPgFiDu6CM94abDpangP3W9I6D8OsEu5a3+xmHRKdlDCiL
-         jlsEAH6woQMVtgYcdTlLRJ78CBIldt5a33GtEKFfOgo6vnI5XA1jpDcpRR6hfmdLOX8x
-         fZYg==
-X-Gm-Message-State: AFuF++kXnM6QwgIMIvFCbMyhqltcXsa6ETgwN6y2hCox7vlZXYq/cj2l
-	x8K26uVYGUmDtybQuhzZ3xFJqHxGYnjc/mOy7y9G5pJBre3/Mqrctjd+
-X-Gm-Gg: AR+sD11/Ss7KimTCQbbmHzgCkHYnFMM6j9diCTDizmkVk6vFai4LLl/5mbbS0Qn9aMd
-	cJGx+FEhJWk5AWoQkHa90MGw9Gb8o6eh8yWMlnSDqUjbt8hkCWUBtjEE4ps4/BE/8TiW9Eds8BJ
-	vb4cV2nJ5c/InPPLFL3ArPsvWQoLgxjK4YA0H4jJkmM9FVQxiVV/slex3nINZjz0btveJ6i+BmX
-	8YYNS0RS8GV4Et5Xl6IapcsNBFWi+NeMGbZxwDfTrXXMIYx+kRri4Z+fXDfUpPfDMWCBs+2sdHA
-	+nRzQYr11RCdtWST/nBL5BRcL5UrNaU2xI8ciAKQpI0Wr0V9pBFBRlSp8fi1sorvGo21lgOvI3z
-	Ph3b+Xm0m9+cG63Jnq5tNfZtWSF3qKMzJcoAmp/DwmdppRDo90olPbjMbVYnYk5JzniWQmIOYZq
-	N1KiFvqoh9QBPSe7+V9kyEw69JqYc+IDY0lm+QA4a0z5ibv/ejB1ShlD9wYl3+N38HNVBYzFHNF
-	pIUG0mqqx6fczWISUDl9/oFNSKof0/M5PneQAl/a+DDmd+pawKP3Q==
-X-Received: by 2002:a17:90b:440c:b0:381:6c5:3f63 with SMTP id 98e67ed59e1d1-396d0eab08bmr8717768a91.6.1787894945457;
-        Thu, 27 Aug 2026 22:29:05 -0700 (PDT)
-Received: from hnkz-ubuntu-vm1.mshome.net (flh4-125-195-69-140.tky.mesh.ad.jp. [125.195.69.140])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-396dda7835dsm1058007a91.5.2026.08.27.22.29.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 27 Aug 2026 22:29:05 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kazuki Hanai <hnkz.64@gmail.com>
-Subject: [PATCH] media: dvb-core: synchronize section timer on feed stop
-Date: Fri, 28 Aug 2026 14:28:52 +0900
-Message-ID: <20260828052852.1975097-1-hnkz.64@gmail.com>
+        d=1e100.net; s=20251104; t=1787895115; x=1788499915;
+        h=content-type:cc:to:subject:message-id:date:mime-version:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=/rV5wL5QxIwuoSfzmLGFHVm670pUqzdREIV4+LvHIJE=;
+        b=GjgPTXnH6Yvhdus5OpwmddbgSuPpt8eNDEfAwFz15fZwageHvfDdSnJ7Inr4BzPvek
+         Z1o0ZiYm4p8HKKv2wa4KIiMKiSUw7VdcL3s2UOAzaZ+OpXax331rRtzQWXtsff7/ai+T
+         CDaHHMCgc6wuw4OXcZiO4SMB6+Weg8Z97RRgWtC1BgVIi9Ym1FG3ANiuO8FIPDYMJ9AS
+         om8B2gJVYVfzwPNu70qgquoT0JCaTaKFaIXq0yogYRt4mvWbGP5kTycIdMxA7PIBWVO5
+         IZcDzr2CjywW/uv9sIrT61rVYqOq3g+FCtdUKnua5lBNYK4k1LJAiK8BhwCZES7p2EuV
+         ueFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rpm3sWUksydLGnM9/M6h+u2Jk8dnPxCnF0sRDLpnqHIC5K7nMYGZdaqyDRnQcazHuR8b/uLomgXJk075A==@vger.kernel.org
+X-Gm-Message-State: AFuF++m2ipDnLOwoYBXnDnzcnKRK/rbkx3E1ZpXma2ydFnbWfgMv/a0A
+	zXAlq2rdcAap9Zs94OgYcoouLdipRDW5duF+XnRedHW2IsYXgFsxqkkZyXoGioH9WEstyTMldHW
+	xdRZK6nC6YffgzJ68sFfITFoasEI4F05YYNJnzmvHwCID38Pee8kyDA==
+X-Gm-Gg: AR+sD11SUEmRPcR1ppMMpzWiFa06ktWxll11ehni9zC+8WqJXkXrW0cXZ/vSla4wq6X
+	tYw3iQ8vsKZ6AYmruWjxzpN6tlhiK1+BnLk45KyFFrw10JQziFIiKAogeYG38OJMrm/JM8+b08s
+	bU0V6LnkVfRsriSRd2KBanMCKayBjfLiyPswEjAD3L/rTYiVwh/qOwrtGTExM7Fm/1YffZ3QjJh
+	gx85iyWWciAX14BoI7jLUx0ij71ygSR83N0TRyfwTqrdulo6wizJyMqUzDC42J0WOw2CIaDOVFI
+	bsXlKzna8l36Ch90gWnTQ6Hx/kRB1H+RyAORgkLqClUxxaFLz08vzYvOXQV7pHC7QyTA6ykNiJj
+	s9jbEt46ULxzmn/fTf5mr34njNal9Xfcj
+X-Received: by 2002:a17:903:9cc:b0:2d3:716e:e2ae with SMTP id
+ d9443c01a7336-2d74dc5f3f5mr72274555ad.6.1787895113220; Thu, 27 Aug 2026
+ 22:31:53 -0700 (PDT)
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:31:52 -0700
+Received: from 474444807712 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 27 Aug 2026 22:31:52 -0700
+From: Farhad Alemi <farhad.alemi@berkeley.edu>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -71,38 +85,45 @@ List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Date: Thu, 27 Aug 2026 22:31:52 -0700
+X-Gm-Features: AcwNN1W4BQXiDrdJcKWmHqF4uj8adVeWI4wzh_jjoN2b-eJkUXCI69GFlOOilZs
+Message-ID: <CA+0ovCj4o+=Ti0cG73NjoBtQuFcny8b4Mg0CKsya9oWp_Mv0eQ@mail.gmail.com>
+Subject: [BUG] media: s2255: vmalloc out-of-bounds read in s2255_fwload_start()
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The section filter timeout callback dereferences its dmxdev_filter and
-parent dmxdev. dvb_dmxdev_feed_stop() currently uses timer_delete(),
-which can return while the callback is already running.
+Hello,
 
-The close path can then release filter-owned resources and allow device
-teardown to vfree the filter array while the callback is still executing,
-resulting in a use-after-free.
+As part of the kernel research at ASU's SEFCOM
+lab, we hit the crash below. Crash reports can be found here:
 
-Use timer_delete_sync() at the common section-feed stop boundary. This
-waits for an active callback before teardown continues while preserving
-timer reuse across DMX_STOP and later filter restarts.
+  https://github.com/farhad-alemi/public_bug_reports/tree/main/147-media-s2255-fwload-vmalloc-oob/
 
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
----
- drivers/media/dvb-core/dmxdev.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+  s2255: usb firmware version 0.0
+  s2255: newer USB firmware available
+  BUG: KASAN: vmalloc-out-of-bounds in s2255_fwload_start+0x1a6/0x410
+  Read of size 512 at addr ffffc9000010e000 by task kworker/0:1/10
+  Workqueue: usb_hub_wq hub_event
+  Call Trace:
+   __asan_memcpy+0x29/0x70
+   s2255_fwload_start+0x1a6/0x410
+   s2255_probe+0xbd5/0x10a0
+   usb_probe_interface+0x659/0xc70
+   really_probe+0x267/0xaf0
+   __driver_probe_device+0x1e2/0x350
+   driver_probe_device+0x4f/0x240
+   __device_attach_driver+0x270/0x410
+   bus_for_each_drv+0x258/0x2f0
+   __device_attach+0x2c5/0x450
 
-diff --git a/drivers/media/dvb-core/dmxdev.c b/drivers/media/dvb-core/dmxdev.c
-index 6a825d9bae43..0f5a35bf062d 100644
---- a/drivers/media/dvb-core/dmxdev.c
-+++ b/drivers/media/dvb-core/dmxdev.c
-@@ -486,7 +486,7 @@ static int dvb_dmxdev_feed_stop(struct dmxdev_filter *dmxdevfilter)
- 
- 	switch (dmxdevfilter->type) {
- 	case DMXDEV_TYPE_SEC:
--		timer_delete(&dmxdevfilter->timer);
-+		timer_delete_sync(&dmxdevfilter->timer);
- 		dmxdevfilter->feed.sec->stop_filtering(dmxdevfilter->feed.sec);
- 		break;
- 	case DMXDEV_TYPE_PES:
--- 
-2.53.0
+This is a different site from commit 330f2936ab76 ("media: s2255: check firmware
+size before reading trailing marker"), which guards s2255_probe(); the read
+above is the CHUNK_SIZE copy in s2255_fwload_start(), and the crash is from a
+tree that already contains that commit.
 
+Our reproducer.c is available upon request.
+
+Happy to test a patch if that would help.
+
+Regards,
