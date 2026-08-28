@@ -1,121 +1,198 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2552D3537EE;
-	Fri, 28 Aug 2026 15:44:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C562237F005
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787931851; cv=none; b=tFRk77YsLNAu2sY8sziqxjeYCLfWThKqedzT5QD9SqUlAEBuhm0ApQxCWEnOzgboEJjW3yPLu+6Vt65MEdOcUE1nmoV2r4A/F8s45jBqDfK1auTq0gIJRDeOCoJO8CLacHpyrox8Ue1DjV++c/DMBkx6GIht9QghbqXgqnQ0uXM=
+	t=1787933704; cv=none; b=DQWEg873o39Lc8rd9kfP24CHBnoIThJ0KX/wOt6Q2I8JPSpVEk3p3uwxATnmNuQPgbslToKBGfQfWVFCDusRM/uiS4VoZRj4x8iXXTXF2uXiB4XsbJBgjz8W38AUYEo2i9F8PiNLrckdcsblqRghmvmQ+cVD1upv+geGAWoSBpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787931851; c=relaxed/simple;
-	bh=3kftKU6QSsPS12aGYnEzewRmMCKAjq7AHM3XHC9rZAA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iMLyvy1GBq9EU3KRumzstv4C6iVk7tvgdEqooQZM57CfuSbodcU8QAgM6IA9kOpikBm/4GzDRZa3H60ly8XFEhrE/LS2oNkJHDWbQqAdnnMvU+dMTfA9cy20taT6GUjp6EYS5H7G1SPy8K5RLkWnu7Em/2hAHPwZSqHZ35aStPE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VRhd9MQx; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1787933704; c=relaxed/simple;
+	bh=3kVaLsENVzCA0MKHItsT8KdlkzDfudPfKLD+VfaEPg0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=prWqBnBUlIsfs0w6qPvH05RFLxpL1UO+D33Foc4Nx3ZKsiL8HlE3ciMHuUWWhZlQITE3LoPmVoWT9JfffIn4oi8XlzmZWr3Km1OfF+qJ0Fue4tvyAHiHUu20d/rZutgcWi91dUyqY5OH8bLmYs5dWK1JptSmuy9w2rZ32DY2qmA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yc9vhnL/; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VRhd9MQx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1787931850; x=1819467850;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3kftKU6QSsPS12aGYnEzewRmMCKAjq7AHM3XHC9rZAA=;
-  b=VRhd9MQx3Hzo91g37qGeubjV3ke42bayD5dOKKHV9SqIq0NS53uVGMVS
-   Y84yG+w5DSMuIYLwUtF2SruF7IeGcoRqFK+82B6bZrXoaTIbdCLi0+xMC
-   K8mAoeQYOZ6a47+dYWSlSZpuzcdCDozeBIGloTLeovWRaEP5We9vIFFp9
-   Jr5xAkqMZkb9OzknhAzCu3gBwmHbxQz3gu8kOyActnPENdKu8NYgg6vAm
-   ROo8TjHM8kuDb2Y4t/uJt8a/ZnrKVcriB5izlZ1X7V5Vwt7eOoKX5cXLt
-   q0Gf8yMCOP+ADfr2GAELaxJKnQykYybU2hKHi9QoRZ5b5c7B3Utdhi2Ip
-   A==;
-X-CSE-ConnectionGUID: Gvt16lhxTvKdXn9AkngB0A==
-X-CSE-MsgGUID: E1n9ZpD3RdCOP3ax11hn6w==
-X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="99106286"
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="99106286"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:44:09 -0700
-X-CSE-ConnectionGUID: ctRrCIJNSxy4QXK1nITJ2A==
-X-CSE-MsgGUID: m9fV/uLMSVS0MTQJStOzKg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
-   d="scan'208";a="291687312"
-Received: from slindbla-desk.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.176])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 08:44:08 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F1E1C121BDC;
-	Fri, 28 Aug 2026 18:44:04 +0300 (EEST)
-Date: Fri, 28 Aug 2026 18:44:04 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: linux-media@vger.kernel.org, linux-acpi@vger.kernel.org,
-	rafael@kernel.org
-Subject: Re: [PATCH 3/3] media: i2c: Use ACPI_PTR() for ACPI ID tables
-Message-ID: <apGsxDddKkRsP-Un@kekkonen.localdomain>
-References: <20260828084328.257703-1-sakari.ailus@linux.intel.com>
- <20260828084328.257703-4-sakari.ailus@linux.intel.com>
- <apGNYsroZTTOqe4c@black.igk.intel.com>
- <apGk_7Uy_NcHG8V3@kekkonen.localdomain>
- <apGnw9HlXSfVGy4z@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yc9vhnL/"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b965570d7so8606885e9.0
+        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 09:15:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1787933701; x=1788538501; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4ZptsHb/UWruuO/ahO6Igs1sBi59ogcVWq9/GJG1KZM=;
+        b=Yc9vhnL/hD5DA6TqBzbquRXOmjSy/Ru3yPqLNbcf5sYSLS/JEFs9c3vSkFn+74f32E
+         iJ0huYK2F9j+s31PIX3/C12OmTz4Hk5OhAk1K8aBWZStN8IiWToEO6SmHa7WKGpRNfTP
+         ow0J0AJj3O4qr8ejK5Lfhk2V6UoSaREKciZLdqeH0LJwFbzdxfW+HkUDl4YOtCrjmOFC
+         mpvUBdwSuANztprkGBbB2pUqkMPI8EputgTSaQOa/zk/aLiHr/nCb2gqOuQqlP8RMKPC
+         37Xiuazm0ZLhRcbq8xaSCfFhh7rccYH5bmOzYumkgIOB1am+P/mrfU3HwRhzdcGKGBzI
+         oWag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933701; x=1788538501;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4ZptsHb/UWruuO/ahO6Igs1sBi59ogcVWq9/GJG1KZM=;
+        b=r8qgt/5EwS9+TPpRw3Lbo/33SX1QzYmc2/2vEbLgDQDxsIpRWZ9IDOISpYizqMMAy3
+         H9lTgCqOv1i90OkBealUqNzCe6REmUhtnyHSWhAZ3PAZCHzH9uVwRmCVtFl4hO12uNFN
+         0bx/1kBLRubC0mrpXAut2aHbmM8SXIxp9E7dnVWMqYBeTOaQ8oNom/q/aQQh0G9p0VFd
+         ouQl5s10EFjQl6cx1uw5CSCeI+O6Qi1lMjOqGu+D+SSo/cKSTtBXueEDYVDCnsPgd6IV
+         wg7ktjqbVcUX31QZCGVVQiutpLJZz70Qzs11rMJ6BaeJV5WgO1cJxb8YnolcnU8sYvcL
+         WnlQ==
+X-Gm-Message-State: AFuF++n7+GuxOpMexhlua23o/le7epDw3MsIVHHhorwdzr/jR9m5Hpsr
+	jEQs3CSBDxjH4WDQ6VqLq+IYj0QklO4zmX49jyC3CV0Egk7/w18Ztsj1EW1H7V7m
+X-Gm-Gg: AR+sD12oquMb+hf1BT9+kauJoMz7WvrDkswTdIYU7LoHG2HDMTnDWRxTj4KRvd66NdM
+	m5v5OwOxPVmj35+uvV42VinmfZf/6rIkfCOxXasTmE7lSZI4fJgsHiMDwNmZHLR8XIXnu9HOiMm
+	R0Ib5SaGLivTVKDuGWy2n5EDrYxur3/OL5mEQbvehArZlfGUMM/xfGdiFLc2jI67NZPHzTGR29j
+	KL+q+999k2mCGj3c4fPtDE5L0ebW2TgZynh/ndAupuW8zTekezuIauNGgFH7gxTzkmXsesT3sU5
+	HguCb2VHjaZ6uL0hDfi+AIT6yjtfVeSkYMoh8i0uZ2/xmkoO8mB898Jq3kV/6IFmM9a3uZrirY9
+	af8Yi4Syngvg33B3cUvoE2TlHPLSZM+zkNL382RSKeI7eEq09Abj9U0eUre/2q6Zl6VpmD/BQUF
+	5BcnZzHs7caO3a1BoZTgGPOg1rOPmDnheo4Xl57Mch+9U2BsXlN3OaEIlJnys4ZOzBl129hpEbU
+	6P7SN1aSfvqkZlB+UuVQc7PCLlWKwJnFqUFfFKUxS19ncvuFmU7
+X-Received: by 2002:a05:6000:4715:b0:47f:c648:e265 with SMTP id ffacd0b85a97d-482f79bf064mr15006951f8f.17.1787933700887;
+        Fri, 28 Aug 2026 09:15:00 -0700 (PDT)
+Received: from 1Z10 ([78.213.5.213])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.14.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 28 Aug 2026 09:15:00 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v4 00/15] media: Add Lenovo Yoga Book YB1-X91 camera support
+Date: Fri, 28 Aug 2026 18:14:42 +0200
+Message-ID: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <apGnw9HlXSfVGy4z@ashevche-desk.local>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Aug 28, 2026 at 06:22:43PM +0300, Andy Shevchenko wrote:
-> On Fri, Aug 28, 2026 at 06:10:55PM +0300, Sakari Ailus wrote:
-> > On Fri, Aug 28, 2026 at 03:30:10PM +0200, Andy Shevchenko wrote:
-> > > On Fri, Aug 28, 2026 at 11:43:28AM +0300, Sakari Ailus wrote:
-> > > > Add ACPI_PTR() to the ACPI ID tables where missing. The patch has been
-> > > > produced with the following command:
-> > > > 
-> > > > git grep -lP 'acpi_match_table.*=\s*(?!ACPI_PTR)' \
-> > > > 	drivers/media/|while read i; do
-> > > > 	perl -i -pe 's/\.acpi_match_table\s*=\s*\K(\w+),/ACPI_PTR($1),/' $i;
-> > > > done
-> > > 
-> > > NAK.
-> > > 
-> > > It doesn't explain why we need that. This also inconsistent with OF type of
-> > > IDs.
-> > 
-> > ACPI IDs are used on ACPI only while compatible strings are used on both
-> > ACPI and OF. Thus the ACPI ID table is redundant if CONFIG_ACPI is
-> > disabled.
-> 
-> They may be informative for the cases when on the working say OF system I can
-> get the IDs for ACPI based platforms at run-time.
+The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
+OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
+not provide enough information for the existing sensor and IPU bridge
+drivers to construct the complete camera links.
 
-That's a bit far-fetched I think. Have you ever done that? :-)
+Add the ACPI IDs and bridge data, describe both AtomISP camera links,
+support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
+add per-channel white-balance controls, and add the WV517S rear-camera
+lens actuator.
 
-Media drivers are probably one of the largest groups of drivers that are as
-relevant for ACPI as they are for OF.
+Raw capture is selected through the normal V4L2 raw pixel formats. There
+is no module parameter or separate private ABI. Raw formats expose the
+complete sensor transport frame required by the ISP2401 copy pipeline;
+selecting a smaller crop remains a userspace decision.
 
-The of_match_ptr() that used to be present in nearly all media drivers has
-been largely eliminated in the same context and the only reason for that is
-that the table is also relevant for ACPI systems. The case is indeed the
-opposite to the ACPI equivalent so I really don't see why we shouldn't just
-drop it where it's, well, redundant.
+Changes since v3:
 
-> 
-> Also you just save a couple of dozens of bytes. This is peanuts and unneeded
-> churn. Again, here is my formal
+- use ACPI_PTR() for the new OV8858 ACPI match table;
+- split the Yoga Book OV2740 link support into sensor, IPU bridge,
+  AtomISP timing and device-specific frequency patches;
+- reuse the existing OV2740 1932x1092 mode register list and SGRBG10
+  Bayer order for the 288 MHz link frequency;
+- carry per-sensor link frequencies through the IPU bridge and use
+  v4l2_get_link_freq() with s64 arithmetic for AtomISP D-PHY timing;
+- remove the sensor-specific kernel padding override: raw capture exposes
+  the full transport frame and userspace owns the centered crop;
+- keep struct v4l2_area for the existing AtomISP padding interface without
+  adding per-sensor padding state; and
+- add review links to the commits that address the requested changes.
 
-I recall you often comment on struct field ordering to save, well,
-typically less than dozens of bytes, too.
+v3:
+https://lore.kernel.org/linux-media/cover.1787872237.git.mauriziocasciano7@gmail.com/
 
-> 
-> NAKed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> 
-> In case you want to override that, please keep it in the commit message (among
-> other tags). And yes, we have such a tag in the Git history of Linux kernel.
+The tablet DSDT contains the sensor objects requested during review:
 
+    Device (CA11)
+    {
+        Name (_HID, "INT3477")
+        Name (_CID, "OVTI8858")
+        Name (_DDN, "OV8858")
+    }
+
+    Device (CA01)
+    {
+        Name (_HID, "OVTI2740")
+        Name (_CID, "OVTI2740")
+        Name (_DDN, "OV2740")
+    }
+
+Pahole reports struct ov2740_mode as 64 bytes, exactly one cacheline,
+with no holes or padding. Struct ov8858 is 792 bytes, naturally aligned
+to 8 bytes, with 4 bytes of tail padding. Struct ipu_sensor is 2096 bytes
+in v4, reduced from 2104 bytes during review.
+
+All fifteen patches pass strict checkpatch. The touched Media objects at
+the exact v4 tip pass W=1 and sparse v0.6.5-rc1. A clean 20-job full
+kernel package build containing the patch-equivalent v4 series completed
+successfully.
+
+Runtime testing used a Lenovo Yoga Book YB1-X91L booted with
+7.2.0-yogabook-20260828-163827 from integration commit
+907805589733fd2e9112118314ac811361afdcd2. Both sensors, AtomISP and
+WV517S bound. The OV2740 exposed its full 1932x1092 SGRBG10 transport and
+completed three consecutive direct raw captures at approximately 30 fps.
+The camera userspace consumed that interface with a centered 1920x1080
+crop, and the rear OV8858 preview consumed its SBGGR10 transport.
+
+The 1280x720 YUYV rear endpoint completed a bounded 90-frame capture,
+then switched automatically to a bounded 150-frame front capture. Both
+physical camera images and front/rear switching were tested successfully
+in Cheese. Speakers, microphone, Halo keyboard haptics and pen mode were
+also retested on the same integrated kernel without regressions.
+
+With Best Regards,
+Maurizio Casciano
+
+Maurizio Casciano (15):
+  media: ov8858: Extract digital gain programming
+  media: ov8858: support 19.2 MHz clock and CHT gain setup
+  media: ov2740: Use C99 initializers for ACPI IDs
+  media: ov2740: Add OVTI2740 ACPI ID
+  media: ov8858: Add INT3477 ACPI ID
+  media: intel: ipu-bridge: Add Yoga Book camera sensors
+  media: atomisp: Add Yoga Book camera configuration
+  media: ov2740: support 288 MHz link frequency
+  media: intel: ipu-bridge: allow sensor-specific link frequencies
+  media: atomisp: derive CSI-2 timing from sensor link frequency
+  media: atomisp: provide Yoga Book OV2740 link frequency
+  media: ov2740: add manual white balance controls
+  media: atomisp: Use struct v4l2_area for padding
+  media: atomisp: allow raw Bayer capture
+  media: i2c: Add WV517S lens actuator driver
+
+ MAINTAINERS                                   |   1 +
+ drivers/media/i2c/Kconfig                     |  11 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/ov2740.c                    | 116 +++++++---
+ drivers/media/i2c/ov8858.c                    | 167 ++++++++++++--
+ drivers/media/i2c/wv517s.c                    | 206 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |  19 +-
+ .../staging/media/atomisp/pci/atomisp_cmd.c   |  64 ++++--
+ .../staging/media/atomisp/pci/atomisp_cmd.h   |   6 +-
+ .../staging/media/atomisp/pci/atomisp_csi2.c  |  20 +-
+ .../media/atomisp/pci/atomisp_csi2_bridge.c   |  30 ++-
+ .../staging/media/atomisp/pci/atomisp_ioctl.c |  33 ++-
+ include/media/ipu-bridge.h                    |   2 +
+ 13 files changed, 578 insertions(+), 98 deletions(-)
+ create mode 100644 drivers/media/i2c/wv517s.c
+
+base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
 -- 
-Sakari Ailus
+2.53.0
