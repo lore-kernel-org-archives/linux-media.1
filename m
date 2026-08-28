@@ -1,61 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C562237F005
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D0563812C2
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787933704; cv=none; b=DQWEg873o39Lc8rd9kfP24CHBnoIThJ0KX/wOt6Q2I8JPSpVEk3p3uwxATnmNuQPgbslToKBGfQfWVFCDusRM/uiS4VoZRj4x8iXXTXF2uXiB4XsbJBgjz8W38AUYEo2i9F8PiNLrckdcsblqRghmvmQ+cVD1upv+geGAWoSBpQ=
+	t=1787933707; cv=none; b=itcsPIbWbiGo+KUxz2JEKIyeUPuIAOipek69YmH/1oLRHCiHNO++ITPyAdqR/BQhUCsqf/ASp7Pjxs+vJfvw9JIZ4GoH7nJ7BUhiAod/MDxz9cadL49/aJaFYM1+srLhWWjojVr93qSN5rHpfjo+QXz+xgS0Mcc3bWC9WA5iNoE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787933704; c=relaxed/simple;
-	bh=3kVaLsENVzCA0MKHItsT8KdlkzDfudPfKLD+VfaEPg0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=prWqBnBUlIsfs0w6qPvH05RFLxpL1UO+D33Foc4Nx3ZKsiL8HlE3ciMHuUWWhZlQITE3LoPmVoWT9JfffIn4oi8XlzmZWr3Km1OfF+qJ0Fue4tvyAHiHUu20d/rZutgcWi91dUyqY5OH8bLmYs5dWK1JptSmuy9w2rZ32DY2qmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Yc9vhnL/; arc=none smtp.client-ip=209.85.128.53
+	s=arc-20240116; t=1787933707; c=relaxed/simple;
+	bh=xhrDm+Mv7c74PMtacFvusD+88J1ycuEMG7fJpBlsDjE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=o3D+rpA3tMmuCyMTbb9uTizZBYA7OplaWUHWYhrjq9fp9AE7JxNeylVvWbb0+BdqQNQ72maPLJ7U3GQaN9lcV9OiCisIsVtv6ZFC2O9c+HB+ZxCYt7PoCL9cH5xrhsY1jx/cMIj/EnWipvzqTt32fLcR4ZfMgVd1hWNlPKufkBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QQyPFXz2; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Yc9vhnL/"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49b965570d7so8606885e9.0
-        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 09:15:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QQyPFXz2"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso5968695e9.0
+        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 09:15:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787933701; x=1788538501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4ZptsHb/UWruuO/ahO6Igs1sBi59ogcVWq9/GJG1KZM=;
-        b=Yc9vhnL/hD5DA6TqBzbquRXOmjSy/Ru3yPqLNbcf5sYSLS/JEFs9c3vSkFn+74f32E
-         iJ0huYK2F9j+s31PIX3/C12OmTz4Hk5OhAk1K8aBWZStN8IiWToEO6SmHa7WKGpRNfTP
-         ow0J0AJj3O4qr8ejK5Lfhk2V6UoSaREKciZLdqeH0LJwFbzdxfW+HkUDl4YOtCrjmOFC
-         mpvUBdwSuANztprkGBbB2pUqkMPI8EputgTSaQOa/zk/aLiHr/nCb2gqOuQqlP8RMKPC
-         37Xiuazm0ZLhRcbq8xaSCfFhh7rccYH5bmOzYumkgIOB1am+P/mrfU3HwRhzdcGKGBzI
-         oWag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787933701; x=1788538501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1787933703; x=1788538503; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4ZptsHb/UWruuO/ahO6Igs1sBi59ogcVWq9/GJG1KZM=;
-        b=r8qgt/5EwS9+TPpRw3Lbo/33SX1QzYmc2/2vEbLgDQDxsIpRWZ9IDOISpYizqMMAy3
-         H9lTgCqOv1i90OkBealUqNzCe6REmUhtnyHSWhAZ3PAZCHzH9uVwRmCVtFl4hO12uNFN
-         0bx/1kBLRubC0mrpXAut2aHbmM8SXIxp9E7dnVWMqYBeTOaQ8oNom/q/aQQh0G9p0VFd
-         ouQl5s10EFjQl6cx1uw5CSCeI+O6Qi1lMjOqGu+D+SSo/cKSTtBXueEDYVDCnsPgd6IV
-         wg7ktjqbVcUX31QZCGVVQiutpLJZz70Qzs11rMJ6BaeJV5WgO1cJxb8YnolcnU8sYvcL
-         WnlQ==
-X-Gm-Message-State: AFuF++n7+GuxOpMexhlua23o/le7epDw3MsIVHHhorwdzr/jR9m5Hpsr
-	jEQs3CSBDxjH4WDQ6VqLq+IYj0QklO4zmX49jyC3CV0Egk7/w18Ztsj1EW1H7V7m
-X-Gm-Gg: AR+sD12oquMb+hf1BT9+kauJoMz7WvrDkswTdIYU7LoHG2HDMTnDWRxTj4KRvd66NdM
-	m5v5OwOxPVmj35+uvV42VinmfZf/6rIkfCOxXasTmE7lSZI4fJgsHiMDwNmZHLR8XIXnu9HOiMm
-	R0Ib5SaGLivTVKDuGWy2n5EDrYxur3/OL5mEQbvehArZlfGUMM/xfGdiFLc2jI67NZPHzTGR29j
-	KL+q+999k2mCGj3c4fPtDE5L0ebW2TgZynh/ndAupuW8zTekezuIauNGgFH7gxTzkmXsesT3sU5
-	HguCb2VHjaZ6uL0hDfi+AIT6yjtfVeSkYMoh8i0uZ2/xmkoO8mB898Jq3kV/6IFmM9a3uZrirY9
-	af8Yi4Syngvg33B3cUvoE2TlHPLSZM+zkNL382RSKeI7eEq09Abj9U0eUre/2q6Zl6VpmD/BQUF
-	5BcnZzHs7caO3a1BoZTgGPOg1rOPmDnheo4Xl57Mch+9U2BsXlN3OaEIlJnys4ZOzBl129hpEbU
-	6P7SN1aSfvqkZlB+UuVQc7PCLlWKwJnFqUFfFKUxS19ncvuFmU7
-X-Received: by 2002:a05:6000:4715:b0:47f:c648:e265 with SMTP id ffacd0b85a97d-482f79bf064mr15006951f8f.17.1787933700887;
-        Fri, 28 Aug 2026 09:15:00 -0700 (PDT)
+        bh=KZWFTR8cjCr40UFMGvLuRrF9M/oaIFX/lTih1P5E7Kk=;
+        b=QQyPFXz2NVslEW+QnLZWvKzzqn/btq9Msxr/KYCrFh/24L6BvjJw/5bk1Q4EQBt6GJ
+         gRIWqRKFgMOoUlh8ClCd+bDFqSGzNIH3cN/x78g/K7SWq+10tuJ1mzdeThsU15HKyu1Q
+         +d05E26zQsBAMNWAn8kV9OrrSaaaVdg0dVN36MF5iiBVuPcb/FRQkiwRnOXk7I0sBUF6
+         ErTcWkg2ekyU97FbgdT+575tZx/QlGLJwgOPH2MnmrdMq7uVaY8oOiharCgobxlrXj1+
+         z+8aDNkFgCfJe9ZpKaFnKHU3//G2+ywXw4qsRwRjL4F3sOhdehck/skrxvFKoU15CJ2S
+         QlLQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787933703; x=1788538503;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KZWFTR8cjCr40UFMGvLuRrF9M/oaIFX/lTih1P5E7Kk=;
+        b=MrW95KirSuWKyXxJCNBCY8kbSP11ge9C1obujsUrUYR2rGQ2k7819CIaA5oVkgJCFY
+         0/NMU7Nxjawg1qFCavx5czqVsR/fziZD5HWjsmwf58IliU1USfnzh/fqQlTcKk74Fwen
+         U6kuHA5BesJvjX3UHofPY/be3wiJ3DxG+AAwTUntQvSw7qoBl8wPa4qdv2WfRn4TEGx4
+         8mWjEEF+Ri59UpQgs73GBf1eMYJiKc9RAcz8rvGceRxyK8GlziE7VAlIafZxL6yld9oc
+         aK7bFhrB5o0riHeomc38+6lLKzbFOQ/FVTJXCui8RL7ipy8S25WSXZpD/jWpGZ78jg2C
+         hPBQ==
+X-Gm-Message-State: AFuF++luuckhdKLp7ntWI5lD/iIasBy9pVCbAFbb9fpOPtDlJSi8QUOx
+	2KiPVHuI4SkCZ2C0PNjU82U+62jhUcrihaN2KUyvKeUjzDiWqN2WybrEl7Gkb2O+
+X-Gm-Gg: AR+sD103pZ6wyMf2F8kGjjEI80/VZCOnkb75Z6Fpm+jW14YjHuZ+xazi5up+QXt6YEE
+	ptgE8HqrG+B1KjkZcTn0xt/NYRWTkl64MC5bzMhe4vDxIrAhyfiBJTl7k5O6Mh1ZmnoqddtuPIb
+	bx1SdaIPWs0oNju6IH3NYfKWMPwfh/Qbv8yhocZgTrgd/uUUAMVQc3vqSVW5ewZvjpRl6REK5MW
+	D5xXnCxP+JjKwuRCRawsL3UVCWy5k33QQG8BtK3JFHFsxPRbiYZU0P7tKT/29TAf3bhLUECmJ6g
+	LDPNNV53EetAKX6ir+BXK7l6fTHsRxSTaF0t38H3RxT3O+A0Vy58jeQ7uyWt3XZJfW+CWoSVyaz
+	WtjtVTloTnTf7IIgeMiFiz8PQ4vq4dsBtjG1dOuTtGIjsbAksU/gmKosCaRQY9SJGXPhQ0lcFIj
+	M3Yoo4/vQbE8T2y1NwY8c/CVDR9m0ouW4b6Z3pSDM++fKmJtVZopxofGWNbSpkN4/FawyMb3v0G
+	N6/aYieSyeBImFv5kUJXSOJZ9peo4JtMvAZWdsrUw==
+X-Received: by 2002:a05:600c:354f:b0:493:c47f:3c55 with SMTP id 5b1f17b1804b1-49b91c1ece1mr134990155e9.5.1787933703419;
+        Fri, 28 Aug 2026 09:15:03 -0700 (PDT)
 Received: from 1Z10 ([78.213.5.213])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.14.58
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f45sm7629739f8f.7.2026.08.28.09.15.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 09:15:00 -0700 (PDT)
+        Fri, 28 Aug 2026 09:15:03 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
@@ -72,10 +74,12 @@ Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
 	Maurizio Casciano <mauriziocasciano7@gmail.com>
-Subject: [PATCH v4 00/15] media: Add Lenovo Yoga Book YB1-X91 camera support
-Date: Fri, 28 Aug 2026 18:14:42 +0200
-Message-ID: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+Subject: [PATCH v4 01/15] media: ov8858: Extract digital gain programming
+Date: Fri, 28 Aug 2026 18:14:43 +0200
+Message-ID: <1a7c8fba6835b2191b71ae1d903734621626e1f6.1787933456.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -84,115 +88,70 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
-OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
-not provide enough information for the existing sensor and IPU bridge
-drivers to construct the complete camera links.
+Move the existing packed digital-gain register programming into a helper so
+clock-specific gain handling can be added separately.
 
-Add the ACPI IDs and bridge data, describe both AtomISP camera links,
-support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
-add per-channel white-balance controls, and add the WV517S rear-camera
-lens actuator.
+Assisted-by: Codex:gpt-5.6-sol sparse
+Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+---
+ drivers/media/i2c/ov8858.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
 
-Raw capture is selected through the normal V4L2 raw pixel formats. There
-is no module parameter or separate private ABI. Raw formats expose the
-complete sensor transport frame required by the ISP2401 copy pipeline;
-selecting a smaller crop remains a userspace decision.
-
-Changes since v3:
-
-- use ACPI_PTR() for the new OV8858 ACPI match table;
-- split the Yoga Book OV2740 link support into sensor, IPU bridge,
-  AtomISP timing and device-specific frequency patches;
-- reuse the existing OV2740 1932x1092 mode register list and SGRBG10
-  Bayer order for the 288 MHz link frequency;
-- carry per-sensor link frequencies through the IPU bridge and use
-  v4l2_get_link_freq() with s64 arithmetic for AtomISP D-PHY timing;
-- remove the sensor-specific kernel padding override: raw capture exposes
-  the full transport frame and userspace owns the centered crop;
-- keep struct v4l2_area for the existing AtomISP padding interface without
-  adding per-sensor padding state; and
-- add review links to the commits that address the requested changes.
-
-v3:
-https://lore.kernel.org/linux-media/cover.1787872237.git.mauriziocasciano7@gmail.com/
-
-The tablet DSDT contains the sensor objects requested during review:
-
-    Device (CA11)
-    {
-        Name (_HID, "INT3477")
-        Name (_CID, "OVTI8858")
-        Name (_DDN, "OV8858")
-    }
-
-    Device (CA01)
-    {
-        Name (_HID, "OVTI2740")
-        Name (_CID, "OVTI2740")
-        Name (_DDN, "OV2740")
-    }
-
-Pahole reports struct ov2740_mode as 64 bytes, exactly one cacheline,
-with no holes or padding. Struct ov8858 is 792 bytes, naturally aligned
-to 8 bytes, with 4 bytes of tail padding. Struct ipu_sensor is 2096 bytes
-in v4, reduced from 2104 bytes during review.
-
-All fifteen patches pass strict checkpatch. The touched Media objects at
-the exact v4 tip pass W=1 and sparse v0.6.5-rc1. A clean 20-job full
-kernel package build containing the patch-equivalent v4 series completed
-successfully.
-
-Runtime testing used a Lenovo Yoga Book YB1-X91L booted with
-7.2.0-yogabook-20260828-163827 from integration commit
-907805589733fd2e9112118314ac811361afdcd2. Both sensors, AtomISP and
-WV517S bound. The OV2740 exposed its full 1932x1092 SGRBG10 transport and
-completed three consecutive direct raw captures at approximately 30 fps.
-The camera userspace consumed that interface with a centered 1920x1080
-crop, and the rear OV8858 preview consumed its SBGGR10 transport.
-
-The 1280x720 YUYV rear endpoint completed a bounded 90-frame capture,
-then switched automatically to a bounded 150-frame front capture. Both
-physical camera images and front/rear switching were tested successfully
-in Cheese. Speakers, microphone, Halo keyboard haptics and pen mode were
-also retested on the same integrated kernel without regressions.
-
-With Best Regards,
-Maurizio Casciano
-
-Maurizio Casciano (15):
-  media: ov8858: Extract digital gain programming
-  media: ov8858: support 19.2 MHz clock and CHT gain setup
-  media: ov2740: Use C99 initializers for ACPI IDs
-  media: ov2740: Add OVTI2740 ACPI ID
-  media: ov8858: Add INT3477 ACPI ID
-  media: intel: ipu-bridge: Add Yoga Book camera sensors
-  media: atomisp: Add Yoga Book camera configuration
-  media: ov2740: support 288 MHz link frequency
-  media: intel: ipu-bridge: allow sensor-specific link frequencies
-  media: atomisp: derive CSI-2 timing from sensor link frequency
-  media: atomisp: provide Yoga Book OV2740 link frequency
-  media: ov2740: add manual white balance controls
-  media: atomisp: Use struct v4l2_area for padding
-  media: atomisp: allow raw Bayer capture
-  media: i2c: Add WV517S lens actuator driver
-
- MAINTAINERS                                   |   1 +
- drivers/media/i2c/Kconfig                     |  11 +
- drivers/media/i2c/Makefile                    |   1 +
- drivers/media/i2c/ov2740.c                    | 116 +++++++---
- drivers/media/i2c/ov8858.c                    | 167 ++++++++++++--
- drivers/media/i2c/wv517s.c                    | 206 ++++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |  19 +-
- .../staging/media/atomisp/pci/atomisp_cmd.c   |  64 ++++--
- .../staging/media/atomisp/pci/atomisp_cmd.h   |   6 +-
- .../staging/media/atomisp/pci/atomisp_csi2.c  |  20 +-
- .../media/atomisp/pci/atomisp_csi2_bridge.c   |  30 ++-
- .../staging/media/atomisp/pci/atomisp_ioctl.c |  33 ++-
- include/media/ipu-bridge.h                    |   2 +
- 13 files changed, 578 insertions(+), 98 deletions(-)
- create mode 100644 drivers/media/i2c/wv517s.c
-
-base-commit: 73e3f0710014fe6d4ed98cfc02292f6121db7558
+diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
+index 3f45f7fab833..d95f034de752 100644
+--- a/drivers/media/i2c/ov8858.c
++++ b/drivers/media/i2c/ov8858.c
+@@ -1523,6 +1523,23 @@ static int ov8858_enable_test_pattern(struct ov8858 *ov8858, u32 pattern)
+ 	return ov8858_write(ov8858, OV8858_REG_TEST_PATTERN, val, NULL);
+ }
+ 
++static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
++{
++	u16 long_gain;
++
++	/*
++	 * Digital gain is assembled as:
++	 * 0x350a[7:0] = dgain[13:6]
++	 * 0x350b[5:0] = dgain[5:0]
++	 * Reassemble the control value to write it in one go.
++	 */
++	long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
++		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
++		     OV8858_LONG_DIGIGAIN_H_SHIFT);
++
++	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
++}
++
+ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+ {
+ 	struct ov8858 *ov8858 = container_of(ctrl->handler,
+@@ -1531,7 +1548,6 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+ 	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
+ 	struct v4l2_mbus_framefmt *format;
+ 	struct v4l2_subdev_state *state;
+-	u16 digi_gain;
+ 	s64 max_exp;
+ 	int ret;
+ 
+@@ -1570,17 +1586,7 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
+ 				   ctrl->val, NULL);
+ 		break;
+ 	case V4L2_CID_DIGITAL_GAIN:
+-		/*
+-		 * Digital gain is assembled as:
+-		 * 0x350a[7:0] = dgain[13:6]
+-		 * 0x350b[5:0] = dgain[5:0]
+-		 * Reassemble the control value to write it in one go.
+-		 */
+-		digi_gain = (ctrl->val & OV8858_LONG_DIGIGAIN_L_MASK)
+-			  | ((ctrl->val & OV8858_LONG_DIGIGAIN_H_MASK) <<
+-			      OV8858_LONG_DIGIGAIN_H_SHIFT);
+-		ret = ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN,
+-				   digi_gain, NULL);
++		ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
+ 		break;
+ 	case V4L2_CID_VBLANK:
+ 		ret = ov8858_write(ov8858, OV8858_REG_VTS,
 -- 
 2.53.0
+
