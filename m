@@ -1,88 +1,163 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-oi2-f4.google.com (mail-oi2-f4.google.com [74.125.231.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADE442050;
-	Fri, 28 Aug 2026 02:20:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A082346E63
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 02:45:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787883610; cv=none; b=kHLvxsOl9lrCZNEGczP4Gplkc8+lVNazIC5xSkesKcLuxKvfLONXWdm7v92wlOE4y+bcQweS1VjASAZVptVlaOvEeYi/Ed9CCA7djhqthvAri5pXPXgtiluR35FPcZgZtsdQj/AIJdgJH4uRjpb56vF2vCTZ1fqhavyOy8Y0Sdg=
+	t=1787885131; cv=none; b=PENUiNypaih7o0ngvfQ18+TnUfc+0HK/cfnhItk65UYHl2zAHV1hXtaVDhjPGqEg9CQB0o8jVoVfb3jMGh5DyGSIFCL9s96uwN2dU5EbrW6WTCNWy2Pei46q5/ZI+eoIw7AHsQ2htHMc75TEtbM7vp5hdTpLBgMCVFuu0ugR0mQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787883610; c=relaxed/simple;
-	bh=Xbr73mh4+G/LMHmEIOCSQ3lh2lo5ed90wySLdSSpMvs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HZyWE6ETfxZqv1NEbM2nh5coqOFHFRQZWygtewwLWXElqsM8qCy4PW7g5yl80zRlbCKGd1SjBu7GT1o4RQZO5eDCLa9nMVmlemWmMrQf7ohHLfMt+8fN4TN4ET/mpvYf6lppfyF5NTBIdHsI2ZZZgpi2a0Upqfo9q5hXniR0iv0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3aEJO8JBqdjLWBg--.59165S2;
-	Fri, 28 Aug 2026 10:19:58 +0800 (CST)
-From: Haotian Zhang <vulab@iscas.ac.cn>
-To: mchehab@kernel.org
-Cc: boris.brezillon@collabora.com,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Haotian Zhang <vulab@iscas.ac.cn>
-Subject: [PATCH] media: v4l2-h264: Fix memcmp() size in B1 reference list comparison
-Date: Fri, 28 Aug 2026 10:17:39 +0800
-Message-ID: <20260828021739.25766-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1787885131; c=relaxed/simple;
+	bh=4pxKODezywX3sQBm6coDrkpjCGyFvbajTXCFUAlYGmo=;
+	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=Y5xsHDZno0k6K5lE0zeDyL/UO8fP5DMy7WKufiZQQJhcgAgBBAyomL5/jJqV9A9BiWe6RwJPFu6ODFkfOkLlB7OnTErMSyGBJRx1NmI9T+xQN4ibDpMyqi0K5BNH+vjxtQv8gxsK3QOOS/SZTxteEF4ndZ8T/WAZT6qR49LG3kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
+Received: by mail-oi2-f4.google.com with SMTP id 5614622812f47-4ab2d8e7e4cso158336b6e.1
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 19:45:29 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1787885128; x=1788489928;
+        h=content-type:to:from:subject:message-id:date:mime-version
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6xfBoN4ZemMCJI5JUsEpTJtQBBECTZ1Z2MZ0e09zNqU=;
+        b=XUWPU05G/beA43nCAeyGvSrEqPN3EqIneg3kmO+g9mWXVwbuVnHQAnVmF+E8jpbzeV
+         UdLfnOOmyV64hLJ1dOpXesvbpuDGhntfuTwj2ppC/1D2xdInO46zm8XDUnm8WrKuOxGW
+         X3hvjMn7euepF49KcOjo5VKn19sEEsao+hU4783mFrehuChLWVbvh3JNA36ZCCCSuWbz
+         KNjDOGE1SUKRu/0caaQi9mlVwYFTm2LqlPJom8htJmXlTvgaYpDkuHdxrul1L+Ucu0aV
+         8qVHYY5E1Ph1QeWD3C9IKpl5VmEaOX6jNzN8XM6jTAwFa9UFnDPqzu/dbnfDPre3hzx9
+         efVA==
+X-Forwarded-Encrypted: i=1; AHgh+RpIghs9RXRx9yB6JzY3qWa8sGmi86L8sXRWRJE9VYZzMVCAHCmP/bcP28m+xSgC1ZeQnr99CgB3xDgHTQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++niOv2u/DOvratWec46fddUAv5ZQnXL89M4v20hVZFW9h2yDrEA
+	TcK9d/eThsBNGo2kMMki/+fqa9vXrhJe2qyjsbENBHZrxFQcmoOU9LyiThq32oQPphd4V5TrZ2C
+	58gijFKDrLfeVkhuzjb6MDi05wKC5pNJoH/Psdn1Ye/lUj1eVoMjo6Kf4zjQ=
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3aEJO8JBqdjLWBg--.59165S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UKFW8JF47WF13Cry7GFg_yoW8GF45p3
-	yrGrW3KrWUArW8Zr4UKayDKFn0qay8Ja12g393G3s2qw17tFs3tr4vyFyUW3WYkrZ29r4Y
-	9rWDKrZ5tF43Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j
-	6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUjIJmU
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qQuVyhoQAAsd
+X-Received: by 2002:a05:6808:c3ee:b0:4a3:3108:866a with SMTP id
+ 5614622812f47-4b3982eaaefmr4182602b6e.17.1787885128564; Thu, 27 Aug 2026
+ 19:45:28 -0700 (PDT)
+Date: Thu, 27 Aug 2026 19:45:28 -0700
+X-Google-Appengine-App-Id: s~syzkaller
+X-Google-Appengine-App-Id-Alias: syzkaller
+Message-ID: <6a90f648.1d9ded08.62e62.00e2.GAE@google.com>
+Subject: [syzbot] [media?] WARNING in vidtv_stop_feed
+From: syzbot <syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com>
+To: dwlsalmeida@gmail.com, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, mchehab@kernel.org, 
+	syzkaller-bugs@googlegroups.com
+Content-Type: text/plain; charset="UTF-8"
 
-In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
-check passes the entry count builder->num_valid to memcmp()
-instead of a byte size. Since struct v4l2_h264_reference is
-two bytes (fields and index), only half of each list is
-compared, so distinct lists can be wrongly treated as equal
-and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
+Hello,
 
-Change the memcmp() size argument to builder->num_valid *
-sizeof(*b1_reflist) so that the full byte length of both
-reference lists is compared.
+syzbot found the following issue on:
 
-Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B0/B1 reflists")
-Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+HEAD commit:    388b607d107c Merge tag 'efi-next-for-v7.3' of git://git.ke..
+git tree:       upstream
+console output: https://syzkaller.appspot.com/x/log.txt?x=10a42625580000
+kernel config:  https://syzkaller.appspot.com/x/.config?x=b57978e7637d0f4a
+dashboard link: https://syzkaller.appspot.com/bug?extid=3157015c6bd85395cddc
+compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+userspace arch: i386
+
+Unfortunately, I don't have any reproducer for this issue yet.
+
+Downloadable assets:
+disk image (non-bootable): https://storage.googleapis.com/syzbot-assets/d900f083ada3/non_bootable_disk-388b607d.raw.xz
+vmlinux: https://storage.googleapis.com/syzbot-assets/a21f6d431a2a/vmlinux-388b607d.xz
+kernel image: https://storage.googleapis.com/syzbot-assets/5f0615983131/bzImage-388b607d.xz
+
+IMPORTANT: if you fix the issue, please add the following tag to the commit:
+Reported-by: syzbot+3157015c6bd85395cddc@syzkaller.appspotmail.com
+
+------------[ cut here ]------------
+DEBUG_LOCKS_WARN_ON(lock->magic != lock)
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock_common kernel/locking/mutex.c:625 [inline], CPU#3: syz.3.334/7114
+WARNING: kernel/locking/mutex.c:625 at __mutex_lock+0x944/0x1bc0 kernel/locking/mutex.c:821, CPU#3: syz.3.334/7114
+Modules linked in:
+CPU: 3 UID: 0 PID: 7114 Comm: syz.3.334 Tainted: G             L      syzkaller #0 PREEMPT(full) 
+Tainted: [L]=SOFTLOCKUP
+Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+RIP: 0010:__mutex_lock_common kernel/locking/mutex.c:625 [inline]
+RIP: 0010:__mutex_lock+0x94b/0x1bc0 kernel/locking/mutex.c:821
+Code: 0f b6 14 11 38 d0 7c 08 84 d2 0f 85 b4 10 00 00 44 8b 05 b8 11 7a 05 45 85 c0 75 13 48 8d 3d 9c 16 7d 05 48 c7 c6 80 d3 ef 8b <67> 48 0f b9 3a 90 e9 1b f8 ff ff 4d 8d a7 f0 0a 00 00 4c 89 e7 e8
+RSP: 0000:ffffc90025f2fae0 EFLAGS: 00010246
+RAX: 0000000000000003 RBX: ffff888029f2d128 RCX: 1ffffffff22898cc
+RDX: 0000000000000000 RSI: ffffffff8befd380 RDI: ffffffff9147cb50
+RBP: ffffc90025f2fc50 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000000000
+R13: 0000000000000000 R14: dffffc0000000000 R15: 0000000000000000
+FS:  0000000000000000(0000) GS:ffff888096c84000(0063) knlGS:0000000057892480
+CS:  0010 DS: 002b ES: 002b CR0: 0000000080050033
+CR2: 00000000f544aff4 CR3: 00000000577a8000 CR4: 0000000000352ef0
+Call Trace:
+ <TASK>
+ vidtv_stop_feed+0x75/0x2a0 drivers/media/test-drivers/vidtv/vidtv_bridge.c:256
+ dmx_ts_feed_stop_filtering+0xe9/0x1d0 drivers/media/dvb-core/dvb_demux.c:780
+ dvb_dmxdev_feed_stop.isra.0+0x162/0x270 drivers/media/dvb-core/dmxdev.c:494
+ dvb_dmxdev_filter_stop+0x1d0/0x390 drivers/media/dvb-core/dmxdev.c:572
+ dvb_dmxdev_filter_free drivers/media/dvb-core/dmxdev.c:856 [inline]
+ dvb_demux_release+0x92/0x560 drivers/media/dvb-core/dmxdev.c:1256
+ __fput+0x3ff/0xb50 fs/file_table.c:512
+ task_work_run+0x150/0x240 kernel/task_work.c:233
+ resume_user_mode_work include/linux/resume_user_mode.h:50 [inline]
+ __exit_to_user_mode_loop kernel/entry/common.c:70 [inline]
+ exit_to_user_mode_loop+0x1d8/0x700 kernel/entry/common.c:101
+ __exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
+ syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
+ syscall_exit_to_user_mode include/linux/entry-common.h:336 [inline]
+ __do_fast_syscall_32+0x59f/0x8b0 arch/x86/entry/syscall_32.c:294
+ do_fast_syscall_32+0x32/0x70 arch/x86/entry/syscall_32.c:316
+ entry_SYSENTER_compat_after_hwframe+0x84/0x8e
+RIP: 0023:0xf6ffefec
+Code: Unable to access opcode bytes at 0xf6ffefc2.
+RSP: 002b:00000000ffb45dfc EFLAGS: 00000202 ORIG_RAX: 00000000000001b4
+RAX: 0000000000000000 RBX: 0000000000000003 RCX: 000000000000001e
+RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000000
+RBP: 0000000000000000 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000202 R12: 0000000000000000
+R13: 0000000000000000 R14: 0000000000000000 R15: 0000000000000000
+ </TASK>
+----------------
+Code disassembly (best guess):
+   0:	0f b6 14 11          	movzbl (%rcx,%rdx,1),%edx
+   4:	38 d0                	cmp    %dl,%al
+   6:	7c 08                	jl     0x10
+   8:	84 d2                	test   %dl,%dl
+   a:	0f 85 b4 10 00 00    	jne    0x10c4
+  10:	44 8b 05 b8 11 7a 05 	mov    0x57a11b8(%rip),%r8d        # 0x57a11cf
+  17:	45 85 c0             	test   %r8d,%r8d
+  1a:	75 13                	jne    0x2f
+  1c:	48 8d 3d 9c 16 7d 05 	lea    0x57d169c(%rip),%rdi        # 0x57d16bf
+  23:	48 c7 c6 80 d3 ef 8b 	mov    $0xffffffff8befd380,%rsi
+* 2a:	67 48 0f b9 3a       	ud1    (%edx),%rdi <-- trapping instruction
+  2f:	90                   	nop
+  30:	e9 1b f8 ff ff       	jmp    0xfffff850
+  35:	4d 8d a7 f0 0a 00 00 	lea    0xaf0(%r15),%r12
+  3c:	4c 89 e7             	mov    %r12,%rdi
+  3f:	e8                   	.byte 0xe8
+
+
 ---
- drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+This report is generated by a bot. It may contain errors.
+See https://goo.gl/tpsmEJ for more information about syzbot.
+syzbot engineers can be reached at syzkaller@googlegroups.com.
 
-diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-core/v4l2-h264.c
-index c00197d095e7..1b1421caf488 100644
---- a/drivers/media/v4l2-core/v4l2-h264.c
-+++ b/drivers/media/v4l2-core/v4l2-h264.c
-@@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_reflist_builder *builder,
- 	}
- 
- 	if (builder->num_valid > 1 &&
--	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
-+	    !memcmp(b1_reflist, b0_reflist,
-+			builder->num_valid * sizeof(*b1_reflist)))
- 		swap(b1_reflist[0], b1_reflist[1]);
- 
- 	print_ref_list_b(builder, b0_reflist, 0);
--- 
-2.43.0
+syzbot will keep track of this issue. See:
+https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
 
+If the report is already addressed, let syzbot know by replying with:
+#syz fix: exact-commit-title
+
+If you want to overwrite report's subsystems, reply with:
+#syz set subsystems: new-subsystem
+(See the list of subsystem names on the web dashboard)
+
+If the report is a duplicate of another one, reply with:
+#syz dup: exact-subject-of-another-report
+
+If you want to undo deduplication, reply with:
+#syz undup
