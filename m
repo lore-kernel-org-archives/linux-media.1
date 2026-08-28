@@ -1,123 +1,147 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com [209.85.210.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2626D3BBFAD
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 05:39:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 347383101B2
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 05:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.169
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787895571; cv=pass; b=ZnreNtAnvKQfJrs9DSJWOF7b/PnCGsW/CAx3/Gjambg4FpUqpy9Yh8E/7dA+cz4C31wp4wa4QFQ3nj9o1dbZhNSr9rHNny9GL73TLDGGkFjG5FzY4dVFskAI0bcZxGbxyeYgGFZ42SxinaYr6nrujeX6FZQSzbDg83AzUbXL4yE=
+	t=1787896334; cv=pass; b=ZvUi8fCoK0TU8OwFK/PSV1DI8+U8A9XFh3hjkEOfwPYSQNUTVerOSuLAd649qVDcX+cWocOk+Srd9tZaIDC5xbvTLnJbJsmzhGWkqcCt40REssIOJgN6/9d8ooCDo0qYwk0Nnj0veG38ncfBi47ep+zfCWnFmY0U5ECLLP40XcE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787895571; c=relaxed/simple;
-	bh=QlFU02FBYD0ENAEhOFBlExoO6aYJwlHfJ/OcJVUiWz0=;
-	h=From:MIME-Version:Date:Message-ID:Subject:To:Cc:Content-Type; b=GLbNTgQjArpY7HUjzAUcetsHuMzbA/HdX/Nlc8AqLYazNeQgZgpPPAlJ/XpkYxGrCy/RLDmqUN/jAv9x6ZG3wroVNGOQk02ZGSUXSp15fhS+QRTV+O0zHs/OCtspNKQNVMKrjDOoe5v0ReTUSWiGVSM3Fw1l8x8LGNhZ4REalsU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu; spf=pass smtp.mailfrom=berkeley.edu; dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b=prDMfhjj; arc=pass smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=berkeley.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berkeley.edu
+	s=arc-20240116; t=1787896334; c=relaxed/simple;
+	bh=0ZYEOp/O+ITey9Y7ZR7D2nXGA6TvESPGUO22btqlbjY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=XmRH/86ufjc+s/JoFl1BA3g/eQY8Q3TRbVcW7EdwdcwYRYy3wrswxmzmfN3cwpJRPtzjGFR6b6HoxiAduPv3d6YufiHQ60B0Hlp2nJIK9dKLZjPfQqN+34eZqgaJqH9uQ1HOPxsJ9u2tfmPUxcB8JZmPixBDJU01eDWCvQK+5Dw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XRDORABx; arc=pass smtp.client-ip=209.85.210.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berkeley.edu header.i=@berkeley.edu header.b="prDMfhjj"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-3856d6fbcb3so781867a91.2
-        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:39:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787895569; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XRDORABx"
+Received: by mail-pf1-f169.google.com with SMTP id d2e1a72fcca58-8534d507f59so575299b3a.0
+        for <linux-media@vger.kernel.org>; Thu, 27 Aug 2026 22:52:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1787896332; cv=none;
         d=google.com; s=arc-20260327;
-        b=fQBcSL4iXRS+ZTiRZhGw5zvleodRzPiJCovVwxVkxcKtfcAVYb0xuoMZHVziBGR3NU
-         gXOGmpSpjplCjVoNutlED0I0Q6rU4kl4UxFbD0TVLe9KsJzLe06FkV0ZDNdc5PTsL6GJ
-         /h3mobkJaZ+Y7RpkznFKtV76/al12efTXM8ceakP7trKBarO1beUjYf98CXO6LOmcOwY
-         hKd5ABAMvgz5EXA+n4gZ638UtQWgXdMXHqc03X/u2Kf5FlaE8uHjLAhEpJpYojOfZ3r6
-         2C7HYhmnziO9wPimN/6p4zJFG0XSW/ocmIT4BWhj0BNAkMEwBuhJpxnu3Adff0wNhDG1
-         8a1w==
+        b=LygY+RqMR6dQRX+2zs+4XNj+fWo5j5JYu0ya27RyYfXANcioEf3x6Y0JDdPeJdOnsV
+         QG7s71rp4tU9zO+UdsrZSwGf1zp5OV8vV71eWNmT3h1DbKQqjGTNs2s0OJbGaXNMyOWZ
+         pGrJztHKDLNwvkr55UW3qvvid82G1RJAQCNOPOzaUiBS1roCUPhWc+C7H4s2HOMn6Xbx
+         vabGcq4/0nGbefFzI8ZNH/iKB7HMla7UNZ3KNAp4duZxm9FTdxtN5oH1bRT9/J5L7wT3
+         6L65ImBPfj8SqfZdaaqLmGFY2Ay57q4cqDBDoA0iLY2zoTRoHoOaobnQhiRk7i1298Mz
+         e8lA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:from:dkim-signature;
-        bh=yd8Qwd8neh8JAjIOJMhy/tdm0ISC2f6EcJu5hMA0lJc=;
-        fh=2fJy3ukx5d3N2TwPN3dgYMOe1ryghWXl+oGpY6GQ2qk=;
-        b=NxMAFwiUM4YFjWOq0gw1MFvHSD3ZyDWiB+l0vPj4bLW69XUF/A5zhtMkk6QJXfGDcx
-         DvZW752duywwc3XT0Z8ZPl0D3N0zc0a+eZnRWhS6ec0JarTEdDB25ueFRfaghL7f/8Qu
-         WOjJmAoucUAjpQYdQ/5DnO6IjgmgR5lE+VQLwM9wWz5CNtqV/6w1fdz2mq2xs8z5Za2V
-         ZbEoZ2ZokbnCMpKK1p0AN9K+Innl0wHmN3pdiWa9p4hpSiU+elmRko+KAE6VFq30G5bn
-         Pt85DjG19QozanUk0TCleX9e32tzjEuOhgyXtMKRQfJHXc3xd9yuwJoQzpiqOrH0JivR
-         TWnA==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=3WVmGIasWFn4hSSL+mKRJR03iqSi2SrceDpr9Pcy6Ew=;
+        fh=Uyk+gSDxDTnG5ZU45FY0nTNFo9o8NjBFLajDOrweZxw=;
+        b=qrq9+lBUA9uDzo6FzBxZ3p0MShXXYP2NQ8JglFMTTx3cn9qrdLFIcmd9RWprq6q74j
+         RnqiWgoGWsrN27d0YRkNLPfiZYMdJzmyR5MrShDsOp9tJwAJ6evWQlhN+W3V8HfDG85Q
+         hBMgsmnPvquFrn7TlqNPUIF6XZGOD6+p1On8Ypg5jWVSNVHJ8NvqwkIdbwi8TrShJpJa
+         aQhcXDY0t+etqY9d1wIJx/U91/2NubvwUR1a9pcAtvL2uSkLfp9Pj9CWVYdkuV/1jI89
+         prY/VsZtB+JwO5Tn2b34stWkPrgP4wHg9b5kh/Vm6oR4v2um+gKhMcu+4KtpGfALJfoO
+         hzCw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=berkeley.edu; s=google; t=1787895569; x=1788500369; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yd8Qwd8neh8JAjIOJMhy/tdm0ISC2f6EcJu5hMA0lJc=;
-        b=prDMfhjjjZa1jNgH7zxJQGeAd/D4Tp8sumUnfbTEUgzCmJxcZgbiZ/RZisSd3sCMs3
-         se3UcndmMLDNB0ULHHeHo0utfOVe7DD14B/hSrhMDKKpyi5mbgU0pJMT+orThqHkyZZf
-         Qxig81kimbtdNTp+ZCDOOFol4fpNsElLiHCuS5iUoUY4l8DCLcUmMzEekSXOM91pCKCM
-         RBNKXAraHEt176TU4jfUXKMGNQFQyKneBFXElKpkh3KJDk9L7lXpgLSeEjcQSdEEntJD
-         eSx2AnaJUNUivSLbnk7qWGqYr2f4dcCuxgLLd3AvEIdbmxPopbQQfhuJtRQh5ldsFkuB
-         Zpyg==
+        d=gmail.com; s=20251104; t=1787896332; x=1788501132; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3WVmGIasWFn4hSSL+mKRJR03iqSi2SrceDpr9Pcy6Ew=;
+        b=XRDORABx07hFk/aT6uRoyI5XYIqcThBcxBG+lOghO1k0GAueiHzfLQpEjY3/MvTdJ/
+         qfeTR74n337zUJPIE3rB/TRE3M5Z6+VTL+S0rnU6fs11q0L8aCZTqx1ditCmZ0ODL2KY
+         5f7U8f7B+jfQ2TymbfP4ERILZiOXZP0LjhG+gRe3FBRJin5bEZjki+Dq/zeW/fs/UiJo
+         R3FJknsDzuyIgqyLe5J/6CjDi0BDpcCwpe7X033FILYQi2aVA07zO0piZfOtSApGKRoA
+         nT/PX6iAmFYuoRlagvNnTgsvdFaSDVqQepxOy7E18chWYhaf3PUNsAiGVu/zKAcAjgDL
+         zgnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787895569; x=1788500369;
-        h=content-type:cc:to:subject:message-id:date:mime-version:from
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yd8Qwd8neh8JAjIOJMhy/tdm0ISC2f6EcJu5hMA0lJc=;
-        b=o5YLJU5iejpquJaueYyrvpQKR9ZXSOTmZC/w29Lh+C8tV5U3GCCFmL2bs/F/RQzm6J
-         fOHZEZse4wLZpVXTIdZyL2iBEa7zRhXkBYC8K5z7Ca1qrBpksLMxl7au5Ksgqc6wQ58R
-         r5tiLI+VjsdXXqoEptUqR1SP1Hm6yh1oAGRnHb88AZxkDytEddnADIs5L06LidIv5Zeh
-         J6OnifJ8aBnzK0BP7aBn1OzdU79XLilUljOHP9nrbajqMOxUpgVcHovCBnrrWmsGJOqw
-         oZjDhMftTbH7JF/0tuGcI3UCpcOsVowR9LZaq0JoVlrkaG1yDuu/ogFUn1UXbIjGZa5N
-         701g==
-X-Forwarded-Encrypted: i=1; AHgh+Rr289K+SDBIvg7PrBUuQkjGYLjcfTLcZB9aLRy4aXvcZJgOZgBhtwiNeuI8a9ELYpyyMhdQ/yyaOSaW0Q==@vger.kernel.org
-X-Gm-Message-State: AFuF++nlFiYNXY0pmkka3unlCu33/qRDLF2nl0geDpbqVF1DV+YEU6tb
-	UzCxAzBnbJ5q7J7b/eHUQC2hJIQ48t6ZYKRsvhYvzkmKjcEgAMRoF0EdPoqUMcUysplfBLgLJ8y
-	z3F7l6zuEDg7uRHFZvVBghOmluYC11XSmrVLOtgR4
-X-Gm-Gg: AR+sD10QsfDfScdwXj9napR63mzYtoX10B5hIB4JQVfKD2imaAIsqmRSpWMxnw19a78
-	ptK7x1yJ+LbbFUTXizdo3z8S5zFFl8UKsxS1kBvOH+lhKpVXxjlLGL8Si5k+AO2UPSheG68sJ9M
-	O0aT5uvw04tcWJqEL3MZyqju/8gU7yasvVpUlhciT4WRf+5KUY3txVmClcm0THFDnobdNdBoDS8
-	boyyE/ESCrT1D6B0zn6R8zjY6iUXqtRjEcLZDtT43HPrdFJ/cMmKxxwtRtHWJGgHqZ8lDfHC6Xe
-	lndvobNNACyqgO8hk6LReYsgTkuLSDyE2MnEdzmEGR2s8NqsDwgkPh07Vxz19CdIk9B2KRBQTvF
-	nBWGmdI2acrH4naE+BHNX/vDtl/TwWRv2
-X-Received: by 2002:a17:90a:e7cd:b0:395:f0e8:9e13 with SMTP id
- 98e67ed59e1d1-396d0e71ad7mr8017597a91.7.1787895568571; Thu, 27 Aug 2026
- 22:39:28 -0700 (PDT)
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:39:28 -0700
-Received: from 474444807712 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 27 Aug 2026 22:39:28 -0700
-From: Farhad Alemi <farhad.alemi@berkeley.edu>
-X-Mailer: git-send-email 2.53.0
+        d=1e100.net; s=20251104; t=1787896332; x=1788501132;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=3WVmGIasWFn4hSSL+mKRJR03iqSi2SrceDpr9Pcy6Ew=;
+        b=dJfpm+1Fl2t13yUd09oabb8Hz8pZAYBKb1V+4ba81Yq+Uu6SzLy+ht2FwE0phn3d7+
+         nO1z+wbEYgxaOG3GsHSfz1Qj0Ao7iJVZ+bEySkZOgwdDoSo0hHkyT38yZx9CM0g4wMEN
+         kMpJvF5SJhGHjp329zQxiY01P3bVspGw2iJAuTZXNb+JmQpFxqEx/cbs2N8yQxGrLY1F
+         n92txB2ajO+pwI4n0O6Y0Q/wvj0PbB5kmIVs/jrXdfHVhRCxsmUf2b09L1/f/49c/e79
+         YHbvzSOP7QcGgxmmx8rBdQorh0VI/UCClnpdNT8CZ6G+jiX0knntji+UpQ3EBDhhKarV
+         DKzQ==
+X-Gm-Message-State: AFuF++mjLPZJ5RtqUe7GWnmioUlGvil6FEPnBvCYaTXKKzBlGAdoKFpO
+	5zCY/MKJZBajZ9yw+NH01HykoxnCZAPVqSujw7oNZNIjNAmq1KC/vsYnPSVTsyDdj20Kn4h7Mfp
+	f598/U0w6DmT9MC+rvRNkByUdBw85YVRJyS9OkMk=
+X-Gm-Gg: AR+sD107EyrWuH4nCcv09qzAflU5fzfkAEm89CMALybWUS2918ZttYqmoVWAiZcFhtD
+	3RQN+xgFLm5SRBMmbEoTKuJkg7kfvNQzKEqAenw9xiNfvBYEH/EycDbP1bgdlmLerOuJmjoAV6n
+	dA9a6NI8oLja/oDe0oggk7BHBb5M2NOLZio4bqKpSRHmKofug0/6hj1jP/WFFR+REmwHnV3P7tg
+	5iYOSiiYUOEAT2D2VM7hRJih4D6RYJ962Er54p3FsuIOcsAHpe1nlVAeWzM9LFIVRSo1FPZka8H
+	9Y1V0iFjAeie9VlomvOdV28ewLnKTphAbUOJ6mkmwSyHXw==
+X-Received: by 2002:a05:6a20:3c90:b0:3d2:2011:d184 with SMTP id
+ adf61e73a8af0-3d2681aa109mr8347990637.14.1787896332335; Thu, 27 Aug 2026
+ 22:52:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Thu, 27 Aug 2026 22:39:28 -0700
-X-Gm-Features: AcwNN1U4A4Ylj8SXf-cbazZXGr7do-xqISWUKchmfzBIts7bvvDX9NmKXUnkglA
-Message-ID: <CA+0ovCiUbRrx4rYhmZaRU9ypM8rF-Ug0YpnzC9VwL_-B7rM6ug@mail.gmail.com>
-Subject: [BUG] WARN videobuf2-core.c:2210 -- go7007_stop_streaming leaves
- buffers ACTIVE
-To: Hans Verkuil <hverkuil@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: falemi@asu.edu, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+ <20260820075524.2056029-2-eagle.alexander923@gmail.com> <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+In-Reply-To: <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+Date: Fri, 28 Aug 2026 08:51:59 +0300
+X-Gm-Features: AcwNN1Xrmf-v0fd1jUHBsQov9V95clmiFkrlORa83OAKqyTkDszVfmK1QM_KdGM
+Message-ID: <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
+ sensor binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Quentin Freimanis <quentin@q-lab.dev>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
 Content-Type: text/plain; charset="UTF-8"
 
-Hello,
+Hello.
 
-As part of the kernel research at ASU's SEFCOM
-lab, we hit the crash below. Crash reports can be found here:
+> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
+> > Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+> > Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> > ---
+> >  .../bindings/media/i2c/onnn,ar0234.yaml       | 121 ++++++++++++++++++
+> >  1 file changed, 121 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+>
+> Unanswered Sashiko comments.
 
-  https://github.com/farhad-alemi/public_bug_reports/tree/main/159-media-go7007-stop_streaming-buffers-active/
+I do not understand this remark.
+The corrections based on sashiko-bot's feedback are included in the
+cover letter.
+Is something wrong?
 
-  go7007 3-1:1.0: unable to reset the USB interface
-  WIS Star Trek or compatible: error transferring firmware
-  atomic_read(&q->owned_by_drv_count)
-  WARNING: drivers/media/common/videobuf2/videobuf2-core.c:2210 at
-__vb2_queue_cancel+0xabd/0xdb0, CPU#1: repro/9514
-  RIP: 0010:__vb2_queue_cancel+0xabd/0xdb0
-  Call Trace:
-   __vb2_queue_cancel+0xabd/0xdb0
-   vb2_core_streamoff+0x4c/0x140
-   __video_do_ioctl+0xadb/0xca0
-   video_usercopy+0x876/0x1450
-   v4l2_ioctl+0x18d/0x1e0
-   __se_sys_ioctl+0xfc/0x170
-  Kernel panic - not syncing: kernel: panic_on_warn set ...
+> > diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+...
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - onnn,ar0234cssc
+> > +      - onnn,ar0234cssm
+> > +      - onnn,ar0234cs
+> > +    description:
+> > +      The AR0234 sensor exists in two different models, a colour variant
+> > +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
+> > +      the model through registers, allowing for auto-detection with a common
+> > +      "onnn,ar0234cs" compatible string.
+>
+> So all devices are compatible? Then why compatibility is not expressed?
+> What are the actual programming differences between sc, sm and "none"
+> variants?
 
-Our reproducer.c is available upon request.
+Perhaps I need to revert to the compatibility strings that were used
+in version 2
+(https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
 
-Happy to test a patch if that would help.
+From a programming standpoint, it makes almost no difference which
+sensor is used
+- the only differences are in the output format and the format count.
+Either way, the driver always uses the sensor model determined via
+register reads.
+If the specified type does not match the detected one, only a warning
+will be printed.
 
-Regards,
+Thanks!
