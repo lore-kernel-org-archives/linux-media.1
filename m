@@ -1,122 +1,86 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B64003D3339
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 13:25:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787923518; cv=pass; b=VBAyJbsyfifqxvL8YQOH2hONCvn70qducI6HZh/jmvDU/uGfBt2NE+vOqVUtNn1cxFKKLf7vpGrEC8w88HSwtaGf2hzCWGXsdADay0Ov2z54LgIDie7DogkLv5zAJUCKvxe3h/nkvf9sPyXst+9CGk+26EpCNHpevBKzAvMUHZM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787923518; c=relaxed/simple;
-	bh=jQCuxAKLPuTjC4o1Qbb81zb0BP3Q1HL9exaqQR2Uj0c=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xj65qQWqCfAfoNrQXAEXWOD0CI1nxXxu5kEWJRXTuM8ieZwFNTqkH+jm4jOD7A89KRqEqoqO4I2I/1rKnsCj/lrezLb7H09wANwEFYzhMjMUemKsEdgk49qQl34F9gYTGghcf5zR339zlFcXL4rNita11AkgJVlXJb5oGaZWNuE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WRo1nLs8; arc=pass smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074E343B492;
+	Fri, 28 Aug 2026 13:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787923817; cv=none; b=Pq8/Vox8aFBdJrlmX6rLugQfPiXz631e3LukMPTe02OjodQtN0rbqgsdkukPGuL3VARobibIzdF4yOJunWjVtucC6IkZTNHdujokgPgFMSMOLNBR3v5GQZM2EXSu+jR6Qt+IdrURkIjz2VZSjBpzoY1WQMT2SbTwE3B/wPIZh6U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787923817; c=relaxed/simple;
+	bh=8llcm0RZ1yl8MU6DmPkS5GHcu5L7HXj98RCOWrCypjM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SA7L4jKzwQwmR4dQ36Yv/RDbH2i2G8KKibZ3N0cA8jE9UheokngheNj74moY8i/4pRxKKrPFWDtx1UNG9RWCnxzNdpJC9SjuQkvatJ4tXx75bJZ7SQGJ7pmyGI4yLab3X5S6NctmlMLrFrruqri+HpOxvKw8lEdH7B38Be6FS7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jIsPI7UO; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WRo1nLs8"
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-c160420289bso142474066b.0
-        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 06:25:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1787923515; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JfeUL007DlUFIuT57SWNA8XKFq/4yeSOX39MhjcxQMVkx2gcaELlEYlPKSAbmN0QAR
-         F2IiZs0yWC3hkV6ugdntT0BM5gkCJcYxJtALwYm6AjmWV3j3oK7o1WjM4d2tvH+knu4t
-         gbH7ZDB4RILN+0IGYv0DxxT9b+I0RNBk5cIzaGZyVvRZ1HSzquSDgnPyjdhsSY/DxqTh
-         mP75OFs9AikBwRnIPMqxxoMh1qW/mcg9EPdGy9FrfS4NZdXPYAODESlbIsrKxBjsqE4w
-         zH5cDcSOXjvYW36/eXmCZOh8QM0VSfgwTU8+F8g6EzIs8roug5HT8sq0WUexfgiP+7lK
-         fCRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zFUxAfXixoS8jLZk5c6tfvBN2oNTN504XnBGH1O9OrU=;
-        fh=UQ5A3owsFgmH7ik08omU0LRwGZilu9Yz2y3cPKDv8Ec=;
-        b=rzpIrqcA4h9p5lAR13K6I5iPHAUN4rTPn3Wm1dmYAp2yz6ppUKVaVgUJuDvbspZV9K
-         tKhXb3T9FUgh4ePBfzGa+AQ/HYsTLTVRSQwQmC4v7GFkwXlk0FeMG35S7qpRgflEImKp
-         rT2nUn8x+wkPcOl6sxONYTrbusjWHbb3Xw3h0cswYcyvuqjTM7WPoiRMOwcDU6mKZc0i
-         Wld25mNKcA4bZsrDzvzmhHpqOFy7Rtyk5jBGONHFGeOnnrumjiEhPXqhWaEakJ2omO86
-         sPq5xgfXm3O5qfZ/BvSES+RYUrsmFQcDt+/rthMnFgPR1zI4E2krczAOy1AlTlnNjKD7
-         27Cg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787923515; x=1788528315; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zFUxAfXixoS8jLZk5c6tfvBN2oNTN504XnBGH1O9OrU=;
-        b=WRo1nLs8LzVuvvB2vaKCWd/tJcM5pvkaO8tPZkJILHDJovxnOsqenZVMbZDFYmsbCq
-         8otLz3qQkZu2DnE8UT1knjq7DmM6wo585l2kaH3qQw1yIfDX61UiGH664jw9ksHhWpLz
-         K5O7msdiMFNjObW7K9TM0eBPPfhgcOzjQVDuhroPesadrjBqbCscsJNlTQEY/oz6SW/r
-         95rTx94ZDCvcJbZDXYfdasAnr32B1TsYQGf8PrF7dBhOoY25uvIsV+X1bJW9qKChZbOk
-         PucKX0/SCf6ESLWu4xmIfIZ2dBpr9VWXm21j07fLnkrdA2yRmguLdQXltBSfpCapmYD1
-         ErkA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787923515; x=1788528315;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zFUxAfXixoS8jLZk5c6tfvBN2oNTN504XnBGH1O9OrU=;
-        b=NiSsL+a873UwAxAugdFlHDwrh7c/Ku1Q8Rm6T9ulV1r2qf2XI6wNyPhe5UGYvpmwL4
-         n1PzQ2FMVI3Y6ZqZshPAyyl9QEH3FyZ73hIyAokIVqgNFU+D8VrcFfLxbpICXepl6pPg
-         0/dKjABEeS5aP1mEwKCOuQXBPvbSRrsbctQImXOeh4SgsApcvvjSfbehlrnUIawnbX26
-         n7+puFksBngz/cjizQWKrn3cG+u+pBwmPPN6uF4mlPbgh+eQtXe9alp8OkEnkVBesux7
-         6c/v0OLz0gsJfrKg0585aCW/w+vMcoouAGcQdzEMkABXsumohkOUMKd6ybApiQFsd/6M
-         LDCA==
-X-Forwarded-Encrypted: i=1; AHgh+RpZ9A0lvlxO9rJv0PPCnaUFPAU0JZSEkMGDz/sK4i1ITO8P1+zSTjp0qWIN2oLRWiLqIc+bWxCf1SDyNg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kgNrg6OqjpenSEFna8ZGqpA1ylrQ/8iAEsNS71sRl4IzZ03OtW
-	V2FV3Q7G2wrS/prCkvcRNymb6P3sbADVYhBkVQH810xpqdtPC8102vtdiBINn2AuL4Dt/hdpGZv
-	i8wjzD31mq6NTq4ah20/6Obi4KeG386s=
-X-Gm-Gg: AR+sD126mkLue//d/lWruzsOzljwpdPMfEyzRASTNpO2muRCzmhaWZMGgHFzIocDC2E
-	dxKFWTwjIdIHV5EMiGYijmgDuvNpEyB4NchrXrWGKDXCQ/Stoyrhzq/hSH0qgEpz9DuaOxCSdN4
-	7E1vnpiZn/ZnPAzcJkxL9zKcUwzhRvNuuGDlAouo/w9RkF4wT40rb0ofqE/Lb/sG0XZxBkqyxuP
-	LfhEXri0I0PN+yiG6307h865D5VaLL082yH+Yx7S38LG8gn2xgKuROBfhdfGhugdN8IyroOTY+Y
-	XDHdjkcJu1XOuvC0OZSV1x+Gjhb9csNOUCcnPk9Oft9pOkpSSBeN6hZDwicrdpQX2/qwzpvus26
-	TiW7Bz1m4PZJMOA56RTeVYN1YAmnE4H1sw4jDmNfo6L5UHRzbr5tHOkpERsihRwhs63SAh68Prw
-	01TIQwlqSIKV0hm/Ss2TAZIn+hzBrY3+X/CFKd7WXzvA==
-X-Received: by 2002:a17:906:1004:10b0:c25:5faf:b22c with SMTP id
- a640c23a62f3a-c255fafc38bmr250324266b.21.1787923514497; Fri, 28 Aug 2026
- 06:25:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jIsPI7UO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787923814; x=1819459814;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=8llcm0RZ1yl8MU6DmPkS5GHcu5L7HXj98RCOWrCypjM=;
+  b=jIsPI7UOXU5/2l5x3RpxG+A0jZBoMIXBlZnayJYZek+ufsyb1hp5K0PK
+   sCtkkIMDDaTTDmcpe58A6LsCp2QxxzFQiGP4xBqee6chMU4uLNJB6Ap0C
+   31WYukRQW/YyI/spXKbn5pJKq/UIiIGadhd6bU5lM+dhKakKVemmO0AZx
+   oTOVC+YnO41zLXSzVJFOYwIPFutZ9SlI5Zfsf+V9/DzgDDNRhcqBNQIiH
+   sJJgk0PYqSKqnhmlA3wGqk9M2GGQTtiDaowynt9j3xeO/1cISiB+56Djj
+   RK3zym3LCoQko8MIhAxGREYz3hQLTY0jcbKE64T15c2vlvme/1Qc82CG0
+   Q==;
+X-CSE-ConnectionGUID: 1osFvu7wT3OEFVF+2fHNhQ==
+X-CSE-MsgGUID: iyP+boygQoWxmy/AFfddFQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="88458496"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="88458496"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 06:30:12 -0700
+X-CSE-ConnectionGUID: Y+E9BBtHRpOOammaPisijg==
+X-CSE-MsgGUID: UCya3wgyT9iPjIG2fAWKlg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="264909310"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa007.fm.intel.com with ESMTP; 28 Aug 2026 06:30:11 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1003)
+	id 3437199; Fri, 28 Aug 2026 15:30:10 +0200 (CEST)
+Date: Fri, 28 Aug 2026 15:30:10 +0200
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-acpi@vger.kernel.org,
+	rafael@kernel.org
+Subject: Re: [PATCH 3/3] media: i2c: Use ACPI_PTR() for ACPI ID tables
+Message-ID: <apGNYsroZTTOqe4c@black.igk.intel.com>
+References: <20260828084328.257703-1-sakari.ailus@linux.intel.com>
+ <20260828084328.257703-4-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
- <20260827181756.2430054-1-mauriziocasciano7@gmail.com> <20260827181756.2430054-6-mauriziocasciano7@gmail.com>
- <apFvSlkU9V1f1mrZ@kekkonen.localdomain>
-In-Reply-To: <apFvSlkU9V1f1mrZ@kekkonen.localdomain>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Fri, 28 Aug 2026 16:24:38 +0300
-X-Gm-Features: AcwNN1WSOvUbreDrgg0-EtCl4ZwrYgBo4_tspVEmoj38PFDJAeL2DKx2J3CIroo
-Message-ID: <CAHp75VfOba8pSw-4NhTOyzJxjEB97qfE+w+RjXEtdMrNEZMOOw@mail.gmail.com>
-Subject: Re: [PATCH v2 05/11] media: ov8858: Add INT3477 ACPI ID
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>, linux-media@vger.kernel.org, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Bingbu Cao <bingbu.cao@amd.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Nicholas Roth <nicholas@rothemail.net>, 
-	Andy Shevchenko <andy@kernel.org>, Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	Hans de Goede <hansg@kernel.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Jose Maria Martin <jmmartinf@hotmail.com>, =?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260828084328.257703-4-sakari.ailus@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 
-On Fri, Aug 28, 2026 at 2:21=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
-> On Thu, Aug 27, 2026 at 08:17:50PM +0200, Maurizio Casciano wrote:
+On Fri, Aug 28, 2026 at 11:43:28AM +0300, Sakari Ailus wrote:
+> Add ACPI_PTR() to the ACPI ID tables where missing. The patch has been
+> produced with the following command:
+> 
+> git grep -lP 'acpi_match_table.*=\s*(?!ACPI_PTR)' \
+> 	drivers/media/|while read i; do
+> 	perl -i -pe 's/\.acpi_match_table\s*=\s*\K(\w+),/ACPI_PTR($1),/' $i;
+> done
 
-> > +             .acpi_match_table =3D ov8858_acpi_match,
->
-> Please use ACPI_PTR() for this one. (Also see
-> <URL:https://lore.kernel.org/linux-media/20260828084328.257703-1-sakari.a=
-ilus@linux.intel.com/T/#t>;
-> this won't produce a compiler warning then.)
+NAK.
 
-Why?! What's the point in having this?
+It doesn't explain why we need that. This also inconsistent with OF type of
+IDs.
 
---=20
+-- 
 With Best Regards,
 Andy Shevchenko
+
+
