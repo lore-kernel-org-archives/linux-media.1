@@ -1,157 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8A8B38A701;
-	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45BF63DAAA6;
+	Fri, 28 Aug 2026 11:21:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787914325; cv=none; b=BPVFeYc4QOsssRILRvqzquOG88JuGaRdfenXWnKOxCcl3126GWdV5FVKNFkeXvD0uFwaqgxkV0Ioy4qxfidc9m+McEx4Bq2tMIqHmMTb1HCrtlz8hFENR3aECK1mriXGKIB7fD7RSBtFIjg0IOYzCPaaaoxV1vWmR+m41UIs/s8=
+	t=1787916116; cv=none; b=Vvjks1ujp9ZVuVrqIkENUVi+9YzbhVIx1jYZ0Tg/FxRl1C54wa73fZiyJfKwwuPvrEwkQBpo0278ROHs2mlLqex27x65eSm50+ZRDBu48IJCv7lrzDGsmwGclUmsGAJ1+ohJtpC49/ULiR7mVccclWL/MDTH0wKpZoG8PHyEDp0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787914325; c=relaxed/simple;
-	bh=5d1Etmt2K6uzSY/M4S6CODDgPVrnRfzbP2pC3gqthBM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=h+/HfRLOVg0OPBWnb+lp07dLtxlz7xg78r5cukSUZYSaWamgilOhEc89WI/g1miNO72ik7jV62lOlNqu8x4qwfA3as/JiSRTbsaEpNzsxSdE+J3c9fQZ53DLf+Tkg6qo4Y2OqbqQeRsV+GdNq3IZvykpj+Bl6k1CJoImS3E54mk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIOnouq6; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1787916116; c=relaxed/simple;
+	bh=ojxZ4JxzS+y/NAJgIpUsWhVQLMdvHkEhDdRP+wb47B0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=vApbJi1W+Bk0HDS/Qw+dEAZkkZ+HxukRtMhVwOkwxK5uAar2mE/zV+h/WQ1yoKxHCv+psZ2j+BYMnhfiEIzvTHo1IPbxjWKJp5DtQc7BgFxcPOB8WWi9wmfy3P0f3XcxU5hf9PrN2UfHIKZjEH6dWkzPNIa7mmIcdxF4Dgv6gjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iDQ28f+A; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIOnouq6"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 5D26EC2BCC7;
-	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1787914324;
-	bh=5d1Etmt2K6uzSY/M4S6CODDgPVrnRfzbP2pC3gqthBM=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=LIOnouq6FGynX7KjmaaTxYHknk112ECAHpmONkaueCgLzUH3/TSlLIdouFNnnauJC
-	 QkNih4NJgh/IuAaVnNlPzp7GLff+dpsVuo+lOzWlsCtgstJY/ol73CeI7BaJPGnzMr
-	 ioT/VUQ/knYDwsvfYx0AfbDuKPYCAVLkq6fPnxXbIdUtn+hxUyfXJ0vKTdmerGp936
-	 mwU9JF0Kx5/zxlS3YVZo7TRLAc2AJ5pqfhLc65bJR06sATHmPSKz93TFlGp5FD1lVg
-	 NVpnC0DHJBBXjZzmQq4YiLE/FXmjr/piBNuvSIYXjo3UXlhmCraqg2FXcNIQHOOF3C
-	 bx8buchtiDgoQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 48CDCC61DCB;
-	Fri, 28 Aug 2026 10:52:04 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Fri, 28 Aug 2026 13:51:47 +0300
-Subject: [PATCH] media: i2c: imx258: Add reset-gpio support
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iDQ28f+A"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787916114; x=1819452114;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=ojxZ4JxzS+y/NAJgIpUsWhVQLMdvHkEhDdRP+wb47B0=;
+  b=iDQ28f+ALbCY8sDsI8mYFK1ibwMPIE8rpvTw+1gyIK753FPPuwzp8ms2
+   4dpesn4+eH45Hek0gHLitEs8TWVTi5larSBBwzdfYnkIxcKrpQvbFOpLu
+   BZpXrYwfatleukPiNpMID3a3BxrJqterXlekw6qDAxfXbLCcCSNlW8YZl
+   Rzk60q48i/K6poYVdFfUQxArojwkW3Foa+G1+kZanV8MT+jdl9Hr9Huen
+   7Zrls0Wfi+TpwUjd/6SQ6xhQMHwv7/foAv3JQWzJqA/IHbEuJRP3/+czt
+   k95D48elCSxU9vQlj3McR6TkccUEjeY7PTtiQKz/Jvdbhpk5h8dWmDvcJ
+   g==;
+X-CSE-ConnectionGUID: IpveE2l+T5ifHwhJMfqEQg==
+X-CSE-MsgGUID: 94LHOBmPQ/+wlPFxuyyVtg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11888"; a="90934179"
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="90934179"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 04:21:54 -0700
+X-CSE-ConnectionGUID: 0VljlqAbQSO8+TOsIO7v9w==
+X-CSE-MsgGUID: vmK+4ooZSGaVAUg8IghtMA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,248,1779174000"; 
+   d="scan'208";a="292938580"
+Received: from rvuia-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.92])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 04:21:51 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 2370B11F817;
+	Fri, 28 Aug 2026 14:21:46 +0300 (EEST)
+Date: Fri, 28 Aug 2026 14:21:46 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 05/11] media: ov8858: Add INT3477 ACPI ID
+Message-ID: <apFvSlkU9V1f1mrZ@kekkonen.localdomain>
+References: <20260826132256.3343451-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-1-mauriziocasciano7@gmail.com>
+ <20260827181756.2430054-6-mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MwQ5AMAwA0F+RnjVhTMaviMPSFj1g2UQk4t8tj
- u/yHkgSVRIMxQNRLk167Bl1WQCtfl8ElbPBVKarnLGo222sQ8+MUZKcuAQ9MPiTVqS2ccyNnXs
- iyEOIMuv97+P0vh/hRW3qbQAAAA==
-X-Change-ID: 20260825-imx258-add-reset-gpio-patch-c438dd35f9cc
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: git@luigi311.com, pavel@ucw.cz, tomm.merciai@gmail.com, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, =?utf-8?q?Ond=C5=99ej_Jirman?= <megi@xff.cz>, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787914322; l=3095;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=K0S+hjXRamfbzSLaocvKAIe3EyDCb1YJZikydR5BEuc=;
- b=mjwp5RpdIhMaH1pNMCJ5xaW0CERNyBgRwYlJG2z3+TccO462CU5jd3zCCEWTr3EzakaORCNEx
- 6IBnSq136srDLxgZiUy0s/fEBaI2XemBZih+Mkgl2SXHumI/QKC0ORB
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260827181756.2430054-6-mauriziocasciano7@gmail.com>
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Hi Maurizio,
 
-reset-gpio is already documented in dt-bindings but never implemented
-in the driver.
-Reset deassert delay comes from Luis Garcia's and Ondrej Jirman's patch.
+On Thu, Aug 27, 2026 at 08:17:50PM +0200, Maurizio Casciano wrote:
+> Firmware may use INT3477 as the ACPI hardware ID for an OV8858 image
+> sensor. Add an ACPI match table for that ID.
+> 
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> ---
+>  drivers/media/i2c/ov8858.c | 8 ++++++++
+>  1 file changed, 8 insertions(+)
+> 
+> diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
+> index b8c2f0d25505..b0ffc366a4e4 100644
+> --- a/drivers/media/i2c/ov8858.c
+> +++ b/drivers/media/i2c/ov8858.c
+> @@ -9,6 +9,7 @@
+>  #include <linux/clk.h>
+>  #include <linux/delay.h>
+>  #include <linux/device.h>
+> +#include <linux/device-id/acpi.h>
+>  #include <linux/gpio/consumer.h>
+>  #include <linux/i2c.h>
+>  #include <linux/module.h>
+> @@ -2077,6 +2078,12 @@ static void ov8858_remove(struct i2c_client *client)
+>  	pm_runtime_set_suspended(&client->dev);
+>  }
+>  
+> +static const struct acpi_device_id ov8858_acpi_match[] = {
+> +	{ .id = "INT3477" },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(acpi, ov8858_acpi_match);
+> +
+>  static const struct of_device_id ov8858_of_match[] = {
+>  	{ .compatible = "ovti,ov8858" },
+>  	{ /* sentinel */ },
+> @@ -2087,6 +2094,7 @@ static struct i2c_driver ov8858_i2c_driver = {
+>  	.driver = {
+>  		.name = "ov8858",
+>  		.pm = &ov8858_pm_ops,
+> +		.acpi_match_table = ov8858_acpi_match,
 
-Link: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
----
-I have a device that is not upstreamed yet (General Mobile Shamrock)
-whose camera needs reset gpio to probe, it is documented for
-dts check but not implemented for some reason.
-With adding it rear camera on the device probes correctly.
+Please use ACPI_PTR() for this one. (Also see
+<URL:https://lore.kernel.org/linux-media/20260828084328.257703-1-sakari.ailus@linux.intel.com/T/#t>;
+this won't produce a compiler warning then.)
 
-I created this patch without knowing the older one that submitted
-before: https://lore.kernel.org/all/20240602201345.328737-22-git@luigi311.com/
+>  		.of_match_table = ov8858_of_match,
+>  	},
+>  	.probe		= ov8858_probe,
 
-I don't fully know the correct reset timing so I was using a random wait before,
-after I discovered existing patch I reused previous work for delay time after reset.
----
- drivers/media/i2c/imx258.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/media/i2c/imx258.c b/drivers/media/i2c/imx258.c
-index bc9ee449a87c..af3f12c7452a 100644
---- a/drivers/media/i2c/imx258.c
-+++ b/drivers/media/i2c/imx258.c
-@@ -9,6 +9,7 @@
- #include <linux/pm_runtime.h>
- #include <linux/regulator/consumer.h>
- #include <linux/unaligned.h>
-+#include <linux/gpio/consumer.h>
- 
- #include <media/v4l2-cci.h>
- #include <media/v4l2-ctrls.h>
-@@ -681,6 +682,7 @@ struct imx258 {
- 
- 	struct clk *clk;
- 	struct regulator_bulk_data supplies[IMX258_NUM_SUPPLIES];
-+	struct gpio_desc *reset_gpio;
- };
- 
- static inline struct imx258 *to_imx258(struct v4l2_subdev *_sd)
-@@ -1128,6 +1130,18 @@ static int imx258_power_on(struct device *dev)
- 	if (ret) {
- 		dev_err(dev, "failed to enable clock\n");
- 		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-+		return ret;
-+	}
-+
-+	if (imx258->reset_gpio) {
-+		ret = gpiod_set_value_cansleep(imx258->reset_gpio, 0);
-+		if (ret) {
-+			dev_err(dev, "failed to deassert reset\n");
-+			clk_disable_unprepare(imx258->clk);
-+			regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
-+			return ret;
-+		}
-+		usleep_range(400, 500);
- 	}
- 
- 	return ret;
-@@ -1138,6 +1152,7 @@ static int imx258_power_off(struct device *dev)
- 	struct v4l2_subdev *sd = dev_get_drvdata(dev);
- 	struct imx258 *imx258 = to_imx258(sd);
- 
-+	gpiod_set_value_cansleep(imx258->reset_gpio, 1);
- 	clk_disable_unprepare(imx258->clk);
- 	regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
- 
-@@ -1382,6 +1397,11 @@ static int imx258_probe(struct i2c_client *client)
- 		return ret;
- 	}
- 
-+	imx258->reset_gpio = devm_gpiod_get_optional(imx258->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(imx258->reset_gpio))
-+		return dev_err_probe(imx258->dev, PTR_ERR(imx258->reset_gpio),
-+				     "Failed to get reset-gpios\n");
-+
- 	ret = imx258_get_regulators(imx258);
- 	if (ret)
- 		return dev_err_probe(imx258->dev, ret,
-
----
-base-commit: db2ddb87143519e20a95aa36c60b36107b736a58
-change-id: 20260825-imx258-add-reset-gpio-patch-c438dd35f9cc
-
-Best regards,
 -- 
-Muzaffer Kadir <muzafferkadir@mainlining.org>
+Regards,
 
-
+Sakari Ailus
