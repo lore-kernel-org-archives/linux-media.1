@@ -1,159 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2498E3803F9;
-	Fri, 28 Aug 2026 06:36:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3063CEB98;
+	Fri, 28 Aug 2026 06:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787898996; cv=none; b=tAFZj2zMa1sR51YsSRhdkD9wl9vzQTKjbSLTIqUJNy0Ude3i04txIGDal7JwNNzgdWkUZse0qqmzn3z6EVnm/EVQounSx37/1Px5NN5RB7gBm1pfomDmuVcVzV0FNEdTMj4zAcjfxruM4QXNCvLVDRJMmQ3X2ozd8UUWd9ubqck=
+	t=1787899719; cv=none; b=TIy3c518/K/LoU3+KBmifutr2gj7UhDCoQ+OeStn1eTAlnLS8DO/JqAu8g8Mk5QvAnLlGeOygXJfmtfWph3Sj39dOmAEAXz7NSvH3GJi+yPij80Od04QFJDqmztXjY/kVNshC4H11rbht40Nwlvh8YsaCxYqefwE9YA2+70Wk5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787898996; c=relaxed/simple;
-	bh=mKyJGr0xXsffdv0VlNpwMXOCX1B0klmbMpV+oundKQQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eOVuWnFdg8H/F43sHxUJa5E8NAb3ybwqq4h86NMeLoGBPuIyQXON6cCnlYL3gesAqo463BUb5yNAwiEnZqaITZhE03Vj1rOLDPKmrRq6W8/fsQ6YSd8+rTVreD4P8Wmr8HeTpARSNWtG4tsAVWVdFQmvshpljJiM0cpmZ1S+C4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2p92F6v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1787899719; c=relaxed/simple;
+	bh=8oK5IjJ0WRZt5E4TjU90qnCehPKlALGMkL9fkOSD/eg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B/90wXrnpsJP4TRMkSx/BVoINajVwK/8R9P0sBHT9sYm6T6CrCbJxOoq0pKhqKCC63ZSeSssEikzyASB47HJirlwyvNdMIJMtuWau5e+lnH9qm/qYAiyh8JQ97DJ61MmLsSLvbh3YTBQl3jCR6DdgBKu46UERZBaT9Voz7unLlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z3PiSX+k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2p92F6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD7E51F000E9;
-	Fri, 28 Aug 2026 06:36:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z3PiSX+k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83C6D1F000E9;
+	Fri, 28 Aug 2026 06:48:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1787898994;
-	bh=YYjgr1O1eqSfiDf48+HBf+HsSZb6YSwqsVnmyCy40/M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k2p92F6v7/Z6dejV9xCz4FtNyADbz4xhvY4/Zhn6Xk8AvN87B1SXodDDRGEGL5MM9
-	 TvglwUs4/JSHe2thoLeZwbdtz6yukkmMAQ4sD4WvSYTprp9LmnEqEWpICamqUKSRBW
-	 nhg5GWcuU6NLSdFEG9BgeMVdmmXld6iAYJMNtlhM4Wx2E6md7rwQ4NXvID2WkGTqoo
-	 H5fubEk/dVddMwvbk2e2smiKM07O9HXbd1f906lOZM4ZPLkNALmjhP/Gl8UUmiEmvY
-	 Z9tK6XB58bFHSS7lW2LVLwq2HiMpfzo34Yg5TRPvO96KIMcvCtVIJ9wgy7eXUSvt/e
-	 IxTnENw3qCShw==
-Message-ID: <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
-Date: Fri, 28 Aug 2026 08:36:29 +0200
+	s=k20260515; t=1787899717;
+	bh=5d2KIGRv5APnY2rq2A3y5IG4+YdFkz3iDhVt1GhmWdU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Z3PiSX+k1bjhEx25iFZVt1+dSQFCVoUipXK7u9qs92iAXhWRSHXJGQuS0tz4EzO0h
+	 6EL6jqwTJNM3mzzGHu5dhdAgPnYgOoqQ2ZYIpjejPm7aLHgjTr93B7E7ViNLujFW5V
+	 tLkGk1nx1xisyn+ewpixa1HkpW9M0YGur/dX+WhfcoAn6Jot1+ZcNzdNXnGzcPcCXw
+	 RBLU35FztMauVCN6DiDqvo+OUDhBRuGK187fh9q+NG80hm9PwkR5tzqG/gILRDgPXi
+	 vRAzZ237KeID8ALFSw+PH4K7yNHadfF7bX1SmukmRHM4ZavZcx9+e8vZqqgQTEcAdq
+	 +e8kgRVVeQezw==
+Received: from johan by xi.lan with local (Exim 4.99.4)
+	(envelope-from <johan@kernel.org>)
+	id 1wzqOA-000000038t8-3UP9;
+	Fri, 28 Aug 2026 08:48:34 +0200
+Date: Fri, 28 Aug 2026 08:48:34 +0200
+From: Johan Hovold <johan@kernel.org>
+To: syzbot <syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com>
+Cc: elder@kernel.org, gregkh@linuxfoundation.org,
+	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-usb@vger.kernel.org, syzkaller-bugs@googlegroups.com,
+	Yang Zi <2959243019@qq.com>
+Subject: Re: [syzbot] [greybus?] [usb?] KASAN: slab-out-of-bounds Write in
+ gb_operation_message_alloc
+Message-ID: <apEvQq8aBBlije3K@hovoldconsulting.com>
+References: <6a908733.1d9ded08.62e62.00d8.GAE@google.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
- sensor binding
-To: Alexander Shiyan <eagle.alexander923@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Hans Verkuil <hverkuil+cisco@kernel.org>,
- Quentin Freimanis <quentin@q-lab.dev>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
- <20260820075524.2056029-2-eagle.alexander923@gmail.com>
- <20260827-legendary-viridian-tamarin-4e56e5@quoll>
- <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6a908733.1d9ded08.62e62.00d8.GAE@google.com>
 
-On 28/08/2026 07:51, Alexander Shiyan wrote:
-> Hello.
+On Thu, Aug 27, 2026 at 11:51:31AM -0700, syzbot wrote:
+> Hello,
 > 
->> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
->>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
->>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
->>> ---
->>>  .../bindings/media/i2c/onnn,ar0234.yaml       | 121 ++++++++++++++++++
->>>  1 file changed, 121 insertions(+)
->>>  create mode 100644 Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
->>
->> Unanswered Sashiko comments.
+> syzbot found the following issue on:
 > 
-> I do not understand this remark.
-> The corrections based on sashiko-bot's feedback are included in the
-> cover letter.
-> Is something wrong?
-
-You received here Sashiko report which looks reasonable and you did not
-answer it. At least I could not find such answer.
-
+> HEAD commit:    45c13f3f9e3b Merge tag 'hwlock-v7.3' of git://git.kernel.o..
+> git tree:       https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb.git usb-testing
+> console output: https://syzkaller.appspot.com/x/log.txt?x=17ab5299580000
+> kernel config:  https://syzkaller.appspot.com/x/.config?x=9b0fc292fc5639c
+> dashboard link: https://syzkaller.appspot.com/bug?extid=2fd6aefc361af86911d5
+> compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
+> syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=137a3579580000
+> C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=173ed625580000
 > 
->>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
-> ...
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - onnn,ar0234cssc
->>> +      - onnn,ar0234cssm
->>> +      - onnn,ar0234cs
->>> +    description:
->>> +      The AR0234 sensor exists in two different models, a colour variant
->>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
->>> +      the model through registers, allowing for auto-detection with a common
->>> +      "onnn,ar0234cs" compatible string.
->>
->> So all devices are compatible? Then why compatibility is not expressed?
->> What are the actual programming differences between sc, sm and "none"
->> variants?
+> Downloadable assets:
+> disk image: https://storage.googleapis.com/syzbot-assets/ac6556827073/disk-45c13f3f.raw.xz
+> vmlinux: https://storage.googleapis.com/syzbot-assets/01ff014f18d2/vmlinux-45c13f3f.xz
+> kernel image: https://storage.googleapis.com/syzbot-assets/77e9c6302a14/bzImage-45c13f3f.xz
 > 
-> Perhaps I need to revert to the compatibility strings that were used
-> in version 2
-> (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
+> IMPORTANT: if you fix the issue, please add the following tag to the commit:
+> Reported-by: syzbot+2fd6aefc361af86911d5@syzkaller.appspotmail.com
 > 
-> From a programming standpoint, it makes almost no difference which
-> sensor is used
-> - the only differences are in the output format and the format count.
-> Either way, the driver always uses the sensor model determined via
-> register reads.
-> If the specified type does not match the detected one, only a warning
-> will be printed.
+> usb 4-1: invalid cport id 160 received
+> ==================================================================
+> BUG: KASAN: slab-out-of-bounds in gb_operation_message_init drivers/greybus/operation.c:341 [inline]
+> BUG: KASAN: slab-out-of-bounds in gb_operation_message_alloc+0x26e/0x2c0 drivers/greybus/operation.c:385
+> Write of size 2 at addr ffff888100b7e582 by task syz.3.17/3979
+> 
+> CPU: 1 UID: 0 PID: 3979 Comm: syz.3.17 Not tainted syzkaller #0 PREEMPT(lazy) 
+> Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+> Call Trace:
+>  <IRQ>
+>  __dump_stack lib/dump_stack.c:94 [inline]
+>  dump_stack_lvl+0x100/0x190 lib/dump_stack.c:120
+>  print_address_description mm/kasan/report.c:378 [inline]
+>  print_report+0x13d/0x4b0 mm/kasan/report.c:482
+>  kasan_report+0xdf/0x1c0 mm/kasan/report.c:595
+>  gb_operation_message_init drivers/greybus/operation.c:341 [inline]
+>  gb_operation_message_alloc+0x26e/0x2c0 drivers/greybus/operation.c:385
+>  gb_operation_create_common+0x9f/0x710 drivers/greybus/operation.c:532
+>  gb_operation_create_incoming drivers/greybus/operation.c:644 [inline]
+>  gb_connection_recv_request drivers/greybus/operation.c:926 [inline]
+>  gb_connection_recv+0x1dc/0x1050 drivers/greybus/operation.c:1063
+>  greybus_data_rcvd+0x244/0x600 drivers/greybus/connection.c:89
 
-Devices should be made compatible with the fallback or even the color
-and mono variants could be dropped. That depends on the difference
-between color/mono.
+This appears to be the same issue being fixed here:
 
+	https://lore.kernel.org/all/tencent_4F423FBD3FCE6066A8538BB3CFBCB0C41E09@qq.com/
 
-Best regards,
-Krzysztof
+Hopefully, Yang will produce a non-corrupt patch soon.
+
+Johan
