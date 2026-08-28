@@ -1,64 +1,64 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4E342F7F19
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 23:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248DE3939B6
+	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 23:18:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959088; cv=none; b=ZJ+EBB9dmvtWsHvVGyKG1k6e3bRObHaYQ8AR4HC11ea3f9kczIx9FkiUn/S1z76z4SCNIMN94z9Gotc8hLHodIJ2j4bsUOhU1r8YVrSRyZ0xUey0/HdQe8SadNsQxsqXdPLVkStdHXZLSeJydyP2yS68kNRc/7n9c2auPVpYm0A=
+	t=1787959090; cv=none; b=Ey/4XjXFteOTp5LUuIZcDAcwt0o62fUJR2NE/qiD2yof0Dkqammqe0Eg/ppqXdmOzDc8cymEOdRdRcING/FeiZeMi1kxzPKaniEeSOYUCDIYOExA0O9n9Hjl0at4SfY5m84r1AKEMw+6E8bqWtngnsakEhIBhrZs4dZvV39EN34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959088; c=relaxed/simple;
-	bh=2Lq50lUytrmm+S28IHrLjU1z+wrPGA3wstjnNQ2ei3s=;
+	s=arc-20240116; t=1787959090; c=relaxed/simple;
+	bh=nJ+QZDsE+bh8f+mn2u8v660wXJGAZHXVGBjCbEvjcd8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RQSiie6cc3BXHgIGCu8hQWQlJrDs4et55/+vJmAmSzXrOFdytrHCN3Cb9lpNqS7Yq9kMZeysS9X0IoETRy0h3bbSUu2FGOlgkmYeQW4p8HpCPKYZNmzF76ljG0SdnSSGuwqLrmUri8Zq5hT/Do3QRPSBGvwrt+WGngjVryG+n2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kLnoBw8A; arc=none smtp.client-ip=209.85.128.49
+	 MIME-Version; b=NDAKcStXOjjc81t9prf2LHNVHcXbr/Yi37L8XXk+QVcp7Vw2MZghCTcFzyY5N0fzW17FHMGxXBv36Yd+uhliIL8GTwU40tCKqyduqR2sfyqAqg5BTrlpXpByHhfV0A68dxoDhS6DR0YvE3qJ06jS8Je6vOljJ+hsM74Mfpt/2Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GHrWEOk7; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kLnoBw8A"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-49b8f86c6deso8026425e9.0
-        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:18:06 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GHrWEOk7"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-480001972b8so764911f8f.2
+        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:18:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787959085; x=1788563885; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1787959087; x=1788563887; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3a//jCzePczEVRzcT1fYsbmZwFdKhukTh22rftAVB94=;
-        b=kLnoBw8A2SE1sEizMYuYmnNmzWB9eRQAznDLYbnzLbCQRWzN+yytbcOpBJV2VE8fua
-         uoXPNGmdKEwmg7oE6O27cR0xN7lSeuQ23B4LBwTtORyf5ELazXk9wKP6MNwR3UhEzo9C
-         w0B9OstTDgTqDAdZ9yXK8PfF4945YJQ2+Fus3/L533LYXhH6K8KtcO5CJXPIlCmsrfJL
-         6BQKL5CEOWuz9ta3pjn4H/awJWkfDE0UG9jItlmCf6O8s+V7YJimjtHXeg8/n6wiYSDe
-         i2+ntCivSImVglN04yEQrgTCjzOXmFTwmf5JfaDtk8qoRXedbz9boACIpcxBlAilJsxm
-         O/Rg==
+        bh=hbNXNUsbJJs3dF/DfgTaL47t7uOjQRpSFIW3utnz9Kk=;
+        b=GHrWEOk7ctL4HamGcpdMAZq9KaNIc92oR+7AGOmcDU7fAmIyo8qRhckL7x4zl+0WsZ
+         S/E8vKfbH8FDNf4lVlZUahLBLO/GjNz/X+LvgCNv6EhACNpz2gb7KMPRNRBW3BOF91Sf
+         UWncJfuB1dhQbhkmuPYrMiExlNOSlR5KGaob2T+0VKRzabC2p9X5M6moaxnvKxEyqLOi
+         xAE0pvmggC1tuoqHWCEG1OG5lOd1xBrmS2Xf7pxNoicN/ggjin9oRVokh7ZU5xK+3hzz
+         hp26cBcwntmyTbPX1CMcy/YdDvz+34G7Kgv8CxNrt9S16PfrnfRo8Uu64r+EwPriHWV6
+         IysQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787959085; x=1788563885;
+        d=1e100.net; s=20251104; t=1787959087; x=1788563887;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3a//jCzePczEVRzcT1fYsbmZwFdKhukTh22rftAVB94=;
-        b=cNun5iBFhQgGh5wGR308MpxrLxMo3Ol/84wDOphcVj9kEqBza65BwaKWT/Q1lmcM/T
-         we8RinLjQ97iRNcqJpoJCoIOAGhPvX34vW4eohWDGD2PD0LVuTFfROTtlx07ARhnTvgB
-         apy6oh67G+gLpB79ENn3Vh45R8xL6Z4pyBmMhivNQiJGZbd/eT5bxhdMgC30x7PWNPDl
-         q+MFVs0Xz7dJhsX53asbYicnLcBFb3O0fWF0M8VBVe1GFMchru9QN9I+MKyi1XcMZfwz
-         jfhpFVNb7HSgxjAPsf3OvWofEijgYPRgE1IQsB/rWyEEnFNSV4tQg62+BiV4r5AO4FkF
-         ri+g==
-X-Forwarded-Encrypted: i=1; AHgh+RoaeZx9mwVBmrJMF0/5YJC/OOFQgUZAabFlNMnG1hT4aN5qVocnrRGjx+lhS3veXNxNzRcQdOtEtVkmwg==@vger.kernel.org
-X-Gm-Message-State: AFuF++k+zFMKZUzNPpYwe9dymRjJIdtG8gXWEqPUd/UNVfZMDnzjmLyY
-	Jpg5Qu4tnNNC6o9Zm9d/ElSuQf8lYtR9y2kyox2TVruK6y9GrCbe/NI=
-X-Gm-Gg: AR+sD10PfKqc4Rnd2LfgM2E3myiZht1iRvcA1z+Yj83XKjJUyxc1Yk+rWw3ZJc1C65r
-	bBduiIqpx2dVBHtx4n9HAgVYpkLf4QMVPjMKBRLLOl8CY1afEhfwwQVMvtdRJg17Ew4SAxDhUr9
-	JZs7NBbxYcfd/PcdFjC42ScHbdIub7O3KTERPhpFl0U3GPdb04gk+syzcW3ERJFf5Lr6sjLZplU
-	IJ29ubMNtsc4z5IrTDCVJdPorozAANXQAfRls2TFIXLbgHlr0PI/LwvPmgoCdI1FWgYDr6XttpH
-	GguMPoxB/M/ukyJ+nWzfLBSKYqiDXLXAgh0opc65K2MzAuFgo7vMVY0EphjSuYvIhbZXSiGqLMu
-	6+PEP0D8zEYbCa36kZxXHIlcOPnvPJFc8Utp0BXV++jCs/Ts35e/m8SGuyyKgBw6QLA7/J1QEJB
-	pIJq8atKtqJ94SyljJ2eumxCXc6gVk9qeFUy2FNf1bTGfKuN8P6i6+HE4ygjI3d8+k1DnIoItHC
-	A4T2s62HLnF
-X-Received: by 2002:a05:600c:4514:b0:499:900c:9c68 with SMTP id 5b1f17b1804b1-49b91c1f2a2mr158027275e9.6.1787959084902;
-        Fri, 28 Aug 2026 16:18:04 -0700 (PDT)
+        bh=hbNXNUsbJJs3dF/DfgTaL47t7uOjQRpSFIW3utnz9Kk=;
+        b=shVeWWtcbvrarY0dnfdik5q2LeznXTvsYrue5V9zT5Bu1raE5grdaUMlyjiGS/Tus7
+         ALbWhtagST4UUSpyY4jRdWAWbrNQryLmA66u91qoPqJQyFP2LMeQ9kETgf3LwOoigJaR
+         OCx9kbiAtNS63WkpDLqeQNRj6A0NV26ixjSX56+C2FnAwrZY7PQ2GuMtDP4Ez/bqLeq3
+         fQc/oT56sw1inL+sf8w6KwSOsZjXiT6G3dUDQlr/Y5cg1CCzg2Q2T5R0NLuFTemV0lVy
+         xTkkNi9bKRHpPFzSVSoulGIwxILLNJdGPwzVwyu6Shl5s4WEk1MnxkVOXw5E8tq9eGx3
+         3rFg==
+X-Forwarded-Encrypted: i=1; AHgh+Rq3jAubgOBu3WdL6DRf5UH4H6ZpsfgDiAv4xbeYQceWxkLcE3vz6jvcO03EtoNZw2IcCt8SVDyR+Z30tw==@vger.kernel.org
+X-Gm-Message-State: AFuF++l8v19KRp+5HvpRke1fWty8DcAX8p8B7sHp+Lqhl2rCNY8yJv+8
+	zbPWvbDzdmHq3y3ndcHxdBcyTEs3XzfAtZjIsscYTv/5CJK1VLXNrjmrgNEVJfa8Mnq9
+X-Gm-Gg: AR+sD12ef3Da/8AeJ7YlOSuRRJAlcRgLLXC6ukRRcm0CFvhFOHuWp0tZ1/OEZmG/BZ/
+	WB8EpZyokyOGIQ8XIT30Du2o4IL/SBlNO96KUn7JteV4tmAlCL49MPLbOZrkUDKAQuYAhI1Bsf8
+	LdXbo2n1mGtTMl6b8eL/2nMRYfP+jZIip8sZPM5Conv41J1yn1mqwHdgVeH+l61YKtvSDonsdI9
+	dRcOt2In/XzRQWSCO7aHOhkZpUjD0UZeZtjT+Q+fEYaASdLINjJxsUI7TrSO6NePSDP6/aBDszr
+	O49OF0EofgRsB1oeaLFo7aG4T+Wwu5xhfXxXbeDkVc91WrrOC5SIAscCsRPoYuo3aFenZgsoncZ
+	c0pRH1VC6mdT3WeoDf5/pSaw0hBxKatPwB2Ws/Y8ORRf9zrTmuhIEcwc85fGkX7ccoxnv7om7Do
+	IyHSp3u4wseFxJsSTkfjVE9zs/3Tpu5zMGn76gM9tU6I408bvUKCUXxSVrQGg1r85SXZ66GoFKf
+	22DN5YPfP47
+X-Received: by 2002:a05:600c:620e:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49cc0d4545emr77747415e9.14.1787959087181;
+        Fri, 28 Aug 2026 16:18:07 -0700 (PDT)
 Received: from surface.. ([217.61.227.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49b4942298fsm164518155e9.1.2026.08.28.16.18.03
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a8e0657sm54933605e9.13.2026.08.28.16.18.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 16:18:04 -0700 (PDT)
+        Fri, 28 Aug 2026 16:18:06 -0700 (PDT)
 From: "D. Manresa" <dmanresa@gmail.com>
 To: Jakob Berg Jespersen <dev@berg.pm>
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -68,16 +68,16 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Daniel Scally <dan.scally@ideasonboard.com>,
 	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
 	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	"D . Manresa" <dmanresa@gmail.com>
-Subject: Re: [PATCH v2 1/2] media: i2c: ov8865: fix horizontal flip control polarity
-Date: Sat, 29 Aug 2026 01:18:02 +0200
-Message-ID: <20260828231803.29776-1-dmanresa@gmail.com>
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: ov5693: fix horizontal flip polarity and Bayer phase
+Date: Sat, 29 Aug 2026 01:18:05 +0200
+Message-ID: <20260828231805.29790-1-dmanresa@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260729-sp7plus-ov-flips-v2-1-91884b81a8f5@berg.pm>
-References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm> <20260729-sp7plus-ov-flips-v2-1-91884b81a8f5@berg.pm>
+In-Reply-To: <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
+References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm> <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -88,28 +88,65 @@ Content-Transfer-Encoding: 8bit
 
 On Wed, 29 Jul 2026, Jakob Berg Jespersen wrote:
 > The sensor's native readout is horizontally mirrored and the FORMAT2
-> FLIP_HORZ bits (reg 0x3821) un-mirror it. The driver sets those bits for
-> V4L2_CID_HFLIP=1, so the control is inverted: HFLIP=1 yields the
-> un-mirrored image and HFLIP=0 the mirrored one, the opposite of what is
-> requested.
+> FLIP_HORZ bits (reg 0x3821) un-mirror it; the init table sets them by
+> default (0x3821 = 0x1e). The driver sets those bits for V4L2_CID_HFLIP=1,
+> so the control is inverted: HFLIP=1 yields the un-mirrored image and
+> HFLIP=0 the mirrored one. Invert the polarity so HFLIP=0 yields the
+> unflipped image.
 
-Tested on the rear camera of a Surface Pro 7+ (OV8865 behind an IPU6,
-patch applied on v6.19 sources, module built out of tree and loaded on a
-linux-surface 6.19.8 kernel). Verified from raw captures at 3264x2448 and
-1632x1224:
+Tested on the front camera of a Surface Pro 7+ (OV5693 behind an IPU6,
+patch applied on v6.19 sources, loaded on a linux-surface 6.19.8 kernel),
+Bayer phases read from raw 2592x1944 captures. Partial results - the
+polarity fix checks out, the 0x3810 compensation appears to sit on the
+wrong flip state on my unit:
 
-- HFLIP now toggles the horizontal mirror as requested (verified against a
-  fixed scene landmark and by column-profile reversal of the raw frames);
+1) The polarity inversion is correct. Independent confirmation: the
+   register tables inside the vendor Windows driver (ov5693.sys from the
+   Surface MSI) keep the 0x3821 FLIP_HORZ bits set in every mode
+   (0x3821 = 0x1e/0x1f), and Windows delivers the un-mirrored image; with
+   your patch HFLIP=0 keeps them set, as the init table intends. HFLIP
+   also toggles the mirror geometry correctly in both directions here.
 
-- the Bayer order stays BGGR, matching the reported SBGGR10, in every flip
-  state I could produce (HFLIP/VFLIP 0/0, 1/0, 0/1, 1/1, both readout
-  sizes) - so no phase compensation is needed on this sensor and existing
-  colour tunings are unaffected;
+2) The 0x3810 write does what the commit message says in the relative
+   sense: the two flip states come out with the SAME Bayer phase, so
+   toggling HFLIP no longer changes the colours.
 
-- with the fix, libcamera's HFLIP=1 + VFLIP=1 correction for the 180
-  degree SSDB mount now yields a true 180 degree rotation: the raw frame in
-  that state is an exact point rotation of the HFLIP=0/VFLIP=0 frame,
-  where before the series the same request produced the horizontally
-  mirrored image.
+3) However, on my unit BOTH states then decode as GBRG, one column off the
+   reported SBGGR10. I measured the four register combinations
+   independently (phase identified from raw frames by green-pair
+   statistics and confirmed by demosaicing a known-colour scene under each
+   hypothesis):
 
-Tested-by: D. Manresa <dmanresa@gmail.com>
+     FLIP_HORZ bits set     + 0x3810=0  (your HFLIP=0):  GBRG
+     FLIP_HORZ bits cleared + 0x3810=1  (your HFLIP=1):  GBRG
+     FLIP_HORZ bits cleared + 0x3810=0:                  BGGR (clean)
+     FLIP_HORZ bits set     + 0x3810=1:                  does not stream
+
+   i.e. here it is the un-mirrored readout (bits set) that carries the
+   one-column phase shift, and the mirrored readout that is SBGGR-clean -
+   the opposite of what the patch compensates. The last row is why the
+   compensation cannot simply be moved to the other state: with the
+   FLIP_HORZ bits set the sensor refuses to stream with a one-column
+   window offset (perpetual "Frame sync error" on the IPU6 CSI-2
+   receiver, reproduced across repeated attempts); shifting the crop
+   window by one column instead should work, but I have not tested that.
+
+4) For completeness: in the 2x2-binned readout the Surface uses for
+   video (a downstream patch of mine, not in mainline), the mirror does
+   not move the Bayer phase at all - same behaviour I measured on the
+   OV8865 - so there the 0x3810 parity must stay constant across flip
+   states.
+
+Since you and Fernando verified colours correct in both flip states on
+your units, and point 3 is exactly the opposite assignment, maybe the
+two of us are not decoding the same thing - or the modules differ. Could
+you double-check the absolute phase at HFLIP=0 on your unit from a raw
+capture of a known-colour scene (not through an ISP that may be
+auto-correcting, and not with the sensor's test pattern - on my unit the
+colour-bar generator is inserted after the flip/window stage and shows
+the same order and phase in every flip state, so it cannot see this)?
+
+Happy to test a v3. For patch 1/2 of this series everything checks out
+on my unit; sent a Tested-by there separately.
+
+D. Manresa <dmanresa@gmail.com>
