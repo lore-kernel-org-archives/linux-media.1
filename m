@@ -1,204 +1,175 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azon11011002.outbound.protection.outlook.com [52.101.57.2])
+Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49566375AAB;
-	Sat, 29 Aug 2026 07:52:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.57.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787989975; cv=fail; b=WZzz7Yn8VtBV5aLYhbvH4giVi04MBB25MQezoFOuJFPY/KEi8gAb63UqnvrxUFaiACXfMeyJ6C+WmcQCrr9ZiiSxl8q6DMHOUv66+64SCHswLevXwuG2HLEfO0d7zeOM/GeY9UrQWR18GxJKkz1ysvlps+MoL1np8RD72kjVQIc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787989975; c=relaxed/simple;
-	bh=GmADziPeeBYtOmGPP+TLmeXk02/Od5loVIwAQcQEWi4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=D/5vqN123KJCN2YvaGAPrrHpS6MPLYkRPPo+BpqAfUYLldTFXmv1QuRuGB2dj34b/1Btvq3l/230mzH/lP89RNCpj7W4bAyyv0g0qjitkvCLAkM9wx3xIe9Xdt/roWzD4sWJIo5skpFE2R5RMohaspAhHUwqi/gDgfq1S0+PR58=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=lddIhLbb; arc=fail smtp.client-ip=52.101.57.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1964D33F8AA;
+	Sat, 29 Aug 2026 08:29:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1787992193; cv=none; b=SVDwc9jd4JMMGsginj8LqVapo72AHa1VLvlvFpnwDEBXz5r+1rInOn+feyjvpSaIIyzN25bzD9n1sjKoZpb8nxqQRgxv7ab6PGaTIWceyoMzZ4yd2pdiew8QW2+4h2ALPb/5c6l3fzZ5xN7XXBc1gN5pyCRslPvIR/NXIAAl5Qg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1787992193; c=relaxed/simple;
+	bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EctMc8GGQZ0o/j2KkbONeC9KgpPLqSQmlcCfBexdHejc9nxUKqPO1SkumaHFTa6Pb081vYmo4W2NPG9yD515uf5gKexsxSs005nCRGHgqefv75RaEZpxlnrCRE0jCm4G3uEFAuRRJG9U1spzq9FkRpPUF+n+r1iTQ5RV4JkrGUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=a/Ip4aBb; arc=none smtp.client-ip=85.9.206.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="lddIhLbb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PSqtZkdgj2ErPArzhMhGHrvVKON+MJW07Tw9wWq8Nfi56B9RlT2bZR9VyhGAs5DEDLpl5H3vk11ZZIqVacsUaY2T4wldP19s2u+BD1EIzDRg6mZnTNhBI+w4TJ+bVZMCTQ1BBMoXm+ausZVu6o9khLTY/EqtU57WPgJI9D4Eq5RnuCQN5Xw+7QuLEY6KuMKwGgvH+Bd++ZKWU2BUHPxmLwBgzSdiWxzVAqTslvQZTtG7OApVXPYx5CKroPXy3PgEnouxbSjzyh4OJ4qXPcIyqY7ZgurMZbqMimYWo80aEhWu/ErnEX+RQ9uZ0F10dK8aN5mTzhY6WO1HxH6p07ReLQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=C5DMgFNc1stJn6akTQwyeurg3WBNx/xwt6aTjVF8wesOner/YVo0KMep3QYCb8Wa4xY7WX9FCkexiySrVhofuzBDYTk2V08zKfZTVvwVFneF71ByR4LzEp2kdhO+YpSuPixJEzOXPAM1pWwfcGf120ZQ4wHXNhYlPoYnfbD5BPrVdfYfcs13hmTPdy1i0xmTC8t3jD2E8Mzu+E6P4vp1O2mQCMryJi7Qfhj5rnXTqNv9Q+3DX+L+M+4JzwARdU5AWmsczq8mK3LQiSqYd2L5l2FHDGdfamOjFPX0Ns6QeZ2UxtkCmctVyjBsLJlHHnuMsbN0GPi3ntM9YdKTv+3IwA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=hgVOC3/s5mAHw0OrYm7J9ivEDl7Odqyp36Zy4du+xVQ=;
- b=lddIhLbbDozUkUJJxWAC73w2g6vg0ouLuaW9fk7O9R+vfVNGGQZTB74TKaOOtDWw0xyCadb4Oye3eSVQSX5tNeP9WBk205IGZFOTCpJ/GQJeuv6bpX2y2p4uVW5nwjpRRPlbLG6e6suqD6Int0ss7GhJMcjFhqr70dqK/E7KgyQ=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com (2603:10b6:8:279::16)
- by BL4PR12MB9536.namprd12.prod.outlook.com (2603:10b6:208:590::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.11; Sat, 29 Aug
- 2026 07:52:47 +0000
-Received: from DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b]) by DS2PR12MB9566.namprd12.prod.outlook.com
- ([fe80::2d07:1044:6ee1:830b%7]) with mapi id 15.21.0360.008; Sat, 29 Aug 2026
- 07:52:46 +0000
-Message-ID: <9c6c08d3-9ec1-481a-8d66-4b0183036c39@amd.com>
-Date: Sat, 29 Aug 2026 13:22:37 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] fpga: add dma-buf based FPGA programming interface
-To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- mdf@kernel.org, yilun.xu@intel.com, trix@redhat.com, sumit.semwal@linaro.org
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, linux-kernel@vger.kernel.org,
- linux-fpga@vger.kernel.org, linux-media@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linaro-mm-sig@lists.linaro.org,
- linux-doc@vger.kernel.org, git@amd.com, nava.kishore.manne@amd.com
-References: <20260816150734.2092802-1-aravind.thokala@amd.com>
- <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Language: en-US
-From: Aravind Thokala <aravind.thokala@amd.com>
-In-Reply-To: <e747060e-ba01-4d0b-aaa6-d4c619494f09@amd.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN3PR01CA0174.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:c01:de::15) To DS2PR12MB9566.namprd12.prod.outlook.com
- (2603:10b6:8:279::16)
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="a/Ip4aBb"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1787992179; x=1788251379;
+	bh=7oRmJ2JX9SjpY6C/SXCk9S84RaRvCnvAhCHlB7P4mR8=;
+	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
+	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=a/Ip4aBbJGeReuRd1WH0oAu3Yq7/WmH9H7bbUFEtOhX/TRTmrrEWG3vJh6GonFM1W
+	 HI6BwREaaLaxGtLNjH5mp4hOPsM6ZPK3CLxgN9L/ZqdDpCDD6sqvMXNyd0MfOAnUqt
+	 NT7xOZAba8qKETyE/Fv9XRmGpm50Ug02GKKPxvUW7tgg4O8jrJE2TguN85Jrkvay9E
+	 YG0IG7HFfQ7KJkG3D+oDXcNykGVk35Rf/ClvVztToRdaH8j5Ji/qdl/vUYARGP1t7q
+	 xv7ops7uoiq+hO2+giFTv+Qb6aWa4IHWOzqfp0Zg6RR59WY1h6B36vep0VeUiKimxo
+	 zDf/2bFcv59Gg==
+X-Pm-Submission-Id: 4hX7hw5gNHz2Schg
+From: Jakob Berg Jespersen <dev@berg.pm>
+Date: Sat, 29 Aug 2026 10:29:09 +0200
+Subject: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PR12MB9566:EE_|BL4PR12MB9536:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-LD-Processed: 3dd8961f-e488-4e60-8e11-a82d994e183d,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|10067099003|3023799007|6133799003|4143699003|56012099006|11063799006|5023799004;
-X-Microsoft-Antispam-Message-Info:
-	gSSSIf/FDXF2ZY54djwV232NQ1js/FlNWaQ3MSv/AMezu3IwDot22jhAKL3tuB8TFqtbbDu3/j3xgi5HjBZfB9j2A4nFYrzAHdjA00EKJeksMakg2wYY/Mj7MWwILrBUi6aP5XX7VDpv+xGqP5Dhhzkzch0Vk4kAtyNwq61HQGIqqf6ILB70S+Ijazsrje9sFO7j1QNKWW5oyP6ZbE1fiJj0mT911aEbBhNVu80PgbqY6PVA1cikq8pdUm/EY8vX+YBFmxXwHdU2B4YmqwQNe0Jyf+D4+on1GCQuNTPbfZ8Cf8ERUSjnrMruK9n+19OOpd+tckA+wIAeTmBjAQ6AwlkIMBRGb0dLmXIyXo/cSFOWCtPxlWtv+VcGNOuGDTIOXq9zh/rag9pv1zQjvVrsfRyP1v1OOsX+9xvI17aFMfrOfmR8Z5Trqmgcr44pkEyI7c3RmpqAaU0aZu2YsdY4DfaBWEJgVCaqbh5Vd3mxcNZiOWU76pO4kLVi8OKJuhdHrpbfH18OE1p9Zx4q+r1iOwr/to+08SjiE0CX0si5aa7hstrZrFv3lUmQGy+moIspOTuKSZdRjfuCpHHFSYDHaD/OTQ1Tb0bvIkzYm4P8EHtvL39hYUAHQnrGP6ppT1L2HU8Os8ynxZGiMTqgvd93a+b6BoONvRLYlf5E9tlhciM=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DS2PR12MB9566.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(3023799007)(6133799003)(4143699003)(56012099006)(11063799006)(5023799004);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WlFCUmt2YkJadEYyOHpKUlNtaXprZURDbkxUaTIyYWxnenl4V3B0VFd6ZWdW?=
- =?utf-8?B?TU9Cb29HUVpRYzd4R2k4NGdXSDNBWVJCVStsckV2TXowNDBkR2VJdzZsSGpm?=
- =?utf-8?B?WEZxNUhQMFdlWEdSZ243dDNWRis2Sm5od1EzMkQ2aWtkWmxHWENSamxmVFZ1?=
- =?utf-8?B?MFZ4dFl4cm02Q1lZd0RtbW96Vm5KUWk3dVFiR2VUR0xnT1JLdlVHeGdDbGpm?=
- =?utf-8?B?ZSsybEV4MnA5a3NPRDJhbHZZWmZYc3JoZTF1c1lnaUoxaW84eDJJVkdOV09y?=
- =?utf-8?B?dmlYVkdydGJpUU8xUWRQbXdFT1U3bWZLR1NnTGVCd3ZFZDNuUWNrV1RCVXB3?=
- =?utf-8?B?RkRIY2laayt6Um9oem5nQU9teW5sRVprYzFRbm5McThlMmpFT3lBRTFxSjZK?=
- =?utf-8?B?VloyOGl6ZjFGNWdvZ2hSKzRWa0lYR1ZvYmEzOGwvZXJVVzg4ZVBTRFgzRlZT?=
- =?utf-8?B?ZXNWRXJmYURYTUtkQzRNME5rQUxqM1R4TTFlQTdUSFdRcUt6UEV4TnN5SXYr?=
- =?utf-8?B?dGxyVzhsMHpnNWFaTXprM0dDQys1YjFFaERYaTc5cTJkOFZvdDNqMTkxdzdz?=
- =?utf-8?B?QUJqK0hWWldjU3JaSVRZWWw2Y2phQnJYZzVUZys1L3NNZEh1eE9EMEZXZW0x?=
- =?utf-8?B?eWxMMW9pOWdva0srVURGWEZxQUZvNWZiUUFVbUxkdTJocUJSMWMzRzROY1Za?=
- =?utf-8?B?d1hpTFZnTlgvcllhZUxLZG9LTnBJNkd2aTg3TFBWeG5TTGczc2ZPamM1M0JY?=
- =?utf-8?B?eTR5OG00UGIrWkpPRkdJbG1kSWdZRnQwM1JaVWZ2NGhPU3hmemh5WExtQllE?=
- =?utf-8?B?akxGLzhSZTdITVZYWnd4OVJhMGFUdzNraUdaUnlibGg4Qk9qL2pBZTBvcDFh?=
- =?utf-8?B?TGdHaWFwd1R0YXUzYzN1VzZFdzJWMUhZc2VNcTFoTEV2bVVhM25Kb2hHVmVG?=
- =?utf-8?B?cklJT3hsSkFyWVRsc2QySmhDUEd6V1FCQjdqTjVvbC9FaksrZnBxUHIzSlhn?=
- =?utf-8?B?eUswdjd1c1BYOHlJVXhFU1hEbVBmbFo5dXVubzhnU0FDOWlrQ3dOMjk0VEJW?=
- =?utf-8?B?d3I0WXJXSHhPYytMU3ZmVmw2K3l3UjE2ckRQUmtGRUNZelBiSENkTHArbE94?=
- =?utf-8?B?WG0rV0M1OHVoWHpmZWJpZjFJbUVXblU1d0p5V0kzNkltK1J0dDRhclB6dVh2?=
- =?utf-8?B?d3d4b1MrSEJRbDRYSVZ3UVB3NExBSnpxeUkwSHFrWnNyYU1pdktLNE14YUtN?=
- =?utf-8?B?UzdJclhqbllreXBnZ210UElzeFpJckZYWlhjajIxdmlpZzA2bGdVSmcyUS9j?=
- =?utf-8?B?eVFqMTZrN2xSenhVeGRtbkVNME1UUThMTHdOenpGbTByWUdmUmNZYU90VHky?=
- =?utf-8?B?TW1MbWFRbitmcXpiRUJLcEZYUnhXNExST2QxdnpXa05LcVBuRjNlb0VHc0NI?=
- =?utf-8?B?TjJLdG5VTmpaMW82ZW54TXEzUnhKUFd3MHA4dHNYd3ovaEZCQ1U4MzNoSDln?=
- =?utf-8?B?Vmdlc2dFQ1ZncU5lcW1kTjZJVVpocmpqa1ZyYVRtV2xEaXppcXJDQ2FvckhX?=
- =?utf-8?B?U3hqTWpzUi8xTTZBR1BWbllsMWRNVElXSjB3ZHlJZlg4aTdKZkluRTAvRk1R?=
- =?utf-8?B?dUxIcVhqd0JKRG11NTBnb1BoeHlXR2tTWnVGb2FwVnRsS0Y5WHo3YkJQMmZj?=
- =?utf-8?B?UEFQSHNoZ0lKbTZjYk5sV2RWNVJna0FUa28zNUVDOFNjMXZvcmRaZ0VtenJX?=
- =?utf-8?B?TlI5SXdpSHNoc0tpM1FRQmU2VVpxM0FRZ2JDNzBFYVFWM0RTeko4VVJkR1Fs?=
- =?utf-8?B?cVo3RkNwVVNHNzR6ZVZKaUVLTlNta28zOTEzWXF0QWxqb3A2dkRJZXlMOXl4?=
- =?utf-8?B?UlhNeDBFTGQyTC9zZXNjdTZBbU5ZVlpyeEp6dzRIMjZrNmRTc3plNlBNdW0r?=
- =?utf-8?B?TnpsR0t0WGNTT2Rob2I1TVlWRG1kVVNLQXAvYlRaZnNicWgzSDJVVFJPRUJl?=
- =?utf-8?B?alcvbnJEancrSHMzdk9aZjZjSzRWbjFZNW1pczUyZkJxcDQ0OEpDamR5Y0gz?=
- =?utf-8?B?UjNvcXZJdDNSRS8wM2x1NmtCZ3lnb2c2ODdnWUtITDBXVkdMNklpSFJDdEVz?=
- =?utf-8?B?QUpaZGtMUE9JaHJyYjZ6emRDbVhuQTZYU2VQbkh2RUxBZFFGOWVuVUlod29q?=
- =?utf-8?B?bm9ybis3NkNyOHQyb3lSK0hzWE1waUtRQnp1ZjdZUzFwU2tPQmFIV0tZdkw2?=
- =?utf-8?B?VjMxakpSTVFhQ0VSZWg4L0w5Z0M0UW9RVWFUM0pzU0Q5NjlSWXIwVURkVU9u?=
- =?utf-8?B?by9GTWVHdHpMSFdlbUtQS056YjZjR1hJOGdJU2VxTWtwWWNwNngxQT09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5ec8bc26-b0d8-4af3-3b28-08df05a28396
-X-MS-Exchange-CrossTenant-AuthSource: DS2PR12MB9566.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 Aug 2026 07:52:46.1861
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mTj6khviDJkZKmqWDmVqcGKfb9IIrTKousxjFZ32zbu4/P8OxY1+NWKr5dmTi5MKTA5gq8OFkXJol+gTgigjPQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR12MB9536
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNTQ7CIBgFr9KwFtMPWimuvIdxQflpMdoSaImm6
+ d2FutCFLid5M29BQXurAzoWC/I62mDHIQHdFUj2Yug0tioxIiU5lAw4Do652xywHSZaMYIbU0L
+ VNkozLlGynNfGPrbi+fLmMLdXLaecyYvehmn0z+0yQt79r0fAgGsCoqKmlsDh1Grf7d0d5XYkX
+ zb5YZNkS2WE4UxIKtTHXtf1BYLqaFP8AAAA
+X-Change-ID: 20260719-sp7plus-int3472-8f014b8de79c
+To: Daniel Scally <dan.scally@ideasonboard.com>, 
+ Sakari Ailus <sakari.ailus@linux.intel.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Tooraj Taraz <tooraj.taraz@yahoo.com>, 
+ "Joseph V. Lavigne" <jlavig88@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, 
+ Jakob Berg Jespersen <dev@berg.pm>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1787992176; l=4742;
+ i=dev@berg.pm; s=20260719; h=from:subject:message-id;
+ bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
+ b=dbV30rfjQdGqZ21edpu8veocZUStpZAUfOfjUl9Vy1eFK+OjkqOx5HOI0JHeI79P5Fh/3LEWa
+ 3FbTlFhoVLQCyIihqGKjRvggxAufu8aC3rb+1uCwr8FRBeILl9gJ8Gy
+X-Developer-Key: i=dev@berg.pm; a=ed25519;
+ pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
 
-Hi Christian,
+INT3472 can describe a second sensor power rail as a GPIO of type
+POWER1 (0x08), which the driver does not recognise, so the rail is left
+unmapped and never enabled:
 
-On 8/24/2026 2:20 PM, Christian König wrote:
-> On 8/16/26 17:07, Aravind Thokala wrote:
->> Some systems need to load large FPGA configuration images. The FPGA
->> subsystem allows loading images from the filesystem, but this requires
->> the entire image to be loaded into kernel memory first. For drivers
->> that need a DMA-capable buffer for programming, the data is then
->> copied again into DMA memory. This creates needless memory pressure
->> and delays due to the extra copy.
->>
->> This series adds dma-buf support that allows userspace to allocate a
->> buffer directly from a DMA heap, write the FPGA image into it, and
->> pass the file descriptor to the kernel via ioctl — skipping the
->> intermediate kernel buffer entirely.
-> 
-> Well when you have a device with limited DMA capabilitiesthen DMA buf heaps doesn't allocate DMA-capable memory for that device either.
-> 
-> So the explanation you give above why this interface might be useful is clearly not correct. The DMA subsystem will still do an additional copy when you try to import the DMA-buf allocated from the heap into this device.
-> 
-> Either you need to define a heap with specific allocation restrictions (e.g. GFP_DMA32) or you allocate the DMA-buf through your fpga device so that dma_alloc_attrs() knows that a certain device needs to access the pages beforehand.
-> 
-> Regards,
-> Christian.
-> 
+  int3472-discrete INT3472:01: GPIO type 0x08 unknown; the sensor may
+  not work
 
-Thank you for the review. Agreed, the current approach does not 
-guarantee DMA-capable allocations for all devices.
+On the Microsoft Surface Pro 7+ the rear camera's INT3472 (INT347A,
+ov8865) has such a pin; without it the ov8865 "dvdd" supply resolves to
+a dummy regulator and the sensor never probes.
 
-We are looking into the device-owned allocation approach using 
-dma_alloc_attrs() and plan to follow up with an updated series.
+Define the POWER0 (0x07) and POWER1 (0x08) GPIO types and map POWER1 to
+a regulator with con_id "dvdd" for all devices, the supply the in-tree
+ov8865 driver already requests. POWER0 is defined but left unmapped, as
+no device that uses it is known.
 
-Kind Regards,
-Aravind.
+Out-of-tree work approached the same rail by exposing it to the sensor
+as a new "pwr1" supply (linux-surface PR #1867 for the Surface Pro 9,
+PR #2201 for the Pro 7+ ov8865); mapping POWER1 to the existing "dvdd"
+keeps the change contained to int3472.
 
+With this change the Surface Pro 7+ rear camera probes and streams
+reliably.
 
->>
->> Userspace flow:
->>    1. Allocate buffer from /dev/dma_heap/ (e.g., CMA heap)
->>    2. mmap the buffer and write the FPGA image into it
->>    3. ioctl(/dev/fpgaX, FPGA_IOCTL_LOAD_DMA_BUF, &dmabuf_fd)
->>
->> The dma-buf logic is implemented as a separate layer on top of the
->> FPGA manager, keeping buffer management separate from the write path.
->> Individual FPGA drivers opt in by calling fpga_dmabuf_register().
->> ---
->> This work is based on the approach discussed in [1].
->>
->> [1] https://lore.kernel.org/all/20231122053035.3758124-1-nava.kishore.manne@amd.com/
->> ---
->> Aravind Thokala (2):
->>    fpga: Add dma-buf interface for FPGA programming
->>    fpga: versal: add dma-buf programming support
->>
->>   .../userspace-api/ioctl/ioctl-number.rst      |   1 +
->>   MAINTAINERS                                   |   1 +
->>   drivers/fpga/Kconfig                          |   9 +
->>   drivers/fpga/Makefile                         |   2 +
->>   drivers/fpga/fpga-dmabuf.c                    | 198 ++++++++++++++++++
->>   drivers/fpga/versal-fpga.c                    |  33 ++-
->>   include/linux/fpga/fpga-dmabuf.h              |  22 ++
->>   include/linux/fpga/fpga-mgr.h                 |   1 +
->>   include/uapi/linux/fpga.h                     |  15 ++
->>   9 files changed, 281 insertions(+), 1 deletion(-)
->>   create mode 100644 drivers/fpga/fpga-dmabuf.c
->>   create mode 100644 include/linux/fpga/fpga-dmabuf.h
->>   create mode 100644 include/uapi/linux/fpga.h
->>
-> 
+Link: https://github.com/linux-surface/linux-surface/pull/1867
+Link: https://github.com/linux-surface/linux-surface/pull/2201
+Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
+---
+Changes in v3:
+- No functional changes; the patch is identical to v2, rebased onto
+  current pdx86/for-next (which has since gained the multi-HID GPIO map
+  entries and the IMX471 "vana" entries).
+- Resent with linux-media@vger.kernel.org on Cc, as requested.
+- Link to v2: https://patch.msgid.link/20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm
+
+Changes in v2:
+
+- Reworked from a per-device INT347A quirk into a generic mapping of the
+  POWER1 (0x08) GPIO type to "dvdd" for all devices, per review.
+- Added INT3472_GPIO_TYPE_POWER0 (0x07) and POWER1 (0x08) definitions;
+  POWER0 is defined but left unmapped for now.
+- Retested on the Surface Pro 7+ (kernel 7.1.5): the rear ov8865 probes,
+  instantiates its VCM, and streams.
+- Link to v1: https://patch.msgid.link/20260719-sp7plus-int3472-v1-1-521a43f5c191@berg.pm
+---
+ drivers/platform/x86/intel/int3472/discrete.c | 8 ++++++++
+ include/linux/platform_data/x86/int3472.h     | 2 ++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
+index 6c729fcfce5d..6ab8e589fcd3 100644
+--- a/drivers/platform/x86/intel/int3472/discrete.c
++++ b/drivers/platform/x86/intel/int3472/discrete.c
+@@ -266,6 +266,10 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+ 		*con_id = "avdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+ 		break;
++	case INT3472_GPIO_TYPE_POWER1:
++		*con_id = "dvdd";
++		*gpio_flags = GPIO_ACTIVE_HIGH;
++		break;
+ 	case INT3472_GPIO_TYPE_DOVDD:
+ 		*con_id = "dovdd";
+ 		*gpio_flags = GPIO_ACTIVE_HIGH;
+@@ -296,6 +300,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
+  * 0x00 Reset
+  * 0x01 Power down
+  * 0x02 Strobe
++ * 0x07 Power 0
++ * 0x08 Power 1
+  * 0x0b Power enable
+  * 0x0c Clock enable
+  * 0x0d Privacy LED
+@@ -382,6 +388,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
+ 	case INT3472_GPIO_TYPE_PRIVACY_LED:
+ 	case INT3472_GPIO_TYPE_STROBE:
+ 	case INT3472_GPIO_TYPE_POWER_ENABLE:
++	case INT3472_GPIO_TYPE_POWER1:
+ 	case INT3472_GPIO_TYPE_DOVDD:
+ 	case INT3472_GPIO_TYPE_HANDSHAKE:
+ 		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
+@@ -408,6 +415,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
+ 		case INT3472_GPIO_TYPE_POWER_ENABLE:
+ 			second_sensor = int3472->quirks.avdd_second_sensor;
+ 			fallthrough;
++		case INT3472_GPIO_TYPE_POWER1:
+ 		case INT3472_GPIO_TYPE_DOVDD:
+ 		case INT3472_GPIO_TYPE_HANDSHAKE:
+ 			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
+diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/platform_data/x86/int3472.h
+index a73841dfae27..b1040e36deb8 100644
+--- a/include/linux/platform_data/x86/int3472.h
++++ b/include/linux/platform_data/x86/int3472.h
+@@ -25,6 +25,8 @@
+ #define INT3472_GPIO_TYPE_RESET					0x00
+ #define INT3472_GPIO_TYPE_POWERDOWN				0x01
+ #define INT3472_GPIO_TYPE_STROBE				0x02
++#define INT3472_GPIO_TYPE_POWER0				0x07
++#define INT3472_GPIO_TYPE_POWER1				0x08
+ #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
+ #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
+ #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
+
+---
+base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
+change-id: 20260719-sp7plus-int3472-8f014b8de79c
+
+Best regards,
+--  
+Jakob Berg Jespersen <dev@berg.pm>
 
