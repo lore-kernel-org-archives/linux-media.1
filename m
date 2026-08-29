@@ -1,175 +1,91 @@
-Received: from mail-05.mail-europe.com (mail-05.mail-europe.com [85.9.206.169])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1964D33F8AA;
-	Sat, 29 Aug 2026 08:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.206.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E258C7083C;
+	Sat, 29 Aug 2026 10:28:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787992193; cv=none; b=SVDwc9jd4JMMGsginj8LqVapo72AHa1VLvlvFpnwDEBXz5r+1rInOn+feyjvpSaIIyzN25bzD9n1sjKoZpb8nxqQRgxv7ab6PGaTIWceyoMzZ4yd2pdiew8QW2+4h2ALPb/5c6l3fzZ5xN7XXBc1gN5pyCRslPvIR/NXIAAl5Qg=
+	t=1787999318; cv=none; b=L1c/+4GyPOxCaFSRwh1r32t875SOewA9Y8XGJBctfEiAj0R32C0mF1CP+aNHBUgE/sZ9AJe2Riw4uWwWb6GgcHcKlfS1SFyyN/9LNnbyohI5DwRaQiZqWzqC9cu5D5tmHqvWCpX8kZmphNApAKtYRnn25hmPe+NHQCiqgeXzuFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787992193; c=relaxed/simple;
-	bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=EctMc8GGQZ0o/j2KkbONeC9KgpPLqSQmlcCfBexdHejc9nxUKqPO1SkumaHFTa6Pb081vYmo4W2NPG9yD515uf5gKexsxSs005nCRGHgqefv75RaEZpxlnrCRE0jCm4G3uEFAuRRJG9U1spzq9FkRpPUF+n+r1iTQ5RV4JkrGUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=a/Ip4aBb; arc=none smtp.client-ip=85.9.206.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
+	s=arc-20240116; t=1787999318; c=relaxed/simple;
+	bh=GsBhpbOLrySC99dIaT34f6OHVks3jkxuW/tLp7ccDL4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=foLJD6DqZLqFkEvmOdf2DX/wSL1DiWG+REdG12xNFl00o7xGILV6w8nYx6tlXcNKK3PtS3pRpwvQzhrEhnZVTg7Chup5GgZX+M6KBUSkedsNH+m0NI4AFvf9t7RtSSoii5IWk3pja1gqtaOjzo3727YBauKTx2Lxk5LExKi+WUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HsEzYRps; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=yZbbCKsf; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="a/Ip4aBb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
-	s=protonmail; t=1787992179; x=1788251379;
-	bh=7oRmJ2JX9SjpY6C/SXCk9S84RaRvCnvAhCHlB7P4mR8=;
-	h=From:Date:Subject:Message-Id:To:Cc:From:To:Cc:Date:Subject:
-	 Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=a/Ip4aBbJGeReuRd1WH0oAu3Yq7/WmH9H7bbUFEtOhX/TRTmrrEWG3vJh6GonFM1W
-	 HI6BwREaaLaxGtLNjH5mp4hOPsM6ZPK3CLxgN9L/ZqdDpCDD6sqvMXNyd0MfOAnUqt
-	 NT7xOZAba8qKETyE/Fv9XRmGpm50Ug02GKKPxvUW7tgg4O8jrJE2TguN85Jrkvay9E
-	 YG0IG7HFfQ7KJkG3D+oDXcNykGVk35Rf/ClvVztToRdaH8j5Ji/qdl/vUYARGP1t7q
-	 xv7ops7uoiq+hO2+giFTv+Qb6aWa4IHWOzqfp0Zg6RR59WY1h6B36vep0VeUiKimxo
-	 zDf/2bFcv59Gg==
-X-Pm-Submission-Id: 4hX7hw5gNHz2Schg
-From: Jakob Berg Jespersen <dev@berg.pm>
-Date: Sat, 29 Aug 2026 10:29:09 +0200
-Subject: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HsEzYRps";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="yZbbCKsf"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Subject:From:Date:Message-ID; t=1787999313; bh=svRVpfKt7DAf1SNL4xmrqzo
+	nRN0pWlMpZ8nBCldd458=; b=HsEzYRpsoUYyFSr0Wrdwaxb0zYooif00UcYtRkFS3z/dNvHjFC
+	D0Gxs/TafSTOoOWWvwEKJyAxhrKqdLKSKhk6ong84CGSrA23JoE5YxASQXeeq7fIU6sAeiw7KL7
+	z4a9nPiEEJrnAqZfBv20HO7oE1dPE7u9UvLROB62W2vRmIpYeLoOQOBQf+RYzLsRRFQi/FSx14T
+	YjlEgVVpfyggpTR7vQ+8wjUxuuW0Z2Y83x9SW/8dPar0z8/tmjI3yZZ7MOiGuG1P85Be17rbq+R
+	epuV6tCKg3nsbkOegxeOzvHukYV/fRqe1q6C3j4zRGd6BD9LERLPuXS681fFD0h/rUw==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:Subject:From:Date:Message-ID; t=1787999313; bh=svRVpfKt7DAf1SNL4xmrqzo
+	nRN0pWlMpZ8nBCldd458=; b=yZbbCKsf5GPpyRDBa5GQeCmYDWbbHizw7Io3KQLP9xEPiYEoV2
+	6J1IXwLB0HzkP1Ncm+Dmf+dq2sXpG/g7F7Dg==;
+Message-ID: <8ad49542-e88d-4ac0-ab12-ef84382d96d7@mainlining.org>
+Date: Sat, 29 Aug 2026 13:28:31 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3WNTQ7CIBgFr9KwFtMPWimuvIdxQflpMdoSaImm6
- d2FutCFLid5M29BQXurAzoWC/I62mDHIQHdFUj2Yug0tioxIiU5lAw4Do652xywHSZaMYIbU0L
- VNkozLlGynNfGPrbi+fLmMLdXLaecyYvehmn0z+0yQt79r0fAgGsCoqKmlsDh1Grf7d0d5XYkX
- zb5YZNkS2WE4UxIKtTHXtf1BYLqaFP8AAAA
-X-Change-ID: 20260719-sp7plus-int3472-8f014b8de79c
-To: Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Tooraj Taraz <tooraj.taraz@yahoo.com>, 
- "Joseph V. Lavigne" <jlavig88@gmail.com>, "D. Manresa" <dmanresa@gmail.com>, 
- Jakob Berg Jespersen <dev@berg.pm>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1787992176; l=4742;
- i=dev@berg.pm; s=20260719; h=from:subject:message-id;
- bh=17aXPwxiJwF69jf+c1HQ/RDCTJOMI6Tn1YRf/EMPGow=;
- b=dbV30rfjQdGqZ21edpu8veocZUStpZAUfOfjUl9Vy1eFK+OjkqOx5HOI0JHeI79P5Fh/3LEWa
- 3FbTlFhoVLQCyIihqGKjRvggxAufu8aC3rb+1uCwr8FRBeILl9gJ8Gy
-X-Developer-Key: i=dev@berg.pm; a=ed25519;
- pk=b1r+eoJThwSQ/r5DjO7jrcosyrIsyhlOuKk9CBdvBxs=
+User-Agent: Mozilla Thunderbird
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Subject: Re: [PATCH] media: i2c: imx258: Add reset-gpio support
+To: =?UTF-8?Q?Ond=C5=99ej_Jirman?= <megi@xff.cz>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, git@luigi311.com, pavel@ucw.cz,
+ tomm.merciai@gmail.com, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20260828-imx258-add-reset-gpio-patch-v1-1-633972d2a700@mainlining.org>
+ <ccydtgy5lwhesdlg5mtbxllwfcnzhm3k7g6m5xyyhprwizooof@s7qrku6yvqlk>
+Content-Language: en-US
+In-Reply-To: <ccydtgy5lwhesdlg5mtbxllwfcnzhm3k7g6m5xyyhprwizooof@s7qrku6yvqlk>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-INT3472 can describe a second sensor power rail as a GPIO of type
-POWER1 (0x08), which the driver does not recognise, so the rail is left
-unmapped and never enabled:
+Hi Ondřej,
 
-  int3472-discrete INT3472:01: GPIO type 0x08 unknown; the sensor may
-  not work
+On Fri, 28 Aug 2026 20:16:30 +0200, Ondřej Jirman wrote:
+>> @@ -1128,6 +1130,18 @@ static int imx258_power_on(struct device *dev)
+>>  	if (ret) {
+>>  		dev_err(dev, "failed to enable clock\n");
+>>  		regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
+>> +		return ret;
+>> +	}
+>> +
+>> +	if (imx258->reset_gpio) {
+>> +		ret = gpiod_set_value_cansleep(imx258->reset_gpio, 0);
+>> +		if (ret) {
+>> +			dev_err(dev, "failed to deassert reset\n");
+>> +			clk_disable_unprepare(imx258->clk);
+>> +			regulator_bulk_disable(IMX258_NUM_SUPPLIES, imx258->supplies);
+>> +			return ret;
+>> +		}
+>> +		usleep_range(400, 500);
+>>  	}
+> 
+> There are two times given in the datasheet. min 400 us between reset deassert
+> and ID register read over CCI. And minimum time between deassert and stream
+> start, which is 12ms.
+> 
+>   https://xff.cz/dl/tmp/b8efc244280a2b35.png
+> 
+>   https://xff.cz/dl/tmp/ed9b967a140bd347.png
+> 
+> I wonder if this driver satisfied the second constraint. That may perhaps depend
+> on how userspace uses it.
+Thanks for datasheet timings. There is an existing software reset and 12ms wait call
+inside imx258_start_streaming function. It should satisfy stream start.
+Please correct me if I am wrong.
+-- 
+Best Regards,
 
-On the Microsoft Surface Pro 7+ the rear camera's INT3472 (INT347A,
-ov8865) has such a pin; without it the ov8865 "dvdd" supply resolves to
-a dummy regulator and the sensor never probes.
-
-Define the POWER0 (0x07) and POWER1 (0x08) GPIO types and map POWER1 to
-a regulator with con_id "dvdd" for all devices, the supply the in-tree
-ov8865 driver already requests. POWER0 is defined but left unmapped, as
-no device that uses it is known.
-
-Out-of-tree work approached the same rail by exposing it to the sensor
-as a new "pwr1" supply (linux-surface PR #1867 for the Surface Pro 9,
-PR #2201 for the Pro 7+ ov8865); mapping POWER1 to the existing "dvdd"
-keeps the change contained to int3472.
-
-With this change the Surface Pro 7+ rear camera probes and streams
-reliably.
-
-Link: https://github.com/linux-surface/linux-surface/pull/1867
-Link: https://github.com/linux-surface/linux-surface/pull/2201
-Suggested-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-Signed-off-by: Jakob Berg Jespersen <dev@berg.pm>
----
-Changes in v3:
-- No functional changes; the patch is identical to v2, rebased onto
-  current pdx86/for-next (which has since gained the multi-HID GPIO map
-  entries and the IMX471 "vana" entries).
-- Resent with linux-media@vger.kernel.org on Cc, as requested.
-- Link to v2: https://patch.msgid.link/20260729-sp7plus-int3472-v2-1-cdfaf97ac3ad@berg.pm
-
-Changes in v2:
-
-- Reworked from a per-device INT347A quirk into a generic mapping of the
-  POWER1 (0x08) GPIO type to "dvdd" for all devices, per review.
-- Added INT3472_GPIO_TYPE_POWER0 (0x07) and POWER1 (0x08) definitions;
-  POWER0 is defined but left unmapped for now.
-- Retested on the Surface Pro 7+ (kernel 7.1.5): the rear ov8865 probes,
-  instantiates its VCM, and streams.
-- Link to v1: https://patch.msgid.link/20260719-sp7plus-int3472-v1-1-521a43f5c191@berg.pm
----
- drivers/platform/x86/intel/int3472/discrete.c | 8 ++++++++
- include/linux/platform_data/x86/int3472.h     | 2 ++
- 2 files changed, 10 insertions(+)
-
-diff --git a/drivers/platform/x86/intel/int3472/discrete.c b/drivers/platform/x86/intel/int3472/discrete.c
-index 6c729fcfce5d..6ab8e589fcd3 100644
---- a/drivers/platform/x86/intel/int3472/discrete.c
-+++ b/drivers/platform/x86/intel/int3472/discrete.c
-@@ -266,6 +266,10 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
- 		*con_id = "avdd";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
- 		break;
-+	case INT3472_GPIO_TYPE_POWER1:
-+		*con_id = "dvdd";
-+		*gpio_flags = GPIO_ACTIVE_HIGH;
-+		break;
- 	case INT3472_GPIO_TYPE_DOVDD:
- 		*con_id = "dovdd";
- 		*gpio_flags = GPIO_ACTIVE_HIGH;
-@@ -296,6 +300,8 @@ static void int3472_get_con_id_and_polarity(struct int3472_discrete_device *int3
-  * 0x00 Reset
-  * 0x01 Power down
-  * 0x02 Strobe
-+ * 0x07 Power 0
-+ * 0x08 Power 1
-  * 0x0b Power enable
-  * 0x0c Clock enable
-  * 0x0d Privacy LED
-@@ -382,6 +388,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 	case INT3472_GPIO_TYPE_PRIVACY_LED:
- 	case INT3472_GPIO_TYPE_STROBE:
- 	case INT3472_GPIO_TYPE_POWER_ENABLE:
-+	case INT3472_GPIO_TYPE_POWER1:
- 	case INT3472_GPIO_TYPE_DOVDD:
- 	case INT3472_GPIO_TYPE_HANDSHAKE:
- 		gpio = skl_int3472_gpiod_get_from_temp_lookup(int3472, agpio, con_id, gpio_flags);
-@@ -408,6 +415,7 @@ static int skl_int3472_handle_gpio_resources(struct acpi_resource *ares,
- 		case INT3472_GPIO_TYPE_POWER_ENABLE:
- 			second_sensor = int3472->quirks.avdd_second_sensor;
- 			fallthrough;
-+		case INT3472_GPIO_TYPE_POWER1:
- 		case INT3472_GPIO_TYPE_DOVDD:
- 		case INT3472_GPIO_TYPE_HANDSHAKE:
- 			ret = skl_int3472_register_regulator(int3472, gpio, enable_time_us,
-diff --git a/include/linux/platform_data/x86/int3472.h b/include/linux/platform_data/x86/int3472.h
-index a73841dfae27..b1040e36deb8 100644
---- a/include/linux/platform_data/x86/int3472.h
-+++ b/include/linux/platform_data/x86/int3472.h
-@@ -25,6 +25,8 @@
- #define INT3472_GPIO_TYPE_RESET					0x00
- #define INT3472_GPIO_TYPE_POWERDOWN				0x01
- #define INT3472_GPIO_TYPE_STROBE				0x02
-+#define INT3472_GPIO_TYPE_POWER0				0x07
-+#define INT3472_GPIO_TYPE_POWER1				0x08
- #define INT3472_GPIO_TYPE_POWER_ENABLE				0x0b
- #define INT3472_GPIO_TYPE_CLK_ENABLE				0x0c
- #define INT3472_GPIO_TYPE_PRIVACY_LED				0x0d
-
----
-base-commit: 5b05bb3f6c5716fab6911e12d60dd1f43ad9806a
-change-id: 20260719-sp7plus-int3472-8f014b8de79c
-
-Best regards,
---  
-Jakob Berg Jespersen <dev@berg.pm>
-
+Muzaffer Kadir
