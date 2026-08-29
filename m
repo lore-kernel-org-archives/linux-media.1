@@ -1,152 +1,183 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 248DE3939B6
-	for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 23:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F01A10F1
+	for <linux-media@vger.kernel.org>; Sat, 29 Aug 2026 03:47:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787959090; cv=none; b=Ey/4XjXFteOTp5LUuIZcDAcwt0o62fUJR2NE/qiD2yof0Dkqammqe0Eg/ppqXdmOzDc8cymEOdRdRcING/FeiZeMi1kxzPKaniEeSOYUCDIYOExA0O9n9Hjl0at4SfY5m84r1AKEMw+6E8bqWtngnsakEhIBhrZs4dZvV39EN34=
+	t=1787975270; cv=none; b=Ow7dD+wuLKrtaVC1q3krJQBSrJ/xECcQAh537G8biOLEtU7Pq+bgsWboo+dLQg+gKJKTrs9N69uZ0mD+2iztI0CbH/2rz4YLGhU5yQMM46MQxk5mBIYRNmk2oWjNp7R9OzuVHE9myuc38ZyfsGizR2z1JxMNTdhbG+imtPLYuMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787959090; c=relaxed/simple;
-	bh=nJ+QZDsE+bh8f+mn2u8v660wXJGAZHXVGBjCbEvjcd8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NDAKcStXOjjc81t9prf2LHNVHcXbr/Yi37L8XXk+QVcp7Vw2MZghCTcFzyY5N0fzW17FHMGxXBv36Yd+uhliIL8GTwU40tCKqyduqR2sfyqAqg5BTrlpXpByHhfV0A68dxoDhS6DR0YvE3qJ06jS8Je6vOljJ+hsM74Mfpt/2Ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GHrWEOk7; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1787975270; c=relaxed/simple;
+	bh=57FaLB941ve9BGSy4qI6FCi/oNwVh/E/wEZtaA9U8TY=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=T5pOFbYRsbb/EWUhsktXhUcPqdPidMZusX853btFaio+qwxhKcnSKJkkShSZOf1ns2tgxf8Ilr4mPqalQXtYHpPo0qn5VBJyIYaHM+APTpT0jmBV6LQ2AbvyW962VmknjBpKddlWGvcSaF57EXp6wj8OZ2/kXDH0pSI4P6fAlYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iVnt0zNS; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GHrWEOk7"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-480001972b8so764911f8f.2
-        for <linux-media@vger.kernel.org>; Fri, 28 Aug 2026 16:18:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1787959087; x=1788563887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hbNXNUsbJJs3dF/DfgTaL47t7uOjQRpSFIW3utnz9Kk=;
-        b=GHrWEOk7ctL4HamGcpdMAZq9KaNIc92oR+7AGOmcDU7fAmIyo8qRhckL7x4zl+0WsZ
-         S/E8vKfbH8FDNf4lVlZUahLBLO/GjNz/X+LvgCNv6EhACNpz2gb7KMPRNRBW3BOF91Sf
-         UWncJfuB1dhQbhkmuPYrMiExlNOSlR5KGaob2T+0VKRzabC2p9X5M6moaxnvKxEyqLOi
-         xAE0pvmggC1tuoqHWCEG1OG5lOd1xBrmS2Xf7pxNoicN/ggjin9oRVokh7ZU5xK+3hzz
-         hp26cBcwntmyTbPX1CMcy/YdDvz+34G7Kgv8CxNrt9S16PfrnfRo8Uu64r+EwPriHWV6
-         IysQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1787959087; x=1788563887;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hbNXNUsbJJs3dF/DfgTaL47t7uOjQRpSFIW3utnz9Kk=;
-        b=shVeWWtcbvrarY0dnfdik5q2LeznXTvsYrue5V9zT5Bu1raE5grdaUMlyjiGS/Tus7
-         ALbWhtagST4UUSpyY4jRdWAWbrNQryLmA66u91qoPqJQyFP2LMeQ9kETgf3LwOoigJaR
-         OCx9kbiAtNS63WkpDLqeQNRj6A0NV26ixjSX56+C2FnAwrZY7PQ2GuMtDP4Ez/bqLeq3
-         fQc/oT56sw1inL+sf8w6KwSOsZjXiT6G3dUDQlr/Y5cg1CCzg2Q2T5R0NLuFTemV0lVy
-         xTkkNi9bKRHpPFzSVSoulGIwxILLNJdGPwzVwyu6Shl5s4WEk1MnxkVOXw5E8tq9eGx3
-         3rFg==
-X-Forwarded-Encrypted: i=1; AHgh+Rq3jAubgOBu3WdL6DRf5UH4H6ZpsfgDiAv4xbeYQceWxkLcE3vz6jvcO03EtoNZw2IcCt8SVDyR+Z30tw==@vger.kernel.org
-X-Gm-Message-State: AFuF++l8v19KRp+5HvpRke1fWty8DcAX8p8B7sHp+Lqhl2rCNY8yJv+8
-	zbPWvbDzdmHq3y3ndcHxdBcyTEs3XzfAtZjIsscYTv/5CJK1VLXNrjmrgNEVJfa8Mnq9
-X-Gm-Gg: AR+sD12ef3Da/8AeJ7YlOSuRRJAlcRgLLXC6ukRRcm0CFvhFOHuWp0tZ1/OEZmG/BZ/
-	WB8EpZyokyOGIQ8XIT30Du2o4IL/SBlNO96KUn7JteV4tmAlCL49MPLbOZrkUDKAQuYAhI1Bsf8
-	LdXbo2n1mGtTMl6b8eL/2nMRYfP+jZIip8sZPM5Conv41J1yn1mqwHdgVeH+l61YKtvSDonsdI9
-	dRcOt2In/XzRQWSCO7aHOhkZpUjD0UZeZtjT+Q+fEYaASdLINjJxsUI7TrSO6NePSDP6/aBDszr
-	O49OF0EofgRsB1oeaLFo7aG4T+Wwu5xhfXxXbeDkVc91WrrOC5SIAscCsRPoYuo3aFenZgsoncZ
-	c0pRH1VC6mdT3WeoDf5/pSaw0hBxKatPwB2Ws/Y8ORRf9zrTmuhIEcwc85fGkX7ccoxnv7om7Do
-	IyHSp3u4wseFxJsSTkfjVE9zs/3Tpu5zMGn76gM9tU6I408bvUKCUXxSVrQGg1r85SXZ66GoFKf
-	22DN5YPfP47
-X-Received: by 2002:a05:600c:620e:b0:49c:c0d4:53d9 with SMTP id 5b1f17b1804b1-49cc0d4545emr77747415e9.14.1787959087181;
-        Fri, 28 Aug 2026 16:18:07 -0700 (PDT)
-Received: from surface.. ([217.61.227.23])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49c5a8e0657sm54933605e9.13.2026.08.28.16.18.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 28 Aug 2026 16:18:06 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Jakob Berg Jespersen <dev@berg.pm>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	=?UTF-8?q?K=C3=A9vin=20L=27h=C3=B4pital?= <kevin.lhopital@bootlin.com>,
-	Paul Kocialkowski <paul.kocialkowski@bootlin.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jean-Michel Hautbois <jeanmichel.hautbois@yoseli.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: ov5693: fix horizontal flip polarity and Bayer phase
-Date: Sat, 29 Aug 2026 01:18:05 +0200
-Message-ID: <20260828231805.29790-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
-References: <20260729-sp7plus-ov-flips-v2-0-91884b81a8f5@berg.pm> <20260729-sp7plus-ov-flips-v2-2-91884b81a8f5@berg.pm>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iVnt0zNS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1787975269; x=1819511269;
+  h=date:from:to:cc:subject:message-id;
+  bh=57FaLB941ve9BGSy4qI6FCi/oNwVh/E/wEZtaA9U8TY=;
+  b=iVnt0zNSe02QDnB1iefhma7vA+3Cg8RHtGXOq2gOIqGL0cfjii0Tqok0
+   tLFKC0AZEOU1zswyYhqd8PGvsETebetcwkpHoKVTrmtOHPthk9TmJTVdk
+   TGppwdY4mWW4l0qGFa+r5+LJssopUro2s66rs9qmw+Uvn+6sWUaFttDCO
+   VcQvB2xWtT3fj7i2Ses4txTj3O6UuYQ72yL9ht1GIsxLUw+yVK9hYSZdQ
+   dCxBXNM0skei0ccrspegTGCq53NOFfUYNLNRAscgkz9bPd8f/myHJRvXM
+   fpwZEhSnXeC7PSbuqAKVGGArbQ1SICelD8srDdLA3GA/p6ynNXWAqECuC
+   w==;
+X-CSE-ConnectionGUID: wZamBgFPSfuVTZ6spLy2Mw==
+X-CSE-MsgGUID: ZPdOjTr5QeqNSTrZFl4Fig==
+X-IronPort-AV: E=McAfee;i="6800,10657,11889"; a="105855693"
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="105855693"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Aug 2026 20:47:48 -0700
+X-CSE-ConnectionGUID: nLX2faiqTyWeZDVBGQpx2w==
+X-CSE-MsgGUID: ENes1GYsRpi2vQKPL81l5A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,249,1779174000"; 
+   d="scan'208";a="272534108"
+Received: from lkp-server01.sh.intel.com (HELO 3532383e6126) ([10.239.97.150])
+  by orviesa005.jf.intel.com with ESMTP; 28 Aug 2026 20:47:47 -0700
+Received: from kbuild by 3532383e6126 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x0A2i-00000000CLe-2z2M;
+	Sat, 29 Aug 2026 03:47:44 +0000
+Date: Sat, 29 Aug 2026 11:47:43 +0800
+From: kernel test robot <lkp@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org
+Subject: [sailus-media-tree:ipu6] BUILD SUCCESS
+ ad890ac8c5a1889e662cd1e5d9cda37c26392c38
+Message-ID: <202608291128.PHF03gaj-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On Wed, 29 Jul 2026, Jakob Berg Jespersen wrote:
-> The sensor's native readout is horizontally mirrored and the FORMAT2
-> FLIP_HORZ bits (reg 0x3821) un-mirror it; the init table sets them by
-> default (0x3821 = 0x1e). The driver sets those bits for V4L2_CID_HFLIP=1,
-> so the control is inverted: HFLIP=1 yields the un-mirrored image and
-> HFLIP=0 the mirrored one. Invert the polarity so HFLIP=0 yields the
-> unflipped image.
+tree/branch: git://linuxtv.org/sailus/media_tree.git ipu6
+branch HEAD: ad890ac8c5a1889e662cd1e5d9cda37c26392c38  media: ipu6: Enable ipu7 and ipu7.5
 
-Tested on the front camera of a Surface Pro 7+ (OV5693 behind an IPU6,
-patch applied on v6.19 sources, loaded on a linux-surface 6.19.8 kernel),
-Bayer phases read from raw 2592x1944 captures. Partial results - the
-polarity fix checks out, the 0x3810 compensation appears to sit on the
-wrong flip state on my unit:
+elapsed time: 737m
 
-1) The polarity inversion is correct. Independent confirmation: the
-   register tables inside the vendor Windows driver (ov5693.sys from the
-   Surface MSI) keep the 0x3821 FLIP_HORZ bits set in every mode
-   (0x3821 = 0x1e/0x1f), and Windows delivers the un-mirrored image; with
-   your patch HFLIP=0 keeps them set, as the init table intends. HFLIP
-   also toggles the mirror geometry correctly in both directions here.
+configs tested: 106
+configs skipped: 3
 
-2) The 0x3810 write does what the commit message says in the relative
-   sense: the two flip states come out with the SAME Bayer phase, so
-   toggling HFLIP no longer changes the colours.
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-3) However, on my unit BOTH states then decode as GBRG, one column off the
-   reported SBGGR10. I measured the four register combinations
-   independently (phase identified from raw frames by green-pair
-   statistics and confirmed by demosaicing a known-colour scene under each
-   hypothesis):
+tested configs:
+alpha               allnoconfig    gcc-16.1.0
+alpha              allyesconfig    gcc-16.1.0
+alpha                 defconfig    gcc-16.1.0
+arc                allmodconfig    clang-24
+arc                 allnoconfig    gcc-16.1.0
+arc                allyesconfig    clang-24
+arc                   defconfig    gcc-16.1.0
+arm                 allnoconfig    clang-17
+arm                 allnoconfig    gcc-16.1.0
+arm                allyesconfig    clang-24
+arm                   defconfig    gcc-16.1.0
+arm64              allmodconfig    clang-24
+arm64               allnoconfig    gcc-16.1.0
+arm64                 defconfig    gcc-16.1.0
+csky               allmodconfig    gcc-16.1.0
+csky                allnoconfig    gcc-16.1.0
+csky                  defconfig    gcc-16.1.0
+hexagon            allmodconfig    clang-24
+hexagon            allmodconfig    gcc-16.1.0
+hexagon             allnoconfig    clang-24
+hexagon             allnoconfig    gcc-16.1.0
+hexagon               defconfig    gcc-16.1.0
+i386               allmodconfig    clang-22
+i386                allnoconfig    gcc-14
+i386                allnoconfig    gcc-16.1.0
+i386               allyesconfig    clang-22
+i386                  defconfig    gcc-16.1.0
+loongarch          allmodconfig    clang-24
+loongarch           allnoconfig    clang-20
+loongarch           allnoconfig    gcc-16.1.0
+loongarch             defconfig    clang-24
+m68k               allmodconfig    gcc-16.1.0
+m68k                allnoconfig    gcc-16.1.0
+m68k               allyesconfig    clang-24
+m68k                  defconfig    clang-24
+microblaze          allnoconfig    gcc-16.1.0
+microblaze         allyesconfig    gcc-16.1.0
+microblaze            defconfig    clang-24
+mips               allmodconfig    gcc-16.1.0
+mips                allnoconfig    gcc-16.1.0
+mips               allyesconfig    gcc-16.1.0
+nios2              allmodconfig    clang-20
+nios2              allmodconfig    gcc-11.5.0
+nios2               allnoconfig    clang-24
+nios2               allnoconfig    gcc-11.5.0
+nios2                 defconfig    clang-24
+openrisc           allmodconfig    clang-20
+openrisc           allmodconfig    gcc-16.1.0
+openrisc            allnoconfig    clang-24
+openrisc            allnoconfig    gcc-16.1.0
+openrisc              defconfig    gcc-16.1.0
+parisc             allmodconfig    gcc-16.1.0
+parisc              allnoconfig    clang-24
+parisc              allnoconfig    gcc-16.1.0
+parisc             allyesconfig    clang-17
+parisc             allyesconfig    gcc-16.1.0
+parisc                defconfig    gcc-16.1.0
+parisc64              defconfig    clang-24
+powerpc            allmodconfig    gcc-16.1.0
+powerpc             allnoconfig    clang-24
+powerpc             allnoconfig    gcc-16.1.0
+riscv              allmodconfig    clang-24
+riscv               allnoconfig    clang-24
+riscv               allnoconfig    gcc-16.1.0
+riscv              allyesconfig    clang-24
+riscv                 defconfig    gcc-16.1.0
+s390               allmodconfig    clang-17
+s390               allmodconfig    clang-24
+s390                allnoconfig    clang-24
+s390               allyesconfig    gcc-16.1.0
+s390                  defconfig    gcc-16.1.0
+sh                 allmodconfig    gcc-16.1.0
+sh                  allnoconfig    clang-24
+sh                  allnoconfig    gcc-16.1.0
+sh                 allyesconfig    clang-17
+sh                 allyesconfig    gcc-16.1.0
+sh                    defconfig    gcc-14
+sparc               allnoconfig    clang-24
+sparc               allnoconfig    gcc-16.1.0
+sparc                 defconfig    gcc-16.1.0
+sparc64            allmodconfig    clang-20
+sparc64               defconfig    gcc-14
+um                 allmodconfig    clang-17
+um                  allnoconfig    clang-24
+um                 allyesconfig    gcc-14
+um                 allyesconfig    gcc-16.1.0
+um                    defconfig    gcc-14
+um               i386_defconfig    gcc-14
+um             x86_64_defconfig    gcc-14
+x86_64             allmodconfig    clang-22
+x86_64              allnoconfig    clang-22
+x86_64              allnoconfig    clang-24
+x86_64             allyesconfig    clang-22
+x86_64                defconfig    gcc-14
+x86_64                    kexec    clang-22
+x86_64                 rhel-9.4    clang-22
+x86_64             rhel-9.4-bpf    gcc-14
+x86_64            rhel-9.4-func    clang-22
+x86_64      rhel-9.4-kselftests    clang-22
+x86_64           rhel-9.4-kunit    gcc-14
+x86_64             rhel-9.4-ltp    gcc-14
+x86_64            rhel-9.4-rust    clang-22
+xtensa              allnoconfig    clang-24
+xtensa              allnoconfig    gcc-16.1.0
+xtensa             allyesconfig    clang-20
+xtensa             allyesconfig    gcc-16.1.0
 
-     FLIP_HORZ bits set     + 0x3810=0  (your HFLIP=0):  GBRG
-     FLIP_HORZ bits cleared + 0x3810=1  (your HFLIP=1):  GBRG
-     FLIP_HORZ bits cleared + 0x3810=0:                  BGGR (clean)
-     FLIP_HORZ bits set     + 0x3810=1:                  does not stream
-
-   i.e. here it is the un-mirrored readout (bits set) that carries the
-   one-column phase shift, and the mirrored readout that is SBGGR-clean -
-   the opposite of what the patch compensates. The last row is why the
-   compensation cannot simply be moved to the other state: with the
-   FLIP_HORZ bits set the sensor refuses to stream with a one-column
-   window offset (perpetual "Frame sync error" on the IPU6 CSI-2
-   receiver, reproduced across repeated attempts); shifting the crop
-   window by one column instead should work, but I have not tested that.
-
-4) For completeness: in the 2x2-binned readout the Surface uses for
-   video (a downstream patch of mine, not in mainline), the mirror does
-   not move the Bayer phase at all - same behaviour I measured on the
-   OV8865 - so there the 0x3810 parity must stay constant across flip
-   states.
-
-Since you and Fernando verified colours correct in both flip states on
-your units, and point 3 is exactly the opposite assignment, maybe the
-two of us are not decoding the same thing - or the modules differ. Could
-you double-check the absolute phase at HFLIP=0 on your unit from a raw
-capture of a known-colour scene (not through an ISP that may be
-auto-correcting, and not with the sensor's test pattern - on my unit the
-colour-bar generator is inserted after the flip/window stage and shows
-the same order and phase in every flip state, so it cannot see this)?
-
-Happy to test a v3. For patch 1/2 of this series everything checks out
-on my unit; sent a Tested-by there separately.
-
-D. Manresa <dmanresa@gmail.com>
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
