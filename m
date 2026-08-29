@@ -1,79 +1,125 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2236E3C09E0
-	for <linux-media@vger.kernel.org>; Sat, 29 Aug 2026 15:56:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57389378D9C;
+	Sat, 29 Aug 2026 16:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788018981; cv=none; b=t57/p4Ro4KwwAm284fuM1/E8KVwIfrYli/3QyrXgdc4qdZlhx+bXBg0G2w/XNQeeIXXswqZfzKUXxVsG3QFlJU+iIQq0y5HF5J0NRGQH5Z6PTXSdbF5JZSzIErRhAD0MXbuZoM8Z4/VDgw1GTX/jXiAMl+DVY0yLCPPX0ytEh8w=
+	t=1788020022; cv=none; b=OMHDkoIdAiQtNHL1jcV5k74tALmR4rQY781sQCox+NDEeqBnjP0Kf5G6kn+PKXiEhb6O5FHKVVvA7IMKTQkN5gphZ+JOa99yIpKbUZB8odSSDMm9Faj92BZsSLZZlfToStKfuf1fe4m6Mtf7lrOxdM0dZShx8/b1b+kCwsgZ8Ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788018981; c=relaxed/simple;
-	bh=IFKHfgVFc1rWdGFd6rVv2M1jw45BBFJD2+4hD2V0JLY=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=CZqHGeOeOwssqmp2CvRYxVrQwzkSkuBPQHRWQRnbVyGWJUyYdVGoQh2A16POtLfwUC7Z/54F/VTCgVlmLTHP0vbuvO/yaxirZiSpzg+64JBYrYqZqf4J8LF4JtwzPeEKLTSiiA5OuXeh4DXxCTFbSDtovIlx7Rp1aplElJk5r9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b1bc2e44e0so3670528b6e.0
-        for <linux-media@vger.kernel.org>; Sat, 29 Aug 2026 08:56:06 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788018962; x=1788623762;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=WXXv4xpnt1/RIHcZ+q2gQWeRw9AsLgQNjGhPdDBrae8=;
-        b=nTGM4sG+EhlwjOMfKxwQDfQozC+tmW4Q1cef/Rla3UnoDRIoqOLXxZcB6vg3Z8v03j
-         TnQiUbkM5zEtHnvYPfZchV2PxpTo+Uz8vuWkkjrRGQkcPLdbzQbmypdqKo0Cbkg4iyWv
-         lJ4a6GLZmCsH5VJcUycKpDCFpMBIGGxXBoxMoZJZEjFabf3KF+VfHn0I4Bfs/ubyEhjM
-         riuhmxwD6lyFp4mJ2Xsgl+mnVzMgwVsqtFNhJCqn0N+iOajx3L35utyRkxTXAQ5hCw3a
-         qhQ9WwkH2MgFHdCHCOfIX3v7KCc5IkC7AB5UQXxVEUBhZGqUnh8YEt8UN7bfh7Ug3EOp
-         L9Jw==
-X-Forwarded-Encrypted: i=1; AHgh+RrKEJYW6p+e9B3FGxeOAIfobkRQsi8FtkiWtRZ67VtBq2ytUX2Xr2jol8rRg8QsjAE8GDH808moEpa0SQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mt1zpntd6O5ao1JCo2I24yS5Pz94d8diSM0KP4ThegAx83yqaT
-	erd+vmdhcOACEJBtPer8hs6iEub87kq3qGJUqiPePYAr3Cpyj4RxRH2DszhMlUVSQYVxUYzigU1
-	/TQ/RuXIJZ27rxOTpIh7vF6uQkQ45QmFsYd6MsOn4SuJH6HOcyzX0XG5VKYQ=
+	s=arc-20240116; t=1788020022; c=relaxed/simple;
+	bh=fUlgM8CnOaMuuPMrcomCp9ui1YL6CpR0aSOVxgfXuJU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KoigoPPTemOJS1CR92/4Ks+nOgAcZRuToc/6FEFhFWC++gYkjMrzgUeHEWOOM7Nd32//liYrxzQLlffImE7lCD0AoOKpvmc+a9aqr/I2m3OJMGPrAv92F68qWbVEm5WqFn/qTNHPle1csii5K3QpPifB8meJiIwV+64UhGgRFE4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=U8L2Xle5; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=lDKobK1p; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=reject dis=none) header.from=grrlz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="U8L2Xle5";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="lDKobK1p"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=U8L2Xle58YRW+5uhvbg4ehl7xK7Z7qeDqR5jMv9hDs75v1z5C/
+	XphkXv9P1L4kpskOuPWM3vIqSioXpq5aPxWL2vxmYCNVGdwAP+Ojp+JjDHxQirsL1TP3fkWAiwu
+	4c8dyzGnNrhPiClcOLzO6cwRN11RwsAytY+R3EvHdsEpskeFfhcz8GyJ+5SOYJnmgBbZMj5I6ZQ
+	2BjqDTkWDqAvGFBksHBArHJgcIu+jjV8JsQEil5oR489WorZMtYSlxjCOWcqVm5OWNXvmg93Gij
+	MaTmnUAbcSaipWZczEju2aWevWIXyt10RbBiOm+NM5zIqiqhFdZhfsFYMvlmAa4awfg==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=Message-ID:Date:Subject:To:From; t=1788020015; bh=LtJ/Ds2CVtR9ucuRy9u7b2Z
+	AymSZP9fehyNnyo9s5JU=; b=lDKobK1pxKM1yWXeWvN4kysJyHL3XRQ1n5C72t1WoTQ2aeqlig
+	lIlq7RZM3MFrRg+JYxxOgBJa22hD9a+zsZAw==;
+From: Bradley Morgan <include@grrlz.net>
+To: Andy Walls <awalls@md.metrocast.net>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	brads@mainlining.org
+Subject: [PATCH 1/5] media: ivtv: convert to kthread_run_worker
+Date: Sat, 29 Aug 2026 16:13:35 +0000
+Message-ID: <20260829161336.17646-1-include@grrlz.net>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260829161150.16301-1-include@grrlz.net>
+References: <20260829161150.16301-1-include@grrlz.net>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6808:6783:b0:496:11f1:f2ad with SMTP id
- 5614622812f47-4b3980587b6mr16630161b6e.6.1788018962740; Sat, 29 Aug 2026
- 08:56:02 -0700 (PDT)
-Date: Sat, 29 Aug 2026 08:56:02 -0700
-In-Reply-To: <6a78d191.b50370da.49fe0.0041.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a930112.1d9ded08.62e62.010c.GAE@google.com>
-Subject: Re: [syzbot] [media?] [dri?] WARNING in udmabuf_create
-From: syzbot <syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com>
-To: christian.koenig@amd.com, dri-devel@lists.freedesktop.org, 
-	kraxel@redhat.com, linaro-mm-sig-bounces@lists.linaro.org, 
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, robert.mader@collabora.com, 
-	sumit.semwal@linaro.org, syzkaller-bugs@googlegroups.com, 
-	vivek.kasireddy@intel.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has bisected this issue to:
+From: Bradley Morgan <brads@mainlining.org>
 
-commit 44e9eb5a762142a4aa46c0b5da7c39bfeb78910e
-Author: Robert Mader <robert.mader@collabora.com>
-Date:   Wed Jul 22 11:01:45 2026 +0000
+Embedding a kthread_worker and running kthread_worker_fn yourself is
+the old way. Convert ivtv to kthread_run_worker(), dropping the
+separate irq_worker_task pointer.
 
-    dma-buf/udmabuf: Disable the size limit by default
+This is part of removing the worker->task self-assignment in
+kthread_worker_fn().
 
-bisection log:  https://syzkaller.appspot.com/x/bisect.txt?x=17d14379580000
-start commit:   0a0d1d55dad5 Merge tag 'scftorture.2026.08.18a' of git://g..
-git tree:       upstream
-final oops:     https://syzkaller.appspot.com/x/report.txt?x=14314379580000
-console output: https://syzkaller.appspot.com/x/log.txt?x=10314379580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=335632b21d0ce540
-dashboard link: https://syzkaller.appspot.com/bug?extid=bfeed181d1ce9ec87a8f
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=16c2719e580000
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+---
+ drivers/media/pci/ivtv/ivtv-driver.c | 14 ++++++--------
+ drivers/media/pci/ivtv/ivtv-driver.h |  3 +--
+ 2 files changed, 7 insertions(+), 10 deletions(-)
 
-Reported-by: syzbot+bfeed181d1ce9ec87a8f@syzkaller.appspotmail.com
-Fixes: 44e9eb5a7621 ("dma-buf/udmabuf: Disable the size limit by default")
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.c b/drivers/media/pci/ivtv/ivtv-driver.c
+index b9ea56ec9593..6f0e0e46deb5 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.c
++++ b/drivers/media/pci/ivtv/ivtv-driver.c
+@@ -703,15 +703,13 @@ static int ivtv_init_struct1(struct ivtv *itv)
+ 	spin_lock_init(&itv->lock);
+ 	spin_lock_init(&itv->dma_reg_lock);
+ 
+-	kthread_init_worker(&itv->irq_worker);
+-	itv->irq_worker_task = kthread_run(kthread_worker_fn, &itv->irq_worker,
+-					   "%s", itv->v4l2_dev.name);
+-	if (IS_ERR(itv->irq_worker_task)) {
++	itv->irq_worker = kthread_run_worker(0, "%s", itv->v4l2_dev.name);
++	if (IS_ERR(itv->irq_worker)) {
+ 		IVTV_ERR("Could not create ivtv task\n");
+ 		return -1;
+ 	}
+ 	/* must use the FIFO scheduler as it is realtime sensitive */
+-	sched_set_fifo(itv->irq_worker_task);
++	sched_set_fifo(itv->irq_worker->task);
+ 
+ 	kthread_init_work(&itv->irq_work, ivtv_irq_work_handler);
+ 
+@@ -1232,7 +1230,7 @@ static int ivtv_probe(struct pci_dev *pdev, const struct pci_device_id *pci_id)
+ 	v4l2_ctrl_handler_free(&itv->cxhdl.hdl);
+ 	exit_ivtv_i2c(itv);
+ free_worker:
+-	kthread_stop(itv->irq_worker_task);
++	kthread_destroy_worker(itv->irq_worker);
+ err:
+ 	if (retval == 0)
+ 		retval = -ENODEV;
+@@ -1372,8 +1370,8 @@ static void ivtv_remove(struct pci_dev *pdev)
+ 	timer_shutdown_sync(&itv->dma_timer);
+ 
+ 	/* Kill irq worker */
+-	kthread_flush_worker(&itv->irq_worker);
+-	kthread_stop(itv->irq_worker_task);
++	kthread_flush_worker(itv->irq_worker);
++	kthread_destroy_worker(itv->irq_worker);
+ 
+ 	ivtv_streams_cleanup(itv);
+ 	ivtv_udma_free(itv);
+diff --git a/drivers/media/pci/ivtv/ivtv-driver.h b/drivers/media/pci/ivtv/ivtv-driver.h
+index 000e8beecc7c..091bc44f13bc 100644
+--- a/drivers/media/pci/ivtv/ivtv-driver.h
++++ b/drivers/media/pci/ivtv/ivtv-driver.h
+@@ -668,8 +668,7 @@ struct ivtv {
+ 	/* Interrupts & DMA */
+ 	u32 irqmask;                    /* active interrupts */
+ 	u32 irq_rr_idx;                 /* round-robin stream index */
+-	struct kthread_worker irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+-	struct task_struct *irq_worker_task;		/* task for irq_worker */
++	struct kthread_worker *irq_worker;		/* kthread worker for PIO/YUV/VBI actions */
+ 	struct kthread_work irq_work;	/* kthread work entry */
+ 	spinlock_t dma_reg_lock;        /* lock access to DMA engine registers */
+ 	int cur_dma_stream;		/* index of current stream doing DMA (-1 if none) */
+-- 
+2.47.3
 
-For information about bisection process see: https://goo.gl/tpsmEJ#bisection
