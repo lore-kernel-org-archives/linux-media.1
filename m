@@ -1,33 +1,33 @@
 Received: from tabos.org (krueger-it.net [145.239.1.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 446393403EB;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444FA3264C1;
 	Sat, 29 Aug 2026 05:35:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=145.239.1.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1787981704; cv=none; b=Ho8m+a5Aa/t09aVthGtdO7wrdAL1q8UNk3GjGOKHr2qhe0kN3UE3iuKxtNTtcGnf2Wyi7RloAxuj3+L6R9ATMxnOZCEOno/zw+M7QCE50msXx9pyxsg3iaCnYO6g9x4WebVQR17oGrsT5dmhnLhw+t9CQgyEinjjs95SefHJKCQ=
+	t=1787981705; cv=none; b=Hdke2pdWjvw7ZSRuHBWDkY0Sw//1U+qENgPe4wW8xj9rW+zsx0W36tU1TQkmWJ5dfo1jdI6RK0Nk0xz3BTfFZypy/BfVJXkZB50QieRMUBWmDD3z/GTbgkTFVkiQIfMlapMYz5gxcFF1bfayx1jcGY9K9Zzb2rFANuZaEFeVJWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1787981704; c=relaxed/simple;
-	bh=kiOWs/UXNh4Q2jAkgJhrcpDcdpe5ZYBmvEzVJN+Dx7E=;
+	s=arc-20240116; t=1787981705; c=relaxed/simple;
+	bh=Ok9Z+aNEAobzVAXg1AwhXnjlhJo+bqUj8lFemWQXKiU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=k6cC+Zkksa9yxdkauCxc2GBvz/jYkVBcJNUAPFek53t94H8lXMQGN1kyLmLU4rxl868W1YHxkzB5SQNUGkoDTFhB+DBNv8eLAwYMh3pY6gQWQMCXbHaOsHHsT70yKroa/vwGPscRrKlEr85rpwC3MoU467nhvcnLUy74c3NMb8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org; spf=pass smtp.mailfrom=tabos.org; dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b=NRUhiPVt; arc=none smtp.client-ip=145.239.1.22
+	 MIME-Version; b=hNY6UwmUE6HDBRUuXyYoKToTLY3he68jSyZiMDMPlpl6bBI6jEtiPrvdgEXz8VQzyWH8fwn05cfw2QFYAbtzEP/8hQ1X4xPFDOgYTPk6ydAr8l2oghQeRvap9oTZiZ+1+4i1vmIVa2SvzQg5t8yhoenuJl22MjDVQTV6e5Qad/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org; spf=pass smtp.mailfrom=tabos.org; dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b=Ua7OHnaE; arc=none smtp.client-ip=145.239.1.22
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tabos.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tabos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b="NRUhiPVt"
+	dkim=pass (2048-bit key) header.d=tabos.org header.i=@tabos.org header.b="Ua7OHnaE"
 Received: from c0d1ngstat1on.fritz.box (unknown [94.31.74.100])
-	by dserver.krueger-it.net (Postfix) with ESMTPA id B747A62E0AD6;
-	Sat, 29 Aug 2026 07:25:24 +0200 (CEST)
+	by dserver.krueger-it.net (Postfix) with ESMTPA id 7585762E1411;
+	Sat, 29 Aug 2026 07:25:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tabos.org;
-	s=default; t=1787981125;
-	bh=Xgp1DRzJ1dvU7mLOF0KWFeKbyW4I1F24g6Fga7/NqTA=; h=From:To:Subject;
-	b=NRUhiPVtX0L7p8fmIpO0f8F3V44r+zES1gWDB6SPlo+aiHt9bGzFrSb+ciVSe3ZiM
-	 Zl2lrzYiSf+37gTi3Jma4IeI/nfJEcttu08h3b0zSEOVYOdroaI2qS5bPdgSbOWZCx
-	 jM8MgO887W1bJ/OzxrmdZNfGl4dbsEOrue2aYmd0yojTCHot2YoJt3nJv7eBaEJAu/
-	 JH2Z1/XtTV0mYNqW20cEyGmdiU14qtzNRZSzr9xpDIkVgnazH+6lrrv0/yAZLVssrn
-	 MF8esCg+OkbOkglWxgzVbHxxSTtr6ReMAk3YKvQBroikpfNeuEPCJ4YrQ0dMm2JFaH
-	 qurAmcVJSLWiA==
+	s=default; t=1787981126;
+	bh=UdHZK7Mg/NXZyv5cMjzZSaTyOSP+rFTBfvyCEiYkjos=; h=From:To:Subject;
+	b=Ua7OHnaEET0VJSkICT6AvcTf9lM8sIVI+xPVY9kKsQ6dGfTjGmXDhTdlWu8YyIJsD
+	 0u4oZluheeY+KxcLHWPhx0/4ZuRnJ2IpiSKI0DdtRJuCo4CTZa/vJ5Sb1UUieyEGHP
+	 roeuN9hie9KXl2NVhubvSY1/eYfK5a8zxBEqWt9E8p8WgVorFV/ww9d3BWdlWGh1ZP
+	 QnHEak4+r8uBuLGJt6WYhPIAZlWLNcZZpYMUWI+ah+2XOqpbv5d2/s8SjU+gb2y8WE
+	 QdopLBEnHH7kJ501I/k+GOAt4RrLMXMLSTj7BS6tN9dWoH+D9w//CYc9RQN+6p8JQG
+	 7nN6+380tmNaQ==
 Authentication-Results: dserver.krueger-it.net;
 	spf=pass (sender IP is 94.31.74.100) smtp.mailfrom=jan.brummer@tabos.org smtp.helo=c0d1ngstat1on.fritz.box
 Received-SPF: pass (dserver.krueger-it.net: connection is authenticated)
@@ -42,9 +42,9 @@ Cc: sakari.ailus@linux.intel.com,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Jan-Michael Brummer <jan.brummer@tabos.org>
-Subject: [PATCH 1/2] media: i2c: ak7375: Add support for the AK7377
-Date: Sat, 29 Aug 2026 07:25:13 +0200
-Message-ID: <20260829052514.18178-3-jan.brummer@tabos.org>
+Subject: [PATCH 2/2] media: i2c: ak7375: Do not mark the VCM active before powering it
+Date: Sat, 29 Aug 2026 07:25:14 +0200
+Message-ID: <20260829052514.18178-4-jan.brummer@tabos.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260829052514.18178-1-jan.brummer@tabos.org>
 References: <20260829052514.18178-1-jan.brummer@tabos.org>
@@ -56,58 +56,49 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AK7377 drives the focus actuator of the main camera on the Fairphone
-5.  It uses the same register layout as the AK7375: a 12 bit position in
-registers 0x00/0x01 shifted left by four, and standby control in 0x02.
-Confirmed on hardware by driving the lens across its range.
+probe() calls pm_runtime_set_active() while the regulators are still
+off, so runtime PM believes a powered device is present.  The following
+pm_runtime_idle() runs the suspend path against an unpowered chip, which
+fails its I2C writes and then calls regulator_bulk_disable() on
+regulators that were never enabled - later tripping the enable/disable
+balance check in regulator_bulk_free() on unbind.
 
+Mark the device suspended instead and drop the idle call, so the first
+resume happens when something actually uses the VCM.  While at it,
+disable the regulators again when resume fails, which leaked an enable
+count for the same reason.
+
+Fixes: 90ee26fb2f50 ("media: ak7375: Add ak7375 lens voice coil driver")
 Signed-off-by: Jan-Michael Brummer <jan.brummer@tabos.org>
 ---
- drivers/media/i2c/ak7375.c | 22 +++++++++++++++++++++-
- 1 file changed, 21 insertions(+), 1 deletion(-)
+ drivers/media/i2c/ak7375.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/media/i2c/ak7375.c b/drivers/media/i2c/ak7375.c
-index 9a2432c..4f311c4 100644
+index 4f311c4..2763bbe 100644
 --- a/drivers/media/i2c/ak7375.c
 +++ b/drivers/media/i2c/ak7375.c
-@@ -65,6 +65,25 @@ static const struct ak73xx_chipdef ak7375_cdef = {
- 	.power_delay_us	= 10000,
- };
+@@ -235,9 +235,12 @@ static int ak7375_probe(struct i2c_client *client)
+ 	if (ret < 0)
+ 		goto err_cleanup;
  
-+/*
-+ * The AK7377 is register compatible with the AK7375: 12 bit position in
-+ * registers 0x00/0x01, standby via 0x02.  Verified on the Fairphone 5,
-+ * where it drives the focus of the IMX800 main camera.
-+ */
-+static const struct ak73xx_chipdef ak7377_cdef = {
-+	.reg_position	= 0x0,
-+	.reg_cont	= 0x2,
-+	.shift_pos	= 4,	/* 12 bits position values, need to << 4 */
-+	.mode_active	= 0x0,
-+	.mode_standby	= 0x40,
-+	.has_standby	= true,
-+	.focus_pos_max	= 4095,
-+	.focus_steps	= 1,
-+	.ctrl_steps	= 64,
-+	.ctrl_delay_us	= 1000,
-+	.power_delay_us	= 10000,
-+};
-+
- static const char * const ak7375_supply_names[] = {
- 	"vdd",
- 	"vio",
-@@ -331,6 +350,7 @@ static int __maybe_unused ak7375_vcm_resume(struct device *dev)
- static const struct of_device_id ak7375_of_table[] = {
- 	{ .compatible = "asahi-kasei,ak7345", .data = &ak7345_cdef, },
- 	{ .compatible = "asahi-kasei,ak7375", .data = &ak7375_cdef, },
-+	{ .compatible = "asahi-kasei,ak7377", .data = &ak7377_cdef, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ak7375_of_table);
-@@ -353,5 +373,5 @@ module_i2c_driver(ak7375_i2c_driver);
+-	pm_runtime_set_active(&client->dev);
++	/*
++	 * The regulators are off at this point, so the device is suspended,
++	 * not active.
++	 */
++	pm_runtime_set_suspended(&client->dev);
+ 	pm_runtime_enable(&client->dev);
+-	pm_runtime_idle(&client->dev);
  
- MODULE_AUTHOR("Tianshu Qiu <tian.shu.qiu@intel.com>");
- MODULE_AUTHOR("Bingbu Cao <bingbu.cao@intel.com>");
--MODULE_DESCRIPTION("AK7375 VCM driver");
-+MODULE_DESCRIPTION("AK7375/AK7377 VCM driver");
- MODULE_LICENSE("GPL v2");
+ 	return 0;
+ 
+@@ -328,6 +331,8 @@ static int __maybe_unused ak7375_vcm_resume(struct device *dev)
+ 			       cdef->mode_active, 1);
+ 	if (ret) {
+ 		dev_err(dev, "%s I2C failure: %d\n", __func__, ret);
++		regulator_bulk_disable(ARRAY_SIZE(ak7375_supply_names),
++				       ak7375_dev->supplies);
+ 		return ret;
+ 	}
+ 
