@@ -1,125 +1,128 @@
-Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com [209.85.215.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CDD71E9919
-	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 09:27:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18B6A3AD516
+	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 11:27:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788082044; cv=none; b=GDWWgqzA3Q8MvuWyDoK2z/0GwFjKiBj9rgKRwBnsvGfW8yGEke+fOeHXY1Td/GVUIdhaRqtKuFz2R674f0dKDWagxC0ro1O+aHY6eDsHbYJrANaJBugFFMMbNKIpYoc2JPapiGNQtEULrPLT7HJVII1/1CXO0rBxu/lsE6o7aiY=
+	t=1788089272; cv=none; b=NTgRduOcoFHiOX7YQlLDU3+imecqM5dgAU3Cr6Px/1cnYdRh9aAnrU0WypiD/VBYxKvsC6EA3zNZnKwh91El2ApAPLKY0GCFsgQb7Q+E7B2NMzGil1k0sGeVRhXPvdLHnNn+bKBFDg3nytdmBkPbOJBo4V8gsKuY3GL2T9pkD2g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788082044; c=relaxed/simple;
-	bh=hatNoNGA+YXnGlMiiRKGzTz5dNJ8bwEIiS0xjj5GM4A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lgnvmSeLix4VK4bwDVbfjEPmjwTzuBITqXx7RsbwdkYhGHGSBicRbcyE6c24DR+ZQ9IV9gKuvwhhXiFkrSZ97onSqzGcuqQ0BUBdiirvzIf2e/FbEumh0xDt3Tfi3gEKee4LBOgzx0DewoHyzCURWEmWelj0068gufM9GCvinTc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VHDDJO7T; arc=none smtp.client-ip=209.85.215.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788089272; c=relaxed/simple;
+	bh=PjPOOTuBeoi9Xq4TdOM0L51B85dDpN9y7t1C9i4JiII=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=f7aj8mmb2PIMOmMvwGv+UuPVc0G2fcxnQ/kA1MV450ltcru847rjpQOceSTQo6L1y/kYkqislfsePSltrYmbZFNHuZAqmn+x0ptN5MzKJ1rq4+5BvjJe0/2v8MusmMV0Ts+FREB/pEOr7wquzoqgnC9llsb5/1QJvQo4uQRQoTg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=i5mF63jp; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VHDDJO7T"
-Received: by mail-pg1-f171.google.com with SMTP id 41be03b00d2f7-c96c92c0980so1616014a12.3
-        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 02:27:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788082042; x=1788686842; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
-        b=VHDDJO7TpbcP9nh3eF8Ip2ARgkSrcHqwLG65ExCKV87GsIvtQ028LNg88d/2DGPjfj
-         nu5TzrjaS0xolRthtgv1NFQ9tHoEBPdtR/0sQWXOjfEcPM07JT2ne2fmRr6bh99+IDb6
-         L4S6jccoYmJ4/rP/ers+ZmTcx8bRodmS7bgIyXvCoJSYyjuCvytFzPlbk3DPY9R05V2c
-         km6TgVxWoIScpfExbnvpHLoNnEmqnbQ1vJC+FWAn/ai6qvVusRopzKK5fxtqmAdBoWbc
-         VIkVovcgwZPge5kKLz/G9T2E8j+X8FOOhCkAPIJFNunafbmarpOycNtFdBR4+uL1EpOv
-         7BtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788082042; x=1788686842;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4mD5bCpSQ2dBdYny3erqq3V+bcIJgzXOhiWs/uhQvjc=;
-        b=HgS+CflEQmIA04TZIqMZpxtV+wMFqW8QMCUOt3hsWsi1j3XFjIYI57bvO6ghv1bmR4
-         R47oJp7aKOm97h2IGjzOoM9gqemZhl6LEj2vSx/V5ySlu9GZxdkfQ/Vgi/Cl4dR1+7uV
-         yznWBjuBMAsN9Y/yFHPgVWQhgpROnisdmogzSmN2xjYPbXb+XDRpxs7ohdchy/KqNPeN
-         33IQW0Df+/hRfGwGUqE9AqhLO1Ms+8FZvEDHOmsFZXOxdswxMGVY8Xh1SDTzqKhQ+z/w
-         R8/fylWIAcJeYe1UAGnBWdYYJ3HKixOyt2QebFTMMllj09iqI1GTcYHZ/0XzHxapUxEj
-         m7cA==
-X-Forwarded-Encrypted: i=1; AHgh+Rph/llaSDbcgtUsKou0+0Ij+ECpUg+lwDJ1lFqV7+R+B+R6IHP2hS+V8g3yaNDmkpJ0x4PLG91TOlYfkA==@vger.kernel.org
-X-Gm-Message-State: AFuF++mpv+IsybRPT5dQwJovw9WB/JxRHcKhO2KTes/ZpyFnNF++w4rB
-	milzw0Lh0ADDxeRL41PPFez3bzJ8NfwIB/7wcGZPpKKy09I3spbA3v/l
-X-Gm-Gg: AR+sD128q1GvaLujsc44/DjtXG2aNtX019FTWyUlHqm2F+PJHKDj5j4PlljbHUIFH4M
-	re/4UAEv6aM5GWNoRuYbZTxp00QgceUL5nL6w/wWUx3QgLMOtH+13Crk75bvQJJc9SlOar63FIE
-	6Nsop1TQUB1aOM6m+ljME1Fcqdf4EmJt4HqENVRMsEav7U3zDjvUsbi0Igc1YO/cHdJWPd1HBVh
-	hgA1/nYf7rJ3NDXJoFKIy9holsZ3DJp6QCYqPeaixRYdcVdAjvIF9Vy/B2Q1KHnc6m6GcE/HDRC
-	ZD2puVMowre+LBF23ER79klp87fMnRXHCO32xGON3R88cSzPPfO0vdkHgLoFEqAZda31pCVOd5V
-	618giKTNUPSfWd7krgIpg5dJjppyLulG0OXGfi3LayEAiTscLHDiddAkjp8PvDPMIawp13hkBwF
-	MOlkuCiDZd4TxLs+PAhOfpuSyh4yFF05AqTi35ioV1Jlv3y2sNLoOT3O0FQUkTlvBncfg7zprns
-	GNd5zDbkEYI80j6qxbp1JW09KE+CcxWaHAX+nw04y/8XiuhGrmtYg==
-X-Received: by 2002:a05:6a21:3947:b0:3cc:9288:99aa with SMTP id adf61e73a8af0-3d26329db5amr33871221637.0.1788082042513;
-        Sun, 30 Aug 2026 02:27:22 -0700 (PDT)
-Received: from deepanshu-Legion-Pro-5-16AFR10.. ([2405:201:682f:383f:35a3:71a0:a824:96db])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2512628a12.11.2026.08.30.02.27.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 02:27:21 -0700 (PDT)
-From: Deepanshu Kartikey <kartikey406@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: enelsonmoore@gmail.com,
-	sakari.ailus@linux.intel.com,
-	johan@kernel.org,
-	hansg@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Deepanshu Kartikey <kartikey406@gmail.com>,
-	syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Subject: [PATCH] media: gspca: don't call stopN/stop0 after device disconnect
-Date: Sun, 30 Aug 2026 14:57:12 +0530
-Message-ID: <20260830092712.19452-1-kartikey406@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="i5mF63jp"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788089267; x=1788348467;
+	bh=rUOw5WDPPCtivdaFHxvTS3NsDJPXEHvp5BBpHjmcdcA=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=i5mF63jp6fkdOnHUvVUIkXoDARr2BxA2xGpvDOGVsH854zRkZC+LhbOkZCwoZ/rHc
+	 44Jd8j4T25nR15kYC19R9iIrvwNi4tzJLmvmFYJ7OWSzUMUzH93IK9v2yfdwBI3nRn
+	 eHUj/5YrzuHaLvM0uAyRZl4rdT8aLpkmu66XAi+LDEeXOAB1WV3XQDLEoVHCJlahRU
+	 KjQN29kyY00tBajGJt5LbVJdZYKhEar2H6eHtGTaxZZvjV8zg1PBNwi1G0xOT9LBRq
+	 qK4qDR7sdW/uq2DjjHYglFmLpRxaa0LkM++Zt5F2p4yj3rRNmsgNnqc/XKM0C8EEU7
+	 cPFHOnsMZxaag==
+Date: Sun, 30 Aug 2026 11:27:43 +0000
+To: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: int3472: unhandled GPIO type 0x08 leaves the rear camera dead (Surface Pro 11, Intel)
+Message-ID: <20260830112736.85573-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 855f0ce254b2a3682a46683ef7bdd538b32d8d34
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-gspca_stream_off() calls the sub-driver's stopN() and stop0()
-callbacks unconditionally. These issue USB requests using
-gspca_dev->dev, which becomes a dangling pointer once the USB device
-has been disconnected and freed, causing a use-after-free when the
-video device fd is closed after disconnect.
+Hello,
 
-Add a gspca_dev->present check before calling stopN() and stop0(),
-matching the existing check already used for gspca_input_create_urb()
-in the same function.
+On a Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) the rear
+camera does not work, and it traces to a single unhandled GPIO type in
+int3472-discrete.
 
-Fixes: 1f5965c4dfd7 ("media: gspca: convert to vb2")
-Reported-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=537b5eb78cebbff5ea70
-Tested-by: syzbot+537b5eb78cebbff5ea70@syzkaller.appspotmail.com
-Signed-off-by: Deepanshu Kartikey <kartikey406@gmail.com>
----
- drivers/media/usb/gspca/gspca.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+  int3472-discrete INT3472:00: GPIO type 0x08 unknown;
+    the sensor may not work
+  ov13858 i2c-OVTID858:00: failed to find sensor: -5
+  ov13858 i2c-OVTID858:00: probe with driver ov13858 failed with error -5
 
-diff --git a/drivers/media/usb/gspca/gspca.c b/drivers/media/usb/gspca/gspca.c
-index 594d73e50b9f..5c33cf397f3d 100644
---- a/drivers/media/usb/gspca/gspca.c
-+++ b/drivers/media/usb/gspca/gspca.c
-@@ -733,14 +733,14 @@ static void gspca_stream_off(struct gspca_dev *gspca_dev)
- {
- 	gspca_dev->streaming = false;
- 	gspca_dev->usb_err = 0;
--	if (gspca_dev->sd_desc->stopN)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stopN)
- 		gspca_dev->sd_desc->stopN(gspca_dev);
- 	destroy_urbs(gspca_dev);
- 	gspca_input_destroy_urb(gspca_dev);
- 	gspca_set_alt0(gspca_dev);
- 	if (gspca_dev->present)
- 		gspca_input_create_urb(gspca_dev);
--	if (gspca_dev->sd_desc->stop0)
-+	if (gspca_dev->present && gspca_dev->sd_desc->stop0)
- 		gspca_dev->sd_desc->stop0(gspca_dev);
- 	gspca_dbg(gspca_dev, D_STREAM, "stream off OK\n");
- }
--- 
-2.43.0
+The result is 32 /dev/video* nodes and a media graph with zero entities.
+The IPU7 itself is healthy - firmware loads, CSE authenticates, the device
+reaches secure mode - so the failure is entirely on the sensor-power side.
+
+Reproduced on 6.17, 7.0.0-28 and 7.0.0-30 (Ubuntu 26.04), and the switch
+in drivers/platform/x86/intel/int3472/discrete.c still has no case for
+0x08 in 7.1.0-rc7, so I do not believe this is already fixed.
+
+What the firmware describes
+---------------------------
+
+The DSDT declares three INT3472 devices. Decoding their _DSM returns with
+the driver's own field layout (type =3D bits 7:0, pin =3D bits 15:8):
+
+  Device (ICL0)  -> INT3472:00, the rear sensor (OVTID858 / ov13858)
+    0x1000070B   type 0x0b POWER_ENABLE   pin  7
+    0x10000500   type 0x00 RESET          pin  5
+    0x1000060D   type 0x0d PRIVACY_LED    pin  6
+    0x10000408   type 0x08 <unknown>      pin  4    <- refused
+
+  Device (ICL1)
+    0x1000200B   type 0x0b POWER_ENABLE   pin 32
+    0x10000810   type 0x10 DOVDD          pin  8
+    0x10000900   type 0x00 RESET          pin  9
+    0x10000A0D   type 0x0d PRIVACY_LED    pin 10
+
+  Device (ICL2)
+    0x1000170B   type 0x0b POWER_ENABLE   pin 23
+    0x10001600   type 0x00 RESET          pin 22
+    0x1000250D   type 0x0d PRIVACY_LED    pin 37
+
+ICL0 is the only one of the three that declares a fourth GPIO, it is the
+only one carrying type 0x08, and it is the one whose sensor fails. I would
+not claim that proves causation - the driver returns 1 for the unknown
+type and carries on, so POWER_ENABLE, RESET and PRIVACY_LED are all still
+registered - but it is the only resource the kernel declines on this
+machine, and the sensor then does not answer on I2C.
+
+The question
+------------
+
+What is type 0x08 meant to be, and should discrete.c handle it? If it is
+another regulator - the shape of ICL1's DOVDD entry suggests the encoding
+supports several - then adding it may be all this machine needs. If it is
+something else, I am happy to be told what and to test whatever you would
+like tried.
+
+I have not sent a patch because I would only be guessing at the semantics,
+and guessing wrong here means silently powering a sensor rail for the wrong
+reason.
+
+What I can provide
+------------------
+
+  - full acpidump / disassembled DSDT for this machine
+  - any debug patch or instrumented build you would like run; the machine
+    is available and I can rebuild and boot kernels on it
+  - dmesg at any log level
+
+Two adjacent facts, in case they matter, though I am not asking for
+anything about them here: the front (SONY0681) and IR (SMO55F0) sensors
+have no in-tree driver bound at all, and intel_ipu7_isys still announces
+itself as a staging module.
+
+  Machine: Microsoft Surface Pro 11 for Business (Intel Core Ultra 7 268V)
+  DMI SKU: Surface_Pro_11th_Edition_With_Intel_For_Business_2103
+  Firmware: UEFI 17.100.143 (2025-11-19)
+  Kernel:   7.0.0-30-generic, Ubuntu 26.04.1 LTS
+
+Thanks,
+Sergey Lebedev
 
