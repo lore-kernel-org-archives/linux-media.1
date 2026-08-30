@@ -1,40 +1,73 @@
-Received: from outbound.ms.icloud.com (ms-2003g-snip4-2.eps.apple.com [57.103.72.193])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7ED3B27F5
-	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 17:15:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.72.193
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81453CB548
+	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 17:24:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788110128; cv=none; b=osv8OZXfQ2Pylp3BJsl911gk5A+3KxO+Y2xhBqKyN7bf0iMPqkzqCx8PaDuDaeeCydhY0n6FTt7+bZwhULkJxpgkDoJHg0esndUEzB3mV1IyCKHiJrymh9l4TBh9pX1WHfc5XYhfyMcO9X/o5NYld+zyMkns2xXPCaoE0nKUAjE=
+	t=1788110644; cv=none; b=gHkOewR+ul3+JVRgcRNKWsQVT2qjRD0RLfJrKADdATsOBo28K3NLPaHfgyeuSFXufwggSrauhHn6lCb2DtgwQ6Ts0SIoXK7C1iOpfP+lsm6TTPL+IWYDlHqDXwKI4mk+OtFO7FjUV/6JDw2UQBfGCANW2nkBjg3OHLsgI9EdiAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788110128; c=relaxed/simple;
-	bh=BEuAuym4UsyHC3Ia5dCtau5HnU+nSBEwBzb3ae4yvH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T8YjdlVNZHEysuoBqWun8kOp6epE2BxShT41wuAKIZ0aNl99FeEIvTXYKiKlfATfRTsc/X2BPxHq1vt5omiO746RyVzb4GMuht9vwtLIAhC+AqkMlauL6JoOREwcWbsuqmQcbgpdfNAg5qwWwuzaP8/qMhKvlWH5su0LmQP8Zjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com; spf=pass smtp.mailfrom=albertopimpo.com; dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b=Fdv0vGvg; arc=none smtp.client-ip=57.103.72.193
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=albertopimpo.com
+	s=arc-20240116; t=1788110644; c=relaxed/simple;
+	bh=xxVeXb4jvY5cuRDXjZpM6wV0C5NoiUzvvPu6TV0iLAI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IeKf9sulgmu80nz+TNANZrtAdLIg75wqIueC5IQ2JkTtsX/6WugH/shae8L8JBLGU4X9CaX23lKq6n3o9J8Y3H7lR+/BWMLYwy0Uwsh8IiyJDyjpAVuIl7votufE9lO022MVRbdSp1Rsc2fD4upYUi7QLqQ0P6CRSmQSY1vLpsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7Eu25XY; arc=none smtp.client-ip=209.85.221.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b="Fdv0vGvg"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPS id EA7901800408;
-	Sun, 30 Aug 2026 17:15:24 +0000 (UTC)
-X-ICL-RepId: 01a053ab-3749-7b34-893c-bad1b353f438
-X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBLHV4ARQNJCVYCVABLVxQEFVYtVgdQFUsMXB1eBkIfFxtcABcNVk1YFFEIRR9dAFAVQwIZCF0dGQpQUAFLWhVVFw4CQh9QH0wWV0NaGBwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoKXhJcCkcCRwJfAFZWUAJaS18ZXUUPXwdZBEABSwNcAFsKRA5WB14GXAddCFVeCHcKXhJcCkcCRwJfAFZWUAJaVRIEQAhWUFQeQQRWFWwJWAZTGVc=
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=albertopimpo.com; s=sig1; t=1788110126; x=1790702126; bh=/PQdvgACE2o+g6IkEljQdipY87Jo8ELWfKTcyPxJrEk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=Fdv0vGvgPwnDdE0CQuzK4OqmtRP9otzewgFFd1P3hIgqKLlOsdiQFcr4nLsDGFnp9w9k4xOLhWNeRMlisbBejeAXPoyyaWO8KYFwKZWbPoS02YFxrEUSpP8Uy4x0684IRBsBlksbA6EQ8R5VXgEfeypEyrWhzy4M2iUg2QxYsG348Bn830Y7iyJM3mViLT8n3UZbyxovVk2KkO8+jX0riyno4XcGlrx976qiT6k2NaWq3OgWjZUX0fXISyvbaOlJBzKF4lWJB+eskAGKsLwFyQJytEww2LHEJIpIxQIl65Q+Q0k4Wg4/ORX7e4jzF1VLocOSUqdoTfV+SRGOmIJQKg==
-mail-alias-created-date: 1786285329818
-Received: from ubuntumacvm (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPSA id 1079C180030E;
-	Sun, 30 Aug 2026 17:15:21 +0000 (UTC)
-From: Alberto Pimpo <me@albertopimpo.com>
-To: dwlsalmeida@gmail.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7Eu25XY"
+Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c7afda4515so211322e0c.1
+        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 10:24:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788110639; x=1788715439; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
+        b=s7Eu25XY005g4Bh8GUVADaU45cKm9KpV7PhLe8TLjX7zNt5/sZntMSTaPvxdjpc8zd
+         zASR3WzXkrX6QJa3OgQ9wJn1Fjp+7dEGCRQHDHPN/WH6xIcJAQrZhJprLui8tWxIuPes
+         rux7KIBFjofh2AK/HgaFg6NN+Ezy2ii6XwSjlNbNpON+Cmd7WqDzlc5KJmBxIPmSJaCB
+         /VQer2wixh3IO4NLwRRYcY4nruDRulTXCb7aAmx9OT0sThuNcr99zHISOQvazgmUTVoh
+         6m8McZLJyEk8Y4OH7k94jayeLE6Z8UPBr0lWJ5Mo+/SFfulSjX96ssdcCpY6RXIDV7PG
+         yJTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788110639; x=1788715439;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
+        b=HvNPdpJ6DyUNxFZeKKWBkVTHQe57IUQ5WCnaUZWxpT4PBMNmG7mN9acnZbFtTFzd/u
+         3C4FrycwRGyzHEWzFXd8p1hBE7u1eBoJDe9mm/QajWcZwe+exowK/ONNP83UMuc9v4jy
+         Ix3z6OTkOU9LcGy8v5dmPma6SC3pgaAs4Wy+yxwgVVoPZfRO4qkBRrbwpl/47xYIdLn5
+         QOGeLo1FotE65I2Oj501if/A/xaVM2XM4S0uaL0rqFM9x19ySquGspbldL9mmsc1TVJh
+         OFhy04NH2+yPDCmgjhm2/Ij+ijbRCMFG0PxwsxeNuWRhwH8Pcq7FbP2cO6+DOvofBEhM
+         0XbQ==
+X-Gm-Message-State: AFuF++m0qjbihk4uRob0LlT7ofm3D036issD3ibPC/xDVji30kaRr7Jq
+	IHJwKWr2Aoobz2I2RDnOZsv1fVzZXz4NQzfIGyayHgbl9ImzO8A0KCDk
+X-Gm-Gg: AR+sD12oi0kaQZKvqeHrGVjJbD8O1Y4XVrk1Yie9GwC4wwkKMAtxG8tsEJN8Ih0rZ1b
+	U1oTpBdYxtPn9P2KwiCHSVxgYWzwRKfQ/DkZ2FiADIeSquvFt0gMixSqRt/tb6dPFhy4MIA8dk9
+	1Xi8vfT400wJBgAYbJALOV2axtbHA3LNvgv48s6bwPdsFsxGVyA7dqNpjW9yd9fiif/aIl2bxnh
+	sjXptQXtjHGtTJ5Kp8ISZvA7/aCrsHfgZ7VcOQhkkh5F/FKsNC0JVBw9ZYnJOm4dcHAkHN9Nf1d
+	MEc1kOjiMr5CIUv6k+MUdneJmSCvZ7LJNhfFd+jGvnTo82N30XdlUyuRMyQea8BnWhGimgzgnTI
+	JnrEHp9T7PhYbJgkSCzYBIVf2PKhQecgklxV9tjJxD9Zpa4cZH0r5zIe7QRZjKrw/S/Q5sIdlDk
+	f1h8bgjMahphES9agOnHZY52O013ZHNEIs1vVM+nD2fQhA8Eee1J5CbZtwZtrgU1z+x18AsduZI
+	cnDbw4=
+X-Received: by 2002:a05:6102:5cc6:b0:77d:ddec:3ab0 with SMTP id ada2fe7eead31-785977fef72mr5953151137.6.1788110639188;
+        Sun, 30 Aug 2026 10:23:59 -0700 (PDT)
+Received: from alessandro-rzn2024.. ([2804:ebc:9070:7a00:c574:bb1e:fe2d:77bb])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97ea3cb16d9sm1223354241.8.2026.08.30.10.23.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 30 Aug 2026 10:23:58 -0700 (PDT)
+From: Alessandro Menezes <alessandroasm@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Alberto Pimpo <me@albertopimpo.com>
-Subject: [PATCH] media: vidtv: validate the frequency module parameters
-Date: Sun, 30 Aug 2026 17:08:47 +0000
-Message-ID: <20260830170847.43175-1-me@albertopimpo.com>
-X-Mailer: git-send-email 2.53.0
+	stable@vger.kernel.org,
+	Hans Verkuil <hverkuil@kernel.org>,
+	ye xingchen <ye.xingchen@zte.com.cn>,
+	Alessandro Menezes <alessandroasm@gmail.com>
+Subject: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
+Date: Sun, 30 Aug 2026 13:23:30 -0400
+Message-ID: <20260830172330.3395671-1-alessandroasm@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -42,144 +75,432 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDE1MSBTYWx0ZWRfX1HAL/YADbZY7
- DCIZrUTu/2AY2n/a19gpmVWkywhz5rCi05cWDsq/wpYy8D6a+ZBi40OK+QKJlVBs/RYrWbMk4NG
- Mt2hZlP/+pLgM7+hjEDzKcQtQAFJoYdZimGj54yWqsHlqnK1/RbEYJCHgYqc/sZBOKPK3/eYhkT
- oSlPBkv2MA2l2se0g9g7ri2fze1q6iuRObPiAakrbqj5+gtj54TruPZXfMDkK3GZpt85lezALcX
- ESx4Y4cGc9MeKPtWgMMqCdsPkifp1PuQRlZgbJnM79TRkeEU4lckEUSJUZa095jYkVjBIsS0dIz
- P4i55uh9roU3vV0BbU9CNlO36a1bip1qTAjTYif7Oqxrokq8NGOdXhcJr5fztA=
-X-Proofpoint-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
-X-Authority-Info-Out: v=2.4 cv=cdffb3DM c=1 sm=1 tr=0 ts=6a94652d
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=clVqxvNCAAAA:8 a=dQkeq5CGmAAQs0QBx38A:9 a=uPQ7wDaL34lJzY1hCFs5:22
-X-JNJ: AAAAAAABQg7K3pv+AhDTCgQptbgPbLCqf3nuErCBaliVipJeVhdq7lxthaJwmSs7A5+ggvqlwWgty5Doc2is2OwfM36vB/ShCl7bkCBSobH2Sr2sA56JHEJNojhwgWmpJF6q5Q18V8+T2PfYILeG9lycSgabe+qRtJXrVKoPhBfu6gXxlgM6vlBWgirgB7yk8Jt7pbllHIvJ1JXW1GSAv7bdY80ZBvxxx5kOL1qSfxch2jyyLQzekIo1LVw2yefRMAA70EtSvDhH+UOhiw39q4CYrQjT6TY5lGU2gWnLNaS9SFZf72GLuEALKAjvNYKR+RWkSkHrFqCZRbK34a4De21cjLC2M1ONK+xzVqaqza37B2N5arAlx/e32tHCeA4ZZUV0DfN+Mq6D/PRWILF/dNagAcnKlMtXIqMVX+IzCicsLnHlTkHwqMnM2k4D/1woGfE8KtpuYjzvu3YVWZzevyHqIWMtDvGvl6VIsXqPyAupwJZtmh05VaETe1FMA+MQbmwBajM+uCorVHJ2vynUbA5n9HDU/+f2xlShsSwuhdEusoLzs6tNqMjdVWWe+c7qwzJwM2c7FzNXuyEGsHGLZnPDJQ0O48aynpDxyuMGtY/dZZhpX97IthD4eXlp+389sMJznREDEVa3A+zbq/5OJPPKuFlJcl+3ZppgO6PXu9gIHjgHnvmteiXZcFLvijWcZ/Du5WqYr9h/VUiFLb02Gn24/1AfbEKQ37w4PhE3T1vhl4tJvpy+FU1dMkekUXMecFiyKQ99V0LquKDgXKnJ3OIBcADW5csj+IKn+qUu6s2xyLSvanAwvn3vJ0OYJMPH57BCsjtlQmevMLkQqGuVoGasYhM6Z6zPwMfUisGQl2CppNJiSRypJ9gIsDku++Ig9/MFg7v+UUGZd5j8uTWsTjr+GEK5cLZU0Zqd9iMcCEehBgdptjLVo5jLPiZPXFAWJZkfXLV9POrfnfFitOfpWjUOQ2CrAIp
- sAYZLuN8Wl71SF/Me1FPuKl88IKgXKjnpNTVFf9a7/v86cKKAMGlba/k+aCo95zkNVCy/uixNATX36EFy/behLPS54LwgHth1LHldqFkhGJndTmlb9P4Xn6g68k0JCDb66g8RZkoGQvllLOrU+kDmZeVopkBSZQqBhjS4YsQAUiDtngZkqo1rZGmYTdVtzqvKCGZ34pDu8fCCBEtI+Wyjo0mAJ3btgmI/Ur0GPHJ7KE3FxSm0HuXH9civTy83XRfudMHO
 
-The lists of frequencies the simulated tuner locks onto are module
-parameters, and were handed over to the tuner module without being
-checked first.
+This reverts commit 2f7d0c94396e ("media: siano: Convert to use
+sysfs_emit_at() API").
 
-A terrestrial or cable frequency outside the range the demodulator
-reports to the DVB core is unreachable, as dvb_frontend_check_parameters()
-rejects such a tuning request before the tuner is ever asked about the
-frequency. A satellite frequency outside the Ku-band covered by the
-simulated LNBf is equally meaningless, since it is downconverted using
-the LNBf local oscillators before reaching the tuner.
+sysfs_emit_at() may only be used from sysfs show() methods, where the
+destination is the page-sized, page-aligned buffer that sysfs passes to
+the callback.  It enforces that at runtime:
 
-In both cases vidtv used to initialize successfully and then never lock
-on anything, leaving no clue about the cause.
+	if (WARN(!buf || offset_in_page(buf) || at < 0 || at >= PAGE_SIZE,
+		 "invalid sysfs_emit_at: buf:%p at:%d\n", buf, at))
+		return 0;
 
-Check the terrestrial and cable frequencies against the range advertised
-by the demodulator, and the satellite ones against the Ku-band covered by
-the simulated LNBf, failing the probe with an explicit error message
-otherwise.
+smsdvb has no show() method.  The converted functions format statistics
+into smsdvb_debugfs.stats_data, a plain char[PAGE_SIZE] member of a
+kmalloc()'d struct, which reaches userspace through debugfs via
+simple_read_from_buffer().  The preceding kref and spinlock_t place
+stats_data at offset 8 in the object, and the object itself is 4136
+bytes, so it is served from the kmalloc-8192 cache with a page-aligned
+base.  offset_in_page(stats_data) is therefore always 8, never 0, and
+every one of the 104 converted calls trips the WARN and returns 0
+without writing anything:
 
-Signed-off-by: Alberto Pimpo <me@albertopimpo.com>
+  WARNING: fs/sysfs/file.c:781 at sysfs_emit_at+0x59/0xd0
+  invalid sysfs_emit_at: buf:00000000fb2f86e6 at:0
+   smsdvb_print_isdb_stats_ex+0x459/0x650 [smsdvb]
+   smsdvb_update_isdbt_stats_ex+0x34/0x6e0 [smsdvb]
+   smsdvb_onresponse+0x2bc/0x6a0 [smsdvb]
+   smsusb_onresponse+0x117/0x230 [smsusb]
+
+The statistics are formatted from the USB completion handler, so this
+fires from interrupt context on every statistics response the device
+sends, and the debugfs stats file is permanently empty.
+
+Note the buffer cannot be realigned the way commit 8f48ba303dfb
+("drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings(v2)") handled the
+same warning: there the buffer really was a sysfs page that had been
+advanced past its start, so walking back to the page boundary was valid.
+Here it is not a page at all, and backing the pointer up by
+offset_in_page() would land on the struct's own kref and spinlock.
+
+scnprintf() is the correct interface for formatting into a
+driver-private buffer, and was the deliberate choice here since commit
+af72bc8cd6ab ("media: siano: Use scnprintf() for avoiding potential
+buffer overflow").
+
+Fixes: 2f7d0c94396e ("media: siano: Convert to use sysfs_emit_at() API")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alessandro Menezes <alessandroasm@gmail.com>
 ---
- .../media/test-drivers/vidtv/vidtv_bridge.c   | 71 ++++++++++++++++++-
- 1 file changed, 70 insertions(+), 1 deletion(-)
+Tested on 7.0.0-30-generic with a Siano MDTV receiver (USB 187f:0600,
+ISDB-T).  Before: reading
+/sys/kernel/debug/usb/smsdvb/<dev>/stats returns nothing and each
+statistics response from the device adds a WARN.  After: the file
+contains the full per-layer ISDB-T statistics and no WARN is logged.
 
-diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-index fd69b4ee16f4..37e9b1e8e793 100644
---- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-+++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
-@@ -44,6 +44,10 @@
- #define LNB_LOW_FREQ		9750000		/* low IF frequency */
- #define LNB_HIGH_FREQ		10600000	/* transition frequency */
+offsetof()/sizeof() above were measured on that kernel, not inferred.
+
+--- a/drivers/media/common/siano/smsdvb-debugfs.c
++++ b/drivers/media/common/siano/smsdvb-debugfs.c
+@@ -45,48 +45,89 @@
  
-+/* The Ku-band range covered by such an LNBf, in kHz */
-+#define LNB_KU_BAND_MIN_FREQ	10700000
-+#define LNB_KU_BAND_MAX_FREQ	12750000
-+
- static unsigned int drop_tslock_prob_on_low_snr;
- module_param(drop_tslock_prob_on_low_snr, uint, 0444);
- MODULE_PARM_DESC(drop_tslock_prob_on_low_snr,
-@@ -367,6 +371,36 @@ static int vidtv_bridge_probe_demod(struct vidtv_dvb *dvb, u32 n)
- 	return 0;
- }
+ 	buf = debug_data->stats_data;
  
-+/*
-+ * Reject frequencies the simulation could never tune into, as the module
-+ * would otherwise load just fine and then never lock on anything, leaving
-+ * no clue about what went wrong.
-+ */
-+static int vidtv_bridge_check_freqs(struct vidtv_dvb *dvb,
-+				    const unsigned int *freqs,
-+				    u32 array_sz,
-+				    u32 min_freq,
-+				    u32 max_freq,
-+				    const char *name)
-+{
-+	u32 i;
-+
-+	for (i = 0; i < array_sz; i++) {
-+		/* a zeroed entry means an unused slot */
-+		if (!freqs[i])
-+			continue;
-+
-+		if (freqs[i] < min_freq || freqs[i] > max_freq) {
-+			dev_err(&dvb->pdev->dev,
-+				"%s[%u]: %u is out of range (%u..%u)\n",
-+				name, i, freqs[i], min_freq, max_freq);
-+			return -EINVAL;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
- {
- 	struct vidtv_tuner_config cfg = {
-@@ -374,10 +408,45 @@ static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
- 		.mock_power_up_delay_msec = mock_power_up_delay_msec,
- 		.mock_tune_delay_msec     = mock_tune_delay_msec,
- 	};
-+	u32 min_freq = dvb->fe[n]->ops.info.frequency_min_hz;
-+	u32 max_freq = dvb->fe[n]->ops.info.frequency_max_hz;
- 	u32 freq;
-+	int ret;
- 	int i;
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\n", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\n", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d\n", p->SNR);
+-	n += sysfs_emit_at(buf, n, "ber = %d\n", p->ber);
+-	n += sysfs_emit_at(buf, n, "FIB_CRC = %d\n", p->FIB_CRC);
+-	n += sysfs_emit_at(buf, n, "ts_per = %d\n", p->ts_per);
+-	n += sysfs_emit_at(buf, n, "MFER = %d\n", p->MFER);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d\n", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\n", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "frequency = %d\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\n", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\n", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "code_rate = %d\n", p->code_rate);
+-	n += sysfs_emit_at(buf, n, "lp_code_rate = %d\n", p->lp_code_rate);
+-	n += sysfs_emit_at(buf, n, "hierarchy = %d\n", p->hierarchy);
+-	n += sysfs_emit_at(buf, n, "constellation = %d\n", p->constellation);
+-	n += sysfs_emit_at(buf, n, "burst_size = %d\n", p->burst_size);
+-	n += sysfs_emit_at(buf, n, "burst_duration = %d\n", p->burst_duration);
+-	n += sysfs_emit_at(buf, n, "burst_cycle_time = %d\n", p->burst_cycle_time);
+-	n += sysfs_emit_at(buf, n, "calc_burst_cycle_time = %d\n", p->calc_burst_cycle_time);
+-	n += sysfs_emit_at(buf, n, "num_of_rows = %d\n", p->num_of_rows);
+-	n += sysfs_emit_at(buf, n, "num_of_padd_cols = %d\n", p->num_of_padd_cols);
+-	n += sysfs_emit_at(buf, n, "num_of_punct_cols = %d\n", p->num_of_punct_cols);
+-	n += sysfs_emit_at(buf, n, "error_ts_packets = %d\n", p->error_ts_packets);
+-	n += sysfs_emit_at(buf, n, "total_ts_packets = %d\n", p->total_ts_packets);
+-	n += sysfs_emit_at(buf, n, "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "num_of_corrected_mpe_tlbs = %d\n",
+-			   p->num_of_corrected_mpe_tlbs);
+-	n += sysfs_emit_at(buf, n, "ber_error_count = %d\n", p->ber_error_count);
+-	n += sysfs_emit_at(buf, n, "ber_bit_count = %d\n", p->ber_bit_count);
+-	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
+-	n += sysfs_emit_at(buf, n, "pre_ber = %d\n", p->pre_ber);
+-	n += sysfs_emit_at(buf, n, "cell_id = %d\n", p->cell_id);
+-	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
+-	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
+-	n += sysfs_emit_at(buf, n, "num_mpe_received = %d\n", p->num_mpe_received);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\n", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\n", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d\n", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber = %d\n", p->ber);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "FIB_CRC = %d\n", p->FIB_CRC);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ts_per = %d\n", p->ts_per);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "MFER = %d\n", p->MFER);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d\n", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\n", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\n", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\n", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\n", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\n", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "code_rate = %d\n", p->code_rate);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "lp_code_rate = %d\n", p->lp_code_rate);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "hierarchy = %d\n", p->hierarchy);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "constellation = %d\n", p->constellation);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_size = %d\n", p->burst_size);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_duration = %d\n", p->burst_duration);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "burst_cycle_time = %d\n", p->burst_cycle_time);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "calc_burst_cycle_time = %d\n",
++		      p->calc_burst_cycle_time);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_rows = %d\n", p->num_of_rows);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_padd_cols = %d\n", p->num_of_padd_cols);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_punct_cols = %d\n", p->num_of_punct_cols);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "error_ts_packets = %d\n", p->error_ts_packets);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "total_ts_packets = %d\n", p->total_ts_packets);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_corrected_mpe_tlbs = %d\n", p->num_of_corrected_mpe_tlbs);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber_error_count = %d\n", p->ber_error_count);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "ber_bit_count = %d\n", p->ber_bit_count);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "pre_ber = %d\n", p->pre_ber);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "cell_id = %d\n", p->cell_id);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_mpe_received = %d\n", p->num_mpe_received);
  
--	/* TODO: check if the frequencies are at a valid range */
-+	/*
-+	 * Terrestrial and cable frequencies are given in Hz and are used as
-+	 * is, so they have to fit within the range the demod reports to the
-+	 * DVB core: the core rejects a tuning request outside of it before
-+	 * the tuner is ever asked about the frequency.
-+	 */
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_t_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_t_freqs),
-+				       min_freq, max_freq,
-+				       "vidtv_valid_dvb_t_freqs");
-+	if (ret)
-+		return ret;
-+
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_c_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_c_freqs),
-+				       min_freq, max_freq,
-+				       "vidtv_valid_dvb_c_freqs");
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Satellite frequencies are given in kHz at Ku-band and are
-+	 * downconverted below, so check them against the band the simulated
-+	 * LNBf covers instead. Doing so also ensures that the frequencies
-+	 * are above the LNBf local oscillators.
-+	 */
-+	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_s_freqs,
-+				       ARRAY_SIZE(vidtv_valid_dvb_s_freqs),
-+				       LNB_KU_BAND_MIN_FREQ,
-+				       LNB_KU_BAND_MAX_FREQ,
-+				       "vidtv_valid_dvb_s_freqs");
-+	if (ret)
-+		return ret;
+ 	debug_data->stats_count = n;
+ 	spin_unlock(&debug_data->lock);
+@@ -107,49 +148,78 @@
  
- 	memcpy(cfg.vidtv_valid_dvb_t_freqs,
- 	       vidtv_valid_dvb_t_freqs,
+ 	buf = debug_data->stats_data;
+ 
+-	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
+-	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
+-
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
+-	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
+-	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
+-	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "statistics_type = %d\t", p->statistics_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "full_size = %d\n", p->full_size);
++
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\t\t", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\t", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d dB\t\t", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d dBm\t\t", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\t", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\t\t", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d Hz\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\t", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\t\t", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "system_type = %d\t\t", p->system_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "partial_reception = %d\t", p->partial_reception);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_layers = %d\n", p->num_of_layers);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
+ 
+ 	for (i = 0; i < 3; i++) {
+ 		if (p->layer_info[i].number_of_segments < 1 ||
+ 		    p->layer_info[i].number_of_segments > 13)
+ 			continue;
+ 
+-		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
+-		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
+-		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
+-		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
+-		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
+-				   p->layer_info[i].ber_error_count);
+-		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
+-				   p->layer_info[i].ber_bit_count);
+-		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
+-		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
+-		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
+-				   p->layer_info[i].error_ts_packets);
+-		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
+-				   p->layer_info[i].total_ts_packets);
+-		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
+-		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
+-				   p->layer_info[i].number_of_segments);
+-		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
++			      p->layer_info[i].code_rate);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
++			      p->layer_info[i].constellation);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
++			      p->layer_info[i].ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tber_error_count = %-5d\t",
++			      p->layer_info[i].ber_error_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
++			      p->layer_info[i].ber_bit_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
++			      p->layer_info[i].pre_ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
++			      p->layer_info[i].ts_per);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\terror_ts_packets = %-5d\t",
++			      p->layer_info[i].error_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "total_ts_packets = %-5d\t",
++			      p->layer_info[i].total_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
++			      p->layer_info[i].ti_ldepth_i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tnumber_of_segments = %d\t",
++			      p->layer_info[i].number_of_segments);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
++			      p->layer_info[i].tmcc_errors);
+ 	}
+ 
+ 	debug_data->stats_count = n;
+@@ -171,50 +241,80 @@
+ 
+ 	buf = debug_data->stats_data;
+ 
+-	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
+-	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
+-
+-	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
+-	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
+-	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
+-	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
+-	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
+-	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
+-	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
+-	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
+-	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
+-	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
+-	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
+-	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
+-	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
+-	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
+-	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
+-	n += sysfs_emit_at(buf, n, "segment_number = %d\t", p->segment_number);
+-	n += sysfs_emit_at(buf, n, "tune_bw = %d\n", p->tune_bw);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "statistics_type = %d\t", p->statistics_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "full_size = %d\n", p->full_size);
++
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_rf_locked = %d\t\t", p->is_rf_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_demod_locked = %d\t", p->is_demod_locked);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "is_external_lna_on = %d\n", p->is_external_lna_on);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "SNR = %d dB\t\t", p->SNR);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "RSSI = %d dBm\t\t", p->RSSI);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "carrier_offset = %d\t", p->carrier_offset);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "bandwidth = %d\t\t", p->bandwidth);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "frequency = %d Hz\n", p->frequency);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "transmission_mode = %d\t", p->transmission_mode);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "modem_state = %d\t\t", p->modem_state);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "guard_interval = %d\n", p->guard_interval);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "system_type = %d\t\t", p->system_type);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "partial_reception = %d\t", p->partial_reception);
++	n += scnprintf(&buf[n], PAGE_SIZE - n,
++		      "num_of_layers = %d\n", p->num_of_layers);
++	n += scnprintf(&buf[n], PAGE_SIZE - n, "segment_number = %d\t",
++		      p->segment_number);
++	n += scnprintf(&buf[n], PAGE_SIZE - n, "tune_bw = %d\n",
++		      p->tune_bw);
+ 
+ 	for (i = 0; i < 3; i++) {
+ 		if (p->layer_info[i].number_of_segments < 1 ||
+ 		    p->layer_info[i].number_of_segments > 13)
+ 			continue;
+ 
+-		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
+-		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
+-		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
+-		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
+-		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
+-				   p->layer_info[i].ber_error_count);
+-		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
+-				   p->layer_info[i].ber_bit_count);
+-		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
+-		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
+-		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
+-				   p->layer_info[i].error_ts_packets);
+-		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
+-				   p->layer_info[i].total_ts_packets);
+-		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
+-		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
+-				   p->layer_info[i].number_of_segments);
+-		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
++			      p->layer_info[i].code_rate);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
++			      p->layer_info[i].constellation);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
++			      p->layer_info[i].ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tber_error_count = %-5d\t",
++			      p->layer_info[i].ber_error_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
++			      p->layer_info[i].ber_bit_count);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
++			      p->layer_info[i].pre_ber);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
++			      p->layer_info[i].ts_per);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\terror_ts_packets = %-5d\t",
++			      p->layer_info[i].error_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "total_ts_packets = %-5d\t",
++			      p->layer_info[i].total_ts_packets);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
++			      p->layer_info[i].ti_ldepth_i);
++		n += scnprintf(&buf[n], PAGE_SIZE - n,
++			      "\tnumber_of_segments = %d\t",
++			      p->layer_info[i].number_of_segments);
++		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
++			      p->layer_info[i].tmcc_errors);
+ 	}
+ 
+ 
 -- 
-2.53.0
+2.43.0
 
