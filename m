@@ -1,88 +1,40 @@
-Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com [209.85.215.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from outbound.ms.icloud.com (ms-2003g-snip4-2.eps.apple.com [57.103.72.193])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1252E3BCD33
-	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 16:03:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7ED3B27F5
+	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 17:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.72.193
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788105804; cv=none; b=t8uiRL13dd7U4qoqbUFeL03qm20rIasUOFpX+WM4XzUPWUILJyZk0gUNLaU3CTE9HmC43I0a2Mgl6fVrPo84OGl1Mj89w/2cRaQ+8SuT69FxHjo0lSuLK3nZA2Wt2wJU7lAmTTMIFuN/jPW3B9ik4CCXBwCjAAD6uu7lQbSOWfE=
+	t=1788110128; cv=none; b=osv8OZXfQ2Pylp3BJsl911gk5A+3KxO+Y2xhBqKyN7bf0iMPqkzqCx8PaDuDaeeCydhY0n6FTt7+bZwhULkJxpgkDoJHg0esndUEzB3mV1IyCKHiJrymh9l4TBh9pX1WHfc5XYhfyMcO9X/o5NYld+zyMkns2xXPCaoE0nKUAjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788105804; c=relaxed/simple;
-	bh=oiC51w1NPaioikE1Hg9uEJxGeYzaTROkH+16a9WiVbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SJ9PFuiaUz5KBeK/dCPjQs91RZWAJwv680X+dbhwu5w0YgfkJxV77W4vwZXp0I8jON2TDE5LYoxnLM4wHtR5/y7NzCW27qnrXlf7hUMpRjaZsWeq1gahg7Wd8lnM1wy6q1/EqYu7JGn6Wnw44cMKhtPyIsw+ehNHp2zOsoBzFvQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KQg3q7jG; arc=none smtp.client-ip=209.85.215.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788110128; c=relaxed/simple;
+	bh=BEuAuym4UsyHC3Ia5dCtau5HnU+nSBEwBzb3ae4yvH8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=T8YjdlVNZHEysuoBqWun8kOp6epE2BxShT41wuAKIZ0aNl99FeEIvTXYKiKlfATfRTsc/X2BPxHq1vt5omiO746RyVzb4GMuht9vwtLIAhC+AqkMlauL6JoOREwcWbsuqmQcbgpdfNAg5qwWwuzaP8/qMhKvlWH5su0LmQP8Zjs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com; spf=pass smtp.mailfrom=albertopimpo.com; dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b=Fdv0vGvg; arc=none smtp.client-ip=57.103.72.193
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=albertopimpo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=albertopimpo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KQg3q7jG"
-Received: by mail-pg1-f177.google.com with SMTP id 41be03b00d2f7-cc1c7364550so2754886a12.1
-        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 09:03:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788105802; x=1788710602; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Y55JaARfg3EV2mur3cWs7k4GhU5c80X4HvQLCTJYTYs=;
-        b=KQg3q7jGb6UFORf0io0LV15mwS62/21ABDqJ/PJu1NzsDvZ7Hnmqis+PtErW7saHqU
-         HacYZyeD/zKaqTfRLrb0vWHfsYwUqCT8K0u4QDYI7pwEzYCf0mJ/eCUtJT34WCu0tSk8
-         I31Tz6Fo9JyNwuvXEpp+BLt1P/OFfVI3ejCn+8LcThlKlDrwjztSMVwVvwJT/o8IvPKO
-         eLAijPZdd50ueC1d+lEfzlFoZ4t/vVa4ZntHctEnqMtNM7Mf+Q+Ahq/vXXNYhzIz2Y6S
-         KJ2+V/zw1aZ5Wn0vPeSSQmxMToVgftG3aH6EwM/v2CwH14/++B3kBkdNaQpFIRK0fyRn
-         cEsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788105802; x=1788710602;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Y55JaARfg3EV2mur3cWs7k4GhU5c80X4HvQLCTJYTYs=;
-        b=FyXQWcsm/qx4zPx8xkkWHrMPx6LxTBqx8U20Mm9+adm0WLF3yyUUcMirbJyej7erzd
-         7ZBdWG4+yg2kKSCn5xwKQcZ95GEon9fkhnqHnrXcxD19ZRlLHKyJKKMq/1H1UdQETz0/
-         smGPGy+LuXXsD7iwcX4vb8BdnG75ZJaQ0UIidMbvlXxzCCbdsqSDs+XOC8LF+0UPEZEB
-         5r58hI92VS4lerP6BpRFIOJ7Ic2BfF1l1W4aC2wXCyrQDcI84P6jQq73ALbql6eVWGnE
-         zGTplkaOwgwHu7vImC6myg4jkfEdhBigg8S052o/YTRtudYDrxH9fGJm6WFpE7onxJgM
-         mWng==
-X-Forwarded-Encrypted: i=1; AHgh+RrImzLXscHiOT9pRk7nDt7tmpCUrp9Ln3HdpSvk9C5KTVRPCNInvhB+xlpf3v4iP3O0vnbOXW7W610NpQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kZkdxanEN5N2wD7BWJw9sfgsp19/cklXhK25kZGaRJhnRNMQpZ
-	0OpAvWqyturO+m8zSZC2npUw7N3unkjfVi5xFKmseTCic+3pz8QM0SB9
-X-Gm-Gg: AR+sD11SvQWOo2Wiv7Dk10Hbd/a0b5aLvI2wZDdpTSYdy7l2jc1P90h6GNuDeXsUP5H
-	SukZ0XW6C51R7pcRMI147Drc7BZ7MM57JGRhfbodsq48Gt4YV/+j+NCnG48crf6n08rS6/GZ3Ya
-	EsMEvRas2/lCxd91/8271Fw9shHtxb4LGr0cTEH14IPYQSGw3KFx9rjK4c1DeCEaawQHS2tvFxp
-	IVPGK2oL2N/Jt0AO8kih6hhChB65Qaxifk/5XFoYQ30PHxvAUZJ1IcRDrkDuoZN0bHfz6I6kWQs
-	CIqbKNkNKis95zYUzh9eOi19pEqZIJ4XyE+Ev1yg1LUu5oEWfXsJeOVZxHbGgpmi5XNHP3FfH64
-	pGMzi6bKLxQXTrz3XSCRcsJEq3Foh0JUqLnKEil5ZZUjcW3lHg5YNqaUoK1zgMYa5253oHQMo0V
-	37YJa9Sy0bRR7M5WH1N9Xg4bL+xtWpCkA5A1nVPR3YJu2q1ed1AGmiajlPxtPPXGtA2Wq22dbPr
-	9U+a/d7UrWUzDn6cXd7XAo58/+qPdcRnDFZBQaiz0PLX4eAsfwp
-X-Received: by 2002:a05:6a20:a124:b0:3bf:5b7a:fc8b with SMTP id adf61e73a8af0-3d2633a1e56mr31289054637.0.1788105802212;
-        Sun, 30 Aug 2026 09:03:22 -0700 (PDT)
-Received: from nuvole (2.248.212.35.bc.googleusercontent.com. [35.212.248.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.03.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 09:03:21 -0700 (PDT)
-From: Pengyu Luo <mitltlatltl@gmail.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Martin Kepplinger-Novakovic <martink@posteo.de>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=albertopimpo.com header.i=@albertopimpo.com header.b="Fdv0vGvg"
+Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPS id EA7901800408;
+	Sun, 30 Aug 2026 17:15:24 +0000 (UTC)
+X-ICL-RepId: 01a053ab-3749-7b34-893c-bad1b353f438
+X-ICL-Out-Info: HUtFAUMHWwJACUgBTUQeDx5WFlZNRAJCTQBLHV4ARQNJCVYCVABLVxQEFVYtVgdQFUsMXB1eBkIfFxtcABcNVk1YFFEIRR9dAFAVQwIZCF0dGQpQUAFLWhVVFw4CQh9QH0wWV0NaGBwZWhRcGFNFUR9UWEMZRVZpQQtPHV0ZWxxCZFhXCQoKXhJcCkcCRwJfAFZWUAJaS18ZXUUPXwdZBEABSwNcAFsKRA5WB14GXAddCFVeCHcKXhJcCkcCRwJfAFZWUAJaVRIEQAhWUFQeQQRWFWwJWAZTGVc=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=albertopimpo.com; s=sig1; t=1788110126; x=1790702126; bh=/PQdvgACE2o+g6IkEljQdipY87Jo8ELWfKTcyPxJrEk=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=Fdv0vGvgPwnDdE0CQuzK4OqmtRP9otzewgFFd1P3hIgqKLlOsdiQFcr4nLsDGFnp9w9k4xOLhWNeRMlisbBejeAXPoyyaWO8KYFwKZWbPoS02YFxrEUSpP8Uy4x0684IRBsBlksbA6EQ8R5VXgEfeypEyrWhzy4M2iUg2QxYsG348Bn830Y7iyJM3mViLT8n3UZbyxovVk2KkO8+jX0riyno4XcGlrx976qiT6k2NaWq3OgWjZUX0fXISyvbaOlJBzKF4lWJB+eskAGKsLwFyQJytEww2LHEJIpIxQIl65Q+Q0k4Wg4/ORX7e4jzF1VLocOSUqdoTfV+SRGOmIJQKg==
+mail-alias-created-date: 1786285329818
+Received: from ubuntumacvm (unknown [17.156.208.39])
+	by p00-icloudmta-asmtp-us-west-3a-60-percent-5 (Postfix) with ESMTPSA id 1079C180030E;
+	Sun, 30 Aug 2026 17:15:21 +0000 (UTC)
+From: Alberto Pimpo <me@albertopimpo.com>
+To: dwlsalmeida@gmail.com
+Cc: mchehab@kernel.org,
 	linux-media@vger.kernel.org,
-	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v6 5/5] arm64: dts: imx8mq-librem5: Correct link frequency list
-Date: Mon, 31 Aug 2026 00:00:25 +0800
-Message-ID: <20260830160025.211384-6-mitltlatltl@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260830160025.211384-1-mitltlatltl@gmail.com>
-References: <20260830160025.211384-1-mitltlatltl@gmail.com>
+	linux-kernel@vger.kernel.org,
+	Alberto Pimpo <me@albertopimpo.com>
+Subject: [PATCH] media: vidtv: validate the frequency module parameters
+Date: Sun, 30 Aug 2026 17:08:47 +0000
+Message-ID: <20260830170847.43175-1-me@albertopimpo.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -90,34 +42,144 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwODMwMDE1MSBTYWx0ZWRfX1HAL/YADbZY7
+ DCIZrUTu/2AY2n/a19gpmVWkywhz5rCi05cWDsq/wpYy8D6a+ZBi40OK+QKJlVBs/RYrWbMk4NG
+ Mt2hZlP/+pLgM7+hjEDzKcQtQAFJoYdZimGj54yWqsHlqnK1/RbEYJCHgYqc/sZBOKPK3/eYhkT
+ oSlPBkv2MA2l2se0g9g7ri2fze1q6iuRObPiAakrbqj5+gtj54TruPZXfMDkK3GZpt85lezALcX
+ ESx4Y4cGc9MeKPtWgMMqCdsPkifp1PuQRlZgbJnM79TRkeEU4lckEUSJUZa095jYkVjBIsS0dIz
+ P4i55uh9roU3vV0BbU9CNlO36a1bip1qTAjTYif7Oqxrokq8NGOdXhcJr5fztA=
+X-Proofpoint-GUID: qvZ--IE6VyAgQLMPRKCz0_7HRgR9u5nA
+X-Authority-Info-Out: v=2.4 cv=cdffb3DM c=1 sm=1 tr=0 ts=6a94652d
+ cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
+ a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=Sv0fKeRqtYgA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=clVqxvNCAAAA:8 a=dQkeq5CGmAAQs0QBx38A:9 a=uPQ7wDaL34lJzY1hCFs5:22
+X-JNJ: AAAAAAABQg7K3pv+AhDTCgQptbgPbLCqf3nuErCBaliVipJeVhdq7lxthaJwmSs7A5+ggvqlwWgty5Doc2is2OwfM36vB/ShCl7bkCBSobH2Sr2sA56JHEJNojhwgWmpJF6q5Q18V8+T2PfYILeG9lycSgabe+qRtJXrVKoPhBfu6gXxlgM6vlBWgirgB7yk8Jt7pbllHIvJ1JXW1GSAv7bdY80ZBvxxx5kOL1qSfxch2jyyLQzekIo1LVw2yefRMAA70EtSvDhH+UOhiw39q4CYrQjT6TY5lGU2gWnLNaS9SFZf72GLuEALKAjvNYKR+RWkSkHrFqCZRbK34a4De21cjLC2M1ONK+xzVqaqza37B2N5arAlx/e32tHCeA4ZZUV0DfN+Mq6D/PRWILF/dNagAcnKlMtXIqMVX+IzCicsLnHlTkHwqMnM2k4D/1woGfE8KtpuYjzvu3YVWZzevyHqIWMtDvGvl6VIsXqPyAupwJZtmh05VaETe1FMA+MQbmwBajM+uCorVHJ2vynUbA5n9HDU/+f2xlShsSwuhdEusoLzs6tNqMjdVWWe+c7qwzJwM2c7FzNXuyEGsHGLZnPDJQ0O48aynpDxyuMGtY/dZZhpX97IthD4eXlp+389sMJznREDEVa3A+zbq/5OJPPKuFlJcl+3ZppgO6PXu9gIHjgHnvmteiXZcFLvijWcZ/Du5WqYr9h/VUiFLb02Gn24/1AfbEKQ37w4PhE3T1vhl4tJvpy+FU1dMkekUXMecFiyKQ99V0LquKDgXKnJ3OIBcADW5csj+IKn+qUu6s2xyLSvanAwvn3vJ0OYJMPH57BCsjtlQmevMLkQqGuVoGasYhM6Z6zPwMfUisGQl2CppNJiSRypJ9gIsDku++Ig9/MFg7v+UUGZd5j8uTWsTjr+GEK5cLZU0Zqd9iMcCEehBgdptjLVo5jLPiZPXFAWJZkfXLV9POrfnfFitOfpWjUOQ2CrAIp
+ sAYZLuN8Wl71SF/Me1FPuKl88IKgXKjnpNTVFf9a7/v86cKKAMGlba/k+aCo95zkNVCy/uixNATX36EFy/behLPS54LwgHth1LHldqFkhGJndTmlb9P4Xn6g68k0JCDb66g8RZkoGQvllLOrU+kDmZeVopkBSZQqBhjS4YsQAUiDtngZkqo1rZGmYTdVtzqvKCGZ34pDu8fCCBEtI+Wyjo0mAJ3btgmI/Ur0GPHJ7KE3FxSm0HuXH9civTy83XRfudMHO
 
-According to the hi846 datasheet and the register lists, they are
+The lists of frequencies the simulated tuner locks onto are module
+parameters, and were handed over to the tuner module without being
+checked first.
 
-mclk / prediv * multiplier / mipi_clk_div1 / mipi_clk_div2 =
-25Mhz / 3 * 90 / 2 / {1,2} = 187.5Mhz, 375Mhz
+A terrestrial or cable frequency outside the range the demodulator
+reports to the DVB core is unreachable, as dvb_frontend_check_parameters()
+rejects such a tuning request before the tuner is ever asked about the
+frequency. A satellite frequency outside the Ku-band covered by the
+simulated LNBf is equally meaningless, since it is downconverted using
+the LNBf local oscillators before reaching the tuner.
 
-Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
+In both cases vidtv used to initialize successfully and then never lock
+on anything, leaving no clue about the cause.
+
+Check the terrestrial and cable frequencies against the range advertised
+by the demodulator, and the satellite ones against the Ku-band covered by
+the simulated LNBf, failing the probe with an explicit error message
+otherwise.
+
+Signed-off-by: Alberto Pimpo <me@albertopimpo.com>
 ---
-v5:
-- Rename post_div to mipi_clk_div
-- Correct div1 number from 1 to 2
----
- arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .../media/test-drivers/vidtv/vidtv_bridge.c   | 71 ++++++++++++++++++-
+ 1 file changed, 70 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-index f5d529c5baf3..cc5604172192 100644
---- a/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mq-librem5.dtsi
-@@ -1122,7 +1122,7 @@ port {
- 			camera1_ep: endpoint {
- 				data-lanes = <1 2>;
- 				link-frequencies = /bits/ 64
--					<80000000 200000000 300000000>;
-+					<187500000 375000000>;
- 				remote-endpoint = <&mipi1_sensor_ep>;
- 			};
- 		};
+diff --git a/drivers/media/test-drivers/vidtv/vidtv_bridge.c b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+index fd69b4ee16f4..37e9b1e8e793 100644
+--- a/drivers/media/test-drivers/vidtv/vidtv_bridge.c
++++ b/drivers/media/test-drivers/vidtv/vidtv_bridge.c
+@@ -44,6 +44,10 @@
+ #define LNB_LOW_FREQ		9750000		/* low IF frequency */
+ #define LNB_HIGH_FREQ		10600000	/* transition frequency */
+ 
++/* The Ku-band range covered by such an LNBf, in kHz */
++#define LNB_KU_BAND_MIN_FREQ	10700000
++#define LNB_KU_BAND_MAX_FREQ	12750000
++
+ static unsigned int drop_tslock_prob_on_low_snr;
+ module_param(drop_tslock_prob_on_low_snr, uint, 0444);
+ MODULE_PARM_DESC(drop_tslock_prob_on_low_snr,
+@@ -367,6 +371,36 @@ static int vidtv_bridge_probe_demod(struct vidtv_dvb *dvb, u32 n)
+ 	return 0;
+ }
+ 
++/*
++ * Reject frequencies the simulation could never tune into, as the module
++ * would otherwise load just fine and then never lock on anything, leaving
++ * no clue about what went wrong.
++ */
++static int vidtv_bridge_check_freqs(struct vidtv_dvb *dvb,
++				    const unsigned int *freqs,
++				    u32 array_sz,
++				    u32 min_freq,
++				    u32 max_freq,
++				    const char *name)
++{
++	u32 i;
++
++	for (i = 0; i < array_sz; i++) {
++		/* a zeroed entry means an unused slot */
++		if (!freqs[i])
++			continue;
++
++		if (freqs[i] < min_freq || freqs[i] > max_freq) {
++			dev_err(&dvb->pdev->dev,
++				"%s[%u]: %u is out of range (%u..%u)\n",
++				name, i, freqs[i], min_freq, max_freq);
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
+ static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
+ {
+ 	struct vidtv_tuner_config cfg = {
+@@ -374,10 +408,45 @@ static int vidtv_bridge_probe_tuner(struct vidtv_dvb *dvb, u32 n)
+ 		.mock_power_up_delay_msec = mock_power_up_delay_msec,
+ 		.mock_tune_delay_msec     = mock_tune_delay_msec,
+ 	};
++	u32 min_freq = dvb->fe[n]->ops.info.frequency_min_hz;
++	u32 max_freq = dvb->fe[n]->ops.info.frequency_max_hz;
+ 	u32 freq;
++	int ret;
+ 	int i;
+ 
+-	/* TODO: check if the frequencies are at a valid range */
++	/*
++	 * Terrestrial and cable frequencies are given in Hz and are used as
++	 * is, so they have to fit within the range the demod reports to the
++	 * DVB core: the core rejects a tuning request outside of it before
++	 * the tuner is ever asked about the frequency.
++	 */
++	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_t_freqs,
++				       ARRAY_SIZE(vidtv_valid_dvb_t_freqs),
++				       min_freq, max_freq,
++				       "vidtv_valid_dvb_t_freqs");
++	if (ret)
++		return ret;
++
++	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_c_freqs,
++				       ARRAY_SIZE(vidtv_valid_dvb_c_freqs),
++				       min_freq, max_freq,
++				       "vidtv_valid_dvb_c_freqs");
++	if (ret)
++		return ret;
++
++	/*
++	 * Satellite frequencies are given in kHz at Ku-band and are
++	 * downconverted below, so check them against the band the simulated
++	 * LNBf covers instead. Doing so also ensures that the frequencies
++	 * are above the LNBf local oscillators.
++	 */
++	ret = vidtv_bridge_check_freqs(dvb, vidtv_valid_dvb_s_freqs,
++				       ARRAY_SIZE(vidtv_valid_dvb_s_freqs),
++				       LNB_KU_BAND_MIN_FREQ,
++				       LNB_KU_BAND_MAX_FREQ,
++				       "vidtv_valid_dvb_s_freqs");
++	if (ret)
++		return ret;
+ 
+ 	memcpy(cfg.vidtv_valid_dvb_t_freqs,
+ 	       vidtv_valid_dvb_t_freqs,
 -- 
-2.55.0
+2.53.0
 
