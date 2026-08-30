@@ -1,149 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C75F2DF156;
-	Sun, 30 Aug 2026 12:33:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BE3A3B3C03;
+	Sun, 30 Aug 2026 12:40:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093217; cv=none; b=CocFVp/rGXsGNamV/JxP5p6AIsvpYThzBELuzIX4ODizRTESUj4upNKN+TgYEbAKB8A/s5bFA6ANtUdBjdgyuANuJ7Vl/K+FhwcQ0ZEm3hPost971i06Ffr0XODApxuuIh7ALFc1k+uJkS8mX0kZX6guireQZ7mG+IIu1cA6W5M=
+	t=1788093643; cv=none; b=a3g70SMTRcmXL0o6x0wLnjZyODFsQaIatJwweRViSHzXddpXG2OpBehhk/7i8l6Ks8/gVwr6Oc2ThHY1BQhT09NSbNY2AIRhACgiAeFLgjPvIbWk4HD8bmr+cw2jkZhWPrCTqwTjKHxbWEasQTJDKjtu0gE8wD+4rLVydOC0pkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093217; c=relaxed/simple;
-	bh=DbS4K0kZj80XZmqjo44t/Qjn+1io5xEwIT9YkDGH9+Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BnTUjK6LEcc1AScYgxYk4X9DhAnBl5cbrHPrK9nK021a427xmb4PYY6RC1qTRu9Rvfi9+SJZ0I0YGqEvn6XZxjx2HZwW2OXpL7PYQgNtdX75fJxSYx744q7DrqCanSxG8lVTRtQa9J9wcXFAvH9MVkot955T+f4xLmnM8snd0L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hlK1wUhc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hlK1wUhc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD1221F000E9;
-	Sun, 30 Aug 2026 12:33:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788093216;
-	bh=4r6vDlF4GeRZu+YbnR/Ofgz9TBi/72A0IMpB00yGr6k=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hlK1wUhcEZFVy1sf2jHxjutcO4rR3Lp9F0A4JZNm7rR3cz1uJokSofUA1uejeGazq
-	 549fQcZY5nOWLyuMplQBZOr6hUZRVxeUBq34TVUBY1GiwBjdUdKxJ5gQxkugHrZUN9
-	 8lFQ2eZ0cUzi0NEj2rLABip/BhoJRsPM+ps3u6Direa/KRed9ir1iFOOrR7J7qrT9W
-	 kKOnlxGpkSOWRkS/YzYaKbjh1XD2MFvd9jJunKPuvPUyazmIgRTMPXioMikRMrs+Kw
-	 ruuf4VeXGZkMaQAtp+/IP0X1H9CXjT4xL5ZkqnELhgoOqLoxXyEep5+heJn5f+o5Q1
-	 Cx9XdlpNnjfnA==
-Message-ID: <75a42495-d6d0-4ff2-ae05-a0a1bbc30261@kernel.org>
-Date: Sun, 30 Aug 2026 14:33:32 +0200
+	s=arc-20240116; t=1788093643; c=relaxed/simple;
+	bh=Old8QB90Ux33BOYGXmtT/hrvEcn532k+LWNFbmLlJfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZESgiv8qQnuiKPE/aQeuR6XAYyRXvK691ulqnGBh35zi7yIyzPAIgxwQQExwRk4SX0KtVJsoOiZGOw2EQ8d4aVgJ0EccoLKOhA0vHlFb8AJ19sLP+/Rvmo93vehtnihbxtFU5rGWmOPwJIC1xb5yYMI+Sb6MPaYwsk8Hi2Hgdd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from localhost.localdomain (unknown [111.196.241.250])
+	by APP-03 (Coremail) with SMTP id rQCowACnc0HEJJRqNYGaBg--.26755S2;
+	Sun, 30 Aug 2026 20:40:37 +0800 (CST)
+From: Pengpeng Hou <pengpeng@iscas.ac.cn>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] media: dvb-frontends: ds3000: validate firmware size
+Date: Sun, 30 Aug 2026 20:39:50 +0800
+Message-ID: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: int3472: unhandled GPIO type 0x08 leaves the rear camera dead
- (Surface Pro 11, Intel)
-To: Sergey Lebedev <lsa.uz@pm.me>, Daniel Scally
- <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260830112736.85573-1-lsa.uz@pm.me>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260830112736.85573-1-lsa.uz@pm.me>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACnc0HEJJRqNYGaBg--.26755S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr4ruryxZr4DXr4kZr4ktFb_yoWDXFgEkw
+	1DZF9xuw1YgF1kZr1jgr1xX3yq93yUuryvvF42vw43JFW8Z3W5Jr1vvasxtFW5Ga12gF98
+	A3Wjva1Uua92kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbwAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr0_
+	Cr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26F4UJV
+	W0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxG
+	rwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4
+	vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IY
+	x2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26c
+	xKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAF
+	wI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUdEfOUUUUU=
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-Hi,
+The firmware diagnostic reads the first two and final two bytes without
+proving that the firmware object contains at least two bytes.
 
-On 30-Aug-26 13:27, Sergey Lebedev wrote:
-> Hello,
-> 
-> On a Microsoft Surface Pro 11 for Business (Intel, Lunar Lake) the rear
-> camera does not work, and it traces to a single unhandled GPIO type in
-> int3472-discrete.
-> 
->   int3472-discrete INT3472:00: GPIO type 0x08 unknown;
->     the sensor may not work
->   ov13858 i2c-OVTID858:00: failed to find sensor: -5
->   ov13858 i2c-OVTID858:00: probe with driver ov13858 failed with error -5
+Reject undersized firmware before the diagnostic and upload path consume
+it.
 
-There already is a patch which should fix this on the list:
+Fixes: 09ea33e5c696 ("V4L/DVB (13493): TeVii S470 and TBS 6920 fixes")
+Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+---
+ drivers/media/dvb-frontends/ds3000.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-https://lore.kernel.org/platform-driver-x86/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm/
+diff --git a/drivers/media/dvb-frontends/ds3000.c b/drivers/media/dvb-frontends/ds3000.c
+index ce7ae424b27cc..76d2eb98932ae 100644
+--- a/drivers/media/dvb-frontends/ds3000.c
++++ b/drivers/media/dvb-frontends/ds3000.c
+@@ -374,6 +374,8 @@ static int ds3000_load_firmware(struct dvb_frontend *fe,
+ 	int ret = 0;
+ 
+ 	dprintk("%s\n", __func__);
++	if (fw->size < 2)
++		return -EINVAL;
+ 	dprintk("Firmware is %zu bytes (%02x %02x .. %02x %02x)\n",
+ 			fw->size,
+ 			fw->data[0],
 
-Regards,
-
-Hans
-
-
-
-> 
-> The result is 32 /dev/video* nodes and a media graph with zero entities.
-> The IPU7 itself is healthy - firmware loads, CSE authenticates, the device
-> reaches secure mode - so the failure is entirely on the sensor-power side.
-> 
-> Reproduced on 6.17, 7.0.0-28 and 7.0.0-30 (Ubuntu 26.04), and the switch
-> in drivers/platform/x86/intel/int3472/discrete.c still has no case for
-> 0x08 in 7.1.0-rc7, so I do not believe this is already fixed.
-> 
-> What the firmware describes
-> ---------------------------
-> 
-> The DSDT declares three INT3472 devices. Decoding their _DSM returns with
-> the driver's own field layout (type = bits 7:0, pin = bits 15:8):
-> 
->   Device (ICL0)  -> INT3472:00, the rear sensor (OVTID858 / ov13858)
->     0x1000070B   type 0x0b POWER_ENABLE   pin  7
->     0x10000500   type 0x00 RESET          pin  5
->     0x1000060D   type 0x0d PRIVACY_LED    pin  6
->     0x10000408   type 0x08 <unknown>      pin  4    <- refused
-> 
->   Device (ICL1)
->     0x1000200B   type 0x0b POWER_ENABLE   pin 32
->     0x10000810   type 0x10 DOVDD          pin  8
->     0x10000900   type 0x00 RESET          pin  9
->     0x10000A0D   type 0x0d PRIVACY_LED    pin 10
-> 
->   Device (ICL2)
->     0x1000170B   type 0x0b POWER_ENABLE   pin 23
->     0x10001600   type 0x00 RESET          pin 22
->     0x1000250D   type 0x0d PRIVACY_LED    pin 37
-> 
-> ICL0 is the only one of the three that declares a fourth GPIO, it is the
-> only one carrying type 0x08, and it is the one whose sensor fails. I would
-> not claim that proves causation - the driver returns 1 for the unknown
-> type and carries on, so POWER_ENABLE, RESET and PRIVACY_LED are all still
-> registered - but it is the only resource the kernel declines on this
-> machine, and the sensor then does not answer on I2C.
-> 
-> The question
-> ------------
-> 
-> What is type 0x08 meant to be, and should discrete.c handle it? If it is
-> another regulator - the shape of ICL1's DOVDD entry suggests the encoding
-> supports several - then adding it may be all this machine needs. If it is
-> something else, I am happy to be told what and to test whatever you would
-> like tried.
-> 
-> I have not sent a patch because I would only be guessing at the semantics,
-> and guessing wrong here means silently powering a sensor rail for the wrong
-> reason.
-> 
-> What I can provide
-> ------------------
-> 
->   - full acpidump / disassembled DSDT for this machine
->   - any debug patch or instrumented build you would like run; the machine
->     is available and I can rebuild and boot kernels on it
->   - dmesg at any log level
-> 
-> Two adjacent facts, in case they matter, though I am not asking for
-> anything about them here: the front (SONY0681) and IR (SMO55F0) sensors
-> have no in-tree driver bound at all, and intel_ipu7_isys still announces
-> itself as a staging module.
-> 
->   Machine: Microsoft Surface Pro 11 for Business (Intel Core Ultra 7 268V)
->   DMI SKU: Surface_Pro_11th_Edition_With_Intel_For_Business_2103
->   Firmware: UEFI 17.100.143 (2025-11-19)
->   Kernel:   7.0.0-30-generic, Ubuntu 26.04.1 LTS
-> 
-> Thanks,
-> Sergey Lebedev
-> 
+base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
+-- 
+2.50.1
 
