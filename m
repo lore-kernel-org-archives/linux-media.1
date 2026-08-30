@@ -1,121 +1,87 @@
-Received: from ms.puri.sm (ms.puri.sm [135.181.196.210])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp37.cstnet.cn [159.226.251.37])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 756441E22E9;
-	Sun, 30 Aug 2026 22:23:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=135.181.196.210
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B81299920;
+	Sun, 30 Aug 2026 22:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788128595; cv=none; b=fzQSZ2Iexzk4eoA3iPUpc6X95bXgzY4AK52yAC3eGKrTy5RRF5361B8wQnfsOiBuG6f4/Hcdd2XpGxr03kYTtmc3IbrCCtC937GVYu0eenpHLRv88tVJNQJYID9x8d88W6gQsFpsd5LBIxqlUilYBPLMv/pLWhPdyjsv5thoeaY=
+	t=1788130421; cv=none; b=iuPdcy031EtNIb1lli016kGYw8NtIQhWq87khOo9IhfjTABOeN+YxNNJ4keauMBoxkyLmf5f6rMKvTLXuAkJsQ22Gj1vwZAAcFsWUrB1Zd234c5KJQzhO+vktWwVPEqAaYOVXGKBqR1Wq5vIMagxvHTLnzbP7wltgo+1av+o3zQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788128595; c=relaxed/simple;
-	bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=ctg/0YhowfW4rMQRzZktF1ZiByOM77sg/UrchQWegvicFt0J46spZoDpMt4Hq9LC9Sc49bcbgsP3tAkNYx9Pp++b9TWtnn6BkNicNrCyltydUUvDqV7IzIwld5V3ObYe4VeqdmcD+2T/H4L+wmjYb+DUYNNU45yUanCdd9ampnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm; spf=pass smtp.mailfrom=puri.sm; dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b=ibu5BgeD; arc=none smtp.client-ip=135.181.196.210
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=puri.sm
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=puri.sm
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=puri.sm header.i=@puri.sm header.b="ibu5BgeD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=puri.sm; s=smtp2;
-	t=1788128053; bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
-	h=From:Date:Subject:To:Cc;
-	b=ibu5BgeDGi1D7/eKvq110LXxiCOdftKf1Bh/FiqIO7ooyetRkWeaOs/WilMm9qM4U
-	 JxZ+1+R3tM735sY+0pJxi3NOKTPr78Z02/MlYQ+0K2taM/QTN0QLcS3jj5QtJpdiLg
-	 cn5rFrU5A5VN7cr5zKR/kStak1sfY/y6FIDZv6xbbQSY/5/csNVSZSALgBzE/PmTqo
-	 VqGl0YpwpDt+KJx2/yOmp1he2aam8EVcxpJNchenc5pa1LGlICt6c5o0kMrwVaLGeZ
-	 S8pto5YnUqzMizdQTP7ut0syJREut64g0YKZIeuAnIiY+gNg+Avzxgv7KCOasCCBz1
-	 AeYzOs+mj+52A==
-Received: from pliszka.localdomain (79.184.59.122.ipv4.supernova.orange.pl [79.184.59.122])
-	by ms.puri.sm (Postfix) with ESMTPSA id BF2BC1F787;
-	Sun, 30 Aug 2026 15:14:12 -0700 (PDT)
-From: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-Date: Mon, 31 Aug 2026 00:13:32 +0200
-Subject: [PATCH] media: hi846: Improve the power on sequence
+	s=arc-20240116; t=1788130421; c=relaxed/simple;
+	bh=ShskSJmVXHCsMx3tT+XV/c0l9krf7Sa0bVSbhuRqKqs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=YIuI9FKeVMz3Uy4M4Ns//ueC3iCPlKCnItoQu5OkCX1og0KQ5bddcdDCcE/yDzGAzO8d0kWqO+BIMv09Ao0/rEFF3hwWkgnpnDd7XvrKgTdAsE6WeHO7soX4yOIRQ9GYm8k6SNMmswu5lXUzHfkYQ2vjwSnimaHAamFSvkuieRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from pengpeng$iscas.ac.cn ( [45.78.7.153] ) by ajax-webmail-APP-12
+ (Coremail) ; Mon, 31 Aug 2026 06:45:51 +0800 (GMT+08:00)
+Date: Mon, 31 Aug 2026 06:45:51 +0800 (GMT+08:00)
+X-CM-HeaderCharset: UTF-8
+From: =?UTF-8?B?5L6v5pyL5pyL?= <pengpeng@iscas.ac.cn>
+To: "Jonathan Corbet" <corbet@lwn.net>
+Cc: "Mauro Carvalho Chehab" <mchehab@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: Re: [PATCH] media: dvb-frontends: ds3000: validate firmware
+ size
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2024.1-cmXT5 build
+ 20240627(e6c6db66) Copyright (c) 2002-2026 www.mailtech.cn cnic.cn
+In-Reply-To: <87o6ejll9n.fsf@trenco.lwn.net>
+References: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+ <87o6ejll9n.fsf@trenco.lwn.net>
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260831-hi846-poweronseq-v1-1-1091cf78cac3@puri.sm>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMQQ7CIBBFr9LM2kmgrS3xKsYF4CjjAipTtUnTu
- ws2Lt/L/28FocwkcGpWyPRm4RQL6EMDPth4J+RrYWhVOyjTaQxs+gGn9KGcotATR02j9d2xV9p
- BuU2Zbrz8kufLzvJyD/Jz7dSFs0Loso0+VBVpmXHvt+bvt+0L6u8HaZsAAAA=
-X-Change-ID: 20260831-hi846-poweronseq-71e7ac35401b
-To: Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Martin Kepplinger-Novakovic <martink@posteo.de>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Pavel Machek <pavel@ucw.cz>
-Cc: kernel@puri.sm, Mauro Carvalho Chehab <mchehab+huawei@kernel.org>, 
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org, 
- Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1684;
- i=sebastian.krzyszkowiak@puri.sm; h=from:subject:message-id;
- bh=4JEe6MAnrQ77ke4wWUwz68qY4hoagUd12Z+MB80HeBs=;
- b=owEBbQKS/ZANAwAKAejyNc8728P/AcsmYgBqlKs0qLug7PlsKGiey9ZkMQBCt468uy3e30tC8
- Yxh3cHUiEqJAjMEAAEKAB0WIQQi3Z+uAGoRQ1g2YXzo8jXPO9vD/wUCapSrNAAKCRDo8jXPO9vD
- /6/gEADCKfmWpcuXuFI+T5NRwY0+dGrsumBAOZCuAeoQsNikQx+dO55i/inGg4dNbAiQz8oTf2f
- /kqSoNj10rCsshvLYQwjW4whRXvGDXukvfU2IAUL1JEOzfpOaWshuJ/SkYZibsj5wziJRPMnVf8
- 8fqEco0YCFqOndme72Y08abiACyjXoVAJfjR/kYTQSAvb0pdzCxcwEMepxCeh/ryBGWmDMRwB2u
- 1moF1wSGBxb6GvormBJpufpW2AI2FCrDc9Lxts46QmSJ5dGAhPPKZapKWcilG7Ei4DcWNR5XqCu
- lXLoUwjm98qo3Om8ux4Dvg91BT14SdcN4D60zzmhf2ru8MuDU9Px0izuH0/mCidIkiMmT5IsXEP
- wYiBGbTxfS5XXjSdCw2qNrOuwfdTw5qg7pI6HBn/r8l+IMKlkRTt8HAo/qS1udEzwlJ3XgCF1Pf
- T25Fil8rQ9uSYqXaFPFENr/xfsA1Q+kdjUmn37nciZknmjhAijagb8fPru3NAjbJxX+Sq7wPnbL
- MPzfD30hifd1//yPQxlB0rSbTRZicCSQxirQZunvyTlcYPTNFnE8pYVG7GVjzU6MEJRhL1/3uin
- MGtzvxtyaf4uI+Rr1KXz4rIuUoBImVUGIKlMFacIvax9KtqrEOGfxXv6cEsNgsqUqWYUhWyOk1G
- Bb+ls1fZfv1ggdQ==
-X-Developer-Key: i=sebastian.krzyszkowiak@puri.sm; a=openpgp;
- fpr=22DD9FAE006A11435836617CE8F235CF3BDBC3FF
+Message-ID: <5c173af9.ec340.1a054d9be08.Coremail.pengpeng@iscas.ac.cn>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:tgCowACXTNGgspRqqfQJAA--.51397W
+X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/1tbiBwIPBWqUO9RwnAADsx
+X-Coremail-Antispam: 1Ur529EdanIXcx71UUUUU7IcSsGvfJ3iIAIbVAYjsxI4VWxJw
+	CS07vEb4IE77IF4wCS07vE1I0E4x80FVAKz4kxMIAIbVAFxVCaYxvI4VCIwcAKzIAtYxBI
+	daVFxhVjvjDU=
 
-Section 4.2 of YACG4D0C9SHC(Hi-846) datasheet specifies the time
-between XSHUTDOWN rising and RESETB rising (t3-1) and RESETB rising
-to the first I2C transaction (t3-2) to be both at least 2400 MCLK
-cycles. This driver currently requires the MCLK rate to be set to
-25 MHz, so t3-1 and t3-2 need to be at least 96 µs.
-
-On top of that, Figure 14 shows that RESETB needs to be held for
-at least 120 MCLK cycles. Ensure that this is the case.
-
-Fixes: e8c0882685f9 ("media: i2c: add driver for the SK Hynix Hi-846 8M pixel camera")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
----
- drivers/media/i2c/hi846.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
-index a3f77b8434ca..d58940c8da20 100644
---- a/drivers/media/i2c/hi846.c
-+++ b/drivers/media/i2c/hi846.c
-@@ -1643,11 +1643,16 @@ static int hi846_power_on(struct hi846 *hi846)
- 	if (hi846->shutdown_gpio)
- 		gpiod_set_value_cansleep(hi846->shutdown_gpio, 0);
- 
--	/* 30us = 2400 cycles at 80Mhz */
--	usleep_range(30, 60);
--	if (hi846->rst_gpio)
-+	/* 96us = 2400 cycles at 25MHz */
-+	usleep_range(96, 120);
-+
-+	if (hi846->rst_gpio) {
-+		gpiod_set_value_cansleep(hi846->rst_gpio, 1);
-+		/* 5us = 120 cycles at 25MHz */
-+		usleep_range(5, 10);
- 		gpiod_set_value_cansleep(hi846->rst_gpio, 0);
--	usleep_range(30, 60);
-+		usleep_range(96, 120);
-+	}
- 
- 	return 0;
- 
-
----
-base-commit: e30626823a406725ce29bc75cb8ec467d3e1e326
-change-id: 20260831-hi846-poweronseq-71e7ac35401b
-
-Best regards,
---  
-Sebastian Krzyszkowiak <sebastian.krzyszkowiak@puri.sm>
-
+V2UgYXJlIGEgc3lzdGVtcyBzb2Z0d2FyZSByZXNlYXJjaCBncm91cCBkZXZlbG9waW5nIHN0YXRp
+YyBhbmFseXNpcyB0b29scyBzaW1pbGFyIHRvIFNwYXJzZSBhbmQgQ29jY2luZWxsZS4gT3VyIGdv
+YWwgaXMgdG8gcHVibGlzaCBhdCB2ZW51ZXMgc3VjaCBhcyBGU0UgYW5kIElDU0Ugd2hpbGUgYWxz
+byBjb250cmlidXRpbmcgdXNlZnVsIGZpeGVzIHVwc3RyZWFtLgpNb3N0IG9mIG91ciBrZXJuZWwg
+cGF0Y2hlcyBvcmlnaW5hdGUgZnJvbSBmaW5kaW5ncyByZXBvcnRlZCBieSBvdXIgdG9vbHMgYW5k
+IGFyZSByZXZpZXdlZCBib3RoIG1hbnVhbGx5IGFuZCB3aXRoIExMTSBhc3Npc3RhbmNlLiBEeW5h
+bWljIHZhbGlkYXRpb24gaXMgb2Z0ZW4gaW1wcmFjdGljYWwsIGVzcGVjaWFsbHkgZm9yIGhhcmR3
+YXJlLWRlcGVuZGVudCBkcml2ZXIgY29kZSwgYW5kIGVtdWxhdGlvbiBpcyBub3QgYWx3YXlzIHN1
+ZmZpY2llbnQuIFdlIHRoZXJlZm9yZSByZWx5IG1haW5seSBvbiBzdGF0aWMgYW5hbHlzaXMgYW5k
+IGNhcmVmdWwgcmV2aWV3LCBhbmQgb2Z0ZW4gc3RhdGUgdGhpcyB3YXkgaW4gb3VyIHByaW9yIHBh
+dGNoZXM6VGhlIGlzc3VlIHdhcyBpZGVudGlmaWVkIHRocm91Z2ggc3RhdGljIGFuYWx5c2lzIGFu
+ZCBtYW51YWxseSByZXZpZXdlZC4KCgo+IC0tLS0t5Y6f5aeL6YKu5Lu2LS0tLS0KPiDlj5Hku7bk
+uro6ICJKb25hdGhhbiBDb3JiZXQiIDxjb3JiZXRAbHduLm5ldD4KPiDlj5HpgIHml7bpl7Q6IDIw
+MjYtMDgtMzAgMjI6NDU6NDAgKOaYn+acn+aXpSkKPiDmlLbku7bkuro6ICJQZW5ncGVuZyBIb3Ui
+IDxwZW5ncGVuZ0Bpc2Nhcy5hYy5jbj4sICJNYXVybyBDYXJ2YWxobyBDaGVoYWIiIDxtY2hlaGFi
+QGtlcm5lbC5vcmc+Cj4g5oqE6YCBOiAiUGVuZ3BlbmcgSG91IiA8cGVuZ3BlbmdAaXNjYXMuYWMu
+Y24+LCBsaW51eC1tZWRpYUB2Z2VyLmtlcm5lbC5vcmcsIGxpbnV4LWtlcm5lbEB2Z2VyLmtlcm5l
+bC5vcmcKPiDkuLvpopg6IFJlOiBbUEFUQ0hdIG1lZGlhOiBkdmItZnJvbnRlbmRzOiBkczMwMDA6
+IHZhbGlkYXRlIGZpcm13YXJlIHNpemUKPiAKPiBQZW5ncGVuZyBIb3UgPHBlbmdwZW5nQGlzY2Fz
+LmFjLmNuPiB3cml0ZXM6Cj4gCj4gPiBUaGUgZmlybXdhcmUgZGlhZ25vc3RpYyByZWFkcyB0aGUg
+Zmlyc3QgdHdvIGFuZCBmaW5hbCB0d28gYnl0ZXMgd2l0aG91dAo+ID4gcHJvdmluZyB0aGF0IHRo
+ZSBmaXJtd2FyZSBvYmplY3QgY29udGFpbnMgYXQgbGVhc3QgdHdvIGJ5dGVzLgo+ID4KPiA+IFJl
+amVjdCB1bmRlcnNpemVkIGZpcm13YXJlIGJlZm9yZSB0aGUgZGlhZ25vc3RpYyBhbmQgdXBsb2Fk
+IHBhdGggY29uc3VtZQo+ID4gaXQuCj4gPgo+ID4gRml4ZXM6IDA5ZWEzM2U1YzY5NiAoIlY0TC9E
+VkIgKDEzNDkzKTogVGVWaWkgUzQ3MCBhbmQgVEJTIDY5MjAgZml4ZXMiKQo+ID4gU2lnbmVkLW9m
+Zi1ieTogUGVuZ3BlbmcgSG91IDxwZW5ncGVuZ0Bpc2Nhcy5hYy5jbj4KPiA+IC0tLQo+ID4gIGRy
+aXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMwMDAuYyB8IDIgKysKPiA+ICAxIGZpbGUgY2hh
+bmdlZCwgMiBpbnNlcnRpb25zKCspCj4gPgo+ID4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWVkaWEv
+ZHZiLWZyb250ZW5kcy9kczMwMDAuYyBiL2RyaXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMw
+MDAuYwo+ID4gaW5kZXggY2U3YWU0MjRiMjdjYy4uNzZkMmViOTg5MzJhZSAxMDA2NDQKPiA+IC0t
+LSBhL2RyaXZlcnMvbWVkaWEvZHZiLWZyb250ZW5kcy9kczMwMDAuYwo+ID4gKysrIGIvZHJpdmVy
+cy9tZWRpYS9kdmItZnJvbnRlbmRzL2RzMzAwMC5jCj4gPiBAQCAtMzc0LDYgKzM3NCw4IEBAIHN0
+YXRpYyBpbnQgZHMzMDAwX2xvYWRfZmlybXdhcmUoc3RydWN0IGR2Yl9mcm9udGVuZCAqZmUsCj4g
+PiAgCWludCByZXQgPSAwOwo+ID4gIAo+ID4gIAlkcHJpbnRrKCIlc1xuIiwgX19mdW5jX18pOwo+
+ID4gKwlpZiAoZnctPnNpemUgPCAyKQo+ID4gKwkJcmV0dXJuIC1FSU5WQUw7Cj4gCj4gU28sIHlv
+dSBoYXZlIGdlbmVyYXRlZCBhbiBhd2Z1bCBsb3Qgb2YgZml4ZXMgYWxsIG92ZXIgdGhlIHRyZWUg
+aW4gdGhlCj4gbGFzdCBmZXcgbW9udGhzLiAgQ2FuIHlvdSB0ZWxsIHVzIGFib3V0IHdoYXQgdG9v
+bCB5b3UgYXJlIHVzaW5nIHRvIGZpbmQKPiBhbmQgZml4IHRoZXNlIGJ1Z3MsIGFuZCBob3cgeW91
+IGFyZSB0ZXN0aW5nIHlvdXIgZml4ZXM/Cj4gCj4gVGhhbmtzLAo+IAo+IGpvbgo=
