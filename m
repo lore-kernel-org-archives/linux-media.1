@@ -1,105 +1,141 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5340C3C1A;
-	Sun, 30 Aug 2026 02:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10FB231A3B;
+	Sun, 30 Aug 2026 07:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788057179; cv=none; b=NvfUrAqIrn8BbKD64fBhCUlUpt/QYtEw/1MrNprj0AdaEKbqA+lAIwt1zcqY0kdXyASYWULcptIK/SLED44ULySLykZfox13XNzOtGrXQoo4Sdh5q6W56FIja0A5DxnXw+TZj8JaR9HeyIoMEEHVsbrv/jTAHQC5nTjiNx1e1vM=
+	t=1788073621; cv=none; b=HACigMAvaIPT20fclf0f622ti25hvjx2B/ijyCsLrClkR7FUw4YaV+U4qQSieXdGQholR76LdIzIuEa0r/omkxfKttoHovQFSFqniHg0VfjZ+WfHdSp9pI7/LA7gGOIzlk6sHKdAfzuoIQOlUtkfVmeVFzaN7h8UU6dkNIjK+lA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788057179; c=relaxed/simple;
-	bh=CSpmp1honZHXYMftpQYMUjd716V99aaLb3g8cYykKdU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JHG3wctYjYg8FRyWiPvRUwDezjqbCkKbcufSTyZuLl4bxaDwUurlYZuGiZyvQcTjKw+tIEA5AIK1OwDEb5TJvIdbPkX8abWKqdtTsOHmivBhqdDfMBE4LfpP2Vb74SiFWTit+HxU3BrSK6flSsqI5ixqveQLuPNg9u4dSZUJRlw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=ItQwSlKH; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788073621; c=relaxed/simple;
+	bh=MGmsVi7TZDCdgsOZMrhHPi1ZoVvRIQBoiKiFOOZ7K1k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TEXQafOEoO/MdzZPlUgBmunpEzFpS1teynYP65GdVdHXmQkgGQ3Nht6T2CtxhkFSGv9sb65eRsV96DdWiyuuBrtvBaUH7m74VIfdvwTzCyq0pQkWgk0D2mYGA5rajU8r060SLKjdjkeFBwXwzZq/PWDswpAOUJb3AlKH/Zr6qdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=H3xxVfEV; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="ItQwSlKH"
-Received: from PC-202605011814.localdomain (unknown [223.112.146.162])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd1f0987;
-	Sun, 30 Aug 2026 10:32:50 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: ehristev@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH] media: microchip: isc: Initialize DMA lock before requesting IRQ
-Date: Sun, 30 Aug 2026 10:32:28 +0800
-Message-Id: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="H3xxVfEV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788073620; x=1819609620;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=MGmsVi7TZDCdgsOZMrhHPi1ZoVvRIQBoiKiFOOZ7K1k=;
+  b=H3xxVfEV98CRt3B3w77U8DKKbU/Ds5o201DU4vI8EUFijnAzFimvShxS
+   kyrnT91os2fN5nYQQzBQWeeEH3dIP7p3MXGGnOs5VSDHFvUMueMCAGlA8
+   xWeztiJjHn/jV7rddF7NQcUdkcXObePQZvezPylXdpDJiHovgSlRh5sul
+   g0ysEE3Xhn6WG1d8pFQY0xOOh8EMSL6Q3RKASPcTg29oHNWFPKM6obhxU
+   ZnvnFvfpdBLUK57aPDvjRZT2paPWyu5f74WuMjkwaPsUqsu9BR3pPrVx1
+   WY6TikbqHxLCg2cyHIUkQs3/x4tGB30Cfskx3LWPrbmhlLpzZrn7PuZOR
+   w==;
+X-CSE-ConnectionGUID: BeCbI0MQTfejJ7RdeONeJw==
+X-CSE-MsgGUID: APJZyxouSAWqNW7ZqyDGNw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11890"; a="88530617"
+X-IronPort-AV: E=Sophos;i="6.25,251,1779174000"; 
+   d="scan'208";a="88530617"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 00:06:59 -0700
+X-CSE-ConnectionGUID: Sm2dx8fsQoWi6QSgJf/ucA==
+X-CSE-MsgGUID: 0fe+B8/zTw26sFDF2vbuTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,251,1779174000"; 
+   d="scan'208";a="269088947"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.243])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Aug 2026 00:06:57 -0700
+Date: Sun, 30 Aug 2026 10:06:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, linux-acpi@vger.kernel.org,
+	rafael@kernel.org
+Subject: Re: [PATCH 3/3] media: i2c: Use ACPI_PTR() for ACPI ID tables
+Message-ID: <apPWjluHkxwHCagh@ashevche-desk.local>
+References: <20260828084328.257703-1-sakari.ailus@linux.intel.com>
+ <20260828084328.257703-4-sakari.ailus@linux.intel.com>
+ <apGNYsroZTTOqe4c@black.igk.intel.com>
+ <apGk_7Uy_NcHG8V3@kekkonen.localdomain>
+ <apGnw9HlXSfVGy4z@ashevche-desk.local>
+ <apGsxDddKkRsP-Un@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa05083332f03a1kunm2e16ab45e9a05
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZQkxDVhlNGh4ZGkwfSx5NHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVSkpJVUpPTVVKTUlZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=ItQwSlKHsxAp9Z/SmZktG7Ol6QjlZTDV3LZ1UjNnsOb8TzYokPAwO0iWW4x29DoMtu/5O3VrZi1T7PX2AePNWc3IHLLBKcrH0Du+CB9AoHQ5SPCcKOdcwPP4JlnNS8XBHI8VvhBaWswd3RiUIGuIcQ4MbS0haDJSEubfmaLbdqw=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=3Z+KrHk9I4Y9R48UeckShe886/mSEw3vwNvJjEBo1B4=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <apGsxDddKkRsP-Un@kekkonen.localdomain>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The ISC interrupt can run before asynchronous subdevice completion, but the DMA queue lock was initialized from isc_async_complete().  Initialize it in each SoC probe before requesting the auto-enabled IRQ and remove the late initialization from the asynchronous completion path.
+On Fri, Aug 28, 2026 at 06:44:04PM +0300, Sakari Ailus wrote:
+> On Fri, Aug 28, 2026 at 06:22:43PM +0300, Andy Shevchenko wrote:
+> > On Fri, Aug 28, 2026 at 06:10:55PM +0300, Sakari Ailus wrote:
+> > > On Fri, Aug 28, 2026 at 03:30:10PM +0200, Andy Shevchenko wrote:
+> > > > On Fri, Aug 28, 2026 at 11:43:28AM +0300, Sakari Ailus wrote:
+> > > > > Add ACPI_PTR() to the ACPI ID tables where missing. The patch has been
+> > > > > produced with the following command:
+> > > > > 
+> > > > > git grep -lP 'acpi_match_table.*=\s*(?!ACPI_PTR)' \
+> > > > > 	drivers/media/|while read i; do
+> > > > > 	perl -i -pe 's/\.acpi_match_table\s*=\s*\K(\w+),/ACPI_PTR($1),/' $i;
+> > > > > done
+> > > > 
+> > > > NAK.
+> > > > 
+> > > > It doesn't explain why we need that. This also inconsistent with OF type of
+> > > > IDs.
+> > > 
+> > > ACPI IDs are used on ACPI only while compatible strings are used on both
+> > > ACPI and OF. Thus the ACPI ID table is redundant if CONFIG_ACPI is
+> > > disabled.
+> > 
+> > They may be informative for the cases when on the working say OF system I can
+> > get the IDs for ACPI based platforms at run-time.
+> 
+> That's a bit far-fetched I think. Have you ever done that? :-)
 
-Fixes: 91b4e487b0c6 ("media: microchip: add ISC driver as Microchip ISC")
+I have not working with OF platforms, but I'm pretty much see value of this
+possibility.
 
-Cc: stable@vger.kernel.org
+> Media drivers are probably one of the largest groups of drivers that are as
+> relevant for ACPI as they are for OF.
+> 
+> The of_match_ptr() that used to be present in nearly all media drivers has
+> been largely eliminated in the same context and the only reason for that is
+> that the table is also relevant for ACPI systems.
 
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/media/platform/microchip/microchip-isc-base.c    | 1 -
- drivers/media/platform/microchip/microchip-sama5d2-isc.c | 2 ++
- drivers/media/platform/microchip/microchip-sama7g5-isc.c | 2 ++
- 3 files changed, 4 insertions(+), 1 deletion(-)
+So, if we ever will have a code to use ACPI IDs in OF enumeration, this will
+have the same argument.
 
-diff --git a/drivers/media/platform/microchip/microchip-isc-base.c b/drivers/media/platform/microchip/microchip-isc-base.c
-index a7cdc743f..a2534d8eb 100644
---- a/drivers/media/platform/microchip/microchip-isc-base.c
-+++ b/drivers/media/platform/microchip/microchip-isc-base.c
-@@ -1792,7 +1792,6 @@ static int isc_async_complete(struct v4l2_async_notifier *notifier)
- 
- 	/* Init video dma queues */
- 	INIT_LIST_HEAD(&isc->dma_queue);
--	spin_lock_init(&isc->dma_queue_lock);
- 	spin_lock_init(&isc->awb_lock);
- 
- 	ret = isc_set_default_fmt(isc);
-diff --git a/drivers/media/platform/microchip/microchip-sama5d2-isc.c b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-index 66d3d7891..f0f7ca47f 100644
---- a/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama5d2-isc.c
-@@ -432,6 +432,8 @@ static int microchip_isc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	spin_lock_init(&isc->dma_queue_lock);
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama5d2-isc", isc);
- 	if (ret < 0) {
-diff --git a/drivers/media/platform/microchip/microchip-sama7g5-isc.c b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-index 7383341ec..b1aa3fe55 100644
---- a/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-+++ b/drivers/media/platform/microchip/microchip-sama7g5-isc.c
-@@ -421,6 +421,8 @@ static int microchip_xisc_probe(struct platform_device *pdev)
- 	if (irq < 0)
- 		return irq;
- 
-+	spin_lock_init(&isc->dma_queue_lock);
-+
- 	ret = devm_request_irq(dev, irq, microchip_isc_interrupt, 0,
- 			       "microchip-sama7g5-xisc", isc);
- 	if (ret < 0) {
+> The case is indeed the
+> opposite to the ACPI equivalent so I really don't see why we shouldn't just
+> drop it where it's, well, redundant.
+
+The use of the unneeded macro makes code harder to follow. Still ID tables
+are useful on their own.
+
+> > Also you just save a couple of dozens of bytes. This is peanuts and unneeded
+> > churn. Again, here is my formal
+> 
+> I recall you often comment on struct field ordering to save, well,
+> typically less than dozens of bytes, too.
+
+There is a difference, the ID tables are from RO sections, the structures
+are runtime and grow linearly as many objects of a type are created. Among
+two the priority of reducing runtime memory footprint has a priority over
+the RO sections.
+
+> > NAKed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+The tag still stays. But nobody prevents media maintainers to do what they want
+:-)
+
+> > In case you want to override that, please keep it in the commit message (among
+> > other tags). And yes, we have such a tag in the Git history of Linux kernel.
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
