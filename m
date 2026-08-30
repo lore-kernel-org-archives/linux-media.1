@@ -1,62 +1,64 @@
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com [209.85.210.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0972D3ED1
-	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 16:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 599953B47C3
+	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 16:02:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788105757; cv=none; b=NKdacLWeufwVkRoGY3IWHVJ+crdeNEAexhBFr+/GW4Gqeo9LmPNEKBODRYM3/WLDSjBxGqzilwOSoECV+/kbXzgHT8qJE6DkM9daCpf9P8iAobzIqXRCPJEyqYfZu5AaK4DWYxXM29amh7OHyKB9lt/w1eP4xfnowhy7xzes/p4=
+	t=1788105766; cv=none; b=j0iAqdBMt/oFvBosq6dhgWGirKAZWsTsfCcR0p10VH6WOF61kJ4Q/I+IfRmKVNkbbGC3+S0fVBKi27DfdibJ/v4oYfugY6gdIoMkYHr1qbOBrVEeLyZ+kUyvGDhjGQD1cOkSUYffvJ3EBSxRs4943j5/s24Yc7Y75vnSeLJJowk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788105757; c=relaxed/simple;
-	bh=5I7WZk9Likezcszkxm2f5VMiSja2ZVMFwssHq+M2D28=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sc1koMyGNb0aM40sEI+B6LtA0j4WdiZG4gVfNoIXXltO8K4LB920MTEo9knrOZDP6eFpeL0rveIVCFVYcVgxCrhkWgc0139I3dOaLXUYraaLmZUfzP0cEae5vFNF+dt5IAaSiHhR8ZK05eR5xrLA0svbFUomivqkkN3anrAOBdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kyksnbdq; arc=none smtp.client-ip=209.85.215.173
+	s=arc-20240116; t=1788105766; c=relaxed/simple;
+	bh=izFkUJVrZGWtWRP+0Tn/5mmA4bhWogEsegWu0OodXqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qy8o0UP5n/2OdM4y5y4m6ImT7rsXXV8Kt49aQdDVSaoGgv5q4Op6YB5rtskjL17XfkG656u9dmA+HCiJYDy7chJa2dZLON+itG4K2/v4Pugwhc8BaX26fwpqJHLqQ8xjd2KlvedOVrz+up3taZU3+tQTIeMR7JKkqbMxMTtkHYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U34CmqsL; arc=none smtp.client-ip=209.85.210.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kyksnbdq"
-Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc1a4c62804so2144836a12.3
-        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 09:02:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U34CmqsL"
+Received: by mail-pf1-f172.google.com with SMTP id d2e1a72fcca58-84830c774a0so2896506b3a.1
+        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 09:02:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788105754; x=1788710554; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
-        b=kyksnbdqZ47+kSj+nWGucjW4eEB6AIvW9McJEgCa1C4c9Y1XcU78Nb9VGvvF8DLiVq
-         UMRCJumCfZpR+TZupOv/RGjQxzVz3Udw4dvVYlKswWvSD++w1Oy2A/tPI5Km1z0KKMo5
-         7NP/tPbKZ44VxYfno+ZpuLaoh2VncCJDsDxlUZSLQBU8MtA5GaNHSnsyNdGsHx7D13+e
-         8f9fvprPZnmvgCAh2flwCH8o06sZ6p3h6dQWXYhZ945btkTetrqtBLekyrLsxFX9MQxx
-         64mKJhh+mkuHTcUG7bO1tI7xHbbGYzi/br4Jl/D7XNhAOG4WS5D8Qx0CySOm2cUUBoG7
-         9RPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788105754; x=1788710554;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788105765; x=1788710565; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EU/f9ZuMkFjEGmh1dmO/3ytBQ8IveQK8KxWk7ZUANeY=;
-        b=oL4OHBR6/tzvHk2DA7EJeEfGRoXjSEvdCPDjFb3h/0lQWDKDNUAHlHSWVTNXNqZeIo
-         e7uZ3b7R2BbCXD6n/GmmQctLdD3panFV/s1zj9sQYEFFa+hfsGf77AJjB5Nz4l+xwsT9
-         BliSgytTml9smLH5+zR4dAQfwP7YqEpOCM4F7p9okWN03vIwd8R0FVzlcZTL/1zRJXOL
-         MJooRDjx/ArgtIE0Ce7qETyFJ8O17V3h4I1FHEA/cuh2YBClX1l3zB8HXWfPnU4RXLS0
-         eUOBJmi+3BKuO+VhwY3mTjO/qmUBIA3Z7yZYRPf8tENUSMk0uGjR/bGIFVOq4HDGGSaT
-         fc2A==
-X-Forwarded-Encrypted: i=1; AHgh+Rqf6idgU9iOEkUZhvbS/rDDun8FOXW4CtcalRJ/ntlJujd4FJX14Us9RVRJrZwGssoztR14i+UAr9HsEw==@vger.kernel.org
-X-Gm-Message-State: AFuF++la6pJrtUCrgbkD0QoKzZ7bGz4WRUv0d8qX4L5ULDe+Fn3EAfCb
-	yvq5XN/UCQZBxTbbOjYD6fhrxYr99Di62X6yJiyWyTyZN1JqTxsS4Jo+
-X-Gm-Gg: AR+sD119TaEUMwpR0wMP+KV5Bl2XmKVy5a4C0HHoib3h2+yeV04PymBUIda/40+X5bt
-	Hf1Yav90BG6BW9MsltfqsFHS2Oc+uRGpx/r5bLAt6dOdha28xp7Gf3o3s/6VvFEqzZ+zL6ovjma
-	905TpxPmLN1W8/4O0jqEpITJS6V7x+3uXTqsofEBFH0/LowNrgvngaGwsOaLhOgbaV2k+E7rzle
-	BjtMdxDC9uTUOqDiy2XBAiyHEBNbQmLPy/cddrRh3NxoNxoLj+FzUt9DHfpevNkAGV4jsT0d/+I
-	lolwG1gakPcPfF+/2+YxBZQPME2TVJZIJfCeQU8abmNv/pDRVbGHeTt3+aHF95+mCqMpr3tf/Da
-	wNhKegL5YSugUQmlZ49OWmurSs640pPTat9Vq+pN/1FPsoe9m6+OqlbGfoF1/AkQfhFz9seAL/W
-	4G0ByYK5ZKI6QwC/vN8zGzRoL92cXeVrZbuKBBX1q4EDEW3MVMuZ0iXbkNcKrIEgzckKq1JhHMR
-	Z2GvnUgeTz6Ru9odJec/LhG7sKcgBAG+/SbJdYVGnduzz9osiIc/g==
-X-Received: by 2002:a05:6a20:729b:b0:3cc:9618:f51a with SMTP id adf61e73a8af0-3d26615ece4mr29016741637.8.1788105754380;
-        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+        bh=Q4Gd3Zu6V237u3MJ1sYGZ7SxZwjOc/OROhTL4anxICY=;
+        b=U34CmqsLxyMtCcvAj69YvARsucH9vsfcFfQ+QtHYgO5dncuyv9kbFO40P0J+FefEsg
+         qEMCQb8PQKAL/mfCyAbKZHCfr0j06yMZKMRiXsTXyQOXt2oa9uGeluMAHTVxmXVpHcGH
+         06k73OO6XsQuzyIngkhsGDUAYXJq7dPKDqPTwQB/n6OqBkV6OibmNFDjya+YfGjDqhEM
+         rDxXb50wSoLtGMWQzJMcObSMP0sHGArok9Ni7V2yS1W0EuBO4mHESCJgFOKQF3wtsKzr
+         UAchMdL0mq9Xi+94SEGfMZjQsoqGDcBuMPONwwT6A+olhn9NhU8Pu3XxZdUla5QBkJV+
+         8NUA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788105765; x=1788710565;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q4Gd3Zu6V237u3MJ1sYGZ7SxZwjOc/OROhTL4anxICY=;
+        b=JaLQse65KFuCuDGlwYa3mfI9oTwY0SskbDuchdw8rw656BcQVSL+2M5bc5noB+jQ4s
+         twMNRiQTGphQ8KDmCeHtIcXX8acgMiQ6tyNsBZz6QMcfeu6IeueMrmTscFfJ1e/fjudM
+         AnI9iJG57fAk7gu47827qjCon0A8QFexNxohsfd33K73cHs1oqCvulaaLiM/BrTz98n0
+         KzfccnlPpK+99y/utvZNCOLq+ieMWhHfl2F+x4u6oh4KztEuq+mIBvK/2+xXkKOyccQM
+         anf/UuNE/BV06YUKaSdUduHbXVKzruP7qBz/tGS910TkdkK0nd4LdrxwzpJN9mC21/vC
+         Z45Q==
+X-Forwarded-Encrypted: i=1; AHgh+RrQoDCMgZRTk/Q5tC1q+dGVb+/LL/FNKepln2OXGQ/+bJJcP/8EI11eoxC+T0yaMM6XmX9nAmXsFkiBkw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kS90FQDO0rjdSeA0enLhQqUBuCEXMqvbCja4af6cQ9mJUiMEYu
+	ElgIDYuvfrjQugB0AIhjXxxWzzYMKuph6AyIuvWA3+xSgcfNBee4+/nT
+X-Gm-Gg: AR+sD12fDtCrqCrF2ysqUadhLTo76XmvRXgBS034GTZ8j1JlXdHxWuavL1zAiOaX6d+
+	3UJfQ5KFUNSvmaXtofZGw49S/2+9hi4W+Zr4HhOU0AsHORuFTHE0FH8SstUSskju/Y34uz7f952
+	uMm9kBl+7o+EwbqBWAhYlr19WYQ551+0TejxK7S+5Uj5A9j+24w1apPPwMoC9I3uMkM6PGLW0gx
+	enIovg/SNYb8+u0IPaH9iwlEjiY58FCdz8R0gb+luW+QKP/kRulnDQRvH642E7/s4cO1tniXC4S
+	FC+XC7BDcA5Bcjrpdt7e8Q4Pz+1+7otZ/Me3LQEqzbAugo4Lc2eonymHD5dPAWVN5rutOZOszU1
+	/tbY9XG9aLs4DHlE6l/Ux2HBqAK8c2MEFptdJG8QcmeOuTTfhsBqvWXRUiiepPFoNllCVEDxZ9e
+	kBPciSRgWHBHy+SmeG6SrTor737NN+G4W68Ax3M62tHQ89BpB0elcavg7LBmvViV4/feuwajEOA
+	lkX83M6cUeAQZJ8KwlFp+c/so1Gs2CKAyJJqybSmNQa593AELtD
+X-Received: by 2002:a05:6a20:4322:b0:3d3:af85:eb98 with SMTP id adf61e73a8af0-3d3af85fc5bmr16153694637.26.1788105764564;
+        Sun, 30 Aug 2026 09:02:44 -0700 (PDT)
 Received: from nuvole (2.248.212.35.bc.googleusercontent.com. [35.212.248.2])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.02.25
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc1f3312270sm2839584a12.11.2026.08.30.09.02.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 09:02:34 -0700 (PDT)
+        Sun, 30 Aug 2026 09:02:44 -0700 (PDT)
 From: Pengyu Luo <mitltlatltl@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -75,10 +77,12 @@ Cc: devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	Pengyu Luo <mitltlatltl@gmail.com>
-Subject: [PATCH v6 0/5] fix and improve for Hi846
-Date: Mon, 31 Aug 2026 00:00:20 +0800
-Message-ID: <20260830160025.211384-1-mitltlatltl@gmail.com>
+Subject: [PATCH v6 1/5] media: hi846: Fix hi846_write_reg_16 handling
+Date: Mon, 31 Aug 2026 00:00:21 +0800
+Message-ID: <20260830160025.211384-2-mitltlatltl@gmail.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260830160025.211384-1-mitltlatltl@gmail.com>
+References: <20260830160025.211384-1-mitltlatltl@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -87,55 +91,34 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes errors blocking Hi846 driver function, fixes
-link frequency and supports 6MP and 8MP modes on Hi846.
+hi846_write_reg_16() does not clear a positive *err value on success.
+pm_runtime_get_if_in_use() returns a positive value when the device
+is already in use. When hi846_set_ctrl() passes &ret holding this
+positive value) to hi846_write_reg_16(), the function returns with ret
+as is, the positive value propagates back as a return code, which
+callers interpret as an error.
 
+Fix this by resetting *err to 0 only when it is positive.
+
+Fixes: 04fc06f6dc15 ("media: hi846: fix usage of pm_runtime_get_if_in_use()")
 Signed-off-by: Pengyu Luo <mitltlatltl@gmail.com>
 ---
-Changes in v6:
-- Add link freq ctrl back (Sakari)
-- Use v4l2_link_freq_to_bitmap() to get matched link freqs (Sakari)
-- Move clk_get() before than hi846_parse_dt(), since we use clock in hi846_parse_dt()
-- Add link freq check in filter for v4l2_find_nearest_size_conditional().
-- Link to v5: https://lore.kernel.org/linux-media/20260712115012.91600-1-mitltlatltl@gmail.com
+ drivers/media/i2c/hi846.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v5:
-- Use separated fields instead of raw register values for PLL cfg (Sakari)
-- Use mul_u64_u32_div() to avoid loss of pricision and u64/u32 issues (Sakari)
-- Use v4l2_find_nearest_size_conditional() to filter for different lane cases. (Sakari)
-- Drop line break (Sakari)
-- Rename post_div to mipi_clk_div
-- Correct div1 number from 1 to 2
-- Link to v4: https://lore.kernel.org/linux-media/20260511103927.279550-1-mitltlatltl@gmail.com
-
-Changes in v4:
-- Correct default lane cfg in commit for 'fix link frequency handling'
-- Fix messed header (the Media CI robot)
-- Move constant to the right side when comparsion (the Media CI robot)
-- Link to v3: https://lore.kernel.org/linux-media/20260511090924.269106-1-mitltlatltl@gmail.com
-
-Changes in v3:
-- Fix modes handling for different lane cases (Sebastian)
-- Fix header missing (the Media CI robot)
-- Link to v2: https://lore.kernel.org/linux-media/20260501095433.1609309-1-mitltlatltl@gmail.com
-
-Changes in v2:
-- Remove uncessary `else` (Sakari)
-- Fix link frequency (Sakari)
-- Correct link frequency for DT
-- Link to v1: https://lore.kernel.org/linux-media/20260429070351.1307204-1-mitltlatltl@gmail.com
-
-Pengyu Luo (5):
-  media: hi846: Fix hi846_write_reg_16 handling
-  media: hi846: Fix link frequency handling
-  media: hi846: Fix modes handling for different lane cases
-  media: hi846: Add 6MP and 8MP modes support
-  arm64: dts: imx8mq-librem5: Correct link frequency list
-
- .../boot/dts/freescale/imx8mq-librem5.dtsi    |   2 +-
- drivers/media/i2c/hi846.c                     | 370 ++++++++++++++----
- 2 files changed, 289 insertions(+), 83 deletions(-)
-
+diff --git a/drivers/media/i2c/hi846.c b/drivers/media/i2c/hi846.c
+index a3f77b8434ca..7f069aca0fce 100644
+--- a/drivers/media/i2c/hi846.c
++++ b/drivers/media/i2c/hi846.c
+@@ -1271,6 +1271,8 @@ static void hi846_write_reg_16(struct hi846 *hi846, u16 reg, u16 val, int *err)
+ 	if (*err < 0)
+ 		return;
+ 
++	*err = 0;
++
+ 	put_unaligned_be16(reg, buf);
+ 	put_unaligned_be16(val, buf + 2);
+ 	ret = i2c_master_send(client, buf, sizeof(buf));
 -- 
 2.55.0
 
