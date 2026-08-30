@@ -1,137 +1,84 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from ms.lwn.net (ms.lwn.net [45.79.88.28])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA2B73839AE;
-	Sun, 30 Aug 2026 14:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDDF13B47C3;
+	Sun, 30 Aug 2026 14:45:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.79.88.28
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788100801; cv=none; b=hQc/Auu1GJyzMPO2eDcktSlDaYIjQ7V9wrRkLE50IQiRAyfyqZWka/B7kFNZ0wLiex2wbZR536HM8IM9OE9Vmj37wf43IeUYSQiJXzEMOp4BZO3d6yxPdICcRMtLq6hv4uVbH+bueYvEPgaTyPWKM4fm0x4/3NDh+EeBltUS0h0=
+	t=1788101150; cv=none; b=iXtDW23YXHNCELbbRwBmD6WsAbs6gK2FNtVrJvDuUDuZ+Y5L1qdDHbG7iGzW+t6pgdO76oLuptqv508dXVrzXwJFDiX1xLzCHUDZhPa2dL67RIfmuYsRvFgfin4+oHeA6BrtnIGdcE4eaEfJACURnIo8h2vWtYGWnAmFb36kyUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788100801; c=relaxed/simple;
-	bh=xqXUMWAY5SKNN4Ajdp8I28NFr5JFFE8343fZ0Yr/8Ek=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r7mm6aHu5D+Brye86WWwNHJXzWKt/+G2VxERO6P6FRx1jUz9GzmLxPLcw6jH64bTlAgbwjU+SNDvHKOOJxqrnhFPNPS83Ju6trkEEHiy9V8vjSxDiW4pXhaUsSCF/r7+bSm+Qv9DbvvohrJ/3B3YkNdIqwvA04XcDjiczvgTcak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=NNAur5Ud; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1788101150; c=relaxed/simple;
+	bh=CSRsAmlEGdXvv8L+D6uraOHhCuZS0iuReJv7z4DIcR0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=TZ6Wm+IwbRAvxmzi7Fz4ueS6wQ0CyddCG/ZtEslqCSZdJ6fxzd0I+Yb79TG051zXUAK/HNEPxyjuMoi0JvVchw41AefBlduQpuiFPIO62tgCDL6UEY8V+xWZHMAq+/MvlbEzvFf3rk9nvdmbe9uj0g4h+vhRmP8Y+UVy7WV8x08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net; spf=pass smtp.mailfrom=lwn.net; dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b=LFmo4/fE; arc=none smtp.client-ip=45.79.88.28
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lwn.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lwn.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="NNAur5Ud"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4bd75f804;
-	Sun, 30 Aug 2026 22:39:53 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: keke.li@amlogic.com
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn,
-	stable@vger.kernel.org
-Subject: [PATCH] media: platform: c3-isp: Register IRQ after video state init
-Date: Sun, 30 Aug 2026 22:39:45 +0800
-Message-Id: <20260830143945.2700038-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=lwn.net header.i=@lwn.net header.b="LFmo4/fE"
+DKIM-Filter: OpenDKIM Filter v2.11.0 ms.lwn.net 3257B40430
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lwn.net; s=20201203;
+	t=1788101142; bh=KSwHaylzujYwz65gMRgnf6/prISOr0onbHrOuXbAQus=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:From;
+	b=LFmo4/fEI4IF6dN/UEdWgYs4KqSgD7VtZ6qc+06+bWk9ynvK24SmiSPTx82TqMrRB
+	 QJSRMjGKbIH8OhNAYD+HKrnLtkOEvjzSy5Vbm3nFbBK3O6vYSv/T7IbkeXNAIxxMnT
+	 BHjaIcggvCEe/H3aVZbIVn8buYQc9We4/Wp4NEUFPifWD2SdhwJguwXZ6jTlrKEhwo
+	 oxgK7ho/DYYjORSJyAbcycwoEMv06OVq6+CDq0TXLPtzFUAyYxceZAmPK6gAP7xqwf
+	 o5vTLDTg7wtRW22kYVQjMXeW/aYMOA+Awk5nFOlU39i2GSem2yldawrqMzxfmKyt9a
+	 72zzrFrOVHg6w==
+Received: from localhost (unknown [IPv6:2601:280:4600:814::1fe])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (prime256v1) server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by ms.lwn.net (Postfix) with ESMTPSA id 3257B40430;
+	Sun, 30 Aug 2026 14:45:42 +0000 (UTC)
+From: Jonathan Corbet <corbet@lwn.net>
+To: Pengpeng Hou <pengpeng@iscas.ac.cn>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>
+Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] media: dvb-frontends: ds3000: validate firmware size
+In-Reply-To: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+References: <20260830124034.95459-1-pengpeng@iscas.ac.cn>
+Date: Sun, 30 Aug 2026 08:45:40 -0600
+Message-ID: <87o6ejll9n.fsf@trenco.lwn.net>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0531cd50e03a1kunm07366b50103c8e
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGBpOVk1PGkkfSEpMH0MaTlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSEpPSE
-	xVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=NNAur5UdY6Mlpo8TjiMDIVDQHOWvw/KcYuUVqfkP/H70FFoytchKQm31LU8nasFL0YTrNkC6C1lO29PzdSlC85rghS007/NipRdbPTcn4aElE9nTzho5XoXlyZi5A7f72WwleGC0s7lV/ewolv3/3jrpZ30kH+f+geUT3EfMiWk=; s=default; c=relaxed/relaxed; d=seu.edu.cn; v=1;
-	bh=0vQV9rUtvsRcLcvsN0sR8Ty8ET3YeX/jTGpWqL9MH2Q=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain
 
-c3_isp_probe() requests the shared IRQ before
-c3_isp_videos_register() initializes the capture, statistics, and
-parameter state used by the IRQ handler. request_irq() permits the
-handler to run as soon as registration completes, so a frame-end
-interrupt can acquire an uninitialized buffer lock.
+Pengpeng Hou <pengpeng@iscas.ac.cn> writes:
 
-Register the video state before requesting the IRQ and free the managed
-IRQ before tearing that state down. Store the IRQ number for the remove
-path and preserve the existing probe error unwinding.
+> The firmware diagnostic reads the first two and final two bytes without
+> proving that the firmware object contains at least two bytes.
+>
+> Reject undersized firmware before the diagnostic and upload path consume
+> it.
+>
+> Fixes: 09ea33e5c696 ("V4L/DVB (13493): TeVii S470 and TBS 6920 fixes")
+> Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
+> ---
+>  drivers/media/dvb-frontends/ds3000.c | 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/drivers/media/dvb-frontends/ds3000.c b/drivers/media/dvb-frontends/ds3000.c
+> index ce7ae424b27cc..76d2eb98932ae 100644
+> --- a/drivers/media/dvb-frontends/ds3000.c
+> +++ b/drivers/media/dvb-frontends/ds3000.c
+> @@ -374,6 +374,8 @@ static int ds3000_load_firmware(struct dvb_frontend *fe,
+>  	int ret = 0;
+>  
+>  	dprintk("%s\n", __func__);
+> +	if (fw->size < 2)
+> +		return -EINVAL;
 
-Fixes: fb2e135208f3 ("media: platform: Add C3 ISP driver")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:GPT-5
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- .../media/platform/amlogic/c3/isp/c3-isp-common.h  |  2 ++
- drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c | 14 +++++++++-----
- 2 files changed, 11 insertions(+), 5 deletions(-)
+So, you have generated an awful lot of fixes all over the tree in the
+last few months.  Can you tell us about what tool you are using to find
+and fix these bugs, and how you are testing your fixes?
 
-diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h b/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
-index cb470802e..56b7d48e1 100644
---- a/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
-+++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-common.h
-@@ -293,6 +293,7 @@ struct c3_isp_info {
-  * @stats: ISP stats device
-  * @params: ISP params device
-  * @caps: array of ISP capture device
-+ * @irq: ISP interrupt number
-  * @frm_sequence: used to record frame id
-  * @info: version-specific ISP information
-  */
-@@ -312,6 +313,7 @@ struct c3_isp_device {
- 	struct c3_isp_params params;
- 	struct c3_isp_capture caps[C3_ISP_NUM_CAP_DEVS];
- 
-+	int irq;
- 	u32 frm_sequence;
- 	const struct c3_isp_info *info;
- };
-diff --git a/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c b/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
-index c3b779f63..66242544e 100644
---- a/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
-+++ b/drivers/media/platform/amlogic/c3/isp/c3-isp-dev.c
-@@ -330,6 +330,7 @@ static int c3_isp_probe(struct platform_device *pdev)
- 	irq = platform_get_irq(pdev, 0);
- 	if (irq < 0)
- 		return irq;
-+	isp->irq = irq;
- 
- 	ret = c3_isp_get_clocks(isp);
- 	if (ret)
-@@ -355,18 +356,20 @@ static int c3_isp_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto err_resizers_unregister;
- 
--	ret = devm_request_irq(dev, irq,
--			       c3_isp_irq_handler, IRQF_SHARED,
--			       dev_driver_string(dev), isp);
-+	ret = c3_isp_videos_register(isp);
- 	if (ret)
- 		goto err_nf_unregister;
- 
--	ret = c3_isp_videos_register(isp);
-+	ret = devm_request_irq(dev, irq,
-+			       c3_isp_irq_handler, IRQF_SHARED,
-+			       dev_driver_string(dev), isp);
- 	if (ret)
--		goto err_nf_unregister;
-+		goto err_videos_unregister;
- 
- 	return 0;
- 
-+err_videos_unregister:
-+	c3_isp_videos_unregister(isp);
- err_nf_unregister:
- 	c3_isp_async_nf_unregister(isp);
- err_resizers_unregister:
-@@ -384,6 +387,7 @@ static void c3_isp_remove(struct platform_device *pdev)
- {
- 	struct c3_isp_device *isp = platform_get_drvdata(pdev);
- 
-+	devm_free_irq(isp->dev, isp->irq, isp);
- 	c3_isp_videos_unregister(isp);
- 	c3_isp_async_nf_unregister(isp);
- 	c3_isp_core_unregister(isp);
--- 
-2.34.1
+Thanks,
+
+jon
