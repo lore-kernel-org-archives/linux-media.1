@@ -1,29 +1,29 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E747E282F34;
-	Sun, 30 Aug 2026 12:46:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8D3346ADC;
+	Sun, 30 Aug 2026 13:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788093991; cv=none; b=iFhHjzt91DBdNXKsVRRU7FHO9RQGthDckfxDWhOZuzKGcVmqbWGYYqYgTuDbxlge5tR4i2EL9hQYyQ77WsJdxgGIFK7vSUoxRE0rUnwcv+m/gghf5sUkwvdoww+TKfKahZ2fAUb+x3/ZYVjQLuoHa/CYD2a+AXRzGO9CbCzc4Xc=
+	t=1788094928; cv=none; b=t33waiiBhLsSWa1mftnj/p3srZ1x4xZ3BMkxzqAwSb9ADS7EiMMpiM8VG6sxZ4LDqyYJOSo6bStTUHv9wREocs9xvVN16Xui0IfnAW/uPEKXIDyx5DCRH47m/LqEYhuOvLZDpQHBCq6W6Dt13DxvettQPVmK3imYA67XOnfh1AA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788093991; c=relaxed/simple;
-	bh=yVQ1lYDqRkSpd2tVXe+kEQYJUHFOJLO9si0Cdi6KwVk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kS7PCXWLpeUv14RFymRiiMJMVXlY1PKeL0aLHwbPGxLdLneMDX05E357RH/1qs3kDUIi9xwPf2S6A6hcSa34HCMdVxl7viHmN4rWvfLi3JI/k88WDCPpRKVbuuhxJzFZuY9JcL4BEGRSOrtYSrxKz5Emxn7T6Ui8Sw1B8hWX8Xw=
+	s=arc-20240116; t=1788094928; c=relaxed/simple;
+	bh=dPj2icU1muKFMct/JWK2HK3xsv8/lcX/a7d4BWikfZI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ClFR/md2ibYO9iRvqB8eckqq56UODZGut6unPHgeBLeam36gq7VL7K7hXvAOapSUVapxXuwCWpYYwO6axhW7h8hd2/Z2kYQFg2XaeR/tCp6el+55BJQtcCOvXbUCD4IB+396vY+MeJotUih5fRgk6x5Qu2Y/QtqXL1J68TltFiw=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from localhost.localdomain (unknown [111.196.241.250])
-	by APP-03 (Coremail) with SMTP id rQCowACXnTshJpRqPpKaBg--.45504S2;
-	Sun, 30 Aug 2026 20:46:25 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAC3wT_LKZRqXsWaBg--.22732S2;
+	Sun, 30 Aug 2026 21:02:03 +0800 (CST)
 From: Pengpeng Hou <pengpeng@iscas.ac.cn>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Pengpeng Hou <pengpeng@iscas.ac.cn>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: dvb-frontends: cx24116: validate firmware size
-Date: Sun, 30 Aug 2026 20:45:38 +0800
-Message-ID: <20260830124622.96693-1-pengpeng@iscas.ac.cn>
+Subject: [PATCH] media: dvb-frontends: or51132: validate firmware extents
+Date: Sun, 30 Aug 2026 21:02:01 +0800
+Message-ID: <20260830130201.99744-1-pengpeng@iscas.ac.cn>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -32,54 +32,79 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXnTshJpRqPpKaBg--.45504S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7WrWUZF47ZFy7ZFW5KF1kuFg_yoW8JF4kpa
-	yjyFy5tFWjgw43Ja4qya1Du3sYq3Z5Ga90ka9rJa48Zr1fWFsrWrn8Kas7Xwn8Jr4xJay2
-	g3ZrZryUCFZ7Kw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:rQCowAC3wT_LKZRqXsWaBg--.22732S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1xuFWrtFWrJFW5Xr1kKrg_yoW8Kr1kpF
+	s8JF4YvFWUGr4fGryUCr47C3Z8Wrn5JFW5KrW3Z3Z3XFy5Aw1kJ340g392grW3CrZ3J34a
+	gFnrJa4rXFs8Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUyl14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1I6r4UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
 	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVWxJr
 	0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
 	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
 	r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
 	xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
-	cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
+	cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8V
 	AvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E
-	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYDGYDUUUU
+	14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUna9aUUUUU
 X-CM-SenderInfo: pshqw1xhqjqxpvfd2hldfou0/
 
-The firmware diagnostic reads the first two and final two bytes without
-proving that the firmware object contains at least two bytes.
+or51132_load_firmware() reads two internal image lengths and passes both
+payload ranges to the I2C writer without proving that they fit in the
+firmware blob.
 
-Reject undersized firmware before the diagnostic and upload path consume
-it.
+Require the size header and both image extents to fit before uploading
+firmware.
 
-Fixes: 0d46748c3f87 ("V4L/DVB (8986): cx24116: Adding DVB-S2 demodulator support")
 Signed-off-by: Pengpeng Hou <pengpeng@iscas.ac.cn>
 ---
- drivers/media/dvb-frontends/cx24116.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/media/dvb-frontends/or51132.c | 22 ++++++++++++++--------
+ 1 file changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/media/dvb-frontends/cx24116.c b/drivers/media/dvb-frontends/cx24116.c
-index c10053a7cb829..e9f8ff5231287 100644
---- a/drivers/media/dvb-frontends/cx24116.c
-+++ b/drivers/media/dvb-frontends/cx24116.c
-@@ -556,6 +556,8 @@ static int cx24116_load_firmware(struct dvb_frontend *fe,
- 	unsigned char vers[4];
+diff --git a/drivers/media/dvb-frontends/or51132.c b/drivers/media/dvb-frontends/or51132.c
+index e908d33d7e72c..325abaff66a52 100644
+--- a/drivers/media/dvb-frontends/or51132.c
++++ b/drivers/media/dvb-frontends/or51132.c
+@@ -119,24 +119,30 @@ static int or51132_load_firmware (struct dvb_frontend* fe, const struct firmware
+ 	struct or51132_state* state = fe->demodulator_priv;
+ 	static const u8 run_buf[] = {0x7F,0x01};
+ 	u8 rec_buf[8];
+-	u32 firmwareAsize, firmwareBsize;
++	u32 firmware_a_size, firmware_b_size;
+ 	int i,ret;
  
- 	dprintk("%s\n", __func__);
-+	if (fw->size < 2)
+ 	dprintk("Firmware is %zd bytes\n",fw->size);
++	if (fw->size < 8)
 +		return -EINVAL;
- 	dprintk("Firmware is %zu bytes (%02x %02x .. %02x %02x)\n",
- 			fw->size,
- 			fw->data[0],
-@@ -1494,4 +1496,3 @@ static const struct dvb_frontend_ops cx24116_ops = {
- MODULE_DESCRIPTION("DVB Frontend module for Conexant cx24116/cx24118 hardware");
- MODULE_AUTHOR("Steven Toth");
- MODULE_LICENSE("GPL");
--
+ 
+ 	/* Get size of firmware A and B */
+-	firmwareAsize = le32_to_cpu(*((__le32*)fw->data));
+-	dprintk("FirmwareA is %i bytes\n",firmwareAsize);
+-	firmwareBsize = le32_to_cpu(*((__le32*)(fw->data+4)));
+-	dprintk("FirmwareB is %i bytes\n",firmwareBsize);
++	firmware_a_size = le32_to_cpu(*((__le32 *)fw->data));
++	dprintk("FirmwareA is %i bytes\n", firmware_a_size);
++	firmware_b_size = le32_to_cpu(*((__le32 *)(fw->data + 4)));
++	dprintk("FirmwareB is %i bytes\n", firmware_b_size);
++	if (firmware_a_size > fw->size - 8 ||
++	    firmware_b_size > fw->size - 8 - firmware_a_size)
++		return -EINVAL;
+ 
+ 	/* Upload firmware */
+-	if ((ret = or51132_writebuf(state, &fw->data[8], firmwareAsize))) {
++	ret = or51132_writebuf(state, &fw->data[8], firmware_a_size);
++	if (ret) {
+ 		printk(KERN_WARNING "or51132: load_firmware error 1\n");
+ 		return ret;
+ 	}
+-	if ((ret = or51132_writebuf(state, &fw->data[8+firmwareAsize],
+-				    firmwareBsize))) {
++	ret = or51132_writebuf(state, &fw->data[8 + firmware_a_size], firmware_b_size);
++	if (ret) {
+ 		printk(KERN_WARNING "or51132: load_firmware error 2\n");
+ 		return ret;
+ 	}
 
 base-commit: 08dbfad3f5040f5bdb6c529da20d6d4e81fefd72
 -- 
