@@ -1,506 +1,165 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81453CB548
-	for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 17:24:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C37F3B71BB;
+	Sun, 30 Aug 2026 17:34:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788110644; cv=none; b=gHkOewR+ul3+JVRgcRNKWsQVT2qjRD0RLfJrKADdATsOBo28K3NLPaHfgyeuSFXufwggSrauhHn6lCb2DtgwQ6Ts0SIoXK7C1iOpfP+lsm6TTPL+IWYDlHqDXwKI4mk+OtFO7FjUV/6JDw2UQBfGCANW2nkBjg3OHLsgI9EdiAA=
+	t=1788111249; cv=none; b=CDHIuevVbBryW3dCfaXjWc5uuGIAioCFCPWEemiuSrqHmFnmsiPG4bAT8bzX92mCUWGL8PgBe1lAZQnSfjs4tdz2fdqjET7mtDII6PTGUz0DTQD25kMII9xnohoC009/3dhs04IzjvQcvEKSQADNLdMamcicXTkX/kxaQTKeu7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788110644; c=relaxed/simple;
-	bh=xxVeXb4jvY5cuRDXjZpM6wV0C5NoiUzvvPu6TV0iLAI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IeKf9sulgmu80nz+TNANZrtAdLIg75wqIueC5IQ2JkTtsX/6WugH/shae8L8JBLGU4X9CaX23lKq6n3o9J8Y3H7lR+/BWMLYwy0Uwsh8IiyJDyjpAVuIl7votufE9lO022MVRbdSp1Rsc2fD4upYUi7QLqQ0P6CRSmQSY1vLpsE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s7Eu25XY; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788111249; c=relaxed/simple;
+	bh=s/92348jRP6269mIxI1Kdv+Oa/BEZJNWF1roWsEKQqM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H4HvlEG5d4Xlqk8fJJNhhpSnrD2ev4lOXo09BEQ0lbvqjaeQ7SqYXgiTrcQZxUuQ/DTJjOMLL56aG+FQ078kGbN3VsMXK+etJFDwGFjhXov0SsgsYEMjPrJK/kRuuXJA9rkvhh0CXYRReCZpzhpO8dSXq9yuzggy6ag37YW9A1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu; spf=pass smtp.mailfrom=themurphys.eu; dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b=oln1DZBa; arc=none smtp.client-ip=217.72.192.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themurphys.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s7Eu25XY"
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5c7afda4515so211322e0c.1
-        for <linux-media@vger.kernel.org>; Sun, 30 Aug 2026 10:24:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788110639; x=1788715439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
-        b=s7Eu25XY005g4Bh8GUVADaU45cKm9KpV7PhLe8TLjX7zNt5/sZntMSTaPvxdjpc8zd
-         zASR3WzXkrX6QJa3OgQ9wJn1Fjp+7dEGCRQHDHPN/WH6xIcJAQrZhJprLui8tWxIuPes
-         rux7KIBFjofh2AK/HgaFg6NN+Ezy2ii6XwSjlNbNpON+Cmd7WqDzlc5KJmBxIPmSJaCB
-         /VQer2wixh3IO4NLwRRYcY4nruDRulTXCb7aAmx9OT0sThuNcr99zHISOQvazgmUTVoh
-         6m8McZLJyEk8Y4OH7k94jayeLE6Z8UPBr0lWJ5Mo+/SFfulSjX96ssdcCpY6RXIDV7PG
-         yJTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788110639; x=1788715439;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=auiga5dFUTaRf1HhrjsnmsIoHm0d18F433OVE3MYWfc=;
-        b=HvNPdpJ6DyUNxFZeKKWBkVTHQe57IUQ5WCnaUZWxpT4PBMNmG7mN9acnZbFtTFzd/u
-         3C4FrycwRGyzHEWzFXd8p1hBE7u1eBoJDe9mm/QajWcZwe+exowK/ONNP83UMuc9v4jy
-         Ix3z6OTkOU9LcGy8v5dmPma6SC3pgaAs4Wy+yxwgVVoPZfRO4qkBRrbwpl/47xYIdLn5
-         QOGeLo1FotE65I2Oj501if/A/xaVM2XM4S0uaL0rqFM9x19ySquGspbldL9mmsc1TVJh
-         OFhy04NH2+yPDCmgjhm2/Ij+ijbRCMFG0PxwsxeNuWRhwH8Pcq7FbP2cO6+DOvofBEhM
-         0XbQ==
-X-Gm-Message-State: AFuF++m0qjbihk4uRob0LlT7ofm3D036issD3ibPC/xDVji30kaRr7Jq
-	IHJwKWr2Aoobz2I2RDnOZsv1fVzZXz4NQzfIGyayHgbl9ImzO8A0KCDk
-X-Gm-Gg: AR+sD12oi0kaQZKvqeHrGVjJbD8O1Y4XVrk1Yie9GwC4wwkKMAtxG8tsEJN8Ih0rZ1b
-	U1oTpBdYxtPn9P2KwiCHSVxgYWzwRKfQ/DkZ2FiADIeSquvFt0gMixSqRt/tb6dPFhy4MIA8dk9
-	1Xi8vfT400wJBgAYbJALOV2axtbHA3LNvgv48s6bwPdsFsxGVyA7dqNpjW9yd9fiif/aIl2bxnh
-	sjXptQXtjHGtTJ5Kp8ISZvA7/aCrsHfgZ7VcOQhkkh5F/FKsNC0JVBw9ZYnJOm4dcHAkHN9Nf1d
-	MEc1kOjiMr5CIUv6k+MUdneJmSCvZ7LJNhfFd+jGvnTo82N30XdlUyuRMyQea8BnWhGimgzgnTI
-	JnrEHp9T7PhYbJgkSCzYBIVf2PKhQecgklxV9tjJxD9Zpa4cZH0r5zIe7QRZjKrw/S/Q5sIdlDk
-	f1h8bgjMahphES9agOnHZY52O013ZHNEIs1vVM+nD2fQhA8Eee1J5CbZtwZtrgU1z+x18AsduZI
-	cnDbw4=
-X-Received: by 2002:a05:6102:5cc6:b0:77d:ddec:3ab0 with SMTP id ada2fe7eead31-785977fef72mr5953151137.6.1788110639188;
-        Sun, 30 Aug 2026 10:23:59 -0700 (PDT)
-Received: from alessandro-rzn2024.. ([2804:ebc:9070:7a00:c574:bb1e:fe2d:77bb])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-97ea3cb16d9sm1223354241.8.2026.08.30.10.23.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 30 Aug 2026 10:23:58 -0700 (PDT)
-From: Alessandro Menezes <alessandroasm@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b="oln1DZBa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themurphys.eu;
+	s=s1-ionos; t=1788111231; x=1788716031; i=christian@themurphys.eu;
+	bh=zrfOUbmlUBAPXl3rgn7B1xdEsiBW5cG3AtqHwJQcP7Q=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:
+	 MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=oln1DZBap8wjoTkq9x4N/0Adwf2Jl9DHH2bOG+KrNSbXBnvub/q07GnsnR0NWQG8
+	 S/jedwVX14y9DZFxKXMjQ1vFlm69uViIoYAQYWLi8oCu224InLaewIWbAbrqatxAZ
+	 kCCo20dOLfA2LIPuQAY9+dW5iJNGhZLnp0SjBDpQLyd+AsQ+bogYBbNDeEoVIx1/X
+	 8k/32Gs+JvDBzeX1B/Uf3nKn3vh9VJbR3IuTNG6gQKKxhw74IjeqVvbGjsuZE2XrA
+	 A9tHPZkleaUGw6WBJKloWheuVCefPaPwcpOQ4Wg6OtwDLiuX6tuF7T5kRlNWDGAx7
+	 8ZwWRA5tYsNd2NPh1w==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue106
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1MCJvA-1xA34P27XO-00ALkg; Sun, 30
+ Aug 2026 19:33:51 +0200
+From: Christian Murphy <christian@themurphys.eu>
+To: linux-media@vger.kernel.org
+Cc: hpa@redhat.com,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	tarang.raval@siliconsignals.io,
+	jai.luthra@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hans Verkuil <hverkuil@kernel.org>,
-	ye xingchen <ye.xingchen@zte.com.cn>,
-	Alessandro Menezes <alessandroasm@gmail.com>
-Subject: [PATCH] Revert "media: siano: Convert to use sysfs_emit_at() API"
-Date: Sun, 30 Aug 2026 13:23:30 -0400
-Message-ID: <20260830172330.3395671-1-alessandroasm@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Christian Murphy <christian@themurphys.eu>
+Subject: [PATCH] media: i2c: imx471: Fix pixel rate and line length
+Date: Sun, 30 Aug 2026 18:33:45 +0100
+Message-ID: <20260830173345.15886-1-christian@themurphys.eu>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:K8EECfPEYaz01tXdH7HrMV8Dzy8hCR1JnN0+zg9N8zQM+2RbKpZ
+ w0PetQoE79wAL/rP0k6yoHn5sJrEiLUcQ9kge6yEqt7m4N36cCsVnsd0/YPLEyTlfO9sL5C
+ hO/6RGfb+IZOHmtWwOMIzrdpzrp+Eb228pZ5oXzLOhxvhOAPP8JBgsHT7t2v9rdGvaTqNAT
+ b+f/tlQIljokgPh0/lQzw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Cb/u6g1eO/0=;+7Tf0AX5aWxf+F66MtOFZFGTJkb
+ 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
+ 9RsuHjC9A==
 
-This reverts commit 2f7d0c94396e ("media: siano: Convert to use
-sysfs_emit_at() API").
+The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
+4 lanes / 10 bits =3D 160 MHz, and the line length is the binned array
+width, 2328. Neither describes the pixel array.
 
-sysfs_emit_at() may only be used from sysfs show() methods, where the
-destination is the page-sized, page-aligned buffer that sysfs passes to
-the callback.  It enforces that at runtime:
+The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
+VTPXCK_DIV 6 =3D 193.6 MHz and the array reads two pixels per clock, so
+the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
+power-on default reads back 5120. Timing frames at several written
+line lengths confirms 387.2 MHz at every value.
 
-	if (WARN(!buf || offset_in_page(buf) || at < 0 || at >= PAGE_SIZE,
-		 "invalid sysfs_emit_at: buf:%p at:%d\n", buf, at))
-		return 0;
+With the declared values the line duration comes out 14.55 us instead
+of 13.22 us and exposure is overstated by 10%: libcamera reports a
+maximum ExposureTime longer than the frame.
 
-smsdvb has no show() method.  The converted functions format statistics
-into smsdvb_debugfs.stats_data, a plain char[PAGE_SIZE] member of a
-kmalloc()'d struct, which reaches userspace through debugfs via
-simple_read_from_buffer().  The preceding kref and spinlock_t place
-stats_data at offset 8 in the object, and the object itself is 4136
-bytes, so it is served from the kmalloc-8192 cache with a page-aligned
-base.  offset_in_page(stats_data) is therefore always 8, never 0, and
-every one of the 104 converted calls trips the WARN and returns 0
-without writing anything:
+Set the pixel rate to 387.2 MHz and the line length to 5120, which
+changes HBLANK from 400 to 3192. No register write is added.
 
-  WARNING: fs/sysfs/file.c:781 at sysfs_emit_at+0x59/0xd0
-  invalid sysfs_emit_at: buf:00000000fb2f86e6 at:0
-   smsdvb_print_isdb_stats_ex+0x459/0x650 [smsdvb]
-   smsdvb_update_isdbt_stats_ex+0x34/0x6e0 [smsdvb]
-   smsdvb_onresponse+0x2bc/0x6a0 [smsdvb]
-   smsusb_onresponse+0x117/0x230 [smsusb]
+Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor dri=
+ver")
+Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redha=
+t.com/
+Assisted-by: Claude-Code:claude-fable-5
+Signed-off-by: Christian Murphy <christian@themurphys.eu>
+=2D--
 
-The statistics are formatted from the USB completion handler, so this
-fires from interrupt context on every statistics response the device
-sends, and the debugfs stats file is permanently empty.
+Notes:
+    LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
+    Written to 5632, 6144, 5008 and 5120 in one stream, the line period is
+    llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us)=
+.
+   =20
+    Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamera
+    0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximum
+    ExposureTime 17.057 ms. v4l2-compliance 46/46; W=3D1 and sparse clean.
+    The driver is in no release (7.3 merge window), so no Cc: stable.
 
-Note the buffer cannot be realigned the way commit 8f48ba303dfb
-("drm/amdgpu: fix sysfs_emit/sysfs_emit_at warnings(v2)") handled the
-same warning: there the buffer really was a sysfs page that had been
-advanced past its start, so walking back to the page boundary was valid.
-Here it is not a page at all, and backing the pointer up by
-offset_in_page() would land on the struct's own kref and spinlock.
+ drivers/media/i2c/imx471.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-scnprintf() is the correct interface for formatting into a
-driver-private buffer, and was the deliberate choice here since commit
-af72bc8cd6ab ("media: siano: Use scnprintf() for avoiding potential
-buffer overflow").
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..7a1335873270 100644
+=2D-- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -282,7 +282,7 @@ static const struct imx471_mode imx471_modes[] =3D {
+ 		.height =3D 1088,
+ 		.fll_def =3D 1308,
+ 		.fll_min =3D 1308,
+-		.llp =3D 2328,
++		.llp =3D 5120,
+ 		.default_mode_regs =3D mode_1928x1088_regs,
+ 		.default_mode_regs_length =3D ARRAY_SIZE(mode_1928x1088_regs),
+ 	},
+@@ -691,8 +691,8 @@ static int imx471_init_controls(struct imx471 *sensor)
+ 					   0,
+ 					   link_freq_menu_items);
+=20
+-	/* pixel_rate =3D link_freq * 2 * nr_of_lanes / bits_per_sample */
+-	pixel_rate =3D div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
++	/* pixel_rate =3D 2 * vt_pix_clk, with vt_pix_clk =3D 19.2 MHz / 2 * 121=
+ / 6 */
++	pixel_rate =3D 387200000;
+=20
+ 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
+ 			  V4L2_CID_PIXEL_RATE, pixel_rate,
 
-Fixes: 2f7d0c94396e ("media: siano: Convert to use sysfs_emit_at() API")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alessandro Menezes <alessandroasm@gmail.com>
----
-Tested on 7.0.0-30-generic with a Siano MDTV receiver (USB 187f:0600,
-ISDB-T).  Before: reading
-/sys/kernel/debug/usb/smsdvb/<dev>/stats returns nothing and each
-statistics response from the device adds a WARN.  After: the file
-contains the full per-layer ISDB-T statistics and no WARN is logged.
-
-offsetof()/sizeof() above were measured on that kernel, not inferred.
-
---- a/drivers/media/common/siano/smsdvb-debugfs.c
-+++ b/drivers/media/common/siano/smsdvb-debugfs.c
-@@ -45,48 +45,89 @@
- 
- 	buf = debug_data->stats_data;
- 
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\n", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\n", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d\n", p->SNR);
--	n += sysfs_emit_at(buf, n, "ber = %d\n", p->ber);
--	n += sysfs_emit_at(buf, n, "FIB_CRC = %d\n", p->FIB_CRC);
--	n += sysfs_emit_at(buf, n, "ts_per = %d\n", p->ts_per);
--	n += sysfs_emit_at(buf, n, "MFER = %d\n", p->MFER);
--	n += sysfs_emit_at(buf, n, "RSSI = %d\n", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\n", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
--	n += sysfs_emit_at(buf, n, "frequency = %d\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\n", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\n", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\n", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "code_rate = %d\n", p->code_rate);
--	n += sysfs_emit_at(buf, n, "lp_code_rate = %d\n", p->lp_code_rate);
--	n += sysfs_emit_at(buf, n, "hierarchy = %d\n", p->hierarchy);
--	n += sysfs_emit_at(buf, n, "constellation = %d\n", p->constellation);
--	n += sysfs_emit_at(buf, n, "burst_size = %d\n", p->burst_size);
--	n += sysfs_emit_at(buf, n, "burst_duration = %d\n", p->burst_duration);
--	n += sysfs_emit_at(buf, n, "burst_cycle_time = %d\n", p->burst_cycle_time);
--	n += sysfs_emit_at(buf, n, "calc_burst_cycle_time = %d\n", p->calc_burst_cycle_time);
--	n += sysfs_emit_at(buf, n, "num_of_rows = %d\n", p->num_of_rows);
--	n += sysfs_emit_at(buf, n, "num_of_padd_cols = %d\n", p->num_of_padd_cols);
--	n += sysfs_emit_at(buf, n, "num_of_punct_cols = %d\n", p->num_of_punct_cols);
--	n += sysfs_emit_at(buf, n, "error_ts_packets = %d\n", p->error_ts_packets);
--	n += sysfs_emit_at(buf, n, "total_ts_packets = %d\n", p->total_ts_packets);
--	n += sysfs_emit_at(buf, n, "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "num_of_corrected_mpe_tlbs = %d\n",
--			   p->num_of_corrected_mpe_tlbs);
--	n += sysfs_emit_at(buf, n, "ber_error_count = %d\n", p->ber_error_count);
--	n += sysfs_emit_at(buf, n, "ber_bit_count = %d\n", p->ber_bit_count);
--	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
--	n += sysfs_emit_at(buf, n, "pre_ber = %d\n", p->pre_ber);
--	n += sysfs_emit_at(buf, n, "cell_id = %d\n", p->cell_id);
--	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
--	n += sysfs_emit_at(buf, n, "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
--	n += sysfs_emit_at(buf, n, "num_mpe_received = %d\n", p->num_mpe_received);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\n", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\n", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d\n", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber = %d\n", p->ber);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "FIB_CRC = %d\n", p->FIB_CRC);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ts_per = %d\n", p->ts_per);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "MFER = %d\n", p->MFER);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d\n", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\n", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\n", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\n", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\n", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\n", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "code_rate = %d\n", p->code_rate);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "lp_code_rate = %d\n", p->lp_code_rate);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "hierarchy = %d\n", p->hierarchy);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "constellation = %d\n", p->constellation);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_size = %d\n", p->burst_size);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_duration = %d\n", p->burst_duration);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "burst_cycle_time = %d\n", p->burst_cycle_time);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "calc_burst_cycle_time = %d\n",
-+		      p->calc_burst_cycle_time);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_rows = %d\n", p->num_of_rows);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_padd_cols = %d\n", p->num_of_padd_cols);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_punct_cols = %d\n", p->num_of_punct_cols);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "error_ts_packets = %d\n", p->error_ts_packets);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "total_ts_packets = %d\n", p->total_ts_packets);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_valid_mpe_tlbs = %d\n", p->num_of_valid_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_invalid_mpe_tlbs = %d\n", p->num_of_invalid_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_corrected_mpe_tlbs = %d\n", p->num_of_corrected_mpe_tlbs);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber_error_count = %d\n", p->ber_error_count);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "ber_bit_count = %d\n", p->ber_bit_count);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "pre_ber = %d\n", p->pre_ber);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "cell_id = %d\n", p->cell_id);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "dvbh_srv_ind_hp = %d\n", p->dvbh_srv_ind_hp);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "dvbh_srv_ind_lp = %d\n", p->dvbh_srv_ind_lp);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_mpe_received = %d\n", p->num_mpe_received);
- 
- 	debug_data->stats_count = n;
- 	spin_unlock(&debug_data->lock);
-@@ -107,49 +148,78 @@
- 
- 	buf = debug_data->stats_data;
- 
--	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
--	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
--
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
--	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
--	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
--	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
--	n += sysfs_emit_at(buf, n, "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "statistics_type = %d\t", p->statistics_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "full_size = %d\n", p->full_size);
-+
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\t\t", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\t", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d dB\t\t", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d dBm\t\t", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\t", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\t\t", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d Hz\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\t", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\t\t", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "system_type = %d\t\t", p->system_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "partial_reception = %d\t", p->partial_reception);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_layers = %d\n", p->num_of_layers);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "sms_to_host_tx_errors = %d\n", p->sms_to_host_tx_errors);
- 
- 	for (i = 0; i < 3; i++) {
- 		if (p->layer_info[i].number_of_segments < 1 ||
- 		    p->layer_info[i].number_of_segments > 13)
- 			continue;
- 
--		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
--		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
--		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
--		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
--		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
--				   p->layer_info[i].ber_error_count);
--		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
--				   p->layer_info[i].ber_bit_count);
--		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
--		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
--		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
--				   p->layer_info[i].error_ts_packets);
--		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
--				   p->layer_info[i].total_ts_packets);
--		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
--		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
--				   p->layer_info[i].number_of_segments);
--		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
-+			      p->layer_info[i].code_rate);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
-+			      p->layer_info[i].constellation);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
-+			      p->layer_info[i].ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tber_error_count = %-5d\t",
-+			      p->layer_info[i].ber_error_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
-+			      p->layer_info[i].ber_bit_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
-+			      p->layer_info[i].pre_ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
-+			      p->layer_info[i].ts_per);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\terror_ts_packets = %-5d\t",
-+			      p->layer_info[i].error_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "total_ts_packets = %-5d\t",
-+			      p->layer_info[i].total_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
-+			      p->layer_info[i].ti_ldepth_i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tnumber_of_segments = %d\t",
-+			      p->layer_info[i].number_of_segments);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
-+			      p->layer_info[i].tmcc_errors);
- 	}
- 
- 	debug_data->stats_count = n;
-@@ -171,50 +241,80 @@
- 
- 	buf = debug_data->stats_data;
- 
--	n += sysfs_emit_at(buf, n, "statistics_type = %d\t", p->statistics_type);
--	n += sysfs_emit_at(buf, n, "full_size = %d\n", p->full_size);
--
--	n += sysfs_emit_at(buf, n, "is_rf_locked = %d\t\t", p->is_rf_locked);
--	n += sysfs_emit_at(buf, n, "is_demod_locked = %d\t", p->is_demod_locked);
--	n += sysfs_emit_at(buf, n, "is_external_lna_on = %d\n", p->is_external_lna_on);
--	n += sysfs_emit_at(buf, n, "SNR = %d dB\t\t", p->SNR);
--	n += sysfs_emit_at(buf, n, "RSSI = %d dBm\t\t", p->RSSI);
--	n += sysfs_emit_at(buf, n, "in_band_pwr = %d dBm\n", p->in_band_pwr);
--	n += sysfs_emit_at(buf, n, "carrier_offset = %d\t", p->carrier_offset);
--	n += sysfs_emit_at(buf, n, "bandwidth = %d\t\t", p->bandwidth);
--	n += sysfs_emit_at(buf, n, "frequency = %d Hz\n", p->frequency);
--	n += sysfs_emit_at(buf, n, "transmission_mode = %d\t", p->transmission_mode);
--	n += sysfs_emit_at(buf, n, "modem_state = %d\t\t", p->modem_state);
--	n += sysfs_emit_at(buf, n, "guard_interval = %d\n", p->guard_interval);
--	n += sysfs_emit_at(buf, n, "system_type = %d\t\t", p->system_type);
--	n += sysfs_emit_at(buf, n, "partial_reception = %d\t", p->partial_reception);
--	n += sysfs_emit_at(buf, n, "num_of_layers = %d\n", p->num_of_layers);
--	n += sysfs_emit_at(buf, n, "segment_number = %d\t", p->segment_number);
--	n += sysfs_emit_at(buf, n, "tune_bw = %d\n", p->tune_bw);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "statistics_type = %d\t", p->statistics_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "full_size = %d\n", p->full_size);
-+
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_rf_locked = %d\t\t", p->is_rf_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_demod_locked = %d\t", p->is_demod_locked);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "is_external_lna_on = %d\n", p->is_external_lna_on);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "SNR = %d dB\t\t", p->SNR);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "RSSI = %d dBm\t\t", p->RSSI);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "in_band_pwr = %d dBm\n", p->in_band_pwr);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "carrier_offset = %d\t", p->carrier_offset);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "bandwidth = %d\t\t", p->bandwidth);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "frequency = %d Hz\n", p->frequency);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "transmission_mode = %d\t", p->transmission_mode);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "modem_state = %d\t\t", p->modem_state);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "guard_interval = %d\n", p->guard_interval);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "system_type = %d\t\t", p->system_type);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "partial_reception = %d\t", p->partial_reception);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n,
-+		      "num_of_layers = %d\n", p->num_of_layers);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n, "segment_number = %d\t",
-+		      p->segment_number);
-+	n += scnprintf(&buf[n], PAGE_SIZE - n, "tune_bw = %d\n",
-+		      p->tune_bw);
- 
- 	for (i = 0; i < 3; i++) {
- 		if (p->layer_info[i].number_of_segments < 1 ||
- 		    p->layer_info[i].number_of_segments > 13)
- 			continue;
- 
--		n += sysfs_emit_at(buf, n, "\nLayer %d\n", i);
--		n += sysfs_emit_at(buf, n, "\tcode_rate = %d\t", p->layer_info[i].code_rate);
--		n += sysfs_emit_at(buf, n, "constellation = %d\n", p->layer_info[i].constellation);
--		n += sysfs_emit_at(buf, n, "\tber = %-5d\t", p->layer_info[i].ber);
--		n += sysfs_emit_at(buf, n, "\tber_error_count = %-5d\t",
--				   p->layer_info[i].ber_error_count);
--		n += sysfs_emit_at(buf, n, "ber_bit_count = %-5d\n",
--				   p->layer_info[i].ber_bit_count);
--		n += sysfs_emit_at(buf, n, "\tpre_ber = %-5d\t", p->layer_info[i].pre_ber);
--		n += sysfs_emit_at(buf, n, "\tts_per = %-5d\n", p->layer_info[i].ts_per);
--		n += sysfs_emit_at(buf, n, "\terror_ts_packets = %-5d\t",
--				   p->layer_info[i].error_ts_packets);
--		n += sysfs_emit_at(buf, n, "total_ts_packets = %-5d\t",
--				   p->layer_info[i].total_ts_packets);
--		n += sysfs_emit_at(buf, n, "ti_ldepth_i = %d\n", p->layer_info[i].ti_ldepth_i);
--		n += sysfs_emit_at(buf, n, "\tnumber_of_segments = %d\t",
--				   p->layer_info[i].number_of_segments);
--		n += sysfs_emit_at(buf, n, "tmcc_errors = %d\n", p->layer_info[i].tmcc_errors);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\nLayer %d\n", i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tcode_rate = %d\t",
-+			      p->layer_info[i].code_rate);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "constellation = %d\n",
-+			      p->layer_info[i].constellation);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tber = %-5d\t",
-+			      p->layer_info[i].ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tber_error_count = %-5d\t",
-+			      p->layer_info[i].ber_error_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ber_bit_count = %-5d\n",
-+			      p->layer_info[i].ber_bit_count);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tpre_ber = %-5d\t",
-+			      p->layer_info[i].pre_ber);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "\tts_per = %-5d\n",
-+			      p->layer_info[i].ts_per);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\terror_ts_packets = %-5d\t",
-+			      p->layer_info[i].error_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "total_ts_packets = %-5d\t",
-+			      p->layer_info[i].total_ts_packets);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "ti_ldepth_i = %d\n",
-+			      p->layer_info[i].ti_ldepth_i);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n,
-+			      "\tnumber_of_segments = %d\t",
-+			      p->layer_info[i].number_of_segments);
-+		n += scnprintf(&buf[n], PAGE_SIZE - n, "tmcc_errors = %d\n",
-+			      p->layer_info[i].tmcc_errors);
- 	}
- 
- 
--- 
-2.43.0
+base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
+=2D-=20
+2.53.0
 
