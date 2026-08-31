@@ -1,220 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3958B429838;
-	Mon, 31 Aug 2026 16:04:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46289438024
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 16:08:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192257; cv=none; b=dz//iwFUrutL6w/baJApZ2rEjKBXr1Tnr9Z4G2HFhtrIhoUzz4eaiVvwi8yHE/G0twxj6e6yi005YWUpLbNIKhUrJxER0rtAkGEkTfWHlre/QSqEO4iiPOmLNxPa3PR2omb3peMwBsojpfDs6/4CWY8Hn9RBfhkQqVqADqYD6F0=
+	t=1788192483; cv=none; b=UV58xrA3huEekgEaHXnEaayETJ60NnKZvd9wYNckiLKb9K4hxhGU+ROUaLPP3sWFKH90G7OueIy7GzhTmfZQFs/XFfBTyqaNr+AznaYc51OEwkShMv+3MEaBfelPtCeF89rN1YIhqZTW4FXmy7J4d2ZW80uKDRSB7SIfyTCd+ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192257; c=relaxed/simple;
-	bh=mn0I+oybEDI4d3908JwrXhBlFaAjmy8I9oPngGfjUf4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=aFj3rSodaD66wnmpIidu6fDXgvtlMlgUBImNWk+axXbIzz/qcbS4vlUurX4dLOhviysTjcsIBAR0/jvEefZ0zHUfucUiMGUAJ9E5blyQOdObSssZg29GtdUu1+Vfon4N/cinacfGyeKwIUmdXKVuxsEu9WSDpbXr23CqpAPAXUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGV61OLs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788192483; c=relaxed/simple;
+	bh=0yOjtQL0ArOu129/YAlqNj4oZFMpD3l4rO0VkNazTvc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lruw4Ux+nmiwvExW1TBa3yuX3EGGhu/9jddArplwDJJPpa6hQtC5cm18pYL5MBODEvLb2MNXAUeXWfuctypwEchKWJaOHsU/rvIpSae024yLCSbXJNFP3NrvEH7lJc/IOV+VEc456u+oh+tacfmrEugUcCEpGd9lp7t998Ng+Bk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HGGnAa4e; arc=none smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGV61OLs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35B7B1F000E9;
-	Mon, 31 Aug 2026 16:04:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788192255;
-	bh=l45S1FIaD59xQAqPUTAkPZR5Cbk0GE3PNFGvxtQ232o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hGV61OLsRWpOhdP8vNKS35Q75/KPtDnrrucz2L/aO5/LlmPq6tN0JWYps2SOG9gB8
-	 TxEzOqu2R3MvnyC5cptVR4wjlxS9kSBvGF5K6HqYE/4qxgP8cqoxacV0hZ2vzSikn7
-	 ulxgrkuvnL6r3ilgbBVxt0Epd9BcsJcNzXYvQ9pECNqICpfY8oPJ6CGRB+6sId6pvL
-	 EoHLlxTQELR4sjNzvHZaoEs7GZnJ3WZth9lfJbc8cJCXx3E0RPmBXMPU2Y1aduRsI1
-	 k2yrmmhhJPVWpHPHKcqwS/WnKjryPbhyXQvnqALIn/N1w+K0ZsCjy0tk3dZyNA1Nm4
-	 Z+hXLzV+PzT3g==
-Date: Mon, 31 Aug 2026 17:04:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: zhentao.guo@amlogic.com
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v8 3/6] media: dt-bindings: Add Amlogic V4L2 video decoder
-Message-ID: <20260831-matrimony-ability-e5fcf150d213@spud>
-References: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
- <20260831-b4-s4-vdec-upstream-v8-3-830195b9bd91@amlogic.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HGGnAa4e"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49557167508so38897125e9.1
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 09:08:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788192479; x=1788797279; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gA64UKZy3mC+oZEPpnPJBeWoAu5DKPeNeGaNgc7dMmk=;
+        b=HGGnAa4euBd+Eh7XKK0s/W8Z+xgz4jdj417G32ZaMNU0385+bjAJLNB512Q7VSp9tX
+         XJTirCUfMok/gPwhDK2dFINd2SI81ds74iMUz1X9Yk3LgjvlXYaM7m7F4Aau3P1NDc6M
+         cS281BNjTv/L1f0n0NfQLFUf4BVAKQ28tybnGezNbQnTfd/WOlsQRs51UdYFyfA5W2xr
+         OeTBag0oRmqCZFB+2mdhGbNrMUXeudoegLny5vsUW0gDsZJ/ZRlZD5QKTbnNTuC++4N0
+         vQJgYMvjHCrIbhsI75hLdvK7V8iPieaisJl6c8OYLndjs9C3y21xG6nL2J1RO0BnEojZ
+         bVZw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788192479; x=1788797279;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gA64UKZy3mC+oZEPpnPJBeWoAu5DKPeNeGaNgc7dMmk=;
+        b=lJLU6uZOKN4wVy9gE9Cxu6OWo3COeCvElbW6MJjMP2zyw4y2CvWUI/uvFC5WEOs8+3
+         LBo7BzABWR9Ie6srPA7BMeR6Gxo24PSp+HPMWelPfO3nBDM0IXYeYD0ITMZ/JYMQqqZj
+         e1RO74azId2xn9mWxyNNe9RHrHqGMXntXWr460PTa1qNkgjx2s2wRfxCRX0NVbjxycv9
+         o89SACOVQCNRy24O4EAi9p9rdiec6gPNxeBOnSxX7lEFBwZaQvDPJgO8Eaz04hHlO+Qc
+         VR7IH6s1FKFSF2w4VcaITIPjAY7ftecCFNrzhxvuHt0s/zMutlpOXxUwknVcIK0UeUxJ
+         ftJw==
+X-Forwarded-Encrypted: i=1; AHgh+Rq9qlNIPE2UxH9IeNWP4LtB9SF/6ovQJE9UIJh1XO/bry4l0a+1W7VAfR3l2SyX6NRquXfvHnlKQNHoZA==@vger.kernel.org
+X-Gm-Message-State: AFuF++m4UtexeuU6Qe3CC5/skarqmF4rvmXcpwq57OZtznMmcLchfVZF
+	lGgnuDJsTCJz68ExZl58Ai1XkNUgjA8FJ4DBQCZmfhSE+5UJgT1L0BYj
+X-Gm-Gg: AR+sD12zuTj2Q9GjIQLImjK5dLtHY7rL1bMzMvUOer0sLmpaX3daIT+0qXGYJGgb8DK
+	xGcBTpQnUNyD3qTPCxFy96i1cTDThuMGZV+zhXLnxW7Qd+A0xmwS7nen9iDPitcvSabtehgdgZW
+	zz6qBFMukuqV9jyJxQOO4pyfoa2fSgznhFtLgDHyvkAKUIurD14SYATCZ0w6F7+O8BS1JcIqgGb
+	iZ1C2AswcsFfj2r9lxg7nyj4ZLIWcUkAMgmKKibIdPsxA/1miCbTCvEPpzu8BAbwG+yvD7C8I6X
+	G8VRgEJB/J7zW/3CyhCp9lra11pxCASgsnMJXrli82GEOyGp3PZf16fxhMsomBZbAUTWRazfXDZ
+	8Jw3cAwAxMWHh5glA5oIXt2t2hV88qjYBdzwJcY/H5+wG71QR8XbZuPntpQHbbvW9HeXIJ8oERh
+	4Y4zJLmjlg7dy1Vjee04mxuYCA1kPa3GunULg7NBeYwQyIk5aWGlLoXEF7
+X-Received: by 2002:a05:600c:1f8b:b0:499:ae94:be05 with SMTP id 5b1f17b1804b1-49cdc3df92amr33451405e9.0.1788192479266;
+        Mon, 31 Aug 2026 09:07:59 -0700 (PDT)
+Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.07.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 09:07:58 -0700 (PDT)
+From: Thierry Chatard <tchatard@gmail.com>
+To: linux-kernel@vger.kernel.org
+Cc: hansg@kernel.org,
+	lee@kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andriy.shevchenko@intel.com,
+	v.vitovt@gmail.com,
+	Thierry Chatard <tchatard@gmail.com>
+Subject: [PATCH v10 0/8] Enable cameras on Dell Latitude 5285 2-in-1
+Date: Mon, 31 Aug 2026 18:07:46 +0200
+Message-ID: <20260831160754.9857-1-tchatard@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vDuQ2UyDODDws11u"
-Content-Disposition: inline
-In-Reply-To: <20260831-b4-s4-vdec-upstream-v8-3-830195b9bd91@amlogic.com>
+Content-Transfer-Encoding: 8bit
 
---vDuQ2UyDODDws11u
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+This series enables the front (OV5670/INT3479) and rear (OV8858/INT3477)
+cameras on the Dell Latitude 5285 2-in-1 under Linux.
 
-On Mon, Aug 31, 2026 at 04:32:04PM +0800, Zhentao Guo via B4 Relay wrote:
-> From: Zhentao Guo <zhentao.guo@amlogic.com>
->=20
-> Describe the initial support for the V4L2 stateless video decoder
-> driver used with the Amlogic S4 (S805X2) platform.
->=20
-> Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
-> ---
->  .../devicetree/bindings/media/amlogic,s4-vdec.yaml | 106 +++++++++++++++=
-++++++
->  1 file changed, 106 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
- b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> new file mode 100644
-> index 000000000000..a93a2140801b
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
-> @@ -0,0 +1,106 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (C) 2025 Amlogic, Inc. All rights reserved
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/media/amlogic,s4-vdec.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Amlogic Video Decode Accelerator
-> +
-> +maintainers:
-> +  - Zhentao Guo <zhentao.guo@amlogic.com>
-> +
-> +description:
-> +  The Video Decoder Accelerator present on Amlogic SOCs.
-> +  It supports stateless h264 decoding.
-> +
-> +properties:
-> +  compatible:
-> +    const: amlogic,s4-vdec
-> +
-> +  reg:
-> +    maxItems: 2
-> +
-> +  reg-names:
-> +    items:
-> +      - const: dos
-> +      - const: dmc
-> +
+Per Documentation/process/coding-assistants.rst, every patch carries an
+Assisted-by tag: this work was developed with help from an AI coding
+assistant (Claude Code). I have reviewed and tested all of it on the
+hardware and take responsibility for the result.
 
-> +  interrupts:
-> +    maxItems: 2
+The series is interdependent (all eight patches are needed for working
+cameras) and touches three subsystems: mfd (patch 1), platform/x86 int3472
+(patches 2-6) and media (patches 7-8). It is probably best merged as one
+set - for example via platform-drivers-x86 with an immutable branch that
+the media and MFD trees can pull. Lee, an Acked-by on patch 1 (mfd) would
+help enable that; I'm happy to follow whichever merge approach the
+maintainers prefer.
 
-What are these interrupts? All other properties convey the info via
-mandatory -names, but interrupts don't.
+Changes since v9 (addressing Sakari Ailus's and Andy Shevchenko's review):
+- Rebased onto platform-drivers-x86/for-next.
+- Added Assisted-by tags to every patch per coding-assistants.rst (both
+  reviewers asked).
+- Split the old clock-consumer patch (v9 3/6) into two: a pure refactor
+  that moves the Windows MFD-cell setup below the device-type switch
+  (now 3/8), and the actual static clock-consumer support (now 4/8), as
+  requested by Sakari.
+- In that refactor, split the struct device *dev declaration from its
+  assignment, and add a blank line separating generic and local forward
+  declarations in tps68470.h, as requested by Andy.
+- New patch 5/8: factor the always-on VIO regulator init_data out of the
+  board-data patch into a shared common_tps68470_vio_reg_init_data, and
+  fold in the byte-identical intel_nvl copy, as requested by Sakari.
+- Patch 1 keeps Andy's Reviewed-by (subject prefix fixed to "mfd:" in v9).
 
-I don't love the lack of items lists on !-names properties, but not a
-big deal to not have them I don't think.
+Earlier changelogs are in the v7-v9 postings:
+  v9: https://lore.kernel.org/all/20260827201611.99825-1-tchatard@gmail.com/
+  v8: https://lore.kernel.org/all/20260826112452.13539-1-tchatard@gmail.com/
+  v7: https://lore.kernel.org/all/20260819140107.1329091-1-tchatard@gmail.com/
 
-On account of the interrupts:
-pw-bot: changes-requested
+Tested on Ubuntu 25.10 (kernel 6.17.0-22-generic) and Ubuntu 26.04 (kernel
+7.0.0-30-generic): both cameras working in Zoom, Chrome, and GNOME Camera
+via PipeWire. Also independently tested on the closely-related Dell Latitude
+5290 2-in-1 (same IPU3/TPS68470/OV5670/OV8858/DW9714 stack) by Vitalii
+Tytskyi:
+  https://github.com/vitovt/dell-5290-camera-kernel/tree/master/patches
 
-Cheers,
-Conor.
+Thierry Chatard (8):
+  mfd: intel-lpss: add resource conflict quirk for Dell Latitude 5285
+  platform/x86: int3472: tps68470: use unsigned int for GPIO lookup loop
+    counters
+  platform/x86: int3472: tps68470: move Windows MFD setup below the
+    device-type switch
+  platform/x86: int3472: tps68470: add static clock consumer support
+  platform/x86: int3472: tps68470: use a common always-on VIO regulator
+    init_data
+  platform/x86: int3472: tps68470: add board data for Dell Latitude 5285
+  media: ipu-bridge: add sensor configuration for OV8858 (INT3477)
+  media: ov8858: add ACPI device ID INT3477
+
+ drivers/media/i2c/ov8858.c                    |   7 +
+ drivers/media/pci/intel/ipu-bridge.c          |   2 +
+ drivers/mfd/intel-lpss-acpi.c                 |  32 ++++
+ drivers/platform/x86/intel/int3472/tps68470.c | 116 ++++++-----
+ drivers/platform/x86/intel/int3472/tps68470.h |   8 +
+ .../x86/intel/int3472/tps68470_board_data.c   | 181 ++++++++++++++++--
+ 6 files changed, 283 insertions(+), 63 deletions(-)
 
 
-> +
-> +  clocks:
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    items:
-> +      - const: dos
-> +      - const: core_vdec
-> +      - const: core_hvdec
-> +
-> +  power-domains:
-> +    maxItems: 2
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: dos_vdec
-> +      - const: dos_hvdec
-> +
-> +  resets:
-> +    maxItems: 1
-> +
-> +  amlogic,canvas:
-> +    description: Canvas maintains an index-to-physical-address
-> +     mapping table that allows the 16-bit AMRISC decoder core
-> +     to access 32-bit or 64-bit physical address.
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +
-> +  amlogic,secure-monitor:
-> +    description: Used to decrypt and load the signed decoder
-> +     firmware through ARM SMC (Secure Monitor Call).
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - resets
-> +  - amlogic,canvas
-> +  - amlogic,secure-monitor
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/amlogic,s4-pll-clkc.h>
-> +    #include <dt-bindings/clock/amlogic,s4-peripherals-clkc.h>
-> +    #include <dt-bindings/power/meson-s4-power.h>
-> +    #include <dt-bindings/reset/amlogic,meson-s4-reset.h>
-> +    video-codec@fe320000 {
-> +      compatible =3D "amlogic,s4-vdec";
-> +      reg =3D <0xfe320000 0x10000>,
-> +            <0xfe036000 0x20>;
-> +      reg-names =3D "dos",
-> +                  "dmc";
-> +      interrupts =3D <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-> +                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-> +      clocks =3D <&clkc_periphs CLKID_DOS>,
-> +               <&clkc_periphs CLKID_VDEC_SEL>,
-> +               <&clkc_periphs CLKID_HEVCF_SEL>;
-> +      clock-names =3D "dos",
-> +                    "core_vdec",
-> +                    "core_hvdec";
-> +      power-domains =3D <&pwrc PWRC_S4_DOS_VDEC_ID>,
-> +                      <&pwrc PWRC_S4_DOS_HEVC_ID>;
-> +      power-domain-names =3D "dos_vdec",
-> +                           "dos_hvdec";
-> +      resets =3D <&reset RESET_DOS>;
-> +      amlogic,canvas =3D <&canvas>;
-> +      amlogic,secure-monitor =3D <&sm>;
-> +    };
->=20
-> --=20
-> 2.42.0
->=20
->=20
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.53.0
 
---vDuQ2UyDODDws11u
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCapWl+gAKCRB4tDGHoIJi
-0p1SAQCBt5qF4cDd5+WUBSGCucSvgIOgV7UrxnC4keqbfJkbUQD+N2SKFXRP40rE
-DfkfS3/XekyAhUKyQQMUpSC4VoAF8Aw=
-=YCLQ
------END PGP SIGNATURE-----
-
---vDuQ2UyDODDws11u--
