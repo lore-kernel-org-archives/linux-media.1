@@ -1,75 +1,75 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A5A46A5EE
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 18:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A06054570EC
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 18:17:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200188; cv=none; b=LNdhQdF/Fz0tnDutYYGQp2xAokxmTJjcOm36xwxPn77xTTUG/hlkw6hLz2g7ONSEnB9nW2e5U8omAhNI4dH+3yzRpz+hHwRxt9lJSUJKDBUuZtd6a79mXfZewUDYQbmTfkQRA07rLTvUlwrtO9GgcySsRG1xrGXeA9Kym5nhDy0=
+	t=1788200269; cv=none; b=nZlek+ZW0+bBFXBsIJmAz4lHeaq8u3EyHSeWThihZ8Zo9UMJS2hSUjkPwbZh4Mwf3EpcMPue3MqMaMGHh9tWumP+BabgOuovyaj4kXrJpsSyHJNL0i4Kb+y2QiMwqd8/UeYPJy2xkDmmyoWV0n8oMbLWp+1kYljceTldN/3i1wk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200188; c=relaxed/simple;
-	bh=qZ4v0kBxfDXm7A8WfOWaQ/C+eH5jnmKKTmhXmNhd0cA=;
+	s=arc-20240116; t=1788200269; c=relaxed/simple;
+	bh=OeOMtRVxvS0JeyYlF9MXmfz45YZ/wT4jtknpmDobNLo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a8vvT09ny4Rb1WulenlrExdZd4oxJKKzVximoSBD6oIzCgrXSsnPBlg78FTGtBKl5TgJj/jXG2rW6MOHd7ZkWPkwbG1LysXNxsiRp5hTcmBjYoLG5QiwlleZUOW1lzN/haTCqNR90NXKCwASPi/ZM9BJCnKQpBRYwQMMna4aX4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tB6nOlDP; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=sfZLVCOnYMvlPOfaFbp+rjlli3V5w+RMmaE9H9lO4yFWZQpRxP5XnoAxZe4Kdo8p6dL1VJQIMc7ALccLkJSeCqesdZ3okFSrRSztgqplyyxJmWiFAtfIY0A8Q7SgSJEIO7ZANSkxYtfnQHV/Toz/HSq9eyU0wVC6HtgFqgacxSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WuG8Dfpk; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tB6nOlDP"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48436668d20so1058585f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 11:16:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WuG8Dfpk"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso43135775e9.3
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 11:17:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200185; x=1788804985; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788200266; x=1788805066; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oLrM5RSXKjrTQOiCSWE6R3cx3gDtx4FYgQOFBGhOjsQ=;
-        b=tB6nOlDPT+TPaPzl6qO0XEcZdIsNXkOTsDoklQTzPokXnrv2QLsXDSu0GVGEIcUhTo
-         7tvYFGps7bW4KrtNXZPdwmbsyfZxpKM2EiNHQpZ/ZyXQFhoKgq5cgLXX4xybgT8IxpJP
-         g9D4WF1yFSElKboOQpGQSX80oK7PDzGtytwpDPacfaS0W84/DuyKMC31XB6BVhqA+c8N
-         p68mLvz+3Y0sFIEZhJTAc/kdWKPXgHZ4yqg+b/WMiWwQnEKXwQ5ajBjOD35QpQWUeyO4
-         xQZXOOP73BDkRyFcaSmtSX0fjKPHvz4PJLr+pc9LBN96UBrAvxNbGmT/75uZlSOCyEJm
-         vZlA==
+        bh=WyDz2nLkbWYY/AAdq7qnbGHGgMcZjHLpY7/Qvzyy3GM=;
+        b=WuG8Dfpkms36R4jaP0aMajSpsqLNnzYM8SQrFS8lJ1Ti7XlTyw8DnTiLDwXaYDZ8f5
+         qcVPTNmHwt0UWIBLGV9HG4+iQ4NimzIq5dU55/XRng4urgQeGQEyqO+jdN5pMbJ7jKyd
+         kwNaqgCAkYoQ+66OyJkFzwvwMR4n3SMhO/Ar/1O67eyNHD6tBL1LmqzFTwn80+nul/ey
+         rOHGuNPwp2z1tOCYpfyjhfr2L4N8LiXIsojJF39Qy9D8NPiCNi31epwxgjZ4HxI2wsSu
+         1owDsZkDJLKCQwW8sLThStNppsmEAAib1JP6n8ZmEOqKslYxeVXGULb9+Ez7uapbYzBe
+         3hEg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200185; x=1788804985;
+        d=1e100.net; s=20251104; t=1788200266; x=1788805066;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oLrM5RSXKjrTQOiCSWE6R3cx3gDtx4FYgQOFBGhOjsQ=;
-        b=R5Y3WGppq+GqrXBSffx89G8F6+YbsrRJPvxWjRix4UQCoyL3wTZe1LoFfNnzLkDCHZ
-         t16wooO4i5RFjbDZXqRU2gmWqEsk1Xn8lXsqHZE+au1gafRxU4He7UmvNaCwphdxl6Z7
-         HA69/kFHttefsoBSDJQCqQBDBz2KCVWlKgH/NPwL2DthFr/dony2ciBe8Zv1djRwMFh0
-         szxlnygtHAxYs1PX74NP6RfhVRls6XMk8DRnyQF27ZUznbHi0j2FbhyrWxfWOn8J3xIv
-         qTr18W/pF39n/F0Xrt9ShK+1w+KaYpOxTQ2G+GFi0fx1bl3vVz4olsJCftP8AnhxxJjM
-         m8cw==
-X-Forwarded-Encrypted: i=1; AKwUvBzbxUUtK5Cwq3GgrDtuDtbM7c+R9hRxLNkNxg46+uRzEADVWriXZNWMNDEv3UaxeShbs2MwxNCR3/9WlA==@vger.kernel.org
-X-Gm-Message-State: AFuF++l7MFL/Z0bAxNT2ctV4RDwcIkU2eKqS0pMajE0vroDhZ2oktuXx
-	9vijDeUEPn5op+FIh6AZ4DfO0Z4ZmskHJenZqwdYkb8CKlbI/nHbnMcA
-X-Gm-Gg: AYBFou3LBFoyMckiAsTUXB272imWWIP1wsAAiToh2ytiOI6Nc8sMDuiQ2atd0LhVWVd
-	eXknFwindTLInf+3R4wB+zWS9NpluZkKZbniAPwW02JzKS8NaoPR5kBjIG6nxuEyCck75oqqn8d
-	RrjbKTEIvVhbpKGS5cncYZHXna8P4z7lTcEx/uihqTzQ+ezy4G9ufS1vICX1Mw1z/68fI4FfEVT
-	wQ3wlCHjaXYwcuzkfut1GAQ/ny0l9sj8Xm/w9BSVeTTPYegI8CI9OH2rTR0LGCxEYHKm1NbFFRO
-	kFI2vSpdfVIyK/mokbCLiR0TYWNMFA45JjP2Zmlbm6WvtWC5oYSsphPe5EZM1jLbNpqSsjl6Baj
-	XnT1yxQIyhk++juZSIGxvgEb+K/sF1HOuvQetmbXu6YX6Ps0mugq4gFFcpKtnGO0Qe0QCWi3MCw
-	bjt7RGjl3xQlhUs6pTq77z1SqRW77bCz5JuiWcJ9ituY27Ih92Nmvp+SIF+F8473YayAd60Kre2
-	qpj9Uxb+Kk4
-X-Received: by 2002:a5d:5d0c:0:b0:482:d94e:f33b with SMTP id ffacd0b85a97d-482f782a855mr45747177f8f.0.1788200184870;
-        Mon, 31 Aug 2026 11:16:24 -0700 (PDT)
+        bh=WyDz2nLkbWYY/AAdq7qnbGHGgMcZjHLpY7/Qvzyy3GM=;
+        b=o+yCkkpEaqnLWqwznQRzaKiQc44fHlNw68UNfdnRvkF1KuBx5fIwUVIGyZZNd+EWqR
+         kieVClmiBJHB0uG2o5vT+AlWjqCYdWn6YxNoOnFrSPLys8zWQ8xE68r++ymvwuUO621e
+         kvBzVoqeCqjSps39n7nL2bBSCuKvgPC84G61+Vb0Qz1yzEBy51PSglvciPtjWB/miFhk
+         GSwFdeoDbE5zfRYUQrTzAUebjvZX8ir483vIdjwaKCvXJKKPnaOIs9ylMOMotpScqkag
+         YzTXOKAwWGk9kE4yGSHgirbWuFdkCdz2YSjSE2C8BnMoLOkXpZujQb0aud7Ghg47jSzm
+         oH0w==
+X-Forwarded-Encrypted: i=1; AHgh+Rra8FfzUmwFUWjOjAtppCRhohvpYtew4osqdx0l930u8X0jwTUpN6WqREs5RmXwHJC7DjZoC6jpCXn5zg==@vger.kernel.org
+X-Gm-Message-State: AFuF++ns7UtKyk03+L2aSfLNPfgFkobv9TxrPG2iZBHTpug1lHGxM/dp
+	f8JWVpOGWzL9SWfX5nRZ5vbjKVUXz1I2OGgtodpN/QRSR/oe+PzciJNE
+X-Gm-Gg: AR+sD12b1MGAViFbP3b8HS7J+6gbaCZlzUmub4DIeNVjf32RUsuyKnyNaB9wOZsHlMs
+	D7qMAwaxY7vEjEybLmhvCnZquxk5zBi6Pf15dQSkAgVhqDn+Tacbe3LDapGICB+4iV2+sskUUgO
+	PuouoS7ABBTWVGMfqjJgucJiCYGgWIzT/EaP1GXHYev91GtYkKyNBiFrwRkKwYBWwygElBA86iJ
+	pPREOXGSepZ0tBctSc71TEEeNZWd/4whyCEql86/2Fz+Xjne2ahdjCoUTff4dlUssruYUI0wzpW
+	I9TgO8yliMSPrajSDAuh17Zz67ns4nPUVTNxmfgb/sxlv5olPLizAREHXEV8f1IB75IrM1UaK2H
+	AWFt+eM+pRYAu047+CEtloDGHZIhPiVzXiWiioC8OryyF2nstxHF7m8N5WwhKQCcI/TZBetekhY
+	VR978T11rlnwlsRAeqTC8vQsSJs1J3Tofy9lzbMeJTG6uUzX4wE+oAFtW9K8gmxOVZvnLuDy03p
+	IfOdzG1EoL6QjHGyMIogtY=
+X-Received: by 2002:a05:600c:34ce:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49cdc572c7dmr47404135e9.15.1788200265542;
+        Mon, 31 Aug 2026 11:17:45 -0700 (PDT)
 Received: from localhost.localdomain ([2001:b07:5d3a:fe75:a74b:bc2a:bdfb:30ff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4843310ab29sm16350515f8f.0.2026.08.31.11.16.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm184579205e9.2.2026.08.31.11.17.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:16:24 -0700 (PDT)
+        Mon, 31 Aug 2026 11:17:44 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Daniel Scally <dan.scally@ideasonboard.com>,
 	linux-media@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/4] media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
-Date: Mon, 31 Aug 2026 20:16:10 +0200
-Message-ID: <20260831181610.316648-1-fernandorimoli11@gmail.com>
+Subject: Re: [PATCH v3 4/4] media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
+Date: Mon, 31 Aug 2026 20:17:39 +0200
+Message-ID: <20260831181739.320972-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <amsBU-5t8pmSLXBr@kekkonen.localdomain>
-References: <20260717132021.18034-1-fernandorimoli11@gmail.com> <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260720163819.104130-4-fernandorimoli11@gmail.com> <amsBU-5t8pmSLXBr@kekkonen.localdomain>
+In-Reply-To: <amr-HbyocAh4lHSO@kekkonen.localdomain>
+References: <20260717132021.18034-1-fernandorimoli11@gmail.com> <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260720163819.104130-5-fernandorimoli11@gmail.com> <13d6659f-4b51-4041-8aff-70b991ac306e@ideasonboard.com> <20260720235018.11077-1-fernandorimoli11@gmail.com> <amr-HbyocAh4lHSO@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -80,86 +80,93 @@ Content-Transfer-Encoding: 8bit
 
 Hi Sakari,
 
-Thanks for the review, and sorry for the slow response.
+Thanks. Noted on the line length, I will keep prose to 75.
 
-> > Gating the clock lane was determined to be necessary and sufficient by
-> > sweeping the register at runtime on a Surface Pro 9 (IPU6): every value
-[...]
-> This paragraph fits better to the cover page than to a commit message.
+> The support for non-contiguous clock isn't mandatory on either side
+> (whereas free-running clock is and should always "just work") so as a
+> whole this is weird. But as we know the sensor works with IPU6 with
+> non-continous clock, that's what I guess we'll just have to do then.
 
-Moved to the cover letter in v4, and expanded there since it now also has
-to cover the bit 2 question below.
+Agreed that it is odd. The sensor side is not optional in practice here:
+with the free-running default the IPU6 receiver never locks and capture
+times out, so on these devices the "should just work" case is the one
+that does not. I have no visibility into why the receiver behaves that
+way, only that gating the clock lane is what makes it lock.
 
-> How about calling this OV5693_MIPI_CTRL00_LP11?
->
-> Didn't IPU6 work with this sensor without setting the 2nd bit?
+> How about adding PCI IDs (for matching the particualr IPU) and flags to
+> struct ipu_sensor_config? I have a feeling we'll need this elsewhere,
+> too.
 
-It did, so I have dropped bit 2 entirely in v4 rather than renaming it.
-The macro is gone and only the clock-lane gate is written. The remaining
-macro keeps the name ov5647 uses for the same bit.
+Done in v4, and it is a much better shape than what I had. The quirk
+helper is gone; struct ipu_sensor_config gains pci_id and flags, and the
+ov5693 becomes table entries rather than code.
 
-To answer it properly, from the runtime sweep on my Surface Pro 9 (IPU6),
-3 trials of 30 frames plus a 300-frame stability run per value:
+Two small deviations from your sketch, in case they were deliberate and I
+have missed the point:
 
-  0x20  bit5                    300/300 frames, steady 28.6 fps
-  0x24  bit5+bit2               300/300 frames, steady 28.6 fps
-  0x00  power-on default        0 frames, "stream stop time out"
-  0x04  bit2 alone              0 frames, "stream stop time out"
+- IPU_SENSOR_CONFIG's expansion referenced _NR without it being in the
+  parameter list, and forwarded "..." rather than __VA_ARGS__, so I wrote
+  it as:
 
-0x20 and 0x24 are indistinguishable, and bit 2 on its own does nothing
-for the link, so bit 5 is both necessary and sufficient here. I had set
-bit 2 only because it is part of ov5640's canonical value for this
-register, not because anything on IPU6 needed it. That is a bad reason
-to write a bit, so it is gone. v4 writes bit 5 only.
+      #define IPU_SENSOR_CONFIG(_HID, _NR, ...)                       \
+              IPU_SENSOR_CONFIG_MATCH_FL(_HID, 0, NONE, _NR, __VA_ARGS__)
 
-While I was in there, the same sweep also covers why the value differs
-from ov5647's despite the mechanism being copied from it: bit 4 (line
-sync) breaks the link on this receiver rather than being merely
-unnecessary.
+- .flags = IPU_BR_FL_##_FLAGS does not paste to anything for a plain 0, so
+  there is an IPU_BR_FL_NONE for the generic case. That keeps every
+  existing table entry unchanged, which seemed worth having.
 
-  0x10  bit4 alone              0 frames, "stream stop time out"
-  0x30  bit5+bit4               2 frames, stream collapses
-  0x34  bit5+bit4+bit2          2 frames, stream collapses
+The one thing I would like your opinion on is a semantic that comes with
+putting a PCI ID in the table. A sensor with both a specific and a generic
+entry for the same HID matches twice on the specific IPU, and
+ipu_bridge_connect_sensor() would then enumerate the same ACPI device
+twice and consume two of the four IPU ports. So in v4 the more specific
+entry wins and the generic one is skipped. It is implemented as a filter
+in ipu_bridge_connect_sensors() rather than by requiring the table to be
+ordered, so it does not depend on entry order. If you would rather have
+this expressed differently, say so and I will rework it. An explicit
+"generic" marker, or resolving it at match time, would both work.
 
-A bit5-only value recovered to 300/300 later in the same run, after the
-bit 4 failures, so these are genuine value effects and not a link that
-had got itself wedged.
+ipu_bridge_ivsc_is_ready() also walks the table, but it runs before the
+bridge exists and is an idempotent readiness check, so duplicate HIDs are
+harmless there and I left it alone.
 
-Since v3 a linux-surface user has reproduced the value question
-independently on a Surface Pro 8, a different IPU6 generation (0x9a19,
-Tiger Lake) with the INT33BE HID rather than OVTI5693, reading every
-value back after writing [1]:
+On scope: v4 sets the flag for IPU6 (0x9a19, Tiger Lake) and IPU6EP_ADLP
+(0x465d), for both HIDs. To be exact about what hardware stands behind
+each: OVTI5693 on ADL-P is this series running on my Surface Pro 9;
+INT33BE on Tiger Lake is the register value, confirmed on a Surface Pro 8
+and a Pro 7+ by linux-surface users. Jakob's Tested-by from v2 covered
+the Pro 7+ but at the old value, which is why I dropped it. v3 matched
+all of ipu6_pci_tbl, but now that the IDs are spelled out per entry I
+would rather list only what is confirmed on hardware and add the rest as
+reports arrive, Surface Go 4 (ADL-N) being the likely next one. Happy
+to broaden it if you would prefer the whole family up front.
 
-  0x2d  vendor value (control)  30 frames, 28.65 fps
-  0x24  bit5+bit2               30 frames, 28.65 fps
-  0x20  bit5                    30 frames, 28.65 fps
-  0x0d  0x2d with bit 5 clear   0 frames
-  0x08  bit3 alone              0 frames
-  0x04  bit2 alone              0 frames
-  0x01  bit0 alone              0 frames
+> You could also switch to dynamically assigning the property index so
+> there's no need to rely on a particular device having a list of link
+> frequencies. See NEXT_PROPERTY() macro in drivers/acpi/mipi-disco-img.c
+> . That should go to a separate patch, like adding the above mechanism.
 
-That 0x0d row is the test I had not run: the vendor value with only bit 5
-removed does not stream, so bit 5 is necessary and not just sufficient.
-That set has two limits. The register was written over I2C into a stalled
-capture rather than by running the patch, and the write lands after
-stream on rather than before. So it confirms the value on a second device
-and IPU generation, but says nothing about the plumbing. Both sweeps are
-in the cover letter.
+Also done, as patch 4/6, before the mechanism. It is a no-op refactor:
+the endpoint property slots are named in an enum and assigned through a
+bounds-checked running index, so the array is sized by the enum and a
+conditional property no longer has to sit at a fixed slot.
 
-One further change in v4 that you have not seen: the bit is now set with
-cci_update_bits() rather than cci_write(). The ov5693 does not otherwise
-program MIPI_CTRL00, and the driver also serves IPU3/CIO2 and Rockchip,
-so modifying the single bit leaves whatever the platform left in the
-register intact. On the devices in question it reads 0x00 beforehand, so
-the two are equivalent in practice and this is just the smaller claim.
-It was suggested on the linux-surface thread [1] and seemed right.
+This was a latent bug and not just untidiness. Because the property array
+is NULL-terminated, v3's approach would have silently dropped the
+property for any sensor with nr_link_freqs == 0 (INTC10C5 is the one
+in-tree example): the empty link-frequencies slot terminated the array
+before anything after it. With the running index that cannot happen.
 
-One consequence: Dan reviewed and Jakob tested v3's 0x24, and since v4
-changes both the value and the form of the write, I dropped both tags
-rather than carry them across a behaviour change. Both are asked in the
-cover letter to re-confirm.
+v4 is 6 patches:
 
-[1] https://github.com/linux-surface/linux-surface/pull/2171#issuecomment-5298352360
+  1-2  HID enumeration, unchanged (both have Dan's Reviewed-by)
+  3    ov5693 clock-lane gate, now bit 5 only, set with cci_update_bits()
+  4    ipu-bridge: dynamic endpoint property indices
+  5    ipu-bridge: per-IPU config matching + flags
+  6    ipu-bridge: use them for the ov5693 on IPU6
+
+Each patch builds without warnings on its own, at W=1 as well, on top of
+v7.3-rc1.
 
 Thanks,
 Fernando
