@@ -1,65 +1,65 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4937025228D;
-	Mon, 31 Aug 2026 11:30:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 494AF3E4506;
+	Mon, 31 Aug 2026 11:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788175804; cv=none; b=HNRxfAE41QuQvFRH8UHxpZ/bsRpdBCnaXBWMoab/vTbrDYS81fq0A39a3Y+U/kSFETjVghTKM6xD56phUN0INRZ6SpDPERTt52l2ALiOnU9nUcCWD4axp9cBH81wpJVKCI5LmjXiRI9Ot/Uqio5pbeqwxemkPpF5ITdVksWVNP8=
+	t=1788176193; cv=none; b=GeYTlxfcsOCxYsZ2kUmeW7knAyfiuiLo9Zhvm94UdDz51E85w+57ADDpPLJnh+sJz2WC+R2She2q552C/jaGpjupjqMgst82LqEN3xnU+oCU9QtS6QACEqAfzEPZVf5puT9C2ocHR3NFg7G1tJLBNXF0DxYJqYjtv4EdviQgcAU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788175804; c=relaxed/simple;
-	bh=lKasAdRtT2HAE+aSbcSr7+wbukXKX1+x7ACJ76E/IHo=;
+	s=arc-20240116; t=1788176193; c=relaxed/simple;
+	bh=cO4nIb1FlbAVvNepCuk49MLi7BhBFCebL/Sq4XvBzhE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eSPXhvu0R6oUdUCLx9ieR/2jgTlWg/r8kMXfCY51B3RqdFU/AkYOGFw7NyvzLRmpoFJ15sJ68S7pWS69lJRKghyFhRyXtf8z7/NkbpVdyal8O+S0RR3Mxo67rvJ8RuU4h5xyZoX2vFLQTDelVFNJFKDhVRE/UpTGOCamPoi+4Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=m/bJf19F; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=LAGOK92/99KsMlUfyBuFAPHfwYYh1xTG/eEm96Ewp9u2Gb6prXqhKiZct5j/Ontj/gUTI17SVsOyDmRZp7d1pSwtQfDQSmqr1w3ZvHJZh29WevzUgxPJn/LLclF2aIAKnU2fV1WQdfTyTCvwrJ9K40ulYn9Pp/DEyGWrdTK9nH8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jgMoQkhz; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="m/bJf19F"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jgMoQkhz"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788175802; x=1819711802;
+  t=1788176191; x=1819712191;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=lKasAdRtT2HAE+aSbcSr7+wbukXKX1+x7ACJ76E/IHo=;
-  b=m/bJf19F6VQdZlAfuZfrmXfNYXkqKQ/snO1gavdIotjxcqMvzlX68enc
-   2z9xzvHWvazwCt3gWdqbNNu28mzkNNiMDQ0Y1ZAgHcREovpK2a6Hkv0bR
-   7wzIB7P0oTFvW62kS4sLXaQ0icEdx2KwKe6F4TPEuhmzi9q29O+PUzQdJ
-   Qm6RX5q7sKjWAnwRjXUbpX8KY+Sw0HN9IjPBqDptB8DwM5CtdX6XgwRCE
-   7RHHKrsLu0RZB7UE4sH9XOgCiamsgnZAZAVRivPKHjLARr9nvgJveZmc2
-   TPMa6o4py2dbiMv7ydRZMfggmiOaXCUpd657YdxyPh6RaIQOrzatV0yx3
-   g==;
-X-CSE-ConnectionGUID: /B1iQIxTQEuyw3hdC9Gv8w==
-X-CSE-MsgGUID: SKhqF8NQRpSFl7LJEOhfnA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88705554"
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="88705554"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:27:31 -0700
-X-CSE-ConnectionGUID: /CNjfDa/QXGZfymwy3T0qg==
-X-CSE-MsgGUID: 1nv0Y78sSxWvTks0hqyGLg==
+  bh=cO4nIb1FlbAVvNepCuk49MLi7BhBFCebL/Sq4XvBzhE=;
+  b=jgMoQkhzuQvp/bCPLay0MnYS0Dr9YGe5aaU1kG0PceQg/AHA7NaxCy2R
+   Syw3RUADX9S1kgsse2MECqjRjhTo6vLhn0XJmXRltvm1iJ+dF91hGienH
+   N8qxWbh9t730VVnQQ348z+rl8XBgJ4ENKQb4Xjs8e2CjgzUQWc1DFoxUQ
+   5QJq461F0L5BO8o2qQbbfGmOqFsm7xMBDn17klknTaVIhsxVB43JdRzfB
+   Mjy+aLVA6n3t9GyCP2J/OaF/s4iBAOKtrxcNvqk94SU9UOGAfSff5j+0j
+   fxnTeeTJHvVJG/70e2uy6XxOp+mmSJTb1EusvGi1xmoxhDk6iZou0lDda
+   w==;
+X-CSE-ConnectionGUID: eg+09nh/ScG3pBGLGflMfQ==
+X-CSE-MsgGUID: w4Y4oiLeT/qX8szR+BPy6g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="114119122"
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="114119122"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:36:30 -0700
+X-CSE-ConnectionGUID: TtwHLS/SR/OwbF/SBC9hog==
+X-CSE-MsgGUID: /E+mniLrRPe2bqIzRaVcsA==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
-   d="scan'208";a="307008091"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:27:28 -0700
-Date: Mon, 31 Aug 2026 14:27:25 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Bingbu Cao <bingbu.cao@amd.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Nicholas Roth <nicholas@rothemail.net>,
-	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jose Maria Martin <jmmartinf@hotmail.com>,
-	Uwe Kleine-Koenig <ukleinek@kernel.org>,
-	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 13/15] media: atomisp: Use struct v4l2_area for padding
-Message-ID: <apVlHeS6OWlhkkPE@ashevche-desk.local>
-References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
- <d75701c5a72daf6b36305297a44e925e5ed6b935.1787933456.git.mauriziocasciano7@gmail.com>
+X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
+   d="scan'208";a="270697187"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.87])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 04:36:29 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id DDF6911F894;
+	Mon, 31 Aug 2026 14:36:25 +0300 (EEST)
+Date: Mon, 31 Aug 2026 14:36:25 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: "D. Manresa" <dmanresa@gmail.com>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: ipu-bridge: software nodes are never unregistered; PCI
+ remove/rescan of IPU6 fails with -EEXIST and leaves dangling properties
+Message-ID: <apVnOSRgD04GwLww@kekkonen.localdomain>
+References: <20260827232636.93145-1-dmanresa@gmail.com>
+ <apU1JxHwqGsQOIlQ@kekkonen.localdomain>
+ <20260831102328.36764-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -68,134 +68,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d75701c5a72daf6b36305297a44e925e5ed6b935.1787933456.git.mauriziocasciano7@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260831102328.36764-1-dmanresa@gmail.com>
 
-On Fri, Aug 28, 2026 at 06:14:55PM +0200, Maurizio Casciano wrote:
-> The padding helper passes width and height as four separate scalar
-> arguments even though they form two logical dimensions.
+Hi D.,
+
+On Mon, Aug 31, 2026 at 12:23:28PM +0200, D. Manresa wrote:
+> [Resending with the lists on Cc - the first copy of this reply went out
+> to the people only, due to the same mail tooling error on my side that
+> Hans just caught on the int3472 patch. Fixed now; apologies for the
+> duplicate, Sakari and Hans.]
 > 
-> Pass the requested size and returned padding as struct v4l2_area values.
-> This makes the dimensions explicit and simplifies all three callers.
+> On Sun, 31 Aug 2026, Sakari Ailus wrote:
+> > I recall unbinding the ipu6 driver successfully in the past. Do you ensure
+> > above all sub-device drivers have been unbound first? I guess the V4L2
 
-> Suggested-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+In fact the sub-device drivers aren't meant to go anywhere whilst the
+sub-devices remain registered.
 
-This is fine...
+> > framework nor the ipu6 driver necessarily ensure that right now.
+> 
+> Measured it, since the machine reproduces this in a minute: unbinding all
+> three sensor sub-device drivers first (ov5693, ov8865, ov7251 - each
+> confirmed unbound via sysfs; the VCM client had no driver bound) and then
+> running the same PCI remove -> module unload -> rescan -> modprobe sequence
+> fails identically, byte for byte:
+> 
+>   sysfs: cannot create duplicate filename '/kernel/software_nodes/INT343E'
+>    software_node_register+0xd2/0x120
+>    ipu_bridge_init+0x192/0xeb0 [ipu_bridge]
+>    ipu6_pci_probe+0x417/0xbe0 [intel_ipu6]
+>   kobject: kobject_add_internal failed for INT343E with -EEXIST, ...
+>   intel-ipu6 0000:00:05.0: error -EEXIST: IPU6 bridge init failed
+> 
+> Which makes sense: unbinding the sensors neither unregisters the bridge's
+> software nodes nor clears their ACPI fwnode->secondary pointers, and the
+> -EEXIST happens at the IPU HID node registration, before any per-sensor code
+> runs. A plain module unload/reload without the PCI remove does work, as you
+> say - the device keeps its secondary fwnode, so the graph is still wired -
+> but any path that goes through device_del() (which clears the secondary via
+> set_primary_fwnode(dev, NULL)) ends at the -EEXIST.
 
-> Link: https://lore.kernel.org/linux-media/apCc_pt5dDxGJrei@ashevche-desk.local/
+Indeed.
 
-...but drop this one. No need to have it in the commit message even if
-there is an accompanying Suggested-by tag.
-
-...
-
-> int atomisp_try_fmt(struct atomisp_device *isp, struct v4l2_pix_format *f,
-
->  	const struct atomisp_format_bridge *fmt, *snr_fmt;
->  	struct atomisp_sub_device *asd = &isp->asd;
->  	struct v4l2_mbus_framefmt ffmt = { };
-> -	u32 padding_w, padding_h;
-> +	struct v4l2_area padding;
-> +	struct v4l2_area size;
->  	int ret;
->  
->  	fmt = atomisp_get_format_bridge(f->pixelformat);
-
->  	 * resolution + padding. Add padding here and remove it again after
->  	 * the set_fmt call, like atomisp_set_fmt_to_snr() does.
->  	 */
-> -	atomisp_get_padding(isp, f->width, f->height, &padding_w, &padding_h);
-> +	size.width = f->width;
-> +	size.height = f->height;
-> +	atomisp_get_padding(isp, size, &padding);
->  	v4l2_fill_mbus_format(&ffmt, f, fmt->mbus_code);
-> -	ffmt.width += padding_w;
-> -	ffmt.height += padding_h;
-> +	ffmt.width += padding.width;
-> +	ffmt.height += padding.height;
-
-Add a wrapper that takes struct v4l2_pix_format
-
-static inline void atomisp_get_pix_padding(struct atomisp_device *isp,
-					   struct v4l2_pix_format *f,
-					   struct v4l2_area *pad)
-{
-	struct v4l2_area size = { .width = f->width, .height = f->height };
-
-	atomisp_get_padding(isp, size, pad);
-}
-
-So it will become here as
-
-	atomisp_get_pix_padding(isp, f, &padding);
-
-...
-
->  	if (atomisp_subdev_format_conversion(asd)) {
-> -		atomisp_get_padding(isp, f->fmt.pix.width, f->fmt.pix.height,
-> -				    &asd->sink_pad_padding_w, &asd->sink_pad_padding_h);
-> +		size.width = f->fmt.pix.width;
-> +		size.height = f->fmt.pix.height;
-> +		atomisp_get_padding(isp, size, &padding);
-> +		asd->sink_pad_padding_w = padding.width;
-> +		asd->sink_pad_padding_h = padding.height;
-
-And respectively here
-
-		atomisp_get_pix_padding(isp, &f->fmt.pix, &padding);
-
->  	} else {
->  		asd->sink_pad_padding_w = 0;
->  		asd->sink_pad_padding_h = 0;
-
-Looking at this, I would also replace these two in asd to be struct v4l2_area.
-There are only three users.
-
-With that this becomes
-
-	if (atomisp_subdev_format_conversion(asd))
-		atomisp_get_pix_padding(isp, &f->fmt.pix, &asd->sink_pad_padding);
-	else
-		asd->sink_pad_padding = {};
-
-
-...
-
-> static int atomisp_enum_framesizes_crop_inner(struct atomisp_device *isp,
-
->  		{  800,  600 },
->  		{  640,  480 },
->  	};
-> -	u32 padding_w, padding_h;
->  	int i;
->  
->  	for (i = 0; i < ARRAY_SIZE(frame_sizes); i++) {
-> -		atomisp_get_padding(isp, frame_sizes[i].width, frame_sizes[i].height,
-> -				    &padding_w, &padding_h);
-> +		struct v4l2_area size = {
-> +			.width = frame_sizes[i].width,
-> +			.height = frame_sizes[i].height,
-> +		};
-
-Just convert frame_sizes to be of struct v4l2_area type.
-
-> +		struct v4l2_area padding;
->  
-> -		if ((frame_sizes[i].width + padding_w) > native->width ||
-> -		    (frame_sizes[i].height + padding_h) > native->height)
-> +		atomisp_get_padding(isp, size, &padding);
-> +
-> +		if ((frame_sizes[i].width + padding.width) > native->width ||
-> +		    (frame_sizes[i].height + padding.height) > native->height)
->  			continue;
-
-
-Then only fsize->discrete = frame_sizes[i]; will require the member-to-member
-assignment.
+> 
+> While re-testing this I also got a clean confirmation of the dangling
+> link-frequencies: with the creator module unloaded, rebinding ov5693 against
+> the surviving nodes fails with "supported link freq 419200000ll not found"
+> (-22), and the same rebind succeeds the moment the module is loaded again -
+> identical rodata back at the same address under the stale pointer.
+> 
+> Hans: thanks for the quick ack on the split. Series sent as
+> 
+>   [PATCH 0/2] media: ipu-bridge: survive module unload and reuse the
+>   software nodes on rebind
+> 
+> threaded to this report - with one correction to my point 2a folded into the
+> commit message of 1/2: the property *name* strings in prop_names were never a
+> problem (char arrays, already copied); the real module-image references were
+> the link-frequencies values and the "lens-focus" property name literal.
+> 
+> D. Manresa <dmanresa@gmail.com>
 
 -- 
-With Best Regards,
-Andy Shevchenko
+Regards,
 
-
+Sakari Ailus
