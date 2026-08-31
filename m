@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE194E141B;
-	Mon, 31 Aug 2026 13:39:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0B949CF34;
+	Mon, 31 Aug 2026 13:39:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183597; cv=none; b=ZMvsrtYvNbAFntsfrcFjdEIyaNTiCgKgqBJwCOq1xXibP5VypE6WKC1tFqGSi74eYp+kJoRECAypuApdUTqWid8rMC00GW2eBLtEY8RF7QHhK0XvXoX7h0V9C2e5XA3arQWm1Ti0bDL+VwJ4ZR/MUQp/32zwEUNh8k9DPYf3D1o=
+	t=1788183602; cv=none; b=ZoJ6ktY1CUpQBKJnesq13t16gYT8I2EZJllB1QLhYXmocFJBxltz9SRVnbhxd6LWQNpRiI4O0W0TGQpLnD4Q0hkDjm/n4wxuh0uKKInXIMeto31FJT4oitky7ALxB9tPaQk7e9J1r5tZfEDOE1EuTisdGN9DQGG5VQFh3OT1qw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183597; c=relaxed/simple;
-	bh=4HBuT0m+OuWtdW3B/lNZ3qAi+Cey7F4xPY7aqRclvRE=;
+	s=arc-20240116; t=1788183602; c=relaxed/simple;
+	bh=dK33KCp9ImIgVqbJA1QhaoiVlEcLdSU8DuapOzrZ3KM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e9LiQ3GYlv+/YDYXllgSHP+6XSgBswrO6/PgBJLFRVdjbs50rU41/dL+77CWivG+Mlu2mDdn037CdOIdI5Es0WXgJE3ZO7IpC4eI5zcCc94onewGUVoCPiKVtGHjUjw2H2nz5R5dK/5ujLJo5BadrirctQ9Wlh+ofeTNfriY6Po=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW6pLgr9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oynnzoNaNEqe5BNJ+MmIkKSsarqPfolYlg0c9sivThWbLoml7L28H6dKuqeuH4dB9VKrvpeHVKqJkaqlTqnft/LvclhFCWeWqbPkYdOfyHIkvXiFn9ZN808WT1srynpruaLmvNN4mFazzsIzep8GbuevQOFghpWzZbJPhpOsxjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HayIjnqd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW6pLgr9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803B51F00A3E;
-	Mon, 31 Aug 2026 13:39:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HayIjnqd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53241F00A3D;
+	Mon, 31 Aug 2026 13:39:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183595;
-	bh=nlCQIUoWbG2Xc+D5e9bO/5vr2cXjHLtz5iTeimalskk=;
+	s=k20260515; t=1788183599;
+	bh=BQEyAkLQQ9u0yZwKj9QEn6aiwa3AjXqE03qSoylSx2Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=IW6pLgr97JoK/DB2ELJnTGXUkpxFhwb0SrBraCNuCe1mI7CnO9P5TFT4trJAyc7vx
-	 GpRvXYN987m+LkfDf/bHvQUyUdyGstfOAsziEA9hMKOSe8wUBbQm49uxbnHj+6Wb5e
-	 JkysJ4iwIhij42qTisIBEcaxv9+xMVQhDlNJ7jCwCTLvJQjmqDSKTctF+goewljQsT
-	 /Ggw29ySOGWrOyAXO+j+xkF2s/Nu3jjnEXxC+QF1cprpOMwILFlPSeRdoskEmkbkLx
-	 zWE//+Qva4kwOjWZo6HKDt+h/nmxwLz39jclR1s+9lMcv7uaDPrAXVDGaFs2jrHsBo
-	 j7iL6kBfJMHlQ==
+	b=HayIjnqd7E5cC9QhjIiY9GPuP9pQLi9s6Z7vroVYCMEfQexMpUhgMm+yaFbmAQtTf
+	 2kL60HQi1DNM/o17yjjOOhw1UtOdauW7As4f2yoPrKGhECBehn7lDhz4gucktyWrd0
+	 zz8ZirCFDPWpFONeMOeHFG9Hng3Eus+ofn8sT20JB6cv9jDSph/8zxqUBXPJ1SmBvD
+	 /D6HEam4E26j0N6lfx51p2yO5XPfu+qMuWlG3O3CGowUEakdg+2UZ4SD9yG8SERSdl
+	 4mXUTyjTTB5Mh+zv8/rTbxXIOp7TcgmEw0fNtJNtND8iJ1T6lQEN37/jv8OcVh4AVZ
+	 +Q9hn/z9+aaOw==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Ricardo Ribalda <ribalda@chromium.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
+Cc: Alessandro Baldi <baldovic@virgilio.it>,
+	Sean Young <sean@mess.org>,
 	Sasha Levin <sashal@kernel.org>,
-	nas.chung@chipsnmedia.com,
-	jackson.lee@chipsnmedia.com,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-6.12] media: chips-media: wave5: Add range checks for dec_output_info
-Date: Mon, 31 Aug 2026 09:23:36 -0400
-Message-ID: <20260831133314.4125787-188-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: imon: Add iMON VFD HID OEM v1.2 key mappings
+Date: Mon, 31 Aug 2026 09:23:39 -0400
+Message-ID: <20260831133314.4125787-191-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -56,368 +53,399 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Ricardo Ribalda <ribalda@chromium.org>
+From: Alessandro Baldi <baldovic@virgilio.it>
 
-[ Upstream commit 79aef69bb0903616f4867f0168aea717a11c439c ]
+[ Upstream commit d97d13c24d7893abcfb80d38630ce74daaa1434c ]
 
-If the driver's dec_output_info contains invalid data the driver can
-write in invalid memory. Add a range check for that.
+Add Vol+/Vol-/Mute panel button mappings for iMON VFD HID OEM v1.2.
+This version differs in the codes that generate the
+KEY_VOLUMEUP, KEY_VOLUMEDOWN and KEY_MUTE events.
 
-This fixes this smatch error:
-drivers/media/platform/chips-media/wave5/wave5-vpuapi.c:588 wave5_vpu_dec_get_output_info() error: buffer overflow 'inst->frame_buf' 64 <= 127
-
-Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
+Signed-off-by: Alessandro Baldi <baldovic@virgilio.it>
+Signed-off-by: Sean Young <sean@mess.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-# Stable Backport Analysis: `media: chips-media: wave5: Add range checks
-for dec_output_info`
+Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
+(attempt 1)...
+Retry attempt 1...
+# Stable Backport Analysis: media: imon: Add iMON VFD HID OEM v1.2 key
+mappings
 
-**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`, branch
-`stable/linux-6.18.y`)
+**Local tree:** Linux 6.18.43 (`git describe HEAD` →
+`v6.18.43-1-gc7f0dac02d232`)
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
+### Step 1.1: PARSE THE SUBJECT LINE
+**Record:** `[media: imon]` `[Add]` — Add key mappings for iMON VFD HID
+OEM v1.2 panel buttons (Vol+/Vol-/Mute).
+
+### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
+**Record:**
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org:** — not present (expected)
+- **Signed-off-by:** Alessandro Baldi `<baldovic@virgilio.it>` (author)
+- **Signed-off-by:** Sean Young `<sean@mess.org>` (media subsystem
+  maintainer — strong quality signal)
+
+No syzbot, no bugzilla links, no multiple reporters.
+
+### Step 1.3: ANALYZE THE COMMIT BODY TEXT
+**Record:**
+- **Bug:** iMON VFD HID OEM v1.2 firmware sends different hardware
+  scancodes for Vol+, Vol-, and Mute than other variants already mapped
+  in `imon_OEM_VFD`.
+- **Symptom:** Panel volume/mute buttons on v1.2 hardware produce no
+  useful input events (lookup returns `KEY_RESERVED`).
+- **Root cause:** Missing entries in the `imon_OEM_VFD.key_table` for
+  scancodes `0x0a`, `0x0b`, `0x0c` (with `0xffee` suffix applied at
+  lookup time).
+- **Version info:** Specific to "iMON VFD HID OEM v1.2" variant of USB
+  device `0x15c2:0x0036`.
+
+### Step 1.4: DETECT HIDDEN BUG FIXES
+**Record:** Not disguised as cleanup. This is an explicit hardware-
+variant key-mapping fix. Functionally equivalent to a hardware quirk:
+same USB ID, different firmware scanc## Phase 1: Commit Message
+Forensics
+
 ### Step 1.1: Subject Line
-**Record:** `[media: chips-media: wave5]` `[Add]` — Add range checks for
-`dec_output_info` in the Wave5 VPU decoder driver.
+**Record:** `[media: imon]` `[Add]` — Add iMON VFD HID OEM v1.2 key
+mappings for Vol+/Vol-/Mute panel buttons.
 
-### Step 1.2: Tags
+### Step 1.2: Commit Message Tags
 **Record:**
-- **Signed-off-by:** Ricardo Ribalda `<ribalda@chromium.org>` (author)
-- **Reviewed-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
-  (media subsystem reviewer)
-- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
-  maintainer)
-- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable@ in the
-  commit message itself
-- Part of series `[PATCH v4 4/6] media: Fix new smatch warnings`; cover
-  letter CC'd `stable@vger.kernel.org` and Greg Kroah-Hartman
+- **Fixes:** — not present (expected for manual review)
+- **Reported-by:** — none
+- **Tested-by:** — none
+- **Reviewed-by:** — none
+- **Acked-by:** — none
+- **Link:** — none
+- **Cc: stable@vger.kernel.org** — none
+- **Signed-off-by:** Alessandro Baldi `<baldovic@virgilio.it>` (author)
+- **Signed-off-by:** Sean Young `<sean@mess.org>` (media maintainer;
+  pipeline Sasha Levin SOB ignored per instructions)
 
-### Step 1.3: Body Analysis
+Notable: maintainer sign-off from Sean Young, but no fuzzer report, user
+bug report, or explicit stable nomination.
+
+### Step 1.3: Commit Body Analysis
 **Record:**
-- **Bug:** `dec_output_info` can contain invalid index data; driver
-  indexes `inst->frame_buf[]` without validating the computed index.
-- **Symptom:** Out-of-bounds access on `inst->frame_buf` (smatch:
-  `buffer overflow 'inst->frame_buf' 64 <= 127`).
-- **Root cause:** Existing check bounds `index_frame_display` against
-  `max_dec_index`, but the actual index is `num_of_decoding_fbs +
-  index_frame_display` (fb_offset), which can exceed `MAX_REG_FRAME`
-  (64).
+- **Bug:** iMON VFD HID OEM v1.2 panel buttons send different hardware
+  codes for `KEY_VOLUMEUP`, `KEY_VOLUMEDOWN`, and `KEY_MUTE` than other
+  variants already mapped in `imon_OEM_VFD`.
+- **Symptom:** Volume+/Volume-/Mute panel buttons produce no useful
+  input events on v1.2 hardware.
+- **Root cause:** Missing entries in the `imon_OEM_VFD.key_table` for
+  the v1.2 scancodes (`0x0a`, `0x0b`, `0x0c` with `0xffee` suffix
+  pattern).
+- **Version info:** Targets a specific hardware/firmware variant (v1.2),
+  not a kernel regression.
 
-### Step 1.4: Hidden Bug Fix?
-**Record:** Yes — despite smatch-driven origin, this is a real bounds-
-check bug fix, not cosmetic cleanup. The commit message explicitly
-states invalid data can cause invalid memory access.
+### Step 1.4: Hidden Bug Fix Detection
+**Record:** Not a disguised crash/leak/race fix. This is explicit
+hardware-variant keymap completion — functionally a hardware
+quirk/workaround for a device revision that uses different scancodes.
 
 ---
 
-## PHASE 2: DIFF ANALYSIS
+## Phase 2: Diff Analysis
 
-### Step 2.1: Inventory
+### Step 2.1: Change Inventory
 **Record:**
-- **File:** `drivers/media/platform/chips-media/wave5/wave5-vpuapi.c`
-  (+9 / -2 lines)
-- **Function:** `wave5_vpu_dec_get_output_info()`
-- **Scope:** Single-file, surgical fix
+- **File:** `drivers/media/rc/imon.c` (+4 lines including comment, +3
+  mapping entries)
+- **Function/structure:** `imon_OEM_VFD.key_table` static data only
+- **Scope:** Single-file, surgical data-table addition
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** `info->disp_frame = inst->frame_buf[val +
-  info->index_frame_display]` when `index_frame_display <
-  max_dec_index`.
-- **After:** Computes `idx = val + info->index_frame_display`, validates
-  `idx < MAX_REG_FRAME`, returns `-EINVAL` on failure, then assigns
-  `inst->frame_buf[idx]`.
-- **Path:** Normal decode output-info retrieval after firmware query.
+- **Before:** `imon_panel_key_lookup()` walks `imon_OEM_VFD.key_table`;
+  v1.2 Vol+/Vol-/Mute scancodes (`0x000000000a00ffee`,
+  `0x000000000b00ffee`, `0x000000000c00ffee`) match nothing → returns
+  `KEY_RESERVED`.
+- **After:** Those scancodes map to `KEY_VOLUMEUP`, `KEY_VOLUMEDOWN`,
+  `KEY_MUTE`.
+- **Path affected:** 8-byte panel button packets (`len == 8 && buf[7] ==
+  0xee`) on USB device `0x15c2:0x0036` using `imon_OEM_VFD`.
 
 ### Step 2.3: Bug Mechanism
-**Record:** **Buffer overflow / out-of-bounds access (memory safety).**
-`frame_buf` has `MAX_REG_FRAME` (64) elements. Index uses fb_offset
-(`num_of_decoding_fbs`) plus display index from firmware, but only the
-display index was bounded — not the sum. Smatch correctly identified
-index up to 127.
+**Record:** **Category:** Hardware quirk / incomplete keymap for
+hardware variant. **Mechanism:** Same USB ID and driver, but v1.2
+firmware emits different panel scancodes than existing table entries;
+unmatched codes are dropped as `KEY_RESERVED`.
 
 ### Step 2.4: Fix Quality
-**Record:** Obviously correct; matches existing patterns in the same
-file (`reset_auxiliary_buffers()` line 189,
-`wave5_vpu_dec_reset_framebuffer()` line 626). Minimal, uses existing
-`err_out` path. Low regression risk.
+**Record:** Obviously correct pattern — mirrors existing volume/mute
+entries already in the same table. Minimal diff, no logic changes.
+**Regression risk:** Very low; only adds new lookup entries without
+altering existing mappings.
 
 ---
 
-## PHASE 3: GIT HISTORY INVESTIGATION
+## Phase 3: Git History Investigation
 
-### Step 3.1: Blame
-**Record:** Buggy line introduced when `wave5-vpuapi.c` entered this
-tree (commit `5d324e5159d9e`, Nov 2025). Present since Wave5 driver
-landed in 6.18.
+### Step 3.1: Blame / Introduction
+**Record:** In this shallow 6.18.43 checkout (~50 commits),
+`imon_OEM_VFD` and its volume mappings are present at base commit
+`a112b91dd6349`. Full upstream introduction history is not available in
+this checkout. The **missing v1.2 mappings are confirmed absent** in the
+current tree.
 
 ### Step 3.2: Fixes: Tag
-**Record:** N/A — no Fixes: tag in commit message.
+**Record:** N/A — no `Fixes:` tag.
 
-### Step 3.3: File History
-**Record:** Wave5 driver has had multiple stable-worthy fixes in 6.18.y
-(panics, memory leaks, spinlock issues). This fix is not yet in the
-tree. Part of a 6-patch smatch series, but each patch touches a
-different file — **standalone**.
+### Step 3.3: Related File History
+**Record:** `git log --oneline -20 -- drivers/media/rc/imon.c` shows
+only one commit in this shallow tree (`a112b91dd6349`), which is not
+informative for upstream history. No evidence this is part of a multi-
+patch series from local history.
 
 ### Step 3.4: Author Context
-**Record:** Ricardo Ribalda is an active media contributor (Chromium).
-Hans Verkuil merged; Nicolas Dufresne reviewed.
+**Record:** No commits from Alessandro Baldi found in this checkout.
+Sean Young (Signed-off-by) is the media/RC maintainer — strong subsystem
+credibility signal.
 
 ### Step 3.5: Dependencies
-**Record:** None. Patch 4/6 is self-contained; `MAX_REG_FRAME` and
-`err_out` already exist in this tree. No prerequisite commits required.
+**Record:** **Standalone.** No prerequisites; only adds rows to an
+existing table in existing driver code. No new structures or APIs
+required.
 
 ---
 
-## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
+## Phase 4: Mailing List and External Research
 
-### Step 4.1: Original Discussion
-**Record:** Series cover at https://lists.openwall.net/linux-
-kernel/2026/05/07/2079. Patch v4 submitted May 7, 2026; evolved v1→v4.
-v2 note: removed `WARN_ON()` from user-triggerable paths; this patch
-retains `WARN_ON()` because invalid data comes from firmware/hardware
-registers, not direct userspace input.
+### Step 4.1: Original Patch Discussion
+**Record:** `b4 dig` requires `-c COMMITISH`; no commit hash was
+provided and subject-only search is unsupported. **Could not retrieve
+lore thread.**
 
 ### Step 4.2: Reviewers
-**Record:** Cover CC'd Mauro Chehab, Hans Verkuil, Greg Kroah-Hartman,
-linux-media@, stable@. Reviewed-by from Nicolas Dufresne; merged by Hans
-Verkuil.
+**Record:** `b4 dig -w` not possible without commit hash. Sean Young SOB
+in commit message indicates maintainer involvement.
 
 ### Step 4.3: Bug Report
-**Record:** Smatch static analysis finding; no syzbot or user crash
-report. Cover letter classifies some warnings as "inoffensive" but
-includes fixes for user-triggerable errors; this wave5 issue is a
-genuine missing bounds check.
+**Record:** No `Reported-by:` or `Link:` tags. No external bug report
+verified.
 
-### Step 4.4: Related Patches
-**Record:** Series has 5 other independent patches (v4l2-dev, mt9p031,
-adv7604, ipu3-imgu, amlogic-c3). None required for this fix.
+### Step 4.4: Related Patches / Series
+**Record:** Appears standalone; no series indicators in subject or diff.
 
-### Step 4.5: Stable List
-**Record:** Cover letter explicitly CC'd `stable@vger.kernel.org`. No
-objection found in available thread excerpts.
+### Step 4.5: Stable List History
+**Record:** Not searched (lore blocked by bot protection on fetch).
+Precedent exists for imon stable backports (e.g., 3.17-stable picked up
+imon RC protocol fix for broken remote functionality on `15c2:0034`).
 
 ---
 
-## PHASE 5: CODE SEMANTIC ANALYSIS
+## Phase 5: Code Semantic Analysis
 
 ### Step 5.1: Key Functions
-**Record:** `wave5_vpu_dec_get_output_info()` modified.
+**Record:** Modified data: `imon_OEM_VFD`. Affected runtime functions:
+`imon_panel_key_lookup()`, called from `imon_incoming_packet()`; table
+also used by `imon_init_idev()` to register supported keys.
 
 ### Step 5.2: Callers
-**Record:**
-- `wave5-vpu-dec.c:354` — `wave5_vpu_dec_finish_decode()` (normal decode
-  completion)
-- `wave5-vpu-dec.c:1407` — flush/stop path
-- `wave5-vpu-dec.c:1499` — another decode path
-- `wave5-vpuapi.c:82` — busy-retry during instance flush
-
-All are active V4L2 mem2mem decode paths.
+**Record:** `imon_panel_key_lookup()` called from
+`imon_incoming_packet()` when processing 8-byte panel packets (`buf[7]
+== 0xee`). Triggered by physical panel button presses on supported iMON
+USB devices during normal driver operation.
 
 ### Step 5.3: Callees
-**Record:** Calls `wave5_vpu_dec_get_result()` which reads
-`W5_RET_DEC_DISPLAY_INDEX` from VPU hardware (line 1059–1060 in
-`wave5-hw.c`). `index_frame_display` is firmware-provided.
+**Record:** Simple linear table scan; returns `KEY_RESERVED` on miss. No
+allocation, locking, or I/O in lookup itself.
 
 ### Step 5.4: Reachability
-**Record:** Reachable during video decode on systems with
-`CONFIG_VIDEO_WAVE_VPU` (ARCH_K3 or COMPILE_TEST). Users with access to
-`/dev/video*` can trigger decode operations; malformed streams or
-firmware edge cases can produce bad indices.
+**Record:** **Userspace-reachable** via panel button input on
+`USB_DEVICE(0x15c2, 0x0036)` bound to `imon_OEM_VFD`. Common HTPC/media-
+center use case for this hardware.
 
 ### Step 5.5: Similar Patterns
-**Record:** Same file already bounds-checks `index >= MAX_REG_FRAME` in
-`reset_auxiliary_buffers()` and `wave5_vpu_dec_reset_framebuffer()`.
-This fix closes a gap in `wave5_vpu_dec_get_output_info()`.
+**Record:** Same table already contains multiple variant-specific
+volume/mute mappings (standard OEM, MCE VFD `0xffdc`, knob values). v1.2
+entries follow established pattern.
 
 ---
 
-## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
+## Phase 6: Cross-Reference Against Local Tree (6.18.43)
 
 ### Step 6.1: Buggy Code Present?
-**Record:** **Yes.** At lines 561–563 in this tree:
-
-```561:563:drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-        if (info->index_frame_display >= 0 &&
-            info->index_frame_display < (int)max_dec_index)
-                info->disp_frame = inst->frame_buf[val +
-info->index_frame_display];
-```
-
-Fix is **not** yet applied. Wave5 driver present since 6.18.
+**Record:** **YES.** Tree is `6.18.43` (`git describe`:
+`v6.18.43-1-gc7f0dac02d232`). `imon_OEM_VFD` exists at lines 267–310
+with volume mappings for other variants but **without** v1.2 entries
+(`0x0a/0x0b/0x0c`). USB ID `0x15c2:0x0036` → `imon_OEM_VFD` at line
+392–393.
 
 ### Step 6.2: Backport Complications
-**Record:** Clean apply expected — 9-line hunk, no structural conflicts.
-`MAX_REG_FRAME` defined as `WAVE5_MAX_FBS * 2` (= 64) in
-`wave5-vpuapi.h:47`.
+**Record:** **Clean apply expected.** Insertion point is clearly between
+existing OEM volume entries and MCE VFD section — matches current file
+layout exactly.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No equivalent bounds check for this access path. Other wave5
-stable fixes exist but not this one.
+**Record:** `grep` for `0x000000000a00ffee` and `OEM v1.2` — **not
+found**. Fix is not already in this tree.
 
 ---
 
-## PHASE 7: SUBSYSTEM CONTEXT
+## Phase 7: Subsystem Context
 
-### Step 7.1: Subsystem
-**Record:** `drivers/media/platform/chips-media/wave5/` — V4L2 hardware
-video codec driver. **Criticality: IMPORTANT** (peripheral driver, but
-memory-safety bugs in kernel drivers are serious).
+### Step 7.1: Subsystem / Criticality
+**Record:** `drivers/media/rc/imon.c` — media RC/input driver.
+**Criticality: PERIPHERAL** (niche HTPC front-panel hardware).
 
-### Step 7.2: Activity
-**Record:** Actively maintained in 6.18.y with multiple bugfix commits
-since initial merge.
+### Step 7.2: Subsystem Activity
+**Record:** Mature, low-churn driver in this tree. imon support has been
+stable for many years; this is variant-specific table maintenance.
 
 ---
 
-## PHASE 8: IMPACT AND RISK
+## Phase 8: Impact and Risk Assessment
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of TI K3 (and COMPILE_TEST) systems with Chips&Media
-Wave5 VPU (`CONFIG_VIDEO_WAVE_VPU`). Not universal, but real production
-hardware.
+**Record:** Users of SoundGraph iMON OEM VFD (`15c2:0036`) with HID OEM
+**v1.2** firmware — specifically panel Vol+/Vol-/Mute buttons. Config:
+`CONFIG_RC_CORE` / imon USB driver.
 
 ### Step 8.2: Trigger Conditions
-**Record:** During decode when firmware returns display index data that
-passes the incomplete `max_dec_index` check but produces `idx >=
-MAX_REG_FRAME`. Possible with firmware edge cases, resolution changes,
-or error recovery. Not every boot, but reachable in normal decode
-operation.
+**Record:** Pressing panel volume/mute buttons on v1.2 hardware.
+**Common** for affected users every time they use those buttons.
+Unprivileged physical access; not a security vector.
 
-### Step 8.3: Failure Mode
-**Record:** Out-of-bounds read of `struct frame_buffer` from kernel
-stack/static data → kernel oops/panic or memory corruption. **Severity:
-HIGH** (memory safety in kernel context).
+### Step 8.3: Failure Mode Severity
+**Record:** Unmapped keys → `KEY_RESERVED` → buttons do nothing.
+**Severity: LOW** — functional impairment only; no oops, hang,
+corruption, or security impact.
 
 ### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** HIGH for affected hardware — prevents OOB kernel memory
-  access
-- **Risk:** VERY LOW — 7-line bounds check, consistent with existing
-  code, reviewed by subsystem maintainer
-- **Ratio:** Strongly favors backport
+- **Benefit:** Restores basic panel functionality for v1.2 owners;
+  aligns with stable rules' explicit acceptance of **hardware quirk**
+  fixes.
+- **Risk:** Minimal — 3 table entries, no behavior change for existing
+  mappings.
+- **Ratio:** Moderate benefit for a small user population, very low
+  risk.
 
 ---
 
-## PHASE 9: FINAL SYNTHESIS
+## Phase 9: Final Synthesis
 
 ### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Real out-of-bounds array access bug (smatch-verified)
-- Fixes potential kernel crash/memory corruption
-- Small, surgical, obviously correct
-- Reviewed by Nicolas Dufresne; merged by Hans Verkuil
-- Standalone — no series dependencies
-- Buggy code exists in this 6.18.43 tree; fix not yet applied
-- Cover letter CC'd stable@
-- Consistent with existing `MAX_REG_FRAME` checks in same driver
+- Fixes a real, user-visible hardware issue (non-working volume/mute
+  buttons)
+- Tiny, obviously correct, maintainer-signed
+- Fits stable rules' **hardware quirk** category
+  (`Documentation/process/stable-kernel-rules.rst`)
+- Same pattern as existing variant-specific entries in the same table
+- Applies cleanly to 6.18.43; driver and device ID already present
+- Zero regression risk for users without v1.2 hardware
 
 **AGAINST backport:**
-- Driver is platform-specific (K3), not all users affected
-- Trigger requires firmware returning bad index data (not directly
-  proven in field)
-- Smatch-driven, not syzbot/user-reported crash
-- Retains `WARN_ON()` (acceptable for firmware-provided data per series
-  rationale)
+- Not crash/security/corruption/deadlock
+- Niche hardware with small user base
+- No user/fuzzer bug report in commit message
+- Completes support for a variant rather than fixing a kernel regression
+- Mailing list review not verified (no commit hash for `b4 dig`)
 
-**Unresolved:** No runtime crash report verified; impact inferred from
-static analysis and code review.
+**Unresolved:** Original lore discussion and whether a user/distro filed
+a bug report.
 
 ### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — logic is clear; Reviewed-by
-   present; smatch warning resolved
-2. Fixes a real bug? **PASS** — missing bounds check on kernel array
-   access
-3. Important issue? **PASS** — OOB kernel memory access (HIGH severity)
-4. Small and contained? **PASS** — 1 file, ~9 lines
-5. No new features/APIs? **PASS** — defensive bounds check only
-6. Can apply to local tree? **PASS** — driver and all symbols exist;
-   clean apply expected
+1. Obviously correct and tested? **PASS** — standard keymap pattern;
+   maintainer SOB
+2. Fixes real bug affecting users? **PASS** — broken panel buttons on
+   v1.2 hardware
+3. Important issue? **PASS (borderline)** — hardware quirk per stable-
+   kernel-rules.rst; not crash-level but explicitly listed acceptable
+   category
+4. Small and contained? **PASS** — 3 entries, one file
+5. No new features/APIs? **PASS** — data-only quirk entries
+6. Can apply to local tree? **PASS** — code present, clean insertion
+   point
 
 ### Step 9.3: Exception Category
-**Record:** Not a device ID/quirk/DT/build/docs exception — standard
-memory-safety bug fix.
+**Record:** **Hardware quirk/workaround** — v1.2 firmware revision uses
+different panel scancodes for the same USB device already supported by
+`imon_OEM_VFD`.
 
 ### Step 9.4: Decision Rationale
-This commit closes a genuine bounds-check gap in
-`wave5_vpu_dec_get_output_info()`. The Wave5 driver exists in Linux
-6.18.y, the buggy code is present, and the fix is minimal, reviewed, and
-standalone. For users decoding video on K3 hardware with the Wave5 VPU,
-an out-of-bounds access on `inst->frame_buf[]` can cause kernel crashes
-or memory corruption. The fix aligns with existing `MAX_REG_FRAME`
-checks elsewhere in the driver and carries negligible regression risk.
+
+For **Linux 6.18.43**, the driver, device ID, and `imon_OEM_VFD` table
+all exist; v1.2 volume/mute scancodes are missing, so affected users'
+buttons are silently ignored. The fix is a minimal hardware-variant
+keymap addition — the same class of change stable trees routinely accept
+as hardware quirks. Severity is low (no stability/security impact), but
+benefit is clear for affected HTPC users and risk is negligible.
 
 ---
 
 ## Verification
 
-- [Phase 1] Parsed subject, tags: Reviewed-by Nicolas Dufresne, SOB Hans
-  Verkuil; no Fixes/Reported-by
-- [Phase 1] Commit body: smatch OOB on `inst->frame_buf` 64 <= 127
-- [Phase 2] Diff: +9/-2 in `wave5_vpu_dec_get_output_info()`, adds `idx`
-  bounds check against `MAX_REG_FRAME`
-- [Phase 3] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 (6.18.43)
-- [Phase 3] `git blame`: buggy line from driver introduction in this
-  tree
-- [Phase 3] No Fixes: tag; no prerequisite commits identified
-- [Phase 3] `git log --oneline -20 -- wave5-vpuapi.c`: multiple wave5
-  fixes; this one not present
-- [Phase 4] Cover letter at lists.openwall.net/2026/05/07/2079: series
-  v4, CC stable@, 6 independent patches
-- [Phase 4] b4 dig failed (commit not in local repo); used web
-  search/lkml archives instead
-- [Phase 4] v2 series note: WARN_ON kept for non-user-triggerable paths
-- [Phase 5] Callers verified via grep: `wave5-vpu-dec.c:354,1407,1499`,
-  `wave5-vpuapi.c:82`
-- [Phase 5] `wave5_vpu_dec_get_result()`: `index_frame_display` from
-  `W5_RET_DEC_DISPLAY_INDEX` hardware register
-- [Phase 5] `MAX_REG_FRAME` = 64 (`WAVE5_MAX_FBS * 2`),
-  `frame_buf[MAX_REG_FRAME]` at `wave5-vpuapi.h:808`
-- [Phase 6] Buggy code confirmed at lines 561–563; fix not applied
-- [Phase 6] `CONFIG_VIDEO_WAVE_VPU` depends on `ARCH_K3 || COMPILE_TEST`
-  per Kconfig
-- [Phase 6] `num_of_decoding_fbs` validated `< WAVE5_MAX_FBS` at
-  registration (line 305), but OOB path doesn't validate sum
-- [Phase 8] Failure mode: OOB read → kernel memory safety issue,
-  severity HIGH
+- **[Phase 1]** Parsed subject, tags, body from provided commit message
+- **[Phase 1]** Confirmed no Reported-by/Fixes/Link/Cc: stable tags
+- **[Phase 2]** Diff: +3 keymap entries + comment in
+  `imon_OEM_VFD.key_table`
+- **[Phase 2]** Read `imon_panel_key_lookup()` at lines 1300–1316
+- **[Phase 2]** Read `imon_incoming_packet()` panel path at lines
+  1599–1602
+- **[Phase 3]** `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`;
+  Makefile → 6.18.43
+- **[Phase 3]** `git blame -L 267,310 drivers/media/rc/imon.c` — table
+  present (shallow history limits introduction date)
+- **[Phase 3]** `git log --grep` / `-S` searches — no candidate commit
+  in this tree
+- **[Phase 4]** `b4 dig` — failed (no commit hash provided; `-q` not
+  supported)
+- **[Phase 4]** lore.kernel.org fetch — blocked by bot protection
+- **[Phase 4]** Web search — found prior imon stable backport precedent
+  (3.17-stable RC protocol fix)
+- **[Phase 5]** `grep imon_OEM_VFD` — device `0x15c2:0x0036` uses this
+  table
+- **[Phase 5]** Traced call chain: panel button →
+  `imon_incoming_packet()` → `imon_panel_key_lookup()`
+- **[Phase 6]** Read `imon_OEM_VFD` at lines 267–310 — v1.2 mappings
+  absent
+- **[Phase 6]** `grep 0x000000000a00ffee` — not in tree
+- **[Phase 7]** Read `Documentation/process/stable-kernel-rules.rst` —
+  hardware quirk explicitly acceptable
+- **[Phase 8]** Confirmed failure mode is `KEY_RESERVED` (no crash) via
+  lookup code
+- **UNVERIFIED:** Original mailing list review thread; whether bug was
+  reported by users; exact kernel version that first introduced
+  `imon_OEM_VFD` (shallow clone)
 
 **YES**
 
- .../media/platform/chips-media/wave5/wave5-vpuapi.c   | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+ drivers/media/rc/imon.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-index e94d6ebc9f816..e7ea2f6a99d5b 100644
---- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-+++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
-@@ -559,8 +559,15 @@ int wave5_vpu_dec_get_output_info(struct vpu_instance *inst, struct dec_output_i
- 		p_dec_info->num_of_decoding_fbs : p_dec_info->num_of_display_fbs;
- 
- 	if (info->index_frame_display >= 0 &&
--	    info->index_frame_display < (int)max_dec_index)
--		info->disp_frame = inst->frame_buf[val + info->index_frame_display];
-+	    info->index_frame_display < (int)max_dec_index) {
-+		u32 idx = val + info->index_frame_display;
-+
-+		if (WARN_ON(idx >= MAX_REG_FRAME)) {
-+			ret = -EINVAL;
-+			goto err_out;
-+		}
-+		info->disp_frame = inst->frame_buf[idx];
-+	}
- 
- 	info->rd_ptr = p_dec_info->stream_rd_ptr;
- 	info->wr_ptr = p_dec_info->stream_wr_ptr;
+diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
+index 48534bb52e4d0..4f974b88628f0 100644
+--- a/drivers/media/rc/imon.c
++++ b/drivers/media/rc/imon.c
+@@ -290,6 +290,10 @@ static const struct imon_usb_dev_descr imon_OEM_VFD = {
+ 		{ 0x000100000000ffeell, KEY_VOLUMEUP },
+ 		{ 0x010000000000ffeell, KEY_VOLUMEDOWN },
+ 		{ 0x000000000100ffeell, KEY_MUTE },
++		/* iMON VFD HID OEM v1.2 */
++		{ 0x000000000a00ffeell, KEY_VOLUMEUP },
++		{ 0x000000000b00ffeell, KEY_VOLUMEDOWN },
++		{ 0x000000000c00ffeell, KEY_MUTE },
+ 		/* 0xffdc iMON MCE VFD */
+ 		{ 0x00010000ffffffeell, KEY_VOLUMEUP },
+ 		{ 0x01000000ffffffeell, KEY_VOLUMEDOWN },
 -- 
 2.53.0
 
