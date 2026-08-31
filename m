@@ -1,313 +1,164 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f51.google.com (mail-lf1-f51.google.com [209.85.167.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3B6C3F9F45;
-	Mon, 31 Aug 2026 12:51:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FFA40B11C
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 12:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180720; cv=none; b=ntoIQBwwwbLaBbqFL1l4NnbtgPnUuKZgkG+AZIv/AjSSdqVxD0+BEzTvickoJvXoO1bmogzZHBY9+u4SvYaUu+Kl1TQA1b0XRQ9lSkgzQnAFvJVtU6cmTen1+Vt7PnurFtqArNbxZo3IB6lKCf578vziLQzanZja5ZGlNXi/g68=
+	t=1788180756; cv=none; b=Q2yBvj+sBTb0wPWMXCQaW3FBrcInGmk7nRzY4RjnroAq3xGsMP1/ozWMEhnke7dFooIdJ0kdv771FbulyK+C7AhyReU4C3aUoPr89UfzLX8hrZvof0dTWMPjtakKogSnksKecWUdydzpmAbDq5y3CvdB0O319c7AC6aKasNtR/M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180720; c=relaxed/simple;
-	bh=Oajofr7KPV85sFuo8LuV95A6tWjTPeAaHRq02rjjfeU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IeDKUKt2GUJzRdWq4Q8jb2+lxHmGpSKia3txq0dFrMFO4/9dA34LDYJt4aKVMx8SoEc7fyMakQ3eXbPQzHBffV+nG9RziNppI4whlEGV35cz1Lsy9zouZ8CX4koMT7g91nA4GDGrMPtDJN5Nwqa+NH/mkz4e7aEobn4SF0PITTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UbLRK3oa; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788180756; c=relaxed/simple;
+	bh=MuV7sYWcXdetDvVDKuX10YVBfcbWwnsbvKTFuts+2Ik=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=IuEhIiMGHuqTi/Zeg3y4ZFlOIvAuy3Xo3n4H13GqAZnPZT1Nkh3z2qMXLG62QdDdwIS/gNO1hG8SXBV8k0OgDzpvZK2L/DpqQtZZv5NFRb7ffIUmBmP71c/yIEF34S40kdXpetgNiyPeQvvFTTGX4Ju2Q+8Hi+GQXHfsRfFBAME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=iu3funep; arc=none smtp.client-ip=209.85.167.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UbLRK3oa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788180717; x=1819716717;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Oajofr7KPV85sFuo8LuV95A6tWjTPeAaHRq02rjjfeU=;
-  b=UbLRK3oaPRsAVIMYjpg7xB8PFmGp6Hv/5S8MM78iR3D2iS5UwfThJ+Bm
-   ATQCJ44RKIOivkgvYpSSi1joOm6Vr6OljrsuRqeOAyFyRXJwvLGQPw+qk
-   emtgWP+kvg8gjcJWYboOhEZDPbzptZmxLuBT0bEWvYqszd8VLM6AiHFQ+
-   vgzPqUYo1tA0rPwB1W1K4lEUfAubWd0FUmdz6AF9tBT6E9uHbe/ZWdPcF
-   Buy5mzPAVHplCY9Q4aIzkThmuPzwaZyk5dSAe7YoFG9S3bL9K1S5makMs
-   jbRqvLb345TC6xsyGD0EKw7rVdQ1QUCVYLKWNxFIHoyDr0hgyWoPxIS+/
-   A==;
-X-CSE-ConnectionGUID: 97hTi5eUTjuoKy765E3bkQ==
-X-CSE-MsgGUID: Zpg5qCWFSoWxoxFK1lQbmA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="88463140"
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="88463140"
-Received: from orviesa010.jf.intel.com ([10.64.159.150])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:51:56 -0700
-X-CSE-ConnectionGUID: l4RmVY4yRKewSayijrYXnA==
-X-CSE-MsgGUID: Z2L+3ySJSeazq0gcpPIuSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,254,1779174000"; 
-   d="scan'208";a="267460591"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.140])
-  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 05:51:53 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B8B5411F7F5;
-	Mon, 31 Aug 2026 15:51:49 +0300 (EEST)
-Date: Mon, 31 Aug 2026 15:51:49 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] media: i2c: ov13858: add regulator, clock and reset
- GPIO handling
-Message-ID: <apV45bZYB3MAd7tE@kekkonen.localdomain>
-References: <20260831124352.86935-1-lsa.uz@pm.me>
+	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="iu3funep"
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5b4afc8465eso3705637e87.2
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 05:52:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1788180744; x=1788785544; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+dyitONQW+nIbXDaTV98uOhd6PVnLQm7sZFUIqGIkYM=;
+        b=iu3funepX4rfD8UXt8B9MtzcWzzmxb4Y6WJyakC1jnQBh/TQSzM6a1R0BGdg3vNT2X
+         D+UPK2ArlNj9RIrA5Mk6s5G3VC4x+r9lmLFtFwL0TjPA0/xu8QBf4KkpjXo8Cx+huNBO
+         f6NvCMrKOXdb2oz76e1dPvzmDj7DuEYrcG1DFZ8K7d0Y+VvS3djDQhGzMgEGonYL1wfl
+         MffWoIQNxYOUn3k5R/1Aj9sKJ9gY2oyQS4fERpd8IwHGf8LP9ifiuqExUtGKyzvVwI5c
+         Qp/h1z0Zhc0rfsle6LlNCG2i7Zn5nBohKQHNIRZPkABOmCuXj4YY6XCqUjwWoqJyaMjr
+         o+lw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788180744; x=1788785544;
+        h=mime-version:user-agent:content-type:autocrypt:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+dyitONQW+nIbXDaTV98uOhd6PVnLQm7sZFUIqGIkYM=;
+        b=PM0hfgyOvghrnLfor7JjvxZ6+mMX4MT0oOjW01qh3YT2/HSYJCmLIpGF17DppyyhYU
+         nmOp7rleizPnC2qSh532tJBBGCKzlKTUQvuMVId5pmaQlZkPVig8IkpmqvxD0Ld8gXWN
+         pxQQrW0gh/MjecFIrrJmrfBTykwkVtHYHu5fveQl4e6g0LEDzM9aj0yXGbKZFlIHjEMT
+         LT8G3qV6POfx7eWFjy23C0eLESWIfosP6x+n/cfWGBzjNXPPjjLgbgGBnT3d3IqJSktT
+         VJhY721hk1bDpeAjgZsvAFXIQ9EOlx6hKB5NqEgXgsGBlJN9qYJvJsoSwnxNwpw504rJ
+         h2sA==
+X-Forwarded-Encrypted: i=1; AKwUvBzeiQDKLzj//wz59aphjZt2iY/SSlsoHiJUx6oIXhKG/sLztq6Vcw1ni1S9wz7krEXGzDj6A9Pey4jThw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lUGjc6wpYTCqbm9K307CAbR8pwBPj6Qlmqkn8LAvx9p9KfNi1G
+	Oc9rBvAIehiY+yqnAb26mZGebhyUWULFnwWb9N5Mtc9qw7IOTU5PAZuzzd0SkCEQfCE=
+X-Gm-Gg: AYBFou0/fGtDgYGo8GsoGgA1DMP+Rh5ttqHE/JryijoPLRSaAQeRwXKgLsy8xLsr0Z1
+	VfrTtPXt+J5JvxHubay5zJNNhB0roPudzkMY4iHxVH/XHroS8x3LXYoVd/qAd80p+ER2zT6lydO
+	tk+E8NPSCfgipyhtuXHQ46FGODaCPRFxwPviN/YnE+6E1shG+NfXup3uYrn8cpa1j/04dXmYMuO
+	gsGCUDYA2j36TLxpADslP4z3ZBtcWrJb2GtRp/F8+LqtqXC5igTpx5HpvLVhZeDknRtghKzS1dU
+	yEXU3t6yqwOTfUKDldcsdTKEM46ErLdJ54YYRFVa0Oc+9OWbuRtRPlTMPn6cvbrsTRBtUjSmgvf
+	lQmKHK+2QULMLS23X5/ym+YsDHaIHaSm8Ho1owhfXOcQTxup54FHSW6jWyiqts3Xe18ylI9Hu+a
+	29gXlJky6D9ae0MZXLX43S2gyXNA+FEA7iq2IouOC5IRMV8YMT3O47woBUZiXRUYy/
+X-Received: by 2002:a05:6512:3050:b0:5b2:aaa2:1d8d with SMTP id 2adb3069b0e04-5b5e68b163emr8921790e87.2.1788180743772;
+        Mon, 31 Aug 2026 05:52:23 -0700 (PDT)
+Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b5e8a11f9esm2117685e87.72.2026.08.31.05.52.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 05:52:23 -0700 (PDT)
+Message-ID: <05bb53d6bd1edb6bfa17fe2ef1ef3e0def32a279.camel@ndufresne.ca>
+Subject: Re: [PATCH v2] media: v4l2-h264: Fix memcmp() size in B1 reference
+ list comparison
+From: Nicolas Dufresne <nicolas@ndufresne.ca>
+To: Haotian Zhang <vulab@iscas.ac.cn>, mchehab@kernel.org
+Cc: boris.brezillon@collabora.com, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Mon, 31 Aug 2026 08:52:19 -0400
+In-Reply-To: <20260831055450.2248-1-vulab@iscas.ac.cn>
+References: <20260831055450.2248-1-vulab@iscas.ac.cn>
+Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Content-Type: multipart/signed; micalg="pgp-sha512";
+	protocol="application/pgp-signature"; boundary="=-myHWYkoGcoXFvyChDgSr"
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831124352.86935-1-lsa.uz@pm.me>
 
-Hi Sergey,
 
-Thanks for the update. A new more comments below...
+--=-myHWYkoGcoXFvyChDgSr
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 12:44:00PM +0000, Sergey Lebedev wrote:
-> The driver assumes the sensor is already powered when probe() reads its chip
-> ID. That holds where the rails and clock are ACPI power resources, but not
-> where an INT3472 companion device registers them as regulators, a clock and a
-> reset GPIO for the sensor driver to consume, which this driver does not do.
-> 
-> Request the three supplies and the reset GPIO, and sequence them along with
-> the clock the driver already looks up, in runtime PM callbacks.
-> 
-> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+Hi,
+
+Le lundi 31 ao=C3=BBt 2026 =C3=A0 13:54 +0800, Haotian Zhang a =C3=A9crit=
+=C2=A0:
+> In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+> check passes the entry count builder->num_valid to memcmp()
+> instead of a byte size. Since struct v4l2_h264_reference is
+> two bytes (fields and index), only half of each list is
+> compared, so distinct lists can be wrongly treated as equal
+> and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
+>=20
+> Change the memcmp() size argument to sizeof(b1_reflist[0]) *
+> builder->num_valid so that the full byte length of both
+> reference lists is compared.
+>=20
+> Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B=
+0/B1 reflists")
+> Suggested-by: Nicolas Dufresne <nicolas@ndufresne.ca>
+> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
 > ---
-> Changes in v2, all from Sakari Ailus's review:
-> - commit message cut down; the detail below
-> - dropped the comment on the supply names; it is a KAPI with int3472
-> - ARRAY_SIZE() directly instead of a local macro
-> - fsleep() instead of usleep_range()
-> - one function each for power on and off, used as the PM callbacks directly,
->   instead of a pair of wrappers
-> - removed the now-useless dev_err() in the probe error path
-> - i declared inside its loop
-> Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
-> 
-> Without the patch the first I2C transaction fails:
-> 
->   ov13858 i2c-OVTID858:00: failed to find sensor: -5
-> 
-> The power sequence follows ov02c10: supplies, then clock, then release reset,
-> and the reverse on the way down.
-> 
-> Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7),
-> with the parts isolated one at a time:
-> 
->   supplies enabled, clock enabled   sensor identifies, driver binds
->   supplies enabled, clock left off  -EIO
->   supplies left off, clock enabled  -EIO
-> 
-> so both are needed; a longer settling delay alone is not enough. Verified
-> across five module unload/load cycles with no probe failure, and again after
-> this rework, with the sensor streaming each time.
-> 
-> This needs POWER1 GPIO support in int3472 to be useful on that machine: the
-> dvdd rail is described there as an INT3472 GPIO of type 0x08, and without that
-> patch the rail is never registered.
-> Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm
-> 
-> The same sensor on the Surface Pro 10 was made to work downstream by forcing
-> the regulators on for the driver's lifetime, which the people who did it
-> called too broad for upstream. Runtime PM keeps them off while the sensor is
-> idle instead.
-> Link: https://github.com/linux-surface/linux-surface/issues/2153
-> 
-> dovdd is not described on this machine and resolves to a dummy regulator. It
-> is listed because it is one of the three supplies these sensors normally take.
-> 
-> A working camera also needs an ipu-bridge entry for OVTID858, separately.
+> Changes in v2:
+>   - Use sizeof(b1_reflist[0]) * builder->num_valid for the memcmp() size =
+to
+>     match the style of the memcpy() calls in the same function.
 > ---
-> --- a/drivers/media/i2c/ov13858.c
-> +++ b/drivers/media/i2c/ov13858.c
-> @@ -3,9 +3,12 @@
->  
->  #include <linux/acpi.h>
->  #include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/gpio/consumer.h>
->  #include <linux/i2c.h>
->  #include <linux/module.h>
->  #include <linux/pm_runtime.h>
-> +#include <linux/regulator/consumer.h>
->  #include <media/v4l2-ctrls.h>
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-event.h>
-> @@ -1028,9 +1031,17 @@
+>  drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-cor=
+e/v4l2-h264.c
+> index c00197d095e7..e2b7dee8ea14 100644
+> --- a/drivers/media/v4l2-core/v4l2-h264.c
+> +++ b/drivers/media/v4l2-core/v4l2-h264.c
+> @@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_re=
+flist_builder *builder,
 >  	}
->  };
->  
-> +static const char * const ov13858_supply_names[] = {
-> +	"dovdd",	/* Digital I/O power */
-> +	"avdd",		/* Analog power */
-> +	"dvdd",		/* Digital core power */
-> +};
-> +
->  struct ov13858 {
->  	struct device *dev;
->  	struct clk *clk;
-> +	struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
-> +	struct gpio_desc *reset_gpio;
->  
->  	struct v4l2_subdev sd;
->  	struct media_pad pad;
-> @@ -1653,8 +1664,54 @@
->  {
->  	v4l2_ctrl_handler_free(ov13858->sd.ctrl_handler);
->  	mutex_destroy(&ov13858->mutex);
-> +}
-> +
-> +static int ov13858_power_on(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ov13858 *ov13858 = to_ov13858(sd);
-> +	int ret;
-> +
-> +	ret = regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
+> =20
+>  	if (builder->num_valid > 1 &&
+> -	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
+> +	    !memcmp(b1_reflist, b0_reflist,
+> +			sizeof(b1_reflist[0]) * builder->num_valid)))
 
-Please wrap lines over 80 unless there's a specific reason to do otherwise.
+I don't build test my suggestions, I expect submitter to do that before sen=
+ding.
+There is too many closing parathensis here.
 
-> +	if (ret) {
-> +		dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret = clk_prepare_enable(ov13858->clk);
-> +	if (ret) {
-> +		dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
-> +		regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
-> +		return ret;
-> +	}
-> +
-> +	if (ov13858->reset_gpio) {
-> +		/* Hold reset for at least 1 ms on a back to back off-on */
-> +		fsleep(1000);
-> +		gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
-> +	}
-> +
-> +	/* t4: 8192 XVCLK cycles after reset is released, before the first I2C */
-> +	fsleep(5000);
-> +
-> +	return 0;
->  }
->  
-> +static int ov13858_power_off(struct device *dev)
-> +{
-> +	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-> +	struct ov13858 *ov13858 = to_ov13858(sd);
-> +
-> +	gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
-> +	regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->supplies);
-> +	clk_disable_unprepare(ov13858->clk);
-> +
-> +	return 0;
-> +}
-> +
-> +static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
-> +				 ov13858_power_on, NULL);
-> +
->  static int ov13858_probe(struct i2c_client *client)
->  {
->  	struct ov13858 *ov13858;
-> @@ -1678,14 +1735,34 @@
->  				     "external clock %lu is not supported\n",
->  				     freq);
->  
-> +	for (unsigned int i = 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
-> +		ov13858->supplies[i].supply = ov13858_supply_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply_names),
-> +				      ov13858->supplies);
-> +	if (ret)
-> +		return dev_err_probe(ov13858->dev, ret,
-> +				     "failed to get regulators\n");
-> +
-> +	ov13858->reset_gpio = devm_gpiod_get_optional(ov13858->dev, "reset",
-> +						      GPIOD_OUT_HIGH);
-> +	if (IS_ERR(ov13858->reset_gpio))
-> +		return dev_err_probe(ov13858->dev,
-> +				     PTR_ERR(ov13858->reset_gpio),
-> +				     "failed to get reset GPIO\n");
-> +
->  	/* Initialize subdev */
->  	v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
->  
-> +	ret = ov13858_power_on(ov13858->dev);
-> +	if (ret)
-> +		return ret;
-> +
->  	/* Check module identity */
->  	ret = ov13858_identify_module(ov13858);
->  	if (ret) {
->  		dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
-> -		return ret;
-> +		goto error_power_off;
->  	}
->  
->  	/* Set default mode to max resolution */
-> @@ -1693,7 +1770,7 @@
->  
->  	ret = ov13858_init_controls(ov13858);
->  	if (ret)
-> -		return ret;
-> +		goto error_power_off;
->  
->  	/* Initialize subdev */
->  	ov13858->sd.internal_ops = &ov13858_internal_ops;
-> @@ -1729,8 +1806,10 @@
->  
->  error_handler_free:
->  	ov13858_free_controls(ov13858);
-> -	dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
->  
-> +error_power_off:
-> +	ov13858_power_off(ov13858->dev);
-> +
->  	return ret;
->  }
->  
-> @@ -1744,11 +1823,14 @@
->  	ov13858_free_controls(ov13858);
->  
->  	pm_runtime_disable(ov13858->dev);
-> +	if (!pm_runtime_status_suspended(ov13858->dev))
-> +		ov13858_power_off(ov13858->dev);
-> +	pm_runtime_set_suspended(ov13858->dev);
->  }
->  
->  static const struct i2c_device_id ov13858_id_table[] = {
-> -	{ .name = "ov13858" },
-> -	{ }
-> +	{ "ov13858" },
-> +	{}
+Nicolas
 
-This is an unrelated change (and not preferred either).
+>  		swap(b1_reflist[0], b1_reflist[1]);
+> =20
+>  	print_ref_list_b(builder, b0_reflist, 0);
 
->  };
->  
->  MODULE_DEVICE_TABLE(i2c, ov13858_id_table);
-> @@ -1766,6 +1848,7 @@
->  	.driver = {
->  		.name = "ov13858",
->  		.acpi_match_table = ACPI_PTR(ov13858_acpi_ids),
-> +		.pm = pm_ptr(&ov13858_pm_ops),
->  	},
->  	.probe = ov13858_probe,
->  	.remove = ov13858_remove,
-> 
+--=-myHWYkoGcoXFvyChDgSr
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
 
--- 
-Kind regards,
+-----BEGIN PGP SIGNATURE-----
 
-Sakari Ailus
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCapV5AwAKCRDZQZRRKWBy
+9BnGAP4xfqnKnsdRIWBBLNoiynYwVZ1Y0605OyyLbR6tvCL7BgEAhp/UiMQUvNUp
+wwyQNZ9VJKMA7LbDRvEsuLpghk3g2wk=
+=cpK9
+-----END PGP SIGNATURE-----
+
+--=-myHWYkoGcoXFvyChDgSr--
