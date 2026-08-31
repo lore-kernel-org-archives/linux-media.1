@@ -1,230 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A29124B3386;
-	Mon, 31 Aug 2026 13:51:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5907B483807
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 14:03:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788184317; cv=none; b=bOEssghX7gCVkRxrA40UDpTZRLsxCqO/WHzvoRjP7uV7w0Gvh2K1nR+3Ane8Tc5xsDQgLqL/3W8D++wiqxIKkjgISG4cYESA48neQMpHcU5A50LmN4qV+c/Z9086B66u3J/paYchZLppTTdj41lKHHJc6MsstZyWhszgMtpLXYA=
+	t=1788184991; cv=none; b=USt8RkAdCU81Lwbh47mtsdbeW9WBpjlH1VbO5KHeTuhnPELvsACrEWmkS5RX/HdSjS2+/nVTOkfP3FkormC8qa90vdp/LbxWrGPeBc9Hgvl/7JhRyXNPXKSDE1Lgk5lmGfW5rQ9fRS/gVzxzdr08rsCtdMmqYyDYAaH2n3nEcX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788184317; c=relaxed/simple;
-	bh=qcgBm+sZ/aRqxDn1lIs2mulWQFAofCqCXL0gbbzaSx0=;
+	s=arc-20240116; t=1788184991; c=relaxed/simple;
+	bh=uBRstAJdzOQ6fCXenmU9zLfDCyFOq7Yo1hdroUnVRwo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WY2IV9WRbtjuwKEAH0+T0B07NKVn4b43VbHvIja54aXKjgd5lA0d/DO+DspFtKVwQyE49O99AxkqP1LWLAcpBBmVI++I67C6YxKHzjLclc+200H+30HK2hGmmik6yYvoST0ap4WpNl+z7Qj0bsGvFs0AgIEUL04Ezoe+S+qqFnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYUAt5fA; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=O3umh8RAru9U07lDNchWvysfgv1UnbxD/Acs8uaLpDwy/NtVg7m556el4dG/ZIQgkd+fmWBq3GiUc7xLz1ODhMg1AjZzZiKKL8Cjis3jrRt4KH2m0jWhkEt0CQg+hpZTjiZgyeOLYy40AxSEaOrCl5sd2b4rSiRAkEqxWG3mgcc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PlId7v5X; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYUAt5fA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BFDF1F00ACF;
-	Mon, 31 Aug 2026 13:51:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788184315;
-	bh=oksyoPLx2IJnrxnVUCH6kEX3pzGvoF4dyUg4g4ZiLCo=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AYUAt5fAy/UmqVZpIC/AsnR8eibfhQ4kY9ikcy1JxJRNNaOzX7DDwztaYHsI3LVDE
-	 Q2HIyyMlml2++EJovKLJztl3K5R+e4buSqpnCh4m2pIGtrT6EJE1o1ApjAiW/IhYeX
-	 71cTLtyGqVY881Er9yZg33faWnF35LHilUT4dFcuUN3WSygn8dL0twWTR/eK7G8CTl
-	 CoIgFdR2N60UQ5mhMXlbOyFwaz0w6wm90IdOGP+h0a8QJWafa89SxntLpQ4YB9Trvs
-	 JNbiTXdNMEAw/Ntp4rwM6pBX+uSjSkCVl670H6fT6zE4QOg1yVFCTCYGBMfor7joyq
-	 bwcVFjDZGuABA==
-From: Sasha Levin <sashal@kernel.org>
-To: patches@lists.linux.dev,
-	stable@vger.kernel.org
-Cc: Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Sasha Levin <sashal@kernel.org>,
-	mchehab@kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PlId7v5X"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49954b88fffso24336135e9.0
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 07:03:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788184988; x=1788789788; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rjSPBLWPdLhA0verlG4+qAuqvJiAKOz1NhqEAjoTdrA=;
+        b=PlId7v5X25NxUwNZhHozDEs/LKgChXZrsR9iC67y4eIHDrdtIpdVgk6uHRd2x0v9k9
+         rvShPjGzIkG8yZQIYp5JT3DiBYnUlRowjY8/2eWAKLcvKxNMGIiWroXY4l1oiMAGlb6T
+         u0mMg6IpEwpW5D5tg+fdEZFuzRDfm8d7UhB6fH0J8HOHS4Drgz+rOc3vVp48zHboUKBs
+         oFBDnSx1V/MJijQm7W0L/f5tvdVV1Oofq/785LkGit9dAktYQIa59UUzQ8YbGw0adDBY
+         STXKBrNBOHZfBjLgJtF12FSbWZmTNZ+RVxmrOghnyfwICwlLgE0s2A1ggqcit3iElDRu
+         4yCA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788184988; x=1788789788;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rjSPBLWPdLhA0verlG4+qAuqvJiAKOz1NhqEAjoTdrA=;
+        b=LWySTxfoGYL2iIDmxvsjfnhQipJ3uZDBInL367zLUYNQxNBr8PGl0V+8rw9TvvDTaz
+         00BSz6bwHEXnEmYIfZrmQStX/tkX7HqC+j0UEGaBRkPOHUk92+8dS3jf0SVK80PvyRX1
+         WWCtTUlk/9Oo69ol46E3RwQmVWSycsXWh8l571q1xNwPv7RPlkNwqVQsoG2bsOCjNZLc
+         TA+dHl25qTtrA6WrIutPo0tT2AQJSL+WwUPUdKyEqYu+v5D1Z7aVHapxDfwT+CV6juSu
+         8BwPLa0NmTwxNQQLiLUnmCNVz0tbGrQBEEEqZZd62eQt6Df1qO/g7SP76IVhpbN/OmTz
+         dU+A==
+X-Forwarded-Encrypted: i=1; AHgh+RrWki1PCki4hZ58NDyo/kSce1yphw/8nAxUZg1JXMAZEv0w/gSw1U3VYkOMYPQTClcSmhACZY0GH0wiLg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kMAd11Fk+HxPq2RyQUxHlz5V5+M+Cpa2x/Ikp9NUlD2bM83O1X
+	KXCx858LXw531OsuWIoCAMONcKeWQjNRZTIrNkTY+70DdsoVymx/7ow=
+X-Gm-Gg: AR+sD11hxEi2lskLPaafhFnzP4Kpk8KWOKS2gyEuN8PHOvA6qoMWFq2oT9IPrVy+lKJ
+	oEdA5XfRv4JlW4YMI7xHa40aWrVZgAU0hRfLyHAlfi0Jjl34EZeL01PpakI0UHlIgR1QO+glSAI
+	ocQVbznFDH+yC0DRv/bfCkJ2uJXnmwAR43XPH7RS6uRQ30gSuDrYRQGn0EudFX0eLa9IQ8rVyXS
+	PjZcBvsFasqSI/TXTmo9MHTwBelbItv/xVqPxtCjf6codgwcJQjtxT25zjJKPBf2JWI5i+5ebW5
+	w0lhdT26dVTFYVYiVRN3pzC8haiTA0uvZvADlL++a5t0IScDt1pXM8In1AqSwiX14A6RJsXNs3S
+	8XRithDpniilDxJ9TBmZywbHqBJgnKc+o9lQxt36AbbPgcqvPhlT7jH++THZ45ihHRB/9aE9FZn
+	jOc6V2ganB/FSDsWit4KqGJ6XXHNLnxfLY3JuEfkz46HGxonSnIC1+wxwsQDG3LtGdK6mjrgbtS
+	FY91hmXesvp3KWx9k8q9T4k0WnbKWBDZ8raPHOgRbdxvdP2TFmsw7Q=
+X-Received: by 2002:a05:600c:4e8d:b0:49c:dada:f581 with SMTP id 5b1f17b1804b1-49cdadaf6c7mr15081095e9.0.1788184987289;
+        Mon, 31 Aug 2026 07:03:07 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cca3e642dsm173851415e9.2.2026.08.31.07.03.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 07:03:06 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18] media: qcom: camss: vfe-340: Proper client handling
-Date: Mon, 31 Aug 2026 09:30:47 -0400
-Message-ID: <20260831133314.4125787-619-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
-References: <20260831133314.4125787-1-sashal@kernel.org>
+	linux-kernel@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: [PATCH v2 0/2] media: ipu-bridge: survive module unload and reuse the software nodes on rebind
+Date: Mon, 31 Aug 2026 16:03:01 +0200
+Message-ID: <20260831140304.45940-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831094257.29398-1-dmanresa@gmail.com>
+References: <20260831094257.29398-1-dmanresa@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-stable: review
-X-Patchwork-Hint: Ignore
-X-stable-base: Linux 6.18.48
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Hello,
 
-[ Upstream commit 880a3e40337e5ddf18ab8d8e07fe963de8789cbf ]
+v2 of the ipu-bridge rebind series, addressing Sakari's review of v2/2:
 
-We need to properly map camss WM index to our internal WM client
-instance. Today we only support RDI interfaces with the RDI_WM
-macro, introduce a __wm_to_client helper to support any interface.
+- shortened the 2/2 commit message (dropped the cross-reference to 1/2
+  and the IVSC/VCM elaboration);
+- dev_info() -> dev_dbg() on the reuse path;
+- replaced the free-text AI note with the Assisted-by: tag per
+  Documentation/process/coding-assistants.rst, in both patches.
 
-Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Signed-off-by: Bryan O'Donoghue <bod@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
+No code changes other than the log level. The v1 testing stands: on a
+Surface Pro 7+ (IPU6, OV5693 + OV8865 + OV7251) the PCI remove ->
+module unload -> rescan -> modprobe sequence, fatal today (-EEXIST),
+completes cleanly with the series - twice in a row - with all three
+cameras streaming after each rebind. (The same sequence with all sensor
+sub-device drivers unbound first fails identically without the series,
+as reported in the parent thread.)
 
-LLM Generated explanations, may be completely bogus:
+Thanks,
+D. Manresa
 
-The background searches finished and line up with the earlier analysis:
+D. Manresa (2):
+  media: ipu-bridge: don't reference the module image from software
+    nodes
+  media: ipu-bridge: reuse the software nodes on rebind
 
-- **`git log --grep="Proper client handling"`** — no matches in this
-  tree, so that commit isn’t in v6.18.44 yet.
-- **vfe-340 history** — only the initial TFE-340 bring-up
-  (`acf8d084699e1`) plus a small header fix (`76d2d8f7b6348`); related
-  CSID 340 fixes are present, but not this WM/client-mapping fix.
+ drivers/media/pci/intel/ipu-bridge.c | 38 ++++++++++++++++++++++++++---
+ include/media/ipu-bridge.h           |  9 +++++++++
+ 2 files changed, 44 insertions(+), 3 deletions(-)
 
-That supports the **YES** verdict: the bug is present on QCM2290 PIX
-capture in this tree, and the fix still needs to be backported.
-
- .../media/platform/qcom/camss/camss-vfe-340.c | 84 ++++++++++---------
- 1 file changed, 43 insertions(+), 41 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss-vfe-340.c b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-index 30d7630b3e8b3..d129b0d3a6edb 100644
---- a/drivers/media/platform/qcom/camss/camss-vfe-340.c
-+++ b/drivers/media/platform/qcom/camss/camss-vfe-340.c
-@@ -69,24 +69,19 @@
- #define TFE_BUS_FRAMEDROP_CFG_0(c)			BUS_REG(0x238 + (c) * 0x100)
- #define TFE_BUS_FRAMEDROP_CFG_1(c)			BUS_REG(0x23c + (c) * 0x100)
- 
--/*
-- * TODO: differentiate the port id based on requested type of RDI, BHIST etc
-- *
-- * TFE write master IDs (clients)
-- *
-- * BAYER		0
-- * IDEAL_RAW		1
-- * STATS_TINTLESS_BG	2
-- * STATS_BHIST		3
-- * STATS_AWB_BG		4
-- * STATS_AEC_BG		5
-- * STATS_BAF		6
-- * RDI0			7
-- * RDI1			8
-- * RDI2			9
-- */
--#define RDI_WM(n)		(7 + (n))
--#define TFE_WM_NUM		10
-+enum tfe_client {
-+	TFE_CLI_BAYER,
-+	TFE_CLI_IDEAL_RAW,
-+	TFE_CLI_STATS_TINTLESS_BG,
-+	TFE_CLI_STATS_BHIST,
-+	TFE_CLI_STATS_AWB_BG,
-+	TFE_CLI_STATS_AEC_BG,
-+	TFE_CLI_STATS_BAF,
-+	TFE_CLI_RDI0,
-+	TFE_CLI_RDI1,
-+	TFE_CLI_RDI2,
-+	TFE_CLI_NUM
-+};
- 
- enum tfe_iface {
- 	TFE_IFACE_PIX,
-@@ -108,6 +103,13 @@ enum tfe_subgroups {
- 	TFE_SUBGROUP_NUM
- };
- 
-+static enum tfe_client tfe_wm_client_map[VFE_LINE_NUM_MAX] = {
-+	[VFE_LINE_RDI0] = TFE_CLI_RDI0,
-+	[VFE_LINE_RDI1] = TFE_CLI_RDI1,
-+	[VFE_LINE_RDI2] = TFE_CLI_RDI2,
-+	[VFE_LINE_PIX] = TFE_CLI_BAYER,
-+};
-+
- static enum tfe_iface tfe_line_iface_map[VFE_LINE_NUM_MAX] = {
- 	[VFE_LINE_RDI0] = TFE_IFACE_RDI0,
- 	[VFE_LINE_RDI1] = TFE_IFACE_RDI1,
-@@ -209,10 +211,10 @@ static irqreturn_t vfe_isr(int irq, void *dev)
- 	status = readl_relaxed(vfe->base + TFE_BUS_OVERFLOW_STATUS);
- 	if (status) {
- 		writel_relaxed(status, vfe->base + TFE_BUS_STATUS_CLEAR);
--		for (i = 0; i < TFE_WM_NUM; i++) {
-+		for (i = 0; i < TFE_CLI_NUM; i++) {
- 			if (status & BIT(i))
- 				dev_err_ratelimited(vfe->camss->dev,
--						    "VFE%u: bus overflow for wm %u\n",
-+						    "VFE%u: bus overflow for client %u\n",
- 						    vfe->id, i);
- 		}
- 	}
-@@ -235,49 +237,49 @@ static void vfe_enable_irq(struct vfe_device *vfe)
- 	       TFE_BUS_IRQ_MASK_0_IMG_VIOL, vfe->base + TFE_BUS_IRQ_MASK_0);
- }
- 
--static void vfe_wm_update(struct vfe_device *vfe, u8 rdi, u32 addr,
-+static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
- 			  struct vfe_line *line)
- {
--	u8 wm = RDI_WM(rdi);
-+	u8 client = tfe_wm_client_map[wm];
- 
--	writel_relaxed(addr, vfe->base + TFE_BUS_IMAGE_ADDR(wm));
-+	writel_relaxed(addr, vfe->base + TFE_BUS_IMAGE_ADDR(client));
- }
- 
--static void vfe_wm_start(struct vfe_device *vfe, u8 rdi, struct vfe_line *line)
-+static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
- {
- 	struct v4l2_pix_format_mplane *pix = &line->video_out.active_fmt.fmt.pix_mp;
- 	u32 stride = pix->plane_fmt[0].bytesperline;
--	u8 wm = RDI_WM(rdi);
-+	u8 client = tfe_wm_client_map[wm];
- 
- 	/* Configuration for plain RDI frames */
--	writel_relaxed(TFE_BUS_IMAGE_CFG_0_DEFAULT, vfe->base + TFE_BUS_IMAGE_CFG_0(wm));
--	writel_relaxed(0u, vfe->base + TFE_BUS_IMAGE_CFG_1(wm));
--	writel_relaxed(TFE_BUS_IMAGE_CFG_2_DEFAULT, vfe->base + TFE_BUS_IMAGE_CFG_2(wm));
--	writel_relaxed(stride * pix->height, vfe->base + TFE_BUS_FRAME_INCR(wm));
--	writel_relaxed(TFE_BUS_PACKER_CFG_FMT_PLAIN64, vfe->base + TFE_BUS_PACKER_CFG(wm));
-+	writel_relaxed(TFE_BUS_IMAGE_CFG_0_DEFAULT, vfe->base + TFE_BUS_IMAGE_CFG_0(client));
-+	writel_relaxed(0u, vfe->base + TFE_BUS_IMAGE_CFG_1(client));
-+	writel_relaxed(TFE_BUS_IMAGE_CFG_2_DEFAULT, vfe->base + TFE_BUS_IMAGE_CFG_2(client));
-+	writel_relaxed(stride * pix->height, vfe->base + TFE_BUS_FRAME_INCR(client));
-+	writel_relaxed(TFE_BUS_PACKER_CFG_FMT_PLAIN64, vfe->base + TFE_BUS_PACKER_CFG(client));
- 
- 	/* No dropped frames, one irq per frame */
--	writel_relaxed(0, vfe->base + TFE_BUS_FRAMEDROP_CFG_0(wm));
--	writel_relaxed(1, vfe->base + TFE_BUS_FRAMEDROP_CFG_1(wm));
--	writel_relaxed(0, vfe->base + TFE_BUS_IRQ_SUBSAMPLE_CFG_0(wm));
--	writel_relaxed(1, vfe->base + TFE_BUS_IRQ_SUBSAMPLE_CFG_1(wm));
-+	writel_relaxed(0, vfe->base + TFE_BUS_FRAMEDROP_CFG_0(client));
-+	writel_relaxed(1, vfe->base + TFE_BUS_FRAMEDROP_CFG_1(client));
-+	writel_relaxed(0, vfe->base + TFE_BUS_IRQ_SUBSAMPLE_CFG_0(client));
-+	writel_relaxed(1, vfe->base + TFE_BUS_IRQ_SUBSAMPLE_CFG_1(client));
- 
- 	vfe_enable_irq(vfe);
- 
- 	writel(TFE_BUS_CLIENT_CFG_EN | TFE_BUS_CLIENT_CFG_MODE_FRAME,
--	       vfe->base + TFE_BUS_CLIENT_CFG(wm));
-+	       vfe->base + TFE_BUS_CLIENT_CFG(client));
- 
--	dev_dbg(vfe->camss->dev, "VFE%u: Started RDI%u width %u height %u stride %u\n",
--		vfe->id, rdi, pix->width, pix->height, stride);
-+	dev_dbg(vfe->camss->dev, "VFE%u: Started client %u width %u height %u stride %u\n",
-+		vfe->id, client, pix->width, pix->height, client);
- }
- 
--static void vfe_wm_stop(struct vfe_device *vfe, u8 rdi)
-+static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
- {
--	u8 wm = RDI_WM(rdi);
-+	u8 client = tfe_wm_client_map[wm];
- 
--	writel(0, vfe->base + TFE_BUS_CLIENT_CFG(wm));
-+	writel(0, vfe->base + TFE_BUS_CLIENT_CFG(client));
- 
--	dev_dbg(vfe->camss->dev, "VFE%u: Stopped RDI%u\n", vfe->id, rdi);
-+	dev_dbg(vfe->camss->dev, "VFE%u: Stopped client %u\n", vfe->id, client);
- }
- 
- static const struct camss_video_ops vfe_video_ops_520 = {
--- 
-2.53.0
-
+--
+2.43.0
