@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF0B949CF34;
-	Mon, 31 Aug 2026 13:39:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89CB849F12D;
+	Mon, 31 Aug 2026 13:41:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183602; cv=none; b=ZoJ6ktY1CUpQBKJnesq13t16gYT8I2EZJllB1QLhYXmocFJBxltz9SRVnbhxd6LWQNpRiI4O0W0TGQpLnD4Q0hkDjm/n4wxuh0uKKInXIMeto31FJT4oitky7ALxB9tPaQk7e9J1r5tZfEDOE1EuTisdGN9DQGG5VQFh3OT1qw0=
+	t=1788183663; cv=none; b=h88FLestt6DC88XmxUuaAoBnIOf63lb0HXx4KA5Z6sHYBrhkWzcpZfwKe/2Uu8qa0udhIbOEPTL/iIGdY2V2ZsVf9FNxHKddo/aojK+1sHKZM9U2Di+8YHoXApZbtgKG7RX7V4R7+LQbmhr8ITRIiSfxPJrG3DarENMwlUCB05w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183602; c=relaxed/simple;
-	bh=dK33KCp9ImIgVqbJA1QhaoiVlEcLdSU8DuapOzrZ3KM=;
+	s=arc-20240116; t=1788183663; c=relaxed/simple;
+	bh=Rv3qjL8sceuueb6MHetqiJvkM4+O0Bgr0JPgj6gn/Fk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oynnzoNaNEqe5BNJ+MmIkKSsarqPfolYlg0c9sivThWbLoml7L28H6dKuqeuH4dB9VKrvpeHVKqJkaqlTqnft/LvclhFCWeWqbPkYdOfyHIkvXiFn9ZN808WT1srynpruaLmvNN4mFazzsIzep8GbuevQOFghpWzZbJPhpOsxjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HayIjnqd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=KqVG6vVQ54I06XJd6B6rwNFGGQYTzju9p+KMsU2IU2bTlEfnSTM+01hFyh7ziKMHjP+SV2UKY9htU9Yekb2905vDCPUjv7SmWRL98dfPiFhW0L12HtDl0LlMZh/BElzQAJmYDppkKc+R5cyPOGYkQX7EJ4PYiyxam+ODF1YP0WQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YD4Ouxkj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HayIjnqd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B53241F00A3D;
-	Mon, 31 Aug 2026 13:39:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YD4Ouxkj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D53D1F00ADE;
+	Mon, 31 Aug 2026 13:41:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183599;
-	bh=BQEyAkLQQ9u0yZwKj9QEn6aiwa3AjXqE03qSoylSx2Q=;
+	s=k20260515; t=1788183661;
+	bh=i0ZpJkYJD921bgjORyjmDdYBtyr54hMFY/R9ZuVo8BA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HayIjnqd7E5cC9QhjIiY9GPuP9pQLi9s6Z7vroVYCMEfQexMpUhgMm+yaFbmAQtTf
-	 2kL60HQi1DNM/o17yjjOOhw1UtOdauW7As4f2yoPrKGhECBehn7lDhz4gucktyWrd0
-	 zz8ZirCFDPWpFONeMOeHFG9Hng3Eus+ofn8sT20JB6cv9jDSph/8zxqUBXPJ1SmBvD
-	 /D6HEam4E26j0N6lfx51p2yO5XPfu+qMuWlG3O3CGowUEakdg+2UZ4SD9yG8SERSdl
-	 4mXUTyjTTB5Mh+zv8/rTbxXIOp7TcgmEw0fNtJNtND8iJ1T6lQEN37/jv8OcVh4AVZ
-	 +Q9hn/z9+aaOw==
+	b=YD4OuxkjK4vT4DHX/aryyZ1HFkW3N4oal3WESEISSK0omY6cTxDU+y+ygCot+c1O6
+	 7uWkIHNXmzqf2mQzJizSwRFiZCbCo4MouVF933FIEqy4Tak6OT34Rn1jWVYrv2rt/o
+	 wT1YvrdXMf2+f7JGw/G2MHoWwAQbrAMQw211VQxv1h3VYYZFFQE0jY2TgXgFvbL0dw
+	 m65Qc6xEsJVDr98V1XWTfv1oXnlEXicIX+xX3MFOtytiIa1UVtqiypx7dQ2XhZbhau
+	 /TAw+F4/xM86gHONIMNMfqCboywgZSB0zzgs6da1jy/3eLyF4O5pppeA7OQRiSI1iv
+	 3Hl0Vc9nDt7BQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Alessandro Baldi <baldovic@virgilio.it>,
-	Sean Young <sean@mess.org>,
+Cc: Zhaoyang Yu <2426767509@qq.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: imon: Add iMON VFD HID OEM v1.2 key mappings
-Date: Mon, 31 Aug 2026 09:23:39 -0400
-Message-ID: <20260831133314.4125787-191-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-5.10] media: dm1105: fix missing error check for dma_alloc_coherent
+Date: Mon, 31 Aug 2026 09:24:16 -0400
+Message-ID: <20260831133314.4125787-228-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,399 +53,342 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Alessandro Baldi <baldovic@virgilio.it>
+From: Zhaoyang Yu <2426767509@qq.com>
 
-[ Upstream commit d97d13c24d7893abcfb80d38630ce74daaa1434c ]
+[ Upstream commit 3eaac9e02d8591d3c790db572ef1c8fa5a841fdb ]
 
-Add Vol+/Vol-/Mute panel button mappings for iMON VFD HID OEM v1.2.
-This version differs in the codes that generate the
-KEY_VOLUMEUP, KEY_VOLUMEDOWN and KEY_MUTE events.
+The return value of dm1105_dma_map(), which handles DMA memory allocation,
+is ignored in dm1105_hw_init(). If dma_alloc_coherent() fails, the driver
+will proceed using a NULL pointer for DMA transfers, leading to a kernel
+oops or invalid hardware access.
 
-Signed-off-by: Alessandro Baldi <baldovic@virgilio.it>
-Signed-off-by: Sean Young <sean@mess.org>
+Fix this by checking the return value and propagating -ENOMEM on failure.
+
+Signed-off-by: Zhaoyang Yu <2426767509@qq.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-Connection lost, reconnecting to https://agentn.us.api5.cursor.sh
-(attempt 1)...
-Retry attempt 1...
-# Stable Backport Analysis: media: imon: Add iMON VFD HID OEM v1.2 key
-mappings
+# Stable Backport Analysis: `media: dm1105: fix missing error check for
+dma_alloc_coherent`
 
-**Local tree:** Linux 6.18.43 (`git describe HEAD` →
-`v6.18.43-1-gc7f0dac02d232`)
+**Local tree:** `stable/linux-6.18.y` at `v6.18.43` (`6.18.43`)
+**Upstream commit:** `3eaac9e02d8591d3c790db572ef1c8fa5a841fdb` (not in
+this tree yet)
+**Candidate on autosel:** `c01c5e056e60f`
 
 ---
 
 ## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 1.1: PARSE THE SUBJECT LINE
-**Record:** `[media: imon]` `[Add]` — Add key mappings for iMON VFD HID
-OEM v1.2 panel buttons (Vol+/Vol-/Mute).
+**Step 1.1 – Subject line**
+Record: `[media/dm1105] [fix] missing error check for dma_alloc_coherent
+in dm1105_hw_init()`
 
-### Step 1.2: PARSE ALL COMMIT MESSAGE TAGS
-**Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org:** — not present (expected)
-- **Signed-off-by:** Alessandro Baldi `<baldovic@virgilio.it>` (author)
-- **Signed-off-by:** Sean Young `<sean@mess.org>` (media subsystem
-  maintainer — strong quality signal)
+**Step 1.2 – Tags**
+Record:
+- `Signed-off-by: Zhaoyang Yu <2426767509@qq.com>` (author)
+- `Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>` (media
+  maintainer)
+- No `Fixes:`, `Reported-by:`, `Tested-by:`, `Reviewed-by:`, `Acked-
+  by:`, `Link:`, or `Cc: stable@vger.kernel.org`
+- Pipeline-added markers (`[Upstream commit ...]`, Sasha Levin SOB)
+  ignored per instructions
 
-No syzbot, no bugzilla links, no multiple reporters.
+**Step 1.3 – Body analysis**
+Record:
+- **Bug:** `dm1105_dma_map()` return value ignored in `dm1105_hw_init()`
+- **Symptom:** If `dma_alloc_coherent()` fails, driver continues with
+  NULL `ts_buf` → kernel oops or invalid hardware DMA access
+- **Fix:** Check return value, propagate `-ENOMEM`
+- **Root cause:** Missing error propagation on DMA buffer allocation
+  failure during hardware init
 
-### Step 1.3: ANALYZE THE COMMIT BODY TEXT
-**Record:**
-- **Bug:** iMON VFD HID OEM v1.2 firmware sends different hardware
-  scancodes for Vol+, Vol-, and Mute than other variants already mapped
-  in `imon_OEM_VFD`.
-- **Symptom:** Panel volume/mute buttons on v1.2 hardware produce no
-  useful input events (lookup returns `KEY_RESERVED`).
-- **Root cause:** Missing entries in the `imon_OEM_VFD.key_table` for
-  scancodes `0x0a`, `0x0b`, `0x0c` (with `0xffee` suffix applied at
-  lookup time).
-- **Version info:** Specific to "iMON VFD HID OEM v1.2" variant of USB
-  device `0x15c2:0x0036`.
-
-### Step 1.4: DETECT HIDDEN BUG FIXES
-**Record:** Not disguised as cleanup. This is an explicit hardware-
-variant key-mapping fix. Functionally equivalent to a hardware quirk:
-same USB ID, different firmware scanc## Phase 1: Commit Message
-Forensics
-
-### Step 1.1: Subject Line
-**Record:** `[media: imon]` `[Add]` — Add iMON VFD HID OEM v1.2 key
-mappings for Vol+/Vol-/Mute panel buttons.
-
-### Step 1.2: Commit Message Tags
-**Record:**
-- **Fixes:** — not present (expected for manual review)
-- **Reported-by:** — none
-- **Tested-by:** — none
-- **Reviewed-by:** — none
-- **Acked-by:** — none
-- **Link:** — none
-- **Cc: stable@vger.kernel.org** — none
-- **Signed-off-by:** Alessandro Baldi `<baldovic@virgilio.it>` (author)
-- **Signed-off-by:** Sean Young `<sean@mess.org>` (media maintainer;
-  pipeline Sasha Levin SOB ignored per instructions)
-
-Notable: maintainer sign-off from Sean Young, but no fuzzer report, user
-bug report, or explicit stable nomination.
-
-### Step 1.3: Commit Body Analysis
-**Record:**
-- **Bug:** iMON VFD HID OEM v1.2 panel buttons send different hardware
-  codes for `KEY_VOLUMEUP`, `KEY_VOLUMEDOWN`, and `KEY_MUTE` than other
-  variants already mapped in `imon_OEM_VFD`.
-- **Symptom:** Volume+/Volume-/Mute panel buttons produce no useful
-  input events on v1.2 hardware.
-- **Root cause:** Missing entries in the `imon_OEM_VFD.key_table` for
-  the v1.2 scancodes (`0x0a`, `0x0b`, `0x0c` with `0xffee` suffix
-  pattern).
-- **Version info:** Targets a specific hardware/firmware variant (v1.2),
-  not a kernel regression.
-
-### Step 1.4: Hidden Bug Fix Detection
-**Record:** Not a disguised crash/leak/race fix. This is explicit
-hardware-variant keymap completion — functionally a hardware
-quirk/workaround for a device revision that uses different scancodes.
+**Step 1.4 – Hidden bug fix?**
+Record: No — explicitly labeled and described as a bug fix (missing
+error check → NULL pointer use).
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 2: DIFF ANALYSIS
 
-### Step 2.1: Change Inventory
-**Record:**
-- **File:** `drivers/media/rc/imon.c` (+4 lines including comment, +3
-  mapping entries)
-- **Function/structure:** `imon_OEM_VFD.key_table` static data only
-- **Scope:** Single-file, surgical data-table addition
+**Step 2.1 – Inventory**
+Record:
+- **File:** `drivers/media/pci/dm1105/dm1105.c` (+6 / -1 lines)
+- **Function modified:** `dm1105_hw_init()`
+- **Scope:** Single-file, surgical fix
 
-### Step 2.2: Code Flow Change
-**Record:**
-- **Before:** `imon_panel_key_lookup()` walks `imon_OEM_VFD.key_table`;
-  v1.2 Vol+/Vol-/Mute scancodes (`0x000000000a00ffee`,
-  `0x000000000b00ffee`, `0x000000000c00ffee`) match nothing → returns
-  `KEY_RESERVED`.
-- **After:** Those scancodes map to `KEY_VOLUMEUP`, `KEY_VOLUMEDOWN`,
-  `KEY_MUTE`.
-- **Path affected:** 8-byte panel button packets (`len == 8 && buf[7] ==
-  0xee`) on USB device `0x15c2:0x0036` using `imon_OEM_VFD`.
+**Step 2.2 – Code flow change**
+Record:
+- **Before:** `dm1105_dma_map(dev);` — return ignored; always `return 0`
+- **After:** `ret = dm1105_dma_map(dev); if (ret) return -ENOMEM;` —
+  failure aborts init
+- **Path:** Probe-time initialization error path (`dm1105_probe()` →
+  `dm1105_hw_init()`)
 
-### Step 2.3: Bug Mechanism
-**Record:** **Category:** Hardware quirk / incomplete keymap for
-hardware variant. **Mechanism:** Same USB ID and driver, but v1.2
-firmware emits different panel scancodes than existing table entries;
-unmatched codes are dropped as `KEY_RESERVED`.
+**Step 2.3 – Bug mechanism**
+Record:
+- **Category:** NULL pointer dereference / missing error-path handling
+- **Mechanism:** `dm1105_dma_map()` returns non-zero when
+  `dma_alloc_coherent()` returns NULL (`return !dev->ts_buf`). Without
+  the check, probe succeeds, IRQ/work handlers later dereference
+  `dev->ts_buf` (e.g. in `dm1105_dmx_buffer()` at lines 676–698)
 
-### Step 2.4: Fix Quality
-**Record:** Obviously correct pattern — mirrors existing volume/mute
-entries already in the same table. Minimal diff, no logic changes.
-**Regression risk:** Very low; only adds new lookup entries without
-altering existing mappings.
-
----
-
-## Phase 3: Git History Investigation
-
-### Step 3.1: Blame / Introduction
-**Record:** In this shallow 6.18.43 checkout (~50 commits),
-`imon_OEM_VFD` and its volume mappings are present at base commit
-`a112b91dd6349`. Full upstream introduction history is not available in
-this checkout. The **missing v1.2 mappings are confirmed absent** in the
-current tree.
-
-### Step 3.2: Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
-
-### Step 3.3: Related File History
-**Record:** `git log --oneline -20 -- drivers/media/rc/imon.c` shows
-only one commit in this shallow tree (`a112b91dd6349`), which is not
-informative for upstream history. No evidence this is part of a multi-
-patch series from local history.
-
-### Step 3.4: Author Context
-**Record:** No commits from Alessandro Baldi found in this checkout.
-Sean Young (Signed-off-by) is the media/RC maintainer — strong subsystem
-credibility signal.
-
-### Step 3.5: Dependencies
-**Record:** **Standalone.** No prerequisites; only adds rows to an
-existing table in existing driver code. No new structures or APIs
-required.
+**Step 2.4 – Fix quality**
+Record:
+- Obviously correct and minimal
+- Matches existing probe pattern (`if (ret < 0) goto err_pci_iounmap`)
+- On failure, probe goes to `err_pci_iounmap` without calling
+  `dm1105_hw_exit()` — correct, since no DMA buffer was allocated
+- Low regression risk
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig` requires `-c COMMITISH`; no commit hash was
-provided and subject-only search is unsupported. **Could not retrieve
-lore thread.**
+**Step 3.1 – Blame**
+Record: Buggy ignore of `dm1105_dma_map()` present at `dm1105_hw_init()`
+line 781 since file entry in this tree (`5d324e5159d9e`). Original
+driver commit `519a4bdcf822` (2008) had the identical pattern in
+`dm1105dvb_hw_init()` — bug present since driver inception.
 
-### Step 4.2: Reviewers
-**Record:** `b4 dig -w` not possible without commit hash. Sean Young SOB
-in commit message indicates maintainer involvement.
+**Step 3.2 – Fixes: tag**
+Record: N/A — no `Fixes:` tag. Bug introduced in original driver
+`519a4bdcf822` ("V4L/DVB (11984): Add support for yet another SDMC
+DM1105 based DVB-S card.").
 
-### Step 4.3: Bug Report
-**Record:** No `Reported-by:` or `Link:` tags. No external bug report
-verified.
+**Step 3.3 – Related file history**
+Record:
+- `08ddfd628a2db` — unrelated workqueue leak fix (already in 6.18.y, had
+  `Cc: stable`)
+- `e250b672d40a9` — rc subsystem race fix (indirect, different issue)
+- No prior fix for this DMA error-check bug in this tree
 
-### Step 4.4: Related Patches / Series
-**Record:** Appears standalone; no series indicators in subject or diff.
+**Step 3.4 – Author context**
+Record: Zhaoyang Yu submitted similar `dma_alloc_coherent()` error-check
+fixes (e.g. `pch_uart` on autosel). Hans Verkuil (media maintainer)
+committed upstream.
 
-### Step 4.5: Stable List History
-**Record:** Not searched (lore blocked by bot protection on fetch).
-Precedent exists for imon stable backports (e.g., 3.17-stable picked up
-imon RC protocol fix for broken remote functionality on `15c2:0034`).
-
----
-
-## Phase 5: Code Semantic Analysis
-
-### Step 5.1: Key Functions
-**Record:** Modified data: `imon_OEM_VFD`. Affected runtime functions:
-`imon_panel_key_lookup()`, called from `imon_incoming_packet()`; table
-also used by `imon_init_idev()` to register supported keys.
-
-### Step 5.2: Callers
-**Record:** `imon_panel_key_lookup()` called from
-`imon_incoming_packet()` when processing 8-byte panel packets (`buf[7]
-== 0xee`). Triggered by physical panel button presses on supported iMON
-USB devices during normal driver operation.
-
-### Step 5.3: Callees
-**Record:** Simple linear table scan; returns `KEY_RESERVED` on miss. No
-allocation, locking, or I/O in lookup itself.
-
-### Step 5.4: Reachability
-**Record:** **Userspace-reachable** via panel button input on
-`USB_DEVICE(0x15c2, 0x0036)` bound to `imon_OEM_VFD`. Common HTPC/media-
-center use case for this hardware.
-
-### Step 5.5: Similar Patterns
-**Record:** Same table already contains multiple variant-specific
-volume/mute mappings (standard OEM, MCE VFD `0xffdc`, knob values). v1.2
-entries follow established pattern.
+**Step 3.5 – Dependencies**
+Record: Standalone. b4 shows v1 was patch 7/7 of a series, but
+committed/applied v2 is a single independent patch. No prerequisite
+commits required; `dm1105_dma_map()` already returns `int` in this tree.
 
 ---
 
-## Phase 6: Cross-Reference Against Local Tree (6.18.43)
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 6.1: Buggy Code Present?
-**Record:** **YES.** Tree is `6.18.43` (`git describe`:
-`v6.18.43-1-gc7f0dac02d232`). `imon_OEM_VFD` exists at lines 267–310
-with volume mappings for other variants but **without** v1.2 entries
-(`0x0a/0x0b/0x0c`). USB ID `0x15c2:0x0036` → `imon_OEM_VFD` at line
-392–393.
+**Step 4.1 – Original discussion**
+Record:
+- `b4 dig -c 3eaac9e02d8591d3c790db572ef1c8fa5a841fdb` → https://patch.m
+  sgid.link/tencent_2F5A25B0AB50C4D77CFB3DDEA852BEBE6509@qq.com
+- v2 standalone patch (not a multi-patch dependency for backport)
+- No stable nominations, NAKs, or reviewer objections found in saved
+  mbox
 
-### Step 6.2: Backport Complications
-**Record:** **Clean apply expected.** Insertion point is clearly between
-existing OEM volume entries and MCE VFD section — matches current file
-layout exactly.
+**Step 4.2 – Reviewers**
+Record: CC'd to `mchehab@kernel.org`, `linux-media@vger.kernel.org`,
+`linux-kernel@vger.kernel.org`. Hans Verkuil committed upstream (strong
+maintainer endorsement).
 
-### Step 6.3: Related Fixes Already Present?
-**Record:** `grep` for `0x000000000a00ffee` and `OEM v1.2` — **not
-found**. Fix is not already in this tree.
+**Step 4.3 – Bug report**
+Record: N/A — no external bug report or syzbot link. Bug identified by
+code review.
 
----
+**Step 4.4 – Series context**
+Record: v1 was 7/7; v2 is standalone. This fix does not depend on
+patches 1–6.
 
-## Phase 7: Subsystem Context
-
-### Step 7.1: Subsystem / Criticality
-**Record:** `drivers/media/rc/imon.c` — media RC/input driver.
-**Criticality: PERIPHERAL** (niche HTPC front-panel hardware).
-
-### Step 7.2: Subsystem Activity
-**Record:** Mature, low-churn driver in this tree. imon support has been
-stable for many years; this is variant-specific table maintenance.
+**Step 4.5 – Stable list history**
+Record: Could not search lore stable archive (Anubis bot protection). No
+stable discussion found via b4 mbox.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
-### Step 8.1: Who Is Affected
-**Record:** Users of SoundGraph iMON OEM VFD (`15c2:0036`) with HID OEM
-**v1.2** firmware — specifically panel Vol+/Vol-/Mute buttons. Config:
-`CONFIG_RC_CORE` / imon USB driver.
+**Step 5.1 – Key functions**
+Record: `dm1105_hw_init()`, `dm1105_dma_map()`, `dm1105_set_dma_addr()`
 
-### Step 8.2: Trigger Conditions
-**Record:** Pressing panel volume/mute buttons on v1.2 hardware.
-**Common** for affected users every time they use those buttons.
-Unprivileged physical access; not a security vector.
+**Step 5.2 – Callers**
+Record: `dm1105_hw_init()` called only from `dm1105_probe()` (line
+1031). Probe already handles negative return via `goto err_pci_iounmap`.
 
-### Step 8.3: Failure Mode Severity
-**Record:** Unmapped keys → `KEY_RESERVED` → buttons do nothing.
-**Severity: LOW** — functional impairment only; no oops, hang,
-corruption, or security impact.
+**Step 5.3 – Callees**
+Record: `dm1105_dma_map()` → `dma_alloc_coherent()`; on success,
+`dm1105_set_dma_addr()` programs hardware with DMA address.
 
-### Step 8.4: Risk-Benefit
-**Record:**
-- **Benefit:** Restores basic panel functionality for v1.2 owners;
-  aligns with stable rules' explicit acceptance of **hardware quirk**
-  fixes.
-- **Risk:** Minimal — 3 table entries, no behavior change for existing
-  mappings.
-- **Ratio:** Moderate benefit for a small user population, very low
-  risk.
+**Step 5.4 – Reachability**
+Record: Triggered at PCI probe when `CONFIG_DVB_DM1105` is enabled and
+DM1105 hardware is present. DMA alloc failure possible under memory/CMA
+pressure. Without fix, probe succeeds and later IRQ →
+`dm1105_dmx_buffer()` NULL-dereferences `dev->ts_buf`.
+
+**Step 5.5 – Similar patterns**
+Record: Same long-standing bug pattern in original 2008 driver
+(`dm1105dvb_dma_map` return ignored). Author has submitted similar fixes
+elsewhere.
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 6: CROSS-REFERENCE AGAINST LOCAL TREE (6.18.y)
 
-### Step 9.1: Evidence Summary
+**Step 6.1 – Buggy code present?**
+Record: **YES** — current tree at lines 781–782 ignores
+`dm1105_dma_map()` return. Upstream fix `3eaac9e02d859` is **not** an
+ancestor of HEAD.
 
-**FOR backport:**
-- Fixes a real, user-visible hardware issue (non-working volume/mute
-  buttons)
-- Tiny, obviously correct, maintainer-signed
-- Fits stable rules' **hardware quirk** category
-  (`Documentation/process/stable-kernel-rules.rst`)
-- Same pattern as existing variant-specific entries in the same table
-- Applies cleanly to 6.18.43; driver and device ID already present
-- Zero regression risk for users without v1.2 hardware
+**Step 6.2 – Backport complications**
+Record: **Clean apply** — `git diff HEAD c01c5e056e60f` shows only the
+6-line hunk with no conflicts.
 
-**AGAINST backport:**
-- Not crash/security/corruption/deadlock
-- Niche hardware with small user base
-- No user/fuzzer bug report in commit message
-- Completes support for a variant rather than fixing a kernel regression
-- Mailing list review not verified (no commit hash for `b4 dig`)
+**Step 6.3 – Related fixes already present?**
+Record: No duplicate fix. Related `08ddfd628a2db` (workqueue leak) is
+separate.
 
-**Unresolved:** Original lore discussion and whether a user/distro filed
-a bug report.
+---
 
-### Step 9.2: Stable Rules Checklist
-1. Obviously correct and tested? **PASS** — standard keymap pattern;
-   maintainer SOB
-2. Fixes real bug affecting users? **PASS** — broken panel buttons on
-   v1.2 hardware
-3. Important issue? **PASS (borderline)** — hardware quirk per stable-
-   kernel-rules.rst; not crash-level but explicitly listed acceptable
-   category
-4. Small and contained? **PASS** — 3 entries, one file
-5. No new features/APIs? **PASS** — data-only quirk entries
-6. Can apply to local tree? **PASS** — code present, clean insertion
-   point
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 9.3: Exception Category
-**Record:** **Hardware quirk/workaround** — v1.2 firmware revision uses
-different panel scancodes for the same USB device already supported by
-`imon_OEM_VFD`.
+**Step 7.1 – Subsystem**
+Record: `drivers/media/pci/dm1105` — DVB media PCI driver.
+**Criticality: PERIPHERAL** (niche TV/DVB capture hardware).
 
-### Step 9.4: Decision Rationale
+**Step 7.2 – Activity**
+Record: Low churn in 6.18.y; driver is mature/legacy with occasional
+maintenance fixes.
 
-For **Linux 6.18.43**, the driver, device ID, and `imon_OEM_VFD` table
-all exist; v1.2 volume/mute scancodes are missing, so affected users'
-buttons are silently ignored. The fix is a minimal hardware-variant
-keymap addition — the same class of change stable trees routinely accept
-as hardware quirks. Severity is low (no stability/security impact), but
-benefit is clear for affected HTPC users and risk is negligible.
+---
+
+## PHASE 8: IMPACT AND RISK
+
+**Step 8.1 – Who is affected**
+Record: Users with SDMC DM1105-based DVB-S PCI cards and
+`CONFIG_DVB_DM1105` enabled (driver-specific, small population).
+
+**Step 8.2 – Trigger conditions**
+Record: `dma_alloc_coherent()` failure during probe (memory pressure,
+CMA exhaustion). Uncommon but realistic. Requires hardware present; not
+userspace-triggerable without the device.
+
+**Step 8.3 – Failure severity**
+Record: **HIGH** — kernel oops from NULL dereference in
+`dm1105_dmx_buffer()` when DMA interrupts fire; also possible invalid
+DMA programming via `dm1105_set_dma_addr()` with garbage/zero address.
+
+**Step 8.4 – Risk vs benefit**
+Record:
+- **Benefit:** Prevents probe-from-failure crash on affected hardware;
+  correct error propagation
+- **Risk:** Very low — 6 lines, no API/behavior change on success path
+- **Ratio:** Favorable for backport despite niche hardware
+
+---
+
+## PHASE 9: FINAL SYNTHESIS
+
+**Step 9.1 – Evidence summary**
+
+| FOR backport | AGAINST backport |
+|---|---|
+| Real NULL-deref bug since 2008 | Niche hardware, few users |
+| Kernel oops on failure path | DMA alloc failure is uncommon |
+| Tiny, obviously correct fix | No syzbot/user report |
+| Applies cleanly to 6.18.y | |
+| Maintainer (Hans Verkuil) signed off | |
+| Probe error path already wired | |
+
+**Unresolved:** No user crash reports; lore stable-thread search
+blocked.
+
+**Step 9.2 – Stable rules checklist**
+1. Obviously correct and tested? **PASS** — logic is trivial; maintainer
+   committed upstream
+2. Fixes real bug affecting users? **PASS** — NULL deref on DMA alloc
+   failure with DM1105 hardware
+3. Important issue? **PASS** — kernel oops (HIGH severity when
+   triggered)
+4. Small and contained? **PASS** — 6 lines, 1 file
+5. No new features/APIs? **PASS**
+6. Can apply to local tree? **PASS** — clean apply verified
+
+**Step 9.3 – Exception category**
+Record: N/A (standard bug fix, not quirk/ID/DT/build/doc exception).
+
+**Step 9.4 – Decision rationale**
+This is a textbook stable candidate: a long-standing missing error check
+that can cause a kernel oops when DMA allocation fails during probe. The
+fix is minimal, maintainer-reviewed, self-contained, and applies cleanly
+to the local 6.18.y tree where the buggy code is confirmed present.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body from provided commit message
-- **[Phase 1]** Confirmed no Reported-by/Fixes/Link/Cc: stable tags
-- **[Phase 2]** Diff: +3 keymap entries + comment in
-  `imon_OEM_VFD.key_table`
-- **[Phase 2]** Read `imon_panel_key_lookup()` at lines 1300–1316
-- **[Phase 2]** Read `imon_incoming_packet()` panel path at lines
-  1599–1602
-- **[Phase 3]** `git describe HEAD` → `v6.18.43-1-gc7f0dac02d232`;
-  Makefile → 6.18.43
-- **[Phase 3]** `git blame -L 267,310 drivers/media/rc/imon.c` — table
-  present (shallow history limits introduction date)
-- **[Phase 3]** `git log --grep` / `-S` searches — no candidate commit
-  in this tree
-- **[Phase 4]** `b4 dig` — failed (no commit hash provided; `-q` not
-  supported)
-- **[Phase 4]** lore.kernel.org fetch — blocked by bot protection
-- **[Phase 4]** Web search — found prior imon stable backport precedent
-  (3.17-stable RC protocol fix)
-- **[Phase 5]** `grep imon_OEM_VFD` — device `0x15c2:0x0036` uses this
-  table
-- **[Phase 5]** Traced call chain: panel button →
-  `imon_incoming_packet()` → `imon_panel_key_lookup()`
-- **[Phase 6]** Read `imon_OEM_VFD` at lines 267–310 — v1.2 mappings
-  absent
-- **[Phase 6]** `grep 0x000000000a00ffee` — not in tree
-- **[Phase 7]** Read `Documentation/process/stable-kernel-rules.rst` —
-  hardware quirk explicitly acceptable
-- **[Phase 8]** Confirmed failure mode is `KEY_RESERVED` (no crash) via
-  lookup code
-- **UNVERIFIED:** Original mailing list review thread; whether bug was
-  reported by users; exact kernel version that first introduced
-  `imon_OEM_VFD` (shallow clone)
+- [Phase 1] Parsed commit message and tags from `git show 3eaac9e02d859`
+  / `c01c5e056e60f`
+- [Phase 1] No Reported-by/syzbot/Fixes: tags found
+- [Phase 2] Read current `dm1105.c` lines 605–612, 669–698, 769–793,
+  1031–1033, 1160–1163
+- [Phase 2] Confirmed `dm1105_dma_map()` returns `!dev->ts_buf` (non-
+  zero on failure)
+- [Phase 2] Confirmed `dm1105_dmx_buffer()` dereferences `dev->ts_buf`
+  without NULL check
+- [Phase 3] `git describe HEAD` → `v6.18.43`; `make kernelversion` →
+  `6.18.43`
+- [Phase 3] `git blame` on hw_init/dma_map lines → present since
+  `5d324e5159d9e` in this file
+- [Phase 3] `git show 519a4bdcf822` → identical bug in original 2008
+  driver
+- [Phase 3] `git merge-base --is-ancestor 3eaac9e02d859 HEAD` → exit 1
+  (fix NOT in tree)
+- [Phase 4] `b4 dig -c 3eaac9e02d859` → lore URL found; v2 standalone
+  patch
+- [Phase 4] `b4 dig -a` → v2 only revision listed as matching
+- [Phase 4] `b4 dig -w` → mchehab, linux-media CC'd
+- [Phase 4] Saved mbox to `/tmp/dm1105_thread.mbox` — no stable
+  nomination or NAK found
+- [Phase 5] `grep dm1105_hw_init` → single caller in `dm1105_probe()`
+- [Phase 6] `git diff HEAD c01c5e056e60f` → clean 6-line apply
+- [Phase 6] Confirmed buggy `dm1105_dma_map(dev);` at line 781 in
+  current tree
+- [Phase 8] Failure mode: NULL deref in work handler after failed DMA
+  alloc — severity HIGH
+- [UNVERIFIED] No end-user crash reports located (none cited in commit
+  or lore thread)
 
 **YES**
 
- drivers/media/rc/imon.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/media/pci/dm1105/dm1105.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-index 48534bb52e4d0..4f974b88628f0 100644
---- a/drivers/media/rc/imon.c
-+++ b/drivers/media/rc/imon.c
-@@ -290,6 +290,10 @@ static const struct imon_usb_dev_descr imon_OEM_VFD = {
- 		{ 0x000100000000ffeell, KEY_VOLUMEUP },
- 		{ 0x010000000000ffeell, KEY_VOLUMEDOWN },
- 		{ 0x000000000100ffeell, KEY_MUTE },
-+		/* iMON VFD HID OEM v1.2 */
-+		{ 0x000000000a00ffeell, KEY_VOLUMEUP },
-+		{ 0x000000000b00ffeell, KEY_VOLUMEDOWN },
-+		{ 0x000000000c00ffeell, KEY_MUTE },
- 		/* 0xffdc iMON MCE VFD */
- 		{ 0x00010000ffffffeell, KEY_VOLUMEUP },
- 		{ 0x01000000ffffffeell, KEY_VOLUMEDOWN },
+diff --git a/drivers/media/pci/dm1105/dm1105.c b/drivers/media/pci/dm1105/dm1105.c
+index c1d55b9836744..abd86488064b5 100644
+--- a/drivers/media/pci/dm1105/dm1105.c
++++ b/drivers/media/pci/dm1105/dm1105.c
+@@ -768,6 +768,8 @@ static void dm1105_ir_exit(struct dm1105_dev *dm1105)
+ 
+ static int dm1105_hw_init(struct dm1105_dev *dev)
+ {
++	int ret;
++
+ 	dm1105_disable_irqs(dev);
+ 
+ 	dm_writeb(DM1105_HOST_CTR, 0);
+@@ -778,7 +780,10 @@ static int dm1105_hw_init(struct dm1105_dev *dev)
+ 	dm_writew(DM1105_TSCTR, 0xc10a);
+ 
+ 	/* map DMA and set address */
+-	dm1105_dma_map(dev);
++	ret = dm1105_dma_map(dev);
++	if (ret)
++		return -ENOMEM;
++
+ 	dm1105_set_dma_addr(dev);
+ 	/* big buffer */
+ 	dm_writel(DM1105_RLEN, 5 * DM1105_DMA_BYTES);
 -- 
 2.53.0
 
