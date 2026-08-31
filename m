@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4049841A55F;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF64241F5D8;
 	Mon, 31 Aug 2026 13:21:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788182499; cv=none; b=O9MEjatYXWc/XrQ3I/3WQuFC5AKOJj8jNiNyJwmAz5im3gXyLVgASkJGrXUawQ64rEDc6Yn5OfN7CkRxopMY1emwDCPMZnmeICK4RMmw6zYsQKC+XhQWeglGehbN9jgjXZqvoMPgOEJRdmieYcdwkQvmwNjMN4gR2ugHJ25byZk=
+	t=1788182500; cv=none; b=m0JAUbqI3vkEr7Vge+lOfd4stg5j6QF9d5gkPFPaY2RDKffSqsdVIzLiNBOlT2eugg85R/mlcQ3Z3uR3G/2jjaMWWI35MXnqnK5942TsUJNSFAjSDpguAFeA0VcoLcc1ZMFkiAlEmH2Nfx8BNn+hJ+qUcMcVKx+VA8FI3iWacy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788182499; c=relaxed/simple;
-	bh=Dtu/uLQC/VBH/ebsINFo2Ugv0zQarsUez6ULS9EDjKI=;
+	s=arc-20240116; t=1788182500; c=relaxed/simple;
+	bh=C9rnPRKRR8AyimaRUcbmAJLI/wbdKMwleszCFVss9Yc=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WvtlZyJsZ/YVLIEWy5QRHA5ZNgr1cI9GwaAoY5C34GivblOANbcEVSwQTxfIF6/PFhozXCr6jhpf4Dixo+0s3TPOD4PRpCbKZkHXtduj2vAuM82umecI/p77/rvr4O12TRFI23wMyOxab43xOnEA9UsW0QD3Fk0ORQGyH7ZRj+k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyJyO70A; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=Awy7Lw4WTHbqttxc3XGNoVXycpfQqlF2ZmwfU9uEn3nY8o1EZxyGwapCMoUSKcTY9yVh0OrIK48Z7mM1ddqXZkftBy0xglMuRaYs7apLey2Htq07BPg5We9QAGBGg8z8v8Xe8PC4vd74RpQK0YsTVBeqKzRzWkoIkN/78Re41Uw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oGuq7kyr; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyJyO70A"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 239FFC4AF09;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oGuq7kyr"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id C2AC8C2BCFB;
 	Mon, 31 Aug 2026 13:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1788182499;
-	bh=Dtu/uLQC/VBH/ebsINFo2Ugv0zQarsUez6ULS9EDjKI=;
+	bh=C9rnPRKRR8AyimaRUcbmAJLI/wbdKMwleszCFVss9Yc=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=kyJyO70Aqg3REfvY5fuLz3NxjCJCNve+hJ/QwGA9tDlCx4abUMiQzC5Ce/heIBgbl
-	 refSWYmD4xOfBFdnWTpCvluty90mVpj+CWziKi3feESlqV8/9mt6YiSYPod94kS8dY
-	 VG9aVU+yY5DeLdYZX2Pz2MG8YfzZes0u4nRLgh6cYCZlUCemoWgoAAMvWuI9ffPKZN
-	 UTPUlAm9lOIM/v6joBVlfIJBnE8SMfDdQXF8FZ/o74ZP0krZ9pKQDOBTCm6WriD5JR
-	 IERtNL5BY5Y2ArlW8HrhUM5/Bf571qhdHlSuR41p71n2nlQwDf729Swk3Wxq7aqrrU
-	 2GMFzz2mzUuIQ==
+	b=oGuq7kyrb8g6aLNNi8Zf6rgKfNt01oKplAyZbFuQZaUfZgWo3a3c/uuQ0QI26/vPd
+	 lYpx8QbmLKFw7N/B81z9EXR59w5WV94kyZiVDDMVCihVNZ4YKNCIdP1MdjYqUmKM0I
+	 SV70MZlkjZgGi8HNo3V4DFxU/4v1UjPrN7/Z5Nqn/zvoX8fclnL+TCyG5gjXsRp/YD
+	 IIMdVQAmmETe3uOjtJiEp1wQNkYsfLm7NC3Y5FvqUK/nLauCSBLNfqMkI5igFxwTdH
+	 rnFwC1vHtPeudpPBHH3ddh0Wv/peWicqPeMf9BQ58QjiM4tzVajEpwYvRxyatmVf9Z
+	 DLX4TkfJX8xeQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10D37C624CC;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B1064C624CF;
 	Mon, 31 Aug 2026 13:21:39 +0000 (UTC)
 From: Dumitru Ceclan via B4 Relay <devnull+dumitru.ceclan.analog.com@kernel.org>
-Date: Mon, 31 Aug 2026 16:21:29 +0300
-Subject: [PATCH v16 10/22] dt-bindings: media: i2c: max96712: add
- control-channel-port property
+Date: Mon, 31 Aug 2026 16:21:37 +0300
+Subject: [PATCH v16 18/22] arm64: defconfig: disable deprecated MAX96712
+ driver
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-gmsl2-3_serdes-v16-10-4fa6e08bb514@analog.com>
+Message-Id: <20260831-gmsl2-3_serdes-v16-18-4fa6e08bb514@analog.com>
 References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
 In-Reply-To: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
 To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
@@ -59,13 +59,13 @@ Cc: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
  =?utf-8?q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
  Martin Hecht <Martin.Hecht@avnet.eu>, 
  Andrian Suciu <Adrian.Suciu@analog.com>, 
- Vivekananda Dayananda <vivekana@amd.com>
+ Cosmin Tanislav <demonsingur@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182495; l=1210;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788182495; l=722;
  i=dumitru.ceclan@analog.com; s=20240313; h=from:subject:message-id;
- bh=zHQWciR44LLL2n9JRuufsEezIBfNdUsq5fR2eFezGHc=;
- b=jr87Bh5DYzeurM7uVqdc90D4kZgj9q6VU3vwLEThUbkaSZ5kP9cGum6DT6ftS2sPuDBX+aXum
- bl3KRVSfD1FAh6YgzGWxdHnSWoBxQKUceRYWl1SzZqy/SkkW3dQUykE
+ bh=IfExQ18ty+dvACC1gRns4FHhE9fCrRU0GJtT5kLCDBc=;
+ b=GHpOr6kPBHNUTd2dgmu2tlJ8NjeTuLfrzBIQeLbKONT65CJhjwFZxsN7YUVjixJdNXZF6QipZ
+ KzsUNjrOUm8DQ1YiEYZ0P2uklG/dXDBLF+W4/yHfmFfu9xPRDyGfyp0
 X-Developer-Key: i=dumitru.ceclan@analog.com; a=ed25519;
  pk=HdqMlVyrcazwoiai7oN6ghU+Bj1pusGUFRl30jhS7Bo=
 X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
@@ -73,38 +73,29 @@ X-Endpoint-Received: by B4 Relay for dumitru.ceclan@analog.com/20240313
 X-Original-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
 Reply-To: dumitru.ceclan@analog.com
 
-From: Dumitru Ceclan <dumitru.ceclan@analog.com>
+From: Cosmin Tanislav <demonsingur@gmail.com>
 
-Add maxim,control-channel-port property to allow platforms choose which
-control-channel port MAX96724 exposes to the upstream I2C host.
+The staging MAX96712 driver will be removed as its functionality has
+been moved to the MAX96724 driver which makes use of the Maxim
+GMSL2/3 deserializer framework.
 
-Suggested-by: Vivekananda Dayananda <vivekana@amd.com>
-Signed-off-by: Dumitru Ceclan <dumitru.ceclan@analog.com>
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
 ---
- Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ arch/arm64/configs/defconfig | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-index 161d40acdd28..ab1dcd8ff8e7 100644
---- a/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-+++ b/Documentation/devicetree/bindings/media/i2c/maxim,max96712.yaml
-@@ -41,6 +41,15 @@ properties:
- 
-   enable-gpios: true
- 
-+  maxim,control-channel-port:
-+    description:
-+      Selects which deserializer control-channel port is connected to the
-+      upstream I2C segment when the device resets. 0 selects port 0, 1 selects
-+      port 1. Defaults to 0 when omitted.
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    enum: [0, 1]
-+    default: 0
-+
-   i2c-alias-pool:
-     maxItems: 4
- 
+diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+index 6ec8d3a69c98..e0bdfffd9c52 100644
+--- a/arch/arm64/configs/defconfig
++++ b/arch/arm64/configs/defconfig
+@@ -1420,7 +1420,6 @@ CONFIG_GREYBUS=m
+ CONFIG_GREYBUS_BEAGLEPLAY=m
+ CONFIG_STAGING=y
+ CONFIG_STAGING_MEDIA=y
+-CONFIG_VIDEO_MAX96712=m
+ CONFIG_VIDEO_MESON_VDEC=m
+ CONFIG_SND_BCM2835=m
+ CONFIG_CHROME_PLATFORMS=y
 
 -- 
 2.53.0
