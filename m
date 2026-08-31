@@ -1,63 +1,63 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CA2247ACD1
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 16:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB204B5156
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 16:08:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788192490; cv=none; b=X4n+7xCXKlUOUDGnWop9Jut7Y/rxPCBKoUKkge8fZ0dL3iWQbxjVXguto6c5SuympjOao+hB3iRpVgp93prwKxUejpgk8K98bCj5LqA5YQgu5Xe5LnMsh3kENDc1cOYK83Ggtdq/1hSz/d5O2Q/893BtXXLASqHc47YwQv8oCVM=
+	t=1788192492; cv=none; b=jZrKLIgbL0gOrJw6KHeZo9XT4VtyvHkdqNsB1Ls9UpFxC+dKNt3ABVH/YRxziQtvrNTu0v2GcnKSxc4FryFAIZE3vjBeC3n84zYxUDgNtbOiCQckWRj72ugk0R1xfwZ+Q7BdrTCBB0re37O1pmXxyqCWvZg17xqwfik9OcNjiIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788192490; c=relaxed/simple;
-	bh=TpggfEsOSM87ssg324Bg9QqL8idBLTkX/Dwp4MAsSaI=;
+	s=arc-20240116; t=1788192492; c=relaxed/simple;
+	bh=JaYYc/MebRQQvnPhb6g6B2V4uIViyu5GZFRD0yqRn88=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ZWjvtrBB9PM4RJYYFn+7hwvYt5wxrpfFuZMtuXJiVtdwNPE1EEZFBJONUivDJINIH64spmY4gRSWjVZA5mk8/4Snz8q8K+3T8eW4c0w/X2nj5afAvtfOlE0EMc9Dbrn4SRRb1i4+NqQ4Y+9qwOMvMKTggSq0RW9zguFN9K2h11w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NbYKe7ri; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=AbusTmrQqhs0XPH7asrPSz6KPVm+gzkHz3MssEh5l/bgN7eS8jDG9hSg1uKS5QhThvIfkMh+n/75boAX5MZr+VX1fFu7ptqYm3OpUHUPaJtoCOVu+g7EfXyaDIR61kTaz7hGTcpoh+w8/YRkLiNnvHvUkSCGwfoPrjJOR+FqVQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SkafsuVk; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NbYKe7ri"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so35862915e9.2
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 09:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SkafsuVk"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49ccfae359fso14009335e9.3
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 09:08:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788192485; x=1788797285; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788192489; x=1788797289; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=WWpAOoNXU5mrPZ0VP2BejHIuA0ZjYbHouz5m88LkEDs=;
-        b=NbYKe7riFGq9FtTnZG8qRYDj7giiYcdAOq4+4vwGb9Kgqf1AmYBTv2dnqFJirU0FLq
-         AZw7Vcq0vMil3szdRMhdS+QKVCGba7LubFfracf6ihkQzOYUMX7KayO4xpDgcXrwrdJB
-         OHMrzMr8Nl1tOo6LxNtW2gTUmrrr9S81MuUPOYne5jB1ghP7IUNW8KbQtNVg31i+rL0q
-         knctTI9XqGc6lSaQaMhZYWvfWXNEdPVtgbdgQg1hLcD9DdpqyIHfRk1d+D/iNunllfMr
-         xPCCqDv+8OuL3IkXvDuxiGDLekK1W5Qom5XR8e1JYtWV9QdMDLiORNphmqbiZMbks51C
-         yGhw==
+        bh=xxKjjaswIqYpJP4gFTjG5f76wpVmS82nrOI8R56lUWA=;
+        b=SkafsuVkNSzoPTrPEbZBTik6d1rsqaDqezKWcHYQt8qQmTLt198mzJD86cjFG5xNgF
+         B5l6S3+hcq+nHtlk5stBks7gIBQ0B3r374UOfs3sayaf9ReTyAN10HA8V4sueOt2vZKE
+         TUpVn5aeQM4K1LeoUE12wASGTMaJgFB+FdYSKca2Vkf2SVhxDUNNIC+yW/OSLqpH59sE
+         b3bU5o18kl8eVMxiHNZT2GgwzCe/0BvZhumoYpSDqHB2wl6rGGaAYdFme2fTC6WU1E3F
+         dLXYQlNwtyjaiVlWbcFB3Z/Gusj7qx3xFOtg0Qy4krknPpKGfEAXSgLO2nnbOjWcWns1
+         TeLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788192485; x=1788797285;
+        d=1e100.net; s=20251104; t=1788192489; x=1788797289;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WWpAOoNXU5mrPZ0VP2BejHIuA0ZjYbHouz5m88LkEDs=;
-        b=RmKb0r1VsfbvdDstKGF955ShjtaT5pLzJ4iwusFKNRJnwhYTErj0dF6PoJyKoDoKuy
-         CnrnhS5B7Ods6yiPEydVu3dle6/O8oYnWo6yicSq33+9vIL6fqc4IbrRyDHFsBZyyJa2
-         4X6iO5MqrYPsyqsUCMQEsYpK8Qr9jzfBO65VqYUqS5z3ShWH/ywNhST/vy3iYOsljwIT
-         CrqAEufkZ4Mq/GRn0SeYf9NaUgc2CyeK1nYT2WQwPfMixMK8M+85K+6JoaiDz3speobB
-         afNdHdQmB2M6zga3tifOEZkCJOt28lGckzQi3Cwm+juaq4o8Y46eY1bGuab5nKQ0bNKm
-         N+5A==
-X-Forwarded-Encrypted: i=1; AHgh+RqYtok7wjuxI9Hph8ifNzq111wHwEIXR8kZlEl28MBISRFwVqbdvYcArmhJCknWhsmpiLiAnb5a2TN1GQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++nXD3GjO9iOK3TprVoZb6Ly6UGB9NYNTMke/XYKzQRiR1pi9wGM
-	paf9u94Ey87bW0ViATRgBgcK7JvIBvt2pF2jAAiTUZWsSBAb23szUmQr
-X-Gm-Gg: AR+sD12yFUSRLZDGjZwJak6euF4+0QCJT8NHMX1y9p3S5VS9EDB/F3+lnry922isZkM
-	v5Zlv70iJq+9iy1vxINNPXcWa/1ny7JbZhDRN21hzgVqjWpKrvB1E1bPGFvzdp4El5bohPly3fO
-	tzuOK2k0Jd8ugmYA8uRh3zZYLxK3ZpLHS8YPeFdHPfDV5pKzeSc5/3ts62SfRNG5vBOT1jkMvLf
-	D45UrPnLCIl3OZ1EyOtDYJVRfHkklGPmO27j+haJzZ9nZeW6GpV10idoT8axu5olMTgzKJVbUKU
-	bWc8idm8d2PNiinC6unBb/gG0z9PqQHYVUX/ozhEA3emNfpmIVbDqP6cHQwZDs5u1v+kygXlft0
-	w1KzH00OW7Y8v1C3MO2vJ2m66lEZLXbSpNL/yH/MudeJKHLLE4LWgVN5XoXhEhZvUu3gnOIU+Sa
-	UsaiKLraoxool1qfqWxnkmc7LfmLX34suNfD77eOPx4F3+wSdLIH8YGwWe
-X-Received: by 2002:a05:600c:c08b:b0:49b:9202:6f80 with SMTP id 5b1f17b1804b1-49b92027118mr371762395e9.6.1788192485239;
-        Mon, 31 Aug 2026 09:08:05 -0700 (PDT)
+        bh=xxKjjaswIqYpJP4gFTjG5f76wpVmS82nrOI8R56lUWA=;
+        b=gnzXxZ3jPPpgT2gVK6QdHufW/E0wKqpR16XtmB6/OH08OUF/kGzxAmowOidRbUd24D
+         D9UeP5jLiRzK7LKvBk7b94QSTD+GuaGtYIihZA28IAIv5SpdyH88f47lVoUZqXPFD4E1
+         mHEBEf0DUtRBp3NabancR/IO9TceFSmPEcg7DbbQa4pyNkJit0F9ExSEQrLu4TU0nu5A
+         M0BONg5rjMtdxGpxJtO3nUjKCsJopYOPrYeCNZ9LClIEOImgiRQOHfihSPFncjfBkKNq
+         C89NRCE1niQligiDb8qY5elA4GZWCT82dF1Uw1KQWIJ0y7q8yXxKNqpXiC6hZnSslkaJ
+         PLdQ==
+X-Forwarded-Encrypted: i=1; AHgh+RpNOh7qdvW3OOoJlnJKolPkPc5+STNaCH/7IAw0bA/AmWHK6SxycGabNFwQaflFq9Mi2X1mC+LozmfNRg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kZ224u64BlxLr3sa0rCHJ3C7ideOy5TcgoN18+17+6PLcwWHLb
+	6GmV9+i+wN4QHoCwab0y5jdm8yszsJHNRX74EuVFGmmRWPBcF2ZOC/w/
+X-Gm-Gg: AR+sD10MP6K98vZAavOvTAizoN+3eblHk9a4MQpPsCUeLCMiGyYgAa9a3T/avzIniiQ
+	WvLaD1hMKNgfjkF0b/VwYkg7mNLv572YT3H2Eey/132amJH4UanYl02gk9U3bvEUPNeNf1xT1Fq
+	neZPEGvX3sxGCGlpHbPUtK3RnD/95TjwVu5inEpX9Uq7HM+Xbo89fy85Eg1QD0QnZaO3MSts7jt
+	6ijQjseAU3BFreD82Id48HSKDlad9KYCFhK/AA/fI9Ih38zTSn2Mtir10XvbT1IJvPhRheZewp7
+	HYGKrL36d/66LQqRJU7o1wybC3sKllTaxC4x7BTIMZWkZnxM1vOJmoXlAzEDbldi/vjqALqL8sA
+	4X+zZa9yWjWgboa3lRlgxQ2KxIqVY7EFTzkzSLamMACBZDqbkiYJJ6+SzH3oK0HSWAnHwkwAAX6
+	WdqEQds2IObgnRZqP2Q0lXYJMmLHcxCd4g09OolMye/g53LbgLwNqF+CVlWO2M+VJDVFY=
+X-Received: by 2002:a05:600c:1c0a:b0:499:51f0:a9b2 with SMTP id 5b1f17b1804b1-49b91c1dd3fmr440541835e9.1.1788192488967;
+        Mon, 31 Aug 2026 09:08:08 -0700 (PDT)
 Received: from TC-LAPTOP ([2a01:e0a:b8a:2610:ccbd:b529:37d3:c1b8])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.04
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3f3asm23849760f8f.3.2026.08.31.09.08.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 09:08:04 -0700 (PDT)
+        Mon, 31 Aug 2026 09:08:08 -0700 (PDT)
 From: Thierry Chatard <tchatard@gmail.com>
 To: linux-kernel@vger.kernel.org
 Cc: hansg@kernel.org,
@@ -73,9 +73,9 @@ Cc: hansg@kernel.org,
 	andriy.shevchenko@intel.com,
 	v.vitovt@gmail.com,
 	Thierry Chatard <tchatard@gmail.com>
-Subject: [PATCH v10 3/8] platform/x86: int3472: tps68470: move Windows MFD setup below the device-type switch
-Date: Mon, 31 Aug 2026 18:07:49 +0200
-Message-ID: <20260831160754.9857-4-tchatard@gmail.com>
+Subject: [PATCH v10 5/8] platform/x86: int3472: tps68470: use a common always-on VIO regulator init_data
+Date: Mon, 31 Aug 2026 18:07:51 +0200
+Message-ID: <20260831160754.9857-6-tchatard@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831160754.9857-1-tchatard@gmail.com>
 References: <20260831160754.9857-1-tchatard@gmail.com>
@@ -87,165 +87,72 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Windows path looks up the board data, builds the tps68470-clk
-platform data and registers the MFD cells; none of this is needed for the
-ChromeOS path, which registers its own cells. Move that handling out of
-the switch and let the ChromeOS case return directly, so the Windows-only
-work is no longer done for ChromeOS and the function reads top to bottom.
+The surface_go and intel_nvl board data define byte-identical VIO
+regulator init_data (1.8006 V, apply_uV, always_on). Replace both with a
+single shared common_tps68470_vio_reg_init_data so new boards with the
+same requirement can reuse it instead of duplicating the definition.
 
-While moving the code, use a local struct device *dev to shorten the many
-&client->dev references, and return -ENODATA (rather than -ENODEV) when no
-board data matches this machine, to distinguish it from a missing device.
-
-No functional change for either path.
+No functional change.
 
 Assisted-by: Claude Code:claude-opus-4-8
 Signed-off-by: Thierry Chatard <tchatard@gmail.com>
 ---
- drivers/platform/x86/intel/int3472/tps68470.c | 99 ++++++++++---------
- 1 file changed, 51 insertions(+), 48 deletions(-)
+ .../x86/intel/int3472/tps68470_board_data.c   | 21 +++++++------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/platform/x86/intel/int3472/tps68470.c b/drivers/platform/x86/intel/int3472/tps68470.c
-index 35909a683..35fa77eb3 100644
---- a/drivers/platform/x86/intel/int3472/tps68470.c
-+++ b/drivers/platform/x86/intel/int3472/tps68470.c
-@@ -142,85 +142,88 @@ skl_int3472_fill_clk_pdata(struct device *dev, struct tps68470_clk_platform_data
+diff --git a/drivers/platform/x86/intel/int3472/tps68470_board_data.c b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+index c53542465..c2ec802fc 100644
+--- a/drivers/platform/x86/intel/int3472/tps68470_board_data.c
++++ b/drivers/platform/x86/intel/int3472/tps68470_board_data.c
+@@ -75,8 +75,12 @@ static const struct regulator_init_data surface_go_tps68470_vcm_reg_init_data =
+ 	.consumer_supplies = int347a_vcm_consumer_supplies,
+ };
  
- static int skl_int3472_tps68470_probe(struct i2c_client *client)
- {
--	struct acpi_device *adev = ACPI_COMPANION(&client->dev);
- 	const struct int3472_tps68470_board_data *board_data;
- 	struct tps68470_clk_platform_data *clk_pdata;
-+	struct acpi_device *adev;
- 	struct mfd_cell *cells;
- 	struct regmap *regmap;
-+	struct device *dev;
- 	int n_consumers;
- 	int device_type;
- 	unsigned int i;
- 	int ret;
+-/* Ensure the always-on VIO regulator has the same voltage as VSIO */
+-static const struct regulator_init_data surface_go_tps68470_vio_reg_init_data = {
++/*
++ * Common always-on VIO regulator init_data. Its voltage must match VSIO;
++ * boards using the TPS68470 I2C pass-through that need this exact setting
++ * can share this instead of defining their own.
++ */
++static const struct regulator_init_data common_tps68470_vio_reg_init_data = {
+ 	.constraints = {
+ 		.min_uV = 1800600,
+ 		.max_uV = 1800600,
+@@ -123,7 +127,7 @@ static const struct tps68470_regulator_platform_data surface_go_tps68470_pdata =
+ 		[TPS68470_CORE] = &surface_go_tps68470_core_reg_init_data,
+ 		[TPS68470_ANA]  = &surface_go_tps68470_ana_reg_init_data,
+ 		[TPS68470_VCM]  = &surface_go_tps68470_vcm_reg_init_data,
+-		[TPS68470_VIO] = &surface_go_tps68470_vio_reg_init_data,
++		[TPS68470_VIO] = &common_tps68470_vio_reg_init_data,
+ 		[TPS68470_VSIO] = &surface_go_tps68470_vsio_reg_init_data,
+ 		[TPS68470_AUX1] = &surface_go_tps68470_aux1_reg_init_data,
+ 		[TPS68470_AUX2] = &surface_go_tps68470_aux2_reg_init_data,
+@@ -339,15 +343,6 @@ static const struct regulator_init_data intel_nvl_tps68470_vcm_reg_init_data = {
+ 	.consumer_supplies = ovti13b1_vcm_consumer_supplies,
+ };
  
-+	dev = &client->dev;
-+	adev = ACPI_COMPANION(dev);
- 	if (!adev)
- 		return -ENODEV;
- 
--	n_consumers = skl_int3472_fill_clk_pdata(&client->dev, &clk_pdata);
--	if (n_consumers < 0)
--		return n_consumers;
--
- 	regmap = devm_regmap_init_i2c(client, &tps68470_regmap_config);
- 	if (IS_ERR(regmap)) {
--		dev_err(&client->dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
-+		dev_err(dev, "Failed to create regmap: %ld\n", PTR_ERR(regmap));
- 		return PTR_ERR(regmap);
- 	}
- 
- 	i2c_set_clientdata(client, regmap);
- 
--	ret = tps68470_chip_init(&client->dev, regmap);
-+	ret = tps68470_chip_init(dev, regmap);
- 	if (ret < 0) {
--		dev_err(&client->dev, "TPS68470 init error %d\n", ret);
-+		dev_err(dev, "TPS68470 init error %d\n", ret);
- 		return ret;
- 	}
- 
- 	device_type = skl_int3472_tps68470_calc_type(adev);
- 	switch (device_type) {
- 	case DESIGNED_FOR_WINDOWS:
--		board_data = int3472_tps68470_get_board_data(dev_name(&client->dev));
--		if (!board_data)
--			return dev_err_probe(&client->dev, -ENODEV, "No board-data found for this model\n");
--
--		cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
--		if (!cells)
--			return -ENOMEM;
-+		break;
-+	case DESIGNED_FOR_CHROMEOS:
-+		return devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+					    tps68470_cros, ARRAY_SIZE(tps68470_cros),
-+					    NULL, 0, NULL);
-+	default:
-+		dev_err(dev, "Failed to add MFD devices\n");
-+		return device_type;
-+	}
- 
--		/*
--		 * The order of the cells matters here! The clk must be first
--		 * because the regulator depends on it. The gpios must be last,
--		 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
--		 * the clk + regulators must be ready when this happens.
--		 */
--		cells[0].name = "tps68470-clk";
--		cells[0].platform_data = clk_pdata;
--		cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
--		cells[1].name = "tps68470-regulator";
--		cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
--		cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
--		cells[2].name = "tps68470-gpio";
--		cells[2].swnode = board_data->tps68470_gpio_swnode;
-+	board_data = int3472_tps68470_get_board_data(dev_name(dev));
-+	if (!board_data)
-+		return dev_err_probe(dev, -ENODATA,
-+				     "No board-data found for this model\n");
- 
--		for (i = 0; i < board_data->n_gpiod_lookups; i++)
--			gpiod_add_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
-+	n_consumers = skl_int3472_fill_clk_pdata(dev, &clk_pdata);
-+	if (n_consumers < 0)
-+		return n_consumers;
- 
--		ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
--					   cells, TPS68470_WIN_MFD_CELL_COUNT,
--					   NULL, 0, NULL);
--		kfree(cells);
-+	cells = kzalloc_objs(*cells, TPS68470_WIN_MFD_CELL_COUNT);
-+	if (!cells)
-+		return -ENOMEM;
- 
--		if (ret) {
--			for (i = 0; i < board_data->n_gpiod_lookups; i++)
--				gpiod_remove_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
--		}
-+	/*
-+	 * The order of the cells matters here! The clk must be first
-+	 * because the regulator depends on it. The gpios must be last,
-+	 * acpi_gpiochip_add() calls acpi_dev_clear_dependencies() and
-+	 * the clk + regulators must be ready when this happens.
-+	 */
-+	cells[0].name = "tps68470-clk";
-+	cells[0].platform_data = clk_pdata;
-+	cells[0].pdata_size = struct_size(clk_pdata, consumers, n_consumers);
-+	cells[1].name = "tps68470-regulator";
-+	cells[1].platform_data = (void *)board_data->tps68470_regulator_pdata;
-+	cells[1].pdata_size = sizeof(struct tps68470_regulator_platform_data);
-+	cells[2].name = "tps68470-gpio";
-+	cells[2].swnode = board_data->tps68470_gpio_swnode;
-+
-+	for (i = 0; i < board_data->n_gpiod_lookups; i++)
-+		gpiod_add_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
-+
-+	ret = devm_mfd_add_devices(dev, PLATFORM_DEVID_NONE,
-+				   cells, TPS68470_WIN_MFD_CELL_COUNT,
-+				   NULL, 0, NULL);
-+	kfree(cells);
- 
--		break;
--	case DESIGNED_FOR_CHROMEOS:
--		ret = devm_mfd_add_devices(&client->dev, PLATFORM_DEVID_NONE,
--					   tps68470_cros, ARRAY_SIZE(tps68470_cros),
--					   NULL, 0, NULL);
--		break;
--	default:
--		dev_err(&client->dev, "Failed to add MFD devices\n");
--		return device_type;
-+	if (ret) {
-+		for (i = 0; i < board_data->n_gpiod_lookups; i++)
-+			gpiod_remove_lookup_table(board_data->tps68470_gpio_lookup_tables[i]);
- 	}
- 
- 	/*
+-/* Ensure the always-on VIO regulator has the same voltage as VSIO */
+-static const struct regulator_init_data intel_nvl_tps68470_vio_reg_init_data = {
+-	.constraints = {
+-		.min_uV = 1800600,
+-		.max_uV = 1800600,
+-		.apply_uV = true,
+-		.always_on = true,
+-	},
+-};
+ static const struct regulator_init_data intel_nvl_tps68470_vsio_reg_init_data = {
+ 	.constraints = {
+ 		.min_uV = 1800600,
+@@ -364,7 +359,7 @@ static const struct tps68470_regulator_platform_data intel_nvl_tps68470_pdata =
+ 		[TPS68470_CORE] = &intel_nvl_tps68470_core_reg_init_data,
+ 		[TPS68470_ANA]  = &intel_nvl_tps68470_ana_reg_init_data,
+ 		[TPS68470_VCM]  = &intel_nvl_tps68470_vcm_reg_init_data,
+-		[TPS68470_VIO] = &intel_nvl_tps68470_vio_reg_init_data,
++		[TPS68470_VIO] = &common_tps68470_vio_reg_init_data,
+ 		[TPS68470_VSIO] = &intel_nvl_tps68470_vsio_reg_init_data,
+ 	},
+ };
 -- 
 2.53.0
 
