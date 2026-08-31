@@ -1,134 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC2543D953F;
-	Mon, 31 Aug 2026 08:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 664F93B38BF;
+	Mon, 31 Aug 2026 08:55:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788165136; cv=none; b=RitcG6meK4My/FjXKU5mem4plB2PXX9B6por9H8dJBcO1fV4+Ev31ObjOU8mGBtIvuMTd5pu0MjlC0U3CsIHH7tAm8OKpXykcxeF2GRGsDlLGYN6M8N1EeijzXB5fMGs235MmVPKVEME7YnJE4dBhth5+ikIMXl3QsklTMNFyaE=
+	t=1788166557; cv=none; b=dodVyMvmdYnLApYBVfYsn7L1QL8S56VfI5uBEAaSI7oAd6BAcVW56nvTc3Ywwkq2VA1WMU4qHluPlp7hXH2Q0EofE1y06HCIleZ8x0Pa0UkHLKzw5SHSfp3XjkvzBWjmtEPBTUw6BQKzIn0K9JAfdhUgxKekPpO4BStoW+aluGo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788165136; c=relaxed/simple;
-	bh=KPYi6beTzyuxHB8/T/ErkZDHheBIB2DzoodahDdkAs0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Njy9CkthJfgwncxVLEnpDyvduzvpnGr+qOHp2KZPNquvMJmnCVPms1HKf70jZwoL41VLUhxeZfvMEDod2STEp9FWO4je4VgY+8VRyhkPbmPUa+WUPEpqTh4PH2mg7THINL/gNfSJcxbemC06fOEBF2Byav14nDYD8/RXOMCYgvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CVS2ovl4; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788166557; c=relaxed/simple;
+	bh=O9kLkeXsxXvGPMErhk2+GTZViMNOPLUOJF1XdfOCyWY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sD/BlvjOH3JbbVgAg+UM3eeQAHfF9wI8BebQCg6q2JkilZHdZD6J795+kkuQ7t+FcxLsom/1/gmMXU2i6LA0h7LNT/cVmJRmp/KW9mip+of10np9Csv8DS2Eb4rEzK+pHRERt4WIAdOasFuHsJHX+HG584C7PrrYiT/IQRyf9Es=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VA93GIOt; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CVS2ovl4"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 77007C2BD01;
-	Mon, 31 Aug 2026 08:32:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788165135;
-	bh=KPYi6beTzyuxHB8/T/ErkZDHheBIB2DzoodahDdkAs0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=CVS2ovl4bO1WzAqo00dPUZ2h68uRamkYQKMo7l9cHoMDRI4mSJT9DJs3Ee+rhvlcQ
-	 3N1iXRuxS58q0grIAPJV1E6gzcI1D+Sdk/UWCBynYm8C7NNpLZaaLCv/lUYoznIovy
-	 IeNvASOpHTM1BcW4aHzdqzkzXwH6Zatw8zVeG3/n4OfIa3DbJfEgUvVQArQfa4jo6D
-	 jmcfcjEJorCUbl2K4f6DPDb+Wbo/aQRRfPhVkCYp+kW6P1rrSzlBt7W25Zcwp8I8EM
-	 eU9Bk1J0muMdg7qRGB2rInOdwiSHjSgV54v7Xu/NF6KjvbxG4jX3SvLlsOKmbVRqoa
-	 oxtiBwhCoaUhg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 64937C61DFD;
-	Mon, 31 Aug 2026 08:32:15 +0000 (UTC)
-From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
-Date: Mon, 31 Aug 2026 16:32:06 +0800
-Subject: [PATCH v8 5/6] arm64: dts: amlogic: Add video decoder driver
- support for S4 SOCs
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VA93GIOt"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788166556; x=1819702556;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=O9kLkeXsxXvGPMErhk2+GTZViMNOPLUOJF1XdfOCyWY=;
+  b=VA93GIOtJtnaIOkGJcSW2ky9RFKuZTYl0KrdCYCpvir5WsQsYjCulHjj
+   OuofKnfGF04xDETRXAPNNtTxI1Zww18Q/uPL5BwfmpQSGapjA9Vh5KPlC
+   vVStoQXPzea+ZTW3UKWULoO2cVKarJ8bCS0+Q2ar7JigJ39LCZz2qprn3
+   es5jNIE4eDwLLYZGf3ZqTU52EEjJigKL9RwTrDbI0AjbdLpUlRTLNfQrd
+   JnoG9ugxv4Pd/TGpIys7Dz929JPkvCUPwyrYl3x9cPeJXKg0XbWjQPbYB
+   JsCl5u+7nQfkQq7rpj3Ly422DAYjYKEjmxIqIeKcvQV8BFLh0rkCx3k8k
+   w==;
+X-CSE-ConnectionGUID: hGle0cnSQF6tGTFzxVEgtw==
+X-CSE-MsgGUID: +8urBKlWRMeDWExwHGJAoQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="92379363"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="92379363"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:55:55 -0700
+X-CSE-ConnectionGUID: CtDiUuQUSwSsNsnfT3xRYQ==
+X-CSE-MsgGUID: UVHv2V6BT+ylmrt4/XNo2Q==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="274011859"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.87])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 01:55:52 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 4026D11F894;
+	Mon, 31 Aug 2026 11:55:50 +0300 (EEST)
+Date: Mon, 31 Aug 2026 11:55:50 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Christian Murphy <christian@themurphys.eu>
+Cc: linux-media@vger.kernel.org, hpa@redhat.com, mchehab@kernel.org,
+	tarang.raval@siliconsignals.io, jai.luthra@ideasonboard.com,
+	linux-kernel@vger.kernel.org, antti.laakso@linux.intel.com
+Subject: Re: [PATCH] media: i2c: imx471: Fix pixel rate and line length
+Message-ID: <apVBljHkHhjcodTX@kekkonen.localdomain>
+References: <20260830173345.15886-1-christian@themurphys.eu>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260831-b4-s4-vdec-upstream-v8-5-830195b9bd91@amlogic.com>
-References: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
-In-Reply-To: <20260831-b4-s4-vdec-upstream-v8-0-830195b9bd91@amlogic.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788165132; l=1823;
- i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
- bh=3wWx8ab1oVvu5SF0ddee1WqZrDCocuwy24kdX2BEUwQ=;
- b=F7xzWbwqSA262HJex0PCBevJou3/+ENaPviN6bHT2svjBX6yTcQ+3RU3joIBKoWV5PlCYgTl4
- aPrNGiv5X/EAC1znC9ECGyAbpxnw6OCrJK2mYYagN0SJ2/flFtm1DRM
-X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
- pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
-X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
- auth_id=555
-X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
-Reply-To: zhentao.guo@amlogic.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260830173345.15886-1-christian@themurphys.eu>
 
-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Hi Christian,
 
-Add vdec node to enable Amlogic V4L2 stateless video decoder
-support. Since the video fw needs to be loaded via TEE helpers,
-enable the optee node in this patch.
+Thanks for the patch.
 
-Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
----
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi | 33 +++++++++++++++++++++++++++++++
- 1 file changed, 33 insertions(+)
+On Sun, Aug 30, 2026 at 06:33:45PM +0100, Christian Murphy wrote:
+> The pixel rate is derived from the CSI-2 link frequency, 200 MHz * 2 *
+> 4 lanes / 10 bits = 160 MHz, and the line length is the binned array
+> width, 2328. Neither describes the pixel array.
+> 
+> The VT PLL gives 19.2 MHz / PREPLLCK_VT_DIV 2 * PLL_VT_MPY 121 /
+> VTPXCK_DIV 6 = 193.6 MHz and the array reads two pixels per clock, so
+> the pixel rate is 387.2 MHz. LINE_LENGTH_PCK is never written and its
+> power-on default reads back 5120. Timing frames at several written
+> line lengths confirms 387.2 MHz at every value.
+> 
+> With the declared values the line duration comes out 14.55 us instead
+> of 13.22 us and exposure is overstated by 10%: libcamera reports a
+> maximum ExposureTime longer than the frame.
+> 
+> Set the pixel rate to 387.2 MHz and the line length to 5120, which
+> changes HBLANK from 400 to 3192. No register write is added.
+> 
+> Fixes: be1589e567ae ("media: i2c: imx471: Add Sony IMX471 image sensor driver")
+> Link: https://lore.kernel.org/linux-media/20260728042013.23707-1-hpa@redhat.com/
+> Assisted-by: Claude-Code:claude-fable-5
+> Signed-off-by: Christian Murphy <christian@themurphys.eu>
+> ---
+> 
+> Notes:
+>     LINE_LENGTH_PCK reads back 0x1400 (5120) from the streaming sensor.
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 2a6fbd530836..788ef3c90fbb 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -80,6 +80,11 @@ pwrc: power-controller {
- 				#power-domain-cells = <1>;
- 			};
- 		};
-+
-+		optee {
-+			compatible = "linaro,optee-tz";
-+			method = "smc";
-+		};
- 	};
- 
- 	saradc: adc@fe026000 {
-@@ -907,5 +912,33 @@ emmc: mmc@fe08c000 {
- 			assigned-clocks = <&clkc_periphs CLKID_SD_EMMC_C>;
- 			assigned-clock-rates = <24000000>;
- 		};
-+
-+		canvas: video-lut@fe036048 {
-+			compatible = "amlogic,canvas";
-+			reg = <0x0 0xfe036048 0x0 0x14>;
-+		};
-+
-+		video-codec@fe320000 {
-+			compatible = "amlogic,s4-vdec";
-+			reg = <0x0 0xfe320000 0x0 0x10000>,
-+			      <0x0 0xfe036000 0x0 0x20>;
-+			reg-names = "dos",
-+				    "dmc";
-+			interrupts = <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
-+				     <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
-+			clocks = <&clkc_periphs CLKID_DOS>,
-+				 <&clkc_periphs CLKID_VDEC_SEL>,
-+				 <&clkc_periphs CLKID_HEVCF_SEL>;
-+			clock-names = "dos",
-+				      "core_vdec",
-+				      "core_hvdec";
-+			power-domains = <&pwrc PWRC_S4_DOS_VDEC_ID>,
-+					<&pwrc PWRC_S4_DOS_HEVC_ID>;
-+			power-domain-names = "dos_vdec",
-+					     "dos_hvdec";
-+			resets = <&reset RESET_DOS>;
-+			amlogic,canvas = <&canvas>;
-+			amlogic,secure-monitor = <&sm>;
-+		};
- 	};
- };
+Interestingly, 2328 would appear to be a seemigly valid value.
+
+Cc Antti.
+
+>     Written to 5632, 6144, 5008 and 5120 in one stream, the line period is
+>     llp / 387.2 MHz at every value (14.5457, 15.8680, 12.9341, 13.2234 us).
+>     
+>     Tested on a ThinkPad X1 Carbon Gen 14 (Debian linux 7.1.8-2, libcamera
+>     0.7.2): controls read back 387200000 / 3192, 17.296 ms frames, maximum
+>     ExposureTime 17.057 ms. v4l2-compliance 46/46; W=1 and sparse clean.
+>     The driver is in no release (7.3 merge window), so no Cc: stable.
+> 
+>  drivers/media/i2c/imx471.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> index 4053aed84340..7a1335873270 100644
+> --- a/drivers/media/i2c/imx471.c
+> +++ b/drivers/media/i2c/imx471.c
+> @@ -282,7 +282,7 @@ static const struct imx471_mode imx471_modes[] = {
+>  		.height = 1088,
+>  		.fll_def = 1308,
+>  		.fll_min = 1308,
+> -		.llp = 2328,
+> +		.llp = 5120,
+>  		.default_mode_regs = mode_1928x1088_regs,
+>  		.default_mode_regs_length = ARRAY_SIZE(mode_1928x1088_regs),
+>  	},
+> @@ -691,8 +691,8 @@ static int imx471_init_controls(struct imx471 *sensor)
+>  					   0,
+>  					   link_freq_menu_items);
+>  
+> -	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
+> -	pixel_rate = div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
+> +	/* pixel_rate = 2 * vt_pix_clk, with vt_pix_clk = 19.2 MHz / 2 * 121 / 6 */
+> +	pixel_rate = 387200000;
+
+Can you calculate the value instead, please?
+
+>  
+>  	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
+>  			  V4L2_CID_PIXEL_RATE, pixel_rate,
+> 
 
 -- 
-2.42.0
+Kind regards,
 
-
+Sakari Ailus
