@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FFC449B20D;
-	Mon, 31 Aug 2026 13:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BE194E141B;
+	Mon, 31 Aug 2026 13:39:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788183578; cv=none; b=gvzIeUoHh1OlvdiYhS26QXq4zMzp95W207Fl6EN2F02ZkENM5NtV/ruumtcUNR8EAMYNkm/qoqj8nswRU+T8UVgf+RkZmAjDSXbO6ao8DE9ljqYwfK6xQ7X2NRWZzaDEwoS5Fmc0Y3QlNMoramIYhp/TW5SE/EOrWw4WdHNuGLU=
+	t=1788183597; cv=none; b=ZMvsrtYvNbAFntsfrcFjdEIyaNTiCgKgqBJwCOq1xXibP5VypE6WKC1tFqGSi74eYp+kJoRECAypuApdUTqWid8rMC00GW2eBLtEY8RF7QHhK0XvXoX7h0V9C2e5XA3arQWm1Ti0bDL+VwJ4ZR/MUQp/32zwEUNh8k9DPYf3D1o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788183578; c=relaxed/simple;
-	bh=+x+WQGieINmiuhSwbwuIopqWzBCVkCm65GxhgE+kCZs=;
+	s=arc-20240116; t=1788183597; c=relaxed/simple;
+	bh=4HBuT0m+OuWtdW3B/lNZ3qAi+Cey7F4xPY7aqRclvRE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jDJLleEEmDhfRuazhikkO2350lqC+tzKjM5A/hvWGCpxim4krYiP6jLKtqJavoR/XWqvDL2vOjjdEdsVWrWCK4Qnjmrn7vfkNbZVVLTfzERNqzGIi1FOs/Uig9SAKZ2wNlicaCCwb0/XAgJVkctNWY9YSTXNlcYNy3QcY6Bqo88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aws54kfo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=e9LiQ3GYlv+/YDYXllgSHP+6XSgBswrO6/PgBJLFRVdjbs50rU41/dL+77CWivG+Mlu2mDdn037CdOIdI5Es0WXgJE3ZO7IpC4eI5zcCc94onewGUVoCPiKVtGHjUjw2H2nz5R5dK/5ujLJo5BadrirctQ9Wlh+ofeTNfriY6Po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW6pLgr9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aws54kfo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 228371F00A3D;
-	Mon, 31 Aug 2026 13:39:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW6pLgr9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 803B51F00A3E;
+	Mon, 31 Aug 2026 13:39:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788183576;
-	bh=Kv1rJF0WAF0FzD6fLDXCRJ7knt7swoLytU43o0uKw3k=;
+	s=k20260515; t=1788183595;
+	bh=nlCQIUoWbG2Xc+D5e9bO/5vr2cXjHLtz5iTeimalskk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Aws54kfo9NU1A8lUG+FbHzDNnUF/+ONsnQFO8AJvHWlRWKweXOF5mKQIKXW9njbay
-	 N0pXV1o69rLEr36MKtfHMQHOPUgu/FfcUQvKwayypfr9/I5nCv1YHMXLCtL+pshV2I
-	 yCgomWRoWXFKJUiVdorYn9SPkSFJLLCRWkFBPnSwHoC9JBvq/kgNIWvkvJv9IgZ16N
-	 4cQHUjQRxyWSKx/zZz+g6Ek/iXr4oHsszunk5gL3gDyEC+FCoToDOqXysxOJtH+0yB
-	 i4HupPYK4jabeLdif+7iVOl8k21NkDn9fxJl+0xhAJlGDUyDDd2HorMiAxp8I36h8y
-	 JI052iFqJK3Qg==
+	b=IW6pLgr97JoK/DB2ELJnTGXUkpxFhwb0SrBraCNuCe1mI7CnO9P5TFT4trJAyc7vx
+	 GpRvXYN987m+LkfDf/bHvQUyUdyGstfOAsziEA9hMKOSe8wUBbQm49uxbnHj+6Wb5e
+	 JkysJ4iwIhij42qTisIBEcaxv9+xMVQhDlNJ7jCwCTLvJQjmqDSKTctF+goewljQsT
+	 /Ggw29ySOGWrOyAXO+j+xkF2s/Nu3jjnEXxC+QF1cprpOMwILFlPSeRdoskEmkbkLx
+	 zWE//+Qva4kwOjWZo6HKDt+h/nmxwLz39jclR1s+9lMcv7uaDPrAXVDGaFs2jrHsBo
+	 j7iL6kBfJMHlQ==
 From: Sasha Levin <sashal@kernel.org>
 To: patches@lists.linux.dev,
 	stable@vger.kernel.org
-Cc: Riccardo Boninsegna <rboninsegna2@gmail.com>,
-	Sean Young <sean@mess.org>,
+Cc: Ricardo Ribalda <ribalda@chromium.org>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Hans Verkuil <hverkuil+cisco@kernel.org>,
 	Sasha Levin <sashal@kernel.org>,
+	nas.chung@chipsnmedia.com,
+	jackson.lee@chipsnmedia.com,
 	mchehab@kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH AUTOSEL 6.18-5.10] media: rc: mceusb: Add support for 04eb:e033
-Date: Mon, 31 Aug 2026 09:23:26 -0400
-Message-ID: <20260831133314.4125787-178-sashal@kernel.org>
+Subject: [PATCH AUTOSEL 6.18-6.12] media: chips-media: wave5: Add range checks for dec_output_info
+Date: Mon, 31 Aug 2026 09:23:36 -0400
+Message-ID: <20260831133314.4125787-188-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260831133314.4125787-1-sashal@kernel.org>
 References: <20260831133314.4125787-1-sashal@kernel.org>
@@ -53,363 +56,368 @@ X-stable-base: Linux 6.18.48
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Riccardo Boninsegna <rboninsegna2@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
 
-[ Upstream commit 0692c2602e4cd410aa045f8991bd1c142b2e56f9 ]
+[ Upstream commit 79aef69bb0903616f4867f0168aea717a11c439c ]
 
-This is a Sonix SN8P2202XG microcontroller with firmware compatible with
-the already supported Northstar 04eb:e004, implementing an MCE IR receiver
-(PCB seems to be tracked for a transmitter too but missing related parts).
+If the driver's dec_output_info contains invalid data the driver can
+write in invalid memory. Add a range check for that.
 
-Found in a Skintek SK-CR-IN+IR ( http://www.skintek.it/SK-CR-IN+IR.php )
-internal 3.5 inch USB card reader and MCE receiver combo
-(implemented by, and wired as, separate USB devices)
-PCB marking: AU6475 966816 STIR REV:A02 MCE
+This fixes this smatch error:
+drivers/media/platform/chips-media/wave5/wave5-vpuapi.c:588 wave5_vpu_dec_get_output_info() error: buffer overflow 'inst->frame_buf' 64 <= 127
 
-Signed-off-by: Riccardo Boninsegna <rboninsegna2@gmail.com>
-Signed-off-by: Sean Young <sean@mess.org>
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Signed-off-by: Hans Verkuil <hverkuil+cisco@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
 
 LLM Generated explanations, may be completely bogus:
 
-## Phase 1: Commit Message Forensics
+# Stable Backport Analysis: `media: chips-media: wave5: Add range checks
+for dec_output_info`
 
-### Step 1.1: Parse the Subject Line
-**Record:** `[media: rc: mceusb]` `[Add]` `USB device ID 04eb:e033 to
-the existing mceusb IR transceiver driver`
-
-### Step 1.2: Parse All Commit Message Tags
-**Record:**
-- **Fixes:** none
-- **Reported-by:** none
-- **Tested-by:** none
-- **Reviewed-by:** none
-- **Acked-by:** none
-- **Link:** none (hardware product page in body only:
-  http://www.skintek.it/SK-CR-IN+IR.php)
-- **Cc: stable@vger.kernel.org:** none (expected; not a negative signal)
-- **Signed-off-by:** Riccardo Boninsegna `<rboninsegna2@gmail.com>`
-  (author)
-- **Signed-off-by:** Sean Young `<sean@mess.org>` (media/rc maintainer
-  co-signer — quality signal)
-
-**Notable patterns:** Maintainer Signed-off-by; no syzbot/sanitizer
-reports; hardware-specific enablement patch.
-
-### Step 1.3: Analyze Commit Body
-**Record:**
-- **Bug described:** USB device `04eb:e033` (Sonix SN8P2202XG,
-  Northstar-variant MCE IR receiver) is not recognized by `mceusb`
-  because its product ID is missing from `mceusb_dev_table[]`.
-- **Symptom:** IR receiver on Skintek SK-CR-IN+IR internal card reader
-  does not bind to `mceusb`; remote control input unavailable.
-- **Version info:** none stated.
-- **Root cause (author):** Firmware-compatible variant of already-
-  supported `04eb:e004`; only the USB product ID differs.
-
-### Step 1.4: Detect Hidden Bug Fixes
-**Record:** Not a crash/leak/race fix. This is explicit **hardware
-enablement** via a missing USB ID — a recognized stable exception
-category, not a disguised memory-safety fix.
+**Local tree:** Linux **6.18.43** (`v6.18.43-1-gc7f0dac02d232`, branch
+`stable/linux-6.18.y`)
 
 ---
 
-## Phase 2: Diff Analysis
+## PHASE 1: COMMIT MESSAGE FORENSICS
 
-### Step 2.1: Inventory the Changes
+### Step 1.1: Subject Line
+**Record:** `[media: chips-media: wave5]` `[Add]` — Add range checks for
+`dec_output_info` in the Wave5 VPU decoder driver.
+
+### Step 1.2: Tags
 **Record:**
-- **Files:** `drivers/media/rc/mceusb.c` only (+2 lines net in the ID
-  table)
-- **Functions modified:** none (only `mceusb_dev_table[]` static data)
-- **Scope:** single-file, surgical USB ID table addition
+- **Signed-off-by:** Ricardo Ribalda `<ribalda@chromium.org>` (author)
+- **Reviewed-by:** Nicolas Dufresne `<nicolas.dufresne@collabora.com>`
+  (media subsystem reviewer)
+- **Signed-off-by:** Hans Verkuil `<hverkuil+cisco@kernel.org>` (media
+  maintainer)
+- **No** Fixes:, Reported-by:, Tested-by:, Link:, or Cc: stable@ in the
+  commit message itself
+- Part of series `[PATCH v4 4/6] media: Fix new smatch warnings`; cover
+  letter CC'd `stable@vger.kernel.org` and Greg Kroah-Hartman
+
+### Step 1.3: Body Analysis
+**Record:**
+- **Bug:** `dec_output_info` can contain invalid index data; driver
+  indexes `inst->frame_buf[]` without validating the computed index.
+- **Symptom:** Out-of-bounds access on `inst->frame_buf` (smatch:
+  `buffer overflow 'inst->frame_buf' 64 <= 127`).
+- **Root cause:** Existing check bounds `index_frame_display` against
+  `max_dec_index`, but the actual index is `num_of_decoding_fbs +
+  index_frame_display` (fb_offset), which can exceed `MAX_REG_FRAME`
+  (64).
+
+### Step 1.4: Hidden Bug Fix?
+**Record:** Yes — despite smatch-driven origin, this is a real bounds-
+check bug fix, not cosmetic cleanup. The commit message explicitly
+states invalid data can cause invalid memory access.
+
+---
+
+## PHASE 2: DIFF ANALYSIS
+
+### Step 2.1: Inventory
+**Record:**
+- **File:** `drivers/media/platform/chips-media/wave5/wave5-vpuapi.c`
+  (+9 / -2 lines)
+- **Function:** `wave5_vpu_dec_get_output_info()`
+- **Scope:** Single-file, surgical fix
 
 ### Step 2.2: Code Flow Change
 **Record:**
-- **Before:** USB probe matches `04eb:e004` only for Northstar vendor;
-  `04eb:e033` does not match → no `mceusb` bind.
-- **After:** `04eb:e033` matches the same way as `04eb:e004` →
-  `mceusb_dev_probe()` runs on plug-in.
-- **Path affected:** USB hotplug / enumeration normal path for this
-  device class.
+- **Before:** `info->disp_frame = inst->frame_buf[val +
+  info->index_frame_display]` when `index_frame_display <
+  max_dec_index`.
+- **After:** Computes `idx = val + info->index_frame_display`, validates
+  `idx < MAX_REG_FRAME`, returns `-EINVAL` on failure, then assigns
+  `inst->frame_buf[idx]`.
+- **Path:** Normal decode output-info retrieval after firmware query.
 
 ### Step 2.3: Bug Mechanism
-**Record:**
-- **Category:** hardware workarounds / device ID addition
-- **Mechanism:** Missing `USB_DEVICE(VENDOR_NORTHSTAR, 0xe033)` entry
-  prevents driver binding. No `.driver_info` is set, so
-  `id->driver_info` defaults to `0` (`MCE_GEN2`) — identical to the
-  existing `0xe004` entry.
+**Record:** **Buffer overflow / out-of-bounds access (memory safety).**
+`frame_buf` has `MAX_REG_FRAME` (64) elements. Index uses fb_offset
+(`num_of_decoding_fbs`) plus display index from firmware, but only the
+display index was bounded — not the sum. Smatch correctly identified
+index up to 127.
 
-### Step 2.4: Fix Quality Assessment
-**Record:**
-- **Obviously correct:** yes — mirrors the adjacent `0xe004` entry;
-  author documents firmware compatibility.
-- **Minimal:** 2 lines.
-- **Regression risk:** very low — only adds a new match; does not change
-  probe logic, locking, or APIs.
+### Step 2.4: Fix Quality
+**Record:** Obviously correct; matches existing patterns in the same
+file (`reset_auxiliary_buffers()` line 189,
+`wave5_vpu_dec_reset_framebuffer()` line 626). Minimal, uses existing
+`err_out` path. Low regression risk.
 
 ---
 
-## Phase 3: Git History Investigation
+## PHASE 3: GIT HISTORY INVESTIGATION
 
-### Step 3.1: Blame the Changed Lines
-**Record:** In this checkout (`6.18.43`), `VENDOR_NORTHSTAR` / `0xe004`
-are at lines 160 and 399. The `0xe033` entry is **not** present. The
-Northstar `0xe004` entry exists in `stable/linux-6.18.y`. This tree’s
-history is heavily squashed (many `mceusb.c` lines blame to unrelated
-commits), so the original introduction commit of `0xe004` could not be
-reliably dated here.
+### Step 3.1: Blame
+**Record:** Buggy line introduced when `wave5-vpuapi.c` entered this
+tree (commit `5d324e5159d9e`, Nov 2025). Present since Wave5 driver
+landed in 6.18.
 
-### Step 3.2: Follow Fixes: Tag
-**Record:** N/A — no `Fixes:` tag.
+### Step 3.2: Fixes: Tag
+**Record:** N/A — no Fixes: tag in commit message.
 
-### Step 3.3: File History for Related Changes
-**Record:** Recent `drivers/media/rc/` stable commits include real bug
-fixes (`e250b672d40a9` race fix, probe error-handling fixes), but no
-prior `0xe033` addition. On `origin/master`, `0xe033` is already
-present; on current HEAD it is not.
+### Step 3.3: File History
+**Record:** Wave5 driver has had multiple stable-worthy fixes in 6.18.y
+(panics, memory leaks, spinlock issues). This fix is not yet in the
+tree. Part of a 6-patch smatch series, but each patch touches a
+different file — **standalone**.
 
-### Step 3.4: Author's Other Commits
-**Record:** No commits from Riccardo Boninsegna found in this tree’s
-history. Sean Young is the media/rc maintainer (Signed-off-by).
+### Step 3.4: Author Context
+**Record:** Ricardo Ribalda is an active media contributor (Chromium).
+Hans Verkuil merged; Nicolas Dufresne reviewed.
 
-### Step 3.5: Dependent/Prerequisite Commits
-**Record:** **No dependencies.** Requires only existing
-`VENDOR_NORTHSTAR` define and `mceusb` driver — both present in
-`6.18.y`. Standalone 2-line backport.
+### Step 3.5: Dependencies
+**Record:** None. Patch 4/6 is self-contained; `MAX_REG_FRAME` and
+`err_out` already exist in this tree. No prerequisite commits required.
 
 ---
 
-## Phase 4: Mailing List and External Research
+## PHASE 4: MAILING LIST AND EXTERNAL RESEARCH
 
-### Step 4.1: Original Patch Discussion
-**Record:** `b4 dig` could not be run — individual commit SHA not
-available in this mirror (history squashed into merge commits).
-`lore.kernel.org` returned **403 Forbidden**. `git.kernel.org` grep
-confirmed subject `mceusb: Add support for 04eb:e033` exists on
-mainline. Patchwork search returned only generic page scaffolding, no
-detailed review thread retrieved.
+### Step 4.1: Original Discussion
+**Record:** Series cover at https://lists.openwall.net/linux-
+kernel/2026/05/07/2079. Patch v4 submitted May 7, 2026; evolved v1→v4.
+v2 note: removed `WARN_ON()` from user-triggerable paths; this patch
+retains `WARN_ON()` because invalid data comes from firmware/hardware
+registers, not direct userspace input.
 
 ### Step 4.2: Reviewers
-**Record:** UNVERIFIED for mailing-list CC list. Sean Young (maintainer)
-Signed-off-by in commit message.
+**Record:** Cover CC'd Mauro Chehab, Hans Verkuil, Greg Kroah-Hartman,
+linux-media@, stable@. Reviewed-by from Nicolas Dufresne; merged by Hans
+Verkuil.
 
 ### Step 4.3: Bug Report
-**Record:** No formal bug report or syzbot link. Hardware identification
-from author on Skintek SK-CR-IN+IR product.
+**Record:** Smatch static analysis finding; no syzbot or user crash
+report. Cover letter classifies some warnings as "inoffensive" but
+includes fixes for user-triggerable errors; this wave5 issue is a
+genuine missing bounds check.
 
-### Step 4.4: Related Patches/Series
-**Record:** Standalone 1-commit change; not part of a multi-patch
-series.
+### Step 4.4: Related Patches
+**Record:** Series has 5 other independent patches (v4l2-dev, mt9p031,
+adv7604, ipu3-imgu, amlogic-c3). None required for this fix.
 
-### Step 4.5: Stable Mailing List History
-**Record:** UNVERIFIED — lore stable list inaccessible (403).
+### Step 4.5: Stable List
+**Record:** Cover letter explicitly CC'd `stable@vger.kernel.org`. No
+objection found in available thread excerpts.
 
 ---
 
-## Phase 5: Code Semantic Analysis
+## PHASE 5: CODE SEMANTIC ANALYSIS
 
 ### Step 5.1: Key Functions
-**Record:** No functions modified. Affected data: `mceusb_dev_table[]`.
-Probe path: `mceusb_dev_probe()`.
+**Record:** `wave5_vpu_dec_get_output_info()` modified.
 
-### Step 5.2: Trace Callers
-**Record:** `mceusb_dev_probe()` is registered as `.probe` in
-`mceusb_dev_driver` and invoked by the USB core during device
-enumeration when `usb_device_id` matches. Trigger: user plugs in the IR
-receiver.
+### Step 5.2: Callers
+**Record:**
+- `wave5-vpu-dec.c:354` — `wave5_vpu_dec_finish_decode()` (normal decode
+  completion)
+- `wave5-vpu-dec.c:1407` — flush/stop path
+- `wave5-vpu-dec.c:1499` — another decode path
+- `wave5-vpuapi.c:82` — busy-retry during instance flush
 
-### Step 5.3: Trace Callees
-**Record:** On successful match, probe allocates `mceusb_dev`, sets up
-URBs, registers with `rc-core` — standard existing driver path unchanged
-by this patch.
+All are active V4L2 mem2mem decode paths.
 
-### Step 5.4: Call Chain / Reachability
-**Record:** USB hotplug → `usb_driver.probe` → `mceusb_dev_probe()`.
-Reachable by any user plugging in the device. Without the ID, the chain
-never starts for `04eb:e033`.
+### Step 5.3: Callees
+**Record:** Calls `wave5_vpu_dec_get_result()` which reads
+`W5_RET_DEC_DISPLAY_INDEX` from VPU hardware (line 1059–1060 in
+`wave5-hw.c`). `index_frame_display` is firmware-provided.
+
+### Step 5.4: Reachability
+**Record:** Reachable during video decode on systems with
+`CONFIG_VIDEO_WAVE_VPU` (ARCH_K3 or COMPILE_TEST). Users with access to
+`/dev/video*` can trigger decode operations; malformed streams or
+firmware edge cases can produce bad indices.
 
 ### Step 5.5: Similar Patterns
-**Record:** `0xe004` at line 399 uses the same pattern (no
-`.driver_info`). Many other entries in `mceusb_dev_table[]` follow this
-model.
+**Record:** Same file already bounds-checks `index >= MAX_REG_FRAME` in
+`reset_auxiliary_buffers()` and `wave5_vpu_dec_reset_framebuffer()`.
+This fix closes a gap in `wave5_vpu_dec_get_output_info()`.
 
 ---
 
-## Phase 6: Cross-Referencing Against Local Tree
+## PHASE 6: CROSS-REFERENCE WITH LOCAL TREE
 
-**Local tree:** `v6.18.43` (`VERSION=6`, `PATCHLEVEL=18`,
-`SUBLEVEL=43`), detached from `stable/linux-6.18.y`.
+### Step 6.1: Buggy Code Present?
+**Record:** **Yes.** At lines 561–563 in this tree:
 
-### Step 6.1: Does the Buggy Code Exist?
-**Record:** **Yes.** `drivers/media/rc/mceusb.c` exists with
-`VENDOR_NORTHSTAR` (`0x04eb`) and `0xe004`, but **without** `0xe033`.
-The omission is present in this tree.
+```561:563:drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+        if (info->index_frame_display >= 0 &&
+            info->index_frame_display < (int)max_dec_index)
+                info->disp_frame = inst->frame_buf[val +
+info->index_frame_display];
+```
+
+Fix is **not** yet applied. Wave5 driver present since 6.18.
 
 ### Step 6.2: Backport Complications
-**Record:** **Clean apply.** `git apply --check` on the provided diff
-succeeded with no conflicts. Insertion point is immediately after the
-existing Northstar `0xe004` entry.
+**Record:** Clean apply expected — 9-line hunk, no structural conflicts.
+`MAX_REG_FRAME` defined as `WAVE5_MAX_FBS * 2` (= 64) in
+`wave5-vpuapi.h:47`.
 
 ### Step 6.3: Related Fixes Already Present?
-**Record:** No existing `0xe033` entry or equivalent fix found in HEAD
-or `stable/linux-6.18.y` grep.
+**Record:** No equivalent bounds check for this access path. Other wave5
+stable fixes exist but not this one.
 
 ---
 
-## Phase 7: Subsystem and Maintainer Context
+## PHASE 7: SUBSYSTEM CONTEXT
 
-### Step 7.1: Subsystem Criticality
-**Record:** `drivers/media/rc/` — **PERIPHERAL** (USB IR remote
-receiver). Not core kernel path, but affects real users with this
-hardware.
+### Step 7.1: Subsystem
+**Record:** `drivers/media/platform/chips-media/wave5/` — V4L2 hardware
+video codec driver. **Criticality: IMPORTANT** (peripheral driver, but
+memory-safety bugs in kernel drivers are serious).
 
-### Step 7.2: Subsystem Activity
-**Record:** `drivers/media/rc/` on `stable/linux-6.18.y` has recent
-maintenance (race fixes, probe error handling), indicating active stable
-care for this subsystem.
+### Step 7.2: Activity
+**Record:** Actively maintained in 6.18.y with multiple bugfix commits
+since initial merge.
 
 ---
 
-## Phase 8: Impact and Risk Assessment
+## PHASE 8: IMPACT AND RISK
 
 ### Step 8.1: Who Is Affected
-**Record:** Users of the Skintek SK-CR-IN+IR (and any other product
-using `04eb:e033` with MCE-compatible firmware). Config-dependent:
-`CONFIG_IR_MCEUSB` (or module `mceusb`).
+**Record:** Users of TI K3 (and COMPILE_TEST) systems with Chips&Media
+Wave5 VPU (`CONFIG_VIDEO_WAVE_VPU`). Not universal, but real production
+hardware.
 
 ### Step 8.2: Trigger Conditions
-**Record:** Plug in the `04eb:e033` USB IR device. Common for intended
-hardware use. Unprivileged user can trigger by plugging in USB device.
+**Record:** During decode when firmware returns display index data that
+passes the incomplete `max_dec_index` check but produces `idx >=
+MAX_REG_FRAME`. Possible with firmware edge cases, resolution changes,
+or error recovery. Not every boot, but reachable in normal decode
+operation.
 
-### Step 8.3: Failure Mode Severity
-**Record:** Without fix: device does not bind to `mceusb` → IR remote
-control non-functional. **Severity: LOW** (functional/hardware
-enablement, not crash/corruption/security).
+### Step 8.3: Failure Mode
+**Record:** Out-of-bounds read of `struct frame_buffer` from kernel
+stack/static data → kernel oops/panic or memory corruption. **Severity:
+HIGH** (memory safety in kernel context).
 
-### Step 8.4: Risk-Benefit Ratio
+### Step 8.4: Risk-Benefit
 **Record:**
-- **Benefit:** Enables a real, tested hardware variant; identical
-  treatment to already-supported sibling ID.
-- **Risk:** Very low — 2-line ID table addition, no logic change.
-- **Ratio:** Strong benefit for affected users, negligible risk —
-  classic stable device-ID backport.
+- **Benefit:** HIGH for affected hardware — prevents OOB kernel memory
+  access
+- **Risk:** VERY LOW — 7-line bounds check, consistent with existing
+  code, reviewed by subsystem maintainer
+- **Ratio:** Strongly favors backport
 
 ---
 
-## Phase 9: Final Synthesis
+## PHASE 9: FINAL SYNTHESIS
 
-### Step 9.1: Evidence Compile
+### Step 9.1: Evidence Summary
 
 **FOR backport:**
-- Explicit stable exception: **new USB device ID** to existing driver
-- Driver and sibling ID (`04eb:e004`) already in `6.18.y`
-- Author documents firmware compatibility with supported device
-- Maintainer Signed-off-by (Sean Young)
-- 2-line, obviously correct, applies cleanly
-- Already in mainline (`origin/master` has `0xe033`)
-- No dependencies or API changes
+- Real out-of-bounds array access bug (smatch-verified)
+- Fixes potential kernel crash/memory corruption
+- Small, surgical, obviously correct
+- Reviewed by Nicolas Dufresne; merged by Hans Verkuil
+- Standalone — no series dependencies
+- Buggy code exists in this 6.18.43 tree; fix not yet applied
+- Cover letter CC'd stable@
+- Consistent with existing `MAX_REG_FRAME` checks in same driver
 
 **AGAINST backport:**
-- Niche hardware (limited user base)
-- Not a crash/security/corruption fix under strict reading of criterion
-  #3
-- No formal regression report or syzbot evidence
-- Mailing-list review not fully verified (lore 403)
+- Driver is platform-specific (K3), not all users affected
+- Trigger requires firmware returning bad index data (not directly
+  proven in field)
+- Smatch-driven, not syzbot/user-reported crash
+- Retains `WARN_ON()` (acceptable for firmware-provided data per series
+  rationale)
 
-**UNRESOLVED:**
-- Individual mainline commit SHA and full lore review thread
-- Whether stable maintainers already discussed/nominated this specific
-  ID
+**Unresolved:** No runtime crash report verified; impact inferred from
+static analysis and code review.
 
 ### Step 9.2: Stable Rules Checklist
-1. **Obviously correct and tested?** **PASS** — mirrors existing
-   `0xe004`; maintainer SOB; mainline inclusion.
-2. **Fixes a real bug affecting users?** **PASS** — hardware does not
-   work without driver binding.
-3. **Important issue?** **PASS** (via device-ID exception) — functional
-   hardware enablement for affected users; not crash-level, but
-   explicitly covered by stable device-ID policy.
-4. **Small and contained?** **PASS** — 2 lines, one file.
-5. **No new features or APIs?** **PASS** — ID table only.
-6. **Can apply to local tree?** **PASS** — verified with `git apply
-   --check`.
+1. Obviously correct and tested? **PASS** — logic is clear; Reviewed-by
+   present; smatch warning resolved
+2. Fixes a real bug? **PASS** — missing bounds check on kernel array
+   access
+3. Important issue? **PASS** — OOB kernel memory access (HIGH severity)
+4. Small and contained? **PASS** — 1 file, ~9 lines
+5. No new features/APIs? **PASS** — defensive bounds check only
+6. Can apply to local tree? **PASS** — driver and all symbols exist;
+   clean apply expected
 
 ### Step 9.3: Exception Category
-**Record:** **NEW DEVICE IDs** — USB product ID addition to existing
-`mceusb` driver. Driver exists; only the ID is new.
+**Record:** Not a device ID/quirk/DT/build/docs exception — standard
+memory-safety bug fix.
 
 ### Step 9.4: Decision Rationale
-For **Linux 6.18.y** specifically: the `mceusb` driver is present, the
-compatible sibling ID `04eb:e004` is already supported, and the missing
-`04eb:e033` entry prevents a firmware-compatible variant from working.
-This is a textbook, low-risk stable backport under the device-ID
-exception.
+This commit closes a genuine bounds-check gap in
+`wave5_vpu_dec_get_output_info()`. The Wave5 driver exists in Linux
+6.18.y, the buggy code is present, and the fix is minimal, reviewed, and
+standalone. For users decoding video on K3 hardware with the Wave5 VPU,
+an out-of-bounds access on `inst->frame_buf[]` can cause kernel crashes
+or memory corruption. The fix aligns with existing `MAX_REG_FRAME`
+checks elsewhere in the driver and carries negligible regression risk.
 
 ---
 
 ## Verification
 
-- **[Phase 1]** Parsed subject, tags, body; no Fixes/Reported-by/Link
-  tags; Sean Young SOB confirmed.
-- **[Phase 2]** Diff: +2 lines in `mceusb_dev_table[]`; no
-  `.driver_info` → default `MCE_GEN2` (same as `0xe004`).
-- **[Phase 3]** `git describe HEAD`: `v6.18.43`; `git blame`/`grep`:
-  `0xe004` present, `0xe033` absent on HEAD.
-- **[Phase 3]** `git grep "0xe033" origin/master --
-  drivers/media/rc/mceusb.c`: present on mainline.
-- **[Phase 3]** `git diff HEAD origin/master --
-  drivers/media/rc/mceusb.c`: e033 addition is isolated 2-line hunk.
-- **[Phase 3]** No prerequisite commits identified.
-- **[Phase 4]** `b4 dig`: **UNVERIFIED** — commit SHA unavailable in
-  squashed mirror.
-- **[Phase 4]** lore.kernel.org: **403 Forbidden**.
-- **[Phase 4]** git.kernel.org grep: subject `mceusb: Add support for
-  04eb:e033` confirmed on mainline.
-- **[Phase 4]** Patchwork: no detailed review thread retrieved.
-- **[Phase 5]** `mceusb_dev_probe()` at line 1651; `.probe` in
-  `mceusb_dev_driver` at line 1877.
-- **[Phase 5]** Default model `MCE_GEN2` confirmed in `mceusb_model[]`
-  at index 0.
-- **[Phase 6]** `make kernelversion` equivalent: 6.18.43; tree is
-  `stable/linux-6.18.y`.
-- **[Phase 6]** `git apply --check` on provided diff: **succeeds**.
-- **[Phase 6]** `CONFIG_IR_MCEUSB` exists in `drivers/media/rc/Kconfig`.
-- **[Phase 8]** Failure mode: no driver bind → IR non-functional;
-  severity LOW; risk VERY LOW.
-
-**YES**The background kernel.org lookups finished:
-
-- **Git grep** confirmed mainline has a commit titled `mceusb: Add
-  support for 04eb:e033`.
-- **Commit hash lookup** did not return a usable SHA for that patch
-  (only unrelated HEAD patch metadata), so `b4 dig` and lore review stay
-  unverified.
-
-That does not change the earlier conclusion for **6.18.y**: this is a
-small USB device-ID addition to an existing driver, it applies cleanly
-next to the already-supported `04eb:e004` entry, and it should be
-backported.
+- [Phase 1] Parsed subject, tags: Reviewed-by Nicolas Dufresne, SOB Hans
+  Verkuil; no Fixes/Reported-by
+- [Phase 1] Commit body: smatch OOB on `inst->frame_buf` 64 <= 127
+- [Phase 2] Diff: +9/-2 in `wave5_vpu_dec_get_output_info()`, adds `idx`
+  bounds check against `MAX_REG_FRAME`
+- [Phase 3] `git describe HEAD`: v6.18.43-1-gc7f0dac02d232 (6.18.43)
+- [Phase 3] `git blame`: buggy line from driver introduction in this
+  tree
+- [Phase 3] No Fixes: tag; no prerequisite commits identified
+- [Phase 3] `git log --oneline -20 -- wave5-vpuapi.c`: multiple wave5
+  fixes; this one not present
+- [Phase 4] Cover letter at lists.openwall.net/2026/05/07/2079: series
+  v4, CC stable@, 6 independent patches
+- [Phase 4] b4 dig failed (commit not in local repo); used web
+  search/lkml archives instead
+- [Phase 4] v2 series note: WARN_ON kept for non-user-triggerable paths
+- [Phase 5] Callers verified via grep: `wave5-vpu-dec.c:354,1407,1499`,
+  `wave5-vpuapi.c:82`
+- [Phase 5] `wave5_vpu_dec_get_result()`: `index_frame_display` from
+  `W5_RET_DEC_DISPLAY_INDEX` hardware register
+- [Phase 5] `MAX_REG_FRAME` = 64 (`WAVE5_MAX_FBS * 2`),
+  `frame_buf[MAX_REG_FRAME]` at `wave5-vpuapi.h:808`
+- [Phase 6] Buggy code confirmed at lines 561–563; fix not applied
+- [Phase 6] `CONFIG_VIDEO_WAVE_VPU` depends on `ARCH_K3 || COMPILE_TEST`
+  per Kconfig
+- [Phase 6] `num_of_decoding_fbs` validated `< WAVE5_MAX_FBS` at
+  registration (line 305), but OOB path doesn't validate sum
+- [Phase 8] Failure mode: OOB read → kernel memory safety issue,
+  severity HIGH
 
 **YES**
 
- drivers/media/rc/mceusb.c | 2 ++
- 1 file changed, 2 insertions(+)
+ .../media/platform/chips-media/wave5/wave5-vpuapi.c   | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/media/rc/mceusb.c b/drivers/media/rc/mceusb.c
-index a4c94fdf767ca..bee5cd15796fb 100644
---- a/drivers/media/rc/mceusb.c
-+++ b/drivers/media/rc/mceusb.c
-@@ -397,6 +397,8 @@ static const struct usb_device_id mceusb_dev_table[] = {
- 	{ USB_DEVICE(VENDOR_COMPRO, 0x3082) },
- 	/* Northstar Systems, Inc. eHome Infrared Transceiver */
- 	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe004) },
-+	/* Northstar Systems, Inc. eHome Infrared Transceiver - variant */
-+	{ USB_DEVICE(VENDOR_NORTHSTAR, 0xe033) },
- 	/* TiVo PC IR Receiver */
- 	{ USB_DEVICE(VENDOR_TIVO, 0x2000),
- 	  .driver_info = TIVO_KIT },
+diff --git a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+index e94d6ebc9f816..e7ea2f6a99d5b 100644
+--- a/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
++++ b/drivers/media/platform/chips-media/wave5/wave5-vpuapi.c
+@@ -559,8 +559,15 @@ int wave5_vpu_dec_get_output_info(struct vpu_instance *inst, struct dec_output_i
+ 		p_dec_info->num_of_decoding_fbs : p_dec_info->num_of_display_fbs;
+ 
+ 	if (info->index_frame_display >= 0 &&
+-	    info->index_frame_display < (int)max_dec_index)
+-		info->disp_frame = inst->frame_buf[val + info->index_frame_display];
++	    info->index_frame_display < (int)max_dec_index) {
++		u32 idx = val + info->index_frame_display;
++
++		if (WARN_ON(idx >= MAX_REG_FRAME)) {
++			ret = -EINVAL;
++			goto err_out;
++		}
++		info->disp_frame = inst->frame_buf[idx];
++	}
+ 
+ 	info->rd_ptr = p_dec_info->stream_rd_ptr;
+ 	info->wr_ptr = p_dec_info->stream_wr_ptr;
 -- 
 2.53.0
 
