@@ -1,75 +1,79 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FA53A6EE6
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 18:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3AB44A1DFA
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 18:19:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788200290; cv=none; b=QdTS8ALFRM7fQ642maOI9aK83T6w/LSRJVwgxy1RloKPtgTxiQg//RU/7SnTU+YAYY9kI/9Kw/jNktnSETbPBX5bbpSBDGM1wC9tEPW9yib4TpEgmDyJ5iXL6ObgDL3efvl/VDQELR7JztABUKY0PWE9D8JG7WlKc7n85VRvGAE=
+	t=1788200351; cv=none; b=K+gS1QqSxGeJ4eGDrNEDsTQ8qJoRumW6CPTa3iudP3nlgBo7CcZLwbFBG+TZYzE45X7vlUH8shZDwSkQqOV8H3c8XPZpANebt3f9sACTi9S32S0lI45I5lTMKI1mhsswO03oPV47bdj2kjfDwEIClp26X470OXws2mzVnOidO/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788200290; c=relaxed/simple;
-	bh=59NyyHL41/fxCKnVpkaZ9/UftIltcgBlLurz9X8b9lc=;
+	s=arc-20240116; t=1788200351; c=relaxed/simple;
+	bh=WeLFcmLA+PEhQHoDsZ64mr9C3T9iy9lVA1j3HwlJKTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DxN3R3cl3qK6iIr5Zs/9xizJu1pMXl9zfpsSzjlASPy4CYmtPE8IFfe/EHEIaoG9jpl3eF/ltxK9J5eHD/H0Melw5syrpNoDGkb1tXQwSYSadnQ/5t4Enacj3cHUwDm/R358G23KiRqNLAOusxRTg/5Z4fkqHxB6u4/iesfLerY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AmFpDPKe; arc=none smtp.client-ip=209.85.221.48
+	 MIME-Version; b=OPM7C8GuNAGEdDFcveDJP237v8EfxuKE+tJKspvDQlnwyYh9zmrwnD9OIKpAaDlYsLVtqc0yXztd+rtQ9aZpY+rU+ovnzYLQNA3yobo1AG6fIqCy+KvCkGeHpejkXRCFJ0zJjKSZjHm8Kn4SYF6xfT+aqNRKpDisUC4zFAbwI2k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e7E9Macs; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AmFpDPKe"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-482fc3327fdso20457f8f.2
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 11:18:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e7E9Macs"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-499ae1c6471so27923285e9.3
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 11:19:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788200287; x=1788805087; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788200347; x=1788805147; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OtkK6MeXx36zYOmLk563en61hTj5SYJiMnh1Sx9Z2s8=;
-        b=AmFpDPKe+Yzzuh4X9MjlgpxQeqRNOMJ5mQretUU40ad/SSpzb6zNLYGbu8DGBOnCGn
-         MCYuU3M8E4MeKn/SOfrkqEkHFcQX20fWM8fHdyQHjZLHc3qGLZ+HktO8iWz6WQHteX8C
-         CZ1noK6yf17ALCD4nqBEpVex8ZNsKL1vp6EPQ6Dd6ryG+SPth9SiuzWzSativ3RoM29d
-         VTWjsXuLaHpM6nLHAtBPLehicVV75ECMv0orEXDiqEZX0hWawjZleaUGf/euIdoFpqPX
-         7QUb6+WLSk/C+yXi7QvEFh2mCKwYgs5bmOjAcjU9pxrOAvFwxSuYBj/XGRA0i/risgWM
-         7ZBQ==
+        bh=YXzJlXmvBQaDFAHS7wJcExo0wJr0U4H2R7PpT7OWtKg=;
+        b=e7E9MacsGqyN4M/qqJDTRcG1+fcwuf5fPDyOm34E8gH0dsV2j7PY8UYLn2EMvaxaRj
+         QosUl0PWfk1Gz5B5F/zRyqSlNGtMpdB4ZC4DfLATrNZKoC7g6bZ6dl/3W6iEUNa6sFVu
+         0OjpBLrlbojaTBLEPI2FCl0Ds8tRsehJXd7dMpWpKFQ250TnRv3HY/trGxR1w2q4qp48
+         +dRFq4qrPnYucbDh1KR+v8tzKEH0YOwpi0XByer6cAlBQTH6fcei5pXE4erNK1g8P6+e
+         vVjRR7omyp5xREi4oMTVE5LcTy/Ab+VqJEbiQQaNwVLIcqMR5hPS/VhEh/Frz4/hCA0z
+         /hBw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788200287; x=1788805087;
+        d=1e100.net; s=20251104; t=1788200347; x=1788805147;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OtkK6MeXx36zYOmLk563en61hTj5SYJiMnh1Sx9Z2s8=;
-        b=ZPo7QAJsMz7MA3d50A4+wUYSOMUbTVZAhFFU0LZOdFokhENyjXxz2wGmV7+/l3W3ED
-         S34VLqtLbp3hqnUy+ewwZbMF8+3BpCA9Qer4xOJki25faqyGsX9KQFmnnpJWz4srFPHG
-         cbHEjQjdL0DuF0Zr7IGRPYXUYVe24+4IqAeEeP7ihCbZfB3Dvw9MHys/OAsNgQqGNo4p
-         48Go2Vp54qk0t34Ir+ZvEHEdPacwjwxbIYEpZoD2xrvn2l9/lm79/fnhXdcFhkeGd8nO
-         rz9GT+BzNCYAhlwQ0O2BWXY5+hrE7QQv6B/2rrzjFFBXvgA09BWsBimo0ecKGN1firnE
-         USvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUAy+XlZf6hdvuf2P9mxjGUDE8S2TlvL7gWcHY17Kl27N75KcJagkOQh9RnyjrMjdpbEB2nSHWHcEAjg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kgzWKKmXJFQwcy3Xbdb+ihFmd2BPAdTKbj2dRLWLCwqT1b0qGA
-	jO07NeroxCC47Hm+iHYjZcRkWTFp80ne/lnWJltdaZ8w9wk55gZUdAh0
-X-Gm-Gg: AYBFou25MK4Kn5XGEd/gtD0mAL1Pns5aEc8qyOqEAWtXVv+wnNnfP3ry5FHiexbIDMT
-	g55gyhIdwCE5eSCLxCP7myN7ioFa7xERJNKGU9y2Be3YeRG/1rVa5G12EP/MKyGrOsmsRJrkyu5
-	3OPPVbPsniu20PaTliMdkmjcq9wTjTC81vOojn5aN4pYNqY+z2sQ/j4JLGC5dLcdFr3WlFM9jlB
-	GNQch9JYGmlYoI8S1R/aYIoYpirJ6otOhx3dhoLDmNlaYYuz5t17vpymkqTFMw0ABUzgHFknmC3
-	CgFRhiKzuwojBp4mPnQCVfLi37uoR3KoiGzIAGAKt1iY6X+pFOxIs2NL9MrkAEi4Rgxlzjicl9x
-	jek5KyA2Hna2I0eHj3JlOvTaiMxk9Ygmjx+lvu0P8UIeUDDbMRFs8K9u3DrjfWl2idqis53reWd
-	j9euMJmIIaKlo10YF/TFJo1ZGUftW3ZClgapqNEbH2+A13ww7CYt0GqvJTyODxClWxdVTZut+4t
-	fyct1clKNj1
-X-Received: by 2002:a05:6000:4692:b0:482:d7db:ec06 with SMTP id ffacd0b85a97d-482f79cfc09mr35102693f8f.22.1788200287133;
-        Mon, 31 Aug 2026 11:18:07 -0700 (PDT)
+        bh=YXzJlXmvBQaDFAHS7wJcExo0wJr0U4H2R7PpT7OWtKg=;
+        b=UEx9v3sb7l/PIW5iv/XYLYfai6978Em0qoPLw6ugl4MGb/TxiyOH3zuNfv6S7evqZ1
+         Sj2hkHPqwGcyvwgfiJNAdQ1aeM15/PStDRRQ/SVdwseJHyd42zg8950RLec+joBnMJ9N
+         aDRD7EY0kCmCzDS8ZQQidSsM7U6KxFEwTVR9FwojbYqCHlsthq3kc/FfJ88q5zO3269u
+         DqAf9CVeVUGn2vnNWr67uM7SMlTdSUY2MxSAwY7Mpkf5WsneIJtvZ/gXmWoxc30utBu+
+         9+hnSpywHryOeE/tZZyIuklmBAOSEqg5eXU0JeHDOMp9C1v6x6p+YvplzAPrFMnHMreW
+         suQg==
+X-Forwarded-Encrypted: i=1; AHgh+RpL3/mwB41V/KqeLvKWkzQw6z9d/U5WufQZrarD2f5BBVtK6HcfugfKeEEh1xGDNwPJr4jdBJXwpp+V+w==@vger.kernel.org
+X-Gm-Message-State: AFuF++kzDF9Sh+5cIoiQVHT4SaZm4bj2yxrc2eoBVllYl9gBWyAAcDFA
+	lWiFXyRkuylGyONNV4JUGN9PZURqVQNFPqeDsrEhJjJ7n5/oR6s+qCtd
+X-Gm-Gg: AR+sD10t2VJGxcO9o5KCFAknpF5cFv0x7ZdlHDXfrXOVqPdOGuRwNo4k6Dx8rCqXAlt
+	Y5Y3Vh4IZk3GSrF/e/49egZDbO8i/7m0PEtdxRHwBTlWCFkIK81bw3UngGCKC1658luJ9HMUAOS
+	vB5VsBefHkYHaLbSIH1AZ8ACYN3geIs49L9MnyEkcwbwr1Fi7J9RFgYmRvwfq4SG4SRj1X/sQyS
+	jX2KD31JzPVjZw+Q5BiSq/N3KW79kUhBTUvggkSy7DrJjqdbbXojQb/CQ2PDBjwhomYKCR6+2Dy
+	CVKlUY0a13U7fZIXrcr3bQhlwK9USelRLpR1+346CHpOoafHDlkJHvNgSzGUPSSqFOWgSSVZq1J
+	l1186RQOeQa1cEHuV/MgfAi5DyYTI6beg+rN5TOWSF+HpaBMt7dBAjsWk7kI+QxwhtmkLm1SmS3
+	9VBKt0DAz5G/2mJeB1DW7U4dHNZ6O76Ln7o5NIDglPA/Xg3SMTzFjbMvfbman0j/ter7n1Fw4SF
+	Ho0MOjKOyF2AAtG8El7n9U=
+X-Received: by 2002:a05:600c:3b13:b0:495:4d5c:903e with SMTP id 5b1f17b1804b1-49cdc4332d4mr46679415e9.7.1788200346684;
+        Mon, 31 Aug 2026 11:19:06 -0700 (PDT)
 Received: from localhost.localdomain ([2001:b07:5d3a:fe75:a74b:bc2a:bdfb:30ff])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48440e08b43sm2656289f8f.22.2026.08.31.11.18.06
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce3e4e7sm9041965e9.9.2026.08.31.11.19.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 11:18:06 -0700 (PDT)
+        Mon, 31 Aug 2026 11:19:05 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
 	linux-media@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 4/4] media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
-Date: Mon, 31 Aug 2026 20:18:00 +0200
-Message-ID: <20260831181800.322529-1-fernandorimoli11@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Arsalan Naeem <naeemarsalan@gmail.com>,
+	Jakob Berg Jespersen <dev@berg.pm>,
+	linux-kernel@vger.kernel.org,
+	Fernando Rimoli <fernandorimoli11@gmail.com>
+Subject: [PATCH v4 0/6] media: Enable the OV5693 front camera on IPU6 Surface devices
+Date: Mon, 31 Aug 2026 20:18:52 +0200
+Message-ID: <20260831181858.325109-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <13d6659f-4b51-4041-8aff-70b991ac306e@ideasonboard.com>
-References: <20260717132021.18034-1-fernandorimoli11@gmail.com> <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260720163819.104130-5-fernandorimoli11@gmail.com> <13d6659f-4b51-4041-8aff-70b991ac306e@ideasonboard.com>
+In-Reply-To: <20260720163819.104130-1-fernandorimoli11@gmail.com>
+References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,68 +82,180 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Dan,
+This enables the OV5693 front camera on Intel IPU6 Surface devices such
+as the Microsoft Surface Pro 9. Six patches on a stock kernel:
 
-Thanks for the reviews on v3, and sorry for the slow follow-up.
+  1/6  ov5693: add the "OVTI5693" ACPI HID so the i2c core binds the
+       driver (these devices enumerate the sensor as OVTI5693, not
+       INT33BE).
+  2/6  ipu-bridge: add the same HID so the bridge builds the sensor's
+       fwnode graph.
+  3/6  ov5693: gate the MIPI clock lane when the endpoint requests a
+       non-continuous clock, which the IPU6 CSI-2 receiver needs to
+       lock.
+  4/6  ipu-bridge: assign endpoint property indices dynamically.
+  5/6  ipu-bridge: add per-IPU sensor config matching and config flags.
+  6/6  ipu-bridge: use those to request the non-continuous clock for
+       the ov5693 on the IPU6 variants that need it.
 
-> Hm, I think this is functionally fine, but matching on PCI ID and sensor
-> does seem a bit quirky...do you know if the IPU3 case is fine with the
-> clock-noncontinuous flag too? If not I can test it tomorrow.
+v4 restructures the bridge side per Sakari's review of v3. Instead of
+the ad-hoc "is this the ov5693 on an IPU6" helper v3 had, struct
+ipu_sensor_config gains an optional IPU PCI product ID and a flags
+field, so a sensor that needs different treatment on different IPUs is
+described by the table rather than by code. Patch 5 adds that mechanism
+and patch 6 is its first user. Patch 4 is the prerequisite Sakari asked
+for: endpoint property indices are now assigned through a running index
+in the style of NEXT_PROPERTY() in mipi-disco-img.c, so a conditional
+property no longer depends on the sensor having a link frequency.
 
-You and Sakari landed on the same objection, and v4 drops that helper
-entirely. Instead struct ipu_sensor_config gains an optional IPU PCI
-product ID and a flags field (Sakari's suggestion), so the ov5693 on IPU6
-becomes table entries rather than a special case in code:
+Patch 5 introduces one semantic I would like checked: where both a
+PCI-specific and a generic entry exist for the same HID, the specific one
+wins and the generic one is skipped, so the sensor is connected once
+rather than twice. Doing it the other way round would consume two of the
+four IPU ports for one sensor.
 
-    IPU_SENSOR_CONFIG("INT33BE", 1, 419200000),
-    IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", PCI_DEVICE_ID_INTEL_IPU6,
-                               CSI2_CLK_NONCONTINUOUS, 1, 419200000),
-    IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", PCI_DEVICE_ID_INTEL_IPU6EP_ADLP,
-                               CSI2_CLK_NONCONTINUOUS, 1, 419200000),
+On the register value: patch 3 now sets only bit 5 (clock-lane gate).
+Sakari asked whether IPU6 worked without bit 2. It does, so v4 drops it.
+For the record, sweeping MIPI_CTRL00 at runtime on a Surface Pro 9
+(IPU6EP_ADLP, sensor as OVTI5693), 3 trials of 30 frames plus a
+300-frame stability run per value:
 
-That also answers your IPU3 question without needing the test: IPU3 has
-no matching entry, so it keeps using the generic one and never sees the
-flag, by construction rather than by a PCI check. So please don't spend
-hardware time on it on my account. If you are curious anyway I would
-still be interested in the result, since knowing IPU3 tolerates the flag
-would let a later patch collapse those three entries back into one, but
-it is not blocking anything now.
+  0x20  bit5                    300/300 frames, steady 28.6 fps
+  0x24  bit5+bit2               300/300 frames, steady 28.6 fps
+  0x2d  vendor value            300/300 frames, steady 28.6 fps
+  0x00  power-on default        0 frames, "stream stop time out"
+  0x04  bit2 alone              0 frames, "stream stop time out"
+  0x10  bit4 alone              0 frames, "stream stop time out"
+  0x30  bit5+bit4               2 frames, stream collapses
+  0x34  bit5+bit4+bit2          2 frames, stream collapses
 
-Since a PCI ID in the table is new, one semantic came with it that I would
-value your view on as the bridge's author: a sensor with both a specific
-and a generic entry for the same HID matches twice on the specific IPU, and
-ipu_bridge_connect_sensor() would then enumerate the same ACPI device twice
-and consume two of the four IPU ports. v4 therefore skips the generic entry
-when a specific one matches, as an order-independent filter in
-ipu_bridge_connect_sensors() rather than a rule about table ordering.
+So bit 5 is necessary and sufficient, bit 2 makes no difference, and bit 4
+actively breaks the link. That last one is why this differs from ov5647's
+value for the same register even though the mechanism is copied from it. A
+bit5-only value recovered to 300/300 in the same run after the bit 4
+failures, so those are genuine value effects and not a wedged link.
+Register read-back confirmed the power-on default is 0x00.
 
-Two other things you should know about v4:
+This was reproduced independently on a Surface Pro 8 (IPU6 0x9a19,
+sensor as INT33BE) by a linux-surface user [3], 30 frames per value,
+every value read back after writing:
 
-- Patch 3 now writes only bit 5 (clock-lane gate), not bit 5 + bit 2.
-  Sakari asked whether IPU6 needed bit 2; it does not, and my sweep data
-  agreed, so it is gone. It is also now set with cci_update_bits() rather
-  than a full-register cci_write(): the ov5693 does not otherwise program
-  MIPI_CTRL00, and since this driver serves IPU3/CIO2 and Rockchip too,
-  touching the one bit leaves anything the platform left there intact.
-  Because that changes behaviour I dropped your Reviewed-by from that
-  patch rather than carry it. Happy to add it back if you are still
-  content with the narrower write.
+  0x2d  vendor value (control)  30 frames, 28.65 fps
+  0x24  bit5+bit2               30 frames, 28.65 fps
+  0x20  bit5                    30 frames, 28.65 fps
+  0x0d  0x2d with bit 5 clear   0 frames
+  0x08  bit3 alone              0 frames
+  0x04  bit2 alone              0 frames
+  0x01  bit0 alone              0 frames
+  0x00  power-on default        0 frames
 
-  Since v3 a linux-surface user also reproduced the value question
-  independently on a Surface Pro 8 (Tiger Lake IPU6, INT33BE rather than
-  OVTI5693) and got the one result I was missing: the vendor value with
-  only bit 5 cleared does not stream, so bit 5 is necessary and not just
-  sufficient. Details and the caveats in the cover letter.
+The 0x0d row is the one I could not produce myself: everything in the
+vendor value except bit 5 fails to stream, so bit 5 is necessary and not
+just sufficient. That second set has two limits. It was produced by poking
+the register over I2C into a stalled capture rather than by running this
+patch, and the write lands after stream on rather than before. So it
+confirms the value on a second device and IPU generation, but says nothing
+about the plumbing. The patch itself is tested on the Pro 9.
 
-- Your Reviewed-by on v3 2/4 is carried forward unchanged onto v4 2/6, as
-  that patch is untouched. Thank you for it.
+Patch 3 sets the bit with cci_update_bits() rather than writing the whole
+register. The ov5693 does not otherwise program MIPI_CTRL00, and this
+driver also serves IPU3/CIO2 and Rockchip platforms, so modifying one bit
+leaves anything the platform put there intact. On the devices here the
+register reads 0x00 before the write, so in practice the two forms are
+equivalent. I went with the narrower one because it claims less.
 
-There is also a new no-op refactor as patch 4/6 (endpoint property indices
-assigned dynamically, per NEXT_PROPERTY() in mipi-disco-img.c). It turned
-out to fix a latent issue in my v3: because the property array is
-NULL-terminated, a conditional property at a fixed index would have been
-silently dropped for any sensor with nr_link_freqs == 0, INTC10C5 being
-the in-tree example.
+The write is issued at each stream on rather than once per power-on.
+That placement seems to matter in practice: in the same thread [4],
+setups that write MIPI_CTRL00 once from userspace lose the binned
+1296x972 mode, which reprograms the sensor, while setups that write it
+from the driver at every stream on keep it.
 
-Thanks,
-Fernando
+Patch 6 sets the flag for two IPU6 product IDs, the ones the gate has
+been exercised on: IPU6 (Tiger Lake, 0x9a19) and IPU6EP_ADLP (Alder
+Lake-P, 0x465d), for both HIDs, four entries in total. The combinations
+covered by hardware are OVTI5693 on ADL-P (this series, Surface Pro 9)
+and INT33BE on Tiger Lake (the register value, Surface Pro 8 [3] and
+Pro 7+). v3 matched all of ipu6_pci_tbl; with the IDs now spelled out
+in the table I would rather list only what is confirmed and add the
+others as reports come in. Surface Go 4 (ADL-N, 0x462e) is the likely
+next one.
+
+Patches 1-2 are independent and useful on their own for enumeration,
+and both carry Dan Scally's Reviewed-by (patch 1 from v1, patch 2 from
+v3).
+
+Dan, Jakob: patch 3 changed since you reviewed and tested it. 0x24
+became 0x20 and the write became a read-modify-write, so I dropped Dan's
+Reviewed-by and Jakob's Tested-by rather than carry them across a
+behaviour change. Happy to add both back if you are still content with
+the narrower write.
+
+Dan, on your v3 4/4 question about matching on PCI ID and sensor being
+quirky: agreed, and patches 5-6 replace that with per-IPU entries in
+the sensor config table instead. That also settles the IPU3 question you
+offered to test, since IPU3 keeps matching the generic entry and never
+sees the flag. No need spend hardware time on it on my account.
+
+Two checkpatch complaints in this series are deliberate, in case they
+show up in a report: patch 4 trips "CHECK: Macro argument reuse
+'index'", which upstream's NEXT_PROPERTY() trips identically and is
+inherent to the pattern; and patch 5 trips "ERROR: Macros with complex
+values should be enclosed in parentheses", which the existing
+ipu-bridge.h macros already trip five times over. Parenthesising a
+compound literal would break the designated initialisers.
+
+Changes since v3 [1]:
+- Patch 3: write only bit 5, dropping bit 2 (not needed on IPU6);
+  OV5693_MIPI_CTRL00_BUS_IDLE is gone rather than renamed to _LP11.
+  Set the bit with cci_update_bits() instead of writing the whole
+  register. Moved the register-sweep evidence from the commit message
+  to this cover letter, and added an independent sweep on a second
+  device and IPU generation. Dropped Dan's Reviewed-by and Jakob's
+  Tested-by (the patch changed behaviour since both were given).
+- New patch 4: assign endpoint property indices dynamically.
+- New patch 5: PCI ID + flags in struct ipu_sensor_config, with
+  IPU_SENSOR_CONFIG_MATCH_FL() and most-specific-entry-wins matching.
+- Patch 6 rewritten on top of patch 5: the HID-strcmp plus
+  pci_match_id(ipu6_pci_tbl) helper is gone, replaced by table
+  entries. Scoped to the two tested IPU6 product IDs instead of all of
+  ipu6_pci_tbl.
+- Rebased onto v7.3-rc1.
+
+Changes since v2 [2]:
+- Reworked patch 3: gate the MIPI clock lane on the
+  "clock-noncontinuous" endpoint property
+  (V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK) rather than writing MIPI_CTRL00
+  unconditionally, following ov5647. When the flag is absent the
+  register is left alone (IPU3 and others unaffected).
+- Added the ipu-bridge side that supplies the property.
+
+Tested on a Surface Pro 9 (IPU6EP_ADLP): with the series applied the
+front camera streams 300/300 frames at 28.6 fps. That testing predates
+the switch to cci_update_bits(). The register reads 0x00 before the write
+on this hardware, so both forms resolve to the same value and I have not
+re-measured it. Each patch builds without warnings on its own, at W=1 as
+well, so the series is bisectable.
+
+[1] https://lore.kernel.org/linux-media/20260720163819.104130-1-fernandorimoli11@gmail.com/
+[2] https://lore.kernel.org/linux-media/20260717132021.18034-1-fernandorimoli11@gmail.com/
+[3] https://github.com/linux-surface/linux-surface/pull/2171#issuecomment-5298352360
+[4] https://github.com/linux-surface/linux-surface/pull/2171#issuecomment-5372616619
+
+Fernando Rimoli (6):
+  media: i2c: ov5693: Add OVTI5693 ACPI HID
+  media: ipu-bridge: Add OVTI5693 to the list of supported sensors
+  media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
+  media: ipu-bridge: Assign endpoint property indices dynamically
+  media: ipu-bridge: Match sensor configs per IPU and add config flags
+  media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
+
+ drivers/media/i2c/ov5693.c           | 25 ++++++++++
+ drivers/media/pci/intel/ipu-bridge.c | 73 +++++++++++++++++++++++-----
+ include/media/ipu-bridge.h           | 51 ++++++++++++++++---
+ 3 files changed, 130 insertions(+), 19 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+-- 
+2.43.0
+
