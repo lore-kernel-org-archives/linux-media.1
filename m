@@ -1,160 +1,288 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-10631.protonmail.ch (mail-10631.protonmail.ch [79.135.106.31])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF73938D3FD
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 12:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71033ADBA2;
+	Mon, 31 Aug 2026 12:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.31
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788180205; cv=none; b=M+WIuBpZhp1lLmtw+9jUzNCfIqC8MhWHlSNLNJN1dXSlJVh8PMAxDE27EV+Ozl7DHVvJN6np4RD83omuz0LQYRz+mRTj5jtMzJ7TWUEUPL/2jFnQ0CuOc1pIvB6aSwuOgOytAOkzZ9nJVA0vvDO0byEgsEzpxQLFqeHCbnIijq8=
+	t=1788180252; cv=none; b=uawPrYtD4D5/ZCmxB5sy75KBB2nR4lthEZfms1Nvs8dR+5ibSBJ1l1ws9x+FplxaoR/kJzAKsN83CJDnNvs1BnJuMr6wqNQMlVJFhYNAwDpNqVqPcOHor4CrSIbfZkaBauge2LaBNnKOKSqnk5vxCxKuSy/eMvZ+OJVNAkI4SFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788180205; c=relaxed/simple;
-	bh=BlJgm4Ox5mXgYlVTOvn9TyhP5PdeM0Albfwu9BKTLxs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kCN86Pmj0XrCluS6aSlzi+y0tIdCV3NRAAyOEtckWdLqw9349E/xGpdrfPoo7v7MZ7NnDNpt8eeGsQuRvMpNnRAn/CtY0QBOR/eBvgDXmD7Ia2vm5LVYmnEdYG6q1R+XmRrUfARvMeY29bzrEdmtqj0+ValmfqlIHP5D2z8AYp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtVYdrze; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788180252; c=relaxed/simple;
+	bh=RhinvOlP7HCyS/uj95yyg5DU+3uQnsU4o454PCaHbWI=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=QaazYcCjoYbVBsialrp6CkBO9NpxIlkxoZvDj8WAnBcHBzKf6+zm9jLjHw7rH0wX8Sgxtm0TGK+zFPXwmMJrceSuMJgKVrnW0jjRGyrLW6I8I81/1g1lCd9HAmwNbchM2bANllU/VmnWK3zq+/eLY4957mH27Swu3bA2x4nl854=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=rimR6HWa; arc=none smtp.client-ip=79.135.106.31
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtVYdrze"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F65C1F00A3E
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 12:43:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788180203;
-	bh=qfD2wglg1zJVWFRnmFn9Fd5OTW5ZvnIVQM+7AZu5RDY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dtVYdrzeWMs8uLAXK10fy6OTpBW3HNK0+l1kxkvKDuV98ycfmwpOzwwriaMVnn5S5
-	 MBis2XJI7kN0Frohk8r4/jevwVilm9GDSflFXJIahy1PO6vKTy4PrT/J7K0VGYjhFT
-	 wAvQAcVMs/6RcZtfk2M/aljcCFzFiV1dv6KQL7n+U2RJK33dagGpCRClsZ1clLEDpo
-	 zxLXoSNo56GegKgLEfBnNtRxAeQ8xxOnxbLVoFm4q7GwUdETrR2Svfg3BiAGd3J94a
-	 W/HYYtvgMpgg/YRniFZ0gza/pcoDcO40uSWe7VRfsmAJ9Izw7asolDCdoVAG+xr1YQ
-	 CTUUO4+/s3Lfw==
-Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-467a6834028so1854086fac.1
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 05:43:23 -0700 (PDT)
-X-Gm-Message-State: AFuF++lKLmz9ku55jLXNQoAeuOaBDVUFKiUdyopivj0hSvPxV2We3RR2
-	m9GHo7nb1b6Ee9FxMbVJNLcxmFbYh6ae8Lk1x/gEF3sO/hkVMeXvz4I3tHtA2CXIwrfZ+6RxIhq
-	QockXZlZuj7LRCtop+h6f9MkKAQCnoV8=
-X-Received: by 2002:a05:6870:a0a2:b0:46a:d6a3:8c22 with SMTP id
- 586e51a60fabf-46af568caa2mr443664fac.12.1788180203013; Mon, 31 Aug 2026
- 05:43:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="rimR6HWa"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788180246; x=1788439446;
+	bh=sKmkbCtJsOXdCXQUTzGC7kdJktkSE1Uq06Y4dwPvjqg=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=rimR6HWae11QIe020Yh/nON68KFWL/5HM2W+lonHJNNE0Dx76PGWClNfvpRec65+r
+	 J0wvT0Oyzxk50eXqY1pI9ZZBl6YDzTB5vyKDzUrwD/fV1t4VCQlT2UPenywoheTOLK
+	 Xr9/w2D3m6dirlSt/aum5Fd+rpsI+waq33DBR9OpBPSyPJhqBUdkTIwtjCU27oLKH4
+	 ykHA4M+vvHfs2I7olfpKuCkzhPDssEKvhMB/3ijUgnn/n04Uva3Tb4mQn3lhXqtOR2
+	 WtxFz34/ERkdaAuEWP5jTFmUYIgR8/P04nifVx2qlCD/S2xzdA3p3XLkewtQ4iaKhR
+	 ttZIsmKRe0N2Q==
+Date: Mon, 31 Aug 2026 12:44:00 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>, Jakob Berg Jespersen <dev@berg.pm>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] media: i2c: ov13858: add regulator, clock and reset GPIO handling
+Message-ID: <20260831124352.86935-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 8135d971aaa816250a55b22583a16f3ccbff1a7b
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-4-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-4-sakari.ailus@linux.intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 31 Aug 2026 14:43:09 +0200
-X-Gmail-Original-Message-ID: <CAD++jLniX0z41jCDZCpzE-LxuU3WPhDTWjYTAOeBGwmvAQH2uw@mail.gmail.com>
-X-Gm-Features: AcwNN1Vq4fTVf7vyTrZsXmKVnMhX9HTpzrSQzVQTYUjMLEoIgNFXJIwzHtA_BFg
-Message-ID: <CAD++jLniX0z41jCDZCpzE-LxuU3WPhDTWjYTAOeBGwmvAQH2uw@mail.gmail.com>
-Subject: Re: [PATCH v3 03/29] media: v4l2-subdev: Prepare for changes in
- getting frame descriptors
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
+The driver assumes the sensor is already powered when probe() reads its chi=
+p
+ID. That holds where the rails and clock are ACPI power resources, but not
+where an INT3472 companion device registers them as regulators, a clock and=
+ a
+reset GPIO for the sensor driver to consume, which this driver does not do.
 
-thanks for your patch!
+Request the three supplies and the reset GPIO, and sequence them along with
+the clock the driver already looks up, in runtime PM callbacks.
 
-On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
+Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+---
+Changes in v2, all from Sakari Ailus's review:
+- commit message cut down; the detail below
+- dropped the comment on the supply names; it is a KAPI with int3472
+- ARRAY_SIZE() directly instead of a local macro
+- fsleep() instead of usleep_range()
+- one function each for power on and off, used as the PM callbacks directly=
+,
+  instead of a pair of wrappers
+- removed the now-useless dev_err() in the probe error path
+- i declared inside its loop
+Link to v1: https://patch.msgid.link/20260831100404.40463-1-lsa.uz@pm.me
 
-> Introduce v4l2_subdev_alloc_frame_desc()
+Without the patch the first I2C transaction fails:
 
-The patch doesn't introduce this _alloc_ thing? Rather _get_ and _free_.
+  ov13858 i2c-OVTID858:00: failed to find sensor: -5
 
-> and v4l2_subdev_free_frame_desc()
-> to both facilitate implementing drivers that need frame descriptors as
-> well as prepare for having a larger number of frame descriptors.
-> If the remote sub-device does not support frame descriptors,
-> v4l2_subdev_get_frame_desc() creates one (with a single entry)
-> opportunistically, thus avoiding the need to add frame descriptor support
-> to sensor drivers the device for which only generates a single stream, or
-> managing the situation on the caller side.
->
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-(...)
+The power sequence follows ov02c10: supplies, then clock, then release rese=
+t,
+and the reverse on the way down.
 
-> +struct v4l2_mbus_frame_desc *
-> +v4l2_subdev_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
-> +                          enum v4l2_mbus_frame_desc_type type)
-> +{
-> +       int ret;
-> +
-> +       if (type !=3D V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL &&
-> +           type !=3D V4L2_MBUS_FRAME_DESC_TYPE_CSI2)
-> +               return ERR_PTR(-EINVAL);
-(...)
-> +
-> +       struct v4l2_mbus_frame_desc *desc =3D kzalloc_obj(*desc, GFP_KERN=
-EL);
-> +       if (!desc)
-> +               return ERR_PTR(-ENOMEM);
+Measured on a Microsoft Surface Pro 11 for Business (Intel Lunar Lake, IPU7=
+),
+with the parts isolated one at a time:
 
-I'm not used to this style of C where you declare variables in the
-middle of the code, but I suppose if this is common in the media
-framework I just have to get used to it.
+  supplies enabled, clock enabled   sensor identifies, driver binds
+  supplies enabled, clock left off  -EIO
+  supplies left off, clock enabled  -EIO
 
-> +       struct v4l2_subdev_format subdev_fmt =3D {
-> +               .which =3D V4L2_SUBDEV_FORMAT_ACTIVE,
-> +               .pad =3D pad,
-> +       };
+so both are needed; a longer settling delay alone is not enough. Verified
+across five module unload/load cycles with no probe failure, and again afte=
+r
+this rework, with the sensor streaming each time.
 
-Ugh even inline struct variables.
+This needs POWER1 GPIO support in int3472 to be useful on that machine: the
+dvdd rail is described there as an INT3472 GPIO of type 0x08, and without t=
+hat
+patch the rail is never registered.
+Link: https://patch.msgid.link/20260829-sp7plus-int3472-v3-1-454b50485ce2@b=
+erg.pm
 
-> +       struct v4l2_subdev_state *state =3D
-> +               v4l2_subdev_lock_and_get_active_state(sd);
+The same sensor on the Surface Pro 10 was made to work downstream by forcin=
+g
+the regulators on for the driver's lifetime, which the people who did it
+called too broad for upstream. Runtime PM keeps them off while the sensor i=
+s
+idle instead.
+Link: https://github.com/linux-surface/linux-surface/issues/2153
 
-This can return NULL according to the definition:
+dovdd is not described on this machine and resolves to a dummy regulator. I=
+t
+is listed because it is one of the three supplies these sensors normally ta=
+ke.
 
-/**
- * v4l2_subdev_lock_and_get_active_state() - Locks and returns the active s=
-ubdev
- *                                           state for the subdevice
- * @sd: The subdevice
- *
- * Returns the locked active state for the subdevice, or NULL if the subdev
- * does not support active state.
- *
- * The state must be unlocked with v4l2_subdev_unlock_state() after use.
- */
-static inline struct v4l2_subdev_state *
-v4l2_subdev_lock_and_get_active_state(struct v4l2_subdev *sd)
-{
-        if (sd->active_state)
-                v4l2_subdev_lock_state(sd->active_state);
-        return sd->active_state;
-}
+A working camera also needs an ipu-bridge entry for OVTID858, separately.
+---
+--- a/drivers/media/i2c/ov13858.c
++++ b/drivers/media/i2c/ov13858.c
+@@ -3,9 +3,12 @@
+=20
+ #include <linux/acpi.h>
+ #include <linux/clk.h>
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/module.h>
+ #include <linux/pm_runtime.h>
++#include <linux/regulator/consumer.h>
+ #include <media/v4l2-ctrls.h>
+ #include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+@@ -1028,9 +1031,17 @@
+ =09}
+ };
+=20
++static const char * const ov13858_supply_names[] =3D {
++=09"dovdd",=09/* Digital I/O power */
++=09"avdd",=09=09/* Analog power */
++=09"dvdd",=09=09/* Digital core power */
++};
++
+ struct ov13858 {
+ =09struct device *dev;
+ =09struct clk *clk;
++=09struct regulator_bulk_data supplies[ARRAY_SIZE(ov13858_supply_names)];
++=09struct gpio_desc *reset_gpio;
+=20
+ =09struct v4l2_subdev sd;
+ =09struct media_pad pad;
+@@ -1653,8 +1664,54 @@
+ {
+ =09v4l2_ctrl_handler_free(ov13858->sd.ctrl_handler);
+ =09mutex_destroy(&ov13858->mutex);
++}
++
++static int ov13858_power_on(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++=09struct ov13858 *ov13858 =3D to_ov13858(sd);
++=09int ret;
++
++=09ret =3D regulator_bulk_enable(ARRAY_SIZE(ov13858_supply_names), ov13858=
+->supplies);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable regulators: %d\n", ret);
++=09=09return ret;
++=09}
++
++=09ret =3D clk_prepare_enable(ov13858->clk);
++=09if (ret) {
++=09=09dev_err(ov13858->dev, "failed to enable clock: %d\n", ret);
++=09=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->su=
+pplies);
++=09=09return ret;
++=09}
++
++=09if (ov13858->reset_gpio) {
++=09=09/* Hold reset for at least 1 ms on a back to back off-on */
++=09=09fsleep(1000);
++=09=09gpiod_set_value_cansleep(ov13858->reset_gpio, 0);
++=09}
++
++=09/* t4: 8192 XVCLK cycles after reset is released, before the first I2C =
+*/
++=09fsleep(5000);
++
++=09return 0;
+ }
+=20
++static int ov13858_power_off(struct device *dev)
++{
++=09struct v4l2_subdev *sd =3D dev_get_drvdata(dev);
++=09struct ov13858 *ov13858 =3D to_ov13858(sd);
++
++=09gpiod_set_value_cansleep(ov13858->reset_gpio, 1);
++=09regulator_bulk_disable(ARRAY_SIZE(ov13858_supply_names), ov13858->suppl=
+ies);
++=09clk_disable_unprepare(ov13858->clk);
++
++=09return 0;
++}
++
++static DEFINE_RUNTIME_DEV_PM_OPS(ov13858_pm_ops, ov13858_power_off,
++=09=09=09=09 ov13858_power_on, NULL);
++
+ static int ov13858_probe(struct i2c_client *client)
+ {
+ =09struct ov13858 *ov13858;
+@@ -1678,14 +1735,34 @@
+ =09=09=09=09     "external clock %lu is not supported\n",
+ =09=09=09=09     freq);
+=20
++=09for (unsigned int i =3D 0; i < ARRAY_SIZE(ov13858_supply_names); i++)
++=09=09ov13858->supplies[i].supply =3D ov13858_supply_names[i];
++
++=09ret =3D devm_regulator_bulk_get(ov13858->dev, ARRAY_SIZE(ov13858_supply=
+_names),
++=09=09=09=09      ov13858->supplies);
++=09if (ret)
++=09=09return dev_err_probe(ov13858->dev, ret,
++=09=09=09=09     "failed to get regulators\n");
++
++=09ov13858->reset_gpio =3D devm_gpiod_get_optional(ov13858->dev, "reset",
++=09=09=09=09=09=09      GPIOD_OUT_HIGH);
++=09if (IS_ERR(ov13858->reset_gpio))
++=09=09return dev_err_probe(ov13858->dev,
++=09=09=09=09     PTR_ERR(ov13858->reset_gpio),
++=09=09=09=09     "failed to get reset GPIO\n");
++
+ =09/* Initialize subdev */
+ =09v4l2_i2c_subdev_init(&ov13858->sd, client, &ov13858_subdev_ops);
+=20
++=09ret =3D ov13858_power_on(ov13858->dev);
++=09if (ret)
++=09=09return ret;
++
+ =09/* Check module identity */
+ =09ret =3D ov13858_identify_module(ov13858);
+ =09if (ret) {
+ =09=09dev_err(ov13858->dev, "failed to find sensor: %d\n", ret);
+-=09=09return ret;
++=09=09goto error_power_off;
+ =09}
+=20
+ =09/* Set default mode to max resolution */
+@@ -1693,7 +1770,7 @@
+=20
+ =09ret =3D ov13858_init_controls(ov13858);
+ =09if (ret)
+-=09=09return ret;
++=09=09goto error_power_off;
+=20
+ =09/* Initialize subdev */
+ =09ov13858->sd.internal_ops =3D &ov13858_internal_ops;
+@@ -1729,8 +1806,10 @@
+=20
+ error_handler_free:
+ =09ov13858_free_controls(ov13858);
+-=09dev_err(ov13858->dev, "%s failed:%d\n", __func__, ret);
+=20
++error_power_off:
++=09ov13858_power_off(ov13858->dev);
++
+ =09return ret;
+ }
+=20
+@@ -1744,11 +1823,14 @@
+ =09ov13858_free_controls(ov13858);
+=20
+ =09pm_runtime_disable(ov13858->dev);
++=09if (!pm_runtime_status_suspended(ov13858->dev))
++=09=09ov13858_power_off(ov13858->dev);
++=09pm_runtime_set_suspended(ov13858->dev);
+ }
+=20
+ static const struct i2c_device_id ov13858_id_table[] =3D {
+-=09{ .name =3D "ov13858" },
+-=09{ }
++=09{ "ov13858" },
++=09{}
+ };
+=20
+ MODULE_DEVICE_TABLE(i2c, ov13858_id_table);
+@@ -1766,6 +1848,7 @@
+ =09.driver =3D {
+ =09=09.name =3D "ov13858",
+ =09=09.acpi_match_table =3D ACPI_PTR(ov13858_acpi_ids),
++=09=09.pm =3D pm_ptr(&ov13858_pm_ops),
+ =09},
+ =09.probe =3D ov13858_probe,
+ =09.remove =3D ov13858_remove,
 
-> +       ret =3D v4l2_subdev_call(sd, pad, get_fmt, state, &subdev_fmt);
-> +       v4l2_subdev_unlock_state(state);
-
-... and this call isn't gonna tolerate state being NULL because
-it will directly dereference state:
-
-static inline void v4l2_subdev_unlock_state(struct v4l2_subdev_state *state=
-)
-{
-        mutex_unlock(state->lock);
-}
-
-Just some
-
-if (!state)
-    goto err_free;
-
-?
-
-Maybe you can just use v4l2_subdev_call() or v4l2_subdev_call_state_active(=
-)
-because they seem to be dealing with NULL already?
-
-Yours,
-Linus Walleij
