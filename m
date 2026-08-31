@@ -1,69 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6852433BD9;
-	Mon, 31 Aug 2026 17:48:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1059435DA40
+	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 18:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788198502; cv=none; b=pDhA1FYl2i+17bAUO9PepsYbrRjUEkoHOv0gIVDTunezM+PE3fE0hWWpG0Q62MovWZ6OhQJm4ixX150dMa/pdSDbXK5T+Z588PmizPyZSmYgytgm2myJtK3RO95U4CQa9J9Xp4hJFIPtRq/5958wcB8sOpdlRkJC9ymPUPVy3YI=
+	t=1788199268; cv=none; b=cQ6OWwCY187g8Fj0sldG9Tm3kytXFjm1VO/CCehUru8O+pCRC6SxJn8RiYlaVrIZwtElpK8sak0zYsrU1nkG5u26a3fqI+CtK9YuHCyHalMYEidGOxzA/D46jUnhmcQxYYKnztW2bQBO/Wgg1Rfe/SsBtNyHX3b10MeAFOJlpOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788198502; c=relaxed/simple;
-	bh=tbYfjaL1NQ4fdIOMntQQZIfqJ6Gjx4knuk46SZeQU1I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I0AADaoo4znFoeLuCJyroKWd28RSSfcouHMSJoFjbqKhz9y2yWkeO/zE7C9NzqhQdLsQTvZcxYs24lIY5FfoYo5rLSnFZ8nbe3EhMY4xPyUI40r4JeqUkF+R5rUUnLeNO40IDtoGbY5d++dCLCY6w0n7h1Fvu+YVe+N0BPW7Law=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mI4lnLlw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788199268; c=relaxed/simple;
+	bh=mL2Lwg9oxsZdUTlykc/2+ON97/E/5LXM0vSR6z8oHgg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zn4h/oxJL4KfioJ/YzQtsfhele95FsfhYxrr2NlaiRn1zyKCBVp+3cYejNIY9AxRZ4KtvY8PLZ04Fy+YR67SX3wJ6lmrXuk8/qUMA7bRnXf8mc1jIl9Z5+E5nJcqAWRpr42eTkwrtubk68kBP5gvqfq7SXe/ztpyEtm3D7wehS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BtS/GIkV; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mI4lnLlw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E62C1F000E9;
-	Mon, 31 Aug 2026 17:48:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788198501;
-	bh=biX+2hLF30/MCvJvLobvPJqDysvlg6zJ3nAUtE+LPDY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mI4lnLlwQoYu2gyGscBflbVWISkvkINUat9Zthn1rev3wKNSHKS8Pg8UCg7Vd4UNP
-	 643hrz5VVsVOW0i4l7Eto8hD35l+efT71k7+NoQ+/pb3q9kedH/0QIGop2AY9wtgWB
-	 u0eJWSd5SwkLwB00tKHWoFdPcNpaDqRICtmjNhVddQRGJYYko+/xzRDEvIbG85yB2x
-	 4RZiWO0lUotb1EsU9wPFA4DbFAgQu5Xm4vcGIM+MasjP0PffPqfG6egKnpjxKXGuGW
-	 EikoUupusPy7D9+H1rZHKGwcmjgluuhO1N+lJPhIDg8ckEbgjWiE7yfYxrYauLA7bo
-	 JxKZS8wltYq9g==
-Date: Mon, 31 Aug 2026 12:48:20 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Frank.Li@oss.nxp.com
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BtS/GIkV"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-47f96c5b722so2398978f8f.0
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 11:01:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788199265; x=1788804065; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=+0qBzso0OAfsRTBs2l98+2UL/lhWr7wMk6D2o/FrLpA=;
+        b=BtS/GIkVrxQe7/rnYJE5/z4rVl7CiyeqqzLcb8a5bOugDjhU3QeWyFX6bdIwe/YJxj
+         wTc+iAx1WDoBvrptk3W5u2WavDSz0IlnfsRNM4IbOcjRvW0WajPElarcW5o+sMmzxxa3
+         1mLl9kfm4PsHGHW+mOeRUYk1GKNuU1Ci5QG7cbPa1m8wfz+7bVqRCvFyQuhko08oMol5
+         F4+Vnai4CSyBOcyO/lLIUep3phB0LzBHDmpV+iCSNhIXbxlODKkKkVF8n+Ty6TnTU8Ku
+         6g0gvXiTAbinBwP1H/vXGTjQHGFbG8Bs9dg8D0SpdC9xBM57nzgio/ePujZBKlcShHh7
+         CdtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788199265; x=1788804065;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=+0qBzso0OAfsRTBs2l98+2UL/lhWr7wMk6D2o/FrLpA=;
+        b=n3PiHk/5+k/OFziEKOvn34cefG5jt9Dukbn8vOiEN6dsAiC9X50Vj5ZUYXo1IWuO7D
+         oYRRMrV4KqHLAu2zyWk+hdmOGsQhNoP5UDDdupkmdt7sQhhmTmWV+N00/utIqhTArC2s
+         V+O2n1BhNsAvLXQjgiId2rKjteXGwxArvDixuxY1wJvDllXfrRVZcwqfexVwNRFvvgIu
+         3DuPEQiQEeKnSW/vdwRjc3nZYIMNQbXctGSsLVgdWxE11lJaSOEtoWGAOV+byj9sZtIv
+         IkGul65N/Oas8oq6lQiQZvb3CJ2DjJGr4b4EdTtIi6o57HgVVmpUwzluk6DNCg455sTc
+         qOLQ==
+X-Gm-Message-State: AFuF++kxdI57KgX8fK73wD1oNB1XfMw7MVuGHSn1n/p1GW963sds5wop
+	jXNuZOqTUgPLcmqkrhrmc9OHBNuqGGiyz8xQi84wmxhs94CjmS3DVIQ039VsAjg0or0=
+X-Gm-Gg: AYBFou0ntYWZtfPEoSTLmbItFcBvYNNEjM6PXyVFhTt3nbck7GXZjxzsmVtgNhSiBMC
+	BZqi1wnaOoKjEMgVjwjaIDK/Cm7i1GsNkYNqlj6lbZNO2mGGQoNvJCMlmzy1mSYrIXhw+VZp2q4
+	Dn96KwP3D46bj1gBuQ2kOeEjx4FxJm3VOsXgzIEebGXgoYp/SsjHgsJNrPo1ia+PphKgUb4GDEv
+	7p3NpM6qi/ocxfD3T20GR/VAMW0RaMPrM92x3GmjOji1ZY+AuUYKdcGqbADD1vpqUTIy6CYp0ru
+	sDFtiJ4ZSQVxDKWxIX/rQh+kLY7bC+3FA0/jdrvici+HjiFEXMaX1C4aih0ahuVJ/fYmnHa5PTp
+	TBZgDfxrYyM2AyhxHUdogZ2l9n6QLKdZEiM3aSqDItoY3KKUGuQ+quxraH4JPuEXj/Hv+lCcB5d
+	MYoMMBgFzT3UpxyTCfodew5o3nObAPkHf8HQJSyTQiKH497z7N4CuqMdAk3asB+4tWVIniBvcts
+	ihR/Mas5en/i2qsnERvDHh6sWHAGwgjKQus1qERKTs=
+X-Received: by 2002:a5d:6e58:0:b0:484:3f43:4914 with SMTP id ffacd0b85a97d-4844101e5cfmr3872253f8f.20.1788199264958;
+        Mon, 31 Aug 2026 11:01:04 -0700 (PDT)
+Received: from 1Z10 ([78.213.92.213])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-482fbab3fcesm22861530f8f.5.2026.08.31.11.01.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 31 Aug 2026 11:01:04 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: linux-media@vger.kernel.org
 Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Hans Verkuil <hverkuil@kernel.org>, imx@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: [PATCH v1 1/1] media: dt-bindings: tc358743: Convert to YAML
-Message-ID: <178819849954.849049.16512865284536369536.robh@kernel.org>
-References: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
+	Maurizio Casciano <mauriziocasciano7@gmail.com>
+Subject: [PATCH v5 00/16] media: Add Lenovo Yoga Book YB1-X91 camera support
+Date: Mon, 31 Aug 2026 20:00:45 +0200
+Message-ID: <20260831180101.3109854-1-mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260827160312.4113159-1-Frank.Li@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
 
+The Lenovo Yoga Book YB1-X91L exposes an OV2740 front sensor and an
+OV8858 rear sensor through the Cherry Trail AtomISP. Its firmware does
+not provide enough information for the existing sensor and IPU bridge
+drivers to construct the complete camera links.
 
-On Thu, 27 Aug 2026 12:03:07 -0400, Frank.Li@oss.nxp.com wrote:
-> From: Frank Li <Frank.Li@nxp.com>
-> 
-> Convert the Toshiba TC358743 HDMI-RX to MIPI CSI2-TX bridge device
-> tree binding from txt to YAML format.
-> 
-> Signed-off-by: Frank Li <Frank.Li@nxp.com>
-> ---
->  .../bindings/media/i2c/toshiba,tc358743.txt   | 48 ----------
->  .../bindings/media/i2c/toshiba,tc358743.yaml  | 93 +++++++++++++++++++
->  MAINTAINERS                                   |  2 +-
->  3 files changed, 94 insertions(+), 49 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.txt
->  create mode 100644 Documentation/devicetree/bindings/media/i2c/toshiba,tc358743.yaml
-> 
+Add the ACPI IDs and bridge data, describe both AtomISP camera links,
+support the Yoga Book sensor clocks and modes, expose raw Bayer capture,
+add per-channel white-balance controls, and add the WV517S rear-camera
+lens actuator.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Raw capture is selected through the normal V4L2 raw pixel formats. There
+is no module parameter or separate private ABI. Raw formats expose the
+complete sensor transport frame required by the ISP2401 copy pipeline;
+selecting a smaller crop remains a userspace decision.
 
+Changes since v4:
+
+- retain the HZ_PER_MHZ conversions requested during review, including
+  the canonical 24 MHz OV8858 clock constant;
+- retain ACPI_PTR() for the OV8858 match table as Sakari requested; Andy
+  subsequently confirmed that Sakari's media-maintainer guidance should
+  decide this point;
+- add Andy's Reviewed-by tags to the unchanged patches he accepted;
+- move the existing OV2740 group-hold error-unwinding correction into a
+  separate preparatory patch before the white-balance controls;
+- complete the AtomISP struct v4l2_area conversion for persistent sink
+  padding, padding helpers, frame-size tables and all callers;
+- keep the OV8858 digital-gain extraction a pure refactoring, preserving
+  the original register packing and explanatory comment;
+- use the existing OV8858_XVCLK_FREQ name for 24 MHz and keep a distinct
+  constant only for 19.2 MHz; and
+- standardize the Assisted-by trailers without changing authorship or
+  Signed-off-by certification.
+
+v4:
+https://lore.kernel.org/linux-media/cover.1787933456.git.mauriziocasciano7@gmail.com/
+
+The tablet DSDT contains the sensor objects requested during review:
+
+    Device (CA11)
+    {
+        Name (_HID, "INT3477")
+        Name (_CID, "OVTI8858")
+        Name (_DDN, "OV8858")
+    }
+
+    Device (CA01)
+    {
+        Name (_HID, "OVTI2740")
+        Name (_CID, "OVTI2740")
+        Name (_DDN, "OV2740")
+    }
+
+All sixteen patches pass strict checkpatch. Integration commit
+780663f0af3b contains the exact v5 media series and passed olddefconfig,
+focused W=1 C=2 CHECK=sparse builds, and a full x86_64 Debian package
+build. The full build log contains no warning in a touched file.
+
+Runtime testing used a Lenovo Yoga Book YB1-X91L booted with
+7.2.0-yogabook-20260831-153058. OV2740, OV8858, WV517S and AtomISP bound,
+and AtomISP reported two connected cameras. Processed front and rear
+streams completed and actual switching was confirmed through distinct
+BA10/GRBG and BG10/BGGR sensor paths.
+
+Direct raw capture produced five complete OV2740 BA10 frames
+(22,364,160 bytes) and five complete OV8858 BG10 frames (20,377,600
+bytes). The OV2740 red/blue balance controls were set to 1200/1300,
+read back and exercised during a five-frame raw capture, then restored to
+1024/1024. WV517S focus was set to 448 during rear raw streaming and
+restored to 300.
+
+During rear streaming, OV8858 and AtomISP were runtime active while
+OV2740 remained suspended; all returned to runtime suspended after idle.
+A 15-second s2idle cycle with RTC wake resumed successfully on the same
+kernel. Front processed capture, SOF playback/capture, and both DRV2604
+force-feedback devices were rechecked after resume without regression.
+
+With Best Regards,
+Maurizio Casciano
+
+Maurizio Casciano (16):
+  media: ov8858: Extract digital gain programming
+  media: ov8858: support 19.2 MHz clock and CHT gain setup
+  media: ov2740: Use C99 initializers for ACPI IDs
+  media: ov2740: Add OVTI2740 ACPI ID
+  media: ov8858: Add INT3477 ACPI ID
+  media: intel: ipu-bridge: Add Yoga Book camera sensors
+  media: atomisp: Add Yoga Book camera configuration
+  media: ov2740: support 288 MHz link frequency
+  media: intel: ipu-bridge: allow sensor-specific link frequencies
+  media: atomisp: derive CSI-2 timing from sensor link frequency
+  media: atomisp: provide Yoga Book OV2740 link frequency
+  media: ov2740: release group hold after gain write errors
+  media: ov2740: add manual white balance controls
+  media: atomisp: Use struct v4l2_area for padding
+  media: atomisp: allow raw Bayer capture
+  media: i2c: Add WV517S lens actuator driver
+
+ MAINTAINERS                                   |   1 +
+ drivers/media/i2c/Kconfig                     |  11 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/ov2740.c                    | 114 +++++++---
+ drivers/media/i2c/ov8858.c                    | 166 ++++++++++++--
+ drivers/media/i2c/wv517s.c                    | 206 ++++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |  19 +-
+ .../staging/media/atomisp/pci/atomisp_cmd.c   |  80 ++++---
+ .../staging/media/atomisp/pci/atomisp_cmd.h   |   6 +-
+ .../staging/media/atomisp/pci/atomisp_csi2.c  |  20 +-
+ .../media/atomisp/pci/atomisp_csi2_bridge.c   |  30 ++-
+ .../staging/media/atomisp/pci/atomisp_ioctl.c |  34 ++-
+ .../media/atomisp/pci/atomisp_subdev.c        |   4 +-
+ .../media/atomisp/pci/atomisp_subdev.h        |   3 +-
+ include/media/ipu-bridge.h                    |   3 +
+ 15 files changed, 588 insertions(+), 110 deletions(-)
+ create mode 100644 drivers/media/i2c/wv517s.c
+
+-- 
+With Best Regards,
+Maurizio Casciano
