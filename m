@@ -1,163 +1,94 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26093A9611;
-	Mon, 31 Aug 2026 05:45:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7863E1A262D;
+	Mon, 31 Aug 2026 05:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788155152; cv=none; b=gyPLfQ9FEIVclkjL99JbEgzpoicoCK+Lzf52UKZxuBUresPZrT8Ick59lKW40vE8y9VZQQ7I3kqG9FyqdgmQBq1wwtzj6AqGrY/n41Z9+gM62r5hh+UbXnUwhXU5r4JtzxIsCXLnkdJPk4kCnXlF1Nup0wFb6xKWcR5xoxeIjNo=
+	t=1788155767; cv=none; b=qbOoGKl8wR/UCp1kIqEj1fZ8VW8bUcty3YRdFLb/dwknp+1oEK824c598Bq/Ospr3cdoERM7XZ/OQWdGSCq4rGHHDMml94nUILjsNEmmB+BXN9n1UPD4rBUULFy+GJcXu1ELSVB4aUk9XVXzdZf8RJlw/JxUExUC0PRc4Ua3FSg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788155152; c=relaxed/simple;
-	bh=ZBy5f3YIs+HPHeNGQbgNnVreK4PHfNj6LSMcH3+gr4w=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=DlGfWimOsy2OryE9Wxz0nbkreAGF03ORir1Y7H8haSEgDc+McZGGvTpTINIrTAVHk2deTX3xvoj4wU4jBqV9Vc2qzxpUu3JssPGq+vop6g/HIwkDxt8296gO2hFA9MNM3F0psVPNgT6Z6VBRFVWzYYwBvXTkSIUSFqzDBiTPXYw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=i1agS4Ur; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="i1agS4Ur"
-Received: from neptunite.rasen.tech (unknown [IPv6:2400:2411:160:2f00:a9ae:3688:6dfb:71b0])
-	by perceval.ideasonboard.com (Postfix) with UTF8SMTPSA id C15BB4BB;
-	Mon, 31 Aug 2026 07:44:16 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788155057;
-	bh=ZBy5f3YIs+HPHeNGQbgNnVreK4PHfNj6LSMcH3+gr4w=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=i1agS4Ur9MZs/4XCx02eKMZs0OAJE6nCbd1ZG/M39j/SQ7dTGiOKItGaddUAH7ogT
-	 Gm1GYBZHShM77lIYROufvvarrInhDqTFXaWsZnVpSNV+SiWdpdjpkwQrVx4uBYgM92
-	 2BDvOhOoooIDzADsjREBkm7XHDK4eBTk7p47IyKg=
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1788155767; c=relaxed/simple;
+	bh=l2n8U7bbeseoHBECMNeVPIdSinjDevK8UAnn/AEiM/8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ivQhsZDjlH9rU7X0GgDyO7G++FWF+rErxiMlTKfsMrzv73qq+uj4urjtHmsoC8rtV636ZDNarVClY9sPBf1tEp8wU25CwFogYjqMRqJ/2eD/MhTMJS2L+ygxUXfl/yto3pT4JVN87EJ5bpEnz8jarwgsuvimM7Jbal/0sn0vgeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from DESKTOP-L0HPE2S.localdomain (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAXSEJmF5VqlHoTBw--.27133S2;
+	Mon, 31 Aug 2026 13:55:50 +0800 (CST)
+From: Haotian Zhang <vulab@iscas.ac.cn>
+To: mchehab@kernel.org,
+	nicolas@ndufresne.ca
+Cc: boris.brezillon@collabora.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Haotian Zhang <vulab@iscas.ac.cn>
+Subject: [PATCH v2] media: v4l2-h264: Fix memcmp() size in B1 reference list comparison
+Date: Mon, 31 Aug 2026 13:54:50 +0800
+Message-ID: <20260831055450.2248-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260717-b4-vchiq-isp-v3-2-fb8235e15c68@ideasonboard.com>
-References: <20260717-b4-vchiq-isp-v3-0-fb8235e15c68@ideasonboard.com> <20260717-b4-vchiq-isp-v3-2-fb8235e15c68@ideasonboard.com>
-Subject: Re: [PATCH v3 2/9] platform/raspberrypi: vchiq-mmal: Move headers to include/linux
-From: Paul Elder <paul.elder@ideasonboard.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, Naushir Patuck <naush@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, Jai Luthra <jai.luthra@ideasonboard.com>, Marek Szyprowski <m.szyprowski@samsung.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, Tomasz Figa <tfiga@chromium.org>
-Date: Mon, 31 Aug 2026 14:45:40 +0900
-Message-ID: <178815514049.1005982.6076319807701926619@neptunite.rasen.tech>
-User-Agent: alot/0.0.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAXSEJmF5VqlHoTBw--.27133S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1UKFW8JF47WF13Cry7GFg_yoW8WrWxp3
+	95GrW3KrWUArZYvr18GFWDGFn0vay8JFWI93ySk342q34qqFs3tw4vyFyUXF1Yk397u3yj
+	9rWDtr95tF43Zr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfU5uc_DU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMQA2qU24T0AgAAsL
 
-Quoting Jai Luthra (2026-07-17 20:04:17)
-> Now that VCHIQ interface is destaged, different drivers (like ISP or
-> codec) no longer live under the same tree as VCHIQ-MMAL, but in their
-> relevant trees like media or audio.
->=20
-> Enable access to the MMAL headers for such drivers by moving them under
-> include/linux/raspberrypi with other VCHIQ headers.
->=20
-> Reviewed-by: Kieran Bingham <kieran.bingham@ideasonboard.com>
-> Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
+check passes the entry count builder->num_valid to memcmp()
+instead of a byte size. Since struct v4l2_h264_reference is
+two bytes (fields and index), only half of each list is
+compared, so distinct lists can be wrongly treated as equal
+and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
 
-Reviewed-by: Paul Elder <paul.elder@ideasonboard.com>
+Change the memcmp() size argument to sizeof(b1_reflist[0]) *
+builder->num_valid so that the full byte length of both
+reference lists is compared.
 
-> ---
-> Changes in v3:
-> - Split missing includes patch
-> - Update commit message
-> ---
->  MAINTAINERS                                                      | 1 +
->  drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c             | 9 +++=
-+-----
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-common.h       | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-encodings.h    | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-common.h   | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-format.h   | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg-port.h     | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-msg.h          | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-parameters.h   | 0
->  .../vchiq-mmal =3D> include/linux/raspberrypi}/mmal-vchiq.h        | 0
->  10 files changed, 5 insertions(+), 5 deletions(-)
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f81226569eb2..d570a293b1d1 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -5114,6 +5114,7 @@ F:        Documentation/devicetree/bindings/pci/brc=
-m,stb-pcie.yaml
->  F:     drivers/pci/controller/pcie-brcmstb.c
->  F:     drivers/platform/raspberrypi/vchiq-*
->  F:     drivers/staging/vc04_services
-> +F:     include/linux/raspberrypi/mmal*
->  F:     include/linux/raspberrypi/vchiq*
->  N:     bcm2711
->  N:     bcm2712
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c b/drive=
-rs/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
-> index ccd8910c315f..80406e1f4bdc 100644
-> --- a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
-> +++ b/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.c
-> @@ -22,17 +22,16 @@
->  #include <linux/mm.h>
->  #include <linux/slab.h>
->  #include <linux/completion.h>
-> +#include <linux/raspberrypi/mmal-common.h>
-> +#include <linux/raspberrypi/mmal-parameters.h>
-> +#include <linux/raspberrypi/mmal-vchiq.h>
-> +#include <linux/raspberrypi/mmal-msg.h>
->  #include <linux/raspberrypi/vchiq.h>
->  #include <linux/raspberrypi/vchiq_arm.h>
->  #include <linux/raspberrypi/vc_sm_knl.h>
->  #include <linux/vmalloc.h>
->  #include <media/videobuf2-vmalloc.h>
-> =20
-> -#include "mmal-common.h"
-> -#include "mmal-parameters.h"
-> -#include "mmal-vchiq.h"
-> -#include "mmal-msg.h"
-> -
->  /*
->   * maximum number of components supported.
->   * This matches the maximum permitted by default on the VPU
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h b/incl=
-ude/linux/raspberrypi/mmal-common.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-common.h
-> rename to include/linux/raspberrypi/mmal-common.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h b/i=
-nclude/linux/raspberrypi/mmal-encodings.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-encodings.h
-> rename to include/linux/raspberrypi/mmal-encodings.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h b/=
-include/linux/raspberrypi/mmal-msg-common.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-common.h
-> rename to include/linux/raspberrypi/mmal-msg-common.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h b/=
-include/linux/raspberrypi/mmal-msg-format.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-format.h
-> rename to include/linux/raspberrypi/mmal-msg-format.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h b/in=
-clude/linux/raspberrypi/mmal-msg-port.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg-port.h
-> rename to include/linux/raspberrypi/mmal-msg-port.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h b/include=
-/linux/raspberrypi/mmal-msg.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-msg.h
-> rename to include/linux/raspberrypi/mmal-msg.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h b/=
-include/linux/raspberrypi/mmal-parameters.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-parameters.h
-> rename to include/linux/raspberrypi/mmal-parameters.h
-> diff --git a/drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h b/inclu=
-de/linux/raspberrypi/mmal-vchiq.h
-> similarity index 100%
-> rename from drivers/platform/raspberrypi/vchiq-mmal/mmal-vchiq.h
-> rename to include/linux/raspberrypi/mmal-vchiq.h
->=20
-> --=20
-> 2.54.0
->=20
->
+Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B0/B1 reflists")
+Suggested-by: Nicolas Dufresne <nicolas@ndufresne.ca>
+Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+---
+Changes in v2:
+  - Use sizeof(b1_reflist[0]) * builder->num_valid for the memcmp() size to
+    match the style of the memcpy() calls in the same function.
+---
+ drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-core/v4l2-h264.c
+index c00197d095e7..e2b7dee8ea14 100644
+--- a/drivers/media/v4l2-core/v4l2-h264.c
++++ b/drivers/media/v4l2-core/v4l2-h264.c
+@@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_reflist_builder *builder,
+ 	}
+ 
+ 	if (builder->num_valid > 1 &&
+-	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
++	    !memcmp(b1_reflist, b0_reflist,
++			sizeof(b1_reflist[0]) * builder->num_valid)))
+ 		swap(b1_reflist[0], b1_reflist[1]);
+ 
+ 	print_ref_list_b(builder, b0_reflist, 0);
+-- 
+2.43.0
+
