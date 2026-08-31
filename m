@@ -1,141 +1,107 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 533543E16A8
-	for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 09:22:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788168176; cv=pass; b=O0eKHgui0iQbgrgBOIacc/FDuMw8km50IE//VZnVz9G65EFoWLz9ZDfudPOYCAi8t03BRpZtCL3qV6qpnC1TTyGKGANBlv9PvSe7PXo33Ng46I3TjNhVRRIp475+p5mOgg4r5V3wx9W82m2ys78fZiBTCAeS7I7SvanYkNvtYkc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788168176; c=relaxed/simple;
-	bh=5aGYxWzpIdizAMBVvnP3Q8Dp5Aty9zq/HyVAn7/6pFg=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=N9f02YKQfL0pcfsuVjeCV0wlyGy0Kdt5rFudL8MR3/t4dD85uFhVzcui13enHz5Fz4REUYyK8/n75NtOO4rMGaRSdKDQAgFV4Sp31oHyQXPcyUhKopilDD65bI0B79ih3wDPou23iEXBbSHY3A6z2WGG94HcvHH4mfJo3VtdXak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C1ZPKsxl; arc=pass smtp.client-ip=209.85.217.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B1D03DB64D;
+	Mon, 31 Aug 2026 09:32:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788168735; cv=none; b=FDyLj31Zm5Fgc6EWvvnkO3F4hfZWOWU2Q/qDMDNkME4oppKzCtduwBrO9z0GDW9hmSELuQ5zERs29QWvj/wHn+3ttLF22CkOO22u+DAKQwst1mOGgNXE7Wzje+AYL8bL2k40mHXQ1hr57FuBvJJH3+dlNxZxBO+yQ4Vq/FJ0/PA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788168735; c=relaxed/simple;
+	bh=kYFY1a0Km/MA/WbUGgeqey1AxwgJqE9ciOIuHC/0EBM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ln3t544umfwu6J1ycfG2q8fRrfsLK6bUF6gpRaijma3Ie7p6d4qIFGEEpbeNxQb9z/DZ2nA+x6IbVy4H61+I8SG6EzizfKynbydH07CZhWNekGwIBnJNN1fVcOrxk4c7SClI3wQWQYCuUTShQtWQJLLB26OnNYMlgdvWLzzQFv0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lgfcXBv+; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C1ZPKsxl"
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-786aca87296so1773382137.1
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 02:22:54 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788168173; cv=none;
-        d=google.com; s=arc-20260327;
-        b=KxKW0D+Qp1ttEpkKj56HfjpDjRk0rcff5c0IQplTvtZJKZPG1OpYhjgkIJZkBJAs7b
-         HvoUFibRrS7XzhBwWGWFK4QNY4W6NOVSfFdom/dGpahhRjJqbS+eyBkmiemVsTSzWwH8
-         Axws64FoBgLH1Zn7TupafMvKQq47Y1cdQEVAHTphsnn1P5ZQ+OmUnRYis83D7k+3lx4e
-         VlcmsnR2htKbCPUQ1Ci8GtM5P+4sl1lqbn/0rIjSVyrlUij1QWrCqwS3XpKLaZ5xB/Ao
-         1WmMzh05jXhiVLYlnAKpEmuBkPIa68rRRL2vGFp53X4jA9K46JOYPMX2kkyVYEvS3rRP
-         wu5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=f4C8ZMLaV/MISxfV8jvIGrHl36lbxjwK/T0/Dx+yNdA=;
-        fh=JKn2NX/v/5sfcKrMLFi5eMH0m/VObpw5+hZevhkXNFo=;
-        b=d6b8QaMVle+ptSdDm3z8YaYalrHxWCoH7vrcAl3sb3A54GAh66DSg13Vc5pfDXpWGf
-         7vDbWbDLnpvJXcAldz/w1cKfrJBjeCY31nKrOjP3+H1cByBi4nJn5jh2TDX7HKce4qEX
-         qA+6hA6Z1mYtGo/tLIkZPSExWv/zP7Qx5y3uoE4OjzO+VhxA/vFx5jkw8ZXdHUu9bZFS
-         sxii3HECbGyVlNnT8ZKpEsWhiNfs7RHDi5B8CDG5rP46Abh1SZgdezsL4ba0NcU3D5Dw
-         NCtq4uE3M0ZIjKLDBjOyx/kSBFP3EPSu7wzUQ2TUenqhcknEk8PeCWXTqwQanMAadfjp
-         /w4Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788168173; x=1788772973; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=f4C8ZMLaV/MISxfV8jvIGrHl36lbxjwK/T0/Dx+yNdA=;
-        b=C1ZPKsxlWppPFbVHp2kyt7eVmxh+Sujw4oxhWpOfKJzXqR8GmQKcQ30em4xfK4h/N8
-         vidpn3jD5Mk0maOkU920qLoWRUB2/LmG6hAk8FGwf4Ij4KRSo+GHAO0/goRiAUkTL7TN
-         88qOHxKJmtXwZ2kDsSOk7wy6lYb2bCnTEJNWVxsTKfur4sucq3KQS6BihOTCPvuyMqr2
-         DpMCuHbUW8sbkCGCR/jB15R9/BQSRQJQklbg8SAl0HUyW8Fo7oKHsEZaME45OHD/7fTg
-         FRYIJKEL0S7afzhFpbMM/TUF34pOj9x7y5+6LqLMAdJNm8x///KIWpURNA4vmQRMcPHQ
-         I4gQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788168173; x=1788772973;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=f4C8ZMLaV/MISxfV8jvIGrHl36lbxjwK/T0/Dx+yNdA=;
-        b=p7J0hbJzQdoeaj6z4PIXPM54FlReUpI+Cctv2wXf5RTG/Mgfz+UEpau4mIIfgRsjXB
-         dPNR7pa66FTLEhzq4XhKPRDJ+A4Ifp2ib21biuiCIr8L2iLR6OQDmPxKFZR0M05zUrbk
-         ukzBxxosCgvEi7B44u+xNujnvYWKDwa1QeTlxhstKzVnl2hL8YbsnIg1cOgCburnAnOp
-         rdMjFqnNaJjPbhauMa/FCxXFOe5sovcnJbfPB1il1oj0xBMriWBi8mdXQwcJGC13j29b
-         DgvuwVBy5dpeBQm4FbCcRUNuHhBcawAl6MQo3xQMHbX7Y7lPREXmn0crJm+yWOFKNRCq
-         eWPQ==
-X-Gm-Message-State: AFuF++mzRmrvuxn9wAFalX6OkWmcJoeNMYad0VH6GdMdzW/rwK9sr1PB
-	9fOZrOtw6MC10QNvQimNPDn0q28NixUFLs3t0+xJYVogl4mLQOjHIeQ5SnW9FIs0Pr1utQTt7Ql
-	ADH+tTH3slfbr51tsYHseXn5s8yiwYk0=
-X-Gm-Gg: AR+sD10phKDR9L+Wt386GIuiJRTYNurzDMuFqlgpGT4ZxQY14UJbvb+bWEwnCm3mN9a
-	W2fT0+QkCLxlw7bX6v/RoYYnYtIZ32LmlCUNo6J4c1I1qfl4Jv5t8eV0Ep3CuxDIa9R27YcT8Cp
-	GAJyB5hEHYvTSN4DXtNNM9Ad6El6Bdy/bjRwRlNdITTwKdKVHYruGmvakbI9NRJtzYnp7NoOk6V
-	CdE2ZwGppRQOKLTHY/ytTAG9IIFyi0l1JEbuoKi3hzo3gtD1UxPTGQc3oynHtDDiDS7gQRX0rIW
-	njgT05DIx2OCxxwAafK8Ib2ZRCxipSBFkENHJZ+sIsOK/Qk+rE+wHI9OULLMRIVwFBqJbzNNHyC
-	d
-X-Received: by 2002:a05:6102:f9b:b0:77f:7df:ddd2 with SMTP id
- ada2fe7eead31-785972e710emr9591999137.1.1788168173106; Mon, 31 Aug 2026
- 02:22:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lgfcXBv+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788168733; x=1819704733;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=kYFY1a0Km/MA/WbUGgeqey1AxwgJqE9ciOIuHC/0EBM=;
+  b=lgfcXBv+VTb9Wpy/HPr4S6xqYAzT+6ZDoZHmIhtoDRh+wmR7dhtko9FW
+   dx52bXoybamkMQaLZpb067f1vLfbpb7xunwKuPB8+BdqGS7pXDe4jkCke
+   92CGlosUitxMji/er7iO3tvp6IE0xWJQ6FUrTpJvDANV3KCwaGTh7nrpS
+   8QbLaFJziyXTZNl9roE5zNX/UHuSyrIAt818kO47ASPzb31wUlJWX4Kco
+   JTHT2ZrAOvltuZ2KEeBt5jkgrOPLOjpLO4Np/j2/8dcZcCzgzjBQ5cJ5A
+   K0UpbNCkl8VyZjgsKD9LkUUdA/WtCKt8AWUI2YiiqKyz5xPNb+XkSa3JJ
+   w==;
+X-CSE-ConnectionGUID: /uZZ91+URVOoL3mo2zHttg==
+X-CSE-MsgGUID: pc3/FmnuRI2KbgUv8yb1hg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11891"; a="98908153"
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="98908153"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:32:06 -0700
+X-CSE-ConnectionGUID: ZelpqDcMT/a4r/B7IsNdVw==
+X-CSE-MsgGUID: H9UWajU5TtuPmfLtlYReUg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,252,1779174000"; 
+   d="scan'208";a="272941824"
+Received: from fpallare-mobl4.ger.corp.intel.com (HELO localhost) ([10.245.244.21])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 31 Aug 2026 02:32:03 -0700
+Date: Mon, 31 Aug 2026 12:32:00 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: linux-media@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@amd.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Nicholas Roth <nicholas@rothemail.net>,
+	Andy Shevchenko <andy@kernel.org>, Hans de Goede <hansg@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jose Maria Martin <jmmartinf@hotmail.com>,
+	Uwe Kleine-Koenig <ukleinek@kernel.org>,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 01/15] media: ov8858: Extract digital gain programming
+Message-ID: <apVKEJ63Ew6qDWrn@ashevche-desk.local>
+References: <cover.1787933456.git.mauriziocasciano7@gmail.com>
+ <1a7c8fba6835b2191b71ae1d903734621626e1f6.1787933456.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Xianying Wang <wangxianying546@gmail.com>
-Date: Mon, 31 Aug 2026 17:22:38 +0800
-X-Gm-Features: AcwNN1VxHmoqQRhhZsQ23eUyyYFi5HXQVGYoAwjgcjV4ph4CWZUZ2jKULw6WLKc
-Message-ID: <CAOU40uDkU0mUvnBv_J7CWPfG-RAtYo579JnF_OezDSu7LPig_g@mail.gmail.com>
-Subject: [BUG] general protection fault in su3000_i2c_transfer
-To: mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a7c8fba6835b2191b71ae1d903734621626e1f6.1787933456.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi media maintainers/developers,,
+On Fri, Aug 28, 2026 at 06:14:43PM +0200, Maurizio Casciano wrote:
+> Move the existing packed digital-gain register programming into a helper so
+> clock-specific gain handling can be added separately.
 
-I am reporting a general protection fault in the DVB USB dw2102 driver
-that is reproducible on Linux 7.2-rc3.
+My comment was ignored, I am not sure why...
 
-The reproducer connects a crafted USB DVB device through dummy_hcd and
-then issues an I2C_RDWR ioctl through the i2c-dev interface. The I2C
-message passed to the adapter has no data buffer / invalid length, but it
-still reaches the su3000_i2c_transfer() callback.
+...
 
-The crash happens when su3000_i2c_transfer() dereferences the I2C message
-buffer without first validating that the message has a valid buffer and a
-sufficient length:
+> +static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
+> +{
+> +	u16 long_gain;
+> +
+> +	/*
+> +	 * Digital gain is assembled as:
+> +	 * 0x350a[7:0] = dgain[13:6]
+> +	 * 0x350b[5:0] = dgain[5:0]
 
-  Oops: general protection fault, probably for non-canonical address
-  KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-  RIP: su3000_i2c_transfer+0x549/0xdb0
+This comment most likely has a typo as I pointed out earlier.
 
-The relevant call trace is:
+> +	 * Reassemble the control value to write it in one go.
+> +	 */
+> +	long_gain = (gain & OV8858_LONG_DIGIGAIN_L_MASK) |
+> +		    ((gain & OV8858_LONG_DIGIGAIN_H_MASK) <<
+> +		     OV8858_LONG_DIGIGAIN_H_SHIFT);
+> +
+> +	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
+> +}
 
-  su3000_i2c_transfer
-  __i2c_transfer
-  i2c_transfer
-  i2cdev_ioctl_rdwr
-  i2cdev_ioctl
-  __x64_sys_ioctl
-  do_syscall_64
+-- 
+With Best Regards,
+Andy Shevchenko
 
-The syzkaller reproducer sends the following I2C_RDWR request after the
-USB device has been created:
 
-  ioctl$I2C_RDWR(fd, I2C_RDWR, {
-      msgs = [{ addr = 0x1a00, flags = 0x9211, len = 0, buf = NULL }],
-      nmsgs = 1
-  })
-
-This looks similar to the existing syzbot report for
-su3000_i2c_transfer(), but I wanted to provide a fresh reproduction on the
-current kernel I tested:
-
-  Kernel version: 7.2.0-rc3
-  HEAD commit: 1137d8b5df06137fb49513cc923b3b24d94cb809
-
-Full console log, syzkaller reproducer, and kernel config are attached
-below.
-HEAD commit:
-1137d8b5df06137fb49513cc923b3b24d94cb809
-report: https://pastebin.com/raw/YT3zKcrX
-console output :https://pastebin.com/raw/UE2E67ws
-kernel config : https://pastebin.com/raw/k2Vq1fKj
-
-Thanks for taking a look.
