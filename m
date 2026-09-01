@@ -1,53 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356C22C1584
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 13:12:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E2C368D74
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 13:18:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788268337; cv=none; b=JzsZMd1dICqb8JGGz5ffifsVgR++pvxKewRlGud5MdCI64N7KBCra18oNszbw/PcD+pVoPO0s3sQiMQRQXClZQPS7WlaDJqsg0vTEYohBakzp1CACnbdI8sXxSEi5RF292AgdKT1frgVKIh89EM8kP8qdlIeYm7zCqhh14Xdi4A=
+	t=1788268686; cv=none; b=ZsQHr0hBKNSE948jHWkJC0oY1WKEu09X+UhvWt8UP7ogEppVb1jnPuMPXiRQC3QvQAJPC6K81ff16cdw8ICbx+xn7TG6g23Wolc9Il5WYDxKGXjs7tbg/WYuTq5dkttlZ910fDTFwmE7TuxeIaEOrMWG+QWOxsEqUQGOma7fen4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788268337; c=relaxed/simple;
-	bh=XddDe9FgK+NSRro6yB3FHBjXjKe4o1o6FQmLLCV5PY4=;
+	s=arc-20240116; t=1788268686; c=relaxed/simple;
+	bh=nZHhI3ifh7BPd7lm2WaaZGTkNnn3Kto7jY4wG3r7S5E=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WK9XJRrJ8aBToN8OlFt/tQbTFyzveLEvyqELcc3tgWx47YLl2OEuSg2L7utSCnnWDfnvjPN/AswjoefC7YmmUTmVYxdoJhEt3KMQpTPPGjIJC78CDxiuvMHO/e/SqwjzQsTJLN7yXr63HQEhR4AmJJaydnZAdYM3Bfvg52o62Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnUfB8Im; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=d4sPXmzWWMjPpxJ3ShgtSSHLlzdzLGDN2NgLTMmYcjZKifYeJdABfJSIwSVw+SOdFHv7c1Hojp7DjLnxhh8r64alfBhIJA9ZLVfn9eMSA8st3pxrZTxoJX1pwikCMFNzxpsW+OMkaOeeQQFYWMvduQhdfT6wrtOG8sr2Zbpc+k0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KsvpyS7s; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnUfB8Im"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B291D1F00A3F
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 13:12:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KsvpyS7s"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E791F00ACF
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 13:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788268335;
-	bh=B+j2B3jNoIVi89gWFs0w9dwsVetLIZDz29pajK8FaEM=;
+	s=k20260515; t=1788268685;
+	bh=nZHhI3ifh7BPd7lm2WaaZGTkNnn3Kto7jY4wG3r7S5E=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=GnUfB8ImxlVkqX6x06TIGUpIbgXbuMBXUf/ppCMkTKrVtby3v/QvjPkG/MeCLII7I
-	 csInKO0vmQZAUR5+KM9w26j+YskoQLMhrUQE6hms+qBZAwtIt+/Ycq5HfUoWAdpfbH
-	 70rJSukGJjS7QRJjaJhlv75JSvIsQCXIAvzErisg6dOSjD/ln6K5UoTMwvUUvHKOzj
-	 QpIo+Fh/I845Jmxm6HbkKCvbXCYfhNPutk2v+xM+LaCGCa3wCyXl6B0z/2Ih/bPqXc
-	 HCrLkxdMXVpErpQlaOHaICDAHXaVIAPvRq0f5wgesKl+MLdAwCndGmO/p7+BebtzKT
-	 1z+3UQP0hoqMA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5b5e41fe5a4so439384e87.1
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 06:12:15 -0700 (PDT)
-X-Gm-Message-State: AFuF++l+T2PU3advv5tnFW3YXwTb+0sQVVyykMH9lgvt6z6URMdyNi8t
-	90zP8uIxCNj8RkDLowzgsihc5/6xutUBg7nThPtoev8Eneon4NiUIt/jnkutdG7PZiw000dHkYW
-	9HPT9CY4p4JlLV0fWHFIGxATtjX9C5bw=
-X-Received: by 2002:a05:6512:61a9:b0:5b5:e517:9cb9 with SMTP id
- 2adb3069b0e04-5b5e68ca48dmr11458560e87.11.1788268334419; Tue, 01 Sep 2026
- 06:12:14 -0700 (PDT)
+	b=KsvpyS7sUHO3asydT1L4uJamE4+QCM06qqlEa4AzqZYv/cGb4Zzn7/d0la/GWStv+
+	 w//ELruAb3dZ4kqh3qK9pmssA6lxvx0GksQ/Pd1cv74UHghKqV0piA0v2+qotW193b
+	 OaqmHzII9dlAXqJfOWlFog43lNh4z932Lmuuy6hfV+xVTpjMvwl2bJiNy9N/X5EDST
+	 HwE2W2SqgF4e3BMzfX+iyzcJ+4rEjtUR66ap/8a3jB7WMMcNZdHAJhyk3b7YZyoYI0
+	 4sWnjyUnLyivW71YMwQ/DNw0Ft5KEO/035xt8kTuJ+L6VU6sIic9jGQRGDvjSJmMfq
+	 FKh/RKI2e3HQg==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5b4adcce4b1so5176292e87.1
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 06:18:05 -0700 (PDT)
+X-Gm-Message-State: AFuF++kfg/jwjwwnp7Yl9Hu1/ijtduOLHLeTL6h7KFWOPJO/6CcLsatL
+	xbF6Jb8gL2UKU7UIjwbpokhEFS/S1kqGplXQznuU65SUCrddv7iVo8a0WsZO5OPbn4jzzcZQgLB
+	1ryJmmd62CNfJzgc24kA1/lIBYAMbXVw=
+X-Received: by 2002:a05:6512:3416:b0:5b4:86ab:5236 with SMTP id
+ 2adb3069b0e04-5b6041fd0femr961157e87.19.1788268684197; Tue, 01 Sep 2026
+ 06:18:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-9-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-9-sakari.ailus@linux.intel.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-10-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-10-sakari.ailus@linux.intel.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 15:12:02 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=5sGegH+cSxDocEVJnYMQ=ijsE45KOapHR0UNtQhjrVw@mail.gmail.com>
-X-Gm-Features: AcwNN1X6C4ka1T7XijZkYUK1dWoI2iopk1m247vrTFVy_eNfMGmPKkoe4D9Z0iM
-Message-ID: <CAD++jL=5sGegH+cSxDocEVJnYMQ=ijsE45KOapHR0UNtQhjrVw@mail.gmail.com>
-Subject: Re: [PATCH v3 08/29] media: ds90ub913: Use v4l2_subdev_get_frame_desc_passthrough_csi2()
+Date: Tue, 1 Sep 2026 15:17:50 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkramYLgD13ssCofjXMw__MTnwELX2=gLgeCoW4Df9YsQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Ug7Q_fAjk9ZjkE7RiOtKG9V-_gqcvobjS7F7TexSGYs0sPoHIEpBkqQYE
+Message-ID: <CAD++jLkramYLgD13ssCofjXMw__MTnwELX2=gLgeCoW4Df9YsQ@mail.gmail.com>
+Subject: Re: [PATCH v3 09/29] media: ds90ub953: Use v4l2_subdev_get_frame_desc_passthrough_csi2()
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
 	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -57,10 +57,6 @@ Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Sakari,
-
-thanks for your patch?
-
 On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
 <sakari.ailus@linux.intel.com> wrote:
 
@@ -68,27 +64,8 @@ On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
 > the frame descriptor type in the get_frame_desc() callback.
 >
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-(...)
-> -       .get_frame_desc =3D v4l2_subdev_get_frame_desc_passthrough,
-> +       .get_frame_desc =3D v4l2_subdev_get_frame_desc_passthrough_csi2,
 
-But is this right?
-Shouldn't this be te _dvp (what I want to rename _parallel) version of
-the callback?
-I can't see anything CSI2-related in this driver.
-
-Look at commit d6113cdd221964ebcfd479f56b1b7e9c4e28e7d4
-"media: i2c: ds90ub913: Use v4l2_subdev_get_frame_desc_passthrough"
-by Tomi:
-
--       ret =3D v4l2_subdev_call(priv->source_sd, pad, get_frame_desc,
--                              priv->source_sd_pad, &source_fd);
--       if (ret)
--               return ret;
--
--       fd->type =3D V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL;
--
--       state =3D v4l2_subdev_lock_and_get_active_state(sd);
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
