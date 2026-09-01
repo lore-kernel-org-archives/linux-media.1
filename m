@@ -1,135 +1,120 @@
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com [209.85.210.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48FB1499F27
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 20:19:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E8A43C09EC
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 21:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788293995; cv=none; b=Re0gWotTIoBLXaAFnUFXQ//XlaTCOtW5e2Emuo74HvlpwZS+1OIa6zOWlJeU/z/AgmiIgKn9ngAiOWw51NXWDOtYdYUES86tOQCmkNG6I5Yh2DfYk2QDxvYJtpgj56lhOtWIBTBOYOhy2MLy/eT0w094Xm0udn8Bfz4MsdyCBKw=
+	t=1788297538; cv=none; b=lQtGdF9Po5jKVwZfy+MXh5irZDzbLdS2Z40cEPl4x6q2S9AkSTFUUWJUp3epY11uvodcxnMujGMC1npINAEc2eIGpgOCT/8vEBDHhGjzs26xB+/vrCC+nmmofUX+qJR6696396F9WCf/EBWI6RRRhDqKrxWCp+JWZmWl8ZpsQrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788293995; c=relaxed/simple;
-	bh=WSeYMLAfGJsQo/kFya8KFlsHCnbXQZ+Iyc4prnMClpE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VrHks1kN1OIuE+84+aXy9DnzQtedbleDm7vqBM+/K1ceaL/Hhk2LGG8afBRILe/+EXYe4YealOyLalkUlxBZcQfS6DUe9ZpGsw7Ym+nOUuQ2Mx9oPP+P9+uSaDq3Ko+kTP05pHvtdM4GncdbVV0h7SV+BbefUlpXVXgrEGNmWvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dIpDNots; arc=none smtp.client-ip=209.85.210.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788297538; c=relaxed/simple;
+	bh=pmm1+1I6/hrYubLLx03yAaDvP3DfsqdW7AnivD9WWwQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rhBA7XLpKJxRB8/uEymwsEa71IrU4qwL9rOGL+Wsx5A9gq9qafYBREcjYD4BfaI3LlCN1to3yFrfRyJ+KQpeSnXNfULAn2K7PLL0qBgySGl+6L5mOQEm/ZKAByrJWA/94vCEZtdYL4vGI4KdVDZSpUmJ7/l0rld7ntYjUH5QJEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Trf5x5ta; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dIpDNots"
-Received: by mail-pf1-f176.google.com with SMTP id d2e1a72fcca58-84864086bfeso242109b3a.1
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 13:19:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788293993; x=1788898793; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=0PiVP95ao7yXW/OZhxmQ9Mbj44WmjmsyxLnkqleNrz8=;
-        b=dIpDNotsGUEFuHsw6xOm3Wamdfj2GeSE4JvUKfyCeRZKm7CKsUeOmsE9bul3OXyWDs
-         2l1C3BVc7+6MM2zak5WDGE+dzTjvxn/jPr++PY8begyY8fqzE3Mp3Tsx4VjEWFTJnh4+
-         4TkJoMdFV9gp5J6jBMgubhazYCMlIo/D2Y/yD6fhqgrNyglaCT+fxSlY2NfueItWosYu
-         gZhb6iQ1o7tT47zwtD2dEq2lYuopspfj1wmsTLE/OfiHyVZCCaq/du0oegpAwqod3YfL
-         yCl3nnYIfJVeH/NwK8rxShumhpRMY31TTcTvGRlcH2QZcW1sP+CBbuNoAWNiXNZngotz
-         5YSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788293993; x=1788898793;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=0PiVP95ao7yXW/OZhxmQ9Mbj44WmjmsyxLnkqleNrz8=;
-        b=K6IeyduqcG7yXQuPb622coKNXbg68sAKH1USCc2a2iWT/wCTgD79ryNrVSqFNizKDM
-         95QyCf1PdL7h/l7eUPEmXM114v2UFtccHNKRasOrGSDuow4sUx2kTvBzEZtE/WKNoWKR
-         LMOFVK3cLyjc1s1bZ9fsAO8zzbPtl998vZ7CWS4MctJ2VNgRuNiHmhjoc8W2fqEDcr7g
-         T8PJvMTD1DL96EzJSy6ufBbnb5zTHtAKHe/m8qIlkTkfegoGZep+Ba0rJhc07S038mGX
-         GeKOM03E6V+gueiSGGoFHbiDKeW3l/yQECk4WSnM0OtgdhKwo7JY2wObj2f6OXo7c1Nv
-         nMtw==
-X-Gm-Message-State: AFuF++n/Xrxh2+yVU6OOuTumpXVL9QnT+ZVRHipQ7jMB/xSZ3MOhcf07
-	doT4rFUTwbahb9Wy9T1tiNGs2fmeSGYCdDDbI4hyXquT5o819lImDJnBv/HtJPOC
-X-Gm-Gg: AR+sD10tt7ac3ExNhqHUnM2/LYb3ML4mIXzbUTITyPUIHPMLhVehcAAnUXVVayjBV5y
-	YTBVOVTthPiMxKffsdivWFOeNCeXOB1lZrQD05hwRU7D42HcRlmEzOTkQDbBBUGyXTOt7k5aM1R
-	TINRBQNR37YH6Az7mxHrdK65NZrVXiMtiMvErONZ+kJNAht+lAQPr1m78y3JiNy+U9fW7tzylZ/
-	MGr1a8FHHUfut0r5UO0cvFnPl1SAcJocuIc7el0sGPo68U9tIXvep7Vq9Unulb2Xw/gz8/aw5Qh
-	/r4Qawh3tTJyqCeVulQycYoEtsfr6J9NfVCrkJ9HrpXxAfCU0g9Sz2kGIlxle37f7YbfAnSnsOw
-	NuQ8vhfBb6okba/bGnThYtYSzph0L9+9vR9HFFML0k2gafa3w+PurWGjmPjbY+8oNQncp7mfcDE
-	Whw2SAD1wK2tVE/O3D7kCpns4MWl4isiD1UZNftdjptHjnI0kO4FQtu6ZXkq1w93BDEkH/6aZ7c
-	bQHRB+BycytKrwtA+o6X+3Oq/XVHY0RJAyk2Gcjlb2id90ry3tXhahz5UKD7yuqcUc3Ip4u7USx
-	IHoWrjVZPGKo3lh2JrM72Or1g8hd+iBxfl0Y8WBqw6w=
-X-Received: by 2002:a05:6a00:a25c:b0:855:1590:ba2b with SMTP id d2e1a72fcca58-85ed1d076bamr647630b3a.5.1788293993438;
-        Tue, 01 Sep 2026 13:19:53 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003aee2sm331139b3a.30.2026.09.01.13.19.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 13:19:53 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: sumit.semwal@linaro.org,
-	christian.koenig@amd.com
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org,
-	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
-Date: Wed,  2 Sep 2026 04:19:49 +0800
-Message-ID: <20260901201950.3503739-1-alan.tseng.cs@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Trf5x5ta"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 366E31F00A3D
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 21:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788297537;
+	bh=qvCtEMEjjIFOf1AwSi8fasSv2VJHfi2xEevhR1rVeAQ=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=Trf5x5tayIi/BEuRlMDmjyM2ppRqqfrtnL7u38jD30YH4qG1z8AEJ9puKuV7bEzAs
+	 6BeC6gdJRCvC9E7lA9pgSZ2lmmEyxpYoAkVT1AgJ2P+5zBtcoGr4FhrdIqgj7SLEmh
+	 2I5yIZ2Uzp0xvDW7TS0Vg9e7+u5axnBCtm0AGDu8RsxUfz74tp3owKiyMsMiWj6Q8l
+	 8xyEK24zDzcIIOrvQGYVFC/etE3tHSBrvQWHc/hU4z7v8pCbWwCxXlZ7J8fDLRrX7c
+	 ugLifc52Sk+T0vZ8LP1MGZWr5kWyO8oYkoCqutlkKtoBNDBWBfYZ44Hw0mISb/IatJ
+	 MQYfyaNHLaKBg==
+Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5b5e41fe5a4so140321e87.1
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 14:18:57 -0700 (PDT)
+X-Gm-Message-State: AFuF++nPUG6JdbLFfYk/uLvlqWDd0yAGDuACBkD9evcW+PedqeSKOjHv
+	so02DY25uGeC0OqrSyDL3/EoqBQXjiSD39zeYuHhCR7CQIFN52mmS8bNVz8oT8RnCcjPnRKIDic
+	F3KXZj54pSGdiveh4fdn6uIOmRM5yq6g=
+X-Received: by 2002:a05:6512:1286:b0:5b6:6b8:1fc5 with SMTP id
+ 2adb3069b0e04-5b608694758mr177808e87.17.1788297535729; Tue, 01 Sep 2026
+ 14:18:55 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-12-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-12-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 1 Sep 2026 23:18:43 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=1HUxGjjNa4WMJhV558ME4vMbCSRwPd2kASENDRi5W3Q@mail.gmail.com>
+X-Gm-Features: AcwNN1XuZjO3Z15IGL2aO36JBNT1wWVBdsVo2jmroZIMACv1jn-GjvrFbSbDbNE
+Message-ID: <CAD++jL=1HUxGjjNa4WMJhV558ME4vMbCSRwPd2kASENDRi5W3Q@mail.gmail.com>
+Subject: Re: [PATCH v3 11/29] media: rzg2l-cru: Use v4l2_subdev_get_frame_desc_passthrough_csi2()
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The kernel-doc for dma_buf_set_name() still promises that the function
-returns -EBUSY when the dma-buf is already attached to devices:
+Hi Sakari,
 
-  Returns 0 on success. If the dma-buf buffer is already attached to
-  devices, return -EBUSY.
+thanks for your patch!
 
-That has not been true since commit e73c317efbf9 ("dma-buf: remove
-restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
-dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
-produced -EBUSY. That commit rewrote the first paragraph of the comment
-to match, but left the return value description behind.
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
-The only failure the function can report now comes from strndup_user(),
-which is propagated via PTR_ERR(); every other path returns 0. Describe
-that instead, using a Return: section so kernel-doc picks it up:
-scripts/kernel-doc -none -Wall drivers/dma-buf/dma-buf.c reports "No
-description found for return value of 'dma_buf_set_name'" before this
-change and is quiet after it.
+> Switch to v4l2_subdev_get_frame_desc_passthrough_csi2() in order to set
+> the frame descriptor type in the get_frame_desc() callback.
+>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+(...)
 
-No functional change.
+This looks dangerous, you remove this:
 
-Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
----
-v1 was sent on 2026-07-29 and did not get any review comments.
+> -static int rzg2l_csi2_get_frame_desc(struct v4l2_subdev *sd, unsigned in=
+t pad,
+> -                                    struct v4l2_mbus_frame_desc *fd)
+> -{
+> -       struct rzg2l_csi2 *csi2 =3D sd_to_csi2(sd);
+> -       struct media_pad *remote_pad;
+> -
+> -       if (!csi2->remote_source)
+> -               return -ENODEV;
+> -
+> -       remote_pad =3D media_pad_remote_pad_unique(&csi2->pads[RZG2L_CSI2=
+_SINK]);
+> -       if (IS_ERR(remote_pad)) {
+> -               dev_err(csi2->dev, "can't get source pad of %s (%pe)\n",
+> -                       csi2->remote_source->name, remote_pad);
+> -               return PTR_ERR(remote_pad);
+> -       }
+> -       return v4l2_subdev_call(csi2->remote_source, pad, get_frame_desc,
+> -                               remote_pad->index, fd);
+> -}
+> -
+>  static const struct v4l2_subdev_video_ops rzg2l_csi2_video_ops =3D {
+>         .s_stream =3D rzg2l_csi2_s_stream,
+>         .pre_streamon =3D rzg2l_csi2_pre_streamon,
+> @@ -752,7 +733,7 @@ static const struct v4l2_subdev_pad_ops rzg2l_csi2_pa=
+d_ops =3D {
+>         .enum_frame_size =3D rzg2l_csi2_enum_frame_size,
+>         .set_fmt =3D rzg2l_csi2_set_format,
+>         .get_fmt =3D v4l2_subdev_get_fmt,
+> -       .get_frame_desc =3D rzg2l_csi2_get_frame_desc,
+> +       .get_frame_desc =3D v4l2_subdev_get_frame_desc_passthrough_csi2,
 
-v1 -> v2:
- - Use a "Return:" section instead of a plain "Returns ..." sentence, so
-   kernel-doc actually parses the description (fixes a -Wall warning).
- - Add a Fixes: tag pointing at the commit that removed the -EBUSY path.
- - Widen the Cc list to the dma-buf maintainers, linux-media and
-   dri-devel; v1 only went to LKML, which is most likely why it was
-   missed.
+And replace with this callback, despite the driver just sets:
 
- drivers/dma-buf/dma-buf.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+        csi2->subdev.flags =3D V4L2_SUBDEV_FL_HAS_DEVNODE;
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc..6ee3c254d7 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
-  * @buf:    [in]     A piece of userspace memory that contains the name of
-  *                   the dma-buf.
-  *
-- * Returns 0 on success. If the dma-buf buffer is already attached to
-- * devices, return -EBUSY.
-- *
-+ * Return: 0 on success, or a negative error code from strndup_user() on
-+ * failure.
-  */
- static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
- {
--- 
-2.43.0
+I.e. it does *not* set V4L2_SUBDEV_FL_STREAMS and doesn't have
+any .set_routing, so it's not using the streams API. The other drivers
+you changed so far in the series had this flag set.
 
+Yet it now shall support multiple streams?
+
+I don't get it tell me what I'm missing here.
+
+Yours,
+Linus Walleij
