@@ -1,142 +1,150 @@
-Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E48378D89
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 06:33:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB14A36D4E1
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 06:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244438; cv=none; b=ierpN6d4rDSVw0MyPNodDoo24IJjooGAA9QKAKZvYhrKOrBU11xIQTlRwsdp086cBiACbtIDn0Ai0iUbmkQS3OaFM/RHHIfeTZp63Sea5i4BdnJ6Y0t7DGQhKNllRgUequHm9mW3pXBrVTKXx30ez/Iykzp9pD4hCP8Tj19m6ro=
+	t=1788245126; cv=none; b=UahBBOP7JF4dBoj0Kdh3ZPHviXTJCRmpooZOnqnEWJKPO3Yc7+Dk9qtZ4q6n7bRRXIYFI/+iK9fIBlSl/xv2c8rlBfn0FKXH9zLcA1ezxgMQZSHpIRScR2uTY2mX1iN/qVGFSS3itww+nn41rXvgYKpBOYY84VZV4nFbz8kVOBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244438; c=relaxed/simple;
-	bh=3MN6mJw7rnS3zO50ztLcXj8mGLoxtAzQ6H3bT8/qQvA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u6xx+G6G/EcOrwC9FvsNW9qby3tUDw9QZvRAzv/7Oq3HJ80lTWI3f1rxmKSgMQwhoFrd119E+H/wrBlX+QbDQPf2qEGOUDFiVjZydqn+XDZ7l8uXdQrAvjFusdWDfRz2pXH+ijnUgG+U23qmfZ2XZltP6NJwiKsvubbxULROobg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+vYFkJ4; arc=none smtp.client-ip=209.85.221.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788245126; c=relaxed/simple;
+	bh=SOXj6z+iLm4Scr8A6iCdnZDM0HQTlGMxjKffj9beV+w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eKkipqZU/8CwVEsW0txqOC7x275toZCoDPiWlG1e55Icv6INH/dZKy51ARo33Eae8tp/uR+GqlA2xkSkiEzTfgUO8bu/8wl5FVLGIgVbJxzCt2It2JqqijaLslwzmm72vIES/r8Batg2qMV6+xX2vhH9mWk85bBuinIP+/ZH018=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SMoS2Kvr; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+vYFkJ4"
-Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482dd6ee390so457922f8f.3
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 23:33:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SMoS2Kvr"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3990fe066ebso465011a91.1
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 23:45:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788244435; x=1788849235; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nS+2pInjOlXM2iS9Ri0UnSYcq50eo6ocFMYoCRo65n4=;
-        b=S+vYFkJ4ViU6+axc6o1UkhIDPPx45QX1OZWm2YobQ2pqnmt/8PCDOWp6fUnQB1lFt8
-         NDRYDw1JXvyxcFHt6KU6KMBeU6J9Uqai2tcaIqBah0M1uvI7fhvhoZafZZBxEDyL0y6+
-         79VoNswJEIbbIVIGtpfXD35P+1BvAeCIe9D0NzJ/gBZsPqi1J5zrazceeWryrvU4BH/M
-         91NdHwkVm3lQD+xZc2mQOcLHuXwaoaI0c2PxYFhed832ZZxnZYEijG0WwU35WpvBvawD
-         mVM39Th6a3XPYhIEecZcR0RUfo2ACPwG9UUu8I12oaAPZ4zXTWJnv/kg2kdtg4Rr+eTt
-         z/bA==
+        d=chromium.org; s=google; t=1788245117; x=1788849917; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lundeczBtASlc12UyGqiUGYiHU680GtxqSj/n9yuvhk=;
+        b=SMoS2KvrLZo5zOE6xnVWlYCb7Af7mY8dabDPrNOKJIMUk/Fiyl/7jiA/8IXw+JUgZ5
+         +ZglVhxEiAZoYJlVcYOgGWFi4teKEK39iaRLokPdBFgWJbnB8mDUKFCJN4Soe3/3i1W8
+         zq+KYWnP0U9QklvCMjT12KgdaAalZ97qwnQj0=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244435; x=1788849235;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nS+2pInjOlXM2iS9Ri0UnSYcq50eo6ocFMYoCRo65n4=;
-        b=b3t3c0KvVolFTl5L1o2WB3cRLKWcC5IdlkhbZzKrOmrHfXarB62RETjoZ3tNxwSpMG
-         j0pXO11c+tX5IA0p4tFFLOR8LWrbK0AxN1PAbW0U2XQB2z6wUedQGg88gT2LHKZaZXf5
-         iSOiX37ArPzVAnybV2IpTEfilhvIptnHcTkaC1aHCtJhjo3UsN0OLwIM/jZxS0NbUXkg
-         84qizJRlYh/y8MXjp+a3bwjv3q4DizppItR3lwhJS4VzP+IRgd/sKcpCbgcQhsOSO0MP
-         afIiBXfgrGzo5U9Yp6bNN2Av2OtWXJ4ZqVrZGzMP4I/fXWaS+qVb0+Zj81fjmZyB1aj/
-         /1mA==
-X-Forwarded-Encrypted: i=1; AHgh+RqU/kaIfMjm47WuK1oSD7+7xEIj6VxS5chCYenEIJ0gr0uZT0av7MTF8LgX+shCdTPiCwNcT1hN2nH2Og==@vger.kernel.org
-X-Gm-Message-State: AFuF++nqiy30NoQhp+uvOzBOkdSPRnXHHxKMrsoLauPFNoROR2k3qufl
-	AgR7ju+9BOPTPv2GRmYqq95YyePES50laGJzzzQJ455bgkssJb0zyfk=
-X-Gm-Gg: AR+sD13BwtF77ESRITH3O7kesum6wnAqLBqiR5WwtMg+1xdZyXe0augUi5JiZBqZmuh
-	jjcmFXRdzF6s2PlKnRUtIlUaq2havxP7rBcg5VOW4ykEYo4Oy1YdxC6qX6jlxrUDKu+K0Fj5/Pq
-	ix+oZd5gmtHWpa5YP0RV1VM3p4XyAfMurLSYEHgD/2ZKHrlMFQFRaJFkKYFSu9/1Uluul0mjcBt
-	DClPUUkopnaoYN78GaJEuvVAEvW9Sv3h6GNmRQyBYROOHYoYbWlZA9CzoqND+s35eCzlMt5yaED
-	A7QIM8UFc80mwNhjYKPl3oZ/ADaEosZyai054pD8dfUvaR8NF10xuiLI5hvSGnGyzM9uwBLKspJ
-	DataG31q+4u+3KYU+wNY8uof2nuTpQcVSzVsGvX+MIRGvpMiANAlOYXSuqtDtn/8FKFp6zrvkta
-	hDAid6zi6ug0lJKHfHrMi8c6QfKW1Sp9+ZgCSqed8wcUggttsDYyNGtfQS361nav+D0Ntr3hX4Z
-	/LfESWFlNC0sB/5o2N/Bw05z1Q5ZgCP2aDTxfQsg43ZXw==
-X-Received: by 2002:a05:600c:a55:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49b91c4cc2cmr543640105e9.13.1788244435072;
-        Mon, 31 Aug 2026 23:33:55 -0700 (PDT)
-Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce171c3sm47078975e9.8.2026.08.31.23.33.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:33:54 -0700 (PDT)
-From: "D. Manresa" <dmanresa@gmail.com>
-To: Jakob Berg Jespersen <dev@berg.pm>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>
-Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Tooraj Taraz <tooraj.taraz@yahoo.com>,
-	"Joseph V. Lavigne" <jlavig88@gmail.com>,
-	platform-driver-x86@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"D . Manresa" <dmanresa@gmail.com>
-Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
-Date: Tue,  1 Sep 2026 08:33:53 +0200
-Message-ID: <20260901063353.67252-1-dmanresa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
-References: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
+        d=1e100.net; s=20251104; t=1788245117; x=1788849917;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lundeczBtASlc12UyGqiUGYiHU680GtxqSj/n9yuvhk=;
+        b=gEjKaU+4nO9LvMm5LS3v6CVrnFw1/HmPrD6vzMLcMjz5/L/bH0P51a34wKQPy7kahp
+         PldwNepMnFR0TRm/r5/Nqr4PLPF08AulmXnMh99o337BcQqomEvbJF3k+fMj8a/qr0iW
+         dm1elUoc+4Fvo20f7Kf+HX3z0ofPXaExHaSwY9v6x0aAoMNlwJ7acP756c1hzuFWrzds
+         CJZckPlSIyJkV8VI/hC3pHAEvbrabiXoK5kWeb/fZniD6aX6fRDmAqY2RIYUMBAfhIy9
+         3W/Xsg/R+32Xch8n8/M2wf7fSck4qiQhRfTw9YTEid22+VUNVeblUagxJ7WL6n8IiEHm
+         x3vg==
+X-Gm-Message-State: AFuF++mW6yTdL/GeuMXusNkwYwllPvMQEK8UoQPV6IJnJrQSY6scOR5V
+	98fSAt75mWYMAnk3gR3KsAEEhDr5Dg0PsHaDjcfzdDUDcZ/FmXhMqF+6YztFekcfQkecT66w2Di
+	MSsS6r4/y
+X-Gm-Gg: AYBFou2ilof4RT5+TUQch1V+vzy6L27jnYTak4wNAKVwNP62THK6ck84uOzSNnUoiIr
+	B3A2PdZ/BnyMp0e7OEwLIhi5fXdSMC/tGcAWcqIovdMZ1BiNJ5f+X3GcK2/WMZ/qf+CaEZGlIO0
+	eZDM6CFwQTxbloYip4L++fjH9mr9tGFSJAR6kIY8ZKMt4AA4iGrvkB7RH+gdZVqCX/eXMYR4hwx
+	j96VxG026Eca6uUD0oSX6ho3s25O/cu8j+H+wl5RFgdR8MWCNHFR0MCEZvlbtKMfGpi/kX14gpA
+	KZ9ZCsyUv7I/0Iy6X7ZMLc9l3c1yNK8Im+2yNQkOWlVz6PPHztE5hfibobiKmxSGZSqBdKMjVkK
+	HPxagex/hrBWQzGPpTC3WfOn7GjnfGm5veLnKmPjhnu+dwKcr+vK70sM3gi62qhT+5QDWhtHi1H
+	73vTnIUpAxxOWyLemhdigHg48r4JWZweGyG7H4+oUgmRToa1jgNJCwSGMfbx6efnkTW5t/LpkLJ
+	tbvd0XLTk8piBSwl65RT80yI+A9zJn5iXF8O4bq
+X-Received: by 2002:a17:90a:dfcc:b0:380:f389:447b with SMTP id 98e67ed59e1d1-396d0fd3a24mr51240975a91.11.1788245116284;
+        Mon, 31 Aug 2026 23:45:16 -0700 (PDT)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com. [209.85.214.182])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990d482c0dsm4203950a91.9.2026.08.31.23.45.16
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 31 Aug 2026 23:45:16 -0700 (PDT)
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2d01663d816so3839645ad.1
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 23:45:16 -0700 (PDT)
+X-Received: by 2002:a17:90b:314e:b0:398:c3ca:1ebc with SMTP id
+ 98e67ed59e1d1-398c3ca354fmr22614779a91.18.1788245114476; Mon, 31 Aug 2026
+ 23:45:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
+In-Reply-To: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Tue, 1 Sep 2026 08:45:01 +0200
+X-Gmail-Original-Message-ID: <CANiDSCu2=p_o8qNZeEOQB_um0YH_+3jefB=4xsC6k6Z349xtaQ@mail.gmail.com>
+X-Gm-Features: AcwNN1Wg-qIkw0DjDvs-MshwFL8qNQ8_0oTAOVfxtEjdH-oEWxzt9AIWj9Aayqg
+Message-ID: <CANiDSCu2=p_o8qNZeEOQB_um0YH_+3jefB=4xsC6k6Z349xtaQ@mail.gmail.com>
+Subject: Re: Avermedia GC515 implementation
+To: Edwin Gatier <edwin.gatier@protonmail.com>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Since this thread is where the INT3472 _DSM GPIO type codes are being
-discussed, relaying a piece of vendor-side documentation that surfaced in
-the linux-surface work: the type-name table inside Intel's own Windows
-driver. Extracted by the tester known as fildunsky on GitHub (relayed here
-with their permission and at their request - full context and discussion in
-https://github.com/linux-surface/linux-surface/pull/2252):
+Hi Edwin
 
-From iactrllogic64.sys, "Intel(R) Control Logic", 04/04/2024, shipped in the
-Surface Pro 8 driver package (analysable without a Windows install):
+Looks like your camera is not following the spec. It says that it is
+uvc 1.5 but behaves like 1.1
 
-  0x00  Reset          0x07  Power0         0x0E  AF
-  0x01  Enable         0x08  Power1         0x0F  IO
-  0x02  Strobe         0x09  Standby        0x10  Avdd
-  0x03  Torch          0x0A  WriteProtect   0x11  Core
-  0x04  Flash          0x0B  PowerEn        0x12  (Handshake)
-  0x05  LedRear        0x0C  Mclk
-  0x06  LedFront       0x0D  PrivateLED
 
-Extraction data, for anyone who wants to reproduce or challenge it: name
-pointer array in .data at VA 0x140021060 (file offset 0x1F260), stride 8,
-indexed by the _DSM type code; strings in .rdata at VA 0x14001E4C0;
-SetGpioOutput at VA 0x1400027C0 rejects type >= 0x13 and indexes per-type
-state as base + 0x50 + type*32, consistent with that layout.
+Could you try if this patch fixes it for you?
 
-What this does and does not say:
+Regards!
 
-- It confirms 0x07/0x08 are simply "Power0"/"Power1" on the vendor side -
-  generic numbered rails with no supply semantics - which if anything
-  supports mapping them by what the consuming sensor driver requests, as
-  this patch does with "dvdd".
+diff --git a/drivers/media/usb/uvc/uvc_driver.c
+b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..615cebb67508 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -2851,6 +2851,17 @@ static const struct usb_device_id uvc_ids[] =3D {
+          .bInterfaceSubClass   =3D 1,
+          .bInterfaceProtocol   =3D 0,
+          .driver_info          =3D (kernel_ulong_t)&uvc_quirk_fix_bandwidt=
+h },
++       /* Avermedia GC515 */
++       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
++                               | USB_DEVICE_ID_MATCH_INT_INFO,
++         .idVendor             =3D 0x07ca,
++         .idProduct            =3D 0x1515,
++         .bInterfaceClass      =3D USB_CLASS_VIDEO,
++         .bInterfaceSubClass   =3D 1,
++         .bInterfaceProtocol   =3D UVC_PC_PROTOCOL_15,
++         .driver_info          =3D (kernel_ulong_t)&(const struct
+uvc_device_info){
++               .uvc_version =3D 0x010a,
++         } },
+        /* ViMicro Vega */
+        { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+                                | USB_DEVICE_ID_MATCH_INT_INFO,
 
-- It says the vendor calls 0x10 "Avdd" and 0x11 "Core", while mainline since
-  v7.0 names 0x10 INT3472_GPIO_TYPE_DOVDD and registers "dovdd". Worth
-  knowing, with two caveats: it is a single artifact and the electrical
-  claim is unproven (the Windows control logic raises every described line
-  in sequence regardless of name, so a working camera under Windows proves
-  nothing about which rail is which); and con_id in int3472 follows what
-  in-tree sensor drivers request rather than vendor naming anyway (0x0b is
-  "PowerEn" in this table and is registered as "avdd"). Empirically, on the
-  Surface Pro 8 the consumer of the 0x10 rail is the ST VD55G0, which
-  requests "vddio" - lining up with neither name and resolved there by a
-  per-HID mapping.
+On Tue, 1 Sept 2026 at 02:45, Edwin Gatier <edwin.gatier@protonmail.com> wr=
+ote:
+>
+> Hello,
+>
+> I'm trying to use the usb capture card x'tra go from avermedia but the uv=
+c implementation is not very good from the vendor. The card falls back at u=
+sb 2 speed (high speed detected) while it works fine on windows with usb3 s=
+peed (super speed) which it as been designed for. Video stream should be 10=
+80p120 and h265 compressed by the card.
+>
+> Plugging the card does nothing, the card is not recognized at all as seen=
+ in the dmesg log, and subsequently is not mounted in /dev/videoX.
+> I tried some quirks but didn't manage to pass the probe.
+>
+> You of course can contact me for more information.
+>
+> I'm on linux 7.2.2-1-cachyos with Wayland and have a dualboot with window=
+s 11 on separate drive to update and test the capture card.
+>
+> Best Regards
+>
+> Edwin GATIER
+>
+> Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
 
-- For the enable-delay discussions, the same binary's power-on sequence
-  (discrete::DiscreteControl::SensorOn):
 
-    Enable -> 2ms -> Power0 -> 5ms -> Power1 -> 5ms -> PowerEn -> 2ms ->
-    Avdd -> 2ms -> Reset held -> 2ms -> Mclk (or the ACPI clock when there
-    is no Mclk GPIO) -> Reset released -> 2ms -> Enable asserted -> Handshake
 
-fildunsky still has the binary and is happy to re-check it against specific
-questions; anything for them is best routed through the PR thread above.
-
-D. Manresa <dmanresa@gmail.com>
+--=20
+Ricardo Ribalda
