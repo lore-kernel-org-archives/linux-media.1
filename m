@@ -1,55 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AA0275B03
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CFBB32E128
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:31:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788265849; cv=none; b=Z/6QmYFhBpL/Mm4Tj2TSbuC7/8H5CYYywFS3ojY4Ml1PL9GlAbMnFTAd5Iy2+ShD65UltIzz708Y/TJJzwHedAd7hiANn1JdBy//MGM64QS3QOk6vr3t67sVTwMV4keaaS3JXgZ0kzj4UVv3Si6XvLwAfkPJrq5lHjSdpVC+o48=
+	t=1788265908; cv=none; b=fHX325VzVpEJfFCHVGO9T/ZD3hloytzJ3IMTUSfXlwUzYjXqzwa7+A4zQEMUZY4wme0nvOzAXfA6XUdMOJdcFXEOsxJQm4/fM9BDEKAMPIJ6KjC4pEX4s1t6FExJyDVW+Wr8i+8CMgtCS7OiZ5EAeE2kbrFlxx6GBhnK54IByn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788265849; c=relaxed/simple;
-	bh=ablFrbx3pWZLubOJHWZkjzJoyx+zs1jxd1DjapaVHeI=;
+	s=arc-20240116; t=1788265908; c=relaxed/simple;
+	bh=XWyg/sGSiN9CWCJHl0G6U9SD6FigwnNwv2O6pdbZ2lg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fU6l29fwLje/tmo00LgeOUx9bw8kLDCZPlknwqVkxOSZtsVtRlJ92I5pw4G7GZ6sVxiNXFqt2ikbyBxLF+RYsbE1dJPxBQ/xc/FM/HEZoEoJk4jYwkG1WH5nUJZ8NWZyaioXc51PdjTUFfGHMmQiNI28wMP0Wd8DyE3fGlzDucg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eC+7I6zA; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=btGS1fv837ws7FsknIRHI9bN90lXr5Qn2UUfwBJ76v3wFZyKYw67EK4/TlGczPynv7a+i7+/i7FisuI1KRYsj7QcKMqpLKPLuX6NXnSDJaR5dvh3msg2PUs2+Zzuj+3daEpnB7uycdni8vIHzXqenDyrRfL+yy0mrhtJg8j8jHA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lUJ3VvHU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eC+7I6zA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2ABC1F00A3F
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:30:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lUJ3VvHU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39391F00A3E
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:31:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788265847;
-	bh=0JN41BhaJuCkBZSIQhxEqQn4TCT3m+0Gcon15aT8f1U=;
+	s=k20260515; t=1788265906;
+	bh=XWyg/sGSiN9CWCJHl0G6U9SD6FigwnNwv2O6pdbZ2lg=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eC+7I6zAJbOiPGq21XBolp11eF0TFEs1wBiSk2z88ecMFyNxRQFqPJmEnNzaAjJJ+
-	 0AFg3bEbo7TqunNQAe1culmR+1xeTJFYvnmD0BmK8TC6pUVtU0jWW7EICk8hvh9FEs
-	 BzzPIlWSWXVnmpR1g4+XDUztxVxuYtL49DgTl7pJvEoKF0mn0D8FANFpMJq/OfmtOs
-	 wyQ1U3sq9SI2RP1EBH2mGda6zlIizslWu+w9X2jbVGoCK+9noFj2g/BEB+7HwU2oCL
-	 PeBN6CDWjZFP3gbd2YpE+U6d8hDkabw/RuJunK5COexYOMyadIsZ6Yd3STpwR288l2
-	 jiiOtF5/Cjf+w==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so745750e87.0
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 05:30:47 -0700 (PDT)
-X-Gm-Message-State: AFuF++lMlCnwxXC/I6CQqD+aPv+3PkvBGCV5GjWbBjEkFrfTm9Vyec0p
-	8M1w01NctHMeBB3F8UMcqOC1292AkGmyIuy5rmwzPzAhzY070hN9BSmM4vVlXgloCXxHXd1FOte
-	FBZIWDMavVoPhctwXkHiBt4kNdDH29zU=
-X-Received: by 2002:a05:6512:3d09:b0:5b4:8658:a401 with SMTP id
- 2adb3069b0e04-5b5e690c365mr10201963e87.19.1788265846337; Tue, 01 Sep 2026
- 05:30:46 -0700 (PDT)
+	b=lUJ3VvHUDRZjfroKg5kmiKh0x55nlNST1kE8k7Gipa/51LGDA8rxuY+A5U+dCyg1t
+	 pHNy2pAU5oYLoPcE388hH1DYKgoGrISDLP4e5Uy8xNbXwjtnKrYVDQOTXrL+XlqCSH
+	 IfBfXvCU7LDZKBTY2UBZkHlBYUX8CzhEyVx9rKIG42zioNvw7tDx0/xVXhM6uSfCbq
+	 1NZ3uerF44puJ+6LlNmsLwHl9g7eqPL+9zQmJ+iP80K/ANoTjk+GojChXgVug+F8lY
+	 eM1/Br2v7Q5/8RmbcUwWbfDKuAt9al59midSGB5wQZc9Whd6UiXRmElfELEl9FKJYK
+	 3VdlFqBw392Eg==
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5aec6360133so1851973e87.1
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 05:31:46 -0700 (PDT)
+X-Gm-Message-State: AFuF++k1lpv4qri6AFH3t4rCwdB92IpZTmbIXAr6r4GBFFmjlfnr2fFP
+	I4/SluyK7yZb2LM0wzxU6rRq92ec12JFkW+JYKFDMJ3KYrn2FPtKOPfEOL6FB9i8hB1Ytc+a9Ko
+	RSxaD9gZKbjnHcTnzLlrO0DXKw8JjrzY=
+X-Received: by 2002:a05:6512:12d1:b0:5b4:5846:d925 with SMTP id
+ 2adb3069b0e04-5b6041f62d0mr717344e87.21.1788265905653; Tue, 01 Sep 2026
+ 05:31:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-6-sakari.ailus@linux.intel.com> <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
-In-Reply-To: <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-7-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-7-sakari.ailus@linux.intel.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 1 Sep 2026 14:30:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk_XRtBxf2tLk2Eat_yN5K=cdav5YL4yw8ukUW1AOw9Rg@mail.gmail.com>
-X-Gm-Features: AcwNN1WwoGDmxROZGACbBzBQyWWZh6qoh63s00v1HqTaBPsEDaBzP2YXXk5HPII
-Message-ID: <CAD++jLk_XRtBxf2tLk2Eat_yN5K=cdav5YL4yw8ukUW1AOw9Rg@mail.gmail.com>
-Subject: Re: [PATCH v3 05/29] media: v4l2-subdev: Allow allocating frame
- descriptors based on the need
+Date: Tue, 1 Sep 2026 14:31:33 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=cGwb2YJHi+SLCAj=rXq+k-kV1cfteNu_ffCqA49fPTg@mail.gmail.com>
+X-Gm-Features: AcwNN1XpaFs3y_ztQsD7_NRBj7b1zcBvMy4B0r4NWOmjk58WdD8vtJ1K3aS5KFs
+Message-ID: <CAD++jL=cGwb2YJHi+SLCAj=rXq+k-kV1cfteNu_ffCqA49fPTg@mail.gmail.com>
+Subject: Re: [PATCH v3 06/29] media: v4l2-subdev: Change the maximum number of routes
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
 	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -59,55 +57,16 @@ Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Aug 31, 2026 at 3:18=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
-[In v4l2_subdev_get_frame_desc()]
-
-> > +               if (desc->num_entries > desc->len_entries) {
-> > +                       dev_dbg(sd->dev,
+> As the frame descriptors are now allocated dynamically, allow as many
+> routes that there can be dynamically allocated frame descriptors.
 >
-> When you get to this check, isn't that after this loop:
->
-> for (i =3D 0; i < fd->num_entries; i++) { (...)
->
-> so you should check num_entries agains len_entries before this
-> loop?
->
-> (I might be misreading the patch, maybe I should actually apply
-> it and inspect the result.)
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
 
-I applied the patches to a branch based off v7.3-rc1 and inspected the resu=
-lt.
-
-Forget the above confused comment, I was missing the fact that this is
-in two different functions.
-
-But! The resulting code looks like this:
-
-if (v4l2_subdev_has_op(sd, pad, get_frame_desc)) {
-    unsigned int type =3D desc->type;
-
-    ret =3D v4l2_subdev_call(sd, pad, get_frame_desc, pad, desc);
-    if (ret < 0)
-        goto err_free;
-
-(...)
-
-    if (desc->num_entries > desc->len_entries) {
-        dev_dbg(sd->dev,
-            "too many frame descriptors; got %u, expected at most %u\n",
-            desc->num_entries, desc->len_entries);
-        ret =3D -EINVAL;
-        goto err_free;
-    }
-
-    return desc;
-}
-
-It seems dangerous to call v4l2_subdev_call() before you have done
-the (desc->num_entries > desc->len_entries) check, so maybe move
-the check up?
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
 Linus Walleij
