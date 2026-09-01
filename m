@@ -1,130 +1,148 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85BE6471262
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 09:57:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788256652; cv=none; b=CV9BSeSym17MqjpswrzDyvhn3PXR9pzAEkeyEE+5hYagTiwtLJ9gsQG6aGhyo3UHvfHAHhI36YDHza7S38ZK0lD406b/KK976reiok27PLNInzJKl2EzqTP8sOLTJB+k4Qk0fOAZtAM5w6EFLgiphfnKFtQy3Mba4y5ORyxF/js=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788256652; c=relaxed/simple;
-	bh=11jjKfUY9KFzwZxUWk/NgcNwLRgWeMnxQMKfWVaoYGc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YC2xqop6t7iyoDxuQm4CX59ynP80L/2Bfr8f+0aLXKkpsD6/sdsEtXH/BK39Sllhp6VGCsAULFDsko6A3C/xUZR6Xzab5WWJQAnGD1MMWOgH7Dn3d5W3EHNq64F0qMemPCisYz2uq+A5BF5oMRhWT95NepfHHlDPvmAH5fNohR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ceaiPkqY; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9FA37E5F1
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 10:32:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788258737; cv=pass; b=rAXGx4qEwCjE1PXzcXuIueEXOOFzJ10iq1YNkEgtt6q7C+CD7r72SH53Stt35YsLai8BcDmvlGzQ9idxubQKfKCnzmu9+hyawI4EsHs7G6uZyN3UjwGgb0e26Vj9uFLCboDbdP+bsHIPAHG16XSRWaZ6P5e6BNFo0hSC47ddmo0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788258737; c=relaxed/simple;
+	bh=smEifeBMy0Z3ajt+Qik15W/HgNo5+JEeABnfNmNyhfA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=rGZoyprK8rRHOHxhbQBxXZ9mPKn69d/8X/JiEXKEwFxLnD8LN6yuI9Lyauh9FKnEjEMH8cYKYCluLS3Tn34EVBhNuyYNhI95UnfE1aXrd8aC5xQS8XD08DKInle2icGZZFfVmKbMaiFLixPY62l8udlYoCRHnDzp93KpqqBf4KQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pDo6bGeU; arc=pass smtp.client-ip=209.85.216.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ceaiPkqY"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-482fc3327fdso449729f8f.2
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 02:57:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pDo6bGeU"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so855224a91.0
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 03:32:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788258736; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OZp1/3pDnfuhcfUSxbQavzPKqm3NlHySx8mYgr6gioTTCpeCpRkqXaWZDmHrXuhIc+
+         cGxRCiRCefYVa9NvbfJo2u7oz2Ojce9AmAJGHkIBWpuDiK6ahe2YYA2O5hl/OphA0il2
+         +yrn5PYYtpNkE+qoBU8Wa85OXbOEAEe0Ht1cFoenYdKReQ6nx5qhlKEGrZ5U5UmPYDmL
+         zROvY0ji+rBv6OjTB5/SREIMAmVnBPnrm30wXG6eeIc2Nmju27UWX1HJAX8vaQJBWqNF
+         PBFIARUl61sEAwb9gya1aCdXyjNrL1dFTKlJJ9ipjwzMJwPJG71ZhfVrBMq8piEopa5Q
+         2FaQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
+        fh=Uyk+gSDxDTnG5ZU45FY0nTNFo9o8NjBFLajDOrweZxw=;
+        b=dogK+vjnRf2uXRmmUpPc/psawFwKxXYPZfkIIIMAMouPVhbAcwROBaUgIpGt1slFNK
+         eV7+Hp9Z1IB31cU4JpspNH9F9Uvb2ggV2K1ZCZEUXjiL3AdQkXCLPElNAYQhyITyryrq
+         svNSuE4PbrevfeFpwqvDbcBxPSOW/glmhWce/spdVgVbtYsjDWkOIX0+RlDX1LJtP4Dp
+         4iL3v5+4JVxRnVCWhVuA3nc8pzJ2rvSuhEIhzkro19aGIJ2OBJ/DyANsG2nE/WlhkDbV
+         jd8yMoOk25BlML/MeQfOsytt/grlMIEsQ5GVEgss0ARdrYphYShhEwzN5Gl+RYUFtZUK
+         SnSg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788256649; x=1788861449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uOoFj1fnBYzWP1dEYsJ9SaTJjzi1C6FqQt+UOHHWVdw=;
-        b=ceaiPkqYvAfGp1kO5pTt6BpnYCubF+fRNWGepwp1YFw4IY17Y/vVxbLgH5BH0qhrw3
-         ag5x9GyUhqeW9maZYar2c+HNKlWkUyP4Zr4bb3LFbrvv+QR1944JNlKNMtYqk10ON2un
-         sy0uFfjlM8P9bZuF2lq0ouHtdiO/En+pt5w+fv/EQO5cZRyIbG4ooqb36aLQKT/EgX6q
-         /smt/xb1FGo58lMQZN4/mQ+qLjt705GZJPGwg0icf7hKJs6dM5MNZ6pvJvT/HnSAvd71
-         TukzautT7qBX1yvHplDM7rMrn0USdaI3NSE6b4CSHSeurB3jotlNuYznB1pYr2KoRFTg
-         xoOA==
+        d=gmail.com; s=20251104; t=1788258736; x=1788863536; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
+        b=pDo6bGeUb3RCk5wwYhvyHsi5UlnmlmsB/mv8gFGgXdUeHqXJV1gsRmBfisgjrE/V7Z
+         0YaGgb6vBv9XLZ9efNdrNzi2qNPQkxwjUJ3DUljRI2qo/KBTAOgCMWm6rxxgryr9o6s/
+         O4xjNeS+VMhqrEc3Y8sIB2mnjikHoixUfuyVmGoFqrVAtpLgBtNn+MFgmT99EIwbNGFs
+         Ye+almjLq+zkV9g80wI/9zavhxLgRV7o451199agXf0OLENDOoLIL34O4zjxXUchxMWN
+         K+axDXkiHp6ZX7EVbzWwutWs/lPUj8Edmx2+Q+U+X6U7yZ4gzGywCiud7BabHDD/aQLj
+         Sb3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788256649; x=1788861449;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=uOoFj1fnBYzWP1dEYsJ9SaTJjzi1C6FqQt+UOHHWVdw=;
-        b=QFT4rXnIOxFffx7OxPfQXdJS+X+OK+SZsrLXbdH1V3fqo8aa3xwRIwkezf1IURiRh9
-         fJYZKDFM209f2AWy7Ct98b0p4jTPLjEdA9J6I2gYAnZiZmXDovTKfviNVVdpymXXRwTt
-         r0ngPwDggKLY5VofRnaP5/LS8WSl+oVmi8vVDmhL9Pnz4saB3+GVafXvj0oClUmfKzw7
-         oHbSv+0LxgmVdUVAW/qhhcgWtSbRe85Gp1h10o6vcix8dTJzhWI1LzY5tC8QcflYK8mV
-         BnVRsW7YpPjn/sGysk14DkVAvMXK2YIefCRn/4hNBj9vGcRghjytQRZCt1BBTjv4iIxD
-         k/tQ==
-X-Forwarded-Encrypted: i=1; AHgh+RrfQiR8WIJjg8ski6ocPgsrGFF2xRaK5WFvBVbKWGefBy/we4veaMirSM9fX0TZUcp+S8ANzdLqjsNJVg==@vger.kernel.org
-X-Gm-Message-State: AFuF++n6Kx1J0PcOmdtwNrdOKRs9UiUjOHkGduCOfbsT19BS/wncJcmW
-	Rk0ov3gW/93knDBmZGGA+AGT5jEZIm/C3b5rpUlpA6VdF7fJbLui4yRY
-X-Gm-Gg: AR+sD10iTZQVayFJ7sB3QlNWkmh12Yk8vFrvIlcc4ag/SLgaLvyBRMnICfg0XEr5hKS
-	WX+wRue6gsc81aiyBcv6pJyx4hDiVYCq8v4Oyyyiz9NCHUnA7d1PEE2r9K6yNrUQmPyL2QXYo1z
-	v7RzkbglfFE0YCzP5JFuLrDp5qJqpPA4GMHFLZvXER3CrXfNhSZ7YjzDV2ugiobyBsat9/RfjsU
-	qjzbnhUTDo/4Knxcq4CnbJyG4G88bW5GIE4y4kRac5UNYB6w/BekPFaRX/c+jvoLyCfCgltP6I/
-	KMJbfVSu0/BMb9pdc8ewwKZMz6gxV+/+pBIsvNqjGxL5WuVcFfkVsK5zKJJYkFeis55hKZeS1iv
-	+Nu43D411IGB9e2n+23mf02FYMRTDUFT7vhfqPhzpd5r0oyHiPfDyeCHBwVW1RPabP3ap/MPIyA
-	XzdYw9qfSpyRokKtrPkaAlKhtZFdf63ybcCC7K+EcdRYfQ9K1aqrlQu+a69Eh3s/wRCOMtBRU1+
-	zYMwuANM+8uiPhTInEqnnGSuQ==
-X-Received: by 2002:a05:600c:1393:b0:49b:12c2:104f with SMTP id 5b1f17b1804b1-49b91c2660amr461459995e9.1.1788256648521;
-        Tue, 01 Sep 2026 02:57:28 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net ([2001:b07:5d3a:fe75:6bf6:388b:455d:27bc])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48442c192bbsm3711478f8f.0.2026.09.01.02.57.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 02:57:28 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arsalan Naeem <naeemarsalan@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 5/6] media: ipu-bridge: Match sensor configs per IPU and add config flags
-Date: Tue,  1 Sep 2026 11:57:21 +0200
-Message-ID: <20260901095721.45129-1-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831181858.325109-6-fernandorimoli11@gmail.com>
-References: <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260831181858.325109-6-fernandorimoli11@gmail.com>
+        d=1e100.net; s=20251104; t=1788258736; x=1788863536;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=V5s4IKVXxawyIQN3k+Fx8gYZRs8DqeFSyZO91rnQvKI=;
+        b=kWHYgrGu5YvbzQMxJaXDzsEHHw//l9WRlUXaGcaMFEZo0FXteIYdRBv3b7mPbApb7H
+         zUhcSfkGMPg3M2RoqUFymvRc+nLB5pRvECbh8hjbJQBeB/3D3439yGAteXkELbqWX5Oj
+         7RRWqdF6icwoykCEI8qalWsBQsIfj/mh8oTBNgTFtVVDbC9ti+47BhUL9pyiLDFgxhYB
+         6URiCCm2O9APMwy1JtOKYrprMvWEHbDoIT5mwG/tKDDblLUjCB8qqWytk83oT2CJ1j4K
+         FQhJRhYq1hii9CAZVbYd3WyMsuwM3D/msxete4zTHfsWin2eaQr/PNODTWLh3ryl5Gkb
+         HBpw==
+X-Gm-Message-State: AFuF++mT3MC9wQ+hDwHbvgYIeePWS+ATNw4ydKkJ/qEA7j18nHQVR7UL
+	a3SbEKDIojOYwN8JbPTSrO3m6K5BL3RzR2Be4a7URFSWrUx8L0ZrygQQuAqK1TuhZqhL+EPxEC4
+	jMswaavQVy/c6qiJKABdNLM0WmML9i/M=
+X-Gm-Gg: AYBFou3e5eB8du9vaJmea1yaqvuRDokHfhauPMNPzvCrTmu9EsBfmSB+qPIhv8tgNlt
+	tIlJN0GlLuh3y36ujUOY61orhW34igTIedN087uUDx9FQnz7dVcehJp9Tr7nbspaFNTarARv2YS
+	B/Xh5y/PnotCWVfwbE+JhkNMOKMqwYT8Z1GouJra1vaNZlGFXNk9kq6hjNGbF5+pfDceFB1YB2x
+	mN/qy85X81lI/7VAE2frcE6Jjo/vgjNqeNjTScMiDEgpsweWoklwuT7uL3vzRMroEYElWnNyRsB
+	/Xyn1no4vgi3GRm+H2u517bPGiNXl4L8PF3eyc6HTjqd
+X-Received: by 2002:a17:90b:4b91:b0:398:9beb:a2bc with SMTP id
+ 98e67ed59e1d1-3990f91f621mr4597404a91.30.1788258735750; Tue, 01 Sep 2026
+ 03:32:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+ <20260820075524.2056029-2-eagle.alexander923@gmail.com> <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+ <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com> <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
+In-Reply-To: <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
+From: Alexander Shiyan <eagle.alexander923@gmail.com>
+Date: Tue, 1 Sep 2026 13:32:04 +0300
+X-Gm-Features: AcwNN1V92jXDafPZZtSS49uqIzVTNJkSWZ4fOedgWAlAqiYSgU8_CRCjPwq9NOE
+Message-ID: <CAP1tNvT2+uNvcHf9=c_ysaM=gKrnz+5ZMTOq-8n_V+Ryx=yxLA@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
+ sensor binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Sakari Ailus <sakari.ailus@linux.intel.com>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Quentin Freimanis <quentin@q-lab.dev>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Sakari, Dan,
+Hello.
 
-The semantic I asked you both to check in this patch, where a PCI-specific
-entry wins and the generic entry for the same HID is skipped, now has
-hardware confirmation rather than only my reasoning, so you may not need to
-spend thought on it.
+> >> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
+> >>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+> >>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+...
+> >>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+> > ...
+> >>> +properties:
+> >>> +  compatible:
+> >>> +    enum:
+> >>> +      - onnn,ar0234cssc
+> >>> +      - onnn,ar0234cssm
+> >>> +      - onnn,ar0234cs
+> >>> +    description:
+> >>> +      The AR0234 sensor exists in two different models, a colour variant
+> >>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
+> >>> +      the model through registers, allowing for auto-detection with a common
+> >>> +      "onnn,ar0234cs" compatible string.
+> >>
+> >> So all devices are compatible? Then why compatibility is not expressed?
+> >> What are the actual programming differences between sc, sm and "none"
+> >> variants?
+> >
+> > Perhaps I need to revert to the compatibility strings that were used
+> > in version 2
+> > (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
+> >
+> > From a programming standpoint, it makes almost no difference which
+> > sensor is used
+> > - the only differences are in the output format and the format count.
+> > Either way, the driver always uses the sensor model determined via
+> > register reads.
+> > If the specified type does not match the detected one, only a warning
+> > will be printed.
+>
+> Devices should be made compatible with the fallback or even the color
+> and mono variants could be dropped. That depends on the difference
+> between color/mono.
 
-A linux-surface user tested the series on a Surface Pro 8 (Tiger Lake IPU6,
-0x9a19, ov5693 as INT33BE) on a machine that has INT33BE in the table
-twice, the generic entry plus the flagged one this patch adds, alongside
-two other sensors on other ports. The bridge connects each sensor exactly
-once:
+Removing the separation would result in a regression.
+The addition of the color and mono variants was proposed by Dave
+Stevenson following
+the first RFC version of the patch.
+Subsequently, Laurent Pinchart suggested an implementation approach,
+which was indeed adopted, though it has evolved somewhat into its current form.
 
-  intel-ipu6 0000:00:05.0: Found supported sensor INT33BE:00
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTID858:00
-  intel-ipu6 0000:00:05.0: Found supported sensor SMO55F0:00
-  intel-ipu6 0000:00:05.0: Connected 3 cameras
-
-Three sensors, three connections, no double-connect and no port consumed
-twice, which is the failure I was trying to avoid. The other two sensors
-take no flags and came up normally afterwards, including an IR sensor that
-still streams and still serves face authentication on that machine, so the
-filter does not perturb entries it should not touch.
-
-He also read MIPI_CTRL00 back over I2C during a live capture and got 0x20,
-which means the flagged INT33BE plus PCI_DEVICE_ID_INTEL_IPU6 entry is what
-matched and the property reached the sensor endpoint. So the path from the
-table through to the register is exercised, not only the end result. That
-is a second Tiger Lake confirmation independent of Jakob's on a Surface Pro
-7+ elsewhere in this thread.
-
-Two caveats on how much this carries. His tree is 7.2.2 with the
-linux-surface patches rather than the v7.3-rc1 base this series declares,
-and that tree carries its own duplicate OVTI5693 entry which he had to drop
-for patch 6 to apply, since patch 2 adds it properly. Jakob's test was on
-the declared base. Both are good, but they are not the same tree so I just
-wanted to have that on record.
-
-He intends to send his own Tested-by, and has offered to run the negative
-control, the same build with the PCI_DEVICE_ID_INTEL_IPU6 entry removed,
-expecting no frames. I have asked him to do it. That would show the table
-entry is what makes this work rather than something incidental, which is
-the one thing none of the positive results establish. I will report the
-outcome either way.
-
-Thanks,
-Fernando
+Thanks!
