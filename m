@@ -1,119 +1,85 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA336476694;
-	Tue,  1 Sep 2026 09:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A0B54766A5;
+	Tue,  1 Sep 2026 09:48:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788255670; cv=none; b=qAXwrJi4UXnM4VN2bbA7wEY76mxpM0wKqAUdUFZYnkTkHDc0DFEa3j8kNwo9ZVdUK8tgnzOi/MgzGh8uJjdz60ahJyV92N0OAm5Rc/2zPjoEKVkIkwiIYUMQ4leJykGClHrHAX6GJRpvQDpPNDAz0PCEm+RhIIwLyCiyg7vGR0Q=
+	t=1788256104; cv=none; b=GS7BpZwTm/czPFCglR4xfc+1NCnowUczG4gK1RsfzoSFfcwfqMvUe6KwWG0+MiB3BuHl21Vv2UGO1sMrQo1DcWkizlQJP9+WOR5N1adCwF+KsTpKuRJb7ovFcM3Osd9QZEIcUBEiihl7eQLHLWtHJtQiHHSThgmLBSPylP8erCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788255670; c=relaxed/simple;
-	bh=3yAldy84B1u/2Vt3CgXGYvK8huwyCm5ZOTf32gqeiPo=;
-	h=Date:From:To:Cc:Subject:Content-Type:MIME-Version:Message-ID; b=lAJt7hhgvZTWdle5InRB2YkkzzqvPmPgEsodsnKz9cBVOuhZAJKOjiL9eT+xrS/JQ47zZTTsr0tmAuBeF4xk7fN/Jh0T5Um9Zn5oNDj2juaxcLPbJXHyQ0haxTEA+k/USk4+UdUi+UIAcx+kjlC93Pr+Mk4uPGWIZMRfinA+l3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lshLDAeA; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788256104; c=relaxed/simple;
+	bh=qAp8MrjiaLvm3oKtW1EugfF51+OIz+9Uqiti+xEPkYA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HfmodRgncJw/7UTTugPm+ADcNPj2C37TG+OLBvEYoru6qEL6tF6d2OAErYmievZ6wdRswxovTm3Da39y4xZwXebFSEEdS0TIfNjwiy+u/MOKHqD2D5s6NtsQp7qnCaCCdN2rSsjbQHvQ12mQeTM7VAxVRY06nJLdqbKYAPKEaB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mb3JzQ9f; arc=none smtp.client-ip=198.175.65.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lshLDAeA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=3yAldy84B1u/2Vt3CgXGYvK8huwyCm5ZOTf32gqeiPo=; b=l
-	shLDAeASETVmo5nNtVEf2qw/IqpktitKKoymCUdQ9vcH/3kY8CmUki7MVJeEwz8c
-	YoJqzXlechns9RmHeAr1TTcPVn4TiDr9vt7aaB+va9oKWBXul3j7sRbCjc/Cbvax
-	v1sO7cG6ts5ug1Y74h8h+UfNpHhJB2KkcA587onutg=
-Received: from firefly0158$163.com ( [218.76.28.35] ) by
- ajax-webmail-wmsvr-40-114 (Coremail) ; Tue, 1 Sep 2026 17:40:40 +0800 (CST)
-Date: Tue, 1 Sep 2026 17:40:40 +0800 (CST)
-From: "CJ Liu" <firefly0158@163.com>
-To: sean@mess.org, mchehab@kernel.org
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [BUG] media: rc: redrat3: KASAN use-after-free in rc_dev_uevent
- after probe failure
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-X-NTES-SC: AL_Qu2TCv6euk4v5iCfbekfnUoSgu46XcC1ufwj34NSc/oEsjvw3QIGUlBKA1nJ1e+hKD2yryqNSjxT78NTe4Neza/WA266HNhJjwmsWNeEqA==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mb3JzQ9f"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788256102; x=1819792102;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=qAp8MrjiaLvm3oKtW1EugfF51+OIz+9Uqiti+xEPkYA=;
+  b=Mb3JzQ9f/dJvjiywTGbrjCIwFVklhQDKJQ0rczOvjE1r3rgTTSIGX1c/
+   D1ejb99joCdRi43Xa5edjAykZBT9/CynBRH8rly/iw57ZysFmIRjgIVlI
+   JxqGp+sM0jP4SFbR0r6cTw6Ntz5SXtyhpAGGAB9uY6I7z1+zDIq9syULp
+   E3KrjP60bxVw1Unapf2pA0fMBEWD/Y0HvCNDBYRQ+FHpNyiZFbCAuLgon
+   HPGEXFbq6vyxLJ1XEMKi+xxKRwffu0UN0kfOO0/MHQIpjmoW7oTeMdhY2
+   69c1bPJkB2PjegDzQ1Nm7JvLYdbmcQbVg1Zmyj/gvjQRrqH1LJKDKMSWi
+   g==;
+X-CSE-ConnectionGUID: 74dm2VBLRl2GK9lN8faQsw==
+X-CSE-MsgGUID: HhlEzP+mRsOgofO5ZUKMgA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11892"; a="106052093"
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="106052093"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:48:20 -0700
+X-CSE-ConnectionGUID: wY0NC/B8S+ucLhVM0COMHA==
+X-CSE-MsgGUID: 8vUAhiscSpS0GNI5BXPmuw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,255,1779174000"; 
+   d="scan'208";a="293882126"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.222])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 02:48:16 -0700
+Date: Tue, 1 Sep 2026 12:48:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Thierry Chatard <tchatard@gmail.com>
+Cc: linux-kernel@vger.kernel.org, hansg@kernel.org, lee@kernel.org,
+	platform-driver-x86@vger.kernel.org, ilpo.jarvinen@linux.intel.com,
+	djrscally@gmail.com, linux-media@vger.kernel.org,
+	mchehab@kernel.org, sakari.ailus@linux.intel.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	v.vitovt@gmail.com
+Subject: Re: [PATCH v10 2/8] platform/x86: int3472: tps68470: use unsigned
+ int for GPIO lookup loop counters
+Message-ID: <apafXsvky0WQjNkw@ashevche-desk.local>
+References: <20260831160754.9857-1-tchatard@gmail.com>
+ <20260831160754.9857-3-tchatard@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <7dbdc4e8.8c60.1a05c579a17.Coremail.firefly0158@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:cigvCgD3PxKYnZZq1w09AA--.8402W
-X-CM-SenderInfo: piluvw1o1qikqy6rljoofrz/xtbC3hjNf2qWnZg2bgAA3V
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831160754.9857-3-tchatard@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-CgpIaSwKCkkgYW0gcmVwb3J0aW5nIGEgS0FTQU4gc2xhYi11c2UtYWZ0ZXItZnJlZSB0cmlnZ2Vy
-ZWQgYnkgYSBzeXprYWxsZXIgVVNCCnJlcHJvZHVjZXIgb24gTGludXggNy4yLiBUaGUgaXNzdWUg
-aXMgcmVwcm9kdWNpYmxlIHdpdGggSEVBRCBjb21taXQKNDVjMTNmM2Y5ZTNiYjE1ZmQ4OWZmMjg2
-NGM2ZjYyN2EzYjRiNDIyOS4KClRoZSByZXByb2R1Y2VyIGNvbm5lY3RzIGEgY3JhZnRlZCBVU0Ig
-ZGV2aWNlIHRoYXQgaXMgYm91bmQgdG8gdGhlIFJlZFJhdDMKaW5mcmFyZWQgcmVjZWl2ZXIgZHJp
-dmVyLiBEdXJpbmcgcHJvYmUsIHRoZSBkZXZpY2UgcmVwb3J0cyBpbnZhbGlkIGVuZHBvaW50CnBy
-b3BlcnRpZXMgYW5kIHRoZW4gZmFpbHMgc2V2ZXJhbCBoYXJkd2FyZSBjb21tdW5pY2F0aW9uIHN0
-ZXBzLiBUaGUgZHJpdmVyCmV2ZW50dWFsbHkgZmFpbHMgcHJvYmUgd2l0aCAtRUlPLgoKQWZ0ZXIg
-dGhlIGZhaWxlZCBwcm9iZSwgc3lzdGVtZC1qb3VybmFsIHJlYWRzIHRoZSBkZXZpY2UgdWV2ZW50
-IGZpbGUuIFRoaXMKcmVhY2hlcyByY19kZXZfdWV2ZW50KCksIHRoZW4gYWRkX3VldmVudF92YXIo
-KSwgdnNucHJpbnRmKCksIGFuZCBzdHJpbmcoKS4KS0FTQU4gcmVwb3J0cyBhIHNsYWItdXNlLWFm
-dGVyLWZyZWUgd2hpbGUgc3RyaW5nKCkgcmVhZHMgYSBwb2ludGVyIHRoYXQgd2FzCmFsbG9jYXRl
-ZCBhbmQgZnJlZWQgaW4gcmVkcmF0M19kZXZfcHJvYmUoKS4KClRoaXMgbG9va3MgbGlrZSBhIGxp
-ZmV0aW1lIGlzc3VlIGluIHRoZSBSZWRSYXQzIHByb2JlIGZhaWx1cmUgcGF0aC4gVGhlCmRyaXZl
-ciBhcHBlYXJzIHRvIGZyZWUgYW4gb2JqZWN0IG9yIHN0cmluZyB3aGlsZSBpdCBjYW4gc3RpbGwg
-YmUgcmVmZXJlbmNlZApmcm9tIHRoZSByYy9pbnB1dC9kZXZpY2UgdWV2ZW50IHBhdGguIEEgZmFp
-bGVkIHByb2JlIHNob3VsZCBtYWtlIHN1cmUgdGhhdApubyBzeXNmcy91ZXZlbnQtdmlzaWJsZSBm
-aWVsZCBwb2ludHMgdG8gbWVtb3J5IHRoYXQgaGFzIGFscmVhZHkgYmVlbiBmcmVlZC4KClJlcHJv
-ZHVjZXI6CgpzeXogcmVwcm9kdWNlcjogCgpzeXpfdXNiX2Nvbm5lY3QoMHgwLCAweDM5LCAmKDB4
-N2YwMDAwMDAwMTAwKT1BTlk9W0BBTllCTE9CPSIxMjAxMDAwMjAwMDAwMDQwMmExMTAxMDAwMDAx
-MDEwMjAzMDEwOTAyMjcwMDAxMDEwMDgwZmEwOTA0MDAwMDAzZmZmZmZmMDAwNzA1ODEwMjQwMDAw
-MDA3MDU4MjAyNDAwMDAwMDcwNTAzMDI0MDAwMDAiXSwgMHgwKQoKCmNvbnNvbGUgb3V0cHV0OiBo
-dHRwczovL3Bhc3RlYmluLmNvbS9yYXcvTTJ3WlhiMTIKa2VybmVsIGNvbmZpZzogaHR0cHM6Ly9w
-YXN0ZWJpbi5jb20vcmF3L3ZEQ25MVkx2CgpLZXJuZWw6CgpIRUFEIGNvbW1pdDogNDVjMTNmM2Y5
-ZTNiYjE1ZmQ4OWZmMjg2NGM2ZjYyN2EzYjRiNDIyOQpnaXQgdHJlZTogdG9ydmFsZHMvbGludXgK
-a2VybmVsIHZlcnNpb246IDcuMi4wLTE0ODI3LWc0NWMxM2YzZjllM2IgIzEgUFJFRU1QVChmdWxs
-KQoKUmVsZXZhbnQgbG9nOgoKdXNiIDUtMTogTmV3IFVTQiBkZXZpY2UgZm91bmQsIGlkVmVuZG9y
-PTExMmEsIGlkUHJvZHVjdD0wMDAxLCBiY2REZXZpY2U9IDEuMDAKdXNiIDUtMTogY29uZmlnIDEg
-aW50ZXJmYWNlIDAgYWx0c2V0dGluZyAwIGJ1bGsgZW5kcG9pbnQgMHg4MSBoYXMgaW52YWxpZCBt
-YXhwYWNrZXQgNjQKdXNiIDUtMTogY29uZmlnIDEgaW50ZXJmYWNlIDAgYWx0c2V0dGluZyAwIGJ1
-bGsgZW5kcG9pbnQgMHg4MiBoYXMgaW52YWxpZCBtYXhwYWNrZXQgNjQKdXNiIDUtMTogY29uZmln
-IDEgaW50ZXJmYWNlIDAgYWx0c2V0dGluZyAwIGJ1bGsgZW5kcG9pbnQgMHgzIGhhcyBpbnZhbGlk
-IG1heHBhY2tldCA2NApyZWRyYXQzIDUtMToxLjA6IFByb2JsZW0gZmV0Y2hpbmcgZmlybXdhcmUg
-SUQKcmVkcmF0MyA1LTE6MS4wOiBGYWlsZWQgdG8gcmVhZCB0aW1lb3V0IGZyb20gaGFyZHdhcmUK
-cmVkcmF0MyA1LTE6MS4wOiByZWRyYXQzX3NlbmRfY21kOiBFcnJvciBzZW5kaW5nIHJyMyBjbWQg
-cmVzIC03MSwgZGF0YSAwCnJlZHJhdDMgNS0xOjEuMDogcmVkcmF0M19lbmFibGVfZGV0ZWN0b3I6
-IGRldGVjdG9yIHN0YXR1czogLTUsIHNob3VsZCBiZSAxCnJlZHJhdDMgNS0xOjEuMDogcHJvYmUg
-d2l0aCBkcml2ZXIgcmVkcmF0MyBmYWlsZWQgd2l0aCBlcnJvciAtNQoKPT09PT09PT09PT09PT09
-PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CkJVRzog
-S0FTQU46IHNsYWItdXNlLWFmdGVyLWZyZWUgaW4gc3RyaW5nKzB4MjMxLzB4MmIwClJlYWQgb2Yg
-c2l6ZSAxIGF0IGFkZHIgZmZmZjg4ODA0YzdmYjc1OCBieSB0YXNrIHN5c3RlbWQtam91cm5hbC81
-MDM5CgpDUFU6IDEgVUlEOiAwIFBJRDogNTAzOSBDb21tOiBzeXN0ZW1kLWpvdXJuYWwgVGFpbnRl
-ZDogRyBXCkhhcmR3YXJlIG5hbWU6IFFFTVUgU3RhbmRhcmQgUEMgKFEzNSArIElDSDksIDIwMDkp
-CgpDYWxsIFRyYWNlOgo8VEFTSz4KZHVtcF9zdGFja19sdmwrMHgxMGUvMHgxOTAKcHJpbnRfcmVw
-b3J0KzB4MTUzLzB4N2EwCmthc2FuX3JlcG9ydCsweDE0Ny8weDE4MApzdHJpbmcrMHgyMzEvMHgy
-YjAKdnNucHJpbnRmKzB4NzA0LzB4ZWEwCmFkZF91ZXZlbnRfdmFyKzB4MWIyLzB4NDMwCnJjX2Rl
-dl91ZXZlbnQrMHgxNWQvMHgxYTAKZGV2X3VldmVudCsweDUxZS8weDg2MAp1ZXZlbnRfc2hvdysw
-eDE5Zi8weDMyMApkZXZfYXR0cl9zaG93KzB4NTgvMHhjMApzeXNmc19rZl9zZXFfc2hvdysweDMz
-MS8weDQ4MApzZXFfcmVhZF9pdGVyKzB4NDc1LzB4ZTIwCnZmc19yZWFkKzB4NTlkLzB4YTcwCmtz
-eXNfcmVhZCsweDE0YS8weDI1MApkb19zeXNjYWxsXzY0KzB4ZmEvMHg0ODAKZW50cnlfU1lTQ0FM
-TF82NF9hZnRlcl9od2ZyYW1lKzB4NzYvMHg3ZQo8L1RBU0s+CgpBbGxvY2F0ZWQgYnkgdGFzayAx
-MTU4NToKX19rbWFsbG9jX2NhY2hlX25vcHJvZisweDMyZS8weDYzMApyZWRyYXQzX2Rldl9wcm9i
-ZSsweDQ3YS8weDI3MDAKdXNiX3Byb2JlX2ludGVyZmFjZSsweDcxZS8weGUwMApyZWFsbHlfcHJv
-YmUrMHgyNjcvMHhiMjAKX19kcml2ZXJfcHJvYmVfZGV2aWNlKzB4MWY5LzB4NDIwCmRyaXZlcl9w
-cm9iZV9kZXZpY2UrMHg0Zi8weDI0MApfX2RldmljZV9hdHRhY2hfZHJpdmVyKzB4Mjg2LzB4NDMw
-CmJ1c19mb3JfZWFjaF9kcnYrMHgyNTEvMHgyZTAKX19kZXZpY2VfYXR0YWNoKzB4MmIzLzB4NDQw
-CmRldmljZV9pbml0aWFsX3Byb2JlKzB4YTEvMHhkMApidXNfcHJvYmVfZGV2aWNlKzB4MTJhLzB4
-MjIwCmRldmljZV9hZGQrMHg3ZWMvMHhiOTAKdXNiX25ld19kZXZpY2UrMHhiYzYvMHgxYWUwCmh1
-Yl9ldmVudCsweDJjMDQvMHg0ZWYwCgpGcmVlZCBieSB0YXNrIDExNTg1OgprZnJlZSsweDE5YS8w
-eDY2MApyZWRyYXQzX2Rldl9wcm9iZSsweDE1OTAvMHgyNzAwCnVzYl9wcm9iZV9pbnRlcmZhY2Ur
-MHg3MWUvMHhlMDAKcmVhbGx5X3Byb2JlKzB4MjY3LzB4YjIwCl9fZHJpdmVyX3Byb2JlX2Rldmlj
-ZSsweDFmOS8weDQyMApkcml2ZXJfcHJvYmVfZGV2aWNlKzB4NGYvMHgyNDAKX19kZXZpY2VfYXR0
-YWNoX2RyaXZlcisweDI4Ni8weDQzMApidXNfZm9yX2VhY2hfZHJ2KzB4MjUxLzB4MmUwCl9fZGV2
-aWNlX2F0dGFjaCsweDJiMy8weDQ0MApkZXZpY2VfaW5pdGlhbF9wcm9iZSsweGExLzB4ZDAKYnVz
-X3Byb2JlX2RldmljZSsweDEyYS8weDIyMApkZXZpY2VfYWRkKzB4N2VjLzB4YjkwCnVzYl9uZXdf
-ZGV2aWNlKzB4YmM2LzB4MWFlMApodWJfZXZlbnQrMHgyYzA0LzB4NGVmMAoKVGhlIGJ1Z2d5IGFk
-ZHJlc3MgYmVsb25ncyB0byB0aGUgb2JqZWN0IGF0IGZmZmY4ODgwNGM3ZmIwMDAKd2hpY2ggYmVs
-b25ncyB0byB0aGUgY2FjaGUga21hbGxvYy0yayBvZiBzaXplIDIwNDgKVGhlIGJ1Z2d5IGFkZHJl
-c3MgaXMgbG9jYXRlZCAxODgwIGJ5dGVzIGluc2lkZSBvZgpmcmVlZCAyMDQ4LWJ5dGUgcmVnaW9u
-IFtmZmZmODg4MDRjN2ZiMDAwLCBmZmZmODg4MDRjN2ZiODAwKQ==
+On Mon, Aug 31, 2026 at 06:07:48PM +0200, Thierry Chatard wrote:
+> The GPIO lookup table loops in the probe and remove paths iterate up to
+> board_data->n_gpiod_lookups, which is unsigned int. Use unsigned int for
+> the loop counters to match and avoid a signed/unsigned comparison.
+> 
+> No functional change.
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
