@@ -1,155 +1,248 @@
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C092643BDA0
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:24:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788290651; cv=pass; b=kWNH6G5Xp/k1D6LBjJ1PVG1cUUi+77Y5x6RIQRtt4piopoPqTrV6Ylm8L1hdXAXIv13QT+2c3UIMPp4oYQXe9wapfcimEKaaZEd8jSrEZ3zMo7p2hdtAVUHZE9JjAZQBtuXViJuYDuxqh82ixtpf+N2uA1+5tsRc2Gwu3bM2oTc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788290651; c=relaxed/simple;
-	bh=dcDWtIs1LbJE3AQ53wMCTJlaxq0b9bO9411uPZunBD0=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=q3k/SZpXIPSOma1JmaUdDPt10lGUK+zqrmJWomNcrtx7s8+oILdhqMOJuagqE5JYEBQ2HMZdxUnm5hNBEsaN5njAyF5OP+RAE3wuGOhxMLfj3FRXz1LSG+LPrNi8lPEHpBfGpbo53nOLQ6sTNWka7uprrkxIyyIfseXj1ahmI3s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GRiLoLB7; arc=pass smtp.client-ip=209.85.160.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 988084457CE
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:48:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788292096; cv=none; b=JNCxq8nze+JgsGPNTMweLFIGgoVY6bqGMCAhNvyYuAOHGS2n2Pd6j3E7v4FqacQVutKjny1ZowkQERx9CvfE0W7fPd88O8R+G9c2gEK5AT7wXE4VDK969ZRMHXYl9SmJ7E/06mz4KkfUeV6qhlRZt1cq1N7Cxtny8iELi+fV7/k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788292096; c=relaxed/simple;
+	bh=sPC3Ah28TihUij+uD/N02WrVG3dZzALQlVZpFtjEf+g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EVVn8BPF3OzHJt0UC/8+Cs330iEhg3D5kt68tVabM/uAQPiCtie6jJz2pnSjoKGzC16ddQp6g5N8FtWMH9aF98+mBT6N5Gw33CITpUMkLiaf4yYdhWWDxTBTPKJbZJr+UCy4BRj65xyGj9yImY+nueewq+gErEe0eXmYwc4IC8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bv+M9GMr; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GRiLoLB7"
-Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-52fa9c055b5so18329121cf.1
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:24:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788290648; cv=none;
-        d=google.com; s=arc-20260327;
-        b=jWOMnKb83GmNFDAhEqeyPkGEzTiKX9lej90cXJTuX3z593mAVghcWHInl3JNazI3PJ
-         Ct72txML6nkWOkJbpGnz0cerecDxuk0NTj9IZ3BfEXF2iM2meO58QtFQU/55n2fKkgQo
-         oLKbZGn0O5oF76QUYRdovEFjEKFsN/nVYqykFv+cNDUW/mo4unaNN/kMi5B9fc2eajoC
-         lPdLh9evObBEtq2JmEmliKoQO6CNrICH2+a71dd9MiYCaS4HDNDUwMZJcIJBnIU0qKoK
-         bOEfHKHXp50wRSADruTKYyeSiUXbK2guDJ/BcdpVu9P62fv1VyXF/l7+Tm1BXlzO0Sp0
-         IPmg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=dcDWtIs1LbJE3AQ53wMCTJlaxq0b9bO9411uPZunBD0=;
-        fh=+m6qudvHqXklWXXV6ws3SCqyTkouu1GO5DRqiu5A1Tk=;
-        b=VWv1Tyo7JD+iaf8jF0kyN8uLbnKuAtt+OWQQgoHmOag/ZYhSis1rvetQ+1J+b5ur5x
-         RJ7ujoTivjIM591zUctRNTgukG1ODepGmjtAFxDX9ilJLq34JTu2A1oXNv6YsHAOMZIW
-         AWCkwhXFtms8JkmXrIIM9X8XcpzBKRHNeY/37yoCiiZUJYjuiCqx+LwyLkmlAboPNK6T
-         rP5jFnHFvxTqIimvD8oAcGzEn+eafExP9AjPd7L59v8MFsHPE4zPw2oZrj7KZA3fMNrv
-         0Txfqut8qMcdZykzs7Y8ukRgogag67KRrxYc3g1fk3yYnwnJTI+yGdVRQUPSnbXZpXx9
-         5lTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bv+M9GMr"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-498028b3d5eso2214055e9.1
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:48:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788290648; x=1788895448; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=dcDWtIs1LbJE3AQ53wMCTJlaxq0b9bO9411uPZunBD0=;
-        b=GRiLoLB7Md8ey8CVt8En5TnkscxF3GnrQIBm38JGwE/cPvLHvmZkv07YJcDsB7fetF
-         Na5u7Kb2UVELdivN8eUZRJEeYtVC/Kx1xL/xVx+FBYG8t2yN7SuEo99+oUG8s8jCX7Fk
-         odOSi5yoaPsYQfNdaqAtIyNJayUKqYJvpAp287T8CaIudw9pXVk02hDH0aBdOG4CEh/a
-         zJ6S+q0DVeUJSwU5eXfhYdkH3l88WoaTnvbFw7CGoHQL7nyhr7Drgar4SymHvkLJQMeh
-         ViXCuMcmuvnsQk2B5O8a2svfY6l1UNlu0XJJl78q4VYFEmdfcvgna9HCBMBqpamx67lW
-         JxnA==
+        d=gmail.com; s=20251104; t=1788292093; x=1788896893; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=omAAgGNiYBPCrHMFPlQIFcFCi6bz3SF78ujtnlnWU9s=;
+        b=Bv+M9GMrhR8IMwBU0JvznLxjt19V819vg+jLDr7Ew02rddWorXyfqeXM/ukrQQlrgM
+         VZurrhsFjO+cwoEKc6jzzNbwcwIAwqzozAr+FfEXQCDrR6TCCkSmT9tsBYsYtxxVmUb7
+         bm8fOvCDO72HM1Y5+izQug+qzoyTSZn0IEFnSvt20kFT5Rrt92uhdgoAhqj9xBpgMKKj
+         1D7BXht/LB1y6fy0smd5pNjH4XmwBaVsnLtfifcNUATQLY5ijY+xkUdMEsv1etq/Nzl6
+         7k1B++GJqVI4ksvF4i8l37dY8NNhj6OvPLkUNQkgvmEfBC3SpArdgh7op1u+YQZ0OdDD
+         5cqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788290648; x=1788895448;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=dcDWtIs1LbJE3AQ53wMCTJlaxq0b9bO9411uPZunBD0=;
-        b=UvuefJxyIdaLa5w6xaMMoGzHj4G6zQeT+L89FZGAntfWRBSbztt8nUZT0lLsMYJXj8
-         Jx8L4G6Yg3h5VfvL4qBh0LIfh2eFubwxlFNaUPtlAyrABR6sK8p7XDt0yAiUFz3piIdM
-         x8+LZbUnyMKTzooH6d7A1+V1uIFzHWbwiDYHvDebSju/dd+GkOf5mDO0Oblw7nlS7Ok1
-         75FNXHHpeZL3S8yNDLGKbqcdiDMnIFzOU9a8U0i1YZl4w641AiWLODh0me/LV0z8hig7
-         EKbMupLKtKj1E5qeRWJUF0sZ8gP3neYFFuROfC0KvcNglah9ia15i6L1DlaaGI12dWd+
-         57Sg==
-X-Gm-Message-State: AFuF++kSCkG2FXZXULjrTnq5+SkkhoKu8T+jjcNdHQjWkrmFuBTtQYLU
-	dS+Uw8DPU99us8LP0Nhs+P971J+ajgHJFCJE1K8du2BR1g1ynYOfkWB+vbxUxDTGKdeRjJmGxyl
-	7lSUpgj0Dg7knlhyF2tkDjVO1jk+CI3tK1zmacjM=
-X-Gm-Gg: AR+sD13SgaExF/lqFiOLMTClrcS5Ryyde+xaWh1ZbBcYD8y2AUnN3xcU13FEc0vsohk
-	psF5lfVADg8mCL2moKl5JEEqNpskzforuFKm5obEyY8ClDTudp4WNEaRHqQgkJdeDy9CiBNq0g6
-	rlfXCw8Dstrv/vs4mippP95GpqctRNNcYl3Ooc/YTYRCSj7IyW6yXRXVOFT4pZc1QylHOczcfAi
-	K/B+mGFzSmow/ikoaqpEGE6E66bTwyexJdXuDsJ3Gh3g3fLL5++q/1eaCWKyyrK0XUzYipvtQ1e
-	D6O5lSbggH/PqvNNBD7HRV+Xwy/g6A+y6ql1OHinHvGmtKXmzrdqn5OVGhGaY3FpeIdwuB9HVW0
-	cG4MVNNk4B+BvGnYXd6FQocUu/bjBtme3
-X-Received: by 2002:a05:622a:355:b0:52e:3820:a23c with SMTP id
- d75a77b69052e-5302530eddfmr100840101cf.13.1788290648419; Tue, 01 Sep 2026
- 12:24:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788292093; x=1788896893;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=omAAgGNiYBPCrHMFPlQIFcFCi6bz3SF78ujtnlnWU9s=;
+        b=M586aZbw3Jv6Cb3KsOvhV/vwJ6ZLccGto/Qn+xd2dleSCwPHT5bFCbjiYi83Y+sitt
+         XJYbgyA/zpKaoEaChbY5nstYCQ/nEztGkYGbOmNK9izL1mQpnd/o/JQMSYUP4kJmBqLl
+         tf6WBZ4FzBu5OOq4ZKaNFAwE/KbVGq7JhV2/xoBLylircPmWqCqlB2R505nYVdRjFjVJ
+         2e7Z2DCYopLFk+bblhJoluoQ7IRhd7dunc5sVAn89upLfP7fvgocP9wRugd7mU7UdmdF
+         duOwplBdr325SaD2sW1sxx4A31gGLNGk9UrAlMFDsY8XWa/rhhIxed+7u9wk4GDS2DLs
+         bGMA==
+X-Gm-Message-State: AFuF++kwvRXcJuTkcV1LB1q+Z/38rDvgP0Sf7JiuKssx0//HAywu2YF4
+	+veiOLJ0BoUPBSUfwQdBRr7Vvmq2QHcxPdSSJxMZwL1IdmEei35y1krTDGy3mNE=
+X-Gm-Gg: AR+sD10fjaa7qM7BLauywXxSdqD/Y79inUZEtzAkDV+3yZcNwHY2C0WudH0u3it7gQ7
+	QdXa+0W5zHsmh673BFZISDQaxlCwHcbpSmGJSKu0dMEUooEPGpC6c+C5UDPpQochcnHpo+Y4Woy
+	+jgAsoNu/ctbfzagP82S9AKCpEAZPp2VG58xzyfCCj+tDFfKWufPmzYMqsuGwdUFzJCDdYL4pKg
+	h4D31QMg6Y3rq1dpLFqTvL0CkqoAqY29RDd3gfdI4H7BZn/q4kA8S6Se0ET4BlBVw31nwRt/2tN
+	Q3AQVIZ9LiVfLvfckM+WWDjWl4DlnddyvRuPtlz7l5pp7IthBKNEaAPuA1oWiUB7+XHQKUwvxk6
+	CJzvEGmggP3R02OHz2LTZXifim0BWhEm9mdXac0sylQd8mQQMY3RAOPPNIGqV5OWUm6uIhBD4d/
+	BLWD958XzhIkGWY7/VppH26vYYmwODPJJypj5C8zmse/yb1I82pmThex/turuT9jAf5sFH7oTLv
+	0Jj1bE1T40/o/vgVi42ld2YcvQjc1GYZ6T4A2e0Mrqid0HSK1l8QHn5evCGQaMoGnkAnwKlVQ==
+X-Received: by 2002:a05:600c:a012:b0:49c:d818:8764 with SMTP id 5b1f17b1804b1-49cd81887aemr267991585e9.11.1788292092338;
+        Tue, 01 Sep 2026 12:48:12 -0700 (PDT)
+Received: from chateau ([148.69.202.63])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e72b5bsm1166896f8f.4.2026.09.01.12.48.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 12:48:10 -0700 (PDT)
+From: Sergey Zagursky <gvozdoder@gmail.com>
+To: miguel.vadillo@intel.com,
+	sakari.ailus@linux.intel.com,
+	mehdi.djait@linux.intel.com,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev
+Subject: [REGRESSION 7.1 -> 7.2] media: ipu-bridge: IVSC camera broken by c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
+Date: Tue,  1 Sep 2026 20:43:54 +0100
+Message-ID: <20260901194526.6369-1-gvozdoder@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Lucas Lis <lucaseze.lis@gmail.com>
-Date: Tue, 1 Sep 2026 21:23:55 +0200
-X-Gm-Features: AcwNN1Wy6HNT6XE3twcVQyOwDUvc3eM4rpTZRu1D5drQF-Lahbl9uWL5ZAB5ji4
-Message-ID: <CAHoJVDtc-=BYmWVUggsBvrO=eYTDdk-r3Nb2064JvGn8TAdHZw@mail.gmail.com>
-Subject: Re: [PATCH v4 3/6] media: i2c: ov5693: Gate the MIPI clock lane for
- non-continuous clock
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com, dan.scally@ideasonboard.com, 
-	fernandorimoli11@gmail.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Tested-by: Lucas Lis <lucaseze.lis@gmail.com> # Surface Pro 7+, IPU6
-Tiger Lake (0x9a19)
+Hi,
 
-Tested the v4 series on a Microsoft Surface Pro 7+: Intel Tiger Lake IPU6
-(8086:9a19), front sensor enumerating as INT33BE, Fedora 44 running the
-linux-surface kernel 6.19.8-3.surface.fc43.
+the internal camera on my Dell XPS 16 9640 (Meteor Lake, IPU6 + IVSC)
+stopped working when going from 7.1.6 to 7.2. It is still broken in
+7.2.2 and, from code inspection, in 7.3-rc1.
 
-Full build log, negative control and disassembly evidence also posted as
-luqqas96 on GitHub:
-https://github.com/linux-surface/linux-surface/pull/2171#issuecomment-5495563179
+#regzbot introduced: c6b1b34b509032c7e7cef9efc63cab55c2ad309e
 
-Base: vanilla 6.19.8 with the ov5693.c and ipu-bridge.c hunks of the
-linux-surface 0013-cameras.patch applied, then this series on top. Patches 1
-and 2 were already present in that tree, so they are not exercised here;
-patch 6's OVTI5693 hunk needed manual application because that tree carries a
-duplicate OVTI5693 entry, as reported by Fil Dunsky. Only the INT33BE path is
-exercised on this machine.
+Hardware
+--------
 
-With the series applied:
-200/200 frames, 2592x1944, 28.64 fps
-MIPI_CTRL00 (0x4800), read over i2c while streaming: 0x20
+  Dell XPS 16 9640, BIOS 1.4.1 (04/22/2024), board 029TJ2
+  Intel Core Ultra 9 185H (Meteor Lake)
+  IPU6: 00:05.0 Multimedia controller [8086:7d19] (rev 04)
+  Sensor: OVTI02C1 (ov02c10) behind IVSC
+  IVSC ACPI device: INTC10CF:00, path \_SB_.PC00.SPFD.CVFD
+  Transport: INTC10D0:00 (\_SB_.PC00.SPFD) on LJCA USB bridge (8086:0b63)
 
-Negative control, same build with only this line removed:
-- IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", PCI_DEVICE_ID_INTEL_IPU6,
-- CSI2_CLK_NONCONTINUOUS, 1, 419200000),
+  Good: 7.1.6
+  Bad:  7.2, 7.2.2 (CachyOS builds, but the relevant code is unmodified
+        mainline; ov02c10 / ivsc-csi / ivsc-ace / intel-ipu6 /
+        intel-ipu6-isys / mei-vsc-hw all have identical srcversion in
+        7.1.6 and 7.2.2 -- only ipu-bridge and mei-vsc changed)
 
-0/200 frames
-MIPI_CTRL00 (0x4800), read over i2c: 0x00
-intel_ipu6_isys: stream stop time out / stream close time out
+Symptom
+-------
 
-Verified at the binary level that the sensor config array went from 31 to 30
-entries, so exactly one entry was removed.
+No sensor subdevice is ever created:
 
-One difference from Fil Dunsky's negative control worth recording: he saw the
-first capture after boot succeed with the entry removed, and only later
-captures hang. On this machine the first capture after boot already returned
-zero frames. I checked the journal for that boot: there was no earlier stream
-attempt and no teardown before my test, so it really was the first stream of
-that boot. I capture through libcamera rather than from the raw ISYS node, and
-a desktop session had enumerated the sensor at login; either could explain the
-difference, and I have not isolated which. It does not change the conclusion,
-and for an end user on a normal desktop it means there is no working first
-stream at all without the entry.
+  $ cam -l
+  [..] INFO Camera camera_manager.cpp:340 libcamera v0.7.2
+  [..] INFO SimplePipeline simple.cpp:1911 No sensor found for /dev/media0
+  Available cameras:
+  (none)
 
-On the out-of-tree rebuild set: rebuilding ipu-bridge alone was sufficient
-here, with an unmodified in-tree intel-ipu6 and intel-ipu6-isys. The
-linux-surface Fedora kernel sets "# CONFIG_MODVERSIONS is not set", so there
-is no symbol CRC check to fail. Of the five files including media/ipu-bridge.h,
-only ipu-bridge.c dereferences members of struct ipu_sensor; ipu6.c only calls
-ipu_bridge_init() and passes a function pointer. The "rebuild the pair"
-guidance therefore applies to CONFIG_MODVERSIONS=y kernels.
+  $ ls /dev/v4l-subdev*
+  (none)
 
-Caveats on the frame counts: libcamera on this machine is not stock. It is
-0.7.1 rebuilt locally with a patch that filters out the sensor's binned modes,
-held back with versionlock. Capturing from the raw ISYS node as a cross-check
-is not possible here: it returns csi2-4 Transfer FIFO overflow even with the
-camera healthy and libcamera pulling 28.64 fps at the same time. The register
-reads above do not go through libcamera; they are direct i2c reads taken while
-the sensor is streaming.
+  $ media-ctl -d /dev/media0 -p | grep -E '^- entity' | grep -v Capture
+  - entity 193: Intel IPU6 CSI2 0 (9 pads, 8 links, 0 routes)
+  - entity 203: Intel IPU6 CSI2 1 (9 pads, 8 links, 0 routes)
+  [.. CSI2 2..5, no sensor entity ..]
 
-This machine also carries two downstream workarounds that write
-MIPI_CTRL00 = 0x2d, a polling systemd service and a locally patched ov5693.ko.
-Both were stopped and removed for every measurement above, since 0x2d has bit 5
-set and would have masked the result.
+  $ ls /sys/bus/i2c/drivers/ov02c10/
+  bind  module  uevent  unbind          # no bound device
+
+  $ ls /sys/bus/acpi/devices/OVTI02C1:00/
+  cid  hid  modalias  path  power  status  subsystem  uevent  uid
+                                           # status=15, no physical_node
+
+dmesg (loglevel=3 on the console, taken from the journal):
+
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+  intel-ipu6 0000:00:05.0: IPU6-v4[7d19] hardware version 6
+  intel_vsc intel_vsc: silicon stepping version is 0:2
+  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+      without device fwnode!
+
+Note that ipu-bridge reports success ("Connected 1 cameras"), so nothing
+is retried afterwards.
+
+Analysis
+--------
+
+c6b1b34b5090 added two fallbacks to ipu_bridge_get_ivsc_csi_dev():
+
+	/* IVSC device on platform bus */
+	dev = bus_find_device(&platform_bus_type, NULL, adev,
+			      ipu_bridge_match_ivsc_dev);
+	if (dev) {
+		snprintf(name, sizeof(name), "%s-%pUl", dev_name(dev), &uuid);
+		csi_dev = device_find_child_by_name(dev, name);
+		put_device(dev);
+		return csi_dev;
+	}
+
+  -	return NULL;
+  +	/* Try to locate CVS device on the I2C bus */
+  +	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
+  +	if (csi_dev)
+  +		return csi_dev;
+  +
+  +	/* Fallback to platform bus for CVS device */
+  +	return bus_find_device_by_acpi_dev(&platform_bus_type, adev);
+
+The fallbacks are intended for CVS (INTC10DE/INTC10E0/INTC10E1), but they
+are reached for every entry of ivsc_acpi_ids[], including the IVSC IDs
+INTC1059/INTC1095/INTC100A/INTC10CF.
+
+On this machine the IVSC ACPI device INTC10CF:00 has two physical nodes:
+
+  /sys/bus/acpi/devices/INTC10CF:00/physical_node
+      -> /sys/devices/platform/INTC10CF:00     (bare ACPI platform device,
+                                                no driver bound)
+  /sys/bus/acpi/devices/INTC10CF:00/physical_node1
+      -> /sys/devices/platform/intel_vsc       (the real IVSC device created
+                                                by mei_vsc, parent of the
+                                                mei-csi client)
+
+and they appear in this order relative to the IPU6 probe:
+
+  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
+  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
+  07:59:42.391  platform intel_vsc created (mei_vsc, after the LJCA USB
+                bridge and its SPI controller have come up)
+
+So at ipu_bridge_init() time:
+
+  1. bus_find_device(&platform_bus_type, .., ipu_bridge_match_ivsc_dev)
+     returns NULL, because the match requires dev_name() == "intel_vsc"
+     and that device does not exist yet.
+  2. bus_find_device_by_acpi_dev(&i2c_bus_type, adev) returns NULL.
+  3. the new bus_find_device_by_acpi_dev(&platform_bus_type, adev) matches
+     the bare INTC10CF:00 platform device and returns it.
+
+sensor->csi_dev is therefore the wrong device, and
+
+	static int ipu_bridge_instantiate_ivsc(struct ipu_sensor *sensor)
+	{
+		...
+		set_secondary_fwnode(sensor->csi_dev, fwnode);
+	}
+
+attaches the IVSC software node to the bare platform device instead of the
+mei-csi client (intel_vsc-92335fcf-...). ipu_bridge_check_ivsc_dev() then
+returns 0, ipu-bridge reports "Connected 1 cameras", and the probe is not
+retried.
+
+When ivsc_csi probes at 07:59:52 it finds no fwnode ("mei-csi probed
+without device fwnode!"), so the CSI-2 link is never described. The sensor
+ACPI device OVTI02C1:00 has a _DEP on INTC10CF, which is honoured
+(acpi_honor_dep_ids[] in drivers/acpi/scan.c), so it is never enumerated,
+no i2c client is created, ov02c10 never probes, no v4l2 subdev is
+registered, and libcamera finds no sensor.
+
+Before c6b1b34b5090, step 3 did not exist: csi_dev stayed NULL,
+ipu_bridge_check_ivsc_dev() returned -ENODEV, ipu_bridge_init() failed and
+the probe was retried later, by which time platform/intel_vsc existed and
+the correct mei-csi child was found. That is why 7.1.6 works.
+
+The commit message says the patch was tested on a Dell XPS 13 9350 with
+IPU7 and CVS; the IVSC path does not appear to have been covered.
+
+I could not find a fix for this in v7.3-rc1 -- the ipu-bridge changes there
+are additions (Himax HM1092, NVL/IPU8 IDs, DMI quirks) rather than changes
+to this lookup. I have not booted v7.3-rc1, so that part is from reading
+the code only.
+
+Happy to test any patch or to collect further debug output.
+
+Disclosure of tool-generated content
+------------------------------------
+
+Per Documentation/process/generated-content.rst: this report was produced
+with the help of an AI coding assistant (Claude Code). I asked it to find
+out why the camera stopped working after a distro update. It gathered the
+sysfs/journal/media-ctl state shown above from the affected machine,
+compared module srcversions between 7.1.6 and 7.2.2 to narrow down what
+changed, and located c6b1b34b5090 and the code path described in the
+Analysis section. The wording of this mail is largely its output; I have
+reviewed it and can reproduce and defend every claim in it on my machine.
+
+No reproducer beyond "boot the affected machine" exists. I have built and
+booted a patched kernel on the affected machine; the fix is posted as a
+reply to this mail.
+
+Assisted-by: Claude Code:claude-opus-5
+
+Thanks,
