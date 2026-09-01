@@ -1,62 +1,74 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D33C933938B;
-	Tue,  1 Sep 2026 14:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7922A426435
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 16:34:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788272734; cv=none; b=kF4iwzbmoHeCeivK3qOFuULOBjiUOeg7gweBIeisim0QPRk36B9iu6sdpooT19bu9qvMr3NrsiekDP6qKDNedFSpXTx4BrFu4E0YVnckRF7JxQimbHQtMen6m1YgYILIq9bqXJgUwUDleQdNyXtbkkjudNcMKnsE02PWiknDa7Q=
+	t=1788280475; cv=none; b=gVg/NQNj8znJQ0AaT7pZRdvmspsGDr9n3w2m23h8ALs6I5L2WFiP+Ouzli0NVlpk7P44BW4z7fryuJ9FEF1WwVPOncwl+Sdvuw4AIZcrF3xmxcxku8zzVC7e+6HbKbQdelIbOfBSvAf2Fu80xFNLDSPstTz3EbFFB9taxJqtBWg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788272734; c=relaxed/simple;
-	bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
+	s=arc-20240116; t=1788280475; c=relaxed/simple;
+	bh=wmPDYYGtOwcfDqbJ+tEwP4how54tI3HRpH0SlslsGwM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rulSAoneDWIPvPWiNWmzIXbBfhAxI2VG9HsFe27KHZ/3d+C++O5QRZVGEXVbmiXcE5zIUVCCFS50HBh6P8ipOZb6Wc9XYCGu7zwdQ3/gbhUVvWFiaPpJFLTubAE0Hd84/rPUXurpyzGi5BLtsv9F81K22LvHd5OX8ryIA6C5iBg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=W+5MVj7m; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=FqsoXHAQ; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	 MIME-Version; b=a0d3xg9pqmLMu4hoO3+nERLBPGGLc/W65xgP82mcAiK/0kWkUD/aKczlsfVSaC3DoSYjz4IXUd8h51Yr96d8idptc7JwH42hXWIp6poIj6EHlrivn+jKTMDfEonDn4jRN1SxqMDgp5xS2tgKQW858Y0nZcpw46cq91pcW2vfItI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wq36oD+l; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="W+5MVj7m";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="FqsoXHAQ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272731; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=W+5MVj7mItyc+4kYgbqYgXEAxjoU7IbqOX0KmoO9c5xFT0XECRDB1Yp1SVZA3AAGA
-	 h7P1hrUEnFCgGrOMOEq7nGS6VZ8mCR5L00cKK7wN20E3TIuqFJzLISCtLpesh6LFxt
-	 e3E35DR+3NJPkuFmIz/gScfnKS/l1PrwaDQ1QY3nMglne+uyO1oP6duaFWaVou9wLZ
-	 arbxcWEpSp/viF4Q5VBhUhkGqrCTveO3Pd/YVD7SMZYDIxDgyItEsUP+Ld53bCuOKz
-	 6wqyD2MnksViW4RouA6wgENYsKVxqVwExRcZOE8J++wracy73KkYc/sR4bAoeVSVnI
-	 70aevdniNPMNA==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 8A35E41451; Tue, 01 Sep 2026 15:25:31 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788272728; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=FqsoXHAQhgEeELKB1G7zZhpUmOXo652s7TZeWfZ4/lhjGM9NO84KD/5rA1KRZ+wZk
-	 am0ATq663eVQa7JsLJ8oWcJqAYucBDw8ImTOR+0C4im5DjuhmBibKNTQd+3Ke+z/xW
-	 Ifeh0qlbsGZC+9Xcp8AVuxbuI514T+Sni3IYAHgM0q8053+gry2yUPG9S4mK8pPfDh
-	 JdQWzKkyqZTnKkgH/HFRawcARpe6p6IwNnG2vHKC6xTAk2v0llcaTyFlr9eJ3JuEwv
-	 b9Y9d1jwSUu78G8uWG4fh058ltslPPotAFuKPpfiTzbpgkEdlLt95XtGIwOEUGM0XH
-	 S0muDakF4PdfA==
-Received: from maru.home (host86-128-233-22.range86-128.btcentralplus.com [86.128.233.22])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id AA27E41448;
-	Tue, 01 Sep 2026 15:25:28 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 6/6] media: rc: mce_kbd: Fix inconsistent locking of keylock
-Date: Tue,  1 Sep 2026 15:24:56 +0100
-Message-ID: <6945917a0cf699bcf55bba0079d6e5cd96d0c2db.1788272199.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788272198.git.sean@mess.org>
-References: <cover.1788272198.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wq36oD+l"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49b0d78a801so41435415e9.2
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 09:34:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788280472; x=1788885272; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wmPDYYGtOwcfDqbJ+tEwP4how54tI3HRpH0SlslsGwM=;
+        b=Wq36oD+llL7RbCnq16MkfAk63eTBLpcR/TDEFfUk6B4ugvC7lwjMTturaeDpMWRksd
+         lDYajPRRn/MwWqBbEDkDrzZOeMgwciARGpovITveODcOpCeVF9cD6Nr71yqnERmDQHG9
+         SCXqeVU4JFMUr9YBGVDXmzuuTFAlCL29OAcSR/Q/RTUwM7OvLakv8VM8z6F40wKI2s//
+         GGO1RVyQJw7GQqgySgN+VgaqwXDlevRQQx37+EjPZKK2ZBWDWWdgJEjd9MksrzxwsjTe
+         s9GXSBMoOgrUtBqDhCDsgYrL3AUEF1UxeRQOMAK/hYDHpYxmAsvaVIC2ib7iq0L9V3+B
+         kAhg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788280472; x=1788885272;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wmPDYYGtOwcfDqbJ+tEwP4how54tI3HRpH0SlslsGwM=;
+        b=BP3a9mbTOHSHNcDBl39wjb7CTnVE/JBEJ2w8PLyp+aG0FHg6cjJ8WXdA/PoxDadZaG
+         qcAZbY5Y7d2Or5xNzgWspsGVUzwiVd4m0t3ttm6nT99JuKUokdiCvIQ/zEhIBSZD3Y1C
+         yRnd40xc1MU6jBWpJdHi5CkoK6tky1wHl3z0F6XrtzFK7H0mkLFlvVP/qnr8epRd/+nj
+         KoZlacgNsbGx5XiNA4z08RygKy4XczMwyoofLGi+JKbw4wnRu55fMR0vO9pOSBZRdZMm
+         wE73klVONpu0EfEWcEmkhsDmGNxusJUBwArtr9iKQ2OC6gh/uPIZQ+j3fr+dDx24mOGI
+         i/YA==
+X-Gm-Message-State: AFuF++lz0ywgG+gBvA15wSgt25+djrpkMGhFfOaqwG3MbiiGTnns3zyp
+	5gXfwc50tvA9njmtER+UzJMeNmIl1r2lJjDEvDbDmWncl6GZPpHFKII8AIAb+w==
+X-Gm-Gg: AR+sD11PEXi5ish2KzgLLnfXFwhxNoJ76jr8DAvtpV+QZZA8bRIKB3gFT3eHAM7HvIw
+	P/6mftECkKYNc9wOLm+fBii9+frPpnkIlA3JBjzwv0SFyPyiHypMh8+GJgS2aVeyqbMsLhIuZok
+	cb170SklKlkHsgiLCqQCNXGDTAU9AuQaeFPrrtEeHVIl5WcImxOr9spiN4YCUpjw7sQU3Elq28I
+	WaanH29uqgPN4+/62Y2Qd4TnB3An5bBJGYCRfzYsSRvEbNn8Hzyp259cxBfaGB8pbloVXkFMlnp
+	cUh6ZihSdlZ7Clgk+32LFPs2nJ5RA8ltVygLiiJbW+WovgOrzzFCQhg9q8JH2gKbjNo7atKt82z
+	Y3BgE5psFrvFl77HPctMsa2ZgnuGSznQ7zgArt+mjBcXElRqhN9M275TgfX+857/Uy2DEHQ4CDr
+	LyozRmI7O+/40fFGAzVbiBIcl921qGGyjhuPnHqUmaf1Yefdr567m7Ug/JcPiCYeX6qW+xyjfF6
+	aGQgFOsImx6jaT7dttYzmnNOQ==
+X-Received: by 2002:a05:600c:4e44:b0:49c:dca2:ac47 with SMTP id 5b1f17b1804b1-49cdca2ac80mr162231155e9.2.1788280472261;
+        Tue, 01 Sep 2026 09:34:32 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net ([2001:b07:5d3a:fe75:6bf6:388b:455d:27bc])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce309e418sm22353285e9.13.2026.09.01.09.34.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 09:34:31 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	dan.scally@ideasonboard.com,
+	dev@berg.pm
+Subject: Re: [PATCH v4 3/6] media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
+Date: Tue,  1 Sep 2026 18:34:17 +0200
+Message-ID: <20260901163417.230456-1-fernandorimoli11@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <zDaw-AawkcNfIRsmWXbsPx2WDcg6ltaiPc7FZZTNp7DH-ACLsF98A3QDuuhX4iejr2-VLQYf48c1cingAI4i58i4t2dD4t45SfHr5d4MeOM=@berg.pm>
+References: <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260831181858.325109-4-fernandorimoli11@gmail.com> <zDaw-AawkcNfIRsmWXbsPx2WDcg6ltaiPc7FZZTNp7DH-ACLsF98A3QDuuhX4iejr2-VLQYf48c1cingAI4i58i4t2dD4t45SfHr5d4MeOM=@berg.pm>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -65,55 +77,42 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-data->keylock is taken with spin_lock() in ir_mce_kbd_decode(), which
-runs in the raw IR decode kthread with local interrupts enabled, but
-with spin_lock_irqsave() in mce_kbd_rx_timeout(), the rx_timeout timer
-callback, which runs in softirq context.
+Hi Jakob,
 
-If the decode kthread is holding keylock via spin_lock() when a timer
-interrupt fires on the same CPU and the softirq runs
-mce_kbd_rx_timeout(), the softirq spins forever waiting for a lock
-that only the now-preempted kthread can release, while the kthread
-cannot run again until the softirq gives up the CPU. This deadlocks
-the CPU.
+One follow-up question, because two later results bear on your unpatched
+numbers and they do not agree with each other.
 
-Fixes: 53a62800efb2 ("media: rc: mce_kbd decoder: fix race condition")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
----
- drivers/media/rc/ir-mce_kbd-decoder.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+A Surface Pro 8 user ran the negative control, removing only the flagged
+INT33BE entry for Tiger Lake. Without it his front camera streams on the
+first capture after boot, with real image data, and every later capture in
+that boot hangs at zero bytes. With the entry, every capture works.
 
-diff --git a/drivers/media/rc/ir-mce_kbd-decoder.c b/drivers/media/rc/ir-mce_kbd-decoder.c
-index bb2d7c37c263..d1c9263511b0 100644
---- a/drivers/media/rc/ir-mce_kbd-decoder.c
-+++ b/drivers/media/rc/ir-mce_kbd-decoder.c
-@@ -219,6 +219,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 	struct mce_kbd_dec *data = &dev->raw->mce_kbd;
- 	u32 scancode;
- 	unsigned long delay;
-+	unsigned long flags;
- 	struct lirc_scancode lsc = {};
- 
- 	if (!is_timing_event(ev)) {
-@@ -319,7 +320,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 			scancode = data->body & 0xffffff;
- 			dev_dbg(&dev->dev, "keyboard data 0x%08x\n",
- 				data->body);
--			spin_lock(&data->keylock);
-+			spin_lock_irqsave(&data->keylock, flags);
- 			if (scancode) {
- 				delay = usecs_to_jiffies(dev->timeout) +
- 					msecs_to_jiffies(100);
-@@ -329,7 +330,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
- 			}
- 			/* Pass data to keyboard buffer parser */
- 			ir_mce_kbd_process_keyboard_data(dev, scancode);
--			spin_unlock(&data->keylock);
-+			spin_unlock_irqrestore(&data->keylock, flags);
- 			lsc.rc_proto = RC_PROTO_MCIR2_KBD;
- 			break;
- 		case MCIR2_MOUSE_NBITS:
--- 
-2.55.0
+A Surface Pro 7+ user then ran the same control on a machine that also
+enumerates INT33BE on Tiger Lake, so the same configuration as yours, and
+got the opposite: his first capture of that boot already returned zero
+frames. He checked the journal to confirm nothing had opened the sensor
+earlier in the boot.
 
+So "works once per boot" describes one of those machines and not the other.
+The Pro 8 user now suspects his own result is an artefact of how his machine
+is set up: he streams an IR camera continuously for face unlock, so a
+neighbouring CSI-2 port on the same ISYS was active during his first
+capture. He is retesting with that stopped.
+
+Your 3 of 20 is the measurement that would help separate these. Do you
+remember whether your harness rebooted or power-cycled the sensor between
+runs, or were all 20 opens inside a single boot?
+
+Either answer is useful and neither needs a retest on your part. If all 20
+were in one boot, then the machines genuinely differ and I will say so
+rather than fold them into one story. If some followed a reboot or a power
+cycle, that supports reading it as once per sensor power cycle, which I
+would then describe as holding on some machines rather than as the general
+behaviour.
+
+I am only trying to describe the unpatched behaviour accurately, since the
+current commit message says no frames arrive at all and all three results
+contradict that in different ways.
+
+Thanks,
+Fernando
