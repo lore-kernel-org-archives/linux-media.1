@@ -1,63 +1,65 @@
-Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+Received: from mail-yw1-f177.google.com (mail-yw1-f177.google.com [209.85.128.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37DB048380E
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 17:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5D08481FDF
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 17:09:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788282543; cv=none; b=i97v+HhHOjpmY+5FD7jWmZDSsHWRM+YnGgU3dQNhzhqdzRLfX+iYK7fqZmlwKHHkCkJtMjCdEQQZUJwWc8Geo4u0QjYwOEd3WCqzRRnxam39dotTOb10V9zxgF0f8+4j2XkQ5TBcalLZB0xpl4U7ye/skXnL3wtwu6oYWB98IVo=
+	t=1788282560; cv=none; b=t6cT8iCXMElyK997nLk0dWjicTwpEfJoMAkuwzD5wWztjDOHoGijc3i2X1Ss9OGJutM4ReDxJPH4JaN4Wt+IigoFd7cJXCYuaKmo0MXGX8+6JRbdClJ3fcne2dzsBHutW2nfIkGafZhZYQctAqGchfN2ZwrWRk2Zd17UqbldTTg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788282543; c=relaxed/simple;
-	bh=Q0EerqSgGvmAb1C2z/3u7uYu/BE74lyAF6uYjKyCP+A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dTJT5Af7+hkunIj74Cu8u0WwKo7Mq68ClhOYuYJtYb5irq0i/AczbdB8roCrzEtGAjkWxjdghoQY3QnHOYrqY18hutqByeDnAmO5beGZRmqucBjSnXF6d6V1thG2oybbYfXFiFSq9lV7thgL/3ToMrSzeQK8F6GwV3uKp//95dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=nrEyMyb6; arc=none smtp.client-ip=209.85.128.179
+	s=arc-20240116; t=1788282560; c=relaxed/simple;
+	bh=eMYBy3+ZGvIA2q+GBQf+ypcxSsYooXlDBhWmvVgQbzI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gLZxvgVHU9gE6wDSDUA3FJBtZ0KTRQB48i9jPfcKaaS5FdVBnQdJqibglVNAxuH2CiOxNJUdpe2kqdngEzMPOqeVddVvgvEKzDEaVKRPXGkOBwjSkB7CAfErQ5egYkG9ISLoG/tTsNPjVf7meESNkxtZvpMfAvSpMFbyA5J/MDQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=R5ladlPa; arc=none smtp.client-ip=209.85.128.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="nrEyMyb6"
-Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-85aeb506b78so3217247b3.3
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 10:09:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="R5ladlPa"
+Received: by mail-yw1-f177.google.com with SMTP id 00721157ae682-865bdc6ed72so3271427b3.2
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 10:09:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=x6u.co; s=google; t=1788282541; x=1788887341; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
-        b=nrEyMyb6yloX77BHAqQ9NIsW3Qi7cS5aNddBQPZqrXW9TCaqr9qxVP83JdONRObk9X
-         Y83RoBAaegJJ3Hn3QaJEROuo5kqMdlKp99jD3IQH5Va+HCuUWwBKz4pGl0OEQhunOEqi
-         Hgq5i5+7IqfWpdg8ISKaJEXM7y/jwyr7jWURem+6uAyWdJxWFTCWZriZJKPkBajPucqC
-         yOuUK15dgoN+vZiMuKq7e8UDnADTcrqjPpHzjR6pZ93GBma1qGGSa0Idd5fNYPzCG0W1
-         Q+1tGC9juE4Gt5A+uE+NmhxJ4GZ8/u1NTrzQ/Dwect0EiIKPEQ6T847gboHvLBHcezf9
-         IkMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788282541; x=1788887341;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=x6u.co; s=google; t=1788282558; x=1788887358; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=b1WtM+yGxMA6nGtYPUfHvkwWZoT/FUK2b2ZzSHby/Yo=;
-        b=dsA8ipupuIT5mkwBFndoBnzSru3C49s2kyuauwKsW+FoghtY+Oibnr6nLtL7hllyBM
-         T27pYeXYZiKrvgN8wzAobN90ujsGBC8leuXHlOhTrG6udDLU1oXcnZvg/Oto5yXH85o9
-         DJw1iCXcAi+e/Oejd25l6aaa8+RL2pgxFEg2l1ekQ1N1jELkvxe4QnYyIITjad1h4yPU
-         smeSBugB9uaIRhIG9TxwZ9h4WMa/8IBVSmh2KY2rXissGK4TCDtUfDPa1dStXYbd7JC+
-         vwMN5mvGJx0QpbRMSv1GxctFQCHtMKjdwG1MAtKNLOgiaozI//YFyMpgSPLeufvjAYeh
-         mlRQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywhqfD6oydNoKDdf1d4vWiehb137h7GKUjsiH1VgIUvZkqZRV1ArxkLVhUKNYM7bsWDFkCB6K+7wklpQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++lHHW7dOulCehak1pVZjsniAYmbnFtl63fsQsUtVsRf2iOYLbfC
-	RYJvhpFbBP2edUyboMCoJP1+/Oiaha6ckXj694YbuQwgtwxQlO3VmJ0OE1w8B6UuUo8g
-X-Gm-Gg: AYBFou3W91WHvZkQbOY8qGJ7CYzGgts86IcI3vFEyHLlmtou6wOrSzk6CkGSNy2sxvd
-	QQKzEmStho+LhGqo+mZMT04IJ7+fr7mdLz9Harec6zKf+qWTsCyiVMIprRMeq5RLeRJGR+9K4S7
-	Xevss9E216cgfjDO0ujngJnzESD0b6yO/An7fLWdm9YehqnsXbbKIrSNfny9p2SZdysv2eOIJyh
-	HHGNr5Y0QR9BMPM2J8QC/6ui4i315qM40ifu39VhPw8lHEoipzS0wRAxoM4LsZf6zprDRmtEwW9
-	cCgUP2H4aEj72PSGS1kK/OwmNdQM70W1nyHiagQ6Shrb9EHfMKVWmCiBKoNVPtYfUOXfwN2RAQk
-	tta0++aKGe7mOjeH79EaTU+6wAI/VGgTOLvRRve9yNZ9sZf+XJ2aAOPNTZPrsKUHeawdJtDzt91
-	+Jh4z8ygvsfBlJiBzdstKnC1p2mLwFuMWaluL4z8S/nW7q942OcamOFzC13ZADhxl3cuqgSE4ZF
-	/mhj0PkvuoJK6ol0yLDcagcztwlzfcdhcshTR+R4P1+Fsyaeub0dht6MHLzCtUbbAcLHKrFIyzM
-	gA==
-X-Received: by 2002:a05:690c:c3f1:b0:81e:98d3:cac7 with SMTP id 00721157ae682-8686f52fe19mr38821267b3.12.1788282539975;
-        Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
+        bh=IbWwW5sIPuPDCzD8yPpWzav/RwZMe+wNYupbv2vHzg4=;
+        b=R5ladlPaVjKn/CzSa9QpM3vsU13PagmbWYzoNP4pMZe7Q/tc3aBojgIhmPO9FVdc4a
+         HBydGnoe2BAxxmCcvQgFJHVdLnX527j1BqKP6e0VBy+/oQMAi+qiKh7wZwudFuwsOuNI
+         kreDHgdjHyyeUX5+iKr/CL9VBXzFxVIGFoLfjpjgXkPVshLwUdXkqaSHMp/XkwH4mb9x
+         DsdcTfQFGdW3kA+089vSvRMOKA1gfX28BUJizpEbpjKyV5EoDC8uYNpOzpArStugFfux
+         /SHKwIPdsoIqWBao2/G9MWcLcGlDd3I0gkxsc6IkZ/+9DqN4Vm/G1l0RyOzkfUbe8XdV
+         1Gkg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788282558; x=1788887358;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=IbWwW5sIPuPDCzD8yPpWzav/RwZMe+wNYupbv2vHzg4=;
+        b=c0WYamiuZwXHGypfPM37K3ZJA87ZMfJgYXLis+7dBTWZOxdK1YqO5JCch68mSeBsR2
+         x0SZQP8mIP9Sfyv1/Tl1nTmGKNnunSNMl2spqaHzjJuFe1aXhkfvoHX+HWdCG95HqGuv
+         XYx6qeTVdM4QgA/Jo8kzb8thuI7x9ZEpqR3aEC6WFfZxPlqad0yUWVI0hOr6fWMKXjbC
+         tnv4JRsbXnhMp4sP7W+kORdMMLPJuWCEiAkFqXjjC1Isyy+KAymAML6CvjPVwbtzqMf5
+         xNjpuHiPjS0eFY5ZQ+ORN6c8k+SMvPIM28Qt4Ukk1/f4zNDug/FC2SK0JM+Vg+RB8LmP
+         n1fg==
+X-Forwarded-Encrypted: i=1; AKwUvBwPKWPKBEo7lWeyJ1ZmMgJwr9+Rjo5OwvU+uG46sXBs2tV5HHp0a0HdX9BNE/xA8aRp/qFPCbBcLqZymA==@vger.kernel.org
+X-Gm-Message-State: AFuF++ljTf1rcc3WhpRNSEX2/sx12g6DdxrFzxR/14QmmqBAPgrKt7Nf
+	QIHya6+JdT8iv10OjVoJ6+gqeMWoNTM1h1h6NpoRWFLswVIUdgcUZfJq21gO8mDJPmc5
+X-Gm-Gg: AYBFou1OLjl1DNtaMDUxWSDcgmT7qutfX4oOa8HWx8Eh2I2GcQ43nv3/0ItjXg3ygl2
+	SLyVkpl1/fDD5EZ76tllME9NRGgUrHd+V16s4DTXnIRSR6vvrndYI1m0JkiAFdRBaq2AGD7MsPy
+	zr/lMHmKGxFLGqN2ePUhpuLxMYdAx6nPRN4qLSAOuQQtBULkqI/xGWq9XWTkVbkDXmDsmwvKSDc
+	8dm9rKJivo6/9ydHUe4GA1Uwh3vd4+4glNzYntWXCbmx3RxQHkt+KevAPStoWmIXqXsKBxmE7od
+	C9+wyPmuIMOCMsQWIK54gh2tVJioi07cluH1fVzytWW6/tAGLTnaNm2bY5cc02j1xiopqvhxCjB
+	gQEw7AzaHGJubonVkcmT+sy5d5KldDevZ4gMGDqCvbUs1AdR9OIOZQ8YdQbEe6RmdTGskwCoIxg
+	k5KPtykaNHsRohzgIwaeLHeA5GH8CggAzMx3qtmDRPipNPR6f9CBI6OdTMckyL6iN9G2n9Nll7J
+	7VbIVl1qvGaShHqKMrYX/s1x+4OFKqpZaQXgJUp3ErKk/SjjWAKdKoH6w/PBQsQw2uExuumqDaY
+	fg==
+X-Received: by 2002:a05:690c:a7c2:b0:854:74e:ad6b with SMTP id 00721157ae682-8686ff0ecabmr35913247b3.15.1788282557505;
+        Tue, 01 Sep 2026 10:09:17 -0700 (PDT)
 Received: from worldpeace10.c.googlers.com.com (109.243.150.34.bc.googleusercontent.com. [34.150.243.109])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e65f146edsm79761867b3.32.2026.09.01.10.08.58
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-85e65f146edsm79761867b3.32.2026.09.01.10.09.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 10:08:59 -0700 (PDT)
+        Tue, 01 Sep 2026 10:09:17 -0700 (PDT)
 From: David Hu <dhu@x6u.co>
 To: sumit.semwal@linaro.org,
 	christian.koenig@amd.com
@@ -81,10 +83,12 @@ Cc: alex@shazbot.org,
 	stable@vger.kernel.org,
 	viursachi@google.com,
 	xuehaohu@google.com
-Subject: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Date: Tue,  1 Sep 2026 17:08:47 +0000
-Message-ID: <20260901170849.4052816-1-dhu@x6u.co>
+Subject: [PATCH v8 1/2] dma-buf: Fix silent overflow for phys vec to sgt
+Date: Tue,  1 Sep 2026 17:08:48 +0000
+Message-ID: <20260901170849.4052816-2-dhu@x6u.co>
 X-Mailer: git-send-email 2.55.0.966.g6673acef38-goog
+In-Reply-To: <20260901170849.4052816-1-dhu@x6u.co>
+References: <20260901170849.4052816-1-dhu@x6u.co>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -95,31 +99,120 @@ Content-Transfer-Encoding: 8bit
 
 From: David Hu <xuehaohu@google.com>
 
-This series address two related issues in scatter-gather mapping,
-specifically for the MMIO based dma-buf mapping. The fixes ensure
-sgt mapping is correct, and proper for large MMIO regions.
+In case MMIO size is bigger than 4G and peer2peer DMA goes
+through host bridge, we trigger a code path that assigns the
+total linked IOVA (which is greater than 4G) to mapped_len.
 
-Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-(Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-phys vec to sgt)
-https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+Previously, `mapped_len` was declared as 32-bit `unsigned int`.
+When accumulating `size_t` lengths, this leads to a silent wrap-around.
+This truncation causes truncated lengths to be passed to functions
+like `fill_sg_entry()`.
 
-Patch 2 Splits sgl by largest page aligned chunk
-(Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+Fix this by changing `mapped_len` to `size_t` (64-bit). While
+at it, fix similar potential overflow issues in `calc_sg_nents`
+by using `check_add_overflow()` for `nents` and using
+`unsigned int` for the loop iterator in `fill_sg_entry` to match.
 
-Changes in v8:
- - Combined the two patches into one unified series to avoid merge
-   conflicts.
- - Collected Reviewed-by tag from Leon Romanovsky for Patch 2.
+Fixes: 3aa31a8bb11e ("dma-buf: provide phys_vec to scatter-gather mapping routine")
+Cc: stable@vger.kernel.org
+Cc: iommu@lists.linux.dev
+Reviewed-by: Pranjal Shrivastava <praan@google.com>
+Reviewed-by: Kevin Tian <kevin.tian@intel.com>
+Reviewed-by: Leon Romanovsky <leon@kernel.org>
+Signed-off-by: David Hu <xuehaohu@google.com>
+---
+Changes in v7:
+ - Added a missing blank line after local variable declaration in
+   `calc_sg_nents()` (Leon).
+ - Collected Reviewed-by from Leon Romanovsky.
 
-David Hu (2):
-  dma-buf: Fix silent overflow for phys vec to sgt
-  dma-buf: Split sgl by largest page-aligned chunk
+Changes in v6:
+ - Used `check_add_overflow()` in `calc_sg_nents()` for safer
+   accumulation (Leon).
+ - Dropped explicit `!nents` check and added a comment noting that
+   `sg_alloc_table` handles `nents == 0` (Leon).
+ - Collected Reviewed-by from Kevin Tian.
 
- drivers/dma-buf/dma-buf-mapping.c | 31 +++++++++++++++++++++----------
- 1 file changed, 21 insertions(+), 10 deletions(-)
+Changes in v5:
+ - Removed WARN_ON_ONCE from calc_sg_nents() to avoid log noise (Jason).
+ - Added explicit check for `!nents` in dma_buf_phys_vec_to_sgt() to
+   cleanly return -EINVAL on overflow (Jason).
 
+Changes in v4:
+ - Added WARN_ON_ONCE() to the nents overflow check to prevent silent
+   failures (Claude Bot).
+
+Changes in v3:
+ - Removed leftover sentence fragment from the commit message.
+ - Kept `nents = 0` initialization (previously stated as removed in the
+   v2 changelog) as it is strictly required for the `+=` accumulation
+   loop in `calc_sg_nents()`.
+
+Changes in v2:
+ - Fixed 'IVOA' -> 'IOVA' typo and expanded commit message (Claude Bot).
+ - Added Reverse Xmas tree formatting (Pranjal).
+ - Folded in extra bounds checking for calc_sg_nents() (Pranjal).
+ - Folded in type consistency fix for fill_sg_entry() (Pranjal).
+ - Collected Reviewed-by from Pranjal Shrivastava.
+
+ drivers/dma-buf/dma-buf-mapping.c | 16 ++++++++++++----
+ 1 file changed, 12 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf-mapping.c b/drivers/dma-buf/dma-buf-mapping.c
+index 794acff2546a..80f6ab2f4809 100644
+--- a/drivers/dma-buf/dma-buf-mapping.c
++++ b/drivers/dma-buf/dma-buf-mapping.c
+@@ -5,12 +5,13 @@
+  */
+ #include <linux/dma-buf-mapping.h>
+ #include <linux/dma-resv.h>
++#include <linux/overflow.h>
+ 
+ static struct scatterlist *fill_sg_entry(struct scatterlist *sgl, size_t length,
+ 					 dma_addr_t addr)
+ {
+ 	unsigned int len, nents;
+-	int i;
++	unsigned int i;
+ 
+ 	nents = DIV_ROUND_UP(length, UINT_MAX);
+ 	for (i = 0; i < nents; i++) {
+@@ -40,8 +41,12 @@ static unsigned int calc_sg_nents(struct dma_iova_state *state,
+ 	size_t i;
+ 
+ 	if (!state || !dma_use_iova(state)) {
+-		for (i = 0; i < nr_ranges; i++)
+-			nents += DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
++		for (i = 0; i < nr_ranges; i++) {
++			unsigned int added = DIV_ROUND_UP(phys_vec[i].len, UINT_MAX);
++
++			if (check_add_overflow(nents, added, &nents))
++				return 0;
++		}
+ 	} else {
+ 		/*
+ 		 * In IOVA case, there is only one SG entry which spans
+@@ -95,9 +100,10 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 					 size_t nr_ranges, size_t size,
+ 					 enum dma_data_direction dir)
+ {
+-	unsigned int nents, mapped_len = 0;
+ 	struct dma_buf_dma *dma;
+ 	struct scatterlist *sgl;
++	size_t mapped_len = 0;
++	unsigned int nents;
+ 	dma_addr_t addr;
+ 	size_t i;
+ 	int ret;
+@@ -133,6 +139,8 @@ struct sg_table *dma_buf_phys_vec_to_sgt(struct dma_buf_attachment *attach,
+ 	}
+ 
+ 	nents = calc_sg_nents(dma->state, phys_vec, nr_ranges, size);
++
++	/* sg_alloc_table will cleanly fail and return -EINVAL if nents == 0 */
+ 	ret = sg_alloc_table(&dma->sgt, nents, GFP_KERNEL | __GFP_ZERO);
+ 	if (ret)
+ 		goto err_free_state;
 -- 
 2.55.0.897.gb25b4bd76c-goog
 
