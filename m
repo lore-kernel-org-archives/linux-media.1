@@ -1,79 +1,73 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F303448B9B
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3709844A3FD
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:59:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788292301; cv=none; b=SeZlIK2PWSjFpYNIAs7EnZxlLctH0iJ/rKLxpNd+MZbBVSqKmVs7F9pwoG0y9pPPzUBIbLA9psfUEvnyKNXxL0EfZCG+Siejv2ZdbyZGIOnK1cr5k0wMduplTyygMIrQFG9tcI27gA271UdyIrjZcAoYqk8wV5LdbyVSJBt/dso=
+	t=1788292792; cv=none; b=IhQ6NxW1YxNXfeWOzODtKTWOOvbQUZlgb8TDPACp0yfA96IhLD3c+kUkYK2qk37sG8pVykItJUj8JW5aHgjIT8P9AylSCSaI3grFGrGiVllGfKpdV19z+UNQzOZBhrKkGHtREt0sKMXhjGoeJn+Wrnx4fA9P8zQnswLomhcRx6Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788292301; c=relaxed/simple;
-	bh=jngS6x+tIf4czuIBq+LweYf0mEUL/modiUynUQ9e7Nw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HJPlluqoEwFkqyq/IQSc2HNfNGUFiYQNcI4hCRErgcAWD49X9HfMn2/mEBB6WgeSVL2uA5SGlzzT0uVuQ0dmhfQCWpfFWAnq7ulUxfT0+8tDyTnL3nsaxrBmo2cIj4he6sRLa6Xql3FfGTP6fUeJ6RSV8+XeIfyoEtdfH4/d13A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ICd/UeuP; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1788292792; c=relaxed/simple;
+	bh=so+sJEXPcX/c5t2B93vxjpawl6VZJ9hVu3eFKoGAYUY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kAFTLsfbPQLXLFEO8GxaY9uP6WJYfLWofAaYeH+JP8z/OiFqNR8wYKwgiIv+g704B5SuR7rv+i/h4efpiOk+S+A4aXNL2aqwEFhIciHKKusLesbszJKHsFwDzQs4zTi94/OC3Sdkwla+4I288JPvktW9LUxIsX1N+OF/+6h/1Us=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hi392hVf; arc=none smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ICd/UeuP"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so1871125e9.1
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:51:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hi392hVf"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-66e63afda8fso346271d50.3
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:59:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788292297; x=1788897097; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6xYO5+e2rLJr7nQr6IUR30t9mLQPc96NvTA35d5T/wc=;
-        b=ICd/UeuP2/+rdRQMeAR884JF6BdAwGHiGEU2hEcYaF5cdmsytMZ6upS2FbK8Zzjf5I
-         HI0a40LqUPO/IC9AMmKeNfPj4JCOUrtvuWZIvm9oblUKMOtsH0Hdr+99TPJwDyXQTpja
-         Yqr/8AxORd/bjiCv9UyHpiqlzW+5ytkSOkOXzMd4iTBaY3xQqS5LGNLWW50TTHQB6PnW
-         LRZCSe8gEU8eOXOQLdjpBHPe5pzNdnE/6t9c1XaXxdwY+/aOvRD199z7sx2UI5/FP6w8
-         L1oCaLsjCAq6jRFy9PV8QlaNXj/q+cJWs4kxHvxOSCw9tKRFeE7rnrPPJsklL3qe2T41
-         38KA==
+        d=gmail.com; s=20251104; t=1788292790; x=1788897590; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
+        b=hi392hVfvUXkFuuWzN8y2xb2KSrqiHZgC4gjsvEft3LsVtS8msfRYtX0GIfb/tnu28
+         i/WIu5RzVeVZO7FUqmN+Iy74VBX/9+95XpcWcmYOj8mo5UF/oC/iK3I30YY4bsMgaz+o
+         fy1eiI88NH8W2ORnGD8c6l25faWKk1gwArpOaAs24EpK+aA5wkBkNdiZg44axi/Bt2sr
+         HZTAxPRwe72CrOiZh6dI/OiKeYC/TxOidRlfs8mFnrnh2QO8Bg6C9KleSnkae71vPZ3K
+         6N8UvdvgGadu7LqAcThOtodZCywGfT7lixa88OAPcp6tFpwZH2G8ZmsExZSOB+kcu0sz
+         EFiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788292297; x=1788897097;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6xYO5+e2rLJr7nQr6IUR30t9mLQPc96NvTA35d5T/wc=;
-        b=OZrU0SoKoyD/DXH9roeJoAtHJkC6Zi+ro4vmWWt2NDPiA1KzLszeWfU7hTxX3wK98X
-         fbVCFm7OdJuG1dmB2RD90OgaNLAea8uj9kJ1whs33h8GT5SgpPLXahBT5AqTX9LD+DJD
-         RMbUTqQFsEzMdFwCEP4oWpYczNGZOP9aIxbdXcOHUN1+9hXt32p99DOewk5jVHilkUzm
-         Whcw/scdSdRhOLkCK6auAC8RjIGJrRFwEKB6n7ruoND+8i3ksLhy5+Z+P+Vy4fX8bGNT
-         pHsYsqAX4BMgB1amadUT6H+62gJ8SPpJ1U9WyclQtwXefkzp6aoPfXTReVYJyvSBRNxv
-         gcrQ==
-X-Gm-Message-State: AFuF++ktgFyn6QcA1qZs8MU0khBn5oRrQfOqMp2u3cZaDdWcib241qCP
-	QYgcPm/yfSikcL1ZPl6hXCowWEvbXK3rTiHk4Zm4Uuc9O2N+xN3rPpc=
-X-Gm-Gg: AR+sD13GjbfSW165IBtGdx9hZY4Up7IE+vXEICEC2DyAENLSv1z2t+ICU2Flk8tQHZk
-	uCKAN5ThRcsT7uv1UE0I8Eny5FR2UCrT/HvQnY1JFXF/r4gJK6RiQrhvufzSi2RxqoroGrm7Sc8
-	PhddmnkMtt/V/aETXNYV/KK+UTbA39insjXt62tvsr4NcE7ipiKcXYbkFG3qrzeVfrrYhlU9Xqn
-	FPXRhDZbNC6pP4rtorpDm9xwtGGSA0zDZeeS2ucF4OTINRDCWbnMw97L+M2ab0Qy1+RJUkOODYO
-	4X6ULbCA6fHXKKwO+YesXwcyOE9YuYrL805uazK/Uvf8daiQciRTqryWtrM0yP+zKIUCxY1bjNk
-	hYog/Ou53x5jsCNpceQrWPwXc/Bs67jFXEEbDtVPROvSIySjMuDe4VZVgrEhQn1lDAjtEVE6KvR
-	G6qTKyPuw52QIq5QxAY2MqgQaFEC6VdCFz0NEKX1vkrImDD91R7eMVuO6WfjofrPRSPj7uHbAWa
-	NZenqpQ/gFcIr0qETjtvpgmh5bVTqUvWanlXV1dN1xsAX93Ze3EuKZlz1W2J0T1gdWedCAthQ==
-X-Received: by 2002:a05:600c:a086:b0:495:48d7:f178 with SMTP id 5b1f17b1804b1-49ce5815dddmr66415e9.11.1788292297027;
-        Tue, 01 Sep 2026 12:51:37 -0700 (PDT)
-Received: from chateau ([148.69.202.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4761dd1sm5567285e9.0.2026.09.01.12.51.35
+        d=1e100.net; s=20251104; t=1788292790; x=1788897590;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=klO9rcY41+qEAIW/kerSCza/k0mNjfQoLBO8B+8gjZg=;
+        b=ItivFOEXlQS7emrGWCIbhy/YjWvmvxU9sM/sStnKywJA+OvE0iN8SJzhMwrfGgDd7G
+         glM6IwPtpE2+bOIFfsk5w9U5ZVBRoGaUONO0M4+CSNuZgLThdVGSN/UkwxtsCqJ6+rxA
+         Q6QKqmrbWRhUDqxOyiaa0HEQXvMSt8nFiFmc4kzM9PEsqOLNM/WJGOfCJb9lrS0ici48
+         v6vQb3scmh6GWCg1m0y701VwJ27GchxOxGgtYpALjVkYPczLJ8pMTGsnWSLgPK8OFXtA
+         Z8zrz+VGGWCAuTUqXwW6GRqV14zisMEIFYPjm0kV8VoTjX0Ol4HZ76/4lJYKJ4Un2QgC
+         FXNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx0w/3sImCYzJnBnJ2CvulsiPbIKU502CqUHFvIXTxCpgYB6OWOwBEaWJ8A1Wfg4MOKvu7ThYubJL+UWQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mN/0M0H03juQwQK5VE4RqwQMx52/tbfeJsSYXg+Nnlwl8tQczd
+	JXL0pglVfDlfeVau7sFk4VV25mE+WZMDMk9Z6XuXEHDfkkQrlAaYIRPA
+X-Gm-Gg: AYBFou0hzXcojxPtTLHhrkToovq2sT68mUTnTh8U3L1tEE9taWYwCO+9lZvmn50uG9F
+	kB6mN/1Z/oONaEDxuWdUqXf1nOrpZ1dZh8KNYJDEkWHvEGLcmZHEo5exeo5I1CuObZjmc757Qid
+	L4BHDx1krFYvAPQ96pHh2ks4kZsehFMCAMMEd02ACBIMQnpo086nRDAhFpnAn8ef9rMLqrA1hxy
+	4zLuyQgeeEnqxnHh5w2FFjUMfctQWB/Ig3aigkwUjQQrOCuLMPbiUuoKR4TpJGH+cdF5hWZpV2X
+	eSiGpb235g2MDtcxBUomojLYhD0CX65rfEtO9JoJQw0G8bUVAXEVCEWa6TsLeCLyFGJzYnkCoZS
+	PpLTa2itn+0qdwnwMX6kyOWOEZuKJevpKnDJ5Ihm3OQK1/s0kAjZAuifczMTuzjFnuHCxBwfN1K
+	prJ7mlkwMnbKu9oz7s3rVg5W8CcqKN0BEhL9WFZSEL4u1GsHmbwPtx2Q==
+X-Received: by 2002:a05:690e:450d:10b0:66f:7d56:cf77 with SMTP id 956f58d0204a3-66f87582dabmr3200931d50.26.1788292789853;
+        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
+Received: from adriano ([181.173.249.180])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-86c186d60f8sm1528187b3.36.2026.09.01.12.59.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:51:36 -0700 (PDT)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
+        Tue, 01 Sep 2026 12:59:49 -0700 (PDT)
+From: Adriano Cordova <adrianox@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
+	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Sergey Zagursky <gvozdoder@gmail.com>,
+	Adriano Cordova <adrianox@gmail.com>,
+	syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Tue,  1 Sep 2026 20:50:36 +0100
-Message-ID: <20260901195036.7648-1-gvozdoder@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260901194526.6369-1-gvozdoder@gmail.com>
-References: <20260901194526.6369-1-gvozdoder@gmail.com>
+Subject: [PATCH] media: as102: initialize mutexes before registering frontend
+Date: Tue,  1 Sep 2026 15:58:56 -0400
+Message-ID: <20260901195856.19910-1-adrianox@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -82,134 +76,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-bridge driver") the internal camera no longer works on laptops where the
-sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-INTC10CF, ov02c10):
+The bus adapter mutex and the stream mutex are initialized after the
+frontend has been registered, but the frontend's stream control
+callback as102_stream_ctrl() takes the bus adapter mutex, which can be
+used before it is initialized:
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
-      without device fwnode!
+	INFO: trying to register non-static key.
+	...
+	as102_stream_ctrl+0x27/0xc0 drivers/media/usb/as102/as102_drv.c:259
+	dvb_frontend_open+0x7eb/0x1410 drivers/media/dvb-core/dvb_frontend.c:2825
 
-No sensor subdevice is registered, the media graph has no sensor entity
-and userspace finds no camera at all.
+Initialize the mutexes before registering the adapter and frontend.
 
-ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
-"intel_vsc" and returns its mei-csi child. That device is created by
-mei_vsc, which on this machine only appears once the LJCA USB bridge and
-its SPI controller have probed, about a second after the IPU6 probe that
-runs the bridge:
-
-  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
-  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
-  07:59:42.391  platform intel_vsc created (mei_vsc)
-
-The commit above added two fallbacks for CVS which match on the ACPI
-companion alone. They are reached for every entry of ivsc_acpi_ids[],
-IVSC IDs included. The IVSC ACPI device has two physical nodes:
-
-  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
-  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
-
-so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
-platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
-software node to that device instead of to the mei-csi client, the bridge
-reports success, and the probe is never retried. mei_csi later probes
-without a fwnode, the CSI-2 link is never described, and the sensor ACPI
-device, which has an honoured _DEP on the IVSC device, is never
-enumerated.
-
-Before those fallbacks existed the lookup returned NULL here, the bridge
-failed with -ENODEV and the probe was retried once the IVSC device had
-shown up.
-
-Restrict the two fallbacks to the CVS IDs. CVS binds a driver to the ACPI
-device itself, so matching on the companion is unambiguous there.
-
-Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
+Fixes: 41b44e041811 ("[media] staging: as102: Initial import from Abilis")
+Reported-by: syzbot+2a3de29133b40e8f69f3@syzkaller.appspotmail.com
+Link: https://syzkaller.appspot.com/bug?extid=2a3de29133b40e8f69f3
 Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
+Signed-off-by: Adriano Cordova <adrianox@gmail.com>
 ---
-Tested on the affected machine (Dell XPS 16 9640, IPU6 + IVSC + ov02c10) on
-top of 7.2.2, where drivers/media/pci/intel/ipu-bridge.c is byte-identical
-to v7.2. Without the patch libcamera finds no camera at all; with it:
+ drivers/media/usb/as102/as102_drv.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-  $ cam -l
-  1: Internal front camera (\_SB_.PC00.LNK1)
-
-  $ cam -c1 --capture=5
-  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
-  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
-
-The media graph gains the entities that were missing:
-
-  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
-  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
-
-and the restored retry is visible in dmesg:
-
-  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-
-"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
-i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
-
-This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
-change without the INTC10FA entry, which 7.2.x does not have. Building
-drivers/media/pci/intel/ipu-bridge.c with W=1 produces no new warnings.
-
-Not covered: I have no CVS hardware, so the CVS path is only reasoned
-about, not tested, and I have not booted v7.3-rc1 itself.
-
-This patch was produced with the help of an AI coding assistant; see the
-Assisted-by tag above and Documentation/process/generated-content.rst. The
-bug report this replies to describes what the tool did.
-
- drivers/media/pci/intel/ipu-bridge.c | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..2c3b9efb0b2f 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -232,6 +232,15 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
- 	{ "INTC10FA" }, /* NVL */
- };
+diff --git a/drivers/media/usb/as102/as102_drv.c b/drivers/media/usb/as102/as102_drv.c
+index 6b1d3528a0a7..a6dd675689f5 100644
+--- a/drivers/media/usb/as102/as102_drv.c
++++ b/drivers/media/usb/as102/as102_drv.c
+@@ -287,6 +287,12 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 	struct device *dev = &as102_dev->bus_adap.usb_dev->dev;
+ 	int ret;
  
-+/* The subset of ivsc_acpi_ids[] which are CVS, rather than IVSC, devices. */
-+static const struct acpi_device_id cvs_acpi_ids[] = {
-+	{ "INTC10DE" }, /* LNL */
-+	{ "INTC10E0" }, /* ARL */
-+	{ "INTC10E1" }, /* PTL */
-+	{ "INTC10FA" }, /* NVL */
-+	{ }
-+};
++	/* init bus mutex for token locking */
++	mutex_init(&as102_dev->bus_adap.lock);
 +
- static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
- {
- 	unsigned int i;
-@@ -283,6 +292,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
- 		return csi_dev;
++	/* init start / stop stream mutex */
++	mutex_init(&as102_dev->sem);
++
+ 	ret = dvb_register_adapter(&as102_dev->dvb_adap,
+ 			   as102_dev->name, THIS_MODULE,
+ 			   dev, adapter_nr);
+@@ -341,12 +347,6 @@ int as102_dvb_register(struct as102_dev_t *as102_dev)
+ 		goto efereg;
  	}
  
-+	/*
-+	 * The lookups below match on the ACPI companion alone. That is fine for
-+	 * CVS, which binds a driver to that very device, but not for IVSC: there
-+	 * the ACPI device also has a driverless platform device, which would be
-+	 * returned instead of the mei-csi client. Return NULL for IVSC so that
-+	 * the caller fails and the probe is retried once the IVSC device shows
-+	 * up.
-+	 */
-+	if (acpi_match_device_ids(adev, cvs_acpi_ids))
-+		return NULL;
-+
- 	/* Try to locate CVS device on the I2C bus */
- 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
- 	if (csi_dev)
+-	/* init bus mutex for token locking */
+-	mutex_init(&as102_dev->bus_adap.lock);
+-
+-	/* init start / stop stream mutex */
+-	mutex_init(&as102_dev->sem);
+-
+ 	/*
+ 	 * try to load as102 firmware. If firmware upload failed, we'll be
+ 	 * able to upload it later.
 -- 
-2.55.0
+2.51.0
 
