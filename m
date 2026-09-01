@@ -1,81 +1,83 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF512E54D1
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 06:33:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E48378D89
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 06:33:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788244437; cv=none; b=Zo2PdVhPTTWopvqbP4eb5mmwerEUEkBUp38i6tipCVKR0N35wATbf0GsnWNgXVXxkh3IK3+sylzIp/p079ntEssIcmJnI5WhJ9DnHb6KSQSo3tOKcQBuCffL8oVK3xQ1zADwGVRvWHN7q6Qc+6ep9VOq3uH8+dqz3GjINAcI2l0=
+	t=1788244438; cv=none; b=ierpN6d4rDSVw0MyPNodDoo24IJjooGAA9QKAKZvYhrKOrBU11xIQTlRwsdp086cBiACbtIDn0Ai0iUbmkQS3OaFM/RHHIfeTZp63Sea5i4BdnJ6Y0t7DGQhKNllRgUequHm9mW3pXBrVTKXx30ez/Iykzp9pD4hCP8Tj19m6ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788244437; c=relaxed/simple;
-	bh=SKiKdv5J0a9yKd1F/BXWfqXIuTSXai4BQt2mltfVBVs=;
+	s=arc-20240116; t=1788244438; c=relaxed/simple;
+	bh=3MN6mJw7rnS3zO50ztLcXj8mGLoxtAzQ6H3bT8/qQvA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VXGhlyGKW0tFnR5UC8KfeZ9rGFwrJxqOBI4aXV87js9xJSqxTA04dHr7Ta3SBGn8UfeWPWmGfylSOoxVJzBnBjJbBbbbBocbGB4fL2Gxr7orSky+3gDT6qij3JD7y1phuScLkaeAlbgjYWZDh1HQZ//NejDMbFWIwCS/LbaaZbc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HuXifJc4; arc=none smtp.client-ip=209.85.128.51
+	 MIME-Version; b=u6xx+G6G/EcOrwC9FvsNW9qby3tUDw9QZvRAzv/7Oq3HJ80lTWI3f1rxmKSgMQwhoFrd119E+H/wrBlX+QbDQPf2qEGOUDFiVjZydqn+XDZ7l8uXdQrAvjFusdWDfRz2pXH+ijnUgG+U23qmfZ2XZltP6NJwiKsvubbxULROobg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S+vYFkJ4; arc=none smtp.client-ip=209.85.221.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HuXifJc4"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso49644575e9.3
-        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 23:33:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S+vYFkJ4"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-482dd6ee390so457922f8f.3
+        for <linux-media@vger.kernel.org>; Mon, 31 Aug 2026 23:33:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788244433; x=1788849233; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788244435; x=1788849235; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jC4Jgo3RleAZFIkAun3yFJqVYOX6VIQqPfa9Zm+C37M=;
-        b=HuXifJc4wpBBKBpN4el+2b2KEIPMzSGZO3F9HUkhhBq4b/nfLUAUR07xxg29QFc07C
-         KpgsbPvI5Uf2T5dSvj4SrvH7lqtXVAy4Hew7tr5J8tMFiWH6ZWbYSffYraaGkeqV+35u
-         dVLj90QWJF1gOKK8ZEEaH7qkR0+Ea/fQ9ThPGaBqVGOOc4CkzxF4rMuF5KrPh8ij0pIp
-         22GZd914TyZ5TsiQOzyFRlAwvSYbjap5C0DcXmuYTHuNh24mKayt5r3m/zSWrpvtqVg4
-         fDIJCKrFmmJicgE6hRUAIP+RaF+eXt11X6nb1xDrsXDDwJsl++SZ0qqqWLiusaduQiWg
-         vuyg==
+        bh=nS+2pInjOlXM2iS9Ri0UnSYcq50eo6ocFMYoCRo65n4=;
+        b=S+vYFkJ4ViU6+axc6o1UkhIDPPx45QX1OZWm2YobQ2pqnmt/8PCDOWp6fUnQB1lFt8
+         NDRYDw1JXvyxcFHt6KU6KMBeU6J9Uqai2tcaIqBah0M1uvI7fhvhoZafZZBxEDyL0y6+
+         79VoNswJEIbbIVIGtpfXD35P+1BvAeCIe9D0NzJ/gBZsPqi1J5zrazceeWryrvU4BH/M
+         91NdHwkVm3lQD+xZc2mQOcLHuXwaoaI0c2PxYFhed832ZZxnZYEijG0WwU35WpvBvawD
+         mVM39Th6a3XPYhIEecZcR0RUfo2ACPwG9UUu8I12oaAPZ4zXTWJnv/kg2kdtg4Rr+eTt
+         z/bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788244433; x=1788849233;
+        d=1e100.net; s=20251104; t=1788244435; x=1788849235;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jC4Jgo3RleAZFIkAun3yFJqVYOX6VIQqPfa9Zm+C37M=;
-        b=KYdnHsKod0ZsXV1m30sdlmcUuwy/halX11V42H2zsKAEyiVV1T38k1+ZLK5IatpJP5
-         RuoxtTNWwWf51jp3Ce3Z/adRBMkmIpLjkPzulr/nYYYlSZ4RdGsxSw2LpMCSrzeHcV12
-         /YJzDe8hpuHtjhq6DKpCGHmeZ8pumgXncK83cbADomCT5Qb6ARpGJ/PqAJrq8qF0dmPf
-         Kl+qvfo/nCzhcKIKIlDebZJhT3WEVVzrkdO4xrXQ3pZ4MdvlZRXUrFgAJyNpFNCZFCyp
-         t7JrJPtFMCooJj7Gjkeeqb3SUM2GgLvNGKehYrq6V0nCyxc66JqrXSjtPyuThuR7pi+R
-         DZvA==
-X-Forwarded-Encrypted: i=1; AHgh+Ro6o8fLu2gSgIeA0038N+a90ax0oCfEjxRhLH5uxiYT0mzaWyiwqIqmJEuipxmz3aUj5FR6KwKm+U3XNQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++l/5D7bdUr2wgXZRKdFVMRkIt0uNDPgRmEL7YBM623IRSaein9U
-	XMJiIXHDAnqeLO3gOH9+OJCcWs1IdFL37JdYEA4HZB2HyraIudt/PFc=
-X-Gm-Gg: AR+sD113fy02AFfnKT+kJukr2C5tBbOolTg/oyDSgxwpIGBGPINOU9/mWCDWior0Qji
-	nu2+omj+ycdXUczYXTXR7XilxBWnJQQTEcAbv7TIZHYl0vLBROMvm2bdsTvwZjx5owO8V8bTkfi
-	DyWfeFfUWNW7u9vAsVYV6HibMwP5CQDGEYw92wx2/cmMczItM6pjauR1IkXqgK85BBEd1aFlhkR
-	Af1Q1SdJ+D0Fnze+H+sz9w5h9N8+EpM3AJ8Cvp/014/wEgs+m3xIkKrOyDJ086OjKVbUmbPfkr/
-	nt0T7hSc+0lCQhOFSazji132Gy1seC8C5mkNnxjt0VQVtbqoOHR7qr+BSgKozTDKyF0XFo6HNs8
-	GL84a+vq3m+yxIprakdp/yFYqB/mk+7ee46gQ20zDmfyGaowsuzbe333D5Apk+tshBjrUhkmAUB
-	KEPsi3Uk0wQf21egbOj027kXisK8L6LdBIfx4VBVPs4rr8wB8/K9L/0rmFjaRQUsteRRA5JcwX/
-	enls34dHoNCP798IKKuhYbVnekkM+5T3bazt9bLpOYG
-X-Received: by 2002:a05:600c:4747:b0:499:dbba:9859 with SMTP id 5b1f17b1804b1-49cdc57bf3emr86849635e9.5.1788244433013;
-        Mon, 31 Aug 2026 23:33:53 -0700 (PDT)
+        bh=nS+2pInjOlXM2iS9Ri0UnSYcq50eo6ocFMYoCRo65n4=;
+        b=b3t3c0KvVolFTl5L1o2WB3cRLKWcC5IdlkhbZzKrOmrHfXarB62RETjoZ3tNxwSpMG
+         j0pXO11c+tX5IA0p4tFFLOR8LWrbK0AxN1PAbW0U2XQB2z6wUedQGg88gT2LHKZaZXf5
+         iSOiX37ArPzVAnybV2IpTEfilhvIptnHcTkaC1aHCtJhjo3UsN0OLwIM/jZxS0NbUXkg
+         84qizJRlYh/y8MXjp+a3bwjv3q4DizppItR3lwhJS4VzP+IRgd/sKcpCbgcQhsOSO0MP
+         afIiBXfgrGzo5U9Yp6bNN2Av2OtWXJ4ZqVrZGzMP4I/fXWaS+qVb0+Zj81fjmZyB1aj/
+         /1mA==
+X-Forwarded-Encrypted: i=1; AHgh+RqU/kaIfMjm47WuK1oSD7+7xEIj6VxS5chCYenEIJ0gr0uZT0av7MTF8LgX+shCdTPiCwNcT1hN2nH2Og==@vger.kernel.org
+X-Gm-Message-State: AFuF++nqiy30NoQhp+uvOzBOkdSPRnXHHxKMrsoLauPFNoROR2k3qufl
+	AgR7ju+9BOPTPv2GRmYqq95YyePES50laGJzzzQJ455bgkssJb0zyfk=
+X-Gm-Gg: AR+sD13BwtF77ESRITH3O7kesum6wnAqLBqiR5WwtMg+1xdZyXe0augUi5JiZBqZmuh
+	jjcmFXRdzF6s2PlKnRUtIlUaq2havxP7rBcg5VOW4ykEYo4Oy1YdxC6qX6jlxrUDKu+K0Fj5/Pq
+	ix+oZd5gmtHWpa5YP0RV1VM3p4XyAfMurLSYEHgD/2ZKHrlMFQFRaJFkKYFSu9/1Uluul0mjcBt
+	DClPUUkopnaoYN78GaJEuvVAEvW9Sv3h6GNmRQyBYROOHYoYbWlZA9CzoqND+s35eCzlMt5yaED
+	A7QIM8UFc80mwNhjYKPl3oZ/ADaEosZyai054pD8dfUvaR8NF10xuiLI5hvSGnGyzM9uwBLKspJ
+	DataG31q+4u+3KYU+wNY8uof2nuTpQcVSzVsGvX+MIRGvpMiANAlOYXSuqtDtn/8FKFp6zrvkta
+	hDAid6zi6ug0lJKHfHrMi8c6QfKW1Sp9+ZgCSqed8wcUggttsDYyNGtfQS361nav+D0Ntr3hX4Z
+	/LfESWFlNC0sB/5o2N/Bw05z1Q5ZgCP2aDTxfQsg43ZXw==
+X-Received: by 2002:a05:600c:a55:b0:499:60bf:c6f7 with SMTP id 5b1f17b1804b1-49b91c4cc2cmr543640105e9.13.1788244435072;
+        Mon, 31 Aug 2026 23:33:55 -0700 (PDT)
 Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce11e0fsm43331585e9.9.2026.08.31.23.33.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce171c3sm47078975e9.8.2026.08.31.23.33.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 31 Aug 2026 23:33:52 -0700 (PDT)
+        Mon, 31 Aug 2026 23:33:54 -0700 (PDT)
 From: "D. Manresa" <dmanresa@gmail.com>
-To: Jakob Berg Jespersen <dev@berg.pm>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+To: Jakob Berg Jespersen <dev@berg.pm>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
 	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Hans de Goede <hansg@kernel.org>
+Cc: Hans de Goede <johannes.goede@oss.qualcomm.com>,
 	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Tooraj Taraz <tooraj.taraz@yahoo.com>,
+	"Joseph V. Lavigne" <jlavig88@gmail.com>,
 	platform-driver-x86@vger.kernel.org,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	"D . Manresa" <dmanresa@gmail.com>
-Subject: Re: [PATCH v2] platform/x86: int3472: map the ov7251 power enable GPIO to "vdda"
-Date: Tue,  1 Sep 2026 08:33:51 +0200
-Message-ID: <20260901063351.67231-1-dmanresa@gmail.com>
+Subject: Re: [PATCH v3] platform/x86: int3472: support the POWER1 GPIO type
+Date: Tue,  1 Sep 2026 08:33:53 +0200
+Message-ID: <20260901063353.67252-1-dmanresa@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <9bjLpqRXj6Hx0eSwnrfYfzQUL9rQwcxzb7uzDdMDhfQUkXmd8vUjOYrWOWHduP7IUZ8rtmnsUxIzX5E3CLVGfXCylvdrZYdmJhkX-O24aT4=@berg.pm>
-References: <20260831102306.36610-1-dmanresa@gmail.com> <9bjLpqRXj6Hx0eSwnrfYfzQUL9rQwcxzb7uzDdMDhfQUkXmd8vUjOYrWOWHduP7IUZ8rtmnsUxIzX5E3CLVGfXCylvdrZYdmJhkX-O24aT4=@berg.pm>
+In-Reply-To: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
+References: <20260829-sp7plus-int3472-v3-1-454b50485ce2@berg.pm>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -84,56 +86,57 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Sun, 31 Aug 2026, Jakob Berg Jespersen wrote:
-> Tested-by: Jakob Berg Jespersen <dev@berg.pm> # Surface Pro 7+, probe/power-on
+Since this thread is where the INT3472 _DSM GPIO type codes are being
+discussed, relaying a piece of vendor-side documentation that surfaced in
+the linux-surface work: the type-name table inside Intel's own Windows
+driver. Extracted by the tester known as fildunsky on GitHub (relayed here
+with their permission and at their request - full context and discussion in
+https://github.com/linux-surface/linux-surface/pull/2252):
 
-Thanks for the quick test!
+From iactrllogic64.sys, "Intel(R) Control Logic", 04/04/2024, shipped in the
+Surface Pro 8 driver package (analysable without a Windows install):
 
-> 0x009e0903 is V4L2_CID_ANALOGUE_GAIN, and the in-tree ov7251 registers
-> V4L2_CID_GAIN instead, so only the front and rear cameras get
-> enumerated.
-> [...]
-> Did you have something equivalent downstream? Happy to send it to you
-> or to the list if it would help.
+  0x00  Reset          0x07  Power0         0x0E  AF
+  0x01  Enable         0x08  Power1         0x0F  IO
+  0x02  Strobe         0x09  Standby        0x10  Avdd
+  0x03  Torch          0x0A  WriteProtect   0x11  Core
+  0x04  Flash          0x0B  PowerEn        0x12  (Handshake)
+  0x05  LedRear        0x0C  Mclk
+  0x06  LedFront       0x0D  PrivateLED
 
-Yes - and so does everyone else, independently, which is the strongest
-possible argument for sending it to the list. The linux-surface patchset has
-carried exactly that two-line change since 2023: "media: i2c: Clarify that
-gain is Analogue gain in OV7251", by Dan Scally (on Cc), in
-patches/6.19/0013-cameras.patch. It was never submitted to mainline. Last
-week a Fedora user rediscovered the same fix from scratch on another Surface
-Pro 7+ (linux-surface PR #2252), and now you make the third. Since libcamera
-hard-requires V4L2_CID_ANALOGUE_GAIN, mainline ov7251 is unusable with
-libcamera on every machine until this lands.
+Extraction data, for anyone who wants to reproduce or challenge it: name
+pointer array in .data at VA 0x140021060 (file offset 0x1F260), stride 8,
+indexed by the _DSM type code; strings in .rdata at VA 0x14001E4C0;
+SetGpioOutput at VA 0x1400027C0 rejects type >= 0x13 and indexes per-type
+state as base + 0x50 + type*32, consistent with that layout.
 
-Dan, it is your patch - would you like to send it upstream yourself? If you
-would rather not, either of us can, with your authorship preserved.
+What this does and does not say:
 
-> I should say I have not got a usable image out of it here yet: Frames
-> come through at the right size and rate, but the content is saturated
-> white, and the sensor's own test pattern does not come through either.
+- It confirms 0x07/0x08 are simply "Power0"/"Power1" on the vendor side -
+  generic numbered rails with no supply semantics - which if anything
+  supports mapping them by what the consuming sensor driver requests, as
+  this patch does with "dvdd".
 
-That is almost certainly not the sensor: it matches, symptom for symptom, the
-IPU6 CSI-2 receiver desynchronisation I reported on linux-media yesterday -
-"ipu6-isys: MCD PHY is initialised before the sensor is powered; intermittent
-D-PHY desync at stream start (TGL)". The signature: a session starts with the
-receiver desynced, every frame arrives at the right size and rate but the
-content is garbage railed at full scale (for a 10-bit sensor most rows pin
-near 1023 - saturated white), the sensor's test pattern does not survive
-either (nothing valid does), and dmesg shows "csi2-N error: DPHY fatal error /
-SOT sync error" from the first frame. Three checks on your machine:
+- It says the vendor calls 0x10 "Avdd" and 0x11 "Core", while mainline since
+  v7.0 names 0x10 INT3472_GPIO_TYPE_DOVDD and registers "dovdd". Worth
+  knowing, with two caveats: it is a single artifact and the electrical
+  claim is unproven (the Windows control logic raises every described line
+  in sequence regardless of name, so a working camera under Windows proves
+  nothing about which rail is which); and con_id in int3472 follows what
+  in-tree sensor drivers request rather than vendor naming anyway (0x0b is
+  "PowerEn" in this table and is registered as "avdd"). Empirically, on the
+  Surface Pro 8 the consumer of the 0x10 rail is the ST VD55G0, which
+  requests "vddio" - lining up with neither name and resolved there by a
+  per-HID mapping.
 
-  - dmesg right after the white session starts: if the DPHY/SOT errors are
-    there, it is the receiver, not the sensor;
-  - close the video device and start a new session: on my unit the desync is
-    per-STREAMON and clears on the next attempt (~3% failure rate at stock
-    30 fps timing, but it drifts with uptime - I have measured up to ~50%);
-  - if the front camera is streaming at the same time, stop it first: the
-    OV5693 (port 4) and OV7251 (port 5) share MCD PHY1, and starting the IR
-    while the front holds the PHY made it fail 22 times out of 22 here.
+- For the enable-delay discussions, the same binary's power-on sequence
+  (discrete::DiscreteControl::SensorOn):
 
-My IR capture path retries the session start automatically on that signature,
-which makes it invisible in practice. Details and the register-level evidence
-are in that thread.
+    Enable -> 2ms -> Power0 -> 5ms -> Power1 -> 5ms -> PowerEn -> 2ms ->
+    Avdd -> 2ms -> Reset held -> 2ms -> Mclk (or the ACPI clock when there
+    is no Mclk GPIO) -> Reset released -> 2ms -> Enable asserted -> Handshake
+
+fildunsky still has the binary and is happy to re-check it against specific
+questions; anything for them is best routed through the PR thread above.
 
 D. Manresa <dmanresa@gmail.com>
