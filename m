@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63A52D7398;
-	Tue,  1 Sep 2026 13:35:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69F3A3033E6;
+	Tue,  1 Sep 2026 13:53:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788269754; cv=none; b=qG7EOj6a2AI6uFtlNL8GrNDhFd+8Xtg0+3Dhsmks2iRC8pM1AwXHPfwqVHtSx5oT83g5WpvS4I/RA1SXrwZ5gIazg0sdwruOz1AIMn2ZakVD47+bhMOwQgim0EAhxAjxjvroe8RsA0x5KX1XpeomDoJoAKExmAfLdI6TQzgd34w=
+	t=1788270840; cv=none; b=Ki2NMBDVDCHMhjIK3pnuQSgPsMSOzP+0sBrhNxlH1eexhc2jjuzQrOxtoJ2f0ycSgVi8sbv2vON3Vt8EQQa5YfRZ946Rsf48p+le5AW8ATvZLfDO45fVmYAYzlKgbKbQd2IEV0S7lh89Poe7StmM5J3t0wH/79FIj3qNXMWr/fU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788269754; c=relaxed/simple;
-	bh=BEZSqzgqKkVtMPyjZEXxDEFetEdFyxyp1n4nWBeuGyM=;
+	s=arc-20240116; t=1788270840; c=relaxed/simple;
+	bh=tMJHcnwDScnHmW9CG6EUz08AlpSD0KBDMdOFTUetDwo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CBHsjW28/FR7eqSA/MaiYpEjMyUwXvAMQstKcn+2n2MYVv4CIPwIVdXxI7h0tMdRx28/O5Da7FxW4NyTBEGO+4eMGm01KxbHgM40QVn39WmDCUaHmr5gpmAcId5DlOOtqvEOAbYzH87XWUU68Omj0svTWRkkte+pnSZtu4cfS0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ag6+6ui3; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=c9EYAUKiNxUOcdqdNvnkm5bV8U8ENChXJVf6ZEEy7/8ICTBTAvx8+4KKcoapduylSzZdMoNSbViQxWTP9ETyUk2VnPcHi4TB4y+16UQrhivTh54pH93ViKXjjN2eowMO7HMQ1TERUnkVHXDhRlZAWOZtonsOT7MoW3F6/D1F/zo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FrA5ZPzt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ag6+6ui3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1297E1F000E9;
-	Tue,  1 Sep 2026 13:35:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FrA5ZPzt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C23721F000E9;
+	Tue,  1 Sep 2026 13:53:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788269753;
-	bh=mzO+bYppb5Zmv3Hn7XxzPKX20sxxrHx25fF2rE5/Z7Q=;
+	s=k20260515; t=1788270838;
+	bh=s2RSyKciexkA8E25dmTG+inyL2i+ULysjoze3NDhoIg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Ag6+6ui3bjpETsI7/oMnYjn9Hl07blI6ypqdVxL6YSGlq5W6j94P+HD29TruHeSwe
-	 WhWz+vC8OA7qGS8wvz9q4TYH3JBjrfTvDW9SyPsfPls4PPuuhL+eOsRwqstKFtJDvm
-	 agVCwm7RQrJBygjREoI+DqOjFgdknGTYLklR/TYzzVHMG2G009qH2IU/xxrh9mE9wf
-	 Lk6IMeBD/27m9fyorfEBknig/98sfDio0XQ+sqWSinqZEPhr4yZMhvnwf/OVyyi8e8
-	 HbEXrfCkIlArvwSRfxft6AHaFBs2h+Db+KzyHJEfnRB+MdqZ2fPHzisDAOxSS3w7/t
-	 BXLF7VT9OGyAg==
-Message-ID: <5e406926-f35b-43a2-b41c-912c281a21a1@kernel.org>
-Date: Tue, 1 Sep 2026 15:35:50 +0200
+	b=FrA5ZPztvNnseMHC208ivqlR7JLk0vHCZ0uQov3l0iq6SCRwtKGQkItbyTpNJ9nrr
+	 rfJYtZAyeDuoIkQmRXYHBq+ukBxm5LpkrwyPByPpiFJJFiCDouPoKAVOzGU4edJxdm
+	 +Ujn7mu5VIcFu1MpjeKzmf7qeBcr82QJ11e/Nq0T2oTV/Xl3oumPQroit7f10CJm8n
+	 kVB0rHMft+WdRwleWZClNrb6/Plom4VOekrozI341FeXXKgWVQSWmFN9hE6ixKAe7G
+	 UQpIA7uSB7eK7W1Nii+VA0tLkIhoV7G/yOcLlVCVZNDuIJlyeT5jnhH1d8QlFPDeIj
+	 CSqh00BINZ1dQ==
+Message-ID: <58c0d082-b527-4fd1-9f7a-74b58b4db54d@kernel.org>
+Date: Tue, 1 Sep 2026 15:53:52 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -35,88 +35,117 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: int3472: the vendor GPIO type table, and four values that differ
-To: Sergey Lebedev <lsa.uz@pm.me>, Daniel Scally <dan.scally@ideasonboard.com>
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
- platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
-References: <20260831180837.69000-1-lsa.uz@pm.me>
-From: Hans de Goede <hansg@kernel.org>
-Content-Language: en-US, nl
-In-Reply-To: <20260831180837.69000-1-lsa.uz@pm.me>
+Subject: Re: [PATCH v3 1/2] dt-bindings: media: i2c: Add onsemi AR0234 image
+ sensor binding
+To: Alexander Shiyan <eagle.alexander923@gmail.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>,
+ Quentin Freimanis <quentin@q-lab.dev>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+References: <20260820075524.2056029-1-eagle.alexander923@gmail.com>
+ <20260820075524.2056029-2-eagle.alexander923@gmail.com>
+ <20260827-legendary-viridian-tamarin-4e56e5@quoll>
+ <CAP1tNvSg4yWHCJW6UNZ4yQv5FCjz9u5ZLpuW5Z9skkjQYbS9AA@mail.gmail.com>
+ <21dec355-0cd7-4250-a7f4-e93f3e446504@kernel.org>
+ <CAP1tNvT2+uNvcHf9=c_ysaM=gKrnz+5ZMTOq-8n_V+Ryx=yxLA@mail.gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <CAP1tNvT2+uNvcHf9=c_ysaM=gKrnz+5ZMTOq-8n_V+Ryx=yxLA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-Hi,
-
-On 31-Aug-26 20:08, Sergey Lebedev wrote:
-> Working on the cameras of a Surface Pro 11 (Lunar Lake) I pulled the
-> complete GPIO type table out of Intel's Windows camera driver,
-> iactrllogic64.sys. Ten of its twenty entries correspond to constants in
-> int3472.h. Six agree. Four do not, and I cannot tell from here which side
-> is right, so this is a question rather than a patch.
+On 01/09/2026 12:32, Alexander Shiyan wrote:
+> Hello.
 > 
-> The table as the vendor driver indexes it:
+>>>> On Thu, Aug 20, 2026 at 10:55:23AM +0300, Alexander Shiyan wrote:
+>>>>> Add devicetree binding for the onsemi AR0234 CMOS image sensor.
+>>>>> Signed-off-by: Alexander Shiyan <eagle.alexander923@gmail.com>
+> ...
+>>>>> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml b/Documentation/devicetree/bindings/media/i2c/onnn,ar0234.yaml
+>>> ...
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - onnn,ar0234cssc
+>>>>> +      - onnn,ar0234cssm
+>>>>> +      - onnn,ar0234cs
+>>>>> +    description:
+>>>>> +      The AR0234 sensor exists in two different models, a colour variant
+>>>>> +      (AR0234CSSC) and a monochrome variant (AR0234CSSM). The device exposes
+>>>>> +      the model through registers, allowing for auto-detection with a common
+>>>>> +      "onnn,ar0234cs" compatible string.
+>>>>
+>>>> So all devices are compatible? Then why compatibility is not expressed?
+>>>> What are the actual programming differences between sc, sm and "none"
+>>>> variants?
+>>>
+>>> Perhaps I need to revert to the compatibility strings that were used
+>>> in version 2
+>>> (https://patchwork.kernel.org/project/linux-media/patch/20260807102847.1813059-2-eagle.alexander923@gmail.com/).
+>>>
+>>> From a programming standpoint, it makes almost no difference which
+>>> sensor is used
+>>> - the only differences are in the output format and the format count.
+>>> Either way, the driver always uses the sensor model determined via
+>>> register reads.
+>>> If the specified type does not match the detected one, only a warning
+>>> will be printed.
+>>
+>> Devices should be made compatible with the fallback or even the color
+>> and mono variants could be dropped. That depends on the difference
+>> between color/mono.
 > 
->   0x00 Reset          0x01 Enable         0x02 Strobe        0x03 Torch
->   0x04 Flash          0x05 LedRear        0x06 LedFront      0x07 Power0
->   0x08 Power1         0x09 Standby        0x0a WriteProtect  0x0b PowerEn
->   0x0c Mclk           0x0d PrivateLED     0x0e Avdd          0x0f Core
->   0x10 Handshake      0x11 HDMI_INT_IO    0x12 HDMIDetect    0x13 Reserved
-> 
-> Why I believe the indexing rather than a coincidence: five entries land
-> exactly on values the kernel arrived at independently. 0x00 Reset, 0x07
-> and 0x08 Power0 and Power1, 0x0b POWER_ENABLE against the vendor's
-> PowerEn, 0x0c CLK_ENABLE against Mclk, and 0x0d PRIVACY_LED against
-> PrivateLED. Five independent hits on a plain array index is not chance.
-> 
-> Where we disagree:
-> 
->   value   int3472.h              vendor driver
->   0x01    POWERDOWN              Enable
+> Removing the separation would result in a regression.
 
-Same thing just different names, sensors typically have an active
-low powerdown pin (so driving high enables it). Also older Windows
-code has been known to call this "pwdn".
-
->   0x10    DOVDD                  Handshake
-
-Another reverse engineering has mapped 0x10 to AVDD, see:
-
-https://lore.kernel.org/platform-driver-x86/20260901063353.67252-1-dmanresa@gmail.com/
-https://github.com/linux-surface/linux-surface/pull/2252#issuecomment-5483523423
-
-Which seems to make morse sense, given that we've determined that
-this controls a regulator and we also have a mapping of 0x12 to
-HANDSHAKE provided directly by Intel.
-
-When we mapped 0x0b PowerEn to avdd we just knew it controlled
-a regulator and weren't sure which one. Since most drivers just bulk
-enable all regulators this does not matter in practice.
-
-So when this second (after 0x0b / power-enable) regulator related
-GPIO showed up we mapped it to dovdd instead of avdd. Maybe we should
-swap them but then we first need to verify that all relevant sensor
-drivers check for both dovdd and avdd.
-
->   0x12    HANDSHAKE              HDMIDetect
-
-We have:
-
-0x12 = HANDSHAKE
-0x13 = HOTPLUG_DETECT = HDMIDetect
-
-Coming directly from Intel and both have been verified on
-actual hw.
-
-So I believe that the mappings found here:
-
-https://github.com/linux-surface/linux-surface/pull/2252#issuecomment-5483523423
-
-are the correct ones, no idea where the differences you found come
-from.
-
-Regards,
-
-Hans
+What regression? You just proposed these compatibles, they are not
+accepted, so how and what possible could ever regress?
 
 
+Best regards,
+Krzysztof
