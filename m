@@ -1,102 +1,198 @@
-Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2274036212C
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 07:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35D6546EF94
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 07:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248829; cv=none; b=b0pXXXc3k+QCLEuZ4aLGL4XrxmD8376R47a/1Oz4Qdu+QJLSipB3Geg0W18Sslxih6QGb/CsHpqX1piwCWAD7gJgzIIm1JVFR7epY/XF0Q+8CQBcX3+TzEGVSy+wYJEz6/OW++PdPwl2t3uX7WMnKNW3HP2Lf6PqRP8wPAFcFYE=
+	t=1788249327; cv=none; b=SrbFX7qakS4PhDVtA8/j9ZsN8tRfMhMZZRY/g7Bw+HezJl2gS44TWFSGQvC4I520k5+BGLoENQZDBLr6fqEMZoCbuG7nfQpfizSiJ/wcsn9oRyXnZEO+qjImYitvBbJTue93mNCHMA+aIVDybje9trBUP5KNyLhrv0Hb62ShZWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248829; c=relaxed/simple;
-	bh=A9qVgctfJKa3lOPN/djwn5FdaMAcXZJbQwr/BkRW6fU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ckaV5K0j3MvpzbEU6ik45c7LUnf114ZbEhkdDIhO369Qyt1OWoiy71EkVKIWINVX04dWXSPYvTwjNwyAP4JVEtplNHYNzLuz1bONjOLZzsEdu74Uhuw+IDN/60l9hTEjdHKzJ3AUxx9a7si72MWL6ROhV1Yb1WhZYueB+8Apaso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkFYGgII; arc=none smtp.client-ip=74.125.224.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788249327; c=relaxed/simple;
+	bh=6+LUMqK+QEr1CV332wSeVbOAm5qKQQiCjVjQE8pOF5U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=S4nRvlW4Y6/G5QsQB+WsAj/5kUI1CHFcbe97KnSQ5nApkm5TztWDAIqVSyIheIITzKnm8LrS4Gw2k0nl/UTimjD4JOmR1+6/KAtnW7cSR1g16iIrJdzcrB6QHi4saV8+0Ykgg4yqa0QpKEDgGoIA9mcKVv+bmLKuuUOXOSTHAac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YXHPnIZ2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RqX81QIC; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkFYGgII"
-Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66e3d262d43so1686946d50.2
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 00:47:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YXHPnIZ2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RqX81QIC"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68178oRZ2973928
+	for <linux-media@vger.kernel.org>; Tue, 1 Sep 2026 07:55:25 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=DroUy899f8UZcEHvH5hCZ0
+	9xwNLqFHtAI/BTIz7Ayzk=; b=YXHPnIZ2PRkN7fObuJSzcUyA6T7UNbgHlSzCc1
+	9l0fdz/qXclcphHg3S7kjJR1bC3EITBL3gBrDOofO7HCI7Pdeey6QPNhwpihl7pB
+	zCONLfd+B79yhzGQppYdADs/oqsuJDx0AHwDo+TTKMV2JWfmhpSbZfwyK/jEbomc
+	viGJdmbnT3AMyTtQ1Vux170nYv61UT0q2yzEOG/lzMfYJ7V97jebwQwoAX3cj3p5
+	yGB+o3qbpoC+EXmPOBvtbZSoFxE78KEvvJN6F2HsmD3NrgXO/aQmxLeFAjKteFaV
+	STYYs7bA1PAHL7eJT6gMQM9IqJKdMblcgX2bKbfNi0tiKEog==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gdsnu09tw-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 07:55:25 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-92e4f946461so758149185a.2
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 00:55:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788248827; x=1788853627; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
-        b=TkFYGgIIOuQ+ncJ36gqZNhdePJAl74b4c8epXXQMRj5dNHCV0ntsvvPY5dG4E14H93
-         ZJdiJUX/In4gUpSaiyUu9R+rM6QZtM7i/u1gOefywwvl8743M4w/afTz6KP4oCnmiRBW
-         zJD4KMZhTFXGlvq69bOxblzpYLdWNsFJuqMbiWOoU+9wDX4WtwLrPPLIIagvTayoYNkD
-         WIK0QYVRO6lkNPJoRWxW7R7crnNNK02neAqeaZBDlwTiB3BgB7Xn0BCqgbAS4NhFUGfv
-         hQA5EbVE3YPTypiBsvH88gfwpx6HFUFqDSC761ZLr1xGwo2rz6UeTfAAAwyHs4YJUC9V
-         pEVA==
+        d=oss.qualcomm.com; s=google; t=1788249324; x=1788854124; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=DroUy899f8UZcEHvH5hCZ09xwNLqFHtAI/BTIz7Ayzk=;
+        b=RqX81QICGl1DkOtyXFH5ihoVOcIOm9t95nOVTqJJ7gGwYeYzQOPh+qtST1p6AfIkJS
+         XtnQGOcA74arUkrIoJcu5xACY/24RC2N+6ef5wVrhr5Lfr8fBDx/acU7ZhdglKuKT8eq
+         ynyFzh1tdlBhiejEcGqVdN7WX3KsYICkszS9ht32fAuAPFxMvkA5BNLAcPapMc/p27Az
+         3oGnpTuyMw92NerdAgtFfmloGszqaXWSx63RCWAVkyjn0+ud4/WG1BW4FDYut4aISjR0
+         NuLjYlwKjmuKdG1KEOaVEWnd1EKU2Nimtrx7KYq330KxIVIlGI6UTSVdPNTLqWKbNw1E
+         J1KQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788248827; x=1788853627;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
-        b=TZKcAmwvkr5B6umcb7Sg6iZBtKnUndrCVo/Uqdpgx6xl/fvVvYYBXD8e8yALf0wJUe
-         TiToftPd+/pYa8xMg39U4HKaQX6xg8fpTpSv3tbyGEF/EXgj1xR19GifT31bflKcu68F
-         hWjDvglhUl8Kct0fWO4EytkSEcRLT0b+TBmrdxtqtY1uiBYcj6+mCF7BLKtxoIk7sd9W
-         gEkMh8uDFqBMykQ5NqRvLSDZ3tYDpAsllcBv9fwafMbZfTtYXIOgGQnuMo6qRr//Opyr
-         clH61DLCtaTLqoPuTWhH35L7O30grLxrvJCX47uFkhhxTVsUJP+iteLq7Ldh/liNEQ4c
-         oPhw==
-X-Gm-Message-State: AFuF++naCQ3O66E1xCA9v4GrQEhiw+gnYJ3CIWDXWL+Z/d2rVsLMDU7o
-	28h0h7CcBpLurvwv8p3C3iczmpRJ83S4Z4IfUACV96ijPOh1wGfXFAkW
-X-Gm-Gg: AYBFou3qvCapfSifPaq5bu0rlc5/33inVQzwFk7s6zDx7iTKRjWmsoKamNr26vaKLAC
-	WOPh9xgQVpOH0+Bh/XZJQKzngGou+Nf3r4tSmg1ptdrwbwAkII6zNw78XOhLRxnni5TSM48902b
-	VhgJdlS2T3LR7nVCy1Ba8lczd3RLSEgzeP2Ow+fpqQTyGVsp5X+FbPaQsOLvC7MYkjuzVGtCpg2
-	56JidfzkmyHyp1Fl370+VbOePZzEDS+E5u2LaRLxH6ioGN65A6lHHwNeLJhA5DemSlKQ+bMu8Nk
-	5EgLkiSipItvz85PJrinHrzAIzouV6fQuc2RgBzxN+SjYyAFISHxKGPP9H5PkoKmcWBtG9W/JgL
-	1pnAeo+dZ1dR2qGWr1pPUQfnxSiG+qrJGfBdb9zTggNmnV181wxNKHEAWFA3i6ccYOysPCj0XBB
-	XSGpYpGvIQB7FkayBaaJKvS2x9PrcB59XvMv4njisQIJ6So+9re1rNSmJvatpXyE2YjRGD
-X-Received: by 2002:a53:ebcd:0:b0:667:cbb1:5f1b with SMTP id 956f58d0204a3-66f8745bd95mr1811244d50.6.1788248826877;
-        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
-Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm7782602d50.19.2026.09.01.00.47.02
+        d=1e100.net; s=20251104; t=1788249324; x=1788854124;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=DroUy899f8UZcEHvH5hCZ09xwNLqFHtAI/BTIz7Ayzk=;
+        b=E9MKfCnt869SFbsMMqPjj0q7diZ3EirFYdZTHVmpZ79WN+nabiDqVsjUE/2m6nU98I
+         XfSnYA1wCn1vWUYkMRG92zGautIsEIQhcorpeL2rAwrV90k4BWFNnnpZ8fqe69dqGLj3
+         YBRLtSEDrJ3asIBL5ogXrV6gJk7kFltwmeuxh1QeZdhD6S6ih3YcseGSbskorkrbOlde
+         ca/TNHGlE+zSkuvxNypq9Ro6RHdNw5BjzMSdjNSwNsUAwnIGObyeJizGTkHMe9NUe2fE
+         KMrbJ7nzRlX+bgDpkN/YoC4flsKcokXh/IsxRPuUcinR4sc3tQRHd8V1p+QzJp167Klr
+         9yWw==
+X-Gm-Message-State: AFuF++nwcx6D/RhUaStbQNVcf1hTCO2FdNe14FANUmos6cAs0UN4Z8dZ
+	7sHxgokgM8Lho6maAnYMxbor5LfSaj7eVDL4GZ8PcxjUZgFXDG0Lh7Sw4+Ol/65z524ME4g3CJ3
+	Vj2oEjcbAM8iNYYHPit+04mf0RrroHWYe5Eajxmgmpe3AlJHsnYDHS1iXN5QJB5URkw==
+X-Gm-Gg: AR+sD10JStMPpHUEwiNhonH6tEI+eYyRlnM0FLOBDJSMTDx+M5gPRbbP3b5icNI76eY
+	ExWX7nX1jqGMYWyALqbktdwCqRwgA32DZ/TlKrT0z2dCHRJ8vVh0pgSeeWVTZkg9j3LapZe9clU
+	FAJWMQrT4VVGIZj0mVouvFt4+nCX7VjoZYtTW5dGp0yPy+Kd4534f1x+6f1HtY9fCJh2W7Cpvbw
+	Wm95PHuUJANXp58PTo6UCuzEwwc61VcKNc6WiOJPPpWOJ9GOTdO8Zr/oPC3J16QheqFkDk420bk
+	/D5hMlLDVEsOJARjz0uIYAgRJNRL9AOVgHVLrUGdxkpsd3aScdZIUFRk5//BLjrH1Y0KmjSejLk
+	yPsqS5G5tiXFcFuXr2Yk3XHn6EbA2koXCxMwx5uJCzUSg1A742pY4fGeccaf/NKm1aFlf
+X-Received: by 2002:a05:620a:370e:b0:938:61e0:20a7 with SMTP id af79cd13be357-93947f8a679mr853241585a.1.1788249323792;
+        Tue, 01 Sep 2026 00:55:23 -0700 (PDT)
+X-Received: by 2002:a05:620a:370e:b0:938:61e0:20a7 with SMTP id af79cd13be357-93947f8a679mr853237085a.1.1788249323116;
+        Tue, 01 Sep 2026 00:55:23 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9391742780fsm970228785a.47.2026.09.01.00.55.18
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
-From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
-To: sakari.ailus@linux.intel.com,
-	mchehab@kernel.org,
-	gregkh@linuxfoundation.org
-Cc: linux-media@vger.kernel.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Hrushiraj Gandhi <hrushirajg23@gmail.com>
-Subject: [PATCH] media: staging: ipu3: use vcalloc() instead of vzalloc() with multiply
-Date: Tue,  1 Sep 2026 13:16:57 +0530
-Message-ID: <20260901074657.536299-1-hrushirajg23@gmail.com>
-X-Mailer: git-send-email 2.47.3
+        Tue, 01 Sep 2026 00:55:22 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH RESEND v3 0/2] media: i2c: Add Samsung S5KJN5 image sensor
+Date: Tue, 01 Sep 2026 15:53:45 +0800
+Message-Id: <20260901-sk5jn5-v3-0-17e728917bd4@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788249318; l=2657;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=6+LUMqK+QEr1CV332wSeVbOAm5qKQQiCjVjQE8pOF5U=;
+ b=vaZMQSWqL8X+N80cMsnNi00UCSXi4a9KnRsH9/IVMA1xzf8+NOkhGWqdUItZ1jsWEIWZ/HyDO
+ kkFLTltcjpoCMOp/dtB/RUGGgNQSr0Lc9MQlE/jBjElPOWP59GGNlBQ
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAxMDA2OSBTYWx0ZWRfXwOQ1Zc1dbrvK
+ ewgkHhCkA7Pal625gC7gzbglovBKvSijhVei+rLhbKYdXYPdnZAWzAoEy2k+pWLdMZwisqIaVhf
+ yPn39vDzuoK/7v/ivzSS/cthLGpZ70/b8foOpMvFnowJCM5heBY8ZjYOX/qWH8Ch7Mlf3Dzledx
+ wXgKhz/0Qv5EKAn5vtzZaT/8ui+uu/L8auLN3pGYRwlAn15BXQw+PIcmUFxd1TjhRe7jwYum3LA
+ GYU5KIhXwwDzDo1YJ28GGR6ZVQEFltthXdALSw4Q9NGeqWStzniPIILj/N/KqxMjbWGlzHvzGlH
+ ptSAPsSRKgubuy9G3mjWSUwLFwnrxXRECGq+OCtL718drkn+ObB6tHvpaeqv8whxgVHHNZIZs52
+ zA8d+qvft0Smw49+tRc+rfyx+9IMOC5/omOo9WC/Rjv9JtC6jmitFVGOAE/dY4rXL5iRyU5cC+Y
+ 9QHk8Mze9vckEm1QgKA==
+X-Authority-Analysis: v=2.4 cv=L6ItheT8 c=1 sm=1 tr=0 ts=6a9684ed cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=zxErxWrYDRBdf5X_hk0A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAxMDA2OSBTYWx0ZWRfXxP3pBuRYJIFs
+ oWTU7d4bmTCQ4QIiC/Rv9u8Cz/CUQYvsCAco4dcBQpJhb6kwHyrX1v5fOkSawt0fkFPwtmWsAM7
+ fMVixW1LzZIeR/PA4XOKcAzDdGDEOM8=
+X-Proofpoint-ORIG-GUID: 7hYsqULC9P4biRye4VpOtNdCkffXcGL9
+X-Proofpoint-GUID: 7hYsqULC9P4biRye4VpOtNdCkffXcGL9
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-01_02,2026-08-31_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 spamscore=0 phishscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 impostorscore=0 malwarescore=0 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609010069
 
-mmu->l2pts is sized as IPU3_PT_PTES * sizeof(*mmu->l2pts) by hand.
-Use vcalloc() instead, which computes the size via the overflow-checked
-size_mul() so a large enough count fails the allocation cleanly
-instead of silently wrapping size_t into a too-small buffer.
+This series adds support for the Samsung S5KJN5, a 50 MP 10-bit RAW MIPI
+CSI-2 image sensor.
 
-No functional change.
+This is implemented as a separate driver rather than extending the existing
+s5kjn1 driver. Although both sensors belong to the same family, they are
+different parts with different register maps and power supplies.
+Combining support for both devices in a single driver would result in very
+little shared code while introducing separate initialization and control
+paths, so keeping them as independent drivers is cleaner.
 
-Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Power Supplies:
+| Power Rail | S5KJN5 | S5KJN1 |
+|------------|--------|--------|
+| VDDD       | 1.0 V  | 1.0 V  |
+| VDDA       | 2.2 V  | 2.8 V  |
+| VDDIO      | 1.8 V  | 1.8 V  |
+| VDDIO1p2   | 1.2 V  | -      |
+| VDDM       | 1.0 V  | -      |
+
+Tested on the Qualcomm Hawi qrd board.
+
 ---
- drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Changes in v3:
+- Add vddm-supply to the regulator list.
+- Drop GBRG from Kconfig, file header and MODULE_DESCRIPTION. -- Vladimir
+- Compute pixel_rate at runtime from the link frequency instead of
+  storing it in the mode. -- Vladimir
+- Split the init sequence into two tables around the 5 ms delay and
+  drop the .delay_us field/handling. -- Vladimir
+- Remove unused v4l2_ctrl pointers and the unused <media/v4l2-device.h>.
+  -- Vladimir
+- Move all control flag setting to the end of s5kjn5_init_controls(). -- Vladimir
+- Fix s_ctrl() to apply controls when CONFIG_PM is disabled
+  (pm_runtime_get_if_active() returns -EINVAL).
+- Use S5KJN5_CHIP_ID in the init sequence; reword the clock-rate error;
+  minor style fixes (reverse x-mas tree, ret init).
+- Link to v2: https://lore.kernel.org/r/20260724-sk5jn5-v2-0-871d3b9a2e47@oss.qualcomm.com
 
-diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
-index b196a5815903..ab40502c06b8 100644
---- a/drivers/staging/media/ipu3/ipu3-mmu.c
-+++ b/drivers/staging/media/ipu3/ipu3-mmu.c
-@@ -464,7 +464,7 @@ struct imgu_mmu_info *imgu_mmu_init(struct device *parent, void __iomem *base)
- 	 * Allocate the array of L2PT CPU pointers, initialized to zero,
- 	 * which means the dummy L2PT allocated above.
- 	 */
--	mmu->l2pts = vzalloc(IPU3_PT_PTES * sizeof(*mmu->l2pts));
-+	mmu->l2pts = vcalloc(IPU3_PT_PTES, sizeof(*mmu->l2pts));
- 	if (!mmu->l2pts)
- 		goto fail_l2pt;
- 
+Changes in v2:
+- dt-bindings: drop the "T:" MAINTAINERS entry -- Krzysztof
+- Rename vdda2 -> vddio1p2; fix supply descriptions (vddio = 1.8 V VDD18,
+  vddio1p2 = 1.2 V VDDIO12) -- Wenmeng
+- Link to v1: https://lore.kernel.org/r/20260717-sk5jn5-v1-0-da610d7fd494@oss.qualcomm.com
+
+---
+Wenmeng Liu (2):
+      dt-bindings: media: i2c: Add Samsung S5KJN5 image sensor
+      media: i2c: Add Samsung S5KJN5 image sensor driver
+
+ .../bindings/media/i2c/samsung,s5kjn5.yaml         |  117 +
+ MAINTAINERS                                        |    7 +
+ drivers/media/i2c/Kconfig                          |   11 +
+ drivers/media/i2c/Makefile                         |    1 +
+ drivers/media/i2c/s5kjn5.c                         | 2848 ++++++++++++++++++++
+ 5 files changed, 2984 insertions(+)
+---
+base-commit: b8809969e1d7a591e0f49dd464a5d04b3cf02ab1
+change-id: 20260716-sk5jn5-be432bc99a98
+
+Best regards,
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
