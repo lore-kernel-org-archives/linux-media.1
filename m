@@ -1,108 +1,102 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6808F36606B;
-	Tue,  1 Sep 2026 07:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2274036212C
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 07:47:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788248640; cv=none; b=IDKtMJtATSgjRAvLk2udeNqiOYb/5UWpnuhMRN/9vjj5fzVSJx2XSZxamsPW01ajPwKffxpoVojSMNP2i8zTZFnWHOlhGOnLOaFEqIusy6zOteV4L+wjzBC7T1oPcwVC9dWFKVwkoALN5nmE32QLnlJHIYQeh3x/b1Vx4h0Q2BA=
+	t=1788248829; cv=none; b=b0pXXXc3k+QCLEuZ4aLGL4XrxmD8376R47a/1Oz4Qdu+QJLSipB3Geg0W18Sslxih6QGb/CsHpqX1piwCWAD7gJgzIIm1JVFR7epY/XF0Q+8CQBcX3+TzEGVSy+wYJEz6/OW++PdPwl2t3uX7WMnKNW3HP2Lf6PqRP8wPAFcFYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788248640; c=relaxed/simple;
-	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DgWboIjMj/Gwg9vleOHaZPmLyKHfrHoN8qsZPE+JEWyPPJoKJZH3V1fFZ7iS2L9bUCMuyA5zzM+0kHDAgZSd/NvSVaMi+xxEb5zOX1DOq3or1WHKslwgdIx9POJCXwhkYJh6XGaX+bbTouHXJXIH3YP9kG5v/r43ChtcCsKK52U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=fpChyKXU; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788248829; c=relaxed/simple;
+	bh=A9qVgctfJKa3lOPN/djwn5FdaMAcXZJbQwr/BkRW6fU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ckaV5K0j3MvpzbEU6ik45c7LUnf114ZbEhkdDIhO369Qyt1OWoiy71EkVKIWINVX04dWXSPYvTwjNwyAP4JVEtplNHYNzLuz1bONjOLZzsEdu74Uhuw+IDN/60l9hTEjdHKzJ3AUxx9a7si72MWL6ROhV1Yb1WhZYueB+8Apaso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TkFYGgII; arc=none smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="fpChyKXU"
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 7305A22B;
-	Tue,  1 Sep 2026 09:42:17 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788248538;
-	bh=23MEUiek+8f+VaOu4ez1Qqr+tEDb5JGFf45CrX9anlc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=fpChyKXUP4yuQGR9dVLhuBh8jiFCp8fj42Gvq6MeIeP/2SUVYU0Jq/HBWwOhHibnx
-	 6qITDhowNTKXddkFVxpEEJSDzqO3VBvaoqrkDiBHYvtwxDc2srbypCSbxBmNdkRNYb
-	 4bKhXEx4QT/xFMWLVGDkAqWQ5AKA6J3whoF3YFBI=
-Message-ID: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
-Date: Tue, 1 Sep 2026 10:43:44 +0300
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TkFYGgII"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-66e3d262d43so1686946d50.2
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 00:47:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788248827; x=1788853627; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
+        b=TkFYGgIIOuQ+ncJ36gqZNhdePJAl74b4c8epXXQMRj5dNHCV0ntsvvPY5dG4E14H93
+         ZJdiJUX/In4gUpSaiyUu9R+rM6QZtM7i/u1gOefywwvl8743M4w/afTz6KP4oCnmiRBW
+         zJD4KMZhTFXGlvq69bOxblzpYLdWNsFJuqMbiWOoU+9wDX4WtwLrPPLIIagvTayoYNkD
+         WIK0QYVRO6lkNPJoRWxW7R7crnNNK02neAqeaZBDlwTiB3BgB7Xn0BCqgbAS4NhFUGfv
+         hQA5EbVE3YPTypiBsvH88gfwpx6HFUFqDSC761ZLr1xGwo2rz6UeTfAAAwyHs4YJUC9V
+         pEVA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788248827; x=1788853627;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ypWFkePANEp5wn6tG7VIKIBXZfw/6XX/4Y0Ddb9zlHA=;
+        b=TZKcAmwvkr5B6umcb7Sg6iZBtKnUndrCVo/Uqdpgx6xl/fvVvYYBXD8e8yALf0wJUe
+         TiToftPd+/pYa8xMg39U4HKaQX6xg8fpTpSv3tbyGEF/EXgj1xR19GifT31bflKcu68F
+         hWjDvglhUl8Kct0fWO4EytkSEcRLT0b+TBmrdxtqtY1uiBYcj6+mCF7BLKtxoIk7sd9W
+         gEkMh8uDFqBMykQ5NqRvLSDZ3tYDpAsllcBv9fwafMbZfTtYXIOgGQnuMo6qRr//Opyr
+         clH61DLCtaTLqoPuTWhH35L7O30grLxrvJCX47uFkhhxTVsUJP+iteLq7Ldh/liNEQ4c
+         oPhw==
+X-Gm-Message-State: AFuF++naCQ3O66E1xCA9v4GrQEhiw+gnYJ3CIWDXWL+Z/d2rVsLMDU7o
+	28h0h7CcBpLurvwv8p3C3iczmpRJ83S4Z4IfUACV96ijPOh1wGfXFAkW
+X-Gm-Gg: AYBFou3qvCapfSifPaq5bu0rlc5/33inVQzwFk7s6zDx7iTKRjWmsoKamNr26vaKLAC
+	WOPh9xgQVpOH0+Bh/XZJQKzngGou+Nf3r4tSmg1ptdrwbwAkII6zNw78XOhLRxnni5TSM48902b
+	VhgJdlS2T3LR7nVCy1Ba8lczd3RLSEgzeP2Ow+fpqQTyGVsp5X+FbPaQsOLvC7MYkjuzVGtCpg2
+	56JidfzkmyHyp1Fl370+VbOePZzEDS+E5u2LaRLxH6ioGN65A6lHHwNeLJhA5DemSlKQ+bMu8Nk
+	5EgLkiSipItvz85PJrinHrzAIzouV6fQuc2RgBzxN+SjYyAFISHxKGPP9H5PkoKmcWBtG9W/JgL
+	1pnAeo+dZ1dR2qGWr1pPUQfnxSiG+qrJGfBdb9zTggNmnV181wxNKHEAWFA3i6ccYOysPCj0XBB
+	XSGpYpGvIQB7FkayBaaJKvS2x9PrcB59XvMv4njisQIJ6So+9re1rNSmJvatpXyE2YjRGD
+X-Received: by 2002:a53:ebcd:0:b0:667:cbb1:5f1b with SMTP id 956f58d0204a3-66f8745bd95mr1811244d50.6.1788248826877;
+        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:6882:91b7:8e79:7958])
+        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-66e4ed2c78esm7782602d50.19.2026.09.01.00.47.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 00:47:06 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	gregkh@linuxfoundation.org
+Cc: linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH] media: staging: ipu3: use vcalloc() instead of vzalloc() with multiply
+Date: Tue,  1 Sep 2026 13:16:57 +0530
+Message-ID: <20260901074657.536299-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-To: Ceclan Dumitru <mitrutzceclan@gmail.com>,
- =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>,
- dumitru.ceclan@analog.com
-Cc: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
- Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
- linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
- Andrian Suciu <Adrian.Suciu@analog.com>,
- Cosmin Tanislav <demonsingur@gmail.com>,
- Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <20260831170303.GB1116206@ragnatech.se>
- <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi,
+mmu->l2pts is sized as IPU3_PT_PTES * sizeof(*mmu->l2pts) by hand.
+Use vcalloc() instead, which computes the size via the overflow-checked
+size_mul() so a large enough count fails the allocation cleanly
+instead of silently wrapping size_t into a too-small buffer.
 
-On 01/09/2026 10:39, Ceclan Dumitru wrote:
-> 
-> 
-> On 8/31/26 8:03 PM, Niklas Söderlund wrote:
->> Hello,
->>
->> Thanks for  your continued effort pushing this work forward!
->>
->> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
->>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
->>> replacing the few GMSL2 drivers already in upstream, and introducing a
->>> common framework that can be used to implement such GMSL chips, which
->>> avoids code duplication while also adding support for previously
->>> unsupported features.
->>>
->>> While the normally acceptable and polite way would be to extend the
->>> current mainline drivers, the choice was made here to add a totally new
->>> set of drivers. The current drivers support only a small subset of the
->>> possible features, and only a few devices, so the end result after
->>> extending them would in any case be essentially fully rewritten, new
->>> drivers.
->>>
->>> This series depends on support for internal pads, for which a patch has
->>> been added.
->>
->> It also depends on enabling the streams API right? At least I need to do
->> so to be able to use the TPG. Out of curiosity do you know the plan to
->> enable it by default upstream?
->>
-> 
-> I do not know when default enable is planned, but series could make it
-> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
->    I am not sure that such a hack would be acceptable by Sakari or
-> upstream in general.
-I haven't tested with this driver, but in theory these kind of drivers 
-should work with the Streams API still disabled. The Streams API is a 
-uAPI, so the driver itself works without it. If the default routing for 
-the drivers provides a sensible single route, one can use the drivers 
-with a single camera. This is what the FPD-Link drivers do (although 
-it's been a long time since I verified it with Streams API disabled).
+No functional change.
 
-  Tomi
+Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+---
+ drivers/staging/media/ipu3/ipu3-mmu.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
+diff --git a/drivers/staging/media/ipu3/ipu3-mmu.c b/drivers/staging/media/ipu3/ipu3-mmu.c
+index b196a5815903..ab40502c06b8 100644
+--- a/drivers/staging/media/ipu3/ipu3-mmu.c
++++ b/drivers/staging/media/ipu3/ipu3-mmu.c
+@@ -464,7 +464,7 @@ struct imgu_mmu_info *imgu_mmu_init(struct device *parent, void __iomem *base)
+ 	 * Allocate the array of L2PT CPU pointers, initialized to zero,
+ 	 * which means the dummy L2PT allocated above.
+ 	 */
+-	mmu->l2pts = vzalloc(IPU3_PT_PTES * sizeof(*mmu->l2pts));
++	mmu->l2pts = vcalloc(IPU3_PT_PTES, sizeof(*mmu->l2pts));
+ 	if (!mmu->l2pts)
+ 		goto fail_l2pt;
+ 
