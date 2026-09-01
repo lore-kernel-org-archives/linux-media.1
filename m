@@ -1,43 +1,43 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mail-24420.protonmail.ch (mail-24420.protonmail.ch [109.224.244.20])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F8F49C4D4
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 18:28:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386F4499F20
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 18:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.20
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788287297; cv=none; b=tXOPlofilolkmpTsLXmX8cIpuJ8h4De0l74rrjA4lqAMfBo6F5qqyVQjti3Jd9PREcYcEnkrRVaB9zkl3FoNLhwVZ8OQwMIzjXH3aiIxCWXdRIsQWaYgCbz6SRPfwlAa5odjgaLuAEDJQ5UUMt7xiOJjTqLcnARzunf+b3uJqvY=
+	t=1788287969; cv=none; b=LcRhd648xDKHni6eUDCtrPEVnKoC0VyIRJxYLFs/tLYF50AvOr2SegMDbEvpSWpG6dtGK/d97cEG+T/k4WY/gF0PVrp3McNTwI5rFJctD3rnogGghBRT2g3z6tlhs5tfl7EikAgueDokro8W5E735Lp/fkIEu0pwxIYGEryQAp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788287297; c=relaxed/simple;
-	bh=h1Zgr03BycATT1NyB2dQnRebiLa5/QB61OxcvRSCjKc=;
+	s=arc-20240116; t=1788287969; c=relaxed/simple;
+	bh=xF7FYtj+iHvvL3BU71gN0djIQV6EH5EQZt/eACU357w=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ud/bjgDsloJM6MdDV+b26MejR7cXkIld9aEpvp2b52zxc+/gx98CixGL5/CDwqDs3kEB4XzHQQ4Kw0+nQq4nMtvioz6ES1iDTAwpdLvgE8lYFQte9tX0oflJeIu4IqTc+7w5P8tessAUsv7CbRyE7EdESmCWGJxVt58ZC7jFuvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=KCd8YuZu; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	 MIME-Version:Content-Type; b=Pic5MPhywbD+gFZNkyAaGN1yRQtd0rFSAKKqDAu4AFRo3HsAGzvdwvLcaLejwGsJE0lIt6we6NPTX3T3jgIvMwvgElLLKDhJ4pjJwYS0oVbtsN48JLMgHDAaihRwJb2D4ubCO124UEMStXPfUFmzWR33o3w3AgGmLrPd34xBfT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm; spf=pass smtp.mailfrom=berg.pm; dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b=tLkHv+n9; arc=none smtp.client-ip=109.224.244.20
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=berg.pm
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=berg.pm
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="KCd8YuZu"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788287283; x=1788546483;
-	bh=CLDb88AnKEaJ3a37+zNEZC/o+q1YjkVDRyLkUtKKm70=;
+	dkim=pass (2048-bit key) header.d=berg.pm header.i=@berg.pm header.b="tLkHv+n9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=berg.pm;
+	s=protonmail; t=1788287957; x=1788547157;
+	bh=xF7FYtj+iHvvL3BU71gN0djIQV6EH5EQZt/eACU357w=;
 	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
 	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
 	 Message-ID:BIMI-Selector;
-	b=KCd8YuZu0Sv6YUCTHyFJKzZ36jqjWyZKaPBoS0uKCy/mfleCKlYzu1pNOyD+mIAsJ
-	 sZJT5Trb8EbV6oL+CsAf+1VQbdYaDPiA5HE+QDNCUAeaFPYEAl+qPF8qJ2BaBHcgbP
-	 4TtS1wYPR9A3NPw3aJSJ1ZpwQN0uKZYuSSyIVrHJEcpsbluvifasP+ha8uejd4ya/I
-	 V1TQXZKKYnNVZCdlJLJ4z6+F85XDjTrwYepRgx91tW0N+3dHDPBGg7sqZcTc1DpJBq
-	 hXAnSnLXnvxzfena2oryknJBUqk57spH/E5Na1IV8DZtdlHidPh+fUtkZkOB5baYSN
-	 8qKQk2drUTAHg==
-Date: Tue, 01 Sep 2026 17:58:50 +0000
-To: Hans de Goede <hansg@kernel.org>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, platform-driver-x86@vger.kernel.org, linux-media@vger.kernel.org
-Subject: Re: int3472: the vendor GPIO type table, and four values that differ
-Message-ID: <20260901175842.47669-1-lsa.uz@pm.me>
-In-Reply-To: <20260831180837.69000-1-lsa.uz@pm.me>
-References: <20260831180837.69000-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: db76af1fc13371a7bdb29ab22c03cd6bfe670e7c
+	b=tLkHv+n9X5z3rpPK11hCgbyoOZwU7fDQ06ZE9EECHEgRvhAKxrupRnVGsaLG1auk9
+	 zHn9xKHxyWSqM/34KZBA1VRPL1knbyOYaOkFbxpVsPJruVTymS8cHp+Fk8h7wFiKcp
+	 Iv4w3N/Q6NRh1iF9YlyGKzoC/YBVbR/tOQCGq3e8EpAejZuRLNRP+BgqAHokZYWPTQ
+	 uhZ4zqafonSIMXko0wpxRjsig3NxDl/4r01E4hEtZATcTPKxPftEQHuKHDUHtEt9Zc
+	 L8uLadM4gzqkVaODAqlhlMLnIcV3YKtT69m4OnSQn2By3+kOfgq6R1OFwskTOSrBQa
+	 4/Lf0h9fg99Sw==
+Date: Tue, 01 Sep 2026 18:32:28 +0000
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+From: Jakob Berg Jespersen <dev@berg.pm>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, dan.scally@ideasonboard.com
+Subject: Re: [PATCH v4 3/6] media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
+Message-ID: <DroMyWf-5WJnXXsMNC0RcPfFHRkEggXfJl94jJlLPiykIf02dD31M7n9_JJ57WvvsXpxZsLJ5upjDgrEGgFzCeaMMUSihX3GjAGL0GClZ0I=@berg.pm>
+In-Reply-To: <20260901163417.230456-1-fernandorimoli11@gmail.com>
+References: <20260720163819.104130-1-fernandorimoli11@gmail.com> <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260831181858.325109-4-fernandorimoli11@gmail.com> <zDaw-AawkcNfIRsmWXbsPx2WDcg6ltaiPc7FZZTNp7DH-ACLsF98A3QDuuhX4iejr2-VLQYf48c1cingAI4i58i4t2dD4t45SfHr5d4MeOM=@berg.pm> <20260901163417.230456-1-fernandorimoli11@gmail.com>
+Feedback-ID: 210104851:user:proton
+X-Pm-Message-ID: 2a0dbf08900bc3428936af5a7c7c7f1cdc358e90
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -47,62 +47,46 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hans, thank you - your two anchors let me find the bug, and it was mine.
+Hi Fernando,
 
-You wrote that 0x12 =3D HANDSHAKE came from Intel directly, and pointed at
-dmanresa's independent mapping of 0x10 to AVDD. Neither fits the table I
-sent, so I went back to the binary. The table I posted is short by two
-entries.
+For the front camera, ov5693: all 20 were inside a single boot, uptime 6
+minutes at the start and 19 at the end. No reboot and no deliberate
+power cycle anywhere in the run.
 
-My first pass ran strings(1) with a minimum length of three, which
-silently dropped every name shorter than that. Two were dropped, both
-sitting between PrivateLED and Avdd:
+The part that bears on your question is which runs worked. It was runs
+1, 7 and 14, not the first few. So on this machine it is not "works once
+per boot" - runs 7 and 14 came well into the same boot, after several
+failures each. I would expect a rerun to give a somewhat different
+count.
 
-  0001f370: 4544 0000 4146 0000 494f 0000 4176 6464   ED..AF..IO..Avdd
-                      ^^^^        ^^^^
-                      0x0e AF     0x0f IO
+Each run was an independent open and close of the camera rather than one
+long capture, and the sensor runtime-suspends in between: on the patched
+arm an i2c read a few seconds after a capture had finished returned
+Remote I/O error, because the sensor had already powered down. So if the
+behavior were once per sensor power cycle, I would have expected close
+to 20 of 20 rather than 3.
 
-Everything above 0x0d was therefore reported two slots low. Corrected,
-the table runs 0x00..0x15:
+For whatever it adds, I measured 1 of 20 on this machine in July, on
+7.0.12. And last year, before I started developing on this, I made a few
+comments on the randomness of the (unpatched) front camera on Fedora 42
+and 43:
+https://github.com/linux-surface/linux-surface/discussions/1354#discussionc=
+omment-12863982
 
-  0x00 Reset       0x01 Enable       0x02 Strobe       0x03 Torch
-  0x04 Flash       0x05 LedRear      0x06 LedFront     0x07 Power0
-  0x08 Power1      0x09 Standby      0x0a WriteProtect 0x0b PowerEn
-  0x0c Mclk        0x0d PrivateLED   0x0e AF           0x0f IO
-  0x10 Avdd        0x11 Core         0x12 Handshake    0x13 HDMI_INT_IO
-  0x14 HDMIDetect  0x15 Reserved
+On the confound you mention: during my 20 runs the IR camera was not
+merely idle, it was absent. ov7251 failed to probe with -121 on that
+kernel, and libcamera enumerated two cameras, front and back only. So
+nothing was streaming on a neighbouring port while I measured. For what
+it adds, on the Pro 7+ the front camera sits on csi2-4 and the IR camera
+on csi2-5, and those two share a D-PHY - so the Pro 8 user's suspicion
+looks mechanically plausible on hardware laid out this way, though I
+cannot say his mapping is the same.
 
-Every disagreement I reported disappears:
+Two details that may help you separate the machines. The ov5693 sensor
+is genuinely up during the failures - the privacy LED lights - so it is
+not a rail or a probe problem. And the successful runs log 10 to 11 csi2
+errors while the failing runs log none at all, so the failure looks like
+the receiver never locking rather than the sensor never starting.
 
-  value   int3472.h        vendor, corrected
-  0x01    POWERDOWN        Enable          - same pin, as you explained
-  0x10    DOVDD            Avdd
-  0x12    HANDSHAKE        Handshake       - agrees
-  0x13    HOTPLUG_DETECT   HDMI_INT_IO     - agrees, same function
-
-So the answer to the question I asked is that the kernel was right at
-every disputed value and my table was wrong. Sorry for the noise.
-
-One thing survives, and it is the reason I am writing rather than just
-withdrawing. You said the 0x10 dovdd mapping was a guess - that you knew
-it controlled a regulator, did not know which, and picked dovdd because
-avdd was already taken by 0x0b. Intel's own table calls 0x10 Avdd. That
-is a second, independent vote for dmanresa's reading, arrived at from a
-different artifact.
-
-It does not settle what 0x0b should be called. If 0x10 is avdd, then
-0x0b - which the vendor calls PowerEn, and which the kernel calls
-POWER_ENABLE, not a rail name at all - may never have needed a rail
-name. Your point that drivers bulk-enable everything still decides
-whether any of this is worth changing.
-
-The indexing is still positional inference: nothing in the binary takes
-the address of these strings, so I am reading an array of logging text
-and assuming its order is the enum's order. What makes me believe it now
-is that three values established independently of this binary - Intel's
-0x12, dmanresa's 0x10, and the kernel's 0x13 - all land at once under a
-single two-slot correction. That is a much better argument than the one
-I made the first time.
-
-Sergey Lebedev
-
+Regards,
+Jakob
