@@ -1,124 +1,113 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29512F3C3E;
-	Tue,  1 Sep 2026 11:56:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AA0275B03
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:30:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788263768; cv=none; b=dLWRaKQgdxxJYZQzHNqKp0E0QvM0CAduOrZezgzlIyN8yGWVEHo+AwqqiYOD8Lrb+xAnM8Vf0Xwodyl+NsoDICESYZ5M0rpnFixrV3Y2KjRKTc5VovQq2ZdpvEXBl+ilX4SjjlVZLqyqSB8XmajiJTT6i4KExNeJ6u6y/iRxt40=
+	t=1788265849; cv=none; b=Z/6QmYFhBpL/Mm4Tj2TSbuC7/8H5CYYywFS3ojY4Ml1PL9GlAbMnFTAd5Iy2+ShD65UltIzz708Y/TJJzwHedAd7hiANn1JdBy//MGM64QS3QOk6vr3t67sVTwMV4keaaS3JXgZ0kzj4UVv3Si6XvLwAfkPJrq5lHjSdpVC+o48=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788263768; c=relaxed/simple;
-	bh=BXGA0AD21kQ+ZYWfNEdiKfsOL+vYN1BV28RWzR/TUOA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=igAH6LLS8/F6uwmpz2EUgvwC4RbkVUg1PzS8Xg13bFZRSdxj0+VxZgYYvqlANLt9GoiXalHD54Fe+JhOS1sgqKhvIpRsvXahATFdPzD8L5NoK34KMjj92Qlv6R8PrBjLNZFb9JPgICSu0qlnhKLDU8RhmGRxdiVVTssHsNI3O7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=p9V96+aH; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788265849; c=relaxed/simple;
+	bh=ablFrbx3pWZLubOJHWZkjzJoyx+zs1jxd1DjapaVHeI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fU6l29fwLje/tmo00LgeOUx9bw8kLDCZPlknwqVkxOSZtsVtRlJ92I5pw4G7GZ6sVxiNXFqt2ikbyBxLF+RYsbE1dJPxBQ/xc/FM/HEZoEoJk4jYwkG1WH5nUJZ8NWZyaioXc51PdjTUFfGHMmQiNI28wMP0Wd8DyE3fGlzDucg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eC+7I6zA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="p9V96+aH"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 3343B163;
-	Tue,  1 Sep 2026 13:54:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788263673;
-	bh=BXGA0AD21kQ+ZYWfNEdiKfsOL+vYN1BV28RWzR/TUOA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=p9V96+aHTk6zTD4DMj0FQ7ihXgAzIhud0AH72Id6ZFFjVuvYK3gFw2HGoh77Twu6D
-	 +Ho7A0avbH3wzfIMJh5TR+XYa8G0jHhDXIrriAEBeSHLCm5Vjco5IJYlwzoslpIJVe
-	 CHZusvxJIQFFl2WzViQbHGR6/zpP50sjGCwUxr24=
-Date: Tue, 1 Sep 2026 14:56:02 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, linux-media@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Subject: Re: [PATCH] media: xilinx: vtc: Dynamically calculate pixel clock
-Message-ID: <20260901115602.GE19683@killaraus.ideasonboard.com>
-References: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eC+7I6zA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2ABC1F00A3F
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 12:30:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788265847;
+	bh=0JN41BhaJuCkBZSIQhxEqQn4TCT3m+0Gcon15aT8f1U=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=eC+7I6zAJbOiPGq21XBolp11eF0TFEs1wBiSk2z88ecMFyNxRQFqPJmEnNzaAjJJ+
+	 0AFg3bEbo7TqunNQAe1culmR+1xeTJFYvnmD0BmK8TC6pUVtU0jWW7EICk8hvh9FEs
+	 BzzPIlWSWXVnmpR1g4+XDUztxVxuYtL49DgTl7pJvEoKF0mn0D8FANFpMJq/OfmtOs
+	 wyQ1U3sq9SI2RP1EBH2mGda6zlIizslWu+w9X2jbVGoCK+9noFj2g/BEB+7HwU2oCL
+	 PeBN6CDWjZFP3gbd2YpE+U6d8hDkabw/RuJunK5COexYOMyadIsZ6Yd3STpwR288l2
+	 jiiOtF5/Cjf+w==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so745750e87.0
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 05:30:47 -0700 (PDT)
+X-Gm-Message-State: AFuF++lMlCnwxXC/I6CQqD+aPv+3PkvBGCV5GjWbBjEkFrfTm9Vyec0p
+	8M1w01NctHMeBB3F8UMcqOC1292AkGmyIuy5rmwzPzAhzY070hN9BSmM4vVlXgloCXxHXd1FOte
+	FBZIWDMavVoPhctwXkHiBt4kNdDH29zU=
+X-Received: by 2002:a05:6512:3d09:b0:5b4:8658:a401 with SMTP id
+ 2adb3069b0e04-5b5e690c365mr10201963e87.19.1788265846337; Tue, 01 Sep 2026
+ 05:30:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260729101808.3904212-1-rajesh.gugulothu@amd.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-6-sakari.ailus@linux.intel.com> <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
+In-Reply-To: <CAD++jLnruxXqtgm2ckQQhKvuNQvawH0xZpq8ipYSjFLKDbpnyQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 1 Sep 2026 14:30:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk_XRtBxf2tLk2Eat_yN5K=cdav5YL4yw8ukUW1AOw9Rg@mail.gmail.com>
+X-Gm-Features: AcwNN1WwoGDmxROZGACbBzBQyWWZh6qoh63s00v1HqTaBPsEDaBzP2YXXk5HPII
+Message-ID: <CAD++jLk_XRtBxf2tLk2Eat_yN5K=cdav5YL4yw8ukUW1AOw9Rg@mail.gmail.com>
+Subject: Re: [PATCH v3 05/29] media: v4l2-subdev: Allow allocating frame
+ descriptors based on the need
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-CC'ing Tomi who is working on Xilinx V4L2 drivers.
+On Mon, Aug 31, 2026 at 3:18=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
+rote:
 
-On Wed, Jul 29, 2026 at 03:48:08PM +0530, Rajesh Gugulothu wrote:
-> This update enables the vtc to set the pixel clock based on the
-> specified timing parameters. A new fps field is added to struct
-> xvtc_config and the pixel rate is computed as fps * hsize * vsize.
-> After setting the rate, the actual clock rate is read back and a
-> warning is emitted if it deviates beyond a small tolerance.
-> 
-> The pixel rate is computed in unsigned long arithmetic to avoid a 32-bit
-> overflow in the fps * hsize * vsize product.
-> 
-> Signed-off-by: Rajesh Gugulothu <rajesh.gugulothu@amd.com>
-> ---
->  drivers/media/platform/xilinx/xilinx-vtc.c | 19 +++++++++++++++++++
->  drivers/media/platform/xilinx/xilinx-vtc.h |  1 +
->  2 files changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.c b/drivers/media/platform/xilinx/xilinx-vtc.c
-> index 92fec7bb4..695eb2a46 100644
-> --- a/drivers/media/platform/xilinx/xilinx-vtc.c
-> +++ b/drivers/media/platform/xilinx/xilinx-vtc.c
-> @@ -141,6 +141,9 @@
->  
->  #define XVTC_GENERATOR_GLOBAL_DELAY		0x0104
->  
-> +/* Value of 1 = .01% */
-> +#define XVTC_CLK_MAX_PCT_ERR			1
-> +
->  /**
->   * struct xvtc_device - Xilinx Video Timing Controller device structure
->   * @xvip: Xilinx Video IP device
-> @@ -175,10 +178,26 @@ int xvtc_generator_start(struct xvtc_device *xvtc,
->  			 const struct xvtc_config *config)
->  {
->  	int ret;
-> +	unsigned long s_rate;
-> +	unsigned long g_rate;
-> +	unsigned long clk_err;
->  
->  	if (!xvtc->has_generator)
->  		return -ENXIO;
->  
-> +	s_rate = (unsigned long)config->fps * config->hsize * config->vsize;
-> +	ret = clk_set_rate(xvtc->xvip.clk, s_rate);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	/* Verify that the clock is within a reasonable tolerance. */
-> +	g_rate = clk_get_rate(xvtc->xvip.clk);
-> +	clk_err = (abs(g_rate - s_rate) * 10000) / (s_rate);
-> +	if (clk_err > XVTC_CLK_MAX_PCT_ERR)
-> +		dev_warn(xvtc->xvip.dev,
-> +			 "Failed to set clk rate: %lu, actual rate: %lu\n",
-> +			 s_rate, g_rate);
-> +
->  	ret = clk_prepare_enable(xvtc->xvip.clk);
->  	if (ret < 0)
->  		return ret;
-> diff --git a/drivers/media/platform/xilinx/xilinx-vtc.h b/drivers/media/platform/xilinx/xilinx-vtc.h
-> index 855845911..0f360ed55 100644
-> --- a/drivers/media/platform/xilinx/xilinx-vtc.h
-> +++ b/drivers/media/platform/xilinx/xilinx-vtc.h
-> @@ -27,6 +27,7 @@ struct xvtc_config {
->  	unsigned int vsync_start;
->  	unsigned int vsync_end;
->  	unsigned int vsize;
-> +	unsigned int fps;
->  };
->  
->  struct xvtc_device *xvtc_of_get(struct device_node *np);
+[In v4l2_subdev_get_frame_desc()]
 
--- 
-Regards,
+> > +               if (desc->num_entries > desc->len_entries) {
+> > +                       dev_dbg(sd->dev,
+>
+> When you get to this check, isn't that after this loop:
+>
+> for (i =3D 0; i < fd->num_entries; i++) { (...)
+>
+> so you should check num_entries agains len_entries before this
+> loop?
+>
+> (I might be misreading the patch, maybe I should actually apply
+> it and inspect the result.)
 
-Laurent Pinchart
+I applied the patches to a branch based off v7.3-rc1 and inspected the resu=
+lt.
+
+Forget the above confused comment, I was missing the fact that this is
+in two different functions.
+
+But! The resulting code looks like this:
+
+if (v4l2_subdev_has_op(sd, pad, get_frame_desc)) {
+    unsigned int type =3D desc->type;
+
+    ret =3D v4l2_subdev_call(sd, pad, get_frame_desc, pad, desc);
+    if (ret < 0)
+        goto err_free;
+
+(...)
+
+    if (desc->num_entries > desc->len_entries) {
+        dev_dbg(sd->dev,
+            "too many frame descriptors; got %u, expected at most %u\n",
+            desc->num_entries, desc->len_entries);
+        ret =3D -EINVAL;
+        goto err_free;
+    }
+
+    return desc;
+}
+
+It seems dangerous to call v4l2_subdev_call() before you have done
+the (desc->num_entries > desc->len_entries) check, so maybe move
+the check up?
+
+Yours,
+Linus Walleij
