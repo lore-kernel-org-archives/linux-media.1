@@ -1,64 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B854A2626
-	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:05:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90294A0F09
+	for <linux-media@vger.kernel.org>; Tue,  1 Sep 2026 19:05:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788289510; cv=none; b=V5LntXTb144YAnuIyCEHcSSAg41qKKwOOjy9+R1faAbYvTYj/FCoOYB1ny0LdNilUwwogf/DBF4PhkdXs3W0V5ZL3FliJgnEvfYb/qV1ehGGMTKgDILWEreQuE3rgFnr3FogapKSDhlsfbT8nNPTdaM8fKEzEarqL93EZcMLZG0=
+	t=1788289514; cv=none; b=RW1xiLFYqPHjKg5WG6zEc02mKept3rhKdNvsDigaog1tqjMdG2ok/xQBvcG4l7WlJN5jvoBahCUC/VZoE8ZBUw8T9RB+wqlWRA+hCIZxdYpJjanv7F2odxdlVODUAYZsfqkZ/2MgjhSfKJU+dam/JLCm7epc1Hn55nfqZffnOw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788289510; c=relaxed/simple;
-	bh=O8+H77ig95xx3D9xkOkxR8/Uxxs4zMr9rHlkTdeo084=;
+	s=arc-20240116; t=1788289514; c=relaxed/simple;
+	bh=oSQRJqNxqEh6/B1/z4WZhyY4jL7gQ546XKgY1JR+lhE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ct5vWmVSpk1Ftxd3RZbGxi5lx9+Xb42jwrS3jPJTxZ6ytUpTSvOME/5uDmtOAF0uPZb9v3vxXNyKagSzKEZNX/g4BX26HWxnmAltBRsetV4BNEziMCFsfwjZaZqrobaK28xDMHlKSagqIgsV5T3HDqfhmUXmaK7NYLRabhNG2mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=becZRBY6; arc=none smtp.client-ip=209.85.128.50
+	 MIME-Version; b=HP1ALMfnhO7Dh1yzT+BMahsoIIpxo7yu7ikbHBQIAyBohNrkP8T9xGWoT+Q3jdVGDuWDeIXtIg7vf1M88tCXCvVfR+uyy8Dvk2AsML46/MPs/zlM/G2RxPqnvM+OTH0lUB4SN8fl4QNehu4asvmHD73yOIXdBgyLaWBp6lbdWew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XaeuSaF9; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="becZRBY6"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-49b8e527d63so1525245e9.2
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:05:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XaeuSaF9"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-49b392ccaacso2001185e9.2
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 12:05:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788289504; x=1788894304; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788289505; x=1788894305; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=yex/OilwSnogp/tXDfdHCJ3GmknddcQsqQcXRNs/Vaw=;
-        b=becZRBY6dtkAMoyFuLeLT3F+E0XbsvgWczRQmwqc4MjgLGDyNdm7DnJVQXie0pmFVp
-         Zmf5JYdxV1x97MYQqVOqFMLM2uFRxcRNH7jZr9dqhismx+KaxX1yXuyHUcY/98psp5Kp
-         k33U+2B0vmtLFROSW+dDoVpS7ooBBm905XFUs7R4iVujHvSQSZqlhZtExSS4QJwJDMYb
-         WcJwzzgpu44lQTQ6l2OlIyvPcRRHCMbRLoXNzmXrhXZtY8+ad5RioZ/x3ACV1jJ09OOK
-         Vqj63g4CXJA1RFyGmwyV6lZuo5cSeLmft/xqM7wxd/nC/qfMGYWCgX1Bjdv7uyzODFqN
-         vOwQ==
+        bh=Tu8WUi9HrdMM4KGqsLHa/qCPtrxMlvMbqE6rwLVKFtU=;
+        b=XaeuSaF9xoCUPt3YZhF/YlQipiPTIPLiNEIkDFZrWtnotHduJtO63F3A/W2IlJjqG1
+         FFBL1Iscu6QvqInpm6WcHRMrEdl5TsG1h94ZDoC4nS6TjiTAe3xyam1PMQWNKCDK4U1z
+         OcvdbMEKo2Ppig1XEpKLqYot7OWUpyXcAstuuqEQslVNJ8Y2FoCGeiYF2ZkrB8EKzGIY
+         0r6MZnq2lYK8sZ2W0elLTdYvezjmu+ZZ+FrDgyrEM7ltLBXQFlzv7FBSGHaCvAC2YNHB
+         Q6NZ4piliQKWbIoY7yWPkBkRH06SfesDHBc2iOgwHcvfNz2EAgpoFMhfQpprkx3ef+vV
+         Vuiw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788289504; x=1788894304;
+        d=1e100.net; s=20251104; t=1788289505; x=1788894305;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yex/OilwSnogp/tXDfdHCJ3GmknddcQsqQcXRNs/Vaw=;
-        b=D8eMKS7kf/xOAZSW2koQEjT3Og6zRrv3VUPYb9T30XNlstdXHYpWmV/YbP8dm7Irsr
-         1wcGjqCbDvgVCTd+yO6YebOJeEnArAXQVWi1tc9b/+w7YynvurNErZ/JMC2YANi+jeFH
-         UdHFk5qIcnVD3H6bHSUfUDzrKJCGK/6ZL8zXgcsG+uFUhHEa3PyLpAw58nVufq5mgph7
-         sJR/JFwbo0jo5JsSMId94OqWfMEGww/uQJh/QiJ/TM3eEfuMuJvNN/rQugzOxSzhjx0l
-         wQgPujbqPZ2Zy7lcDjXcx8Ehce7EE+aFukYbFR3AL0jbZ45B9I7IyZzp094AVfiMmzZ5
-         PIdQ==
-X-Forwarded-Encrypted: i=1; AHgh+Rqr6E0yqeh0/aL8rrteAN9QQigVz2aOfwPcONnVlLjbLYBxLflfoqI+O1ykQhks+aZ8oF5vqn+RzrkOJA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nMmrFwrcFIoYRXUupZ+pNmYBieDfllp7FBVvKMVWcVoguh2Vpl
-	tI3Nv7AvB4R/6fx3A4dGQ7VEa/tde4FjiVWnPsUmTea2A7SnXBwpe1G2
-X-Gm-Gg: AR+sD12euxwHNXuH91sLBRquRx6xq0mrNmFaS/7U1xZj1ywNPQgFfkGLYgFIdN0siB/
-	Kvl4YDhJ38+JC4X/ygvkMi0/C4fFqafbZzjPn1lkTpF7TRWt7Mqop2sIf6a1cwIe0O+XlGxiQiF
-	klGEqI7Q94TV/bQ4HdzH8V2TLO/Xuez6whkSkvC33TseK6luWWJczJb+2nISln85k9sz9K482eD
-	rJe5hZwzcNIpKWwAyhSQRIELoW/Zw3mmTlXwhypDd4TWJZ+tLsGniRKGmxZLuFaXCEaVM0UKJQq
-	l26FgVrpOHOJsl60xbFRcyKetizod/myzLfNPeA7kgbMevvAn0CulprPRDvKKJ4Pb7KsNPGou7V
-	KIM4s4H6URLc2awhPhA4CrDXsCsSSZrmbr524DxlP3VPbpRzxPu+PlnOF1Zi9QTwZeGuQWaSj92
-	En4SXTAuz3qkE7p9C/3fQIS6j+fTuDiciGu9lDBOmZXVCY/NUSFa3koKJrhQFxDL+d4XVWCcC1Y
-	PGaHBAwNZfC/Il5MEO+ycPHHED1WBIp5G6ugPvoEq3KYgc2zvRv
-X-Received: by 2002:a05:600c:4688:b0:499:78b3:7b36 with SMTP id 5b1f17b1804b1-49b91c4fa79mr486809935e9.11.1788289503687;
-        Tue, 01 Sep 2026 12:05:03 -0700 (PDT)
+        bh=Tu8WUi9HrdMM4KGqsLHa/qCPtrxMlvMbqE6rwLVKFtU=;
+        b=iTKVt0+sVK/8j0UsN/jC9osGKJjcevXaFBkZv98vLwBazpCdykI9e1d9t//Apuvbq2
+         S5hk/PXWM81rGdqxuJkoWvRhhJP7APS9FY5LVLmgaNerND6X/QzUJ0v48tr4XlHM/COF
+         eM6mgfwl9nHaScuiC21FQNEXj5XPZ4p8YZsfitXqOQy1kirBBXtnInsIzECQO4fFXh48
+         YQ4te72FgJCZesnhjMjZErTYrOfmKb93TtpbKznC/jArLddFpzqe+HYZE0D/I98dMZaw
+         xvbIXDGxMH+Y9M5d6W+5s7r1BYX0MMsjxOpujxO8kNQBHllhQRf4+l0QwqX+V18nXY1Y
+         Z99Q==
+X-Forwarded-Encrypted: i=1; AHgh+Roc4if2uhOLXrQrQiIfCCU6vOhl3/vMlzDz+ivpHtsGc8NBW/N3TpeKVasnx97MigrLZzdOqZDW83Vj1g==@vger.kernel.org
+X-Gm-Message-State: AFuF++mze55Tqao4++GG5ZmU41TzTaqHeb3bUf0SL8Ove/4ybQ0a/xdy
+	8kf/oX7Y75Aw2IyECjzvoryzXDfgi3MhrCo7hMGoQ1OAnPs7InbDAzpuGAxfX/PGfYiODw==
+X-Gm-Gg: AR+sD11NkEmKEiJliMBVLlHcRKuCruUddieRBhjaOWKk7p/xX8cxJ7kD1jarWMAZ5+0
+	MOz8Tl74UmpQMJjyTwUbabnQAvjLTUXHupay0VJgWVfGO2KECg6yWFCY0I51SwwyucBIi3eQWSk
+	z12gD6O9SWONIkRINzqfsdHW/QiOJovc9lAuDibrFLypbkqwl/3zTumCdEz0AYVPvYJs4ru7W3s
+	2d8Z27v0s1LXq5aj+7dt7lxxYyGR6w0/j/2I3PP58eQSayJfF6HZhSbKEjmgYhwvG4znXUnM8jb
+	ETGeIABPubfI2wYjSOvbpZZmEH8EMrdniuzdEqCgj3O2A3Cx9KE2kVXTdbS8+y70Imgre+3bqh5
+	Tn3lyjSQwGp9xyIv2tCdxK+RQ7ocETPu8oN2U8A404G+apTH4euzewydEuLTY4idXs9wYxnZ0rp
+	hVXZJUJQdPpKiPz+1gdOt6dJ9Moaoq9Y/0cCJqV7+MRRBEzST8/5xROZJiYiVEg7jLUKhiE8wIm
+	kT1dpENOM2G9iMe6KPHRQ9Cy47XlJivvS+GhYeX2w==
+X-Received: by 2002:a05:600c:3584:b0:49c:dada:30b7 with SMTP id 5b1f17b1804b1-49cdada30e1mr187530855e9.2.1788289505444;
+        Tue, 01 Sep 2026 12:05:05 -0700 (PDT)
 Received: from 1Z10 ([78.213.73.56])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm85481985e9.5.2026.09.01.12.05.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cdce10148sm85481985e9.5.2026.09.01.12.05.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 12:05:03 -0700 (PDT)
+        Tue, 01 Sep 2026 12:05:05 -0700 (PDT)
 From: Maurizio Casciano <mauriziocasciano7@gmail.com>
 To: mchehab@kernel.org,
 	linux-media@vger.kernel.org
@@ -72,9 +72,9 @@ Cc: sakari.ailus@linux.intel.com,
 	gregkh@linuxfoundation.org,
 	linux-staging@lists.linux.dev,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v6 11/16] media: atomisp: provide Yoga Book OV2740 link frequency
-Date: Tue,  1 Sep 2026 21:04:33 +0200
-Message-ID: <3c061a86251dd0a7210d67d4f1a254c2b8308d36.1788286339.git.mauriziocasciano7@gmail.com>
+Subject: [PATCH v6 12/16] media: ov2740: release group hold after gain write errors
+Date: Tue,  1 Sep 2026 21:04:34 +0200
+Message-ID: <21c199748bf5b5b0c9eabfbe9bdd17ee665b39a7.1788286339.git.mauriziocasciano7@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <cover.1788286339.git.mauriziocasciano7@gmail.com>
 References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
@@ -86,77 +86,68 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The Lenovo Yoga Book YB1-X91 firmware does not describe the front
-OV2740 link frequency. Extend the AtomISP sensor configuration with an
-optional frequency and assign the 288 MHz Yoga Book value while adding
-its ACPI ID.
+Digital-gain updates start a register group before writing the red,
+green and blue gains. The current error paths return immediately when
+one of those writes fails, leaving the group open and never issuing its
+end and launch commands. Later control updates can then be accumulated
+in an unfinished group instead of taking effect.
 
-Pass the value through the IPU bridge per-sensor endpoint data so the
-OV2740 driver selects its matching mode and the AtomISP CSI-2 receiver
-derives the correct D-PHY timing.
+Once group hold has started, always attempt both commands needed to end
+and launch the group. Preserve the first gain-write error; report an end
+or launch error only when all gain writes succeeded.
 
 Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
 Assisted-by: LLM sparse
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 ---
- .../media/atomisp/pci/atomisp_csi2_bridge.c       | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/media/i2c/ov2740.c | 21 +++++++++------------
+ 1 file changed, 9 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-index 56da454f0d9e..226c81409848 100644
---- a/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-+++ b/drivers/staging/media/atomisp/pci/atomisp_csi2_bridge.c
-@@ -15,6 +15,7 @@
- #include <linux/dmi.h>
- #include <linux/platform_data/x86/int3472.h>
- #include <linux/property.h>
-+#include <linux/units.h>
+diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
+index f3d91c87b3d5..5f381b7972bf 100644
+--- a/drivers/media/i2c/ov2740.c
++++ b/drivers/media/i2c/ov2740.c
+@@ -696,7 +696,7 @@ static int ov2740_identify_module(struct ov2740 *ov2740)
  
- #include <media/ipu-bridge.h>
- #include <media/v4l2-fwnode.h>
-@@ -43,14 +44,16 @@ static const guid_t vcm_dsm_guid =
- 		  0x9f, 0x48, 0xa9, 0xc3, 0xb5, 0xda, 0x78, 0x9f);
+ static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
+ {
+-	int ret;
++	int end_ret, launch_ret, ret;
  
- struct atomisp_sensor_config {
-+	u64 link_freq;
- 	int lanes;
- 	bool vcm;
- };
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+ 			       OV2740_GROUP_HOLD_START);
+@@ -705,24 +705,21 @@ static int ov2740_update_digital_gain(struct ov2740 *ov2740, u32 d_gain)
  
--#define ATOMISP_SENSOR_CONFIG(_HID, _LANES, _VCM)			\
-+#define ATOMISP_SENSOR_CONFIG(_HID, _LANES, _VCM, _LINK_FREQ)	\
- {									\
- 	.id = _HID,							\
- 	.driver_data = (long)&((const struct atomisp_sensor_config) {	\
-+		.link_freq = _LINK_FREQ,				\
- 		.lanes = _LANES,					\
- 		.vcm = _VCM,						\
- 	})								\
-@@ -374,9 +377,11 @@ static const struct acpi_device_id atomisp_sensor_configs[] = {
- 	 * an i2c-client for the VCM, so it is disabled for now.
- 	 */
- 	/* OV5693 */
--	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false),
-+	ATOMISP_SENSOR_CONFIG("INT33BE", 2, false, 0),
- 	/* OV8858 */
--	ATOMISP_SENSOR_CONFIG("INT3477", 4, true),
-+	ATOMISP_SENSOR_CONFIG("INT3477", 4, true, 0),
-+	/* OV2740 */
-+	ATOMISP_SENSOR_CONFIG("OVTI2740", 2, false, 288 * HZ_PER_MHZ),
- 	{}
- };
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_R_GAIN, 2, d_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
  
-@@ -395,6 +400,10 @@ static int atomisp_csi2_parse_sensor_fwnode(struct acpi_device *adev,
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_G_GAIN, 2, d_gain);
+ 	if (ret)
+-		return ret;
++		goto release_group;
  
- 		lanes = cfg->lanes;
- 		vcm = cfg->vcm;
-+		if (cfg->link_freq) {
-+			sensor->link_freqs[0] = cfg->link_freq;
-+			sensor->nr_link_freqs = 1;
-+		}
- 	}
+ 	ret = ov2740_write_reg(ov2740, OV2740_REG_MWB_B_GAIN, 2, d_gain);
+-	if (ret)
+-		return ret;
  
- 	/*
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_END);
+-	if (ret)
+-		return ret;
++release_group:
++	end_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				   OV2740_GROUP_HOLD_END);
++	launch_ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
++				      OV2740_GROUP_HOLD_LAUNCH);
+ 
+-	ret = ov2740_write_reg(ov2740, OV2740_REG_GROUP_ACCESS, 1,
+-			       OV2740_GROUP_HOLD_LAUNCH);
+-	return ret;
++	return ret ?: end_ret ?: launch_ret;
+ }
+ 
+ static int ov2740_test_pattern(struct ov2740 *ov2740, u32 pattern)
 -- 
 2.53.0
 
