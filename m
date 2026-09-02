@@ -1,138 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33130412294;
-	Wed,  2 Sep 2026 09:53:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7226E3FE37C;
+	Wed,  2 Sep 2026 09:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788342826; cv=none; b=PgzG8xOwEyKaS0xFeI7gMZ4GBPaCl7Aej7EnLE/+WRJbxrN1Er9YQnyd0NIT9y9mJOLtTELD9LgcmRrjrWOQVEK7BRKGYLvwWRwzbuj/2RurBxlLbZeURo0SIQRhuEHHiZ3l5+ZwG5vqK2+9a1kqecZfHQm2O6Y7cHGnkm2qO6s=
+	t=1788343066; cv=none; b=ujip/q72brAmjPKdEplWDvMiio+1WJkaXexzAAtkf4q1NAQbEoEuyhRDQ8la8OznFCgN5zf1Nb0pJHyX3ti9qOQENNfbyHxjhNp61K87mU8m8soxqrQbRok6MZJwH7H8rRYzkwTFkbo0Z6O9D6HNh+unAbdINMA+KYafyxt8/LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788342826; c=relaxed/simple;
-	bh=+yJ5tgOj3VCG5Eb9Z+EjeQ1yyrGurFNEE9P4mhlYBNc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QifXahy9RgZM1f4TuNpLGtwwt63dVyZjpdjSWpkwcWI5tWPj/LWGhtJYTmKGpmTfGXkaSTzF7PBDncNsmPBiVDJEoN6MQ+9Lq3ULjYqyJfA0JgPieG++L/kyq0D+c7sbW2458+GA2SvfMtN3r0ih1uOyf7x+tPvTX3e8NIg6Mm4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDO/E4ot; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788343066; c=relaxed/simple;
+	bh=9j2Ki5GPWGYkmeARIMt8ZvDgPX6hctJeBXHPtQmb6e8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RCfku/C7hzdCC5nyGAUCsxjJCyKb/Rnd9Gm86HY8hqueaYU83Hr0ZAkEYYrJassqiWdM3WAXACB/DBCJ80oOIFVevIxPYIkRoNSGnaLKIf2QyEYlUWEcXSMlUXB3iQQGUaqWnnUIcSUHU/5hc37nPPbtNabLJ41Tq/4S4oNnc/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vj+5c9vx; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDO/E4ot"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 349411F000E9;
-	Wed,  2 Sep 2026 09:53:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788342822;
-	bh=aF/Kk+g5mXV8rPuEMfzI6XMNGLVQ9aLTLmy5wSXsqwA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SDO/E4otLAYdA2G9JfptpWzIkyPnU/okkQE6y7+fCD0bH5mhWgvxm0KoD6u64lN37
-	 q6DUrJbwr/YDn6hn/FEIG/Utjy8NU2kRmfLXbQZGaD6z7eU47RlEnZlLyG4X48FsVv
-	 0rSyEFL7b6DWdwm4/cNVQ1wh22bwGg3n/Zr9RRmGDLS77ffYSGTYbub2sW0uJin5dX
-	 0g9svPDUsfhWsEAmm5jo9uDJaq7jOOkALaWpX9lz334szFrK99859mo6IESO4jcwcD
-	 EH0/dC11zvpDkwpd16t+pDSzO1RCGgNKpVKMit//wAS4lpqoFnm4V88KaBACOJ81ip
-	 eWnPNFVRIQZJg==
-Date: Wed, 2 Sep 2026 12:53:38 +0300
-From: Leon Romanovsky <leon@kernel.org>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
-	kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902095338.GU24140@unreal>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vj+5c9vx"
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D21071F8;
+	Wed,  2 Sep 2026 11:56:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788342971;
+	bh=9j2Ki5GPWGYkmeARIMt8ZvDgPX6hctJeBXHPtQmb6e8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=vj+5c9vxvm1NYRM8prIdCcKaN5O+Jh8/21rrP7zR0b2x2JlyX9TxlROE5P8tlgiE6
+	 AmRETcC90lo0IC+tdBHSLnOOGiJTZNWiSqYbekvLDi2O0ZA4N+J7xHfS8yE8/6X9mw
+	 WRIsZ65ar2K9BlASHgFy9v3Va3XSfOkFNtRHoAmY=
+Message-ID: <91be6238-0379-4c3e-b617-f0e1c4ed5cf7@ideasonboard.com>
+Date: Wed, 2 Sep 2026 12:57:37 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
+ deserializer drivers
+To: =?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+Cc: Ceclan Dumitru <mitrutzceclan@gmail.com>, dumitru.ceclan@analog.com,
+ Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+ Julien Massot <julien.massot@collabora.com>, Rob Herring <robh@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
+ linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
+ Andrian Suciu <Adrian.Suciu@analog.com>,
+ Cosmin Tanislav <demonsingur@gmail.com>,
+ Vivekananda Dayananda <vivekana@amd.com>, Cory Keitz <ckeitz@amazon.com>
+References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
+ <20260831170303.GB1116206@ragnatech.se>
+ <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
+ <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+ <20260902083750.GC1116206@ragnatech.se>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Content-Language: en-US
+In-Reply-To: <20260902083750.GC1116206@ragnatech.se>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
 
-On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
-> On 9/2/26 10:32, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> >> On 9/2/26 09:39, Leon Romanovsky wrote:
-> >>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >>>> On 9/1/26 19:08, David Hu wrote:
-> >>>>> From: David Hu <xuehaohu@google.com>
-> >>>>>
-> >>>>> This series address two related issues in scatter-gather mapping,
-> >>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>>>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>>>
-> >>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>>>> phys vec to sgt)
-> >>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>>>
-> >>>>> Patch 2 Splits sgl by largest page aligned chunk
-> >>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>>>
-> >>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> >>>
-> >>> And this is why so many in the kernel community want to get rid of SG
-> >>> lists. It would be great if DMA-BUF could also eliminate the need to
-> >>> convert to an SGL, like Jason proposed.
-> >>>
-> >>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> >>> which is the one that depends on it.
-> >>
-> >> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
-> > 
-> > You are proposing the same thing as an SGL, just in a different format.
-> 
-> Yes, because that is the right thing todo as far as I can see.
-> 
-> > It does not address the issue that dma_addr_t is expected to hold a DMA
-> > address, while that is not always the case. For example, in the P2P case,
-> > the addresses are not DMA addresses.
-> 
-> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+Hi,
 
-They can perform DMA, but that still does not make them suitable for the
-dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-follow completely different rules: they are not unmapped, require no cache
-synchronization, are valid only for peer access, and require separate error
-handling.
+On 02/09/2026 11:37, Niklas SÃ¶derlund wrote:
+> On 2026-09-01 10:43:44 +0300, Tomi Valkeinen wrote:
+>> Hi,
+>>
+>> On 01/09/2026 10:39, Ceclan Dumitru wrote:
+>>>
+>>>
+>>> On 8/31/26 8:03 PM, Niklas SÃ¶derlund wrote:
+>>>> Hello,
+>>>>
+>>>> Thanks for  your continued effort pushing this work forward!
+>>>>
+>>>> On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
+>>>>> This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
+>>>>> replacing the few GMSL2 drivers already in upstream, and introducing a
+>>>>> common framework that can be used to implement such GMSL chips, which
+>>>>> avoids code duplication while also adding support for previously
+>>>>> unsupported features.
+>>>>>
+>>>>> While the normally acceptable and polite way would be to extend the
+>>>>> current mainline drivers, the choice was made here to add a totally new
+>>>>> set of drivers. The current drivers support only a small subset of the
+>>>>> possible features, and only a few devices, so the end result after
+>>>>> extending them would in any case be essentially fully rewritten, new
+>>>>> drivers.
+>>>>>
+>>>>> This series depends on support for internal pads, for which a patch has
+>>>>> been added.
+>>>>
+>>>> It also depends on enabling the streams API right? At least I need to do
+>>>> so to be able to use the TPG. Out of curiosity do you know the plan to
+>>>> enable it by default upstream?
+>>>>
+>>>
+>>> I do not know when default enable is planned, but series could make it
+>>> so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
+>>>     I am not sure that such a hack would be acceptable by Sakari or
+>>> upstream in general.
+>> I haven't tested with this driver, but in theory these kind of drivers
+>> should work with the Streams API still disabled. The Streams API is a uAPI,
+>> so the driver itself works without it. If the default routing for the
+>> drivers provides a sensible single route, one can use the drivers with a
+>> single camera. This is what the FPD-Link drivers do (although it's been a
+>> long time since I verified it with Streams API disabled).
+> 
+> Indeed, but to enable the TPG I need to non-default routing ;-) Nothing
+> big I'm just impatient for the streams API to be enabled by default in
+> general.
+Yes, that is true. And annoying, if TPG is your main use case ;).
 
-All of this information is lost if only the dma_addr_t is stored.
+The FPD-Link drivers don't have TPG in upstream. I have patches in my 
+local branch, waiting for internal pads.
 
-> 
-> It can be that those are DMA addresses on private interconnects between devices, but it should *never* be a phys_addr_t because that is limited to the address space the CPU can see.
-> 
-> > Jason's proposal:
-> > https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
-> 
-> Yeah, I have commented quite a bit on that.
+  Tomi
 
-Right, I posted it for reference.
-
-Thanks
-
-> 
-> Regards,
-> Christian.
-> 
-> > 
-> > Thanks
-> > 
-> >>
-> >> Regards,
-> >> Christian.
-> >>
-> >>>
-> >>> Thanks
-> >>
-> >>
-> 
-> 
