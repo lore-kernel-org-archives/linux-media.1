@@ -1,375 +1,165 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94EA45DF60;
-	Wed,  2 Sep 2026 10:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7264045C6EB
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 10:37:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788345211; cv=none; b=qzLK2BdPFd86S7Hpht/KcVgmbWvEoPggfZE2y5Z91e/yrWzW6dRpBHKkkqJqaDz0OhKd0D0tYVJW9gJ9KJ2g4gB3HBN3pzOu6xAoHgrGh3vCwxFsGDdY9Uiu2h5JJNF1HNOm25Y+H6TDwJZG6aSkQiYmXE2KhJbChx9qqb5gt7A=
+	t=1788345431; cv=none; b=BGX6OmB6xWsLlFDb7kB+f2hk+36laP4HRKovvxCSGNc5SGhQ9VnTg8ANsGbVF0OqsTGFBwjVKzeNuoJqQ1RaV5i2X6rfMfe/PZ4tHY2sdCOkPXTFc89u9w7NdEKlsSpeA1Ei1/NMCwkJX+a9gGlGcpY+eXO1BP+4fqTA4VuTCa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788345211; c=relaxed/simple;
-	bh=wJoiUDzqgCau6bE4gj+OL8YxHLjJ0Bs3rQBGQIVEI/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GL+Y0Lwjmp/Oq1Wh9jJjoEYj7zjgaUTjZtDqYOmW6JyskGDilq2HXdYpr5jFJn8Xj2U0bc50DXPDEdV10e0ZJgVdhNVXO5ufCkgrtNKCRmm1CbKNcxsFzmAz+5tmrbBdgKRerxSK9Xxha28I1oS2N7r+95CZQHyfAzezmfgchiw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cWhM0KzC; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788345431; c=relaxed/simple;
+	bh=d4/NsPaTI3caLZnCww4br3Gt5hf40dmy9YvA9NdaCvE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oy84rmciiMpgiQ4i8F8glPRkxwN7FEhs4I3oYuSaNJ9RmEVpiGOEiUxeQKPeAMBPxgzA5ZW7eLeFCDZ35efyPVyy1MJAf9qqKsAf/lnJkI96JLA23Z/GMsZtU8o7ZuyBZy8ddzdEHBRLSbQsMeLqJTaKTztMOnQoqHzmahAELmw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XRdDjXmx; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I+yZ51SE; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cWhM0KzC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788345208; x=1819881208;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=wJoiUDzqgCau6bE4gj+OL8YxHLjJ0Bs3rQBGQIVEI/8=;
-  b=cWhM0KzCUxnakJNvH6rt8CWJ1EAv+J+AzbdXTfZ7hcIwJB5cRpUPpjoB
-   kWwF266UgfNdwNtmkeJeeEtIQCiHuOpVqC62+YVznHxfyIH714N9iX+wl
-   +7LKlcoR60OZ/RW9RUW9cggk9tkoJQAjpktgMD57Ud6ZBsk+zCsrfbpuu
-   mVpKd5ZgJFj5xRSKQoOgfWiGK0KDZze4BRmXVnwHwILRbn2/8oHvp9zcX
-   PScyVHep3nBzkB+blWTJte5da/TkvgyCrCcvcYB+eewAp1KQUpuAdaLUx
-   iW9zhhjUrFtrvyo2iiNCLG6aRl9H0El+pydbJgRjcmeAAQa13wjIou1tn
-   w==;
-X-CSE-ConnectionGUID: YLm7wBC9TZa9RFFYsVdETg==
-X-CSE-MsgGUID: HjrHYQTLQDeMHsrQXZw73g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88828218"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88828218"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 03:33:27 -0700
-X-CSE-ConnectionGUID: S1mwy3iKSLmPOoDYrOHecQ==
-X-CSE-MsgGUID: dyAtE+jaRKa34G5/Qb3bOQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="268831509"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 03:33:24 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 5FC48120EB7;
-	Wed, 02 Sep 2026 13:33:20 +0300 (EEST)
-Date: Wed, 2 Sep 2026 13:33:20 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Maurizio Casciano <mauriziocasciano7@gmail.com>
-Cc: mchehab@kernel.org, linux-media@vger.kernel.org, bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
-	andy@kernel.org, andriy.shevchenko@intel.com, hansg@kernel.org,
-	gregkh@linuxfoundation.org, linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 02/16] media: ov8858: support 19.2 MHz clock and CHT
- gain setup
-Message-ID: <apf7cJOoXrl_wZfr@kekkonen.localdomain>
-References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
- <bfa79097b66fc3ed6155c7b8c5368b2e0fe9e882.1788286339.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XRdDjXmx";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I+yZ51SE"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6829NUra1349330
+	for <linux-media@vger.kernel.org>; Wed, 2 Sep 2026 10:37:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3uyQqoBoas0/92LGGm3nVSusdAnQvyayTIQGFu4GaPY=; b=XRdDjXmxNs72I6N0
+	XJhJDOdqRdyQ5Zcb/MVLlzU0hLpM9BNBZgH0cJE5iuMMZ5EXOhvjnl2uGlFiMDfy
+	RtKLfqWrURQhDDvSkUt4qhWA1EBUON+zPZoEPGMVYRyXSFrN8VP4588wOGApEMlU
+	VNqvBOCnNBHUVaRiTW91HVqU/qSCXJqP6Bt82r1P67lG+obJr7extaPLN2emOpBa
+	aJkM5CdpMqy9ECu1xBobCOOqdnMYr8Ghx77/l/dAGneAnpzWYdGRxPNPfC+rn2Gx
+	/LM5dt0E8WW/Ztfeq6rC3U83MHwmdmKBnbdfdXuoxOhAKE7S3WFk1v+c5ohyymNR
+	02z5IA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ge3n0ufcg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 10:37:08 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9390890ae83so24669985a.3
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 03:37:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788345428; x=1788950228; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3uyQqoBoas0/92LGGm3nVSusdAnQvyayTIQGFu4GaPY=;
+        b=I+yZ51SENHgMqUkuBNs2++zAiT+AiLhvL4LGR/v9HYGWHxraCoDaaWl5wDNbZBPyTI
+         3ulZCyTX9MActTfJFXZF2gnb3mGzKaRYRZ7CW3/jN84NmVx+j5tbjiNBiYz3mfz/wpw1
+         tWpwVeW8CTSJQlqdI2M1RU70aPJJ+8UndsLoYr2HfFBVrK4nPOniHN554PK0+iz6N6KJ
+         cH426qe5Ph+G+4ijw4vCYlQjC+h83WlmKTxcA8JNeLadRr2cWAPD+HfK1YkuRUF6iDQw
+         NNIAvfZu0P0zlTQ+f9ECd5WxDdbMTK/A8dMMcaD5sGzpzZtdGDVRKvS43Xt3ZjBhCDVZ
+         zijg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788345428; x=1788950228;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3uyQqoBoas0/92LGGm3nVSusdAnQvyayTIQGFu4GaPY=;
+        b=BdNl4cCrPsKJcxDz1gYN7FdzHrZE2HIiHjrBIKM/O/RIP32NXNW7v985eU4Gqbcx++
+         4RleByKmsj5EGeqDE0kHkrnd9hMBEidSJzuLCvcG0/2Rz/zOoWw2QtYaZdasT9tPEEJs
+         h760XwHzr/QXegRBDNM3r0H1AB736kIAWwcCVEq7jgJFpEprk09dFT7HdRgTe8CxSyRC
+         vWkkf5NEjajiYpF22hnSiNMBd6rgb2G5OfQiQmKWu6NOFyDCSbHClOibhcIG1AknNkC+
+         I3wPLm0IwtAsVCfH62gyQpY1yaGaTai3KdkoJMfpMcJpJWai8rGUruykGyU7mDzLUkSE
+         fD3g==
+X-Forwarded-Encrypted: i=1; AHgh+RpAot2kPdEZkG6jL/XUkC5wBDcnJNcB/KcseVrYgSLIB0OCaekk9YiP82Ic96yrQj8JzC9v6+RwbET56Q==@vger.kernel.org
+X-Gm-Message-State: AFuF++mkZhU+bH8gG56ZvAvSKFMrLv5yXYJgOUs/E2uQobHDq6ZhE3di
+	vFFIF+91NbvymEaAIcfRDA6rs6c9cEJdIewizX1o8+7R9ya+mWyUuaHmudpsHYsVdsNVMw3h6ry
+	/xot5HfjsUcxpAuNn3kz02ibiMDU7Od5RULLF7cWLSq+n6fxP6LdABSQA0pYg5DM22Q==
+X-Gm-Gg: AR+sD11oN7TGm3WvI/dWw2isRgv8Ckq6mli5p0e3nv/nzrvODAavwegu10RjvY2HOw+
+	Y3P6SIXmcMPTfGFHiQvNuJz+aCAOi3lN/k6RjXTgBU+K4fITo/7fs52TOFRqXZdhJYSTLiJoAiD
+	r9q/rYSl+3yE/XNCQfMxISCPbY0WqJerHKMb5IAa7v4yqgvSp/3MOFQzH9/SYlOPS1dZH5zGoUV
+	V1n+g5Isb33+iv+gkewTbiylsD/HdO/evftACDJOzvk6SFQXao2+SPWksuEA6zj/txKFNGdCMia
+	N3xM6zs+z9HcKcF8wEba58GT/wWVnMygD1C5C9oj8+DVabkvSZOK81ZH/A8WrmnHjyn7X0LPuA2
+	amtIACEf03PzJHla4olyHPQ==
+X-Received: by 2002:a05:620a:4001:b0:939:216c:59dd with SMTP id af79cd13be357-939610194bbmr236835885a.4.1788345427702;
+        Wed, 02 Sep 2026 03:37:07 -0700 (PDT)
+X-Received: by 2002:a05:620a:4001:b0:939:216c:59dd with SMTP id af79cd13be357-939610194bbmr236832785a.4.1788345427214;
+        Wed, 02 Sep 2026 03:37:07 -0700 (PDT)
+Received: from [192.168.202.12] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25cffc5d85sm109338866b.1.2026.09.02.03.37.05
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 03:37:06 -0700 (PDT)
+Message-ID: <f80683a2-40fc-4c1c-b66e-bcdf90869dfe@oss.qualcomm.com>
+Date: Wed, 2 Sep 2026 12:37:04 +0200
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bfa79097b66fc3ed6155c7b8c5368b2e0fe9e882.1788286339.git.mauriziocasciano7@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] clk: qcom: camcc-sdm845/670: Raise CSIPHY timer clock
+ limit
+To: david@ixit.cz, Bjorn Andersson <andersson@kernel.org>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+        Jerome Brunet <jbrunet+clk@baylibre.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+        phone-devel@vger.kernel.org
+References: <20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260822-csiphy-sdm845-limits-v1-1-d360bf7cd38f@ixit.cz>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDA5MyBTYWx0ZWRfX59xpUEsBDqTH
+ Qi++Ec45EWlJZ8JNKu3af1u2Fn55raUIS99Qnpsr0wELk4dxYlT51o41/BTw1ndibjtE7vMerHD
+ 9B9IoO4mf25vdxJ7iMQubUECdvC0jet52KLDuk7+Vw1lRf1U9PWQslxajltv0KUdp8h87ZWFsum
+ EYTTmfij62WkAwuVN9DICfdf23lzOe6KxojsRQ2erqHo4KI1SXz37WOyqlj0+aml27+yFr4Nl4K
+ 831cQpKKufOeuh7KsOAnyYZp52j6r2szZDv/oiXfNNtgXNEY/sc4IR6MnPWiELsUsbl/rUfCX70
+ V03nMfes0gS7+PT4tfif6rvHTEIJ7jEJZtcYGnm5+udiEXTGbC7JeOwQ1Nt+f9s1P1UrtaiH6IO
+ ULe9w/7welKKwtAyJMt55iDlupaKNSWAqEWY3PocRdc2d7eobZE02yLX/fovcC42OAgL6NAcgnZ
+ BG5/eRb50QLCCVgI+Ow==
+X-Proofpoint-GUID: hpOYx1xk43UY-wAH4vnAGwt1-rOjUhEN
+X-Proofpoint-ORIG-GUID: hpOYx1xk43UY-wAH4vnAGwt1-rOjUhEN
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDA5MyBTYWx0ZWRfX2qvCT/22GrXG
+ p2y7cs1SjemB/BVGxvERzHt7WCus4IEGRm3YtJprnE86/3+ofFrOXHPYnDtR0YK1B1Kjho44D8s
+ Bm1KYztM8eM4kvhcTicSSVuzJ4fkzFc=
+X-Authority-Analysis: v=2.4 cv=R9oz39RX c=1 sm=1 tr=0 ts=6a97fc54 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=9zb2tplEqV-KQ8uyg_IA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_02,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ phishscore=0 adultscore=0 malwarescore=0 clxscore=1015 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020093
 
-Hi Maurizio,
-
-On Tue, Sep 01, 2026 at 09:04:24PM +0200, Maurizio Casciano wrote:
-> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
-> the existing mode tables program the sensor PLL for 24 MHz. Reusing
-> those settings produces incorrect internal and CSI-2 clocks.
+On 8/22/26 4:25 AM, David Heidelberg via B4 Relay wrote:
+> From: David Heidelberg <david@ixit.cz>
 > 
-> Accept both input rates and use the actual rate for the reset delay. For
-> 19.2 MHz, apply the Cherry Trail MRD PLL and black-level settings after
-> the generic mode table.
+> The sdm845 CSIPHY timer clock only listed up to 269.33 MHz, capping the
+> supported CSI link frequency at roughly 1.07 GHz
+> (CSIPHY timer = link_freq / 4). The Samsung S5K2X7SP camera runs at a
+> 1.15 GHz link frequency, so camss rejected powering up the
+> pipeline with 'Pixel clock is too high for CSIPHY'.
 > 
-> The 19.2 MHz platform uses the per-channel manual white-balance
-> registers for digital gain. Program registers 0x5032, 0x5034 and 0x5036
-> and expose their 1x-to-4x range, while retaining the existing
-> long-exposure gain block for 24 MHz systems.
-
-Could these be exposed as separate controls? The available controls
-shouldn't be dependent on the external clock frequency.
-
+> Add a 288 MHz entry to the shared camcc CSIPHY timer frequency table
+> (PLL1 VCO 1152 MHz, well within range) and add a 400 MHz entry to the
+> sdm845 CSIPHY timer clock_rate tables. The camss min_rate check now
+> passes and the timer clock rounds to 288 MHz, matching the ~287.5 MHz
+> required by the 1.15 GHz link.
 > 
-> The manual white-balance register definitions and programming follow
-> the GPL-2.0 Intel OV5670 driver, so retain its 2017 Intel copyright
-> notice in this file. No proprietary source or tuning binary is included.
-> 
-> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with full-range test bars
-> and real 10-bit Bayer frames.
-> 
-> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
-> Assisted-by: LLM sparse
-
-Sparse isn't an LLM AFAIK, or is it?
-
+> Assisted-by: tencent:hy3
+> Signed-off-by: David Heidelberg <david@ixit.cz>
 > ---
->  drivers/media/i2c/ov8858.c | 130 +++++++++++++++++++++++++++++++++----
->  1 file changed, 118 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/media/i2c/ov8858.c b/drivers/media/i2c/ov8858.c
-> index d95f034de752..8d697b8d11c6 100644
-> --- a/drivers/media/i2c/ov8858.c
-> +++ b/drivers/media/i2c/ov8858.c
-> @@ -3,10 +3,9 @@
->   * Copyright (C) 2023 Jacopo Mondi <jacopo.mondi@ideasonboard.com>
->   * Copyright (C) 2022 Nicholas Roth <nicholas@rothemail.net>
->   * Copyright (C) 2017 Fuzhou Rockchip Electronics Co., Ltd.
-> + * Copyright (c) 2017 Intel Corporation.
->   */
->  
-> -#include <linux/unaligned.h>
-> -
->  #include <linux/clk.h>
->  #include <linux/delay.h>
->  #include <linux/device.h>
-> @@ -18,6 +17,8 @@
->  #include <linux/property.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/slab.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
->  
->  #include <media/media-entity.h>
->  #include <media/v4l2-async.h>
-> @@ -28,8 +29,9 @@
->  #include <media/v4l2-mediabus.h>
->  #include <media/v4l2-subdev.h>
->  
-> -#define OV8858_LINK_FREQ		360000000U
-> -#define OV8858_XVCLK_FREQ		24000000
-> +#define OV8858_LINK_FREQ		(360 * HZ_PER_MHZ)
-> +#define OV8858_XVCLK_FREQ_24MHZ		24000000
-> +#define OV8858_XVCLK_FREQ_19_2MHZ	19200000
->  
->  #define OV8858_REG_SIZE_SHIFT		16
->  #define OV8858_REG_ADDR_MASK		0xffff
-> @@ -59,6 +61,14 @@
->  #define OV8858_LONG_GAIN_STEP		1
->  #define OV8858_LONG_GAIN_DEFAULT	0x80
->  
-> +#define OV8858_REG_MWB_RED_GAIN		OV8858_REG_16BIT(0x5032)
-> +#define OV8858_REG_MWB_GREEN_GAIN	OV8858_REG_16BIT(0x5034)
-> +#define OV8858_REG_MWB_BLUE_GAIN	OV8858_REG_16BIT(0x5036)
-> +#define OV8858_MWB_GAIN_MIN		0x400
-> +#define OV8858_MWB_GAIN_MAX		0xfff
-> +#define OV8858_MWB_GAIN_STEP		1
-> +#define OV8858_MWB_GAIN_DEFAULT		0x400
-> +
->  #define OV8858_REG_LONG_DIGIGAIN	OV8858_REG_16BIT(0x350a)
->  #define OV8858_LONG_DIGIGAIN_H_MASK	0x3fc0
->  #define OV8858_LONG_DIGIGAIN_L_MASK	0x3f
-> @@ -93,6 +103,33 @@ struct regval_modes {
->  	const struct regval *mode_4lanes;
->  };
->  
-> +struct ov8858_gain_range {
-> +	u32 min;
-> +	u32 max;
-> +	u32 step;
-> +	u32 def;
-> +};
-> +
-> +enum ov8858_xvclk_index {
-> +	OV8858_XVCLK_24MHZ,
-> +	OV8858_XVCLK_19_2MHZ,
-> +};
-> +
-> +static const struct ov8858_gain_range ov8858_digital_gain_ranges[] = {
-> +	[OV8858_XVCLK_24MHZ] = {
-> +		.min = OV8858_LONG_DIGIGAIN_MIN,
-> +		.max = OV8858_LONG_DIGIGAIN_MAX,
-> +		.step = OV8858_LONG_DIGIGAIN_STEP,
-> +		.def = OV8858_LONG_DIGIGAIN_DEFAULT,
-> +	},
-> +	[OV8858_XVCLK_19_2MHZ] = {
-> +		.min = OV8858_MWB_GAIN_MIN,
-> +		.max = OV8858_MWB_GAIN_MAX,
-> +		.step = OV8858_MWB_GAIN_STEP,
-> +		.def = OV8858_MWB_GAIN_DEFAULT,
-> +	},
-> +};
-> +
->  struct ov8858_mode {
->  	u32 width;
->  	u32 height;
-> @@ -104,6 +141,7 @@ struct ov8858_mode {
->  
->  struct ov8858 {
->  	struct clk		*xvclk;
-> +	unsigned long		xvclk_rate;
->  	struct gpio_desc	*reset_gpio;
->  	struct gpio_desc	*pwdn_gpio;
->  	struct regulator_bulk_data supplies[ARRAY_SIZE(ov8858_supply_names)];
-> @@ -121,6 +159,41 @@ struct ov8858 {
->  	unsigned int		num_lanes;
->  };
->  
-> +/*
-> + * Cherry Trail MRD production settings for a 19.2 MHz input and 360 MHz
-> + * CSI-2 link. Apply these after the otherwise reusable 24 MHz mode table.
+> Tested on SHIFT 6MQ with next-20260820.
 
-Please move the registers related to the 24 MHz configuration to another
-array, which is written to the device in the 24 MHz case.
+Is that what happens on downstream for this device too? Is there a
+chance the sensor link frequency can be lowered?
 
-> + *
-> + * Besides the corrected sensor/MIPI PLL divisors, keep the final common
-> + * black-level settings here. The per-mode tables retain their resolution
-> + * dependent black-column anchors and window sizes.
-> + */
-> +static const struct regval ov8858_cht_mrd_19_2mhz[] = {
-> +	{0x0300, 0x00},
-> +	{0x0302, 0x27},
-> +	{0x0303, 0x00},
-> +	{0x0304, 0x03},
-> +	{0x030b, 0x00},
-> +	{0x030d, 0x27},
-> +	{0x030e, 0x00},
-> +	{0x030f, 0x04},
-> +	{0x0312, 0x01},
-> +	{0x031e, 0x0c},
-> +	{0x3f08, 0x08},
-> +	{0x400a, 0x01},
-> +	{0x400d, 0x10},
-> +	{0x4011, 0x20},
-> +	{0x403e, 0x08},
-> +	{0x4040, 0x07},
-> +	{0x4041, 0xc6},
-> +	{0x4202, 0x00},
-> +	{0x4500, 0x58},
-> +	{0x470b, 0x28},
-> +	{0x4837, 0x15},
-> +	{0x58f4, 0x32},
-> +	{0x58f8, 0x3d},
-> +	{REG_NULL, 0x00},
-> +};
-> +
->  static inline struct ov8858 *sd_to_ov8858(struct v4l2_subdev *sd)
->  {
->  	return container_of(sd, struct ov8858, subdev);
-> @@ -1345,6 +1418,13 @@ static int ov8858_start_stream(struct ov8858 *ov8858,
->  	if (ret)
->  		return ret;
->  
-> +	/* The mode tables contain PLL settings for a 24 MHz input clock. */
-> +	if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ) {
-> +		ret = ov8858_write_array(ov8858, ov8858_cht_mrd_19_2mhz);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	/* 200 usec max to let PLL stabilize. */
->  	fsleep(200);
->  
-> @@ -1540,6 +1620,21 @@ static int ov8858_set_long_digital_gain(struct ov8858 *ov8858, u32 gain)
->  	return ov8858_write(ov8858, OV8858_REG_LONG_DIGIGAIN, long_gain, NULL);
->  }
->  
-> +static int ov8858_set_mwb_digital_gain(struct ov8858 *ov8858, u32 gain)
-> +{
-> +	int ret;
-> +
-> +	ret = ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN, gain, NULL);
-> +	if (ret)
-> +		return ret;
+Generally the latest clock plan for SDM845 says that 269.333 MHz is
+a maximum, with the RPMHPD running at TURBO.. I would assume that
+while the PLL rate stays the same, the downstream branches and RCGs
+may not have been validated to properly function at these freqs
 
-You can do:
-
-	int ret = 0;
-
-	ov8858_write(ov8858, OV8858_REG_MWB_RED_GAIN, gain, &ret);
-	...;
-
-	return ret;
-
-> +
-> +	ret = ov8858_write(ov8858, OV8858_REG_MWB_GREEN_GAIN, gain, NULL);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return ov8858_write(ov8858, OV8858_REG_MWB_BLUE_GAIN, gain, NULL);
-> +}
-> +
->  static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
->  {
->  	struct ov8858 *ov8858 = container_of(ctrl->handler,
-> @@ -1586,7 +1681,10 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
->  				   ctrl->val, NULL);
->  		break;
->  	case V4L2_CID_DIGITAL_GAIN:
-> -		ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
-> +		if (ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ)
-> +			ret = ov8858_set_mwb_digital_gain(ov8858, ctrl->val);
-> +		else
-> +			ret = ov8858_set_long_digital_gain(ov8858, ctrl->val);
-
-Why does this configuration depend on 
-
->  		break;
->  	case V4L2_CID_VBLANK:
->  		ret = ov8858_write(ov8858, OV8858_REG_VTS,
-> @@ -1622,9 +1720,6 @@ static int ov8858_power_on(struct ov8858 *ov8858)
->  	unsigned long delay_us;
->  	int ret;
->  
-> -	if (clk_get_rate(ov8858->xvclk) != OV8858_XVCLK_FREQ)
-> -		dev_warn(dev, "xvclk mismatched, modes are based on 24MHz\n");
-> -
->  	ret = clk_prepare_enable(ov8858->xvclk);
->  	if (ret < 0) {
->  		dev_err(dev, "Failed to enable xvclk\n");
-> @@ -1643,7 +1738,7 @@ static int ov8858_power_on(struct ov8858 *ov8858)
->  	 * transaction, but a double sleep between the release of gpios
->  	 * helps with sporadic failures observed at probe time.
->  	 */
-> -	delay_us = DIV_ROUND_UP(8192, OV8858_XVCLK_FREQ / 1000 / 1000);
-> +	delay_us = DIV_ROUND_UP(8192, ov8858->xvclk_rate / HZ_PER_MHZ);
->  
->  	gpiod_set_value_cansleep(ov8858->reset_gpio, 0);
->  	fsleep(delay_us);
-> @@ -1701,9 +1796,11 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
->  {
->  	struct i2c_client *client = v4l2_get_subdevdata(&ov8858->subdev);
->  	struct v4l2_ctrl_handler *handler = &ov8858->ctrl_handler;
-> +	const struct ov8858_gain_range *digital_gain_range;
->  	const struct ov8858_mode *mode = &ov8858_modes[0];
->  	struct v4l2_fwnode_device_properties props;
->  	s64 exposure_max, vblank_def;
-> +	unsigned int xvclk_index;
->  	unsigned int pixel_rate;
->  	struct v4l2_ctrl *ctrl;
->  	u32 h_blank;
-> @@ -1746,10 +1843,12 @@ static int ov8858_init_ctrls(struct ov8858 *ov8858)
->  			  OV8858_LONG_GAIN_MIN, OV8858_LONG_GAIN_MAX,
->  			  OV8858_LONG_GAIN_STEP, OV8858_LONG_GAIN_DEFAULT);
->  
-> +	xvclk_index = ov8858->xvclk_rate == OV8858_XVCLK_FREQ_19_2MHZ ?
-> +		OV8858_XVCLK_19_2MHZ : OV8858_XVCLK_24MHZ;
-> +	digital_gain_range = &ov8858_digital_gain_ranges[xvclk_index];
->  	v4l2_ctrl_new_std(handler, &ov8858_ctrl_ops, V4L2_CID_DIGITAL_GAIN,
-> -			  OV8858_LONG_DIGIGAIN_MIN, OV8858_LONG_DIGIGAIN_MAX,
-> -			  OV8858_LONG_DIGIGAIN_STEP,
-> -			  OV8858_LONG_DIGIGAIN_DEFAULT);
-> +			  digital_gain_range->min, digital_gain_range->max,
-> +			  digital_gain_range->step, digital_gain_range->def);
->  
->  	v4l2_ctrl_new_std_menu_items(handler, &ov8858_ctrl_ops,
->  				     V4L2_CID_TEST_PATTERN,
-> @@ -1887,6 +1986,13 @@ static int ov8858_probe(struct i2c_client *client)
->  		return dev_err_probe(dev, PTR_ERR(ov8858->xvclk),
->  				     "Failed to get xvclk\n");
->  
-> +	ov8858->xvclk_rate = clk_get_rate(ov8858->xvclk);
-> +	if (ov8858->xvclk_rate != OV8858_XVCLK_FREQ_19_2MHZ &&
-> +	    ov8858->xvclk_rate != OV8858_XVCLK_FREQ_24MHZ)
-> +		return dev_err_probe(dev, -EINVAL,
-> +				     "Unsupported xvclk rate %lu Hz\n",
-> +				     ov8858->xvclk_rate);
-> +
->  	ov8858->reset_gpio = devm_gpiod_get_optional(dev, "reset",
->  						     GPIOD_OUT_HIGH);
->  	if (IS_ERR(ov8858->reset_gpio))
-
--- 
-Regards,
-
-Sakari Ailus
+Konrad
