@@ -1,72 +1,95 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B1D485500
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 12:24:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555DF48AE1B
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:04:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788351900; cv=none; b=WgdIu3rFvQthdmNUDT1EKd7EeISyXAWllKcBQu0elINf+Am2/81M4jp+NFg2zarmJTvKXItQjOOCkRHkSi5JAtmnWS6kspqyr+K8PgROtLmF2Zz/6greXvFE6kGqr7zzbpthBL7/HSi8Hzj+mv1ih4lhPSgwXflRcWEG9wYBRWQ=
+	t=1788354286; cv=none; b=e5As+/5qXqSp/QZ2hkHkfg0i0s/sJY3OBhc6N9IsQp8R1U8KMACYRqoM5yxjHBaq+7FwNyXONY4tIPsemnNhtJTyyaJArCBuZQyr7mysh7WEOI49XlnGFm72/eDyGyPq9yJ4jYzo1Cv6Z0RhtJJG7kzyaPohu6GkZufdlKUIuFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788351900; c=relaxed/simple;
-	bh=/sW6+Cj5kdfeKWI/RI/a0Qegr9MYaK6m5BGRkMQdNDI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UDynpcwFHCAPDsyqqXN+bGxAD/xr2dvW9Y2Qx5ZI0fGyXv6RGloPuZ2wL8CuAqPkNOPds/0KR/0IyYW3YCdB/5bfAdJX0xDXv/tWI0JQqCg9s0ab6CjS/L9N7xtTt4MZwZngdNQI4H6GxXp5eDoOt87ds1NbEx7+ITzDiqMXg54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=lPDQVPz1; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788354286; c=relaxed/simple;
+	bh=cCHdHu+CPdS9NO8e5lsRsuXI9DwhUNqUVpMHjuucm5I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TkJQ4hlwAkDU4DKkze+bzKz6Jpdw2MzHYVMJFR58GHWAsl7v2ivrL1QIWAVa8AqIyJKz2b2mZ135OdcTByjnR76SzscOP+C0pTNvuzIpy/3JMC6FQY8aPZ2pJAX01ohDLkyQag66SLLv3B6MDIGaWaczGrXbsINd1VSy1TYUBeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIxIfA5o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="lPDQVPz1"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E8EB31F8;
-	Wed,  2 Sep 2026 14:23:24 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788351805;
-	bh=/sW6+Cj5kdfeKWI/RI/a0Qegr9MYaK6m5BGRkMQdNDI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=lPDQVPz1e/LII1Zn9RASnVGNLwVDbdPcPM3Xk+lSaf7C5dgeU7XOcSvqElOAIaP/E
-	 wRMLpljIdFtj0b/nQkQPt4Td01s80ETTPOe3gh36LvW580vJYGhDZAqblbHz2uxnCU
-	 jBRYb2sX7VXy0t9PblHOnh3e/CssDA7iFS+Wno9U=
-Date: Wed, 2 Sep 2026 15:24:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: linux-media@vger.kernel.org,
-	Yemike Abhilash Chandra <y-abhilashchandra@ti.com>,
-	Sakari Ailus <sakari.ailus@iki.fi>
-Subject: Re: [RFC PATCH] media: ti: cal: Deprecate non-MC API usage
-Message-ID: <20260902122454.GA335893@killaraus.ideasonboard.com>
-References: <20260723111903.742283-1-laurent.pinchart@ideasonboard.com>
- <2d3f854c-0731-4405-b77e-13929049ca67@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIxIfA5o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2A3B1F000E9
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:04:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788354284;
+	bh=8KcclNucxW43wbTRV9NCO7582M5O4uKXdT/yk1p3foE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=DIxIfA5oqdkI1YOgfJQBhVOyP4mGKGAs62+sw8hQo1hPB3MaOvfT1Q31W1S0dPxFd
+	 Az2/wdS+oKT+xMMckpm03YBRso9EFc8QBv4NLYxuhjO1aCZymT06ckZIWqi+eoK8QF
+	 sA9cPVbGxBeT3t8ZjvWHIeR1BaDklQSk2O/8Z7j74Q8lXMyiNJHXKZ+s9BNOfi8TSu
+	 GhZTasFkmdS+Ww2OJ5G2Td239ZSUYSN9KCZHDWSr+DsvaWovP1SLli9/8dUjVDTCsw
+	 rCDlqWfCx2ssjZuOuqdMNx3JJev1KVRnwM3OtojF9T7wOanWF2t6YCikdQ7yU/jRqN
+	 bL21q4XK6FyAg==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b457a0b4e5so995276e87.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:04:44 -0700 (PDT)
+X-Gm-Message-State: AFuF++kqoMxwYzxPsDQqxp1hmHzzTfpesh62IYamW6sccMWXkYpnqrks
+	VegNMjZYsTr+Ftm4bmLEbQfJ54ZXnKaq7fQpIwiwHK5tG0dT/zbVt6vP3Ws1McbmliaFM8DNYjT
+	3dm6lfdCBOTcny5BW6JQy8/9m3lSZN98=
+X-Received: by 2002:a05:6512:3ca7:b0:5a8:757b:80ee with SMTP id
+ 2adb3069b0e04-5b60868c1famr1356594e87.17.1788354283579; Wed, 02 Sep 2026
+ 06:04:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <2d3f854c-0731-4405-b77e-13929049ca67@ideasonboard.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-8-sakari.ailus@linux.intel.com> <CAD++jLkQiG2eoQ2yq07wLHr23XdAa4wZSma6HyE+sB7AYWQbxQ@mail.gmail.com>
+ <apgQWnaOD5Yh30yv@kekkonen.localdomain>
+In-Reply-To: <apgQWnaOD5Yh30yv@kekkonen.localdomain>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 2 Sep 2026 15:04:31 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnD3YihbwsUzxUAo+6_9LhwV6M1CgY4=YnBtUo61u=FjA@mail.gmail.com>
+X-Gm-Features: AcwNN1Vw_4Uh1QXcW-MH4RICkPIJgYzlOsm0d9JtwDM3XoRRATa0-a8jJ5W2MBw
+Message-ID: <CAD++jLnD3YihbwsUzxUAo+6_9LhwV6M1CgY4=YnBtUo61u=FjA@mail.gmail.com>
+Subject: Re: [PATCH v3 07/29] media: v4l2-subdev: Add frame descriptor
+ passthrough for CSI-2 and DVP
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Yemike, are you fine with this patch ?
+On Wed, Sep 2, 2026 at 2:02=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
-On Tue, Jul 28, 2026 at 03:26:47PM +0300, Tomi Valkeinen wrote:
-> On 23/07/2026 14:19, Laurent Pinchart wrote:
-> > The MC API was introduced in the CAL driver more than five years ago in
-> > commit 38e89e790fe2 ("media: ti-vpe: cal: Implement media controller
-> > centric API") as a disabled by default option. Five years later, it's
-> > time to give users another nudge to move to the MC API. Deprecate non-MC
-> > API usage by printing a warning at probe time, and defaulting to the MC
-> > API. The legacy API can still be selected through the mc_api module
-> > parameter.
-> > 
-> > Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-> > ---
-> >   drivers/media/platform/ti/Kconfig   | 11 -----------
-> >   drivers/media/platform/ti/cal/cal.c | 10 +++-------
-> >   2 files changed, 3 insertions(+), 18 deletions(-)
-> 
-> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
--- 
-Regards,
+> > > +int v4l2_subdev_get_frame_desc_passthrough_dvp(struct v4l2_subdev *s=
+d,
+> > > +                                              unsigned int pad,
+> > > +                                              struct v4l2_mbus_frame=
+_desc *fd)
+> >
+> > What about calling this
+> > v4l2_subdev_get_frame_desc_passthrough_parallel()
+> >
+> > because...
+> >
+> > > +{
+> > > +       fd->type =3D V4L2_MBUS_FRAME_DESC_TYPE_PARALLEL;
+> >
+> > That's what it is.
+> > (Following the Rusty Russell API naming hierarchy)
+>
+> In fact we should rename PARALLEL in most cases to DVP. The thing is that
+> this is some sort of de-facto industry standard but it hasn't been
+> documented property except by one company which calls it "DVP" (digital
+> video port). "PARALLEL" is just very generic and there are other parallel
+> interfaces supported, such as Bt 656.
 
-Laurent Pinchart
+Aha I get it.
+
+Go ahead with _dvp, it makes more sense then.
+
+Yours,
+Linus Walleij
