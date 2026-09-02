@@ -1,250 +1,240 @@
-Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6312330E85B
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 06:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1024B74C14;
+	Wed,  2 Sep 2026 06:42:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788331122; cv=none; b=Yku/ApkvUYbX9H5KuVKtB64Pp9+Ji0X0DI9x/4zGbKH5Qw/FxoL1ef+D8faWn02i78ZLBsVkkjF63IE0quVpAVem9U88VlyeGdcqHDGYNbBJBUhT8yiPnW507yHpez4Gk6TvFNSWsH6FD0iKh4xjwmWzCZtsmlycUyozZUTkRQk=
+	t=1788331350; cv=none; b=o7eD+9skS5Zgh9cioLhwTVsieWMbTTy0TGIPTwJiPbXdyzcTlfIoQ8aYoRH1iIZkmjKcN2QknRPskmPJ/eSyegmTIWh544MLmGCbKGybiRIa03cPlxS2hf7LN4gNWVeDukIp9OaTHTJ+PvTQ0lh0Bd2/BjeYsfCpqBBMGyx++Cs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788331122; c=relaxed/simple;
-	bh=d4vLhITn+jR/h6W3zj3Hov9b+bUcb/iUnGTEbg+K46g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ExM4wCGyWVdT7U7t04uQu2YeXclbcqh9mAHiPSFaFu0Yc0nSNNbuJYqBfmzCDzX6n6D9r7q5/odSd1n3ZSsq+fsLVk28iDSfULCVdGlHYCVCF6rcwCLcR9rMVIKmOE2Y1uKMZw+dKm4OkYDsrwp2JrHhJlyfJlqAvvm9GxaNGCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kOK+dnXU; arc=none smtp.client-ip=209.85.210.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788331350; c=relaxed/simple;
+	bh=amqDykEJ+YIOzWDmfKdiUT8HOxd9fxxWFi/81ysfLMo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qr25Ie/SJeh57rmWSH/SE2IaUJe8S4g6lAhjRNZP09HMwTQh4kBUKGBPH0N19WDEefWys3DAOOXP8NmYoI7v44Y54H2rCxmwNxCpJAl/0nNGbhD/NisWO6VsTvHmKLzA3nII5CXdISq5M6hvxiZDkMPaleyB579N+RJHfRHG7YQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bd7phMYn; arc=none smtp.client-ip=198.175.65.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kOK+dnXU"
-Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-8568e3ed034so576421b3a.0
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:38:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788331121; x=1788935921; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xpQcfp2zeHT8RNQwdlP8Z2qS1OhmNqrs1OuEaNbmbws=;
-        b=kOK+dnXU/IQStXCqfWj6g9vkNX8OJdbJ2A8U2yCYRiLUdklUnHecOSk1qR+WFZiA/I
-         Yk+smBJybqStI9gSEEL881Zs9ENsSdfad4paR1vhlqBRddR38SyTDyXRI500PDaoVpEg
-         /wfzUfE5zXagxjD7qjAMWJwTsVSVyEbOBofYM=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788331121; x=1788935921;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=xpQcfp2zeHT8RNQwdlP8Z2qS1OhmNqrs1OuEaNbmbws=;
-        b=p+ZF/yrlrVH8qf0sm7rhlWC+Y3uMcIV82j3D0PYiCPa3BsPBbiBfzLVdt5POJi8Cl4
-         0lo0ypqjfhDgMWCPcjZIfPAGo7FRYW4zEllLzSIhCtzoirlT1I4HMmWvbb/yuKXVum8s
-         w6KutjdZ9ssfBZIu08xM3a52XUCyNjDtmdMJGm3zddAk6pZ9uIFWdldmZLU4oe44G6Jo
-         RFl6CKRfVVMF44fEKRGnXb0U/0qq/3E+5js31UzeFAFpqp5AJRC9o6Iomo6NYrD1CVpz
-         mma2SflB8ESM14nLns19Pt7sYJzeM5o8HmyWc4cj7OleK6XlVDsvbgRqwOwnAZK/XZny
-         sLdw==
-X-Forwarded-Encrypted: i=1; AKwUvByvl0cZ4s50rQT6FqQ5BbdHy1GLxXXRtRezaujHzf8eT+JG1kACs+4RNrl5qHJvnavstCbHNoC7+KLY8g==@vger.kernel.org
-X-Gm-Message-State: AFuF++n2fpocfszuJw/tPIaynLutH5qjEm5TmASbyMHJDe9mLGumuQja
-	alU+S08MOQ2pYGk6rVqiX7uynsfZ0+DTy0twDyCX1ww/Sdmiia5ilC0olBe82AuCwctLFWWyHp3
-	I4fofUA==
-X-Gm-Gg: AYBFou3iSAivjZSquI6Do0AWqWn2BV1J8o7Sy5klD1xYYfngMR2v4411vnnLZeXq1/7
-	wTHosNW8BGP4eivjLiFujBjEI089Wc0fzQH5SULcN/K6vOC1gMe/AiXmYglz1Lq7HH/N+/QI3yv
-	GO26rr1SyAlVdlCwwfYetHVgHw7hjTwer7hM2S0zch2c0uMSHx9WWwgyJ1+Kuim2MvmqZSL9NUL
-	xkK2uZANKtZeEsuUVzDiCnEbfDBMeJ+QLjoqAerd2xrN72XEbavndGAoc3J/ul2+7IJLAKs1/Uk
-	Oc0Ea7Ygfong378cH6o0j7pHnW7AQjoswSHH6jYtzT1LnrSjL2V7vTzgo1uvsknHgbelfa6oLqk
-	wcUhLva64rpDbokD5ovxo0uG8+hbcCFqdna7rPdqEm1b3irO8BsacckjNbKFr7hJ40HSrUIbvbv
-	SC2ZcvLF/Si282gW9ctEptb2frWN6VJWDfzzjFqVvsYTrMuraLbLTag6Rb1pOTMZGkeraCZWZ+r
-	3Xz6SOkkZwYa7H8kqqcLZ8o8w==
-X-Received: by 2002:a05:6a00:4c9c:b0:857:7317:cff3 with SMTP id d2e1a72fcca58-85ed444cdcbmr4952226b3a.20.1788331119914;
-        Tue, 01 Sep 2026 23:38:39 -0700 (PDT)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com. [209.85.216.51])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11f44a8sm848049b3a.56.2026.09.01.23.38.38
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 01 Sep 2026 23:38:39 -0700 (PDT)
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-38dfe7eb825so637347a91.0
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:38:38 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxBtQCkIUhKC4SXGj2lrXlI7D1QcjLSG4WS7p+N6Tdwx56yn0/rfDb4FAArsOodRbUh35QweUc8CBG7GQ==@vger.kernel.org
-X-Received: by 2002:a17:90b:4a:b0:398:9be9:ab92 with SMTP id
- 98e67ed59e1d1-39aee17ab22mr4098888a91.23.1788331117973; Tue, 01 Sep 2026
- 23:38:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bd7phMYn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788331348; x=1819867348;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=amqDykEJ+YIOzWDmfKdiUT8HOxd9fxxWFi/81ysfLMo=;
+  b=bd7phMYnnEUkCCpQyfHbiaIPtGkjZIt8Mm+/2CMvE06Z2N8YCg1OWlgO
+   m9bGMskA3gzdkNItLPCTGhdI8puhhQQSBan2xdyYQu6RtIGXHjvTCGgkB
+   yzlhQpZGfqjVbdPt/NlBwcxfcinCW+CHAQ28umsRto0Uoi/pDM8iCjIOT
+   B+l8ax7wxGTzNi1gfJOd0GQWAjcMLmlwWJPrKY6BhuEcelhA+GHSRk9S1
+   Av8jc0EOn8RbDhFM/5gKu5h5elmkPmrHMnR5zM1qAjU8QflTneIEjgQn2
+   NQ5yAJufo6YXyHbYCEYHYetCWIoFDnt02P7lugjbn3kEVrp2ogsvWE69+
+   g==;
+X-CSE-ConnectionGUID: rT0DEzr+QjKxsf+XC5DvWw==
+X-CSE-MsgGUID: RjsXAcKwS+6LLbksemQeuw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88705286"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88705286"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:42:27 -0700
+X-CSE-ConnectionGUID: Dc0hfOE7Q3WuPNA7jhALHw==
+X-CSE-MsgGUID: ic/NZeeKSNGFfzUEwnRo4w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="266079584"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:42:25 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 227B01218BD;
+	Wed, 02 Sep 2026 09:42:22 +0300 (EEST)
+Date: Wed, 2 Sep 2026 09:42:22 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Arsalan Naeem <naeemarsalan@gmail.com>,
+	Jakob Berg Jespersen <dev@berg.pm>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 5/6] media: ipu-bridge: Match sensor configs per IPU
+ and add config flags
+Message-ID: <apfFTqPGCUB1m--R@kekkonen.localdomain>
+References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
+ <20260831181858.325109-1-fernandorimoli11@gmail.com>
+ <20260831181858.325109-6-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-3-jordan.mymail@gmail.com>
-In-Reply-To: <20260902002553.34839-3-jordan.mymail@gmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Wed, 2 Sep 2026 08:38:20 +0200
-X-Gmail-Original-Message-ID: <CANiDSCtNb1YE1CgUCx4a+WFbjrNDbuoSRN_Y2F+fyWH7zae5oA@mail.gmail.com>
-X-Gm-Features: AcwNN1VaVnNnO0ABGaKnSfEvaKXGYoxdBD-bQsnkN8Htq1fDqUxdpnpCBKWudIg
-Message-ID: <CANiDSCtNb1YE1CgUCx4a+WFbjrNDbuoSRN_Y2F+fyWH7zae5oA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] media: uvcvideo: generalise the XU flags fixup to
- all controls
-To: Michael Jordan <jordan.mymail@gmail.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831181858.325109-6-fernandorimoli11@gmail.com>
 
-Hi Michael
+Hi Fernando,
 
-On Wed, 2 Sept 2026 at 02:25, Michael Jordan <jordan.mymail@gmail.com> wrote:
->
-> uvc_ctrl_fixup_xu_info() holds a per-device table of controls whose
-> GET_INFO reply is wrong, and overrides the flags for them. It only runs
-> from uvc_ctrl_fill_xu_info(), so it can only correct extension unit
-> controls, but standard controls suffer from the same class of firmware
-> bug: a device can report a wrong capability byte for a Camera Terminal
-> or Processing Unit control just as easily.
->
-> Rename it to uvc_ctrl_fixup_flags() and call it at the start of
-> uvc_ctrl_get_flags(), where the flags are derived from GET_INFO for
-> every control, standard and XU alike. The fixup replaces the flags
-> wholesale, so when the table covers a control there is no point in
-> querying a device we already know gives a wrong answer: return early
-> and skip the GET_INFO request altogether. The call in
-> uvc_ctrl_fill_xu_info() is dropped, as uvc_ctrl_get_flags() now handles
-> the fixup for XU controls too.
->
-> No functional change for the devices already in the table: their
-> entries are XU controls, matched by entity and selector before as they
-> are now, and their flags come from the table either way. The only
-> difference is one GET_INFO request no longer issued per fixed-up
-> control.
->
-> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
-Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
-> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
+On Mon, Aug 31, 2026 at 08:18:57PM +0200, Fernando Rimoli wrote:
+> Some sensors need different treatment depending on which IPU they are
+> connected to, so the sensor's ACPI HID alone is not always enough to
+> describe what the bridge has to set up.
+> 
+> Add an optional IPU PCI product ID and a set of flags to struct
+> ipu_sensor_config, along with an IPU_SENSOR_CONFIG_MATCH_FL() macro to
+> define such an entry. A config naming a PCI product ID only applies to
+> that IPU and takes precedence over a generic config for the same sensor,
+> so that a sensor covered by both is connected once, through the more
+> specific entry. Existing entries are unchanged and keep matching any IPU.
+> 
+> No flags are defined yet and no entry uses the new macro, so there is no
+> functional change.
+
+There's quite a bit of irrelevant information here.
+
+> 
+> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
 > ---
->  drivers/media/usb/uvc/uvc_ctrl.c | 91 ++++++++++++++++++--------------
->  1 file changed, 50 insertions(+), 41 deletions(-)
->
-> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-> index aceb26310..64c90c380 100644
-> --- a/drivers/media/usb/uvc/uvc_ctrl.c
-> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-> @@ -2852,6 +2852,48 @@ int uvc_ctrl_set(struct uvc_fh *handle, struct v4l2_ext_control *xctrl)
->   * Dynamic controls
->   */
->
-> +static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
-> +                                const struct uvc_control *ctrl,
-> +                                struct uvc_control_info *info)
+>  drivers/media/pci/intel/ipu-bridge.c | 31 ++++++++++++++++++++++++++++
+>  include/media/ipu-bridge.h           | 29 +++++++++++++++++++++-----
+>  2 files changed, 55 insertions(+), 5 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index cd3c36d44..38ad3e54e 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -8,6 +8,7 @@
+>  #include <linux/dmi.h>
+>  #include <linux/i2c.h>
+>  #include <linux/mei_cl_bus.h>
+> +#include <linux/pci.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/pm_runtime.h>
+>  #include <linux/property.h>
+> @@ -853,6 +854,32 @@ static int ipu_bridge_connect_sensor(const struct ipu_sensor_config *cfg,
+>  	return ret;
+>  }
+>  
+> +/*
+> + * Whether a sensor config applies to the IPU the bridge sits on. A config
+> + * naming a PCI product ID only applies to that IPU, and takes precedence over
+> + * a generic config for the same sensor, which is skipped so that the sensor is
+> + * not connected twice.
+> + */
+> +static bool ipu_bridge_config_matches(const struct ipu_sensor_config *cfg,
+> +				      struct ipu_bridge *bridge)
 > +{
-> +       struct uvc_ctrl_fixup {
-> +               struct usb_device_id id;
-> +               u8 entity;
-> +               u8 selector;
-> +               u8 flags;
-> +       };
+> +	unsigned int i;
 > +
-> +       static const struct uvc_ctrl_fixup fixups[] = {
-> +               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> +                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> +                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> +       };
+> +	if (cfg->pci_id)
+> +		return cfg->pci_id == bridge->pci_id;
 > +
-> +       unsigned int i;
+> +	for (i = 0; i < ARRAY_SIZE(ipu_supported_sensors); i++) {
+
+Is there really a need to go through the entire array for each entry? Can't
+you simply arrange the entries with a pci_id before the generic one?
+
+> +		const struct ipu_sensor_config *sp =
+> +			&ipu_supported_sensors[i];
 > +
-> +       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> +               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> +                       continue;
+> +		if (sp->pci_id && sp->pci_id == bridge->pci_id &&
+> +		    !strcmp(sp->hid, cfg->hid))
+> +			return false;
+> +	}
 > +
-> +               if (fixups[i].entity == ctrl->entity->id &&
-> +                   fixups[i].selector == info->selector) {
-> +                       info->flags = fixups[i].flags;
-> +                       return true;
-> +               }
-> +       }
-> +
-> +       return false;
+> +	return true;
 > +}
 > +
->  /*
->   * Retrieve flags for a given control
->   */
-> @@ -2862,6 +2904,14 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         u8 *data;
->         int ret;
->
-> +       /*
-> +        * Some devices report bogus capabilities through GET_INFO. If the
-> +        * fixup table covers this control, take the flags from the table and
-> +        * skip the query altogether.
-> +        */
-> +       if (uvc_ctrl_fixup_flags(dev, ctrl, info))
-> +               return 0;
+>  static int ipu_bridge_connect_sensors(struct ipu_bridge *bridge)
+>  {
+>  	unsigned int i;
+> @@ -862,6 +889,9 @@ static int ipu_bridge_connect_sensors(struct ipu_bridge *bridge)
+>  		const struct ipu_sensor_config *cfg =
+>  			&ipu_supported_sensors[i];
+>  
+> +		if (!ipu_bridge_config_matches(cfg, bridge))
+> +			continue;
 > +
->         data = kmalloc(1, GFP_KERNEL);
->         if (data == NULL)
->                 return -ENOMEM;
-> @@ -2893,45 +2943,6 @@ static int uvc_ctrl_get_flags(struct uvc_device *dev,
->         return ret;
->  }
->
-> -static void uvc_ctrl_fixup_xu_info(struct uvc_device *dev,
-> -       const struct uvc_control *ctrl, struct uvc_control_info *info)
-> -{
-> -       struct uvc_ctrl_fixup {
-> -               struct usb_device_id id;
-> -               u8 entity;
-> -               u8 selector;
-> -               u8 flags;
-> -       };
-> -
-> -       static const struct uvc_ctrl_fixup fixups[] = {
-> -               { { USB_DEVICE(0x046d, 0x08c2) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x08cc) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -               { { USB_DEVICE(0x046d, 0x0994) }, 9, 1,
-> -                       UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
-> -                       UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
-> -                       UVC_CTRL_FLAG_AUTO_UPDATE },
-> -       };
-> -
-> -       unsigned int i;
-> -
-> -       for (i = 0; i < ARRAY_SIZE(fixups); ++i) {
-> -               if (!usb_match_one_id(dev->intf, &fixups[i].id))
-> -                       continue;
-> -
-> -               if (fixups[i].entity == ctrl->entity->id &&
-> -                   fixups[i].selector == info->selector) {
-> -                       info->flags = fixups[i].flags;
-> -                       return;
-> -               }
-> -       }
-> -}
-> -
->  /*
->   * Query control information (size and flags) for XU controls.
->   */
-> @@ -2972,8 +2983,6 @@ static int uvc_ctrl_fill_xu_info(struct uvc_device *dev,
->                 goto done;
->         }
->
-> -       uvc_ctrl_fixup_xu_info(dev, ctrl, info);
-> -
->         uvc_dbg(dev, CONTROL,
->                 "XU control %pUl/%u queried: len %u, flags { get %u set %u auto %u }\n",
->                 info->entity, info->selector, info->size,
-> --
-> 2.43.0
->
+>  		ret = ipu_bridge_connect_sensor(cfg, bridge);
+>  		if (ret)
+>  			goto err_unregister_sensors;
+> @@ -948,6 +978,7 @@ int ipu_bridge_init(struct device *dev,
+>  		sizeof(bridge->ipu_node_name));
+>  	bridge->ipu_hid_node.name = bridge->ipu_node_name;
+>  	bridge->dev = dev;
+> +	bridge->pci_id = dev_is_pci(dev) ? to_pci_dev(dev)->device : 0;
+>  	bridge->parse_sensor_fwnode = parse_sensor_fwnode;
+>  
+>  	ret = software_node_register(&bridge->ipu_hid_node);
+> diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+> index 61e10cef1..d12e51336 100644
+> --- a/include/media/ipu-bridge.h
+> +++ b/include/media/ipu-bridge.h
+> @@ -17,13 +17,27 @@
+>  #define IPU_SENSOR_ROTATION_NORMAL		0
+>  #define IPU_SENSOR_ROTATION_INVERTED		1
+>  
+> -#define IPU_SENSOR_CONFIG(_HID, _NR, ...)	\
+> -	(const struct ipu_sensor_config) {	\
+> -		.hid = _HID,			\
+> -		.nr_link_freqs = _NR,		\
+> -		.link_freqs = { __VA_ARGS__ }	\
+> +/* Flags for struct ipu_sensor_config */
+> +#define IPU_BR_FL_NONE				0
+> +
+> +/*
+> + * Sensor config specific to a single IPU, identified by its PCI product ID,
+> + * with flags describing what the sensor needs on that IPU. Where both a
+> + * specific and a generic (IPU_SENSOR_CONFIG) entry exist for the same HID,
+> + * the specific one takes precedence.
+> + */
+> +#define IPU_SENSOR_CONFIG_MATCH_FL(_HID, _ID, _FLAGS, _NR, ...)	\
+> +	(const struct ipu_sensor_config) {			\
+> +		.hid = _HID,					\
+> +		.pci_id = _ID,					\
+> +		.flags = IPU_BR_FL_##_FLAGS,			\
 
+Please don't assume a flag; setting multiple flags also doesn't work this
+way.
+
+> +		.nr_link_freqs = _NR,				\
+> +		.link_freqs = { __VA_ARGS__ }			\
+>  	}
+>  
+> +#define IPU_SENSOR_CONFIG(_HID, _NR, ...)			\
+> +	IPU_SENSOR_CONFIG_MATCH_FL(_HID, 0, NONE, _NR, __VA_ARGS__)
+> +
+>  #define NODE_SENSOR(_HID, _PROPS)		\
+>  	(const struct software_node) {		\
+>  		.name = _HID,			\
+> @@ -132,6 +146,9 @@ struct ipu_node_names {
+>  
+>  struct ipu_sensor_config {
+>  	const char *hid;
+> +	/* IPU PCI product ID this config is specific to, 0 for any */
+> +	const u16 pci_id;
+
+In later patches we already get two extra entries per sensor that only
+differ on pci_id. How about making this a pointer to an array? Zero
+termination should be fine here.
+
+> +	const u32 flags;
+>  	const u8 nr_link_freqs;
+>  	const u64 link_freqs[MAX_NUM_LINK_FREQS];
+>  };
+> @@ -177,6 +194,8 @@ typedef int (*ipu_parse_sensor_fwnode_t)(struct acpi_device *adev,
+>  
+>  struct ipu_bridge {
+>  	struct device *dev;
+> +	/* PCI product ID of the IPU, 0 if it is not a PCI device */
+
+All IPUs are PCI devices. ipu_bridge_init() should fail if a device isn't.
+I think I might just omit the check.
+
+> +	u16 pci_id;
+>  	ipu_parse_sensor_fwnode_t parse_sensor_fwnode;
+>  	char ipu_node_name[ACPI_ID_LEN];
+>  	struct software_node ipu_hid_node;
 
 -- 
-Ricardo Ribalda
+Regards,
+
+Sakari Ailus
