@@ -1,173 +1,134 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F78481FC5
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896394A0907
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:59:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356563; cv=none; b=bHN4GiX6e5B670KHRgEjy0dVMfGuq0rjSbXr4+zPyoU2m9ByQ92aBhTWI1swc6IRwBQZVtPV04gekqXTHiiYbIqtsuoMMjMr+ri7b6j8oJgkQQr2l2ROlhX+qeiJPyjR6y1Zq7neivsOh98ofM+Cb/WdMPveZ8hRNlgiGBNseFo=
+	t=1788357574; cv=none; b=XY2gk/iSXzI8C+uBWTKaDbmtEX56t1ibYIBIdPBnaXqjqA3YbCAguQ5aci0YhQuFddWiF1Cf0Zf0MRXh2q/SS3fiyCXYrw3+gLLactXgNZIMCCwAe1Aqhmlm6Oy1uxNbXwpLBXZ3r8WLF7FEKbeEdbwqEmQfJ7MgY4GuP8LqOwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356563; c=relaxed/simple;
-	bh=UnVBDT2yMgSQ4ZRWdKz2B29xT09qz00hTJhXeeB15OA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iCkYWUISOegv2zo8o/cQFd3FBNGUz7tgJ4tWx6OoAYrCkuDViO/QBxHkQVW4bD1RLzhf6zoPEQum/hVe3Z/d6lHe3JEjmlHmgJFToiVcYtrTkWci1CX1EO3pfc6nz3oyUV/oL8kNDjPKMtQMmHukZtBeHfbdlUlJRCSEUHatozI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mn9JNnw3; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1788357574; c=relaxed/simple;
+	bh=/9eZmU2D0hbNHb92ePV2OaMpbatPpO6xeRcbdoGIcR4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M6WT1/kJLwi5D2p96uehn63wqMBPsjJbTAFzxBGlxL07lpWLm5cGveqsNxJqWLna7sn6ZNBS3/zJtzXSJ7DBLGclhdt21Pv+ZmK46RV4K0o6lGNpZerHc6wf9jWfmOXYF/piOrnTW4gJtAHunR0liox+SZMc33MdLWnd68TZ6fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnA6rvNU; arc=none smtp.client-ip=209.85.215.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mn9JNnw3"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so27325ad.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:42:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnA6rvNU"
+Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso1222782a12.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:59:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1788356561; x=1788961361; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZSTpKHWOHnBacMTdwSxpJ9Et4v7FJnMFRqiSvtmfiLI=;
-        b=mn9JNnw3spWEPVYQFXIrj7/1uM/ptLAeKAAWoADKjgmKfaM2ixS6rgKCcwSJBjIVi1
-         NCIhA2Ihp68mVLeAxNeGtQt9aNX5hFYXHBtG8zW/cgJRUHcd4oj8E7UtW4oEASNq1jRy
-         hBL2AjpqOLkpsHbEsVquVQBh7zLEj8RE3aA96ah9oDSrGwqE9DgwCjph8ZGPBbM9rpJe
-         kwYRUi7UJIA/Wyh4ZysZM0xDCmLuwJHzL4QVQosxpuF3mA/BZd3E8QQYFpWQPEVpEsX6
-         9ir1DFB01i/SQa8XEn88cooEGw6v1R0PjEiY0sF2UPnJRilx/Z8BHUorLz/1bO5TQiom
-         xifA==
+        d=gmail.com; s=20251104; t=1788357572; x=1788962372; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+        b=XnA6rvNUeg5GKgp5saQqJIwI/nqFJpjDlylEZM/agR/kSXe5e3c6bAVMt1Gvk7VCCf
+         vqBr3XK+fIVZ87BXPBpvtxlKsdyPDqWLZLnJ3108EsAVM4z+sphU+MpLyWQDwz7ZiZTn
+         GzE0CfBpO6a1kMheOlupfokE1Mi90LO7hUL0zm8jo+8MBi5GaOQDYzDbi3IjLCbT1PbL
+         l4KMCI+uHc1qZAw7sIXEArNwsVgnAYG27s7ebDePdgiJbWs/GUCmNJLSkhSCT533fhl4
+         yQa6dsRYkLvH71UcEr2dlq0gvvrc/c8fq1cuxQsueEU3aQAn1eD+6Ul01GcnOAfoxBzn
+         Wj2Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788356561; x=1788961361;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ZSTpKHWOHnBacMTdwSxpJ9Et4v7FJnMFRqiSvtmfiLI=;
-        b=pFWdA28yFW5HE/z1a9deGhF7wmuQSH3divJkQ8GW2HYeFizuAFGuCFUKDtSV17JnVj
-         qRUkojYEBehbuqgeROxG5thO2ISNRC2Z0Y1IKDL5FZQb0+4gmarz97CHVKcFx3n4zw6f
-         KeIbFkXWzLFwlBjlOwCN9qjuW8os+vC/zYuES7nBWfAWjZN4EgE4O53ELRDGFiK9VHLv
-         SSKlmKSSCEjAfAySvv8Gh0oUUu4OE3xCXTil19XAXoixU7FqolQHW55lE6oes/5SUL4H
-         7weYsW1zJxnmDB9sSHMvqmcGV5+q8k3yS6taODJ/6rEqg5F3i97JCpjUAfa7jWuO6obK
-         gPEw==
-X-Forwarded-Encrypted: i=1; AKwUvBxsAY/gGPEXE7nWVo3UiEb4iQmOpFtSJZAFrrA2p9hatE30CJeuWyj1lOeon3AdyIOi2jmzydnPbNOIeA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nXIXN9VSvUDahoYd2jbaQup0OjpwHYJkBktPHuBrugP2mp92hJ
-	D4jEnim7Ps9/X1NP+mNi3z0LCfUcJNTeWzTSe5yiWHHrS+VxBNFq3RHnBAwhk0XdrA==
-X-Gm-Gg: AYBFou1LkLneivs1ng4uy8s0qFCazz+SeVxk6XUqM90InMuUb2ngaVVeMx4Qv5yqI0E
-	lZ6sbZWDSAwgieB+XTi/TFj2l+7uhj+ekySlWF8xxWF+AHaJTN2wCVUIzLi0Xfy8BGwblhMBHmB
-	Hoj09UTNToA4u3u761+w7zRvbWxORquR2fZFxhstMhZwMh1WjcrXkfxKhwB4zxIUooyb5owJnyQ
-	ThveDM+3qdPQwG61EoWLyI3MjCErbUnj1lCb+RyBaqBC2B/uTH1//TOzL2Uy7ScYG/O3nbYMbHt
-	RM8eQ7PuPVcbE2LKH0SS0tDWhhpN3QCQraYfr23wHJcyi1xAZIQ5Y4oe2f17FJ+3P7R2FpChd/t
-	OgwiwbC9EixECM5EadV23ztea/5ovO9oriKhjNQ/DILv4uPAo+aNwE3SqqopLe2cNw+Nm30iZHv
-	gdouikPOMMGgF7+84sZS3AM66Bt4joPSqM0JRUWnRaqJx8ghaZBOLPBpnz6fLcUiCMcyZQ0BqSd
-	VlC/jpN90/3QLTXhpK5BFwodak=
-X-Received: by 2002:a17:903:19e3:b0:2ca:4bb4:4bd with SMTP id d9443c01a7336-2daf66043c8mr1378505ad.5.1788356560192;
-        Wed, 02 Sep 2026 06:42:40 -0700 (PDT)
-Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003aee2sm1404704b3a.30.2026.09.02.06.42.35
+        d=1e100.net; s=20251104; t=1788357572; x=1788962372;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
+        b=GZ2jGNIShKRAPrUZuXC6S/VEtDYUTjUoQq2ccmr69uUIqiqrhs24JYfu6Akr7ZnLwm
+         wf4ihAa9Bg/ldYyjK0un4eaHO8NvESxgFXwX5rRWz+oguK37pnEdheBwRr3y4Tti4TP2
+         IT9ofhpQi0tTYRNZ95n5gAsza4/qSqRFiEwa53ekpVEWCw8S7t3YEg6S0gLKPQTiLWX4
+         sfkad8qhUrsdwE6k87ixB+ZkH38WIOtwq5wN865s3vOagfc6vg3cWLO7hpJeq39fU1w7
+         sMRCPSK+sNyedo8MtpqJp6Q0yzikKvJD37mBtWVN/338GxbDNsZelD6O/om2+6uIgfx+
+         5Ulg==
+X-Gm-Message-State: AFuF++n0J5p1i1yo2DlBgy1e7XJgdIwoP+Wp7lJeYs9cA4aa9XeRhmAP
+	nzDghFFiki0CYM6+eA94Y7nBNatSwmFsQLPhvdeZAwaOAVAotgtKyOTpE66edlqw
+X-Gm-Gg: AYBFou2YESOxPH067PmaH+p9gN4P8PIUdGaZcTYQISM2YrOid4uv+/e9mvmd8d4Rq1w
+	ZKL6XaPCP9Zgfnk5mg9WkocayabsEXcu7GejlaAa9N5YTsMQ+J5YJVc8VhNUR/q8MCqzh1SDXpU
+	hbgz4BUdyMOCMehEfT0x6zRJ0VR/eFXJKdRsdpt6wZ9LqpJAcwtMtpzXuYSxAQbdu3wwBQs64Kn
+	3Tfp0TXa9wFyVgtQLs5kfe4Bzg0vTutT1WbGYxIh28z8l3BjHvAgG1Kq7DE9I+z3S2IumQeOkgJ
+	mXz1chsyZqBUt5N0a/N6PsnLBVr2BGlmR9/GJrUbOi4gwXmlyPKZSqPQ114o7H4j+rapFa+czQk
+	gHPVwNAvqEkUAo7fb72dQOfPCCYNCDdnXhi9rZyv5Py8WQM0nk/4qnyy1SRIdOESALoqr/dalAr
+	awf29YppZz1pq8BlH4G5geoTPYdGvLZk89stCcwV5JB85WTQOI3a1iPLhZtuNQPTroBt6/eiaBy
+	WA/g5hOlLXwt0imVrQ8CjZabDy10XVPdl3Atn731E1cc2uMrfgQ8MuFqP+Vv+Kv3yd1MUCT91Th
+	l9jG3PI/HHAaOXy7JkWfG4FoTW87j2gb8rffuIuT628=
+X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr8324115a91.16.1788357571759;
+        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm12123595a91.4.2026.09.02.06.59.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:42:39 -0700 (PDT)
-Date: Wed, 2 Sep 2026 13:42:31 +0000
-From: Pranjal Shrivastava <praan@google.com>
-To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, David Hu <dhu@x6u.co>,
-	sumit.semwal@linaro.org, alex@shazbot.org, ankita@nvidia.com,
-	chriscli@google.com, david.laight.linux@gmail.com,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	jgg@ziepe.ca, jmoroni@google.com, kevin.tian@intel.com,
-	kpberry@google.com, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	nicolinc@nvidia.com, sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <apgnx0pirQ2SUcmY@google.com>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
+        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
+From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org,
+	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
+Date: Wed,  2 Sep 2026 21:59:23 +0800
+Message-ID: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 
-On Wed, Sep 02, 2026 at 12:00:25PM +0200, Christian König wrote:
-> On 9/2/26 11:53, Leon Romanovsky wrote:
-> > On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
-> >> On 9/2/26 10:32, Leon Romanovsky wrote:
-> >>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
-> >>>> On 9/2/26 09:39, Leon Romanovsky wrote:
-> >>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
-> >>>>>> On 9/1/26 19:08, David Hu wrote:
-> >>>>>>> From: David Hu <xuehaohu@google.com>
-> >>>>>>>
-> >>>>>>> This series address two related issues in scatter-gather mapping,
-> >>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
-> >>>>>>> sgt mapping is correct, and proper for large MMIO regions.
-> >>>>>>>
-> >>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
-> >>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
-> >>>>>>> phys vec to sgt)
-> >>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
-> >>>>>>>
-> >>>>>>> Patch 2 Splits sgl by largest page aligned chunk
-> >>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
-> >>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
-> >>>>>>
-> >>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> >>>>>
-> >>>>> And this is why so many in the kernel community want to get rid of SG
-> >>>>> lists. It would be great if DMA-BUF could also eliminate the need to
-> >>>>> convert to an SGL, like Jason proposed.
-> >>>>>
-> >>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> >>>>> which is the one that depends on it.
-> >>>>
-> >>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
-> >>>
-> >>> You are proposing the same thing as an SGL, just in a different format.
-> >>
-> >> Yes, because that is the right thing todo as far as I can see.
-> >>
-> >>> It does not address the issue that dma_addr_t is expected to hold a DMA
-> >>> address, while that is not always the case. For example, in the P2P case,
-> >>> the addresses are not DMA addresses.
-> >>
-> >> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
-> > 
-> > They can perform DMA, but that still does not make them suitable for the
-> > dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
-> > follow completely different rules: they are not unmapped, require no cache
-> > synchronization, are valid only for peer access, and require separate error
-> > handling.
-> 
-> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
-> 
-> > All of this information is lost if only the dma_addr_t is stored.
-> 
-> Yes and that is fully intentional.
-> 
-> DMA-buf handles that cleanly on the buffer object level and not like PCI_P2PDMA_MAP_BUS_ADDR as a completely broken design on a per address/page basis.
-> 
-> Technical background is that the PCI_P2PDMA_MAP_BUS_ADDR approach can only be handled by a very very small subset of HW.
-> 
+The kernel-doc for dma_buf_set_name() still documents an -EBUSY return
+for the case where the dma-buf is already attached to devices:
 
-With the rise of accelerators, the P2PDMA_MAP_BUS_ADDR is going to be 
-increasingly more common where accelerators directly transfer data to
-NICs, storage devices, other accelerators etc. 
+  Returns 0 on success. If the dma-buf buffer is already attached to
+  devices, return -EBUSY.
 
-With VFIO gaining a DMABUF exporter the use has already spread to RDMA &
-NVMe devices (w/ SPDK). In fact, we found these bugs while trying to map
-large BAR regions for RDMA.
+That has not been true since commit e73c317efbf9 ("dma-buf: remove
+restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
+dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
+produced -EBUSY. That commit updated the description paragraph above,
+but left the return value description behind.
 
-Thus, it would be great if we could find alignment here. 
-AFAICT, I foresee the use of dmabufs to only increase for
-PCI_P2PDMA_MAP_BUS_ADDR. IIRC when the network stack moved to net_iovs
-to support dmabufs, the SGL became a primary concern and partly the 
-reason why we have "unreadable" skbs for memory we can indeed access
-if mapped correctly.
+The only failure the function can report now comes from strndup_user(),
+propagated via PTR_ERR(); every other path returns 0. Document that
+instead, using a Return: section so kernel-doc picks it up.
 
-Thanks,
-Praan
+No functional change.
+
+Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
+Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
+---
+Changes in v2:
+ - Use a "Return:" section so kernel-doc actually parses the return
+   value description; scripts/kernel-doc -none -Wall reported "No
+   description found for return value of 'dma_buf_set_name'" before
+   this change and is quiet after it.
+ - Reference the commit that made the -EBUSY text stale, and add a
+   Fixes: tag for it.
+ - Resend to the dma-buf maintainers and dri-devel; v1 only reached
+   linux-media, where it was marked "Not Applicable".
+
+v1: https://lore.kernel.org/linux-media/20260730003153.4030818-1-alan.tseng.cs@gmail.com/
+
+ drivers/dma-buf/dma-buf.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
+index d504c636dc..6ee3c254d7 100644
+--- a/drivers/dma-buf/dma-buf.c
++++ b/drivers/dma-buf/dma-buf.c
+@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
+  * @buf:    [in]     A piece of userspace memory that contains the name of
+  *                   the dma-buf.
+  *
+- * Returns 0 on success. If the dma-buf buffer is already attached to
+- * devices, return -EBUSY.
+- *
++ * Return: 0 on success, or a negative error code from strndup_user() on
++ * failure.
+  */
+ static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
+ {
+-- 
+2.43.0
+
