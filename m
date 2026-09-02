@@ -1,161 +1,202 @@
-Received: from fhigh-a8-smtp.messagingengine.com (fhigh-a8-smtp.messagingengine.com [103.168.172.159])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012069.outbound.protection.outlook.com [52.101.43.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC553E7BA0;
-	Wed,  2 Sep 2026 08:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.159
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788338277; cv=none; b=TAvZIyUDc+9CAnnA7J1Qgf3nEzNl+NPaa5j1xrWdgGiKxnXPzF2zYQsn88cKPX/h+T0fZaOIchjWcbGArvDmSeT/+0GewjnGKtGkJ8A//wofEwCsNhNehHU5dIH9IxJ27vCdiNIrBsH0iqayS1wdv+TT2/C0WtagpL5AchE48xk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788338277; c=relaxed/simple;
-	bh=mUq1NKP1kM7w3wLboHMj99aKGstkkbr4FcbOlWlzudM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Tz/RZ6dBGGLbis6B2qAZSaJ8ZxPgQhRD+askBWIGcIQCyjj8V887Yyr2uNnmHpF28BBWBb9w3WMz2hByE8H4CbfaoujXzLebiD4NTnjJ/WOPZrr0903grq/pfX8iod1+rrlm6wQ5NU6VdoCmR54QEoJOloAQADdC/Z1okTXe4Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=qTCCoyYG; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wJS6+/Qw; arc=none smtp.client-ip=103.168.172.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAF673DA5B4;
+	Wed,  2 Sep 2026 08:45:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.69
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788338719; cv=fail; b=BbYOS7fbOJUe5dEpdcbLgOdJ1RckKo1bs9zdtAlRQqKWGoE7WSBURpptuU1Lw3gfDaTgXy+e/sBIuuupGP/V9A3JFQKTzcZyuzajCfNX/F2wITsV4Q4OJ7rytLOV1bFa43+6wWN+CqmCXdjvxbBR4WUseFZvIKYLj7L9HW06dUA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788338719; c=relaxed/simple;
+	bh=fE6c6rJF38kcx8VieZmWdeCh1v9WcBKSt9ZcLIV/Wuk=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=JsaO5xzXsxxn8cQ50tEAPDaHHeD9zst+AfiXwGtwuZpN1BGXgTafaXxDJ/rn8R/C0kJCUcU7iOZPwYzNM8ib49cnWc0xlMiREo5dH1FU/976zNOcpBVbaQ8JLrmOaqb5kGTPr6zf63yyXwSIcLoicVAlI0A2bl3ds+RqT0Lh/L8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=Mh5r5vfg; arc=fail smtp.client-ip=52.101.43.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="qTCCoyYG";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wJS6+/Qw"
-Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 618B4140019E;
-	Wed,  2 Sep 2026 04:37:54 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-09.internal (MEProxy); Wed, 02 Sep 2026 04:37:54 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1788338274;
-	 x=1788424674; bh=pxWh6c57JPvLZQHcjbN7tBOqCkuOu0wNZnT/jaAcRo8=; b=
-	qTCCoyYGfcuexmQjXfkymQyvVDECxjIbx867Ax4IIQh1YhCWlAw53HEOQMobMdoX
-	rZBeQpnuEUeUQWkxIKGaq+OPOPbeTl/7xG9/JaqRhviLyEXHOFakZSSQgeUxBfjt
-	vURKo2tPeH5jEmTmkMdXkEOti78E8L3nYaH6fGHW1o/TbAP0xUG8kFjBv448qfyh
-	mnFfxZ885Wzx+j3dDo4Rx4hKEZSHIrv1lWUXyVQ7+97v3LMsjMWzoVy0kFmi9C8j
-	2UeuEmamD6rRO7Ui2Irf5ypINodmJnxY8lXtQzOVJ+7U/AJ8HgNAE6U9FS4Z1xrP
-	dypTgp/OXyHSLFUjdtPjzw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788338274; x=
-	1788424674; bh=pxWh6c57JPvLZQHcjbN7tBOqCkuOu0wNZnT/jaAcRo8=; b=w
-	JS6+/QwctN9rQBJ9VLQqgqFHP3FgLQUZzwBlQ0VwY2CEMUCCx1IaHZ2LCS2StRWm
-	5xVhvrECM57v5HYlYMiz5mbBGehzcJuw1lqZUxVNS61KPcaDWlm4IQ7T22yKvvEa
-	53l7fril1Gcb7K7xKOPsQxd0Xq45u7/ijqf6mdJgMkc2M0JeRwQf39HbB3y4lFZj
-	olTElADLdEQncpoxm6QihFtxy+NviqmMhF84oN/4Moa6SQyGvArjj+IDGwYZR2i+
-	MWCEFC3LSHb2N8dPRdTq8bK+jrNwZ3uNnmLJTWoQCDIGa4U5K7QJ2hYCkHE9p7kG
-	c6WYD7770/fWYrPLluxQw==
-X-ME-Sender: <xms:YeCXasAi8_HShvcwOrCY9XnbtWUYoKBJGMwNkB0L58CLbvkRKJ5TDQ>
-    <xme:YeCXalniGb-Rd0H3Z5wGf2wTiXNimladGsC7Y1Wql1S8OEhk7UXhN2BgCzwEy9NPa
-    l8pR3wFfRKBU05qFdcca5-5hB25BbzRccVfh7CC8-LjNpvQg6o68y5w>
-X-ME-Received: <xmr:YeCXanR3N4GVldEl10rIk7T2qxZuUWvRVOunTkzlcjoI8O9Mni4yyYF6rdwTPr4OSxwttccsLy1YNGbAocYB0N0s0wCWpSI>
-X-ME-Proxy-Cause: dmFkZTEhLSo8c+qmnpPDrYkwDUhLiaeLsVwvsscELmFvJWpopJFxNtJ92HpIsuxk5n5kpF
-    lRWjP+eYlgL+TWp2lDg2QpN5MGsZlvfLXYjGB7sym5gOC7U6RjxjhRL11s9ZMRQzNMg60k
-    JIHenuF9gyvSvtBsIRgtqwNFZGxuavogoztBa8clLJPqZhzpokoUZaDbrTBEiC5v9e96SS
-    9dXVmckb2DMeDxLoms+DPeIhFltqC2/mGof/LhXbAevvZgySc9vjRt1pSnSj9K7g4o1N+E
-    r8oG5vt/KTshJtixl+XSphTatYiTq8Wo7LlR3l3GxCIzptrmZ9dgOssAM/5FNcIwgCh7Sw
-    hgkX8VKhSHx9mp/LL9HL0h0Ova8dopLjR5Q81+OMv8NJcA0cFEcFw5wp7Fdjc5IeE1MNE3
-    qs52UcfhMugc4CVARinw0dlNqFPSxGmdOkjicGFH+ry80SZRispsqOGp2uJdF/ARwp69L+
-    +HXJppD8UDZ7Isa03FMs1PVmCjDFZSjtzsrMcDiHITB6RkZXSPY+IBlVpyLiWJ2D4XcHkA
-    tAByPZ3KlXlNmzhkHymwJrvO92EcGXu9r/dK9dzmtfUGLar09Mgdta0bNHBuKx5MC2w4aq
-    +T+iRrmMOPiNrK/9Fz0FKMbhla35g7J4f06f9n1KTJyksp1AOl5Rv/DRcCFA
-X-ME-Proxy: <xmx:YeCXapLI7lqJ1uAeOZJdDA1aWK1_jr_M6x4cknKvo7m36wNIjwKccQ>
-    <xmx:YeCXat-fMEGirPxnbo6-kK79scAE78_I_nqOESdBr2r3SnR3XfBH3Q>
-    <xmx:YeCXajAdvNLZhuMM-z9egzE8pGIPpUjzZj7UadFHPLLPb69NRKNDRA>
-    <xmx:YeCXavqRwN8UVUiL807FRy_-bFH0kQoBOkZROWxbVTGNCygyRAJ9Ug>
-    <xmx:YuCXanyg3GUEcH2qeoAItAEW5o4-FMGTWc7BxoVbzQJp3iYC3pLY0Q5f>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 2 Sep 2026 04:37:52 -0400 (EDT)
-Date: Wed, 2 Sep 2026 10:37:50 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Ceclan Dumitru <mitrutzceclan@gmail.com>, dumitru.ceclan@analog.com,
-	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Julien Massot <julien.massot@collabora.com>,
-	Rob Herring <robh@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-staging@lists.linux.dev,
-	linux-gpio@vger.kernel.org, Martin Hecht <Martin.Hecht@avnet.eu>,
-	Andrian Suciu <Adrian.Suciu@analog.com>,
-	Cosmin Tanislav <demonsingur@gmail.com>,
-	Vivekananda Dayananda <vivekana@amd.com>,
-	Cory Keitz <ckeitz@amazon.com>
-Subject: Re: [PATCH v16 00/22] media: i2c: add Maxim GMSL2/3 serializer and
- deserializer drivers
-Message-ID: <20260902083750.GC1116206@ragnatech.se>
-References: <20260831-gmsl2-3_serdes-v16-0-4fa6e08bb514@analog.com>
- <20260831170303.GB1116206@ragnatech.se>
- <65b703e7-e4a0-4046-9d35-7d0ff1057f96@gmail.com>
- <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="Mh5r5vfg"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AbSXCrTPtRtLn9O+70VAbeYx9hi/k6JbuEJK9JPm+zBi6cqUlmpf6+WxpVneti6uA+Kq6rif5TKdyKzObRmL3BihUm/sJh0vIjyslXSs/cg5Z2KgFyq4vUJ4zVuP7fR07MYzYbMBDp3mAjnLpFOspo7/lEnVephm44qcmne68yHOx5uJodWgTdRtwH7hAjgIV+MbzwFro2/Rs6Qn0eZHsfzQnCfHEQdWg3srFhRNbW69b2a0JwTAW4das1dEFLCXTUcMltTE9VmjX6smAUtpuSp7VafvycbNTPVCh4dr45U8KbRWwbyGx03hjM3lQmpQcsWDdy7WH9OWW6leNmwn9A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=KFwcXpdpffCKkO1q264Uttv42OLseUMigXrFKMMvB/g=;
+ b=rynXD6NadByLftJVeX9qdW9t43TE0kp2bYP73fUR1kB+Ct9sY7iAC3VNh/W/zVwJxdFBQbK2WsyBIyekbU4+6nDpMiV7nfhCVu9DPOFoiPrSSlGD9OFTy2dcNTZkWLbX02wn9CmTu0XbDv3s7Fj35huDUiYZmpBWnV1niPWOrHB/ERXjxkSxmOCJVbuIsgKS+5xMyIeMfS8ElRISKVc8VSSyaSagFQwiijQ7exDXzsK1M90YP2g7/2xeSVcszH3AZoqvFpkMfYMGXpRxOcJLawzx2CKRqa1qUKHLN8Y32kO5q1276ho/qeQGqTnLbfPi1mvW9PpGYmBs/KERekJ83Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=KFwcXpdpffCKkO1q264Uttv42OLseUMigXrFKMMvB/g=;
+ b=Mh5r5vfgLXu/PvuX8QcsicvH4C4ezHxIQQKIotCa04rgL1ZeKrNQH84QGLbgJ0hJSWgOT77t9Z5Yq4iF1mWWZWSaXmb4A+c2eJRdCSNCvjEKsVvMWV/9aGORc1US4AUn0xwpoJ2TRIH5kUmv1yIfrXjRPtpbo+tCBfdhpcZKqfA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by CYYPR12MB8990.namprd12.prod.outlook.com (2603:10b6:930:ba::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 08:45:06 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
+ 08:45:06 +0000
+Message-ID: <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+Date: Wed, 2 Sep 2026 10:44:59 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+To: Leon Romanovsky <leon@kernel.org>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+ ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com,
+ dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jgg@ziepe.ca,
+ jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
+ xuehaohu@google.com
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+ <20260902083232.GT24140@unreal>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260902083232.GT24140@unreal>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: MN2PR15CA0039.namprd15.prod.outlook.com
+ (2603:10b6:208:237::8) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <16626ec7-d1ec-4a54-ad1b-a59790cd33e8@ideasonboard.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CYYPR12MB8990:EE_
+X-MS-Office365-Filtering-Correlation-Id: 96e469cd-dcd1-45af-9cac-08df08ce7ca4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|56012099006|11063799006|10067099003|4143699003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	YCfQNFpuxEtSUDwTS6mR0rCOTcg4RuEfMX4D4gf8Y6rRftbwrJA2D0XV1KC++LCzgU0hI/W9DnrJctLQnUqBE/FWvQ4ry2QAhUcfgbKplGV9DZHNqf81sgCjwJ/eIA9838Q2omgw/rnSDgqtGYp67skjOuVZR0gsr82XKdsQ7MbQ8x9J+zXRNgsfQ3HCl/pwx/lGpHWHRFTEnQQ4dVzQsrh3odMaOKEaF8/r2C4PYT1mYex+0wHXqGAV2tNfKmNAMXcVeOQl2OrW37s36ec+K1zkyT0U/b3PzcOW4yZb5XNN4YOpFd6HFTQdD9DU7cjouUB7m94mdH/qh56PYk+GuobaEb7BAtsPzCSjg8YrTyS7zeGiHML5vx5ochsFILb9EzJm5yIJ8BK3OzmC6+9mH21SUkrP47kPQMWTfuIxQ0DUv0TNoBKzGjWM2ONGqRVvFd/nVhDNY8VH641rPw1IV2PJXHq/yRBOUJUNM1Yy5aPzSnHQ/3sufNG+URADYYUYi+d+NheGxKE7jDR4h0942LHn4HpFQMUkcCnUZjDF5MtPseUywEbvY7oxlCMaOH113ncIuzmzVA2XXfILicuBh3mOcoC438JBpGuhoL5pjjVwavurodh0ErrC1lTfpn53
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(56012099006)(11063799006)(10067099003)(4143699003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?YSs3U25SZWFtdlZJQlRpTXNDUWFONlVLVkppeUNMejVJcUFSUnYzSW91K3Fl?=
+ =?utf-8?B?L1pYQU93ZlpmNTd3YXkxZ3FvM0lPSUFDL0lVRkIvVlNkYkxlLzkybThsOEs0?=
+ =?utf-8?B?dFhlTDRmbUVHSkZQOTl2UnZuNW1KS0NwSzFaS3JDK0duUFd1UjF1bzBZQ0Fk?=
+ =?utf-8?B?N05XSU92THFQZFJsTGtZN0tac1NKN280L0NsVjZ6YVJaTnRiWVgrMlQ5QTJk?=
+ =?utf-8?B?VjU5Y1ZjSi9QVjAxU1lwMnBIRmhtemU4VElaSFFwdlZBR2pEclVndUg5UU05?=
+ =?utf-8?B?cjlKQm5Da1RwWWEyZXI1anVvVm1UNFlGZjkrbmN1UElVT2Q5UUFSR2JjbFpp?=
+ =?utf-8?B?TmNYQ0FyWWRQb2YxNFFqN21zVmpyQkJCTHRqdVgrelY0YTlORGdEVjFqSFZW?=
+ =?utf-8?B?MUh1cFQ5aE9PbHg1K2czdG5vYzdiRk55RHEwVWxyaHV1SUo1TXJnVzJPa1Ew?=
+ =?utf-8?B?R2xld2NkNGxZVjE0emphSFdaZnRkTUVWSklTMys3a0tQWERxSVpwNGViNDFl?=
+ =?utf-8?B?SUU3dVlSdnhnTFdQcTRpRjM4aHppNWNvYThvTDlJQ1RWdWtkcXVvV2lYc3VS?=
+ =?utf-8?B?bHJ6WmxsbVl2SytUQ3pRMkNBMUxESE1wbHAyelBUazFVamQxa2pVZjgyLzk1?=
+ =?utf-8?B?Z1dEZDdINXBsYUZuNG9ickFGa1F6clg5WHh6VEFnTklUSlNaYzdBd1lnTUdP?=
+ =?utf-8?B?WFkyQS8yMVRjQzFib1ZiWFl2bnhBWkpjR2lRdmo3aGJYTjU3ZTYwbU9qVzR2?=
+ =?utf-8?B?SWNBSFV6cjI5dWdPc0dyZ1hIMmUrQXhvT2xMWGxIY0JmT2czVDN3UmpBWGEy?=
+ =?utf-8?B?OEdhSkYvWmsrOXVPNEtRQlhEWTFSZ2hZMVp0anZwUkFFVDVKMEEwZS8wY045?=
+ =?utf-8?B?S1JoSlFERWdIT2tUTyt6MXJ5TndVaXlNVHBSUDVTRWdodnRFZ2xaV1FFdmc0?=
+ =?utf-8?B?UjB3aC9kMC8wcEo5aEcyekZESVJnOVlYWmkvdUhtRzZhMUIvZHJkQW04d1VQ?=
+ =?utf-8?B?SnFUVnFudXE5UDdTcTlNWWVWejhwMWI1U21wbXhvTituaS9odXhPSUE4V3dO?=
+ =?utf-8?B?WjBVVjZkMlFrZzJ3NHo3QllwSG5peGI1Vyt1NTZFd2RjQVpsdS83WDNxUyt6?=
+ =?utf-8?B?RXp5ZjJJeHJzSCtLWkc1ZUFheks2bjhEMmRQWDZVZTdjNEUvVWdwSEhSTWhy?=
+ =?utf-8?B?OWJFQXRjQkpmM05lOW4xRzQ3a1BwSHFVbURQb0gyWnpLWXRTM01MSGR6RUFw?=
+ =?utf-8?B?OGpma3ptRk5CR2V3N2hBRjlNUkxKV05vK1RPRVNORjJlQ255WDZnWUthbGcv?=
+ =?utf-8?B?NHllSzN1SUhIVjJoUlhwOUxwKzFDdElUSzJMektpYWVLTmUwejJWb1J2eHRn?=
+ =?utf-8?B?OVVvVkc4VFBkaWhuLzE3RTF3WllQTTlVMlprNXp0aFlUcnBOdCtyWFRyMVVP?=
+ =?utf-8?B?L0d4VU0wVVFCbXhmQzFra29DSmJ5NG1QWGZxRHZTU0o1THJ4SUdYZTA0eHVX?=
+ =?utf-8?B?bmJvMVBKc1FQcGNYenAxU1JBWGpmbVBBMDlxVU9NelpVSm5vN1Q2ZDZwNU10?=
+ =?utf-8?B?OXNyZVBEaWhUTW90Z2t0MjZrK0tUNENTd0kvaFN1RXk5NFFzaWVFTWhmNnpt?=
+ =?utf-8?B?azBrajFLZ1NjbTR3YmVTUVg3cFBXK3BSeUZHTFBxQ1o0Q1UxRXM2VUllTDRS?=
+ =?utf-8?B?ZDhmaHRUcXZMdldHNUk0eFZ2S21LVWY4eHZERHdONVFTcFZteEFwQmNGK09q?=
+ =?utf-8?B?Zms1N3k0M0dqMnJmSFphMitZVmMzUElESXgxeXl5Zzk2Q1ZOdFFtRlJuRlBV?=
+ =?utf-8?B?bmZXOE5hQmtVNGhFc3FBNXRlRWxhckpDeVRoRktiUVJwOGZsb0RvUGVRaDM1?=
+ =?utf-8?B?NS9rRUdqMUcrcGFyUXQ0WVNxcjZZcVI2ampGZ3pXcUUyVXZPdUcxSTFrRS9U?=
+ =?utf-8?B?Z0lzUzBYR1pzYUtYRS9jZ2M3RUVhKzJjYmRxMmdHRVdnYXNVc09PSXFlM050?=
+ =?utf-8?B?cENESkhGTHpKOEZvUkNNOHJXSUlkdUV0L2l5Q0VjUkQzWDMyajZEK1dSUHA0?=
+ =?utf-8?B?UVgxNUozZkNxTzdUSDhYY0RBcmxXL1I3YXpPT3d0bTd1ZExqaXZqRUpRSlg5?=
+ =?utf-8?B?cnZ0S1ZRdUhXa3owYjA4N1FSajh3SmJ5SjJib2p4MmN2S25ySzdFOEZNYU9U?=
+ =?utf-8?B?UFJkeUtNdExIdlBUVGcrS29mYUt4S1l2bmRieWlpb1Ixa0Nqa0xZSEdqejAw?=
+ =?utf-8?B?M1RIMnlsOGJDQVovT3VPWjlsK2I4czlBODBFVWNxYUxvZnNmTTVvKzdlSzVS?=
+ =?utf-8?Q?DIyhrde+10JwxuX5ou?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 96e469cd-dcd1-45af-9cac-08df08ce7ca4
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 08:45:05.9474
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 19K05qF5jtsWNcuezCGjxOLmXFB2h9McFmjgsJvg2LjJNqa2DZ/hUpFq30fiLHSJ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8990
 
-On 2026-09-01 10:43:44 +0300, Tomi Valkeinen wrote:
-> Hi,
+On 9/2/26 10:32, Leon Romanovsky wrote:
+> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
+>> On 9/2/26 09:39, Leon Romanovsky wrote:
+>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+>>>> On 9/1/26 19:08, David Hu wrote:
+>>>>> From: David Hu <xuehaohu@google.com>
+>>>>>
+>>>>> This series address two related issues in scatter-gather mapping,
+>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+>>>>> sgt mapping is correct, and proper for large MMIO regions.
+>>>>>
+>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+>>>>> phys vec to sgt)
+>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+>>>>>
+>>>>> Patch 2 Splits sgl by largest page aligned chunk
+>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+>>>>
+>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+>>>
+>>> And this is why so many in the kernel community want to get rid of SG
+>>> lists. It would be great if DMA-BUF could also eliminate the need to
+>>> convert to an SGL, like Jason proposed.
+>>>
+>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+>>> which is the one that depends on it.
+>>
+>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
 > 
-> On 01/09/2026 10:39, Ceclan Dumitru wrote:
-> > 
-> > 
-> > On 8/31/26 8:03 PM, Niklas Söderlund wrote:
-> > > Hello,
-> > > 
-> > > Thanks for  your continued effort pushing this work forward!
-> > > 
-> > > On 2026-08-31 16:21:19 +0300, Dumitru Ceclan via B4 Relay wrote:
-> > > > This series adds new drivers for multiple Maxim GMSL2 and GMSL3 devices,
-> > > > replacing the few GMSL2 drivers already in upstream, and introducing a
-> > > > common framework that can be used to implement such GMSL chips, which
-> > > > avoids code duplication while also adding support for previously
-> > > > unsupported features.
-> > > > 
-> > > > While the normally acceptable and polite way would be to extend the
-> > > > current mainline drivers, the choice was made here to add a totally new
-> > > > set of drivers. The current drivers support only a small subset of the
-> > > > possible features, and only a few devices, so the end result after
-> > > > extending them would in any case be essentially fully rewritten, new
-> > > > drivers.
-> > > > 
-> > > > This series depends on support for internal pads, for which a patch has
-> > > > been added.
-> > > 
-> > > It also depends on enabling the streams API right? At least I need to do
-> > > so to be able to use the TPG. Out of curiosity do you know the plan to
-> > > enable it by default upstream?
-> > > 
-> > 
-> > I do not know when default enable is planned, but series could make it
-> > so VIDEO_MAXIM_SERDES selection causes v4l2_subdev_enable_streams_api=1.
-> >    I am not sure that such a hack would be acceptable by Sakari or
-> > upstream in general.
-> I haven't tested with this driver, but in theory these kind of drivers
-> should work with the Streams API still disabled. The Streams API is a uAPI,
-> so the driver itself works without it. If the default routing for the
-> drivers provides a sensible single route, one can use the drivers with a
-> single camera. This is what the FPD-Link drivers do (although it's been a
-> long time since I verified it with Streams API disabled).
+> You are proposing the same thing as an SGL, just in a different format.
 
-Indeed, but to enable the TPG I need to non-default routing ;-) Nothing 
-big I'm just impatient for the streams API to be enabled by default in 
-general.
+Yes, because that is the right thing todo as far as I can see.
+
+> It does not address the issue that dma_addr_t is expected to hold a DMA
+> address, while that is not always the case. For example, in the P2P case,
+> the addresses are not DMA addresses.
+
+Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+
+It can be that those are DMA addresses on private interconnects between devices, but it should *never* be a phys_addr_t because that is limited to the address space the CPU can see.
+
+> Jason's proposal:
+> https://lore.kernel.org/all/0-v1-b5cab63049c0+191af-dmabuf_map_type_jgg@nvidia.com/
+
+Yeah, I have commented quite a bit on that.
+
+Regards,
+Christian.
 
 > 
->  Tomi
+> Thanks
 > 
+>>
+>> Regards,
+>> Christian.
+>>
+>>>
+>>> Thanks
+>>
+>>
 
--- 
-Kind Regards,
-Niklas Söderlund
