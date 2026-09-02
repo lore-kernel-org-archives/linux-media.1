@@ -1,51 +1,75 @@
-Received: from d2-2-bhs5.logotherapy.ca (d2-2-bhs5.logotherapy.ca [15.235.45.126])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D637A3B5E08;
-	Wed,  2 Sep 2026 20:54:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=15.235.45.126
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DD130C606
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 21:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788382483; cv=none; b=DVhAkzkPa3d6+0lf34ZTIJ0KemvXfGgp+c40/daNy+wPMoPiwSJVoxTcmqTkc4kTOCofa2KHGj0hmyEtiQn/RxVCF3WCsj1DAjcSOc+6C8blJqpbjU1HhY4pFRKImYRTXeKH7TzL++1I5RnHUw9OPgOc3LxEdQMR4ty6tX0SXnk=
+	t=1788383803; cv=none; b=ib16FZQxURAWgbqkjye/lAjTC0Nzh4YJ76FLZD4wcOtH6N3zNlcSqnJEicvyL+VsOszYvb1RdicPchVse4Qu9L4ayCMClhXnOzztoowTYtNdxc53GRQ8mh4xTkx+Z+u4gvMdRV3GbysdqQyA/6oJmT3W3wo7a2g69hFjl7IjK/w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788382483; c=relaxed/simple;
-	bh=0hM9JzeR/lKw/CSYeDPtW4Wyv++XUFg7SqEZplK5dog=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=H545LlVES3EwjcxWVeK2WFiE94puZ1M8UG+NAaFPAbZAW9i43HP0pOmABThbt7JIjmIPOEMq1aXBxrgNJXRt9VamgG9kfe++Va9AMWGgB3IRk6tENflg8kgoYc4MntYRlar+f+f4uO/R0XwPzEOzW5nNgAlBDICeuyNIfBIc4wY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca; spf=pass smtp.mailfrom=logotherapy.ca; dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b=evyyP928; arc=none smtp.client-ip=15.235.45.126
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=petermarshall.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=logotherapy.ca
+	s=arc-20240116; t=1788383803; c=relaxed/simple;
+	bh=wfnSJYezHVptWVeIUjof3zlv6RSwe2Fg37Z2C7ov+lY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QuEOvzjjDYbrTOWUxXLbXg+T02B2Jo9rcrTDsdR1WVJbRq6sXo6hnHFYJclztW3+yBvRgJmX0oQ/QDzek2R+iaCnQ9os2W4JCb9WRogvkFP0NrXEnueZxGFn61BWWbO3cqyXKcG44YQGiJC2QFymUAf5CTBWtLQrIQaT0EyHyZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sL037w78; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=petermarshall.ca header.i=@petermarshall.ca header.b="evyyP928"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=petermarshall.ca;
-	s=mail; t=1788381978;
-	bh=0hM9JzeR/lKw/CSYeDPtW4Wyv++XUFg7SqEZplK5dog=;
-	h=From:To:Cc:Subject:Date:From;
-	b=evyyP928iegx62yFbAsHekjkmnTLEpjoBpZQQ1UuVDW0i2xjE8rkjTsdWEsXUiEm4
-	 zKGD/imJ7aBrrkmjXoEoGZ+VK5ZbskQl3WEk8jz6X1Xnas4rCeJNxN7W2cpYdAU+AE
-	 o7Y4SYXMqbC8shGE9FU4fvHSLz6cR3Rn+RQvlP+5XYZheum5HfOdgCc9OL8B2JmRCJ
-	 FyGFZFSuZptHy764BQgrGtYMi2sz1+0arUQ8wWjyi6moC/fhuVQHlRe2fXrC7jxz57
-	 ziIJPQTP1gdOXm3Jj2CPtwoXcwAkPaVFpj3RJznHaUmbovRNCKtNFxbUFH1y+BFuRk
-	 o2AUulL8mYmqg==
-Received: by d2-2-bhs5.logotherapy.ca (Postfix) id 5A75D20A07;
-	Wed, 02 Sep 2026 20:46:18 +0000 (UTC)
-From: Peter Marshall <pm@petermarshall.ca>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sL037w78"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso11458675e9.2
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 14:16:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788383787; x=1788988587; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
+        b=sL037w78EfLtX83d48XFST46TUQBI4pC9WiKm8SEvhi0ZU1VLy8g9xKN6+SckUtVD9
+         rHyx9dUNDCC4O14YkT2UbNEXsW5h2IxZVxQtdKsARE76204jgm8b2H33dojq5wbpxTWd
+         TCX4TipTvOGEQ3Gx1uaWCFVD19OFLNlA/v5gmAoeF8Jg+27wfTwT5GywBhBQeV5/11Gx
+         JPhkQy8Gh+GEKrQHou31UWGlwuvQqc5KQVlYbnHJJ0b8PYA+7QPWHQGpk77qgyZZvLOo
+         vyUNeZXqNLVcDWEceXVJkdArwLQaDCQKPCdpCPM1KuFoo0tBZieA320/Fsa2uT+jVxLc
+         9yjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788383787; x=1788988587;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
+        b=gk7wotQUe+L9snLR2NRJYi8xWHRigs4aV7uVzAg35U0e67rbck0WF4MSFTUfia689C
+         wkGHMin2P6asCdeHLPUfuu+WzIQ4CSRG51mJsz1oisPLnQsQu7/OVlDxlfOzpzVHfVeR
+         U5WjNmpkg0pvGh3Rwt2CqBDro/18S6xvXKDCC2sqvpfYJoq/VKnhro/zAdQtrJRI1JL6
+         hFvA5MYLwfIjCLRIAPlXmmW/PK7Co7rhIgkjzfpqapFZLPFIZJReFHs0bFEpoyIPr0bo
+         ZUu/vhK08JSEk1t72tXglZinVnZGCbDo0297biq8DzZ4zQuMObt+V1J8++ppK4eWRjhd
+         ADTg==
+X-Gm-Message-State: AFuF++l4N56sQWGrGF9+3nTyRAs15E1pswQZUg1ZIKD3/Y6AiM7Zlbw5
+	fz8LIPql73gKaWRO2jJw9aAtXdVyHDrDCnEjc3/1252CICBQFlqhF8I=
+X-Gm-Gg: AYBFou1EtH1MREefZCs6PEarDtW5yGCwWl3ms2YW25RYGTcHkDSmQOzHFQ9lQbUcJAx
+	BGZq3MrRnoyDD3RPqoCv5Ev5jeh5p++aE17rE+ZCv41wEuoxP0TczI7R4poVHAfc73eq24AGkwB
+	A5LIsxQi9peiDAN9zE+3NxxHuEzfVMEpfdOr0bSDlQNWJkpev2jMjpdJ6KM2gmZuyPvw73AXaBM
+	r8479zz8bGh4mj3aD9JSohshchZOTCsF59oB76S8Ks/CK4ASqW+x9YiTqz0si4iMI/dppaNJZYr
+	E5nFX6NQZ+yjdCQUyhSdBX3sr2TiaKm3LmYFnhTZSBN0iopcYWZcj3HWN3XWUUclMplZ5NEmX/5
+	CoBS4+S3MfNXVk+nLGCHayq6h3i0M7H22q7eF9JwFL9GKMZR/4XLFp76knFloCoqDWYxjIBSk8U
+	dwpzAWvK/U8l/bI9duGi89YGzUe5Y5qjmgsnyq66QgpnPdSJWoPP20RPl6xQeTKWCjshzRn73z9
+	vpy0HjJQNfpnQnvP76W/kf1n2JsRJQrBS7q6m/iHmTgxxt7xg3a8ch+5tOWTSrGGa2HnbF7RR0O
+	HdBt6F5r
+X-Received: by 2002:a05:600c:699b:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49ce584c6femr140872125e9.15.1788383786582;
+        Wed, 02 Sep 2026 14:16:26 -0700 (PDT)
+Received: from chateau.lan ([2001:818:e240:a500:b099:b999:e510:5bb4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm19143335e9.2.2026.09.02.14.16.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 14:16:23 -0700 (PDT)
+From: Sergey Zagursky <gvozdoder@gmail.com>
 To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-Cc: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	platform-driver-x86@vger.kernel.org,
-	Peter Marshall <pm@petermarshall.ca>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Date: Wed,  2 Sep 2026 16:45:39 -0400
-Message-ID: <20260902204549.657228-1-pm@petermarshall.ca>
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev,
+	Sergey Zagursky <gvozdoder@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup for IVSC
+Date: Wed,  2 Sep 2026 22:15:24 +0100
+Message-ID: <20260902211524.5572-1-gvozdoder@gmail.com>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
@@ -55,46 +79,160 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
-sensor driver (vd55g1) into a generic VD55G family driver (vd55g) and adds
-support for the VD55G0 monochrome sensor.
+Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+bridge driver") the internal camera no longer works on laptops where the
+sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
+INTC10CF, ov02c10):
 
-The VD55G0 sensor is found in devices such as the Microsoft Surface Pro 9 under
-ACPI HID `SMO55F0`. It features a native resolution of 644 x 604 pixels and
-differs from later variants in the family in several ways:
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
+      without device fwnode!
 
-* It uses a different native resolution and register addresses mapping,
-  requiring specification of generational feature differences.
-* It lacks support for spatial and temporal HDR.
-* It requires an exposure duty cycle limit to keep the illuminator current safe.
+No sensor subdevice is registered, the media graph has no sensor entity
+and userspace finds no camera at all.
 
-Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
-HID "SMO55F0") running libcamera.
+ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
+"intel_vsc" and returns its mei-csi child. That device is created by
+mei_vsc, which on this machine only appears once the LJCA USB bridge and
+its SPI controller have probed, about a second after the IPU6 probe that
+runs the bridge:
 
-Peter Marshall (7):
-  media: i2c: vd55g: move patch array to a separate firmware header
-  dt-bindings: media: i2c: st,vd55g: rename and add VD55G0 variant
-  media: ipu-bridge: Add VD55G0 to the list of supported sensors
-  platform/x86: int3472: Add VD55G0 supply GPIO mapping
-  media: i2c: st-vd55g: Add generic driver and VD55G0 support
-  media: i2c: st-vd55g: Remove legacy vd55g1 remnants
-  MAINTAINERS: Update ST VD55G camera driver entry
+  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
+  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
+  07:59:42.391  platform intel_vsc created (mei_vsc)
 
- .../i2c/{st,vd55g1.yaml => st,vd55g.yaml}     |   30 +-
- MAINTAINERS                                   |    7 +-
- drivers/media/i2c/Kconfig                     |   11 +
- drivers/media/i2c/Makefile                    |    2 +-
- drivers/media/i2c/vd55g-fw.h                  |  305 +++
- drivers/media/i2c/vd55g.c                     | 2166 +++++++++++++++++
- drivers/media/i2c/vd55g1.c                    | 2061 ----------------
- drivers/media/pci/intel/ipu-bridge.c          |    2 +
- drivers/platform/x86/intel/int3472/discrete.c |   18 +
- 9 files changed, 2531 insertions(+), 2071 deletions(-)
- rename Documentation/devicetree/bindings/media/i2c/{st,vd55g1.yaml => st,vd55g.yaml} (76%)
- create mode 100644 drivers/media/i2c/vd55g-fw.h
- create mode 100644 drivers/media/i2c/vd55g.c
- delete mode 100644 drivers/media/i2c/vd55g1.c
+The commit above added two fallbacks for CVS which match on the ACPI
+companion alone. They are reached for every entry of ivsc_acpi_ids[],
+IVSC IDs included. The IVSC ACPI device has two physical nodes:
 
+  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
+  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
+
+so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
+platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
+software node to that device instead of to the mei-csi client, the bridge
+reports success, and the probe is never retried. mei_csi later probes
+without a fwnode, the CSI-2 link is never described, and the sensor ACPI
+device, which has an honoured _DEP on the IVSC device, is never
+enumerated.
+
+Before those fallbacks existed the lookup returned NULL here, the bridge
+failed with -ENODEV and the probe was retried once the IVSC device had
+shown up.
+
+Skip those fallbacks for IVSC devices, keying on the IVSC IDs rather than
+the CVS ones: new CVS IDs keep being added, whereas the IVSC list is
+complete. CVS binds a driver to the ACPI device itself, so matching on the
+companion stays unambiguous there.
+
+Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
+Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
+Cc: stable@vger.kernel.org
+Assisted-by: Claude Code:claude-opus-5
+Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
+---
+Changes since v2:
+- Match the IVSC IDs rather than the CVS ones, as Sakari suggested: new CVS
+  IDs keep being added (INTC10FA arrived after v7.2), whereas the IVSC list
+  is complete, so keying on IVSC does not rot.
+- Drop the ipu_bridge_is_cvs_dev() helper introduced in v2 and go back to
+  the flat condition of v1.
+
+Changes since v1:
+- v2 wrapped the ACPI ID match in a helper for readability. Superseded by
+  the above.
+
+Not addressed here: separating the CVS and IVSC parsing so that no CVS
+fallback is needed at all. That looks like a separate series rather than
+part of this fix.
+
+v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
+v2: https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
+
+The functional testing below was done with v1 on the affected machine (Dell
+XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
+drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v3 changes
+which ID list the condition keys on, so it was rebuilt and booted again on
+the same machine with the same results. Without the patch libcamera finds
+no camera at all; with it:
+
+  $ cam -l
+  1: Internal front camera (\_SB_.PC00.LNK1)
+
+  $ cam -c1 --capture=5
+  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
+  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
+
+The media graph gains the entities that were missing:
+
+  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
+  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
+
+and the restored retry is visible in dmesg:
+
+  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+  intel-ipu6 0000:00:05.0: Connected 1 cameras
+
+"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
+i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
+
+This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
+change; 7.2.x has no INTC10FA in ivsc_acpi_ids[], which does not affect the
+IVSC list this patch adds. Building with W=1 produces no new warnings.
+
+Not covered: I have no CVS hardware, so the CVS path is only reasoned
+about, not tested, and I have not booted v7.3-rc1 itself.
+
+This patch was produced with the help of an AI coding assistant; see the
+Assisted-by tag above and Documentation/process/generated-content.rst.
+
+ drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98d6b..bd64c0400c0d 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -232,6 +232,19 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
+ 	{ "INTC10FA" }, /* NVL */
+ };
+ 
++/*
++ * The subset of ivsc_acpi_ids[] which are IVSC, rather than CVS, devices. The
++ * CVS IDs are deliberately not listed here: new ones keep being added, whereas
++ * this list is complete.
++ */
++static const struct acpi_device_id ivsc_only_acpi_ids[] = {
++	{ "INTC1059" },
++	{ "INTC1095" },
++	{ "INTC100A" },
++	{ "INTC10CF" },
++	{ }
++};
++
+ static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
+ {
+ 	unsigned int i;
+@@ -283,6 +296,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
+ 		return csi_dev;
+ 	}
+ 
++	/*
++	 * The lookups below match on the ACPI companion alone. That is fine for
++	 * CVS, which binds a driver to that very device, but not for IVSC: there
++	 * the ACPI device also has a driverless platform device, which would be
++	 * returned instead of the mei-csi client. Return NULL for IVSC so that
++	 * the caller fails and the probe is retried once the IVSC device shows
++	 * up.
++	 */
++	if (!acpi_match_device_ids(adev, ivsc_only_acpi_ids))
++		return NULL;
++
+ 	/* Try to locate CVS device on the I2C bus */
+ 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
+ 	if (csi_dev)
 -- 
 2.55.0
 
