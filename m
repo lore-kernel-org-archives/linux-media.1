@@ -1,92 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48E70155757
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 05:44:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C538DC40
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 06:15:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788327888; cv=none; b=PLs58As/xGyX7C3Tnos+bsp5lfnYOxNkCLOBzeDxq8gTp8uBNfoJX5Iw9rwDaR9cdiBdEKKgeqZ3oXm5kEPoKQItNopCI3oWgOeN+0QgfIMuZCidyA256phjKmkZ8Y8uXhbEDEyV7RUMjs68Zoh8XMFsDwAKwSdwojHe0QfWioE=
+	t=1788329736; cv=none; b=j/meiRneHr3q7700/WmTRx2sfpizvrPqalfBK+IRXWYG8PwjL3iGZjFPWUpaQ8BlWs89xHQhdfKuvvCZ7fsgl8MoJR+WnqzgegXD7Al0qKFiJ+bS3XMn329Wv5V5wZ5MH/cUteRvkrKydLxp1bVHNsXaIPaqGj9Z9IHXWlqgqrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788327888; c=relaxed/simple;
-	bh=OYbGRByvH7VtPl2ilc7TiNyUJ0NMZgBKoi/Kk9r43fE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=co8ietyBOivFpTwbvR7sfKR0vZ30UUP/41493slfWv8k2Q/Pl7huqDe168JbVtZK1Sk2AEG10Wny5DCUg1BLp8SW+8JUiHQxbfSk9y13/J3USNEJMqBt0+Mc0XqHR0yddS27eAbPQ2yfbDWGHzb5gAeRSCLutojL+r1QfkeSCQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wx2B2Fnc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788329736; c=relaxed/simple;
+	bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=jU54ywXRfGpFakkKezSgcg3CnvrC1MbKe00EQtqratiCwUXI3I/OToUDGw30IbNNbwo96F3yJSjaILvlvaowY8Lw/9luBw3RVyIWCJ4JkFnzf1MADj5cmmYN9RIT4r/DJ4zwrX2ZJu0dSMObYye6TjPKmwH3bLAh0foMdWQzZz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lcnWvg4J; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wx2B2Fnc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A923B1F000E9
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 05:44:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788327886;
-	bh=i5woAfz6igg7UznvDB65lhDYbgu9B2hyuAWFvgh4+Bs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=Wx2B2Fnc616SB5AYKExFEf5Nqbk71JM2R8sJbqgz1CJQcs5I2kKxppne/vndJ8nK8
-	 tz83/CmI/UJoKu/vfwXU4ny8fnoLk5tWoh/7wPtFGwzyS2fBonaMia5VvgSHZzWh3U
-	 zsEW/HYO9CsKhJFjqxhLBIqE3zU4PkiABFtKXEKTp07US0v4d/HehU/5tTE7dncmup
-	 l9JXsroR9VC6kjQWU4/bK1o/oD35ZZt2AsTIu3w0G9W7M3wskV14aia/4nnDdc6iiU
-	 wBHXyFVGtHe5ujiRX2GMqdQZiy4a8mLtxxOnZz6BGsIui0DGeKy9CpJXHC6eBwinRJ
-	 upDLOMUa48OPQ==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5b159850b16so563786e87.3
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 22:44:46 -0700 (PDT)
-X-Gm-Message-State: AFuF++lS0E76vGnEXK9ra2pj1k1yO52PoGNL9zQNPqYaacCNIOmIjKH0
-	hGd2D6mAFwiAMrJRu8fqjNp3hjW54qPhAtzx0x6lS9nQDKUh/jrcVfurR6hNE2lMyo/MjHSMJDU
-	geegxKL5uMEIHuHqniQaNSrAYEyxRtbw=
-X-Received: by 2002:a05:6512:ba4:b0:5b4:7795:8abb with SMTP id
- 2adb3069b0e04-5b608333515mr865955e87.7.1788327885334; Tue, 01 Sep 2026
- 22:44:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lcnWvg4J"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b965570d7so4708525e9.0
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:15:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788329733; x=1788934533; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
+        b=lcnWvg4J/YVcYLipW9AFiWEgLPE/vkf1xL3oUvJsxEvQD+W2FFz/CrACix6WdPR32Q
+         ZSNXbXluwgCflWXt/lNI1bSEL07FrXIlstqdw+8w+QjHQ5IK8EUC6sTHrHIw2B1hR1VZ
+         95kM813+oXdScYXlc3OGhYvQ8ZfT8cdXEInVFuAn+Br7Llv53b1EFwvj3KVC6s9tyKul
+         n4zWv4Ce+WpM3Pc7m/poH/p8GrwS44f7rr7+aYxGIcrEQvksMIg3EOYbvQ7a04yLQAx+
+         mpS5tbMnDcMF9d8i4RWJj20WmImxOLRvtFAekQ/mkTkT+/4uK32JC+hWK1cy+4Mn9Qh3
+         MOUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788329733; x=1788934533;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
+        b=IIBhuii3IpHcbVlLrTttNkllhqQocvoOpqbvqq8Q+V9HD2wRkY/vf21onUXrFkMEb9
+         XJ95EG3QZPF+LKGYaE1goIQJEcH0qBQ572nIYQOaImZRSv/JSL/kz5AbEYZak1jaDP0M
+         ouFbFu1sWMCCp7wE/b6xM9AJju0Y64eysNXZWbF/o95RJBx+X2SMprxkJLgqJKHqPJhx
+         mS0zskTJA+SDCN4FYmgWaKqaos4FLmrvppfUvGidIXthCPvYc8bx7rzOdpRMmkCcrrZq
+         L9JMadwZ92JWEpYYL/8uwS3m0HpSdRZ0r51+6zS1LbnOPDvTeNdjvfSc32BOxNy/H+Hc
+         B0VA==
+X-Forwarded-Encrypted: i=1; AHgh+Rq1pX9U3qrcAmxXde2qm7WxPWXtRiYGyeRAsNY/6l1OOJSAmkWcX3hDxMJp+27UctlzAPXguLRcFJUAjw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lnqFTD4X0wXGzJTPMgBUJFWzIPg8atbS9OPaKWRqCV4/Ej4zx2
+	xMWZZoXdi8GqEUEdrO5RbC6iYr+Ke50p1J3K5q6G3h6vGMLrxGkYTCf8
+X-Gm-Gg: AR+sD11bppHnQuR0Fn5v7Y0B4hyDACkJGKOr/fOH/B4oFbr1IEMilM4C1Hizd0AOWo5
+	3stmN6wlHBsN55peZpNtlCPmIN9dWFn0w2gbL5zbVSWse9FGIktwb2Gxr0yBCLCrIK4OFQvjCQe
+	G3P0Or0frbAZYTDdZvyQf+9lVX73rJn++Dr0rxXCagYPeIAm5dNsezDkT+KVhJH/yXmVHmZmdB9
+	ti8zwHE5pqbI/J0XMXy3/NEZy7ApgJCtIBENpRDA03JXecvJNDnoAt2nSVucC3pcs/wr7/BRNT5
+	0PlAAFVfeQAJZtw29V6+54v/lUhEjcdHqLWhBBvk1otwO+5f6C6W62pGS/zxTPesNtN5UDKznkn
+	tUXuuLdTLLE9YuOa2eCqz1NGI12H2dejotjXqBU5HK6kc2vEHXQ5JYlE1NyRTvGgBGcee3cZzps
+	gUDgM6C3rWpXl0lPL0Mhb8MM5bXaLnSKSi5H6XWgw9J5cvADnPW10I16ZB4WX9Xre3YPwyKfBgh
+	05Y6GwQOLjFPdwJBTLXOSFnGA2blrIInA==
+X-Received: by 2002:a05:600c:4e93:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49ce57f5235mr39841585e9.7.1788329732659;
+        Tue, 01 Sep 2026 23:15:32 -0700 (PDT)
+Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm45222275e9.3.2026.09.01.23.15.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 01 Sep 2026 23:15:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-16-sakari.ailus@linux.intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 2 Sep 2026 07:44:32 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnQzEoo46orVAHtoTDxXmQqsVkD1B55GUuua6drePZUbQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WaGhFIPe_xPyJvNymhiDPD0WRe4Oyvmla0MxtepWIMFXjpHWpXtQv5Js0
-Message-ID: <CAD++jLnQzEoo46orVAHtoTDxXmQqsVkD1B55GUuua6drePZUbQ@mail.gmail.com>
-Subject: Re: [PATCH v3 15/29] media: v4l2-subdev: Return dynamically allocated
- pass-through routes
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] media: dw2102: fix OOB read on firmware size not a
+ multiple of 64
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Igor M Liplianin <liplianin@me.by>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+ syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
+In-Reply-To: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
+References: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
+Date: Wed, 02 Sep 2026 08:15:25 +0200
+Message-Id: <178832972564.754738.8009301300861192916.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1788329730; l=1330;
+ i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
+ bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
+ b=rvF99dTX+DCaZpMaHpmUEq9OVveZjVKnOlfnvXU64qiu2UmkqRi5actjAMTg6y6Fjwk0BjGLI
+ ye9LPzZOGMFAHox/Yrv2IR1HZSaVtUEqhFX55fGy9HPKKYAIGqz7GZF
+X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
+ pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
 
-Hi Sakari,
+> dw2102_load_firmware() copies the firmware into a buffer of exactly
+> fw->size bytes, then walks it in 0x40-byte steps while always passing
+> 0x40 as the transfer length. When fw->size is not a multiple of 64 the
+> last chunk reads past the end of the allocation producing the following
+> splat:
+> 
+>   dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
+>   dw2102: start downloading DW210X firmware
+>   ==================================================================
+>   BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
+>   Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
+>   Call Trace:
+>    <TASK>
+>    kasan_report+0x117/0x150 mm/kasan/report.c:595
+>    check_region_inline mm/kasan/generic.c:-1 [inline]
+>    kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
+>    __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
+>    dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
+>    dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
+> 
+> Fix this by clamping the last chunk to the remaining bytes;
+> 
+Hello everyone!
 
-thanks for your patch!
+A gentle ping on this patch. Is there something you would
+like me to change or is the patch good to go?
 
-On Mon, Aug 24, 2026 at 2:15=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
+Kind regards,
 
-> Count the number of pass-through routes, allocate memory and then return
-> the full table to the caller.
->
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-(...)
-> +       if (num_entries > V4L2_FRAME_DESC_ENTRY_PREALLOC) {
-> +               fd->entry =3D kzalloc_objs(*fd->entry, num_entries, GFP_K=
-ERNEL);
-
-So if it's more entries than the preallocated ones we kzalloc_ new ones.
-
-And from this point in the code we want to clean up:
-
-> +                                       goto err_free;
-(...)
-> +err_free:
-> +       kfree(fd->entry);
-
-But what happens if the preallocated descs are enough?
-
-Then you just kfree():ed the preallocated entries, which are
-stored in the same pointer.
-
-Yours,
-Linus Walleij
+-- 
+Vasileios Almpanis <vasilisalmpanis@gmail.com>
