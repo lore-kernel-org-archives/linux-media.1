@@ -1,213 +1,175 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012008.outbound.protection.outlook.com [52.101.43.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9C043ACA42;
-	Wed,  2 Sep 2026 06:57:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788332285; cv=none; b=UY/SpPkIB4EXOghfsz4HJFedU0J1cjj1p4VbHhKh9PgFc24JaCQDWOsbtkQlrdw9t6/06XeApaQWmNgsUpaoncHpeBv2CEPNTNGRLEEzDl1F6Xvu3ku0mXBSMuJ2ctJRTp3YxqIDEqSjb/EpxIUnDSZZSslq9+drOeNBZflZoYA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788332285; c=relaxed/simple;
-	bh=e4aeHQLForUGeICWn8YcbeYmVyJDYBsfKrglCLZcX5E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O1g072lpXCfAHKUb6MdCk4ObdYv5N4LnJ1r0nQ/GxQAkIm1m7avwv9Wv5eYIxYqMJythEBaFR6+dugFWX84We3e9nKRhEyy7Xjlw3tkIbk6B7g0Y9u9ExZkDEO0LUfX+AAi2quxnDRoOw3/OL7RCaH9bHXyjqCRKdatr/FApRdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=h41kCLV9; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1919935B632;
+	Wed,  2 Sep 2026 07:01:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788332469; cv=fail; b=EKHS+GSL7W/Jdci2UzdI1fJ6vKVF+x9qZfDrIuQJduEqaXyq//bwpr4gERGD0GJ74wMTS5QKCeCciFZQUZZzUPntVMjmiQvFXUgIzjPwHOuTmB81tji62UamUWduKSRxg8sRzaVtHbxTBIldvSdAa/B4gCP9h8HoQqfX4aCw0HM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788332469; c=relaxed/simple;
+	bh=I0CBiSXcsXzIcii/s/txvo+jZNEj4lMydrJoAvHCVQw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=qm7NeOaeL+LlvP6IrUWBOoXCYwRzblwJaNz6Bf68s6+3JHNSkHNLTppkIkh51GXPp4tp1DXl6ICVt6zkzFTj8uonqyjrbkUgwA38OtYEfDbsLa+HNpHNfnEejWSaA50GNlyzVkkPcQoMFtEFvRaFB4Ap74ut6Z3IndwlNww0VF8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=OmcJRcdR; arc=fail smtp.client-ip=52.101.43.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="h41kCLV9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788332281; x=1819868281;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=e4aeHQLForUGeICWn8YcbeYmVyJDYBsfKrglCLZcX5E=;
-  b=h41kCLV9lQ146h/AZ5tKzRUb/p1K8Mj8HgAGLpkuXP8Z/uSdhkfBIc0M
-   XqdtZS8ayNyDdTcpyr3s+RDypH8IxYwWfzQ0CBg92X6BSIyGCHwc9pF89
-   yUfMnPghSdqUn8RPPfZdFyXlAazXWLETkZooMdNq0fa4DcT5V/zX2iisi
-   wfyugg6KoIJny2Ais4WpUO9z7IwJLCQQGbq+t4WeW7f8lV9aB8/F6Rvf+
-   OEm5Hg8gC2vop+XuyJmlo+mjYeG51/aAJ2xsGlUyOX3HLI5RSmYe5EG65
-   I6shNEze35KnVAkhX1ECrKE5btf3KBaTTtd5LCpTRBrYNIi8k3wBlt2y+
-   A==;
-X-CSE-ConnectionGUID: p+ZZOib5RA6+t5dlw/E6kg==
-X-CSE-MsgGUID: t0/dMcODRcqMsnkUtNocoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="106149936"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="106149936"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:57:57 -0700
-X-CSE-ConnectionGUID: sv/VzFgBRW6bL6cH2M8gRQ==
-X-CSE-MsgGUID: XTbmVp9BR+KPVQmabhCLyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="274585986"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:57:54 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id AF53E1218BD;
-	Wed, 02 Sep 2026 09:57:50 +0300 (EEST)
-Date: Wed, 2 Sep 2026 09:57:50 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Zagursky <gvozdoder@gmail.com>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, stable@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: do not use the CVS device lookup for
- IVSC
-Message-ID: <apfI7m2oD-k5GOYN@kekkonen.localdomain>
-References: <20260901194526.6369-1-gvozdoder@gmail.com>
- <20260901195036.7648-1-gvozdoder@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="OmcJRcdR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BvA7yoonWupkJKzwfxfZkBfLnTzzk8h+aEVQRift9Fr4S3mPxUlIL05AQHcOBt0PEG50aQg3Qv9tv3zNK77DchJZ2s9QmyDFtL8oKLBmcVgoBf3kMfOv8HUKsM14Gb/qlIYLm+l3xbHpuURnAzpZisIpI3aJDdSDtCMAJNvuA/WYtPik109y1Jeu7p8wfZb52F834+H9ILeYUvcmiZoNDE7DiVbKaMHiM/RTk2b3zMEpOiXKmBOysXpNPIWIphtOhiHXd2r1xDBxsAcB7fy1rHf5aALy3cgaV/eCIPnKIRPI8VW6qDmBKeVguao4OmqNrH7p6XN+AuWO1IAbxKWhTA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vf6wwMPwlWMZrXz4ZL1yAc1mP8vVfrc88R5rHdNY7Gw=;
+ b=ypFYt2vj4ZFEzY9Ty8Omefdg5GAZ73go9PAYVmYltKhTw8/v2+YwPTcxabDcDFrg8vBhYYt9lF2LrgHeELXHJ78Sm6jeJ3FUEXBmIxHG6lnmlEuD1+Ldk5ID1TZPbN2EGAfGMG9gozfIuBWQYehryya8JkBDRi3VhwjHGJ7LmMmOZuABgXZ01brItYDYuBHVpBBFkx3P/LQUbXRq8IN78BkP9uRFAbCPt0Wa26dOveeRv2fIuqlCAjTamP6Zo8bGYkZFAQdBhIcscFWmJAuhyjpJf/IdvNuo6lQwYb8sCftyDe2uGuZ7f3I6+7gDnoV4HCAENGIy7l8U/dfuU12Z3g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vf6wwMPwlWMZrXz4ZL1yAc1mP8vVfrc88R5rHdNY7Gw=;
+ b=OmcJRcdRWHVQazFlOm7UnIS6afJ+ZFzA+sOHHGmiFp9X8fwjDRfTrJhMl/GHFzazInt+Cc82TSybVf8oIXDyLMxcaP6iwm55HFbs9+gjatXft2rvnvV8TE44x93TTzbvheeTPUAVLN1mQQnORnyMDzhi5q7JanNcI4kk7mK8jZg=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by IA0PR12MB8302.namprd12.prod.outlook.com (2603:10b6:208:40f::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
+ 2026 07:00:53 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
+ 07:00:53 +0000
+Message-ID: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+Date: Wed, 2 Sep 2026 09:00:46 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+To: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org
+Cc: alex@shazbot.org, ankita@nvidia.com, chriscli@google.com,
+ david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+ iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+ kevin.tian@intel.com, kpberry@google.com, leon@kernel.org,
+ linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+ linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+ sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
+ xuehaohu@google.com
+References: <20260901170849.4052816-1-dhu@x6u.co>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20260901170849.4052816-1-dhu@x6u.co>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: MN2PR22CA0018.namprd22.prod.outlook.com
+ (2603:10b6:208:238::23) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260901195036.7648-1-gvozdoder@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|IA0PR12MB8302:EE_
+X-MS-Office365-Filtering-Correlation-Id: 35a62942-64d2-4bd5-83d5-08df08bfedbf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|7416014|22082099003|18002099003|10067099003|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	5eQbdpSIvG4I0wIDrp1rmkseJwf9WsMl3IfAYONaNdY8uJcenJ5LfAC8paV66MlGTsaGGEX3PMtc4kc2lpBOQZbmBGGr7n9cl3s4RwvZEi0MyNNCxovTAKWJUojaP4SiY4l9rOjmJLsifP1o47uw1s7QfKxwqi5bw3R+4j4LibOdARtk1R1ihjdUmTgIOqX1ocEHAqfhhr60z2sJjehefsX7jr7QEHTjeE4F9Lm2mlEvSQluyQoUux6hdljKRx7Cn+GEK6lENOUHn/8XQ46Nwo7HPlBXQBzSkTbR9OcuJtaIwHHL5IlskJ6TIMug1a5JeEkAwW89vkFfwClRpujIz1LkQEEFz3EhfMwj3qAPX1gZlBeAOlzyXUczHgh1UCpysLr2Z7ZdStobxAGz78j5FYDpBZoVYg5bSRChR7CJtZwbRmDy9rIYoX/Wzn0Gpyg1MQO0KOXM6YEfPdV+vhepp+r0SLhN713E7BpfI4OQJDBL9yuPS//SFiEpYzPBCwHZuceAbyvLwah2hPT5KIBEtETaXEQAfm5YliFvh9bPgoflv7XbCsEtO3qDtEvuIASBlBNgBZ+hTMg18Q/ExWAHnVvgXxNxpAMfZt55QTGp9QBeVd6zgUprTYUt8ZPaptjnpyf8Ck7ShUANefNWslKExtTPmQujFM0ZF25ROQ1K3eo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(7416014)(22082099003)(18002099003)(10067099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?S1RpdzlwMjZzL2ovTFZyZk5SWkNNeng3NDN6R3ZSM2FDelg3eldqeEpuMFBs?=
+ =?utf-8?B?a29uOUNJeUkwUnQ2VDRielJKYlhoenFmTGxmVVRTd003eThSN05GenJnanpa?=
+ =?utf-8?B?aHZWVEFKclVWWlB4QUdYK1Q4clBwUFdNK2RwOG13UldJVVU1NDd4ZlRWOWll?=
+ =?utf-8?B?VG1FbmtzbG9jOU9qcDh2eGFJcGhFWnJFSUpMbXlIT29pSER5ZlgxMXJYZjJz?=
+ =?utf-8?B?bWZxMkowY2VYcVovblJOdlpSQm1sUHV6WVRzN2pKa1dxd3QwRjNwRlJxdTI1?=
+ =?utf-8?B?SlpBTUV2VlNoK1JPbVJBbTVXZ0U2SGJFM1F6MDZuZmg0MTZublhLVzllWSs2?=
+ =?utf-8?B?WHJsQW1zV3NKbDBLY2JrWTd5Mk1vam9CbWVpYW9sVmNaVjlwMWhUQUtETlZ4?=
+ =?utf-8?B?bDZ3bGc3djRjdmhTaFpMYkxXVUxORkd3L2dCbjZWNHpyUnVyUkREZUFGUUJs?=
+ =?utf-8?B?ckh3VkxUOTUza1FSRW5jUjlLWGhpR25jdG8wMVZTUkJCYjRMenVJb3NqV3FM?=
+ =?utf-8?B?KzRwWTdOMTB3ZjhNS1RHZjRaWGlhOFdEQkY4VnA0T0N3OVFackxuOS94MXhD?=
+ =?utf-8?B?d0pGTlJJcWMwMGxBcWVEcXp0L25Xekk1MjZwekxtOW02eWx5SmkvdStBUzQ3?=
+ =?utf-8?B?d1lvSVBYTG9Fak9VVkVHcE5TaHAzZzFleGNDdjZZbnNFeU05b3lITmdCYkk4?=
+ =?utf-8?B?ZzdZa2tJNi8zYmpqcUVsTmo5czRCcEZlNzdkS2QycFIrMUpFeE1YRTkvK3VL?=
+ =?utf-8?B?ZE5xeHY1VWVWR1FpNEw5azgxQi9zaTRveXJNLzNHRXdBQVBZcVVhbVRSN1Fl?=
+ =?utf-8?B?Y1JuRjVEQ1liWmx5cFRtUEZEcW03U3NZOXdNa1djRmNUbVg5WmVtVHBKSjh5?=
+ =?utf-8?B?RGxtUmo4WGlmaUxBRkgweUMwZnNuQnVYb1JwZVVzdDlzRzRnMGFkTUN2RUVE?=
+ =?utf-8?B?bnFDQnUvTjJNbEtwMHk2bkI0QkhORXl1N1dJUWJZby9zazNBb3VBMHdId2c3?=
+ =?utf-8?B?bzFOR2g1VTVMMnRZcmlUZzNraStzSFRPcXhCdnVkY3I2bXBmMGlPZ29Pck80?=
+ =?utf-8?B?T2NWV1hDOXIwVEx0ME5BMkRhbVVpTWdkZDhqSlgwWUlUYmxLU1lkN3Z1dk1H?=
+ =?utf-8?B?MDBONmpDblprdlcvWGpNSnNEUmtjYU1MZG5relVFRlJmcEpRVnFYZkIzNHdF?=
+ =?utf-8?B?TFNCOHRjRGluditLMWhuc1Blbzc5TjlsRW5sR1dQYlBscWlmN0loRzAreENx?=
+ =?utf-8?B?OGloUVBrUDhCWk5lMmdWcGFqeTBoNXV3Z0UvSWQ4YzhNYXZIUFJEVUR6eHpU?=
+ =?utf-8?B?RzdjNllka1YyM21FK0gzWWw4cVBrNmN6VFRKZ1BJcDkwekVJVWVWMndCY29a?=
+ =?utf-8?B?cVJyNTNrRzN1eStPU3VCOTFwMDJOYjVaWmUrdDdZMnBERE5BdEdERlBmSVQ3?=
+ =?utf-8?B?MmM3NmxscENFMkxFL0R0cHd0S0Z1TlRWVUd3VnNFbEdJNTA4dnB4ZFJ6MEtB?=
+ =?utf-8?B?bFJPU2lKbGo0bFJxcWQ5bzVtZVQ1VTNFdk8vVGtzdnlOYkZNbGpheXRVd0pL?=
+ =?utf-8?B?SExFeGF0QmEvYUZGSXV3ejhwdWZ3bmJsTVUvMW1hNkRwb1RaVUlpbmFvNzFQ?=
+ =?utf-8?B?eWl3SitjTW5pSjBVN1M3NUViTEhrNTBKeElabGRxUVFsVW5KMXJFNDlrS1Bk?=
+ =?utf-8?B?M1BQTjJYSVY4ODhsaFN2Tzd0eGpIYjFwajF4TDFtQ3pKVXhJdEFRdXY5Vk0w?=
+ =?utf-8?B?WWhzMVJETG1HNGMrZlJMU0xEaVlVMFVMRUZMdkRRazNZRUNhRW5mcEswdk5a?=
+ =?utf-8?B?OVBUTmpNbkloUFRrQ1Y0WUZEcnl2UGp4ZVRwMFpSekMwTGR1ck0zVWxpdU9q?=
+ =?utf-8?B?SFFPd2QvSkU2aWxBdXNVcEZBU3lmTTVXQ3dDUG9zd1pxTjJ0anhOR1dGZDNY?=
+ =?utf-8?B?NVJ4YTlXazlPVmNyMWxwQmluK1NvYktDMTRLUVpBenp6QzcrQS9BdDJSYm5Q?=
+ =?utf-8?B?RUVyOURCckx3OVlYMU0xQkZHcWhySUZTMTdkeXVGaHltTElaSmpEQThmUlU4?=
+ =?utf-8?B?bVg5cHkraVFMdlN4UXZYUDVIeThRL2tnMEMyQy84Y1BmZkpDMlNzQmxPS09m?=
+ =?utf-8?B?RDc1cEU3ZkZqRXBjQ2ZyZHAxTER4SUFhTFRFOEVlNmhmR1FIdko0RVNRY25i?=
+ =?utf-8?B?YXUyTnpuZmNFUmpwQkZwMHdmVUlwWUdvSU9URWZjL2ZZeUJ0amlZckNMcWR5?=
+ =?utf-8?B?bC9pZGQxRmh5RHRlSXJMakUzZ1QrRnZLQ1VBRWZZUVQ2Q2FWKy9kcXEzVGxw?=
+ =?utf-8?Q?n377lXyE8MSy7aIlWV?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 35a62942-64d2-4bd5-83d5-08df08bfedbf
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:00:53.3687
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r5Dm6Ery9wZ16ZM7HVDRgoGDidZOlHF/Vxwv70obn12Lcy2jDjBNGao9rKB3n2y9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8302
 
-Hi Sergey,
+On 9/1/26 19:08, David Hu wrote:
+> From: David Hu <xuehaohu@google.com>
+> 
+> This series address two related issues in scatter-gather mapping,
+> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> sgt mapping is correct, and proper for large MMIO regions.
+> 
+> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> phys vec to sgt)
+> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> 
+> Patch 2 Splits sgl by largest page aligned chunk
+> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
 
-On Tue, Sep 01, 2026 at 08:50:36PM +0100, Sergey Zagursky wrote:
-> Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-> bridge driver") the internal camera no longer works on laptops where the
-> sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-> INTC10CF, ov02c10):
-> 
->   intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
->   intel-ipu6 0000:00:05.0: Connected 1 cameras
->   ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
->       without device fwnode!
-> 
-> No sensor subdevice is registered, the media graph has no sensor entity
-> and userspace finds no camera at all.
-> 
-> ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
-> "intel_vsc" and returns its mei-csi child. That device is created by
-> mei_vsc, which on this machine only appears once the LJCA USB bridge and
-> its SPI controller have probed, about a second after the IPU6 probe that
-> runs the bridge:
-> 
->   07:59:29.297  platform INTC10CF:00 created (ACPI scan)
->   07:59:41      intel-ipu6 probe -> ipu_bridge_init()
->   07:59:42.391  platform intel_vsc created (mei_vsc)
-> 
-> The commit above added two fallbacks for CVS which match on the ACPI
-> companion alone. They are reached for every entry of ivsc_acpi_ids[],
-> IVSC IDs included. The IVSC ACPI device has two physical nodes:
-> 
->   INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
->   INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
-> 
-> so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
-> platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
-> software node to that device instead of to the mei-csi client, the bridge
-> reports success, and the probe is never retried. mei_csi later probes
-> without a fwnode, the CSI-2 link is never described, and the sensor ACPI
-> device, which has an honoured _DEP on the IVSC device, is never
-> enumerated.
-> 
-> Before those fallbacks existed the lookup returned NULL here, the bridge
-> failed with -ENODEV and the probe was retried once the IVSC device had
-> shown up.
-> 
-> Restrict the two fallbacks to the CVS IDs. CVS binds a driver to the ACPI
-> device itself, so matching on the companion is unambiguous there.
-> 
-> Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-> Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
-> Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5
-> Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
-> ---
-> Tested on the affected machine (Dell XPS 16 9640, IPU6 + IVSC + ov02c10) on
-> top of 7.2.2, where drivers/media/pci/intel/ipu-bridge.c is byte-identical
-> to v7.2. Without the patch libcamera finds no camera at all; with it:
-> 
->   $ cam -l
->   1: Internal front camera (\_SB_.PC00.LNK1)
-> 
->   $ cam -c1 --capture=5
->   202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
->   202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
-> 
-> The media graph gains the entities that were missing:
-> 
->   - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
->   - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
-> 
-> and the restored retry is visible in dmesg:
-> 
->   pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
->   intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
->   intel-ipu6 0000:00:05.0: Connected 1 cameras
-> 
-> "mei-csi probed without device fwnode!" is gone, ov02c10 binds to
-> i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
-> 
-> This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
-> change without the INTC10FA entry, which 7.2.x does not have. Building
-> drivers/media/pci/intel/ipu-bridge.c with W=1 produces no new warnings.
-> 
-> Not covered: I have no CVS hardware, so the CVS path is only reasoned
-> about, not tested, and I have not booted v7.3-rc1 itself.
-> 
-> This patch was produced with the help of an AI coding assistant; see the
-> Assisted-by tag above and Documentation/process/generated-content.rst. The
-> bug report this replies to describes what the tool did.
-> 
->  drivers/media/pci/intel/ipu-bridge.c | 20 ++++++++++++++++++++
->  1 file changed, 20 insertions(+)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 1bb3a3e98d6b..2c3b9efb0b2f 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -232,6 +232,15 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
->  	{ "INTC10FA" }, /* NVL */
->  };
->  
-> +/* The subset of ivsc_acpi_ids[] which are CVS, rather than IVSC, devices. */
-> +static const struct acpi_device_id cvs_acpi_ids[] = {
-> +	{ "INTC10DE" }, /* LNL */
-> +	{ "INTC10E0" }, /* ARL */
-> +	{ "INTC10E1" }, /* PTL */
-> +	{ "INTC10FA" }, /* NVL */
-> +	{ }
-> +};
-> +
->  static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
->  {
->  	unsigned int i;
-> @@ -283,6 +292,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
->  		return csi_dev;
->  	}
->  
-> +	/*
-> +	 * The lookups below match on the ACPI companion alone. That is fine for
-> +	 * CVS, which binds a driver to that very device, but not for IVSC: there
-> +	 * the ACPI device also has a driverless platform device, which would be
-> +	 * returned instead of the mei-csi client. Return NULL for IVSC so that
-> +	 * the caller fails and the probe is retried once the IVSC device shows
-> +	 * up.
-> +	 */
-> +	if (acpi_match_device_ids(adev, cvs_acpi_ids))
-> +		return NULL;
+*sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
 
-I can confirm there's indeed an issue here. But considering the list
-contains the CVS device HIDs, doesn't it mean you're returning NULL here
-for CVS, i.e. not for IVSC?
+I'm going to push those fixes to drm-misc-next now, but when there are more issues like that will mark the code as abandoned and not maintained.
 
-> +
->  	/* Try to locate CVS device on the I2C bus */
->  	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
->  	if (csi_dev)
-
--- 
 Regards,
+Christian.
 
-Sakari Ailus
+> 
+> Changes in v8:
+>  - Combined the two patches into one unified series to avoid merge
+>    conflicts.
+>  - Collected Reviewed-by tag from Leon Romanovsky for Patch 2.
+> 
+> David Hu (2):
+>   dma-buf: Fix silent overflow for phys vec to sgt
+>   dma-buf: Split sgl by largest page-aligned chunk
+> 
+>  drivers/dma-buf/dma-buf-mapping.c | 31 +++++++++++++++++++++----------
+>  1 file changed, 21 insertions(+), 10 deletions(-)
+> 
+> --
+> 2.55.0.897.gb25b4bd76c-goog
+> 
+
