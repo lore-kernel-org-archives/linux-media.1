@@ -1,63 +1,65 @@
-Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+Received: from mail-lj1-f176.google.com (mail-lj1-f176.google.com [209.85.208.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED3024156C6
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 10:27:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F39243F088
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 10:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788344873; cv=none; b=dKJQlw92Az8PZMXOVXj8yUzuNtDP8GRCKUaIWQzgjLfgMBT1YTqQHkDTx277cq/DX6iyrFb1+oXz+/Twsp91dPRc0w/aLqubh0dHXjYgkmzoLgxoqHJFPy7jvnibLttK2DEU9zhCwJqlHTrS5tSqWEAdtF/VPdraNlILOPNU8wI=
+	t=1788344873; cv=none; b=lZwtt+MAfshOJX8Tae+XRefjWuTEcAn1TOXfIRdem9W2h3ltPNVwVwAkxtUXiXa8HObpL4xTBO46iqyw0Tp6S10/cTGnIjQOeX+ZpM0/AfPXXV4Iljes8GUU2nCuYcOwiA0NF/TLK/ZgXaw+eNQDn5N8QwyYWHYSgaH8jit7TYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788344873; c=relaxed/simple;
-	bh=pPSd7gJsZOWjWGxxmlOEM5bAm98S7i9NipPWjEvlfxo=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To; b=FB3AYEHFgUPmHueorfTX0qBP1pLrCjgXJJXKszun90XsC/vUntjdfHz0y4MWbhibd0yS6WTRSChqfnTuPfuXHImKmDIJcq2LDoh2gUvkLhuy42Lm6T67QopGm386LxpdIE8UOwXJ5sA83515vcu3vrKuiVE/TPm0+du5HQs+4rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=U9paP2dy; arc=none smtp.client-ip=209.85.208.181
+	bh=8yGxgAW6MTnYw+RaeljUxIp18Gj64RmbQf+PJvEG+Ng=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To; b=r95lgn1FUwHBECgGPiXMYYtSXImodE9hclLKD/eH4e/6gntvsP4UdN+TmW69V/28tm93N4Upt1qp1WAytQlfM+mZAYGxzflzBguzXmrMs0dsegEw/ZGvRwhhxOeqaTNNH90JgojSctxBldzbVjzYWv0JXbq6oNEpPg4Qjh+Wd8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ngKupVfs; arc=none smtp.client-ip=209.85.208.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="U9paP2dy"
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a20dec69f9so7175981fa.3
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 03:27:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ngKupVfs"
+Received: by mail-lj1-f176.google.com with SMTP id 38308e7fff4ca-3a20f06cce6so8494721fa.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 03:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788344868; x=1788949668; darn=vger.kernel.org;
-        h=to:content-transfer-encoding:content-type:mime-version:message-id
-         :date:subject:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/5S0S6aLWOCzp/OlOe+pdAt4oNh8zITGsUNSrQLZiQQ=;
-        b=U9paP2dyja7yyuI4GTc76qSV6A3b7Z3Bf8zrlJLQyFvwZRF+Lkm7kPNGMHsXBBCwWc
-         w9ChNklT7K/a5RYf+1uEb+cuC8E+oNWL0nx4PixsGReXywpyoAEYzCX3IKc4U5Khn4Mo
-         M2/QER9bBtFZ+V7yZKMbZyUO2bptHpFvBi0F8=
+        d=chromium.org; s=google; t=1788344869; x=1788949669; darn=vger.kernel.org;
+        h=to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v1nCzi1zT/GmlzO8p5LsbwyL8JQR2Z796nsEcDW8jXI=;
+        b=ngKupVfss+yfumhOvi2nsutZE5q7kgBvXh1whRlpfFSoZLFOU8blrM4CwM049jIVhK
+         g37ayXYlX5YaqtHO4hfbQKsuBePVCxDgNaykA7xlBm93CxWBIB50yNCe7++ngxt+mNn8
+         JKdumOtj7RnncJTfh1Pzkx2uMkyOEZ204+E0o=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788344868; x=1788949668;
-        h=to:content-transfer-encoding:content-type:mime-version:message-id
-         :date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/5S0S6aLWOCzp/OlOe+pdAt4oNh8zITGsUNSrQLZiQQ=;
-        b=Moky45iNpdmqglhG2GxfKGLcvSMaItDTxxQqkk4ceDR+9uk+k5HABh4EozqVjATVvQ
-         RkGHMpPz1f6EZQNL5dCovlOcfHt0EG55ZETVEnHLUVL3ZNG8mjLM1z+KTn2Id3eShKIF
-         kcCVUdhj9G/sLPWFIcJO/oBNPT/z4ui7djP8DhiKDNbfWszTX89rhT6eyNrPN/W1Kh7p
-         510ZAUdOuSVSWiMfZkZpuOCy0QnZGXMnmPMcU8oD2CC+//NO23ebeDQEQdEWCSdj0+uy
-         pOABl7ARRUyB4P34SyYQHbwbdWEKYSq9lWbR4exQO3twiEWSRsPeFyhRYlHLrtN2lT0P
-         gxZg==
-X-Gm-Message-State: AFuF++lJqeSQX5pBxOAJ6AWF1ygYXR6wCT+8Syl0sF890PBe1n+Y0MHZ
-	gWPvgkXIWfi9fND7ume3Z5QOLelEzYam9qJNy8adaazxgw3Zxgod9ZKlvpjBdn3tTQ==
-X-Gm-Gg: AYBFou2vv0PH6UvDdiUmUthIJTNOtAv0a+nnGxSiz56qEgNAr9nEQ5TyI8DD3FoIQwG
-	CKJjs+o/Ve653n/BRF3Pe6zvxWAWq8RGXaD/jN5I1w/QsobIJf65+CWSVC4vshOZaCdhQwxZN5t
-	PznQwGY2efIpWFSyQHoMTTgGOnOYvXHcrit5I8k9MjWAmmCk+5lZDIJBAn6UzJdj8GjApETNB8Z
-	MijXy9O+X3jRrkz6cZBvzli2UdDQBxickQNoESZ/CxQnKoPrOHUKz9sjzaYTsSiWNBeg2yeLBt5
-	sLl9SfHgjGZUZaVLvufDGcaQpKqg8y0Jk8GhHDo1Bmy30Wpd5XKGWmMezGGD5AMXwzXYVp58RwV
-	JExH9DoYn+UxFHuVsMt3vE3WV9lG4tEXV5GFGRi/XySr6/epzqoeZ8xf3gOvUl0gKamzMsizuK3
-	IQeG4I2ev+FPe2djVaF6wi+3gm6rvREKPn0Q/jZhRz2xIPpo+SafY2W8XxzBzJ+7a/8js9j7UKi
-	mXrOeLTa1iJ299mw3ruvl+hG0FRCieIcpvpQtA=
-X-Received: by 2002:a2e:b894:0:b0:3a3:42cf:c035 with SMTP id 38308e7fff4ca-3a34ff9268bmr7476411fa.2.1788344868584;
-        Wed, 02 Sep 2026 03:27:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788344869; x=1788949669;
+        h=to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=v1nCzi1zT/GmlzO8p5LsbwyL8JQR2Z796nsEcDW8jXI=;
+        b=Q5eM97ItUrrHPOXuFPbnFeIBhMdb+/ncFde0py6IrM3thQOturzbjp6qkBYQPhWy7i
+         laahy+k5x1PIapGQSnkIDGc5ioVG/Zy9W+AKNnqqnVbQAgX/TeMNkWSjEQMCIJ795a8L
+         ThlVnubSF9N7Vh2YpyQAh0E2uimp5xAbKrkqaYdJwuayLiUR0K8e8tbZ0cx0476F8QZ4
+         7J6whQuKXPVlPfbOt6i7a9Ddx5C9AVOiKmtbbqO8Hkxkiq+N+jR7ct29nxzegBPkCvfs
+         0sNoBCV51d4/+CBZv0bsojT5qo5p/gnKm4OCW1bk5L+7+/RKLFXZbkLtblBGTTn84yv9
+         kI0w==
+X-Gm-Message-State: AFuF++lrUXebqq5kHVJPRCwDa26E2+yi7domi63hZ1sOTEUMjFBB1jvp
+	NUYIcZ3jd6bZs4WjWHBfnErx08otAM6St/MODXRlAgM4ywPCkfXdx6HqC0Pn3cfL9mfK5WopCnh
+	nfx/5Tw==
+X-Gm-Gg: AYBFou1TXUVsZisgmxWqd68a8B35lQbLgf/ohwb5kjcBasgq/snC78o63dngR7q9Wnb
+	2dShILDYU3k0D/NJO0y/7vyT+LASIKxcTQ/LF3tLc9f8jmvaiLQq3+zIkbt979PNqST8UrTtCWW
+	RAqaS8cJvl8TmZgY7RoOmnEO3NCMKjcifg1QkeqbCBoXFNJzMQcdWxLBHXlYcoSfWqmUMn4pphF
+	DZuTiQs27AMScqkHdTiYXLGhQlkZwm2iH/bWZnV3a1p+ymZT6wnDbF/5w2kBU3I4dnXO+Niaw5S
+	iPfcbAOl3OfpLHn2z5so6sa8uWpOOJUsv/IpcPVt8wE6F+pqL6oN1J6YrjDsLNCGubBcL7x7L8S
+	VgarZJbtSSY3dGCGCHf9yanYFvGK6wUN3ESk/Bq6luRH79dW0ROTBhGwi2nv1izYRu3stI89iUh
+	WeVWe8MkbYVtTyHGxLaM2cdCIu6t9o3Qd08oxFJanOwAh33Ip5aTvRPmSMTjyP8IQUiQ2M4O/M5
+	EToJsJpmIbpoijp1TIZG7MNYZgwzJR/5dUxMIA=
+X-Received: by 2002:a05:651c:2122:b0:3a3:2550:d76a with SMTP id 38308e7fff4ca-3a35555815fmr3794561fa.6.1788344869255;
+        Wed, 02 Sep 2026 03:27:49 -0700 (PDT)
 Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34a8f0ef9sm4910841fa.5.2026.09.02.03.27.47
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34a8f0ef9sm4910841fa.5.2026.09.02.03.27.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Wed, 02 Sep 2026 03:27:48 -0700 (PDT)
 From: Ricardo Ribalda <ribalda@chromium.org>
-Subject: [PATCH camorama 0/2] camorama: Handle properly ERROR buffers
-Date: Wed, 02 Sep 2026 10:27:39 +0000
-Message-Id: <20260902-contribute-v1-0-a45d6e93efd1@chromium.org>
+Date: Wed, 02 Sep 2026 10:27:40 +0000
+Subject: [PATCH camorama 1/2] v4l: Handle properly ERROR buffers
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -66,33 +68,160 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIABz6l2oC/x3MMQqEMBBG4avI1BuIQUS9ymIxib86hckycUUQ7
- 26w/Ir3LspQQaahukhxSJYUC+pPRWHluMDIVEzOutb21pmQ4q7i/zsMOt9OjM5xAyrBTzHL+c6
- +FHhLyhvTeN8PDGqniGYAAAA=
-X-Change-ID: 20260902-contribute-e8b6dae82a4e
+Message-Id: <20260902-contribute-v1-1-a45d6e93efd1@chromium.org>
+References: <20260902-contribute-v1-0-a45d6e93efd1@chromium.org>
+In-Reply-To: <20260902-contribute-v1-0-a45d6e93efd1@chromium.org>
 To: linux-media@vger.kernel.org, Hans Verkuil <hverkuil@kernel.org>, 
  Mauro Carvalho Chehab <mchehab@kernel.org>, 
  Ricardo Ribalda <ribalda@chromium.org>
 X-Mailer: b4 0.14.3
 
-And now that we are at it, add a missing CONTRIBUTE file.
+If a buffers is flagged as erroneus ignore that frame.
+
+Now that we are at it refactor a bit the code to remove code duplication
+for the usrptr and mmap implementation.
 
 Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
 ---
-Ricardo Ribalda (2):
-      v4l: Handle properly ERROR buffers
-      CONTRIBUTE: Add simple contribution instructions
+ src/v4l.c | 73 +++++++++++++++++----------------------------------------------
+ src/v4l.h |  3 +--
+ 2 files changed, 21 insertions(+), 55 deletions(-)
 
- .b4-config    |  3 +++
- CONTRIBUTE.md | 23 +++++++++++++++++++
- src/v4l.c     | 73 ++++++++++++++++-------------------------------------------
- src/v4l.h     |  3 +--
- 4 files changed, 47 insertions(+), 55 deletions(-)
----
-base-commit: 645f7b9072187a5d9a9de520e074dff3be3a2bb9
-change-id: 20260902-contribute-e8b6dae82a4e
+diff --git a/src/v4l.c b/src/v4l.c
+index aa706f9..48357cb 100644
+--- a/src/v4l.c
++++ b/src/v4l.c
+@@ -414,9 +414,9 @@ unsigned char *cam_read(cam_t *cam)
+ 		convert_to_rgb24(cam, cam->tmp);
+ 	}
+     } else if (cam->userptr) {
+-            capture_buffers_userptr(cam, cam->pic_buf);
++            capture_buffers(cam, cam->pic_buf, V4L2_MEMORY_USERPTR);
+     } else {
+-            capture_buffers(cam, cam->pic_buf, cam->bytesperline);
++            capture_buffers(cam, cam->pic_buf, V4L2_MEMORY_MMAP);
+     }
+     if (ret)
+         return NULL;
+@@ -1587,14 +1587,10 @@ void start_streaming_userptr(cam_t *cam)
+     }
+ }
+ 
+-void capture_buffers(cam_t *cam, unsigned char *outbuf, unsigned int len)
++static void deque_buffer(cam_t *cam, struct v4l2_buffer *buf, guint32 memory_type)
+ {
+-    char *msg;
+-    unsigned char *inbuf;
+     int r;
+-    unsigned int y;
+     fd_set fds;
+-    struct v4l2_buffer buf;
+     struct timeval tv;
+ 
+     do {
+@@ -1609,6 +1605,7 @@ void capture_buffers(cam_t *cam, unsigned char *outbuf, unsigned int len)
+     } while ((r == -1 && (errno == EINTR)));
+ 
+     if (r == -1) {
++        char *msg;
+         msg = g_strdup_printf(_("Timeout while waiting for frames (%s)"),
+                               cam->video_dev);
+         error_dialog(msg);
+@@ -1616,61 +1613,31 @@ void capture_buffers(cam_t *cam, unsigned char *outbuf, unsigned int len)
+         exit(0);
+     }
+ 
+-    memset(&buf, 0, sizeof(buf));
+-    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+-    buf.memory = V4L2_MEMORY_MMAP;
+-    cam_ioctl(cam, VIDIOC_DQBUF, &buf);
+-
+-    if (len > buf.bytesused)
+-        len = buf.bytesused;
++    memset(buf, 0, sizeof(*buf));
++    buf->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
++    buf->memory = memory_type;
++    cam_ioctl(cam, VIDIOC_DQBUF, buf);
+ 
+-    inbuf = cam->buffers[buf.index].start;
+-    if (cam->use_libv4l) {
+-	    for (y = 0; y < cam->height; y++) {
+-		memcpy(outbuf, inbuf, cam->width * cam->bpp / 8);
+-		outbuf += cam->width * cam->bpp / 8;
+-		inbuf += cam->bytesperline;
+-	    }
+-    } else {
+-	    convert_to_rgb24(cam, inbuf);
+-    }
++    return;
++}
+ 
+-    cam_ioctl(cam, VIDIOC_QBUF, &buf);
++static void deque_good_buffer(cam_t *cam, struct v4l2_buffer *buf, guint32 memory_type)
++{
++	while (TRUE) {
++		deque_buffer(cam, buf, memory_type);
++		if (!(buf->flags & V4L2_BUF_FLAG_ERROR))
++			break;
++		cam_ioctl(cam, VIDIOC_QBUF, &buf);
++	}
+ }
+ 
+-void capture_buffers_userptr(cam_t *cam, unsigned char *outbuf)
++void capture_buffers(cam_t *cam, unsigned char *outbuf, guint32 memory_type)
+ {
+-    char *msg;
+     unsigned char *inbuf;
+-    int r;
+     unsigned int y;
+-    fd_set fds;
+     struct v4l2_buffer buf;
+-    struct timeval tv;
+-
+-    do {
+-        FD_ZERO(&fds);
+-        FD_SET(cam->dev, &fds);
+-
+-        /* Timeout. */
+-        tv.tv_sec = 2;
+-        tv.tv_usec = 0;
+-
+-        r = select(cam->dev + 1, &fds, NULL, NULL, &tv);
+-    } while ((r == -1 && (errno == EINTR)));
+-
+-    if (r == -1) {
+-        msg = g_strdup_printf(_("Timeout while waiting for frames (%s)"),
+-                              cam->video_dev);
+-        error_dialog(msg);
+-        g_free(msg);
+-        exit(0);
+-    }
+ 
+-    memset(&buf, 0, sizeof(buf));
+-    buf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+-    buf.memory = V4L2_MEMORY_USERPTR;
+-    cam_ioctl(cam, VIDIOC_DQBUF, &buf);
++    deque_good_buffer(cam, &buf, memory_type);
+ 
+     inbuf = cam->buffers[buf.index].start;
+     if (cam->use_libv4l) {
+diff --git a/src/v4l.h b/src/v4l.h
+index cc69875..15ecd6c 100644
+--- a/src/v4l.h
++++ b/src/v4l.h
+@@ -167,10 +167,9 @@ void get_pic_info(cam_t *);
+ void get_win_info(cam_t *);
+ void get_supported_resolutions(cam_t *cam, gboolean all_supported);
+ void start_streaming(cam_t *cam);
+-void capture_buffers(cam_t *cam, unsigned char *outbuf, unsigned int len);
++void capture_buffers(cam_t *cam, unsigned char *outbuf, guint32 memory_type);
+ void stop_streaming(cam_t *cam);
+ void start_streaming_userptr(cam_t *cam);
+-void capture_buffers_userptr(cam_t *cam, unsigned char *outbuf);
+ void stop_streaming_userptr(cam_t *cam);
+ 
+ #endif                          /* !CAMORAMA_V4L_H */
 
-Best regards,
 -- 
-Ricardo Ribalda <ribalda@chromium.org>
+2.55.0.966.g6673acef38-goog
 
