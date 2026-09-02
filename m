@@ -1,127 +1,129 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6451476CD2
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:22:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2252D472533
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348172; cv=none; b=KYdakXCa71u57ITXOqTRT596h8qaN9bcKnCj7LXMQv/Ijy+HpfQIizNQUr/9nnzIaDG5h3QiBNtIjceyM5R3RnZ9CzHctkq++JCCGhbz3imh1loDvg525RLTApGl1Rk/jiZXrC3NC/QkNL5DKiV/G+jJV63cEvKa1oHeBXbOsuY=
+	t=1788348215; cv=none; b=OkfgIkDOaHkFo55hRxv/CN8zlvo0NPA+cJi/TCEiX/K9BhE3riJkhFV+0iSv7qQgSDE1ZjZHgNeYdENLB4fUFE/jO0l/cMvyiKRr2BZP0XUoeMZfI7uClz8wIurDQnAuj7yr5NQHfjNbzej0PESTEO1NkW1zaUJiPYVWGhVGVEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348172; c=relaxed/simple;
-	bh=t4YvdNfFdDmGiz+1vB8xdWVLlz5kJXbgA2rAszgLxdY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O7Rn05h7LibEn69x0NhJ4rnOgKSJOTvw8obtEov6GWRAe5BjIxV+VanA/8uKHdbT5VZD5+4zPbjnDzdJWA9iabSUK0YgDGyW+XzKUZ2wTVUOLr2TItDwsncLQooWZD5W0CgHBbPcUu4oi8FTbTu9kakf8gfdDSbNDFMBJbFHElw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dT8l0BZz; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788348215; c=relaxed/simple;
+	bh=JJUz4BeUAzr8UNyrwDSiEXr4rjtAi1f3qQAq9SfRIaM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SVgtMBuLKwxdxJtwvagLQf+7zgjnWvPtggM9LGFPgdRtoQhz0oHihPguHA9R+tQmi4AxwBSf8e/EXLuUgHKVBDNyAPaGDSPuPkxDHvs9+5qyYVpV76D7NpAil16IoPEqMygNmTiXJH3aPYoNGOxpMoxF/8DidCcSBKVRYjiBbls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CgyfmAWn; arc=none smtp.client-ip=198.175.65.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dT8l0BZz"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso963005b3a.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 04:22:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788348166; x=1788952966; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bG2pMm0qwXP8URwYF59N+uYdVu8xUiwyKW9MTQJcAuA=;
-        b=dT8l0BZzGNRRUC3/3LtLN9Xir3zTw3FFuh7iT0BXVA9KC0FTjc70+5S6JvvUXRSi5C
-         Be8bdplWV8282DZmoPlIcHT+MVVBW05PkeNyi1XIzgjaUsatD+B8qSKXBIUABQxcuOk3
-         wNmE1h5PUpSfpB+haBSgUbyJtA7e4zR+6Ant5/FBE7dg/8YrmgvF4iB2Giej9x20fUQk
-         HB+fimW4Zy5XIXQyFKydqUSJnZkZbSsGlqXYeTtJCt0yfkWxcSYYc8UDpxcKLcKlB/kJ
-         wfPEM3TG3b6xcmkGPentjOXEjdNE/oCjWZGo2wLpYAj4/JfgtQzQ4k0LH/aywZhv64OA
-         H33A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788348166; x=1788952966;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bG2pMm0qwXP8URwYF59N+uYdVu8xUiwyKW9MTQJcAuA=;
-        b=T1KsJkr2BpxNn08XHRED3SCHMDvVK3JdIpnEJMpdIGRFlJ783+hhPfQLgWsTjhQuZm
-         LrM22yxX1F1rK7iJ+sRqDBPYOHCPvvZR2zO+d4AwVglP8oEEYQWsdsXS1AR5Kh0PkHdL
-         qi2nTF11h9agpHneorB0V04/K4/IzzHZ8Dx3ApaHhf5E06wWHQBxAZ7YXbH40Yxms3IG
-         PqElEFZCXWF42KdUuv7axLnVUVOGg9N9qHlaiUJFeT3qH4IzFXhDNvbeBRD3A7aXOkHs
-         48e6RwZgteQqlICNSb14cdb6aN57C7uqRcynAp6kkZ0yKdSSz3BSqLXHhtFX6eIsJqsI
-         LqKA==
-X-Forwarded-Encrypted: i=1; AKwUvBwEFsiWapkLkr5CJ7CZEXeh17L0Is3J+/2HCAzLpYrGI8K5vRw/xrdDyHAmiQs1rZUMxoifVMIJma5Qpw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kO/UJmecaFsc/7BNlOn2cTh53NFwaW3Yq2elD4KiUBvQHIZNiA
-	/YHEU471D2HCQbdqau2f5Gry76Ip3M/IHG5ltYmfT4ydYHJuyzan4HcX
-X-Gm-Gg: AYBFou3iIkvtt8RSztmkVh9az8iLeIbTQxyd/hW28GqM2vZY7F4UqXfAbi3TcPWCnou
-	/fxyXB/NVg8WhAWcxgUUxnwdESfTCt8BxMTBQOEF8VOqjSerQFdDxt1xbEWtDXU8a0Dkg0Xt4A8
-	+abteNUaWeOCycFOXoC4urnm7zPNofcD8OTSj8lT2g3v2C5ppZPjSk85hVzzUVrB90cHqmP3TUA
-	kDm2IBsSRQjeh9uwZ/Bu+VCgyV1Gy8q22626mO8M2iGnP/21VGf0bIkPj4zgom8QIUl+GVEkCBT
-	9yndMWhLLn3mAwB3magaYERmMIFjl44tBbrS/HjnuTmNsvkftSz2en/T6rrXVINpxzSYs5e54fd
-	eCy2UNX2TLvOBQNmy7X9uG7p/Spusjzt1sc1yLvMWyfZ57NinSZq2stYddlAgEROzWQiq4ad3VI
-	BWzAXYl38gzlnNtsSxuR2NOk381sbWEUvIoz3cNBrpNcAj0sB4yhVBb5lFgmGAPPkJfHMaXQ==
-X-Received: by 2002:a05:6a00:178e:b0:84a:2b96:5986 with SMTP id d2e1a72fcca58-85f42e35709mr1863167b3a.8.1788348165513;
-        Wed, 02 Sep 2026 04:22:45 -0700 (PDT)
-Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11f8471sm1167571b3a.58.2026.09.02.04.22.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 04:22:45 -0700 (PDT)
-From: Kazuki Hanai <hnkz.64@gmail.com>
-To: Bin Liu <bin.liu@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: Kazuki Hanai <hnkz.64@gmail.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Xia Jiang <xia.jiang@mediatek.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: jpeg: Avoid context access after job finish
-Date: Wed,  2 Sep 2026 20:22:28 +0900
-Message-ID: <20260902112230.452176-1-hnkz.64@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CgyfmAWn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788348212; x=1819884212;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=JJUz4BeUAzr8UNyrwDSiEXr4rjtAi1f3qQAq9SfRIaM=;
+  b=CgyfmAWntZuN1e9p8zTEXpQDhdBT7QcVY+UzorzXLUXdyPld7dVnuK4x
+   4BtZKYoNK0opbl7NI7026uYG7kSed498amxpc34Phz18FLZpY0Z6+zceX
+   kK3japbL24I48XXq/K1NJG0dgN/iIatbN4lxIaQYTMP+eJi7RAhTc6IsU
+   I9J2F9PocYW2cZjEKhmK68fYXx+dLnv0bXSAJgC5uq5MZEaJ9ba9GiL4Z
+   Kx9mTZoF8rJoseFdHikS/Gz48DQOsPJy1KoWX+em8WH55BZesLmSh/gw5
+   UwsKZvQIstgUys5h0icxvKBW4ceTCmKc4x1Bi1OZuk0ggMiM8rN/CQoMz
+   A==;
+X-CSE-ConnectionGUID: RN+zqej4Ti6bLpTqpff/PA==
+X-CSE-MsgGUID: 62WFICUITK+0Nx36K9Q60A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99964902"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="99964902"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:23:29 -0700
+X-CSE-ConnectionGUID: DxkxAHPvQwO6xWNeCjXI2Q==
+X-CSE-MsgGUID: 9bghd57fQDCFZm3U19P7bA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="273554644"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:23:27 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id DA065120EB7;
+	Wed, 02 Sep 2026 14:23:23 +0300 (EEST)
+Date: Wed, 2 Sep 2026 14:23:23 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 04/29] media: v4l2-subdev: Allow releasing frame
+ descriptors on return
+Message-ID: <apgHK67IeGCl_wTT@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-5-sakari.ailus@linux.intel.com>
+ <CAD++jLm5FLD9DHzuThWZJRKi6_wj28_UUFqSbmpt1cO--tCyOA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLm5FLD9DHzuThWZJRKi6_wj28_UUFqSbmpt1cO--tCyOA@mail.gmail.com>
 
-v4l2_m2m_job_finish() publishes job completion and wakes waiters
-before it returns. A concurrent file release can therefore finish
-v4l2_m2m_ctx_release() and free the context while the single-core IRQ
-handler continues with its tail.
+Hej Linus,
 
-Both handlers only need the device for the matching runtime PM put.
-Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
-completion has been published. This preserves the get/put pairing and
-removes the post-completion context access.
+Tack för dina kommentarer!
 
-Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
-Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
----
- drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+On Mon, Aug 31, 2026 at 02:54:29PM +0200, Linus Walleij wrote:
+> Hi Sakari,
+> 
+> thanks for your patch!
 
-diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-index d147ec4830811..9010e7b1108fa 100644
---- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-+++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-@@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_jpeg_dev *jpeg)
- 	v4l2_m2m_buf_done(src_buf, buf_state);
- 	v4l2_m2m_buf_done(dst_buf, buf_state);
- 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
--	pm_runtime_put(ctx->jpeg->dev);
-+	pm_runtime_put(jpeg->dev);
- 	return IRQ_HANDLED;
- }
- 
-@@ -1855,7 +1855,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void *priv)
- 	v4l2_m2m_buf_done(src_buf, buf_state);
- 	v4l2_m2m_buf_done(dst_buf, buf_state);
- 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
--	pm_runtime_put(ctx->jpeg->dev);
-+	pm_runtime_put(jpeg->dev);
- 	return IRQ_HANDLED;
- }
- 
+Var så god!
+
+> 
+> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> 
+> > Use DEFINE_FREE() to allow using __free() to release frame descriptors
+> > using v4l2_subdev_free_frame_desc().
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> 
+> Clever with guards, I like it!
+> 
+> Should #include <linux/cleanup.h> be in this patch? I think I saw
+> it in some other patch, or was it there already?
+
+Hmm. It's there but added by the previous patch. I'll move it here.
+
+> 
+> 
+> > @@ -1798,6 +1798,11 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
+> >   * for each frame descriptor obtained by calling this function using
+> >   * v4l2_subdev_free_frame_desc().
+> >   *
+> > + * Use __free() to release the frame descriptor automatically::
+> > + *
+> > + *    struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
+> > + *            v4l2_subdev_get_frame_desc(sd, pad, desc);
+> 
+> the third argument to v4l2_subdev_get_frame_desc() from patch 3
+> is "type" , the desc is what you return right?
+
+Oops, indeed. I'll fix this for v4.
+
+> 
+> +/- these nitpicks (the code looks right):
+> Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Tack, tack!
+
 -- 
-2.53.0
+Med trevliga hälsningar,
+
+Sakari Ailus
