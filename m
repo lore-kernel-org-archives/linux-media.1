@@ -1,68 +1,64 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2252D472533
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DE447F2E0
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788348215; cv=none; b=OkfgIkDOaHkFo55hRxv/CN8zlvo0NPA+cJi/TCEiX/K9BhE3riJkhFV+0iSv7qQgSDE1ZjZHgNeYdENLB4fUFE/jO0l/cMvyiKRr2BZP0XUoeMZfI7uClz8wIurDQnAuj7yr5NQHfjNbzej0PESTEO1NkW1zaUJiPYVWGhVGVEk=
+	t=1788349725; cv=none; b=CjwyHEieGAUoEZAus3igZ+odUbxsg3mHcVV4WHQQZKJb6KSAykEtK2AwqcFwejhRMlViDfCdyHAji8VhtUufTlHsaQ2kMe4toPnaGL4ZL4DpB4l29vLZwmY9UEnxIuc4ANeDg0gmsQaaE0OI8BAOqC1wTt5THYv3K4f8JjXcbDE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788348215; c=relaxed/simple;
-	bh=JJUz4BeUAzr8UNyrwDSiEXr4rjtAi1f3qQAq9SfRIaM=;
+	s=arc-20240116; t=1788349725; c=relaxed/simple;
+	bh=J0CZmWuuC3lVFa4qkq3ON3DNS+wkoj/qswLx9oA1qs4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SVgtMBuLKwxdxJtwvagLQf+7zgjnWvPtggM9LGFPgdRtoQhz0oHihPguHA9R+tQmi4AxwBSf8e/EXLuUgHKVBDNyAPaGDSPuPkxDHvs9+5qyYVpV76D7NpAil16IoPEqMygNmTiXJH3aPYoNGOxpMoxF/8DidCcSBKVRYjiBbls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CgyfmAWn; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=OjEyiq8aHTnfqHFSNdBWyOUJhOd8G85gN3rncuuBk+qmPXw7TNans7+WPpuWdVspvemYfexyyJw3/A9ULA8fsBY8XdoUEy3PWIkRaaYW9xq9F6NW/UerEv7XTk6Wb3yWjjElGqCGSUAvlt7/GOLru+Fm8NszhkXZBVTTYfDCMGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=EFzeN7TJ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CgyfmAWn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788348212; x=1819884212;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=JJUz4BeUAzr8UNyrwDSiEXr4rjtAi1f3qQAq9SfRIaM=;
-  b=CgyfmAWntZuN1e9p8zTEXpQDhdBT7QcVY+UzorzXLUXdyPld7dVnuK4x
-   4BtZKYoNK0opbl7NI7026uYG7kSed498amxpc34Phz18FLZpY0Z6+zceX
-   kK3japbL24I48XXq/K1NJG0dgN/iIatbN4lxIaQYTMP+eJi7RAhTc6IsU
-   I9J2F9PocYW2cZjEKhmK68fYXx+dLnv0bXSAJgC5uq5MZEaJ9ba9GiL4Z
-   Kx9mTZoF8rJoseFdHikS/Gz48DQOsPJy1KoWX+em8WH55BZesLmSh/gw5
-   UwsKZvQIstgUys5h0icxvKBW4ceTCmKc4x1Bi1OZuk0ggMiM8rN/CQoMz
-   A==;
-X-CSE-ConnectionGUID: RN+zqej4Ti6bLpTqpff/PA==
-X-CSE-MsgGUID: 62WFICUITK+0Nx36K9Q60A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99964902"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="99964902"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:23:29 -0700
-X-CSE-ConnectionGUID: DxkxAHPvQwO6xWNeCjXI2Q==
-X-CSE-MsgGUID: 9bghd57fQDCFZm3U19P7bA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="273554644"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 04:23:27 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id DA065120EB7;
-	Wed, 02 Sep 2026 14:23:23 +0300 (EEST)
-Date: Wed, 2 Sep 2026 14:23:23 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="EFzeN7TJ"
+Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D05E218E9;
+	Wed,  2 Sep 2026 13:47:01 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788349622;
+	bh=J0CZmWuuC3lVFa4qkq3ON3DNS+wkoj/qswLx9oA1qs4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=EFzeN7TJvPfvHLwhJ6OhsrNz7fvzV2ZzjDUdB6PXh+WHlP9HE3NOLpAUYYqc9VKlo
+	 moyfc4w/luQ4pupYfgVj5S89haFF9Z4BY87J4zI/JdP5VNJYowsrPE8kSInCDsvvv1
+	 YV8w/QGEEC7hJTApNJBNWoDTa20Qn+aEmxX2kmzY=
+Date: Wed, 2 Sep 2026 14:48:31 +0300
+From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, hans@jjverkuil.nl,
+	Prabhakar <prabhakar.csengg@gmail.com>, Kate Hsuan <hpa@redhat.com>,
 	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Tommaso Merciai <tomm.merciai@gmail.com>,
+	Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Julien Massot <julien.massot@collabora.com>,
+	Naushir Patuck <naush@raspberrypi.com>,
+	"Yan, Dongcheng" <dongcheng.yan@intel.com>,
+	Stefan Klug <stefan.klug@ideasonboard.com>,
+	Mirela Rabulea <mirela.rabulea@nxp.com>,
+	=?utf-8?B?QW5kcsOp?= Apitzsch <git@apitzsch.eu>,
+	Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Ricardo Ribalda Delgado <ribalda@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
 	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
 	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	David Plowman <david.plowman@raspberrypi.com>,
+	"Yu, Ong Hock" <ong.hock.yu@intel.com>,
+	"Ng, Khai Wen" <khai.wen.ng@intel.com>,
 	Jai Luthra <jai.luthra@ideasonboard.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mattijs Korpershoek <mkorpershoek@kernel.org>
-Subject: Re: [PATCH v3 04/29] media: v4l2-subdev: Allow releasing frame
- descriptors on return
-Message-ID: <apgHK67IeGCl_wTT@kekkonen.localdomain>
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
- <20260824121451.3348583-5-sakari.ailus@linux.intel.com>
- <CAD++jLm5FLD9DHzuThWZJRKi6_wj28_UUFqSbmpt1cO--tCyOA@mail.gmail.com>
+	Rishikesh Donadkar <r-donadkar@ti.com>
+Subject: Re: [PATCH v7 14/14] media: v4l2-subdev: Add struct
+ v4l2_subdev_client_info pointer to pad ops
+Message-ID: <20260902114831.GA328588@killaraus.ideasonboard.com>
+References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
+ <20260807122409.45807-15-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,59 +67,71 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLm5FLD9DHzuThWZJRKi6_wj28_UUFqSbmpt1cO--tCyOA@mail.gmail.com>
+In-Reply-To: <20260807122409.45807-15-sakari.ailus@linux.intel.com>
 
-Hej Linus,
+Hi Sakari,
 
-Tack för dina kommentarer!
+Thank you for the patch.
 
-On Mon, Aug 31, 2026 at 02:54:29PM +0200, Linus Walleij wrote:
-> Hi Sakari,
+On Fri, Aug 07, 2026 at 03:24:09PM +0300, Sakari Ailus wrote:
+> Add a pointer to const struct v4l2_subdev_client_info to the get_fmt,
+> set_fmt, get_selection and set_selection sub-device pad ops. The client
+> info struct will soon be used to differentiate UAPI based on client
+> capabilities.
 > 
-> thanks for your patch!
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> Reviewed-by: Frank Li <Frank.Li@nxp.com>
+> ---
 
-Var så god!
+[snip]
 
-> 
-> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
-> <sakari.ailus@linux.intel.com> wrote:
-> 
-> > Use DEFINE_FREE() to allow using __free() to release frame descriptors
-> > using v4l2_subdev_free_frame_desc().
-> >
-> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-> 
-> Clever with guards, I like it!
-> 
-> Should #include <linux/cleanup.h> be in this patch? I think I saw
-> it in some other patch, or was it there already?
+First, a partial review to point out one specific issue in two drivers.
 
-Hmm. It's there but added by the previous patch. I'll move it here.
+> diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> index 0efbf43d2fe6..8413fd44d657 100644
+> --- a/drivers/media/i2c/imx678.c
+> +++ b/drivers/media/i2c/imx678.c
+> @@ -849,6 +849,7 @@ static int imx678_enum_frame_size(struct v4l2_subdev *sd,
+>  }
+>  
+>  static int imx678_get_selection(struct v4l2_subdev *sd,
+> +				const struct v4l2_subdev_client_info *ci,
+>  				struct v4l2_subdev_state *sd_state,
+>  				struct v4l2_subdev_selection *sel)
+>  {
+> @@ -1130,7 +1131,6 @@ static const struct v4l2_subdev_video_ops imx678_video_ops = {
+>  static const struct v4l2_subdev_pad_ops imx678_pad_ops = {
+>  	.enum_mbus_code = imx678_enum_mbus_code,
+>  	.get_fmt = v4l2_subdev_get_fmt,
+> -	.set_fmt = v4l2_subdev_get_fmt,
 
-> 
-> 
-> > @@ -1798,6 +1798,11 @@ int v4l2_subdev_get_frame_desc_passthrough(struct v4l2_subdev *sd,
-> >   * for each frame descriptor obtained by calling this function using
-> >   * v4l2_subdev_free_frame_desc().
-> >   *
-> > + * Use __free() to release the frame descriptor automatically::
-> > + *
-> > + *    struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_desc) =
-> > + *            v4l2_subdev_get_frame_desc(sd, pad, desc);
-> 
-> the third argument to v4l2_subdev_get_frame_desc() from patch 3
-> is "type" , the desc is what you return right?
+This belongs to patch 10/14.
 
-Oops, indeed. I'll fix this for v4.
+>  	.get_selection = imx678_get_selection,
+>  	.enum_frame_size = imx678_enum_frame_size,
+>  	.enable_streams = imx678_enable_streams,
 
-> 
-> +/- these nitpicks (the code looks right):
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
+[snip]
 
-Tack, tack!
+> diff --git a/drivers/media/i2c/ml86v7667.c b/drivers/media/i2c/ml86v7667.c
+> index 48b7d589df31..eda41a80d20c 100644
+> --- a/drivers/media/i2c/ml86v7667.c
+> +++ b/drivers/media/i2c/ml86v7667.c
+> @@ -298,7 +298,6 @@ static const struct v4l2_subdev_video_ops ml86v7667_subdev_video_ops = {
+>  static const struct v4l2_subdev_pad_ops ml86v7667_subdev_pad_ops = {
+>  	.enum_mbus_code = ml86v7667_enum_mbus_code,
+>  	.get_fmt = ml86v7667_fill_fmt,
+> -	.set_fmt = ml86v7667_fill_fmt,
+
+This too.
+
+>  	.get_mbus_config = ml86v7667_get_mbus_config,
+>  };
+>  
+
+[snip]
 
 -- 
-Med trevliga hälsningar,
+Regards,
 
-Sakari Ailus
+Laurent Pinchart
