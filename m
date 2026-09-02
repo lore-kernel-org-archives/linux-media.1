@@ -1,214 +1,144 @@
 Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D0D38AC9A
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 22:05:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E7C2399892
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 23:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788386710; cv=pass; b=M1gSoD83lQP0IqnJoI+CVusBE8/jHCr8tMB4CTZLzDhIWuIs1TGOxaigy7ReI/rxGHx/5yBX3h3PQKB1rjqz49Ds9OaQP3ptrO/ZrasmYDdZyDbMcjE4GHp1X4pFTtDlzmw/Hil2/teMMf7rACimuVBCxP0vqT5ZxJnQ08ZmGGg=
+	t=1788390484; cv=pass; b=a3Y4lNFZE3T7sNR2LqA2FJGaX1736faAOsn2bDVvXozn0qaTQb6R43ZwttliMY6jMzAYJ4JBJLLHwpjBY9PARBNKpJNBoukqObnMw9a56x4FA5um8cCFBHWreSSvLDy/qt4CrZnviHnpwBToErqB1rQMSE9eelUjLLw7xKZWRVI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788386710; c=relaxed/simple;
-	bh=vymcWxDasHrJLG/O7a7gPtgz4cGfHkYuhD0/Qct86Rk=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=d49NLKZ/PzWqL3T7IN4/EzxItzQAvCtkAylZ0XK9Oit5e38dbUb7OB0dB/sxW+iRBYKIP1b0yiTDAKJsvf8LNH1t6StUKOCG936VgcJoqjvk4WdUwACLAEX0nDgjh+cIAsynp/TaLHp/XXQL+De4FA80OQbm+TlgPPskCJgdgiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLq4jS3D; arc=pass smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788390484; c=relaxed/simple;
+	bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=d2ZzyPQR44WhaRkOLmjBhuhY+7YEirqbQEa+QNpPMCHSDBi2K32nS5MBRzAfIOKoBZGhVVf88Pkkh4QB5IZv3s8dNni5rAbSw/OlUNypb9LoYHcw0Khmm1KwwF0VIj10z7lVE2C4/u9YFNDA6Odg0jcEBdz6uRlAVLKCkuECEmY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co; spf=pass smtp.mailfrom=x6u.co; dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b=0oF+7oTZ; arc=pass smtp.client-ip=209.85.216.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=x6u.co
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=x6u.co
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLq4jS3D"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38511175ad3so1679794a91.2
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 15:05:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788386705; cv=none;
+	dkim=pass (2048-bit key) header.d=x6u.co header.i=@x6u.co header.b="0oF+7oTZ"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-3964dfb5b9aso2203279a91.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 16:08:02 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788390481; cv=none;
         d=google.com; s=arc-20260327;
-        b=XLpsvHsivLTpN0N2bhY1hKAAxAuU12QvNKxjJOaqIzzWCVVXfGa2ew0RiX8CdhatW2
-         KX/Sa4TrEgLP18aeaNi2GWfMiERBB9owf+84HJPJ5NUEGImz4ZiJR/oVDrU276rJK53y
-         2p5PN5gc8O+odXWf+zkWy7gIuvvIqCOGPwwT+alvSBJA+VE86m+8bYGGpxzv1QTAkkwR
-         YPj9ccAPu8A6fB6LWvFJFuzuW8rCupW3AZbCOoFZ5WOE6a6x6cPrHfDl6F7Djky7632n
-         5ceuqIAijJkclU/eh18ToU8JkeIwPMu2BAq+jC99IcfAwEHESTxZkhFYYYZWx8GgzSJB
-         IkCw==
+        b=gYsaRfSimnXY3ipz7pl+LWA/akUeOdO04DbGXq1NUUy4uAF/u4Y1jIsf74OGFS7ptn
+         6KFv+JeJUc/3liTQ7oTy6UAZBNtUihWxHg3csmPkJr3dP73+J5NdXm4MHD5ZN7+yf+/M
+         XfKx+mgoa8qIBiAlhtHrNf/oTZXbahnkAo5TPwOBFsWZVNBunVS6zrtr+Lxzjomqn6bM
+         uQWi4/DuS2baYZPT8+MNkGME85t8W3N62HzsHxlpgGChVcFbgwScRIQ9poYk8dY6nEKa
+         tjDVBGpgLEYCWGhKnd52Tr+ZIusrq5ftJyWYJ0BplZD/tIbq5g8meciELA1oIkXefR57
+         61kA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
-        fh=2WaS4yHX/5glEJUiGvs51j2/UmH8Sr7HcxAZpSc54dM=;
-        b=NO/TRkmMplnjohqavS13+jA+fOZ9oLufYCPTJKnKDoLdx8A1rQeysk+x7xQd+U947U
-         P5yBjLwxw0eaXO9TZV2qgC6Driper3KcTpJ5Io+x65P5a/N0eZR8qv3XzJnhaIflgkyC
-         WFprCPLa3s9e9SYhuqOLvnACoexXk7EvERPVw6hzmcO6RFlgtWAEEbQgLpoKomwxTTnj
-         86zf8CbSmd9oxqJlwcIo52GTHxZYvJ2NYbH6S6KsIvHr8Os+Wpr4LE9E8/CGNIvg83fK
-         NqViwLoqg0dsEbpp9iziCeQzHJpSFje5bMq01E3evvocNiNxCQBnEWBb31T1xg0KtLrh
-         Z8Ng==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
+        fh=ugTgxWVcntVJUwZzBOLyW8AUtpzONX3SGtYeWDPCXsU=;
+        b=bvAW7/fNPkTun74J+MX0JQk6Rkqe2lpDcmnaDLDZyrmTonFmMJKHH6uDr0IA005gB1
+         fyAQLNdxa4Swkn9mUxYdFotNShxow7mScYdcNeYGkKILPnQRXjm7AJjiyd5XDx4Kl+ql
+         5LwBmj5NCxWFtAKq8WgM/LvqMdnNvAeZbG2GZBPa5eHwJ/roIiUVUm9Lq9cB8G7rFSCH
+         BOtsShcJh/7bmtRLoFNJTYJsX6FBFQskjSaKGTFPd/J9x9nFszYJs5Mqy9nXUWJHBTWK
+         uuV8+UZEF/M9hnqzRAsT8c9JIm0v2WlkJqliNnKMKAqJsF1V6+oZN25m8CVQHSybOQMQ
+         4Zbw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788386705; x=1788991505; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
-        b=cLq4jS3DackRSRXf3Ad1J2bHCh7mPWFHfn6pJJ1YABozvEdObaWlHrvF8anQiO7S+I
-         4s8PebVrIfx4rK5vG4u/8+BSRQ2Du6VrW40+4Hf0AnGIA6+/8LPf+In3HNol4EOQWRsD
-         ByECQecteZ/jErCkuSvZ+w095MmzWjH1D19BrRr3ucq2/7u+y6zRKdhLcp7tAxuFTmM/
-         ny0MHQkR+5i1icWaaOuM+MsSLfaZRu1JdH1Ln/WBsMLK2iZRcV/Px6WXhsTzbr1RMzPL
-         OcesqeAtnlTCpYUsnyDsTlIk5wzvDgj53rQRmqdFaNb/wqqZHC/OD3LmbzM95LpBDqiu
-         INkg==
+        d=x6u.co; s=google; t=1788390481; x=1788995281; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
+        b=0oF+7oTZDJCEPJ5GxamqvPfAO34tnu0De+/xzfpPjLEoV6fqiQbBTDJNvklTqryXWz
+         4DUGZ9M4It8Hr5MLPcfGlofAv1uxt7W12KHGRuAl8wX8Pa5EEEaUv4VA9tavpBLeRXu7
+         LtueW1Jc617D0bc/p3XpQ0vSzEMTdXTT47OXuFFCgW1NoE4ATKQ0a2SaDx+stXMr9eJ1
+         gjtJXnpxVMUpjpuMxNteucXPuTjm37hzv62t/R54a+27K3WUxPFCURihaU+/mdUDKhAa
+         mRSr2owqyc4kWFBIBsgITWUTY+xT50RAWK2lezkbAUho6oUKm+nul+xFZGTQVQ4yA/C5
+         375g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788386705; x=1788991505;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
-        b=jpQhUTFDJ42I6fAfKt+IMSfQbC5t+jzM1fjUKXB6VwS4gMXGFcK7GFQND7I8YAyrNu
-         4b3ig2C5CX0CrQJwNDBSYQtxC6yme5rXLSCxO49DsTfB4QpSZtvEDKAOXUVuulIiUlFg
-         QqZ95M9vmvm0gp6xcifO8ce4GwRmR3EqN2B1OjgWO3hRWrW76Qyz66NRZPbBC4tvaRCk
-         6PNXNczrr5dA5pkwfBhgQClZW98KGtpn2hHDTEy60+/tWeHxWOENrY/0hj6dXvIXxWHZ
-         Jt51jAPnDGJ6ld33O0GAJf2j88AiOCN56oC8RA61OpdRDO19WJ9zjHOD+euaZ5QbFHbU
-         /NPg==
-X-Gm-Message-State: AFuF++m4eE3h1J6aGsbDHGlcC3+T8yE/6obg9rmCFhB+G9PVAVNG9Fyw
-	+bFuyZsknTzQZgNfVAX5TJ+l2PJWxcBV6WoSIk3zHzXlrWBNxx+tehnrLZ6P5UHE+WobJakuxe2
-	N/xjDBPagz9EFDVhnt9zI7sKi+E2C1SAiK3PNHo4=
-X-Gm-Gg: AYBFou1Jx/iZYtXmE0tJEz65iDersuc5QbWXdRZfLxt5hR+xmWCFn2ZO58O6Af4v5uj
-	dM61CCthMki58kefiMjR7OTZMO0c61XCfo8FvMQt95mLQBeWZFNKBY3DZWgzqM/vloqdqw7c/tN
-	GUjuQJa7KHLDVYliHlUQqI1ev4Lyh5zN5naXaVouI/nJfGKtgH/x8dqDJoGh5f5BdneYdjIyzfI
-	vROXqO3BGWBRCwncdK52zihnyKKRZKq5AF8s/EOlNr6jVa1c9bOPykztaS7yQg0swHHcRv8f99F
-	JVm662fAj+Cr12puAZH2DosItmxVwdjWnJj6dXMaoWCy4Q==
-X-Received: by 2002:a17:90b:3845:b0:38e:57a3:f218 with SMTP id
- 98e67ed59e1d1-39aee16ff3amr9495040a91.13.1788386704413; Wed, 02 Sep 2026
- 15:05:04 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788390481; x=1788995281;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=qTbmbR4TV31oKppyK1FzJBEXPWjFHR9x5HM244L3neo=;
+        b=B4XVheWkUTSKwT6DYna+Y7gorteb1t7J9vg2sOYJW6WOdLskyvSn8Mlr3k85d6n16P
+         E4aT7YWVvdj6NoXWQF8yREvUrJGbnGfkxKbRgRSQmrZ57jn3A/qKzHH1csZUXmzeDEvm
+         xlHhevUqatP0vjba7+HZyYy68mjPtV4qkVBw453jEISGyMD/DQaEqQUlxI8kqReb5xCL
+         U1uJKtC0FSgQcjZvs/JIApF3S6HAwVh48mn/Gb7DChe8olxJwd0XaC6oFRTST8Uat2fA
+         OLrUqpn3ZDzuNTKujqbesKDob9D75w6loZig42Jf9lr3zqRCumEcPJHadFHsZKxNZfAK
+         XyOg==
+X-Forwarded-Encrypted: i=1; AKwUvBzBXF/lMTSd8Tlsn+5y+92z8jkikUAgqQ9EYPzMBJIaYi6M9r1eVo1DHvR4xtbPuN7C9MVz5NkzFc3tHw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kt6TsZPst3kRUCJAIsbGDRfs1CCiMeVWFqSNFD+ctQXnYrNt3D
+	JnRTK+TcJfpQMOLGc6CSFg04vKMmZTvheV5vwripVq2qAhyOVhkuD8pgukPXt+RWW+u5h6qzFYY
+	oqMAEkVjoYET6wdxOeEuEq9WpGzWsEQgZfKetPZAbosw=
+X-Gm-Gg: AYBFou3yREvOrgFYmGvxtlpexqV1abe6+UA5mr8CnAV3kKx5cI/3Hk8EoDU3MzxTPyz
+	Loy1K9bU0b25EDkYKDAU8sRS7h2RYVaVea0v4c4HyghZQY4q0HZgnKOiokDjPa4Rg70chsqHpTp
+	8FH12/MATZKifg9yk72PB0J0dj5Af2pZZZuv715wj7T3MKCF5NHWCVqIhPARyd9Jhbedf3pTiUM
+	6jtToYQVuxNNcep/wypAZmoV/n/JFPd5cQ/n5Ul+digOHYjDPUdYyfx2/TYwPQ2UT5ql3lJuo94
+	MnsaftdeGOmlYQVBuZE+rTtQLajuMYLBPntCBqVGl8sIE7m8zyQj0rFy7YyLLqjl5yr1/4c0zA=
+	=
+X-Received: by 2002:a17:90b:3e8d:b0:396:4cbf:45bc with SMTP id
+ 98e67ed59e1d1-39aee153e79mr9644253a91.16.1788390481503; Wed, 02 Sep 2026
+ 16:08:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: Fredrik <whatbadgerseat@gmail.com>
-Date: Thu, 3 Sep 2026 00:04:53 +0200
-X-Gm-Features: AcwNN1VCdBhX6I9oZwhX6_beYo-1Kt3BLOCDqjj7Q1m7SgJrfLKqF69NYApB2-4
-Message-ID: <CAHqR8QJ=3RbOaaPcZxFr31VbsnVZ_u7Q37aiDs1R379w_gLvqA@mail.gmail.com>
-Subject: usb-ljca: bridge dead after hibernation (S4) resume, no software recovery
-To: linux-media@vger.kernel.org, linux-usb@vger.kernel.org
-Cc: hansg@kernel.org, sakari.ailus@linux.intel.com, bingbu.cao@intel.com, 
-	wentong.wu@intel.com
+References: <20260901170849.4052816-1-dhu@x6u.co> <20260901170849.4052816-3-dhu@x6u.co>
+ <20260902120832.GB2890729@ziepe.ca>
+In-Reply-To: <20260902120832.GB2890729@ziepe.ca>
+From: David Hu <dhu@x6u.co>
+Date: Wed, 2 Sep 2026 19:07:50 -0400
+X-Gm-Features: AcwNN1UWr9DtGOkBk_AsJGV3X93dnPOEvrR1ndZaMb2yMaRxX36LCdah5a513PI
+Message-ID: <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
+Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org, 
+	ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com, 
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jmoroni@google.com, 
+	kevin.tian@intel.com, kpberry@google.com, leon@kernel.org, 
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org, 
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com, 
+	sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com, 
+	xuehaohu@google.com, Leon Romanovsky <leonro@nvidia.com>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hardware:  Dell XPS 13 Plus 9315 (DMI "XPS 9315", board 0X696X), BIOS 1.39.0
-Kernel:    7.1.9 (Arch, ~current mainline)
-Chain:     USB LJCA bridge (usb_ljca, 8086:0b63, USB 3-4 on xHCI 0000:00:14.0)
-             -> ljca-gpio / ljca-i2c / ljca-spi
-             -> vsc-tp (SPI, spi-INTC1094:00 / ACPI INTC1094)  [reset
-GPIO from ljca-gpio]
-             -> mei_vsc -> ivsc_csi / ivsc_ace
-             -> ipu_bridge -> intel_ipu6 / intel_ipu6_isys
-             -> ov01a10 (I2C, OVTI01A0:00)
+On Wed, Sep 2, 2026 at 8:08=E2=80=AFAM Jason Gunthorpe <jgg@ziepe.ca> wrote=
+:
+>
+> On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
+> > From: David Hu <xuehaohu@google.com>
+> >
+> > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> > first entry, resulting in non-page-aligned DMA addresses for all
+> > subsequent entries.
+>
+> This patch is fine, but pedenatically a scatterlist's entry limit
+> should be bounded to dma_get_max_seg_size(), though I don't think it
+> helps this. Operating scatterlists at the size limits has proven
+> problematic in a number of places already...
+>
+> > In addition, a non-page-aligned sgl length will trigger an edge case
+> > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+> > buffers, we will have a `va` with lowest bit set to 1. That will lead
+> > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+> > to find best page size for the mapping on the NIC side.
+>
+> That's an IB side bug, the newer logic that joins adjacent SGLs should
+> have avoided it?
 
-Summary
--------
-At every cold boot the camera enumerates and works:
+Hi Jason,
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI01A0:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-  media graph: ov01a10 17-0036 -> Intel IVSC CSI -> Intel IPU6 CSI2 0
--> ISYS Capture
+Thank you for the review. I think you are right on both counts.
+Regarding the IB side, the new SGL joining logic in
+`ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |=3D va` is
+skipped for artifically split, contiguous SGLs. Since Christian has
+already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
+creating unnecessary noise on the list. If you prefer a followup,
+please let me know.
 
-After resume from hibernation (S4) the camera is gone and stays gone until a
-full power cycle. `cam -l` reports no cameras; the media graph has lost both
-the sensor and the IVSC entities. Plain s2idle suspend/resume is completely
-unaffected (many clean cycles) -- there LJCA keeps power.
+Thanks again for catching the IB logic detail!
 
-What resume looks like
-----------------------
-  usb usb1: root hub lost power or was reset
-  usb usb2: root hub lost power or was reset
-  usb usb3: root hub lost power or was reset
-  usb usb4: root hub lost power or was reset
-  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 0
-ret: -19  (-ENODEV)
-  vsc-tp spi-INTC1094:00: wakeup firmware failed ret: -110
-       (-ETIMEDOUT)
-  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 1 ret: -19
-  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 0 val: 0 ret: -19
-  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 0 val: 1 ret: -19
-  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 1 ret: -19
-  ivsc_csi intel_vsc-...: mei-csi probed without device fwnode!
-
-Note there is NO usb_ljca re-probe here. USB persist keeps the device bound
-across the root-hub power loss, so usb_ljca is never re-initialised -- but the
-LJCA microcontroller has silently lost its state, so every subsequent command
-over it fails -ENODEV. vsc-tp's reset/wake GPIO is provided by that gpiochip,
-so the VSC firmware handshake times out and the whole camera chain below it
-never comes back.
-
-If you force a re-probe (rmmod/modprobe usb_ljca, or unbind/bind the USB
-interface), the MCU proves unresponsive at the protocol level:
-
-  ljca 3-4:1.0: enumerate GPIO error
-  ljca 3-4:1.0: probe with driver ljca failed with error -110
-
-No software recovery
---------------------
-All of the following were tried after a broken resume. Every one leaves the
-camera dead:
-
-  - echo 0 > /sys/power/pm_async before hibernating (the workaround from
-    intel/ivsc-driver#32) -- verified on a clean boot with a working camera;
-    makes no difference
-
-  - echo 0 > /sys/bus/usb/devices/3-4/power/persist before hibernating.
-    This one behaves differently and is worth a close look. The device is now
-    properly disconnected on resume:
-
-      usb 3-4: USB disconnect, device number 3
-
-    and it *partially* re-enumerates. Afterwards:
-
-      - ljca-gpio.0, ljca-i2c.0 and ljca-i2c.1 aux devices are back
-      - ljca-spi.0 is NOT recreated
-      - the 3-4:1.0 interface shows driver=none (ljca not bound)
-      - ov01a10 re-binds, and the media graph looks complete again
-        (ov01a10 17-0036 -> Intel IVSC CSI -> Intel IPU6 CSI2 0)
-      - vsc-tp is left unbound (no SPI device to bind to)
-      - `cam -l` therefore *lists* the camera, but any capture blocks
-        indefinitely, and lsusb hangs on the device
-
-    So with persist enabled the failure is silent-but-honest (no camera), and
-    with it disabled the re-enumeration is incomplete in a way that leaves a
-    camera advertised but unusable. Either way the SPI path / vsc-tp never
-    comes back.
-  - rmmod + modprobe the whole stack (mei_vsc_hw mei_vsc ivsc_csi ivsc_ace
-    ov01a10 ipu_bridge intel_ipu6 intel_ipu6_isys), with and without usb_ljca
-  - USBDEVFS_RESET ioctl on the LJCA device (8086:0b63)
-  - unbind/bind the LJCA USB interface via /sys/bus/usb/drivers/usb
-  - unbind/bind the entire xHCI controller 0000:00:14.0 via
-    /sys/bus/pci/drivers/xhci_hcd
-
-Only reboot / poweroff brings the LJCA MCU back. The bridge firmware appears
-not to survive the S4 power transition, and nothing in the driver
-re-initialises or re-downloads it on resume.
-
-Questions for maintainers
--------------------------
-  - Should usb-ljca implement a resume handler that re-initialises the bridge
-    (or at least detects the dead MCU and forces a re-enumeration) rather than
-    relying on USB persist keeping a device that is no longer functional?
-  - Is USB persist even correct for this device across S4, given the MCU loses
-    state? (See the persist=0 experiment above -- it does force a
-    re-enumeration, but an incomplete one.) Is there a reset (ACPI, GPIO,
-    or port power cycle) that should be applied?
-  - Independently: ipu_bridge builds the CSI-2 fwnode graph once at intel_ipu6
-    probe and does not reconstruct it when the stack re-probes, so even if
-    LJCA recovered, ivsc_csi would come back "without device fwnode".
-    Should that graph setup be re-runnable?
-
-Happy to test patches and collect more (usb-ljca / mei dynamic debug,
-ftrace of the resume path, lsusb -v before and after, etc.).
-
-Prior reports I found while investigating, for reference:
-
-  - https://github.com/intel/ivsc-driver/issues/32 -- "i2c_ljca prevents
-    resume-from hibernate". Different symptom (whole machine freezes on
-    resume), still open, and that repo was archived in Nov 2024. Its
-    pm_async=0 workaround does not help the case above.
-  - https://bbs.archlinux.org/viewtopic.php?id=277462&p=4 -- Dell XPS 13
-    Plus 9320, same hardware family, same "camera fine, hibernate kills it,
-    s2idle fine" pattern. Never root-caused.
-
-I could not find this specific failure reported upstream; apologies if I
-missed an existing thread.
-
-Thanks, Fredrik
+Regards,
+David
