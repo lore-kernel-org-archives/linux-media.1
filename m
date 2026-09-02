@@ -1,168 +1,216 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013055.outbound.protection.outlook.com [40.107.201.55])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4800D4A4991;
-	Wed,  2 Sep 2026 15:41:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4F954AA1FD
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 16:14:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788363668; cv=fail; b=ACoakQgw1m5TN0ImK6SRn3y5iLvweAibmX9tgHPHuiPatElQaUgqcliJRPed9eoG+HqSbGCVMlVif75kgJuI7+N8T1hLk2CuS/ZKUIg2On2bDqflZzcBKn9TstGQRU7OOAoMue1MnatmS0sxh1YaoCVUaltBDqN8znbIWtWhRTA=
+	t=1788365650; cv=pass; b=mJWD4IStHOwWBE5RGdLAEC+4EgqQ5ru/c7gWm4EI7DSHIqT2gbmwBFByJ2PE2q2+igzKVtIMLObq6HR7GWclh181TziQEvlJs67JrBWFKooCTPv2IPMIEnr8TYjbRxvSBYlXxm1JfCZjkEIjnIU6O4sSmSFoLYFItTHuyIVDGN8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788363668; c=relaxed/simple;
-	bh=bV5xTTmSGXsbW06Hy9kMFXt7/4WLI253CH/Al5JosPI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hS5w/lR+fTIxRgVdnHr1APvH6EFUDH0FrKyRHGiSsB+pdk505ivPVHOx3ZhwvG3hwvr59d2RtFT7GNv80VC0EuHQtFyNFeGAbNopK1sHpZVdzc6pE11Z/VDkBf99VRpbNodSqon4thxy/YrRPvzWW3XkArUeF6H/aYFNpGurIzE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=O+IeND1u; arc=fail smtp.client-ip=40.107.201.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1788365650; c=relaxed/simple;
+	bh=NSKf3Rnraq+cWMw0aPUF95BKtdSq+8ZHXfee6LOqvO0=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=TiFABRudPr3ZA6OUzEfv48YQSGydd/iEJ6XAvEc9qJNvIXut5LwThZLJMN1Qbp7yvlMjAfCIAkVGanJNjtSPUT/rObZrU67mu8ChYxX2kfxQL4DForuKuwiBqcZxuL+f9eWZTqm1yWmUzkg9NWkRQUCxgJ+e7KQH3u6Pd8rRTT0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=denys.f@collabora.com header.b=V3vfqg4R; arc=pass smtp.client-ip=136.143.188.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="O+IeND1u"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EEswN6wPomwkY/NvvkOcYs+PcM0Yq85yQl/odL5pzAWJGAa3C9fuhO25q29IbxZpCt7rJ42sTlvxOLx1qGxDyn+O/rzgYoCSFmcoiLGBFflbJyENaiuUT2TREKfXtkOOJfsqgXHXl0Ksvho9R8xljBWd7iiQ4tCuJJ8mX0GyXbTtzA8T9xQKvgTX2MjOKrob/INB3IawJATf8A8CwDLLUD4tpwPYnyqd7+s1k25+4VnRd/Cz0HTAtTPaly9k1ZiAKmrwF7YA/i0tUcxAPk3DCA1uWlq5es4VuC23X1crkLawVsidRYo5OA+Bo3vmBOZLUi5dQkTYRkVVlGoELbNucA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=r6wpCA9dX938YZdy8QRB/UQGumJIsYxyjbuRZCtdTEs=;
- b=aSH5H6Mc9MFVCIsaGyQhYcpI9tyukXapux4RnELLSDq4lzlqsx0h6euDn6VdWdgiGbMIZ51KACVdrAsy3YiLrTwjfoJTmZd4hx5kQAj6bKhp+iwSS3W21WnhaviMBZZpYVkXOianbRxT7P/ccJYU97L0wqyz4lcVz1riRIfwZu9CFb65ae0xkoiHNZpYNC8wJ1Du+2rjsPaSkR8gM91KFqTBCd29k9PLVNFo/+1vHcTY/3C89Qz+J6dljJWWITjyaxtSYQ5hXoTfYC4B4pbuBgK8/csWyyAddKP2qQhWUEiKgXmhJqQtHQBzRVHWZ5lOQ6lzPS9IbSTB29JLzDNWmg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kaitmazov.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=r6wpCA9dX938YZdy8QRB/UQGumJIsYxyjbuRZCtdTEs=;
- b=O+IeND1uOxn2cLxsgo4MfQL+niuGahMjVIphJt/fQn16dFMMwmXdJgVh0fQTNXE0/iqH/HOgCU2pzDt9k8q/ZVsJ++/UtxfuFvYXB2xWwzLLgoZIT7FnuGUwivDJ+YlZEPvVenMaPFnTdpTsJrHzWjcD05NCIUCJvqSUt4FJYiE=
-Received: from CH0PR03CA0240.namprd03.prod.outlook.com (2603:10b6:610:e7::35)
- by PH0PR12MB7814.namprd12.prod.outlook.com (2603:10b6:510:288::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 15:39:33 +0000
-Received: from BL02EPF0001A104.namprd05.prod.outlook.com
- (2603:10b6:610:e7:cafe::50) by CH0PR03CA0240.outlook.office365.com
- (2603:10b6:610:e7::35) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.11 via Frontend Transport; Wed, 2
- Sep 2026 15:39:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
-Received: from satlexmb08.amd.com (165.204.84.17) by
- BL02EPF0001A104.mail.protection.outlook.com (10.167.241.135) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 15:39:32 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 10:39:31 -0500
-Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Wed, 2 Sep
- 2026 10:39:31 -0500
-Received: from [172.19.71.207] (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server id 15.2.2562.46 via Frontend
- Transport; Wed, 2 Sep 2026 10:39:30 -0500
-Message-ID: <96451784-b482-f029-3a2c-b9108aaec175@amd.com>
-Date: Wed, 2 Sep 2026 08:39:30 -0700
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=denys.f@collabora.com header.b="V3vfqg4R"
+ARC-Seal: i=1; a=rsa-sha256; t=1788365643; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=NCEs2OSDIkMixILnePJMoRGlDR7FgFFek8m194DOqqYuMoGofPzlkmJvC/qByEVB4TPnF2aSzHxkyVjVMsMLipdZmTHTbyHkmUK9UDv71x+qYgTESzSRdXDVPuvtdsWR9NK1zHTs+qRhA5DKyL4s37hfhcXAOJByD2LTzyS6gBc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1788365643; h=Content-Transfer-Encoding:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To:Cc; 
+	bh=VQGyMCvW5QvTyXbgQ2LxnrEatacqjQFZ6H1uMkS/GGQ=; 
+	b=D+6zqitFdd5iGtEMDQsdOXU9nYuX0am4pWSu/nzz3A5K5LFhDH1aUTh8I0AwSfXMeQ6LSiHLBsNrqunMJv9bYFJP8si+R5wGfCxXqd9QGYsJXwrPEktKQ03p9gjtO1BTFnq01PEEOiNaMiqy7FpeolXzmKb6dfVhMo3MDBU1x1U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=denys.f@collabora.com;
+	dmarc=pass header.from=<denys.f@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1788365643;
+	s=zohomail; d=collabora.com; i=denys.f@collabora.com;
+	h=From:From:To:To:Subject:Subject:Date:Date:Message-ID:MIME-Version:Content-Transfer-Encoding:Message-Id:Reply-To:Cc;
+	bh=VQGyMCvW5QvTyXbgQ2LxnrEatacqjQFZ6H1uMkS/GGQ=;
+	b=V3vfqg4RuHP/PQlP1pgEqoUV4tcUKucTLE9/ceOHcCznJgGgTU2prsYkTOTREvEC
+	GVdczGpQZ7FeXJvg2yZwJ9k+qkpu93uQn8kaAzw2SPDgwEBspUet9c6EJi8RfVoMfkX
+	8L9VrotcyegvQbvXAAlq7El+rkePyGWuvEf6tuWQ=
+Received: by mx.zohomail.com with SMTPS id 1788365640769727.9976470591408;
+	Wed, 2 Sep 2026 09:14:00 -0700 (PDT)
+From: Denys Fedoryshchenko <denys.f@collabora.com>
+To: linux-media@vger.kernel.org
+Subject: [PATCH] v4l-utils: add missing <cstdlib> includes
+Date: Wed,  2 Sep 2026 19:13:26 +0300
+Message-ID: <20260902161325.2122745-2-denys.f@collabora.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-Subject: Re: [PATCH v5 4/5] accel/amdxdna: refuse to flush an imported BO
-Content-Language: en-US
-To: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>, Min Ma <mamin506@gmail.com>,
-	Oded Gabbay <ogabbay@kernel.org>
-CC: =?UTF-8?Q?Christian_K=c3=b6nig?= <christian.koenig@amd.com>, Sumit Semwal
-	<sumit.semwal@linaro.org>, Alex Deucher <alexdeucher@gmail.com>, Max Zhen
-	<max.zhen@amd.com>, Sonal Santan <sonal.santan@amd.com>,
-	<dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <linaro-mm-sig@lists.linaro.org>
-References: <20260819224458.257346-1-taimuraz@kaitmazov.com>
- <20260819224458.257346-5-taimuraz@kaitmazov.com>
-From: Lizhi Hou <lizhi.hou@amd.com>
-In-Reply-To: <20260819224458.257346-5-taimuraz@kaitmazov.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL02EPF0001A104:EE_|PH0PR12MB7814:EE_
-X-MS-Office365-Filtering-Correlation-Id: 048c65eb-5e43-43d1-7cb0-08df0908624c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
- BCL:0;ARA:13230040|23010399003|36860700016|82310400026|376014|1800799024|10067099003|56012099006|4143699003|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
- CxU17BcpOg7+h4qIzW8TgKMEJ0TS4fsOANVmkqKMfbLdibvu8JKVHJiLC6pzDyCzNd/o5PnT6MojBFjXLx6z0wO6A37+lbpO4/y+1oDgFzaz4XRoka3jR/WYF600UhvWRD1Z7ZhDrjJedUIrp4Bkj5svfOHVWCQMSzr3tu43E3b2q0dL8WM7qFiuldPyXVB6QlqRGVUJKYXoAH0LumkK9VrhZpoYVo2/i82Hv5xn8zKF6kHPwyefSnldLGYx0xoqiPNFjiodHcucui2628VsOYr9m+3tjGaT6OoUtkyiGx47YMDKT4gaeZAED+eV15+7Z/9vsAWB40bzBiR7lA4MqQGcHwXeLnV+gtlbxKUT9+27x8bHyqonq6Rsg29JPYdvdVBIew2+PgJcm/7huN825h4K05/F+qyfAJQySwBOJAaV1g3n7SQ61L1B0Q5QjWiYi+zFCpxTckzjiuZ9SV4ouFnjefe5Hg/KnVvJ//exJVGikMpLKjrCYVGzg3TPPMEJxoqGj6bOriDz1vvYggnV0T+RS8bTFMpRp2T4RuNyZ+3dE0NM0swLR6U0zTAagyMwC+xh7f8WAxFqa5dlFI/QaYpVwM4o/0LqOYhkaY5N8YdIZWA8zKuzsvcJEZSwHg76p6mimYqFAgchu2SbxVMSIgx0MigBP03GGWjKOhLS+SQLEqqg3Zrrfkgrs0iU8s/Lqg7fefOTjeVtfvIC2ee9BA==
-X-Forefront-Antispam-Report:
- CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(376014)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
- mVyGOSgo8XajDAhpN1RXdFCEZF9DxFCSrSQxKBvMGhQVlHKtDtqdSKia20qO6zgr/wVbxkyRGtBl1uLXULL8n7WKsGuFV2HksmEh5wJCZIlEQATwHurd169JGNJRp5qgQtdXC5AkH5C+ssdVH8Pkn3XVud4u+1Z13usKjjrQpR2YyA8ngoMgKjrHnhVuPIZCgokJPHbCtOJQ2safEOr8lWcXQT+QM6Tq0Ks6bgeUt3p0lX7t9F1sgsl5B9GezIbQJ/ekptcL9GktISGarfVzIjEJvmGR6FtY/Yms4HsOQi6Wk2+DNHFzDGsHQM+GSBdhRq0XVMuz567cFVVEVwaoE1rubtWb4VeqZVYZb20pc8UGX6ww21Os1/FMUmBTzHlfbdlyUWr1ndOhgR+8Jb2UIY9ij5QLsPFmOQqL6be7FxY8ohIBlw8yoB2lmb2xDUfj
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 15:39:32.3009
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 048c65eb-5e43-43d1-7cb0-08df0908624c
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
- BL02EPF0001A104.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7814
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 
-Applied this to drm-misc-fixes.
+Several utilities call std::exit() but include only <stdlib.h>, or no
+standard library header at all. This relies on transitive includes to make
+std::exit() available.
 
-On 8/19/26 15:44, Taimuraz Kaitmazov wrote:
-> SYNC_BO clflushes an imported BO's scatterlist. An importer may not do
-> that: the memory belongs to the exporter, and dma-buf gives the importer
-> no interface to ask for maintenance on it. Refuse the request instead.
->
-> is_import_bo() is (obj)->attach, which covers more than foreign buffers.
-> A userptr BO arrives through a ubuf, and on a carveout device every share
-> BO and the device heap arrive through a cbuf, so SYNC_BO answers
-> -EOPNOTSUPP for those too, including the AMDXDNA_BO_DEV path that flushes
-> through its heap.
->
-> Only the ubuf case gives up maintenance it was getting: on a 64 MiB
-> userptr BO a 4 KiB sync and a full sync both cost 659 us, this arm having
-> ignored the range. amdxdna_cbuf_map() fills in only the DMA address and
-> length, so drm_clflush_sg() already walks zero pages on carveout memory.
-> Userspace maintains these through the mapping it already holds, as XRT's
-> buffer::sync() does unless it is told to sync through the driver.
->
-> Suggested-by: Lizhi Hou <lizhi.hou@amd.com>
-> Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-> Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-> ---
->   drivers/accel/amdxdna/amdxdna_gem.c | 7 ++++---
->   1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/accel/amdxdna/amdxdna_gem.c b/drivers/accel/amdxdna/amdxdna_gem.c
-> index 0e0f844526ca..4be5298d1062 100644
-> --- a/drivers/accel/amdxdna/amdxdna_gem.c
-> +++ b/drivers/accel/amdxdna/amdxdna_gem.c
-> @@ -1224,6 +1224,9 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
->   {
->   	u64 end;
->   
-> +	if (is_import_bo(abo))
-> +		return -EOPNOTSUPP;
-> +
->   	if (offset >= abo->mem.size)
->   		return -EINVAL;
->   
-> @@ -1234,9 +1237,7 @@ static int amdxdna_flush_bo(struct amdxdna_gem_obj *abo, u64 offset, u64 size)
->   	if (!size)
->   		return 0;
->   
-> -	if (is_import_bo(abo))
-> -		drm_clflush_sg(abo->base.sgt);
-> -	else if (amdxdna_gem_vmap(abo))
-> +	if (amdxdna_gem_vmap(abo))
->   		drm_clflush_virt_range(amdxdna_gem_vmap(abo) + offset, size);
->   	else if (abo->base.pages)
->   		drm_clflush_pages(abo->base.pages, abo->mem.size >> PAGE_SHIFT);
+The issue can be reproduced with libc++ by configuring with:
+
+  CXX=clang++ \
+    CXXFLAGS="-stdlib=libc++ -D_LIBCPP_REMOVE_TRANSITIVE_INCLUDES=1" \
+    meson setup build
+  ninja -C build
+
+Include <cstdlib> for std::exit(). cec-test-fuzzing.cpp calls random() and
+cec-tuner.cpp calls abs() unqualified, so include <stdlib.h> there.
+
+Signed-off-by: Denys Fedoryshchenko <denys.f@collabora.com>
+---
+ utils/cec-compliance/cec-compliance.h     | 1 +
+ utils/cec-compliance/cec-test-fuzzing.cpp | 1 +
+ utils/cec-ctl/cec-ctl.cpp                 | 1 +
+ utils/cec-follower/cec-tuner.cpp          | 1 +
+ utils/common/cv4l-helpers.h               | 1 +
+ utils/edid-decode/calc-ovt.cpp            | 1 +
+ utils/edid-decode/edid-decode.cpp         | 1 +
+ utils/rds-ctl/rds-ctl.cpp                 | 1 +
+ utils/v4l2-compliance/v4l2-compliance.h   | 1 +
+ utils/v4l2-ctl/v4l2-ctl.h                 | 1 +
+ utils/v4l2-dbg/v4l2-dbg.cpp               | 1 +
+ 11 files changed, 11 insertions(+)
+
+diff --git a/utils/cec-compliance/cec-compliance.h b/utils/cec-compliance/cec-compliance.h
+index 8cb316f..93606b2 100644
+--- a/utils/cec-compliance/cec-compliance.h
++++ b/utils/cec-compliance/cec-compliance.h
+@@ -13,6 +13,7 @@
+ 
+ #include <cec-info.h>
+ 
++#include <cstdlib>
+ #include <vector>
+ 
+ #define TAG_AUDIO_RATE_CONTROL		1
+diff --git a/utils/cec-compliance/cec-test-fuzzing.cpp b/utils/cec-compliance/cec-test-fuzzing.cpp
+index 0fe1d5a..0f550d4 100644
+--- a/utils/cec-compliance/cec-test-fuzzing.cpp
++++ b/utils/cec-compliance/cec-test-fuzzing.cpp
+@@ -9,6 +9,7 @@
+ #include <sys/ioctl.h>
+ 
+ #include "cec-compliance.h"
++#include <stdlib.h>
+ 
+ int testFuzzing(struct node &node, unsigned me, unsigned la)
+ {
+diff --git a/utils/cec-ctl/cec-ctl.cpp b/utils/cec-ctl/cec-ctl.cpp
+index 5638ca8..8209466 100644
+--- a/utils/cec-ctl/cec-ctl.cpp
++++ b/utils/cec-ctl/cec-ctl.cpp
+@@ -27,6 +27,7 @@
+ 
+ #include "cec-ctl.h"
+ #include "compiler.h"
++#include <cstdlib>
+ 
+ static struct timespec start_monotonic;
+ static struct timeval start_timeofday;
+diff --git a/utils/cec-follower/cec-tuner.cpp b/utils/cec-follower/cec-tuner.cpp
+index a2cb6ca..b0a8870 100644
+--- a/utils/cec-follower/cec-tuner.cpp
++++ b/utils/cec-follower/cec-tuner.cpp
+@@ -10,6 +10,7 @@
+ 
+ #include "cec-follower.h"
+ #include "compiler.h"
++#include <stdlib.h>
+ 
+ #define NUM_ANALOG_FREQS 3
+ #define NUM_DIGITAL_CHANS 3
+diff --git a/utils/common/cv4l-helpers.h b/utils/common/cv4l-helpers.h
+index ab9c64b..ba47e26 100644
+--- a/utils/common/cv4l-helpers.h
++++ b/utils/common/cv4l-helpers.h
+@@ -9,6 +9,7 @@
+ #ifndef _CV4L_HELPERS_H_
+ #define _CV4L_HELPERS_H_
+ 
++#include <cstdlib>
+ #include <limits.h>
+ #include <v4l-helpers.h>
+ 
+diff --git a/utils/edid-decode/calc-ovt.cpp b/utils/edid-decode/calc-ovt.cpp
+index 91472d8..2528ac9 100644
+--- a/utils/edid-decode/calc-ovt.cpp
++++ b/utils/edid-decode/calc-ovt.cpp
+@@ -12,6 +12,7 @@
+ #include <numeric>
+ 
+ #include "edid-decode.h"
++#include <cstdlib>
+ 
+ #define MinVblankDuration 460
+ #define MinVblankLines 20
+diff --git a/utils/edid-decode/edid-decode.cpp b/utils/edid-decode/edid-decode.cpp
+index 4505cf3..ca2e8dc 100644
+--- a/utils/edid-decode/edid-decode.cpp
++++ b/utils/edid-decode/edid-decode.cpp
+@@ -17,6 +17,7 @@
+ #include <unistd.h>
+ 
+ #include "edid-decode.h"
++#include <cstdlib>
+ 
+ #define STR(x) #x
+ #define STRING(x) STR(x)
+diff --git a/utils/rds-ctl/rds-ctl.cpp b/utils/rds-ctl/rds-ctl.cpp
+index bff9d04..de4ac69 100644
+--- a/utils/rds-ctl/rds-ctl.cpp
++++ b/utils/rds-ctl/rds-ctl.cpp
+@@ -28,6 +28,7 @@
+ #include <v4l2-info.h>
+ #include <libv4l2rds.h>
+ #include <v4l-getsubopt.h>
++#include <cstdlib>
+ 
+ using dev_vec = std::vector<std::string>;
+ using dev_map = std::map<std::string, std::string>;
+diff --git a/utils/v4l2-compliance/v4l2-compliance.h b/utils/v4l2-compliance/v4l2-compliance.h
+index b43c581..7ca4744 100644
+--- a/utils/v4l2-compliance/v4l2-compliance.h
++++ b/utils/v4l2-compliance/v4l2-compliance.h
+@@ -25,6 +25,7 @@
+ #include <set>
+ #include <string>
+ #include <cstdint>
++#include <cstdlib>
+ 
+ #include <linux/videodev2.h>
+ #include <linux/v4l2-subdev.h>
+diff --git a/utils/v4l2-ctl/v4l2-ctl.h b/utils/v4l2-ctl/v4l2-ctl.h
+index ae6f43f..c4d955d 100644
+--- a/utils/v4l2-ctl/v4l2-ctl.h
++++ b/utils/v4l2-ctl/v4l2-ctl.h
+@@ -4,6 +4,7 @@
+ #include <cstdint>
+ #include <linux/videodev2.h>
+ #include <linux/v4l2-subdev.h>
++#include <cstdlib>
+ #include <stdlib.h>
+ #include <v4l-getsubopt.h>
+ 
+diff --git a/utils/v4l2-dbg/v4l2-dbg.cpp b/utils/v4l2-dbg/v4l2-dbg.cpp
+index 6c8fa69..5c92bfb 100644
+--- a/utils/v4l2-dbg/v4l2-dbg.cpp
++++ b/utils/v4l2-dbg/v4l2-dbg.cpp
+@@ -42,6 +42,7 @@
+ #include "v4l2-dbg-ac97.h"
+ #include "v4l2-dbg-tvp5150.h"
+ #include "v4l2-dbg-micron.h"
++#include <cstdlib>
+ 
+ struct board_list {
+ 	const char *name;
+-- 
+2.53.0
+
