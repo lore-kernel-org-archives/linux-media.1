@@ -1,174 +1,82 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4A63803C3;
-	Wed,  2 Sep 2026 07:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3709635CB6F;
+	Wed,  2 Sep 2026 07:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788334042; cv=none; b=rEwvO4k+A+b+WH05mTfOgBubMwF9/2cJ+ShLay6vK1jDlg0cM9ot9u89LqSrkfC3zABXDeeWVspLsMQm5STQSu4nGjDDqtUlvfpscW69+1W7yIHOO5a363PbOOWcIwtYSo0TveuUmbiQJHC6qrdbcmYNuySiCJGee/mRm+dj8jc=
+	t=1788334782; cv=none; b=ZTI/AIYRRiKs2BKjudEV11FGo7iWtrCo8UFX/IQfK9kXMn9Ylx1aRTfOWBzlG5D6C5ZMCa6PgyOuU2NeDjC8YCxAgGg2UB8+cbcXN4diBlX3xmE61GF1V5APBwzv9sVhAJtdOG8ruCvD4Nv66sKsm72u6ZBEdpiN90agtVkQ6oc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788334042; c=relaxed/simple;
-	bh=0PePt6DHJxr/ZP2ZqbDDTpxOUJ+/a6mMlVgWOd7WjZo=;
+	s=arc-20240116; t=1788334782; c=relaxed/simple;
+	bh=sI2I4okyxDQ1HgkFwksdivRgzckLgjuRUcbgD8P11/0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UvGSL/5ZXirWG51PKBLlO+A2hJOSbT8p5lXrVcn2sIDAgHp16Db2sNjnezHn1RRsZcX+C564O9OdEpCjbHmdNPiDqtx6HF/upxlq97dDvLOwYypV1QoO2HbnlTKWi2UDu1DerWXDEFJmSgJ59hu6RY+BOrxJT6GrIYxbmxux/Uk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QcdmdXqE; arc=none smtp.client-ip=198.175.65.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jgSIEqMseg/1YbbRZy5nhUqVUGovLDYFDbSsHcZSuo+uGd0hfXMTajit46J5GhGRde4gSrrIQTiiKVxDIy8ckg57SOb19k6e85rLwlRcMxSpj8VRGQWmGmdbVxudHTkDFNfP7vgXHNZiLrwjF9hrNCBD2iz/7plxT1Ey1rZiaD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVevXqP8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QcdmdXqE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788334038; x=1819870038;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0PePt6DHJxr/ZP2ZqbDDTpxOUJ+/a6mMlVgWOd7WjZo=;
-  b=QcdmdXqE68mNIUt+s46UqhDiSdRWLRS+bL+GEx0sFRklFfQUWuUHxAPr
-   K0wtZaTP9jca7VhmXVhDL2espcT9vG88ifH+hyJL/tl34c1hCCtbnXNPo
-   QPXzGl2V1nDYRx/KfRaaP+irq4Na3M9hKbCOKIu7TTgmMV1FUj63CDjDa
-   oCXnlvHqkbI7t6VFfUs8SpjZx+iinBgrx9vI5lsoYyib2Da+Q8kxdxf10
-   Rt92vstZx7XDkn9Jl6Opi1j0SHuA99SiTykeUCSsGSG0b2CYsVuyOUHNx
-   wA2qGmZCinA+UKNAzHoGJFvecwSlGamYEwuJfs4EW1WrnAnN1lboj0OHZ
-   Q==;
-X-CSE-ConnectionGUID: 5YxNlNCqQUCQfG+QBBbzUA==
-X-CSE-MsgGUID: ufceGEhiRkWRKrnChxW78A==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="99945586"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="99945586"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 00:27:16 -0700
-X-CSE-ConnectionGUID: szpfs2DnT3ChG0TbzMUK+A==
-X-CSE-MsgGUID: qqbV+xLKSDOPWnKJMIe3lw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="267555497"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 00:27:14 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id F0D9D11F944;
-	Wed, 02 Sep 2026 10:27:10 +0300 (EEST)
-Date: Wed, 2 Sep 2026 10:27:10 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arsalan Naeem <naeemarsalan@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/6] media: i2c: ov5693: Gate the MIPI clock lane for
- non-continuous clock
-Message-ID: <apfPzjJQeM48oM9m@kekkonen.localdomain>
-References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-4-fernandorimoli11@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVevXqP8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CDF1F000E9;
+	Wed,  2 Sep 2026 07:39:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788334780;
+	bh=Zmj6Pl4DI8aaARUoVXtREi8xmgkB7kHiiAcvl0t361M=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=SVevXqP8uk4G2qfUr4fRwo9Xv9i/jYjJ+Hift6ITqhh0R31kK+7v5WOiOo9/0ie7j
+	 4sOXgFXmks/B/0h/21DcWitUMKDWxZYTLiyRsIbbyZZZpO+nouiDx+4eAKL3bch964
+	 Z0ITjST2BqJve2jB5bjPfpMiqhwbV+7s5F4A2fofmPN494nOQZjDhr0n7HKxZeRvBB
+	 yfEtheDm5PrO5mtXXpRM3Bx6CPq/6gY14VOKrtpn77K0Fbgi6LM5j3nbK0pUgMpnnU
+	 2tbzJBXwpgQ2gxvoVNI2PhV6fP7prCxJ05MvzwtMjBEiZwd+CPTJ5WYN4VsnP3/wkq
+	 UWLcYuhjXx0uQ==
+Date: Wed, 2 Sep 2026 10:39:36 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
+	ankita@nvidia.com, chriscli@google.com,
+	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
+	iommu@lists.linux.dev, jgg@ziepe.ca, jmoroni@google.com,
+	kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <20260902073936.GR24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
-In-Reply-To: <20260831181858.325109-4-fernandorimoli11@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
 
-Hi Fernando,
-
-On Mon, Aug 31, 2026 at 08:18:55PM +0200, Fernando Rimoli wrote:
-> The ov5693 never programs MIPI_CTRL00 (0x4800), leaving it at its 0x00
-> power-on default, which lets the MIPI clock run freely. The IPU3 CSI-2
-> receiver tolerates this, but the IPU6 receiver (e.g. on Microsoft
-> Surface Pro 8/9 and Surface Go 4) fails to lock onto the link, so the
-> sensor streams but capture times out with "stream stop time out" and no
-> frames arrive.
+On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> On 9/1/26 19:08, David Hu wrote:
+> > From: David Hu <xuehaohu@google.com>
+> > 
+> > This series address two related issues in scatter-gather mapping,
+> > specifically for the MMIO based dma-buf mapping. The fixes ensure
+> > sgt mapping is correct, and proper for large MMIO regions.
+> > 
+> > Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> > (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> > phys vec to sgt)
+> > https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> > 
+> > Patch 2 Splits sgl by largest page aligned chunk
+> > (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> > https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
 > 
-> Parse the "clock-noncontinuous" endpoint property (which sets the
-> V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK flag) and, when it is present, gate
-> the clock lane while idle at stream on. Bit 5 of MIPI_CTRL00 has the
+> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
 
-I'd clip what's after the period above.
+And this is why so many in the kernel community want to get rid of SG
+lists. It would be great if DMA-BUF could also eliminate the need to
+convert to an SGL, like Jason proposed.
 
-> same meaning here as in ov5647, which sets it for the same purpose.
-> 
-> Unlike ov5647, which owns the register across its own stream on and off,
-> this is a read-modify-write of the single gate bit: the ov5693 otherwise
-> never touches MIPI_CTRL00, so preserving the rest of it keeps every
-> platform that does not ask for a non-continuous clock bit-for-bit as it
-> was. No counterpart is needed at stream off, as the link is down by then
-> and the register returns to its default when the sensor is powered off.
-> 
-> The "clock-noncontinuous" property is supplied by the ipu-bridge for the
-> affected IPU6 variants in a subsequent patch.
-> 
-> Link: https://github.com/linux-surface/linux-surface/pull/2171
-> Co-developed-by: Arsalan Naeem <naeemarsalan@gmail.com>
-> Signed-off-by: Arsalan Naeem <naeemarsalan@gmail.com>
-> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
-> ---
->  drivers/media/i2c/ov5693.c | 24 ++++++++++++++++++++++++
->  1 file changed, 24 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
-> index 02236f3db..cedc6ea03 100644
-> --- a/drivers/media/i2c/ov5693.c
-> +++ b/drivers/media/i2c/ov5693.c
-> @@ -35,6 +35,11 @@
->  #define OV5693_STOP_STREAMING			0x00
->  #define OV5693_SW_RESET				0x01
->  
-> +/* MIPI transmitter control */
-> +#define OV5693_MIPI_CTRL00_REG			CCI_REG8(0x4800)
-> +/* Gate the clock lane when there is no packet to transmit */
-> +#define OV5693_MIPI_CTRL00_CLOCK_LANE_GATE	BIT(5)
-> +
->  #define OV5693_REG_CHIP_ID			CCI_REG16(0x300a)
->  /* Yes, this is right. The datasheet for the OV5693 gives its ID as 0x5690 */
->  #define OV5693_CHIP_ID				0x5690
-> @@ -144,6 +149,9 @@ struct ov5693_device {
->  	struct regulator_bulk_data supplies[OV5693_NUM_SUPPLIES];
->  	struct clk *xvclk;
->  
-> +	/* Gate the MIPI clock lane when idle (CSI-2 non-continuous clock) */
-> +	bool clock_ncont;
-> +
->  	struct ov5693_mode {
->  		struct v4l2_rect crop;
->  		struct v4l2_mbus_framefmt format;
-> @@ -611,6 +619,19 @@ static int ov5693_enable_streaming(struct ov5693_device *ov5693, bool enable)
->  {
->  	int ret = 0;
->  
-> +	/*
-> +	 * Gate the MIPI clock lane while idle if the CSI-2 link is configured
-> +	 * for a non-continuous clock. Only that bit is touched, and only in
-> +	 * that case, so the register keeps whatever the platform left in it
-> +	 * and the clock stays free-running as before everywhere else. It
-> +	 * needs no counterpart at stream off: the link is down by then, and
-> +	 * the register returns to its default when the sensor is powered off.
-> +	 */
-> +	if (enable && ov5693->clock_ncont)
-> +		cci_update_bits(ov5693->regmap, OV5693_MIPI_CTRL00_REG,
-> +				OV5693_MIPI_CTRL00_CLOCK_LANE_GATE,
-> +				OV5693_MIPI_CTRL00_CLOCK_LANE_GATE, &ret);
-> +
->  	cci_write(ov5693->regmap, OV5693_SW_STREAM_REG,
->  		  enable ? OV5693_START_STREAMING : OV5693_STOP_STREAMING,
->  		  &ret);
-> @@ -1259,6 +1280,9 @@ static int ov5693_check_hwcfg(struct ov5693_device *ov5693)
->  		goto out_free_bus_cfg;
->  	}
->  
-> +	ov5693->clock_ncont = bus_cfg.bus.mipi_csi2.flags &
-> +			      V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK;
+The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+which is the one that depends on it.
 
-Could you also make the change to the DT bindings, adding "clock-noncontinuous:
-true" there?
-
-> +
->  out_free_bus_cfg:
->  	v4l2_fwnode_endpoint_free(&bus_cfg);
->  
-
--- 
-Regards,
-
-Sakari Ailus
+Thanks
