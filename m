@@ -1,74 +1,75 @@
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com [209.85.215.180])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 896394A0907
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:59:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02932E7390
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:23:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788357574; cv=none; b=XY2gk/iSXzI8C+uBWTKaDbmtEX56t1ibYIBIdPBnaXqjqA3YbCAguQ5aci0YhQuFddWiF1Cf0Zf0MRXh2q/SS3fiyCXYrw3+gLLactXgNZIMCCwAe1Aqhmlm6Oy1uxNbXwpLBXZ3r8WLF7FEKbeEdbwqEmQfJ7MgY4GuP8LqOwE=
+	t=1788359026; cv=none; b=VHRJ8VLHimLWdw9c6IPhbZIKV7SeUk+/wuTAC56EfR8J66G47KJ8S+UwvoLdHfzVt76FO2qaigUio36WUyTlltxeJXDVTCpXOpLsZ0dtaMQuZ033F564n04n/R42CjzTWDnNkEe21S9my+pwQljkvvrajZM9NEEaFofaaqZXwNs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788357574; c=relaxed/simple;
-	bh=/9eZmU2D0hbNHb92ePV2OaMpbatPpO6xeRcbdoGIcR4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M6WT1/kJLwi5D2p96uehn63wqMBPsjJbTAFzxBGlxL07lpWLm5cGveqsNxJqWLna7sn6ZNBS3/zJtzXSJ7DBLGclhdt21Pv+ZmK46RV4K0o6lGNpZerHc6wf9jWfmOXYF/piOrnTW4gJtAHunR0liox+SZMc33MdLWnd68TZ6fg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnA6rvNU; arc=none smtp.client-ip=209.85.215.180
+	s=arc-20240116; t=1788359026; c=relaxed/simple;
+	bh=bazdSdVkFZZU9ehtAhH1O8nQxtLezXXH6UQ5yUTF3Zo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=gc7Fn3o12xSDmI4jWRVSTp5NVYp5ptDtsY8ENM9FUu2RNTjuiQyKLil3EByVQsbiaplqjcIiUtq6mUlnQvDmZbrKi5wjasWKwTfbcqhrGQrTHjLzcDrVEUTAFlwM84c3hC/nR3KmlE4stsBzS0meZz9CHkBo7DchqXTxZfNN/zA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgPfG7Tl; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnA6rvNU"
-Received: by mail-pg1-f180.google.com with SMTP id 41be03b00d2f7-cc1cbb64a1fso1222782a12.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:59:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgPfG7Tl"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so11188455e9.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:23:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788357572; x=1788962372; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
-        b=XnA6rvNUeg5GKgp5saQqJIwI/nqFJpjDlylEZM/agR/kSXe5e3c6bAVMt1Gvk7VCCf
-         vqBr3XK+fIVZ87BXPBpvtxlKsdyPDqWLZLnJ3108EsAVM4z+sphU+MpLyWQDwz7ZiZTn
-         GzE0CfBpO6a1kMheOlupfokE1Mi90LO7hUL0zm8jo+8MBi5GaOQDYzDbi3IjLCbT1PbL
-         l4KMCI+uHc1qZAw7sIXEArNwsVgnAYG27s7ebDePdgiJbWs/GUCmNJLSkhSCT533fhl4
-         yQa6dsRYkLvH71UcEr2dlq0gvvrc/c8fq1cuxQsueEU3aQAn1eD+6Ul01GcnOAfoxBzn
-         Wj2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788357572; x=1788962372;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788359023; x=1788963823; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hrAS7URR96Vhxqaift3zBbsgPvJL26DLyKnxdnXVft4=;
-        b=GZ2jGNIShKRAPrUZuXC6S/VEtDYUTjUoQq2ccmr69uUIqiqrhs24JYfu6Akr7ZnLwm
-         wf4ihAa9Bg/ldYyjK0un4eaHO8NvESxgFXwX5rRWz+oguK37pnEdheBwRr3y4Tti4TP2
-         IT9ofhpQi0tTYRNZ95n5gAsza4/qSqRFiEwa53ekpVEWCw8S7t3YEg6S0gLKPQTiLWX4
-         sfkad8qhUrsdwE6k87ixB+ZkH38WIOtwq5wN865s3vOagfc6vg3cWLO7hpJeq39fU1w7
-         sMRCPSK+sNyedo8MtpqJp6Q0yzikKvJD37mBtWVN/338GxbDNsZelD6O/om2+6uIgfx+
-         5Ulg==
-X-Gm-Message-State: AFuF++n0J5p1i1yo2DlBgy1e7XJgdIwoP+Wp7lJeYs9cA4aa9XeRhmAP
-	nzDghFFiki0CYM6+eA94Y7nBNatSwmFsQLPhvdeZAwaOAVAotgtKyOTpE66edlqw
-X-Gm-Gg: AYBFou2YESOxPH067PmaH+p9gN4P8PIUdGaZcTYQISM2YrOid4uv+/e9mvmd8d4Rq1w
-	ZKL6XaPCP9Zgfnk5mg9WkocayabsEXcu7GejlaAa9N5YTsMQ+J5YJVc8VhNUR/q8MCqzh1SDXpU
-	hbgz4BUdyMOCMehEfT0x6zRJ0VR/eFXJKdRsdpt6wZ9LqpJAcwtMtpzXuYSxAQbdu3wwBQs64Kn
-	3Tfp0TXa9wFyVgtQLs5kfe4Bzg0vTutT1WbGYxIh28z8l3BjHvAgG1Kq7DE9I+z3S2IumQeOkgJ
-	mXz1chsyZqBUt5N0a/N6PsnLBVr2BGlmR9/GJrUbOi4gwXmlyPKZSqPQ114o7H4j+rapFa+czQk
-	gHPVwNAvqEkUAo7fb72dQOfPCCYNCDdnXhi9rZyv5Py8WQM0nk/4qnyy1SRIdOESALoqr/dalAr
-	awf29YppZz1pq8BlH4G5geoTPYdGvLZk89stCcwV5JB85WTQOI3a1iPLhZtuNQPTroBt6/eiaBy
-	WA/g5hOlLXwt0imVrQ8CjZabDy10XVPdl3Atn731E1cc2uMrfgQ8MuFqP+Vv+Kv3yd1MUCT91Th
-	l9jG3PI/HHAaOXy7JkWfG4FoTW87j2gb8rffuIuT628=
-X-Received: by 2002:a17:90a:ec8c:b0:38e:5964:97a8 with SMTP id 98e67ed59e1d1-39aee04ace5mr8324115a91.16.1788357571759;
-        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
-Received: from alanhc-14700.tailb22ec2.ts.net (180-177-138-120.dynamic.kbronet.com.tw. [180.177.138.120])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3990bd21e9dsm12123595a91.4.2026.09.02.06.59.29
+        bh=L94FOQ3G0uJhPS62upqaen8sZQWRd6241RfKRZzLwE8=;
+        b=lgPfG7Tlbf6SW7kYhaT8tbwgXHUoMDGYRux6UbvuJ4p/pHdcmlVM+pOKztLvqbLt7t
+         aRh6fbo8CYl0RoP7mxfBCKXIUXMA6JjZdlUac+pSxIX3KFq7TbLdlZtu0PiRzDN0FHDj
+         QS7HD5dxeBKj/XlwNwam+X1nCBqx50xXfmwlEJ91jqjA3sEp9INVnDrfo0l7eZq/8/Mx
+         RFLjtPrVRE/HrnDA4HQ4ZjZZYwPByZtLrkZpqsnrFtpniBJQ8gbc9r8F+Ps0XV+HY6L9
+         nMWN8d4BAdn5mgt8BdXtxFxf46tmm/iA31WaTGcNAJ/J4pcljQKZKlyBiiulfJBCHDyD
+         j+9w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788359023; x=1788963823;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L94FOQ3G0uJhPS62upqaen8sZQWRd6241RfKRZzLwE8=;
+        b=mgt5pFUWaBLJh7GiijV5APew76HTvJwtk/A4bh+2c1chi/nEF9fgT83eOlSJfGvFu8
+         t/s8e+wZvH8SwywXB6jZi0Ssq5M5Y4xev7nFW2Mcx4EwHBP8Mgs2rGRrRubb/wf7Q5xC
+         nJ/JUafZVkCErwDMlo+Oj3CzmYqrPs9KtSYWs+iFPyD8m7Zehp0XZDa+ew8xNNa9w0QW
+         aUG52/Ad4LAgM/CL/4ZVFRhZ9WagVO/U8tGep+71fZi02xbnijwLrYURec92sZxdSRvz
+         E2eGWGgwxyfd/WLSfLImT3aQT24PqRdbdd/xVhrJKUkWYw6WGhS2XreeTxdG3PShHBrp
+         coJA==
+X-Gm-Message-State: AFuF++k+jhV5jZD0zGTCW6nDxJm21elY8sLQgVn2HWjJ2YLiUaQkmAba
+	/6hY80gHwyAXQxVeNoe1rSsnrpNkhINY1/RN56J18AqF4UYvfugBdxztMQHtAQ==
+X-Gm-Gg: AR+sD10J+RYhQUmFCwwrZycjK5d/UcKTI7Csptd9kOSMmxxYFbn/X9d5HiGEtZfL8ss
+	oYgHcaWyNnnQtM/bFqu4EfaX6qYJdHKfBYJT8frTxQmeaPuvuiHOUgnjYIjpeJiYpyi+tK3c2Nk
+	q9YAMnXY+t74JtnztM8DtGQQdpdcuf/mQho3qld/YgFG5yOt7/FJY0U7bacj/MOhlZl2Q2ZXVk2
+	tmbdpJveNC38X+JK1SMaAZdBeKQ6Z+kIe+WpE8aHhzwgEIQZlyuF8CUYP/AI3675Xuon4h6d4dH
+	L3+NRDs1oBjNauFt5ZSFeHtjIVGl/oDw654BHMzUfJKhHZnxP2OW3mFQi1wp5VtP9R+E5kwymum
+	/4x7C4sMvTk2K7reSD+nUB6yihemBGrhxayyyo65uupVmotiLJ0Z72MC6DMTLWaTJSimxgI3TLg
+	9zZF+pmdhrSeddpH+LdrmD35hMHeXMJGlQvmpG9AgZoS6X2XQfUb7vK7pMY87rzCmYLVgYxBtHW
+	37f0S52XuedDx+xI1MAgFIAEVKhflPebYVYn2BfhgKZbvh5dkII8DnMaf1i
+X-Received: by 2002:a05:600d:19:b0:49c:edd8:ba35 with SMTP id 5b1f17b1804b1-49cedd8ba5emr17433485e9.6.1788359022654;
+        Wed, 02 Sep 2026 07:23:42 -0700 (PDT)
+Received: from raviolimobile.tail5f26fd.ts.net (mob-83-225-30-215.net.vodafone.it. [83.225.30.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm58999265e9.1.2026.09.02.07.23.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:59:31 -0700 (PDT)
-From: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: linux-media@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linaro-mm-sig@lists.linaro.org,
+        Wed, 02 Sep 2026 07:23:41 -0700 (PDT)
+From: Fernando Rimoli <fernandorimoli11@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: sakari.ailus@linux.intel.com,
+	dan.scally@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	Hung-Chun Tseng <alan.tseng.cs@gmail.com>
-Subject: [PATCH v2] dma-buf: fix stale return value documentation for dma_buf_set_name()
-Date: Wed,  2 Sep 2026 21:59:23 +0800
-Message-ID: <20260902135923.3599022-1-alan.tseng.cs@gmail.com>
+	Fernando Rimoli <fernandorimoli11@gmail.com>
+Subject: [PATCH v5 0/7] media: Enable the OV5693 front camera on IPU6 Surface devices
+Date: Wed,  2 Sep 2026 16:23:14 +0200
+Message-ID: <20260902142322.73523-1-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260831181858.325109-1-fernandorimoli11@gmail.com>
+References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -77,58 +78,104 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The kernel-doc for dma_buf_set_name() still documents an -EBUSY return
-for the case where the dma-buf is already attached to devices:
+The ov5693 front camera does not stream on IPU6 Surface devices. The sensor needs
+its MIPI clock lane gated while idle, which needs a driver change and a way for
+the ipu-bridge to ask for it per IPU.
 
-  Returns 0 on success. If the dma-buf buffer is already attached to
-  devices, return -EBUSY.
+v4 is at [1]. This addresses Sakari's review of patches 3, 4 and 5, adds the DT
+bindings property he asked for, and adds an Alder Lake-N entry now that a Surface
+Go 4 has been measured.
 
-That has not been true since commit e73c317efbf9 ("dma-buf: remove
-restriction of IOCTL:DMA_BUF_SET_NAME"), which dropped the
-dma_resv_lock() and the !list_empty(&dmabuf->attachments) check that
-produced -EBUSY. That commit updated the description paragraph above,
-but left the return value description behind.
+Changes since v4:
 
-The only failure the function can report now comes from strndup_user(),
-propagated via PTR_ERR(); every other path returns 0. Document that
-instead, using a Return: section so kernel-doc picks it up.
+- New patch 3 adds "clock-noncontinuous" to the ov5693 DT bindings. The series is
+  now seven patches; v4's patches 3 to 6 are 4 to 7 here, and the Tested-by tags
+  are scoped to those four.
+- Commit messages cut throughout, per your comments on v4. Patch 5 now carries
+  your wording and nothing else. Patch 4 lost the ov5647 comparison and the
+  per-machine failure detail, which is below instead. Patches 6 and 7 trimmed.
+- Patch 5: the running index starts at 0, each call site passes its own property's
+  maximum index rather than a shared one, and the macro is IPU_BRIDGE_NEXT_PROPERTY
+  with the enum renamed to match, following mipi-disco-img.c more closely.
+- Patch 6: struct ipu_sensor_config now carries a zero-terminated list of IPU PCI
+  product IDs rather than a single ID, so one entry covers several IPUs. The flags
+  macro argument is a plain value, so flags can be combined. The scan of the whole
+  table is gone: entries for one HID are adjacent with the IPU-specific ones first,
+  and the generic entry is skipped once a specific one has matched.
+- Patch 7: the four entries collapse to one shared ID list, with Alder Lake-N added.
 
-No functional change.
+On the enum naming in patch 5: "s/SENSOR_EP/BRIDGE/" taken literally gives
+IPU_BRIDGE_BUS_TYPE, but since the macro is not endpoint-specific and may later
+serve dev_properties, I kept the group marker as IPU_BRIDGE_EP_*, which is also how
+mipi-disco-img.c separates its EP and DEV entries. Say the word if you meant the
+shorter form.
 
-Fixes: e73c317efbf9 ("dma-buf: remove restriction of IOCTL:DMA_BUF_SET_NAME")
-Signed-off-by: Hung-Chun Tseng <alan.tseng.cs@gmail.com>
----
-Changes in v2:
- - Use a "Return:" section so kernel-doc actually parses the return
-   value description; scripts/kernel-doc -none -Wall reported "No
-   description found for return value of 'dma_buf_set_name'" before
-   this change and is quiet after it.
- - Reference the commit that made the -EBUSY text stale, and add a
-   Fixes: tag for it.
- - Resend to the dma-buf maintainers and dri-devel; v1 only reached
-   linux-media, where it was marked "Not Applicable".
+Unpatched behaviour, which patch 4 now only summarises:
 
-v1: https://lore.kernel.org/linux-media/20260730003153.4030818-1-alan.tseng.cs@gmail.com/
+Four people measured it on five machines and it is not uniform. It is absolute on
+three (a Pro 9, a Pro 7+ and a Go 4). On another Pro 7+ it is intermittent, 3 of 20
+opens delivering frames inside a single boot, with the successes at opens 1, 7 and
+14 and the sensor runtime-suspending in between. On a Pro 8 the first capture after
+a cold boot succeeds and every later one in that boot hangs. No mechanism explains
+the spread: it is not once per boot, given where that machine's successes fell, and
+it is not Tiger Lake versus Alder Lake, since two Tiger Lake machines fall on
+opposite sides. The sensor is up during the failures on every machine checked: the
+privacy LED lights, the failing runs log no CSI-2 errors where the working ones log
+ten or more, and setting bit 5 over i2c on an already stalled stream starts delivery
+immediately.
 
- drivers/dma-buf/dma-buf.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+**If you verify this, capture twice.** On one of the five machines a single capture
+immediately after a cold boot succeeds without the flagged entry, so the obvious
+check gives a false negative. Both testers who hit this asked for it to be written
+down.
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d504c636dc..6ee3c254d7 100644
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -413,9 +413,8 @@ static __poll_t dma_buf_poll(struct file *file, poll_table *poll)
-  * @buf:    [in]     A piece of userspace memory that contains the name of
-  *                   the dma-buf.
-  *
-- * Returns 0 on success. If the dma-buf buffer is already attached to
-- * devices, return -EBUSY.
-- *
-+ * Return: 0 on success, or a negative error code from strndup_user() on
-+ * failure.
-  */
- static long dma_buf_set_name(struct dma_buf *dmabuf, const char __user *buf)
- {
+Two other things worth knowing:
+
+- The teardown "stream stop time out" appears identically with and without this
+  series, so it is pre-existing and not introduced here.
+- checkpatch flags "Macros with complex values should be enclosed in parentheses" on
+  patch 6. The pristine header already trips it five times and the patched header
+  still trips it exactly five times, because IPU_SENSOR_CONFIG becomes a wrapper as
+  IPU_SENSOR_CONFIG_MATCH_FL takes over the compound literal. No net new instance.
+
+Testing coverage, all scoped to patches 4 to 7. Patches 1 and 2 are not exercised by
+the testers, whose machines enumerate INT33BE; the Pro 9 is the OVTI5693 machine.
+
+  Tiger Lake   0x9a19  Pro 7+ (Jakob), Pro 8 (Fil Dunsky), Pro 7+ (Lucas Lis)
+  Alder Lake-P 0x465d  Pro 9 (mine)
+  Alder Lake-N 0x462e  Go 4 (Kengo Oki), 0/300 without the entry, 300/300 with
+
+Kengo Oki's Alder Lake-N result is what justifies the third ID in patch 7, and his
+tag is given for the version that carries it.
+
+The reworked bridge in patches 5 to 7 was also run on the Pro 9 with all three of
+its sensors: three cameras connected once each with no double connect, link
+frequencies unchanged, and the front camera streaming at 28.63 fps, which is only
+possible if the flag reaches the sensor driver through the new per-IPU match.
+
+The Pro 9 measurement of 300 consecutive opens predates the switch from a full write
+to cci_update_bits(), but the register reads 0x00 first there, so it resolves to the
+same write.
+
+[1] https://lore.kernel.org/linux-media/20260831181858.325109-1-fernandorimoli11@gmail.com/
+
+Fernando Rimoli (7):
+  media: i2c: ov5693: Add OVTI5693 ACPI HID
+  media: ipu-bridge: Add OVTI5693 to the list of supported sensors
+  dt-bindings: media: ov5693: Add clock-noncontinuous
+  media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
+  media: ipu-bridge: Assign endpoint property indices dynamically
+  media: ipu-bridge: Match sensor configs per IPU and add config flags
+  media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
+
+ .../bindings/media/i2c/ovti,ov5693.yaml       |  2 +
+ drivers/media/i2c/ov5693.c                    | 25 ++++++
+ drivers/media/pci/intel/ipu-bridge.c          | 83 ++++++++++++++++---
+ include/media/ipu-bridge.h                    | 50 +++++++++--
+ 4 files changed, 141 insertions(+), 19 deletions(-)
+
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
 -- 
 2.43.0
 
