@@ -1,115 +1,146 @@
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com [209.85.160.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C658F4746A5
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 12:08:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.177
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F27D47DD4B
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 12:22:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788350926; cv=none; b=NQJpcbW51u35oPrq460u64LFvoabcaBiMB40L3j19c4IrvJ0qDQGiuEjVghtWfg/bNuuTQu+P6LEG6l3jiImEbMZfj/p0GBMtL3DVP350KxAF70dUUzxnwhgAk6i/uOLXirjYN4dK9tMkr5dJn4b662vgP+fXmZTRIUCN/DNFw8=
+	t=1788351736; cv=none; b=fFB0WsbHs6NlgAHOo8GXktm0V16P2FR8uUyuvnMAbhTnMxgi5y7fJixspnbDSEuk3f0jcGZ6Fkb7gNSaOSCohNn3iJGJdoiEiiP/tfP2FuWwqSK4+e8pmtTviW+5/l1M4ef4Mf3aMhg5WvA/B5wH8N0ZBMMT0llSm0tZp/gElN0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788350926; c=relaxed/simple;
-	bh=hEgKcI0xSVAo+OQaZ6TD8YxlJUNtrHvb4B26iG5AXFA=;
+	s=arc-20240116; t=1788351736; c=relaxed/simple;
+	bh=Sz28JTGHWpuLZ+przZje/pIm1QpHTX1ubGzfDFJJnF8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hu+zMtbsMLEll2DAXYLwpOMTN+gd16PDbDxqkcaBeE305Tb5fxD+uznHXoac2OLwpYH0Ophfs8jsHLDaET8K44U7nGGR3e5/bg1bWk7k6sNTHnXv2eK9YcoR5sOVYBN1ZPd2tWDq4+643ErzVMu4zVo4xTIKCdF47GR/H4cQqK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=P3PRkCXN; arc=none smtp.client-ip=209.85.160.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	 Content-Type:Content-Disposition:In-Reply-To; b=lnIB21Dej+IWdD4yt97zeBq6IxdAbqtl5EHhMKxxIDswSuyuREhf+MYePsClOwKCY9A8FXyfbIoI4X8XA3wP/uslYPwv9i3hHvarLo2AUIDwKNQJEat8UqY3Vdfoki/DVMjp9QSn+ueO5nlwIypvifKco4Pf+0b5BtFIfEtFoT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dljXqGcX; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="P3PRkCXN"
-Received: by mail-qt1-f177.google.com with SMTP id d75a77b69052e-5303932c4f3so2526961cf.2
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 05:08:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788350914; x=1788955714; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
-        b=P3PRkCXNGcr5WbRgqSiwi7FWYnQgwhkSK8l+Nz4c3Ak6A0GJtbObjN7ZGh4Fzy7Yum
-         g2c6mnKHpQS7MXhGzBtgo2LCFO9VNtXDHJ1B6uf3mXH8vv2Vd3z71rhMJ3YD+Wl5xTxp
-         bxCtq89JVHhq0jhl3b7JdhZkUDspxHJoIhMCQW2yzTkxUl9Cbyx7Zc8CTM8kUstZOwgC
-         LH+/UgS5PabchPBRtozJe0aO7NzMGwYEFmgbYWR6CJ2oXigtspnsHpmtIENaxKPfTUQp
-         Zgu76ZiRHpm9ITQna5WEztz6HVVxDacrw8ZjBkJWMq4M5CwdYFSFkKIQAABtNYombU8l
-         mkKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788350914; x=1788955714;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=puJ4uTbfv83ic1yzfkUg8CloAoVj8WRg32Yh9dx02hk=;
-        b=SUWQr7/3zHn1yMM3T/cD7evXkgwEzfN6BfiJyZ29LRx3lt3rbwTUjB1NCxv7LaZhmQ
-         mSX0ATvP4k49svxrhOkNKI+RTCqYKX7o0FcsqOzEuKkHlJCJsjD4uYo7bX9ZKBwVAb4d
-         nDZCnjKg+fGMrtgyj7btBb/Qf6TjP+YAv+7tvTAp3scDEl21IKJsd8rIS0saHGBTnv1l
-         FEvEF0pO9h297RQB7VXJNmfIaaME8SKk2PZ+kzTRxDB/0ZmiRLOfSyJhmNQ9Pom7Zl9a
-         XsgD29zWd28/Nmtfpbw0LjXLunHOqgHElYTT6dyO8zsYwSV/IFL5AeDjCjM77N7IKoVB
-         34LA==
-X-Forwarded-Encrypted: i=1; AHgh+RryK4yWrQtbfrNPUfnqRePMuREyZw8SCpS9zdeqEv9pIkdna0WQdvePuFAfJc3zHN6RJLGtUqBd23MtEA==@vger.kernel.org
-X-Gm-Message-State: AFuF++nTWbC3woDj1wNoFBFrjznmoIYneMon3F+M5ERVvyRrvVxJNq+f
-	NcviuorA5o1/B5JY7PRRfHS/57NBJf4Z4Fbn33D0jF4h+fZsQ1zuZKvFIvKVq4Eb7YY=
-X-Gm-Gg: AR+sD12R+81yCe4qIs8PCWVaAX2Wst5pY8xeTV3h/+kMQt/4hq/Rv3L8HIRmOpSAaY7
-	kLloTKqv/6w3AcziqYuz1qkh1OTCjIot9OvBlw7SXp3Zhl8Mi8/uZg7Im5wHa4G4I/rHwW5cKpX
-	GPfgPpdFdi32aLnv+ml5GHOKYw9iwq3JXRxnyBvYGJAeuu/o4GYXBL6csD8PyAY0kzRpgbaFQ+p
-	5ZeG+8eFqeBvUqDivWkkGLxXHcwn6Uiy3b2BApUbHTd4Lld0tAvqF7frmKlOZ1SQVk3yVY0ABSs
-	/TGTJOLoE1N8ab6W036TCg4RwgLsHH/EAlP7TqxBqTscNhbC0UjrJD/pCjQbxygfbwoI4y/ooaC
-	PF7vl063yhIFZEZombDkvjE2rP41680pPtlw72EqMXwhQ1ccQioos0iJ6VLsibJBxArpe6dA5zD
-	e1l4MEC6FMw+mSQdgTcY6jmPS+qTukILQVT/TvE1E83FYtxVi9mihgZ87ZmLCUKY0m3NJ4ibSL+
-	KUc44ZurYrhvKX9VYzM05jRO2tzVNgaleCYfBg2Cb+XwIxsO/Of/c7w
-X-Received: by 2002:a05:622a:1452:b0:52d:9c11:8937 with SMTP id d75a77b69052e-53036cc0d8amr38235061cf.26.1788350913894;
-        Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53032ff4e90sm17442101cf.2.2026.09.02.05.08.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 05:08:33 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1jlY-0000000E9vh-1aE2;
-	Wed, 02 Sep 2026 09:08:32 -0300
-Date: Wed, 2 Sep 2026 09:08:32 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: David Hu <dhu@x6u.co>
-Cc: sumit.semwal@linaro.org, christian.koenig@amd.com, alex@shazbot.org,
-	ankita@nvidia.com, chriscli@google.com,
-	david.laight.linux@gmail.com, dri-devel@lists.freedesktop.org,
-	iommu@lists.linux.dev, jmoroni@google.com, kevin.tian@intel.com,
-	kpberry@google.com, leon@kernel.org, linaro-mm-sig@lists.linaro.org,
-	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-	nicolinc@nvidia.com, praan@google.com, sashiko-bot@kernel.org,
-	stable@vger.kernel.org, viursachi@google.com, xuehaohu@google.com,
-	Leon Romanovsky <leonro@nvidia.com>
-Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
-Message-ID: <20260902120832.GB2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <20260901170849.4052816-3-dhu@x6u.co>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dljXqGcX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788351734; x=1819887734;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=Sz28JTGHWpuLZ+przZje/pIm1QpHTX1ubGzfDFJJnF8=;
+  b=dljXqGcX9xquhR8hWw5n9Q22/dWfSU0s+V8NCCedxKOMoqAGMZgbQMTL
+   +sc8tvHmB3fOO4Vfdu8p7atLS5DGL6Ji6dSspsFcEXoeI7G3JyEqa81+5
+   PEabBG15YKqjB5X71RfegEVs7UyswKuwnlYCgodx03i/m+UpvI1DU96pu
+   QuCLOnH/whxy0sBkmP039Op4LWt7NtQ56kqp3J75Qm/rrv/CHSGOriwj/
+   zCqivSkUk6+MmHVD7AZqmp8+D3ibw9UaNNTRJFUdBSDcTRjZ9laxChQfI
+   THem/1z+VSJEySoG6TlPdWjs51PaMG91/Mx1jWw6PqsP4qMztGfbvMxyp
+   Q==;
+X-CSE-ConnectionGUID: Zi4nTue7T3CZTDYfBUtIuA==
+X-CSE-MsgGUID: eYK9BF63Qe6NApaqN1Hi0A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="100162339"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="100162339"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:22:13 -0700
+X-CSE-ConnectionGUID: 5R/UZOC0Tp60/5HlgwI4gg==
+X-CSE-MsgGUID: DQv14iR0Q22O40IXncMuTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="299273366"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 05:22:11 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 6139E12150E;
+	Wed, 02 Sep 2026 15:22:07 +0300 (EEST)
+Date: Wed, 2 Sep 2026 15:22:07 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: Re: [PATCH v3 11/29] media: rzg2l-cru: Use
+ v4l2_subdev_get_frame_desc_passthrough_csi2()
+Message-ID: <apgU7yKJ34-62c22@kekkonen.localdomain>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com>
+ <20260824121451.3348583-12-sakari.ailus@linux.intel.com>
+ <CAD++jL=1HUxGjjNa4WMJhV558ME4vMbCSRwPd2kASENDRi5W3Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260901170849.4052816-3-dhu@x6u.co>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jL=1HUxGjjNa4WMJhV558ME4vMbCSRwPd2kASENDRi5W3Q@mail.gmail.com>
 
-On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
-> From: David Hu <xuehaohu@google.com>
+Hej Linus,
+
+On Tue, Sep 01, 2026 at 11:18:43PM +0200, Linus Walleij wrote:
+> Hi Sakari,
 > 
-> Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
-> This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
-> first entry, resulting in non-page-aligned DMA addresses for all
-> subsequent entries.
+> thanks for your patch!
+> 
+> On Mon, Aug 24, 2026 at 2:14 PM Sakari Ailus
+> <sakari.ailus@linux.intel.com> wrote:
+> 
+> > Switch to v4l2_subdev_get_frame_desc_passthrough_csi2() in order to set
+> > the frame descriptor type in the get_frame_desc() callback.
+> >
+> > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> (...)
+> 
+> This looks dangerous, you remove this:
+> 
+> > -static int rzg2l_csi2_get_frame_desc(struct v4l2_subdev *sd, unsigned int pad,
+> > -                                    struct v4l2_mbus_frame_desc *fd)
+> > -{
+> > -       struct rzg2l_csi2 *csi2 = sd_to_csi2(sd);
+> > -       struct media_pad *remote_pad;
+> > -
+> > -       if (!csi2->remote_source)
+> > -               return -ENODEV;
+> > -
+> > -       remote_pad = media_pad_remote_pad_unique(&csi2->pads[RZG2L_CSI2_SINK]);
+> > -       if (IS_ERR(remote_pad)) {
+> > -               dev_err(csi2->dev, "can't get source pad of %s (%pe)\n",
+> > -                       csi2->remote_source->name, remote_pad);
+> > -               return PTR_ERR(remote_pad);
+> > -       }
+> > -       return v4l2_subdev_call(csi2->remote_source, pad, get_frame_desc,
+> > -                               remote_pad->index, fd);
+> > -}
+> > -
+> >  static const struct v4l2_subdev_video_ops rzg2l_csi2_video_ops = {
+> >         .s_stream = rzg2l_csi2_s_stream,
+> >         .pre_streamon = rzg2l_csi2_pre_streamon,
+> > @@ -752,7 +733,7 @@ static const struct v4l2_subdev_pad_ops rzg2l_csi2_pad_ops = {
+> >         .enum_frame_size = rzg2l_csi2_enum_frame_size,
+> >         .set_fmt = rzg2l_csi2_set_format,
+> >         .get_fmt = v4l2_subdev_get_fmt,
+> > -       .get_frame_desc = rzg2l_csi2_get_frame_desc,
+> > +       .get_frame_desc = v4l2_subdev_get_frame_desc_passthrough_csi2,
+> 
+> And replace with this callback, despite the driver just sets:
+> 
+>         csi2->subdev.flags = V4L2_SUBDEV_FL_HAS_DEVNODE;
+> 
+> I.e. it does *not* set V4L2_SUBDEV_FL_STREAMS and doesn't have
+> any .set_routing, so it's not using the streams API. The other drivers
+> you changed so far in the series had this flag set.
+> 
+> Yet it now shall support multiple streams?
+> 
+> I don't get it tell me what I'm missing here.
 
-This patch is fine, but pedenatically a scatterlist's entry limit
-should be bounded to dma_get_max_seg_size(), though I don't think it
-helps this. Operating scatterlists at the size limits has proven
-problematic in a number of places already...
+I'm relying on those having the hardware to test. X-)
 
-> In addition, a non-page-aligned sgl length will trigger an edge case
-> in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
-> buffers, we will have a `va` with lowest bit set to 1. That will lead
-> to `ib_umem_find_best_pgsz()` always return 0, and break the promise
-> to find best page size for the mapping on the NIC side.
+But more seriously, I'll add some compatibility code to handle sub-device
+drivers that have no streams support. I somehow though it was there to
+begin with but turns out it isn't. The function is meant to be more generic
+that it already is.
 
-That's an IB side bug, the newer logic that joins adjacent SGLs should
-have avoided it?
+-- 
+Med trevliga hälsningar,
 
-Jason
+Sakari Ailus
