@@ -1,81 +1,80 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EC1B4A3F37
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:24:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AE04A4839
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359053; cv=none; b=AsHdfrVMrX/NagaLp0rV3/S9vLNcAb3UK5YuyTIeJKYFEkQVC2dJQpLVYblZJ5ur/QA/6yf4y2Z089arQR1apxd3wVMfSjbeOu9eZftHi1cKsg2NjSb9HiFNHa21SFnWn4INhkD7D8x5iLV7uY9UQG5GP0XY5oDdq0HJ55g5g4g=
+	t=1788360832; cv=none; b=duyoIL8x6lOHvfS4rNpQItXa7JxnYd3pkpCYU079nWXZWyQ80dw6ECRRaRxg98LP2gvS3ioAfQIi+vkr5FXh64gEw+Oxk+6WTECk6iZHCUCwYaR5xJVr0LP0N4/+J7xohQZgICFE7QwYf/mGzjtBqTnEPhdTreg2rqSG9RPnxc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359053; c=relaxed/simple;
-	bh=zceS+87Q6gIX2OHEqKQK4Cdwa03R6ggqgHdcs+6vNww=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nQQ7JpKvnjCgnZ7X7LaWgdsh/h6dMYcsi+8qpKAcepozbzbbLS8qxBBlOmqdL/TF7NNfgve42jmhlZPzHK3/8uzybaatyEsOws8TEjS0gcTUH2Lo11nzhiG+Wvjv0thcmiP/YDa1uRtpxf+q5nGtfopQugEguQiAMBc3TBEyVvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NVsKdHZ2; arc=none smtp.client-ip=209.85.128.44
+	s=arc-20240116; t=1788360832; c=relaxed/simple;
+	bh=7aq1sDRDPQUFupWUr1nlyLSACWSikoHJdpRyCXGb55Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W3/kn4dHlP98HdHO4P5Duse68UOd5Lf1dBeMpwnhmZ8bVKBdsorkAaqYSfNPke1TkcjguNpsDbJPCln2p2QL4MCbCghr6uuyqa49W8Ukjj2R8nUd9MAQF27mDPPN/2PslTJoynxZKR4WS70wkMLBYymTUaf0DD709jzCNFLERbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g+hC7slT; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NVsKdHZ2"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-499b2981a7bso11211165e9.3
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:24:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g+hC7slT"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-482e4998d28so890675f8f.2
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:53:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788359050; x=1788963850; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1snfACWgTZWHSW/RwX1o1WpObZwblmrobdH5d1agE/I=;
-        b=NVsKdHZ2RV1yfPXmniFrHwnrMPxz7JTytolmWt6a5xgi6Zs9aTyeYBGj+RJ/13rqVz
-         G343ZuKc1a6lbipJshubVo2Rra3BHa9O2231CfKw70d0uMeNA29SjBneAoMj3y7wGyUG
-         zkuCU3M8gPOdwVNHRqaS/UOHWuIoEy5FM4bGXrHZ3Ehu+zA2VhqvawxN8GUdhqoF59df
-         TfVvzVrCI4h2bfmh/OQdF1qHb3PTBVJMcaBLQip4Z0o2f1oD+VqSzzJlChYF+KcuJHBC
-         P0t6vUf4xaRYAu76/pUHvkv3071f0wSUP0gG/2s4BghJfJ1P/w/Zqt1V2bazEKvk0ssO
-         TjRg==
+        d=gmail.com; s=20251104; t=1788360829; x=1788965629; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZMHga1JqjOupCY+rN4sQgdUrEVoLNE3H9BbYfFY0Qi0=;
+        b=g+hC7slTss5u2+hdxjBPJGvTAk2+t2zteqzAckB7ps8gA4IxUeUVi9jlM+BxJK3UgT
+         AM/xGiMTc7CDkeu61CiGFvqas1GQgHrptUShPTTdmjayDhkJD+tJEIrZxMR0Kp9Mtizr
+         APMbN6dC/QbXNpts1gkQKeOFlE+NkzZABMe6HfX+EdFLrFt1krseGgFt7Z+SUWUgRgZZ
+         OLyrAXOEcYsDwAqcEupFBwhlxYKN5PM/YZkCafTIo7+bZhtdgXuyZV3HCvEkAgg1Ttsd
+         /96YcT9fmFmpc3yKFp3OpWrk9Lzflkz9VzBraEoYm6bO7s5ZCts+lHm9Qmf5+HlcfTjR
+         uBGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359050; x=1788963850;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1snfACWgTZWHSW/RwX1o1WpObZwblmrobdH5d1agE/I=;
-        b=s1dtx8X4QmyQfCwJauVfd0Imq2x7ZwakP7KIQ0IARRQla7bypE6c5mPYMSs+GWtHW+
-         qgCx5A5I25GHizTxN3aMZMMGnvbxuAhGWxjrRWPXSUuz15LGN+2QnDO2Kx7w+ltO6g/2
-         llk6mPYJvtMrtI9yYReQQ687Byu3VYnjH6K6cfuqH19UBUAXyEGVYhQKJtp1cZaXAWd4
-         SAHkBCuF1jzBU8FIIx9xSpEpgLVok8zv1USZGbB3AQYtQtLZCbRrD7A0HG+BpIaiydZD
-         zg5a4QHBreWAElodoNEvygBfR5TPKa/JnRcuFk6zpXUXVoGxmbbmW5B9Sy7xtgJkTvqC
-         /y4A==
-X-Gm-Message-State: AFuF++mEKUq2oF/RKjAM7tVBE3IVCMr5GB3scV/OwtiOVs5U78sOTgys
-	oCdajVzwqmWORBULVNHXUdJdGGqTYUmsIQ2TAegxVWkEoHFtCcbgIq8SXDSHtw==
-X-Gm-Gg: AR+sD10HAS4scoimb+7fG9s7zwIUPa6C1WJX4J3Phnze7uYTesBEoO6VZ/wf+Ry3MXn
-	3bORlbnEZK2rGVmoHXFNX0BlxtFbRjcL0e/WDqjGtDYahVyoU4yj+2mN8zy0boSPSgtoHTJ1A1y
-	BXv3zd1dyEnJW1wF00I1QjK9jui/4N1IZtrdXilix+gpAaX6Rf4fFr5KBgmqPh/b+8O6xWPDI0X
-	wVuZp8zS14Ci5U3DHjusLnTnKODwlfgCqzo3aARiAIRkMwxDK/8/AXZE51eFm8N2q+vqLIRWru8
-	yG1ZKkoGJ1zpcnVDXVRwwyMXTqC66P9PawD1Zt8YrIlJLoFBTa63AY1Ncb+qrWfjshqqexWhdyL
-	+bqcbE8zjV26QOiU2bVkL2aqzkhLTSLU5OJv6E4c5gOkO4FhlvkG2TBR5FZMTj8AcJBkjDlsDqa
-	PlHhZdLP/75eb7c0vu4bxdmiiki2v6G38A+zLAhIuDXN3Y9JjUWU9/G1XoSySIG+xVL/F92ABi0
-	r/+hoDdQENERuUc2wJoHcZNkjuz19vYto2mpQLHkXVGnLsjGI+knYuFJHg=
-X-Received: by 2002:a05:600c:699b:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49ce584c6femr95435505e9.15.1788359050063;
-        Wed, 02 Sep 2026 07:24:10 -0700 (PDT)
-Received: from raviolimobile.tail5f26fd.ts.net (mob-83-225-30-215.net.vodafone.it. [83.225.30.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm58999265e9.1.2026.09.02.07.24.08
+        d=1e100.net; s=20251104; t=1788360829; x=1788965629;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZMHga1JqjOupCY+rN4sQgdUrEVoLNE3H9BbYfFY0Qi0=;
+        b=WAYIeWcPdQp1RBrp51R5apD+OLuv1yKmOWO6g53XNWU5kWY6jxDqZUce4vo+Dz6F9G
+         UXv3XejU7qnq7nvtbnBSPjVDWgDZdMOoJ1qj+uoJTU0GZX3XueEXjHUzJfNXJw225Gpg
+         SNiNbzfwitLUS3mQi3M4vwBSseWtZgts7MfK6Pg+bxlV6VsrNhy2D22aJtIcsfsC5Vnz
+         gdhTlJoIxztGBULMcaLli5klWs49d8EFsDOt5UmAtoULj1p/ruwj7pf6ZI6D3Tyz37hT
+         s3yxiXoG2YN8p0VJ1FGM14/ZgbzTc7+gz6frBRENAtJJ55YOQKaNRJ91qGkqqD2yTpGl
+         JYdw==
+X-Forwarded-Encrypted: i=1; AKwUvByar2aWIMZO0UXcQ21t8q6MmVXM+79S9wQBANH9Awpr+CDc5IpmMVUllCe6WtNx+asG5wmuhdP5oeuJww==@vger.kernel.org
+X-Gm-Message-State: AFuF++lxbV7U03D4PCGGF6XB1/Hy16olv0DGsHnMOjKGBEzAdg7Q2ffU
+	uOOC0MDig4it+o+/Qy8hX8oSVutcLTb5lKCjbsY6WRKnS7R2N93EkLDQIIxdchXjQkagew==
+X-Gm-Gg: AYBFou2oAXwbG0sTqUGQm2aNyFmuBY+08UNf8yvM/xsuXF4kY0addtmPluSNim8/b+Y
+	RnRD4j1jgIX6G9GtPkZCDuuNfD8xhaZxsinOFodEFBkwFcrNURoU5MB7qqBC+y2S4vIru6IPoQd
+	Dmi4tQFGhuBy0tJWVeJ0Mjpk7Twz6YaDMh6F/flYvkqP4jrySzR17U6Prtfy5KjDq+xm3w9D8f5
+	uE3xQQddPaRihlTdlO+SFSnvnm6beok3Zi5tXNj1abQoq5rKOf/9PHfG4OTe0GVF2+pLASTxGVK
+	J/EsxQuZsZqYM/h9h8HaCMfh9F8vavcsMeeZU20fIWjBOSi0fhkYaV9nM3pGgrUC50IgPYIPZbS
+	lf6z0T1sL57Lxw7Bf6ZhGkXnsqBD2DIzyTpCQOqA1K2iw7fiNUttFDBwjtTr+XYL3MRhbd5YiMQ
+	qzP1IkqUVYt/PP9nSNm5uDpIeoPUZpa7mz/lQt8b0JH/tIlgCOSXAXIETQpqWycyAJNSoILszBh
+	QvE+UUENfvqawaQRedV4V7I0xo94u4Dtzvwte3lY8kH
+X-Received: by 2002:a05:6000:2589:b0:484:36c8:ffb9 with SMTP id ffacd0b85a97d-48488ded10dmr10941341f8f.4.1788360828544;
+        Wed, 02 Sep 2026 07:53:48 -0700 (PDT)
+Received: from 1Z10 ([37.163.216.116])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e81718sm6942012f8f.16.2026.09.02.07.53.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:24:09 -0700 (PDT)
-From: Fernando Rimoli <fernandorimoli11@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: sakari.ailus@linux.intel.com,
-	dan.scally@ideasonboard.com,
-	linux-kernel@vger.kernel.org,
-	Fernando Rimoli <fernandorimoli11@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>,
-	Fil Dunsky <filipp.dunsky@gmail.com>,
-	Lucas Lis <lucaseze.lis@gmail.com>,
-	Kengo Oki <dev.kengo.fugu0141@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Subject: [PATCH v5 7/7] media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
-Date: Wed,  2 Sep 2026 16:23:21 +0200
-Message-ID: <20260902142322.73523-8-fernandorimoli11@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260902142322.73523-1-fernandorimoli11@gmail.com>
-References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260902142322.73523-1-fernandorimoli11@gmail.com>
+        Wed, 02 Sep 2026 07:53:48 -0700 (PDT)
+From: Maurizio Casciano <mauriziocasciano7@gmail.com>
+To: mchehab@kernel.org,
+	linux-media@vger.kernel.org
+Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
+	sakari.ailus@linux.intel.com,
+	bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com,
+	nicholas@rothemail.net,
+	andy@kernel.org,
+	andriy.shevchenko@intel.com,
+	hansg@kernel.org,
+	gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v7 00/16] media: Add Yoga Book camera support
+Date: Wed,  2 Sep 2026 16:53:29 +0200
+Message-ID: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -84,105 +83,74 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov5693 (INT33BE / OVTI5693) needs its MIPI clock lane gated while
-idle for the IPU6 CSI-2 receiver to lock onto the link, which the sensor
-driver does when the endpoint requests a non-continuous clock.
+Hi,
 
-The same sensor works with a free-running clock on the IPU3, so request
-it only for the IPU6 variants where it has been confirmed on hardware:
-Tiger Lake, Alder Lake-P and Alder Lake-N.
+This series adds the sensor, bridge, AtomISP and lens-actuator support
+needed by the front and rear cameras of the Lenovo Yoga Book YB1-X91.
 
-Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
-Tested-by: Jakob Berg Jespersen <dev@berg.pm> # Surface Pro 7+, IPU6 Tiger Lake
-Tested-by: Fil Dunsky <filipp.dunsky@gmail.com> # Surface Pro 8, IPU6 Tiger Lake (8086:9a19)
-Tested-by: Lucas Lis <lucaseze.lis@gmail.com> # Surface Pro 7+, IPU6 Tiger Lake (0x9a19)
-Tested-by: Kengo Oki <dev.kengo.fugu0141@gmail.com> # Surface Go 4, IPU6 Alder Lake-N 8086:462e
----
- drivers/media/pci/intel/ipu-bridge.c | 19 +++++++++++++++++++
- include/media/ipu-bridge.h           |  5 +++++
- 2 files changed, 24 insertions(+)
+It covers the OV8858 19.2 MHz clock and Cherry Trail gain programming,
+OV2740 288 MHz link frequency and manual white balance, firmware IDs and
+IPU bridge data, AtomISP raw capture and CSI-2 timing, and the WV517S lens
+actuator.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 5efdcb9c8..12f1cccd8 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -16,6 +16,7 @@
- #include <linux/workqueue.h>
- 
- #include <media/ipu-bridge.h>
-+#include <media/ipu6-pci-table.h>
- #include <media/v4l2-fwnode.h>
- 
- #define ADEV_DEV(adev) ACPI_PTR(&((adev)->dev))
-@@ -49,6 +50,14 @@
-  *
-  * Please keep the list sorted by ACPI HID.
-  */
-+/* IPU6 variants whose CSI-2 receiver needs the ov5693 clock lane gated */
-+static const u16 ipu6_ov5693_ncont_clk[] = {
-+	PCI_DEVICE_ID_INTEL_IPU6,		/* Tiger Lake */
-+	PCI_DEVICE_ID_INTEL_IPU6EP_ADLP,	/* Alder Lake-P */
-+	PCI_DEVICE_ID_INTEL_IPU6EP_ADLN,	/* Alder Lake-N */
-+	0
-+};
-+
- static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	/* Himax HM1092 */
- 	IPU_SENSOR_CONFIG("HIMX1092", 2, 180000000, 180480000),
-@@ -61,6 +70,9 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	/* GalaxyCore GC0310 */
- 	IPU_SENSOR_CONFIG("INT0310", 1, 55692000),
- 	/* Omnivision OV5693 */
-+	IPU_SENSOR_CONFIG_MATCH_FL("INT33BE", ipu6_ov5693_ncont_clk,
-+				   IPU_BR_FL_CSI2_CLK_NONCONTINUOUS,
-+				   1, 419200000),
- 	IPU_SENSOR_CONFIG("INT33BE", 1, 419200000),
- 	/* Onsemi MT9M114 */
- 	IPU_SENSOR_CONFIG("INT33F0", 1, 384000000),
-@@ -97,6 +109,9 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
- 	/* Omnivision OV5675 */
- 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
- 	/* Omnivision OV5693 */
-+	IPU_SENSOR_CONFIG_MATCH_FL("OVTI5693", ipu6_ov5693_ncont_clk,
-+				   IPU_BR_FL_CSI2_CLK_NONCONTINUOUS,
-+				   1, 419200000),
- 	IPU_SENSOR_CONFIG("OVTI5693", 1, 419200000),
- 	/* Omnivision OV8856 */
- 	IPU_SENSOR_CONFIG("OVTI8856", 3, 180000000, 360000000, 720000000),
-@@ -526,6 +541,10 @@ static void ipu_bridge_create_fwnode_properties(
- 						     cfg->link_freqs,
- 						     cfg->nr_link_freqs);
- 
-+	if (cfg->flags & IPU_BR_FL_CSI2_CLK_NONCONTINUOUS)
-+		sensor->ep_properties[IPU_BRIDGE_NEXT_PROPERTY(i, EP_CLOCK_NONCONTINUOUS)] =
-+			PROPERTY_ENTRY_BOOL("clock-noncontinuous");
-+
- 	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
- 					sensor->prop_names.data_lanes,
- 					bridge->data_lanes, sensor->lanes);
-diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-index aca76ff71..eec8c4688 100644
---- a/include/media/ipu-bridge.h
-+++ b/include/media/ipu-bridge.h
-@@ -17,6 +17,10 @@
- #define IPU_SENSOR_ROTATION_NORMAL		0
- #define IPU_SENSOR_ROTATION_INVERTED		1
- 
-+/* Flags for struct ipu_sensor_config */
-+/* The sensor's CSI-2 transmitter needs a non-continuous clock */
-+#define IPU_BR_FL_CSI2_CLK_NONCONTINUOUS	BIT(0)
-+
- /*
-  * Sensor config specific to one or more IPUs, identified by their PCI product
-  * IDs, with flags describing what the sensor needs there. Entries for one HID
-@@ -80,6 +84,7 @@ enum ipu_bridge_ep_props {
- 	IPU_BRIDGE_EP_DATA_LANES,
- 	IPU_BRIDGE_EP_REMOTE_EP,
- 	IPU_BRIDGE_EP_LINK_FREQUENCIES,
-+	IPU_BRIDGE_EP_CLOCK_NONCONTINUOUS,
- 	IPU_BRIDGE_EP_NUM_OF,
- 	IPU_BRIDGE_EP_NUM_ENTRIES
- };
+Changes in v7:
+- In patch 2, keep digital gain independent of the external clock and
+  expose the manual red and blue gains as separate controls, as requested
+  by Sakari Ailus. Keep green at unity and accumulate register-write
+  errors across the three manual white-balance channels.
+- Move the 24 MHz PLL and global timing registers out of the common mode
+  tables into revision- and lane-specific arrays. Select both 19.2 MHz and
+  24 MHz clock programming explicitly when starting a stream.
+- Clarify the patch 2 assistance disclosure as
+  `Assisted-by: LLM [Codex] [Sparse]`.
+- No changes to patches 1 and 3 through 16.
+
+Validation:
+- Strict checkpatch over all 16 patches: no errors or warnings.
+- W=1 object build of drivers/media/i2c/ov8858.o.
+- Sparse C=2 check of drivers/media/i2c/ov8858.c.
+- OV8858 R2A, four CSI-2 lanes and 19.2 MHz input on the Yoga Book:
+  digital gain and the red and blue balance controls were changed
+  independently during active streaming.
+- Three complete real raw Bayer frames captured from each camera:
+  OV2740 BA10 1932x1092 and OV8858 BG10 1632x1224.
+- Front and rear camera streaming validated in Cheese.
+
+Maurizio Casciano (16):
+  media: ov8858: Extract digital gain programming
+  media: ov8858: support 19.2 MHz clock and CHT gain setup
+  media: ov2740: Use C99 initializers for ACPI IDs
+  media: ov2740: Add OVTI2740 ACPI ID
+  media: ov8858: Add INT3477 ACPI ID
+  media: intel: ipu-bridge: Add Yoga Book camera sensors
+  media: atomisp: Add Yoga Book camera configuration
+  media: ov2740: support 288 MHz link frequency
+  media: intel: ipu-bridge: allow sensor-specific link frequencies
+  media: atomisp: derive CSI-2 timing from sensor link frequency
+  media: atomisp: provide Yoga Book OV2740 link frequency
+  media: ov2740: release group hold after gain write errors
+  media: ov2740: add manual white balance controls
+  media: atomisp: Use struct v4l2_area for padding
+  media: atomisp: allow raw Bayer capture
+  media: i2c: Add WV517S lens actuator driver
+
+ MAINTAINERS                                   |   1 +
+ drivers/media/i2c/Kconfig                     |  11 +
+ drivers/media/i2c/Makefile                    |   1 +
+ drivers/media/i2c/ov2740.c                    | 114 +++++++--
+ drivers/media/i2c/ov8858.c                    | 220 ++++++++++++++----
+ drivers/media/i2c/wv517s.c                    | 206 ++++++++++++++++
+ drivers/media/pci/intel/ipu-bridge.c          |  19 +-
+ .../staging/media/atomisp/pci/atomisp_cmd.c   |  80 ++++---
+ .../staging/media/atomisp/pci/atomisp_cmd.h   |   6 +-
+ .../staging/media/atomisp/pci/atomisp_csi2.c  |  20 +-
+ .../media/atomisp/pci/atomisp_csi2_bridge.c   |  30 ++-
+ .../staging/media/atomisp/pci/atomisp_ioctl.c |  34 ++-
+ .../media/atomisp/pci/atomisp_subdev.c        |   4 +-
+ .../media/atomisp/pci/atomisp_subdev.h        |   3 +-
+ include/media/ipu-bridge.h                    |   3 +
+ 15 files changed, 617 insertions(+), 135 deletions(-)
+ create mode 100644 drivers/media/i2c/wv517s.c
+
 -- 
-2.43.0
-
+2.53.0
