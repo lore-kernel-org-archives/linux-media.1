@@ -1,135 +1,202 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
+Received: from mail-ot1-f43.google.com (mail-ot1-f43.google.com [209.85.210.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF3D0375F69
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 17:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DF2387596
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 19:07:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788371167; cv=none; b=QUa1qIdsk64eX+XfYiquI5bnlr//voHU4gN1EXnx1EjxMhOewQT2LYEbq77ZzPWLXkWUb2V0tPQu1zzW0ZBTE6H1aGilk2gNuE2RWCAYqItrp0C/VaoHYUWy6m0uINu+vhgctlUg3R9RgQuN9wEXBJgPaS+cGv8xpiRl9qVaUFo=
+	t=1788376038; cv=none; b=k6ILFI42Gc98JBZPWSk/+z3OlQFcRnfCYA5glp3e9wZS8kGFhuATaOoEzrUnJtLcr9Vk2D9Fe7uw8QWzoRXK42aL+GBlubm1EgjmUwSEZ8LNf73fCvkuihlQHiypRn2h7X5Q5Nk1VlJ701H8NATtuMfo23DHiVUdQ+Rdq29MMo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788371167; c=relaxed/simple;
-	bh=ukYqhyi0RGuOSajWaOkTQRPODSNPDMI/uvdyQNdZhaQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Q3d22PCP3XGyaOqK38ArfN7my1PuVMl47Xmte/h9Jo+A7dYJ4ZSSXKwbSSp69ww3nqv30i03MUpmWME8mZ8euAsWWjF6/ElSds/sWubtrVLfKdrT9DpeIzOVEMsaIGHVI1+Vb0qA6FPGHOCWgLPKbt2jbeov2NUgHf284MzXqhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca; spf=pass smtp.mailfrom=ziepe.ca; dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b=MS5P6Fdx; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ziepe.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziepe.ca
+	s=arc-20240116; t=1788376038; c=relaxed/simple;
+	bh=nxFfLJEH5Z8mej9+3FHsOCMvcblGiMlW3FOcgBd1niA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QtL4JY+IS3GAPI2BSJeXpeq/StSZ2yVHKAHCPRwhEdSUT4+BbRMvFI1ZsgFKy+eFWz0nfZMjl7I08t550DPyhDShk8X5uqChmgUVYvK/uG7uVeTNN5z2pW4Z+Nb2EUwYaEnCqBlCNMdOpyxR3wuNNow4C6502R7JxXsXAmVmOrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ribalda.com; spf=none smtp.mailfrom=ribalda.com; dkim=pass (2048-bit key) header.d=ribalda-com.20251104.gappssmtp.com header.i=@ribalda-com.20251104.gappssmtp.com header.b=m1nJZyET; arc=none smtp.client-ip=209.85.210.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=ribalda.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=ribalda.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ziepe.ca header.i=@ziepe.ca header.b="MS5P6Fdx"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-90ce3971a86so13154136d6.0
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 10:46:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ribalda-com.20251104.gappssmtp.com header.i=@ribalda-com.20251104.gappssmtp.com header.b="m1nJZyET"
+Received: by mail-ot1-f43.google.com with SMTP id 46e09a7af769-7f4cc6797b7so704202a34.0
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 12:07:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ziepe.ca; s=google; t=1788371165; x=1788975965; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
-        b=MS5P6FdxRTf6zZMhQdQyRdyCYJgoZHjc+ksJJWvMOaQdqxglDX+yxi/yZD7mioXPLX
-         tinPOUIPNe4cwKb1skSYehRaoBNvQksly4nD3FYSKBf2p+yEM+Cf6Qx0GxpBS1ZfNAKD
-         65Bg27dO99juvhMITqqGWJugJFBF/6rnSdoFrSu87+juUCmCYuUo2jV90QcGVyc/A17I
-         A9Cs7klleg/fgNhuFzm8uUd/6kXEBxuMzgLsyf5OIzFQzOpJiCkNiJ8cyB5u2EIABZDB
-         ohKUoHMIld6Z5OIjs77jo+R7syxC4oQEIF6UZcrFKDWgirEn6ZXesTjWOvf813r7nFXp
-         6Nqw==
+        d=ribalda-com.20251104.gappssmtp.com; s=20251104; t=1788376035; x=1788980835; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=en6yF2IO3MCDR9Sasa5TCm5dpOG2lzwUdb3NqrAe38s=;
+        b=m1nJZyETis0OLNgMz/FYu3YEa1mO8xyuk4Stgzx4Oz3lUggwlVuIPr7Yz+44kgGjzq
+         98Z7+iF42kKHQJBLeMmz9zX7xX6F8R3Czidz9jqShvKp+4DOtEdiNt4ZEOTLGFy7d4U5
+         9Rsosr6fuivdWsBz17YTXU84+vCjm+YE0yS3kPaE3cKMaOz0dD98cXaGoLyGbYWehBNc
+         OjZQ/X+ek3B6WRc7zDTM9cpQMYdx2Sdg3zxa8PBWWEMFBHT7aIZ7Wyd44DfK/rkrYePf
+         vKNXa6eiDAOmraxMITZaXFeesEMlLZUEN3cpcnXR7GvM5N6WK8czQ2kKymg8tIvCJRj4
+         hSnw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788371165; x=1788975965;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=ezr6Kp9rH9+35ejy6kYQ0m2wIG/3JEQzG3offk+MEvQ=;
-        b=iVCHXja7P4XRnNcNzB22ESbJgtlvGhvsQhIE6DMuA8dhkw9xRRZPJL/iVPzomufho8
-         ofxfwraicpzm+XXZZbFgBavZc5GGW5loM6inWQAehoVeSJgYnDfF4C4VVWoB5Wy8wxC8
-         yhdeV8pjioN6lGLaAViq8FFr+1txVs/MO+CI/Lr9nrfcYDZK2m4to7XaAVn5tSQkthDS
-         GSK14G/TMu5ksr2YkEu3Voy8ap2IlZZh7Qr9wRWAQGOUwjbZ8MuZ+dIf9uWQ4oOipgPe
-         aa0I2TDuN8ICuusesuxk34AWeB2lqk7eWARS+9ayGhpkM571cB747jcaB+fcQpa/Ghw0
-         olHA==
-X-Forwarded-Encrypted: i=1; AKwUvBzB3lBcNBij0UwOLZSsY+wN6/jGWbV/TxItVfXJ9t//sfj823Ptjk2l7CDDGsMgYaBKlbsLsz5ABEXMiQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mViy2/K5DBv8cFeAC27E7JcFPiK7n39NBXRCb2++UylLRVon4w
-	k3b/VZsNcUiUgqMHfDzmbRuU6qgTxYs8vyakSAtNmtLxNY62ryBShY3zZx++13BGkvoONzKd7uc
-	c/s5B
-X-Gm-Gg: AYBFou3pmMoPtgYN4fWfqEs1SJqdmD0i5R1+OYewK9cMKfE7Nn4ngO8RBlyxt6aKQ1x
-	v06z1nCXvXzStvMAYdmH6yBj4MtOgMtbUck8V64kqHErM7yf4XsJurbXZCsVAudP95B8ATyeQQA
-	aKtHOmqO4A3HdzYbTk5yBu93xfapMKVlQe2de7p8QGKeI9Ts4RNdiCd+UUf7bn1YQBcbWLYRlV9
-	VgJmm4KqYTLxYmFDOkFNpJJsifSz0r32T49Q2pM5FahQWFrcieoAyYCUpGHF+WKd4bix+LHaEcU
-	21+Df4Tfj54I6WnGJHFI4kHZ41skSgxnpH9vjeSEt3n+Y0nddYnL94BOQh0ponjELMuoZM4AUr/
-	9NTiXAcI0X/+QFApegRnmjhoBv6W/u/pxhL6MqqMptKB0yPlWBgea2BevxSaI/NwVikNdVKlGOo
-	ZCc6sjonU/BJlfNO0Ww7GlT2CKSlzmmP2YtGAYQ2isx3RvMqKkGuM7nvhDx6QuegSwOJxjriWBl
-	W8viP4tcUn8aLmZg3LjsCDUCMAQ32tfITvvETk+LFT6khs9F2876ygr
-X-Received: by 2002:a05:6214:2a84:b0:910:3453:7d8a with SMTP id 6a1803df08f44-91034538000mr9552376d6.31.1788371164336;
-        Wed, 02 Sep 2026 10:46:04 -0700 (PDT)
-Received: from ziepe.ca (hlfxns010zw-159-2-239-150.pppoe-dynamic.high-speed.ns.bellaliant.net. [159.2.239.150])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-90e9ee41b5dsm23518966d6.21.2026.09.02.10.46.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 10:46:03 -0700 (PDT)
-Received: from jgg by wakko with local (Exim 4.97)
-	(envelope-from <jgg@ziepe.ca>)
-	id 1x1p2B-0000000Emsa-0EzE;
-	Wed, 02 Sep 2026 14:46:03 -0300
-Date: Wed, 2 Sep 2026 14:46:03 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: Christian =?utf-8?B?S8O2bmln?= <christian.koenig@amd.com>
-Cc: Leon Romanovsky <leon@kernel.org>, David Hu <dhu@x6u.co>,
-	sumit.semwal@linaro.org, alex@shazbot.org, ankita@nvidia.com,
-	chriscli@google.com, david.laight.linux@gmail.com,
-	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
-	jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
-	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	viursachi@google.com, xuehaohu@google.com
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-Message-ID: <20260902174603.GE2890729@ziepe.ca>
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
- <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
- <20260902083232.GT24140@unreal>
- <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
- <20260902095338.GU24140@unreal>
- <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
- <20260902105919.GV24140@unreal>
- <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+        d=1e100.net; s=20251104; t=1788376035; x=1788980835;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=en6yF2IO3MCDR9Sasa5TCm5dpOG2lzwUdb3NqrAe38s=;
+        b=UlC0h9QgPSM9M3tCMu0UVP1gTuoY/idFopembpn0eFaOcH85t5lpikXBZnEDgqaMC/
+         ERImETN5tc5u5Zvx6vedsPRGNk9TiCZsq6UMadeZUm25M08mbEyxhN0UZW2JadY5LAnn
+         2oeOl2l+bWIzNk/bGfKJFxXUFZdhHXMzh9sY4yWPYEOMNRem1aGF915HhxhFTtQD+IVr
+         z+A99F44ri9ojB7Zb5+3ULm+9qbhI3PixsmcIsJfcfUuJnWtv4I+iVfhjyW8ai+910pL
+         sMjLWzKmbJi6DZqJE3iJMjLButVbweIEhdvePnQVBzLaIdCONJTBH5Z3HR8XpNylkUEg
+         XdBw==
+X-Gm-Message-State: AFuF++lJLgmVVDqrXmEjCAXbAnKGTas2ZaYaWiG9OV5ElhRfhAYHFFq/
+	5soufqZwduGrgbhAxmcyi8lxua+YVewFmXx+wIfOqnnz4qNRmPdtOE/dMVVClcudCwJKt9Pergj
+	LgCMdndE=
+X-Gm-Gg: AR+sD10c5o6AqF6/zneRu+2+ZCsgSczhNF0kJsWC9ObWnAHzIh6ohMtBUvm00X0idHn
+	x1jKC6yTje7BFcRsE8dL1ijpD1b3Zv+bxETCQduccSgTIYMPu7PH7XHb9DYUKaef52mFGDNZbWf
+	h2rYCNV7fvvXKaDVpJNZMzToHsgpV02u7EcjifFzQB6Wv7QRjIpt5xe/euS5mML9poMKG1gvrQ3
+	irgbMSSoADnZdTuEqIsIfywiXvF8GvGbrOtM0LYfAz744t4SqK4c8K29pqbp86B8NFrkbG/WNhh
+	wWZuTt/qXtPOMrDj/ZI0dKOH/Ce1du+Lgvt4EgfiT98nC2o4cN5ggvGh2vEgVO04K5ONBTy8Sd2
+	7lu1ZW5AWMsz5muOeCV5SxbvsJHEZbNSeBENOw4rI8KpQn6Bpd/n3KTrjC7zu2/xmigIqhKk71a
+	M9H3SoJ76J6RYl0p+2H3aVRsTE0TlFjjd+mQMpTFDtU6iMOewfUAIld8G+ngQITlnDvQMEcTQwS
+	Wv5P7cLRI8E4I0CqJPemHZe
+X-Received: by 2002:a05:6820:16a9:b0:6b1:445d:aaf9 with SMTP id 006d021491bc7-6b47d4cd775mr4795871eaf.8.1788376035310;
+        Wed, 02 Sep 2026 12:07:15 -0700 (PDT)
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com. [209.85.161.54])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-46f30cb5a17sm4721218fac.8.2026.09.02.12.07.13
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 02 Sep 2026 12:07:15 -0700 (PDT)
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b1b1cb72d0so601805eaf.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 12:07:13 -0700 (PDT)
+X-Received: by 2002:a05:6820:f013:b0:6b1:fe93:3a69 with SMTP id
+ 006d021491bc7-6b47fb291fbmr5170073eaf.24.1788376033279; Wed, 02 Sep 2026
+ 12:07:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <7471c6e1-fbba-4430-a196-3f57a73505b7@amd.com>
+References: <20260902080128.1286050-1-sakari.ailus@linux.intel.com> <6a983846.bd8478ff.19809f.007e@mx.google.com>
+In-Reply-To: <6a983846.bd8478ff.19809f.007e@mx.google.com>
+From: Ricardo Ribalda Delgado <ricardo@ribalda.com>
+Date: Wed, 2 Sep 2026 21:06:55 +0200
+X-Gmail-Original-Message-ID: <CAPybu_2Yk2Qt6BjH9JEmxc=t57Mac83xUGxGzcjycXRaNjB8gQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WRkR970TYZvpQP4zS4PnEqrqEr1FCX6lx7lxmBBmeRtF8tkeGv9cC3xG4
+Message-ID: <CAPybu_2Yk2Qt6BjH9JEmxc=t57Mac83xUGxGzcjycXRaNjB8gQ@mail.gmail.com>
+Subject: Re: [media-ci] Re: [1/1] media: ipu6: Add a Kconfig option for IPU 7,
+ 7.5 support
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>, Linux Media CI <media-ci@linuxtv.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 02, 2026 at 03:34:18PM +0200, Christian König wrote:
-> On 9/2/26 12:59, Leon Romanovsky wrote:
-> ...
-> >> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as
-> >> far as I can see is a complete dead end.
-> > 
-> > Maybe you mean DRM, but VFIO works perfectly with
-> > PCI_P2PDMA_MAP_BUS_ADDR flow in DMA-buf.  What am I missing?
-> 
-> Well not quite.
-> 
-> The approach PCI_P2PDMA_MAP_BUS_ADDR takes is fundamentally tied to
-> only map a physical CPU address into a PCI address and doesn't take
-> into account that in a lot of configurations the CPU can't access
-> all resources.
+Hi Sakari
 
-It is called PCI P2P. If the flow only uses PCI devices it should
-always work because it relies on PCI spec things that happen outside
-the CPU.
+On Wed, Sep 2, 2026 at 5:30=E2=80=AFPM Patchwork Integration
+<patchwork@media-ci.org> wrote:
+>
+> Dear Sakari Ailus:
+>
+> Thanks for your patches! Unfortunately the Media CI robot detected some
+> issues:
+>
+> # Test static:test-compile-all
+> Unable to build VIDEO_INTEL_IPU7
 
-It does not try to solve the general embedded problem of arbitary
-communication between blocks inside a SOC, scale up networks, and so
-on.
+With your patch the CI will be completely blind to the legacy driver.
 
-So, yes, it does not solve every problem DMA buf faces, but no it is
-not a "Dead end" as it 100% solves PCI to PCI communication which is
-still a very common use case.
+Could you add a Kconfig rule that enables compilation of the old
+driver if COMPILE_TEST
 
-DMA buf users that are exporting from a PCI device, over PCI MMIO
-should be using this API. It is the only way to do PCI to PCI
-communication correctly in the kernel.
+Thanks!
 
-Jason
+>
+> # Test checkpatch:./0012-media-ipu6-Prepare-mmu-driver-for-hw-variation.p=
+atch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #56:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 964 lines checked
+>
+> # Test checkpatch:./0013-media-ipu6-Add-ipu7-mmu-support.patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #112:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 825 lines checked
+>
+> # Test checkpatch:./0021-media-ipu6-Add-ipu7-fw-start-stop-functionality.=
+patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #20:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 463 lines checked
+>
+> # Test checkpatch:./0022-media-ipu6-Add-ipu7-fw-com-methods.patch checkpa=
+tch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #33:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 135 lines checked
+>
+> # Test checkpatch:./0023-media-ipu6-Add-ipu7-fw-isys-ops.patch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #216:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 856 lines checked
+>
+> # Test checkpatch:./0024-media-ipu6-Add-ipu7-csi2-register-definitions.pa=
+tch checkpatch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #16:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 1189 lines checked
+>
+> # Test checkpatch:./0026-media-ipu6-Add-ipu7-csi-phy-driver.patch checkpa=
+tch
+> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
+> #133:
+> new file mode 100644
+>
+> total: 0 errors, 1 warnings, 0 checks, 1164 lines checked
+>
+> # Test checkpatch:./0044-media-ipu6-Add-a-Kconfig-option-for-IPU-7-7.5-su=
+ppor.patch checkpatch
+> WARNING: please write a help paragraph that fully describes the config sy=
+mbol with at least 4 lines
+> #28: FILE: drivers/media/pci/intel/ipu6/Kconfig:20:
+> +config VIDEO_INTEL_IPU6_IPU7
+> +bool "IPU 7 and IPU 7.5 support"
+> +depends on VIDEO_INTEL_IPU6
+> +default y
+> +help
+> +  Enable support for Intel IPU 7 and IPU 7.5.
+>
+> total: 0 errors, 1 warnings, 0 checks, 27 lines checked
+>
+>
+>
+> Please fix your series, and upload a new version. If you have a patchwork
+> account, do not forget to mark the current series as Superseded.
+>
+> For more details, check the full report at:
+> https://linux-media.pages.freedesktop.org/-/users/patchwork/-/jobs/109297=
+477/artifacts/report.htm .
+>
+>
+>
+> Best regards, and Happy Hacking!
+> Media CI robot on behalf of the linux-media community.
+>
+> ---
+> Check the latest rules for contributing your patches at:
+> https://docs.kernel.org/driver-api/media/maintainer-entry-profile.html
+>
+> If you believe that the CI is wrong, kindly open an issue at
+> https://gitlab.freedesktop.org/linux-media/media-ci/-/issues or reply-all
+> to this message.
+>
+> _______________________________________________
+> media-ci mailing list -- media-ci@linuxtv.org
+> To unsubscribe send an email to media-ci-leave@linuxtv.org
