@@ -1,122 +1,207 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69C538DC40
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 06:15:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA90C30E85B;
+	Wed,  2 Sep 2026 06:34:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788329736; cv=none; b=j/meiRneHr3q7700/WmTRx2sfpizvrPqalfBK+IRXWYG8PwjL3iGZjFPWUpaQ8BlWs89xHQhdfKuvvCZ7fsgl8MoJR+WnqzgegXD7Al0qKFiJ+bS3XMn329Wv5V5wZ5MH/cUteRvkrKydLxp1bVHNsXaIPaqGj9Z9IHXWlqgqrk=
+	t=1788330847; cv=none; b=MNwqFvFaxucUOVNgzgp84qtB8W0MkxnC7Mm+BB8RtTqiy5prVMD1v6/LkScHpy3JHKwEw6vMYxCQLDHAihHG+PcXlRjHQyWRjl6/iQfkCHvr2VCLfaGOCaa9n88ciI9T20j/e+HH4fEHaNCWYMqLcSjyLcbUcc4CoUu84D39s8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788329736; c=relaxed/simple;
-	bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=jU54ywXRfGpFakkKezSgcg3CnvrC1MbKe00EQtqratiCwUXI3I/OToUDGw30IbNNbwo96F3yJSjaILvlvaowY8Lw/9luBw3RVyIWCJ4JkFnzf1MADj5cmmYN9RIT4r/DJ4zwrX2ZJu0dSMObYye6TjPKmwH3bLAh0foMdWQzZz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lcnWvg4J; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788330847; c=relaxed/simple;
+	bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=quIOkfG7cEqJ0mIZnhq0BMtBuBVBPsWtMJyh4A+uHJf5F5ElSvUBsPS1ZHaKMhjPJvJ+DYWqzdnrDqUu4DFIVEmu0s/6bFwRvsrpLH7nkt/INa1gaR+33bea4gSaXBNHgfiQSDeCAzFaVKFFc0aQp+/Qf5VEnvQeVDv1B8B/BMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UOgFBul3; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lcnWvg4J"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49b965570d7so4708525e9.0
-        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:15:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788329733; x=1788934533; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=lcnWvg4J/YVcYLipW9AFiWEgLPE/vkf1xL3oUvJsxEvQD+W2FFz/CrACix6WdPR32Q
-         ZSNXbXluwgCflWXt/lNI1bSEL07FrXIlstqdw+8w+QjHQ5IK8EUC6sTHrHIw2B1hR1VZ
-         95kM813+oXdScYXlc3OGhYvQ8ZfT8cdXEInVFuAn+Br7Llv53b1EFwvj3KVC6s9tyKul
-         n4zWv4Ce+WpM3Pc7m/poH/p8GrwS44f7rr7+aYxGIcrEQvksMIg3EOYbvQ7a04yLQAx+
-         mpS5tbMnDcMF9d8i4RWJj20WmImxOLRvtFAekQ/mkTkT+/4uK32JC+hWK1cy+4Mn9Qh3
-         MOUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788329733; x=1788934533;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4a44zZaAgVVmRptagp+HGPfT5MsPzTia9qZioPjp2gU=;
-        b=IIBhuii3IpHcbVlLrTttNkllhqQocvoOpqbvqq8Q+V9HD2wRkY/vf21onUXrFkMEb9
-         XJ95EG3QZPF+LKGYaE1goIQJEcH0qBQ572nIYQOaImZRSv/JSL/kz5AbEYZak1jaDP0M
-         ouFbFu1sWMCCp7wE/b6xM9AJju0Y64eysNXZWbF/o95RJBx+X2SMprxkJLgqJKHqPJhx
-         mS0zskTJA+SDCN4FYmgWaKqaos4FLmrvppfUvGidIXthCPvYc8bx7rzOdpRMmkCcrrZq
-         L9JMadwZ92JWEpYYL/8uwS3m0HpSdRZ0r51+6zS1LbnOPDvTeNdjvfSc32BOxNy/H+Hc
-         B0VA==
-X-Forwarded-Encrypted: i=1; AHgh+Rq1pX9U3qrcAmxXde2qm7WxPWXtRiYGyeRAsNY/6l1OOJSAmkWcX3hDxMJp+27UctlzAPXguLRcFJUAjw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lnqFTD4X0wXGzJTPMgBUJFWzIPg8atbS9OPaKWRqCV4/Ej4zx2
-	xMWZZoXdi8GqEUEdrO5RbC6iYr+Ke50p1J3K5q6G3h6vGMLrxGkYTCf8
-X-Gm-Gg: AR+sD11bppHnQuR0Fn5v7Y0B4hyDACkJGKOr/fOH/B4oFbr1IEMilM4C1Hizd0AOWo5
-	3stmN6wlHBsN55peZpNtlCPmIN9dWFn0w2gbL5zbVSWse9FGIktwb2Gxr0yBCLCrIK4OFQvjCQe
-	G3P0Or0frbAZYTDdZvyQf+9lVX73rJn++Dr0rxXCagYPeIAm5dNsezDkT+KVhJH/yXmVHmZmdB9
-	ti8zwHE5pqbI/J0XMXy3/NEZy7ApgJCtIBENpRDA03JXecvJNDnoAt2nSVucC3pcs/wr7/BRNT5
-	0PlAAFVfeQAJZtw29V6+54v/lUhEjcdHqLWhBBvk1otwO+5f6C6W62pGS/zxTPesNtN5UDKznkn
-	tUXuuLdTLLE9YuOa2eCqz1NGI12H2dejotjXqBU5HK6kc2vEHXQ5JYlE1NyRTvGgBGcee3cZzps
-	gUDgM6C3rWpXl0lPL0Mhb8MM5bXaLnSKSi5H6XWgw9J5cvADnPW10I16ZB4WX9Xre3YPwyKfBgh
-	05Y6GwQOLjFPdwJBTLXOSFnGA2blrIInA==
-X-Received: by 2002:a05:600c:4e93:b0:499:cd34:100d with SMTP id 5b1f17b1804b1-49ce57f5235mr39841585e9.7.1788329732659;
-        Tue, 01 Sep 2026 23:15:32 -0700 (PDT)
-Received: from valmpani.valmpani ([2a02:587:f24:b00:967a:9200:4108:5b68])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce4642382sm45222275e9.3.2026.09.01.23.15.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 01 Sep 2026 23:15:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UOgFBul3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788330846; x=1819866846;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
+  b=UOgFBul3B75phUCS69/mMD/coSOBGyH9p2N0ANCUVM9QeDq0l77onPsM
+   jCmn+D/BwWi3Jo6iQFBljSPBuDVVOCKA0wurIUMCLPf7pbvqbohKExCRa
+   NJAVRKRa8UsMOgJXkxZVsG9pxWuSpqYlb1UBquILbeHj8tIx6KtOvz/2p
+   SBjtvJpezc93bJ4Ei1CR4m7XVNCRomqvHWOqLSmqfBAHhNZpHX6ER998Z
+   O57ZWQoSvg/fi03LVI2EqyTV5JvMxMiefi/jflLaA+fs4ihWtuMPTtquj
+   XYXhaAnaPAGTu10pqLDXm4ohwHpfsLnBLu0BzXUuK1VW2FFxE8RzvPlnC
+   w==;
+X-CSE-ConnectionGUID: MiKqaV5ySl6CTiXtFQrxQw==
+X-CSE-MsgGUID: rvZNpiICTyy6YNAtmmJxfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88655996"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="88655996"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:05 -0700
+X-CSE-ConnectionGUID: nIBMMWc5SGOUJl2GYpmYsQ==
+X-CSE-MsgGUID: BJj39WtvQEWlHEqqY1GOtQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="271283985"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:03 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id B9B3F1218BD;
+	Wed, 02 Sep 2026 09:33:59 +0300 (EEST)
+Date: Wed, 2 Sep 2026 09:33:59 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Daniel Scally <dan.scally@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Arsalan Naeem <naeemarsalan@gmail.com>,
+	Jakob Berg Jespersen <dev@berg.pm>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 4/6] media: ipu-bridge: Assign endpoint property
+ indices dynamically
+Message-ID: <apfDVz8nQ43yEl6i@kekkonen.localdomain>
+References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
+ <20260831181858.325109-1-fernandorimoli11@gmail.com>
+ <20260831181858.325109-5-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH] media: dw2102: fix OOB read on firmware size not a
- multiple of 64
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-To: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Igor M Liplianin <liplianin@me.by>, linux-media@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- syzbot+f408eac9faa61d5a1927@syzkaller.appspotmail.com
-In-Reply-To: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-References: <20260806-dvb-v1-1-a750f8e5b2ea@gmail.com>
-Date: Wed, 02 Sep 2026 08:15:25 +0200
-Message-Id: <178832972564.754738.8009301300861192916.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788329730; l=1330;
- i=vasilisalmpanis@gmail.com; s=20260731; h=from:subject:message-id;
- bh=I4NIN1cDbHIY2Amq9fsZuXK8o5mLs0QZQnK6P88hugE=;
- b=rvF99dTX+DCaZpMaHpmUEq9OVveZjVKnOlfnvXU64qiu2UmkqRi5actjAMTg6y6Fjwk0BjGLI
- ye9LPzZOGMFAHox/Yrv2IR1HZSaVtUEqhFX55fGy9HPKKYAIGqz7GZF
-X-Developer-Key: i=vasilisalmpanis@gmail.com; a=ed25519;
- pk=gn5Uo6yL8Tlpq5uATxA3nqoq+U8eWLRbjD+bOk0qSpU=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260831181858.325109-5-fernandorimoli11@gmail.com>
 
-> dw2102_load_firmware() copies the firmware into a buffer of exactly
-> fw->size bytes, then walks it in 0x40-byte steps while always passing
-> 0x40 as the transfer length. When fw->size is not a multiple of 64 the
-> last chunk reads past the end of the allocation producing the following
-> splat:
+On Mon, Aug 31, 2026 at 08:18:56PM +0200, Fernando Rimoli wrote:
+> The endpoint property array is populated with hardcoded indices, so a
+> property that is only set conditionally has to be placed at a fixed slot.
+> As the array is NULL-terminated, such a property is silently dropped when
+> an earlier optional slot is left empty: "link-frequencies" is skipped for
+> configs with nr_link_freqs == 0, which would truncate the array before
+> anything following it.
 > 
->   dvb-usb: downloading firmware from file 'dvb-usb-dw3101.fw'
->   dw2102: start downloading DW210X firmware
->   ==================================================================
->   BUG: KASAN: slab-out-of-bounds in dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->   Read of size 64 at addr ffff88802bcf2ba0 by task kworker/1:2/803
->   Call Trace:
->    <TASK>
->    kasan_report+0x117/0x150 mm/kasan/report.c:595
->    check_region_inline mm/kasan/generic.c:-1 [inline]
->    kasan_check_range+0x264/0x2c0 mm/kasan/generic.c:200
->    __asan_memcpy+0x29/0x70 mm/kasan/shadow.c:105
->    dw210x_op_rw+0xb6/0x180 drivers/media/usb/dvb-usb/dw2102.c:102
->    dw2102_load_firmware+0x2b4/0x970 drivers/media/usb/dvb-usb/dw2102.c:1906
-> 
-> Fix this by clamping the last chunk to the remaining bytes;
-> 
-Hello everyone!
+> Name the endpoint property slots in an enum, size the array accordingly
+> and assign the indices through a bounds-checked running index, as done
+> for the MIPI DisCo for Imaging properties in mipi-disco-img.c. No
+> functional change intended: the same properties are set in the same
+> order.
 
-A gentle ping on this patch. Is there something you would
-like me to change or is the patch good to go?
+There's a lot of unneeded information here. For simple patches like this
+there's no need to go deep in details that can be easily seen from the
+code. How about:
 
-Kind regards,
+Index the ep_properties array dynamically instead of plain numerical values
+as is done in mipi-disco-img.c.
+
+> 
+> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+> ---
+>  drivers/media/pci/intel/ipu-bridge.c | 27 ++++++++++++++-------------
+>  include/media/ipu-bridge.h           | 19 ++++++++++++++++++-
+>  2 files changed, 32 insertions(+), 14 deletions(-)
+> 
+> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+> index 131c70844..cd3c36d44 100644
+> --- a/drivers/media/pci/intel/ipu-bridge.c
+> +++ b/drivers/media/pci/intel/ipu-bridge.c
+> @@ -449,6 +449,7 @@ static void ipu_bridge_create_fwnode_properties(
+>  	struct ipu_bridge *bridge,
+>  	const struct ipu_sensor_config *cfg)
+>  {
+> +	unsigned int i = IPU_SENSOR_EP_BUS_TYPE;
+
+You can just initialise this to 0.
+
+>  	struct ipu_property_names *names = &sensor->prop_names;
+>  	struct software_node *nodes = sensor->swnodes;
+>  
+> @@ -508,21 +509,21 @@ static void ipu_bridge_create_fwnode_properties(
+>  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
+>  	}
+>  
+> -	sensor->ep_properties[0] = PROPERTY_ENTRY_U32(
+> -					sensor->prop_names.bus_type,
+> -					V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
+> -	sensor->ep_properties[1] = PROPERTY_ENTRY_U32_ARRAY_LEN(
+> -					sensor->prop_names.data_lanes,
+> -					bridge->data_lanes, sensor->lanes);
+> -	sensor->ep_properties[2] = PROPERTY_ENTRY_REF_ARRAY(
+> -					sensor->prop_names.remote_endpoint,
+> -					sensor->local_ref);
+> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
+
+You should use the maximum value of the property index here. Same below.
+Right now it's fairly simple, but in more complicated cases it helps
+keeping track of the properties.
+
+> +		PROPERTY_ENTRY_U32(names->bus_type,
+> +				   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
+> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
+> +		PROPERTY_ENTRY_U32_ARRAY_LEN(names->data_lanes,
+> +					     bridge->data_lanes, sensor->lanes);
+> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
+> +		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
+> +					 sensor->local_ref);
+>  
+>  	if (cfg->nr_link_freqs > 0)
+> -		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
+> -			sensor->prop_names.link_frequencies,
+> -			cfg->link_freqs,
+> -			cfg->nr_link_freqs);
+> +		sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
+> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
+> +						     cfg->link_freqs,
+> +						     cfg->nr_link_freqs);
+>  
+>  	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
+>  					sensor->prop_names.data_lanes,
+> diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
+> index 16fac7654..61e10cef1 100644
+> --- a/include/media/ipu-bridge.h
+> +++ b/include/media/ipu-bridge.h
+> @@ -64,6 +64,23 @@ enum ipu_sensor_swnodes {
+>  	SWNODE_COUNT
+>  };
+>  
+> +enum ipu_sensor_ep_props {
+> +	IPU_SENSOR_EP_BUS_TYPE,
+> +	IPU_SENSOR_EP_DATA_LANES,
+> +	IPU_SENSOR_EP_REMOTE_EP,
+> +	IPU_SENSOR_EP_LINK_FREQUENCIES,
+> +	IPU_SENSOR_EP_NUM_OF,
+> +	IPU_SENSOR_EP_NUM_ENTRIES
+> +};
+> +
+> +/*
+> + * Get the index of the next endpoint property in the property array, with a
+> + * given maximum value.
+> + */
+> +#define IPU_NEXT_EP_PROPERTY(index, max)		\
+
+The macro isn't limited to endpoint properties, how about calling it
+e.g. IPU_BRIDGE_NEXT_PROPERTY?
+
+> +	(WARN_ON((index) > IPU_SENSOR_EP_##max) ?	\
+
+How about:
+
+s/SENSOR_EP/BRIDGE/
+
+> +	 IPU_SENSOR_EP_##max : (index)++)
+> +
+>  /* Data representation as it is in ACPI SSDB buffer */
+>  struct ipu_sensor_ssdb {
+>  	u8 version;
+> @@ -141,7 +158,7 @@ struct ipu_sensor {
+>  	const char *vcm_type;
+>  
+>  	struct ipu_property_names prop_names;
+> -	struct property_entry ep_properties[5];
+> +	struct property_entry ep_properties[IPU_SENSOR_EP_NUM_ENTRIES];
+>  	struct property_entry dev_properties[5];
+>  	struct property_entry ipu_properties[3];
+>  	struct property_entry ivsc_properties[1];
 
 -- 
-Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Regards,
+
+Sakari Ailus
