@@ -1,136 +1,99 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7F19391832;
-	Wed,  2 Sep 2026 19:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E65A395AE4
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 19:24:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788377028; cv=none; b=THKU+PqlU1ZVKX6YJHVDVogWEMHb0zFMdZiA9cDFKwWZUngvDYuamDmCdq6Yz/XPHoCwwfAtSft4tGAusdTqZeVRFIfhduONnrCzF8jCYyk/DlXZAjJD2gMuK/jWcJHoaQXuUX6RuCd/4GAu1AsXoO3FCI4N2W8xCvUKP/r74yE=
+	t=1788377104; cv=none; b=BhFfnEEQ22N5e6SqOv3wNff+tQ8/uxjpkIprY7KQk4Bc1KilxhZ72akZjycl8UXIkJ1WPYmrCtDOinZuabS+UBseYDGafAaXgHIB6ZqdEorumvPAGyas2gYRUFS0xJCUKSI1AR8umGd3hyUTVx6928V6to0KCvNa6fpECr8EgPM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788377028; c=relaxed/simple;
-	bh=qw+K+BJ1RrD7zmM2m2dAEw0XiEShg477ZN2YlQC79z4=;
+	s=arc-20240116; t=1788377104; c=relaxed/simple;
+	bh=2LM7KB6iN5oPOcRr//+KhomCrF7WG5ewiRkQqoSzP+c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=afgzbX7t8bgO2vXygxWkTWUQy3iqzud7QMPsKAcRZUjh1B8aDcVfQFWQIsUhgptSucRDDkcFlYmskbo721MR2pCPT5212PLZgTneiWYxttl0VnjaOj7v1nxG85O7luDY9T66+wGpuFGWv+5BkZYBMvjzKSxlwpJybiuyHhOVLQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GNvTglrv; arc=none smtp.client-ip=198.175.65.19
+	 Content-Type:Content-Disposition:In-Reply-To; b=k1nXzZc30DJ++DoZ0DH7H2DT6cIwBoy8OmRn5MlMfwPyAfQwhVW1+cKxyTAB+/Iyz98Vcu+XkWxMd5mUSEKYtiC8DwvbUWcTToXS2ph684kyL3xrVkrarWChjuu/hMn2zZG5+WTvWFk/5uwDSTSSelnFJS6pP1EAjp+Z71g1NP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=d0lkd2s9; arc=none smtp.client-ip=192.198.163.13
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GNvTglrv"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="d0lkd2s9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788377026; x=1819913026;
+  t=1788377097; x=1819913097;
   h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=qw+K+BJ1RrD7zmM2m2dAEw0XiEShg477ZN2YlQC79z4=;
-  b=GNvTglrvDHGkWPxyhxk4WtglzUOZ+lAw5LvslHQZVxRouoeKx6x2AbMw
-   gCmajMTZ2632Kc/BF/w1tv1W7GrdHmu2y/x+1AnUWOXkLNxHhWz0W/pnh
-   mSYW6C9Z0jF1shEQMwX3f4l+1BRJUxyz3dq1m2BRWmEWNfbOWuXAtTebC
-   FWRuBtbgv/smuIPVBfQuCfW9dejmvDROw3G0tsmk4Gg5fPI/fZr4uWb0a
-   Hltr0CKYynMqHquHmz2QCyQZImAjqVf7+8Iu1eZi1bSW9tOKKAd3iLKzd
-   HX3GRZQbuDYPF4AYLS8I0hvUJ5V44YOfwo8TAzPLYoRcHkVkSCbf3t8+0
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=2LM7KB6iN5oPOcRr//+KhomCrF7WG5ewiRkQqoSzP+c=;
+  b=d0lkd2s9drKZvy8M/KMADCeVpl6buY1LQRIUmjMJxeHdPtu1ivbxGa5m
+   bEVLtHC5Ldx3+VD2gV6huypnoK3j3c25XE0GJ4HTFXbj44PzSRPEWxtJA
+   YFLB8lCodluNvi5TARPV53VLnnHv1jckEteUhGLUhDb7attVgrNwIQZ9H
+   O/snIRxV+jDSooAdstU+znTgo8g5Vj9PYqr0hyONJUWQ+npYqqFA+exgn
+   WCJyZRBhIibaAMKbQWb1kziJ3fYxteg+lZKBQXkWevOcWfA7795ixGQWm
+   ngJ814XXM3nQpUecpbvS4ho8eXW/HqrmGwKKqQglrSutndYkOUMud5xSa
    A==;
-X-CSE-ConnectionGUID: EsOKtsboSnCvaS82lDG+7g==
-X-CSE-MsgGUID: 5v7emZfmQ1qDAoI9QNAdIQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88772187"
+X-CSE-ConnectionGUID: RNaK9YDaRFyazjG4jmREtQ==
+X-CSE-MsgGUID: xZ2wAiBCSL636lS7/VkMBw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="91359179"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="88772187"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:23:44 -0700
-X-CSE-ConnectionGUID: hMo5Lun2Rn6VxvOsPgLP3Q==
-X-CSE-MsgGUID: uV1YVyv7TzWYC09NEDOPKQ==
+   d="scan'208";a="91359179"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:24:53 -0700
+X-CSE-ConnectionGUID: liH2XGTeT2usD8ws6jxllw==
+X-CSE-MsgGUID: uXkMxrS8Rt6WYpF0HEpUMA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="265798023"
+   d="scan'208";a="271462716"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.8])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:23:42 -0700
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 12:24:53 -0700
 Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id C72AD11F7F5;
-	Wed, 02 Sep 2026 22:23:38 +0300 (EEST)
-Date: Wed, 2 Sep 2026 22:23:38 +0300
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id F412211F7F5;
+	Wed, 02 Sep 2026 22:24:49 +0300 (EEST)
+Date: Wed, 2 Sep 2026 22:24:49 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Sergey Zagursky <gvozdoder@gmail.com>
-Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] media: ipu-bridge: do not use the CVS device lookup for
- IVSC
-Message-ID: <aph3uoSgTLECfBIQ@kekkonen.localdomain>
-References: <20260901194526.6369-1-gvozdoder@gmail.com>
- <20260901195036.7648-1-gvozdoder@gmail.com>
- <apfI7m2oD-k5GOYN@kekkonen.localdomain>
- <20260902145830.1796405-1-gvozdoder@gmail.com>
+To: Ricardo Ribalda Delgado <ricardo@ribalda.com>
+Cc: linux-media@vger.kernel.org, Linux Media CI <media-ci@linuxtv.org>
+Subject: Re: [media-ci] Re: [1/1] media: ipu6: Add a Kconfig option for IPU
+ 7, 7.5 support
+Message-ID: <aph4AQrGXJWU3KVL@kekkonen.localdomain>
+References: <20260902080128.1286050-1-sakari.ailus@linux.intel.com>
+ <6a983846.bd8478ff.19809f.007e@mx.google.com>
+ <CAPybu_2Yk2Qt6BjH9JEmxc=t57Mac83xUGxGzcjycXRaNjB8gQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260902145830.1796405-1-gvozdoder@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPybu_2Yk2Qt6BjH9JEmxc=t57Mac83xUGxGzcjycXRaNjB8gQ@mail.gmail.com>
 
-Hi Sergey,
+Hi Ricardo,
 
-On Wed, Sep 02, 2026 at 03:57:25PM +0100, Sergey Zagursky wrote:
-> Sakari Ailus wrote:
-> > I can confirm there's indeed an issue here. But considering the list
-> > contains the CVS device HIDs, doesn't it mean you're returning NULL here
-> > for CVS, i.e. not for IVSC?
-> 
-> acpi_match_device_ids() returns 0 on a match, not a boolean:
-> 
->   int acpi_match_device_ids(struct acpi_device *device,
->                             const struct acpi_device_id *ids)
->   {
->         return __acpi_match_device(device, ids, NULL, NULL, NULL) ?
->                0 : -ENOENT;
->   }
+Thanks for the review.
 
-Ah, I missed you used acpi_match_device_ids(), not
-acpi_match_acpi_device(). v1 is still better than v2 though.
+On Wed, Sep 02, 2026 at 09:06:55PM +0200, Ricardo Ribalda Delgado wrote:
+> Hi Sakari
+> 
+> On Wed, Sep 2, 2026 at 5:30 PM Patchwork Integration
+> <patchwork@media-ci.org> wrote:
+> >
+> > Dear Sakari Ailus:
+> >
+> > Thanks for your patches! Unfortunately the Media CI robot detected some
+> > issues:
+> >
+> > # Test static:test-compile-all
+> > Unable to build VIDEO_INTEL_IPU7
+> 
+> With your patch the CI will be completely blind to the legacy driver.
+> 
+> Could you add a Kconfig rule that enables compilation of the old
+> driver if COMPILE_TEST
 
-Can you match IVSC IDs instead? They're more stable as I don't expect new
-ones are created anymore, which isn't the case for CVS.
-
-This is ok as a fix that is easily backported, but I think parsing CVS /
-IVSC should be separated so we wouldn't need a CVS fallback case at all.
-That's not necessarily part of the same set though.
-
-> 
-> so the bare "if (acpi_match_device_ids(adev, cvs_acpi_ids))" is true when
-> adev is *not* in the list, which is the IVSC case. Both spellings are in
-> tree, e.g. drivers/acpi/scan.c:1800 uses the negated form for "matched"
-> and drivers/acpi/x86/utils.c:206 the bare one for "did not match".
-> 
-> On this machine adev is INTC10CF, which is not in cvs_acpi_ids[], so the
-> early return is taken, the IPU6 probe fails with -ENODEV and is retried
-> once the IVSC device exists. With the polarity you read, IVSC would fall
-> through to the lookup that returns the driverless INTC10CF:00 platform
-> device and the camera would stay dead. It does come up, so the code
-> behaves as the changelog describes.
-> 
-> That said, you had to stop and ask, which says enough about how it reads.
-> v2 wraps the match in a named helper so the polarity is visible at the
-> call site:
-> 
->   static bool ipu_bridge_is_cvs_dev(struct acpi_device *adev)
->   {
->           return !acpi_match_device_ids(adev, cvs_acpi_ids);
->   }
-> 
->   if (!ipu_bridge_is_cvs_dev(adev))
->           return NULL;
-> 
-> No functional change, so I rebuilt it but did not boot it again; the
-> functional test in v1 stands:
-> 
->   https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
-> 
-> Thanks for the quick review.
+Yes, that makes sense. I'll send v2.
 
 -- 
-Kidn regards,
+Regards,
 
 Sakari Ailus
