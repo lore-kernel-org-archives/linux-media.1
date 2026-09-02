@@ -1,372 +1,197 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2D34A8A0C
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:54:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788360863; cv=none; b=jju8UhufylINOzON2bR6RsUJBpq5MuSl2LYYcYaI1bmw3P0PzmmHfm+oWq09T1rQuJYKtcknZU11lz/DHE5xy0YUpQ4CfFrlyCv0GQq2rRpLDkaHRfaRyr29rhgTLcwMWsKuo8MlnUgRkP7Hbop1bbdpRMNp7PbszordBwihvMQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788360863; c=relaxed/simple;
-	bh=7TpNIuEmLp+G5e+2SpK8ix5wNiH93X57SXsd3KUQO5E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G7TKWlmsg1jLEyxMxfaAL0yKzeLP4grLcDmZHiYgZ5jH3Ds1DfEQR9wyyu8LLpvbdfBD3nUisr0Ech6AnxUAwnTOKzhanh/SIdrzFp6FGi7y2wymyC6a1ukAT/b1ufkyNYSiHpaBPvJNd/M3+QyToQa6IgTspLNWuyqQSWFstaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K/CHgd8W; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DB24A8FC2
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:54:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788360872; cv=fail; b=Fq0zTVyzND085NibKrVuottDXfFsk/Ja2pfrY209kmSHxb5eoukNDcu6UEPLDQsaOeTt+sJlAB4IYvwrbzJfegJk+5gb8vPBaNQ80pahWHrk5qxBecKAMEJuGXuiSFkGgo7Bl6PmtPmyz4epH9ONbztDQ3xdnem5nEPttL/csvw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788360872; c=relaxed/simple;
+	bh=EoG6jJ2VHFzhToUfR/JJRc9Cp7pthxg2VEVP8FAz204=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=OeQyHUDRxeIQUlz1oq9/FHMCdj61Ogxa8AQCUt8KfYWEXIvAcJKIj0OKfPivBwA/d3LF36MP1WX4uXZ1Q0iVuxzgXDac4ILEn3pVfwQbwm7eihYhWXGEj03hFbe75WbdCXDBZxYAsctAoQVlareMzSYT0ZH5bkX7rMi32UJOwoc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=B1/pcCQA; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=m8nzCZiN; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K/CHgd8W"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-4843e397f74so1369583f8f.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:54:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788360859; x=1788965659; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=K/CHgd8WGNVP+AZvy+jsju32aosI4Vezl7Rp74E7nu3MGdsOdOdpAiCxpMzFweN59J
-         Ryhbk199UeF81N8SFc8gVkNY/h2BJUB4Wc5NdURlejhIPKfsVRuRsAF19GikLdtvuM43
-         qdFJbTNCz4es+0tBbyc+EeO+UAZz6yLvzOekNieHlNX7asFDPIo01xB4dtwURIHQMw2d
-         P8AXplmEUOHXkpESKYmIR+rw6i0GfvvnenJSd5hin4iW2qQvpxbQIuVPVtcCowoQPbo3
-         0B7dAAK6o5MTFCgieUuSnvz7jfRw6TnzkuBtOYZEiBaik3qgFnbjq48Bn09LCTR0pDrd
-         UsHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788360859; x=1788965659;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=06nDeaXmBzbafN8AxJnH0KVNHErvgEdljVUYQQyITT8=;
-        b=HEB29IMguY5uK/4I4FB5cFzt657IJFkg8gpzKDAI9RmchzPVkwq6bEYarUHQPxco4n
-         9WqrE33hBLMr/SrfFmM+ZU6X9QPOM11OBPEkhl9q1OwPKaYxEGtAaZXfCadggv7yM3hj
-         fJOshfT9AWkJa6b4RyHKgwL+yABH8z60TFTybLMxXaZp0tjHJuH0vujDZla7pJ990+5B
-         ajZK1ZYvuWvBLiJx+HcT94neXnGuSP4nECZJOErqKUwrEBNEOe83dh3wkceO4vIOvYxp
-         IE2n2XeTtJYl6VcvSJJKQqE1KO+xM1iyM07SaZyF2Cns9Cln2Gq4jjc83IStdPjGM/Oi
-         LO2A==
-X-Forwarded-Encrypted: i=1; AKwUvBxhZomLTpXZ3m6vcZa+e+ytCOszzEyEvagqyUsH70zWtUSsjpR2jw55e5jm6YNuhWb3B908bilCDSBm/g==@vger.kernel.org
-X-Gm-Message-State: AFuF++m/5e+To5YHhZ4Kn76s9vGrkX+cIQzfMSvRwQ6rAz6lJFlfZ+Dx
-	Ca4+9Z7LaOq7cEPrOAypddv7wkIBBoiT6Fb/doq6sPYErD7vi3sT5FxU
-X-Gm-Gg: AYBFou1+Pc0MlvGaatlmym6one2mMJ1rIIAnilXOIRP3vYMY+/JO5N1fpHNUHpK5jOF
-	Fyj6LSh4kurtrNAuprin43DFYg/doGsSK043lKsjHmsl9nZDKX6WSbWok6IfeWk/YYqYb4ENOVn
-	0fqLVllr4IzvaUkkOvqaybAvRwg1ozbKCMZgofFHyf9Qgnq0kwaIGzD6poNUzTArDrBIfGKVqHB
-	E1I7sDioKaxuKg6OgWzRhXb0xm0fmQ0Z55EE960KnIgrjfbtqhM/Kzmy9gPYC8zqOOylBCRyUHB
-	EK9XrfXuS+xGI2nyUJk5XAtUKeWxYjfIFkWRJuAR1nZo8hlxwhkVLSu/c2xxrBotolL3Y4t8+Dm
-	UqHnrN4p5A9yKjILqQb3Fox0D/bA3fGkOrr0NvWj8wV9mmmZZfAkUdMyBnM7q/hSk9FExPsox7v
-	vQ6AWdY9Oy0lFxsEWJhGuIdtgDuliWbDvBURbOP/8qlybGtrv/U3YKN20+ReHZTGjpzZKr/Ud54
-	nCEyU7jmRtIHBx5ujZTEoMVKD+noCjOfQ8HuKX0daya
-X-Received: by 2002:a05:6000:4a03:b0:484:482d:dce4 with SMTP id ffacd0b85a97d-4856f8254d5mr7668524f8f.0.1788360859416;
-        Wed, 02 Sep 2026 07:54:19 -0700 (PDT)
-Received: from 1Z10 ([37.163.216.116])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48448e81718sm6942012f8f.16.2026.09.02.07.54.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:54:19 -0700 (PDT)
-From: Maurizio Casciano <mauriziocasciano7@gmail.com>
-To: mchehab@kernel.org,
-	linux-media@vger.kernel.org
-Cc: Maurizio Casciano <mauriziocasciano7@gmail.com>,
-	sakari.ailus@linux.intel.com,
-	bingbu.cao@amd.com,
-	jacopo.mondi@ideasonboard.com,
-	nicholas@rothemail.net,
-	andy@kernel.org,
-	andriy.shevchenko@intel.com,
-	hansg@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-staging@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v7 16/16] media: i2c: Add WV517S lens actuator driver
-Date: Wed,  2 Sep 2026 16:53:45 +0200
-Message-ID: <bbd81ef43dfb8ad92572cdfb51ab2781e9a4cd02.1788360629.git.mauriziocasciano7@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <cover.1788360629.git.mauriziocasciano7@gmail.com>
-References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="B1/pcCQA";
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="m8nzCZiN"
+Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
+	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 682CV2uW974125;
+	Wed, 2 Sep 2026 09:54:17 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=9DH58ctxu43fmgQ8RhDi+GRZGa2C6CLa+KXvvoqkY
+	do=; b=B1/pcCQA7ikWrKhwn0l2QFtyCLqmvOYqOWiUqDoTpolrkszUa37kA/oKx
+	wtkjBQgG6NIBZR/KKwu2mqabLs/+mjCre0oxQDZIjnQhoVH2pM0jaUNNR1VaKbnG
+	6sGMVuMUImPi4RXpb/WVaHZIKsBWD09JoeZkAk50lSLSFV/awnL8BQO8o1CkL/bS
+	XPpHlDX55xHvlsfvDPDIU8078mGxu5jjyDR0pj1p44AzuaqxHETs0V0jsrUTA6JH
+	0ulZ7Q+/IHxmCWGJGzWoaru9imk3IF04ukzuqHCDWXcmofE1Cu/0XCtvqynRxJK1
+	AWRGIr4gbLt8IGasJJZq++75s9bgg==
+Received: from bn1pr04cu002.outbound.protection.outlook.com (mail-eastus2azon11010064.outbound.protection.outlook.com [52.101.56.64])
+	by m0384305.ppops.net (PPS) with ESMTPS id 4ge7cgcu1u-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 02 Sep 2026 09:54:17 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=qd3uigEp6c4GLXe0nznblsG5pvZ6IH4XLv6vKm/nVMrSd8at8h+C5sZv1JuvJ9TxaXzQUNwCycHCEehdKGMLGswgE1H/o+vU+6E8EE0aX2OvZqHyN75klZm+4+3ZdoeY+r0d4xneSKJ8XG/8bIttTmvzAw+SqqubSzFLr1gHh0W+XhBLxAT7XpaZidEvcehzy5NTAcidYO6CVvFdLcbWnUYWaeYFLx3AJaK4/sN7FO6fh90BxOnET+1Lhv9bxYIo5iRmRc+7Tn/wa/SEWMbC+ra7CdAFBJXNBOhGCPHZlTURCrJcmr+8zilscM8dcJbIMFCIVMBQgYdBSsJjJmbS4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9DH58ctxu43fmgQ8RhDi+GRZGa2C6CLa+KXvvoqkYdo=;
+ b=aKwoUVMAitAnQgAatam5fRCWPqjUSF4cDFXxLtfFIB0hT5dfxsk72saCohvWk6c+/MxZP9RCG6CX0dSaVSnLs8bwaEuRy6bF6jE1IErhTmoqZhCZQGQE7N0Lxz6KFwJ010UB8hp6zpZePybwCfeyUdWzZeUgJdv0XLIEKmPNIq8tcDJD2KJkbLNibtUR8s+2QwXChJ5qtibmhfpNZW79n/SWt32qFfInm/XF6o91ckdoEjkEdhMVAqsArlyDeQ1ICuw9GsuL/eI+jydHXFh73JSWXoGSaM3QlJHvBUL0Hr5eNbZNcKWKzX9AZxBaZfwemyjUGUJXATJSmI5JL0xmRw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=iki.fi smtp.mailfrom=ti.com; dmarc=pass
+ (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
+ (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9DH58ctxu43fmgQ8RhDi+GRZGa2C6CLa+KXvvoqkYdo=;
+ b=m8nzCZiNvDZxji79p9VsNXnZ/AZnzYVu5oVLzjwACycoFRByz1Cvu609Zlg9JYC6ekrCFByyi3ZjFjO8ASSpCLuy6TdyKp0d9LfEh7PX0rg0abmNBEWUcikZzRPuh5mUlX6Fu/7mOPWB4wgdnzoaRzbGBE2k721Vd1x0pHbG7w0=
+Received: from SA9PR13CA0126.namprd13.prod.outlook.com (2603:10b6:806:27::11)
+ by MW4PR10MB5750.namprd10.prod.outlook.com (2603:10b6:303:18e::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.382.10; Wed, 2 Sep
+ 2026 14:54:12 +0000
+Received: from SA2PEPF00003F63.namprd04.prod.outlook.com
+ (2603:10b6:806:27:cafe::93) by SA9PR13CA0126.outlook.office365.com
+ (2603:10b6:806:27::11) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.10 via Frontend Transport; Wed, 2
+ Sep 2026 14:54:11 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ SA2PEPF00003F63.mail.protection.outlook.com (10.167.248.38) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.382.8 via Frontend Transport; Wed, 2 Sep 2026 14:54:10 +0000
+Received: from DFLE208.ent.ti.com (10.64.6.66) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
+ 2026 09:53:20 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE208.ent.ti.com
+ (10.64.6.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 2 Sep
+ 2026 09:53:20 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Wed, 2 Sep 2026 09:53:20 -0500
+Received: from [10.24.51.219] (abhilash-hp.dhcp.ti.com [10.24.51.219])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 682ErI29804962;
+	Wed, 2 Sep 2026 09:53:19 -0500
+Message-ID: <561ff30f-6119-4698-a719-139bf279ea10@ti.com>
+Date: Wed, 2 Sep 2026 20:23:16 +0530
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH] media: ti: cal: Deprecate non-MC API usage
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+        Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>
+CC: <linux-media@vger.kernel.org>, Sakari Ailus <sakari.ailus@iki.fi>
+References: <20260723111903.742283-1-laurent.pinchart@ideasonboard.com>
+ <2d3f854c-0731-4405-b77e-13929049ca67@ideasonboard.com>
+ <20260902122454.GA335893@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
+In-Reply-To: <20260902122454.GA335893@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 7bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SA2PEPF00003F63:EE_|MW4PR10MB5750:EE_
+X-MS-Office365-Filtering-Correlation-Id: 919eae3a-4fa5-41ab-9d77-08df09020bf8
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|82310400026|376014|1800799024|22082099003|18002099003|56012099006|4143699003|10067099003;
+X-Microsoft-Antispam-Message-Info:
+	0ALrpKQ3BhcYmfSBhITdgmukEZEMYpP00IJQFLiLlXyHizFNo+Ug0yD1ow2IYP/wmaXA9SiajA6HhPX20xY0HWKRX188pEO2R3M4xlasS54Q4IWNfeaG5AnOK1mS10BlrtWTKch3bFQKy5SihNgy9CLvG0nPRirojKx+MUNS1htLr9/6DtSBXhDWqtqYl4qygAsU1EbOzuboDN8IM/NSRoJBlamXEfSGKyJewTJtUdD5q5OvOwGmxkZEdOHJT9DqUKnrmmGY0mZIlCCcWvh+TdWo55lwqSG8HFqXSHPanYVZ3RLqtxRBhi65ZNw9ClsDnp1a4NdYNoI2FzXJ63IvirooicHENBR0bTt4s0SKARrZzQR2cOErolXq6sJg/mxjjKgBykgfMYyPYiV62Lfgdi6dBPL5k6BwgU9fsI1hh6IYGqj7EvAOSp9R0qKK7ttIJ/LYRmIa7DKftDZhyCCW65mr+gY+6DVVa5zU4q/PDAE379zA3deyyHtOS3pFg5iJSITV9gB+vCUXR3FjIPqxezqFjkhEbGa/Oh9gJTLjtjTloXKyzL/jfQjWJI+FAR80ZV8YmB81YIAI0udJO3aKnpoDKmMPe7ApautlBPUqI+xdbLgqnh8MczagAbBdiLTKiFRVRtQtr179AkY3swwVlDn6l1HW44btget+m6M6aRzMGtl85lCBVwzybTA822KrJM7geVOi3urv3ANpBzGpHQ==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(82310400026)(376014)(1800799024)(22082099003)(18002099003)(56012099006)(4143699003)(10067099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	6Pcf8h6kg7M/vhO2a9atQj0n/mGD7mYP/RERN/tq0xcGpN10vtNi5eeatJCdZtIfXhX07sDjyS2rmSl3AsS4FIZC1wcQ2XZAcw/YLb8LXPpbpkLUZUGmqoKYaNCa5fzj1H/aeoMf5hJT8+ZMxKgmS0KIosIv4fjsqywuQNJB5thnEmBmVrl6TuCl6txk1VpT9GXcjUKIap1JCHNLyYhXlo9NmX82qBh/cCgH5A0bZbvQjl3YpZlOIl17BE7M418hIEi6p5ImgilS87eBipls+MUexGvoQRfdhapRS6sPfgH6J9awKtmOEC226Jq5pbtDcxtbTnKI7nTnoT2v0gjyxmK068E2TksSVPLYemdSTkTi+sKxb33HOnp3dJiYTXy1TQtwxkquJJU7/18gbmbEGD6Rvr6FdAtZMl47Pl9F4OI1R+07fSbsabB1O3OjR8/e
+X-Exchange-RoutingPolicyChecked:
+	Jl3sfKVDPoFUVV68F5ZRtBR0tUAk5+F80HlbiqeTFodx7uNBjBHpK3AM60IWZJ9oPTf8nEBIzFBs3EbVGgyHMUNLl+j3xA6GDu77hCqDvJgQ/4oqqrQHS6vD76kYVI+u2djsuybbOKKdCKPnkglF3HRo/MCWkLiawfSMLPIMS/KU8sIh1ntLmG/WJJYD8md2wmKkdUQULtPM1g6oU236XS433EajdVoVoJEe2pJp30PHi3CT6B+9O4ogWVmzVAE5tYdiHE3PSivxNpEl+baddGJ3NvVNNG4IvPE74ecPJIM0CxS7Q2AfGZJcKnpRJoQJJ5IFRlM5Vr9akeY2eZ3Wfw==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 14:54:10.4660
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 919eae3a-4fa5-41ab-9d77-08df09020bf8
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SA2PEPF00003F63.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5750
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTAyMDEzMSBTYWx0ZWRfX5cDGj4J9vOcZ
+ CQOwpezlH5tGSqb1gFeLzODs2/8GlidYSWdKpF3/5nP1VHm09WKgQnqDgpgjYkWp+cPwF7chQg/
+ O3E5XNN0qLYa4dI6diuzZVeRY6n5YmA=
+X-Authority-Analysis: v=2.4 cv=Ka3idwYD c=1 sm=1 tr=0 ts=6a983899 cx=c_pps
+ a=tGbvjRCxuxMasaU8K2d5rg==:117 a=iwqwCZQqcuTv3JOpYdM7/Q==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=taLDd7a_hP9WKsMzeGRc:22 a=sozttTNsAAAA:8 a=P1BnusSwAAAA:8
+ a=dmJo-NLSnNaHqi9qzLkA:9 a=QEXdDO2ut3YA:10 a=D0XLA9XvdZm18NrgonBM:22
+X-Proofpoint-ORIG-GUID: o5tVszkjHU81W6RTnObGfPGHEX9jTNK-
+X-Proofpoint-GUID: o5tVszkjHU81W6RTnObGfPGHEX9jTNK-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAyMDEzMSBTYWx0ZWRfX6lXBUyeaFXOy
+ kwt2fflu+nTd7mcrw+YDm1jZX99R0CLEckXC3TyaYosXXujOHH198wFCxlS/PSIGOsujl3tK4nh
+ WqV1t0jk2ISbptcyJVHVI2KTTQMdyretCpY0SroDNa9wR5PeXwbYIl8yY4e5RLLpW4Hxtmzv9oc
+ PNsXMYvPGrL8nNaRwBwaYqphekqy8nM9Jl8GcXafbfPbJUQgPdm1fUYIlXjF/WUMJ6aUUYpgfET
+ +n93BVw3lVoOQGzs4V3hS/hEj8WO6J+L5tnV9ZbTAeZbVQfIdnTjay/QIH0uAJZMmbabGLZK1cR
+ xF2gROq4Cc5yhheJH9jXLnR9puafvvfHBp2463YVKlJ5uyN1e/q1Q0OuvYGDaCDIgpge7iBT4qU
+ SuJcph39vU+wcHOes3t/9pY2M+fLeFAb54Ge8WQOa3nSAV8RYGyJdLu0TQ3ikKxbQnaJ2zJeNgF
+ gd3z/h7S+d38UR1E5iw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-02_03,2026-09-01_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1011 bulkscore=0 suspectscore=0
+ malwarescore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609020131
 
-The Lenovo Yoga Book YB1-X91 rear camera contains a WV517S voice-coil
-actuator. Add a V4L2 lens subdevice exposing the standard 10-bit
-FOCUS_ABSOLUTE control and the device ringing-control mode.
+Hi Laurent,
+Thanks for the patch.
 
-Use regmap for register access and tie control updates to runtime PM so
-the IPU bridge sensor link keeps shared power resources active. Propagate
-PM acquisition failures and restore the drive mode and controls after
-resume.
+On 02/09/26 17:54, Laurent Pinchart wrote:
+> Yemike, are you fine with this patch ?
+> 
 
-The register addresses and drive-mode value are derived from Intel's
-GPL-2.0 WV517 driver. Retain the Intel copyright notice and document the
-2026 copyright for this V4L2/regmap implementation.
+Yes, I apologize for missing this.
 
-Link: https://github.com/jekhor/yogabook-linux-android-kernel/blob/574bae692716f1b14093497bfab8a007fe8e460b/drivers/external_drivers/camera/drivers/media/i2c/wv517.c
-Assisted-by: LLM sparse
-Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
----
- MAINTAINERS                |   1 +
- drivers/media/i2c/Kconfig  |  11 ++
- drivers/media/i2c/Makefile |   1 +
- drivers/media/i2c/wv517s.c | 206 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 219 insertions(+)
- create mode 100644 drivers/media/i2c/wv517s.c
+Reviewed-by: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 55b3c2d7a78a..a4380be897e9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -28555,6 +28555,7 @@ S:	Maintained
- F:	drivers/media/i2c/ak*
- F:	drivers/media/i2c/dw*
- F:	drivers/media/i2c/lm*
-+F:	drivers/media/i2c/wv517s.c
- 
- V4L2 CAMERA SENSOR DRIVERS
- M:	Sakari Ailus <sakari.ailus@linux.intel.com>
-diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-index 5c52007f9cbe..c5636e0cbecf 100644
---- a/drivers/media/i2c/Kconfig
-+++ b/drivers/media/i2c/Kconfig
-@@ -949,6 +949,17 @@ config VIDEO_DW9807_VCM
- 	  capability. This is designed for linear control of
- 	  voice coil motors, controlled via I2C serial interface.
- 
-+config VIDEO_WV517S
-+	tristate "WV517S lens voice coil support"
-+	select REGMAP_I2C
-+	help
-+	  This is a driver for the WV517S camera lens voice coil. The driver
-+	  supports 10-bit focus control and exposes the actuator through the
-+	  standard V4L2 lens sub-device interface.
-+
-+	  To compile this driver as a module, choose M here: the module will be
-+	  called wv517s.
-+
- endif
- 
- menu "Flash devices"
-diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-index d04bd5724552..e480932a9540 100644
---- a/drivers/media/i2c/Makefile
-+++ b/drivers/media/i2c/Makefile
-@@ -173,4 +173,5 @@ obj-$(CONFIG_VIDEO_VP27SMPX) += vp27smpx.o
- obj-$(CONFIG_VIDEO_VPX3220) += vpx3220.o
- obj-$(CONFIG_VIDEO_WM8739) += wm8739.o
- obj-$(CONFIG_VIDEO_WM8775) += wm8775.o
-+obj-$(CONFIG_VIDEO_WV517S) += wv517s.o
- obj-$(CONFIG_VIDEO_INTEL_CVS) += cvs/
-diff --git a/drivers/media/i2c/wv517s.c b/drivers/media/i2c/wv517s.c
-new file mode 100644
-index 000000000000..fa6c6d7524fb
---- /dev/null
-+++ b/drivers/media/i2c/wv517s.c
-@@ -0,0 +1,206 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+
-+/*
-+ * WV517S voice-coil motor driver
-+ *
-+ * Copyright (c) 2014 Intel Corporation.
-+ * Copyright (C) 2026 Maurizio Casciano <mauriziocasciano7@gmail.com>
-+ */
-+
-+#include <linux/container_of.h>
-+#include <linux/device.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/pm_runtime.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+#include <media/v4l2-ctrls.h>
-+#include <media/v4l2-device.h>
-+
-+#define WV517S_MAX_FOCUS_POSITION	1023
-+#define WV517S_DEFAULT_FOCUS_POSITION	300
-+
-+#define WV517S_REG_FOCUS		0x41
-+#define WV517S_REG_DRIVE_MODE		0x43
-+#define WV517S_DRIVE_MODE_12_6_MS	0x0211
-+
-+struct wv517s_device {
-+	struct v4l2_ctrl_handler ctrl_handler;
-+	struct v4l2_subdev sd;
-+	struct regmap *regmap;
-+	bool resuming;
-+};
-+
-+static inline struct wv517s_device *to_wv517s(struct v4l2_subdev *sd)
-+{
-+	return container_of(sd, struct wv517s_device, sd);
-+}
-+
-+static const struct regmap_config wv517s_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 16,
-+	.max_register = WV517S_REG_DRIVE_MODE,
-+	.val_format_endian = REGMAP_ENDIAN_BIG,
-+};
-+
-+static int wv517s_set_ctrl(struct v4l2_ctrl *ctrl)
-+{
-+	struct wv517s_device *wv517s =
-+		container_of(ctrl->handler, struct wv517s_device, ctrl_handler);
-+	struct device *dev = wv517s->sd.dev;
-+	int pm_ret;
-+	int ret;
-+
-+	if (ctrl->id != V4L2_CID_FOCUS_ABSOLUTE)
-+		return -EINVAL;
-+
-+	/* Runtime resume restores controls while the PM state is RPM_RESUMING. */
-+	pm_ret = pm_runtime_get_if_active(dev);
-+	if (!pm_ret && !wv517s->resuming)
-+		return 0;
-+	if (pm_ret < 0)
-+		return pm_ret;
-+
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_FOCUS, ctrl->val);
-+
-+	if (pm_ret > 0)
-+		pm_runtime_put(dev);
-+
-+	return ret;
-+}
-+
-+static const struct v4l2_ctrl_ops wv517s_ctrl_ops = {
-+	.s_ctrl = wv517s_set_ctrl,
-+};
-+
-+static int wv517s_open(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	return pm_runtime_resume_and_get(sd->dev);
-+}
-+
-+static int wv517s_close(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
-+{
-+	pm_runtime_put(sd->dev);
-+
-+	return 0;
-+}
-+
-+static const struct v4l2_subdev_internal_ops wv517s_internal_ops = {
-+	.open = wv517s_open,
-+	.close = wv517s_close,
-+};
-+
-+static const struct v4l2_subdev_ops wv517s_subdev_ops = { };
-+
-+static int wv517s_resume(struct device *dev)
-+{
-+	struct v4l2_subdev *sd = dev_get_drvdata(dev);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+	int ret;
-+
-+	/* Restore the vendor-recommended 12.6 ms ringing-control mode. */
-+	ret = regmap_write(wv517s->regmap, WV517S_REG_DRIVE_MODE,
-+			   WV517S_DRIVE_MODE_12_6_MS);
-+	if (ret)
-+		return ret;
-+
-+	wv517s->resuming = true;
-+	ret = v4l2_ctrl_handler_setup(&wv517s->ctrl_handler);
-+	wv517s->resuming = false;
-+
-+	return ret;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(wv517s_pm_ops, NULL, wv517s_resume, NULL);
-+
-+static int wv517s_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct wv517s_device *wv517s;
-+	int ret;
-+
-+	wv517s = devm_kzalloc(dev, sizeof(*wv517s), GFP_KERNEL);
-+	if (!wv517s)
-+		return -ENOMEM;
-+
-+	wv517s->regmap = devm_regmap_init_i2c(client, &wv517s_regmap_config);
-+	if (IS_ERR(wv517s->regmap))
-+		return dev_err_probe(dev, PTR_ERR(wv517s->regmap),
-+				     "failed to initialize regmap\n");
-+
-+	v4l2_i2c_subdev_init(&wv517s->sd, client, &wv517s_subdev_ops);
-+	wv517s->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-+	wv517s->sd.internal_ops = &wv517s_internal_ops;
-+	wv517s->sd.entity.function = MEDIA_ENT_F_LENS;
-+
-+	v4l2_ctrl_handler_init(&wv517s->ctrl_handler, 1);
-+	v4l2_ctrl_new_std(&wv517s->ctrl_handler, &wv517s_ctrl_ops,
-+			  V4L2_CID_FOCUS_ABSOLUTE, 0,
-+			  WV517S_MAX_FOCUS_POSITION, 1,
-+			  WV517S_DEFAULT_FOCUS_POSITION);
-+	if (wv517s->ctrl_handler.error) {
-+		ret = wv517s->ctrl_handler.error;
-+		goto err_free_ctrl_handler;
-+	}
-+	wv517s->sd.ctrl_handler = &wv517s->ctrl_handler;
-+
-+	ret = media_entity_pads_init(&wv517s->sd.entity, 0, NULL);
-+	if (ret)
-+		goto err_free_ctrl_handler;
-+
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+
-+	ret = wv517s_resume(dev);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	ret = v4l2_async_register_subdev(&wv517s->sd);
-+	if (ret)
-+		goto err_disable_pm;
-+
-+	pm_runtime_idle(dev);
-+
-+	return 0;
-+
-+err_disable_pm:
-+	pm_runtime_disable(dev);
-+	media_entity_cleanup(&wv517s->sd.entity);
-+err_free_ctrl_handler:
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+
-+	return ret;
-+}
-+
-+static void wv517s_remove(struct i2c_client *client)
-+{
-+	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-+	struct wv517s_device *wv517s = to_wv517s(sd);
-+
-+	v4l2_async_unregister_subdev(sd);
-+	pm_runtime_disable(&client->dev);
-+	v4l2_ctrl_handler_free(&wv517s->ctrl_handler);
-+	media_entity_cleanup(&sd->entity);
-+}
-+
-+static const struct i2c_device_id wv517s_id_table[] = {
-+	{ .name = "wv517s" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, wv517s_id_table);
-+
-+static struct i2c_driver wv517s_i2c_driver = {
-+	.driver = {
-+		.name = "wv517s",
-+		.pm = pm_ptr(&wv517s_pm_ops),
-+	},
-+	.probe = wv517s_probe,
-+	.remove = wv517s_remove,
-+	.id_table = wv517s_id_table,
-+};
-+module_i2c_driver(wv517s_i2c_driver);
-+
-+MODULE_AUTHOR("Maurizio Casciano <mauriziocasciano7@gmail.com>");
-+MODULE_DESCRIPTION("WV517S VCM driver");
-+MODULE_LICENSE("GPL");
--- 
-2.53.0
+Thanks and regards,
+Yemike Abhilash Chandra
+
+> On Tue, Jul 28, 2026 at 03:26:47PM +0300, Tomi Valkeinen wrote:
+>> On 23/07/2026 14:19, Laurent Pinchart wrote:
+>>> The MC API was introduced in the CAL driver more than five years ago in
+>>> commit 38e89e790fe2 ("media: ti-vpe: cal: Implement media controller
+>>> centric API") as a disabled by default option. Five years later, it's
+>>> time to give users another nudge to move to the MC API. Deprecate non-MC
+>>> API usage by printing a warning at probe time, and defaulting to the MC
+>>> API. The legacy API can still be selected through the mc_api module
+>>> parameter.
+>>>
+>>> Signed-off-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+>>> ---
+>>>    drivers/media/platform/ti/Kconfig   | 11 -----------
+>>>    drivers/media/platform/ti/cal/cal.c | 10 +++-------
+>>>    2 files changed, 3 insertions(+), 18 deletions(-)
+>>
+>> Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> 
 
