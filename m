@@ -1,127 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7CFA44BCBE
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:12:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6451476CD2
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 11:22:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788347565; cv=none; b=NZsNwKOtlyZbB9uawRnZucf0g4NX+PPv7rBvA3nSfxbGktWQPx19G+OL1Rg7DwTf50i5ujl6h5BelxJv+BFrzieQ2+DVaZMeEPLEk9UOkNfwV5wIdTaR7Pa+XJHQF/KJubv84WqNoCcZr9dPQiP4HUwUyzs46vTvazKTMGMsiLc=
+	t=1788348172; cv=none; b=KYdakXCa71u57ITXOqTRT596h8qaN9bcKnCj7LXMQv/Ijy+HpfQIizNQUr/9nnzIaDG5h3QiBNtIjceyM5R3RnZ9CzHctkq++JCCGhbz3imh1loDvg525RLTApGl1Rk/jiZXrC3NC/QkNL5DKiV/G+jJV63cEvKa1oHeBXbOsuY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788347565; c=relaxed/simple;
-	bh=Vr4GvlCF2FVUKNuLZHmSdUdRqqeJ6ABC6WdufldK7ok=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=k+vaootR7D6feLETwZY5M87oUVsZKBZyjGJmYPWO8mq04r3gInZca2bUs/Gsn7qq2gDmFYjhBoF8d5bMTfn+iwqvIAyfc/1hm+5rTw6eRyFW1kaNH1sA01F5LJzMdkIvvKz5D97D/sRj1OUy4xc/j/N8JZo4OQuA2Xdgontv0fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dj4eW7sT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788348172; c=relaxed/simple;
+	bh=t4YvdNfFdDmGiz+1vB8xdWVLlz5kJXbgA2rAszgLxdY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=O7Rn05h7LibEn69x0NhJ4rnOgKSJOTvw8obtEov6GWRAe5BjIxV+VanA/8uKHdbT5VZD5+4zPbjnDzdJWA9iabSUK0YgDGyW+XzKUZ2wTVUOLr2TItDwsncLQooWZD5W0CgHBbPcUu4oi8FTbTu9kakf8gfdDSbNDFMBJbFHElw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dT8l0BZz; arc=none smtp.client-ip=209.85.210.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dj4eW7sT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C9A61F00A3D;
-	Wed,  2 Sep 2026 11:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788347552;
-	bh=0LRCT3eW2iSj/WYxUzacJJZ7kZBuRtwSyyjFKCEr4ok=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=dj4eW7sTbSUFTrklYYWBuQsm3NXPOPL9tMRufAZx0NyPKqZixxcZiQeAje8cG64Du
-	 GtPNtMMjoPCYhfH2CFt8ikXaASdVkc6nvLtLi8rnxFoXwAvjEdQUqywzAPcmPaQXwS
-	 0IlGI24vXgaBZAOjNDJNCWaIuEw4XL88C0gJNRXiJ6VWYcoGryicOFYLRoZs8oTjHn
-	 +4EQNsiEoyVSMxSUaisVRBJ8dSzKrikahAUozIWxyxxDZgJC4f4jgfPXbaZJjwX6Ef
-	 axyk/C2arTMxfheMHDO7g71sfGvsd5y5GDNHfX7nBiwv4h0viKRnncgbuWcpx2X8jy
-	 OlpV8zO6Z94VA==
-Message-ID: <75885b22-60af-4cbe-a1e7-957b04a6a067@kernel.org>
-Date: Wed, 2 Sep 2026 13:12:25 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dT8l0BZz"
+Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-84e84a6c4bfso963005b3a.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 04:22:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788348166; x=1788952966; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bG2pMm0qwXP8URwYF59N+uYdVu8xUiwyKW9MTQJcAuA=;
+        b=dT8l0BZzGNRRUC3/3LtLN9Xir3zTw3FFuh7iT0BXVA9KC0FTjc70+5S6JvvUXRSi5C
+         Be8bdplWV8282DZmoPlIcHT+MVVBW05PkeNyi1XIzgjaUsatD+B8qSKXBIUABQxcuOk3
+         wNmE1h5PUpSfpB+haBSgUbyJtA7e4zR+6Ant5/FBE7dg/8YrmgvF4iB2Giej9x20fUQk
+         HB+fimW4Zy5XIXQyFKydqUSJnZkZbSsGlqXYeTtJCt0yfkWxcSYYc8UDpxcKLcKlB/kJ
+         wfPEM3TG3b6xcmkGPentjOXEjdNE/oCjWZGo2wLpYAj4/JfgtQzQ4k0LH/aywZhv64OA
+         H33A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788348166; x=1788952966;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bG2pMm0qwXP8URwYF59N+uYdVu8xUiwyKW9MTQJcAuA=;
+        b=T1KsJkr2BpxNn08XHRED3SCHMDvVK3JdIpnEJMpdIGRFlJ783+hhPfQLgWsTjhQuZm
+         LrM22yxX1F1rK7iJ+sRqDBPYOHCPvvZR2zO+d4AwVglP8oEEYQWsdsXS1AR5Kh0PkHdL
+         qi2nTF11h9agpHneorB0V04/K4/IzzHZ8Dx3ApaHhf5E06wWHQBxAZ7YXbH40Yxms3IG
+         PqElEFZCXWF42KdUuv7axLnVUVOGg9N9qHlaiUJFeT3qH4IzFXhDNvbeBRD3A7aXOkHs
+         48e6RwZgteQqlICNSb14cdb6aN57C7uqRcynAp6kkZ0yKdSSz3BSqLXHhtFX6eIsJqsI
+         LqKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwEFsiWapkLkr5CJ7CZEXeh17L0Is3J+/2HCAzLpYrGI8K5vRw/xrdDyHAmiQs1rZUMxoifVMIJma5Qpw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kO/UJmecaFsc/7BNlOn2cTh53NFwaW3Yq2elD4KiUBvQHIZNiA
+	/YHEU471D2HCQbdqau2f5Gry76Ip3M/IHG5ltYmfT4ydYHJuyzan4HcX
+X-Gm-Gg: AYBFou3iIkvtt8RSztmkVh9az8iLeIbTQxyd/hW28GqM2vZY7F4UqXfAbi3TcPWCnou
+	/fxyXB/NVg8WhAWcxgUUxnwdESfTCt8BxMTBQOEF8VOqjSerQFdDxt1xbEWtDXU8a0Dkg0Xt4A8
+	+abteNUaWeOCycFOXoC4urnm7zPNofcD8OTSj8lT2g3v2C5ppZPjSk85hVzzUVrB90cHqmP3TUA
+	kDm2IBsSRQjeh9uwZ/Bu+VCgyV1Gy8q22626mO8M2iGnP/21VGf0bIkPj4zgom8QIUl+GVEkCBT
+	9yndMWhLLn3mAwB3magaYERmMIFjl44tBbrS/HjnuTmNsvkftSz2en/T6rrXVINpxzSYs5e54fd
+	eCy2UNX2TLvOBQNmy7X9uG7p/Spusjzt1sc1yLvMWyfZ57NinSZq2stYddlAgEROzWQiq4ad3VI
+	BWzAXYl38gzlnNtsSxuR2NOk381sbWEUvIoz3cNBrpNcAj0sB4yhVBb5lFgmGAPPkJfHMaXQ==
+X-Received: by 2002:a05:6a00:178e:b0:84a:2b96:5986 with SMTP id d2e1a72fcca58-85f42e35709mr1863167b3a.8.1788348165513;
+        Wed, 02 Sep 2026 04:22:45 -0700 (PDT)
+Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc11f8471sm1167571b3a.58.2026.09.02.04.22.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 02 Sep 2026 04:22:45 -0700 (PDT)
+From: Kazuki Hanai <hnkz.64@gmail.com>
+To: Bin Liu <bin.liu@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Kazuki Hanai <hnkz.64@gmail.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Tomasz Figa <tfiga@chromium.org>,
+	Xia Jiang <xia.jiang@mediatek.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: mediatek: jpeg: Avoid context access after job finish
+Date: Wed,  2 Sep 2026 20:22:28 +0900
+Message-ID: <20260902112230.452176-1-hnkz.64@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Hans Verkuil <hverkuil+cisco@kernel.org>
-Subject: Re: [PATCH v7 11/14] media: v4l2-subdev: Add
- v4l2_subdev_call_ci_state_{active,try}
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
- Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, Prabhakar <prabhakar.csengg@gmail.com>,
- Kate Hsuan <hpa@redhat.com>, Dave Stevenson
- <dave.stevenson@raspberrypi.com>, Tommaso Merciai <tomm.merciai@gmail.com>,
- Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
- Sylvain Petinot <sylvain.petinot@foss.st.com>,
- Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
- Julien Massot <julien.massot@collabora.com>,
- Naushir Patuck <naush@raspberrypi.com>,
- "Yan, Dongcheng" <dongcheng.yan@intel.com>,
- Stefan Klug <stefan.klug@ideasonboard.com>,
- Mirela Rabulea <mirela.rabulea@nxp.com>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Heimir Thor Sverrisson <heimir.sverrisson@gmail.com>,
- Kieran Bingham <kieran.bingham@ideasonboard.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Ricardo Ribalda Delgado <ribalda@kernel.org>,
- Hans de Goede <hansg@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- David Plowman <david.plowman@raspberrypi.com>,
- "Yu, Ong Hock" <ong.hock.yu@intel.com>, "Ng, Khai Wen"
- <khai.wen.ng@intel.com>, Jai Luthra <jai.luthra@ideasonboard.com>,
- Rishikesh Donadkar <r-donadkar@ti.com>
-References: <20260807122409.45807-1-sakari.ailus@linux.intel.com>
- <20260807122409.45807-12-sakari.ailus@linux.intel.com>
- <65b0c3ab-ae76-49ec-824a-b9d882c28a5c@kernel.org>
- <20260810153207.GC3011310@killaraus.ideasonboard.com>
- <anrNQN93dT51kM3s@kekkonen.localdomain>
- <20260811083854.GA3120099@killaraus.ideasonboard.com>
- <ao6bHyVUrhr44eIu@kekkonen.localdomain>
-Content-Language: en-US, nl
-In-Reply-To: <ao6bHyVUrhr44eIu@kekkonen.localdomain>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 26/08/2026 09:51, Sakari Ailus wrote:
-> On Tue, Aug 11, 2026 at 11:38:54AM +0300, Laurent Pinchart wrote:
->> On Tue, Aug 11, 2026 at 10:20:32AM +0300, Sakari Ailus wrote:
->>> On Mon, Aug 10, 2026 at 06:32:07PM +0300, Laurent Pinchart wrote:
->>>> On Mon, Aug 10, 2026 at 04:12:31PM +0200, Hans Verkuil wrote:
->>>>> On 07/08/2026 14:24, Sakari Ailus wrote:
->>>>>> Add v4l2_subdev_call_ci_state_active(), and
->>>>>> v4l2_subdev_call_ci_state_try() to call sub-device pad ops that
->>>>>> take struct v4l2_subdev_client_info pointer as an argument. These ops
->>>>>> cannot be called using v4l2_subdev_call_state_active() or
->>>>>> v4l2_subdev_call_state_try() as the client_info argument precedes the
->>>>>> state argument.
->>>>>
->>>>> So if we have to jump through all these hoops just because the client_info
->>>>> pointer precedes the state pointer in the pad op argument list, wouldn't it
->>>>> be better to swap the order? For example by moving the client_info pointer
->>>>> as the last argument?
->>>>>
->>>>> Honestly, these macros are getting really hard to follow, and I'm not sure
->>>>> it is worth it just to keep the client_info before the state pointer. Yes, that's
->>>>> the logical order, but at the price of some very hard to read defines.
->>>>>
->>>>> Or am I missing something?
->>>>
->>>> Those are exactly the points I raised in the review of v6 :-)
->>>
->>> And my answer then was that I prefer some additional complexity on the
->>> framework side -- where we have a single implementation of this -- over
->>> pushing less than ideal APIs to all the drivers.
->>
->> I'm not convinced, but I won't make that a blocker if it's only me.
->>
->>> To give some idea, we currently have about 200 drivers implementing the
->>> set_fmt() pad op.
->>
->> Does the order of arguments really matter for drivers implementing those
->> operations ?
-> 
-> Each driver will implement these ops and it'll just look wrong in each of
-> them. The complication here is rather minor so my preference is to keep it.
-> It's already implemented, too.
-> 
+v4l2_m2m_job_finish() publishes job completion and wakes waiters
+before it returns. A concurrent file release can therefore finish
+v4l2_m2m_ctx_release() and free the context while the single-core IRQ
+handler continues with its tail.
 
-I agree with Laurent. I don't think the set_fmt pad op will be any less readable
-if the client_info comes at the end. But if you want to follow what e.g. the
-v4l2_subdev_call_ci_state_try macro does with this patch in place, then that is
-an instant headache.
+Both handlers only need the device for the matching runtime PM put.
+Use the IRQ-owned jpeg pointer instead of dereferencing ctx after
+completion has been published. This preserves the get/put pairing and
+removes the post-completion context access.
 
-Regards,
+Fixes: 45f13a57d813 ("media: platform: Add jpeg enc feature")
+Fixes: 5827e4b14ee7 ("media: platform: Improve power on and power off flow")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-	Hans
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index d147ec4830811..9010e7b1108fa 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1574,7 +1574,7 @@ static irqreturn_t mtk_jpeg_enc_done(struct mtk_jpeg_dev *jpeg)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
+ 
+@@ -1855,7 +1855,7 @@ static irqreturn_t mtk_jpeg_dec_irq(int irq, void *priv)
+ 	v4l2_m2m_buf_done(src_buf, buf_state);
+ 	v4l2_m2m_buf_done(dst_buf, buf_state);
+ 	v4l2_m2m_job_finish(jpeg->m2m_dev, ctx->fh.m2m_ctx);
+-	pm_runtime_put(ctx->jpeg->dev);
++	pm_runtime_put(jpeg->dev);
+ 	return IRQ_HANDLED;
+ }
+ 
+-- 
+2.53.0
