@@ -1,160 +1,173 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DE00463B74
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:36:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F78481FC5
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 13:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788356186; cv=none; b=QRXO7owZq7WP3cmsDkrLmiVgrgOqULRNcNplWeNJDFvq6J4LVlohNJZ0ENFdOZ1EcQCymHA10/wMQDsfOWDDds4s8R5gbwjZ78K1/4IsS2HavCMxFjuHhOe0Ro3VpQVAT7+94G0oNd6MPVEis4A0Jf1jDcQxiQOMDu1T00HZGag=
+	t=1788356563; cv=none; b=bHN4GiX6e5B670KHRgEjy0dVMfGuq0rjSbXr4+zPyoU2m9ByQ92aBhTWI1swc6IRwBQZVtPV04gekqXTHiiYbIqtsuoMMjMr+ri7b6j8oJgkQQr2l2ROlhX+qeiJPyjR6y1Zq7neivsOh98ofM+Cb/WdMPveZ8hRNlgiGBNseFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788356186; c=relaxed/simple;
-	bh=3CYM+Lj8adrA0mmZuKVvz3V/caKQqG6qvxCDg8guYS4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=J+cSAmWEO2THnqKjlOWfDG/3VeYrVoFC3Hyu4H+TvXoFVIz6EmKighr7PlM/1M+k3KvfLYsl1rNgWn338vV2+38VciiRMq3ZVYSZLYvVcO0VYYkWZvTilrNsQmmilWjYTaBZ8PiMq2+H1vlAOI/YB/ADFm42vlQWZPEbsp2+ydU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca; spf=pass smtp.mailfrom=ndufresne.ca; dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b=q2JvC2SN; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ndufresne.ca
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ndufresne.ca
+	s=arc-20240116; t=1788356563; c=relaxed/simple;
+	bh=UnVBDT2yMgSQ4ZRWdKz2B29xT09qz00hTJhXeeB15OA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iCkYWUISOegv2zo8o/cQFd3FBNGUz7tgJ4tWx6OoAYrCkuDViO/QBxHkQVW4bD1RLzhf6zoPEQum/hVe3Z/d6lHe3JEjmlHmgJFToiVcYtrTkWci1CX1EO3pfc6nz3oyUV/oL8kNDjPKMtQMmHukZtBeHfbdlUlJRCSEUHatozI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=mn9JNnw3; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ndufresne-ca.20251104.gappssmtp.com header.i=@ndufresne-ca.20251104.gappssmtp.com header.b="q2JvC2SN"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c25b3c641fbso123070166b.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:36:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="mn9JNnw3"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d6ff3aca07so27325ad.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 06:42:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=ndufresne-ca.20251104.gappssmtp.com; s=20251104; t=1788356183; x=1788960983; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vuXW1tbJtkxbrfPM1uLUh4f0J+sPlf2tnYx/oi7ZZq8=;
-        b=q2JvC2SNwP/lo6myzH9Eh9t6x8iXzEZWegX6X72jG39uMZYnoLo477YSA939f7RfeJ
-         t8HZ3qBTIbcrSPNqKhbrMyKCNw04uzCBOS4kEoJqwNX3f/ESSGjVODJGNtQuwnjNTp5D
-         9dTUzV9oMfI3nHFxdO4dGFGMdmE3Gqx8vvsh2TLwQwyqWPi0tsJ4GDlAQOeo5moANWNB
-         68moMyVg/GAgIAcNbsCrjz4hsklW8u8xzq/yfDNv/RuUe4pigBl22D3S7Rsv6kY1a69v
-         lRDpCpDGfFMoiDBC9Ox6EscX+sgFL2gFqU/q/9RnuGaFK6MJgd7Wa512pzPXPLnjIQwU
-         uGMQ==
+        d=google.com; s=20251104; t=1788356561; x=1788961361; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZSTpKHWOHnBacMTdwSxpJ9Et4v7FJnMFRqiSvtmfiLI=;
+        b=mn9JNnw3spWEPVYQFXIrj7/1uM/ptLAeKAAWoADKjgmKfaM2ixS6rgKCcwSJBjIVi1
+         NCIhA2Ihp68mVLeAxNeGtQt9aNX5hFYXHBtG8zW/cgJRUHcd4oj8E7UtW4oEASNq1jRy
+         hBL2AjpqOLkpsHbEsVquVQBh7zLEj8RE3aA96ah9oDSrGwqE9DgwCjph8ZGPBbM9rpJe
+         kwYRUi7UJIA/Wyh4ZysZM0xDCmLuwJHzL4QVQosxpuF3mA/BZd3E8QQYFpWQPEVpEsX6
+         9ir1DFB01i/SQa8XEn88cooEGw6v1R0PjEiY0sF2UPnJRilx/Z8BHUorLz/1bO5TQiom
+         xifA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788356183; x=1788960983;
-        h=mime-version:user-agent:content-type:autocrypt:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vuXW1tbJtkxbrfPM1uLUh4f0J+sPlf2tnYx/oi7ZZq8=;
-        b=cSMP41fqpytqD+j1nr247+2rd3jfcaU52veVRw3DlLZK9lYPCua9PHxrAqZ1r4HUX5
-         og0J4qcjle98Xh5fouVW1mWKzinsfjbj+Z/9BnT9I1qBsIWiNGGcEaPSG7YjaNhHW3QD
-         j7L9vkQP+wP47tJrNxq7m29GfsQiPuBRAiaJHigX9nmUAK5YRpBIxzddESKg+Uzdgdpq
-         OfnChPi2FxSBo+X754fX4vVlDzy+PbHiEVSM/ACcVPTYjNjHPKIlLUcJLUGZzTS1XALS
-         cS07Wgs+bpDDxYvi4SJYZ54aF7vxqwurZr1jVrdgvUzKZdJcA7lrnkTzPGKXEjjHEHuw
-         hn4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzBnb/chNW8o8EWgbsGKA9c9WN863xs/C/ZzN9HqgHXBQzN5A10sgEA4I2kAIWs+bksRNEgPKYgf/uWoQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mLBdC9DX3ozPlbISXLjqQ3x8Oo0Nv4c4GMZtI+3IfpDbqjlqEJ
-	M2+tqZw9SR8Z+kmoi1Jk9mfUZn0kYZA0uAcjJPgrPgvqDR9AIF1u1al0xXsY9S5ZfqE=
-X-Gm-Gg: AR+sD13dgCTHYqMpLWNl0lw/BbQL5psq2dHTNbq/sBPbnZ9XsRrCEtoaLy/UzmxMIrF
-	QdUcEej+cH8+XUyW2+BDatWm20YoQv9qZaXxFt9NbU+a1gYVivM0NoYKiX+o5Ls0zbkgU88CDoL
-	DHUSuSm68g3MRTTehVh4Ylrm1tzd9P+BxJMO9H9/X2wsZFvl1tckm2p8SnV9P4IKe6fs9Xjp6la
-	WsJHnPbWalhaBDtpRMplgGCzrZN8mpxecmHKJOuYOis97J1spotkLur5aj0QQq7Bo24RvcI2dqh
-	wcF2liY+nMmo0KclsWXEA7aE9uHzYEJ2vz+42pM+PYu3DxDNVeE9VnRVnbRzgeeV8Mpmz1SDVwY
-	OgoS7wDSRH1hOPiqrvOBCzc1JnsBmiI2+uohBLNpcFXukZamZdjcJG9M1m7dRAE2B9OoxZ5a+r5
-	pF8LTN/649lZ3qx65tz0WWJWac7CHVesTDF9FTjjNXGmnrPiBPD1+5zIhHDK7/NlYp
-X-Received: by 2002:a17:907:1c11:b0:c25:b706:e59 with SMTP id a640c23a62f3a-c25d550923cmr320151866b.17.1788356183086;
-        Wed, 02 Sep 2026 06:36:23 -0700 (PDT)
-Received: from ?IPv6:2606:6d00:15:e221::c41? ([2606:6d00:15:e221::c41])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c25d0089a0asm134585866b.28.2026.09.02.06.36.21
+        d=1e100.net; s=20251104; t=1788356561; x=1788961361;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=ZSTpKHWOHnBacMTdwSxpJ9Et4v7FJnMFRqiSvtmfiLI=;
+        b=pFWdA28yFW5HE/z1a9deGhF7wmuQSH3divJkQ8GW2HYeFizuAFGuCFUKDtSV17JnVj
+         qRUkojYEBehbuqgeROxG5thO2ISNRC2Z0Y1IKDL5FZQb0+4gmarz97CHVKcFx3n4zw6f
+         KeIbFkXWzLFwlBjlOwCN9qjuW8os+vC/zYuES7nBWfAWjZN4EgE4O53ELRDGFiK9VHLv
+         SSKlmKSSCEjAfAySvv8Gh0oUUu4OE3xCXTil19XAXoixU7FqolQHW55lE6oes/5SUL4H
+         7weYsW1zJxnmDB9sSHMvqmcGV5+q8k3yS6taODJ/6rEqg5F3i97JCpjUAfa7jWuO6obK
+         gPEw==
+X-Forwarded-Encrypted: i=1; AKwUvBxsAY/gGPEXE7nWVo3UiEb4iQmOpFtSJZAFrrA2p9hatE30CJeuWyj1lOeon3AdyIOi2jmzydnPbNOIeA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nXIXN9VSvUDahoYd2jbaQup0OjpwHYJkBktPHuBrugP2mp92hJ
+	D4jEnim7Ps9/X1NP+mNi3z0LCfUcJNTeWzTSe5yiWHHrS+VxBNFq3RHnBAwhk0XdrA==
+X-Gm-Gg: AYBFou1LkLneivs1ng4uy8s0qFCazz+SeVxk6XUqM90InMuUb2ngaVVeMx4Qv5yqI0E
+	lZ6sbZWDSAwgieB+XTi/TFj2l+7uhj+ekySlWF8xxWF+AHaJTN2wCVUIzLi0Xfy8BGwblhMBHmB
+	Hoj09UTNToA4u3u761+w7zRvbWxORquR2fZFxhstMhZwMh1WjcrXkfxKhwB4zxIUooyb5owJnyQ
+	ThveDM+3qdPQwG61EoWLyI3MjCErbUnj1lCb+RyBaqBC2B/uTH1//TOzL2Uy7ScYG/O3nbYMbHt
+	RM8eQ7PuPVcbE2LKH0SS0tDWhhpN3QCQraYfr23wHJcyi1xAZIQ5Y4oe2f17FJ+3P7R2FpChd/t
+	OgwiwbC9EixECM5EadV23ztea/5ovO9oriKhjNQ/DILv4uPAo+aNwE3SqqopLe2cNw+Nm30iZHv
+	gdouikPOMMGgF7+84sZS3AM66Bt4joPSqM0JRUWnRaqJx8ghaZBOLPBpnz6fLcUiCMcyZQ0BqSd
+	VlC/jpN90/3QLTXhpK5BFwodak=
+X-Received: by 2002:a17:903:19e3:b0:2ca:4bb4:4bd with SMTP id d9443c01a7336-2daf66043c8mr1378505ad.5.1788356560192;
+        Wed, 02 Sep 2026 06:42:40 -0700 (PDT)
+Received: from google.com (164.210.142.34.bc.googleusercontent.com. [34.142.210.164])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85dc003aee2sm1404704b3a.30.2026.09.02.06.42.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 06:36:22 -0700 (PDT)
-Message-ID: <9eeb0486bdae8b91acda6b21e5ab3cb53c48b3b5.camel@ndufresne.ca>
-Subject: Re: [PATCH v3] media: v4l2-h264: Fix memcmp() size in B1 reference
- list comparison
-From: Nicolas Dufresne <nicolas@ndufresne.ca>
-To: Haotian Zhang <vulab@iscas.ac.cn>, mchehab@kernel.org
-Cc: boris.brezillon@collabora.com, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Date: Wed, 02 Sep 2026 09:36:19 -0400
-In-Reply-To: <20260901022310.12184-1-vulab@iscas.ac.cn>
-References: <20260901022310.12184-1-vulab@iscas.ac.cn>
-Autocrypt: addr=nicolas@ndufresne.ca; prefer-encrypt=mutual;
- keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
- /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
- cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
- CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
- abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
- nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
- AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
- smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
- AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
- iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
- ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
- bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
-Content-Type: multipart/signed; micalg="pgp-sha512";
-	protocol="application/pgp-signature"; boundary="=-C5Gbdppvjjf/Zav1hWQN"
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+        Wed, 02 Sep 2026 06:42:39 -0700 (PDT)
+Date: Wed, 2 Sep 2026 13:42:31 +0000
+From: Pranjal Shrivastava <praan@google.com>
+To: Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>
+Cc: Leon Romanovsky <leon@kernel.org>, David Hu <dhu@x6u.co>,
+	sumit.semwal@linaro.org, alex@shazbot.org, ankita@nvidia.com,
+	chriscli@google.com, david.laight.linux@gmail.com,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	jgg@ziepe.ca, jmoroni@google.com, kevin.tian@intel.com,
+	kpberry@google.com, linaro-mm-sig@lists.linaro.org,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	nicolinc@nvidia.com, sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
+Message-ID: <apgnx0pirQ2SUcmY@google.com>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
+ <20260902073936.GR24140@unreal>
+ <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
+ <20260902083232.GT24140@unreal>
+ <aae19599-2ba8-41fd-b3a9-b1f80107f563@amd.com>
+ <20260902095338.GU24140@unreal>
+ <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <65dc4ca1-6882-490d-baad-3e0abd708af3@amd.com>
 
+On Wed, Sep 02, 2026 at 12:00:25PM +0200, Christian König wrote:
+> On 9/2/26 11:53, Leon Romanovsky wrote:
+> > On Wed, Sep 02, 2026 at 10:44:59AM +0200, Christian König wrote:
+> >> On 9/2/26 10:32, Leon Romanovsky wrote:
+> >>> On Wed, Sep 02, 2026 at 09:56:06AM +0200, Christian König wrote:
+> >>>> On 9/2/26 09:39, Leon Romanovsky wrote:
+> >>>>> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
+> >>>>>> On 9/1/26 19:08, David Hu wrote:
+> >>>>>>> From: David Hu <xuehaohu@google.com>
+> >>>>>>>
+> >>>>>>> This series address two related issues in scatter-gather mapping,
+> >>>>>>> specifically for the MMIO based dma-buf mapping. The fixes ensure
+> >>>>>>> sgt mapping is correct, and proper for large MMIO regions.
+> >>>>>>>
+> >>>>>>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
+> >>>>>>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
+> >>>>>>> phys vec to sgt)
+> >>>>>>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
+> >>>>>>>
+> >>>>>>> Patch 2 Splits sgl by largest page aligned chunk
+> >>>>>>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
+> >>>>>>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
+> >>>>>>
+> >>>>>> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
+> >>>>>
+> >>>>> And this is why so many in the kernel community want to get rid of SG
+> >>>>> lists. It would be great if DMA-BUF could also eliminate the need to
+> >>>>> convert to an SGL, like Jason proposed.
+> >>>>>
+> >>>>> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
+> >>>>> which is the one that depends on it.
+> >>>>
+> >>>> I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
+> >>>
+> >>> You are proposing the same thing as an SGL, just in a different format.
+> >>
+> >> Yes, because that is the right thing todo as far as I can see.
+> >>
+> >>> It does not address the issue that dma_addr_t is expected to hold a DMA
+> >>> address, while that is not always the case. For example, in the P2P case,
+> >>> the addresses are not DMA addresses.
+> >>
+> >> Yes they are. They must be DMA addresses because that is the only thing the importer needs to do it's DMA.
+> > 
+> > They can perform DMA, but that still does not make them suitable for the
+> > dma_addr_t type. For the PCI_P2PDMA_MAP_BUS_ADDR flow, these addresses
+> > follow completely different rules: they are not unmapped, require no cache
+> > synchronization, are valid only for peer access, and require separate error
+> > handling.
+> 
+> The PCI_P2PDMA_MAP_BUS_ADDR is not supported by DMA-buf and as far as I can see is a complete dead end.
+> 
+> > All of this information is lost if only the dma_addr_t is stored.
+> 
+> Yes and that is fully intentional.
+> 
+> DMA-buf handles that cleanly on the buffer object level and not like PCI_P2PDMA_MAP_BUS_ADDR as a completely broken design on a per address/page basis.
+> 
+> Technical background is that the PCI_P2PDMA_MAP_BUS_ADDR approach can only be handled by a very very small subset of HW.
+> 
 
---=-C5Gbdppvjjf/Zav1hWQN
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+With the rise of accelerators, the P2PDMA_MAP_BUS_ADDR is going to be 
+increasingly more common where accelerators directly transfer data to
+NICs, storage devices, other accelerators etc. 
 
-Le mardi 01 septembre 2026 =C3=A0 10:23 +0800, Haotian Zhang a =C3=A9crit=
-=C2=A0:
-> In v4l2_h264_build_b_ref_lists(), the B0/B1 list equality
-> check passes the entry count builder->num_valid to memcmp()
-> instead of a byte size. Since struct v4l2_h264_reference is
-> two bytes (fields and index), only half of each list is
-> compared, so distinct lists can be wrongly treated as equal
-> and trigger an incorrect swap(b1_reflist[0], b1_reflist[1]).
->=20
-> Change the memcmp() size argument to sizeof(b1_reflist[0]) *
-> builder->num_valid so that the full byte length of both
-> reference lists is compared.
->=20
-> Fixes: 624922a2739b ("media: v4l2-core: Add helpers to build the H264 P/B=
-0/B1 reflists")
-> Suggested-by: Nicolas Dufresne <nicolas@ndufresne.ca>
-> Signed-off-by: Haotian Zhang <vulab@iscas.ac.cn>
+With VFIO gaining a DMABUF exporter the use has already spread to RDMA &
+NVMe devices (w/ SPDK). In fact, we found these bugs while trying to map
+large BAR regions for RDMA.
 
-Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Thus, it would be great if we could find alignment here. 
+AFAICT, I foresee the use of dmabufs to only increase for
+PCI_P2PDMA_MAP_BUS_ADDR. IIRC when the network stack moved to net_iovs
+to support dmabufs, the SGL became a primary concern and partly the 
+reason why we have "unreadable" skbs for memory we can indeed access
+if mapped correctly.
 
-> ---
-> Changes in v2:
->   - Use sizeof(b1_reflist[0]) * builder->num_valid for the memcmp() size =
-to
->     match the style of the memcpy() calls in the same function.
-> Changes in v3:
->   - Fix an extra closing parenthesis.
-> ---
->  drivers/media/v4l2-core/v4l2-h264.c | 3 ++-
->  1 file changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/media/v4l2-core/v4l2-h264.c b/drivers/media/v4l2-cor=
-e/v4l2-h264.c
-> index c00197d095e7..2323f559c6a3 100644
-> --- a/drivers/media/v4l2-core/v4l2-h264.c
-> +++ b/drivers/media/v4l2-core/v4l2-h264.c
-> @@ -440,7 +440,8 @@ v4l2_h264_build_b_ref_lists(const struct v4l2_h264_re=
-flist_builder *builder,
->  	}
-> =20
->  	if (builder->num_valid > 1 &&
-> -	    !memcmp(b1_reflist, b0_reflist, builder->num_valid))
-> +	    !memcmp(b1_reflist, b0_reflist,
-> +			sizeof(b1_reflist[0]) * builder->num_valid))
->  		swap(b1_reflist[0], b1_reflist[1]);
-> =20
->  	print_ref_list_b(builder, b0_reflist, 0);
-
---=-C5Gbdppvjjf/Zav1hWQN
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCapgmUwAKCRDZQZRRKWBy
-9AzrAQDTaGcoVxKaBRHck5gqtvcJIfwNtIAOaa5HuyQPXbFkhQD/dHDXHfIX8U6s
-30GjxadjhvY8MZ41vbYxc5dMNoJWdQw=
-=ASYR
------END PGP SIGNATURE-----
-
---=-C5Gbdppvjjf/Zav1hWQN--
+Thanks,
+Praan
