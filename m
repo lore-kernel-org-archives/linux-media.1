@@ -1,238 +1,214 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DD130C606
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 21:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788383803; cv=none; b=ib16FZQxURAWgbqkjye/lAjTC0Nzh4YJ76FLZD4wcOtH6N3zNlcSqnJEicvyL+VsOszYvb1RdicPchVse4Qu9L4ayCMClhXnOzztoowTYtNdxc53GRQ8mh4xTkx+Z+u4gvMdRV3GbysdqQyA/6oJmT3W3wo7a2g69hFjl7IjK/w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788383803; c=relaxed/simple;
-	bh=wfnSJYezHVptWVeIUjof3zlv6RSwe2Fg37Z2C7ov+lY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QuEOvzjjDYbrTOWUxXLbXg+T02B2Jo9rcrTDsdR1WVJbRq6sXo6hnHFYJclztW3+yBvRgJmX0oQ/QDzek2R+iaCnQ9os2W4JCb9WRogvkFP0NrXEnueZxGFn61BWWbO3cqyXKcG44YQGiJC2QFymUAf5CTBWtLQrIQaT0EyHyZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sL037w78; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7D0D38AC9A
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 22:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.216.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788386710; cv=pass; b=M1gSoD83lQP0IqnJoI+CVusBE8/jHCr8tMB4CTZLzDhIWuIs1TGOxaigy7ReI/rxGHx/5yBX3h3PQKB1rjqz49Ds9OaQP3ptrO/ZrasmYDdZyDbMcjE4GHp1X4pFTtDlzmw/Hil2/teMMf7rACimuVBCxP0vqT5ZxJnQ08ZmGGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788386710; c=relaxed/simple;
+	bh=vymcWxDasHrJLG/O7a7gPtgz4cGfHkYuhD0/Qct86Rk=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=d49NLKZ/PzWqL3T7IN4/EzxItzQAvCtkAylZ0XK9Oit5e38dbUb7OB0dB/sxW+iRBYKIP1b0yiTDAKJsvf8LNH1t6StUKOCG936VgcJoqjvk4WdUwACLAEX0nDgjh+cIAsynp/TaLHp/XXQL+De4FA80OQbm+TlgPPskCJgdgiA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cLq4jS3D; arc=pass smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sL037w78"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49cdc81f40eso11458675e9.2
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 14:16:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cLq4jS3D"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-38511175ad3so1679794a91.2
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 15:05:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788386705; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XLpsvHsivLTpN0N2bhY1hKAAxAuU12QvNKxjJOaqIzzWCVVXfGa2ew0RiX8CdhatW2
+         KX/Sa4TrEgLP18aeaNi2GWfMiERBB9owf+84HJPJ5NUEGImz4ZiJR/oVDrU276rJK53y
+         2p5PN5gc8O+odXWf+zkWy7gIuvvIqCOGPwwT+alvSBJA+VE86m+8bYGGpxzv1QTAkkwR
+         YPj9ccAPu8A6fB6LWvFJFuzuW8rCupW3AZbCOoFZ5WOE6a6x6cPrHfDl6F7Djky7632n
+         5ceuqIAijJkclU/eh18ToU8JkeIwPMu2BAq+jC99IcfAwEHESTxZkhFYYYZWx8GgzSJB
+         IkCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
+        fh=2WaS4yHX/5glEJUiGvs51j2/UmH8Sr7HcxAZpSc54dM=;
+        b=NO/TRkmMplnjohqavS13+jA+fOZ9oLufYCPTJKnKDoLdx8A1rQeysk+x7xQd+U947U
+         P5yBjLwxw0eaXO9TZV2qgC6Driper3KcTpJ5Io+x65P5a/N0eZR8qv3XzJnhaIflgkyC
+         WFprCPLa3s9e9SYhuqOLvnACoexXk7EvERPVw6hzmcO6RFlgtWAEEbQgLpoKomwxTTnj
+         86zf8CbSmd9oxqJlwcIo52GTHxZYvJ2NYbH6S6KsIvHr8Os+Wpr4LE9E8/CGNIvg83fK
+         NqViwLoqg0dsEbpp9iziCeQzHJpSFje5bMq01E3evvocNiNxCQBnEWBb31T1xg0KtLrh
+         Z8Ng==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788383787; x=1788988587; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
-        b=sL037w78EfLtX83d48XFST46TUQBI4pC9WiKm8SEvhi0ZU1VLy8g9xKN6+SckUtVD9
-         rHyx9dUNDCC4O14YkT2UbNEXsW5h2IxZVxQtdKsARE76204jgm8b2H33dojq5wbpxTWd
-         TCX4TipTvOGEQ3Gx1uaWCFVD19OFLNlA/v5gmAoeF8Jg+27wfTwT5GywBhBQeV5/11Gx
-         JPhkQy8Gh+GEKrQHou31UWGlwuvQqc5KQVlYbnHJJ0b8PYA+7QPWHQGpk77qgyZZvLOo
-         vyUNeZXqNLVcDWEceXVJkdArwLQaDCQKPCdpCPM1KuFoo0tBZieA320/Fsa2uT+jVxLc
-         9yjA==
+        d=gmail.com; s=20251104; t=1788386705; x=1788991505; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
+        b=cLq4jS3DackRSRXf3Ad1J2bHCh7mPWFHfn6pJJ1YABozvEdObaWlHrvF8anQiO7S+I
+         4s8PebVrIfx4rK5vG4u/8+BSRQ2Du6VrW40+4Hf0AnGIA6+/8LPf+In3HNol4EOQWRsD
+         ByECQecteZ/jErCkuSvZ+w095MmzWjH1D19BrRr3ucq2/7u+y6zRKdhLcp7tAxuFTmM/
+         ny0MHQkR+5i1icWaaOuM+MsSLfaZRu1JdH1Ln/WBsMLK2iZRcV/Px6WXhsTzbr1RMzPL
+         OcesqeAtnlTCpYUsnyDsTlIk5wzvDgj53rQRmqdFaNb/wqqZHC/OD3LmbzM95LpBDqiu
+         INkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788383787; x=1788988587;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2FbcCt4oC+dx3pyx/2hfw60zNfjrZFxgpFIvEM7YZ4k=;
-        b=gk7wotQUe+L9snLR2NRJYi8xWHRigs4aV7uVzAg35U0e67rbck0WF4MSFTUfia689C
-         wkGHMin2P6asCdeHLPUfuu+WzIQ4CSRG51mJsz1oisPLnQsQu7/OVlDxlfOzpzVHfVeR
-         U5WjNmpkg0pvGh3Rwt2CqBDro/18S6xvXKDCC2sqvpfYJoq/VKnhro/zAdQtrJRI1JL6
-         hFvA5MYLwfIjCLRIAPlXmmW/PK7Co7rhIgkjzfpqapFZLPFIZJReFHs0bFEpoyIPr0bo
-         ZUu/vhK08JSEk1t72tXglZinVnZGCbDo0297biq8DzZ4zQuMObt+V1J8++ppK4eWRjhd
-         ADTg==
-X-Gm-Message-State: AFuF++l4N56sQWGrGF9+3nTyRAs15E1pswQZUg1ZIKD3/Y6AiM7Zlbw5
-	fz8LIPql73gKaWRO2jJw9aAtXdVyHDrDCnEjc3/1252CICBQFlqhF8I=
-X-Gm-Gg: AYBFou1EtH1MREefZCs6PEarDtW5yGCwWl3ms2YW25RYGTcHkDSmQOzHFQ9lQbUcJAx
-	BGZq3MrRnoyDD3RPqoCv5Ev5jeh5p++aE17rE+ZCv41wEuoxP0TczI7R4poVHAfc73eq24AGkwB
-	A5LIsxQi9peiDAN9zE+3NxxHuEzfVMEpfdOr0bSDlQNWJkpev2jMjpdJ6KM2gmZuyPvw73AXaBM
-	r8479zz8bGh4mj3aD9JSohshchZOTCsF59oB76S8Ks/CK4ASqW+x9YiTqz0si4iMI/dppaNJZYr
-	E5nFX6NQZ+yjdCQUyhSdBX3sr2TiaKm3LmYFnhTZSBN0iopcYWZcj3HWN3XWUUclMplZ5NEmX/5
-	CoBS4+S3MfNXVk+nLGCHayq6h3i0M7H22q7eF9JwFL9GKMZR/4XLFp76knFloCoqDWYxjIBSk8U
-	dwpzAWvK/U8l/bI9duGi89YGzUe5Y5qjmgsnyq66QgpnPdSJWoPP20RPl6xQeTKWCjshzRn73z9
-	vpy0HjJQNfpnQnvP76W/kf1n2JsRJQrBS7q6m/iHmTgxxt7xg3a8ch+5tOWTSrGGa2HnbF7RR0O
-	HdBt6F5r
-X-Received: by 2002:a05:600c:699b:b0:49b:9205:45b3 with SMTP id 5b1f17b1804b1-49ce584c6femr140872125e9.15.1788383786582;
-        Wed, 02 Sep 2026 14:16:26 -0700 (PDT)
-Received: from chateau.lan ([2001:818:e240:a500:b099:b999:e510:5bb4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49cee5d4938sm19143335e9.2.2026.09.02.14.16.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 14:16:23 -0700 (PDT)
-From: Sergey Zagursky <gvozdoder@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev,
-	Sergey Zagursky <gvozdoder@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] media: ipu-bridge: do not use the CVS device lookup for IVSC
-Date: Wed,  2 Sep 2026 22:15:24 +0100
-Message-ID: <20260902211524.5572-1-gvozdoder@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20251104; t=1788386705; x=1788991505;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=lve7n9fJPhLbV3LbTQszuhovnEe63wbSuLmE8uBG5Zs=;
+        b=jpQhUTFDJ42I6fAfKt+IMSfQbC5t+jzM1fjUKXB6VwS4gMXGFcK7GFQND7I8YAyrNu
+         4b3ig2C5CX0CrQJwNDBSYQtxC6yme5rXLSCxO49DsTfB4QpSZtvEDKAOXUVuulIiUlFg
+         QqZ95M9vmvm0gp6xcifO8ce4GwRmR3EqN2B1OjgWO3hRWrW76Qyz66NRZPbBC4tvaRCk
+         6PNXNczrr5dA5pkwfBhgQClZW98KGtpn2hHDTEy60+/tWeHxWOENrY/0hj6dXvIXxWHZ
+         Jt51jAPnDGJ6ld33O0GAJf2j88AiOCN56oC8RA61OpdRDO19WJ9zjHOD+euaZ5QbFHbU
+         /NPg==
+X-Gm-Message-State: AFuF++m4eE3h1J6aGsbDHGlcC3+T8yE/6obg9rmCFhB+G9PVAVNG9Fyw
+	+bFuyZsknTzQZgNfVAX5TJ+l2PJWxcBV6WoSIk3zHzXlrWBNxx+tehnrLZ6P5UHE+WobJakuxe2
+	N/xjDBPagz9EFDVhnt9zI7sKi+E2C1SAiK3PNHo4=
+X-Gm-Gg: AYBFou1Jx/iZYtXmE0tJEz65iDersuc5QbWXdRZfLxt5hR+xmWCFn2ZO58O6Af4v5uj
+	dM61CCthMki58kefiMjR7OTZMO0c61XCfo8FvMQt95mLQBeWZFNKBY3DZWgzqM/vloqdqw7c/tN
+	GUjuQJa7KHLDVYliHlUQqI1ev4Lyh5zN5naXaVouI/nJfGKtgH/x8dqDJoGh5f5BdneYdjIyzfI
+	vROXqO3BGWBRCwncdK52zihnyKKRZKq5AF8s/EOlNr6jVa1c9bOPykztaS7yQg0swHHcRv8f99F
+	JVm662fAj+Cr12puAZH2DosItmxVwdjWnJj6dXMaoWCy4Q==
+X-Received: by 2002:a17:90b:3845:b0:38e:57a3:f218 with SMTP id
+ 98e67ed59e1d1-39aee16ff3amr9495040a91.13.1788386704413; Wed, 02 Sep 2026
+ 15:05:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Fredrik <whatbadgerseat@gmail.com>
+Date: Thu, 3 Sep 2026 00:04:53 +0200
+X-Gm-Features: AcwNN1VCdBhX6I9oZwhX6_beYo-1Kt3BLOCDqjj7Q1m7SgJrfLKqF69NYApB2-4
+Message-ID: <CAHqR8QJ=3RbOaaPcZxFr31VbsnVZ_u7Q37aiDs1R379w_gLvqA@mail.gmail.com>
+Subject: usb-ljca: bridge dead after hibernation (S4) resume, no software recovery
+To: linux-media@vger.kernel.org, linux-usb@vger.kernel.org
+Cc: hansg@kernel.org, sakari.ailus@linux.intel.com, bingbu.cao@intel.com, 
+	wentong.wu@intel.com
+Content-Type: text/plain; charset="UTF-8"
 
-Since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
-bridge driver") the internal camera no longer works on laptops where the
-sensor sits behind an IVSC, for example a Dell XPS 16 9640 (IPU6,
-INTC10CF, ov02c10):
+Hardware:  Dell XPS 13 Plus 9315 (DMI "XPS 9315", board 0X696X), BIOS 1.39.0
+Kernel:    7.1.9 (Arch, ~current mainline)
+Chain:     USB LJCA bridge (usb_ljca, 8086:0b63, USB 3-4 on xHCI 0000:00:14.0)
+             -> ljca-gpio / ljca-i2c / ljca-spi
+             -> vsc-tp (SPI, spi-INTC1094:00 / ACPI INTC1094)  [reset
+GPIO from ljca-gpio]
+             -> mei_vsc -> ivsc_csi / ivsc_ace
+             -> ipu_bridge -> intel_ipu6 / intel_ipu6_isys
+             -> ov01a10 (I2C, OVTI01A0:00)
 
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
+Summary
+-------
+At every cold boot the camera enumerates and works:
+
+  intel-ipu6 0000:00:05.0: Found supported sensor OVTI01A0:00
   intel-ipu6 0000:00:05.0: Connected 1 cameras
-  ivsc_csi intel_vsc-92335fcf-3203-4472-af93-7b4453ac29da: mei-csi probed
-      without device fwnode!
+  media graph: ov01a10 17-0036 -> Intel IVSC CSI -> Intel IPU6 CSI2 0
+-> ISYS Capture
 
-No sensor subdevice is registered, the media graph has no sensor entity
-and userspace finds no camera at all.
+After resume from hibernation (S4) the camera is gone and stays gone until a
+full power cycle. `cam -l` reports no cameras; the media graph has lost both
+the sensor and the IVSC entities. Plain s2idle suspend/resume is completely
+unaffected (many clean cycles) -- there LJCA keeps power.
 
-ipu_bridge_get_ivsc_csi_dev() first looks for the platform device named
-"intel_vsc" and returns its mei-csi child. That device is created by
-mei_vsc, which on this machine only appears once the LJCA USB bridge and
-its SPI controller have probed, about a second after the IPU6 probe that
-runs the bridge:
+What resume looks like
+----------------------
+  usb usb1: root hub lost power or was reset
+  usb usb2: root hub lost power or was reset
+  usb usb3: root hub lost power or was reset
+  usb usb4: root hub lost power or was reset
+  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 0
+ret: -19  (-ENODEV)
+  vsc-tp spi-INTC1094:00: wakeup firmware failed ret: -110
+       (-ETIMEDOUT)
+  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 1 ret: -19
+  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 0 val: 0 ret: -19
+  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 0 val: 1 ret: -19
+  gpio_ljca usb_ljca.ljca-gpio.0: set value failed offset: 1 val: 1 ret: -19
+  ivsc_csi intel_vsc-...: mei-csi probed without device fwnode!
 
-  07:59:29.297  platform INTC10CF:00 created (ACPI scan)
-  07:59:41      intel-ipu6 probe -> ipu_bridge_init()
-  07:59:42.391  platform intel_vsc created (mei_vsc)
+Note there is NO usb_ljca re-probe here. USB persist keeps the device bound
+across the root-hub power loss, so usb_ljca is never re-initialised -- but the
+LJCA microcontroller has silently lost its state, so every subsequent command
+over it fails -ENODEV. vsc-tp's reset/wake GPIO is provided by that gpiochip,
+so the VSC firmware handshake times out and the whole camera chain below it
+never comes back.
 
-The commit above added two fallbacks for CVS which match on the ACPI
-companion alone. They are reached for every entry of ivsc_acpi_ids[],
-IVSC IDs included. The IVSC ACPI device has two physical nodes:
+If you force a re-probe (rmmod/modprobe usb_ljca, or unbind/bind the USB
+interface), the MCU proves unresponsive at the protocol level:
 
-  INTC10CF:00/physical_node  -> platform/INTC10CF:00  (no driver bound)
-  INTC10CF:00/physical_node1 -> platform/intel_vsc    (mei_vsc)
+  ljca 3-4:1.0: enumerate GPIO error
+  ljca 3-4:1.0: probe with driver ljca failed with error -110
 
-so bus_find_device_by_acpi_dev(&platform_bus_type, adev) returns the bare
-platform device. ipu_bridge_instantiate_ivsc() then attaches the IVSC
-software node to that device instead of to the mei-csi client, the bridge
-reports success, and the probe is never retried. mei_csi later probes
-without a fwnode, the CSI-2 link is never described, and the sensor ACPI
-device, which has an honoured _DEP on the IVSC device, is never
-enumerated.
+No software recovery
+--------------------
+All of the following were tried after a broken resume. Every one leaves the
+camera dead:
 
-Before those fallbacks existed the lookup returned NULL here, the bridge
-failed with -ENODEV and the probe was retried once the IVSC device had
-shown up.
+  - echo 0 > /sys/power/pm_async before hibernating (the workaround from
+    intel/ivsc-driver#32) -- verified on a clean boot with a working camera;
+    makes no difference
 
-Skip those fallbacks for IVSC devices, keying on the IVSC IDs rather than
-the CVS ones: new CVS IDs keep being added, whereas the IVSC list is
-complete. CVS binds a driver to the ACPI device itself, so matching on the
-companion stays unambiguous there.
+  - echo 0 > /sys/bus/usb/devices/3-4/power/persist before hibernating.
+    This one behaves differently and is worth a close look. The device is now
+    properly disconnected on resume:
 
-Fixes: c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU bridge driver")
-Link: https://lore.kernel.org/linux-media/20260901194526.6369-1-gvozdoder@gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Sergey Zagursky <gvozdoder@gmail.com>
----
-Changes since v2:
-- Match the IVSC IDs rather than the CVS ones, as Sakari suggested: new CVS
-  IDs keep being added (INTC10FA arrived after v7.2), whereas the IVSC list
-  is complete, so keying on IVSC does not rot.
-- Drop the ipu_bridge_is_cvs_dev() helper introduced in v2 and go back to
-  the flat condition of v1.
+      usb 3-4: USB disconnect, device number 3
 
-Changes since v1:
-- v2 wrapped the ACPI ID match in a helper for readability. Superseded by
-  the above.
+    and it *partially* re-enumerates. Afterwards:
 
-Not addressed here: separating the CVS and IVSC parsing so that no CVS
-fallback is needed at all. That looks like a separate series rather than
-part of this fix.
+      - ljca-gpio.0, ljca-i2c.0 and ljca-i2c.1 aux devices are back
+      - ljca-spi.0 is NOT recreated
+      - the 3-4:1.0 interface shows driver=none (ljca not bound)
+      - ov01a10 re-binds, and the media graph looks complete again
+        (ov01a10 17-0036 -> Intel IVSC CSI -> Intel IPU6 CSI2 0)
+      - vsc-tp is left unbound (no SPI device to bind to)
+      - `cam -l` therefore *lists* the camera, but any capture blocks
+        indefinitely, and lsusb hangs on the device
 
-v1: https://lore.kernel.org/linux-media/20260901195036.7648-1-gvozdoder@gmail.com/
-v2: https://lore.kernel.org/linux-media/20260902145440.1786297-1-gvozdoder@gmail.com/
+    So with persist enabled the failure is silent-but-honest (no camera), and
+    with it disabled the re-enumeration is incomplete in a way that leaves a
+    camera advertised but unusable. Either way the SPI path / vsc-tp never
+    comes back.
+  - rmmod + modprobe the whole stack (mei_vsc_hw mei_vsc ivsc_csi ivsc_ace
+    ov01a10 ipu_bridge intel_ipu6 intel_ipu6_isys), with and without usb_ljca
+  - USBDEVFS_RESET ioctl on the LJCA device (8086:0b63)
+  - unbind/bind the LJCA USB interface via /sys/bus/usb/drivers/usb
+  - unbind/bind the entire xHCI controller 0000:00:14.0 via
+    /sys/bus/pci/drivers/xhci_hcd
 
-The functional testing below was done with v1 on the affected machine (Dell
-XPS 16 9640, IPU6 + IVSC + ov02c10) on top of 7.2.2, where
-drivers/media/pci/intel/ipu-bridge.c is byte-identical to v7.2. v3 changes
-which ID list the condition keys on, so it was rebuilt and booted again on
-the same machine with the same results. Without the patch libcamera finds
-no camera at all; with it:
+Only reboot / poweroff brings the LJCA MCU back. The bridge firmware appears
+not to survive the S4 power transition, and nothing in the driver
+re-initialises or re-downloads it on resume.
 
-  $ cam -l
-  1: Internal front camera (\_SB_.PC00.LNK1)
+Questions for maintainers
+-------------------------
+  - Should usb-ljca implement a resume handler that re-initialises the bridge
+    (or at least detects the dead MCU and forces a re-enumeration) rather than
+    relying on USB persist keeping a device that is no longer functional?
+  - Is USB persist even correct for this device across S4, given the MCU loses
+    state? (See the persist=0 experiment above -- it does force a
+    re-enumeration, but an incomplete one.) Is there a reset (ACPI, GPIO,
+    or port power cycle) that should be applied?
+  - Independently: ipu_bridge builds the CSI-2 fwnode graph once at intel_ipu6
+    probe and does not reconstruct it when the stack re-probes, so even if
+    LJCA recovered, ivsc_csi would come back "without device fwnode".
+    Should that graph setup be re-runnable?
 
-  $ cam -c1 --capture=5
-  202.794954 (30.05 fps) cam0-stream0 seq: 000003 bytesused: 8386560
-  202.828224 (30.06 fps) cam0-stream0 seq: 000004 bytesused: 8386560
+Happy to test patches and collect more (usb-ljca / mei dynamic debug,
+ftrace of the resume path, lsusb -v before and after, etc.).
 
-The media graph gains the entities that were missing:
+Prior reports I found while investigating, for reference:
 
-  - entity 349: Intel IVSC CSI (2 pads, 2 links, 0 routes)
-  - entity 368: ov02c10 21-0036 (1 pad, 1 link, 0 routes)
+  - https://github.com/intel/ivsc-driver/issues/32 -- "i2c_ljca prevents
+    resume-from hibernate". Different symptom (whole machine freezes on
+    resume), still open, and that repo was archived in Nov 2024. Its
+    pm_async=0 workaround does not help the case above.
+  - https://bbs.archlinux.org/viewtopic.php?id=277462&p=4 -- Dell XPS 13
+    Plus 9320, same hardware family, same "camera fine, hibernate kills it,
+    s2idle fine" pattern. Never root-caused.
 
-and the restored retry is visible in dmesg:
+I could not find this specific failure reported upstream; apologies if I
+missed an existing thread.
 
-  pci 0000:00:05.0: deferred probe pending: intel-ipu6: IPU6 bridge init failed
-  intel-ipu6 0000:00:05.0: Found supported sensor OVTI02C1:00
-  intel-ipu6 0000:00:05.0: Connected 1 cameras
-
-"mei-csi probed without device fwnode!" is gone, ov02c10 binds to
-i2c-OVTI02C1:00, and eight v4l-subdev nodes appear.
-
-This patch is against v7.3-rc1. The version tested on 7.2.2 is the same
-change; 7.2.x has no INTC10FA in ivsc_acpi_ids[], which does not affect the
-IVSC list this patch adds. Building with W=1 produces no new warnings.
-
-Not covered: I have no CVS hardware, so the CVS path is only reasoned
-about, not tested, and I have not booted v7.3-rc1 itself.
-
-This patch was produced with the help of an AI coding assistant; see the
-Assisted-by tag above and Documentation/process/generated-content.rst.
-
- drivers/media/pci/intel/ipu-bridge.c | 24 ++++++++++++++++++++++++
- 1 file changed, 24 insertions(+)
-
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..bd64c0400c0d 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -232,6 +232,19 @@ static const struct acpi_device_id ivsc_acpi_ids[] = {
- 	{ "INTC10FA" }, /* NVL */
- };
- 
-+/*
-+ * The subset of ivsc_acpi_ids[] which are IVSC, rather than CVS, devices. The
-+ * CVS IDs are deliberately not listed here: new ones keep being added, whereas
-+ * this list is complete.
-+ */
-+static const struct acpi_device_id ivsc_only_acpi_ids[] = {
-+	{ "INTC1059" },
-+	{ "INTC1095" },
-+	{ "INTC100A" },
-+	{ "INTC10CF" },
-+	{ }
-+};
-+
- static struct acpi_device *ipu_bridge_get_ivsc_acpi_dev(struct acpi_device *adev)
- {
- 	unsigned int i;
-@@ -283,6 +296,17 @@ static struct device *ipu_bridge_get_ivsc_csi_dev(struct acpi_device *adev)
- 		return csi_dev;
- 	}
- 
-+	/*
-+	 * The lookups below match on the ACPI companion alone. That is fine for
-+	 * CVS, which binds a driver to that very device, but not for IVSC: there
-+	 * the ACPI device also has a driverless platform device, which would be
-+	 * returned instead of the mei-csi client. Return NULL for IVSC so that
-+	 * the caller fails and the probe is retried once the IVSC device shows
-+	 * up.
-+	 */
-+	if (!acpi_match_device_ids(adev, ivsc_only_acpi_ids))
-+		return NULL;
-+
- 	/* Try to locate CVS device on the I2C bus */
- 	csi_dev = bus_find_device_by_acpi_dev(&i2c_bus_type, adev);
- 	if (csi_dev)
--- 
-2.55.0
-
+Thanks, Fredrik
