@@ -1,75 +1,77 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E02932E7390
-	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:23:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237984A262E
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 14:23:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788359026; cv=none; b=VHRJ8VLHimLWdw9c6IPhbZIKV7SeUk+/wuTAC56EfR8J66G47KJ8S+UwvoLdHfzVt76FO2qaigUio36WUyTlltxeJXDVTCpXOpLsZ0dtaMQuZ033F564n04n/R42CjzTWDnNkEe21S9my+pwQljkvvrajZM9NEEaFofaaqZXwNs=
+	t=1788359030; cv=none; b=SJJvK0j8O9fGkLSASVGe0yO3v3xjhjdRO0zdv+JBdbYSNWnujqTcslL9501WpHTfWGO7/50WSbIlt6cldZ2PB5wVelAjDWmabfOm6vuS/8B/H+S4xJ/9vjA5hTtcasBYaFtyJLmFmpECLMtny2vhniiD3WTk5pFnk9Va2sK33WQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788359026; c=relaxed/simple;
-	bh=bazdSdVkFZZU9ehtAhH1O8nQxtLezXXH6UQ5yUTF3Zo=;
+	s=arc-20240116; t=1788359030; c=relaxed/simple;
+	bh=7Mf6k0qVkozT4YeFG9EjJGBACApFcUwcZixfGal0Bpc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gc7Fn3o12xSDmI4jWRVSTp5NVYp5ptDtsY8ENM9FUu2RNTjuiQyKLil3EByVQsbiaplqjcIiUtq6mUlnQvDmZbrKi5wjasWKwTfbcqhrGQrTHjLzcDrVEUTAFlwM84c3hC/nR3KmlE4stsBzS0meZz9CHkBo7DchqXTxZfNN/zA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lgPfG7Tl; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=GRYJr+a5DtEn5wVj2CGszF6VMt05LsBUHELmvpzr0/jwPfW+DIYQNSkfYl/ZaayV1B/XbhiHFeNfv/sBrQFCWfDQWg/0y1eE96sNLxbxXY4i35+ceH06y2mWLsLW1fiucXGrBR3BpI/AdEtRzi+GlxzAXhJ4Lj4nO29EoF6rXh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Js3cO1uN; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lgPfG7Tl"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4998b5a63e2so11188455e9.1
-        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:23:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Js3cO1uN"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4843f205a5bso814642f8f.1
+        for <linux-media@vger.kernel.org>; Wed, 02 Sep 2026 07:23:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788359023; x=1788963823; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788359027; x=1788963827; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=L94FOQ3G0uJhPS62upqaen8sZQWRd6241RfKRZzLwE8=;
-        b=lgPfG7Tlbf6SW7kYhaT8tbwgXHUoMDGYRux6UbvuJ4p/pHdcmlVM+pOKztLvqbLt7t
-         aRh6fbo8CYl0RoP7mxfBCKXIUXMA6JjZdlUac+pSxIX3KFq7TbLdlZtu0PiRzDN0FHDj
-         QS7HD5dxeBKj/XlwNwam+X1nCBqx50xXfmwlEJ91jqjA3sEp9INVnDrfo0l7eZq/8/Mx
-         RFLjtPrVRE/HrnDA4HQ4ZjZZYwPByZtLrkZpqsnrFtpniBJQ8gbc9r8F+Ps0XV+HY6L9
-         nMWN8d4BAdn5mgt8BdXtxFxf46tmm/iA31WaTGcNAJ/J4pcljQKZKlyBiiulfJBCHDyD
-         j+9w==
+        bh=SM52+0dlyaiG6ccFqkc22ArwQiXLj4h7/RuQ4lLTioI=;
+        b=Js3cO1uNRz11TcLZK+JXrkluXlYQq1MTrFceGOyIY9kGlhiHYascXCXu18wWiph+of
+         h7tMOLy7Misuz5z83fDyds27/r97ylz9FO3GXRSVkGYl/qAIrRNUVWr2hQA9jzvDurBj
+         5SdwA4xuOFe/fQoxuNFYx5O7J6z2Bss/hnIjySXEXo0IYk5z98pSyDMnJvoQCHYptEZE
+         fZAi76f+ES8u8oVYbX8y2Um2+nuPmfeKN/5LC/q+xh8scMEaEN66Il16vcw/uzbvObrC
+         j+GJkCu/b1RRP6j8QbxZt/qTHo0IuZVqw8GlBOS4Uik2KaCMpGdvfciJE/gBKIVYzcRA
+         IuBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788359023; x=1788963823;
+        d=1e100.net; s=20251104; t=1788359027; x=1788963827;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=L94FOQ3G0uJhPS62upqaen8sZQWRd6241RfKRZzLwE8=;
-        b=mgt5pFUWaBLJh7GiijV5APew76HTvJwtk/A4bh+2c1chi/nEF9fgT83eOlSJfGvFu8
-         t/s8e+wZvH8SwywXB6jZi0Ssq5M5Y4xev7nFW2Mcx4EwHBP8Mgs2rGRrRubb/wf7Q5xC
-         nJ/JUafZVkCErwDMlo+Oj3CzmYqrPs9KtSYWs+iFPyD8m7Zehp0XZDa+ew8xNNa9w0QW
-         aUG52/Ad4LAgM/CL/4ZVFRhZ9WagVO/U8tGep+71fZi02xbnijwLrYURec92sZxdSRvz
-         E2eGWGgwxyfd/WLSfLImT3aQT24PqRdbdd/xVhrJKUkWYw6WGhS2XreeTxdG3PShHBrp
-         coJA==
-X-Gm-Message-State: AFuF++k+jhV5jZD0zGTCW6nDxJm21elY8sLQgVn2HWjJ2YLiUaQkmAba
-	/6hY80gHwyAXQxVeNoe1rSsnrpNkhINY1/RN56J18AqF4UYvfugBdxztMQHtAQ==
-X-Gm-Gg: AR+sD10J+RYhQUmFCwwrZycjK5d/UcKTI7Csptd9kOSMmxxYFbn/X9d5HiGEtZfL8ss
-	oYgHcaWyNnnQtM/bFqu4EfaX6qYJdHKfBYJT8frTxQmeaPuvuiHOUgnjYIjpeJiYpyi+tK3c2Nk
-	q9YAMnXY+t74JtnztM8DtGQQdpdcuf/mQho3qld/YgFG5yOt7/FJY0U7bacj/MOhlZl2Q2ZXVk2
-	tmbdpJveNC38X+JK1SMaAZdBeKQ6Z+kIe+WpE8aHhzwgEIQZlyuF8CUYP/AI3675Xuon4h6d4dH
-	L3+NRDs1oBjNauFt5ZSFeHtjIVGl/oDw654BHMzUfJKhHZnxP2OW3mFQi1wp5VtP9R+E5kwymum
-	/4x7C4sMvTk2K7reSD+nUB6yihemBGrhxayyyo65uupVmotiLJ0Z72MC6DMTLWaTJSimxgI3TLg
-	9zZF+pmdhrSeddpH+LdrmD35hMHeXMJGlQvmpG9AgZoS6X2XQfUb7vK7pMY87rzCmYLVgYxBtHW
-	37f0S52XuedDx+xI1MAgFIAEVKhflPebYVYn2BfhgKZbvh5dkII8DnMaf1i
-X-Received: by 2002:a05:600d:19:b0:49c:edd8:ba35 with SMTP id 5b1f17b1804b1-49cedd8ba5emr17433485e9.6.1788359022654;
-        Wed, 02 Sep 2026 07:23:42 -0700 (PDT)
+        bh=SM52+0dlyaiG6ccFqkc22ArwQiXLj4h7/RuQ4lLTioI=;
+        b=Yh6KNLsSBWbKZUDDtnHZ1xwODltU21vc3GxlgoL7RgN8yZ8+kTZbljKfQ6Jhx6O6oP
+         J6a0tz0DvELR71ZNHwAPkQ7yJBou2kSSJuOE3sAFzY0w6CbcWhIqd6sHOnb8Fb0RThZW
+         uuL7kTySs23Y60OoNRpHfSdWOBq+nEDoKVz1K/S4YB+MiFa8+YfpiVnc29Aq0VoYfjQK
+         8X39dZvdKAiXQ81qo8EORyrioneGQWnlEoYAcWJtf8o5IyfLZwfaS//zfEK1Bi5hffxg
+         h4cV3xvs4L2JQKVJJVXi3MEBvytybloqRBOEH9vKv/vbSi9HHzmTYQrxromCiZqBNfr+
+         e9tQ==
+X-Gm-Message-State: AFuF++mmrIdEiold//rzwKDB2Kkc4gLAKgwBSfBKQNmMIYx+Fp7c2jKS
+	gEHMXtcbbJfSg20EeOEFnyKvy8IrjywZG3Dtmx391mqySyt0fUeMSwujUOpQSQ==
+X-Gm-Gg: AR+sD10YToQ6S6NCKKOCOJznYfcS5nvV1IeYD+uqLBYt7UUu4VxZtAF9KBJXg0ndMwh
+	mlqRO4mEgFNvVIGB8O6wKysfWV3cFpJpUI2RX4+UieoDWy4C9RnCBK7mDmaQuz750QG4cbTtET0
+	QFY/YO3OlVxX2GM+C1dxwwdrX/lBRrnsoJ3QLzInrhmtHBfNJdtBG64W77gGfE36/ES+dMbHFua
+	iSsFuiIjyj9U26SczcaIlQ/Hh2/PU9WY7LIq2VETlRJe9yDQH1lQE8P4yc7VY9RYKUeSuszH+DM
+	X9EjK6uXJAgTmej3OwgdDfnwvwkiiJUMfXEPUEbtfd7zhWxbTfeHJL/pCLHB/HaVcnf0RKlFHPO
+	OYLICyCB8Sb8Vfpo2mFAMlQOIWPbOe6DOjljZ7yEGMcUCDeg9MAdRaVvDzndxCOHi4oFMMNm6HY
+	VldEQchf/vsrnWM88ThxYjGOo5BHsEDUwzFbMHTHKAUhYw5GTCZc/Uxxf1Ucah6oJKEXawh+NsF
+	+Wn75zk/Qf+QRrz3UxVO8nN0Rf5XfFXP1oslHXiFaQ1dkF7qvF0tzvvNFT8
+X-Received: by 2002:a05:600c:1c27:b0:49c:dcec:bd27 with SMTP id 5b1f17b1804b1-49ce57fd7bamr86987885e9.8.1788359027030;
+        Wed, 02 Sep 2026 07:23:47 -0700 (PDT)
 Received: from raviolimobile.tail5f26fd.ts.net (mob-83-225-30-215.net.vodafone.it. [83.225.30.215])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm58999265e9.1.2026.09.02.07.23.40
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce5927b68sm58999265e9.1.2026.09.02.07.23.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 02 Sep 2026 07:23:41 -0700 (PDT)
+        Wed, 02 Sep 2026 07:23:46 -0700 (PDT)
 From: Fernando Rimoli <fernandorimoli11@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: sakari.ailus@linux.intel.com,
 	dan.scally@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	Fernando Rimoli <fernandorimoli11@gmail.com>
-Subject: [PATCH v5 0/7] media: Enable the OV5693 front camera on IPU6 Surface devices
-Date: Wed,  2 Sep 2026 16:23:14 +0200
-Message-ID: <20260902142322.73523-1-fernandorimoli11@gmail.com>
+	Fernando Rimoli <fernandorimoli11@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Subject: [PATCH v5 1/7] media: i2c: ov5693: Add OVTI5693 ACPI HID
+Date: Wed,  2 Sep 2026 16:23:15 +0200
+Message-ID: <20260902142322.73523-2-fernandorimoli11@gmail.com>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260831181858.325109-1-fernandorimoli11@gmail.com>
+In-Reply-To: <20260902142322.73523-1-fernandorimoli11@gmail.com>
 References: <20260831181858.325109-1-fernandorimoli11@gmail.com>
+ <20260902142322.73523-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -78,104 +80,36 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The ov5693 front camera does not stream on IPU6 Surface devices. The sensor needs
-its MIPI clock lane gated while idle, which needs a driver change and a way for
-the ipu-bridge to ask for it per IPU.
+The ov5693 driver only matches the "INT33BE" ACPI HID. Some Intel IPU6
+Surface devices (e.g. Microsoft Surface Pro 9) enumerate the OV5693
+front camera with the ACPI HID "OVTI5693" instead, so the i2c core never
+binds the driver.
 
-v4 is at [1]. This addresses Sakari's review of patches 3, 4 and 5, adds the DT
-bindings property he asked for, and adds an Alder Lake-N entry now that a Surface
-Go 4 has been measured.
+Add "OVTI5693" to the ACPI match table. Devices that use "INT33BE"
+(e.g. Surface Go 4) are unaffected.
 
-Changes since v4:
+Tested on Surface Pro 9 (IPU6): the sensor enumerates as OVTI5693:00
+(ACPI path \_SB_.PC00.I2C3.CAMF) and binds with this change.
 
-- New patch 3 adds "clock-noncontinuous" to the ov5693 DT bindings. The series is
-  now seven patches; v4's patches 3 to 6 are 4 to 7 here, and the Tested-by tags
-  are scoped to those four.
-- Commit messages cut throughout, per your comments on v4. Patch 5 now carries
-  your wording and nothing else. Patch 4 lost the ov5647 comparison and the
-  per-machine failure detail, which is below instead. Patches 6 and 7 trimmed.
-- Patch 5: the running index starts at 0, each call site passes its own property's
-  maximum index rather than a shared one, and the macro is IPU_BRIDGE_NEXT_PROPERTY
-  with the enum renamed to match, following mipi-disco-img.c more closely.
-- Patch 6: struct ipu_sensor_config now carries a zero-terminated list of IPU PCI
-  product IDs rather than a single ID, so one entry covers several IPUs. The flags
-  macro argument is a plain value, so flags can be combined. The scan of the whole
-  table is gone: entries for one HID are adjacent with the IPU-specific ones first,
-  and the generic entry is skipped once a specific one has matched.
-- Patch 7: the four entries collapse to one shared ID list, with Alder Lake-N added.
+Link: https://github.com/linux-surface/linux-surface/pull/2171
+Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+---
+ drivers/media/i2c/ov5693.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-On the enum naming in patch 5: "s/SENSOR_EP/BRIDGE/" taken literally gives
-IPU_BRIDGE_BUS_TYPE, but since the macro is not endpoint-specific and may later
-serve dev_properties, I kept the group marker as IPU_BRIDGE_EP_*, which is also how
-mipi-disco-img.c separates its EP and DEV entries. Say the word if you meant the
-shorter form.
-
-Unpatched behaviour, which patch 4 now only summarises:
-
-Four people measured it on five machines and it is not uniform. It is absolute on
-three (a Pro 9, a Pro 7+ and a Go 4). On another Pro 7+ it is intermittent, 3 of 20
-opens delivering frames inside a single boot, with the successes at opens 1, 7 and
-14 and the sensor runtime-suspending in between. On a Pro 8 the first capture after
-a cold boot succeeds and every later one in that boot hangs. No mechanism explains
-the spread: it is not once per boot, given where that machine's successes fell, and
-it is not Tiger Lake versus Alder Lake, since two Tiger Lake machines fall on
-opposite sides. The sensor is up during the failures on every machine checked: the
-privacy LED lights, the failing runs log no CSI-2 errors where the working ones log
-ten or more, and setting bit 5 over i2c on an already stalled stream starts delivery
-immediately.
-
-**If you verify this, capture twice.** On one of the five machines a single capture
-immediately after a cold boot succeeds without the flagged entry, so the obvious
-check gives a false negative. Both testers who hit this asked for it to be written
-down.
-
-Two other things worth knowing:
-
-- The teardown "stream stop time out" appears identically with and without this
-  series, so it is pre-existing and not introduced here.
-- checkpatch flags "Macros with complex values should be enclosed in parentheses" on
-  patch 6. The pristine header already trips it five times and the patched header
-  still trips it exactly five times, because IPU_SENSOR_CONFIG becomes a wrapper as
-  IPU_SENSOR_CONFIG_MATCH_FL takes over the compound literal. No net new instance.
-
-Testing coverage, all scoped to patches 4 to 7. Patches 1 and 2 are not exercised by
-the testers, whose machines enumerate INT33BE; the Pro 9 is the OVTI5693 machine.
-
-  Tiger Lake   0x9a19  Pro 7+ (Jakob), Pro 8 (Fil Dunsky), Pro 7+ (Lucas Lis)
-  Alder Lake-P 0x465d  Pro 9 (mine)
-  Alder Lake-N 0x462e  Go 4 (Kengo Oki), 0/300 without the entry, 300/300 with
-
-Kengo Oki's Alder Lake-N result is what justifies the third ID in patch 7, and his
-tag is given for the version that carries it.
-
-The reworked bridge in patches 5 to 7 was also run on the Pro 9 with all three of
-its sensors: three cameras connected once each with no double connect, link
-frequencies unchanged, and the front camera streaming at 28.63 fps, which is only
-possible if the flag reaches the sensor driver through the new per-IPU match.
-
-The Pro 9 measurement of 300 consecutive opens predates the switch from a full write
-to cci_update_bits(), but the register reads 0x00 first there, so it resolves to the
-same write.
-
-[1] https://lore.kernel.org/linux-media/20260831181858.325109-1-fernandorimoli11@gmail.com/
-
-Fernando Rimoli (7):
-  media: i2c: ov5693: Add OVTI5693 ACPI HID
-  media: ipu-bridge: Add OVTI5693 to the list of supported sensors
-  dt-bindings: media: ov5693: Add clock-noncontinuous
-  media: i2c: ov5693: Gate the MIPI clock lane for non-continuous clock
-  media: ipu-bridge: Assign endpoint property indices dynamically
-  media: ipu-bridge: Match sensor configs per IPU and add config flags
-  media: ipu-bridge: Request non-continuous clock for ov5693 on IPU6
-
- .../bindings/media/i2c/ovti,ov5693.yaml       |  2 +
- drivers/media/i2c/ov5693.c                    | 25 ++++++
- drivers/media/pci/intel/ipu-bridge.c          | 83 ++++++++++++++++---
- include/media/ipu-bridge.h                    | 50 +++++++++--
- 4 files changed, 141 insertions(+), 19 deletions(-)
-
-
-base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+diff --git a/drivers/media/i2c/ov5693.c b/drivers/media/i2c/ov5693.c
+index 4cc796bbe..02236f3db 100644
+--- a/drivers/media/i2c/ov5693.c
++++ b/drivers/media/i2c/ov5693.c
+@@ -1396,6 +1396,7 @@ static const struct dev_pm_ops ov5693_pm_ops = {
+ 
+ static const struct acpi_device_id ov5693_acpi_match[] = {
+ 	{"INT33BE"},
++	{"OVTI5693"},
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(acpi, ov5693_acpi_match);
 -- 
 2.43.0
 
