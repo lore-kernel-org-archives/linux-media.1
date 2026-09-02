@@ -1,207 +1,225 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA90C30E85B;
-	Wed,  2 Sep 2026 06:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 106B0243956
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 06:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788330847; cv=none; b=MNwqFvFaxucUOVNgzgp84qtB8W0MkxnC7Mm+BB8RtTqiy5prVMD1v6/LkScHpy3JHKwEw6vMYxCQLDHAihHG+PcXlRjHQyWRjl6/iQfkCHvr2VCLfaGOCaa9n88ciI9T20j/e+HH4fEHaNCWYMqLcSjyLcbUcc4CoUu84D39s8A=
+	t=1788330893; cv=none; b=igIUSBi0F6OD4P+wpdX3aOQZlM2pvN5vwjkdqTpRjBjsMpbVhR40GTrJiCkQqBpEXs5gkMPZPb9KwbA0TI3sXAdz/34d2pADyLSf1m0TLYRzJjdCovhl70P+MjJ1tOq+ATlhdmX7ZSOB/Y2UO47HS9SrzV0oLrBJKPembQaxmc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788330847; c=relaxed/simple;
-	bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=quIOkfG7cEqJ0mIZnhq0BMtBuBVBPsWtMJyh4A+uHJf5F5ElSvUBsPS1ZHaKMhjPJvJ+DYWqzdnrDqUu4DFIVEmu0s/6bFwRvsrpLH7nkt/INa1gaR+33bea4gSaXBNHgfiQSDeCAzFaVKFFc0aQp+/Qf5VEnvQeVDv1B8B/BMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UOgFBul3; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788330893; c=relaxed/simple;
+	bh=v5NNZ13ICIwFEB7KwX6D6WmT1ybAJgJP24OCFpO6Kvo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tEg2sQsOh0IjAk7ACgwXKGvr6Ii0rrafrYmu3Vg+lklE0Cp5MpvKFcvrD1mULM7NycZKQsf1D3MLcsL/Jy1dxTE8NgMFvjVQTZxSBY1F7ptJmdudkm78UFv0tQ9GtL0EU8KO9asq7ubNCNUPLs9Jqf3l12jmFZjUVPa+O1N885k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=gLn6t9SJ; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UOgFBul3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788330846; x=1819866846;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=AKLq68YAj8lKqvSaaTGme4OcVxvD+fATv3F5YN3d92o=;
-  b=UOgFBul3B75phUCS69/mMD/coSOBGyH9p2N0ANCUVM9QeDq0l77onPsM
-   jCmn+D/BwWi3Jo6iQFBljSPBuDVVOCKA0wurIUMCLPf7pbvqbohKExCRa
-   NJAVRKRa8UsMOgJXkxZVsG9pxWuSpqYlb1UBquILbeHj8tIx6KtOvz/2p
-   SBjtvJpezc93bJ4Ei1CR4m7XVNCRomqvHWOqLSmqfBAHhNZpHX6ER998Z
-   O57ZWQoSvg/fi03LVI2EqyTV5JvMxMiefi/jflLaA+fs4ihWtuMPTtquj
-   XYXhaAnaPAGTu10pqLDXm4ohwHpfsLnBLu0BzXUuK1VW2FFxE8RzvPlnC
-   w==;
-X-CSE-ConnectionGUID: MiKqaV5ySl6CTiXtFQrxQw==
-X-CSE-MsgGUID: rvZNpiICTyy6YNAtmmJxfQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="88655996"
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="88655996"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:05 -0700
-X-CSE-ConnectionGUID: nIBMMWc5SGOUJl2GYpmYsQ==
-X-CSE-MsgGUID: BJj39WtvQEWlHEqqY1GOtQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
-   d="scan'208";a="271283985"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Sep 2026 23:34:03 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id B9B3F1218BD;
-	Wed, 02 Sep 2026 09:33:59 +0300 (EEST)
-Date: Wed, 2 Sep 2026 09:33:59 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Fernando Rimoli <fernandorimoli11@gmail.com>
-Cc: Daniel Scally <dan.scally@ideasonboard.com>,
-	linux-media@vger.kernel.org,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Arsalan Naeem <naeemarsalan@gmail.com>,
-	Jakob Berg Jespersen <dev@berg.pm>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 4/6] media: ipu-bridge: Assign endpoint property
- indices dynamically
-Message-ID: <apfDVz8nQ43yEl6i@kekkonen.localdomain>
-References: <20260720163819.104130-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-1-fernandorimoli11@gmail.com>
- <20260831181858.325109-5-fernandorimoli11@gmail.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="gLn6t9SJ"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-8568e3ed034so574126b3a.0
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:34:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788330891; x=1788935691; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gD6xC4rnHgCgww20/q5WKAfoI9VRmRXVJLBx2igp1m4=;
+        b=gLn6t9SJh4aL6QJZhiVuZcIlAf0thdVUNVvYrd9dTm5yQ1Sux5VWac6uX7cupNMCdL
+         yLvn5oLeJaCraf0UC8x7NcFZR0u5Nkvhnmp1N/CCMHSZd8jAhb+l0+pfFuUIDT9DddxU
+         zdvCow/Mhzyne5CRaydLQJAcocTsqEtyTFkHM=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788330891; x=1788935691;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=gD6xC4rnHgCgww20/q5WKAfoI9VRmRXVJLBx2igp1m4=;
+        b=DCcNq9Yutd97reFaoXD0l66QlkoB9gnRZ7jz7T/Zag9RGtM4Jgxh0WvVgUryAoAfQ1
+         NihvbrKWK87l6gQlAhhOPhs33Yl2HwN7gZj5djKOeeS8nwSPvNhJHdL4n2p4r7dVbQ/t
+         8bbIaRJpj6bS8Rkdk5T5u33PPebKR7bImW1UHC0bWXttSFZ22zDInjRBycE7G7eHyMBP
+         yBAeHTFYNhbbMFcQaUXwAD6nCRR56ViP02NQcSKzR0MhXjJG20dS0K04IcBTNzM5Rc0j
+         5nPnR28GEZ6p1xxpRNvUYtvLNzN/NIO4CKIcqHkbo1bap7EJmLxh/PBRN2W4wz/uzFi9
+         /cKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwwIVE0xp+0sH5lNJ1+SIc7SDZKLRISMf/0ugEEUl0At10xD46vlXzAIhWHPXkm2YbKeqRSdNVWcUbEIA==@vger.kernel.org
+X-Gm-Message-State: AFuF++nemGPeB0fMZA0CL1Fxl49ltu3IUgAmc2xg9iiOonoQE1oRhszh
+	AESy+vmqHy2WjJ1JMJWjkDdQ7y4oGWDHVxSs41qkuBMILlUv0gk1NmFyZjthff5Y/fhGfKEhEUz
+	0dBY16g==
+X-Gm-Gg: AYBFou3zt9L60WQhkwJzxQLaYzJj7t7yJriQv6rQwYsx4whC5fpgnT32EIfuaNWveeS
+	XH+TwnKXGwjQyqu06Aug3CqSRXUlBBA+D1/2QpmRTmcbCwJ2mWLB43xIR6uJ6Mj05HHopuTcabF
+	bp1h1Mt6D4q2HlTyIYj2Vv1HQLzh8WyK4jdg9omKzIron/SOkyRPBrc5hfb5b4YXRb9XmetABDZ
+	RSIOXT57lNMiuFMZ5EKLXAsEqKGwNkIXbZw4WBfvUpZxbV6ND2p8B1vABaUouDJ9ziSTuD5CUlB
+	eI9EoZdvCsE4LCZbO55EQW9H7EAEGjy1Eu9PFj2ASACCqmtFrPMbpjVbEba7QIGlfAG39O21EbV
+	z28AFFlyHdR/0Rhlbdj58k/PN+5ZZjT8ZZt3JGJZLxWypFIsf7vcx5UMVHYR1cSgI6ueRdSKVjZ
+	q8FNZJRt3jE1+s3an7Zwkw9iTvkShxOvAKEcL4cLbVns8iMcNthVp4+0JStr9RtIXyYAyTufBkq
+	Qxl0+9pegxZLUpEPpt4bwYR5Z2PC0wskKpQ9w==
+X-Received: by 2002:a05:6a00:ad0b:b0:857:4dea:e1dd with SMTP id d2e1a72fcca58-85ed3c7d7b6mr4930372b3a.14.1788330891301;
+        Tue, 01 Sep 2026 23:34:51 -0700 (PDT)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com. [209.85.216.49])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-85db2ad8a45sm887291b3a.18.2026.09.01.23.34.50
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 01 Sep 2026 23:34:51 -0700 (PDT)
+Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-38ea87caafeso651090a91.3
+        for <linux-media@vger.kernel.org>; Tue, 01 Sep 2026 23:34:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzYeF4bcIber3H9vP44toVAFb44uEzFyn8PLwj1/8uqfvxKh47csy6aM2x1g6eE3qzDUTG9h+S0vKgOdA==@vger.kernel.org
+X-Received: by 2002:a17:90a:d44e:b0:398:ceed:6d44 with SMTP id
+ 98e67ed59e1d1-39aee1bdb29mr4020081a91.25.1788330889395; Tue, 01 Sep 2026
+ 23:34:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831181858.325109-5-fernandorimoli11@gmail.com>
+References: <20260902002553.34839-1-jordan.mymail@gmail.com> <20260902002553.34839-4-jordan.mymail@gmail.com>
+In-Reply-To: <20260902002553.34839-4-jordan.mymail@gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Wed, 2 Sep 2026 08:34:34 +0200
+X-Gmail-Original-Message-ID: <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WU18_0j7LBDxpDuT4pyAr-4a1s3iw8XblmP-PrLavwmJt-FjbCa16vEiM
+Message-ID: <CANiDSCvBkMDS9eSRRVoMqQT41c2uq+MQtUFHPm0gGuv13FWevQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/3] media: uvcvideo: fix up missing AUTO_UPDATE on the
+ OBSBOT Tiny 2
+To: Michael Jordan <jordan.mymail@gmail.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Hans de Goede <hansg@kernel.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, Aug 31, 2026 at 08:18:56PM +0200, Fernando Rimoli wrote:
-> The endpoint property array is populated with hardcoded indices, so a
-> property that is only set conditionally has to be placed at a fixed slot.
-> As the array is NULL-terminated, such a property is silently dropped when
-> an earlier optional slot is left empty: "link-frequencies" is skipped for
-> configs with nr_link_freqs == 0, which would truncate the array before
-> anything following it.
-> 
-> Name the endpoint property slots in an enum, size the array accordingly
-> and assign the indices through a bounds-checked running index, as done
-> for the MIPI DisCo for Imaging properties in mipi-disco-img.c. No
-> functional change intended: the same properties are set in the same
-> order.
+Hi Michael
 
-There's a lot of unneeded information here. For simple patches like this
-there's no need to go deep in details that can be easily seen from the
-code. How about:
+Thanks for your patch:
 
-Index the ep_properties array dynamically instead of plain numerical values
-as is done in mipi-disco-img.c.
-
-> 
-> Signed-off-by: Fernando Rimoli <fernandorimoli11@gmail.com>
+On Wed, 2 Sept 2026 at 02:26, Michael Jordan <jordan.mymail@gmail.com> wrote:
+>
+> The OBSBOT Tiny 2 (3564:fef8) computes its GET_INFO capability byte per
+> control, but gets it wrong for the controls that matter most on a
+> motorised PTZ camera: CT_PANTILT_ABSOLUTE, CT_PANTILT_RELATIVE and
+> CT_ZOOM_ABSOLUTE all answer 0x03 -- GET and SET capable, with the
+> AUTOUPDATE bit clear. (The byte is not a constant stub: CT_ZOOM_RELATIVE
+> correctly reports 0x0f, CT_ROLL_ABSOLUTE reports 0x01.)
+> uvc_ctrl_get_flags() takes the flags from that byte, so it clears the
+> UVC_CTRL_FLAG_AUTO_UPDATE that the static uvc_ctrls[] entries set for
+> all three controls. Without AUTO_UPDATE nothing clears ctrl->loaded
+> after the first read, so uvcvideo serves them from its cache
+> indefinitely: VIDIOC_G_CTRL returns the last value the host commanded,
+> never the live one.
+>
+> All three controls were verified on the hardware to change autonomously
+> and to report the live value on GET_CUR:
+>
+> - pan/tilt position keeps changing for the seconds a commanded gimbal
+>   move takes, and changes on its own under the camera's autonomous
+>   subject tracking;
+> - zoom follows the subject under the camera's AI framing (observed
+>   0-71% with the host issuing no zoom request, matching the vendor
+>   status protocol's zoom report);
+> - the pan/tilt speed control reports the actual current speed during a
+>   relative move (a commanded 80 reads back as 78, then the deceleration
+>   ramp, then 0 once the gimbal reaches the end stop). Without
+>   AUTO_UPDATE the cache would report the written speed forever.
+>
+> Add fixup entries restoring AUTO_UPDATE, alongside the flags each
+> control already has in uvc_ctrls[], for these three controls. The fixup
+> replaces info->flags wholesale rather than OR-ing, so each entry spells
+> out the full flag set.
+>
+> The camera's other AUTO_UPDATE-flagged controls were checked and
+> deliberately left alone: exposure, white balance and focus have working
+> autos, but their GET_CUR just echoes the last SET_CUR (the firmware
+> never reports the auto-chosen value), so AUTO_UPDATE would add USB
+> traffic for no benefit; there is no auto-hue; CT_ZOOM_RELATIVE already
+> reports AUTOUPDATE; CT_ROLL_ABSOLUTE is read-only and unmapped.
+>
+> The vendor has been asked to fix the firmware (support ticket #8220,
+> 2026-08-04); no fix is available at the time of writing.
+>
+> lsusb -v (device descriptor and the Camera Terminal):
+>
+>   Bus 003 Device 006: ID 3564:fef8 Remo Tech Co., Ltd. OBSBOT Tiny 2
+>   Device Descriptor:
+>     bLength                18
+>     bDescriptorType         1
+>     bcdUSB               2.10
+>     bDeviceClass          239 Miscellaneous Device
+>     bDeviceSubClass         2 [unknown]
+>     bDeviceProtocol         1 Interface Association
+>     bMaxPacketSize0        64
+>     idVendor           0x3564 Remo Tech Co., Ltd.
+>     idProduct          0xfef8 OBSBOT Tiny 2
+>     bcdDevice            4.09
+>     iManufacturer           1 Remo Tech Co., Ltd.
+>     iProduct                2 OBSBOT Tiny 2
+>     iSerial                 0
+>     bNumConfigurations      1
+>   [...]
+>       VideoControl Interface Descriptor:
+>         bLength                18
+>         bDescriptorType        36
+>         bDescriptorSubtype      2 (INPUT_TERMINAL)
+>         bTerminalID             1
+>         wTerminalType      0x0201 Camera Sensor
+>         bAssocTerminal          0
+>         iTerminal               0
+>         wObjectiveFocalLengthMin      0
+>         wObjectiveFocalLengthMax      0
+>         wOcularFocalLength            0
+>         bControlSize                  3
+>         bmControls           0x00023e3e
+>           Auto-Exposure Mode
+>           Auto-Exposure Priority
+>           Exposure Time (Absolute)
+>           Exposure Time (Relative)
+>           Focus (Absolute)
+>           Zoom (Absolute)
+>           Zoom (Relative)
+>           PanTilt (Absolute)
+>           PanTilt (Relative)
+>           Roll (Absolute)
+>           Focus, Auto
+>
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+Link: https://lore.kernel.org/linux-media/20260902002544.34798-1-jordan.mymail@gmail.com/T/#mf4b518b5bfa604a5c925d23d1653b927b811488e
+> Suggested-by: Ricardo Ribalda <ribalda@chromium.org>
+> Signed-off-by: Michael Jordan <jordan.mymail@gmail.com>
 > ---
->  drivers/media/pci/intel/ipu-bridge.c | 27 ++++++++++++++-------------
->  include/media/ipu-bridge.h           | 19 ++++++++++++++++++-
->  2 files changed, 32 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-> index 131c70844..cd3c36d44 100644
-> --- a/drivers/media/pci/intel/ipu-bridge.c
-> +++ b/drivers/media/pci/intel/ipu-bridge.c
-> @@ -449,6 +449,7 @@ static void ipu_bridge_create_fwnode_properties(
->  	struct ipu_bridge *bridge,
->  	const struct ipu_sensor_config *cfg)
->  {
-> +	unsigned int i = IPU_SENSOR_EP_BUS_TYPE;
+>  drivers/media/usb/uvc/uvc_ctrl.c | 20 ++++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+> index 64c90c380..74f6e8039 100644
+> --- a/drivers/media/usb/uvc/uvc_ctrl.c
+> +++ b/drivers/media/usb/uvc/uvc_ctrl.c
+> @@ -2876,6 +2876,26 @@ static bool uvc_ctrl_fixup_flags(struct uvc_device *dev,
+>                         UVC_CTRL_FLAG_GET_MIN | UVC_CTRL_FLAG_GET_MAX |
+>                         UVC_CTRL_FLAG_GET_DEF | UVC_CTRL_FLAG_SET_CUR |
+>                         UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               /*
+> +                * OBSBOT Tiny 2: GET_INFO reports GET|SET without AUTOUPDATE
+> +                * for the pan/tilt and zoom controls, clearing the AUTO_UPDATE
+> +                * the driver's own control table sets for them. The device
+> +                * moves all three on its own (gimbal moves take seconds, and
+> +                * its autonomous subject tracking pans, tilts and zooms with
+> +                * no host involvement) and reports the live values on GET_CUR.
+> +                */
+> +               { { USB_DEVICE(0x3564, 0xfef8) }, 1,
+> +                       UVC_CT_PANTILT_ABSOLUTE_CONTROL,
+> +                       UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
+> +                       UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x3564, 0xfef8) }, 1,
+> +                       UVC_CT_PANTILT_RELATIVE_CONTROL,
+> +                       UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
+> +                       UVC_CTRL_FLAG_AUTO_UPDATE },
+> +               { { USB_DEVICE(0x3564, 0xfef8) }, 1,
+> +                       UVC_CT_ZOOM_ABSOLUTE_CONTROL,
+> +                       UVC_CTRL_FLAG_SET_CUR | UVC_CTRL_FLAG_GET_RANGE |
+> +                       UVC_CTRL_FLAG_RESTORE | UVC_CTRL_FLAG_AUTO_UPDATE },
+>         };
+>
+>         unsigned int i;
+> --
+> 2.43.0
+>
 
-You can just initialise this to 0.
-
->  	struct ipu_property_names *names = &sensor->prop_names;
->  	struct software_node *nodes = sensor->swnodes;
->  
-> @@ -508,21 +509,21 @@ static void ipu_bridge_create_fwnode_properties(
->  			PROPERTY_ENTRY_REF_ARRAY("lens-focus", sensor->vcm_ref);
->  	}
->  
-> -	sensor->ep_properties[0] = PROPERTY_ENTRY_U32(
-> -					sensor->prop_names.bus_type,
-> -					V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-> -	sensor->ep_properties[1] = PROPERTY_ENTRY_U32_ARRAY_LEN(
-> -					sensor->prop_names.data_lanes,
-> -					bridge->data_lanes, sensor->lanes);
-> -	sensor->ep_properties[2] = PROPERTY_ENTRY_REF_ARRAY(
-> -					sensor->prop_names.remote_endpoint,
-> -					sensor->local_ref);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-
-You should use the maximum value of the property index here. Same below.
-Right now it's fairly simple, but in more complicated cases it helps
-keeping track of the properties.
-
-> +		PROPERTY_ENTRY_U32(names->bus_type,
-> +				   V4L2_FWNODE_BUS_TYPE_CSI2_DPHY);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +		PROPERTY_ENTRY_U32_ARRAY_LEN(names->data_lanes,
-> +					     bridge->data_lanes, sensor->lanes);
-> +	sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +		PROPERTY_ENTRY_REF_ARRAY(names->remote_endpoint,
-> +					 sensor->local_ref);
->  
->  	if (cfg->nr_link_freqs > 0)
-> -		sensor->ep_properties[3] = PROPERTY_ENTRY_U64_ARRAY_LEN(
-> -			sensor->prop_names.link_frequencies,
-> -			cfg->link_freqs,
-> -			cfg->nr_link_freqs);
-> +		sensor->ep_properties[IPU_NEXT_EP_PROPERTY(i, NUM_OF)] =
-> +			PROPERTY_ENTRY_U64_ARRAY_LEN(names->link_frequencies,
-> +						     cfg->link_freqs,
-> +						     cfg->nr_link_freqs);
->  
->  	sensor->ipu_properties[0] = PROPERTY_ENTRY_U32_ARRAY_LEN(
->  					sensor->prop_names.data_lanes,
-> diff --git a/include/media/ipu-bridge.h b/include/media/ipu-bridge.h
-> index 16fac7654..61e10cef1 100644
-> --- a/include/media/ipu-bridge.h
-> +++ b/include/media/ipu-bridge.h
-> @@ -64,6 +64,23 @@ enum ipu_sensor_swnodes {
->  	SWNODE_COUNT
->  };
->  
-> +enum ipu_sensor_ep_props {
-> +	IPU_SENSOR_EP_BUS_TYPE,
-> +	IPU_SENSOR_EP_DATA_LANES,
-> +	IPU_SENSOR_EP_REMOTE_EP,
-> +	IPU_SENSOR_EP_LINK_FREQUENCIES,
-> +	IPU_SENSOR_EP_NUM_OF,
-> +	IPU_SENSOR_EP_NUM_ENTRIES
-> +};
-> +
-> +/*
-> + * Get the index of the next endpoint property in the property array, with a
-> + * given maximum value.
-> + */
-> +#define IPU_NEXT_EP_PROPERTY(index, max)		\
-
-The macro isn't limited to endpoint properties, how about calling it
-e.g. IPU_BRIDGE_NEXT_PROPERTY?
-
-> +	(WARN_ON((index) > IPU_SENSOR_EP_##max) ?	\
-
-How about:
-
-s/SENSOR_EP/BRIDGE/
-
-> +	 IPU_SENSOR_EP_##max : (index)++)
-> +
->  /* Data representation as it is in ACPI SSDB buffer */
->  struct ipu_sensor_ssdb {
->  	u8 version;
-> @@ -141,7 +158,7 @@ struct ipu_sensor {
->  	const char *vcm_type;
->  
->  	struct ipu_property_names prop_names;
-> -	struct property_entry ep_properties[5];
-> +	struct property_entry ep_properties[IPU_SENSOR_EP_NUM_ENTRIES];
->  	struct property_entry dev_properties[5];
->  	struct property_entry ipu_properties[3];
->  	struct property_entry ivsc_properties[1];
 
 -- 
-Regards,
-
-Sakari Ailus
+Ricardo Ribalda
