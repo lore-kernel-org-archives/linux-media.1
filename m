@@ -1,172 +1,181 @@
-Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012005.outbound.protection.outlook.com [40.107.209.5])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FDB83909AB;
-	Wed,  2 Sep 2026 07:56:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788335777; cv=fail; b=VMegyvs9oobEVrZVNZAfbCmMsGKHfc5Csw2454fE0kBTpQqWxk+Pfhw9nfSs0RJrU1+3n8IzGk+WL/Ie4fRGgKxRP63pTqNjhxUZpbJkGm7gUskI12odKFz2EH5ihseo98wDTQdgbk1s4wYmJ6FEYrhSOHFgLnXSjKzmIPYPJzU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788335777; c=relaxed/simple;
-	bh=a+DIFGInLS/T650rp6Lmdwqfb2HML4m4uWnfDderQSs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=Iao7UCr9nfnim8Lae/89zi54fZKkGHMiytvW+wXSUqzNGQHSfkxr9T5T5R2IMivKJjf/6HLNyrnaup7CmfANhjyfG7Tbeh6z9VLAATQBv/tXZw8xttmhP3PB0CvIN2CbsMaX3GP93C+OmaVGEVkEDCaGVw5c3/rOel/1JhOK8TA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ex3eeh4I; arc=fail smtp.client-ip=40.107.209.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 863F54CCDD5
+	for <linux-media@vger.kernel.org>; Wed,  2 Sep 2026 08:01:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788336097; cv=none; b=Cf2niXf/ddmBbJKM8w9aDkRc5qhgbubeILVhvK+99ZKdxQRG4gqlikq8edMrqX9C0VpQcmTTePo8youkvykAl0swrze4STQwTO+x8ROO4y3lGnHux9G30kghJ+Ikt0kAJENK5UAaWktU5qhzVGZ+9kS9EYaoZL9KADf+b+byRC0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788336097; c=relaxed/simple;
+	bh=lzoQ2PJIGoINbyiTJoeOK7Ehu8/sWFgbcjxkQWffm6Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=or9Y04c89Eu6Z68G0tcGSI00JxDJRx8l+lZs1+L4BXsfWYe9TJyHAW3edBicnqQYyIHHA1HMCLeGgBH8PNscjZ24OJzNo8ln/QUoh3asPaxspqcyceeUrG4ODM0in82h2pc2aqsulucetGqhig0+Agfv7J8gdY/AaF4GXP/cZgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UpXC3M4z; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ex3eeh4I"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=F7WjG/a0IeaH8/NqrLxdlTrutXIkHQ27iCXyNAJP+ymP1tSuunMYdBIsd1ue+Oe2yk+4kjt/+vp7UVTgJjXhXoj9HC44gJ3wNXwPl8o+drMs+1Wzeprum8euWCCoEhvTDknOmWHTIRV011Z1Qq1VfzAOnnYNJDPETKtT6W7CDLAeGPMfeXp+TTVN+2OCVA6mR00TTNtHUXwGe2D/qHhQYSKztDjiMbAymFeDwgheSoRA7tkghNwX9ODqqYDOgaB648MPZ5txuuK25AtGlKB5nZQqr9FyvvOYyNca+HNPvOPLvAdWeqhofY7h0piZLCrQKwotScTOUvWeuDSBO3Nxjw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=psCUADqtW9u7HV0GyI6Kb3uS5JpkFGgefbruKrwnB58=;
- b=slDBIk5SJR9CZTaAr0ROTHB3ub/dqFiGaZDxn86UJnP6YST0wkY/E/Ykmvvb9k/cbmlkRhoqaIm7zeyax2cZ0l3Zxf7OOXIuJ0VD/c+lrcUNZbDOO/Lm+QWpVQtx/KLHx54DguiL2FHdZ98R6jPF+nnjDaw+rpeu4L1GiSCZWvUZ/ZpXjdwtppSuD+bBwAi9tw/wb6UXjMkTWu3a3mrx7ycyMLkYl43NqHi664RMDMuVQXW3oplnmx5NFzdG6Kmg9ohY1wj/eY/LW9AQrGK/gndS2Va0zYQASMJhD2YuNYSEwRONtl4U+pLLFOnk5MLQ6duVCntExSIkgrOrinYbdw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=psCUADqtW9u7HV0GyI6Kb3uS5JpkFGgefbruKrwnB58=;
- b=ex3eeh4IMBkRqUx6HWlBExyQ8d2gpHBGEq9dxQHTx16/pZsmXxK4rUT7qt4VCidjqVLTfzp1VqWGizPOU7lU3ZI033VHQ251iDDOBHeGjSJv6l5KvqQbUu75AD8LiaorbKavWhQccB0Wnl9LNaC3C5taI4DkqOw/9XbAelxAuGE=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by CY3PR12MB9704.namprd12.prod.outlook.com (2603:10b6:930:102::13) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Wed, 2 Sep
- 2026 07:56:13 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0339.007; Wed, 2 Sep 2026
- 07:56:13 +0000
-Message-ID: <aed39f83-6340-4fe9-890c-6d5f340c97d6@amd.com>
-Date: Wed, 2 Sep 2026 09:56:06 +0200
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/2] dma-buf: Fix silent overflow and alignment
-To: Leon Romanovsky <leon@kernel.org>
-Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org, alex@shazbot.org,
- ankita@nvidia.com, chriscli@google.com, david.laight.linux@gmail.com,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev, jgg@ziepe.ca,
- jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
- linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
- sashiko-bot@kernel.org, stable@vger.kernel.org, viursachi@google.com,
- xuehaohu@google.com
-References: <20260901170849.4052816-1-dhu@x6u.co>
- <2bf581db-7cc5-4f38-a075-1b988c332f3c@amd.com>
- <20260902073936.GR24140@unreal>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20260902073936.GR24140@unreal>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0022.namprd13.prod.outlook.com
- (2603:10b6:208:256::27) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UpXC3M4z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788336096; x=1819872096;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=lzoQ2PJIGoINbyiTJoeOK7Ehu8/sWFgbcjxkQWffm6Y=;
+  b=UpXC3M4zSkzbeUr2uTrPfBcNtjfiBS0MBntY1nOw8+j01UXKOF7uHag9
+   D+pNEvSPygl4cIkSz05RQk89qi66MX4HyyqAIWO2b23OVhXz04bkSgepg
+   2GlcOeG0BAI1UQ7a9mOqeA0F8At6/Q8wKh3qCrYAIcZUQ5oC8bcv9AwQa
+   HUpquLEZuTRUVSM50oLBaiGL8kUGq54Nw/1Y5iLiNDhsvUQxJQyh0xLFE
+   kIZw+H6twG5YWtLaeIFW8hfjIF6OAUAA0Y/G61pIDVgWThlrZjWW1PkaY
+   SDvlMHP5VzXdv646oYPTaFYWxtP4sfzFfNq16Ywa1WShZvzoqM6dy9d9s
+   w==;
+X-CSE-ConnectionGUID: +3Ti3073R9GlqQzqtuyPsQ==
+X-CSE-MsgGUID: NkItmT/2Q6+EP0QWMHL/Og==
+X-IronPort-AV: E=McAfee;i="6800,10657,11893"; a="92606640"
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="92606640"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 01:01:35 -0700
+X-CSE-ConnectionGUID: XIrcLeYMSxiFU/XaroYuqg==
+X-CSE-MsgGUID: zKZ1ZZRzQF+1hR29/eh5Ew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,257,1779174000"; 
+   d="scan'208";a="273517267"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.129])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 01:01:33 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 7F6A811F944;
+	Wed, 02 Sep 2026 11:01:29 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1x1fuS-00000005OYv-3NoJ;
+	Wed, 02 Sep 2026 11:01:28 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	mchehab@kernel.org,
+	sarang.sapre@intel.com,
+	daxing.li@intel.com,
+	ong.hock.yu@intel.com
+Subject: [PATCH 1/1] media: ipu6: Add a Kconfig option for IPU 7, 7.5 support
+Date: Wed,  2 Sep 2026 11:01:28 +0300
+Message-ID: <20260902080128.1286050-1-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260827123336.2219048-1-antti.laakso@linux.intel.com>
+References: <20260827123336.2219048-1-antti.laakso@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|CY3PR12MB9704:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0eda70d5-f63d-4031-9896-08df08c7a8ac
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|10067099003|11063799006|22082099003|56012099006|4143699003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	YRZoxo0wJudvHPqleQhpqNRShAWIUJIiEoFnIJQXWg7VH9+FkbLgXK9PTcFpJtsWZZWeUlURWvfFAUTPMX8ayCoujypwLJTi+p8dSHFfbzwYInFIHd1axICi/CeIx4dZGF9KIUjNvmSOlRqxh62ui1eDkymKQEE4o/x5ZNGDWdK/7sIv4XPG7qdH0syCElmCkvEw/Lhw0I/3mDW6WyggTYtJsBdI9uPawKHOd1nmwFNS7HFQSt3KeZ75y+PL6BYZANlVeXh2G9L8sJrYF8h98zr6BNHOb+lndqu9fD8kke8R00rrhLunGU+PXsPoLLRS5n4hIUc7tn+vQBXHqivzmOEMjQQhDU7f6Qg+hk+GxDxp7nwApLc8Oe+Yr/ysIn6yPc92EZrfu3FjJTix++jpQHxj20pwHRY+S35VN5Qc4qinrUs+4zs3As2Afnr5/HWd/7CqOwvP8GLgVLopRdC+aCpTTgRhyRbBm4NtTeOXZeSktNn3pEjlcad0oBrW3Z9GwmFopt2dglsooZtmWMY2zCxelvgLPgV6Zs1KYRn3rozaS/2TsluSfJjZT33Gn2WQ21jXp1wKAWLKJGAEH6bHYmkRARxhwNhd1TID//IDBJQK68HVHyYY8fPbV5nHH3H8VClhUAIcnFdD8ADzxjdNv/mfR8wI6zdHDN1b1YmFQCY=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH7PR12MB5685.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(10067099003)(11063799006)(22082099003)(56012099006)(4143699003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OCtyWDlnUWcvQ3lOWTNJNzFrU2hqRGw0OXZHcS9KYWF5bE9Ya2FDeDY5STF1?=
- =?utf-8?B?VVVPWStxNTcwR0Q1WlZJWmh1Y1IwUmEzR0loWFNpeXkxQTNWNGtZaVdhemdK?=
- =?utf-8?B?MkVESmRDaCt6R3NZaVFZY0FmcEk1KzBXeXZRSERwOE1vd2YyakpuZ3NJZklN?=
- =?utf-8?B?U0dlckw1M2ZnYnpON2FEYTNZbmFncm4zS1NFSHFuaXNPVnZYTnFrYlV2L0FY?=
- =?utf-8?B?T1Y5dlNYbUFQOWhBcHE0b2xqdENGR3V5dE8vTDVGaGVwTFpqSUlFT1U5Vk5z?=
- =?utf-8?B?ai9VdXZueUhJSUYrT241UWhEZnRWOTFyK1VSUWhnM3JLZDZLRjhhK3Y2eUh0?=
- =?utf-8?B?d3lqamd4Mk9mRVpCZUxkRjFrNUNMaCtvWU9ZMWRGVDNBVW1rQndTRHN6NTRm?=
- =?utf-8?B?NkphNGxscFBoem9iR0dESVhpbk93WGY4aXJGOXM5SGN6V3RmNUlyNFNCK1JG?=
- =?utf-8?B?QjRhWXFZSXpIQWVmc0NaNTJjWWFxTzZuM3pxS1RTNFBqc3lBakRVUzNYSFYr?=
- =?utf-8?B?QnNDZnZJYkxHWmFlSG8zdFJrUHgyeTB1TU1pM1FnekpyWjF3REpFeCsydkNZ?=
- =?utf-8?B?QkY1OERpQWdyaUxxMlVzU3hGdUxtcHdqQlh3RUE0Sm5rUUxIN0dEbzJrbkJM?=
- =?utf-8?B?TWxva05LS1BrditKaFIwZUNlRTR4aGhLTVJGN3NBdldsb2NIYWlQSmRiSzRs?=
- =?utf-8?B?YTI3WDh5UmxNb3Z4MkN2QUZFOXhaWE5lOWlqZ3VRZld4bWdqcE9tWmlDV081?=
- =?utf-8?B?cHZXSnlEbVcwa3pIbnJzV2laVVhGT0pLY0xzRk5qVXlCYUNPSHYwYkoza0Fh?=
- =?utf-8?B?LzZzOHVNMmpxTEFEMS8xVWVkUW54MjZ6RzQ4ZEFvUlJzT1ArQXlIWjd4R2Fj?=
- =?utf-8?B?MzE2Z1VXSTlPVmkwbXE0MXJWODFsQU5jM3AyUkZSZWthWUtLSkRPaHkzdVUx?=
- =?utf-8?B?MGpHemROR2w1dzBVWDJUR2tMcFpidFVibnlnN21BUzBiVTdhWGhrbDRwYmx0?=
- =?utf-8?B?eWFadlZTTlNpTHlBRndLMC9RTmtDQTR5and5K2JaeVQvQnBySFJPZ0dLY1Fr?=
- =?utf-8?B?NHN6VjY5WHJvcm0rYlhJK3hnLzZraTh2L0FXc29jaHhxRVJSdjlUU0FLNmUr?=
- =?utf-8?B?ZkMxZjArRlJQWmZVUTZHWHByOFBxZzREUzY2L1dPZVJMWjNuTkUyNDNlb1pI?=
- =?utf-8?B?L3hWS3hodFlVejF3SzlkckwwanNoT05tbUR0RDFkdkorOFpKUDhxc0dwV3hh?=
- =?utf-8?B?ZllVYjhjSFh1RXZWLzY4SGYralpuTzZBWTU5SkVkTlF4bzBLQ2t6NlhzcjZG?=
- =?utf-8?B?aW45N1dqdUxCVFFhdnorVUdkSmRBWkt4dU5jMzlwb3BPTXppY1o1V1NQWldE?=
- =?utf-8?B?YzV3bVlHMWhWTm4zRlRaRWtSOHgzemdJakFUbXRpb3paUWlnWUJ4YVhJZUE4?=
- =?utf-8?B?dXEzekJ2N3FmYmE2b21BckVxcEN6Zk0rUExyOTNtUGpoTWhhaGdFVlZ6TjVv?=
- =?utf-8?B?SEFzaEhqczRNOTY5WDdMS2tlb1pJeE5VZ1orSEp1R0RFWGFoT0hVV0ZQRDAx?=
- =?utf-8?B?WG1oclRFYkFZNEV0Z09ld0lWVm05T0t3Rlppek91ODFRV0NJajR0MzM4MTVV?=
- =?utf-8?B?eWhyZzhzY0xXYWdHOHBzY0w1TnRPalRmMnBDTXNDKzY2R2lYM0dRYlRPT3RU?=
- =?utf-8?B?Y0xvSHJ4L1Rud2dHVWF6YWlERGxoMU5VUjFPSUQ1VllpRWdzQkxIdGtxeXNY?=
- =?utf-8?B?NVJNSGMwS09kajVDcWFWSWU5eXlwMlJldDI3cUFydFdGcTlVU2w2cW1lTDdx?=
- =?utf-8?B?NGpPQ3FQdWRORWNwcUVBVHRYRmZ6d093NVcyazI5SUROK1ExNnlLQWpFczZO?=
- =?utf-8?B?QW56bHgyR2FXN3BqK0VJN0tRVC9vblJkWGhNTWlHaEtRMkdJV2FMcW40Zksy?=
- =?utf-8?B?RThXaVhuK2JDVGRtaDZkcXV3UGl0UXNYTWkrM29TQlBGcmRSQnU2aktmQTdO?=
- =?utf-8?B?SnIzcFNNR1ZQQTdobzFtaHhEeDRCT2Fxc1hJb3JnM29veW9Ma01HdWpZS3l3?=
- =?utf-8?B?S2ZQYWZ5VW9YZUQ2MS94ekRJQk14S2hCajBVYWlXKyt0dmJnVDdrdm9hYmRX?=
- =?utf-8?B?SEVQRWRhK0FRbHlxbTY5bHcxQSt5NnAzT2oxSWlUUWNma0p1OFdIS0YvZDRY?=
- =?utf-8?B?eWV0NUVZVXdQT1M5NnhMcXdKRGtVcHFsL1hPQzVOS3N4dXdxd0pseE9sSngw?=
- =?utf-8?B?aWprUW9OQUI3dDFMZ1NVRDNhQmpDRmxZUEkzOEtQMXlZT0dBMVY1Y21tUGgx?=
- =?utf-8?Q?bKRwqag5/t5KGDCYaK?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0eda70d5-f63d-4031-9896-08df08c7a8ac
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Sep 2026 07:56:13.2346
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: P3hOtKCk898+MwjQWqFT5oLAUoAtjsLfXLFWm+QsVmUK0np05q8mmuUxdOq4bdLT
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY3PR12MB9704
+Content-Transfer-Encoding: 8bit
 
-On 9/2/26 09:39, Leon Romanovsky wrote:
-> On Wed, Sep 02, 2026 at 09:00:46AM +0200, Christian König wrote:
->> On 9/1/26 19:08, David Hu wrote:
->>> From: David Hu <xuehaohu@google.com>
->>>
->>> This series address two related issues in scatter-gather mapping,
->>> specifically for the MMIO based dma-buf mapping. The fixes ensure
->>> sgt mapping is correct, and proper for large MMIO regions.
->>>
->>> Patch 1 fixes a silent integer overflow for mapping length exceeding 4G
->>> (Previously submitted as [PATCH v7] dma-buf: Fix silent overflow for
->>> phys vec to sgt)
->>> https://lore.kernel.org/all/20260609164047.486227-1-xuehaohu@google.com/
->>>
->>> Patch 2 Splits sgl by largest page aligned chunk
->>> (Previously submitted as [PATCH v3] dma-buf: Split sgl by largest page-aligned chunk)
->>> https://lore.kernel.org/all/20260722233806.3922093-1-dhu@x6u.co/
->>
->> *sigh* such issues are exactly the reason why I didn't wanted the dma-mapping stuff inside DMA-buf. That clearly doesn't belong here.
-> 
-> And this is why so many in the kernel community want to get rid of SG
-> lists. It would be great if DMA-BUF could also eliminate the need to
-> convert to an SGL, like Jason proposed.
-> 
-> The DMA layer no longer needs SGL. These bugs belong to the DMA-BUF layer,
-> which is the one that depends on it.
+Add a Kconfig option for IPU 7 and IPU 7.5 support in the IPU 6 driver.
+Enabling this option adds the IPU 7 and IPU 7.5 PCI IDs to the IPU 6
+driver and disables the IPU 7 staging driver.
 
-I'm all fine using an array/xarray of dma_addr_t in DMA-buf, just phys_vec is a clear no-go.
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+Hello everyone,
 
-Regards,
-Christian.
+This patch allows the two drivers to co-exist for some time. I'll squash
+this to the IPU 6 driver patch adding the PCI IDs.
 
-> 
-> Thanks
+ drivers/media/pci/intel/ipu6/Kconfig | 7 +++++++
+ drivers/staging/media/ipu7/Kconfig   | 1 +
+ include/media/ipu6-pci-table.h       | 2 ++
+ 3 files changed, 10 insertions(+)
+
+diff --git a/drivers/media/pci/intel/ipu6/Kconfig b/drivers/media/pci/intel/ipu6/Kconfig
+index 1129e2beb4be..f441ee66f151 100644
+--- a/drivers/media/pci/intel/ipu6/Kconfig
++++ b/drivers/media/pci/intel/ipu6/Kconfig
+@@ -16,3 +16,10 @@ config VIDEO_INTEL_IPU6
+ 
+ 	  To compile this driver, say Y here! It contains 2 modules -
+ 	  intel_ipu6 and intel_ipu6_isys.
++
++config VIDEO_INTEL_IPU6_IPU7
++	bool "IPU 7 and IPU 7.5 support"
++	depends on VIDEO_INTEL_IPU6
++	default y
++	help
++	  Enable support for Intel IPU 7 and IPU 7.5.
+diff --git a/drivers/staging/media/ipu7/Kconfig b/drivers/staging/media/ipu7/Kconfig
+index 7d831ba7501d..f33b560948da 100644
+--- a/drivers/staging/media/ipu7/Kconfig
++++ b/drivers/staging/media/ipu7/Kconfig
+@@ -5,6 +5,7 @@ config VIDEO_INTEL_IPU7
+ 	depends on X86 && HAS_DMA
+ 	depends on IPU_BRIDGE || !IPU_BRIDGE
+ 	depends on PCI
++	depends on !VIDEO_INTEL_IPU6_IPU7
+ 	select AUXILIARY_BUS
+ 	select IOMMU_IOVA
+ 	select VIDEO_V4L2_SUBDEV_API
+diff --git a/include/media/ipu6-pci-table.h b/include/media/ipu6-pci-table.h
+index cacb8a3170d0..606bf013fbc2 100644
+--- a/include/media/ipu6-pci-table.h
++++ b/include/media/ipu6-pci-table.h
+@@ -24,8 +24,10 @@ static const struct pci_device_id ipu6_pci_tbl[] = {
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6EP_ADLN) },
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6EP_RPLP) },
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU6EP_MTL) },
++#ifdef CONFIG_VIDEO_INTEL_IPU6_IPU7
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7) },
+ 	{ PCI_VDEVICE(INTEL, PCI_DEVICE_ID_INTEL_IPU7P5) },
++#endif
+ 	{ }
+ };
+ 
+
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+prerequisite-patch-id: 50856908ce9badbc03765bfbb49fe67f3dffc89f
+prerequisite-patch-id: 15431f165ff5c789dd0e958a228ffa1e03a3668e
+prerequisite-patch-id: 734492a207870f1b6b3fb6ac882245e6a120f1c2
+prerequisite-patch-id: 56223856c727d416ecf312ffe4e8b820b0c7f5ef
+prerequisite-patch-id: 0a58102a63e9a66befe3ad69319506055d180ede
+prerequisite-patch-id: cb34049cf2bf418106c74ab7ec41fe8022b51f5b
+prerequisite-patch-id: 1fa808f0fec7ec733a8aa93f40974844d958291f
+prerequisite-patch-id: ebaeb384de7f3a7f31b15d11a02415944f954a87
+prerequisite-patch-id: fcf19314a683fa787aacb933e227f1cf4eba48af
+prerequisite-patch-id: fbd1dca9afdf208e7a7ef171a770e6451effa67f
+prerequisite-patch-id: fab2e30f46498ba4c94ebfe1148f4a113ac632a9
+prerequisite-patch-id: f9d0887218781cc4750e674af791732a124dc936
+prerequisite-patch-id: 7b9599d525685094d059b3ff5c07477fa5363ef0
+prerequisite-patch-id: 24797d9b2413920c595560a475e105b1d537f262
+prerequisite-patch-id: 68c4c8fdf97a438eb89c5c2f823604fbe90651b7
+prerequisite-patch-id: 4e82f7c21c70f4b74488a56426fef7d50e293fd8
+prerequisite-patch-id: 54ff13db3aecd7dd7ccf027ec929ad2f8225890e
+prerequisite-patch-id: fe65b24b749f0ac7282a1af0fba14c6004c090ca
+prerequisite-patch-id: d5eb002cadb3e2e760135011306f49bba3c5abe5
+prerequisite-patch-id: cc13ab54bb81ff7ee1336e2941bdfa54901e765b
+prerequisite-patch-id: 5709e4f4eebbaf6edf8a88695d29e8cc70a708ea
+prerequisite-patch-id: ddbfc0360030ef98c21aa06f709b9ad9fbd6e8a8
+prerequisite-patch-id: ef9b3e50c49a3a4144cf55e5d34a0f54c110090b
+prerequisite-patch-id: d4622868e4ff1d8186c3722727530d8ee251bb68
+prerequisite-patch-id: 88cdfb12109f19cc643c1037a3506f525ce5c7f8
+prerequisite-patch-id: d3f0657a7fb2222a6d0de9fd9df8faefcb88c4e7
+prerequisite-patch-id: 9396e2cbe6c82778e9c589ae8c4d50c68fce4a54
+prerequisite-patch-id: d2d5cef88a483b1c01c26cf3cdb958920b94db52
+prerequisite-patch-id: c18a0e871b6ba5f501b8615b6914f8070bc9ebeb
+prerequisite-patch-id: df220b267694663be45023f499407771a1215cda
+prerequisite-patch-id: a60c0bc05ae8b0eb037f3bd41b1f9d1c6c287563
+prerequisite-patch-id: 3d7f821db922a869aeacf6322fde359bd0e318fb
+prerequisite-patch-id: be40017296955faef77638be5f0867ea7309df82
+prerequisite-patch-id: 2efcb5f489e58084c05739e860e1b47643850374
+prerequisite-patch-id: 2d005004560da48e2207141c1ae85f251dc0249d
+prerequisite-patch-id: b6da1454b6474b13cd89a7d7b5eef2208801e28b
+prerequisite-patch-id: dddf7e938f6cc98d695a0a6047168733fe60e0d1
+prerequisite-patch-id: f3a5c5f58a9fd9624fa6f3afb0747b13b98a690e
+prerequisite-patch-id: ec5dbd156cf963e4d784080b28301d4434d86d80
+prerequisite-patch-id: 6712d8933601fa7668c0e1d50a33b197ba4cdfde
+prerequisite-patch-id: 29b4797fabd81a0c89745cc22acc8f6437ea8f4b
+prerequisite-patch-id: f9a7d2468799cefd8c099b89b7e6688dd215758e
+prerequisite-patch-id: 94f69f633ad2d59f85623e9869c182cdaf28e0e1
+prerequisite-patch-id: 5f4e03d19f5ca1712c252a6ac0308a85bcb260e4
+-- 
+2.47.3
 
