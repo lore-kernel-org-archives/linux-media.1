@@ -1,396 +1,383 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53301A6815;
-	Thu,  3 Sep 2026 22:30:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 190DF35DA6C
+	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 22:59:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788474645; cv=none; b=kiGNhBeBKzKLp/PA55cFS5GxyOauAa4mY+oZU0ncnGMRA7AWcCAzy7Yh5/kjtp4wIopHnKle3ENWXwMpsA66GK8bgi/F1vDkCmiNuA2woZ6JYlPXx9TTiCsGJ807o7s2bfkAAxACv37m7uXP6Q1tnkopuNCETuSobDLOV6k0cco=
+	t=1788476366; cv=none; b=BCv27cDzV8lBPTe5tJQIHgo0+cQ3KdQKX8xrnN8h0vHK9nwlYuDfNSu0ROSduBVQcQ6o8POrFop51YOM/FtRPCS7G8weJK/ZW/5D++tI7RLfunQrVn7nFE0z8fOWLaDIfsbgV3okSzcy8q8C5LmhzmzErr0xf30x4XUohy8W8LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788474645; c=relaxed/simple;
-	bh=yP6sO5UBUVEcubzeW0poxyj8ELEe5rE+PBceM13ImLs=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=uQyjpx4yJGoYiIwUOxwT9THYNuNTvt70a8PAo/vXQ5FmPT6Wvk6XVGAOlE04cBcVg6GXN3yZ0O4N975+hjybpXnK5OxGQgWWrbkF5GYIrGiZl+KSUfN/H3gEVwb3ICtB2A7ii8wfuKWVM325zs3B2KgIruQKdLwSHE/8PpSzc8g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZZWPySWx; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788476366; c=relaxed/simple;
+	bh=iuh4776VDMlWkxYhUqdr/Gwr5qfpxrc+MVsg2m6Uyu0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=qWn+Z+jKS/1FVW+6zdMMgTozSiZP7cfSyJmE0qPR9TAgOQK8DV/7gleyR7xuhWR31vjwCmOtlz6ATUqBkgR7a7SaUjFRD7JqLTw7wel/B+T1//sY/HiHEOVAsl9IEaYEYnexsUGlTPTBeMmvotC1SICf1YRpt9QCnE1GIhZgFYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XIRi9/Zm; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZZWPySWx"
-Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D38013BA;
-	Fri,  4 Sep 2026 00:29:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788474547;
-	bh=yP6sO5UBUVEcubzeW0poxyj8ELEe5rE+PBceM13ImLs=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=ZZWPySWxiWlD8D1YO7kpfo+Lqsb5GiTs9m0al9OKNumL5OJvsa0UNyKA7IwGqSFON
-	 1RzgYoxJLymkDpVjwHun49zXMur2yIlzb138BmKsMIL6oq9GhIXIhUhbxYL5zfXGUy
-	 1FUoGudVZwIBxCuCmGi2IskokZPPKF8G64Ko9444=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XIRi9/Zm"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-4858595f997so254164f8f.1
+        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 15:59:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1788476362; x=1789081162; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2Axg1lDBpFbiojgb7yUMw1qWPwTcpwvkNI5f/ccuw5w=;
+        b=XIRi9/ZmBHSGs+armmxYSZikVP6ZOeBOTKncWMBgIigM0bUlLOgPZ7nMA4zQVeACLA
+         OjT5qZeOG3pCqnKa9lYGR3JL+mWf7yGg7zUB04dwHVMOSZGqcqRzmynl6l++hwCZGxBV
+         pjsuYNl0OSxcZofgKTSZnyl8D9yl6/ElYrPCFJMqS7dZ5qyt29y66tVJcn1PEDCRbfP6
+         AknOdpj1zajjGuNG3vtqNGj4hbprZvW2u5AesJb9z9WSmb/b3rlM4zHQ7kKpliqC3MJ3
+         TMGtD7SU++ExAU/w59gcQDCQlyr7C8v4yszzxczVEwwGRcEkeduw4bL8qmpR9R+O4V98
+         pK6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788476362; x=1789081162;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2Axg1lDBpFbiojgb7yUMw1qWPwTcpwvkNI5f/ccuw5w=;
+        b=crdE+yIZCiDx3XNYMcd2n3pt0TPyBTLEBUldMLvrnqIaiPU3N/UNx/JB2XqINg5F3C
+         xgd1qC+BsOisqqlFMCvNBn+/SQQnLVYbcOwc5YUbLTWVZGc7wnnioADwgm1BtwjbVX3K
+         UMecw9q5TtBJquKjjOiswEb5RMOp5pHGPVmf3tpz7AfpOynFCN3W1j5mBcqxG//rUZV7
+         Kx6XUpsaAJR3FwJ9NfNtqdT3ruNpkzIkdL7MLHzS/KBXDnu8zlnufMgIvi9Mn/O6H+49
+         V2pZuqo2pFYSp1bI1q4DNrPUVIcjIJkI1SAQD7YiNY+DX8hAWQkYyhn00hq7nIBn66gG
+         96wA==
+X-Forwarded-Encrypted: i=1; AKwUvBxqs9CL2cHn68b4AkqNp9QRV+ARUohhnZwCiu+yhrWhtP0IueCPvyk0DAFktgFfO1Tv58TAG0hYB0TbGQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++lOJs3nmepbbZuYfGD9x0a40rdcVIMAReGnz0NRZLclSK7jLzvM
+	lfR33r64LwAdoScEq71sxB/bevTmZ1rfZNjqjeLWW93j3wm6cIiZNsEJ60TwnStPs14=
+X-Gm-Gg: AYBFou2x7vUCt/NTUrD5VQqQ3t60EP33NfifC5XMyUTrBRZxTZn1uj9eoXvpt8ZV4T5
+	tmKacEpAf9hgr2pIS1SSsj/QWa4/thK55PrZ5CHAk609AUUPm/J4PlYjBoR+yUYbgMq2XM1Xj0V
+	biI1I0gVr1xP+usLfw7PUvYupIWrmRGRarQbsDy09qFm6wO+tDrO4acwhcya/QI3N3mynqRWxeH
+	EQS2WPNrzmKKW9oQ/6AccY8r8V5fipcj5jYlt8jF1ip9bxIwefX5GLktS+BOtd5KcjGIHFmuDKa
+	qu0D0mXEETirD/T7DHy+7vGDH9TE3sQp7DCwrFbwv2R/UNiGvIZMmHgEARuiIp4Uq88Tth4srqf
+	iPEO8S1fivlPpSgAVYn9E2VgScqOaN5NTM8vAx3w85tZziywa1GL7PYH/OL+NxA/xNXUEW5AWjb
+	6vJ+CBkjXV5uReK71NU9buW2SARzH7FIsdjagkXaH3+KybdjDIHFpEu1GfHiFKgTpjXDpg
+X-Received: by 2002:a05:6000:2c02:b0:484:3604:c7bd with SMTP id ffacd0b85a97d-4858708c895mr3948505f8f.17.1788476362112;
+        Thu, 03 Sep 2026 15:59:22 -0700 (PDT)
+Received: from [192.168.0.35] ([93.107.91.8])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9a56sm1448006f8f.15.2026.09.03.15.59.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 15:59:21 -0700 (PDT)
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Subject: [PATCH v14 0/4] Add phy_get_by_of_node and devm helper
+Date: Thu, 03 Sep 2026 23:59:06 +0100
+Message-Id: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
-References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
-Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
-From: Kieran Bingham <kieran.bingham@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
-To: Dave Stevenson <dave.stevenson@raspberrypi.com>, David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, david@ixit.cz
-Date: Thu, 03 Sep 2026 23:30:35 +0100
-Message-ID: <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
-User-Agent: alot/0.9.1
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/53RS2rDMBAG4KsEr6syo7e66j1KF3omgtYOdmpcQ
+ u7ecaDExSt1I5gR+v5Bc+2mPNY8dS+HazfmuU516KlA+XTo4sn3x8xqokbHgSsQKFiQ7KP2Xwv
+ r83JhXDEQjNrpMlW2YLaAACz6z2liqEAXI0NIwncEnsdc6nJPe3un+lSnyzB+38NntXb/FTPTJ
+ bNSR+e1dMLbV3rpx+F5GI/dmjPrrS2bbE12TjHwWKJAzne2edgGsck2ZEOIKnnLi+J6Z9tfWwM
+ nqsW2ZDul0AgnAo2/s93W1k22I9srF0UBYRKEnY3wwAW24Uh/wkoq2VlJh8S9jhu9cXTaEDAVn
+ JCoQtYp7XX+0A3YNp2vs1tlbfISC+43imKj80ZdrP+eLWLmBYxzf/Tb7fYDEMvvg84DAAA=
+X-Change-ID: 20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-1506f74bbd3a
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Todor Tomov <todor.too@gmail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Bryan O'Donoghue <bod@kernel.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=12381;
+ i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
+ bh=iuh4776VDMlWkxYhUqdr/Gwr5qfpxrc+MVsg2m6Uyu0=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmfvFqFGDkL5wUEo6w2zJv5qZ0jxWEP+16anPT
+ VYagCughyGJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapn7xQAKCRAicTuzoY3I
+ OkKGD/0el6VKvmvve0utw7XVry2wQB7GiRj2b6EFmbzppzJQKyd9coWrz5XezWlV5OALFHdgkb6
+ VjwJT/cQw+MTCql1jeyL/fH8xdZ90Z64J5PVid0Xw3xsPRm8kXcHxMDkUxdRbhilkwpdnMjevPt
+ mcOuUQXTjC7Cnu2sHBE54XDgpI64h+Gh95cpxFfNfcEzSbDHIuPXOf/pMjP13MLa/qpEDGRVWab
+ asUFbVuDMtjOq5WIw7dbHY/04JJeaJTlLOpSHsTgsY3YaXzvamSEXuvbW/Q9OqhwDf66yOjCrVg
+ BVaxB+X8ktL+o/R8e4mfUUXxZjcjYYsCZcyEpz/34G8AYxcWrrAvzp24B9seGqpId9bzyNSS7oe
+ s/Z3ecAD6hwsgS5rz4XaMFziivwzyy5vwlHFp+OFp6qlMvR5CFBGH29L8jPXN+NjxyYVxnBVCfR
+ 3x3dyI3VIQX55Exmg530ATKdpc0V7OfcTP1ZZ1vNxwsHwQ8PCO/wK3tmu66uWwLIniBi/oMrJyr
+ CL+WEkrf/VI+pVAsOwkTKc+SfRIwOFecBXYX5Qe2V8qgTZ+Q8kNl52cFkRllu0vMCRpnubnKXLr
+ eF8nRvITXETc1GbChwQfiXueD62Df7YtannYZwKRh9cYeue6lxCCvlXrGxwZ84kwTwGg2LjaU4H
+ YcpKFhzUhvhLTYQ==
+X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Quoting David Heidelberg via B4 Relay (2026-08-27 10:26:53)
-> From: David Heidelberg <david@ixit.cz>
->=20
-> The driver may not be MIPI CCS compliant, but does use same address and
-> often set same values as compliant drivers. Do not redefine registers we
-> already know and are standard.
->=20
-> No functional changes.
+This series has evolved from a CAMSS standalone series to a series that is
+mostly on the PHY side now, so I've split the series up to reflect that
+fact.
 
-I kind of like the idea of this. I suspect it would help show which
-sensors have overlap and where helpers could be built up.
+Starting off by fixing a long-standing use-after-free race-condition in the
+phy core flagged by Sashiko in v13. While my series doesn't introduce the
+bug it seems appropriate to address it anyway once flagged.
 
-I worry if it makes it harder to see what registers are being modified
-though, but I think the common definitions are parseable by tools and
-add an improvement to human readability because now we see they are from
-the common set, and not some arbitrary possibly similarly named register
-?
+Once addressed two new helper functions are introduced to the PHY core to
+enable finding of a PHY using the media graph.
 
->=20
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
-> Changes in v2:
-> - Replaced all occurences with CCS ones.
-> - Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef=
-77e340@ixit.cz
-> ---
->  drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------=
-------
->  1 file changed, 25 insertions(+), 59 deletions(-)
->=20
-> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
-> index 8eb8588cb71bb..2c845b7b3df4f 100644
-> --- a/drivers/media/i2c/imx355.c
-> +++ b/drivers/media/i2c/imx355.c
-> @@ -14,89 +14,55 @@
->  #include <linux/unaligned.h>
-> =20
->  #include <media/v4l2-cci.h>
->  #include <media/v4l2-ctrls.h>
->  #include <media/v4l2-device.h>
->  #include <media/v4l2-event.h>
->  #include <media/v4l2-fwnode.h>
-> =20
-> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
-> -#define IMX355_MODE_STANDBY            0x00
-> -#define IMX355_MODE_STREAMING          0x01
-> +#include "ccs/ccs-regs.h"
-> =20
-> -/* Chip ID */
-> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
->  #define IMX355_CHIP_ID                 0x0355
-> =20
-> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
-> -
->  /* PLL registers that depend on the external clock frequency */
-> -#define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
->  #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
-> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
+Finally the usage of that new API is shown with CAMSS.
 
-I'm surprised that two registers have equivalents, but the other
-adjacent registers do not ? I haven't checked the spec through yet
-though. Is the gap because ccs-regs.h doesn't have the definition, or
-because this sensor has a different function / purpose for say 0x030d ?
+Changes in v14:
+- Fixes existing bug highlited by Sashiko in v13.
+  The bug has appropriate Fixes: tags applied for back-porting.
+- RB accumulated from v13 for the now standalone CAMSS patch.
+- YAML changes carried thus far will instead be posted with dtsi changes
+  where they 'feel' more logical.
+- Depends-on: https://lore.kernel.org/r/20260903-x1e-csi2-phy-v17-0-26606fa9a039@linaro.org
+- Link to v13: https://patch.msgid.link/20260728-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v13-0-ae811e2f0799@linaro.org
 
->  #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
->  #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
->  #define IMX355_PLL_OP_PREDIV           2
->  #define IMX355_PLL_IVT_PCK_DIV         5
-> =20
->  /* V_TIMING internal */
-> -#define IMX355_REG_FLL                 CCI_REG16(0x0340)
->  #define IMX355_FLL_MAX                 0xffff
->  #define IMX355_VBLANK_MIN              20
+Changes in v13:
+- Introduces struct device_node phy helper lookup.
+  This allows for finding a phy from a device_node entry.
+- Uses media-graph exclusively to reference phys. - Neil, Vlad, Vinod
+- Performs runtime check for legacy v non-legacy phys - Krzysztof
+- Link to v12: https://patch.msgid.link/20260708-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v12-0-f8588da41f16@linaro.org
 
-Where there are limits, I believe CCS has registers to read the limits.
-That's where I wonder if there could be ccs helpers, to support parsing
-of blanking. But I also am weary that breaking parts into lots of small
-helpers could just become unreadable, so I wouldn't push for that at the
-moment. I'd be curious to know 'how common' this is to CCS though.
+Changes in v12:
+- Updates camss sensor find method to find the sensor in the CSIPHY port. -
+  Neil, Vlad, Bryan
+- Drops dependency on passing polarities and positions. Moved into CSIPHY
+  port as agreed. Neil, Vlad, Bryan
+- Omitted mux to CSID as discussed this will be done when splitting CSID
+  out as its own individual node. Neil, Bryan
+- Updated Reviewed-by: - Loic
+- Link to v11: https://lore.kernel.org/r/20260326-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v11-0-5b93415be6dd@linaro.org
 
+Changes in v11:
+- Dropped simple-mfd in dts for devm_of_platform_populate() - Krzysztof
+- Pass polarity and position for data and clock lanes - bod
+- Remove check for PHY_TYPE_DPHY - PHY driver validates its own mode - bod
+- Depends-on: https://lore.kernel.org/r/20260325-dphy-params-extension-v1-0-c6df5599284a@linaro.org
+- Depends-on: https://lore.kernel.org/r/20260326-x1e-csi2-phy-v5-0-0c0fc7f5c01b@linaro.org
+- Link to v10: https://lore.kernel.org/r/20260316-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v10-0-fdfe984fe941@linaro.org
 
-> =20
-> -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
->  #define IMX355_LLP_MAX                 0xffff
-> =20
-> -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
-> -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
-> -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
-> -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
-> -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
-> -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
-> -
+Changes in v10:
+- compat simple-mfd added to CAMSS allows probing sub-nodes.
+  The other way to do this would be simple-bus however, CAMSS
+  is really a collection of devices in a block as opposed to a
+  discoverable bus.
+- csiphy nodes are sub-nodes of CAMSS.
+  Sub-nodes as pointed out by Dmitry will allow us to show some love to
+  older platforms.
+- Depends-on: https://lore.kernel.org/r/20260315-x1e-csi2-phy-v4-0-90c09203888d@linaro.org
+- Link to v9: https://lore.kernel.org/r/20260226-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v9-0-a59c3f037d0b@linaro.org
 
-But when a whole block comes out like this - that makes me think perhaps
-the crop control or fmts might just be a common function ?
+v9:
+- Adds phy handles as optional nodes
+- Adds minItems: 5 for iommu entries
+  I believe this should be acceptable as maxItems: 8 continues
+  to be valid
+- Makes CAMSS-level rails optional for x1e
+  Similarly I think this should be OK as the legacy binding
+  is still valid it is simply optional instead of mandatory now
+- Supports CSIPHY nodes adjacent to CAMSS while leaving
+  csiphy regs intact.
+- Pushes dtsi drop to another series everything in this series
+  can go through linux-media
+- Depends-on: https://lore.kernel.org/r/20260226-x1e-csi2-phy-v3-0-11e608759410@linaro.org
+- Link to v8: https://lore.kernel.org/r/20260225-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v8-0-95517393bcb2@linaro.org
 
->  /* Exposure control */
-> -#define IMX355_REG_EXPOSURE            CCI_REG16(0x0202)
->  #define IMX355_EXPOSURE_MIN            1
->  #define IMX355_EXPOSURE_STEP           1
->  #define IMX355_EXPOSURE_DEFAULT                0x0282
->  #define IMX355_EXPOSURE_OFFSET         10
-> =20
->  /* Analog gain control */
-> -#define IMX355_REG_ANALOG_GAIN         CCI_REG16(0x0204)
->  #define IMX355_ANA_GAIN_MIN            0
->  #define IMX355_ANA_GAIN_MAX            960
->  #define IMX355_ANA_GAIN_STEP           1
->  #define IMX355_ANA_GAIN_DEFAULT                0
-> =20
->  /* Digital gain control */
->  #define IMX355_REG_DPGA_USE_GLOBAL_GAIN        CCI_REG8(0x3070)
-> -#define IMX355_REG_DIG_GAIN_GLOBAL     CCI_REG16(0x020e)
->  #define IMX355_DGTL_GAIN_MIN           256
->  #define IMX355_DGTL_GAIN_MAX           4095
->  #define IMX355_DGTL_GAIN_STEP          1
->  #define IMX355_DGTL_GAIN_DEFAULT       256
+v8:
 
-I'd be curious if all of those limits could be read from registers, in
-case future helpers might do that instead .... But hardcoding known
-values in this specific driver is probably better than adding the
-complexity of trying to read them at runtime just to obtain the values
-above.
+- This version rebases on latest media-committers/next - bod
+- Adds support for "combo-mode" PHYs in the YAML.
+  It will be possible to build out the code to support this later - Vlad
+- Maintains the upstream model of connecting sensors to CSI decoders.
+  Every other upstream implementation does it this way so
+  CAMSS will do it this way too.
+- Reduces the number of IOMMU entires in CAMSS to those required for
+  CSID, VFE/RDI/PIX respectively.
+  Including all of the IOMMUs implies we will also "stuff" CAMSS
+  with ever increasing lists of registers but a better approach
+  is to have individual nodes for functional blocks.
+  For example this series supports CSIPHy as a separate block
+  CCI is already a separate block - and we will add ICP, BPS, IPE
+  etc as additional standalone nodes.
+  camss@someaddr {
+        //existing bindings vfe, csid, csiphy go here
+        iommus = <just what's needed for this>;
+  };
+  bps@some_other_address {
+        iommus = <bps specific iommus>;
+  }
+  In particular this model will save us from going down the same
+  path as the vpu which has ended up tripping over the total size
+  an iommu entry may span.
 
-I'm not sure I've gone through this enough to warrant a tag of some
-form, but I found the patch concept interesting enough to want to jump
-in to the conversation ;-)
+  Nobody really likes the legacy binding much so instead of
+  continuing to bludgeon more entries into it, I've conciously
+  not included BPS, IPE, ICP etc.
 
-Interested to see what happens anyway!
+Depends-on: https://lore.kernel.org/r/20260225-x1e-csi2-phy-v2-0-7756edb67ea9@linaro.org
+Link to v7: https://lore.kernel.org/r/20250711-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v7-0-0bc5da82f526@linaro.org
+Working tree: https://gitlab.com/Linaro/arm64-laptops/linux/-/tree/qcom-laptops-v6.19-rc8-camss?ref_type=heads
 
---
-Kieran
+v7:
 
+- Reimagine the PHYs as individual nodes.
+  A v1 of the schmea and driver for the CSI PHY has been published with
+  some review feedback from Rob Herring and Konrad Dybcio
 
-> =20
-> -/* Test Pattern Control */
-> -#define IMX355_REG_TEST_PATTERN                CCI_REG16(0x0600)
-> -#define IMX355_TEST_PATTERN_DISABLED           0
-> -#define IMX355_TEST_PATTERN_SOLID_COLOR                1
-> -#define IMX355_TEST_PATTERN_COLOR_BARS         2
-> -#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS    3
-> -#define IMX355_TEST_PATTERN_PN9                        4
-> -
-> +/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
->  #define IMX355_REG_REQ_LINK_BIT_RATE   CCI_REG16(0x0820)
-> =20
-> -#define IMX355_REG_BINNING_MODE                CCI_REG8(0x0900)
-> -#define IMX355_REG_BINNING_TYPE                CCI_REG8(0x0901)
-> -#define IMX355_REG_BINNING_WEIGHTING   CCI_REG8(0x0902)
-> -
-> -/* Flip Control */
-> -#define IMX355_REG_ORIENTATION         CCI_REG8(0x0101)
-> -
->  #define IMX355_PIXEL_ARRAY_TOP         0
->  #define IMX355_PIXEL_ARRAY_LEFT                0
->  #define IMX355_PIXEL_ARRAY_WIDTH       3280
->  #define IMX355_PIXEL_ARRAY_HEIGHT      2464
-> =20
->  struct imx355_reg_list {
->         u32 num_of_regs;
->         const struct cci_reg_sequence *regs;
-> @@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
->          * when power is up for streaming
->          */
->         if (!pm_runtime_get_if_in_use(imx355->dev))
->                 return 0;
-> =20
->         switch (ctrl->id) {
->         case V4L2_CID_ANALOGUE_GAIN:
->                 /* Analog gain =3D 1024/(1024 - ctrl->val) times */
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_=
-GLOBAL,
->                                 ctrl->val, NULL);
->                 break;
->         case V4L2_CID_DIGITAL_GAIN:
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLO=
-BAL,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOB=
-AL,
->                                 ctrl->val, NULL);
->                 break;
->         case V4L2_CID_EXPOSURE:
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATIO=
-N_TIME,
->                                 ctrl->val, NULL);
->                 break;
->         case V4L2_CID_VBLANK:
->                 /* Update FLL that meets expected vertical blanking */
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_FLL,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINE=
-S,
->                                 format->height + ctrl->val, NULL);
->                 break;
->         case V4L2_CID_TEST_PATTERN:
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
->                                 ctrl->val, NULL);
->                 break;
->         case V4L2_CID_HFLIP:
->         case V4L2_CID_VFLIP:
-> -               ret =3D cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
-> +               ret =3D cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
->                                 imx355->hflip->val | imx355->vflip->val <=
-< 1,
->                                 NULL);
->                 break;
->         default:
->                 ret =3D -EINVAL;
->                 dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not hand=
-led",
->                          ctrl->id, ctrl->val);
->                 break;
-> @@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *im=
-x355)
->         crop =3D v4l2_subdev_state_get_crop(state, 0);
->         mode =3D v4l2_find_nearest_size(supported_modes,
->                                       ARRAY_SIZE(supported_modes),
->                                       width, height, fmt->width, fmt->hei=
-ght);
->         cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
->                             mode->reg_list.num_of_regs, &ret);
-> =20
->         /* Set readout crop and size registers  */
-> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
-> +       cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
->                   &ret);
-> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret=
-);
-> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
-> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
-> +       cci_write(imx355->regmap, CCS_R_X_ADDR_END,
->                   crop->width + crop->left - 1, &ret);
-> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
-> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
->                   crop->height + crop->top - 1, &ret);
-> -       cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret=
-);
-> -       cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &re=
-t);
-> +       cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
-> +       cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
-> =20
->         binning_mode =3D ((crop->width / fmt->width) << 4) |
->                         (crop->height / fmt->height);
-> -       cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
-> +       cci_write(imx355->regmap, CCS_R_BINNING_MODE,
->                   binning_mode =3D=3D 0x11 ? 0x00 : 0x01, &ret);
-> -       cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, =
-&ret);
-> -       cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &re=
-t);
-> +       cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
-> +       cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
-> =20
->         /* Set PLL registers for the external clock frequency */
-> -       cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
-> +       cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
->                   imx355->clk_params->extclk_freq, &ret);
-> -       cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
-> +       cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
->                   imx355->clk_params->pll_op_mpy[lane_idx], &ret);
->         cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
->                   imx355->clk_params->pll_op_prediv[lane_idx], &ret);
->         cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
->                   lane_idx ? 2 : 1, &ret);
-> =20
->         /* Set MIPI configuration */
-> -       cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
-> +       cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
->                   imx355->hwcfg->num_lanes - 1, &ret);
-> =20
->         link_bitrate =3D imx355->link_freq->qmenu_int[imx355->link_freq->=
-val] *
->                        imx355->hwcfg->num_lanes * 2;
->         do_div(link_bitrate, 1000000);
->         cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitr=
-ate,
->                   &ret);
-> =20
->         /* set digital gain control to all color mode */
->         cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &re=
-t);
-> =20
->         /* set line length */
-> -       cci_write(imx355->regmap, IMX355_REG_LLP,
-> +       cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
->                   imx355->hblank->val + fmt->width, &ret);
-> =20
->         /* Apply customized values from user */
->         if (!ret)
->                 ret =3D __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler=
-);
-> =20
-> -       cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STR=
-EAMING,
-> +       cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STRE=
-AMING,
->                   &ret);
-> =20
->         return ret;
->  }
-> =20
->  /* Stop streaming */
->  static int imx355_stop_streaming(struct imx355 *imx355)
->  {
-> -       return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
-> -                        IMX355_MODE_STANDBY, NULL);
-> +       return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
-> +                        CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
->  }
-> =20
->  static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
->  {
->         struct imx355 *imx355 =3D to_imx355(sd);
->         struct v4l2_subdev_state *state;
->         int ret =3D 0;
-> =20
-> @@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd=
-, int enable)
->  }
-> =20
->  /* Verify chip ID */
->  static int imx355_identify_module(struct imx355 *imx355)
->  {
->         int ret;
->         u64 val;
-> =20
-> -       ret =3D cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
-> +       ret =3D cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NUL=
-L);
->         if (ret)
->                 return ret;
-> =20
->         if (val !=3D IMX355_CHIP_ID) {
->                 dev_err(imx355->dev, "chip id mismatch: %x!=3D%llx",
->                         IMX355_CHIP_ID, val);
->                 return -EIO;
->         }
->=20
-> ---
-> base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
-> change-id: 20260819-imx355-ccsify-856c850575f1
->=20
-> Best regards,
-> -- =20
-> David Heidelberg <david@ixit.cz>
->=20
->
+  https://lore.kernel.org/r/20250710-x1e-csi2-phy-v1-0-74acbb5b162b@linaro.org
+
+  Both the clock name changes from Rob and OPP changes suggested by Konrad
+  are _not_ yet present in this submission however stipulating to those
+  changes, I think publishing this v7 of the CAMSS/DT changes is warranted.
+
+  Its important to publish a whole view of changes for reviewers without
+  necessarily munging everything together in one sprawling series.
+
+  TL;DR I moved the PHY driver to its own series review comments there
+  are not reflected here yet but "shouldn't" have a big impact here.
+
+- Having separate nodes in the DT for the PHYS allows for switching on PHYs
+  as we do for just about every other PHYs.
+  &csiphyX {
+      status = "okay";
+  };
+
+  We just list phys = <> in the core dtsi and enable the PHYs we want in
+  the platform dts.
+
+- The level of code change in CAMSS itself turns out to be quite small.
+  Adding the PHY structure to the CSIPHY device
+  Differentiating the existing camss.c -> camss-csiphy.c init functions
+  A few new function pointers to facilitate parallel support of legacy
+  and new PHY interfaces.
+
+- A key goal of this updated series is both to introduce a new PHY method
+  to CAMSS but to do it _only_ for a new SoC while taking care to ensure
+  that legacy CAMSS-PHY and legacy DT ABI continues to work.
+
+  This is a key point coming from the DT people which I've slowly imbibed
+  and hopefully succeeded in implementing.
+
+- In addition to the CRD both T14s and Slim7x are supported.
+  I have the Inspirion14 working and the XPS but since we haven't landed
+  the Inspirion upstream yet, I've chosen to hold off on the XPS too.
+
+- There is another proposal on the list to make PHY devices as sub-devices
+
+  I believe having those separate like most of our other PHYs
+  is the more appropriate way to go.
+
+  Similarly there is less code change to the CAMSS driver with this change.
+
+  Finally I believe we should contine to have endpoints go from the sensor
+  to CAMSS not the PHY as CAMSS' CSI decoder is the consumer of the data
+  not the PHY.
+
+- Working tree: https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/x1e80100-6.16-rcX-dell-inspiron14-camss-ov02c10-ov02e10-audio-iris-phy-v3
+- Link to v6: https://lore.kernel.org/r/20250314-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v6-0-edcb2cfc3122@linaro.org
+
+v6:
+- Removes 'A phandle to an OPP node describing' per Krzysztof's comment
+  on patch #1
+- Drops Fixes: from patch #1 - Krzysztof
+- The ordering of opp description MXC and MMXC is kept as it matches the
+  power-domain ordering - Krzysztof/bod
+- Link to v5: https://lore.kernel.org/r/20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v5-0-846c9a6493a8@linaro.org
+
+v5:
+- Picks up a Fixes: that is a valid precursor for this series - Vlad
+- Applies RB from Vlad
+- Drops "cam" prefix in interconnect names - Krzysztof/Vlad
+- Amends sorting of regs, clocks consistent with recent 8550 - Depeng/Vlad
+- Link to v4: https://lore.kernel.org/r/20250119-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v4-0-c2964504131c@linaro.org
+
+v4:
+- Applies RB from Konrad
+- Adds the second CCI I2C bus to CCI commit log description.
+  I previously considered leaving out the always on pins but, decided
+  to include them in the end and forgot to align the commit log.
+- Alphabetises the camcc.h included in the dtsi. - Vlad
+- Link to v3: https://lore.kernel.org/r/20250102-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v3-0-cb66d55d20cc@linaro.org
+
+v3:
+- Fixes ordering of headers in dtsi - Vlad
+- Changes camcc to always on - Vlad
+- Applies RB as indicated - Krzysztof, Konrad
+- Link to v2: https://lore.kernel.org/r/20241227-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v2-0-06fdd5a7d5bb@linaro.org
+
+v2:
+
+I've gone through each comment and implemented each suggestion since IMO
+they were all good/correct comments.
+
+Detail:
+
+- Moves x1e80100 camcc to its own yaml - Krzysztof
+- csid_wrapper comes first because it is the most relevant
+  register set - configuring all CSID blocks subordinate to it - bod, Krzysztof
+- Fixes missing commit log - Krz
+- Updates to latest format established @ sc7280 - bod
+- Includes CSID lite which I forgot to add @ v1 - Konrad, bod
+- Replaces static ICC parameters with defines - Konrad
+- Drops newlines between x and x-name - Konrad
+- Drops redundant iommu extents - Konrad
+- Leaves CAMERA_AHB_CLK as-is - Kronrad, Dmitry
+  Link: https://lore.kernel.org/r/3f1a960f-062e-4c29-ae7d-126192f35a8b@oss.qualcomm.com
+- Interrupt EDGE_RISING - Vladimir
+- Implements suggested regulator names pending refactor to PHY API - Vladimir
+- Drop slow_ahb_src clock - Vladimir
+
+Link to v1:
+https://lore.kernel.org/r/20241119-b4-linux-next-24-11-18-dtsi-x1e80100-camss-v1-0-54075d75f654@linaro.org
+
+Working tree:
+https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/arm-laptop/wip/x1e80100-6.13-rc3
+
+v1:
+
+This series adds dt-bindings and dtsi for CAMSS on x1e80100.
+
+The primary difference between x1e80100 and other platforms is a new VFE
+and CSID pair at version 680.
+
+Some minor driver churn will be required to support outside of the new VFE
+and CSID blocks but nothing too major.
+
+The CAMCC in this silicon requires two, not one power-domain requiring
+either this fix I've proposed here or something similar:
+
+https://lore.kernel.org/linux-arm-msm/bad60452-41b3-42fb-acba-5b7226226d2d@linaro.org/T/#t
+
+That doesn't gate adoption of the binding description though.
+
+A working tree in progress can be found here:
+https://git.codelinaro.org/bryan.odonoghue/kernel/-/tree/x1e80100-6.12-rc7+camss?ref_type=heads
+
+Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+---
+Bryan O'Donoghue (4):
+      phy: core: Fix use-after-free in phy_get paths
+      phy: core: Add phy_get_by_of_node()
+      phy: core: Add devm_phy_get_by_of_node()
+      media: qcom: camss: Add support for PHY API devices
+
+ drivers/media/platform/qcom/camss/Kconfig        |   1 +
+ drivers/media/platform/qcom/camss/camss-csiphy.c | 177 +++++++++++++++++++++--
+ drivers/media/platform/qcom/camss/camss-csiphy.h |  11 +-
+ drivers/media/platform/qcom/camss/camss.c        | 104 +++++++++++--
+ drivers/media/platform/qcom/camss/camss.h        |   1 +
+ drivers/phy/phy-core.c                           | 166 ++++++++++++++++-----
+ include/linux/phy/phy.h                          |  13 ++
+ 7 files changed, 405 insertions(+), 68 deletions(-)
+---
+base-commit: 2e41fb778334db3d260c52c6be4c4d44fbed87ac
+change-id: 20250313-b4-linux-next-25-03-13-dtsi-x1e80100-camss-1506f74bbd3a
+
+Best regards,
+--  
+Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
