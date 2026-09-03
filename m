@@ -1,167 +1,396 @@
-Received: from mail-oo2-f11.google.com (mail-oo2-f11.google.com [74.125.231.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3D5D357D0C
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 20:59:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E53301A6815;
+	Thu,  3 Sep 2026 22:30:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788469178; cv=none; b=lWs04zmgfWeZcnzAobL7JtKJb+XaBConQGjmjSoNZqcyShexerUwjF2spnBsS6m6kptjKSjzJqbrzEOjXFMqFX8tx0qNlUz7+8t+G+MUfl/XZ16D0Zc3UamIodCKuzzBEyrKUhdOEth8yelCuKrBTyLVODPixX2VLtdxGSOsqbQ=
+	t=1788474645; cv=none; b=kiGNhBeBKzKLp/PA55cFS5GxyOauAa4mY+oZU0ncnGMRA7AWcCAzy7Yh5/kjtp4wIopHnKle3ENWXwMpsA66GK8bgi/F1vDkCmiNuA2woZ6JYlPXx9TTiCsGJ807o7s2bfkAAxACv37m7uXP6Q1tnkopuNCETuSobDLOV6k0cco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788469178; c=relaxed/simple;
-	bh=C3RWQOdj4fgEKlz8/Gffl1bhsESZAiimpU1doQZw4PA=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=q+SJGffDKeBbLmRhsevcFSWEV+lGw4LKm0Eu08sV6q5xx764DS9ULbIBStrjQApPVKhlRjPVJO11OTqmrE8w5uhZkYPmr/TjgXTR79Tku/nNrlqOwpFaUZwdybqDHKNC+56/1DGm+SX3K+Ogv1Qz96mlmjLB685wOm5IesiKyzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=74.125.231.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oo2-f11.google.com with SMTP id 46e09a7af769-7f0355eb4b3so89914a34.0
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 13:59:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788469171; x=1789073971;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Twk+f/9HB5uOCBkLR8ShKczkOPcM4YsTZRNfRvtUmj0=;
-        b=fLGnbqkl325Jxsax4zZteWGyoFfZAB2pqEQy2TAFGCEuI2xakBP7S7GXrgjt9Kx4kM
-         B9B1rscarJvnZUfOMdz1uQShsuBjeNNWbDfa0O4sDL+xG5nRS29PB3Rd76LGTzHaNlk6
-         bOnVuaSNEAH5wL2pMKvGjGXDhHfkh6Pf0RQbqrVFa8wZPL1ANriVXR+bSQsy/o7qaRdW
-         rRdqc46MDJD8MnAr6buRuMk5EcZkMk4Eie2cWPp//asISC2TPIVX7hCae+ZxaxRojm3D
-         qL/j3Sxps4Ykaw7q9XW84LrosfIo0muGCwjz6337PpZW2vuXiOgeSG2+q4Hd7woI/uHL
-         8rIQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxk1oaPUMn0rnF4HIdvgLUtq3nDt56O2+DC6Mt9PU9snYHCzmmft37RLpRaQG1TZh0cm0xBePa/q8ClxA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lzKo+fIz4hiVAIPZeqaPKphlnFYWLLUMdJrz2hTsJKwywZkbFd
-	8Urbho2TLNFN6b7o+V+lmu9gFmc1ENFYfraQNWp5D3iVdka+JXvTjXST0kVjBvRI9EcXLu/c0N8
-	r9K+53wFGMlQbuKuLsa9xhxjMKK2Qq5YresgbUFu/PiMG7A7Z17ix8auLFsk=
+	s=arc-20240116; t=1788474645; c=relaxed/simple;
+	bh=yP6sO5UBUVEcubzeW0poxyj8ELEe5rE+PBceM13ImLs=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=uQyjpx4yJGoYiIwUOxwT9THYNuNTvt70a8PAo/vXQ5FmPT6Wvk6XVGAOlE04cBcVg6GXN3yZ0O4N975+hjybpXnK5OxGQgWWrbkF5GYIrGiZl+KSUfN/H3gEVwb3ICtB2A7ii8wfuKWVM325zs3B2KgIruQKdLwSHE/8PpSzc8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=ZZWPySWx; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="ZZWPySWx"
+Received: from monstersaurus.ideasonboard.com (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1D38013BA;
+	Fri,  4 Sep 2026 00:29:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788474547;
+	bh=yP6sO5UBUVEcubzeW0poxyj8ELEe5rE+PBceM13ImLs=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=ZZWPySWxiWlD8D1YO7kpfo+Lqsb5GiTs9m0al9OKNumL5OJvsa0UNyKA7IwGqSFON
+	 1RzgYoxJLymkDpVjwHun49zXMur2yIlzb138BmKsMIL6oq9GhIXIhUhbxYL5zfXGUy
+	 1FUoGudVZwIBxCuCmGi2IskokZPPKF8G64Ko9444=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:1997:b0:6b4:1684:9e48 with SMTP id
- 006d021491bc7-6b6fc5dccfemr1266992eaf.19.1788469171103; Thu, 03 Sep 2026
- 13:59:31 -0700 (PDT)
-Date: Thu, 03 Sep 2026 13:59:31 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a99dfb3.9266084e.bf0d7.027e.GAE@google.com>
-Subject: [syzbot] [media?] WARNING in cx25840_init
-From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	mchehab@kernel.org, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz>
+Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
+From: Kieran Bingham <kieran.bingham@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>, David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, david@ixit.cz
+Date: Thu, 03 Sep 2026 23:30:35 +0100
+Message-ID: <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
+User-Agent: alot/0.9.1
 
-Hello,
+Quoting David Heidelberg via B4 Relay (2026-08-27 10:26:53)
+> From: David Heidelberg <david@ixit.cz>
+>=20
+> The driver may not be MIPI CCS compliant, but does use same address and
+> often set same values as compliant drivers. Do not redefine registers we
+> already know and are standard.
+>=20
+> No functional changes.
 
-syzbot found the following issue on:
+I kind of like the idea of this. I suspect it would help show which
+sensors have overlap and where helpers could be built up.
 
-HEAD commit:    940de590b839 Merge tag 'hardening-v7.3-rc2' of git://git.k..
-git tree:       upstream
-console+strace: https://syzkaller.appspot.com/x/log.txt?x=10c8cb49580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=5e4e3a0e188a497e
-dashboard link: https://syzkaller.appspot.com/bug?extid=9123948aef13fe92d706
-compiler:       Debian clang version 22.1.8 (++20260613092233+e80beda6e255-1~exp1~20260613092250.77), Debian LLD 22.1.8
-syz repro:      https://syzkaller.appspot.com/x/repro.syz?x=17faf0f9580000
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14d948f9580000
+I worry if it makes it harder to see what registers are being modified
+though, but I think the common definitions are parseable by tools and
+add an improvement to human readability because now we see they are from
+the common set, and not some arbitrary possibly similarly named register
+?
 
-Downloadable assets:
-disk image: https://storage.googleapis.com/syzbot-assets/5902f4c02b2e/disk-940de590.raw.xz
-vmlinux: https://storage.googleapis.com/syzbot-assets/3473a7c7a754/vmlinux-940de590.xz
-kernel image: https://storage.googleapis.com/syzbot-assets/010eec830bfe/bzImage-940de590.xz
+>=20
+> Signed-off-by: David Heidelberg <david@ixit.cz>
+> ---
+> Changes in v2:
+> - Replaced all occurences with CCS ones.
+> - Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6cef=
+77e340@ixit.cz
+> ---
+>  drivers/media/i2c/imx355.c | 84 ++++++++++++++--------------------------=
+------
+>  1 file changed, 25 insertions(+), 59 deletions(-)
+>=20
+> diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> index 8eb8588cb71bb..2c845b7b3df4f 100644
+> --- a/drivers/media/i2c/imx355.c
+> +++ b/drivers/media/i2c/imx355.c
+> @@ -14,89 +14,55 @@
+>  #include <linux/unaligned.h>
+> =20
+>  #include <media/v4l2-cci.h>
+>  #include <media/v4l2-ctrls.h>
+>  #include <media/v4l2-device.h>
+>  #include <media/v4l2-event.h>
+>  #include <media/v4l2-fwnode.h>
+> =20
+> -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
+> -#define IMX355_MODE_STANDBY            0x00
+> -#define IMX355_MODE_STREAMING          0x01
+> +#include "ccs/ccs-regs.h"
+> =20
+> -/* Chip ID */
+> -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
+>  #define IMX355_CHIP_ID                 0x0355
+> =20
+> -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
+> -
+>  /* PLL registers that depend on the external clock frequency */
+> -#define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
+>  #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
+> -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com
+I'm surprised that two registers have equivalents, but the other
+adjacent registers do not ? I haven't checked the spec through yet
+though. Is the gap because ccs-regs.h doesn't have the definition, or
+because this sensor has a different function / purpose for say 0x030d ?
 
-dvb-usb: bulk message failed: -71 (9/0)
-dvb-usb: bulk message failed: -71 (9/0)
-dvb-usb: bulk message failed: -71 (6/0)
-dvb-usb: bulk message failed: -71 (9/0)
-dvb-usb: bulk message failed: -71 (6/0)
-dvb-usb: bulk message failed: -71 (9/0)
-dvb-usb: bulk message failed: -71 (6/0)
-dvb-usb: bulk message failed: -71 (9/0)
-dvb-usb: bulk message failed: -71 (9/0)
-------------[ cut here ]------------
-1
-WARNING: drivers/media/i2c/cx25840/cx25840-core.c:2313 at cx25840_init+0xa3/0x110 drivers/media/i2c/cx25840/cx25840-core.c:2313, CPU#0: kworker/0:2/983
-Modules linked in:
-CPU: 0 UID: 0 PID: 983 Comm: kworker/0:2 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 08/05/2026
-Workqueue: usb_hub_wq hub_event
-RIP: 0010:cx25840_init+0xa3/0x110 drivers/media/i2c/cx25840/cx25840-core.c:2313
-Code: e4 02 00 00 4c 89 f0 48 c1 e8 03 42 0f b6 04 20 84 c0 75 5e 41 c7 06 2a b5 2a 01 89 de e8 c5 66 00 00 eb 09 e8 fe db c2 f9 90 <0f> 0b 90 31 c0 5b 41 5c 41 5e 41 5f 5d e9 d6 61 0b f9 cc 89 f9 80
-RSP: 0018:ffffc90004a06bd0 EFLAGS: 00010293
-RAX: ffffffff8804df22 RBX: 00000000000ac8aa RCX: ffff8880271f3e80
-RDX: 0000000000000000 RSI: 0000000000000000 RDI: 0000000000000004
-RBP: 0000000000000000 R08: ffff8880226e01bb R09: 1ffff110044dc037
-R10: dffffc0000000000 R11: ffffffff8804de80 R12: dffffc0000000000
-R13: 0000000000000000 R14: ffff88801bb05040 R15: ffff88801bb05338
-FS:  0000000000000000(0000) GS:ffff888124cda000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 00007f938c09caa0 CR3: 000000007f389000 CR4: 0000000000350ef0
-Call Trace:
- <TASK>
- cxusb_medion_register_analog_subdevs drivers/media/usb/dvb-usb/cxusb-analog.c:1730 [inline]
- cxusb_medion_register_analog+0x307/0x1130 drivers/media/usb/dvb-usb/cxusb-analog.c:1793
- cxusb_probe+0x664/0x710 drivers/media/usb/dvb-usb/cxusb.c:1615
- usb_probe_interface+0x788/0xe50 drivers/usb/core/driver.c:399
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_set_configuration+0x1ad8/0x2180 drivers/usb/core/message.c:2268
- usb_generic_driver_probe+0x8d/0x150 drivers/usb/core/generic.c:250
- usb_probe_device+0x1c3/0x3b0 drivers/usb/core/driver.c:293
- call_driver_probe drivers/base/dd.c:-1 [inline]
- really_probe+0x254/0xae0 drivers/base/dd.c:706
- __driver_probe_device+0x1e8/0x360 drivers/base/dd.c:868
- driver_probe_device+0x4f/0x240 drivers/base/dd.c:898
- __device_attach_driver+0x270/0x410 drivers/base/dd.c:1026
- bus_for_each_drv+0x258/0x2f0 drivers/base/bus.c:500
- __device_attach+0x2c4/0x450 drivers/base/dd.c:1098
- device_initial_probe+0xa1/0xd0 drivers/base/dd.c:1153
- bus_probe_device+0x12a/0x220 drivers/base/bus.c:620
- device_add+0x7d7/0xb80 drivers/base/core.c:3776
- usb_new_device+0x9aa/0x1690 drivers/usb/core/hub.c:2708
- hub_port_connect drivers/usb/core/hub.c:5580 [inline]
- hub_port_connect_change drivers/usb/core/hub.c:5720 [inline]
- port_event drivers/usb/core/hub.c:5884 [inline]
- hub_event+0x28e8/0x4d30 drivers/usb/core/hub.c:5966
- process_one_work kernel/workqueue.c:3396 [inline]
- process_scheduled_works+0xc3d/0x1630 kernel/workqueue.c:3479
- worker_thread+0xa47/0xfb0 kernel/workqueue.c:3560
- kthread+0x38b/0x480 kernel/kthread.c:436
- ret_from_fork+0x514/0xb70 arch/x86/kernel/process.c:158
- ret_from_fork_asm+0x1a/0x30 arch/x86/entry/entry_64.S:245
- </TASK>
+>  #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
+>  #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
+>  #define IMX355_PLL_OP_PREDIV           2
+>  #define IMX355_PLL_IVT_PCK_DIV         5
+> =20
+>  /* V_TIMING internal */
+> -#define IMX355_REG_FLL                 CCI_REG16(0x0340)
+>  #define IMX355_FLL_MAX                 0xffff
+>  #define IMX355_VBLANK_MIN              20
+
+Where there are limits, I believe CCS has registers to read the limits.
+That's where I wonder if there could be ccs helpers, to support parsing
+of blanking. But I also am weary that breaking parts into lots of small
+helpers could just become unreadable, so I wouldn't push for that at the
+moment. I'd be curious to know 'how common' this is to CCS though.
 
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> =20
+> -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
+>  #define IMX355_LLP_MAX                 0xffff
+> =20
+> -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
+> -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
+> -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
+> -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
+> -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
+> -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
+> -
 
-syzbot will keep track of this issue. See:
-https://goo.gl/tpsmEJ#status for how to communicate with syzbot.
+But when a whole block comes out like this - that makes me think perhaps
+the crop control or fmts might just be a common function ?
 
-If the report is already addressed, let syzbot know by replying with:
-#syz fix: exact-commit-title
+>  /* Exposure control */
+> -#define IMX355_REG_EXPOSURE            CCI_REG16(0x0202)
+>  #define IMX355_EXPOSURE_MIN            1
+>  #define IMX355_EXPOSURE_STEP           1
+>  #define IMX355_EXPOSURE_DEFAULT                0x0282
+>  #define IMX355_EXPOSURE_OFFSET         10
+> =20
+>  /* Analog gain control */
+> -#define IMX355_REG_ANALOG_GAIN         CCI_REG16(0x0204)
+>  #define IMX355_ANA_GAIN_MIN            0
+>  #define IMX355_ANA_GAIN_MAX            960
+>  #define IMX355_ANA_GAIN_STEP           1
+>  #define IMX355_ANA_GAIN_DEFAULT                0
+> =20
+>  /* Digital gain control */
+>  #define IMX355_REG_DPGA_USE_GLOBAL_GAIN        CCI_REG8(0x3070)
+> -#define IMX355_REG_DIG_GAIN_GLOBAL     CCI_REG16(0x020e)
+>  #define IMX355_DGTL_GAIN_MIN           256
+>  #define IMX355_DGTL_GAIN_MAX           4095
+>  #define IMX355_DGTL_GAIN_STEP          1
+>  #define IMX355_DGTL_GAIN_DEFAULT       256
 
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+I'd be curious if all of those limits could be read from registers, in
+case future helpers might do that instead .... But hardcoding known
+values in this specific driver is probably better than adding the
+complexity of trying to read them at runtime just to obtain the values
+above.
 
-If you want to overwrite report's subsystems, reply with:
-#syz set subsystems: new-subsystem
-(See the list of subsystem names on the web dashboard)
+I'm not sure I've gone through this enough to warrant a tag of some
+form, but I found the patch concept interesting enough to want to jump
+in to the conversation ;-)
 
-If the report is a duplicate of another one, reply with:
-#syz dup: exact-subject-of-another-report
+Interested to see what happens anyway!
 
-If you want to undo deduplication, reply with:
-#syz undup
+--
+Kieran
+
+
+> =20
+> -/* Test Pattern Control */
+> -#define IMX355_REG_TEST_PATTERN                CCI_REG16(0x0600)
+> -#define IMX355_TEST_PATTERN_DISABLED           0
+> -#define IMX355_TEST_PATTERN_SOLID_COLOR                1
+> -#define IMX355_TEST_PATTERN_COLOR_BARS         2
+> -#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS    3
+> -#define IMX355_TEST_PATTERN_PN9                        4
+> -
+> +/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
+>  #define IMX355_REG_REQ_LINK_BIT_RATE   CCI_REG16(0x0820)
+> =20
+> -#define IMX355_REG_BINNING_MODE                CCI_REG8(0x0900)
+> -#define IMX355_REG_BINNING_TYPE                CCI_REG8(0x0901)
+> -#define IMX355_REG_BINNING_WEIGHTING   CCI_REG8(0x0902)
+> -
+> -/* Flip Control */
+> -#define IMX355_REG_ORIENTATION         CCI_REG8(0x0101)
+> -
+>  #define IMX355_PIXEL_ARRAY_TOP         0
+>  #define IMX355_PIXEL_ARRAY_LEFT                0
+>  #define IMX355_PIXEL_ARRAY_WIDTH       3280
+>  #define IMX355_PIXEL_ARRAY_HEIGHT      2464
+> =20
+>  struct imx355_reg_list {
+>         u32 num_of_regs;
+>         const struct cci_reg_sequence *regs;
+> @@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+>          * when power is up for streaming
+>          */
+>         if (!pm_runtime_get_if_in_use(imx355->dev))
+>                 return 0;
+> =20
+>         switch (ctrl->id) {
+>         case V4L2_CID_ANALOGUE_GAIN:
+>                 /* Analog gain =3D 1024/(1024 - ctrl->val) times */
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_ANALOG_GAIN,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_CODE_=
+GLOBAL,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_DIGITAL_GAIN:
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_GLO=
+BAL,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GLOB=
+AL,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_EXPOSURE:
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_COARSE_INTEGRATIO=
+N_TIME,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_VBLANK:
+>                 /* Update FLL that meets expected vertical blanking */
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_FLL,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LINE=
+S,
+>                                 format->height + ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_TEST_PATTERN:
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_TEST_PATTERN,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MODE,
+>                                 ctrl->val, NULL);
+>                 break;
+>         case V4L2_CID_HFLIP:
+>         case V4L2_CID_VFLIP:
+> -               ret =3D cci_write(imx355->regmap, IMX355_REG_ORIENTATION,
+> +               ret =3D cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATION,
+>                                 imx355->hflip->val | imx355->vflip->val <=
+< 1,
+>                                 NULL);
+>                 break;
+>         default:
+>                 ret =3D -EINVAL;
+>                 dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not hand=
+led",
+>                          ctrl->id, ctrl->val);
+>                 break;
+> @@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *im=
+x355)
+>         crop =3D v4l2_subdev_state_get_crop(state, 0);
+>         mode =3D v4l2_find_nearest_size(supported_modes,
+>                                       ARRAY_SIZE(supported_modes),
+>                                       width, height, fmt->width, fmt->hei=
+ght);
+>         cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+>                             mode->reg_list.num_of_regs, &ret);
+> =20
+>         /* Set readout crop and size registers  */
+> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
+> +       cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+>                   &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &ret=
+);
+> -       cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
+> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
+> +       cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+>                   crop->width + crop->left - 1, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
+> +       cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+>                   crop->height + crop->top - 1, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &ret=
+);
+> -       cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &re=
+t);
+> +       cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret);
+> +       cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &ret);
+> =20
+>         binning_mode =3D ((crop->width / fmt->width) << 4) |
+>                         (crop->height / fmt->height);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
+> +       cci_write(imx355->regmap, CCS_R_BINNING_MODE,
+>                   binning_mode =3D=3D 0x11 ? 0x00 : 0x01, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode, =
+&ret);
+> -       cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &re=
+t);
+> +       cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &ret);
+> +       cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
+> =20
+>         /* Set PLL registers for the external clock frequency */
+> -       cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
+> +       cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
+>                   imx355->clk_params->extclk_freq, &ret);
+> -       cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
+> +       cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+>                   imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+>         cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+>                   imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+>         cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+>                   lane_idx ? 2 : 1, &ret);
+> =20
+>         /* Set MIPI configuration */
+> -       cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
+> +       cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+>                   imx355->hwcfg->num_lanes - 1, &ret);
+> =20
+>         link_bitrate =3D imx355->link_freq->qmenu_int[imx355->link_freq->=
+val] *
+>                        imx355->hwcfg->num_lanes * 2;
+>         do_div(link_bitrate, 1000000);
+>         cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bitr=
+ate,
+>                   &ret);
+> =20
+>         /* set digital gain control to all color mode */
+>         cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &re=
+t);
+> =20
+>         /* set line length */
+> -       cci_write(imx355->regmap, IMX355_REG_LLP,
+> +       cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+>                   imx355->hblank->val + fmt->width, &ret);
+> =20
+>         /* Apply customized values from user */
+>         if (!ret)
+>                 ret =3D __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handler=
+);
+> =20
+> -       cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_STR=
+EAMING,
+> +       cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_STRE=
+AMING,
+>                   &ret);
+> =20
+>         return ret;
+>  }
+> =20
+>  /* Stop streaming */
+>  static int imx355_stop_streaming(struct imx355 *imx355)
+>  {
+> -       return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+> -                        IMX355_MODE_STANDBY, NULL);
+> +       return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
+> +                        CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+>  }
+> =20
+>  static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+>  {
+>         struct imx355 *imx355 =3D to_imx355(sd);
+>         struct v4l2_subdev_state *state;
+>         int ret =3D 0;
+> =20
+> @@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *sd=
+, int enable)
+>  }
+> =20
+>  /* Verify chip ID */
+>  static int imx355_identify_module(struct imx355 *imx355)
+>  {
+>         int ret;
+>         u64 val;
+> =20
+> -       ret =3D cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL);
+> +       ret =3D cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, NUL=
+L);
+>         if (ret)
+>                 return ret;
+> =20
+>         if (val !=3D IMX355_CHIP_ID) {
+>                 dev_err(imx355->dev, "chip id mismatch: %x!=3D%llx",
+>                         IMX355_CHIP_ID, val);
+>                 return -EIO;
+>         }
+>=20
+> ---
+> base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+> change-id: 20260819-imx355-ccsify-856c850575f1
+>=20
+> Best regards,
+> -- =20
+> David Heidelberg <david@ixit.cz>
+>=20
+>
