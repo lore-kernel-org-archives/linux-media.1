@@ -1,285 +1,112 @@
-Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com [209.85.208.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C274E66C0
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 16:17:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B014EC65D;
+	Thu,  3 Sep 2026 16:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788452224; cv=none; b=A/5gtUxYN9f9nqYDzMJLyYHTpEaf8MPuu3ePN5QHlYiTaGzZzeE1eQpybgjM6DD+Ib4yqtVDteV47OOnfEVF+vzYa4pt89Hi3Uyr4kQI0ZxD4ppuSstY/Sz6rbY3GM1aXznPxdQwZb3pkOpQnHz6g5m2eEYan7AT0RGtPjyU/wA=
+	t=1788453377; cv=none; b=D/7FLFM589UNwwy5L4urO2MZKIUJwes8H8enYqOYYyMfodNClwwHV871m8saNGv8f4wzgAR6l5f2OzXWnyFuIOZkM++NyoLsu/wloASEcJuJ/hTQ3qCkMpnzCUBLjeiesWKeTbS3wjUCcWhSxvLTT+Gg+qm2O34OCUFvunjEt1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788452224; c=relaxed/simple;
-	bh=oXOvVfQx48pkiCnSTyly0SxfeaW66Tond0/xVvTUv6g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uE/ei/AmcgFLp0uhEawknLiaEDx8sfuygoe0b3RPRnQGchTvJ2eTDLPAnkFuO1DcJ7QdEUqGfWlF8Mu75GN3GgnL1Kp3yDbDxHwEV1Gg596W7CJUWbrkniGekLmANsKYbvhXyhgjJdfMe2vGPbtdzWVkKN3FqZM1wPvs5w0Y4W0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=AbYDgrBW; arc=none smtp.client-ip=209.85.208.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788453377; c=relaxed/simple;
+	bh=gpmW+HyIEeTLjdRiH+3o2uIBKCjT3Tbs/vkL0DojWCY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FmZUF2V+6nkpmTkkyhG2v8IvIwN47UzbnHNI0Q9BTtzDZAf1vSgwrqwwIdDOw89pI2SBfRQlRYohCTn19zTFQrdV8kw9tVbBjkVMqA1uFNEV9pXSRycDCvOqi1t2Jgw67LYN+gfI7Q02DIliwNmogB/8EPlLMWRWI5RHcyU6Vno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e3eoz13k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="AbYDgrBW"
-Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-3a34f16714dso112991fa.3
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 09:17:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788452219; x=1789057019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=igQxfgp7/0QiUpGltOrm94v15geXiIvSoDekjF5iba4=;
-        b=AbYDgrBWhJveGv6k3LlstrFXNjqiRzZkJweE1wsitx6tq2GeCujkPNZTR6O020WpW9
-         z1NhDbuMYRCQnIAuKmt5VnOkrWMxKSU6D3jzNTt/X9mo2rtnHGW9XNOSY0JDu+me/ayO
-         KPDRXn0CbEXmm8HThkzDUaQ6ZIdTbEdTB7RIWrZc1oLK7P3CNgb342OCoX/OdPlTQWA/
-         PrKALKCrQ5QQ5xSJ1H1Lk0i5jkViW1rruXvl6NZCDQslMIVRM+vyA5+MCoLv4uzvCXWE
-         HWRkLtLjD4F9QkSdHgEkw2OnfaQNuU4TJWUJNObLAAbpVvttmBrLe9SCHlUyECJm69SP
-         sdTQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788452219; x=1789057019;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:content-language:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=igQxfgp7/0QiUpGltOrm94v15geXiIvSoDekjF5iba4=;
-        b=c4U8r8fG051VXVzsJRBHZKXOARk1G8PoG32XX1suOp+T4A7MTKDQBsqsKu5nH2NJD8
-         kleflAsMTu02+/x1QBLY/s+DfeoiDqqU7MRBBSRWpqFnvMQ/3/kekinb8zllrtEbQGfW
-         e3KI5hzgjbrjwAIoJJEMGe5ggPvCqO+MWMvPoElObkCiV3a2AkBfRiBIDNTe7LqTeIiT
-         3Jwc3Gjm5YeOrYjucCsGVnbMPd4HC7s4xo+dlqahPmXZ+DRIwVU0/kqVau/1OHo4TIvb
-         AA9LBH42tXHnBFqubbv8AlPU1fiiOM+7C0UFPf1nDMxKSrneXOO53TaXap4lLvSO+XZo
-         ERKA==
-X-Forwarded-Encrypted: i=1; AKwUvBwlmf2KHvbzzMoGUQ87FUbJC0QyfOL9wlrt2dfRvhrmBOQb3+94Ye1J0jmf8uWhQzqSIHSW0dMMGphWYw==@vger.kernel.org
-X-Gm-Message-State: AFuF++kpfJuNo6LLubW8uM5OLOnCOJZwkd54WMfEC5iiq6Ynqr7bd9rs
-	ZJsQezVXECkUuuLHk+W67aZE3pLSERgdlIgbqP9TNS7qnRekTaIonuUVvEk+0K0AH3A=
-X-Gm-Gg: AYBFou1PmXLBmwqLtQ63AeuYUIx7kAMuTpMWOQJP/2aUoaajdtmkkbggifn2b2eiomX
-	NPkdMmN4doQJ+zWBZNW2jw9+a/Q0dEJzh96P5yzZyqUPT8IyPZCAUH6Yo4MAZtmE0HUXdls4UaT
-	RHzAjipU2Ifn9U1kLgR6eCyrBha/xfUOIIlM4hUWZ9whs1wwHDjVfM2Lo/ZB0UVPWe9axTlmWQG
-	khkOZXFwXtB+Qz6TEDH+jybG0IAdbqe8SEkpwcSWwzL3u4Rki/x5Tdz3lNnjbgZNXvKskHk2oRf
-	qVFQR21SZfwiNUfk1Ox6x4nFb+/4OMUEl24w8QMVqxxtvq2e/2PTA68hTorDt+6MA5yAIgN/O/9
-	i5r9ibypSB9LuPVDlFLK5zckG7S0Z/+Ex/kpbw3X/yk5xfj247/vFyiYR7rj7/VvMWC44RHPb0n
-	EXw3nYY9DwrGGBR3oCkCus7Etha0qfUWW77wXQLz944VZ2KgFPKUebwUTE5++yjtL1fAmsh8NtD
-	tpH4m9LHwjDcD8BKMHHzSsBNi4N/96pIBBvnYykpqVI0jJrkhTOnRQ=
-X-Received: by 2002:a2e:bcc3:0:b0:3a2:fc47:4c1f with SMTP id 38308e7fff4ca-3a34fcd002dmr15579741fa.1.1788452219071;
-        Thu, 03 Sep 2026 09:16:59 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b606b0ebedsm1499193e87.5.2026.09.03.09.16.58
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 09:16:58 -0700 (PDT)
-Message-ID: <65ef2024-4f5e-4df3-881c-50d5a72b655b@linaro.org>
-Date: Thu, 3 Sep 2026 19:16:57 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e3eoz13k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD81D1F000E9;
+	Thu,  3 Sep 2026 16:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788453376;
+	bh=+H+rYBzctxn3i+op7YWkFQodYaXTN0tMGbK1SZja320=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=e3eoz13khe0EtmAwLz5TdAPFlgdaXJbp46ZLGW31ghMH32HrwIUZuGUJpKVFMKfSj
+	 7lew5lpaB+QPYN3K/zonQCjyj5ub6+y1KU8hIz+Nbka0ALAuO+CC88ZGzCPLpTYiZz
+	 rEpDGNaKDMMtbnmRZKAAOJWMCRRglyeRAGYr75FtY89gkXHAqYYJX46mPOuuaUlWCA
+	 MoT5npZYXppLrpqmIQeowhAhK7L0Jm1v4beUI6TqsncOVxqqweA6uYOHtOQxumqc4Q
+	 UyZypgPtdlHBoieGypjle1sjQyJUJX1DuEXP3Sv3mfahPWRyYkmaJH7uItNtspyGRs
+	 RU4PQ2siQrDKw==
+Date: Thu, 3 Sep 2026 19:36:12 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: David Hu <dhu@x6u.co>, sumit.semwal@linaro.org,
+	christian.koenig@amd.com, alex@shazbot.org, ankita@nvidia.com,
+	chriscli@google.com, david.laight.linux@gmail.com,
+	dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
+	jmoroni@google.com, kevin.tian@intel.com, kpberry@google.com,
+	linaro-mm-sig@lists.linaro.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, nicolinc@nvidia.com, praan@google.com,
+	sashiko-bot@kernel.org, stable@vger.kernel.org,
+	viursachi@google.com, xuehaohu@google.com
+Subject: Re: [PATCH v8 2/2] dma-buf: Split sgl by largest page-aligned chunk
+Message-ID: <20260903163612.GD24140@unreal>
+References: <20260901170849.4052816-1-dhu@x6u.co>
+ <20260901170849.4052816-3-dhu@x6u.co>
+ <20260902120832.GB2890729@ziepe.ca>
+ <CABdL-LTO5OKkDmtXpiLury=2n6q6Rcm42_qqz8U+JkEu=v886Q@mail.gmail.com>
+ <20260903134938.GI2890729@ziepe.ca>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-Content-Language: ru-RU
-To: Bryan O'Donoghue <bod@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
- <RXmjC1LUSR46nHPlGyexr-0HTUa9z8BZY8CabY4J7P4YM9_ntzOucrOnanQBTZlD1jH69cHJEmPb_Xw7dRuqKA==@protonmail.internalid>
- <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
- <faa755f7-e5cc-46c0-b838-8d015a481edb@kernel.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <faa755f7-e5cc-46c0-b838-8d015a481edb@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260903134938.GI2890729@ziepe.ca>
 
-On 9/3/26 15:32, Bryan O'Donoghue wrote:
-> On 03/09/2026 12:53, Vladimir Zapolskiy wrote:
->> On 9/1/26 23:15, Bryan O'Donoghue wrote:
->>> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
->>> supports both DPHY and CPHY operation. A special mode of DPHY operation -
->>> called variously split-mode or combo-mode also allows for two sensors to be
->>> connected to one PHY.
->>>
->>> The submitted binding here describes the DPHY modes of operation only. CPHY
->>> is left to future work.
->>
->> Like I've said in v14 review, the statement above is incorrect, and it has
->> to be changed, for whatever reason it hasn't happened so far.
->>
->>    From https://lore.kernel.org/all/1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org/
-> Well, I'm not trying to describe CPHY here so I'm not claiming it is
-> adequately described.
-
-The CSIPHY IP supports C-PHY bus type, and it should be represented in
-the documentation.
-
-Right in this presented change 'bus-type' property value can be either D-PHY
-or C-PHY, so even if there is no intention to describe C-PHY, it's done.
-
-> I'll reword this.
+On Thu, Sep 03, 2026 at 10:49:38AM -0300, Jason Gunthorpe wrote:
+> On Wed, Sep 02, 2026 at 07:07:50PM -0400, David Hu wrote:
+> > On Wed, Sep 2, 2026 at 8:08 AM Jason Gunthorpe <jgg@ziepe.ca> wrote:
+> > >
+> > > On Tue, Sep 01, 2026 at 05:08:49PM +0000, David Hu wrote:
+> > > > From: David Hu <xuehaohu@google.com>
+> > > >
+> > > > Currently, `fill_sg_entry()` splits the scatterlist using `UINT_MAX`.
+> > > > This creates a non-page-aligned DMA length (`0xFFFFFFFF`) for the
+> > > > first entry, resulting in non-page-aligned DMA addresses for all
+> > > > subsequent entries.
+> > >
+> > > This patch is fine, but pedenatically a scatterlist's entry limit
+> > > should be bounded to dma_get_max_seg_size(), though I don't think it
+> > > helps this. Operating scatterlists at the size limits has proven
+> > > problematic in a number of places already...
+> > >
+> > > > In addition, a non-page-aligned sgl length will trigger an edge case
+> > > > in `ib_umem_find_best_pgsz()`. In case of a discontinuity in later
+> > > > buffers, we will have a `va` with lowest bit set to 1. That will lead
+> > > > to `ib_umem_find_best_pgsz()` always return 0, and break the promise
+> > > > to find best page size for the mapping on the NIC side.
+> > >
+> > > That's an IB side bug, the newer logic that joins adjacent SGLs should
+> > > have avoided it?
+> > 
+> > Hi Jason,
+> > 
+> > Thank you for the review. I think you are right on both counts.
+> > Regarding the IB side, the new SGL joining logic in
+> > `ib_umem_find_best_pgsz()` indeed avoids the issue. `mask |= va` is
+> > skipped for artifically split, contiguous SGLs. Since Christian has
+> > already pulled v8 into drm-misc-next, I won't spin a v9 to avoid
+> > creating unnecessary noise on the list. If you prefer a followup,
+> > please let me know.
 > 
->>>>> C-PHY bus type is also well described by this version of the bindings.
->>
->>> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>> ---
->>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 222 +++++++++++++++++++++
->>>     1 file changed, 222 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>> new file mode 100644
->>> index 0000000000000..17de0701eb103
->>> --- /dev/null
->>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>> @@ -0,0 +1,222 @@
->>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>> +%YAML 1.2
->>> +---
->>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>> +
->>> +title: Qualcomm X1E80100 SoC CSI2 PHY
->>> +
->>> +maintainers:
->>> +  - Bryan O'Donoghue <bod@kernel.org>
->>> +
->>> +description:
->>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
->>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
->>> +  modes.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    const: qcom,x1e80100-csi2-phy
->>> +
->>> +  reg:
->>> +    maxItems: 1
->>> +
->>> +  clocks:
->>> +    maxItems: 3
->>> +
->>> +  clock-names:
->>> +    items:
->>> +      - const: core
->>> +      - const: timer
->>> +      - const: ahb
->>> +
->>> +  interrupts:
->>> +    maxItems: 1
->>> +
->>> +  operating-points-v2: true
->>> +
->>> +  opp-table:
->>> +    type: object
->>> +
->>> +  power-domains:
->>> +    items:
->>> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
->>> +      - description: MMCX voltage rail
->>> +      - description: MXC or MXA voltage rail
->>> +
->>> +  power-domain-names:
->>> +    items:
->>> +      - const: top
->>> +      - const: mmcx
->>> +      - const: mx
->>> +
->>> +  vdda-0p9-supply:
->>> +    description: Phandle to a 0.9V regulator supply to a PHY.
->>> +
->>> +  vdda-1p2-supply:
->>> +    description: Phandle to 1.2V regulator supply to a PHY.
->>> +
->>> +  ports:
->>> +    $ref: /schemas/graph.yaml#/properties/ports
->>> +
->>> +    properties:
->>> +      port@0:
->>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>> +        description:
->>> +          Sensor input. Always present. A single sensor is described by a
->>> +          single endpoint with the clock lane at position 0 and one to four
->>> +          data lanes.
->>> +
->>> +          DPHY split mode, where two independent sensors share the same PHY,
->>> +          is described by two endpoints, each with its own clock lane position;
->>> +          endpoint@0 with clock-lanes = <0> and one or two data-lanes and
->>> +          endpoint@1 with clock-lanes = <3> and one data lane.
->>> +
->>> +        unevaluatedProperties: false
->>> +
->>> +        patternProperties:
->>> +          "^endpoint(@[01])?$":
->>> +            $ref: /schemas/media/video-interfaces.yaml#
->>> +            unevaluatedProperties: false
->>> +            properties:
->>> +              bus-type:
->>> +                enum:
->>> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->>> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->>> +
->>> +              clock-lanes:
->>> +                maxItems: 1
->>> +
->>> +              data-lanes:
->>> +                minItems: 1
->>> +                maxItems: 4
->>> +                items:
->>> +                  minimum: 1
->>> +                  maximum: 4
->>> +                description:
->>> +                  Data lane positions following this endpoint's clock
->>> +                  lane. Positions are a per-port logical numbering, not
->>> +                  package pad or ball positions.
->>> +
->>> +            required:
->>> +              - bus-type
->>
->> A review comment given to v14 is still applicable, 'bus-type' property
->> should be set as optional with D-PHY mode fallback.
+> Nope, I'm fine, it just explains why it wasn't seen in other
+> tested. You were backporting and mix&matched things. It confirms the
+> upstream kernel was fine from the start.
+
+All that time, I wondered why our testing didn't uncover any issues like
+this, given that the requirement to support large BARs was raised almost
+immediately during testing.
+
+Thanks
+
 > 
-> I believe you said "could" be optional in v14 but, if you actually
-> _want_ it optional, I'll update this to reflect, np.
-
-Sure, thank you.
-
->>
->>> +              - data-lanes
->>> +              - clock-lanes
->>
->> Here 'clock-lanes' is a truly optional proiperty since its value is
->> immutable in each endpoint, it should be removed from the list of
->> required properties.
+> There are other importers besides RDMA, so I still think that this is
+> a good change regardless. Having each segment remain page aligned, and
+> staying away from ULONG_MAX that might trigger overflows is a friendly
+> and robust thing to do for less sophisticated importers.
 > 
-> Hmm.
+> Jason
 > 
-> I want to make sure clock-lanes is defined and set to the correct value.
-
-It's not needed, the mutable properties make sense, the immutable ones
-can be removed without any loss. The correctness of the propertly value
-is checked by the driver in runtime.
-
-> For example clock-lanes = <2> for split mode is wrong.
-
-If there is a wrong value of 'clock-lanes' property given, the driver will
-complain, because it knows the proper value.
-
-And if there is no 'clock-lanes' property given, the driver knows the proper
-value and it reuses it rightfully.
-
-So, there is nothing got missed, if 'clock-lanes' becomes an optional
-property, as I request. A comment in the documentation can be left though.
-
->>
->> Also 'clock-lanes' are not expected to be found in C-PHY bus type case.
-> 
-> Right so to both verify the property and not require it from CPHY I will
-> make it required only for DPHY.
-
-By making 'clock-lanes' optional both bus type cases will be well described.
-
-For clarity, the property is not required for D-PHY bus type mode also,
-please make it optional in the next version, thank you.
-
--- 
-Best wishes,
-Vladimir
