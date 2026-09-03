@@ -1,110 +1,94 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516464E66B9;
-	Thu,  3 Sep 2026 16:39:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 083ED4F55B2;
+	Thu,  3 Sep 2026 19:26:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788453581; cv=none; b=BzSR1qjsdfzAoivvJuTwNgUhHRvPFon2OPLMnNr1xQAE/54bOwthKxBTT1nCso9ocx6qIWTdLNkiU8A5WBu4zty9TmFWjhIzoZ65ZPnUE0q2Xh+UjZ3yKh/ac8cbjGruW9+cl317i8hqiaYcJN7dWyGnfn2V0XdinWR1K74J/pI=
+	t=1788463583; cv=none; b=LfYxNS9cnV4usP7B6NSS4dYqu6kLl5zq5nvyu98UBPH/ZwJx00x7m2XbhbNnH8o9BSV4X4DnrN2nFzebtRSOHQhBEXl3Jv0VXm6dDoOvXeRzs7ALwyCBrtD/MxzRsCS5XKh9/oYe25PZhAzPZ6gurLrLuHczJIL4cK8fqKCZkbU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788453581; c=relaxed/simple;
-	bh=4KnOCEvB9Zmgxm3HnYsIVLIJiLSzJQJUflmAy4Gbbcw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pXOipcWeMueGghc0LQlTZ36wgaAKLWBTlp4XkwuM8u8fD5LipKm4Mlb+AIsFydH0kzTK2+t+FEstw7/cZAfen4A33oqb0Kd27qdI8WCfJFz0dvwinZ5d3duDHDAR9t6SORirXQu57WnChhy5qSkazDRLqO+UivtmbHT0dc8kh8Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=dwkAxOgt; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1788463583; c=relaxed/simple;
+	bh=lD2RsRY9rXCI10YrLYKJnzSLwzrR+W32yJXpv0AEvMA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F/7iLbjxtoRIc6yJWr9K9k5RoOAwtbHDAREIVRaidhHgsjIGPlX5HPDDvFp1QNIeBqEfbM2WG6xrsZtzxnyUT592je/3PinzLyIpnx11VgVQFgIklLVSXE8ms+fAkM2pSC7/ZLr6rt41HHpAihfrOwgbd6Gs/PPwvYQQkjZi4z0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UfobrVgn; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="dwkAxOgt"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=/5UO8yAUIryn8dEVF1Ml7GRz8oikkuw9d/euczO9QSQ=; b=dwkAxOgtvW1mQ1ZHdfDmg0drBR
-	7RiVXThqnL7IRpE7if3bn/NgksbSUmL51YCacii+sadFYYp71SnxjRsivHsZcKWlHqM/fkMV/nKaW
-	HVX4K8ft3eNUMpDrye3MEYqmoxJBtpZvBBWneyEV8GJ6dkzbdBhyGpiGE4xczcOzD8Q2UBTPCQOwU
-	6RQCLK3v7/yTsGFFXaR/ujQytSgIHzz5JCdxtqrVz6LgQZG6qHTHbpysjpIYyeWN6IFmV/RuXb/cf
-	jJQ37pKLmBLpwtSlzbVfrzTneR4eWMFfvdUBQPJHfaw83ykNgAKvy0RFoig/rdX6w3tqxyAHlGSdQ
-	J+Y02jKQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x2ATK-00000000Bhn-2dIO;
-	Thu, 03 Sep 2026 16:39:30 +0000
-Message-ID: <0a7579cc-94e3-4f02-a3e8-e42b7012a470@infradead.org>
-Date: Thu, 3 Sep 2026 09:39:29 -0700
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UfobrVgn"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788463575; x=1819999575;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lD2RsRY9rXCI10YrLYKJnzSLwzrR+W32yJXpv0AEvMA=;
+  b=UfobrVgnr4I7zKXywz396ameSE/etI9r/Fq2ULjM/N0SC8WxbxUYTUV+
+   MNDeK0istHarvYpKHzF2Uy28r8YWbUTaqz1H4/yN6PsRBxFjw5sBDK8QO
+   LMCEmVbeLCSpVVMZ4PRK456QhEBZNvPie6SS+QNIjt7caVsz0RAIR30m2
+   2gDL+Zxq4BpVKjJumJ9A8OI6RCDhVIpG5uxvlj7Il4zqMPWAtWtwmidfv
+   zHfwfaSTHOGNQp5Qwg2SzkkMP/EcCM/LxCMPfeXSVlyPrN8xwONwTJZnY
+   lJ3GQ/boirESNVj/5CeYR7xvWnPtVvlXrhNiOpd+djMdGtJpd6/hZw1t3
+   w==;
+X-CSE-ConnectionGUID: tuqhaPe1QhSf/5cvAXAD4Q==
+X-CSE-MsgGUID: hnsb+v2ORTG7AgwajE3iVQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="92828298"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="92828298"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:26:07 -0700
+X-CSE-ConnectionGUID: GsUAz88HQX2GkpjnX3e7ow==
+X-CSE-MsgGUID: DBnmtXTISPSBDAHxq/j/Gw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="273969149"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.184])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 12:26:06 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 870E8121BCF;
+	Thu, 03 Sep 2026 22:26:03 +0300 (EEST)
+Date: Thu, 3 Sep 2026 22:26:03 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Pierre Pinon <pierre@pinon1.fr>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>, linux-media@vger.kernel.org,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] media: i2c: cvs: register subdev nodes when the remote
+ sensor binds
+Message-ID: <apnJyxxoHz3TTZur@kekkonen.localdomain>
+References: <20260903125014.612053-1-pierre@pinon1.fr>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Documentation/gpu: Fix brackets
-To: Manuel Ebner <manuelebnerli@mailbox.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-Cc: dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org,
- linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
- linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org
-References: <20260903161006.735038-2-manuelebnerli@mailbox.org>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260903161006.735038-2-manuelebnerli@mailbox.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903125014.612053-1-pierre@pinon1.fr>
 
-Hi,
+Hi Pierre,
 
-On 9/3/26 9:10 AM, Manuel Ebner wrote:
-> Remove needless '(' and add missing ')'.
+On Thu, Sep 03, 2026 at 02:50:13PM +0200, Pierre Pinon wrote:
+> The CVS bridge picks up the remote sensor through a v4l2 subdev notifier
+> of its own, but nothing in that path creates the sensor's device node.
+> The IPU7 ISYS driver calls v4l2_device_register_subdev_nodes() from its
+> own .bound -- which runs for the CVS subdev itself, before the sensor
+> behind it is bound -- and from .complete. The sensor's node therefore
+> depends entirely on .complete being reached.
 > 
-> Signed-off-by: Manuel Ebner <manuelebnerli@mailbox.org>
-> ---
->  Documentation/gpu/drm-vm-bind-locking.rst | 2 +-
->  Documentation/gpu/nova/core/todo.rst      | 2 +-
->  2 files changed, 2 insertions(+), 2 deletions(-)
+> That does not happen when another sensor on the same notifier has no
+> driver. On a Panther Lake laptop ipu-bridge instantiates two camera
+> endpoints, OVTI08F4 (ov08x40) and HIMX1092; there is no driver for the
+> latter, so it stays in the notifier's waiting list forever:
 
-This patch probably should be 2 patches since these files have
-different maintainers.
+Thanks for the patch.
 
-
-> diff --git a/Documentation/gpu/drm-vm-bind-locking.rst b/Documentation/gpu/drm-vm-bind-locking.rst
-> index a345aa513..df6cf0132 100644
-> --- a/Documentation/gpu/drm-vm-bind-locking.rst
-> +++ b/Documentation/gpu/drm-vm-bind-locking.rst
-> @@ -170,7 +170,7 @@ submission is therefore preceded with a re-validation section:
->             validate_gem_bo(&gpu_vm_bo->gem_bo);
->  
->             // The following list iteration needs the Gem object's
-> -           // dma_resv to be held (it protects the gpu_vm_bo's list of
-> +           // dma_resv to be held. It protects the gpu_vm_bo's list of
->             // gpu_vmas, but since local gem objects share the gpu_vm's
->             // dma_resv, it is already held at this point.
-
-I think that I must like parenthetical phrases more than you do. ;)
-
-Acked-by: Randy Dunlap <rdunlap@infradead.org>
-Thanks.
-
->             for_each_gpu_vma_of_gpu_vm_bo(&gpu_vm_bo, &gpu_vma)
-> diff --git a/Documentation/gpu/nova/core/todo.rst b/Documentation/gpu/nova/core/todo.rst
-> index d5130b2b0..a01c362b1 100644
-> --- a/Documentation/gpu/nova/core/todo.rst
-> +++ b/Documentation/gpu/nova/core/todo.rst
-> @@ -33,7 +33,7 @@ A good example from nova-core would be the ``Chipset`` enum type, which defines
->  the value ``AD102``. When probing the GPU the value ``0x192`` can be read from a
->  certain register indication the chipset AD102. Hence, the enum value ``AD102``
->  should be derived from the number ``0x192``. Currently, nova-core uses a custom
-> -implementation (``Chipset::from_u32`` for this.
-> +implementation (``Chipset::from_u32``) for this.
->  
->  Instead, it would be desirable to have something like the ``FromPrimitive``
->  trait [1] from the num crate.
+Antti sent a patch to address the same issue a moment earlier and that has
+been now merged (commit 7456b40bc992a3fc34b587545716729923d507b9).
 
 -- 
-~Randy
+Kind regards,
+
+Sakari Ailus
