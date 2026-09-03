@@ -1,388 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound.pv.icloud.com (pv-2006b-snip4-7.eps.apple.com [57.103.67.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DEFF490C10;
-	Thu,  3 Sep 2026 12:32:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799504A6CF3
+	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 12:50:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.67.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788438759; cv=none; b=VUMWCFsvObp/+SlZt7vxGaoM+HLwnQkULsvywIUheL7ZL3Y4FNF0wGqcfzbUedmDUVcbPN0dqL5vsgBv2PEsDZ49t3PmW2pO4Vb7PMLHg/OlnrI8cfC0HX7iXcNddi7RjQh6km2jULhljPSAf7FuatJVTcIMVaUCFauCQNIaR24=
+	t=1788439826; cv=none; b=HwdiaQhLg8s3xGLcNSnjORT7NoqadhnSRCUFRc6E4rpxw/j7ldtN9uMrcEspF/+KUhlN5edv3F9DJxgGfcp/bJn6Zns5UqqfpZunzB4EHMw29GkcNbxudWFYKNW6uYdsQGF/FIcUEO6XrRTMFM5CU0+JFUsuOXrqGYBsnIrbkd4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788438759; c=relaxed/simple;
-	bh=wVFti6V+O3MwB7Ac/I5QOLsV3o6ALp8WMsRV2SZrnCU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rFtSOs3d9TU8gmUyYCSiaCc/RS44OPnOKdiJaCmBWYnBcACJYXCMrfNSByb/pZl8gZUl/n46UArPDSlaNLUSnVIXEx1P62L0IemMw7qAjztK695CBXzZ/sRmrM4P2wr/V+JSSdMxzOtcJwUskmB15LxvulXUrxt40UNwzO4K4kU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MChZjXhS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788439826; c=relaxed/simple;
+	bh=cg9kWbceYx8PSNDrmZnXuLdqOPAnaRwef8Env6m0WLo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JPg6/4K60Nc+nbiuIYVvZEeJ3RV07rhVX8dgNHEitiFxf50K7+Ii7fXCzKz+NKrZmJJvhb2+lx6++EtRNugT4GMTQBs3hMBi1q4xk7VifCaALz/mugk/ZzvUeesddsCm9gZYCPezw56CHitK1Ocj4UOQX+478rKfFA7QdZHFjkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=QaoRREhy; arc=none smtp.client-ip=57.103.67.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MChZjXhS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 110CF1F000E9;
-	Thu,  3 Sep 2026 12:32:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788438755;
-	bh=lllQr/xve8D8s1etqR2PNBzAHCa4S3iEuLx4vR5u4GY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MChZjXhSfHOGtGbnPgLL0WodQbGS2vBkbxWW8V56E3aozS0skD4LQgaKOFb4/UFJL
-	 vwswaEdWng01KLHder3JBwjTwG8uQDcGRH3bZ9t6UsIJEEf+APGJFFHRBG2eIXPr93
-	 3znCcVe3QiW0Auljx0WNu8TVk4dg6tmpolvZaofRHDndv1tYwLaOpBiUL0q306ygOa
-	 CG11rywRt1oxRJlFA0TQUhKSyf3nsNRCrQIrp0olLZ570ExS1sX07VPHpQqreb/6SA
-	 sIQSC7Ct62Uo2tFt7sIv5NVB7URZgKm9AoE6SmZ6W8Ez5C00o8rV3r8K42y6ZLzlgc
-	 UDpRs5n5s7S0g==
-Message-ID: <faa755f7-e5cc-46c0-b838-8d015a481edb@kernel.org>
-Date: Thu, 3 Sep 2026 13:32:21 +0100
+	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="QaoRREhy"
+Received: from outbound.pv.icloud.com (unknown [127.0.0.2])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-9 (Postfix) with ESMTPS id 86D4F1800C8D;
+	Thu, 03 Sep 2026 12:50:21 +0000 (UTC)
+X-ICL-RepId: 01a06751-fc9d-71a4-ba5c-a5906bfe3d3b
+X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUkdXA5eEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDlUXA1ccVkVcGEMJXQVXHB0dQUVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQABIAFwFXgJBDVYFXAVbB0MUSR4dXg5AAlw4QwRZBFxBFx5BUxcfSwBcRVAYRB9dHWYcXABWAlw=
+Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1788439823; x=1791031823; bh=LUfe1pdcps0sFnIL1Tvqw6S2TvQ7uC51WrK64XPEpbE=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=QaoRREhyqEfbb2rlIFjEZ3ebd0ZcDeZzrhqOCtPDHxykSESGcI0FWRIuy31XtbyanYxiFi22yBvE6G5+4RC9VXVM/8BIwXSoSe1IZHo0hWAFYaEGbGCKj2CyGIGzbVEx554Qt3hqKiY8rXZau6Ufra2V3BsTjXYjPn8lLFo9kOFDTMS7Jt6bZEBL40JGfB1u+VGMT/nfhHf3KKpVJhjQOx8YhukHqT9DeDENktYq/7QYcUlgpfTOd9bRbTcY1QgE860W8FhiwLPR5OLUYHTxdJa0MhKU0i9355T22oC3fiC/9GyHBR3du5x1XofM4zQmlyngFeNqorFCw7xYsD+S+Q==
+mail-alias-created-date: 1575045973000
+Received: from 2a01cb06d02d74794b6d6271b4dfc9d3.ipv6.abo.wanadoo.fr (unknown [17.156.192.29])
+	by p00-icloudmta-asmtp-us-west-1a-100-percent-9 (Postfix) with ESMTPSA id 32F181800320;
+	Thu, 03 Sep 2026 12:50:19 +0000 (UTC)
+From: Pierre Pinon <pierre@pinon1.fr>
+To: Miguel Vadillo <miguel.vadillo@intel.com>,
+	linux-media@vger.kernel.org
+Cc: Pierre Pinon <pierre@pinon1.fr>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: cvs: register subdev nodes when the remote sensor binds
+Date: Thu,  3 Sep 2026 14:50:13 +0200
+Message-ID: <20260903125014.612053-1-pierre@pinon1.fr>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
- <RXmjC1LUSR46nHPlGyexr-0HTUa9z8BZY8CabY4J7P4YM9_ntzOucrOnanQBTZlD1jH69cHJEmPb_Xw7dRuqKA==@protonmail.internalid>
- <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTAzMDExMSBTYWx0ZWRfXyV4zW7x64LCF
+ MTTfdTJg9VXSYXHInBCLf/i6KIhx5CoSxjO26/2ZumqkO1fXLk7q6G0S973bmuokfGpmCRizr3R
+ ARVFgFdRzYO0lZLRfm3vD+aCuov+FwoRagxtP0gOC4bOUVcbhcKgJkEyyyxudf8voaXy7Vo6ucj
+ gn7PCWloTc+X/CtWlyIIe8zIvQJl2s7wCkt1cGv2qO9wSJn/xYxuNRzMqQqnBtbZTb3gNswr2jQ
+ Tyv9Sbsot86IjzT43ogqnX76KbPGXJJe5kXttFqbjs4303beaMd4tawsFuBIKBwmD/h4mVPWBK1
+ iLfJxoSoR+rY+tnjtylhGslnE9eaasEafDMm5BNUtpoadlI3OCOGhS0hN586Js=
+X-Proofpoint-ORIG-GUID: yZFUPbM2yqc4hToncFDC8zf2S6oKNDOa
+X-Proofpoint-GUID: yZFUPbM2yqc4hToncFDC8zf2S6oKNDOa
+X-Authority-Info-Out: v=2.4 cv=SvydKfO0 c=1 sm=1 tr=0 ts=6a996d0e
+ cx=c_apl:c_pps:t_out a=aW9mcIavGNWWFvFFKOxBSA==:117
+ a=aW9mcIavGNWWFvFFKOxBSA==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=VwQbUJbxAAAA:8 a=JOLwy3tAsX9ZQIJcA2wA:9
+X-JNJ: AAAAAAABULCkW0hhv7KM7gLZlSGwSW6BzEq0dHFwlMGS27c5zke2yMDetmmUnmSntn177vAkU8OiGwOqCcCP98rG/nzyTwRDJeky7E3rQiASsCTFhfselCam3fqQebFWZTSjW2FnnqYhdpy1wx7tacQgkL37DrVwTbhD6qy5vHpDjItuieRqVSAiG6lCiytibu7yR5t89bsLjatCXkTXzN3/FunHtfABAGJ6a8Z+31ppruToN532CM+7DyqL3eL/krbP1lngCqJd9zP2oWsx5joyyXLNsrXjLtMi4FPOB8/HFdUc3TLwWs8E1Jckp9f6LeDq3su/Pu2807k9l0igTqYgI2P3ZIK09MT3f6pn4cCoZNDYbkL3ovckh8nZxHHU6MIYXzv5MTan7HZxzxgAhCu2dlVjMnNFwJf24jWqAog7fp9KaeNIi9Ytt5mzW29E6Tq1Z3FVOUV/vMbxFOU98kKx7GpIrKu6lWzSJO8dH9xyfP3uE72f+gYCFexkNpctjqLKzxg9+sl4CjYgsbhpAnN4eTNN73lAil7YWDPZLTT4uS+34BS7735ALdv1r1dXm43iQiqk9r0qaI8ABwv1VRcEf9nSWt4FHCRb9gZF3L1PD7sorMu+ycg0PoaO9oocTwEpVlhp3ThZgl4NQBBtBPRlixS7QcEkRgOdzT/cxXfv+Epxq7CYpUokBCdUL+YNKtIGgU/zsrQLet7SS6pjXkddtp/gdz2yu37w5pHAdWLEcZVmkts/nFoQk1iBOvm9v159GDGiF7DcZMh3NcZz+p94Xo5zjtlJYONaioXh1XkRJRD/8yqYnhlNvKV6QNXob14YRHqUxFgT13ZrAAbEf4AW6GIPxOJsXXjViWpWzcl9SpgkLSU6Ysy/NqKgHaKbC1sjfSiooA1SD+om5vOaXf7D7nRTDWqGgSifthhl2+mXtOHal8oC7rLltK5jxSN8LOAP5UfqkpZ7J2LkypeZtPGHNo+AdBR
+ VVy0X6F6NtFTvJVnpXmbdM1m6NXXNFwxxlqKTulJilEzMdwAJ6ea04F4CRhosbzJoh1lTPwnCS2/aozYZunmEmiDRC8iyWVGcPMucbdauVKOqG0RtXxtcPR9oEfyEzsZnbQg0Dv9XT6Hg90Y/ouQ4qyLzXTCl0uKzp1TgEF+g0NZn+tjOaDELdD8ZHMR65xW3MBgyWo6ifPnvvMapfcvN7tYSiMIz1CoIZPAbleybGAsioOebaQzn/Nn9U18axGmhcydwBsd8hh1+5iKiR9F65FzHnG8uQ0cBHu41T6trZTTy0VD0+wgZ8gDeFHUXPfJ6q9MLp5de/UEUs4UBqhBiTdUQi5VzitrFjEC33y+3
 
-On 03/09/2026 12:53, Vladimir Zapolskiy wrote:
-> On 9/1/26 23:15, Bryan O'Donoghue wrote:
->> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
->> supports both DPHY and CPHY operation. A special mode of DPHY operation -
->> called variously split-mode or combo-mode also allows for two sensors to be
->> connected to one PHY.
->>
->> The submitted binding here describes the DPHY modes of operation only. CPHY
->> is left to future work.
-> 
-> Like I've said in v14 review, the statement above is incorrect, and it has
-> to be changed, for whatever reason it hasn't happened so far.
-> 
->   From https://lore.kernel.org/all/1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org/
-Well, I'm not trying to describe CPHY here so I'm not claiming it is 
-adequately described.
+The CVS bridge picks up the remote sensor through a v4l2 subdev notifier
+of its own, but nothing in that path creates the sensor's device node.
+The IPU7 ISYS driver calls v4l2_device_register_subdev_nodes() from its
+own .bound -- which runs for the CVS subdev itself, before the sensor
+behind it is bound -- and from .complete. The sensor's node therefore
+depends entirely on .complete being reached.
 
-I'll reword this.
+That does not happen when another sensor on the same notifier has no
+driver. On a Panther Lake laptop ipu-bridge instantiates two camera
+endpoints, OVTI08F4 (ov08x40) and HIMX1092; there is no driver for the
+latter, so it stays in the notifier's waiting list forever:
 
->>>> C-PHY bus type is also well described by this version of the bindings.
-> 
->> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>    .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 222 +++++++++++++++++++++
->>    1 file changed, 222 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> new file mode 100644
->> index 0000000000000..17de0701eb103
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> @@ -0,0 +1,222 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm X1E80100 SoC CSI2 PHY
->> +
->> +maintainers:
->> +  - Bryan O'Donoghue <bod@kernel.org>
->> +
->> +description:
->> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
->> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
->> +  modes.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,x1e80100-csi2-phy
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  clocks:
->> +    maxItems: 3
->> +
->> +  clock-names:
->> +    items:
->> +      - const: core
->> +      - const: timer
->> +      - const: ahb
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  operating-points-v2: true
->> +
->> +  opp-table:
->> +    type: object
->> +
->> +  power-domains:
->> +    items:
->> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
->> +      - description: MMCX voltage rail
->> +      - description: MXC or MXA voltage rail
->> +
->> +  power-domain-names:
->> +    items:
->> +      - const: top
->> +      - const: mmcx
->> +      - const: mx
->> +
->> +  vdda-0p9-supply:
->> +    description: Phandle to a 0.9V regulator supply to a PHY.
->> +
->> +  vdda-1p2-supply:
->> +    description: Phandle to 1.2V regulator supply to a PHY.
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description:
->> +          Sensor input. Always present. A single sensor is described by a
->> +          single endpoint with the clock lane at position 0 and one to four
->> +          data lanes.
->> +
->> +          DPHY split mode, where two independent sensors share the same PHY,
->> +          is described by two endpoints, each with its own clock lane position;
->> +          endpoint@0 with clock-lanes = <0> and one or two data-lanes and
->> +          endpoint@1 with clock-lanes = <3> and one data lane.
->> +
->> +        unevaluatedProperties: false
->> +
->> +        patternProperties:
->> +          "^endpoint(@[01])?$":
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +            properties:
->> +              bus-type:
->> +                enum:
->> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
->> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
->> +
->> +              clock-lanes:
->> +                maxItems: 1
->> +
->> +              data-lanes:
->> +                minItems: 1
->> +                maxItems: 4
->> +                items:
->> +                  minimum: 1
->> +                  maximum: 4
->> +                description:
->> +                  Data lane positions following this endpoint's clock
->> +                  lane. Positions are a per-port logical numbering, not
->> +                  package pad or ball positions.
->> +
->> +            required:
->> +              - bus-type
-> 
-> A review comment given to v14 is still applicable, 'bus-type' property
-> should be set as optional with D-PHY mode fallback.
+  # cat /sys/kernel/debug/v4l2-async/pending_async_subdevices
+  ipu7:
+   [fwnode] dev=i2c-HIMX1092:00, node=HIMX1092-2/port@0/endpoint@0
+  ov08x40 17-0036:
+  Intel CVS:
 
-I believe you said "could" be optional in v14 but, if you actually 
-_want_ it optional, I'll update this to reflect, np.
+The ov08x40 subdev is registered with the v4l2_device and shows up in
+the media graph, but never gets a /dev/v4l-subdevN, so userspace cannot
+open it. libcamera fails with:
 
-> 
->> +              - data-lanes
->> +              - clock-lanes
-> 
-> Here 'clock-lanes' is a truly optional proiperty since its value is
-> immutable in each endpoint, it should be removed from the list of
-> required properties.
+  Failed to open V4L2 device '': No such file or directory
+  No valid pipeline for sensor 'ov08x40 17-0036', skipping
 
-Hmm.
+Register the subdev nodes from the CVS notifier's .bound instead. By the
+time it runs, v4l2_async_match_notify() has already called
+__v4l2_device_register_subdev() for the sensor, so sd->v4l2_dev is
+valid. When .complete is reached as well, the extra call is a no-op:
+__v4l2_device_register_subdev_nodes() skips subdevs that already have a
+devnode.
 
-I want to make sure clock-lanes is defined and set to the correct value.
+With this the sensor gets its node even though HIMX1092 is still
+pending, and the camera streams.
 
-For example clock-lanes = <2> for split mode is wrong.
-> 
-> Also 'clock-lanes' are not expected to be found in C-PHY bus type case.
+Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
+---
 
-Right so to both verify the property and not require it from CPHY I will 
-make it required only for DPHY.
+Notes:
+    I am not certain this is the right layer. The same gap would affect any
+    sensor sitting behind a sub-notifier, so the fix could equally live in
+    ipu7-isys.c or in the v4l2-async core; I put it in the CVS driver because
+    that is where the sub-notifier is created. Happy to redo it either way.
+    
+    Tested on a Panther Lake laptop (Intel Graphics [8086:b090], IPU7 + Intel
+    CVS + ov08x40) on top of 7.3.0-rc1: with the patch the sensor gets its
+    /dev/v4l-subdev node and libcamera streams at 3848x2176, while HIMX1092
+    is still sitting in the notifier's waiting list.
 
->> +              - remote-endpoint
->> +
->> +        allOf:
->> +          - if:
->> +              required:
->> +                - endpoint@1
->> +            then:
->> +              properties:
->> +                endpoint@0:
->> +                  properties:
->> +                    clock-lanes:
->> +                      const: 0
->> +                    data-lanes:
->> +                      maxItems: 2
->> +                endpoint@1:
->> +                  properties:
->> +                    clock-lanes:
->> +                      const: 3
->> +                    data-lanes:
->> +                      items:
->> +                        - const: 4
->> +              required:
->> +                - endpoint@0
->> +            else:
->> +              patternProperties:
->> +                "^endpoint(@0)?$":
->> +                  properties:
->> +                    clock-lanes:
->> +                      const: 0
->> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/properties/port
->> +        description: Output to the CAMSS CSID controller.
->> +
->> +    required:
->> +      - port@0
->> +      - port@1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +  - operating-points-v2
->> +  - power-domains
->> +  - power-domain-names
->> +  - vdda-0p9-supply
->> +  - vdda-1p2-supply
->> +  - ports
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/media/video-interfaces.h>
->> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->> +
->> +    phy@ace4000 {
->> +        compatible = "qcom,x1e80100-csi2-phy";
->> +        reg = <0x0ace4000 0x2000>;
->> +
->> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
->> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
->> +        clock-names = "core",
->> +                      "timer",
->> +                      "ahb";
->> +
->> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->> +
->> +        operating-points-v2 = <&csiphy_opp_table>;
->> +
->> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
->> +                        <&rpmhpd RPMHPD_MMCX>,
->> +                        <&rpmhpd RPMHPD_MX>;
->> +        power-domain-names = "top",
->> +                             "mmcx",
->> +                             "mx";
->> +
->> +        vdda-0p9-supply = <&vreg_l2c_0p9>;
->> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->> +
->> +        ports {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            port@0 {
->> +                reg = <0>;
->> +                csiphy0_in: endpoint {
->> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
->> +                    clock-lanes = <0>;
->> +                    data-lanes = <1 2 3 4>;
->> +                    remote-endpoint = <&sensor_out>;
->> +                };
->> +            };
->> +
->> +            port@1 {
->> +                reg = <1>;
->> +                csiphy0_out: endpoint {
->> +                    remote-endpoint = <&csid_in>;
->> +                };
->> +            };
->> +        };
->> +
->> +        csiphy_opp_table: opp-table {
->> +            compatible = "operating-points-v2";
->> +
->> +            opp-300000000 {
->> +                opp-hz = /bits/ 64 <300000000>;
->> +                required-opps = <&rpmhpd_opp_low_svs_d1>,
->> +                                <&rpmhpd_opp_low_svs_d1>;
->> +            };
->> +        };
->> +    };
->>
-> 
-> Apart of a few minor comments above, everything else looks good to me.
-> 
-> --
-> Best wishes,
-> Vladimir
+ drivers/media/i2c/cvs/v4l2.c | 21 +++++++++++++++++----
+ 1 file changed, 17 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/cvs/v4l2.c b/drivers/media/i2c/cvs/v4l2.c
+index 9fadca7a3..0a42f91c0 100644
+--- a/drivers/media/i2c/cvs/v4l2.c
++++ b/drivers/media/i2c/cvs/v4l2.c
+@@ -13,6 +13,7 @@
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-common.h>
+ #include <media/v4l2-ctrls.h>
++#include <media/v4l2-device.h>
+ #include <media/v4l2-event.h>
+ #include <media/v4l2-fwnode.h>
+ #include <media/v4l2-mc.h>
+@@ -400,7 +401,7 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 				struct v4l2_async_connection *asc)
+ {
+ 	struct icvs *ctx = notifier_to_csi(notifier);
+-	int pad;
++	int pad, ret;
+ 
+ 	pad = media_entity_get_fwnode_pad(&sd->entity, asc->match.fwnode,
+ 					  MEDIA_PAD_FL_SOURCE);
+@@ -409,9 +410,21 @@ static int cvs_csi_notify_bound(struct v4l2_async_notifier *notifier,
+ 
+ 	ctx->remote = &sd->entity.pads[pad];
+ 
+-	return media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
+-				     ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
+-				     MEDIA_LNK_FL_IMMUTABLE);
++	ret = media_create_pad_link(&sd->entity, pad, &ctx->subdev.entity,
++				    ICVS_CSI_PAD_SINK, MEDIA_LNK_FL_ENABLED |
++				    MEDIA_LNK_FL_IMMUTABLE);
++	if (ret)
++		return ret;
++
++	/*
++	 * v4l2_async_match_notify() has already registered the sensor with
++	 * the v4l2_device, but only the bridge driver creates subdev nodes,
++	 * and it does so from its own .bound and .complete callbacks. The
++	 * former ran for this subdev, before the sensor was bound; the latter
++	 * is never reached if another sensor on the same notifier has no
++	 * driver. Create the nodes here so the sensor is reachable either way.
++	 */
++	return v4l2_device_register_subdev_nodes(sd->v4l2_dev);
+ }
+ 
+ /**
+
+base-commit: 940de590b839f71d6dc846160534bf202401b8b7
+-- 
+2.55.0
 
