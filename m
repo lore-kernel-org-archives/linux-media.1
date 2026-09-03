@@ -1,193 +1,186 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BB04B339F
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 14:15:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F179B4B66EF;
+	Thu,  3 Sep 2026 14:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444973; cv=none; b=ZtpYsj21Q8eLR5OzlCQ5G8yJ0Cjs5Er84Y4FEod92fSgJXdOTXDIctkTYrmpMffQtRSpf06892TDhU0FsiNYy52EAhXuO/QPa6r4pRRmIoZBT2GkoOAVB/Utqo23Bh9PEsQqKNbfFU1w/DawSADZMh7P15ocaOkChb0HyPABk/c=
+	t=1788446289; cv=none; b=GEuLqV031HQT5z29MHWJ+Bo7YjROHCbk5LPg100jfgOQnKBpf3MkneTSygcJas+dSM8NZdplJkjo57Mzirs8264SestCsgXXJ1Ya2Eqtqng0pRJvfUhRIGJ7SqM2CZF1g2exUJoXNIGm1HjEu8qmjR6GV6Q4ADEdNDu/2GPlu1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444973; c=relaxed/simple;
-	bh=UUoCs3OS1DpEKPOf4QHK0Gnr950LiLZG3z9kQysx8iA=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EiGNDCjAti8Mf671HSNVO9aYiYMBvmjSS83s54Ws3MznhGUXTR9NDiwYvE0H6mhPYD9PxRO71s8bxTwkBTUoW2wdyvQiS20Kowg3ZfN2YnFims3SROA/M9X0nXCzZYGxCojvXU1OVfk+5rRME5vPVy9rtZfrN3rlwMULSgd8vFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cqqz5c/4; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788446289; c=relaxed/simple;
+	bh=5IDUCm3/c6KrZ9HpzncmlBCcPtf0jMBAVY/kGndV6SA=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tWJsxNk9d9Bgr2hjmupWp6FHK4E12OLES70D1xjycoFPTdflfdNQ0lO/4fKD14CKLAUOrqt8IIrNd5YsY2LHyWZizuOSA/ZwWBKo07uAYqSNivQZq/I1U/i9qjCzm/PBIQ9Dg4fkpyc7bNbN0EpR+XWIBGfluKxekeYoj6dULJc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=EABflAnv; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=y4vw+3Of; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=TlwseHHX; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=MofL51L+; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cqqz5c/4"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so2068763a91.2
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 07:15:59 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788444953; x=1789049753; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=Cqqz5c/44snunzLcV09QO2GkN8HQHyV27leGmNheGUk7hu0GeScRFj+k7lBzulgcoP
-         ptTrE6WUEDMyrCAmXSZyivs3MrgHZ2yIxKgAAq8baGpXNTlrClEPDM9EfQSATTW0n+bO
-         3VzhfsN04Fm4Pq2RNTFB41LuwbqvbT7zqh1P856F/FC8wWOHCEE0FYVqzdZjHiUd/FUF
-         F04dBva+GG24/yFuhDItlcyS7+5kPODQRxA731o4eSnxfUxsp4Z5PqZc02RImivOtb/I
-         9j9P6wQ6D9/5v6kj6fZCIPYGj8/nQJLRjdxjQUKSaJ5wGMhMGiUoCn+rqb2ooji63md1
-         onbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444953; x=1789049753;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
-        b=lGT/+YA75T1EbUsg8N8yKgB/0GPAFs6+UgHVIEjGP1DoKO8OPzJohA5s3nu0XP//eR
-         FZSx7DMzOGD2QpYlfOa88ItqovUjeYEg5WvtwReXIBhmKIlSsdbDFrmvY+U1gAX4AQuU
-         fvgET2+4I6mD1+lSlEvVMrrS/JCGsgt+8cWXhOcR8lsCTJZsKKKWHXnlOlsQwChvbVGY
-         bxGuIpc+v4nZqSVW3JXtjVVf8mi7GTxdmbmhnTbKT4wqWz77Po/GA39O0+6OL4TUIfaN
-         srKMCqkF9NqgHu8sNQJmag0rQIMVA1oqq61nqZxeKc84nUFGJdvRi9mMIV+MiuSPO6b7
-         8pbA==
-X-Forwarded-Encrypted: i=1; AKwUvBzsck8W9lGzpBfIz2rSPzMYqqxzuNVCi4iA5AESnVHXiQ2po+nA4MeRzrg1Q4PTc9PXWitg+dhfCbY2cg==@vger.kernel.org
-X-Gm-Message-State: AFuF++lNTrFw3tb9iWjyLWowGM7CyQgD1hofxLlTWC4OE6lGBIiYAkSi
-	kKTfglgpLt3jywAQYgLzVFjNEorHsQ6k1IlhLtFycYu3ZbmSQMtgJ9IG
-X-Gm-Gg: AYBFou0yYXb2drXIHvL0k++BR/Eyeknn5+LabV8BSduQPcQOsHMbm1FxUvIYD2qZjbw
-	lCgsh5zw8Ah6QXHZNhaR0W6hwU5adjjR9bHQbwcNe8eQXuC3vrBCOAKRU4ANgaklddQPybIkiEx
-	EInTVdB0wbuFJR6QbvIk0KNEygV8CxaEFXSQIvJcjORDYdbCPglBKhtdMDFMARF/P7Y1ZoKb34N
-	YYJIfEt7gunyy/TEEPPvayiHw2DIlnx2cm0PARr0GAupEabmLFjohdr0bHLmOigW2shi08MrWKx
-	FDzKT0nEkOAoFrWPjt7yArqnSXsuqQVl7+pZk5A81OTo9vCSQIijbJm+iDF49bVyQQqWi5+JDle
-	An9jvHrlF9siQkCt0b+EwJR+HQ5eZdHl6J02B5ceHCXauEbVCP+CQjfvGImd2lNb+AQLO9iM1QM
-	4lytYl1enziPvH+bDu5mDAjRhOr2cOCeOiTGW+86F0tZRk3fo39hNYAoLF09VNiNZS/qglQUwb0
-	4hOhiqpoDF8kZOL7BHG+Roixw==
-X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr21177322a91.13.1788444953135;
-        Thu, 03 Sep 2026 07:15:53 -0700 (PDT)
-Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5793909a91.4.2026.09.03.07.15.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 03 Sep 2026 07:15:45 -0700 (PDT)
-From: Hongbing Hu <huhb04@gmail.com>
-X-Google-Original-From: Hongbing Hu <huhb1@xiaopeng.com>
-To: laurent.pinchart@ideasonboard.com,
-	hansg@kernel.org
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="EABflAnv";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="y4vw+3Of";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="TlwseHHX";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="MofL51L+"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 89ADE21EC1;
+	Thu,  3 Sep 2026 14:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788446276; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NoIe1+StESLxiqdohgf6Gkohhov5f/zGPRJzVWWUMJY=;
+	b=EABflAnv+VzsI1PsdtEcrQGKurUXloXp7tNnDfpZaapOYIR0BSsTWRZIJpjZbXlXuxzFBV
+	oeN6oclLrlMxb7uwl4LwbAqBujD8+5uClI9+8afyw8HGDInlD3NeldC87S6MDo24PxV4u8
+	3Yb5gBEk0F8yQ/B2zf5dbhpMNa36V+0=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788446276;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NoIe1+StESLxiqdohgf6Gkohhov5f/zGPRJzVWWUMJY=;
+	b=y4vw+3OfKFIPm3CnR1ywuxb59vLvGO0HEpeiluTzzPQE6IXnuW/ZwnZUXqhnVBjH1WaK7v
+	Im8OjTx3vH03rNCw==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.de header.s=susede2_rsa header.b=TlwseHHX;
+	dkim=pass header.d=suse.de header.s=susede2_ed25519 header.b=MofL51L+
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1788446272; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NoIe1+StESLxiqdohgf6Gkohhov5f/zGPRJzVWWUMJY=;
+	b=TlwseHHX+lOPF6cuL3NY30UdiIDoTf34mV5ltvcl8gKFOFl8ZHyk2SbYi/Un0QnY5ky6rP
+	5pKDqGeEuurUJ7jQyUfKGj1e6aNrB46s0pgeFFcfpwI2fCE7QFhnv/J6BzmBVTV9XwRXZQ
+	ZwciWya1dKN8N/4DqFy5GoQpo6y6MMI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1788446272;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=NoIe1+StESLxiqdohgf6Gkohhov5f/zGPRJzVWWUMJY=;
+	b=MofL51L+lkYsgVobSaJbS99No+p0rRBs8MgY5BlLojIlkD8uxw0CUPis8ibqdRnC2oU+Sz
+	wg9cDhtLrD2W3pCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id CFFAF13738;
+	Thu,  3 Sep 2026 14:37:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id 6cpkMT+GmWpuHgAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 03 Sep 2026 14:37:51 +0000
+Date: Thu, 03 Sep 2026 16:37:51 +0200
+Message-ID: <87y0di764g.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Michal Pecio <michal.pecio@gmail.com>
+Cc: Takashi Iwai <tiwai@suse.de>,
+	syzbot <syzbot+832ce9fa3face1b7d44d@syzkaller.appspotmail.com>,
+	bolewara@gmail.com,
+	devnull@kernel.org,
+	gregkh@linuxfoundation.org,
 	linux-kernel@vger.kernel.org,
-	Hongbing Hu <huhb04@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: uvcvideo: defer cancelled buffer completion until copies finish
-Date: Thu,  3 Sep 2026 22:15:32 +0800
-Message-Id: <20260903141532.6693-1-huhb1@xiaopeng.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260903131141.6368-1-huhb1@xiaopeng.com>
-References: <20260903131141.6368-1-huhb1@xiaopeng.com>
+	linux-media@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mchehab@kernel.org,
+	syzkaller-bugs@googlegroups.com,
+	Daniel Mack <zonque@gmail.com>,
+	Takashi
+ Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org
+Subject: Re: DIY allocation or embedding of URBs in larger structures
+In-Reply-To: <20260903130757.0668310a.michal.pecio@gmail.com>
+References: <6a6e9502.f794c993.27aeb.0018.GAE@google.com>
+	<6a97af8d.27a413cd.1e878c.0004.GAE@google.com>
+	<20260903112417.21b76017.michal.pecio@gmail.com>
+	<87o6ee8y9e.wl-tiwai@suse.de>
+	<20260903130757.0668310a.michal.pecio@gmail.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -2.01
+X-Rspamd-Queue-Id: 89ADE21EC1
+X-Rspamd-Server: rspamd1.dmz-prg2.suse.org
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Spamd-Result: default: False [-2.01 / 50.00];
+	BAYES_HAM(-3.00)[100.00%];
+	SUSPICIOUS_RECIPS(1.50)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	MID_CONTAINS_FROM(1.00)[];
+	R_DKIM_ALLOW(-0.20)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	SPAMHAUS_XBL(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	RCPT_COUNT_TWELVE(0.00)[14];
+	MIME_TRACE(0.00)[0:+];
+	ARC_NA(0.00)[];
+	FREEMAIL_TO(0.00)[gmail.com];
+	FREEMAIL_ENVRCPT(0.00)[gmail.com];
+	FREEMAIL_CC(0.00)[suse.de,syzkaller.appspotmail.com,gmail.com,kernel.org,linuxfoundation.org,vger.kernel.org,googlegroups.com,suse.com];
+	RCVD_COUNT_TWO(0.00)[2];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	TAGGED_RCPT(0.00)[832ce9fa3face1b7d44d];
+	DKIM_TRACE(0.00)[suse.de:+];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	RCVD_TLS_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[suse.de:dkim,suse.de:mid,imap1.dmz-prg2.suse.org:helo,imap1.dmz-prg2.suse.org:rdns]
+X-Spam-Flag: NO
 
-From: Hongbing Hu <huhb04@gmail.com>
+On Thu, 03 Sep 2026 13:07:57 +0200,
+Michal Pecio wrote:
+> 
+> On Thu, 03 Sep 2026 11:44:45 +0200, Takashi Iwai wrote:
+> > On Thu, 03 Sep 2026 11:24:17 +0200,
+> > Michal Pecio wrote:
+> > > So what happens here is that USB core continues to use a URB after
+> > > completion to implement things like usb_kill_urb(), so URBs are
+> > > reference counted. Then core decrements the count - one more use.
+> > > 
+> > > If a driver waits for completion or even usb_kill_urb() to return
+> > > and then proceeds to free the URB's storage, this becomes a UAF.
+> > > This driver embeds 2 URBs in its priv and does just that.
+> > > 
+> > > A URB can only exist as an independent allocation, core will free
+> > > it if upon finding zero reference count in such case.
+> >
+> > So, IIUC, now the URB *must* be always allocated via usb_alloc_urb()
+> > and an embedded URB isn't allowed?  If so, we'd need to address other
+> > drivers, too.
+> 
+> Yes, that's basically the case and actually has been for a long time.
+> 
+> The only thing that works is for both USB and the driver to call
+> usb_free_urb() and whoever does last will actually free the storage.
+> This means URB can't share storage with anything else.
+> 
+> Some drivers got away with making URB the first member of a struct
+> which is freed together with it. AFAIK this pattern doesn't crash, but
+> it's deprecated too because it puts a flexible member (in the URB) in
+> the middle of (the outer) struct.
+> 
+> This pattern here in caiaq has always been one race away from UAF.
+> Maybe it wasn't very likely to happen, but stuff like PREEMPT_RT and
+> hypervisors can insert unexpected delays anywhere these days.
+> 
+> Greg KH puts it thusly:
+> https://lore.kernel.org/linux-usb/2025120716-sway-hypnotic-8cb6@gregkh/
 
-uvc_queue_cancel() returns queued buffers to videobuf2 directly via
-vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
-still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
-run, userspace can dequeue and requeue the buffer while the old worker is
-still running, leading to the same list_head being inserted into irqqueue
-twice and corrupting the list.
+OK, I'll send the fix patches for the rest of sound drivers.
 
-The crash manifests in two ways depending on the drop-corrupted-frames
-module parameter:
 
-1. With the drop corrupted frames enabled, the old worker's
-   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
-   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
-   buf->queue even though userspace has already QBUF'd the same buffer and
-   added it to irqqueue.
+thanks,
 
-2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
-   second time. If userspace has already dequeued and requeued the buffer,
-   the second completion exposes it to userspace again, and the next
-   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
-   time.
+Takashi
 
-Both cases produce the kind of list_del corruption seen here:
-
-    list_del corruption. next->prev should be ..., but was ...
-    kernel BUG at lib/list_debug.c:64!
-
-Fix the cancel path to remove buffers from irqqueue and drop the queue's
-reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
-VB2 completion then only happens from uvc_queue_buffer_complete() once the
-last async reference is released, so userspace cannot reuse the buffer
-while an old worker still accesses it.
-
-A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
-as an error and must not be requeued by the corrupted-frame policy. Normal
-malformed frames are still requeued/dropped as before.
-
-Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongbing Hu <huhb04@gmail.com>
----
-v2: corrected author real name in From/SOB per maintainer feedback
-
- drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
- 1 file changed, 28 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
-index 3c002c8f44..9206e0a355 100644
---- a/drivers/media/usb/uvc/uvc_queue.c
-+++ b/drivers/media/usb/uvc/uvc_queue.c
-@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
-  */
- void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- {
-+	struct uvc_buffer *buf, *next;
-+	struct list_head local_list;
- 	unsigned long flags;
- 
-+	INIT_LIST_HEAD(&local_list);
-+
- 	spin_lock_irqsave(&queue->irqlock, flags);
--	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
-+	while (!list_empty(&queue->irqqueue)) {
-+		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
-+		list_del(&buf->queue);
-+		buf->state = UVC_BUF_STATE_ERROR;
-+		list_add_tail(&buf->queue, &local_list);
-+	}
- 	/*
- 	 * This must be protected by the irqlock spinlock to avoid race
- 	 * conditions between uvc_buffer_queue and the disconnection event that
-@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
- 	if (disconnect)
- 		queue->flags |= UVC_QUEUE_DISCONNECTED;
- 	spin_unlock_irqrestore(&queue->irqlock, flags);
-+
-+	/*
-+	 * Release the queue-owned kref outside the irqlock. The final VB2
-+	 * completion only happens from uvc_queue_buffer_complete() once all
-+	 * asynchronous copy references have been released, preventing userspace
-+	 * from reusing the buffer while an old worker still accesses it.
-+	 */
-+	list_for_each_entry_safe(buf, next, &local_list, queue) {
-+		list_del(&buf->queue);
-+		uvc_queue_buffer_release(buf);
-+	}
- }
- 
- /*
-@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
- 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
- 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
- 
--	if (buf->error && !uvc_no_drop_param) {
-+	/*
-+	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
-+	 * errors. They must not be requeued by the corrupted-frame policy even
-+	 * when buf->error is set.
-+	 */
-+	if (buf->state != UVC_BUF_STATE_ERROR &&
-+	    buf->error && !uvc_no_drop_param) {
- 		uvc_queue_buffer_requeue(queue, buf);
- 		return;
- 	}
--- 
-2.34.1
 
