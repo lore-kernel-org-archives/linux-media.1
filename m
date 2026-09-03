@@ -1,49 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0961E1A3D;
-	Thu,  3 Sep 2026 04:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB6D330E85B;
+	Thu,  3 Sep 2026 04:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788410327; cv=none; b=gcLmrA94QhXT27x6okFOI8RW7eqQYoc27bC0qETCgBLwxJdxzcjK5eKlICqtwn9s+qiRQnChAVBnAKzPF8bFqi/8IoZZxZlWY67ciRS8xl7vyIqHbGiBV0OlySer4mY7IBqWtFuAVJ+QtEGsCnwiDCPc5rqFYY2m6avgRBJqdeg=
+	t=1788410587; cv=none; b=Gul046IPxUQcJDlOBLKdQvIm/iACJibNamlWHwJYaWuFmjtvjxWFNE/Dhs8Q4B8i8wNrXcrzN4tCSV1PpCIN8ePFEBnQUm45zuJZqaNGtJRcMIjJqk4xLaBR7rac9KuBP+nejz9LDUIbyX8vnIfISTYorUaASZCzLVrSe3O6XZ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788410327; c=relaxed/simple;
-	bh=5HcDPVvfU/QGdKBl23/4a6+keo0j28eZUB+Jw9j5WWM=;
+	s=arc-20240116; t=1788410587; c=relaxed/simple;
+	bh=z+jvyxJfLEK0ZMwqQL0JjD6zsFOFez1AwvfXz/lCzRo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P6JXs0LoLGTlNimtrQWUj2BwWjdFvvMJUprCI4mOHLzeRT1RAhDN2ffmorl/x9EjRPg3gv5Izc2rCe8nPTLzevJ/0mYa28htYOers78HgXOCGkAQBI1SGwJvOnKwIG3ZtrSiXH8giSE98+PXuO/QXVfODcnXcupBp6NPueHIMW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=SEK2SxIL; arc=none smtp.client-ip=192.198.163.10
+	 Content-Type:Content-Disposition:In-Reply-To; b=f904RtMjQNVLWr6kLmYavSWG5w512hhnfVOk9Vg7COeaKs1t6265YpJoXKNKhLfMGPAkNVCrcbLu33Q5TEpDkd0JPD0AhC89da9Aj7jkgPcAw8w447Y2CIgMYYTjSmloDlSerAc0cEuGmZEGe7PrFCT8hGJXdygyysZzMGbsug4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HjXQak5U; arc=none smtp.client-ip=198.175.65.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="SEK2SxIL"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HjXQak5U"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788410326; x=1819946326;
+  t=1788410585; x=1819946585;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=5HcDPVvfU/QGdKBl23/4a6+keo0j28eZUB+Jw9j5WWM=;
-  b=SEK2SxILrfR0a0clhO9gdAaAivjtRSijj5s/MTZBUPSTpH8ZB+xW2cBN
-   FDzej2suxx/5L08Z0fBF+hEyZwHte2TPDjRKib2k1jgkGpMw+RWETVowU
-   D0S+sedL/UAmiGWjVozIaNrNZ9nIRZP6Cl1HcWffqEu46bduJSIWwDLD0
-   DGfAzvvaQnn7fwx4nJmBoVp4T3D0iIoSFevKACfCPzsqHfvRyZYqCIa4t
-   hFrKJpqK1yGPn0WGdvWB1cTzmlvahqaswpiUoZFKCo880QAxydRmJOzpk
-   vEP1tZQJtSwG3Bg5J4+ddHbSjMt1tYFTdS0MWUNbM8Z7sivPkjAt+tFvb
-   g==;
-X-CSE-ConnectionGUID: v5hraVgcTtiytRi0Y4n2xQ==
-X-CSE-MsgGUID: jpcyvTLlTtGv4CapwyMSmg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="100236626"
+  bh=z+jvyxJfLEK0ZMwqQL0JjD6zsFOFez1AwvfXz/lCzRo=;
+  b=HjXQak5UIB5qV9ipdrzNTl5koEJb0etnSf6DenHF3gYKqKgUHLs3FSLz
+   zmWTISnEdRcuV+/1tH4he8SPyTqEcNDZEw+OI8hOVmqurtWejN7IxEYS1
+   2Q9IowTFKBIwGKaG17lIiSNhcNPMpSOmoWw4jgOLEVFlTdxEKd9eoXs4o
+   19nTyBoHG7xMmlnXRDgDHCNyabDLLTrZWZNktsLcUWMDDorlcce2X/6iR
+   Lav6HffodI1kyuACSEbr4NhT1hoAyH3AiKu0Dgi/6kHYWQC4TdAhoFMY3
+   wW79TxyWWpJ9KXQ+JAg+GupbJucC7mMp1ZQSlggNvehTHO+A9T3MJa4gw
+   A==;
+X-CSE-ConnectionGUID: 8rEHKE6HR+aR1vSoEG9VFw==
+X-CSE-MsgGUID: 6Ne2DbKERquHlBf67M/jlg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="88726035"
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="100236626"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:38:45 -0700
-X-CSE-ConnectionGUID: on50LPqaTlWvRvH42F2lxg==
-X-CSE-MsgGUID: TGzr+IolSGWZxWN/iANwOg==
+   d="scan'208";a="88726035"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:43:04 -0700
+X-CSE-ConnectionGUID: U9BkV0KPR1KlXmUxQwj3MQ==
+X-CSE-MsgGUID: oIQwbFFlTgSgNHZqs6JLEA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
-   d="scan'208";a="273103789"
+   d="scan'208";a="307803268"
 Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:38:41 -0700
-Date: Thu, 3 Sep 2026 07:38:39 +0300
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 21:43:01 -0700
+Date: Thu, 3 Sep 2026 07:42:58 +0300
 From: Andy Shevchenko <andriy.shevchenko@intel.com>
 To: Maurizio Casciano <mauriziocasciano7@gmail.com>
 Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
@@ -51,10 +51,11 @@ Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
 	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
 	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
 	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 14/16] media: atomisp: Use struct v4l2_area for padding
-Message-ID: <apj5z0HtoNaqMoFn@ashevche-desk.local>
-References: <cover.1788286339.git.mauriziocasciano7@gmail.com>
- <d1367eb59cf00cd1b41af2d85d4d33eb58e91b5e.1788286339.git.mauriziocasciano7@gmail.com>
+Subject: Re: [PATCH v7 02/16] media: ov8858: support 19.2 MHz clock and CHT
+ gain setup
+Message-ID: <apj60nTEM2Nc6n2c@ashevche-desk.local>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+ <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -63,33 +64,43 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d1367eb59cf00cd1b41af2d85d4d33eb58e91b5e.1788286339.git.mauriziocasciano7@gmail.com>
+In-Reply-To: <628adb1cabec866554ca26a2da5af860b04d6cb1.1788360629.git.mauriziocasciano7@gmail.com>
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
  krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Sep 01, 2026 at 09:04:36PM +0200, Maurizio Casciano wrote:
-> The padding helper passes width and height as four separate scalar
-> arguments even though they form two logical dimensions.
+On Wed, Sep 02, 2026 at 04:53:31PM +0200, Maurizio Casciano wrote:
+> The Yoga Book drives its OV8858 from a 19.2 MHz platform clock, while
+> the existing mode tables program the sensor PLL for 24 MHz. Reusing
+> those settings produces incorrect internal and CSI-2 clocks.
 > 
-> Pass the requested size and returned padding as struct v4l2_area values.
-> This makes the dimensions explicit and simplifies all three callers.
+> Accept both input rates and use the actual rate for the reset delay.
+> Move the 24 MHz PLL and global timing registers out of the common mode
+> tables, provide revision- and lane-specific arrays, and select the
+> matching clock programming explicitly when starting the stream.
+> 
+> Keep the existing long digital-gain control independent of the input
+> clock. Expose the per-channel manual white-balance registers as separate
+> red and blue balance controls, keep green at unity, and accumulate write
+> errors while programming the three channels.
+> 
+> The manual white-balance register definitions and programming follow
+> Intel's GPL-2.0 OV5670 driver, so retain its 2017 Intel copyright
+> notice in this file. No proprietary source or tuning binary is included.
+> 
+> Tested on the Lenovo Yoga Book YB1-X91L OV8858 with three complete
+> 10-bit raw Bayer frames, independent red, blue and digital gain updates
+> during active streaming, and front and rear camera capture in Cheese.
+> 
+> Link: https://lore.kernel.org/linux-media/apf7cJOoXrl_wZfr@kekkonen.localdomain/
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+No such a link, I have told you already that. Slow down, please, read the
+comments carefully and address them.
 
-...
+> Signed-off-by: Maurizio Casciano <mauriziocasciano7@gmail.com>
+> Assisted-by: LLM [Codex] [Sparse]
 
->  	dev_dbg(isp->dev, "s_mbus_fmt: ask %ux%u (padding %ux%u, dvs %ux%u)\n",
-> -		ffmt.width, ffmt.height, asd->sink_pad_padding_w, asd->sink_pad_padding_h,
-
-> +		ffmt.width, ffmt.height, asd->sink_pad_padding.width,
-> +		asd->sink_pad_padding.height,
-
-Split logically
-
-		ffmt.width, ffmt.height,
-		asd->sink_pad_padding.width, asd->sink_pad_padding.height,
-
->  		dvs_env_w, dvs_env_h);
+No square brackets. In the documentation the examples are given. Also no need
+to use exact name of the LLM.
 
 -- 
 With Best Regards,
