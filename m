@@ -1,356 +1,412 @@
-Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+Received: from mail-oo1-f43.google.com (mail-oo1-f43.google.com [209.85.161.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F35247ACC0
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 11:53:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436412; cv=none; b=DrTAD1PPJG8PKruKtlOgYoFp3J6WtXQVkvX5vIRN6//+9Z0Nw7eTfUq/j+XCLlRrK+OWjxzd2vePh2a4HiJKz2VfGFt5sCxmmP8ULN5o+YxpLhn4DVDWftBi7VAsZxiz7gt9lvheN9PLiKHpizpYwmoraEO3MFknk3iAkh+cM/8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436412; c=relaxed/simple;
-	bh=n5ctRfXvrUaJX4olBTeuOGHj+PO5gbXXUrz1f2Frvss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FO+a0SQ4vY9XSTeMPK8bf9whq4RqmyIYx4J09X7gJdKQgFFdwH69eLV6ZWiOVEiFh9ooiQs0PKXe3sILsYiH31gDn4Qt/S1o0xNlRq5sQcVPwXaobwkvhbkd/1j1ngLoNgmkbxvm+wgit85u8+L35ESLfCXz9MbpygKwITV9wuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gL73X60l; arc=none smtp.client-ip=209.85.167.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6125D49B20F
+	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 11:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.161.43
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436483; cv=pass; b=lo7oXSadN3iWvjMosfVTqmiJchdyHUvxHnz4ft4C1Ittd3LbRu5hy0B9csbVz6Ho1jcjevtqWewlfUPpmh5BMUxFH/+acXPDk7gJ+r58cg+kaNcCm08ZUoi8aW31X9D7WnzJp6ze6VorxclcCMNfs7pVwgpYsVPLwctmez5VIC8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436483; c=relaxed/simple;
+	bh=gHAbW6wIQAOgircilBDDKDXMDhXhvTa/oibSBhPS/GE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=IsTg/dPqGTfkM8ZYOCfv9k+46APgILB6ImuAEaOE8gbYygX4zvQu9ImyYcKgKZntKDiJ649NHBLAe2VvS7L2WHy9LFPywWjY9SXqe0A+66KpVGLsVjL2wq/FIO2iz41q0oYKPtnU3n7DpjvgnEiuAEkYjG/mMgqT9UOG5eAyYO0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=C/UgoQp6; arc=pass smtp.client-ip=209.85.161.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gL73X60l"
-Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b4a9175181so263855e87.3
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 04:53:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="C/UgoQp6"
+Received: by mail-oo1-f43.google.com with SMTP id 006d021491bc7-6aaf3f54dbeso1993866eaf.2
+        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 04:54:38 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788436477; cv=none;
+        d=google.com; s=arc-20260327;
+        b=SfgsLuueMcM4s3CnPJyGfBaCQbTqjTX9F0ka4MicqxnP+oSzzCzWmZh6wfoPnSg8fr
+         kRB93Y4yB4sXTozFvgZ6qH+rEp949Pm7AKtw56rhtOLIx5r64MI5y2F8Dh/Qu6WrT+Ld
+         RSDOR+hcgXaA1/ebbYhm8mdd33RwuS/Z9H5/O/6ECvchQIxnEE+T7+r2/ll7zuwRr3y/
+         8/1eRnH6umrb1NVoQYNanprOzPnhsqmUBUeK8W7D9ypzjy6zcRtTDsQ5iMaAPYCIhdRf
+         7LpD4vQVvLGvb8c+gTRGIAln3uOOIVjIkBXHiqCD3t4NGBwvTKl+z4MCKoblJxgurx3n
+         YkXA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        fh=MH7ofW5ayolThqtW1BgI7Rhj0Ck83VuU/5hInDZc9N4=;
+        b=TVOImht5S9EpyURC9i25dvbKgmdOpcXkKFA7RZcXmjmgzc7HydCNuM6sVpbuzbdHzL
+         ZfNNH1q0SHTXSzWyE1vpxy1meTzDW+ISsYTaWpj4e09WgwHBWEcX9N9B/qdZmXUStrdG
+         RG6xBM6ZjY1C6lE17JwnmH1bsGB4CbjsOQRX523mi9fNvIqkf72N+DhhlxVcceaNWp4h
+         bKEfSfHPFQg41Vyj0fIOAWttsro0YXRNLlMv6DPqX2F8+WYP53zPSzgAb23EQsN5f2d1
+         7Djt3nmiO+Sy9w52W3vI5XeXdQ+9X60IqRej/qdO1sxf1fErVDOWDr1HqhaPl2DqoaqU
+         Wz4Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788436404; x=1789041204; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=YlAxcekko1WzQ9ej7nCP/3I5A9S1XkCyAocKTij2/Qs=;
-        b=gL73X60lhEAN95JgdMhMGAtLsNyJpdOj5nIWnsTUd0mBYojsbW5HfXrMU2ekHbt81H
-         bVKDgJz2mokkmYRMgrZZKQ4XA6C9FPXXgi/zv/03m8s+FQ8T/KXHWw4UTphcnaHsmovQ
-         pyWyb+cU9zRCgEx3F8jdbabaYrJnxeSHld0kjT5HUR4L2nbD97U+bf2+mjJifOLOLMW/
-         KZSFULryGDPt4cdHJYL3305StOthvSIIgjyY4ea+dctVBHPmhpkARO+eyzdreBjDDtHn
-         ULz5JPIzbmYvhYxW09X5v8XmQpQFkTcblGh9f5K4AkpoMXCfDHCG0RuVU8dCVoCpTiHO
-         ELNg==
+        d=raspberrypi.com; s=google; t=1788436477; x=1789041277; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        b=C/UgoQp6/0MKC+uiBhDIFo+95dcr5Pg5+iT3xMqqNmcSWztMd0XlI6783L4jwXaDS2
+         ny76T5oUAbt9g0uEnJgYWrH/UbB56aRnu90vObSnGB+B8J0nYGO6Pt2Sr32iTSigEBfZ
+         vQijFGCABHHq4bNpMM74p+X62rcOBuXNhpLvKhuxWDUSXdbjZtJ/pXw6nsSDnLh193yP
+         9YfI2lIXMVRw6o8k5WfA1k6GKI4wtQiBTRNLoAPIHJu1DK5EJn8spbsCd+goKu5hF47F
+         MaO2K1ZSfQ/aD0gBzdlOPo9JGloxv8xuitnAfrtbxnWrFtcMyvFpbSx+9KbyQ5fbzUwx
+         OI4Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436404; x=1789041204;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+        d=1e100.net; s=20251104; t=1788436477; x=1789041277;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=YlAxcekko1WzQ9ej7nCP/3I5A9S1XkCyAocKTij2/Qs=;
-        b=Gg3Gb62InFl+rMpHieNI9/jPHZJqbMveUVx3sAwXOk/ugsu1EEsx3JFC7EYXBNikrP
-         Dff36izoR095RBYl1FpIB8XVG7WcFEkeSJD2dBIAVdepba3dSxq5SHM2t0wJv0+n4CWF
-         /myRjVZnXETz7pHNp4uiz8FFad0DGK5B/O+utM4EiOJjTVl3r3wgn3QkOgt2jAqmqMSF
-         D0PrqKW/vcbX4aycvf1hlQ6piHJCHdlCKptS5QrSjW89bckxIIaAP18HEDhOxB84z3kE
-         mwfduKy8eJNGZfoRCVz4+K2zVrcXg27VIGVfZEHG1xM+dfbacAC30KUZ+45OmOrlrewT
-         FvoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdehkrzSQ5IJgvZ+lTw2u5YJ7dxqLq/rP/QhheRzfH0A20hiOEHVgjnGIhioDYkO+MyAVUX7S0c4mWVw==@vger.kernel.org
-X-Gm-Message-State: AFuF++lkeB7Wgh6H0QEUhwTtCQQyt8SS+fPFMMrmnPqDuNHNk7jCqJ92
-	qdNdqwyOElRurF4NgwEIlWbMsfTEf/8E9JdDvgVYbGj1SDSbJLHn5WvTwUC81a0zPgU=
-X-Gm-Gg: AYBFou3EDOcg4S0DZ4/85Uxx/awR9mJGX8+VbHAPEzYzGuFONO1MlNV7HTz8GHDbPtz
-	Bq82/Zy6wNRyQWquvWh6bH2zCmElMMjDW+InV+vo2lFKsTXp5TdI+e5St29LLd4anuSrY34GDpR
-	xX4a32K6Rvxnj3aY0en2LlWArjdm54dsMNUW89nb9YGwEOhblQQ/K1Ln1wf39vajh/57vKYJx/Q
-	3xnb8SCw5O2XEDvkEUpOKL8UpTqU54guyHmBeFrr1zMcnc9HHi7TL3862LmT4cJIDqNhXe4sm3W
-	y5CGGYQkoEzH3QRHYpdyUYspUGCPF3OZzZSxEbnBJb4ZGhstoyO99Zi6tjZecOVO1uX0fAqgGvl
-	N7hDgYHKAscQPpALLu8rxtHU24w8mGsX5mssWUliQyQfUUx73Jf4TxWsAqmAdJC2WFQz6UUqqOG
-	Ae3hRA21hS+EcfJPNaq7PORj9zkBU7WSsm4zKxoPaK6S60cnBRxRy57JkRX9YY564+2aLCJwj7U
-	5BxPVg+SsGgBNkhcu2Y5QfreWJNJov86GiDOy90Gg==
-X-Received: by 2002:a05:6512:2350:b0:5b6:4ae:19ef with SMTP id 2adb3069b0e04-5b608810e61mr1613364e87.5.1788436404014;
-        Thu, 03 Sep 2026 04:53:24 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad21ef8sm11778701fa.28.2026.09.03.04.53.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 03 Sep 2026 04:53:23 -0700 (PDT)
-Message-ID: <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
-Date: Thu, 3 Sep 2026 14:53:14 +0300
+        bh=tG8aNzzaKVpd1oQICpnTjkqoBtjprmAy6CZLg1VWzM4=;
+        b=C15XTQzT8cpXvE8kWgf+XRo/Cn+QvLvHywoxdCyAdg6EPehipM+4KNrjR2onyy6Wd6
+         pe315r9CkuzOMb0yMiUy0aAh+RfAd+7hdwz51gZKfpsq1n0SeI8NfdaDBjA6BKBO4YKj
+         YWnC6j4YZFqSGy8Mkt+Z7/1EprD2BGDbJFuNM0ApE9hf8Wx6mqhcA99MWO7crulXTWD3
+         CgDpl7SNdutCctOqPXgN/XxzHYmG+dKTUHcaMHBx0dCBYtayOUiDdb7mQII3h8sqMCyE
+         C0Go1LHV/1H4gpS9I/1aUZfsRyP1+cFWfM3Xn8OTP1BCNahATc4y8sglA14+E6GWie0q
+         W0lw==
+X-Forwarded-Encrypted: i=1; AKwUvBzRvD+yXbYGqVKibCU7Xij69sdugrICa5uCBgPignUA6HSxDvxPgXy0GtCB727k44B1yEb6dQBK48xdyw==@vger.kernel.org
+X-Gm-Message-State: AFuF++nB0r4p9wgCTdz2yI0XwuXCXU/wUC6UlzTRdvuJjSzRwFEYjIK/
+	b1ezQuyroKCDWdbHUa35Qn9oSQKdijGIUUKwJGApfcrv5YAAs7+qhprPv36+8i9Fn4IuZ0SMYVA
+	uNa8gG3JlpSbOCCkh7lqCShDikKFDWZuTaNq/hVvGjA==
+X-Gm-Gg: AYBFou2rOUKHChLSmxJIK1UcUilQ1olcd+ZkxPHz79Dsd3IaH4E4WdNCNpyOmn3fxy/
+	s2UtS/fy1t2mQDPBQ3D0wjPRauc0FvliPKZHhl+puslN949jTXItqIiqncSzIsmTNfT8qZUDwhS
+	wZYL3SOcmOekyaHJsi/WPvzkrJTQEOq3HwpFo+PzclA1ghMRBNmS91eMUh4b+CuYMkY8BkBPuSa
+	rSA+3bNQX+MzcJuAlG3UeyNlvhT7lqU0Y4+Vy3qaAvlqEosHhWVw7Tot+UHQoM5KSbowRSdlU6r
+	d9aPfLuoX214KnbyiDuVkD3rB/0qDii5bhFJwztKQTwDMfRSbazO7uLvxDQ1pg1Xz+nbo7/HQ49
+	PP9gVre1W+C3MGRdMMYSOuTRQTMI1twvKx3cX7NxjMGndvICBAxW9n6jdZ7cKFg==
+X-Received: by 2002:a05:6820:298f:b0:6b0:ab1f:ec11 with SMTP id
+ 006d021491bc7-6b47eac1288mr8752261eaf.29.1788436477103; Thu, 03 Sep 2026
+ 04:54:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
- schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
- <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
+ <20260805-media-starvis2-v1-4-91e8e4eae44f@raspberrypi.com> <178840935437.11722.581815298725172345@freya>
+In-Reply-To: <178840935437.11722.581815298725172345@freya>
+From: Dave Stevenson <dave.stevenson@raspberrypi.com>
+Date: Thu, 3 Sep 2026 12:54:19 +0100
+X-Gm-Features: AcwNN1VdrRkuRy_rjt36H8K_XmrlY74SkAhK6SYkA9sk5Fx4sd6TrQFPclt--MY
+Message-ID: <CAPY8ntBpR6vjP4Yd8ErVMuLjLshWb+rpfV=dzRNkhLN=K59rnw@mail.gmail.com>
+Subject: Re: [PATCH RFC 4/4] media: i2c: imx678: Add imx675 support to the driver
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/1/26 23:15, Bryan O'Donoghue wrote:
-> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
-> supports both DPHY and CPHY operation. A special mode of DPHY operation -
-> called variously split-mode or combo-mode also allows for two sensors to be
-> connected to one PHY.
-> 
-> The submitted binding here describes the DPHY modes of operation only. CPHY
-> is left to future work.
+Hi Jai
 
-Like I've said in v14 review, the statement above is incorrect, and it has
-to be changed, for whatever reason it hasn't happened so far.
+On Thu, 3 Sept 2026 at 05:22, Jai Luthra <jai.luthra@ideasonboard.com> wrot=
+e:
+>
+> Hi Dave,
+>
+> Quoting Dave Stevenson (2026-08-05 21:39:19)
+> > The IMX675 is a 5MPix Starvis2 sensor that follows the same
+> > programming pattern as IMX678 and IMX662, so add it into the
+> > driver.
+> >
+> > FIXME: Validate common_regs against Sony documentation.
+> >
+> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
+> > ---
+> >  drivers/media/i2c/imx678.c | 222 +++++++++++++++++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 222 insertions(+)
+> >
+> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
+> > index 9083f2744510..4b82823c260e 100644
+> > --- a/drivers/media/i2c/imx678.c
+> > +++ b/drivers/media/i2c/imx678.c
+> > @@ -714,6 +714,205 @@ const struct imx678_variant imx662_variant_def =
+=3D {
+> >         .hmax_min =3D imx662_min_hmax_4lane,
+> >  };
+> >
+> > +static const struct cci_reg_sequence imx675_common_regs[] =3D {
+> > +       { CCI_REG8(0x301B), 0x00 },
+>
+> nit: Maybe run a quick grep to turn the hex values to lower case like res=
+t
+>      of the driver?
 
- From https://lore.kernel.org/all/1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org/
+Already done for the next version
 
->>> C-PHY bus type is also well described by this version of the bindings.
+> > +       { CCI_REG8(0x301C), 0x00 },
+> > +       { CCI_REG8(0x301E), 0x01 },
+> > +
+> > +       { CCI_REG8(0x3060), 0x95 },
+> > +       { CCI_REG8(0x3061), 0x00 },
+> > +       { CCI_REG8(0x3062), 0x00 },
+> > +       { CCI_REG8(0x3064), 0x56 },
+> > +       { CCI_REG8(0x3065), 0x00 },
+> > +       { CCI_REG8(0x3066), 0x00 },
+> > +
+> > +       { CCI_REG8(0x3072), 0x00 },
+> > +       { CCI_REG8(0x3073), 0x00 },
+> > +       { CCI_REG8(0x3074), 0x00 },
+> > +       { CCI_REG8(0x3075), 0x00 },
+> > +       { CCI_REG8(0x3081), 0x00 },
+> > +       { CCI_REG8(0x30A4), 0xAA },
+> > +       { CCI_REG8(0x30A6), 0x0F },
+> > +       { CCI_REG8(0x30CC), 0x00 },
+> > +       { CCI_REG8(0x30CD), 0x00 },
+> > +       { CCI_REG8(0x30CE), 0x02 },
+> > +       { CCI_REG8(0x3400), 0x01 },
+> > +
+> > +       { CCI_REG8(0x3400), 0x01 },
+> > +       { CCI_REG8(0x3460), 0x22 },
+> > +       { CCI_REG8(0x3492), 0x08 },
+> > +       { CCI_REG8(0x3B1D), 0x17 },
+> > +       { CCI_REG8(0x3B44), 0x3F },
+> > +       { CCI_REG8(0x3B60), 0x03 },
+> > +       { CCI_REG8(0x3C03), 0x04 },
+> > +       { CCI_REG8(0x3C04), 0x04 },
+> > +       { CCI_REG8(0x3C0A), 0x00 },
+> > +       { CCI_REG8(0x3C0B), 0x00 },
+> > +       { CCI_REG8(0x3C0C), 0x00 },
+> > +       { CCI_REG8(0x3C0D), 0x00 },
+> > +       { CCI_REG8(0x3C0E), 0x00 },
+> > +       { CCI_REG8(0x3C0F), 0x00 },
+> > +       { CCI_REG8(0x3C30), 0x73 },
+> > +       { CCI_REG8(0x3C3C), 0x20 },
+> > +       { CCI_REG8(0x3C7C), 0xB9 },
+> > +       { CCI_REG8(0x3C7D), 0x01 },
+> > +       { CCI_REG8(0x3C7E), 0xB7 },
+> > +       { CCI_REG8(0x3C7F), 0x01 },
+> > +       { CCI_REG8(0x3CB0), 0x00 },
+> > +       { CCI_REG8(0x3CB2), 0xFF },
+> > +       { CCI_REG8(0x3CB3), 0x03 },
+> > +       { CCI_REG8(0x3CB4), 0xFF },
+> > +       { CCI_REG8(0x3CB5), 0x03 },
+> > +       { CCI_REG8(0x3CBA), 0xFF },
+> > +       { CCI_REG8(0x3CBB), 0x03 },
+> > +       { CCI_REG8(0x3CC0), 0xFF },
+> > +       { CCI_REG8(0x3CC1), 0x03 },
+> > +       { CCI_REG8(0x3CC2), 0x00 },
+> > +       { CCI_REG8(0x3CC6), 0xFF },
+> > +       { CCI_REG8(0x3CC7), 0x03 },
+> > +       { CCI_REG8(0x3CC8), 0xFF },
+> > +       { CCI_REG8(0x3CC9), 0x03 },
+> > +       { CCI_REG8(0x3E00), 0x1E },
+> > +       { CCI_REG8(0x3E02), 0x04 },
+> > +       { CCI_REG8(0x3E03), 0x00 },
+> > +       { CCI_REG8(0x3E20), 0x04 },
+> > +       { CCI_REG8(0x3E21), 0x00 },
+> > +       { CCI_REG8(0x3E22), 0x1E },
+> > +       { CCI_REG8(0x3E24), 0xBA },
+> > +       { CCI_REG8(0x3E72), 0x85 },
+> > +       { CCI_REG8(0x3E76), 0x0C },
+> > +
+> > +       { CCI_REG8(0x3E77), 0x01 },
+> > +       { CCI_REG8(0x3E7A), 0x85 },
+> > +       { CCI_REG8(0x3E7E), 0x1F },
+> > +       { CCI_REG8(0x3E82), 0xA6 },
+> > +       { CCI_REG8(0x3E86), 0x2D },
+> > +       { CCI_REG8(0x3EE2), 0x33 },
+> > +       { CCI_REG8(0x3EE3), 0x03 },
+> > +       { CCI_REG8(0x4490), 0x07 },
+> > +       { CCI_REG8(0x4494), 0x19 },
+> > +       { CCI_REG8(0x4495), 0x00 },
+> > +       { CCI_REG8(0x4496), 0xBB },
+> > +       { CCI_REG8(0x4497), 0x00 },
+> > +       { CCI_REG8(0x4498), 0x55 },
+> > +       { CCI_REG8(0x449A), 0x50 },
+> > +       { CCI_REG8(0x449C), 0x50 },
+> > +       { CCI_REG8(0x449E), 0x50 },
+> > +       { CCI_REG8(0x44A0), 0x3C },
+> > +       { CCI_REG8(0x44A2), 0x19 },
+> > +       { CCI_REG8(0x44A4), 0x19 },
+> > +       { CCI_REG8(0x44A6), 0x19 },
+> > +       { CCI_REG8(0x44A8), 0x4B },
+> > +       { CCI_REG8(0x44AA), 0x4B },
+> > +       { CCI_REG8(0x44AC), 0x4B },
+> > +       { CCI_REG8(0x44AE), 0x4B },
+> > +       { CCI_REG8(0x44B0), 0x3C },
+> > +       { CCI_REG8(0x44B2), 0x19 },
+> > +       { CCI_REG8(0x44B4), 0x19 },
+> > +       { CCI_REG8(0x44B6), 0x19 },
+> > +       { CCI_REG8(0x44B8), 0x4B },
+> > +       { CCI_REG8(0x44BA), 0x4B },
+> > +       { CCI_REG8(0x44BC), 0x4B },
+> > +       { CCI_REG8(0x44BE), 0x4B },
+> > +       { CCI_REG8(0x44C0), 0x3C },
+> > +       { CCI_REG8(0x44C2), 0x19 },
+> > +       { CCI_REG8(0x44C4), 0x19 },
+> > +       { CCI_REG8(0x44C6), 0x19 },
+> > +       { CCI_REG8(0x44C8), 0xF0 },
+> > +       { CCI_REG8(0x44CA), 0xEB },
+> > +       { CCI_REG8(0x44CC), 0xEB },
+> > +       { CCI_REG8(0x44CE), 0xE6 },
+> > +       { CCI_REG8(0x44D0), 0xE6 },
+> > +       { CCI_REG8(0x44D2), 0xBB },
+> > +
+> > +       { CCI_REG8(0x44D4), 0xBB },
+> > +       { CCI_REG8(0x44D6), 0xBB },
+> > +       { CCI_REG8(0x44D8), 0xE6 },
+> > +       { CCI_REG8(0x44DA), 0xE6 },
+> > +       { CCI_REG8(0x44DC), 0xE6 },
+> > +       { CCI_REG8(0x44DE), 0xE6 },
+> > +       { CCI_REG8(0x44E0), 0xE6 },
+> > +       { CCI_REG8(0x44E2), 0xBB },
+> > +       { CCI_REG8(0x44E4), 0xBB },
+> > +       { CCI_REG8(0x44E6), 0xBB },
+> > +       { CCI_REG8(0x44E8), 0xE6 },
+> > +       { CCI_REG8(0x44EA), 0xE6 },
+> > +       { CCI_REG8(0x44EC), 0xE6 },
+> > +       { CCI_REG8(0x44EE), 0xE6 },
+> > +       { CCI_REG8(0x44F0), 0xE6 },
+> > +       { CCI_REG8(0x44F2), 0xBB },
+> > +       { CCI_REG8(0x44F4), 0xBB },
+> > +       { CCI_REG8(0x44F6), 0xBB },
+> > +       { CCI_REG8(0x4538), 0x15 },
+> > +       { CCI_REG8(0x4539), 0x15 },
+> > +       { CCI_REG8(0x453A), 0x15 },
+> > +       { CCI_REG8(0x4544), 0x15 },
+> > +       { CCI_REG8(0x4545), 0x15 },
+> > +       { CCI_REG8(0x4546), 0x15 },
+> > +       { CCI_REG8(0x4550), 0x11 },
+> > +       { CCI_REG8(0x4551), 0x11 },
+> > +       { CCI_REG8(0x4552), 0x11 },
+> > +       { CCI_REG8(0x4553), 0x11 },
+> > +       { CCI_REG8(0x4554), 0x11 },
+> > +       { CCI_REG8(0x4555), 0x11 },
+> > +       { CCI_REG8(0x4556), 0x11 },
+> > +       { CCI_REG8(0x4557), 0x11 },
+> > +       { CCI_REG8(0x4558), 0x11 },
+> > +       { CCI_REG8(0x455C), 0x11 },
+> > +       { CCI_REG8(0x455D), 0x11 },
+> > +       { CCI_REG8(0x455E), 0x11 },
+> > +       { CCI_REG8(0x455F), 0x11 },
+> > +       { CCI_REG8(0x4560), 0x11 },
+> > +       { CCI_REG8(0x4561), 0x11 },
+> > +       { CCI_REG8(0x4562), 0x11 },
+> > +       { CCI_REG8(0x4563), 0x11 },
+> > +       { CCI_REG8(0x4564), 0x11 },
+> > +
+> > +       { CCI_REG8(0x4569), 0x01 },
+> > +       { CCI_REG8(0x456A), 0x01 },
+> > +       { CCI_REG8(0x456B), 0x06 },
+> > +       { CCI_REG8(0x456C), 0x06 },
+> > +       { CCI_REG8(0x456D), 0x06 },
+> > +       { CCI_REG8(0x456E), 0x06 },
+> > +       { CCI_REG8(0x456F), 0x06 },
+> > +       { CCI_REG8(0x4570), 0x06 },
+> > +};
+> > +
+> > +static const u16 imx675_min_hmax_4lane[] =3D {
+> > +       [IMX678_LINK_FREQ_297MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_360MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_445MHZ] =3D 1125,
+> > +       [IMX678_LINK_FREQ_594MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_720MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_891MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_1039MHZ] =3D 1125 / 2,
+> > +       [IMX678_LINK_FREQ_1188MHZ] =3D 1125 / 2,
+> > +};
+> > +
+> > +const struct imx678_variant imx675_variant_def =3D {
+> > +       .name =3D "imx675",
+> > +       .id_reg =3D IMX678_REG_MODULE_ID,
+> > +       .id_value =3D 0x296,
+> > +       .native_area =3D {
+> > +               .top =3D 0,
+> > +               .left =3D 0,
+> > +               .width =3D 2609,
+> > +               .height =3D 1984,
+> > +       },
+> > +       .active_area =3D {
+> > +               .top =3D 0,
+> > +               .left =3D 0,
+> > +               .width =3D 2608,
+> > +               .height =3D 1984,
+> > +       },
+> > +       .pixel_rate =3D 594000000,
+> > +       .pix_per_clk =3D 8,
+> > +       .common_regs =3D imx675_common_regs,
+> > +       .num_common_regs =3D ARRAY_SIZE(imx675_common_regs),
+> > +       .vmax_default =3D 1984 + 40,
+>
+> Same doubt for the VBLANK =3D 40 here as IMX662, although I don't have a
+> datasheet for IMX675.
 
-> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> ---
->   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 222 +++++++++++++++++++++
->   1 file changed, 222 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> new file mode 100644
-> index 0000000000000..17de0701eb103
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> @@ -0,0 +1,222 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm X1E80100 SoC CSI2 PHY
-> +
-> +maintainers:
-> +  - Bryan O'Donoghue <bod@kernel.org>
-> +
-> +description:
-> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
-> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
-> +  modes.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,x1e80100-csi2-phy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 3
-> +
-> +  clock-names:
-> +    items:
-> +      - const: core
-> +      - const: timer
-> +      - const: ahb
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  operating-points-v2: true
-> +
-> +  opp-table:
-> +    type: object
-> +
-> +  power-domains:
-> +    items:
-> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
-> +      - description: MMCX voltage rail
-> +      - description: MXC or MXA voltage rail
-> +
-> +  power-domain-names:
-> +    items:
-> +      - const: top
-> +      - const: mmcx
-> +      - const: mx
-> +
-> +  vdda-0p9-supply:
-> +    description: Phandle to a 0.9V regulator supply to a PHY.
-> +
-> +  vdda-1p2-supply:
-> +    description: Phandle to 1.2V regulator supply to a PHY.
-> +
-> +  ports:
-> +    $ref: /schemas/graph.yaml#/properties/ports
-> +
-> +    properties:
-> +      port@0:
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        description:
-> +          Sensor input. Always present. A single sensor is described by a
-> +          single endpoint with the clock lane at position 0 and one to four
-> +          data lanes.
-> +
-> +          DPHY split mode, where two independent sensors share the same PHY,
-> +          is described by two endpoints, each with its own clock lane position;
-> +          endpoint@0 with clock-lanes = <0> and one or two data-lanes and
-> +          endpoint@1 with clock-lanes = <3> and one data lane.
-> +
-> +        unevaluatedProperties: false
-> +
-> +        patternProperties:
-> +          "^endpoint(@[01])?$":
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
-> +
-> +              clock-lanes:
-> +                maxItems: 1
-> +
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  minimum: 1
-> +                  maximum: 4
-> +                description:
-> +                  Data lane positions following this endpoint's clock
-> +                  lane. Positions are a per-port logical numbering, not
-> +                  package pad or ball positions.
-> +
-> +            required:
-> +              - bus-type
+Datasheet lists
 
-A review comment given to v14 is still applicable, 'bus-type' property
-should be set as optional with D-PHY mode fallback.
+VTTL (1farame line length or VMAX) =E2=89=A5 PIX_VWIDTH + 70
+Set VTTL to 940 or more.
+VTTL =E2=89=A5 940
 
-> +              - data-lanes
-> +              - clock-lanes
+But verified as working at +40. (I have a module from Soho Enterprises).
+We can go for the more conservative values if preferred. From memory,
+on IMX662 it'll lose about 10% (66fps at 40, ~60fps at 70).
 
-Here 'clock-lanes' is a truly optional proiperty since its value is
-immutable in each endpoint, it should be removed from the list of
-required properties.
+  Dave
 
-Also 'clock-lanes' are not expected to be found in C-PHY bus type case.
-
-> +              - remote-endpoint
-> +
-> +        allOf:
-> +          - if:
-> +              required:
-> +                - endpoint@1
-> +            then:
-> +              properties:
-> +                endpoint@0:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
-> +                    data-lanes:
-> +                      maxItems: 2
-> +                endpoint@1:
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 3
-> +                    data-lanes:
-> +                      items:
-> +                        - const: 4
-> +              required:
-> +                - endpoint@0
-> +            else:
-> +              patternProperties:
-> +                "^endpoint(@0)?$":
-> +                  properties:
-> +                    clock-lanes:
-> +                      const: 0
-> +
-> +      port@1:
-> +        $ref: /schemas/graph.yaml#/properties/port
-> +        description: Output to the CAMSS CSID controller.
-> +
-> +    required:
-> +      - port@0
-> +      - port@1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - clock-names
-> +  - interrupts
-> +  - operating-points-v2
-> +  - power-domains
-> +  - power-domain-names
-> +  - vdda-0p9-supply
-> +  - vdda-1p2-supply
-> +  - ports
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
-> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/media/video-interfaces.h>
-> +    #include <dt-bindings/power/qcom,rpmhpd.h>
-> +
-> +    phy@ace4000 {
-> +        compatible = "qcom,x1e80100-csi2-phy";
-> +        reg = <0x0ace4000 0x2000>;
-> +
-> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
-> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
-> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
-> +        clock-names = "core",
-> +                      "timer",
-> +                      "ahb";
-> +
-> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
-> +
-> +        operating-points-v2 = <&csiphy_opp_table>;
-> +
-> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
-> +                        <&rpmhpd RPMHPD_MMCX>,
-> +                        <&rpmhpd RPMHPD_MX>;
-> +        power-domain-names = "top",
-> +                             "mmcx",
-> +                             "mx";
-> +
-> +        vdda-0p9-supply = <&vreg_l2c_0p9>;
-> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
-> +
-> +        ports {
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            port@0 {
-> +                reg = <0>;
-> +                csiphy0_in: endpoint {
-> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +                    clock-lanes = <0>;
-> +                    data-lanes = <1 2 3 4>;
-> +                    remote-endpoint = <&sensor_out>;
-> +                };
-> +            };
-> +
-> +            port@1 {
-> +                reg = <1>;
-> +                csiphy0_out: endpoint {
-> +                    remote-endpoint = <&csid_in>;
-> +                };
-> +            };
-> +        };
-> +
-> +        csiphy_opp_table: opp-table {
-> +            compatible = "operating-points-v2";
-> +
-> +            opp-300000000 {
-> +                opp-hz = /bits/ 64 <300000000>;
-> +                required-opps = <&rpmhpd_opp_low_svs_d1>,
-> +                                <&rpmhpd_opp_low_svs_d1>;
-> +            };
-> +        };
-> +    };
-> 
-
-Apart of a few minor comments above, everything else looks good to me.
-
--- 
-Best wishes,
-Vladimir
+> Thanks,
+>     Jai
+>
+> > +       .hmax_min =3D imx675_min_hmax_4lane,
+> > +};
+> > +
+> >  struct imx678_model_info {
+> >         enum imx678_type type;
+> >         const u32 *codes;
+> > @@ -764,6 +963,26 @@ static const struct imx678_model_info imx662_autod=
+etect_info =3D {
+> >         .auto_detect_mono =3D &imx662_aamr_info,
+> >  };
+> >
+> > +static const struct imx678_model_info imx675_aaqr_info =3D {
+> > +       .type =3D IMX678_COLOR,
+> > +       .codes =3D codes_bayer,
+> > +       .num_codes =3D ARRAY_SIZE(codes_bayer),
+> > +       .variant =3D &imx675_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx675_aamr_info =3D {
+> > +       .type =3D IMX678_MONOCHROME,
+> > +       .codes =3D codes_monochrome,
+> > +       .num_codes =3D ARRAY_SIZE(codes_monochrome),
+> > +       .variant =3D &imx675_variant_def,
+> > +};
+> > +
+> > +static const struct imx678_model_info imx675_autodetect_info =3D {
+> > +       .variant =3D &imx675_variant_def,
+> > +       .auto_detect_colour =3D &imx675_aaqr_info,
+> > +       .auto_detect_mono =3D &imx675_aamr_info,
+> > +};
+> > +
+> >  static const char * const imx678_supply_name[] =3D {
+> >         "avdd",  /* Analog (3.3V) supply */
+> >         "dvdd",  /* Digital Core (1.1V) supply */
+> > @@ -1533,9 +1752,12 @@ static const struct of_device_id imx678_of_match=
+[] =3D {
+> >         { .compatible =3D "sony,imx678-aaqr", .data =3D &imx678_aaqr_in=
+fo },
+> >         { .compatible =3D "sony,imx662-aamr", .data =3D &imx662_aamr_in=
+fo },
+> >         { .compatible =3D "sony,imx662-aaqr", .data =3D &imx662_aaqr_in=
+fo },
+> > +       { .compatible =3D "sony,imx675-aamr", .data =3D &imx675_aamr_in=
+fo },
+> > +       { .compatible =3D "sony,imx675-aaqr", .data =3D &imx675_aaqr_in=
+fo },
+> >         /* for non-conforming DTs that rely on runtime check */
+> >         { .compatible =3D "sony,imx678", .data =3D &imx678_autodetect_i=
+nfo },
+> >         { .compatible =3D "sony,imx662", .data =3D &imx662_autodetect_i=
+nfo },
+> > +       { .compatible =3D "sony,imx675", .data =3D &imx675_autodetect_i=
+nfo },
+> >         { /* sentinel */ }
+> >  };
+> >
+> >
+> > --
+> > 2.34.1
+> >
