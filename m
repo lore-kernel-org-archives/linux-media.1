@@ -1,236 +1,356 @@
-Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com [209.85.160.53])
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9216B46DFF6
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 11:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.53
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788436038; cv=pass; b=Uv0O9/VZfnfonuaCX8F7uWm/4BSW63n2tp0jKWqpU4LZJB1JGsM3fqXcS7SEj3csVtp6GnPGRdpUAHAvwHhKEHkLY54uqDZXKPemLcFmk95hvoTPhfxHuFra1ynOgP0XUoHFBOGvh/EhSlL6GOYFc6+PZjnbqfN2NXSvsl1BSG4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788436038; c=relaxed/simple;
-	bh=5yzaVabpPxw5RXtOFZG6OegQNvc0fKUaFe2aJ4JqkjY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MSu3YEE0ZysmbBtOvVWRnanwzQd6zAGMLOH1hVwePL8LYPynRjZuZz05DVIdg0tGPUAlyDoXah1dPhsehmxQI799djtg2U/IDg8CRZ2gyByoKnvOSbNBsSsx9U0K+GanS//IyhXgXwAgJrvhNDkmRUvhp5UcD2PTQcFscyTSJ3Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com; spf=pass smtp.mailfrom=raspberrypi.com; dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b=kYjHylo+; arc=pass smtp.client-ip=209.85.160.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=raspberrypi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=raspberrypi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F35247ACC0
+	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 11:53:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788436412; cv=none; b=DrTAD1PPJG8PKruKtlOgYoFp3J6WtXQVkvX5vIRN6//+9Z0Nw7eTfUq/j+XCLlRrK+OWjxzd2vePh2a4HiJKz2VfGFt5sCxmmP8ULN5o+YxpLhn4DVDWftBi7VAsZxiz7gt9lvheN9PLiKHpizpYwmoraEO3MFknk3iAkh+cM/8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788436412; c=relaxed/simple;
+	bh=n5ctRfXvrUaJX4olBTeuOGHj+PO5gbXXUrz1f2Frvss=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FO+a0SQ4vY9XSTeMPK8bf9whq4RqmyIYx4J09X7gJdKQgFFdwH69eLV6ZWiOVEiFh9ooiQs0PKXe3sILsYiH31gDn4Qt/S1o0xNlRq5sQcVPwXaobwkvhbkd/1j1ngLoNgmkbxvm+wgit85u8+L35ESLfCXz9MbpygKwITV9wuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=gL73X60l; arc=none smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=raspberrypi.com header.i=@raspberrypi.com header.b="kYjHylo+"
-Received: by mail-oa1-f53.google.com with SMTP id 586e51a60fabf-46b037da544so1111654fac.3
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 04:47:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788436026; cv=none;
-        d=google.com; s=arc-20260327;
-        b=JxowQRXRZ5zr4UKz9xicLjlJHnCeR/93+jPC/t65taiMzqdWKwDuNxS/D5kcg8MfgC
-         kKZoqM8Q0fFmq9JBC19BiymZTbeyhR/9QnGo1Uc6WWQQgkAFh/2ybKU5D/MCHVrUnyg3
-         eVXQe5cwJm+ICVe0XpkbwTGh63ilMvF7G7cE2SCvpAHjZjjmPt4aFiI6ymMMeIl/6XZb
-         mSbn+uEbtQwCRKA9VfQDUq0yw26TMDgi4KAkgdAtuyLzzjlXAyZu1AuTs1clHDk+9CLt
-         3eQlAFYj1gGBQrPGjEk3LDgFiKVhjuzcxTRoS/hsSRhx8GOMvKp3KSGwsDoa+7TUD3UR
-         af3g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        fh=cfz9VG4Nb6dy3e4auA0HJwW8zSDXPHj385/95ZwLyxI=;
-        b=i520kEJw6CmDTE/Pk3qKO8BaL/DUgmgvCW4MW3IPnGv7nDFgzydfcdnmjCzibl0xDp
-         vYw18XgUwX08WbdwIgYzqozZbzMGYukssFy8Qt53Sq8IEULI5MNs/eEA5bcmF6LK9E+w
-         w+U8Qo3r0TAEnYPG0SM0T9pFkqEuGrfgfzInIcJwfVHemWf0v+sWy0v85BWGh8K9jy0V
-         wAAtCF8fj58rrQ1eHV6vTIJp7uipgQBRAw1D1Xs5f8YceDOQFD5Wg/DL9YVybK85amu4
-         UAS+E+fySlakOx6f6uZQ6ZvTk8VMUYVZUxG25Ejr8qDjGSHuyz1qA0MauZWLh3gU2B3B
-         QnDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="gL73X60l"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b4a9175181so263855e87.3
+        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 04:53:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=raspberrypi.com; s=google; t=1788436026; x=1789040826; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        b=kYjHylo+ex1HszaofgBXyyVB+T/8rEM4tHaEz/5GJrNwxO4j8q2D8TFA7vW8CGpIUJ
-         Ii6Hy9VdLdzYSTu6DjEnIX4aahzvbg0H5Qk+JpV4R5fWTMU6MNA0g5ucQtOEkKI9g3p/
-         RDn0m90CE71BtPbDGNcDJsVn31nQj0Ur+7MP44N/Y4bUml7PwAAAWjJpxfCtMR3tA+K5
-         H7bjiq2A/5SXAp3iXALUp+Xkm5JgHvipLtm0yyhW+G1ujOA9RbBShIlKRpfCKyk0NH62
-         jqDU0HMsL20zZFinL/VyjDYFgiZ12NxDaHUpUbGiRz/b7WYqKPvTd7rZ84hGT7j7ySVi
-         DPqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788436026; x=1789040826;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+        d=linaro.org; s=google; t=1788436404; x=1789041204; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=RBEbqnMOR/S2Zl8aGgmKKnttxc/jbqek/oBPL6ncjNM=;
-        b=eGPqD18BkWViRjZfzLDFW1RhwmDOKqT4G4gwsd0KT1AFN80/DmG4+MWRo+VvmJXv2t
-         95+mLb5Txu4Ci1miQcGPeDHWcYgkFXFoUvoS8oyJNVjQ/JKBccSBoYJxlg4si6NAwJsX
-         vSfaCBL1JqS6kwazGxWs28X9AUoqK9z+0OwRtAdiUJc1Trm3JiRvbqKXusQ+JN/J3Cjc
-         LpnUTlG+JV0H0k21qNM8l8j0+NEOsEEFuJsIjL0FkmrCIA8WvMF7vEfDKhwpXDd5TD8X
-         Q3k67SnchKh8MHJlWj1QqPIxaqplaBXb1WI9OyrZ+3YiDhW79objZFNoW0n6dVUqXsur
-         nYmw==
-X-Forwarded-Encrypted: i=1; AKwUvBz3DA5qEdqb1Jvl4yocKq/Nt3wsPwbsgZjqWFEXlIpD/tfAOwOBNG/UdD207ATg1VGxWpAmp+Ej0WThGg==@vger.kernel.org
-X-Gm-Message-State: AFuF++nXZuPo43ysp4dLAnd3p6VJ/jN+3H0GUoCBigO7inA4SnyRJnNS
-	S2vykaKAGr9YbGiCLbXJBGHGEgY5EfzoM17SPYCUNQgrCbCyaxP/coXLm7CQ+sMZbzK/XZOTjeb
-	uBhvo7Is7qTV2dkx95lCqJ+XlJI3E98KH1TTZ6PRqc3UEmCAa8oxbS/A=
-X-Gm-Gg: AYBFou2spdIYbzeUwVOpM+J4LGTOJ22q4Y4Jfx4+8VSa7MQcJeXfqrogJwDMM7gsTIz
-	sx6OBlwRGpSfIy1fwKN76i/DT0f3dRRR709BpZankWOTuEDeZ8dOyH7ayo2uTzg/riSkJQZKBdn
-	didzy+VsO5FgvzVBRbkUIwBR13VouNDN/wyM/xhRoDno4/dgPWKee+pfbOexsHQEWLTJNgIiuY0
-	94QeMiNXs0obmqhL0Vxe6WH1b5ocWJ8v+yj6AEQmSJknQpVNej0MGEpbKVljQXL9eaTYhz21kqi
-	bqD6Q8AIdLPhuEOVtszr/LSseT61Jolo8NdKQYFhZ2f8NRnYETcOGgK7tSqE4Q4dYPEOjvkAWHF
-	ZvAHE+9BE0H1aJsDvNqbb69zQBE4Zu9ByUTWVYMTU56HATvGoI4VMr9mUZBeJPg==
-X-Received: by 2002:a05:6871:c921:b0:442:175:cea7 with SMTP id
- 586e51a60fabf-46f85e01f72mr10128824fac.1.1788436026484; Thu, 03 Sep 2026
- 04:47:06 -0700 (PDT)
+        bh=YlAxcekko1WzQ9ej7nCP/3I5A9S1XkCyAocKTij2/Qs=;
+        b=gL73X60lhEAN95JgdMhMGAtLsNyJpdOj5nIWnsTUd0mBYojsbW5HfXrMU2ekHbt81H
+         bVKDgJz2mokkmYRMgrZZKQ4XA6C9FPXXgi/zv/03m8s+FQ8T/KXHWw4UTphcnaHsmovQ
+         pyWyb+cU9zRCgEx3F8jdbabaYrJnxeSHld0kjT5HUR4L2nbD97U+bf2+mjJifOLOLMW/
+         KZSFULryGDPt4cdHJYL3305StOthvSIIgjyY4ea+dctVBHPmhpkARO+eyzdreBjDDtHn
+         ULz5JPIzbmYvhYxW09X5v8XmQpQFkTcblGh9f5K4AkpoMXCfDHCG0RuVU8dCVoCpTiHO
+         ELNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788436404; x=1789041204;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YlAxcekko1WzQ9ej7nCP/3I5A9S1XkCyAocKTij2/Qs=;
+        b=Gg3Gb62InFl+rMpHieNI9/jPHZJqbMveUVx3sAwXOk/ugsu1EEsx3JFC7EYXBNikrP
+         Dff36izoR095RBYl1FpIB8XVG7WcFEkeSJD2dBIAVdepba3dSxq5SHM2t0wJv0+n4CWF
+         /myRjVZnXETz7pHNp4uiz8FFad0DGK5B/O+utM4EiOJjTVl3r3wgn3QkOgt2jAqmqMSF
+         D0PrqKW/vcbX4aycvf1hlQ6piHJCHdlCKptS5QrSjW89bckxIIaAP18HEDhOxB84z3kE
+         mwfduKy8eJNGZfoRCVz4+K2zVrcXg27VIGVfZEHG1xM+dfbacAC30KUZ+45OmOrlrewT
+         FvoQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxdehkrzSQ5IJgvZ+lTw2u5YJ7dxqLq/rP/QhheRzfH0A20hiOEHVgjnGIhioDYkO+MyAVUX7S0c4mWVw==@vger.kernel.org
+X-Gm-Message-State: AFuF++lkeB7Wgh6H0QEUhwTtCQQyt8SS+fPFMMrmnPqDuNHNk7jCqJ92
+	qdNdqwyOElRurF4NgwEIlWbMsfTEf/8E9JdDvgVYbGj1SDSbJLHn5WvTwUC81a0zPgU=
+X-Gm-Gg: AYBFou3EDOcg4S0DZ4/85Uxx/awR9mJGX8+VbHAPEzYzGuFONO1MlNV7HTz8GHDbPtz
+	Bq82/Zy6wNRyQWquvWh6bH2zCmElMMjDW+InV+vo2lFKsTXp5TdI+e5St29LLd4anuSrY34GDpR
+	xX4a32K6Rvxnj3aY0en2LlWArjdm54dsMNUW89nb9YGwEOhblQQ/K1Ln1wf39vajh/57vKYJx/Q
+	3xnb8SCw5O2XEDvkEUpOKL8UpTqU54guyHmBeFrr1zMcnc9HHi7TL3862LmT4cJIDqNhXe4sm3W
+	y5CGGYQkoEzH3QRHYpdyUYspUGCPF3OZzZSxEbnBJb4ZGhstoyO99Zi6tjZecOVO1uX0fAqgGvl
+	N7hDgYHKAscQPpALLu8rxtHU24w8mGsX5mssWUliQyQfUUx73Jf4TxWsAqmAdJC2WFQz6UUqqOG
+	Ae3hRA21hS+EcfJPNaq7PORj9zkBU7WSsm4zKxoPaK6S60cnBRxRy57JkRX9YY564+2aLCJwj7U
+	5BxPVg+SsGgBNkhcu2Y5QfreWJNJov86GiDOy90Gg==
+X-Received: by 2002:a05:6512:2350:b0:5b6:4ae:19ef with SMTP id 2adb3069b0e04-5b608810e61mr1613364e87.5.1788436404014;
+        Thu, 03 Sep 2026 04:53:24 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a34ad21ef8sm11778701fa.28.2026.09.03.04.53.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 03 Sep 2026 04:53:23 -0700 (PDT)
+Message-ID: <9b0ac659-999a-4caa-8578-f34a39a67e4f@linaro.org>
+Date: Thu, 3 Sep 2026 14:53:14 +0300
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260805-media-starvis2-v1-0-91e8e4eae44f@raspberrypi.com>
- <20260805-media-starvis2-v1-3-91e8e4eae44f@raspberrypi.com> <178840924662.11722.12680340547715469059@freya>
-In-Reply-To: <178840924662.11722.12680340547715469059@freya>
-From: Dave Stevenson <dave.stevenson@raspberrypi.com>
-Date: Thu, 3 Sep 2026 12:46:48 +0100
-X-Gm-Features: AcwNN1V_rdED1LTqBqth4XivSuKPAiq1rGIGwj4L0ffVbXE0kyqHxqrMRNIHSmk
-Message-ID: <CAPY8ntCQQhPiGoJFOADY-0q7QtKbi3XiCYHz1A6qogwhUdnL6A@mail.gmail.com>
-Subject: Re: [PATCH RFC 3/4] media: i2c: imx678: Add imx662 support to the driver
-To: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Alexander Shiyan <eagle.alexander923@gmail.com>, linux-media@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v16 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY
+ schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260901-x1e-csi2-phy-v16-0-dd863b929080@linaro.org>
+ <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260901-x1e-csi2-phy-v16-1-dd863b929080@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Jai
+On 9/1/26 23:15, Bryan O'Donoghue wrote:
+> Add a base schema for the MIPI CSI2 PHYs on Qualcomm SoCs. This PHY
+> supports both DPHY and CPHY operation. A special mode of DPHY operation -
+> called variously split-mode or combo-mode also allows for two sensors to be
+> connected to one PHY.
+> 
+> The submitted binding here describes the DPHY modes of operation only. CPHY
+> is left to future work.
 
-On Thu, 3 Sept 2026 at 05:20, Jai Luthra <jai.luthra@ideasonboard.com> wrote:
->
-> Hi Dave,
->
-> Quoting Dave Stevenson (2026-08-05 21:39:18)
-> > IMX662 is a 1080p Starvis 2 sensor that follows the same programming
-> > pattern as IMX678, so add it to the newly parameterised driver.
-> >
-> > FIXME: Update the common registers based on the Sony spreadsheet.
-> >
-> > Signed-off-by: Dave Stevenson <dave.stevenson@raspberrypi.com>
-> > ---
-> >  drivers/media/i2c/imx678.c | 64 ++++++++++++++++++++++++++++++++++++++++++++++
-> >  1 file changed, 64 insertions(+)
-> >
-> > diff --git a/drivers/media/i2c/imx678.c b/drivers/media/i2c/imx678.c
-> > index 40ba6661b366..9083f2744510 100644
-> > --- a/drivers/media/i2c/imx678.c
-> > +++ b/drivers/media/i2c/imx678.c
-> > @@ -673,6 +673,47 @@ const struct imx678_variant imx678_variant_def = {
-> >         .hmax_min = imx678_min_hmax_4lane,
-> >  };
-> >
-> > +static const struct cci_reg_sequence imx662_common_regs[] = {
-> > +       { IMX678_REG_WDMODE, 0x00 },
-> > +       { IMX678_REG_MDBIT, 0x01 },
-> > +       { IMX678_REG_XXS_DRV, 0x00 },
-> > +};
-> > +
-> > +static const u16 imx662_min_hmax_4lane[] = {
-> > +       [IMX678_LINK_FREQ_297MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_360MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_445MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_594MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_720MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_891MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_1039MHZ] = 990,
-> > +       [IMX678_LINK_FREQ_1188MHZ] = 990,
-> > +};
-> > +
-> > +const struct imx678_variant imx662_variant_def = {
-> > +       .name = "imx662",
-> > +       .id_reg = IMX678_REG_MODULE_ID,
-> > +       .id_value = 0x296,
-> > +       .native_area = {
-> > +               .top = 0,
-> > +               .left = 0,
-> > +               .width = 1937,
-> > +               .height = 1101,
-> > +       },
-> > +       .active_area = {
-> > +               .top = 0,
-> > +               .left = 0,
-> > +               .width = 1936,
-> > +               .height = 1096,
-> > +       },
-> > +       .pixel_rate = 222750000,
-> > +       .pix_per_clk = 3,
-> > +       .common_regs = imx662_common_regs,
-> > +       .num_common_regs = ARRAY_SIZE(imx662_common_regs),
-> > +       .vmax_default = 1096 + 40,
->
-> From the IMX662 SRM I see the following constraints for minimum:
->
->     VTTL >= PIX_VWIDTH + 70
->     VTTL >= 820
->
-> And the table giving round FPS numbers like 30/60/90 assumes VMAX = 1250.
+Like I've said in v14 review, the statement above is incorrect, and it has
+to be changed, for whatever reason it hasn't happened so far.
 
-I find it weird that Sony's datasheets fix the number of vertical
-lines and extend horizontal blanking for frame rate control. That'll
-give you the worst case for the rolling shutter effect, so why would
-you want to do that?
+ From https://lore.kernel.org/all/1e1bc17a-4c7a-4c08-b0c8-2a2ff31fe870@linaro.org/
 
-> Did you manually verify that setting blanking to 40 also works?
+>>> C-PHY bus type is also well described by this version of the bindings.
 
-Yes, I've verified that vblank of 40 works.
-This is why I queried the values in the IMX908 driver that Lachlan
-sent, as the datasheets always seem overly conservative. There may be
-further restrictions if you enable the various HDR modes, but we're
-not there yet.
+> Suggested-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> ---
+>   .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 222 +++++++++++++++++++++
+>   1 file changed, 222 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> new file mode 100644
+> index 0000000000000..17de0701eb103
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+> @@ -0,0 +1,222 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm X1E80100 SoC CSI2 PHY
+> +
+> +maintainers:
+> +  - Bryan O'Donoghue <bod@kernel.org>
+> +
+> +description:
+> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
+> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
+> +  modes.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,x1e80100-csi2-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    maxItems: 3
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: timer
+> +      - const: ahb
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  operating-points-v2: true
+> +
+> +  opp-table:
+> +    type: object
+> +
+> +  power-domains:
+> +    items:
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +      - description: MMCX voltage rail
+> +      - description: MXC or MXA voltage rail
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: top
+> +      - const: mmcx
+> +      - const: mx
+> +
+> +  vdda-0p9-supply:
+> +    description: Phandle to a 0.9V regulator supply to a PHY.
+> +
+> +  vdda-1p2-supply:
+> +    description: Phandle to 1.2V regulator supply to a PHY.
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        description:
+> +          Sensor input. Always present. A single sensor is described by a
+> +          single endpoint with the clock lane at position 0 and one to four
+> +          data lanes.
+> +
+> +          DPHY split mode, where two independent sensors share the same PHY,
+> +          is described by two endpoints, each with its own clock lane position;
+> +          endpoint@0 with clock-lanes = <0> and one or two data-lanes and
+> +          endpoint@1 with clock-lanes = <3> and one data lane.
+> +
+> +        unevaluatedProperties: false
+> +
+> +        patternProperties:
+> +          "^endpoint(@[01])?$":
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              bus-type:
+> +                enum:
+> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
+> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+> +
+> +              clock-lanes:
+> +                maxItems: 1
+> +
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  minimum: 1
+> +                  maximum: 4
+> +                description:
+> +                  Data lane positions following this endpoint's clock
+> +                  lane. Positions are a per-port logical numbering, not
+> +                  package pad or ball positions.
+> +
+> +            required:
+> +              - bus-type
 
-  Dave
+A review comment given to v14 is still applicable, 'bus-type' property
+should be set as optional with D-PHY mode fallback.
 
-> Thanks,
->     Jai
-> > +       .hmax_min = imx662_min_hmax_4lane,
-> > +};
-> > +
-> >  struct imx678_model_info {
-> >         enum imx678_type type;
-> >         const u32 *codes;
-> > @@ -703,6 +744,26 @@ static const struct imx678_model_info imx678_autodetect_info = {
-> >         .auto_detect_mono = &imx678_aamr_info,
-> >  };
-> >
-> > +static const struct imx678_model_info imx662_aaqr_info = {
-> > +       .type = IMX678_COLOR,
-> > +       .codes = codes_bayer,
-> > +       .num_codes = ARRAY_SIZE(codes_bayer),
-> > +       .variant = &imx662_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx662_aamr_info = {
-> > +       .type = IMX678_MONOCHROME,
-> > +       .codes = codes_monochrome,
-> > +       .num_codes = ARRAY_SIZE(codes_monochrome),
-> > +       .variant = &imx662_variant_def,
-> > +};
-> > +
-> > +static const struct imx678_model_info imx662_autodetect_info = {
-> > +       .variant = &imx662_variant_def,
-> > +       .auto_detect_colour = &imx662_aaqr_info,
-> > +       .auto_detect_mono = &imx662_aamr_info,
-> > +};
-> > +
-> >  static const char * const imx678_supply_name[] = {
-> >         "avdd",  /* Analog (3.3V) supply */
-> >         "dvdd",  /* Digital Core (1.1V) supply */
-> > @@ -1470,8 +1531,11 @@ static const struct dev_pm_ops imx678_pm_ops = {
-> >  static const struct of_device_id imx678_of_match[] = {
-> >         { .compatible = "sony,imx678-aamr", .data = &imx678_aamr_info },
-> >         { .compatible = "sony,imx678-aaqr", .data = &imx678_aaqr_info },
-> > +       { .compatible = "sony,imx662-aamr", .data = &imx662_aamr_info },
-> > +       { .compatible = "sony,imx662-aaqr", .data = &imx662_aaqr_info },
-> >         /* for non-conforming DTs that rely on runtime check */
-> >         { .compatible = "sony,imx678", .data = &imx678_autodetect_info },
-> > +       { .compatible = "sony,imx662", .data = &imx662_autodetect_info },
-> >         { /* sentinel */ }
-> >  };
-> >
-> >
-> > --
-> > 2.34.1
-> >
+> +              - data-lanes
+> +              - clock-lanes
+
+Here 'clock-lanes' is a truly optional proiperty since its value is
+immutable in each endpoint, it should be removed from the list of
+required properties.
+
+Also 'clock-lanes' are not expected to be found in C-PHY bus type case.
+
+> +              - remote-endpoint
+> +
+> +        allOf:
+> +          - if:
+> +              required:
+> +                - endpoint@1
+> +            then:
+> +              properties:
+> +                endpoint@0:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+> +                    data-lanes:
+> +                      maxItems: 2
+> +                endpoint@1:
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 3
+> +                    data-lanes:
+> +                      items:
+> +                        - const: 4
+> +              required:
+> +                - endpoint@0
+> +            else:
+> +              patternProperties:
+> +                "^endpoint(@0)?$":
+> +                  properties:
+> +                    clock-lanes:
+> +                      const: 0
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/properties/port
+> +        description: Output to the CAMSS CSID controller.
+> +
+> +    required:
+> +      - port@0
+> +      - port@1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - operating-points-v2
+> +  - power-domains
+> +  - power-domain-names
+> +  - vdda-0p9-supply
+> +  - vdda-1p2-supply
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
+> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/media/video-interfaces.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +
+> +    phy@ace4000 {
+> +        compatible = "qcom,x1e80100-csi2-phy";
+> +        reg = <0x0ace4000 0x2000>;
+> +
+> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +                 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +        clock-names = "core",
+> +                      "timer",
+> +                      "ahb";
+> +
+> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
+> +
+> +        operating-points-v2 = <&csiphy_opp_table>;
+> +
+> +        power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +                        <&rpmhpd RPMHPD_MMCX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "top",
+> +                             "mmcx",
+> +                             "mx";
+> +
+> +        vdda-0p9-supply = <&vreg_l2c_0p9>;
+> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
+> +
+> +        ports {
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            port@0 {
+> +                reg = <0>;
+> +                csiphy0_in: endpoint {
+> +                    bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +                    clock-lanes = <0>;
+> +                    data-lanes = <1 2 3 4>;
+> +                    remote-endpoint = <&sensor_out>;
+> +                };
+> +            };
+> +
+> +            port@1 {
+> +                reg = <1>;
+> +                csiphy0_out: endpoint {
+> +                    remote-endpoint = <&csid_in>;
+> +                };
+> +            };
+> +        };
+> +
+> +        csiphy_opp_table: opp-table {
+> +            compatible = "operating-points-v2";
+> +
+> +            opp-300000000 {
+> +                opp-hz = /bits/ 64 <300000000>;
+> +                required-opps = <&rpmhpd_opp_low_svs_d1>,
+> +                                <&rpmhpd_opp_low_svs_d1>;
+> +            };
+> +        };
+> +    };
+> 
+
+Apart of a few minor comments above, everything else looks good to me.
+
+-- 
+Best wishes,
+Vladimir
