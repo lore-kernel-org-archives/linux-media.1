@@ -1,156 +1,193 @@
-Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com [209.85.208.51])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530D34B148D
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 14:01:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788444084; cv=pass; b=OV1CbIgh27hFuTgcwxxrjiC9LBwdcqr30i8HwOn07yiuUtzCB4hyz5L8MACG4OBiHP7P2XYC4d2/NsXnpUHR5W8srw7nchRm6xRA9PaR0RFqhHvB6tOlyWQPP/Zfj/ec8W9qG//LhKD6cj86DiFYpf1H3FyWHHQADoLtp1PaIsU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788444084; c=relaxed/simple;
-	bh=W/ZhzYyuVms2wSvCuj+zW2Oqgu5ZoLzyqaYyoEnm/KY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r5LBYiBzMEXdArPMIml1j7JiHpbjC6WZYoOTbbHgENanJ5+e8DrKcZUgFU9nC/orcvQUdr3P8yBakhB1BxPOJUkDMHoW4KQh2/0AcIpm3OFWhQwdPYbUgCVIQFECJf9K2QNfBl2d8p18dho8GnTaI/Gdi4jfmtn7ZWkSBQT+xvI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CaHIehkY; arc=pass smtp.client-ip=209.85.208.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BB04B339F
+	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 14:15:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788444973; cv=none; b=ZtpYsj21Q8eLR5OzlCQ5G8yJ0Cjs5Er84Y4FEod92fSgJXdOTXDIctkTYrmpMffQtRSpf06892TDhU0FsiNYy52EAhXuO/QPa6r4pRRmIoZBT2GkoOAVB/Utqo23Bh9PEsQqKNbfFU1w/DawSADZMh7P15ocaOkChb0HyPABk/c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788444973; c=relaxed/simple;
+	bh=UUoCs3OS1DpEKPOf4QHK0Gnr950LiLZG3z9kQysx8iA=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=EiGNDCjAti8Mf671HSNVO9aYiYMBvmjSS83s54Ws3MznhGUXTR9NDiwYvE0H6mhPYD9PxRO71s8bxTwkBTUoW2wdyvQiS20Kowg3ZfN2YnFims3SROA/M9X0nXCzZYGxCojvXU1OVfk+5rRME5vPVy9rtZfrN3rlwMULSgd8vFw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cqqz5c/4; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CaHIehkY"
-Received: by mail-ed1-f51.google.com with SMTP id 4fb4d7f45d1cf-6a0de062db5so814994a12.1
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 07:01:11 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788444065; cv=none;
-        d=google.com; s=arc-20260327;
-        b=CCz/CfWbTDEsIF+749RBxMI4FhLveQUVJiHxNUoig09LOvPkxcBWJIoTQ7ZDm5KpoB
-         REvpREYh18930DJFhCLkhZ34DhrALBKES25Y6/Z/bnavBNuy+2G56/sZuhAdWx9RneqB
-         KtziULPZCAjgDT2rPvVcI2fITguc0rAG2im4jSKblA/zYE49UUj9eQ+lCZPLb/zOxcyA
-         q+wHWzi0zITMjuIpjlKPV+c5zVx48cL3XRUojT0tinEjnaPOaYClVLUatReQ7a5bO8cZ
-         rfKwfGf/D/Ws/koX8RgBefdDZ2dxMDpb5Tz/+SWxjn9LOqCgB6lz7ToAbSfP7ypshtr6
-         lhfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=o7o2saOOdNbey7P8OnQtW1dHvAKknp6TT0oyR0mR9C0=;
-        fh=gLj0eG67o4k+SN0tb2Lo2jMio8OdCJ2dYjgrrAN4014=;
-        b=YkiKNc8TwudLXd1QTEdZOa5Gfj1iGbpdO0MR7lFdcp9ZpA5EtcSA2c1a1a53IQCiDV
-         XXclNAJWq9xrkwVBahWUzyyP6DzU5jKXh4LUSLEnH928VFD+p3tcvI0FOyPoJW44a8hX
-         JIA3EFvOPiDc9dZ9bAAVIQrw8nFE6OjFfEzEpKK6H+wlZjVPP+ETwIyS0nX5uY8/XW1K
-         ACHw4CwT/PmMc7EJhQzELFmY7mSyNB0TiX8+1irsdhVMx4w5LoITSsr6w28Vmu1z6oDS
-         pR9YM3kJgV5KEnpyJkvukspaiyJHlG0eDFJnkEzTw9TsT5t+INUl80dmdGfkVQbQvEcB
-         DN5g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cqqz5c/4"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-38e58034d05so2068763a91.2
+        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 07:15:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788444065; x=1789048865; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=o7o2saOOdNbey7P8OnQtW1dHvAKknp6TT0oyR0mR9C0=;
-        b=CaHIehkYBVU3F4NVcMelqG9bkOH6YD8y4KiwfHW+yDR5TROAMH7naiLZiZa+AIzzIq
-         rbsZyfBtsSCFYcIy5w/iq17X+fasmYALTuwMKoZxxAq6TbElz8ji7WYXUH4nOPVtdGUI
-         BW43Y8q67P8jKEE+/K2MWlptPCemBVNWsCBsb7bn/E2QH+wUS3ZGVWjrzXS22D0P1nw4
-         0pOrCKKED4Y1lTNVCm4vqyRd4npPFRLgJeYZ1SI28GfmcTDRxPSmB3M5aHp+ProudAOd
-         6z1/MZhkLsIsdWFAVL74NkIEhpJ29LUqQqkUyl3+g5KfF4yq0dB1jTZqjPQ6j4AtoFz6
-         6MMA==
+        d=gmail.com; s=20251104; t=1788444953; x=1789049753; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
+        b=Cqqz5c/44snunzLcV09QO2GkN8HQHyV27leGmNheGUk7hu0GeScRFj+k7lBzulgcoP
+         ptTrE6WUEDMyrCAmXSZyivs3MrgHZ2yIxKgAAq8baGpXNTlrClEPDM9EfQSATTW0n+bO
+         3VzhfsN04Fm4Pq2RNTFB41LuwbqvbT7zqh1P856F/FC8wWOHCEE0FYVqzdZjHiUd/FUF
+         F04dBva+GG24/yFuhDItlcyS7+5kPODQRxA731o4eSnxfUxsp4Z5PqZc02RImivOtb/I
+         9j9P6wQ6D9/5v6kj6fZCIPYGj8/nQJLRjdxjQUKSaJ5wGMhMGiUoCn+rqb2ooji63md1
+         onbA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788444065; x=1789048865;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o7o2saOOdNbey7P8OnQtW1dHvAKknp6TT0oyR0mR9C0=;
-        b=n33DBpg5rd/U29WxndXOqCvjnhME8qCrH/i9TZFe+6iyxtxfj97MZEvpa72rVQWLSh
-         8FIc0OdnksFYHkJeF70C6X2O56SEOJE0IAC1N4du7dsQ0TTwP7i5ZCf3/aoNquSturbH
-         Hq5j9BxcOiwUg4N2HMYOtUUhwO8ZW9biPKRkr1xrZiWJvKvlCSV1gJecGN/+YmeF5qUZ
-         lzqN+sMQev7bZS830oDjqE98SGNPgOC4E18SEbZa8Pg30KIOhkLTVdemBbaKAvqWftw9
-         DFgJsG/6WH5QXFe4VgxCDEQd33KAiSdhgKEjEdPWBkihrknxFX/lHMhj0Mxr0I+f3HqH
-         EYWA==
-X-Forwarded-Encrypted: i=1; AKwUvBxwxb/n8uD2BfGlpWlmun/Ku8vordD+K/ec/rG7KuHKZH5idG/T6hw/iHUJ7faztYgc1V/2muqnnT7s4A==@vger.kernel.org
-X-Gm-Message-State: AFuF++m4v/sY2dIrlpbhc9cpg6LD6IDU0nYy6OBNNe0K+AWP6D1lTVBp
-	jARaPMRHxXCQDOg27maVHlFLQdyBmeu/hswvpJ1fjXV6FL2MxCakI4lAyxTXgdd0BBLAtY3X5jg
-	9TXjQFIlynR7iyeGmc8ciuJ+FI7c1+LU=
-X-Gm-Gg: AYBFou2bciJABYV9s4ICjOWQkPE8RmHN2o85wI6JpNBy9R/UABap9fgd3YzfxV2iiLT
-	41lQH7Ign+Q1GMQK+MZW8fA9BuignMsOWtIRxjDECZGye7SvmZqak8wqOnntkQ6xFi2iuECJ+tN
-	Of3ABcj59e9/gKavuAWqnIwKYs6olq9KkEYcTsb4Ksw0KcFNgplDPIWncxVZFz+uyIDKen3vj+Q
-	GVx7KPnpxWrFfebN1O1ZM/lUQECJPocLtXRXcppCuBtuekrTeEBZtiPzLaQBToeSFvVuVTK62C8
-	gZTmG50aQsErE7QjUz0i+3zReth5hxmSwDxUSRCSnF+sBF/1/ELKuHakrsI9U3W4ow/1TWIfxQQ
-	j92RDYZDYC93kkE/XHwHmcl5Nkpf0YEoiiU6WhXNJ4QfaUnIKXuaEUHnaffZmrjJwoCNw14qkqF
-	8KYesWwFGMtF5ETaAG/qlYxxu8idQwTw==
-X-Received: by 2002:a17:906:8e0e:b0:c25:c651:fa70 with SMTP id
- a640c23a62f3a-c260474e8dfmr39283966b.13.1788444055893; Thu, 03 Sep 2026
- 07:00:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788444953; x=1789049753;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JTI3IpCba426eFljnzXJ2cqFQiHThODtSzi4pevtE/Q=;
+        b=lGT/+YA75T1EbUsg8N8yKgB/0GPAFs6+UgHVIEjGP1DoKO8OPzJohA5s3nu0XP//eR
+         FZSx7DMzOGD2QpYlfOa88ItqovUjeYEg5WvtwReXIBhmKIlSsdbDFrmvY+U1gAX4AQuU
+         fvgET2+4I6mD1+lSlEvVMrrS/JCGsgt+8cWXhOcR8lsCTJZsKKKWHXnlOlsQwChvbVGY
+         bxGuIpc+v4nZqSVW3JXtjVVf8mi7GTxdmbmhnTbKT4wqWz77Po/GA39O0+6OL4TUIfaN
+         srKMCqkF9NqgHu8sNQJmag0rQIMVA1oqq61nqZxeKc84nUFGJdvRi9mMIV+MiuSPO6b7
+         8pbA==
+X-Forwarded-Encrypted: i=1; AKwUvBzsck8W9lGzpBfIz2rSPzMYqqxzuNVCi4iA5AESnVHXiQ2po+nA4MeRzrg1Q4PTc9PXWitg+dhfCbY2cg==@vger.kernel.org
+X-Gm-Message-State: AFuF++lNTrFw3tb9iWjyLWowGM7CyQgD1hofxLlTWC4OE6lGBIiYAkSi
+	kKTfglgpLt3jywAQYgLzVFjNEorHsQ6k1IlhLtFycYu3ZbmSQMtgJ9IG
+X-Gm-Gg: AYBFou0yYXb2drXIHvL0k++BR/Eyeknn5+LabV8BSduQPcQOsHMbm1FxUvIYD2qZjbw
+	lCgsh5zw8Ah6QXHZNhaR0W6hwU5adjjR9bHQbwcNe8eQXuC3vrBCOAKRU4ANgaklddQPybIkiEx
+	EInTVdB0wbuFJR6QbvIk0KNEygV8CxaEFXSQIvJcjORDYdbCPglBKhtdMDFMARF/P7Y1ZoKb34N
+	YYJIfEt7gunyy/TEEPPvayiHw2DIlnx2cm0PARr0GAupEabmLFjohdr0bHLmOigW2shi08MrWKx
+	FDzKT0nEkOAoFrWPjt7yArqnSXsuqQVl7+pZk5A81OTo9vCSQIijbJm+iDF49bVyQQqWi5+JDle
+	An9jvHrlF9siQkCt0b+EwJR+HQ5eZdHl6J02B5ceHCXauEbVCP+CQjfvGImd2lNb+AQLO9iM1QM
+	4lytYl1enziPvH+bDu5mDAjRhOr2cOCeOiTGW+86F0tZRk3fo39hNYAoLF09VNiNZS/qglQUwb0
+	4hOhiqpoDF8kZOL7BHG+Roixw==
+X-Received: by 2002:a17:90b:3c89:b0:38f:aab1:5148 with SMTP id 98e67ed59e1d1-39aee066dd0mr21177322a91.13.1788444953135;
+        Thu, 03 Sep 2026 07:15:53 -0700 (PDT)
+Received: from XP-PC-huhb1.xiaopeng.local ([98.98.122.134])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b0832b85bsm5793909a91.4.2026.09.03.07.15.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 03 Sep 2026 07:15:45 -0700 (PDT)
+From: Hongbing Hu <huhb04@gmail.com>
+X-Google-Original-From: Hongbing Hu <huhb1@xiaopeng.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org
+Cc: mchehab@kernel.org,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Hongbing Hu <huhb04@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: uvcvideo: defer cancelled buffer completion until copies finish
+Date: Thu,  3 Sep 2026 22:15:32 +0800
+Message-Id: <20260903141532.6693-1-huhb1@xiaopeng.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260903131141.6368-1-huhb1@xiaopeng.com>
+References: <20260903131141.6368-1-huhb1@xiaopeng.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903081557.16603-1-germanpapulindez@gmail.com> <apkvE9kbfEWHrAte@kekkonen.localdomain>
-In-Reply-To: <apkvE9kbfEWHrAte@kekkonen.localdomain>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Thu, 3 Sep 2026 17:00:18 +0300
-X-Gm-Features: AcwNN1XMsw-TkkISsHavguNAtNCU7_fOI4nrPd6B4gIR-w9TMT3OopwVlR-oBR0
-Message-ID: <CAHp75Vco84AK9mU_HH8oubsVOmErB3utsTcoQpqtB0EG8KFAOQ@mail.gmail.com>
-Subject: Re: [BUG] platform/x86: int3472/discrete: unknown GPIO type 0x08
- breaks OV13858 rear camera on Surface Pro 11/12 Business (INT3472:00 / OVTID858)
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: German <germanpapulindez@gmail.com>, platform-driver-x86@vger.kernel.org, 
-	Hans de Goede <hdegoede@redhat.com>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	linux-media@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 3, 2026 at 11:26=E2=80=AFAM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
-> On Thu, Sep 03, 2026 at 10:15:56AM +0200, German wrote:
+From: Hongbing Hu <huhb04@gmail.com>
 
-> > On the Microsoft Surface Pro 11/12 Business (Intel Lunar Lake, IPU7),
-> > the rear camera sensor (ov13858, ACPI HID OVTID858) fails to probe.
-> > I've traced the root cause to int3472-discrete not recognizing one of
-> > the GPIO types described in the device's ACPI _DSM data, which leaves
-> > a power/reset-related GPIO unconfigured and the sensor unable to
-> > respond over I2C.
-> >
-> > System
-> > ------
-> > - Surface Pro for Business 11th Edition with Intel (Intel Lunar Lake, I=
-PU7)
-> > - Kernel: 7.2.2 (Arch Linux, vanilla)
->
-> It's usually best to test with linux-next, not with distro kernels, or in
-> this case, the media committers tree
-> <URL:https://gitlab.freedesktop.org/linux-media/media-committers> next
-> branch.
->
-> > - CONFIG_VIDEO_OV13858=3Dm
-> >
-> > Evidence
-> > --------
-> >
-> >   $ dmesg | grep -iE "int3472|OVTID858"
-> >   [    5.555231] int3472-discrete INT3472:00: GPIO type 0x08 unknown; t=
-he sensor may not work
-> >   [    5.788882] ov13858 i2c-OVTID858:00: failed to find sensor: -5
-> >   [    5.789321] ov13858 i2c-OVTID858:00: probe with driver ov13858 fai=
-led with error -5
-> >
-> > The "GPIO type 0x08 unknown" warning comes from the default case in
-> > skl_int3472_handle_gpio_resources() in drivers/platform/x86/intel/
-> > int3472/discrete.c:
-> >
-> >     default:
-> >         dev_warn(int3472->dev,
-> >                  "GPIO type 0x%02x unknown; the sensor may not work\n",
-> >                  type);
-> >         ret =3D 1;
-> >         break;
->
-> This should be addressed by commit 34e31390a3b939db2e0cbfef4c40d95052572d=
-f0
-> .
+uvc_queue_cancel() returns queued buffers to videobuf2 directly via
+vb2_buffer_done(). This is unsafe because asynchronous memcpy workers may
+still hold a reference on the same uvc_buffer. Once vb2_buffer_done() has
+run, userspace can dequeue and requeue the buffer while the old worker is
+still running, leading to the same list_head being inserted into irqqueue
+twice and corrupting the list.
 
-I can't see that commit in many trees from kernel.org nor in
-media.git. So, you mean it *will* be in Linux Next soon.
+The crash manifests in two ways depending on the drop-corrupted-frames
+module parameter:
 
---=20
-With Best Regards,
-Andy Shevchenko
+1. With the drop corrupted frames enabled, the old worker's
+   final kref_put reaches uvc_queue_buffer_complete(), sees buf->error set,
+   and calls uvc_queue_buffer_requeue(). This performs list_add_tail() on
+   buf->queue even though userspace has already QBUF'd the same buffer and
+   added it to irqqueue.
+
+2. With nodrop=1, uvc_queue_buffer_complete() calls vb2_buffer_done() a
+   second time. If userspace has already dequeued and requeued the buffer,
+   the second completion exposes it to userspace again, and the next
+   DQBUF/QBUF inserts the still-linked list_head into irqqueue a second
+   time.
+
+Both cases produce the kind of list_del corruption seen here:
+
+    list_del corruption. next->prev should be ..., but was ...
+    kernel BUG at lib/list_debug.c:64!
+
+Fix the cancel path to remove buffers from irqqueue and drop the queue's
+reference through uvc_queue_buffer_release() (i.e. kref_put()). The final
+VB2 completion then only happens from uvc_queue_buffer_complete() once the
+last async reference is released, so userspace cannot reuse the buffer
+while an old worker still accesses it.
+
+A buffer whose state is already UVC_BUF_STATE_ERROR is forced to complete
+as an error and must not be requeued by the corrupted-frame policy. Normal
+malformed frames are still requeued/dropped as before.
+
+Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buffer handling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+---
+v2: corrected author real name in From/SOB per maintainer feedback
+
+ drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
+ 1 file changed, 28 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uvc_queue.c
+index 3c002c8f44..9206e0a355 100644
+--- a/drivers/media/usb/uvc/uvc_queue.c
++++ b/drivers/media/usb/uvc/uvc_queue.c
+@@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream, struct uvc_video_queue *queue,
+  */
+ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ {
++	struct uvc_buffer *buf, *next;
++	struct list_head local_list;
+ 	unsigned long flags;
+ 
++	INIT_LIST_HEAD(&local_list);
++
+ 	spin_lock_irqsave(&queue->irqlock, flags);
+-	__uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
++	while (!list_empty(&queue->irqqueue)) {
++		buf = list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
++		list_del(&buf->queue);
++		buf->state = UVC_BUF_STATE_ERROR;
++		list_add_tail(&buf->queue, &local_list);
++	}
+ 	/*
+ 	 * This must be protected by the irqlock spinlock to avoid race
+ 	 * conditions between uvc_buffer_queue and the disconnection event that
+@@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+ 	if (disconnect)
+ 		queue->flags |= UVC_QUEUE_DISCONNECTED;
+ 	spin_unlock_irqrestore(&queue->irqlock, flags);
++
++	/*
++	 * Release the queue-owned kref outside the irqlock. The final VB2
++	 * completion only happens from uvc_queue_buffer_complete() once all
++	 * asynchronous copy references have been released, preventing userspace
++	 * from reusing the buffer while an old worker still accesses it.
++	 */
++	list_for_each_entry_safe(buf, next, &local_list, queue) {
++		list_del(&buf->queue);
++		uvc_queue_buffer_release(buf);
++	}
+ }
+ 
+ /*
+@@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref *ref)
+ 	struct vb2_buffer *vb = &buf->buf.vb2_buf;
+ 	struct uvc_video_queue *queue = vb2_get_drv_priv(vb->vb2_queue);
+ 
+-	if (buf->error && !uvc_no_drop_param) {
++	/*
++	 * Buffers cancelled from uvc_queue_cancel() are forced to complete as
++	 * errors. They must not be requeued by the corrupted-frame policy even
++	 * when buf->error is set.
++	 */
++	if (buf->state != UVC_BUF_STATE_ERROR &&
++	    buf->error && !uvc_no_drop_param) {
+ 		uvc_queue_buffer_requeue(queue, buf);
+ 		return;
+ 	}
+-- 
+2.34.1
+
