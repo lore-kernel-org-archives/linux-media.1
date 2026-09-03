@@ -1,103 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB3651C84CB;
-	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ECF737C909;
+	Thu,  3 Sep 2026 05:35:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788412973; cv=none; b=HNdkZJeMig49hMqTD/bf/0d2j7neJhCVz+akN7ILncuLYS0ahniOFaLGD0hVLYje6djGvHxhNvat7MZpQgIAFf29Q02w95IbypPyfkVcYf3TTQaBS89svZNv1/UFqyDXxBLfySwoY42ZfGO5cLg9W9+b1jiQA1tIlQrBkfWROV4=
+	t=1788413755; cv=none; b=IFyQ3xtt8ASRfkSomKrgGows64ibwe0tsbvc4ATkJIzwc1OlQ8LPAmvuQYQXKFdLyW7nc9xTx26n6ebi/2My5D9iWsZQwRBjuC6up/V0AtQUysUqqDbLoy87+yLXuZQq/KgArm6vHWeBYJ/sawYXlxTyseL4SCEtXfD6SogOMNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788412973; c=relaxed/simple;
-	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MYrU+qG30JU+ErU7Qh7T4QthkGLjPozH8ertF8CZJ0WUKU/pqN4lL8MssycothJ+tFaiLG4L6hKT/LpWUjIzB4Ppat0y7o0NW4SmJaupaqjyFrvUhObpiatyQZ+rruJpFi0Vzja0W7HAWwFOfFdU1ZT6UG/eFZm3Tvbk9xqHA8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NBWMbk+S; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1788413755; c=relaxed/simple;
+	bh=WKQgxtdoETvEWEmpq183oxTHMXwRkXKjd6E+jWntN0A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BK15wsxH0t3HWUuNpQ6sE5NdNK6YQ1SD9BDPb9KgbOWB1o+aJyqcRuzd7uqdAhQZBYs/wtvlk1aQVhRckKMIFrqVGFnKp/f2h7jKyQ7pwjn9m6yPR6N1MeO5C3bdyXPgiXlQsfP5I3nbhasw86uW20ZXYSuG7XQCJ7ZXu1rCJtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CjZYwIv7; arc=none smtp.client-ip=198.175.65.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NBWMbk+S"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7079EC2BCF7;
-	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1788412973;
-	bh=DK6eCsjwuQHkUAYad97gdQ+0HLjq5RiXz29EsyvdagQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=NBWMbk+SfPkF5fIKKsyeasILC+5YO7+v0MlJ1QFa9PYJ8mN0f7P7iSjWCby+vlIgJ
-	 A5+7/ZHZz1UCKZTF26YtQ4yRtU60H7tRbHIljr0LW/Khf3phGqW6QmCcVrlWXc1pkt
-	 goPtvTO7oSIRZ4dqpLLhAHb8pzz0kSXunvJiOeeZ43WtcmDHy5hBga53MHmSO+w9T6
-	 J1yv8jM2yQl5iBnMyNQdcvexMUzErzT1herrEADr38tP9Gchs+m01soTusRBOogO1U
-	 xNRapl0hfKAiqe6wmTN+Z0+v37lzqPFg4wkXj9n4JAiLCb9GQJJ21YbChxs9Up2FB7
-	 ec1dHMOC4ydSQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 50DA5C61DD3;
-	Thu,  3 Sep 2026 05:22:53 +0000 (UTC)
-From: Xianwei Zhao via B4 Relay <devnull+xianwei.zhao.amlogic.com@kernel.org>
-Date: Thu, 03 Sep 2026 05:22:44 +0000
-Subject: [PATCH v3 1/2] dt-bindings: media: meson6-ir: Add Amlogic A9 IR
- compatible
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CjZYwIv7"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788413754; x=1819949754;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=WKQgxtdoETvEWEmpq183oxTHMXwRkXKjd6E+jWntN0A=;
+  b=CjZYwIv7ASkFVHgVkdzMlH/0eawuH63cQtGv5ZNN1UfLINvnkadE10XW
+   YgIX2uQTbWZznmXqVtUreOzZucBWZvyjZAtYpIOoICxyllQkJ3ED+a3co
+   Wb0lSFck+cCoeKxhTxA9XhYxUBZI54ItL2PqmqU4My9EEfkylcekgUyuH
+   7GCLtNzxhEnPpQVHnu/J6vwe6OxOp4WXBOzKFZNJkTAbSebtFzhKgx6fT
+   3abLdMjasa9cWlm0fxYJI7gGmoNKlY0Ea2K4IcRuNkwOT5T4SJIognrIQ
+   WLoe8Wh9DXnwDAbn92K2pLb5522n4liTUz9Q4Up6ItiIT4XjTjdTuEOcN
+   Q==;
+X-CSE-ConnectionGUID: SzM05MR3RgGHyW1E3TPqvA==
+X-CSE-MsgGUID: r6OoE9znT7iRzKuuwo+SEA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11894"; a="111656927"
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="111656927"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:35:54 -0700
+X-CSE-ConnectionGUID: I6VyKbYSQwquQYCjIwTV/Q==
+X-CSE-MsgGUID: ZAcfZf5JTECgk1dmqc3Ikg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,258,1779174000"; 
+   d="scan'208";a="274906022"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.28])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Sep 2026 22:35:51 -0700
+Date: Thu, 3 Sep 2026 08:35:48 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Maurizio Casciano <mauriziocasciano7@gmail.com>
+Cc: mchehab@kernel.org, linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com, bingbu.cao@amd.com,
+	jacopo.mondi@ideasonboard.com, nicholas@rothemail.net,
+	andy@kernel.org, hansg@kernel.org, gregkh@linuxfoundation.org,
+	linux-staging@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 04/16] media: ov2740: Add OVTI2740 ACPI ID
+Message-ID: <apkHNBehp4Pxp_lq@ashevche-desk.local>
+References: <cover.1788360629.git.mauriziocasciano7@gmail.com>
+ <38149ff00ebb24aca8089ca2e3aed3fb8bf8a06e.1788360629.git.mauriziocasciano7@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260903-a9-ir-v3-1-cd471c667c15@amlogic.com>
-References: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
-In-Reply-To: <20260903-a9-ir-v3-0-cd471c667c15@amlogic.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788412970; l=1145;
- i=xianwei.zhao@amlogic.com; s=20251216; h=from:subject:message-id;
- bh=rmPAoSNSZx5LMEoeF/b4E+Q1f6fRs3+ubaclp6Z1pc8=;
- b=UVChLc0NVkl3QVl/QCyOm37lsUQSiO6wBtFhfc+JAn4rEOrdSc3vAXDMIByeP9a0unHRPiU5I
- ooMhivOj3QvB/Vej7ConQAJmNzWh8J4wgwUvJ3LPt3js9GQqfs9tlxJ
-X-Developer-Key: i=xianwei.zhao@amlogic.com; a=ed25519;
- pk=dWwxtWCxC6FHRurOmxEtr34SuBYU+WJowV/ZmRJ7H+k=
-X-Endpoint-Received: by B4 Relay for xianwei.zhao@amlogic.com/20251216 with
- auth_id=578
-X-Original-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
-Reply-To: xianwei.zhao@amlogic.com
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <38149ff00ebb24aca8089ca2e3aed3fb8bf8a06e.1788360629.git.mauriziocasciano7@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+On Wed, Sep 02, 2026 at 04:53:33PM +0200, Maurizio Casciano wrote:
+> Firmware may enumerate OV2740 image sensors using the OVTI2740 ACPI ID.
+> Add it to the existing ACPI match table.
 
-Document the Amlogic A9 IR controller compatible string. The A9 IR
-controller shares the same implementation as the Meson S4 IR block,
-so add "amlogic,a9-ir" with "amlogic,meson-s4-ir" as the fallback
-compatible.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
----
- Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-index 0f95fe8dd9ac..db9387e43eff 100644
---- a/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-+++ b/Documentation/devicetree/bindings/media/amlogic,meson6-ir.yaml
-@@ -23,6 +23,10 @@ properties:
-       - items:
-           - const: amlogic,meson-gx-ir
-           - const: amlogic,meson-gxbb-ir
-+      - items:
-+          - enum:
-+              - amlogic,a9-ir
-+          - const: amlogic,meson-s4-ir
- 
-   reg:
-     maxItems: 1
+My tag is missing here, isn't it?
 
 -- 
-2.52.0
+With Best Regards,
+Andy Shevchenko
 
 
