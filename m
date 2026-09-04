@@ -1,101 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868A94EC640
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:54:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7DD82FFFA4;
+	Fri,  4 Sep 2026 21:10:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788555275; cv=none; b=K661SyhuxdpY/yAoGt65QwlKah1kpiyMWtflGBiNjyK7/fZMwBi+ameduz+e/5BZv42ROruXlN/oGNEfaBWQZpmBRB5BKN6QRpFsRwAcxnr8lwASuUJ7YZ3vi92Hcb+e+5+OUtP8LItFCyuIc480kpVKwpJjLRFZYqy8TQ9cj00=
+	t=1788556237; cv=none; b=jFOMkhBpU7p4qI9lcjdfjkaOzOoqa7q3vFvSVQjQ8qJ80Fge1gBuMUz3FPsPgWM/2j508MBGq1hSbeWTlicz0FbKf7YGEVmveHmdAJrqSvx3XDJxUjQOm42z39rOsx5jy82WFYCTe84bdB+Q54I7W0KtK/401hKXHWGiCQYf5l8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788555275; c=relaxed/simple;
-	bh=On0i/g6HB0K5PH9Vva0Jy2CCcd3QsyW1EOQzM95JHp0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kC/v2cz5kxUfYKxtjMOYNc7oHW/zgjB63d1/Gp3YwFoTq16ritb+htyu//B3XYbIrFgNOyMOwmCdN8JDuH7VgRZFeA0U2cR76CIKO6q6dxjL3nAhNpwIg6m93y6vM5YaQCoFHoUZQKrwkNPjggCRTGIeloAqo+tGID+4WgOBeTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BT3TPhZw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788556237; c=relaxed/simple;
+	bh=YaCXYoUUaTLUhORks4A1xiY+YQU65F5kG6iXf4O7ATw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=FxopxPPXJTV2zQyISP+FnQnb5bGwZvEQA0AYfHeEEGKak3Kth2bl2zQj2jf9JE7VJBf5E0JCvydKNurWSY/i+b8gSqusFgnwSGSCNVscdHanYurDQO0CztWMWp6Ppr4WlL/gc82JVS+dKeDBFEbxWzPcwFrxCXMf4tAKt8Q3HpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DbTOO8g2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BT3TPhZw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4762F1F00A3E
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:54:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DbTOO8g2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ED681F00A3D;
+	Fri,  4 Sep 2026 21:10:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788555273;
-	bh=hAJQ4H6fG84Kmr6W0MoxZWSZFGj/1HFCw4IpQx3ZUaI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=BT3TPhZwaDOa4fOEtr8USjxwH8qv2hjjp0dDRdPaic8W6YGxFxFPe6P/NNw68Lo8o
-	 4rYxuzLL+CdksRBaviKFXwzaVOQl59zgZzdGW+lRTIl4Fq9s9fyfSah6byti/EW9OJ
-	 e11ODNgDmeQbEMhZXTHwqhhRC+uIJ/VWptp031UfAoe0D8UatroWE6lAI9hzoFDlz/
-	 I050bixa/h+O10cBtOR+KUFgsQNTp2RDNCIy6XQn9bkyrkh/rO7wIVvsbS7ufcwYQu
-	 PbqboXPlV/ZhLYrUnf3OIaaLxEJzODJUdCTlkUCOHpkvXyyZAj28A4O6WB8hwGkvEF
-	 ZvaVDUYH8hndw==
-Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-39c86945164so16245821fa.1
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 13:54:33 -0700 (PDT)
-X-Gm-Message-State: AFuF++nvuWN9x0PD245us8ACFSYyve1iRg3SbV3P8myA5nuFv62xVtTV
-	Ym5jLG8oo40QuF5TOO25F2Su/NhqPNMNvVmzRE61rcF8+ErRVzFoRNONQbLZB0+8XbTEFzAIscC
-	mI7zC2VZxSa0EsNBMear3o9k5Xih4s3A=
-X-Received: by 2002:a05:6512:694:b0:5b6:1a7c:26 with SMTP id
- 2adb3069b0e04-5b61a7c01d5mr1106399e87.41.1788555272003; Fri, 04 Sep 2026
- 13:54:32 -0700 (PDT)
+	s=k20260515; t=1788556234;
+	bh=WyBWSLKIM1UOA8SLLHDv9QxxorSYv6s6LZzcrhmVid8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DbTOO8g2umtsXv8AzOlXYkgUH40JRcYEP9cxg04pwLBx/ujdUnOLLMmaB6MAch/Fr
+	 DByeg4UHuSFroIblj8JhC3TM4ULBaphvpmp4A1mOXJJS63ODV+n9PHQO187GsZZ5JY
+	 2f+QW43SRdUeTlCQ6VxrHznqh0BKy6JsZknYSzUh4ZoZ4iJO6qTI+yMVYWbjSkMnPd
+	 g2x4ieBOKNvsOTqpahOF61zgC5dErIkTTmWTw3r1aaIeSRoZUI5fMgM+MuDg/xmivd
+	 5Q/uSQF8yYOBBPjje9L8BmzcQoeLaquy7BuWv7veo560l+9G0VnJgVB0PJqrxfFoiW
+	 c2Fs7xrQGUkaA==
+Date: Fri, 4 Sep 2026 14:10:32 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: linux-kernel@vger.kernel.org, Tejun Heo <tj@kernel.org>, Frederic
+ Weisbecker <frederic@kernel.org>, Peter Zijlstra <peterz@infradead.org>,
+ Waiman Long <longman@redhat.com>, Christian Brauner <brauner@kernel.org>,
+ Kees Cook <kees@kernel.org>, Andy Walls <awalls@md.metrocast.net>, Mauro
+ Carvalho Chehab <mchehab@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, "Rafael J
+ . Wysocki" <rafael@kernel.org>, Viresh Kumar <viresh.kumar@linaro.org>,
+ Ingo Molnar <mingo@redhat.com>, Vincent Guittot
+ <vincent.guittot@linaro.org>, Dietmar Eggemann <dietmar.eggemann@arm.com>,
+ Steven Rostedt <rostedt@goodmis.org>, linux-media@vger.kernel.org,
+ netdev@vger.kernel.org, linux-serial@vger.kernel.org,
+ linux-pm@vger.kernel.org
+Subject: Re: [PATCH v2 0/5] kthread: convert remaining users to
+ kthread_create_worker
+Message-ID: <20260904141032.34f7ed1b@kernel.org>
+In-Reply-To: <84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
+References: <cover.1788513591.git.brads@mainlining.org>
+	<20260904085418.50d66b34@kernel.org>
+	<84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-30-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-30-sakari.ailus@linux.intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 4 Sep 2026 22:54:20 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk0LTcyBTLMWdA4W7bF2pHwOAmvXZP=Q9QuYB0JJ8+4xw@mail.gmail.com>
-X-Gm-Features: AcwNN1Xrg_bcSFTVU0O18wFY21fWlKRoXAKZopbK2XZww5s-NVZCrbgTjZ8Ctww
-Message-ID: <CAD++jLk0LTcyBTLMWdA4W7bF2pHwOAmvXZP=Q9QuYB0JJ8+4xw@mail.gmail.com>
-Subject: Re: [PATCH v3 29/29] media: j721e-csi2rx: Use v4l2_subdev_get_frame_desc()
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hi Sakari,
+On Fri, 04 Sep 2026 16:56:30 +0100 Bradley Morgan wrote:
+> On 4 September 2026 16:54:18 BST, Jakub Kicinski <kuba@kernel.org> wrote:
+> >On Fri,  4 Sep 2026 09:37:21 +0000 Bradley Morgan wrote:  
+> >>   media: ivtv: convert to kthread_run_worker
+> >>   net: encx24j600: convert to kthread_run_worker
+> >>   tty: sc16is7xx: convert to kthread_run_worker
+> >>   cpufreq: schedutil: convert to kthread_create_worker  
+> >
+> >Please send these 4 to appropriate subsystems
+> >  
+> >>   kthread: remove worker->task self assignment  
+> >
+> >Then after the next merge window when trees converge send this one out  
+> 
+> hi, I was hoping one person could merge it with acks from all subsystems
 
-thanks for your patch!
-
-On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
-
-> Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
-> preferred over calling the get_frame_desc() pad operation directly.
->
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
-
-(...)
-
-this is not your code I guess but:
-
-> -               for (j =3D 0; j < fd.num_entries; j++) {
-> -                       if (curr_ctx->stream =3D=3D fd.entry[j].stream) {
-> -                               curr_ctx->vc =3D fd.entry[j].bus.csi2.vc;
-> -                               curr_ctx->dt =3D fd.entry[j].bus.csi2.dt;
-> +               for (j =3D 0; j < fd->num_entries; j++) {
-> +                       if (curr_ctx->stream =3D=3D fd->entry[j].stream) =
-{
-> +                               curr_ctx->vc =3D fd->entry[j].bus.csi2.vc=
-;
-> +                               curr_ctx->dt =3D fd->entry[j].bus.csi2.dt=
-;
->                                 break;
->                         }
->
->                         /* Return error if no matching stream found */
-> -                       if (j =3D=3D fd.num_entries)
-> +                       if (j =3D=3D fd->num_entries)
-
-for j =3D 0; j < num_entries; j++ right.
-
-how would j =3D=3D fd->num_entries??
-
-should this be if (j =3D=3D fd->num_entries - 1)?
-
-Yours,
-Linus Walleij
+Not how this works.
