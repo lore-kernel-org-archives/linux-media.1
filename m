@@ -1,107 +1,88 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DF8B3D7D9B
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 07:52:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 911233CA4B6;
+	Fri,  4 Sep 2026 08:05:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508331; cv=none; b=CBIit5gTUdJpDyBAQqaRZl+hx+5UciRioPewdm+yvO0J45ErH52xcFq+LmyILwUIiebVv4U3aZAGJ0b+to3Ds+us0Pnjz13pesgrkje3E+Kq/DCcE25rZPmt1HCM26VMNJB4PC2GR8K6IN837ph8Mx15JOSQsnjZeYKUqTxv0KM=
+	t=1788509144; cv=none; b=lkwXi1PaU6WGjMa5TvvpOLEvTcV/hjbXtvLRmrz7ia8KEhjabjCu1pON9jjU8z9qwbdhdNzC5q5EhBGDL0EN9fqiiFw7nT2vWYleroebzU7PQcELg8o4nlS9N3EOX/CQ70MOEfZnNLymUy4Kg4FOODlDIQx2ghpoOLD0WtZnGwk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508331; c=relaxed/simple;
-	bh=IiaOlIOx3X3W6DFnx1Teyhn32TkW+Oje3m5teqBJGiQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aR1g3Jro/sOK+EvL7nTEOwNREgLEStMh2mGBz0yRike7ublgHId8b1TYStgLpMaVvTWOwfINJLxFFiS/uvM4KU1zy+cmwbJXjTiZQ5e93GmitL3jABi4COfjNTXLOlIMo/qmWtn+AmAWNK6lhiCYOTRgkZ1mKJoJtuV03CZeBG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=DJZri5Ou; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788509144; c=relaxed/simple;
+	bh=CBwpWqLivix064+GNpY0w7aPysbjHZNAwnSdifxjcRs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bnyIOjZiVFPKafOGEsORdjSwHsyGdwfySunKdrvw5EOLT65ecXuG5v0kZ+VFIYMzg997Z+xizDHbquNmdjH5sVPSnX93eSGu5o+JFKsIDn4kc6JhZq5hhqTUJ+NNlQPltDsNz/ZEJr/gU1bloebRGajJCzi4zIZwGeZDt2XRYrc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qw5xNvcM; arc=none smtp.client-ip=198.175.65.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="DJZri5Ou"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788508329;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kce8DglwAH31zHJL/kQHurhnPheFXUZ6gKNThVu2MfA=;
-	b=DJZri5OuajF2wY8MRLcK6H06/knjYjdwEuYyIabr6EX4vyxwjbbt0flp/UVq33vxih/Sxl
-	wtw6cUQdsZUE6nxpExu5bgtMLnLNcY9ZVmDFNVF2YU9LG8x3o06rVE+otnGdG+KegHpSe/
-	BR8tvLdloZ8u7fpxE+Gkpdqjd3nJajY=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-378-MGoWLxE2PFa_LpGguzij3g-1; Fri,
- 04 Sep 2026 03:52:08 -0400
-X-MC-Unique: MGoWLxE2PFa_LpGguzij3g-1
-X-Mimecast-MFC-AGG-ID: MGoWLxE2PFa_LpGguzij3g_1788508326
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 90E07195DE67;
-	Fri,  4 Sep 2026 07:52:06 +0000 (UTC)
-Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 2D3331800609;
-	Fri,  4 Sep 2026 07:52:02 +0000 (UTC)
-From: Kate Hsuan <hpa@redhat.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans de Goede <hansg@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v2 3/3] media: i2c: imx471: Calculate pixel rate based on external clock rate
-Date: Fri,  4 Sep 2026 15:51:13 +0800
-Message-ID: <20260904075113.125751-4-hpa@redhat.com>
-In-Reply-To: <20260904075113.125751-1-hpa@redhat.com>
-References: <20260904075113.125751-1-hpa@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qw5xNvcM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788509143; x=1820045143;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=CBwpWqLivix064+GNpY0w7aPysbjHZNAwnSdifxjcRs=;
+  b=Qw5xNvcMrPXUhnGg8Bk4zc4UO7iBR719/rJVhNshA1UYqfpTyZjDfMn0
+   2bhFn+hmeFHbY9EtGGtu44p6gPkz0x29HlI+RfuU9doF4LupiObvDOPUj
+   NV3E2x/dpE2Bk2K01kPxHlXGlAMGuf504OwnyA9XtwGPatnhkw4YOIpZW
+   Pd+BeLcSUkk+NM57gNNJVKjFZz4OWvBKho+QsGFrInsd381OT7AbVskpJ
+   2KfOVxau8hS+PUDdEvnf4znRO43YJADvcepIMyos/rjoW14B6pkP/5irU
+   jKobMIPOVQwvzW//5gWLvspqfEiaKYt8+GXENevvJEaFVoZ7tLJK3Czhn
+   A==;
+X-CSE-ConnectionGUID: Q4BQr4DFRb6V1GuwsbSvtQ==
+X-CSE-MsgGUID: 4Trcg4ndQXqDWErnT5O1Lg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="99336449"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="99336449"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 01:05:43 -0700
+X-CSE-ConnectionGUID: oWqjqV1ZTNyid1s+PRo0yQ==
+X-CSE-MsgGUID: 3nG/R/o6TpafVfXgTxYZRg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="270511654"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.250])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Sep 2026 01:05:40 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8BEB61201A2;
+	Fri, 04 Sep 2026 11:05:38 +0300 (EEST)
+Date: Fri, 4 Sep 2026 11:05:38 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Nikolay Kulikov <nikolayof23@gmail.com>
+Cc: Bingbu Cao <bingbu.cao@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: Re: [PATCH 0/4] staging: media: ipu7: abi headers cleanup
+Message-ID: <app70tRo2PAELBGg@kekkonen.localdomain>
+References: <20260805-ipu7_abi-v1-0-46d420cef267@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260805-ipu7_abi-v1-0-46d420cef267@gmail.com>
 
-The IMX471 sensor operates in PLL Dual Mode, so OP domain configurations
-must be used to determine the pixel rate. Based on the IMX471 clock tree
-topology, the pixel rate is calculated as:
+Hi Nikolay,
 
-(extclk * IOP_PLL_MPY * DDR_FACTOR) / (IOP_PREPLLCK_DIV * IOP_SYNCK_DIV * BPP)
+On Wed, Aug 05, 2026 at 09:23:04PM +0300, Nikolay Kulikov wrote:
+> This series cleans up unused definitions of structures, enums, and
+> macros. Each one was identified and verified using 'git grep' across the
+> entire driver.
+> Verified by compilation.
+> 
+> Signed-off-by: Nikolay Kulikov <nikolayof23@gmail.com>
 
-With the register values, this yields a pixel rate of 159.36 MPix/s.
+Thanks for the series. As such it's nice to clean things up but a this
+point we're going to do it by removing the entire driver within some small
+number of kernel releases. I've sent a patch to update the TODO file, too.
 
-Signed-off-by: Kate Hsuan <hpa@redhat.com>
----
- drivers/media/i2c/imx471.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
-index 316383076b3d..d81d64dd8761 100644
---- a/drivers/media/i2c/imx471.c
-+++ b/drivers/media/i2c/imx471.c
-@@ -701,8 +701,17 @@ static int imx471_init_controls(struct imx471 *sensor)
- 					   0,
- 					   link_freq_menu_items);
- 
--	/* pixel_rate = link_freq * 2 * nr_of_lanes / bits_per_sample */
--	pixel_rate = div_u64(IMX471_LINK_FREQ_DEFAULT * 2 * 4, 10);
-+	/*
-+	 * The sensor runs in the PLL DUAL mode so the configurations of the
-+	 * OP domain are considered. According to the imx471 clock tree,
-+	 * the pixel rate can be calculated as follows:
-+	 * (exck_freq * IOP_PLL_MPY * DDR factor) /
-+	 * (IOP_PREPLLCK_DIV * IOP_SYNCK_DIV * RAW10 bits) = 159.36 MPix/s
-+	 */
-+	pixel_rate = (IMX471_EXT_CLK * IMX471_PLL_OP_MPY * (u64)2) /
-+		     (IMX471_PREPLLCK_OP_DIV * IMX471_OPSYCK_DIV * (u64)10);
-+
-+	dev_dbg(sensor->dev, "pixel_rate: %llu\n", pixel_rate);
- 
- 	v4l2_ctrl_new_std(ctrl_hdlr, &imx471_ctrl_ops,
- 			  V4L2_CID_PIXEL_RATE, pixel_rate,
 -- 
-2.55.0
+Kind regards,
 
+Sakari Ailus
