@@ -1,182 +1,194 @@
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9523A544D
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 08:40:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511239; cv=none; b=b2W345IjR1Qxy0XFUW5ELT/BTdatb2CwYRrFOzsjO48nsR9j0YTTq6QqVTzuOM4tAJJyI4C1cYY4LCjLysDvLciqXpqKyoM2XzB5wnYdWaEcfxFZk1xGAGrgkfZxVREspozLWb9R3u5pMbkszcUSPhA0jbOBQFYEFngcqo8fKD4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511239; c=relaxed/simple;
-	bh=KhU6jGTmTkTaau40wVsjNcR8J0pvK67N20EoMPqwV9U=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3693B1EF2
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 08:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788511509; cv=pass; b=Y33CLIdQBKnBefdSCU2td/4wo8AtrTWjOoixqwOLBY5VfcILj7hCUba93EZQTXU0eO9ACQJWFdFGWABenI2sCyRVL2+xALupyMMZVwe8WxqKXloVAUSbiqH35whcZ2bsLMD89j2MSkhO/Q2LVbffwsR10vtuOX4Q2WGqCdqjwVw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788511509; c=relaxed/simple;
+	bh=ddWQm3AZ6cvQ44lJc0rMjwwvQelTHxTzDdlLxm7fDVs=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=r81bJlsqOHO8N+n7TM8lJU6HYjHMPosa3Q3lzBeXV1NcI+J2cxApvM/mRG+enOb5yhi69eupEk3jkXJUwymoEwBcuf+MLhlDneIEkWCvp/aIJ5Uxwb4SOvYobL3CPUQV8CIY85FePaOCH/Zau+Zvkwjg/r/x/0LYsswKBBP6DX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=StLmREyV; arc=none smtp.client-ip=209.85.216.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=sz/Batkr0U6IkO65I62NJdkfEXoI0pDa+gRbGAqChI6WARbw/rtxC57UrsUpAVuNf2M5p+ANDoC+hWKB7qudxa9E2y7c+OgTWvbQqAZjB2gRdtsxurnUAy2iMT8iLnrf1FfTT9J8XZXr/AduOyQjyVQ7kUvL1VpnyMo66QwLjTY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hEJ7tXIo; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OHq3BLB2; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="StLmREyV"
-Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so884331a91.0
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 01:40:38 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hEJ7tXIo";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OHq3BLB2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788511506;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+	b=hEJ7tXIoyHQC+/qdw9Ss1JUVsMBqkfA0a4hQFxAkypSVbxJjiSkOUGqi7xzoVswM50xoXz
+	TRqHllIh+H0vK6UjGI05oh8GFJ3+y4QzVW18CeuJG1c704rO2dniz429yqiwO3PvevLqc8
+	Jo7xUkwmz1S+H6fST01RogD6u333qCQ=
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
+ [209.85.161.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-589-LoTMZt17N9CuS0bS1oTo7Q-1; Fri, 04 Sep 2026 04:45:04 -0400
+X-MC-Unique: LoTMZt17N9CuS0bS1oTo7Q-1
+X-Mimecast-MFC-AGG-ID: LoTMZt17N9CuS0bS1oTo7Q_1788511504
+Received: by mail-oo1-f69.google.com with SMTP id 006d021491bc7-6b1b19eab8bso458089eaf.0
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 01:45:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788511504; cv=none;
+        d=google.com; s=arc-20260327;
+        b=mYmOVl0mUY+ArulPRmiMk8WMrPaf6m3kFdmdkocPfvHVUNWAJBBlm6OFfM8GZir2SC
+         1gV6GXyxE9xvon02bd0y4WfHewkAFdE+AQk4yIxVgaqLF7oomxTskrfABQGSkSbiazE3
+         rp0hmb6M2KKT1Y7n+f0aAn6iOfm3C2q+WKZqn60TgpEIvAXjOo/mYUVhQfecx6AUezcg
+         pc8CHjsapFcNKYp5N9Y5aJVNlh395kZzyvt6l+h+dc19OYeZmBFAEv4m3Tv7DTIQO0F9
+         NENKGf1hefn6hCKYSH3C2MOQ6Vu1GVLwEw742JFlcXy5UeMZ8LaikN/IlFuQzVlvnrVA
+         LfpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        fh=eBNUDdJS+dMh59LOuIDayCUwOOPIXfgOiEgtMXlkdm4=;
+        b=CPxwbv2oTHSxoKW9wbvwtuRATK5h+EvMyEi0lkldz5ZCQHfs5wtVcSuFnv9enVwVl5
+         WEyQfDUxjKjCjzMxnq1AzsOjpW7R80qivQ8AJnVgZnHgNb/CUzQ2WsuD/UOneswOr54M
+         C4wBPwpgWZhTm0v61wthth75ty+gN4kMIAUyRGe9quo6RMDu1bW7SGTfFf0X1bwf9S4m
+         IRVF06Ftzxc92i9Je9qLOmMtgyICEAFSOD5qKjmOr2sD1sb76ArcJOM9avD00uNndG8Z
+         g5Xe5lbpO8jrJfEJ4sZJWeNx4RklckW1yqaQTTjv+iuiwSDkzDbt5yvzgHE560Bedmjj
+         Nk+A==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788511238; x=1789116038; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1788511504; x=1789116304; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=WWxKvLFem3x1UnUj6lzBslbqm6k7zfr8RzsgQ0D0syQ=;
-        b=StLmREyVpJPM+R27gmPiynAPpviw7Tec+hwp9YMpLHN6vj9GVfRU0+X8RO1kiFZfWC
-         SMANtGMRBcO1tMOc4QfcgMmDpZIxxsQQVPsvfX5hvWCuF2nEJWF3LuzWeZdniHOzjDCh
-         UGAnQEnk33vOuGjYrzAeAxia7VzeGQoEsmoOo=
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        b=OHq3BLB271y1jwP3b0ndufgr7TNvfUJRhjRvUJtosBavzp4H3EnvaTWaTVaNj0QGVU
+         QPGrYH6sMFqC8aMe78wydXChgzhUWYC9YMo9XT6hss52aXFnX0hOddzkpwIKusXeEIho
+         pMqklrdYX725vRVFRiqQE/VsOQA4xKFL4OQSKOwrepe50LRypCtcK0ismEzxo2VbHlDb
+         o5McWZ0MvCr84UjS/MFTr3HrwImPkiTWO/n6F+EgCS7sFb2e3mPbLE4uHQS8r7r7P0BJ
+         985x90yoOjZC/jCtnPB40nOeFMfqXYP78GnZ9FgFfELPH5pUvSURAey1x3c6NdglpSfk
+         j1fQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788511238; x=1789116038;
+        d=1e100.net; s=20251104; t=1788511504; x=1789116304;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=WWxKvLFem3x1UnUj6lzBslbqm6k7zfr8RzsgQ0D0syQ=;
-        b=QIQP05TNkBJRBvXLqZuIYsf71m3tO2tBgXQDhsO5jKydlgKKynG+8OQIj0X0Zvxn82
-         Ez4KbB6VAspQqItlL0nPr624FSdt9bffKkXKVCL7mx44Hoq5NMNyNndS3kNopecKmX+u
-         OCSIOrf91qWWrR9BujR+tvZHPOrLOB2MKXZvl9u1vtO/TiLfbXi9MobXB7mBo+BfoVlD
-         lFmdOXto22tkSqzVflJiMQ5X9afvKeIOvkOQjgzCjeKejiRZeQdaWh3GVw8HcRqQkDqe
-         AT6PfcVP/WZqsUlSqM4uXNUWeMhKqv3YdvhX47SIiJPFWr4umopSQ+ZvQLpw4VEkvHBc
-         HMBg==
-X-Forwarded-Encrypted: i=1; AKwUvBxcqiCJZ4ABg1Y9tpfXu0EqLmdkFPF0raKSxPy0iVaiLalfQH3OCFqn85ucRbKOxX3ixnNftLoFHJKAsg==@vger.kernel.org
-X-Gm-Message-State: AFuF++kMqdm1TNBAOxkv+KMP8Oll11king8KQ0CfjjduwaxAp9o2QA9j
-	mGges919WfNtMjhQGT0ky1Zutl1URgYOMzYudYC5RGG4gQwFPDx9B9OeeKrDfkk1ehCL08JEt15
-	e+0QI+Q==
-X-Gm-Gg: AYBFou1UXNkOVcaPWmc2Z0CUobllT4WhSQ4sEIMPP1WLNyCAi9GanSr/zmqY9xzknJq
-	gEXFbtCuelRUO+qGd2sPH6g8Hh7U9EcSdEwQc3khvDVNBBUcfi0vMslMMDva6rMRksAnSjRRNQS
-	NU4ip0cQdMa4NkPPOg6SpnGTnCuXmjAXqX2PekG9f8e3oOozEEf35W7x0bkSAHcQp/1t+Nr1oZe
-	KXodwGCG+D5rjd9mFxNemT03EFWM+YJG9LxUF0WNghxZ/BWnHMxE1XqtJcaQ9PLwnWb51wY3F/J
-	8L6DiW6kdgHtJiRUXUrGv4QPTDxugR26zV2PDWPAq4M18IBT8N2vpgngbc8Gc5euSj+sXMy6FpS
-	q/FyN1ZwwI/OZ2XjkdnG8tX23grhGnQ0aBv7Bbp3annxDWu++wYcQXQ0789QJJBrENg4Uuf+5u/
-	5nETVy0vakeeNht7RBaKiy+MWNjcD92rpKDLnfREBd2XKeiPWCoLzGHIGCb+m+WC5s4P85L1BVc
-	1RQc+uE9QLUy3l+9NUtLz89f+2p/w==
-X-Received: by 2002:a17:90b:57cd:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39b2609f356mr7587521a91.4.1788511237025;
-        Fri, 04 Sep 2026 01:40:37 -0700 (PDT)
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com. [209.85.215.182])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d455sm6870755ad.30.2026.09.04.01.40.36
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 04 Sep 2026 01:40:36 -0700 (PDT)
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so884720a12.2
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 01:40:36 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzJG0zoy9IM/M2uESp2cb+iFAYwqjVboH7YygJk9EPtk5PW1elfbrhWV4fmUMgc6Ikbo6vQMgcy1Plv8A==@vger.kernel.org
-X-Received: by 2002:a17:90a:d004:b0:398:c9be:cca8 with SMTP id
- 98e67ed59e1d1-39b2609f363mr7895398a91.2.1788511235561; Fri, 04 Sep 2026
- 01:40:35 -0700 (PDT)
+        bh=5hWDcK1vRIq8wGKAJgDKooIThOZ4ktEKyx/Je8y3ptg=;
+        b=diggh1xdI5ByWAU/T/UH/Iwpuq/9bvcXk0Xzsq8AOz757GJ/LehUDKO9C5e6npXOP9
+         bYFchxqHW/ISXW6IIDjxwaXGYaa/QX2KkuXXqReKhlSeXkHWdC7WBSH2YliHM1k+iAz5
+         nR8tJrvbWGZ1fnwtxx9hrL3E04XvL4IH6zag3B4UNDWhrMKl2dePozFzAAj6qLZSJgow
+         fKC5L7CEKgbbP1gPZnVR5Q+Egxmy4NW8K/DXke52IuxRowE7D1l53ld9HrOqXK0m9BQE
+         PBBYtvgMGzYuBh01F35nNtVGpTQW7n3PU5Z8Ckr7pSBBqJb7ROZeWYfII9lrXmiqh1Jn
+         RwrQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwu1SbUWuWXYSiZk/67svseVVrAoyeb1u+V3uKFQsBsOutwa7FWtyRpCJEF8Iih3rV7hScfo87ohP46BQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++myw5V4xZ2uMyygSrFLR9kmFfSxrjvyVwEjEQKxKAqkd4tVmTH7
+	pnjTPAumL78pkcsuHebSKFUPdF2QrXu6fnJ3XhiLpblOfJzFyckljNfqf755qdImpIVeE0NCM+0
+	5O/4mg5YhQe0wXT6PRZF7yNC+B5bgHTrEpTm+rMPsGdXsq1Sw+x5IJfKDOJwBbRX28bYaYzZjak
+	uZZOebaiK1aEytnsu75lwM4rdDUh26QwdPKCm7dCw=
+X-Gm-Gg: AYBFou2qqYbA6bmdf/7HIPF/RfoEHtP8UrhmvnZ10OD2VtRfOhRPWrzUoLh9hbZVZdB
+	J6FnLNI6iplpPp+Jc7w347jQObKLVFVA2+q5ScoOJ3u+9FUQ8oDOehFoo7kQ8fVHhy2bkIOyQrz
+	UQTl9jovMhp3njT6zJuLv82mHWNIe4SlhmGNIZROGNZuHu3N5wljTtw4O7
+X-Received: by 2002:a05:6820:16a2:b0:6b1:4280:9e18 with SMTP id 006d021491bc7-6b6fb8d26c1mr3436183eaf.13.1788511504175;
+        Fri, 04 Sep 2026 01:45:04 -0700 (PDT)
+X-Received: by 2002:a05:6820:16a2:b0:6b1:4280:9e18 with SMTP id
+ 006d021491bc7-6b6fb8d26c1mr3436163eaf.13.1788511503655; Fri, 04 Sep 2026
+ 01:45:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260903081145.8382-1-rh_king@163.com> <CANiDSCse5+Ke-Z2321F_QHJZX2suCKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com>
- <42a544a1.3e7.1a06b912fdb.Coremail.rh_king@163.com>
-In-Reply-To: <42a544a1.3e7.1a06b912fdb.Coremail.rh_king@163.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Fri, 4 Sep 2026 10:40:22 +0200
-X-Gmail-Original-Message-ID: <CANiDSCsO4SFhKz6OvTZCrojyA8QUYg5+9aMigOkum_nRX-N3oA@mail.gmail.com>
-X-Gm-Features: AcwNN1Wy19_xCMbKNIDkMQ7Mkm8-Ojvi8LGf_3lPq1ekEd1Uwv-OTFJuBfSHlK8
-Message-ID: <CANiDSCsO4SFhKz6OvTZCrojyA8QUYg5+9aMigOkum_nRX-N3oA@mail.gmail.com>
-Subject: Re: Re: [PATCH] media: uvcvideo: Add quirk for Luxvisions RGB Camera (30c9:0122)
-To: =?UTF-8?B?5Lu75rW3?= <rh_king@163.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, 
-	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
+References: <20260904075113.125751-1-hpa@redhat.com> <20260904075113.125751-2-hpa@redhat.com>
+ <app-yOyzA32vQE7e@valkosipuli.retiisi.eu> <apqCH5zmpHdgr7cT@valkosipuli.retiisi.eu>
+In-Reply-To: <apqCH5zmpHdgr7cT@valkosipuli.retiisi.eu>
+From: Kate Hsuan <hpa@redhat.com>
+Date: Fri, 4 Sep 2026 16:44:50 +0800
+X-Gm-Features: AcwNN1XTYKXi-Mg7NPCpn9KaqgTU2gMB3DRT1LOh7pBu5pPrgKf8OCjGK4zxtSc
+Message-ID: <CAEth8oGi2funBOGaG71SpyGoSnPbvxuobmWV+Ay3Hqc46PM+vg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/3] media: i2c: imx471: Add line length PCK setting
+To: Sakari Ailus <sakari.ailus@iki.fi>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi.
+Hi Sakari,
 
-I think something went wrong when you pasted the text and also when you run=
- it.
+Thank you for reviewing this.
 
-checkout: https://lore.kernel.org/linux-media/CANiDSCse5+Ke-Z2321F_QHJZX2su=
-CKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com/T/#t
-
-You seem to have run `lsusb`, not `lsusb -v -d 30c9:0122`
-
-Can you try again?
-
-Thanks!
-
-On Fri, 4 Sept 2026 at 10:38, =E4=BB=BB=E6=B5=B7 <rh_king@163.com> wrote:
+On Fri, Sep 4, 2026 at 4:32=E2=80=AFPM Sakari Ailus <sakari.ailus@iki.fi> w=
+rote:
 >
-> Hi&nbsp;Ricardo=EF=BC=8C
-> Thanks&nbsp;for&nbsp;your&nbsp;review.&nbsp;This&nbsp;is&nbsp;the&nbsp;or=
-iginal&nbsp;output&nbsp;of&nbsp;'lsusb'
-> testing@fedora:~$&nbsp;lsusb
-> Bus&nbsp;001&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0002&nbsp;Linux&nbsp=
-;Foundation&nbsp;2.0&nbsp;root&nbsp;hub
-> Bus&nbsp;002&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0003&nbsp;Linux&nbsp=
-;Foundation&nbsp;3.0&nbsp;root&nbsp;hub
-> Bus&nbsp;003&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0002&nbsp;Linux&nbsp=
-;Foundation&nbsp;2.0&nbsp;root&nbsp;hub
-> Bus&nbsp;003&nbsp;Device&nbsp;002:&nbsp;ID&nbsp;30c9:0122&nbsp;Luxvisions=
-&nbsp;Innotech&nbsp;Limited&nbsp;Integrated&nbsp;RGB&nbsp;Camera
-> Bus&nbsp;003&nbsp;Device&nbsp;011:&nbsp;ID&nbsp;06cb:00f9&nbsp;Synaptics,=
-&nbsp;Inc.&nbsp;
-> Bus&nbsp;003&nbsp;Device&nbsp;012:&nbsp;ID&nbsp;17ef:62af&nbsp;Lenovo&nbs=
-p;ThinkPad&nbsp;X13&nbsp;Detachable&nbsp;Gen&nbsp;1
-> Bus&nbsp;004&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0003&nbsp;Linux&nbsp=
-;Foundation&nbsp;3.0&nbsp;root&nbsp;hub
-> =E5=9C=A8 2026-09-03 16:59:59=EF=BC=8C"Ricardo Ribalda" <ribalda@chromium=
-.org> =E5=86=99=E9=81=93=EF=BC=9A
-> Hi Kean
+> On Fri, Sep 04, 2026 at 11:18:16AM +0300, Sakari Ailus wrote:
+> > Hi Kate,
+> >
+> > On Fri, Sep 04, 2026 at 03:51:11PM +0800, Kate Hsuan wrote:
+> > > Add the line length PCK setting to the IMX471 driver. This parameter
+> > > determines the horizontal line scan duration and is used to calculate
+> > > and control the sensor frame rate.
+> > > Set the line length PCK value to 0x0a00 (matching the original value
+> > > in ipu6-drivers), which maintains a frame rate close to the datasheet
+> > > spec (~150 FPS in 2328x1304 binning mode).
+> >
+> > This fits on fewer lines, please rewrap.
+Okay
+
+> >
+> > >
+> > > Signed-off-by: Kate Hsuan <hpa@redhat.com>
+> > > ---
+> > >  drivers/media/i2c/imx471.c | 2 ++
+> > >  1 file changed, 2 insertions(+)
+> > >
+> > > diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+> > > index 4053aed84340..3c939f2a9056 100644
+> > > --- a/drivers/media/i2c/imx471.c
+> > > +++ b/drivers/media/i2c/imx471.c
+> > > @@ -91,6 +91,7 @@
+> > >  #define IMX471_CSI_2_LANE_MODE                     1
+> > >  #define IMX471_CSI_4_LANE_MODE                     3
+> > >
+> > > +#define IMX471_REG_LINE_LENGTH_PCK         CCI_REG16(0x0342)
+> > >  #define IMX471_REG_X_ADD_STA                       CCI_REG16(0x0344)
+> > >  #define IMX471_REG_Y_ADD_STA                       CCI_REG16(0x0346)
+> > >  #define IMX471_REG_X_ADD_END                       CCI_REG16(0x0348)
+> > > @@ -240,6 +241,7 @@ static const struct cci_reg_sequence mode_1928x10=
+88_regs[] =3D {
+> > >     { CCI_REG8(0x030d), 0x02 },
+> > >     { CCI_REG8(0x030e), 0x00 },
+> > >     { CCI_REG8(0x030f), 0x53 },
+> > > +   { IMX471_REG_LINE_LENGTH_PCK, 2560 },
+> >
+> > The register definition is nice but there's already a control for this.
+> > Could you do this via s_ctrl()?
+okay. I'll update the value when set V4L2_CID_HBLANK.
+
+The original driver in the ipu6-drivers sets this register with 2560
+and I found that a larger value slows down the fps. I try to make the
+fps close to the datasheet.
+
+> >
+> > There's also another set addressing related issues here
+> > <URL:https://lore.kernel.org/linux-media/20260904075113.125751-1-hpa@re=
+dhat.com/T/#t>.
 >
-> Could you provide the whole output of lsusb -v 30c9:0122
->
-> Thanks!
->
-> On Thu, 3 Sept 2026 at 10:58, Kean Ren <rh_king@163.com> wrote:
-> >
-> > The device binds cleanly but delivers no image data; USB autosuspend is
-> > suspending the streaming endpoint. Disable autosuspend for it.
-> >
-> > Issue found on Lenovo ThinkPad X13 (codename Zelda, Intel); confirmed
-> > working with this quirk.
-> >
-> > Tested-by: Kean Ren <rh_king@163.com>
-> > Signed-off-by: Kean Ren <rh_king@163.com>
-> > ---
-> >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
-> >  1 file changed, 9 insertions(+)
-> >
-> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc=
-/uvc_driver.c
-> > index e289cc71ba98..32bf353013a1 100644
-> > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > @@ -3216,6 +3216,15 @@ static const struct usb_device_id uvc_ids[] =3D =
-{
-> >           .bInterfaceSubClass   =3D 1,
-> >           .bInterfaceProtocol   =3D 0,
-> >           .driver_info          =3D UVC_INFO_META(V4L2_META_FMT_D4XX) }=
-,
-> > +       /* Luxvisions Innotech Integrated RGB Camera (Lenovo laptops) *=
-/
-> > +       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > +         .idVendor             =3D 0x30c9,
-> > +         .idProduct            =3D 0x0122,
-> > +         .bInterfaceClass      =3D USB_CLASS_VIDEO,
-> > +         .bInterfaceSubClass   =3D 1,
-> > +         .bInterfaceProtocol   =3D 0,
-> > +         .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_DISABLE_AU=
-TOSUSPEND) },
-> >         /* Intel Realsense D435i depth camera */
-> >         { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-> > --
-> > 2.40.0
-> >
-> >
->
+> Wrong URL, I meant this one
+> <URL:https://patchwork.linuxtv.org/project/linux-media/patch/ede568ada430=
+4d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu/>.
+It's ok :)
+Ah yes, I noticed that. We can discuss the pixel rate there.
+
 >
 > --
-> Ricardo Ribalda
-
+> Sakari Ailus
+>
 
 
 --=20
-Ricardo Ribalda
+BR,
+Kate
+
