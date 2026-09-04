@@ -1,139 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F9142A175
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 06:23:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4620242048D;
+	Fri,  4 Sep 2026 06:40:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788502990; cv=none; b=RrROBCymRiUpZBXnm+pHsz1xfqLVzD0O/6D1MxN6wB2tcANdDjW2IdiMN9TKwA16BgHyn6O3o+35bvSGWfW5mzWQBnRGpQURhKrmKnDvyQhVVqGZP7chiaVz4VttqUhdyaCMCXwuB0iF7Ow6HiWG7Kl4VswDmDRNiguTzcoLzKg=
+	t=1788504012; cv=none; b=CnR3LojeReJlBwx2uusUyUqFVnvRjV0YdAnKISdMbAtjVbcgDU9rjLthq+BWg6sw2EF/NuWPgrlp4BZbGdHgtUkh6jm5zBCA5Dny0pzEVAnon9Psq34rBZkzXeMDeIDz+XDjaI9g5J9Jp0X9ZuUqhoh8K1I7j0/eNScO4ZD6nJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788502990; c=relaxed/simple;
-	bh=Qj0+OR/8JjwGDpzmkwEPl1x+qMLOC+IXwEVhvsJlDkw=;
-	h=Date:From:To:Cc:Subject:Message-ID; b=dQ1L1FEoEbaAJ11iAfR5ecJx97BAJZGmfLHce1+bpyRvkJqsGHJRuBtg15CCxT385Hb/VnC7PXhgGUvKVcds1TuBGfifzq9I/KXqlsnBCi6H1Njd8ipQzGugawVZyhp4B+NQu+llBqr4kMMRjga7X4u4l7YcgEcRIV5tx5JOYho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XdXtL+QT; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1788504012; c=relaxed/simple;
+	bh=J1KvWqh62WTQ03xd0+CqNZq1yEoLrhBiZ5RGBMHRC9c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tbFYeOcZ1THLGIGttbEVw3vrVvA+FMKDLdpmAVKtFRd8BVWyoeY6AQpRC1JHPF3+nOHbnpSw3mbuKhKWlreDFQPDJxSAcMufm3jK6ngs/dqpCAkms5kl0w8iWtjT0ac/AK/hxs46S7U+n2ZMFEmpXQrwDf4sOPe2aDmJ02LeivA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W3LXxkeI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XdXtL+QT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788502989; x=1820038989;
-  h=date:from:to:cc:subject:message-id;
-  bh=Qj0+OR/8JjwGDpzmkwEPl1x+qMLOC+IXwEVhvsJlDkw=;
-  b=XdXtL+QTFTPD1ksc3fcuJcjQ/YnkxMdkWHpzg3AekUTtVkv+Ya3Jgmpt
-   KxbL9zo3lk855AGDJlZUB2Qrv9/MJL1YSAAPEgmORD/Iiso/9iT1NAaX4
-   Rxo7JlD0VGsBCy7WUpr7zoU/KHAJ7eYbuhmlQfFUzOqdMYo79vBOGUx0j
-   sjZHBxkWlFZxLYKLVcjoTZI9WRz8Rp/mKq27AiEt/Bhsc/awGsIlsV4ow
-   1oygrUpsAKcZHI48ozhZVD4tZqSmu/8ZmhnIuDvEkOcTQpv4NA8cSl+oy
-   z13Eyn5XbAz0QvmlBaogCVU9+MQ5wJCPpcPcDo+fS47plmKTe715aq8Pu
-   Q==;
-X-CSE-ConnectionGUID: MAayEtW3RviWI/Kv/GkdOA==
-X-CSE-MsgGUID: 1pRGLf68TC6N47EdNchzdg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89052791"
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="89052791"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 23:23:08 -0700
-X-CSE-ConnectionGUID: b0A6kXtST6GTwVcVB2qLXQ==
-X-CSE-MsgGUID: EGSStKa1TH2jAx8D+IV0Vw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
-   d="scan'208";a="269938008"
-Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
-  by orviesa007.jf.intel.com with ESMTP; 03 Sep 2026 23:23:07 -0700
-Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x2NKK-000000005xs-2N5i;
-	Fri, 04 Sep 2026 06:23:04 +0000
-Date: Fri, 04 Sep 2026 14:22:19 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hans Verkuil <hverkuil@kernel.org>
-Cc: linux-media@vger.kernel.org
-Subject: [linuxtv-media-pending:fixes] BUILD SUCCESS
- e04ffff543db06308a8100f6aa3a65aebcd9834c
-Message-ID: <202609041417.2pCAxkLj-lkp@intel.com>
-User-Agent: s-nail v14.9.25
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W3LXxkeI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E7BDE1F00A3D;
+	Fri,  4 Sep 2026 06:40:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788504010;
+	bh=48bodTpVBmNx41ZQPaNGwPIsLCCxbhOYMD05wV5/gPs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W3LXxkeIXv2NfmvPGTySH0nq3Mh06R0PeM7dlWTwsZPOH22mvCcf44py4XMUdcFmU
+	 wXXXnPe5Z+tfZWsyPS0iJRdemgf4lVlUcvadFjDqXkUwh/q93JgCiqGZim5RtCW3TS
+	 WqjD3BuwX3LcDlPtsXYfo/J5aGG7vwqRX6ysvThXyHq+uS6zPtr+FD5VJzTUanR2oW
+	 oZSTOgO/lCK05vXMYeBdqpndkLR07ukLWSfrjK9d8DNwz2mrwPqrytKSTliw3QoMw0
+	 3X1uoheFEOF1YYTtDBluK6nPn/6/HLc+nwh5UGKpgP3weeKS1LnTGDfG0OXsAcqaLN
+	 YzAqezPlBF5ag==
+Date: Fri, 4 Sep 2026 09:40:05 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: Bjorn Helgaas <helgaas@kernel.org>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+	Logan Gunthorpe <logang@deltatee.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	Sumit Semwal <sumit.semwal@linaro.org>, linux-pci@vger.kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: Re: [PATCH 1/2] PCI/P2PDMA: Update DMABUF lifecycle docs after
+ move_notify() rename
+Message-ID: <20260904064005.GE24140@unreal>
+References: <20260825-document-dma-buf-v1-1-5ecfb3e1371c@nvidia.com>
+ <20260903203431.GA2238823@bhelgaas>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260903203431.GA2238823@bhelgaas>
 
-tree/branch: https://git.linuxtv.org/media-ci/media-pending.git fixes
-branch HEAD: e04ffff543db06308a8100f6aa3a65aebcd9834c  media: rppx1: bls: read the raw pattern from the PRE2 acquisition module
+On Thu, Sep 03, 2026 at 03:34:31PM -0500, Bjorn Helgaas wrote:
+> On Tue, Aug 25, 2026 at 09:28:01AM +0300, Leon Romanovsky wrote:
+> > From: Leon Romanovsky <leonro@nvidia.com>
+> > 
+> > Commit 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to
+> > dma_buf_invalidate_mappings()") left the DMABUF section of the P2PDMA
+> > documentation pointing at move_notify(), a symbol that no longer
+> > exists. Readers grepping for it find nothing, and this is the only
+> > place in Documentation/ describing the revocation requirement.
+> > 
+> > Name the current function and record that importers which cannot unmap
+> > within bounded time have to be rejected at attach time, which is what
+> > makes the synchronous unmap on remove() achievable.
+> > 
+> > Fixes: 95308225e5ba ("dma-buf: Rename dma_buf_move_notify() to dma_buf_invalidate_mappings()")
+> > Signed-off-by: Leon Romanovsky <leonro@nvidia.com>
+> 
+> Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+> 
+> It looks like 2/2 might be updated, and it probably makes sense to
+> merge them both together, but let me know if you want me to take this.
 
-elapsed time: 2861m
+This PCI patch is completely standalone, so I sent it separately:
+https://lore.kernel.org/all/20260830-doc-p2p-move-v1-1-61a388620588@nvidia.com/
 
-configs tested: 62
-configs skipped: 3
+Can you please take it from there?
 
-The following configs have been built successfully.
-More configs may be tested in the coming days.
+Thanks
 
-tested configs:
-alpha         allnoconfig    gcc-16.1.0
-alpha        allyesconfig    gcc-16.1.0
-arc          allmodconfig    clang-24
-arc           allnoconfig    gcc-16.1.0
-arc          allyesconfig    clang-24
-arc          allyesconfig    gcc-16.1.0
-arm           allnoconfig    clang-17
-arm           allnoconfig    gcc-16.1.0
-arm          allyesconfig    clang-24
-arm64        allmodconfig    clang-24
-arm64         allnoconfig    gcc-16.1.0
-csky         allmodconfig    gcc-16.1.0
-csky          allnoconfig    gcc-16.1.0
-hexagon      allmodconfig    clang-24
-hexagon      allmodconfig    gcc-16.1.0
-hexagon       allnoconfig    clang-24
-hexagon       allnoconfig    gcc-16.1.0
-i386         allmodconfig    clang-22
-i386          allnoconfig    gcc-14
-i386          allnoconfig    gcc-16.1.0
-i386         allyesconfig    clang-22
-loongarch    allmodconfig    clang-24
-loongarch     allnoconfig    clang-20
-loongarch     allnoconfig    gcc-16.1.0
-m68k         allmodconfig    gcc-16.1.0
-m68k          allnoconfig    gcc-16.1.0
-m68k         allyesconfig    clang-24
-microblaze    allnoconfig    gcc-16.1.0
-microblaze   allyesconfig    gcc-16.1.0
-mips         allmodconfig    gcc-16.1.0
-mips          allnoconfig    gcc-16.1.0
-mips         allyesconfig    gcc-16.1.0
-nios2        allmodconfig    gcc-11.5.0
-nios2         allnoconfig    clang-24
-openrisc     allmodconfig    gcc-16.1.0
-openrisc      allnoconfig    clang-24
-parisc       allmodconfig    gcc-16.1.0
-parisc        allnoconfig    clang-24
-parisc       allyesconfig    gcc-16.1.0
-powerpc      allmodconfig    gcc-16.1.0
-powerpc       allnoconfig    clang-24
-riscv        allmodconfig    clang-24
-riscv         allnoconfig    clang-24
-riscv        allyesconfig    clang-24
-s390         allmodconfig    clang-24
-s390          allnoconfig    clang-24
-s390         allyesconfig    gcc-16.1.0
-sh           allmodconfig    gcc-16.1.0
-sh            allnoconfig    clang-24
-sh           allyesconfig    gcc-16.1.0
-sparc         allnoconfig    clang-24
-sparc64      allmodconfig    clang-20
-um           allmodconfig    clang-17
-um            allnoconfig    clang-24
-um           allyesconfig    gcc-14
-um           allyesconfig    gcc-16.1.0
-x86_64       allmodconfig    clang-22
-x86_64        allnoconfig    clang-24
-x86_64       allyesconfig    clang-22
-x86_64      rhel-9.4-rust    clang-22
-xtensa        allnoconfig    clang-24
-xtensa       allyesconfig    gcc-16.1.0
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+> 
+> > ---
+> >  Documentation/driver-api/pci/p2pdma.rst | 6 ++++--
+> >  1 file changed, 4 insertions(+), 2 deletions(-)
+> > 
+> > diff --git a/Documentation/driver-api/pci/p2pdma.rst b/Documentation/driver-api/pci/p2pdma.rst
+> > index d3f406cca694..63cff9e4d2c9 100644
+> > --- a/Documentation/driver-api/pci/p2pdma.rst
+> > +++ b/Documentation/driver-api/pci/p2pdma.rst
+> > @@ -167,9 +167,11 @@ In this case the initiator and target pci_devices are known and the P2P subsyste
+> >  is used to determine the mapping type. The phys_addr_t-based DMA API is used to
+> >  establish the dma_addr_t.
+> >  
+> > -Lifecycle is controlled by DMABUF move_notify(). When the exporting driver wants
+> > +Lifecycle is controlled by DMABUF revocation. When the exporting driver wants
+> >  to remove() it must deliver an invalidation shutdown to all DMABUF importing
+> > -drivers through move_notify() and synchronously DMA unmap all the MMIO.
+> > +drivers through dma_buf_invalidate_mappings() and synchronously DMA unmap all
+> > +the MMIO. Importers unable to complete that unmap within bounded time have to
+> > +be rejected when they attach, which dma_buf_attach_revocable() checks for.
+> >  
+> >  No importing driver can continue to have a DMA map to the MMIO after the
+> >  exporting driver has destroyed its p2p_provider.
+> > 
+> > -- 
+> > 2.55.0
+> > 
