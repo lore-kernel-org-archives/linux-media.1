@@ -1,45 +1,47 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 850B83D8115
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 07:51:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F46F3D9058
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 07:52:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788508308; cv=none; b=rE5Iucd+70ZREdsoFU9hQ0KR9LAgGh7gDCStj3CRCk1XlHYyoIyWD85A0UEH08qkbIXmgAEsCj+kAnq6siUx2OTU8O01ska4rHjCqMuMyAEXS+P5fsv9EgmWXLKTeRgwLJGpJ5nAj8bCugKgP77RCQYSbNuZPEdU2qVAkEJ+xj4=
+	t=1788508322; cv=none; b=L7o/8pM+AnGDI37dzqY7BVMVhUIbEC0Mlw3tAiL22fvS1Ke3AgS9+ZETntKbEX5yN/WjRRIKJE3Fh87k3Yz1S99b3nQxNu9K0R6Jb+o23Tp1T6t5JOGU+cyF/eU9YOfPEfuLVYgCYU1jHSCIb9iKRwIAhY2eycdUtguGj5jXH7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788508308; c=relaxed/simple;
-	bh=nneXBwY8HKJPvinM0pRgTWfvkeMfpmqsCYtbYI4c2+0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UDX8j5JEheTJoTjfyCzSBTEkw65eGy0pHuPwEGWQoJjvoYHd1X8jcsp8kIx7LXBZdGDnV1vC/eShYprtoIXFXjnphHrBR7itVJsG61zdMM/FVyLkD24soR5LFuh2p7fUoTsgRNw03gTCS/tYInxOR6yC77DEJmm4KP5mNr0z4fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WShmRRPk; arc=none smtp.client-ip=170.10.133.124
+	s=arc-20240116; t=1788508322; c=relaxed/simple;
+	bh=rP1BEpNy7j59pYCuXhy9GQIlhQNX/qMgcYlTfd8auyc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=TzBMcYBgFLb6ExpRwX7HULT8Syl4Kqk/abbcGvSMs2p9m4KOg/5nKkZOYSsGcBtN0xwDEFp2sLLK8KsWpuOPdKsnZEBIzWUD7A7c7XZo5Q7yDyy0os3e+mEfAXL1A52/gB5FMEMECrYDHpo4QVDMJJlZ0hFLhGg0n5S7QkY6wN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=L/D+71PT; arc=none smtp.client-ip=170.10.129.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WShmRRPk"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="L/D+71PT"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788508305;
+	s=mimecast20190719; t=1788508319;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=gdBhk9sOhs+VzTAXh4Hh7u6l52/P77aXQhA3RXIaOjI=;
-	b=WShmRRPksTZYpYZ6b0l5fqQXz+/Hn9R9dtvz8sQhoqMfBydQKQW3ulxtIFKdkVt1sNuRZH
-	JZQ0022r9fB4xjgF01PAYQBCjdf2tu+NJJD3iL8JG7sGYzY02wbzJVKzjSEQT5VIVbqC4H
-	/0At5fZha6X+NPNU0r/NXkpDbcGUn3I=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=dGdvgtkNrs9KN5jbXelsFzF+Y38oqarYUi5pXTI1gUo=;
+	b=L/D+71PTAWdxOKPUeGFInIaWRf1IOzYOsXuC3fv9AGRIg6KLaJQSfWTnrWR9CZgL+KayZS
+	FLFUyMu98dyWGdctuEuUvwkLWHAwz1OZ1bAIdAFNXE36GU00D+zFEeYn4GAq7Lvci8gQhS
+	r1VdCELbs8itAh/UQ05CPQTvVJQSKn0=
+Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-212-BQQesCthPEijmf79OqztGQ-1; Fri,
- 04 Sep 2026 03:51:39 -0400
-X-MC-Unique: BQQesCthPEijmf79OqztGQ-1
-X-Mimecast-MFC-AGG-ID: BQQesCthPEijmf79OqztGQ_1788508298
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-373-tdxsGeK6OSutJDY6UNxSqg-1; Fri,
+ 04 Sep 2026 03:51:56 -0400
+X-MC-Unique: tdxsGeK6OSutJDY6UNxSqg-1
+X-Mimecast-MFC-AGG-ID: tdxsGeK6OSutJDY6UNxSqg_1788508315
 Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id C7365195F14E;
-	Fri,  4 Sep 2026 07:51:37 +0000 (UTC)
+	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A6A63186FB8D;
+	Fri,  4 Sep 2026 07:51:54 +0000 (UTC)
 Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 4A83E18001D0;
-	Fri,  4 Sep 2026 07:51:33 +0000 (UTC)
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 5BECF18001D0;
+	Fri,  4 Sep 2026 07:51:51 +0000 (UTC)
 From: Kate Hsuan <hpa@redhat.com>
 To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans de Goede <hansg@kernel.org>,
@@ -49,9 +51,11 @@ To: Mauro Carvalho Chehab <mchehab@kernel.org>,
 Cc: linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v2 0/3] media: i2c: imx471: Add line length PCK setting and calculate pixel rate based on external clock rate
-Date: Fri,  4 Sep 2026 15:51:10 +0800
-Message-ID: <20260904075113.125751-1-hpa@redhat.com>
+Subject: [PATCH v2 1/3] media: i2c: imx471: Add line length PCK setting
+Date: Fri,  4 Sep 2026 15:51:11 +0800
+Message-ID: <20260904075113.125751-2-hpa@redhat.com>
+In-Reply-To: <20260904075113.125751-1-hpa@redhat.com>
+References: <20260904075113.125751-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -61,35 +65,38 @@ MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-This patchset adds the line length PCK setting and calculates the pixel
-rate based on the external clock rate.
+Add the line length PCK setting to the IMX471 driver. This parameter
+determines the horizontal line scan duration and is used to calculate
+and control the sensor frame rate.
+Set the line length PCK value to 0x0a00 (matching the original value
+in ipu6-drivers), which maintains a frame rate close to the datasheet
+spec (~150 FPS in 2328x1304 binning mode).
 
-Changes in v2:
-The patchset contains three patches:
-1. Add line length PCK setting
-2. Name the PLL registers in the OP domain
-3. Calculate pixel rate based on the external clock rate and the PLL
-   configurations in the OP domain.
+Signed-off-by: Kate Hsuan <hpa@redhat.com>
+---
+ drivers/media/i2c/imx471.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-The line length PCK setting is added to the sensor driver to ensure the
-pixel rate is correct. The pixel rate is calculated based on the external
-clock rate. Moreover, since the sensor runs in the PLL DUAL mode, the
-configurations of the OP domain are considered.
-
-Tested with libcamera 0.7.2 and the patchset mitigated the horizontal
-line noise.
-
-Changes in v1:
-1. Add line length PCK setting
-
-Kate Hsuan (3):
-  media: i2c: imx471: Add line length PCK setting
-  media: i2c: imx471: Name the PLL registers in the OP domain
-  media: i2c: imx471: Calculate pixel rate based on external clock rate
-
- drivers/media/i2c/imx471.c | 39 ++++++++++++++++++++++++++++----------
- 1 file changed, 29 insertions(+), 10 deletions(-)
-
+diff --git a/drivers/media/i2c/imx471.c b/drivers/media/i2c/imx471.c
+index 4053aed84340..3c939f2a9056 100644
+--- a/drivers/media/i2c/imx471.c
++++ b/drivers/media/i2c/imx471.c
+@@ -91,6 +91,7 @@
+ #define IMX471_CSI_2_LANE_MODE			1
+ #define IMX471_CSI_4_LANE_MODE			3
+ 
++#define IMX471_REG_LINE_LENGTH_PCK		CCI_REG16(0x0342)
+ #define IMX471_REG_X_ADD_STA			CCI_REG16(0x0344)
+ #define IMX471_REG_Y_ADD_STA			CCI_REG16(0x0346)
+ #define IMX471_REG_X_ADD_END			CCI_REG16(0x0348)
+@@ -240,6 +241,7 @@ static const struct cci_reg_sequence mode_1928x1088_regs[] = {
+ 	{ CCI_REG8(0x030d), 0x02 },
+ 	{ CCI_REG8(0x030e), 0x00 },
+ 	{ CCI_REG8(0x030f), 0x53 },
++	{ IMX471_REG_LINE_LENGTH_PCK, 2560 },
+ 	{ IMX471_REG_PLL_MULT_DRIV, IMX471_PLL_DUAL },
+ 	{ CCI_REG8(0x3f4c), 0x81 },
+ 	{ CCI_REG8(0x3f4d), 0x81 },
 -- 
 2.55.0
 
