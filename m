@@ -1,58 +1,58 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17B1331ECC;
-	Fri,  4 Sep 2026 13:08:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDA534751B;
+	Fri,  4 Sep 2026 13:08:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527295; cv=none; b=D398JOvKKf0eLZy10hk4EdgKGrgltF3J85hxJM9QQZgSj4uRTmkMnyMIFxWHxZ+pHLsT2y9gOluoPrTWhrmcU6P1izsMFw7sLnSOtVNhxcrS2FRkageoLDDi8BF/JiVsr5PSyShQpLMLMJ1uFdO41YsfgaoxBvgqUPqPUKNgdOM=
+	t=1788527297; cv=none; b=YMVIBDoqSPUCjnWuwmlogYPV0F9Nn7CYWmb95Bk65Klbo/THTpSbd4msbyQG4PoaRUpZppNihBWc6KHoCyUxEqKiHb37KzIj0kY9ogP8IOKPR10ZMvYOLVqkcg8KSW6ZEAFH2hRAJV3EtF/Xxr4hHz2kB1ZC/hJWZCFzsKuQ8uA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527295; c=relaxed/simple;
-	bh=0DMng/AFg/pQRvmaVFY9PGhcWm4VyeiuExjC/qFDmxU=;
+	s=arc-20240116; t=1788527297; c=relaxed/simple;
+	bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pedNwQwnTY9Su6KegYCoD2mNeWoOnTZ12F545LcyjH0Au0mB7dd/kFgYMbWA6wILnxEwQwp7ofYE4d+ZHe2cInH/FdOakwvk6TIgCptrkkVwaPskkj8cuGAh+93TRHiMeFbzNgR+LBZafGagfY2EaIkqWonkI6dnpHUi4R1Sg5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=Z2mlLlQy; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=BO1+TlvG; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=J2S52vJJFG8cz8rAM4b7uYRUvjIy8IzAgEEYo9/EHwPoY9ez7G1qxI94EUHQIjAwp59Fy8e0Cb5yiVgPP37oODzIIV40y6h2LDfxPVCAmB9r9XzxbaqC7f/QL9Rb/UVHx5oAwDt0JOipdzCWVfEvv7+JSjDBWci3t0zXEIw1n5k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=hZVG1bDb; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=VT/wrtv0; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="Z2mlLlQy";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="BO1+TlvG"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="hZVG1bDb";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="VT/wrtv0"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527284; bh=0DMng/AFg/pQRvmaVFY9PGhcWm4VyeiuExjC/qFDmxU=;
+	t=1788527286; bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=Z2mlLlQyhjyVkGUDxX4DyFDTdkV93zXf2/eTPzmUEGt0EbksOsZbRoQEtEbI9gBe0
-	 BJowmc/Sk+I8VBbmU7ZSPyGOYtT/QmFLuFIa+a4W/3K3ufeTGWWsZIbyw7pFzCJnhM
-	 JHjW3gR7IHX5JogU4IEPDxivqqccDJ/RjC4GeFldfpG7aCAopg9vn3OI2bOreNqHzP
-	 4rCJ6PVI9IUsmtIhq293Ox2eKLBFKKPBpi4eFftm8Zs58+xJtUl/No1toMc0+dgqCM
-	 Og8VM/K1ZKV4h3t8f/IMG7O1bJXR7uu+ByebGIUuQ5cQYRKXSa7Lupy0YvIqzEpj6H
-	 L6s87YuNaRrGw==
+	b=hZVG1bDbc+0sWsWG6sacD2q0Cl5sQwgrjB9zS5R+AxlDIx7FHFfm+yc8CoRt8bDQn
+	 En5kvOtTgwCI7MPQ4HnkWufJS+MSwBIqQ1GJn4a5Zp2Rv742HOE4/t/p6fCZMUiqOS
+	 9u4U51rDIZQrCSlyKoJOFr8U7D6YQ+Vgzyo+rMcDPFILy+WqnC09ljoyZ+z7me5Gpy
+	 kUd103OYA3OBqGBipiW19TytfVwb/2K8ImVWafS6ZoCuh8cm8JWTLdAXlk3gGA7kZD
+	 ra87wVdTmMxsmkJb2Kit484CCrd3vJOdb7paYUh6T+p6AY0LN/6E9UGYCEsLzZTUom
+	 gvElJZOE9m1uQ==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id BFE6B41469; Fri, 04 Sep 2026 14:08:04 +0100 (BST)
+	id AD7F441478; Fri, 04 Sep 2026 14:08:06 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527281; bh=0DMng/AFg/pQRvmaVFY9PGhcWm4VyeiuExjC/qFDmxU=;
+	t=1788527284; bh=cNSLxQpumDpMN+2t5KQ0IZFyQ4Xu8kpWd341l0+fKzw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BO1+TlvGRj0CG9HBckXIsoLHP3ma3mAbkRqaqlF/STvRJuoAj4g07gys7f63ahQ/i
-	 OFoWwItxDrzLOebcy60ZN8s3q9NSpUV9WqzuzcKP0b8fPcMMnlVlRXiO+KBj/WMoUH
-	 URcrswab/M/ij4g54uFKMqOBBVecAmD5dudLynvVbSsTmMF/o/gmCjcNLju4NqdeQi
-	 +SVrzpv5To8b5SUtEU1J0KHslwBJRwY4rx+3Ud05JZLA164CLukOXWXMbc0sXivlVE
-	 HivQuUweTqJFbXXKjWQkYXuiMEfGiRdnbOs7LZ9pcZj3WIKBcCo6tDBkY5CahSSLi6
-	 PxyzAwf6xWxpg==
+	b=VT/wrtv0uHcVAEaGUwrODXnuD76cfYzIQxwLL5GNf+FSe9JdQ1LDTj7uxBDjL0Rhr
+	 Dg0zc83A4z/9F5Qc+wUIwmoiwPeKurGiiXIg3VpIYbyPrc6KYA3CFg5Akp2zLxYtZx
+	 JUke3gFGMVCTVmEEsfUhZeYSiGvg5mnmID/C6Luj5+XAN1ah99zcjUNLmuBQsHxSEP
+	 0pvfHK6SL5TjMP4Ly8Ra4hA6D3aLTh+zvuAzgiEBsPcHAQLaOU/cGgsBux+Kk3QgV8
+	 RNxgFYtTapj0ZvT7VvVtirWL+Acq4Sp7LPmOI1OWWsa9/BoLiP73WTKRmQu0VYEO2n
+	 V9p3zSldenaHw==
 Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id A214541451;
-	Fri, 04 Sep 2026 14:08:01 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 483A241456;
+	Fri, 04 Sep 2026 14:08:04 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Rik van Riel <riel@surriel.com>,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 09/17] media: rc: imon: Bind both interfaces via usb_driver_claim_interface()
-Date: Fri,  4 Sep 2026 14:07:37 +0100
-Message-ID: <c704b868b035a01805bb791e397814b48285705e.1788526920.git.sean@mess.org>
+Subject: [PATCH v3 14/17] media: mceusb: Remove unused field
+Date: Fri,  4 Sep 2026 14:07:42 +0100
+Message-ID: <579114bbd1fd1a107802579d1edc6cf6b51131d9.1788526920.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1788526920.git.sean@mess.org>
 References: <cover.1788526920.git.sean@mess.org>
@@ -64,330 +64,25 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-iMON devices expose two USB interfaces: interface 0 (IR, and
-the display/knob on older devices) and interface 1 (touchscreen/
-display on newer devices).
-
-The driver currently pieces the interface together and this has to
-deal with various race conditions. Restrict the id_table to interface 0
-only (USB_DEVICE_INTERFACE_NUMBER) so imon_probe() is only ever entered
-once per device and then we find the second interface with
-usb_driver_claim_interface(). This makes the driver much simpler.
+Never assigned or read.
 
 Signed-off-by: Sean Young <sean@mess.org>
 ---
- drivers/media/rc/imon.c | 166 +++++++++++++++++-----------------------
- 1 file changed, 72 insertions(+), 94 deletions(-)
+ drivers/media/rc/mceusb.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/media/rc/imon.c b/drivers/media/rc/imon.c
-index 621554005f2f..ef288cbe2b99 100644
---- a/drivers/media/rc/imon.c
-+++ b/drivers/media/rc/imon.c
-@@ -96,7 +96,6 @@ struct imon_context {
- 	bool dev_present_intf1;		/* USB device presence, interface 1 */
+diff --git a/drivers/media/rc/mceusb.c b/drivers/media/rc/mceusb.c
+index 39ba7f6a2549..356a54f91d05 100644
+--- a/drivers/media/rc/mceusb.c
++++ b/drivers/media/rc/mceusb.c
+@@ -484,7 +484,6 @@ struct mceusb_dev {
+ 	u8 cmd, rem;		/* Remaining IR data bytes in packet */
  
- 	struct mutex lock;		/* to lock this object */
--	wait_queue_head_t remove_ok;	/* For unexpected USB disconnects */
- 
- 	struct usb_endpoint_descriptor *rx_endpoint_intf0;
- 	struct usb_endpoint_descriptor *rx_endpoint_intf1;
-@@ -378,7 +377,7 @@ static const struct usb_device_id imon_usb_id_table[] = {
- 	 * SoundGraph iMON PAD (IR & LCD)
- 	 * SoundGraph iMON Knob (IR only)
- 	 */
--	{ USB_DEVICE(0x15c2, 0xffdc),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0xffdc, 0),
- 	  .driver_info = (unsigned long)&imon_default_table },
- 
- 	/*
-@@ -387,61 +386,61 @@ static const struct usb_device_id imon_usb_id_table[] = {
- 	 * Need user input to fill in details on unknown devices.
- 	 */
- 	/* SoundGraph iMON OEM Touch LCD (IR & 7" VGA LCD) */
--	{ USB_DEVICE(0x15c2, 0x0034),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0034, 0),
- 	  .driver_info = (unsigned long)&imon_DH102 },
- 	/* SoundGraph iMON OEM Touch LCD (IR & 4.3" VGA LCD) */
--	{ USB_DEVICE(0x15c2, 0x0035),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0035, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* SoundGraph iMON OEM VFD (IR & VFD) */
--	{ USB_DEVICE(0x15c2, 0x0036),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0036, 0),
- 	  .driver_info = (unsigned long)&imon_OEM_VFD },
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x0037),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0037, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* SoundGraph iMON OEM LCD (IR & LCD) */
--	{ USB_DEVICE(0x15c2, 0x0038),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0038, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* SoundGraph iMON UltraBay (IR & LCD) */
--	{ USB_DEVICE(0x15c2, 0x0039),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0039, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x003a),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003a, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x003b),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003b, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* SoundGraph iMON OEM Inside (IR only) */
--	{ USB_DEVICE(0x15c2, 0x003c),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003c, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x003d),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003d, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x003e),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003e, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x003f),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x003f, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x0040),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0040, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* SoundGraph iMON MINI (IR only) */
--	{ USB_DEVICE(0x15c2, 0x0041),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0041, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* Antec Veris Multimedia Station EZ External (IR only) */
--	{ USB_DEVICE(0x15c2, 0x0042),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0042, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* Antec Veris Multimedia Station Basic Internal (IR only) */
--	{ USB_DEVICE(0x15c2, 0x0043),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0043, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* Antec Veris Multimedia Station Elite (IR & VFD) */
--	{ USB_DEVICE(0x15c2, 0x0044),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0044, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* Antec Veris Multimedia Station Premiere (IR & LCD) */
--	{ USB_DEVICE(0x15c2, 0x0045),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0045, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	/* device specifics unknown */
--	{ USB_DEVICE(0x15c2, 0x0046),
-+	{ USB_DEVICE_INTERFACE_NUMBER(0x15c2, 0x0046, 0),
- 	  .driver_info = (unsigned long)&imon_default_table},
- 	{}
- };
-@@ -2334,9 +2333,8 @@ static struct imon_context *imon_init_intf1(struct usb_interface *intf,
- 
- 	mutex_lock(&ictx->lock);
- 
--	if (ictx->display_type == IMON_DISPLAY_TYPE_VGA) {
-+	if (ictx->display_type == IMON_DISPLAY_TYPE_VGA)
- 		timer_setup(&ictx->ttimer, imon_touch_display_timeout, 0);
--	}
- 
- 	ictx->usbdev_intf1 = interface_to_usbdev(intf);
- 	ictx->rx_urb_intf1 = rx_urb;
-@@ -2363,20 +2361,32 @@ static struct imon_context *imon_init_intf1(struct usb_interface *intf,
- 	ret = usb_submit_urb(ictx->rx_urb_intf1, GFP_KERNEL);
- 
- 	if (ret) {
--		pr_err("usb_submit_urb failed for intf1 (%d)\n", ret);
-+		dev_err(ictx->dev, "usb_submit_urb failed for intf1 (%d)\n", ret);
- 		goto urb_submit_failed;
- 	}
- 
-+	ret = usb_driver_claim_interface(&imon_driver, intf, ictx);
-+
-+	if (ret) {
-+		dev_err(ictx->dev, "failed to claim second interface (%d)\n", ret);
-+		goto usb_claim_failed;
-+	}
-+
- 	ictx->dev_present_intf1 = true;
- 
- 	mutex_unlock(&ictx->lock);
-+
- 	return ictx;
- 
-+usb_claim_failed:
-+	usb_kill_urb(rx_urb);
- urb_submit_failed:
- 	if (ictx->touch)
- 		input_unregister_device(ictx->touch);
- touch_setup_failed:
- find_endpoint_failed:
-+	if (ictx->display_type == IMON_DISPLAY_TYPE_VGA)
-+		timer_delete_sync(&ictx->ttimer);
- 	ictx->usbdev_intf1 = NULL;
- 	mutex_unlock(&ictx->lock);
- 	usb_free_urb(rx_urb);
-@@ -2416,90 +2426,50 @@ static void imon_init_display(struct imon_context *ictx,
- static int imon_probe(struct usb_interface *interface,
- 		      const struct usb_device_id *id)
- {
--	struct usb_device *usbdev = NULL;
--	struct usb_host_interface *iface_desc = NULL;
--	struct usb_interface *first_if;
-+	struct usb_device *usbdev;
-+	struct usb_interface *second_if;
- 	struct device *dev = &interface->dev;
--	int ifnum, sysfs_err;
--	int ret = 0;
--	struct imon_context *ictx = NULL;
-+	int sysfs_err;
-+	struct imon_context *ictx;
- 	u16 vendor, product;
- 
--	usbdev     = interface_to_usbdev(interface);
--	iface_desc = interface->cur_altsetting;
--	ifnum      = iface_desc->desc.bInterfaceNumber;
--	vendor     = le16_to_cpu(usbdev->descriptor.idVendor);
--	product    = le16_to_cpu(usbdev->descriptor.idProduct);
--
--	dev_dbg(dev, "%s: found iMON device (%04x:%04x, intf%d)\n",
--		__func__, vendor, product, ifnum);
-+	if (interface->cur_altsetting->desc.bInterfaceNumber != 0)
-+		return -ENODEV;
- 
--	first_if = usb_ifnum_to_if(usbdev, 0);
--	if (!first_if) {
--		ret = -ENODEV;
--		goto fail;
--	}
-+	usbdev  = interface_to_usbdev(interface);
-+	vendor  = le16_to_cpu(usbdev->descriptor.idVendor);
-+	product = le16_to_cpu(usbdev->descriptor.idProduct);
- 
--	if (first_if->dev.driver != interface->dev.driver) {
--		dev_err(&interface->dev, "inconsistent driver matching\n");
--		ret = -EINVAL;
--		goto fail;
--	}
-+	dev_dbg(dev, "found iMON device (%04x:%04x)\n", vendor, product);
- 
--	if (ifnum == 0) {
--		ictx = imon_init_intf0(interface, id);
--		if (!ictx) {
--			pr_err("failed to initialize context!\n");
--			ret = -ENODEV;
--			goto fail;
--		}
--		refcount_set(&ictx->users, 1);
-+	ictx = imon_init_intf0(interface, id);
-+	if (!ictx)
-+		return -ENODEV;
- 
--	} else {
--		/* this is the secondary interface on the device */
--		struct imon_context *first_if_ctx = usb_get_intfdata(first_if);
-+	refcount_set(&ictx->users, 1);
- 
--		/* fail early if first intf failed to register */
--		if (!first_if_ctx) {
--			ret = -ENODEV;
--			goto fail;
--		}
-+	usb_set_intfdata(interface, ictx);
- 
--		ictx = imon_init_intf1(interface, first_if_ctx);
--		if (!ictx) {
--			pr_err("failed to attach to context!\n");
--			ret = -ENODEV;
--			goto fail;
--		}
-+	/* Newer devices export a second interface for display/touchscreen */
-+	second_if = usb_ifnum_to_if(usbdev, 1);
-+	if (second_if && imon_init_intf1(second_if, ictx))
- 		refcount_inc(&ictx->users);
- 
-+	if (product == 0xffdc && ictx->rf_device) {
-+		sysfs_err = sysfs_create_group(&interface->dev.kobj,
-+					       &imon_rf_attr_group);
-+		if (sysfs_err)
-+			pr_err("Could not create RF sysfs entries(%d)\n",
-+			       sysfs_err);
- 	}
- 
--	usb_set_intfdata(interface, ictx);
--
--	if (ifnum == 0) {
--		if (product == 0xffdc && ictx->rf_device) {
--			sysfs_err = sysfs_create_group(&interface->dev.kobj,
--						       &imon_rf_attr_group);
--			if (sysfs_err)
--				pr_err("Could not create RF sysfs entries(%d)\n",
--				       sysfs_err);
--		}
--
--		if (ictx->display_supported)
--			imon_init_display(ictx, interface);
--	}
-+	if (ictx->display_supported)
-+		imon_init_display(ictx, interface);
- 
--	dev_info(dev, "iMON device (%04x:%04x, intf%d) on usb<%d:%d> initialized\n",
--		 vendor, product, ifnum,
--		 usbdev->bus->busnum, usbdev->devnum);
-+	dev_info(dev, "iMON device (%04x:%04x) on usb<%d:%d> initialized\n",
-+		 vendor, product, usbdev->bus->busnum, usbdev->devnum);
- 
- 	return 0;
--
--fail:
--	dev_err(dev, "unable to register, err %d\n", ret);
--
--	return ret;
- }
- 
- /*
-@@ -2507,11 +2477,15 @@ static int imon_probe(struct usb_interface *interface,
-  */
- static void imon_disconnect(struct usb_interface *interface)
- {
-+	struct usb_device *usbdev = interface_to_usbdev(interface);
-+	struct usb_interface *other_if;
- 	struct imon_context *ictx;
- 	struct device *dev;
- 	int ifnum;
- 
- 	ictx = usb_get_intfdata(interface);
-+	if (!ictx)
-+		return;
- 
- 	mutex_lock(&ictx->lock);
- 	ictx->disconnected = true;
-@@ -2547,6 +2521,7 @@ static void imon_disconnect(struct usb_interface *interface)
- 			else if (ictx->display_type == IMON_DISPLAY_TYPE_VFD)
- 				usb_deregister_dev(interface, &imon_vfd_class);
- 		}
-+		other_if = usb_ifnum_to_if(usbdev, 1);
- 	} else {
- 		ictx->dev_present_intf1 = false;
- 		usb_kill_urb(ictx->rx_urb_intf1);
-@@ -2554,13 +2529,16 @@ static void imon_disconnect(struct usb_interface *interface)
- 			timer_delete_sync(&ictx->ttimer);
- 			input_unregister_device(ictx->touch);
- 		}
-+		other_if = usb_ifnum_to_if(usbdev, 0);
- 	}
- 
-+	if (other_if)
-+		usb_driver_release_interface(&imon_driver, other_if);
-+
- 	if (refcount_dec_and_test(&ictx->users))
- 		free_imon_context(ictx);
- 
--	dev_dbg(dev, "%s: iMON device (intf%d) disconnected\n",
--		__func__, ifnum);
-+	dev_dbg(dev, "iMON device (intf%d) disconnected\n", ifnum);
- }
- 
- static int imon_suspend(struct usb_interface *intf, pm_message_t message)
+ 	struct {
+-		u32 connected:1;
+ 		u32 tx_mask_normal:1;
+ 		u32 microsoft_gen1:1;
+ 		u32 no_tx:1;
 -- 
 2.55.0
 
