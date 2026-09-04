@@ -1,100 +1,437 @@
-Received: from outbound.mr.icloud.com (mr-2006b-snip4-11.eps.apple.com [57.103.70.83])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 072D1423A6C
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 06:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.70.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AE95388890;
+	Fri,  4 Sep 2026 07:03:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788505028; cv=none; b=tp6kzN33Rva2nDhDuUeirrr24kB6JNvR06itWcVQrQ7yQD9p4NzATRc42SbqoqFqWizZ4goeug/xnr2hIMluXiJsU4jBkV3te+Zptkcuqt8WqiXn+GWiJUsgJxXFSzhD7yk4qdjcdOEuYdIoq1JnqH7VEkVwYJZOlTJwsVZDXEI=
+	t=1788505397; cv=none; b=jp9wFy3M6uHAz4W4OaAkUgKGverqMNb8C+0hELQdP9hsA2NR4J3l8RHEV3ZzdiN+b6/60Bt5lU9rjOdCbZV4HQ8plmPb1i+C7n9kxO8YiNGk05QU7X3df1m6Kgmj7tvmYvawEd6e+MmwjtnawMJfXh0AwXuNux+lA0FUPjajcRg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788505028; c=relaxed/simple;
-	bh=F+svzLYHQqMe+JIs3TCyXCjOxWcQ2y7g+Fopq/PDfeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lQOJ5vtHH/vH/zW9mqFRutmCSWkzbwUyZQMBCp8qfsjQ/f3yHdRNLO3BnZa4yuJpIgrQqrrwC2HkQk2U6zh6IDH1HvQrlkPwbnMzlIt3wweT9Hig9s8t5YeTAPXarJ57Qi5PpcvVTdQ7zeHbViQW2nD5T8AhllnlaeRyeuAT87Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr; spf=pass smtp.mailfrom=pinon1.fr; dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b=bNW60aW/; arc=none smtp.client-ip=57.103.70.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pinon1.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinon1.fr
+	s=arc-20240116; t=1788505397; c=relaxed/simple;
+	bh=WnbcQGUNfwtq+T+rmeWFHV8UiRTKjFm83y3dbtvXXDs=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=bgS6li0d5cWVqisKjmnvgAJV9Rl2KhWG8JP02b4X+W/WHQFLkrglvE+ImsrOkihlzxxVcnz0EKAAxWCMdmKgFQ+fdah12IIE5nLTvSZ5alPME4jLTbkh2Y0eH5tORdgMgR+vLdoAwkqENx2yW/Ws6XXpgyvGVvv81oZk/UNUaUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=STonagj7; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinon1.fr header.i=@pinon1.fr header.b="bNW60aW/"
-Received: from outbound.mr.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-2 (Postfix) with ESMTPS id A2AD718000B2;
-	Fri, 04 Sep 2026 06:57:01 +0000 (UTC)
-X-ICL-RepId: 01a06b34-dc0a-7950-9498-83cfa9f954d9
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQBKHVwPXxxBDUwdXwZcEhVdRUMEUhlAFXkIWgNYBQNeXwoTC1NWQhlXF11cGQ1AUEsbDloXA1ccVkVcGEMJXQVXHB0ARUVbE1UXRgkZCF0dGQhHHwowA0IOVgNDB0UALRkcV1BHAlwfV0kdC0VLXxldRQ9fB1kEQABIB10BXgRFClYFXQFSH0EUCFoIRRlXMEkRXQJZWhwWS0YTGU4bV01aDUAZWAZtFFYVUgRZ
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pinon1.fr; s=sig1; t=1788505024; x=1791097024; bh=uJL3FePFId7Z+1JFVTIx4BDzbsE2Z3Mv5eiTZ6r5SpI=; h=From:To:Subject:Date:Message-ID:MIME-Version:x-icloud-hme; b=bNW60aW/rsvFr7E38w2eHG7T4vPekq08Rn7bMgFWMOL2d7A5JyRHeO4JVX/ZtOsJNRqBUJTky4gD4fmTOZYwE5M1z6g6f/y+0UE9TBDl80J9JK+7zM9DBSqjUaCJHZXbWEBa9Jbq5TB1rkmcRKLL80xiI47EXLHgYnTyu4H7udF2QZ/Vnd8wKhmfJUoBk6sVpHHFlxKw/s+FKn6ETWzMzPCfQxn3fc77vzUap3ToLhENQ1syvSIHoCgaHauHM4T4OsncZePETNii65uKbL4f6ifqATSIUxh05U2coOmDQKS3ODtVjsWXiBfYLdpHtvR8T3sDo//cJl1RPWwu0mJl2Q==
-mail-alias-created-date: 1575045973000
-Received: from 2a01cb0a80256b8bfbb9c8b6ea0a448d.ipv6.abo.wanadoo.fr (unknown [17.156.200.36])
-	by p00-icloudmta-asmtp-us-west-2a-100-percent-2 (Postfix) with ESMTPSA id 019D31800118;
-	Fri, 04 Sep 2026 06:56:58 +0000 (UTC)
-From: Pierre Pinon <pierre@pinon1.fr>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-media@vger.kernel.org
-Cc: Pierre Pinon <pierre@pinon1.fr>,
-	Hans de Goede <hansg@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Samuele Angioli <samuele.angioli@inspect.it>,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] media: ipu-bridge: Add upside-down quirk for Dell Pro 14 Premium PA14260
-Date: Fri,  4 Sep 2026 08:56:51 +0200
-Message-ID: <20260904065653.6069-1-pierre@pinon1.fr>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="STonagj7"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c68:42c8:e78d:2576:d7c8:5aa9])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1F08D2023;
+	Fri,  4 Sep 2026 09:01:37 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788505298;
+	bh=WnbcQGUNfwtq+T+rmeWFHV8UiRTKjFm83y3dbtvXXDs=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=STonagj76i/VLjRln67rBLB/ZhTFcWEkct8PTZVBDywBoi0FYYuxJdOmIZJCzHxg+
+	 S8nndjoVz+/d5+EkEoy1d+uDVVd+199UygHixJMWefO4NY1dlULIxx/LVcm68JN30T
+	 lwT0Da3Iuue+rOq4ntSvPgUNAUWeusjGmURhmScY=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: Vnzf4xmJzSS3IinWs3IIJWcodIWXsnQ6
-X-Authority-Info-Out: v=2.4 cv=VYf6/Vp9 c=1 sm=1 tr=0 ts=6a9a6bbe
- cx=c_apl:c_pps:t_out a=9mRn2PO/+PIrVdEbaIuMPg==:117
- a=9mRn2PO/+PIrVdEbaIuMPg==:17 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=boi_gUL6bhiNLq70S3UA:9
-X-Proofpoint-GUID: Vnzf4xmJzSS3IinWs3IIJWcodIWXsnQ6
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDA2MyBTYWx0ZWRfX5OXaDGROG1KM
- FmGCEFgEhvHV/TqM1sV9PhFhwGV+H8uhjQ3jRMez1S59XYpBdF/F8jvHcZDWqMDUfFP+FqHPOO0
- ECi6LZCH9CdbzOfuXRNO7gAhXHEBAq/4CXaQCErWFczlCz2J3rLSjj1+tbZwuNTLY2MDHNRdYXj
- L2/Q37dhB/qD2AFj56yj0WenWA45/xkzvh8+YzMHF22MiKFwImUqV80hYYfCtzzvLlxHk1hinqy
- bhhYiIfPFeWI2I75ta6ZyVwM5m/nB+5glXRggKPGNlOrQkQ5OuVzigwFK2zzIcnOjXXpCNZWsEH
- LeiYZQqW5pzpCNb5g2a+OYL9SCsCmP76HFmvtSbmOi4braQ7sA7aaXGQ2eOlX4=
-X-JNJ: AAAAAAABT1jCJHPBtufIwJwbB63JdZ/Dqx75IDwQVrbD1GKna5P/b3e6gTCu/MxyzQZ5FhS15xlb7zvGwWydfAUda0K3R8tFCErOy2txVsgcBhV3EST7phnSi/Qlb8mxsTSQLFFpa+6Y9gB/Cyp1KjbzAdGcIoZbz4qfrjWxc+TwNKH68Skz6kqpQBW0LnkvffGqQqsu5RHrDSaUEopYnVjn3lQoc7YU3BorE3yLxQ+kCHGhO0zo7/oDql9NoEXPpj4EifvIW9UUvP/aj4k7ncsYqepEtBZQFeARudRSf4TgIscWX+uY1ao+Kivb5V0O/ALyxsqHbv+tPu1p+1+ub83NmZTa3awYMehgSR0Dg8lMFoJlkRvYAC2ljDjdjimrb9hRJdLvH8uGH5yJqrngVIcBw94cPLvuxDikbXKv3kEli82v2RsgytYeJOnVqML7PUt2KlFxuhFNEoAC7Rob7v47VS9QCLMQ938xdcfQ8RX8NZAO7+yVX0VIt1ZzmbcdYXkJsLKSfBt7DrXGnghU0rxpLlEGpswSSZcsaO5FHTXiqJEEcnWN0HEp0kz8UG3XZR8pzx5qqNGBM2xXYBhWyavw2C9MaGNXthl2HjC7TUDCFZdxEyinIXhPf2vxaIFymWwMTYVX5ALlhp3XIYUo5+KsigNVzqhbsEuEoL07iXbs8iAcTLKilV0R+5AHZ7aoCQi/6+UH1EKNOHoJLgkxOAeFYtMPng4AOKtLi+hFuOKb/lsZVqBMvNcKYd1FxwhUpd5HjbU1crUVCmlC6caYFnOu+Nfyv/AGZcWeRVUd4ELXqKgAeDgn0kY6SdhQhAcbNVthNqxpsWmGcymPmR9VZztp3ivsJvXgZw8Sw2toHZhqK/CwMPFQYo0QEx49StgUGCMT+iu8dC+3qZ0/0u3llbBcKzNzcdtDqvdy/hssh4Ptgx7l0gK1J7cqjmN/OHhRXBzkgC65VhXlUWUrhnV3PhbRMWdQ+em
- SxKZRTXsrznujzPDtrqOKIAe8Zzg9AZLjxzYfH707att/6sTvutG8zU8UPC61D517jo6jm6f8N3Y9agWLukuFnMFMnAVWBhrGJ7tAoEvvVKfkycYBgbhG8AeUDvNDpAUt/sWt1/5BEzdLu9GGeVmiQeaoljGzHVCjXu5lQjCc/r/4a3ui3k7ed+ozVksb2AZnPqymYjYiQZjGV8YxbyEZtfFgbsvsJJ69wYdjvC/gg/U/cZQPu38k2shqsAdM9uy3Z+SoBWRtlV7LMMQRcp6As7MnP/o2VoWNU2Ot8KdWKzdgH2lZciU8J1sCC+Ox0/KiCqE2UWc=
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
+References: <20260827-imx355-ccsify-v2-1-3a97bc708315@ixit.cz> <178847463591.4073535.11299899376239571707@ping.linuxembedded.co.uk>
+Subject: Re: [PATCH v2] media: imx355: reuse existing CCS defines
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+To: Dave Stevenson <dave.stevenson@raspberrypi.com>, David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, david@ixit.cz
+Date: Fri, 04 Sep 2026 12:33:05 +0530
+Message-ID: <178850538534.11722.13162391406704193341@freya>
+User-Agent: alot/0.13.dev35+g4a69c46ca
 
-The Dell Pro 14 Premium PA14260 (Panther Lake, IPU7 + Intel CVS) has its
-OV08X40 front sensor mounted upside down, but reports a rotation of 0 in
-its SSDB, so without a DMI quirk the image is presented upside down.
+Hi Kieran,
 
-Add a DMI quirk entry for this model so that a rotation of 180 degrees is
-reported for its OVTI08F4 sensor.
+Quoting Kieran Bingham (2026-09-04 04:00:35)
+> Quoting David Heidelberg via B4 Relay (2026-08-27 10:26:53)
+> > From: David Heidelberg <david@ixit.cz>
+> >=20
+> > The driver may not be MIPI CCS compliant, but does use same address and
+> > often set same values as compliant drivers. Do not redefine registers we
+> > already know and are standard.
+> >=20
+> > No functional changes.
+>=20
+> I kind of like the idea of this. I suspect it would help show which
+> sensors have overlap and where helpers could be built up.
+>=20
+> I worry if it makes it harder to see what registers are being modified
+> though, but I think the common definitions are parseable by tools and
+> add an improvement to human readability because now we see they are from
+> the common set, and not some arbitrary possibly similarly named register
+> ?
+>=20
+> >=20
+> > Signed-off-by: David Heidelberg <david@ixit.cz>
+> > ---
+> > Changes in v2:
+> > - Replaced all occurences with CCS ones.
+> > - Link to v1: https://patch.msgid.link/20260819-imx355-ccsify-v1-1-0b6c=
+ef77e340@ixit.cz
+> > ---
+> >  drivers/media/i2c/imx355.c | 84 ++++++++++++++------------------------=
+--------
+> >  1 file changed, 25 insertions(+), 59 deletions(-)
+> >=20
+> > diff --git a/drivers/media/i2c/imx355.c b/drivers/media/i2c/imx355.c
+> > index 8eb8588cb71bb..2c845b7b3df4f 100644
+> > --- a/drivers/media/i2c/imx355.c
+> > +++ b/drivers/media/i2c/imx355.c
+> > @@ -14,89 +14,55 @@
+> >  #include <linux/unaligned.h>
+> > =20
+> >  #include <media/v4l2-cci.h>
+> >  #include <media/v4l2-ctrls.h>
+> >  #include <media/v4l2-device.h>
+> >  #include <media/v4l2-event.h>
+> >  #include <media/v4l2-fwnode.h>
+> > =20
+> > -#define IMX355_REG_MODE_SELECT         CCI_REG8(0x0100)
+> > -#define IMX355_MODE_STANDBY            0x00
+> > -#define IMX355_MODE_STREAMING          0x01
+> > +#include "ccs/ccs-regs.h"
+> > =20
+> > -/* Chip ID */
+> > -#define IMX355_REG_CHIP_ID             CCI_REG16(0x0016)
+> >  #define IMX355_CHIP_ID                 0x0355
+> > =20
+> > -#define IMX355_REG_LANE_SEL            CCI_REG8(0x0114)
+> > -
+> >  /* PLL registers that depend on the external clock frequency */
+> > -#define IMX355_REG_EXTCLK_FREQ         CCI_REG16(0x0136)
+> >  #define IMX355_REG_PLL_OP_PREDIV       CCI_REG8(0x030d)
+> > -#define IMX355_REG_PLL_OP_MUL          CCI_REG16(0x030e)
+>=20
+> I'm surprised that two registers have equivalents, but the other
+> adjacent registers do not ? I haven't checked the spec through yet
+> though. Is the gap because ccs-regs.h doesn't have the definition, or
+> because this sensor has a different function / purpose for say 0x030d ?
+>=20
 
-Tested on the affected machine: with the quirk applied,
-camera_sensor_rotation reads 180 and the captured image is the right way
-up.
+David mentioned in the previous version that the other registers are
+defined as CCI_REG16 by CCS, but the sensor datasheet offsets that by a
+byte and only programs a single byte.
 
-Signed-off-by: Pierre Pinon <pierre@pinon1.fr>
----
- drivers/media/pci/intel/ipu-bridge.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+From other similar Sony sensors I've seen it's usually safe to just use the
+full 16-bit register, as those addresses are left unused and Sony
+implements non-CCS things in the 0x3xxx range. But I udnerstand that David
+wanted to stick to the documented things in this series.
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..b0a66b40873f 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -145,6 +145,13 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "Dell Pro 14 Premium PA14260"),
-+		},
-+		.driver_data = "OVTI08F4",
-+	},
- 	/*
- 	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
- 	 * machine type/model. For example, a DMI_BOARD_NAME starting with
+> >  #define IMX355_REG_PLL_IVT_PCK_DIV     CCI_REG8(0x0301)
+> >  #define IMX355_REG_PLL_IVT_SYSCK_DIV   CCI_REG8(0x0303)
+> >  #define IMX355_PLL_OP_PREDIV           2
+> >  #define IMX355_PLL_IVT_PCK_DIV         5
+> > =20
+> >  /* V_TIMING internal */
+> > -#define IMX355_REG_FLL                 CCI_REG16(0x0340)
+> >  #define IMX355_FLL_MAX                 0xffff
+> >  #define IMX355_VBLANK_MIN              20
+>=20
+> Where there are limits, I believe CCS has registers to read the limits.
+> That's where I wonder if there could be ccs helpers, to support parsing
+> of blanking. But I also am weary that breaking parts into lots of small
+> helpers could just become unreadable, so I wouldn't push for that at the
+> moment. I'd be curious to know 'how common' this is to CCS though.
+>=20
+>=20
 
-base-commit: a500db7819c50db59e55f1b4fa1c3baa5a2616f3
--- 
-2.55.0
+In IMX708 I saw that CCS limit registers gave different values compared to
+the datasheet's recommendations at more than one occasion.
 
+Do note that IMX708 and I assume this one too is not *actually*
+CCS-compliant, just similar enough. The CCS_R_MIPI_CCS_VERSION register
+reads 0x0. So we should take other limit registers with a grain of salt.
+
+> > =20
+> > -#define IMX355_REG_LLP                 CCI_REG16(0x0342)
+> >  #define IMX355_LLP_MAX                 0xffff
+> > =20
+> > -#define IMX355_REG_X_ADD_START         CCI_REG16(0x0344)
+> > -#define IMX355_REG_Y_ADD_START         CCI_REG16(0x0346)
+> > -#define IMX355_REG_X_ADD_END           CCI_REG16(0x0348)
+> > -#define IMX355_REG_Y_ADD_END           CCI_REG16(0x034a)
+> > -#define IMX355_REG_X_OUT_SIZE          CCI_REG16(0x034c)
+> > -#define IMX355_REG_Y_OUT_SIZE          CCI_REG16(0x034e)
+> > -
+>=20
+> But when a whole block comes out like this - that makes me think perhaps
+> the crop control or fmts might just be a common function ?
+>=20
+
+Indeed common helpers should be possible for typical ops for crop, formats,
+bit depth etc. I've already started working on something like this for the
+common raw sensor framework, but it should be possible to also handle the
+register writes for a whole "class" of sensors like CCS, Sony-CCS-similar
+(like this one, IMX708, IMX576, IMX519, IMX219?) and Starvis series etc.
+
+Thanks,
+    Jai
+
+> >  /* Exposure control */
+> > -#define IMX355_REG_EXPOSURE            CCI_REG16(0x0202)
+> >  #define IMX355_EXPOSURE_MIN            1
+> >  #define IMX355_EXPOSURE_STEP           1
+> >  #define IMX355_EXPOSURE_DEFAULT                0x0282
+> >  #define IMX355_EXPOSURE_OFFSET         10
+> > =20
+> >  /* Analog gain control */
+> > -#define IMX355_REG_ANALOG_GAIN         CCI_REG16(0x0204)
+> >  #define IMX355_ANA_GAIN_MIN            0
+> >  #define IMX355_ANA_GAIN_MAX            960
+> >  #define IMX355_ANA_GAIN_STEP           1
+> >  #define IMX355_ANA_GAIN_DEFAULT                0
+> > =20
+> >  /* Digital gain control */
+> >  #define IMX355_REG_DPGA_USE_GLOBAL_GAIN        CCI_REG8(0x3070)
+> > -#define IMX355_REG_DIG_GAIN_GLOBAL     CCI_REG16(0x020e)
+> >  #define IMX355_DGTL_GAIN_MIN           256
+> >  #define IMX355_DGTL_GAIN_MAX           4095
+> >  #define IMX355_DGTL_GAIN_STEP          1
+> >  #define IMX355_DGTL_GAIN_DEFAULT       256
+>=20
+> I'd be curious if all of those limits could be read from registers, in
+> case future helpers might do that instead .... But hardcoding known
+> values in this specific driver is probably better than adding the
+> complexity of trying to read them at runtime just to obtain the values
+> above.
+>=20
+> I'm not sure I've gone through this enough to warrant a tag of some
+> form, but I found the patch concept interesting enough to want to jump
+> in to the conversation ;-)
+>=20
+> Interested to see what happens anyway!
+>=20
+> --
+> Kieran
+>=20
+>=20
+> > =20
+> > -/* Test Pattern Control */
+> > -#define IMX355_REG_TEST_PATTERN                CCI_REG16(0x0600)
+> > -#define IMX355_TEST_PATTERN_DISABLED           0
+> > -#define IMX355_TEST_PATTERN_SOLID_COLOR                1
+> > -#define IMX355_TEST_PATTERN_COLOR_BARS         2
+> > -#define IMX355_TEST_PATTERN_GRAY_COLOR_BARS    3
+> > -#define IMX355_TEST_PATTERN_PN9                        4
+> > -
+> > +/* Link rate register: 16-bit wide, unlike the CCS 32-bit one */
+> >  #define IMX355_REG_REQ_LINK_BIT_RATE   CCI_REG16(0x0820)
+> > =20
+> > -#define IMX355_REG_BINNING_MODE                CCI_REG8(0x0900)
+> > -#define IMX355_REG_BINNING_TYPE                CCI_REG8(0x0901)
+> > -#define IMX355_REG_BINNING_WEIGHTING   CCI_REG8(0x0902)
+> > -
+> > -/* Flip Control */
+> > -#define IMX355_REG_ORIENTATION         CCI_REG8(0x0101)
+> > -
+> >  #define IMX355_PIXEL_ARRAY_TOP         0
+> >  #define IMX355_PIXEL_ARRAY_LEFT                0
+> >  #define IMX355_PIXEL_ARRAY_WIDTH       3280
+> >  #define IMX355_PIXEL_ARRAY_HEIGHT      2464
+> > =20
+> >  struct imx355_reg_list {
+> >         u32 num_of_regs;
+> >         const struct cci_reg_sequence *regs;
+> > @@ -616,39 +582,39 @@ static int imx355_set_ctrl(struct v4l2_ctrl *ctrl)
+> >          * when power is up for streaming
+> >          */
+> >         if (!pm_runtime_get_if_in_use(imx355->dev))
+> >                 return 0;
+> > =20
+> >         switch (ctrl->id) {
+> >         case V4L2_CID_ANALOGUE_GAIN:
+> >                 /* Analog gain =3D 1024/(1024 - ctrl->val) times */
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_ANALOG_GAI=
+N,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_ANALOG_GAIN_COD=
+E_GLOBAL,
+> >                                 ctrl->val, NULL);
+> >                 break;
+> >         case V4L2_CID_DIGITAL_GAIN:
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_DIG_GAIN_G=
+LOBAL,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_DIGITAL_GAIN_GL=
+OBAL,
+> >                                 ctrl->val, NULL);
+> >                 break;
+> >         case V4L2_CID_EXPOSURE:
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_EXPOSURE,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_COARSE_INTEGRAT=
+ION_TIME,
+> >                                 ctrl->val, NULL);
+> >                 break;
+> >         case V4L2_CID_VBLANK:
+> >                 /* Update FLL that meets expected vertical blanking */
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_FLL,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_FRAME_LENGTH_LI=
+NES,
+> >                                 format->height + ctrl->val, NULL);
+> >                 break;
+> >         case V4L2_CID_TEST_PATTERN:
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_TEST_PATTE=
+RN,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_TEST_PATTERN_MO=
+DE,
+> >                                 ctrl->val, NULL);
+> >                 break;
+> >         case V4L2_CID_HFLIP:
+> >         case V4L2_CID_VFLIP:
+> > -               ret =3D cci_write(imx355->regmap, IMX355_REG_ORIENTATIO=
+N,
+> > +               ret =3D cci_write(imx355->regmap, CCS_R_IMAGE_ORIENTATI=
+ON,
+> >                                 imx355->hflip->val | imx355->vflip->val=
+ << 1,
+> >                                 NULL);
+> >                 break;
+> >         default:
+> >                 ret =3D -EINVAL;
+> >                 dev_info(imx355->dev, "ctrl(id:0x%x,val:0x%x) is not ha=
+ndled",
+> >                          ctrl->id, ctrl->val);
+> >                 break;
+> > @@ -823,75 +789,75 @@ static int imx355_start_streaming(struct imx355 *=
+imx355)
+> >         crop =3D v4l2_subdev_state_get_crop(state, 0);
+> >         mode =3D v4l2_find_nearest_size(supported_modes,
+> >                                       ARRAY_SIZE(supported_modes),
+> >                                       width, height, fmt->width, fmt->h=
+eight);
+> >         cci_multi_reg_write(imx355->regmap, mode->reg_list.regs,
+> >                             mode->reg_list.num_of_regs, &ret);
+> > =20
+> >         /* Set readout crop and size registers  */
+> > -       cci_write(imx355->regmap, IMX355_REG_X_ADD_START, crop->left,
+> > +       cci_write(imx355->regmap, CCS_R_X_ADDR_START, crop->left,
+> >                   &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_START, crop->top, &r=
+et);
+> > -       cci_write(imx355->regmap, IMX355_REG_X_ADD_END,
+> > +       cci_write(imx355->regmap, CCS_R_Y_ADDR_START, crop->top, &ret);
+> > +       cci_write(imx355->regmap, CCS_R_X_ADDR_END,
+> >                   crop->width + crop->left - 1, &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_Y_ADD_END,
+> > +       cci_write(imx355->regmap, CCS_R_Y_ADDR_END,
+> >                   crop->height + crop->top - 1, &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_X_OUT_SIZE, fmt->width, &r=
+et);
+> > -       cci_write(imx355->regmap, IMX355_REG_Y_OUT_SIZE, fmt->height, &=
+ret);
+> > +       cci_write(imx355->regmap, CCS_R_X_OUTPUT_SIZE, fmt->width, &ret=
+);
+> > +       cci_write(imx355->regmap, CCS_R_Y_OUTPUT_SIZE, fmt->height, &re=
+t);
+> > =20
+> >         binning_mode =3D ((crop->width / fmt->width) << 4) |
+> >                         (crop->height / fmt->height);
+> > -       cci_write(imx355->regmap, IMX355_REG_BINNING_MODE,
+> > +       cci_write(imx355->regmap, CCS_R_BINNING_MODE,
+> >                   binning_mode =3D=3D 0x11 ? 0x00 : 0x01, &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_BINNING_TYPE, binning_mode=
+, &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_BINNING_WEIGHTING, 0x00, &=
+ret);
+> > +       cci_write(imx355->regmap, CCS_R_BINNING_TYPE, binning_mode, &re=
+t);
+> > +       cci_write(imx355->regmap, CCS_R_BINNING_WEIGHTING, 0x00, &ret);
+> > =20
+> >         /* Set PLL registers for the external clock frequency */
+> > -       cci_write(imx355->regmap, IMX355_REG_EXTCLK_FREQ,
+> > +       cci_write(imx355->regmap, CCS_R_EXTCLK_FREQUENCY_MHZ,
+> >                   imx355->clk_params->extclk_freq, &ret);
+> > -       cci_write(imx355->regmap, IMX355_REG_PLL_OP_MUL,
+> > +       cci_write(imx355->regmap, CCS_R_OP_PLL_MULTIPLIER,
+> >                   imx355->clk_params->pll_op_mpy[lane_idx], &ret);
+> >         cci_write(imx355->regmap, IMX355_REG_PLL_OP_PREDIV,
+> >                   imx355->clk_params->pll_op_prediv[lane_idx], &ret);
+> >         cci_write(imx355->regmap, IMX355_REG_PLL_IVT_SYSCK_DIV,
+> >                   lane_idx ? 2 : 1, &ret);
+> > =20
+> >         /* Set MIPI configuration */
+> > -       cci_write(imx355->regmap, IMX355_REG_LANE_SEL,
+> > +       cci_write(imx355->regmap, CCS_R_CSI_LANE_MODE,
+> >                   imx355->hwcfg->num_lanes - 1, &ret);
+> > =20
+> >         link_bitrate =3D imx355->link_freq->qmenu_int[imx355->link_freq=
+->val] *
+> >                        imx355->hwcfg->num_lanes * 2;
+> >         do_div(link_bitrate, 1000000);
+> >         cci_write(imx355->regmap, IMX355_REG_REQ_LINK_BIT_RATE, link_bi=
+trate,
+> >                   &ret);
+> > =20
+> >         /* set digital gain control to all color mode */
+> >         cci_write(imx355->regmap, IMX355_REG_DPGA_USE_GLOBAL_GAIN, 1, &=
+ret);
+> > =20
+> >         /* set line length */
+> > -       cci_write(imx355->regmap, IMX355_REG_LLP,
+> > +       cci_write(imx355->regmap, CCS_R_LINE_LENGTH_PCK,
+> >                   imx355->hblank->val + fmt->width, &ret);
+> > =20
+> >         /* Apply customized values from user */
+> >         if (!ret)
+> >                 ret =3D __v4l2_ctrl_handler_setup(imx355->sd.ctrl_handl=
+er);
+> > =20
+> > -       cci_write(imx355->regmap, IMX355_REG_MODE_SELECT, IMX355_MODE_S=
+TREAMING,
+> > +       cci_write(imx355->regmap, CCS_R_MODE_SELECT, CCS_MODE_SELECT_ST=
+REAMING,
+> >                   &ret);
+> > =20
+> >         return ret;
+> >  }
+> > =20
+> >  /* Stop streaming */
+> >  static int imx355_stop_streaming(struct imx355 *imx355)
+> >  {
+> > -       return cci_write(imx355->regmap, IMX355_REG_MODE_SELECT,
+> > -                        IMX355_MODE_STANDBY, NULL);
+> > +       return cci_write(imx355->regmap, CCS_R_MODE_SELECT,
+> > +                        CCS_MODE_SELECT_SOFTWARE_STANDBY, NULL);
+> >  }
+> > =20
+> >  static int imx355_set_stream(struct v4l2_subdev *sd, int enable)
+> >  {
+> >         struct imx355 *imx355 =3D to_imx355(sd);
+> >         struct v4l2_subdev_state *state;
+> >         int ret =3D 0;
+> > =20
+> > @@ -931,17 +897,17 @@ static int imx355_set_stream(struct v4l2_subdev *=
+sd, int enable)
+> >  }
+> > =20
+> >  /* Verify chip ID */
+> >  static int imx355_identify_module(struct imx355 *imx355)
+> >  {
+> >         int ret;
+> >         u64 val;
+> > =20
+> > -       ret =3D cci_read(imx355->regmap, IMX355_REG_CHIP_ID, &val, NULL=
+);
+> > +       ret =3D cci_read(imx355->regmap, CCS_R_SENSOR_MODEL_ID, &val, N=
+ULL);
+> >         if (ret)
+> >                 return ret;
+> > =20
+> >         if (val !=3D IMX355_CHIP_ID) {
+> >                 dev_err(imx355->dev, "chip id mismatch: %x!=3D%llx",
+> >                         IMX355_CHIP_ID, val);
+> >                 return -EIO;
+> >         }
+> >=20
+> > ---
+> > base-commit: 5453bc3279e9f8578ac3e534d476240e40c879e1
+> > change-id: 20260819-imx355-ccsify-856c850575f1
+> >=20
+> > Best regards,
+> > -- =20
+> > David Heidelberg <david@ixit.cz>
+> >=20
+> >
+>
