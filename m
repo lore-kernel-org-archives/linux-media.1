@@ -1,98 +1,112 @@
-Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 300C831AABF;
-	Fri,  4 Sep 2026 13:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC368306746
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 13:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788527299; cv=none; b=Gd4ZaRUhv+rD/f4NFQEg94/XHpmiS4ETuFnGnudzv/mVGFxCGuRtUNXJVuoGNy3uRg3DpHGJ6Caiej9DVc/SdOgflwQmakuxDF/79zrqGvOEmRAeCjDotcNoPn3B7lqs0ps0z0eer1cwlYISHv9xK/gLR24X4rRtIFyKvnOWUxY=
+	t=1788527560; cv=none; b=Ac5EmEU8N17E32ZbCez8oTf+0xJiL+gJvac7uUV5WVMboSLGi5f4aMEUwtnaNXSfywlLMiv10o7noxfZmq33xthTRl3QK7uX4Zxy8WofiZ0WigWr59yXrIKDUiVFOmTaoPgudFPkBZyk1+zZGEPQODgz16kG2P8Rq7F9WmBFJsY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788527299; c=relaxed/simple;
-	bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QUGDhmZ72NTWD22QJ1SDyOrabqCRKn4sEak9dKNB7czyNlDoJJUNeQS9cfrl6Y438QtHcC3vk7NP0+NcSckOuqq+hmdmZNfcwZHR471Q5NFmFzkO4rejX5sh7LTyGiv+xW+IOMTmYvOVx4thH1tNtLc93/T//iZ21J4mCChMQDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=rzBP5T8K; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=oPbKw0PA; arc=none smtp.client-ip=92.243.27.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+	s=arc-20240116; t=1788527560; c=relaxed/simple;
+	bh=urjbHQZ0lMamc/GDi/en7nIKmSjLrS4EKHlUqu3XUWg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sjR/hSwxvaWuOzhl8t6IoRcKGgOazDasmEKlspBwS9A/OEf59L3csqOTq+2UjNbADMeCZ5MKpRGTqMmn9xRCAs6wLlRDsiH4TGgNMoVPo+LR2SRwRkR7SptnhCVePYVAevRPDBqkgfnEQ4OePYoC3EJnlTvBOQMVQuVMM66YqNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TjgBo7IY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="rzBP5T8K";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="oPbKw0PA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527287; bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=rzBP5T8KLoJoqr4pkxxtD+4QwYcqcxJ6pznwae0VwHJzP4lPL/P+EAD6ebt/8X5zS
-	 4/t+nnDChsNQb4VzRBPe8p1ieq1SEDRCVHaTFmb08CFK+nDbnxe4B6t5s1W+QtrZzg
-	 ReM/ewaCDS9TeTMiTlkeVN7591AxM4e/ahz8m5XldQpKne6P7LoaKaMMjr0gg2Zfs7
-	 6xUEPENGD1UQ8cIKH5PfBZnAH5AjTTJoIey1OVtH2Np//AggkwG989qxjLes3/eMZC
-	 VGjArYBmjWe5yJB4I9M4Kc3YizmluaIhG/TPoSvmxB4ljP6lGOAfO81YKkZocKGGr2
-	 aPNZ9mPbsltkQ==
-Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 86D6141450; Fri, 04 Sep 2026 14:08:07 +0100 (BST)
-X-Spam-Level: 
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1788527285; bh=rH9m2JKmI3CULoSEwyvXaIZDZIwju/5v+OFwPSGDjhU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=oPbKw0PArsQIkM3yEhouU/J1T6usaFIQZ/OYINADgLz3b1mC+R9yZuiLYOYRw7m2g
-	 OMTtITDSAdlxQXqp1X/s/fPJf88Kbkf42zUEMrsCDZ3M/k5nFxNtbPpzP1mJMQu3I/
-	 11cO8gaRI9JSDSO2qFTYB8XkkrOcBX9sdY7RB90H38Lqx6A44Nc8qh9ts9zZHZfIUR
-	 pkykreUWIFtB+lGgXIq6JwRlMjIRMFb8KUvpqcyUtgfUbhnxzt9QtzMfQRPJl7iQzo
-	 cgVABMpmv7oWhj8thn5OqjEmN4l1SmH9bmEhRNx2OwDrnD7+ekpoRQ/b1zMugOwyD/
-	 tWl6MzsGkIKUQ==
-Received: from maru.mess.org (hephaestus.mess.org [82.68.61.198])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
-	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id 5273541471;
-	Fri, 04 Sep 2026 14:08:05 +0100 (BST)
-From: Sean Young <sean@mess.org>
-To: linux-media@vger.kernel.org,
-	Sean Young <sean@mess.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
-Cc: Rik van Riel <riel@surriel.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 16/17] media: rc: After rc_unregister_device() timers can be re-armed
-Date: Fri,  4 Sep 2026 14:07:44 +0100
-Message-ID: <9a0007543dea39b08f2c6124e005ddc90afa10a2.1788526920.git.sean@mess.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1788526920.git.sean@mess.org>
-References: <cover.1788526920.git.sean@mess.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TjgBo7IY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 559B21F00AC4
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 13:12:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788527558;
+	bh=bnCcgTHNesvli3pj5z9kcGygID1kyPGurM1qfl7KfNA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=TjgBo7IYRGCB7Yogh74Brjtj6nc3rfet9omKvSB5y9+C9i3CHfJkJrbDONEFyNNOY
+	 c74OAFE2hR1suo9gx3LW5qwVYidZDzntbTc5OKxE228RbxntjMRYJBaZT5YNjycgiS
+	 0wkYskvYktKX6N/EGGVP4y1UjHVE8aWdRZXAtAgjdREg8Qt+xiNOYHX3HPPj5pXcj5
+	 qvDASMkBV6acJqsmRrRyob5C6lLc2yuS/kmISt9KXgYD6HQVTIsi3RLsLVu/dEUhmu
+	 Gq2sWeq6ijhfAbMTl5WylJsqwoAkD3Jng3qWuILgXCepg/fTydk4iRmCx1y9nCOfKD
+	 y5djndiuIrXWw==
+Received: by mail-oo1-f46.google.com with SMTP id 006d021491bc7-6b1ab6d7239so823959eaf.1
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 06:12:38 -0700 (PDT)
+X-Gm-Message-State: AFuF++kpfAHUZEMPeKJahyfND/KfBvxTE+I3T00sYUzIoXgG3FLLJHmK
+	cj7wtDMKHfIL1wf3K7JXaCrOKL1GjbkZaf4vGRqldn99je0A/nyTEEQxMC9w5HJbtIRkqTFKkci
+	G4s6hKCCaqZM8hVK8tC64Q8Y5A7xfx6Q=
+X-Received: by 2002:a05:6820:616:b0:6b1:bdd9:45d with SMTP id
+ 006d021491bc7-6b6fcbdeb26mr4434360eaf.21.1788527554201; Fri, 04 Sep 2026
+ 06:12:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-23-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-23-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 4 Sep 2026 15:12:20 +0200
+X-Gmail-Original-Message-ID: <CAD++jLm33oaLUmtKp4ZEYa9CvaKwvQ0rF1wWDU1QWLr2gYKsPA@mail.gmail.com>
+X-Gm-Features: AcwNN1UEjeFlHbzaxDIpEzQ_5DyOYx1B39A0eAPXMGiBXuxrQtC9w-5RJ7WQWR0
+Message-ID: <CAD++jLm33oaLUmtKp4ZEYa9CvaKwvQ0rF1wWDU1QWLr2gYKsPA@mail.gmail.com>
+Subject: Re: [PATCH v3 22/29] media: rkisp1: Use v4l2_subdev_get_frame_desc()
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-If rc_keydown() is called after rc_register_device(), then the timers
-can be re-armed. Delete them again for a final time.
+Hi Sakari,
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
-Signed-off-by: Sean Young <sean@mess.org>
-Cc: stable@vger.kernel.org
----
- drivers/media/rc/rc-main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+thanks for your patch!
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 795ac0fe4858..a40d1bb75822 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1785,6 +1785,11 @@ void rc_free_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
- 
-+	if (dev->input_dev) {
-+		timer_delete_sync(&dev->timer_keyup);
-+		timer_delete_sync(&dev->timer_repeat);
-+	}
-+
- 	input_put_device(dev->input_dev);
- 
- 	put_device(&dev->dev);
--- 
-2.55.0
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
+> Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
+> preferred over calling the get_frame_desc() pad operation directly.
+>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+(...)
+>         source_sd =3D media_entity_to_v4l2_subdev(source->entity);
+> -       ret =3D v4l2_subdev_call(source_sd, pad, get_frame_desc,
+> -                              source->index, &fd);
+> -       if (ret) {
+> +
+> +       struct v4l2_mbus_frame_desc *fd __free(v4l2_subdev_free_frame_des=
+c) =3D
+> +               v4l2_subdev_get_frame_desc(source_sd, source->index,
+> +                                          V4L2_MBUS_FRAME_DESC_TYPE_CSI2=
+);
+
+
+This is one of those cases where this should be
+TYPE_PARALLEL rather than TYPE_CSI2,
+and I think you said you would look into that so it will
+be fixed in the next iteration.
+
+i.MX8MP uses the VeriSilicon ISP which is wrongly named
+"rockchip" but actually used in i.MX8MP ... it's a big confusion
+for the head...
+
+Check for example this device tree overlay:
+arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mp-ras314-imx219.dtso:
+
+&isp_0 {
+        status =3D "okay";
+
+        ports {
+                port@1 {
+                        isp0_in: endpoint {
+                                bus-type =3D <MEDIA_BUS_TYPE_PARALLEL>;
+                                remote-endpoint =3D <&mipi_csi_0_out>;
+                        };
+                };
+        };
+};
+
+Whoa!
+
+Yours,
+Linus Walleij
