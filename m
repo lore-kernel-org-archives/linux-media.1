@@ -1,217 +1,354 @@
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
+Received: from mail-oa1-f41.google.com (mail-oa1-f41.google.com [209.85.160.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C540B495044
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 081D9478E58
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 11:35:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788519428; cv=none; b=r1kz7g9rUokUuRvNjCqpwJsExEwww0ISUSW5znHcNAlwHbXuCeiIp8w1bMcnmLLnZSLWL+5rw0ChJKnSGqQZUuHjCicWPP09zohoxtldcsac9Hj2XyTCxY5MQZWvK4Ljg2DFVDacSykVaStsIiY3S7A/hlvLH4vY52AE6Va4FbI=
+	t=1788521713; cv=none; b=KJrm5D9ZGFmGiCqVNnWLEvBsz+owfTLOZwsduws+LDahV9ai8glF9Y/FSHysfG1/VYd6kuf77t3gE4ofYZACNESvPxotvq6bWJkLlOXyteXzx066mElhEtcybzN1DBGr+NprLvXnLH67+DSuKijol3Z38r3J72dRU8g8UXx7qbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788519428; c=relaxed/simple;
-	bh=bZrLMcImBykx3oRRK3HVVood6l6S2lGXu7LQOJWI3H4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=HvMHN1aByHsc5QrpzC5qE+OTXq7Jjo4w7VGE2HaD5s0lrVCGgAJ/b8kHHo3tu9hHwAjQsPHJf6C44AZDEZ2XNy3TBqa5KMwoF34QjB6BpmSbXrGQda6PCohYd0K1gOHMTK0fsvUwVIQriTYSnuM//cbqn8gIcf1mCAUixDzPdhk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=QQX16WaB; arc=none smtp.client-ip=209.85.221.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788521713; c=relaxed/simple;
+	bh=gYeX8/by2IAXM7fkKgKFaKJtBSBh9U1IZ88eVXMXYKE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZLtIAGIPlQVjU+D/wmh78x2Q054XJHjVsrtvIcfVc6jBwKCkJ4kiXOWlmQF5g8/EPolxdVEWekj9+zoM0xiuBUvZ1tTqunX/s/+qWPd85mxIZWoAG3aLNJSul3N5kApt476sweISCXlR+7SnuwdlgeosxxAsCkeB1pq5qY7DxIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibCHsCtG; arc=none smtp.client-ip=209.85.160.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="QQX16WaB"
-Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-484362f5c4aso1032792f8f.3
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 03:57:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibCHsCtG"
+Received: by mail-oa1-f41.google.com with SMTP id 586e51a60fabf-46add2afca9so527755fac.1
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 04:35:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788519422; x=1789124222; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1788521706; x=1789126506; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9q3cb1HRmrEaFH2Sno52PzoSLUWQfgcsQ5S1xcRpY88=;
-        b=QQX16WaBqriZdh16HOIdkxn0IFyirjh/3tPEGTyJu11h0c0gcUnFe5sWw1QCZ/xIUn
-         12E9JJjJeU5bnWxOTrL83USINWZkXM1Dpifx3GGPUX0ERV5kZpf6K74IpMG3mtye6hIg
-         MYMZJSj7vZ8g5zr+nr80xHuCOCXVM1nrXkp+e5y23JWSUtQt5gTDpqbFdX86A8HG6NTH
-         TeffFfUjjcqO1+mG7mQ1c79CJArwO8/PE4ayQs/jm0eYObPti9q+T7TYvudd50YahjO+
-         tdVA9LT9edX247AXQo088TrPfIp3w07avx/yQDNxOYt76ar0fsefshGsptIzJhuWmmnG
-         trcw==
+        bh=ewfDI1ZgGJ9f7uoMqmTZW/ns6RfSEti1ZKdNzm+2NtA=;
+        b=ibCHsCtG1xGOFDfJZOH+EgTXnubn+SAYSn89gUP8pvj657i9KbtxGvme4d8nUWeNqR
+         ymQdZfiUICWUclLbs1CeoiRPpKu6nWazTdS7bIXxJFMWcs/iIu6YtieJdlTDaHvUY3M2
+         IAN4BuiWgF2Opkym2Mu1xNL9PhAYLh2mCVfvEDUxngZ9bRxgfUiSwVxpfVCEWKdsZ1qF
+         Wj5nrQqrVBbqVtD8ZePbpoMrr7dLqf7s5LF4Y1bC2BNKYLLbKqx5oSfpeE9MwKhlgs0n
+         FvkCLk8WUc2cLMlk8Z6RZaUTiapFvYLDbg2raXRU1RfqRLeK2RWNnvBKowN5v/io89Pv
+         GzVA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788519422; x=1789124222;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9q3cb1HRmrEaFH2Sno52PzoSLUWQfgcsQ5S1xcRpY88=;
-        b=f2OSELzzFIgjWsgveGG3VJILk/VXvvy3DsYlAKLAb1fTU72XE9NPmD1pxBTbOG1RQy
-         u54ThIk9ooTWPEYogroakBV/C2zjDkvNFWN3XU6gJQuFT67HBVl2QlHhLoaJ1hzvz/LX
-         Yh0C1UvYYYJEY4DRgA8bsCngsFDyJJxIeZERxmyJx8NW4SaK3E0nEygiOyeZaBarMmbz
-         bi2gKMoNWOkYPV/rGz6OHHtN6dpG8KyRbgjbNi96aFEAR/pktUhC6xJ29KbzPHX/IsUL
-         DoBlMmknqT0nGaYyQ95lG4iy3NRAnRFsbO0ZZftLUqGdW1nYu+A9YXv+N0zQwmyejW1z
-         +V6g==
-X-Forwarded-Encrypted: i=1; AKwUvBycoyS9iN0JOL/9Ec75zBHSd5QdZKMNdU8lmmTWqDqfQAcovQQFh1ApC/aZbzw0a3Zuq3hRAutAO+TVWQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mkfHNHQxwzJwDlG6TbA3kFaLPBWx6nXNfXoYgRMCb3tKIXzq2c
-	DepXYRwhXx2bwlDTw6Xv5WMD8gbNh30bqGKEIWeu4zOr3Kp2RtHZ9WE6LcG3aaaG8d4=
-X-Gm-Gg: AYBFou3Goedra/zVRzo4Bcgb8fm53N22adJGux+PIjnxdRnEcyHQR7dzLdktHr3A/dj
-	5fnSilbWPnkwz3x4GLC6+7LlOvpMw40PuT5blsA3X2DsiWZwERkpBz6g5K7CPsHEl0JnwxckjoC
-	oc+GSrPRHqK4QZZO5A3w7ucJ59Ehy1iFiAV5dOztT3am8cZP8Er3Hz1n7k5dlbDPHMsI1kyJxzd
-	bc8Xo1hTpc1vto7OPEEUwnyBji1wkeNNu1o6cRHKmrCPtitwnBhcqKfcFvK6OItj3rAC8TBQmnW
-	LnxMvZcsyKAJprU1+cW54M7Fnq1h1v9fukvgPtHHF9XEEvogp8v0+TVDVBXOXPsnuioPIt9ksyU
-	gGVAzmpsVBQnxn3ixIh8oNL+D9XQF5pNv5RC3hr3Alyr6sfNid3lQZ7IiCIdI76UGecQY+rcHsy
-	5ey7jANSiY3+SclRXaIpqbxVAlrGFaFtW/LG++g9Z9b0FkZJ8h1b7YNfX2hzz145Y/mNY8QSG3
-X-Received: by 2002:a05:600c:8b09:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-49cf823f57fmr88570735e9.10.1788519421540;
-        Fri, 04 Sep 2026 03:57:01 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.237.179])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49ce46696e8sm132110525e9.0.2026.09.04.03.56.59
+        d=1e100.net; s=20251104; t=1788521706; x=1789126506;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ewfDI1ZgGJ9f7uoMqmTZW/ns6RfSEti1ZKdNzm+2NtA=;
+        b=dgc1gPxuLrtNVEAgNZYlD6lU7wvNMBLrwuKurooUGlZfJ3M5JhF14etzuTfSy65gWu
+         hg5WH8MeN/+Ro5EROnDXOWMjKIdbu2bl9jYizEYWpdZ4tCFnqxTQ1zQS60/CgVUOjwq7
+         Kl/b1zBsYI6OEtgQyAY30DWPD7XcEeE+dZt8WxoEMz6OOzBkIBkFI2R9SHBgF84Xjlei
+         7enbWpVK/atb8bm84JN1960qa+R0HsqszT1ZvnR/3+fG+qIUm7cbc+PQR0jjfpVmdXee
+         lcYAh+IvwKkK6qiDy41I+3rk0Vqz4/drGiTS6/jFvibbmxDu3zSyftcqz+hsdyvgg3DZ
+         p9cg==
+X-Forwarded-Encrypted: i=1; AKwUvByf8umt0jnIhCRa8ormSLYrRxpkW/YnoXOnfjsS5jj4MxAwFLcjybQJ5fFnIAnN46NmCjrX2T43t3C8Fg==@vger.kernel.org
+X-Gm-Message-State: AFuF++nRJ9R8ZWBbYuChWipoeGPs1tRYM7gRscmAfxPAFnyG3lSsTB2f
+	5QSj2NNjEFsNk3hoHlWkm6vze1w7sxwD4rGBVslKE2iA9AQ2WOc5Yj8v
+X-Gm-Gg: AYBFou2e2JoRyVhI2K4HTwxB/GYkQtr9nTwvPF9wdKaaEXeA6qPIq4cDZaKkCNieEQt
+	dEa6qyppcQ2rdLQ/txdbMTRsDNXjnyfNH7GWsTzJad1UzZHP9b1Wzi+dNsu5Ya2tNZe1hb52fL9
+	4bcyUJ84P5/Brzz/TZhl2HuWxfxGyjHPJFz0YzbQxOU72ccRYzJ8P/Ieqt/z6RJhQy+oUZ1hb33
+	ITv2ww6y/9UkIyitm4i6kgqj4w7imyDw1g6Yphavz09BndwIUeWZXCL3PwdNP3bd0ZWudMyRhE0
+	Bxp7oC35hUg9ZetZPbPtxOp6zAo+490OedSf7Poij02s2Ufy2KzXhygocRMMXIxTsc/CFXKi6iu
+	F8Je01KFRS3Q52M7aqYDKsjt6FcGtZm3q6hqQSzMOL5zpVY1VJaKWMWXByaIea1I2LKgU64EuDy
+	FQQUBXZdQUk52pA37l9fIawXZyfodMPxuAp3/GhGFf/TxfRBGBkbn26d3srkoZemxcYe00CA6/c
+	qwATL2DvShrIaI=
+X-Received: by 2002:a05:6820:1787:b0:6b7:83c5:fdee with SMTP id 006d021491bc7-6b783c60345mr1409156eaf.47.1788521705811;
+        Fri, 04 Sep 2026 04:35:05 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243a9388sm6054536c88.10.2026.09.04.04.34.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 03:57:01 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Fri, 04 Sep 2026 11:56:45 +0100
-Subject: [PATCH v5 13/13] arm64: dts: qcom: x1e80100-dell-inspiron14-7441:
- Switch on CAMSS RGB sensor
+        Fri, 04 Sep 2026 04:35:05 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jacopo Mondi <jacopo@jmondi.org>,
+	Andy Walls <awalls@md.metrocast.net>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Minghsiu Tsai <minghsiu.tsai@mediatek.com>,
+	Houlong Wei <houlong.wei@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Tiffany Lin <tiffany.lin@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Eduardo Valentin <edubezval@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-staging@lists.linux.dev
+Subject: [PATCH 1/3] media: fix typos in comments
+Date: Fri,  4 Sep 2026 17:04:42 +0530
+Message-ID: <20260904113450.15838-2-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904113450.15838-1-hemanth.selam@gmail.com>
+References: <20260904113450.15838-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260904-x1e-camss-csi2-phy-dtsi-v5-13-dc81d85b599d@linaro.org>
-References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- linux-media@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2454;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=bZrLMcImBykx3oRRK3HVVood6l6S2lGXu7LQOJWI3H4=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqmqPplgz/ddFP9fKrMGKohvRQDmaTVdX2mg+Bf
- g3Hivg2Xs2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCapqj6QAKCRAicTuzoY3I
- OobQD/4666ZAH+ofmP2fKuH8xGv8qMu/HlOUaedLayTC8HzTkGVwrQ2nk9Xfz2DF/aQueH9Ry4+
- WBf270VS1yqP33BHAj9nd2/7JUXkwJxaNzGmxfnYgkLgojapETtpHcz5t9Eq7fKs/ZIfQTVmWbW
- gkPGaT9aSqQjyuTWZ7vzDvYG0lHtEaLjEYk47jxiR0AjnOajZnG0Ijm1zGLo/M4ysJ2hyAofkqE
- kZiRqOZd4887vucVlPpKlvJ4RztocTf3/k3rW28ecnyZgv6izXM6QDSaQiV8dZPsfIal+fV0tnr
- LgLPiT7508sz6s41G0DBpcgt9N/41eT6DGZ/t7WACT/R3E1n6XIwF7YPd3ogKp/xqeRrZIJ2vf8
- vZWPgctU3KAlf8Hj8U7JYoBAO41eChNnMrgGHdkJtQYekxTxKDKliqYGIwaoWcC06mRYjiNTPee
- /EPN0CqO+tdokiFNKWP3b/c1R4d2felcCwcJgxhpvvGNSwgVJye3brHv0PWiaXztimxrz6in9gZ
- WbxP1xRfIQ1po1XYTOrHyW1S5e/0oR5VUD0/ST5Il5W425MKYJA5hTzf78r/MueztXfZQL0mkSO
- TE30qyp0ra8hsvq7JNrsMRyx8FdgGtE7f6YPehqZhT9PD1S9OYUFwHEDX3nNt9yLB8jxwSKbqJQ
- d/PDTYQj2eqJKaQ==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Transfer-Encoding: 8bit
 
-Inspiron14 has a ov02e10 sensor on CSIPHY4. Enable the list of dependencies
-now.
+Fix typos in comments, reported by scripts/checkpatch.pl using the
+misspelling list in scripts/spelling.txt.  Only touches comments, no code
+changes.
 
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi | 82 +++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ drivers/media/dvb-frontends/drxd_map_firm.h                   | 4 ++--
+ drivers/media/i2c/ccs/ccs-data.h                              | 4 ++--
+ drivers/media/i2c/hi847.c                                     | 2 +-
+ drivers/media/i2c/ov772x.c                                    | 2 +-
+ drivers/media/i2c/wm8739.c                                    | 2 +-
+ drivers/media/pci/cx18/cx23418.h                              | 2 +-
+ drivers/media/pci/saa7146/mxb.c                               | 4 ++--
+ drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h             | 2 +-
+ drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h | 4 ++--
+ drivers/media/platform/renesas/rcar_drif.c                    | 2 +-
+ drivers/media/radio/si4713/si4713.c                           | 2 +-
+ drivers/media/usb/dvb-usb/dib0700_core.c                      | 2 +-
+ drivers/media/usb/gspca/w996Xcf.c                             | 2 +-
+ .../atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h    | 4 ++--
+ drivers/staging/media/av7110/av7110.c                         | 2 +-
+ 15 files changed, 20 insertions(+), 20 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-index db291730130c7..e92414533d48f 100644
---- a/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-dell-thena.dtsi
-@@ -10,6 +10,7 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+diff --git a/drivers/media/dvb-frontends/drxd_map_firm.h b/drivers/media/dvb-frontends/drxd_map_firm.h
+index bdcc63576df1..a6585e53d879 100644
+--- a/drivers/media/dvb-frontends/drxd_map_firm.h
++++ b/drivers/media/dvb-frontends/drxd_map_firm.h
+@@ -10,8 +10,8 @@
  
- #include "hamoa-pmics.dtsi"
-@@ -792,6 +793,87 @@ vreg_l3j_0p8: ldo3 {
- 	};
+ /*
+  * Note: originally, this file contained 12000+ lines of data
+- * Probably a few lines for every firwmare assembler instruction. However,
+- * only a few defines were actually used. So, removed all uneeded lines.
++ * Probably a few lines for every firmware assembler instruction. However,
++ * only a few defines were actually used. So, removed all unneeded lines.
+  * If ever needed, the other lines can be easily obtained via git history.
+  */
+ 
+diff --git a/drivers/media/i2c/ccs/ccs-data.h b/drivers/media/i2c/ccs/ccs-data.h
+index 638df69804ec..522466b81929 100644
+--- a/drivers/media/i2c/ccs/ccs-data.h
++++ b/drivers/media/i2c/ccs/ccs-data.h
+@@ -160,7 +160,7 @@ struct ccs_pdaf_pix_loc_pixel_desc_group {
+  * @main_offset_y: Start Y coordinate of PDAF pixel blocks
+  * @global_pdaf_type: PDAF pattern type
+  * @block_width: Width of a block in pixels
+- * @block_height: Heigth of a block in pixels
++ * @block_height: Height of a block in pixels
+  * @num_block_desc_groups: Number of block descriptor groups
+  * @block_desc_groups: Block descriptor groups
+  * @num_pixel_desc_grups: Number of pixel descriptor groups
+@@ -197,7 +197,7 @@ struct ccs_pdaf_pix_loc {
+  * @module_rules: Rules for the module
+  * @sensor_pdaf: PDAF data for the sensor
+  * @module_pdaf: PDAF data for the module
+- * @license_length: Lenght of the license data
++ * @license_length: Length of the license data
+  * @license: License data
+  * @end: Whether or not there's an end block
+  * @backing: Raw data, pointed to from elsewhere so keep it around
+diff --git a/drivers/media/i2c/hi847.c b/drivers/media/i2c/hi847.c
+index def01aa07b2f..710328d7984f 100644
+--- a/drivers/media/i2c/hi847.c
++++ b/drivers/media/i2c/hi847.c
+@@ -2187,7 +2187,7 @@ struct hi847 {
+ 	/* Current mode */
+ 	const struct hi847_mode *cur_mode;
+ 
+-	/* To serialize asynchronus callbacks */
++	/* To serialize asynchronous callbacks */
+ 	struct mutex mutex;
  };
  
-+&camss {
-+	status = "okay";
-+
-+	ports {
-+		/*
-+		 * port0 => csiphy0
-+		 * port1 => csiphy1
-+		 * port2 => csiphy2
-+		 * port3 => csiphy4
-+		 */
-+		port@3 {
-+			camss_csiphy4_inep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&csiphy4_out_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@10 {
-+		compatible = "ovti,ov02e10";
-+		reg = <0x10>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam_rgb_default>;
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <0>; /* front facing */
-+
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dvdd-supply = <&vreg_l7b_2p8>;
-+		dovdd-supply = <&vreg_cam_1p8>;
-+
-+		port {
-+			ov02e10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <360000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p9-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		port@0 {
-+			reg = <0>;
-+			csiphy4_in_ep: endpoint {
-+				bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+				remote-endpoint = <&ov02e10_ep>;
-+			};
-+		};
-+
-+		port@1 {
-+			reg = <1>;
-+			csiphy4_out_ep: endpoint {
-+				remote-endpoint = <&camss_csiphy4_inep>;
-+			};
-+		};
-+	};
-+};
-+
- &i2c0 {
- 	clock-frequency = <400000>;
+diff --git a/drivers/media/i2c/ov772x.c b/drivers/media/i2c/ov772x.c
+index be3ba284ee0b..041f3b02e222 100644
+--- a/drivers/media/i2c/ov772x.c
++++ b/drivers/media/i2c/ov772x.c
+@@ -122,7 +122,7 @@
+ #define LC_COEFB    0x4B /* Lens B channel compensation coefficient */
+ #define LC_COEFR    0x4C /* Lens R channel compensation coefficient */
  
-
+-#define FIXGAIN     0x4D /* Analog fix gain amplifer */
++#define FIXGAIN     0x4D /* Analog fix gain amplifier */
+ #define AREF0       0x4E /* Sensor reference control */
+ #define AREF1       0x4F /* Sensor reference current control */
+ #define AREF2       0x50 /* Analog reference control */
+diff --git a/drivers/media/i2c/wm8739.c b/drivers/media/i2c/wm8739.c
+index db62bafb447c..9eaf48f1c3a2 100644
+--- a/drivers/media/i2c/wm8739.c
++++ b/drivers/media/i2c/wm8739.c
+@@ -217,7 +217,7 @@ static int wm8739_probe(struct i2c_client *client)
+ 
+ 	/* reset */
+ 	wm8739_write(sd, R15, 0x00);
+-	/* filter setting, high path, offet clear */
++	/* filter setting, high path, offset clear */
+ 	wm8739_write(sd, R5, 0x000);
+ 	/* ADC, OSC, Power Off mode Disable */
+ 	wm8739_write(sd, R6, 0x000);
+diff --git a/drivers/media/pci/cx18/cx23418.h b/drivers/media/pci/cx18/cx23418.h
+index 22486f39bcda..4ee45be757cb 100644
+--- a/drivers/media/pci/cx18/cx23418.h
++++ b/drivers/media/pci/cx18/cx23418.h
+@@ -24,7 +24,7 @@
+ #define CX18_CREATE_TASK			(MGR_CMD_MASK | 0x0001)
+ 
+ /* Description: This command destroys an instance of a task
+-   IN[0] - Task handle. Hanlde of the task to destroy
++   IN[0] - Task handle. Handle of the task to destroy
+    ReturnCode - One of the ERR_SYS_... */
+ #define CX18_DESTROY_TASK			(MGR_CMD_MASK | 0x0002)
+ 
+diff --git a/drivers/media/pci/saa7146/mxb.c b/drivers/media/pci/saa7146/mxb.c
+index d759e8a87e24..129d41c1862b 100644
+--- a/drivers/media/pci/saa7146/mxb.c
++++ b/drivers/media/pci/saa7146/mxb.c
+@@ -37,7 +37,7 @@
+ /* global variable */
+ static int mxb_num;
+ 
+-/* initial frequence the tuner will be tuned to.
++/* initial frequency the tuner will be tuned to.
+    in verden (lower saxony, germany) 4148 is a
+    channel called "phoenix" */
+ static int freq = 4148;
+@@ -429,7 +429,7 @@ static int mxb_init_done(struct saa7146_dev* dev)
+ 	/* some stuff is done via direct write to the registers */
+ 
+ 	/* this is ugly, but because of the fact that this is completely
+-	   hardware dependend, it should be done directly... */
++	   hardware dependent, it should be done directly... */
+ 	saa7146_write(dev, DD1_STREAM_B,	0x00000000);
+ 	saa7146_write(dev, DD1_INIT,		0x02000200);
+ 	saa7146_write(dev, MC2, (MASK_09 | MASK_25 | MASK_10 | MASK_26));
+diff --git a/drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h b/drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h
+index b810c96695c8..9744e00b0066 100644
+--- a/drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h
++++ b/drivers/media/platform/mediatek/mdp/mtk_mdp_ipi.h
+@@ -56,7 +56,7 @@ struct mdp_ipi_comm {
+  * @ipi_id        : IPI_MDP
+  * @ap_inst       : AP mtk_mdp_vpu address
+  * @vpu_inst_addr : VPU MDP instance address
+- * @status        : VPU exeuction result
++ * @status        : VPU execution result
+  */
+ struct mdp_ipi_comm_ack {
+ 	uint32_t msg_id;
+diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h b/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
+index 47070be2a991..c2c2a3a63dfd 100644
+--- a/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
++++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec_ipi_msg.h
+@@ -53,7 +53,7 @@ struct vdec_ap_ipi_cmd {
+ /**
+  * struct vdec_vpu_ipi_ack - generic VPU to AP ipi command format
+  * @msg_id	: vdec_ipi_msgid
+- * @status	: VPU exeuction result
++ * @status	: VPU execution result
+  * @ap_inst_addr	: AP video decoder instance address
+  */
+ struct vdec_vpu_ipi_ack {
+@@ -98,7 +98,7 @@ struct vdec_ap_ipi_dec_start {
+ /**
+  * struct vdec_vpu_ipi_init_ack - for VPU_IPIMSG_DEC_INIT_ACK
+  * @msg_id	: VPU_IPIMSG_DEC_INIT_ACK
+- * @status	: VPU exeuction result
++ * @status	: VPU execution result
+  * @ap_inst_addr	: AP vcodec_vpu_inst instance address
+  * @vpu_inst_addr	: VPU decoder instance address
+  * @vdec_abi_version:	ABI version of the firmware. Kernel can use it to
+diff --git a/drivers/media/platform/renesas/rcar_drif.c b/drivers/media/platform/renesas/rcar_drif.c
+index 0844934f7aa6..bd67e8e16f53 100644
+--- a/drivers/media/platform/renesas/rcar_drif.c
++++ b/drivers/media/platform/renesas/rcar_drif.c
+@@ -464,7 +464,7 @@ rcar_drif_get_fbuf(struct rcar_drif_sdr *sdr)
+ 					rcar_drif_frame_buf, list);
+ 	if (!fbuf) {
+ 		/*
+-		 * App is late in enqueing buffers. Samples lost & there will
++		 * App is late in enqueuing buffers. Samples lost & there will
+ 		 * be a gap in sequence number when app recovers
+ 		 */
+ 		rdrif_dbg(sdr, "\napp late: prod %u\n", sdr->produced);
+diff --git a/drivers/media/radio/si4713/si4713.c b/drivers/media/radio/si4713/si4713.c
+index 0c0354566b0a..150d07f6b319 100644
+--- a/drivers/media/radio/si4713/si4713.c
++++ b/drivers/media/radio/si4713/si4713.c
+@@ -667,7 +667,7 @@ static int si4713_tx_tune_measure(struct si4713_device *sdev, u16 frequency,
+ /*
+  * si4713_tx_tune_status- Returns the status of the tx_tune_freq, tx_tune_mea or
+  *			tx_tune_power commands. This command return the current
+- *			frequency, output voltage in dBuV, the antenna tunning
++ *			frequency, output voltage in dBuV, the antenna tuning
+  *			capacitance value and the received noise level. The
+  *			command also clears the stcint interrupt bit when the
+  *			first bit of its arguments is high.
+diff --git a/drivers/media/usb/dvb-usb/dib0700_core.c b/drivers/media/usb/dvb-usb/dib0700_core.c
+index 1caabb51ea47..5d2fa7037c00 100644
+--- a/drivers/media/usb/dvb-usb/dib0700_core.c
++++ b/drivers/media/usb/dvb-usb/dib0700_core.c
+@@ -560,7 +560,7 @@ int dib0700_download_firmware(struct usb_device *udev, const struct firmware *fw
+ 	fw_version = (buf[8] << 24) | (buf[9] << 16) | (buf[10] << 8) | buf[11];
+ 
+ 	/* set the buffer size - DVB-USB is allocating URB buffers
+-	 * only after the firwmare download was successful */
++	 * only after the firmware download was successful */
+ 	for (i = 0; i < dib0700_device_count; i++) {
+ 		for (adap_num = 0; adap_num < dib0700_devices[i].num_adapters;
+ 				adap_num++) {
+diff --git a/drivers/media/usb/gspca/w996Xcf.c b/drivers/media/usb/gspca/w996Xcf.c
+index 79baa0c1a031..700c39fe307c 100644
+--- a/drivers/media/usb/gspca/w996Xcf.c
++++ b/drivers/media/usb/gspca/w996Xcf.c
+@@ -407,7 +407,7 @@ static void w9968cf_set_crop_window(struct sd *sd)
+ 
+ 	if (sd->sensor == SEN_OV7620) {
+ 		/*
+-		 * Sigh, this is dependend on the clock / framerate changes
++		 * Sigh, this is dependent on the clock / framerate changes
+ 		 * made by the frequency control, sick.
+ 		 *
+ 		 * Note we cannot use v4l2_ctrl_g_ctrl here, as we get called
+diff --git a/drivers/staging/media/atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h b/drivers/staging/media/atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h
+index b8206d2f3d31..97e63082d254 100644
+--- a/drivers/staging/media/atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h
++++ b/drivers/staging/media/atomisp/pci/isp/kernels/s3a/s3a_1.0/ia_css_s3a_types.h
+@@ -102,8 +102,8 @@ struct ia_css_3a_grid_info {
+  *  awb_lg_*: Thresholds to check the saturated bayer pixels for AWB.
+  *    Condition of effective pixel for AWB level gate check:
+  *      bayer(sensor) <= awb_lg_high_raw &&
+- *      bayer(when AWB statisitcs is calculated) >= awb_lg_low &&
+- *      bayer(when AWB statisitcs is calculated) <= awb_lg_high
++ *      bayer(when AWB statistics is calculated) >= awb_lg_low &&
++ *      bayer(when AWB statistics is calculated) <= awb_lg_high
+  *  af_fir*: Coefficients of high pass filter to calculate AF statistics.
+  *
+  *  ISP block: S3A1(ae_y_* for AE/AF, awb_lg_* for AWB)
+diff --git a/drivers/staging/media/av7110/av7110.c b/drivers/staging/media/av7110/av7110.c
+index 06c43b5f8a87..432404eceaea 100644
+--- a/drivers/staging/media/av7110/av7110.c
++++ b/drivers/staging/media/av7110/av7110.c
+@@ -2347,7 +2347,7 @@ static int av7110_attach(struct saa7146_dev *dev,
+ 
+ 		/* RESET SAA7146 */
+ 		saa7146_write(dev, MC1, MASK_31);
+-		/* autodetection success seems to be time-dependend after reset */
++		/* autodetection success seems to be time-dependent after reset */
+ 
+ 		/* Fix VSYNC level */
+ 		saa7146_setgpio(dev, 3, SAA7146_GPIO_OUTLO);
 -- 
-2.55.0
+2.48.1
 
