@@ -1,72 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29F05426694
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:33:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C58443DA20
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:40:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788517990; cv=none; b=GyjF76VMBQY+fTVkc7nYh98/w+6hE0impxNU76y4ZIgnNXrZ3bVQVHNDvdjiZky0dNbmopAw1BVIrUiXIgvW+2qnaz3ltvDFweyfa6cWE728FXvz1Bh6D0vnOiR/7gf2a/2wszKwPY6oSrPAjDGgPZJoBGZIDNnOOwLXQ6oBVK4=
+	t=1788518432; cv=none; b=NLb70b1zlgeu4un2eQn4J9q67+ku2O7y8DLfPrT03M33ZDyS3qlJBcE5MzuXA7UgJ8fSHbD8d/vVa2zOyp+c/WLa1lKSCYbvNf5j8m6SobINiaS2gPx4jjeE9kcjD8mYe0DceWvqMw8hYqgNgR8p5tFe4V3Zq3Ikt2JzTZYvuOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788517990; c=relaxed/simple;
-	bh=neCvWwIBkyKMYiZu8uKmTLd083+4AIJlVEvKKMKRyOs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=V66vHsjunVsTZD1tyTa2q4dwN9777dZe2H8n+jWmshPdTgoz75zMA7uJYYf68dXnoZ70nLeVgyzZnKMWSLJ4Ue081esvmsjdy5G20pgOeCVf/ak3GVInp3Ha5tazNIW7fDruFjOw6dqS4N7F6RxHa9hk8Av7Jn+hA6NffQ7I1DQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G/WRXlnA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788518432; c=relaxed/simple;
+	bh=X+IPOeHqJEE/pPReJUqA9P+8xBHbJ/fYKeigiadbp7g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JbWpeoyAjIQL8AiYFkdYIIex2zHhRDq5NJR4qzKxJKcDOibXNIXwGm0Z5Lt4gOsDNjGsl8SKNDm6F004rzsBzm1JiPLP8P1gITbUBBC8RVxm5mfOkE13Tp0XUlR6zz1YNvfCBCSxaRaxRCGQDrX4Lf4ObtLmqChZvAOukpMlHIY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FydX/T61; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G/WRXlnA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F3641F00ACF
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:33:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788517989;
-	bh=neCvWwIBkyKMYiZu8uKmTLd083+4AIJlVEvKKMKRyOs=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=G/WRXlnAI3rSMRy5JNGCkf6Kwl6mUvTn9XJqgIbLganDmSMaBfKsZ4z5V9aJKzuAB
-	 I0iWKJcCVVr1rxKNzInoFZ+9/kZF5zJdFF/aqfO6A6KImCZlAiWf8wUUWEarK4vONG
-	 cTcs+5Pj9H8c+s5VmxgPmXIJ/xIf73OYLwilQ6AGbbregRko+huAfrsjcaSQxKLwGv
-	 V0EKyasHJ0Vzhm+AdupDusl2L2+qtr8QIHuD//xugvX6MI1hIJhJb9x3yjX26uh8JO
-	 F56ipzuCziYdsasmGKMIcVEUlg9lMZWJFJUiNIyUpiW7E7dGzs6OfBaM8+OofciVRi
-	 tRpCo9cKIqFrQ==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b4ac3ba821so759626e87.0
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 03:33:08 -0700 (PDT)
-X-Gm-Message-State: AFuF++mRI7OYu2PectIDX/URxToP0pVCGgEhKHqq3PYDwlL0d65J+68B
-	3YOEevKOHrp2esdpj8Wh8JP/4l7H1Cz+PBqnJmL2oLUOqJ3MvaHmODohwDFp1TngBrF1rFUJL5y
-	pfjDTeRTUUcdsNYZQfXx/tJXW/gTj24E=
-X-Received: by 2002:a05:6512:234f:b0:5b6:183b:d215 with SMTP id
- 2adb3069b0e04-5b6183bd3cbmr548452e87.60.1788517987723; Fri, 04 Sep 2026
- 03:33:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FydX/T61"
+Received: from ideasonboard.com (unknown [93.65.100.155])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E123A2023;
+	Fri,  4 Sep 2026 12:38:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1788518329;
+	bh=X+IPOeHqJEE/pPReJUqA9P+8xBHbJ/fYKeigiadbp7g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=FydX/T61S0jimF2id9F4VcDHpBjeSuBtq+1PB4nrTTGdgU4+oGWhjlpAAj0/uj58v
+	 0+e3igBUokRO2MDvBbphT2ztWMYdgfPcSUam9dJNl/bTvl6GZsQbms1ebyyRAJElL1
+	 bml46FfaiYPGOrZSHoZ4+DU7VZbCqNkX/Neo/Qm8=
+Date: Fri, 4 Sep 2026 12:40:18 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Li Youhong <dayou5941@163.com>, dan.scally@ideasonboard.com, 
+	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, linux-media@vger.kernel.org, 
+	Li Youhong <liyouhong@kylinos.cn>
+Subject: Re: [PATCH] media: mali-c55: free IRQ when remove while
+ runtime-active
+Message-ID: <apqfTZnUOMcb6xw3@zed>
+References: <20260903025526.2657105-1-dayou5941@163.com>
+ <CAD++jLnVf8-o2XBWonLStH33+GfkFCbqORisM9JMZOhhbNxX6w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-18-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-18-sakari.ailus@linux.intel.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 4 Sep 2026 12:32:53 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmY7H5ek3tDqQrSd1RyHC1EpUNCFnmXbQT4Q+OBTt+1Lw@mail.gmail.com>
-X-Gm-Features: AcwNN1U3x-RwDkklKiX6k301Ex95P_CUHrbssE21IDNqmuM0XSVNRPDXP_KIUwM
-Message-ID: <CAD++jLmY7H5ek3tDqQrSd1RyHC1EpUNCFnmXbQT4Q+OBTt+1Lw@mail.gmail.com>
-Subject: Re: [PATCH v3 17/29] media: bcm2835-unicam: Use v4l2_subdev_get_frame_desc()
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
-	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAD++jLnVf8-o2XBWonLStH33+GfkFCbqORisM9JMZOhhbNxX6w@mail.gmail.com>
 
-On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
-<sakari.ailus@linux.intel.com> wrote:
+Hi Linus
 
-> Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
-> preferred over calling the get_frame_desc() pad operation directly.
+On Fri, Sep 04, 2026 at 12:12:20PM +0200, Linus Walleij wrote:
+> On Thu, Sep 3, 2026 at 4:55 AM Li Youhong <dayou5941@163.com> wrote:
 >
-> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+> > @@ -861,6 +861,8 @@ static void mali_c55_remove(struct platform_device *pdev)
+> >
+> >         mali_c55_media_frameworks_deinit(mali_c55);
+> >         if (!pm_runtime_suspended(&pdev->dev)) {
+> > +               if (irq_has_action(mali_c55->irqnum))
+> > +                       free_irq(mali_c55->irqnum, &pdev->dev);
+> >                 __mali_c55_power_off(mali_c55);
+> >                 pm_runtime_set_suspended(&pdev->dev);
+>
+> This whole runtime suspend/resume looks a bit odd to me.
+>
+> Normally you keep the IRQ requested perpetually in a driver,
+> this looks like some really odd workaround to explicitly deal with
+> wakeup capable/non-wakeup capable IRQs.
+>
+> I tried to see if this was addressed during review of the driver
+> and whether there was a reason for doing things like this.
+> But there are too many threads on lore.
 
-Apart from what Frank pointed out this LGTM so with that fixed:
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Indeed it's weird.
 
-Yours,
-Linus Walleij
+I've a branch that I started that tried to fix that, but the issue I
+was hitting was due the fact the ISP starts with all ISP unmasked, and
+I get very bad races between the power-up routine and the IRQ.
+
+I run out of time and gave up, but if you're interested I can provide
+you references to that work
+
+>
+> I think the proper fix is to keep the IRQ requested during
+> suspend/resume and *not* mark it as wakeup-source; in the
+> device tree for the SoC.
+>
+> Support code is needed in the driver, something along the line
+> of this:
+>
+> suspend():
+>                 if (device_may_wakeup(dev))
+>                         enable_irq_wake(irq);
+>
+> resume():
+>                 if (device_may_wakeup(dev))
+>                         disable_irq_wake(irq);
+>
+> Do you want to make the patch or should I?
+
+That's something I didn't consider maybe :)
+
+>
+> Yours,
+> Linus Walleij
