@@ -1,88 +1,99 @@
-Received: from mail-oa1-f69.google.com (mail-oa1-f69.google.com [209.85.160.69])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C13D838398D
-	for <linux-media@vger.kernel.org>; Thu,  3 Sep 2026 23:09:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA65A1E5207
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 03:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788476969; cv=none; b=A6dyB9Uk6yreAX6YAGWYjbElgLGPuYtkwglMhIIYrw7zgtNR0uZPa6TUclf/E1d3jegTemaZ+dd1gf4XVsTkIJ7W/txZXUmKC2m08ryNmqasdl+wAfRPFCUXswVyc8PKNyotISAffbCRQH/HxkcJdckbI1eGRiQazZxxzZG1Uvk=
+	t=1788493450; cv=none; b=QQKNruwCc6Kohoa+x98LA0LyE7ptvClmtlpISDr3FyBiU1lL72I6SRVEsC+ipUA9fZ3IOlJGy089vMJXKfW+6FHBVSzxI1Y9A6tvYCvg/Mkv7+wid5C8rP0Y/+gupyydoKuGIQbXkjEsTQkvyDG6AAEBRiu96rZyW2sIg8EGQh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788476969; c=relaxed/simple;
-	bh=P8RUFfmeAnm/5LIA07tpJfOn1lfOF5+Ue/6jgBrHPnc=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:Cc:
-	 Content-Type; b=RHR/xDOoJI1BJgQKgw5IvW1n0YNRHuVQbiTkynKA2z7WTlWI0li0XOlfZu3gRN4JPhwihtYzuiFgPbrdXa/DC2jxrdRGDCnsPZvxXw46hhu7nWWP3MvvJtaImaD78odc8bHBBSfVtquE8FZfeeQaFamnDAzCEgmI59LT+KcKyOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.160.69
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oa1-f69.google.com with SMTP id 586e51a60fabf-4704f08bcd5so345758fac.0
-        for <linux-media@vger.kernel.org>; Thu, 03 Sep 2026 16:09:27 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788476966; x=1789081766;
-        h=content-transfer-encoding:content-type:cc:to:from:subject
-         :message-id:in-reply-to:date:mime-version:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=P8RUFfmeAnm/5LIA07tpJfOn1lfOF5+Ue/6jgBrHPnc=;
-        b=DMnr3MruVdmfQZw/nxoJmpScvA6VxrTIUD3i804HTj6HNim0ZzB/obX7llmXr0SHFB
-         sxHLEsi6QYTEJKzszdUVe9NUwbJHo1cef1l1yrXaNy32rVEmhiFfInjQ1ApNnY8lPdxm
-         GUO4Gm/J7DjPcD/Ys+Ee/EWd35jmlENf2TQYkHOAFyhrypF+i6GYCK+JnUBuxKCSCKIQ
-         S9PLRAZBvhM89p1yyzEwhODFWaAsYldbTzXwDlqwa5r5wgzlotNa1dGM4zrvvp88YqGZ
-         TDSDAUZxliVEVp2Ajj0yS46nQndwGXG9ijZUC+HCVQjcEtbBxytqcGVSnGEFYLwHLsl7
-         Nubg==
-X-Forwarded-Encrypted: i=1; AKwUvBx17xWWrFIRBGSBCTn/KOKrlC62pVXK2FUJl/IMf8fDiidLN9TrExqIM5BoGg5I853T72xjd0ER8pzf4g==@vger.kernel.org
-X-Gm-Message-State: AFuF++ngIkFxrSynZiLYhZQ7HGTLPsQUA6tLy2IH67usFaaaQESjffav
-	/rdhlWjtEt/x/nn54wbiTpb/2rduvr7RpYDvskxXFrbZZUJlvIHFoHOjdFEP+trC8bu1FJd15EO
-	ltO1G8CPUgnI6vct9wgGKS+ObAcZmRKOiKIpV7TNIKgcgZ7ofpm+B34dy2Xw=
+	s=arc-20240116; t=1788493450; c=relaxed/simple;
+	bh=vsI3Az6PtAYAQ2R8ZZ4L6U4QNRzBfojx12v3oaqkM4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y05jLEAZceWwZJOBWFqg+LYETMECa/ZAvhrH4mSba9MA1B3m6e991Hj8GBt2JL9ZX7/J6cBaX1ZyPGPTVRQWsrfxE0rSv3R7hzEq82GLFW6eBeJaqyD9NalpQ/xeaIG0WF/VCJ+yspNBH3VaPKWeGWr2Fjs+RW/7fYHweGtLMWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ByPiA4VL; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ByPiA4VL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1788493447;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Ge1qomVxwnUyR3gHiawBlAs7kARoXRyBci0Mn9ayFts=;
+	b=ByPiA4VLezwhh4zG9I5MdDXO39SgtLxX9VtNKkyx/jF7MOt/RQb4IAzdY8QdXGECE+WB/+
+	UKV5+rv5CfyQtcav9Wn8EsXLRuet1mtWdFOCf71ARTlUPU4hy4RFAZV8K2CpzF0gkWDiOl
+	T2bWb0ErEpono3Q+1ReXErJAK6nbGDI=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-73-zjKFvbxnNw6otAT5LwsaBg-1; Thu,
+ 03 Sep 2026 23:44:05 -0400
+X-MC-Unique: zjKFvbxnNw6otAT5LwsaBg-1
+X-Mimecast-MFC-AGG-ID: zjKFvbxnNw6otAT5LwsaBg_1788493444
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 068F519055C7;
+	Fri,  4 Sep 2026 03:44:04 +0000 (UTC)
+Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6345E1956049;
+	Fri,  4 Sep 2026 03:44:00 +0000 (UTC)
+From: Kate Hsuan <hpa@redhat.com>
+To: Hans de Goede <hansg@kernel.org>,
+	Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kate Hsuan <hpa@redhat.com>
+Subject: [PATCH] media: i2c: cvs: Add Lattice device quirk for VID:0x2ac1 PID:0x20d1
+Date: Fri,  4 Sep 2026 11:43:44 +0800
+Message-ID: <20260904034344.105034-1-hpa@redhat.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:a50e:20b0:6b7:46fa:16ac with SMTP id
- 006d021491bc7-6b746fa1b09mr153167eaf.65.1788476966736; Thu, 03 Sep 2026
- 16:09:26 -0700 (PDT)
-Date: Thu, 03 Sep 2026 16:09:26 -0700
-In-Reply-To: <56eb8af7-8f1f-43ef-9f77-6afb526b2d82@me.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a99fe26.9266084e.bf0d7.028a.GAE@google.com>
-Subject: Re: [syzbot] [media?] WARNING in cx25840_init
-From: syzbot <syzbot+9123948aef13fe92d706@syzkaller.appspotmail.com>
-To: m.harisawan@icloud.com
-Cc: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	m.harisawan@icloud.com, syzkaller-bugs@googlegroups.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-> #syz test: git:// git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.=
-git 940de590b839f71d6dc846160534bf202401b8b7 diff --git a/drivers/media/i2c=
-/cx25840/cx25840-core.c b/drivers/media/i2c/cx25840/cx25840-core.c index a8=
-e21a28174f..6df912c9381b 100644 --- a/drivers/media/i2c/cx25840/cx25840-cor=
-e.c +++ b/drivers/media/i2c/cx25840/cx25840-core.c @@ -2298,28 +2298,26 @@ =
-static int cx25840_init(struct v4l2_subdev *sd, u32 val) struct cx25840_sta=
-te *state =3D to_state(sd); + if (!is_cx2584x(state)) + return -EOPNOTSUPP;=
- + state->generic_mode =3D true; - if (is_cx2584x(state)) { - /* set datash=
-eet video output defaults */ - state->vid_config =3D CX25840_VCONFIG_FMT_BT=
-656 | - CX25840_VCONFIG_RES_8BIT | - CX25840_VCONFIG_VBIRAW_DISABLED | - CX=
-25840_VCONFIG_ANCDATA_ENABLED | - CX25840_VCONFIG_TASKBIT_ONE | - CX25840_V=
-CONFIG_ACTIVE_HORIZONTAL | - CX25840_VCONFIG_VALID_NORMAL | - CX25840_VCONF=
-IG_HRESETW_NORMAL | - CX25840_VCONFIG_CLKGATE_NONE | - CX25840_VCONFIG_DCMO=
-DE_DWORDS | - CX25840_VCONFIG_IDID0S_NORMAL | - CX25840_VCONFIG_VIPCLAMP_DI=
-SABLED; - - /* add additional settings */ - cx25840_vconfig_add(state, val)=
-; - } else { - /* TODO: generic mode needs to be developed for other chips =
-*/ - WARN_ON(1); - } + /* set datasheet video output defaults */ + state->v=
-id_config =3D CX25840_VCONFIG_FMT_BT656 | + CX25840_VCONFIG_RES_8BIT | + CX=
-25840_VCONFIG_VBIRAW_DISABLED | + CX25840_VCONFIG_ANCDATA_ENABLED | + CX258=
-40_VCONFIG_TASKBIT_ONE | + CX25840_VCONFIG_ACTIVE_HORIZONTAL | + CX25840_VC=
-ONFIG_VALID_NORMAL | + CX25840_VCONFIG_HRESETW_NORMAL | + CX25840_VCONFIG_C=
-LKGATE_NONE | + CX25840_VCONFIG_DCMODE_DWORDS | + CX25840_VCONFIG_IDID0S_NO=
-RMAL | + CX25840_VCONFIG_VIPCLAMP_DISABLED; + + /* add additional settings =
-*/ + cx25840_vconfig_add(state, val); return 0; }
+On Dell laptops such as the XPS 14 (DA14250), the IPU6 camera fails to
+initialize due to a missing device quirk for the Lattice device. The
+kernel logs the following error during probe:
 
-I've failed to parse your command.
-Did you perhaps forget to provide the branch name, or added an extra ':'?
-Please use one of the two supported formats:
-1. #syz test
-2. #syz test: repo branch-or-commit-hash
-Note the lack of ':' in option 1.
+[  7.299665] intel_cvs i2c-INTC10E0:00: No quirks for device (VID:0x2ac1 PID:0x20d1)
+[  7.299976] intel_cvs i2c-INTC10E0:00: error -EREMOTEIO: get caps failed
+[  7.300026] intel_cvs i2c-INTC10E0:00: probe with driver intel_cvs failed with error -121
+
+Add a matching quirk entry for VID 0x2ac1 and PID 0x20d1 to allow
+intel_cvs to configure the device properly and enable the camera.
+
+Link: https://bugzilla.redhat.com/show_bug.cgi?id=2526246
+Signed-off-by: Kate Hsuan <hpa@redhat.com>
+---
+ drivers/media/i2c/cvs/core.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
+index d4a3b9c3bab1..acf8a4f7e79f 100644
+--- a/drivers/media/i2c/cvs/core.c
++++ b/drivers/media/i2c/cvs/core.c
+@@ -70,6 +70,13 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
+ 			  ICVS_NO_CAPS |
+ 			  ICVS_NO_FW_UPDATE
+ 	},	/* Lattice NX33 */
++	{ 0x2ac1, 0x20d1, ICVS_NO_MIPI_CONFIG |
++			  ICVS_NO_CAPS |
++			  ICVS_NO_FW_UPDATE
++	},	/*
++		 * The Lattice device was found on a Dell laptop
++		 * XPS 14 (Dell 14 Premium) DA14250
++		 */
+ 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
+ 			  ICVS_HOST_SENSOR_PWR_CTRL |
+ 			  ICVS_HOST_PRIV_CTRL |
+-- 
+2.55.0
 
