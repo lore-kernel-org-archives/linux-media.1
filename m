@@ -1,103 +1,182 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D5CC3D45F7;
-	Fri,  4 Sep 2026 08:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9523A544D
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 08:40:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788511102; cv=none; b=kMKY2xZJA/gaJNruAVQd/gg7Efpu9UpYbgpZRS3XI0WPJYuB/QNbWLzR1G/l4TMRnHSd/DnTDJ5DwSJZg6PAYA37OGLmhw9WcsQxuBEkCHaUNF4Wd/wRVZFHmoEMmluV3vlnFye+VseG2uvrenunkjAue9B4A1lvvwcUQLwOIbs=
+	t=1788511239; cv=none; b=b2W345IjR1Qxy0XFUW5ELT/BTdatb2CwYRrFOzsjO48nsR9j0YTTq6QqVTzuOM4tAJJyI4C1cYY4LCjLysDvLciqXpqKyoM2XzB5wnYdWaEcfxFZk1xGAGrgkfZxVREspozLWb9R3u5pMbkszcUSPhA0jbOBQFYEFngcqo8fKD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788511102; c=relaxed/simple;
-	bh=O9Wm7IIkNGWTM+cOxwal8+SgRd907iNaJMRzg3aDFwY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=J1n/ha56NscHB6o+gAdlCzbLjjAcE5cJ41mFDOxLN/ksxM/5Yx13HLHyjjBKPvWHOCMxWraWLl5ZpKQFHN7BMwWzmcejxedwSBve02TxRQhqqGnBrD6quJGF9eW/mDJmSNo/yb68DbQcvCIBGA6tskxsU2Frcc2xhE7AwfCujjY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=I+MBZ/mK; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1788511239; c=relaxed/simple;
+	bh=KhU6jGTmTkTaau40wVsjNcR8J0pvK67N20EoMPqwV9U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=r81bJlsqOHO8N+n7TM8lJU6HYjHMPosa3Q3lzBeXV1NcI+J2cxApvM/mRG+enOb5yhi69eupEk3jkXJUwymoEwBcuf+MLhlDneIEkWCvp/aIJ5Uxwb4SOvYobL3CPUQV8CIY85FePaOCH/Zau+Zvkwjg/r/x/0LYsswKBBP6DX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=StLmREyV; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="I+MBZ/mK"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=O9Wm7IIkNGWTM+cOxwal8+SgRd907iNaJMRzg3aDFwY=; b=I
-	+MBZ/mK9+IIt/rT+7YppR/8uP0eRST56nCaFncBpwcm4pwSEDBC4YYY9USwCHoo5
-	10uFYI9NSar8bsVHufKdQbXtFifM/xKAvItxaK1ghawTlci5vj2hZuOpM45J2Bca
-	zGMPvfMXUZmjI0k+RxAwkPic4cudehS0qUUVZlYHX8=
-Date: Fri, 4 Sep 2026 16:37:52 +0800 (CST)
-From: =?UTF-8?B?5Lu75rW3?= <rh_king@163.com>
-To: "Ricardo Ribalda" <ribalda@chromium.org>
-Cc: "Laurent Pinchart" <laurent.pinchart@ideasonboard.com>,
-	linux-media@vger.kernel.org, "Hans de Goede" <hansg@kernel.org>,
-	"Mauro Carvalho Chehab" <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH] media: uvcvideo: Add quirk for Luxvisions RGB Camera
- (30c9:0122)
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CANiDSCse5+Ke-Z2321F_QHJZX2suCKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com>
-References: <20260903081145.8382-1-rh_king@163.com>
- <CANiDSCse5+Ke-Z2321F_QHJZX2suCKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com>
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="StLmREyV"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-38d489b6b71so884331a91.0
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 01:40:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788511238; x=1789116038; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WWxKvLFem3x1UnUj6lzBslbqm6k7zfr8RzsgQ0D0syQ=;
+        b=StLmREyVpJPM+R27gmPiynAPpviw7Tec+hwp9YMpLHN6vj9GVfRU0+X8RO1kiFZfWC
+         SMANtGMRBcO1tMOc4QfcgMmDpZIxxsQQVPsvfX5hvWCuF2nEJWF3LuzWeZdniHOzjDCh
+         UGAnQEnk33vOuGjYrzAeAxia7VzeGQoEsmoOo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788511238; x=1789116038;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WWxKvLFem3x1UnUj6lzBslbqm6k7zfr8RzsgQ0D0syQ=;
+        b=QIQP05TNkBJRBvXLqZuIYsf71m3tO2tBgXQDhsO5jKydlgKKynG+8OQIj0X0Zvxn82
+         Ez4KbB6VAspQqItlL0nPr624FSdt9bffKkXKVCL7mx44Hoq5NMNyNndS3kNopecKmX+u
+         OCSIOrf91qWWrR9BujR+tvZHPOrLOB2MKXZvl9u1vtO/TiLfbXi9MobXB7mBo+BfoVlD
+         lFmdOXto22tkSqzVflJiMQ5X9afvKeIOvkOQjgzCjeKejiRZeQdaWh3GVw8HcRqQkDqe
+         AT6PfcVP/WZqsUlSqM4uXNUWeMhKqv3YdvhX47SIiJPFWr4umopSQ+ZvQLpw4VEkvHBc
+         HMBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxcqiCJZ4ABg1Y9tpfXu0EqLmdkFPF0raKSxPy0iVaiLalfQH3OCFqn85ucRbKOxX3ixnNftLoFHJKAsg==@vger.kernel.org
+X-Gm-Message-State: AFuF++kMqdm1TNBAOxkv+KMP8Oll11king8KQ0CfjjduwaxAp9o2QA9j
+	mGges919WfNtMjhQGT0ky1Zutl1URgYOMzYudYC5RGG4gQwFPDx9B9OeeKrDfkk1ehCL08JEt15
+	e+0QI+Q==
+X-Gm-Gg: AYBFou1UXNkOVcaPWmc2Z0CUobllT4WhSQ4sEIMPP1WLNyCAi9GanSr/zmqY9xzknJq
+	gEXFbtCuelRUO+qGd2sPH6g8Hh7U9EcSdEwQc3khvDVNBBUcfi0vMslMMDva6rMRksAnSjRRNQS
+	NU4ip0cQdMa4NkPPOg6SpnGTnCuXmjAXqX2PekG9f8e3oOozEEf35W7x0bkSAHcQp/1t+Nr1oZe
+	KXodwGCG+D5rjd9mFxNemT03EFWM+YJG9LxUF0WNghxZ/BWnHMxE1XqtJcaQ9PLwnWb51wY3F/J
+	8L6DiW6kdgHtJiRUXUrGv4QPTDxugR26zV2PDWPAq4M18IBT8N2vpgngbc8Gc5euSj+sXMy6FpS
+	q/FyN1ZwwI/OZ2XjkdnG8tX23grhGnQ0aBv7Bbp3annxDWu++wYcQXQ0789QJJBrENg4Uuf+5u/
+	5nETVy0vakeeNht7RBaKiy+MWNjcD92rpKDLnfREBd2XKeiPWCoLzGHIGCb+m+WC5s4P85L1BVc
+	1RQc+uE9QLUy3l+9NUtLz89f+2p/w==
+X-Received: by 2002:a17:90b:57cd:b0:398:c150:e7b3 with SMTP id 98e67ed59e1d1-39b2609f356mr7587521a91.4.1788511237025;
+        Fri, 04 Sep 2026 01:40:37 -0700 (PDT)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com. [209.85.215.182])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2db1497d455sm6870755ad.30.2026.09.04.01.40.36
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 04 Sep 2026 01:40:36 -0700 (PDT)
+Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc1cc1b42b5so884720a12.2
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 01:40:36 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzJG0zoy9IM/M2uESp2cb+iFAYwqjVboH7YygJk9EPtk5PW1elfbrhWV4fmUMgc6Ikbo6vQMgcy1Plv8A==@vger.kernel.org
+X-Received: by 2002:a17:90a:d004:b0:398:c9be:cca8 with SMTP id
+ 98e67ed59e1d1-39b2609f363mr7895398a91.2.1788511235561; Fri, 04 Sep 2026
+ 01:40:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <42a544a1.3e7.1a06b912fdb.Coremail.rh_king@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:gygvCgD3v2Rgg5pqNOkIAA--.5470W
-X-CM-SenderInfo: 5ukbyxlqj6il2tof0z/xtbC+wA66Gqag2C85gAA3g
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+References: <20260903081145.8382-1-rh_king@163.com> <CANiDSCse5+Ke-Z2321F_QHJZX2suCKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com>
+ <42a544a1.3e7.1a06b912fdb.Coremail.rh_king@163.com>
+In-Reply-To: <42a544a1.3e7.1a06b912fdb.Coremail.rh_king@163.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Fri, 4 Sep 2026 10:40:22 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsO4SFhKz6OvTZCrojyA8QUYg5+9aMigOkum_nRX-N3oA@mail.gmail.com>
+X-Gm-Features: AcwNN1Wy19_xCMbKNIDkMQ7Mkm8-Ojvi8LGf_3lPq1ekEd1Uwv-OTFJuBfSHlK8
+Message-ID: <CANiDSCsO4SFhKz6OvTZCrojyA8QUYg5+9aMigOkum_nRX-N3oA@mail.gmail.com>
+Subject: Re: Re: [PATCH] media: uvcvideo: Add quirk for Luxvisions RGB Camera (30c9:0122)
+To: =?UTF-8?B?5Lu75rW3?= <rh_king@163.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, linux-media@vger.kernel.org, 
+	Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkmbmJzcDtSaWNhcmRv77yMClRoYW5rcyZuYnNwO2ZvciZuYnNwO3lvdXImbmJzcDtyZXZpZXcu
-Jm5ic3A7VGhpcyZuYnNwO2lzJm5ic3A7dGhlJm5ic3A7b3JpZ2luYWwmbmJzcDtvdXRwdXQmbmJz
-cDtvZiZuYnNwOydsc3VzYicKdGVzdGluZ0BmZWRvcmE6fiQmbmJzcDtsc3VzYgpCdXMmbmJzcDsw
-MDEmbmJzcDtEZXZpY2UmbmJzcDswMDE6Jm5ic3A7SUQmbmJzcDsxZDZiOjAwMDImbmJzcDtMaW51
-eCZuYnNwO0ZvdW5kYXRpb24mbmJzcDsyLjAmbmJzcDtyb290Jm5ic3A7aHViCkJ1cyZuYnNwOzAw
-MiZuYnNwO0RldmljZSZuYnNwOzAwMTombmJzcDtJRCZuYnNwOzFkNmI6MDAwMyZuYnNwO0xpbnV4
-Jm5ic3A7Rm91bmRhdGlvbiZuYnNwOzMuMCZuYnNwO3Jvb3QmbmJzcDtodWIKQnVzJm5ic3A7MDAz
-Jm5ic3A7RGV2aWNlJm5ic3A7MDAxOiZuYnNwO0lEJm5ic3A7MWQ2YjowMDAyJm5ic3A7TGludXgm
-bmJzcDtGb3VuZGF0aW9uJm5ic3A7Mi4wJm5ic3A7cm9vdCZuYnNwO2h1YgpCdXMmbmJzcDswMDMm
-bmJzcDtEZXZpY2UmbmJzcDswMDI6Jm5ic3A7SUQmbmJzcDszMGM5OjAxMjImbmJzcDtMdXh2aXNp
-b25zJm5ic3A7SW5ub3RlY2gmbmJzcDtMaW1pdGVkJm5ic3A7SW50ZWdyYXRlZCZuYnNwO1JHQiZu
-YnNwO0NhbWVyYQpCdXMmbmJzcDswMDMmbmJzcDtEZXZpY2UmbmJzcDswMTE6Jm5ic3A7SUQmbmJz
-cDswNmNiOjAwZjkmbmJzcDtTeW5hcHRpY3MsJm5ic3A7SW5jLiZuYnNwOwpCdXMmbmJzcDswMDMm
-bmJzcDtEZXZpY2UmbmJzcDswMTI6Jm5ic3A7SUQmbmJzcDsxN2VmOjYyYWYmbmJzcDtMZW5vdm8m
-bmJzcDtUaGlua1BhZCZuYnNwO1gxMyZuYnNwO0RldGFjaGFibGUmbmJzcDtHZW4mbmJzcDsxCkJ1
-cyZuYnNwOzAwNCZuYnNwO0RldmljZSZuYnNwOzAwMTombmJzcDtJRCZuYnNwOzFkNmI6MDAwMyZu
-YnNwO0xpbnV4Jm5ic3A7Rm91bmRhdGlvbiZuYnNwOzMuMCZuYnNwO3Jvb3QmbmJzcDtodWIK5Zyo
-IDIwMjYtMDktMDMgMTY6NTk6NTnvvIwiUmljYXJkbyBSaWJhbGRhIiA8cmliYWxkYUBjaHJvbWl1
-bS5vcmc+IOWGmemBk++8mgpIaSBLZWFuDQoNCkNvdWxkIHlvdSBwcm92aWRlIHRoZSB3aG9sZSBv
-dXRwdXQgb2YgbHN1c2IgLXYgMzBjOTowMTIyDQoNClRoYW5rcyENCg0KT24gVGh1LCAzIFNlcHQg
-MjAyNiBhdCAxMDo1OCwgS2VhbiBSZW4gPHJoX2tpbmdAMTYzLmNvbT4gd3JvdGU6DQo+DQo+IFRo
-ZSBkZXZpY2UgYmluZHMgY2xlYW5seSBidXQgZGVsaXZlcnMgbm8gaW1hZ2UgZGF0YTsgVVNCIGF1
-dG9zdXNwZW5kIGlzDQo+IHN1c3BlbmRpbmcgdGhlIHN0cmVhbWluZyBlbmRwb2ludC4gRGlzYWJs
-ZSBhdXRvc3VzcGVuZCBmb3IgaXQuDQo+DQo+IElzc3VlIGZvdW5kIG9uIExlbm92byBUaGlua1Bh
-ZCBYMTMgKGNvZGVuYW1lIFplbGRhLCBJbnRlbCk7IGNvbmZpcm1lZA0KPiB3b3JraW5nIHdpdGgg
-dGhpcyBxdWlyay4NCj4NCj4gVGVzdGVkLWJ5OiBLZWFuIFJlbiA8cmhfa2luZ0AxNjMuY29tPg0K
-PiBTaWduZWQtb2ZmLWJ5OiBLZWFuIFJlbiA8cmhfa2luZ0AxNjMuY29tPg0KPiAtLS0NCj4gIGRy
-aXZlcnMvbWVkaWEvdXNiL3V2Yy91dmNfZHJpdmVyLmMgfCA5ICsrKysrKysrKw0KPiAgMSBmaWxl
-IGNoYW5nZWQsIDkgaW5zZXJ0aW9ucygrKQ0KPg0KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZWRp
-YS91c2IvdXZjL3V2Y19kcml2ZXIuYyBiL2RyaXZlcnMvbWVkaWEvdXNiL3V2Yy91dmNfZHJpdmVy
-LmMNCj4gaW5kZXggZTI4OWNjNzFiYTk4Li4zMmJmMzUzMDEzYTEgMTAwNjQ0DQo+IC0tLSBhL2Ry
-aXZlcnMvbWVkaWEvdXNiL3V2Yy91dmNfZHJpdmVyLmMNCj4gKysrIGIvZHJpdmVycy9tZWRpYS91
-c2IvdXZjL3V2Y19kcml2ZXIuYw0KPiBAQCAtMzIxNiw2ICszMjE2LDE1IEBAIHN0YXRpYyBjb25z
-dCBzdHJ1Y3QgdXNiX2RldmljZV9pZCB1dmNfaWRzW10gPSB7DQo+ICAgICAgICAgICAuYkludGVy
-ZmFjZVN1YkNsYXNzICAgPSAxLA0KPiAgICAgICAgICAgLmJJbnRlcmZhY2VQcm90b2NvbCAgID0g
-MCwNCj4gICAgICAgICAgIC5kcml2ZXJfaW5mbyAgICAgICAgICA9IFVWQ19JTkZPX01FVEEoVjRM
-Ml9NRVRBX0ZNVF9ENFhYKSB9LA0KPiArICAgICAgIC8qIEx1eHZpc2lvbnMgSW5ub3RlY2ggSW50
-ZWdyYXRlZCBSR0IgQ2FtZXJhIChMZW5vdm8gbGFwdG9wcykgKi8NCj4gKyAgICAgICB7IC5tYXRj
-aF9mbGFncyAgICAgICAgICA9IFVTQl9ERVZJQ0VfSURfTUFUQ0hfREVWSUNFDQo+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgfCBVU0JfREVWSUNFX0lEX01BVENIX0lOVF9JTkZPLA0K
-PiArICAgICAgICAgLmlkVmVuZG9yICAgICAgICAgICAgID0gMHgzMGM5LA0KPiArICAgICAgICAg
-LmlkUHJvZHVjdCAgICAgICAgICAgID0gMHgwMTIyLA0KPiArICAgICAgICAgLmJJbnRlcmZhY2VD
-bGFzcyAgICAgID0gVVNCX0NMQVNTX1ZJREVPLA0KPiArICAgICAgICAgLmJJbnRlcmZhY2VTdWJD
-bGFzcyAgID0gMSwNCj4gKyAgICAgICAgIC5iSW50ZXJmYWNlUHJvdG9jb2wgICA9IDAsDQo+ICsg
-ICAgICAgICAuZHJpdmVyX2luZm8gICAgICAgICAgPSBVVkNfSU5GT19RVUlSSyhVVkNfUVVJUktf
-RElTQUJMRV9BVVRPU1VTUEVORCkgfSwNCj4gICAgICAgICAvKiBJbnRlbCBSZWFsc2Vuc2UgRDQz
-NWkgZGVwdGggY2FtZXJhICovDQo+ICAgICAgICAgeyAubWF0Y2hfZmxhZ3MgICAgICAgICAgPSBV
-U0JfREVWSUNFX0lEX01BVENIX0RFVklDRQ0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIHwgVVNCX0RFVklDRV9JRF9NQVRDSF9JTlRfSU5GTywNCj4gLS0NCj4gMi40MC4wDQo+DQo+
-DQoNCg0KLS0gDQpSaWNhcmRvIFJpYmFsZGENCg==
+Hi.
+
+I think something went wrong when you pasted the text and also when you run=
+ it.
+
+checkout: https://lore.kernel.org/linux-media/CANiDSCse5+Ke-Z2321F_QHJZX2su=
+CKxnBy5WuNHE3m1wjoxX-Q@mail.gmail.com/T/#t
+
+You seem to have run `lsusb`, not `lsusb -v -d 30c9:0122`
+
+Can you try again?
+
+Thanks!
+
+On Fri, 4 Sept 2026 at 10:38, =E4=BB=BB=E6=B5=B7 <rh_king@163.com> wrote:
+>
+> Hi&nbsp;Ricardo=EF=BC=8C
+> Thanks&nbsp;for&nbsp;your&nbsp;review.&nbsp;This&nbsp;is&nbsp;the&nbsp;or=
+iginal&nbsp;output&nbsp;of&nbsp;'lsusb'
+> testing@fedora:~$&nbsp;lsusb
+> Bus&nbsp;001&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0002&nbsp;Linux&nbsp=
+;Foundation&nbsp;2.0&nbsp;root&nbsp;hub
+> Bus&nbsp;002&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0003&nbsp;Linux&nbsp=
+;Foundation&nbsp;3.0&nbsp;root&nbsp;hub
+> Bus&nbsp;003&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0002&nbsp;Linux&nbsp=
+;Foundation&nbsp;2.0&nbsp;root&nbsp;hub
+> Bus&nbsp;003&nbsp;Device&nbsp;002:&nbsp;ID&nbsp;30c9:0122&nbsp;Luxvisions=
+&nbsp;Innotech&nbsp;Limited&nbsp;Integrated&nbsp;RGB&nbsp;Camera
+> Bus&nbsp;003&nbsp;Device&nbsp;011:&nbsp;ID&nbsp;06cb:00f9&nbsp;Synaptics,=
+&nbsp;Inc.&nbsp;
+> Bus&nbsp;003&nbsp;Device&nbsp;012:&nbsp;ID&nbsp;17ef:62af&nbsp;Lenovo&nbs=
+p;ThinkPad&nbsp;X13&nbsp;Detachable&nbsp;Gen&nbsp;1
+> Bus&nbsp;004&nbsp;Device&nbsp;001:&nbsp;ID&nbsp;1d6b:0003&nbsp;Linux&nbsp=
+;Foundation&nbsp;3.0&nbsp;root&nbsp;hub
+> =E5=9C=A8 2026-09-03 16:59:59=EF=BC=8C"Ricardo Ribalda" <ribalda@chromium=
+.org> =E5=86=99=E9=81=93=EF=BC=9A
+> Hi Kean
+>
+> Could you provide the whole output of lsusb -v 30c9:0122
+>
+> Thanks!
+>
+> On Thu, 3 Sept 2026 at 10:58, Kean Ren <rh_king@163.com> wrote:
+> >
+> > The device binds cleanly but delivers no image data; USB autosuspend is
+> > suspending the streaming endpoint. Disable autosuspend for it.
+> >
+> > Issue found on Lenovo ThinkPad X13 (codename Zelda, Intel); confirmed
+> > working with this quirk.
+> >
+> > Tested-by: Kean Ren <rh_king@163.com>
+> > Signed-off-by: Kean Ren <rh_king@163.com>
+> > ---
+> >  drivers/media/usb/uvc/uvc_driver.c | 9 +++++++++
+> >  1 file changed, 9 insertions(+)
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc=
+/uvc_driver.c
+> > index e289cc71ba98..32bf353013a1 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -3216,6 +3216,15 @@ static const struct usb_device_id uvc_ids[] =3D =
+{
+> >           .bInterfaceSubClass   =3D 1,
+> >           .bInterfaceProtocol   =3D 0,
+> >           .driver_info          =3D UVC_INFO_META(V4L2_META_FMT_D4XX) }=
+,
+> > +       /* Luxvisions Innotech Integrated RGB Camera (Lenovo laptops) *=
+/
+> > +       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
+> > +         .idVendor             =3D 0x30c9,
+> > +         .idProduct            =3D 0x0122,
+> > +         .bInterfaceClass      =3D USB_CLASS_VIDEO,
+> > +         .bInterfaceSubClass   =3D 1,
+> > +         .bInterfaceProtocol   =3D 0,
+> > +         .driver_info          =3D UVC_INFO_QUIRK(UVC_QUIRK_DISABLE_AU=
+TOSUSPEND) },
+> >         /* Intel Realsense D435i depth camera */
+> >         { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
+> > --
+> > 2.40.0
+> >
+> >
+>
+>
+> --
+> Ricardo Ribalda
+
+
+
+--=20
+Ricardo Ribalda
