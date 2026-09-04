@@ -1,186 +1,110 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2483423A85
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 19:55:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788551721; cv=pass; b=aYqFXyECoVl5Ciihb5lFABcQXrnkFe2pQWAJxFWzaVrooKaXmIrt1OX4OFiP7x4VnYzgEJNiknbgWxUrICNeWIclEsfaXXjf8wK3mB6jGZFYmqL+oJweArez6V2cqawXFw4I2ex7/SQGwcU/kvc8EWk6PT8PhBRRZJWoLbfzqDw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788551721; c=relaxed/simple;
-	bh=Cuy4oNKyaJF2ZdAr5zW3Dz+9GPWKnBVFeBK1jrQaFGE=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7D938887E
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:21:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788553311; cv=none; b=LOGxJyFl9leELBqw9or79z/GGesOfdnGvWwsXUJNiJcNheq8texh2wQxDmBauD4+dkLA6tOEUPRJsi+F4VR1X/ETUIEekznTU97X/D04DbsRb2UdII4xknD/37dPJc3cDSrvf+4hPy6v8rZkvX/zE4XCl9tlKXZN6+iKFamMd40=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788553311; c=relaxed/simple;
+	bh=Bzqg0RZ0XnEi5aVXImdNMYKWYrjNoSPKd/XJO0XB2dA=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BKOCA2jIFAJHQwMjVnjZPYrToukvD9xfQAGsWsbdlqWZYUxE0ds40HUXpTwLSbZCQGOdR2ga+6ncHAFyh+yMDe3CYhBNuORs+pQGZb8/kYcpXBaMTVr/+byC7ZoluaLNx1xHNLfn5nWlSAWVhUXvfU+NlRMRe3QsWF6legGo9eM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l+UwIbQE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dZGMSVO2; arc=pass smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=B02qCSYSPBZBCOR8dc7SjySLe1jjHIKzU8NHESEYHpOeo/Yk2RLQEvgrDmo2uKQT5iXN0B0i2KqCLWh+ZlZwhpJzjb6wfHG+U2zYpe3xglq4hl2eRsjYuRnwkkU2GYX1ymV6Ot2Rr4TInLSdOm1IJmIgaCZYFclqBQ1kfksGRU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AxNRo+fe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l+UwIbQE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dZGMSVO2"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HHwWb4124920
-	for <linux-media@vger.kernel.org>; Fri, 4 Sep 2026 19:55:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=; b=l+UwIbQEhpKBzgLY
-	uptB0RNGGwdGSX/uUdUjHSMXvRcp1Ny6If/J65idpGn5MtAwUovCWyZpYZQLkNQi
-	Of1kwXhfQYcQv3+xfAcVpPlDnxXpuUVzAQ4GOv7MSEQ54bU+BwGDng4gN+QVsHhk
-	zF0NLmeLK3go4dxt5klAgacaMsHs0VdBkqvV9I2JGJho8zYMhgVieMpq4iEw9/99
-	3FDHiFTn3mehNx/Cr8Z8SP3CpgNYS9VCy83P0WXyerFYScO+33KZTh+8ucyfy+Ct
-	FA8RLsBYSxxFjuXTWiROxGwFjF6uZdHlGaz33kAPBfD9HZ39u/gSeJ2fLXTP0elF
-	fsR7GQ==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg0121wpg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 19:55:16 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e5e38fbc5so231527785a.2
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788551715; cv=none;
-        d=google.com; s=arc-20260327;
-        b=X5sk3dMpin08CNQZnRfVvwcDnMGd7mF+sN2eI8hIhMfGWCCupmrp+2y0yz706m0uyM
-         I1R8aJR5xgdqigO57Bio8rUTKbRWJjEea/ZMAHXX4jDDq7SYlww/zwDw/nh/E+srVt3p
-         n7ualUjT26U1Zuq9+njL3zsVQE4DvXtqnRz3Fh/Eh/HXNT+m21mvzwc5b0J1NRAZlXQ2
-         /tt/6YTaJF2o8IQy14DkTFZEbtzywu+bUiN6tWTwVsp//4Esy0l28MmhJY7/F8cQm/T9
-         Nrt+HC/eTyJL5y948IuFbW8Dua2IWOVtDEWoFs0m27l5kSqqeeJah5A0B1YQmEEgc8/p
-         LURA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
-        fh=9Ctx2TJTRucCTAtfAlsZ4WLj1PG+LMuydXzII+qVqSE=;
-        b=gJjUqXIEXkuvxsGR61x6gOkc3rxLEQfrC/Bk5eF6mAJ2aZz7u4nLY/UWqmtoezpidb
-         khvkPv6vfRXMw8QZVSVShitiiYLgss20tViHI+9YzB07Y8zIfrEF4zYpBubQgqgu6UoN
-         fEjbPmoq/5+Qg2vhhWSskNfY71bUQtc2TxkYz6F+5IqGOw9IAq+fQw6hciYeCVmQmIPM
-         zqQ6/5A0h7trdNjCmBRqwQYUkEg0WqI8tzEzFFpOIoOVWmT9lp6ff6B7av87THMp67F2
-         x5Y4nzqx2Sb51Kbyugyvr8hCsC80M49wp/HimzRIYSvNd8OLUMcC59Lnz2gysTMLRVFQ
-         dXBw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788551715; x=1789156515; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
-        b=dZGMSVO2HK7zY7/S8dX+pARokyGm12TijPDnyXgoAhU3v17OELXYdLxbpG931mlShy
-         HFyxVLc5UG0KZaBMHIaPJDzacEwPrW9w7ivFG9DN7V1Qct3FqlxW6LgkoVv9mUGW5DyB
-         poUJLD8DPQcjef926VRMixtl/XXnFKeUtuhZRA3R69ENUrk6+KphIRfkPFyurAT/wPc8
-         O4+FreIfrntOBzMPcUkMe7bZVGMC5LusgpOFN7Y1uLFaGNsKu09BIfyKnzrh5GOmHWKv
-         O6VLqGHVSCF6s1VMw9wau+E5agst6eDw1N3jwVzkGhjVpKDzH1GADcCaOfagYzfwctyu
-         YtEA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788551715; x=1789156515;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
-        b=OlsmSqGYpIHOyqCQ43fvRIgwkwJ245gukYVVcZDsmPzVH/LVlYR3Z3IejuLahNd+No
-         j+gf9ybIRZbd5pXbomT8sm0DRIAxQS+GnSShkq3JHgmcsm0U8yRYI6bumkwPa6b13CMT
-         6NQqaiOlbSzVT/xepi7PiYkyWrTnmTeoLY8L2K48aP2REFq2a6RwwQj997MkofOrke+8
-         cs+Y77sFMZWikJZTmJ0PGUIY4+/vkscgmtv1OqiJjTuk1pS15hahtg/NHjmbj2etWSFN
-         SqezoLxwECFGx/77Wm54RKOeN2D1e8GhpdMZMTRWbDSnuP9T9pL8G9Oy8XwxJsFPA42Q
-         Od2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBwlCR2XYaBafeLxdvL0LximtOdKP93VBPXclThXMyxNsMpPF1gAmTH+ylYbQpUs/5JN4/4MSHvdQcaSYw==@vger.kernel.org
-X-Gm-Message-State: AFuF++mhNQb+yF0jFZGsxUYut5NqqjrOyHRHiygHAEZsCnmK+xDdNz/N
-	umcMpmBvimrpIBx/PiH6SJF0imrDGrMpiQc+pucwwArV2VAu4XndLvSCur63C8D2PmePmAKY7J8
-	xwEnoRHlQkUQaj8Kxal5H5FM4ybRi4xrc85CPOTJTvDJgHTKjYeF9DgYyXxFLiZ7DUGHwpXF4lc
-	18LLvbeAaurC53s7ZBj7iX0PJXVakEByqI/qTgOln3demDET9o
-X-Gm-Gg: AYBFou1pclap6y21ve+YVElN1wX/RTKxRVVJ1bfQKFHh4ci5+1UgwKSXjI5gEtvQlpo
-	XR6HzDNl3HTPYIWRwIvPhd6jxw9rLqII+auCJOgYLsVk3y4cQtn4oYeASlZxy1obyVc6Ti51twi
-	qAl/L2OMU5PHnh6oeHsVyEO+9L/BcgWpZtpPklvDdJlifV00GSuMfyeirvBnTvLOnI+ySlP74Vo
-	4G1BunwIsFHKeLrfSwQJ4oCdLYEejaEAB+o2x/URFyUCKR2Kxv5szm0yCedBjnDIB00I2ZQzms=
-X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id af79cd13be357-939803a4a96mr811790485a.23.1788551715290;
-        Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id
- af79cd13be357-939803a4a96mr811784085a.23.1788551714708; Fri, 04 Sep 2026
- 12:55:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AxNRo+fe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2A9E1F00AC4
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:21:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788553305;
+	bh=EFsUWT+aYgeDxTLMLcHBhHz3DzU3/sPyQkKRjVs9Z0I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=AxNRo+fefBCpcwEvy7cPi1evnhueJNCl1tqIog0ap7c6We+WQcnXUOz1y7Ka8ryGq
+	 81NHlOfsSi5A7gsI1tBe+doilJUMJXxEEhSums0O6jFHlL+DjxpXbVPoYW7XzS/cQY
+	 CHDbYIg+c7WrQ/krkJu2RYtQXJtzm4tejCPfSzFNUZctuVUE79Gzqjk64eM4UEwNag
+	 Yf9IXYCKtA+eaOaS7CvvLUqSzW37q9zANA8b/S4hMqH31FY6P/aCM8RX8TNz1j5Qx7
+	 2K+NTd/HreOSsMnalaLN5E9RqhQ+fkpTZ4Ew18NzFe0THLo8RpaZ7llg7JIi12W6oA
+	 W2p7nizNE7Aow==
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b5e5ab03afso1229914e87.3
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 13:21:44 -0700 (PDT)
+X-Gm-Message-State: AFuF++lu8Q4VzGSg14Y29tO5tBQ6IdTzjqwcDUDmECyO2P3aQeeIdxTW
+	XmxegqXpPOcWO7NIDYtkHAwoL1XqpUxOOjzGjv8aAVJE48R0VXuHF0s2RsM8JYtQ2buJhfIIX80
+	9cutExQ5Qe68zv5odAhivTIuvAS9hATg=
+X-Received: by 2002:a05:6512:4405:b0:5b6:1a7c:fd95 with SMTP id
+ 2adb3069b0e04-5b61a7cfde7mr994061e87.59.1788553303553; Fri, 04 Sep 2026
+ 13:21:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org> <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
-In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
-From: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Date: Fri, 4 Sep 2026 21:55:03 +0200
-X-Gm-Features: AcwNN1W9wMgd18cVEyYOdj6YVkfohjR1CF5BB3XCNyAGw8QQbTcGw0lxRrgxPso
-Message-ID: <CAFEp6-3EqEghkrsUMYtV=1z6n9Y+bPG9YHj6Wf2gOVboDE3hKg@mail.gmail.com>
-Subject: Re: [PATCH v5 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
- vdd-csiphy supplies optional
-To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Bryan O'Donoghue" <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-26-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-26-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 4 Sep 2026 22:21:31 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkPuVcNEdJkk3eRzoHCLzNiaSrifXRMeHVnEYt4SmjbPg@mail.gmail.com>
+X-Gm-Features: AcwNN1W4GMtZsmwuhm987CfH9rynte6MB0p9pcTdAzGSXTsrp_r8ZoPhKsyoKyA
+Message-ID: <CAD++jLkPuVcNEdJkk3eRzoHCLzNiaSrifXRMeHVnEYt4SmjbPg@mail.gmail.com>
+Subject: Re: [PATCH v3 25/29] media: ipu6: Use v4l2_subdev_get_frame_desc()
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=dfSwG3Xe c=1 sm=1 tr=0 ts=6a9b2224 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
- a=dr_jwI5W_23fGTPCCGYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfXzJHVqFo/D3sg
- s4kjI81FM+/1s1thznhAxAuRtYwe9ePK8ucOiofoF2cG3D+erh70M6In2ooRWuXctt5KvqIw0/j
- ZD6N5zt9l295KU+JiSWAViOmjTBRL3+xhgOqEQmtbDWys6wYjEAnLpDc6g/YbtbYlZ9Mj1GDyws
- Mt9eHDnqaxIQxWsmxfQpu002DoIuqKsze1RVjcfvXhajOjur+4QwM7812etPRrPOFptLRuqknxz
- NyR90dfRqyA/GShfm4BJhxVUFyE5jjFJXkLo6l/U+SN6Ot/qr3YGd8IhOq4vJabn8t3Svgh9vxi
- u2TGbzz5EWQ0KADad4KR2cIHceUJjjcrFPceMmcqhHWSq9cQPb8nz/PKjzh/TtoyakqyGkQOUI4
- FFIyjqL3WtKVD1LcJ9R6QGOK4mVHeAPFQ33V+5/iYF7PWEFKPtWcS0Pyis98D8q0uIH4nJlYrQL
- 0WgZ1BiVN2ocb6OSG2Q==
-X-Proofpoint-GUID: 3zKKl5Hy0CGSccWLlY_YA328FPjGTiwn
-X-Proofpoint-ORIG-GUID: 3zKKl5Hy0CGSccWLlY_YA328FPjGTiwn
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfX9w4TLNq3gkdt
- XtlupdeeBTadbfaZwTbwmsyJrD4Tz32PDAmvp2LKiyBb029Bg6chqFPX3QkRw/8PYgSGkbGEFT3
- sEy5u6Iayc0tc8+Ui6hgKP9t5xCvssY=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
- lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040182
 
-On Fri, Sep 4, 2026 at 12:56=E2=80=AFPM Bryan O'Donoghue
-<bryan.odonoghue@linaro.org> wrote:
->
-> The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
-> described as standalone phy nodes carrying their own supplies, in which
-> case the CAMSS node has none. Make the supplies optional; existing DTS
-> remain valid.
->
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Hi Sakari,
 
-Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+thanks for your patch!
 
-> ---
->  Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
->  1 file changed, 2 deletions(-)
->
-> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.=
-yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-> index 126400772d028..57a838fe2d229 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
-> @@ -186,8 +186,6 @@ required:
->    - iommus
->    - power-domains
->    - power-domain-names
-> -  - vdd-csiphy-0p8-supply
-> -  - vdd-csiphy-1p2-supply
->    - ports
->
->  additionalProperties: false
->
-> --
-> 2.55.0
->
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
+
+> -       ret =3D v4l2_subdev_call(source, pad, get_frame_desc, pad->index,=
+ &desc);
+> -       if (ret)
+> -               return ret;
+
+This will have the subdev do the desc and type conversion IIUC.
+
+In the current IPU6 subdev in ipu6-isys-subdev.c there is this big table
+to do this:
+
+unsigned int ipu6_isys_mbus_code_to_mipi(u32 code)
+{
+    switch (code) {
+    case MEDIA_BUS_FMT_RGB565_1X16:
+        return MIPI_CSI2_DT_RGB565;
+    case MEDIA_BUS_FMT_RGB888_1X24:
+        return MIPI_CSI2_DT_RGB888;
+(...)
+    case MEDIA_BUS_FMT_META_8:
+    case MEDIA_BUS_FMT_META_10:
+    case MEDIA_BUS_FMT_META_12:
+    case MEDIA_BUS_FMT_META_16:
+    case MEDIA_BUS_FMT_META_24:
+        return MIPI_CSI2_DT_EMBEDDED_8B;
+}
+
+And now we have this:
+
+> +       struct v4l2_mbus_frame_desc *desc __free(v4l2_subdev_free_frame_d=
+esc) =3D
+> +               v4l2_subdev_get_frame_desc(source, pad->index,
+> +                                          V4L2_MBUS_FRAME_DESC_TYPE_CSI2=
+);
+
+I suppose this will invoke instead the big lookup table from patch 1?
+
+Is there any point in keeping the old IPU6 lookup table around after this,
+it looks vaguely confusing to me.
+
+But removing it might be better as a separate cleanup, so:
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
