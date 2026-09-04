@@ -1,99 +1,139 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA65A1E5207
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 03:44:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F9142A175
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 06:23:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788493450; cv=none; b=QQKNruwCc6Kohoa+x98LA0LyE7ptvClmtlpISDr3FyBiU1lL72I6SRVEsC+ipUA9fZ3IOlJGy089vMJXKfW+6FHBVSzxI1Y9A6tvYCvg/Mkv7+wid5C8rP0Y/+gupyydoKuGIQbXkjEsTQkvyDG6AAEBRiu96rZyW2sIg8EGQh0=
+	t=1788502990; cv=none; b=RrROBCymRiUpZBXnm+pHsz1xfqLVzD0O/6D1MxN6wB2tcANdDjW2IdiMN9TKwA16BgHyn6O3o+35bvSGWfW5mzWQBnRGpQURhKrmKnDvyQhVVqGZP7chiaVz4VttqUhdyaCMCXwuB0iF7Ow6HiWG7Kl4VswDmDRNiguTzcoLzKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788493450; c=relaxed/simple;
-	bh=vsI3Az6PtAYAQ2R8ZZ4L6U4QNRzBfojx12v3oaqkM4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y05jLEAZceWwZJOBWFqg+LYETMECa/ZAvhrH4mSba9MA1B3m6e991Hj8GBt2JL9ZX7/J6cBaX1ZyPGPTVRQWsrfxE0rSv3R7hzEq82GLFW6eBeJaqyD9NalpQ/xeaIG0WF/VCJ+yspNBH3VaPKWeGWr2Fjs+RW/7fYHweGtLMWw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ByPiA4VL; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788502990; c=relaxed/simple;
+	bh=Qj0+OR/8JjwGDpzmkwEPl1x+qMLOC+IXwEVhvsJlDkw=;
+	h=Date:From:To:Cc:Subject:Message-ID; b=dQ1L1FEoEbaAJ11iAfR5ecJx97BAJZGmfLHce1+bpyRvkJqsGHJRuBtg15CCxT385Hb/VnC7PXhgGUvKVcds1TuBGfifzq9I/KXqlsnBCi6H1Njd8ipQzGugawVZyhp4B+NQu+llBqr4kMMRjga7X4u4l7YcgEcRIV5tx5JOYho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=XdXtL+QT; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ByPiA4VL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788493447;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=Ge1qomVxwnUyR3gHiawBlAs7kARoXRyBci0Mn9ayFts=;
-	b=ByPiA4VLezwhh4zG9I5MdDXO39SgtLxX9VtNKkyx/jF7MOt/RQb4IAzdY8QdXGECE+WB/+
-	UKV5+rv5CfyQtcav9Wn8EsXLRuet1mtWdFOCf71ARTlUPU4hy4RFAZV8K2CpzF0gkWDiOl
-	T2bWb0ErEpono3Q+1ReXErJAK6nbGDI=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-73-zjKFvbxnNw6otAT5LwsaBg-1; Thu,
- 03 Sep 2026 23:44:05 -0400
-X-MC-Unique: zjKFvbxnNw6otAT5LwsaBg-1
-X-Mimecast-MFC-AGG-ID: zjKFvbxnNw6otAT5LwsaBg_1788493444
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 068F519055C7;
-	Fri,  4 Sep 2026 03:44:04 +0000 (UTC)
-Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet05.pony-001.prod.iad2.dc.redhat.com [10.2.32.117])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 6345E1956049;
-	Fri,  4 Sep 2026 03:44:00 +0000 (UTC)
-From: Kate Hsuan <hpa@redhat.com>
-To: Hans de Goede <hansg@kernel.org>,
-	Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH] media: i2c: cvs: Add Lattice device quirk for VID:0x2ac1 PID:0x20d1
-Date: Fri,  4 Sep 2026 11:43:44 +0800
-Message-ID: <20260904034344.105034-1-hpa@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="XdXtL+QT"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788502989; x=1820038989;
+  h=date:from:to:cc:subject:message-id;
+  bh=Qj0+OR/8JjwGDpzmkwEPl1x+qMLOC+IXwEVhvsJlDkw=;
+  b=XdXtL+QTFTPD1ksc3fcuJcjQ/YnkxMdkWHpzg3AekUTtVkv+Ya3Jgmpt
+   KxbL9zo3lk855AGDJlZUB2Qrv9/MJL1YSAAPEgmORD/Iiso/9iT1NAaX4
+   Rxo7JlD0VGsBCy7WUpr7zoU/KHAJ7eYbuhmlQfFUzOqdMYo79vBOGUx0j
+   sjZHBxkWlFZxLYKLVcjoTZI9WRz8Rp/mKq27AiEt/Bhsc/awGsIlsV4ow
+   1oygrUpsAKcZHI48ozhZVD4tZqSmu/8ZmhnIuDvEkOcTQpv4NA8cSl+oy
+   z13Eyn5XbAz0QvmlBaogCVU9+MQ5wJCPpcPcDo+fS47plmKTe715aq8Pu
+   Q==;
+X-CSE-ConnectionGUID: MAayEtW3RviWI/Kv/GkdOA==
+X-CSE-MsgGUID: 1pRGLf68TC6N47EdNchzdg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11895"; a="89052791"
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="89052791"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Sep 2026 23:23:08 -0700
+X-CSE-ConnectionGUID: b0A6kXtST6GTwVcVB2qLXQ==
+X-CSE-MsgGUID: EGSStKa1TH2jAx8D+IV0Vw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,260,1779174000"; 
+   d="scan'208";a="269938008"
+Received: from lkp-server01.sh.intel.com (HELO bfac249b2189) ([10.239.97.150])
+  by orviesa007.jf.intel.com with ESMTP; 03 Sep 2026 23:23:07 -0700
+Received: from kbuild by bfac249b2189 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x2NKK-000000005xs-2N5i;
+	Fri, 04 Sep 2026 06:23:04 +0000
+Date: Fri, 04 Sep 2026 14:22:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Hans Verkuil <hverkuil@kernel.org>
+Cc: linux-media@vger.kernel.org
+Subject: [linuxtv-media-pending:fixes] BUILD SUCCESS
+ e04ffff543db06308a8100f6aa3a65aebcd9834c
+Message-ID: <202609041417.2pCAxkLj-lkp@intel.com>
+User-Agent: s-nail v14.9.25
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Dell laptops such as the XPS 14 (DA14250), the IPU6 camera fails to
-initialize due to a missing device quirk for the Lattice device. The
-kernel logs the following error during probe:
+tree/branch: https://git.linuxtv.org/media-ci/media-pending.git fixes
+branch HEAD: e04ffff543db06308a8100f6aa3a65aebcd9834c  media: rppx1: bls: read the raw pattern from the PRE2 acquisition module
 
-[  7.299665] intel_cvs i2c-INTC10E0:00: No quirks for device (VID:0x2ac1 PID:0x20d1)
-[  7.299976] intel_cvs i2c-INTC10E0:00: error -EREMOTEIO: get caps failed
-[  7.300026] intel_cvs i2c-INTC10E0:00: probe with driver intel_cvs failed with error -121
+elapsed time: 2861m
 
-Add a matching quirk entry for VID 0x2ac1 and PID 0x20d1 to allow
-intel_cvs to configure the device properly and enable the camera.
+configs tested: 62
+configs skipped: 3
 
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2526246
-Signed-off-by: Kate Hsuan <hpa@redhat.com>
----
- drivers/media/i2c/cvs/core.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+The following configs have been built successfully.
+More configs may be tested in the coming days.
 
-diff --git a/drivers/media/i2c/cvs/core.c b/drivers/media/i2c/cvs/core.c
-index d4a3b9c3bab1..acf8a4f7e79f 100644
---- a/drivers/media/i2c/cvs/core.c
-+++ b/drivers/media/i2c/cvs/core.c
-@@ -70,6 +70,13 @@ static const struct icvs_device_quirk cvs_quirk_table[] = {
- 			  ICVS_NO_CAPS |
- 			  ICVS_NO_FW_UPDATE
- 	},	/* Lattice NX33 */
-+	{ 0x2ac1, 0x20d1, ICVS_NO_MIPI_CONFIG |
-+			  ICVS_NO_CAPS |
-+			  ICVS_NO_FW_UPDATE
-+	},	/*
-+		 * The Lattice device was found on a Dell laptop
-+		 * XPS 14 (Dell 14 Premium) DA14250
-+		 */
- 	{ 0x06CB, 0x0701, ICVS_SKIP_FW_RESET |
- 			  ICVS_HOST_SENSOR_PWR_CTRL |
- 			  ICVS_HOST_PRIV_CTRL |
--- 
-2.55.0
+tested configs:
+alpha         allnoconfig    gcc-16.1.0
+alpha        allyesconfig    gcc-16.1.0
+arc          allmodconfig    clang-24
+arc           allnoconfig    gcc-16.1.0
+arc          allyesconfig    clang-24
+arc          allyesconfig    gcc-16.1.0
+arm           allnoconfig    clang-17
+arm           allnoconfig    gcc-16.1.0
+arm          allyesconfig    clang-24
+arm64        allmodconfig    clang-24
+arm64         allnoconfig    gcc-16.1.0
+csky         allmodconfig    gcc-16.1.0
+csky          allnoconfig    gcc-16.1.0
+hexagon      allmodconfig    clang-24
+hexagon      allmodconfig    gcc-16.1.0
+hexagon       allnoconfig    clang-24
+hexagon       allnoconfig    gcc-16.1.0
+i386         allmodconfig    clang-22
+i386          allnoconfig    gcc-14
+i386          allnoconfig    gcc-16.1.0
+i386         allyesconfig    clang-22
+loongarch    allmodconfig    clang-24
+loongarch     allnoconfig    clang-20
+loongarch     allnoconfig    gcc-16.1.0
+m68k         allmodconfig    gcc-16.1.0
+m68k          allnoconfig    gcc-16.1.0
+m68k         allyesconfig    clang-24
+microblaze    allnoconfig    gcc-16.1.0
+microblaze   allyesconfig    gcc-16.1.0
+mips         allmodconfig    gcc-16.1.0
+mips          allnoconfig    gcc-16.1.0
+mips         allyesconfig    gcc-16.1.0
+nios2        allmodconfig    gcc-11.5.0
+nios2         allnoconfig    clang-24
+openrisc     allmodconfig    gcc-16.1.0
+openrisc      allnoconfig    clang-24
+parisc       allmodconfig    gcc-16.1.0
+parisc        allnoconfig    clang-24
+parisc       allyesconfig    gcc-16.1.0
+powerpc      allmodconfig    gcc-16.1.0
+powerpc       allnoconfig    clang-24
+riscv        allmodconfig    clang-24
+riscv         allnoconfig    clang-24
+riscv        allyesconfig    clang-24
+s390         allmodconfig    clang-24
+s390          allnoconfig    clang-24
+s390         allyesconfig    gcc-16.1.0
+sh           allmodconfig    gcc-16.1.0
+sh            allnoconfig    clang-24
+sh           allyesconfig    gcc-16.1.0
+sparc         allnoconfig    clang-24
+sparc64      allmodconfig    clang-20
+um           allmodconfig    clang-17
+um            allnoconfig    clang-24
+um           allyesconfig    gcc-14
+um           allyesconfig    gcc-16.1.0
+x86_64       allmodconfig    clang-22
+x86_64        allnoconfig    clang-24
+x86_64       allyesconfig    clang-22
+x86_64      rhel-9.4-rust    clang-22
+xtensa        allnoconfig    clang-24
+xtensa       allyesconfig    gcc-16.1.0
 
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
