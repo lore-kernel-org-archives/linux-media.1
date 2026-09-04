@@ -1,53 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2E1A3F2101
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 12:51:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 274A144682F
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 12:57:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788526320; cv=none; b=qK4KS1G7OKDXHPg6FKAR/c7sfMrbIY/b5zscVQfkPQKrzAES9KgP9HMujMxHIwpP0iM0kcqPxshwBpHqwXhbk0Osx7accZ3FCwfhId7tnINYEPn27xBbd6oMY2dTdKCYdJErZjHEaxWxOqYg0naqFE3bBU6VXUX0vacWblCFaYM=
+	t=1788526675; cv=none; b=eBd2fJ/lebQUlh3y+1RiQARPOut9yneDQkqjz6CilV7PMioM9REUXXFzlQ+jAHKpaDsQzTS6EeJSyMY4pZXFFvkbQHbSMLjVkwE4GqPyaFhTr+yPBxLOwWjyiDdRHog0EMyUvYuwgq6yNLyFxBw6ymWOiHlWVacDTuiSRkEO26E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788526320; c=relaxed/simple;
-	bh=73Sdq5GDP8XNx1vL4EMRoj94I3e6N0gH9H6FKGAb5EI=;
+	s=arc-20240116; t=1788526675; c=relaxed/simple;
+	bh=vczjZZo606IaKWBIprklkGr1QBa0YeRaZ3QNQ4dDFFE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=L/8ZNl1bXJEfpzi0u0OTsoLUEtSfDFIUJBQnmAYK5wOgDWiYmho3pM5hRPn0lL0E+C9UQCcpdTdTyyfEPupsAKLEymV08/kf8KcR0Sm6jCia0zmIq0HOOD/IgCy1EOUmrIDw7VmbgtGaKOfQU8eJmNH10N3bt3fiBFOi/36QTGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PVThOEcc; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=ASHfry3PzC+ZDBBiUwzleTvAPhua66/5fUSo6uqBQtUwrpGpQYV8RWk2mC5sk9FpuuuOuVyvpgzdt3F01bNo0cHHdjCNSpOd2yr/ZeLIXVI9+N4wSwR1r/hOVRzc8xzkR5fDTLSaLDxTz6ZRlXV3+8t2ma4n1x6jR5znoPznksQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E7aMx7hW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PVThOEcc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54D2A1F00ADF
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 12:51:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E7aMx7hW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBD601F00AC4
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 12:57:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788526319;
-	bh=73Sdq5GDP8XNx1vL4EMRoj94I3e6N0gH9H6FKGAb5EI=;
+	s=k20260515; t=1788526674;
+	bh=vczjZZo606IaKWBIprklkGr1QBa0YeRaZ3QNQ4dDFFE=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PVThOEccg/LXDM62MwbhgsnZ5olSeNY2zXWy1IoMWDFvx+eMkG58oeB/cA1qJjlTV
-	 Rvfbq9d+6t3bS73vlHgLDCqu1KJAHoirj4CXDtbgMuLWXpO+zytWXqYm2HXEmvUkwW
-	 SC8ONMNTXtJKGTJA0IL2aNqw9fsVXDaMRM/RPf5Yc/6Qi++TpK+srXMdlz6LNRq+1Z
-	 JqSVnyxz3hx1JRN8Y0dQXsL3rC/K+ozgD6wY6GPxtn4Qpno0xUY9jLSPsYvZhHa/MM
-	 hwfK6c8ihnkE/f/GFTktCxCx4Sxu9VwSnjZt3bhtZ3k8t6oytk0xfY0pYJ0A8on9te
-	 lEijtI23DI6kg==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5b6188a2c0eso578951e87.1
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 05:51:59 -0700 (PDT)
-X-Gm-Message-State: AFuF++lMbwOGSzBUN+MxdHb8l7YJjxhrzmKs8z2cjTc+2NXUjomAeeC4
-	el/BIYFT+LNp+FXG3PpZ6EUMiWDsxtmEqEvT0rz0QKpr7kg4qb0EkidUJSX7H2gWMwEAoAeNUio
-	9gRYmwAZJgyMvWTijau/t6bhNtb0tevw=
-X-Received: by 2002:a05:6512:159c:b0:5ae:b91d:b2ec with SMTP id
- 2adb3069b0e04-5b616f01b60mr1047765e87.3.1788526317986; Fri, 04 Sep 2026
- 05:51:57 -0700 (PDT)
+	b=E7aMx7hWvJTN47+SRjleXTbD6NZt6dSKGcXuJDqbPQK9/yneOuPPpVVhh3l0JPpz0
+	 8IFgRCtRxKmJ9Mb8YUAp4MWwHfvuxb/3Z4dta2/oBOmazKPmt3Bt5B0m2zpjG07X/t
+	 L+1jbfC0NcK3fELZXWqwrdVAUBH+5wSynzmVe+o7CbYoGPxf0cHwNsMZIHd2/JP9P6
+	 YtZwvRkMTZPRIIOHre1s5cEnn0LnqOF28+roslnGQ7a9L2CgdJMlvovLoIMaCx/PeV
+	 In8CFjcEHSKWPumHaUTFDbw2xNpqiMf0b5gJqGlP6WohUUr6OUCtpEK6ii/3ZGEAeG
+	 Zgyszozcjq3gQ==
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so863806e87.1
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 05:57:53 -0700 (PDT)
+X-Gm-Message-State: AFuF++m11rPUFz2YONQcLjENF/KA2NhAB98LhS/a8pTDok1cjT765Qbd
+	HzorlBQHpDVA5Eo1m/cnuzySOePP6sy+KLKV74gRFmIBmAxTCnzqdSP4OjfWV9Z+L/ADBF6lugU
+	pwAoelPYEzJ0aCR5tijZnDsgrC76l36k=
+X-Received: by 2002:a05:6512:3196:b0:5b6:425:4bf0 with SMTP id
+ 2adb3069b0e04-5b61706bb7fmr1610812e87.33.1788526672651; Fri, 04 Sep 2026
+ 05:57:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-21-sakari.ailus@linux.intel.com>
-In-Reply-To: <20260824121451.3348583-21-sakari.ailus@linux.intel.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-22-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-22-sakari.ailus@linux.intel.com>
 From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 4 Sep 2026 14:51:45 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkaTRRAjLVzG+9DbeVP5eyzuFMc7_aQKeV2LdkERQ-HxA@mail.gmail.com>
-X-Gm-Features: AcwNN1WVDZwq-6UTq5tNwH9dqXpgeKImiYAZviv8tbZbuYSJ7ft0hP1EyXKnB2M
-Message-ID: <CAD++jLkaTRRAjLVzG+9DbeVP5eyzuFMc7_aQKeV2LdkERQ-HxA@mail.gmail.com>
-Subject: Re: [PATCH v3 20/29] media: raspberrypi: cfe: Use v4l2_subdev_get_frame_desc()
+Date: Fri, 4 Sep 2026 14:57:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=FjpuBRXFG311WD4_Mg9Odo05_ypi+zB6E9_7sQjU45A@mail.gmail.com>
+X-Gm-Features: AcwNN1WRqQGUTE2mRFjH8Jo66YEey6h_T3wQsJnXqila2oLua61QzHwkwAUH1ng
+Message-ID: <CAD++jL=FjpuBRXFG311WD4_Mg9Odo05_ypi+zB6E9_7sQjU45A@mail.gmail.com>
+Subject: Re: [PATCH v3 21/29] media: rzg2l-cru: Use v4l2_subdev_get_frame_desc()
 To: Sakari Ailus <sakari.ailus@linux.intel.com>
 Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
 	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
@@ -61,12 +61,12 @@ On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
 <sakari.ailus@linux.intel.com> wrote:
 
 > Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor. This is
-> preferred over calling the get_frame_desc() pad operation directly. Also
-> remove the workaround for drivers not implementing the get_frame_desc()
-> pad op.
+> preferred over calling the get_frame_desc() pad operation directly.
 >
 > Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 
+Apart from what was already said in patch 11/29 (and you already
+said you would fix) this looks fine, so:
 Reviewed-by: Linus Walleij <linusw@kernel.org>
 
 Yours,
