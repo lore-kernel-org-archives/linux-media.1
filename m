@@ -1,120 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f178.google.com (mail-oi1-f178.google.com [209.85.167.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F3543DA50;
-	Fri,  4 Sep 2026 09:41:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788514885; cv=none; b=foM6P+XxL7UjegCDmcFO3p7u1hpsf7Ycv/RyZWJeTibN7L1RCiAd3n5fVGRDf+T8A5Dw9pIgs5Yym5ExzaiSv7vXBipSZiQjhszW4ZdiSjTVhMQ3fBDUDE9yyOrdfQHpLkTXn636IwAWSqG/ECnlNdFIFSuhz9Lbj5MJL8e20EY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788514885; c=relaxed/simple;
-	bh=HCmMlpryXOxcY4yzq1qoyVe6hzr/B4LAVEL/btEkEMQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dZcqUJKjaYCjWAtG+ajzV3Dblof7u2U/7GKgz0pbniGcrNY/gpP02/JD8IoKyqZTZISrRJ5+Umr/QiM1JgboLKUPZYKH8boIc2hApCrCY7t0NFGogiMMS0BfNkGlarsNK1u7MqoWXFhOXbJ5otkDRy0L9ECC37t0kaw6fJYr+TA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mhP6ESyO; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CA8444717
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:08:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788516514; cv=pass; b=a8XUTOos7P/x+tZhGBE+6SeQmk2A5S/DbxGdHAe1b2sDdaV0rymDY1tBCejbV1Ed9O1yNPx9W5/5njiK8V5JVv9hdWkUHEfrrNCTBlpEld9WZmpkTlB79t1YMqkoGazY6NTdFD3xSEvqFw/Gq1AOxh7EOzaRixMA/jJYvYAkk80=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788516514; c=relaxed/simple;
+	bh=Neh3ISx8FU0Ur5RntB0HE+TPjm/24RSrCVFRHDOrcVY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TkMeqITLw6S9LCBAf2hPnI4zlwTd6bn/Jvfeq+J8FZyMBRFBjmrycqJHaLmigX59r8rC6/mTBRoGkbykvBHFkTXxoP5nwmYjsMlH2sFYB1f1+1vBdqZ9Jg+jWRvPpQMivYG/6Zo89ZPA6AF1Uo2ZJjryPE4AGULuWbQjOviSmfE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mH4WVrzJ; arc=pass smtp.client-ip=209.85.167.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mhP6ESyO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 56F701F00A3D;
-	Fri,  4 Sep 2026 09:41:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788514883;
-	bh=gvPcMOkhHBzDPGhH9hGOV04M6RWv20p4fZMpX2/W66Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mhP6ESyORyrJr2xtF0KtGRFoa+22b9Rru63v2O6rIwt30IPZqi+EDuyFNd3p7niAB
-	 twl5vI+yrYRltMerjwYH8aB+8i6KvKpgLk41QMoSo2Tb1zleYhHKJ+Ls0Hy+EQlCsT
-	 Mz/wwj34eQE2a0XP2iaOUg1BNFPDQUeH+Um5uKcyK0RY1dfNPVFwFvbuLghU9ECf9d
-	 GXRyMISIyscmnfmTo6L7uso7/bgP/jIEg1QzIlH0mSF+IalVeX3cb1W2QmAND/CnIm
-	 HcqJAVcWAA3IPwGxVxZbVuVHt/F9mr8crH0KzMfFX6snisuUop9dkDda1Wz2YgwH32
-	 KydTWHKvGE79g==
-Message-ID: <51b3dd1a-5595-4538-b792-a679b6813a6f@kernel.org>
-Date: Fri, 4 Sep 2026 10:41:15 +0100
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mH4WVrzJ"
+Received: by mail-oi1-f178.google.com with SMTP id 5614622812f47-4b190cdc9feso627064b6e.0
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 03:08:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788516512; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hfh+pq/YeSssFQMT2hFWWPfKeP7y00pYLDbNOwnvigz1YF5e5D5kBRtUh8lHEaZCoZ
+         oq3QaVMsb8R5lZh82a637XtwPy9iPVjdYNVfPdFn2n0DeGxYjOG8KMs7B15nQSQt1koJ
+         hPf7MriA9xnUBwNS0O3VskHnJ++2k5pUmcgB+EpGkt3K4in67pdEGjtA6kbXUN6JYp2e
+         vznRNas4WdEYUxTRg8tNsDo6nElVKOElKby9BM5iMOq1eflK5LVMcMnjaGGWPkCDhkBQ
+         nsa4KXJPUxIlVP39Bm+oVJLovkSpPF1OuHpUmC6HDONE8HgFk1iK0vsEo8mRzlcRxjDP
+         9nLQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Xs97/33FuwU/L1AphDmJWv0zOK7lR4UiTGp07ZMWbPA=;
+        fh=9S8fetvmvhGe3iwNnWTBC6KmAvabHSpaM2ZXMHcqqo4=;
+        b=pt95s1lpl/CKhpY6WHy0QTv8LDXDi6DGxnNwJot6F4S8ZA1CCv/VOxVzz5RBErtASL
+         odT7WMWpm2jzpLyPpHNf2bnkUD/IfwlpZWe+RYnZ9b+ann1KOTsj5b1DJ+fisXNWrYPn
+         ddZh48gfioGHLuacTTZEbziVQNOzqW7k5nBa1mlghuCt9Ae5hBtYvxUi+gsaUbzCrgPf
+         +Gxj7ftCkpWcY/CBUC2VNWi3iPbPUA3042BP+XAulPiuBcD9FRDagGFaE5DZ0JEq1z0J
+         VQ5TDa+zNSHM4/SWePFKIekKpHORiwCU2+9aXJuyNb4QD1FIvJJ7RuCnO17bR6cl0qvT
+         9+vA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788516512; x=1789121312; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Xs97/33FuwU/L1AphDmJWv0zOK7lR4UiTGp07ZMWbPA=;
+        b=mH4WVrzJ5Ann4j2AAEGKm/NzgiMR85LWXK3PBcDnzkxVhqfhEwfk4y+fvWdn+m/JQ4
+         o16xTkKli/ymOayE4WmGYiuwSN5w4g0WveCy+KhLPibEdJZ2ZGt02s49FQhbmYGR/qLh
+         nsMSTtWWPL3RXRrdkf6TM14rjEwYkbOOwREnhcLRgKC6VibZ6RfYtHvV6axaGVkGwqZ2
+         aQ92k9KmGlX0/pPqX7oUscUiqbOTf/d1faqAisXnfK9KxMO7W3cMjRU5Pobf08A7Fdpm
+         JeRs7PyyRxvqtcSl9kYKuwTzSxuOTM9AUZlsl00GlYbIKn6FrpEO6+RgLwKsvGfw7SXb
+         tVZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788516512; x=1789121312;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Xs97/33FuwU/L1AphDmJWv0zOK7lR4UiTGp07ZMWbPA=;
+        b=XZBbY0EWRypVri/WfqWgAOlytupWUwZVREe8wXNX+4qn7EPfbsCMrICw6FBTdP1vdn
+         S+d4rMrwVOxu0CMMAjrAGwHprNuteX+s4Wxz6W8q4s1uskOs0jtTQRFzvy0axuv7WFK/
+         9S7n9AqR3miFUHtuYLLEKCAGybZDjlHtgokskcyDrfUXJhH9qQoAXHtX38TiSF+kXQQm
+         LvBR0znqqPi4UUKYx6q1AIdZuot8Y2g3jJFxstTm7o04FRQxJX8NKn20r2pnDlW+gWFc
+         SZ1J3fxc90Jud6qQ3O1sRZ7IPCN4HkJ7t2lOIR2FDaof+Z3mo7LlWCvJFOKUW4WomwKn
+         aX1Q==
+X-Gm-Message-State: AFuF++nHs2aL0fFQMyh2URP7I95/3PdQ0q84gkPW8hG/gLlx6mDsw0sA
+	bATSb3tmbhI3JLVe9lQgE7gvXM1tfghIGGDNSvR0ocj+lZJ6ECXvpBo9TKuVBtxWFC9oaSimHta
+	cgPt8rVBYmrFVzz9+0Ly9rei1N8/Ryk4=
+X-Gm-Gg: AYBFou1FWlqUVRgKzWMhuyRFBa9oytvikYryT22wRH9/dwnwp/7TX81M1kIiijA+EPC
+	96AiCZv/HHIxT44QBcA1d3NYRvEzLyIDEvQSYyFOpKoTUCt+cI2CXx2jvhFIL/vJv/fsMkZCDxv
+	WiPLVNxFJL2Rlbj3SIejg79pYFMynQJkSCfj1bm8Knwh7tuto+eWF9XdQ1gGQiys+QTbVPD42Jz
+	BE/dKaW/0lVQY8cF4ja/60v0xMdrLZ5YfC2H1F4IGOL+ykU8rL6UHj0mPIaGLfrcHvEJOQ8wf0I
+	8e5Av0vYt7RW3NHdKkuP+ljLqNofEeN6IXxNksneMGiygkaNLGP8XZQ=
+X-Received: by 2002:a05:6808:1a1b:b0:4b5:5bfb:f25c with SMTP id
+ 5614622812f47-4b9628589bfmr4279541b6e.21.1788516511828; Fri, 04 Sep 2026
+ 03:08:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v14 1/4] phy: core: Fix use-after-free in phy_get paths
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org,
- Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-References: <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-0-01ef1eced075@linaro.org>
- <20260903-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v14-1-01ef1eced075@linaro.org>
- <2aXo5I_5YqQ6uikqbIOWs7L__EwJV2oTs24Jqa-YRqGIU2FOT1O4bixGBbTzbaiBuENyW0XkWbqAJJQnxgSnWQ==@protonmail.internalid>
- <CAFEp6-2nWfjF18R9pw0xFt92GcPORKKa+ix8czQ=m512TYuP8Q@mail.gmail.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <CAFEp6-2nWfjF18R9pw0xFt92GcPORKKa+ix8czQ=m512TYuP8Q@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260820182156.18078-1-jackflusche@gmail.com> <CAMeQTsYbeDqz-u8EsDpeYqH6P+KtBG9kDgrVC6PA5QrX4yxdHA@mail.gmail.com>
+ <CAM0duoKuGt3UgdFc+-xznJR9R8K2B0PJ6-5z5W0kNBc2vs8fVw@mail.gmail.com>
+In-Reply-To: <CAM0duoKuGt3UgdFc+-xznJR9R8K2B0PJ6-5z5W0kNBc2vs8fVw@mail.gmail.com>
+From: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Date: Fri, 4 Sep 2026 12:08:20 +0200
+X-Gm-Features: AcwNN1XFxGKQHDMzcP37af4OWRCIQ3yp_HhfKtWVi06pNEgasoeC_Hirwt9vOTk
+Message-ID: <CAMeQTsYLBQguh4aXa5H6nM8WWkfxHrjgK240Ds7VBmWhS9GovQ@mail.gmail.com>
+Subject: Re: [RESEND PATCH 0/5] Add driver for Broadcom FacetimeHD camera
+To: Jack Flusche <jackflusche@gmail.com>
+Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
+	hverkuil@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 04/09/2026 08:45, Loic Poulain wrote:
->> -       mutex_lock(&phy_provider_mutex);
-> Then, now we're moving the responsibility to the callers, maybe we should have:
->      lockdep_assert_held(&phy_provider_mutex)
+On Thu, Aug 20, 2026 at 10:13=E2=80=AFPM Jack Flusche <jackflusche@gmail.co=
+m> wrote:
+>
+> Yes, merging the PRs is probably a good idea. On the firmware, I only
+> included the install script since it doesn't require a manual
+> download, but including the extraction script as well isn't be a
+> problem.
 
-An LLM suggested the same thing to me but, I thought the resulting patch 
-"looked messy".
+On second thought, this needs to be distributed separately. Distros
+should figure out how to create a package that downloads and install
+the firmware files on installation. I did this for openSUSE [1].
 
-Do you want it added, its only three additional callsites.
+[1] https://build.opensuse.org/package/show/hardware/facetimehd-firmware
 
----
-bod
+> Can you message me (or submit a patch set) when the driver is ready
+> for upstreaming?
+
+The driver is still quite ugly in many places and not up to kernel
+standards. I'll resubmit this to staging instead but leave out your
+modifications. You can then resubmit your fixes on top of that
+instead. Would that be ok?
+
+-Patrik
+
+>
+> Thanks,
+> Jack
+>
+>
+> On Thu, Aug 20, 2026 at 12:37=E2=80=AFPM Patrik Jakobsson
+> <patrik.r.jakobsson@gmail.com> wrote:
+> >
+> > On Thu, Aug 20, 2026 at 8:22=E2=80=AFPM Jack Flusche <jackflusche@gmail=
+.com> wrote:
+> > >
+> > > Merge Patrik Jakobsson's out-of-tree driver for the Broadcom Facetime=
+HD
+> > > camera on some Apple Macbooks using the Video4Linux 2 framework to ad=
+d
+> > > in-tree support and remove the need to install a DKMS package
+> >
+> > Hi Jack,
+> > I'm fine with upstreaming this but here are some initial thoughts:
+> > - Should this be in staging instead? I defer that question to the
+> > media maintainers.
+> > - There are quite a few PRs pending on github. Perhaps I should merge
+> > them first and then we redo the submission with those included?
+> > - Perhaps we should have both the download and extraction scripts
+> > included? We've just updated the download script to grab a much newer
+> > version which adds support for new devices.
+> >
+> > Thanks
+> > Patrik
+> >
+> > >
+> > > Jack Flusche (5):
+> > >   facetimehd: copy code from patjak/facetimehd
+> > >   facetimehd: add Kconfig and Makefile
+> > >   facetimehd: fix compile-time issues and formatting
+> > >   facetimehd: add firmware extraction script from
+> > >     patjak/facetimehd-firmware
+> > >   facetimehd: add entry to MAINTAINERS
+> > >
+> > >  MAINTAINERS                                 |    7 +
+> > >  drivers/media/pci/Kconfig                   |    1 +
+> > >  drivers/media/pci/Makefile                  |    1 +
+> > >  drivers/media/pci/facetimehd/FIRMWARE       |    6 +
+> > >  drivers/media/pci/facetimehd/Kconfig        |   12 +
+> > >  drivers/media/pci/facetimehd/Makefile       |    2 +
+> > >  drivers/media/pci/facetimehd/firmware.sh    |   61 +
+> > >  drivers/media/pci/facetimehd/fthd_buffer.c  |  126 ++
+> > >  drivers/media/pci/facetimehd/fthd_buffer.h  |   73 +
+> > >  drivers/media/pci/facetimehd/fthd_ddr.c     |  670 +++++++++
+> > >  drivers/media/pci/facetimehd/fthd_ddr.h     |   33 +
+> > >  drivers/media/pci/facetimehd/fthd_debugfs.c |  204 +++
+> > >  drivers/media/pci/facetimehd/fthd_debugfs.h |   16 +
+> > >  drivers/media/pci/facetimehd/fthd_drv.c     |  558 +++++++
+> > >  drivers/media/pci/facetimehd/fthd_drv.h     |  124 ++
+> > >  drivers/media/pci/facetimehd/fthd_hw.c      |  710 +++++++++
+> > >  drivers/media/pci/facetimehd/fthd_hw.h      |  128 ++
+> > >  drivers/media/pci/facetimehd/fthd_isp.c     | 1468 +++++++++++++++++=
+++
+> > >  drivers/media/pci/facetimehd/fthd_isp.h     |  770 ++++++++++
+> > >  drivers/media/pci/facetimehd/fthd_reg.h     |  183 +++
+> > >  drivers/media/pci/facetimehd/fthd_ringbuf.c |  133 ++
+> > >  drivers/media/pci/facetimehd/fthd_ringbuf.h |   45 +
+> > >  drivers/media/pci/facetimehd/fthd_v4l2.c    |  759 ++++++++++
+> > >  drivers/media/pci/facetimehd/fthd_v4l2.h    |   34 +
+> > >  24 files changed, 6124 insertions(+)
+> > >  create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
+> > >  create mode 100644 drivers/media/pci/facetimehd/Kconfig
+> > >  create mode 100644 drivers/media/pci/facetimehd/Makefile
+> > >  create mode 100755 drivers/media/pci/facetimehd/firmware.sh
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_reg.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.h
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.c
+> > >  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.h
+> > >
+> > > --
+> > > 2.55.0
+> > >
