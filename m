@@ -1,98 +1,104 @@
-Received: from mail-oi1-f198.google.com (mail-oi1-f198.google.com [209.85.167.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA72152E059
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F33501F4A
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:38:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788554026; cv=none; b=lnL/rvUHl0YGE9bgDCa7pK5YaarGxyPA9D6oADzXlQIP25+0ysaFc/spFv0kahnqdvbOjU0xdSqNbjXbigkXxURmsjhRSZBksHcTQLZj6cD2PChvBakj1BMz7pkoC3EK/Zw/9tEvvf3IqIj3Ig86ptYvJxGUU807ik7vg1eHZas=
+	t=1788554298; cv=none; b=PiOoOZFswGFYrRrsgfBiZtsQbQcyz7SZlrJW9Lkmy+ONHwHGJLgwQQ+/ernPlJARGkGVa96nnp6TPb0PotI3RaWF7g5mg0XzMSR+SRmyYp69fgFjCcCH8ObZahyT0y6oYVgq+OCWiMNXGxdKF0LFWgGcr9xqjDx+LwuWQBYkJgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788554026; c=relaxed/simple;
-	bh=VpZoh0tveXOA7ivjswx7WHCccFQnm7X5Yux71yekqNU=;
-	h=MIME-Version:Date:Message-ID:Subject:From:To:Content-Type; b=cRLjPHiiqRReUmq56s6w700VdU7QJjWua1timdEGq35AM4QoA7RmYNNx2C+ScWo38NM0TksrwSV7nnQYx4G+GtqZRj1aEHDYSNs4GQNr+V1LHSfTcw1a6cL0IgL5r25/nxq/YmsFk3ADYDtt/ryf+iRZ6eXw60WdWXZtp1Wv3qQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.167.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-oi1-f198.google.com with SMTP id 5614622812f47-4b28d9952a5so2119812b6e.1
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 13:33:41 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788554019; x=1789158819;
-        h=content-type:to:from:subject:message-id:date:mime-version
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4JAXrDAp9YbJF1jM4BqtTbRQ3IKDzyU1LF5OsuCVK0g=;
-        b=kIPSYWxauzWtAk8xw9YGNJSAz9e2N1ITzDGAmjlLnGotORt3mpGxuCYxJOirW8V61K
-         /ZXCXYqqRwWz1r8O0CodZrbhqAjd0koaqxacl4/pjxHwPCrKriyLkGX7XmMVkxslbNe8
-         YfnlSFuk+fAfhob63JE5AKhUmKVi+082ZvrjvPHaar9IdgGM8B9vr1WIBxVHRzJPfYo7
-         +UHvu9HmSkvV8bfRR6nCHOuHT1s0UJ61n2d9Rfl35vEN6uygI1yeTYtcBlSaLZrfjnMk
-         hcmMlb+BN+RZfB6zpdPp1twozvyjH+8NABjSEJPN6EY3aiHOWHSsINRyzna66VOqgYNm
-         YiDA==
-X-Forwarded-Encrypted: i=1; AKwUvBxtxOpwjrjz1oHG3JPoqVa7+0BG0608np0vUGfvTyYP+1spfDuaDzUKRM/I0efkJ90UG9MD/eBt8bYOWQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++kg09q/Xp7TzWwOpeTf1ks/SNha2POsDbzPw6817uyImHRX6Jvc
-	kZidzQ3FTIYVAKSusjYcKOgDv/RJeue1BctcyBfTdEjXDSLKrCqA9yVKT9sI8clqIusm2VHC4Nd
-	AAM08pTgrrKBUqAR5whjbe5u2t/NjtjeLPQPyggFG6mtAqjFQCL4vH7qaREg=
+	s=arc-20240116; t=1788554298; c=relaxed/simple;
+	bh=Sm+nsaIoMdwJPZGr1pwvWe1IQo9GOjSo93c4ajeLXkw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gGU8zixw+OzB9SW7KU8njuY478/AJsdHUbuycOnHmrx46w9DZ6qzOBcbQdIZ5Vup/JkyqVyDCO8OxDyHrGMAbDK1PL3Mm7rNn7hupq1vRL+ANUnjQcx/oBzODH7H3zpHA0UFsLtUdqW+e37DMPuniqEAc+cluJOzPByoyjk5LsU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bR/dPiA3; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bR/dPiA3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACBD71F00ACF
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 20:38:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788554293;
+	bh=RXfuEhJ7qPiVYlIoZEPBFCTendNKWHaPNeGIXBasekU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bR/dPiA32Cl/A+VZxsWwwgvcCiaAvGaHvE0I9pfKQkLV3of+IG1hjTSXnRpvXq0Tv
+	 eJa9NvtKLJsXH3Q4PCqNo65nPr83OvNy9a9nMl4gzfE/+QItwtZrXNHi6D2KvpmNCq
+	 fIH8HC45oMfmqsY5n25Blm8WuqvkHnR2i8o+Zy0Y2kyUh82BqsJqBC6CvKUBNddhXs
+	 gV4a1JLIjaVhl2Wu547DoufUQ9IrNaX8BlqtyLjFBZf2BL0PVkD1k8LIfvpFC3a6ws
+	 aQE8Rk+FXC8jueZapUHZb3jTYGM5uUT/KTqeMx20A/iB4x+9WvoDt/bbvUiacDAyb4
+	 D9nsZHHDjytnQ==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4af4be667so1431741e87.0
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 13:38:13 -0700 (PDT)
+X-Gm-Message-State: AFuF++m/5ANsH9b6F59pEDSCDjUL8pHCAOqsDGgLwYswhvXaXGpUera5
+	MtnO87NwE26XK5YrxJl3dcjgyCFsZ1g9lHhFsLpiAa2DRdF6JDsZ3z9rtstWCChKijoC9g/fZCo
+	HraG+UV1CE/jmnaFNRkOaPVoY4xubzAk=
+X-Received: by 2002:a05:6512:2352:b0:5b5:e71a:d333 with SMTP id
+ 2adb3069b0e04-5b616ee9625mr1399416e87.7.1788554292378; Fri, 04 Sep 2026
+ 13:38:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f034:b0:6b7:46fc:1ce with SMTP id
- 006d021491bc7-6b746fc039amr4410045eaf.45.1788554019750; Fri, 04 Sep 2026
- 13:33:39 -0700 (PDT)
-Date: Fri, 04 Sep 2026 13:33:39 -0700
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6a9b2b23.b5d4176b.238c3e.0007.GAE@google.com>
-Subject: [syzbot] Monthly media report (Sep 2026)
-From: syzbot <syzbot+list6bbccb1b8e29471d8c2f@syzkaller.appspotmail.com>
-To: linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-29-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-29-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 4 Sep 2026 22:38:00 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=8jN+JoDue=0+R_EvwoPSpxOsa1RN9HYHWP7+AZ5X3wA@mail.gmail.com>
+X-Gm-Features: AcwNN1U1qA1thftlAWXa2s0ehfnsJBJlyrDzK2cm3xyBxNNE74YhhtdwxFSC1SM
+Message-ID: <CAD++jL=8jN+JoDue=0+R_EvwoPSpxOsa1RN9HYHWP7+AZ5X3wA@mail.gmail.com>
+Subject: Re: [PATCH v3 28/29] media: v4l2-subdev: Use v4l2_subdev_get_frame_desc()
+ for passthrough
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hello media maintainers/developers,
+Hi Sakari,
 
-This is a 31-day syzbot report for the media subsystem.
-All related reports/information can be found at:
-https://syzkaller.appspot.com/upstream/s/media
+thanks for your patch!
 
-During the period, 13 new issues were detected and 0 were fixed.
-In total, 47 issues are still open and 119 have already been fixed.
-There are also 14 low-priority issues.
+On Mon, Aug 24, 2026 at 2:15=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
-Some of the still happening issues:
+> Call v4l2_subdev_get_frame_desc() to obtain the frame descriptor in
+> __v4l2_subdev_get_frame_desc_passthrough(). This is preferred over callin=
+g
+> the get_frame_desc() pad operation directly.
+>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+(...)
 
-Ref  Crashes Repro Title
-<1>  295     Yes   KASAN: slab-use-after-free Read in dvb_frontend_release (3)
-                   https://syzkaller.appspot.com/bug?extid=ae466a728017ec940b41
-<2>  165     Yes   WARNING in ttusb_dec_send_command
-                   https://syzkaller.appspot.com/bug?extid=ac9880be0b0b1a5f54d6
-<3>  79      Yes   KASAN: slab-use-after-free Read in rc_dev_uevent
-                   https://syzkaller.appspot.com/bug?extid=237c754233330b2bf565
-<4>  21      Yes   memory leak in v4l2_ctrl_handler_init_class (3)
-                   https://syzkaller.appspot.com/bug?extid=b1de0d5fd8a15fac11aa
-<5>  14      Yes   KASAN: slab-use-after-free Write in dvb_device_put
-                   https://syzkaller.appspot.com/bug?extid=d445a71e1c011b592c16
-<6>  13      No    general protection fault in subdev_open
-                   https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-<7>  12      Yes   BUG: corrupted list in az6007_i2c_xfer
-                   https://syzkaller.appspot.com/bug?extid=0192952caa411a3be209
-<8>  3       No    WARNING in vidtv_start_feed
-                   https://syzkaller.appspot.com/bug?extid=525fda837bd5fc2be560
-<9>  2       Yes   WARNING in ttusb_dec_start_feed
-                   https://syzkaller.appspot.com/bug?extid=e1dbaae5eefaa2dfbc35
-<10> 2       Yes   WARNING in v4l2_ctrl_cluster
-                   https://syzkaller.appspot.com/bug?extid=2d417475ba9d6d02cfc9
+this caught my eye:
 
----
-This report is generated by a bot. It may contain errors.
-See https://goo.gl/tpsmEJ for more information about syzbot.
-syzbot engineers can be reached at syzkaller@googlegroups.com.
+> @@ -2558,6 +2558,7 @@ int __v4l2_subdev_get_frame_desc_passthrough(struct=
+ v4l2_subdev *sd,
+>                                              unsigned int pad,
+>                                              struct v4l2_mbus_frame_desc =
+*fd)
+>  {
+> +       struct v4l2_mbus_frame_desc *source_fd =3D NULL;
+(...)
+> +                               if (IS_ERR(source_fd)) {
+> +                                       ret =3D PTR_ERR(source_fd);
+>                                         dev_err(dev,
+>                                                 "Failed to get frame desc=
+ from remote subdev %s\n",
+>                                                 remote_sd->name);
+>                                         goto err_free;
+(...)
+>  err_free:
+> +       v4l2_subdev_free_frame_desc(source_fd);
 
-To disable reminders for individual bugs, reply with the following command:
-#syz set <Ref> no-reminders
+Here you end up passing a source_fd that contains an error pointer
+to v4l2_subdev_free_frame_desc() and that seems wrong.
 
-To change bug's subsystems, reply with:
-#syz set <Ref> subsystems: new-subsystem
+Maybe a separate label err_nofree: right below that statement
+could be better for this error path?
 
-You may send multiple commands in a single email message.
+Yours,
+Linus Walleij
