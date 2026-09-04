@@ -1,217 +1,238 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22AD44EBACC
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 15:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788535237; cv=pass; b=SqReUAUevPR4Yw4FzKD3Vgru8CykFk2qdP4wuZz+wRek+cNqRrgfdDceskq6qScPAdAwpvugbb4DVLTccoCrN4SAy927WLgt1oYgGP2k8/jQ0gGcQL3YqdbhWcCyr9Ypq8VHbZwbF5kiOj7wXPG82H+5YgAFFQrHaVodM4Fg8OY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788535237; c=relaxed/simple;
-	bh=1gx+ob7R/t6EJbm9UCNagpUORydySsNQt2S5QVVO3wQ=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gK3rA+859B9DhWzpNFoHKhfX9qWDnS/4X9yVhQGIdQvlFjpW8rsNqA45OcIo+bSUEjQwKNIB3UMRaJQeFiveeVE5tRr1RhB6uyCSaWtmXokQupRNYOfT/FbsOvL8nYH6pUnFkL+QpearLtuUHiXl6Sgl2qm7ZhHWz0rfHBXmb4c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oU11G0T/; arc=pass smtp.client-ip=209.85.208.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01D174A1E19;
+	Fri,  4 Sep 2026 15:33:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788535984; cv=none; b=BSmAybFtv6eiIgQPOEM5zpKa4zDaY7c3lrTucJxNktYcRsXPbsgnLLFvB6HVXqapdFSTo5GMOHkZS9qSZf4iEdZ4jDQG2HdkKO5amcQEDXmPdYt7h0KNAyfxJMqwSDkrv9/BCSP5btD3saLjknJsxHLjeNpNk+UJSLLnc0lrLxk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788535984; c=relaxed/simple;
+	bh=CnSAFD6rlndSqM250EuSHcBPlhVJ+BFLsyUu02VpByE=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=QBwzm0Nf8V/RsDKbsoJsy/wEWPj8yAO+O87Yx9VmnmjUsDsj1jEtJi+eRcwoW5dDgFu4NdCeLP78AKS8rFO4L5bLj7BCtguYNuqPELeBojlyCMzfzrEi7zHbwGRsMCAfdpFGRx81G9fpzHZKgnmZI2vhHOdcuYmdRKmaBA7EQEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9XCxnK+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oU11G0T/"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6a668cacdadso1694365a12.2
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 08:20:34 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788535233; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hi23uM/mHDFOOQZsdcIJCqdgtHqRn6h+fwWNmNL6Ja00nvUpSMPVoEKgnHn+CxJgMt
-         STlScrxFqBpJAHtOCOtq3BPTCF7mmVOEtyWCzi95MNlNlvZetHvhb6Tgh2DWGqvWTqPc
-         rEn8V9tQvHdCK0iqxLwusIfchgRWtBq9S6zCicNv6qQRF0JDTzIlUOGqBmNTpTB8nBoY
-         45fNBZFl7vJMNs4SNu75D+zf0yHiPQHzaAOEKlIByydkmGYMwhbutWzYHBCoqzIKZax1
-         EbczBMTIe/fFeYpb94kuwrryiAfzf9nfA5o7OljoxWHWdJHf1kZPkvN4E2DG1fOUbe1j
-         p6Dg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=I74GumaLgD5w7dclPgfVNDe2pVJDZFbfWC+x89UkeS4=;
-        fh=LKxoAhB++3ZmFF/+TyYFvhzfivMFFIalPPJ8oA9WEs0=;
-        b=T7qBfsvozOqUD+SpsfxGg/kAy0L2oJCAxAMGpIB5tb5qKjwBZPOpk6S3uq7WtZrJpq
-         10WnOLkpDVzsg1laOflTuTjzYjOTvOnl/brYpffr6D2XquoojH6z6BSzw/fWmAeHcsdo
-         Zp/yisdf4xmO3Uj2rOYh2M/J/1q06cgDFL6Y2zbzSqzwzSX2tQ11nybvzoPWABTJsceC
-         3FOXZLSkLZRPcLG1DdD9yhHz/FNu5xPh297SkdLAvTeOQS66qt+/UMkgiEkTHrkWdUcZ
-         zw78+eu0wHosMq7ix0jv6aADKDUVnw/tsH4XrP3QOmUIeGs7iFlT+P3m769k+fB5p2Ig
-         dIEQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788535233; x=1789140033; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=I74GumaLgD5w7dclPgfVNDe2pVJDZFbfWC+x89UkeS4=;
-        b=oU11G0T/t65FTuXushxah4lQVa0FUklJ8DePm02m4H7cJiBN51Ow4XPhZqrgqQ23dm
-         mPy4dnzC/7Thyz/NiiyWBva+LTbEYnbdEaoGBElpCgPYs6NX/ZKakVpzIAlPOF2KOex/
-         8G9d5qJpUuR2Bp3BmeVQXKma2WqjWu/zKA8H7MmXX7liiF87H/lBj14IT5pETQGvAJec
-         SxGXHKe25MDJfy51oADsmlQ01NDgMquEp1/25DJGz7SsdCip5kOh2/UUCBYKiwX71gyc
-         PmFBGcoPNrFoqfXiYOdIX0bYhsdxjblSL7ePtYaYKVzPgeN3tSJ5ttk8Tc8JLD15dSB6
-         vO2g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788535233; x=1789140033;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=I74GumaLgD5w7dclPgfVNDe2pVJDZFbfWC+x89UkeS4=;
-        b=mRkfTrViaZ2ltLCk9ygihpbokfZiy1wrIGbUeS+iCFK5kcmIlFSSoXvkHFMEV+wmaU
-         DTZxBn8SrBaxBlOfRWPSUyRdlvxxFm4E4A3mUO5FFdjEekZHxa7TadU7sSrSns5TQH3H
-         TYGKc8HP++WPctyFE1rp3DF1W29D0H4XlyMSAkhER3FmX0nRolPmXN8KQ0f0VmMa3rHe
-         dInt6Oa6UcVwV34ijXmm22ZDyrh5udhOAsTnujHsBQQgPXaXzRWOFmTIBeG2ga+xPL0a
-         nwbq8HF+aaxdetH+yczG9o/cB/d2xEOKIIijZF7e3XjtaGwDOSuErvdbnIIpJcg+R+Tg
-         kc/A==
-X-Gm-Message-State: AFuF++m/5kPQcnGni9W/pcauSyj4md0LATGyJGgIC7NKz9kXFD/QRz7J
-	6jO+JNQ+WHiiwA02cnuBtv1zwd3nh0pYsfkdVHtumFzhT39yFBSP9nyEBxDqwpic/35f1vkS+oG
-	GR3YqacSbA/GSZz6/vY/5I/pa9MmBHfU=
-X-Gm-Gg: AYBFou17odBaRmCVzKw6kQIwwNYB2I+X08HoJ4QmFMQ1ym1Z7t/8IzoFUfe5d/T6jwp
-	P1jInOqGjvlAA2ggIuh4t8gebpgcuSmmt8l6UcsgAvLdzUKs8LNvZGwBChNnNlrj8ujsHhCrTRk
-	0E9oTuU3zcUB/poeFDbc11Os8NlvFZpmvj05Z1BYhGwrHlxaQYOf8MbDFajcxw0ujELwuz1GSoH
-	kHQsWf+Tgqu8s/FVLQTK8NNs4mOYK+yRNbpmgsUhtPiBBCNOT51Bjwlu7bSkQCannJqY6aphsNh
-	4DfCU7XlHDkhu4a3KwCbSJq3I2tPy7NS11BJW7ecgcF881wqEwohjmbG3wMnjK0DX9yn91D58nq
-	N
-X-Received: by 2002:a05:6402:3789:b0:6a7:ea54:393 with SMTP id
- 4fb4d7f45d1cf-6a7ea542680mr1674579a12.36.1788535232829; Fri, 04 Sep 2026
- 08:20:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9XCxnK+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C0281F00A3D;
+	Fri,  4 Sep 2026 15:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788535982;
+	bh=mHQYPGPdzlGxXMNKZnACiaB//jM8t7QwCLZn+xl/ipU=;
+	h=Date:Subject:Cc:To:From:References:In-Reply-To;
+	b=Q9XCxnK+Ao/JAb6ul5UFx2KsHLa7LxDBLiAEV5Xqa7+lWsX6U0sRbJ0GHgfuuTKx2
+	 dnp+mOpB+kmvTDgq2cO5JoBAhVahscyDSVLD+to1VsZkJbCdJ501AGJjyQzsAiMXjf
+	 1tn9pX5LGpqDjhn9SwTOooDx6nAA4sXg2CmZqaG5b1AM5kMNDSdEDzFFpzbucpSK5h
+	 dMHKcRChOCGvBaT/nNIYUu0/8hmbrxuGnacDL53b53cYzB7K1GtYfH6gRx1mOkZ6WY
+	 axoNRnNipTdv/hhdsXHrOoaTQ4oqXegu+ikptbRpK3dyvBMBYRifKzQWFJHChon0sm
+	 VkrdAlajKogCw==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260820182156.18078-1-jackflusche@gmail.com> <CAMeQTsYbeDqz-u8EsDpeYqH6P+KtBG9kDgrVC6PA5QrX4yxdHA@mail.gmail.com>
- <CAM0duoKuGt3UgdFc+-xznJR9R8K2B0PJ6-5z5W0kNBc2vs8fVw@mail.gmail.com> <CAMeQTsYLBQguh4aXa5H6nM8WWkfxHrjgK240Ds7VBmWhS9GovQ@mail.gmail.com>
-In-Reply-To: <CAMeQTsYLBQguh4aXa5H6nM8WWkfxHrjgK240Ds7VBmWhS9GovQ@mail.gmail.com>
-From: Jack Flusche <jackflusche@gmail.com>
-Date: Fri, 4 Sep 2026 08:18:15 -0700
-X-Gm-Features: AcwNN1UA2tzix5DI3HD9S9cQD1TvSOcyOQycMtM_bpT-O_xcF15lFzH26n-52Ak
-Message-ID: <CAM0duoJ=p3mTn7UyVowUjzUNUsMUS4xgK2qCw91NsmcRSgbgbw@mail.gmail.com>
-Subject: Re: [RESEND PATCH 0/5] Add driver for Broadcom FacetimeHD camera
-To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
-Cc: linux-media@vger.kernel.org, sakari.ailus@linux.intel.com, 
-	hverkuil@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 04 Sep 2026 17:32:55 +0200
+Message-Id: <DL6N387CE2AT.1LU4TDUB8QBIU@kernel.org>
+Subject: Re: [PATCH v10 1/2] rust: Add dma_fence abstractions
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Yury Norov (NVIDIA)"
+ <yury.norov@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Burak
+ Emir" <burak.emir@gmail.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
+To: "Philipp Stanner" <phasta@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20260812072217.1971807-2-phasta@kernel.org>
+ <20260812072217.1971807-3-phasta@kernel.org>
+In-Reply-To: <20260812072217.1971807-3-phasta@kernel.org>
 
-That sounds great, thanks.
+On Wed Aug 12, 2026 at 9:22 AM CEST, Philipp Stanner wrote:
+> Add abstractions for dma_fence in Rust.
 
-On Fri, Sep 4, 2026 at 3:08=E2=80=AFAM Patrik Jakobsson
-<patrik.r.jakobsson@gmail.com> wrote:
->
-> On Thu, Aug 20, 2026 at 10:13=E2=80=AFPM Jack Flusche <jackflusche@gmail.=
-com> wrote:
-> >
-> > Yes, merging the PRs is probably a good idea. On the firmware, I only
-> > included the install script since it doesn't require a manual
-> > download, but including the extraction script as well isn't be a
-> > problem.
->
-> On second thought, this needs to be distributed separately. Distros
-> should figure out how to create a package that downloads and install
-> the firmware files on installation. I did this for openSUSE [1].
->
-> [1] https://build.opensuse.org/package/show/hardware/facetimehd-firmware
->
-> > Can you message me (or submit a patch set) when the driver is ready
-> > for upstreaming?
->
-> The driver is still quite ugly in many places and not up to kernel
-> standards. I'll resubmit this to staging instead but leave out your
-> modifications. You can then resubmit your fixes on top of that
-> instead. Would that be ok?
->
-> -Patrik
->
-> >
-> > Thanks,
-> > Jack
-> >
-> >
-> > On Thu, Aug 20, 2026 at 12:37=E2=80=AFPM Patrik Jakobsson
-> > <patrik.r.jakobsson@gmail.com> wrote:
-> > >
-> > > On Thu, Aug 20, 2026 at 8:22=E2=80=AFPM Jack Flusche <jackflusche@gma=
-il.com> wrote:
-> > > >
-> > > > Merge Patrik Jakobsson's out-of-tree driver for the Broadcom Faceti=
-meHD
-> > > > camera on some Apple Macbooks using the Video4Linux 2 framework to =
-add
-> > > > in-tree support and remove the need to install a DKMS package
-> > >
-> > > Hi Jack,
-> > > I'm fine with upstreaming this but here are some initial thoughts:
-> > > - Should this be in staging instead? I defer that question to the
-> > > media maintainers.
-> > > - There are quite a few PRs pending on github. Perhaps I should merge
-> > > them first and then we redo the submission with those included?
-> > > - Perhaps we should have both the download and extraction scripts
-> > > included? We've just updated the download script to grab a much newer
-> > > version which adds support for new devices.
-> > >
-> > > Thanks
-> > > Patrik
-> > >
-> > > >
-> > > > Jack Flusche (5):
-> > > >   facetimehd: copy code from patjak/facetimehd
-> > > >   facetimehd: add Kconfig and Makefile
-> > > >   facetimehd: fix compile-time issues and formatting
-> > > >   facetimehd: add firmware extraction script from
-> > > >     patjak/facetimehd-firmware
-> > > >   facetimehd: add entry to MAINTAINERS
-> > > >
-> > > >  MAINTAINERS                                 |    7 +
-> > > >  drivers/media/pci/Kconfig                   |    1 +
-> > > >  drivers/media/pci/Makefile                  |    1 +
-> > > >  drivers/media/pci/facetimehd/FIRMWARE       |    6 +
-> > > >  drivers/media/pci/facetimehd/Kconfig        |   12 +
-> > > >  drivers/media/pci/facetimehd/Makefile       |    2 +
-> > > >  drivers/media/pci/facetimehd/firmware.sh    |   61 +
-> > > >  drivers/media/pci/facetimehd/fthd_buffer.c  |  126 ++
-> > > >  drivers/media/pci/facetimehd/fthd_buffer.h  |   73 +
-> > > >  drivers/media/pci/facetimehd/fthd_ddr.c     |  670 +++++++++
-> > > >  drivers/media/pci/facetimehd/fthd_ddr.h     |   33 +
-> > > >  drivers/media/pci/facetimehd/fthd_debugfs.c |  204 +++
-> > > >  drivers/media/pci/facetimehd/fthd_debugfs.h |   16 +
-> > > >  drivers/media/pci/facetimehd/fthd_drv.c     |  558 +++++++
-> > > >  drivers/media/pci/facetimehd/fthd_drv.h     |  124 ++
-> > > >  drivers/media/pci/facetimehd/fthd_hw.c      |  710 +++++++++
-> > > >  drivers/media/pci/facetimehd/fthd_hw.h      |  128 ++
-> > > >  drivers/media/pci/facetimehd/fthd_isp.c     | 1468 +++++++++++++++=
-++++
-> > > >  drivers/media/pci/facetimehd/fthd_isp.h     |  770 ++++++++++
-> > > >  drivers/media/pci/facetimehd/fthd_reg.h     |  183 +++
-> > > >  drivers/media/pci/facetimehd/fthd_ringbuf.c |  133 ++
-> > > >  drivers/media/pci/facetimehd/fthd_ringbuf.h |   45 +
-> > > >  drivers/media/pci/facetimehd/fthd_v4l2.c    |  759 ++++++++++
-> > > >  drivers/media/pci/facetimehd/fthd_v4l2.h    |   34 +
-> > > >  24 files changed, 6124 insertions(+)
-> > > >  create mode 100644 drivers/media/pci/facetimehd/FIRMWARE
-> > > >  create mode 100644 drivers/media/pci/facetimehd/Kconfig
-> > > >  create mode 100644 drivers/media/pci/facetimehd/Makefile
-> > > >  create mode 100755 drivers/media/pci/facetimehd/firmware.sh
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_buffer.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ddr.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_debugfs.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_drv.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_hw.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_isp.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_reg.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_ringbuf.h
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.c
-> > > >  create mode 100644 drivers/media/pci/facetimehd/fthd_v4l2.h
-> > > >
-> > > > --
-> > > > 2.55.0
-> > > >
+I was about to pick this up, but ended up with too many things to tweak.
+
+  * Fix checkpatch.pl warnings,
+  * take &CStr instead of CString in FenceContext::new(),
+  * change DriverFenceAllocation::ops to &'static from *const,
+  * remove # Safety comment on AlwaysRefCounted::dec_ref() impl,
+  * use Opaque::zeroed() instead of __GFP_ZERO,
+  * use kernel vertical import style.
+
+Here's the diff I suggest for a v11:
+
+diff --git a/rust/helpers/dma_fence.c b/rust/helpers/dma_fence.c
+index 0e08411098fa..549f6b6a7171 100644
+--- a/rust/helpers/dma_fence.c
++++ b/rust/helpers/dma_fence.c
+@@ -37,7 +37,8 @@ __rust_helper void rust_helper_dma_fence_lock_irqsave(str=
+uct dma_fence *f, unsig
+ 	dma_fence_lock_irqsave(f, *flags);
+ }
+
+-__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fenc=
+e *f, unsigned long *flags)
++__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fenc=
+e *f,
++							   unsigned long *flags)
+ {
+ 	dma_fence_unlock_irqrestore(f, *flags);
+ }
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fen=
+ce.rs
+index f22f4a07c152..d82b69f68e61 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -102,21 +102,23 @@ impl<'a, T: Send + Sync + FenceContextOps> FenceConte=
+xt<T> {
+     /// Create a new `FenceContext`.
+     pub fn new<E>(
+         initial_seqno: u64,
+-        driver_name: CString,
+-        timeline_name: CString,
++        driver_name: &CStr,
++        timeline_name: &CStr,
+         data: impl PinInit<T, E>,
+     ) -> impl PinInit<Self, Error>
+     where
+         Error: From<E>,
+     {
++        let driver_name =3D CString::try_from(driver_name);
++        let timeline_name =3D CString::try_from(timeline_name);
+         try_pin_init!(Self {
+             // SAFETY: `dma_fence_context_alloc()` merely works on a globa=
+l
+             // atomic. Parameter `1` is the number of contexts we want to
+             // allocate.
+             nr: unsafe { bindings::dma_fence_context_alloc(1) },
+             seqno: Atomic::new(initial_seqno),
+-            driver_name,
+-            timeline_name,
++            driver_name: driver_name?,
++            timeline_name: timeline_name?,
+             nr_of_unsignaled_fences: Atomic::new(0),
+             data <- data,
+         })
+@@ -141,7 +143,7 @@ pub fn new_fence_allocation(
+             rcu_head: Default::default(),
+             // `inner` remains uninitialized until a `DriverFence` takes o=
+ver.
+             inner: Fence {
+-                inner: Opaque::uninit(),
++                inner: Opaque::zeroed(),
+             },
+             fctx: self,
+             data,
+@@ -154,7 +156,7 @@ pub fn new_fence_allocation(
+         //
+         // Hence, we need the manage the memory manually. It will be freed=
+ by the
+         // C backend automatically once the refcount within `Fence` drops =
+to 0.
+-        let data =3D KBox::new(fence_data, GFP_KERNEL | __GFP_ZERO)?;
++        let data =3D KBox::new(fence_data, GFP_KERNEL)?;
+
+         Ok(DriverFenceAllocation {
+             data,
+@@ -212,7 +214,7 @@ fn drop(self: Pin<&mut Self>) {
+         // Fence ops callbacks can be called on unsignaled fences. Since t=
+hese
+         // callbacks can access the fence context and its data, it needs t=
+o be
+         // guaranteed that a context only drops after all associated
+-        // `DriverFence`s have been dropped. This is unlikely to ocurr, bu=
+t would
++        // `DriverFence`s have been dropped. This is unlikely to occur, bu=
+t would
+         // result in silent UAF. Throw a panic to prevent that.
+         //
+         // TODO:
+@@ -568,9 +570,6 @@ fn inc_ref(&self) {
+         unsafe { bindings::dma_fence_get(self.as_raw()) }
+     }
+
+-    /// # Safety
+-    ///
+-    /// `ptr`must be a valid pointer to a [`DriverFence`].
+     unsafe fn dec_ref(ptr: NonNull<Self>) {
+         // SAFETY: `ptr` is never a NULL pointer; and when `dec_ref()` is =
+called
+         // the fence is by definition still valid.
+@@ -640,15 +639,17 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
+extOps> {
+ /// # Examples
+ ///
+ /// ```
+-/// use kernel::dma_buf::{
+-///     DriverFence,
+-///     FenceContext,
+-///     FenceContextOps,
+-///     FenceCallback,
+-///     FenceCallbackRegistration, //
++/// use kernel::{
++///     dma_buf::{
++///         DriverFence,
++///         FenceContext,
++///         FenceContextOps,
++///         FenceCallback,
++///         FenceCallbackRegistration,
++///     },
++///     str::CString,
++///     sync::aref::ARef,
+ /// };
+-/// use kernel::str::CString;
+-/// use kernel::sync::aref::ARef;
+ /// use core::fmt::Display;
+ ///
+ /// struct CallbackData { }
+@@ -674,18 +675,16 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCont=
+extOps> {
+ ///
+ /// let fctx_data =3D FenceContextData::new();
+ ///
+-/// let driver_name =3D CString::try_from_fmt(fmt!("dummy_driver"))?;
+-/// let timeline_name =3D CString::try_from_fmt(fmt!("dummy_timeline"))?;
+-///
+ /// let mut fctx =3D KBox::pin_init(
+-///     FenceContext::new(0, driver_name, timeline_name, fctx_data), GFP_K=
+ERNEL)?;
++///     FenceContext::new(0, c"dummy_driver", c"dummy_timeline", fctx_data=
+),
++///     GFP_KERNEL,
++/// )?;
+ ///
+ /// struct FenceData {
+ ///     data: CString,
+ /// }
+ ///
+-/// let data =3D CString::try_from_fmt(fmt!("dummy_data"))?;
+-/// let fence_data =3D FenceData { data };
++/// let fence_data =3D FenceData { data: c"dummy_data".try_into()? };
+ ///
+ /// let fence_alloc =3D fctx.new_fence_allocation(fence_data)?;
+ /// let mut fence =3D fence_alloc.new_fence();
+@@ -718,8 +717,8 @@ pub struct DriverFenceAllocation<'a, T: Send + Sync + F=
+enceContextOps> {
+     /// Handed over to a [`DriverFence`], or deallocated once the
+     /// [`DriverFenceAllocation`] drops.
+     data: KBox<DriverFenceData<'a, T>>,
+-    /// Pointer for the ops for the associated [`FenceContext`]
+-    ops: *const bindings::dma_fence_ops,
++    /// Reference for the ops for the associated [`FenceContext`]
++    ops: &'static bindings::dma_fence_ops,
+ }
+
+ impl<'a, T: Send + Sync + FenceContextOps> DriverFenceAllocation<'a, T> {
