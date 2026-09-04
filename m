@@ -1,117 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7331514765;
-	Fri,  4 Sep 2026 19:10:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788549062; cv=none; b=FYLjrbR0fIvhUCjUoVzw70FhdcVMyJ678NTLTjbGjBJ6lfJt75YtTKfmgx+TSGA5DvcRf1C1RFwKoXtRgK7t/BUc+IFczV2uE3G8v07wsEzJNfmeODNv+4Zi0HtTo6YMoPpQopn2nYA5DXptRENvP+C1muC6ymC2ik6zI7gJ99I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788549062; c=relaxed/simple;
-	bh=na5i1soZ3xqfV/G5eljpoR2AX2PA9y24/AE4TJM7JtE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=AeG+Of9KtQy2p2wJDTBK1hELOx9tlCmNsldrM1+qAN0EIv1wV62ss05Y1NTnweGhtvnprBEAz2RUj0e4qOlDztriFITWtahOQWVOst1Z8kRpjZRxnvjUdgnBfQJsy7BcGo3Pn07QVgx4fyhAIfoxczE7BZ7t4kKNW790k/+Je2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQ/aG+me; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2483423A85
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 19:55:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788551721; cv=pass; b=aYqFXyECoVl5Ciihb5lFABcQXrnkFe2pQWAJxFWzaVrooKaXmIrt1OX4OFiP7x4VnYzgEJNiknbgWxUrICNeWIclEsfaXXjf8wK3mB6jGZFYmqL+oJweArez6V2cqawXFw4I2ex7/SQGwcU/kvc8EWk6PT8PhBRRZJWoLbfzqDw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788551721; c=relaxed/simple;
+	bh=Cuy4oNKyaJF2ZdAr5zW3Dz+9GPWKnBVFeBK1jrQaFGE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BKOCA2jIFAJHQwMjVnjZPYrToukvD9xfQAGsWsbdlqWZYUxE0ds40HUXpTwLSbZCQGOdR2ga+6ncHAFyh+yMDe3CYhBNuORs+pQGZb8/kYcpXBaMTVr/+byC7ZoluaLNx1xHNLfn5nWlSAWVhUXvfU+NlRMRe3QsWF6legGo9eM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=l+UwIbQE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dZGMSVO2; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQ/aG+me"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA81E1F00A3D;
-	Fri,  4 Sep 2026 19:10:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788549051;
-	bh=na5i1soZ3xqfV/G5eljpoR2AX2PA9y24/AE4TJM7JtE=;
-	h=Date:Subject:Cc:To:From:References:In-Reply-To;
-	b=LQ/aG+me4upa5df7ulLAA64VaBaBAdjtkw0SOHI/EFR/Xk3x7hYBzSCXQ1k/pah9K
-	 beBHNIiqOHnRo+ud//ZQME2IAuVxkXO3qgTdh+a21w4y5dhOYzoPUrosXFKOk+ZUDf
-	 UKv5XzzjWVagO9bS0WSkwsuQZ2YEeKzsjTRPXlSuc291tN+kfA8AQIlwUy2c4EQ8sM
-	 46zwRDWgy5bL5OyfFWnY6Bt+SHY5FzNlIIdK9KGKThBR4DJGu8t09ipV9dywUMpfys
-	 kBLkBY2tD7nGnT69KRibzODytZcZVqxeZf1bJjWKUPVe4k1tdxQu388GeLD3wd+5gQ
-	 7UT7IMeFYYqQQ==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="l+UwIbQE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dZGMSVO2"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 684HHwWb4124920
+	for <linux-media@vger.kernel.org>; Fri, 4 Sep 2026 19:55:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=; b=l+UwIbQEhpKBzgLY
+	uptB0RNGGwdGSX/uUdUjHSMXvRcp1Ny6If/J65idpGn5MtAwUovCWyZpYZQLkNQi
+	Of1kwXhfQYcQv3+xfAcVpPlDnxXpuUVzAQ4GOv7MSEQ54bU+BwGDng4gN+QVsHhk
+	zF0NLmeLK3go4dxt5klAgacaMsHs0VdBkqvV9I2JGJho8zYMhgVieMpq4iEw9/99
+	3FDHiFTn3mehNx/Cr8Z8SP3CpgNYS9VCy83P0WXyerFYScO+33KZTh+8ucyfy+Ct
+	FA8RLsBYSxxFjuXTWiROxGwFjF6uZdHlGaz33kAPBfD9HZ39u/gSeJ2fLXTP0elF
+	fsR7GQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gg0121wpg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 19:55:16 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e5e38fbc5so231527785a.2
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1788551715; cv=none;
+        d=google.com; s=arc-20260327;
+        b=X5sk3dMpin08CNQZnRfVvwcDnMGd7mF+sN2eI8hIhMfGWCCupmrp+2y0yz706m0uyM
+         I1R8aJR5xgdqigO57Bio8rUTKbRWJjEea/ZMAHXX4jDDq7SYlww/zwDw/nh/E+srVt3p
+         n7ualUjT26U1Zuq9+njL3zsVQE4DvXtqnRz3Fh/Eh/HXNT+m21mvzwc5b0J1NRAZlXQ2
+         /tt/6YTaJF2o8IQy14DkTFZEbtzywu+bUiN6tWTwVsp//4Esy0l28MmhJY7/F8cQm/T9
+         Nrt+HC/eTyJL5y948IuFbW8Dua2IWOVtDEWoFs0m27l5kSqqeeJah5A0B1YQmEEgc8/p
+         LURA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        fh=9Ctx2TJTRucCTAtfAlsZ4WLj1PG+LMuydXzII+qVqSE=;
+        b=gJjUqXIEXkuvxsGR61x6gOkc3rxLEQfrC/Bk5eF6mAJ2aZz7u4nLY/UWqmtoezpidb
+         khvkPv6vfRXMw8QZVSVShitiiYLgss20tViHI+9YzB07Y8zIfrEF4zYpBubQgqgu6UoN
+         fEjbPmoq/5+Qg2vhhWSskNfY71bUQtc2TxkYz6F+5IqGOw9IAq+fQw6hciYeCVmQmIPM
+         zqQ6/5A0h7trdNjCmBRqwQYUkEg0WqI8tzEzFFpOIoOVWmT9lp6ff6B7av87THMp67F2
+         x5Y4nzqx2Sb51Kbyugyvr8hCsC80M49wp/HimzRIYSvNd8OLUMcC59Lnz2gysTMLRVFQ
+         dXBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1788551715; x=1789156515; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        b=dZGMSVO2HK7zY7/S8dX+pARokyGm12TijPDnyXgoAhU3v17OELXYdLxbpG931mlShy
+         HFyxVLc5UG0KZaBMHIaPJDzacEwPrW9w7ivFG9DN7V1Qct3FqlxW6LgkoVv9mUGW5DyB
+         poUJLD8DPQcjef926VRMixtl/XXnFKeUtuhZRA3R69ENUrk6+KphIRfkPFyurAT/wPc8
+         O4+FreIfrntOBzMPcUkMe7bZVGMC5LusgpOFN7Y1uLFaGNsKu09BIfyKnzrh5GOmHWKv
+         O6VLqGHVSCF6s1VMw9wau+E5agst6eDw1N3jwVzkGhjVpKDzH1GADcCaOfagYzfwctyu
+         YtEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788551715; x=1789156515;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7+S2fUNcs/9WkA3bU1bHtkI2dA6OSW0Car4DEk+gp/4=;
+        b=OlsmSqGYpIHOyqCQ43fvRIgwkwJ245gukYVVcZDsmPzVH/LVlYR3Z3IejuLahNd+No
+         j+gf9ybIRZbd5pXbomT8sm0DRIAxQS+GnSShkq3JHgmcsm0U8yRYI6bumkwPa6b13CMT
+         6NQqaiOlbSzVT/xepi7PiYkyWrTnmTeoLY8L2K48aP2REFq2a6RwwQj997MkofOrke+8
+         cs+Y77sFMZWikJZTmJ0PGUIY4+/vkscgmtv1OqiJjTuk1pS15hahtg/NHjmbj2etWSFN
+         SqezoLxwECFGx/77Wm54RKOeN2D1e8GhpdMZMTRWbDSnuP9T9pL8G9Oy8XwxJsFPA42Q
+         Od2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwlCR2XYaBafeLxdvL0LximtOdKP93VBPXclThXMyxNsMpPF1gAmTH+ylYbQpUs/5JN4/4MSHvdQcaSYw==@vger.kernel.org
+X-Gm-Message-State: AFuF++mhNQb+yF0jFZGsxUYut5NqqjrOyHRHiygHAEZsCnmK+xDdNz/N
+	umcMpmBvimrpIBx/PiH6SJF0imrDGrMpiQc+pucwwArV2VAu4XndLvSCur63C8D2PmePmAKY7J8
+	xwEnoRHlQkUQaj8Kxal5H5FM4ybRi4xrc85CPOTJTvDJgHTKjYeF9DgYyXxFLiZ7DUGHwpXF4lc
+	18LLvbeAaurC53s7ZBj7iX0PJXVakEByqI/qTgOln3demDET9o
+X-Gm-Gg: AYBFou1pclap6y21ve+YVElN1wX/RTKxRVVJ1bfQKFHh4ci5+1UgwKSXjI5gEtvQlpo
+	XR6HzDNl3HTPYIWRwIvPhd6jxw9rLqII+auCJOgYLsVk3y4cQtn4oYeASlZxy1obyVc6Ti51twi
+	qAl/L2OMU5PHnh6oeHsVyEO+9L/BcgWpZtpPklvDdJlifV00GSuMfyeirvBnTvLOnI+ySlP74Vo
+	4G1BunwIsFHKeLrfSwQJ4oCdLYEejaEAB+o2x/URFyUCKR2Kxv5szm0yCedBjnDIB00I2ZQzms=
+X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id af79cd13be357-939803a4a96mr811790485a.23.1788551715290;
+        Fri, 04 Sep 2026 12:55:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:46a1:b0:915:9e84:85d1 with SMTP id
+ af79cd13be357-939803a4a96mr811784085a.23.1788551714708; Fri, 04 Sep 2026
+ 12:55:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
+MIME-Version: 1.0
+References: <20260904-x1e-camss-csi2-phy-dtsi-v5-0-dc81d85b599d@linaro.org> <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
+In-Reply-To: <20260904-x1e-camss-csi2-phy-dtsi-v5-2-dc81d85b599d@linaro.org>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 4 Sep 2026 21:55:03 +0200
+X-Gm-Features: AcwNN1W9wMgd18cVEyYOdj6YVkfohjR1CF5BB3XCNyAGw8QQbTcGw0lxRrgxPso
+Message-ID: <CAFEp6-3EqEghkrsUMYtV=1z6n9Y+bPG9YHj6Wf2gOVboDE3hKg@mail.gmail.com>
+Subject: Re: [PATCH v5 02/13] dt-bindings: media: qcom,x1e80100-camss: Make
+ vdd-csiphy supplies optional
+To: "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Bryan O'Donoghue" <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 04 Sep 2026 21:10:44 +0200
-Message-Id: <DL6RPZU472G9.2IG1XWSTOAMFU@kernel.org>
-Subject: Re: [PATCH v10 1/2] rust: Add dma_fence abstractions
-Cc: <phasta@kernel.org>, "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng"
- <boqun@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, "Benno Lossin"
- <lossin@kernel.org>, "Andreas Hindborg" <a.hindborg@kernel.org>, "Alice
- Ryhl" <aliceryhl@google.com>, "Trevor Gross" <tmgross@umich.edu>, "Daniel
- Almeida" <daniel.almeida@collabora.com>, "Tamir Duberstein"
- <tamird@kernel.org>, "Alexandre Courbot" <acourbot@nvidia.com>,
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, "Sumit Semwal"
- <sumit.semwal@linaro.org>, =?utf-8?q?Christian_K=C3=B6nig?=
- <christian.koenig@amd.com>, "Greg Kroah-Hartman"
- <gregkh@linuxfoundation.org>, "Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
- "Asahi Lina" <lina+kernel@asahilina.net>, "Burak Emir"
- <burak.emir@gmail.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Joel
- Fernandes" <joelagnelf@nvidia.com>, "FUJITA Tomonori"
- <fujita.tomonori@gmail.com>, "Boris Brezillon"
- <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
- <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <linaro-mm-sig@lists.linaro.org>
-To: "Philipp Stanner" <phasta@mailbox.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20260812072217.1971807-2-phasta@kernel.org>
- <20260812072217.1971807-3-phasta@kernel.org>
- <DL6N387CE2AT.1LU4TDUB8QBIU@kernel.org>
- <5916d336906e4918a379178eca5699c2f7506ce8.camel@mailbox.org>
-In-Reply-To: <5916d336906e4918a379178eca5699c2f7506ce8.camel@mailbox.org>
+X-Authority-Analysis: v=2.4 cv=dfSwG3Xe c=1 sm=1 tr=0 ts=6a9b2224 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=KKAkSRfTAAAA:8 a=EUspDBNiAAAA:8
+ a=dr_jwI5W_23fGTPCCGYA:9 a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+ a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfXzJHVqFo/D3sg
+ s4kjI81FM+/1s1thznhAxAuRtYwe9ePK8ucOiofoF2cG3D+erh70M6In2ooRWuXctt5KvqIw0/j
+ ZD6N5zt9l295KU+JiSWAViOmjTBRL3+xhgOqEQmtbDWys6wYjEAnLpDc6g/YbtbYlZ9Mj1GDyws
+ Mt9eHDnqaxIQxWsmxfQpu002DoIuqKsze1RVjcfvXhajOjur+4QwM7812etPRrPOFptLRuqknxz
+ NyR90dfRqyA/GShfm4BJhxVUFyE5jjFJXkLo6l/U+SN6Ot/qr3YGd8IhOq4vJabn8t3Svgh9vxi
+ u2TGbzz5EWQ0KADad4KR2cIHceUJjjcrFPceMmcqhHWSq9cQPb8nz/PKjzh/TtoyakqyGkQOUI4
+ FFIyjqL3WtKVD1LcJ9R6QGOK4mVHeAPFQ33V+5/iYF7PWEFKPtWcS0Pyis98D8q0uIH4nJlYrQL
+ 0WgZ1BiVN2ocb6OSG2Q==
+X-Proofpoint-GUID: 3zKKl5Hy0CGSccWLlY_YA328FPjGTiwn
+X-Proofpoint-ORIG-GUID: 3zKKl5Hy0CGSccWLlY_YA328FPjGTiwn
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA0MDE4MiBTYWx0ZWRfX9w4TLNq3gkdt
+ XtlupdeeBTadbfaZwTbwmsyJrD4Tz32PDAmvp2LKiyBb029Bg6chqFPX3QkRw/8PYgSGkbGEFT3
+ sEy5u6Iayc0tc8+Ui6hgKP9t5xCvssY=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-04_05,2026-09-03_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 phishscore=0 clxscore=1015 malwarescore=0
+ lowpriorityscore=0 adultscore=0 impostorscore=0 suspectscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609040182
 
-On Fri Sep 4, 2026 at 8:53 PM CEST, Philipp Stanner wrote:
-> On Fri, 2026-09-04 at 17:32 +0200, Danilo Krummrich wrote:
->> On Wed Aug 12, 2026 at 9:22 AM CEST, Philipp Stanner wrote:
->> > Add abstractions for dma_fence in Rust.
->>=20
->> I was about to pick this up, but ended up with too many things to tweak.
+On Fri, Sep 4, 2026 at 12:56=E2=80=AFPM Bryan O'Donoghue
+<bryan.odonoghue@linaro.org> wrote:
 >
-> :(
+> The vdd-csiphy supplies power the CSIPHY blocks. CSIPHYs may be
+> described as standalone phy nodes carrying their own supplies, in which
+> case the CAMSS node has none. Make the supplies optional; existing DTS
+> remain valid.
 >
->>=20
->> =C2=A0 * Fix checkpatch.pl warnings,
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+
+Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
+> ---
+>  Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml | 2 --
+>  1 file changed, 2 deletions(-)
 >
-> I get two, one of them being obsolete
-
-I think the other one was a spelling mistake, do you run --codespell?
-
-> WARNING: added, moved or deleted file(s), does MAINTAINERS need updating?
-> #114:=20
-> new file mode 100644
+> diff --git a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.=
+yaml b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> index 126400772d028..57a838fe2d229 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,x1e80100-camss.yaml
+> @@ -186,8 +186,6 @@ required:
+>    - iommus
+>    - power-domains
+>    - power-domain-names
+> -  - vdd-csiphy-0p8-supply
+> -  - vdd-csiphy-1p2-supply
+>    - ports
 >
-> WARNING: line length of 101 exceeds 100 columns
-> #158: FILE: rust/helpers/dma_fence.c:40:
-> +__rust_helper void rust_helper_dma_fence_unlock_irqrestore(struct dma_fe=
-nce *f, unsigned long *flags)
+>  additionalProperties: false
 >
+> --
+> 2.55.0
 >
->>=20
->> =C2=A0 * use Opaque::zeroed() instead of __GFP_ZERO,
->
-> That's literally what I had originally, but Alice objected and wanted
-> GFP_ZERO, AFAIR because it's more efficient.
-
-I don't think you can say this in general, it depends e.g. on the size of
-T::FenceDataType, etc.
-
-But struct dma_fence is pretty small, I doubt one can even measure the over=
-head.
-Besides that, fence context creation is a cold path with many *much* more
-expensive operations.
-
-If we'd really care about that, you could also do neither as __dma_fence_in=
-it()
-should write all fields anyway.
-
-> Maybe you two want to get to an agreement on what's better.
-
-Nah, it doesn't really matter, anything is fine with me.
-
->> =C2=A0 * use kernel vertical import style.
->> Here's the diff I suggest for a v11:
->
-> Thx, I'll take it into account.
