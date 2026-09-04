@@ -1,120 +1,105 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486FD4A1DE6
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 14:55:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90D13F20FA;
+	Fri,  4 Sep 2026 15:13:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788533741; cv=none; b=dDFmUUhxwPYE7JJniGsc8Nn8+SQRbI/QeGGKiyjKY8nbGGmTWdr8FhoH5aMuT/I8X91YpBB2uITB7uBWJFmM5Fib+dADKgn1RzTIn7douYnDjaq8FI2PWWe+P9rEZ76W9t6z6RZygRkMtCRo4JOxuXU2BT0YwgMtDa/0g8KcyU8=
+	t=1788534807; cv=none; b=Gyq2kqUI3kF0z0kY0dnrFG7YHpN8c+ig7r7C4yH8UBGKfHHGs1WG1Ulcvjy1h+kpbqRaHSYpERnPFSFfdYK3KTn6cegzCNk2QqCF/Ommrl34DxQVb2mAG0S3Vm0lKfJ0koV7hfTptWPhI7g7Tj0fDFumdB8lg2jWaY813xhpgBU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788533741; c=relaxed/simple;
-	bh=f/vLRZtkEwUREGIURpCCb3dB3cPovTJngOtCjk6W9AY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MLAgN4uK8JeOj8LSStk8IYHvuOPpoMnLg3P0gx4NGOa/F+WsIy6eAjGchUFGp7zFqgfYcrHZ4pDnN2QEKpz6el2L9JkD0u1Uaz7jc7vwWpAUCl4p61xaVX7m63rjD4r3vUzmjNd8OqjYaXpwKYRJ0rTuchrfJ7WZu7JzkXr33lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=T+zbNPUs; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788534807; c=relaxed/simple;
+	bh=9UGSVSWEsvgVrMeDVlKr7Xq7H8N1d1FB/lW5GVXJEwA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TPq3JiNHdA7StZ7KSmXahaMV7lJlZVy77FlJoutBuZGByMXI4pZUrcpM8jmHQApGdVLoRy3NrgsCH0p8KeAnlM8IsF6/KBqhtq32QfsaqR29yguGx45nlNm7iDRbgFOyGMJpQArddpokDBWVjrnCGVQxFVzyxhhvW6pNAVLQ2TU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J4Zwt+Vs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="T+zbNPUs"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5469B24BD;
-	Fri,  4 Sep 2026 16:54:04 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788533644;
-	bh=f/vLRZtkEwUREGIURpCCb3dB3cPovTJngOtCjk6W9AY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=T+zbNPUsGiZVk9VCtP6cOrMV/21pC2bWdZHanthpJSqvbt7q8thjSI4mAOWjxTHNV
-	 keb2rlJwqd5NJ7BtoFoIlEIkYDwTPlYNNgwbJMGwT78+1gd+H+dycuocZWic7X8tXV
-	 xkUWK2xDgQ/pugniNqOV8uYz9axmpj5w+Nb+1TLg=
-Message-ID: <212497db-5578-4316-957a-c1a3f22ad45b@ideasonboard.com>
-Date: Fri, 4 Sep 2026 15:55:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J4Zwt+Vs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA60D1F00AC4;
+	Fri,  4 Sep 2026 15:13:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788534805;
+	bh=N4iGKOoDlN94x19GjcNK/TDFb68ODJwUEU94wGmW6Xc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=J4Zwt+VsF3Fa7VjPxXfaqNMO485jFoUsqtKI6wJ5Pld+nF0h5Jur3zGsVTICL2OgI
+	 o5kZSi1JNMqPj+vi4lENGk/6D3vjZo/3omUibDmD0m8FTIuf9a3Mcmu43d6VLfdhGQ
+	 m4X3q5xag1CMV8m+cmFQyufZ+oCJaadmJntSqr4jdYBQ+azrGNuPse/3nM4+qJVtWb
+	 adQ+uUJ3pePDTzcdG4mRy00aYBb51j4Qz61c33pNF/NCebzm1IGMnFhjmzUrKPM0On
+	 gyMWQ29uD1jyHaqIShKVz1EVvpeua6Kc00JDuXsMDdAMc90pBKvUF/N1c8qkfEkJOm
+	 8FsRCHMkydDLA==
+Date: Fri, 4 Sep 2026 16:13:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: media: i2c: Add Mira016 image sensor
+Message-ID: <20260904-unstylish-diffused-0cc26d303461@spud>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-1-1dcf7b3a807e@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] media: mali-c55: free IRQ when remove while
- runtime-active
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Linus Walleij <linusw@kernel.org>
-Cc: Li Youhong <dayou5941@163.com>, mchehab@kernel.org,
- linux-media@vger.kernel.org, Li Youhong <liyouhong@kylinos.cn>
-References: <20260903025526.2657105-1-dayou5941@163.com>
- <CAD++jLnVf8-o2XBWonLStH33+GfkFCbqORisM9JMZOhhbNxX6w@mail.gmail.com>
- <apqfTZnUOMcb6xw3@zed>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <apqfTZnUOMcb6xw3@zed>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="hfNr6R+a9JSWQcDh"
+Content-Disposition: inline
+In-Reply-To: <20260904-mira016-v2-1-1dcf7b3a807e@ideasonboard.com>
 
-Hi all
+--hfNr6R+a9JSWQcDh
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-On 04/09/2026 11:40, Jacopo Mondi wrote:
-> Hi Linus
-> 
-> On Fri, Sep 04, 2026 at 12:12:20PM +0200, Linus Walleij wrote:
->> On Thu, Sep 3, 2026 at 4:55 AM Li Youhong <dayou5941@163.com> wrote:
->>
->>> @@ -861,6 +861,8 @@ static void mali_c55_remove(struct platform_device *pdev)
->>>
->>>          mali_c55_media_frameworks_deinit(mali_c55);
->>>          if (!pm_runtime_suspended(&pdev->dev)) {
->>> +               if (irq_has_action(mali_c55->irqnum))
->>> +                       free_irq(mali_c55->irqnum, &pdev->dev);
->>>                  __mali_c55_power_off(mali_c55);
->>>                  pm_runtime_set_suspended(&pdev->dev);
->>
->> This whole runtime suspend/resume looks a bit odd to me.
->>
->> Normally you keep the IRQ requested perpetually in a driver,
->> this looks like some really odd workaround to explicitly deal with
->> wakeup capable/non-wakeup capable IRQs.
->>
->> I tried to see if this was addressed during review of the driver
->> and whether there was a reason for doing things like this.
->> But there are too many threads on lore.
-> 
-> Indeed it's weird.
+On Fri, Sep 04, 2026 at 12:43:40PM +0200, Jacopo Mondi wrote:
 
-It's my bad; and there's no specific reason for doing it that way to workaround anything, I was just 
-mistaken in what best practice was. I think I got the impression that this was the proper way to do 
-it from a misreading of the Interrupt Handling chapter in Linux Device Drivers. I don't think it was 
-really discussed during review of this driver, but for the rzv2h-ivc driver it was picked up and we 
-corrected it there.
+> +examples:
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        mira016: camera-sensor@36 {
 
-Dan
-> 
-> I've a branch that I started that tried to fix that, but the issue I
-> was hitting was due the fact the ISP starts with all ISP unmasked, and
-> I get very bad races between the power-up routine and the IRQ.
-> 
-> I run out of time and gave up, but if you're interested I can provide
-> you references to that work
-> 
->>
->> I think the proper fix is to keep the IRQ requested during
->> suspend/resume and *not* mark it as wakeup-source; in the
->> device tree for the SoC.
->>
->> Support code is needed in the driver, something along the line
->> of this:
->>
->> suspend():
->>                  if (device_may_wakeup(dev))
->>                          enable_irq_wake(irq);
->>
->> resume():
->>                  if (device_may_wakeup(dev))
->>                          disable_irq_wake(irq);
->>
->> Do you want to make the patch or should I?
-> 
-> That's something I didn't consider maybe :)
-> 
->>
->> Yours,
->> Linus Walleij
+Drop the two unused labels here if there's a v3,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
+pw-bot: not-applicable
+
+Thanks,
+Conor.
+
+> +            compatible = "ams,mira016";
+> +            reg = <0x36>;
+> +            clocks = <&cam1_clk>;
+> +            vdd28-supply = <&cam1_reg>;
+> +            vdd11-supply = <&cam_dummy_reg>;
+> +            port {
+> +                mira016_ep: endpoint {
+> +                    data-lanes = <1>;
+> +                    link-frequencies = /bits/ 64 <750000000>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+
+--hfNr6R+a9JSWQcDh
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaprgEAAKCRB4tDGHoIJi
+0oCpAPsFFV5Sr7q7x49BJ97p5g2yNPk3aZCQVvAhh1ILaHZ3rwEAkRlr5q2V2dnv
+p3ATl4abnVoYcvAYWWowELUJJcYmOAk=
+=GIbP
+-----END PGP SIGNATURE-----
+
+--hfNr6R+a9JSWQcDh--
