@@ -1,179 +1,184 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010038.outbound.protection.outlook.com [52.101.84.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f45.google.com (mail-oa1-f45.google.com [209.85.160.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4BC847CA79;
-	Fri,  4 Sep 2026 12:06:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.38
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788523581; cv=fail; b=bLE4/vG3aLFnAOzxcRkfll3GvbJNiH0FAiGU+MPxhp+OxbyOHfR7vTqthth40LBNXpIFhAC0cuRleFoWpYm/w+dec6OoTF73Bak887U7uMEZIRjZP42xhkw8qgr6Td2/se/HTYwGTi1bGZsg0KfIFkjdECQN/1Ur7Zp0MRMDqSQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788523581; c=relaxed/simple;
-	bh=iFsn6XDiHgr097z54ZqpY7hmp43F2R4aKGZh0/gIRhM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BccNdSoWpJstCer1T3xH0cDNO2bNPOW+s8vDMTMnS0iTEdoHMP7F0wT4TxtxUVwghUTfh+GnEpSQgDoORJ63gCt0sMa0vID+ls+skYgCcZloKOpjuIaSCl24EWSIdPe79rQYD5idy08iKffdhS/HRmYeyKWWx0dLLA9wiRwhAyM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=OfgbReBQ; arc=fail smtp.client-ip=52.101.84.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4C240B0FE
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 12:06:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788523583; cv=none; b=oxtd6DxfTxkSZNal2juKJO0MwcWBd0nspqNzEgmA234PGtfpVgIJrE/XUWH1N4O8osjekvyxXQBDhbOvkyKsyZe/UNmUcHeRVCe/K5RicJfsxz3m3Jqat+BEoYl9YtlNlleF1DFoR2EahaXV4T90g4s0VrrWpC5pYxIY9ihxoow=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788523583; c=relaxed/simple;
+	bh=sPN9S2SipzeCvUtPxw8RMcHggMANadY+KjgyyNcHFCg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=E4qOENzfxbFNmuk4BtDVX2JRuX0dGrhoxfz7mM1/9Qk2GfRTxsQihKa+47V7QgL3xG9qcsb39Tcy+T+/nY0fcK79m4Qdshkzylu8DVQVLYdwAbYsko/PNVvbCt5CGTQvsePo4E2uciqgE9G9YafvZXYVBPUGKIUxek0TmMDx6jg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pOasWwII; arc=none smtp.client-ip=209.85.160.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="OfgbReBQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q7Coggf9wGowJNsSKLR3GN4tB9Tlu7C4Lh9i9I33bx870FoaDtXnFwSowO93/X6vVsixAEV2gjBCy76GEuSne2mmXgD0X94eImLOno159Upt0dkzxyaWVCwKmA5DjkPQKYqsDDBGHduiMGj1UzGAe9mOjRBW8NbYzGLKdooP5WU5wkI7IV5Is1+fuiBDFmsYelGzps0FCqHCsXrAPEDY/7H41i7doCaP9kZIdGfxNM1r0x3tSkh0xTqdyHP0f4HxmLqb0s8BDVtH1m7lwjbedC2Vp1g+dDbgwomXTCmYdWJTtmurCkVKMM4U1BEdlUy7fxltGKAyPYpb1VWXY5KnOQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
- b=JFgC/trTFtVM0XdXxqEPIZzHAMcTWjWmILp2ttQLl5lRltRfjY+etieYXVMqXdkQMfVpouHFSXxAl9iILuVkGgbIDwZfrLVgPf4WSBjbfMke+If8z1jgZW+NjBefrocCVP2SIfWTsfIda0Nos/nX9boztLfnsWYTCVoSZ0pfGUHd9CZLFO1IdY0+KVtJ7/3jkSqoyXHFAkKDVx7xM1V/1vF3gTT/ChP3MAeXFWhwbvkQXcSkE1/ZHsA1eE0lEgoMpk72chVW5WzY5HAg07InuC3wJ0ig0x10xb54hg9bFBPu1BW6G/wMuJjo7TfAtdnYjDCalL+3klchmH9eKAslTQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.87) smtp.rcpttodomain=petermarshall.ca smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cu63453tnlNgodKSz6fxRHOGKcS1siGmfk1sqPQcOBg=;
- b=OfgbReBQra6jHg9egvf0Hsez5NFiMk+8B3Ln97ZcmuqJxkkgmYuB/uI3cRkGcvXZQKhYJqXolNPRbdgEAJLRXm3xpS9qDShmfvbw7AW1s/gxcty4rurQkURO46CgYfReiXSDPZEOffPuZSZZRum/Niq47j8YVMPu8lrCw18EVBptcJEs5swSql4dryNDfUDc4Mg9ODKdK0AOkXZLi+11Fj9bguNVtFDg99XqIdh5NCc3NzoUQrE7Zs9eGLF3aYbGL5/RN69oxJd+NU399vbJ1JVhFTVEZowJIeymOZL7MaKGrpIzwGZ0sk7f+nnB6VM2J3Agg3xsE9EgdbZ747wVAA==
-Received: from AS9PR07CA0056.eurprd07.prod.outlook.com (2603:10a6:20b:46b::32)
- by AM7PR10MB3608.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:134::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.360.13; Fri, 4 Sep
- 2026 12:06:14 +0000
-Received: from AMS1EPF00000040.eurprd04.prod.outlook.com
- (2603:10a6:20b:46b:cafe::6b) by AS9PR07CA0056.outlook.office365.com
- (2603:10a6:20b:46b::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.3 via Frontend Transport; Fri, 4
- Sep 2026 12:06:14 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.87)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.87 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.87; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.87) by
- AMS1EPF00000040.mail.protection.outlook.com (10.167.16.37) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.382.8 via Frontend Transport; Fri, 4 Sep 2026 12:06:14 +0000
-Received: from ENXDAG1NODE4.st.com (10.75.129.197) by smtpo365.st.com
- (10.250.44.74) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 14:08:10 +0200
-Received: from [10.130.78.67] (10.130.78.67) by ENXDAG1NODE4.st.com
- (10.75.129.197) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Fri, 4 Sep
- 2026 14:06:13 +0200
-Message-ID: <b7e8939f-646a-417b-b4ad-1785359c3343@foss.st.com>
-Date: Fri, 4 Sep 2026 14:06:02 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pOasWwII"
+Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-455ca262ccbso734530fac.1
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 05:06:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788523580; x=1789128380; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+        b=pOasWwIIt9BWLLuuZudzx+UGJbRieNF7J8i2WiRkGX4FoAzr4GhhsuYut5iK67QYv4
+         LB0l5Tz+evzfTwkGHRQwQ1cSSFdUD6dMH1R5upg7WYBEdc7MoeEVq/nJ4sAiQRiAJopw
+         /pHnaWp9OUQkV4diQ4zBct1poQRc30Eu9AVD0WKnftiY+ZvKUl8gFIe5QmEStM+4rz4t
+         iW2kgpubuMAlDR6OBFsEs4/+YF/itI6NhoZ2KtAGlEQSoDOpUnFFGZ8zji/vfxfP78rw
+         vjkfZTWym/IEMLrBMU/scCc3cU8T62srYnbwpbk0l+une4hZfCSgxQZpYVU4pvWG5WXT
+         wr8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788523580; x=1789128380;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LpjAUK45k2PJKSjdfeljwO5d42gX8uNwxDJAnF1e9RY=;
+        b=VhSvOWbm1CuJovP4LEoK0pHXhNZoG2u9QQ+lofpnq5UTFJz3/FYvJZAd+A3ziKIRqy
+         P9QuoJyDGXFvhwGWLTQ6Nka6a1nCdsY99COa2E/ZGUnJqMqYVQaI88uW+Mxe9mTTwbbX
+         4LDVRyVcanCevoUIXeL9I4nPmw8FZCPtVo9dr/qIvW6JtjgEzKRa6bUXBydXa28TyPtV
+         LaA7EVb/t89JwCeplyoF4pfU+A9of+Wosn16scLsb+wmGs11Tr5cR7JVvtAA054Yq4dt
+         6i0/C32UyZJQjR/cxp9Bv9XNzbETnvwxMafk4sYGAZLpaIQZPnY5tc4tNfnH49z6F5dw
+         ejgw==
+X-Forwarded-Encrypted: i=1; AKwUvBws0KD3U+Pt3VO/6Bo3289r8lureett6KclaNhatYZxjc+DuVcD6FIKzcx9+AHnAY+jxkw4lfYlBLZ4/A==@vger.kernel.org
+X-Gm-Message-State: AFuF++nJv/xOupUw4BIbNmtiIIeS7zDFmJPpR8hmVwlSl86N4A+3uzvx
+	ZErLRBn08Xqko40LDRkZmNr/MjKaPcohATYgk0EbWIGxS4ACAsUxcPBL
+X-Gm-Gg: AYBFou34FBSETJPOf82sLke/nT1TVxbmxsj6YdRso0PbP1ZhEdNL8R0tM6r2BFQopOY
+	dySDOtgZAL1ttRelEAJv99XK+EIUy/6f0rQikm9cPSK8BRESDWSqjSWaeYLWJ6LwUl0oTxpd8Qe
+	rhRwjmnzO6QyCsfIxoYRdvAh0fqjEnozZP8vbDQKheYRyMVasrr/a+641tguwn7ffXAMwOi7biJ
+	50z1qaI4O9JHUabOZ+BWxHpR9bUGwxn/X+4ZEtnxZLgkar7Ox3KWasEepuz3EtrquanBLyHnYPV
+	QpyYXHE9jLsu2soLalNwx8wlvZKk961V92zitN/Gn5LAPJ8fGk8XJAfs/FLdOjfmV+nb3NE5ByV
+	AN+gbI2SGO1nrdzW9OLvX62BgOKgY+j8DfVQOxEmnyar7DQ7tf6NW4dwFXHYdVsywNjPpinjGff
+	6gTkrTnYeZ4Qi9bbA/BIHXir1sp5/Eeitk2cbYplUH20grMsouxV7Pl4GVjFsuhfI+CW22zL5rI
+	M3Iolz4WJIANaHINtU0I4D0yA==
+X-Received: by 2002:a4a:e914:0:b0:6b2:69bf:c8d7 with SMTP id 006d021491bc7-6b6fb3df17emr3896155eaf.10.1788523579864;
+        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
+Received: from volcano9f6e-hostos.amd.com ([165.204.217.251])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339b8f44d7sm6321674eec.22.2026.09.04.05.06.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 04 Sep 2026 05:06:19 -0700 (PDT)
+From: Hemanth Selam <hemanth.selam@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+	Sean Paul <sean@poorly.run>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	Dmitry Baryshkov <lumag@kernel.org>,
+	Abhinav Kumar <abhinav.kumar@linux.dev>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Marijn Suijten <marijn.suijten@somainline.org>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org,
+	linux-media@vger.kernel.org,
+	linaro-mm-sig@lists.linaro.org
+Subject: [PATCH 2/2] drm: fix repeated words in comments
+Date: Fri,  4 Sep 2026 17:35:57 +0530
+Message-ID: <20260904120601.18363-3-hemanth.selam@gmail.com>
+X-Mailer: git-send-email 2.48.1
+In-Reply-To: <20260904120601.18363-1-hemanth.selam@gmail.com>
+References: <20260904120601.18363-1-hemanth.selam@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add
- VD55G0 support
-To: Peter Marshall <pm@petermarshall.ca>, Sakari Ailus
-	<sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>
-CC: <linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-media@vger.kernel.org>, <platform-driver-x86@vger.kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>,
-	Hans de Goede <hansg@kernel.org>, =?UTF-8?Q?Ilpo_J=C3=A4rvinen?=
-	<ilpo.jarvinen@linux.intel.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-References: <20260902204549.657228-1-pm@petermarshall.ca>
-Content-Language: en-GB
-From: Benjamin Mugnier <benjamin.mugnier@foss.st.com>
-In-Reply-To: <20260902204549.657228-1-pm@petermarshall.ca>
-Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To ENXDAG1NODE4.st.com
- (10.75.129.197)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AMS1EPF00000040:EE_|AM7PR10MB3608:EE_
-X-MS-Office365-Filtering-Correlation-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|23010399003|82310400026|36860700016|10067099003|56012099006|11063799006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	t22xT+5wVe/JPtLzVIFwUb8ecQtYha24LbTJYFjZyZAqOjIRZYjQrlTdBK9k7oKEUQvgyoCOdPjOyP3U9N/MhxCDV2aXFO4bMzi/clrlR2Om0k9LJuQEK/sscbbU3pjdLBKTcpb39artpU1DJvRprXnnLxgfT2A3LvGH01Dg0HJVbJW1AW2Aw256uPa13XYgrGIMcQp94zind0UXzCzS/kIH1eUZQWHYCT7YFd7hr2KifUn6pZZbzcUTG7UOsPIwB0iJSrT2WsnvaKzzQhEfNB+oJrn5uffqbKIiinqpifY6XcMfNbMKdWo2T1i5T5aLGTGJIymAgWE8tz+Qh/8IP72+Y+KPckNNL2iWUd72+N3dcSArphxcunTJeiU/dv4jRjEoQDEvWcVOZzeeDIXi95QELmKNWOcgJVE71KDahKpNflqCka3mLouebF129QiTI0CeCQjfeZMrR+KN3Tq98yJYpPdf4asiMOwcaXrvp+1Yh8Rkix+MNqcrhtyGaHZ6CI8nGIeKi94gR0+9m62P98uHbNeI5J7+3Hy5PUks0veLWuDrt2oTiZnoT+aPI2duu8snRg5jHM3ueWztYujlO7MtNQNw9zvJ2b8RWFvoj448e2BFjkc5jieMnmAaUSNJ0s9lVUpeNFs12mIX1aOpmbsCBTwkCg10UPSp4qQ0d3U=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.87;CTRY:;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(23010399003)(82310400026)(36860700016)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	jUOkGh4dXOeUHxu+3iilDn4ukrWqychr/a2KMB02dim5QNK5OpqTfOCVvrlXNC+x5h9SMy6d95zZjCR0bd1FAGkClla6qPkRnWZnckbS2Wz7J8b4769++Yj2UDVuXqOflCfi44Cqmg04l1iKPeUzpGLvPCtq6On/HWVZ8PS3eSnMsxG5FGJRSq1voqM4n8okoWeOAVrPYjRvlc7d8Ey7NqOoZbGWnww6BHPHTV7d8O0vlF4hI/IS2TQQK8NpozgOxgIHElouRBMaUjTyS1AOlT9HuC85Gdc+9YhXkyKxqG9SytcrY3uGrzsB2ntzPeaNYZzB+nISlmAwkLnGB0cmUH4bsZ2eQHSSJGrUpITorFCOdAob4+ul3gRSkXhlFaJ3AFMQaO6FO/Dyo0dBPuL2nP8iAbto8aqYBpXGN69K8Spj9F7TqsrXrabWSukQoJmv
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Sep 2026 12:06:14.2913
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 006f9d33-cf00-42c5-4d9d-08df0a7ceaf0
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.87];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AMS1EPF00000040.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3608
 
-Hi Peter,
+Drop words accidentally written twice, reported by checkpatch.pl as a
+possible repeated word.  Only touches comments, no code changes.
 
-Le 02/09/2026 à 22:45, Peter Marshall a écrit :
-> This patch series refactors the STMicroelectronics VD55G1 and VD65G4 image
-> sensor driver (vd55g1) into a generic VD55G family driver (vd55g) and adds
-> support for the VD55G0 monochrome sensor.
-> 
-> The VD55G0 sensor is found in devices such as the Microsoft Surface Pro 9 under
-> ACPI HID `SMO55F0`. It features a native resolution of 644 x 604 pixels and
-> differs from later variants in the family in several ways:
-> 
-> * It uses a different native resolution and register addresses mapping,
->   requiring specification of generational feature differences.
-> * It lacks support for spatial and temporal HDR.
-> * It requires an exposure duty cycle limit to keep the illuminator current safe.
-> 
-> Tested on a Microsoft Surface Pro 9 (an Intel IPU6 platform with ACPI
-> HID "SMO55F0") running libcamera.
+Assisted-by: Cursor:claude-opus-5
+Signed-off-by: Hemanth Selam <hemanth.selam@gmail.com>
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.c  | 4 ++--
+ drivers/gpu/drm/msm/msm_gem.c          | 4 ++--
+ drivers/gpu/drm/msm/msm_gem_shrinker.c | 2 +-
+ include/uapi/drm/msm_drm.h             | 4 ++--
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-I'm sorry I haven't read through your whole serie yet.
-
-First thing first what is the point in refactoring both drivers into the
-same one ? I guess it should be addressed in your commit messages. To be
-fair it even looks to add complexity because even if the sensors share
-some IPs you might have notice they are in fact very different. I could
-even argue that the vd56g3 is closer to the vd55g1 than the vd55g0 is.
-
-Plus having your commits merged will also require changes in libcamera.
-
-Otherwise I'm interested in your patches 3 and 4. If I read it correctly
-they allow the Microsoft Surface Pro 9 to use the embedded vd55g0 right ?
-
-> 
-> Peter Marshall (7):
->   media: i2c: vd55g: move patch array to a separate firmware header
->   dt-bindings: media: i2c: st,vd55g: rename and add VD55G0 variant
->   media: ipu-bridge: Add VD55G0 to the list of supported sensors
->   platform/x86: int3472: Add VD55G0 supply GPIO mapping
->   media: i2c: st-vd55g: Add generic driver and VD55G0 support
->   media: i2c: st-vd55g: Remove legacy vd55g1 remnants
->   MAINTAINERS: Update ST VD55G camera driver entry
-> 
->  .../i2c/{st,vd55g1.yaml => st,vd55g.yaml}     |   30 +-
->  MAINTAINERS                                   |    7 +-
->  drivers/media/i2c/Kconfig                     |   11 +
->  drivers/media/i2c/Makefile                    |    2 +-
->  drivers/media/i2c/vd55g-fw.h                  |  305 +++
->  drivers/media/i2c/vd55g.c                     | 2166 +++++++++++++++++
->  drivers/media/i2c/vd55g1.c                    | 2061 ----------------
->  drivers/media/pci/intel/ipu-bridge.c          |    2 +
->  drivers/platform/x86/intel/int3472/discrete.c |   18 +
->  9 files changed, 2531 insertions(+), 2071 deletions(-)
->  rename Documentation/devicetree/bindings/media/i2c/{st,vd55g1.yaml => st,vd55g.yaml} (76%)
->  create mode 100644 drivers/media/i2c/vd55g-fw.h
->  create mode 100644 drivers/media/i2c/vd55g.c
->  delete mode 100644 drivers/media/i2c/vd55g1.c
-> 
-
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+index 27cac853975f..16fed0066f00 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.c
+@@ -1759,7 +1759,7 @@ static int a6xx_gmu_rpmh_arc_votes_init(struct device *dev, u32 *votes,
+ 		}
+ 
+ 		/*
+-		 * Look for a level in in the secondary list that matches. If
++		 * Look for a level in the secondary list that matches. If
+ 		 * nothing fits, use the maximum non zero vote
+ 		 */
+ 
+@@ -2378,7 +2378,7 @@ int a6xx_gmu_init(struct a6xx_gpu *a6xx_gpu, struct device_node *node)
+ 	if (ret)
+ 		goto err_memory;
+ 
+-	/* Allocate memory for for the HFI queues */
++	/* Allocate memory for the HFI queues */
+ 	ret = a6xx_gmu_memory_alloc(gmu, &gmu->hfi, SZ_16K, 0, "hfi");
+ 	if (ret)
+ 		goto err_memory;
+diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
+index c4cff3d53d81..7ad450b574bf 100644
+--- a/drivers/gpu/drm/msm/msm_gem.c
++++ b/drivers/gpu/drm/msm/msm_gem.c
+@@ -502,8 +502,8 @@ void msm_gem_unpin_locked(struct drm_gem_object *obj)
+ 
+ /* Special unpin path for use in fence-signaling path, avoiding the need
+  * to hold the obj lock by only depending on things that a protected by
+- * the LRU lock.  In particular we know that that we already have backing
+- * and and that the object's dma_resv has the fence for the current
++ * the LRU lock.  In particular we know that we already have backing
++ * and that the object's dma_resv has the fence for the current
+  * submit/job which will prevent us racing against page eviction.
+  */
+ void msm_gem_unpin_active(struct drm_gem_object *obj)
+diff --git a/drivers/gpu/drm/msm/msm_gem_shrinker.c b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+index 9d2788f79ace..d84cbb64bc56 100644
+--- a/drivers/gpu/drm/msm/msm_gem_shrinker.c
++++ b/drivers/gpu/drm/msm/msm_gem_shrinker.c
+@@ -47,7 +47,7 @@ with_vm_locks(void (*fn)(struct drm_gem_object *obj),
+ 	      struct drm_gem_object *obj)
+ {
+ 	/*
+-	 * Track last locked entry for for unwinding locks in error and
++	 * Track last locked entry for unwinding locks in error and
+ 	 * success paths
+ 	 */
+ 	struct drm_gpuvm_bo *vm_bo, *last_locked = NULL;
+diff --git a/include/uapi/drm/msm_drm.h b/include/uapi/drm/msm_drm.h
+index 3d363f12f66a..9b6b30189230 100644
+--- a/include/uapi/drm/msm_drm.h
++++ b/include/uapi/drm/msm_drm.h
+@@ -102,7 +102,7 @@ struct drm_msm_timespec {
+  *
+  * With VM_BIND enabled, userspace does not include a submit_bo table in the
+  * SUBMIT ioctl (this will be rejected), the resident set is determined by
+- * the the VM_BIND ops.
++ * the VM_BIND ops.
+  *
+  * Enabling VM_BIND will fail on devices which do not have per-process pgtables.
+  * And it is not allowed to disable VM_BIND once it has been enabled.
+@@ -366,7 +366,7 @@ struct drm_msm_vm_bind_op {
+ 	__u64 obj_offset;
+ 	/** @iova: Address to operate on */
+ 	__u64 iova;
+-	/** @range: Number of bites to to map/unmap */
++	/** @range: Number of bites to map/unmap */
+ 	__u64 range;
+ 	/** @flags: Bitmask of MSM_VM_BIND_OP_FLAG_x */
+ 	__u32 flags;
 -- 
-Regards,
-Benjamin
+2.48.1
 
