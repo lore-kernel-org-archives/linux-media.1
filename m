@@ -1,106 +1,122 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C58443DA20
-	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:40:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EFCA382F25
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788518432; cv=none; b=NLb70b1zlgeu4un2eQn4J9q67+ku2O7y8DLfPrT03M33ZDyS3qlJBcE5MzuXA7UgJ8fSHbD8d/vVa2zOyp+c/WLa1lKSCYbvNf5j8m6SobINiaS2gPx4jjeE9kcjD8mYe0DceWvqMw8hYqgNgR8p5tFe4V3Zq3Ikt2JzTZYvuOo=
+	t=1788518624; cv=none; b=bkRiwfbm/BJD0A+kpVDhG9fmDwYV/c9Z+QgPJC+k4msuguIQN3RMWw/155HhxFarVq6ckUFgsCvemEN8Rl/Th600G+hzMm9h9uGTWutfPUAGCPKOi9oLeAZLjW1lAm0AycP/2ObrB+zz7OyK3AtPyXr0E2GGEFQW2TG84wgjliY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788518432; c=relaxed/simple;
-	bh=X+IPOeHqJEE/pPReJUqA9P+8xBHbJ/fYKeigiadbp7g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JbWpeoyAjIQL8AiYFkdYIIex2zHhRDq5NJR4qzKxJKcDOibXNIXwGm0Z5Lt4gOsDNjGsl8SKNDm6F004rzsBzm1JiPLP8P1gITbUBBC8RVxm5mfOkE13Tp0XUlR6zz1YNvfCBCSxaRaxRCGQDrX4Lf4ObtLmqChZvAOukpMlHIY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=FydX/T61; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788518624; c=relaxed/simple;
+	bh=xZIdHWKMa1P/oJrjsmIfJBJNQmXTb3ayp0S6qW/BpXg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dQPdJl01cO85py7Jqtoi+hv28gGZLcK/dPbx1n0rO5Os6rkexCb+uXDFHxOryn0TX2j0bSKXgtCtpIXrciYQNRTIoUEyr/pRqhBxEzdnisOUclPbtB9qx/MxqeqobLPVaz+DMccJ9Jwcz4m76e4pFgCvMLlcx10O/wcmFZOGUuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L8Y11qMs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="FydX/T61"
-Received: from ideasonboard.com (unknown [93.65.100.155])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id E123A2023;
-	Fri,  4 Sep 2026 12:38:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788518329;
-	bh=X+IPOeHqJEE/pPReJUqA9P+8xBHbJ/fYKeigiadbp7g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=FydX/T61S0jimF2id9F4VcDHpBjeSuBtq+1PB4nrTTGdgU4+oGWhjlpAAj0/uj58v
-	 0+e3igBUokRO2MDvBbphT2ztWMYdgfPcSUam9dJNl/bTvl6GZsQbms1ebyyRAJElL1
-	 bml46FfaiYPGOrZSHoZ4+DU7VZbCqNkX/Neo/Qm8=
-Date: Fri, 4 Sep 2026 12:40:18 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Li Youhong <dayou5941@163.com>, dan.scally@ideasonboard.com, 
-	jacopo.mondi@ideasonboard.com, mchehab@kernel.org, linux-media@vger.kernel.org, 
-	Li Youhong <liyouhong@kylinos.cn>
-Subject: Re: [PATCH] media: mali-c55: free IRQ when remove while
- runtime-active
-Message-ID: <apqfTZnUOMcb6xw3@zed>
-References: <20260903025526.2657105-1-dayou5941@163.com>
- <CAD++jLnVf8-o2XBWonLStH33+GfkFCbqORisM9JMZOhhbNxX6w@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L8Y11qMs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AC4D1F00ADB
+	for <linux-media@vger.kernel.org>; Fri,  4 Sep 2026 10:43:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788518623;
+	bh=WqSQcSfpGTaGjcfEGKzcH3DS+87Zxn6xD4nzxjKGCkM=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=L8Y11qMsuDFtwQ9OpTOh7yrOUbbPE7cmvHkGB6ebhBpNNmBeBjOSWhVlZuDGjMg53
+	 CKq+jPdCvgrdDwUlmGKJq8C7Kdw4civkOzUisasRWLDolMWxK1bMnPIsT74/Ymh90S
+	 MQgPHHLFzb6mC2ushWoP5aDJTouG9iHrbGp4tRvF2IZKDuQEPzbnQmnbC85dk8AQUm
+	 JvST649hfNcDzt2oP+jGUZohK/CiRYrFeynhVSnMOd8dSfjOQTfY+DB7HjhmE9b/CC
+	 LfyKuztlNSvL4yFkWnBDq98c+npJ5pORBFTwC18S9Ou1D8a/vpxRk1kpyQaYSBfOSB
+	 Gpac3bF0np0Lw==
+Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b4a9994c20so893008e87.0
+        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 03:43:43 -0700 (PDT)
+X-Gm-Message-State: AFuF++kv6kF1f0XC5yk5OTrYBQi7GcWLrslrlOt+V7YqQxlmQGQ/lPqU
+	XgCwTNavZ/UIEi74sk7Twtg21dEpMqAkFaZNDrOX1RdyOpG1R18HMmI0KylejYNyNZ5w/KMcp6m
+	SF7QFDjaDmLfnnjj27qXkcLtTZ+Jy0/A=
+X-Received: by 2002:ac2:5684:0:b0:5b6:1a7c:59e7 with SMTP id
+ 2adb3069b0e04-5b61a7c5b6bmr372840e87.65.1788518621788; Fri, 04 Sep 2026
+ 03:43:41 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLnVf8-o2XBWonLStH33+GfkFCbqORisM9JMZOhhbNxX6w@mail.gmail.com>
+References: <20260824121451.3348583-1-sakari.ailus@linux.intel.com> <20260824121451.3348583-19-sakari.ailus@linux.intel.com>
+In-Reply-To: <20260824121451.3348583-19-sakari.ailus@linux.intel.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Fri, 4 Sep 2026 12:43:29 +0200
+X-Gmail-Original-Message-ID: <CAD++jL==kKkqyN8j9-DxDOs0Z-oRXQx46jsvPOrQx2ohevc84w@mail.gmail.com>
+X-Gm-Features: AcwNN1XnnKlfrhg2hfEkkZIsb0oUAG6BU5O6RHWYAv4EZKaZ_cjsLZwaCeC39LE
+Message-ID: <CAD++jL==kKkqyN8j9-DxDOs0Z-oRXQx46jsvPOrQx2ohevc84w@mail.gmail.com>
+Subject: Re: [PATCH v3 18/29] media: bcm2835-unicam: Remove frame descriptor workaround
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, laurent.pinchart@ideasonboard.com, 
+	Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Jai Luthra <jai.luthra@ideasonboard.com>, 
+	Mehdi Djait <mehdi.djait@linux.intel.com>, Mattijs Korpershoek <mkorpershoek@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Linus
+Hi Sakari,
 
-On Fri, Sep 04, 2026 at 12:12:20PM +0200, Linus Walleij wrote:
-> On Thu, Sep 3, 2026 at 4:55 AM Li Youhong <dayou5941@163.com> wrote:
->
-> > @@ -861,6 +861,8 @@ static void mali_c55_remove(struct platform_device *pdev)
-> >
-> >         mali_c55_media_frameworks_deinit(mali_c55);
-> >         if (!pm_runtime_suspended(&pdev->dev)) {
-> > +               if (irq_has_action(mali_c55->irqnum))
-> > +                       free_irq(mali_c55->irqnum, &pdev->dev);
-> >                 __mali_c55_power_off(mali_c55);
-> >                 pm_runtime_set_suspended(&pdev->dev);
->
-> This whole runtime suspend/resume looks a bit odd to me.
->
-> Normally you keep the IRQ requested perpetually in a driver,
-> this looks like some really odd workaround to explicitly deal with
-> wakeup capable/non-wakeup capable IRQs.
->
-> I tried to see if this was addressed during review of the driver
-> and whether there was a reason for doing things like this.
-> But there are too many threads on lore.
+thanks for your patch!
 
-Indeed it's weird.
+On Mon, Aug 24, 2026 at 2:14=E2=80=AFPM Sakari Ailus
+<sakari.ailus@linux.intel.com> wrote:
 
-I've a branch that I started that tried to fix that, but the issue I
-was hitting was due the fact the ISP starts with all ISP unmasked, and
-I get very bad races between the power-up routine and the IRQ.
+> As the v4l2_subdev_get_frame_desc() either returns a frame descriptor or
+> returns an error, remove the workaround for drivers that didn't implement
+> the get_frame_desc() pad op. Also handle v4l2_subdev_get_frame_desc()
+> errors.
+>
+> Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+(...)
 
-I run out of time and gave up, but if you're interested I can provide
-you references to that work
+> @@ -933,7 +933,11 @@ static void unicam_start_rx(struct unicam_device *un=
+icam,
+>         fmtinfo =3D unicam_find_format_by_code(fmt->code,
+>                                              UNICAM_SD_PAD_SOURCE_IMAGE);
+>         if (WARN_ON(!fmtinfo))
+> -               return;
+> +               return -EINVAL;
+> +
+> +       ret =3D unicam_get_image_vc_dt(unicam, state, &vc, &dt);
+> +       if (ret)
+> +               return ret;
 
->
-> I think the proper fix is to keep the IRQ requested during
-> suspend/resume and *not* mark it as wakeup-source; in the
-> device tree for the SoC.
->
-> Support code is needed in the driver, something along the line
-> of this:
->
-> suspend():
->                 if (device_may_wakeup(dev))
->                         enable_irq_wake(irq);
->
-> resume():
->                 if (device_may_wakeup(dev))
->                         disable_irq_wake(irq);
->
-> Do you want to make the patch or should I?
+vs
 
-That's something I didn't consider maybe :)
+> -       ret =3D unicam_get_image_vc_dt(unicam, state, &vc, &dt);
+> -       if (ret) {
+> -               /*
+> -                * If the source doesn't support frame descriptors, defau=
+lt to
+> -                * VC 0 and use the DT corresponding to the format.
+> -                */
+> -               vc =3D 0;
+> -               dt =3D fmtinfo->csi_dt;
+> -       }
 
->
-> Yours,
-> Linus Walleij
+I *think* what Frank is pointing out is that vc=3D0 and dt=3D0
+needs to be in this patch so we see that
+the new code works when using CCP2 data?
+
+Like here:
+
+static void unicam_cfg_image_id(struct unicam_device *unicam, u8 vc, u8 dt)
+{
+        if (unicam->bus_type =3D=3D V4L2_MBUS_CSI2_DPHY) {
+                /* CSI2 mode  */
+                unicam_reg_write(unicam, UNICAM_IDI0, (vc << 6) | dt);
+        } else {
+                /* CCP2 mode */
+                unicam_reg_write(unicam, UNICAM_IDI0, 0x80 | dt);
+        }
+}
+
+Other than that it LGTM (OK may not be worth much, I'm a bit
+lost in the details here):
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+
+Yours,
+Linus Walleij
