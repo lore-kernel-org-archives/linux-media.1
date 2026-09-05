@@ -1,72 +1,54 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [217.72.192.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3C2937A857
-	for <linux-media@vger.kernel.org>; Sat,  5 Sep 2026 15:59:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AEB4E56D0;
+	Sat,  5 Sep 2026 17:11:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.72.192.75
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788623983; cv=none; b=NNco65dgGHydu1hycIyg7kEV5oD6bSfKBbNF+/OTniOFvA10BKE/CKekNMnebvOpzTuftbHYbYNDcdGlnKrv0/Our1/eP+c6wEHZTP6Qslszu47jkEim3Q6ifMfG3wiwR9bkOvF2P3LGO0ba9uH4Rfw2eukIWKGrs0spdpPPJfU=
+	t=1788628321; cv=none; b=hYPH/tnXBeT1MFWltCOlMSZARMYYiNIyC7ira25wYRalLj8lQnoLkNNaOeQ2DC8yiHrEKjL5stGm4ISxbMhEXkgxIOKMBjzmS175nHSs7zMcXaUt4VcjfU1cWCXnENGTLJTxd/TSf1Vca7jJu0WoRc7UEzyx5NOdFhktom+1kVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788623983; c=relaxed/simple;
-	bh=YZlxU0qa7yOrokzcfozuDZtKhdaD3EolrNmfGK/fOLE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NLdML4IjW30Xy3hAfAKgFnN09R74O+Bcs9ESlh4jPRf40113iUGNxu4q9RcriPeti2BBK3UQg3Jm2DBu7WTlLEBQGEhkJVvxb3ETa27Mw2rL45AXSu/vNM0BRR0PIDUuubt3t/AaVlLepAr9zij6fHulrLXAZkajBqFxds7x0Vs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FX1aJ4eR; arc=none smtp.client-ip=209.85.167.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788628321; c=relaxed/simple;
+	bh=41a7B2UeanXQzgI8GT9KqtPIGqpxWiEhximAlGEYTy0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jx+Oto+N1cGvIdhqpKTQ+zh59UcE5/VWy2jCKYXBTtitew8Hl+JqxpXL109rpV4BCvmpFto+WTZ7PN+g73z9DQzjZrqTc1nIYBG39UpHde41p/XpDX6m2whUA12jNKHQjTUOG6G4oArF2te/ZAk3tmbSBsLJFnlk6IYuaUc5jUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu; spf=pass smtp.mailfrom=themurphys.eu; dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b=nKZS4MW+; arc=none smtp.client-ip=217.72.192.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=themurphys.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=themurphys.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FX1aJ4eR"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b60bcf9051so1850905e87.1
-        for <linux-media@vger.kernel.org>; Sat, 05 Sep 2026 08:59:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788623980; x=1789228780; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5I5p80BiRfSVOrueQcySpZyddbNr0LAI4GdYjGvwOYc=;
-        b=FX1aJ4eR1Y4V69p/D4Gxf0fXwsFqUu2/4R+9hKwUjWX288k4d8t6uWD39dbzvZ1qHI
-         hbfNm5CLWM7REWTUVlkn5KIKW5f+2z334uSQc8w0+/v2YDoan68yVLAsYPYt61diXvMl
-         N6CbkKS58uVQRX9jlGVCy5mL9KyvwU2c3bb2layDZ7MU33c8BkW1EQhYtNP2pD120Ild
-         c94SFWUkBtgDt16EVAPeRHwnoN8U4ZwVhZ8r9/kq4jIkClZ7FgeosvKRIzl2rXyWEwCn
-         UdjLkcDsvd4pN1Tdsb7e4mJZMETWIfmhNlZejUSm7Q+oFA8tcEuN0kEUNs8G72rYjyN0
-         KR8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788623980; x=1789228780;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5I5p80BiRfSVOrueQcySpZyddbNr0LAI4GdYjGvwOYc=;
-        b=JDFvEhk30T5qU0JjCIhTPRDBkkp15MbBsGvwZaOrCBUrFFvqiHqXZE8HHWSrbLcxd0
-         Zeg0xnOkfddP6FKv3P0N0hngO7OlzenLd0VFgLJfLoH67F3UxOblH/NgFSWXSSh/OwOK
-         /3p7CnEJchAvsou/B7O5vIp0VXSobGAZK7MiUVqydszxhpG6HLTrDgFNXLexUsL3dc/b
-         WiBz4x0RtjES9YY4fuEd8JMpb3sxkGxt4rurfVDfDSEQLbs6WLCusx6HOBjLYlTpyTct
-         j2pz7vaC+eP59fNfABHqj4wQz3rZM5gohhyf0it7QCaZiGUNiDuqIXX+zVL9FxzZHGTk
-         UOYw==
-X-Gm-Message-State: AFuF++lWxbbqqGSF2GqKCTuloCCD8Vc3i39VDOkA5Ko9j94uvkd6RbOl
-	ixtjyp6zAZ+fscK1ojDAzTk7S/x8bvRnQSm1T3rPog1K7zHYhmsb0+Hf
-X-Gm-Gg: AYBFou0VeXUGYt92LuifESg1jvRuPyFh6X5Ad9Of0QnRDTadb/0F9xWk1uE5X8pKEtM
-	rKCeEgPpOWrDU46bCtOXwUJLEkqT9qLKwA2tgGWNE5jTLlmbgnzGqGGgo3rct4LnyS2JpYhivCJ
-	B5OTGgxOdA/Y4eL8sVRtRIFYQaFzscEi6bcxfh4Nh1ghTIFz2Tfu5C00gEZGd/1FUTH5ypvWuUb
-	rSM6BdKPYDv8GAWQ+MXgUNOwBgpwl42N+4LYNIvp4VkIMQw19AdrLD9fCqNcI5z9fib3SZmNRO6
-	4COxc7ADwvS020LMLfPbzRXnndIS2q3KLB+PJIAJbz29lH3lKYqXZvTvl+53sfCVGSQWVrOwBbi
-	658c8R5w5/L5Qcpb8we5DnzgiifuvYFOLEJOpz9JRFjfHTM/p3QLxJ3Dxdek79VPtdrmKR1XFV7
-	j+30SLcqgnmxAzJID6aAAHn9ELoKCydizb/0x9yil0KgoDOZBkm8JDwaFLkBX1P/Mnp3UWb1+CI
-	9c=
-X-Received: by 2002:a05:6512:2343:b0:5b6:95e:87ea with SMTP id 2adb3069b0e04-5b616ef1cfemr3945777e87.11.1788623979352;
-        Sat, 05 Sep 2026 08:59:39 -0700 (PDT)
-Received: from localhost.localdomain ([80.66.93.3])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fbfacsm1154323e87.42.2026.09.05.08.59.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 05 Sep 2026 08:59:38 -0700 (PDT)
-From: Maxim Skokov <skokovmaksimevg@gmail.com>
-To: Hans Verkuil <hverkuil@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>
+	dkim=pass (2048-bit key) header.d=themurphys.eu header.i=christian@themurphys.eu header.b="nKZS4MW+"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=themurphys.eu;
+	s=s1-ionos; t=1788628306; x=1789233106; i=christian@themurphys.eu;
+	bh=41a7B2UeanXQzgI8GT9KqtPIGqpxWiEhximAlGEYTy0=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=nKZS4MW+fajhDAtufzUhCuIE8y0WigPpS4zz66rPABF9nD3g/5Xv25TsS5oVmqyN
+	 EDNaq6oKxr2ofVbkZ0vDsGNWeSL/P4Qrm8YCiOVAVNpDotFYncnqTlsmfNriIkEDA
+	 Os25mHZshm+Fc3+cY4LKIdWVJs4IxRLFhYk8VpH2zDsd9Qeyz5WN7FIbWC+0hdclP
+	 KSc0qvtLWo187Dr+FjfbB6p5zRgf3/l24+BH2xQU9j8mnz1cOTyQMykFli8LaEcHg
+	 e+LxDn3GVQXU2oAZXu8jcpPHcW2cYcPL1DwtG1ZgO6Wiohe81xT7N7gaQHZ/Oq234
+	 //2vOAjgxaqkEgt/hw==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue109
+ [213.165.67.119]) with ESMTPSA (Nemesis) id 1MNssA-1xDq8Y2iVs-00QUoQ; Sat, 05
+ Sep 2026 19:11:46 +0200
+From: Christian Murphy <christian@themurphys.eu>
+To: hpa@redhat.com
 Cc: linux-media@vger.kernel.org,
+	sakari.ailus@linux.intel.com,
+	mchehab@kernel.org,
+	tarang.raval@siliconsignals.io,
+	jai.luthra@ideasonboard.com,
 	linux-kernel@vger.kernel.org,
-	Maxim Skokov <skokovmaksimevg@gmail.com>,
-	syzbot+cb43e758a4dc84dd467f@syzkaller.appspotmail.com
-Subject: [PATCH] media: vivid: round the height down to the vertical subsampling factor
-Date: Sat,  5 Sep 2026 18:58:18 +0300
-Message-ID: <20260905155903.124458-1-skokovmaksimevg@gmail.com>
-X-Mailer: git-send-email 2.47.3
+	antti.laakso@linux.intel.com,
+	christian@themurphys.eu
+Subject: Re: [PATCH v2] media: i2c: imx471: Fix pixel rate and line length
+Date: Sat,  5 Sep 2026 18:11:40 +0100
+Message-ID: <20260905171140.81619-1-christian@themurphys.eu>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <CAEth8oF0__WNz9_gsSnrycP2SYcs_-G06r6TCPCFK2g1N=jbJA@mail.gmail.com>
+References: <ede568ada4304d2dc92cd43986fc07aa68628154.1788377269.git.christian@themurphys.eu> <CAEth8oF0__WNz9_gsSnrycP2SYcs_-G06r6TCPCFK2g1N=jbJA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -74,86 +56,81 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Provags-ID: V03:K1:ZmhGJ49EBwq2bh9q609Qj2SOlHWfmUMT8miqOrxX//sveAty2Yq
+ dpKWhmXVJRaRMkzEPfPDXPBQgzlu8wlh7suzzIwOlc/zCK0m2knVjX+zkCLFm5PbiEWQPNF
+ xGhQ+6r9aLANQHhBfb2ZdwWvOKJfDdcdTi3lqUHjg0W42NMdKZznwG8YyLDqLIE1j9CQCvY
+ cheL6F7tG+MqaJekX5XGw==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:s9xgFaqa1wA=;nWXZIl4iHduiTnfkyVCcIAgmckV
+ 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
 
-syzbot reports a vmalloc out-of-bounds write in the test pattern
-generator:
+Hi Kate,
 
-BUG: KASAN: vmalloc-out-of-bounds in tpg_fill_plane_pattern drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2617 [inline]
-BUG: KASAN: vmalloc-out-of-bounds in tpg_fill_plane_buffer+0x2063/0x4160 drivers/media/common/v4l2-tpg/v4l2-tpg-core.c:2705
-Write of size 720 at addr ffffc900038f9d50 by task vivid-000-vid-c/6017
+Thanks for the series.
 
-The reproducer requests a 720x49 NV12 capture format, i.e. an odd
-height for a format whose chroma plane is vertically subsampled.
+On Fri, Sep 4, 2026 at 04:59:58PM +0800, Kate Hsuan wrote:
+> According to the datasheet, since this sensor runs in PLL dual mode so
+> the PLL configurations in the op domain are used to calculate the data
+> rate and pixel rate.
 
-The buffer size is derived from the height by a truncating division:
+The OP PLL clocks the CSI-2 output. PIXEL_RATE is the pixel array rate
+(ext-ctrls-image-process.rst), set by the VT PLL. Your 159.36 MHz is
+close to the output-derived 160 MHz the driver has.
 
-	sizes[p] = (tpg_g_line_width(&dev->tpg, p) * h) /
-		   dev->fmt_cap->vdownsampling[p] +
-		   dev->fmt_cap->data_offset[p];
+LINE_LENGTH_PCK reads back 5120 and a frame at FLL 1308 takes
+17.296 ms, so 387.2 MHz. At 159.36 MHz it would take 42 ms.
 
-For a single buffer holding both planes tpg_g_line_width() returns
-720 + 720 / 2 = 1080, so 1080 * 49 = 52920 bytes get allocated.
+I tried writing 2560 while streaming: at FLL 1308, 6.61 us lines,
+115.6 fps, frames intact, no drops or ISYS errors during the test.
+With .llp still 2328 and your pixel rate, libcamera would calculate
+14.6 us lines and 52 fps. The measured stream carries 2.4 Gbps of
+RAW10, above the 1.6 Gbps a 200 MHz link carries on four lanes, so the
+200 MHz in the driver and ipu-bridge is understated, a separate fix.
 
-tpg_fill_plane_buffer() however emits one chroma line for every two
-luma lines, i.e. DIV_ROUND_UP(49, 2) = 25 lines, and thus needs
-49 * 720 + 25 * 720 = 53280 bytes. The memcpy() of the last chroma
-line runs 360 bytes past the end of the buffer.
+Writing 2328 gives 6.01 us lines, but the IPU gets 474 rows of
+black and flags every frame BAD_FRAME_DIM. Stepping down from 2560,
+2544 still gives an image, 2536 down does not, and 2416 down arrives
+truncated, so 2560 sits just above the working limit here. The
+12.05 us bound I gave Sakari was wrong, but 2328 does not work either.
 
-An odd height is not meaningful for a 4:2:0 format in the first place,
-since the chroma plane would have to hold half a line. Rather than
-fixing up each of the ~10 sites that divide the height by
-vdownsampling[], round the height down to a multiple of the vertical
-subsampling factor where it enters the driver. Adjusting the format is
-what TRY_FMT/S_FMT are for, and it keeps every later division exact.
+Using 2560 to raise the frame rate makes sense. With your planned
+HBLANK write, .llp needs to be 2560 too, with PIXEL_RATE at 387.2 MHz.
+My patch uses 5120 because that is what the sensor currently runs at.
+Could we combine the pixel-rate correction with your HBLANK change
+and use .llp = 2560 consistently? Happy to test.
 
-Formats without vertical subsampling are unaffected and keep accepting
-odd heights.
+Kind regards,
 
-Tested with the syzbot reproducer, which no longer triggers the splat,
-and by streaming NV12, NV21, YUV420, YVU420 and YUYV at heights 47,
-48, 49, 51, 480, 481 and 1081. v4l2-compliance gives identical results
-before and after (48 of 50 succeeded on the vivid device in both
-cases; the two failures are pre-existing and unrelated).
-
-Fixes: ddcaee9dd4c0 ("[media] vivid: add support for single buffer planar formats")
-Reported-by: syzbot+cb43e758a4dc84dd467f@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=cb43e758a4dc84dd467f
-Signed-off-by: Maxim Skokov <skokovmaksimevg@gmail.com>
----
- drivers/media/test-drivers/vivid/vivid-vid-cap.c | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
-
-diff --git a/drivers/media/test-drivers/vivid/vivid-vid-cap.c b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-index e20449084..147af0f9b 100644
---- a/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-+++ b/drivers/media/test-drivers/vivid/vivid-vid-cap.c
-@@ -570,6 +570,7 @@ int vivid_try_fmt_vid_cap(struct file *file, void *priv,
- 	const struct vivid_fmt *fmt;
- 	unsigned bytesperline, max_bpl;
- 	unsigned factor = 1;
-+	unsigned int vdiv = 1;
- 	unsigned w, h;
- 	unsigned p;
- 	bool user_set_csc = !!(mp->flags & V4L2_PIX_FMT_FLAG_SET_CSC);
-@@ -622,6 +623,18 @@ int vivid_try_fmt_vid_cap(struct file *file, void *priv,
- 		mp->height = r.height / factor;
- 	}
- 
-+	/*
-+	 * The chroma planes of vertically subsampled formats hold
-+	 * height / vdownsampling lines. If the height is not a multiple of
-+	 * the subsampling factor, then the buffer size calculations round
-+	 * that number down while the test pattern generator rounds it up,
-+	 * so the generator writes one line past the end of the buffer.
-+	 * Round the height down to keep both in sync.
-+	 */
-+	for (p = 0; p < fmt->planes; p++)
-+		vdiv = max(vdiv, fmt->vdownsampling[p]);
-+	mp->height = rounddown(mp->height, vdiv);
-+
- 	/* This driver supports custom bytesperline values */
- 
- 	mp->num_planes = fmt->buffers;
--- 
-2.47.3
-
+Christian
