@@ -1,221 +1,283 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB9432B10F
-	for <linux-media@vger.kernel.org>; Sat,  5 Sep 2026 03:08:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F23345EA8;
+	Sat,  5 Sep 2026 08:55:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788577691; cv=none; b=WAlkN+7XDQ7QkKFCNCup2dHMppYvuzJpE1qGezSU1EjdoKE+1cnvVvy8H0sm6IEgABVr+Qe5JxRnlXFosK7pUpp5WVfWvBWD8+3QsMrH01wyxxsbQSkIaRx+4EdKcZAmDwKBvlG+BCvm6eR7dtzoTCFFch2IIgrBYlBc1l3JpXw=
+	t=1788598529; cv=none; b=ZCXe2KzIqXvO4e8MTNDkkfxUiWn7/Wg7GeqIAR26ujpQS7SRwEk6oSH0nknIj0WYsCa9cROLWQwthfEyI1V3ZJ7RPsJqaDbYPtOzxQ4IRfOnI6QqTCHqmzzEsdQij9L8uqt6oS6artmvd4bEFuU6tzAEBu+6QoI8V9PlV7Wl0FA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788577691; c=relaxed/simple;
-	bh=5Urq4eDrVzgAFrC+1rVv6neHrmL/040TUCMXwO44DOo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Df9HPKtBE4erB2ljFuzwpqf9QVRFiW65jyf18b0ogaiXSB93h/2AN5aZeYFTWkLy3nIw+plukDofvCo456MtY0c+hinGC9GpLrxyLdjay+k3fNy5avUm8hRv7E0anE4gmyQdiwOcZh4PVkwpJ7lQg9xlFOmcfvy1DYWdG2/NXNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n5xN/s7I; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1788598529; c=relaxed/simple;
+	bh=FFZ0kQa898oEQ5KNASAayXyJTzN4Yw3S1U+j1satHjA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FLoGcAfkAeq03jEhFWoXppxxGdXg/zFt1M8+G9D+cz2NrgGzGBhEuc75Jh6ZKHTRxCQSgioe6mOJm6J1LItivjmIZwdXtpugzTZViMqHbnbDbeD7HAO6CbvuuE+D1fJGF092wsZ6g7NPPR7Ew6dTRw1X1UPdGslslaxw6uzfvYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I1QFbGJz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n5xN/s7I"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2d9db539a54so14948925ad.0
-        for <linux-media@vger.kernel.org>; Fri, 04 Sep 2026 20:08:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788577689; x=1789182489; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=5OrCwhNdL89P0wEagSgqn6hXLxeGiWl+S+zwJeufNsc=;
-        b=n5xN/s7IpxIq5ONyFOUUY69eWqo6z422bXAHlsJZu3IfC8U2tdRTX8TG3wxykXBHV7
-         BJtkcu0wa5KULJeR8pCP4zUx44+8JvXrhE9SIwH72fBIoVrYxdQfwUEr1CQFwgywHl74
-         0dDzIMxGb1L+im6zTgAfPqwK5NVZ/05CDEsjXFH19t2Q4gAb7osgvQrc5HuU81iIk7JJ
-         jnsEwNCQxhNf0yrDfZStafcdmWvnJoP2vKkZkbHaIz14tBJgiej3nLbVNVNVsyHnAurR
-         +Dpu/4dKDgsLn3cTwJTBy2d2PXHet0JxTUB5cjeZcsgMQpeDl/hjhZHLO+8+Z4UydcQU
-         020Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788577689; x=1789182489;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5OrCwhNdL89P0wEagSgqn6hXLxeGiWl+S+zwJeufNsc=;
-        b=X/riwOOXd+YIOrdlYvF+pshWa3P8pvpc48awHApk9WuyMVUD6cmJNNUNnrRTGIs+P/
-         aS98TKUPGuHgkCJ3hsyR876xc1PVOQujOnd9YMbUv4C0aV6LPCziwEmueVQjTuRVDLnK
-         tVRZPoYsZd9Dbo2BcJSROEhNID1rikBGMhsHhcmplWo7g//BwfvHO2l0t6vqDvjp1yxK
-         IwhT4KT12JNtUrNm8FF3/gobUAqVlat6zZj3OTtMPhsKpOy8Y701BwxfdUCOwjya48KD
-         t+I7MrQO7kYrBsXR8nm0h2cW9vSEr+ZhklfJKkbQ903N0f3Tg8tab2g6psbWbYv99pJe
-         bzXw==
-X-Gm-Message-State: AFuF++lRKJzODczT+ofDE2XLMNIAf/2bKe140CfUdX7/CvqgWEPwAiyw
-	9bGIVQaWvvUr7dFHwu9zvtqXemNSY3YhkM07DgCOcKU4Dl53kx3DZnY6sI98XbNfdWI=
-X-Gm-Gg: AYBFou0H8h5CIXagx/fRMWafcR9qhJ1GRV5/OGkEvRJi9b1KVHXvmnAOaLlNCFf6WVy
-	/vO71cqkVvJkq8Q5A1XWIeEhsYE2i5VqdD6BNv/7MvTEy7XL8laRhG9mq4j7k5FesGNvYwTm8mf
-	BRBn302qyCWnILQEPGjTtoeRXKke90cFC6Z/rBx6DRz7uqIkQZqWGVPxnmo6UNpzx2D+asf2vTL
-	1XnEq6HAeveznvKpk7tAmqFHQyefGCwVV1/iU3uoJig7HS9utnowZ3KyEpw3KS+9pxv4+g9vqg7
-	8BLKlFn9YmxyBVodJNF5DXOLGmALYMaa1jGcUMIBr7O3DPiF3z2DzPn7SS4P7x6FxzwoPYEhi69
-	dvWuuTq/EusGFGf3u1l62L99guNNdxf5h++A2Nyeh0d/4x9UekC981mHOzXdynqVl0uzmXWSoBa
-	jmYKoGNZKzLodjxW7/yAwHnjiwaQB7tn2O4npHZdfovy0Xpn/v43heIuWAMwTzQzagqSowOR17e
-	tsAw6Mh9s47VzYRps9aeWVARw==
-X-Received: by 2002:a17:903:1b0b:b0:2d9:3083:a3ac with SMTP id d9443c01a7336-2db12620112mr179499975ad.15.1788577688543;
-        Fri, 04 Sep 2026 20:08:08 -0700 (PDT)
-Received: from archsung (186-244-17-112.user3p.vtal.net.br. [186.244.17.112])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339aa31b24sm10344142eec.13.2026.09.04.20.08.06
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 04 Sep 2026 20:08:08 -0700 (PDT)
-From: Felipe Calliari <calliarifelipe@gmail.com>
-To: linux-media@vger.kernel.org
-Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	Felipe Calliari <calliarifelipe@gmail.com>
-Subject: [PATCH 3/3] media: ov02c10: Accept a 26 MHz external clock
-Date: Sat,  5 Sep 2026 00:07:32 -0300
-Message-ID: <20260905030732.39196-3-calliarifelipe@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I1QFbGJz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AA61F00A3D;
+	Sat,  5 Sep 2026 08:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788598526;
+	bh=AAIFzKjFFkz3N/01guRg3UyBx8eOsBKDeOIo7q2+H8A=;
+	h=From:To:Cc:Subject:Date;
+	b=I1QFbGJzBubAAt1ONZ/T9m5FEsaTWq1eed9ja1McK/9Wf1YjYnIjGwb1n6YwOXPEe
+	 uZck0/Xc8ZiqeHXfcYoTee8Gx0JLWiUypU+eBISlO/E9AdDotDKVs2FoaT8rKtXcwc
+	 CeAuOac6B7hGqrEpSWZN8rxYx/PE2leN5zi2/bX1QbnoDfiYNDGjadWFwQbOE640JJ
+	 uKQpygdEGMtIyLiFAmbCj8LGvrP/+1r98iKjhmrqskKuFx4+ZayqMGh7bjtrReLcFN
+	 /OHXvAPskZl7l0NxjFtr03pKYEzqClkU4kDQJttkfzvcCoO0WEGpTB8fS/DDD5HlHo
+	 uH4Z11UxJki/A==
+From: Philipp Stanner <phasta@kernel.org>
+To: Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>,
+	Sumit Semwal <sumit.semwal@linaro.org>,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Philipp Stanner <phasta@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Yury Norov (NVIDIA)" <yury.norov@gmail.com>,
+	Asahi Lina <lina+kernel@asahilina.net>,
+	Burak Emir <burak.emir@gmail.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Joel Fernandes <joelagnelf@nvidia.com>,
+	FUJITA Tomonori <fujita.tomonori@gmail.com>,
+	Boris Brezillon <boris.brezillon@collabora.com>
+Cc: linux-kernel@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH v11 0/2] rust / dma_buf: Add abstractions for dma_fence
+Date: Sat,  5 Sep 2026 10:53:41 +0200
+Message-ID: <20260905085343.1827305-2-phasta@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260905030732.39196-1-calliarifelipe@gmail.com>
-References: <20260905030732.39196-1-calliarifelipe@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Several Meteor Lake / Lunar Lake designs (e.g. the Samsung Galaxy Book3/4
-series) wire the OV02C10 to a 26 MHz external clock instead of the
-19.2 MHz assumed so far. The IPU6 ipu-bridge forwards the rate from the
-ACPI SSDB verbatim as the "clock-frequency" property, so probe() just
-rejects it today:
+Based on drm-rust-next.
 
-  ov02c10 i2c-OVTI02C1:00: external clock 26000000 is not supported
+Changes since v10:
+  - Rebase on drm-rust-next, solve small conflict.
+  - Improve some comments.
+  - More spellchecking. (Danilo)
+  - Use reference instead of rawpointer for FenceOps. (Danilo)
+  - Take a &CStr as argument for FenceContext. (Danilo)
+  - Remove unnecessary (?) unsafe comment. (Danilo)
+  - Improve formatting / style in doctest examples. (Danilo)
 
-Rename OV02C10_MCLK to OV02C10_MCLK_19_2MHZ, add OV02C10_MCLK_26MHZ and
-accept both.
+Changes since v9:
+  - Rebase on rust-next, since Miguel has merged our prerequisites.
+  - Add R-b from Daniel.
+  All from Gary:
+  - Use an Atomic<usize> for nr_of_unsignaled_fences.
+  - Comment improvement / formatting.
+  - *const instead of *mut raw pointer.
+  - Make small public functions `inline`.
+  - Rename "called" callback to "on_signal".
+  - Improve the internal helper lock FenceGuard.
+  - Add needs_drop fastpath check in DriverFence::drop().
 
-The PLL register tables are the 19.2 MHz ones; OmniVision's 26 MHz PLL
-programming is not publicly available. With a 26 MHz input the same
-dividers make every internal clock, and therefore the MIPI link, run
-26/19.2 = 1.3542x faster: a ~541.7 MHz link and ~40 fps instead of the
-nominal 400 MHz / 30 fps. Rather than leave link-frequency and
-pixel-rate describing the 19.2 MHz case, add a second
-V4L2_CID_LINK_FREQ menu entry (400 MHz * 26 / 19.2) and select it when
-the external clock is 26 MHz. pixel-rate is derived from the link
-frequency and scales with it, so the frame rate and exposure times
-reported to userspace match the hardware, and the IPU6 CSI-2 receiver
-programs its D-PHY high-speed frequency range and bandwidth budget for
-the rate the sensor actually transmits.
+Changes since v8:
+  - Improve function naming. (Daniel)
+  - Panic in case of forgotten fences. (Alice)
+    (reason being that this cannot happen with the intended JobQueue
+    design, it would be a fatal bug anyways and we can easily fix this up)
+  - Improve spelling and grammar. (Daniel)
+  - Add Daniel's Tested-by
+  - Improve Copyright notice to SPDX. (Daniel)
 
-The ipu-bridge fwnode only lists the nominal 400 MHz link frequency
-(keyed by ACPI HID, not by clock rate), so v4l2_link_freq_to_bitmap()
-still matches on the 400 MHz entry and the 541.7 MHz index is selected
-explicitly for the 26 MHz case.
+Changes since v7:
+  - Remove the forgotten-fences-tracking from FenceContext. Merely warn
+    in this unlikely case, using an atomic integer.
+  - Be more verbose in warnings about what exactly the problem is.
 
-On a Meteor Lake test machine a single CSI-2 "frame sync error" may
-still be logged by the IPU6 receiver at stream start, after which
-capture runs cleanly; this looks like a sensor PLL settling transient
-and is not addressed here.
+Changes since v6:
+  - Add Timur's error code patch (just so that the series builds. Merge
+    however you prefer). (Timur)
+  - Replace XArray with list, remove XArray patch.
+  - Detail the issue with core::mem::forget() in the commit message.
+  - Some code formatting etc.
 
-While touching the clock check, terminate its error string with a
-newline.
+Changes since v5:
+  - Because Rust can "forget" DriverFences, it could bypass the lifetime
+    ensuring that DriverFences don't outlive a FenceContext. Mitigate
+    this by having the FenceContext keep track of unsignaled fences.
+    (Danilo)
+  - To support the point above, add support for memory reservations to
+    XArray.
+  - To support the point above, have FenceContext::alloc_fence()
+    increment the sequence number. This is necessary for the xarray
+    index. It might become critical with fence seqno holes.. please
+    review.
+  - Remove acronyms in declarations. (Daniel)
+  - Allow for providing initial seqno in FenceContext::new(). (Daniel)
+  - Flesh out documentation about DriverFence <-> Fence. (Daniel)
+  - Flesh out documentation about weirdness in C backend. (Daniel)
+  - Add new, purely internal locking helper / guard for dma_fence.
+  - Use the kernel atomics (Gary).
+  - Curse angrily at my computer.
 
-Signed-off-by: Felipe Calliari <calliarifelipe@gmail.com>
+Changes since v4:
+  - Fix an uninitialized memory bug for FenceCbRegistration with
+    ManuallyDrop.
+  - Return FenceCtx as impl PinInit
+  - Make FenceCtx return an impl PinInit<T, Error> (Danilo)
+  - Reformat some comments
+
+Changes since v3:
+  - Add a FIXME for an encountered Rust compiler bug. (Gary)
+  - Add new Rust files also to DRM drivers & common infrastructure
+    MAINTAINERS file. (Danilo)
+  - Reposition ECANCELED error code. (Miguel)
+  - Replace refcounted FenceCtx in DriverFenceData with a reference plus
+    life time. (Boris)
+  - Re-add rcu_barrier() patch, since we now can use it for dropping the
+    fence context. (Danilo)
+  - Add forgotten R-b from Alice, and Acks for MAINTAINERS from
+    Christian and Sumit.
+
+Changes since v2:
+  - Don't drop DriverFenceData as a whole, but only the members we
+    really want to drop. Gives more robustness. (Gary).
+  - Break apart large pin_init_from_closure(). (Danilo, Onur)
+  - Remove rcu_barrier() and synchronize_rcu() from FenceCtx::drop().
+    FenceCtx might drop in atomic context, where you must not perform
+    those operations. With the current way C dma_fence is designed, the
+    driver must wait for a grace period manually until it unloads.
+  - Repair the DriverFenceBorrow implementation, properly injecting a
+    life time into it. (Danilo)
+  - Fix memory layout bug for rcu_head. (Onur)
+  - Drop RCU patches, since this series doesn't need them anymore.
+
+Changes since v1:
+  - Remove unnecessary mutable references (Alice)
+  - Split up unsafe comments where possible (Danilo)
+  - Remove PhantomData + implement FenceCtx ops trait (Boris)
+  - Consistently call FenceCtx generic data `T`. FenceDataType is
+    derived from that. (Boris)
+  - Add abstractions for call_rcu() and synchronize_rcu() (Danilo)
+  - Add ECANCELED error code in Rust (Alice)
+  - Remove the rcu_barrier() from FenceCtx::drop() – because we now use
+    call_rcu(), there can be no UAF access to the FenceCtx anymore. In
+    any case, it is illegal to use either call_rcu() or
+    synchronize_rcu() in FenceCtx::drop(), because our new
+    drop_driver_fence_data() can run in atomic context and might put the
+    last fence_ctx reference.
+    So we now only have to guard against module unload, which it seems
+    either the driver or Rust driver-core / module unload infrastructure
+    must solve.
+  - Minor formatting etc. changes
+  - Add C helpers to MAINTAINERS. (Danilo)
+  - Ensure that `Fence::is_signaled()` is fully synchronized, i.e., all
+    callbacks really have run. See [1] and [2]. (Myself, Christian
+    König)
+
+Changes since the RFCs:
+  - Include support for ForeignOwnable for ARef, so that a Fence can be
+    stuffed into an XArray et al. (Code by Danilo)
+  - Implement ForeignOwnable (with new borrow type) for DriverFence, so
+    that it can be stuffed into an XArray.
+  - Include the rcu::RcuBox data type to defer dropping data with RCU
+    (Cody by Alice)
+  - Port DmaFence to RcuBox to make UAF bugs through later, new dma_fence
+    callbacks (backend_ops) impossible.
+  - Force users to pass their fence data in an RcuBox (or have it not
+    need drop()) through a Sealed trait.
+  - Document the rules for the user's DriverFence::data's drop
+    implementation very clearly (deadlock danger).
+  - rustfmt, Clippy.
+  - Various style suggestions, safety comments, etc. (Önur)
+  - Add __rust_helper prefix to helper functions. (Önur)
+
+Changes in RFC v3:
+  - Omit JobQueue patches for now
+  - Completely redesign the memory layout: Instead of a Fence
+    refcounting a DriverFence, both now live in the same allocation to
+    allow for future support the dma_fence backend_ops callbacks which
+    need to do container_of. (mostly Boris's feedback)
+  - Allow for pre-allocating fences to avoid deadlocks when submitting
+    jobs to a GPU. (Boris)
+  - Simultaneously, allow for pre-preparing fence callback objects, so
+    the driver can allocate them when it sees fit. (code largely stolen
+    and inspired by Daniel).
+  - Signal fences on drop, ensure synchronization.
+  - Force users to set an error code when signalling.
+  - Write more documentation
+  - A ton of minor other changes.
+
+
+[1] https://lore.kernel.org/dri-devel/20260608142436.265820-2-phasta@kernel.org/
+[2] https://lore.kernel.org/dri-devel/20260612104251.2264707-2-phasta@kernel.org/
+
+
+Alright, so since the last RFCs did not reveal significant design
+issues, I decided to transition this series to a v1 and hope that we can
+get it upstream.
+
+This now includes code for more common infrastructure that dma_fence
+needs, contributed by Danilo and Alice.
+
 ---
- drivers/media/i2c/ov02c10.c | 45 ++++++++++++++++++++++++++++++++-----
- 1 file changed, 40 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/media/i2c/ov02c10.c b/drivers/media/i2c/ov02c10.c
-index 114db38c0..5184eb1cc 100644
---- a/drivers/media/i2c/ov02c10.c
-+++ b/drivers/media/i2c/ov02c10.c
-@@ -16,7 +16,16 @@
- #include <media/v4l2-fwnode.h>
- 
- #define OV02C10_LINK_FREQ_400MHZ	400000000ULL
--#define OV02C10_MCLK			19200000
-+/*
-+ * The PLL register tables target a 19.2 MHz input clock.  On boards that
-+ * clock the sensor at 26 MHz the same dividers yield a 26/19.2 = 1.3542x
-+ * faster MIPI link (and frame rate).  OmniVision's 26 MHz PLL values are
-+ * not public, so rather than re-normalise the link the driver advertises
-+ * the real, scaled link frequency: 400 MHz * 26 / 19.2 = 541.667 MHz.
-+ */
-+#define OV02C10_LINK_FREQ_541MHZ	541666667ULL
-+#define OV02C10_MCLK_19_2MHZ		19200000
-+#define OV02C10_MCLK_26MHZ		26000000
- #define OV02C10_RGB_DEPTH		10
- 
- #define OV02C10_NATIVE_WIDTH		1928
-@@ -345,8 +354,14 @@ static const char * const ov02c10_test_pattern_menu[] = {
- 	"Color Bar type 4",
- };
- 
-+enum {
-+	OV02C10_LINK_FREQ_400MHZ_IDX,	/* 19.2 MHz external clock */
-+	OV02C10_LINK_FREQ_541MHZ_IDX,	/* 26 MHz external clock */
-+};
-+
- static const s64 link_freq_menu_items[] = {
--	OV02C10_LINK_FREQ_400MHZ,
-+	[OV02C10_LINK_FREQ_400MHZ_IDX] = OV02C10_LINK_FREQ_400MHZ,
-+	[OV02C10_LINK_FREQ_541MHZ_IDX] = OV02C10_LINK_FREQ_541MHZ,
- };
- 
- static const struct ov02c10_mode supported_modes[] = {
-@@ -396,6 +411,9 @@ struct ov02c10 {
- 	/* MIPI lane info */
- 	u32 link_freq_index;
- 	u8 mipi_lanes;
-+
-+	/* External (sensor) clock rate, Hz */
-+	u32 xvclk_freq;
- };
- 
- static inline struct ov02c10 *to_ov02c10(struct v4l2_subdev *subdev)
-@@ -507,7 +525,8 @@ static int ov02c10_init_controls(struct ov02c10 *ov02c10)
- 	ov02c10->link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr,
- 						    &ov02c10_ctrl_ops,
- 						    V4L2_CID_LINK_FREQ,
--						    ov02c10->link_freq_index, 0,
-+						    ov02c10->link_freq_index,
-+						    ov02c10->link_freq_index,
- 						    link_freq_menu_items);
- 	if (ov02c10->link_freq)
- 		ov02c10->link_freq->flags |= V4L2_CTRL_FLAG_READ_ONLY;
-@@ -875,6 +894,21 @@ static int ov02c10_check_hwcfg(struct ov02c10 *ov02c10)
- 	/* v4l2_link_freq_to_bitmap() guarantees at least 1 bit is set */
- 	ov02c10->link_freq_index = ffs(link_freq_bitmap) - 1;
- 
-+	/*
-+	 * The IPU6 ipu-bridge always describes the nominal 19.2 MHz link
-+	 * (400 MHz) in the fwnode, keyed by ACPI HID, even on boards that
-+	 * clock the sensor at 26 MHz.  There the real link frequency is
-+	 * 26/19.2 higher; advertise it so the CSI-2 receiver programs its
-+	 * D-PHY frequency band and bandwidth budget for the rate the sensor
-+	 * actually transmits.
-+	 */
-+	if (ov02c10->xvclk_freq == OV02C10_MCLK_26MHZ)
-+		ov02c10->link_freq_index = OV02C10_LINK_FREQ_541MHZ_IDX;
-+
-+	dev_dbg(dev, "%u Hz external clock, link freq %lld Hz\n",
-+		ov02c10->xvclk_freq,
-+		link_freq_menu_items[ov02c10->link_freq_index]);
-+
- 	if (bus_cfg.bus.mipi_csi2.num_data_lanes != 1 &&
- 	    bus_cfg.bus.mipi_csi2.num_data_lanes != 2) {
- 		ret = dev_err_probe(dev, -EINVAL,
-@@ -924,10 +958,11 @@ static int ov02c10_probe(struct i2c_client *client)
- 				     "failed to get imaging clock\n");
- 
- 	freq = clk_get_rate(ov02c10->img_clk);
--	if (freq != OV02C10_MCLK)
-+	if (freq != OV02C10_MCLK_19_2MHZ && freq != OV02C10_MCLK_26MHZ)
- 		return dev_err_probe(ov02c10->dev, -EINVAL,
--				     "external clock %lu is not supported",
-+				     "external clock %lu is not supported\n",
- 				     freq);
-+	ov02c10->xvclk_freq = freq;
- 
- 	v4l2_i2c_subdev_init(&ov02c10->sd, client, &ov02c10_subdev_ops);
- 
+Old cover letter for RFC:
+
+So, this is the spiritual successor of the first / second RFC [1]. v2
+also contained code for drm::JobQueue, but mostly to show how the fence
+code would be used. JobQueue is under heavy rework right now, so I don't
+want to bother your eyes with it. The docstring examples should show how
+Rust fences are supposed to be used, though.
+
+This v3 contains a huge amount of highly valuable feedback from a
+variety of people, notably Boris, but also from Alice, Gary and Danilo.
+
+There are some TODOs open (a better trait for fence backend_ops and RCU
+support), but my hope is that this effort is now finally approaching its
+end.
+
+I would greatly appreciate feedback and especially more information
+about what might be missing to make this usable, which is obviously
+where Daniel's and Boris's feedback will be valuable once more.
+
+Please regard this patch just as what it's titled: an RFC, to discuss a
+bit more and to inform a broader community about what the current state
+is and where this is heading at.
+
+Many regards,
+Philipp
+
+[1] https://lore.kernel.org/rust-for-linux/20260203081403.68733-2-phasta@kernel.org/
+
+Philipp Stanner (2):
+  rust: Add dma_fence abstractions
+  MAINTAINERS: Add entry for Rust dma-buf
+
+ MAINTAINERS                      |    5 +
+ rust/bindings/bindings_helper.h  |    1 +
+ rust/helpers/dma_fence.c         |   49 ++
+ rust/helpers/helpers.c           |    1 +
+ rust/kernel/dma_buf/dma_fence.rs | 1023 ++++++++++++++++++++++++++++++
+ rust/kernel/dma_buf/mod.rs       |   14 +
+ rust/kernel/lib.rs               |    1 +
+ 7 files changed, 1094 insertions(+)
+ create mode 100644 rust/helpers/dma_fence.c
+ create mode 100644 rust/kernel/dma_buf/dma_fence.rs
+ create mode 100644 rust/kernel/dma_buf/mod.rs
+
+
+base-commit: 6cb331644c441ff4101a4f8726283a6ed0d5947e
 -- 
 2.55.0
 
