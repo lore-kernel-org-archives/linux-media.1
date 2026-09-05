@@ -1,59 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 305213EC827;
-	Sat,  5 Sep 2026 11:21:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE103E00A5;
+	Sat,  5 Sep 2026 11:30:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788607301; cv=none; b=H6ajLVx/m5Fhpg7eg1lX1U3A4euhaqhl+ntTTRjJp2ELQMZKF9l/yeYqxhMMdcph50c5hheFggHEUjm94u/G9encKwcrZhw3dS49YyP3O9ChZn5/QU93kmyR7Y2t0quJoA5Fx9zoRdmy6AI0oXga3pDGQE2Bd8PXHy4kbdkLqTY=
+	t=1788607858; cv=none; b=JYSszwqa3Z/E5Ox6zflXxZRvIZJi8jhTuSxDpSohRaMhstPvBRgmWT9s9HdjVt11HeKmCHUHFkKZYPym9jqq5gatV1Xu2ymHTgFUJveRoYrHAqcIG4YqJLuKnEr2Nfd5Q2OUhxoWjXkN1t5a/M1hMVkeG3pwutMjVDqBYpuova0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788607301; c=relaxed/simple;
-	bh=vkUqtF+Wq4KeeRT2+Tjiqi8gTtATMHEll5h56+oTPac=;
+	s=arc-20240116; t=1788607858; c=relaxed/simple;
+	bh=maFTYAXrslngym6UpC8jN+SMqgee7/aOIO+WCHPCdcM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sCXc+zvgmLnawWk7Hfsj+amNeBptO8jK8cLHoscedKUpIxnOVLZU/gdunGNfh8WWDuoeg/7tv6oJmrLq0HHj0fbiQ+wm3oFJoHYbz1pgSP3HGymbryp+KJdVHZxGCUSHpaoxN3rWxAv/YBztzAtIMscMyruhbubnjva0W5RpNC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=skmsMC7E; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jbWzSt8+SSyebILk8xBK4tmGjk4s5sydU+lnDDSK6d2dQr2syBG9T0Nm5uG0oswXnT6VYnI889+pjqf1XfZSLsWeTfT+yQDUcQZ3tanok9nzOMHUtf89+4h2E45o4x78cV3LBbcdPm77W2n54Dbk4wKx2wLcE9fgI7JgtjNkUNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ljyzQ61h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="skmsMC7E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 066581F00A3D;
-	Sat,  5 Sep 2026 11:21:39 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ljyzQ61h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5C6561F00A3D;
+	Sat,  5 Sep 2026 11:30:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1788607299;
-	bh=zZkrrSFBTfJu1Do79jQiuuMXikUloJSJxOt9LFuNHVo=;
+	s=korg; t=1788607856;
+	bh=cjQbOv3OS+Rkr81lmfPRnC5MozHa05tocJXmiA0asO4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=skmsMC7E5M9fItkfXa/nJ5Z0ef//BHMHril4qe/N4zIIlei9YjcOoTUGCsTJoJgzY
-	 YkhYifkf7FOxbTRpcGlN/sOAY9LQEo7Dn13I7xZYJ8wzBxJRg27O0Mzc6XCd9+g75E
-	 Fan9wAY2z6LzZ3NLw7IdrRpolNImX4E5PKlVwf9g=
-Date: Sat, 5 Sep 2026 13:19:54 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Bradley Morgan <brads@mainlining.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org,
-	Tejun Heo <tj@kernel.org>,
-	Frederic Weisbecker <frederic@kernel.org>,
-	Peter Zijlstra <peterz@infradead.org>,
-	Waiman Long <longman@redhat.com>,
-	Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
-	Andy Walls <awalls@md.metrocast.net>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	"Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Vincent Guittot <vincent.guittot@linaro.org>,
-	Dietmar Eggemann <dietmar.eggemann@arm.com>,
-	Steven Rostedt <rostedt@goodmis.org>, linux-media@vger.kernel.org,
-	netdev@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] kthread: convert remaining users to
- kthread_create_worker
-Message-ID: <2026090514-smuggler-elixir-8888@gregkh>
-References: <cover.1788513591.git.brads@mainlining.org>
- <20260904085418.50d66b34@kernel.org>
- <84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org>
- <20260904141032.34f7ed1b@kernel.org>
- <2AE8656F-326C-40B5-BA11-EB9CD72D2AF7@mainlining.org>
+	b=ljyzQ61hM09ESjFJs65ThgWUZDNoEDzICBUfHo/ulPccb0xn7jkTnroPMrzBW6Ir3
+	 4oA6vDclfjOGYg76awApxJuR8CvsUyKBGUN0vjCn0rhefGK2h7LitSacHVUmsuhfnK
+	 bN495BehPGVK4Vuk94Juezhzz2dZoR7+lESotFIs=
+Date: Sat, 5 Sep 2026 13:29:11 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Breno Rodrigues Alves <breno3011alves@gmail.com>
+Cc: torvalds@linux-foundation.org, linux-kernel@vger.kernel.org,
+	arnd@arndb.de, linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org, linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org, linux-security-module@vger.kernel.org
+Subject: Re: [PATCH] Kconfig: purge twenty-nine legacy ghost options
+Message-ID: <2026090551-abrasion-fool-3586@gregkh>
+References: <20260904231240.87106-1-breno3011alves@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -62,41 +43,55 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <2AE8656F-326C-40B5-BA11-EB9CD72D2AF7@mainlining.org>
+In-Reply-To: <20260904231240.87106-1-breno3011alves@gmail.com>
 
-On Fri, Sep 04, 2026 at 10:13:32PM +0100, Bradley Morgan wrote:
-> On 4 September 2026 22:10:32 BST, Jakub Kicinski <kuba@kernel.org> wrote:
-> >On Fri, 04 Sep 2026 16:56:30 +0100 Bradley Morgan wrote:
-> >> On 4 September 2026 16:54:18 BST, Jakub Kicinski <kuba@kernel.org>
-> >wrote:
-> >> >On Fri,  4 Sep 2026 09:37:21 +0000 Bradley Morgan wrote:  
-> >> >>   media: ivtv: convert to kthread_run_worker
-> >> >>   net: encx24j600: convert to kthread_run_worker
-> >> >>   tty: sc16is7xx: convert to kthread_run_worker
-> >> >>   cpufreq: schedutil: convert to kthread_create_worker  
-> >> >
-> >> >Please send these 4 to appropriate subsystems
-> >> >  
-> >> >>   kthread: remove worker->task self assignment  
-> >> >
-> >> >Then after the next merge window when trees converge send this one out 
-> >> 
-> >> hi, I was hoping one person could merge it with acks from all subsystems
-> >
-> >Not how this works.
-> Ugh, I've seen it before happen.
+On Fri, Sep 04, 2026 at 08:12:40PM -0300, Breno Rodrigues Alves wrote:
+> You can keep a dead config option around for a while out of sympathy.
+> After a couple of releases it stops being "transitional" and starts
+> being "you are confusing every user who greps for it". These options
+> select nothing, gate nothing, and -- I checked by hand, this is not a
+> regex accident -- are referenced by exactly nobody in the tree.
 > 
-> Look, fine, I'll do a V3 soon, WITH ONLY the subsystem changes, all
-> separate, all sent over to their respective maintainers, then when all
-> thathas been merged and there's the next merge window, then whatever, I'll
-> send then the kthread removal
+> Evidence for each removal:
+>   * no CONFIG_<sym> reference outside the Kconfig definition itself
+>   * no <sym> reference as an 'if'/'select'/'depends on' target
+>   * no mention in any defconfig, any Documentation, or any source build
+>   * the code they used to gate is gone (removed or folded into a real
+>     driver that already has its own, functioning config symbol)
 > 
-> IMHO this is a massive annoyance though.. because what if one of the
-> driverfolks doesn't wanna respond to me!?!
+> Headliners of the graveyard:
+>   - HID_THINGM: help text literally said "will be removed soon". Well.
+>     Gone now. The blink(1) driver is HJID_LED.
+>   - USB_CONFIGFS_F_TCM: the real fabric always built via USB_F_TCM; the
+>     "CONFIGFS" name was a leftover from when someone could not decide
+>     what to call the thing.
+>   - USB_EHCI_TEGRA, USB_OCTEON_OHCI, USB_OHCI_HCD_SSB: help text says
+>     "driver was removed, use X instead". The other X already exists.
+>   - PANEL: proudly labeled "OLD OPTION" with its own "Deprecated
+>     options" section in the file. The actual parport lcd driver has
+>     always been PARPORT_PANEL.
+>   - COMMON_CLK_MT6765_*: seven sysclk entries with no matching object
+>     in the Makefile. Zero files built, zero regrets.
+>   - The usual kconfig-vandalism suspects (HAVE_PWRCTL, REGULATOR_MT6316,
+>     INTERCONNECT_MTK_MT8196, CLK_SUNXI_PRCM_SUN9I, DVB_ULE_DEBUG, ...).
+> 
+> Validated: defconfig, olddefconfig and randconfig parse clean on both
+> x86_64 and arm64; headers_install (the target that replaced the dearly
+> departed headers_check, which this tree does not have) succeeds with a
+> clean UAPI on both architectures. Because someone will ask: yes, I
+> checked the s390/arm/riscv No, I did not delete any arch/* Kconfig, and
+> no, I did not touch a single include/uapi/ file.
+> 
+> Why should you care? Because "make menuconfig" allegedly lets people
+> configure the kernel, and leaving a menu full of options that do
+> nothing makes them feel like they have a choice when they really are
+> just being sold snake oil. Clean it up.
+> 
+> Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
 
-Then, after trying for the normal way, you can make the driver change at
-the same time.  But to circumvent the "normal way" thinking it might not
-work, is not the best thing to do.
+Did you forget the Assisted-by: tag here?
+
+ANd this should be broken up per subsystem please.
 
 thanks,
 
