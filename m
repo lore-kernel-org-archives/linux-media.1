@@ -1,135 +1,108 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7BE3AB26E;
-	Sat,  5 Sep 2026 12:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 147544A2A49
+	for <linux-media@vger.kernel.org>; Sat,  5 Sep 2026 12:57:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788612943; cv=none; b=dOxvPCPRAmdrRX3oeWeWIIMtinfxwcKIKusoBVZG4ELsQtvZmrmoypM351VY3dMB94GxtOUMF8BYw5ntSyRc64OxgiFBvjbFNd/UIOXtinioNWoyLurNgLBDi5KX20YPtt1cOA+zZ/Xzf0jWoirmZ1a3t+nL9ElzACwyn5aO3Gk=
+	t=1788613039; cv=none; b=YdBcHB9Vftx4spuKsZ/PCrOczZ7lEfCt3VlXR6bNB2DCFyfVJb+JNXNfEUOnx44LWApr/EoCYSola2oP5/3pTWTvvYvlhIpvwVdnKOzDZhtkmVJ7Ye4awLnluMmY6yDs2mRVf6Qy1sXnKhpcqL4yIy1Njc5Fr/DC0JnR2lWvleA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788612943; c=relaxed/simple;
-	bh=wKJEQ5Q0SWwLuYpWZ54K0RfOg1erOJfjFc0dYFnnF+Q=;
-	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
-	 MIME-Version:Content-Type; b=R4Akn4JZVCqyElDDUygqDrLco0xreTPOqUca6/9qh/b/fXUZM8m2Tbtf458oMWJWciVjLzCxdz1c1UnybbFGAHHNBpL53xge8v1c0OP75IYROmN0lAc7qBEu+VflkW6o0b0FgJsXfk/H9/9YD+dJ0iqtEk4WDLaBNK/IHotUPv8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=YG6+A1Wr; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=HLAFaG1y; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1788613039; c=relaxed/simple;
+	bh=6f5p//qeeEhJiLT6hla2lNz47zEGEWS2WmSvXXHcHig=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=b61CqNhN5dFX5rE24w4FeSAaNWAqBQB4Q590HUM2sX1O+h9oSz6IPUOWCT7VTyb5iI8EYWgfswgArVmNXavzBfoMvJO/gfreluHiUMWUpPYlgJHpB4W/XkC0fidEhr8WKTi5erJUw7KlTJVknTVaqmpGFJ2ifnLVVKtr8wriVP4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kL8ASA3Z; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="YG6+A1Wr";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="HLAFaG1y"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788612937; bh=XYPB5r2hrdZcjH5+GIkVcIc
-	AfwYPQt/OOpik7OvusH0=; b=YG6+A1WrySqf41XBTEmcx/+srulR0A84+jfOvl4HnQD0wDZPLP
-	bYULG3vqf8NxCQ9I2wCRPwZsGertvhnQvAL/Z/7xQGMOWzqkFWlkNhODJzn5Y3KheTCF8sF9p+X
-	AfovAK4YheM4n85y05qb7h0xFRwIt9RooXCTXJebh0dggSz4BW4m4uLs/m43QI5B1VoErg66IIh
-	4QJ8EgUo3QnbAS/CzXi1uKgKh3rk44HrHcSOKuYW0R1QJ8loOyLA0oaMj1mhwqSgMCcfsa0xDOJ
-	nw2qdNK0BSiu8eilcDP/4rkTwdqArrD3ZUDpD70+L+Nb/55airRE4HslEZrC2lHxCBQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=Message-ID:Subject:To:From:Date; t=1788612937; bh=XYPB5r2hrdZcjH5+GIkVcIc
-	AfwYPQt/OOpik7OvusH0=; b=HLAFaG1yxWXd1Xe4eIO0U8Setq3cc6wnubq8q6eAQNfY7ftNqF
-	wATrGVTQOH6TgK4ppR6nSSapyhkGgJkSMTBQ==;
-Date: Sat, 05 Sep 2026 13:55:35 +0100
-From: Bradley Morgan <brads@mainlining.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Jakub Kicinski <kuba@kernel.org>, linux-kernel@vger.kernel.org,
- Tejun Heo <tj@kernel.org>, Frederic Weisbecker <frederic@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>, Waiman Long <longman@redhat.com>,
- Christian Brauner <brauner@kernel.org>, Kees Cook <kees@kernel.org>,
- Andy Walls <awalls@md.metrocast.net>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Paolo Abeni <pabeni@redhat.com>, Jiri Slaby <jirislaby@kernel.org>,
- "Rafael J . Wysocki" <rafael@kernel.org>,
- Viresh Kumar <viresh.kumar@linaro.org>, Ingo Molnar <mingo@redhat.com>,
- Vincent Guittot <vincent.guittot@linaro.org>,
- Dietmar Eggemann <dietmar.eggemann@arm.com>,
- Steven Rostedt <rostedt@goodmis.org>, linux-media@vger.kernel.org,
- netdev@vger.kernel.org, linux-serial@vger.kernel.org,
- linux-pm@vger.kernel.org, akpm@linux-foundation.org
-Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_v2_0/5=5D_kthread=3A_convert_re?=
- =?US-ASCII?Q?maining_users_to_kthread=5Fcreate=5Fworker?=
-In-Reply-To: <2026090514-smuggler-elixir-8888@gregkh>
-References: <cover.1788513591.git.brads@mainlining.org> <20260904085418.50d66b34@kernel.org> <84548BCE-377E-4900-A2EF-177B0CC1B0D0@mainlining.org> <20260904141032.34f7ed1b@kernel.org> <2AE8656F-326C-40B5-BA11-EB9CD72D2AF7@mainlining.org> <2026090514-smuggler-elixir-8888@gregkh>
-Message-ID: <6F579B00-7B91-49F4-99FF-5F31E844355C@mainlining.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kL8ASA3Z"
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-59b074ec7ceso850052e0c.1
+        for <linux-media@vger.kernel.org>; Sat, 05 Sep 2026 05:57:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788613036; x=1789217836; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=kL8ASA3ZzaDORw3JpnCIdBM1mjUHwetTUGXP1cwZET4VOCUvyFczdeNhMTX6ISdq58
+         zN92li02djVah3SvxyGVjnc3hgWWk40ksdMDbqP7oYHDEyDNUuAvmNC/0bjRp3lCJojR
+         v+Ec3RLj4vzkC/wJGT35ieS+N5mcTSO/4XYX3g3lw9i3m2bnSC+j8goSkZGDZ8ClqNST
+         f1aotRGpCvbsMLJp5+pp0UVXapEnNrTWrGVPyn1pB+bo8eCesMhbAv7Rde8YW+CIRO1e
+         IeyG5rs6guNZH92u2ieioeO5ytwQCMCfbFkc6+YSE7g/oGUjV+EWxwOOMx/Xgd7IGw3Q
+         pUEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788613036; x=1789217836;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=sCkeW/rlDEZbQRwhNQlqYVSLXnulFlxF+aDVtk4kLrI=;
+        b=fHoPEy+5bBs+aA0g8ldrylmbMYrtT+p+e1BeWDwuJjmhMhJSf21Z0FF4J0r+Za9xVL
+         uckvFG1cXJBxyphSYsMIUm+cM3/x9SHmJfx1ebarX9q8Csw9y+2VQl9bdPug/Z9vzSnf
+         ORYLhYJZKPoxEfWHJWeHU5d0Ca9OT4b41epMrlrrdlVpq//OINRDd0Xe/BNMCJ3OIm7m
+         ENppo65ErInN2jEfDiATaBiBtjMyebuhi0qP1liwD2B/7nCfsVZNf4MXPvxb80efAcIh
+         zoGLmPyiNACCsByNyaU4SvxxZqU5NnEswGdWONHArc/kA9/ktgvTFfIKtBnaWyLxLOF7
+         jMxQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzxplVcG/c6T7RdZVP1suzjck1RE5dKD1F0tHg/7SvicHpM1XThvIrzVrOLHW2Z4sV54t/ENGSf0WEMgw==@vger.kernel.org
+X-Gm-Message-State: AFuF++kxyRE3RHWyShCG56G3LWPe3/cdExPhwlYDxwWTUy0TBDFbdSB7
+	S1L/OlLFLI62TbqNzNJt1W0A2cf6JNEQu3JtE8RKaaTzhwVxbn1EYBkndNTuXxmg
+X-Gm-Gg: AYBFou2Y2UmA2cYNHoGxFjS5RNh/larAbDOazaRb2eXt/v20IiRs/NCBDWqQm5F8jz/
+	ZLsiwG8R1+FK9WtYWKqlHJaZDzAQDhIwScZ63ukFjUk4EU95x30Vdpztd7svWa2LXHBwodfVfz7
+	BU667HB3ws3ktN6w9Qng+Z32dLaLWDV89EK19jCBjuQXLccxdYHoa1QCa6Cf3fFl4OKZ3DaYd4q
+	9L8fAVoKehzwZMaJwUGWfXZAyQJTyTu0WIgtgeQ7SleskwJKB81TTNMx3yxIa6TygmBGTF/rTGf
+	HrnZW7kmen6w6CD5EqCWKtFSWkRi1eaPZkDfjQ+R6jMJlWmOAg75DUYbKRcPQHmVKDURByXaivx
+	H57xJGtb7PHqdvk+4uWzBH1/Nvbyj/2Zgvzz6yYaH++JITEUpzWfKlGUWNFRnDzXEDS2ncMyiAf
+	Zdx4fqH2aCRq1siuHFYiNTWOr/YzW453Wdb/aj1ceGhvASB0Js2/T4LBHN4LDYGRKrUtnsInBhp
+	rAQCCdmDRVOoCDn05I5OKjX0xgBS5bZWlzMhHsFXLo=
+X-Received: by 2002:a05:6122:32cc:b0:5bd:aba5:3830 with SMTP id 71dfb90a1353d-5c7ed0c4c20mr6435898e0c.0.1788613035512;
+        Sat, 05 Sep 2026 05:57:15 -0700 (PDT)
+Received: from Biostar-A520MT.. ([187.94.13.245])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c7ec1ef7a5sm4349416e0c.5.2026.09.05.05.57.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 05 Sep 2026 05:57:14 -0700 (PDT)
+From: Breno Rodrigues Alves <breno3011alves@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: torvalds@linux-foundation.org,
+	linux-kernel@vger.kernel.org,
+	arnd@arndb.de,
+	linux-clk@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-staging@lists.linux.dev,
+	linux-fbdev@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Breno Rodrigues Alves <breno3011alves@gmail.com>
+Subject: [PATCH v8 1/3] interconnect: mediatek: fix Makefile typo for mt8196
+Date: Sat,  5 Sep 2026 09:57:04 -0300
+Message-ID: <20260905125706.6550-1-breno3011alves@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
 Content-Transfer-Encoding: 8bit
 
-On 5 September 2026 12:19:54 BST, Greg Kroah-Hartman
-<gregkh@linuxfoundation.org> wrote:
->On Fri, Sep 04, 2026 at 10:13:32PM +0100, Bradley Morgan wrote:
->> On 4 September 2026 22:10:32 BST, Jakub Kicinski <kuba@kernel.org>
->wrote:
->> >On Fri, 04 Sep 2026 16:56:30 +0100 Bradley Morgan wrote:
->> >> On 4 September 2026 16:54:18 BST, Jakub Kicinski <kuba@kernel.org>
->> >wrote:
->> >> >On Fri,  4 Sep 2026 09:37:21 +0000 Bradley Morgan wrote:  
->> >> >>   media: ivtv: convert to kthread_run_worker
->> >> >>   net: encx24j600: convert to kthread_run_worker
->> >> >>   tty: sc16is7xx: convert to kthread_run_worker
->> >> >>   cpufreq: schedutil: convert to kthread_create_worker  
->> >> >
->> >> >Please send these 4 to appropriate subsystems
->> >> >  
->> >> >>   kthread: remove worker->task self assignment  
->> >> >
->> >> >Then after the next merge window when trees converge send this one
->out 
->> >> 
->> >> hi, I was hoping one person could merge it with acks from all
->subsystems
->> >
->> >Not how this works.
->> Ugh, I've seen it before happen.
->> 
->> Look, fine, I'll do a V3 soon, WITH ONLY the subsystem changes, all
->> separate, all sent over to their respective maintainers, then when all
->> thathas been merged and there's the next merge window, then whatever,
->I'll
->> send then the kthread removal
->> 
->> IMHO this is a massive annoyance though.. because what if one of the
->> driverfolks doesn't wanna respond to me!?!
->
->Then, after trying for the normal way, you can make the driver change at
->the same time.  But to circumvent the "normal way" thinking it might not
->work, is not the best thing to do.
->
+Correct a copy-paste typo in the MediaTek interconnect Makefile that
+mapped mt8196.o to CONFIG_INTERCONNECT_MTK_MT8195 instead of MT8196.
 
-Greg!
+Assisted-by: OpenCode AI
+Signed-off-by: Breno Rodrigues Alves <breno3011alves@gmail.com>
+---
+ drivers/interconnect/mediatek/Makefile | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-Right, okay, Ill tell you more.
+diff --git a/drivers/interconnect/mediatek/Makefile b/drivers/interconnect/mediatek/Makefile
+index 6bd656668..64170ab16 100644
+--- a/drivers/interconnect/mediatek/Makefile
++++ b/drivers/interconnect/mediatek/Makefile
+@@ -3,4 +3,4 @@
+ obj-$(CONFIG_INTERCONNECT_MTK_DVFSRC_EMI) += icc-emi.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8183) += mt8183.o
+ obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8195.o
+-obj-$(CONFIG_INTERCONNECT_MTK_MT8195) += mt8196.o
++obj-$(CONFIG_INTERCONNECT_MTK_MT8196) += mt8196.o
+-- 
+2.43.0
 
-For features being added, where many drivers from different subsystems get
-covered at once, what they tend to do is:
-
-A: send all patches, rely on all maintainers to merge their own crap, which is a mess
-
-B: Have a designated merger, who merges all the changes at once, no chance of regression because it's all bundled up.
-
-
-C: send drivers first, then send the feature. So then driver maintainers can merge their crap, then the main feature gets merged in merge window 
-
-I prefer B, because it's easier that way, akpm is usually des merger hence
-I CCed him.
-
-Or tip tree?
-
-Honestly, if I had to be honest, C is a very annoying way, because of what
-I said above, if driver maintainer thinks I'm some newbie idiot or
-something, then what will I do? He won't merge it!
-
-
->thanks,
->
->greg k-h
-
---- Thanks!
-https://lore.kernel.org/all/EE579805-42F2-4C58-B752-F28779EEB717@grrlz.net/
