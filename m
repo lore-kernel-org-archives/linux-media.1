@@ -1,69 +1,46 @@
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D52FE440A0A
-	for <linux-media@vger.kernel.org>; Sun,  6 Sep 2026 11:52:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1575338F226;
+	Sun,  6 Sep 2026 12:41:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788695540; cv=none; b=WNW7cXiQG9cooycUhk2fq4h36omDmsGcMbBOfxRVy32/naiPiwBkh5Cc/aHxUNKLeozRUaQ26ocZmQ8wezH/DapMkT73Aus/IoMS/tMYnJVHXSv42mvGCWUhVwLo9Ck8Ha0V8L/x3b7MYM3oIVLnKO05rQgxEhnVxMmdpjjPqI0=
+	t=1788698468; cv=none; b=EKNVS76sjvjRPyEjbDpA4eCyRPydc8iVurs22ucjzXjVCsTQKjHT/X+eEmzl9PdlDh1GCeoH2HZKOPWK69AwnF0dtiN4dcQl5iKTqyfw1s9RWNfgXR1dzeZNTAm3q7XB6P0adxGviKNU2tzALx/mNZiP9ahOuX47mVJs73CibpM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788695540; c=relaxed/simple;
-	bh=vw3X+c53CUkT8miKrkdFIh6bJI27fiNryef+k/oCD1M=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=hmZCPWr5Zq8Eif/RtaYCcWAdaVgXXMLbiWbzN8lvuV8/jIIAZ8jhzCqHiA+33ZV9bE3eTr6owJZ00SShfwAxdiuw2FSUKfDOGgjHY+rOJb/YLqHOsa/8X18egTvVgd8NaU4AZxNFS+w5T18L4LBlBEA6x8NwVWIEib9G6GR+rRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vLd1z52c; arc=none smtp.client-ip=209.85.221.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1788698468; c=relaxed/simple;
+	bh=fNuM8yoVG9IS3kB+I9ATZiBsZEBz9edAYbcxO26Rcdg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=MXwZzuRrDP/Yy+oDz9dIXyqddys7IdBS/kRdnm8cgQ3drbB5XxLj66pJ8jFG71/Bgv4eJxagpwNRxKIDz0FV153kwow2NUct3fVMfS0J0V6hdqL21NEgJSYNum3Kyqro1hZgrlEBRx4v+Bke961XXaRaE4FpSpoSh+NdJN8f8Sw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dMZ0Axdf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vLd1z52c"
-Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-47f96c5b722so1658550f8f.0
-        for <linux-media@vger.kernel.org>; Sun, 06 Sep 2026 04:52:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1788695536; x=1789300336; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xfe6v37XEfqVF54o6+6rBHCGP0kTxzOn5cAUGy6eP4k=;
-        b=vLd1z52cllkn8e3Cf8H8yrTOkqe6Ws78vlKj3P+1qoqKdsGLj2WDYVLqC2XUdAMLya
-         4B9LgnPrTFLG/LZzOcFQnCqyzirNEFzWr61gQ5txFmlbQrDg+KXL/YXdxb+zPWiTYAoN
-         IoHt60I4ovyS33ZEGulPpcF1n6PIoG8fJxnLR+2ePMSxXneWxgcoIj7jOgKL3EOuNaNc
-         lG2YEikUrqev7UeAxHKEQVrrvBr1XHS3N83nmg5ribr3nM0uhOOkHizgJ6cAtMKihFUN
-         GTMR66/SObHnJ88D8ha+Z6soJ8Ce5iu0xi7LFCKYNomUAjBwW3qMn9SaoZfRuq9o7v6M
-         qplA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788695536; x=1789300336;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xfe6v37XEfqVF54o6+6rBHCGP0kTxzOn5cAUGy6eP4k=;
-        b=rsbdOKPATbxMxcF7YjPLsyE6N4XO4HxuUFN9pyuUMwY9rFsbPXojJrnhrjNt5vnGHd
-         ggn+Rn3pP4GgsgOj7zlV2fb/xlm749Fvjw5k8x4e4jCdcY3aLR+qKgnaJuTbv7qckJ/i
-         1LYLkby66YOILoI7GPMbF3yuCg9KBHZREbC1P/7a8Hxcl37pY7iZKt6Tv2c91/P+wXFB
-         NikWUuag5UzmaiPVXib5DjD17509V428LCUQk4gwiyLZrpen5wN81hqqCvQxlf6h9iW8
-         5Fn3n0aIIMtctPxT7GJqC+cxJkCPEyhqVPG7X8fLGWALupRXFeSmpmpjF0d9ukfaYPN2
-         Sz9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzOuRZFIpyx6ZPkrEF4zr7zVUxgud0l0W46vDP5xF0eqR8QB7JNTtln4abx9w8WqEnvt29gP57HBB7aBA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kL75leTE6Bo8ZA8ANf4tfNHfAhuJtzkF3UFECmbFAyFwFPY0rJ
-	Wll31AHGcdadTXpF4yJsFXtzeQ4OYfPySTeBPwQcHyU27t7QE4CmVwM98mHi0+bUZgE=
-X-Gm-Gg: AYBFou0PGvRA+nd+RaLRFej57yZOwX83hSueIfGgmmEPoedLHUaEf4OL8ew4hJxtDyh
-	Bm7T2WLsxEfSd6cL7ONoySQlQBOgbRe/KNs1/rDAV7Q8KmRMUBSvBfAjy5FLarPMamUWbfH8jZt
-	qxGdMgYt75FYXh3ZQO5A4WuyeYWuElT/gdgOt4QnQ+f5z3Hx5YSpbM1DeL/GQ+ljkFtjCMpJzP7
-	xBlRxG/xLZ9urqrnldUoBubJDp3S35793CeXq1BJvKaHLIPwjyCLxLqM1dCflyFCTEy3bizuTk5
-	n+Q/tK1zH69zN8tSWVnCxNOOgqsYPpmYVhFGKnMyxJG6k84h9ZBe/+s7i0phiu2GtynyZdnXxoq
-	/VtryRs/Jn59qYu2PRBBo5svL9JAYdcauFSFxUlZxyFk0qdQoJEmZI4n5uTf6+NYISV1Zpcnl/N
-	lHDPSlgdUUEreDvdaZjfUeheoTGVUDAqIZ/AL7YEvlL0+szbMI0TqlsuXrNzhGYdfS1DXKHHboB
-	TLa71L19XU=
-X-Received: by 2002:a05:6000:2c09:b0:484:3621:6341 with SMTP id ffacd0b85a97d-4858729b772mr18779546f8f.15.1788695535665;
-        Sun, 06 Sep 2026 04:52:15 -0700 (PDT)
-Received: from [192.168.0.35] ([109.76.250.151])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4858d2693e8sm19337821f8f.3.2026.09.06.04.52.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 04:52:15 -0700 (PDT)
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Date: Sun, 06 Sep 2026 12:52:06 +0100
-Subject: [PATCH v16 5/5] media: qcom: camss: Use data-lanes starting at 1
- for new CSIPHY mode
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dMZ0Axdf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 918011F00A3A;
+	Sun,  6 Sep 2026 12:41:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788698464;
+	bh=U3JfcolKhWuGBZd+pPAMx4DP4zPhwZzJyNp/2+tGFjM=;
+	h=From:To:Cc:Subject:Date;
+	b=dMZ0AxdfxbfX8Qw/W+iVl5jpZfJh0lDCrVd9YIeeLAR/EKex0xTIIw9Ozz7tWe6AK
+	 Mfas/DjLnBGb5MD63ScSzkCeM98s8EA2vmcK2VhaPDAymDcjyW4omsX1tJhh2zKeZG
+	 5nRHGw0gCFbziweExGJKEcatTGoDn95az90obMWbb2s7+WWIOiXdYugcWtop/dTGLY
+	 X6WPbzBKLWQSs4jKGquOlOjsiAPgbJ8yRqYEikx9bW8qtMBMtSw8TwhtMNPJYKvOeG
+	 VIcJJMKZGk0ZVS7Xhp4NkNDPUNDMjVtFcyeMz4sqzvPrL9TVovVNeUrwlsCRR/wBxj
+	 37pXN5oDqo4SQ==
+From: Leon Romanovsky <leon@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+	=?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>
+Cc: Logan Gunthorpe <logang@deltatee.com>,
+	linux-media@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linaro-mm-sig@lists.linaro.org,
+	linux-doc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jason Gunthorpe <jgg@ziepe.ca>
+Subject: [PATCH v2] dma-buf: Document how exporters and importers agree on mapping lifetime
+Date: Sun,  6 Sep 2026 15:40:54 +0300
+Message-ID: <20260906-document-dma-buf-v2-1-942710fe82c6@nvidia.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -71,115 +48,171 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-5-f7bd68b5369f@linaro.org>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v16-0-f7bd68b5369f@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Todor Tomov <todor.too@gmail.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Bryan O'Donoghue <bod@kernel.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Krzysztof Kozlowski <krzk@kernel.org>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2514;
- i=bryan.odonoghue@linaro.org; h=from:subject:message-id;
- bh=vw3X+c53CUkT8miKrkdFIh6bJI27fiNryef+k/oCD1M=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqnVPlTxwbVbuAhh1qf9XNxhb5EZKW1nacY10O/
- CUPOuQqRd2JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCap1T5QAKCRAicTuzoY3I
- OpDSD/414qRMqOhoAHiZjQ6lw3TJsUKLlE9mo0ZHC+WePHuCBqEPLbkr9OAWWXuhFnuttqil2uz
- DDA/pFBCS1uyY+lwA20HSegLL9nVZVCf2zUB+UT0p93RB3/NW5/3Z0wsaWUoczZ+1ek2oB+3C0I
- 0/mubBecrUgfaSxWQQP3No6r0HaSO5tTj9mhPNbFY2qvDLj0txVmSMs88wy95pJ6pMmN9bOAZ2A
- cv3sdMe80S5eh/+lDY2aw7MNmoOfztpskg55zeRGqeVUfluXPPJGlCZ/glaWCg98ZfSGgPyXtrU
- JgK0taM4gvoC7X3Xamn9kYvfHXCQZFzih4mC/aDnhflzYIx08GQSA3+Jv8qFnxLSDLWtMk73j7n
- CeGp5Ght75xVbZW0C8UxNZFe9ghjVZkqk6Q13rQNGNA2puGB+pQB7d1mokm8fGHBZbB2JY+nzSb
- 5nYQpWWfQVnzmY/Rxbtzd6VGRKRMlzF4uZQoQA6BvXobGvianomi4OZLG4vx8BdPY6wdCQjYdKg
- y/js5oFmtuiMXk2IX4+Z/6xEtje/TSXtt+NMZDv1Qd6zG7HTubjfyvh4Vbj6OKk6FSt3lUJaKY2
- V82ZoymVn7rbILKEuf7xoXBYzEzy97vhWDCe0AaJhvv6y/O0GovVBiAaAvc6VY5kjp2Q3GGduVr
- mOr933r4FoY4heA==
-X-Developer-Key: i=bryan.odonoghue@linaro.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+X-Change-ID: 20260820-document-dma-buf-3f8b41e32f57
+X-Mailer: b4 0.15-dev-18f8f
+Content-Transfer-Encoding: quoted-printable
 
-Introducing a dedicated CSIPHY driver community feedback was both to move
-to data-lanes starting at index 1 on the PHY side and also to match that
-indexing scheme in the CSI decoder - CSID.
-
-CSID consumes the data-lanes property to determine which CSID lanes to
-switch on. For indexes starting at 1 we need to amend the logic somewhere.
-The PHY side code normalises the input data to register level meanings so,
-replicate that logic on the CSID side.
-
-Introduce a simple flag to differentiate between legacy indexing @ 0 and
-new indexing @ 1.
-
-Existing bindings are not affected.
-
-Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
----
- drivers/media/platform/qcom/camss/camss.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 84097d82d99c9..8a4d8a206cf0d 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -4742,7 +4742,8 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
-  */
- static int camss_parse_endpoint_node(struct device *dev,
- 				     struct fwnode_handle *ep,
--				     struct camss_async_subdev *csd)
-+				     struct camss_async_subdev *csd,
-+				     u8 lane_base)
- {
- 	struct csiphy_lanes_cfg *lncfg = &csd->interface.csi2.lane_cfg;
- 	struct v4l2_mbus_config_mipi_csi2 *mipi_csi2;
-@@ -4777,7 +4778,14 @@ static int camss_parse_endpoint_node(struct device *dev,
- 		return -ENOMEM;
- 
- 	for (i = 0; i < lncfg->num_data; i++) {
--		lncfg->data[i].pos = mipi_csi2->data_lanes[i];
-+		u8 lane = mipi_csi2->data_lanes[i];
-+
-+		if (lane < lane_base || lane - lane_base >= CSI2_MAX_DATA_LANES) {
-+			dev_err(dev, "invalid data-lane %u\n", lane);
-+			return -EINVAL;
-+		}
-+
-+		lncfg->data[i].pos = mipi_csi2->data_lanes[i] - lane_base;
- 		lncfg->data[i].pol = mipi_csi2->lane_polarities[i + 1];
- 	}
- 
-@@ -4794,6 +4802,7 @@ static int camss_parse_ports(struct camss *camss)
- {
- 	struct device *dev = camss->dev;
- 	struct fwnode_handle *fwnode = dev_fwnode(dev), *ep;
-+	u8 lane_base = camss->legacy_phy ? 0 : 1;
- 	int ret;
- 
- 	fwnode_graph_for_each_endpoint(fwnode, ep) {
-@@ -4841,7 +4850,7 @@ static int camss_parse_ports(struct camss *camss)
- 			goto err_cleanup;
- 		}
- 
--		ret = camss_parse_endpoint_node(dev, ep, csd);
-+		ret = camss_parse_endpoint_node(dev, ep, csd, lane_base);
- 		if (ret < 0)
- 			goto err_cleanup;
- 	}
-
--- 
-2.55.0
-
+From: Leon Romanovsky <leonro@nvidia.com>=0D
+=0D
+Nothing in DMA-buf declares whether a mapping may be moved or taken away.=0D
+Nearly every callback on both sides is optional, so the answer follows=0D
+from which ones are implemented and from whether dma_buf_pin() succeeds.=0D
+Documentation/ says none of this, and the rules sit in the kdoc of=0D
+dma_buf_ops.pin, dma_buf_attach_ops.invalidate_mappings and=0D
+dma_buf_invalidate_mappings(), which a driver author has to know by name=0D
+before finding them.=0D
+=0D
+Describe the three flows an importer has to handle, the callbacks each=0D
+one asks of both sides, and dma_buf_pin() as the runtime negotiation.=0D
+=0D
+Signed-off-by: Leon Romanovsky <leonro@nvidia.com>=0D
+---=0D
+Let's try this variant from importer POV.=0D
+=0D
+Thanks=0D
+=0D
+Changes in v2:=0D
+- Split pci p2p documentation patch to separate series=0D
+- Improved dma-buf documentation patch.=0D
+- Link to v1: https://patch.msgid.link/20260825-document-dma-buf-v1-0-5ecfb=
+3e1371c@nvidia.com=0D
+---=0D
+ Documentation/driver-api/dma-buf.rst |  6 ++++=0D
+ drivers/dma-buf/dma-buf.c            | 69 ++++++++++++++++++++++++++++++++=
++++-=0D
+ 2 files changed, 74 insertions(+), 1 deletion(-)=0D
+=0D
+diff --git a/Documentation/driver-api/dma-buf.rst b/Documentation/driver-ap=
+i/dma-buf.rst=0D
+index 2f36c21d9948..39c201f38aa6 100644=0D
+--- a/Documentation/driver-api/dma-buf.rst=0D
++++ b/Documentation/driver-api/dma-buf.rst=0D
+@@ -113,6 +113,12 @@ Basic Operation and Device DMA Access=0D
+ .. kernel-doc:: drivers/dma-buf/dma-buf.c=0D
+    :doc: dma buf device access=0D
+ =0D
++Mapping Lifetime Negotiation=0D
++~~~~~~~~~~~~~~~~~~~~~~~~~~~~=0D
++=0D
++.. kernel-doc:: drivers/dma-buf/dma-buf.c=0D
++   :doc: mapping lifetime negotiation=0D
++=0D
+ CPU Access to DMA Buffer Objects=0D
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~=0D
+ =0D
+diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c=0D
+index d504c636dc29..aa47142cd9ed 100644=0D
+--- a/drivers/dma-buf/dma-buf.c=0D
++++ b/drivers/dma-buf/dma-buf.c=0D
+@@ -684,7 +684,74 @@ static struct file *dma_buf_getfile(size_t size, int f=
+lags)=0D
+  *    reference acquired with dma_buf_get() by calling dma_buf_put().=0D
+  *=0D
+  * For the detailed semantics exporters are expected to implement see=0D
+- * &dma_buf_ops.=0D
++ * &dma_buf_ops. Whether the exporter may still move or take away the back=
+ing=0D
++ * storage after step 3 depends on what both sides implement. See the mapp=
+ing=0D
++ * lifetime negotiation section below.=0D
++ */=0D
++=0D
++/**=0D
++ * DOC: mapping lifetime negotiation=0D
++ *=0D
++ * Nearly everything in DMA-buf is optional. No flag or enum says whether =
+the=0D
++ * exporter may move or take away the backing storage while an importer ho=
+lds=0D
++ * a mapping. Each side simply implements the callbacks it can offer, and=
+=0D
++ * dma_buf_pin() settles the result at runtime.=0D
++ *=0D
++ * Out of that optionality the importer sees three main flows. They are na=
+med=0D
++ * from the importer's point of view, because each one demands a different=
+=0D
++ * capability of its hardware:=0D
++ *=0D
++ * - Pinned: the memory is never taken away. The importer offers no way=0D
++ *   to stop DMA.=0D
++ * - Revoked: the storage never moves, but the exporter may take it away. =
+The=0D
++ *   importer must be able to stop DMA, and may hit user visible errors wh=
+ile=0D
++ *   doing so.=0D
++ * - Movable: the exporter may relocate the storage at any time. The impor=
+ter=0D
++ *   must be able to pause DMA, and must raise no error while the storage =
+is=0D
++ *   moving.=0D
++ *=0D
++ * An importer reaches its flow like this:=0D
++ *=0D
++ * 1. Attach with dma_buf_dynamic_attach(). Leaving out the optional=0D
++ *    &dma_buf_attach_ops.invalidate_mappings callback pins the buffer for=
+ as=0D
++ *    long as the attachment exists.=0D
++ * 2. Call dma_buf_pin() under the reservation lock.=0D
++ * 3. On failure, run the movable flow or give up.=0D
++ * 4. On success, the flow is the revoked one if the optional=0D
++ *    &dma_buf_attach_ops.invalidate_mappings is implemented, and the pinn=
+ed=0D
++ *    one if it is not.=0D
++ *=0D
++ * Pinned flow:=0D
++ *=0D
++ * - Exporter: implement &dma_buf_ops.pin and &dma_buf_ops.unpin to hold t=
+he=0D
++ *   storage still on request. An exporter whose storage never moves imple=
+ments=0D
++ *   neither, and dma_buf_pin() then succeeds on its own. An exporter whic=
+h=0D
++ *   refuses to be pinned implements &dma_buf_ops.pin and fails it.=0D
++ * - Importer: nothing more. The mapping stays valid until the importer un=
+maps.=0D
++ *=0D
++ * Revoked flow:=0D
++ *=0D
++ * - Exporter: answer dma_buf_pin() as above. Call=0D
++ *   dma_buf_invalidate_mappings() when the storage goes away and fail=0D
++ *   &dma_buf_ops.map_dma_buf while it is gone. The two waits which comple=
+te a=0D
++ *   revocation are described in dma_buf_invalidate_mappings().=0D
++ * - Importer: &dma_buf_attach_ops.invalidate_mappings has to unmap within=
+=0D
++ *   bounded time and drop the pin.=0D
++ *=0D
++ * Movable flow:=0D
++ *=0D
++ * - Exporter: call dma_buf_invalidate_mappings() before each move, then w=
+ait=0D
++ *   for the &dma_buf.resv fences. &dma_buf_ops.pin and &dma_buf_ops.unpin=
+ play=0D
++ *   no part here.=0D
++ * - Importer: hold no pin. &dma_buf_attach_ops.invalidate_mappings drops =
+the=0D
++ *   cached mapping and has to lead to dma_buf_unmap_attachment() within=0D
++ *   bounded time. It need not stop the hardware, because access runs unti=
+l the=0D
++ *   importer's &dma_buf.resv fences retire. The importer maps again befor=
+e the=0D
++ *   next DMA.=0D
++ *=0D
++ * &dma_buf_ops.attach is the best place for an exporter to turn an import=
+er=0D
++ * away, because the importer can still fall back to another flow and atta=
+ch=0D
++ * again.=0D
+  */=0D
+ =0D
+ /**=0D
+=0D
+---=0D
+base-commit: 63367df6e7255067ad6a83abe0d2799dfa491876=0D
+change-id: 20260820-document-dma-buf-3f8b41e32f57=0D
+=0D
+Best regards,=0D
+--  =0D
+Leon Romanovsky <leonro@nvidia.com>=0D
+=0D
