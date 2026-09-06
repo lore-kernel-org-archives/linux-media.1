@@ -1,136 +1,127 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F92DDA9
-	for <linux-media@vger.kernel.org>; Sun,  6 Sep 2026 07:32:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.45
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788679948; cv=pass; b=UheiOIaqgbnotvuHDxTBH7nYb+CqtZKv4+CQUkSqWBTpbpBzTPLfOx7X0tP0dTahzzQXCT+EQr9dv5N0yL10Hdv+zAG+qo6fEHVMI+Fol56AQ1RmEbl3w4iRe03Nxpdawek1HkCBbxgVgx/Fvt8Yd25iWFYvKBa2STSakl/Hinc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788679948; c=relaxed/simple;
-	bh=38xxFyuvZIF+Mcb0oDEHyyIdM03D64/gUGg0xDZ+DkU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YgJurYVsuseGMVWjNdRAYqfIhpaVHcd0mPRqEImqEVloEDB4dsA97PdQQ4FcPaOMkcO5HcOB64wydktR2gpQIkxZJnYzzmVaakPownuiMLkHwgZ56j/j5Nrlh85P//poBdDom4IY3UWpILT3dIqtfx7dwJIfp/+ndxHKa9XWTdM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZorRkd5m; arc=pass smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA5838330E
+	for <linux-media@vger.kernel.org>; Sun,  6 Sep 2026 07:39:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788680380; cv=none; b=q1Js3P2vQ56/qWI94torG8XxSnVsnQpcaFD8mNZcK9iO4ADKdBvg9pD3648rpKMkYO7LXrRCOyauMst2QJvyfI6liRgXJ7QemRXNwUfbt/BHk1aehu4IZJ46+4qC0H3rv4ep1itAKqq3CyKx0PW/PfXz7iyubFSOs9I7koyaPjw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788680380; c=relaxed/simple;
+	bh=QRYVX3ffZ985ovzTkfBf9fkBgICaOYuci40qCtccwWU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=OD7NCw+shV/9Wjg/vWMG9/C+RSW0EqE5j5WtzFKit7aZBFXIpJ3KFAweU85+1a69VraXAGGIVZpC1/jtkVViqrK0+0C5ftG3l/V/DzIVT0XNYJlJKjKQPvpcSyyCiWeY56KvgJApyMdOAkV5M2MMkK9+0VUUdIAQ9eTwMUPmKDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sY9VlG7f; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZorRkd5m"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c250f28f1cdso381553366b.0
-        for <linux-media@vger.kernel.org>; Sun, 06 Sep 2026 00:32:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788679945; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EqbTob86/L9jNNb5FZ3JTfFW8p2rcj+Xuch8kdySsWxlZVzF6ZoQ3yZDiFpuSp6b0F
-         XBvnMnnXzrAJR+ukBGMiBt9sZFlcX7Vhf46j9JJv2zfZb0jchXKqlpPDF6+bXLfyXyHd
-         7E823/8Y58CiY7o37Ui75hJVEhXl+3cRqdnzpfcXdqLUA9q/mrA0bRV6VsVjCTRJmipU
-         WzWeXf0VQLl4vqHemjoHmO9rRT86zGPBD4T0iYqfCsNeH7+WdVR/rgigIhtyfQtxhUEx
-         zNejanq+lIklEa44s3wxekmrzs63FmKVoN6hMpI3QrVY6n61UMGTgAMnYselbHyEnvqn
-         fuyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
-        fh=iCLtoVFvlK5jiAVXgBezbag95/NvQEIuM3UG73xHwys=;
-        b=lmFi4bo/zb7+KF2sWZBkPxfKI+UZB9VsljmBNLJXpL5s0iQnOGPTVrnpNqygTI1Lb8
-         NmYODtyQPLvvjPFZtiWZgGVQX8aGw4JMfZI/rF14RKXdxRY3pkYmaFFx9oNCQCBAUUpX
-         48qqGV40tVXoBwflVbiKFxfhZxqLAnDRv2EoKeHRi8Zcyku5UEpAQ0gVGmL1iZOoLr8b
-         6K28u8WEkFEsr3le4hs1vaCtP+gTEp+3GHnwfgTC62MDFGNkrtZDeyBqA+hyEgSaG1lt
-         LO4BEa0J2Kxfd9icrYU3lj+NIpSNm97567dDyYwL+HJELpgAYq/Sqa6eCvEFjWR63re/
-         9+4w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sY9VlG7f"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-4843f205a5bso1351230f8f.1
+        for <linux-media@vger.kernel.org>; Sun, 06 Sep 2026 00:39:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788679945; x=1789284745; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
-        b=ZorRkd5mEmFhkouKQ7TPbC/pdIw+Sxqwd5l1lXfuRXFbipBs7HUYAMo+kWYda/lBvg
-         Y0zZkuweKaYWjna36kiQ8DLVgL7VEeyGkmt/Z6E0Wapj5lPD3M4ZPVSrFOS7oTVGwZyi
-         zPN4oHaKSVXuE5rftUCYDEzBwhxPKj5qOGfn/G9qs9kO9CGESU1AmcKxVvEhpvfF/uIQ
-         avMpFEaQx/ILUTnhYFd233/fTWh7s8kMuPlovKlfGpitOfUkG3ZIyUKOnOLoM62oB4Ta
-         kfxfMqjJtYAl0L2MN4nUMO1KMtJRPs2dLk1I4OMIUSfJVdU7d4igmtR6j012FOQWbfe3
-         GZDw==
+        d=gmail.com; s=20251104; t=1788680375; x=1789285175; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xVz5vFNXr4Sxa8HEvEEyMn/a+N7kN8guffUolshGPm0=;
+        b=sY9VlG7fPEYM6od1qeC/hbfOH8nWesDdNG2Dz6NV3f00gN0bgKwngGcF5VhIpsGdQ1
+         E71fWmZODcYq20jaEFbhnU01qXFQeS4FFhxiVIuyFFUMwjcd2n69m08OHIxzQ/CXv3XF
+         YZM7aDIQgDFerKU+GRu0hsAC8g2tA2cy9yEUSxRVr3603NBmIoPZjLlDHNlNzYxIC5Ke
+         7LcUQG6h8Aaof+anCUVJ66REkH8K/EqXUoDURkwNo178Ou9JHWVlNaOfhbsSrqTWEJMt
+         d1y6StbkzGKWFQALrZ8YkpNsjk7hJYqdjOXU6Pzf/bJZsNr+Z7xkK12SNwNeIJoss/+f
+         FO4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788679945; x=1789284745;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fKgOc2l+vVuFNJXwxuWo3OsxtXY42+muaiQdmV0l+QI=;
-        b=M89CL2yNxRpQ+PPnnQ0X1Cmbn4/5pL16Yc+hwqZgu0jmk29eNWMHNPCCsaGj/FtHP+
-         /NaAjiS2OJ33mEpMUCnCodX8DWhiNj8hg20MCimLgS5GNn6koD5mEWPvLWZiuiUV7VRc
-         Csx+vd62/2KJIlu0SaSEP/udg9w6kEmJ7alvqc+NUx2Bb9lovowhjdyPPc3XkAuZPSpP
-         nkveyZ5KcTLR7hFyhueSup12SgbWsaWpepYbOSdnzFlvv4EPVQuXisD0fksTK90hSbhH
-         ZRRgvVExVZIK5DNfsZvjjFP9FJZJYCrnj31NK2Kdw2EUDcXe2LN5gUN33PHgh61smlIz
-         Pp2g==
-X-Forwarded-Encrypted: i=1; AKwUvBxpM8l9y/yHKaHjmyfZsUCn5r7y0djV4hhrO+Sswx2aYS5b1b6S+1bktrULyQ+HkzWUkXi8m4v5dlFyNA==@vger.kernel.org
-X-Gm-Message-State: AFuF++kERJ0yLkA9+m55oLXSoxy4lkMUftzrKCYfPlhiPPZRF7bfdu+E
-	sOFbNgNdGnXHIPmeM5k2BsvvGmF4sUZkt3D7HZFHHwpgy3QOYHHkBneRyroMy3uP6zHX4fPFaym
-	Y9Hh+IyMEGwGWd61kQ+P3x7QyrLpJU2M=
-X-Gm-Gg: AYBFou3nq3v8iXehuzO0qC0nWLCkzRUZmREiSNVyO/7x9r+49kHV7mjkktXGk70v73F
-	swXPxSs6JJni5uEF8HZg1T7hHu59gJQImxVJuW3djwE+O/AXJYw5YbmiZpRwhODz4F2sHENcAlW
-	KzxgNPRfs3QtKe79Nj+xPHJsROKiPW3nqxsWk0oFom1b12143tXD0lVOK4y5IpvdkJbX5LmrtiZ
-	dkbPJnsUC3HrVmVg6tUf16NXPYDVHaXS1rZwfhmnf3nUOr9SjHfVOXFH0/B6upuxSmZ522A/SM3
-	oKek7ef3zi6YD2kyQTkDAMxOXS+EQXyFpH/x0vIi04nUEufF3MW7T0nxgGKyZQ/j8W77QAn6yUL
-	/plPXLJ+pOIoBuR/nhTgSB1LImFTaUkrn6KPEqt615FbQffKTe4zmMgS1wpAJpc9cZ2iIJZwrc+
-	wBT57duaeMbXY4tGQBCXhRQiJqrkQhxw==
-X-Received: by 2002:a17:907:c28:b0:c26:19de:9acf with SMTP id
- a640c23a62f3a-c2619dea6efmr444606966b.39.1788679945279; Sun, 06 Sep 2026
- 00:32:25 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1788680375; x=1789285175;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xVz5vFNXr4Sxa8HEvEEyMn/a+N7kN8guffUolshGPm0=;
+        b=V9TW1o6Vj7+4dt6LRNbxZHSzrIUTaX5O5SeJbBMF6f+FEPweSC8POSYhCoT6Cm7NQJ
+         WRUqZ4K/i65L7SR8t11Ej3bXe/YPpYp8Ffo2sLTzcZEKT4NwQRI1utz2YnlbwSb+yt2Z
+         i8g3xWSTCV0GQZ5qZn8CnfFrA0j2P2jiNJc9QUrWQ+PuCi9V4fxJme7VMka7koYV4MoZ
+         NKKlXjVUuZmFQhZzRdyHb/GYfX0VqS/8C26xHc5KDrK6d3Twa/2H106aQgkXtILZ1zwk
+         i08UUcc1NWZMGzShTRlNcWhWAk5q3nTM2ZZEj+qmDUaRR0wEvmp0cOEUJ2lnZPeG/FxS
+         DuXw==
+X-Forwarded-Encrypted: i=1; AKwUvBwZFSzwPdDgXuajKQ4Ojoz27uC7mUykYl4NJMW+zlkE400T37WeBRc5ipzoYU77/0oj5Lx6Q1N0DudAIQ==@vger.kernel.org
+X-Gm-Message-State: AFuF++mCNUzX5ynY9YOTnKbWJAPBCALYPBaegPXPG6jW4seItF6/Fgbt
+	YX9OrgN5+64fc9vKEW13H03UoBw7wQVH3Mx+YHzmWG6eH5c59pxPLEQ=
+X-Gm-Gg: AYBFou13FxG/t0iTKWNxoFNQAYjzDjk25sttaHHcQZWfWiaIYo9Q+y8YATItuqGa9BP
+	YaKvMaeaeDaT3q53cGwsyL2JUsAEgQ+sS3MB6aEZX5n3pH6TyAd0tutiF6uYw2Y0VZNlZwGuJ5T
+	yJG7xce+nLZZaUI9RCi+Noxz01TF3Mkyv0kMYmVuFrSpirJzSPNLpVuwgIDykSOUxEUif7lRG0s
+	YqgCbkWCWzvcV3c23blA2eGVtKm5bHy50lfV5ulnvomjI2FAlMNI+j6YwOoxfsJa+dU6pZzOuQE
+	A45myXVDLNZGkJCrcd5qQAZeUGl9oVQaFj4YnkGy5jClSzNX3Fn86oK9jhBFTlAZNKG1eB8KJJS
+	fBcIzLYOVMkjFKRLaz/UU4dsGfTyi5bK2kT6rnNPGqLhGZd98mrhDxjsh4+eGCfu8XC9pF02qtd
+	jzbWoa9R8Aud3NcaqBiS2oj99kWaCmtvO2ML/TKYVjNYVUak9cfOVZ9pFzaszMGV6d24q1mviiy
+	W3yQH0Ji1lipTNu0n7pyLmM9NGyhjtQ14xqy1N854YO
+X-Received: by 2002:a05:6000:2508:b0:485:8e8b:7bf4 with SMTP id ffacd0b85a97d-4858e8b7c78mr12129584f8f.33.1788680374997;
+        Sun, 06 Sep 2026 00:39:34 -0700 (PDT)
+Received: from surface.. (84.124.213.91.dyn.user.ono.com. [84.124.213.91])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-485883a9234sm19580358f8f.14.2026.09.06.00.39.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 06 Sep 2026 00:39:34 -0700 (PDT)
+From: "D. Manresa" <dmanresa@gmail.com>
+To: Fernando Rimoli <fernandorimoli11@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Daniel Scally <dan.scally@ideasonboard.com>,
+	Hans de Goede <johannes.goede@oss.qualcomm.com>,
+	Jakob Berg Jespersen <dev@berg.pm>,
+	Fil Dunsky <filipp.dunsky@gmail.com>,
+	Kengo Oki <dev.kengo.fugu0141@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"D . Manresa" <dmanresa@gmail.com>
+Subject: Re: [PATCH v5 0/7] media: Enable the OV5693 front camera on IPU6 Surface devices
+Date: Sun,  6 Sep 2026 09:39:32 +0200
+Message-ID: <20260906073932.24090-1-dmanresa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260902142322.73523-1-fernandorimoli11@gmail.com>
+References: <20260831181858.325109-1-fernandorimoli11@gmail.com> <20260902142322.73523-1-fernandorimoli11@gmail.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260906004958.26041-1-lalitshankarch@gmail.com>
-In-Reply-To: <20260906004958.26041-1-lalitshankarch@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Sun, 6 Sep 2026 10:31:48 +0300
-X-Gm-Features: AcwNN1WzAwLmobc8VQofp4aTL04X2XACY-eMvYBwNFs_k975zra_jqGeD3A71Bk
-Message-ID: <CAHp75VcRYL4idPvU3tC1nPO+HbRAoO63SXh_oqATShLZsommiA@mail.gmail.com>
-Subject: Re: [PATCH] staging: media: atomisp: Use C99 initializers for ACPI IDs
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"open list:STAGING - ATOMISP DRIVER" <linux-media@vger.kernel.org>, 
-	"open list:INTEL MID (Mobile Internet Device) PLATFORM" <linux-kernel@vger.kernel.org>, 
-	"open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 6, 2026 at 3:53=E2=80=AFAM Lalit Shankar Chowdhury
-<lalitshankarch@gmail.com> wrote:
->
-> Use designated initializers for the ACPI ID tables.
+On Wed, 2 Sep 2026, Fernando Rimoli wrote:
+> This series enables the OV5693 front camera on IPU6 Surface devices
 
-...
+For patches 4-7:
 
->  static const struct acpi_device_id gc2235_acpi_match[] =3D {
-> -       { "INT33F8" },
-> -       {},
-> +       { .id =3D "INT33F8" },
-> +       { },
+Tested-by: D. Manresa <dmanresa@gmail.com> # Surface Pro 7+, IPU6 TGL 8086:9a19, INT33BE; 4-7 backported to a 6.19 linux-surface tree
 
-Follow the agreed style for the terminator entry. See Uwe's patches as
-an example.
+Coverage that was still missing from the other reports, all on the same
+machine and boot:
 
->  };
+- With the downstream unconditional 0x4800 = 0x2d write removed and only
+  your gate in place, MIPI_CTRL00 reads 0x20 over i2c mid-stream (bit 5
+  only), so the result below is your code path and nothing else.
 
-...
+- The sensor's 2x2 binned 1296x972 readout (a downstream mode, not in
+  mainline) streams through the IPU6 hardware ISP (PSYS) at ~28.7 fps: three
+  fresh stream starts x 60 frames, all frames unique and non-black, Bayer
+  phase unchanged. A raw binned capture straight off the ISYS node had zero
+  CSI-2 errors.
 
->  static const struct acpi_device_id ov2722_acpi_match[] =3D {
-> -       { "INT33FB" },
-> -       {},
-> +       { .id =3D "INT33FB" },
-> +       { },
+- The CSI-2 receiver error signature at stream start/stop (the usual
+  "Transfer FIFO overflow" / "Inter-frame packet discarded" bursts) is
+  identical to the 0x2d build over the same five capture cycles: 15/15/20 in
+  both. Consistent with Fil's sweep - bits 0, 2 and 3 of 0x2d were doing
+  nothing.
 
-Ditto.
+- Exercised on top of my ipu-bridge rebind series, with the
+  "clock-noncontinuous" property name routed through ipu_property_names as
+  suggested in my reply to 7/7: PCI remove -> module unload -> rescan ->
+  reload re-enumerates all three sensors without -EEXIST and captures
+  afterwards. The IR (OV7251) and rear (OV8865) cameras are unaffected before
+  and after.
 
->  };
+Backport notes, in case they help anyone else on 6.19: 2/7 and the table
+hunks of 7/7 need hand placement (no OVTI5675/HIMX1092 entries there), and
+5/7 changes the ipu_bridge_init()/ipu_bridge_parse_ssdb() CRCs, so
+intel-ipu6 has to be rebuilt alongside ipu-bridge under MODVERSIONS; isys
+and psys only import ipu_bridge_instantiate_vcm and are fine.
 
---=20
-With Best Regards,
-Andy Shevchenko
+D. Manresa <dmanresa@gmail.com>
