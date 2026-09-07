@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F19483BF8
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F3C48EBEF
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780616; cv=none; b=uSGzoTbKWfdrPJEpwR1+IUCCC3fizT70r+VG+KHeYqh24FAljTmz0mAXVr7Yoxhc0O1ARpVBsDj7LoUgsNvPQicFogr9KJ4zmgGWJgVCntCL1fQM2f7iJvq5qWJuGA4FltD2wTDZ3/dS0NpUy9e7azVtsaqFaB0vuNVO42HXQZU=
+	t=1788780617; cv=none; b=OGgmNFfWafL3qJGZnGDnagPjM3/T2KGGd+aPX7blijKT5nDbWPZKwLyhjc7aGT9B1ICtGECmaDAEzoNZVWl5Sz+TbGraZkotYpV/EDTRX+P294o7c6/d/7Nwu+k6NbkDivn/KgKzTMN+WJAXoy0rm01ID7ac7LQkQGVOkByzKVI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780616; c=relaxed/simple;
-	bh=IbU3MdVBNZI8MK5b4ka1QPD+tzMRk3Vz3nHhVWNjeOw=;
+	s=arc-20240116; t=1788780617; c=relaxed/simple;
+	bh=/EMLS2zFevcCwFEvtoz98fSG4eeWNaJYyrF2b2A/MVQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DRUXf9vK1TGcTK3n5+wiUnQLOANH9SF4KzOEgf/s/yeBVYOit9wsfbCauWXGzBcfxmVJF50vGazB3KiHKsMq6+hgKxvp0ebHLcQD6X8L/T9ukg54RwUV9e5HlYHTeae7Vc9s8pJpuKHHGXW88CwAafDVXn5vv1NB8NnqIhGEw8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Fk7ZF9mP; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=sr0wJnPv5qLlok8oJVNcVWNYtncz3RQYxX+3t4sghu1+rvkacPxN4WTZZ+IFVB0Lyk98rduYJvYS80RdMNb6wTEkiRk/J4YuHkswBFhsfeDBM+MPriiqVpNa2jkHT17BTpG7wbnE/92W4oN2FcAez3BB9SSDz3JgFQWpummOEAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U+EFNyuu; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Fk7ZF9mP"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U+EFNyuu"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1788780615; x=1820316615;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=IbU3MdVBNZI8MK5b4ka1QPD+tzMRk3Vz3nHhVWNjeOw=;
-  b=Fk7ZF9mPFJ+rgFrn9XrXPWaY1W7xWFF5wDO6tj7q+qeEoJqY5LBurBOG
-   ZBgyZanPHV/J9JIDQcekCmCexN0PlcztXlyVHQMtNSel59qTp3owqd7Oa
-   L3AfpOgQpSWfToEtj0lDYJd45hfth+rlNR/Jf5OSq4xfjlYjgBTEbrnHu
-   gXg82lEDAW8Vp4q32L0oZvvBI2H9soOHx2DwoAZId8hO4e1O7fv9tqmNU
-   JTUtCk+oK+8mQOquwyLQPfw/KKw40zFmrIkvCCqfamIJDpWgZtmILDouN
-   djGXX8iVFGyN8JY/J5qUUcyIWIMCMpjkP6K/UtD2AQRYgEXPkzVB/7CYu
-   g==;
-X-CSE-ConnectionGUID: pz6+/PGnQ8mkYtcWhDEUMg==
-X-CSE-MsgGUID: o3dcfBCrQY2Kz8P1zPy7XA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538610"
+  bh=/EMLS2zFevcCwFEvtoz98fSG4eeWNaJYyrF2b2A/MVQ=;
+  b=U+EFNyuuGI43fnrEuBZGD7NLnnkfwKRBpaBLEtDAkJI7efgBDUZrYMSJ
+   7VKgO3W764axVX9Eevl87+aY3xc8E8jFVttZIiHpZK0ccTAxssV6RPDLr
+   fQerN9gkbuTCguiHXRj3F8zM5BGKV/1gc3udyJRm9KM+wilN/y/OQtIPf
+   g3+i73p70Cnwgb2AgjYnxYpFRLeUbXe83Y/zv965I2eG6gAbc3xEXmRPi
+   L9pgLU0h+BvYDpiqfLwzsKFlbXpybK1VNOJPVcXsllc8EbGxknpbcLRpv
+   mNDsZlCIvgFoXgly26zyT4oyrWoVSTnN+5GpInEorK3+Kk6ebIV78y2BE
+   A==;
+X-CSE-ConnectionGUID: 7RrIGxlFRU6BVwH8qkwzPA==
+X-CSE-MsgGUID: MXr+CoN3RUaLRJRxeTgYZg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538611"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538610"
+   d="scan'208";a="100538611"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:10 -0700
-X-CSE-ConnectionGUID: vskIZtsrQrOsRhJT9a9sCQ==
-X-CSE-MsgGUID: jmgDo0rAQkeHbA7Z357mvA==
+X-CSE-ConnectionGUID: KevMFIrdSi2TR5rOWhHF5w==
+X-CSE-MsgGUID: SD5mSlF0RjKcNqo1RMjpcw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569161"
+   d="scan'208";a="300569162"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:08 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id AE279121D55;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id ABFB2121D4D;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARnX-0o4F;
+	id 1x3XY5-0000000ARnT-0kh5;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 10/45] media: ipu6: Use single struct for registers
-Date: Mon,  7 Sep 2026 14:29:29 +0300
-Message-ID: <20260907113004.2489993-11-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 09/45] media: ipu6: Prepare buttress for ipu7 support
+Date: Mon,  7 Sep 2026 14:29:28 +0300
+Message-ID: <20260907113004.2489993-10-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,351 +73,412 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Move register values from ipu6_buttress_ipc struct to
-ipu6_buttress_registers as these are different in future
-hardware versions as well.
+Introduce a struct to hold buttress registers and bitmasks that vary
+across hardware versions beyond ipu6 to simplify support for future
+hardware versions.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.c | 86 +++++++++-----------
- drivers/media/pci/intel/ipu6/ipu6-buttress.h | 17 ++--
- drivers/media/pci/intel/ipu6/ipu6.c          | 13 +--
- 3 files changed, 54 insertions(+), 62 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-buttress.c  | 96 ++++++++++---------
+ drivers/media/pci/intel/ipu6/ipu6-buttress.h  | 25 +++++
+ .../intel/ipu6/ipu6-platform-buttress-regs.h  |  2 +-
+ drivers/media/pci/intel/ipu6/ipu6.c           | 26 +++++
+ 4 files changed, 101 insertions(+), 48 deletions(-)
 
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-index 3c5f4e407b7c..e77a569bb97e 100644
+index cbe356589a9d..3c5f4e407b7c 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-@@ -55,11 +55,11 @@
+@@ -55,11 +55,6 @@
  
  #define BUTTRESS_MAX_CONSECUTIVE_IRQS	100
  
--int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
--			    struct ipu6_buttress_ipc *ipc)
-+int ipu6_buttress_ipc_reset(struct ipu6_device *isp)
+-static const u32 ipu6_adev_irq_mask[2] = {
+-	BUTTRESS_ISR_IS_IRQ,
+-	BUTTRESS_ISR_PS_IRQ
+-};
+-
+ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
+ 			    struct ipu6_buttress_ipc *ipc)
  {
- 	unsigned int retries = BUTTRESS_IPC_RESET_RETRY;
+@@ -337,7 +332,8 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ 	struct ipu6_device *isp = isp_ptr;
+ 	struct ipu6_bus_device *adev[] = { isp->isys, isp->psys };
  	struct ipu6_buttress *b = &isp->buttress;
+-	u32 reg_irq_sts = BUTTRESS_REG_ISR_STATUS;
 +	const struct ipu6_buttress_registers *regs = b->regs;
- 	u32 val = 0, csr_in_clr;
++	const u32 adev_irq_mask[] = { regs->irq_is, regs->irq_ps };
+ 	irqreturn_t ret = IRQ_NONE;
+ 	u32 disable_irqs = 0;
+ 	u32 irq_status;
+@@ -348,7 +344,7 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ 	if (!active)
+ 		return IRQ_NONE;
  
- 	if (!isp->secure_mode) {
-@@ -70,11 +70,11 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 	mutex_lock(&b->ipc_mutex);
- 
- 	/* Clear-by-1 CSR (all bits), corresponding internal states. */
--	val = readl(isp->base + ipc->csr_in);
--	writel(val, isp->base + ipc->csr_in);
-+	val = readl(isp->base + regs->csr_in);
-+	writel(val, isp->base + regs->csr_in);
- 
- 	/* Set peer CSR bit IPC_PEER_COMP_ACTIONS_RST_PHASE1 */
--	writel(ENTRY, isp->base + ipc->csr_out);
-+	writel(ENTRY, isp->base + regs->csr_out);
- 	/*
- 	 * Clear-by-1 all CSR bits EXCEPT following
- 	 * bits:
-@@ -89,7 +89,7 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 
- 	do {
- 		usleep_range(400, 500);
--		val = readl(isp->base + ipc->csr_in);
-+		val = readl(isp->base + regs->csr_in);
- 		switch (val) {
- 		case ENTRY | EXIT:
- 		case ENTRY | EXIT | QUERY:
-@@ -100,8 +100,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 			 * 2) Set peer CSR bit
- 			 * IPC_PEER_QUERIED_IP_COMP_ACTIONS_RST_PHASE.
- 			 */
--			writel(ENTRY | EXIT, isp->base + ipc->csr_in);
--			writel(QUERY, isp->base + ipc->csr_out);
-+			writel(ENTRY | EXIT, isp->base + regs->csr_in);
-+			writel(QUERY, isp->base + regs->csr_out);
- 			break;
- 		case ENTRY:
- 		case ENTRY | QUERY:
-@@ -112,8 +112,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 			 * 2) Set peer CSR bit
- 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE1.
- 			 */
--			writel(ENTRY | QUERY, isp->base + ipc->csr_in);
--			writel(ENTRY, isp->base + ipc->csr_out);
-+			writel(ENTRY | QUERY, isp->base + regs->csr_in);
-+			writel(ENTRY, isp->base + regs->csr_out);
- 			break;
- 		case EXIT:
- 		case EXIT | QUERY:
-@@ -130,17 +130,17 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 			 * 3) Set peer CSR bit
- 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE2.
- 			 */
--			writel(EXIT, isp->base + ipc->csr_in);
--			writel(0, isp->base + ipc->db0_in);
--			writel(csr_in_clr, isp->base + ipc->csr_in);
--			writel(EXIT, isp->base + ipc->csr_out);
-+			writel(EXIT, isp->base + regs->csr_in);
-+			writel(0, isp->base + regs->db0_in);
-+			writel(csr_in_clr, isp->base + regs->csr_in);
-+			writel(EXIT, isp->base + regs->csr_out);
- 
- 			/*
- 			 * Read csr_in again to make sure if RST_PHASE2 is done.
- 			 * If csr_in is QUERY, it should be handled again.
- 			 */
- 			usleep_range(200, 300);
--			val = readl(isp->base + ipc->csr_in);
-+			val = readl(isp->base + regs->csr_in);
- 			if (val & QUERY) {
- 				dev_dbg(&isp->pdev->dev,
- 					"RST_PHASE2 retry csr_in = %x\n", val);
-@@ -155,8 +155,8 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 			 * 2) Set peer CSR bit
- 			 * IPC_PEER_COMP_ACTIONS_RST_PHASE1
- 			 */
--			writel(QUERY, isp->base + ipc->csr_in);
--			writel(ENTRY, isp->base + ipc->csr_out);
-+			writel(QUERY, isp->base + regs->csr_in);
-+			writel(ENTRY, isp->base + regs->csr_out);
- 			break;
- 		default:
- 			dev_dbg_ratelimited(&isp->pdev->dev,
-@@ -171,42 +171,42 @@ int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
- 	return -ETIMEDOUT;
- }
- 
--static void ipu6_buttress_ipc_validity_close(struct ipu6_device *isp,
--					     struct ipu6_buttress_ipc *ipc)
-+static void ipu6_buttress_ipc_validity_close(struct ipu6_device *isp)
- {
- 	writel(BUTTRESS_IU2CSECSR_IPC_PEER_DEASSERTED_REG_VALID_REQ,
--	       isp->base + ipc->csr_out);
-+	       isp->base + isp->buttress.regs->csr_out);
- }
- 
- static int
--ipu6_buttress_ipc_validity_open(struct ipu6_device *isp,
--				struct ipu6_buttress_ipc *ipc)
-+ipu6_buttress_ipc_validity_open(struct ipu6_device *isp)
- {
- 	unsigned int mask = BUTTRESS_IU2CSECSR_IPC_PEER_ACKED_REG_VALID;
-+	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
- 	void __iomem *addr;
- 	int ret;
- 	u32 val;
- 
- 	writel(BUTTRESS_IU2CSECSR_IPC_PEER_ASSERTED_REG_VALID_REQ,
--	       isp->base + ipc->csr_out);
-+	       isp->base + regs->csr_out);
- 
--	addr = isp->base + ipc->csr_in;
-+	addr = isp->base + regs->csr_in;
- 	ret = readl_poll_timeout(addr, val, val & mask, 200,
- 				 BUTTRESS_IPC_VALIDITY_TIMEOUT_US);
- 	if (ret) {
- 		dev_err(&isp->pdev->dev, "CSE validity timeout 0x%x\n", val);
--		ipu6_buttress_ipc_validity_close(isp, ipc);
-+		ipu6_buttress_ipc_validity_close(isp);
+-	irq_status = readl(isp->base + reg_irq_sts);
++	irq_status = readl(isp->base + regs->irq_status);
+ 	if (irq_status == 0 || WARN_ON_ONCE(irq_status == 0xffffffffu)) {
+ 		if (active > 0)
+ 			pm_runtime_put_noidle(&isp->pdev->dev);
+@@ -356,26 +352,26 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
  	}
  
- 	return ret;
- }
+ 	do {
+-		writel(irq_status, isp->base + BUTTRESS_REG_ISR_CLEAR);
++		writel(irq_status, isp->base + regs->irq_clear);
  
--static void ipu6_buttress_ipc_recv(struct ipu6_device *isp,
--				   struct ipu6_buttress_ipc *ipc, u32 *ipc_msg)
-+static void ipu6_buttress_ipc_recv(struct ipu6_device *isp, u32 *ipc_msg)
- {
-+	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
-+
- 	if (ipc_msg)
--		*ipc_msg = readl(isp->base + ipc->data0_in);
--	writel(0, isp->base + ipc->db0_in);
-+		*ipc_msg = readl(isp->base + regs->data0_in);
-+	writel(0, isp->base + regs->db0_in);
- }
+-		for (i = 0; i < ARRAY_SIZE(ipu6_adev_irq_mask); i++) {
++		for (i = 0; i < ARRAY_SIZE(adev_irq_mask); i++) {
+ 			irqreturn_t r = ipu6_buttress_call_isr(adev[i]);
  
- static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
-@@ -217,13 +217,14 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
- 	unsigned int i, retry = BUTTRESS_IPC_CMD_SEND_RETRY;
- 	struct ipu6_buttress *b = &isp->buttress;
- 	struct ipu6_buttress_ipc *ipc = &b->ipc;
-+	const struct ipu6_buttress_registers *regs = b->regs;
- 	u32 val;
- 	int ret;
- 	int tout;
+-			if (!(irq_status & ipu6_adev_irq_mask[i]))
++			if (!(irq_status & adev_irq_mask[i]))
+ 				continue;
  
- 	mutex_lock(&b->ipc_mutex);
- 
--	ret = ipu6_buttress_ipc_validity_open(isp, ipc);
-+	ret = ipu6_buttress_ipc_validity_open(isp);
- 	if (ret) {
- 		dev_err(&isp->pdev->dev, "IPC validity open failed\n");
- 		goto out;
-@@ -239,9 +240,9 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
- 
- 		dev_dbg(&isp->pdev->dev, "bulk IPC command: 0x%x\n",
- 			msgs[i].cmd);
--		writel(msgs[i].cmd, isp->base + ipc->data0_out);
-+		writel(msgs[i].cmd, isp->base + regs->data0_out);
- 		val = BUTTRESS_IU2CSEDB0_BUSY | msgs[i].cmd_size;
--		writel(val, isp->base + ipc->db0_out);
-+		writel(val, isp->base + regs->db0_out);
- 
- 		tout = wait_for_completion_timeout(&ipc->send_complete,
- 						   tx_timeout_jiffies);
-@@ -253,7 +254,7 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
+ 			if (r == IRQ_WAKE_THREAD) {
+ 				ret = IRQ_WAKE_THREAD;
+-				disable_irqs |= ipu6_adev_irq_mask[i];
++				disable_irqs |= adev_irq_mask[i];
+ 			} else if (ret == IRQ_NONE && r == IRQ_HANDLED) {
+ 				ret = IRQ_HANDLED;
  			}
- 
- 			/* Try again if CSE is not responding on first try */
--			writel(0, isp->base + ipc->db0_out);
-+			writel(0, isp->base + regs->db0_out);
- 			i--;
- 			continue;
- 		}
-@@ -271,8 +272,8 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
- 			goto out;
  		}
  
--		if (ipc->nack_mask &&
--		    (ipc->recv_data & ipc->nack_mask) == ipc->nack) {
-+		if ((ipc->recv_data & BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK) ==
-+		     BUTTRESS_CSE2IUDATA0_IPC_NACK) {
- 			dev_err(&isp->pdev->dev,
- 				"IPC NACK for cmd 0x%x\n", msgs[i].cmd);
- 			ret = -EIO;
-@@ -291,7 +292,7 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
- 	dev_dbg(&isp->pdev->dev, "bulk IPC commands done\n");
+-		if ((irq_status & BUTTRESS_EVENT) && ret == IRQ_NONE)
++		if ((irq_status & regs->irq_events) && ret == IRQ_NONE)
+ 			ret = IRQ_HANDLED;
  
- out:
--	ipu6_buttress_ipc_validity_close(isp, ipc);
-+	ipu6_buttress_ipc_validity_close(isp);
- 	mutex_unlock(&b->ipc_mutex);
- 	return ret;
- }
-@@ -375,7 +376,7 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+-		if (irq_status & BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING) {
++		if (irq_status & regs->irq_cse_ipc) {
  			dev_dbg(&isp->pdev->dev,
  				"BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING\n");
  
--			ipu6_buttress_ipc_recv(isp, &b->ipc, &b->ipc.recv_data);
-+			ipu6_buttress_ipc_recv(isp, &b->ipc.recv_data);
+@@ -383,13 +379,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
  			complete(&b->ipc.recv_complete);
  		}
  
-@@ -836,15 +837,6 @@ int ipu6_buttress_init(struct ipu6_device *isp)
- 	init_completion(&b->ipc.send_complete);
- 	init_completion(&b->ipc.recv_complete);
+-		if (irq_status & BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE) {
++		if (irq_status & regs->irq_exec_done) {
+ 			dev_dbg(&isp->pdev->dev,
+ 				"BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE\n");
+ 			complete(&b->ipc.send_complete);
+ 		}
  
--	b->ipc.nack = BUTTRESS_CSE2IUDATA0_IPC_NACK;
--	b->ipc.nack_mask = BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK;
--	b->ipc.csr_in = BUTTRESS_REG_CSE2IUCSR;
--	b->ipc.csr_out = BUTTRESS_REG_IU2CSECSR;
--	b->ipc.db0_in = BUTTRESS_REG_CSE2IUDB0;
--	b->ipc.db0_out = BUTTRESS_REG_IU2CSEDB0;
--	b->ipc.data0_in = BUTTRESS_REG_CSE2IUDATA0;
--	b->ipc.data0_out = BUTTRESS_REG_IU2CSEDATA0;
--
- 	INIT_LIST_HEAD(&b->constraints);
+-		if (irq_status & BUTTRESS_ISR_SAI_VIOLATION &&
++		if (irq_status & regs->irq_sai &&
+ 		    ipu6_buttress_get_secure_mode(isp))
+ 			dev_err(&isp->pdev->dev,
+ 				"BUTTRESS_ISR_SAI_VIOLATION\n");
+@@ -408,12 +404,12 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ 			break;
+ 		}
  
- 	isp->secure_mode = ipu6_buttress_get_secure_mode(isp);
-@@ -880,7 +872,7 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+-		irq_status = readl(isp->base + reg_irq_sts);
++		irq_status = readl(isp->base + regs->irq_status);
+ 	} while (irq_status);
  
- 	/* Retry couple of times in case of CSE initialization is delayed */
- 	do {
--		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
-+		ret = ipu6_buttress_ipc_reset(isp);
- 		if (ret) {
- 			dev_warn(&isp->pdev->dev,
- 				 "IPC reset protocol failed, retrying\n");
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-index 68586a32fda3..a3c23adede7b 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-@@ -31,15 +31,7 @@ struct ipu6_buttress_ctrl {
- struct ipu6_buttress_ipc {
- 	struct completion send_complete;
- 	struct completion recv_complete;
--	u32 nack;
--	u32 nack_mask;
- 	u32 recv_data;
--	u32 csr_out;
--	u32 csr_in;
--	u32 db0_in;
--	u32 db0_out;
--	u32 data0_out;
--	u32 data0_in;
- };
+ 	if (disable_irqs)
+-		writel(BUTTRESS_IRQS & ~disable_irqs,
+-		       isp->base + BUTTRESS_REG_ISR_ENABLE);
++		writel(regs->irq_all & ~disable_irqs,
++		       isp->base + regs->irq_enable);
  
- struct ipu6_buttress_registers {
-@@ -55,6 +47,12 @@ struct ipu6_buttress_registers {
- 	u32 tsc_lo;
- 	u32 wdt;
- 	u32 btrs_ctrl;
-+	u32 csr_in;
-+	u32 csr_out;
-+	u32 db0_in;
-+	u32 db0_out;
-+	u32 data0_in;
-+	u32 data0_out;
- 
- 	/* Bitmasks */
- 	u32 irq_is;
-@@ -83,8 +81,7 @@ struct ipu6_ipc_buttress_bulk_msg {
- 	u8 cmd_size;
- };
- 
--int ipu6_buttress_ipc_reset(struct ipu6_device *isp,
--			    struct ipu6_buttress_ipc *ipc);
-+int ipu6_buttress_ipc_reset(struct ipu6_device *isp);
- int ipu6_buttress_map_fw_image(struct ipu6_bus_device *sys,
- 			       const struct firmware *fw,
- 			       struct sg_table *sgt);
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 55e660fda421..7ac9c92744c0 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -241,6 +241,12 @@ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
- 	.tsc_lo		= BUTTRESS_REG_TSC_LO,
- 	.wdt		= BUTTRESS_REG_WDT,
- 	.btrs_ctrl	= BUTTRESS_REG_BTRS_CTRL,
-+	.csr_in		= BUTTRESS_REG_CSE2IUCSR,
-+	.csr_out	= BUTTRESS_REG_IU2CSECSR,
-+	.db0_in		= BUTTRESS_REG_CSE2IUDB0,
-+	.db0_out	= BUTTRESS_REG_IU2CSEDB0,
-+	.data0_in	= BUTTRESS_REG_CSE2IUDATA0,
-+	.data0_out	= BUTTRESS_REG_IU2CSEDATA0,
- 
- 	/* Bitmasks */
- 	.irq_is		= BUTTRESS_ISR_IS_IRQ,
-@@ -779,7 +785,6 @@ static int ipu6_resume(struct device *dev)
+ 	if (active > 0)
+ 		pm_runtime_put(&isp->pdev->dev);
+@@ -424,12 +420,13 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
+ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
  {
- 	struct pci_dev *pdev = to_pci_dev(dev);
- 	struct ipu6_device *isp = pci_get_drvdata(pdev);
--	struct ipu6_buttress *b = &isp->buttress;
+ 	struct ipu6_device *isp = isp_ptr;
++	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
+ 	struct ipu6_bus_device *adev[] = { isp->isys, isp->psys };
+ 	const struct ipu6_auxdrv_data *drv_data = NULL;
+ 	irqreturn_t ret = IRQ_NONE;
+ 	unsigned int i;
+ 
+-	for (i = 0; i < ARRAY_SIZE(ipu6_adev_irq_mask) && adev[i]; i++) {
++	for (i = 0; i < ARRAY_SIZE(adev) && adev[i]; i++) {
+ 		drv_data = adev[i]->auxdrv_data;
+ 		if (!drv_data)
+ 			continue;
+@@ -439,7 +436,7 @@ irqreturn_t ipu6_buttress_isr_threaded(int irq, void *isp_ptr)
+ 			ret = IRQ_HANDLED;
+ 	}
+ 
+-	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
++	writel(regs->irq_all, isp->base + regs->irq_enable);
+ 
+ 	return ret;
+ }
+@@ -472,7 +469,7 @@ int ipu6_buttress_power(struct device *dev,
+ 
+ 	writel(val, isp->base + ctrl->freq_ctl);
+ 
+-	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_PWR_STATE,
++	ret = readl_poll_timeout(isp->base + isp->buttress.regs->pwr_status,
+ 				 val, (val & ctrl->pwr_sts_mask) == pwr_sts,
+ 				 100, BUTTRESS_POWER_TIMEOUT_US);
+ 	if (ret)
+@@ -488,7 +485,7 @@ bool ipu6_buttress_get_secure_mode(struct ipu6_device *isp)
+ {
+ 	u32 val;
+ 
+-	val = readl(isp->base + BUTTRESS_REG_SECURITY_CTL);
++	val = readl(isp->base + isp->buttress.regs->security_ctl);
+ 
+ 	return val & BUTTRESS_SECURITY_CTL_FW_SECURE_MODE;
+ }
+@@ -500,7 +497,7 @@ bool ipu6_buttress_auth_done(struct ipu6_device *isp)
+ 	if (!isp->secure_mode)
+ 		return true;
+ 
+-	val = readl(isp->base + BUTTRESS_REG_SECURITY_CTL);
++	val = readl(isp->base + isp->buttress.regs->security_ctl);
+ 	val = FIELD_GET(BUTTRESS_SECURITY_CTL_FW_SETUP_MASK, val);
+ 
+ 	return val == BUTTRESS_SECURITY_CTL_AUTH_DONE;
+@@ -518,10 +515,10 @@ int ipu6_buttress_reset_authentication(struct ipu6_device *isp)
+ 	}
+ 
+ 	writel(BUTTRESS_FW_RESET_CTL_START, isp->base +
+-	       BUTTRESS_REG_FW_RESET_CTL);
++	       isp->buttress.regs->fw_reset_ctl);
+ 
+-	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_FW_RESET_CTL, val,
+-				 val & BUTTRESS_FW_RESET_CTL_DONE, 500,
++	ret = readl_poll_timeout(isp->base + isp->buttress.regs->fw_reset_ctl,
++				 val, val & BUTTRESS_FW_RESET_CTL_DONE, 500,
+ 				 BUTTRESS_CSE_FWRESET_TIMEOUT_US);
+ 	if (ret) {
+ 		dev_err(&isp->pdev->dev,
+@@ -530,7 +527,8 @@ int ipu6_buttress_reset_authentication(struct ipu6_device *isp)
+ 	}
+ 
+ 	dev_dbg(&isp->pdev->dev, "FW reset for authentication done\n");
+-	writel(0, isp->base + BUTTRESS_REG_FW_RESET_CTL);
++	writel(0, isp->base + isp->buttress.regs->fw_reset_ctl);
++
+ 	/* leave some time for HW restore */
+ 	usleep_range(800, 1000);
+ 
+@@ -660,7 +658,7 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ 	mask = BUTTRESS_SECURITY_CTL_FW_SETUP_MASK;
+ 	done = BUTTRESS_SECURITY_CTL_FW_SETUP_DONE;
+ 	fail = BUTTRESS_SECURITY_CTL_AUTH_FAILED;
+-	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_SECURITY_CTL, data,
++	ret = readl_poll_timeout(isp->base + b->regs->security_ctl, data,
+ 				 ((data & mask) == done ||
+ 				  (data & mask) == fail), 500,
+ 				 BUTTRESS_CSE_BOOTLOAD_TIMEOUT_US);
+@@ -700,7 +698,7 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ 	}
+ 
+ 	done = BUTTRESS_SECURITY_CTL_AUTH_DONE;
+-	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_SECURITY_CTL, data,
++	ret = readl_poll_timeout(isp->base + b->regs->security_ctl, data,
+ 				 ((data & mask) == done ||
+ 				  (data & mask) == fail), 500,
+ 				 BUTTRESS_CSE_AUTHENTICATE_TIMEOUT_US);
+@@ -725,15 +723,16 @@ int ipu6_buttress_authenticate(struct ipu6_device *isp)
+ 
+ static int ipu6_buttress_send_tsc_request(struct ipu6_device *isp)
+ {
++	const struct ipu6_buttress_registers *regs = isp->buttress.regs;
+ 	u32 val, mask, done;
  	int ret;
  
- 	/* Configure the arbitration mechanisms for VC requests */
-@@ -791,7 +796,7 @@ static int ipu6_resume(struct device *dev)
+ 	mask = BUTTRESS_PWR_STATE_HH_STATUS_MASK;
  
- 	ipu6_buttress_restore(isp);
+ 	writel(BUTTRESS_FABRIC_CMD_START_TSC_SYNC,
+-	       isp->base + BUTTRESS_REG_FABRIC_CMD);
++	       isp->base + regs->fabric_cmd);
  
--	ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
-+	ret = ipu6_buttress_ipc_reset(isp);
- 	if (ret)
- 		dev_err(&isp->pdev->dev, "IPC reset protocol failed!\n");
- 
-@@ -820,10 +825,8 @@ static int ipu6_runtime_resume(struct device *dev)
- 	ipu6_buttress_restore(isp);
- 
- 	if (isp->need_ipc_reset) {
--		struct ipu6_buttress *b = &isp->buttress;
--
- 		isp->need_ipc_reset = false;
--		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
-+		ret = ipu6_buttress_ipc_reset(isp);
- 		if (ret)
- 			dev_err(&isp->pdev->dev, "IPC reset protocol failed\n");
+-	val = readl(isp->base + BUTTRESS_REG_PWR_STATE);
++	val = readl(isp->base + regs->pwr_status);
+ 	val = FIELD_GET(mask, val);
+ 	if (val == BUTTRESS_PWR_STATE_HH_STATE_ERR) {
+ 		dev_err(&isp->pdev->dev, "Start tsc sync failed\n");
+@@ -741,8 +740,8 @@ static int ipu6_buttress_send_tsc_request(struct ipu6_device *isp)
  	}
+ 
+ 	done = BUTTRESS_PWR_STATE_HH_STATE_DONE;
+-	ret = readl_poll_timeout(isp->base + BUTTRESS_REG_PWR_STATE, val,
+-				 FIELD_GET(mask, val) == done, 500,
++	ret = readl_poll_timeout(isp->base + regs->pwr_status,
++				 val, FIELD_GET(mask, val) == done, 500,
+ 				 BUTTRESS_TSC_SYNC_TIMEOUT_US);
+ 	if (ret)
+ 		dev_err(&isp->pdev->dev, "Start tsc sync timeout\n");
+@@ -762,11 +761,13 @@ int ipu6_buttress_start_tsc_sync(struct ipu6_device *isp)
+ 		if (ret != -ETIMEDOUT)
+ 			return ret;
+ 
+-		val = readl(isp->base + BUTTRESS_REG_TSW_CTL);
++		u32 tsw_ctl = isp->buttress.regs->tsw_ctl;
++
++		val = readl(isp->base + tsw_ctl);
+ 		val = val | BUTTRESS_TSW_CTL_SOFT_RESET;
+-		writel(val, isp->base + BUTTRESS_REG_TSW_CTL);
++		writel(val, isp->base + tsw_ctl);
+ 		val = val & ~BUTTRESS_TSW_CTL_SOFT_RESET;
+-		writel(val, isp->base + BUTTRESS_REG_TSW_CTL);
++		writel(val, isp->base + tsw_ctl);
+ 	}
+ 
+ 	dev_err(&isp->pdev->dev, "TSC sync failed (timeout)\n");
+@@ -777,13 +778,14 @@ EXPORT_SYMBOL_NS_GPL(ipu6_buttress_start_tsc_sync, "INTEL_IPU6");
+ 
+ void ipu6_buttress_tsc_read(struct ipu6_device *isp, u64 *val)
+ {
++	void __iomem *tsc = isp->base + isp->buttress.regs->tsc_lo;
+ 	u32 tsc_hi_1, tsc_hi_2, tsc_lo;
+ 	unsigned long flags;
+ 
+ 	local_irq_save(flags);
+-	tsc_hi_1 = readl(isp->base + BUTTRESS_REG_TSC_HI);
+-	tsc_lo = readl(isp->base + BUTTRESS_REG_TSC_LO);
+-	tsc_hi_2 = readl(isp->base + BUTTRESS_REG_TSC_HI);
++	tsc_hi_1 = readl(tsc + BUTTRESS_TSC_HI_OFFSET);
++	tsc_lo = readl(tsc);
++	tsc_hi_2 = readl(tsc + BUTTRESS_TSC_HI_OFFSET);
+ 	if (tsc_hi_1 == tsc_hi_2) {
+ 		*val = (u64)tsc_hi_1 << 32 | tsc_lo;
+ 	} else {
+@@ -816,9 +818,9 @@ void ipu6_buttress_restore(struct ipu6_device *isp)
+ {
+ 	struct ipu6_buttress *b = &isp->buttress;
+ 
+-	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_CLEAR);
+-	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
+-	writel(b->wdt_cached_value, isp->base + BUTTRESS_REG_WDT);
++	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
++	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
++	writel(b->wdt_cached_value, isp->base + b->regs->wdt);
+ }
+ 
+ int ipu6_buttress_init(struct ipu6_device *isp)
+@@ -851,12 +853,12 @@ int ipu6_buttress_init(struct ipu6_device *isp)
+ 		readl(isp->base + BUTTRESS_REG_SECURITY_TOUCH),
+ 		readl(isp->base + BUTTRESS_REG_CAMERA_MASK));
+ 
+-	b->wdt_cached_value = readl(isp->base + BUTTRESS_REG_WDT);
+-	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_CLEAR);
+-	writel(BUTTRESS_IRQS, isp->base + BUTTRESS_REG_ISR_ENABLE);
++	b->wdt_cached_value = readl(isp->base + b->regs->wdt);
++	writel(b->regs->irq_all, isp->base + b->regs->irq_clear);
++	writel(b->regs->irq_all, isp->base + b->regs->irq_enable);
+ 
+ 	/* get ref_clk frequency by reading the indication in btrs control */
+-	val = readl(isp->base + BUTTRESS_REG_BTRS_CTRL);
++	val = readl(isp->base + b->regs->btrs_ctrl);
+ 	val = FIELD_GET(BUTTRESS_REG_BTRS_CTRL_REF_CLK_IND, val);
+ 
+ 	switch (val) {
+@@ -902,7 +904,7 @@ void ipu6_buttress_exit(struct ipu6_device *isp)
+ {
+ 	struct ipu6_buttress *b = &isp->buttress;
+ 
+-	writel(0, isp->base + BUTTRESS_REG_ISR_ENABLE);
++	writel(0, isp->base + b->regs->irq_enable);
+ 
+ 	mutex_destroy(&b->power_mutex);
+ 	mutex_destroy(&b->auth_mutex);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+index b1c1a10e3e6d..68586a32fda3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
+@@ -42,9 +42,34 @@ struct ipu6_buttress_ipc {
+ 	u32 data0_in;
+ };
+ 
++struct ipu6_buttress_registers {
++	/* Registers */
++	u32 irq_status;
++	u32 irq_clear;
++	u32 irq_enable;
++	u32 pwr_status;
++	u32 security_ctl;
++	u32 fw_reset_ctl;
++	u32 fabric_cmd;
++	u32 tsw_ctl;
++	u32 tsc_lo;
++	u32 wdt;
++	u32 btrs_ctrl;
++
++	/* Bitmasks */
++	u32 irq_is;
++	u32 irq_ps;
++	u32 irq_all;
++	u32 irq_events;
++	u32 irq_cse_ipc;
++	u32 irq_exec_done;
++	u32 irq_sai;
++};
++
+ struct ipu6_buttress {
+ 	struct mutex power_mutex, auth_mutex, cons_mutex, ipc_mutex;
+ 	struct ipu6_buttress_ipc ipc;
++	const struct ipu6_buttress_registers *regs;
+ 	struct list_head constraints;
+ 	u32 wdt_cached_value;
+ 	bool force_suspend;
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+index efd65e494c16..5006cce74b23 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-platform-buttress-regs.h
+@@ -212,7 +212,7 @@ enum {
+ #define BUTTRESS_TSW_CTL_SOFT_RESET	BIT(8)
+ 
+ #define BUTTRESS_REG_TSC_LO	0x164
+-#define BUTTRESS_REG_TSC_HI	0x168
++#define BUTTRESS_TSC_HI_OFFSET	4
+ 
+ #define BUTTRESS_IRQS		(BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING | \
+ 				 BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE |    \
+diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
+index efb58bc4d127..55e660fda421 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6.c
++++ b/drivers/media/pci/intel/ipu6/ipu6.c
+@@ -228,6 +228,30 @@ static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
+ 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
+ };
+ 
++static const struct ipu6_buttress_registers ipu6_buttress_regs = {
++	/* Registers */
++	.irq_status	= BUTTRESS_REG_ISR_STATUS,
++	.irq_clear	= BUTTRESS_REG_ISR_CLEAR,
++	.irq_enable	= BUTTRESS_REG_ISR_ENABLE,
++	.pwr_status	= BUTTRESS_REG_PWR_STATE,
++	.security_ctl	= BUTTRESS_REG_SECURITY_CTL,
++	.fw_reset_ctl	= BUTTRESS_REG_FW_RESET_CTL,
++	.fabric_cmd	= BUTTRESS_REG_FABRIC_CMD,
++	.tsw_ctl	= BUTTRESS_REG_TSW_CTL,
++	.tsc_lo		= BUTTRESS_REG_TSC_LO,
++	.wdt		= BUTTRESS_REG_WDT,
++	.btrs_ctrl	= BUTTRESS_REG_BTRS_CTRL,
++
++	/* Bitmasks */
++	.irq_is		= BUTTRESS_ISR_IS_IRQ,
++	.irq_ps		= BUTTRESS_ISR_PS_IRQ,
++	.irq_all	= BUTTRESS_IRQS,
++	.irq_events	= BUTTRESS_EVENT,
++	.irq_cse_ipc	= BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING,
++	.irq_exec_done	= BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE,
++	.irq_sai	= BUTTRESS_ISR_SAI_VIOLATION,
++};
++
+ static void
+ ipu6_pkg_dir_configure_spc(struct ipu6_device *isp,
+ 			   const struct ipu6_hw_variants *hw_variant,
+@@ -522,6 +546,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 	pci_set_master(pdev);
+ 
+ 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
++	isp->buttress.regs = &ipu6_buttress_regs;
++
+ 	switch (id->device) {
+ 	case PCI_DEVICE_ID_INTEL_IPU6:
+ 		isp->hw_ver = IPU_VERSION_6;
 -- 
 2.47.3
 
