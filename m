@@ -1,65 +1,64 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D1413ACA77
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 06:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 670D13AEF3A
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 06:28:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788762521; cv=none; b=BM/v7EFXWghxxiugergsBZenPsrfhDzywDZkWWntXxW6J05GphNoxz6HjZ5mfFwJSUfCBa0uIsFL0CiBiVcE7SlI9SbIPIwOi4cl3MSdZ3wJxC3f4lf5O0V18NiVraJnKuUg2Wh1uPMIg6B6cmyqD+C5oeAt62ihKDHcdv6RumA=
+	t=1788762525; cv=none; b=hDihrKO3yXbAZB3k6Bl1eP7UZDTL9mo63kS6lao6R0I/c0fmO+iuWltJfmaoXBONc2LHgyyb0WFiSJ2IkTo+9KjnxWfRG3FdngFimRjfllbzoQuYKoTwukk/fK3f627QAyF0Dm+mgh20N/rqqFwV0utRqPXw21fUJHDvPCWDTeo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788762521; c=relaxed/simple;
-	bh=HQVLVPzjRG5hh8fZIGmX/p3UNdpvdNQwjepL5vkjQ24=;
+	s=arc-20240116; t=1788762525; c=relaxed/simple;
+	bh=Eczviqg/1I0bF4Nop5EFAxHliXvYylccF8WSRSrMDJk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O78Wap2Hcaz3E5X0qbKT9Z7CPX0mdy7dnRvkge0Op9KwmKe1uXKIWZtufIc/n/FoH2YMjjCovtGeR1r9i5l8Q3bT2hH/A9KxgvmWx4eys6Omyen2JXWoUHbtUDcJuZy5YLsZ9CuWy4E9KHHFHPYRKdz9IEUUC9xQSCQ5QtNeSAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RwrocECK; arc=none smtp.client-ip=209.85.216.52
+	 MIME-Version; b=AzNfj+uS5saOToXWjmS03goPo4x58sUWMfkWjMIs6h/tJhVQoplLX9zDveMzrKDZALCntZLLbsNa9J+zVMvwCRs1OHWmz/Koh39/rfe6LbIDV1uAhmH+lEpZJTT5pFSIMe+aAecrrC5ROC3jytcq93xSzQL7Pz5lSvEvfdzATfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWI1vo4Q; arc=none smtp.client-ip=209.85.216.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RwrocECK"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so3466314a91.0
-        for <linux-media@vger.kernel.org>; Sun, 06 Sep 2026 23:28:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWI1vo4Q"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-398c1101c1bso3054397a91.1
+        for <linux-media@vger.kernel.org>; Sun, 06 Sep 2026 23:28:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788762518; x=1789367318; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1788762521; x=1789367321; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M1wSKmw/x+Nhq5u1uQ+7oGEZmPqsD7MFhh/OKQ0EiNE=;
-        b=RwrocECK6AEI5KhukKMsJQCOLIy9i1qVT7yV9iYiUpxeg3xQhhEGodkJ7Yw8Mp6q14
-         CzMOm6253xf0zLwIUAhHIy9rX9n4AsC8hY8LmIail2CCwU5LkWCmATG9enClviPymLjb
-         VElL718wfIcogc4u8XH6tfbN4dRGwxAd0v5UadYglREbGEcmeP9qw3/fivdnJ9vqctEG
-         rwjL3rLMRxDGidXib13Fgkwc8zNEWTqIoKxB2eoIGGeJVEOoGFDJTi1aEWsA21Olx61E
-         1oRVvZLO4z5xF6fraLmQ6SyxNDJTsfTPBG9vQ8O70xoHuoaHp6w2OdzZwRzV3erX9mBy
-         0uZw==
+        bh=EPO3XgKtW39x62BjixAoLRnOdq38lit6qHUtJ4zQNAE=;
+        b=SWI1vo4QtD1kaRxhqS3nwYpllbba9vDiftF/CILJmsfQEspilXMZ2WMrz/w7G1U478
+         qbFwA54S8iq/jXfVusu4+u3Iz6nu55n4oilV0ix7TvtwkaBkRUjfIM12QyIyo0nrJIQn
+         0QfEKmHa4cf+cQ41HCzo9XvfXH+F71TySi1/5ecnLmbOsozVwO6kHkUrpCSDd7DCMFH7
+         +Qd7D8L8rQhjb7w2pEJ6TG4Cb4VBstvOjmCNIyX1Sdxg5bekpOl2yFbqQXAHGU3V7uzM
+         NKMrSoxlU4puoQZG5Tu3YL7pVhAh8HmjkoK3pN/UC3q+s7ThsJRgzENGipsi3hiP3Yy5
+         ENJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788762518; x=1789367318;
+        d=1e100.net; s=20251104; t=1788762521; x=1789367321;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M1wSKmw/x+Nhq5u1uQ+7oGEZmPqsD7MFhh/OKQ0EiNE=;
-        b=Erg+3T2N+Mzvyekfe5L3X6ygF6W2bs0Bfx8V6DDluVi5+OWsSbrtCavYu0CGjHZ9e0
-         K9a0W1+KudKcKBShMRA3GfQSeUgkVliaXget+hnA8sijOc3dB7BH13xQkcctIsiznVoc
-         52PKbCn9B+D8iW8Jz0venuAX2/k13lYnzeZ8naUpdibEhS7Ywv9g2BesVWIF1QnQMfK2
-         +QpjUqdj0I4il54ABUeCDWGw+JjDkQrptM+4WpQ+y3TPhe0RNVz8PstENiaXvu50L9Jm
-         y6NYudwsTYTQs0usoZVGlWZ3XBdR4qWBImLM2P/PKE7XFWjShRoHqr7T4yMUZoDJKCfB
-         clMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxVE/v6JBc1bX0v2E+JUTj7+UvcP1JU7nLkp2k6cV7GHGncjzXyD4N3I3m89RBdgaGdbsktL8IBctKWTQ==@vger.kernel.org
-X-Gm-Message-State: AFuF++mWrwv8Cgz0S1pUzH0YibfITc6z6W65/OMoV83piSxa88q2DZkj
-	hkKn6T6xoUMWlOtc56TvTgtwZJGkZy9vugNsESTOLE4Oquwwa7V7P16R
-X-Gm-Gg: AYBFou0qWv/BVeibhqs9lCdRV6NzTs+4sLNwvm6C3rAv/rHwuYG/ekwDtRnNnW7chST
-	e0Rgv480lrvwxp7E0lKl/v7pzC26bUWDI5VZNHCxlJBegkUyfmYxEUK483jWvpIQ+2YbYFZeEdL
-	GA1gplxrWnvsBu0Il2kQtjSS5M9FIvfgp6ydvW28wIB1DjHd1e6h6uI/K54u9Iv3vtIewRHTwEV
-	QW6svbs25WkpeTjtyCkKYWpNDnozHxPQIl+Yt1TeQiGNU2+as4AErX0OvfVEizzQY0VQJmxwueT
-	vV3ZpQJMpdHb0GKGe6q5+16aUX5OBXVdCWTuxvtFx3T24Q9oQh1wOEH2OagUKwDIl+NuX4llytg
-	wHZBnwUARSHK++GgZk41oWOdFtL3zLtanMv7wr3fupHf2xpk+HdgalJx3jIK6YQ3pz2F6JkBJWM
-	1IlUWr+47hZvDxgSMbi1dhOtXwMyDjEU6HqAcoX/daH4LnpYSIy2VT4o13FmGWU0yG4BF0hvIRj
-	1IRzpZRPh098gfRbpC8jlUeYwDk5jZ4ZW61Tj2Fd6aVe8HyHPsu/1h91jPhaQId5vpoPOfzA+++
-	eR2bcHU=
-X-Received: by 2002:a17:90b:2ccd:b0:398:baa7:4c2f with SMTP id 98e67ed59e1d1-39b27c442f8mr16725731a91.5.1788762517830;
-        Sun, 06 Sep 2026 23:28:37 -0700 (PDT)
+        bh=EPO3XgKtW39x62BjixAoLRnOdq38lit6qHUtJ4zQNAE=;
+        b=JzPY3DlnjZHYnJA5E9kz+BT3PLyGJxDkHp/EErnZ9mH5Bw9VcDL1hbwYg5Prhzg6nk
+         HymndUOTDIAG5ukLoXZgqRsgsTF54sOlJHDyAZVuDBoVjzVVARvFP2t7Hb3pe2zgXl4W
+         fAMDjGz0H9j9daVSQpAwYq2lpjJUKnspuDyCGWbwDPTXnv5ZxeqCgq9ebbUNiQ//X2F0
+         lsTrRTEUIyT5pscbvM4Q2Adw7BqIt3S/qpIlzfHfufv3cutTTZZCu3zzL2ZV5Sn1H4Q8
+         eSgn0e+2at7AgevOHNpZrUQfYc6Lah7uFfwofA8mP0g+ZPbmJ5Ov/Msc25unBe2+ZC6K
+         OWdA==
+X-Forwarded-Encrypted: i=1; AKwUvByZASEiaibrzx86G4VnY8xn0V+WmMIiBX8QQlOQrnr0eIyf5tEp8B/ca0JHLJTJjlx+oCq1IsI1jIzs5w==@vger.kernel.org
+X-Gm-Message-State: AFuF++nFUPn2SHNHP7arUt2FjpaUuJXBMAwROryE4WPC3PDsHohiPKcD
+	SZd7YBnfVB9MisoskfN3dxljhNsurp17RKRksKt/nBT1vUm9LBhmjgzh
+X-Gm-Gg: AYBFou3UM5/FqT4FaG6yHfG+TES9hlAWe7EyfdBlMwCeE5+PgLnNYxR9kWa0KXP6O7B
+	ujo4L2n+1fXkfg+mVxi128cWUkYKFhkt348D5q0rOma0Yy09W+Azw4cyzrohPrV3FkjEvOsFjqK
+	qa0dVEq8Oi34IB2aImAh313qkjQdLw0Fpub7U28uzw6SWpDDUOrvE6pf8fxmntSrJLs+YWU6RCY
+	0xpLL9JfZjFwVYfucRwKaXA/3yFEuKvoUYxQ3EphJxPvtuMoPUREwTYiZGlq2yHxwr21TIxcNiC
+	vt05XKJkTa5FJPen1YkO1X8og79q4unsPnFHJFEu7K8l//biTLwtD86uBc9DCGdDlWyOj5Ig7JJ
+	+/fXsUpoukypFRJL/rEIjcb7mhti6Ptk5aT1hoBh+WSbMEQIgBSWwEa1FGJsJ25F5EqfAVNOtxN
+	QwAGjcFbsDo3Pi7+Qmpoj0+YmYv0HSHoR8DUwcPIEf10E1vaFVD0ZgkjEjbuSBkbrrmDtkc78RK
+	gdImbrqkfQ5C4Luexyp/ROkRUBsE2xxqWoV+dTgpfUchpa9EpquZqWkiMvQ8/NarCo+OUCR
+X-Received: by 2002:a17:90b:3c48:b0:398:e436:384 with SMTP id 98e67ed59e1d1-39b260d335dmr32816359a91.1.1788762520616;
+        Sun, 06 Sep 2026 23:28:40 -0700 (PDT)
 Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm18978042a91.0.2026.09.06.23.28.35
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b25c974cfsm18978042a91.0.2026.09.06.23.28.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 06 Sep 2026 23:28:37 -0700 (PDT)
+        Sun, 06 Sep 2026 23:28:40 -0700 (PDT)
 From: Wei Jie Law <98lawweijie@gmail.com>
 To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Hans de Goede <hansg@kernel.org>,
@@ -68,9 +67,9 @@ Cc: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
 	linux-media@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] media: uvcvideo: Fix NULL deref on events for uninitialized controls
-Date: Mon,  7 Sep 2026 14:28:17 +0800
-Message-ID: <20260907062819.2519878-2-98lawweijie@gmail.com>
+Subject: [PATCH 2/2] media: uvcvideo: Fix out-of-bounds read in uvc_ctrl_status_event()
+Date: Mon,  7 Sep 2026 14:28:18 +0800
+Message-ID: <20260907062819.2519878-3-98lawweijie@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260907062819.2519878-1-98lawweijie@gmail.com>
 References: <20260907062819.2519878-1-98lawweijie@gmail.com>
@@ -82,45 +81,58 @@ List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A null-ptr-deref exists in v6.12.105 and upstream. KASAN crash log:
+An out-of-bounds read exists in v6.12.105 and upstream. KASAN crash log:
 
-  KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+  BUG: KASAN: slab-use-after-free in uvc_get_le_value+0x314/0x350
+  Read of size 1 at addr ffff88802df955e4 by task kworker/0:2/128
   Workqueue: events uvc_ctrl_status_event_work
-  RIP: 0010:uvc_ctrl_status_event+0x105/0x280
+   uvc_ctrl_status_event+0x128/0x280
    uvc_ctrl_status_event_work+0x82/0x240
-   process_one_work+0x66f/0x10b0
+  The buggy address belongs to the object at ffff88802df955e0
+   which belongs to the cache kmalloc-16 of size 16
 
-XU controls are initialized lazily, on the first UVCIOC_CTRL_MAP or
-UVCIOC_CTRL_QUERY.  Until then ctrl->info is all zeroes, so
-info.mappings is not a valid list head, list_empty() returns false, and
-uvc_ctrl_status_event() walks it from a NULL next pointer.
+uvc_ctrl_add_mapping() validates mapping->offset against the control
+data buffer, sized from the device's GET_LEN answer.
+uvc_ctrl_status_event() applies the same offset to the 11 byte bValue
+field of a control change event, so uvc_get_le_value() reads past the
+16 byte struct uvc_status and the value is reported to userspace as a
+V4L2_EVENT_CTRL change.  offset is a u8 bit offset, so the read reaches
+24 bytes into the neighbouring objects; KASAN calls it a use-after-free
+because the neighbour it read had just been freed.
 
 Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
 Assisted-by: Claude:claude-opus-5
 ---
- drivers/media/usb/uvc/uvc_ctrl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/media/usb/uvc/uvc_ctrl.c | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
-index 3ca108b83f1d..21802f9b1b61 100644
+index 21802f9b1b61..d082bcb8d98d 100644
 --- a/drivers/media/usb/uvc/uvc_ctrl.c
 +++ b/drivers/media/usb/uvc/uvc_ctrl.c
-@@ -2209,7 +2209,12 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
- 	struct uvc_device *dev = chain->dev;
- 	struct uvc_ctrl_work *w = &dev->async_ctrl;
+@@ -2156,11 +2156,16 @@ void uvc_ctrl_status_event(struct uvc_video_chain *chain,
+ 		uvc_ctrl_clear_handle(ctrl);
  
--	if (list_empty(&ctrl->info.mappings))
-+	/*
-+	 * An uninitialized control has a zeroed info struct, so its
-+	 * mappings list head is not a list: list_empty() returns false
-+	 * and the walk dereferences NULL.
-+	 */
-+	if (!ctrl->initialized || list_empty(&ctrl->info.mappings))
- 		return false;
+ 	list_for_each_entry(mapping, &ctrl->info.mappings, list) {
+-		s32 value;
++		s32 value = 0;
  
- 	w->data = data;
+-		if (uvc_ctrl_mapping_is_compound(mapping))
+-			value = 0;
+-		else
++		/*
++		 * The offset is validated against the control size, not
++		 * against the event payload, so a mapping can reach past
++		 * bValue[].
++		 */
++		if (!uvc_ctrl_mapping_is_compound(mapping) &&
++		    mapping->offset + mapping->size <=
++			8 * sizeof_field(struct uvc_status_control, bValue))
+ 			value = uvc_mapping_get_s32(mapping, UVC_GET_CUR, data);
+ 
+ 		/*
 -- 
 2.43.0
 
