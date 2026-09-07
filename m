@@ -1,119 +1,120 @@
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A997E52121E
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 17:55:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788803754; cv=pass; b=kC/Os+9PCWLUX48j0MfRMtxvQaNOwgvmtzdOU23m9xYBCs8MjqWlxQRB9uoq+c1bnrWhsuDrDG5KXMBuEkqsJtAaThwyKLfddrvjriHrmoZqCiexjGINEgngv8ZTxHsD8rbj6qnAfvauBFVLQnc+mOwj1D1+UtTZ8RZDJ2ksIEo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788803754; c=relaxed/simple;
-	bh=VTn5xM0BByZGDzeaW7HKnMpQYAJ2GObAR+ycPlMJjRk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fgNBTfVbIzbPjvQ/NbieXjHEbJW1RklKsIMR4iYVxc65jwmKjl4BYq5ZkkpSBhlCdRsRrkXArbU4CMDkWF0QnF6RHQBvjqNFJGNtGMWButLEIUqSyxA68liYV2yEVOpHf9xd1rdTMKhhoTCBj/+4E8D7MB9eSOAweVGlNpL1MB4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mC1ZcTx7; arc=pass smtp.client-ip=209.85.218.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77EA521234;
+	Mon,  7 Sep 2026 18:14:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1788804901; cv=none; b=RwqqTA2zl3ahMQuo27vBNV8/meOjX+hvPrvFyaNxsSYWtUUYZyNMLNZcevVQKCGDzopK0fkVPa+WXqEWKLx1hf5mAfPK1Vl8epzCBLvmYlEylGxu4SBqPpuRsXo9PcA62UeqZqaMXdhct25nPfgU2pIRzFmgGsp9LXyVmDtt4Ak=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1788804901; c=relaxed/simple;
+	bh=iP1D0jXvjPpjZ7yLPsGOjEH+eOqwaNxY+TRsUbgmadI=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
+	 References:In-Reply-To; b=dUERZ4VY4ZYj/7DjH8aR0iL0NUcoVQp1xeT2rpetUMvV7FUVwVSUv4aq0gwz7e5l4sl4hixWWxhNQaOo398EqBoHBOZqtJuQJgmMyqQ+NOl7uaYZEIFihxiVLKae5/bVdozzUpJ2RdmXWpfaP+7oQQwwTXYNzJQgOcpxfP/c6Xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hvYeMkQE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mC1ZcTx7"
-Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c262bc686d9so366627366b.2
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 10:55:52 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1788803751; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xtf2EmibBoYCAC4iS1tVf/ZVwOOIxFbft8fJThak7Y+bb5JSzBVrn6LI28OfziSm4B
-         ZcF1/HCi1YgUCpLk7vwxdPbFI5PYAjEmEpdAS7OI9KyvghjdEpvLOVyFpOEQRlJgj5OA
-         hOjqYGnR2dP23Wftg4Z0IxWdO3bp4M7ydd3ijvZAdb6amSLVmfKGWhBox07i3WMyq6Mg
-         lBht3m8gbpQkiF5t7vDblQrvCanrsBzypZo8LulnGUOAYASoBWNmGxCCFCR7dtkgE+Tt
-         x7bB0uF9/lvGIx3t1QUTJ4e8LqELSJvJ5PMSpFR6iIyoH7g1qAVZiHk4g6diR95nofY9
-         h0vg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ncQ9wxRqAVfRdvJQryVlL0w77BiybYqrTlZQ4e8MWAU=;
-        fh=xoubpm1yjUHjrKpL7YWvwjN9p9GhBwDgcGXhEC00oLA=;
-        b=ZeMYHNjKJYf3ui7OV/53aSIHQhb717vrPPg5XDq5o5AVL8oql8zQMW9i7QeIa9TVGf
-         uTQaHrFP7jYXtOykTRlOHyMEY1FxDYtsJH9vGG83tkXAiuQlvcrdVVIYtLEXGh4cYoD2
-         1lIGIoMPAr2IpEEZME7nDZD8S2KO4o+T20zX9wNpyTEL7vS5wqrgaF4NCuFJmkjFvWC8
-         aGIev1Y7cTYBFyPl6HDTNAmzBN8D5sEiW1QpMo4ia0V++rsMb8M4atWQd47c2P3cFLAY
-         Fr/raSfbggvzSesNhwjK5DY8PN0Ltf/XSTHoshcfanEam0KQys4xgTYwHr5L+gRWkox3
-         klzA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1788803751; x=1789408551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ncQ9wxRqAVfRdvJQryVlL0w77BiybYqrTlZQ4e8MWAU=;
-        b=mC1ZcTx7ZNrghiB4QCLccW2esf1Z0vIYX64L6sL4eiPFJ8dtoYmtO6/R1us9T0tpHa
-         1xwxW8bBZwgZ+73+A0lNfwQ/+scn3PyLiO/vEHyDkNjtMF4ldxNFmOxcVIdfy/scxMOI
-         263sfmIy+9vl3F3c1VQCJMNr45jQgRXT6MXRV/eNcbRf6pYTKa3BINowhS3HKFzh+dgC
-         g27fvMfsP8eA3SQxzD6KWd0sm+Shpy8ymppN+jc++rHnTzuqxcUPQJFtTLAZlCmvA1dn
-         /V+gt0jBnu68Xs2QsJRj/ihWV1eZ3Zl7qUKoWNUarPSgAJY2jH7bBoY/92QTksoxYMNg
-         L6Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788803751; x=1789408551;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ncQ9wxRqAVfRdvJQryVlL0w77BiybYqrTlZQ4e8MWAU=;
-        b=AuhHixqnRIXZrd9wD4E2vvNDDes771uzXMZgf1/ULjOO9PsWo/t+aKRllbPXT6BsYz
-         wxE8C9IaKVKUnXNNI/LcoysUOaHXAZ4V/2eZzTjJGEqLoq3jfRKinnzq68btDfZ14Zs6
-         hvKBc7A6vOc8f0fe33+Y4GVsztvpAdddGgIqUGqkyQFO+IhvKXwPLXIB8FWk3Tl/dkJ/
-         ly1H4OqUwDoiGCqYgFjbzmCaWTjtu3aQXn8lcAECVH0c7TKKmAzCW2qhLxwckOvEh4Tb
-         mbR1Q48RPS+YCm/AtXvGVYtC20SkFVRi2rvF7ROjgtS1VV71YRd57fNpJQR/V5Kgbd0V
-         MqZA==
-X-Forwarded-Encrypted: i=1; AKwUvBybmSG70xZ3BC58i4mC1b0e+T7YoT1NDJDpxNWBWC/XdiWRnf0QnWi9MKD7APs1OOnWSIpDJVZB0v73cA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lfAh3fUZP6gZUdUcxy+cVkeq0JHBZp3uVH/qp0RWjMYhsDwsFj
-	9FUYT2GrepPNpVRnNuNUUi1CIt31fCfwJWx0OyXBJUaKO0pE/QBD6DSXtXl098aE2EHsBrzdUzZ
-	RHpNZeEoaWCkmQD6m99XWk3cEGgc1ZFfrrHnDQiFIYQ==
-X-Gm-Gg: AYBFou1pm3MZ7mdezJaJiJb2lzpcEh8iuLktDx5kphU9pQLmJWrzxvJefk4kMnqPeii
-	Qtz5s0A4zj2b7m60+xaatBWFpcsvdTHe0w098lbAudbIAYWarzEvJ61gM0AL0fAdLLhZ4E2qcpx
-	wA7F1OcXUftsIqzQvKJuUWidGUrNH5jxSgOn0l8AexANjbtBSrl3EBUaePagUaHGFvwwHPKwrsD
-	u5bxFRlohafgPLQzoC3RGTAH+Y66tlBwn+WyfIHS0iLWoGpYFd2IeiBRHPL0qN5M+kokRpH4OnB
-	r7842nzew1tI6ygKyRdJ/P792JQ9s/DbWFomdrG5FnNRcGM1HchacFKLwVLG5mopkjbXZo8No9d
-	oX6vB3rpp5YysyC4+A+uxjhAEwv1T3Cj5M5W1hSomuuv6DysolTjzSf9DM3IsbTSrqHLkaQyCSi
-	ojj3gHazPCgCzvUvEScn0oRu4eDfvDEw==
-X-Received: by 2002:a17:906:7956:b0:c1f:c061:569a with SMTP id
- a640c23a62f3a-c260c7ad26cmr891917366b.7.1788803750800; Mon, 07 Sep 2026
- 10:55:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hvYeMkQE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23BC51F00A3A;
+	Mon,  7 Sep 2026 18:14:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788804899;
+	bh=G+mCSvbuHye2yBVI/OAa/LXl0oj9zqUI1neCRreAeV0=;
+	h=Date:To:From:Subject:Cc:References:In-Reply-To;
+	b=hvYeMkQE7bwUwMv5STk20dP0kTxw9T/YYZgdO5DHOulVZpT02Qho8hdv30USGae+Z
+	 6xaEPdNJGxlYqVZKejChg28HI9oFT3R5ERx23XI3MyD/cBfcDGGHTzVnHYqPdVoqyx
+	 McvVmqTEZAWwOuq9kFd7aVOqZptCCktiHbRYxNdUGTw50XX0Xnokc8dEZstNPZ8xM4
+	 e2aKEYBb4lENL561ne3r8OyVoqifgJWm6jTNEcwTftL/Sy9LI+JiwBkDnVQEdlGMkO
+	 NKXllKX8B27iBasLgEweFwF0V6TwPXUYKO8z+3aPEKCww/Ioipjoufl8381WBs63eR
+	 n8NPHJiV69kCw==
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260907165033.8460-1-lalitshankarch@gmail.com>
-In-Reply-To: <20260907165033.8460-1-lalitshankarch@gmail.com>
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-Date: Mon, 7 Sep 2026 20:55:14 +0300
-X-Gm-Features: AcwNN1X4dW08JTgOmtGLWwxfBMjDqVtnJdTI6vze5rZDBBq6vA-ax46gyB9xRcc
-Message-ID: <CAHp75VdsCtQ5aSLB58fXcJTpQDRkgXOFyhTjtvOMCfSyAp3TvQ@mail.gmail.com>
-Subject: Re: [PATCH v2] staging: media: atomisp: Use C99 initializers for ACPI IDs
-To: Lalit Shankar Chowdhury <lalitshankarch@gmail.com>
-Cc: Hans de Goede <hansg@kernel.org>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Sakari Ailus <sakari.ailus@linux.intel.com>, Andy Shevchenko <andy@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	"open list:STAGING - ATOMISP DRIVER" <linux-media@vger.kernel.org>, 
-	"open list:INTEL MID (Mobile Internet Device) PLATFORM" <linux-kernel@vger.kernel.org>, 
-	"open list:STAGING SUBSYSTEM" <linux-staging@lists.linux.dev>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 07 Sep 2026 20:14:52 +0200
+Message-Id: <DL9AEUZ4VGV5.2RT33JE0MHYME@kernel.org>
+To: "Philipp Stanner" <phasta@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v11 1/2] rust: Add dma_fence abstractions
+Cc: "Miguel Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>,
+ "Gary Guo" <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
+ <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
+ Hindborg" <a.hindborg@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>,
+ "Trevor Gross" <tmgross@umich.edu>, "Daniel Almeida"
+ <daniel.almeida@collabora.com>, "Tamir Duberstein" <tamird@kernel.org>,
+ "Alexandre Courbot" <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?=
+ <work@onurozkan.dev>, "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>, "Yury Norov (NVIDIA)"
+ <yury.norov@gmail.com>, "Asahi Lina" <lina+kernel@asahilina.net>, "Burak
+ Emir" <burak.emir@gmail.com>, "Lorenzo Stoakes" <ljs@kernel.org>, "Joel
+ Fernandes" <joelagnelf@nvidia.com>, "FUJITA Tomonori"
+ <fujita.tomonori@gmail.com>, "Boris Brezillon"
+ <boris.brezillon@collabora.com>, <linux-kernel@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-media@vger.kernel.org>,
+ <dri-devel@lists.freedesktop.org>
+References: <20260905085343.1827305-2-phasta@kernel.org>
+ <20260905085343.1827305-3-phasta@kernel.org>
+In-Reply-To: <20260905085343.1827305-3-phasta@kernel.org>
 
-On Mon, Sep 7, 2026 at 7:50=E2=80=AFPM Lalit Shankar Chowdhury
-<lalitshankarch@gmail.com> wrote:
->
-> Use designated initializers for the ACPI ID tables.
+On Sat Sep 5, 2026 at 10:53 AM CEST, Philipp Stanner wrote:
+> +impl<'a, T: Send + Sync + FenceContextOps> Drop for DriverFence<'a, T> {
+> +    fn drop(&mut self) {
+> +        let guard =3D self.as_fence().lock();
+> +
+> +        // Use dma_fence_test_signaled_flag() instead of
+> +        // dma_fence_is_signaled_locked() because the C backend wants to=
+ get rid
+> +        // of the latter.
+> +
+> +        // SAFETY: `guard` is valid until the `call_rcu()` below.
+> +        let signaled: bool =3D unsafe { bindings::dma_fence_test_signale=
+d_flag(guard.as_raw()) };
+> +        if !signaled {
+> +            pr_err!("DriverFence drops unsignaled. Danger of memory corr=
+uption!\n");
 
->  drivers/staging/media/atomisp/i2c/atomisp-gc2235.c | 4 ++--
->  drivers/staging/media/atomisp/i2c/atomisp-ov2722.c | 4 ++--
+I'm not sure we want to keep this as pr_err!().
 
-These drivers should be gone in the future (and the regular ones from
-v4l2 should be in use),  but so far if somebody is happy to take this
-patch,
-Reviewed-by: Andy Shevchenko <andy@kernel.org>
+If we really want to keep warning about this I'd either make this a WARN_ON=
+() or
+dev_warn() (we can easily store a device reference in the fence context), s=
+uch
+that it is at least clear who's the offender.
 
---=20
-With Best Regards,
-Andy Shevchenko
+My preference would be dev_warn(), as I don't think it is that bad of an er=
+ror
+condition to begin with. It would be pretty odd to have a driver where a Dr=
+iverFence
+drops while the corresponding GPU job is not dropped. And further it'd be p=
+retty
+odd if dropping the GPU job would not imply that the GPU actually stopped
+processing the work associated with the job.
+
+For the same reason I also think it is a bit misleading to say "Danger of m=
+emory
+corruption!". It's not the signaling of the fence that does prevent memory
+corruption; it's the driver implementing a proper teardown sequence. And if=
+ this
+sequence is structurally detached from the lifetime of the DriverFence (and=
+ Job)
+structure, something is structurally wrong with the driver anyway.
+
+Furthermore, it would be very natural to just require the generic Job type =
+to
+own a DriverFence. In this case it becomes natural to either signal the fen=
+ce on
+Job completion, or just drop the Jobqueue, which does the ring teardown and
+subsequently drops all the Jobs, which would also imply signaling the
+DriverFence with ECANCELED. I.e. I think the fact that the DriverFence is
+signaled with ECANCELED if it is still unsignaled should just be an API con=
+tract
+and not an error condition.
+
+Honestly, given all that, I'd expect drivers to otherwise just wrap a
+DriverFence in a new type, which just signales the inner DriverFence with a=
+n
+error code in its own destructor.
