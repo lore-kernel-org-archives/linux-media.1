@@ -1,489 +1,250 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from fhigh-b3-smtp.messagingengine.com (fhigh-b3-smtp.messagingengine.com [202.12.124.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8155349E5E8
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26B049364E;
+	Mon,  7 Sep 2026 11:33:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780638; cv=none; b=IzHiXuBvK6DgVPaEQLp4VGnS8iP1rHoSCYMd1WTYo6pDXrrWDUjNUzEjzDdfzkRW2I7GJQIN6l0N21qWKMmZrP8y0I4zKHSpPpY6dspHE9uIzIAtu1FUj9i58REYNEFHU0E8fUj4CDxJXvR4KK1aDrZxPa2cj797g3OGVzEZHo4=
+	t=1788780839; cv=none; b=usrLTHK3xeypJrjwXStkZghmmVMZ8X5x/+SV8cY/DQrKPh8tafAmGjHvbUZut6IJ6kaKK1kv5qUAywK610Fv2Jf/bAtA+j1ISzMcKz+GG5t//WBct2AqVEU6J3e3m2gd8Rt9KMKLHUALYt8wsA6Bbk6FIzplzpJKHpmC0zLxAU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780638; c=relaxed/simple;
-	bh=+Lyu+JvTcNuPVbdGLARnKaFe6YPntgW33OrO6629Y8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IIij1skYfUf6ZkmrOoiQInUgUab7jeTqlWcWg8jUijhGkPrkTJmycnMJ97MkGs+bCawt4lVnVRwGVo+C8gP9y1djtb2SF+jqf6SnqKE+rGXo2K1fEkzXjgaKxVOtR4OQiIpalElDnbmT5VKZOYI3Fshm7EJRQXwwTJ9ujnMtJ3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=JaTsl2rr; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1788780839; c=relaxed/simple;
+	bh=MFSADkHIgAWbdCtIajGRbb8UiCalTZvGSXtcDayJojc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XGw8VoLoXSzDlvQfNVJxpg2rCzxm4UVrSNDyFSPAlVs2KfTHp9HNk6peH/UglrXHqRjvWj37j/T0TvtREUjdutLEfwLC9qU+Nxtpy7G3ro1+qvL5MTzi/frhgRqS4AlXjRiBTR0LN2ZyktjU6YsN7rPGAlP730wOLAoZ+v8a59o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=xPhxU1sz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=yEOcuNvV; arc=none smtp.client-ip=202.12.124.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="JaTsl2rr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780637; x=1820316637;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=+Lyu+JvTcNuPVbdGLARnKaFe6YPntgW33OrO6629Y8o=;
-  b=JaTsl2rr7xzEw02apMp01SQL83FaBnm+yJnvoeV+XYXlS4nTSPHCeEUZ
-   qFJap4P/BN5G2zOoYqQcmSYKLosuE5C0du6beaJMa61RWUwMlB9AsdojB
-   OFzc509ko6BWgUbfc6rDtk7tOXdMJLEldVg/XOk9Of+JDRuu6R/nzNiuk
-   KpGOGXOG0nLuOs9nkP3zFWoAOU48yE5T3roEean/MrBF8EvZ0chsTjJfA
-   nJRhnVeyXeOMHdV7I0DeEzV8JSoO4n0jHU0GmjEaf74QSsc7aQJJDJ7gl
-   wiWomsFe+PA3N8NlbX3qV28RzF5Qfm40TVySNW8EW8ocX6l6R9OVVs6yM
-   Q==;
-X-CSE-ConnectionGUID: 7AicB55ITsqvQEQuAPG69w==
-X-CSE-MsgGUID: heFEKL3uRMKF84VFhTQrQg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538655"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538655"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:18 -0700
-X-CSE-ConnectionGUID: fkfRap8dRpy2GABfA3vjEg==
-X-CSE-MsgGUID: BlwPlP6+Tuqj0KNzo0Ks1Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569294"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:16 -0700
-Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 24C7C122B72;
-	Mon, 07 Sep 2026 14:30:06 +0300 (EEST)
-Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
-	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARqD-2f4R;
-	Mon, 07 Sep 2026 14:30:05 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: linux-media@vger.kernel.org
-Cc: Antti Laakso <antti.laakso@linux.intel.com>,
-	sarang.sapre@intel.com,
-	daxing.li@intel.com,
-	ong.hock.yu@intel.com
-Subject: [PATCH v4 43/45] media: ipu6: Add ipu7.5 mmu initialization data
-Date: Mon,  7 Sep 2026 14:30:02 +0300
-Message-ID: <20260907113004.2489993-44-sakari.ailus@linux.intel.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
-References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="xPhxU1sz";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="yEOcuNvV"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 7A2947A0132;
+	Mon,  7 Sep 2026 07:33:55 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-08.internal (MEProxy); Mon, 07 Sep 2026 07:33:55 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788780835;
+	 x=1788867235; bh=3Z8MfzRlSpUsInSPkXji8CTceN1tZCQHg/j/P8bSnLo=; b=
+	xPhxU1szpOVs2N1bIp9HiIQFydO+AVPAP3MmVT8PwhMerJd5UK+cpMTgJPnt5HrF
+	CrGN3a2QaO/SkWh7s4WCeMCOUMTpFgnhF6wvQE/SKA5DpQrzgaXirRXQArkCqnHx
+	qUcfDHE/M85IQ+JZ5Y7A3y41qhwXczziNvi7/g6vjoiQX6Z/XBz+D3WY7km9avbx
+	6bwsiKfHTxZQy5tr63f2tjno1S7e5nhW1z6/WG8yAB6Kd5SRI0OfM7KbkgCXBIkM
+	XuVuZ+EkTDJwpJiZlzBEoImC0aJmJ2RN2Qnx61CgfH9+7JT2cd85JtLBm+UYXqpu
+	EDsABSchNiXJPcMJq8RZuQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788780835; x=
+	1788867235; bh=3Z8MfzRlSpUsInSPkXji8CTceN1tZCQHg/j/P8bSnLo=; b=y
+	EOcuNvVUIABRavCK7CnE0orZ1tDnlKvK2q5ZfIyR6lV3Uyg4yi7/8CXCrtjazxKS
+	6MnE5krgQnPzEtUhL8+hyuPgApbzYr7C9rACFDk+DaunD7fQ+Yp4ovpgYyasXdmW
+	jdxoOvgWVDBPK6zIePd+XtATdrmDlMsw4qQQGRdRQ12yPlzYbigA7XzngqKXg7To
+	FffoDzeZVi0Hv3um8lXz+CGkfzJT+does7t92OzAd+gi4p95i5FbshJ7U3iXpIJ0
+	yw/Cd4AFNhkShF9qpY1x/6XIXwnTtVG7lOseq0T+tMv4xMauD8mj/NPZbfDTk/kV
+	tIKMABA246LNldZPrWUgQ==
+X-ME-Sender: <xms:I6GeajoewUmD1mm8SPN3kEEAupiTlAgJqBjoLwK0aKR3i_LuEfXRLg>
+    <xme:I6GeaqPhpYkISfMmtHPfcMuukEGcRcQHSJtjYAMxm4wPGl7FjHrN_nB-LSuNsq8xv
+    7Ne-SYvJpC6WjvgoFgYXLUJsJAXKI5gbBxgPut6eb297KfG0p1gpWQ>
+X-ME-Received: <xmr:I6Geakq9Q3RxIXOrYx42LgcimJOUgHEEvia9UO_D-TdSjjB_cU52SXum_KqRbl5Tpf5U45gtHsqqDvHebbYczCrCYU5nY8w>
+X-ME-Proxy-Cause: dmFkZTGZj49KH42gEqMkg9nTcqBxcq2KIGNbNkcSFqI/QNRfwUOkC5TlL8FLJQs3r//SvY
+    QKAT7qAEoCla3x9i6rSGJbDj1TA3N0/RhEsDTg9boSBpF1x4RjJeGH2QdBzmGEn1XmOFIz
+    IU6gnrypeYypvPVnB3TZPkY0/PTRha7f0O3o9RPtADE7xf33b0ZM8XWeErxevVCO5LaZ7I
+    rGsqWVKg4xG26bPLKEhzXIG/z2lLmfkWntMTGGLw4ngC/FFJ7McTIBCgHYx+dNV3fDQFA6
+    pZCSTDVg1I21zG7JRs+WJlBYJljjU53z8+KmO14Gx5pf0YfN7Dra+CZdJCSZjWpB2nafJ+
+    dcmck5fnFEgPb5Hz1NW8nqiY8c/rMBBSHNTRqYGgcLMo/d8PptCy6darTPxSMQ2IMk3a8K
+    RQMYeVmKINpSyws36KeyAHBNTFZFZAbKtlTyixn8SjIot3oTRS1IYtfTmB29L1MZ4IRIsa
+    tr5r9evOlQ3SjSAfP+IuPd0/ty7+ovOWNCJ6M75L/u/Pzd2PcjCy9x9g5xmhcHJHxBcF66
+    HzCxz3OvgBz4N46Cwtg/OKNTaDivqZb7r0icP5m/gOIfx1flBOa4x/rLQ/ealgxYl0Ldni
+    E/qyfjQd2nLWxkSNoYnA+jZ7qLB5jDrNnHZ2g4RE/QxbF/9nO74VUPNtc/xA
+X-ME-Proxy: <xmx:I6GeatsVlTlyTUeMV2CyMCJYchyx2bzMCTOUYuPNt5shLIdu0oESsg>
+    <xmx:I6Geaj3oHuKeJIkQ0q9ZmJ4VhK6OYVgUpa62nr2iQMxSlSFVS-jHEA>
+    <xmx:I6GeaoEnDuNebU-yinjASn6opNkwUvf8gbWyeUCnOgB9QZFOeCpYaw>
+    <xmx:I6GeausgMUGrlJOmrhyIHxcYXvVFK4MxLPN4scT8UGWAuDDEQSprgQ>
+    <xmx:I6GeamnWfnvYrPRo_he3Lg-Qq3MEUnVklNkUGU05QVXhCjJ8aXgwTUba>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 07:33:54 -0400 (EDT)
+Date: Mon, 7 Sep 2026 13:33:52 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [PATCH v6 04/11] media: rcar-csi2: Move
+ {enable|disable}_streams() calls
+Message-ID: <20260907113352.GE3497753@ragnatech.se>
+References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+ <20260617-rcar-streams-v6-4-1260eb72dff7@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617-rcar-streams-v6-4-1260eb72dff7@ideasonboard.com>
 
-From: Antti Laakso <antti.laakso@linux.intel.com>
+Hi Tomi,
 
-The ipu7.5 mmu is different compared to ipu7.
+Thanks for your work.
 
-Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
-Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
----
- drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c | 261 ++++++++++++++++++++-
- drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h |  99 ++++++++
- 2 files changed, 359 insertions(+), 1 deletion(-)
+On 2026-06-17 14:54:57 +0300, Tomi Valkeinen wrote:
+> With multiple streams the operation to enable the CSI-2 hardware and to
+> call {enable|disable}_streams() on upstream subdev will need to be
+> handled separately.
+> 
+> Prepare for that by moving {enable|disable}_streams() calls out from
+> rcsi2_start() and rcsi2_stop().
+> 
+> As the error recovery in rcsi2_irq_thread() relies on rcsi2_start() and
+> rcsi2_stop(), we need to modify rcsi2_irq_thread() accordingly.
+> 
+> On Gen3, a side effect of this change is that if the sink side devices
+> call .enable_streams() on rcar-csi2 multiple times, the second call will
+> fail. This is because we always use stream ID 0, so the second call
+> would attempt to enable the same stream again, leading to an error. In
+> other words, a normal single-stream setup continues to work, but trying
+> to use the current driver's custom VC based routing will fail.
+> 
+> On Gen4, this doesn't matter as the rcar-isp behaves in a similar way as
+> described above, and thus rcar-csi2 will only get a single
+> .enable_streams() call.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
-index 3cd9a818733c..c9b015e89ee6 100644
---- a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
-+++ b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.c
-@@ -431,6 +431,250 @@ static struct ipu7_mmu_hw ipu7_psys_mmu_hwdata[] = {
- 	},
- };
- 
-+static struct ipu7_mmu_hw ipu7p5_isys_mmu_hwdata[] = {
-+	{
-+		.name = "IS_FW_RD",
-+		.offset = IPU7P5_IS_MMU_FW_RD_OFFSET,
-+		.zlx_offset = IPU7P5_IS_ZLX_UC_RD_OFFSET,
-+		.uao_offset = IPU7P5_IS_UAO_UC_RD_OFFSET,
-+		.info_bits = 0x20005101,
-+		.refill = 0x00002726,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_IS_MMU_FW_RD_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_IS_MMU_FW_RD_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_IS_MMU_FW_RD_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_IS_MMU_FW_RD_STREAM_NUM,
-+		.l1_block_sz = { 0x0, 0x8, 0xa },
-+		.l2_block_sz = { 0x0, 0x2, 0x4 },
-+		.zlx_nr = IPU7P5_IS_ZLX_UC_RD_NUM,
-+		.zlx_axi_pool = { 0x00000f30 },
-+		.zlx_en = { 0, 1, 0, 0 },
-+		.zlx_conf = { 0x0 },
-+		.uao_p_num = IPU7P5_IS_UAO_UC_RD_PLANENUM,
-+		.uao_p2tlb = { 0x49, 0x4c, 0x4d, 0x0 },
-+	},
-+	{
-+		.name = "IS_FW_WR",
-+		.offset = IPU7P5_IS_MMU_FW_WR_OFFSET,
-+		.zlx_offset = IPU7P5_IS_ZLX_UC_WR_OFFSET,
-+		.uao_offset = IPU7P5_IS_UAO_UC_WR_OFFSET,
-+		.info_bits = 0x20005001,
-+		.refill = 0x00002524,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_IS_MMU_FW_WR_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_IS_MMU_FW_WR_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_IS_MMU_FW_WR_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_IS_MMU_FW_WR_STREAM_NUM,
-+		.l1_block_sz = { 0x0, 0x8, 0xa },
-+		.l2_block_sz = { 0x0, 0x2, 0x4 },
-+		.zlx_nr = IPU7P5_IS_ZLX_UC_WR_NUM,
-+		.zlx_axi_pool = { 0x00000f20 },
-+		.zlx_en = { 0, 1, 1, 0 },
-+		.zlx_conf = { 0x0, 0x00010101, 0x00010101, 0x0 },
-+		.uao_p_num = IPU7P5_IS_UAO_UC_WR_PLANENUM,
-+		.uao_p2tlb = { 0x49, 0x4a, 0x4b, 0x0 },
-+	},
-+	{
-+		.name = "IS_DATA_WR_ISOC",
-+		.offset = IPU7P5_IS_MMU_M0_OFFSET,
-+		.zlx_offset = IPU7P5_IS_ZLX_M0_OFFSET,
-+		.uao_offset = IPU7P5_IS_UAO_M0_WR_OFFSET,
-+		.info_bits = 0x20004e01,
-+		.refill = 0x00002120,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_IS_MMU_M0_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_IS_MMU_M0_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_IS_MMU_M0_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_IS_MMU_M0_STREAM_NUM,
-+		.l1_block_sz = { 0x0, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10,
-+				 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x01e },
-+		.l2_block_sz = { 0x0, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10,
-+				 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e },
-+		.zlx_nr = IPU7P5_IS_ZLX_M0_NUM,
-+		.zlx_axi_pool = { 0x00000f10 },
-+		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-+		.zlx_conf = { 0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103 },
-+		.uao_p_num = IPU7P5_IS_UAO_M0_WR_PLANENUM,
-+		.uao_p2tlb = { 0x00000041, 0x00000042, 0x00000043, 0x00000044,
-+			       0x00000041, 0x00000042, 0x00000043, 0x00000044,
-+			       0x00000041, 0x00000042, 0x00000043, 0x00000044,
-+			       0x00000041, 0x00000042, 0x00000043, 0x00000044 },
-+	},
-+	{
-+		.name = "IS_DATA_WR_SNOOP",
-+		.offset = IPU7P5_IS_MMU_M1_OFFSET,
-+		.zlx_offset = IPU7P5_IS_ZLX_M1_OFFSET,
-+		.uao_offset = IPU7P5_IS_UAO_M1_WR_OFFSET,
-+		.info_bits = 0x20004f01,
-+		.refill = 0x00002322,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_IS_MMU_M1_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_IS_MMU_M1_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_IS_MMU_M1_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_IS_MMU_M1_STREAM_NUM,
-+		.l1_block_sz = { 0x0, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10,
-+				 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e },
-+		.l2_block_sz = { 0x0, 0x2, 0x4, 0x6, 0x8, 0xa, 0xc, 0xe, 0x10,
-+				 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e },
-+		.zlx_nr = IPU7P5_IS_ZLX_M1_NUM,
-+		.zlx_axi_pool = { 0x00000f20 },
-+		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-+		.zlx_conf = { 0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103,
-+			      0x00010103, 0x00010103, 0x00010103, 0x00010103 },
-+		.uao_p_num = IPU7P5_IS_UAO_M1_WR_PLANENUM,
-+		.uao_p2tlb = { 0x00000045, 0x00000046, 0x00000047, 0x00000048,
-+			       0x00000045, 0x00000046, 0x00000047, 0x00000048,
-+			       0x00000045, 0x00000046, 0x00000047, 0x00000048,
-+			       0x00000045, 0x00000046, 0x00000047, 0x00000048 },
-+	},
-+};
-+
-+static struct ipu7_mmu_hw ipu7p5_psys_mmu_hwdata[] = {
-+	{
-+		.name = "PS_FW_RD",
-+		.offset = IPU7P5_PS_MMU_FW_RD_OFFSET,
-+		.zlx_offset = IPU7P5_PS_ZLX_FW_RD_OFFSET,
-+		.uao_offset = IPU7P5_PS_UAO_FW_RD_OFFSET,
-+		.info_bits = 0x20004001,
-+		.refill = 0x00002726,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_PS_MMU_FW_RD_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_PS_MMU_FW_RD_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_PS_MMU_FW_RD_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_PS_MMU_FW_RD_STREAM_NUM,
-+		.l1_block_sz = { 0x00, 0x08, 0x0a, 0x0c, 0x0d, 0x0f, 0x11,
-+				 0x12, 0x13, 0x14, 0x16, 0x18, 0x19, 0x1a,
-+				 0x1a, 0x1a },
-+		.l2_block_sz = { 0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c,
-+				 0x0e, 0x10, 0x12, 0x14, 0x16, 0x18, 0x1a,
-+				 0x1c, 0x1e },
-+		.zlx_nr = IPU7P5_PS_ZLX_FW_RD_NUM,
-+		.zlx_axi_pool = { 0x00000f30 },
-+		.zlx_en = { 0, 1, 0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0 },
-+		.zlx_conf = { 0x00000000, 0x00010101, 0x00000000, 0x00000000,
-+			      0x00010101, 0x00010101, 0x00000000, 0x00000000,
-+			      0x00000000, 0x00010101, 0x00010101, 0x00000000,
-+			      0x00000000, 0x00000000, 0x00000000, 0x00000000 },
-+		.uao_p_num = IPU7P5_PS_UAO_FW_RD_PLANENUM,
-+		.uao_p2tlb = { 0x2e, 0x35, 0x36, 0x31, 0x37, 0x38, 0x39, 0x32,
-+			       0x33, 0x3a, 0x3b, 0x3c, 0x34, 0x00, 0x00, 0x00 },
-+	},
-+	{
-+		.name = "PS_FW_WR",
-+		.offset = IPU7P5_PS_MMU_FW_WR_OFFSET,
-+		.zlx_offset = IPU7P5_PS_ZLX_FW_WR_OFFSET,
-+		.uao_offset = IPU7P5_PS_UAO_FW_WR_OFFSET,
-+		.info_bits = 0x20003e01,
-+		.refill = 0x00002322,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_PS_MMU_FW_WR_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_PS_MMU_FW_WR_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_PS_MMU_FW_WR_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_PS_MMU_FW_WR_STREAM_NUM,
-+		.l1_block_sz = { 0x00, 0x08, 0x0a, 0x0c, 0x0d, 0x0e, 0x0f, 0x10,
-+				 0x10, 0x10 },
-+		.l2_block_sz = { 0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e,
-+				 0x10, 0x12 },
-+		.zlx_nr = IPU7P5_PS_ZLX_FW_WR_NUM,
-+		.zlx_axi_pool = { 0x00000f20 },
-+		.zlx_en = { 0, 1, 1, 0, 0, 0, 0, 0, 0, 0 },
-+		.zlx_conf = { 0x00000000, 0x00010101, 0x00010101, 0x00000000,
-+			      0x00000000, 0x00000000, 0x00000000, 0x00000000,
-+			      0x00000000, 0x00000000 },
-+		.uao_p_num = IPU7P5_PS_UAO_FW_WR_PLANENUM,
-+		.uao_p2tlb = { 0x0000002e, 0x0000002f, 0x00000030, 0x00000031,
-+			       0x00000032, 0x00000033, 0x00000034, 0x00000000,
-+			       0x00000000, 0x00000000 },
-+	},
-+	{
-+		.name = "PS_DATA_RD",
-+		.offset = IPU7P5_PS_MMU_SRT_RD_OFFSET,
-+		.zlx_offset = IPU7P5_PS_ZLX_DATA_RD_OFFSET,
-+		.uao_offset = IPU7P5_PS_UAO_SRT_RD_OFFSET,
-+		.info_bits = 0x20003f01,
-+		.refill = 0x00002524,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_PS_MMU_SRT_RD_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_PS_MMU_SRT_RD_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_PS_MMU_SRT_RD_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_PS_MMU_SRT_RD_STREAM_NUM,
-+		.l1_block_sz = { 0x00, 0x04, 0x06, 0x08, 0x0b, 0x0d, 0x0f, 0x13,
-+				 0x17, 0x19, 0x1b, 0x1d, 0x1f, 0x2b, 0x33, 0x3f,
-+				 0x47, 0x49, 0x4b, 0x4c, 0x4d, 0x4e },
-+		.l2_block_sz = { 0x00, 0x02, 0x04, 0x06, 0x08, 0x0a, 0x0c, 0x0e,
-+				 0x10, 0x12, 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e,
-+				 0x20, 0x22, 0x24, 0x26, 0x28, 0x2a },
-+		.zlx_nr = IPU7P5_PS_ZLX_DATA_RD_NUM,
-+		.zlx_axi_pool = { 0x00000f30 },
-+		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-+			    1, 1, 0, 0, 0, 0 },
-+		.zlx_conf = { 0x00030303, 0x00010101, 0x00010101, 0x00030202,
-+			      0x00010101, 0x00010101, 0x00030303, 0x00030303,
-+			      0x00010101, 0x00030800, 0x00030500, 0x00020101,
-+			      0x00042000, 0x00031000, 0x00042000, 0x00031000,
-+			      0x00020400, 0x00010101, 0x00000000, 0x00000000,
-+			      0x00000000, 0x00000000 },
-+		.uao_p_num = IPU7P5_PS_UAO_SRT_RD_PLANENUM,
-+		.uao_p2tlb = { 0x0000001c, 0x0000001d, 0x0000001e, 0x0000001f,
-+			       0x00000020, 0x00000021, 0x00000022, 0x00000023,
-+			       0x00000024, 0x00000025, 0x00000026, 0x00000027,
-+			       0x00000028, 0x00000029, 0x0000002a, 0x0000002b,
-+			       0x0000002c, 0x0000002d, 0x00000000, 0x00000000,
-+			       0x00000000, 0x00000000 },
-+	},
-+	{
-+		.name = "PS_DATA_WR",
-+		.offset = IPU7P5_PS_MMU_SRT_WR_OFFSET,
-+		.zlx_offset = IPU7P5_PS_ZLX_DATA_WR_OFFSET,
-+		.uao_offset = IPU7P5_PS_UAO_SRT_WR_OFFSET,
-+		.info_bits = 0x20003d01,
-+		.refill = 0x00002120,
-+		.collapse_en_bitmap = 0x1,
-+		.at_sp_arb_cfg = 0x1,
-+		.l1_block = IPU7P5_PS_MMU_SRT_WR_L1_BLOCKNR_REG,
-+		.l2_block = IPU7P5_PS_MMU_SRT_WR_L2_BLOCKNR_REG,
-+		.nr_l1streams = IPU7P5_PS_MMU_SRT_WR_STREAM_NUM,
-+		.nr_l2streams = IPU7P5_PS_MMU_SRT_WR_STREAM_NUM,
-+		.l1_block_sz = { 0x00, 0x02, 0x06, 0x0a, 0x0c, 0x0e, 0x10, 0x12,
-+				 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e, 0x20, 0x22,
-+				 0x24, 0x28, 0x2a, 0x36, 0x3e, 0x40, 0x42, 0x4e,
-+				 0x56, 0x5c, 0x68, 0x70, 0x76, 0x77, 0x78, 0x79 },
-+		.l2_block_sz = { 0x00, 0x02, 0x06, 0x0a, 0x0c, 0x0e, 0x10, 0x12,
-+				 0x14, 0x16, 0x18, 0x1a, 0x1c, 0x1e, 0x20, 0x22,
-+				 0x24, 0x28, 0x2a, 0x36, 0x3e, 0x40, 0x42, 0x4e,
-+				 0x56, 0x5c, 0x68, 0x70, 0x76, 0x77, 0x78, 0x79 },
-+		.zlx_nr = IPU7P5_PS_ZLX_DATA_WR_NUM,
-+		.zlx_axi_pool = { 0x00000f50 },
-+		.zlx_en = { 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1,
-+			    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0 },
-+		.zlx_conf = { 0x00010102, 0x00030103, 0x00030103, 0x00010101,
-+			      0x00010101, 0x00030101, 0x00010101, 0x38010101,
-+			      0x00000000, 0x00000000, 0x38010101, 0x38010101,
-+			      0x38010101, 0x38010101, 0x38010101, 0x38010101,
-+			      0x00030303, 0x00010101, 0x00042000, 0x00031000,
-+			      0x00010101, 0x00010101, 0x00042000, 0x00031000,
-+			      0x00031000, 0x00042000, 0x00031000, 0x00031000,
-+			      0x00000000, 0x00000000, 0x00000000, 0x00000000 },
-+		.uao_p_num = IPU7P5_PS_UAO_SRT_WR_PLANENUM,
-+		.uao_p2tlb = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
-+			       0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f,
-+			       0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17,
-+			       0x18, 0x19, 0x1a, 0x1b, 0x00, 0x00, 0x00, 0x00 },
-+	},
-+};
-+
- static const struct ipu7_mmu_hwdata ipu7_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
- 	[IPU_PSYS] = {
- 		.hwdata = ipu7_psys_mmu_hwdata,
-@@ -442,6 +686,17 @@ static const struct ipu7_mmu_hwdata ipu7_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
- 	},
- };
- 
-+static const struct ipu7_mmu_hwdata ipu7p5_mmu_hwdata_lookup[IPU_SUBSYS_NUM] = {
-+	[IPU_PSYS] = {
-+		.hwdata = ipu7p5_psys_mmu_hwdata,
-+		.nr_mmus = ARRAY_SIZE(ipu7p5_psys_mmu_hwdata),
-+	},
-+	[IPU_ISYS] = {
-+		.hwdata = ipu7p5_isys_mmu_hwdata,
-+		.nr_mmus = ARRAY_SIZE(ipu7p5_isys_mmu_hwdata),
-+	},
-+};
-+
- static void __ipu7_tlb_invalidate(struct ipu6_mmu *mmu)
- {
- 	struct ipu7_mmu_hw *mmu_hw = mmu->ipu7_mmu_hw;
-@@ -561,13 +816,17 @@ static int __ipu7_mmu_hw_init(struct ipu6_mmu *mmu)
- static int __ipu7_mmu_init_hw_data(struct ipu6_mmu *mmu, struct device *dev,
- 				   void __iomem *base)
- {
--	const struct ipu7_mmu_hwdata *lookup = ipu7_mmu_hwdata_lookup;
-+	struct ipu6_device *isp = pci_get_drvdata(to_pci_dev(dev));
-+	const struct ipu7_mmu_hwdata *lookup;
- 	struct ipu7_mmu_hw *mmu_hw, *src;
- 	unsigned int i, nr_mmus;
- 
- 	if (mmu->mmid >= IPU_SUBSYS_NUM)
- 		return -EINVAL;
- 
-+	lookup = IS_IPU7P5(isp) ? ipu7p5_mmu_hwdata_lookup :
-+				  ipu7_mmu_hwdata_lookup;
-+
- 	src = lookup[mmu->mmid].hwdata;
- 	nr_mmus = lookup[mmu->mmid].nr_mmus;
- 
-diff --git a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
-index 68663057138a..ba31ed31b245 100644
---- a/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
-+++ b/drivers/media/pci/intel/ipu6/ipu7-mmu-hw.h
-@@ -114,6 +114,105 @@
- #define IPU7_PS_ZLX_FW_RD_NUM			16
- #define IPU7_PS_ZLX_FW_WR_NUM			10
- 
-+/* IPU7P5 */
-+/* IS MMU Cmd RD */
-+#define IPU7P5_IS_MMU_FW_RD_OFFSET		0x274000
-+#define IPU7P5_IS_MMU_FW_RD_STREAM_NUM		3
-+#define IPU7P5_IS_MMU_FW_RD_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_IS_MMU_FW_RD_L2_BLOCKNR_REG	0x60
-+
-+/* IS MMU Cmd WR */
-+#define IPU7P5_IS_MMU_FW_WR_OFFSET		0x275000
-+#define IPU7P5_IS_MMU_FW_WR_STREAM_NUM		3
-+#define IPU7P5_IS_MMU_FW_WR_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_IS_MMU_FW_WR_L2_BLOCKNR_REG	0x60
-+
-+/* IS MMU Data WR Snoop */
-+#define IPU7P5_IS_MMU_M0_OFFSET			0x276000
-+#define IPU7P5_IS_MMU_M0_STREAM_NUM		16
-+#define IPU7P5_IS_MMU_M0_L1_BLOCKNR_REG		0x54
-+#define IPU7P5_IS_MMU_M0_L2_BLOCKNR_REG		0x94
-+
-+/* IS MMU Data WR ISOC */
-+#define IPU7P5_IS_MMU_M1_OFFSET			0x277000
-+#define IPU7P5_IS_MMU_M1_STREAM_NUM		16
-+#define IPU7P5_IS_MMU_M1_L1_BLOCKNR_REG		0x54
-+#define IPU7P5_IS_MMU_M1_L2_BLOCKNR_REG		0x94
-+
-+/* PS MMU FW RD */
-+#define IPU7P5_PS_MMU_FW_RD_OFFSET		0x148000
-+#define IPU7P5_PS_MMU_FW_RD_STREAM_NUM		16
-+#define IPU7P5_PS_MMU_FW_RD_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_PS_MMU_FW_RD_L2_BLOCKNR_REG	0x94
-+
-+/* PS MMU FW WR */
-+#define IPU7P5_PS_MMU_FW_WR_OFFSET		0x149000
-+#define IPU7P5_PS_MMU_FW_WR_STREAM_NUM		10
-+#define IPU7P5_PS_MMU_FW_WR_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_PS_MMU_FW_WR_L2_BLOCKNR_REG	0x7c
-+
-+/* PS MMU FW Data RD VC0 */
-+#define IPU7P5_PS_MMU_SRT_RD_OFFSET		0x14a000
-+#define IPU7P5_PS_MMU_SRT_RD_STREAM_NUM		22
-+#define IPU7P5_PS_MMU_SRT_RD_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_PS_MMU_SRT_RD_L2_BLOCKNR_REG	0xac
-+
-+/* PS MMU FW Data WR VC0 */
-+#define IPU7P5_PS_MMU_SRT_WR_OFFSET		0x14b000
-+#define IPU7P5_PS_MMU_SRT_WR_STREAM_NUM		32
-+#define IPU7P5_PS_MMU_SRT_WR_L1_BLOCKNR_REG	0x54
-+#define IPU7P5_PS_MMU_SRT_WR_L2_BLOCKNR_REG	0xd4
-+
-+/* IS UAO UC RD */
-+#define IPU7P5_IS_UAO_UC_RD_OFFSET		0x27c000
-+#define IPU7P5_IS_UAO_UC_RD_PLANENUM		4
-+
-+/* IS UAO UC WR */
-+#define IPU7P5_IS_UAO_UC_WR_OFFSET		0x27d000
-+#define IPU7P5_IS_UAO_UC_WR_PLANENUM		4
-+
-+/* IS UAO M0 WR */
-+#define IPU7P5_IS_UAO_M0_WR_OFFSET		0x27e000
-+#define IPU7P5_IS_UAO_M0_WR_PLANENUM		16
-+
-+/* IS UAO M1 WR */
-+#define IPU7P5_IS_UAO_M1_WR_OFFSET		0x27f000
-+#define IPU7P5_IS_UAO_M1_WR_PLANENUM		16
-+
-+/* PS UAO FW RD */
-+#define IPU7P5_PS_UAO_FW_RD_OFFSET		0x156000
-+#define IPU7P5_PS_UAO_FW_RD_PLANENUM		16
-+
-+/* PS UAO FW WR */
-+#define IPU7P5_PS_UAO_FW_WR_OFFSET		0x157000
-+#define IPU7P5_PS_UAO_FW_WR_PLANENUM		10
-+
-+/* PS UAO SRT RD */
-+#define IPU7P5_PS_UAO_SRT_RD_OFFSET		0x154000
-+#define IPU7P5_PS_UAO_SRT_RD_PLANENUM		22
-+
-+/* PS UAO SRT WR */
-+#define IPU7P5_PS_UAO_SRT_WR_OFFSET		0x155000
-+#define IPU7P5_PS_UAO_SRT_WR_PLANENUM		32
-+
-+#define IPU7P5_IS_ZLX_UC_RD_OFFSET		0x278000
-+#define IPU7P5_IS_ZLX_UC_WR_OFFSET		0x279000
-+#define IPU7P5_IS_ZLX_M0_OFFSET			0x27a000
-+#define IPU7P5_IS_ZLX_M1_OFFSET			0x27b000
-+#define IPU7P5_IS_ZLX_UC_RD_NUM			4
-+#define IPU7P5_IS_ZLX_UC_WR_NUM			4
-+#define IPU7P5_IS_ZLX_M0_NUM			16
-+#define IPU7P5_IS_ZLX_M1_NUM			16
-+
-+#define IPU7P5_PS_ZLX_DATA_RD_OFFSET		0x14e000
-+#define IPU7P5_PS_ZLX_DATA_WR_OFFSET		0x14f000
-+#define IPU7P5_PS_ZLX_FW_RD_OFFSET		0x150000
-+#define IPU7P5_PS_ZLX_FW_WR_OFFSET		0x151000
-+#define IPU7P5_PS_ZLX_DATA_RD_NUM		22
-+#define IPU7P5_PS_ZLX_DATA_WR_NUM		32
-+#define IPU7P5_PS_ZLX_FW_RD_NUM			16
-+#define IPU7P5_PS_ZLX_FW_WR_NUM			10
-+
- struct ipu7_mmu_hw {
- 	char name[32];
- 
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+
+> ---
+>  drivers/media/platform/renesas/rcar-csi2.c | 59 ++++++++++++++++++++++++------
+>  1 file changed, 47 insertions(+), 12 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-csi2.c b/drivers/media/platform/renesas/rcar-csi2.c
+> index 7305cc4a04cb..f5d8b06dff51 100644
+> --- a/drivers/media/platform/renesas/rcar-csi2.c
+> +++ b/drivers/media/platform/renesas/rcar-csi2.c
+> @@ -1822,20 +1822,12 @@ static int rcsi2_start(struct rcar_csi2 *priv, struct v4l2_subdev_state *state)
+>  		return ret;
+>  	}
+>  
+> -	ret = v4l2_subdev_enable_streams(priv->remote, priv->remote_pad,
+> -					 BIT_ULL(0));
+> -	if (ret) {
+> -		rcsi2_enter_standby(priv);
+> -		return ret;
+> -	}
+> -
+>  	return 0;
+>  }
+>  
+>  static void rcsi2_stop(struct rcar_csi2 *priv)
+>  {
+>  	rcsi2_enter_standby(priv);
+> -	v4l2_subdev_disable_streams(priv->remote, priv->remote_pad, BIT_ULL(0));
+>  }
+>  
+>  static int rcsi2_enable_streams(struct v4l2_subdev *sd,
+> @@ -1857,6 +1849,14 @@ static int rcsi2_enable_streams(struct v4l2_subdev *sd,
+>  			return ret;
+>  	}
+>  
+> +	ret = v4l2_subdev_enable_streams(priv->remote, priv->remote_pad,
+> +					 BIT_ULL(0));
+> +	if (ret) {
+> +		if (priv->stream_count == 0)
+> +			rcsi2_stop(priv);
+> +		return ret;
+> +	}
+> +
+>  	priv->stream_count += 1;
+>  
+>  	return ret;
+> @@ -1867,7 +1867,7 @@ static int rcsi2_disable_streams(struct v4l2_subdev *sd,
+>  				 u32 source_pad, u64 source_streams_mask)
+>  {
+>  	struct rcar_csi2 *priv = sd_to_csi2(sd);
+> -	int ret = 0;
+> +	int ret;
+>  
+>  	if (source_streams_mask != 1)
+>  		return -EINVAL;
+> @@ -1878,9 +1878,14 @@ static int rcsi2_disable_streams(struct v4l2_subdev *sd,
+>  	if (priv->stream_count == 1)
+>  		rcsi2_stop(priv);
+>  
+> +	ret = v4l2_subdev_disable_streams(priv->remote, priv->remote_pad,
+> +					  BIT_ULL(0));
+> +	if (ret)
+> +		return ret;
+> +
+>  	priv->stream_count -= 1;
+>  
+> -	return ret;
+> +	return 0;
+>  }
+>  
+>  static int rcsi2_set_pad_format(struct v4l2_subdev *sd,
+> @@ -1971,14 +1976,44 @@ static irqreturn_t rcsi2_irq_thread(int irq, void *data)
+>  {
+>  	struct v4l2_subdev_state *state;
+>  	struct rcar_csi2 *priv = data;
+> +	int ret;
+>  
+>  	state = v4l2_subdev_lock_and_get_active_state(&priv->subdev);
+>  
+> +	if (priv->stream_count == 0)
+> +		goto out;
+> +
+>  	rcsi2_stop(priv);
+> +
+> +	ret = v4l2_subdev_disable_streams(priv->remote, priv->remote_pad,
+> +					  BIT_ULL(0));
+> +	if (ret) {
+> +		dev_warn(priv->dev,
+> +			 "Error recovery: failed to disable streams: %d\n",
+> +			 ret);
+> +		goto out;
+> +	}
+> +
+>  	usleep_range(1000, 2000);
+> -	if (rcsi2_start(priv, state))
+> -		dev_warn(priv->dev, "Failed to restart CSI-2 receiver\n");
+>  
+> +	ret = rcsi2_start(priv, state);
+> +	if (ret) {
+> +		dev_warn(priv->dev,
+> +			 "Error recovery: failed to start CSI-2 receiver: %d\n",
+> +			 ret);
+> +		goto out;
+> +	}
+> +
+> +	ret = v4l2_subdev_enable_streams(priv->remote, priv->remote_pad,
+> +					 BIT_ULL(0));
+> +	if (ret) {
+> +		dev_warn(priv->dev,
+> +			 "Error recovery: failed to start streams: %d\n",
+> +			 ret);
+> +		goto out;
+> +	}
+> +
+> +out:
+>  	v4l2_subdev_unlock_state(state);
+>  
+>  	return IRQ_HANDLED;
+> 
+> -- 
+> 2.43.0
+> 
+
 -- 
-2.47.3
-
+Kind Regards,
+Niklas Söderlund
