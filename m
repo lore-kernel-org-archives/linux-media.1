@@ -1,134 +1,227 @@
-Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0B3381B1D
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 20:59:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDAC437F8C1
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 21:16:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788814771; cv=none; b=cq6XEjYK0SNFpbO+WNW+hkrnCZxreIBm5r76DN0HYwMwrgMZN1bKvOUOjSmhsby62bW2myUs6V0VfjKzM3YYy+q3N1ebB5MX19YlTvedVmrkj8sStkIOFTPkVgDD1/EM/8xVv/vFKoO+8h2mozBl891iIfA81KFUeshpX/lCtUI=
+	t=1788815817; cv=none; b=fB+2IDphVuL2hA/vD87q9Oy17IL5cuq0v8HojvbdeHRHQYfcZ+NXEr0DHul1bZTIBvRGwhf1jaeVtfQWNBDvvXMgUyIo12HyVdEXPo8HrsT1Y55kLcUWXVuuwuD4KZPTCCmRS728AsI+VH/BEi7uOOd/hhMEQF/ciyGMCV4f9ro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788814771; c=relaxed/simple;
-	bh=rVwoTZF0zIWjvGfehh+heArB9ivKoxKKeZFYXCrO0mI=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ehxamEPpI8lTSI5SjqAFP2LBg1zYm9BL535IIcPSznY7O8rDMFxhDpPdNExHgGE5/ibmlAWQpVvDK5UhTAz8YNlW4Dh9gOhqL5uGLUgKw/ngAiGMJgs0LNmu2QkZqP3HqM5WuOucDCgOsCCvsJksGbNHfaVXamxAFLdIlA9ezOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=qbsafyjF; arc=none smtp.client-ip=109.224.244.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1788815817; c=relaxed/simple;
+	bh=v8UxETDcOYCAUtgy/1OmH2aAtNRYgM8jA3Jh1iTeyZY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=C21Yk8cbNaSrp3Im60UKvWGtFIc27zz+fbE0YxFlt+l+weXa4UCQujwyk6BaFFMnoQvstr+2Pfe38g0FvR3JP1BEtd5M9/wIfj35rorY4TiGMeJq4MbfwyPC5ydzyHxq/o5IvH2W2sqxhgfWk1szJdd+zJ0i+PezbNdeODZCdD0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ODs8rmlv; arc=none smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="qbsafyjF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1788814761; x=1789073961;
-	bh=U95leeEP3k6To4Cm7aU5npoew/9a0B1c8nhykvIRNxs=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=qbsafyjFU7szS2b9D7E171B3XftH6x/ROPNJ7bRjBGrbOAHRH7aWGcYdVsgzUusZk
-	 mYgGjHAlVHpYwnUA2JGKy2M7wri4rTSDSvuTojkIztOuA2xzAkYpCkz9tIULnON0Y+
-	 PubkCswdXkUMmM0k+0BovL68ZizlJJCQX0BaCW3phhf5XOHhEtjwpAdp41y2G8bzsI
-	 6RW2eSp2CMnMx+wXd+RkYH6EJLIRq9GTNWifBJ+h/hVCn60fA9rHsxCW38dSdoA+Kx
-	 iEZt/6hy9vRu2+SaM+uJTstHo5k1W4afH6BQ4orqpPYx4L0aEai+SKkmCkzk5i2dwQ
-	 MzgqyA7WiDpLA==
-Date: Mon, 07 Sep 2026 20:59:15 +0000
-To: Peter Marshall <pm@petermarshall.ca>
-From: Sergey Lebedev <lsa.uz@pm.me>
-Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
-Message-ID: <20260907205908.21303-1-lsa.uz@pm.me>
-Feedback-ID: 113843758:user:proton
-X-Pm-Message-ID: 9668a35f474d3fdd9b9e66102de22c717f766a56
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ODs8rmlv"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5b159850b16so3936353e87.3
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 14:16:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788815813; x=1789420613; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=pHwke8rit8qBzK3OuQrOMc3AAUNWE9JY8EpurCwEM9M=;
+        b=ODs8rmlvUCMMZJo80esQSFE2jL6TbYIh1LKY9PziD5G5aPh/9K6CmYsdsiBKkrWPh/
+         Vm8vi5mx8G6HI4HXtQfVNRdfY1v/ZRhu0X+XhBPAFP/DpPVqrrzXIND1hdIas9S7VYvP
+         J3YAwScNpWBsw1SlpiwrjgqaskRr5PesEBfGY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788815813; x=1789420613;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=pHwke8rit8qBzK3OuQrOMc3AAUNWE9JY8EpurCwEM9M=;
+        b=nuVni4lOt9hBDzoDa326/D6rNXrqE4pdQr/UlW/idUHaeXVoQVmq60BsMrYhbDhaas
+         FS64LU1KthPM47lxvFukFu+S3x/kIrgR+1WWDuGRV8eD0o3zLEHgFhYfm1o01ajhP4wJ
+         niUzWTMi7wIEMuNxXLqgEfVrTjEdcknoXaUpYra3x/VGUh+8KQ1I8H0g+NpqhFea9LU1
+         MNgc0PENwuqsaGTjY8LaBwQwIQ2c5qlNtyOUVFnfW98dr+hh1nwfBbiHtup/2srNvF4U
+         A4769yWzEyrtWQdkVo10imNN4B0qqVHUG8CuuABPI/5EZ0unIt6zMGYxpkIo//aP9/Zx
+         OCvA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiuEJYLTTy84WnUEkuuVvd53VqeFtoNEVX0bDAYXGuxS4NKug0AIuPcS5PHe6N/y8cWxFiOjORGZH4gw==@vger.kernel.org
+X-Gm-Message-State: AFuF++m9hrtz9KG4UblxwYpd9K484hvdlLJ4MzhC8uIS+7jh517fwKE0
+	UgQ2ylDEtLwVJ7dLps/bc1iYxzpYuoVlyjzDUU1CdujeXFT2j/kTvgHgVHMegvoDocBuCrp40wZ
+	XxIr9/w==
+X-Gm-Gg: AYBFou1K9F+MEV+oyNWEWUskDPP30b/bwdkWcoaVhz8dzTt1dsXf4a4QqN9StktpAuA
+	nJXO/FE3oF8a9UGBJaS/ZkS02Go3HwizUzix0QTmU1Gq2BA4CqCgrTYZno6Nwi7jrxua8gge3j+
+	ACQ80kmtAVazO+csWJvP8vmJuVsCnLGM8J88VcwJ1Z8eIkYvm4813hh6A8g3kNT1n/Ql5TAGDeX
+	JQ+bzh9vv77xVSV1tRI5xIw4pRc9+3AdrhVoz0E3ZeDBNhukk2GNEi/LI6WDvaA30jMcVTqjY5J
+	/gNkLGH7WV9qXACbFDXDQIunV/CLSRyDaj0sY8dcJOPLduE6FUnKttha4xR260Ob1nYqTGBEqtZ
+	rK8Yy5g5YG7clYLY1Ey6PDYr4t4+w/C4DVqKdQ95HJVH0+efOtp32f8KThfkH8daO+hscFRHWFE
+	yKbwxfzw/8TGTMJwrdOIY5olrb8r8jupBUMHanQ2B5UDRGSTMnz/fFBKy5hyJ6LMcLTzWKAJ+vX
+	9IU/VH0OlTzJVbznm99kMjbWpLx9MLYNFIwgFk=
+X-Received: by 2002:a05:6512:3a8d:b0:5b6:7fa:e96b with SMTP id 2adb3069b0e04-5b616f075bdmr8335146e87.14.1788815812861;
+        Mon, 07 Sep 2026 14:16:52 -0700 (PDT)
+Received: from ribalda.c.googlers.com (11.36.88.34.bc.googleusercontent.com. [34.88.36.11])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b6166fbfacsm2548785e87.42.2026.09.07.14.16.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 14:16:50 -0700 (PDT)
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 07 Sep 2026 21:16:49 +0000
+Subject: [PATCH] media: uvcvideo: Automatically handle cameras with invalid
+ uvc_version
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260907-uvc-version-v1-1-34e45dfe04de@chromium.org>
+X-B4-Tracking: v=1; b=H4sIAMApn2oC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDSwNz3dKyZN2y1CKQOt3E1JTUtGQTYwuT5FQloI6CotS0zAqwadGxtbU
+ A5SvzE10AAAA=
+X-Change-ID: 20260907-uvc-version-aedefc4384ce
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Hans de Goede <hansg@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Edwin Gatier <edwin.gatier@protonmail.com>, linux-media@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Ricardo Ribalda <ribalda@chromium.org>
+X-Mailer: b4 0.14.3
 
-Peter,
+Currently, the driver expects that cameras properly implement the spec
+version that they announce, and if they fail to do so, we do not continue
+probing the driver.
 
-Tested on a second machine: Surface Pro 11 for Business, Intel Lunar Lake,
-IPU7 =E2=80=94 same SMO55F0 HID as your Surface Pro 9, one IPU generation l=
-ater.
-Two results worth having before you respin, one good and one blocking.
+To make drivers more fun, some vendors decided to announce that they are
+a UVC version that they are not. Until now, we handled those cameras via
+quirks.
 
-The good one: the series applies and builds clean, and the sensor works on
-IPU7. All seven patches applied in order to an Ubuntu 7.0.0 tree with no
-conflicts (its vd55g1.c is 2061 lines, exactly what your diffstat deletes),
-and media/i2c, media/pci/intel and int3472 rebuilt without a warning.
-With firmware present the driver probes, the bridge finds the sensor and
-the subdev registers:
+Unfortunately, reality has shown us that there are more cameras out
+there with an invalid uvc_version than we initially predicted.
 
-  intel-ipu7: Found supported sensor SMO55F0:00
-  intel_ipu7_isys: bind vd55g 1-0060 nlanes is 1 port is 1
-  entity 233: vd55g 1-0060 (1 pad, 1 link, 0 routes)
+This patch tries to handle these cameras with an identity crisis
+automatically. We still shame them in dmesg. But now they will work.
 
-So nothing here is IPU6-specific. That is the part I could add that you
-could not.
+Signed-off-by: Ricardo Ribalda <ribalda@chromium.org>
+---
+Hi Edwin, could you please try if this patch alone (without the previous
+one) works for you?
 
-The blocking one: without that firmware nobody can use VD55G0 at all.
+Could you share the dmesg output with it?
 
-  vd55g i2c-SMO55F0:00: Direct firmware load for vd55g0-cut1.bin failed
-                        with error -2
-  vd55g i2c-SMO55F0:00: Failed to load required firmware vd55g0-cut1.bin: -=
-2
+Thanks!
+---
+ drivers/media/usb/uvc/uvc_driver.c | 11 +++++++----
+ drivers/media/usb/uvc/uvc_video.c  | 23 ++++++++++++++++++-----
+ 2 files changed, 25 insertions(+), 9 deletions(-)
 
-Probe fails and the camera disappears. The driver has a fallback for
-exactly this case, but only the older part gets one:
+diff --git a/drivers/media/usb/uvc/uvc_driver.c b/drivers/media/usb/uvc/uvc_driver.c
+index e289cc71ba98..ca75f8d1ec46 100644
+--- a/drivers/media/usb/uvc/uvc_driver.c
++++ b/drivers/media/usb/uvc/uvc_driver.c
+@@ -1169,9 +1169,7 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 
+ 	case UVC_VC_PROCESSING_UNIT:
+ 		n = buflen >= 8 ? buffer[7] : 0;
+-		p = dev->uvc_version >= 0x0110 ? 10 : 9;
+-
+-		if (buflen < p + n) {
++		if (buflen < 9 + n) {
+ 			uvc_dbg(dev, DESCR,
+ 				"device %d videocontrol interface %d PROCESSING_UNIT error\n",
+ 				udev->devnum, alts->desc.bInterfaceNumber);
+@@ -1188,7 +1186,12 @@ static int uvc_parse_standard_control(struct uvc_device *dev,
+ 		unit->processing.bControlSize = buffer[7];
+ 		unit->processing.bmControls = (u8 *)unit + sizeof(*unit);
+ 		memcpy(unit->processing.bmControls, &buffer[8], n);
+-		if (dev->uvc_version >= 0x0110)
++
++		/*
++		 * We are not using bmVideoStandards, so there is no need to
++		 * warn the user if it is missing.
++		 */
++		if (dev->uvc_version >= 0x0110 && buflen >= (n + 10))
+ 			unit->processing.bmVideoStandards = buffer[9+n];
+ 
+ 		uvc_entity_set_name(dev, unit, "Processing", buffer[8+n]);
+diff --git a/drivers/media/usb/uvc/uvc_video.c b/drivers/media/usb/uvc/uvc_video.c
+index fc3536a4399f..58e1c1fa6af2 100644
+--- a/drivers/media/usb/uvc/uvc_video.c
++++ b/drivers/media/usb/uvc/uvc_video.c
+@@ -273,6 +273,8 @@ static void uvc_fixup_video_ctrl(struct uvc_streaming *stream,
+ 	}
+ }
+ 
++#define UVC_VIDEO_CTRL_MIN_SIZE 26
++
+ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ {
+ 	/*
+@@ -280,7 +282,7 @@ static size_t uvc_video_ctrl_size(struct uvc_streaming *stream)
+ 	 * on the protocol version.
+ 	 */
+ 	if (stream->dev->uvc_version < 0x0110)
+-		return 26;
++		return UVC_VIDEO_CTRL_MIN_SIZE;
+ 	else if (stream->dev->uvc_version < 0x0150)
+ 		return 34;
+ 	else
+@@ -319,7 +321,8 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 		ctrl->wCompQuality = le16_to_cpup((__le16 *)data);
+ 		ret = 0;
+ 		goto out;
+-	} else if (query == UVC_GET_DEF && probe == 1 && ret != size) {
++	} else if (query == UVC_GET_DEF && probe == 1 &&
++		   ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		/*
+ 		 * Many cameras don't support the GET_DEF request on their
+ 		 * video probe control. Warn once and return, the caller will
+@@ -330,7 +333,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 			"Enabling workaround.\n");
+ 		ret = -EIO;
+ 		goto out;
+-	} else if (ret != size) {
++	} else if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to query (%s) UVC %s control : %d (exp. %u).\n",
+ 			uvc_query_name(query), probe ? "probe" : "commit",
+@@ -339,6 +342,12 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 		goto out;
+ 	}
+ 
++	if (ret != size)
++		dev_warn_once(&stream->intf->dev,
++			      "UVC non compliance: Query (%s) UVC %s control had a size of %d instead of %u.\n",
++			       uvc_query_name(query),
++			       probe ? "probe" : "commit", ret, size);
++
+ 	ctrl->bmHint = le16_to_cpup((__le16 *)&data[0]);
+ 	ctrl->bFormatIndex = data[2];
+ 	ctrl->bFrameIndex = data[3];
+@@ -351,7 +360,7 @@ static int uvc_get_video_ctrl(struct uvc_streaming *stream,
+ 	ctrl->dwMaxVideoFrameSize = get_unaligned_le32(&data[18]);
+ 	ctrl->dwMaxPayloadTransferSize = get_unaligned_le32(&data[22]);
+ 
+-	if (size >= 34) {
++	if (ret >= 34) {
+ 		ctrl->dwClockFrequency = get_unaligned_le32(&data[26]);
+ 		ctrl->bmFramingInfo = data[30];
+ 		ctrl->bPreferedVersion = data[31];
+@@ -412,11 +421,15 @@ static int uvc_set_video_ctrl(struct uvc_streaming *stream,
+ 	ret = __uvc_query_ctrl(stream->dev, UVC_SET_CUR, 0, stream->intfnum,
+ 		probe ? UVC_VS_PROBE_CONTROL : UVC_VS_COMMIT_CONTROL, data,
+ 		size, uvc_timeout_param);
+-	if (ret != size) {
++	if (ret < UVC_VIDEO_CTRL_MIN_SIZE) {
+ 		dev_err(&stream->intf->dev,
+ 			"Failed to set UVC %s control : %d (exp. %u).\n",
+ 			probe ? "probe" : "commit", ret, size);
+ 		ret = -EIO;
++	} else if (ret != size) {
++		dev_warn_once(&stream->intf->dev,
++			      "UVC non compliance: Set UVC %s control had a size of %d instead of %u.\n",
++			       probe ? "probe" : "commit", ret, size);
+ 	}
+ 
+ 	kfree(data);
 
-  static const struct firmware vd55g1_builtin_fw =3D {
-          .data =3D vd55g1_patch_array, .size =3D ARRAY_SIZE(vd55g1_patch_a=
-rray)
-  };
-  ...
-  if (ret =3D=3D -ENOENT && fw_info->builtin_fw)
+---
+base-commit: f9536a8065d9eed0d9114878c56ffc4e5a18bdfc
+change-id: 20260907-uvc-version-aedefc4384ce
 
-vd55g0_fw_maps[] sets fw_name and leaves builtin_fw NULL, and neither
-vd55g0-cut1.bin nor vd55g0-cut2.bin is in linux-firmware. So the series
-works for you and for nobody else, which I assume is not the intent. Either
-a built-in like VD55G1's, or the files submitted to linux-firmware, or at
-minimum a note in the cover letter saying where they come from.
-
-To get past it I used the same ST patch arrays that Andr=C3=A9 Gilerson's
-out-of-tree VD55G0 driver compiles in (vd55g0_patches.h, "Copyright (C)
-2024 STMicroelectronics SA"), written out as a file. cut1 is 6868 bytes and
-its header parses correctly against struct vd55g_patch_header =E2=80=94 0x0=
-681,
-version 2.11 =E2=80=94 so the format is right. That is how I tested, not a
-distribution path I am proposing.
-
-Second, and this one reaches further than this series. Benjamin's warning
-about libcamera is concrete and it is a regression for machines that work
-today. libcamera keys the sensor-properties database, the soft-ISP helper
-and the tuning file on the media entity name, which is the driver name:
-
-  WARN  No static properties available for 'vd55g'
-  WARN  'vd55g 1-0060': No sensor delays found in static properties
-  WARN  Configuration file 'vd55g.yaml' not found for IPA module 'simple'
-  WARN  IPASoft: Failed to create camera sensor helper for vd55g
-
-and the installed libcamera 0.7.0 does carry a vd55g1 entry =E2=80=94 `stri=
-ngs
-libcamera.so.0.7 | grep -x vd55g1` finds it. So renaming the driver does
-not only fail to help VD55G0; it silently takes the properties and the
-helper away from VD55G1 users who have them now. Whatever is decided about
-one driver or two, that rename needs libcamera patches landing alongside,
-or the entity name keeping its old form.
-
-Two smaller things, neither chased:
-
-  - `supply vcore not found, using dummy regulator` persists here despite
-    4/7's SMO55F0 mapping. It was not the blocker, so I did not dig.
-  - 3/7 advertises 380 MHz for SMO55F0. This machine has been running 402 M=
-Hz
-    ("MIPI output freq is 804MHz / 2") from the out-of-tree driver. Your
-    driver takes the endpoint's value rather than validating against a list=
-,
-    so it accepted 380 without complaint, and I have not established which =
-is
-    correct for either model. Worth knowing that two people measured
-    different numbers for the same HID on different Surfaces.
-
-Happy to run v2 here when you have one, and to report anything specific you
-would like measured on IPU7.
-
-Sergey
+Best regards,
+-- 
+Ricardo Ribalda <ribalda@chromium.org>
 
