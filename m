@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE86848C403
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE6FA483BE3
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780614; cv=none; b=De5oBnjBVHocRjtS+rbQQCyDkHcWKkt5XtqM2faiTS67x8bzcF5+2pyQQSRPKQq6ORsINjPPtIQrXZClkejMAxr0J9XADKyaOWlOaOHmWufhhIeS4LRDnX8owVjlalv39Qm5bKCmjP8ZJertAW5DGez97yl/sFWhkWAqf9cJ7XQ=
+	t=1788780615; cv=none; b=Ug4KVsxbEcuucY1HbVHagnqs3RONu22H8E/YLCFXNZneKz9hQWBRCC0niqfAID62uSgoEpEH09Qz01AVQZ0wNMbH4rVMLmwSytv7umriygrh3MFyXhpDLFzaRnMN4Mfw+aRSWK2pcfuD1PObu7mxjjasRvCRRcayo3x3oKsoYKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780614; c=relaxed/simple;
-	bh=G9GZ2ovE5DaKI1CkXPEpO8+rSMZvHyv/P0FA/D0mRxA=;
+	s=arc-20240116; t=1788780615; c=relaxed/simple;
+	bh=RVSZnamaqqFDsc4zk0Nk/d5LobB3k08yNzbFtl/hVYQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zn+Rpy75Akfqq4KSxHun6dBvSpBKKUFWLSZFbJznmJSGmfZRK+HEYay5PK5p3DSrZ+DXyF9W+BJM9WBH/cjC/n+eD8W8IcSnR7TQpxYSPIXkJZa91uLHaNTaN3uwEai6+1lKu2H9FJwTzOS2vIn7Zj3H5F3jeIKbSGEtdnCK6Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fUnzte9N; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=j9HjOM3OyKriF3xPN67RjjyoCWlKaqThAGji+j3mrWz4K4acFCLlcXpVhTpTBCHTNnFXCZebZ9efdPCqfPCRNFQWOPwADXQdnLHgoA8xDaKPjU1VEV7krq1MFpjQIEopPWouNt11Pzl+K/7yd8nblCbRewIMA2Ertck2y0gwh1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aCTicz3m; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fUnzte9N"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aCTicz3m"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780613; x=1820316613;
+  t=1788780614; x=1820316614;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=G9GZ2ovE5DaKI1CkXPEpO8+rSMZvHyv/P0FA/D0mRxA=;
-  b=fUnzte9NYxTNECfTmsoUJRjObGvwTatftVt5SCO8fqV167rjp/+DJqxx
-   65f8GSWOITeUBMDgkzTddOmh65Qc+j6CbYHxu4lFYmeCnlH9IJrJ7lbce
-   BDCGeSsFrtdSO+r4oDHdctgs/oi4NnEZUsrvvGYP6PyVdIyf6FLCA1pGh
-   MFPeZ5mNOxfl0xJI34Oh5gUZlGGHbZMZFj+2pybPbijxdgPg81HyI4phs
-   wxZZmp8uLNyT6mPdi0wY6I7gtn+uwnmXLZNir6yiX6F3OmctLv5trjFXM
-   WsdTUCEVyoV7kHkbuVS05jWaR3/VQpJnyiKX/8XvS/I8wWkUGRuq4VuZ4
-   g==;
-X-CSE-ConnectionGUID: 3aQQQGaDSEu1yit2IIK1qw==
-X-CSE-MsgGUID: NL+QlbLWShiVwt2CTQxYHg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538605"
+  bh=RVSZnamaqqFDsc4zk0Nk/d5LobB3k08yNzbFtl/hVYQ=;
+  b=aCTicz3mf4XAywAnnKkYICUoA43nF81soF4435M9kTriFkXXTVe0R3Ja
+   WWz03MDKP2z/kDhhVqae8XICR39nLrLZCBjhw3qY9KXYavHUSD77lrIkF
+   ojN/WSIhToNnxaRklvctXRsDgU0LtRmDqq14fO+CwgoNcTsIAY+0W8hiH
+   7xwJ3WhHIHYhJK+1xZVHq304r5twIhIR7rHF8o/oVJNe9lno5rubrVus3
+   ocgRL87V4oXdZ8oupFwhR3QvYdP1uTiYFDJp3c9jA2grS3y2Sor5FWmOv
+   9WaVgnWoBTto8TRI+S7zs5QpooWZuJIrpFZa0S4XLjSeEs0nCuCcSSsM1
+   Q==;
+X-CSE-ConnectionGUID: 0YL65IgsRmWEpmyyj3EqKQ==
+X-CSE-MsgGUID: xzK1/BQGToWMunwdU+O71Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538607"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538605"
+   d="scan'208";a="100538607"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:09 -0700
-X-CSE-ConnectionGUID: QuERlzEYTIqVpQHY0nN9zg==
-X-CSE-MsgGUID: Dv4g0Q1JQ828gUreHmMdew==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:10 -0700
+X-CSE-ConnectionGUID: NrDvYtahQ6W0LSwRtluuOw==
+X-CSE-MsgGUID: 5DuVqMyPRI2zSO91fHyo1Q==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569146"
+   d="scan'208";a="300569148"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:08 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9DB21121CDC;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id A4BB9121D0B;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARn7-0VYt;
+	id 1x3XY5-0000000ARnJ-0eLu;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 05/45] media: ipu6: Remove unused ipu6 firmware struct
-Date: Mon,  7 Sep 2026 14:29:24 +0300
-Message-ID: <20260907113004.2489993-6-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 07/45] media: ipu6: Simplify firmware com arguments
+Date: Mon,  7 Sep 2026 14:29:26 +0300
+Message-ID: <20260907113004.2489993-8-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,41 +73,75 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-The struct ipu6_fw_proxy_write_queue_token is not used anywhere,
-remove it.
+We need only pointer to ipu6_isys struct, and queue number
+can be removed as it is always the same.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-fw-isys.h | 15 ---------------
- 1 file changed, 15 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c | 8 ++++----
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.h | 4 ++--
+ drivers/media/pci/intel/ipu6/ipu6-isys.c    | 4 ++--
+ 3 files changed, 8 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+index a65e9f1aa104..fc2f24c05de7 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -366,14 +366,14 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ }
+ 
+ struct ipu6_fw_isys_resp_info_abi *
+-ipu6_fw_isys_get_resp(void *context, unsigned int queue)
++ipu6_fw_isys_get_resp(struct ipu6_isys *isys)
+ {
+-	return ipu6_recv_get_token(context, queue);
++	return ipu6_recv_get_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ }
+ 
+-void ipu6_fw_isys_put_resp(void *context, unsigned int queue)
++void ipu6_fw_isys_put_resp(struct ipu6_isys *isys)
+ {
+-	ipu6_recv_put_token(context, queue);
++	ipu6_recv_put_token(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ }
+ 
+ void ipu6_fw_isys_dump_stream_cfg(struct device *dev,
 diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-index b60f02076d8a..393245a633f4 100644
+index 393245a633f4..15d4ae355f28 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
 +++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
-@@ -511,21 +511,6 @@ struct ipu6_fw_isys_proxy_resp_info_abi {
- 	struct ipu6_fw_isys_proxy_error_info_abi error_info;
- };
+@@ -576,6 +576,6 @@ int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys,
+ 				  unsigned int offset, u32 value);
+ void ipu6_fw_isys_cleanup(struct ipu6_isys *isys);
+ struct ipu6_fw_isys_resp_info_abi *
+-ipu6_fw_isys_get_resp(void *context, unsigned int queue);
+-void ipu6_fw_isys_put_resp(void *context, unsigned int queue);
++ipu6_fw_isys_get_resp(struct ipu6_isys *isys);
++void ipu6_fw_isys_put_resp(struct ipu6_isys *isys);
+ #endif
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 180a53f3d7ab..8af891081bd3 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -1215,7 +1215,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
+ 	if (!isys->fwctx)
+ 		return 1;
  
--/**
-- * struct ipu6_fw_proxy_write_queue_token - ISYS proxy write queue token
-- * @request_id: update id for the specific proxy write request
-- * @region_index: Region id for the proxy write request
-- * @offset: Offset of the write request according to the base address
-- *	    of the region
-- * @value: Value that is requested to be written with the proxy write request
-- */
--struct ipu6_fw_proxy_write_queue_token {
--	u32 request_id;
--	u32 region_index;
--	u32 offset;
--	u32 value;
--};
--
- /**
-  * struct ipu6_fw_resp_queue_token - ISYS response queue token
-  * @resp_info: response info
+-	resp = ipu6_fw_isys_get_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
++	resp = ipu6_fw_isys_get_resp(isys);
+ 	if (!resp)
+ 		return 1;
+ 
+@@ -1324,7 +1324,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
+ 
+ 	ipu6_isys_put_stream(stream);
+ leave:
+-	ipu6_fw_isys_put_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
++	ipu6_fw_isys_put_resp(isys);
+ 	return 0;
+ }
+ 
 -- 
 2.47.3
 
