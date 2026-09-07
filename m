@@ -1,446 +1,431 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80DC343D4FD
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 08:14:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF51440641;
+	Mon,  7 Sep 2026 08:50:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788768884; cv=none; b=dK3vwsqgADJD50vRelA6r7hmwyoxJR/I4qFUrMlQU7HWhMghcGVZP8q8jWCSBfUzDZMIXyGK5x8S6OJH0fgdE7emI0r4dGS/SrWRMIOuXslKAngBOxQCUj7GQWDEppN7A7EhtU3AfgaZfPTKLEJ4VaSfhyWG84fL9bsn7+AkXms=
+	t=1788771036; cv=none; b=nGIcjxVFTFyuq25Z6GnWZoUs8l+kRVcLjHx+yqXMMyNks0ECtbaKedMJqxWkppJ/jEW4TliIrflEEZD98tE1bJVTU74jWXkfMCzT31zuzcigUOekN8k+fJFuczeIQw8QIr0YxQz2z/agSjqOw+xqTC7XZvVHH2eAHJ/0yqUDMT8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788768884; c=relaxed/simple;
-	bh=TgC/RkbhJ7vKUyUL9N0dsXA90G09kSlE8ntHvVa5CC8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bPd6WyENLLUeB/uMlehCf8f29BUNyQtbo6rZK402O27IvJ2/lvItQk21qNaaiTFSKg6P7xwS6UvShG0uOHStrZm+YbFCHm9UScJnTnkkZv1TeuqduShVwuASZlSCY92ekSBrg+UCySX1XTITjKYxfQH51Tk3eWJqQu6nUK/X2Fw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=S2gUVCD8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=McHf76uv; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788771036; c=relaxed/simple;
+	bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jjj/umi1IZveA8MtUGaeBxkQi/OfDQERVCknzf/3xaTY+EiyDK4JgDwbhBxeyuy2afmTT2tN8HumRJCvfJEPdPFFvCWBFufgqyyOrRdy8D3Mhgz8etJ/yJRj8XradkfEPH4A7B8Mj5TnIc2ZrHjussDGk+uGf6OJ6oSNgovemqg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=VSd2i6z6; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="S2gUVCD8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="McHf76uv"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68777Lc53363489
-	for <linux-media@vger.kernel.org>; Mon, 7 Sep 2026 08:14:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	6n4aVS99yYRnFm88ofoKkQ5lAy+OyD29BpZxJOtYUs0=; b=S2gUVCD8btN9U+Tc
-	h3EXNpuzRHINosHnW62tGU2xaXMO5MW92qqAnkrEXwGI6iU8fE8ykbI3WNrnyI/g
-	w975sFt/13Kxy0bifDNb+2qrB+nrnCMUP9joEIXA0GPwKYLdit+IdWrMB5WdJ+AS
-	i6/lBfReGg9ARXxaZ+ZWH0fhpFKXKmWDQzSwVkNxgSU9Zh70dvwvtcmQkJ57TfOR
-	39XGrEHoMVApOQtCGmMDk9+KhrIX7F1nrZZLy7V8DFeK8M+4OIZMWKDBx07QHRw2
-	m7Ta0xResrQlIWw1X1PIZde+fBG4jKbY7ObKl3jfQgyZHT2ikpq4eespgWyA2Flq
-	pGX0UA==
-Received: from mail-oo1-f71.google.com (mail-oo1-f71.google.com [209.85.161.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj0yjr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 08:14:41 +0000 (GMT)
-Received: by mail-oo1-f71.google.com with SMTP id 006d021491bc7-6b1b9376ed5so3981441eaf.0
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 01:14:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788768881; x=1789373681; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6n4aVS99yYRnFm88ofoKkQ5lAy+OyD29BpZxJOtYUs0=;
-        b=McHf76uv0RHyV2VQeLQ3/1zjdXiNcpzlwvAz/qpPJ/N8lOnQwLw0JK/NEhfY45KmK2
-         i7G62qjH11dHyuoQkoFM312T0aug9luJk5Y1eyHcKbf9LHX04GS6SALO5dkno7n0u2qq
-         iGatRIRfm1Z0y9MrN1tB2d3XigBcv4XVz57I8/MTxMid86Bx1rH1k1aKJBibbLIV9EHL
-         GPQYOV5Q0o5zZu35mzQkMq1eYdIFWkJgVwhsdV1owXRRBwvjM47SKkK9TC6pitOoNGr4
-         wMB7aFgRm5peyQIQJUVrD0wpOMgJhDdx5qbWj+B8Xkf6sxot5+J7yFajOVRSPCa+BaP9
-         YWmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788768881; x=1789373681;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6n4aVS99yYRnFm88ofoKkQ5lAy+OyD29BpZxJOtYUs0=;
-        b=PKGtOUVGlipdG2XqOQJYyTpPq6jn287Rv4ffAITtVZe29uIB6TdmZBtwbLI7TVuk5n
-         yvk1wLhdLHzoQbMQ2LVvGZNs8yNVx+HmNtvAIWaI6MPNJ5Xa1+I/3qJHpd/RUTb8P8er
-         +KN9T3tN7LXd4VDe6VmrbD5Q5ub5oCiJHiklLq58yKQo//9gf4pnRRsfIp3Aff5jjeM6
-         ENxeirsYjDKPl1m0e2RewTW6/2Nja21PsDer27ktLyexMDkwB1UNZjxK97op7tgSVguR
-         m5+mywXEj5liHOGqQNofD3bT6FhK/43HyLcbEe+X5/2pWvAhk4bwKZtbA+2ZMdAdDo0q
-         fppA==
-X-Forwarded-Encrypted: i=1; AKwUvBxZpyTBpRP5hJkjc9wiPDo+W8EV60ykSpA96iHdPvYWAEZXtHKKgvveczOqoofjfLnYXYJ9jTJ2pG5LXA==@vger.kernel.org
-X-Gm-Message-State: AFuF++k+eWPZTF3+VVhmCOTwut3LsJ85jP12mnz/MdW7kYqTWRDVRJQR
-	wUFxRWi7jEkZpoipsTNM/hgdI5czWhNb2FoqoRyEl8GPk1RTOVIsvduNoEzlqYhJ6iWL+CVcYF7
-	NInOWtDeDGYjA7ETFDi533D7OO6kx7x0dBsA0MpoPjgjB7FtIQd8iv9Vb55mLqxrozg==
-X-Gm-Gg: AYBFou3SICzKH3XpgoKXfdQYlvxceXLHVCSp4KJzqPv+UZQK+jCF37HHJJvGoG1vyhF
-	GoRyAEjEPVDYjfE8Tb3V1z5hzmcCfUHaG0/WdfKiWBM3FZXmbeuYHRlBLLut5STJJ+vcP4bifqf
-	4un9gDXRVGzVrFU81C+xSpU14UxxTN4kfgRoCb1PCKRzVdMpMEbJtFdQuT9kx2u8/uiwI3elbWM
-	fwcH2bvzbWp1shxaY2vETPjlFL/6rnTdfjRFWCw+9K0gHle95tzU8odfTEjjPino/y0KRMDxrpa
-	0y0hUIunADq/b0lcqboxi7Ku9y/cbAQAQPgPEZrgTc5x8P4lmHsAspp80iBslZeY2cTQRQRjSUj
-	ka+qbYphJuoNfM3T00h/9kxAFMRj2B24=
-X-Received: by 2002:a05:6820:4c16:b0:6b7:83d6:2933 with SMTP id 006d021491bc7-6b783d62fb5mr9684802eaf.54.1788768880883;
-        Mon, 07 Sep 2026 01:14:40 -0700 (PDT)
-X-Received: by 2002:a05:6820:4c16:b0:6b7:83d6:2933 with SMTP id 006d021491bc7-6b783d62fb5mr9684786eaf.54.1788768880464;
-        Mon, 07 Sep 2026 01:14:40 -0700 (PDT)
-Received: from hu-nihalkum-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-143243767e1sm21724220c88.6.2026.09.07.01.14.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 07 Sep 2026 01:14:40 -0700 (PDT)
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Date: Mon, 07 Sep 2026 13:43:42 +0530
-Subject: [PATCH v2 6/6] regulator: qcom-pm8008-regulator: Add support for
- PM8010 PMIC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="VSd2i6z6"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788771033; x=1820307033;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oiKVredM/mUJR4TT9EGCdrNiLjxkvltsS02K1QUYJ1w=;
+  b=VSd2i6z68KRju+EFSXFIxU967BKZsOQR7ZfFeIOmrgBr8OmUMZAH8Bwr
+   sGBHgkn9VwCDF4YCCNVT2wvRrZ3H9vhi5tj+4zKN3IpQhVyXA6dsYyACN
+   +D5WV8+Ij9e1kZGAEPptvBB13yDPrFxDbyf9EZU6Uvk+I3Q8iFQmPEyEu
+   auHoz+OdntpOkiAKS32quzCO6cNHW7anIGZF9XcOUy6mvGufuPRe0wQu1
+   curmBfsL63oENUjz+bTLbTpkruL1s96ngRBJtjfVpLLbfUinyE5Ljvi1Q
+   Rf4XjU8sAAh+kKnw6z1+5RatuaRVaP0Dw7jcqapssvJ3ng+2EwPir1uHF
+   A==;
+X-CSE-ConnectionGUID: eVbW/coBQ8+t/ophymC/5g==
+X-CSE-MsgGUID: BZjyFVJST1iOaj4fHFOB0Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="106687439"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="106687439"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:29 -0700
+X-CSE-ConnectionGUID: afj1dpsUS5yI6e6y65DQrQ==
+X-CSE-MsgGUID: qYsDKwwWREC7OOrmas5P2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="266303711"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 01:50:27 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0A08611F944;
+	Mon, 07 Sep 2026 11:50:29 +0300 (EEST)
+Date: Mon, 7 Sep 2026 11:50:28 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ap561H8xYJvjZsRa@kekkonen.localdomain>
+References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
+ <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
+ <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
+ <ap5n7OyZrI0KzzN-@zed>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-glymur_camss-v2-6-75f7982dc983@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
-In-Reply-To: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>,
-        Dhruvin Rajpura <drajpura@qti.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1788768826; l=10721;
- i=nihal.gupta@oss.qualcomm.com; s=20260608; h=from:subject:message-id;
- bh=yixS+paItpbPG3dnBLS1VUcjAcCmN8R25JH8onqgK0M=;
- b=AshxnNJuhZqt/olXhrP/gDHUkv4390f/hueQU2nS0RTBb+OYBxulCEwtpLNI/q7lr/RKkziFm
- vQDe1xFl4/lBXtix2UFTzuaMZtkbCKguXrjMj36aKBp4GG65X++6dtG
-X-Developer-Key: i=nihal.gupta@oss.qualcomm.com; a=ed25519;
- pk=DIbyFMNwqU/iMvU/0pCQp2wmRVgtHFBT3PcSu+A+Ncw=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDA4OCBTYWx0ZWRfXzXu0dfSTJhbF
- LEqFIqEIB8BXUn0GFZn/oC51ZS150kNbHrPL1x+13nnb/kyfyCBgke1trPuWW+tphev7ExF1TLA
- WPpGVRCmGJXKvu9cgjL3kt5TygeD2t3xPFf1Rw8Fd03fDr4nBqbRvqk7KGPWFchlwyg4ricpxW8
- iOWl74M6sP24Qbea/PrIvYxggIm7tHEAg99BXp3yJQ58+/GjEGU5yzrQpkxvwLQYtif/w0IL30s
- iO/TJn80dgFChrOMlnXg8k6s0snbfdADPLrcmv99FJw7TdU470pixlDHSiPOK0RZSfq18Y8i5zo
- /hHnrdmd1sV26B3LvoltasX4dH+pRfdSI8POq/xahgpSMFlu2wgbooEXWm1aI1C7mxyOTRxQZsz
- dkb8geCo8uHQBC980tw2teLlOOmJDgh+7FwcCsTeEfp4mbebGNxVCPH9AciUGkDVIeE+dScIC/n
- oS5vBno0kLniM4eT4sg==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDA4OCBTYWx0ZWRfX3kqSzcetUNIZ
- an9bKPsIs9L+CRxTtG4+GeZtrVvJiid87hkhkWmyHHI4RQLey1d92HYa1joi7TQ/v0KBzbvgVQK
- NMQ6Q5d6SZnqFYyU/eTu5vfbNrYyOLU=
-X-Proofpoint-ORIG-GUID: xKhddGePCRBe14Dc_n9OrMLO_sb-JBoP
-X-Proofpoint-GUID: xKhddGePCRBe14Dc_n9OrMLO_sb-JBoP
-X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9e7271 cx=c_pps
- a=V4L7fE8DliODT/OoDI2WOg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=AkqyrZD3AtcrQouKZzQA:9 a=QEXdDO2ut3YA:10
- a=WZGXeFmKUf7gPmL3hEjn:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_02,2026-09-03_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070088
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ap5n7OyZrI0KzzN-@zed>
 
-From: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Hi Jacopo,
 
-The PM8010 is a variant of the PM8008 PMIC with additional LDO
-regulators, a wider voltage range on some LDOs, and LPM/NPM mode
-support. Add PM8010 regulator data tables and voltage ranges, and
-implement set_mode()/get_mode() for switching between LPM and NPM.
+On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
+> > > +}
+> > > +
+> > > +static inline u32 mira016_nsec_to_lines(struct mira016 *mira016, u32 nsec)
+> > > +{
+> > > +	return nsec / (mira016_trow_psec(mira016) / HZ_PER_KHZ);
+> > > +}
+> > > +
+> > > +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
+> > > +{
+> > > +	/*
+> > > +	 * Pixel rate is calculate as the row duration divided by the total line
+> > > +	 * length.
+> > > +	 *
+> > > +	 * pixel time (psec) = t_row(psec) / h_tot
+> > > +	 * pixel rate (mbps) = 10^12 / pixel_time
+> > > +	 *		     = 10^12 * h_tot / t_row
+> > > +	 *		     = h_tot * 10^6 / t_row * 10^6 to avoid overflows
+> > > +	 */
+> > > +	u32 trow_psec = mira016_trow_psec(mira016);
+> > > +
+> > > +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
+> >
+> > Can this overflow?
+> >
+> 
+> I don't think so. I chose to multiply by 10^6 two times before and after
+> the division to avoid overflows.
+> 
+> Should I re-consider something ?
 
-Detect PM8010 via the parent I2C client's compatible string and
-select the matching regulator_ops and register data accordingly.
+It was a question. :-) If it can't then it's fine as-is.
 
-Signed-off-by: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
-Signed-off-by: Dhruvin Rajpura <drajpura@qti.qualcomm.com>
-Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
----
- drivers/regulator/qcom-pm8008-regulator.c | 184 ++++++++++++++++++++++++++----
- 1 file changed, 159 insertions(+), 25 deletions(-)
+> 
+> 
+> > > +}
+> > > +
+> > > +static inline u32 mira016_calc_min_vblank(struct mira016 *mira016, u32 y_tot)
+> > > +{
+> > > +	/*
+> > > +	 * See 3.15.2 Frame Rate, equation 4.
+> > > +	 *
+> > > +	 * TODO: The minimum frame duration has to be expanded if embedded data
+> > > +	 * are used.
+> > > +	 */
+> > > +	u32 trow_nsec = mira016_trow_psec(mira016) / HZ_PER_KHZ;
+> > > +	u32 min_duration_nsec =  trow_nsec * (y_tot + 35) + 50 * HZ_PER_KHZ;
+> >
+> > What are 35 and 50 here?
+> >
+> 
+> No idea, the sensor datasheet doesn't describe those values
 
-diff --git a/drivers/regulator/qcom-pm8008-regulator.c b/drivers/regulator/qcom-pm8008-regulator.c
-index 9c9b8be2e15a499fa61a05cc9650338d0bbcd122..87807d5d9e8fdbbe422202156bcbf1d0e3fbc155 100644
---- a/drivers/regulator/qcom-pm8008-regulator.c
-+++ b/drivers/regulator/qcom-pm8008-regulator.c
-@@ -8,6 +8,7 @@
- #include <linux/array_size.h>
- #include <linux/bits.h>
- #include <linux/device.h>
-+#include <linux/i2c.h>
- #include <linux/math.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -24,9 +25,19 @@
- 
- #define LDO_VSET_LB_REG			0x40
- 
-+#define LDO_MODE_CTL1_REG		0x45
-+#define MODE_PRIMARY_MASK		GENMASK(2, 0)
-+#define LDO_MODE_NPM			7
-+#define LDO_MODE_LPM			4
-+
- #define LDO_ENABLE_REG			0x46
- #define ENABLE_BIT			BIT(7)
- 
-+#define LDO_STATUS1_REG		0x08
-+#define MODE_STATE_MASK		GENMASK(1, 0)
-+#define MODE_STATE_NPM			3
-+#define MODE_STATE_LPM			2
-+
- struct pm8008_regulator {
- 	struct regmap		*regmap;
- 	struct regulator_desc	desc;
-@@ -39,24 +50,59 @@ struct pm8008_regulator_data {
- 	unsigned int			base;
- 	int				min_dropout_uV;
- 	const struct linear_range	*voltage_range;
-+	int				n_linear_ranges;
-+};
-+
-+struct pm8008_match_data {
-+	const bool has_stepper_ctl_reg;
-+	const struct pm8008_regulator_data *regulator_data;
-+	const int num_regulators;
- };
- 
--static const struct linear_range nldo_ranges[] = {
-+static const struct linear_range pm8008_nldo_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(528000, 0, 122, 8000),
- };
- 
--static const struct linear_range pldo_ranges[] = {
-+static const struct linear_range pm8008_pldo_ranges[] = {
- 	REGULATOR_LINEAR_RANGE(1504000, 0, 237, 8000),
- };
- 
-+static const struct linear_range pm8010_nldo_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(528000, 0, 127, 8000),
-+};
-+
-+static const struct linear_range pm8010_pldo_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1504000, 0, 255, 8000),
-+};
-+
-+static const struct linear_range pm8010_pldo_lv_ranges[] = {
-+	REGULATOR_LINEAR_RANGE(1800000, 0,  2,  200000),
-+	REGULATOR_LINEAR_RANGE(2608000, 3,  28, 16000),
-+	REGULATOR_LINEAR_RANGE(3104000, 29, 30, 96000),
-+	REGULATOR_LINEAR_RANGE(3312000, 31, 31, 0),
-+};
-+
-+#define PM8008_REGULATOR(_name, _supply, _base, _dropout, _range)	\
-+	{ _name, _supply, _base, _dropout, _range, ARRAY_SIZE(_range) }
-+
- static const struct pm8008_regulator_data pm8008_reg_data[] = {
--	{ "ldo1", "vdd-l1-l2", 0x4000, 225000, nldo_ranges, },
--	{ "ldo2", "vdd-l1-l2", 0x4100, 225000, nldo_ranges, },
--	{ "ldo3", "vdd-l3-l4", 0x4200, 300000, pldo_ranges, },
--	{ "ldo4", "vdd-l3-l4", 0x4300, 300000, pldo_ranges, },
--	{ "ldo5", "vdd-l5",    0x4400, 200000, pldo_ranges, },
--	{ "ldo6", "vdd-l6",    0x4500, 200000, pldo_ranges, },
--	{ "ldo7", "vdd-l7",    0x4600, 200000, pldo_ranges, },
-+	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 225000, pm8008_nldo_ranges),
-+	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 225000, pm8008_nldo_ranges),
-+	PM8008_REGULATOR("ldo3", "vdd-l3-l4", 0x4200, 300000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo4", "vdd-l3-l4", 0x4300, 300000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo5", "vdd-l5",    0x4400, 200000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo6", "vdd-l6",    0x4500, 200000, pm8008_pldo_ranges),
-+	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 200000, pm8008_pldo_ranges),
-+};
-+
-+static const struct pm8008_regulator_data pm8010_reg_data[] = {
-+	PM8008_REGULATOR("ldo1", "vdd-l1-l2", 0x4000, 172000, pm8010_nldo_ranges),
-+	PM8008_REGULATOR("ldo2", "vdd-l1-l2", 0x4100, 172000, pm8010_nldo_ranges),
-+	PM8008_REGULATOR("ldo3", "vdd-l3-l4", 0x4200, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo4", "vdd-l3-l4", 0x4300, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo5", "vdd-l5",    0x4400, 296000, pm8010_pldo_ranges),
-+	PM8008_REGULATOR("ldo6", "vdd-l6",    0x4500, 80000, pm8010_pldo_lv_ranges),
-+	PM8008_REGULATOR("ldo7", "vdd-l7",    0x4600, 296000, pm8010_pldo_ranges),
- };
- 
- static int pm8008_regulator_set_voltage_sel(struct regulator_dev *rdev, unsigned int sel)
-@@ -99,8 +145,53 @@ static int pm8008_regulator_get_voltage_sel(struct regulator_dev *rdev)
- 	return regulator_map_voltage_linear_range(rdev, uV, INT_MAX);
- }
- 
-+static int pm8010_regulator_set_mode(struct regulator_dev *rdev, unsigned int mode)
-+{
-+	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
-+	unsigned int val;
-+
-+	switch (mode) {
-+	case REGULATOR_MODE_NORMAL:
-+		val = LDO_MODE_NPM;
-+		break;
-+	case REGULATOR_MODE_IDLE:
-+		val = LDO_MODE_LPM;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	return regmap_update_bits(preg->regmap, preg->base + LDO_MODE_CTL1_REG,
-+				   MODE_PRIMARY_MASK, val);
-+}
-+
-+static unsigned int pm8010_regulator_get_mode(struct regulator_dev *rdev)
-+{
-+	struct pm8008_regulator *preg = rdev_get_drvdata(rdev);
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(preg->regmap, preg->base + LDO_STATUS1_REG, &val);
-+	if (ret < 0)
-+		return REGULATOR_MODE_INVALID;
-+
-+	return (val & MODE_STATE_MASK) == MODE_STATE_NPM ?
-+		REGULATOR_MODE_NORMAL : REGULATOR_MODE_IDLE;
-+}
-+
-+static unsigned int pm8010_regulator_of_map_mode(unsigned int mode)
-+{
-+	switch (mode) {
-+	case REGULATOR_MODE_NORMAL:
-+	case REGULATOR_MODE_IDLE:
-+		return mode;
-+	default:
-+		return REGULATOR_MODE_INVALID;
-+	}
-+}
-+
- static const struct regulator_ops pm8008_regulator_ops = {
--	.list_voltage		= regulator_list_voltage_linear,
-+	.list_voltage		= regulator_list_voltage_linear_range,
- 	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
- 	.get_voltage_sel	= pm8008_regulator_get_voltage_sel,
- 	.enable			= regulator_enable_regmap,
-@@ -108,8 +199,20 @@ static const struct regulator_ops pm8008_regulator_ops = {
- 	.is_enabled		= regulator_is_enabled_regmap,
- };
- 
-+static const struct regulator_ops pm8010_regulator_ops = {
-+	.list_voltage		= regulator_list_voltage_linear_range,
-+	.set_voltage_sel	= pm8008_regulator_set_voltage_sel,
-+	.get_voltage_sel	= pm8008_regulator_get_voltage_sel,
-+	.enable			= regulator_enable_regmap,
-+	.disable		= regulator_disable_regmap,
-+	.is_enabled		= regulator_is_enabled_regmap,
-+	.set_mode		= pm8010_regulator_set_mode,
-+	.get_mode		= pm8010_regulator_get_mode,
-+};
-+
- static int pm8008_regulator_probe(struct platform_device *pdev)
- {
-+	const struct pm8008_match_data *match_data;
- 	const struct pm8008_regulator_data *data;
- 	struct regulator_config config = {};
- 	struct device *dev = &pdev->dev;
-@@ -117,15 +220,28 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
- 	struct regulator_desc *desc;
- 	struct regulator_dev *rdev;
- 	struct regmap *regmap;
-+	const struct platform_device_id *id;
- 	unsigned int val;
-+	bool is_pm8010;
- 	int ret, i;
- 
-+	id = platform_get_device_id(pdev);
-+	if (!id)
-+		return dev_err_probe(dev, -ENODEV, "Missing platform device id\n");
-+
-+	match_data = (const struct pm8008_match_data *)id->driver_data;
-+	if (!match_data)
-+		return dev_err_probe(dev, -ENODATA, "Missing driver match data\n");
-+
- 	regmap = dev_get_regmap(dev->parent, "secondary");
- 	if (!regmap)
- 		return -EINVAL;
- 
--	for (i = 0; i < ARRAY_SIZE(pm8008_reg_data); i++) {
--		data = &pm8008_reg_data[i];
-+	is_pm8010 = of_device_is_compatible(to_i2c_client(dev->parent)->dev.of_node,
-+					    "qcom,pm8010-i2c");
-+
-+	for (i = 0; i < match_data->num_regulators; i++) {
-+		data = &match_data->regulator_data[i];
- 
- 		preg = devm_kzalloc(dev, sizeof(*preg), GFP_KERNEL);
- 		if (!preg)
-@@ -140,23 +256,28 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
- 		desc->supply_name = data->supply_name;
- 		desc->of_match = data->name;
- 		desc->regulators_node = of_match_ptr("regulators");
--		desc->ops = &pm8008_regulator_ops;
-+		desc->ops = is_pm8010 ? &pm8010_regulator_ops : &pm8008_regulator_ops;
-+		if (is_pm8010)
-+			desc->of_map_mode = pm8010_regulator_of_map_mode;
- 		desc->type = REGULATOR_VOLTAGE;
- 		desc->owner = THIS_MODULE;
- 
- 		desc->linear_ranges = data->voltage_range;
--		desc->n_linear_ranges = 1;
--		desc->uV_step = desc->linear_ranges[0].step;
--		desc->min_uV = desc->linear_ranges[0].min;
--		desc->n_voltages = linear_range_values_in_range(&desc->linear_ranges[0]);
--
--		ret = regmap_read(regmap, preg->base + LDO_STEPPER_CTL_REG, &val);
--		if (ret < 0) {
--			dev_err(dev, "failed to read step rate: %d\n", ret);
--			return ret;
-+		desc->n_linear_ranges = data->n_linear_ranges;
-+		desc->n_voltages = linear_range_values_in_range_array(desc->linear_ranges,
-+						      desc->n_linear_ranges);
-+
-+		if (match_data->has_stepper_ctl_reg) {
-+			ret = regmap_read(regmap, preg->base + LDO_STEPPER_CTL_REG, &val);
-+			if (ret < 0) {
-+				dev_err(dev, "failed to read step rate: %d\n", ret);
-+				return ret;
-+			}
-+			val &= STEP_RATE_MASK;
-+			desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE >> val;
-+		} else {
-+			desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE;
- 		}
--		val &= STEP_RATE_MASK;
--		desc->ramp_delay = DEFAULT_VOLTAGE_STEPPER_RATE >> val;
- 
- 		desc->min_dropout_uV = data->min_dropout_uV;
- 
-@@ -179,8 +300,21 @@ static int pm8008_regulator_probe(struct platform_device *pdev)
- 	return 0;
- }
- 
-+static const struct pm8008_match_data pm8008_data = {
-+	.has_stepper_ctl_reg = true,
-+	.regulator_data = pm8008_reg_data,
-+	.num_regulators = ARRAY_SIZE(pm8008_reg_data),
-+};
-+
-+static const struct pm8008_match_data pm8010_data = {
-+	.has_stepper_ctl_reg = false,
-+	.regulator_data = pm8010_reg_data,
-+	.num_regulators = ARRAY_SIZE(pm8010_reg_data),
-+};
-+
- static const struct platform_device_id pm8008_regulator_id_table[] = {
--	{ .name = "pm8008-regulator" },
-+	{ .name = "pm8008-regulator", .driver_data = (kernel_ulong_t)&pm8008_data },
-+	{ .name = "pm8010-regulator", .driver_data = (kernel_ulong_t)&pm8010_data },
- 	{ }
- };
- MODULE_DEVICE_TABLE(platform, pm8008_regulator_id_table);
+Ok.
+
+There's also an extra whitespace there.
+
+...
+
+> > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
+> > > +{
+> > > +	struct mira016 *mira016 =
+> > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
+> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > +	struct v4l2_subdev_state *state;
+> > > +	struct v4l2_rect *crop;
+> > > +	int ret = 0;
+> > > +
+> > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
+> > > +	crop = v4l2_subdev_state_get_crop(state, 0);
+> > > +
+> > > +	if (ctrl->id == V4L2_CID_VBLANK) {
+> > > +		s32 exposure_max = crop->height + ctrl->val
+> > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
+> > > +		s32 exposure_def = min(exposure_max,
+> > > +				       mira016->exposure->val);
+> > > +
+> > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
+> > > +					       mira016->exposure->minimum,
+> > > +					       exposure_max,
+> > > +					       mira016->exposure->step,
+> > > +					       exposure_def);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +	}
+> > > +
+> > > +	if (!pm_runtime_get_if_in_use(&client->dev))
+> > > +		return 0;
+> > > +
+> > > +	switch (ctrl->id) {
+> > > +	case V4L2_CID_EXPOSURE:
+> > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
+> > > +		break;
+> > > +	case V4L2_CID_VBLANK:
+> > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
+> > > +		break;
+> >
+> > Is hblank part of the register lists?
+> >
+> 
+> These sensors (there will hopefully be more supported by this driver)
+> do not have a real horizontal blanking.
+> 
+> Their line length is expressed by a time base multipled by a line
+> length which doesn't directly depend on the pixel width but rather on
+> the ADC and PHY timings.
+> 
+> You could expand the line duration by increasing the time base, but I
+> wouldn't go there and use VBLANK only to control the frame duration.
+> 
+> As you can see the HBLANK control is registered with  fixed value of
+> 0.
+
+How does control frame rate then? If HBLANK is zero, the frame rate is
+undefined, isn't it?
+
+> > > +static int mira016_init_controls(struct mira016 *mira016)
+> > > +{
+> > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
+> > > +	struct v4l2_fwnode_device_properties props;
+> > > +	struct v4l2_ctrl_handler *ctrl_hdlr;
+> > > +	struct v4l2_ctrl *link_freq;
+> > > +	struct v4l2_ctrl *hblank;
+> > > +	u32 min_exposure_lines;
+> > > +	u32 def_exposure;
+> > > +	u32 min_vblank;
+> > > +	u32 def_vblank;
+> > > +	u32 pixel_rate;
+> > > +	int ret;
+> > > +
+> > > +	ctrl_hdlr = &mira016->ctrl_handler;
+> > > +	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
+> > > +
+> > > +	/* By default, PIXEL_RATE is read only */
+> > > +	pixel_rate = mira016_calc_prate(mira016, MIRA016_PIXEL_ARRAY_WIDTH);
+> > > +	mira016->prate = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
+> > > +					   pixel_rate, pixel_rate, 1,
+> > > +					   pixel_rate);
+> > > +
+> > > +	def_vblank = mira016_nsec_to_lines(mira016,
+> > > +					   MIRA016_DEFAULT_DURATION_NSEC);
+> > > +	def_vblank -= MIRA016_PIXEL_ARRAY_HEIGHT;
+> > > +
+> > > +	min_vblank = mira016_calc_min_vblank(mira016,
+> > > +					     MIRA016_PIXEL_ARRAY_HEIGHT);
+> > > +	mira016->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					    V4L2_CID_VBLANK, min_vblank,
+> > > +					    MIRA016_MAX_VBLANK, 1,
+> > > +					    def_vblank);
+> > > +
+> > > +	/* Fixed 0 horizontal blanking. */
+> > > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, 0,
+> > > +				   0, 1, 0);
+> > > +
+> > > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
+> > > +					   0, 0, &mira016_link_freqs[0]);
+> > > +
+> > > +	min_exposure_lines = mira016_nsec_to_lines(mira016,
+> > > +						   mira016->timings.min_exposure_time);
+> > > +	def_exposure = mira016_nsec_to_lines(mira016,
+> > > +					     MIRA016_EXPOSURE_DEF_NSEC);
+> > > +	mira016->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					      V4L2_CID_EXPOSURE,
+> > > +					      min_exposure_lines,
+> > > +					      MIRA016_MAX_EXPOSURE, 1,
+> > > +					      def_exposure);
+> > > +
+> > > +	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
+> > > +					  V4L2_CID_ANALOGUE_GAIN,
+> > > +					  1, 1, 1, 1);
+> > > +
+> > > +	/*
+> > > +	 * Changing VFLIP requires re-programming the top point, hence we
+> > > +	 * program flips along with the ROI windows at enable_streams time. As
+> > > +	 * we grab the flip controls there, there's no need to handle the two
+> > > +	 * controls while streaming.
+> > > +	 */
+> > > +	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
+> > > +
+> > > +	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
+> > > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
+> > > +
+> > > +	v4l2_fwnode_device_parse(&client->dev, &props);
+> >
+> > v4l2_fwnode_device_parse() can return an error and I'd check for it. I'd
+> > however do that before initialising the control handler as it simplifies
+> > error handling.
+> 
+> Interesting idea. I still see most drivers calling
+> v4l2_fwnode_device_parse() and v4l2_ctrl_new_fwnode_properties() in
+> sequence at the end of the controls initialization, but doing the
+> parsing at the beginning of the function is certainly a good idea.
+
+Yes, the ones you've been looking at are old drivers. :-)
+
+> > > +		{ 16, 21 }, { 17, 26 }, { 18, 29 }, { 19, 30 }, { 20, 15 },
+> > > +		{ 21, 23 }, { 22, 27 }, { 23, 13 }, { 24, 22 }, { 25, 11 },
+> > > +		{ 26, 5 }, { 27, 18 }, { 28, 25 }, { 29, 12 },
+> > > +		{ 30, 6 }, { 31, 3 }, { 32, 1 }
+> > > +	};
+> > > +
+> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_n_lut); ++i) {
+> > > +		if (pll_n_lut[i].n != pll_n)
+> > > +			continue;
+> > > +
+> > > +		return pll_n_lut[i].pll_n;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static u8 mira016_m_to_pll_m(u32 pll_m)
+> > > +{
+> > > +	/* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
+> > > +	static const struct pll_m_div {
+> > > +		u8 m_min;
+> > > +		u8 m_max;
+> > > +		u8 pll_m_min;
+> > > +		u8 pll_m_max;
+> > > +	} pll_m_lut[] = {
+> > > +		{ 16, 31, 224, 239 }, { 32, 63, 192, 233 },
+> > > +		{ 64, 127, 128, 191 }, { 128, 255, 0, 127 },
+> > > +	};
+> > > +
+> > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
+> > > +		const struct pll_m_div *p = &pll_m_lut[i];
+> > > +
+> > > +		if (pll_m > p->m_max)
+> > > +			continue;
+> > > +
+> > > +		return p->pll_m_min + pll_m - p->m_min;
+> > > +	}
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +
+> > > +static void mira016_pll_calc(struct mira016 *mira016)
+> >
+> > It's nice to have a PLL calculator for this. Thank you! :-)
+> >
+> 
+> I also considered using the CCS PLL calculator, but this PLL is so
+> simple it felt like an overkill
+
+If the CCS PLL calculator fits for the job, I'd just use it. If it does a
+little more, it's possible to use the same value for minimum and maximum
+for the relevant parameters.
+
+> > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > +{
+> > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > +	};
+> > > +
+> > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
+> > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
+> >
+> > Don't mask error codes! Just return the error code returned by
+> > v4l2_fwnode_endpoint_alloc_parse().
+> >
+> 
+> With PTR_ERR() I presume
+
+v4l2_fwnode_endpoint_alloc_parse() returns an integer.
+
+> > > +static int mira016_probe(struct i2c_client *client)
+> > > +{
+> > > +	struct device *dev = &client->dev;
+> > > +	struct mira016 *mira016;
+> > > +	int ret;
+> > > +
+> > > +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
+> > > +	if (!mira016)
+> > > +		return -ENOMEM;
+> > > +
+> > > +	mira016->dev = &client->dev;
+> > > +
+> > > +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
+> > > +
+> > > +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
+> > > +	if (IS_ERR(mira016->regmap))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
+> > > +				     "failed to initialize CCI\n");
+> > > +
+> > > +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
+> > > +	if (IS_ERR(mira016->xclk))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
+> > > +				     "failed to get xclk\n");
+> > > +
+> > > +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
+> > > +	if (mira016_validate_xclk_freq(mira016)) {
+> > > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
+> > > +			mira016->xclk_freq);
+> > > +		return -EINVAL;
+> > > +	}
+> > > +
+> > > +	ret = mira016_get_regulators(mira016);
+> > > +	if (ret)
+> > > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
+> > > +
+> > > +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
+> > > +						      GPIOD_OUT_HIGH);
+> > > +	if (IS_ERR(mira016->reset_gpio))
+> > > +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
+> > > +				     "failed to get reset gpio\n");
+> > > +
+> > > +	ret = mira016_parse_endpoint(dev, mira016);
+> > > +	if (ret)
+> > > +		return ret;
+> >
+> > Parsing the endpoint should be done as soon as you can before acquiring
+> > resources related to power management, for instance. -EPROBE_DEFER may well
+> > be returned in some cases.
+> >
+> 
+> I can probably do that even before calling v4l2_i2c_subdev_init()
+
+Sounds good.
+
+> > > +static void mira016_remove(struct i2c_client *client)
+> > > +{
+> > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
+> > > +	struct mira016 *mira016 = to_mira016(sd);
+> > > +
+> > > +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
+> > > +
+> > > +	v4l2_async_unregister_subdev(sd);
+> > > +	v4l2_subdev_cleanup(&mira016->sd);
+> > > +	media_entity_cleanup(&sd->entity);
+> > > +
+> > > +	pm_runtime_disable(&client->dev);
+> > > +	if (!pm_runtime_status_suspended(&client->dev))
+> > > +		mira016_power_off(&client->dev);
+> > > +	pm_runtime_set_suspended(&client->dev);
+> >
+> > pm_runtime_dont_use_autosuspend()?
+> >
+> 
+> Ack
+> 
+> Thanks for the review!
+
+You're welcome! :-)
 
 -- 
-2.34.1
+Regards,
 
+Sakari Ailus
