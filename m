@@ -1,82 +1,170 @@
-Received: from mail.ispras.ru (mail.ispras.ru [83.149.199.84])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0344C48D868
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.149.199.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F02BE484247
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780622; cv=none; b=XsuVcC5pGzUSjjfm3IPhSs93BIdPOUdSgAjYH3+0HfyiUYVmEs7YZD8naHSHVVdPKxD7jeUNcnY5lL9+dk3upPLgD6Fyv6rxtu+B8k9WCwM7QLpcjgoCYee4DTYPJ3rkKLUgoY2CNdcGjKpCDA+ycYtD8KoKXqftZV4ZynVVGYg=
+	t=1788780623; cv=none; b=QnlJnr5bzbB8aSAbnrvFocfMGljp9lKRNKi2EeAEtPUreYsrYFXPyKD/6h/uGtLKrzkIFAbk9CtdMCXrUI2DOkJdgpLS5v01tH7nmuFO12GztOW6oX/imTnq1Z0R6ubidio0PrIKZyQzYtCbfeoyLeFxylVU8wdpO+nFzfsPxKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780622; c=relaxed/simple;
-	bh=eQ6ihal2/sJcprbABu5OYKkVHaoSLfYf68qecorqY8s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GLn4y/Bp+2qB+Yk0wIlTNXHStHTpg1eVyNvtPO9lXHabdon/12G4M/8yutqkXHtJxejKzK73S8o1pUrMa7+OLAhhrwjBtNE3/DBH9/iTAjgsM3ed1nVCSnWMsj4yrm56qhbaEep3y1J4j+fG1J2ApiwO3LZDKckPeDOPG0dZvdg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru; spf=pass smtp.mailfrom=ispras.ru; dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b=T3HTEsJH; arc=none smtp.client-ip=83.149.199.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ispras.ru
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ispras.ru
+	s=arc-20240116; t=1788780623; c=relaxed/simple;
+	bh=gvvJ4jaqKaK6UFT8lNT6jeA6TwQEuaSsOIfp07WAK9o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=immvlaCaDSjcTd2MTo4+Kqm59NhCuiL3Pshu61qNlJRorAt3b1CUj3y/7TV3x/icSbHlR6ZhYLB6mjIkz86Qv50S6IAFmt4N11IryP/45hsXZ0CY5L+BwLaM9dMn7w7p5hkv2eAa6tYyS77VvEUGu3rQpFux+CNPyV7zhDd2lA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=N7iMsDcS; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ispras.ru header.i=@ispras.ru header.b="T3HTEsJH"
-Received: from localhost (unknown [10.10.165.31])
-	by mail.ispras.ru (Postfix) with ESMTPSA id 2BE0D40ACDE1;
-	Mon,  7 Sep 2026 11:30:08 +0000 (UTC)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.ispras.ru 2BE0D40ACDE1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ispras.ru;
-	s=default; t=1788780608;
-	bh=ws4WVJX1DpAmuzqaEFaxe7lPdhu86s/iD0+0AJQZaHg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=T3HTEsJHnfOkpmeadjdV+stq65r2ZP1CPdF8Gl/s7LRS3dTP+LnX9MWXnjxm8lnGB
-	 R3KH0xBSGovPNeU+K4Wb95cHo6Kqr8ru3ea3c4YbfbHd6umeULB6E4vVMBAFzEZqoU
-	 6/tvy68sPUZ//KbwQNZ9yorlSCYp4uaiHHz+L2Q8=
-Date: Mon, 7 Sep 2026 14:30:07 +0300
-From: Fedor Pchelkin <pchelkin@ispras.ru>
-To: Dmitry Antipov <dmantipov@yandex.ru>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil+cisco@kernel.org>, lvc-project@linuxtesting.org, 
-	syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com, linux-media@vger.kernel.org
-Subject: Re: [RESEND PATCH 2/2] media: em28xx: fix race between
- em28xx_free_v4l2() and em28xx_v4l2_fini()
-Message-ID: <20260907141901-c37057428f7d37dcdb29b1e5-pchelkin@ispras>
-References: <20260907102824.95222-1-dmantipov@yandex.ru>
- <20260907102824.95222-2-dmantipov@yandex.ru>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="N7iMsDcS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1788780620; x=1820316620;
+  h=from:to:cc:subject:date:message-id:in-reply-to:
+   references:mime-version:content-transfer-encoding;
+  bh=gvvJ4jaqKaK6UFT8lNT6jeA6TwQEuaSsOIfp07WAK9o=;
+  b=N7iMsDcSDLWrTiiHBMAMaopxDnV5BcABmrB4/GDjbPop9JGKWDykRsrl
+   orDi1dWKKtu06rRqROx2Cto7RBhnjSrhMnDBYp3mkoN0wqNb1fBLQ2dLY
+   fIDI1foiXVTvRfXW4DNI//jx9xzKtG7HNHPQ4mUhgKHWMjDgqGh/3KeRr
+   U2EdyFFoW74ViyExXaHUASG8UhLcnmFyGw7eetyNRVqsKSPd7IbN3FJCx
+   S5qaCE7tMjdsNmCG4Lk6DBwsdYVu2O2Pl9EtDhPU4GhA+7v2Z2eWvww8N
+   l7DsdNFNqwCe9tc1TC0sb7CQxYTcc3w7Dar3QroskfZBMFg5BMvroxleY
+   Q==;
+X-CSE-ConnectionGUID: ctwkboIKTKe7X6K1QIpwIw==
+X-CSE-MsgGUID: 5GAd0ingQkCZG+lXRy1v7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538616"
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="100538616"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:13 -0700
+X-CSE-ConnectionGUID: NWQpnMcORO2EQevIgbr8kg==
+X-CSE-MsgGUID: E/okGRvVRwmQOq6R6pAXlw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
+   d="scan'208";a="300569212"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:12 -0700
+Received: from punajuuri.localdomain (unknown [192.168.240.130])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id C43F3121E39;
+	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
+Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
+	(envelope-from <sakari.ailus@linux.intel.com>)
+	id 1x3XY5-0000000ARo7-1B2H;
+	Mon, 07 Sep 2026 14:30:05 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: linux-media@vger.kernel.org
+Cc: Antti Laakso <antti.laakso@linux.intel.com>,
+	sarang.sapre@intel.com,
+	daxing.li@intel.com,
+	ong.hock.yu@intel.com
+Subject: [PATCH v4 17/45] media: ipu6: Rename isys fw msg union
+Date: Mon,  7 Sep 2026 14:29:36 +0300
+Message-ID: <20260907113004.2489993-18-sakari.ailus@linux.intel.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
+References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260907102824.95222-2-dmantipov@yandex.ru>
+Content-Transfer-Encoding: 8bit
 
-Hi,
+From: Antti Laakso <antti.laakso@linux.intel.com>
 
-On Mon, 07. Sep 13:28, Dmitry Antipov wrote:
-> Take device (an instance of 'struct em28xx') lock in em28xx_free_v4l2()
-> and do the same early in em28xx_v4l2_fini() to avoid UaF-triggering
-> racy access to 'v4l2' member.
-> 
-> Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
-> Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
-> Fixes: 288254383674 ("media: em28xx: use v4l2_device release callback")
-> Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
-> ---
+Later we need to abstract ipu7 firmware abi structs same way
+we have it now for ipu6. Renaming union per ipu helps to make
+the split more clear.
 
-It would be nice to know what is the race and what is the root cause.
-Since if em28xx_v4l2_fini() and em28xx_free_v4l2() can _actually_ have a
-race, it's not clear what happens in the following scenario:
+Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
+Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
+---
+ drivers/media/pci/intel/ipu6/ipu6-isys-queue.c | 4 ++--
+ drivers/media/pci/intel/ipu6/ipu6-isys-video.c | 4 ++--
+ drivers/media/pci/intel/ipu6/ipu6-isys.c       | 4 ++--
+ drivers/media/pci/intel/ipu6/ipu6-isys.h       | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-  Thread A                               Thread B
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+index fabaed63df0c..529973860e9e 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-queue.c
+@@ -316,7 +316,7 @@ static int ipu6_isys_stream_start(struct ipu6_isys_video *av,
+ 		if (!msg)
+ 			return -ENOMEM;
+ 
+-		buf = &msg->fw_msg.frame;
++		buf = &msg->ipu6.frame;
+ 		ipu6_isys_buf_to_fw_frame_buf(buf, stream, bl);
+ 		ipu6_fw_isys_dump_frame_buff_set(dev, buf,
+ 						 stream->nr_output_pins);
+@@ -396,7 +396,7 @@ static void buf_queue(struct vb2_buffer *vb)
+ 		goto out;
+ 	}
+ 
+-	buf = &msg->fw_msg.frame;
++	buf = &msg->ipu6.frame;
+ 	ipu6_isys_buf_to_fw_frame_buf(buf, stream, &bl);
+ 	ipu6_fw_isys_dump_frame_buff_set(dev, buf, stream->nr_output_pins);
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index 89eb265737d7..c925386a1e98 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -533,7 +533,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 	if (!msg)
+ 		return -ENOMEM;
+ 
+-	stream_cfg = &msg->fw_msg.stream;
++	stream_cfg = &msg->ipu6.stream;
+ 	stream_cfg->src = stream->stream_source;
+ 	stream_cfg->vc = stream->vc;
+ 	stream_cfg->isl_use = 0;
+@@ -590,7 +590,7 @@ static int start_stream_firmware(struct ipu6_isys_video *av,
+ 			ret = -ENOMEM;
+ 			goto out_put_stream_opened;
+ 		}
+-		buf = &msg->fw_msg.frame;
++		buf = &msg->ipu6.frame;
+ 		ipu6_isys_buf_to_fw_frame_buf(buf, stream, bl);
+ 		ipu6_isys_buffer_list_queue(bl,
+ 					    IPU6_ISYS_BUFFER_LIST_FL_ACTIVE, 0);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 8af891081bd3..8f2d361b89f6 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -1003,7 +1003,7 @@ struct isys_fw_msgs *ipu6_get_fw_msg_buf(struct ipu6_isys_stream *stream)
+ 	msg = list_last_entry(&isys->framebuflist, struct isys_fw_msgs, head);
+ 	list_move(&msg->head, &isys->framebuflist_fw);
+ 	spin_unlock_irqrestore(&isys->listlock, flags);
+-	memset(&msg->fw_msg, 0, sizeof(msg->fw_msg));
++	memset(&msg->ipu6, 0, sizeof(msg->ipu6));
+ 
+ 	return msg;
+ }
+@@ -1029,7 +1029,7 @@ void ipu6_put_fw_msg_buf(struct ipu6_isys *isys, uintptr_t data)
+ 		return;
+ 
+ 	spin_lock_irqsave(&isys->listlock, flags);
+-	msg = container_of(ptr, struct isys_fw_msgs, fw_msg.dummy);
++	msg = container_of(ptr, struct isys_fw_msgs, ipu6.dummy);
+ 	list_move(&msg->head, &isys->framebuflist);
+ 	spin_unlock_irqrestore(&isys->listlock, flags);
+ }
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+index 0b139ab24431..abcd5e1cbc2c 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -169,7 +169,7 @@ struct isys_fw_msgs {
+ 		u64 dummy;
+ 		struct ipu6_fw_isys_frame_buff_set_abi frame;
+ 		struct ipu6_fw_isys_stream_cfg_data_abi stream;
+-	} fw_msg;
++	} ipu6;
+ 	struct list_head head;
+ 	dma_addr_t dma_addr;
+ };
+-- 
+2.47.3
 
-                                      em28xx_v4l2_fini()
-em28xx_free_v4l2()
-  mutex_lock(&dev->lock) 
-  dev->v4l2 = NULL
-  mutex_unlock(&dev->lock) 
-                                        mutex_lock(%dev->lock)
-                                        if (!dev->v4l2)
-                                          return
-                                        mutex_unlock(%dev->lock)
-
-What about the resources which em28xx_v4l2_fini() should deallocate /
-disconnect / put ref / etc. when it doesn't return early?  Are they
-released eventually and who is supposed to do that?
