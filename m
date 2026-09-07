@@ -1,232 +1,207 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
+Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F593ED5B9;
-	Mon,  7 Sep 2026 19:13:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050DE484241;
+	Mon,  7 Sep 2026 19:21:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788808441; cv=none; b=mQh2YZhWFdJShWFu6YbaCfaMxlygO/owagfywFvSDuA92+AXLpOb/uINRjAgfobCcBE9EJiMycqg28VkiYEpTmK1Y2UahK/p7EBIv3cGUwm6H5EBxAOUqHhBbEIoHIq4LheoIrwd3z00nL7EvaKhOqQN6atdwQyfJZsNvwe7IUI=
+	t=1788808913; cv=none; b=tZrtEbmQjtzeoIkvQ9R0IYRvorCcnCg+mygUKoC/FAZ/QGcpIGW+VgOxiicsR8+qT6JWE787hQZHqzGmkjXaOk5LXgGGodbY0WqJb0YxPX2QC6ysqTA065aPCW5iGIRCLHsyN2kT4mFH1AXjEgAWCopsnWkeMcER+G+VLvebpp8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788808441; c=relaxed/simple;
-	bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
+	s=arc-20240116; t=1788808913; c=relaxed/simple;
+	bh=PbbEUcE+6GCVABk36zJQXf0AVFyLDx7XjpxqjRVaFtg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tBh3s2FwBJFf+P8/+Vk5XQD4/h7SeKlJjDUo2XXuAdpPANY0E/54x1eUOFIi/70BRkeIbhghYpBVCWKN+DXi4QyUcqV/RR62EpWv3GlWxVlbL30s8kssoaMGgZ1B4hqH0fqeMrl6rs/DJro7Op+a0Ihbey19N5+IlrrYPLcpdeI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=OTQXZ1MT; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=e/ce2jfY/o5fcUJwMCD/hGmpp+eHgJwWvBEidX7YRH8khBQZrbYfO1/19VoI1We5B1QogTrbnShfootraT3cXI40BVkk1MLmiuphoMcE6ww2UNswAu4k+2ceF+M8usVvXXPdgad9LVVkSrPiTtMmexg2nJYka97RYdAZlE73x3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=l7qFf2gD; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=akAZtc/v; arc=none smtp.client-ip=202.12.124.151
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="OTQXZ1MT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788808439; x=1820344439;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=VFPW8oU/qQ6NR5NdxRiQ/DQWigGtH7XbMQnShuzReJ0=;
-  b=OTQXZ1MTzWX69wvuexhIkSRq4PiOTvd825Y+EEuYjJQQAVOlB+QKVJBV
-   gyfAeJe5Za13ZhiA9odspQoVhZhj4srVrHS8625jRlEFIIEea7GyNO8f8
-   mwrsPp7hMbwSWEVB+29Ethp0CYHqnSJ3kPFP8FrCf8jMZslj2FArrz6uV
-   CyrYp5bspzp2m4wpaqq4WayO5Gub5VSinSvVtFKkWUkk3ZSmgihOvEwwY
-   W+8bnlsH6iRDFVgFCvomxrqPk6AfY/H8x+IGtGg2SQcyog9Amdw0DS1PO
-   ft8u945ovZRpiiD/I3oW9A+9tzGVF7+fgnKM1p6CHeXPn5GocSLsRm3U7
-   g==;
-X-CSE-ConnectionGUID: ahkudvLTSxuMkcX8U533uQ==
-X-CSE-MsgGUID: 4mYU3U4BShmhW9i5G4xYNg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11899"; a="89244558"
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="89244558"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 12:13:58 -0700
-X-CSE-ConnectionGUID: o3+lIQxbQYWqH/2/Z77CYA==
-X-CSE-MsgGUID: 9pFAzUJPQLePJ+LCBmiexw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="266450197"
-Received: from lkp-server01.sh.intel.com (HELO dff15f1b2031) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 07 Sep 2026 12:13:56 -0700
-Received: from kbuild by dff15f1b2031 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x3emv-000000001Gl-3HDL;
-	Mon, 07 Sep 2026 19:13:53 +0000
-Date: Tue, 8 Sep 2026 03:13:22 +0800
-From: kernel test robot <lkp@intel.com>
-To: Breno Rodrigues Alves <breno3011alves@gmail.com>,
-	gregkh@linuxfoundation.org
-Cc: oe-kbuild-all@lists.linux.dev, torvalds@linux-foundation.org,
-	linux-media@vger.kernel.org, linux-security-module@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="l7qFf2gD";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="akAZtc/v"
+Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
+	by mailfout.stl.internal (Postfix) with ESMTP id EE8201D0008B;
+	Mon,  7 Sep 2026 15:21:49 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-05.internal (MEProxy); Mon, 07 Sep 2026 15:21:50 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1788808909;
+	 x=1788895309; bh=KWGPDpvLzt/lPzCpzu69ioBpSMhnFg2FMUN3bQDlSvc=; b=
+	l7qFf2gDnuTRBK2sCLMv+O8WYOAsYWd6/oExbSxl+RhAG5Y3D+54m4nq3CMzBW8v
+	2uyxrlNGlEgT/dnHdQCPY345ucRM6aYgXkB4Ywnq4lo1188h8nUy9BAgAbUOLNxN
+	ojbjKHvFAFTHc3/lG+TAqpvNFGUEKclvjuXKdspN722azXmHChkUJsomYDwy6rVE
+	/sZhqgWw2ekHSJrZ5yRiT2BzfOXghjBWAPl1HaNoh2CDmSSH4CRep20cKRwiH/3k
+	EDrSsgRAtIWstEVFe5Fu9KTUMA6HkjUdq2TI2zE6XDjCTG9UD7TPGBeQLK9LP3vI
+	JL8SRXslYwIIP3LMs1Onvw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1788808909; x=
+	1788895309; bh=KWGPDpvLzt/lPzCpzu69ioBpSMhnFg2FMUN3bQDlSvc=; b=a
+	kAZtc/vaMN+zCkjTU3sdq3l542CRyDPGORfzIUaMtfcznF+QelGBOGvkBWan124v
+	dHoeE70Isc4jm6aaHYkOINcdl7oHcnCvottoU0KJ1INb9AgvzZ9o+QRG7CL3HyVa
+	2zOs0sNUz3+kJSilRd8hcqRLNT8/FzRWV2U7GSBUwbX4HYS1lgHKjCK8nNLZFg5o
+	o1MZzZ5ETjHVb/8AH3+o58LxgQvWMsRcWMozrFhXhoIF4AV451ADEWsa+i/ovvwh
+	BhWfY2bPqfwwbtwfuDs6eB1uJQUudQM1ymqrIOpHDt5IBzVzh0EKkNXMPKSLWgID
+	v9qiKs/q+OfIMP/+KLgMA==
+X-ME-Sender: <xms:zQ6farRf_gpYe-Seoa01ZrhX79rCZNbbDKSqo_kiJfJ2rGCg10F7Xg>
+    <xme:zQ6fapVeBgJ_SDrs1rkpRfAWC8E704RbGM7Chvn_pVSKu1OGOE8u-ZVdkLrn11hNC
+    651knIkF-eClMSBR_39Nx9AyrJjzxSUuoj_X7rupQjRna-wdOBvhzA>
+X-ME-Received: <xmr:zQ6falRcsnAnR3T2d-Jd0Z6Cvq4F3caEnwcEWnbwEOW3pvibd-vWcvt7KtpvkwflFJf_ylh-J75HGW16KQfXJQIjPQA8MmM>
+X-ME-Proxy-Cause: dmFkZTENkO/YL74h4/edgCigBQJR3TA/sOa0NgsuuPvxtJWU5mtoDEcH8wgOrctxxq+kcE
+    cgssW/zRjywDwId0ZH4Tuyl5XpPkfsxySmASJR/6PPej+t+/TXeq2r7asXf0qA/zZryK6S
+    gnXleJ9TAtZOwP0HLWV9h6tuyyyIBMNS8dVp+4kqSSaHsfrI1fm2fkPJU6IPwn/64saf3a
+    2pGjrMM8LOH5ismbKIUIFgZ7ynILPCQHaaGsOZZw/UfWP6YSploGoZCwi6NCd4XwECNe8r
+    LdDw+/kHsCi8TPacSWXEfuejn2LPRhWakNlEy57RW6+A3I5p6OCJ0AKn9Iqs6q84fIQXsx
+    JLi+cG0heJuOo+GFb4MRGT+HHjpUm5bcR+uFatua4/Bx58fE0th79MdsJM/ZSne3B299+Y
+    9YCOa3Yp1w701Bj9Ibdl7yExONf21H9NEpcHFAbijAN5JM0kE/z+5mO7C95TWtR3D7Yknb
+    a6YOPBBkCzz9LR8go5IrmmgDEYEpveo/lCEFo2aXD0FKKuJJ1pL4eIaNSg+A/gBr27xUGc
+    Tke/9TdK/EdKHdksgsQCGLPYZRYOwjHirMtMIDANmMlnqGZIYEZGk1GJPhxnrnL5eXtVSd
+    jPcOcBqQnxeEUjKHnZ4ICWwKjCqf5mONl5H3DZ63wkERyfzNzQO2YwDHSHjA
+X-ME-Proxy: <xmx:zQ6fah3JyWCdfeHwfjaagsAjc7F8Pi5tUuddk1-SKGOcYk3_wZD28g>
+    <xmx:zQ6faleHdGlJuFluscp18NaJUthIOp5FJhYxnR2ITLTf7j5n-9n_lg>
+    <xmx:zQ6fapNBbKcAfbP9jWZh253ESdZFGBA91LEJskRgHk1cn3G48ULRQQ>
+    <xmx:zQ6fapVmRg35JnRuzwAn5kJ_Tup2YDyHBhNlABBRIh60S22NeyQzjg>
+    <xmx:zQ6fahuxcH9BlneVCbvQSPyrXeQfsPPAWwKb45xG_xl4Y_XIgvwo4IKu>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
+ 7 Sep 2026 15:21:48 -0400 (EDT)
+Date: Mon, 7 Sep 2026 21:21:46 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Breno Rodrigues Alves <breno3011alves@gmail.com>
-Subject: Re: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE
- debug block
-Message-ID: <202609080307.AVMbAAz0-lkp@intel.com>
-References: <20260905142222.22818-1-breno3011alves@gmail.com>
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Subject: Re: [PATCH v6 11/11] media: rcar-isp: Add full streams support
+Message-ID: <20260907192146.GL3497753@ragnatech.se>
+References: <20260617-rcar-streams-v6-0-1260eb72dff7@ideasonboard.com>
+ <20260617-rcar-streams-v6-11-1260eb72dff7@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260905142222.22818-1-breno3011alves@gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260617-rcar-streams-v6-11-1260eb72dff7@ideasonboard.com>
 
-Hi Breno,
+Hi Tomi,
 
-kernel test robot noticed the following build errors:
+Thanks for your patch.
 
-[auto build test ERROR on staging/staging-testing]
-[also build test ERROR on staging/staging-next staging/staging-linus linuxtv-media-pending/master media-tree/master sailus-media-tree/master linus/master linux/master sailus-media-tree/streams v7.3-rc2 next-20260907]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+On 2026-06-17 14:55:04 +0300, Tomi Valkeinen wrote:
+> Add the missing pieces to enable full streams support:
+> 
+> - Add set_routing
+> - Drop the explicit uses of a single stream, and instead use the streams
+>   mask.
+> 
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Breno-Rodrigues-Alves/media-dvb-core-extirpate-defective-and-unsafe-ULE-debug-block/20260905-112222
-base:   staging/staging-testing
-patch link:    https://lore.kernel.org/r/20260905142222.22818-1-breno3011alves%40gmail.com
-patch subject: [PATCH v2] media: dvb-core: extirpate defective and unsafe ULE debug block
-config: x86_64-randconfig-r071-20260907 (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-smatch: v0.5.0-9187-g5189e3fb
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260908/202609080307.AVMbAAz0-lkp@intel.com/reproduce)
+Reviewed-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609080307.AVMbAAz0-lkp@intel.com/
+> ---
+>  drivers/media/platform/renesas/rcar-isp/csisp.c | 39 +++++++++++++++++++++++--
+>  1 file changed, 36 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/media/platform/renesas/rcar-isp/csisp.c b/drivers/media/platform/renesas/rcar-isp/csisp.c
+> index 42ee6c19801a..2e1bc8fbd432 100644
+> --- a/drivers/media/platform/renesas/rcar-isp/csisp.c
+> +++ b/drivers/media/platform/renesas/rcar-isp/csisp.c
+> @@ -340,6 +340,7 @@ static int risp_enable_streams(struct v4l2_subdev *sd,
+>  			       u64 source_streams_mask)
+>  {
+>  	struct rcar_isp *isp = sd_to_isp(sd);
+> +	u64 sink_streams;
+>  	int ret;
+>  
+>  	if (source_streams_mask != 1)
+> @@ -354,8 +355,13 @@ static int risp_enable_streams(struct v4l2_subdev *sd,
+>  			return ret;
+>  	}
+>  
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       source_pad,
+> +						       RCAR_ISP_SINK,
+> +						       &source_streams_mask);
+> +
+>  	ret = v4l2_subdev_enable_streams(isp->remote, isp->remote_pad,
+> -					 BIT_ULL(0));
+> +					 sink_streams);
+>  	if (ret) {
+>  		if (isp->stream_count == 0)
+>  			risp_stop(isp);
+> @@ -372,6 +378,7 @@ static int risp_disable_streams(struct v4l2_subdev *sd,
+>  				u64 source_streams_mask)
+>  {
+>  	struct rcar_isp *isp = sd_to_isp(sd);
+> +	u64 sink_streams;
+>  	int ret;
+>  
+>  	if (source_streams_mask != 1)
+> @@ -380,8 +387,12 @@ static int risp_disable_streams(struct v4l2_subdev *sd,
+>  	if (!isp->remote)
+>  		return -ENODEV;
+>  
+> -	ret = v4l2_subdev_disable_streams(isp->remote, isp->remote_pad,
+> -					  BIT_ULL(0));
+> +	sink_streams = v4l2_subdev_state_xlate_streams(state,
+> +						       source_pad,
+> +						       RCAR_ISP_SINK,
+> +						       &source_streams_mask);
+> +
+> +	ret = v4l2_subdev_disable_streams(isp->remote, isp->remote_pad, sink_streams);
+>  	if (ret)
+>  		return ret;
+>  
+> @@ -423,12 +434,34 @@ static int risp_set_pad_format(struct v4l2_subdev *sd,
+>  	return 0;
+>  }
+>  
+> +static int risp_set_routing(struct v4l2_subdev *sd,
+> +			    struct v4l2_subdev_state *state,
+> +			    enum v4l2_subdev_format_whence which,
+> +			    struct v4l2_subdev_krouting *routing)
+> +{
+> +	int ret;
+> +
+> +	ret = v4l2_subdev_routing_validate(sd, routing,
+> +					   V4L2_SUBDEV_ROUTING_ONLY_1_TO_1 |
+> +					   V4L2_SUBDEV_ROUTING_NO_SOURCE_MULTIPLEXING);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = v4l2_subdev_set_routing_with_fmt(sd, state, routing,
+> +					       &risp_default_fmt);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +
+>  static const struct v4l2_subdev_pad_ops risp_pad_ops = {
+>  	.enable_streams = risp_enable_streams,
+>  	.disable_streams = risp_disable_streams,
+>  	.set_fmt = risp_set_pad_format,
+>  	.get_fmt = v4l2_subdev_get_fmt,
+>  	.link_validate = v4l2_subdev_link_validate_default,
+> +	.set_routing = risp_set_routing,
+>  };
+>  
+>  static const struct v4l2_subdev_ops rcar_isp_subdev_ops = {
+> 
+> -- 
+> 2.43.0
+> 
 
-All errors (new ones prefixed by >>):
-
->> drivers/media/dvb-core/dvb_net.c:806:51: error: too few arguments to function call, expected 4, have 3
-     806 |                         dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
-         |                         ~~~~~~~~~~~~~~~~~~~~~                          ^
-   drivers/media/dvb-core/dvb_net.c:625:13: note: 'dvb_net_ule_check_crc' declared here
-     625 | static void dvb_net_ule_check_crc(struct dvb_net_ule_handle *h,
-         |             ^                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-     626 |                                   struct kvec iov[3],
-         |                                   ~~~~~~~~~~~~~~~~~~~
-     627 |                                   u32 ule_crc, u32 expected_crc)
-         |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
-
-
-vim +806 drivers/media/dvb-core/dvb_net.c
-
-   721	
-   722	static void dvb_net_ule(struct net_device *dev, const u8 *buf, size_t buf_len)
-   723	{
-   724		int ret;
-   725		struct dvb_net_ule_handle h = {
-   726			.dev = dev,
-   727			.priv = netdev_priv(dev),
-   728			.ethh = NULL,
-   729			.buf = buf,
-   730			.buf_len = buf_len,
-   731			.skipped = 0L,
-   732			.ts = NULL,
-   733			.ts_end = NULL,
-   734			.from_where = NULL,
-   735			.ts_remain = 0,
-   736			.how_much = 0,
-   737			.new_ts = 1,
-   738			.error = false,
-   739		};
-   740	
-   741		/*
-   742		 * For all TS cells in current buffer.
-   743		 * Appearently, we are called for every single TS cell.
-   744		 */
-   745		for (h.ts = h.buf, h.ts_end = h.buf + h.buf_len;
-   746		     h.ts < h.ts_end; /* no incr. */) {
-   747			if (h.new_ts) {
-   748				/* We are about to process a new TS cell. */
-   749				if (dvb_net_ule_new_ts_cell(&h))
-   750					continue;
-   751			}
-   752	
-   753			/* Synchronize on PUSI, if required. */
-   754			if (h.priv->need_pusi) {
-   755				if (dvb_net_ule_ts_pusi(&h))
-   756					continue;
-   757			}
-   758	
-   759			if (h.new_ts) {
-   760				if (dvb_net_ule_new_ts(&h))
-   761					continue;
-   762			}
-   763	
-   764			/* Check if new payload needs to be started. */
-   765			if (h.priv->ule_skb == NULL) {
-   766				ret = dvb_net_ule_new_payload(&h);
-   767				if (ret < 0)
-   768					return;
-   769				if (ret)
-   770					continue;
-   771			}
-   772	
-   773			/* Copy data into our current skb. */
-   774			h.how_much = min(h.priv->ule_sndu_remain, (int)h.ts_remain);
-   775			skb_put_data(h.priv->ule_skb, h.from_where, h.how_much);
-   776			h.priv->ule_sndu_remain -= h.how_much;
-   777			h.ts_remain -= h.how_much;
-   778			h.from_where += h.how_much;
-   779	
-   780			/* Check for complete payload. */
-   781			if (h.priv->ule_sndu_remain <= 0) {
-   782				/* Check CRC32, we've got it in our skb already. */
-   783				__be16 ulen = htons(h.priv->ule_sndu_len);
-   784				__be16 utype = htons(h.priv->ule_sndu_type);
-   785				const u8 *tail;
-   786				struct kvec iov[3] = {
-   787					{ &ulen, sizeof ulen },
-   788					{ &utype, sizeof utype },
-   789					{ h.priv->ule_skb->data,
-   790					  h.priv->ule_skb->len - 4 }
-   791				};
-   792				u32 ule_crc = ~0L, expected_crc;
-   793				if (h.priv->ule_dbit) {
-   794					/* Set D-bit for CRC32 verification,
-   795					 * if it was set originally. */
-   796					ulen |= htons(0x8000);
-   797				}
-   798	
-   799				ule_crc = iov_crc32(ule_crc, iov, 3);
-   800				tail = skb_tail_pointer(h.priv->ule_skb);
-   801				expected_crc = *(tail - 4) << 24 |
-   802					       *(tail - 3) << 16 |
-   803					       *(tail - 2) << 8 |
-   804					       *(tail - 1);
-   805	
- > 806				dvb_net_ule_check_crc(&h, ule_crc, expected_crc);
-   807	
-   808				/* Prepare for next SNDU. */
-   809				reset_ule(h.priv);
-   810			}
-   811	
-   812			/* More data in current TS (look at the bytes following the CRC32)? */
-   813			if (h.ts_remain >= 2 && *((unsigned short *)h.from_where) != 0xFFFF) {
-   814				/* Next ULE SNDU starts right there. */
-   815				h.new_ts = 0;
-   816				h.priv->ule_skb = NULL;
-   817				h.priv->ule_sndu_type_1 = 0;
-   818				h.priv->ule_sndu_len = 0;
-   819				// pr_warn("More data in current TS: [%#x %#x %#x %#x]\n",
-   820				//	*(h.from_where + 0), *(h.from_where + 1),
-   821				//	*(h.from_where + 2), *(h.from_where + 3));
-   822				// pr_warn("h.ts @ %p, stopped @ %p:\n", h.ts, h.from_where + 0);
-   823				// hexdump(h.ts, 188);
-   824			} else {
-   825				h.new_ts = 1;
-   826				h.ts += TS_SZ;
-   827				h.priv->ts_count++;
-   828				if (h.priv->ule_skb == NULL) {
-   829					h.priv->need_pusi = 1;
-   830					h.priv->ule_sndu_type_1 = 0;
-   831					h.priv->ule_sndu_len = 0;
-   832				}
-   833			}
-   834		}	/* for all available TS cells */
-   835	}
-   836	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+-- 
+Kind Regards,
+Niklas Söderlund
