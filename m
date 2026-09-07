@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19F43483BD5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE86848C403
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780613; cv=none; b=UoFQ+KlB2124S4zL6VSdCDpI5aMGf+3dY7Glub7+FI+LocLpvNCLgv8fQq1DjtIctlapgp6un9rA2iizRAT1RCkX8R7w7GNC9TNS3QMpk9KMC8dCTN5u4fERXPo23fasRKDxkzTMJVNMLN72CSxZm2MW8+fO29BueLfFcVB9h/s=
+	t=1788780614; cv=none; b=De5oBnjBVHocRjtS+rbQQCyDkHcWKkt5XtqM2faiTS67x8bzcF5+2pyQQSRPKQq6ORsINjPPtIQrXZClkejMAxr0J9XADKyaOWlOaOHmWufhhIeS4LRDnX8owVjlalv39Qm5bKCmjP8ZJertAW5DGez97yl/sFWhkWAqf9cJ7XQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780613; c=relaxed/simple;
-	bh=wwa745aduJX+t4heKNTqrnWDJHUxgw4WMiyh+j5PX9U=;
+	s=arc-20240116; t=1788780614; c=relaxed/simple;
+	bh=G9GZ2ovE5DaKI1CkXPEpO8+rSMZvHyv/P0FA/D0mRxA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Rgyr+gusJJNAYrNs8AEKmsIp//LMIpHGln6HtYxRKdD3zheGEhhlCFTFbyKT0h+bNSET+yHNkmEgZ4ujc5pFSrMWqNBUX0VnKSv2EmlOeCCfe0SUZUdnAfAJScsf1xZ9N4qYUUInHBbz6m+ipIJxGq5Z9/Zw66wZZ9hCsTJ+K/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=k3BRCIfU; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=Zn+Rpy75Akfqq4KSxHun6dBvSpBKKUFWLSZFbJznmJSGmfZRK+HEYay5PK5p3DSrZ+DXyF9W+BJM9WBH/cjC/n+eD8W8IcSnR7TQpxYSPIXkJZa91uLHaNTaN3uwEai6+1lKu2H9FJwTzOS2vIn7Zj3H5F3jeIKbSGEtdnCK6Cw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fUnzte9N; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="k3BRCIfU"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fUnzte9N"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1788780612; x=1820316612;
+  t=1788780613; x=1820316613;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=wwa745aduJX+t4heKNTqrnWDJHUxgw4WMiyh+j5PX9U=;
-  b=k3BRCIfUAOnhZQfi4eunaagbF79uBJzfRi4ASjJE8S4I/Tw66hC21hjE
-   L0O7+3ZmRznRr2BCtuiX6d5Injy2MimzNotHXnvHyAyCDKK0qFwOwbhYw
-   QF0UTzTKCpWOdpiK+/kkJKE161hkGYNLevtlFDNldAO/gIS3FuE0uja9O
-   cB0P5opwzzRB/spKIYNkbkFCtsAFdiJT5CG+3JfqHlyx1qXQhrMYjU3T8
-   pnxFvNRvEtNK7dNAdE0aDJ3r+yjSf8/wNwYfoJX8YvoIVALBUiWL4yRrP
-   47W/m1V+BPRHu3ywRfBljwIye0Ovs9L/BIElvl2IY/nM+TDV+Yqx5OSQa
-   w==;
-X-CSE-ConnectionGUID: ufrKqhheSQavcdbsYI3ZYQ==
-X-CSE-MsgGUID: 6Zvzvf64SVS+/qIjCx48BA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538600"
+  bh=G9GZ2ovE5DaKI1CkXPEpO8+rSMZvHyv/P0FA/D0mRxA=;
+  b=fUnzte9NYxTNECfTmsoUJRjObGvwTatftVt5SCO8fqV167rjp/+DJqxx
+   65f8GSWOITeUBMDgkzTddOmh65Qc+j6CbYHxu4lFYmeCnlH9IJrJ7lbce
+   BDCGeSsFrtdSO+r4oDHdctgs/oi4NnEZUsrvvGYP6PyVdIyf6FLCA1pGh
+   MFPeZ5mNOxfl0xJI34Oh5gUZlGGHbZMZFj+2pybPbijxdgPg81HyI4phs
+   wxZZmp8uLNyT6mPdi0wY6I7gtn+uwnmXLZNir6yiX6F3OmctLv5trjFXM
+   WsdTUCEVyoV7kHkbuVS05jWaR3/VQpJnyiKX/8XvS/I8wWkUGRuq4VuZ4
+   g==;
+X-CSE-ConnectionGUID: 3aQQQGaDSEu1yit2IIK1qw==
+X-CSE-MsgGUID: NL+QlbLWShiVwt2CTQxYHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538605"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538600"
+   d="scan'208";a="100538605"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:06 -0700
-X-CSE-ConnectionGUID: V8Nkfzj+RCmYXzYe9PgIzQ==
-X-CSE-MsgGUID: kkY3NOgaTy2uJb/LJUayBw==
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:09 -0700
+X-CSE-ConnectionGUID: QuERlzEYTIqVpQHY0nN9zg==
+X-CSE-MsgGUID: Dv4g0Q1JQ828gUreHmMdew==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569084"
+   d="scan'208";a="300569146"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:05 -0700
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:08 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9529D121C5B;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 9DB21121CDC;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARmz-0NJN;
+	id 1x3XY5-0000000ARn7-0VYt;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 03/45] media: ipu6: Rename buttress_ipc pointer
-Date: Mon,  7 Sep 2026 14:29:22 +0300
-Message-ID: <20260907113004.2489993-4-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 05/45] media: ipu6: Remove unused ipu6 firmware struct
+Date: Mon,  7 Sep 2026 14:29:24 +0300
+Message-ID: <20260907113004.2489993-6-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,122 +73,41 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-The ipu6_buttress_ipc structure is called as cse sometimes,
-rename it to ipc for consistency.
+The struct ipu6_fw_proxy_write_queue_token is not used anywhere,
+remove it.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.c | 33 ++++++++++----------
- drivers/media/pci/intel/ipu6/ipu6-buttress.h |  2 +-
- drivers/media/pci/intel/ipu6/ipu6.c          |  4 +--
- 3 files changed, 20 insertions(+), 19 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.h | 15 ---------------
+ 1 file changed, 15 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.c b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-index e0ecb4c8b081..cbe356589a9d 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.c
-@@ -221,7 +221,7 @@ static int ipu6_buttress_ipc_send_bulk(struct ipu6_device *isp,
- 	unsigned long tx_timeout_jiffies, rx_timeout_jiffies;
- 	unsigned int i, retry = BUTTRESS_IPC_CMD_SEND_RETRY;
- 	struct ipu6_buttress *b = &isp->buttress;
--	struct ipu6_buttress_ipc *ipc = &b->cse;
-+	struct ipu6_buttress_ipc *ipc = &b->ipc;
- 	u32 val;
- 	int ret;
- 	int tout;
-@@ -378,14 +378,15 @@ irqreturn_t ipu6_buttress_isr(int irq, void *isp_ptr)
- 		if (irq_status & BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING) {
- 			dev_dbg(&isp->pdev->dev,
- 				"BUTTRESS_ISR_IPC_FROM_CSE_IS_WAITING\n");
--			ipu6_buttress_ipc_recv(isp, &b->cse, &b->cse.recv_data);
--			complete(&b->cse.recv_complete);
-+
-+			ipu6_buttress_ipc_recv(isp, &b->ipc, &b->ipc.recv_data);
-+			complete(&b->ipc.recv_complete);
- 		}
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+index b60f02076d8a..393245a633f4 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.h
+@@ -511,21 +511,6 @@ struct ipu6_fw_isys_proxy_resp_info_abi {
+ 	struct ipu6_fw_isys_proxy_error_info_abi error_info;
+ };
  
- 		if (irq_status & BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE) {
- 			dev_dbg(&isp->pdev->dev,
- 				"BUTTRESS_ISR_IPC_EXEC_DONE_BY_CSE\n");
--			complete(&b->cse.send_complete);
-+			complete(&b->ipc.send_complete);
- 		}
- 
- 		if (irq_status & BUTTRESS_ISR_SAI_VIOLATION &&
-@@ -830,17 +831,17 @@ int ipu6_buttress_init(struct ipu6_device *isp)
- 	mutex_init(&b->auth_mutex);
- 	mutex_init(&b->cons_mutex);
- 	mutex_init(&b->ipc_mutex);
--	init_completion(&b->cse.send_complete);
--	init_completion(&b->cse.recv_complete);
+-/**
+- * struct ipu6_fw_proxy_write_queue_token - ISYS proxy write queue token
+- * @request_id: update id for the specific proxy write request
+- * @region_index: Region id for the proxy write request
+- * @offset: Offset of the write request according to the base address
+- *	    of the region
+- * @value: Value that is requested to be written with the proxy write request
+- */
+-struct ipu6_fw_proxy_write_queue_token {
+-	u32 request_id;
+-	u32 region_index;
+-	u32 offset;
+-	u32 value;
+-};
 -
--	b->cse.nack = BUTTRESS_CSE2IUDATA0_IPC_NACK;
--	b->cse.nack_mask = BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK;
--	b->cse.csr_in = BUTTRESS_REG_CSE2IUCSR;
--	b->cse.csr_out = BUTTRESS_REG_IU2CSECSR;
--	b->cse.db0_in = BUTTRESS_REG_CSE2IUDB0;
--	b->cse.db0_out = BUTTRESS_REG_IU2CSEDB0;
--	b->cse.data0_in = BUTTRESS_REG_CSE2IUDATA0;
--	b->cse.data0_out = BUTTRESS_REG_IU2CSEDATA0;
-+	init_completion(&b->ipc.send_complete);
-+	init_completion(&b->ipc.recv_complete);
-+
-+	b->ipc.nack = BUTTRESS_CSE2IUDATA0_IPC_NACK;
-+	b->ipc.nack_mask = BUTTRESS_CSE2IUDATA0_IPC_NACK_MASK;
-+	b->ipc.csr_in = BUTTRESS_REG_CSE2IUCSR;
-+	b->ipc.csr_out = BUTTRESS_REG_IU2CSECSR;
-+	b->ipc.db0_in = BUTTRESS_REG_CSE2IUDB0;
-+	b->ipc.db0_out = BUTTRESS_REG_IU2CSEDB0;
-+	b->ipc.data0_in = BUTTRESS_REG_CSE2IUDATA0;
-+	b->ipc.data0_out = BUTTRESS_REG_IU2CSEDATA0;
- 
- 	INIT_LIST_HEAD(&b->constraints);
- 
-@@ -877,7 +878,7 @@ int ipu6_buttress_init(struct ipu6_device *isp)
- 
- 	/* Retry couple of times in case of CSE initialization is delayed */
- 	do {
--		ret = ipu6_buttress_ipc_reset(isp, &b->cse);
-+		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
- 		if (ret) {
- 			dev_warn(&isp->pdev->dev,
- 				 "IPC reset protocol failed, retrying\n");
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-index 51e5ad48db82..b1c1a10e3e6d 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-@@ -44,7 +44,7 @@ struct ipu6_buttress_ipc {
- 
- struct ipu6_buttress {
- 	struct mutex power_mutex, auth_mutex, cons_mutex, ipc_mutex;
--	struct ipu6_buttress_ipc cse;
-+	struct ipu6_buttress_ipc ipc;
- 	struct list_head constraints;
- 	u32 wdt_cached_value;
- 	bool force_suspend;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 6d3235352a1c..efb58bc4d127 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -765,7 +765,7 @@ static int ipu6_resume(struct device *dev)
- 
- 	ipu6_buttress_restore(isp);
- 
--	ret = ipu6_buttress_ipc_reset(isp, &b->cse);
-+	ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
- 	if (ret)
- 		dev_err(&isp->pdev->dev, "IPC reset protocol failed!\n");
- 
-@@ -797,7 +797,7 @@ static int ipu6_runtime_resume(struct device *dev)
- 		struct ipu6_buttress *b = &isp->buttress;
- 
- 		isp->need_ipc_reset = false;
--		ret = ipu6_buttress_ipc_reset(isp, &b->cse);
-+		ret = ipu6_buttress_ipc_reset(isp, &b->ipc);
- 		if (ret)
- 			dev_err(&isp->pdev->dev, "IPC reset protocol failed\n");
- 	}
+ /**
+  * struct ipu6_fw_resp_queue_token - ISYS response queue token
+  * @resp_info: response info
 -- 
 2.47.3
 
