@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E92D49E5DD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4DFD49EC5E
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780633; cv=none; b=fWBPLJDUWaJ6LaBsXBt1wiWC6yUh+zR4KhQP32MPm2wTZ488i0xCPek1wVVHlJsSdITPY7eMNja67xq4+80KH2Z9Lo6XfIO/zflDUrZCfcruqL/VTXEL/8yB7iYR+d9C/XZJvWw814td2mvdRdvq90TlS4MOXpNU9WfecFSMtU8=
+	t=1788780633; cv=none; b=FQIDkmOOH+U+TaT3W3f9aPCIsUw4PqgcBUXJgWNCUJSmT17r1+kpVmnlwPbCacrckSJfpWLlYA5X4/ZIXdbSMhdlI7Go9MiEJJkWViaet2KJ+cJBx+ZTbaXIhEHxENRicu+riUxwlW2PQzeNEPro6kxbKIGpqE8w+i1kBA/e9iA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780633; c=relaxed/simple;
-	bh=08SH5LuCn3gQHoPmMATIrlpD1dMi6VmHtETOhtnNVBY=;
+	bh=LVvhB6zROwVpT25HEYGDK+nOYhvGnX69qq/VqGDxeAA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WqQXzlxmRwMjXoRfxctDjO5Rbh2ekVzfhPdZH6rKbDxSqAoRKTdzt6vq+v2RzQWbfuZeqZ1TM+aDmQqrXWI+4ax3Ycdf1cxUDTI7onyPnVDhFO4tL5scSpx5kVka2tCmC2lRdUMpaw1lHQs5KH4qsYa+MOynop5v8iJ3XGK6Wes=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Itq0voSX; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=JKq/SSTTDue2uBmFUbC/dlebOOjEUeu4DGKDRWAJIDuqKePGNEeG9iYt3GaB8w0zG7NyDm5h8fgW3F+ALopk1yPXb8WTnxYQSLq0k4xEENypAtqv3Vud+PF2QIt1fWsT3OkgB+RdRLIr48kenWLDP29413BJNUtrTFc4/2lYnqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bxmk4nzd; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Itq0voSX"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bxmk4nzd"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1788780632; x=1820316632;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=08SH5LuCn3gQHoPmMATIrlpD1dMi6VmHtETOhtnNVBY=;
-  b=Itq0voSXmbYnM3gTDO5L6jFDg2onynPBD7YotW7NzKn+NicJNNWmVJmu
-   hgfM2narqz1pSUU+OL5LL7tiAB1S2UVqqx7nkVEsvTCnsA6vIk5wb09s6
-   JQysXo0BtcSuFY8itiJvKUeplJT+KeA++qVCSvDaIvwXr1jrNUxbAApX8
-   2QKlAMpm6KpZwcgP0PijFcYwAO0h52IENKw65dO8yvfxSY4h3MtewujFF
-   qgCWYw3f4/Ga4bsSRv00XUDFdN+jaLhYfgMXlLSrIoVEjxMWMxWHbKGs3
-   mW3f+t/5Oxf65e9EPEVppyP+vjcNslXmLVM1z/xWsu7cLGpmRknIhFz01
-   Q==;
-X-CSE-ConnectionGUID: Vm9c4aarRQuMsUUP2E5yRw==
-X-CSE-MsgGUID: WZ/FTiSvRcuCtadxcAGbaQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538641"
+  bh=LVvhB6zROwVpT25HEYGDK+nOYhvGnX69qq/VqGDxeAA=;
+  b=bxmk4nzdLWoHt++IjtlNNlG/4zpnOdbY3CPlr5OOEbeyDi6JCdyDcAES
+   4irbcUV8EnrXhJbVX+jeuQzbcF1KCEC6WGQfgeLSsuoWjug8ys3t7upRu
+   Q6wU54SYMwHYymDOFU9/8IWW+n7rMv3nSCKfDHcli8X8dEQEgjPfU/DQT
+   aLsAsDsUjGx3lR9Trz7IGGkiiJpLPDILFmBszDBNPRBNoVoqFR0VNdUO0
+   M0YGarfTxqGA6ZotVmNpFRfjeUnPA7U69xbpRTT97kMIGpbjJ/tCeXTl8
+   4sbna5xSO/eGlhudpUwQInoZkADxSfXO8Pce+/NWtaVS9NFChfZ85sQtV
+   g==;
+X-CSE-ConnectionGUID: 0hdnhWNDRTuguo9Z5nx47g==
+X-CSE-MsgGUID: 6mmI+vd+TvOFz7H0MuPlKA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538643"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538641"
+   d="scan'208";a="100538643"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:17 -0700
-X-CSE-ConnectionGUID: kWJdqZDPRFSjSzJfBAh3UA==
-X-CSE-MsgGUID: 4rN04G8NRT2s2qEKrLqqJw==
+X-CSE-ConnectionGUID: YT6MSSvIQP6sFsQVxLUniQ==
+X-CSE-MsgGUID: Ly+2grbHR9eutGykNctAcA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569273"
+   d="scan'208";a="300569275"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:15 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0FA0E1229D5;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 0C8CA1229CD;
 	Mon, 07 Sep 2026 14:30:06 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARpd-2HE2;
+	id 1x3XY5-0000000ARpY-2Ddy;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 36/45] media: ipu6: Read correct SKU ID for ipu7
-Date: Mon,  7 Sep 2026 14:29:55 +0300
-Message-ID: <20260907113004.2489993-37-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 35/45] media: ipu6: Move buttress mem alloc out from probe
+Date: Mon,  7 Sep 2026 14:29:54 +0300
+Message-ID: <20260907113004.2489993-36-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,56 +73,157 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-Add SKU ID to buttress register map to get correct ID for both IPUs.
+Buttress registers are stored in separate buffer, which is passed
+down to bus driver. Move allocation of this buffer to subsystem init
+to cleanup pci probe function a bit.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-buttress.h | 1 +
- drivers/media/pci/intel/ipu6/ipu6.c          | 4 +++-
- 2 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/media/pci/intel/ipu6/ipu6.c | 43 +++++++++++++++--------------
+ 1 file changed, 22 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-buttress.h b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-index af72de2b8729..47a49e961945 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6-buttress.h
-@@ -54,6 +54,7 @@ struct ipu6_buttress_registers {
- 	u32 db0_out;
- 	u32 data0_in;
- 	u32 data0_out;
-+	u32 sku_id;
- 
- 	/* Bitmasks */
- 	u32 irq_is;
 diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 4e4f32723904..428ad046e239 100644
+index 7d1c3713a69b..4e4f32723904 100644
 --- a/drivers/media/pci/intel/ipu6/ipu6.c
 +++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -153,6 +153,7 @@ static const struct ipu6_buttress_registers ipu6_buttress_regs = {
- 	.db0_out	= BUTTRESS_REG_IU2CSEDB0,
- 	.data0_in	= BUTTRESS_REG_CSE2IUDATA0,
- 	.data0_out	= BUTTRESS_REG_IU2CSEDATA0,
-+	.sku_id		= BUTTRESS_REG_SKU,
+@@ -90,7 +90,7 @@ static struct ipu6_psys_internal_pdata psys_ipdata = {
+ 	},
+ };
  
- 	/* Bitmasks */
- 	.irq_is		= BUTTRESS_ISR_IS_IRQ,
-@@ -182,6 +183,7 @@ static const struct ipu6_buttress_registers ipu7_buttress_regs = {
- 	.db0_out	= IPU7_BUTTRESS_REG_IU2CSEDB0,
- 	.data0_in	= IPU7_BUTTRESS_REG_CSE2IUDATA0,
- 	.data0_out	= IPU7_BUTTRESS_REG_IU2CSEDATA0,
-+	.sku_id		= IPU7_BUTTRESS_REG_SKU,
+-static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
++static const struct ipu6_buttress_ctrl ipu6_isys_buttress_ctrl = {
+ 	.subsys_id = IPU_ISYS,
+ 	.ratio = IPU6_IS_FREQ_CTL_DEFAULT_RATIO,
+ 	.qos_floor = IPU6_IS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
+@@ -101,7 +101,7 @@ static const struct ipu6_buttress_ctrl isys_buttress_ctrl = {
+ 	.pwr_sts_off = IPU6_BUTTRESS_PWR_STATE_DN_DONE,
+ };
  
- 	/* Bitmasks */
- 	.irq_is		= IPU7_BUTTRESS_IRQ_IS_IRQ,
-@@ -657,7 +659,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	/* Configure the arbitration mechanisms for VC requests */
- 	ipu6_configure_vc_mechanism(isp);
+-static const struct ipu6_buttress_ctrl psys_buttress_ctrl = {
++static const struct ipu6_buttress_ctrl ipu6_psys_buttress_ctrl = {
+ 	.subsys_id = IPU_PSYS,
+ 	.ratio = IPU6_PS_FREQ_CTL_DEFAULT_RATIO,
+ 	.qos_floor = IPU6_PS_FREQ_CTL_DEFAULT_QOS_FLOOR_RATIO,
+@@ -341,11 +341,12 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
  
--	val = readl(isp->base + BUTTRESS_REG_SKU);
-+	val = readl(isp->base + isp->buttress.regs->sku_id);
- 	sku_id = FIELD_GET(GENMASK(6, 4), val);
- 	version = FIELD_GET(GENMASK(3, 0), val);
- 	dev_info(dev, "IPU%u-v%u[%x] hardware version %d\n", version, sku_id,
+ static struct ipu6_bus_device *
+ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
+-	       struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
++	       const struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
+ 	       const struct ipu6_isys_internal_pdata *ipdata)
+ {
+ 	struct device *dev = &pdev->dev;
+ 	struct ipu6_bus_device *isys_adev;
++	struct ipu6_buttress_ctrl *devm_ctrl;
+ 	struct ipu6_isys_pdata *pdata;
+ 	int ret;
+ 
+@@ -355,6 +356,10 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
+ 		return ERR_PTR(ret);
+ 	}
+ 
++	devm_ctrl = devm_kmemdup(dev, ctrl, sizeof(*ctrl), GFP_KERNEL);
++	if (!devm_ctrl)
++		return ERR_PTR(-ENOMEM);
++
+ 	pdata = kzalloc_obj(*pdata);
+ 	if (!pdata)
+ 		return ERR_PTR(-ENOMEM);
+@@ -362,7 +367,7 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
+ 	pdata->base = base;
+ 	pdata->ipdata = ipdata;
+ 
+-	isys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, ctrl,
++	isys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, devm_ctrl,
+ 					       IPU6_ISYS_NAME);
+ 	if (IS_ERR(isys_adev)) {
+ 		kfree(pdata);
+@@ -388,13 +393,19 @@ ipu6_isys_init(struct pci_dev *pdev, struct device *parent,
+ 
+ static struct ipu6_bus_device *
+ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
+-	       struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
++	       const struct ipu6_buttress_ctrl *ctrl, void __iomem *base,
+ 	       const struct ipu6_psys_internal_pdata *ipdata)
+ {
++	struct device *dev = &pdev->dev;
+ 	struct ipu6_bus_device *psys_adev;
++	struct ipu6_buttress_ctrl *devm_ctrl;
+ 	struct ipu6_psys_pdata *pdata;
+ 	int ret;
+ 
++	devm_ctrl = devm_kmemdup(dev, ctrl, sizeof(*ctrl), GFP_KERNEL);
++	if (!devm_ctrl)
++		return ERR_PTR(-ENOMEM);
++
+ 	pdata = kzalloc_obj(*pdata);
+ 	if (!pdata)
+ 		return ERR_PTR(-ENOMEM);
+@@ -402,7 +413,7 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
+ 	pdata->base = base;
+ 	pdata->ipdata = ipdata;
+ 
+-	psys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, ctrl,
++	psys_adev = ipu6_bus_initialize_device(pdev, parent, pdata, devm_ctrl,
+ 					       IPU6_PSYS_NAME);
+ 	if (IS_ERR(psys_adev)) {
+ 		kfree(pdata);
+@@ -469,7 +480,7 @@ static void ipu6_configure_vc_mechanism(struct ipu6_device *isp)
+ 
+ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ {
+-	struct ipu6_buttress_ctrl *isys_ctrl = NULL, *psys_ctrl = NULL;
++	const struct ipu6_buttress_ctrl *isys_ctrl, *psys_ctrl;
+ 	struct device *dev = &pdev->dev;
+ 	void __iomem *isys_base = NULL;
+ 	void __iomem *psys_base = NULL;
+@@ -484,6 +495,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 
+ 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
+ 	isp->buttress.regs = &ipu6_buttress_regs;
++	isys_ctrl = &ipu6_isys_buttress_ctrl;
++	psys_ctrl = &ipu6_psys_buttress_ctrl;
+ 
+ 	switch (id->device) {
+ 	case PCI_DEVICE_ID_INTEL_IPU6:
+@@ -513,6 +526,8 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		isp->hw_ver = IPU_VERSION_7;
+ 		isp->cpd_fw_name = IPU7_FIRMWARE_NAME;
+ 		isp->buttress.regs = &ipu7_buttress_regs;
++		isys_ctrl = &ipu7_isys_buttress_ctrl;
++		psys_ctrl = &ipu7_psys_buttress_ctrl;
+ 		break;
+ 	default:
+ 		return dev_err_probe(dev, -ENODEV,
+@@ -582,13 +597,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto out_ipu6_bus_del_devices;
+ 	}
+ 
+-	isys_ctrl = devm_kmemdup(dev, &isys_buttress_ctrl,
+-				 sizeof(isys_buttress_ctrl), GFP_KERNEL);
+-	if (!isys_ctrl) {
+-		ret = -ENOMEM;
+-		goto out_ipu6_bus_del_devices;
+-	}
+-
+ 	isp->isys = ipu6_isys_init(pdev, dev, isys_ctrl, isys_base,
+ 				   &isys_ipdata);
+ 	if (IS_ERR(isp->isys)) {
+@@ -596,13 +604,6 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		goto out_ipu6_bus_del_devices;
+ 	}
+ 
+-	psys_ctrl = devm_kmemdup(dev, &psys_buttress_ctrl,
+-				 sizeof(psys_buttress_ctrl), GFP_KERNEL);
+-	if (!psys_ctrl) {
+-		ret = -ENOMEM;
+-		goto out_ipu6_bus_del_devices;
+-	}
+-
+ 	isp->psys = ipu6_psys_init(pdev, &isp->isys->auxdev.dev, psys_ctrl,
+ 				   psys_base, &psys_ipdata);
+ 	if (IS_ERR(isp->psys)) {
 -- 
 2.47.3
 
