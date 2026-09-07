@@ -1,308 +1,134 @@
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C57F43AFD11
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 20:35:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD0B3381B1D
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 20:59:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788813318; cv=none; b=Bgf+HD8EZ3boispgIz4TaHdKLTAi69fkYRXLuHJknGuk2P/6OjA1apPOjPm3yHNLWvBN7N+o0FJUvr+s4PYtBVZ87QHSBUywXCoqwPQ9athkhBjX3xil8vqNUU1wc3XnBfJUDbx5o4v842Gt9pd6rfUUwSBzklC2SLc2eP3YEls=
+	t=1788814771; cv=none; b=cq6XEjYK0SNFpbO+WNW+hkrnCZxreIBm5r76DN0HYwMwrgMZN1bKvOUOjSmhsby62bW2myUs6V0VfjKzM3YYy+q3N1ebB5MX19YlTvedVmrkj8sStkIOFTPkVgDD1/EM/8xVv/vFKoO+8h2mozBl891iIfA81KFUeshpX/lCtUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788813318; c=relaxed/simple;
-	bh=0IWffhzqrmniLL2Di1468HaXy5XBGp6F5hPaHXf5tcg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sUl0SduSEM3DL4X7xYgzK+kJ8aOEh8eu04Zo2TZIdSJL56g1s5hsfDuMdxNWcronTBcDde5c9iz2o5HZy8/wGa1zqsjBYHbpKXRz+NO9HB59GqgvOIFujRlZuRgo2UblHO39ccfZFazvteM35LiU+pEeiTEXesuEA72HjDlG3vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=MN65LrUL; arc=none smtp.client-ip=209.85.210.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1788814771; c=relaxed/simple;
+	bh=rVwoTZF0zIWjvGfehh+heArB9ivKoxKKeZFYXCrO0mI=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=ehxamEPpI8lTSI5SjqAFP2LBg1zYm9BL535IIcPSznY7O8rDMFxhDpPdNExHgGE5/ibmlAWQpVvDK5UhTAz8YNlW4Dh9gOhqL5uGLUgKw/ngAiGMJgs0LNmu2QkZqP3HqM5WuOucDCgOsCCvsJksGbNHfaVXamxAFLdIlA9ezOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=qbsafyjF; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="MN65LrUL"
-Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84864086bfeso3397938b3a.1
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 13:35:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1788813316; x=1789418116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=rO3cSSdgmmCGUMwqu72s3FkePHh37ZNmQCVh7o0zSTA=;
-        b=MN65LrULLMrI6uQxEyY3Hnrj1afOucP1p8/U0a+TWlKRxo461mEBBcEpDTcbuul2xL
-         iHXm+aZAsuzy+Ln3oEklyyTnxE08V9xoCxIzc+SR/wqbDOB+u5x2pCqZXM5EWGMnVqqu
-         HJX54z1GlsVQ8Ar0ibgGl8G79sUrfIzFEQAVc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788813316; x=1789418116;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=rO3cSSdgmmCGUMwqu72s3FkePHh37ZNmQCVh7o0zSTA=;
-        b=dWA4ks319nLsMKaSFcpypoWFrcOlIadYSYePwe9gsYq9/ZYAj7yFjTZVHgZDm7+167
-         /YXaTXM0JiUXbQfnHOPbVo59zNRMiHtGacwfpFm4soNuML6lrGM12hBxOLOEGkJiL5Gy
-         LTDbt9cV2zY/voTrkBpysYkpmbg/NrxyH55+IhLsSKLKW2rUTX1+/ggiqjaOeL4vPtpp
-         yJO0X1Prma+3cXYiDe2RQjPdZaEPIs5oSoQPfiExibGjblnqOfs6QeEQk+je8HhrDR7r
-         AhbdDW5+1zukcscEIrd1GP7/WozxIjWJgLqXVRVSgKPjLYYLPFHGCGUE6CZlM9svwZVj
-         zTqg==
-X-Gm-Message-State: AFuF++lGBeEFc76rsg/L7GZcDL7xwuPs4DmqyZjvXn/UvY/dB7lvo/vw
-	XPokSC82TnZ126T8eNYJmpA66OoLwD4vuMOmSvVwcNlyTIdzPjM4xRhBUJILwa3tcgLIcGWQSf4
-	CtrLuqw==
-X-Gm-Gg: AYBFou0bZCow5cnQdHyx2RIM2aOKxade2kps3lpz+ZEb+efBoy8BQnTu1Yst1gTEaIJ
-	LO1brNyADKyFAcWu2nG3m3sHj+efHq5spK52UCQHLRbfyPXhgM67r7CX/e/ac3BfUTepRY9FvUz
-	UboDn34CHX9jYDFb48mEBdwCuJCBl7dOej1K3NJ1MGz1M8fmRGyMCBZtDDsa7MqvamXBpfSJfwc
-	xEIbTd2Hw8qgT4OSh8BiT4O+7bOXXv0C7j+5pNOaQ38czhBPS/PBqxqZFSe+u1/bqzf8NfkuiBB
-	d2ft9fFjQrewbggB4hnaHmTfBtKiBxgC+fR3eBVyM6jS6kN53jQeZL54fHEzyyvBgOVR2rf4LMD
-	33RYowueGEAjskx9zwoObQ7A/3WJhFBjZLCFs27pCk0tlJgVI0yEH/9hEFnNPcQ3YA0L5v4kRnp
-	XkzVgaPRhNFJptJUp9Y1EXWqmNzyl8Dm/RcN+JeDZrD+QzI7w2tVUzDInwNrz4rqJuNn6U5PsgN
-	0ne8IN8jVTWtGxjUX5f1UbxyQ==
-X-Received: by 2002:a05:6a00:2c94:b0:848:3f07:c5a2 with SMTP id d2e1a72fcca58-86167aab584mr34698843b3a.4.1788813316011;
-        Mon, 07 Sep 2026 13:35:16 -0700 (PDT)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com. [209.85.216.43])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86152045e8dsm4629432b3a.20.2026.09.07.13.35.14
-        for <linux-media@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 13:35:15 -0700 (PDT)
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-38dc4553f62so3637556a91.0
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 13:35:14 -0700 (PDT)
-X-Received: by 2002:a17:90b:35d2:b0:39a:e002:f192 with SMTP id
- 98e67ed59e1d1-39b2628f040mr35825240a91.22.1788813313674; Mon, 07 Sep 2026
- 13:35:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="qbsafyjF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1788814761; x=1789073961;
+	bh=U95leeEP3k6To4Cm7aU5npoew/9a0B1c8nhykvIRNxs=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=qbsafyjFU7szS2b9D7E171B3XftH6x/ROPNJ7bRjBGrbOAHRH7aWGcYdVsgzUusZk
+	 mYgGjHAlVHpYwnUA2JGKy2M7wri4rTSDSvuTojkIztOuA2xzAkYpCkz9tIULnON0Y+
+	 PubkCswdXkUMmM0k+0BovL68ZizlJJCQX0BaCW3phhf5XOHhEtjwpAdp41y2G8bzsI
+	 6RW2eSp2CMnMx+wXd+RkYH6EJLIRq9GTNWifBJ+h/hVCn60fA9rHsxCW38dSdoA+Kx
+	 iEZt/6hy9vRu2+SaM+uJTstHo5k1W4afH6BQ4orqpPYx4L0aEai+SKkmCkzk5i2dwQ
+	 MzgqyA7WiDpLA==
+Date: Mon, 07 Sep 2026 20:59:15 +0000
+To: Peter Marshall <pm@petermarshall.ca>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Benjamin Mugnier <benjamin.mugnier@foss.st.com>, Sylvain Petinot <sylvain.petinot@foss.st.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Hans de Goede <hansg@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, linux-media@vger.kernel.org, platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 0/7] media: i2c: st-vd55g1: Genericize driver and add VD55G0 support
+Message-ID: <20260907205908.21303-1-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: 9668a35f474d3fdd9b9e66102de22c717f766a56
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
- <CANiDSCu2=p_o8qNZeEOQB_um0YH_+3jefB=4xsC6k6Z349xtaQ@mail.gmail.com>
- <28dJLjsoYQxYnUJloPFduvPFDUb6r-YQrLRK0aT_UZ1GJAMGt9892Ltc6-1Uppe3UiQILaOwlEqsj5W6IUKFUvYDs8osrNPH1Z9MnvE0ed0=@protonmail.com>
- <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com>
- <t3hEIJz-K9HvqsANa0jwTFis2jKV-LIIUZ3-7AUs-sQnAgSsLZhu2013EUO_AOWgospC7Lvphv7D1iyhJb9vFMxnbtUjaKwTljvmHjUiU8A=@protonmail.com>
- <CANiDSCu4AW=JZ9FS+Ny=DK_+LqqytGvSe+V6aVncRiGRiyDMfA@mail.gmail.com> <njQpJCsjie_PEmoIZWXlTHCGW4nqAbpwp0ev50qLl-r5rWkV4mwEK0lSvJ-3w9BOPhvZE04A9O7pFeAdqq6-zKAF6tVIsPN6dPA1dnx86dE=@protonmail.com>
-In-Reply-To: <njQpJCsjie_PEmoIZWXlTHCGW4nqAbpwp0ev50qLl-r5rWkV4mwEK0lSvJ-3w9BOPhvZE04A9O7pFeAdqq6-zKAF6tVIsPN6dPA1dnx86dE=@protonmail.com>
-From: Ricardo Ribalda <ribalda@chromium.org>
-Date: Mon, 7 Sep 2026 22:34:59 +0200
-X-Gmail-Original-Message-ID: <CANiDSCumxDChOj9JyCW3s1nBhpyeicerLyHSZDh=mTNfxbkGUg@mail.gmail.com>
-X-Gm-Features: AcwNN1XZi1OkN1QEyP04rEo5KTOyDMfCcubsSINtUZMsfpyJW1Vs-nLA_P1V_0M
-Message-ID: <CANiDSCumxDChOj9JyCW3s1nBhpyeicerLyHSZDh=mTNfxbkGUg@mail.gmail.com>
-Subject: Re: Re : Re: Avermedia GC515 implementation
-To: Edwin Gatier <edwin.gatier@protonmail.com>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Edwin
+Peter,
 
+Tested on a second machine: Surface Pro 11 for Business, Intel Lunar Lake,
+IPU7 =E2=80=94 same SMO55F0 HID as your Surface Pro 9, one IPU generation l=
+ater.
+Two results worth having before you respin, one good and one blocking.
 
-On Mon, 7 Sept 2026 at 22:31, Edwin Gatier <edwin.gatier@protonmail.com> wr=
-ote:
->
-> IT WORKS
->
-> forcing uvc 1.1 works!!! a bit weird because I'm sure I tried that at som=
-e point but to no avail, might have made a typo like "0x011"
+The good one: the series applies and builds clean, and the sensor works on
+IPU7. All seven patches applied in order to an Ubuntu 7.0.0 tree with no
+conflicts (its vd55g1.c is 2061 lines, exactly what your diffstat deletes),
+and media/i2c, media/pci/intel and int3472 rebuilt without a warning.
+With firmware present the driver probes, the bridge finds the sensor and
+the subdev registers:
 
-Happy to hear that :) I will likely ask you to test a couple of
-patches so this is fixed for everyone.
+  intel-ipu7: Found supported sensor SMO55F0:00
+  intel_ipu7_isys: bind vd55g 1-0060 nlanes is 1 port is 1
+  entity 233: vd55g 1-0060 (1 pad, 1 link, 0 routes)
 
-Regards!
+So nothing here is IPU6-specific. That is the part I could add that you
+could not.
 
->
-> thanks a lot for your help, I'm making the change permanent on my side.
->
-> OBS has access to the H264 stream, sound is on the side obviously and I h=
-ave a small latency but it was expected behavior without the obs plugin onl=
-y available on windows as far as I know.
->
-> I still include the logs for you to make a proper implementation in the k=
-ernel's repo. Don't hesitate to contact me for more info/test.
->
-> Thanks again
->
-> Edwin
->
->
->
-> Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
->
-> Le lundi 7 septembre 2026 =C3=A0 22:04, Ricardo Ribalda <ribalda@chromium=
-.org> a =C3=A9crit :
->
-> > Hi Edwin
-> >
-> > On Mon, 7 Sept 2026 at 21:39, Edwin Gatier <edwin.gatier@protonmail.com=
-> wrote:
-> > >
-> > > Indeed the mod was not loaded sorry about that, I thought the raw/out=
- of the box result would be the starting point for the log.
-> > >
-> > > Here are the logs with the mod loaded in.
-> >
-> > Could you try modifying the original patch?
-> >
-> > Where it says:
-> >
-> >  .uvc_version =3D 0x010a,
-> >
-> > it should say
-> >
-> >  .uvc_version =3D 0x0110,
-> >
-> >
-> > Thanks!
-> > >
-> > >
-> > >
-> > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
-> > >
-> > > Le lundi 7 septembre 2026 =C3=A0 13:14, Ricardo Ribalda <ribalda@chro=
-mium.org> a =C3=A9crit :
-> > >
-> > > > Hi Edwin
-> > > >
-> > > > Thanks a lot for the logs.
-> > > > This is a new one:
-> > > > Failed to query (GET_CUR) UVC probe control : -75 (exp. 26).
-> > > >
-> > > > (we had before  Failed to query (GET_CUR) UVC probe control : 34 (e=
-xp. 48).)
-> > > >
-> > > > Progress??? who knows :P
-> > > >
-> > > > It would help to have a usb trace...  Have you used usbmon before?
-> > > >
-> > > > If you get a trace, add also the dmesg output. You can use somethin=
-g like this
-> > > >
-> > > > # disconnect the camera
-> > > > dmesg -c > /dev/null
-> > > > rmmod uvcvideo
-> > > > modprobe uvcvideo trace=3D0xffffffff
-> > > > modprobe usbmon
-> > > > # Start wireshark and start capturing on the correct port
-> > > > # connect the camera and give it a couple of secs
-> > > > # Stop capturing
-> > > > dmesg > dmesg.log
-> > > >
-> > > > Hopefully the logs will give us something to work with... But bear =
-in
-> > > > mind that we are only looking at it from "uvc" perspective. The
-> > > > high-speed vs super-speed problem will not be solved.
-> > > >
-> > > > Regards!
-> > > > --
-> > > > Ricardo Ribalda
-> > > >
-> > > > On Sun, 6 Sept 2026 at 18:23, Edwin Gatier <edwin.gatier@protonmail=
-.com> wrote:
-> > > > >
-> > > > > Hello,
-> > > > >
-> > > > > Sorry for the delay, I had other matter to attend to and also it'=
-s my first time making drivers so i had some issues making it work.
-> > > > > Thank you for the quick response.
-> > > > > I added the quirk but it still does not work, the quirk is taken =
-into account (forcing v 1.0a) but the probe still returns a mismatch length=
- error.
-> > > > > A "very usefull" comment on a reddit thread I openned indicates t=
-hat the card is suppose to behave like a usb hub with a uvc device as one o=
-f the device of the hub, but the list of usb devices connected to the pc do=
-es only show one device and dmesg shows it is recognised (falsly) as a 1.5 =
-uvc device.
-> > > > >
-> > > > > How do you recon we/I could go on from this point on ?
-> > > > >
-> > > > > Regards
-> > > > >
-> > > > > Edwin
-> > > > >
-> > > > >
-> > > > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
-> > > > >
-> > > > > Le mardi 1 septembre 2026 =C3=A0 08:45, Ricardo Ribalda <ribalda@=
-chromium.org> a =C3=A9crit :
-> > > > >
-> > > > > > Hi Edwin
-> > > > > >
-> > > > > > Looks like your camera is not following the spec. It says that =
-it is
-> > > > > > uvc 1.5 but behaves like 1.1
-> > > > > >
-> > > > > >
-> > > > > > Could you try if this patch fixes it for you?
-> > > > > >
-> > > > > > Regards!
-> > > > > >
-> > > > > > diff --git a/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > index e289cc71ba98..615cebb67508 100644
-> > > > > > --- a/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > +++ b/drivers/media/usb/uvc/uvc_driver.c
-> > > > > > @@ -2851,6 +2851,17 @@ static const struct usb_device_id uvc_id=
-s[] =3D {
-> > > > > >           .bInterfaceSubClass   =3D 1,
-> > > > > >           .bInterfaceProtocol   =3D 0,
-> > > > > >           .driver_info          =3D (kernel_ulong_t)&uvc_quirk_=
-fix_bandwidth },
-> > > > > > +       /* Avermedia GC515 */
-> > > > > > +       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > > > > > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > > > > +         .idVendor             =3D 0x07ca,
-> > > > > > +         .idProduct            =3D 0x1515,
-> > > > > > +         .bInterfaceClass      =3D USB_CLASS_VIDEO,
-> > > > > > +         .bInterfaceSubClass   =3D 1,
-> > > > > > +         .bInterfaceProtocol   =3D UVC_PC_PROTOCOL_15,
-> > > > > > +         .driver_info          =3D (kernel_ulong_t)&(const str=
-uct
-> > > > > > uvc_device_info){
-> > > > > > +               .uvc_version =3D 0x010a,
-> > > > > > +         } },
-> > > > > >         /* ViMicro Vega */
-> > > > > >         { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
-> > > > > >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
-> > > > > >
-> > > > > > On Tue, 1 Sept 2026 at 02:45, Edwin Gatier <edwin.gatier@proton=
-mail.com> wrote:
-> > > > > > >
-> > > > > > > Hello,
-> > > > > > >
-> > > > > > > I'm trying to use the usb capture card x'tra go from avermedi=
-a but the uvc implementation is not very good from the vendor. The card fal=
-ls back at usb 2 speed (high speed detected) while it works fine on windows=
- with usb3 speed (super speed) which it as been designed for. Video stream =
-should be 1080p120 and h265 compressed by the card.
-> > > > > > >
-> > > > > > > Plugging the card does nothing, the card is not recognized at=
- all as seen in the dmesg log, and subsequently is not mounted in /dev/vide=
-oX.
-> > > > > > > I tried some quirks but didn't manage to pass the probe.
-> > > > > > >
-> > > > > > > You of course can contact me for more information.
-> > > > > > >
-> > > > > > > I'm on linux 7.2.2-1-cachyos with Wayland and have a dualboot=
- with windows 11 on separate drive to update and test the capture card.
-> > > > > > >
-> > > > > > > Best Regards
-> > > > > > >
-> > > > > > > Edwin GATIER
-> > > > > > >
-> > > > > > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
-> > > > > >
-> > > > > >
-> > > > > >
-> > > > > > --
-> > > > > > Ricardo Ribalda
-> > > > > >
-> > > >
-> > > >
-> > > >
-> > > > --
-> > > > Ricardo Ribalda
-> > > >
-> >
-> >
-> >
-> > --
-> > Ricardo Ribalda
-> >
+The blocking one: without that firmware nobody can use VD55G0 at all.
 
+  vd55g i2c-SMO55F0:00: Direct firmware load for vd55g0-cut1.bin failed
+                        with error -2
+  vd55g i2c-SMO55F0:00: Failed to load required firmware vd55g0-cut1.bin: -=
+2
 
+Probe fails and the camera disappears. The driver has a fallback for
+exactly this case, but only the older part gets one:
 
---=20
-Ricardo Ribalda
+  static const struct firmware vd55g1_builtin_fw =3D {
+          .data =3D vd55g1_patch_array, .size =3D ARRAY_SIZE(vd55g1_patch_a=
+rray)
+  };
+  ...
+  if (ret =3D=3D -ENOENT && fw_info->builtin_fw)
+
+vd55g0_fw_maps[] sets fw_name and leaves builtin_fw NULL, and neither
+vd55g0-cut1.bin nor vd55g0-cut2.bin is in linux-firmware. So the series
+works for you and for nobody else, which I assume is not the intent. Either
+a built-in like VD55G1's, or the files submitted to linux-firmware, or at
+minimum a note in the cover letter saying where they come from.
+
+To get past it I used the same ST patch arrays that Andr=C3=A9 Gilerson's
+out-of-tree VD55G0 driver compiles in (vd55g0_patches.h, "Copyright (C)
+2024 STMicroelectronics SA"), written out as a file. cut1 is 6868 bytes and
+its header parses correctly against struct vd55g_patch_header =E2=80=94 0x0=
+681,
+version 2.11 =E2=80=94 so the format is right. That is how I tested, not a
+distribution path I am proposing.
+
+Second, and this one reaches further than this series. Benjamin's warning
+about libcamera is concrete and it is a regression for machines that work
+today. libcamera keys the sensor-properties database, the soft-ISP helper
+and the tuning file on the media entity name, which is the driver name:
+
+  WARN  No static properties available for 'vd55g'
+  WARN  'vd55g 1-0060': No sensor delays found in static properties
+  WARN  Configuration file 'vd55g.yaml' not found for IPA module 'simple'
+  WARN  IPASoft: Failed to create camera sensor helper for vd55g
+
+and the installed libcamera 0.7.0 does carry a vd55g1 entry =E2=80=94 `stri=
+ngs
+libcamera.so.0.7 | grep -x vd55g1` finds it. So renaming the driver does
+not only fail to help VD55G0; it silently takes the properties and the
+helper away from VD55G1 users who have them now. Whatever is decided about
+one driver or two, that rename needs libcamera patches landing alongside,
+or the entity name keeping its old form.
+
+Two smaller things, neither chased:
+
+  - `supply vcore not found, using dummy regulator` persists here despite
+    4/7's SMO55F0 mapping. It was not the blocker, so I did not dig.
+  - 3/7 advertises 380 MHz for SMO55F0. This machine has been running 402 M=
+Hz
+    ("MIPI output freq is 804MHz / 2") from the out-of-tree driver. Your
+    driver takes the endpoint's value rather than validating against a list=
+,
+    so it accepted 380 without complaint, and I have not established which =
+is
+    correct for either model. Worth knowing that two people measured
+    different numbers for the same HID on different Surfaces.
+
+Happy to run v2 here when you have one, and to report anything specific you
+would like measured on IPU7.
+
+Sergey
+
