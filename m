@@ -1,433 +1,436 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE8A315FA81;
-	Mon,  7 Sep 2026 09:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB00844AB9D;
+	Mon,  7 Sep 2026 09:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788772610; cv=none; b=LvbyatdlIcuJi6H0VHopQI8SnooJ6Ob8/Oef5gSU9wAKh8vTWebJokJK893ojt7r3Ttpq3HkUwMKKI6pojVPiT6f/lBYkNc/EAlqXZ9d2v0yYkliIOiik+++xYbxfsu0nISNBKgAgDfp/8lMjQ+nujEgUolDpRVtWCzuWoQNqAc=
+	t=1788773394; cv=none; b=GR6rrjIoIt/Mfnle/YkcmnTn4avlJOebV+otuG2w5HdiDN+z6KaUkiRChenp0sy9JMzwbydiexop4SwgrZBfDVAAkL/ldfzwlFgolpgzDX7NzU9SldixxFrjcdZdxxzVMD+FqpOgQ4IlOt31ZXDIgxz9BcFmla2AuvI71+1DT7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788772610; c=relaxed/simple;
-	bh=PQLfqa7veDPeFKxq6zor8/Q2FT3lLuiYQUP2bbBuYsw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nz3WXIf7MGmGNXUPjr/1HNC63SXs3eajv9XCBPqiMIG4T0dOJv8/G6gvEIgbxu8/ZwMJDjUPLQvyvqvQfIZ8aGwL5hgBF0Ej8HTQr96Z614qSA+MCgcSVhm+DGvwjrele4Z/QC6/s+5Eq8hDTO6ZgFD0fbAOBYaALz4cAwjeJ34=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=jGEJKBni; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788773394; c=relaxed/simple;
+	bh=5281dcRb8zZBtkO1oJ2CF7fGdlascRV7BzcJZfe5OMY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gG1fh0Ib+/FPbl13m4DTTnono+DP4Ga0giY1YIXVYC3cxvDQtbj4rzkFD7uxUTTv4ss57M0S4EhUzniSoaHfHjJUWeJ3QVhABzi1jXXsupXUqBN0eGgz/D4xkcAR0BQJ8rY5sYCuPurqout75ZUlw6D+oaF2eAqStlwjaXEE1fo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG07sVej; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="jGEJKBni"
-Received: from ideasonboard.com (mob-109-113-65-131.net.vodafone.it [109.113.65.131])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CBA82981;
-	Mon,  7 Sep 2026 11:15:10 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788772511;
-	bh=PQLfqa7veDPeFKxq6zor8/Q2FT3lLuiYQUP2bbBuYsw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=jGEJKBniHgxJtjVK7R+tpH9sggpGwczbbP1bYrvUiN1I/0ND64hm860jzwDl1KgSV
-	 axuBrz6FmP7AJd8v0TmOSW1C4r9okx1HlbKAfFpMBouL5Cp1oIa1OQeXx5SwAW0qey
-	 DmeysCynyvHhGzEI65gn837rJ4UVNryLftn6OYiE=
-Date: Mon, 7 Sep 2026 11:16:41 +0200
-From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ap6ALNC8Q0M-Oo51@zed>
-References: <20260904-mira016-v2-0-1dcf7b3a807e@ideasonboard.com>
- <20260904-mira016-v2-2-1dcf7b3a807e@ideasonboard.com>
- <ap3M0h2S6EFpuC2T@kekkonen.localdomain>
- <ap5n7OyZrI0KzzN-@zed>
- <ap561H8xYJvjZsRa@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG07sVej"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EA71F00A3A;
+	Mon,  7 Sep 2026 09:29:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1788773383;
+	bh=VtCPek+5saPOvgRgewn8SWkbjVqNPiUS7tnHPudCp4k=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=WG07sVejUwJBWxiPp6B0tTO6fiAH3aigLFdHESjaqBD9fprnpQcls8Cv8a40AXQQq
+	 m0x4DjMVboYHhrA0Ipot+Tiv9/YUtur3mC2LmWZ+wf7ERZSD2b70teFoaDkSYP7RJf
+	 XGX1+5BtouWCDLv2f1pjMYSITTYBzE2VGcGnSchmsVtO9/TzLdpTNOPygLoQEeH0QC
+	 rj8Ws6zxjLGJ1QG+5p6JF3lwkjCrgz+s5t8IYqO3F0h3UwO7sMhJbrYr1NNtrPCT3p
+	 RI5d0hnje7C705jblZjzG8L7X2HC0NQNHC3GkWT4QM5llNWdQEdlQTr/Zd6Ys3bNYk
+	 TcPehRvRpC0Nw==
+Message-ID: <3e619085-3311-4acd-9493-e849875563d7@kernel.org>
+Date: Mon, 7 Sep 2026 10:29:36 +0100
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ap561H8xYJvjZsRa@kekkonen.localdomain>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
+ CAMSS
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
+ Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+ Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
+ <iIEI9RqdlqSAwrBGxsv48s_r9QoTRP_IPoifu8PCol261xGqyCULXGQaaMYndhNAFA7YAzraXTr-UzZhguWz3g==@protonmail.internalid>
+ <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
+From: Bryan O'Donoghue <bod@kernel.org>
+Content-Language: en-GB
+Autocrypt: addr=bod@kernel.org; keydata=
+ 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
+In-Reply-To: <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Sakari
+On 07/09/2026 09:13, Nihal Kumar Gupta wrote:
+> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
+> Glymur uses only the new PHY API via standalone phy@ child nodes,
+> so per-CSIPHY clocks, interrupts and supplies are absent here.
 
-On Mon, Sep 07, 2026 at 11:50:28AM +0300, Sakari Ailus wrote:
-> Hi Jacopo,
->
-> On Mon, Sep 07, 2026 at 09:45:16AM +0200, Jacopo Mondi wrote:
-> > > > +}
-> > > > +
-> > > > +static inline u32 mira016_nsec_to_lines(struct mira016 *mira016, u32 nsec)
-> > > > +{
-> > > > +	return nsec / (mira016_trow_psec(mira016) / HZ_PER_KHZ);
-> > > > +}
-> > > > +
-> > > > +static inline u32 mira016_calc_prate(struct mira016 *mira016, u32 h_tot)
-> > > > +{
-> > > > +	/*
-> > > > +	 * Pixel rate is calculate as the row duration divided by the total line
-> > > > +	 * length.
-> > > > +	 *
-> > > > +	 * pixel time (psec) = t_row(psec) / h_tot
-> > > > +	 * pixel rate (mbps) = 10^12 / pixel_time
-> > > > +	 *		     = 10^12 * h_tot / t_row
-> > > > +	 *		     = h_tot * 10^6 / t_row * 10^6 to avoid overflows
-> > > > +	 */
-> > > > +	u32 trow_psec = mira016_trow_psec(mira016);
-> > > > +
-> > > > +	return h_tot * HZ_PER_MHZ / trow_psec * HZ_PER_MHZ;
-> > >
-> > > Can this overflow?
-> > >
-> >
-> > I don't think so. I chose to multiply by 10^6 two times before and after
-> > the division to avoid overflows.
-> >
-> > Should I re-consider something ?
->
-> It was a question. :-) If it can't then it's fine as-is.
->
-> >
-> >
-> > > > +}
-> > > > +
-> > > > +static inline u32 mira016_calc_min_vblank(struct mira016 *mira016, u32 y_tot)
-> > > > +{
-> > > > +	/*
-> > > > +	 * See 3.15.2 Frame Rate, equation 4.
-> > > > +	 *
-> > > > +	 * TODO: The minimum frame duration has to be expanded if embedded data
-> > > > +	 * are used.
-> > > > +	 */
-> > > > +	u32 trow_nsec = mira016_trow_psec(mira016) / HZ_PER_KHZ;
-> > > > +	u32 min_duration_nsec =  trow_nsec * (y_tot + 35) + 50 * HZ_PER_KHZ;
-> > >
-> > > What are 35 and 50 here?
-> > >
-> >
-> > No idea, the sensor datasheet doesn't describe those values
->
-> Ok.
->
-> There's also an extra whitespace there.
->
+What's up with the commit log here ? There is no legacy CSIPHY in this.. ?
 
-Oh thanks
-
-> ...
->
-> > > > +static int mira016_set_ctrl(struct v4l2_ctrl *ctrl)
-> > > > +{
-> > > > +	struct mira016 *mira016 =
-> > > > +		container_of(ctrl->handler, struct mira016, ctrl_handler);
-> > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > > +	struct v4l2_subdev_state *state;
-> > > > +	struct v4l2_rect *crop;
-> > > > +	int ret = 0;
-> > > > +
-> > > > +	state = v4l2_subdev_get_locked_active_state(&mira016->sd);
-> > > > +	crop = v4l2_subdev_state_get_crop(state, 0);
-> > > > +
-> > > > +	if (ctrl->id == V4L2_CID_VBLANK) {
-> > > > +		s32 exposure_max = crop->height + ctrl->val
-> > > > +				 - MIRA016_FRAME_INTEGRATION_DIFF;
-> > > > +		s32 exposure_def = min(exposure_max,
-> > > > +				       mira016->exposure->val);
-> > > > +
-> > > > +		ret = __v4l2_ctrl_modify_range(mira016->exposure,
-> > > > +					       mira016->exposure->minimum,
-> > > > +					       exposure_max,
-> > > > +					       mira016->exposure->step,
-> > > > +					       exposure_def);
-> > > > +		if (ret)
-> > > > +			return ret;
-> > > > +	}
-> > > > +
-> > > > +	if (!pm_runtime_get_if_in_use(&client->dev))
-> > > > +		return 0;
-> > > > +
-> > > > +	switch (ctrl->id) {
-> > > > +	case V4L2_CID_EXPOSURE:
-> > > > +		ret = mira016_write_exposure_reg(mira016, ctrl->val);
-> > > > +		break;
-> > > > +	case V4L2_CID_VBLANK:
-> > > > +		ret = mira016_write_frame_duration_reg(mira016, state, ctrl->val);
-> > > > +		break;
-> > >
-> > > Is hblank part of the register lists?
-> > >
-> >
-> > These sensors (there will hopefully be more supported by this driver)
-> > do not have a real horizontal blanking.
-> >
-> > Their line length is expressed by a time base multipled by a line
-> > length which doesn't directly depend on the pixel width but rather on
-> > the ADC and PHY timings.
-> >
-> > You could expand the line duration by increasing the time base, but I
-> > wouldn't go there and use VBLANK only to control the frame duration.
-> >
-> > As you can see the HBLANK control is registered with  fixed value of
-> > 0.
->
-> How does control frame rate then? If HBLANK is zero, the frame rate is
-> undefined, isn't it?
->
-
-Why do you think so ?
-
-The row_timing is the product of the time base (in usec) multiplied by
-the row length expressed in time base cycles (see mira016_trow_psec()
-and how seq_time_base and row_length are calculated).
-
-VBLANK is still controllable, and you can vary the frame rate by
-changing the vblank.
-
-What have am I missing ?
-
-> > > > +static int mira016_init_controls(struct mira016 *mira016)
-> > > > +{
-> > > > +	struct i2c_client *client = v4l2_get_subdevdata(&mira016->sd);
-> > > > +	struct v4l2_fwnode_device_properties props;
-> > > > +	struct v4l2_ctrl_handler *ctrl_hdlr;
-> > > > +	struct v4l2_ctrl *link_freq;
-> > > > +	struct v4l2_ctrl *hblank;
-> > > > +	u32 min_exposure_lines;
-> > > > +	u32 def_exposure;
-> > > > +	u32 min_vblank;
-> > > > +	u32 def_vblank;
-> > > > +	u32 pixel_rate;
-> > > > +	int ret;
-> > > > +
-> > > > +	ctrl_hdlr = &mira016->ctrl_handler;
-> > > > +	v4l2_ctrl_handler_init(ctrl_hdlr, 12);
-> > > > +
-> > > > +	/* By default, PIXEL_RATE is read only */
-> > > > +	pixel_rate = mira016_calc_prate(mira016, MIRA016_PIXEL_ARRAY_WIDTH);
-> > > > +	mira016->prate = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_PIXEL_RATE,
-> > > > +					   pixel_rate, pixel_rate, 1,
-> > > > +					   pixel_rate);
-> > > > +
-> > > > +	def_vblank = mira016_nsec_to_lines(mira016,
-> > > > +					   MIRA016_DEFAULT_DURATION_NSEC);
-> > > > +	def_vblank -= MIRA016_PIXEL_ARRAY_HEIGHT;
-> > > > +
-> > > > +	min_vblank = mira016_calc_min_vblank(mira016,
-> > > > +					     MIRA016_PIXEL_ARRAY_HEIGHT);
-> > > > +	mira016->vblank = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > > +					    V4L2_CID_VBLANK, min_vblank,
-> > > > +					    MIRA016_MAX_VBLANK, 1,
-> > > > +					    def_vblank);
-> > > > +
-> > > > +	/* Fixed 0 horizontal blanking. */
-> > > > +	hblank = v4l2_ctrl_new_std(ctrl_hdlr, NULL, V4L2_CID_HBLANK, 0,
-> > > > +				   0, 1, 0);
-> > > > +
-> > > > +	link_freq = v4l2_ctrl_new_int_menu(ctrl_hdlr, NULL, V4L2_CID_LINK_FREQ,
-> > > > +					   0, 0, &mira016_link_freqs[0]);
-> > > > +
-> > > > +	min_exposure_lines = mira016_nsec_to_lines(mira016,
-> > > > +						   mira016->timings.min_exposure_time);
-> > > > +	def_exposure = mira016_nsec_to_lines(mira016,
-> > > > +					     MIRA016_EXPOSURE_DEF_NSEC);
-> > > > +	mira016->exposure = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > > +					      V4L2_CID_EXPOSURE,
-> > > > +					      min_exposure_lines,
-> > > > +					      MIRA016_MAX_EXPOSURE, 1,
-> > > > +					      def_exposure);
-> > > > +
-> > > > +	mira016->gain = v4l2_ctrl_new_std(ctrl_hdlr, &mira016_ctrl_ops,
-> > > > +					  V4L2_CID_ANALOGUE_GAIN,
-> > > > +					  1, 1, 1, 1);
-> > > > +
-> > > > +	/*
-> > > > +	 * Changing VFLIP requires re-programming the top point, hence we
-> > > > +	 * program flips along with the ROI windows at enable_streams time. As
-> > > > +	 * we grab the flip controls there, there's no need to handle the two
-> > > > +	 * controls while streaming.
-> > > > +	 */
-> > > > +	mira016->hflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
-> > > > +					   V4L2_CID_HFLIP, 0, 1, 1, 0);
-> > > > +
-> > > > +	mira016->vflip = v4l2_ctrl_new_std(ctrl_hdlr, NULL,
-> > > > +					   V4L2_CID_VFLIP, 0, 1, 1, 0);
-> > > > +
-> > > > +	v4l2_fwnode_device_parse(&client->dev, &props);
-> > >
-> > > v4l2_fwnode_device_parse() can return an error and I'd check for it. I'd
-> > > however do that before initialising the control handler as it simplifies
-> > > error handling.
-> >
-> > Interesting idea. I still see most drivers calling
-> > v4l2_fwnode_device_parse() and v4l2_ctrl_new_fwnode_properties() in
-> > sequence at the end of the controls initialization, but doing the
-> > parsing at the beginning of the function is certainly a good idea.
->
-> Yes, the ones you've been looking at are old drivers. :-)
->
-> > > > +		{ 16, 21 }, { 17, 26 }, { 18, 29 }, { 19, 30 }, { 20, 15 },
-> > > > +		{ 21, 23 }, { 22, 27 }, { 23, 13 }, { 24, 22 }, { 25, 11 },
-> > > > +		{ 26, 5 }, { 27, 18 }, { 28, 25 }, { 29, 12 },
-> > > > +		{ 30, 6 }, { 31, 3 }, { 32, 1 }
-> > > > +	};
-> > > > +
-> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_n_lut); ++i) {
-> > > > +		if (pll_n_lut[i].n != pll_n)
-> > > > +			continue;
-> > > > +
-> > > > +		return pll_n_lut[i].pll_n;
-> > > > +	}
-> > > > +
-> > > > +	return 0;
-> > > > +}
-> > > > +
-> > > > +static u8 mira016_m_to_pll_m(u32 pll_m)
-> > > > +{
-> > > > +	/* Table 12: Lookup table for “M to PLL_DIV_M” mapping */
-> > > > +	static const struct pll_m_div {
-> > > > +		u8 m_min;
-> > > > +		u8 m_max;
-> > > > +		u8 pll_m_min;
-> > > > +		u8 pll_m_max;
-> > > > +	} pll_m_lut[] = {
-> > > > +		{ 16, 31, 224, 239 }, { 32, 63, 192, 233 },
-> > > > +		{ 64, 127, 128, 191 }, { 128, 255, 0, 127 },
-> > > > +	};
-> > > > +
-> > > > +	for (unsigned int i = 0; i < ARRAY_SIZE(pll_m_lut); ++i) {
-> > > > +		const struct pll_m_div *p = &pll_m_lut[i];
-> > > > +
-> > > > +		if (pll_m > p->m_max)
-> > > > +			continue;
-> > > > +
-> > > > +		return p->pll_m_min + pll_m - p->m_min;
-> > > > +	}
-> > > > +
-> > > > +	return 0;
-> > > > +}
-> > > > +
-> > > > +static void mira016_pll_calc(struct mira016 *mira016)
-> > >
-> > > It's nice to have a PLL calculator for this. Thank you! :-)
-> > >
-> >
-> > I also considered using the CCS PLL calculator, but this PLL is so
-> > simple it felt like an overkill
->
-> If the CCS PLL calculator fits for the job, I'd just use it. If it does a
-> little more, it's possible to use the same value for minimum and maximum
-> for the relevant parameters.
->
-> > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
-> > > > +{
-> > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
-> > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
-> > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
-> > > > +	};
-> > > > +
-> > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
-> > > > +	if (v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg))
-> > > > +		return dev_err_probe(dev, -EINVAL, "Failed to parse endpoint\n");
-> > >
-> > > Don't mask error codes! Just return the error code returned by
-> > > v4l2_fwnode_endpoint_alloc_parse().
-> > >
-> >
-> > With PTR_ERR() I presume
->
-> v4l2_fwnode_endpoint_alloc_parse() returns an integer.
->
-
-Yeah I just noticed.
-
-> > > > +static int mira016_probe(struct i2c_client *client)
-> > > > +{
-> > > > +	struct device *dev = &client->dev;
-> > > > +	struct mira016 *mira016;
-> > > > +	int ret;
-> > > > +
-> > > > +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
-> > > > +	if (!mira016)
-> > > > +		return -ENOMEM;
-> > > > +
-> > > > +	mira016->dev = &client->dev;
-> > > > +
-> > > > +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
-> > > > +
-> > > > +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
-> > > > +	if (IS_ERR(mira016->regmap))
-> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
-> > > > +				     "failed to initialize CCI\n");
-> > > > +
-> > > > +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> > > > +	if (IS_ERR(mira016->xclk))
-> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
-> > > > +				     "failed to get xclk\n");
-> > > > +
-> > > > +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
-> > > > +	if (mira016_validate_xclk_freq(mira016)) {
-> > > > +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
-> > > > +			mira016->xclk_freq);
-> > > > +		return -EINVAL;
-> > > > +	}
-> > > > +
-> > > > +	ret = mira016_get_regulators(mira016);
-> > > > +	if (ret)
-> > > > +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> > > > +
-> > > > +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-> > > > +						      GPIOD_OUT_HIGH);
-> > > > +	if (IS_ERR(mira016->reset_gpio))
-> > > > +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
-> > > > +				     "failed to get reset gpio\n");
-> > > > +
-> > > > +	ret = mira016_parse_endpoint(dev, mira016);
-> > > > +	if (ret)
-> > > > +		return ret;
-> > >
-> > > Parsing the endpoint should be done as soon as you can before acquiring
-> > > resources related to power management, for instance. -EPROBE_DEFER may well
-> > > be returned in some cases.
-> > >
-> >
-> > I can probably do that even before calling v4l2_i2c_subdev_init()
->
-> Sounds good.
->
-> > > > +static void mira016_remove(struct i2c_client *client)
-> > > > +{
-> > > > +	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> > > > +	struct mira016 *mira016 = to_mira016(sd);
-> > > > +
-> > > > +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
-> > > > +
-> > > > +	v4l2_async_unregister_subdev(sd);
-> > > > +	v4l2_subdev_cleanup(&mira016->sd);
-> > > > +	media_entity_cleanup(&sd->entity);
-> > > > +
-> > > > +	pm_runtime_disable(&client->dev);
-> > > > +	if (!pm_runtime_status_suspended(&client->dev))
-> > > > +		mira016_power_off(&client->dev);
-> > > > +	pm_runtime_set_suspended(&client->dev);
-> > >
-> > > pm_runtime_dont_use_autosuspend()?
-> > >
-> >
-> > Ack
-> >
-> > Thanks for the review!
->
-> You're welcome! :-)
->
-
-Thanks
-  j
-
+> 
+> X1E80100 has four CSIPHY instances while Glymur has three
+> (CSIPHY0, CSIPHY1, CSIPHY4), expressed entirely in DT.
+> 
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>   .../bindings/media/qcom,glymur-camss.yaml          | 300 +++++++++++++++++++++
+>   1 file changed, 300 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
+> new file mode 100644
+> index 0000000000000000000000000000000000000000..a0b77edc212319fad69113f3d55ca24f184d4b23
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/qcom,glymur-camss.yaml
+> @@ -0,0 +1,300 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/qcom,glymur-camss.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Glymur Camera Subsystem (CAMSS)
+> +
+> +maintainers:
+> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> +
+> +description:
+> +  The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,glymur-camss
+> +
+> +  reg:
+> +    maxItems: 13
+> +
+> +  reg-names:
+> +    items:
+> +      - const: csid_wrapper
+> +      - const: csid0
+> +      - const: csid1
+> +      - const: csid2
+> +      - const: csid_lite0
+> +      - const: csid_lite1
+> +      - const: csitpg0
+> +      - const: csitpg1
+> +      - const: csitpg2
+> +      - const: vfe0
+> +      - const: vfe1
+> +      - const: vfe_lite0
+> +      - const: vfe_lite1
+> +
+> +  clocks:
+> +    maxItems: 20
+> +
+> +  clock-names:
+> +    items:
+> +      - const: camnoc_nrt_axi
+> +      - const: camnoc_rt_axi
+> +      - const: core_ahb
+> +      - const: cpas_ahb
+> +      - const: cpas_fast_ahb
+> +      - const: cpas_vfe0
+> +      - const: cpas_vfe1
+> +      - const: cpas_vfe_lite
+> +      - const: csid
+> +      - const: csid_csiphy_rx
+> +      - const: gcc_axi_hf
+> +      - const: gcc_axi_sf
+> +      - const: vfe0
+> +      - const: vfe0_fast_ahb
+> +      - const: vfe1
+> +      - const: vfe1_fast_ahb
+> +      - const: vfe_lite
+> +      - const: vfe_lite_ahb
+> +      - const: vfe_lite_cphy_rx
+> +      - const: vfe_lite_csid
+> +
+> +  interrupts:
+> +    maxItems: 9
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: csid0
+> +      - const: csid1
+> +      - const: csid2
+> +      - const: csid_lite0
+> +      - const: csid_lite1
+> +      - const: vfe0
+> +      - const: vfe1
+> +      - const: vfe_lite0
+> +      - const: vfe_lite1
+> +
+> +  interconnects:
+> +    maxItems: 4
+> +
+> +  interconnect-names:
+> +    items:
+> +      - const: ahb
+> +      - const: hf_mnoc
+> +      - const: sf_mnoc
+> +      - const: sf_icp_mnoc
+> +
+> +  iommus:
+> +    items:
+> +      - description: S1 HLOS IFE and IFE_LITE non-protected
+> +
+> +  power-domains:
+> +    items:
+> +      - description: IFE0 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: IFE1 GDSC - Image Front End, Global Distributed Switch Controller.
+> +      - description: Titan Top GDSC - Titan ISP Block, Global Distributed Switch Controller.
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: ife0
+> +      - const: ife1
+> +      - const: top
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    description:
+> +      CSI input ports.
+> +
+> +    patternProperties:
+> +      "^port@[0-3]$":
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +
+> +        description:
+> +          Input port for receiving CSI data.
+> +
+> +        properties:
+> +          endpoint:
+> +            $ref: video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - clocks
+> +  - clock-names
+> +  - interrupts
+> +  - interrupt-names
+> +  - interconnects
+> +  - interconnect-names
+> +  - iommus
+> +  - power-domains
+> +  - power-domain-names
+> +  - ports
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,glymur-gcc.h>
+> +    #include <dt-bindings/clock/qcom,glymur-camcc.h>
+> +    #include <dt-bindings/interconnect/qcom,glymur-rpmh.h>
+> +    #include <dt-bindings/interconnect/qcom,icc.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/power/qcom-rpmpd.h>
+> +
+> +    soc {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        camss: isp@acb6000 {
+> +            compatible = "qcom,glymur-camss";
+> +
+> +            reg = <0x0 0x0acb6000 0x0 0x1000>,
+> +                  <0x0 0x0acb7000 0x0 0x2000>,
+> +                  <0x0 0x0acb9000 0x0 0x2000>,
+> +                  <0x0 0x0acbb000 0x0 0x2000>,
+> +                  <0x0 0x0acc6000 0x0 0x1000>,
+> +                  <0x0 0x0acca000 0x0 0x1000>,
+> +                  <0x0 0x0acf6000 0x0 0x1000>,
+> +                  <0x0 0x0acf7000 0x0 0x1000>,
+> +                  <0x0 0x0acf8000 0x0 0x1000>,
+> +                  <0x0 0x0ac62000 0x0 0xf000>,
+> +                  <0x0 0x0ac71000 0x0 0xf000>,
+> +                  <0x0 0x0acc7000 0x0 0x2000>,
+> +                  <0x0 0x0accb000 0x0 0x2000>;
+> +            reg-names = "csid_wrapper",
+> +                        "csid0",
+> +                        "csid1",
+> +                        "csid2",
+> +                        "csid_lite0",
+> +                        "csid_lite1",
+> +                        "csitpg0",
+> +                        "csitpg1",
+> +                        "csitpg2",
+> +                        "vfe0",
+> +                        "vfe1",
+> +                        "vfe_lite0",
+> +                        "vfe_lite1";
+> +
+> +            clocks = <&camcc CAM_CC_CAMNOC_AXI_NRT_CLK>,
+> +                     <&camcc CAM_CC_CAMNOC_AXI_RT_CLK>,
+> +                     <&camcc CAM_CC_CORE_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_FAST_AHB_CLK>,
+> +                     <&camcc CAM_CC_CPAS_IFE_0_CLK>,
+> +                     <&camcc CAM_CC_CPAS_IFE_1_CLK>,
+> +                     <&camcc CAM_CC_CPAS_IFE_LITE_CLK>,
+> +                     <&camcc CAM_CC_CSID_CLK>,
+> +                     <&camcc CAM_CC_CSID_CSIPHY_RX_CLK>,
+> +                     <&gcc GCC_CAMERA_HF_AXI_CLK>,
+> +                     <&gcc GCC_CAMERA_SF_AXI_CLK>,
+> +                     <&camcc CAM_CC_IFE_0_CLK>,
+> +                     <&camcc CAM_CC_IFE_0_FAST_AHB_CLK>,
+> +                     <&camcc CAM_CC_IFE_1_CLK>,
+> +                     <&camcc CAM_CC_IFE_1_FAST_AHB_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_AHB_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CPHY_RX_CLK>,
+> +                     <&camcc CAM_CC_IFE_LITE_CSID_CLK>;
+> +            clock-names = "camnoc_nrt_axi",
+> +                          "camnoc_rt_axi",
+> +                          "core_ahb",
+> +                          "cpas_ahb",
+> +                          "cpas_fast_ahb",
+> +                          "cpas_vfe0",
+> +                          "cpas_vfe1",
+> +                          "cpas_vfe_lite",
+> +                          "csid",
+> +                          "csid_csiphy_rx",
+> +                          "gcc_axi_hf",
+> +                          "gcc_axi_sf",
+> +                          "vfe0",
+> +                          "vfe0_fast_ahb",
+> +                          "vfe1",
+> +                          "vfe1_fast_ahb",
+> +                          "vfe_lite",
+> +                          "vfe_lite_ahb",
+> +                          "vfe_lite_cphy_rx",
+> +                          "vfe_lite_csid";
+> +
+> +            interrupts = <GIC_SPI 601 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 603 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 431 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 457 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 436 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 270 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 271 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 458 IRQ_TYPE_EDGE_RISING>,
+> +                         <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>;
+> +            interrupt-names = "csid0",
+> +                              "csid1",
+> +                              "csid2",
+> +                              "csid_lite0",
+> +                              "csid_lite1",
+> +                              "vfe0",
+> +                              "vfe1",
+> +                              "vfe_lite0",
+> +                              "vfe_lite1";
+> +
+> +            interconnects = <&hsc_noc MASTER_APPSS_PROC QCOM_ICC_TAG_ACTIVE_ONLY
+> +                             &config_noc SLAVE_CAMERA_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
+> +                            <&mmss_noc MASTER_CAMNOC_HF QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +                            <&mmss_noc MASTER_CAMNOC_SF QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
+> +                            <&mmss_noc MASTER_CAMNOC_ICP QCOM_ICC_TAG_ALWAYS
+> +                             &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
+> +            interconnect-names = "ahb",
+> +                                 "hf_mnoc",
+> +                                 "sf_mnoc",
+> +                                 "sf_icp_mnoc";
+> +
+> +            iommus = <&apps_smmu 0x800 0x20>;
+> +
+> +            power-domains = <&camcc CAM_CC_IFE_0_GDSC>,
+> +                            <&camcc CAM_CC_IFE_1_GDSC>,
+> +                            <&camcc CAM_CC_TITAN_TOP_GDSC>;
+> +            power-domain-names = "ife0",
+> +                                 "ife1",
+> +                                 "top";
+> +
+> +            ports {
+> +                #address-cells = <1>;
+> +                #size-cells = <0>;
+> +
+> +                port@0 {
+> +                    reg = <0>;
+> +                    camss_csiphy0_ep: endpoint {
+> +                        data-lanes = <1 2 3 4>;
+> +                        remote-endpoint = <&csiphy0_out>;
+> +                    };
+> +                };
+> +
+> +                port@1 {
+> +                    reg = <1>;
+> +                    camss_csiphy1_ep: endpoint {
+> +                        data-lanes = <1 2 3 4>;
+> +                        remote-endpoint = <&csiphy1_out>;
+> +                    };
+> +                };
+> +
+> +                port@3 {
+> +                    reg = <3>;
+> +                    camss_csiphy4_ep: endpoint {
+> +                        data-lanes = <1 2 3 4>;
+> +                        remote-endpoint = <&csiphy4_out>;
+> +                    };
+> +                };
+> +            };
+> +        };
+> +    };
+> 
 > --
-> Regards,
->
-> Sakari Ailus
+> 2.34.1
+> 
+> 
+
