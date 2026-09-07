@@ -1,179 +1,379 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com [209.85.214.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B035148033F
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 10:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DAC4471273
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:00:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788778622; cv=none; b=YJac2u1Wzl+JXIDMr9Hyd6JmgcyaJ1ahR63x0B0qADvwRKarOwrIM9RV/UXNCqK0clVxVg7TiTSmrfIKwsjQFGHLJrXY8XbAeVVcv61tS46WKRlauxEaep4jSBMR3KBqT5T+rqCtnZRgCYR7x5BipezXCs9AAFKaySPIgDlMogY=
+	t=1788778843; cv=none; b=c2u4BWvz7gCJsSraEO3KSAhQkfS9I9B2d0M45XDZgmmGAK1IwJ3iT9r/Y0h96FYx1wGWSZM5j5UFdDtLMCFE9Mg85r0rDInnuMG9Lk08mWT/WLtY3cYEZETrqwgaaqez/GCN0iGUcCKnVGlvXSMuXIpKyhGxxnIVg1pyfAGV5iI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788778622; c=relaxed/simple;
-	bh=v1gOmgndgVwqDZV5PtIH26ja5YsrzDRqZskTemBCXng=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tbg640OOkSv6/jAbtjUKLMuQEbm51At7i6d2JdO9++Ry35yfTi5fWxjGEzUeh+AMKdg4GMRBqIxHkinN0izUD/I8I1YkjZOe0KmR7z7e4m7osb8Je3jZGFmqRN94cvTqMkmxS8lPXvQb7dpzLBHR6a9uZPcvIHAiondsIFSEoWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SMDs+HB5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hoMn4IyK; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1788778843; c=relaxed/simple;
+	bh=hSbWcPg05KVdFqFuBKVec1C2BhxVnKddy8QAZg8aOrI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lGS1twsiqJ0u1q1IDEBpYjgtTAI9aaCgo8r69zYtQPccBKYuHIOxc4B6TU1adDJbjZLOnsZRfuX1cCwyQCn11CGoCpbFWfW7YJs7Y7EflO3tUmXa//R5xKxOUnjE82ownodFmyAjy2XUgfQUYHtBABinR9Lhc4c/rKVpgTFAIkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=KgNuOq3/; arc=none smtp.client-ip=209.85.214.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SMDs+HB5";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hoMn4IyK"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 687An3j83873334
-	for <linux-media@vger.kernel.org>; Mon, 7 Sep 2026 10:56:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	S/u2aOnm7jMdJvz7fdHpTftANtj5i2bKRGQOMp2ZeKc=; b=SMDs+HB5G3BJ4Haf
-	jEPFDlTrUrnXF7BWyrIGYFivDdaud7fvIL7+z8AlFDabEKQyYfBu4fSNhq4yl1nZ
-	EIOtEI/8q3+7EZjsLZEF3j2Z03Ahc03OhfzaQ51c1UU3czOPrtrOdnj8ekouxUeC
-	jPLaA62Vlyo1Nbg98zcUOiGEKCDXdxY94gfO/FxubMzhIZKCUbNWJRdYe3RmJzzI
-	2TTJEgShVm9J5zEjKcCcjtb6jSA7lGelod47u9n9QHQB6mHPHM0x6urthO99O8oy
-	YhC4FGmDDfOf7c1BqNP+efAqqqluBIu65b0AeBM+P8Me5n/AiHI0Py2+XWNiFWKp
-	SgCE+Q==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ghnmj1p8u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 10:56:58 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-396b9ef3070so5460840a91.3
-        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 03:56:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="KgNuOq3/"
+Received: by mail-pl1-f169.google.com with SMTP id d9443c01a7336-2d9db539a54so26842065ad.0
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 04:00:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1788778618; x=1789383418; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S/u2aOnm7jMdJvz7fdHpTftANtj5i2bKRGQOMp2ZeKc=;
-        b=hoMn4IyKPpo+eSABUFLWrwTgFo++A9qsBjJH5kA3+thQUk094CgG1NMqXMCR79MVLp
-         rLLexeSf/ZJlzQXUNBgo2yhoNVByfWh/n/MkKHExYIZFWQwfycb07Wz1ctmWhXVDzrxp
-         LB0abEYzTDa/By1ETkKoKIYDH4k+RtViJE3eyQkUT+eMQIdNGGDGM0aKbMFe2lGY03ye
-         u6E90yIAlJjiKuC5e0lKt1emia3+deWCSA9kNpgtVdXgkAGpRScnrLlpj9ITUREWqV1X
-         7WCPGZ149PCzAhv+EjVTkWuYta2lWuzQdfc2gRv3djrafY43jE6RvBC4wYff89cMYnR+
-         JPsw==
+        d=chromium.org; s=google; t=1788778841; x=1789383641; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Ttp/KYYLgftsnk1qhEW1Mdud2MrrLLmZu152prkmqBo=;
+        b=KgNuOq3/I/B1PghgF9D3l5tJuD8JZN2DZGdPcVpvwrmXEh0zMwnmr1Z24A62ubGQfK
+         +we5vNMysDskD7JDDVAmZUhKSAGRRrVO5Ox96unLxuLxza00t/v9GNKKlmfjiOhuvu7V
+         Svp43R9F+Qb4IWDvykqHC99Gq+I9g3tqRgHFM=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1788778618; x=1789383418;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=S/u2aOnm7jMdJvz7fdHpTftANtj5i2bKRGQOMp2ZeKc=;
-        b=kccLxHj0tJQCsFbYk8WFEdpshaItNEEDI2KTBXIAFr1dhUOSBE8UIkuA9L5hPdF48h
-         rqK+RKvdTuJIclqDFzyYNRH82VQQA1SWP9+qdy54aBloAV6wxx+GyQvHVgKq07dnsIbX
-         Us55Q6ZNbzd645qB6gcFOoxW88/kwVhgGSZqJjHjK49gzf21/61HmaA1P64KDgl7Pq3D
-         pnpLIrz4wqxsqRC0FaUrJVpFdgk3hho/dzjsDDBHsOSqjWrsdrHQZpeJUcjsXFeg5AJm
-         7WE63wMSKf4OzEuVL7r7SFdf1MUL+ZaOLrfrS5AEfA8I2PhpLqjDcq3Uo67pKAQX1wHe
-         jnaQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw5T7kgV71PMnL5UQuSFn8iZL8nRF+r4UL2eEqztr3lKz6qgj5eUCGRNiCVeecmF60fsFWaSeZ85ju3KA==@vger.kernel.org
-X-Gm-Message-State: AFuF++lUXyJms3jRigP0vJLtkL7rgvNNVkjoRSH7gVxvTFEMukVDePYS
-	Gs84bigjT5ebt8XcbkRN9dysdF5kNqHpGRBYuGNtbfycyV7ZoU7KarrdHpQLc5j9RxWbNzv3U3e
-	Pa6av8+K1N0fv+QdedZqI+LEK2dxCMon9KBmb4VJPGL+y76JTCs/mBxVCgw3R6xZYUg==
-X-Gm-Gg: AYBFou1AXxlC7cCYqpuxV/tgidZFpdFls7eM7+2AkyNVXIFRV+GNAc6H2r+Z18SRiv/
-	I2rRv8oZQM0uHpqJirv9zCie14aM+scf48StypCTJbMwT0tw+gfBCOqUF3TTLMy/MNoPWtcv3s/
-	7GYlQVz9gnHRXBItcgIa0Ju/kaJvchSvlPzByxbBHrXbdUyH8g9jtGNZ3Re/nUbxZxZI4NmW8RR
-	6CajSViVRr74M5iPH1fNr7bj/pcW3J/VFMDbLM6KBdOQFmubHIyJjAbR1ibDKgDSl6y0WWPsv3t
-	pz9jTi7KKiz3rNiYf4QyKiPU9A2R7IvxlZ034HQbQwGyARKtWrq+9VMjw7YqBdCeGKzqXGwLXMl
-	65+rIRf6toH6bBGNAbadudGD00/WHXJtAYzfIuMNkJ+yayOjZy9pOf5ENq2AJN7PeMeEZDEeFOl
-	hW8Bt6v6UnqFm6Vq3w7g==
-X-Received: by 2002:a17:90a:1189:b0:39b:61f1:8032 with SMTP id 98e67ed59e1d1-39b61f18060mr6977288a91.16.1788778617632;
-        Mon, 07 Sep 2026 03:56:57 -0700 (PDT)
-X-Received: by 2002:a17:90a:1189:b0:39b:61f1:8032 with SMTP id 98e67ed59e1d1-39b61f18060mr6977214a91.16.1788778617136;
-        Mon, 07 Sep 2026 03:56:57 -0700 (PDT)
-Received: from [10.79.116.160] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3339885d29esm30014762eec.2.2026.09.07.03.56.49
+        d=1e100.net; s=20251104; t=1788778841; x=1789383641;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ttp/KYYLgftsnk1qhEW1Mdud2MrrLLmZu152prkmqBo=;
+        b=SuAqyxiNaEWjKHhzEvxikqMLItUe6rnZt8HW+6KzTuq5kF9fZLn251/4H/pdLZ2/o0
+         6n4Ozpg5fNrivgvtGez7Smu42uX2ddbJGvLCPu9p1DFfXvCXA71ZlPW+6nZT3gLG/Xax
+         cigQyaRvk8el6mI1JR3rYTCO4cuvjXRNXSBy7/8iz347kbNKEJcGVcGJ4pDyCMpnvnm0
+         H2/hz3HA3pq6tapn4LTPQmjXUIaoNsDnsEd32zq+ep4Zd9xlDy56zoDUwlvI3SAwf5Tv
+         5CNnluoFeg7nUBSn9hR70bpHh3swKH+XAKwH8fcdBHl+eviGtqCuLhDPxlkkk5LWNZea
+         KRUw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvmWoVyUzXNtNbcQXTmZT7+Mvm+hOHXAPUNfGGChUMJGOEZpd62LwySpdcBqVtbh3JYRKalAfktmOynw==@vger.kernel.org
+X-Gm-Message-State: AFuF++ks3RXJ1UJaZ8R9qjy7fnoWEwEfq3wnUYx46TOmNwHc97fvfS4U
+	Opuxdhb0LvQ3i6BUY2LBKmDIPEIKhmgsEUML137rkthNzlaoXLfIXDl3vUicjq/GhKdZqB+1u5b
+	qYQIHgw==
+X-Gm-Gg: AYBFou0unVST8mpuslVDIpJCnjdxMQRjH4CeXOaEnzh/hE90Gvq8Am2sL+HxiKMxNWf
+	OS7NkUgduPS6D+ZBSWahbeVmAl1qBSUJoEaq5m7ki7u/LZpNWbYwLUcfJitd0hQ+hd2+X5zERhD
+	cZDYG7ByE6pUWtpxQrSv9T8Io0aomYvE+GUBQeZ1toYoPpd5XTE17+mjk0ld24zg2Um+xUOH3Jh
+	zuNbieMUZ46V0kUw2wRb6d43jXBBe7y6BUx31htajDS2Lb136TxtCBjhDhgDOx14bkp/qM/cg9l
+	+NYHtF/eD0ZIfPAFtlYe/DKKq7WynIbef528q+94EbeC8bWHN377vAzGwjrx79eOIxz3EgYbMXy
+	/3SyMNrbA9+xWhojWYCO33VNOck2/9v0w8OXc0LMxeZufNFxIMaSItBOHsBRfVRlfkRGFVviOpz
+	pkSp2gTWh0ZWtBH1wyqiEhEQS+8kt9phrmLyDG9QorWF/l2r9Q6KqmGQSJj9m3SHDnBo/X9Q/bV
+	jCJez9FzxaXnQq5wMz3CQTJpw==
+X-Received: by 2002:a17:90b:35cb:b0:398:a486:81ec with SMTP id 98e67ed59e1d1-39b261ae617mr38466890a91.11.1788778840463;
+        Mon, 07 Sep 2026 04:00:40 -0700 (PDT)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com. [209.85.216.47])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm26425567a91.13.2026.09.07.04.00.40
+        for <linux-media@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 07 Sep 2026 03:56:56 -0700 (PDT)
-Message-ID: <97360c1c-f573-48c5-9917-4bbc34ad394d@oss.qualcomm.com>
-Date: Mon, 7 Sep 2026 16:26:48 +0530
+        Mon, 07 Sep 2026 04:00:40 -0700 (PDT)
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-38e58034d05so2725790a91.2
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 04:00:40 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzGk90535iIiIJxLZanm8ebxSr8EpqSQZYN+8H3JLZ7bREE4F5DkcrfIT5TUN3UwkY+Fbuddi6+YuKoww==@vger.kernel.org
+X-Received: by 2002:a17:90b:4d85:b0:37d:f206:a2ac with SMTP id
+ 98e67ed59e1d1-39b2617abf0mr33879466a91.7.1788778837689; Mon, 07 Sep 2026
+ 04:00:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/6] dt-bindings: phy: qcom,x1e80100-csi2-phy: Add
- Glymur compatible
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
-        Guru Das Srinagesh <linux@gurudas.dev>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
-Content-Language: en-US
-From: Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-In-Reply-To: <20260907-glymur_camss-v2-1-75f7982dc983@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTA3MDEyMCBTYWx0ZWRfXw6VmUrqiJIE6
- oTiVKs9HVLiQ1gEPE84BmH3FBEcpU18k5U5qfIz2wpMaHNgFvs49r4dlgl8CyjDKK9SDfgMKZJC
- KZiEKtwnQDmmDh1KSQ8WADJVUf7lUXPR1Hc6x3yi/MUZCe/VFQxti91zx9KPHLYCaOothM+2J1z
- lU4PSZx/PNAyeCxpZzQjAT4eYDK35i5AuLgA315A8Vys35X2vSLAuHC6SN9oMCgMHIxWBmD5sUO
- /J0Qd0bNpd4V22OiFlYvq5Bn16S4VXqbUFoVA7vXc0taEJudo1L6Wu9JZ73DxTDND+26BV+KRPM
- wOAxklr55NzA3Jx3H4bSBoS8iRKC2XHMNncN7JUkq/6LugVzBVYFkZdjhyDnSCf2cR2NT3jTMLt
- FbEyQ+3Vkp7cuUXV8CGPZfjx3NWyF0thDO/CiVwuDshQY2IL3pEF1+MAa6nfXZpTsasvQIno2kt
- eaO+IJOIABZR5Mv6uSA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTA3MDEyMCBTYWx0ZWRfX69WHw3pTNfB0
- X+Dki0Jg+8F8arJkbckHGt+402wGVEGBT+0i8ZVxdiDggeTRJAxZ/5bvvd/RiyLSEaostUYLqpI
- GAGuahib0SPqAkcWHk6r+ugQqysTMMk=
-X-Proofpoint-ORIG-GUID: X22mW4qHUbyPWB-mYj7UTBzCNXzDznED
-X-Proofpoint-GUID: X22mW4qHUbyPWB-mYj7UTBzCNXzDznED
-X-Authority-Analysis: v=2.4 cv=LZYMLDfi c=1 sm=1 tr=0 ts=6a9e987a cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=FCQm1kSmxEXMnWVgeMgA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-07_03,2026-09-07_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 impostorscore=0
- lowpriorityscore=0 phishscore=0 bulkscore=0 clxscore=1011 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2606150000 definitions=main-2609070120
+References: <20260903131141.6368-1-huhb1@xiaopeng.com> <20260903141532.6693-1-huhb1@xiaopeng.com>
+ <CANiDSCuxtH1wbXAwoWrbV6Y97dN3Ym-A2zSbkEpLVEGFToXLfg@mail.gmail.com> <CAEN5SX-wJO0b+uMufCpQCDXCaiHGaucAE+t7ahLTtbtNFyop7Q@mail.gmail.com>
+In-Reply-To: <CAEN5SX-wJO0b+uMufCpQCDXCaiHGaucAE+t7ahLTtbtNFyop7Q@mail.gmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 7 Sep 2026 13:00:23 +0200
+X-Gmail-Original-Message-ID: <CANiDSCup31OTP-5WEDn8AMrFiidJfWFCNEp+FhpHQjN57-16_w@mail.gmail.com>
+X-Gm-Features: AcwNN1W9-U8mY4AEQJHpdqp1e0wOFY5D0ghBJlMwS6FiBhL70-ervQyzAw3j7wY
+Message-ID: <CANiDSCup31OTP-5WEDn8AMrFiidJfWFCNEp+FhpHQjN57-16_w@mail.gmail.com>
+Subject: Re: [PATCH v2] media: uvcvideo: defer cancelled buffer completion
+ until copies finish
+To: =?UTF-8?B?6IOh5rSq5YW1?= <huhb04@gmail.com>
+Cc: laurent.pinchart@ideasonboard.com, hansg@kernel.org, mchehab@kernel.org, 
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/7/2026 1:43 PM, Nihal Kumar Gupta wrote:
-> Glymur integrates the same CSI2 PHY IP as X1E80100. Add
-> qcom,glymur-csi2-phy falling back to qcom,x1e80100-csi2-phy.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> index 993271c42fa063a82cb0f6edd41e87b30bc8e109..7ac944974849b99abd982b1544ef39fc32e1f21b 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
+Hi
 
-There is no such file as qcom,x1e80100-csi2-phy.yaml,
-Same was pointed out earlier on another patch,
-https://lore.kernel.org/all/20260722-literate-nondescript-seagull-cbdfaa@quoll/
+On Mon, 7 Sept 2026 at 05:23, =E8=83=A1=E6=B4=AA=E5=85=B5 <huhb04@gmail.com=
+> wrote:
+>
+> Hi Ricardo,
+> Sorry for the late reply and thanks for your review.
+> The issue is exactly as you described.
+>
+> Ricardo Ribalda <ribalda@chromium.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=884=
+=E6=97=A5=E5=91=A8=E4=BA=94 21:00=E5=86=99=E9=81=93=EF=BC=9A
+>>
+>> Hi Hongbing
+>>
+>> Let me rewrite the commit message for me, because it took me a while
+>> to understand what was going on. (totally on me). Please correct me if
+>> I miss-understood the issue.
+>>
+>> The UVC driver processes frames in urbs. A frame usually is divided in
+>> multiple urbs. The urb handler parses the header and the metadata, but
+>> leaves the expensive memcpy to a workqueue.
+>>
+>> At any given moment, during streamon we will have:
+>> - the current frame with (0-N) async memcpys waiting to happen. The
+>> current frame is in queue->irqqueue. It has a refcnt of 1 + N memcpy
+>> - Previous frames with (N) async memcpys waiting to happen. They are
+>> not in queue->irqqueue. They have a refcnt of N memcpy
+>>
+>> With the current behaviour, when there is urb with an error we flush
+>> the queue->irqque() irrespetively if they have any pending memcpys.
+>>
+>> There can be situations where the memcpy occurs after we have flushed
+>> the frames and they are returned to the user. Instead, we should
+>> exploit the refcnt mechanism to return the frames only after the
+>> memcpys have been completed.
+>>
+>> This patch does so
+>>
+>> On Thu, 3 Sept 2026 at 16:33, Hongbing Hu <huhb04@gmail.com> wrote:
+>> >
+>> > From: Hongbing Hu <huhb04@gmail.com>
+>> >
+>> > uvc_queue_cancel() returns queued buffers to videobuf2 directly via
+>> > vb2_buffer_done(). This is unsafe because asynchronous memcpy workers =
+may
+>> > still hold a reference on the same uvc_buffer. Once vb2_buffer_done() =
+has
+>> > run, userspace can dequeue and requeue the buffer while the old worker=
+ is
+>> > still running, leading to the same list_head being inserted into irqqu=
+eue
+>> > twice and corrupting the list.
+>> >
+>> > The crash manifests in two ways depending on the drop-corrupted-frames
+>> > module parameter:
+>> >
+>> > 1. With the drop corrupted frames enabled, the old worker's
+>> >    final kref_put reaches uvc_queue_buffer_complete(), sees buf->error=
+ set,
+>> >    and calls uvc_queue_buffer_requeue(). This performs list_add_tail()=
+ on
+>> >    buf->queue even though userspace has already QBUF'd the same buffer=
+ and
+>> >    added it to irqqueue.
+>> >
+>> > 2. With nodrop=3D1, uvc_queue_buffer_complete() calls vb2_buffer_done(=
+) a
+>> >    second time. If userspace has already dequeued and requeued the buf=
+fer,
+>> >    the second completion exposes it to userspace again, and the next
+>> >    DQBUF/QBUF inserts the still-linked list_head into irqqueue a secon=
+d
+>> >    time.
+>> >
+>> > Both cases produce the kind of list_del corruption seen here:
+>> >
+>> >     list_del corruption. next->prev should be ..., but was ...
+>> >     kernel BUG at lib/list_debug.c:64!
+>> >
+>> > Fix the cancel path to remove buffers from irqqueue and drop the queue=
+'s
+>> > reference through uvc_queue_buffer_release() (i.e. kref_put()). The fi=
+nal
+>> > VB2 completion then only happens from uvc_queue_buffer_complete() once=
+ the
+>> > last async reference is released, so userspace cannot reuse the buffer
+>> > while an old worker still accesses it.
+>> >
+>> > A buffer whose state is already UVC_BUF_STATE_ERROR is forced to compl=
+ete
+>> > as an error and must not be requeued by the corrupted-frame policy. No=
+rmal
+>> > malformed frames are still requeued/dropped as before.
+>> >
+>> > Fixes: 01e90464e42e ("media: uvcvideo: queue: Support asynchronous buf=
+fer handling")
+>> > Cc: stable@vger.kernel.org
+>> > Signed-off-by: Hongbing Hu <huhb04@gmail.com>
+>> > ---
+>> > v2: corrected author real name in From/SOB per maintainer feedback
+>> >
+>> >  drivers/media/usb/uvc/uvc_queue.c | 30 ++++++++++++++++++++++++++++--
+>> >  1 file changed, 28 insertions(+), 2 deletions(-)
+>> >
+>> > diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc=
+/uvc_queue.c
+>> > index 3c002c8f44..9206e0a355 100644
+>> > --- a/drivers/media/usb/uvc/uvc_queue.c
+>> > +++ b/drivers/media/usb/uvc/uvc_queue.c
+>> > @@ -289,10 +289,19 @@ int uvc_queue_init(struct uvc_streaming *stream,=
+ struct uvc_video_queue *queue,
+>> >   */
+>> >  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+>> >  {
+>> > +       struct uvc_buffer *buf, *next;
+>> > +       struct list_head local_list;
+>> >         unsigned long flags;
+>> >
+>> > +       INIT_LIST_HEAD(&local_list);
+>> > +
+>> >         spin_lock_irqsave(&queue->irqlock, flags);
+>> > -       __uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+>> > +       while (!list_empty(&queue->irqqueue)) {
+>> > +               buf =3D list_first_entry(&queue->irqqueue, struct uvc_=
+buffer, queue);
+>> > +               list_del(&buf->queue);
+>> > +               buf->state =3D UVC_BUF_STATE_ERROR;
+>> > +               list_add_tail(&buf->queue, &local_list);
+>> > +       }
+>> >         /*
+>> >          * This must be protected by the irqlock spinlock to avoid rac=
+e
+>> >          * conditions between uvc_buffer_queue and the disconnection e=
+vent that
+>> > @@ -303,6 +312,17 @@ void uvc_queue_cancel(struct uvc_video_queue *que=
+ue, int disconnect)
+>> >         if (disconnect)
+>> >                 queue->flags |=3D UVC_QUEUE_DISCONNECTED;
+>> >         spin_unlock_irqrestore(&queue->irqlock, flags);
+>>
+>>
+>> I *think* that you do not need to call uvc_queue_buffer_release
+>> outisde spin_unlock_irqrestore(). You could do it
+>> inside the previous while() and simplify the code.
+>>
+>> The only way to deadlock is  if uvc_queue_buffer_requeue() is called
+>> and you are actively blocking that in your next snippet.
+>>
+>> I would recommend to add a comment in uvc_queue_buffer_complete if you
+>> go that way.
+>
+> OK=EF=BC=8C good idea=E3=80=82
+> I checked the code again.
+> Reusing `buf->state` might make the code look a little confusing. Would i=
+t be better to add a new member "buf->cancelled"? For example, modify it li=
+ke this:
+> vc_queue_cancel()=EF=BC=9Abuf->cancelled =3D true; buf->error =3D 1;uvc_q=
+ueue_buffer_release(buf);
+> uvc_buffer_prepare()=EF=BC=9Abuf->cancelled =3D false;
+> uvc_queue_buffer_complete: !buf->cancelled && buf->error && !nodrop
+>
+> What do you think of this change? Thanks!
 
-> @@ -16,7 +16,11 @@ description:
->  
->  properties:
->    compatible:
-> -    const: qcom,x1e80100-csi2-phy
-> +    oneOf:
-> +      - const: qcom,x1e80100-csi2-phy
-> +      - items:
-> +          - const: qcom,glymur-csi2-phy
-> +          - const: qcom,x1e80100-csi2-phy
->  
->    reg:
->      maxItems: 1
-> 
+
+Both approaches work for me. I have no strong preference for one or
+the other. Lets wait for Laurent or Hans. They might think otherwise.
+
+>
+> diff --git a/drivers/media/usb/uvc/uvc_queue.c b/drivers/media/usb/uvc/uv=
+c_queue.c
+> index 3c002c8f44..1026d7def3 100644
+> --- a/drivers/media/usb/uvc/uvc_queue.c
+> +++ b/drivers/media/usb/uvc/uvc_queue.c
+> @@ -122,6 +122,7 @@ static int uvc_buffer_prepare(struct vb2_buffer *vb)
+>
+>   buf->state =3D UVC_BUF_STATE_QUEUED;
+>   buf->error =3D 0;
+> + buf->cancelled =3D false;
+>   buf->mem =3D vb2_plane_vaddr(vb, 0);
+>   buf->length =3D vb2_plane_size(vb, 0);
+>   if (vb->type !=3D V4L2_BUF_TYPE_VIDEO_OUTPUT)
+> @@ -289,10 +290,17 @@ int uvc_queue_init(struct uvc_streaming *stream, st=
+ruct uvc_video_queue *queue,
+>   */
+>  void uvc_queue_cancel(struct uvc_video_queue *queue, int disconnect)
+>  {
+> + struct uvc_buffer *buf;
+>   unsigned long flags;
+>
+>   spin_lock_irqsave(&queue->irqlock, flags);
+> - __uvc_queue_return_buffers(queue, UVC_BUF_STATE_ERROR);
+> + while (!list_empty(&queue->irqqueue)) {
+> + buf =3D list_first_entry(&queue->irqqueue, struct uvc_buffer, queue);
+> + list_del(&buf->queue);
+> + buf->error =3D 1;
+> + buf->cancelled =3D true;
+> + uvc_queue_buffer_release(buf);
+> + }
+>   /*
+>   * This must be protected by the irqlock spinlock to avoid race
+>   * conditions between uvc_buffer_queue and the disconnection event that
+> @@ -356,7 +364,12 @@ static void uvc_queue_buffer_complete(struct kref *r=
+ef)
+>   struct vb2_buffer *vb =3D &buf->buf.vb2_buf;
+>   struct uvc_video_queue *queue =3D vb2_get_drv_priv(vb->vb2_queue);
+>
+> - if (buf->error && !uvc_no_drop_param) {
+> + /*
+> + * Buffers cancelled from uvc_queue_cancel() are forced to complete as
+> + * errors. They must not be requeued by the corrupted-frame policy even
+> + * when buf->error is set.
+> + */
+> + if (!buf->cancelled && buf->error && !uvc_no_drop_param) {
+>   uvc_queue_buffer_requeue(queue, buf);
+>   return;
+>   }
+> diff --git a/drivers/media/usb/uvc/uvcvideo.h b/drivers/media/usb/uvc/uvc=
+video.h
+> index b6bcee4a22..1b611715fa 100644
+> --- a/drivers/media/usb/uvc/uvcvideo.h
+> +++ b/drivers/media/usb/uvc/uvcvideo.h
+> @@ -317,6 +317,7 @@ struct uvc_buffer {
+>
+>   enum uvc_buffer_state state;
+>   unsigned int error;
+> + bool cancelled;
+>
+>   void *mem;
+>   unsigned int length;
+> --
+> 2.34.1
+>
+>> > +
+>> > +       /*
+>> > +        * Release the queue-owned kref outside the irqlock. The final=
+ VB2
+>> > +        * completion only happens from uvc_queue_buffer_complete() on=
+ce all
+>> > +        * asynchronous copy references have been released, preventing=
+ userspace
+>> > +        * from reusing the buffer while an old worker still accesses =
+it.
+>> > +        */
+>> > +       list_for_each_entry_safe(buf, next, &local_list, queue) {
+>> > +               list_del(&buf->queue);
+>> > +               uvc_queue_buffer_release(buf);
+>> > +       }
+>> >  }
+>> >
+>> >  /*
+>> > @@ -356,7 +376,13 @@ static void uvc_queue_buffer_complete(struct kref=
+ *ref)
+>> >         struct vb2_buffer *vb =3D &buf->buf.vb2_buf;
+>> >         struct uvc_video_queue *queue =3D vb2_get_drv_priv(vb->vb2_que=
+ue);
+>>
+>> If we called uvc_queue_cancel() buf->error is not 1, but the frame is
+>> not complete.
+>>
+>> You cannot return VB2_BUF_STATE_DONE in that situation. I think you
+>> should set buf->error =3D1 inside uvc_queue_cancel
+>>
+>> >
+>> > -       if (buf->error && !uvc_no_drop_param) {
+>> > +       /*
+>> > +        * Buffers cancelled from uvc_queue_cancel() are forced to com=
+plete as
+>> > +        * errors. They must not be requeued by the corrupted-frame po=
+licy even
+>> > +        * when buf->error is set.
+>> > +        */
+>> > +       if (buf->state !=3D UVC_BUF_STATE_ERROR &&
+>> > +           buf->error && !uvc_no_drop_param) {
+>> >                 uvc_queue_buffer_requeue(queue, buf);
+>> >                 return;
+>> >         }
+>> > --
+>> > 2.34.1
+>> >
+>> >
+>>
+>>
+>> --
+>> Ricardo Ribalda
+
+
+
+--=20
+Ricardo Ribalda
