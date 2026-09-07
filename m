@@ -1,67 +1,44 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from forward102d.mail.yandex.net (forward102d.mail.yandex.net [178.154.239.213])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E72045FFDF
-	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 10:26:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13A8B44AB88
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 10:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.154.239.213
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788776772; cv=none; b=DelKs4PAaDZlVT0q7s2ABFL7PvmU6/6pIkHhiJ0RUw3oMxuMROQvG5zpUnmgLEavXCmbZM2gRsm2x0Xk/3+e/n2AMmiNsQcTjJVcsZ8/5pqYpBp6HgututuYt/D4i9XJU69PXi9TLTZC2JkEgHI1JkZB0pt4kAIJCDw/hK5/hvQ=
+	t=1788776923; cv=none; b=sV2HuYmY6x5ZG+1SZe/qCVQa9tGN5ANnj2QblWA1fz47+uR4ZcsUMqiRKbCtyEojtCqIqkhwF1zTqtH1j5U4GyldlHMVWUSbWb38MzDR15yPeH1nPL+zXTj92vA4VjOm7bfGpXOYY1+YUOqBDf9Q4Wd8vtvOCjQGNaNADChdllg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788776772; c=relaxed/simple;
-	bh=DlfoCjWl1vqN7yL0k9I9v8zdeEDCwNgjR33R7Mexisk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tAybAlUNkBtKOiJZpF3UqSTWnk+1lcs4oQtKu8xaMzgWUNbFJAvWtyHKOEHrjbiW9elBrm/U/XC/w4rjyOH/lkt319GomDFsTBiRpMHLkuFD3MkrvGYPdGpm9OiMPACODSYQ8taUSU2rn01FkcOshdWH3gPnYzJnhrWvc/Cy2sQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=G1B9YkM5; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1788776923; c=relaxed/simple;
+	bh=VdZrvPF+6Sbr1E1BI3LTxn7jKiPjHpLQhIIWdbaFPyg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Iz6Lx49sLtxoR/aqmb5+lNEGW9sov/XqStPsbNjoiWiDP6O1RhsPutc6wqGLzSkewRtbYN6ZAOcqPnM1IqS0VSU3LOLucqjEPvVx08t+fnqglNo3cdWITq9RwxIubFV0UKKjHkqc3lS8SWsev8yttez5B+FT1Mu7g11jBoofSNw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru; spf=pass smtp.mailfrom=yandex.ru; dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b=G7INNOo0; arc=none smtp.client-ip=178.154.239.213
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=yandex.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yandex.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="G1B9YkM5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1788776769;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Kf6cO1d0b7MkQ0Nw3kIN/QTJhiVkoNUU5wdDzDB/auY=;
-	b=G1B9YkM5rM/PBbDXKecYaYATf/6Oz03TOlSk2vKJkTVmUaMwy+b0ucFpKLKVvR/x3P1L6V
-	XA1W4NpX7kWdswX+nT/jSpqyEApQRoxLzrlINsLRhWnicnBxNDmWb//d0CftqGSnMSt5fe
-	Y7un7EmcfIEkKt0zf+I30nBFlGYyu6o=
-Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-82-U51eYyZ0OOeKWqbKccmjMQ-1; Mon,
- 07 Sep 2026 06:26:06 -0400
-X-MC-Unique: U51eYyZ0OOeKWqbKccmjMQ-1
-X-Mimecast-MFC-AGG-ID: U51eYyZ0OOeKWqbKccmjMQ_1788776764
-Received: from mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.93])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 1723F1944DE5;
-	Mon,  7 Sep 2026 10:26:04 +0000 (UTC)
-Received: from hpa-thinkpadx1carbongen12.taipei.csb (headnet04.pony-001.prod.iad2.dc.redhat.com [10.2.32.116])
-	by mx-prod-int-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id CA7CC1800348;
-	Mon,  7 Sep 2026 10:25:58 +0000 (UTC)
-From: Kate Hsuan <hpa@redhat.com>
-To: Miguel Vadillo <miguel.vadillo@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <johannes.goede@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=yandex.ru header.i=@yandex.ru header.b="G7INNOo0"
+Received: from mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net (mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net [IPv6:2a02:6b8:c43:9cd:0:640:e66:0])
+	by forward102d.mail.yandex.net (postfix) with ESMTPS id 45677C0180;
+	Mon, 07 Sep 2026 13:28:32 +0300 (MSK)
+Received: by mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net (smtp) with ESMTPSA id USJdU1Fd5Gk0-KGF02kVM;
+	Mon, 07 Sep 2026 13:28:31 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex.ru; s=mail;
+	t=1788776911; bh=eu8J2XS22Xrjfmi9RlHCkcLh0odpjj+c+tkZa1OHhKc=;
+	h=Message-ID:Date:Cc:Subject:To:From;
+	b=G7INNOo0rYx+DHPD3XtEm9mY2SNur/9XGcF7SG8eukmSRBU9hOIWrEInFFq2SMy80
+	 swet4r9gyPDmost+KUZHeRoggh/zLXwLPTWThZ7NX1ALKpYzDHuJsXa2TKeyszIy40
+	 jiaYJEBqVl8pZWpHeR39PdKnP/Y7NjcLz/2tB2jw=
+Authentication-Results: mail-nwsmtp-smtp-production-main-94.klg.yp-c.yandex.net; dkim=pass header.i=@yandex.ru
+From: Dmitry Antipov <dmantipov@yandex.ru>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
 Cc: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Mihail Antsev <mihail.antcev@gmail.com>,
-	=?UTF-8?q?Jos=C3=A9=20Mar=C3=ADa=20Mart=C3=ADn?= <jmmartinf@hotmail.com>,
-	Leif Skunberg <diamondback@cohunt.app>,
-	Samuele Angioli <samuele.angioli@inspect.it>,
-	Ricardo Ribalda <ribalda@chromium.org>,
-	Kees Cook <kees@kernel.org>,
 	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Kate Hsuan <hpa@redhat.com>
-Subject: [PATCH v2 2/2] media: ipu-bridge: Add sensor rotation quirk for Dell XPS 14 (Dell 14 Premium) DA14250
-Date: Mon,  7 Sep 2026 18:25:04 +0800
-Message-ID: <20260907102504.60512-3-hpa@redhat.com>
-In-Reply-To: <20260907102504.60512-1-hpa@redhat.com>
-References: <20260907102504.60512-1-hpa@redhat.com>
+	lvc-project@linuxtesting.org,
+	Dmitry Antipov <dmantipov@yandex.ru>,
+	syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
+Subject: [RESEND PATCH 1/2] media: em28xx: adjust initialization order in em28xx_v4l2_init()
+Date: Mon,  7 Sep 2026 13:28:23 +0300
+Message-ID: <20260907102824.95222-1-dmantipov@yandex.ru>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
@@ -69,36 +46,57 @@ List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.93
 
-Add "Dell XPS 14 (Dell 14 Premium) DA14250" to the list of systems
-requiring a 180-degree sensor rotation quirk. This resolves an issue
-where the IPU camera stream is displayed upside-down.
+In em28xx_v4l2_init(), call to vb2_video_unregister_device() during
+'unregister_dev' cleanup assumes that queues of the corresponding 'struct
+video_device' instance (i.e. 'vdev' of 'struct em28xx_v4l2')  are properly
+initialized, triggering an undefined behavior otherwise. So call
+em28xx_vb2_setup() immediately after video_register_device() and,
+since the former is actually non-void, do not ignore the value returned.
 
-Link: https://bugzilla.redhat.com/show_bug.cgi?id=2510889
-Signed-off-by: Kate Hsuan <hpa@redhat.com>
+Reported-by: syzbot+dd0f06181ab66b93dc00@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=dd0f06181ab66b93dc00
+Fixes: 37ecc7b1278f ("[media] em28xx: add media controller support")
+Signed-off-by: Dmitry Antipov <dmantipov@yandex.ru>
 ---
- drivers/media/pci/intel/ipu-bridge.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/media/usb/em28xx/em28xx-video.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
-index 1bb3a3e98d6b..c9f749bd72d3 100644
---- a/drivers/media/pci/intel/ipu-bridge.c
-+++ b/drivers/media/pci/intel/ipu-bridge.c
-@@ -145,6 +145,13 @@ static const struct dmi_system_id upside_down_sensor_dmi_ids[] = {
- 		},
- 		.driver_data = "OVTI02C1",
- 	},
-+	{
-+		.matches = {
-+			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "Dell Inc."),
-+			DMI_EXACT_MATCH(DMI_PRODUCT_NAME, "XPS 14 (Dell 14 Premium) DA14250"),
-+		},
-+		.driver_data = "OVTI02C1",
-+	},
- 	/*
- 	 * The first four characters of DMI_BOARD_NAME identify the Lenovo
- 	 * machine type/model. For example, a DMI_BOARD_NAME starting with
+diff --git a/drivers/media/usb/em28xx/em28xx-video.c b/drivers/media/usb/em28xx/em28xx-video.c
+index c418add65bb5..324855ff5e86 100644
+--- a/drivers/media/usb/em28xx/em28xx-video.c
++++ b/drivers/media/usb/em28xx/em28xx-video.c
+@@ -2992,13 +2992,19 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 		goto unregister_dev;
+ 	}
+ 
++	v4l2->vb_vbiq.lock = &v4l2->vb_vbi_queue_lock;
++	ret = em28xx_vb2_setup(dev);
++	if (ret) {
++		dev_err(&dev->intf->dev, "unable to setup device queues, error %d\n", ret);
++		goto unregister_dev;
++	}
++
+ 	/* Allocate and fill vbi video_device struct */
+ 	if (em28xx_vbi_supported(dev) == 1) {
+ 		em28xx_vdev_init(dev, &v4l2->vbi_dev, &em28xx_video_template,
+ 				 "vbi");
+ 
+ 		v4l2->vbi_dev.queue = &v4l2->vb_vbiq;
+-		v4l2->vbi_dev.queue->lock = &v4l2->vb_vbi_queue_lock;
+ 		v4l2->vbi_dev.device_caps = V4L2_CAP_STREAMING |
+ 			V4L2_CAP_READWRITE | V4L2_CAP_VBI_CAPTURE;
+ 		if ((v4l2->vdev.device_caps & V4L2_CAP_TUNER) == 0)
+@@ -3068,9 +3074,6 @@ static int em28xx_v4l2_init(struct em28xx *dev)
+ 	/* Save some power by putting tuner to sleep */
+ 	v4l2_device_call_all(&v4l2->v4l2_dev, 0, tuner, standby);
+ 
+-	/* initialize videobuf2 stuff */
+-	em28xx_vb2_setup(dev);
+-
+ 	dev_info(&dev->intf->dev,
+ 		 "V4L2 extension successfully initialized\n");
+ 
 -- 
 2.55.0
 
