@@ -1,101 +1,132 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com [209.85.210.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695A04756C9;
-	Mon,  7 Sep 2026 11:36:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DDBF48EBEA
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 12:18:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780990; cv=none; b=iONoSSvceA7jSYwp/3kuSpj/eRiWZZGv2bFjK7LU5gOm6Orkb8p6a84hjwd/GDUzLhcpfvFStJ+o/GbWglfr+Y8n4WivspxALEyF+N2AFs7LNM4JTX95zFTx6GD3fzk4/unCM4TGxtjZyLuBVmo8H+XxYe2zpN5CAfZ/nwkZoqw=
+	t=1788783540; cv=none; b=Tj1vJak8HQ/ZaI39FYEQXCSXYQIVvfzGwNvPhvvgEZ8TRU9qKfr81j1A9Qt7Sre1fw4XHCnvaMmlH5LEZ+Mkd6QxkIip4dfkjLtuwT5AcMsbdqSlojfxPTUJ4pxvkyRXMXq6BZxJWqt2g7J+ixkzjRzvQpm7sPHcnHi8J2fKXx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788780990; c=relaxed/simple;
-	bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=gA4AW8NRgbt9+TBzVzVpx3OXyyZ+O8HnwDSxQ4LnFIEBZNRr/2n5fnl8pUh3vsSC9ZNKezjOE1bngyFpcB9wHg6jaQpkgFZOLlXlpwAwuLIuN3JZ/GzpNijflfeFIVNBsv73nIADYLaqVoiVbDfYL8pUAahP6pZQgTLJ6o9FYYc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=eUZmKWO5; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1788783540; c=relaxed/simple;
+	bh=SotKMOP7zUiJtWG7JbcS2nlpcvhlbdHg0Kyg5p16B38=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ju3SDgPKQTTmZ16N+I4obIgnNev0uj+2fzcjoHXK01RlbHCh+HwR/IacElYTzGEuNVUePM/iiHVvYv0LyPVMGInCRNu7X4sc2BtEMdOdESRdgTfumGjzVq//Hq559O7xZGHLthJnIdo9LzJMt6ULSEvO32iijEnI13ImxDA/Yb8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lYKNzjDD; arc=none smtp.client-ip=209.85.210.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="eUZmKWO5"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id CB5F74B0;
-	Mon,  7 Sep 2026 13:34:52 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1788780893;
-	bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
-	h=From:Date:Subject:To:Cc:From;
-	b=eUZmKWO5GYyv4gicwQfj8OhnyLfGCKHBnVAtLOhu1M4uZ4IMKKsNCtuYpGWNVD5pK
-	 uJlHYPSJ/YbQqaZbqVdrXGz6ySOnj4RfoKqDqW6kKKk+oWhKShfvCSTaQ1i5k5IIVw
-	 1RnTazKF0CbOmaGzJi1n6VKmE1tu3u1IcVJDlWYw=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Mon, 07 Sep 2026 14:36:09 +0300
-Subject: [PATCH v2] media: v4l2-common: add Y12 to v4l2_format_info()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lYKNzjDD"
+Received: by mail-pf1-f181.google.com with SMTP id d2e1a72fcca58-85339ed040aso2674127b3a.1
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 05:18:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1788783538; x=1789388338; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uaPh5i+FuZkrfBsWH4a7+TIG5RJ95lzG5o9AQinurAE=;
+        b=lYKNzjDDVFcFjjDNpDdLwVhpUlCJIHtjzCGxANz0NAUupP1e7S8/aarYcc+MB+b0V2
+         cfUFHmg8oyYsnOY/H1aR9EQK12mLjAvHu/0NLU3S3pkIoTYB+XJQOjd3/ZMMePQCMXFV
+         curP0VaUbz5bJASZ4AjfAEReQ5R4Mhn17rJMJLxuaf6B1/WpPI1kDLa97VMdKwO1hPs5
+         lHU+dmaOQQcc8pdDlEN9Ih9I25zIawxL24V3a4MyLhnV68kLJEHJnFlVNFSCHEEu+j4n
+         UH4Xgp8+dLB5ZLFx/xVEPB4PMaM5Wevi7ynndlqqxpKyZmuqfQHVjAyMLP8BT/fICL6x
+         +wRw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788783538; x=1789388338;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uaPh5i+FuZkrfBsWH4a7+TIG5RJ95lzG5o9AQinurAE=;
+        b=neQBVO3Oxhf61zzxULxmlSlmF4lFwB6tNAbT0imPGTbYtvkGo4B5CNm/SKDjGxM2to
+         2CKrR81ZcqbVgcM1qsSxkc4hnS1b3X7yr86mrjOFpCxacW/aTVKxVOPzIcecWfGf/i2w
+         oBGmS6imqwygSbu/c6wOPUs9J0PjD5FXgV4C4HEyDOWOgyxZ5+Oujc2xO4MLrmgAALRh
+         uap4ZeWEZFgwXxR+fWY9M4TpXz9/1w4Ltky/KG9mVEN0Ni0R2vISefg5VN6hf95AJkk4
+         C0OlkZBNfKid6aeEV7nU8VIjEAvE3nrcudeID7rpRl+npJ7aXnQY+QkqkosCQC6ZcKsT
+         TQyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxV2inFxxlZ88SsSCR4F4E/HAwoFysVTVdgqSvF1dm1QwkPbcI9SZgFkwwyVzr1JBYFwYlfiXlETNwLhg==@vger.kernel.org
+X-Gm-Message-State: AFuF++keUFPH1Nci1Ih3KSIhgKQ8N3zB/8ygtVBCDGfZ42U5OlVlaIM/
+	mb+Hg+qSM162qXTi3vVwCkUmVjEXTEcp595facQ4VCa/aX8fHe0jNqhK
+X-Gm-Gg: AYBFou0ufE4MBoFlm0E8FbvZ8U9bxPWjv3eRh3Qd3QxOqu1lpPrkKARxScOAR000kmU
+	WIK0V/KpQjp1nk/wCxPLZBvW0utiAQ2D8gfh+QYIzFf/GEcZD7Fx0K9c0ztqWmIZDd8eCJ7+55Z
+	GZuM0RNfshkeDDY35xExf4aWFBAfXirVI2MuohdaRuX5N2aCMvoXGThhzjSAEPwLFEg1/2//VEU
+	H3y74oaF8jc88AR39eyBExVN1uTeWYRoxpXRbjqO+bBJP3L6gcMnxiqZTjwdlMgkNlX/MN0+chW
+	KwrJpWtTY+yLL9DdYx/65ubA3aiGATC7bFrnOZXnzBcBV7bwCxW+JG280cPof4RNIeoMsvK2+zX
+	7R23B1mdO5Z8YTZTgdEufvfZNljA+qRyg6Mepn3yF+WHTXXDn7T/iGGXRi9Y3Aioq0zYjkMXJBJ
+	c90onGYtntBXXGo7fhfojtLwcMiG6iaqEoV3A9hbIrqUkVe3qCXx4c+orFyKuaJRbPf1uUxDl01
+	XToHFNZiUR1CTfn955TcVRSlIMOOMZjGK2aOONUnzjbqo5+w82nrRVVBr8t+zbBe0j2oOb60OYS
+	jwqyYKM=
+X-Received: by 2002:a05:6a21:3a41:b0:3d3:adbf:7782 with SMTP id adf61e73a8af0-3da3a16baebmr39641411637.23.1788783538104;
+        Mon, 07 Sep 2026 05:18:58 -0700 (PDT)
+Received: from LAPTOP-UUUVNN1I.localdomain ([129.126.57.197])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc45545210csm3958174a12.21.2026.09.07.05.18.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 07 Sep 2026 05:18:57 -0700 (PDT)
+From: Wei Jie LAW <98lawweijie@gmail.com>
+To: laurent.pinchart@ideasonboard.com,
+	hansg@kernel.org,
+	mchehab@kernel.org
+Cc: Wei Jie Law <98lawweijie@gmail.com>,
+	guennadi.liakhovetski@linux.intel.com,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	ribalda@chromium.org
+Subject: [PATCH v2] media: uvcvideo: Fix NULL deref on events for uninitialized controls
+Date: Mon,  7 Sep 2026 20:18:43 +0800
+Message-ID: <20260907121844.2592492-1-98lawweijie@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260907-v4l2-format-info-y12-yuv24-v2-1-46d8689dab95@ideasonboard.com>
-X-B4-Tracking: v=1; b=H4sIAKihnmoC/42NQQ6CMBAAv0J6dk27kiqe/IfhUNpF1khrWmgkh
- L8L+AGPk0xmZpEoMiVxLWYRKXPi4FfAQyFsZ/yDgN3KAiVqeZEacvlCaEPszQDs2wCTQpjGjCW
- UeNK2qSplzkasgXeklj97/F7/OI3Nk+ywFTej4zSEOO33rDbvr1FWoMAROiu1akjijR2ZFHwTT
- HRHG3pRL8vyBdvLCXndAAAA
-X-Change-ID: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
-To: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vishal Sagar <vishal.sagar@amd.com>, 
- Nicolas Dufresne <nicolas@ndufresne.ca>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1881;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=SWBIK6gGMsz7pNTKU7LU4Pfbs/fX5wTd4qP8ada3ezo=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqnqG6iMyfAs+UM/Dv8EblCTU60M7MXb0boTmMp
- Mv3e7FiaDaJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCap6hugAKCRD6PaqMvJYe
- 9QUuD/0YVADZUaZQ/9yllsbBhIVGhQwejIamdK6ZPdZEQeaqhFWIYUiFeglqYPqrjPsEfhknEj8
- nOkzn0HiYNAMVetM7EQqzNiLfzS/HY1TFIU0nntxLjrB1WVQBBIDx4ff7rGEn22PDp1Rn8qP6EP
- M93q0yU5MLEfz9t5j/FciyYX9ocpcE7hICyTdLQE9a6krnZpavN6nm528X8fzL0aO9QjDaggWk7
- qBYmM7q94LZRGdV21fjRoSFnAmf/MCprKXlPJaerF85aI17zJM04Tj+w2EY7g12wPf48X1Z55TD
- lKZeWpeX+lzePqv4EGmKHaL14cPmY6gNp9zk6e9xd9xjgziezecrcSYU90Yod71OhebFq+rQElC
- /EQTGGav3Fzbq1dAGwfcFkQ4PZ636Xy0fCecCpRwKGEM80XrqL5fS5cC+IYdAdZNX8yCTPvxvRD
- AdlFIRYfEt4uegHKYHOrlwJu0rJUdRGjZWXw4MI3c0qAIZg5zj4PDP4Cg4irQJUyrilAadlMTT2
- c8QddMNoY/69u5+d6O9sQyLPpb+73UVK8BGt8zZ9CzqEoPTsYLHyDjNpR2WA4ewfGyUYOSnaO21
- T2kAVxkX6igPaYAe1sW/Ln4eQgJvP6yBIhQUO9hpG0i7udABgR69ZTgem0VgHQ/4Ct2SakgN3Va
- 63UClTdH0d1epKg==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
+Content-Transfer-Encoding: 8bit
 
-Add the V4L2_PIX_FMT_Y12 (12-bit greyscale stored in 16 bit container)
-to the v4l2_format_info table.
+From: Wei Jie Law <98lawweijie@gmail.com>
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+A null-ptr-deref exists in v6.12.105 and upstream. KASAN crash log:
+
+  KASAN: null-ptr-deref in range [0x0000000000000080-0x0000000000000087]
+  Workqueue: events uvc_ctrl_status_event_work
+  RIP: 0010:uvc_ctrl_status_event+0x105/0x280
+   uvc_ctrl_status_event_work+0x82/0x240
+   process_one_work+0x66f/0x10b0
+
+XU controls are initialized lazily, on the first UVCIOC_CTRL_MAP or
+UVCIOC_CTRL_QUERY.  Until then ctrl->info is all zeroes, so
+info.mappings is not a valid list head, list_empty() returns false, and
+uvc_ctrl_status_event() walks it from a NULL next pointer.
+
+Fixes: e5225c820c05 ("media: uvcvideo: Send a control event when a Control Change interrupt arrives")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wei Jie Law <98lawweijie@gmail.com>
+Assisted-by: Claude:claude-opus-5
+Reviewed-by: Ricardo Ribalda <ribalda@chromium.org>
+
 ---
 Changes in v2:
-- Drop V4L2_PIX_FMT_YUV24 which was already added upstream
-- Link to v1: https://patch.msgid.link/20260806-v4l2-format-info-y12-yuv24-v1-1-de2dc061be02@ideasonboard.com
----
- drivers/media/v4l2-core/v4l2-common.c | 1 +
- 1 file changed, 1 insertion(+)
+- dropped comments in code based on review received
+- add Reviewed-by from Ricardo Ribalda
+- drop the former [2/2] patch as it is a duplicate (out-of-bounds read in
+  uvc_ctrl_status_event()): already handled by
+  https://lore.kernel.org/linux-media/20260813-uvc-status-11-v1-1-2cf43e9590b0@chromium.org/
 
-diff --git a/drivers/media/v4l2-core/v4l2-common.c b/drivers/media/v4l2-core/v4l2-common.c
-index 65db7340ad38..5920941d7f60 100644
---- a/drivers/media/v4l2-core/v4l2-common.c
-+++ b/drivers/media/v4l2-core/v4l2-common.c
-@@ -333,6 +333,7 @@ const struct v4l2_format_info *v4l2_format_info(u32 format)
- 		{ .format = V4L2_PIX_FMT_YVU420,  .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
- 		{ .format = V4L2_PIX_FMT_YUV422P, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 3, .bpp = { 1, 1, 1, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 1 },
- 		{ .format = V4L2_PIX_FMT_GREY,    .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 1, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
-+		{ .format = V4L2_PIX_FMT_Y12,     .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 1, .bpp = { 2, 0, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 1, .vdiv = 1 },
+v1: https://lore.kernel.org/all/20260907062819.2519878-2-98lawweijie@gmail.com/
+---
+ drivers/media/usb/uvc/uvc_ctrl.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/media/usb/uvc/uvc_ctrl.c b/drivers/media/usb/uvc/uvc_ctrl.c
+index 3ca108b83f1d..ea28c4e819bd 100644
+--- a/drivers/media/usb/uvc/uvc_ctrl.c
++++ b/drivers/media/usb/uvc/uvc_ctrl.c
+@@ -2209,7 +2209,7 @@ bool uvc_ctrl_status_event_async(struct urb *urb, struct uvc_video_chain *chain,
+ 	struct uvc_device *dev = chain->dev;
+ 	struct uvc_ctrl_work *w = &dev->async_ctrl;
  
- 		/* Tiled YUV formats */
- 		{ .format = V4L2_PIX_FMT_NV12_4L4, .pixel_enc = V4L2_PIXEL_ENC_YUV, .mem_planes = 1, .comp_planes = 2, .bpp = { 1, 2, 0, 0 }, .bpp_div = { 1, 1, 1, 1 }, .hdiv = 2, .vdiv = 2 },
-
----
-base-commit: 274af88c8acaa4bb538791047bd17fa5136ba78f
-change-id: 20260806-v4l2-format-info-y12-yuv24-4236cb991a7a
-
-Best regards,
---  
-Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+-	if (list_empty(&ctrl->info.mappings))
++	if (!ctrl->initialized || list_empty(&ctrl->info.mappings))
+ 		return false;
+ 
+ 	w->data = data;
+-- 
+2.43.0
 
