@@ -1,129 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65958473C9D;
-	Mon,  7 Sep 2026 11:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D1F3630BA
+	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788779133; cv=none; b=lQ8RAlZM2/G2tPtV+7/SEucm8sEqUk5JCjmhM+iCVPUizCp98QNGL04DlnAyKrk76qdNtnerjJ7W90QqMGSPRHE4FIeIzyZrT7g1iik+jdeTmUx38dA4gNcx2o9PPfZTeM3EKvr69BILeeAuRJbIKKr2cGx+BHJa8y4+EOMrY0k=
+	t=1788779687; cv=none; b=lyg0xIu31XPKsAxOudAati0/fmtKMYApVGkPxyv8ZxfRcHDemvEaz6chGrvjHagyO3hekCE7wmWHf0o2iS9oLfXK0Qu4Kg0ghjS1GaD9ilJa6G75bmz+Ec9soWKqWd/JXxBsHqpaDoGuHvc4zRnEFoziqNkvq9ForG+T43WSxQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1788779133; c=relaxed/simple;
-	bh=bxSnFx7BSKtGJ8Ahnkmwr18K2E77ghQWFDTSjmPlswg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cw4gYQ213VLvMe6nYZVWZwF9WcaCnkNeHdxhG8qyruC/Mw/06C+w14bSWZVMoDp+5ktVaF3AwFmzQWrJSP/RTvqWL9umb3aRH1rEiu3Y+f2A3oC0RkLS58Xx0oq3GwxVL/MYprnmPLh5mWTpsxndU2JyquYewpF33pJbTWuKCRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lRKNfjaP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1788779687; c=relaxed/simple;
+	bh=U4ijrxCpTbIp1PxRaDG9U9riYMKCgu+sPj7RE/x/+ao=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=W3zs1CDUN9v3dkLCExtsKLjaqR8T0wD8iF464M/D7C/fiEOAmGp7HaHM55r0EhQsnTReCJ6crezVOHW3fDiG9L8E1umhuvgC2QMVDOELqbJR4yZIay8Nlzv8s0mAcyztWTbORA+yTZovyIY3MCIfm5rimJpbEeq/PRanVYDwGww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Z4UAfhYT; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lRKNfjaP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1866D1F00A3D;
-	Mon,  7 Sep 2026 11:05:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1788779132;
-	bh=9w+yezYlK7U311raSgrzFh4bSQ3Pq/lnodM4AqaFq8M=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=lRKNfjaP0TSM+C6Z51ZvaSdSJSuU3udU6ZtvHKuaZh1LmhTJFmwc9czlT6e+bHddE
-	 nOKNS811YQISDkiheK+jJZz2Dp6kUnWWYdwu+r+jQ7WLDEVYvxF8QP6mvRn3AirpMZ
-	 LwBi2j2XJte1cMRpVvZZy9OuMhNVsLnnKbUCQ8xkEWR4fxYQ1NKTaBJhCpAlhoUe13
-	 ZQ0oEcGzZCgqKe8tlGZX2pI+57IhkXQuPdU+I/K5A4PYpoQLcIUdCQfpWB97CmznYI
-	 h0/CFESMTVAiWzH2mJAkcXuNAQqLNm2swTnZb1uJVyBetZVKPbTWnSwmkgtaxfH3v5
-	 MS4xOroj2zC0g==
-Message-ID: <f798b003-4661-4cb9-8a3e-7579d0595904@kernel.org>
-Date: Mon, 7 Sep 2026 12:05:25 +0100
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Z4UAfhYT"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2cace91f112so28033815ad.0
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 04:14:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1788779685; x=1789384485; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cRlEG5pcDk7pkZCUFG/gh9csbwISOYhnxGShmv3bMPM=;
+        b=Z4UAfhYT8+LTKiB/SqbLkzy+232+XaGaqjy3jfjsaDtMUiU64xS/5QLUZ+jslVevGf
+         ePRkV5CHnFXTIUxZLWuvUtakwR3c+t9j5N29lRjGRTvT522BKfXMHg7lfHEGgoIMOUOD
+         Yu9Zw/KQeEmjgJOImKN1QRXzELJGOFII7EapA=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1788779685; x=1789384485;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cRlEG5pcDk7pkZCUFG/gh9csbwISOYhnxGShmv3bMPM=;
+        b=YxFcw/nkZUFp4iaE5g1yPxGFJbkcKyd4RYNzFPCnOUlDVwNDPfmbsMdavv6D0eY3BX
+         9UeiOV1N3XPk3dnaTXO7zH/3MSYitqw63lxO45/XpvStaRGCvkF0jUeJUYsdt3Y1TV++
+         Rpak+L7lZ9NQfn+s/bZMcvEOxomZ2bkihz0HAzOEcfwZ9qnN8yam2Y54NAJUaJkgr1AN
+         U6fMfatjemDiETt52A+a+vGfVD+n9fSvDmgyOL1eittvlXFd44hbhEl/Oa7+IldXkTUv
+         oB4cQZeK1yZ90ta2fpDbtmVGRnRFRQMOfsDBJJBiJv775bhHcJoJspbwFwoTU1BajS1F
+         //oA==
+X-Gm-Message-State: AFuF++ncGzRhy1vPoln4OGQZkJTKDnnoX2nwEMjnw1EBMQynlLw3DnKx
+	A/zR6+wLHajp38Z3S4OsSQ5st75kF5t44L/19uqJNt9AmBYhw9xjEArXc1oKV4SM3xoAI9Z+IEG
+	YVhs=
+X-Gm-Gg: AYBFou0kUhI62hZk2W5y0NUpNJSc7fcZQZROvPpuizy5dzarYbOuQy2XJE+xou7lXh3
+	s5vmxiWhwC/fG3ZuqjAawK5UPBNAwdcanAREcPOvvDL0TgYXYSWruZPoROpunGZJmbe7fnJqzNZ
+	8E9o4MCY4veG7/ZqSxcZ13DvP+Pp0scbhrvcKKRNYJ62AxdduD5NEcQpy1s/Z3VKqfSiu4Fwe+P
+	t1+4JjaVtbVjr+FnTtP1w8WPJs4HFyJHiSl4v70HH5TwsqMXjQPU71wT3XsLPVb8EfN3+q+GCiI
+	+XzpazRnW62mC79EhukqmxMKi+cPhFGQebXfW1/7QUHWJlYoxVwTN8HUawTKUmaEJSGpsylFrBA
+	KJao5AkDxN/W1pJNmI5Qz/xIuK1Nf2tF4UakIExYgmyoYRdmq+wRYVoK8WZBCWChxIGVc1FLFHI
+	DiuR9RJK0FmTRoDB04uvRcp6xsJWYPkzMGQWkqLqEzIwR7NmMJ9f7mhSEeLyCaA2vf+YUSXU5LT
+	ncx0xuHcy7Er0hQRw1FCSCfZF4CO0JqpxijLZ6y
+X-Received: by 2002:a17:90b:1dc3:b0:398:d6f4:c61a with SMTP id 98e67ed59e1d1-39b26207ee4mr34607374a91.17.1788779685393;
+        Mon, 07 Sep 2026 04:14:45 -0700 (PDT)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com. [209.85.210.177])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39b08cacbb0sm26513239a91.13.2026.09.07.04.14.44
+        for <linux-media@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 07 Sep 2026 04:14:45 -0700 (PDT)
+Received: by mail-pf1-f177.google.com with SMTP id d2e1a72fcca58-8541875f596so1211756b3a.0
+        for <linux-media@vger.kernel.org>; Mon, 07 Sep 2026 04:14:44 -0700 (PDT)
+X-Received: by 2002:a05:6a20:734c:b0:3bf:a543:e7f5 with SMTP id
+ adf61e73a8af0-3da39eacfd3mr31314189637.3.1788779683916; Mon, 07 Sep 2026
+ 04:14:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: linux-media@vger.kernel.org
 List-Id: <linux-media.vger.kernel.org>
 List-Subscribe: <mailto:linux-media+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:linux-media+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/6] dt-bindings: media: qcom,glymur-camss: Add Glymur
- CAMSS
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Lee Jones <lee@kernel.org>,
- Guru Das Srinagesh <linux@gurudas.dev>, Liam Girdwood <lgirdwood@gmail.com>,
- Mark Brown <broonie@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
- Suresh Vankadara <svankada@qti.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260907-glymur_camss-v2-0-75f7982dc983@oss.qualcomm.com>
- <iIEI9RqdlqSAwrBGxsv48s_r9QoTRP_IPoifu8PCol261xGqyCULXGQaaMYndhNAFA7YAzraXTr-UzZhguWz3g==@protonmail.internalid>
- <20260907-glymur_camss-v2-2-75f7982dc983@oss.qualcomm.com>
- <3e619085-3311-4acd-9493-e849875563d7@kernel.org>
- <HMhSsbIuGgGqeuA5WMqtACmlFgoNgQBLsfBFZfnuCmLfXfbUtwOV1sM1eDF762HX1aTqREbCfWm72IeQWTAUvA==@protonmail.internalid>
- <9ebc94f1-3ed8-4a21-a84e-ccd46f044927@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-GB
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <9ebc94f1-3ed8-4a21-a84e-ccd46f044927@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <NyIyntNSKnGNUZ9e_D85jiYUrnTPBu_Ux5olvRdPsK8lpjI8wYk-xb6sGrx9eK9iapaHROjWS3G2oeH5rkJyAiyjjYocn4CoYdvUoq92Pss=@protonmail.com>
+ <CANiDSCu2=p_o8qNZeEOQB_um0YH_+3jefB=4xsC6k6Z349xtaQ@mail.gmail.com> <28dJLjsoYQxYnUJloPFduvPFDUb6r-YQrLRK0aT_UZ1GJAMGt9892Ltc6-1Uppe3UiQILaOwlEqsj5W6IUKFUvYDs8osrNPH1Z9MnvE0ed0=@protonmail.com>
+In-Reply-To: <28dJLjsoYQxYnUJloPFduvPFDUb6r-YQrLRK0aT_UZ1GJAMGt9892Ltc6-1Uppe3UiQILaOwlEqsj5W6IUKFUvYDs8osrNPH1Z9MnvE0ed0=@protonmail.com>
+From: Ricardo Ribalda <ribalda@chromium.org>
+Date: Mon, 7 Sep 2026 13:14:28 +0200
+X-Gmail-Original-Message-ID: <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com>
+X-Gm-Features: AcwNN1V9t8lqP1hf1oqrwKIpNCkC4Xu3yy2ZxD5aXckjoh9lDk-eL7nwfOceaa8
+Message-ID: <CANiDSCsQL_AWPz+spNwFkD=iSuDp5YKuk_0KROvmLNx0rG4tfQ@mail.gmail.com>
+Subject: Re: Re : Re: Avermedia GC515 implementation
+To: Edwin Gatier <edwin.gatier@protonmail.com>
+Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 07/09/2026 11:42, Nihal Kumar Gupta wrote:
->>> X1E80100 supports both the legacy CSIPHY resources and the new PHY API;
->>> Glymur uses only the new PHY API via standalone phy@ child nodes,
->>> so per-CSIPHY clocks, interrupts and supplies are absent here.
->> What's up with the commit log here ? There is no legacy CSIPHY in this.. ?
->>
-> Right, Glymur has none — that's the point. X1E80100 supports both;
-> camss_detect_legacy_phy() picks the path at runtime by checking if
-> the remote endpoint is a phy@ node. Glymur is new-path only, hence
-> a dedicated binding without those legacy properties.
+Hi Edwin
 
-Yes OK I see.
+Thanks a lot for the logs.
+This is a new one:
+Failed to query (GET_CUR) UVC probe control : -75 (exp. 26).
 
-Do you really need to mention Hamoa here ? I'd just drop that from the 
-commit log.
+(we had before  Failed to query (GET_CUR) UVC probe control : 34 (exp. 48).=
+)
 
-Describe Glymur - Hamoa is irrelevant to this file.
+Progress??? who knows :P
 
----
-bod
+It would help to have a usb trace...  Have you used usbmon before?
+
+If you get a trace, add also the dmesg output. You can use something like t=
+his
+
+# disconnect the camera
+dmesg -c > /dev/null
+rmmod uvcvideo
+modprobe uvcvideo trace=3D0xffffffff
+modprobe usbmon
+# Start wireshark and start capturing on the correct port
+# connect the camera and give it a couple of secs
+# Stop capturing
+dmesg > dmesg.log
+
+Hopefully the logs will give us something to work with... But bear in
+mind that we are only looking at it from "uvc" perspective. The
+high-speed vs super-speed problem will not be solved.
+
+Regards!
+--=20
+Ricardo Ribalda
+
+On Sun, 6 Sept 2026 at 18:23, Edwin Gatier <edwin.gatier@protonmail.com> wr=
+ote:
+>
+> Hello,
+>
+> Sorry for the delay, I had other matter to attend to and also it's my fir=
+st time making drivers so i had some issues making it work.
+> Thank you for the quick response.
+> I added the quirk but it still does not work, the quirk is taken into acc=
+ount (forcing v 1.0a) but the probe still returns a mismatch length error.
+> A "very usefull" comment on a reddit thread I openned indicates that the =
+card is suppose to behave like a usb hub with a uvc device as one of the de=
+vice of the hub, but the list of usb devices connected to the pc does only =
+show one device and dmesg shows it is recognised (falsly) as a 1.5 uvc devi=
+ce.
+>
+> How do you recon we/I could go on from this point on ?
+>
+> Regards
+>
+> Edwin
+>
+>
+> Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
+>
+> Le mardi 1 septembre 2026 =C3=A0 08:45, Ricardo Ribalda <ribalda@chromium=
+.org> a =C3=A9crit :
+>
+> > Hi Edwin
+> >
+> > Looks like your camera is not following the spec. It says that it is
+> > uvc 1.5 but behaves like 1.1
+> >
+> >
+> > Could you try if this patch fixes it for you?
+> >
+> > Regards!
+> >
+> > diff --git a/drivers/media/usb/uvc/uvc_driver.c
+> > b/drivers/media/usb/uvc/uvc_driver.c
+> > index e289cc71ba98..615cebb67508 100644
+> > --- a/drivers/media/usb/uvc/uvc_driver.c
+> > +++ b/drivers/media/usb/uvc/uvc_driver.c
+> > @@ -2851,6 +2851,17 @@ static const struct usb_device_id uvc_ids[] =3D =
+{
+> >           .bInterfaceSubClass   =3D 1,
+> >           .bInterfaceProtocol   =3D 0,
+> >           .driver_info          =3D (kernel_ulong_t)&uvc_quirk_fix_band=
+width },
+> > +       /* Avermedia GC515 */
+> > +       { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> > +                               | USB_DEVICE_ID_MATCH_INT_INFO,
+> > +         .idVendor             =3D 0x07ca,
+> > +         .idProduct            =3D 0x1515,
+> > +         .bInterfaceClass      =3D USB_CLASS_VIDEO,
+> > +         .bInterfaceSubClass   =3D 1,
+> > +         .bInterfaceProtocol   =3D UVC_PC_PROTOCOL_15,
+> > +         .driver_info          =3D (kernel_ulong_t)&(const struct
+> > uvc_device_info){
+> > +               .uvc_version =3D 0x010a,
+> > +         } },
+> >         /* ViMicro Vega */
+> >         { .match_flags          =3D USB_DEVICE_ID_MATCH_DEVICE
+> >                                 | USB_DEVICE_ID_MATCH_INT_INFO,
+> >
+> > On Tue, 1 Sept 2026 at 02:45, Edwin Gatier <edwin.gatier@protonmail.com=
+> wrote:
+> > >
+> > > Hello,
+> > >
+> > > I'm trying to use the usb capture card x'tra go from avermedia but th=
+e uvc implementation is not very good from the vendor. The card falls back =
+at usb 2 speed (high speed detected) while it works fine on windows with us=
+b3 speed (super speed) which it as been designed for. Video stream should b=
+e 1080p120 and h265 compressed by the card.
+> > >
+> > > Plugging the card does nothing, the card is not recognized at all as =
+seen in the dmesg log, and subsequently is not mounted in /dev/videoX.
+> > > I tried some quirks but didn't manage to pass the probe.
+> > >
+> > > You of course can contact me for more information.
+> > >
+> > > I'm on linux 7.2.2-1-cachyos with Wayland and have a dualboot with wi=
+ndows 11 on separate drive to update and test the capture card.
+> > >
+> > > Best Regards
+> > >
+> > > Edwin GATIER
+> > >
+> > > Envoy=C3=A9 avec un e-mail s=C3=A9curis=C3=A9 Proton Mail.
+> >
+> >
+> >
+> > --
+> > Ricardo Ribalda
+> >
+
+
+
+--=20
+Ricardo Ribalda
