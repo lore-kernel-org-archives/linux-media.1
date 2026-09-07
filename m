@@ -1,54 +1,54 @@
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880A0481A8C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 031D2483838
 	for <linux-media@vger.kernel.org>; Mon,  7 Sep 2026 11:30:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1788780612; cv=none; b=GQmJcRf+/3olNy6ZdmG778vFHDjOZ2ZOHYuoTPF+g2UTFSo/cwxOTe6TzqmUg1E4SjRSvSBXGyknubbyCYeGXfuO8W2OIvFki+PZOoaaK92HHdrMMbEglT73WrWljlAgkeQiXT5FEtZ9mq7GC+GRe9wp/61XgqlzMusVd9/N9Aw=
+	t=1788780612; cv=none; b=mjySsIKX2ACAjlIh+2Q69+KOGvggSdU7M7lv6YeMs3+VdgSyw/7leBWuf36PXOrSooJXxuFNoYR10qADSNLBNz/+mYDK3qLtzZboUjBoElVewR8HVbiNHxHsiwRWY8lxAOA0p9kEegFhV2aCmZ/jbZRrpxsqDiMcmqJ7D0VqlEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1788780612; c=relaxed/simple;
-	bh=BLBshAJ1KGrz0jPcETVXPVnCXTJFR/kBwaYb9iZeIZ0=;
+	bh=tbLvDY84fP451Jnf5VbSalEJYSKvvzYrGYrRc4GUCTc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YuEh2+7Gov1/mhdqXB/EA+tvX/YbZTGOiuSlmX+gC4aFLv4Bx/7w7KAiEVXX1MFwJvaosgCO4fdc8zxAg6tnFMsKF6D8quAyUJa9L5bHK/PM6We45qnxRALm0IQ1/at7lA+3qAxeaeQvgqTpVXv/40BOcP6Y3YQUmUfwKQkBgoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iHbQ8db6; arc=none smtp.client-ip=192.198.163.10
+	 MIME-Version; b=Kgjn/UcJDMye6cn+r5K/s56HjZbV9xIpBa8eR8aOHb5KIFpxd04z03zo34+H+zLeIC+H2oqE1IBGm7irV2QUkKk2sGcPgAYNJcdVzeS3idN4NrKEgLI2+gxs5qi0Erg8/zmyxLvHO5o7oPr1jt+rBdbPoQ2yc+4DGS+IESPinjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=iK7vvAXX; arc=none smtp.client-ip=192.198.163.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iHbQ8db6"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="iK7vvAXX"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
   t=1788780611; x=1820316611;
   h=from:to:cc:subject:date:message-id:in-reply-to:
    references:mime-version:content-transfer-encoding;
-  bh=BLBshAJ1KGrz0jPcETVXPVnCXTJFR/kBwaYb9iZeIZ0=;
-  b=iHbQ8db6FPcf3IYl1GOHzj+kUioMOkGQ5DxrOmLdQXwY7Yi3KewpsBgc
-   yYlDFSMDPBmt18HrJNRzhOZupkA1CtEfn3FM2nnf3HE66mrUjHpbpxNoc
-   tAzXu/hms0JC05VtpN/V4jqbWhapFkQyutGQ9jitEkkarOA7c2TH8dVKg
-   3onemQ+q7dHT3sGyOPfObXwApOyxvMU9ISpoQi0nmE2AJai4X4kxs3SkM
-   EExagkQlSdqcHBTNH4KqNNpqONB0yEYRd3bMNHbPnwTWdMOhI/hBdk+05
-   s8QX1AfhMiyllWIXZQ95MXh13HlVnaFuBBZ1/aao+k1rcjq+T0t5DguMg
+  bh=tbLvDY84fP451Jnf5VbSalEJYSKvvzYrGYrRc4GUCTc=;
+  b=iK7vvAXXdlTBzJA/+8e6Y4jOUvOBv5Od/VMtt2OX59eijAdL6qL++iwW
+   BwTUG4WgNsi+QoVpNqRMwC9MMItq6pYAcGtThDLkn+fw9bEf4XJY6azjM
+   HpLzbxY4ibfoCE6ls48MDAsjyINHx+b7UoTr+LD8QpRJ0ZFVLrCIYAR6o
+   hH2WimPVYenTyQuOc4lnjywBJWpL8panTxQevhGSP5mPrL1Un/QpCKrbr
+   jVwppnAhvxm4/gkWxUzxxXSmuExJsQXmncyCX4trxmg1cFR95aO6knfGJ
+   2YqTl2j5DVtDMqAmuxnF34tZenRLlXDGlbEwuGTBTXCM2lk96l7oL/g9o
    g==;
-X-CSE-ConnectionGUID: BkeLqkxmT5aH2bDcZ+QZfg==
-X-CSE-MsgGUID: ma+OgeoaRfumEniClQ/1bQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538598"
+X-CSE-ConnectionGUID: +mnfCQ6aSvqllt1u/fD4DA==
+X-CSE-MsgGUID: wK6sXOxgTGeNp8lAyaYTeg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11898"; a="100538599"
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="100538598"
+   d="scan'208";a="100538599"
 Received: from orviesa002.jf.intel.com ([10.64.159.142])
   by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:06 -0700
-X-CSE-ConnectionGUID: lTPv+hd/R46Exwg4m95NJw==
-X-CSE-MsgGUID: u9/MEXEfSgaHH/7mtlhDMQ==
+X-CSE-ConnectionGUID: q0hPgYJqRVSGbrPOPt7DMQ==
+X-CSE-MsgGUID: lnpehQxMSoqD9XFgI6m0Sw==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.25,267,1779174000"; 
-   d="scan'208";a="300569080"
+   d="scan'208";a="300569081"
 Received: from abityuts-desk1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.230])
   by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Sep 2026 04:30:05 -0700
 Received: from punajuuri.localdomain (unknown [192.168.240.130])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 91DF81203EB;
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 93BAA121C28;
 	Mon, 07 Sep 2026 14:30:05 +0300 (EEST)
 Received: from sailus by punajuuri.localdomain with local (Exim 4.98.2)
 	(envelope-from <sakari.ailus@linux.intel.com>)
-	id 1x3XY5-0000000ARmr-0E8t;
+	id 1x3XY5-0000000ARmv-0JIz;
 	Mon, 07 Sep 2026 14:30:05 +0300
 Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
 From: Sakari Ailus <sakari.ailus@linux.intel.com>
@@ -57,9 +57,9 @@ Cc: Antti Laakso <antti.laakso@linux.intel.com>,
 	sarang.sapre@intel.com,
 	daxing.li@intel.com,
 	ong.hock.yu@intel.com
-Subject: [PATCH v4 01/45] media: ipu6: Add helpers for IPU runtime variation
-Date: Mon,  7 Sep 2026 14:29:20 +0300
-Message-ID: <20260907113004.2489993-2-sakari.ailus@linux.intel.com>
+Subject: [PATCH v4 02/45] media: ipu6: Rename pointer to firmware context
+Date: Mon,  7 Sep 2026 14:29:21 +0300
+Message-ID: <20260907113004.2489993-3-sakari.ailus@linux.intel.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
 References: <20260907113004.2489993-1-sakari.ailus@linux.intel.com>
@@ -73,188 +73,273 @@ Content-Transfer-Encoding: 8bit
 
 From: Antti Laakso <antti.laakso@linux.intel.com>
 
-And replace inline functions with defines.
+The name fwcom is used to refer firmware communication context
+and firmware communication configuration. Try to avoid confusion
+and rename context variable.
 
 Signed-off-by: Antti Laakso <antti.laakso@linux.intel.com>
 Signed-off-by: Sakari Ailus <sakari.ailus@linux.intel.com>
 ---
- drivers/media/pci/intel/ipu6/ipu6-isys.c |  4 +--
- drivers/media/pci/intel/ipu6/ipu6.c      | 29 ++++++++--------
- drivers/media/pci/intel/ipu6/ipu6.h      | 42 +++++-------------------
- 3 files changed, 25 insertions(+), 50 deletions(-)
+ drivers/media/pci/intel/ipu6/ipu6-fw-isys.c   | 56 ++++++++++---------
+ .../media/pci/intel/ipu6/ipu6-isys-video.c    |  4 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys.c      |  6 +-
+ drivers/media/pci/intel/ipu6/ipu6-isys.h      |  5 +-
+ 4 files changed, 36 insertions(+), 35 deletions(-)
 
-diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-index 24db2763de54..799e7b30e6a2 100644
---- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
-@@ -1104,9 +1104,9 @@ static int isys_probe(struct auxiliary_device *auxdev,
- 
- 	isys_iwake_watermark_init(isys);
- 
--	if (is_ipu6se(adev->isp->hw_ver))
-+	if (IS_IPU6SE(adev->isp))
- 		isys->phy_set_power = ipu6_isys_jsl_phy_set_power;
--	else if (is_ipu6ep_mtl(adev->isp->hw_ver))
-+	else if (IS_IPU6EP_MTL(adev->isp))
- 		isys->phy_set_power = ipu6_isys_dwc_phy_set_power;
- 	else
- 		isys->phy_set_power = ipu6_isys_mcd_phy_set_power;
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.c b/drivers/media/pci/intel/ipu6/ipu6.c
-index 5449a2006bcc..6d3235352a1c 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.c
-+++ b/drivers/media/pci/intel/ipu6/ipu6.c
-@@ -290,8 +290,6 @@ EXPORT_SYMBOL_NS_GPL(ipu6_configure_spc, "INTEL_IPU6");
- 
- static void ipu6_internal_pdata_init(struct ipu6_device *isp)
- {
--	u8 hw_ver = isp->hw_ver;
--
- 	isys_ipdata.num_parallel_streams = IPU6_ISYS_NUM_STREAMS;
- 	isys_ipdata.sram_gran_shift = IPU6_SRAM_GRANULARITY_SHIFT;
- 	isys_ipdata.sram_gran_size = IPU6_SRAM_GRANULARITY_SIZE;
-@@ -314,19 +312,19 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
- 		IPU6_REG_ISYS_CSI_TOP_CTRL0_IRQ_STATUS;
- 	isys_ipdata.csi2.ctrl0_irq_lnp =
- 		IPU6_REG_ISYS_CSI_TOP_CTRL0_IRQ_LEVEL_NOT_PULSE;
--	isys_ipdata.enhanced_iwake = is_ipu6ep_mtl(hw_ver) || is_ipu6ep(hw_ver);
-+	isys_ipdata.enhanced_iwake = IS_IPU6EP_MTL(isp) || IS_IPU6EP(isp);
- 	psys_ipdata.hw_variant.spc_offset = IPU6_PSYS_SPC_OFFSET;
- 	isys_ipdata.csi2.fw_access_port_ofs = CSI_REG_HUB_FW_ACCESS_PORT_OFS;
- 
--	if (is_ipu6ep(hw_ver)) {
-+	if (IS_IPU6EP(isp)) {
- 		isys_ipdata.ltr = IPU6EP_LTR_VALUE;
- 		isys_ipdata.memopen_threshold = IPU6EP_MIN_MEMOPEN_TH;
- 	}
- 
--	if (is_ipu6_tgl(hw_ver))
-+	if (IS_IPU6_TGL(isp))
- 		isys_ipdata.csi2.nports = IPU6_TGL_ISYS_CSI2_NPORTS;
- 
--	if (is_ipu6ep_mtl(hw_ver)) {
-+	if (IS_IPU6EP_MTL(isp)) {
- 		isys_ipdata.csi2.nports = IPU6EP_MTL_ISYS_CSI2_NPORTS;
- 
- 		isys_ipdata.csi2.ctrl0_irq_edge =
-@@ -347,7 +345,7 @@ static void ipu6_internal_pdata_init(struct ipu6_device *isp)
- 		isys_ipdata.memopen_threshold = IPU6EP_MTL_MIN_MEMOPEN_TH;
- 	}
- 
--	if (is_ipu6se(hw_ver)) {
-+	if (IS_IPU6SE(isp)) {
- 		isys_ipdata.csi2.nports = IPU6SE_ISYS_CSI2_NPORTS;
- 		isys_ipdata.csi2.irq_mask = IPU6SE_CSI_RX_ERROR_IRQ_MASK;
- 		isys_ipdata.num_parallel_streams = IPU6SE_ISYS_NUM_STREAMS;
-@@ -454,12 +452,13 @@ ipu6_psys_init(struct pci_dev *pdev, struct device *parent,
- 	return psys_adev;
- }
- 
--static int ipu6_pci_config_setup(struct pci_dev *dev, u8 hw_ver)
-+static int ipu6_pci_config_setup(struct pci_dev *dev)
- {
-+	struct ipu6_device *isp = pci_get_drvdata(dev);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+index 62ed92ff1d30..a65e9f1aa104 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-fw-isys.c
+@@ -32,7 +32,7 @@ static int handle_proxy_response(struct ipu6_isys *isys, unsigned int req_id)
+ 	struct ipu6_fw_isys_proxy_resp_info_abi *resp;
  	int ret;
  
- 	/* No PCI msi capability for IPU6EP */
--	if (is_ipu6ep(hw_ver) || is_ipu6ep_mtl(hw_ver)) {
-+	if (IS_IPU6EP(isp) || IS_IPU6EP_MTL(isp)) {
- 		/* likely do nothing as msi not enabled by default */
- 		pci_disable_msi(dev);
- 		return 0;
-@@ -525,26 +524,26 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
- 	isp->cpd_metadata_cmpnt_size = sizeof(struct ipu6_cpd_metadata_cmpnt);
- 	switch (id->device) {
- 	case PCI_DEVICE_ID_INTEL_IPU6:
--		isp->hw_ver = IPU6_VER_6;
-+		isp->hw_ver = IPU_VERSION_6;
- 		isp->cpd_fw_name = IPU6_FIRMWARE_NAME;
- 		break;
- 	case PCI_DEVICE_ID_INTEL_IPU6SE:
--		isp->hw_ver = IPU6_VER_6SE;
-+		isp->hw_ver = IPU_VERSION_6SE;
- 		isp->cpd_fw_name = IPU6SE_FIRMWARE_NAME;
- 		isp->cpd_metadata_cmpnt_size =
- 			sizeof(struct ipu6se_cpd_metadata_cmpnt);
- 		break;
- 	case PCI_DEVICE_ID_INTEL_IPU6EP_ADLP:
- 	case PCI_DEVICE_ID_INTEL_IPU6EP_RPLP:
--		isp->hw_ver = IPU6_VER_6EP;
-+		isp->hw_ver = IPU_VERSION_6EP;
- 		isp->cpd_fw_name = IPU6EP_FIRMWARE_NAME;
- 		break;
- 	case PCI_DEVICE_ID_INTEL_IPU6EP_ADLN:
--		isp->hw_ver = IPU6_VER_6EP;
-+		isp->hw_ver = IPU_VERSION_6EP;
- 		isp->cpd_fw_name = IPU6EPADLN_FIRMWARE_NAME;
- 		break;
- 	case PCI_DEVICE_ID_INTEL_IPU6EP_MTL:
--		isp->hw_ver = IPU6_VER_6EP_MTL;
-+		isp->hw_ver = IPU_VERSION_6EP_MTL;
- 		isp->cpd_fw_name = IPU6EPMTL_FIRMWARE_NAME;
- 		break;
- 	default:
-@@ -564,7 +563,7 @@ static int ipu6_pci_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+-	resp = ipu6_recv_get_token(isys->fwcom, IPU6_BASE_PROXY_RECV_QUEUES);
++	resp = ipu6_recv_get_token(isys->fwctx, IPU6_BASE_PROXY_RECV_QUEUES);
+ 	if (!resp)
+ 		return 1;
  
- 	dma_set_max_seg_size(dev, UINT_MAX);
+@@ -42,7 +42,7 @@ static int handle_proxy_response(struct ipu6_isys *isys, unsigned int req_id)
  
--	ret = ipu6_pci_config_setup(pdev, isp->hw_ver);
-+	ret = ipu6_pci_config_setup(pdev);
+ 	ret = req_id == resp->request_id ? 0 : -EIO;
+ 
+-	ipu6_recv_put_token(isys->fwcom, IPU6_BASE_PROXY_RECV_QUEUES);
++	ipu6_recv_put_token(isys->fwctx, IPU6_BASE_PROXY_RECV_QUEUES);
+ 
+ 	return ret;
+ }
+@@ -52,7 +52,7 @@ int ipu6_fw_isys_send_proxy_token(struct ipu6_isys *isys,
+ 				  unsigned int index,
+ 				  unsigned int offset, u32 value)
+ {
+-	struct ipu6_fw_com_context *ctx = isys->fwcom;
++	struct ipu6_fw_com_context *ctx = isys->fwctx;
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	struct ipu6_fw_proxy_send_queue_token *token;
+ 	unsigned int timeout = 1000;
+@@ -96,7 +96,7 @@ int ipu6_fw_isys_complex_cmd(struct ipu6_isys *isys,
+ 			     dma_addr_t dma_mapped_buf,
+ 			     size_t size, u16 send_type)
+ {
+-	struct ipu6_fw_com_context *ctx = isys->fwcom;
++	struct ipu6_fw_com_context *ctx = isys->fwctx;
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	struct ipu6_fw_send_queue_token *token;
+ 
+@@ -138,7 +138,7 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	int retry = IPU6_ISYS_CLOSE_RETRY;
+ 	unsigned long flags;
+-	void *fwcom;
++	void *fwctx;
+ 	int ret;
+ 
+ 	/*
+@@ -148,9 +148,9 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
+ 	 * spinlock to wait the interrupt handler to be finished
+ 	 */
+ 	spin_lock_irqsave(&isys->power_lock, flags);
+-	ret = ipu6_fw_com_close(isys->fwcom);
+-	fwcom = isys->fwcom;
+-	isys->fwcom = NULL;
++	ret = ipu6_fw_com_close(isys->fwctx);
++	fwctx = isys->fwctx;
++	isys->fwctx = NULL;
+ 	spin_unlock_irqrestore(&isys->power_lock, flags);
  	if (ret)
+ 		dev_err(dev, "Device close failure: %d\n", ret);
+@@ -158,14 +158,14 @@ int ipu6_fw_isys_close(struct ipu6_isys *isys)
+ 	/* release probably fails if the close failed. Let's try still */
+ 	do {
+ 		usleep_range(400, 500);
+-		ret = ipu6_fw_com_release(fwcom, 0);
++		ret = ipu6_fw_com_release(fwctx, 0);
+ 		retry--;
+ 	} while (ret && retry);
+ 
+ 	if (ret) {
+ 		dev_err(dev, "Device release time out %d\n", ret);
+ 		spin_lock_irqsave(&isys->power_lock, flags);
+-		isys->fwcom = fwcom;
++		isys->fwctx = fwctx;
+ 		spin_unlock_irqrestore(&isys->power_lock, flags);
+ 	}
+ 
+@@ -176,11 +176,11 @@ void ipu6_fw_isys_cleanup(struct ipu6_isys *isys)
+ {
+ 	int ret;
+ 
+-	ret = ipu6_fw_com_release(isys->fwcom, 1);
++	ret = ipu6_fw_com_release(isys->fwctx, 1);
+ 	if (ret < 0)
+ 		dev_warn(&isys->adev->auxdev.dev,
+ 			 "Device busy, fw_com release failed.");
+-	isys->fwcom = NULL;
++	isys->fwctx = NULL;
+ }
+ 
+ static void start_sp(struct ipu6_bus_device *adev)
+@@ -212,7 +212,7 @@ static int query_sp(struct ipu6_bus_device *adev)
+ }
+ 
+ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+-				    struct ipu6_fw_com_cfg *fwcom,
++				    struct ipu6_fw_com_cfg *fwcom_cfg,
+ 				    unsigned int num_streams)
+ {
+ 	unsigned int max_send_queues, max_sram_blocks, max_devq_size;
+@@ -258,14 +258,16 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 	if (!output_queue_cfg)
+ 		return -ENOMEM;
+ 
+-	fwcom->input = input_queue_cfg;
+-	fwcom->output = output_queue_cfg;
++	fwcom_cfg->input = input_queue_cfg;
++	fwcom_cfg->output = output_queue_cfg;
+ 
+-	fwcom->num_input_queues = isys_fw_cfg->num_send_queues[type_proxy] +
++	fwcom_cfg->num_input_queues =
++		isys_fw_cfg->num_send_queues[type_proxy] +
+ 		isys_fw_cfg->num_send_queues[type_dev] +
+ 		isys_fw_cfg->num_send_queues[type_msg];
+ 
+-	fwcom->num_output_queues = isys_fw_cfg->num_recv_queues[type_proxy] +
++	fwcom_cfg->num_output_queues =
++		isys_fw_cfg->num_recv_queues[type_proxy] +
+ 		isys_fw_cfg->num_recv_queues[type_dev] +
+ 		isys_fw_cfg->num_recv_queues[type_msg];
+ 
+@@ -280,7 +282,7 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 			isys_fw_cfg->buffer_partition.num_gda_pages[i] = 0;
+ 	}
+ 
+-	/* FW assumes proxy interface at fwcom queue 0 */
++	/* FW assumes proxy interface at fwcom_cfg queue 0 */
+ 	for (i = 0; i < isys_fw_cfg->num_send_queues[type_proxy]; i++) {
+ 		input_queue_cfg[i].token_size =
+ 			sizeof(struct ipu6_fw_proxy_send_queue_token);
+@@ -314,9 +316,9 @@ static int ipu6_isys_fwcom_cfg_init(struct ipu6_isys *isys,
+ 			IPU6_ISYS_SIZE_RECV_QUEUE;
+ 	}
+ 
+-	fwcom->dmem_addr = isys->pdata->ipdata->hw_variant.dmem_offset;
+-	fwcom->specific_addr = isys_fw_cfg;
+-	fwcom->specific_size = sizeof(*isys_fw_cfg);
++	fwcom_cfg->dmem_addr = isys->pdata->ipdata->hw_variant.dmem_offset;
++	fwcom_cfg->specific_addr = isys_fw_cfg;
++	fwcom_cfg->specific_size = sizeof(*isys_fw_cfg);
+ 
+ 	return 0;
+ }
+@@ -325,23 +327,23 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
+ {
+ 	struct device *dev = &isys->adev->auxdev.dev;
+ 	int retry = IPU6_ISYS_OPEN_RETRY;
+-	struct ipu6_fw_com_cfg fwcom = {
++	struct ipu6_fw_com_cfg fwcom_cfg = {
+ 		.cell_start = start_sp,
+ 		.cell_ready = query_sp,
+ 		.buttress_boot_offset = SYSCOM_BUTTRESS_FW_PARAMS_ISYS_OFFSET,
+ 	};
+ 	int ret;
+ 
+-	ipu6_isys_fwcom_cfg_init(isys, &fwcom, num_streams);
++	ipu6_isys_fwcom_cfg_init(isys, &fwcom_cfg, num_streams);
+ 
+-	isys->fwcom = ipu6_fw_com_prepare(&fwcom, isys->adev,
++	isys->fwctx = ipu6_fw_com_prepare(&fwcom_cfg, isys->adev,
+ 					  isys->pdata->base);
+-	if (!isys->fwcom) {
++	if (!isys->fwctx) {
+ 		dev_err(dev, "isys fw com prepare failed\n");
+ 		return -EIO;
+ 	}
+ 
+-	ret = ipu6_fw_com_open(isys->fwcom);
++	ret = ipu6_fw_com_open(isys->fwctx);
+ 	if (ret) {
+ 		dev_err(dev, "isys fw com open failed %d\n", ret);
  		return ret;
+@@ -349,7 +351,7 @@ int ipu6_fw_isys_init(struct ipu6_isys *isys, unsigned int num_streams)
  
-diff --git a/drivers/media/pci/intel/ipu6/ipu6.h b/drivers/media/pci/intel/ipu6/ipu6.h
-index 92e3c3414c91..07ca59048f44 100644
---- a/drivers/media/pci/intel/ipu6/ipu6.h
-+++ b/drivers/media/pci/intel/ipu6/ipu6.h
-@@ -23,39 +23,15 @@ struct ipu6_bus_device;
- #define IPU6EPMTL_FIRMWARE_NAME		"intel/ipu/ipu6epmtl_fw.bin"
- #define IPU6EPADLN_FIRMWARE_NAME	"intel/ipu/ipu6epadln_fw.bin"
+ 	do {
+ 		usleep_range(400, 500);
+-		if (ipu6_fw_com_ready(isys->fwcom))
++		if (ipu6_fw_com_ready(isys->fwctx))
+ 			break;
+ 		retry--;
+ 	} while (retry > 0);
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+index 3ac48d2076da..89eb265737d7 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys-video.c
+@@ -1114,7 +1114,7 @@ int ipu6_isys_fw_open(struct ipu6_isys *isys)
+ 	 */
+ 	ipu6_cleanup_fw_msg_bufs(isys);
  
--enum ipu6_version {
--	IPU6_VER_INVALID = 0,
--	IPU6_VER_6 = 1,
--	IPU6_VER_6SE = 3,
--	IPU6_VER_6EP = 5,
--	IPU6_VER_6EP_MTL = 6,
--};
--
--/*
-- * IPU6 - TGL
-- * IPU6SE - JSL
-- * IPU6EP - ADL/RPL
-- * IPU6EP_MTL - MTL
-- */
--static inline bool is_ipu6se(u8 hw_ver)
--{
--	return hw_ver == IPU6_VER_6SE;
--}
--
--static inline bool is_ipu6ep(u8 hw_ver)
--{
--	return hw_ver == IPU6_VER_6EP;
--}
--
--static inline bool is_ipu6ep_mtl(u8 hw_ver)
--{
--	return hw_ver == IPU6_VER_6EP_MTL;
--}
--
--static inline bool is_ipu6_tgl(u8 hw_ver)
--{
--	return hw_ver == IPU6_VER_6;
--}
-+#define IPU_VERSION_6		BIT(0) /* TGL */
-+#define IPU_VERSION_6SE		BIT(1) /* JSL */
-+#define IPU_VERSION_6EP		BIT(2) /* ADL/RPL */
-+#define IPU_VERSION_6EP_MTL	BIT(3) /* MTL */
-+
-+#define IS_IPU6_TGL(isp)	((isp)->hw_ver & IPU_VERSION_6)
-+#define IS_IPU6SE(isp)		((isp)->hw_ver & IPU_VERSION_6SE)
-+#define IS_IPU6EP(isp)		((isp)->hw_ver & IPU_VERSION_6EP)
-+#define IS_IPU6EP_MTL(isp)	((isp)->hw_ver & IPU_VERSION_6EP_MTL)
+-	if (isys->fwcom) {
++	if (isys->fwctx) {
+ 		/*
+ 		 * Something went wrong in previous shutdown. As we are now
+ 		 * restarting isys we can safely delete old context.
+@@ -1147,7 +1147,7 @@ void ipu6_isys_fw_close(struct ipu6_isys *isys)
+ 	isys->ref_count--;
+ 	if (!isys->ref_count) {
+ 		ipu6_fw_isys_close(isys);
+-		if (isys->fwcom) {
++		if (isys->fwctx) {
+ 			isys->need_reset = true;
+ 			dev_warn(&isys->adev->auxdev.dev,
+ 				 "failed to close fw isys\n");
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.c b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+index 799e7b30e6a2..180a53f3d7ab 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.c
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.c
+@@ -1212,10 +1212,10 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
+ 	u32 index;
+ 	u64 ts;
  
- /*
-  * ISYS DMA can overshoot. For higher resolutions over allocation is one line
+-	if (!isys->fwcom)
++	if (!isys->fwctx)
+ 		return 1;
+ 
+-	resp = ipu6_fw_isys_get_resp(isys->fwcom, IPU6_BASE_MSG_RECV_QUEUES);
++	resp = ipu6_fw_isys_get_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ 	if (!resp)
+ 		return 1;
+ 
+@@ -1324,7 +1324,7 @@ static int isys_isr_one(struct ipu6_bus_device *adev)
+ 
+ 	ipu6_isys_put_stream(stream);
+ leave:
+-	ipu6_fw_isys_put_resp(isys->fwcom, IPU6_BASE_MSG_RECV_QUEUES);
++	ipu6_fw_isys_put_resp(isys->fwctx, IPU6_BASE_MSG_RECV_QUEUES);
+ 	return 0;
+ }
+ 
+diff --git a/drivers/media/pci/intel/ipu6/ipu6-isys.h b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+index 7fb8cb820912..0b139ab24431 100644
+--- a/drivers/media/pci/intel/ipu6/ipu6-isys.h
++++ b/drivers/media/pci/intel/ipu6/ipu6-isys.h
+@@ -114,8 +114,7 @@ struct sensor_async_sd {
+  * @csi2_rx_ctrl_cached: cached shared value between all CSI2 receivers
+  * @streams_lock: serialise access to streams
+  * @streams: streams per firmware stream ID
+- * @fwcom: fw communication layer private pointer
+- *         or optional external library private pointer
++ * @fwctx: fw communication layer context pointer
+  * @phy_termcal_val: the termination calibration value, only used for DWC PHY
+  * @need_reset: Isys requires d0i0->i3 transition
+  * @ref_count: total number of callers fw open
+@@ -136,7 +135,7 @@ struct ipu6_isys {
+ 	spinlock_t streams_lock;
+ 	struct ipu6_isys_stream streams[IPU6_ISYS_MAX_STREAMS];
+ 	int streams_ref_count[IPU6_ISYS_MAX_STREAMS];
+-	void *fwcom;
++	void *fwctx;
+ 	u32 phy_termcal_val;
+ 	bool need_reset;
+ 	bool icache_prefetch;
 -- 
 2.47.3
 
